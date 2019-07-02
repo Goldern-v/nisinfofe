@@ -12,22 +12,6 @@ var webpackConfig = require("./webpack.prod.conf");
 var moment = require("moment");
 var fs = require("fs");
 var versionInfo = require("./version.js");
-versionInfo["医院名"] = config.build.env.HOSPITAL_NAME;
-versionInfo["最近打包时间"] = moment().format("YYYY-MM-DD HH:mm");
-versionInfo["版本号"] = moment().format("YYYY.MM.DD");
-versionInfo["proxyTable"] = config.dev.proxyTable || "";
-fs.writeFile(
-  "./src/version.json",
-  JSON.stringify(versionInfo, null, 4),
-  "utf8",
-  function (err) {
-    if (err) {
-      return console.error(err);
-    }
-    // console.log("File created!");
-  }
-);
-
 var spinner = ora("building for production...");
 spinner.start();
 
