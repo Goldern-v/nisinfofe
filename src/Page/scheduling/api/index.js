@@ -67,3 +67,7 @@ export const deletePatientArrange = obj => {
 export const searchPatient = search => {
   return axios.post(`${apiPath}hemodialysis/searchPatient`, { search });
 };
+// 批量保存患者血透排班内容
+export const saveBatchHDArrange = list => {
+  return axios.post(`${apiPath}hemodialysis/saveBatchHDArrange`, { list });
+};
