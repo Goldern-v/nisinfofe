@@ -44,8 +44,8 @@ console.log(__dirname)
 module.exports = {
   build: {
     env: prodEnv,
-    index: path.resolve(__dirname, "../dist/index.html"),
-    assetsRoot: path.resolve(__dirname, "../dist"),
+    index: path.resolve(__dirname, `../dist/${hospitalList[envFileName]}/index.html`),
+    assetsRoot: path.resolve(__dirname, `../dist/${hospitalList[envFileName]}`),
     assetsSubDirectory: "static",
     // assetsPublicPath: './webpage/dist/',
     assetsPublicPath: "./",
