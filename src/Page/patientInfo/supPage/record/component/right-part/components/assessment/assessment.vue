@@ -734,11 +734,7 @@ export default {
     printMore() {
       let token = window.app.$getCookie("NURSING_USER").split("##")[1];
       let query = this.$route.query;
-      let print_url = `${host}/crNursing/api/form/print/${this.info.formCode}/${
-        query.patientId
-      }/${
-        query.visitId
-      }?App-Token-Nursing=51e827c9-d80e-40a1-a95a-1edc257596e7&Auth-Token-Nursing=${token}`;
+      let print_url = `${host}/crNursing/api/form/print/${this.info.formCode}/${query.patientId}/${query.visitId}?App-Token-Nursing=51e827c9-d80e-40a1-a95a-1edc257596e7&Auth-Token-Nursing=${token}`;
       localStorage["assessment_printUrl"] = print_url;
       let print_wid = window.open(`/crNursing/print/assessment`);
     },
@@ -1067,9 +1063,7 @@ export default {
     },
     openScoreChart() {
       let query = this.$route.query;
-      let scoreUrl = `${host}/crNursing/api/form/curve/${this.info.formCode}/${
-        query.patientId
-      }/${query.visitId}`;
+      let scoreUrl = `${host}/crNursing/api/form/curve/${this.info.formCode}/${query.patientId}/${query.visitId}`;
       this.$refs.scoreChart.open(scoreUrl);
     },
     openEditAssessment() {
@@ -1226,34 +1220,50 @@ export default {
       this.eventTarget = event.target;
       // this.eventTarget.style.outline = "1px dashed green";
       this.eventTarget.style.background = "#f9f73f";
-      $(event.target)
-        .parents("tr")
-        .addClass("selectedRow");
+      // $(event.target)
+      //   .parents("tr")
+      //   .addClass("selectedRow");
+
+      //
+      // let query = this.$route.query;
 
       //
       let recordObj = {
         formType: this.wid.formInfo.formType,
         formCode: this.wid.formInfo.formCode,
         formApiCode: this.wid.formInfo.formApiCode,
-        id: this.eventTarget.getAttribute("data-id"),
-        blockId: this.eventTarget.getAttribute("data-blockId"),
-        name: this.eventTarget.getAttribute("name")
+        id: event.target.getAttribute("data-id") || "",
+        blockId:
+          event.target.getAttribute("data-blockId") ||
+          this.wid.formInfo.id + "" ||
+          "",
+        index: event.target.getAttribute("data-index") || "",
+        pageIndex: event.target.getAttribute("data-pageIndex") || "",
+        name: event.target.getAttribute("name") || ""
       };
       Object.keys(recordObj).forEach(k => {
         if (!recordObj[k]) {
           return;
         }
       });
-
-      let pageIndex = -1; // 第几页
-      let recordIndex = -1; // 第几行
+      let pageIndex = event.target.getAttribute("data-pageIndex") || -1; // 第几页
+      let recordIndex = event.target.getAttribute("data-index") || -1; // 第几行
       let rowData = {}; // 整页数据
+      try {
+        rowData = this.wid.formatData.recordsPages[pageIndex][recordIndex];
+      } catch (e) {
+        console.log(e);
+      }
       let pageItems = [];
       // formatData.recordsPages
       if (this.wid && this.wid.formatData.hasOwnProperty("recordsPages")) {
         this.wid.formatData.recordsPages.map((page, index) => {
           let p = [...page].filter((r, i) => {
-            if (r.id == recordObj.id && r.parentId == recordObj.blockId) {
+            if (
+              recordObj.id &&
+              r.id == recordObj.id &&
+              r.parentId == recordObj.blockId
+            ) {
               recordIndex = i;
               return r;
             }
@@ -1262,7 +1272,12 @@ export default {
             pageItems = page;
             pageIndex = index;
             rowData = p[0];
-            console.log("-----", index, p);
+          } else if (index == pageIndex && recordIndex != -1) {
+            pageItems = page;
+            pageIndex = index;
+            // recordIndex = recordObj.index;
+            rowData = page[recordIndex];
+            rowData.parentId = recordObj.blockId;
           }
         });
       }
@@ -1299,15 +1314,7 @@ export default {
         top: `${y}px`,
         left: `${x}px`
       };
-      // console.log("xyiframe", xyiframe, "xy", xy);
-      // console.log("style", event, event.target.name, style, {
-      //   clientY: event.clientY,
-      //   clientX: event.clientX,
-      //   innerHeight: window.innerHeight,
-      //   innerWidth: window.innerWidth,
-      //   x: x,
-      //   y: y
-      // });
+
       let data = [
         {
           name: "向上插入新行",
@@ -1320,7 +1327,7 @@ export default {
               }
               newItem[k] = "";
             });
-            pageItems.splice(recordIndex, 0, newItem);
+            pageItems.splice(~~recordIndex, 0, newItem);
             console.log("向上插入新行", recordIndex, newItem, pageItems);
             //
             if (this.wid.updateListTabelUI) {
@@ -1343,7 +1350,7 @@ export default {
               }
               newItem[k] = "";
             });
-            pageItems.splice(recordIndex + 1, 0, newItem);
+            pageItems.splice(~~recordIndex + 1, 0, newItem);
             console.log("向下插入新行", recordIndex, newItem, pageItems);
             //
             if (this.wid.updateListTabelUI) {
