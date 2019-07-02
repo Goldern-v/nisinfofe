@@ -109,7 +109,9 @@ exports.htmlPlugin = function () {
       // 模板来源
       template: filePath,
       // 文件名称
-      filename: process.env.NODE_ENV === 'production' ? ('../../' + filename + '.html') : filename + '.html',
+      filename: filename + '.html',
+      // filename: process.env.NODE_ENV === 'production' ? (`../dist/${config.build.env.HOSPITAL_NAME}/` + filename + '.html') : filename + '.html',
+      // filename: process.env.NODE_ENV === 'production' ? ('../../' + filename + '.html') : filename + '.html',
       // 页面模板需要加对应的js脚本，如果不加这行则每个页面都会引入所有的js脚本
       chunks: ['manifest', 'vendor', filename],
       inject: true

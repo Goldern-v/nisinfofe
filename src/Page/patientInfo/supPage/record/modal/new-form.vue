@@ -277,7 +277,7 @@ export default {
       this.pageLoading = true;
       if (this.formType == "1") {
         templates(this.deptCode).then(res => {
-          if(this.filterObj.formName) {
+          if(this.filterObj && this.filterObj.formName) {
             this.templates = res.data.data.filter(item => item.name === this.filterObj.formName)
           }
           else {

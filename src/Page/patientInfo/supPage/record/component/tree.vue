@@ -27,76 +27,104 @@
 </template>
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
- .header
-      height 37px
-      background: #F7FAFA;
-      padding 0 13px
-      border-bottom 1px solid #EAEEF1;
-      .title
-        font-size: 13px;
-        color: #333333;
-        font-weight bold
-      .new-btn
-        color #687179
-        font-size 12px
-        i
-          margin-right 2px
-    .body
-      overflow auto
+.header {
+  height: 37px;
+  background: #F7FAFA;
+  padding: 0 13px;
+  border-bottom: 1px solid #EAEEF1;
+
+  .title {
+    font-size: 13px;
+    color: #333333;
+    font-weight: bold;
+  }
+
+  .new-btn {
+    color: #687179;
+    font-size: 12px;
+
+    i {
+      margin-right: 2px;
+    }
+  }
+}
+
+.body {
+  overflow: auto;
+}
 </style>
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus">
-.el-tree-node__content
-  white-space nowrap
-  text-overflow ellipsis
-  overflow hidden
+.el-tree-node__content {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
   // &:hover
-  //   .tree-node
-  //     background rgb(228, 241, 240)
-.tree-node
-  margin-left -16px
-  position relative
+  // .tree-node
+  // background rgb(228, 241, 240)
+}
+
+.tree-node {
+  margin-left: -16px;
+  position: relative;
   font-size: 12px;
   color: #687179;
-  top 3px
-  white-space nowrap
-  text-overflow ellipsis
-  overflow hidden
-  width 92%
-  display inline-block
-  img
-    width 20px
-    position relative
-    top 3px
-    margin-right 2px
-.el-tree--highlight-current .el-tree-node.is-current > .el-tree-node__content
-  background rgb(228, 241, 240)
-.tree-box-node
-  white-space nowrap
-  text-overflow ellipsis
-  overflow hidden
-  font-size: 13px
-  color: #687179
-  position relative
-  top 3px
-  img
-    width 20px
-    position relative
-    top 3px
-    margin-right 2px
-.el-tree
-  border 0 !important
-.modal-record
-  .record-con
-    background #ffffff
-    overflow auto
-    margin 20px 0 20px
-    width 100%
-    box-sizing border-box
-    padding 0 10px
-.record-tree
-  .el-tree
-    border 0 !important
+  top: 3px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  width: 92%;
+  display: inline-block;
+
+  img {
+    width: 20px;
+    position: relative;
+    top: 3px;
+    margin-right: 2px;
+  }
+}
+
+.el-tree--highlight-current .el-tree-node.is-current > .el-tree-node__content {
+  background: rgb(228, 241, 240);
+}
+
+.tree-box-node {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  font-size: 13px;
+  color: #687179;
+  position: relative;
+  top: 3px;
+
+  img {
+    width: 20px;
+    position: relative;
+    top: 3px;
+    margin-right: 2px;
+  }
+}
+
+.el-tree {
+  border: 0 !important;
+}
+
+.modal-record {
+  .record-con {
+    background: #ffffff;
+    overflow: auto;
+    margin: 20px 0 20px;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0 10px;
+  }
+}
+
+.record-tree {
+  .el-tree {
+    border: 0 !important;
+  }
+}
 </style>
 
 <script>
@@ -150,23 +178,43 @@ export default {
       }
     }
   },
-  watch:{
-        '$route.params' () {
-            // this.params = this.$route.params
-            // this.$route.query
-            console.log("params:",this.$route.params,"query:",this.$route.query,"regions",this.regions)
-            if(!this.$route.query.patientId){
-              this.regions=[]
-              this.bus.$emit("closeAssessment");
-            }
+  watch: {
+    "$route.params"() {
+      // this.params = this.$route.params
+      // this.$route.query
+      console.log(
+        "params:",
+        this.$route.params,
+        "query:",
+        this.$route.query,
+        "regions",
+        this.regions
+      );
+      if (!this.$route.query.patientId) {
+        this.regions = [];
+        this.bus.$emit("closeAssessment");
+      }
 
-            console.log("params:",this.$route.params,"query:",this.$route.query,"--regions",this.regions)
-
-        },
-    },
+      console.log(
+        "params:",
+        this.$route.params,
+        "query:",
+        this.$route.query,
+        "--regions",
+        this.regions
+      );
+    }
+  },
   methods: {
     nodeClick(data, node) {
-      console.log("nodeClick",data, node, node.parent,node.data.formName,data.pageTitle);
+      console.log(
+        "nodeClick",
+        data,
+        node,
+        node.parent,
+        node.data.formName,
+        data.pageTitle
+      );
       // wid.setTitle(data.pageTitle+"健康教育单")
       this.bus.$emit("activeAllButons");
       // console.log("555555555555")
@@ -186,7 +234,8 @@ export default {
               nooForm: node.parent.data.nooForm,
               pageUrl: node.parent.data.pageUrl,
               pageItem: data.pageTitle,
-              status: data.status
+              status: data.status,
+              missionId: data.missionId
             })
           );
         } else {
@@ -249,10 +298,14 @@ export default {
     getTreeData() {
       this.treeLoading = true;
       Promise.all([
-        groupList(this.$route.query.patientId, this.$route.query.visitId),getInstanceByPatientInfo(this.$route.query.patientId, this.$route.query.visitId)
+        groupList(this.$route.query.patientId, this.$route.query.visitId),
+        getInstanceByPatientInfo(
+          this.$route.query.patientId,
+          this.$route.query.visitId
+        )
       ])
         .then(res => {
-          console.log("Promise.all", res,res[1].data.data);
+          console.log("Promise.all", res, res[1].data.data);
           let index = 0;
           let list_1 = res[0].data.data.map(item => {
             index += 1;
@@ -265,40 +318,36 @@ export default {
               listPrint: item.listPrint,
               nooForm: item.nooForm,
               pageUrl: item.pageUrl,
-              children: item.formInstanceDtoList.map((option,i) => {
+              children: item.formInstanceDtoList.map((option, i) => {
                 // formName: "疼痛护理单"
                 // 查找第一张填写的疼痛评估单
-                if(item.formName&&item.formName==='疼痛护理单'){
+                if (item.formName && item.formName === "疼痛护理单") {
                   // console.log("===疼痛护理单",i,option,item.formInstanceDtoList.length)
-                  if(item.formInstanceDtoList.length-1 == i){
+                  if (item.formInstanceDtoList.length - 1 == i) {
                     // console.log("--疼痛护理单",i,option,item.formInstanceDtoList.length)
                     // /crNursing/api/eval/detail/{id}
-                    localStorage["firtPainFormID" + this.$route.query.patientId] = option.id
+                    localStorage[
+                      "firtPainFormID" + this.$route.query.patientId
+                    ] = option.id;
                   }
                 }
                 return {
                   status: option.status,
                   label: `${option.evalDate}
-                  ${
-                    option.countSize ? option.countSize + "条" : ""
-                  }
-                  ${
-                    option.evalScore ? option.evalScore + "分" : ""
-                  }
+                  ${option.countSize ? option.countSize + "条" : ""}
+                  ${option.evalScore ? option.evalScore + "分" : ""}
                   ${option.pusherName ? option.pusherName : option.creatorName}
-                  ${
-                    option.status == 0 ? "T" : option.status
-                  }`,
+                  ${option.status == 0 ? "T" : option.status}`,
                   form_id: option.id,
                   formName: item.formName
                 };
               })
             };
           });
-          let list_2 = (info)=>{
+          let list_2 = info => {
             index += 1;
-            info = info.filter(opt=>opt.status!='-1')
-            console.log('健康教育单info',info)
+            info = info.filter(opt => opt.status != "-1");
+            console.log("健康教育单info", info);
             return {
               label: "健康教育单",
               index: index,
@@ -309,14 +358,16 @@ export default {
               nooForm: 1,
               pageUrl: "健康教育单.html",
               children: info.map(option => {
-                console.log(option,"健康教育单option")
+                console.log(option, "健康教育单option");
                 return {
                   status: option.status,
-                  label: "健康教育单 "+`${moment(option.creatDate).format("YYYY-MM-DD HH:mm")} ${
-                    option.evalScore ? option.evalScore + "分" : ""
-                  } ${option.creatorName} ${
-                    option.status == 0 ? "T" : option.status
-                  }`,
+                  label:
+                    "健康教育单 " +
+                    `${moment(option.creatDate).format("YYYY-MM-DD HH:mm")} ${
+                      option.evalScore ? option.evalScore + "分" : ""
+                    } ${option.creatorName} ${
+                      option.status == 0 ? "T" : option.status
+                    }`,
                   form_id: option.id,
                   formName: "健康教育单",
                   pageTitle: option.title,
@@ -324,18 +375,21 @@ export default {
                 };
               })
             };
-        }
-        // console.log(res[1].data.data.length,"res[1].data.data")
-        if(res[1].data.data.length>0){
-          list_1.push(list_2(res[1].data.data))
-        }
-         console.log(this.filterObj ,'aaaa')
-          if(this.filterObj) {
-             this.regions = list_1.filter(item => item.label == this.filterObj.label)
+          };
+          // console.log(res[1].data.data.length,"res[1].data.data")
+          if (res[1].data.data.length > 0) {
+            list_1.push(list_2(res[1].data.data));
           }
-          else { this.regions = list_1 ;}
+          console.log(this.filterObj, "aaaa");
+          if (this.filterObj) {
+            this.regions = list_1.filter(
+              item => item.label == this.filterObj.label
+            );
+          } else {
+            this.regions = list_1;
+          }
 
-          console.log(list_1, 'list_1list_1list_1')
+          console.log(list_1, "list_1list_1list_1");
         })
         .then(res => {
           this.treeLoading = false;
@@ -370,34 +424,40 @@ export default {
       this.$route.query["treeData"] = this.regions;
       // console.table(this.regions)
     },
-    toLoadPatientDetial(callback=null,query=this.$route.query) {
-      console.log("toLoadPatientDetial",query, this.$route.query);
+    toLoadPatientDetial(callback = null, query = this.$route.query) {
+      console.log("toLoadPatientDetial", query, this.$route.query);
       // let query = this.$route.query;
-      commonData.loadPatient(query.patientId, query.visitId).then(res => {
+      commonData
+        .loadPatient(query.patientId, query.visitId)
+        .then(res => {
+          try {
+            console.log("-入院病人资料:", res, res.data.data);
+            if (res && res.data && res.data.data["admissionDateTime"]) {
+              res.data.data["admissionDateTime"] = moment(
+                res.data.data["admissionDate"]
+              ).format("YYYY-MM-DD HH:mm");
+            }
 
-        try {
-          console.log("-入院病人资料:",res, res.data.data);
-          if(res&&res.data&&res.data.data["admissionDateTime"] ){
-            res.data.data["admissionDateTime"] = moment(
-            res.data.data["admissionDate"]
-            ).format("YYYY-MM-DD HH:mm");
+            this.$route.query["patientInfo"] = res.data.data;
+            localStorage["patientInfo" + query.patientId] = JSON.stringify(
+              this.$route.query["patientInfo"]
+            );
+          } catch (error) {
+            console.log("入院病人资料error:", res, error);
           }
 
-          this.$route.query["patientInfo"] = res.data.data;
-          localStorage["patientInfo" + query.patientId] = JSON.stringify(
-            this.$route.query["patientInfo"]
-          );
-        } catch (error) {
-          console.log("入院病人资料error:",res,error);
-        }
+          if (callback && res) {
+            callback(res);
+          }
 
-        if(callback&&res){callback(res)}
-
-        return res;
-      }).catch(err=>{
-        console.log("入院病人资料err:",err);
-        if(callback&&err){callback(err)}
-      })
+          return res;
+        })
+        .catch(err => {
+          console.log("入院病人资料err:", err);
+          if (callback && err) {
+            callback(err);
+          }
+        });
     }
   },
   created() {
