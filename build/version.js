@@ -8,7 +8,7 @@ var info = {
     "软件名称": "宸瑞智慧护理系统",
     "版本号": moment().format("YYYY.MM.DD"),
     "最近打包时间": moment().format("YYYY-MM-DD HH:mm"),
-    "IP代理列表": config.dev.proxyTable || "",
+    "proxyTable": config.dev.proxyTable || "",
     "关于": {
         "研发单位": "广州宸瑞软件科技有限公司",
         "电话": "020-81192725  |  020-81192726",
