@@ -1,0 +1,321 @@
+<template>
+  <div>
+    <div class="login-bg">
+      <vue-particles
+        color="#dedede"
+        :moveSpeed="2"
+        :particlesNumber="10"
+        :particleOpacity="0.4"
+        :particleSize="5"
+        :lineOpacity="0.2"
+        :hoverEffect="false"
+        :clickEffect="false"
+        :linesDistance="350"
+        style="position: absolute; width: 100%;height: 100%"
+      ></vue-particles>
+      <div style="height: 25%"></div>
+      <div class="login-warpper">
+        <div class="login-img">
+          <img src="../../common/images/login-img.png" alt>
+          <span class="his-name">{{HOSPITAL_NAME}}</span>
+          <span class="sys-version">「 v {{$system.版本号}} 」</span>
+          <span class="sys-name">护理管理系统</span>
+        </div>
+        <img src="../../common/images/shaw.png" height="234" width="526" class="login-shaw">
+        <div class="login-con">
+          <div class="logo-con">
+            <img src="../../common/images/logo.png" height="63" width="63">
+          </div>
+          <h1 class="name">宸瑞智慧护理信息系统</h1>
+          <div class="input-con">
+            <input type="text" placeholder="用户名" v-model="account">
+            <img src="../../common/images/account.png" height="14" width="14">
+          </div>
+          <div class="input-con">
+            <input type="password" style="border-top: 0" placeholder="密码" v-model="password">
+            <img src="../../common/images/password.png" height="14" width="14">
+          </div>
+          <div class="remember-con">
+            <el-checkbox v-model="remember">
+              <span style="font-size: 13px;color: #687179;">记住账号</span>
+            </el-checkbox>
+          </div>
+          <button v-touch-ripple class="login-btn" @click="login">{{!ajax?'登录系统':'登录中...'}}</button>
+        </div>
+      </div>
+      <p
+        class="footer-text"
+      >广州宸瑞软件科技有限公司 &nbsp;&nbsp;&nbsp; http://www.cr-health.com &nbsp;&nbsp;&nbsp; 版权所有@-2017，All rights &nbsp;&nbsp; reseved. &nbsp;&nbsp; 关于宸瑞&nbsp; | &nbsp;关于智慧护理 &nbsp;|&nbsp; 联系客服</p>
+    </div>
+  </div>
+</template>
+
+<style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
+.input-con
+  input::-webkit-input-placeholder, textarea::-webkit-input-placeholder
+    color #aaa !important
+
+input:-moz-placeholder, textarea:-moz-placeholder
+  color #aaa !important
+
+input::-moz-placeholder, textarea::-moz-placeholder
+  color #aaa !important
+
+input:-ms-input-placeholder, textarea:-ms-input-placeholder
+  color #aaa !important
+</style>
+
+<style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
+.input-con
+  input::-webkit-input-placeholder, textarea::-webkit-input-placeholder
+    color #aaa !important
+
+input:-moz-placeholder, textarea:-moz-placeholder
+  color #aaa !important
+
+input::-moz-placeholder, textarea::-moz-placeholder
+  color #aaa !important
+
+input:-ms-input-placeholder, textarea:-ms-input-placeholder
+  color #aaa !important
+</style>
+
+<style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
+  .login-bg {
+    position: absolute
+    width 100%
+    height 100%
+    background url("../../common/images/login-bg.png") repeat-y
+    background-size 100% 1px
+  }
+
+  .login-warpper {
+    width 838px
+    margin 0 auto 0
+    position relative
+  }
+
+  .login-con
+    width 300px
+    height 353px
+    float right
+    background: #FBFDFF;
+    border-radius: 2px;
+    position: relative
+    z-index 2
+
+  .logo-con
+    height 63px
+    width 63px
+    margin 24px auto 19px
+    img
+      width 100%
+      height 100%
+
+  .name
+    font-size: 18px;
+    color: #333333;
+    letter-spacing: 0;
+    text-align center
+    margin-bottom 24px
+
+  .input-con
+    width 260px
+    height 37px
+    margin 0 auto
+    position: relative
+    input
+      width 260px
+      height 37px
+      outline none
+      background: #FFFFFF;
+      border: 1px solid #CBD5DD;
+      padding-left 30px
+      box-sizing border-box
+      font-size: 13px;
+    img
+      position: absolute
+      left 10px
+      top 0
+      bottom 0
+      margin auto 0
+
+  .remember-con
+    width 260px
+    margin 13px auto 26px
+
+  .login-btn
+    width 260px
+    height 37px;
+    margin 0 auto
+    display block
+    background: #4BB08D;
+    border-radius: 2px;
+    border 0
+    color #fff
+    font-size: 13px;
+    font-weight lighter
+    outline none
+    cursor: pointer
+    &:hover {
+      background #5CC6A1
+    }
+
+  .login-img
+    width 582px
+    height 520px
+    position: absolute
+    margin-top -66px
+    margin-left -115px
+    img
+      width 100%
+    .his-name
+      position absolute
+      color #fff
+      top 8px
+      font-size 15px
+      letter-spacing 1px
+      font-family '微软雅黑' !important
+      left 146px
+    .sys-name
+      position absolute
+      color #fff
+      top 35px
+      right 75px
+      font-size 22px
+      letter-spacing 2px
+      font-family '微软雅黑' !important
+    .sys-version
+      position absolute
+      font-size 12px
+      color #fff
+      top 43px
+      left 235px
+      font-family '微软雅黑' !important
+      opacity .8
+      letter-spacing 1px
+  .login-shaw
+    position: absolute
+    top 119px
+    right -130px
+
+  .footer-text
+    font-size: 12px;
+    color: #EEF8F3;
+    letter-spacing: 0;
+    text-align center
+    position: absolute
+    bottom 20px
+    width 100%
+</style>
+
+<script>
+import { login } from "@/api/login";
+import Cookies from "js-cookie";
+import EnterToTab from "@/plugin/tool/EnterToTab.js";
+import detectZoom from "@/plugin/tool/detectZoom.js";
+export default {
+  data() {
+    return {
+      account: "",
+      password: "",
+      remember: true,
+      ajax: false
+    };
+  },
+  methods: {
+    login() {
+      if (!(this.account && this.password)) {
+        //          如果空
+        this.$message({
+          showClose: true,
+          message: "请填写账号和密码！",
+          type: "warning"
+        });
+        return;
+      }
+      //        阻止重新登录
+      if (this.ajax === true) return;
+      this.ajax = true;
+      login(this.account, this.password)
+        .then(res => {
+          // 记住账号
+          if (this.remember) {
+            localStorage["rememberAccount"] = this.account;
+          }
+          this.ajax = false;
+          // 存下token 和用户信息 Auth-Token-Nursing
+          let user = res.data.data.user;
+          user.token = res.data.data.authToken;
+          window.app.authToken = res.data.data.authToken;
+          localStorage["user"] = JSON.stringify(res.data.data.user);
+          localStorage["adminNurse"] = res.data.data.adminNurse;
+          Cookies.remove("NURSING_USER");
+          Cookies.set(
+            "NURSING_USER",
+            `${res.data.data.user.id}##${res.data.data.authToken}`,
+            {
+              path: "/"
+            }
+          );
+          if (
+            this.$store.state.common.relogin &&
+            this.$store.state.common.relogin != "/login"
+          ) {
+            this.$router.push(this.$store.state.common.relogin);
+          } else {
+            this.$store.commit("upRelogin", false);
+            this.$router.push("/index");
+          }
+          // 清除科室记录
+          this.$store.commit("upDeptCode", "");
+          localStorage.selectDeptValue = "";
+          this.$store.commit("upDeptName", "");
+        })
+        .catch(res => {
+          this.ajax = false;
+          if (res.data.desc == "员工号不存在") {
+            let input = document.querySelectorAll(".input-con input")[0];
+            input.focus();
+            input.select();
+          } else if (res.data.desc == "密码错误") {
+            let input = document.querySelectorAll(".input-con input")[1];
+            input.focus();
+            input.select();
+          }
+        });
+    }
+  },
+  created() {
+    if (localStorage["rememberAccount"]) {
+      this.account = localStorage["rememberAccount"];
+    }
+  },
+  mounted() {
+    let elList = document.querySelectorAll(".input-con input");
+    EnterToTab(
+      elList,
+      el => {
+        el.focus();
+        el.select();
+      },
+      this.login
+    );
+
+    if (detectZoom() != 100 && !this.isDev) {
+      // 如果浏览器缩放比不是100的时候弹出提示
+      try {
+        !this.isDev &&
+          this.$alert(
+            `当前浏览器缩放 ${detectZoom()}%，可能会影响页面正常显示，可以通过 cltr + '0' 恢复 100%`,
+            "提示",
+            {
+              confirmButtonText: "确定"
+            }
+          );
+      } catch (e) {}
+    }
+  },
+  components: {}
+};
+</script>

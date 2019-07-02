@@ -1,0 +1,146 @@
+.sheet-table
+  border-collapse collapse
+  margin 5px 0px
+  font-size 12px
+  color #000
+  width 640px
+  margin 0 auto
+  &, tr, td, th
+    border 1px solid #444444
+  .head-con
+    background #f4f2f5
+  td,th
+    height 31px
+    text-align center
+    vertical-align middle
+    line-height 14px
+    position inherit!important
+  .th
+    padding 2px
+    span
+      font-size 12px
+  .body-con
+    height 29px
+    text-align center
+    vertical-align middle
+    cursor pointer
+.head-con
+  th
+    height 26px
+.canSet
+  color #284FC2
+  cursor pointer
+  &:hover
+    background #fafafa
+.sheet-table .body-con:nth-of-type(2n - 1)
+  background: #f4f2f5
+.sheet-table .body-con
+  input
+    width  calc(100% - 2px)
+    border: 0 !important
+    padding 0 !important
+    border: 0 !important
+    padding 0 !important
+    height calc(100% - 2px) !important
+    box-sizing: border-box !important
+    outline: none !important
+    text-align: center
+    background: transparent
+    color: #000
+    font-size 12px
+    &:focus
+      background: #EEF6F5
+  &:hover, &.selectedRow
+    background #e6e6e6
+  &.disable
+    color #999
+    cursor auto
+  &.stripeRow
+    td
+      background #FAFAFA
+  &.selectRow
+    td
+      background #e4f1f0
+  .mark-cell-1
+    background: rgba(185, 89, 255, .6)
+  .mark-cell-2
+    background: rgba(48, 163, 255, .6)
+  .mark-cell-3
+    background: rgba(162, 131, 94, .6)
+  .mark-cell-4
+    background: rgba(208, 196, 79, .6)
+  .mark-cell-5
+    background: rgba(80, 208, 101, .6)
+
+  &.mark-row-1
+    background: rgba(185, 89, 255, .4)
+  &.mark-row-2
+    background: rgba(48, 163, 255, .4)
+  &.mark-row-3
+    background: rgba(162, 131, 94, .4)
+  &.mark-row-4
+    background: rgba(208, 196, 79, .4)
+  &.mark-row-5
+    background: rgba(80, 208, 101, .4)
+  &.redText
+    input
+      color #000
+      cursor pointer
+  &.selectedTr
+    td
+      background: #FFF8B1
+.no-wrap
+  white-space nowrap
+.table-footer
+  font-size 12px
+  color #000
+  text-align: center
+  margin: 10px 0 0
+  position relative
+  .sh-name
+    position absolute
+    right 0
+.add-row
+  color: blue
+  float right
+  font-size 12px
+  cursor pointer
+  &:hover
+    font-weight: bold
+.sign-text
+  min-width 52px
+  max-width 100%
+  cursor pointer
+  height 26px
+  line-height: 26px
+.sign-img
+  min-width 52px
+  max-width 52px
+  text-align: center
+  height 100%
+  display: flex
+  align-items: center
+  justify-content: center
+  margin: auto
+  img
+    width calc(100% - 0px)
+    height calc(100% - 0px)
+    object-fit: cover
+
+
+td[datakey="orderContent"]
+  padding: 0px 5px
+
+
+td[datakey="signerNo"] {
+  display: none !important
+}
+td[datakey="signName"] {
+  display table-cell !important
+}
+td[datakey="signerNo2"] {
+  display: none !important
+}
+td[datakey="signName2"] {
+  display table-cell !important
+}

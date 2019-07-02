@@ -1,0 +1,85 @@
+<template>
+  <div>
+    <boxBase title="值班医生" :icon="require('../images/值班医生.png')">
+      <div class="body-con"
+           v-loading="pageLoading"
+           slot="body-con"
+           flex="dir:top main:top">
+           <div flex="cross:center">
+             <div class="label">主班医生：</div>
+             <input flex-box="1" v-model="data.mainClassDoctor" @blur="update"/>
+           </div>
+           <div style="height: 15px"></div>
+           <div flex="cross:center">
+             <div class="label">值班医生：</div>
+             <input flex-box="1" v-model="data.onDutyDoctor" @blur="update"/>
+           </div>
+           <div style="height: 15px"></div>
+           <div flex="cross:center">
+             <div class="label">二线医生：</div>
+             <input flex-box="1" v-model="data.secondTierDoctor" @blur="update"/>
+           </div>
+           <div style="height: 15px"></div>
+           <div flex="cross:center">
+             <div class="label">办公室：</div>
+             <input flex-box="1" v-model="data.workClass"/>
+           </div>
+      </div>
+    </boxBase>
+  </div>
+</template>
+<style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
+.body-con
+  padding 20px 20px
+  min-height 220px
+  box-sizing border-box
+  overflow auto
+.label
+  width 80px
+  font-size: 14px;
+  color: #333333; 
+input 
+  height 32px   
+  background: #FFFFFF;
+  border: 1px solid #CBD5DD;
+  border-radius: 2px
+  outline none 
+  padding-left 10px
+</style>
+<script>
+import boxBase from '../base/box-base.vue'
+import { deptSetting } from '../api'
+import common from '@/common/mixin/common.mixin.js'
+import bus from 'vue-happy-bus'
+export default {
+  mixins: [common],
+  inject: ['update'],
+  props: {
+    data: Object,
+    isSave: Boolean
+  },
+  data() {
+    return {
+      bus: bus(this),
+      pageLoading: false,
+      list: [],
+   
+    }
+  },
+  created() {
+    this.bus.$on('indexGetAllData', this.getData)
+  },
+  methods: {
+    getData() {
+      this.pageLoading = true
+      deptSetting(this.deptCode).then(res => {
+        this.list = res.data.data.nurseDept
+        this.pageLoading = false
+      })
+    }
+  },
+  components: {
+    boxBase, 
+  }
+}
+</script>

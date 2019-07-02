@@ -1,0 +1,618 @@
+{
+  "pageSetting": {
+    "size": "4A",
+    "rotation": "portrait",
+    "margin": "0",
+    "width": "750px",
+    "height": "auto",
+    "mode": "development_",
+    "style": ""
+  },
+  "formSetting": {
+    "formTitle": {
+      "hospitalName": "东莞市厚街医院",
+      "formName": "吞咽评估单"
+    },
+    "formHeads": [
+      {
+        "name": "name",
+        "value": null,
+        "title": "姓名",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "sex",
+        "value": null,
+        "title": "性别",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "age",
+        "value": null,
+        "title": "年龄",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "wardName",
+        "value": null,
+        "title": "病区",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "bedLabel",
+        "value": null,
+        "title": "床号",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "inpNo",
+        "value": null,
+        "title": "住院号",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "admissionDate",
+        "value": null,
+        "title": "入院日期",
+        "class": "",
+        "style": "",
+        "show": true
+      }
+    ],
+    "formTail": {
+      "showEvalScore": false,
+      "showSign": true,
+      "showAudit": true
+    },
+    "formInfo": {
+      "formCode": "E0047",
+      "formApiCode": "E0047",
+      "formName": "吞咽评估单",
+      "status": "0",
+      "formType": "eval"
+    }
+  },
+  "dictionary": {},
+  "schemes": {},
+  "model": {},
+  "body": [
+    {
+      "name": "I003001",
+      "type": "formGroupColBox",
+      "col": 3,
+      "title": "",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "I003001",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "signerName",
+          "type": "input",
+          "title": "评估人",
+          "value": "",
+          "placeholder": "评估人",
+          "style": "width:80px",
+          "class": null,
+          "readOnly": true
+        },
+        {
+          "name": "status",
+          "type": "input",
+          "title": "状态",
+          "value": "",
+          "placeholder": "状态",
+          "style": "width:80px",
+          "class": null,
+          "readOnly": true,
+          "rule": [
+            {
+              "equals": ["-1", "未保存"],
+              "style": "color:gray",
+              "display": "未签名"
+            },
+            {
+              "equals": ["0", "已保存 "],
+              "style": "color:blue",
+              "display": "已保存"
+            },
+            {
+              "equals": ["1", "已签名"],
+              "style": "color:red",
+              "display": "已签名"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "",
+      "type": "formGroupTitle",
+      "level": "1",
+      "title": "一、吞水试验",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "type": "html",
+      "name": "C003007",
+      "style": "margin-top: -15px; text-indent: 0; padding-left: 2em;margin-bottom: 5px",
+      "html": "<div>给患者喂50ml水:前25ml(每匙5ml，共5匙)由护士喂；如5匙均通过，可将剩余25ml水也可如前，或可能的话由病人以正常喝水速度自己喝。</div>"
+    },
+    {
+      "name": "",
+      "type": "formGroupColBox",
+      "col": 1,
+      "title": "基础评估",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I047001",
+          "name_date": "I047001",
+          "name_time": "I047002",
+          "type": "datePicker",
+          "title": "评估时间：",
+          "value": "",
+          "placeholder": "评估时间",
+          "class": null,
+          "readOnly": null
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupVerticalBox",
+      "colWidth": ["30px", ""],
+      "title": "",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I047003",
+          "type": "checkbox",
+          "title": "无吞咽",
+          "code": "on,",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I047004",
+          "type": "checkbox",
+          "title": "诉咽下困难",
+          "code": "on,",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I047005",
+          "type": "checkbox",
+          "title": "呛咳",
+          "code": "on,",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I047006",
+          "type": "checkbox",
+          "title": "口角漏水",
+          "code": "on,",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I047007",
+          "type": "checkbox",
+          "title": "清喉咙",
+          "code": "on,",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I047008",
+          "type": "checkbox",
+          "title": "声音混浊",
+          "code": "on,",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I047009",
+          "type": "checkbox",
+          "title": "噎噻",
+          "code": "on,",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I047010",
+          "type": "checkbox",
+          "title": "呼吸困难",
+          "code": "on,",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I047011",
+          "type": "checkbox",
+          "title": "SpO2从基础水平下降≥2%（2分钟内）",
+          "code": "on,",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I047029",
+          "type": "input",
+          "label": "其他",
+          "title": "其他",
+          "code": "on,",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupColBox",
+      "col": 2,
+      "colWidth": ["40%", "60%"],
+      "title": "",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I047012",
+          "type": "input",
+          "title": "评估结果：",
+          "value": "",
+          "options": ["-", "+"],
+          "rule": [
+            {
+              "equal": "+",
+              "style": "color:red"
+            }
+          ],
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "title": "",
+          "type": "html",
+          "name": "C003007",
+          "style": "text-indent: 0; padding-left: 2em;margin-bottom: 5px;color: #666;font-size: 12px;",
+          "html": "<div>注：1. 默认 - （阴性）</div> <div><span style=\"color: #fff\">注：</span>2. 若结果为“+”（阳性），此符号请用红笔填写</div> "
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "",
+      "type": "formGroupTitle",
+      "level": "1",
+      "title": "二、吞糊测试",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "type": "html",
+      "name": "C003007",
+      "style": "margin-top: -15px; text-indent: 0; padding-left: 2em;margin-bottom: 5px",
+      "html": "<div>100ml水+凝固粉4匙,由护士喂（每匙5ml,10匙）。若无凝固粉，可用婴儿米糊或黏稠的白粥测试。</div>"
+    },
+    {
+      "name": "",
+      "type": "formGroupColBox",
+      "col": 1,
+      "title": "基础评估",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I047013",
+          "name_date": "I047013",
+          "name_time": "I047014",
+          "type": "datePicker",
+          "title": "评估时间：",
+          "value": "",
+          "placeholder": "评估时间",
+          "class": null,
+          "readOnly": null
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupVerticalBox",
+      "colWidth": ["30px", ""],
+      "title": "",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I047015",
+          "type": "checkbox",
+          "title": "无吞咽",
+          "code": "on,",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I047016",
+          "type": "checkbox",
+          "title": "诉咽下困难",
+          "code": "on,",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I047017",
+          "type": "checkbox",
+          "title": "呛咳",
+          "code": "on,",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I047018",
+          "type": "checkbox",
+          "title": "口角漏水",
+          "code": "on,",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I047019",
+          "type": "checkbox",
+          "title": "清喉咙",
+          "code": "on,",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I047020",
+          "type": "checkbox",
+          "title": "声音混浊",
+          "code": "on,",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I047021",
+          "type": "checkbox",
+          "title": "噎噻",
+          "code": "on,",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I047022",
+          "type": "checkbox",
+          "title": "呼吸困难",
+          "code": "on,",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I047023",
+          "type": "checkbox",
+          "title": "SpO2从基础水平下降≥2%（2分钟内）",
+          "code": "on,",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I047028",
+          "type": "input",
+          "label": "其他",
+          "title": "其他",
+          "code": "on,",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupColBox",
+      "col": 2,
+      "colWidth": ["40%", "60%"],
+      "title": "",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I047024",
+          "type": "input",
+          "title": "评估结果：",
+          "value": "",
+          "options": ["-", "+"],
+          "rule": [
+            {
+              "equal": "+",
+              "style": "color:red"
+            }
+          ],
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "type": "html",
+          "name": "C003007",
+          "style": "margin-top: -15px; text-indent: 0; padding-left: 2em;margin-bottom: 5px;color: #666;font-size: 12px;",
+          "html": "<div>注：1. 默认 - （阴性）</div> <div><span style=\"color: #fff\">注：</span>2. 若结果为“+”（阳性），此符号请用红笔填写</div> "
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "",
+      "type": "formGroupVerticalBox",
+      "col": 1,
+      "colWidth": ["190px", ""],
+      "title": "建议的进食种类或进食方法",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I047027",
+          "type": "input",
+          "title": "建议的进食种类或进食方法",
+          "code": "",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        }
+      ]
+    },
+    {
+      "type": "html",
+      "name": "",
+      "style": " text-indent: 0; padding-left: 2em;margin-bottom: 5px;font-size:13px",
+      "html": "<div>结果：饮水测试通过（-）→由口进食 不通过（+）→吞糊测试<p>注：1.请于适当的□内打“√”。</p><p>2.如病人无作测试应在“其他”格内记录原因。</p><p>3.有吞咽困难者，至少每周评估一次。遇病情变化则随时评估。</p><p>4.当吞水测试不通过但有呛咳反应者，作吞糊测试。</p><p>备注：</p><p>1.若结果为“+”，此符号请用红笔填写。</p><p>2.建议的食物种类或进食方法请一定要填写，并将结果告知医生。</p></div>"
+    }
+  ],
+  "dialogs": [],
+  "header": [],
+  "footer": []
+}

@@ -1,0 +1,39 @@
+export const arrayTest = [{
+  name:'shi'
+},{
+  name:'shi'
+},{
+  name:'shi'
+},{
+  name:'shi'
+},{
+  name:'shi'
+},{
+  name:'shi'
+},{
+  name:'shi'
+},{
+  name:'shi'
+},{
+  name:'shi'
+},{
+  name:'shi'
+},{
+  name:'shi'
+},{
+  name:'shi'
+},{
+  name:'shi'
+},{
+  name:'shi'
+},{
+  name:'shi'
+},{
+  name:'shi'
+},{
+  name:'shi'
+},{
+  name:'shi'
+},{
+  name:'shi'
+},]

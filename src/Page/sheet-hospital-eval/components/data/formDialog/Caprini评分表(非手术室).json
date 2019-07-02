@@ -1,0 +1,897 @@
+{
+  "pageSetting": {
+    "size": "4A",
+    "rotation": "portrait",
+    "margin": "0",
+    "width": "750px",
+    "height": "auto",
+    "mode": "development_",
+    "style": ""
+  },
+  "formSetting": {
+    "formTitle": {
+      "hospitalName": "东莞市厚街医院",
+      "formName": "Caprini评分表(非手术室)"
+    },
+    "formHeads": [
+      {
+        "name": "name",
+        "code": null,
+        "title": "姓名",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "sex",
+        "code": null,
+        "title": "性别",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "age",
+        "code": null,
+        "title": "年龄",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "wardName",
+        "code": null,
+        "title": "病区",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "bedLabel",
+        "code": null,
+        "title": "床号",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "inpNo",
+        "code": null,
+        "title": "住院号",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "admissionDate",
+        "code": null,
+        "title": "入院日期",
+        "class": "",
+        "style": "",
+        "show": true
+      }
+    ],
+    "formTail": {
+      "showEvalScore": false,
+      "showSign": true,
+      "showAudit": true
+    },
+    "formInfo": {
+      "formCode": "E0045_2",
+      "formApiCode": "E0045_2",
+      "formName": "Caprini评分表(非手术室)",
+      "status": "0",
+      "formType": "eval"
+    }
+  },
+  "dictionary": {},
+  "schemes": {},
+  "model": {},
+  "body": [
+    {
+      "name": "",
+      "type": "formGroupColBox",
+      "col": 3,
+      "title": "",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "evalDate",
+          "type": "datePicker",
+          "title": "评估时间",
+          "code": "",
+          "placeholder": "评估时间",
+          "style": "width:145px",
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "signerName",
+          "type": "input",
+          "title": "评估人",
+          "code": "0",
+          "placeholder": "评估人",
+          "style": "width:80px",
+          "class": null,
+          "readOnly": true
+        },
+        {
+          "name": "status",
+          "type": "input",
+          "title": "状态",
+          "code": "0",
+          "placeholder": "状态",
+          "style": "width:80px",
+          "class": null,
+          "readOnly": true,
+          "rule": [
+            {
+              "equals": ["-1", "未保存"],
+              "style": "color:gray",
+              "display": "未签名"
+            },
+            {
+              "equals": ["0", "已保存 "],
+              "style": "color:blue",
+              "display": "未签名"
+            },
+            {
+              "equals": ["1", "已签名"],
+              "style": "color:red",
+              "display": "已签名"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "",
+      "type": "formGroupTitle",
+      "level": "1",
+      "title": "一、评估内容",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "type": "formGroupVerticalBox",
+      "title": "1. 清醒程度/精神状态",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I045004",
+          "type": "checkbox",
+          "title": "正在进行激素治疗（1分）",
+          "code": "1",
+          "score": 1,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I045004",
+          "type": "checkbox",
+          "title": "肥胖（体重指数≥30kg/m2）（1分）",
+          "code": "2",
+          "score": 1,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I045004",
+          "type": "checkbox",
+          "title": "急性感染和（或）风湿性疾病（1分）",
+          "code": "3",
+          "score": 1,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I045004",
+          "type": "checkbox",
+          "title": "急性心肌梗死和（或）缺血性脑卒中（1分）",
+          "code": "4",
+          "score": 1,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I045004",
+          "type": "checkbox",
+          "title": "心脏和（或）呼吸衰竭（1分）",
+          "code": "5",
+          "score": 1,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I045004",
+          "type": "checkbox",
+          "title": "年龄≥70岁（1分）",
+          "code": "6",
+          "score": 1,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I045003",
+          "type": "checkbox",
+          "title": "近期（≤1个月）创伤或外科手术（2分）",
+          "code": "1",
+          "score": 2,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I045002",
+          "type": "checkbox",
+          "title": "有血栓形成倾向，抗凝血酶缺陷症，蛋白C或S缺乏，Leidenv因子、凝血酶原G20210A突变，抗磷脂抗体综合征（3分）",
+          "code": "1",
+          "score": 3,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I045002",
+          "type": "checkbox",
+          "title": "制动，患者身体原因获遵医嘱需卧床至少3天（3分）",
+          "code": "2",
+          "score": 3,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I045002",
+          "type": "checkbox",
+          "title": "既往静脉血栓栓塞症（3分）",
+          "code": "3",
+          "score": 3,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I045002",
+          "type": "checkbox",
+          "title": "活动性恶性性肿瘤，患者先前有局部或远端转移（或）6个月内接受过化疗和放疗（3分）",
+          "code": "4",
+          "score": 3,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupColBox",
+      "col": 2,
+      "colWidth": ["40%", "60%"],
+      "title": "",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "evalScore",
+          "type": "input",
+          "title": "评估得分：",
+          "value": "",
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "evalDesc",
+          "type": "input",
+          "title": "结果程度：",
+          "value": "",
+          "class": null,
+          "readOnly": null,
+          "rule": [
+            {
+              "min": "1",
+              "max": "3",
+              "equal": "低风险",
+              "style": "color:blue",
+              "display": "低风险"
+            },
+            {
+              "min": "4",
+              "max": "999",
+              "equal": "高风险",
+              "style": "color:red",
+              "display": "高风险"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "",
+      "type": "formGroupTitle",
+      "level": "1",
+      "title": "二、护理措施：",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "",
+      "type": "formGroupVerticalBox",
+      "title": "1. 基本措施：",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "I003003",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "M045001",
+          "type": "checkbox",
+          "title": "抬高患肢20-25cm",
+          "code": "√",
+          "score": 0,
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "M045002",
+          "type": "checkbox",
+          "title": "踝泵运动",
+          "code": "√",
+          "score": 1,
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "M045003",
+          "type": "checkbox",
+          "title": "股四头肌肌肉收缩训练",
+          "code": "√",
+          "score": 1,
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "M045004",
+          "type": "checkbox",
+          "title": "做深呼吸或吹气球及咳嗽动作",
+          "code": "√",
+          "score": 1,
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "M045005",
+          "type": "checkbox",
+          "title": "指导戒烟戒酒",
+          "code": "√",
+          "score": 1,
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "M045006",
+          "type": "checkbox",
+          "title": "指导多饮水、保持大便通畅",
+          "code": "√",
+          "score": 1,
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "M045007",
+          "type": "checkbox",
+          "title": "下床活动",
+          "code": "√",
+          "score": 1,
+          "style": null,
+          "class": null,
+          "readOnly": null
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "2 物理措施：",
+      "type": "formGroupVerticalBox",
+      "title": "2 物理措施：",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "I003003",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "M045008",
+          "type": "checkbox",
+          "title": "下床使用足底静脉泵",
+          "code": "√",
+          "score": 0,
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "M045009",
+          "type": "checkbox",
+          "title": "下床间歇充气加压装置",
+          "code": "√",
+          "score": 0,
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "M045010",
+          "type": "checkbox",
+          "title": "下床穿弹力袜",
+          "code": "√",
+          "score": 4,
+          "style": null,
+          "class": null,
+          "readOnly": null
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "",
+      "type": "formGroupVerticalBox",
+      "title": "3. 药物措施",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "I004007",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "M045011",
+          "type": "checkbox",
+          "title": "低分子肝素皮下注射",
+          "code": "√",
+          "score": 0,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I004007",
+          "type": "checkbox",
+          "title": "利伐沙班口服",
+          "code": "√",
+          "score": 2,
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "M045013",
+          "type": "checkbox",
+          "title": "华法林口服",
+          "code": "√",
+          "score": 4,
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "M045014",
+          "type": "",
+          "title": "",
+          "code": "√",
+          "score": 4,
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "children": [
+            {
+              "name": "",
+              "type": "checkbox",
+              "title": "其它抗凝药：",
+              "code": "√",
+              "score": 4,
+              "style": null,
+              "class": null,
+              "readOnly": null
+            },
+            {
+              "name": "M045014",
+              "type": "input",
+              "title": "",
+              "code": "√",
+              "score": 4,
+              "style": "position:relative;top:-5px;",
+              "class": null,
+              "readOnly": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupVerticalBox",
+      "title": "4.观察项目:",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "I004007",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "",
+          "type": "select",
+          "title": "",
+          "style": "",
+          "class": "input-elements-nowrap",
+          "readOnly": null,
+          "children": [
+            {
+              "name": "M045015",
+              "type": "input",
+              "label": "Homan's： 左",
+              "labelWidth": "100px",
+              "inputWidth": "130px",
+              "elementStyle": "margin:0px",
+              "labelStyle": "",
+              "labelClass": "select-label",
+              "class": "select-box-small",
+              "readOnly": null,
+              "options": ["+", "-"]
+            },
+            {
+              "name": "M045016",
+              "type": "input",
+              "label": "右",
+              "labelWidth": "50px",
+              "inputWidth": "130px",
+              "elementStyle": "margin-left:10px",
+              "labelStyle": "",
+              "labelClass": "select-label",
+              "class": "select-box-small",
+              "readOnly": null,
+              "options": ["+", "-"]
+            }
+          ]
+        },
+        {
+          "name": "",
+          "type": "select",
+          "title": "",
+          "style": "",
+          "class": "input-elements-nowrap",
+          "readOnly": null,
+          "children": [
+            {
+              "name": "M045017",
+              "type": "input",
+              "label": "下肢肿胀：左",
+              "labelWidth": "100px",
+              "inputWidth": "130px",
+              "elementStyle": "margin:0px",
+              "labelStyle": "",
+              "labelClass": "select-label",
+              "class": "select-box-small",
+              "readOnly": null,
+              "options": ["I度", "II度", "III度"]
+            },
+            {
+              "name": "M045018",
+              "type": "input",
+              "label": "右",
+              "labelWidth": "50px",
+              "inputWidth": "130px",
+              "elementStyle": "margin-left:10px",
+              "labelStyle": "",
+              "labelClass": "select-label",
+              "class": "select-box-small",
+              "readOnly": null,
+              "options": ["I度", "II度", "III度"]
+            }
+          ]
+        },
+        {
+          "name": "",
+          "type": "select",
+          "title": "",
+          "style": "",
+          "class": "input-elements-nowrap",
+          "readOnly": null,
+          "children": [
+            {
+              "name": "M045019",
+              "type": "input",
+              "label": "主观麻痹：左",
+              "labelWidth": "100px",
+              "inputWidth": "130px",
+              "elementStyle": "margin:0px",
+              "labelStyle": "",
+              "labelClass": "select-label",
+              "class": "select-box-small",
+              "readOnly": null,
+              "options": ["有", "无"]
+            },
+            {
+              "name": "M045020",
+              "type": "input",
+              "label": "右",
+              "labelWidth": "50px",
+              "inputWidth": "130px",
+              "style": "width: 130px;",
+              "elementStyle": "margin-left:10px",
+              "labelStyle": "",
+              "labelClass": "select-label",
+              "class": "select-box-small",
+              "readOnly": null,
+              "options": ["有", "无"]
+            }
+          ]
+        },
+        {
+          "name": "",
+          "type": "select",
+          "title": "",
+          "style": "",
+          "class": "input-elements-nowrap",
+          "readOnly": null,
+          "children": [
+            {
+              "name": "M045021",
+              "type": "input",
+              "label": "大腿周径：左",
+              "labelWidth": "100px",
+              "inputWidth": "130px",
+              "elementStyle": "margin:0px",
+              "labelStyle": "",
+              "labelClass": "select-label",
+              "class": "select-box-small",
+              "readOnly": null
+            },
+            {
+              "name": "M045022",
+              "type": "input",
+              "label": "右",
+              "labelWidth": "50px",
+              "inputWidth": "130px",
+              "elementStyle": "margin-left:10px",
+              "labelStyle": "",
+              "labelClass": "select-label",
+              "class": "select-box-small",
+              "readOnly": null
+            }
+          ]
+        },
+        {
+          "name": "",
+          "type": "select",
+          "title": "",
+          "style": "",
+          "class": "input-elements-nowrap",
+          "readOnly": null,
+          "children": [
+            {
+              "name": "M045023",
+              "type": "input",
+              "label": "小腿周径：左",
+              "labelWidth": "100px",
+              "inputWidth": "130px",
+              "elementStyle": "margin:0px",
+              "labelStyle": "",
+              "labelClass": "select-label",
+              "class": "select-box-small",
+              "readOnly": null
+            },
+            {
+              "name": "M045024",
+              "type": "input",
+              "label": "右",
+              "labelWidth": "50px",
+              "inputWidth": "130px",
+              "elementStyle": "margin-left:10px",
+              "labelStyle": "",
+              "labelClass": "select-label",
+              "class": "select-box-small",
+              "readOnly": null
+            }
+          ]
+        },
+        {
+          "name": "",
+          "type": "select",
+          "title": "",
+          "style": "",
+          "class": "input-elements-nowrap",
+          "readOnly": null,
+          "children": [
+            {
+              "name": "M045025",
+              "type": "input",
+              "label": "皮肤颜色：左",
+              "labelWidth": "100px",
+              "inputWidth": "130px",
+              "elementStyle": "margin:0px",
+              "labelStyle": "",
+              "labelClass": "select-label",
+              "class": "select-box-small",
+              "readOnly": null,
+              "options": ["淡红色", "紫红色", "红色"]
+            },
+            {
+              "name": "M045026",
+              "type": "input",
+              "label": "右",
+              "labelWidth": "50px",
+              "inputWidth": "130px",
+              "elementStyle": "margin-left:10px",
+              "labelStyle": "",
+              "labelClass": "select-label",
+              "class": "select-box-small",
+              "readOnly": null,
+              "options": ["淡红色", "紫红色", "红色"]
+            }
+          ]
+        },
+        {
+          "name": "",
+          "type": "select",
+          "title": "肌力",
+          "style": "",
+          "class": "input-elements-nowrap",
+          "readOnly": null,
+          "children": [
+            {
+              "name": "M045027",
+              "type": "input",
+              "label": "足背动脉：左",
+              "labelWidth": "100px",
+              "inputWidth": "130px",
+              "elementStyle": "margin:0px",
+              "labelStyle": "",
+              "labelClass": "select-label",
+              "class": "select-box-small",
+              "readOnly": null,
+              "options": ["正常", "变弱", "不能触及"]
+            },
+            {
+              "name": "M045028",
+              "type": "input",
+              "label": "右",
+              "labelWidth": "50px",
+              "inputWidth": "130px",
+              "elementStyle": "margin-left:10px",
+              "labelStyle": "",
+              "labelClass": "select-label",
+              "class": "select-box-small",
+              "readOnly": null,
+              "options": ["正常", "变弱", "不能触及"]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    }
+  ],
+  "dialogs": [],
+  "header": [],
+  "footer": []
+}

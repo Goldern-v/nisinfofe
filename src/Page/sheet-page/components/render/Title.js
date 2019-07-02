@@ -1,0 +1,255 @@
+import sheetInfo from "../config/sheetInfo/index";
+
+export default function Title(data = [], autoData = [], index) {
+  let Th;
+  switch (sheetInfo.sheetType) {
+    case "neurology":
+      {
+        // 神经内科
+        Th = JSON.parse(
+          JSON.stringify(require("../config/neurology/th").default)
+        );
+      }
+      break;
+    case "obstetrics":
+      {
+        // 产科
+        Th = JSON.parse(
+          JSON.stringify(require("../config/obstetrics/th").default)
+        );
+      }
+      break;
+    case "neurosurgery":
+      {
+        // 神经外科
+        Th = JSON.parse(
+          JSON.stringify(require("../config/neurology/th").default)
+        );
+      }
+      break;
+    case "burn_plastic":
+      {
+        // 烧伤整形科护理
+        Th = JSON.parse(
+          JSON.stringify(require("../config/default/th").default)
+        );
+      }
+      break;
+    case "general_surgery":
+      {
+        // 普外科
+        Th = JSON.parse(
+          JSON.stringify(require("../config/general_surgery/th").default)
+        );
+      }
+      break;
+    case "gynecology":
+      {
+        // 妇科
+        Th = JSON.parse(
+          JSON.stringify(require("../config/default/th").default)
+        );
+      }
+      break;
+    case "infectious_diseases":
+      {
+        // 感染科
+        Th = JSON.parse(
+          JSON.stringify(require("../config/default/th").default)
+        );
+      }
+      break;
+    case "orthopedics":
+      {
+        // 骨科
+        Th = JSON.parse(
+          JSON.stringify(require("../config/orthopedics/th").default)
+        );
+      }
+      break;
+    case "micro_surgery":
+      {
+        // 显微手足科
+        Th = JSON.parse(
+          JSON.stringify(require("../config/orthopedics/th").default)
+        );
+      }
+      break;
+    case "respiration":
+      {
+        // 呼吸科
+        Th = JSON.parse(
+          JSON.stringify(require("../config/default/th").default)
+        );
+      }
+      break;
+    case "emergency":
+      {
+        // 急诊科
+        Th = JSON.parse(
+          JSON.stringify(require("../config/default/th").default)
+        );
+      }
+      break;
+    case "urology":
+      {
+        // 泌尿科
+        Th = JSON.parse(
+          JSON.stringify(require("../config/default/th").default)
+        );
+      }
+      break;
+    case "endocrinology":
+      {
+        // 内分泌科
+        Th = JSON.parse(
+          JSON.stringify(require("../config/default/th").default)
+        );
+      }
+      break;
+    case "burn":
+      {
+        // 烧伤科
+        Th = JSON.parse(JSON.stringify(require("../config/burn/th").default));
+      }
+      break;
+    case "ear_nose_throat":
+      {
+        // 耳喉鼻科
+        Th = JSON.parse(
+          JSON.stringify(require("../config/default/th").default)
+        );
+      }
+      break;
+    case "medicine_cardiovascular":
+      {
+        // 心血管内科
+        Th = JSON.parse(
+          JSON.stringify(
+            require("../config/medicine_cardiovascular/th").default
+          )
+        );
+      }
+      break;
+    case "neonatology":
+      {
+        // 产科 里的 新生儿科
+        Th = JSON.parse(
+          JSON.stringify(require("../config/neonatology/th").default)
+        );
+      }
+      break;
+    case "neonatology2":
+      {
+        // 新生儿科 里的 新生儿科
+        Th = JSON.parse(
+          JSON.stringify(require("../config/neonatology2/th").default)
+        );
+      }
+      break;
+    case "hemodialysis":
+      {
+        // 血透室
+        Th = JSON.parse(
+          JSON.stringify(require("../config/default/th").default)
+        );
+      }
+      break;
+    // case "tumor_hemodialysis":
+    //   {
+    //     // 肿瘤血液科
+    //     Th = JSON.parse(
+    //       JSON.stringify(require("../config/tumor_hemodialysis/th").default)
+    //     );
+    //   }
+    //   break;
+    case "trauma_orthopedics":
+      {
+        // 创骨科
+        Th = JSON.parse(
+          JSON.stringify(require("../config/trauma_orthopedics/th").default)
+        );
+      }
+      break;
+    case "joint":
+      {
+        // 关节骨科
+        Th = JSON.parse(JSON.stringify(require("../config/joint/th").default));
+      }
+      break;
+    case "spinal_orthopedics":
+      {
+        // 脊柱骨科
+        Th = JSON.parse(
+          JSON.stringify(require("../config/spinal_orthopedics/th").default)
+        );
+      }
+      break;
+    case "gastroenterology":
+      {
+        // 消化内科
+        Th = JSON.parse(
+          JSON.stringify(require("../config/gastroenterology/th").default)
+        );
+      }
+      break;
+    case "prenatal":
+      {
+        // 产前
+        Th = JSON.parse(
+          JSON.stringify(require("../config/prenatal/th").default)
+        );
+      }
+      break;
+    case "post_partum":
+      {
+        // 产后观察
+        Th = JSON.parse(
+          JSON.stringify(require("../config/post_partum/th").default)
+        );
+      }
+      break;
+    default: {
+      Th = JSON.parse(JSON.stringify(require("../config/default/th").default));
+    }
+  }
+  for (let i = 0; i < Th.th.top.length; i++) {
+    if (Th.th.top[i].canSet) {
+      try {
+        Th.th.top[i].name = data.find(item => {
+          return item.fieldEn == Th.th.top[i].key;
+        }).fieldCn;
+      } catch (e) {
+        try {
+          let reverseArr = [];
+          if (sheetInfo.selectBlock.recordTitleCoyeType !== "no") {
+            reverseArr = [...autoData];
+          }
+          Th.th.top[i].name = reverseArr.find(item => {
+            return item.fieldEn == Th.th.top[i].key && item.pageIndex === index;
+          }).fieldCn;
+        } catch (e) {}
+      }
+    }
+  }
+  for (let i = 0; i < Th.th.mid.length; i++) {
+    if (Th.th.mid[i].canSet) {
+      try {
+        Th.th.mid[i].name = data.find(item => {
+          return item.fieldEn == Th.th.mid[i].key;
+        }).fieldCn;
+      } catch (e) {
+        try {
+          let reverseArr = [];
+          if (sheetInfo.selectBlock.recordTitleCoyeType !== "no") {
+            reverseArr = [...autoData];
+          }
+          Th.th.mid[i].name = reverseArr.find(item => {
+            return item.fieldEn == Th.th.mid[i].key && item.pageIndex === index;
+          }).fieldCn;
+        } catch (e) {}
+      }
+    }
+  }
+  return Th;
+}

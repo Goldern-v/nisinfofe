@@ -1,0 +1,505 @@
+{
+  "pageSetting": {
+    "size": "4A",
+    "rotation": "portrait",
+    "margin": "0",
+    "width": "750px",
+    "height": "auto",
+    "mode": "development_",
+    "style": ""
+  },
+  "formSetting": {
+    "formTitle": {
+      "hospitalName": "东莞市厚街医院",
+      "formName": "GCS格拉斯哥昏迷评估"
+    },
+    "formHeads": [
+      {
+        "name": "name",
+        "code": null,
+        "title": "姓名",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "sex",
+        "code": null,
+        "title": "性别",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "age",
+        "code": null,
+        "title": "年龄",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "wardName",
+        "code": null,
+        "title": "病区",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "bedLabel",
+        "code": null,
+        "title": "床号",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "inpNo",
+        "code": null,
+        "title": "住院号",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "admissionDate",
+        "code": null,
+        "title": "入院日期",
+        "class": "",
+        "style": "",
+        "show": true
+      }
+    ],
+    "formTail": {
+      "showEvalScore": false,
+      "showSign": true,
+      "showAudit": true
+    },
+    "formInfo": {
+      "formCode": "E0013",
+      "formApiCode": "E0013",
+      "formName": "GCS格拉斯哥昏迷评估",
+      "status": "0",
+      "formType": "eval"
+    }
+  },
+  "dictionary": {
+    "疼痛部位": "A, B, C, D"
+  },
+  "schemes": {},
+  "model": {},
+  "body": [
+    {
+      "name": "I003001",
+      "type": "formGroupColBox",
+      "col": 3,
+      "title": "",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "I003001",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "evalDate",
+          "type": "datePicker",
+          "title": "评估时间",
+          "code": "",
+          "placeholder": "评估时间",
+          "style": "width:145px",
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "signerName",
+          "type": "input",
+          "title": "评估人",
+          "code": "0",
+          "placeholder": "评估人",
+          "style": "width:80px",
+          "class": null,
+          "readOnly": true
+        },
+        {
+          "name": "status",
+          "type": "input",
+          "title": "状态",
+          "code": "0",
+          "placeholder": "状态",
+          "style": "width:80px",
+          "class": null,
+          "readOnly": true,
+          "rule": [
+            {
+              "equals": ["-1", "未保存"],
+              "style": "color:gray",
+              "display": "未签名"
+            },
+            {
+              "equals": ["0", "已保存 "],
+              "style": "color:blue",
+              "display": "已保存"
+            },
+            {
+              "equals": ["1", "已签名"],
+              "style": "color:red",
+              "display": "已签名"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "",
+      "type": "formGroupTitle",
+      "level": "1",
+      "title": "一、评估内容",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "1. 睁眼反应：",
+      "type": "formGroupVerticalBox",
+      "title": "1. 睁眼反应：",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "I013001",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I013001",
+          "type": "radio",
+          "title": "自然睁眼（4分）",
+          "code": "1",
+          "score": 4,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I013001",
+          "type": "radio",
+          "title": "语言命令眨眼（3分）",
+          "code": "2",
+          "score": 3,
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I013001",
+          "type": "radio",
+          "title": "有刺激或痛楚会睁眼（2分）",
+          "code": "3",
+          "score": 2,
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I013001",
+          "type": "radio",
+          "title": "无睁眼（1分）",
+          "code": "4",
+          "score": 1,
+          "style": null,
+          "class": null,
+          "readOnly": null
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "2. 语言反应：",
+      "type": "formGroupVerticalBox",
+      "title": "2. 语言反应：",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "I013002",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I013002",
+          "type": "radio",
+          "title": "语言正确（5分）",
+          "code": "1",
+          "score": 5,
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I013002",
+          "type": "radio",
+          "title": "语言含糊（4分）",
+          "code": "2",
+          "score": 4,
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I013002",
+          "type": "radio",
+          "title": "语言错乱（3分）",
+          "code": "3",
+          "score": 3,
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I013002",
+          "type": "radio",
+          "title": "只能发音（2分）",
+          "code": "4",
+          "score": 2,
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I013002",
+          "type": "radio",
+          "title": "无语言反应（1分）",
+          "code": "5",
+          "score": 1,
+          "style": null,
+          "class": null,
+          "readOnly": null
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "3. 运动反应：",
+      "type": "formGroupVerticalBox",
+      "title": "3. 运动反应：",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "I013003",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I013003",
+          "type": "radio",
+          "title": "遵嘱动作（6分）",
+          "code": "1",
+          "score": 6,
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I013003",
+          "type": "radio",
+          "title": "疼痛定位（5分）",
+          "code": "2",
+          "score": 5,
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I013003",
+          "type": "radio",
+          "title": "逃避疼痛（4分）",
+          "code": "3",
+          "score": 4,
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I013003",
+          "type": "radio",
+          "title": "疼痛刺激屈曲（3分）",
+          "code": "4",
+          "score": 3,
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I013003",
+          "type": "radio",
+          "title": "疼痛刺激伸肢（2分）",
+          "code": "5",
+          "score": 2,
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I013003",
+          "type": "radio",
+          "title": "无运动反应（1分）",
+          "code": "6",
+          "score": 1,
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I013003",
+          "type": "radio",
+          "title": "不受限（0分）",
+          "code": "7",
+          "score": 0,
+          "style": null,
+          "class": null,
+          "readOnly": null
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "I100001",
+      "type": "formGroupColBox",
+      "col": 2,
+      "colWidth": ["40%", "60%"],
+      "title": "",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "I100001",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "evalScore",
+          "type": "input",
+          "title": "评估得分",
+          "code": "evalScore",
+          "placeholder": "评估得分",
+          "style": "width:80px",
+          "class": null,
+          "readOnly": true
+        },
+        {
+          "name": "evalDesc",
+          "type": "input",
+          "title": "结果程度",
+          "code": "",
+          "placeholder": "结果程度",
+          "style": "width:80px",
+          "class": null,
+          "readOnly": true,
+          "rule": [
+            {
+              "min": "15",
+              "max": "15",
+              "equal": "清醒",
+              "style": "color:blue",
+              "display": "清醒"
+            },
+            {
+              "min": "14",
+              "max": "14",
+              "equal": "嗜睡",
+              "style": "color:red",
+              "display": "嗜睡"
+            },
+            {
+              "min": "8",
+              "max": "13",
+              "equal": "意识模糊",
+              "style": "color:red",
+              "display": "意识模糊"
+            },
+            {
+              "min": "-1",
+              "max": "8",
+              "equal": "昏迷",
+              "style": "color:red",
+              "display": "昏迷"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    }
+  ],
+  "dialogs": [],
+  "header": [],
+  "footer": []
+}

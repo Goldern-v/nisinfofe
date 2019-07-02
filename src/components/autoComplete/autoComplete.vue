@@ -1,0 +1,127 @@
+<template>
+  <div
+    v-show="show"
+    id="CrAutocomplete"
+    class="el-autocomplete-suggestion"
+    style="transform-origin: center top 0px; z-index: 2045; width: 120px; position: fixed;"
+    :style="style"
+    ref="autoBox"
+  >
+    <div class="el-scrollbar">
+      <div
+        class="el-autocomplete-suggestion__wrap el-scrollbar__wrap el-scrollbar__wrap--hidden-default"
+      >
+        <ul class="el-scrollbar__view el-autocomplete-suggestion__list" style="position: relative;">
+          <li
+            class
+            @click="post(item)"
+            v-for="(item, index) in data"
+            :key="item"
+            :class="{autoSelected: index == selectIndex}"
+          >{{item}}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</template>
+
+<style lang="stylus" rel="stylesheet/stylus" type="text/stylus">
+.autoSelected {
+  background: #EEF6F5 !important;
+}
+
+#CrAutocomplete li:active {
+  background: rgb(228, 241, 240);
+}
+
+</style>
+
+<script>
+export default {
+  data() {
+    return {
+      show: false,
+      style: {},
+      data: [],
+      callback: "",
+      selectIndex: 0,
+      id: ""
+    };
+  },
+  methods: {
+    open(config) {
+      if (config.data.length >= 1) {
+        this.show = true;
+      }
+      this.style = config.style;
+      this.callback = config.callback;
+      this.data = config.data;
+      (this.selectIndex = this.data.length), (this.id = config.id);
+      this.$nextTick(() => {
+        let offset = this.$refs.autoBox.getBoundingClientRect();
+        if (window.innerHeight - offset.bottom < 10) {
+          // this.style = Object.assign({}, this.style, {bottom: Number(this.style.top.split('px')[0] + 40) + 'px', top: 'auto'})
+          let top =
+            Number(this.style.top.split("px")[0] - offset.height - 40) + "px";
+          this.style = Object.assign({}, this.style, { top });
+        }
+      });
+      try {
+        if (document.querySelector("#CrContextMenu").style.display != "none") {
+          return (this.show = false);
+        }
+      } catch (e) {}
+    },
+    close(id) {
+      if (this.id == id) {
+        this.show = false;
+      }
+    },
+    post(item) {
+      this.callback(item);
+      this.show = false;
+    },
+    attachWindow() {
+      window.openAutoComplete = config => {
+        this.open(config);
+      };
+      window.closeAutoCompleteNoId = () => {
+        this.show = false;
+      };
+      window.closeAutoComplete = id => {
+        this.close(id);
+      };
+      window.isShowAutoComplete = () => {
+        return this.show;
+      };
+      window.addEventListener("mousewheel", e => {
+        if (e.target.tagName != "LI") {
+          this.show = false;
+        }
+      });
+    }
+  },
+  mounted() {
+    document.addEventListener("keydown", e => {
+      if (!this.show) return;
+      if (e.keyCode == "38") {
+        if (this.selectIndex > 0) {
+          this.selectIndex--;
+        } else {
+          this.selectIndex = this.data.length - 1;
+        }
+      } else if (e.keyCode == "40") {
+        if (this.selectIndex < this.data.length - 1) {
+          this.selectIndex++;
+        } else {
+          this.selectIndex = 0;
+        }
+      } else if (e.keyCode == "13") {
+        this.post(this.data[this.selectIndex]);
+      }
+    });
+    this.attachWindow();
+  },
+  components: {}
+};
+</script>

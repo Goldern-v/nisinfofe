@@ -1,0 +1,1008 @@
+{
+  "pageSetting": {
+    "size": "4A",
+    "rotation": "portrait",
+    "margin": "0",
+    "width": "750px",
+    "height": "auto",
+    "mode": "_development",
+    "style": ""
+  },
+  "formSetting": {
+    "formTitle": {
+      "hospitalName": "东莞市厚街医院",
+      "formName": "Barden压疮风险评估表"
+    },
+    "formHeads": [
+      {
+        "name": "name",
+        "value": null,
+        "title": "姓名",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "sex",
+        "value": null,
+        "title": "性别",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "age",
+        "value": null,
+        "title": "年龄",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "wardName",
+        "value": null,
+        "title": "病区",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "bedLabel",
+        "value": null,
+        "title": "床号",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "inpNo",
+        "value": null,
+        "title": "住院号",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "admissionDate",
+        "value": null,
+        "title": "入院日期",
+        "class": "",
+        "style": "",
+        "show": true
+      }
+    ],
+    "formTail": {
+      "showEvalScore": false,
+      "showSign": true,
+      "showAudit": true
+    },
+    "formInfo": {
+      "formCode": "E0005",
+      "formApiCode": "E0005",
+      "formName": "Barden压疮风险评估表",
+      "status": "0",
+      "formType": "eval"
+    }
+  },
+  "dictionary": {},
+  "schemes": {},
+  "model": {},
+  "body": [
+    {
+      "name": "I003001",
+      "type": "formGroupColBox",
+      "col": 3,
+      "title": "",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "I003001",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "evalDate",
+          "type": "datePicker",
+          "title": "评估时间",
+          "value": "",
+          "placeholder": "评估时间",
+          "style": "width:145px",
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "signerName",
+          "type": "input",
+          "title": "评估人",
+          "value": "",
+          "placeholder": "评估人",
+          "style": "width:80px",
+          "class": null,
+          "readOnly": true
+        },
+        {
+          "name": "status",
+          "type": "input",
+          "title": "状态",
+          "value": "0",
+          "placeholder": "状态",
+          "style": "width:80px",
+          "class": null,
+          "readOnly": true,
+          "rule": [
+            {
+              "equals": ["-1", "未保存"],
+              "style": "color:gray",
+              "display": "未签名"
+            },
+            {
+              "equals": ["0", "已保存 "],
+              "style": "color:blue",
+              "display": "未签名"
+            },
+            {
+              "equals": ["1", "已签名"],
+              "style": "color:red",
+              "display": "已签名"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "",
+      "type": "formGroupTitle",
+      "level": "1",
+      "title": "一、评估内容",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "1. 感觉",
+      "type": "formGroupHorizontalBox",
+      "titleStyle":"text-align:left",
+      "title": "1. 感觉",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "1. 感觉",
+      "suffixDesc": "",
+      "keys": "I005001",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I005001",
+          "type": "radio",
+          "title": "完全受限",
+          "code": "1",
+          "score": "1",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I005001",
+          "type": "radio",
+          "title": "非常受限",
+          "code": "2",
+          "score": "2",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I005001",
+          "type": "radio",
+          "title": "轻度受限",
+          "code": "3",
+          "score": "3",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I005001",
+          "type": "radio",
+          "title": "未受损害",
+          "code": "4",
+          "score": "4",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        }
+      ]
+    },
+    {
+      "name": "2. 潮湿",
+      "type": "formGroupHorizontalBox",
+      "titleStyle":"text-align:left",
+      "title": "2. 潮湿",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "2. 潮湿",
+      "suffixDesc": "",
+      "keys": "I005002",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I005002",
+          "type": "radio",
+          "title": "持久潮湿",
+          "code": "1",
+          "score": "1",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I005002",
+          "type": "radio",
+          "title": "非常潮湿",
+          "code": "2",
+          "score": "2",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I005002",
+          "type": "radio",
+          "title": "偶尔潮湿",
+          "code": "3",
+          "score": "3",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I005002",
+          "type": "radio",
+          "title": "很少潮湿",
+          "code": "4",
+          "score": "4",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        }
+      ]
+    },
+    {
+      "name": "3. 活动",
+      "type": "formGroupHorizontalBox",
+      "titleStyle":"text-align:left",
+      "title": "3. 活动",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "3. 活动",
+      "suffixDesc": "",
+      "keys": "I005003",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I005003",
+          "type": "radio",
+          "title": "卧床不起",
+          "code": "1",
+          "score": "1",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I005003",
+          "type": "radio",
+          "title": "局限于椅",
+          "code": "2",
+          "score": "2",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I005003",
+          "type": "radio",
+          "title": "偶尔步行",
+          "code": "3",
+          "score": "3",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I005003",
+          "type": "radio",
+          "title": "经常步行",
+          "code": "4",
+          "score": "4",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        }
+      ]
+    },
+    {
+      "name": "4. 移动",
+      "type": "formGroupHorizontalBox",
+      "titleStyle":"text-align:left",
+      "title": "4. 移动",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "4. 移动",
+      "suffixDesc": "",
+      "keys": "I005004",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I005004",
+          "type": "radio",
+          "title": "完全不能",
+          "code": "1",
+          "score": "1",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I005004",
+          "type": "radio",
+          "title": "严重受限",
+          "code": "2",
+          "score": "2",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I005004",
+          "type": "radio",
+          "title": "轻度受限",
+          "code": "3",
+          "score": "3",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I005004",
+          "type": "radio",
+          "title": "不受限",
+          "code": "4",
+          "score": "4",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        }
+      ]
+    },
+    {
+      "name": "5. 营养",
+      "type": "formGroupHorizontalBox",
+      "titleStyle":"text-align:left",
+      "title": "5. 营养",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "5. 营养",
+      "suffixDesc": "",
+      "keys": "I005005",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I005005",
+          "type": "radio",
+          "title": "非常差",
+          "code": "1",
+          "score": "1",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I005005",
+          "type": "radio",
+          "title": "可能不足",
+          "code": "2",
+          "score": "2",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I005005",
+          "type": "radio",
+          "title": "适当",
+          "code": "3",
+          "score": "3",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I005005",
+          "type": "radio",
+          "title": "良好",
+          "code": "4",
+          "score": "4",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        }
+      ]
+    },
+    {
+      "name": "6. 摩擦力和剪切力",
+      "type": "formGroupHorizontalBox",
+      "titleStyle":"text-align:left",
+      "title": "6. 摩擦力和剪切力",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "6. 摩擦力和剪切力",
+      "suffixDesc": "",
+      "keys": "I005006",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I005006",
+          "type": "radio",
+          "title": "有问题",
+          "code": "1",
+          "score": "1",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I005006",
+          "type": "radio",
+          "title": "有潜在问题",
+          "code": "2",
+          "score": "2",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I005006",
+          "type": "radio",
+          "title": "无明显问题",
+          "code": "3",
+          "score": "3",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        }
+      ]
+    },
+    {
+      "name": "evalScore",
+      "type": "formGroupColBox",
+      "col": 3,
+      "title": "",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "evalScore",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "evalScore",
+          "type": "input",
+          "title": "评估得分",
+          "code": "evalScore",
+          "value": 0,
+          "placeholder": "评估得分",
+          "style": "width:80px",
+          "class": null,
+          "readOnly": true
+        },
+        {
+          "name": "evalDesc",
+          "type": "input",
+          "title": "结果程度",
+          "code": "",
+          "value": "",
+          "placeholder": "结果程度",
+          "style": "width:80px",
+          "class": null,
+          "readOnly": true,
+          "rule": [
+            {
+              "min": "0",
+              "max": "10",
+              "equal": "极度危险",
+              "style": "color:red",
+              "display": "极度危险"
+            },
+            {
+              "min": "10",
+              "max": "13",
+              "equal": "高度危险",
+              "style": "color:red",
+              "display": "高度危险"
+            },
+            {
+              "min": "13",
+              "max": "15",
+              "equal": "中度危险",
+              "style": "color:blue",
+              "display": "中度危险"
+            },
+            {
+              "min": "15",
+              "max": "18",
+              "equal": "轻度危险",
+              "style": "color:blue",
+              "display": "轻度危险"
+            },
+            {
+              "min": "18",
+              "max": "999",
+              "equal": "没有风险",
+              "style": "color:black",
+              "display": "没有风险"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "",
+      "type": "formGroupTitle",
+      "level": "1",
+      "title": "二、护理措施",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "1. 体位转换",
+      "type": "formGroupVerticalBox",
+      "title": "1. 体位转换",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "M005001",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "M005001",
+          "type": "checkbox",
+          "title": "鼓励转动体位",
+          "code": "true",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "M005002",
+          "type": "checkbox",
+          "title": "帮助变换体位",
+          "code": "true",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "M005003",
+          "type": "checkbox",
+          "title": "每天下床坐椅子",
+          "code": "true",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "M005004",
+          "type": "checkbox",
+          "title": "其他",
+          "code": "true",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "2. 减少摩擦力和剪切力",
+      "type": "formGroupVerticalBox",
+      "title": "2. 减少摩擦力和剪切力",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "M005005",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "M005005",
+          "type": "checkbox",
+          "title": "移动患者时正确使用移动技巧",
+          "code": "true",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "M005006",
+          "type": "checkbox",
+          "title": "摩擦点处粘贴保护膜",
+          "code": "true",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "M005007",
+          "type": "checkbox",
+          "title": "保持半坐卧位，床头摇起应≤300，特殊情况除外",
+          "code": "true",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "M005008",
+          "type": "checkbox",
+          "title": "侧卧位＞300，特殊情况除外",
+          "code": "true",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "M005009",
+          "type": "checkbox",
+          "title": "其他",
+          "code": "true",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "3. 压力减缓用具的使用",
+      "type": "formGroupVerticalBox",
+      "title": "3. 压力减缓用具的使用",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "M005010",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "M005010",
+          "type": "checkbox",
+          "title": "气垫床、翻身床、悬浮床、波浪床",
+          "code": "true",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "M005011",
+          "type": "checkbox",
+          "title": "肘部和足后跟使用压力减缓装置",
+          "code": "true",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "M005012",
+          "type": "checkbox",
+          "title": "翻身枕",
+          "code": "true",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "M005013",
+          "type": "checkbox",
+          "title": "水垫",
+          "code": "true",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "M005014",
+          "type": "checkbox",
+          "title": "其他",
+          "code": "true",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "4. 皮肤护理",
+      "type": "formGroupVerticalBox",
+      "title": "4. 皮肤护理",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "M005015",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "M005015",
+          "type": "checkbox",
+          "title": "每天定时检查皮肤情况，特别是受压部位",
+          "code": "true",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "M005016",
+          "type": "checkbox",
+          "title": "帮助搞好个人卫生，如床上浴、更换衣物",
+          "code": "true",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "M005017",
+          "type": "checkbox",
+          "title": "当皮肤弄破时及时清洁",
+          "code": "true",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "M005018",
+          "type": "checkbox",
+          "title": "干性皮肤使用皮肤润肤露",
+          "code": "true",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "M005019",
+          "type": "checkbox",
+          "title": "受刺激物浸润区域使用皮肤保护物",
+          "code": "true",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "M005020",
+          "type": "checkbox",
+          "title": "使用纸尿片或纸尿裤",
+          "code": "true",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "M005021",
+          "type": "checkbox",
+          "title": "使用尿套",
+          "code": "true",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "M005022",
+          "type": "checkbox",
+          "title": "留置导尿管",
+          "code": "true",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "M005023",
+          "type": "checkbox",
+          "title": "大便失禁者安装造口袋或收集器材",
+          "code": "true",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "M005024",
+          "type": "checkbox",
+          "title": "其他",
+          "code": "true",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "5. 营养支持",
+      "type": "formGroupVerticalBox",
+      "title": "5. 营养支持",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "M005025",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "M005025",
+          "type": "checkbox",
+          "title": "合适的热量和蛋白质的摄入",
+          "code": "true",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "M005026",
+          "type": "checkbox",
+          "title": "请营养师会诊",
+          "code": "true",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "M005027",
+          "type": "checkbox",
+          "title": "鼻饲",
+          "code": "true",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "M005028",
+          "type": "checkbox",
+          "title": "静脉高营养",
+          "code": "true",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "M005029",
+          "type": "checkbox",
+          "title": "监测饮食摄入和排出",
+          "code": "true",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "M005030",
+          "type": "checkbox",
+          "title": "其他",
+          "code": "true",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        }
+      ]
+    }
+  ],
+  "dialogs": [],
+  "header": [],
+  "footer": []
+}

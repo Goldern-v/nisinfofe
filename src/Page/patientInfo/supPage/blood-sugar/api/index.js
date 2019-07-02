@@ -1,0 +1,52 @@
+// 登录模块api
+import axios from "@/api/axios";
+import { apiPath } from "@/api/apiConfig";
+import qs from "qs";
+
+// 根据患者id获取血糖记录
+export function getSugarListWithPatientId(patientId, visitId) {
+  return axios.post(
+    `${apiPath}threeTest/getSugarListWithPatientId`,
+    qs.stringify({ patientId, visitId })
+  );
+}
+
+// 批量创建或修改血糖(json格式)，如果是修改血糖需要传回oldRecordDay
+export function saveSugarList(list) {
+  return axios.post(`${apiPath}threeTest/saveBatchSugar`, { list });
+}
+
+// 根据详细信息删除血糖记录
+export function removeSugar(item) {
+  return axios.post(`${apiPath}threeTest/deleteSugar`, qs.stringify(item));
+}
+
+// 获取用户信息
+export function getUser(password, empNo) {
+  return axios.post(`${apiPath}user/getUser`, { password, empNo });
+}
+
+// 获取起始页码
+export function getPvHomePage(patientId, visitId) {
+  return axios.post(`${apiPath}form/pvHomePage/get`, {
+    patientId,
+    visitId,
+    formType: "sugar",
+    formCode: "procedure"
+  });
+}
+// 保存起始页码
+export function savePvHomePage(patientId, visitId, indexNo) {
+  return axios.post(`${apiPath}form/pvHomePage/save`, {
+    patientId,
+    visitId,
+    indexNo,
+    formType: "sugar",
+    formCode: "procedure"
+  });
+}
+
+// 血糖字典项
+export function getTypeList(wardCode) {
+  return axios.get(`${apiPath}threeTest/type/${wardCode}`);
+}

@@ -1,0 +1,112 @@
+{
+    "pageSetting": {
+        "size": "4A",
+        "rotation": "portrait",
+        "margin": "0",
+        "width": "750px",
+        "height": "auto",
+        "mode": "development_",
+        "style": ""
+    },
+    "formSetting": {
+        "formTitle": {
+            "hospitalName": "东莞市厚街医院",
+            "formName": "模 版 表"
+        },
+        "formHeads": [
+            {
+                "name": "name",
+                "value": null,
+                "title": "姓名",
+                "class": "",
+                "style": "",
+                "show": true
+            },
+            {
+                "name": "sex",
+                "value": null,
+                "title": "性别",
+                "class": "",
+                "style": "",
+                "show": true
+            },
+            {
+                "name": "age",
+                "value": null,
+                "title": "年龄",
+                "class": "",
+                "style": "",
+                "show": true
+            },
+            {
+                "name": "wardName",
+                "value": null,
+                "title": "病区",
+                "class": "",
+                "style": "",
+                "show": true
+            },
+            {
+                "name": "bedLabel",
+                "value": null,
+                "title": "床号",
+                "class": "",
+                "style": "",
+                "show": true
+            },
+            {
+                "name": "inpNo",
+                "value": null,
+                "title": "住院号",
+                "class": "",
+                "style": "",
+                "show": true
+            },
+            {
+                "name": "admissionDate",
+                "value": null,
+                "title": "入院日期",
+                "class": "",
+                "style": "",
+                "show": true
+            }
+        ],
+        "formTail": {
+            "showEvalScore": false,
+            "showSign": true,
+            "showAudit": true
+        },
+        "formInfo": {
+            "formCode": "C0003",
+            "formApiCode": "C0003",
+            "formName": "疼痛评估表",
+            "status": "0",
+            "formType": "eval"
+        }
+    },
+    "dictionary": {
+        "疼痛部位": "A, B, C, D"
+    },
+    "schemes": {
+        "I003003": "疼痛评估量表选择",
+        "I003002": "活动情况",
+        "I003001": "部位",
+        "I003004": "疼痛性质",
+        "I003005": "疼痛时间",
+        "I003006": "疼痛控制",
+        "M003001": "1.安慰病人",
+        "M003002": "2.解释病情",
+        "M003003": "3.卧床休息",
+        "M003004": "4.患肢体位摆放",
+        "M003005": "5.分散注意力",
+        "M003006": "6.冷敷",
+        "M003007": "7.热敷"
+    },
+    "model": {
+
+    },
+    "body": [],
+    "dialogs": [],
+    "header":[],
+    "footer":[]
+}

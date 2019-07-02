@@ -1,0 +1,222 @@
+[
+  {
+    "title": "单选弹框",
+    "type": "formGroupHorizontalBox",
+    "name": "字段名",
+    "prefixDesc": "",
+    "suffixDesc": "",
+    "modalWidth": 460,
+    "children": [
+      {
+        "name": "C003007",
+        "type": "radio",
+        "title": "选项1",
+        "value": "0",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      },
+      {
+        "name": "C003007",
+        "type": "radio",
+        "title": "选项2",
+        "value": "0",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
+    "title": "其他说明",
+    "type": "formGroupHorizontalBox",
+    "colWidth":["40%","60%"],
+    "name": "I001154",
+    "message": "",
+    "require": "false",
+    "aliasTitle": "其他说明：",
+    "showTitle": true,
+    "suffixDesc": "",
+    "keys": "",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 400,
+    "children": [
+      {
+        "name": "I001154",
+        "type": "input",
+        "title": "其他",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
+    "title": "其他费用支付方式",
+    "type": "formGroupHorizontalBox",
+    "colWidth":["40%","60%"],
+    "name": "I001016",
+    "message": "",
+    "require": "false",
+    "aliasTitle": "其他：",
+    "showTitle": true,
+    "suffixDesc": "",
+    "keys": "",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 400,
+    "children": [
+      {
+        "name": "I001016",
+        "type": "input",
+        "title": "其他",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
+    "title": "其他入院方式",
+    "type": "formGroupHorizontalBox",
+    "colWidth":["40%","60%"],
+    "name": "I001018",
+    "message": "",
+    "require": "false",
+    "aliasTitle": "其他：",
+    "showTitle": true,
+    "suffixDesc": "",
+    "keys": "",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 400,
+    "children": [
+      {
+        "name": "I001018",
+        "type": "input",
+        "title": "其他",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
+    "title": "其他资料来源",
+    "type": "formGroupHorizontalBox",
+    "colWidth":["40%","60%"],
+    "name": "I001015",
+    "message": "",
+    "require": "false",
+    "aliasTitle": "其他：",
+    "showTitle": true,
+    "suffixDesc": "",
+    "keys": "",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 400,
+    "children": [
+      {
+        "name": "I001015",
+        "type": "input",
+        "title": "其他",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
+    "title": "其他语言表达",
+    "type": "formGroupHorizontalBox",
+    "colWidth":["40%","60%"],
+    "name": "I001159",
+    "message": "",
+    "require": "false",
+    "aliasTitle": "其他：",
+    "showTitle": true,
+    "suffixDesc": "",
+    "keys": "",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 400,
+    "children": [
+      {
+        "name": "I001159",
+        "type": "input",
+        "title": "其他",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
+    "title": "其他口腔黏膜",
+    "type": "formGroupHorizontalBox",
+    "colWidth":["40%","60%"],
+    "name": "I001157",
+    "message": "",
+    "require": "false",
+    "aliasTitle": "其他：",
+    "showTitle": true,
+    "suffixDesc": "",
+    "keys": "",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 400,
+    "children": [
+      {
+        "name": "I001157",
+        "type": "input",
+        "title": "其他",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
+    "title": "其他活动辅助装置",
+    "type": "formGroupHorizontalBox",
+    "colWidth":["40%","60%"],
+    "name": "I001307",
+    "message": "",
+    "require": "false",
+    "aliasTitle": "其他：",
+    "showTitle": true,
+    "suffixDesc": "",
+    "keys": "",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 400,
+    "children": [
+      {
+        "name": "I001307",
+        "type": "input",
+        "title": "其他",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      }
+    ]
+  }
+
+]

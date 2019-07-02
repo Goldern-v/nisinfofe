@@ -1,0 +1,28 @@
+import Vue from 'vue'
+import vuex from 'vuex'
+import user from './module/user'
+import index from './module/index'
+import lesion from './module/lesion'
+import form from './module/form'
+import common from './module/common'
+import inBox from './module/inBox'
+import record from './module/record'
+import sheet from './module/sheet'
+import hospitalEval from './module/hospitalEval'
+Vue.use(vuex)
+
+let store = new vuex.Store({
+  modules: {
+    user,
+    index,
+    lesion,
+    form,
+    common,
+    inBox,
+    record,
+    sheet,
+    hospitalEval
+  }
+})
+
+export default store

@@ -1,0 +1,22 @@
+.blank {
+  color: #333;
+}
+.grey {
+  color: #999;
+}
+.content {
+  padding: 12px 14px;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  width: 100%;
+}
+.containter {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 6px 0;
+  & .content {
+    padding: 6px 14px;
+  }
+}

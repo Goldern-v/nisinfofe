@@ -1,0 +1,110 @@
+*{
+  // font-family: 'SimSun',"Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif !important;
+  font-family: simsun, "Times New Roman", Georgia, Serif !important
+  word-wrap:break-word
+  word-break:break-all
+}
+body
+  background #f2f2f2
+
+*::-webkit-scrollbar {
+    width: 7px;
+    height: 7px;
+    background-color: #EAEAEA;
+  }
+*::-webkit-scrollbar-track {
+    // -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    border-radius: 50px;
+    background-color: #EAEAEA;
+  }
+*::-webkit-scrollbar-thumb {
+    border-radius: 50px; // -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+    background-color: #C2C2C2
+  }
+.touch-ripple
+  cursor pointer
+.sl-ld
+    .sl-ld-ball
+      &:first-child
+        background: #4BB08D !important
+      &:last-child
+        background: #FFA500 !important
+// 确认弹窗背景
+.v-modal
+  z-index 10001 !important
+.el-message-box__wrapper
+  z-index 10002 !important
+// 时间选择器bug 层级
+.el-date-picker, .el-date-range-picker, .date-time-range-picker, .el-autocomplete-suggestion
+  z-index 10002 !important
+
+// 侧边层级
+.no-do-bg, .slide-con, .el-dialog__wrapper
+  z-index 10002 !important
+
+// 侧边提示的层级
+.el-notification
+  z-index 10003 !important
+
+// message层级
+.el-message
+  z-index 10004 !important
+// popover层级
+.el-popover
+  // z-index 10005 !important
+
+// 选择器层级
+.el-select-dropdown
+  z-index 10005 !important
+
+.el-button
+  padding: 8px 15px
+  border-radius 2px
+
+.el-input__inner
+  height 37px
+  background: #FFFFFF;
+  border: 1px solid #C2CBD2;
+  border-radius: 2px;
+
+.el-loading-mask
+  z-index 90 !important
+.el-message-box__wrapper
+  z-index 10000
+// 表格滚动条
+.el-table__body-wrapper, .el-table__footer-wrapper, .el-table__header-wrapper
+  margin-left -1px
+  width auto
+.el-tooltip__popper
+  z-index 20000 !important
+.el-autocomplete-suggestion li:active
+  background: rgb(228, 241, 240)
+.el-loading-spinner
+  z-index 1000000
+
+
+scrollBar($width, $height) {
+&::-webkit-scrollbar {
+    width: $width;
+    height: $height;
+    background-color: #EAEAEA;
+  }
+&::-webkit-scrollbar-track {
+    // -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    border-radius: 50px;
+    background-color: #EAEAEA;
+  }
+&::-webkit-scrollbar-thumb {
+    border-radius: 50px; // -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+    background-color: #C2C2C2
+  }
+}
+
+
+*[class*=" el-icon-"], *[class^=el-icon-] {
+    font-family: element-icons !important;
+}
+
+
+.el-time-panel
+  min-width 147px !important;

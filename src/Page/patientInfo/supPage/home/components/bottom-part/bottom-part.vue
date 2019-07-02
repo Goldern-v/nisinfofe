@@ -1,0 +1,38 @@
+<template>
+  <div flex="">
+    <div class="left-part">
+      <box title="护理评估">
+        <div slot="body">
+          <bottomLeft></bottomLeft>
+        </div>
+      </box>
+    </div>
+    <div class="right-part">
+      <bottomRight></bottomRight>
+    </div>
+  </div>
+</template>
+<style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
+.left-part
+  width 67%
+  margin-right 16px
+.right-part
+  width 33%  
+</style>
+<script>
+import box from "../box/box";
+import bottomLeft from "../bottom-left/bottom-left";
+import bottomRight from "../bottom-right/bottom-right";
+export default {
+  data() {
+    return {
+      totalCount: ""
+    };
+  },
+  components: {
+    box,
+    bottomLeft,
+    bottomRight
+  }
+};
+</script>

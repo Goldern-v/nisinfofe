@@ -1,0 +1,181 @@
+<template>
+  <div>
+    <sweet-modal ref="modal" :modalWidth="700" title="住院评估内容确认" @close="onClose">
+      <div>
+        <div class="title" style="margin-bottom: 5px">本次评估内容同步至：</div>
+        <el-checkbox label="护理记录单" v-model="tongbuzhi"></el-checkbox>
+        <el-checkbox label="三测单" v-model="tongbuzhi"></el-checkbox>
+        <el-checkbox label="ISBAR交班志" disabled v-model="tongbuzhi"></el-checkbox>
+
+        <el-checkbox label="签名此住院评估单" v-model="signEval" style="margin-left: 50px;"></el-checkbox>
+        <div style="height: 20px"></div>
+        <div class="part-2">
+          <div class="title">根据本次评估内容分析，患者可能有以下{{diagnosisList.length}}个护理问题，请您确认：</div>
+          <el-checkbox
+            v-for="(item, index) in diagnosisList"
+            :label="item.code"
+            :key="index"
+            @change="onClickBox(item)"
+            v-model="item.checked"
+          >{{item.name}}</el-checkbox>
+        </div>
+      </div>
+
+      <div slot="button">
+        <el-button class="modal-btn" @click="close">取消</el-button>
+        <el-button class="modal-btn" type="primary" @click="post">确定</el-button>
+      </div>
+    </sweet-modal>
+  </div>
+</template>
+<style lang='scss' scoped>
+.title {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+.el-checkbox,
+.is-bordered,
+.el-checkbox--small,
+.el-input,
+.el-input--small,
+.el-input-group,
+.el-input-group--prepend {
+  margin: 5px 0px;
+}
+
+.part-2 {
+  .el-checkbox,
+  .el-checkbox__input {
+    white-space: inherit !important;
+    display: flex;
+    font-size: 14px;
+    font-weight: bold;
+  }
+}
+</style>
+<script>
+import {
+  syncToRecord,
+  syncVitalSign,
+  nursingDiagsSaveList
+} from "../../../api/index";
+import { save } from "@/Page/sheet-hospital-eval/api/index.js";
+export default {
+  props: {
+    formObj: Object
+  },
+  data() {
+    return {
+      diagnosisList: [],
+      selectedList: [],
+      selectedListClone: [],
+      tongbuzhi: [],
+      formCode: "E0100",
+      signEval: true
+    };
+  },
+  methods: {
+    open(list) {
+      this.tongbuzhi = [];
+      this.diagnosisList = list.map(item => {
+        return Object.assign(item, {
+          checked: false,
+          _checked: false,
+          obj: null
+        });
+      });
+      this.signEval = true;
+      this.$refs.modal.open();
+    },
+    close() {
+      this.$refs.modal.close();
+    },
+    onClose() {
+      this.$root.$refs.diagnosisSlide.close();
+    },
+    post() {
+      window.openSignModal((password, empNo) => {
+        let promistList = [];
+        let objList = this.diagnosisList
+          .filter(item => item._checked)
+          .map(item => item.obj);
+        if (objList.length > 0) {
+          let obj = {
+            creator: password,
+            empNo,
+            diagList: objList
+          };
+          promistList.push(nursingDiagsSaveList(obj));
+        }
+        if (this.signEval) {
+          promistList.push(this.sign(password, empNo));
+        }
+
+        this.tongbuzhi.forEach(item => {
+          if (item == "护理记录单")
+            promistList.push(syncToRecord(this.formObj.model.id));
+          if (item == "三测单")
+            promistList.push(syncVitalSign(this.formObj.model.id));
+        });
+        Promise.all(promistList).then(res => {
+          this.$message.success("保存成功");
+          this.$root.$refs.diagnosisSlide.close();
+          this.close();
+        });
+      });
+    },
+    sign(password, empNo) {
+      let post = {
+        patientId: this.patientInfo.patientId,
+        visitId: this.patientInfo.visitId,
+        formType: "eval",
+        formCode: this.formCode,
+        sign: true,
+        empNo,
+        password
+      };
+      this.formObj.model.formCode = this.formCode;
+
+      post = Object.assign({}, this.formObj.model, post);
+      //
+      let postData = new Object();
+      for (const key in post) {
+        if (post.hasOwnProperty(key)) {
+          if (!key) {
+            continue;
+          }
+          if (post[key] === null || post[key] === "null") {
+            postData[key] = "";
+            continue;
+          }
+          postData[key] = post[key] + "";
+        }
+      }
+      console.log("签名post", post, postData);
+      //
+      return save(postData).then(res => {
+        this.$root.$refs.sheetHospitalEvalTool.selectBlock.status = "1";
+        this.$root.$refs.sheetHospitalEvalTool.changeSelectBlock(
+          this.$root.$refs.sheetHospitalEvalTool.selectBlock
+        );
+      });
+    },
+    onClickBox(item) {
+      console.log(item, "itemitem");
+      item.checked = item._checked;
+      // if (item._checked) {
+      //   this.$message.warning("你已经添加该诊断，请不要重复添加");
+      // } else {
+      this.$root.$refs.diagnosisSlide.open(item, item.obj);
+      // }
+    }
+  },
+  computed: {
+    patientInfo() {
+      return this.$store.state.sheet.patientInfo;
+    }
+  },
+  components: {}
+};
+</script>

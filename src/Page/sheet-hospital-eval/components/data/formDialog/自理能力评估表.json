@@ -1,0 +1,885 @@
+{
+  "pageSetting": {
+    "size": "4A",
+    "rotation": "portrait",
+    "margin": "0",
+    "width": "750px",
+    "height": "auto",
+    "mode": "development_",
+    "style": ""
+  },
+  "formSetting": {
+    "formTitle": {
+      "hospitalName": "东莞市厚街医院",
+      "formName": "自理能力评估表"
+    },
+    "formHeads": [
+      {
+        "name": "name",
+        "value": null,
+        "title": "姓名",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "sex",
+        "value": null,
+        "title": "性别",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "age",
+        "value": null,
+        "title": "年龄",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "wardName",
+        "value": null,
+        "title": "病区",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "bedLabel",
+        "value": null,
+        "title": "床号",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "inpNo",
+        "value": null,
+        "title": "住院号",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "admissionDate",
+        "value": null,
+        "title": "入院日期",
+        "class": "",
+        "style": "",
+        "show": true
+      }
+    ],
+    "formTail": {
+      "showEvalScore": false,
+      "showSign": true,
+      "showAudit": true
+    },
+    "formInfo": {
+      "formCode": "E0002",
+      "formApiCode": "E0002",
+      "formName": "自理能力评估表",
+      "status": "0",
+      "formType": "eval"
+    }
+  },
+  "dictionary": {},
+  "schemes": {},
+  "model": {},
+  "body": [
+    {
+      "name": "I003001",
+      "type": "formGroupColBox",
+      "col": 3,
+      "title": "",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "I003001",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "evalDate",
+          "type": "datePicker",
+          "title": "评估时间",
+          "value": "",
+          "placeholder": "评估时间",
+          "style": "width:145px",
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "signerName",
+          "type": "input",
+          "title": "评估人",
+          "value": "",
+          "placeholder": "评估人",
+          "style": "width:80px",
+          "class": null,
+          "readOnly": true
+        },
+        {
+          "name": "status",
+          "type": "input",
+          "title": "状态",
+          "value": "",
+          "placeholder": "状态",
+          "style": "width:80px",
+          "class": null,
+          "readOnly": true,
+          "rule": [
+            {
+              "equals": ["-1", "未保存"],
+              "style": "color:gray",
+              "display": "未签名"
+            },
+            {
+              "equals": ["0", "已保存 "],
+              "style": "color:blue",
+              "display": "未签名"
+            },
+            {
+              "equals": ["1", "已签名"],
+              "style": "color:red",
+              "display": "已签名"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "",
+      "type": "formGroupTitle",
+      "level": "1",
+      "title": "一、评估内容",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "1. 进食",
+      "type": "formGroupHorizontalBox",
+      "title": "1. 进食",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "1. 进食",
+      "suffixDesc": "",
+      "keys": "I002001",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I002001",
+          "type": "radio",
+          "title": "完全独立",
+          "code": "10",
+          "score": 10,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null,
+          "notips": "10分，可独立进食（在合理的时间内独立进食准备好的食物:<br/>①30分钟内在无他人任何帮助的情况下，能独立完成进食；<br/>②或无须他人帮助，可以使用辅助工具，自助完成进食。"
+        },
+        {
+          "name": "I002001",
+          "type": "radio",
+          "title": "需部分帮助",
+          "code": "5",
+          "score": 5,
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "notips": "5分，需部分帮助（进食过程中需要一定帮助：<br/>①需要有他人在旁监护，必要时协助；<br/>②要有人诱导，提示动作才能完成进食；<br/>③需要有人协助剥皮，去鱼刺，切食物，开盖，置换餐具，将食物放到勺子上等才能完成进食。"
+        },
+        {
+          "name": "I002001",
+          "type": "radio",
+          "title": "需极大帮助",
+          "code": "0",
+          "score": 0,
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "notips": "0分，需极大帮助或完全依赖他人，或有留置营养管"
+        }
+      ]
+    },
+    {
+      "name": "2. 洗澡",
+      "type": "formGroupHorizontalBox",
+      "title": "2. 洗澡",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "2. 洗澡",
+      "suffixDesc": "",
+      "keys": "I002002",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I002002",
+          "type": "radio",
+          "title": "完全独立",
+          "code": "5",
+          "score": 5,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null,
+          "notips": "5分，准备好洗澡水后，可自己独立完成洗澡过程"
+        },
+        {
+          "name": "I002002",
+          "type": "radio",
+          "title": "需部分帮助",
+          "code": "0",
+          "score": 0,
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "notips": "0分，在洗澡过程中需他人帮助"
+        }
+      ]
+    },
+    {
+      "name": "3. 修饰",
+      "type": "formGroupHorizontalBox",
+      "title": "3. 修饰",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "3. 修饰",
+      "suffixDesc": "",
+      "keys": "I002003",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I002003",
+          "type": "radio",
+          "title": "完全独立",
+          "code": "5",
+          "score": 5,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null,
+          "notips": "5分，可自己独立完成"
+        },
+        {
+          "name": "I002003",
+          "type": "radio",
+          "title": "需部分帮助",
+          "code": "0",
+          "score": 0,
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "notips": "0分，需他人帮助"
+        }
+      ]
+    },
+    {
+      "name": "4. 穿衣",
+      "type": "formGroupHorizontalBox",
+      "title": "4. 穿衣",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "4. 穿衣",
+      "suffixDesc": "",
+      "keys": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I002004",
+          "type": "radio",
+          "title": "完全独立",
+          "code": "10",
+          "score": 10,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null,
+          "notips": "10分，可独立完成"
+        },
+        {
+          "name": "I002004",
+          "type": "radio",
+          "title": "需部分帮助",
+          "code": "5",
+          "score": 5,
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "notips": "5分，需部分帮助（能自己穿脱，但需他人帮助整理衣物，系扣/鞋带，拉拉链：<br/>①需要有他人在旁监护，必要时协助；<br/>②需要有人诱导，提示，才能完成穿衣动作。"
+        },
+        {
+          "name": "I002004",
+          "type": "radio",
+          "title": "需极大帮助",
+          "code": "0",
+          "score": 0,
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "notips": "0分，需极大帮助或完全依赖他人"
+        }
+      ]
+    },
+    {
+      "name": "5. 控制大便",
+      "type": "formGroupHorizontalBox",
+      "title": "5. 控制大便",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "5. 控制大便",
+      "suffixDesc": "",
+      "keys": "I002005",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I002005",
+          "type": "radio",
+          "title": "完全独立",
+          "code": "10",
+          "score": 10,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null,
+          "notips": "10分，可控制大便"
+        },
+        {
+          "name": "I002005",
+          "type": "radio",
+          "title": "需部分帮助",
+          "code": "5",
+          "score": 5,
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "notips": "5分，偶尔失控（<br/>①排便失禁情况少于每周一次，含一次；<br/>②或需要部分帮助，包括排便时需要他人在旁监护；行为动作需要提示后才能完成等。"
+        },
+        {
+          "name": "I002005",
+          "type": "radio",
+          "title": "需极大帮助",
+          "code": "0",
+          "score": 0,
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "notips": "0分，完全失控"
+        }
+      ]
+    },
+    {
+      "name": "6. 控制小便",
+      "type": "formGroupHorizontalBox",
+      "title": "6. 控制小便",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "6. 控制小便",
+      "suffixDesc": "",
+      "keys": "I002006",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I002006",
+          "type": "radio",
+          "title": "完全独立",
+          "code": "10",
+          "score": 10,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null,
+          "notips": "10分，可控制小便"
+        },
+        {
+          "name": "I002006",
+          "type": "radio",
+          "title": "需部分帮助",
+          "code": "5",
+          "score": 5,
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "notips": "5分，偶尔失控（<br/>①尿失禁情况少于一次，含一次，但多于每周一次，含一次；<br/>②或需要部分帮助，包括排尿时需要他人在旁监护；行为动作需要提示后才能完成等。"
+        },
+        {
+          "name": "I002006",
+          "type": "radio",
+          "title": "需极大帮助",
+          "code": "0",
+          "score": 0,
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "notips": "0分，完全失控，或留置导尿管"
+        }
+      ]
+    },
+    {
+      "name": "7.如厕",
+      "type": "formGroupHorizontalBox",
+      "title": "7.如厕",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "7.如厕",
+      "suffixDesc": "",
+      "keys": "I002007",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I002007",
+          "type": "radio",
+          "title": "完全独立",
+          "code": "10",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null,
+          "score": 10,
+          "notips": "10分，可独立完成"
+        },
+        {
+          "name": "I002007",
+          "type": "radio",
+          "title": "需部分帮助",
+          "code": "5",
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "score": 5,
+          "notips": "5分，需部分帮助（需他人搀扶去厕所，需他人帮忙冲水或整理衣裤等）"
+        },
+        {
+          "name": "I002007",
+          "type": "radio",
+          "title": "需极大帮助",
+          "code": "3",
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "score": 0,
+          "notips": "0分，需极大帮助或完全依赖他人"
+        }
+      ]
+    },
+    {
+      "name": "8.床椅转移",
+      "type": "formGroupHorizontalBox",
+      "title": "8.床椅转移",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "8.床椅转移",
+      "suffixDesc": "",
+      "keys": "I002008",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I002008",
+          "type": "radio",
+          "title": "完全独立",
+          "code": "15",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null,
+          "score": 15,
+          "notips": "15分，可独立完成"
+        },
+        {
+          "name": "I002008",
+          "type": "radio",
+          "title": "需部分帮助",
+          "code": "10",
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "score": 10,
+          "notips": "10分，需要部分帮助（需要他人搀扶或是用拐杖）"
+        },
+        {
+          "name": "I002008",
+          "type": "radio",
+          "title": "需极大帮助",
+          "code": "5",
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "score": 5,
+          "notips": "5分，需极大帮助（较大程度依赖他人搀扶和帮助）"
+        },
+        {
+          "name": "I002008",
+          "type": "radio",
+          "title": "完全依赖",
+          "code": "0",
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "score": 0,
+          "notips": "0分，完全依赖他人"
+        }
+      ]
+    },
+    {
+      "name": "9.平地行走",
+      "type": "formGroupHorizontalBox",
+      "title": "9.平地行走",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "9.平地行走",
+      "suffixDesc": "",
+      "keys": "I002009",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I002009",
+          "type": "radio",
+          "title": "完全独立",
+          "code": "15",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null,
+          "score": 15,
+          "notips": "15分，可独立在平地上行走45米。"
+        },
+        {
+          "name": "I002009",
+          "type": "radio",
+          "title": "需部分帮助",
+          "code": "10",
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "score": 10,
+          "notips": "10分  需部分帮助（因肢体残疾，平衡能力差，过度衰弱，视力等问题，在一定程度上需他人搀扶或使用拐杖，助行器等辅助用具，不包括轮椅）"
+        },
+        {
+          "name": "I002009",
+          "type": "radio",
+          "title": "需极大帮助",
+          "code": "5",
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "score": 5,
+          "notips": "5分，需要极大帮助(因肢体残疾，平衡能力差，过度衰弱，视力等问题，在较大程度上依赖他人搀扶或坐在轮椅上自行移动)"
+        },
+        {
+          "name": "I002009",
+          "type": "radio",
+          "title": "完全依赖",
+          "code": "0",
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "score": 0,
+          "notips": "0分，完全依赖他人"
+        }
+      ]
+    },
+    {
+      "name": "10.上下楼梯",
+      "type": "formGroupHorizontalBox",
+      "title": "10.上下楼梯",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "10.上下楼梯",
+      "suffixDesc": "",
+      "keys": "I002010",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I002010",
+          "type": "radio",
+          "title": "完全独立",
+          "code": "10",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null,
+          "score": 10,
+          "notips": "10分，可独立上下楼梯（连续上下10—15个台阶）"
+        },
+        {
+          "name": "I002010",
+          "type": "radio",
+          "title": "需部分帮助",
+          "code": "5",
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "score": 5,
+          "notips": "5分，需要部分帮助（需他人帮助或扶着楼梯，使用拐杖等）"
+        },
+        {
+          "name": "I002010",
+          "type": "radio",
+          "title": "需极大帮助",
+          "code": "0",
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "score": 0,
+          "notips": "0分,需要极大帮助或完全依赖他人。"
+        }
+      ]
+    },
+    {
+      "name": "I003001",
+      "type": "formGroupColBox",
+      "col": 3,
+      "title": "",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "evalScore",
+          "type": "input",
+          "title": "评估得分",
+          "code": "evalScore",
+          "placeholder": "评估得分",
+          "style": "width:80px",
+          "class": null,
+          "readOnly": true
+        },
+        {
+          "name": "evalDesc",
+          "type": "input",
+          "title": "结果程度",
+          "code": "",
+          "placeholder": "结果程度",
+          "style": "width:80px",
+          "class": null,
+          "readOnly": true,
+          "rule": [
+            {
+              "min": "0",
+              "max": "21",
+              "equal": "生活完全依赖",
+              "style": "color:red",
+              "display": "生活完全依赖"
+            },
+            {
+              "min": "21",
+              "max": "40",
+              "equal": "生活需要很大帮助",
+              "style": "color:red",
+              "display": "生活需要很大帮助"
+            },
+            {
+              "min": "40",
+              "max": "61",
+              "equal": "生活需要帮助",
+              "style": "color:red",
+              "display": "生活需要帮助"
+            },
+            {
+              "min": "61",
+              "max": "100",
+              "equal": "生活基本自理",
+              "style": "color:blue",
+              "display": "生活基本自理"
+            },
+            {
+              "min": "100",
+              "max": "1001",
+              "equal": "无需依赖",
+              "style": "color:blue",
+              "display": "无需依赖"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "",
+      "type": "formGroupTitle",
+      "level": "1",
+      "title": "二、护理措施",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": " ",
+      "type": "formGroupVerticalBox",
+      "colWidth": ["0%", "100%"],
+      "title": " ",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "M002001",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "M002001",
+          "type": "checkbox",
+          "title": "1.协助使用辅具进食或喂眺望",
+          "code": "true",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "M002002",
+          "type": "checkbox",
+          "title": "2.协助洗手、洗脸、刷牙、梳头",
+          "code": "true",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "M002003",
+          "type": "checkbox",
+          "title": "3.协助使用便盆、尿壶、清洁肛周",
+          "code": "true",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "M002004",
+          "type": "checkbox",
+          "title": "4.协助盆浴或淋浴",
+          "code": "true",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "M002005",
+          "type": "checkbox",
+          "title": "5.协助穿脱衣裤、穿鞋子、系鞋带",
+          "code": "true",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "M002006",
+          "type": "checkbox",
+          "title": "6.指导使用开塞露、清洁大便",
+          "code": "true",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "M002007",
+          "type": "checkbox",
+          "title": "7.协助使用清洁尿套或尿袋、清洗皮肤和更换尿袋",
+          "code": "true",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "M002008",
+          "type": "checkbox",
+          "title": "8.协助平地行走，一天2-3次",
+          "code": "true",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "M002009",
+          "type": "checkbox",
+          "title": "9.协助上下楼梯，一天2-3次",
+          "code": "true",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "M002010",
+          "type": "checkbox",
+          "title": "10.协助上下床或坐椅子，一天2-3次，每次60分钟",
+          "code": "true",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        }
+      ]
+    }
+  ],
+  "dialogs": [],
+  "header": [],
+  "footer": []
+}

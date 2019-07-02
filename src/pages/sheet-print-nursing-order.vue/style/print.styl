@@ -1,0 +1,66 @@
+#sheetNursingOrderPrint{
+  overflow hidden
+  .contant{
+    margin 0 !important
+    margin-top: 10px !important;
+    border: 0px!important;
+    width 700px !important
+    }
+  .sheet-table {
+      width 640px !important
+      }
+  .add-row {
+      display none
+    }
+  .body-con {
+    background #fff !important
+  }
+  input {
+    color #000 !important;
+  }
+  .canSet{
+    color #000
+  }
+  td[datakey="signerNo"] {
+    display: table-cell !important
+  }
+  td[datakey="signerName"] {
+    display none !important
+  }
+  td[datakey="signerNo2"] {
+    display: table-cell !important
+  }
+  td[datakey="signerName2"] {
+    display none !important
+  }
+}
+@media print {
+  body{
+    padding-top:30px;
+  }
+  @page {
+    size: A4;
+    margin:0;
+  }
+  #sheetNursingOrderPrint {
+     .contant {
+       border: 0px!important;
+       margin 0 !important
+       margin-top 20 !important
+       padding 0 !important
+       width 660px !important
+       page-break-after always
+      }
+    .sheet-table {
+      width 640px !important
+      }
+    .his-logo {
+      top 0 !important
+      left 0 !important
+      }
+    .header-con h1 {
+      margin-top 0 !important
+      }
+    }
+
+}

@@ -1,0 +1,59 @@
+// axios 全局配置
+import axios from 'axios'
+import qs from 'qs'
+import { host } from './apiConfig'
+import Cookies from 'js-cookie'
+import { $params } from '@/pages/sheet-print/tool/tool'
+// 统一处理token发送
+axios.interceptors.request.use((config) => {
+    // 判断如果是登录 则无需验证token
+    config.headers.common['App-Token-Nursing'] = $params.appToken || '51e827c9-d80e-40a1-a95a-1edc257596e7'
+    if (config.url.indexOf('login') > -1 || config.url.indexOf('autoLogin') > -1 || config.url.indexOf('logout') > -1) return config
+
+    var token = (window.app && window.app.$getCookie('NURSING_USER').split('##')[1]) || $params.token
+    var user = localStorage['user']
+    if (token) {
+        config.headers.common['Auth-Token-Nursing'] = token
+        return config
+    } else {
+        // 跳转到登录页
+        window.app.$router.push('/login')
+    }
+})
+// 拦截请求访问失败
+axios.interceptors.response.use((res) => {
+    // if (typeof res.data === 'string') res.data = JSON.parse(res.data)
+
+    var data = res.data
+    // 如果token没有通过
+    if (data.code === '300') {
+        window.app && window.app.$message({
+            showClose: true,
+            message: data.desc || '服务器开小差了',
+            type: 'error'
+        })
+        return Promise.reject()
+    } else if (data.code === '301') {
+        window.app && window.app.$message({
+            showClose: true,
+            message: '登录超时，请重新登录',
+            type: 'warning'
+        })
+        window.app && window.app.$store.commit('upRelogin', window.app.$route.fullPath)
+        setTimeout(() => {
+            window.app.$router.push({ path: '/login' })
+        }, 100)
+        return Promise.reject()
+    } else {
+        return res
+    }
+}, () => {
+    window.app && window.app.$message({
+        showClose: true,
+        message: '网络错误，请检查你的网络',
+        type: 'warning'
+    })
+    return Promise.reject()
+})
+
+export default axios
