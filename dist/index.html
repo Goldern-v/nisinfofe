@@ -1,54 +1,77 @@
-<head><link href=/crNursing/webpage/dist/static/css/index.e535d0b3103903ba36a225bf66aeb52e.css rel=stylesheet><link href=/crNursing/webpage/dist/static/css/index.e535d0b3103903ba36a225bf66aeb52e.css rel=stylesheet><link href=./static/css/index.7eb80d5de4369f99cfd500de98734a17.css rel=stylesheet></head>Html Webpack Plugin:<pre>
-  Error: Child compilation failed:
-  Entry module not found: Error: Can't resolve '/Users/wei/Data/OneDrive/Projects/ChenRuiDevelopment/SmartHospital/nisinfofe/index.ht  ml' in '/Users/wei/Data/OneDrive/Projects/ChenRuiDevelopment/SmartHospital/nisinfofe':
-  Error: Can't resolve '/Users/wei/Data/OneDrive/Projects/ChenRuiDevelopment/SmartHospital/nisinfofe/index.html' in '/Users/wei/Data/  OneDrive/Projects/ChenRuiDevelopment/SmartHospital/nisinfofe'
-  
-  - compiler.js:76 
-    [nisinfofe]/[_html-webpack-plugin@2.30.1@html-webpack-plugin]/lib/compiler.js:76:16
-  
-  - Compiler.js:296 Compiler.<anonymous>
-    [nisinfofe]/[_webpack@2.7.0@webpack]/lib/Compiler.js:296:10
-  
-  - Compiler.js:499 
-    [nisinfofe]/[_webpack@2.7.0@webpack]/lib/Compiler.js:499:13
-  
-  - Tapable.js:202 next
-    [nisinfofe]/[_tapable@0.2.9@tapable]/lib/Tapable.js:202:11
-  
-  - CachePlugin.js:62 Compiler.<anonymous>
-    [nisinfofe]/[_webpack@2.7.0@webpack]/lib/CachePlugin.js:62:5
-  
-  - Tapable.js:206 Compiler.applyPluginsAsyncSeries
-    [nisinfofe]/[_tapable@0.2.9@tapable]/lib/Tapable.js:206:13
-  
-  - Compiler.js:496 
-    [nisinfofe]/[_webpack@2.7.0@webpack]/lib/Compiler.js:496:10
-  
-  - Tapable.js:195 Compilation.applyPluginsAsyncSeries
-    [nisinfofe]/[_tapable@0.2.9@tapable]/lib/Tapable.js:195:46
-  
-  - Compilation.js:649 self.applyPluginsAsync.err
-    [nisinfofe]/[_webpack@2.7.0@webpack]/lib/Compilation.js:649:19
-  
-  - Tapable.js:195 Compilation.applyPluginsAsyncSeries
-    [nisinfofe]/[_tapable@0.2.9@tapable]/lib/Tapable.js:195:46
-  
-  - Compilation.js:640 self.applyPluginsAsync.err
-    [nisinfofe]/[_webpack@2.7.0@webpack]/lib/Compilation.js:640:11
-  
-  - Tapable.js:202 next
-    [nisinfofe]/[_tapable@0.2.9@tapable]/lib/Tapable.js:202:11
-  
-  - UglifyJsPlugin.js:230 Compilation.compilation.plugin
-    [nisinfofe]/[_webpack@2.7.0@webpack]/lib/optimize/UglifyJsPlugin.js:230:5
-  
-  - Tapable.js:206 Compilation.applyPluginsAsyncSeries
-    [nisinfofe]/[_tapable@0.2.9@tapable]/lib/Tapable.js:206:13
-  
-  - Compilation.js:635 self.applyPluginsAsync.err
-    [nisinfofe]/[_webpack@2.7.0@webpack]/lib/Compilation.js:635:10
-  
-  - Tapable.js:195 Compilation.applyPluginsAsyncSeries
-    [nisinfofe]/[_tapable@0.2.9@tapable]/lib/Tapable.js:195:46
-  
-</anonymous></anonymous></pre><script type=text/javascript src=/crNursing/webpage/dist/static/js/manifest.bc863652172e43131439.js></script><script type=text/javascript src=/crNursing/webpage/dist/static/js/vendor.f2bc59bc52a1665b6b91.js></script><script type=text/javascript src=/crNursing/webpage/dist/static/js/index.759ba53d57e05b617b15.js></script><script type=text/javascript src=/crNursing/webpage/dist/static/js/manifest.0fd89bf49e356ed088f9.js></script><script type=text/javascript src=/crNursing/webpage/dist/static/js/vendor.f2bc59bc52a1665b6b91.js></script><script type=text/javascript src=/crNursing/webpage/dist/static/js/index.2f725aaa8bd1d20a2794.js></script><script type=text/javascript src=./static/js/manifest.924e10eadd4186e9f2db.js></script><script type=text/javascript src=./static/js/vendor.f2bc59bc52a1665b6b91.js></script><script type=text/javascript src=./static/js/index.d613e7501198ffc5a253.js></script>
+<!DOCTYPE html><html><head><link rel="shortcut icon" href=/crNursing/resource/logo/logo.ico type=image/x-icon><meta http-equiv=Content-Type content="text/html; charset=UTF-8"><meta http-equiv=X-UA-Compatible content="IE=8"><meta http-equiv=Expires content=0><meta http-equiv=Pragma content=no-cache><meta http-equiv=Cache-control content=no-cache><meta http-equiv=Cache content=no-cache><title>宸瑞智慧护理信息系统</title><style>@-webkit-keyframes spin {
+        0% {
+          transform: rotate(0);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      @-moz-keyframes spin {
+        0% {
+          -moz-transform: rotate(0);
+        }
+        100% {
+          -moz-transform: rotate(360deg);
+        }
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      .spinner {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1003;
+        background: #fff;
+        overflow: hidden;
+      }
+
+      .spinner div:first-child {
+        display: block;
+        position: relative;
+        left: 50%;
+        top: 50%;
+        width: 70px;
+        height: 70px;
+        margin: -75px 0 0 -75px;
+        border-radius: 50%;
+        box-shadow: 0 4px 0px 0 rgba(75, 176, 171, 1);
+        transform: translate3d(0, 0, 0);
+        animation: spin 2s linear infinite;
+      }
+
+      .spinner div:first-child:after,
+      .spinner div:first-child:before {
+        content: "";
+        position: absolute;
+        border-radius: 50%;
+      }
+
+      .spinner div:first-child:before {
+        top: 5px;
+        left: 5px;
+        right: 5px;
+        bottom: 5px;
+        box-shadow: 0 3px 0px 0 rgb(248, 219, 89);
+        -webkit-animation: spin 3s linear infinite;
+        animation: spin 3s linear infinite;
+      }
+
+      .spinner div:first-child:after {
+        top: 15px;
+        left: 15px;
+        right: 15px;
+        bottom: 15px;
+        box-shadow: 3px 0px rgb(255, 100, 123);
+        animation: spin 1.5s linear infinite;
+      }</style><link href=./static/css/index.2fdc84063b519064306797622f34d682.css rel=stylesheet></head><body><div id=nb-global-spinner class=spinner><div class="blob blob-0"></div><div class="blob blob-1"></div><div class="blob blob-2"></div><div class="blob blob-3"></div><div class="blob blob-4"></div><div class="blob blob-5"></div></div><div id=app></div><script type=text/javascript src=./static/js/manifest.2f1077fa76f65f01b68d.js></script><script type=text/javascript src=./static/js/vendor.f2bc59bc52a1665b6b91.js></script><script type=text/javascript src=./static/js/index.e1c5dce0721aaa4ab7cf.js></script></body></html>
