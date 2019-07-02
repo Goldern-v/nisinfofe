@@ -30,7 +30,7 @@ if (hospitalName) {
 }
 
 console.log("打包:", hospitalList[envFileName] || "东莞市厚街医院");
-
+console.log(__dirname)
 // if (hospitalName == "--guiyi") {
 //   devEnv = require("./dev.env.guiyi");
 //   prodEnv = require("./prod.env.guiyi");
@@ -44,11 +44,12 @@ console.log("打包:", hospitalList[envFileName] || "东莞市厚街医院");
 module.exports = {
   build: {
     env: prodEnv,
-    index: path.resolve(__dirname, "../../index.html"),
+    index: path.resolve(__dirname, "../dist/index.html"),
     assetsRoot: path.resolve(__dirname, "../dist"),
     assetsSubDirectory: "static",
     // assetsPublicPath: './webpage/dist/',
     assetsPublicPath: "./",
+    // assetsPublicPath: "/crNursing/webpage/dist/",
     productionSourceMap: false,
     // Gzip off by default as many popular static hosts such as
     // Surge or Netlify already gzip all static assets for you.
