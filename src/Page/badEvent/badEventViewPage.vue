@@ -6,7 +6,7 @@
       <div class="viewbar-left">
         <div class="viewbar-left-top">
           <div class="bad-event-nav"><router-link to="/badEvent">不良事件</router-link> > 事件详情</div>
-          <div class="bad-event-title">{{$route.query.badEventOrderNo||''}} {{badEventName}}</div>
+          <div class="bad-event-title" v-if="$route.query.badEventOrderNo || badEventOrderNo">{{$route.query.badEventOrderNo || badEventOrderNo}} {{badEventName}}</div>
           <div class="state-text">
             <span>状态：</span>
             <span class="state">{{stateText}}</span>
@@ -263,6 +263,7 @@ export default {
       // stateText: '',
       stepStatus: 0,//步骤条状态
       badEventName: this.$route.params.name || '',//不良事件名称
+      badEventOrderNo: '',
     };
   },
   computed: {
@@ -295,6 +296,12 @@ export default {
       this.stepStatus = 3;
     }else {
       this.stepStatus = this.status+1;
+    }
+
+    // 获取不良事件编号
+    if (!this.$route.query.badEventOrderNo && this.wid && this.wid.CRForm && this.wid.CRForm.controller && this.wid.CRForm.controller.getFormData) {
+      let instance = JSON.parse(this.wid.CRForm.controller.getFormData(this.$route.params.name,this.$route.params.id));
+      this.badEventOrderNo = instance.badEventOrderNo;
     }
   },
   watch: {
@@ -360,6 +367,12 @@ export default {
       // }, 1000);
 
       // console.log("onloadPageWid", wid.rawData, wid.getFormData());
+
+      // 获取不良事件编号
+      if (!this.$route.query.badEventOrderNo && this.wid && this.wid.CRForm && this.wid.CRForm.controller && this.wid.CRForm.controller.getFormData) {
+        let instance = JSON.parse(this.wid.CRForm.controller.getFormData(this.$route.params.name,this.$route.params.id));
+        this.badEventOrderNo = instance.badEventOrderNo;
+      }
     },
     gotoEditPage() {
       this.$router.push({
