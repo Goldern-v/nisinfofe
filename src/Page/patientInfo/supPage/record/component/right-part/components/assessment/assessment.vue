@@ -642,6 +642,7 @@ export default {
     cleanAllMark(str = "") {
       try {
         let qStr = str;
+        // if(!this.wid.formatData || !this.wid.formatData.dataShop){}
         let keys = this.wid.formatData.dataShop.getModel();
         Object.keys(keys).map(k => {
           qStr = str ? str : '[name="' + k + '"]';
@@ -1326,13 +1327,14 @@ export default {
       }
       this.wid = this.$refs.iframe.contentWindow;
       // formApiCode
-      if (
-        this.wid &&
-        this.wid.formInfo &&
-        !this.wid.formInfo.hasOwnProperty("formApiCode")
-      ) {
-        return;
-      }
+      // if (
+      //   this.wid &&
+      //   this.wid.formInfo &&
+      //   !this.wid.formInfo.hasOwnProperty("formApiCode")
+      // ) {
+      //   return;
+      // }
+      //
       this.eventTarget = event.target;
       this.eventTarget.style.outline = "1px dashed green";
       // this.eventTarget.style.background = "#f9f73f";
@@ -1379,7 +1381,7 @@ export default {
       }
       let pageItems = [];
       // formatData.recordsPages
-      if (this.wid && this.wid.formatData.hasOwnProperty("recordsPages")) {
+      if (this.wid && this.wid.formatData && this.wid.formatData.hasOwnProperty("recordsPages")) {
         this.wid.formatData.recordsPages.map((page, index) => {
           let p = [...page].filter((r, i) => {
             if (
@@ -1419,7 +1421,7 @@ export default {
       console.log(
         "recordObj",
         recordObj,
-        this.wid.formatData.recordsPages,
+        // this.wid.formatData.recordsPages,
         this.marklist,
         this.handleMarklist,
         rowData,
@@ -1440,10 +1442,14 @@ export default {
         left: `${x}px`
       };
 
+      // let isTableForm = true;
+      // recordObj.formApiCode
+
       let data = [
         {
           name: "向上插入新行",
           icon: "charuxinhang",
+          disable: !recordObj.formApiCode,
           click: () => {
             let newItem = JSON.parse(JSON.stringify(rowData));
             Object.keys(newItem).forEach(k => {
@@ -1470,6 +1476,7 @@ export default {
         {
           name: "向下插入新行",
           icon: "xiangxiacharuyihang",
+          disable: !recordObj.formApiCode,
           click: () => {
             let newItem = JSON.parse(JSON.stringify(rowData));
             Object.keys(newItem).forEach(k => {
@@ -1495,6 +1502,7 @@ export default {
         {
           name: "删除整行",
           icon: "shanchuzhenghang",
+          disable: !recordObj.formApiCode,
           click: () => {
             this.delRecord(recordObj, rowData);
             console.log("删除整行", rowData);
