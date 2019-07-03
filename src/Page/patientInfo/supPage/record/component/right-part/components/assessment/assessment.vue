@@ -98,6 +98,7 @@ import messageModal from "../../../../../../supComponts/message-modal/message-mo
 import pizhuModal from "@/Page/patientInfo/supPage/record/component/right-part/components/comment/pizhu-modal.vue";
 import { del } from "@/api/mutilRecord.js";
 import {
+  markListById,
   handlepz,
   delpz,
   auditpz
@@ -126,7 +127,9 @@ export default {
       showSignSave: false,
       formStatus: "0",
       isLandscape: false,
-      eventTarget: null
+      eventTarget: null,
+      marklist: [],
+      handleMarklist: []
     };
   },
   created() {
@@ -148,11 +151,13 @@ export default {
     this.bus.$on("delAssessment", this.delAssessment);
     this.bus.$on("setAssessmentLoadingStatus", this.setLoadingStatus);
     //
-    this.bus.$on("openPizhuModal", (tr, td) => {
-      this.$refs.pizhuModal.open(tr, td);
+    this.bus.$on("openPizhuModalBox", (tr, td, callback = null) => {
+      this.$refs.pizhuModal.open(tr, td, callback);
     });
   },
-  mounted() {},
+  mounted() {
+    window.cleanAllMark = this.cleanAllMark;
+  },
   methods: {
     openNewFormBox(box) {
       this.$refs.openFormModal.open(box);
@@ -164,7 +169,7 @@ export default {
     },
     // 点击左边栏目录里已经记录好的模版,通过改变iframe URL属性,刷新iframe内容
     openUrl(info) {
-      console.log(info, "mmmmtttttttttt");
+      // console.log(info, "mmmmtttttttttt");
       this.pageLoading = true;
       this.iframeHeight = 0;
       let token = window.app.$getCookie("NURSING_USER").split("##")[1];
@@ -180,9 +185,14 @@ export default {
         this.info.nooForm = "0";
       }
 
-      // 关闭右键菜单
+      // 关闭右键菜单\批注
       window.closeContextMenu();
+      window.closeMarkTip();
       //
+      this.marklist = [];
+      this.handleMarklist = [];
+      // 获取批注列表
+      this.getMarkList();
 
       // 如果是新版表单
       // let query = this.$route.query
@@ -230,10 +240,6 @@ export default {
       } else {
         this.showSignSave = this.info.showSignSave || false;
         let formid = this.info.id;
-        // let url = `${host}/crNursing/api/form/view/${info.id}/${query.patientId}/${query.visitId}/${query.name}/${query.sex}/${query.age}/${query.deptCode}/${query.bedLabel}/${query.inpNo}/${query.wardCode}?App-Token-Nursing=51e827c9-d80e-40a1-a95a-1edc257596e7&Auth-Token-Nursing=${token}`
-        // url =
-        //   `${host}/crNursing/api/form/input/${this.info.formCode}/${query.patientId}/${query.visitId}/${query.name}/${query.sex}/${query.age}/${query.deptCode}/${query.bedLabel}/${query.inpNo}/${query.wardCode}?App-Token-Nursing=51e827c9-d80e-40a1-a95a-1edc257596e7&Auth-Token-Nursing=${token}`
-
         if (this.isDev) {
           url = `${devFormUrl}/${this.info.pageUrl}?${qs.stringify(queryObj)}`;
           this.urlForm = `${formUrl}/${this.info.pageUrl}?${qs.stringify(
@@ -251,7 +257,7 @@ export default {
         this.url = url;
       }
     },
-    onPageLoaded() {
+    onPageLoaded(type = "") {
       this.pageLoading = false;
       // 如果是新表单
 
@@ -269,7 +275,7 @@ export default {
       }
 
       //
-      console.log("表单名", this.info, this.info.title);
+      console.log("表单名", [type], this.info, this.info.title);
       try {
         // 健康教育单
         if (this.info.pageItem) {
@@ -314,8 +320,14 @@ export default {
             creator: this.info.creator,
             listPrint: this.info.listPrint
           });
-          return;
+          // return;
         }
+        //
+        if (this.marklist) {
+          // console.log("!!marklist!!", this.marklist);
+          this.onloadMarkList();
+        }
+        //
       } catch (e) {
         console.log(e);
       }
@@ -326,47 +338,26 @@ export default {
       console.log(e, "message");
       // if (e.data.type == 'loaded' || e.data.type == "webpackOk") {
       if (e.data.type === "loaded" || e.data.type == "webpackOk") {
-        this.onPageLoaded();
+        this.onPageLoaded("onmessage");
       }
     },
     onload() {
       this.pageLoading = true;
       this.pageLoadingText = "数据加载中";
+      // this.marklist = [];
       let wid = this.$refs.iframe.contentWindow;
       this.wid = this.$refs.iframe.contentWindow;
 
       // window.document.addEventListener()
-      if (widClick || widContext || widScroll) {
-        this.wid.document.removeEventListener(widClick);
-        this.wid.document.removeEventListener(widScroll);
-        this.wid.document.removeEventListener(widContext);
-        this.wid.document.removeEventListener(widMouseover);
-        this.wid.document.removeEventListener(widMouseout);
-      }
+      this.wid.document.removeEventListener("click", this.onClick);
+      window.document.removeEventListener("onScroll", this.onClick);
+      this.wid.document.removeEventListener("contextmenu", this.onContextMenu);
 
       // window.document.addEventListener("click", this.onClick);
-      let widClick = this.wid.document.addEventListener("click", this.onClick);
-      let widScroll = window.document.addEventListener(
-        "onScroll",
-        this.onClick
-      );
-      let widContext = this.wid.document.addEventListener(
-        "contextmenu",
-        this.onContextMenu
-      );
+      this.wid.document.addEventListener("click", this.onClick);
+      window.document.addEventListener("onScroll", this.onClick);
+      this.wid.document.addEventListener("contextmenu", this.onContextMenu);
       //
-      let widMouseover = window.document.addEventListener(
-        "mouseover",
-        this.markTip
-      );
-      let widMouseout = window.document.addEventListener(
-        "mouseout",
-        this.closeMarkTip
-      );
-      // @mouseover="markTip($event, tr)"
-      // @mouseout="closeMarkTip"
-      // @click="onClick"
-      // @contextmenu="onContextMenu"
 
       this.iframeHeight = "auto";
       this.iframeHeight = 100;
@@ -515,6 +506,7 @@ export default {
       // 旧表单
       initList(wid);
       window.wid = wid;
+      this.wid = wid;
 
       try {
         window.wid.document.querySelector(
@@ -522,6 +514,10 @@ export default {
         ).innerText = this.hospitalNameSpace;
       } catch (error) {
         //
+      }
+
+      if (this.wid) {
+        this.cleanAllMark();
       }
 
       // if(!wid.$){return;}
@@ -638,6 +634,123 @@ export default {
 
       // this.iframeHeight = 'auto'
       // this.iframeHeight = wid.document.body.scrollHeight * 1.05;
+    },
+    cleanAllMark(str = "") {
+      try {
+        let qStr = str;
+        let keys = this.wid.formatData.dataShop.getModel();
+        Object.keys(keys).map(k => {
+          qStr = str ? str : '[name="' + k + '"]';
+          jQuery(qStr, this.wid.document).off();
+          let inputs = this.wid.document.querySelectorAll(qStr);
+          [...inputs].map(el => {
+            // this.handleMarklist
+            el.style.background = "";
+            // el.removeEventListener("mouseover", this.markTip,true);
+            // el.removeEventListener("mouseout", this.closeMarkTip,true);
+          });
+        });
+      } catch (err) {
+        console.warn(err);
+      }
+    },
+    onloadMarkList(callback = null) {
+      // console.log("onloadMarkList", this.marklist);
+      if (this.wid) {
+        console.log(
+          "onloadMarkList",
+          [callback],
+          this.marklist,
+          this.handleMarklist,
+          this.wid
+        );
+        // this.wid.document.querySelector()
+        // blockId: 14166  fieldEn: "bloodOxygenValue" recordId: 25696
+        // data-id="25696" data-blockid="14166" name=""
+        // initial input elements
+
+        this.cleanAllMark();
+
+        let markList = [...this.handleMarklist, ...this.marklist];
+
+        markList.map(m => {
+          if (m.recordId) {
+            let qstr = `[name='${m.fieldEn}'][data-id='${m.recordId}']`;
+            // let qstr = `[data-id='${m.recordId}'][data-blockid='${m.blockid}'][name='${m.fieldEn}']`;
+            // jQuery(qstr, this.wid.document).off()
+            let input = this.wid.document.querySelector(qstr);
+            // let bgColor = m.status==0?"#e3c1ff":'#ede7bd'
+            if (input) {
+              console.log("----input", input, m);
+              input.style.background = m.status == 0 ? "#e3c1ff" : "#ede7bd";
+              // input.style.outline = "2px solid #e3c1ff"
+              let widMouseover = input.addEventListener(
+                "mouseover",
+                () => {
+                  event.stopPropagation();
+                  let id = event.target.getAttribute("data-id");
+                  let name = event.target.getAttribute("name");
+                  let mid = [...this.handleMarklist, ...this.marklist].find(
+                    r => {
+                      return r.recordId == id && r.fieldEn == name;
+                    }
+                  );
+                  console.log("----mid", mid, id, markList, [
+                    ...this.handleMarklist
+                  ]);
+                  if (
+                    (id && mid && mid.recordId) ||
+                    (id && mid && m.status == 1)
+                  ) {
+                    input.style.background =
+                      m.status == 0 ? "#e3c1ff" : "#ede7bd";
+                    this.markTip(m);
+                  } else {
+                    input.style.background = "";
+                  }
+                  this.$forceUpdate();
+                },
+                true
+              );
+              let widMouseout = input.addEventListener(
+                "mouseout",
+                this.closeMarkTip,
+                true
+              );
+              input["$listeners"] = [widMouseover, widMouseout];
+            }
+          }
+        });
+        // if (this.wid.updateListTabelUI) {
+        //   this.wid.updateListTabelUI();
+        // }
+        if (callback) {
+          callback();
+        }
+      }
+    },
+    getMarkList(callback = null) {
+      //
+      // this.handleMarklist = [];
+      this.marklist = [];
+      if (this.info.id) {
+        markListById(this.info.id).then(res => {
+          // console.log("批注：", res);
+          if (res) {
+            let {
+              data: {
+                data: { list: list }
+              }
+            } = res;
+            this.marklist = JSON.parse(JSON.stringify(list));
+            console.log("批注：", this.marklist);
+            if (callback) {
+              callback();
+            }
+          }
+        });
+      }
+      //
     },
     print() {
       console.log(this.info, "info");
@@ -1185,10 +1298,9 @@ export default {
               window.app.bus.$emit("refreshTree");
             });
           },
-          "删除记录验证",
+          `删除记录验证-${this.wid.formInfo.title}`,
           false,
-          `请确认是否要删除这一条血氧饱和度为${rowData.bloodOxygenValue ||
-            ""}于${rowData.recordDate || ""}的记录?`
+          `请确认是否要删除这一条于${rowData.recordDate || ""}的记录?`
         );
       } else {
         for (const key in rowData) {
@@ -1205,8 +1317,8 @@ export default {
     onContextMenu() {
       console.log("onContextMenu", event);
       if (this.eventTarget) {
-        // this.eventTarget.style.outline = "";
-        this.eventTarget.style.background = "";
+        this.eventTarget.style.outline = "";
+        // this.eventTarget.style.background = "";
       }
       this.wid = this.$refs.iframe.contentWindow;
       // formApiCode
@@ -1218,8 +1330,8 @@ export default {
         return;
       }
       this.eventTarget = event.target;
-      // this.eventTarget.style.outline = "1px dashed green";
-      this.eventTarget.style.background = "#f9f73f";
+      this.eventTarget.style.outline = "1px dashed green";
+      // this.eventTarget.style.background = "#f9f73f";
       // $(event.target)
       //   .parents("tr")
       //   .addClass("selectedRow");
@@ -1241,11 +1353,18 @@ export default {
         pageIndex: event.target.getAttribute("data-pageIndex") || "",
         name: event.target.getAttribute("name") || ""
       };
-      Object.keys(recordObj).forEach(k => {
-        if (!recordObj[k]) {
-          return;
-        }
+      let mkid = [...this.marklist].find(r => {
+        return (
+          recordObj.id &&
+          r.recordId == recordObj.id &&
+          r.fieldEn == recordObj.name
+        );
       });
+      // Object.keys(recordObj).forEach(k => {
+      //   if (!recordObj[k]) {
+      //     return;
+      //   }
+      // });
       let pageIndex = event.target.getAttribute("data-pageIndex") || -1; // 第几页
       let recordIndex = event.target.getAttribute("data-index") || -1; // 第几行
       let rowData = {}; // 整页数据
@@ -1297,6 +1416,8 @@ export default {
         "recordObj",
         recordObj,
         this.wid.formatData.recordsPages,
+        this.marklist,
+        this.handleMarklist,
         rowData,
         "第",
         pageIndex,
@@ -1322,16 +1443,19 @@ export default {
           click: () => {
             let newItem = JSON.parse(JSON.stringify(rowData));
             Object.keys(newItem).forEach(k => {
-              if (k == "parentId") {
-                return;
+              if (k != "parentId") {
+                newItem[k] = "";
               }
-              newItem[k] = "";
             });
+            // data-index
+            let qstr = `[data-index='${recordIndex}']`;
             pageItems.splice(~~recordIndex, 0, newItem);
             console.log("向上插入新行", recordIndex, newItem, pageItems);
             //
             if (this.wid.updateListTabelUI) {
               this.wid.updateListTabelUI();
+              this.cleanAllMark(qstr);
+              // this.onloadMarkList();
             }
             //
             setTimeout(() => {
@@ -1345,16 +1469,18 @@ export default {
           click: () => {
             let newItem = JSON.parse(JSON.stringify(rowData));
             Object.keys(newItem).forEach(k => {
-              if (k == "parentId") {
-                return;
+              if (k != "parentId") {
+                newItem[k] = "";
               }
-              newItem[k] = "";
             });
+            // data-index
+            let qstr = `[data-index='${recordIndex}']`;
             pageItems.splice(~~recordIndex + 1, 0, newItem);
             console.log("向下插入新行", recordIndex, newItem, pageItems);
             //
             if (this.wid.updateListTabelUI) {
               this.wid.updateListTabelUI();
+              this.cleanAllMark(qstr);
             }
             //
             setTimeout(() => {
@@ -1373,27 +1499,40 @@ export default {
         {
           name: "添加格批注",
           icon: "pizhu",
+          disable: !recordObj.id || mkid,
           click: () => {
-            console.log("添加格批注");
-            this.bus.$emit(
-              "openPizhuModal",
-              { ...rowData, ...recordObj },
-              recordObj.name
-            );
-          }
-        },
-        {
-          name: "添加行批注",
-          icon: "pizhu",
-          click: () => {
-            console.log("添加行批注");
-            this.bus.$emit(
-              "openPizhuModal",
-              { ...rowData, ...recordObj },
-              "all"
-            );
+            console.log("添加格批注", recordObj.id);
+            if (recordObj.id) {
+              this.bus.$emit(
+                "openPizhuModalBox",
+                { ...rowData, ...recordObj },
+                recordObj.name,
+                () => {
+                  this.getMarkList(this.onloadMarkList);
+                }
+              );
+            }
           }
         }
+        // {
+        //   name: "添加行批注",
+        //   icon: "pizhu",
+        //   disable: !recordObj.id,
+        //   // disable: !recordObj.id || mkid,
+        //   click: () => {
+        //     console.log("添加行批注", recordObj.id);
+        //     if (recordObj.id) {
+        //       this.bus.$emit(
+        //         "openPizhuModalBox",
+        //         { ...rowData, ...recordObj },
+        //         "all",
+        //         () => {
+        //           this.getMarkList(this.onloadMarkList);
+        //         }
+        //       );
+        //     }
+        //   }
+        // }
       ];
       event.preventDefault();
       window.openContextMenu({ style, data });
@@ -1407,60 +1546,115 @@ export default {
       });
       if (this.eventTarget) {
         this.eventTarget.style.outline = "";
-        this.eventTarget.style.background = "";
+        // this.eventTarget.style.background = "";
       }
       window.closeContextMenu();
     },
-    markTip(e, td = {}) {
-      let dom = $(e.target).parents("td").length
-        ? $(e.target).parents("td")[0]
-        : e.target;
-      // let key = $(dom).attr("dataKey");
-      let key = $(dom).attr("name");
-      let obj;
-      if (td.markObj) {
-        // 格子
-        obj = td.markObj;
-        e.stopPropagation();
-      } else {
-        // 行
-        try {
-          obj = td.find(item => item.key == "markObj").value;
-        } catch (e) {}
+    markTip(obj = {}) {
+      console.log("markTip", event);
+      if (!event) {
+        return;
       }
-      let left, top;
+      let dom = event.target;
+      let key = $(dom).attr("name");
       if (obj) {
-        if (key == "description" || key == "sign" || key == "audit") {
-          left = dom.getBoundingClientRect().left - 240;
-        } else {
-          left =
-            dom.getBoundingClientRect().left +
-            dom.getBoundingClientRect().width;
-        }
-        top = Math.min(
-          dom.getBoundingClientRect().top + 1,
-          window.innerHeight - 140
-        );
+        let xyiframe = this.$refs.iframe.getBoundingClientRect();
+        let xy = event.target.getBoundingClientRect();
+        let y = xyiframe.top + xy.top + event.offsetY - 10;
+        let x = xyiframe.left + xy.left + event.offsetX + 10;
+        x = Math.min(x, window.innerWidth - 300);
+        console.log("xy", x, y, xy, xyiframe);
         window.openMarkTip({
           style: {
-            left,
-            top
+            left: x,
+            top: y
           },
           data: obj,
-          td,
+          td: { markObj: obj, event: event, value: dom.value },
           fun: {
             handlepz,
             delpz,
-            auditpz
+            auditpz,
+            callback: (td, operation = "", status=null) => {
+              if (td && td.markObj) {
+                console.log("--td--", operation, td);
+                if (td.markObj.status == 1) {
+                  let mobj = [...this.handleMarklist].find(r => {
+                    return r.id && r.id == td.markObj.id;
+                  });
+                  if (!mobj) {
+                    this.handleMarklist.push(td.markObj);
+                  }
+                }
+                console.log(
+                  "--this.handleMarklist--",
+                  this.markListArr,
+                  this.handleMarklist
+                );
+              }
+              if (["delete", "audit"].indexOf(operation) > -1) {
+                // td.markObj
+                console.log("--delete--", td.markObj.status, this.markList);
+                this.getMarkList()
+                // this.getMarkList(this.onloadMarkList());
+                //
+                // if (operation == "delete") {
+                  try{
+                    this.markList= [...this.markList].filter(r => {
+                      return (
+                        r.recordId != td.markObj.id &&
+                        r.fieldEn != td.markObj.fieldEn
+                      );
+                    });
+                  }catch(err){
+                    console.log(err)
+                  }
+
+                  try{
+                    // this.handleMarklist
+                    this.handleMarklist = [...this.handleMarklist].filter(r => {
+                      return (
+                        r.recordId != td.markObj.id &&
+                        r.fieldEn != td.markObj.fieldEn
+                      );
+                    });
+                  }catch(err){
+                    console.log(err)
+                  }
+                  //
+                // }
+              }
+              // handleMarklist
+              if (this.wid.updateListTabelUI) {
+                this.wid.updateListTabelUI();
+                this.cleanAllMark();
+              }
+
+              // this.getMarkList(()=>{
+              //   // if (this.wid.updateListTabelUI) {
+              //   //   this.wid.updateListTabelUI();
+              //   //   this.cleanAllMark();
+              //   // }
+              //   this.onloadMarkList()
+              //   setTimeout(() => {
+              //     this.onPageLoaded();
+              //   }, 100);
+              // });
+            }
           }
         });
       }
     },
     closeMarkTip() {
+      console.log("closeMarkTip", event);
       window.closeMarkTip();
     }
   },
-  computed: {},
+  computed: {
+    markListArr() {
+      return this.markList;
+    }
+  },
   watch: {
     url() {
       this.pageLoading = true;

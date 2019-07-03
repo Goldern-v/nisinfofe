@@ -14,11 +14,11 @@
       </div>
       <div class="footer-con" flex="cross:center">
         <div style="margin-right: 10px" class="btn-con" @click="handle" v-show="data.status == '0'">
-          <img src="./images/处理批注.png" alt>
+          <img src="./images/处理批注.png" alt />
           <span>处理标注</span>
         </div>
         <div class="btn-con" @click="audit" v-show="data.status == '1'">
-          <img src="./images/审核批注.png" alt>
+          <img src="./images/审核批注.png" alt />
           <span>审核批注</span>
         </div>
         <div flex-box="1"></div>
@@ -29,10 +29,10 @@
         </div>
       </div>
       <div class="close-btn" title="删除批注" @click="del" v-show="data.status == '0'">
-        <img src="./images/关 闭.png" alt>
+        <img src="./images/关 闭.png" alt />
       </div>
-      <img src="./images/待处理.png" alt class="status-img" v-show="data.status == '0'">
-      <img src="./images/待审核.png" alt class="status-img" v-show="data.status == '1'">
+      <img src="./images/待处理.png" alt class="status-img" v-show="data.status == '0'" />
+      <img src="./images/待审核.png" alt class="status-img" v-show="data.status == '1'" />
     </div>
     <signModal ref="signModal" title="输入账号账号密码处理批注"></signModal>
     <auditModal ref="auditModal"></auditModal>
@@ -123,11 +123,13 @@ export default {
       td: {},
       handlepz: null,
       delpz: null,
-      auditpz: null
+      auditpz: null,
+      callback: null
     };
   },
   methods: {
     open(config) {
+      console.log("批注开窗config", config);
       this.top = config.style.top;
       this.left = config.style.left;
       this.data = config.data;
@@ -136,6 +138,7 @@ export default {
       this.handlepz = config.fun.handlepz;
       this.delpz = config.fun.delpz;
       this.auditpz = config.fun.auditpz;
+      this.callback = config.fun.callback;
     },
     close() {
       this.show = false;
@@ -160,6 +163,9 @@ export default {
             } else {
               this.td.markObj.status = "1";
             }
+            if (this.callback) {
+              this.callback(this.td,'handle');
+            }
           });
         },
         "你确定处理该标注吗"
@@ -173,6 +179,9 @@ export default {
             this.auditpz(password, empNo, this.data.id, reject, content).then(
               res => {
                 this.$message.success("批注审核成功");
+                if (this.callback) {
+                   this.callback(JSON.parse(JSON.stringify(this.td)),'audit',res.data.data.status);
+                }
                 if (res.data.data.status == "0") {
                   if (this.td instanceof Array) {
                     this.td.find(item => item.key == "markObj").value.status =
@@ -205,6 +214,9 @@ export default {
           this.delpz(password, empNo, this.data.id).then(res => {
             this.$message.success("批注删除成功");
             $(".red-border").removeClass("red-border");
+            if (this.callback) {
+              this.callback(JSON.parse(JSON.stringify(this.td)),'delete');
+            }
             if (this.td instanceof Array) {
               this.td.find(item => item.key == "markObj").value = null;
             } else {

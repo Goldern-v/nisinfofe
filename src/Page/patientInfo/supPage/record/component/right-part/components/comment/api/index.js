@@ -32,6 +32,11 @@ export const markList = (patientId, visitId) => {
   );
 };
 
+// 获取标记集合
+export const markListById = (blockId) => {
+  return axios.get(`${apiPath}record/${sheetInfo.sheetType}/sign/list/${blockId}`)
+}
+
 // 保存批注
 export const saveMark = (
   recordId,

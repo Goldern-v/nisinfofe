@@ -208,6 +208,7 @@ export default {
       });
     },
     open(tr, td) {
+      console.log("批注开窗", tr, td);
       if (!tr.find(item => item.key == "id").value) {
         return this.$message.warning("只能对已保存的记录标注");
       }

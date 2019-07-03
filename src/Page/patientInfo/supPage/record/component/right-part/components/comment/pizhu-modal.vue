@@ -188,7 +188,8 @@ export default {
       todoPerson: "",
       CempName: "", //创建人
       empno: "", //创建人工号
-      password: ""
+      password: "",
+      callback:null,
     };
   },
   methods: {
@@ -205,19 +206,23 @@ export default {
       this.todoPerson = "";
       return userDictInfo(this.deptCode).then(res => {
         this.todoPersonList = res.data.data;
+        // console.log('this.todoPersonList',this.todoPersonList)
       });
     },
-    open(tr, td) {
+    open(tr, td,callback=null) {
       // if (!tr.find(item => item.key == "id").value) {
       //   return this.$message.warning("只能对已保存的记录标注");
       // }
       console.log("批注开窗", tr, td);
       this.tr = tr;
       this.td = td;
+      this.callback = callback;
       this.$refs.modal.open();
       this.init().then(res => {
         try {
-          let signerNo = tr.find(item => item.key == "empNo").value;
+          // console.log('this.todoPersonList',res)
+          // let signerNo = tr.find(item => item.key == "empNo").value;
+          let signerNo = tr.signerNo || tr.empNo;
           if (this.todoPersonList.find(item => item.code == signerNo)) {
             if (signerNo) this.todoPerson = signerNo;
           }
@@ -266,8 +271,11 @@ export default {
         //   // 格标注
         //   this.td.markObj = res.data.data;
         // }
-        console.log("保存成功", this.fieldEn, res.data.data);
-        this.$message.success("保存成功");
+        if(this.callback){
+          this.callback()
+        }
+        console.log("保存批注成功", this.fieldEn, res.data.data);
+        this.$message.success("保存批注成功");
         this.close();
       });
     },
