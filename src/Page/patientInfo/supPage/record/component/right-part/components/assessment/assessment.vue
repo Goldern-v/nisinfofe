@@ -29,50 +29,54 @@
 </template>
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
-.contant
+.contant {
   border-radius: 2px;
-  position relative
+  position: relative;
   background: #FFFFFF;
-  box-shadow: 0px 5px 10px 0 rgba(0,0,0,0.50);
-  padding 20px 0px
-  box-sizing border-box
-  width 760px
-  margin 0 auto
-  .assessment-iframe
-    width 100%
-    min-height 600px
-    overflow hidden
+  box-shadow: 0px 5px 10px 0 rgba(0, 0, 0, 0.5);
+  padding: 20px 0px;
+  box-sizing: border-box;
+  width: 760px;
+  margin: 0 auto;
 
+  .assessment-iframe {
+    width: 100%;
+    min-height: 600px;
+    overflow: hidden;
+  }
+}
 
 // .print-contain
-//   padding 20px
-//   position relative
-//   box-sizing border-box
-//   width 760px
-//   overflow hidden
-//   .iframe-con
-//     width 100%
-//     overflow hidden
-//     min-height 600px
-
-.contant-landscape
+// padding 20px
+// position relative
+// box-sizing border-box
+// width 760px
+// overflow hidden
+// .iframe-con
+// width 100%
+// overflow hidden
+// min-height 600px
+.contant-landscape {
   border-radius: 2px;
-  position relative
+  position: relative;
   background: #FFFFFF;
-  box-shadow: 0px 5px 10px 0 rgba(0,0,0,0.50);
-  padding 20px 20px
-  box-sizing border-box
-  width 1110px
+  box-shadow: 0px 5px 10px 0 rgba(0, 0, 0, 0.5);
+  padding: 20px 20px;
+  box-sizing: border-box;
+  width: 1110px;
   // min-width 1110px
-  margin 0 auto
-  .assessment-iframe
-    width 100%
-    overflow hidden
-    min-height 600px
+  margin: 0 auto;
 
+  .assessment-iframe {
+    width: 100%;
+    overflow: hidden;
+    min-height: 600px;
+  }
+}
 
->>>.el-loading-mask
-      background: white!important;
+>>>.el-loading-mask {
+  background: white !important;
+}
 </style>
 
 <script>

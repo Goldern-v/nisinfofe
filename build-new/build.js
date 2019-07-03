@@ -11,32 +11,13 @@ var config = require("../config");
 var webpackConfig = require("./webpack.prod.conf");
 var moment = require("moment");
 var fs = require("fs");
-var versionInfo = require("../version.json");
-versionInfo["医院名"] = config.build.env.HOSPITAL_NAME;
-versionInfo["最近打包时间"] = moment().format("YYYY-MM-DD HH:mm");
-versionInfo["版本号"] = moment().format("YYYY.MM.DD");
-versionInfo["proxyTable"] = config.dev.proxyTable || "";
-// console.log("versionInfo", JSON.stringify(versionInfo, null, 4));
-// console.log("config", JSON.stringify(config.dev.proxyTable, null, 4));
-// .config["/crNursing/api"].target
-fs.writeFile(
-  "./src/version.json",
-  JSON.stringify(versionInfo, null, 4),
-  "utf8",
-  function(err) {
-    if (err) {
-      return console.error(err);
-    }
-    console.log("File created!");
-  }
-);
-
+var versionInfo = require("./version.js");
 var spinner = ora("building for production...");
 spinner.start();
 
 rm(path.join(config.build.assetsRoot, config.build.assetsSubDirectory), err => {
   if (err) throw err;
-  webpack(webpackConfig, function(err, stats) {
+  webpack(webpackConfig, function (err, stats) {
     spinner.stop();
     if (err) throw err;
     process.stdout.write(
@@ -58,7 +39,7 @@ rm(path.join(config.build.assetsRoot, config.build.assetsSubDirectory), err => {
     console.log(
       chalk.yellow(
         "  Tip: built files are meant to be served over an HTTP server.\n" +
-          "  Opening index.html over file:// won't work.\n"
+        "  Opening index.html over file:// won't work.\n"
       )
     );
   });

@@ -1,13 +1,13 @@
 <template>
   <div>
     <!-- 解决password自动填充bug -->
-    <input type="password" style="display:none">
+    <input type="password" style="display:none" />
     <div id="hl-nav-con">
       <div class="header-con">
         <el-row type="flex" class="row-bg" justify="space-between">
           <el-row class="left-part" type="flex">
             <el-row class="logo-con" type="flex" justify="center" align="middle">
-              <img src="../../common/images/logo-white-60.png" height="63" width="63">
+              <img src="../../common/images/logo-white-60.png" height="63" width="63" />
               <span>宸瑞智慧护理信息系统</span>
             </el-row>
             <!-- <router-link to="/index"
@@ -109,7 +109,7 @@
                     </el-row>
                   </router-link>
                 </el-dropdown-item>
-                <el-dropdown-item v-if="isDev">
+                <el-dropdown-item>
                   <router-link to="/handlingPage" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
                       <i class="healthEducation"></i>住院病人处理单
@@ -349,7 +349,7 @@
     font-size: 18px;
     position: relative;
     top: -1px;
-    display none
+    display: none;
   }
 
   &:hover {
@@ -366,18 +366,21 @@
     border-bottom: 4px solid transparent;
   }
 }
+
 .el-dropdown-menu {
   min-width: 158px;
-  margin 0;
+  margin: 0;
 }
-.el-dropdown-menu__item:not(.is-disabled):hover, .el-dropdown-menu__item.active {
 
+.el-dropdown-menu__item:not(.is-disabled):hover, .el-dropdown-menu__item.active {
   background-color: #F8F8FA;
+
   .menu-item {
     color: #333;
     font-weight: bold;
   }
 }
+
 .menu-item {
   height: 38px;
   padding: 0 0px;
@@ -386,6 +389,7 @@
   color: #687179;
   letter-spacing: 0;
   cursor: pointer;
+
   i {
     display: inline-block;
     width: 28px;
@@ -393,36 +397,47 @@
     background-size: 50%;
     background-repeat: no-repeat;
     background-position: center;
+
     &.sheetHospitalAdmission {
       background-image: url('../../common/images/index/入院评估.png');
     }
+
     &.sheetHospitalEval {
       background-image: url('../../common/images/index/住院评估.png');
     }
+
     &.nursingAssessment {
       background-image: url('../../common/images/index/护理评估.png');
     }
+
     &.bloodSugar {
       background-image: url('../../common/images/index/血糖.png');
     }
+
     &.healthEducation {
       background-image: url('../../common/images/index/健康教育单.png');
     }
+
     &.nursingDocumentation {
       background-image: url('../../common/images/index/患者查询.png');
     }
+
     &.catheterPage {
       background-image: url('../../common/images/index/导管.png');
     }
+
     &.wardReport {
       background-image: url('../../common/images/index/病房日报.png');
     }
+
     &.inpatientReport {
       background-image: url('../../common/images/index/住院日报.png');
     }
+
     &.badEvent {
       background-image: url('../../common/images/index/不良事件.jpg');
     }
+
     &.nursingRules {
       background-image: url('../../common/images/index/制度.png');
     }

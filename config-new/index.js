@@ -30,7 +30,7 @@ if (hospitalName) {
 }
 
 console.log("打包:", hospitalList[envFileName] || "东莞市厚街医院");
-
+console.log(__dirname)
 // if (hospitalName == "--guiyi") {
 //   devEnv = require("./dev.env.guiyi");
 //   prodEnv = require("./prod.env.guiyi");
@@ -44,11 +44,12 @@ console.log("打包:", hospitalList[envFileName] || "东莞市厚街医院");
 module.exports = {
   build: {
     env: prodEnv,
-    index: path.resolve(__dirname, "../../index.html"),
-    assetsRoot: path.resolve(__dirname, "../dist"),
+    index: path.resolve(__dirname, `../dist/${hospitalList[envFileName]}/index.html`),
+    assetsRoot: path.resolve(__dirname, `../dist/${hospitalList[envFileName]}`),
     assetsSubDirectory: "static",
     // assetsPublicPath: './webpage/dist/',
-    assetsPublicPath: "/crNursing/webpage/dist/",
+    assetsPublicPath: "./",
+    // assetsPublicPath: "/crNursing/webpage/dist/",
     productionSourceMap: false,
     // Gzip off by default as many popular static hosts such as
     // Surge or Netlify already gzip all static assets for you.
@@ -78,11 +79,11 @@ module.exports = {
     cssSourceMap: false,
     proxyTable: {
       "/crNursing/api": {
-        // target: "http://120.197.141.41 1:9091", //厚街正式
+        // target: "http://120.197.141.4·1 1:9091", //厚街正式
         // target: "http://58.42.249.209:17953", //贵州医科大正式
-        target: "http://120.197.141.41:9094", //东莞正式库的测试
+        // target: "http://120.197.141.41:9094", //东莞正式库的测试
 
-        // target: "http://120.25.105.45:9864", //厚街测试
+        target: "http://120.25.105.45:9864", //厚街测试
         // target: "http://192.168.1.20:8964", // 内网测试cno
         // target: "http://dev.cr-health.com:4453", // 外网测试
         // target: "http://192.168.2.91:8062", // 内网兆彬IP测试

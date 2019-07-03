@@ -46,14 +46,14 @@
       <!-- <div class="item-box" flex="cross:center main:center" @click="generalPatientArrange">
         <div class="text-con">一键排班</div>
       </div>-->
-      <!-- <div
+      <div
         class="item-box"
         flex="cross:center main:center"
         @click="copyLastWeek"
         style="width: 110px;"
       >
         <div class="text-con">复制上周排班</div>
-      </div>-->
+      </div>
 
       <div flex-box="1"></div>
       <!-- <span class="label">护理记录：</span> -->
@@ -70,15 +70,17 @@
   </div>
 </template>
 
-<style lang="stylus" rel="stylesheet/stylus" type="text/stylus" src="./tool.styl" scoped>
-</style>
+<style lang="stylus" rel="stylesheet/stylus" type="text/stylus" src="./tool.styl" scoped></style>
 
 <style lang="stylus" scoped>
-.tool-box
-  margin-right 20px;
-.label
-  font-size 12px;
-  color #333
+.tool-box {
+  margin-right: 20px;
+}
+
+.label {
+  font-size: 12px;
+  color: #333;
+}
 </style>
 
 <script>
@@ -88,7 +90,7 @@ import moment from "moment";
 import { dataModel } from "../schecdulingTable/viewModel/dataModel";
 import { layoutModel } from "../schecdulingTable/viewModel/layoutModel";
 import { variables } from "../schecdulingTable/viewModel/variables";
-import { getPatientArrange } from "../../api";
+import { getPatientArrange, saveBatchHDArrange } from "../../api";
 export default {
   mixins: [commom],
   data() {
@@ -155,11 +157,27 @@ export default {
       }).then(async () => {
         let startDate = moment(dataModel.startDate)
           .subtract(7, "d")
-          .format("YYYY-MM-DD HH:mm");
+          .format("YYYY-MM-DD");
         let endDate = moment(dataModel.endDate)
           .subtract(7, "d")
-          .format("YYYY-MM-DD HH:mm");
-        getPatientArrange(startDate, endDate);
+          .format("YYYY-MM-DD");
+        getPatientArrange(startDate, endDate).then(res => {
+          dataModel.tableLoading = true;
+          saveBatchHDArrange(
+            res.data.data.map(item => {
+              return {
+                ...item,
+                hdDate: moment(item.hdDate)
+                  .add(7, "d")
+                  .format("YYYY-MM-DD"),
+                timeSlice: item.hdTimeSlice
+              };
+            })
+          ).then(res => {
+            this.$message("复制上周排班成功");
+            dataModel.getPatientArrange();
+          });
+        });
         // this.dataModel.generalPatientArrange();
         // this.$message.info("正在一键排班中");
         // await dataModel.initData();
