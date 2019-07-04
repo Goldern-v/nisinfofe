@@ -125,7 +125,7 @@ import {
 import { updateListData } from '@/Page/sheet-nursing-order/components/config/general/tr.js'
 import bus from 'vue-happy-bus'
 import {blockSave} from '../../api/index.js'
-import {findTemplatesByDeptCode} from '../../api/nursingOrder.js'
+import {findTemplatesByDeptCode,findTemplatesByDeptCodeCN} from '../../api/nursingOrder.js'
 import sheetInfo from '../config/sheetInfo/index.js'
 
 
@@ -180,7 +180,7 @@ export default {
       //
       if(!item||!item.orderContentCode){
         console.log('create:error',data,'item:',item)
-        return 
+        return
       }
       //
       this.dictFormName = item.orderContentCode.split(':')[2]||''
@@ -209,7 +209,7 @@ export default {
         }
         // console.log('getData:',this.$route.query)
       // findTemplatesByDeptCode
-      findTemplatesByDeptCode(this.deptCode).then(res => {
+      findTemplatesByDeptCodeCN(this.deptCode).then(res => {
         console.log("findTemplatesByDeptCode:",res);
         this.templates = res.data.data
         // this.templates = res.data.data.list
@@ -217,7 +217,7 @@ export default {
         if(this.templates.length==0){
           // this.templates.push(defaultList)
         }
-        // 
+        //
         // this.templates.map(item=>{
         //   item.recordName = "护嘱单"
         // })
