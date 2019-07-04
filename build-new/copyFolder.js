@@ -17,10 +17,36 @@ var buildFileName = `${hospitalName}`
 //     fs.createReadStream(src).pipe(fs.createWriteStream(dist));
 // }
 
+let getFileSizeWithUnit = (size) => {
+    let result = ''
+    if (typeof (size) === 'number') {
+        let unit = [
+            { name: ' B', value: Math.pow(10, 0) },
+            { name: ' KB', value: Math.pow(10, 3) },
+            { name: ' MB', value: Math.pow(10, 6) },
+            { name: ' GB', value: Math.pow(10, 9) },
+            { name: ' TB', value: Math.pow(10, 12) },
+        ]
+        unit.filter((u, i) => {
+            let s = Math.floor(size / u.value)
+            let n = (size / u.value).toFixed(2)
+            if (s < 1000 && s > 0) {
+                result = n + u.name
+                return u.name
+            }
+        })
+        return result || size
+    }
+    return size
+}
+
 // 压缩文件夹
 let zipFolder = (filename, path) => {
     compressing.zip.compressDir(path, filename)
         .then(() => {
+            fs.stat(filename, function (err, stats) {
+                console.log(chalk.yellow('>已生成: ' + filename, getFileSizeWithUnit(stats.size)));
+            })
             console.log(chalk.green('----success----'));
         })
         .catch(err => {
@@ -82,7 +108,7 @@ var copyDir = function (srcDir, tarDir, cb) {
 
             fs.stat(srcPath, function (err, stats) {
                 if (stats.isDirectory()) {
-                    console.log('mkdir', tarPath)
+                    // console.log('mkdir', tarPath)
                     fs.mkdir(tarPath, function (err) {
                         if (err) {
                             fs.mkdirSync(tarPath);
@@ -113,10 +139,11 @@ let cmd_cp = (src, dist) => {
 let start = async () => {
     try { fs.mkdirSync(`./release/${buildFileName}`) } catch (err) { }
     // 复制../dist目录到../release/dist
-    console.log(chalk.yellow(`>>>复制 ./dist目录 到 ./release/${buildFileName}/dist`))
+    console.log(chalk.green('---------------'));
+    console.log(chalk.blue(`>复制: ./dist目录 到 ./release/${buildFileName}/dist`))
     // cmd_cp('./dist', `./release/${buildFileName}/dist`)
     copyDir('./dist', `./release/${buildFileName}/dist`, function (err) {
-        if (err) {console.log(err);}
+        if (err) { console.log(err); }
         zip()
     })
 }

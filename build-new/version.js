@@ -2,6 +2,7 @@
 var config = require("../config");
 var moment = require("moment");
 var fs = require("fs");
+var chalk = require("chalk");
 
 var info = {
     "医院名": config.build.env.HOSPITAL_NAME,
@@ -27,7 +28,7 @@ fs.writeFile(
         if (err) {
             return console.error(err);
         }
-        console.log("File created!");
+        console.log(chalk.blue(">已生成: version.json"));
     }
 );
 

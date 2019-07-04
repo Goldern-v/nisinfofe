@@ -1,5 +1,6 @@
 // see http://vuejs-templates.github.io/webpack for documentation.
 var path = require("path");
+var chalk = require("chalk");
 // crNursing
 var _origin = JSON.parse(process.env.npm_config_argv).original;
 
@@ -29,7 +30,7 @@ if (hospitalName) {
   prodEnv = require("./prod.env");
 }
 
-console.log("打包:", hospitalList[envFileName] || "东莞市厚街医院");
+console.log(chalk.yellow(">打包:", hospitalList[envFileName] || "东莞市厚街医院"));
 
 // if (hospitalName == "--guiyi") {
 //   devEnv = require("./dev.env.guiyi");
