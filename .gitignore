@@ -12,7 +12,6 @@ dist/*/*
 .idea/*
 .vscode/*
 debug.log
-version.json
 yarn-error.log
 ./yarn-error.log
 # Editor directories and files
@@ -23,3 +22,6 @@ yarn-error.log
 .*.sln
 *.zip
 *.log
+
+version.json
+src/version.json
