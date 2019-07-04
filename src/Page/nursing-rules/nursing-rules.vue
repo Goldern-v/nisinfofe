@@ -62,8 +62,8 @@
       <div v-if="preview.type=='img'">
         <img :src="preview.url" alt="" style="width:100%">
       </div>
-      <div v-else-if="preview.type=='pdf'">
-        <object type="application/pdf" width="100%" style="height: 500px" :data="preview.url" />
+      <div v-else-if="preview.type=='pdf'" :style="{height: pdfHeight+'px'}">
+        <object type="application/pdf" width="100%" height="100%"  :data="preview.url" />
       </div>
       <div v-else style="height: 300px;text-align:center;line-height:300px;">
         该文件格式不支持预览
@@ -99,7 +99,8 @@ export default {
         type: '',
         name: '',
         url: ''
-      }
+      },
+      pdfHeight: window.innerHeight*0.8
     };
   },
   mounted(){
@@ -147,6 +148,7 @@ export default {
         let blob = new Blob([res.data], {
           type: res.data.type
         });
+
         this.preview = {
           title: name,
           url: window.URL.createObjectURL(blob),
@@ -154,6 +156,8 @@ export default {
         }
 
         this.$refs['preview-modal'].open();
+        this.pdfHeight = window.innerHeight*0.8;
+        
       },err=>{})
     },
     downloadFile(scope){
@@ -254,8 +258,9 @@ export default {
       cursor: default;
       .operation-text{
         cursor: pointer;
+        color: #4bb08d;
         &:hover{
-          color: #4bb08d;
+          font-weight: bold;
         }
       }
     }
