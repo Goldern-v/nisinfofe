@@ -62,6 +62,10 @@
 .modal-btn
   width 88px
 
+>>>.el-loading-mask {
+  background: white !important;
+}
+
 </style>
 
 <script>
@@ -97,7 +101,9 @@ import signModal from '@/components/modal/sign.vue'
 import $ from 'jquery'
 import bus from 'vue-happy-bus'
 import moment from 'moment'
+import commonMixin from '@/common/mixin/common.mixin'
 export default {
+  mixins: [commonMixin],
   name: "Parent",
   provide: {
     activeTabName: "护理措施",

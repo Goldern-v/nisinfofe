@@ -1,5 +1,6 @@
 .DS_Store
 node_modules/*
+release/
 dist/
 dist/*/*
 .dist/*
@@ -12,6 +13,7 @@ dist/*/*
 debug.log
 version.json
 yarn-error.log
+./yarn-error.log
 # Editor directories and files
 .*.xml
 .*.suo
