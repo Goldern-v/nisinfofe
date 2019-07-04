@@ -284,6 +284,16 @@
           "class": null,
           "readOnly": false,
           "options": ["无", "静脉镇痛", "硬膜外镇痛"]
+        },
+        {
+          "name": "I003008",
+          "type": "select",
+          "title": "活动情况：",
+          "suffixDesc": "",
+          "style": null,
+          "class": null,
+          "readOnly": false,
+          "options": ["主动体位", "被动体位", "强迫体位"]
         }
       ]
     },

@@ -30,7 +30,7 @@ if (hospitalName) {
   prodEnv = require("./prod.env");
 }
 
-console.log(chalk.yellow(">打包:", hospitalList[envFileName] || "东莞市厚街医院"));
+console.log(chalk.yellow(">部署配置:", hospitalList[envFileName] || "东莞市厚街医院"));
 
 console.log(__dirname)
 // if (hospitalName == "--guiyi") {
