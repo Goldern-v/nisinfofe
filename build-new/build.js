@@ -12,7 +12,13 @@ var webpackConfig = require("./webpack.prod.conf");
 var moment = require("moment");
 var fs = require("fs");
 var versionInfo = require("./version.js");
+var copyFolder = require("./copyFolder.js");
 var spinner = ora("building for production...");
+
+// 初始化创建文件夹
+copyFolder.initial()
+// copyFolder.start()
+
 spinner.start();
 
 rm(path.join(config.build.assetsRoot, config.build.assetsSubDirectory), err => {
@@ -42,5 +48,8 @@ rm(path.join(config.build.assetsRoot, config.build.assetsSubDirectory), err => {
         "  Opening index.html over file:// won't work.\n"
       )
     );
+    // 复制 ./dist目录 到 ./release/dist
+    // copyFolder.start()
+    //
   });
 });

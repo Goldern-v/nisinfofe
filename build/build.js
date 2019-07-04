@@ -12,9 +12,14 @@ var webpackConfig = require("./webpack.prod.conf");
 var moment = require("moment");
 var fs = require("fs");
 var versionInfo = require("./version.js");
+var copyFolder = require("./copyFolder.js");
 var spinner = ora("building for production...");
-spinner.start();
 
+// 初始化创建文件夹
+copyFolder.initial()
+
+// copyFolder.start()
+spinner.start();
 rm(path.join(config.build.assetsRoot, config.build.assetsSubDirectory), err => {
   if (err) throw err;
   webpack(webpackConfig, function(err, stats) {
@@ -34,7 +39,6 @@ rm(path.join(config.build.assetsRoot, config.build.assetsSubDirectory), err => {
       console.log(chalk.red("  Build failed with errors.\n"));
       process.exit(1);
     }
-
     console.log(chalk.cyan("  Build complete.\n"));
     console.log(
       chalk.yellow(
@@ -42,5 +46,8 @@ rm(path.join(config.build.assetsRoot, config.build.assetsSubDirectory), err => {
           "  Opening index.html over file:// won't work.\n"
       )
     );
+    // 复制 ./dist目录 到 ./release/dist
+    copyFolder.start()
+    //
   });
 });
