@@ -1,8 +1,8 @@
 Arguments: 
-  /usr/local/bin/node /usr/local/Cellar/yarn/1.5.1_1/libexec/bin/yarn.js build
+  /usr/local/bin/node /usr/local/Cellar/yarn/1.5.1_1/libexec/bin/yarn.js start
 
 PATH: 
-  /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/TeX/texbin:/usr/local/go/bin:/usr/local/aria2/bin:/usr/local/mysql/bin:/opt/X11/bin:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/usr/local/CrossPack-AVR/bin:/usr/local/go/bin:/Users/wei/gopackage/bin
+  /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/TeX/texbin:/usr/local/go/bin:/usr/local/aria2/bin:/usr/local/mysql/bin:/opt/X11/bin:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/usr/local/CrossPack-AVR/bin:/Users/wei/gopackage/bin:/usr/local/go/bin:/Users/wei/gopackage/bin
 
 Yarn version: 
   1.5.1
@@ -8143,7 +8143,7 @@ Trace:
   Error: Command failed.
   Exit code: 1
   Command: sh
-  Arguments: -c node build/build.js
+  Arguments: -c node build/dev-server.js
   Directory: /Users/wei/Data/OneDrive/Projects/ChenRuiDevelopment/SmartHospital/nisinfofe
   Output:
   
