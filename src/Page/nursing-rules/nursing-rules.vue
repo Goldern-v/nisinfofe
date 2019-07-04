@@ -143,22 +143,22 @@ export default {
       this.tableHeight = tableHeight;
     },
     previewFile(scope){
-      getFileContent({id:scope.row.id}).then(res=>{
+      // getFileContent({id:scope.row.id}).then(res=>{
         let name = scope.row.name||'';
-        let blob = new Blob([res.data], {
-          type: res.data.type
-        });
+      //   let blob = new Blob([res.data], {
+      //     type: res.data.type
+      //   });
 
         this.preview = {
           title: name,
-          url: window.URL.createObjectURL(blob),
+          url: `/crNursing/nursingInstitution${scope.row.path}`,
           type: this.previewType(scope.row.type)
         }
 
         this.$refs['preview-modal'].open();
         this.pdfHeight = window.innerHeight*0.8;
         
-      },err=>{})
+      // },err=>{})
     },
     downloadFile(scope){
       getFileContent({id:scope.row.id}).then(res=>{
