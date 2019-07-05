@@ -11,6 +11,7 @@ let devEnv;
 let hospitalList = {
   guiyi: "贵州医科大学附属医院",
   wuhang: "武汉市第一医院",
+  weixian: "威县人民医院",
   houjie: "东莞市厚街医院",
   "": "东莞市厚街医院"
 };
