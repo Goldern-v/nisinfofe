@@ -1,8 +1,8 @@
 Arguments: 
-  /usr/local/bin/node /usr/local/Cellar/yarn/1.5.1_1/libexec/bin/yarn.js build
+  /usr/local/bin/node /usr/local/Cellar/yarn/1.5.1_1/libexec/bin/yarn.js dev:wuhang
 
 PATH: 
-  /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/TeX/texbin:/usr/local/go/bin:/usr/local/aria2/bin:/usr/local/mysql/bin:/opt/X11/bin:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/usr/local/CrossPack-AVR/bin:/Users/wei/gopackage/bin:/usr/local/go/bin:/Users/wei/gopackage/bin
+  /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/TeX/texbin:/usr/local/go/bin:/usr/local/aria2/bin:/usr/local/mysql/bin:/opt/X11/bin:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/usr/local/CrossPack-AVR/bin:/usr/local/go/bin:/Users/wei/gopackage/bin
 
 Yarn version: 
   1.5.1
@@ -22,10 +22,12 @@ npm manifest:
     "private": true,
     "scripts": {
       "dev": "node build/dev-server.js",
+      "dev:": "npm run dev",
       "dev:wuhang": "npm run dev --wuhang",
       "dev:guiyi": "npm run dev --guiyi",
       "start": "node build/dev-server.js",
       "build": "node build/build.js",
+      "build:": "npm run build",
       "build:wuhang": "npm run build --wuhang",
       "build:guiyi": "npm run build --guiyi",
       "lint": "eslint --ext .js,.vue src",
@@ -8143,7 +8145,7 @@ Trace:
   Error: Command failed.
   Exit code: 1
   Command: sh
-  Arguments: -c node build/build.js
+  Arguments: -c npm run dev --wuhang
   Directory: /Users/wei/Data/OneDrive/Projects/ChenRuiDevelopment/SmartHospital/nisinfofe
   Output:
   

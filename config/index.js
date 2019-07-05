@@ -1,48 +1,36 @@
 // see http://vuejs-templates.github.io/webpack for documentation.
 var path = require("path");
 var chalk = require("chalk");
-// crNursing
+var envAll = require("./env.all");
+var merge = require("webpack-merge");
+// crNursing  argv
 var _origin = JSON.parse(process.env.npm_config_argv).original;
-
-const hospitalName = _origin[2];
+const _hospitalName = _origin[2];
 
 let prodEnv;
 let devEnv;
-let hospitalList = {
-  guiyi: "贵州医科大学附属医院",
-  wuhang: "武汉市第一医院",
-  weixian: "威县人民医院",
-  houjie: "东莞市厚街医院",
-  "": "东莞市厚街医院"
-};
 let envFileName = "";
-if (hospitalName) {
-  envFileName = hospitalName.replace("--", "");
-  if (Object.keys(hospitalList).indexOf(envFileName) > -1) {
-    devEnv = require("./dev.env." + envFileName);
-    prodEnv = require("./prod.env." + envFileName);
-  } else {
-    devEnv = require("./dev.env");
-    prodEnv = require("./prod.env");
+let hospitalName = "";
+devEnv = require("./dev.env");
+prodEnv = require("./prod.env");
+hospitalName = prodEnv.HOSPITAL_NAME;
+
+if (_hospitalName) {
+  envFileName = _hospitalName.replace("--", "");
+  if (Object.keys(envAll).indexOf(envFileName) > -1) {
+    devEnv = merge(prodEnv, envAll[envFileName]);
+    prodEnv = envAll[envFileName];
+    // devEnv = require("./dev.env." + envFileName);
+    // prodEnv = require("./prod.env." + envFileName);
+    hospitalName = prodEnv.HOSPITAL_NAME;
   }
-} else {
-  envFileName = "houjie";
-  devEnv = require("./dev.env");
-  prodEnv = require("./prod.env");
 }
 
-console.log(chalk.yellow(">部署配置:", hospitalList[envFileName] || "东莞市厚街医院"));
+devEnv['NODE_ENV'] = '"development"'
+prodEnv['NODE_ENV'] = '"production"'
 
-// if (hospitalName == "--guiyi") {
-//   devEnv = require("./dev.env.guiyi");
-//   prodEnv = require("./prod.env.guiyi");
-// } else if (hospitalName == "--wuhang") {
-//   devEnv = require("./dev.env.wuhang");
-//   prodEnv = require("./prod.env.wuhang");
-// } else {
-//   devEnv = require("./dev.env");
-//   prodEnv = require("./prod.env");
-// }
+console.log(chalk.yellow(">部署配置:", hospitalName || "东莞市厚街医院"));
+
 module.exports = {
   build: {
     env: prodEnv,
