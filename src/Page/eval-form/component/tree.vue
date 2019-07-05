@@ -244,7 +244,7 @@ export default {
           let list_1 = res[0].data.data.map(item => {
             index += 1;
             return {
-              label: item.formName,
+              label: item.formName||item.name||'',
               index: index,
               formCode: item.formCode,
               showCurve: item.showCurve,
@@ -254,8 +254,9 @@ export default {
               pageUrl: item.pageUrl,
               children: item.formInstanceDtoList.map((option, i) => {
                 // formName: "疼痛护理单"
+                let fName = item.formName||item.name||''
                 // 查找第一张填写的疼痛评估单
-                if (item.formName && item.formName === "疼痛护理单") {
+                if (fName && fName === "疼痛护理单") {
                   // console.log("===疼痛护理单",i,option,item.formInstanceDtoList.length)
                   if (item.formInstanceDtoList.length - 1 == i) {
                     // console.log("--疼痛护理单",i,option,item.formInstanceDtoList.length)
@@ -273,7 +274,7 @@ export default {
                   ${option.pusherName ? option.pusherName : option.creatorName}
                   ${option.status == 0 ? "T" : option.status}`,
                   form_id: option.id,
-                  formName: item.formName
+                  formName: item.formName||item.name||''
                 };
               })
             };

@@ -175,7 +175,7 @@ export default {
           value: `${window.screen.width}x${window.screen.height}`
         },
         { key: "Platform", value: window.navigator.platform },
-        { key: "总内存", value: `${window.navigator.deviceMemory} GB` },
+        { key: "总内存", value: `${window.navigator.deviceMemory||''} GB` },
         { key: "Used内存", value: `${this.getFileSizeWithUnit(window.performance.memory.usedJSHeapSize)}` },
         { key: "CPU总线程数", value: window.navigator.hardwareConcurrency }
       ]
