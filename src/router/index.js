@@ -101,6 +101,9 @@ import healthEdu from "@/Page/healthEdu/healthEdu.vue";
 // 住院病人处理单
 import handlingPage from "@/Page/handling-page/handling-page";
 
+// 血氧单
+import oxygenPage from "@/Page/oxygen-page/oxygen-page";
+
 /** demo */
 import demo from "@/demo/demo";
 Vue.use(Router);
@@ -163,6 +166,10 @@ const router = new Router({
         {
           path: "/handlingPage",
           component: handlingPage
+        },
+        {
+          path: "/oxygenPage",
+          component: oxygenPage
         },
         {
           path: "/wardReport",
