@@ -102,6 +102,13 @@
                     </el-row>
                   </router-link>
                 </el-dropdown-item>
+                <el-dropdown-item :class="{active: $route.path == '/oxygenPage'}">
+                  <router-link to="/oxygenPage" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="healthEducation"></i> 血氧
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item>
                 <el-dropdown-item>
                   <router-link to="/healthEdu" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
@@ -608,6 +615,7 @@ export default {
       if (this.$route.path == "/sheetHospitalEval") return true;
       if (this.$route.path == "/formPage") return true;
       if (this.$route.path == "/sugarPage") return true;
+      if (this.$route.path == "/oxygenPage") return true;
       if (this.$route.path == "/healthEdu") return true;
       if (this.$route.path == "/handlingPage") return true;
       return false;
@@ -618,6 +626,7 @@ export default {
   methods: {
     handleCommand(command) {
       switch (command) {
+        case "quit":
         case "quit":
           {
             this.quit();
