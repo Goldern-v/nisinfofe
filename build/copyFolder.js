@@ -139,6 +139,7 @@ let cmd_cp = (src, dist) => {
 let start = async () => {
     try { fs.mkdirSync(`./release/${buildFileName}`) } catch (err) { }
     try { fs.mkdirSync(`./release/${buildFileName}/webpage`) } catch (err) { }
+    //
     // 复制../dist目录到../release/dist
     console.log(chalk.green('---------------'));
     console.log(chalk.blue(`>复制: ./dist目录 到 ./release/${buildFileName}/webpage/dist`))
