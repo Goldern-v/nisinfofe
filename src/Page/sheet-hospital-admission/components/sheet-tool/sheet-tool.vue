@@ -1023,14 +1023,22 @@ export default {
       console.log("漏项统计", missingObj);
       // $el
       // window.notifyBox().setMissObj()   totalItems  missItems  missArray
-      window.notifyBox.setMissObj({
-        missingObj,
-        totalItems,
-        missItems,
-        missingObjArrayList,
-        removeCheckMark: this.removeCheckMark
-      });
-      window.notifyBox.show(5000);
+      // window.notifyBox.setMissObj({
+      //   missingObj,
+      //   totalItems,
+      //   missItems,
+      //   missingObjArrayList,
+      //   removeCheckMark: this.removeCheckMark
+      // });
+      // window.notifyBox.show(5000);
+      try {
+            window.notifyBox.showMessage({
+              duration: 20000,
+              type: "info",
+              title: "填写检查结果：",
+              message: `请查看右侧目录栏提示。`
+            });
+          } catch (error) {}
       return object;
     },
     // 取消责任护士签名
