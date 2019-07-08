@@ -299,9 +299,14 @@ export default {
       }
        else {
         templatesAll(this.formType, this.deptCode).then(res => {
-          this.templates = res.data.data.list;
-          // console.table(this.templates);
-          console.dir(this.templates);
+
+          if(this.filterObj && this.filterObj.formName) {
+            this.templates = res.data.data.list.filter(item => item.name === this.filterObj.formName)
+          }
+          else {
+            this.templates = res.data.data.list;
+          }
+
           this.pageLoading = false;
         });
       }

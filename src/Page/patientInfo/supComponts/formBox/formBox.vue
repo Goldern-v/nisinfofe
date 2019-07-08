@@ -61,6 +61,11 @@
 .form-modal
   >>>.sweet-buttons
     padding-right 310px
+
+>>>.el-loading-mask {
+  background: white !important;
+}
+
 </style>
 
 <script>
@@ -101,7 +106,9 @@
     saveByJson
   } from '../../supPage/record/api/index.js'
   import bus from 'vue-happy-bus'
+  import commonMixin from '@/common/mixin/common.mixin'
   export default {
+    mixins: [commonMixin],
     name: "Parent",
     provide: {
       activeTabName: "护理措施",

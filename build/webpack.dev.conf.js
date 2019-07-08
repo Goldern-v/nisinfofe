@@ -7,22 +7,7 @@ var HtmlWebpackPlugin = require("html-webpack-plugin");
 var FriendlyErrorsPlugin = require("friendly-errors-webpack-plugin");
 var moment = require("moment");
 var fs = require("fs");
-var versionInfo = require("../version.json");
-versionInfo["最近打包时间"] = moment().format("YYYY-MM-DD HH:mm");
-versionInfo["版本号"] = moment().format("YYYY.MM.DD");
-versionInfo["proxyTable"] = config.dev.proxyTable || "";
-// console.log("versionInfo", JSON.stringify(versionInfo, null, 4));
-fs.writeFile(
-  "./src/version.json",
-  JSON.stringify(versionInfo, null, 4),
-  "utf8",
-  function(err) {
-    if (err) {
-      return console.error(err);
-    }
-    console.log("File created!");
-  }
-);
+var versionInfo = require("./version.js");
 
 // add hot-reload related code to entry chunks
 Object.keys(baseWebpackConfig.entry).forEach(function(name) {

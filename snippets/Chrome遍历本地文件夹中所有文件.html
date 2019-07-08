@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <title>page test</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .file {
+            vertical-align: top;
+            position: relative;
+            display: inline-block;
+            background: #D0EEFF;
+            border: 1px solid #99D3F5;
+            border-radius: 4px;
+            padding: 4px 12px;
+            overflow: hidden;
+            color: #1E88C7;
+            text-decoration: none;
+            text-indent: 0;
+            line-height: 20px;
+        }
+
+        .file input {
+            position: absolute;
+            font-size: 100px;
+            right: 0;
+            top: 0;
+            opacity: 0;
+        }
+
+        .file:hover {
+            background: #AADFFD;
+            border-color: #78C3F3;
+            color: #004974;
+            text-decoration: none;
+        }
+
+        #dllList {
+            margin: auto;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        #dllList th,
+        td {
+            max-width: 200px;
+            border: 1px solid #98bf21;
+            font-size: 1em;
+            text-align: right;
+            padding: 3px 7px 2px 7px;
+        }
+
+        #dllList th {
+            font-size: 1.1em;
+            text-align: left;
+            padding-top: 5px;
+            padding-bottom: 4px;
+            background-color: #A7C942;
+            color: #ffffff;
+        }
+
+        #dllList tr:nth-child(even) {
+            color: #000000;
+            background-color: #EAF2D3;
+        }
+
+    </style>
+    <script type="text/javascript">
+        function fileChange(that) {
+            var files = that.files;
+            var fileList = [...Object.values(that.files)]
+            console.log(fileList)
+            var fJson = []
+            for (var i = 0; i < fileList.length; i++) {
+                fJson = [...fJson, {
+                    name: fileList[i].name,
+                    size: fileList[i].size,
+                    path: fileList[i].webkitRelativePath
+                }]
+            }
+            createTable(JSON.stringify(fJson));
+        }
+
+        function createTable(jsonStr) {
+            var obj = JSON.parse(jsonStr);
+            var tableObject = document.getElementById('dllList');
+            for (var i in obj) {
+                let TableRow = tableObject.insertRow();
+                let fileName = TableRow.insertCell(0);
+                fileName.innerHTML = obj[i].name;
+                let fileSize = TableRow.insertCell(1);
+                fileSize.innerHTML = getFileSizeWithUnit(obj[i].size);
+                let filepath = TableRow.insertCell(2);
+                filepath.innerHTML = obj[i].path;
+            }
+        }
+
+        function getFileSizeWithUnit(size) {
+            let result = ''
+            if (typeof (size) === 'number') {
+                let unit = [{
+                        name: ' B',
+                        value: Math.pow(10, 0)
+                    },
+                    {
+                        name: ' KB',
+                        value: Math.pow(10, 3)
+                    },
+                    {
+                        name: ' MB',
+                        value: Math.pow(10, 6)
+                    },
+                    {
+                        name: ' GB',
+                        value: Math.pow(10, 9)
+                    },
+                    {
+                        name: ' TB',
+                        value: Math.pow(10, 12)
+                    },
+                ]
+                unit.filter((u, i) => {
+                    let s = Math.floor(size / u.value)
+                    let n = (size / u.value).toFixed(2)
+                    if (s < 1000 && s > 0) {
+                        result = n + u.name
+                        return u.name
+                    }
+                })
+                return result || size
+            }
+            return size
+        }
+
+    </script>
+</head>
+
+<body>
+    <a href="javascript:;" class="file">选择文件
+        <input type="file" webkitdirectory directory onchange="fileChange(this);" />
+    </a>
+    <br>
+    <table id="dllList">
+        <colgroup>
+            <col width="180">
+            <col width="10">
+            <col>
+        </colgroup>
+        <thead>
+            <tr>
+                <th>name</th>
+                <th>size</th>
+                <th>Path</th>
+            </tr>
+        </thead>
+    </table>
+</body>
+
+</html>

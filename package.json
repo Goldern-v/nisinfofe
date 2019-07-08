@@ -6,10 +6,12 @@
   "private": true,
   "scripts": {
     "dev": "node build/dev-server.js",
+    "dev:": "npm run dev",
     "dev:wuhang": "npm run dev --wuhang",
     "dev:guiyi": "npm run dev --guiyi",
     "start": "node build/dev-server.js",
     "build": "node build/build.js",
+    "build:": "npm run build",
     "build:wuhang": "npm run build --wuhang",
     "build:guiyi": "npm run build --guiyi",
     "lint": "eslint --ext .js,.vue src",
