@@ -96,7 +96,7 @@ export default {
     deptCode(val, oldValue) {
       if (oldValue && val) {
         this.$router.replace({
-          path: "/formPage",
+          path: "/sugarPage",
           query: {}
         });
         this.bus.$emit("refreshTree", true);
