@@ -1,5 +1,5 @@
 Arguments: 
-  /usr/local/bin/node /usr/local/Cellar/yarn/1.5.1_1/libexec/bin/yarn.js dev:wuhang
+  /usr/local/bin/node /usr/local/Cellar/yarn/1.5.1_1/libexec/bin/yarn.js buildNew: weixian
 
 PATH: 
   /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/TeX/texbin:/usr/local/go/bin:/usr/local/aria2/bin:/usr/local/mysql/bin:/opt/X11/bin:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/usr/local/CrossPack-AVR/bin:/usr/local/go/bin:/Users/wei/gopackage/bin
@@ -30,6 +30,8 @@ npm manifest:
       "build:": "npm run build",
       "build:wuhang": "npm run build --wuhang",
       "build:guiyi": "npm run build --guiyi",
+      "buildNew": "node build-new/build.js",
+      "buildNew:": "npm run buildNew",
       "lint": "eslint --ext .js,.vue src",
       "toSvn": "svn commit -m 前端代码更新svn"
     },
@@ -89,6 +91,7 @@ npm manifest:
       "babel-preset-stage-2": "^6.22.0",
       "babel-register": "^6.22.0",
       "chalk": "^2.0.1",
+      "compressing": "^1.4.0",
       "connect-history-api-fallback": "^1.3.0",
       "copy-webpack-plugin": "^4.0.1",
       "cross-env": "^1.0.6",
@@ -8145,7 +8148,7 @@ Trace:
   Error: Command failed.
   Exit code: 1
   Command: sh
-  Arguments: -c npm run dev --wuhang
+  Arguments: -c npm run buildNew weixian
   Directory: /Users/wei/Data/OneDrive/Projects/ChenRuiDevelopment/SmartHospital/nisinfofe
   Output:
   

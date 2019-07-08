@@ -14,6 +14,8 @@
     "build:": "npm run build",
     "build:wuhang": "npm run build --wuhang",
     "build:guiyi": "npm run build --guiyi",
+    "buildNew": "node build-new/build.js",
+    "buildNew:": "npm run buildNew",
     "lint": "eslint --ext .js,.vue src",
     "toSvn": "svn commit -m 前端代码更新svn"
   },

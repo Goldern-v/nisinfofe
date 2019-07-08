@@ -1,5 +1,5 @@
 
-var config = require("../config");
+var config = require("../config-new");
 var moment = require("moment");
 var fs = require("fs");
 var chalk = require("chalk");

@@ -6,7 +6,7 @@ var compressing = require('compressing');
 // var unzip = require("unzip");
 
 var moment = require("moment");
-var config = require("../config");
+var config = require("../config-new");
 var hospitalName = config.build.env.HOSPITAL_NAME
 hospitalName = hospitalName.replace(/["']/g, '')
 var buildFileName = `${hospitalName}`
@@ -151,7 +151,8 @@ let start = async () => {
 
 let zip = () => {
     // 压缩打包zip
-    zipFolder(`./release/${buildFileName}${moment().format("YYYY-MM-DD_HH_mm")}.zip`, `./release/${buildFileName}`)
+    // zipFolder(`./release/${buildFileName}${moment().format("YYYY-MM-DD_HH_mm")}.zip`, `./release/${buildFileName}`)
+    zipFolder(`./dist/${buildFileName}${moment().format("YYYY-MM-DD_HH_mm")}.zip`, `./dist/${buildFileName}`)
 }
 
 let deleteall = (path) => {
@@ -173,6 +174,11 @@ let deleteall = (path) => {
 let initial = () => {
     try { deleteall('./release') } catch (err) { console.log(err) }
     try { fs.mkdirSync('./release') } catch (err) { }
+    try { deleteall('./dist') } catch (err) { console.log(err) }
+    try { fs.mkdirSync('./dist') } catch (err) { }
+    try { fs.mkdirSync(`./dist/${hospitalName}`) } catch (err) { }
+    // try { deleteall('./dist/'+hospitalName) } catch (err) { console.log(err) }
+    // try { fs.mkdirSync('./dist/'+hospitalName) } catch (err) { }
 }
 
 module.exports = {

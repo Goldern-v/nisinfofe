@@ -7,7 +7,7 @@ var rm = require("rimraf");
 var path = require("path");
 var chalk = require("chalk");
 var webpack = require("webpack");
-var config = require("../config");
+var config = require("../config-new");
 var webpackConfig = require("./webpack.prod.conf");
 var moment = require("moment");
 var fs = require("fs");
@@ -49,7 +49,7 @@ rm(path.join(config.build.assetsRoot, config.build.assetsSubDirectory), err => {
       )
     );
     // 复制 ./dist目录 到 ./release/dist
-    copyFolder.start();
+    copyFolder.zip();
     //
   });
 });
