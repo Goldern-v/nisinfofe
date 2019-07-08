@@ -26,6 +26,8 @@ if (_hospitalName) {
   }
 }
 
+hospitalName = hospitalName.replace(/["']/g, '')
+
 devEnv['NODE_ENV'] = '"development"'
 prodEnv['NODE_ENV'] = '"production"'
 

@@ -174,6 +174,8 @@ let deleteall = (path) => {
 let initial = () => {
     try { deleteall('./release') } catch (err) { console.log(err) }
     try { fs.mkdirSync('./release') } catch (err) { }
+    try { deleteall('./dist') } catch (err) { console.log(err) }
+    try { fs.mkdirSync('./dist') } catch (err) { }
 }
 
 module.exports = {
