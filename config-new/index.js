@@ -14,6 +14,7 @@ let hospitalName = "";
 devEnv = require("./dev.env");
 prodEnv = require("./prod.env");
 hospitalName = prodEnv.HOSPITAL_NAME;
+hospitalName = hospitalName.replace(/["']/g, '')
 
 if (_hospitalName) {
   envFileName = _hospitalName.replace("--", "");
