@@ -26,10 +26,10 @@ if (_hospitalName) {
   }
 }
 
-hospitalName = hospitalName.replace(/["']/g, '')
+hospitalName = hospitalName.replace(/["']/g, "");
 
-devEnv['NODE_ENV'] = '"development"'
-prodEnv['NODE_ENV'] = '"production"'
+devEnv["NODE_ENV"] = '"development"';
+prodEnv["NODE_ENV"] = '"production"';
 
 console.log(chalk.yellow(">部署配置:", hospitalName || "东莞市厚街医院"));
 
@@ -70,7 +70,7 @@ module.exports = {
     cssSourceMap: false,
     proxyTable: {
       "/crNursing/api": {
-        target: "http://120.197.141.41:9091", //厚街正式
+        // target: "http://120.197.141.41:9091", //厚街正式
         // target: "http://58.42.249.209:17953", //贵州医科大正式
         // target: "http://120.197.141.41:9094", //东莞正式库的测试
 
