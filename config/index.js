@@ -70,7 +70,7 @@ module.exports = {
     cssSourceMap: false,
     proxyTable: {
       "/crNursing/api": {
-        target: "http://120.197.141.41:9091", //厚街正式
+        // target: "http://120.197.141.41:9091", //厚街正式
         // target: "http://58.42.249.209:17953", //贵州医科大正式
         // target: "http://120.197.141.41:9094", //东莞正式库的测试
 

@@ -5,6 +5,8 @@ var compressing = require('compressing');
 // var archiver = require('archiver');
 // var unzip = require("unzip");
 
+var publish = require("./publish.js");
+
 var moment = require("moment");
 var config = require("../config-new");
 var hospitalName = config.build.env.HOSPITAL_NAME
@@ -149,6 +151,11 @@ let start = async () => {
     })
 }
 
+let upload = () =>{
+    let url = path.resolve(__dirname, `../dist/${buildFileName}`)
+    publish.sshUpload(url)
+}
+
 let zip = () => {
     // 压缩打包zip
     // zipFolder(`./release/${buildFileName}${moment().format("YYYY-MM-DD_HH_mm")}.zip`, `./release/${buildFileName}`)
@@ -189,6 +196,7 @@ module.exports = {
     copyDir,
     zipFolder,
     zip,
+    upload,
     // unZip
 }
 

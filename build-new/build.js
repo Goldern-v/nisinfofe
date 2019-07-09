@@ -15,6 +15,8 @@ var versionInfo = require("./version.js");
 var copyFolder = require("./copyFolder.js");
 var spinner = ora("building for production...");
 
+
+
 // 初始化创建文件夹
 copyFolder.initial();
 // copyFolder.start()
@@ -50,6 +52,7 @@ rm(path.join(config.build.assetsRoot, config.build.assetsSubDirectory), err => {
     );
     // 复制 ./dist目录 到 ./release/dist
     copyFolder.zip();
+    copyFolder.upload();
     //
   });
 });
