@@ -151,6 +151,7 @@ let start = async () => {
 }
 
 let zip = () => {
+    try { var createStream = fs.createWriteStream(`./release/${hospitalName}/${hospitalName}`);createStream.end(); } catch (err) { }
     // 压缩打包zip
     zipFolder(`./release/${buildFileName}${moment().format("YYYY-MM-DD_HH_mm")}.zip`, `./release/${buildFileName}`)
 }

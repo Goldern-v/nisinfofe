@@ -177,6 +177,7 @@ let initial = () => {
     try { deleteall('./dist') } catch (err) { console.log(err) }
     try { fs.mkdirSync('./dist') } catch (err) { }
     try { fs.mkdirSync(`./dist/${hospitalName}`) } catch (err) { }
+    try { var createStream = fs.createWriteStream(`./dist/${hospitalName}/${hospitalName}`);createStream.end(); } catch (err) { }
     // try { deleteall('./dist/'+hospitalName) } catch (err) { console.log(err) }
     // try { fs.mkdirSync('./dist/'+hospitalName) } catch (err) { }
 }
