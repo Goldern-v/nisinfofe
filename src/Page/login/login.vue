@@ -17,7 +17,7 @@
       <div class="login-warpper">
         <div class="login-img">
           <img src="../../common/images/login-img.png" alt>
-          <span class="his-name">{{HOSPITAL_NAME}}</span>
+          <span class="his-name">{{HOSPITAL_NAME_SPACE}}</span>
           <span class="sys-version">「 v {{$system.版本号}} 」</span>
           <span class="sys-name">护理管理系统</span>
         </div>
@@ -45,7 +45,7 @@
       </div>
       <p
         class="footer-text"
-      >广州宸瑞软件科技有限公司 &nbsp;&nbsp;&nbsp; http://www.cr-health.com &nbsp;&nbsp;&nbsp; 版权所有@-2017，All rights &nbsp;&nbsp; reseved. &nbsp;&nbsp; 关于宸瑞&nbsp; | &nbsp;关于智慧护理 &nbsp;|&nbsp; 联系客服</p>
+      >广州宸瑞软件科技有限公司 &nbsp;&nbsp;&nbsp; <a href="http://www.cr-health.com">http://www.cr-health.com</a> &nbsp;&nbsp;&nbsp; 版权所有@{{new Date().getFullYear()}} All rights reseved. &nbsp;&nbsp; 关于宸瑞&nbsp; | &nbsp;关于智慧护理 &nbsp;|&nbsp; 联系客服</p>
     </div>
   </div>
 </template>
@@ -172,8 +172,8 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder
     .his-name
       position absolute
       color #fff
-      top 8px
-      font-size 15px
+      top 4px
+      font-size 20px
       letter-spacing 1px
       font-family '微软雅黑' !important
       left 146px

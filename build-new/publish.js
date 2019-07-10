@@ -84,11 +84,12 @@ let sshUpload = (localSrc = './dist', folderSrc = '/crdata/webProject/nursingInf
           // ssh.dispose()
         },
       })
+      .then(() => {
+        rsyncopy()
+      })
 
     })
-    .then(() => {
-      rsyncopy()
-    })
+
 
   // ssh.disconnect().then(function () {
   //   console.log('关闭ssh连接')
