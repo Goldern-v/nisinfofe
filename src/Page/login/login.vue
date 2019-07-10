@@ -16,24 +16,24 @@
       <div style="height: 25%"></div>
       <div class="login-warpper">
         <div class="login-img">
-          <img src="../../common/images/login-img.png" alt>
+          <img src="../../common/images/login-img.png" alt />
           <span class="his-name">{{HOSPITAL_NAME_SPACE}}</span>
           <span class="sys-version">「 v {{$system.版本号}} 」</span>
           <span class="sys-name">护理管理系统</span>
         </div>
-        <img src="../../common/images/shaw.png" height="234" width="526" class="login-shaw">
+        <img src="../../common/images/shaw.png" height="234" width="526" class="login-shaw" />
         <div class="login-con">
           <div class="logo-con">
-            <img src="../../common/images/logo.png" height="63" width="63">
+            <img src="../../common/images/logo.png" height="63" width="63" />
           </div>
           <h1 class="name">宸瑞智慧护理信息系统</h1>
           <div class="input-con">
-            <input type="text" placeholder="用户名" v-model="account">
-            <img src="../../common/images/account.png" height="14" width="14">
+            <input type="text" placeholder="用户名" v-model="account" />
+            <img src="../../common/images/account.png" height="14" width="14" />
           </div>
           <div class="input-con">
-            <input type="password" style="border-top: 0" placeholder="密码" v-model="password">
-            <img src="../../common/images/password.png" height="14" width="14">
+            <input type="password" style="border-top: 0" placeholder="密码" v-model="password" />
+            <img src="../../common/images/password.png" height="14" width="14" />
           </div>
           <div class="remember-con">
             <el-checkbox v-model="remember">
@@ -43,9 +43,17 @@
           <button v-touch-ripple class="login-btn" @click="login">{{!ajax?'登录系统':'登录中...'}}</button>
         </div>
       </div>
-      <p
-        class="footer-text"
-      >广州宸瑞软件科技有限公司 &nbsp;&nbsp;&nbsp; <a href="http://www.cr-health.com">http://www.cr-health.com</a> &nbsp;&nbsp;&nbsp; 版权所有@{{new Date().getFullYear()}} All rights reseved. &nbsp;&nbsp; 关于宸瑞&nbsp; | &nbsp;关于智慧护理 &nbsp;|&nbsp; 联系客服</p>
+      <p class="footer-text">
+        <span>
+          <a href="http://www.cr-health.com" target="_blank">广州宸瑞软件科技有限公司</a>
+        </span>
+        <span>版权所有 &copy; {{new Date().getFullYear()}} All rights reseved.</span>
+        <span>关于宸瑞</span>
+        <span>|</span>
+        <span>关于智慧护理</span>
+        <span>|</span>
+        <span>联系客服</span>
+      </p>
     </div>
   </div>
 </template>
@@ -112,6 +120,10 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder
       width 100%
       height 100%
 
+  a
+    text-decoration: none;
+    color: white;
+
   .name
     font-size: 18px;
     color: #333333;
@@ -175,7 +187,7 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder
       top 4px
       font-size 20px
       letter-spacing 1px
-      font-family '微软雅黑' !important
+      // font-family '微软雅黑' !important
       left 146px
     .sys-name
       position absolute
@@ -184,14 +196,14 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder
       right 75px
       font-size 22px
       letter-spacing 2px
-      font-family '微软雅黑' !important
+      // font-family '微软雅黑' !important
     .sys-version
       position absolute
       font-size 12px
       color #fff
       top 43px
       left 235px
-      font-family '微软雅黑' !important
+      // font-family '微软雅黑' !important
       opacity .8
       letter-spacing 1px
   .login-shaw
@@ -204,9 +216,16 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder
     color: #EEF8F3;
     letter-spacing: 0;
     text-align center
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: center;
     position: absolute
     bottom 20px
     width 100%
+    font-family: sans-serif!important;
+    span
+      font-family: sans-serif!important;
+      margin 0px 10px
 </style>
 
 <script>
