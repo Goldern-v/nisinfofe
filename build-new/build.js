@@ -17,6 +17,8 @@ var spinner = ora("building for production...");
 
 
 
+// copyFolder.upload();
+
 // 初始化创建文件夹
 copyFolder.initial();
 // copyFolder.start()
