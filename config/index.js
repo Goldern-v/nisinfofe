@@ -26,10 +26,10 @@ if (_hospitalName) {
   }
 }
 
-hospitalName = hospitalName.replace(/["']/g, '')
+hospitalName = hospitalName.replace(/["']/g, "");
 
-devEnv['NODE_ENV'] = '"development"'
-prodEnv['NODE_ENV'] = '"production"'
+devEnv["NODE_ENV"] = '"development"';
+prodEnv["NODE_ENV"] = '"production"';
 
 console.log(chalk.yellow(">部署配置:", hospitalName || "东莞市厚街医院"));
 

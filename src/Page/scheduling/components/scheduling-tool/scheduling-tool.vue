@@ -52,7 +52,7 @@
         @click="copyLastWeek"
         style="width: 110px;"
       >
-        <div class="text-con">复制上周排班</div>
+        <div class="text-con">复制上上周排班</div>
       </div>
 
       <div flex-box="1"></div>
@@ -109,10 +109,12 @@ export default {
     getWeeks() {
       let weeks = [];
       let currentWn = moment().week();
-      for (let wn = currentWn - 1; wn <= currentWn + 2; wn++) {
+      for (let wn = currentWn - 2; wn <= currentWn + 2; wn++) {
         let weekString = "";
         if (wn == currentWn) {
           weekString = "本周";
+        } else if (wn == currentWn - 1) {
+          weekString = "上周";
         } else if (wn == currentWn + 1) {
           weekString = "下周";
         } else {
@@ -150,16 +152,16 @@ export default {
       });
     },
     copyLastWeek() {
-      this.$confirm("复制上周的排班，确认无误后请点击保存?", "提示", {
+      this.$confirm("复制上上周的排班，确认无误后请点击保存?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning"
       }).then(async () => {
         let startDate = moment(dataModel.startDate)
-          .subtract(7, "d")
+          .subtract(14, "d")
           .format("YYYY-MM-DD");
         let endDate = moment(dataModel.endDate)
-          .subtract(7, "d")
+          .subtract(14, "d")
           .format("YYYY-MM-DD");
         getPatientArrange(startDate, endDate).then(res => {
           dataModel.tableLoading = true;
@@ -168,13 +170,13 @@ export default {
               return {
                 ...item,
                 hdDate: moment(item.hdDate)
-                  .add(7, "d")
+                  .add(14, "d")
                   .format("YYYY-MM-DD"),
                 timeSlice: item.hdTimeSlice
               };
             })
           ).then(res => {
-            this.$message("复制上周排班成功");
+            this.$message("复制上上周排班成功");
             dataModel.getPatientArrange();
           });
         });
@@ -187,7 +189,7 @@ export default {
   },
   computed: {},
   created() {
-    this.selectedWeek = this.weeks[1].value;
+    this.selectedWeek = this.weeks[2].value;
   },
   watch: {
     selectedWeek() {

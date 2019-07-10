@@ -18,7 +18,7 @@
             v-else-if="td.textarea"
             :style="Object.assign({}, td.style, {minWidth: td.textarea.width + 'px', maxWidth: td.textarea.width + 'px'})"
           ></textarea>
-          <input type="text" :style="[td.style]" v-else>
+          <input type="text" :style="[td.style]" v-else />
         </td>
       </tr>
       <tr class="head-con" v-for="(th, index) in data.titleModel.th" :key="index">
@@ -81,7 +81,7 @@
             :data-value="tr.find((item) => item.key == 'yearBreak').value"
             :style="[td.style, {height: '12px'}]"
             v-if="td.key === 'recordMonth' && tr.find((item) => item.key == 'yearBreak').value"
-          >
+          />
           <div
             v-if="td.key == 'sign'"
             class="sign-text"
@@ -99,13 +99,13 @@
               v-if="tr.find((item) => item.key == 'auditorNo').value"
               :src="`/crNursing/api/file/signImage/${tr.find((item) => item.key == 'auditorNo').value}?${token}`"
               alt
-            >
+            />
             <span v-if="tr.find((item) => item.key == 'auditorNo').value">/</span>
             <img
               :style="!td.value && {opacity: 0}"
               :src="`/crNursing/api/file/signImage/${td.value}?${token}`"
               alt
-            >
+            />
           </div>
           <!-- <div v-else-if="td.key == 'auditorNo'" class="sign-img">
             <img v-if="td.value" :src="`/crNursing/api/file/signImage/${td.value}?${token}`" alt>
@@ -135,7 +135,7 @@
             @blur="onBlur($event, {x,y,z:index})"
             @click="!isRead(tr) && td.click && td.click($event, td)"
             v-else
-          >
+          />
         </td>
         <span v-show="false" v-else>{{td.key}}: {{td.value}}</span>
       </tr>
@@ -548,7 +548,7 @@ export default {
         .parents("tr")
         .addClass("selectedRow");
       let style = {
-        top: `${Math.min(e.clientY - 15, window.innerHeight - 340)}px`,
+        top: `${Math.min(e.clientY - 15, window.innerHeight - 280)}px`,
         left: `${Math.min(e.clientX + 15, window.innerWidth - 180)}px`
       };
       let data = [
@@ -672,25 +672,25 @@ export default {
           click: () => {
             this.bus.$emit("openPizhuModal", row, "all");
           }
-        },
-        {
-          name: "文字标红",
-          icon: "charuxinhang",
-          click: () => {
-            row.find(item => {
-              return item.key == "recordSource";
-            }).value = "5";
-          }
-        },
-        {
-          name: "取消标红",
-          icon: "charuxinhang",
-          click: () => {
-            row.find(item => {
-              return item.key == "recordSource";
-            }).value = "1";
-          }
         }
+        // {
+        //   name: "文字标红",
+        //   icon: "charuxinhang",
+        //   click: () => {
+        //     row.find(item => {
+        //       return item.key == "recordSource";
+        //     }).value = "5";
+        //   }
+        // },
+        // {
+        //   name: "取消标红",
+        //   icon: "charuxinhang",
+        //   click: () => {
+        //     row.find(item => {
+        //       return item.key == "recordSource";
+        //     }).value = "1";
+        //   }
+        // }
         // {
         //   type: 'mark',
         //   initValue: {
