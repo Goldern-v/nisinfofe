@@ -1550,7 +1550,7 @@ export default {
       event.preventDefault();
       window.openContextMenu({ style, data });
     },
-    onClick() {
+    onClick(event) {
       console.log("onClick", event, {
         clientY: event.clientY,
         clientX: event.clientX,
