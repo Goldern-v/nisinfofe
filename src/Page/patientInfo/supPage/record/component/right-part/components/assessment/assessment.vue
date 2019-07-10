@@ -691,7 +691,8 @@ export default {
               // input.style.outline = "2px solid #e3c1ff"
               let widMouseover = input.addEventListener(
                 "mouseover",
-                () => {
+                (event) => {
+                  if(!event){return}
                   event.stopPropagation();
                   let id = event.target.getAttribute("data-id");
                   let name = event.target.getAttribute("name");
@@ -709,7 +710,7 @@ export default {
                   ) {
                     input.style.background =
                       m.status == 0 ? "#e3c1ff" : "#ede7bd";
-                    this.markTip(m);
+                    this.markTip(event,m);
                   } else {
                     input.style.background = "";
                   }
@@ -1319,7 +1320,7 @@ export default {
     setLoadingStatus(bool) {
       this.pageLoading = bool;
     },
-    onContextMenu() {
+    onContextMenu(event) {
       console.log("onContextMenu", event);
       if (this.eventTarget) {
         this.eventTarget.style.outline = "";
@@ -1562,8 +1563,8 @@ export default {
       }
       window.closeContextMenu();
     },
-    markTip(obj = {}) {
-      console.log("markTip", event);
+    markTip(event,obj = {}) {
+      console.log("fun:markTip", event);
       if (!event) {
         return;
       }
