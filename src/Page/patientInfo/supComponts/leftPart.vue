@@ -17,7 +17,12 @@
           <div class="list-li" v-else>住院次数：{{info.visitId}}</div>
         </div>
       </div>
-      <div class="list2-box">
+      <div
+        class="list2-box"
+        :style="{height: `${wih-350}px`,overflow: overflow}"
+        @mouseover="overflow='auto'"
+        @mouseout="overflow='hidden'"
+      >
         <div class="list2-li">护理单元：{{info.wardName}}</div>
         <div class="list2-li">床号：{{info.bedLabel}}</div>
         <div class="list2-li">病情：{{info.patientCondition}}</div>
@@ -174,7 +179,9 @@ import bedModal from "./modal/bed-modal.vue";
 import printModal from "./print-modal/print-modal";
 export default {
   data() {
-    return {};
+    return {
+      overflow: "hidden"
+    };
   },
   computed: {
     info() {

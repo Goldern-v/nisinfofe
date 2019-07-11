@@ -48,24 +48,20 @@
     <div class="top-box" flex-box="1">
       <div class="head-con">
         <div class="title">过敏</div>
-        <img src="../images/分组.png" alt="" class="warning-img" v-if="info.drugGms">
+        <img src="../images/分组.png" alt class="warning-img" v-if="info.drugGms" />
       </div>
       <div class="body-con">
-        <div class="text">
-          {{info.drugGms || '--'}}
-        </div>
+        <div class="text">{{info.drugGms || '--'}}</div>
       </div>
     </div>
 
     <div class="top-box" flex-box="1">
       <div class="head-con">
         <div class="title">隔离</div>
-        <img src="../images/分组.png" alt="" class="warning-img" v-if="info.glFlag">
+        <img src="../images/分组.png" alt class="warning-img" v-if="info.glFlag" />
       </div>
       <div class="body-con">
-        <div class="text">
-          {{info.glFlag || '--'}}
-        </div>
+        <div class="text">{{info.glFlag || '--'}}</div>
       </div>
     </div>
   </div>
@@ -81,10 +77,10 @@
     &:first-child
       margin-left 0
     &:last-child
-      margin-right 0  
+      margin-right 0
     .head-con
       height 40px
-      border-bottom: 1px solid #E7EAEC;  
+      border-bottom: 1px solid #E7EAEC;
       position relative
       .title
         position absolute
@@ -95,46 +91,71 @@
         font-weight bold
       .warning
         background: #ED5566;
-        border-radius: 2px;  
+        border-radius: 2px;
         position absolute
         top 12px
-        right 16px
+        right 12px
         padding 2px 4px
         font-size: 12px;
         color: #FFFFFF;
         list-style 14px
-      .warning-img 
+      .warning-img
         position absolute
         top 12px
-        right 16px
+        right 12px
     .body-con
-      height 88px    
+      height 88px
       position relative
       overflow hidden
       .value
-        margin 16px 14px 4px
-        font-size: 36px;
         color: #687179;
         font-weight lighter
+        margin: 16px 4px 14px;
+        font-size: 26px;
+        text-align: center;
+        font-family: sans-serif!important;
       .aside
-        font-size: 11px;
-        color: #687179;  
+        font-size: 16px;
+        color: #687179;
         margin 0 16px
+        text-align: center;
+        font-family: sans-serif!important;
       i
         position absolute
         right 16px
         bottom 16px
         font-size 14px
       .icon-chaochu
-        color #ED5566;    
+        color #ED5566;
       .icon-guodi
         color #F8AC59
       .text
-        margin: 16px 14px 4px; 
+        margin: 16px 14px 4px;
         font-size 18px
         color #66717B
         font-weight bold
 </style>
+<style lang="stylus" scoped>
+@media screen and (max-width: 1100px) {
+  /deep/.top-box {
+    margin: 0 2px 15px!important;
+  }
+  /deep/.value{
+        font-size: 20px!important;
+      }
+}
+@media screen and (min-width: 1100px) {
+  /deep/.value{
+        font-size: 22px!important;
+      }
+}
+@media screen and (min-width: 1300px) {
+  /deep/.value{
+        font-size: 28px!important;
+      }
+}
+</style>
+
 <script>
 import { getDrugFeePercent, getFeeDetail } from "@/api/patientInfo";
 import commonMixin from "../../../../../../common/mixin/common.mixin";
