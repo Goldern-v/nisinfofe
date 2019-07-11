@@ -176,7 +176,7 @@ export default {
               };
             })
           ).then(res => {
-            this.$message("复制上上周排班成功");
+            this.$message.success("复制上上周排班成功");
             dataModel.getPatientArrange();
           });
         });

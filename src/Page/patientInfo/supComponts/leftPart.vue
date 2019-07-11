@@ -6,7 +6,7 @@
       ></div>
       <div class="user-box">
         <div class="user-head">
-          <img src="../../../common/images/card/默认头像.png" height="72" width="72">
+          <img src="../../../common/images/card/默认头像.png" height="72" width="72" />
         </div>
         <p class="name">{{info.name}}</p>
         <p class="age">{{info.sex}} | {{info.age}}</p>
@@ -27,7 +27,7 @@
         <div class="list2-li">科室：{{info.deptName}}</div>
         <div class="list2-li">入院：{{info.admissionDate}}(第{{info.inpDay}}天)</div>
         <div class="list2-li">医生：{{info.doctorInCharge}}</div>
-        <div class="list2-li">诊断：{{info.diagnosis}}</div>
+        <div class="list2-li over-text" :title="info.diagnosis">诊断：{{info.diagnosis}}</div>
         <div class="print-btn" flex="cross:center main:center" @click="openBedPrint">打印床头卡</div>
         <div class="print-btn" flex="cross:center main:center" @click="openPrintModal">归档打印</div>
       </div>
@@ -46,90 +46,128 @@
   </div>
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
-  .content
-    width 201px
-    padding-bottom 10000px
-    margin-bottom -10000px
-    box-sizing: border-box;
-    margin-top -2px
-    border-right: 1px solid #CBD5DD;
-    background #F8F8F8
-    z-index 101
-    position fixed
-    transition: all .4s cubic-bezier(.55, 0, .1, 1);
-    .flag-con
-      width 10px;
-      height 73px;
-      position absolute
-      right -11px
-      top 100px;
-      background-image url('../../../common/images/patient/隐藏框.png')
-      cursor pointer
-      &:hover
-        color #5CC6A1
-      i
-        font-size 12px;
-  .user-box
-    overflow hidden
-    width 200px
-    height 267px;
-    background-image: url('../../../common/images/patient/患者背景.png')
-    box-sizing cover
-  .user-head
-    width 62px;
-    height 62px;
-    margin 22px auto
-    border-radius 50%
-    border: 1px solid #FCFCFC;
-    overflow: hidden
-    img
-      width 100%
-      height 100%
-      object-fit cover
-  .name
-    font-size: 18px;
+.content {
+  width: 201px;
+  padding-bottom: 10000px;
+  margin-bottom: -10000px;
+  box-sizing: border-box;
+  margin-top: -2px;
+  border-right: 1px solid #CBD5DD;
+  background: #F8F8F8;
+  z-index: 101;
+  position: fixed;
+  transition: all 0.4s cubic-bezier(0.55, 0, 0.1, 1);
+
+  .flag-con {
+    width: 10px;
+    height: 73px;
+    position: absolute;
+    right: -11px;
+    top: 100px;
+    background-image: url('../../../common/images/patient/隐藏框.png');
+    cursor: pointer;
+
+    &:hover {
+      color: #5CC6A1;
+    }
+
+    i {
+      font-size: 12px;
+    }
+  }
+}
+
+.user-box {
+  overflow: hidden;
+  width: 200px;
+  height: 267px;
+  background-image: url('../../../common/images/patient/患者背景.png');
+  box-sizing: cover;
+}
+
+.user-head {
+  width: 62px;
+  height: 62px;
+  margin: 22px auto;
+  border-radius: 50%;
+  border: 1px solid #FCFCFC;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.name {
+  font-size: 18px;
+  color: #FFFFFF;
+  text-align: center;
+  margin-top: 18px;
+}
+
+.age {
+  margin-top: 9px;
+  font-size: 12px;
+  color: #FFFFFF;
+  text-align: center;
+  font-weight: lighter;
+}
+
+.list-box {
+  margin: 18px 20px;
+
+  .list-li {
+    margin-bottom: 9px;
+    font-size: 13px;
     color: #FFFFFF;
-    text-align center
-    margin-top 18px
-  .age
-    margin-top 9px
-    font-size: 12px;
-    color: #FFFFFF;
-    text-align center
-    font-weight lighter
-  .list-box
-    margin 18px 20px
-    .list-li
-      margin-bottom 9px
-      font-size: 13px;
-      color: #FFFFFF;
-      font-weight lighter
-  .list2-box
-    margin 14px 10px 14px 20px
-    .list2-li
-      margin-bottom 7px
-      font-size: 13px;
-      color: #687179;
-      line-height 20px
-.line-boder
+    font-weight: lighter;
+  }
+}
+
+.list2-box {
+  margin: 14px 10px 14px 20px;
+
+  .list2-li {
+    margin-bottom: 7px;
+    font-size: 13px;
+    color: #687179;
+    line-height: 20px;
+  }
+}
+
+.line-boder {
   border-top: 1px solid #E3E7EA;
   border-bottom: 1px solid #FFFFFF;
-  margin-top 10px
-  margin-bottom 8px
-.print-btn
+  margin-top: 10px;
+  margin-bottom: 8px;
+}
+
+.print-btn {
   background-image: linear-gradient(-180deg, #FEFEFE 0%, #F2F2F2 100%);
   border: 1px solid #C2CBD2;
   border-radius: 2px;
-  height 32px
-  width 160px
-  margin 15px 0
+  height: 32px;
+  width: 160px;
+  margin: 15px 0;
   font-size: 13px;
   color: #333333;
   letter-spacing: 0;
-  cursor pointer
-  &:hover
-    background #fafafa
-    color #000
+  cursor: pointer;
+
+  &:hover {
+    background: #fafafa;
+    color: #000;
+  }
+}
+
+.over-text {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+}
 </style>
 <script>
 import bedModal from "./modal/bed-modal.vue";
