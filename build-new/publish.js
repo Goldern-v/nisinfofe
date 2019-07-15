@@ -1,5 +1,7 @@
 var path, node_ssh, ssh, fs, folderSrc, localSrc
 
+var log = console.log
+
 let sshUpload = (localSrc = './dist', folderSrc = '/crdata/webProject/nursingInfoSystem/') => {
   fs = require('fs')
   path = require('path')
@@ -22,7 +24,7 @@ let sshUpload = (localSrc = './dist', folderSrc = '/crdata/webProject/nursingInf
 
   var spinner = ora(`正在同步上传至${serverInfo.host}服务器...`);
 
-  console.log(chalk.yellow('----项目上传至服务器----', serverInfo.host));
+  log(chalk.yellow('   部署至服务器中...', serverInfo.host));
   spinner.start()
 
   let rsyncopy = () => {
@@ -50,15 +52,16 @@ let sshUpload = (localSrc = './dist', folderSrc = '/crdata/webProject/nursingInf
     }).then(function (status) {
       spinner.stop()
       if (status) {
-        console.log(chalk.green('\n目录传输状态:', status ? '成功' : '未成功'))
+        log(chalk.green('\n目录传输状态:'), status ? chalk.bgGreen.black('成功') : chalk.bgRed.black('未成功'))
       } else {
-        console.log(chalk.red('\n目录传输状态:', status ? '成功' : '未成功'))
+        log(chalk.green('\n目录传输状态:'), status ? chalk.bgGreen.black('成功') : chalk.bgRed.black('未成功'))
       }
       if (failed && failed.length > 0) {
-        console.log(chalk.red('传输失败文件:(', failed.length, ')', failed.join('\n')))
+        log(chalk.bgRed.black('传输失败文件:('), chalk.red(failed.length, ')', failed.join('\n')))
       }
-      console.log(chalk.green('已完成传输文件:(', successful.length, ')\n', successful.join('\n')))
-      console.log(chalk.yellow('----完成文件上传至服务器----', serverInfo.host));
+
+      log(chalk.bgGreen.black('已完成传输文件'), chalk.green('(', successful.length, ')\n', successful.join('\n')))
+      log(chalk.bgYellowBright.black('  已部署至服务器  ', serverInfo.host));
       ssh.dispose()
       // process.exit()
     })
@@ -73,26 +76,26 @@ let sshUpload = (localSrc = './dist', folderSrc = '/crdata/webProject/nursingInf
         // ssh.execCommand(`ls -hasg "${folderSrc}" && pwd`, {
         cwd: folderSrc,
         onStdout(chunk) {
-          console.log(chalk.yellow('\n---清空服务端旧文件夹---'))
-          console.log(chalk.red(chunk.toString('utf8')))
+          log(chalk.bgRed.black('\n   清空服务端旧文件夹'))
+          log(chalk.red(chunk.toString('utf8')))
           // spinner.stop()
           // ssh.dispose()
         },
         onStderr(chunk) {
-          // console.log('stderrChunk', chunk.toString('utf8'))
+          // log('stderrChunk', chunk.toString('utf8'))
           // spinner.stop()
           // ssh.dispose()
         },
       })
-      .then(() => {
-        rsyncopy()
-      })
+        .then(() => {
+          rsyncopy()
+        })
 
     })
 
 
   // ssh.disconnect().then(function () {
-  //   console.log('关闭ssh连接')
+  //   log('关闭ssh连接')
   // })
 
 }

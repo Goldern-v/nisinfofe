@@ -45,7 +45,7 @@ let zipFolder = (filename, path) => {
     compressing.zip.compressDir(path, filename)
         .then(() => {
             fs.stat(filename, function (err, stats) {
-                console.log(chalk.yellow('>已生成: ' + filename, getFileSizeWithUnit(stats.size)));
+                console.log(chalk.bgYellowBright.black(' 已生成 '), chalk.yellow(filename, getFileSizeWithUnit(stats.size)));
             })
             console.log(chalk.green('----success----'));
         })
@@ -142,7 +142,7 @@ let start = async () => {
     //
     // 复制../dist目录到../release/dist
     console.log(chalk.green('---------------'));
-    console.log(chalk.blue(`>复制: ./dist目录 到 ./release/${buildFileName}/webpage/dist`))
+    console.log(chalk.bgYellowBright.black(' 复制 '), chalk.blue(` ./dist目录 到 ./release/${buildFileName}/webpage/dist`))
     // cmd_cp('./dist', `./release/${buildFileName}/dist`)
     copyDir('./dist', `./release/${buildFileName}/webpage/dist`, function (err) {
         if (err) { console.log(err); }
@@ -151,7 +151,7 @@ let start = async () => {
 }
 
 let zip = () => {
-    try { var createStream = fs.createWriteStream(`./release/${hospitalName}/${hospitalName}`);createStream.end(); } catch (err) { }
+    try { var createStream = fs.createWriteStream(`./release/${hospitalName}/${hospitalName}`); createStream.end(); } catch (err) { }
     // 压缩打包zip
     zipFolder(`./release/${buildFileName}${moment().format("YYYY-MM-DD_HH_mm")}.zip`, `./release/${buildFileName}`)
 }
