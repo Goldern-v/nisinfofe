@@ -71,3 +71,17 @@ export const searchPatient = search => {
 export const saveBatchHDArrange = list => {
   return axios.post(`${apiPath}hemodialysis/saveBatchHDArrange`, { list });
 };
+// 复制上上周排班
+export const copyArrange = (
+  startDateOld,
+  endDateOld,
+  startDateNew,
+  endDateNew
+) => {
+  return axios.post(`${apiPath}hemodialysis/copyArrange`, {
+    startDateOld,
+    endDateOld,
+    startDateNew,
+    endDateNew
+  });
+};

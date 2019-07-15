@@ -161,6 +161,11 @@
                 <i class="iconfont icon-jiaobanzhi"></i> 交班志
               </el-row>
             </router-link>
+            <router-link to="/badEvent" tag="span">
+              <el-row class="nav-item" type="flex" align="middle">
+                <i class="iconfont icon-jiaobanzhi"></i> 不良事件
+              </el-row>
+            </router-link>
 
             <!-- <router-link to="/catheterPage" tag="span" v-show="isDev">
               <el-row class="nav-item" type="flex" align="middle">
@@ -226,14 +231,14 @@
                     </el-row>
                   </router-link>
                 </el-dropdown-item>
-                <el-dropdown-item :class="{active: $route.path == '/badEvent'}">
+                <!-- <el-dropdown-item :class="{active: $route.path == '/badEvent'}">
                   <router-link to="/badEvent" tag="span" >
-                    <!--v-show="isDev" <i class="iconfont icon-dongtairizhi"></i> -->
+
                     <el-row class="menu-item" type="flex" align="middle">
                       <i class="badEvent"></i>不良事件
                     </el-row>
                   </router-link>
-                </el-dropdown-item>
+                </el-dropdown-item>-->
                 <el-dropdown-item :class="{active: $route.path == '/nursingRules'}">
                   <router-link to="/nursingRules" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
@@ -605,7 +610,7 @@ export default {
     isActivePage() {
       if (this.$route.path.indexOf("/wardReport") > -1) return true;
       if (this.$route.path == "/nursingDocumentation") return true;
-      if (this.$route.path == "/badEvent") return true;
+      // if (this.$route.path == "/badEvent") return true;
       if (this.$route.path == "/inpatientReport") return true;
       if (this.$route.path == "/catheterPage") return true;
     },
