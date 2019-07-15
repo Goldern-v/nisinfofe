@@ -1,5 +1,5 @@
 <template>
-  <div flex="">
+  <div flex>
     <div class="left-part">
       <box title="护理评估">
         <div slot="body">
@@ -17,7 +17,13 @@
   width 67%
   margin-right 16px
 .right-part
-  width 33%  
+  width 33%
+
+@media screen and (max-width: 1100px) {
+  /deep/.left-part {
+    margin-right: 4px!important;
+  }
+}
 </style>
 <script>
 import box from "../box/box";

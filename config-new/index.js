@@ -31,9 +31,10 @@ hospitalName = hospitalName.replace(/["']/g, '')
 devEnv['NODE_ENV'] = '"development"'
 prodEnv['NODE_ENV'] = '"production"'
 
-console.log(chalk.yellow(">部署配置:", hospitalName || "东莞市厚街医院"));
+console.log(chalk.bgCyan.black(" 部署配置 "), chalk.yellow(hospitalName || "东莞市厚街医院"));
 
 console.log(__dirname)
+
 // if (hospitalName == "--guiyi") {
 //   devEnv = require("./dev.env.guiyi");
 //   prodEnv = require("./prod.env.guiyi");
