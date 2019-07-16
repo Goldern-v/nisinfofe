@@ -161,16 +161,9 @@
                 <i class="iconfont icon-jiaobanzhi"></i> 交班志
               </el-row>
             </router-link>
-            <router-link to="/badEvent" tag="span">
-              <el-row class="nav-item" type="flex" align="middle">
-                <i class="iconfont icon-jiaobanzhi"></i> 不良事件
-              </el-row>
-            </router-link>
 
-           <router-link to="/badEvent" tag="span">
-              <el-row class="nav-item" type="flex" align="middle">
-                不良事件
-              </el-row>
+            <router-link to="/badEvent" tag="span">
+              <el-row class="nav-item" type="flex" align="middle">不良事件</el-row>
             </router-link>
             <!-- <router-link to="/catheterPage" tag="span" v-show="isDev">
               <el-row class="nav-item" type="flex" align="middle">
@@ -237,8 +230,12 @@
                   </router-link>
                 </el-dropdown-item>
                 <!-- <el-dropdown-item :class="{active: $route.path == '/badEvent'}">
+<<<<<<< HEAD
                   <router-link to="/badEvent" tag="span" >
 
+=======
+                  <router-link to="/badEvent" tag="span" v-show="isDev">
+>>>>>>> 150247d64c83f4ee22b69def56228621a557ac17
                     <el-row class="menu-item" type="flex" align="middle">
                       <i class="badEvent"></i>不良事件
                     </el-row>
