@@ -5,7 +5,7 @@
     <div class="toolbar">
       <div class="toolbar-left">
         <div v-if="showLeft">
-          <Button class="save-button" @click.stop="save">保存</Button>
+          <Button class="save-button" @click.stop="save" :disabled="isSaved">保存</Button>
           <!-- <Button class='submit-button' @click.stop="submit">提交审核</Button> -->
           <!-- <Button @click.stop="del" :disabled='this.$route.params.operation==="create"?true:false'>删除</Button> -->
           <!-- <Button @click.stop="goback">取消</Button> -->
@@ -139,7 +139,8 @@ export default {
         pageNum: 20,
         totalPage: 1
       },
-      wid: Object
+      wid: Object,
+      isSaved: false,
     };
   },
   created() {
@@ -176,6 +177,7 @@ export default {
       console.log('save',e);
       // e.target.disabled = true;
       if (this.wid) {
+        this.isSaved=true;
         // this.wid.saveForm()
         this.wid.CRForm.controller.saveForm(this.$router);
       }
