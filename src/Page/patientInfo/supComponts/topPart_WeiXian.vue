@@ -22,9 +22,9 @@
       <router-link :to="{path:'/diagnosis', query: query}" tag="span">
         <div class="nav-item">护理诊断计划</div>
       </router-link>
-      <!-- <router-link :to="{path:'/bloodSugar', query:$route.query}" tag="span">
+      <router-link :to="{path:'/bloodSugar', query:$route.query}" tag="span">
         <div class="nav-item">血糖</div>
-      </router-link>-->
+      </router-link>
       <router-link :to="{path:'/cost', query: query}" tag="span">
         <div class="nav-item">费用信息</div>
       </router-link>

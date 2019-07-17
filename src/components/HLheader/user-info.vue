@@ -25,7 +25,7 @@
     <div class="sign-title">签名图片</div>
     <div class="sign-con">
       <div>
-        <img v-if="signature" :src="signature" alt @click="setSignImg">
+        <img v-if="signature" :src="signature" alt @click="setSignImg" />
       </div>
       <div v-if="!signature">
         签名图片需要护理部审核，审核通过后将应用于护理记录单，护理评估的签名处。
@@ -154,6 +154,11 @@ export default {
         ? moment(this.systemInfo["最近打包时间"]).format("YYYY-MM-DD HH:mm:ss")
         : "";
     },
+    lastBuilder() {
+      return this.systemInfo && this.systemInfo["最近打包人员"]
+        ? this.systemInfo["最近打包人员"]
+        : "";
+    },
     lastVersion() {
       return this.systemInfo && this.systemInfo["版本号"]
         ? this.systemInfo["版本号"]
@@ -164,50 +169,56 @@ export default {
         ? this.systemInfo["proxyTable"]["/crNursing/api"].target
         : "";
     },
-    adminSystemInfo(){
+    adminSystemInfo() {
       return [
         { key: "医院名", value: this.hospitalName },
         { key: "版本号", value: this.lastVersion },
         { key: "最近打包时间", value: this.lastBuildDate },
+        { key: "最近打包人员", value: this.lastBuilder },
         { key: "IP代理地址", value: this.proxyIP },
         {
           key: "屏幕宽高",
           value: `${window.screen.width}x${window.screen.height}`
         },
         { key: "Platform", value: window.navigator.platform },
-        { key: "总内存", value: `${window.navigator.deviceMemory||''} GB` },
-        { key: "Used内存", value: `${this.getFileSizeWithUnit(window.performance.memory.usedJSHeapSize)}` },
+        { key: "总内存", value: `${window.navigator.deviceMemory || ""} GB` },
+        {
+          key: "Used内存",
+          value: `${this.getFileSizeWithUnit(
+            window.performance.memory.usedJSHeapSize
+          )}`
+        },
         { key: "CPU总线程数", value: window.navigator.hardwareConcurrency }
-      ]
+      ];
     }
   },
   methods: {
     openUploadHeadModal() {
       this.$refs.uploadImgModal.open("userHead");
     },
-    getFileSizeWithUnit(size){
-      let result = ''
-      if(typeof(size)==='number'){
+    getFileSizeWithUnit(size) {
+      let result = "";
+      if (typeof size === "number") {
         let unit = [
-          { name: ' B', value: Math.pow(10,0)},
-          { name: ' KB', value: Math.pow(10,3)},
-          { name: ' MB', value: Math.pow(10,6)},
-          { name: ' GB', value: Math.pow(10,9)},
-          { name: ' TB', value: Math.pow(10,12)},
-        ]
-        unit.filter((u,i)=>{
+          { name: " B", value: Math.pow(10, 0) },
+          { name: " KB", value: Math.pow(10, 3) },
+          { name: " MB", value: Math.pow(10, 6) },
+          { name: " GB", value: Math.pow(10, 9) },
+          { name: " TB", value: Math.pow(10, 12) }
+        ];
+        unit.filter((u, i) => {
           // console.log('size/u.value',i,size/u.value,u.name)
-          let s = Math.floor(size/u.value)
-          let n = (size/u.value).toFixed(2)
-          if( s < 1000 &&  s > 0){
-            result = n+u.name
-            return u.name
+          let s = Math.floor(size / u.value);
+          let n = (size / u.value).toFixed(2);
+          if (s < 1000 && s > 0) {
+            result = n + u.name;
+            return u.name;
           }
-        })
+        });
         // console.log('getFileSizeWithUnit',size,result)
-        return result||size
+        return result || size;
       }
-      return size
+      return size;
     },
     UserImgId() {
       return JSON.parse(localStorage.user).icon;
@@ -229,9 +240,7 @@ export default {
       this.$nextTick(() => {
         let signature = this.SignImgId();
         if (signature) {
-          this.signature = `/crNursing/api/file/signImage/${signature}?${
-            this.token
-          }`;
+          this.signature = `/crNursing/api/file/signImage/${signature}?${this.token}`;
         } else {
           this.signature = "";
         }

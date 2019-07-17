@@ -83,7 +83,7 @@ const formMSNames = [
 ];
 
 // 护理评估列表 有多项签名 新建页面
-const formRecordsNames = ["心肺复苏单","住院病人处理单"];
+const formRecordsNames = ["心肺复苏单", "住院病人处理单"];
 
 const formPushForward = ["健康教育单"];
 

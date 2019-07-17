@@ -14,6 +14,7 @@ var fs = require("fs");
 var versionInfo = require("./version.js");
 var copyFolder = require("./copyFolder.js");
 var spinner = ora("building for production...");
+//
 
 // 初始化创建文件夹
 copyFolder.initial()
@@ -22,7 +23,7 @@ copyFolder.initial()
 spinner.start();
 rm(path.join(config.build.assetsRoot, config.build.assetsSubDirectory), err => {
   if (err) throw err;
-  webpack(webpackConfig, function(err, stats) {
+  webpack(webpackConfig, function (err, stats) {
     spinner.stop();
     if (err) throw err;
     process.stdout.write(
@@ -43,7 +44,7 @@ rm(path.join(config.build.assetsRoot, config.build.assetsSubDirectory), err => {
     console.log(
       chalk.yellow(
         "  Tip: built files are meant to be served over an HTTP server.\n" +
-          "  Opening index.html over file:// won't work.\n"
+        "  Opening index.html over file:// won't work.\n"
       )
     );
     // 复制 ./dist目录 到 ./release/dist
