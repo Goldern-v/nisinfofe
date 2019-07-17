@@ -128,6 +128,7 @@ global.system = {
   软件名称: versionInfo["软件名称"],
   版本号: versionInfo["版本号"], //devTools.getLastPackagedDate(),
   最近打包时间: versionInfo["最近打包时间"], //devTools.getLastPackagedDate(),
+  最近打包人员: versionInfo["最近打包人员"],
   proxyTable: versionInfo["proxyTable"] || "",
   关于: {
     研发单位: "广州宸瑞软件科技有限公司",
@@ -170,7 +171,7 @@ Vue.prototype.$setCookie = function setCookie(name, value, expiredays = 30) {
 };
 Vue.prototype.$_ = _;
 
-Vue.prototype.$getCookie = function(Name) {
+Vue.prototype.$getCookie = function (Name) {
   var search = Name + "=";
   var returnvalue = "";
   if (document.cookie.length > 0) {

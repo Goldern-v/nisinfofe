@@ -691,8 +691,10 @@ export default {
               // input.style.outline = "2px solid #e3c1ff"
               let widMouseover = input.addEventListener(
                 "mouseover",
-                (event) => {
-                  if(!event){return}
+                event => {
+                  if (!event) {
+                    return;
+                  }
                   event.stopPropagation();
                   let id = event.target.getAttribute("data-id");
                   let name = event.target.getAttribute("name");
@@ -710,7 +712,7 @@ export default {
                   ) {
                     input.style.background =
                       m.status == 0 ? "#e3c1ff" : "#ede7bd";
-                    this.markTip(event,m);
+                    this.markTip(event, m);
                   } else {
                     input.style.background = "";
                   }
@@ -1382,7 +1384,11 @@ export default {
       }
       let pageItems = [];
       // formatData.recordsPages
-      if (this.wid && this.wid.formatData && this.wid.formatData.hasOwnProperty("recordsPages")) {
+      if (
+        this.wid &&
+        this.wid.formatData &&
+        this.wid.formatData.hasOwnProperty("recordsPages")
+      ) {
         this.wid.formatData.recordsPages.map((page, index) => {
           let p = [...page].filter((r, i) => {
             if (
@@ -1526,6 +1532,17 @@ export default {
               );
             }
           }
+        },
+        {
+          name: "打印区域",
+          icon: "shanchuzhenghang",
+          // disable: !recordObj.formApiCode,
+          click: () => {
+            // this.delRecord(recordObj, rowData);
+            console.log("打印区域", event, rowData);
+            event.view.print();
+            // this.printIframe(event.target.innerHTML);
+          }
         }
         // {
         //   name: "添加行批注",
@@ -1563,7 +1580,29 @@ export default {
       }
       window.closeContextMenu();
     },
-    markTip(event,obj = {}) {
+    printIframe(html) {
+      //判断iframe是否存在，不存在则创建iframe
+      var iframe = document.getElementById("print-iframe");
+      if (!iframe) {
+        // var el = document.getElementById("printcontent");
+        iframe = document.createElement("IFRAME");
+        var doc = null;
+        iframe.setAttribute("id", "print-iframe");
+        iframe.setAttribute(
+          "style",
+          "position:absolute;width:0px;height:0px;left:-500px;top:-500px;"
+        );
+        document.body.appendChild(iframe);
+        doc = iframe.contentWindow.document;
+        //这里可以自定义样式
+        //doc.write("<LINK rel="stylesheet" type="text/css" href="css/print.css">");
+        doc.write("<div>" + html + "</div>");
+        doc.close();
+        iframe.contentWindow.focus();
+      }
+      iframe.contentWindow.print();
+    },
+    markTip(event, obj = {}) {
       console.log("fun:markTip", event);
       if (!event) {
         return;
@@ -1588,7 +1627,7 @@ export default {
             handlepz,
             delpz,
             auditpz,
-            callback: (td, operation = "", status=null) => {
+            callback: (td, operation = "", status = null) => {
               if (td && td.markObj) {
                 console.log("--td--", operation, td);
                 if (td.markObj.status == 1) {
@@ -1608,33 +1647,33 @@ export default {
               if (["delete", "audit"].indexOf(operation) > -1) {
                 // td.markObj
                 console.log("--delete--", td.markObj.status, this.markList);
-                this.getMarkList()
+                this.getMarkList();
                 // this.getMarkList(this.onloadMarkList());
                 //
                 // if (operation == "delete") {
-                  try{
-                    this.markList= [...this.markList].filter(r => {
-                      return (
-                        r.recordId != td.markObj.id &&
-                        r.fieldEn != td.markObj.fieldEn
-                      );
-                    });
-                  }catch(err){
-                    console.log(err)
-                  }
+                try {
+                  this.markList = [...this.markList].filter(r => {
+                    return (
+                      r.recordId != td.markObj.id &&
+                      r.fieldEn != td.markObj.fieldEn
+                    );
+                  });
+                } catch (err) {
+                  console.log(err);
+                }
 
-                  try{
-                    // this.handleMarklist
-                    this.handleMarklist = [...this.handleMarklist].filter(r => {
-                      return (
-                        r.recordId != td.markObj.id &&
-                        r.fieldEn != td.markObj.fieldEn
-                      );
-                    });
-                  }catch(err){
-                    console.log(err)
-                  }
-                  //
+                try {
+                  // this.handleMarklist
+                  this.handleMarklist = [...this.handleMarklist].filter(r => {
+                    return (
+                      r.recordId != td.markObj.id &&
+                      r.fieldEn != td.markObj.fieldEn
+                    );
+                  });
+                } catch (err) {
+                  console.log(err);
+                }
+                //
                 // }
               }
               // handleMarklist

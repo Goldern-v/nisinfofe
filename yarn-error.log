@@ -1,8 +1,8 @@
 Arguments: 
-  /usr/local/bin/node /usr/local/Cellar/yarn/1.5.1_1/libexec/bin/yarn.js dev
+  /usr/local/bin/node /usr/local/Cellar/yarn/1.5.1_1/libexec/bin/yarn.js dev: wuhang
 
 PATH: 
-  /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/TeX/texbin:/usr/local/go/bin:/usr/local/aria2/bin:/usr/local/mysql/bin:/opt/X11/bin:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/usr/local/CrossPack-AVR/bin:/usr/local/go/bin:/Users/wei/gopackage/bin
+  /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/TeX/texbin:/usr/local/go/bin:/usr/local/aria2/bin:/usr/local/mysql/bin:/opt/X11/bin:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/usr/local/CrossPack-AVR/bin:/Users/wei/gopackage/bin:/usr/local/go/bin:/Users/wei/gopackage/bin
 
 Yarn version: 
   1.5.1
@@ -44,12 +44,15 @@ npm manifest:
       "dayjs": "^1.7.4",
       "deepmerge": "^1.2.0",
       "element-ui": "^1.4.4",
+      "escape-string-regexp": "^2.0.0",
+      "execa": "^2.0.3",
       "glob": "^7.1.2",
       "html2canvas": "^1.0.0-alpha.12",
       "jquery": "^3.3.1",
       "js-cookie": "^2.2.0",
       "js-model": "^1.5.1",
       "lodash": "^4.17.10",
+      "mem": "^5.1.1",
       "moment": "^2.20.1",
       "net": "^1.0.2",
       "node-ssh": "^6.0.0",
@@ -8150,7 +8153,7 @@ Trace:
   Error: Command failed.
   Exit code: 1
   Command: sh
-  Arguments: -c node build/dev-server.js
+  Arguments: -c npm run dev wuhang
   Directory: /Users/wei/Data/OneDrive/Projects/ChenRuiDevelopment/SmartHospital/nisinfofe
   Output:
   

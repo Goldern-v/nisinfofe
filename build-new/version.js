@@ -1,14 +1,16 @@
 
-var config = require("../config-new");
+var config = require("../config");
 var moment = require("moment");
 var fs = require("fs");
 var chalk = require("chalk");
+const username = require('./username.js');
 
 var info = {
     "医院名": config.build.env.HOSPITAL_NAME,
     "软件名称": "宸瑞智慧护理系统",
     "版本号": moment().format("YYYY.MM.DD"),
     "最近打包时间": moment().format("YYYY-MM-DD HH:mm"),
+    "最近打包人员": "cr",
     "proxyTable": config.dev.proxyTable || "",
     "关于": {
         "研发单位": "广州宸瑞软件科技有限公司",
@@ -20,16 +22,25 @@ var info = {
     }
 }
 
-fs.writeFile(
-    "./src/version.json",
-    JSON.stringify(info, null, 4),
-    "utf8",
-    function (err) {
-        if (err) {
-            return console.error(err);
+let writeToFile = (deployer) => {
+    info["最近打包人员"] = deployer || "cr";
+    fs.writeFile(
+        "./src/version.json",
+        JSON.stringify(info, null, 4),
+        "utf8",
+        function (err) {
+            if (err) {
+                return console.error(err);
+            }
+            console.log(chalk.blue(">已生成: version.json"));
         }
-        console.log(chalk.blue(">已生成: version.json"));
-    }
-);
+    );
+}
+
+(async () => {
+    let name = await username();
+    console.log(chalk.bgCyan.black("\n 打包人员 "), chalk.yellow(name || "cr"));
+    writeToFile(name || "cr")
+})();
 
 module.exports = info
