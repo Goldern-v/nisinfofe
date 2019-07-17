@@ -28,7 +28,7 @@
         </div>
         <nullBg v-show="listMap.length == 0"></nullBg>
         <div class="addBtn" v-show="listMap.length == 0">
-          <whiteButton text="添加血糖记录" @click="onAddTable" />
+          <whiteButton text="添加血糖记录" @click="onAddTable"/>
         </div>
       </div>
     </div>
@@ -37,16 +37,16 @@
     </div>
     <div class="tool-con" v-show="listMap.length">
       <div class="tool-fix" flex="dir:top">
-        <whiteButton text="添加" @click="onAdd"></whiteButton>
+        <!-- <whiteButton text="添加" @click="onAdd"></whiteButton>
         <whiteButton text="修改" @click="onEdit" :disabled="!selected || !selected.recordDate"></whiteButton>
         <whiteButton text="删除" @click="onRemove" :disabled="!selected || !selected.recordDate"></whiteButton>
-        <whiteButton :text="`设置起始页(${startPage})`" @click="openSetPageModal"></whiteButton>
+        <whiteButton :text="`设置起始页(${startPage})`" @click="openSetPageModal"></whiteButton> -->
         <whiteButton text="打印预览" @click="toPrint"></whiteButton>
         <whiteButton :text="!isChart?'查看曲线':'查看表格'" @click="openChart" v-if="HOSPITAL_ID != 'gy'"></whiteButton>
       </div>
     </div>
-    <editModal ref="editModal" @confirm="onSave" />
-    <setPageModal ref="setPageModal" />
+    <editModal ref="editModal" @confirm="onSave"/>
+    <setPageModal ref="setPageModal"/>
   </div>
 </template>
 
