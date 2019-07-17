@@ -761,7 +761,41 @@ export default {
       //
     },
     print() {
-      console.log(this.info, "info");
+      let curForm = {};
+      let unsignForm = []
+      let allSigned = true;
+      let treeData = this.bus.$emit("getTreeRaw", res => {
+        console.log("getTreeRaw", res);
+        // pageUrl
+        if (res) {
+          curForm = res.find(f => {
+            return f.pageUrl == this.info.pageUrl;
+          });
+          //children
+          if (curForm && curForm.children) {
+            unsignForm = curForm.children.filter(f => {
+              return f.status == 0;
+            });
+            if (unsignForm && unsignForm.length) {
+              allSigned = false;
+            }
+          }
+        }
+      });
+      console.log(allSigned, curForm, treeData, this.info, "info");
+      // curForm.label
+      if (!allSigned) {
+        this.$message.warning(`不允许打印,请查看提示详情.`);
+        this.$notify({
+          title: "提示",
+          message: `打印前请检查所有 ${curForm.label ||
+            ""} 都已签名, 仍有 ${unsignForm.length || 0} 张未签名.`,
+          type: "warning"
+        });
+        return;
+      }
+
+      
       try {
         if (this.info.nooForm == "1") {
           if (this.info.title == "生长发育评估量表") {

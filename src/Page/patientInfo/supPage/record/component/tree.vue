@@ -470,6 +470,13 @@ export default {
     this.bus.$on("getTreeData", this.getTreeData);
     this.bus.$on("updateTreeData", this.updateTreeData);
     this.bus.$on("refreshTree", this.refreshTree);
+    this.bus.$on("getTreeRaw", callback => {
+      if (callback) {
+        callback(this.regions);
+      }
+      // console.log("tree:", this.regions);
+      // return this.regions;
+    });
   },
   components: {
     SweetModal,
