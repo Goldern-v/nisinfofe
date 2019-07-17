@@ -27,35 +27,50 @@
 </template>
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
-.body-con
-  margin 0
-  min-height 220px
-  overflow auto
-.list-box
-  border-bottom 1px solid #E3E7EA;
+.body-con {
+  margin: 0;
+  min-height: 220px;
+  overflow: auto;
+}
+
+.list-box {
+  border-bottom: 1px solid #E3E7EA;
   font-size: 13px;
   color: #333333;
-  .col-1,.col-2,.col-3
-    width 0
-    min-height 37px
-    box-sizing border-box
-    padding 8px 18px
-    line-height 22px
-  .col-2
-    border-left 1px solid #E3E7EA;
-    border-right 1px solid #E3E7EA;
-  .col-1
-    width 160px
-  .col-3
-    width 160px
-  &.head
+
+  .col-1, .col-2, .col-3 {
+    width: 0;
+    min-height: 37px;
+    box-sizing: border-box;
+    padding: 8px 18px;
+    line-height: 22px;
+  }
+
+  .col-2 {
+    border-left: 1px solid #E3E7EA;
+    border-right: 1px solid #E3E7EA;
+  }
+
+  .col-1 {
+    width: 160px;
+  }
+
+  .col-3 {
+    width: 160px;
+  }
+
+  &.head {
     background: #F7FAFA;
     font-size: 13px;
     color: #687179;
-    font-weight bold
-    span
-      display flex
-      align-items center
+    font-weight: bold;
+
+    span {
+      display: flex;
+      align-items: center;
+    }
+  }
+}
 </style>
 
 <script>
@@ -110,7 +125,7 @@ export default {
           dest.push({
             isPrint: true,
             bedLabel: ai.bedLabel,
-            name: ai.name,
+            name: ai.nameOrigin,
             scheduleDate: ai.scheduleDate,
             data: [ai]
           });
