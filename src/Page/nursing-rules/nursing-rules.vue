@@ -1,8 +1,8 @@
 <template>
   <div class="nursing-rules">
     <div class="search-topbar">
-      <span class="title">护理制度</span>
-      <div class="float-right">
+      <!-- <span class="title">护理制度</span> -->
+      <div class="float-left">
         <span class="type-label">护理类型:</span>
         <span class="type-content">
           <el-select v-model="query.fileType" size="small" placeholder="全部">
@@ -10,6 +10,8 @@
             <el-option :key="idx" v-for="(item,idx) in fileTypeList" :value="item.type">{{item.type}}</el-option>
           </el-select>
         </span>
+      </div>
+      <div class="float-right">
         <span class="search-el">
           <el-input placeholder="输入名称进行检索" v-model="query.name"></el-input>
         </span>
@@ -19,8 +21,8 @@
     </div>
     <div class="main-contain">
       <div class="table-contain">
-      <el-table :data="data" :height="tableHeight" border>
-        <el-table-column prop="index" label="序号" width="80" align="center">
+      <el-table :data="data" :height="tableHeight" border v-loading="pageLoadng" stripe>
+        <el-table-column prop="index" label="序号" width="50" align="center">
           <template slot-scope="scope">
             <span>{{(query.pageIndex-1)*query.pageSize+scope.$index+1}}</span>
           </template>
@@ -62,8 +64,8 @@
       <div v-if="preview.type=='img'">
         <img :src="preview.url" alt="" style="width:100%">
       </div>
-      <div v-else-if="preview.type=='pdf'">
-        <object type="application/pdf" width="100%" style="height: 500px" :data="preview.url" />
+      <div v-else-if="preview.type=='pdf'" :style="{height: pdfHeight+'px'}">
+        <object type="application/pdf" width="100%" height="100%"  :data="preview.url" />
       </div>
       <div v-else style="height: 300px;text-align:center;line-height:300px;">
         该文件格式不支持预览
@@ -87,7 +89,7 @@ export default {
     return {
       query: {
         pageIndex: 1,
-        pageSize: 10,
+        pageSize: 20,
         name: '',
         fileType: ''
       },
@@ -99,7 +101,9 @@ export default {
         type: '',
         name: '',
         url: ''
-      }
+      },
+      pdfHeight: window.innerHeight*0.8,
+      pageLoadng: true,
     };
   },
   mounted(){
@@ -142,19 +146,22 @@ export default {
       this.tableHeight = tableHeight;
     },
     previewFile(scope){
-      getFileContent({id:scope.row.id}).then(res=>{
+      // getFileContent({id:scope.row.id}).then(res=>{
         let name = scope.row.name||'';
-        let blob = new Blob([res.data], {
-          type: res.data.type
-        });
+      //   let blob = new Blob([res.data], {
+      //     type: res.data.type
+      //   });
+
         this.preview = {
           title: name,
-          url: window.URL.createObjectURL(blob),
+          url: `/crNursing/nursingInstitution${scope.row.path}`,
           type: this.previewType(scope.row.type)
         }
 
         this.$refs['preview-modal'].open();
-      },err=>{})
+        this.pdfHeight = window.innerHeight*0.8;
+        
+      // },err=>{})
     },
     downloadFile(scope){
       getFileContent({id:scope.row.id}).then(res=>{
@@ -175,6 +182,7 @@ export default {
     // deleteFile(){},
     handleSizeChange(newSize){
       this.query.pageIndex = 1;
+      this.query.pageSize = newSize;
       this.setTableData();
     },
     handleCurrentChange(newPage){
@@ -185,6 +193,7 @@ export default {
       this.setTableData();
     },
     setTableData(){
+      this.pageLoadng = true;
       getList(
         {
           ...this.query,
@@ -215,6 +224,9 @@ export default {
           this.data = this.data.concat(extraArr);
         }
       },err=>{})
+      .finally(_=>{
+        this.pageLoadng = false;
+      })
     },
     bytesToSize(bytes) {
       if (bytes === 0) return '0 B';
@@ -254,10 +266,21 @@ export default {
       cursor: default;
       .operation-text{
         cursor: pointer;
+        color: #4bb08d;
         &:hover{
-          color: #4bb08d;
+          font-weight: bold;
         }
       }
+    }
+    .el-table{
+      border: 1px solid #cbd5dd;
+      border-bottom: 0;
+    }
+    .el-table th > div{
+      padding:0;
+    }
+    .el-button + .el-button {
+      margin-left: 0;
     }
   }
 }
@@ -279,9 +302,9 @@ export default {
     top: 60px;
     bottom: 0;
   .search-topbar{
-    height: 60px;
-    // background-image: linear-gradient(-180deg, #f8f8fa 0%, #ebecf0 100%);
-    // border-bottom: 1px solid #cbd5dd;
+    height: 41px;
+    background-image: linear-gradient(-180deg, #f8f8fa 0%, #ebecf0 100%);
+    border-bottom: 1px solid #cbd5dd;
     overflow: hidden;
     .title{
       font-size: 20px;
@@ -289,9 +312,14 @@ export default {
       margin-left: 30px;
       margin-top: 20px;
     }
+    .float-left{
+      margin-top: 6px;
+      margin-left: 10px;
+      display: inline-block;
+    }
     .float-right{
-      margin-top: 15px;
-      margin-right: 30px;
+      margin-top: 5px;
+      margin-right: 10px;
       .search-el{
         width: 180px;
         display: inline-block;
@@ -302,14 +330,14 @@ export default {
 
   .main-contain {
     position: absolute;
-    top: 60px;
+    top: 51px;
     bottom: 10px;
     left: 10px;
     right: 10px;
     .table-contain{
       position: absolute;
       top: 0;
-      bottom:52px;
+      bottom: 41px;
       left:0;
       right:0;
     }
@@ -318,6 +346,11 @@ export default {
       bottom: 0;
       left:0;
       right:0;
+      background: #eaeaea;
+      border: 1px solid #cbd5dd;
+      padding: 4px 15px;
+      background: rgba(0,0,0,0.0);
+      z-index: 1;
     }
   }
 
@@ -334,6 +367,7 @@ export default {
         left: 15px;
         right: 15px;
         top: 0;
+        text-align: left;
         bottom: 0;
         overflow: hidden;
         text-overflow:ellipsis;

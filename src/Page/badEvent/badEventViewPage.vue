@@ -6,7 +6,7 @@
       <div class="viewbar-left">
         <div class="viewbar-left-top">
           <div class="bad-event-nav"><router-link to="/badEvent">不良事件</router-link> > 事件详情</div>
-          <div class="bad-event-title">{{$route.query.badEventOrderNo||''}} {{badEventName}}</div>
+          <div class="bad-event-title">{{$route.query.badEventOrderNo || ''}} {{$route.params.name || ''}}</div>
           <div class="state-text">
             <span>状态：</span>
             <span class="state">{{stateText}}</span>
@@ -262,7 +262,6 @@ export default {
       wid: Object,
       // stateText: '',
       stepStatus: 0,//步骤条状态
-      badEventName: this.$route.params.name || '',//不良事件名称
     };
   },
   computed: {

@@ -86,6 +86,8 @@ import catheterPage from "@/Page/catheter-page/catheter-page";
 import sugarPage from "@/Page/sugar-page/sugar-page";
 //护理制度
 import nursingRules from "@/Page/nursing-rules/nursing-rules";
+// 未做检查/检验菜单
+import noCheckTest from "@/Page/no-check-test/no-check-test";
 
 import home1 from "@/Page/catheter-page/home1/home";
 
@@ -384,7 +386,8 @@ const router = new Router({
         { path: "/catheterPage", component: catheterPage },
         { path: "/sugarPage", component: sugarPage },
         { path: "/scheduling", component: scheduling },
-        { path: "/nursingRules", component: nursingRules }
+        { path: "/nursingRules", component: nursingRules },
+        { path: "/noCheckTest", component: noCheckTest },
       ]
     },
     {

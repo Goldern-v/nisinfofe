@@ -28,8 +28,8 @@ export function getEventTemplate (wardCode) {
 }
 
 // 获取所有护理单元
-export function getAllNursingUnit () {
-  return axios.get(`${apiPath}user/nursingUnit/all`)
+export function getAllNursingUnit (data) {
+  return axios.post(`${apiPath}badEventDept/getByTypeList`,data)
 }
 
 // 不良事件轨迹

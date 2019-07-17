@@ -34,9 +34,9 @@
         <ElSelect size="small" v-model="selectedDeptValue"  @change="changeDept(selectedDeptValue)" style="width:180px" clearable>
           <ElOption
             v-for="item in allDepartmentsList"
-            :key="item.code"
-            :label="item.name"
-            :value="item.code"
+            :key="item.deptCode"
+            :label="item.deptName"
+            :value="item.deptCode"
           />
         </ElSelect>
       </div>
@@ -326,9 +326,7 @@ export default {
     },
     // 选择科室
     changeDept(selectedDeptValue){
-      if(selectedDeptValue){
-        sessionStorage.setItem('selectedDeptValue',this.selectedDeptValue)
-      }
+      sessionStorage.setItem('selectedDeptValue',selectedDeptValue)
     },
     async loadEventData() {
       // 根据护理单元获取不良事件列表
@@ -460,9 +458,9 @@ export default {
     },
     // 获取所有护理单元
     getDepartmentsList() {
-      apis.getAllNursingUnit().then(res => {
+      apis.getAllNursingUnit('type=2').then(res => {
         if(res.data && res.data.code == 200){
-          this.allDepartmentsList = res.data.data.deptList;
+          this.allDepartmentsList = res.data.data;
           // 根据护理单元获取不良事件列表
           this.loadEventData();
           // 把获取到的科室存起来

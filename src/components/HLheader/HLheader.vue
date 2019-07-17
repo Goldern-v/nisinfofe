@@ -161,12 +161,10 @@
                 <i class="iconfont icon-jiaobanzhi"></i> 交班志
               </el-row>
             </router-link>
-            <router-link to="/badEvent" tag="span">
-              <el-row class="nav-item" type="flex" align="middle">
-                <i class="iconfont icon-jiaobanzhi"></i> 不良事件
-              </el-row>
-            </router-link>
 
+            <router-link to="/badEvent" tag="span">
+              <el-row class="nav-item" type="flex" align="middle">不良事件</el-row>
+            </router-link>
             <!-- <router-link to="/catheterPage" tag="span" v-show="isDev">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-dongtairizhi"></i> 导管
@@ -243,6 +241,13 @@
                   <router-link to="/nursingRules" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
                       <i class="nursingRules"></i>护理制度
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item>
+                <el-dropdown-item :class="{active: $route.path == '/noCheckTest'}">
+                  <router-link to="/noCheckTest" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="nursingRules"></i>未做检查/检验
                     </el-row>
                   </router-link>
                 </el-dropdown-item>
@@ -613,6 +618,8 @@ export default {
       // if (this.$route.path == "/badEvent") return true;
       if (this.$route.path == "/inpatientReport") return true;
       if (this.$route.path == "/catheterPage") return true;
+      if (this.$route.path == "/nursingRules") return true;
+      if (this.$route.path == "/noCheckTest") return true;
     },
     isActiveFormPage() {
       if (this.$route.path == "/sheetPage") return true;
