@@ -47,7 +47,8 @@ import patientList from "./components/patient-list/patient-list.vue";
 import common from "@/common/mixin/common.mixin.js";
 import { patients } from "@/api/lesion";
 import bus from "vue-happy-bus";
-import bloodSugar from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar";
+import bloodSugar from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar"; // 厚街医院
+// import bloodSugarWeiXian from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_weixian"; // 威县医院
 export default {
   mixins: [common],
   data() {
@@ -108,6 +109,7 @@ export default {
   components: {
     patientList,
     bloodSugar
+    // bloodSugarWeiXian
   }
 };
 </script>

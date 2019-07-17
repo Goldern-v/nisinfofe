@@ -595,6 +595,8 @@ export default {
           }
 
           window.formObj.model = formObj;
+          window.formObj.model["formId"] = master.id || "";
+
           if (this.isNewForm) {
             // 增加默认值
             mergeDefaultValue(formObj);
@@ -833,14 +835,14 @@ export default {
                   if (!missingObj[itemTitle]) {
                     missingObj[itemTitle] = new Array();
                   }
-                  if(itemTitle){
+                  if (itemTitle) {
                     missingObj[itemTitle].push(title);
                   }
 
                   //
                   let top = 0;
                   try {
-                    top = element.$el.getBoundingClientRect().top-20;
+                    top = element.$el.getBoundingClientRect().top - 20;
                   } catch (error) {
                     console.log(
                       "error!!!",
@@ -850,10 +852,11 @@ export default {
                       element,
                       element.$el
                     );
-                    top = element[
-                      keys[0]
-                    ].$parent.$parent.$parent.$parent.$el.getBoundingClientRect()
-                      .top-20;
+                    top =
+                      element[
+                        keys[0]
+                      ].$parent.$parent.$parent.$parent.$el.getBoundingClientRect()
+                        .top - 20;
                   }
 
                   //
@@ -968,7 +971,13 @@ export default {
                   if (!parentTitle) {
                     if (parent.obj.parentTitle) {
                       parentTitle = parent.obj.parentTitle;
-                      console.log("===:itemTitle", title, parent, element,window.formObj.model[parent.obj.parentKey]);
+                      console.log(
+                        "===:itemTitle",
+                        title,
+                        parent,
+                        element,
+                        window.formObj.model[parent.obj.parentKey]
+                      );
                     }
                   }
 
@@ -1032,13 +1041,13 @@ export default {
       // });
       // window.notifyBox.show(5000);
       try {
-            window.notifyBox.showMessage({
-              duration: 20000,
-              type: "info",
-              title: "填写检查结果：",
-              message: `请查看右侧目录栏提示。`
-            });
-          } catch (error) {}
+        window.notifyBox.showMessage({
+          duration: 20000,
+          type: "info",
+          title: "填写检查结果：",
+          message: `请查看右侧目录栏提示。`
+        });
+      } catch (error) {}
       return object;
     },
     // 取消责任护士签名

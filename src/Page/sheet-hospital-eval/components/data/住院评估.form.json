@@ -133,17 +133,26 @@
           "readOnly": true,
           "rule": [
             {
-              "equals": ["-1", "未保存"],
+              "equals": [
+                "-1",
+                "未保存"
+              ],
               "style": "color:gray",
               "display": "未签名"
             },
             {
-              "equals": ["0", "未签名 "],
+              "equals": [
+                "0",
+                "未签名 "
+              ],
               "style": "color:blue",
               "display": "未签名"
             },
             {
-              "equals": ["1", "已签名"],
+              "equals": [
+                "1",
+                "已签名"
+              ],
               "style": "color:red",
               "display": "已签名"
             }
@@ -197,7 +206,16 @@
           "style": null,
           "class": null,
           "readOnly": null,
-          "options": ["34", "35", "36", "37", "38", "39", "40", "41"],
+          "options": [
+            "34",
+            "35",
+            "36",
+            "37",
+            "38",
+            "39",
+            "40",
+            "41"
+          ],
           "dialog": {
             "title": "体温类型",
             "parentName": "I100001",
@@ -299,12 +317,18 @@
           "rule": [
             {
               "split": "/",
-              "maxs": [200, 100],
+              "maxs": [
+                200,
+                100
+              ],
               "style": "color: red;"
             },
             {
               "split": "/",
-              "mins": [80, 60],
+              "mins": [
+                80,
+                60
+              ],
               "style": "color: blue;"
             }
           ]
@@ -361,7 +385,12 @@
           "style": null,
           "class": null,
           "readOnly": false,
-          "options": ["清醒", "对说话有反应", "对痛有反应", "无反应"],
+          "options": [
+            "清醒",
+            "对说话有反应",
+            "对痛有反应",
+            "无反应"
+          ],
           "rule": [
             {
               "min": "",
@@ -422,7 +451,7 @@
           "name": "I100012",
           "type": "input",
           "title": "尿量",
-          "suffixDesc": "ml/天",
+          "suffixDesc": "ml",
           "style": null,
           "class": null,
           "readOnly": null,
@@ -460,7 +489,12 @@
               "min": "",
               "max": "",
               "equal": "",
-              "equals": ["难入睡", "易醒", "早醒", "多梦"],
+              "equals": [
+                "难入睡",
+                "易醒",
+                "早醒",
+                "多梦"
+              ],
               "style": "color:red"
             }
           ]
@@ -473,7 +507,14 @@
           "style": null,
           "class": null,
           "readOnly": null,
-          "options": ["33", "35", "40", "45", "50", "未测量"]
+          "options": [
+            "33",
+            "35",
+            "40",
+            "45",
+            "50",
+            "未测量"
+          ]
         }
       ]
     },
@@ -533,7 +574,12 @@
           "style": null,
           "class": null,
           "readOnly": null,
-          "options": ["正常", "疲倦", "萎靡", "亢"]
+          "options": [
+            "正常",
+            "疲倦",
+            "萎靡",
+            "亢"
+          ]
         },
         {
           "name": "I100016",
@@ -542,7 +588,13 @@
           "style": null,
           "class": null,
           "readOnly": null,
-          "options": ["正常", "难入睡", "易醒", "早醒", "多梦"],
+          "options": [
+            "正常",
+            "难入睡",
+            "易醒",
+            "早醒",
+            "多梦"
+          ],
           "rule": [
             {
               "diff": "正常",
@@ -570,7 +622,9 @@
       "name": "",
       "type": "formGroupColBox",
       "col": 1,
-      "colWidth": ["100%"],
+      "colWidth": [
+        "100%"
+      ],
       "title": "",
       "message": "",
       "require": "false",
@@ -636,7 +690,12 @@
           "style": null,
           "class": null,
           "readOnly": null,
-          "options": ["正常", "疲倦", "萎靡", "亢"]
+          "options": [
+            "正常",
+            "疲倦",
+            "萎靡",
+            "亢"
+          ]
         },
         {
           "name": "I100020",
@@ -684,7 +743,11 @@
               "labelClass": "select-label",
               "class": "select-box-small",
               "readOnly": null,
-              "options": ["灵敏", "迟钝", "消失"]
+              "options": [
+                "灵敏",
+                "迟钝",
+                "消失"
+              ]
             }
           ]
         },
@@ -719,7 +782,11 @@
               "labelClass": "select-label",
               "class": "select-box-small",
               "readOnly": null,
-              "options": ["灵敏", "迟钝", "消失"]
+              "options": [
+                "灵敏",
+                "迟钝",
+                "消失"
+              ]
             }
           ]
         },
@@ -755,8 +822,12 @@
           "rule": [
             {
               "dialog": {
-                "openKey": ["异常"],
-                "cleanKey": ["正常"],
+                "openKey": [
+                  "异常"
+                ],
+                "cleanKey": [
+                  "正常"
+                ],
                 "title": "吞咽评估单",
                 "default": "吞咽评估单",
                 "name": "I100028",
@@ -807,7 +878,14 @@
               "labelClass": "select-label",
               "class": "select-box-small",
               "readOnly": null,
-              "options": ["0级", "1级", "2级", "3级", "4级", "5级"]
+              "options": [
+                "0级",
+                "1级",
+                "2级",
+                "3级",
+                "4级",
+                "5级"
+              ]
             },
             {
               "name": "I100030",
@@ -819,7 +897,14 @@
               "labelClass": "select-label",
               "class": "select-box-small",
               "readOnly": null,
-              "options": ["0级", "1级", "2级", "3级", "4级", "5级"]
+              "options": [
+                "0级",
+                "1级",
+                "2级",
+                "3级",
+                "4级",
+                "5级"
+              ]
             },
             {
               "name": "I100029",
@@ -859,7 +944,14 @@
               "labelClass": "select-label",
               "class": "select-box-small",
               "readOnly": null,
-              "options": ["0级", "1级", "2级", "3级", "4级", "5级"]
+              "options": [
+                "0级",
+                "1级",
+                "2级",
+                "3级",
+                "4级",
+                "5级"
+              ]
             },
             {
               "name": "I100032",
@@ -871,7 +963,14 @@
               "labelClass": "select-label",
               "class": "select-box-small",
               "readOnly": null,
-              "options": ["0级", "1级", "2级", "3级", "4级", "5级"]
+              "options": [
+                "0级",
+                "1级",
+                "2级",
+                "3级",
+                "4级",
+                "5级"
+              ]
             },
             {
               "name": "I100032",
@@ -898,7 +997,10 @@
           "readOnly": null,
           "rule": [
             {
-              "equals": ["高", "低"],
+              "equals": [
+                "高",
+                "低"
+              ],
               "style": "color:red"
             }
           ]
@@ -917,7 +1019,9 @@
       "name": "",
       "type": "formGroupColBox",
       "col": 1,
-      "colWidth": ["100%"],
+      "colWidth": [
+        "100%"
+      ],
       "title": "",
       "message": "",
       "require": "false",
@@ -1034,7 +1138,10 @@
           "style": null,
           "class": null,
           "readOnly": null,
-          "options": ["有", "无"],
+          "options": [
+            "有",
+            "无"
+          ],
           "rule": [
             {
               "dialog": {
@@ -1173,12 +1280,13 @@
         }
       ]
     },
-
     {
       "name": "",
       "type": "formGroupColBox",
       "col": 1,
-      "colWidth": ["100%"],
+      "colWidth": [
+        "100%"
+      ],
       "title": "",
       "message": "",
       "require": "false",
@@ -1199,7 +1307,6 @@
         }
       ]
     },
-
     {
       "name": "",
       "type": "formGroupHR",
@@ -1320,12 +1427,18 @@
           "readOnly": null,
           "rule": [
             {
-              "equals": ["变弱", "不能触及"],
+              "equals": [
+                "变弱",
+                "不能触及"
+              ],
               "style": "color:red"
             },
             {
               "dialog": {
-                "openKey": ["变弱", "不能触及"],
+                "openKey": [
+                  "变弱",
+                  "不能触及"
+                ],
                 "cleanKey": "正常",
                 "dialogList": [
                   {
@@ -1358,12 +1471,18 @@
           "readOnly": null,
           "rule": [
             {
-              "equals": ["变弱", "不能触及"],
+              "equals": [
+                "变弱",
+                "不能触及"
+              ],
               "style": "color:red"
             },
             {
               "dialog": {
-                "openKey": ["变弱", "不能触及"],
+                "openKey": [
+                  "变弱",
+                  "不能触及"
+                ],
                 "cleanKey": "正常",
                 "dialogList": [
                   {
@@ -1418,10 +1537,15 @@
               "style": null,
               "class": null,
               "readOnly": null,
-              "options": ["阴性", "阳性"],
+              "options": [
+                "阴性",
+                "阳性"
+              ],
               "rule": [
                 {
-                  "equals": ["阳性"],
+                  "equals": [
+                    "阳性"
+                  ],
                   "style": "color:red"
                 }
               ]
@@ -1448,7 +1572,9 @@
       "name": "",
       "type": "formGroupColBox",
       "col": 1,
-      "colWidth": ["100%"],
+      "colWidth": [
+        "100%"
+      ],
       "title": "",
       "message": "",
       "require": "false",
@@ -1469,7 +1595,6 @@
         }
       ]
     },
-
     {
       "name": "",
       "type": "formGroupHR",
@@ -1587,7 +1712,10 @@
           "readOnly": null,
           "rule": [
             {
-              "equals": ["中度", "重度"],
+              "equals": [
+                "中度",
+                "重度"
+              ],
               "style": "color:red"
             }
           ]
@@ -1635,7 +1763,9 @@
               }
             },
             {
-              "equals": ["有"],
+              "equals": [
+                "有"
+              ],
               "style": "color:red"
             }
           ]
@@ -1667,7 +1797,9 @@
               }
             },
             {
-              "equals": ["有"],
+              "equals": [
+                "有"
+              ],
               "style": "color:red"
             }
           ]
@@ -1690,7 +1822,9 @@
               }
             },
             {
-              "equals": ["有"],
+              "equals": [
+                "有"
+              ],
               "style": "color:red"
             }
           ]
@@ -1713,7 +1847,9 @@
               }
             },
             {
-              "equals": ["有"],
+              "equals": [
+                "有"
+              ],
               "style": "color:red"
             }
           ]
@@ -1746,7 +1882,9 @@
       "name": "",
       "type": "formGroupColBox",
       "col": 1,
-      "colWidth": ["100%"],
+      "colWidth": [
+        "100%"
+      ],
       "title": "",
       "message": "",
       "require": "false",
@@ -1822,7 +1960,10 @@
           "readOnly": null,
           "rule": [
             {
-              "equals": ["亢进", "减退"],
+              "equals": [
+                "亢进",
+                "减退"
+              ],
               "style": "color:red"
             }
           ]
@@ -1836,7 +1977,9 @@
           "readOnly": null,
           "rule": [
             {
-              "equals": ["有"],
+              "equals": [
+                "有"
+              ],
               "style": "color:red"
             }
           ]
@@ -1859,7 +2002,9 @@
               }
             },
             {
-              "equals": ["有"],
+              "equals": [
+                "有"
+              ],
               "style": "color:red"
             }
           ]
@@ -1937,7 +2082,10 @@
             {
               "dialog": {
                 "openKey": "正常",
-                "cleanKey": ["失禁", "造瘘"],
+                "cleanKey": [
+                  "失禁",
+                  "造瘘"
+                ],
                 "title": "大便频率",
                 "default": "大便频率",
                 "type": "dependent"
@@ -1946,7 +2094,10 @@
             {
               "dialog": {
                 "openKey": "便秘",
-                "cleanKey": ["失禁", "造瘘"],
+                "cleanKey": [
+                  "失禁",
+                  "造瘘"
+                ],
                 "title": "大便频率",
                 "default": "大便频率",
                 "type": "dependent"
@@ -1955,14 +2106,19 @@
             {
               "dialog": {
                 "openKey": "腹泻",
-                "cleanKey": ["失禁", "造瘘"],
+                "cleanKey": [
+                  "失禁",
+                  "造瘘"
+                ],
                 "title": "腹泻",
                 "default": "腹泻",
                 "type": "dependent"
               }
             },
             {
-              "diff": ["正常"],
+              "diff": [
+                "正常"
+              ],
               "style": "color:red"
             }
           ]
@@ -1976,7 +2132,9 @@
           "readOnly": null,
           "rule": [
             {
-              "diff": ["无"],
+              "diff": [
+                "无"
+              ],
               "style": "color:red"
             }
           ]
@@ -1995,7 +2153,9 @@
       "name": "",
       "type": "formGroupColBox",
       "col": 1,
-      "colWidth": ["100%"],
+      "colWidth": [
+        "100%"
+      ],
       "title": "",
       "message": "",
       "require": "false",
@@ -2063,7 +2223,9 @@
           "readOnly": null,
           "rule": [
             {
-              "diff": ["未发现异常"],
+              "diff": [
+                "未发现异常"
+              ],
               "style": "color:red"
             }
           ]
@@ -2085,7 +2247,9 @@
           "readOnly": null,
           "rule": [
             {
-              "diff": ["黄色"],
+              "diff": [
+                "黄色"
+              ],
               "style": "color:red"
             }
           ]
@@ -2100,8 +2264,14 @@
           "rule": [
             {
               "dialog": {
-                "openKey": ["间歇", ""],
-                "cleanKey": ["无", "持续"],
+                "openKey": [
+                  "间歇",
+                  ""
+                ],
+                "cleanKey": [
+                  "无",
+                  "持续"
+                ],
                 "title": "膀胱冲洗",
                 "default": "膀胱冲洗",
                 "type": "dependent"
@@ -2189,7 +2359,9 @@
       "name": "",
       "type": "formGroupColBox",
       "col": 1,
-      "colWidth": ["100%"],
+      "colWidth": [
+        "100%"
+      ],
       "title": "",
       "message": "",
       "require": "false",
@@ -2362,7 +2534,13 @@
           "rule": [
             {
               "dialog": {
-                "openKey": ["无力", "单瘫", "偏瘫", "截瘫", "全瘫"],
+                "openKey": [
+                  "无力",
+                  "单瘫",
+                  "偏瘫",
+                  "截瘫",
+                  "全瘫"
+                ],
                 "cleanKey": "自如",
                 "title": "四肢活动",
                 "default": "四肢活动",
@@ -2492,7 +2670,6 @@
         }
       ]
     },
-
     {
       "name": "",
       "type": "formGroupTitle",

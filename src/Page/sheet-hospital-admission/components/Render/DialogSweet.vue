@@ -647,7 +647,8 @@ export default {
       // 15-18分轻度危险；13-14分中度危险；10-12分高度危险；＜9分极度危险
 
       if (this.dialogFormCode) {
-        this.formBox.model.parentId = this.formObj.model.id;
+        // this.formBox.model.parentId = this.formObj.model.id;
+        this.formBox.model.parentId = window.formObj.model.formId|| window.formObj.model.id;
         saveForm({ ...this.formBox }, res => {
           this.dialogLoading = false
           let {
