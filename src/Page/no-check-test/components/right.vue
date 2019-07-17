@@ -48,6 +48,10 @@
   font-size: 13px;
   color: #333333;
 
+  &:last-of-type {
+    border-bottom: none;
+  }
+
   .col-1, .col-2, .col-3, .col-4, .col-5 {
     width: 0;
     min-height: 37px;
