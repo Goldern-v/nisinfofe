@@ -32,7 +32,7 @@
         >
           <!-- 页面正文 -->
           <div v-if="formBox.children||formBox.html">
-            <FormBody :obj="[formBox]" :formObj="formBox"/>
+            <FormBody :obj="[formBox]" :formObj="formBox" />
           </div>
         </el-form>
 
@@ -46,13 +46,13 @@
           />
 
           <!-- 页面头部 -->
-          <FormHeader v-if="formBox.header" :obj="formBox.header" :formObj="formBox"/>
+          <FormHeader v-if="formBox.header" :obj="formBox.header" :formObj="formBox" />
 
           <!-- 页面正文 -->
-          <FormBody v-if="formBox.body" :obj="formBox.body" :formObj="formBox"/>
+          <FormBody v-if="formBox.body" :obj="formBox.body" :formObj="formBox" />
 
           <!-- 页面尾部 -->
-          <FormFooter v-if="formBox.footer" :obj="formBox.footer" :formObj="formBox"/>
+          <FormFooter v-if="formBox.footer" :obj="formBox.footer" :formObj="formBox" />
         </el-form>
       </span>
     </div>
@@ -585,7 +585,7 @@ export default {
       // 15-18分轻度危险；13-14分中度危险；10-12分高度危险；＜9分极度危险
 
       if (this.dialogFormCode) {
-        this.formBox.model.parentId = this.formObj.model.id;
+        this.formBox.model.parentId = window.formObj.model.formId|| window.formObj.model.id;
         saveForm({ ...this.formBox }, res => {
           let {
             data: {

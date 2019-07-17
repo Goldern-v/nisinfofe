@@ -519,6 +519,7 @@ export default {
           let formObj = { ...itemData, ...master };
 
           window.formObj.model = formObj;
+          window.formObj.model["formId"] = master.id || "";
           // 增加默认值
           mergeDefaultValue(formObj);
           // window.formObj.model.I100000 = "耳温";
