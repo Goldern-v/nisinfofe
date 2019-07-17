@@ -1,21 +1,27 @@
 <template>
   <div>
-    <sweet-modal ref="modal" :modalWidth="820" title="检查预约项目配置" :fullBtn="true" :enable-mobile-fullscreen="false">
+    <sweet-modal
+      ref="modal"
+      :modalWidth="820"
+      title="检查预约项目配置"
+      :fullBtn="true"
+      :enable-mobile-fullscreen="false"
+    >
       <div class="select-con">
         <!-- <el-checkbox-group v-model="checkList">
           <el-checkbox :label="item" v-for="item in allList" :key="item"></el-checkbox>
-        </el-checkbox-group> -->
+        </el-checkbox-group>-->
 
         <!-- <masked-input type="text" name="phone" class="form-control" v-model="phone" :mask="[/\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/, ' ', /\d/, /\d/, ':', /\d/, /\d/, ':', /\d/, /\d/]" :guide="true" placeholderChar="0">
         </masked-input>
-        {{phone}} -->
+        {{phone}}-->
         <table class="table-con">
           <colgroup>
-            <col width="100">
-            <col width="80">
-            <col width="100">
-            <col width="350">
-            <col width="220">
+            <col width="100" />
+            <col width="80" />
+            <col width="100" />
+            <col width="350" />
+            <col width="220" />
           </colgroup>
           <tr>
             <th center p1>是否显示</th>
@@ -32,15 +38,23 @@
               <span>{{item.bedLabel}}</span>
             </td>
             <td center p3>
-              <span>{{item.name}}</span>
+              <span>{{item.nameOrigin}}</span>
             </td>
             <td left p4>
               <span>{{item.examItem}}</span>
             </td>
             <td left p5>
               <!-- <input type="text" class="auto-input" v-model="item.scheduleDate" center> -->
-              <masked-input @click="onMaskClick(item)" type="text" class="mask-input" :showMask="false" v-model="item.scheduleDate" :mask="() => [/\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/, ' ', /\d/, /\d/, ':', /\d/, /\d/]" :guide="true" placeholderChar="O">
-              </masked-input>
+              <masked-input
+                @click="onMaskClick(item)"
+                type="text"
+                class="mask-input"
+                :showMask="false"
+                v-model="item.scheduleDate"
+                :mask="() => [/\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/, ' ', /\d/, /\d/, ':', /\d/, /\d/]"
+                :guide="true"
+                placeholderChar="O"
+              ></masked-input>
             </td>
           </tr>
         </table>
@@ -53,42 +67,65 @@
   </div>
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
-.table-con
-  border-collapse collapse
-  margin-bottom 40px
-  width 100%
-  td,tr,th
+.table-con {
+  border-collapse: collapse;
+  margin-bottom: 40px;
+  width: 100%;
+
+  td, tr, th {
     border: 1px solid #E3E7EA;
-  td
-    height 36px
-    vertical-align middle
-  th
-    background #F7FAFA;   
-    height 36px
+  }
+
+  td {
+    height: 36px;
+    vertical-align: middle;
+  }
+
+  th {
+    background: #F7FAFA;
+    height: 36px;
     font-size: 13px;
-    color: #687179; 
-    font-weight bold
-    vertical-align middle
-  *[left]
-    text-align left  
-  *[center]
-    text-align center  
-  *[p1]
-    padding 0 12px  
-  *[p2]
-    padding 0
-  *[p3]
-    padding 0 8px  
-  *[p4]
-    padding 0 13px  
-  *[p5]
-    padding 0 13px  
-.auto-input, .mask-input
-  width 100%
-  height 100%
-  border 0
-  outline 0    
-  font-size 16px
+    color: #687179;
+    font-weight: bold;
+    vertical-align: middle;
+  }
+
+  *[left] {
+    text-align: left;
+  }
+
+  *[center] {
+    text-align: center;
+  }
+
+  *[p1] {
+    padding: 0 12px;
+  }
+
+  *[p2] {
+    padding: 0;
+  }
+
+  *[p3] {
+    padding: 0 8px;
+  }
+
+  *[p4] {
+    padding: 0 13px;
+  }
+
+  *[p5] {
+    padding: 0 13px;
+  }
+}
+
+.auto-input, .mask-input {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  outline: 0;
+  font-size: 16px;
+}
 </style>
 <script>
 import { GetAllExamAppoint, saveExamAppointList } from "../api/index.js";

@@ -38,33 +38,48 @@
   </div>
 </template>
 <style lang='stylus' scoped>
-.list-box
-  border-bottom 1px dashed #E3E7EA;
+.list-box {
+  border-bottom: 1px dashed #E3E7EA;
   font-size: 13px;
   color: #333333;
-  .col-0, .col-1,.col-2,.col-3
-    width 0
-    min-height 37px
-    box-sizing border-box
-    padding 8px 10px
-    line-height 22px
-  .col-2
+
+  .col-0, .col-1, .col-2, .col-3 {
+    width: 0;
+    min-height: 37px;
+    box-sizing: border-box;
+    padding: 8px 10px;
+    line-height: 22px;
+  }
+
+  .col-2 {
     // border-left 1px solid #E3E7EA;
     // border-right 1px solid #E3E7EA;
-  .col-1
-    width 100px
-  .col-3
-    width 130px
-  .col-0
-    width 60px
-  &.head
+  }
+
+  .col-1 {
+    width: 100px;
+  }
+
+  .col-3 {
+    width: 140px;
+  }
+
+  .col-0 {
+    width: 60px;
+  }
+
+  &.head {
     background: #ddd;
     font-size: 13px;
     color: #333;
-    font-weight bold
-    span
-      display flex
-      align-items center
+    font-weight: bold;
+
+    span {
+      display: flex;
+      align-items: center;
+    }
+  }
+}
 </style>
 <script>
 import commom from "@/common/mixin/common.mixin";

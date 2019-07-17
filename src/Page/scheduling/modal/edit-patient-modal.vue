@@ -38,7 +38,7 @@
             <el-input
               class="input-item"
               style="width: 60px; margin-right: 0px"
-              v-model="form.freqCounter"
+              v-model="form.freqInterval"
             ></el-input>
             <el-select
               style="width: 90px"
@@ -51,7 +51,7 @@
             <el-input
               class="input-item"
               style="width: 60px; margin-right: 10px"
-              v-model="form.freqInterval"
+              v-model="form.freqCounter"
             ></el-input>
             <span class="uniq">次</span>
           </div>
