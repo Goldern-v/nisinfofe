@@ -90,7 +90,7 @@ import moment from "moment";
 import { dataModel } from "../schecdulingTable/viewModel/dataModel";
 import { layoutModel } from "../schecdulingTable/viewModel/layoutModel";
 import { variables } from "../schecdulingTable/viewModel/variables";
-import { getPatientArrange, saveBatchHDArrange } from "../../api";
+import { getPatientArrange, saveBatchHDArrange, copyArrange } from "../../api";
 export default {
   mixins: [commom],
   data() {
@@ -152,34 +152,29 @@ export default {
       });
     },
     copyLastWeek() {
-      this.$confirm("复制上上周的排班，确认无误后请点击保存?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning"
-      }).then(async () => {
+      this.$confirm(
+        "复制上上周的排班，可能会覆盖当前数据，确认无误后请点击保存?",
+        "提示",
+        {
+          confirmButtonText: "确定",
+          cancelButtonText: "取消",
+          type: "warning"
+        }
+      ).then(async () => {
         let startDate = moment(dataModel.startDate)
           .subtract(14, "d")
           .format("YYYY-MM-DD");
         let endDate = moment(dataModel.endDate)
           .subtract(14, "d")
           .format("YYYY-MM-DD");
-        getPatientArrange(startDate, endDate).then(res => {
-          dataModel.tableLoading = true;
-          saveBatchHDArrange(
-            res.data.data.map(item => {
-              return {
-                ...item,
-                hdDate: moment(item.hdDate)
-                  .add(14, "d")
-                  .format("YYYY-MM-DD"),
-                timeSlice: item.hdTimeSlice
-              };
-            })
-          ).then(res => {
-            this.$message.success("复制上上周排班成功");
-            dataModel.getPatientArrange();
-          });
+        let newStartDate = moment(dataModel.startDate).format("YYYY-MM-DD");
+        let newEndDate = moment(dataModel.endDate).format("YYYY-MM-DD");
+
+        copyArrange(startDate, endDate, newStartDate, newEndDate).then(res => {
+          this.$message.success("复制上上周排班成功");
+          dataModel.getPatientArrange();
         });
+
         // this.dataModel.generalPatientArrange();
         // this.$message.info("正在一键排班中");
         // await dataModel.initData();
