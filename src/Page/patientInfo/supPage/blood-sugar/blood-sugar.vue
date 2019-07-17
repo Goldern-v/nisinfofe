@@ -1,5 +1,5 @@
 <template>
-  <div class="contain" v-loading="pageLoading">
+  <div class="contain" v-loading="pageLoading" :style="{'min-height':containHeight}">
     <div ref="Contain">
       <div v-show="!isChart" class="blood-sugar-con">
         <div class="sugr-page" v-for="(item, index) in listMap" :key="index">
@@ -153,7 +153,9 @@ import setPageModal from "./components/setPage-modal.vue";
 import $ from "jquery";
 import moment from "moment";
 
+import common from "@/common/mixin/common.mixin.js";
 export default {
+  mixins: [common],
   data() {
     return {
       pageLoading: false,
@@ -167,6 +169,9 @@ export default {
   computed: {
     patientInfo() {
       return this.$route.query;
+    },
+    containHeight() {
+      return this.wih - 130 + "px";
     }
   },
   methods: {

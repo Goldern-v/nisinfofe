@@ -17,7 +17,7 @@
       <div class="right-part" :style="{marginLeft: openLeft?'200px':'0'}">
         <!-- <record></record> -->
         <div class="sheetTable-contain">
-          <pages/>
+          <pages />
         </div>
       </div>
     </div>

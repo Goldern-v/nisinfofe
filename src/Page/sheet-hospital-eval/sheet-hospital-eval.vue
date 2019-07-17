@@ -10,14 +10,18 @@
         <sheetTool ref="sheetHospitalEvalTool"></sheetTool>
       </div>
     </div>
-    <div class="body-con" id="sheet_body_con" :style="{height: containHeight}">
+    <div
+      class="body-con"
+      id="sheet_body_con"
+      :style="{height: containHeight,'min-height': containHeight}"
+    >
       <div class="left-part">
         <patientList :data="data.bedList" v-loading="patientListLoading"></patientList>
       </div>
       <div class="right-part" :style="{marginLeft: openLeft?'200px':'0'}">
         <!-- <record></record> -->
         <div class="sheetTable-contain">
-          <pages/>
+          <pages />
         </div>
       </div>
     </div>

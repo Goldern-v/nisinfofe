@@ -10,7 +10,7 @@
       <div class="right-part">
         <!-- <record></record> -->
         <div class="sheetTable-contain">
-          <pages/>
+          <pages />
         </div>
       </div>
     </div>
@@ -115,7 +115,7 @@ export default {
   },
   computed: {
     containHeight() {
-      return this.wih - 105 + "px";
+      return this.wih - 153 + "px";
       // if (this.fullpage) {
       //   return this.wih - 14 + "px";
       // } else {

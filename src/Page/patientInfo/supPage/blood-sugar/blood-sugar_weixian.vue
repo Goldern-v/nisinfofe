@@ -1,5 +1,5 @@
 <template>
-  <div class="contain" v-loading="pageLoading">
+  <div class="contain" v-loading="pageLoading" :style="{'min-height':containHeight}">
     <div ref="Contain">
       <div v-show="!isChart" class="blood-sugar-con">
         <div class="sugr-page" v-for="(item, index) in listMap" :key="index">
@@ -28,7 +28,7 @@
         </div>
         <nullBg v-show="listMap.length == 0"></nullBg>
         <div class="addBtn" v-show="listMap.length == 0">
-          <whiteButton text="添加血糖记录" @click="onAddTable"/>
+          <!-- <whiteButton text="添加血糖记录" @click="onAddTable"/> -->
         </div>
       </div>
     </div>
@@ -40,13 +40,13 @@
         <!-- <whiteButton text="添加" @click="onAdd"></whiteButton>
         <whiteButton text="修改" @click="onEdit" :disabled="!selected || !selected.recordDate"></whiteButton>
         <whiteButton text="删除" @click="onRemove" :disabled="!selected || !selected.recordDate"></whiteButton>
-        <whiteButton :text="`设置起始页(${startPage})`" @click="openSetPageModal"></whiteButton> -->
+        <whiteButton :text="`设置起始页(${startPage})`" @click="openSetPageModal"></whiteButton>-->
         <whiteButton text="打印预览" @click="toPrint"></whiteButton>
         <whiteButton :text="!isChart?'查看曲线':'查看表格'" @click="openChart" v-if="HOSPITAL_ID != 'gy'"></whiteButton>
       </div>
     </div>
-    <editModal ref="editModal" @confirm="onSave"/>
-    <setPageModal ref="setPageModal"/>
+    <editModal ref="editModal" @confirm="onSave" />
+    <setPageModal ref="setPageModal" />
   </div>
 </template>
 
@@ -153,7 +153,9 @@ import setPageModal from "./components/setPage-modal.vue";
 import $ from "jquery";
 import moment from "moment";
 
+import common from "@/common/mixin/common.mixin.js";
 export default {
+  mixins: [common],
   data() {
     return {
       pageLoading: false,
@@ -167,6 +169,9 @@ export default {
   computed: {
     patientInfo() {
       return this.$route.query;
+    },
+    containHeight() {
+      return this.wih - 130 + "px";
     }
   },
   methods: {
