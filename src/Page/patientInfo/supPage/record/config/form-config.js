@@ -122,6 +122,7 @@ export function getFormConfig(formName) {
 
   switch (formName) {
     // 仅有 责任护士签名
+    case "入院评估表(神经内科)":
     case "VTE风险评估量表(手术科室)":
     case "VTE风险评估量表(非手术科室)":
     case "监控CAUTI或早期拔除尿管质量指标评估记录表":
