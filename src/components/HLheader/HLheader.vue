@@ -247,7 +247,7 @@
                 <el-dropdown-item :class="{active: $route.path == '/noCheckTest'}">
                   <router-link to="/noCheckTest" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
-                      <i class="nursingRules"></i>未做检查/检验
+                      <i class="noCheckTest"></i>未做检查/检验
                     </el-row>
                   </router-link>
                 </el-dropdown-item>
@@ -457,6 +457,9 @@
 
     &.nursingRules {
       background-image: url('../../common/images/index/制度.png');
+    }
+    &.noCheckTest {
+      background-image: url('../../common/images/index/未做检查／检验.png');
     }
   }
 }
