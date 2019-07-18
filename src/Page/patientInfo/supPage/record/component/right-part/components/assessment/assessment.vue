@@ -115,6 +115,7 @@ import {
 import common from "@/common/mixin/common.mixin.js";
 import qs from "qs";
 export default {
+  name: "assessment",
   mixins: [common],
   data() {
     return {
@@ -762,7 +763,7 @@ export default {
     },
     print() {
       let curForm = {};
-      let unsignForm = []
+      let unsignForm = [];
       let allSigned = true;
       let treeData = this.bus.$emit("getTreeRaw", res => {
         console.log("getTreeRaw", res);
@@ -795,7 +796,6 @@ export default {
         return;
       }
 
-      
       try {
         if (this.info.nooForm == "1") {
           if (this.info.title == "生长发育评估量表") {

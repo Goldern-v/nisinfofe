@@ -208,7 +208,7 @@ export default {
           let url;
           //  url = `http://localhost:3000/MMSE`
           let query = this.$route.query;
-          // 判断是否存在措施
+          // 第1版：外置统一按钮表单。判断是否存在措施。
           if (!getFormConfig(item.name).hasMeasure) {
             this.bus.$emit(
               "openAssessment",
@@ -219,7 +219,9 @@ export default {
                 pageUrl: item.pageUrl
               })
             );
-          } else {
+          }
+          // 第0版：旧表弹窗表单
+          else if (item.formVersion < 2) {
             let queryObj = {
               id: "",
               formCode: item.formCode,
@@ -244,6 +246,16 @@ export default {
               url = `${formUrl}/${item.pageUrl}?${qs.stringify(queryObj)}`;
             }
             window.openFormBox(url);
+          }
+          // 新2版：表单，内置顶部按钮，框架宽占满屏，内置分页阴影效果
+          if (item.formVersion == 2) {
+            this.bus.$emit(
+              "openAssessmentBox",
+              Object.assign(item, {
+                id: "",
+                showConToolBar: false
+              })
+            );
           }
         }
       } else if (this.formType === "4") {

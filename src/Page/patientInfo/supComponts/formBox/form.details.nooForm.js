@@ -43,6 +43,7 @@ function getFormCode(wid) {
 
 export function initNooForm(wid, pdata = window.app.$route.query) {
   // let $ = wid.jQuery
+  if (!wid || !wid.formInfo || !wid.formInfo.formCode) { return }
   var formCode = wid.formInfo.formCode;
 
   //  console.log("!!!!initNooForm",wid,pdata,formCode)

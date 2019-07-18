@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :style="{height: '100%'}">
     <div
       :class="isLandscape?'contant-landscape':'contant'"
       v-loading="pageLoading"
@@ -30,18 +30,21 @@
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
 .contant {
-  border-radius: 2px;
+  // border-radius: 2px;
   position: relative;
-  background: #FFFFFF;
-  box-shadow: 0px 5px 10px 0 rgba(0, 0, 0, 0.5);
-  padding: 20px 0px;
-  box-sizing: border-box;
-  width: 760px;
+  background: transparent;
+  // box-shadow: 0px 5px 10px 0 rgba(0, 0, 0, 0.5);
+  // padding: 20px 0px;
+  // box-sizing: border-box;
+  // width: 760px;
   margin: 0 auto;
+  height: 100%;
+  width: 100%;
+  // border: 1px solid red;
 
   .assessment-iframe {
     width: 100%;
-    min-height: 600px;
+    // min-height: 600px;
     overflow: hidden;
   }
 }
@@ -57,26 +60,27 @@
 // overflow hidden
 // min-height 600px
 .contant-landscape {
-  border-radius: 2px;
+  // border-radius: 2px;
   position: relative;
-  background: #FFFFFF;
-  box-shadow: 0px 5px 10px 0 rgba(0, 0, 0, 0.5);
-  padding: 20px 20px;
-  box-sizing: border-box;
-  width: 1110px;
+  background: transparent;
+  // box-shadow: 0px 5px 10px 0 rgba(0, 0, 0, 0.5);
+  // padding: 20px 20px;
+  // box-sizing: border-box;
+  // width: 1110px;
+  width: 100%;
   // min-width 1110px
   margin: 0 auto;
 
   .assessment-iframe {
     width: 100%;
     overflow: hidden;
-    min-height: 600px;
+    // min-height: 600px;
   }
 }
 
->>>.el-loading-mask {
-  background: white !important;
-}
+// >>>.el-loading-mask {
+//   background: white !important;
+// }
 </style>
 
 <script>
@@ -115,6 +119,7 @@ import {
 import common from "@/common/mixin/common.mixin.js";
 import qs from "qs";
 export default {
+  name: "assessment_v2",
   mixins: [common],
   data() {
     return {
@@ -138,22 +143,25 @@ export default {
   },
   created() {
     this.pageLoading = true;
-    this.bus.$on("openAssessment", this.openUrl);
-    this.bus.$on("openNewFormBox", this.openNewFormBox);
-    this.bus.$on("openMessageBox", this.openMessageBox);
-    this.bus.$on("printAssessment", this.print);
-    this.bus.$on("printAssessmentSingle", this.printSingle);
-    this.bus.$on("printAssessmentMore", this.printMore);
-    this.bus.$on("addAssessment", this.add);
-    this.bus.$on("assessmentSignSave", this.signSave);
-    this.bus.$on("assessmentShenheSign", this.shenheSign);
-    this.bus.$on("assessmentRefresh", this.refresh);
-    this.bus.$on("assessmentLoaded", this.onPageLoaded);
-    this.bus.$on("assessmentOpenScoreChart", this.openScoreChart);
-    this.bus.$on("editAssessment", this.openEditAssessment);
-    this.bus.$on("reOpenFormInsideAssessment", this.reOpenFormInsideAssessment);
-    this.bus.$on("delAssessment", this.delAssessment);
-    this.bus.$on("setAssessmentLoadingStatus", this.setLoadingStatus);
+    this.bus.$on("openAssessmentV2", this.openUrl);
+    this.bus.$on("openNewFormBoxV2", this.openNewFormBox);
+    this.bus.$on("openMessageBoxV2", this.openMessageBox);
+    this.bus.$on("printAssessmentV2", this.print);
+    this.bus.$on("printAssessmentSingleV2", this.printSingle);
+    this.bus.$on("printAssessmentMoreV2", this.printMore);
+    this.bus.$on("addAssessmentV2", this.add);
+    this.bus.$on("assessmentSignSaveV2", this.signSave);
+    this.bus.$on("assessmentShenheSignV2", this.shenheSign);
+    this.bus.$on("assessmentRefreshV2", this.refresh);
+    this.bus.$on("assessmentLoadedV2", this.onPageLoaded);
+    this.bus.$on("assessmentOpenScoreChartV2", this.openScoreChart);
+    this.bus.$on("editAssessmentV2", this.openEditAssessment);
+    this.bus.$on(
+      "reOpenFormInsideAssessmentV2",
+      this.reOpenFormInsideAssessment
+    );
+    this.bus.$on("delAssessmentV2", this.delAssessment);
+    this.bus.$on("setAssessmentLoadingStatusV2", this.setLoadingStatus);
     //
     this.bus.$on("openPizhuModalBox", (tr, td, callback = null) => {
       this.$refs.pizhuModal.open(tr, td, callback);
@@ -225,6 +233,8 @@ export default {
         ? this.info.pageUrl.replace(".html", "-打印.html")
         : "";
 
+      console.log("this.info", this.info);
+
       if (this.info.nooForm == "1") {
         // console.log(queryObj.title,"formCode")
         if (this.isDev) {
@@ -252,7 +262,7 @@ export default {
         } else {
           url = `${formUrl}/${this.info.pageUrl}?${qs.stringify(queryObj)}`;
         }
-        console.log(formUrl, "....打开表单", url);
+        console.log("....打开表单", formUrl, url);
       }
 
       if (url == this.url) {
@@ -364,7 +374,8 @@ export default {
       //
 
       this.iframeHeight = "auto";
-      this.iframeHeight = 100;
+      // this.iframeHeight = "100%";
+      this.iframeHeight = this.wih - 85;
 
       this.isLandscape = false;
       try {
@@ -424,7 +435,7 @@ export default {
 
       // 如果是新表单 跳出
       try {
-        // console.log("!!!!!!info",this.info)
+        console.log("!!!!!!info", this.info);
         if (
           this.info &&
           this.info.formCode &&
@@ -432,44 +443,57 @@ export default {
         ) {
           return;
         }
-        if (!wid.formInfo.nooForm) {
-          wid.formInfo.nooForm = "0";
-        }
-        if (wid.formInfo.nooForm == "1") {
+        // if (!wid.formInfo.nooForm && !this.info.nooForm) {
+        //   wid.formInfo.nooForm = "0";
+        // }
+
+        if (
+          ["1", "2"].indexOf(this.info.nooForm) > -1 ||
+          (wid.formInfo && ["1", "2"].indexOf(wid.formInfo.nooForm) > -1)
+        ) {
           console.log("ooooo");
+          //
+          if (this.info.name) {
+            this.pageLoadingText = `正在加载${this.info.name} ...`;
+          }
           wid.onmessage = this.onmessage;
           // console.log("!!!!!!info.id",this.info,this.info.id)
-          // if(!this.info.id){
-          initNooForm(wid);
-          // }
+          if (!this.info.id) {
+            // initNooForm(wid);
+            console.log("新建表单", this.url);
+            this.pageLoadingText = `新建${this.info.name}中...`;
+          } else {
+            console.log("打开表单", this.url);
+            this.pageLoadingText = `打开${this.info.name}中...`;
+          }
           return;
         }
       } catch (e) {
         console.log(e, "eeee");
       }
 
-      this.info["canEdit"] = jQuery(
-        "input[name*='canEdit']",
-        wid.document
-      ).val();
-      this.info["formCode"] = jQuery(
-        "input[name*='formCode']",
-        wid.document
-      ).val();
+      // this.info["canEdit"] = jQuery(
+      //   "input[name*='canEdit']",
+      //   wid.document
+      // ).val();
+      // this.info["formCode"] = jQuery(
+      //   "input[name*='formCode']",
+      //   wid.document
+      // ).val();
       // 获取表 标题
-      this.info["formTitle"] = jQuery(".title", wid.document).html();
-      if (this.info["formTitle"] === undefined) {
-        // this.info['formTitle'] = jQuery(".subtitle", wid.document).html();
-        // if (this.info['formTitle'] === undefined) {
-        this.info["formTitle"] = "";
-        // }
-      }
+      // this.info["formTitle"] = jQuery(".title", wid.document).html();
+      // if (this.info["formTitle"] === undefined) {
+      //   // this.info['formTitle'] = jQuery(".subtitle", wid.document).html();
+      //   // if (this.info['formTitle'] === undefined) {
+      //   this.info["formTitle"] = "";
+      //   // }
+      // }
 
-      this.signTitle = "签名确认 " + this.info["formTitle"];
+      // this.signTitle = "签名确认 " + this.info["formTitle"];
 
-      console.log("assessment_onload", wid, this.info);
+      // console.log("assessment_onload", wid, this.info);
 
-      jQuery(`input[name='id']:hidden`, wid.document).val(this.info.id);
+      // jQuery(`input[name='id']:hidden`, wid.document).val(this.info.id);
 
       window.app.$route.query["info"] = this.info;
       window.app.$route.query["assessmetIframe"] = this.$refs.iframe;
@@ -479,7 +503,7 @@ export default {
       //iframeLoading
 
       // 旧表单
-      initList(wid);
+      // initList(wid);
       window.wid = wid;
       this.wid = wid;
 
@@ -1336,9 +1360,9 @@ export default {
 
       //
       let recordObj = {
-        formType: this.wid.formInfo.formType,
-        formCode: this.wid.formInfo.formCode,
-        formApiCode: this.wid.formInfo.formApiCode,
+        formType: this.wid.formInfo.formType || "",
+        formCode: this.wid.formInfo.formCode || "",
+        formApiCode: this.wid.formInfo.formApiCode || "",
         id: event.target.getAttribute("data-id") || "",
         blockId:
           event.target.getAttribute("data-blockId") ||
@@ -1697,7 +1721,7 @@ export default {
     url() {
       this.pageLoading = true;
       this.iframeHeight = "auto";
-      this.iframeHeight = 100;
+      this.iframeHeight = this.wih; //100;
     }
   },
   components: {
