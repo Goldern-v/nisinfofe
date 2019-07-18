@@ -9,7 +9,7 @@
       <iframe
         :style="{height: iframeHeight + 'px'}"
         frameborder="0"
-        class="assessment-iframe"
+        class="assessmentv2-iframe"
         v-if="url"
         :src="url"
         @load="onload"
@@ -42,7 +42,7 @@
   width: 100%;
   // border: 1px solid red;
 
-  .assessment-iframe {
+  .assessmentv2-iframe {
     width: 100%;
     // min-height: 600px;
     overflow: hidden;
@@ -71,7 +71,7 @@
   // min-width 1110px
   margin: 0 auto;
 
-  .assessment-iframe {
+  .assessmentv2-iframe {
     width: 100%;
     overflow: hidden;
     // min-height: 600px;
@@ -153,7 +153,7 @@ export default {
     this.bus.$on("assessmentSignSaveV2", this.signSave);
     this.bus.$on("assessmentShenheSignV2", this.shenheSign);
     this.bus.$on("assessmentRefreshV2", this.refresh);
-    this.bus.$on("assessmentLoadedV2", this.onPageLoaded);
+    this.bus.$on("assessmentLoadedV2", this.onFormLoaded);
     this.bus.$on("assessmentOpenScoreChartV2", this.openScoreChart);
     this.bus.$on("editAssessmentV2", this.openEditAssessment);
     this.bus.$on(
@@ -169,6 +169,7 @@ export default {
   },
   mounted() {
     window.cleanAllMark = this.cleanAllMark;
+    window.onFormLoaded = this.onFormLoaded;
   },
   methods: {
     openNewFormBox(box) {
@@ -183,6 +184,7 @@ export default {
     openUrl(info) {
       // console.log(info, "mmmmtttttttttt");
       this.pageLoading = true;
+      this.pageLoadingText = "数据加载中";
       this.iframeHeight = 0;
       let token = window.app.$getCookie("NURSING_USER").split("##")[1];
       // this.$route.query['id'] = info.id
@@ -271,7 +273,8 @@ export default {
         this.url = url;
       }
     },
-    onPageLoaded(type = "") {
+    onFormLoaded(type = "") {
+      this.pageLoadingText = "数据加载中";
       this.pageLoading = false;
       // 如果是新表单
 
@@ -279,6 +282,7 @@ export default {
 
       let wid = this.$refs.iframe.contentWindow;
       this.wid = this.$refs.iframe.contentWindow;
+      this.wid.onmessage = this.onmessage;
       //
       try {
         window.wid.document.querySelector(
@@ -289,58 +293,56 @@ export default {
       }
 
       //
-      console.log("表单名", [type], this.info, this.info.title);
-      try {
-        // 健康教育单
-        if (this.info.pageItem) {
-          wid.formInfo.getItem(this.info.pageItem);
-          this.info.pageItem = this.info.pageItem.replace(/健康教育单/g, "");
-          wid.formInfo.missionId = this.info.missionId + "";
-          wid.setTitle(this.info.pageItem + "健康教育单");
-          wid.formInfo.status = this.info.status;
-          // if(this.info.missionId){
-          //   wid.data.setFormData('页面ID',this.info.missionId)
-          // }
-          wid.data.setFormData("页面ID", this.info.missionId || "");
+      // console.log("表单名", [type], this.info, this.info.title);
+      // try {
+      //   // 健康教育单
+      //   if (this.info.pageItem) {
+      //     wid.formInfo.getItem(this.info.pageItem);
+      //     this.info.pageItem = this.info.pageItem.replace(/健康教育单/g, "");
+      //     wid.formInfo.missionId = this.info.missionId + "";
+      //     wid.setTitle(this.info.pageItem + "健康教育单");
+      //     wid.formInfo.status = this.info.status;
+      //     // if(this.info.missionId){
+      //     //   wid.data.setFormData('页面ID',this.info.missionId)
+      //     // }
+      //     wid.data.setFormData("页面ID", this.info.missionId || "");
 
-          // this.formatData.data.setFormData('页面ID',formInfo.missionId)
-        }
-      } catch (error) {
-        console.log("error这里是楚霏的锅", error);
-      }
+      //     // this.formatData.data.setFormData('页面ID',formInfo.missionId)
+      //   }
+      // } catch (error) {
+      //   console.log("error这里是楚霏的锅", error);
+      // }
 
       try {
         // this.$refs.formIframe.contentDocument.body.clientHeight
-
-        if (!wid.formInfo.nooForm) {
-          wid.formInfo.nooForm = "0";
-          this.iframeHeight = "auto";
-          this.iframeHeight = wid.document.body.clientHeight + 50;
-          // this.iframeHeight = wid.document.body.scrollHeight * 1.04;
-        }
-        if (wid.formInfo.nooForm == "1") {
-          this.iframeHeight = "auto";
-          this.iframeHeight = wid.document.body.clientHeight + 50;
-          // this.iframeHeight = wid.document.body.scrollHeight * 1.04;
-          this.info = Object.assign({}, this.info, wid.formInfo);
-
-          // 更新工具栏
-          this.bus.$emit("initAssessmentTool", {
-            tool: {
-              formCode: this.info.formCode,
-              canEdit: this.info.canEdit,
-              status: this.info.status
-            },
-            creator: this.info.creator,
-            listPrint: this.info.listPrint
-          });
-          // return;
-        }
+        // if (!wid.formInfo.nooForm) {
+        //   wid.formInfo.nooForm = "0";
+        //   this.iframeHeight = "auto";
+        //   this.iframeHeight = wid.document.body.clientHeight + 50;
+        //   // this.iframeHeight = wid.document.body.scrollHeight * 1.04;
+        // }
+        // if (wid.formInfo.nooForm == "1") {
+        //   this.iframeHeight = "auto";
+        //   this.iframeHeight = wid.document.body.clientHeight + 50;
+        //   // this.iframeHeight = wid.document.body.scrollHeight * 1.04;
+        //   this.info = Object.assign({}, this.info, wid.formInfo);
+        //   // 更新工具栏
+        //   this.bus.$emit("initAssessmentTool", {
+        //     tool: {
+        //       formCode: this.info.formCode,
+        //       canEdit: this.info.canEdit,
+        //       status: this.info.status
+        //     },
+        //     creator: this.info.creator,
+        //     listPrint: this.info.listPrint
+        //   });
+        //   // return;
+        // }
         //
-        if (this.marklist) {
-          // console.log("!!marklist!!", this.marklist);
-          this.onloadMarkList();
-        }
+        // if (this.marklist) {
+        //   // console.log("!!marklist!!", this.marklist);
+        //   this.onloadMarkList();
+        // }
         //
       } catch (e) {
         console.log(e);
@@ -349,29 +351,31 @@ export default {
     },
     onmessage(e) {
       // alert(e.data.type)
-      console.log(e, "message");
+      console.log(e, "message", e.data.type);
       // if (e.data.type == 'loaded' || e.data.type == "webpackOk") {
-      if (e.data.type === "loaded" || e.data.type == "webpackOk") {
-        this.onPageLoaded("onmessage");
+      if (e.data.type === "loaded") {
+        this.onFormLoaded("onmessage");
       }
     },
     onload() {
-      this.pageLoading = true;
-      this.pageLoadingText = "数据加载中";
+      console.log("!!!!onload!!!!");
+      // this.pageLoading = true;
+      // this.pageLoadingText = "数据加载中";
       // this.marklist = [];
-      let wid = this.$refs.iframe.contentWindow;
+      // let wid = this.$refs.iframe.contentWindow;
       this.wid = this.$refs.iframe.contentWindow;
+      window.wid = this.$refs.iframe.contentWindow;
 
       // window.document.addEventListener()
-      this.wid.document.removeEventListener("click", this.onClick);
-      window.document.removeEventListener("onScroll", this.onClick);
-      this.wid.document.removeEventListener("contextmenu", this.onContextMenu);
+      // this.wid.document.removeEventListener("click", this.onClick);
+      // window.document.removeEventListener("onScroll", this.onClick);
+      // this.wid.document.removeEventListener("contextmenu", this.onContextMenu);
 
-      // window.document.addEventListener("click", this.onClick);
-      this.wid.document.addEventListener("click", this.onClick);
-      window.document.addEventListener("onScroll", this.onClick);
-      this.wid.document.addEventListener("contextmenu", this.onContextMenu);
-      //
+      // // window.document.addEventListener("click", this.onClick);
+      // this.wid.document.addEventListener("click", this.onClick);
+      // window.document.addEventListener("onScroll", this.onClick);
+      // this.wid.document.addEventListener("contextmenu", this.onContextMenu);
+      // //
 
       this.iframeHeight = "auto";
       // this.iframeHeight = "100%";
@@ -397,224 +401,70 @@ export default {
       // let wid = this.$refs.iframe.contentWindow
       // var inputs = jQuery(`[name*="${this.info.formCode}"]`,wid.document)
       // console.log("#######inputs#######",inputs);
-      console.log("载入页面", wid);
-      window.wid = wid;
+      // console.log("载入页面", wid);
+      // window.wid = wid;
 
-      if (
-        wid.loadTimeData &&
-        wid.loadTimeData.data_ &&
-        wid.loadTimeData.data_.errorCode
-      ) {
-        console.log(
-          "找不到页面",
-          wid.loadTimeData.data_,
-          wid.loadTimeData.data_.errorCode
-        );
-        let waitTime = 5;
-        this.pageLoadingText = "网络异常,页面无法获取,请尝试刷新";
-        let self = this;
-        this.pageLoading = true;
-        // window.clearInterval(wt);
-        // let wt = window.setInterval(function(){
-        //   if(waitTime<1){
-        //     self.pageLoadingText = "正在载入页面";
-        //     window.clearInterval(wt);
-        //     window.setTimeout(function(){
-        //       self.openUrl(self.url)
-        //     },2000);
-        //   }else{
-        //     try {
-        //       self.pageLoadingText = self.wid.loadTimeData.data_.errorCode+":页面无法获取，请尝试刷新("+(waitTime--)+"秒)"
-        //     } catch (error) {
-        //       window.clearInterval(wt);
-        //     }
-        //   }
-        // }, 1000);
-        return;
-      }
-
-      // 如果是新表单 跳出
-      try {
-        console.log("!!!!!!info", this.info);
-        if (
-          this.info &&
-          this.info.formCode &&
-          this.info.formCode === "eduMission"
-        ) {
-          return;
-        }
-        // if (!wid.formInfo.nooForm && !this.info.nooForm) {
-        //   wid.formInfo.nooForm = "0";
-        // }
-
-        if (
-          ["1", "2"].indexOf(this.info.nooForm) > -1 ||
-          (wid.formInfo && ["1", "2"].indexOf(wid.formInfo.nooForm) > -1)
-        ) {
-          console.log("ooooo");
-          //
-          if (this.info.name) {
-            this.pageLoadingText = `正在加载${this.info.name} ...`;
-          }
-          wid.onmessage = this.onmessage;
-          // console.log("!!!!!!info.id",this.info,this.info.id)
-          if (!this.info.id) {
-            // initNooForm(wid);
-            console.log("新建表单", this.url);
-            this.pageLoadingText = `新建${this.info.name}中...`;
-          } else {
-            console.log("打开表单", this.url);
-            this.pageLoadingText = `打开${this.info.name}中...`;
-          }
-          return;
-        }
-      } catch (e) {
-        console.log(e, "eeee");
-      }
-
-      // this.info["canEdit"] = jQuery(
-      //   "input[name*='canEdit']",
-      //   wid.document
-      // ).val();
-      // this.info["formCode"] = jQuery(
-      //   "input[name*='formCode']",
-      //   wid.document
-      // ).val();
-      // 获取表 标题
-      // this.info["formTitle"] = jQuery(".title", wid.document).html();
-      // if (this.info["formTitle"] === undefined) {
-      //   // this.info['formTitle'] = jQuery(".subtitle", wid.document).html();
-      //   // if (this.info['formTitle'] === undefined) {
-      //   this.info["formTitle"] = "";
-      //   // }
+      // if (
+      //   wid.loadTimeData &&
+      //   wid.loadTimeData.data_ &&
+      //   wid.loadTimeData.data_.errorCode
+      // ) {
+      //   console.log(
+      //     "找不到页面",
+      //     wid.loadTimeData.data_,
+      //     wid.loadTimeData.data_.errorCode
+      //   );
+      //   let waitTime = 5;
+      //   this.pageLoadingText = "网络异常,页面无法获取,请尝试刷新";
+      //   let self = this;
+      //   this.pageLoading = true;
+      //   // window.clearInterval(wt);
+      //   // let wt = window.setInterval(function(){
+      //   //   if(waitTime<1){
+      //   //     self.pageLoadingText = "正在载入页面";
+      //   //     window.clearInterval(wt);
+      //   //     window.setTimeout(function(){
+      //   //       self.openUrl(self.url)
+      //   //     },2000);
+      //   //   }else{
+      //   //     try {
+      //   //       self.pageLoadingText = self.wid.loadTimeData.data_.errorCode+":页面无法获取，请尝试刷新("+(waitTime--)+"秒)"
+      //   //     } catch (error) {
+      //   //       window.clearInterval(wt);
+      //   //     }
+      //   //   }
+      //   // }, 1000);
+      //   return;
       // }
 
-      // this.signTitle = "签名确认 " + this.info["formTitle"];
+      // 如果是新表单 跳出
+      // try {
+      //   console.log("!!!!!!info", this.info);
+      //   if (
+      //     ["1", "2"].indexOf(this.info.nooForm) > -1 ||
+      //     (this.wid.formInfo &&
+      //       ["1", "2"].indexOf(this.wid.formInfo.nooForm) > -1)
+      //   ) {
+      //     console.log("ooooo");
+      //     //
+      //     if (this.info.name) {
+      //       this.pageLoadingText = `正在加载${this.info.name} ...`;
+      //     }
 
-      // console.log("assessment_onload", wid, this.info);
-
-      // jQuery(`input[name='id']:hidden`, wid.document).val(this.info.id);
-
-      window.app.$route.query["info"] = this.info;
-      window.app.$route.query["assessmetIframe"] = this.$refs.iframe;
-      window.app.$route.query[
-        "assessmetIframeLoading"
-      ] = this.$refs.iframeLoading;
-      //iframeLoading
-
-      // 旧表单
-      // initList(wid);
-      window.wid = wid;
-      this.wid = wid;
-
-      try {
-        window.wid.document.querySelector(
-          ".hospital"
-        ).innerText = this.hospitalNameSpace;
-      } catch (error) {
-        //
-      }
-
-      if (this.wid) {
-        this.cleanAllMark();
-      }
-
-      // if(!wid.$){return;}
-      // 获取表单信息
-      this.formInfo = {
-        listPrint: this.info.listPrint,
-        curve: this.info.showCurve
-      };
-      console.log("获取表单信息", this.formInfo, this.$refs.iframeLoading);
-      this.bus.$emit("showCurve", this.formInfo.curve);
-
-      if (this.info.formCode && this.info.formCode.indexOf("first") > -1) {
-        // this.info.id = null
-
-        return;
-      }
-
-      try {
-        //   // && !this.info.formCode==='eduMission'
-        // console.log(this.info.formCode,"this.info.formCode")
-        // 获取表单数据源信息
-        evalDetail(this.info.id).then(
-          res => {
-            this.info.creator = res.data.data.creator;
-            console.log("!!!!!onload_formField:evalDetail", res, this.info);
-            // eventInit(res.data.data, wid);
-
-            // 本地开发模式未生成相关表单，localhost模式下找不到页面开发地址
-            if (!this.info.formCode) {
-              //
-              this.$notify({
-                title: "提示",
-                message: "页面找不到地址",
-                type: "warning"
-              });
-              let waitTime = 5;
-              this.pageLoadingText = "网络异常,页面找不到地址,请尝试刷新页面";
-              this.pageLoadingText += this.isDev
-                ? ":   " + decodeURIComponent(this.url)
-                : "";
-              this.pageLoading = true;
-
-              return;
-            }
-
-            if (
-              this.info.formCode &&
-              this.info.formCode.indexOf("first") === -1
-            ) {
-              formFill.fill(res.data.data, wid);
-            }
-
-            this.formStatus = res.data.data.status;
-            window.app.$route.query["formStatus"] = this.formStatus;
-            //
-            this.pageLoading = false;
-            //
-            if (res.data.data.status === "0") {
-              this.$notify({
-                title: "提示",
-                message: "责任护士未签名",
-                type: "warning"
-              });
-            }
-
-            // 更新工具栏
-            this.bus.$emit("initAssessmentTool", {
-              tool: {
-                formCode: this.info.formCode,
-                canEdit: this.info.canEdit,
-                status: res.data.data.status
-              },
-              creator: this.info.creator,
-              listPrint: this.formInfo.listPrint
-            });
-
-            // this.showSignSave
-            if (this.showSignSave) {
-              window.closeOKForm();
-              this.bus.$emit("assessmentSignSave");
-            }
-
-            this.iframeHeight = "auto";
-            this.iframeHeight = wid.document.body.scrollHeight * 1.05;
-          },
-          error => {
-            console.log("获取表单信息,错误", error);
-          }
-        );
-      } catch (error) {
-        this.pageLoading = false;
-        console.log("获取表单信息,错误", error);
-      }
-
-      // window.app.currentForm.formCode = this.info.formCode
-
-      // this.iframeHeight = 'auto'
-      // this.iframeHeight = wid.document.body.scrollHeight * 1.05;
+      //     // console.log("!!!!!!info.id",this.info,this.info.id)
+      //     if (!this.info.id) {
+      //       // initNooForm(this.wid);
+      //       console.table("新建表单", this.url);
+      //       this.pageLoadingText = `新建${this.info.name}中...`;
+      //     } else {
+      //       console.table("打开表单", this.url);
+      //       this.pageLoadingText = `打开${this.info.name}中...`;
+      //     }
+      //     // return;
+      //   }
+      // } catch (e) {
+      //   console.log(e, "eeee");
+      // }
     },
     cleanAllMark(str = "") {
       try {
@@ -1486,7 +1336,7 @@ export default {
             }
             //
             setTimeout(() => {
-              this.onPageLoaded();
+              this.onFormLoaded();
             }, 100);
           }
         },
@@ -1512,7 +1362,7 @@ export default {
             }
             //
             setTimeout(() => {
-              this.onPageLoaded();
+              this.onFormLoaded();
             }, 100);
           }
         },
@@ -1699,7 +1549,7 @@ export default {
               //   // }
               //   this.onloadMarkList()
               //   setTimeout(() => {
-              //     this.onPageLoaded();
+              //     this.onFormLoaded();
               //   }, 100);
               // });
             }
@@ -1721,7 +1571,7 @@ export default {
     url() {
       this.pageLoading = true;
       this.iframeHeight = "auto";
-      this.iframeHeight = this.wih; //100;
+      this.iframeHeight = this.wih - 85; //100;
     }
   },
   components: {

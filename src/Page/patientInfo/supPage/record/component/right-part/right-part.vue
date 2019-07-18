@@ -133,7 +133,7 @@ export default {
         this.componentSwitch,
         this.formVersion
       );
-      this.$forceUpdate();
+      // this.$forceUpdate();
     });
 
     this.bus.$on("closeAssessment", () => {
