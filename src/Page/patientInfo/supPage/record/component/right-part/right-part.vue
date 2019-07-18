@@ -62,7 +62,7 @@
     height 100% !important
 .tool-bar
   // background red
-  outline 1px dashed red
+  // outline 1px dashed red
 </style>
 <script>
 import toolCon from "./components/tool-con/tool-con";
@@ -106,9 +106,9 @@ export default {
       } else {
         this.showConToolBar = true;
       }
-      if (data.hasOwnProperty("nooForm") && data.nooForm == 2) {
-        this.showConToolBar = false;
-      }
+      // if (data.hasOwnProperty("nooForm") && data.nooForm == 2) {
+      //   this.showConToolBar = false;
+      // }
       this.showTpye = "assessment";
     });
 
