@@ -67,7 +67,7 @@
         <img :src="preview.url" alt="" style="width:100%">
       </div>
       <div v-else-if="preview.type=='pdf'" :style="{height: pdfHeight+'px'}">
-        <object type="application/pdf" width="100%" height="100%"  :data="preview.url" />
+        <iframe width="100%" height="100%"  :src="preview.url" />
       </div>
       <div v-else style="height: 300px;text-align:center;line-height:300px;">
         该文件格式不支持预览
@@ -188,6 +188,7 @@ export default {
       this.setTableData();
     },
     handleCurrentChange(newPage){
+      this.pageIndex = newPage;
       this.setTableData();
     },
     handleSearch(){
