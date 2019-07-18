@@ -1,10 +1,10 @@
 <template>
   <div class="noCheckTest" ref="noCheckTest">
-    <div class="left" :style="{height: noCheckTestH +'px'}">
-      <left></left>
+    <div class="left">
+      <left :listContentH="listContentH"></left>
     </div>
-    <div class="right" :style="{height: noCheckTestH +'px'}">
-      <right></right>
+    <div class="right">
+      <right :listContentH="listContentH"></right>
     </div>
   </div>
 </template>
@@ -34,7 +34,7 @@ import right from "./components/right";
 export default {
   data() {
     return {
-      noCheckTestH: ""
+      listContentH: 0 //列表内容高度
     };
   },
   mounted() {},
@@ -46,7 +46,8 @@ export default {
         document.documentElement.clientHeight == 0
           ? document.body.clientHeight
           : document.documentElement.clientHeight;
-      self.noCheckTestH = pageH - self.$refs["noCheckTest"].offsetTop - 30 || 0;
+      self.listContentH =
+        pageH - self.$refs["noCheckTest"].offsetTop - 77 - 30 || 0;
     });
 
     window.onresize = function() {
@@ -55,8 +56,8 @@ export default {
           document.documentElement.clientHeight == 0
             ? document.body.clientHeight
             : document.documentElement.clientHeight;
-        self.noCheckTestH =
-          pageH - self.$refs["noCheckTest"].offsetTop - 30 || 0;
+        self.listContentH =
+          pageH - self.$refs["noCheckTest"].offsetTop - 77 - 30 || 0;
       });
     };
   },

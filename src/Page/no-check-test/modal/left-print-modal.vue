@@ -1,9 +1,7 @@
-
 <template>
   <div>
     <sweet-modal ref="modal" :modalWidth="700" title="检查预约打印">
       <div ref="printable">
-        <!-- <div class="table" > -->
         <table v-for="(item,index) in printData" :key="index">
           <thead>
             <tr>
@@ -11,42 +9,17 @@
               <th>姓名</th>
               <th>检查时间</th>
               <th>检查项目</th>
-              <!-- <div
-                  class="list-box head"
-                  flex="cross:stretch"
-                  style="-webkit-print-color-adjust: exact;"
-                >
-                  <span class="col-0">
-            <el-checkbox v-model="allPrint" @change="checkAll"></el-checkbox>
-                  </span>
-                  <span class="col-1">床号</span>
-                  <span class="col-2">姓名</span>
-                  <span class="col-3">检查时间</span>
-                  <span class="col-4" flex-box="1">检查项目</span>
-              </div>-->
             </tr>
           </thead>
           <tbody>
             <tr v-for="(rows,i) in item.data" :key="i">
-              <td>{{rows.bedLabel}}</td>
+              <td>{{rows.bedLabel}}床</td>
               <td>{{rows.name}}</td>
               <td>{{rows.scheduleDate }}</td>
               <td>{{rows.examItem}}</td>
-              <!-- <td>
-                <div class="list-box" flex="cross:stretch" v-for="(rows,i) in item.data" :key="i">
-                  <span class="col-0">
-            <el-checkbox v-model="item.isPrint"></el-checkbox>
-                  </span>
-                  <span class="col-1">{{rows.bedLabel}}</span>
-                  <span class="col-2">{{rows.name}}</span>
-                  <span class="col-3">{{rows.scheduleDate }}</span>
-                  <span class="col-4" flex-box="1">{{rows.examItem}}</span>
-                </div>
-              </td>-->
             </tr>
           </tbody>
         </table>
-        <!-- </div> -->
       </div>
       <div slot="button">
         <el-button class="modal-btn" @click="close">取消</el-button>
@@ -59,23 +32,16 @@
 table {
   width: 100%;
   margin-bottom: 20px;
-}
-
-.table {
-  margin-bottom: 20px;
-}
-
-table {
   border-top: 1px solid #E3E7EA;
   border-left: 1px solid #E3E7EA;
   font-size: 13px;
   color: #333333;
 
   th, td {
-    min-height: 37px;
+    min-height: 16px;
     box-sizing: border-box;
     padding: 8px 10px;
-    line-height: 22px;
+    line-height: 16px;
     border-right: 1px solid #E3E7EA;
     border-bottom: 1px solid #E3E7EA;
 
@@ -93,47 +59,7 @@ table {
       width: 150px;
     }
   }
-
-  .col-2 {
-    width: 80px;
-  }
-
-  .col-3 {
-    width: 130px;
-  }
-
-  .col-4 {
-    border-right: 1px solid #E3E7EA;
-  }
-
-  .col-0 {
-    width: 60px;
-  }
-
-  .col-1, .col-2 {
-    text-align: center;
-  }
-
-  &.head {
-    font-size: 13px;
-    color: #333;
-    font-weight: bold;
-    border-top: 1px solid #E3E7EA;
-
-    span {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-  }
 }
-</style>
-<style>
-/* @media print {
-  table {
-    page-break-before: always !important;
-  }
-} */
 </style>
 
 <script>

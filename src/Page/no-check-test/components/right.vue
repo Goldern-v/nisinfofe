@@ -11,27 +11,21 @@
           <span class="col-4">申请时间</span>
           <span class="col-5" flex-box="1">化验项目</span>
         </div>
-        <div class="list-box" flex="cross:stretch" v-for="(item,index) in list" :key="index">
-          <span class="col-1">
-            <el-checkbox v-model="item.isPrint"></el-checkbox>
-          </span>
-          <span class="col-2">{{item.bedLabel}}</span>
-          <span class="col-3">{{item.name}}</span>
-          <span class="col-4">{{item.scheduleDate}}</span>
-          <span class="col-5" flex-box="1">{{item.examItem}}</span>
-          <!-- <span class="col-4">
-            <div v-for="(option, i) in item.data" :key="i">{{option.scheduleDate | beday}}</div>
-          </span>
-          <span class="col-5" flex-box="1">
-            <div v-for="(option, i) in item.data" :key="i">{{option.examItem}}</div>
-          </span>-->
+        <div class="list-content" :style="{height: listContentH +'px'}">
+          <div class="list-box" flex="cross:stretch" v-for="(item,index) in list" :key="index">
+            <span class="col-1">
+              <el-checkbox v-model="item.isPrint"></el-checkbox>
+            </span>
+            <span class="col-2">{{item.bedLabel}}床</span>
+            <span class="col-3">{{item.name}}</span>
+            <span class="col-4">{{item.scheduleDate}}</span>
+            <span class="col-5" flex-box="1">{{item.examItem}}</span>
+          </div>
         </div>
         <nullText v-if="list.length == 0" style="margin: 70px 0"></nullText>
       </div>
       <span slot="head-tool" @click="openPrintModal" style="margin-right: 10px;">打印</span>
-      <!-- <span slot="head-tool" @click="openConfigModal">显示配置项</span> -->
     </boxBase>
-    <!-- <config2Modal ref="config2Modal"></config2Modal> -->
     <rightPrintModal ref="rightPrintModal" :list="list"></rightPrintModal>
   </div>
 </template>
@@ -40,6 +34,9 @@
 .body-con {
   margin: 0;
   min-height: 220px;
+}
+
+.list-content {
   overflow: auto;
 }
 
@@ -54,10 +51,11 @@
 
   .col-1, .col-2, .col-3, .col-4, .col-5 {
     width: 0;
-    min-height: 37px;
+    min-height: 24px;
+    -webkit-box-sizing: border-box;
     box-sizing: border-box;
     padding: 8px 18px;
-    line-height: 22px;
+    line-height: 16px;
   }
 
   .col-2, .col-3, .col-4, .col-5 {
@@ -66,6 +64,17 @@
 
   .col-1 {
     width: 60px;
+    position: relative;
+
+    label {
+      position: absolute;
+      left: 50%;
+      top: 6px;
+      -webkit-transform: translateX(-50%);
+      -ms-transform: translateX(-50%);
+      -o-transform: translateX(-50%);
+      transform: translateX(-50%);
+    }
   }
 
   .col-2, .col-3 {
@@ -99,7 +108,6 @@
 import boxBase from "../base/box-base.vue";
 import lineBox from "../components/line-box/line-box.vue";
 import lineBoxNull from "../components/line-box/line-box-null.vue";
-// import config2Modal from "../modal/config-2-modal.vue";
 import { getHistGetTestWithWardcode } from "../api";
 import common from "@/common/mixin/common.mixin.js";
 import bus from "vue-happy-bus";
@@ -115,6 +123,9 @@ export default {
       list: [],
       allPrint: false
     };
+  },
+  props: {
+    listContentH: Number
   },
   mounted() {
     this.getData();
@@ -138,10 +149,14 @@ export default {
   methods: {
     getData() {
       this.pageLoading = true;
-      getHistGetTestWithWardcode(this.deptCode).then(res => {
-        this.list = this.goundBy(res.data.data || []);
-        this.pageLoading = false;
-      });
+      getHistGetTestWithWardcode(this.deptCode)
+        .then(res => {
+          this.list = this.goundBy(res.data.data || []);
+          this.pageLoading = false;
+        })
+        .catch(err => {
+          this.pageLoading = false;
+        });
     },
     goundBy(arr) {
       let dest = [];
@@ -201,7 +216,6 @@ export default {
     boxBase,
     lineBox,
     lineBoxNull,
-    // config2Modal,
     nullText,
     rightPrintModal
   }
