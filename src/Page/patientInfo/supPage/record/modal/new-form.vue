@@ -3,7 +3,12 @@
     <sweet-modal ref="newRecord" size="big" title="创建新护理文书" class="modal-record padding-0">
       <div class="title-bar" flex="cross:center">
         <span class="type-text">护理文书类型</span>
-        <el-select v-model="formType" placeholder="选择类型" class="type-select" :disabled="formTypeReadOnly">
+        <el-select
+          v-model="formType"
+          placeholder="选择类型"
+          class="type-select"
+          :disabled="formTypeReadOnly"
+        >
           <el-option
             v-for="item in options"
             :key="item.value"
@@ -28,7 +33,7 @@
           :key="item.id"
         >
           <el-row type="flex" align="middle">
-            <img src="../../../../../common/images/record/文件创建.png" alt height="35">
+            <img src="../../../../../common/images/record/文件创建.png" alt height="35" />
             <span class="name" v-if="item.name">{{item.name}}</span>
             <span class="name" v-if="item.recordName">{{item.recordName}}</span>
           </el-row>
@@ -100,7 +105,14 @@
 </style>
 
 <script>
-import { templates,briefMission,getContentByMissionIds, listRecord, inform, healthEdu } from "@/api/patientInfo";
+import {
+  templates,
+  briefMission,
+  getContentByMissionIds,
+  listRecord,
+  inform,
+  healthEdu
+} from "@/api/patientInfo";
 import commonMixin from "@/common/mixin/common.mixin";
 import { host } from "@/api/apiConfig";
 import bus from "vue-happy-bus";
@@ -127,8 +139,8 @@ export default {
           label: "报告类"
         },
         {
-          value: '4',
-          label: '健康宣教'
+          value: "4",
+          label: "健康宣教"
         }
       ],
       formType: "1",
@@ -136,32 +148,32 @@ export default {
       searchWord: "",
       bus: bus(this),
       selectData: "",
-      tmpitem:"",
-      pageItem:"",
+      tmpitem: "",
+      pageItem: "",
       formTypeReadOnly: false,
       filterObj: null
     };
   },
   methods: {
     open(filterObj) {
-      if(filterObj) {
-        this.filterObj = filterObj
-        this.formType = filterObj.formType
-        this.formTypeReadOnly = true
+      if (filterObj) {
+        this.filterObj = filterObj;
+        this.formType = filterObj.formType;
+        this.formTypeReadOnly = true;
       } else {
-         this.filterObj = null
-        this.formType = '1'
-        this.formTypeReadOnly = false
+        this.filterObj = null;
+        this.formType = "1";
+        this.formTypeReadOnly = false;
       }
       if (this.$route.query.patientId) {
         this.templates = [];
         this.$refs.newRecord.open();
         this.getData();
-      }else{
+      } else {
         this.$message({
           showClose: true,
-          duration:3000,
-          message: '请选中一位病人'
+          duration: 3000,
+          message: "请选中一位病人"
         });
       }
     },
@@ -184,22 +196,15 @@ export default {
       }
       console.log("新建页面HTML代码", item, this, this.formType);
       window.app.currentForm = item;
-      if (this.formType == "1" || this.formType == "monitor" ) {
+      if (this.formType == "1" || this.formType == "monitor") {
         let token = window.app.$getCookie("NURSING_USER").split("##")[1];
         let query = this.$route.query;
 
         // 开启编辑护理评估表旧版
         if (item.nooForm == "-1") {
-          let url = `${host}/crNursing/api/form/input/${item.formCode}/${
-            query.patientId
-          }/${query.visitId}/${query.name}/${query.sex}/${query.age}/${
-            query.deptCode
-          }/${query.bedLabel}/${query.inpNo}/${
-            query.wardCode
-          }?App-Token-Nursing=51e827c9-d80e-40a1-a95a-1edc257596e7&Auth-Token-Nursing=${token}`;
+          let url = `${host}/crNursing/api/form/input/${item.formCode}/${query.patientId}/${query.visitId}/${query.name}/${query.sex}/${query.age}/${query.deptCode}/${query.bedLabel}/${query.inpNo}/${query.wardCode}?App-Token-Nursing=51e827c9-d80e-40a1-a95a-1edc257596e7&Auth-Token-Nursing=${token}`;
           window.openFormBox(url);
-
-        } else if (item.nooForm == "1" || item.nooForm == "0") {
+        } else if (["2", "1", "0"].indexOf(item.nooForm) > -1) {
           let url;
           //  url = `http://localhost:3000/MMSE`
           let query = this.$route.query;
@@ -241,32 +246,31 @@ export default {
             window.openFormBox(url);
           }
         }
-      }
-      else if(this.formType === "4"){
-        console.log("健康教育单")
-        this.nooForm=1
+      } else if (this.formType === "4") {
+        console.log("健康教育单");
+        this.nooForm = 1;
         // getContentByMissionIds(item.missionId).then(res => {
-          // console.log(res,"res")
-           this.bus.$emit(
-              "openAssessment",
-               Object.assign(getFormConfig("健康教育单"), {
-                id: "",
-                formCode: "eduMission",
-                nooForm: 1,
-                pageUrl: "健康教育单.html",
-                // pageUrl: "aowu.html",
-                pageItem: item.name,
-                missionId: item.missionId,
-                publicUse: item.publicUse,
-                deptCode: item.deptCode
-              })
-              );
-              this.pageItem=item.name
-            // this.bus.$emit(
-            //   "pageItem",
-            //     this.pageItem
-            //   )
-              //  this.newRecordClose();
+        // console.log(res,"res")
+        this.bus.$emit(
+          "openAssessment",
+          Object.assign(getFormConfig("健康教育单"), {
+            id: "",
+            formCode: "eduMission",
+            nooForm: 1,
+            pageUrl: "健康教育单.html",
+            // pageUrl: "aowu.html",
+            pageItem: item.name,
+            missionId: item.missionId,
+            publicUse: item.publicUse,
+            deptCode: item.deptCode
+          })
+        );
+        this.pageItem = item.name;
+        // this.bus.$emit(
+        //   "pageItem",
+        //     this.pageItem
+        //   )
+        //  this.newRecordClose();
       }
       this.newRecordClose();
     },
@@ -277,33 +281,31 @@ export default {
       this.pageLoading = true;
       if (this.formType == "1") {
         templates(this.deptCode).then(res => {
-          if(this.filterObj && this.filterObj.formName) {
-            this.templates = res.data.data.filter(item => item.name === this.filterObj.formName)
-          }
-          else {
+          if (this.filterObj && this.filterObj.formName) {
+            this.templates = res.data.data.filter(
+              item => item.name === this.filterObj.formName
+            );
+          } else {
             this.templates = res.data.data;
           }
 
-
           this.pageLoading = false;
         });
-      }
-       else if(this.formType == "4"){
-        briefMission(this.deptCode).then(res =>{
+      } else if (this.formType == "4") {
+        briefMission(this.deptCode).then(res => {
           // console.log("res")
-          console.log(res)
+          console.log(res);
           this.templates = res.data.data.missionList;
-          this.tmpitem=res.data.data.eduFormTemplate
+          this.tmpitem = res.data.data.eduFormTemplate;
           this.pageLoading = false;
-        })
-      }
-       else {
+        });
+      } else {
         templatesAll(this.formType, this.deptCode).then(res => {
-
-          if(this.filterObj && this.filterObj.formName) {
-            this.templates = res.data.data.list.filter(item => item.name === this.filterObj.formName)
-          }
-          else {
+          if (this.filterObj && this.filterObj.formName) {
+            this.templates = res.data.data.list.filter(
+              item => item.name === this.filterObj.formName
+            );
+          } else {
             this.templates = res.data.data.list;
           }
 
@@ -317,7 +319,7 @@ export default {
       if (this.searchWord) {
         this.selectData = "";
         return this.templates.filter(item => {
-          if (this.formType == "1"||this.formType == "4") {
+          if (this.formType == "1" || this.formType == "4") {
             return item.name.indexOf(this.searchWord) > -1;
           }
         });

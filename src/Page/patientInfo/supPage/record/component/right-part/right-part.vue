@@ -2,12 +2,19 @@
   <div :class="{fullPageRecord}">
     <div class="null-tool" v-show="showTpye == ''"></div>
     <!-- 护理记录单 -->
-    <toolBar v-if="!hasMeasure" v-show="showTpye" :config="toolBarConfig"></toolBar>
-    <toolCon v-else v-show="showTpye"></toolCon>
+    <div v-if="showConToolBar" class="tool-bar">
+      <toolBar v-if="!hasMeasure" v-show="showTpye" :config="toolBarConfig"></toolBar>
+      <toolCon v-else v-show="showTpye"></toolCon>
+    </div>
     <!-- 护理评估表 -->
     <div class="form-contain" ref="formContain" :style="{height: height}">
       <assessment v-show="showTpye" ref="assessment"></assessment>
-      <div v-show="showTpye == ''" class="null-btn" flex="cross:center main:center" @click="newRecordOpen">
+      <div
+        v-show="showTpye == ''"
+        class="null-btn"
+        flex="cross:center main:center"
+        @click="newRecordOpen"
+      >
         <i class="el-icon-plus"></i>
         创建护理文书
       </div>
@@ -53,11 +60,15 @@
   z-index 10000
   .form-contain
     height 100% !important
+.tool-bar
+  // background red
+  outline 1px dashed red
 </style>
 <script>
 import toolCon from "./components/tool-con/tool-con";
 import comomMixin from "../../../../../../common/mixin/common.mixin";
 import assessment from "./components/assessment/assessment";
+import assessment_v2 from "./components/assessment/assessment_v2";
 import toolBar from "@/components/toolBar/toolBar.vue";
 import { toolBarConfig } from "./config.js";
 import bus from "vue-happy-bus";
@@ -69,17 +80,19 @@ export default {
   data() {
     return {
       showTpye: "",
+      showConToolBar: true,
       bus: bus(this),
       isOutSign: true,
       isOutAudit: true,
       isAddNewPage: true,
       hasMeasure: true,
       hasCheck: true,
-      isPushForward: false,
+      isPushForward: false
     };
   },
   created() {
     this.bus.$on("openAssessment", data => {
+      console.log("openAssessment", data);
       if (data.hasOwnProperty("isOutSign")) {
         this.isOutSign = data.isOutSign;
         this.isOutAudit = data.isOutAudit;
@@ -87,6 +100,14 @@ export default {
         this.hasMeasure = data.hasMeasure;
         this.hasCheck = data.hasCheck;
         this.isPushForward = data.isPushForward;
+      }
+      if (data.hasOwnProperty("showConToolBar")) {
+        this.showConToolBar = data.showConToolBar;
+      } else {
+        this.showConToolBar = true;
+      }
+      if (data.hasOwnProperty("nooForm") && data.nooForm == 2) {
+        this.showConToolBar = false;
       }
       this.showTpye = "assessment";
     });
@@ -109,10 +130,11 @@ export default {
       return this.$store.state.record.fullPageRecord;
     },
     height() {
+      let offset = this.showConToolBar ? 0 : 40;
       if (this.$route.path == "/formPage" || this.filterObj) {
-        return `${this.wih - 120}px`;
+        return `${this.wih - 120 + offset}px`;
       } else {
-        return `${this.wih - 180}px`;
+        return `${this.wih - 180 + offset}px`;
       }
     },
     toolBarConfig() {
@@ -130,6 +152,7 @@ export default {
   components: {
     toolCon,
     assessment,
+    assessment_v2,
     toolBar
   }
 };
