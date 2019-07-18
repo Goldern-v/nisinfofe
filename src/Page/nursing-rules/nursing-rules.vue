@@ -3,7 +3,7 @@
     <div class="search-topbar">
       <!-- <span class="title">护理制度</span> -->
       <div class="float-left">
-        <span class="type-label">护理类型:</span>
+        <span class="type-label">类型:</span>
         <span class="type-content">
           <el-select v-model="query.fileType" size="small" placeholder="全部">
             <el-option value="">全部</el-option>
@@ -32,16 +32,18 @@
             <div class="rule-name-content">{{scope.row.name}}</div>
           </template>
         </el-table-column>
-        <el-table-column prop="sizeFile" label="大小" width="100" align="center"></el-table-column>
-        <el-table-column prop="type" label="格式" width="100" align="center"></el-table-column>
-        <el-table-column prop="empName" label="上传人" width="100" align="center"></el-table-column>
+        <el-table-column prop="fileType" label="类型" width="150" align="center"></el-table-column>
+        <el-table-column prop="catalog" label="目录" width="150" align="center"></el-table-column>
+        <!-- <el-table-column prop="sizeFile" label="大小" width="100" align="center"></el-table-column> -->
+        <el-table-column prop="type" label="格式" width="80" align="center"></el-table-column>
+        <el-table-column prop="empName" label="上传人" width="80" align="center"></el-table-column>
         <el-table-column prop="deptName" label="权限" width="150" align="center" class-name="align-left">
           <template slot-scope="scope">
             <div class="rule-name-content">{{scope.row.deptName}}</div>
           </template>
         </el-table-column>
-        <el-table-column prop="uploadTime" label="上传时间" width="180" align="center"></el-table-column>
-        <el-table-column prop="operation" label="操作" width="120" align="center">
+        <el-table-column prop="uploadTime" label="上传时间" width="170" align="center"></el-table-column>
+        <el-table-column prop="operation" label="操作" width="110" align="center">
           <template slot-scope="scope">
             <div v-if="scope.row.id||scope.row.id===0">
               <span class="operation-text" @click="previewFile(scope)">预览</span>
