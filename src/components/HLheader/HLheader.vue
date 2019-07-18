@@ -458,6 +458,7 @@
     &.nursingRules {
       background-image: url('../../common/images/index/制度.png');
     }
+
     &.noCheckTest {
       background-image: url('../../common/images/index/未做检查／检验.png');
     }
@@ -619,7 +620,7 @@ export default {
       if (this.$route.path.indexOf("/wardReport") > -1) return true;
       if (this.$route.path == "/nursingDocumentation") return true;
       // if (this.$route.path == "/badEvent") return true;
-      if (this.$route.path == "/inpatientReport") return true;
+      if (this.$route.path.indexOf("/inpatientReport") > -1) return true;
       if (this.$route.path == "/catheterPage") return true;
       if (this.$route.path == "/nursingRules") return true;
       if (this.$route.path == "/noCheckTest") return true;
