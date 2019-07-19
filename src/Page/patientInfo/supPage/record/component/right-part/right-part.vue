@@ -7,8 +7,17 @@
       <toolCon v-else v-show="showTpye"></toolCon>
     </div>
     <!-- 护理评估表 -->
-    <div class="form-contain" ref="formContain" :style="{height: height}">
-      <assessment v-show="showTpye" ref="assessment"></assessment>
+    <div
+      class="form-contain"
+      :class="{nopadding:!showConToolBar}"
+      ref="formContain"
+      :style="{height: height}"
+    >
+      <!-- <component :is="componentSwitch" v-show="showTpye"></component> -->
+      <!-- <div v-show="showTpye"> -->
+      <assessment v-show="showConToolBar&&showTpye" ref="assessment" />
+      <assessment_v2 v-show="!showConToolBar&&showTpye" ref="assessmentV2" />
+      <!-- </div> -->
       <div
         v-show="showTpye == ''"
         class="null-btn"
@@ -28,6 +37,9 @@
   box-sizing border-box
   background #dfdfdf
   position relative
+  &.nopadding
+    padding 0px
+
 .null-tool
   height 40px
   background #dfdfdf
@@ -81,6 +93,7 @@ export default {
     return {
       showTpye: "",
       showConToolBar: true,
+      formVersion: 0,
       bus: bus(this),
       isOutSign: true,
       isOutAudit: true,
@@ -91,8 +104,9 @@ export default {
     };
   },
   created() {
-    this.bus.$on("openAssessment", data => {
-      console.log("openAssessment", data);
+    this.bus.$on("openAssessmentBox", data => {
+      console.log("openAssessmentBox", data);
+      // 外置按钮配置
       if (data.hasOwnProperty("isOutSign")) {
         this.isOutSign = data.isOutSign;
         this.isOutAudit = data.isOutAudit;
@@ -101,15 +115,25 @@ export default {
         this.hasCheck = data.hasCheck;
         this.isPushForward = data.isPushForward;
       }
+      this.showConToolBar = true;
       if (data.hasOwnProperty("showConToolBar")) {
         this.showConToolBar = data.showConToolBar;
-      } else {
-        this.showConToolBar = true;
       }
-      // if (data.hasOwnProperty("nooForm") && data.nooForm == 2) {
-      //   this.showConToolBar = false;
-      // }
+      this.formVersion = 0;
+      if (data.hasOwnProperty("formVersion") && data.formVersion == 2) {
+        this.formVersion = data.formVersion;
+        this.showConToolBar = false;
+        this.bus.$emit("openAssessmentV2", data);
+      } else {
+        this.bus.$emit("openAssessment", data);
+      }
       this.showTpye = "assessment";
+      console.log(
+        "this.componentSwitch",
+        this.componentSwitch,
+        this.formVersion
+      );
+      // this.$forceUpdate();
     });
 
     this.bus.$on("closeAssessment", () => {
@@ -147,6 +171,9 @@ export default {
         this.isDev,
         this.isPushForward
       );
+    },
+    componentSwitch() {
+      return this.formVersion == 2 ? "assessment_v2" : "assessment";
     }
   },
   components: {

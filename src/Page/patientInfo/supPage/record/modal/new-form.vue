@@ -11,7 +11,7 @@
         >
           <el-option
             v-for="item in options"
-            :key="item.value"
+            :key="item.value||item.label"
             :label="item.label"
             :value="item.value"
           ></el-option>
@@ -30,7 +30,7 @@
           class="record-box"
           :class="{active: selectData == item}"
           v-for="item of filterData"
-          :key="item.id"
+          :key="item.id||item.label"
         >
           <el-row type="flex" align="middle">
             <img src="../../../../../common/images/record/文件创建.png" alt height="35" />
@@ -188,6 +188,7 @@ export default {
       }
     },
     create(data) {
+      this.bus.$emit("closeAssessment");
       let item;
       if (data.name) {
         item = data;
@@ -196,6 +197,7 @@ export default {
       }
       console.log("新建页面HTML代码", item, this, this.formType);
       window.app.currentForm = item;
+
       if (this.formType == "1" || this.formType == "monitor") {
         let token = window.app.$getCookie("NURSING_USER").split("##")[1];
         let query = this.$route.query;
@@ -208,10 +210,10 @@ export default {
           let url;
           //  url = `http://localhost:3000/MMSE`
           let query = this.$route.query;
-          // 判断是否存在措施
+          // 第1版：外置统一按钮表单。判断是否存在措施。
           if (!getFormConfig(item.name).hasMeasure) {
             this.bus.$emit(
-              "openAssessment",
+              "openAssessmentBox",
               Object.assign(getFormConfig(item.name), {
                 id: "",
                 formCode: item.formCode,
@@ -219,7 +221,9 @@ export default {
                 pageUrl: item.pageUrl
               })
             );
-          } else {
+          }
+          // 第0版：旧表弹窗表单
+          else if (item.formVersion < 2) {
             let queryObj = {
               id: "",
               formCode: item.formCode,
@@ -244,6 +248,25 @@ export default {
               url = `${formUrl}/${item.pageUrl}?${qs.stringify(queryObj)}`;
             }
             window.openFormBox(url);
+          }
+          // 新2版：表单，内置顶部按钮，框架宽占满屏，内置分页阴影效果
+          if (item.formVersion == 2) {
+            // this.bus.$emit(
+            //   "openAssessmentV2",
+            //   Object.assign(item, {
+            //     id: "",
+            //     showConToolBar: false
+            //   })
+            // );
+            this.bus.$emit(
+              "openAssessmentBox",
+              Object.assign(item, {
+                id: "",
+                showConToolBar: false
+              })
+            );
+            this.newRecordClose();
+            // return;
           }
         }
       } else if (this.formType === "4") {

@@ -224,7 +224,7 @@ export default {
           console.log("---$emit('openAssessment')");
 
           this.bus.$emit(
-            "openAssessment",
+            "openAssessmentBox",
             Object.assign({}, getFormConfig(node.data.formName), {
               id: node.data.form_id,
               formCode: node.parent.data.formCode,
