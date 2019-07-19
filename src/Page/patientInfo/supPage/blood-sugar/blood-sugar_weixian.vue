@@ -230,6 +230,7 @@ export default {
       this.$refs.editModal.open("添加血糖记录");
     },
     onEdit() {
+      return;
       this.$refs.editModal.open("编辑血糖记录", this.selected);
     },
     async onRemove() {

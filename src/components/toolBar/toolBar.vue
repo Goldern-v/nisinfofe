@@ -30,9 +30,7 @@
   </div>
 </template>
 
-<style lang="stylus" rel="stylesheet/stylus" type="text/stylus" src="./tool.styl" scoped>
-
-</style>
+<style lang="stylus" rel="stylesheet/stylus" type="text/stylus" src="./tool.styl" scoped></style>
 
 <style lang="stylus" scoped>
 
@@ -66,7 +64,7 @@ export default {
       this.bus.$emit(todo);
     },
     activeAllButons() {
-      let object = [...this.config.left,...this.config.right];
+      let object = [...this.config.left, ...this.config.right];
       for (const key in object) {
         if (object.hasOwnProperty(key)) {
           const element = object[key];
@@ -80,7 +78,7 @@ export default {
       }
     },
     activeButton(e) {
-      let object = [...this.config.left,...this.config.right];
+      let object = [...this.config.left, ...this.config.right];
       for (const key in object) {
         if (object.hasOwnProperty(key)) {
           const element = object[key];
@@ -96,7 +94,7 @@ export default {
       }
     },
     disableButton(e) {
-      let object = [...this.config.left,...this.config.right];
+      let object = [...this.config.left, ...this.config.right];
       for (const key in object) {
         if (object.hasOwnProperty(key)) {
           const element = object[key];

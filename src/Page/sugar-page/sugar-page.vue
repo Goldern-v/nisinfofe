@@ -6,7 +6,8 @@
         <patientList :data="data.bedList" v-loading="patientListLoading"></patientList>
       </div>
       <div class="right-part" :style="{marginLeft: openLeft?'200px':'0'}">
-        <bloodSugar ref="bloodSugar"></bloodSugar>
+        <!-- <bloodSugar ref="bloodSugar"></bloodSugar> -->
+        <component :is="switchCompt()" ref="bloodSugar" />
       </div>
     </div>
   </div>
@@ -48,7 +49,7 @@ import common from "@/common/mixin/common.mixin.js";
 import { patients } from "@/api/lesion";
 import bus from "vue-happy-bus";
 import bloodSugar from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar"; // 厚街医院
-// import bloodSugarWeiXian from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_weixian"; // 威县医院
+import bloodSugarWeiXian from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_weixian"; // 威县医院
 export default {
   mixins: [common],
   data() {
@@ -82,6 +83,14 @@ export default {
           this.patientListLoading = false;
         });
       }
+    },
+    // 依据医院名字，标题组件切换
+    switchCompt(HisName = process.env.HOSPITAL_NAME) {
+      let hisList = {
+        威县人民医院: "bloodSugarWeiXian",
+        东莞市厚街医院: "bloodSugar"
+      };
+      return hisList[HisName] || "bloodSugar";
     }
   },
   created() {
@@ -108,8 +117,8 @@ export default {
   },
   components: {
     patientList,
-    bloodSugar
-    // bloodSugarWeiXian
+    bloodSugar,
+    bloodSugarWeiXian
   }
 };
 </script>
