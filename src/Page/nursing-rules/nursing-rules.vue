@@ -188,7 +188,7 @@ export default {
       this.setTableData();
     },
     handleCurrentChange(newPage){
-      this.pageIndex = newPage;
+      this.query.pageIndex = newPage;
       this.setTableData();
     },
     handleSearch(){
