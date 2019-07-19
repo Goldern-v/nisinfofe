@@ -5,9 +5,16 @@
       <div class="float-left">
         <span class="type-label">类型:</span>
         <span class="type-content">
-          <el-select v-model="query.fileType" size="small" placeholder="全部">
+          <el-select v-model="query.fileType" size="small" placeholder="全部" @change="handleFileTypeChange">
             <el-option value="">全部</el-option>
             <el-option :key="idx" v-for="(item,idx) in fileTypeList" :value="item.type">{{item.type}}</el-option>
+          </el-select>
+        </span>
+        <span class="type-label">目录:</span>
+        <span class="type-content">
+          <el-select v-model="query.catalog" size="small" placeholder="全部">
+            <el-option value="">全部</el-option>
+            <el-option :key="idx" v-for="(item,idx) in catalogList" :value="item.name">{{item.name}}</el-option>
           </el-select>
         </span>
       </div>
@@ -43,11 +50,11 @@
           </template>
         </el-table-column>
         <el-table-column prop="uploadTime" label="上传时间" width="170" align="center"></el-table-column>
-        <el-table-column prop="operation" label="操作" width="110" align="center">
+        <el-table-column prop="operation" label="操作" width="80" align="center">
           <template slot-scope="scope">
             <div v-if="scope.row.id||scope.row.id===0">
               <span class="operation-text" @click="previewFile(scope)">预览</span>
-              <span class="operation-text" @click="downloadFile(scope)">下载</span>
+              <!-- <span class="operation-text" @click="downloadFile(scope)">下载</span> -->
               <!-- <span @click="deleteFile(scope)">删除</span> -->
             </div>
             <span v-else></span>
@@ -79,7 +86,7 @@
 <script>
 import commonMixin from './../../common/mixin/common.mixin'
 import customPagination from './components/pagination.vue';
-import { getList, getFileContent, getFileTypes } from './api/api'
+import { getList, getFileContent, getFileTypes, getCatalogByType } from './api/api'
 export default {
   components:{
     customPagination
@@ -93,9 +100,11 @@ export default {
         pageIndex: 1,
         pageSize: 20,
         name: '',
+        catalog: '',
         fileType: ''
       },
       fileTypeList: [],
+      catalogList: [],
       tableHeight: 0,
       fileTotal: 0,
       data: [],
@@ -238,6 +247,13 @@ export default {
           i = Math.floor(Math.log(bytes) / Math.log(k));
 
       return (bytes / Math.pow(k, i)).toPrecision(3) + ' ' + sizes[i];
+    },
+    handleFileTypeChange(type){
+      this.query.catalog = '';
+
+      getCatalogByType(type).then(res=>{
+        if(res.data.data instanceof Array)this.catalogList=res.data.data;
+      })
     }
   }
 };
