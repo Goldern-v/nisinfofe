@@ -190,6 +190,9 @@ export default {
               while (appendTime--) extraArr.push({});
               this.data = this.data.concat(extraArr);
             }
+            if (res.data && res.data.code == 200) {
+              this.pageLoadng = false;
+            }
           },
           err => {}
         )
