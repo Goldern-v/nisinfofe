@@ -244,10 +244,17 @@
                     </el-row>
                   </router-link>
                 </el-dropdown-item>
-                <el-dropdown-item :class="{active: $route.path == '/noCheckTest'}">
+                <!-- <el-dropdown-item :class="{active: $route.path == '/noCheckTest'}">
                   <router-link to="/noCheckTest" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
                       <i class="noCheckTest"></i>未做检查/检验
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item> -->
+                <el-dropdown-item :class="{active: $route.path == '/departmentSharedFile'}">
+                  <router-link to="/departmentSharedFile" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="departmentSharedFile"></i>科室共享文件
                     </el-row>
                   </router-link>
                 </el-dropdown-item>
@@ -458,8 +465,13 @@
     &.nursingRules {
       background-image: url('../../common/images/index/制度.png');
     }
+
     &.noCheckTest {
       background-image: url('../../common/images/index/未做检查／检验.png');
+    }
+
+    &.departmentSharedFile {
+      background-image: url('../../common/images/index/共享文件.png');
     }
   }
 }
@@ -619,10 +631,11 @@ export default {
       if (this.$route.path.indexOf("/wardReport") > -1) return true;
       if (this.$route.path == "/nursingDocumentation") return true;
       // if (this.$route.path == "/badEvent") return true;
-      if (this.$route.path == "/inpatientReport") return true;
+      if (this.$route.path.indexOf("/inpatientReport") > -1) return true;
       if (this.$route.path == "/catheterPage") return true;
       if (this.$route.path == "/nursingRules") return true;
       if (this.$route.path == "/noCheckTest") return true;
+      if (this.$route.path == "/departmentSharedFile") return true;
     },
     isActiveFormPage() {
       if (this.$route.path == "/sheetPage") return true;
