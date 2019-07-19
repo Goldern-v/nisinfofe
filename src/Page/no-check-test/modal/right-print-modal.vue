@@ -99,6 +99,7 @@ export default {
       });
     },
     onPrint() {
+      console.dir(print);
       print(this.$refs.printable, {
         beforePrint: null,
         // direction: "horizontal",
@@ -115,7 +116,7 @@ export default {
           table {width: 700px !important;margin: 30px auto 20px !important;color: black !important;page-break-before:avoid !important;}
           table,th,td {border-color:black !important;}
         }
-        @Page {margin: 0 !important;}
+        @page {margin: 0 !important;}
         `
       });
     },

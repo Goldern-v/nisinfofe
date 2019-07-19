@@ -13,3 +13,7 @@ export function getFileContent (query){
 export function getFileTypes (){
     return axios.get(`${apiPath}nursingInstitution/getTypeDict`);
 }
+
+export function getCatalogByType (type){
+    return axios.post(`${apiPath}/nursingInstitution/getCatalogByType`, qs.stringify({ type }))
+}

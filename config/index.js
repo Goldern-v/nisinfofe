@@ -90,12 +90,12 @@ module.exports = {
           "^/crNursing/api": "/crNursing/api" //这里理解成用‘/api’代替target里面的地址，后面组件中我们掉接口时直接用api代替 比如我要调用'http://40.00.100.100:3002/user/add'，直接写‘/api/user/add’即可
         }
       },
-      "/crNursing/nursingInstitution": {
+      "/crNursing/asset": {
         target: "http://120.25.105.45:9864", //测试
         //target: "http://120.197.141.41:9091",
         changeOrigin: true,
         pathRewrite: {
-          "^/crNursing/nursingInstitution": "/crNursing/nursingInstitution"
+          "^/crNursing/asset": "/crNursing/asset"
         }
       },
       "/crNursing/asset/deptShareFile": {

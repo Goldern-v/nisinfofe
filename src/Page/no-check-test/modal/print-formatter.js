@@ -1,10 +1,11 @@
 export default function (win) {
-  console.dir(win);
-  const A4_hegiht_width_rate = 297 / (210 - 2 * 13); // 打印区域长宽比：（A4纸高）比（A4纸宽减去左右侧20mm的边距）
-  const page_width = 700;// 页面宽度
+
+  // const A4_hegiht_width_rate = 297 / (210 - 2 * 13); // 打印区域长宽比：（A4纸高）比（A4纸宽减去左右侧20mm的边距）
+  const A4_hegiht_width_rate = 297 / 210; // 打印区域长宽比：（A4纸高）比（A4纸宽减去左右侧20mm的边距）
+  const page_width = 680;// 页面宽度
   const page_height = A4_hegiht_width_rate * page_width;// 页面高度
 
-  const pageEle = document.createElement('div');
+  let pageEle = document.createElement('div');
   pageEle.className = "pageBox";
 
   // const pageNum = document.createElement('div')
@@ -12,49 +13,93 @@ export default function (win) {
   // pageNum.innerHTML = `第 ${currentPage} / ${sumPage} 页`
 
   const root = win.document.body.children[0]
-  let tables = root.querySelectorAll('.printable table');
+  let tables = document.querySelectorAll('.printable table');
   let boxH = 0, newBox, currentPage = 1, sumPage = 1;
   let divider = document.createElement('div');
   divider.className = 'divider';
   divider.style = 'page-break-after: always;'
   let page = document.createElement('div')
 
+
+  const pageNum = document.createElement('div')
+  pageNum.className = "pageNum";
+  pageNum.style = ' text-align: center; font-size: 12px; font-family: SimSun;bottom';
+
   tables = Array.from(tables);
 
   tables.forEach(function (table, index) {
     boxH += table.offsetHeight + 20;
-    if (boxH > 700) {
-      page.appendChild(divider);
+    console.log(page);
+    pageEle.appendChild(table);
+    if (boxH > page_height - 40) {
+      console.log(pageEle);
+
+      pageEle.appendChild(pageNum);
+      pageEle.appendChild(divider);
       sumPage++;
       boxH = 0;
+      page.appendChild(pageEle);
+      pageEle = document.createElement('div');
+      pageEle.className = "pageBox";
+    } else if (tables && index == tables.length - 1) {
+      page.appendChild(pageEle);
     }
-    page.appendChild(table);
+
   });
 
-
   let newTable = document.createElement('div');
-  if (tables.length > 1) {
-    const children = Array.from(tables)
-    children.forEach((child, i, children) => {
-      newTable.appendChild(child);
-      if (child.className == 'divider') {
-        const pageNum = document.createElement('div')
-        pageNum.style = ' text-align: center; font-size: 12px; font-family: SimSun'
-        pageNum.innerHTML = `第 ${currentPage} / ${sumPage} 页`
-        newTable.appendChild(pageNum);
-        currentPage++;
-      }
-    })
-  }
-  const pageNum = document.createElement('div')
-  pageNum.style = 'text-align: center; font-size: 12px; font-family: SimSun'
-  pageNum.innerHTML = `第 ${currentPage} / ${sumPage} 页`
-  newTable.appendChild(pageNum);
 
-  let printable = newTable.cloneNode(true)
+  // const children = Array.from(page.children);
+  // children.forEach((child, index, children) => {
+
+
+
+
+  //   const pageNum = document.createElement('div')
+  //   pageNum.className = "pageNum";
+  //   pageNum.style = ' text-align: center; font-size: 12px; font-family: SimSun;bottom'+;
+  //   pageNum.innerHTML = `第 ${i + 1} / ${sumPage} 页`;
+  //   child.appendChild(pageNum);
+  //   currentPage++;
+  //   newTable.appendChild(child);
+  // })
+
+  let pageNums = document.querySelectorAll('.pageNum');
+  pageNums = Array.from(pageNums);
+  pageNums.forEach((page, i) => {
+    page.innerHTML = `第 ${i} / ${sumPage} 页`;
+  })
+  let printable = page.cloneNode(true)
   root.innerHTML = '';
-
+  console.log(printable);
   root.appendChild(printable);
+
+
+
+  return;
+
+
+  // let newTable = document.createElement('div');
+  // if (tables.length > 1) {
+  //   const children = Array.from(tables)
+  //   children.forEach((child, i, children) => {
+  //     newTable.appendChild(child);
+  //     if (child.className == 'divider') {
+  //       const pageNum = document.createElement('div')
+  //       pageNum.style = ' text-align: center; font-size: 12px; font-family: SimSun'
+  //       pageNum.innerHTML = `第 ${currentPage} / ${sumPage} 页`
+  //       newTable.appendChild(pageNum);
+  //       currentPage++;
+  //     }
+  //   })
+  // }
+
+  // newTable.appendChild(pageNum);
+
+  // let printable = newTable.cloneNode(true)
+  // root.innerHTML = '';
+
+  // root.appendChild(printable);
 
 
 

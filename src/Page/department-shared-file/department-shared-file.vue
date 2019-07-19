@@ -3,11 +3,26 @@
     <div class="search-topbar">
       <!-- <span class="title">护理制度</span> -->
       <div class="float-left">
-        <h3>科室共享文件</h3>
+        <h3>病区文件</h3>
       </div>
       <div class="float-right">
+        <span class="type-content">
+          <span class="type-label">目录：</span>
+          <el-select v-model="query.catalog" size="small" placeholder="全部">
+            <el-option value>全部</el-option>
+            <el-option
+              :key="item.id"
+              v-for="item in catalogList"
+              :value="item.catalog"
+            >{{item.catalog}}</el-option>
+          </el-select>
+        </span>
         <span class="search-el">
-          <el-input placeholder="输入名称进行检索" v-model="query.fileName"></el-input>
+          <el-input
+            placeholder="输入名称进行检索"
+            v-model="query.fileName"
+            @keyup.enter.native="handleSearch"
+          ></el-input>
         </span>
         <el-button @click="handleSearch">查询</el-button>
         <!-- <el-button>添加</el-button> -->
@@ -15,7 +30,14 @@
     </div>
     <div class="main-contain">
       <div class="table-contain">
-        <el-table :data="data" :height="tableHeight" border v-loading="pageLoadng" stripe>
+        <el-table
+          :data="data"
+          :height="tableHeight"
+          border
+          v-loading="pageLoadng"
+          stripe
+          @row-dblclick="previewFile"
+        >
           <el-table-column prop="index" label="序号" width="50" align="center">
             <template slot-scope="scope">
               <span>{{(query.pageIndex-1)*query.pageSize+scope.$index+1}}</span>
@@ -26,12 +48,13 @@
               <div class="rule-name-content">{{scope.row.fileName}}</div>
             </template>
           </el-table-column>
-          <el-table-column prop="uploadTime" label="上传日期" width="170" align="center"></el-table-column>
+          <el-table-column prop="catalog" label="目录" width="200" align="center"></el-table-column>
+          <el-table-column prop="uploadTime" label="上传日期" width="190" align="center"></el-table-column>
           <el-table-column prop="empName" label="上传人" width="80" align="center"></el-table-column>
           <el-table-column prop="operation" label="操作" width="110" align="center">
             <template slot-scope="scope">
               <div v-if="scope.row.id||scope.row.id===0">
-                <span class="operation-text" @click="previewFile(scope)">预览</span>
+                <span class="operation-text" @click="previewFile(scope.row)">预览</span>
               </div>
               <span v-else></span>
             </template>
@@ -61,7 +84,7 @@
 <script>
 import commonMixin from "./../../common/mixin/common.mixin";
 import customPagination from "./components/pagination.vue";
-import { getList, getFileContent } from "./api/api";
+import { getList, getFileContent, getCatalogByParam } from "./api/api";
 export default {
   components: {
     customPagination
@@ -72,7 +95,8 @@ export default {
       query: {
         pageIndex: 1,
         pageSize: 20,
-        fileName: ""
+        fileName: "",
+        catalog: "" //目录筛选名称
       },
       tableHeight: 0,
       fileTotal: 0,
@@ -83,14 +107,18 @@ export default {
         url: ""
       },
       pdfHeight: window.innerHeight * 0.8,
-      pageLoadng: true
+      pageLoadng: false,
+      catalogList: [] //目录列表
     };
   },
   mounted() {
     this.handelResize = this.handelResize.bind(this);
     this.handelResize();
     window.addEventListener("resize", this.handelResize);
-    if (this.deptCode) this.setTableData();
+    if (this.deptCode) {
+      this.setTableData();
+      this.getCatalog();
+    }
   },
   beforeDestroy() {
     window.removeEventListener("resize", this.handelResize);
@@ -99,7 +127,10 @@ export default {
     deptCode(val, oldVal) {
       if (val && oldVal) this.query.page = 1;
 
-      if (val) this.setTableData();
+      if (val) {
+        this.setTableData();
+        this.getCatalog();
+      }
     }
   },
   methods: {
@@ -122,17 +153,17 @@ export default {
     },
     // 预览科室共享文件
     previewFile(scope) {
+      console.log(scope);
       // getFileContent({id:scope.row.id}).then(res=>{
-      let name = scope.row.fileName || "";
-      let type =
-        scope.row.originalFileName.replace(/.+\./, "").toLowerCase() || "";
+      let name = scope.fileName || "";
+      let type = scope.originalFileName.replace(/.+\./, "").toLowerCase() || "";
       //   let blob = new Blob([res.data], {
       //     type: res.data.type
       //   });
 
       this.preview = {
         title: name,
-        url: `/crNursing/asset/deptShareFile${scope.row.path}`,
+        url: `/crNursing/asset/deptShareFile${scope.path}`,
         type: this.previewType(type)
       };
       console.log(this.preview);
@@ -207,6 +238,16 @@ export default {
         i = Math.floor(Math.log(bytes) / Math.log(k));
 
       return (bytes / Math.pow(k, i)).toPrecision(3) + " " + sizes[i];
+    },
+    getCatalog() {
+      let data = {
+        deptCode: this.deptCode
+      };
+      getCatalogByParam(data).then(res => {
+        if (res.data && res.data.code == 200) {
+          this.catalogList = res.data.data;
+        }
+      });
     }
   }
 };
@@ -217,6 +258,15 @@ export default {
   .search-topbar {
     .float-right {
       float: right;
+      .type-label {
+        vertical-align: middle;
+      }
+      .type-content {
+        margin-right: 15px;
+        input {
+          height: 31px;
+        }
+      }
       .search-el {
         input {
           height: 31px;
