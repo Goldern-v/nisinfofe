@@ -276,78 +276,20 @@ export default {
     onFormLoaded(type = "") {
       this.pageLoadingText = "数据加载中";
       this.pageLoading = false;
-      // 如果是新表单
-
-      // 前方高能，此处有锅！
 
       let wid = this.$refs.iframe.contentWindow;
       this.wid = this.$refs.iframe.contentWindow;
       this.wid.onmessage = this.onmessage;
       //
       try {
-        window.wid.document.querySelector(
-          ".hospital"
-        ).innerText = this.hospitalNameSpace;
+        // window.wid.document.querySelector(
+        //   ".hospital"
+        // ).innerText = this.hospitalNameSpace;
+        this.wid.formInfo.hospital = this.hospitalNameSpace;
+        console.info("onFormLoaded:hospital", this.wid.formInfo);
       } catch (error) {
-        //
+        console.info("onFormLoaded", error);
       }
-
-      //
-      // console.log("表单名", [type], this.info, this.info.title);
-      // try {
-      //   // 健康教育单
-      //   if (this.info.pageItem) {
-      //     wid.formInfo.getItem(this.info.pageItem);
-      //     this.info.pageItem = this.info.pageItem.replace(/健康教育单/g, "");
-      //     wid.formInfo.missionId = this.info.missionId + "";
-      //     wid.setTitle(this.info.pageItem + "健康教育单");
-      //     wid.formInfo.status = this.info.status;
-      //     // if(this.info.missionId){
-      //     //   wid.data.setFormData('页面ID',this.info.missionId)
-      //     // }
-      //     wid.data.setFormData("页面ID", this.info.missionId || "");
-
-      //     // this.formatData.data.setFormData('页面ID',formInfo.missionId)
-      //   }
-      // } catch (error) {
-      //   console.log("error这里是楚霏的锅", error);
-      // }
-
-      try {
-        // this.$refs.formIframe.contentDocument.body.clientHeight
-        // if (!wid.formInfo.nooForm) {
-        //   wid.formInfo.nooForm = "0";
-        //   this.iframeHeight = "auto";
-        //   this.iframeHeight = wid.document.body.clientHeight + 50;
-        //   // this.iframeHeight = wid.document.body.scrollHeight * 1.04;
-        // }
-        // if (wid.formInfo.nooForm == "1") {
-        //   this.iframeHeight = "auto";
-        //   this.iframeHeight = wid.document.body.clientHeight + 50;
-        //   // this.iframeHeight = wid.document.body.scrollHeight * 1.04;
-        //   this.info = Object.assign({}, this.info, wid.formInfo);
-        //   // 更新工具栏
-        //   this.bus.$emit("initAssessmentTool", {
-        //     tool: {
-        //       formCode: this.info.formCode,
-        //       canEdit: this.info.canEdit,
-        //       status: this.info.status
-        //     },
-        //     creator: this.info.creator,
-        //     listPrint: this.info.listPrint
-        //   });
-        //   // return;
-        // }
-        //
-        // if (this.marklist) {
-        //   // console.log("!!marklist!!", this.marklist);
-        //   this.onloadMarkList();
-        // }
-        //
-      } catch (e) {
-        console.log(e);
-      }
-      this.pageLoading = false;
     },
     onmessage(e) {
       // alert(e.data.type)
@@ -404,38 +346,38 @@ export default {
       // console.log("载入页面", wid);
       // window.wid = wid;
 
-      // if (
-      //   wid.loadTimeData &&
-      //   wid.loadTimeData.data_ &&
-      //   wid.loadTimeData.data_.errorCode
-      // ) {
-      //   console.log(
-      //     "找不到页面",
-      //     wid.loadTimeData.data_,
-      //     wid.loadTimeData.data_.errorCode
-      //   );
-      //   let waitTime = 5;
-      //   this.pageLoadingText = "网络异常,页面无法获取,请尝试刷新";
-      //   let self = this;
-      //   this.pageLoading = true;
-      //   // window.clearInterval(wt);
-      //   // let wt = window.setInterval(function(){
-      //   //   if(waitTime<1){
-      //   //     self.pageLoadingText = "正在载入页面";
-      //   //     window.clearInterval(wt);
-      //   //     window.setTimeout(function(){
-      //   //       self.openUrl(self.url)
-      //   //     },2000);
-      //   //   }else{
-      //   //     try {
-      //   //       self.pageLoadingText = self.wid.loadTimeData.data_.errorCode+":页面无法获取，请尝试刷新("+(waitTime--)+"秒)"
-      //   //     } catch (error) {
-      //   //       window.clearInterval(wt);
-      //   //     }
-      //   //   }
-      //   // }, 1000);
-      //   return;
-      // }
+      if (
+        this.wid.loadTimeData &&
+        this.wid.loadTimeData.data_ &&
+        this.wid.loadTimeData.data_.errorCode
+      ) {
+        console.log(
+          "找不到页面",
+          this.wid.loadTimeData.data_,
+          this.wid.loadTimeData.data_.errorCode
+        );
+        // let waitTime = 5;
+        this.pageLoadingText = "网络异常,页面无法获取,请尝试刷新";
+        // let self = this;
+        // this.pageLoading = true;
+        // window.clearInterval(wt);
+        // let wt = window.setInterval(function(){
+        //   if(waitTime<1){
+        //     self.pageLoadingText = "正在载入页面";
+        //     window.clearInterval(wt);
+        //     window.setTimeout(function(){
+        //       self.openUrl(self.url)
+        //     },2000);
+        //   }else{
+        //     try {
+        //       self.pageLoadingText = self.wid.loadTimeData.data_.errorCode+":页面无法获取，请尝试刷新("+(waitTime--)+"秒)"
+        //     } catch (error) {
+        //       window.clearInterval(wt);
+        //     }
+        //   }
+        // }, 1000);
+        // return;
+      }
 
       // 如果是新表单 跳出
       // try {

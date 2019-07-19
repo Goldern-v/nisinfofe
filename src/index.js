@@ -90,6 +90,10 @@ autoUpdate();
 // 开发接口调试工具
 import devTools from "@/plugin/devTools/index.js";
 
+// 消息框
+import infoBox from "@/plugin/vue-elementUI-message/index.js";
+Vue.prototype.$infoBox = infoBox;
+
 // 模拟后台接口工具
 import "@/mock/mock.js";
 
@@ -144,6 +148,8 @@ global.system = {
 };
 
 Vue.prototype.$system = global.system;
+
+
 
 window.app = new Vue({
   el: "#app",

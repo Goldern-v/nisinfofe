@@ -23,7 +23,7 @@
           v-model="searchWord"
         ></el-input>
       </div>
-      <div class="record-con" v-loading="pageLoading">
+      <div class="record-con" v-loading="pageLoading" :element-loading-text="pageLoadingText">
         <div
           @click="openUrl(item)"
           @dblclick="create(item)"
@@ -145,6 +145,7 @@ export default {
       ],
       formType: "1",
       pageLoading: true,
+      pageLoadingText: "数据载入中",
       searchWord: "",
       bus: bus(this),
       selectData: "",
