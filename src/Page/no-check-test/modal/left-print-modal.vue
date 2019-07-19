@@ -1,25 +1,27 @@
 <template>
   <div>
     <sweet-modal ref="modal" :modalWidth="700" title="检查预约打印">
-      <div ref="printable">
-        <table v-for="(item,index) in printData" :key="index">
-          <thead>
-            <tr>
-              <th>床号</th>
-              <th>姓名</th>
-              <th>检查时间</th>
-              <th>检查项目</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="(rows,i) in item.data" :key="i">
-              <td>{{rows.bedLabel}}床</td>
-              <td>{{rows.name}}</td>
-              <td>{{rows.scheduleDate }}</td>
-              <td>{{rows.examItem}}</td>
-            </tr>
-          </tbody>
-        </table>
+      <div class="printable" ref="printable">
+        <div v-for="(item,index) in printData" :key="index">
+          <table>
+            <thead>
+              <tr>
+                <th>床号</th>
+                <th>姓名</th>
+                <th>检查时间</th>
+                <th>检查项目</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="(rows,i) in item.data" :key="i">
+                <td>{{rows.bedLabel}}床</td>
+                <td>{{rows.name}}</td>
+                <td>{{rows.scheduleDate }}</td>
+                <td>{{rows.examItem}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
       <div slot="button">
         <el-button class="modal-btn" @click="close">取消</el-button>
@@ -65,6 +67,7 @@ table {
 <script>
 import commom from "@/common/mixin/common.mixin";
 import print from "printing";
+import formatter from "./print-formatter";
 export default {
   mixins: [commom],
   props: {
@@ -97,8 +100,10 @@ export default {
       });
     },
     onPrint() {
+      // this.test();
+      console.dir(print);
       print(this.$refs.printable, {
-        beforePrint: null,
+        // beforePrint: formatter,
         // direction: "horizontal",
         injectGlobalCss: true,
         scanStyles: false,
@@ -107,14 +112,22 @@ export default {
          display: none !important;
        }
        body {
-        background: #fff !important;
+        background: #fff !important;padding: 0 !important;
        }
+      
        @media print{
           table {width: 700px !important;margin: 30px auto 20px !important;color: black !important;}
           table,th,td {border-color:black !important;}
         }
+        @page {
+           margin: 2cm;
+        }
+
+
         `
       });
+      // this.close();
+      console.log(this.printData);
     },
     goundBy(arr) {
       var map = {},
@@ -151,6 +164,28 @@ export default {
         }
         this.open();
       }
+    },
+    test() {
+      const thead = document.querySelector("thead");
+      let tables = document.querySelectorAll("table");
+      let boxH = 0,
+        newBox;
+      let divider = document.createElement("div");
+      divider.style = "page-break-after: always;";
+      let page = document.createElement("div");
+
+      tables = Array.from(tables);
+      console.log(tables);
+
+      tables.forEach(function(table, index) {
+        boxH += table.offsetHeight + 20;
+        if (boxH > 700) {
+          page.appendChild(divider);
+          boxH = 0;
+        }
+        console.log(table);
+        page.appendChild(table);
+      });
     }
   },
   components: {}

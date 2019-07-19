@@ -12,7 +12,7 @@
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
 .noCheckTest {
   display: flex;
-  padding: 20px;
+  padding: 20px 20px 10px;
 
   .left, .right {
     flex: 1;

@@ -112,9 +112,10 @@ export default {
         background: #fff !important;
        }
        @media print{
-          table {width: 700px !important;margin: 30px auto 20px !important;color: black !important;}
+          table {width: 700px !important;margin: 30px auto 20px !important;color: black !important;page-break-before:avoid !important;}
           table,th,td {border-color:black !important;}
         }
+        @Page {margin: 0 !important;}
         `
       });
     },
