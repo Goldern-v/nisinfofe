@@ -11,6 +11,10 @@ export function getList(query) {
 export function getFileContent(query) {
     return axios.post(`${apiPath}deptShareFile/getFileContent`, qs.stringify(query), { responseType: 'blob' });
 }
+// 获取目录列表
+export function getCatalogByParam(data) {
+    return axios.post(`${apiPath}deptShareFile/getCatalogByParam`, data);
+}
 
 export function getFileTypes() {
     return axios.get(`${apiPath}nursingInstitution/getTypeDict`);

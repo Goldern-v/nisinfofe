@@ -103,7 +103,7 @@ export default {
       // this.test();
       console.dir(print);
       print(this.$refs.printable, {
-        // beforePrint: formatter,
+        beforePrint: formatter,
         // direction: "horizontal",
         injectGlobalCss: true,
         scanStyles: false,
@@ -112,15 +112,27 @@ export default {
          display: none !important;
        }
        body {
-        background: #fff !important;padding: 0 !important;
+        background: #fff !important;margin: 2cm;
+       }
+       .pageBox {
+         padding-top: 20px;
+       }
+       .pageNum {
+         position: fixed;
+         left: 50%;
+         bottom: 10px;
+         -webkit-transform: translate(-50%,-50%);
+         -ms-transform: translate(-50%,-50%);
+         -o-transform: translate(-50%,-50%);
+         transform: translate(-50%,-50%);
        }
       
        @media print{
-          table {width: 700px !important;margin: 30px auto 20px !important;color: black !important;}
+          table {color: black !important;}
           table,th,td {border-color:black !important;}
         }
         @page {
-           margin: 2cm;
+           margin: 0;
         }
 
 
