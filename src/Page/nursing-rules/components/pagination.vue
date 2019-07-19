@@ -65,7 +65,7 @@ export default {
       if(newPage<=0)return;
 
       this.currentPage = newPage;
-      this.handleCurrentChange(newPage);
+      // this.handleCurrentChange(newPage);
 
     },
     toNextPage() {
@@ -73,22 +73,22 @@ export default {
       if(newPage>this.totalPage)return;
 
       this.currentPage = newPage;
-      this.handleCurrentChange(newPage);
+      // this.handleCurrentChange(newPage);
     },
     toFirstPage() {
       this.currentPage = 1;
 
-      this.handleCurrentChange(this.currentPage);
+      // this.handleCurrentChange(1);
     },
     toLastPage() {
       let totalPage = this.totalPage;
       this.currentPage = totalPage;
 
-      this.handleCurrentChange(totalPage);
+      // this.handleCurrentChange(totalPage);
     },
     handleCurrentChange(currentPage){
-      this.$emit('currentChange',Number(currentPage));
       this.$emit('update:page',Number(currentPage));
+      this.$emit('currentChange',Number(currentPage));
     },
     handleSizeChange(size){
       this.$emit('sizeChange',Number(size));
@@ -107,7 +107,7 @@ export default {
       $event.target.value = newVal;
       if(this.currentPage == newVal)return;
       this.currentPage = newVal;
-      this.handleCurrentChange(newVal);
+      // this.handleCurrentChange(newVal);
     },
     reSize($event){
       let newVal = parseInt($event.target.value,10);
