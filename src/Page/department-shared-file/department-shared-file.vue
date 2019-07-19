@@ -7,7 +7,11 @@
       </div>
       <div class="float-right">
         <span class="search-el">
-          <el-input placeholder="输入名称进行检索" v-model="query.fileName"></el-input>
+          <el-input
+            placeholder="输入名称进行检索"
+            v-model="query.fileName"
+            @keyup.enter.native="handleSearch"
+          ></el-input>
         </span>
         <el-button @click="handleSearch">查询</el-button>
         <!-- <el-button>添加</el-button> -->
@@ -15,7 +19,14 @@
     </div>
     <div class="main-contain">
       <div class="table-contain">
-        <el-table :data="data" :height="tableHeight" border v-loading="pageLoadng" stripe>
+        <el-table
+          :data="data"
+          :height="tableHeight"
+          border
+          v-loading="pageLoadng"
+          stripe
+          @row-dblclick="previewFile"
+        >
           <el-table-column prop="index" label="序号" width="50" align="center">
             <template slot-scope="scope">
               <span>{{(query.pageIndex-1)*query.pageSize+scope.$index+1}}</span>
@@ -31,7 +42,7 @@
           <el-table-column prop="operation" label="操作" width="110" align="center">
             <template slot-scope="scope">
               <div v-if="scope.row.id||scope.row.id===0">
-                <span class="operation-text" @click="previewFile(scope)">预览</span>
+                <span class="operation-text" @click="previewFile(scope.row)">预览</span>
               </div>
               <span v-else></span>
             </template>
@@ -122,17 +133,17 @@ export default {
     },
     // 预览科室共享文件
     previewFile(scope) {
+      console.log(scope);
       // getFileContent({id:scope.row.id}).then(res=>{
-      let name = scope.row.fileName || "";
-      let type =
-        scope.row.originalFileName.replace(/.+\./, "").toLowerCase() || "";
+      let name = scope.fileName || "";
+      let type = scope.originalFileName.replace(/.+\./, "").toLowerCase() || "";
       //   let blob = new Blob([res.data], {
       //     type: res.data.type
       //   });
 
       this.preview = {
         title: name,
-        url: `/crNursing/asset/deptShareFile${scope.row.path}`,
+        url: `/crNursing/asset/deptShareFile${scope.path}`,
         type: this.previewType(type)
       };
       console.log(this.preview);
