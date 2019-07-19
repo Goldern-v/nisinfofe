@@ -107,6 +107,9 @@ import handlingPage from "@/Page/handling-page/handling-page";
 // 血氧单
 import oxygenPage from "@/Page/oxygen-page/oxygen-page";
 
+// 血氧单
+import departmentSharedFile from "@/Page/department-shared-file/department-shared-file";
+
 /** demo */
 import demo from "@/demo/demo";
 Vue.use(Router);
@@ -389,6 +392,7 @@ const router = new Router({
         { path: "/scheduling", component: scheduling },
         { path: "/nursingRules", component: nursingRules },
         { path: "/noCheckTest", component: noCheckTest },
+        { path: "/departmentSharedFile", component: departmentSharedFile },
       ]
     },
     {

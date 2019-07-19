@@ -1,4 +1,16 @@
 export default function (win) {
+
+  const A4_hegiht_width_rate = 297 / (210 - 2 * 13); // 打印区域长宽比：（A4纸高）比（A4纸宽减去左右侧20mm的边距）
+  const page_width = 700;// 页面宽度
+  const page_height = A4_hegiht_width_rate * page_width;// 页面高度
+
+  const pageEle = document.createElement('div');
+  pageEle.className = "pageBox";
+
+
+
+
+
   const root = win.document.body.children[0]
   let tables = root.querySelectorAll('.printable table');
   let boxH = 0, newBox, currentPage = 1, sumPage = 1;

@@ -251,6 +251,13 @@
                     </el-row>
                   </router-link>
                 </el-dropdown-item>
+                <el-dropdown-item :class="{active: $route.path == '/departmentSharedFile'}">
+                  <router-link to="/departmentSharedFile" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="departmentSharedFile"></i>科室共享文件
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
           </el-row>
@@ -462,6 +469,10 @@
     &.noCheckTest {
       background-image: url('../../common/images/index/未做检查／检验.png');
     }
+
+    &.departmentSharedFile {
+      background-image: url('../../common/images/index/共享文件.png');
+    }
   }
 }
 
@@ -624,6 +635,7 @@ export default {
       if (this.$route.path == "/catheterPage") return true;
       if (this.$route.path == "/nursingRules") return true;
       if (this.$route.path == "/noCheckTest") return true;
+      if (this.$route.path == "/departmentSharedFile") return true;
     },
     isActiveFormPage() {
       if (this.$route.path == "/sheetPage") return true;
