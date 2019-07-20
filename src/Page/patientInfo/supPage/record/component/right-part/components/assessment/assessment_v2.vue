@@ -4,7 +4,7 @@
       class="contant"
       v-loading="pageLoading"
       :element-loading-text="pageLoadingText"
-      ref="iframeLoading"
+      ref="iframeLoadingV2"
     >
       <iframe
         :style="{height: iframeHeight + 'px'}"
@@ -87,7 +87,7 @@ export default {
       urlForm: "",
       pageLoading: false,
       pageLoadingText: "数据加载中",
-      iframeHeight: 0,
+      // iframeHeight: 0,
       info: {},
       formInfo: {},
       wid: {},
@@ -129,6 +129,10 @@ export default {
   mounted() {
     window.cleanAllMark = this.cleanAllMark;
     window.onFormLoaded = this.onFormLoaded;
+    // iframeLoadingV2
+    this.$refs["iframeLoadingV2"]["setLoadingText"] = this.setLoadingText;
+    this.$refs["iframeLoadingV2"]["setLoadingStatus"] = this.setLoadingStatus;
+    this.$root.$refs["iframeLoadingV2"] = this.$refs["iframeLoadingV2"];
   },
   methods: {
     openNewFormBox(box) {
@@ -144,7 +148,7 @@ export default {
       // console.log(info, "mmmmtttttttttt");
       this.pageLoading = true;
       this.pageLoadingText = "数据加载中";
-      this.iframeHeight = 0;
+      // this.iframeHeight = 0;
       let token = window.app.$getCookie("NURSING_USER").split("##")[1];
       // this.$route.query['id'] = info.id
       let query = this.$route.query;
@@ -279,9 +283,9 @@ export default {
       // this.wid.document.addEventListener("contextmenu", this.onContextMenu);
       // //
 
-      this.iframeHeight = "auto";
-      // this.iframeHeight = "100%";
-      this.iframeHeight = this.wih - 85;
+      // this.iframeHeight = "auto";
+      // // this.iframeHeight = "100%";
+      // this.iframeHeight = this.wih - this.offsetHeight;
 
       this.isLandscape = false;
       try {
@@ -1084,6 +1088,9 @@ export default {
     setLoadingStatus(bool) {
       this.pageLoading = bool;
     },
+    setLoadingText(text) {
+      this.pageLoadingText = text;
+    },
     onContextMenu(event) {
       console.log("onContextMenu", event);
       if (this.eventTarget) {
@@ -1467,13 +1474,22 @@ export default {
   computed: {
     markListArr() {
       return this.markList;
+    },
+    fullPageRecord() {
+      return this.$store.state.record.fullPageRecord;
+    },
+    offsetHeight() {
+      return this.$store.state.record.fullPageRecord ? 5 : 85;
+    },
+    iframeHeight() {
+      return this.wih - this.offsetHeight;
     }
   },
   watch: {
     url() {
       this.pageLoading = true;
-      this.iframeHeight = "auto";
-      this.iframeHeight = this.wih - 85; //100;
+      // this.iframeHeight = "auto";
+      // this.iframeHeight = this.wih - this.offsetHeight; //100;
     }
   },
   components: {
