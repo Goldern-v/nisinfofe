@@ -1,7 +1,7 @@
 <template>
   <div :style="{height: '100%'}">
     <div
-      :class="isLandscape?'contant-landscape':'contant'"
+      class="contant"
       v-loading="pageLoading"
       :element-loading-text="pageLoadingText"
       ref="iframeLoading"
@@ -30,13 +30,8 @@
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
 .contant {
-  // border-radius: 2px;
   position: relative;
   background: transparent;
-  // box-shadow: 0px 5px 10px 0 rgba(0, 0, 0, 0.5);
-  // padding: 20px 0px;
-  // box-sizing: border-box;
-  // width: 760px;
   margin: 0 auto;
   height: 100%;
   width: 100%;
@@ -46,35 +41,6 @@
     width: 100%;
     // min-height: 600px;
     overflow: hidden;
-  }
-}
-
-// .print-contain
-// padding 20px
-// position relative
-// box-sizing border-box
-// width 760px
-// overflow hidden
-// .iframe-con
-// width 100%
-// overflow hidden
-// min-height 600px
-.contant-landscape {
-  // border-radius: 2px;
-  position: relative;
-  background: transparent;
-  // box-shadow: 0px 5px 10px 0 rgba(0, 0, 0, 0.5);
-  // padding: 20px 20px;
-  // box-sizing: border-box;
-  // width: 1110px;
-  width: 100%;
-  // min-width 1110px
-  margin: 0 auto;
-
-  .assessmentv2-iframe {
-    width: 100%;
-    overflow: hidden;
-    // min-height: 600px;
   }
 }
 
@@ -89,13 +55,6 @@ import moment from "moment";
 import BusFactory from "vue-happy-bus";
 import { evalDel } from "@/api/record";
 import { checkUser } from "@/api/login"; //检查用户名密码有效性
-import { eventInit } from "../../../../../../supComponts/formBox/form.event";
-import formFill from "../../../../../../supComponts/formBox/form.fill";
-import {
-  evalDetail
-  // formPrintPage,
-  // formInputPrint
-} from "@/api/form_hj";
 import { host } from "@/api/apiConfig";
 import { initList } from "../../../../../../supComponts/formBox/form.details";
 import { initNooForm } from "../../../../../../supComponts/formBox/form.details.nooForm";
@@ -212,6 +171,7 @@ export default {
       // let query = this.$route.query
       let queryObj = {
         id: this.info.id || "",
+        showToolBar: true,
         formCode: this.info.formCode,
         patientId: query.patientId,
         visitId: query.visitId,
@@ -235,9 +195,9 @@ export default {
         ? this.info.pageUrl.replace(".html", "-打印.html")
         : "";
 
-      console.log("this.info", this.info);
+      console.log("this.info", this.info, queryObj);
 
-      if (this.info.nooForm == "1") {
+      if (["1", "2"].indexOf(this.info.nooForm) > -1) {
         // console.log(queryObj.title,"formCode")
         if (this.isDev) {
           //  if(queryObj.formCode==='eduMission'){
@@ -252,7 +212,7 @@ export default {
         } else {
           url = `${formUrl}/${this.info.pageUrl}?${qs.stringify(queryObj)}`;
         }
-        console.log("打开表单", url);
+        console.log("打开表单", url, { url: url + "" });
       } else {
         this.showSignSave = this.info.showSignSave || false;
         let formid = this.info.id;
@@ -325,19 +285,19 @@ export default {
 
       this.isLandscape = false;
       try {
-        for (const key in this.wid.formInfo) {
-          if (this.wid.formInfo.hasOwnProperty(key)) {
-            const element = this.wid.formInfo[key];
-            if (key === "rotation" && element === "landscape") {
-              this.isLandscape = true;
-              break;
-            }
-          }
+        if (this.wid.formInfo.hasOwnProperty("rotation") > -1) {
+          this.isLandscape =
+            this.wid.formInfo.rotation == "landscape" ? true : false;
         }
       } catch (error) {
-        //
         console.log(error);
       }
+      console.log(
+        "this.wid.formInfo",
+        this.wid.formInfo,
+        "isLandscape",
+        this.isLandscape
+      );
 
       // // // check input initial value;
       // let wid = this.$refs.iframe.contentWindow
