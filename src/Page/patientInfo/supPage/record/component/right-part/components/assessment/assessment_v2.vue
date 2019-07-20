@@ -42,8 +42,21 @@
     // min-height: 600px;
     overflow: hidden;
   }
+ /deep/ .circular {
+  //  background: red;
+    // display: none!important;
+    // visibility: hidden!important;
+    &.hidden-loading {
+    display: none!important;
+    visibility: hidden!important;
+  }
+ }
 }
 
+  /deep/ .hidden-loading {
+    display: none!important;
+    visibility: hidden!important;
+  }
 // >>>.el-loading-mask {
 //   background: white !important;
 // }
@@ -132,6 +145,9 @@ export default {
     // iframeLoadingV2
     this.$refs["iframeLoadingV2"]["setLoadingText"] = this.setLoadingText;
     this.$refs["iframeLoadingV2"]["setLoadingStatus"] = this.setLoadingStatus;
+    this.$refs["iframeLoadingV2"][
+      "setloadingSVGHidden"
+    ] = this.setloadingSVGHidden;
     this.$root.$refs["iframeLoadingV2"] = this.$refs["iframeLoadingV2"];
   },
   methods: {
@@ -148,6 +164,7 @@ export default {
       // console.log(info, "mmmmtttttttttt");
       this.pageLoading = true;
       this.pageLoadingText = "数据加载中";
+      this.setloadingSVGHidden(false);
       // this.iframeHeight = 0;
       let token = window.app.$getCookie("NURSING_USER").split("##")[1];
       // this.$route.query['id'] = info.id
@@ -240,6 +257,7 @@ export default {
     onFormLoaded(type = "") {
       this.pageLoadingText = "数据加载中";
       this.pageLoading = false;
+      this.setloadingSVGHidden(false);
 
       let wid = this.$refs.iframe.contentWindow;
       this.wid = this.$refs.iframe.contentWindow;
@@ -289,12 +307,21 @@ export default {
 
       this.isLandscape = false;
       try {
-        if (this.wid.formInfo.hasOwnProperty("rotation") > -1) {
+        if (
+          this.wid.formInfo &&
+          this.wid.formInfo.hasOwnProperty("rotation") > -1
+        ) {
           this.isLandscape =
             this.wid.formInfo.rotation == "landscape" ? true : false;
         }
+        if (!this.wid.formInfo) {
+          this.pageLoadingText = "网络异常,页面无法获取,请尝试刷新";
+          this.setloadingSVGHidden(true);
+        }
       } catch (error) {
-        console.log(error);
+        console.log("onload:formInfo", error);
+        this.pageLoadingText = "网络异常,页面无法获取,请尝试刷新";
+        this.setloadingSVGHidden(true);
       }
       console.log(
         "this.wid.formInfo",
@@ -302,13 +329,6 @@ export default {
         "isLandscape",
         this.isLandscape
       );
-
-      // // // check input initial value;
-      // let wid = this.$refs.iframe.contentWindow
-      // var inputs = jQuery(`[name*="${this.info.formCode}"]`,wid.document)
-      // console.log("#######inputs#######",inputs);
-      // console.log("载入页面", wid);
-      // window.wid = wid;
 
       if (
         this.wid.loadTimeData &&
@@ -320,57 +340,8 @@ export default {
           this.wid.loadTimeData.data_,
           this.wid.loadTimeData.data_.errorCode
         );
-        // let waitTime = 5;
         this.pageLoadingText = "网络异常,页面无法获取,请尝试刷新";
-        // let self = this;
-        // this.pageLoading = true;
-        // window.clearInterval(wt);
-        // let wt = window.setInterval(function(){
-        //   if(waitTime<1){
-        //     self.pageLoadingText = "正在载入页面";
-        //     window.clearInterval(wt);
-        //     window.setTimeout(function(){
-        //       self.openUrl(self.url)
-        //     },2000);
-        //   }else{
-        //     try {
-        //       self.pageLoadingText = self.wid.loadTimeData.data_.errorCode+":页面无法获取，请尝试刷新("+(waitTime--)+"秒)"
-        //     } catch (error) {
-        //       window.clearInterval(wt);
-        //     }
-        //   }
-        // }, 1000);
-        // return;
       }
-
-      // 如果是新表单 跳出
-      // try {
-      //   console.log("!!!!!!info", this.info);
-      //   if (
-      //     ["1", "2"].indexOf(this.info.nooForm) > -1 ||
-      //     (this.wid.formInfo &&
-      //       ["1", "2"].indexOf(this.wid.formInfo.nooForm) > -1)
-      //   ) {
-      //     console.log("ooooo");
-      //     //
-      //     if (this.info.name) {
-      //       this.pageLoadingText = `正在加载${this.info.name} ...`;
-      //     }
-
-      //     // console.log("!!!!!!info.id",this.info,this.info.id)
-      //     if (!this.info.id) {
-      //       // initNooForm(this.wid);
-      //       console.table("新建表单", this.url);
-      //       this.pageLoadingText = `新建${this.info.name}中...`;
-      //     } else {
-      //       console.table("打开表单", this.url);
-      //       this.pageLoadingText = `打开${this.info.name}中...`;
-      //     }
-      //     // return;
-      //   }
-      // } catch (e) {
-      //   console.log(e, "eeee");
-      // }
     },
     cleanAllMark(str = "") {
       try {
@@ -1090,6 +1061,35 @@ export default {
     },
     setLoadingText(text) {
       this.pageLoadingText = text;
+    },
+    setloadingSVGHidden(bool) {
+      let svgs = [];
+      svgs = window.document.querySelectorAll(".contant .circular");
+      svgs = [...svgs];
+      if (bool == true) {
+        console.log("setloadingSVGHidden", bool, true, svgs);
+        // window.document.querySelectorAll(
+        //   ".contant .circular > circle"
+        // ).style.visibility = "hidden";
+        if (svgs && svgs.length > 0) {
+          svgs.forEach(svg => {
+            svg.classList.add("hidden-loading"); //.setAttribute("visibility", "hidden");
+          });
+        }
+
+        // .classList.add("hidden-loading");
+      } else {
+        console.log("setloadingSVGHidden", bool, false, svgs);
+        if (svgs && svgs.length > 0) {
+          svgs.forEach(svg => {
+            svg.classList.remove("hidden-loading");//.setAttribute("visibility", "visible");
+          });
+        }
+        // window.document.querySelectorAll(
+        //   ".contant .circular > circle"
+        // ).style.visibility = "visible";
+        // .classList.remove("hidden-loading");
+      }
     },
     onContextMenu(event) {
       console.log("onContextMenu", event);
