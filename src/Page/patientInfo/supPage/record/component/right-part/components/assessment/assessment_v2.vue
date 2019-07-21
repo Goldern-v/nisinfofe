@@ -1,7 +1,7 @@
 <template>
   <div :style="{height: '100%'}">
     <div
-      class="contant"
+      class="contantV2"
       v-loading="pageLoading"
       :element-loading-text="pageLoadingText"
       ref="iframeLoadingV2"
@@ -29,7 +29,7 @@
 </template>
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
-.contant {
+.contantV2 {
   position: relative;
   background: transparent;
   margin: 0 auto;
@@ -57,9 +57,20 @@
     display: none!important;
     visibility: hidden!important;
   }
-// >>>.el-loading-mask {
-//   background: white !important;
-// }
+/deep/ .el-loading-mask {
+  // background: white !important;
+  background-color: rgba(255, 255, 255, .98);
+}
+
+/deep/ .mask-loading-button {
+    font-size: 13px;
+    padding: 8px 20px;
+    margin-top: 20px;
+    color: #55b391;
+    outline: 0;
+    cursor: pointer;
+    border: 1px solid #55b391;
+}
 </style>
 
 <script>
@@ -145,6 +156,7 @@ export default {
     // iframeLoadingV2
     this.$refs["iframeLoadingV2"]["setLoadingText"] = this.setLoadingText;
     this.$refs["iframeLoadingV2"]["setLoadingStatus"] = this.setLoadingStatus;
+    this.$refs["iframeLoadingV2"]["setLoadingButton"] = this.setLoadingButton;
     this.$refs["iframeLoadingV2"][
       "setloadingSVGHidden"
     ] = this.setloadingSVGHidden;
@@ -315,12 +327,12 @@ export default {
             this.wid.formInfo.rotation == "landscape" ? true : false;
         }
         if (!this.wid.formInfo) {
-          this.pageLoadingText = "网络异常,页面无法获取,请尝试刷新";
+          this.pageLoadingText = `网络异常,${this.info.name},页面无法获取,请尝试刷新`;
           this.setloadingSVGHidden(true);
         }
       } catch (error) {
         console.log("onload:formInfo", error);
-        this.pageLoadingText = "网络异常,页面无法获取,请尝试刷新";
+        this.pageLoadingText = `网络异常,${this.info.name},页面无法获取,请尝试刷新.`;
         this.setloadingSVGHidden(true);
       }
       console.log(
@@ -1059,36 +1071,118 @@ export default {
     setLoadingStatus(bool) {
       this.pageLoading = bool;
     },
-    setLoadingText(text) {
+    setLoadingText(text, callback = null) {
       this.pageLoadingText = text;
+      if (callback) {
+        callback();
+      }
+    },
+    setLoadingButton(isShow, text = "知道了", callback = null) {
+      var spinners = window.document.querySelectorAll(".el-loading-spinner");
+      spinners = [...spinners];
+      var spin = null,
+        sinput = null,
+        input = null;
+      sinput = window.document.querySelector("#spin-button");
+      if (isShow) {
+        console.log("spinners", spinners, sinput);
+        if (spinners && spinners.length > 0) {
+          spin = spinners.find(res => {
+            let className = "";
+            try {
+              className = res.parentNode.parentNode.className;
+            } catch (error) {
+              //
+            }
+            console.log(className, res.innerText);
+            return className == "contantV2";
+            // return res.innerText.indexOf(key) > -1;
+          });
+          console.log("spin", spin);
+          if (spin) {
+            if (!sinput) {
+              input = document.createElement("input");
+              input.type = "button";
+              input.classList.add("mask-loading-button");
+              input.id = "spin-button";
+              input.value = text; //"知道了";
+              input.onclick = () => {
+                if (callback) {
+                  callback();
+                }
+                this.setLoadingStatus(false);
+                input.parentNode.removeChild(input);
+              };
+              spin.appendChild(input);
+            } else {
+              console.log("sinput", sinput);
+              sinput.value = text;
+            }
+          }
+        }
+      } else {
+        if (sinput) {
+          sinput.parentNode.removeChild(sinput);
+        }
+      }
     },
     setloadingSVGHidden(bool) {
       let svgs = [];
-      svgs = window.document.querySelectorAll(".contant .circular");
+      svgs = window.document.querySelectorAll(".contantV2 .circular");
       svgs = [...svgs];
+      //
+      // var spinners = window.document.querySelectorAll(".el-loading-spinner");
+      // spinners = [...spinners];
+      // var spin = null,
+      //   sinput = null,
+      //   input = null;
+      // sinput = window.document.querySelector("#spin-button");
       if (bool == true) {
         console.log("setloadingSVGHidden", bool, true, svgs);
-        // window.document.querySelectorAll(
-        //   ".contant .circular > circle"
-        // ).style.visibility = "hidden";
         if (svgs && svgs.length > 0) {
           svgs.forEach(svg => {
             svg.classList.add("hidden-loading"); //.setAttribute("visibility", "hidden");
           });
         }
+        this.setLoadingButton(true);
+        //
+        // console.log("spinners", spinners, sinput);
+        // if (spinners && spinners.length > 0) {
+        //   spin = spinners.find(res => {
+        //     console.log(res.innerText);
+        //     return res.innerText.indexOf("保存") > -1;
+        //   });
+        //   console.log("spin", spin);
+        //   if (spin) {
+        //     if (!sinput) {
+        //       input = document.createElement("input");
+        //       input.type = "button";
+        //       input.classList.add("mask-loading-button");
+        //       input.id = "spin-button";
+        //       input.value = "知道了";
+        //       input.onclick = () => {
+        //         this.setLoadingStatus(false);
+        //         input.parentNode.removeChild(input);
+        //       };
+        //       spin.appendChild(input);
+        //     }
+        //   }
+        // }
 
         // .classList.add("hidden-loading");
       } else {
         console.log("setloadingSVGHidden", bool, false, svgs);
+        // console.log("spinners:", spinners);
+        // console.log("sinput:", sinput);
         if (svgs && svgs.length > 0) {
           svgs.forEach(svg => {
-            svg.classList.remove("hidden-loading");//.setAttribute("visibility", "visible");
+            svg.classList.remove("hidden-loading"); //.setAttribute("visibility", "visible");
           });
         }
-        // window.document.querySelectorAll(
-        //   ".contant .circular > circle"
-        // ).style.visibility = "visible";
-        // .classList.remove("hidden-loading");
+        this.setLoadingButton(false);
+        // if (sinput) {
+        //   sinput.parentNode.removeChild(sinput);
+        // }
       }
     },
     onContextMenu(event) {
@@ -1482,7 +1576,12 @@ export default {
       return this.$store.state.record.fullPageRecord ? 5 : 85;
     },
     iframeHeight() {
-      return this.wih - this.offsetHeight;
+      if (this.$route.path == "/formPage") {
+        return this.wih - 0 - this.offsetHeight;
+      } else {
+        return this.wih - 60 - this.offsetHeight;
+      }
+      // return this.wih - this.offsetHeight;
     }
   },
   watch: {
