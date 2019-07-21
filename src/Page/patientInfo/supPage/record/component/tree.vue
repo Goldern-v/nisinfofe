@@ -347,7 +347,7 @@ export default {
           let list_2 = info => {
             index += 1;
             info = info.filter(opt => opt.status != "-1");
-            console.log("健康教育单info", info);
+            // console.log("健康教育单info", info);
             return {
               label: "健康教育单",
               index: index,
@@ -358,7 +358,7 @@ export default {
               nooForm: 1,
               pageUrl: "健康教育单.html",
               children: info.map(option => {
-                console.log(option, "健康教育单option");
+                // console.log(option, "健康教育单option");
                 return {
                   status: option.status,
                   label:
@@ -380,7 +380,7 @@ export default {
           if (res[1].data.data.length > 0) {
             list_1.push(list_2(res[1].data.data));
           }
-          console.log(this.filterObj, "aaaa");
+          // console.log(this.filterObj, "aaaa");
           if (this.filterObj) {
             this.regions = list_1.filter(
               item => item.label == this.filterObj.label
@@ -389,7 +389,7 @@ export default {
             this.regions = list_1;
           }
 
-          console.log(list_1, "list_1list_1list_1");
+          // console.log(list_1, "list_1list_1list_1");
         })
         .then(res => {
           this.treeLoading = false;
@@ -425,13 +425,13 @@ export default {
       // console.table(this.regions)
     },
     toLoadPatientDetial(callback = null, query = this.$route.query) {
-      console.log("toLoadPatientDetial", query, this.$route.query);
+      // console.log("toLoadPatientDetial", query, this.$route.query);
       // let query = this.$route.query;
       commonData
         .loadPatient(query.patientId, query.visitId)
         .then(res => {
           try {
-            console.log("-入院病人资料:", res, res.data.data);
+            // console.log("-入院病人资料:", res, res.data.data);
             if (res && res.data && res.data.data["admissionDateTime"]) {
               res.data.data["admissionDateTime"] = moment(
                 res.data.data["admissionDate"]

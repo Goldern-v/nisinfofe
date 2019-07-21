@@ -13,7 +13,7 @@
         v-if="url"
         :src="url"
         @load="onload"
-        ref="iframe"
+        ref="iframeV2"
       ></iframe>
     </div>
     <!-- 批注弹窗 -->
@@ -271,8 +271,8 @@ export default {
       this.pageLoading = false;
       this.setloadingSVGHidden(false);
 
-      let wid = this.$refs.iframe.contentWindow;
-      this.wid = this.$refs.iframe.contentWindow;
+      let wid = this.$refs.iframeV2.contentWindow;
+      this.wid = this.$refs.iframeV2.contentWindow;
       this.wid.onmessage = this.onmessage;
       //
       try {
@@ -298,9 +298,9 @@ export default {
       // this.pageLoading = true;
       // this.pageLoadingText = "数据加载中";
       // this.marklist = [];
-      // let wid = this.$refs.iframe.contentWindow;
-      this.wid = this.$refs.iframe.contentWindow;
-      window.wid = this.$refs.iframe.contentWindow;
+      // let wid = this.$refs.iframeV2.contentWindow;
+      this.wid = this.$refs.iframeV2.contentWindow;
+      window.wid = this.$refs.iframeV2.contentWindow;
 
       // window.document.addEventListener()
       // this.wid.document.removeEventListener("click", this.onClick);
@@ -329,11 +329,19 @@ export default {
         if (!this.wid.formInfo) {
           this.pageLoadingText = `网络异常,${this.info.name},页面无法获取,请尝试刷新`;
           this.setloadingSVGHidden(true);
+          this.setLoadingButton(true, "刷新", () => {
+            console.log("刷新");
+            window.wid.location.reload();
+          });
         }
       } catch (error) {
         console.log("onload:formInfo", error);
         this.pageLoadingText = `网络异常,${this.info.name},页面无法获取,请尝试刷新.`;
         this.setloadingSVGHidden(true);
+        this.setLoadingButton(true, "刷新", () => {
+          console.log("刷新");
+          window.wid.location.reload();
+        });
       }
       console.log(
         "this.wid.formInfo",
@@ -353,6 +361,11 @@ export default {
           this.wid.loadTimeData.data_.errorCode
         );
         this.pageLoadingText = "网络异常,页面无法获取,请尝试刷新";
+        this.setloadingSVGHidden(true);
+        this.setLoadingButton(true, "刷新", () => {
+          console.log("刷新...");
+          window.wid.location.reload();
+        });
       }
     },
     cleanAllMark(str = "") {
@@ -657,7 +670,7 @@ export default {
     // 签名
     signSave() {
       try {
-        let wid = this.$refs.iframe.contentWindow;
+        let wid = this.$refs.iframeV2.contentWindow;
         if (this.info.nooForm == "1") {
           window.openSignModal((password, empNo) => {
             wid.signForm(empNo, password).then(res => {
@@ -676,7 +689,7 @@ export default {
     // 审核
     shenheSign() {
       try {
-        let wid = this.$refs.iframe.contentWindow;
+        let wid = this.$refs.iframeV2.contentWindow;
         if (this.info.nooForm == "1") {
           window.openSignModal((password, empNo) => {
             wid.auditForm(empNo, password).then(res => {
@@ -694,7 +707,7 @@ export default {
       this.saveForm();
     },
     saveForm() {
-      let wid = this.$refs.iframe.contentWindow;
+      let wid = this.$refs.iframeV2.contentWindow;
       console.log("saveForm", wid);
       window.w = wid;
       if (wid.validateForm) {
@@ -735,7 +748,7 @@ export default {
           type: "warning"
         });
       }
-      let wid = this.$refs.iframe.contentWindow;
+      let wid = this.$refs.iframeV2.contentWindow;
       let list = this.$store.state.form.measure;
       let select = this.$store.state.form.select;
 
@@ -926,9 +939,9 @@ export default {
     },
     refresh() {
       try {
-        this.$refs.iframe.contentWindow.location.reload();
+        this.$refs.iframeV2.contentWindow.location.reload();
 
-        // console.log("innerHTML",this.$refs.iframe.contentWindow.document.innerHTML);
+        // console.log("innerHTML",this.$refs.iframeV2.contentWindow.document.innerHTML);
       } catch (e) {}
     },
     openScoreChart() {
@@ -937,7 +950,7 @@ export default {
       this.$refs.scoreChart.open(scoreUrl);
     },
     openEditAssessment() {
-      let wid = this.$refs.iframe.contentWindow;
+      let wid = this.$refs.iframeV2.contentWindow;
       // if ((this.formStatus === "2" || this.info.status == '2') && JSON.parse(localStorage.user).title !== '护士长') {
 
       if (window.app.$route.query.formStatus) {
@@ -1014,7 +1027,7 @@ export default {
         this.$refs.signModal.open((password, empNo) => {
           try {
             if (this.info.nooForm == "1") {
-              let wid = this.$refs.iframe.contentWindow;
+              let wid = this.$refs.iframeV2.contentWindow;
               wid.delForm(empNo, password).then(res => {
                 this.$message.success("删除成功");
                 this.bus.$emit("refreshTree");
@@ -1110,8 +1123,10 @@ export default {
                 if (callback) {
                   callback();
                 }
+                // else {
                 this.setLoadingStatus(false);
                 input.parentNode.removeChild(input);
+                // }
               };
               spin.appendChild(input);
             } else {
@@ -1191,7 +1206,7 @@ export default {
         this.eventTarget.style.outline = "";
         // this.eventTarget.style.background = "";
       }
-      this.wid = this.$refs.iframe.contentWindow;
+      this.wid = this.$refs.iframeV2.contentWindow;
       // formApiCode
       // if (
       //   this.wid &&
@@ -1302,7 +1317,7 @@ export default {
         "行"
       );
       //
-      let xyiframe = this.$refs.iframe.getBoundingClientRect();
+      let xyiframe = this.$refs.iframeV2.getBoundingClientRect();
       let xy = event.target.getBoundingClientRect();
       let y = xyiframe.top + xy.top + event.offsetY - 20;
       let x = xyiframe.left + xy.left + event.offsetX + 10;
@@ -1473,7 +1488,7 @@ export default {
       let dom = event.target;
       let key = $(dom).attr("name");
       if (obj) {
-        let xyiframe = this.$refs.iframe.getBoundingClientRect();
+        let xyiframe = this.$refs.iframeV2.getBoundingClientRect();
         let xy = event.target.getBoundingClientRect();
         let y = xyiframe.top + xy.top + event.offsetY - 10;
         let x = xyiframe.left + xy.left + event.offsetX + 10;
