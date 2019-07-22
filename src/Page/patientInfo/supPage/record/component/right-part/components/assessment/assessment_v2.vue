@@ -70,6 +70,7 @@
     outline: 0;
     cursor: pointer;
     border: 1px solid #55b391;
+    background: transparent;
 }
 </style>
 
