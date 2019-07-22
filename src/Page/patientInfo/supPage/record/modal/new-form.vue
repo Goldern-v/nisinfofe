@@ -102,6 +102,13 @@
   font-size: 13px;
   color: #687179;
   margin-right 10px
+
+/deep/ .sweet-modal{
+  max-height calc(100vh - 30px)!important
+  .sweet-content{
+    // max-height 100vh!important
+  }
+}
 </style>
 
 <script>

@@ -158,8 +158,8 @@ export function initList(wid, pdata = window.app.$route.query) {
   } catch (e) {
     console.log(e)
   }
-
-  if (['form_selfcare', 'form_pain_assessment', 'form_pressure_risk', 'form_fall', 'form_swallowing'].indexOf(formCode) > -1) {
+  // , 'form_pain_assessment'
+  if (['form_selfcare', 'form_pressure_risk', 'form_fall', 'form_swallowing'].indexOf(formCode) > -1) {
 
     try {
       bus.$emit("updateTreeData");

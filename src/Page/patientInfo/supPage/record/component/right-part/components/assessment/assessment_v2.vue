@@ -1,10 +1,10 @@
 <template>
   <div :style="{height: '100%'}">
     <div
-      :class="isLandscape?'contant-landscape':'contant'"
+      class="contantV2"
       v-loading="pageLoading"
       :element-loading-text="pageLoadingText"
-      ref="iframeLoading"
+      ref="iframeLoadingV2"
     >
       <iframe
         :style="{height: iframeHeight + 'px'}"
@@ -13,7 +13,7 @@
         v-if="url"
         :src="url"
         @load="onload"
-        ref="iframe"
+        ref="iframeV2"
       ></iframe>
     </div>
     <!-- 批注弹窗 -->
@@ -29,14 +29,9 @@
 </template>
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
-.contant {
-  // border-radius: 2px;
+.contantV2 {
   position: relative;
   background: transparent;
-  // box-shadow: 0px 5px 10px 0 rgba(0, 0, 0, 0.5);
-  // padding: 20px 0px;
-  // box-sizing: border-box;
-  // width: 760px;
   margin: 0 auto;
   height: 100%;
   width: 100%;
@@ -47,40 +42,36 @@
     // min-height: 600px;
     overflow: hidden;
   }
-}
-
-// .print-contain
-// padding 20px
-// position relative
-// box-sizing border-box
-// width 760px
-// overflow hidden
-// .iframe-con
-// width 100%
-// overflow hidden
-// min-height 600px
-.contant-landscape {
-  // border-radius: 2px;
-  position: relative;
-  background: transparent;
-  // box-shadow: 0px 5px 10px 0 rgba(0, 0, 0, 0.5);
-  // padding: 20px 20px;
-  // box-sizing: border-box;
-  // width: 1110px;
-  width: 100%;
-  // min-width 1110px
-  margin: 0 auto;
-
-  .assessmentv2-iframe {
-    width: 100%;
-    overflow: hidden;
-    // min-height: 600px;
+ /deep/ .circular {
+  //  background: red;
+    // display: none!important;
+    // visibility: hidden!important;
+    &.hidden-loading {
+    display: none!important;
+    visibility: hidden!important;
   }
+ }
 }
 
-// >>>.el-loading-mask {
-//   background: white !important;
-// }
+  /deep/ .hidden-loading {
+    display: none!important;
+    visibility: hidden!important;
+  }
+/deep/ .el-loading-mask {
+  // background: white !important;
+  background-color: rgba(255, 255, 255, .98);
+}
+
+/deep/ .mask-loading-button {
+    font-size: 13px;
+    padding: 8px 20px;
+    margin-top: 20px;
+    color: #55b391;
+    outline: 0;
+    cursor: pointer;
+    border: 1px solid #55b391;
+    background: transparent;
+}
 </style>
 
 <script>
@@ -89,13 +80,6 @@ import moment from "moment";
 import BusFactory from "vue-happy-bus";
 import { evalDel } from "@/api/record";
 import { checkUser } from "@/api/login"; //检查用户名密码有效性
-import { eventInit } from "../../../../../../supComponts/formBox/form.event";
-import formFill from "../../../../../../supComponts/formBox/form.fill";
-import {
-  evalDetail
-  // formPrintPage,
-  // formInputPrint
-} from "@/api/form_hj";
 import { host } from "@/api/apiConfig";
 import { initList } from "../../../../../../supComponts/formBox/form.details";
 import { initNooForm } from "../../../../../../supComponts/formBox/form.details.nooForm";
@@ -128,7 +112,7 @@ export default {
       urlForm: "",
       pageLoading: false,
       pageLoadingText: "数据加载中",
-      iframeHeight: 0,
+      // iframeHeight: 0,
       info: {},
       formInfo: {},
       wid: {},
@@ -170,6 +154,14 @@ export default {
   mounted() {
     window.cleanAllMark = this.cleanAllMark;
     window.onFormLoaded = this.onFormLoaded;
+    // iframeLoadingV2
+    this.$refs["iframeLoadingV2"]["setLoadingText"] = this.setLoadingText;
+    this.$refs["iframeLoadingV2"]["setLoadingStatus"] = this.setLoadingStatus;
+    this.$refs["iframeLoadingV2"]["setLoadingButton"] = this.setLoadingButton;
+    this.$refs["iframeLoadingV2"][
+      "setloadingSVGHidden"
+    ] = this.setloadingSVGHidden;
+    this.$root.$refs["iframeLoadingV2"] = this.$refs["iframeLoadingV2"];
   },
   methods: {
     openNewFormBox(box) {
@@ -185,7 +177,8 @@ export default {
       // console.log(info, "mmmmtttttttttt");
       this.pageLoading = true;
       this.pageLoadingText = "数据加载中";
-      this.iframeHeight = 0;
+      this.setloadingSVGHidden(false);
+      // this.iframeHeight = 0;
       let token = window.app.$getCookie("NURSING_USER").split("##")[1];
       // this.$route.query['id'] = info.id
       let query = this.$route.query;
@@ -212,6 +205,7 @@ export default {
       // let query = this.$route.query
       let queryObj = {
         id: this.info.id || "",
+        showToolBar: true,
         formCode: this.info.formCode,
         patientId: query.patientId,
         visitId: query.visitId,
@@ -235,9 +229,9 @@ export default {
         ? this.info.pageUrl.replace(".html", "-打印.html")
         : "";
 
-      console.log("this.info", this.info);
+      console.log("this.info", this.info, queryObj);
 
-      if (this.info.nooForm == "1") {
+      if (["1", "2"].indexOf(this.info.nooForm) > -1) {
         // console.log(queryObj.title,"formCode")
         if (this.isDev) {
           //  if(queryObj.formCode==='eduMission'){
@@ -252,7 +246,7 @@ export default {
         } else {
           url = `${formUrl}/${this.info.pageUrl}?${qs.stringify(queryObj)}`;
         }
-        console.log("打开表单", url);
+        console.log("打开表单", url, { url: url + "" });
       } else {
         this.showSignSave = this.info.showSignSave || false;
         let formid = this.info.id;
@@ -276,9 +270,10 @@ export default {
     onFormLoaded(type = "") {
       this.pageLoadingText = "数据加载中";
       this.pageLoading = false;
+      this.setloadingSVGHidden(false);
 
-      let wid = this.$refs.iframe.contentWindow;
-      this.wid = this.$refs.iframe.contentWindow;
+      let wid = this.$refs.iframeV2.contentWindow;
+      this.wid = this.$refs.iframeV2.contentWindow;
       this.wid.onmessage = this.onmessage;
       //
       try {
@@ -304,9 +299,9 @@ export default {
       // this.pageLoading = true;
       // this.pageLoadingText = "数据加载中";
       // this.marklist = [];
-      // let wid = this.$refs.iframe.contentWindow;
-      this.wid = this.$refs.iframe.contentWindow;
-      window.wid = this.$refs.iframe.contentWindow;
+      // let wid = this.$refs.iframeV2.contentWindow;
+      this.wid = this.$refs.iframeV2.contentWindow;
+      window.wid = this.$refs.iframeV2.contentWindow;
 
       // window.document.addEventListener()
       // this.wid.document.removeEventListener("click", this.onClick);
@@ -319,32 +314,54 @@ export default {
       // this.wid.document.addEventListener("contextmenu", this.onContextMenu);
       // //
 
-      this.iframeHeight = "auto";
-      // this.iframeHeight = "100%";
-      this.iframeHeight = this.wih - 85;
+      // this.iframeHeight = "auto";
+      // // this.iframeHeight = "100%";
+      // this.iframeHeight = this.wih - this.offsetHeight;
 
       this.isLandscape = false;
       try {
-        for (const key in this.wid.formInfo) {
-          if (this.wid.formInfo.hasOwnProperty(key)) {
-            const element = this.wid.formInfo[key];
-            if (key === "rotation" && element === "landscape") {
-              this.isLandscape = true;
-              break;
-            }
-          }
+        if (
+          this.wid.formInfo &&
+          this.wid.formInfo.hasOwnProperty("rotation") > -1
+        ) {
+          this.isLandscape =
+            this.wid.formInfo.rotation == "landscape" ? true : false;
+        }
+        if (!this.wid.formInfo) {
+          this.setLoadingStatus(true);
+          this.setLoadingText(
+            `网络异常,${this.info.name},页面无法获取,请尝试刷新`
+          );
+          // this.pageLoadingText = `网络异常,${this.info.name},页面无法获取,请尝试刷新`;
+          this.setloadingSVGHidden(true);
+          this.setLoadingButton(true, "刷新", () => {
+            console.log("刷新", window.wid.location);
+            // window.wid.location.reload();
+            this.setLoadingText("数据加载中...");
+            this.refresh();
+          });
         }
       } catch (error) {
-        //
-        console.log(error);
+        console.log("onload:formInfo", error);
+        this.setLoadingStatus(true);
+        this.setLoadingText(
+          `网络异常,${this.info.name},页面无法获取,请尝试刷新`
+        );
+        // this.pageLoadingText = `网络异常,${this.info.name},页面无法获取,请尝试刷新.`;
+        this.setloadingSVGHidden(true);
+        this.setLoadingButton(true, "刷新", () => {
+          console.log("err刷新", window.wid.location);
+          // window.wid.location.reload();
+          this.setLoadingText("数据加载中...");
+          this.refresh();
+        });
       }
-
-      // // // check input initial value;
-      // let wid = this.$refs.iframe.contentWindow
-      // var inputs = jQuery(`[name*="${this.info.formCode}"]`,wid.document)
-      // console.log("#######inputs#######",inputs);
-      // console.log("载入页面", wid);
-      // window.wid = wid;
+      console.log(
+        "this.wid.formInfo",
+        this.wid.formInfo,
+        "isLandscape",
+        this.isLandscape
+      );
 
       if (
         this.wid.loadTimeData &&
@@ -356,57 +373,13 @@ export default {
           this.wid.loadTimeData.data_,
           this.wid.loadTimeData.data_.errorCode
         );
-        // let waitTime = 5;
         this.pageLoadingText = "网络异常,页面无法获取,请尝试刷新";
-        // let self = this;
-        // this.pageLoading = true;
-        // window.clearInterval(wt);
-        // let wt = window.setInterval(function(){
-        //   if(waitTime<1){
-        //     self.pageLoadingText = "正在载入页面";
-        //     window.clearInterval(wt);
-        //     window.setTimeout(function(){
-        //       self.openUrl(self.url)
-        //     },2000);
-        //   }else{
-        //     try {
-        //       self.pageLoadingText = self.wid.loadTimeData.data_.errorCode+":页面无法获取，请尝试刷新("+(waitTime--)+"秒)"
-        //     } catch (error) {
-        //       window.clearInterval(wt);
-        //     }
-        //   }
-        // }, 1000);
-        // return;
+        this.setloadingSVGHidden(true);
+        this.setLoadingButton(true, "刷新", () => {
+          console.log("刷新...");
+          window.wid.location.reload();
+        });
       }
-
-      // 如果是新表单 跳出
-      // try {
-      //   console.log("!!!!!!info", this.info);
-      //   if (
-      //     ["1", "2"].indexOf(this.info.nooForm) > -1 ||
-      //     (this.wid.formInfo &&
-      //       ["1", "2"].indexOf(this.wid.formInfo.nooForm) > -1)
-      //   ) {
-      //     console.log("ooooo");
-      //     //
-      //     if (this.info.name) {
-      //       this.pageLoadingText = `正在加载${this.info.name} ...`;
-      //     }
-
-      //     // console.log("!!!!!!info.id",this.info,this.info.id)
-      //     if (!this.info.id) {
-      //       // initNooForm(this.wid);
-      //       console.table("新建表单", this.url);
-      //       this.pageLoadingText = `新建${this.info.name}中...`;
-      //     } else {
-      //       console.table("打开表单", this.url);
-      //       this.pageLoadingText = `打开${this.info.name}中...`;
-      //     }
-      //     // return;
-      //   }
-      // } catch (e) {
-      //   console.log(e, "eeee");
-      // }
     },
     cleanAllMark(str = "") {
       try {
@@ -710,7 +683,7 @@ export default {
     // 签名
     signSave() {
       try {
-        let wid = this.$refs.iframe.contentWindow;
+        let wid = this.$refs.iframeV2.contentWindow;
         if (this.info.nooForm == "1") {
           window.openSignModal((password, empNo) => {
             wid.signForm(empNo, password).then(res => {
@@ -729,7 +702,7 @@ export default {
     // 审核
     shenheSign() {
       try {
-        let wid = this.$refs.iframe.contentWindow;
+        let wid = this.$refs.iframeV2.contentWindow;
         if (this.info.nooForm == "1") {
           window.openSignModal((password, empNo) => {
             wid.auditForm(empNo, password).then(res => {
@@ -747,7 +720,7 @@ export default {
       this.saveForm();
     },
     saveForm() {
-      let wid = this.$refs.iframe.contentWindow;
+      let wid = this.$refs.iframeV2.contentWindow;
       console.log("saveForm", wid);
       window.w = wid;
       if (wid.validateForm) {
@@ -788,7 +761,7 @@ export default {
           type: "warning"
         });
       }
-      let wid = this.$refs.iframe.contentWindow;
+      let wid = this.$refs.iframeV2.contentWindow;
       let list = this.$store.state.form.measure;
       let select = this.$store.state.form.select;
 
@@ -979,9 +952,9 @@ export default {
     },
     refresh() {
       try {
-        this.$refs.iframe.contentWindow.location.reload();
+        this.$refs.iframeV2.contentWindow.location.reload();
 
-        // console.log("innerHTML",this.$refs.iframe.contentWindow.document.innerHTML);
+        // console.log("innerHTML",this.$refs.iframeV2.contentWindow.document.innerHTML);
       } catch (e) {}
     },
     openScoreChart() {
@@ -990,7 +963,7 @@ export default {
       this.$refs.scoreChart.open(scoreUrl);
     },
     openEditAssessment() {
-      let wid = this.$refs.iframe.contentWindow;
+      let wid = this.$refs.iframeV2.contentWindow;
       // if ((this.formStatus === "2" || this.info.status == '2') && JSON.parse(localStorage.user).title !== '护士长') {
 
       if (window.app.$route.query.formStatus) {
@@ -1067,7 +1040,7 @@ export default {
         this.$refs.signModal.open((password, empNo) => {
           try {
             if (this.info.nooForm == "1") {
-              let wid = this.$refs.iframe.contentWindow;
+              let wid = this.$refs.iframeV2.contentWindow;
               wid.delForm(empNo, password).then(res => {
                 this.$message.success("删除成功");
                 this.bus.$emit("refreshTree");
@@ -1124,13 +1097,130 @@ export default {
     setLoadingStatus(bool) {
       this.pageLoading = bool;
     },
+    setLoadingText(text, callback = null) {
+      this.pageLoadingText = text;
+      if (callback) {
+        callback();
+      }
+    },
+    setLoadingButton(isShow, text = "知道了", callback = null) {
+      var spinners = window.document.querySelectorAll(".el-loading-spinner");
+      spinners = [...spinners];
+      var spin = null,
+        sinput = null,
+        input = null;
+      sinput = window.document.querySelector("#spin-button");
+      if (isShow) {
+        console.log("spinners", spinners, sinput);
+        if (spinners && spinners.length > 0) {
+          spin = spinners.find(res => {
+            let className = "";
+            try {
+              className = res.parentNode.parentNode.className;
+            } catch (error) {
+              //
+            }
+            console.log(className, res.innerText);
+            return className == "contantV2";
+            // return res.innerText.indexOf(key) > -1;
+          });
+          console.log("spin", spin);
+          if (spin) {
+            if (!sinput) {
+              input = document.createElement("input");
+              input.type = "button";
+              input.classList.add("mask-loading-button");
+              input.id = "spin-button";
+              input.value = text; //"知道了";
+              input.onclick = () => {
+                if (callback) {
+                  callback();
+                }
+                this.setLoadingStatus(false);
+                input.parentNode.removeChild(input);
+              };
+              spin.appendChild(input);
+            } else {
+              console.log("sinput", sinput);
+              sinput.value = text;
+              if (callback) {
+                sinput.onclick = callback;
+              }
+            }
+          }
+        }
+      } else {
+        if (sinput) {
+          sinput.parentNode.removeChild(sinput);
+        }
+      }
+    },
+    setloadingSVGHidden(bool) {
+      let svgs = [];
+      svgs = window.document.querySelectorAll(".contantV2 .circular");
+      svgs = [...svgs];
+      //
+      // var spinners = window.document.querySelectorAll(".el-loading-spinner");
+      // spinners = [...spinners];
+      // var spin = null,
+      //   sinput = null,
+      //   input = null;
+      // sinput = window.document.querySelector("#spin-button");
+      if (bool == true) {
+        console.log("setloadingSVGHidden", bool, true, svgs);
+        if (svgs && svgs.length > 0) {
+          svgs.forEach(svg => {
+            svg.classList.add("hidden-loading"); //.setAttribute("visibility", "hidden");
+          });
+        }
+        this.setLoadingButton(true);
+        //
+        // console.log("spinners", spinners, sinput);
+        // if (spinners && spinners.length > 0) {
+        //   spin = spinners.find(res => {
+        //     console.log(res.innerText);
+        //     return res.innerText.indexOf("保存") > -1;
+        //   });
+        //   console.log("spin", spin);
+        //   if (spin) {
+        //     if (!sinput) {
+        //       input = document.createElement("input");
+        //       input.type = "button";
+        //       input.classList.add("mask-loading-button");
+        //       input.id = "spin-button";
+        //       input.value = "知道了";
+        //       input.onclick = () => {
+        //         this.setLoadingStatus(false);
+        //         input.parentNode.removeChild(input);
+        //       };
+        //       spin.appendChild(input);
+        //     }
+        //   }
+        // }
+
+        // .classList.add("hidden-loading");
+      } else {
+        console.log("setloadingSVGHidden", bool, false, svgs);
+        // console.log("spinners:", spinners);
+        // console.log("sinput:", sinput);
+        if (svgs && svgs.length > 0) {
+          svgs.forEach(svg => {
+            svg.classList.remove("hidden-loading"); //.setAttribute("visibility", "visible");
+          });
+        }
+        this.setLoadingButton(false);
+        // if (sinput) {
+        //   sinput.parentNode.removeChild(sinput);
+        // }
+      }
+    },
     onContextMenu(event) {
       console.log("onContextMenu", event);
       if (this.eventTarget) {
         this.eventTarget.style.outline = "";
         // this.eventTarget.style.background = "";
       }
-      this.wid = this.$refs.iframe.contentWindow;
+      this.wid = this.$refs.iframeV2.contentWindow;
       // formApiCode
       // if (
       //   this.wid &&
@@ -1241,7 +1331,7 @@ export default {
         "行"
       );
       //
-      let xyiframe = this.$refs.iframe.getBoundingClientRect();
+      let xyiframe = this.$refs.iframeV2.getBoundingClientRect();
       let xy = event.target.getBoundingClientRect();
       let y = xyiframe.top + xy.top + event.offsetY - 20;
       let x = xyiframe.left + xy.left + event.offsetX + 10;
@@ -1412,7 +1502,7 @@ export default {
       let dom = event.target;
       let key = $(dom).attr("name");
       if (obj) {
-        let xyiframe = this.$refs.iframe.getBoundingClientRect();
+        let xyiframe = this.$refs.iframeV2.getBoundingClientRect();
         let xy = event.target.getBoundingClientRect();
         let y = xyiframe.top + xy.top + event.offsetY - 10;
         let x = xyiframe.left + xy.left + event.offsetX + 10;
@@ -1507,13 +1597,27 @@ export default {
   computed: {
     markListArr() {
       return this.markList;
+    },
+    fullPageRecord() {
+      return this.$store.state.record.fullPageRecord;
+    },
+    offsetHeight() {
+      return this.$store.state.record.fullPageRecord ? 5 : 85;
+    },
+    iframeHeight() {
+      if (this.$route.path == "/formPage") {
+        return this.wih - 0 - this.offsetHeight;
+      } else {
+        return this.wih - 60 - this.offsetHeight;
+      }
+      // return this.wih - this.offsetHeight;
     }
   },
   watch: {
     url() {
       this.pageLoading = true;
-      this.iframeHeight = "auto";
-      this.iframeHeight = this.wih - 85; //100;
+      // this.iframeHeight = "auto";
+      // this.iframeHeight = this.wih - this.offsetHeight; //100;
     }
   },
   components: {

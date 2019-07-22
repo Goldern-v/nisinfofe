@@ -91,8 +91,8 @@ autoUpdate();
 import devTools from "@/plugin/devTools/index.js";
 
 // 消息框
-import infoBox from "@/plugin/vue-elementUI-message/index.js";
-Vue.prototype.$infoBox = infoBox;
+import CRMessageBox from "@/plugin/vue-elementUI-message/index.js";
+Vue.prototype.$CRMessageBox = CRMessageBox;
 
 // 模拟后台接口工具
 import "@/mock/mock.js";

@@ -73,14 +73,14 @@
                       <i class="sheetHospitalAdmission"></i> 入院评估
                     </el-row>
                   </router-link>
-                </el-dropdown-item> -->
+                </el-dropdown-item>-->
                 <!-- <el-dropdown-item :class="{active: $route.path == '/sheetHospitalEval'}">
                   <router-link to="/sheetHospitalEval" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
                       <i class="sheetHospitalEval"></i> 住院评估
                     </el-row>
                   </router-link>
-                </el-dropdown-item> -->
+                </el-dropdown-item>-->
                 <el-dropdown-item :class="{active: $route.path == '/formPage'}">
                   <router-link to="/formPage" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
@@ -108,21 +108,21 @@
                       <i class="healthEducation"></i> 血氧
                     </el-row>
                   </router-link>
-                </el-dropdown-item> -->
+                </el-dropdown-item>-->
                 <!-- <el-dropdown-item>
                   <router-link to="/healthEdu" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
                       <i class="healthEducation"></i>健康教育单
                     </el-row>
                   </router-link>
-                </el-dropdown-item> -->
+                </el-dropdown-item>-->
                 <!-- <el-dropdown-item>
                   <router-link to="/handlingPage" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
                       <i class="healthEducation"></i>住院病人处理单
                     </el-row>
                   </router-link>
-                </el-dropdown-item> -->
+                </el-dropdown-item>-->
               </el-dropdown-menu>
             </el-dropdown>
             <!-- <router-link to="/formPage" tag="span">
@@ -164,7 +164,7 @@
 
             <!-- <router-link to="/badEvent" tag="span">
               <el-row class="nav-item" type="flex" align="middle">不良事件</el-row>
-            </router-link> -->
+            </router-link>-->
 
             <!-- <router-link to="/catheterPage" tag="span" v-show="isDev">
               <el-row class="nav-item" type="flex" align="middle">
@@ -236,11 +236,18 @@
                       <i class="badEvent"></i>不良事件
                     </el-row>
                   </router-link>
-                </el-dropdown-item> -->
+                </el-dropdown-item>-->
                 <el-dropdown-item :class="{active: $route.path == '/nursingRules'}">
                   <router-link to="/nursingRules" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
                       <i class="nursingRules"></i>护理制度
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item>
+                <el-dropdown-item :class="{active: $route.path == '/departmentSharedFile'}">
+                  <router-link to="/departmentSharedFile" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="departmentSharedFile"></i>科室共享文件
                     </el-row>
                   </router-link>
                 </el-dropdown-item>
@@ -450,6 +457,14 @@
 
     &.nursingRules {
       background-image: url('../../common/images/index/制度.png');
+    }
+
+    &.noCheckTest {
+      background-image: url('../../common/images/index/未做检查／检验.png');
+    }
+
+    &.departmentSharedFile {
+      background-image: url('../../common/images/index/共享文件.png');
     }
   }
 }
