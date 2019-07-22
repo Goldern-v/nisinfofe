@@ -327,20 +327,32 @@ export default {
             this.wid.formInfo.rotation == "landscape" ? true : false;
         }
         if (!this.wid.formInfo) {
-          this.pageLoadingText = `网络异常,${this.info.name},页面无法获取,请尝试刷新`;
+          this.setLoadingStatus(true);
+          this.setLoadingText(
+            `网络异常,${this.info.name},页面无法获取,请尝试刷新`
+          );
+          // this.pageLoadingText = `网络异常,${this.info.name},页面无法获取,请尝试刷新`;
           this.setloadingSVGHidden(true);
           this.setLoadingButton(true, "刷新", () => {
-            console.log("刷新");
-            window.wid.location.reload();
+            console.log("刷新", window.wid.location);
+            // window.wid.location.reload();
+            this.setLoadingText("数据加载中...");
+            this.refresh();
           });
         }
       } catch (error) {
         console.log("onload:formInfo", error);
-        this.pageLoadingText = `网络异常,${this.info.name},页面无法获取,请尝试刷新.`;
+        this.setLoadingStatus(true);
+        this.setLoadingText(
+          `网络异常,${this.info.name},页面无法获取,请尝试刷新`
+        );
+        // this.pageLoadingText = `网络异常,${this.info.name},页面无法获取,请尝试刷新.`;
         this.setloadingSVGHidden(true);
         this.setLoadingButton(true, "刷新", () => {
-          console.log("刷新");
-          window.wid.location.reload();
+          console.log("err刷新", window.wid.location);
+          // window.wid.location.reload();
+          this.setLoadingText("数据加载中...");
+          this.refresh();
         });
       }
       console.log(
@@ -1123,15 +1135,16 @@ export default {
                 if (callback) {
                   callback();
                 }
-                // else {
                 this.setLoadingStatus(false);
                 input.parentNode.removeChild(input);
-                // }
               };
               spin.appendChild(input);
             } else {
               console.log("sinput", sinput);
               sinput.value = text;
+              if (callback) {
+                sinput.onclick = callback;
+              }
             }
           }
         }

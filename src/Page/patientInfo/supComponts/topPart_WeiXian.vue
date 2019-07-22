@@ -59,7 +59,7 @@
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
   .nav-con
     height 50px
-    width 100%
+    min-width 1030px
     background-image: linear-gradient(-180deg, #F7F7F9 0%, #EAEBEF 100%);
     padding-top 12px
     box-sizing border-box
