@@ -1,7 +1,5 @@
 export default function (win) {
   const root = win.document.body.children[0]
-  console.log(root);
-  return;
   root.setAttribute('style', 'width: 1080px;')
 
   const header = root.querySelector('.head')

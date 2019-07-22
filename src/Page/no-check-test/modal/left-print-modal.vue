@@ -1,7 +1,7 @@
 <template>
   <div>
     <sweet-modal ref="modal" :modalWidth="700" title="检查预约打印">
-      <div class="printable">
+      <div class="printable" ref="printable">
         <table v-for="(item,index) in printData" :key="index">
           <thead>
             <tr>
@@ -21,7 +21,7 @@
           </tbody>
         </table>
       </div>
-      <div ref="printable"></div>
+      <!-- <div ref="printable"></div> -->
       <div slot="button">
         <el-button class="modal-btn" @click="close">取消</el-button>
         <el-button class="modal-btn" type="primary" @click="onPrint">打印</el-button>
@@ -40,6 +40,7 @@ table {
 
   th, td {
     min-height: 16px;
+    -webkit-box-sizing: border-box;
     box-sizing: border-box;
     padding: 8px 10px;
     line-height: 16px;
@@ -102,7 +103,7 @@ export default {
       // this.test();
       // formatter(this.$refs.printable, print);
       print(this.$refs.printable, {
-        beforePrint: formatter(this.$refs.printable),
+        beforePrint: formatter,
         // direction: "horizontal",
         injectGlobalCss: true,
         scanStyles: false,
@@ -111,19 +112,26 @@ export default {
          display: none !important;
        }
        body {
-        background: #fff !important;margin: 2cm;
+        background: #fff !important;
        }
        .pageBox {
-         padding-top: 20px;
+         width: 750px;
+         padding: 40px 25px;
+         position: relative;
+         -webkit-box-sizing: border-box;
+         box-sizing: border-box;
+         overflow: hidden;
+         margin: 20px auto;
+         border: 1px solid red;
        }
        .pageNum {
-         position: fixed;
+         position: absolute;
          left: 50%;
-         bottom: 10px;
-         -webkit-transform: translate(-50%,-50%);
-         -ms-transform: translate(-50%,-50%);
-         -o-transform: translate(-50%,-50%);
-         transform: translate(-50%,-50%);
+         bottom: 0;
+         -webkit-transform: translateX(-50%);
+         -ms-transform: translateX(-50%);
+         -o-transform: translateX(-50%);
+         transform: translateX(-50%);
        }
 
        @media print{
@@ -132,6 +140,7 @@ export default {
         }
         @page {
            margin: 0;
+           position: relative;
         }
 
         `

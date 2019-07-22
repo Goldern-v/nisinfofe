@@ -2,7 +2,7 @@
 <template>
   <div>
     <sweet-modal ref="modal" :modalWidth="700" title="未做化验打印">
-      <div ref="printable">
+      <div class="printable" ref="printable">
         <table>
           <thead>
             <tr>
@@ -67,6 +67,7 @@ table {
 <script>
 import commom from "@/common/mixin/common.mixin";
 import print from "printing";
+import formatter from "./right-print-formatter";
 export default {
   mixins: [commom],
   props: {
@@ -99,24 +100,43 @@ export default {
       });
     },
     onPrint() {
-      console.dir(print);
       print(this.$refs.printable, {
-        beforePrint: null,
+        beforePrint: formatter,
         // direction: "horizontal",
         injectGlobalCss: true,
         scanStyles: false,
         css: `
-       .col-0 {
-         display: none !important;
-       }
-       body {
-        background: #fff !important;
-       }
-       @media print{
-          table {width: 700px !important;margin: 30px auto 20px !important;color: black !important;page-break-before:avoid !important;}
-          table,th,td {border-color:black !important;}
+        body {
+          background: #fff !important;
         }
-        @page {margin: 0 !important;}
+        .pageBox {
+          width: 750px;
+          padding: 40px 25px;
+          position: relative;
+          -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+          overflow: hidden;
+          margin: 20px auto;
+          border: 1px solid red;
+        }
+        .pageNum {
+          position: absolute;
+          left: 50%;
+          bottom: 0;
+          -webkit-transform: translateX(-50%);
+          -ms-transform: translateX(-50%);
+          -o-transform: translateX(-50%);
+          transform: translateX(-50%);
+        }
+
+        @media print{
+            table {color: black !important;}
+            table,th,td {border-color:black !important;}
+          }
+          @page {
+            margin: 0;
+            position: relative;
+          }
         `
       });
     },
