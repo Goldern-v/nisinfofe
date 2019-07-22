@@ -42,22 +42,26 @@ export default {
   mounted() {
     let self = this;
     self.$nextTick(function() {
-      let pageH =
-        document.documentElement.clientHeight == 0
-          ? document.body.clientHeight
-          : document.documentElement.clientHeight;
-      self.listContentH =
-        pageH - self.$refs["noCheckTest"].offsetTop - 77 - 30 || 0;
-    });
-
-    window.onresize = function() {
-      self.$nextTick(function() {
+      if (self.$refs["noCheckTest"]) {
         let pageH =
           document.documentElement.clientHeight == 0
             ? document.body.clientHeight
             : document.documentElement.clientHeight;
         self.listContentH =
           pageH - self.$refs["noCheckTest"].offsetTop - 77 - 30 || 0;
+      }
+    });
+
+    window.onresize = function() {
+      self.$nextTick(function() {
+        if (self.$refs["noCheckTest"]) {
+          let pageH =
+            document.documentElement.clientHeight == 0
+              ? document.body.clientHeight
+              : document.documentElement.clientHeight;
+          self.listContentH =
+            pageH - self.$refs["noCheckTest"].offsetTop - 77 - 30 || 0;
+        }
       });
     };
   },

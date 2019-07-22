@@ -258,7 +258,6 @@ export default {
   }
 };
 </script>
-
 <style lang="scss">
 .nursing-rules{
   .search-topbar{
@@ -294,6 +293,9 @@ export default {
     .el-table{
       border: 1px solid #cbd5dd;
       border-bottom: 0;
+      td {
+        height: 34px;
+      }
     }
     .el-table th > div{
       padding:0;
@@ -382,7 +384,7 @@ export default {
       position: relative;
       .rule-name-content{
         position: absolute;
-        line-height: 40px;
+        line-height: 34px;
         left: 15px;
         right: 15px;
         top: 0;

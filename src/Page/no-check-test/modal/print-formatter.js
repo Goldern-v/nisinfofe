@@ -1,215 +1,73 @@
 export default function (win) {
-
-  // const A4_hegiht_width_rate = 297 / (210 - 2 * 13); // 打印区域长宽比：（A4纸高）比（A4纸宽减去左右侧20mm的边距）
-  const A4_hegiht_width_rate = 297 / 210; // 打印区域长宽比：（A4纸高）比（A4纸宽减去左右侧20mm的边距）
-  const page_width = 680;// 页面宽度
+  const A4_hegiht_width_rate = 297 / 210; // 打印区域长宽比
+  const page_width = 750;// 页面宽度
   const page_height = A4_hegiht_width_rate * page_width;// 页面高度
 
-  let pageEle = document.createElement('div');
-  pageEle.className = "pageBox";
+  // 当前页的打印内容用pageBox包裹
+  let pageBox = document.createElement('div');
+  pageBox.className = "pageBox";
+  pageBox.style = 'height:' + page_height + 'px';
 
-  // const pageNum = document.createElement('div')
-  // pageNum.style = 'text-align: center; font-size: 12px; font-family: SimSun'
-  // pageNum.innerHTML = `第 ${currentPage} / ${sumPage} 页`
+  // 获取打印元素
+  const root = win.document.body.children[0];
+  let tables = root.querySelectorAll('.printable table');
+  let pageBoxH = 0, sumPage = 1;
 
-  const root = win.document.body.children[0]
-  let tables = document.querySelectorAll('.printable table');
-  let boxH = 0, newBox, currentPage = 1, sumPage = 1;
+  // 另起一页
   let divider = document.createElement('div');
   divider.className = 'divider';
-  divider.style = 'page-break-after: always;'
+  divider.style = 'page-break-after: always;';
+
+  // 全部打印内容
   let page = document.createElement('div')
 
-
-  const pageNum = document.createElement('div')
+  // 页码
+  let pageNum = document.createElement('div')
   pageNum.className = "pageNum";
   pageNum.style = ' text-align: center; font-size: 12px; font-family: SimSun;bottom';
 
+  // 判断是否要分页，页码输出
   tables = Array.from(tables);
-
-  tables.forEach(function (table, index) {
-    boxH += table.offsetHeight + 20;
-    console.log(page);
-    pageEle.appendChild(table);
-    if (boxH > page_height - 40) {
-      console.log(pageEle);
-
-      pageEle.appendChild(pageNum);
-      pageEle.appendChild(divider);
+  let tbodys = root.querySelectorAll('.printable tbody');
+  tbodys = Array.from(tbodys);
+  let rowH = 33, gapH = 20;
+  tbodys.forEach(function (tbody, index) {
+    pageBox.appendChild(tables[index]);
+    let rows = tbody.children.length;
+    pageBoxH += rowH + rows * rowH + gapH;
+    if (pageBoxH > page_height - 80) {
+      pageBox.removeChild(tables[index]);
+      pageBox.appendChild(pageNum);
+      pageBox.appendChild(divider);
+      page.appendChild(pageBox);
       sumPage++;
-      boxH = 0;
-      page.appendChild(pageEle);
-      pageEle = document.createElement('div');
-      pageEle.className = "pageBox";
-    } else if (tables && index == tables.length - 1) {
-      page.appendChild(pageEle);
+
+      pageBox = document.createElement('div');
+      pageBox.className = "pageBox";
+      pageBox.style = 'height:' + page_height + 'px';
+      pageBox.appendChild(tables[index]);
+      pageBoxH = rowH + rows * rowH + gapH;
+
+      pageNum = document.createElement('div')
+      pageNum.className = "pageNum";
+      pageNum.style = ' text-align: center; font-size: 12px; font-family: SimSun;';
+
+      divider = document.createElement('div');
+      divider.className = 'divider';
+      divider.style = 'page-break-after: always;'
     }
-
+    if (tables && index == tables.length - 1) {
+      page.appendChild(pageBox);
+      pageBox.appendChild(pageNum);
+    }
   });
-
-  let newTable = document.createElement('div');
-
-  // const children = Array.from(page.children);
-  // children.forEach((child, index, children) => {
-
-
-
-
-  //   const pageNum = document.createElement('div')
-  //   pageNum.className = "pageNum";
-  //   pageNum.style = ' text-align: center; font-size: 12px; font-family: SimSun;bottom'+;
-  //   pageNum.innerHTML = `第 ${i + 1} / ${sumPage} 页`;
-  //   child.appendChild(pageNum);
-  //   currentPage++;
-  //   newTable.appendChild(child);
-  // })
-
-  let pageNums = document.querySelectorAll('.pageNum');
+  let pageNums = page.querySelectorAll('.pageNum');
   pageNums = Array.from(pageNums);
-  pageNums.forEach((page, i) => {
-    page.innerHTML = `第 ${i} / ${sumPage} 页`;
+  pageNums.forEach((pageNum, i) => {
+    pageNum.innerHTML = `第 ${i + 1} / ${sumPage} 页`;
   })
-  let printable = page.cloneNode(true)
-  root.innerHTML = '';
-  console.log(printable);
-  root.appendChild(printable);
+  root.appendChild(page);
+  console.log(page);
+  console.log(root);
 
-
-
-  return;
-
-
-  // let newTable = document.createElement('div');
-  // if (tables.length > 1) {
-  //   const children = Array.from(tables)
-  //   children.forEach((child, i, children) => {
-  //     newTable.appendChild(child);
-  //     if (child.className == 'divider') {
-  //       const pageNum = document.createElement('div')
-  //       pageNum.style = ' text-align: center; font-size: 12px; font-family: SimSun'
-  //       pageNum.innerHTML = `第 ${currentPage} / ${sumPage} 页`
-  //       newTable.appendChild(pageNum);
-  //       currentPage++;
-  //     }
-  //   })
-  // }
-
-  // newTable.appendChild(pageNum);
-
-  // let printable = newTable.cloneNode(true)
-  // root.innerHTML = '';
-
-  // root.appendChild(printable);
-
-
-
-
-  // const root = window.document.body.children[0]
-  // alert(root.length);
-  // root.setAttribute('style', 'width: 1080px;')
-
-  // const header = root.querySelector('thead')
-  // // const footer = root.querySelector('.foot')
-
-  // const table = root.querySelector('table')
-  // const tbody = table.children[2]
-  // const trs = tbody.querySelectorAll('tr')
-
-  // let patients = Array.prototype.slice.call(trs, 0, -2) // 病人列表
-  // let rest = Array.prototype.slice.call(trs, -2) // 特殊情况（两行）
-
-  // const emptyRow = document.createElement('tr')
-  // emptyRow.innerHTML = '<td style="border: 1px solid black;"></td>'.repeat(7)
-  // emptyRow.style.height = '30px'
-
-  // // 移除空行
-  // patients = patients.filter((row) => {
-  //   return row.innerText.trim() !== ''
-  // })
-
-  // if (patients.length === 0) {
-  //   patients.push(emptyRow.cloneNode(true))
-  // }
-
-  // let page, newTable, newTableBody, row
-
-  // while (row = patients.shift() || rest) {
-  //   const h = row === rest
-  //     ? row[0].offsetHeight + row[1].offsetHeight
-  //     : row.offsetHeight
-
-  //   if (!page || page.offsetHeight + h > 700) {
-  //     if (page && row === rest) {
-  //       while (page.offsetHeight + 30 < 700) {
-  //         newTableBody.appendChild(emptyRow.cloneNode(true))
-  //       }
-  //     }
-
-  //     newTable = table.cloneNode(true)
-  //     newTableBody = newTable.children[2]
-  //     newTableBody.innerHTML = ''
-
-  //     if (row === rest) {
-  //       newTable.children[1].innerHTML = ''
-  //     }
-
-  //     page = document.createElement('div')
-  //     page.appendChild(header.cloneNode(true))
-  //     page.appendChild(newTable)
-  //     // page.appendChild(footer.cloneNode(true))
-
-  //     root.appendChild(page)
-  //   }
-
-  //   if (row === rest) {
-  //     // 特殊情况（两行）
-  //     newTableBody.appendChild(tbody.removeChild(row.shift()))
-  //     newTableBody.appendChild(tbody.removeChild(row.shift()))
-  //     rest = null
-
-  //     const shouldFillRows = newTableBody.children.length > 2 // 大于2行
-  //     //   && newTableBody.children[0].children.length > 1 // 第0行不是空行
-
-  //     // 移除占位用的空行
-  //     if (newTableBody.children[0].className === 'empty-row') {
-  //       newTableBody.removeChild(newTableBody.children[0])
-  //     }
-
-  //     if (shouldFillRows) {
-  //       const target = newTableBody.children[newTableBody.children.length - 2]
-
-  //       while (page.offsetHeight + 30 < 700) {
-  //         newTableBody.insertBefore(emptyRow.cloneNode(true), target)
-  //       }
-  //     }
-  //   } else {
-  //     // 病人信息
-  //     try {
-  //       tbody.removeChild(row)
-  //     } catch (error) { }
-  //     newTableBody.appendChild(row)
-  //   }
-  // }
-
-  // root.removeChild(root.children[0])
-  // root.removeChild(root.children[0])
-  // root.removeChild(root.children[0])
-
-  // if (root.children.length > 1) {
-  //   const children = Array.from(root.children)
-  //   children.forEach((child, i, children) => {
-  //     const pageNum = document.createElement('div')
-  //     pageNum.style = 'position: absolute; bottom: 0; left: 0; width: 100%; text-align: center; font-size: 12px; font-family: SimSun'
-  //     pageNum.innerHTML = `第 ${i + 1} / ${children.length} 页`
-  //     child.style = 'position: relative; height: 780px;'
-  //     child.appendChild(pageNum)
-
-  //     if (i > 0) {
-  //       const divider = document.createElement('div')
-  //       divider.style = 'page-break-after: always;'
-
-  //       root.insertBefore(divider, child)
-  //     }
-  //   })
-  // }
 }
