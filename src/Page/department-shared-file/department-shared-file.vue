@@ -192,44 +192,40 @@ export default {
       getList({
         ...this.query,
         deptCode: this.deptCode
-      })
-        .then(
-          res => {
-            let data = res.data.data;
-            this.fileTotal = data.totalCount || 0;
-            this.data = data.list.map((item, idx) => {
-              let deptName = item.deptName;
-              let sizeFile = this.bytesToSize(item.sizeFile);
-              if (
-                item.deptCode == "全院" ||
-                item.deptCode == "公共" ||
-                item.publicUse == "1"
-              )
-                deptName = "公共";
+      }).then(
+        res => {
+          let data = res.data.data;
+          this.fileTotal = data.totalCount || 0;
+          this.data = data.list.map((item, idx) => {
+            let deptName = item.deptName;
+            let sizeFile = this.bytesToSize(item.sizeFile);
+            if (
+              item.deptCode == "全院" ||
+              item.deptCode == "公共" ||
+              item.publicUse == "1"
+            )
+              deptName = "公共";
 
-              return {
-                ...item,
-                key: idx,
-                deptName,
-                sizeFile
-              };
-            });
+            return {
+              ...item,
+              key: idx,
+              deptName,
+              sizeFile
+            };
+          });
 
-            let appendTime = this.query.pageSize - this.data.length;
-            if (appendTime > 0) {
-              let extraArr = [];
-              while (appendTime--) extraArr.push({});
-              this.data = this.data.concat(extraArr);
-            }
-            if (res.data && res.data.code == 200) {
-              this.pageLoadng = false;
-            }
-          },
-          err => {}
-        )
-        .finally(_ => {
+          let appendTime = this.query.pageSize - this.data.length;
+          if (appendTime > 0) {
+            let extraArr = [];
+            while (appendTime--) extraArr.push({});
+            this.data = this.data.concat(extraArr);
+          }
           this.pageLoadng = false;
-        });
+        },
+        err => {
+          this.pageLoadng = false;
+        }
+      );
     },
     bytesToSize(bytes) {
       if (bytes === 0) return "0 B";
