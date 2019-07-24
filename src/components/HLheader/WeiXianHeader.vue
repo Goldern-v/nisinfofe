@@ -237,20 +237,20 @@
                     </el-row>
                   </router-link>
                 </el-dropdown-item>-->
-                <el-dropdown-item :class="{active: $route.path == '/nursingRules'}">
+                <!-- <el-dropdown-item :class="{active: $route.path == '/nursingRules'}">
                   <router-link to="/nursingRules" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
                       <i class="nursingRules"></i>护理制度
                     </el-row>
                   </router-link>
-                </el-dropdown-item>
-                <el-dropdown-item :class="{active: $route.path == '/departmentSharedFile'}">
+                </el-dropdown-item> -->
+                <!-- <el-dropdown-item :class="{active: $route.path == '/departmentSharedFile'}">
                   <router-link to="/departmentSharedFile" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
                       <i class="departmentSharedFile"></i>科室共享文件
                     </el-row>
                   </router-link>
-                </el-dropdown-item>
+                </el-dropdown-item> -->
               </el-dropdown-menu>
             </el-dropdown>
           </el-row>

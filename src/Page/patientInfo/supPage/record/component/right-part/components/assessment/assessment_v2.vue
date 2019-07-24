@@ -154,6 +154,30 @@ export default {
   mounted() {
     window.cleanAllMark = this.cleanAllMark;
     window.onFormLoaded = this.onFormLoaded;
+    //
+    this.$refs["iframeLoadingV2"]["$methods"] = () => {
+      return {
+        busEmit: this.bus.$emit,
+        refreshTree: () => {
+          this.bus.$emit("refreshTree");
+        },
+        updateTree: () => {
+          this.bus.$emit("updateTree");
+        },
+        openAssessment: this.openUrl,
+        activeAllButons: () => {
+          this.bus.$emit("activeAllButons");
+        },
+        closeAssessment: () => {
+          this.bus.$emit("closeAssessment");
+        },
+        setLoadingText: this.setLoadingText,
+        setLoadingStatus: this.setLoadingStatus,
+        setLoadingButton: this.setLoadingButton,
+        setloadingSVGHidden: this.setloadingSVGHidden,
+        openSignModal: window.openSignModal
+      };
+    };
     // iframeLoadingV2
     this.$refs["iframeLoadingV2"]["setLoadingText"] = this.setLoadingText;
     this.$refs["iframeLoadingV2"]["setLoadingStatus"] = this.setLoadingStatus;
@@ -223,6 +247,7 @@ export default {
         token: this.token,
         todo: this.info.todo,
         title: this.info.title || ""
+        // ...this.info
       };
 
       this.info["pagePrintUrl"] = this.info.pageUrl
@@ -377,7 +402,10 @@ export default {
         this.setloadingSVGHidden(true);
         this.setLoadingButton(true, "刷新", () => {
           console.log("刷新...");
-          window.wid.location.reload();
+          this.pageLoadingText = "刷新中...";
+          setTimeout(() => {
+            window.wid.location.reload();
+          }, 100);
         });
       }
     },
