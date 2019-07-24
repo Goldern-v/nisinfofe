@@ -154,6 +154,30 @@ export default {
   mounted() {
     window.cleanAllMark = this.cleanAllMark;
     window.onFormLoaded = this.onFormLoaded;
+    //
+    this.$refs["iframeLoadingV2"]["$methods"] = () => {
+      return {
+        busEmit: this.bus.$emit,
+        refreshTree: () => {
+          this.bus.$emit("refreshTree");
+        },
+        updateTree: () => {
+          this.bus.$emit("updateTree");
+        },
+        openAssessment: this.openUrl,
+        activeAllButons: () => {
+          this.bus.$emit("activeAllButons");
+        },
+        closeAssessment: () => {
+          this.bus.$emit("closeAssessment");
+        },
+        setLoadingText: this.setLoadingText,
+        setLoadingStatus: this.setLoadingStatus,
+        setLoadingButton: this.setLoadingButton,
+        setloadingSVGHidden: this.setloadingSVGHidden,
+        openSignModal: window.openSignModal
+      };
+    };
     // iframeLoadingV2
     this.$refs["iframeLoadingV2"]["setLoadingText"] = this.setLoadingText;
     this.$refs["iframeLoadingV2"]["setLoadingStatus"] = this.setLoadingStatus;
@@ -222,7 +246,8 @@ export default {
         admissionDate: query.admissionDate,
         token: this.token,
         todo: this.info.todo,
-        title: this.info.title || ""
+        title: this.info.title || "",
+        // ...this.info
       };
 
       this.info["pagePrintUrl"] = this.info.pageUrl
