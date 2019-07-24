@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="left-print-modal">
     <sweet-modal ref="modal" :modalWidth="700" title="检查预约打印">
       <div class="printable" ref="printable">
         <table v-for="(item,index) in printData" :key="index">
@@ -15,7 +15,7 @@
             <tr v-for="(rows,i) in item.data" :key="i">
               <td>{{rows.bedLabel}}床</td>
               <td>{{rows.name}}</td>
-              <td>{{rows.scheduleDate }}</td>
+              <td>{{rows.scheduleDate}}</td>
               <td>{{rows.examItem}}</td>
             </tr>
           </tbody>
@@ -46,19 +46,24 @@ table {
     line-height: 16px;
     border-right: 1px solid #E3E7EA;
     border-bottom: 1px solid #E3E7EA;
+    text-align: center;
 
     &:nth-of-type(1) {
       width: 60px;
-      text-align: center;
     }
 
     &:nth-of-type(2) {
       width: 80px;
-      text-align: center;
     }
 
     &:nth-of-type(3) {
       width: 150px;
+    }
+  }
+
+  td {
+    &:last-of-type {
+      text-align: left;
     }
   }
 }
@@ -67,7 +72,7 @@ table {
 <script>
 import commom from "@/common/mixin/common.mixin";
 import print from "printing";
-import formatter from "./print-formatter";
+import formatter from "./left-print-formatter";
 export default {
   mixins: [commom],
   props: {
@@ -100,8 +105,9 @@ export default {
       });
     },
     onPrint() {
-      // this.test();
-      // formatter(this.$refs.printable, print);
+      // let printableEle = this.$refs.printable;
+      // let sumRows = printableEle.querySelectorAll("tbody tr");
+      // console.log(sumRows);
       print(this.$refs.printable, {
         beforePrint: formatter,
         // direction: "horizontal",
@@ -115,23 +121,25 @@ export default {
         background: #fff !important;
        }
        .pageBox {
-         width: 750px;
-         padding: 40px 25px;
+         width: 740px;
+         padding: 50px 30px 0;
          position: relative;
          -webkit-box-sizing: border-box;
          box-sizing: border-box;
-         overflow: hidden;
-         margin: 20px auto;
-         border: 1px solid red;
+         margin: 0 auto 20px;
+       }
+       .endPageBox {
+         margin: 0 auto;
        }
        .pageNum {
          position: absolute;
          left: 50%;
-         bottom: 0;
+         bottom: 20px;
          -webkit-transform: translateX(-50%);
          -ms-transform: translateX(-50%);
          -o-transform: translateX(-50%);
          transform: translateX(-50%);
+         z-index: 9999;
        }
 
        @media print{
@@ -183,28 +191,6 @@ export default {
         }
         this.open();
       }
-    },
-    test() {
-      const thead = document.querySelector("thead");
-      let tables = document.querySelectorAll("table");
-      let boxH = 0,
-        newBox;
-      let divider = document.createElement("div");
-      divider.style = "page-break-after: always;";
-      let page = document.createElement("div");
-
-      tables = Array.from(tables);
-      console.log(tables);
-
-      tables.forEach(function(table, index) {
-        boxH += table.offsetHeight + 20;
-        if (boxH > 700) {
-          page.appendChild(divider);
-          boxH = 0;
-        }
-        console.log(table);
-        page.appendChild(table);
-      });
     }
   },
   components: {}

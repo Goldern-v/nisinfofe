@@ -1,6 +1,6 @@
 
 <template>
-  <div>
+  <div class="right-print-modal">
     <sweet-modal ref="modal" :modalWidth="700" title="未做化验打印">
       <div class="printable" ref="printable">
         <table>
@@ -47,19 +47,24 @@ table {
     line-height: 16px;
     border-right: 1px solid #E3E7EA;
     border-bottom: 1px solid #E3E7EA;
+    text-align: center;
 
     &:nth-of-type(1), &:nth-of-type(2) {
       width: 60px;
-      text-align: center;
     }
 
     &:nth-of-type(3) {
       width: 80px;
-      text-align: center;
     }
 
     &:nth-of-type(4) {
       width: 150px;
+    }
+  }
+
+  td {
+    &:last-of-type {
+      text-align: left;
     }
   }
 }
@@ -107,36 +112,38 @@ export default {
         scanStyles: false,
         css: `
         body {
-          background: #fff !important;
-        }
-        .pageBox {
-          width: 750px;
-          padding: 40px 25px;
-          position: relative;
-          -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-          overflow: hidden;
-          margin: 20px auto;
-          border: 1px solid red;
-        }
-        .pageNum {
-          position: absolute;
-          left: 50%;
-          bottom: 0;
-          -webkit-transform: translateX(-50%);
-          -ms-transform: translateX(-50%);
-          -o-transform: translateX(-50%);
-          transform: translateX(-50%);
-        }
+        background: #fff !important;
+       }
+       .pageBox {
+         width: 740px;
+         padding: 50px 30px 0;
+         position: relative;
+         -webkit-box-sizing: border-box;
+         box-sizing: border-box;
+         margin: 0 auto 20px;
+       }
+       .endPageBox {
+         margin: 0 auto;
+       }
+       .pageNum {
+         position: absolute;
+         left: 50%;
+         bottom: 20px;
+         -webkit-transform: translateX(-50%);
+         -ms-transform: translateX(-50%);
+         -o-transform: translateX(-50%);
+         transform: translateX(-50%);
+         z-index: 9999;
+       }
 
-        @media print{
-            table {color: black !important;}
-            table,th,td {border-color:black !important;}
-          }
-          @page {
-            margin: 0;
-            position: relative;
-          }
+       @media print{
+          table {color: black !important;}
+          table,th,td {border-color:black !important;}
+        }
+        @page {
+           margin: 0;
+           position: relative;
+        }
         `
       });
     },
