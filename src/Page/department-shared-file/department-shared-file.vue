@@ -255,6 +255,7 @@ export default {
     .float-right {
       float: right;
       .type-label {
+        font-size: 13px;
         vertical-align: middle;
       }
       .type-content {
@@ -329,7 +330,7 @@ export default {
       margin-left: 10px;
       display: inline-block;
       h3 {
-        font-size: 20px;
+        font-size: 18px;
         line-height: 31px;
       }
     }

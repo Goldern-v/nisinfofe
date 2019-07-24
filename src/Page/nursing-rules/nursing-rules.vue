@@ -3,7 +3,11 @@
     <div class="search-topbar">
       <!-- <span class="title">护理制度</span> -->
       <div class="float-left">
-        <span class="type-label">类型:</span>
+        <h3>护理制度</h3>
+      </div>
+      <div class="float-right">
+         <span class="type-content">
+          <span class="type-label">类型:</span>
         <span class="type-content">
           <el-select v-model="query.fileType" size="small" placeholder="全部" @change="handleFileTypeChange">
             <el-option value="">全部</el-option>
@@ -11,14 +15,11 @@
           </el-select>
         </span>
         <span class="type-label">目录:</span>
-        <span class="type-content">
           <el-select v-model="query.catalog" size="small" placeholder="全部">
             <el-option value="">全部</el-option>
             <el-option :key="idx" v-for="(item,idx) in catalogList" :value="item.name">{{item.name}}</el-option>
           </el-select>
         </span>
-      </div>
-      <div class="float-right">
         <span class="search-el">
           <el-input placeholder="输入名称进行检索" v-model="query.name"></el-input>
         </span>
@@ -264,6 +265,7 @@ export default {
     .float-right{
       float: right;
       .type-label{
+        font-size: 13px;
         vertical-align: middle;
       }
       .type-content{
@@ -337,6 +339,10 @@ export default {
       margin-top: 6px;
       margin-left: 10px;
       display: inline-block;
+       h3 {
+        font-size: 18px;
+        line-height: 31px;
+      }
     }
     .float-right{
       margin-top: 5px;
