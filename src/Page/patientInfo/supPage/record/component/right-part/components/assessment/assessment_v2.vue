@@ -246,7 +246,7 @@ export default {
         admissionDate: query.admissionDate,
         token: this.token,
         todo: this.info.todo,
-        title: this.info.title || "",
+        title: this.info.title || ""
         // ...this.info
       };
 
@@ -402,7 +402,10 @@ export default {
         this.setloadingSVGHidden(true);
         this.setLoadingButton(true, "刷新", () => {
           console.log("刷新...");
-          window.wid.location.reload();
+          this.pageLoadingText = "刷新中...";
+          setTimeout(() => {
+            window.wid.location.reload();
+          }, 100);
         });
       }
     },

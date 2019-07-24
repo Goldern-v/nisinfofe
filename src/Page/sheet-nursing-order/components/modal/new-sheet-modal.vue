@@ -1,54 +1,37 @@
 <template>
   <div class="modal-con">
-    <sweet-modal ref="newRecord"
-                 size="big"
-                 title="创建新护嘱单"
-                 class="modal-record padding-0">
-      <div class="title-bar"
-           flex="cross:center">
+    <sweet-modal ref="newRecord" size="big" title="创建新护嘱单" class="modal-record padding-0">
+      <div class="title-bar" flex="cross:center">
         <span class="type-text">护嘱单类型</span>
-        <el-select v-model="formType"
-                   placeholder="选择类型"
-                   class="type-select">
-          <el-option v-for="item in options"
-                     :key="item.value"
-                     :label="item.label"
-                     :value="item.value">
-          </el-option>
+        <el-select v-model="formType" placeholder="选择类型" class="type-select">
+          <el-option
+            v-for="item in options"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          ></el-option>
         </el-select>
-        <el-input class="text-con"
-                  :placeholder="'搜索' + (formType == 2?'记录单':'评估单')"
-                  icon="search"
-                  v-model="searchWord">
-        </el-input>
+        <el-input class="text-con" :placeholder="'搜索护嘱单'" icon="search" v-model="searchWord"></el-input>
       </div>
-      <div class="record-con"
-           v-loading="pageLoading">
-        <div @click="openUrl(item)"
-             @dblclick="create(item)"
-             class="record-box"
-             :class="{active: selectData == item}"
-             v-for="item of filterData"
-             :key="item.id">
-          <el-row type="flex"
-                  align="middle">
-            <img src="../../../../common/images/record/文件创建.png"
-                 alt=""
-                 height="35">
-            <span class="name"
-                  v-if="item.name">{{item.name}}</span>
-            <span class="name"
-                  v-if="item.recordName">{{item.recordName}}</span>
+      <div class="record-con" v-loading="pageLoading">
+        <div
+          @click="openUrl(item)"
+          @dblclick="create(item)"
+          class="record-box"
+          :class="{active: selectData == item}"
+          v-for="item of filterData"
+          :key="item.id"
+        >
+          <el-row type="flex" align="middle">
+            <img src="../../../../common/images/record/文件创建.png" alt height="35" />
+            <span class="name" v-if="item.name">{{item.name}}</span>
+            <span class="name" v-if="item.recordName">{{item.recordName}}</span>
           </el-row>
         </div>
       </div>
-      <div slot="button"
-           @click="newRecordClose">
+      <div slot="button" @click="newRecordClose">
         <el-button class="modal-btn">关闭</el-button>
-        <el-button class="modal-btn"
-                   type="primary"
-                   @click="create"
-                   :disabled="!selectData">创建</el-button>
+        <el-button class="modal-btn" type="primary" @click="create" :disabled="!selectData">创建</el-button>
       </div>
     </sweet-modal>
   </div>
@@ -112,23 +95,17 @@
 </style>
 
 <script>
+import { templates, listRecord, inform, healthEdu } from "@/api/patientInfo";
+import commonMixin from "@/common/mixin/common.mixin";
+import { host } from "@/api/apiConfig";
+import { updateListData } from "@/Page/sheet-nursing-order/components/config/general/tr.js";
+import bus from "vue-happy-bus";
+import { blockSave } from "../../api/index.js";
 import {
-  templates,
-  listRecord,
-  inform,
-  healthEdu
-} from '@/api/patientInfo'
-import commonMixin from '@/common/mixin/common.mixin'
-import {
-  host
-} from '@/api/apiConfig'
-import { updateListData } from '@/Page/sheet-nursing-order/components/config/general/tr.js'
-import bus from 'vue-happy-bus'
-import {blockSave} from '../../api/index.js'
-import {findTemplatesByDeptCode,findTemplatesByDeptCodeCN} from '../../api/nursingOrder.js'
-import sheetInfo from '../config/sheetInfo/index.js'
-
-
+  findTemplatesByDeptCode,
+  findTemplatesByDeptCodeCN
+} from "../../api/nursingOrder.js";
+import sheetInfo from "../config/sheetInfo/index.js";
 
 export default {
   mixins: [commonMixin],
@@ -136,120 +113,123 @@ export default {
     return {
       templates: [],
       options: [
-      {
-        value: '2',
-        label: '护嘱单'
-      },
+        {
+          value: "2",
+          label: "护嘱单"
+        }
       ],
-      formType: '2',
+      formType: "2",
       pageLoading: true,
-      searchWord: '',
+      searchWord: "",
       bus: bus(this),
-      selectData: '',
-      dictFormName: '',//'神内护嘱单'
-    }
+      selectData: "",
+      dictFormName: "" //'神内护嘱单'
+    };
   },
   methods: {
     open() {
-      this.templates = []
-      this.$refs.newRecord.open()
-      this.getData()
+      this.templates = [];
+      this.$refs.newRecord.open();
+      this.getData();
     },
     close() {
-      this.$refs.modal.close()
+      this.$refs.modal.close();
     },
     openUrl(item) {
       if (item == this.selectData) {
-        this.selectData = ''
+        this.selectData = "";
       } else {
-        this.selectData = item
+        this.selectData = item;
       }
     },
     create(data) {
-      let item
+      let item;
       if (data.name || data.formCode || data.recordCode) {
-        item = data
+        item = data;
       } else {
-        item = this.selectData
+        item = this.selectData;
       }
       // blockSave(this.patientInfo.patientId, this.patientInfo.visitId, this.deptCode, item.recordCode).then(res => {
       //   this.bus.$emit('getNOBlockList')
       //   this.$message.success('创建成功')
       // })
-      console.log('create:data',data,'item:',item)
+      console.log("create:data", data, "item:", item);
       //
-      if(!item||!item.orderContentCode){
-        console.log('create:error',data,'item:',item)
-        return
+      if (!item || !item.orderContentCode) {
+        console.log("create:error", data, "item:", item);
+        return;
       }
       //
-      this.dictFormName = item.orderContentCode.split(':')[2]||''
+      this.dictFormName = item.orderContentCode.split(":")[2] || "";
 
-      sheetInfo.orderContentCode = item.orderContentCode
+      sheetInfo.orderContentCode = item.orderContentCode;
       // 字典更新
       // todo
-      let dicData={type:'orders',code:'public',formName:this.dictFormName}
-      console.log('create字典更新',dicData)
-      updateListData(dicData)
-      this.bus.$emit('createNursingOrderPage',false,item.name)
-      this.newRecordClose()
+      let dicData = {
+        type: "orders",
+        code: "public",
+        formName: this.dictFormName
+      };
+      console.log("create字典更新", dicData);
+      updateListData(dicData);
+      this.bus.$emit("createNursingOrderPage", false, item.name);
+      this.newRecordClose();
     },
     newRecordClose() {
-      this.$refs.newRecord.close()
+      this.$refs.newRecord.close();
     },
     getData() {
-      this.pageLoading = true
+      this.pageLoading = true;
       let defaultList = {
-          deptCode: this.$route.query.deptCode||"", // 4003
-          deptName: this.$route.query.deptName||"",
-          hasRelDept: false,
-          recordCode: "", //general_surgery
-          recordName: "护嘱单",
-          dictFormName: "",
-        }
-        // console.log('getData:',this.$route.query)
+        deptCode: this.$route.query.deptCode || "", // 4003
+        deptName: this.$route.query.deptName || "",
+        hasRelDept: false,
+        recordCode: "", //general_surgery
+        recordName: "护嘱单",
+        dictFormName: ""
+      };
+      // console.log('getData:',this.$route.query)
       // findTemplatesByDeptCode
       findTemplatesByDeptCodeCN(this.deptCode).then(res => {
-        console.log("findTemplatesByDeptCode:",res);
-        this.templates = res.data.data
+        console.log("findTemplatesByDeptCode:", res);
+        this.templates = res.data.data;
         // this.templates = res.data.data.list
         //
-        if(this.templates.length==0){
+        if (this.templates.length == 0) {
           // this.templates.push(defaultList)
         }
         //
         // this.templates.map(item=>{
         //   item.recordName = "护嘱单"
         // })
-        this.pageLoading = false
-      })
-    },
+        this.pageLoading = false;
+      });
+    }
   },
   computed: {
     filterData() {
       if (this.searchWord) {
-        this.selectData = ''
+        this.selectData = "";
         return this.templates.filter(item => {
-            return item.recordName.indexOf(this.searchWord) > -1
-        })
-      }
-      else {
-        return this.templates
+          return item.recordName.indexOf(this.searchWord) > -1;
+        });
+      } else {
+        return this.templates;
       }
     },
     patientInfo() {
-      return this.$store.state.sheet.patientInfo
-    },
+      return this.$store.state.sheet.patientInfo;
+    }
   },
   mounted() {
-    this.bus.$on('openNewNOrderSheetModal', this.open)
+    this.bus.$on("openNewNOrderSheetModal", this.open);
   },
   watch: {
     formType() {
-      this.getData()
-      this.selectData = ''
+      this.getData();
+      this.selectData = "";
     }
   },
   components: {}
-}
+};
 </script>
