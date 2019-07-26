@@ -87,7 +87,7 @@
       <pagination
         :pageIndex="query.pageIndex"
         :size="query.pageSize"
-        :total="query.totalPage"
+        :total="total"
         @sizeChange="handleSizeChange"
         @currentChange="handleCurrentChange"
       ></pagination>
@@ -146,13 +146,12 @@ export default {
         checkDateEnd: "", //检查日期结束日期（yyyy-MM-dd hh:mm:ss
         pageIndex: 1, //页码
         pageSize: 20, //每页条数
-        pageIndex: 1,
         pageSize: 20
       },
       typeList: [], //类型
       statusList: [{ id: 1, name: "待审核" }, { id: 2, name: "已审核" }],
       tableHeight: 0,
-      fileTotal: 0,
+      total: 0, //总条数
       data: [],
       preview: {},
       pageLoadng: true,
@@ -223,6 +222,7 @@ export default {
     },
     handleSearch() {
       this.query.pageIndex = 1;
+      this.query.pageSize = 20;
       this.setTableData();
     },
     setTableData() {
@@ -236,8 +236,8 @@ export default {
         : this.query.checkDateEnd;
       getList(this.query).then(
         res => {
-          let data = res.data.data;
-          // this.fileTotal = data.totalCount || 0;
+          let data = res.data.data.list;
+          this.total = data.totalCount || 0;
           // this.data = data.list.map((item, idx) => {
           //   let deptName = item.deptName;
           //   let sizeFile = this.bytesToSize(item.sizeFile);

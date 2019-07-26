@@ -136,6 +136,11 @@ export default {
         this.currentPage = 1;
       }
     }
+  },
+  watch: {
+    pageIndex(val) {
+      if (val !== this.currentPage) this.currentPage = val;
+    }
   }
 };
 </script>

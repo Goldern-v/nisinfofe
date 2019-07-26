@@ -63,7 +63,7 @@
       <pagination
         :pageIndex="query.pageIndex"
         :size="query.pageSize"
-        :total="totalPage"
+        :total="total"
         @sizeChange="handleSizeChange"
         @currentChange="handleCurrentChange"
       ></pagination>
@@ -97,7 +97,7 @@ export default {
         fileName: "",
         catalog: "" //目录筛选名称
       },
-      totalPage: 0,
+      total: 0,
       tableHeight: 0,
       data: [],
       preview: {
@@ -190,32 +190,8 @@ export default {
         deptCode: this.deptCode
       }).then(
         res => {
-          let data = res.data.data;
-          this.totalPage = data.totalCount || 0;
-          this.data = data.list.map((item, idx) => {
-            let deptName = item.deptName;
-            let sizeFile = this.bytesToSize(item.sizeFile);
-            if (
-              item.deptCode == "全院" ||
-              item.deptCode == "公共" ||
-              item.publicUse == "1"
-            )
-              deptName = "公共";
-
-            return {
-              ...item,
-              key: idx,
-              deptName,
-              sizeFile
-            };
-          });
-
-          let appendTime = this.query.pageSize - this.data.length;
-          if (appendTime > 0) {
-            let extraArr = [];
-            while (appendTime--) extraArr.push({});
-            this.data = this.data.concat(extraArr);
-          }
+          this.data = res.data.data.list;
+          this.total = res.data.data.totalCount || 0;
           this.pageLoadng = false;
         },
         err => {
@@ -223,14 +199,7 @@ export default {
         }
       );
     },
-    bytesToSize(bytes) {
-      if (bytes === 0) return "0 B";
-      var k = 1000, // or 1024
-        sizes = ["B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"],
-        i = Math.floor(Math.log(bytes) / Math.log(k));
-
-      return (bytes / Math.pow(k, i)).toPrecision(3) + " " + sizes[i];
-    },
+    // 获取目录
     getCatalog() {
       let data = {
         deptCode: this.deptCode
