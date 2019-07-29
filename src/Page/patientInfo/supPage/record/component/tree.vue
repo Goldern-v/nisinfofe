@@ -6,8 +6,9 @@
         <i class="el-icon-plus"></i>创建
       </el-button>
     </el-row>
-    <div class="body" :style="{height: height}" v-loading="treeLoading">
+    <div class="body" :style="{height: height}">
       <el-tree
+        v-loading="treeLoading"
         v-if="ifTree"
         class="record-tree"
         :data="regions"
