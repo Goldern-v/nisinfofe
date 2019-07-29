@@ -251,13 +251,20 @@
                     </el-row>
                   </router-link>
                 </el-dropdown-item>
-                  <el-dropdown-item :class="{active: $route.path == '/noCheckTest'}">
+                <el-dropdown-item :class="{active: $route.path == '/noCheckTest'}">
                   <router-link to="/noCheckTest" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
                       <i class="noCheckTest"></i>未做检查/检验
                     </el-row>
                   </router-link>
                 </el-dropdown-item>
+                <!-- <el-dropdown-item :class="{active: $route.path == '/flatManagement'}">
+                  <router-link to="/flatManagement" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="flatManagement"></i>扁平管理
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item>-->
               </el-dropdown-menu>
             </el-dropdown>
           </el-row>
@@ -473,6 +480,10 @@
     &.departmentSharedFile {
       background-image: url('../../common/images/index/共享文件.png');
     }
+
+    &.flatManagement {
+      background-image: url('../../common/images/index/扁平管理.png');
+    }
   }
 }
 
@@ -636,6 +647,7 @@ export default {
       if (this.$route.path == "/nursingRules") return true;
       if (this.$route.path == "/noCheckTest") return true;
       if (this.$route.path == "/departmentSharedFile") return true;
+      if (this.$route.path == "/flatManagement") return true;
     },
     isActiveFormPage() {
       if (this.$route.path == "/sheetPage") return true;

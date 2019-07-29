@@ -137,7 +137,7 @@ export default {
       }
     }
   },
-  watch: {
+   watch: {
     pageIndex(val) {
       if (val !== this.currentPage) this.currentPage = val;
     }
