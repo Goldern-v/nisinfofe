@@ -28,10 +28,16 @@
       <!-- <div class="filterItem">
         <span>患者:</span>
         <ElInput placeholder="患者姓名" v-model="patientName"></ElInput>
-      </div> -->
+      </div>-->
       <div class="filterItem">
         <span>科室:</span>
-        <ElSelect size="small" v-model="selectedDeptValue"  @change="changeDept(selectedDeptValue)" style="width:180px" clearable>
+        <ElSelect
+          size="small"
+          v-model="selectedDeptValue"
+          @change="changeDept(selectedDeptValue)"
+          style="width:180px"
+          clearable
+        >
           <ElOption
             v-for="item in allDepartmentsList"
             :key="item.deptCode"
@@ -74,12 +80,18 @@
       <!-- <NullBg v-if="!tableData||tableData.length==0" text="暂时没有不良事件数据～"/> -->
       <div class="block">
         <EventTable :tableData="tableData" :pageLoadng="pageLoadng" :updateTable="updateTable"></EventTable>
-        <el-row>
+        <pagination
+          :page.sync="page.pageIndex"
+          :size.sync="page.pageNum"
+          :total.sync="total"
+          @sizeChange="handleSizeChange"
+          @currentChange="handleCurrentChange"
+        ></pagination>
+        <!-- <el-row>
           <el-col :span="18">
             <span class="grid-content"></span>
           </el-col>
           <el-col :span="2">
-            <!-- <span class="grid-content">{{page.pageIndex}}/{{page.totalPage}}页</span> -->
             <span class="grid-content">第{{page.pageIndex}}/共{{page.totalPage}}页</span>
           </el-col>
           <el-col :span="1">
@@ -95,7 +107,7 @@
             <input type="text" v-model="pageInput" @keyup.enter="gotoPage" style="width:30px">
             <span @click="gotoPage">跳转</span>
           </el-col>
-        </el-row>
+        </el-row>-->
       </div>
     </div>
     <div class="bad-event-create-event">
@@ -115,15 +127,18 @@
   border: 1px solid #CBD5DD;
   overflow: hidden;
   font-size: 14px;
-  flex-wrap:wrap;
+  flex-wrap: wrap;
+
   .filterItem {
-    margin-right 20px;
+    margin-right: 20px;
   }
+
   .filterItem:last-child {
     flex: 1;
     text-align: right;
     margin-right: 0;
   }
+
   .el-input, .el-input__inner {
     width: 120px !important;
     height: 30px !important;
@@ -166,8 +181,9 @@
   margin: auto;
   width: 99%;
   border-top: none;
-  padding: 10px 0
+  padding: 10px 0;
 }
+
 .block {
   span {
     margin-right: 12px;
@@ -216,6 +232,7 @@ import apis from "../../apis/index.js";
 import NewForm from "../modal/new-form.vue";
 import EventTable from "../table/eventTable";
 import Button from "../button";
+import pagination from "../pagination.vue";
 
 import { patients, nursingUnit, typeList } from "@/api/lesion.js";
 
@@ -227,7 +244,8 @@ export default {
     Button,
     // NullBg,
     EventTable,
-    NewForm
+    NewForm,
+    pagination
   },
   props: {},
   data() {
@@ -260,7 +278,10 @@ export default {
         { value: "治安事件", label: "治安事件" },
         { value: "伤害事件", label: "伤害事件" },
         { value: "管路事件", label: "管路事件" },
-        { value: "院内不预期心跳呼吸停止事件", label: "院内不预期心跳呼吸停止事件" },
+        {
+          value: "院内不预期心跳呼吸停止事件",
+          label: "院内不预期心跳呼吸停止事件"
+        },
         { value: "麻醉事件", label: "麻醉事件" },
         { value: "检查/检验/病理标本事件", label: "检查/检验/病理标本事件" },
         { value: "其他事件", label: "其他事件" }
@@ -274,34 +295,44 @@ export default {
         pageNum: 20,
         totalPage: 1
       },
+      total: 1, //列表总条数
       patientList: localStorage["patientList" + this.deptCode] || [],
-      allDepartmentsList: [],//所有护理单元科室列表（不良事件）
-      selectedDeptValue: '',//选中的科室
+      allDepartmentsList: [], //所有护理单元科室列表（不良事件）
+      selectedDeptValue: "" //选中的科室
     };
   },
   mounted() {
     this.pageInput = this.page.pageIndex || 1;
     // 获取所有护理单元科室列表
-    if(this.allDepartmentsList && !this.allDepartmentsList.length && sessionStorage.getItem('allDepartmentsList')){
-      this.allDepartmentsList = JSON.parse(sessionStorage.getItem('allDepartmentsList'));
+    if (
+      this.allDepartmentsList &&
+      !this.allDepartmentsList.length &&
+      sessionStorage.getItem("allDepartmentsList")
+    ) {
+      this.allDepartmentsList = JSON.parse(
+        sessionStorage.getItem("allDepartmentsList")
+      );
     }
     //上次选中的科室
-    if(!this.selectedDeptValue &&  sessionStorage.getItem('selectedDeptValue')){
-      this.selectedDeptValue = sessionStorage.getItem('selectedDeptValue');
+    if (
+      !this.selectedDeptValue &&
+      sessionStorage.getItem("selectedDeptValue")
+    ) {
+      this.selectedDeptValue = sessionStorage.getItem("selectedDeptValue");
     }
-    
+
     // 日期默认值
-    if(!this.dateBegin){
-      let month = parseInt(new Date().getMonth())+1;
-      if(month<10){
-        this.dateBegin = new Date().getFullYear() + '-0' + month + '-01';
-      }else {
-        this.dateBegin = new Date().getFullYear() + '-' + month + '-01';
+    if (!this.dateBegin) {
+      let month = parseInt(new Date().getMonth()) + 1;
+      if (month < 10) {
+        this.dateBegin = new Date().getFullYear() + "-0" + month + "-01";
+      } else {
+        this.dateBegin = new Date().getFullYear() + "-" + month + "-01";
       }
     }
-    this.dateEnd = this.dateEnd ? this.dateEnd: dayjs(new Date()).format("YYYY-MM-DD");
-
-
+    this.dateEnd = this.dateEnd
+      ? this.dateEnd
+      : dayjs(new Date()).format("YYYY-MM-DD");
   },
   created() {
     this.bus.$on("loadPatientsData", this.loadPatientsData);
@@ -309,9 +340,9 @@ export default {
       this.loadPatientsData(this.deptCode);
     }
     // 获取所有护理单元
-    if(this.allDepartmentsList && !this.allDepartmentsList.length){
+    if (this.allDepartmentsList && !this.allDepartmentsList.length) {
       this.getDepartmentsList();
-    }else {
+    } else {
       this.loadEventData();
     }
   },
@@ -325,8 +356,8 @@ export default {
       this.loadEventData();
     },
     // 选择科室
-    changeDept(selectedDeptValue){
-      sessionStorage.setItem('selectedDeptValue',selectedDeptValue)
+    changeDept(selectedDeptValue) {
+      sessionStorage.setItem("selectedDeptValue", selectedDeptValue);
     },
     async loadEventData() {
       // 根据护理单元获取不良事件列表
@@ -352,6 +383,7 @@ export default {
       console.log("--", this.tableData);
       this.tableData = [];
       this.page.totalPage = Math.ceil(res.data.data.length / this.page.pageNum);
+      this.total = res.data.data.length || 0;
       for (
         let i = this.page.pageNum * (this.page.pageIndex - 1);
         i < this.page.pageNum * this.page.pageIndex;
@@ -365,11 +397,12 @@ export default {
       console.log("不良事件列表", this.tableData);
       //  console.log('不良事件列表',res,this.tableData)
       // this.pageLoadng = false;
-      let timeId,self = this;
-      timeId = setTimeout(function(){
+      let timeId,
+        self = this;
+      timeId = setTimeout(function() {
         clearTimeout(timeId);
         self.pageLoadng = false;
-      },500);
+      }, 500);
       // console.log('不良事件列表',res)
       // const {data:{data:tableData}} = res
       // this.tableData = tableData
@@ -458,17 +491,31 @@ export default {
     },
     // 获取所有护理单元
     getDepartmentsList() {
-      apis.getAllNursingUnit('type=2').then(res => {
-        if(res.data && res.data.code == 200){
+      apis.getAllNursingUnit("type=2").then(res => {
+        if (res.data && res.data.code == 200) {
           this.allDepartmentsList = res.data.data;
           // 根据护理单元获取不良事件列表
           this.loadEventData();
           // 把获取到的科室存起来
           if (this.allDepartmentsList) {
-            sessionStorage.setItem("allDepartmentsList", JSON.stringify(this.allDepartmentsList));
+            sessionStorage.setItem(
+              "allDepartmentsList",
+              JSON.stringify(this.allDepartmentsList)
+            );
           }
         }
       });
+    },
+    handleSizeChange(newSize) {
+      this.page.pageIndex = 1;
+      this.page.pageNum = newSize;
+      this.getdata();
+      // this.loadEventData();
+    },
+    handleCurrentChange(newPage) {
+      this.page.pageIndex = newPage;
+      this.getdata();
+      // this.loadEventData();
     }
   }
 };

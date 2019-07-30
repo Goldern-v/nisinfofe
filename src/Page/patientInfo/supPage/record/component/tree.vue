@@ -6,8 +6,9 @@
         <i class="el-icon-plus"></i>创建
       </el-button>
     </el-row>
-    <div class="body" :style="{height: height}" v-loading="treeLoading">
+    <div class="body" :style="{height: height}">
       <el-tree
+        v-loading="treeLoading"
         v-if="ifTree"
         class="record-tree"
         :data="regions"
@@ -420,6 +421,15 @@ export default {
       });
       this.bus.$emit("activeAllButons");
     },
+    updateTree() {
+      this.expandList = this.expandListCopy || [];
+      this.getTreeData();
+      this.ifTree = false;
+      this.$nextTick(() => {
+        this.ifTree = true;
+      });
+      this.bus.$emit("activeAllButons");
+    },
     updateTreeData(formcode) {
       this.$route.query["treeData"] = this.regions;
       // console.table(this.regions)
@@ -470,6 +480,7 @@ export default {
     this.bus.$on("getTreeData", this.getTreeData);
     this.bus.$on("updateTreeData", this.updateTreeData);
     this.bus.$on("refreshTree", this.refreshTree);
+    this.bus.$on("updateTree", this.updateTree);
     this.bus.$on("getTreeRaw", callback => {
       if (callback) {
         callback(this.regions);

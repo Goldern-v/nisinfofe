@@ -107,8 +107,11 @@ import handlingPage from "@/Page/handling-page/handling-page";
 // 血氧单
 import oxygenPage from "@/Page/oxygen-page/oxygen-page";
 
-// 血氧单
+// 共享文件
 import departmentSharedFile from "@/Page/department-shared-file/department-shared-file";
+
+// 扁平管理
+import flatManagement from "@/Page/flat-management/flat-management";
 
 /** demo */
 import demo from "@/demo/demo";
@@ -393,6 +396,7 @@ const router = new Router({
         { path: "/nursingRules", component: nursingRules },
         { path: "/noCheckTest", component: noCheckTest },
         { path: "/departmentSharedFile", component: departmentSharedFile },
+        { path: "/flatManagement", component: flatManagement },
       ]
     },
     {

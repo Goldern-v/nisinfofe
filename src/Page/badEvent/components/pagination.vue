@@ -8,13 +8,8 @@
       <span>条,共{{totalPage}}页</span>
     </div>
     <div class="right-part">
-      <el-button size="small" @click="toFirstPage" class="first-page" :disabled="currentPage<=1">首页</el-button>
-      <el-button
-        size="small"
-        @click="toPrevPage"
-        class="prev-page-btn"
-        :disabled="currentPage<=1"
-      >上一页</el-button>
+      <el-button size="small" @click="toFirstPage" class="first-page" :disabled="page<=1">首页</el-button>
+      <el-button size="small" @click="toPrevPage" class="prev-page-btn" :disabled="page<=1">上一页</el-button>
       <span class="el-pagination-content">
         <el-pagination
           :page-size="size"
@@ -29,13 +24,13 @@
         size="small"
         @click="toNextPage"
         class="next-page-btn"
-        :disabled="currentPage>=totalPage"
+        :disabled="page>=totalPage"
       >下一页</el-button>
       <el-button
         size="small"
         @click="toLastPage"
         class="next-page-btn"
-        :disabled="currentPage>=totalPage"
+        :disabled="page>=totalPage"
       >末页</el-button>
       <span class="now-page">
         <el-input type="text" class="now-page" :value="currentPage" size="small" @blur="jumpTo" />
@@ -56,7 +51,7 @@ export default {
       default: 0,
       type: Number
     },
-    pageIndex: {
+    page: {
       default: 1,
       type: Number
     }
@@ -68,7 +63,7 @@ export default {
     };
   },
   created() {
-    this.currentPage = this.pageIndex;
+    this.currentPage = this.page;
   },
   computed: {
     totalPage() {
@@ -98,17 +93,19 @@ export default {
     handleCurrentChange(currentPage) {
       this.jumpToPage = currentPage;
       this.$emit("currentChange", Number(currentPage));
+      this.$emit("update:page", Number(currentPage));
     },
     handleSizeChange(size) {
       this.$emit("sizeChange", Number(size));
+      this.$emit("update:size", Number(size));
     },
     jumpTo($event) {
       let newVal = parseInt($event.target.value, 10);
       if (isNaN(newVal) || newVal <= 0) {
-        $event.target.value = this.currentPage;
+        $event.target.value = this.page;
         return;
       } else if (newVal > this.totalPage) {
-        $event.target.value = this.currentPage;
+        $event.target.value = this.page;
         return;
       }
 
@@ -122,23 +119,18 @@ export default {
     },
     reSize($event) {
       let newVal = parseInt($event.target.value, 10);
-      $event.target.value = newVal;
       if (isNaN(newVal) || newVal <= 0) {
+        $event.target.value = newVal;
         return;
       }
+
+      $event.target.value = newVal;
       if (this.size == newVal) return;
-
       this.handleSizeChange(newVal);
-
-      if (this.currentPage == 1) {
-        this.handleCurrentChange(this.currentPage);
-      } else {
-        this.currentPage = 1;
-      }
     }
   },
   watch: {
-    pageIndex(val) {
+    page(val) {
       if (val !== this.currentPage) this.currentPage = val;
     }
   }

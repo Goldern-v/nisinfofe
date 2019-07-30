@@ -164,6 +164,7 @@ export default {
         return {
           scheduleDate: moment(item.reqDateTime).format("YYYY-MM-DD HH:mm"),
           examItem: item.testItem,
+          isPrint: false,
           ...item
         };
       });

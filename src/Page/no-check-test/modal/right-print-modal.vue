@@ -1,8 +1,8 @@
 
 <template>
-  <div>
+  <div class="right-print-modal">
     <sweet-modal ref="modal" :modalWidth="700" title="未做化验打印">
-      <div ref="printable">
+      <div class="printable" ref="printable">
         <table>
           <thead>
             <tr>
@@ -47,19 +47,24 @@ table {
     line-height: 16px;
     border-right: 1px solid #E3E7EA;
     border-bottom: 1px solid #E3E7EA;
+    text-align: center;
 
     &:nth-of-type(1), &:nth-of-type(2) {
       width: 60px;
-      text-align: center;
     }
 
     &:nth-of-type(3) {
       width: 80px;
-      text-align: center;
     }
 
     &:nth-of-type(4) {
       width: 150px;
+    }
+  }
+
+  td {
+    &:last-of-type {
+      text-align: left;
     }
   }
 }
@@ -67,6 +72,7 @@ table {
 <script>
 import commom from "@/common/mixin/common.mixin";
 import print from "printing";
+import formatter from "./right-print-formatter";
 export default {
   mixins: [commom],
   props: {
@@ -99,24 +105,45 @@ export default {
       });
     },
     onPrint() {
-      console.dir(print);
       print(this.$refs.printable, {
-        beforePrint: null,
+        beforePrint: formatter,
         // direction: "horizontal",
         injectGlobalCss: true,
         scanStyles: false,
         css: `
-       .col-0 {
-         display: none !important;
-       }
-       body {
+        body {
         background: #fff !important;
        }
+       .pageBox {
+         width: 740px;
+         padding: 50px 30px 0;
+         position: relative;
+         -webkit-box-sizing: border-box;
+         box-sizing: border-box;
+         margin: 0 auto 20px;
+       }
+       .endPageBox {
+         margin: 0 auto;
+       }
+       .pageNum {
+         position: absolute;
+         left: 50%;
+         bottom: 20px;
+         -webkit-transform: translateX(-50%);
+         -ms-transform: translateX(-50%);
+         -o-transform: translateX(-50%);
+         transform: translateX(-50%);
+         z-index: 9999;
+       }
+
        @media print{
-          table {width: 700px !important;margin: 30px auto 20px !important;color: black !important;page-break-before:avoid !important;}
+          table {color: black !important;}
           table,th,td {border-color:black !important;}
         }
-        @page {margin: 0 !important;}
+        @page {
+           margin: 0;
+           position: relative;
+        }
         `
       });
     },

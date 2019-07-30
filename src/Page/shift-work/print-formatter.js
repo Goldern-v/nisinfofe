@@ -24,6 +24,7 @@ export default function(win) {
   });
 
   if (patients.length === 0) {
+    xi;
     patients.push(emptyRow.cloneNode(true));
   }
 

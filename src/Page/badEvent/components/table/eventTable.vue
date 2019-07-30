@@ -22,9 +22,9 @@
         min-width="60px"
         align="center"
       >
-        <template slot-scope="scope">
+        <!-- <template slot-scope="scope">
           <span>{{scope.row.id}}</span>
-        </template>
+        </template>-->
       </el-table-column>
 
       <el-table-column

@@ -70,6 +70,7 @@
     outline: 0;
     cursor: pointer;
     border: 1px solid #55b391;
+    background: transparent;
 }
 </style>
 
@@ -153,6 +154,30 @@ export default {
   mounted() {
     window.cleanAllMark = this.cleanAllMark;
     window.onFormLoaded = this.onFormLoaded;
+    //
+    this.$refs["iframeLoadingV2"]["$methods"] = () => {
+      return {
+        busEmit: this.bus.$emit,
+        refreshTree: () => {
+          this.bus.$emit("refreshTree");
+        },
+        updateTree: () => {
+          this.bus.$emit("updateTree");
+        },
+        openAssessment: this.openUrl,
+        activeAllButons: () => {
+          this.bus.$emit("activeAllButons");
+        },
+        closeAssessment: () => {
+          this.bus.$emit("closeAssessment");
+        },
+        setLoadingText: this.setLoadingText,
+        setLoadingStatus: this.setLoadingStatus,
+        setLoadingButton: this.setLoadingButton,
+        setloadingSVGHidden: this.setloadingSVGHidden,
+        openSignModal: window.openSignModal
+      };
+    };
     // iframeLoadingV2
     this.$refs["iframeLoadingV2"]["setLoadingText"] = this.setLoadingText;
     this.$refs["iframeLoadingV2"]["setLoadingStatus"] = this.setLoadingStatus;
@@ -222,6 +247,7 @@ export default {
         token: this.token,
         todo: this.info.todo,
         title: this.info.title || ""
+        // ...this.info
       };
 
       this.info["pagePrintUrl"] = this.info.pageUrl
@@ -327,20 +353,32 @@ export default {
             this.wid.formInfo.rotation == "landscape" ? true : false;
         }
         if (!this.wid.formInfo) {
-          this.pageLoadingText = `网络异常,${this.info.name},页面无法获取,请尝试刷新`;
+          this.setLoadingStatus(true);
+          this.setLoadingText(
+            `网络异常,${this.info.name},页面无法获取,请尝试刷新`
+          );
+          // this.pageLoadingText = `网络异常,${this.info.name},页面无法获取,请尝试刷新`;
           this.setloadingSVGHidden(true);
           this.setLoadingButton(true, "刷新", () => {
-            console.log("刷新");
-            window.wid.location.reload();
+            console.log("刷新", window.wid.location);
+            // window.wid.location.reload();
+            this.setLoadingText("数据加载中...");
+            this.refresh();
           });
         }
       } catch (error) {
         console.log("onload:formInfo", error);
-        this.pageLoadingText = `网络异常,${this.info.name},页面无法获取,请尝试刷新.`;
+        this.setLoadingStatus(true);
+        this.setLoadingText(
+          `网络异常,${this.info.name},页面无法获取,请尝试刷新`
+        );
+        // this.pageLoadingText = `网络异常,${this.info.name},页面无法获取,请尝试刷新.`;
         this.setloadingSVGHidden(true);
         this.setLoadingButton(true, "刷新", () => {
-          console.log("刷新");
-          window.wid.location.reload();
+          console.log("err刷新", window.wid.location);
+          // window.wid.location.reload();
+          this.setLoadingText("数据加载中...");
+          this.refresh();
         });
       }
       console.log(
@@ -364,7 +402,10 @@ export default {
         this.setloadingSVGHidden(true);
         this.setLoadingButton(true, "刷新", () => {
           console.log("刷新...");
-          window.wid.location.reload();
+          this.pageLoadingText = "刷新中...";
+          setTimeout(() => {
+            window.wid.location.reload();
+          }, 100);
         });
       }
     },
@@ -1123,15 +1164,16 @@ export default {
                 if (callback) {
                   callback();
                 }
-                // else {
                 this.setLoadingStatus(false);
                 input.parentNode.removeChild(input);
-                // }
               };
               spin.appendChild(input);
             } else {
               console.log("sinput", sinput);
               sinput.value = text;
+              if (callback) {
+                sinput.onclick = callback;
+              }
             }
           }
         }

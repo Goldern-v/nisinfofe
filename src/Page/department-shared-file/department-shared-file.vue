@@ -25,7 +25,6 @@
           ></el-input>
         </span>
         <el-button @click="handleSearch">查询</el-button>
-        <!-- <el-button>添加</el-button> -->
       </div>
     </div>
     <div class="main-contain">
@@ -61,13 +60,13 @@
           </el-table-column>
         </el-table>
       </div>
-      <customPagination
-        :page.sync="query.pageIndex"
-        :size.sync="query.pageSize"
-        :total="fileTotal"
+      <pagination
+        :pageIndex="query.pageIndex"
+        :size="query.pageSize"
+        :total="total"
         @sizeChange="handleSizeChange"
         @currentChange="handleCurrentChange"
-      />
+      ></pagination>
     </div>
     <sweet-modal ref="preview-modal" class="nursing-rules-preview-modal" :title="preview.title">
       <div v-if="preview.type=='img'">
@@ -83,11 +82,11 @@
 
 <script>
 import commonMixin from "./../../common/mixin/common.mixin";
-import customPagination from "./components/pagination.vue";
+import pagination from "./components/pagination.vue";
 import { getList, getFileContent, getCatalogByParam } from "./api/api";
 export default {
   components: {
-    customPagination
+    pagination
   },
   mixins: [commonMixin],
   data() {
@@ -98,8 +97,8 @@ export default {
         fileName: "",
         catalog: "" //目录筛选名称
       },
+      total: 0,
       tableHeight: 0,
-      fileTotal: 0,
       data: [],
       preview: {
         type: "",
@@ -166,7 +165,6 @@ export default {
         url: `/crNursing/asset/deptShareFile${scope.path}`,
         type: this.previewType(type)
       };
-      console.log(this.preview);
 
       this.$refs["preview-modal"].open();
       this.pdfHeight = window.innerHeight * 0.8;
@@ -174,9 +172,7 @@ export default {
       // },err=>{})
     },
     handleSizeChange(newSize) {
-      this.query.pageIndex = 1;
       this.query.pageSize = newSize;
-      this.setTableData();
     },
     handleCurrentChange(newPage) {
       this.query.pageIndex = newPage;
@@ -192,53 +188,18 @@ export default {
       getList({
         ...this.query,
         deptCode: this.deptCode
-      })
-        .then(
-          res => {
-            let data = res.data.data;
-            this.fileTotal = data.totalCount || 0;
-            this.data = data.list.map((item, idx) => {
-              let deptName = item.deptName;
-              let sizeFile = this.bytesToSize(item.sizeFile);
-              if (
-                item.deptCode == "全院" ||
-                item.deptCode == "公共" ||
-                item.publicUse == "1"
-              )
-                deptName = "公共";
-
-              return {
-                ...item,
-                key: idx,
-                deptName,
-                sizeFile
-              };
-            });
-
-            let appendTime = this.query.pageSize - this.data.length;
-            if (appendTime > 0) {
-              let extraArr = [];
-              while (appendTime--) extraArr.push({});
-              this.data = this.data.concat(extraArr);
-            }
-            if (res.data && res.data.code == 200) {
-              this.pageLoadng = false;
-            }
-          },
-          err => {}
-        )
-        .finally(_ => {
+      }).then(
+        res => {
+          this.data = res.data.data.list;
+          this.total = res.data.data.totalCount || 0;
           this.pageLoadng = false;
-        });
+        },
+        err => {
+          this.pageLoadng = false;
+        }
+      );
     },
-    bytesToSize(bytes) {
-      if (bytes === 0) return "0 B";
-      var k = 1000, // or 1024
-        sizes = ["B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"],
-        i = Math.floor(Math.log(bytes) / Math.log(k));
-
-      return (bytes / Math.pow(k, i)).toPrecision(3) + " " + sizes[i];
-    },
+    // 获取目录
     getCatalog() {
       let data = {
         deptCode: this.deptCode
@@ -259,6 +220,7 @@ export default {
     .float-right {
       float: right;
       .type-label {
+        font-size: 13px;
         vertical-align: middle;
       }
       .type-content {
@@ -288,6 +250,9 @@ export default {
     .el-table {
       border: 1px solid #cbd5dd;
       border-bottom: 0;
+      td {
+        height: 34px;
+      }
     }
     .el-table th > div {
       padding: 0;
@@ -330,7 +295,7 @@ export default {
       margin-left: 10px;
       display: inline-block;
       h3 {
-        font-size: 20px;
+        font-size: 18px;
         line-height: 31px;
       }
     }
@@ -380,7 +345,7 @@ export default {
       position: relative;
       .rule-name-content {
         position: absolute;
-        line-height: 40px;
+        line-height: 34px;
         left: 15px;
         right: 15px;
         top: 0;
