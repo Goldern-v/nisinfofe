@@ -307,6 +307,7 @@ export default {
         // getContentByMissionIds(item.missionId).then(res => {
         // console.log(res,"res")
         this.bus.$emit(
+          /** openAssessment  19-7-31 尝试修改*/
           "openAssessmentBox",
           Object.assign(getFormConfig("健康教育单"), {
             id: "",
