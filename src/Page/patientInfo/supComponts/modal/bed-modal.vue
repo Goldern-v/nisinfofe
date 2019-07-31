@@ -10,7 +10,7 @@
       <div class="bed-card-warpper" v-loading="modalLoading" ref="printCon">
         <div class="bed-card-con" flex :class="{remarkCon: formData.remarkPrint}">
           <img class="qr-code" :class="{hasRemark: hasRemark}" :src="qrCode" />
-          <div class="qr-code-num">{{qrCodeNum}}</div>
+          <div class="qr-code-num" :class="{hasRemark: hasRemark}">{{qrCodeNum}}</div>
           <div style="width: 0" flex-box="1" flex="dir:top main:justify">
             <div flex="cross:center" class="input-item" style="height: 43px">
               <!-- <span class="label">患者姓名:</span> -->
@@ -265,12 +265,19 @@
 
   .qr-code-num {
     position: absolute;
-    top: 78px;
+    top: 92px;
     left: 0px;
-    width: 84px;
+    width: 96px;
     text-align: center;
     z-index: 2;
-    font-size: 14px;
+    font-size: 16px;
+
+    &.hasRemark {
+      top: 78px;
+      left: 0px;
+      width: 84px;
+      font-size: 14px;
+    }
   }
 }
 

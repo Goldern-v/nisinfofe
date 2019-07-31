@@ -6,6 +6,7 @@
       :element-loading-text="pageLoadingText"
       ref="iframeLoading"
     >
+
       <iframe
         :style="{height: iframeHeight + 'px'}"
         frameborder="0"
@@ -260,6 +261,7 @@ export default {
         this.refresh();
       } else {
         this.url = url;
+        console.log(url, "---", this.url, "1111");
       }
     },
     onPageLoaded(type = "") {
