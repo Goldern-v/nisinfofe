@@ -7,15 +7,7 @@ export function getList(query) {
     return axios.post(`${apiPath}flatManageInstance/getListByParams`, query);
 }
 
-export function getFileContent(query) {
-    return axios.post(`${apiPath}nursingInstitution/getFileContent`, qs.stringify(query), { responseType: 'blob' });
-}
-
 // 获取扁平管理类型
 export function getTypeByDeptCode(query) {
     return axios.post(`${apiPath}flatManageInstance/getTypeByDeptCode`, qs.stringify(query));
-}
-
-export function getCatalogByType(type) {
-    return axios.post(`${apiPath}/nursingInstitution/getCatalogByType`, qs.stringify({ type }))
 }

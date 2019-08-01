@@ -163,8 +163,10 @@ export default {
     this.handelResize = this.handelResize.bind(this);
     this.handelResize();
     window.addEventListener("resize", this.handelResize);
-    this.getTypeByDeptCode();
-    if (this.deptCode) this.setTableData();
+
+    if (this.deptCode) {
+      this.setTableData();
+    }
   },
   beforeDestroy() {
     window.removeEventListener("resize", this.handelResize);
@@ -173,12 +175,16 @@ export default {
     deptCode(val, oldVal) {
       if (val && oldVal) this.query.page = 1;
 
-      if (val) this.setTableData();
+      if (val) {
+        this.getTypeByDeptCode();
+        this.setTableData();
+      }
     }
   },
   methods: {
     // 获取类型
     getTypeByDeptCode() {
+      console.log(this.deptCode);
       getTypeByDeptCode({ deptCode: this.deptCode }).then(res => {
         if (res.data.data instanceof Array) this.typeList = res.data.data;
       });
@@ -444,6 +450,3 @@ export default {
   }
 }
 </style>
-
-
-

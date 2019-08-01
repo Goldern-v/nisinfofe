@@ -11,7 +11,7 @@
           <span class="col-4">检查时间</span>
           <span class="col-5" flex-box="1">检查项目</span>
         </div>
-        <div class="list-content" :style="{height: listContentH +'px'}">
+        <div class="list-content" :style="{height: listContentH +'px'}" v-if="list && list.length">
           <div class="list-box" flex="cross:stretch" v-for="(item,index) in list" :key="index">
             <span class="col-1">
               <el-checkbox v-model="item.isPrint"></el-checkbox>
@@ -22,7 +22,7 @@
             <span class="col-5" flex-box="1">{{item.examItem}}</span>
           </div>
         </div>
-        <nullText v-if="list.length == 0" style="margin: 70px 0"></nullText>
+        <nullText v-if="list.length == 0" :style="{height: listContentH +'px'}"></nullText>
       </div>
       <span slot="head-tool" @click="openPrintModal" style="margin-right: 10px;">打印</span>
     </boxBase>
