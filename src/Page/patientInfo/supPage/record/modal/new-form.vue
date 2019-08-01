@@ -48,64 +48,88 @@
 </template>
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
-.title-bar
-  height 45px
-  background #fff
+.title-bar {
+  height: 45px;
+  background: #fff;
   border-bottom: 1px solid #EAEEF1;
-  padding 0 15px
-.type-select
-  >>>.el-input
-    width 126px
-  >>>.el-input__inner
-    height 30px !important
+  padding: 0 15px;
+}
+
+.type-select {
+  >>>.el-input {
+    width: 126px;
+  }
+
+  >>>.el-input__inner {
+    height: 30px !important;
     background: #FFFFFF;
     border: 1px solid #C2CBD2;
     border-radius: 4px;
-.text-con
-  >>>&.el-input
-    width 138px
-    margin-left 10px
-  >>>.el-input__inner
-    width 138px
-    height 30px
+  }
+}
+
+.text-con {
+  >>>&.el-input {
+    width: 138px;
+    margin-left: 10px;
+  }
+
+  >>>.el-input__inner {
+    width: 138px;
+    height: 30px;
     background: #FFFFFF;
     border: 1px solid #C2CBD2;
     border-radius: 4px;
-.record-con
-  margin 0
-  padding 10px 10px 10px
-  height 420px
-  overflow auto
-  .record-box
-    cursor pointer
-    float left
-    box-sizing border-box
-    padding 10px 10px 10px
-    width 33%
-    height 60px
-    &.active
+  }
+}
+
+.record-con {
+  margin: 0;
+  padding: 10px 10px 10px;
+  height: 420px;
+  overflow: auto;
+
+  .record-box {
+    cursor: pointer;
+    float: left;
+    box-sizing: border-box;
+    padding: 10px 10px 10px;
+    width: 33%;
+    height: 60px;
+
+    &.active {
       background: #F0F5F3;
       border: 1px solid #C0D4CD;
       border-radius: 4px;
-    img
-      height 35px
-    .name
+    }
+
+    img {
+      height: 35px;
+    }
+
+    .name {
       font-size: 13px;
       color: #687179;
-      margin-left 12px
-      height 40px
-      overflow hidden
+      margin-left: 12px;
+      height: 40px;
+      overflow: hidden;
       display: -webkit-box;
       -webkit-box-orient: vertical;
-      -webkit-line-clamp: 2
-.type-text
+      -webkit-line-clamp: 2;
+    }
+  }
+}
+
+.type-text {
   font-size: 13px;
   color: #687179;
-  margin-right 10px
+  margin-right: 10px;
+}
 
-/deep/ .sweet-modal{
-  max-height calc(100vh - 30px)!important
-  .sweet-content{
+/deep/ .sweet-modal {
+  max-height: calc(100vh - 30px) !important;
+
+  .sweet-content {
     // max-height 100vh!important
   }
 }
@@ -283,7 +307,8 @@ export default {
         // getContentByMissionIds(item.missionId).then(res => {
         // console.log(res,"res")
         this.bus.$emit(
-          "openAssessment",
+          /** openAssessment  19-7-31 尝试修改*/
+          "openAssessmentBox",
           Object.assign(getFormConfig("健康教育单"), {
             id: "",
             formCode: "eduMission",

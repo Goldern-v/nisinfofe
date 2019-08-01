@@ -31,7 +31,10 @@ hospitalName = hospitalName.replace(/["']/g, "");
 devEnv["NODE_ENV"] = '"development"';
 prodEnv["NODE_ENV"] = '"production"';
 
-console.log(chalk.bgCyan.black(" 部署配置 "), chalk.yellow(hospitalName || "东莞市厚街医院"));
+console.log(
+  chalk.bgCyan.black(" 部署配置 "),
+  chalk.yellow(hospitalName || "东莞市厚街医院")
+);
 
 module.exports = {
   build: {
@@ -70,12 +73,12 @@ module.exports = {
     cssSourceMap: false,
     proxyTable: {
       "/crNursing/api": {
-        // target: "http://120.197.141.41:9091", //厚街正式
+        target: "http://120.197.141.41:9091", //厚街正式
         // target: "http://58.42.249.209:17953", //贵州医科大正式
         // target: "http://120.197.141.41:9094", //东莞正式库的测试
         // target: "http://60.6.218.17:9093", //威县
 
-        target: "http://120.25.105.45:9864", //厚街测试
+        // target: "http://120.25.105.45:9864", //厚街测试
         // target: "http://192.168.1.20:8964", // 内网测试cno
         // target: "http://dev.cr-health.com:4453", // 外网测试
         // target: "http://192.168.2.91:8062", // 内网兆彬IP测试
