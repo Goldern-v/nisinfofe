@@ -209,6 +209,14 @@ export default function Title(data = [], autoData = [], index) {
         );
       }
       break;
+    case "neurology_wx":
+      {
+        // 产后观察
+        Th = JSON.parse(
+          JSON.stringify(require("../config/neurology_wx/th").default)
+        );
+      }
+      break;
     default: {
       Th = JSON.parse(JSON.stringify(require("../config/default/th").default));
     }
@@ -246,6 +254,27 @@ export default function Title(data = [], autoData = [], index) {
           }
           Th.th.mid[i].name = reverseArr.find(item => {
             return item.fieldEn == Th.th.mid[i].key && item.pageIndex === index;
+          }).fieldCn;
+        } catch (e) {}
+      }
+    }
+  }
+  for (let i = 0; i < Th.th.bottom.length; i++) {
+    if (Th.th.bottom[i].canSet) {
+      try {
+        Th.th.bottom[i].name = data.find(item => {
+          return item.fieldEn == Th.th.bottom[i].key;
+        }).fieldCn;
+      } catch (e) {
+        try {
+          let reverseArr = [];
+          if (sheetInfo.selectBlock.recordTitleCoyeType !== "no") {
+            reverseArr = [...autoData];
+          }
+          Th.th.bottom[i].name = reverseArr.find(item => {
+            return (
+              item.fieldEn == Th.th.bottom[i].key && item.pageIndex === index
+            );
           }).fieldCn;
         } catch (e) {}
       }
