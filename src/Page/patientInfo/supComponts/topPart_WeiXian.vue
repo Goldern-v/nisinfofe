@@ -7,9 +7,9 @@
       <router-link :to="{path:'/record', query: query}" tag="span">
         <div class="nav-item">护理文书</div>
       </router-link>
-      <router-link :to="{path:'/sheetNursingOrder', query: query}" tag="span">
+      <!-- <router-link :to="{path:'/sheetNursingOrder', query: query}" tag="span">
         <div class="nav-item">护嘱单</div>
-      </router-link>
+      </router-link>-->
       <router-link :to="{path:'/sheet', query: query}" tag="span">
         <div class="nav-item">护理记录单</div>
       </router-link>
