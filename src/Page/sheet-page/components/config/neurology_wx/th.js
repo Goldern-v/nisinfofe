@@ -147,7 +147,7 @@ export default {
       },
 
       {
-        name: `肌体肌力`,
+        name: `肢体肌力`,
         style: {},
         colspan: "4",
         rowspan: "1"
