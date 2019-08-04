@@ -212,6 +212,17 @@ function switechSheetType(type) {
         schema = require("../config/post_partum/tr.js").default;
       }
       break;
+      {
+        // 产后观察
+        schema = require("../config/post_partum/tr.js").default;
+      }
+      break;
+      case "neurology_wx":
+      {
+        // 威县-神经内科
+        schema = require("../config/neurology_wx/tr.js").default;
+      }
+      break;
     default: {
       schema = require("../config/default/tr.js").default;
     }
