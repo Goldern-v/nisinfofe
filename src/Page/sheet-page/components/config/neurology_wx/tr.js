@@ -64,7 +64,8 @@ export default [
     event: keyf1,
     autoComplete: {
       data: 疼痛部位
-    }
+    },
+    name: "疼痛部位"
   },
   {
     key: "field2", //疼痛评分
@@ -72,12 +73,14 @@ export default [
     event: keyf1,
     autoComplete: {
       data: 疼痛评分
-    }
+    },
+    name: "疼痛评分"
   },
   {
     key: "field3", //血糖
     value: "",
-    event: keyf1
+    event: keyf1,
+    name: "血糖"
   },
   {
     key: "spo2", //spo2
@@ -95,12 +98,14 @@ export default [
   {
     key: "field4", //鼻塞
     value: "",
-    event: keyf1
+    event: keyf1,
+    name: "鼻塞"
   },
   {
     key: "field5", //面罩
     value: "",
-    event: keyf1
+    event: keyf1,
+    name: "面罩"
   },
   {
     key: "field6", //饮食性质
@@ -108,12 +113,14 @@ export default [
     event: keyf1,
     autoComplete: {
       data: 饮食性质
-    }
+    },
+    name: "饮食性质"
   },
   {
     key: "field7", //饮食量
     value: "",
-    event: keyf1
+    event: keyf1,
+    name: "饮食量"
   },
   {
     key: "field8", //静脉补液
@@ -121,12 +128,14 @@ export default [
     event: keyf1,
     autoComplete: {
       data: 静脉补液
-    }
+    },
+    name: "静脉补液"
   },
   {
     key: "field9", //静脉自定义项
     value: "",
-    event: keyf1
+    event: keyf1,
+    name: "静脉自定义项"
   },
   {
     key: "field10", //出量性质
@@ -134,12 +143,14 @@ export default [
     event: keyf1,
     autoComplete: {
       data: 出量性质
-    }
+    },
+    name: "出量性质"
   },
   {
     key: "field11", //出量量
     value: "",
-    event: keyf1
+    event: keyf1,
+    name: "出量"
   },
   {
     key: "pupilSizeLeft", //瞳孔直径左
@@ -179,7 +190,8 @@ export default [
     event: keyf1,
     autoComplete: {
       data: 肌力
-    }
+    },
+    name: "肢体肌力左上"
   },
   {
     key: "field13", //肢体肌力左下
@@ -187,7 +199,8 @@ export default [
     event: keyf1,
     autoComplete: {
       data: 肌力
-    }
+    },
+    name: "肢体肌力左下"
   },
   {
     key: "field14", //肢体肌力右上
@@ -195,7 +208,8 @@ export default [
     event: keyf1,
     autoComplete: {
       data: 肌力
-    }
+    },
+    name: "肢体肌力右上"
   },
   {
     key: "field15", //肢体肌力右下
@@ -203,12 +217,14 @@ export default [
     event: keyf1,
     autoComplete: {
       data: 肌力
-    }
+    },
+    name: "肢体肌力右下"
   },
   {
     key: "field18", //肠鸣音
     value: "",
-    event: keyf1
+    event: keyf1,
+    name: "肠鸣音"
   },
   {
     key: "field19", //呼吸音
@@ -216,7 +232,8 @@ export default [
     event: keyf1,
     autoComplete: {
       data: 呼吸音
-    }
+    },
+    name: "呼吸音"
   },
 
   {
