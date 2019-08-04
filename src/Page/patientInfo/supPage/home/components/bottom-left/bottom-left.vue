@@ -137,9 +137,15 @@ export default {
               //   showCurve: row.showCurve,
               //   listPrint: row.listPrint
               // })
+              // HisName = process.env.HOSPITAL_NAME;
+              // let hisList = {
+              //   威县人民医院: "openAssessmentBox",
+              //   东莞市厚街医院: "openAssessment"
+              // };
+              // let emitCode = hisList[HisName] || "openAssessment";
 
               this.bus.$emit(
-                "openAssessment",
+                "openAssessmentBox",
                 Object.assign({}, getFormConfig(row.formName), {
                   id: row.dataId,
                   formCode: row.formCode,
