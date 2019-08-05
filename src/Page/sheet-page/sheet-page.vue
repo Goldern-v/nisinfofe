@@ -57,80 +57,104 @@
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
 @import '../../assets/css/style.styl';
-.contain
-  margin 0
-  background #fff
-  border 1px solid #CBD5DD
-  border-radius 2px
-  &.fullpage
-    position fixed !important
-    z-index 10000
-    left 0
-    top 0
-    bottom 0
-    right 0
-    margin 0
-  .head-con
-    height 41px
-  .body-con
-    position relative
-    .left-part
-      width 199px
-      position absolute
-      left 0
-      top 0
-      bottom 0
-    .right-part
-      margin-left 199px
-      height 100%
-      overflow hidden
-      transition: all .4s cubic-bezier(.55, 0, .1, 1);
-.dept-select-con
-  box-sizing border-box
-  width 199px
-  height 41px
-  background #F7FAFA
-  border-right 1px solid #CBD5DD
-  border-bottom 1px solid #EAEEF1
-  border-radius 2px 0 0 0
-  display flex
-  justify-content center
-  align-items center
-  >>>.el-input__inner
-    width 172px
-    height 28px
-    border 1px solid #C2CBD2
-    border-radius 4px
-    font-size 12px
-.sheetTable-contain
-  height 100%
-  background #DFDFDF
-  overflow auto
-  padding 15px 5px 15px
-  box-sizing border-box
-  margin 0 auto 20px
-  position relative
-  scrollBar(7px,14px)
-.null-btn
-  position absolute
-  top 0px
-  bottom 150px
-  left 0
-  right 0
-  margin auto
-  font-size 17px
-  color #687179
-  width 195px
-  height 50px
-  background #FFFFFF
-  border 1px solid #ADB4BA
-  box-shadow 0 1px 2px 0 rgba(200, 200, 200, 0.5)
-  border-radius 2px
-  cursor pointer
-  &:hover
-    background #fafafa
-  i
-    margin-right 4px
+
+.contain {
+  margin: 0;
+  background: #fff;
+  border: 1px solid #CBD5DD;
+  border-radius: 2px;
+
+  &.fullpage {
+    position: fixed !important;
+    z-index: 10000;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    margin: 0;
+  }
+
+  .head-con {
+    height: 41px;
+  }
+
+  .body-con {
+    position: relative;
+
+    .left-part {
+      width: 199px;
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+    }
+
+    .right-part {
+      margin-left: 199px;
+      height: 100%;
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.55, 0, 0.1, 1);
+    }
+  }
+}
+
+.dept-select-con {
+  box-sizing: border-box;
+  width: 199px;
+  height: 41px;
+  background: #F7FAFA;
+  border-right: 1px solid #CBD5DD;
+  border-bottom: 1px solid #EAEEF1;
+  border-radius: 2px 0 0 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  >>>.el-input__inner {
+    width: 172px;
+    height: 28px;
+    border: 1px solid #C2CBD2;
+    border-radius: 4px;
+    font-size: 12px;
+  }
+}
+
+.sheetTable-contain {
+  height: 100%;
+  background: #DFDFDF;
+  overflow: auto;
+  padding: 15px 5px 15px;
+  box-sizing: border-box;
+  margin: 0 auto 20px;
+  position: relative;
+  scrollBar(7px, 14px);
+}
+
+.null-btn {
+  position: absolute;
+  top: 0px;
+  bottom: 150px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  font-size: 17px;
+  color: #687179;
+  width: 195px;
+  height: 50px;
+  background: #FFFFFF;
+  border: 1px solid #ADB4BA;
+  box-shadow: 0 1px 2px 0 rgba(200, 200, 200, 0.5);
+  border-radius: 2px;
+  cursor: pointer;
+
+  &:hover {
+    background: #fafafa;
+  }
+
+  i {
+    margin-right: 4px;
+  }
+}
 </style>
 
 <script>
@@ -346,7 +370,10 @@ export default {
       );
     },
     onScroll(e) {
-      this.scrollY = parseInt(e.target.scrollTop);
+      if (sheetInfo.sheetTyp.indexOf("_wx") > -1) {
+      } else {
+        this.scrollY = parseInt(e.target.scrollTop);
+      }
     }
   },
   created() {
