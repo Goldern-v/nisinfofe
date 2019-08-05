@@ -151,7 +151,7 @@ export default {
       this.pageLoadng = true;
       patEmrList(obj).then(res => {
         this.tableData = res.data.data.list;
-        this.page.total = res.data.data.page || 0;
+        this.page.total = res.data.data.page ? parseInt(res.data.data.page)*this.page.pageNum : 0;
         this.pageLoadng = false;
       });
     }
