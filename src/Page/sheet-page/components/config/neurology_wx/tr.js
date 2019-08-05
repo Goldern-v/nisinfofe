@@ -221,13 +221,13 @@ export default [
     name: "肢体肌力右下"
   },
   {
-    key: "field18", //肠鸣音
+    key: "field16", //肠鸣音
     value: "",
     event: keyf1,
     name: "肠鸣音"
   },
   {
-    key: "field19", //呼吸音
+    key: "field17", //呼吸音
     value: "",
     event: keyf1,
     autoComplete: {
@@ -237,7 +237,7 @@ export default [
   },
 
   {
-    key: "field20", //标题1
+    key: "field18", //标题1
     value: "",
     event: keyf1,
     textarea: {
@@ -245,7 +245,7 @@ export default [
     }
   },
   {
-    key: "field21", //标题2
+    key: "field19", //标题2
     value: "",
     event: keyf1,
     textarea: {
@@ -253,7 +253,7 @@ export default [
     }
   },
   {
-    key: "field22", //标题3
+    key: "field20", //标题3
     value: "",
     event: keyf1,
     textarea: {
@@ -261,7 +261,7 @@ export default [
     }
   },
   {
-    key: "field23", //标题4
+    key: "field21", //标题4
     value: "",
     event: keyf1,
     textarea: {
