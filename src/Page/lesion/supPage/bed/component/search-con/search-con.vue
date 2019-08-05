@@ -1,7 +1,7 @@
 <template>
   <div class="search-con">
     <div class="input-con" flex="cross:stretch">
-      <input type="text" class="search-input" flex-box="1" placeholder="床号/姓名" v-model="searchText">
+      <input type="text" class="search-input" flex-box="1" placeholder="床号/姓名" v-model="searchText" />
       <div class="search-btn" flex="cross:center main:center">
         <i class="iconfont icon-search"></i>
       </div>
@@ -23,11 +23,11 @@
       <div
         class="s-item"
         flex="cross:center"
-        v-if="item.type.indexOf('type') > -1"
+        v-if="item.type == 'level'"
         :class="{active: selectName == item.name}"
         @click="selectType(item.name)"
       >
-        <aside class="sq" :class="item.type"></aside>
+        <aside class="sq" :style="{background: item.color}"></aside>
         <span>{{item.name}}（{{item.num}}）</span>
       </div>
 
@@ -69,74 +69,107 @@
   </div>
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
-.search-con
-  padding 16px 10px
-  .input-con
-    background #FFFFFF
-    border 1px solid #C2CBD2
-    border-radius 2px 0 0 2px
-    height 30px
-    margin-bottom 20px
-    .search-input
-      width 0
-      outline none
-      border 0
-      font-size 12px
-      color #687179
-      padding-left 15px
-    .search-btn
-      width 40px
-      border-left 1px solid #C2CBD2
-      i
-        font-size 18px
-        color #788188
-  .s-item
-    height 34px
-    padding-left 12px
-    font-size 13px
-    color #687179
-    cursor pointer
-    &:hover
-      background #F7F7FA
-      border-radius 3px
-    &.active
-      background #F1F1F5
-      border-radius 3px
-      font-weight bold
-      color #333333
-    i
-      color #687179
-      font-size 14px
-      line-height 16px
-    span
-      margin-left 8px
-    aside
-      display inline-block
-      border-radius 2px
-      width 11px
-      height 11px
-      &.type-1
-        background:rgb(255,0,0)
-      &.type-2
-        background: rgb(255,255,0)
-      &.type-3
-        background: rgb(0,255,0)
-      &.type-4
+.search-con {
+  padding: 16px 10px;
+
+  .input-con {
+    background: #FFFFFF;
+    border: 1px solid #C2CBD2;
+    border-radius: 2px 0 0 2px;
+    height: 30px;
+    margin-bottom: 20px;
+
+    .search-input {
+      width: 0;
+      outline: none;
+      border: 0;
+      font-size: 12px;
+      color: #687179;
+      padding-left: 15px;
+    }
+
+    .search-btn {
+      width: 40px;
+      border-left: 1px solid #C2CBD2;
+
+      i {
+        font-size: 18px;
+        color: #788188;
+      }
+    }
+  }
+
+  .s-item {
+    height: 34px;
+    padding-left: 12px;
+    font-size: 13px;
+    color: #687179;
+    cursor: pointer;
+
+    &:hover {
+      background: #F7F7FA;
+      border-radius: 3px;
+    }
+
+    &.active {
+      background: #F1F1F5;
+      border-radius: 3px;
+      font-weight: bold;
+      color: #333333;
+    }
+
+    i {
+      color: #687179;
+      font-size: 14px;
+      line-height: 16px;
+    }
+
+    span {
+      margin-left: 8px;
+    }
+
+    aside {
+      display: inline-block;
+      border-radius: 2px;
+      width: 11px;
+      height: 11px;
+
+      &.type-1 {
+        background: rgb(255, 0, 0);
+      }
+
+      &.type-2 {
+        background: rgb(255, 255, 0);
+      }
+
+      &.type-3 {
+        background: rgb(0, 255, 0);
+      }
+
+      &.type-4 {
         background: rgb(255, 192, 203);
-  .line
-    background #ECEEEF
-    height 1px
-    margin 10px 0
+      }
+    }
+  }
+
+  .line {
+    background: #ECEEEF;
+    height: 1px;
+    margin: 10px 0;
+  }
+}
 </style>
 <script>
 import { patients } from "@/api/lesion";
 import footerBar from "../footer-bar/footer-bar.vue";
+import { listItem } from "@/api/common.js";
 export default {
   data() {
     return {
       selectName: "全部床位",
       searchText: "",
-      bedList: []
+      bedList: [],
+      levelColor: []
     };
   },
   computed: {
@@ -240,26 +273,34 @@ export default {
           num: "",
           type: "line"
         },
-        {
-          name: "特级护理",
-          num: this.type4.length,
-          type: "type-4"
-        },
-        {
-          name: "一级护理",
-          num: this.type1.length,
-          type: "type-1"
-        },
-        {
-          name: "二级护理",
-          num: this.type2.length,
-          type: "type-2"
-        },
-        {
-          name: "三级护理",
-          num: this.type3.length,
-          type: "type-3"
-        },
+        // {
+        //   name: "特级护理",
+        //   num: this.type4.length,
+        //   type: "type-4"
+        // },
+        // {
+        //   name: "一级护理",
+        //   num: this.type1.length,
+        //   type: "type-1"
+        // },
+        // {
+        //   name: "二级护理",
+        //   num: this.type2.length,
+        //   type: "type-2"
+        // },
+        // {
+        //   name: "三级护理",
+        //   num: this.type3.length,
+        //   type: "type-3"
+        // },
+        ...this.levelColor.map(item => {
+          return {
+            name: item.code,
+            num: (this.getLevelList(item.code) || []).length,
+            type: "level",
+            color: item.name
+          };
+        }),
         {
           name: "",
           num: "",
@@ -284,11 +325,20 @@ export default {
     }
   },
   methods: {
-    getDate() {
+    async getDate() {
       if (this.deptCode) {
         this.$parent.loading = true;
+        let {
+          data: { data: levelColor }
+        } = await listItem("nursing_level");
+        this.levelColor = levelColor;
         patients(this.deptCode).then(res => {
-          this.bedList = res.data.data;
+          this.bedList = res.data.data.map(item => {
+            item.nursingClassColor = (
+              levelColor.find(o => o.code == item.nursingClass) || {}
+            ).name;
+            return item;
+          });
           this.$parent.bedList = this.bedList;
           this.$parent.loading = false;
           this.selectName = "全部床位";
@@ -301,6 +351,9 @@ export default {
       } else {
         this.selectName = name;
       }
+    },
+    getLevelList(level) {
+      return this.bedList.filter(item => item.nursingClass == level);
     }
   },
   watch: {
@@ -325,26 +378,26 @@ export default {
             this.$parent.bedList = this.inBed;
           }
           break;
-        case "特级护理":
-          {
-            this.$parent.bedList = this.type4;
-          }
-          break;
-        case "一级护理":
-          {
-            this.$parent.bedList = this.type1;
-          }
-          break;
-        case "二级护理":
-          {
-            this.$parent.bedList = this.type2;
-          }
-          break;
-        case "三级护理":
-          {
-            this.$parent.bedList = this.type3;
-          }
-          break;
+        // case "特级护理":
+        //   {
+        //     this.$parent.bedList = this.type4;
+        //   }
+        //   break;
+        // case "一级护理":
+        //   {
+        //     this.$parent.bedList = this.type1;
+        //   }
+        //   break;
+        // case "二级护理":
+        //   {
+        //     this.$parent.bedList = this.type2;
+        //   }
+        //   break;
+        // case "三级护理":
+        //   {
+        //     this.$parent.bedList = this.type3;
+        //   }
+        //   break;
         case "病危":
           {
             this.$parent.bedList = this.bw;
@@ -405,6 +458,9 @@ export default {
             this.$parent.bedList = this.hasYachuang;
           }
           break;
+        default: {
+          this.$parent.bedList = this.getLevelList(val);
+        }
       }
     }
   },

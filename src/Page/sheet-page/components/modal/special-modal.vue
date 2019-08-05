@@ -16,7 +16,7 @@
             :disabled="recordDate != ''"
             v-model="staticObj.recordMonth"
             @keyup="dateKey($event, staticObj, 'recordMonth')"
-          >
+          />
           <div style="width: 30px"></div>
           <div class="label">时间：</div>
           <input
@@ -24,24 +24,24 @@
             :disabled="recordDate != ''"
             v-model="staticObj.recordHour"
             @keyup="timeKey($event, staticObj, 'recordHour')"
-          >
+          />
         </div>
         <el-tabs v-model="activeTab" class="tab-content" type="card">
           <el-tab-pane label="固定项目" name="1">
             <div class="input-row" flex="main:justify">
               <div class="input-cell" flex="cross:center" flex-box="1">
                 <div class="label">体温：</div>
-                <input type="text" :readonly="isRead" v-model="staticObj.temperature">
+                <input type="text" :readonly="isRead" v-model="staticObj.temperature" />
                 <div class="uniq">℃</div>
               </div>
               <div class="input-cell" flex="cross:center" flex-box="1">
                 <div class="label">脉搏：</div>
-                <input type="text" :readonly="isRead" v-model="staticObj.pulse">
+                <input type="text" :readonly="isRead" v-model="staticObj.pulse" />
                 <div class="uniq">次/分</div>
               </div>
               <div class="input-cell" flex="cross:center" flex-box="1">
                 <div class="label">呼吸：</div>
-                <input type="text" :readonly="isRead" v-model="staticObj.breath">
+                <input type="text" :readonly="isRead" v-model="staticObj.breath" />
                 <div class="uniq">次/分</div>
               </div>
             </div>
@@ -53,7 +53,7 @@
                   :readonly="isRead"
                   v-model="staticObj.bloodPressure"
                   @keydown="spaceToKey($event,staticObj, 'bloodPressure')"
-                >
+                />
                 <div class="uniq">mmHg</div>
               </div>
               <div
@@ -68,7 +68,7 @@
                   :readonly="isRead"
                   v-model="staticObj.consciousness"
                   v-autoComplete="{dataList: dictionary.consciousness, obj:staticObj, key: 'consciousness'}"
-                >
+                />
                 <div class="uniq"></div>
               </div>
               <div
@@ -81,7 +81,7 @@
                   SOP
                   <sub>2</sub>：
                 </div>
-                <input type="text" :readonly="isRead" v-model="staticObj.spo2">
+                <input type="text" :readonly="isRead" v-model="staticObj.spo2" />
                 <div class="uniq">%</div>
               </div>
               <div flex-box="1" v-if="staticObj.consciousness === undefined"></div>
@@ -93,12 +93,12 @@
               </div>
               <div class="input-cell" flex="cross:center" flex-box="2">
                 <div class="label">左：</div>
-                <input type="text" :readonly="isRead" v-model="staticObj.pupilSizeLeft">
+                <input type="text" :readonly="isRead" v-model="staticObj.pupilSizeLeft" />
                 <div class="uniq"></div>
               </div>
               <div class="input-cell" flex="cross:center" flex-box="2">
                 <div class="label">右：</div>
-                <input type="text" :readonly="isRead" v-model="staticObj.pupilSizeRight">
+                <input type="text" :readonly="isRead" v-model="staticObj.pupilSizeRight" />
                 <div class="uniq"></div>
               </div>
               <div flex-box="2"></div>
@@ -118,7 +118,7 @@
                   :readonly="isRead"
                   v-model="staticObj.pupilReflexLeft"
                   v-autoComplete="{dataList: dictionary.pupilReflexLeft, obj:staticObj, key: 'pupilReflexLeft'}"
-                >
+                />
                 <div class="uniq"></div>
               </div>
               <div class="input-cell" flex="cross:center" flex-box="2">
@@ -128,7 +128,7 @@
                   :readonly="isRead"
                   v-model="staticObj.pupilReflexRight"
                   v-autoComplete="{dataList: dictionary.pupilReflexRight, obj:staticObj, key: 'pupilReflexRight'}"
-                >
+                />
                 <div class="uniq"></div>
               </div>
               <div flex-box="2"></div>
@@ -142,12 +142,12 @@
                   style="width: 195px"
                   v-model="staticObj.food"
                   v-autoComplete="{dataList: dictionary.food, obj:staticObj, key: 'food'}"
-                >
+                />
                 <div class="uniq"></div>
               </div>
               <div class="input-cell" flex="cross:center" style="margin-left: 4px">
                 <div class="label">量：</div>
-                <input type="text" :readonly="isRead" v-model="staticObj.foodSize">
+                <input type="text" :readonly="isRead" v-model="staticObj.foodSize" />
                 <div class="uniq">ml</div>
               </div>
               <div flex-box="1"></div>
@@ -161,12 +161,12 @@
                   style="width: 195px"
                   v-model="staticObj.discharge"
                   v-autoComplete="{dataList: dictionary.discharge, obj:staticObj, key: 'discharge'}"
-                >
+                />
                 <div class="uniq"></div>
               </div>
               <div class="input-cell" flex="cross:center" style="margin-left: 4px">
                 <div class="label">量：</div>
-                <input type="text" :readonly="isRead" v-model="staticObj.dischargeSize">
+                <input type="text" :readonly="isRead" v-model="staticObj.dischargeSize" />
                 <div class="uniq">ml</div>
               </div>
               <div flex-box="1"></div>
@@ -184,7 +184,7 @@
                     :readonly="isRead"
                     v-model="fixedList[key].value"
                     v-autoComplete="{dataList: dictionary[key], obj:fixedList, key: key}"
-                  >
+                  />
                   <div class="uniq"></div>
                 </div>
               </div>
@@ -200,7 +200,7 @@
                   v-model="staticObj[item.key]"
                   :readonly="check[index] || isRead"
                   v-autoComplete="{dataList: dictionary[item.key], obj:staticObj, key: item.key}"
-                >
+                />
                 <div class="button">
                   <el-checkbox v-model="check[index]" :disabled="isRead"></el-checkbox>
                 </div>
@@ -225,103 +225,149 @@
   </div>
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
-.title
-  font-size 14px
-  color #333333
-.text-con
-  margin-top 20px
-  margin-bottom 20px
-  >>>textarea
-    height 200px
-.special-date-con
-  margin 0 0 18px 0
-  .label
-    font-size 14px
-    color #333333
-  input
-    background #FFFFFF
-    border 1px solid #CBD5DD
-    border-radius 2px
-    height 30px
-    width 60px
-    outline none
-    text-align center
-.tab-content
-  >>>.el-tabs__header
-    margin-left -20px
-    margin-right -20px
-    background #F7FAFA
-  >>>.el-tabs__item
-    height 37px
-    border-radius 0
-    border-top 3px solid transparent
-    border-bottom 3px solid transparent
-    &.is-active
-      background #fff
-      border-radius 0
-      border-top 3px solid #4BB08D
-      border-bottom 3px solid transparent
-      box-sizing border-box
-      font-weight bold
-      line-height 33px
-      color #333
-  >>>.el-tabs__item
-    line-height 37px
->>>
-  .el-tabs
-    min-height 340px
-.input-row
-  margin-bottom 12px
-.input-cell
-  &[flex-box]
-    width 0
-  .label
-    font-size 14px
-    color #333333
-  input
-    background #FFFFFF
-    border 1px solid #CBD5DD
-    border-radius 2px
-    height 32px
-    width 107px
-    outline none
-    text-align center
-    margin-left 5px
-    margin-right 12px
-.tab-content
-  .custom-cell
-    &:nth-of-type(2n) .custom-box
-      padding-left 15px
-.custom-cell
-  float left
-  width 50%
-  margin-bottom 10px
-  .custom-box
-    box-sizing border-box
-    .label
-      background #EEF6F5
-      height 34px
-      font-size 14px
-      color #333333
-      box-sizing border-box
-      padding-left 13px
-      border 1px solid #CBD5DD
-      width 100px
-      border-radius 2px 0 0 2px
-      display flex
-      align-items center
-    input
-      width 190px
-      height 34px
-      font-size 14px
-      padding-left 13px
-      box-sizing border-box
-      border 1px solid #CBD5DD
-      border-left 0
-      border-radius 0 2px 2px 0
-      outline none
-    .button
-      margin-left 9px
+.title {
+  font-size: 14px;
+  color: #333333;
+}
+
+.text-con {
+  margin-top: 20px;
+  margin-bottom: 20px;
+
+  >>>textarea {
+    height: 200px;
+  }
+}
+
+.special-date-con {
+  margin: 0 0 18px 0;
+
+  .label {
+    font-size: 14px;
+    color: #333333;
+  }
+
+  input {
+    background: #FFFFFF;
+    border: 1px solid #CBD5DD;
+    border-radius: 2px;
+    height: 30px;
+    width: 60px;
+    outline: none;
+    text-align: center;
+  }
+}
+
+.tab-content {
+  >>>.el-tabs__header {
+    margin-left: -20px;
+    margin-right: -20px;
+    background: #F7FAFA;
+  }
+
+  >>>.el-tabs__item {
+    height: 37px;
+    border-radius: 0;
+    border-top: 3px solid transparent;
+    border-bottom: 3px solid transparent;
+
+    &.is-active {
+      background: #fff;
+      border-radius: 0;
+      border-top: 3px solid #4BB08D;
+      border-bottom: 3px solid transparent;
+      box-sizing: border-box;
+      font-weight: bold;
+      line-height: 33px;
+      color: #333;
+    }
+  }
+
+  >>>.el-tabs__item {
+    line-height: 37px;
+  }
+}
+
+>>> {
+  .el-tabs {
+    min-height: 340px;
+  }
+}
+
+.input-row {
+  margin-bottom: 12px;
+}
+
+.input-cell {
+  &[flex-box] {
+    width: 0;
+  }
+
+  .label {
+    font-size: 14px;
+    color: #333333;
+  }
+
+  input {
+    background: #FFFFFF;
+    border: 1px solid #CBD5DD;
+    border-radius: 2px;
+    height: 32px;
+    width: 107px;
+    outline: none;
+    text-align: center;
+    margin-left: 5px;
+    margin-right: 12px;
+  }
+}
+
+.tab-content {
+  .custom-cell {
+    &:nth-of-type(2n) .custom-box {
+      padding-left: 15px;
+    }
+  }
+}
+
+.custom-cell {
+  float: left;
+  width: 50%;
+  margin-bottom: 10px;
+
+  .custom-box {
+    box-sizing: border-box;
+
+    .label {
+      background: #EEF6F5;
+      height: 34px;
+      font-size: 14px;
+      color: #333333;
+      box-sizing: border-box;
+      padding-left: 13px;
+      border: 1px solid #CBD5DD;
+      width: 100px;
+      border-radius: 2px 0 0 2px;
+      display: flex;
+      align-items: center;
+    }
+
+    input {
+      width: 190px;
+      height: 34px;
+      font-size: 14px;
+      padding-left: 13px;
+      box-sizing: border-box;
+      border: 1px solid #CBD5DD;
+      border-left: 0;
+      border-radius: 0 2px 2px 0;
+      outline: none;
+    }
+
+    .button {
+      margin-left: 9px;
+    }
+  }
+}
 </style>
 <script>
 import bus from "vue-happy-bus";
@@ -535,7 +581,7 @@ export default {
           charCode = -1;
         for (var i = 0; i < len; i++) {
           charCode = str.charCodeAt(i);
-          if (charCode == 94)  realLength += 0
+          if (charCode == 94) realLength += 0;
           else if (charCode >= 0 && charCode <= 128) realLength += 1;
           else realLength += 2;
         }
@@ -544,7 +590,7 @@ export default {
       let result = [];
       let text = "";
       let allDoc = this.doc;
-      if (true) {
+      if (this.sheetInfo.sheetType.indexOf("_wx") == -1) {
         allDoc = "    " + this.doc;
       }
       for (let i = 0; i < allDoc.length; i++) {

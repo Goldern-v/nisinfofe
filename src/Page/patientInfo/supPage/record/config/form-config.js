@@ -7,6 +7,9 @@
  * @param {isOutSign} 是否表单外签名
  * @param {isOutAudit} 是否表单外审核
  */
+
+import weixian from './weixian.js'
+
 const defaultConfig = {
   hasMeasure: true,
   isOutSign: true,
@@ -79,7 +82,11 @@ const formMSNames = [
 
   "间歇性导尿知情同意书",
   "指力刺激直肠训练知情同意书",
-  "分娩记录单"
+  "分娩记录单",
+
+  // 威县医院表单
+  ...(weixian.formMSNames)
+
 ];
 
 // 护理评估列表 有多项签名 新建页面

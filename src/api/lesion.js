@@ -11,11 +11,17 @@ function typeList() {
   return axios.get(`${apiPath}record/setting/typeList`)
 }
 // 一览卡
-function patients(deptCode, config) {
+function patients(deptCode, config, HisName = process.env.HOSPITAL_NAME) {
+  let hisList = {
+    威县人民医院:  `patListWithNewForm/${deptCode}`,
+    东莞市厚街医院: `patList/${deptCode}`
+  };
+  let url = hisList[HisName] || `patList/${deptCode}`
   if (config) {
     return axios.post(`${apiPath}bed/patList/config/${deptCode}`, config)
   } else {
-    return axios.get(`${apiPath}bed/patList/${deptCode}`)
+    return axios.get(`${apiPath}bed/${url}`)
+    // return axios.get(`${apiPath}bed/patList/${deptCode}`)
   }
 }
 // 关注床位

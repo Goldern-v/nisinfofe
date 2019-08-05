@@ -46,7 +46,7 @@ export default {
       newWid.onload = () => {
         setTimeout(() => {
           newWid.app.bus.$emit(
-            "openAssessment",
+            "openAssessmentBox",
             Object.assign({}, getFormConfig(item.formName), {
               id: item.dataId,
               formCode: item.formCode,
@@ -70,7 +70,7 @@ export default {
           this.$nextTick(() => {
             if (item.id) {
               this.bus.$emit(
-                "openAssessment",
+                "openAssessmentBox",
                 Object.assign({}, getFormConfig(item.formName), {
                   id: item.id,
                   formCode: item.formCode,

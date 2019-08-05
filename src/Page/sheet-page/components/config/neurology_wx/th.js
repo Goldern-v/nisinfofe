@@ -2,7 +2,7 @@ export default {
   // 科室的名称
   deptType: "",
   style: {
-    width: "1100px"
+    width: "1700px"
   },
   th: {
     top: [
@@ -72,6 +72,34 @@ export default {
         colspan: "1",
         rowspan: "3"
       },
+
+      {
+        name: `
+        疼痛
+        `,
+        style: {},
+        colspan: "2",
+        rowspan: "1"
+      },
+      {
+        name: `
+        血糖
+        `,
+        style: {},
+        colspan: "1",
+        rowspan: "1"
+      },
+      {
+        name: `
+        SPO<sub>2</sub><br>(%)
+        `,
+        style: {
+          minWidth: "31px",
+          maxWidth: "31px"
+        },
+        colspan: "1",
+        rowspan: "3"
+      },
       {
         name: `
         意识
@@ -85,38 +113,68 @@ export default {
       },
       {
         name: `
+        吸氧<br>升/分
+        `,
+        style: {},
+        colspan: "2",
+        rowspan: "1"
+      },
+
+      {
+        name: `
+        入量 (ml)
+        `,
+        colspan: "4",
+        rowspan: "1",
+        canSet: false
+      },
+      {
+        name: `
+        出量 (ml)
+        `,
+        colspan: "2",
+        rowspan: "1",
+        canSet: false
+      },
+
+      {
+        name: `
         瞳孔
         `,
         style: {},
         colspan: "4",
         rowspan: "1"
       },
+
       {
-        name: `
-        入
-        `,
-        colspan: "2",
-        rowspan: "1",
-        canSet: false
+        name: `肢体肌力`,
+        style: {},
+        colspan: "4",
+        rowspan: "1"
       },
       {
-        name: `
-        出
-        `,
-        colspan: "2",
-        rowspan: "1",
-        canSet: false
+        name: `肠鸣音`,
+        style: {},
+        colspan: "1",
+        rowspan: "3"
       },
+      {
+        name: `呼吸音`,
+        style: {},
+        colspan: "1",
+        rowspan: "3"
+      },
+
       {
         name: `标题1`,
         style: {},
         colspan: "1",
         rowspan: "3",
         canSet: true,
-        key: "fieldOne",
+        key: "field20",
         style: {
-          minWidth: "50px",
-          maxWidth: "50px"
+          minWidth: "37px",
+          maxWidth: "37px"
         }
       },
       {
@@ -125,10 +183,10 @@ export default {
         colspan: "1",
         rowspan: "3",
         canSet: true,
-        key: "fieldTwo",
+        key: "field21",
         style: {
-          minWidth: "50px",
-          maxWidth: "50px"
+          minWidth: "37px",
+          maxWidth: "37px"
         }
       },
       {
@@ -137,7 +195,7 @@ export default {
         colspan: "1",
         rowspan: "3",
         canSet: true,
-        key: "fieldThree",
+        key: "field22",
         style: {
           minWidth: "37px",
           maxWidth: "37px"
@@ -149,36 +207,36 @@ export default {
         colspan: "1",
         rowspan: "3",
         canSet: true,
-        key: "fieldFour",
+        key: "field23",
         style: {
           minWidth: "37px",
           maxWidth: "37px"
         }
       },
-      {
-        name: `标题5`,
-        style: {},
-        colspan: "1",
-        rowspan: "3",
-        canSet: true,
-        key: "fieldFive",
-        style: {
-          minWidth: "37px",
-          maxWidth: "37px"
-        }
-      },
-      {
-        name: `标题6`,
-        style: {},
-        colspan: "1",
-        rowspan: "3",
-        canSet: true,
-        key: "fieldSix",
-        style: {
-          minWidth: "37px",
-          maxWidth: "37px"
-        }
-      },
+      // {
+      //   name: `标题5`,
+      //   style: {},
+      //   colspan: "1",
+      //   rowspan: "3",
+      //   canSet: true,
+      //   key: "field24",
+      //   style: {
+      //     minWidth: "37px",
+      //     maxWidth: "37px"
+      //   }
+      // },
+      // {
+      //   name: `标题6`,
+      //   style: {},
+      //   colspan: "1",
+      //   rowspan: "3",
+      //   canSet: true,
+      //   key: "field25",
+      //   style: {
+      //     minWidth: "37px",
+      //     maxWidth: "37px"
+      //   }
+      // },
       {
         name: `
         特殊情况记录
@@ -197,24 +255,81 @@ export default {
         style: {},
         colspan: "1",
         rowspan: "3"
-      },
-      {
-        name: `
-        审核签名
-        `,
-        style: {},
-        colspan: "1",
-        rowspan: "3"
       }
+      // {
+      //   name: `
+      //   审核签名
+      //   `,
+      //   style: {},
+      //   colspan: "1",
+      //   rowspan: "3"
+      // }
     ],
     mid: [
       {
         name: `
-        大小(mm)
+        部位
         `,
-        style: {
-          whiteSpace: "nowrap"
-        },
+        colspan: "1",
+        rowspan: "2"
+      },
+      {
+        name: `
+        评分
+        `,
+        colspan: "1",
+        rowspan: "2"
+      },
+      {
+        name: `
+        mmol/l
+        `,
+        colspan: "1",
+        rowspan: "2"
+      },
+      {
+        name: `
+        鼻塞
+        `,
+        colspan: "1",
+        rowspan: "2"
+      },
+      {
+        name: `
+        面罩
+        `,
+        colspan: "1",
+        rowspan: "2"
+      },
+      {
+        name: `
+        饮食
+        `,
+        colspan: "2",
+        rowspan: "1"
+      },
+      {
+        name: `
+        静脉
+        `,
+        colspan: "2",
+        rowspan: "1"
+      },
+
+      {
+        name: ``,
+        style: {},
+        colspan: "2",
+        rowspan: "1",
+        canSet: true,
+        key: "field10"
+      },
+
+      {
+        name: `
+        直径mm
+        `,
+
         colspan: "2",
         rowspan: "1"
       },
@@ -227,54 +342,24 @@ export default {
       },
       {
         name: `
-        名称
+        左
         `,
-        style: {
-          minWidth: "68px",
-          maxWidth: "68px"
-        },
-        colspan: "1",
-        rowspan: "2"
+
+        colspan: "2",
+        rowspan: "1"
       },
       {
         name: `
-        量<br/>(ml)
+        右
         `,
-        colspan: "1",
-        rowspan: "2",
-        style: {
-          minWidth: "28px",
-          maxWidth: "28px"
-        }
-      },
-      {
-        name: `
-        名称
-        `,
-        style: {
-          minWidth: "40px",
-          maxWidth: "40px"
-        },
-        colspan: "1",
-        rowspan: "2"
-      },
-      {
-        name: `
-        量<br/>(ml)
-        `,
-        colspan: "1",
-        rowspan: "2",
-        style: {
-          minWidth: "28px",
-          maxWidth: "28px",
-          whiteSpace: "nowrap"
-        }
+        colspan: "2",
+        rowspan: "1"
       }
     ],
     bottom: [
       {
         name: `
-        左
+        性质
         `,
         colspan: "1",
         rowspan: "1",
@@ -285,7 +370,7 @@ export default {
       },
       {
         name: `
-        右
+        量
         `,
         colspan: "1",
         rowspan: "1",
@@ -296,7 +381,7 @@ export default {
       },
       {
         name: `
-        左
+        补液
         `,
         colspan: "1",
         rowspan: "1",
@@ -306,15 +391,72 @@ export default {
         }
       },
       {
-        name: `
-        右
-        `,
+        name: ``,
+        style: {},
         colspan: "1",
         rowspan: "1",
-        style: {
-          minWidth: "25px",
-          whiteSpace: "nowrap"
-        }
+        canSet: true,
+        key: "field9"
+      },
+      {
+        name: `性质`,
+        style: {},
+        colspan: "1",
+        rowspan: "1"
+      },
+      {
+        name: `量`,
+        style: {},
+        colspan: "1",
+        rowspan: "1"
+      },
+      {
+        name: `左`,
+        style: {},
+        colspan: "1",
+        rowspan: "1"
+      },
+      {
+        name: `右`,
+        style: {},
+        colspan: "1",
+        rowspan: "1"
+      },
+      {
+        name: `左`,
+        style: {},
+        colspan: "1",
+        rowspan: "1"
+      },
+      {
+        name: `右`,
+        style: {},
+        colspan: "1",
+        rowspan: "1"
+      },
+      {
+        name: `上`,
+        style: {},
+        colspan: "1",
+        rowspan: "1"
+      },
+      {
+        name: `下`,
+        style: {},
+        colspan: "1",
+        rowspan: "1"
+      },
+      {
+        name: `上`,
+        style: {},
+        colspan: "1",
+        rowspan: "1"
+      },
+      {
+        name: `下`,
+        style: {},
+        colspan: "1",
+        rowspan: "1"
       }
     ]
   }

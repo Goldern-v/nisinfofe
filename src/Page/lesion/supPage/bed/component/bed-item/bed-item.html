@@ -152,15 +152,15 @@
           <div class="value">{{data.prepayments}</div>
         </div> -->
       </div>
-
-      <div
-        class="xinru"
-        :class="{
+      <!-- :class="{
         'type-1': data.nursingClass == '一级护理',
         'type-2': data.nursingClass == '二级护理',
         'type-3': data.nursingClass == '三级护理',
         'type-4': data.nursingClass == '特级护理'
-      }"
+      }" -->
+      <div
+        class="xinru"
+        :style="{borderColor: `${data.nursingClassColor} transparent`}"
       ></div>
       <!-- <div class="gl" v-if="data.glFlag">隔离</div> -->
       <div class="deptLend" v-if="data.deptLend">借</div>
