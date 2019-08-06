@@ -82,32 +82,11 @@
         <EventTable :tableData="tableData" :pageLoadng="pageLoadng" :updateTable="updateTable"></EventTable>
         <pagination
           :page.sync="page.pageIndex"
-          :size.sync="page.pageNum"
+          :size.sync="page.pageSize"
           :total.sync="total"
           @sizeChange="handleSizeChange"
           @currentChange="handleCurrentChange"
         ></pagination>
-        <!-- <el-row>
-          <el-col :span="18">
-            <span class="grid-content"></span>
-          </el-col>
-          <el-col :span="2">
-            <span class="grid-content">第{{page.pageIndex}}/共{{page.totalPage}}页</span>
-          </el-col>
-          <el-col :span="1">
-            <span @click="prePage" :class="(page.pageIndex <= 1)?'useLess':'haspage'">上一页</span>
-          </el-col>
-          <el-col :span="1">
-            <span
-              @click="nextPage"
-              :class="(page.pageIndex >= page.totalPage)?'useLess':'haspage'"
-            >下一页</span>
-          </el-col>
-          <el-col :span="2">
-            <input type="text" v-model="pageInput" @keyup.enter="gotoPage" style="width:30px">
-            <span @click="gotoPage">跳转</span>
-          </el-col>
-        </el-row>-->
       </div>
     </div>
     <div class="bad-event-create-event">
@@ -119,7 +98,6 @@
 <style lang="stylus"  rel="stylesheet/stylus" type="text/stylus" scoped>
 .toolbar {
   display: flex;
-  // justify-content: space-between;
   align-items: center;
   height: 41px;
   padding: 0 18px;
@@ -286,13 +264,12 @@ export default {
         { value: "检查/检验/病理标本事件", label: "检查/检验/病理标本事件" },
         { value: "其他事件", label: "其他事件" }
       ],
-      pageInput: "",
       tableData: [],
       arr: [],
       pageLoadng: false,
       page: {
         pageIndex: 1,
-        pageNum: 20,
+        pageSize: 20,
         totalPage: 1
       },
       total: 1, //列表总条数
@@ -302,7 +279,6 @@ export default {
     };
   },
   mounted() {
-    this.pageInput = this.page.pageIndex || 1;
     // 获取所有护理单元科室列表
     if (
       this.allDepartmentsList &&
@@ -362,8 +338,6 @@ export default {
     async loadEventData() {
       // 根据护理单元获取不良事件列表
       this.pageLoadng = true;
-      this.tableData = [];
-      console.log("不良事件列表selectedDeptValue", this.selectedDeptValue);
       let query = {
         wardCode: this.selectedDeptValue,
         dateBegin: this.dateBegin
@@ -374,40 +348,29 @@ export default {
           : "",
         patientName: this.patientName,
         eventType: this.eventType,
-        eventStatus: this.eventStatus
+        eventStatus: this.eventStatus,
+        pageIndex: this.page.pageIndex,
+        pageSize: this.page.pageSize
       };
-      const res = await apis.getEventList(query).catch(err => {
-        console.log("**", err);
-      });
-      this.arr = res;
-      console.log("--", this.tableData);
-      this.tableData = [];
-      this.page.totalPage = Math.ceil(res.data.data.length / this.page.pageNum);
-      this.total = res.data.data.length || 0;
-      for (
-        let i = this.page.pageNum * (this.page.pageIndex - 1);
-        i < this.page.pageNum * this.page.pageIndex;
-        i++
-      ) {
-        if (res.data.data[i] && res.data.data[i].id) {
-          this.tableData.push(res.data.data[i]);
-        }
-      }
-      const { data: tableData } = this.tableData;
-      console.log("不良事件列表", this.tableData);
-      //  console.log('不良事件列表',res,this.tableData)
-      // this.pageLoadng = false;
-      let timeId,
-        self = this;
-      timeId = setTimeout(function() {
-        clearTimeout(timeId);
-        self.pageLoadng = false;
-      }, 500);
-      // console.log('不良事件列表',res)
-      // const {data:{data:tableData}} = res
-      // this.tableData = tableData
-      // // console.log('不良事件列表',res,this.tableData,tableData)
-      // this.pageLoadng = false
+
+      apis
+        .getEventList(query)
+        .then(res => {
+          if (res.data && res.data.code == 200) {
+            this.tableData = res.data.data.list;
+            this.page.totalPage =
+              res.data.data.totalPage || this.page.totalPage;
+            this.total = res.data.data.totalCount || this.total;
+          }
+          this.bus.$emit("setTableData", {
+            tableData: this.tableData
+          });
+          this.pageLoadng = false;
+        })
+        .catch(err => {
+          this.pageLoadng = false;
+          console.log(err);
+        });
     },
     async loadPatientsData(deptCode) {
       if (!deptCode) {
@@ -445,50 +408,6 @@ export default {
       console.log("tableData", this.tableData);
       this.loadEventData();
     },
-    //翻页
-    prePage() {
-      // console.log(this.page)
-      if (this.page.pageIndex <= 1) return;
-      this.page.pageIndex--;
-      this.getdata();
-      console.log(this.page.pageIndex, this.tableData);
-      // this.updatapage( {page:this.page,tableData:this.tableData})
-    },
-    nextPage() {
-      if (this.page.pageIndex >= this.page.totalPage) return;
-      this.page.pageIndex++;
-      this.getdata();
-      // console.log("i=",this.page.pageNum*(this.page.pageIndex-1))
-      //  console.log("max=",this.page.pageNum*this.page.pageIndex)
-      // this.updatapage( {page:this.page,tableData:this.tableData})
-    },
-    gotoPage() {
-      this.page.pageIndex = this.pageInput;
-      this.getdata();
-      // this.updatapage( {page:this.page,tableData:this.tableData})
-    },
-    getdata() {
-      // console.log("!!!!!!!!getdata",this.arr)
-      this.pageInput = this.page.pageIndex || 1;
-      this.pageLoadng = true;
-      this.tableData = [];
-      //  console.log("datatable~",this.tableData)
-      for (
-        let i = this.page.pageNum * (this.page.pageIndex - 1);
-        i < this.page.pageNum * this.page.pageIndex;
-        i++
-      ) {
-        if (this.arr.data.data[i] && this.arr.data.data[i].id) {
-          // console.log("push",i,this.arr.data.data[i])
-          this.tableData.push(this.arr.data.data[i]);
-        }
-      }
-      this.bus.$emit("setTableData", {
-        tableData: this.tableData
-      });
-      // const {data:tableData} =  this.tableData
-      this.pageLoadng = false;
-    },
     // 获取所有护理单元
     getDepartmentsList() {
       apis.getAllNursingUnit("type=2").then(res => {
@@ -508,14 +427,12 @@ export default {
     },
     handleSizeChange(newSize) {
       this.page.pageIndex = 1;
-      this.page.pageNum = newSize;
-      this.getdata();
-      // this.loadEventData();
+      this.page.pageSize = newSize;
+      this.loadEventData();
     },
     handleCurrentChange(newPage) {
       this.page.pageIndex = newPage;
-      this.getdata();
-      // this.loadEventData();
+      this.loadEventData();
     }
   }
 };

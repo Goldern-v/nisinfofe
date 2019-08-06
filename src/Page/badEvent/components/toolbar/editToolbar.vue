@@ -27,61 +27,48 @@
 </template>
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
-  // .bad-event
-  //   display flex
-  //   flex-direction column
-  //   height 100%
+.toolbar {
+  display: flex;
+  align-items: center;
+  height: 41px;
+  padding: 0 18px;
+  background-image: linear-gradient(-180deg, #F8F8FA 0%, #EBECF0 100%);
+  border: 1px solid #CBD5DD;
+  overflow: hidden;
+  font-size: 14px;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  z-index: 9999;
+  padding-right: 20px;
 
-    .toolbar
-      display flex
-      align-items center
-      height 41px
-      padding 0 18px
-      background-image linear-gradient(-180deg, #F8F8FA 0%, #EBECF0 100%)
-      border 1px solid #CBD5DD
-      overflow hidden
-      font-size 14px
-      width 100%
-      position fixed
-      bottom 0
-      right 0
-      z-index 9999
-      padding-right 20px
+  &-left {
+    flex: 1;
+    text-align: right;
+  }
 
+  &-left, .el-input, .el-input__inner {
+    width: 150px !important;
+    height: 30px !important;
+    display: inline-block !important;
+  }
 
-      &-left
-        flex 1
-        text-align right
-      &-left,.el-input,.el-input__inner
-        width: 150px!important
-        height: 30px!important
-        display inline-block!important
-      &-left .date-picker .el-input .el-input__inner
-        width: 150px!important
+  &-left .date-picker .el-input .el-input__inner {
+    width: 150px !important;
+  }
+}
 
-    // .container
-    //   padding 0px 0
-    //   flex 1
-    //   overflow auto
-
-    .actions
-      position fixed
-      top 70px
-      right 10px
-      z-index 1
-
-    // .print-btn
-    //   padding 10px 12px
-    //   color #687179
-    //   background #fff
-    //   border 1px solid #adb4ba
-    //   text-align center
-    //   font-size 13px
-    //   cursor pointer
-    //   border-radius 2px
-
-      // &:hover
-      //   background #fafafa
+// .container
+// padding 0px 0
+// flex 1
+// overflow auto
+.actions {
+  position: fixed;
+  top: 70px;
+  right: 10px;
+  z-index: 1;
+}
 </style>
 
 <script>
@@ -140,7 +127,7 @@ export default {
         totalPage: 1
       },
       wid: Object,
-      isSaved: false,
+      isSaved: false
     };
   },
   created() {
@@ -158,7 +145,7 @@ export default {
     configButton(config) {
       let save = document.getElementsByClassName("save-button")[0];
       // let submit = document.getElementsByClassName("submit-button")[0];
-      console.log("configButton", config, save, submit);
+      // console.log("configButton", config, save, submit);
       if (config.save) {
         save.disabled = config.save.disabled;
       }
@@ -174,10 +161,10 @@ export default {
       this.$router.go(-1);
     },
     save(e) {
-      console.log('save',e);
+      console.log("save", e);
       // e.target.disabled = true;
       if (this.wid) {
-        this.isSaved=true;
+        this.isSaved = true;
         // this.wid.saveForm()
         this.wid.CRForm.controller.saveForm(this.$router);
       }
