@@ -127,6 +127,9 @@
         height 30px
         font-size 13px
         line-height 24px
+      th {
+        height 35px
+      }
 
       thead
         background #f4f2f5
