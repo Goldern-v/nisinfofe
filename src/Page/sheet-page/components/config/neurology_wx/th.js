@@ -171,7 +171,7 @@ export default {
         colspan: "1",
         rowspan: "3",
         canSet: true,
-        key: "field20",
+        key: "field18",
         style: {
           minWidth: "37px",
           maxWidth: "37px"
@@ -183,7 +183,7 @@ export default {
         colspan: "1",
         rowspan: "3",
         canSet: true,
-        key: "field21",
+        key: "field19",
         style: {
           minWidth: "37px",
           maxWidth: "37px"
@@ -195,7 +195,7 @@ export default {
         colspan: "1",
         rowspan: "3",
         canSet: true,
-        key: "field22",
+        key: "field20",
         style: {
           minWidth: "37px",
           maxWidth: "37px"
@@ -207,7 +207,7 @@ export default {
         colspan: "1",
         rowspan: "3",
         canSet: true,
-        key: "field23",
+        key: "field21",
         style: {
           minWidth: "37px",
           maxWidth: "37px"
