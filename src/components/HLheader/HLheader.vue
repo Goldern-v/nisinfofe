@@ -258,13 +258,13 @@
                     </el-row>
                   </router-link>
                 </el-dropdown-item>
-                <!-- <el-dropdown-item :class="{active: $route.path == '/flatManagement'}">
+                <el-dropdown-item :class="{active: $route.path == '/flatManagement'}">
                   <router-link to="/flatManagement" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
                       <i class="flatManagement"></i>扁平管理
                     </el-row>
                   </router-link>
-                </el-dropdown-item>-->
+                </el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
           </el-row>

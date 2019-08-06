@@ -11,7 +11,7 @@
             class="date-picker"
             type="date"
             size="small"
-            format="yyyy-MM-dd HH:mm:ss"
+            format="yyyy-MM-dd"
             placeholder="开始日期"
             v-model="query.checkDateStart"
             clearable
@@ -21,7 +21,7 @@
             class="date-picker"
             type="date"
             size="small"
-            format="yyyy-MM-dd HH:mm:ss"
+            format="yyyy-MM-dd"
             placeholder="结束日期"
             v-model="query.checkDateEnd"
             clearable
@@ -71,7 +71,7 @@
           <el-table-column prop="inspectorName" label="检查者" width="100" align="center"></el-table-column>
           <el-table-column prop="responsibleEmpName" label="责任人" width="100" align="center"></el-table-column>
           <el-table-column prop="typeName" label="类型" width="150" align="center"></el-table-column>
-          <el-table-column prop="question" label="存在问题" width="200" align="center"></el-table-column>
+          <el-table-column prop="problem" label="存在问题" width="200" align="center"></el-table-column>
           <el-table-column prop="causeAnalysis" label="原因分析" align="center"></el-table-column>
           <el-table-column prop="status" label="状态" width="100" align="center"></el-table-column>
           <el-table-column prop="operation" label="操作" width="80" align="center">
@@ -104,7 +104,7 @@
         </div>
         <div>
           <span>存在问题：</span>
-          <p>{{preview.question}}</p>
+          <p>{{preview.problem}}</p>
         </div>
         <div>
           <span>责任人：</span>
@@ -131,6 +131,7 @@
 import commonMixin from "./../../common/mixin/common.mixin";
 import pagination from "./components/pagination.vue";
 import { getList, getTypeByDeptCode } from "./api/api";
+import dayjs from "dayjs";
 export default {
   components: {
     pagination
@@ -166,7 +167,23 @@ export default {
 
     if (this.deptCode) {
       this.setTableData();
+      this.getTypeByDeptCode();
     }
+
+    // 设置默认日期
+    if (!this.query.checkDateStart) {
+      let month = parseInt(new Date().getMonth()) + 1;
+      if (month < 10) {
+        this.query.checkDateStart =
+          new Date().getFullYear() + "-0" + month + "-01";
+      } else {
+        this.query.checkDateStart =
+          new Date().getFullYear() + "-" + month + "-01";
+      }
+    }
+    this.query.checkDateEnd = this.query.checkDateEnd
+      ? this.query.checkDateEnd
+      : dayjs(new Date()).format("YYYY-MM-DD");
   },
   beforeDestroy() {
     window.removeEventListener("resize", this.handelResize);
@@ -187,6 +204,7 @@ export default {
       console.log(this.deptCode);
       getTypeByDeptCode({ deptCode: this.deptCode }).then(res => {
         if (res.data.data instanceof Array) this.typeList = res.data.data;
+        console.log(this.typeList);
       });
     },
     handelResize() {
@@ -195,11 +213,10 @@ export default {
       this.tableHeight = tableHeight;
     },
     previewFile(scope) {
-      console.dir(scope);
       let {
         checkDate,
         inspectorName,
-        question,
+        problem,
         responsibleEmpName,
         deduction,
         causeAnalysis,
@@ -210,7 +227,7 @@ export default {
         title: "问题详情",
         checkDate,
         inspectorName,
-        question,
+        problem,
         responsibleEmpName,
         deduction,
         causeAnalysis,
@@ -226,6 +243,7 @@ export default {
       this.query.pageIndex = newPage;
       this.setTableData();
     },
+    // 查询
     handleSearch() {
       this.query.pageIndex = 1;
       this.query.pageSize = 20;
@@ -235,54 +253,23 @@ export default {
       this.pageLoadng = true;
       this.query.deptCode = this.deptCode;
       this.query.checkDateStart = this.query.checkDateStart
-        ? this.query.checkDateStart + " 00:00:00"
-        : this.query.checkDateStart;
+        ? dayjs(this.query.checkDateStart).format("YYYY-MM-DD")
+        : dayjs(new Date()).format("YYYY-MM-DD");
       this.query.checkDateEnd = this.query.checkDateEnd
-        ? this.query.checkDateEnd + " 23:59:59"
-        : this.query.checkDateEnd;
+        ? dayjs(this.query.checkDateEnd).format("YYYY-MM-DD")
+        : dayjs(new Date()).format("YYYY-MM-DD");
       getList(this.query).then(
         res => {
-          let data = res.data.data.list;
-          this.total = data.totalCount || 0;
-          // this.data = data.list.map((item, idx) => {
-          //   let deptName = item.deptName;
-          //   let sizeFile = this.bytesToSize(item.sizeFile);
-          //   if (
-          //     item.deptCode == "全院" ||
-          //     item.deptCode == "公共" ||
-          //     item.publicUse == "1"
-          //   )
-          //     deptName = "公共";
-
-          //   return {
-          //     ...item,
-          //     key: idx,
-          //     deptName,
-          //     sizeFile
-          //   };
-          // });
-
-          // let appendTime = this.query.pageSize - this.data.length;
-          // if (appendTime > 0) {
-          //   let extraArr = [];
-          //   while (appendTime--) extraArr.push({});
-          //   this.data = this.data.concat(extraArr);
-          // }
-
+          if (res.data && res.data.code == 200) {
+            this.total = res.data.data.totalCount || 0;
+            this.data = res.data.data.list;
+          }
           this.pageLoadng = false;
         },
         err => {
           this.pageLoadng = false;
         }
       );
-    },
-    bytesToSize(bytes) {
-      if (bytes === 0) return "0 B";
-      var k = 1000, // or 1024
-        sizes = ["B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"],
-        i = Math.floor(Math.log(bytes) / Math.log(k));
-
-      return (bytes / Math.pow(k, i)).toPrecision(3) + " " + sizes[i];
     },
     // 选择类型
     handleFileTypeChange(id) {
