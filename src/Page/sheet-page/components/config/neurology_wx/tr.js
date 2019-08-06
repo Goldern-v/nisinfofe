@@ -18,6 +18,7 @@ let 疼痛评分 = [];
 let 饮食性质 = [];
 let 静脉补液 = [];
 let 出量性质 = [];
+let 静脉自定义项 = [];
 let 肌力 = [];
 export default [
   {
@@ -135,7 +136,10 @@ export default [
     key: "field9", //静脉自定义项
     value: "",
     event: keyf1,
-    name: "静脉自定义项"
+    name: "静脉自定义项",
+    autoComplete: {
+      data: 静脉自定义项
+    }
   },
   {
     key: "field10", //出量性质
@@ -405,7 +409,8 @@ export function getListData4() {
     "饮食性质",
     "静脉补液",
     "出量性质",
-    "肌力"
+    "肌力",
+    "静脉自定义项"
   ];
   multiDictInfo(list).then(res => {
     let data = res.data.data;
@@ -420,6 +425,7 @@ export function getListData4() {
     setList(静脉补液, "静脉补液", data);
     setList(出量性质, "出量性质", data);
     setList(肌力, "肌力", data);
+    setList(静脉自定义项, "静脉自定义项", data);
   });
 }
 
