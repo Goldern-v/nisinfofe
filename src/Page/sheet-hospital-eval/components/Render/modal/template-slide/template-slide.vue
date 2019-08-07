@@ -22,7 +22,7 @@
               class="search-input"
               placeholder="请输入你要查找的模版…"
               v-model="searchWord"
-            >
+            />
             <whiteButton text icon="icon-search"></whiteButton>
           </div>
           <div class="list-con">
@@ -143,7 +143,10 @@ import templateItem from "./template-item.vue";
 import { typeList, list } from "../../api/template";
 import addTemplateModal from "./add-template-modal.vue";
 import bus from "vue-happy-bus";
+import { keyNameMap, keyCodeMap } from "./deptMapList";
+import commom from "@/common/mixin/common.mixin.js";
 export default {
+  mixins: [commom],
   data() {
     return {
       bus: bus(this),
@@ -155,18 +158,22 @@ export default {
       typeList: [],
       selectedType: "",
       selectWidth: 100,
-      refName: ""
+      refName: "",
+      deptENName: keyNameMap[this.deptName] || "neurology"
     };
   },
   computed: {
     filterData() {
       let listMap = this.listMap;
-      let filterData = listMap.filter(item => {
-        return (
-          (item.content || "").indexOf(this.searchWord) > -1 ||
-          (item.title || "").indexOf(this.searchWord) > -1
-        );
-      });
+      let filterData = [];
+      if (listMap) {
+        filterData = listMap.filter(item => {
+          return (
+            (item.content || "").indexOf(this.searchWord) > -1 ||
+            (item.title || "").indexOf(this.searchWord) > -1
+          );
+        });
+      }
       return filterData;
     }
   },
@@ -198,10 +205,20 @@ export default {
       this.selectedTab = tab;
     },
     getData() {
-      typeList().then(res => {
+      //
+      console.log(
+        "template-deptName",
+        this.deptName,
+        this.deptCode || [""],
+        keyNameMap
+      );
+      this.deptENName = keyNameMap[this.deptName] || "neurology";
+      console.log("template-deptENName", this.deptENName);
+      //
+      typeList(this.deptENName).then(res => {
         this.typeList = res.data.data.list;
         if (this.selectedType) {
-          list(this.selectedType).then(res => {
+          list(this.selectedType, this.deptENName).then(res => {
             this.listMap = res.data.data.list;
           });
         } else {
@@ -225,7 +242,8 @@ export default {
   watch: {
     selectedType() {
       if (this.selectedType) {
-        list(this.selectedType).then(res => {
+        this.deptENName = keyNameMap[this.deptName] || "neurology";
+        list(this.selectedType, this.deptENName).then(res => {
           this.listMap = res.data.data.list;
         });
       }

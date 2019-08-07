@@ -1,18 +1,18 @@
 import axios from "@/api/axios";
 import { apiPath } from "@/api/apiConfig";
-let recordCode = "neurology";
+// let recordCode = "neurology";
 //  列表
-export function list(groupName) {
+export function list(groupName, recordCode = "neurology") {
   return axios.post(`${apiPath}record/desc/list`, { recordCode, groupName });
 }
 
 // 分类列表
-export function typeList() {
+export function typeList(recordCode = "neurology") {
   return axios.get(`${apiPath}record/desc/typeList/${recordCode}`);
 }
 
 //  保存常用短语
-export function saveOrUpdate(groupName, title, content, id) {
+export function saveOrUpdate(groupName, title, content, id, recordCode = "neurology") {
   return axios.post(`${apiPath}record/desc/saveOrUpdate`, {
     recordCode,
     groupName,

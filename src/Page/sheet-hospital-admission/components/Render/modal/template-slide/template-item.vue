@@ -55,7 +55,10 @@
 <script>
 import bus from "vue-happy-bus";
 import { del } from "../../api/template.js";
+// import { keyNameMap, keyCodeMap } from "./deptMapList";
+import commom from "@/common/mixin/common.mixin.js";
 export default {
+  mixins: [commom],
   props: {
     data: Object,
     refName: String

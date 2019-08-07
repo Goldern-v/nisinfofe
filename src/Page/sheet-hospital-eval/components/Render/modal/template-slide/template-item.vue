@@ -55,7 +55,9 @@
 <script>
 import bus from "vue-happy-bus";
 import { del } from "../../api/template.js";
+import commom from "@/common/mixin/common.mixin.js";
 export default {
+  mixins: [commom],
   props: {
     data: Object,
     refName: String

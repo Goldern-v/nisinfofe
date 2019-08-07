@@ -45,7 +45,10 @@
 <script>
 import { typeList, saveOrUpdate, list } from "../../api/template.js";
 import bus from "vue-happy-bus";
+import { keyNameMap, keyCodeMap } from "./deptMapList";
+import commom from "@/common/mixin/common.mixin.js";
 export default {
+  mixins: [commom],
   data() {
     return {
       bus: bus(this),
@@ -53,7 +56,8 @@ export default {
       title: "",
       content: "",
       id: "",
-      typeList: ""
+      typeList: "",
+      deptENName: keyNameMap[this.deptName] || "neurology"
     };
   },
   computed: {
@@ -83,17 +87,22 @@ export default {
       this.$refs.modal.close();
     },
     post() {
-      saveOrUpdate(this.groupName, this.title, this.content, this.id).then(
-        res => {
-          if (this.id) {
-            this.$message.success("更新常用语模版成功");
-          } else {
-            this.$message.success("保存常用语模版成功");
-          }
-          this.close();
-          this.bus.$emit("refreshTemplate");
+      this.deptENName = keyNameMap[this.deptName] || "neurology";
+      saveOrUpdate(
+        this.groupName,
+        this.title,
+        this.content,
+        this.id,
+        this.deptENName
+      ).then(res => {
+        if (this.id) {
+          this.$message.success("更新常用语模版成功");
+        } else {
+          this.$message.success("保存常用语模版成功");
         }
-      );
+        this.close();
+        this.bus.$emit("refreshTemplate");
+      });
     },
     querySearch(queryString, cb) {
       cb(
