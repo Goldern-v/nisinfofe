@@ -4,10 +4,10 @@ import { apiPath } from "@/api/apiConfig";
 
 // 获取扁平管理列表
 export function getList(query) {
-    return axios.post(`${apiPath}flatManageInstance/getListByParams`, query);
+    return axios.post(`${apiPath}flatManageInstance/getPageList`, query);
 }
 
 // 获取扁平管理类型
 export function getTypeByDeptCode(query) {
-    return axios.post(`${apiPath}flatManageInstance/getTypeByDeptCode`, qs.stringify(query));
+    return axios.post(`${apiPath}flatManageInstance/getMangeTypeList`, qs.stringify(query));
 }

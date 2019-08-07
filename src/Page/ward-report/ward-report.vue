@@ -103,6 +103,7 @@
     position relative
     padding-left 200px
     height 100%
+    background-color #dfdfdf
 
     .left-side
       position absolute

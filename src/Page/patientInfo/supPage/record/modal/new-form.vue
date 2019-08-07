@@ -255,7 +255,7 @@ export default {
             );
           }
           // 第0版：旧表弹窗表单
-          else if (item.formVersion < 2) {
+          else if (item.formVersion < 2 && item.nooForm < 2) {
             let queryObj = {
               id: "",
               formCode: item.formCode,
@@ -282,7 +282,10 @@ export default {
             window.openFormBox(url);
           }
           // 新2版：表单，内置顶部按钮，框架宽占满屏，内置分页阴影效果
-          if (item.formVersion == 2) {
+          if (item.formVersion == 2 || item.nooForm == 2) {
+            console.log(
+              "新2版：表单，内置顶部按钮，框架宽占满屏，内置分页阴影效果"
+            );
             // this.bus.$emit(
             //   "openAssessmentV2",
             //   Object.assign(item, {
