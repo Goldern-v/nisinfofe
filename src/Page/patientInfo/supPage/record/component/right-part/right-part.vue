@@ -120,7 +120,10 @@ export default {
         this.showConToolBar = data.showConToolBar;
       }
       this.formVersion = 0;
-      if ((data.hasOwnProperty("formVersion") && (data.formVersion == 2)||data.nooForm == 2)) {
+      if (
+        (data.hasOwnProperty("formVersion") && data.formVersion == 2) ||
+        data.nooForm == 2
+      ) {
         this.formVersion = data.formVersion;
         this.showConToolBar = false;
         this.bus.$emit("openAssessmentV2", data);
