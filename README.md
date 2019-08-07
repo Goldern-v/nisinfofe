@@ -1,19 +1,51 @@
-# crhl
+# 宸瑞智慧护理信息系统
 
-> nice
+> 常用命令一览
 
-## Build Setup
+## Build Setup 打包安装
 
-``` bash
-# install dependencies
+```bash
+# install dependencies 安装依赖
 npm install
+cnpm i
 
-# serve with hot reload at localhost:8080
+# serve with hot reload at localhost:8080 开发模式
 npm run dev
+npm run dev: houjie # 启动开发模式-东莞厚街医院
+npn run dev: weixian # 启动开发模式-威县人民医院
+npm run dev: wuhang # 启动开发模式-武汉市第一医院
+npm run dev: guiyi # 启动开发模式-贵州医科大学附属医院
+# or
+yarn dev: houjie
+yarn dev: weixian
+yarn dev: wuhang
+yarn dev: guiyi
+yarn dev: 医院名
 
-# build for production with minification
+# build for production with minification 打包项目
 npm run build
+npm run build: houjie # 打包东莞厚街医院
+npn run build: weixian # 打包威县人民医院
+npm run build: wuhang # 打包武汉市第一医院
+npm run build: guiyi # 启动开发模式-贵州医科大学附属医院
+# or
+yarn build: houjie
+yarn build: weixian
+yarn build: wuhang
+yarn build: guiyi
+yarn build: 医院名
 
+# 参数
+yarn [build | dev]: [医院名] [打包人名]
+yarn build: wuhang 林兆彬
+
+# 新版配置的路径打包
+yarn buildNew: wuhang 林兆彬
+
+# 自动发布到45测试服务器
+yarn deploy weixian 兆大彬 #打包并自动部署威县医院包到45测试服务器
+
+# 其他
 # build for production and view the bundle analyzer report
 npm run build --report
 ```
