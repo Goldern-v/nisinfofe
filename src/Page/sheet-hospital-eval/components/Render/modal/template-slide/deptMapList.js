@@ -1,0 +1,51 @@
+export let keyNameMap = {
+    "产科": "obstetrics",
+    "儿内科": "pediatrics",
+    "关节骨科": "joint",
+    "内分泌科": "endocrinology",
+    "创骨科": "trauma_orthopedics",
+    "呼吸科": "respiration",
+    "妇科": "gynecology",
+    "心血管内科": "medicine_cardiovascular",
+    "急诊科": "emergency",
+    "感染科": "infectious_diseases",
+    "新生儿科": "neonatology",
+    "普外科": "general_surgery",
+    "泌尿科": "urology",
+    "消化内科": "gastroenterology",
+    "烧伤科": "burn",
+    "神经内科护理单元": "neurology",
+    "神经外科": "neurosurgery",
+    "耳鼻咽喉科": "ear_nose_throat",
+    "肿瘤血液科": "tumor_hemodialysis",
+    "脊柱骨科": "spinal_orthopedics",
+    "血透室": "hemodialysis",
+    "骨科护理单元": "orthopedics"
+}
+
+export let keyCodeMap = {
+    "neurology": "神经内科护理单元",
+    "neurosurgery": "神经外科",
+    "general_surgery": "普外科",
+    "obstetrics": "产科",
+    "pediatrics": "儿内科",
+    "gynecology": "妇科",
+    "infectious_diseases": "感染科",
+    "orthopedics": "骨科护理单元",
+    "spinal_orthopedics": "脊柱骨科",
+    "trauma_orthopedics": "创骨科",
+    "joint": "关节骨科",
+    "respiration": "呼吸科",
+    "emergency": "急诊科",
+    "urology": "泌尿科",
+    "endocrinology": "内分泌科",
+    "burn": "烧伤科",
+    "ear_nose_throat": "耳鼻咽喉科",
+    "gastroenterology": "消化内科",
+    "medicine_cardiovascular": "心血管内科",
+    "neonatology": "新生儿科",
+    "hemodialysis": "血透室",
+    "tumor_hemodialysis": "肿瘤血液科"
+}
+
+export default { keyNameMap, keyCodeMap }
