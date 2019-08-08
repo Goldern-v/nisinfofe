@@ -272,6 +272,38 @@ export default [
       width: 36
     }
   },
+  {
+    key: "field22", //标题5
+    value: "",
+    event: keyf1,
+    textarea: {
+      width: 36
+    }
+  },
+  {
+    key: "field23", //标题6
+    value: "",
+    event: keyf1,
+    textarea: {
+      width: 36
+    }
+  },
+  {
+    key: "field24", //标题7
+    value: "",
+    event: keyf1,
+    textarea: {
+      width: 36
+    }
+  },
+  {
+    key: "field25", //标题8
+    value: "",
+    event: keyf1,
+    textarea: {
+      width: 36
+    }
+  },
   // {
   //   key: "field24", //标题5
   //   value: "",
