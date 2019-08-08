@@ -213,6 +213,54 @@ export default {
           maxWidth: "37px"
         }
       },
+      {
+        name: `标题5`,
+        style: {},
+        colspan: "1",
+        rowspan: "3",
+        canSet: true,
+        key: "field22",
+        style: {
+          minWidth: "37px",
+          maxWidth: "37px"
+        }
+      },
+      {
+        name: `标题6`,
+        style: {},
+        colspan: "1",
+        rowspan: "3",
+        canSet: true,
+        key: "field23",
+        style: {
+          minWidth: "37px",
+          maxWidth: "37px"
+        }
+      },
+      {
+        name: `标题7`,
+        style: {},
+        colspan: "1",
+        rowspan: "3",
+        canSet: true,
+        key: "field24",
+        style: {
+          minWidth: "37px",
+          maxWidth: "37px"
+        }
+      },
+      {
+        name: `标题8`,
+        style: {},
+        colspan: "1",
+        rowspan: "3",
+        canSet: true,
+        key: "field25",
+        style: {
+          minWidth: "37px",
+          maxWidth: "37px"
+        }
+      },
       // {
       //   name: `标题5`,
       //   style: {},
