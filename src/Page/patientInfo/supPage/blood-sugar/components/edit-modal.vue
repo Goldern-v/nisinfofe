@@ -1,6 +1,6 @@
 <template>
   <SweetModal ref="modal" :title="title" :modal-width="450">
-    <ElForm class="edit-modal-form" style="margin-bottom: 20px" label-width="80px">
+    <ElForm class="edit-modal-form" style="margin-bottom: 20px" label-width="100px">
       <ElFormItem label="日期：" required>
         <ElDatePicker v-model="form.recordDate" :clearable="false" />
       </ElFormItem>
@@ -158,27 +158,31 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-  .edit-modal-form
-    padding-right 50px
-    >>>.el-input,
-    >>>.el-select,
-    >>>.el-input-number
-      width 100%
+.edit-modal-form {
+  padding-right: 50px;
 
-    .unit
-      position absolute
-      left 100%
-      top 0
-      margin-left 5px
-      word-break keep-all
+  >>>.el-input, >>>.el-select, >>>.el-input-number {
+    width: 100%;
+  }
 
-    .btn
-      cursor pointer
-      color blue
-      margin-left 5px
+  .unit {
+    position: absolute;
+    left: 100%;
+    top: 0;
+    margin-left: 5px;
+    word-break: keep-all;
+  }
+
+  .btn {
+    cursor: pointer;
+    color: blue;
+    margin-left: 5px;
+  }
+}
 </style>
 
 <style lang="stylus">
-  .el-time-panel
-    z-index 10002 !important
+.el-time-panel {
+  z-index: 10002 !important;
+}
 </style>
