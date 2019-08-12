@@ -74,7 +74,7 @@
     font-size 12px
 .sheetTable-contain
   height 100%
-  background white
+  background #DFDFDF
   overflow auto
   padding 15px 5px 0 15px
   box-sizing border-box
