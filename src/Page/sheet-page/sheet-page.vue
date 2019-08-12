@@ -161,6 +161,7 @@
 import sheetTool from "./components/sheet-tool/sheet-tool.vue";
 import patientList from "./components/patient-list/patient-list.vue";
 import sheetTable from "./components/sheetTable/sheetTable.vue";
+// import sheetTableHemodialysis from "./components/sheetTable-hemodialysis/sheetTable.vue";
 import sheetTableNeonatology from "./components/sheetTable-neonatology/sheetTable";
 import sheeTableBurn_plastic from "./components/sheeTable-burn_plastic/sheetTable";
 import sheetTablePost_partum from "./components/sheetTable-post_partum/sheetTable";
@@ -602,7 +603,8 @@ export default {
     pizhuModal,
     sheetTableNeonatology,
     sheetTablePost_partum,
-    evalModel
+    evalModel,
+    // sheetTableHemodialysis
   }
 };
 </script>
