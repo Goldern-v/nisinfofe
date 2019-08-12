@@ -63,9 +63,9 @@ export default [
     key: "field1", //疼痛部位
     value: "",
     event: keyf1,
-    autoComplete: {
-      data: 疼痛部位
-    },
+    // autoComplete: {
+    //   data: 疼痛部位
+    // },
     name: "疼痛部位"
   },
   {
