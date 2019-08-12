@@ -7,11 +7,11 @@
       :element-loading-text="loadingText"
     ></div>
     <div :style="isShow?'display:block':'display:none'">
-      <RenderForm :sourceObj="fileJSON" :updateFunc="updateFunc" :lock="status == 1"/>
+      <RenderForm :sourceObj="fileJSON" :updateFunc="updateFunc" :lock="status == 1" />
     </div>
     <div :style="isShow?'display:none':'display:block;backgroud:white;'">
       <div class="null-img" @click="bus.$emit('createHEvalForm')">
-        <img src="./image/分组.png" alt>
+        <img src="./image/分组.png" alt />
         <aside>{{message}}</aside>
       </div>
     </div>
@@ -332,8 +332,8 @@ export default {
     height 240px
     padding 20px
     background white
-    border 1px solid #e9e9e9
-    border-radius 20px
+    border 1px solid #ADB4BA
+    border-radius 0px
     cursor pointer
     aside
         color: #cecece;

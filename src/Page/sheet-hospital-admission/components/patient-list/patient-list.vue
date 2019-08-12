@@ -12,12 +12,17 @@
           :class="{active: isActive(item)}"
         >
           <img
-            src="./images/男.png"
+            :src="item.age.indexOf('天')>-1?imageBoy:imageMan"
             alt
             :class="{img1:img1Show,img2:img2Show}"
             v-if="item.sex == '男'"
           />
-          <img src="./images/女.png" alt :class="{img1:img1Show,img2:img2Show}" v-else />
+          <img
+            :src="item.age.indexOf('天')>-1?imageGirl:imageWomen"
+            alt
+            :class="{img1:img1Show,img2:img2Show}"
+            v-else
+          />
           <div class="name" flex-box="1">{{item.name}}</div>
           <div class="bed">{{item.bedLabel}} 床</div>
           <!-- <span
@@ -196,7 +201,11 @@ export default {
       bus: bus(this),
       img1Show: true,
       img2Show: false,
-      selectPatientId: ""
+      selectPatientId: "",
+      imageBoy: require("./images/男婴.png"),
+      imageGirl: require("./images/女婴.png"),
+      imageMan: require("./images/男.png"),
+      imageWomen: require("./images/女.png")
     };
   },
   methods: {
