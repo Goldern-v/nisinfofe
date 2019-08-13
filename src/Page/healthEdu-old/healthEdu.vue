@@ -131,7 +131,7 @@
 </style>
 <script>
 import sheetTool from "./components/sheet-tool/sheet-tool.vue";
-import patientList from "./components/patient-list/patient-list.vue";
+import patientList from "@/components/patient-list/patient-list.vue";
 import common from "@/common/mixin/common.mixin.js";
 import { deleteMission } from "./api";
 import store from "./store/index.js";

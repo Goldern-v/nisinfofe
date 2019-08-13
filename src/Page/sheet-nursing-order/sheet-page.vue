@@ -129,7 +129,7 @@
 
 <script>
 import sheetTool from "./components/sheet-tool/sheet-tool.vue";
-import patientList from "./components/patient-list/patient-list.vue";
+import patientList from "@/components/patient-list/patient-list.vue";
 import sheetTable from "./components/sheetTable/sheetTable.vue";
 import common from "@/common/mixin/common.mixin.js";
 import { typeList } from "@/api/lesion";

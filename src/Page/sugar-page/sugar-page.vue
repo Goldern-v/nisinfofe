@@ -44,7 +44,7 @@
 </style>
 
 <script>
-import patientList from "./components/patient-list/patient-list.vue";
+import patientList from "@/components/patient-list/patient-list.vue";
 import common from "@/common/mixin/common.mixin.js";
 import { patients } from "@/api/lesion";
 import bus from "vue-happy-bus";

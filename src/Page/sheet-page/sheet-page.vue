@@ -85,7 +85,7 @@
       width: 199px;
       position: absolute;
       left: 0;
-      top: 0;
+      top: -40px;
       bottom: 0;
     }
 
@@ -159,7 +159,7 @@
 
 <script>
 import sheetTool from "./components/sheet-tool/sheet-tool.vue";
-import patientList from "./components/patient-list/patient-list.vue";
+import patientList from "@/components/patient-list/patient-list.vue";
 import sheetTable from "./components/sheetTable/sheetTable.vue";
 // import sheetTableHemodialysis from "./components/sheetTable-hemodialysis/sheetTable.vue";
 import sheetTableNeonatology from "./components/sheetTable-neonatology/sheetTable";
@@ -603,7 +603,7 @@ export default {
     pizhuModal,
     sheetTableNeonatology,
     sheetTablePost_partum,
-    evalModel,
+    evalModel
     // sheetTableHemodialysis
   }
 };

@@ -12,24 +12,24 @@
           :class="{active: isActive(item)}"
         >
           <img
-            :src="item.age.indexOf('天')>-1?imageBoy:imageMan"
+            :src="item.bedLabel.includes('_')?imageBoy:imageMan"
             alt
             :class="{img1:img1Show,img2:img2Show}"
             v-if="item.sex == '男'"
           />
           <img
-            :src="item.age.indexOf('天')>-1?imageGirl:imageWomen"
+            :src="item.bedLabel.includes('_')?imageGirl:imageWomen"
             alt
             :class="{img1:img1Show,img2:img2Show}"
             v-else
           />
           <div class="name" flex-box="1">{{item.name}}</div>
           <div class="bed">{{item.bedLabel}} 床</div>
-          <!-- <span
+          <span
             class="point-box"
-            v-show="item.formLowestStatus != '2'"
-            :class="{red: item.formLowestStatus == 0, green: item.formLowestStatus == 1}"
-          ></span>-->
+            v-show="item.formLowestStatus !== '' && item.formLowestStatus != '2'"
+            :class="{red: item.formLowestStatus == 0, green: item.formLowestStatus == 1,isImg2: img2Show}"
+          ></span>
         </div>
       </div>
       <div
@@ -137,7 +137,7 @@
   right: -11px;
   top: 100px;
   z-index: 10;
-  background-image: url('../../../../common/images/patient/隐藏框.png');
+  background-image: url('../../common/images/patient/隐藏框.png');
   cursor: pointer;
 
   &:hover {
@@ -184,6 +184,10 @@
 
   &.green:after {
     background: #27A45E;
+  }
+
+  &.isImg2 {
+    left: 14px;
   }
 }
 </style>

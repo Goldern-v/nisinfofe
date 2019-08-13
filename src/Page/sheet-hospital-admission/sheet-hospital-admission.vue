@@ -103,7 +103,7 @@
 </style>
 
 <script>
-import patientList from "./components/patient-list/patient-list.vue";
+import patientList from "@/components/patient-list/patient-list.vue";
 import sheetTool from "./components/sheet-tool/sheet-tool.vue";
 import pages from "./components/pages/page.vue";
 import common from "@/common/mixin/common.mixin.js";

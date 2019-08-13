@@ -108,7 +108,7 @@
 <script>
 import common from "@/common/mixin/common.mixin.js";
 import Button from "./components/button";
-import patientList from "./components/patient-list/patient-list.vue";
+import patientList from "@/components/patient-list/patient-list.vue";
 import EditToolbar from "./components/toolbar/editToolbar";
 import NullBg from "@/components/null/null-bg.vue";
 
