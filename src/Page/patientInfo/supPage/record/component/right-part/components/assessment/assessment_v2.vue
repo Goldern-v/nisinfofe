@@ -198,7 +198,7 @@ export default {
     },
     // 点击左边栏目录里已经记录好的模版,通过改变iframe URL属性,刷新iframe内容
     openUrl(info) {
-      // console.log(info, "mmmmtttttttttt");
+      // console.log(info, "openUrlV2");
       this.pageLoading = true;
       this.pageLoadingText = "数据加载中";
       this.setloadingSVGHidden(false);
@@ -208,8 +208,9 @@ export default {
       let query = this.$route.query;
       // this.info = {}
       this.info.todo = "";
-      this.info = Object.assign({}, this.info, info);
-      this.info = Object.assign(this.info, info);
+      this.info = { ...this.info, ...info };
+      // this.info = Object.assign({}, this.info, info);
+      // this.info = Object.assign(this.info, info);
       let url = "";
 
       if (!this.info.nooForm) {
@@ -254,7 +255,7 @@ export default {
         ? this.info.pageUrl.replace(".html", "-打印.html")
         : "";
 
-      console.log("this.info", this.info, queryObj);
+      // console.log("this.info", this.info, queryObj);
 
       if (["1", "2"].indexOf(this.info.nooForm) > -1) {
         // console.log(queryObj.title,"formCode")
@@ -286,11 +287,14 @@ export default {
         console.log("....打开表单", formUrl, url);
       }
 
-      if (url == this.url) {
-        this.refresh();
-      } else {
-        this.url = url;
-      }
+      this.url = url;
+      this.$refs.iframeV2.contentWindow.location.href = url;
+      // wid.location.href
+      // if (url == this.url) {
+      //   this.refresh();
+      // } else {
+      //   this.url = url;
+      // }
     },
     onFormLoaded(type = "") {
       this.pageLoadingText = "数据加载中";
@@ -355,7 +359,8 @@ export default {
         if (!this.wid.formInfo) {
           this.setLoadingStatus(true);
           this.setLoadingText(
-            `网络异常,${this.info.name},页面无法获取,请尝试刷新`
+            `网络异常,${this.info.name ||
+              this.info.pageUrl.replace(".html", "")},页面无法获取,请尝试刷新`
           );
           // this.pageLoadingText = `网络异常,${this.info.name},页面无法获取,请尝试刷新`;
           this.setloadingSVGHidden(true);
@@ -370,7 +375,7 @@ export default {
         console.log("onload:formInfo", error);
         this.setLoadingStatus(true);
         this.setLoadingText(
-          `网络异常,${this.info.name},页面无法获取,请尝试刷新`
+          `网络异常,${this.info.name},页面无法获取,请尝试刷新.`
         );
         // this.pageLoadingText = `网络异常,${this.info.name},页面无法获取,请尝试刷新.`;
         this.setloadingSVGHidden(true);
