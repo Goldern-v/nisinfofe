@@ -65,6 +65,7 @@
       :dangerInYachuang="dangerInYachuang"
       :isToadyHosipital="isToadyHosipital"
       :hasYachuang="hasYachuang"
+      :MEWS="MEWS"
     ></footerBar>
   </div>
 </template>
@@ -245,6 +246,10 @@ export default {
     // 已有压疮
     hasYachuang() {
       return this.bedList.filter(item => item.hasYachuang);
+    },
+    // MEWS预警
+    MEWS() {
+      return this.bedList.filter(item => item.dangerInMews);
     },
     list() {
       return [
@@ -456,6 +461,11 @@ export default {
         case "已有压疮":
           {
             this.$parent.bedList = this.hasYachuang;
+          }
+          break;
+        case "MEWS预警":
+          {
+            this.$parent.bedList = this.MEWS;
           }
           break;
         default: {
