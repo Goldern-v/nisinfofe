@@ -1,41 +1,53 @@
 <template>
-  <div class="footer-con" flex="">
-    <div class="item-con" flex-box="1" v-for="item in list" :key="item.key" @click="selectType(item)" :class="{active: selectName == item.key}">
-      {{item.key}}（{{item.length || 0}}）
-    </div>
+  <div class="footer-con" flex>
+    <div
+      class="item-con"
+      flex-box="1"
+      v-for="item in list"
+      :key="item.key"
+      @click="selectType(item)"
+      :class="{active: selectName == item.key}"
+    >{{item.key}}（{{item.length || 0}}）</div>
   </div>
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
-.footer-con
-  position fixed
-  right 160px
-  left 0
-  bottom 0
-  height 37px
-  background #fff
+.footer-con {
+  position: fixed;
+  right: 160px;
+  left: 0;
+  bottom: 0;
+  height: 37px;
+  background: #fff;
   border-top: 1px solid #D4DADE;
   border-right: 1px solid #D4DADE;
-  z-index 2
-  .item-con
-    height 100%
-    max-width 130px
+  z-index: 2;
+
+  .item-con {
+    height: 100%;
+    max-width: 130px;
     font-size: 12px;
     color: #333333;
-    display flex
-    justify-content center
-    align-items center
+    display: flex;
+    justify-content: center;
+    align-items: center;
     font-size: 13px;
     color: #687179;
     letter-spacing: 0;
-    text-shadow: 0 1px 0 rgba(255,255,255,0.70);
-    border-right 1px solid #EAEEF1;
-    cursor pointer
-    &.active
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.7);
+    border-right: 1px solid #EAEEF1;
+    cursor: pointer;
+
+    &.active {
       background: #F1F1F5;
       color: #333333;
-      font-weight bold
-    &:last-child
-      border-right 0  
+      font-weight: bold;
+    }
+
+    &:last-child {
+      border-right: 0;
+    }
+  }
+}
 </style>
 <script>
 export default {
@@ -48,7 +60,8 @@ export default {
     dangerInMorse: Array,
     dangerInYachuang: Array,
     hasYachuang: Array,
-    isToadyHosipital: Array
+    isToadyHosipital: Array,
+    MEWS: Array
   },
   data() {
     return {};
@@ -88,6 +101,10 @@ export default {
         {
           key: "明日手术",
           length: this.isTommorowOperation.length
+        },
+        {
+          key: "MEWS预警",
+          length: this.MEWS.length
         }
       ];
     }
