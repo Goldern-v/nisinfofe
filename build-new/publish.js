@@ -2,7 +2,7 @@ var path, node_ssh, ssh, fs, folderSrc, localSrc
 
 var log = console.log
 
-let sshUpload = (localSrc = './dist', folderSrc = '/crdata/webProject/nursingInfoSystem/') => {
+let sshUpload = (localSrc = './dist', folderSrc = '/crdata/webProject/nursingInfoSystem/dongguanhoujie/') => {
   fs = require('fs')
   path = require('path')
   var chalk = require("chalk");
@@ -10,7 +10,7 @@ let sshUpload = (localSrc = './dist', folderSrc = '/crdata/webProject/nursingInf
   node_ssh = require('node-ssh')
   ssh = new node_ssh()
   if (['/', '', '\\', undefined, null].indexOf(folderSrc) > -1) {
-    folderSrc = '/crdata/webProject/nursingInfoSystem/'
+    folderSrc = '/crdata/webProject/nursingInfoSystem/dongguanhoujie/'
   }
   // localSrc = './build'
 
