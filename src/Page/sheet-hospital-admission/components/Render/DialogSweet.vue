@@ -25,19 +25,17 @@
       <!-- <el-form> -->
 
       <span v-if="show">
-
         <!-- 片段内容组件显示 el-form-item :model="form"-->
         <span
           v-if="formBox
     && (formBox.hasOwnProperty('children')!==-1
      || formBox && formBox.hasOwnProperty('html')!==-1)"
-
         >
           <!-- 页面正文 -->
           <div v-if="formBox.children||formBox.html">
-            <FormBody :obj="formBox.body || [formBox]" :formObj="formBox"/>
+            <FormBody :obj="formBox.body || [formBox]" :formObj="formBox" />
           </div>
-          </span>
+        </span>
         <!-- </el-form-item> -->
 
         <!-- 表单整页内容显示 -->
@@ -50,26 +48,25 @@
           />
 
           <!-- 页面头部 -->
-          <FormHeader v-if="formBox.header" :obj="formBox.header" :formObj="formBox"/>
+          <FormHeader v-if="formBox.header" :obj="formBox.header" :formObj="formBox" />
 
           <!-- 页面正文 -->
-          <FormBody v-if="formBox.body" :obj="formBox.body" :formObj="formBox"/>
+          <FormBody v-if="formBox.body" :obj="formBox.body" :formObj="formBox" />
 
           <!-- 页面尾部 -->
-          <FormFooter v-if="formBox.footer" :obj="formBox.footer" :formObj="formBox"/>
+          <FormFooter v-if="formBox.footer" :obj="formBox.footer" :formObj="formBox" />
         </span>
       </span>
 
       <!-- </el-form-item>
-    </el-form> -->
+      </el-form>-->
     </div>
 
-      <!-- <el-form-item> -->
-      <!-- 弹框底部按钮 -->
-      <el-button slot="button" v-if="hasCancel" @click="close">{{cancelText||'取消'}}</el-button>
-      <el-button slot="button" v-if="hasOK" type="primary" @click="clickOK()">{{okText||'确认'}}</el-button>
-      <el-button slot="button" v-if="isDev"  @click="clickOK(true)">{{'开发确认按钮'}}</el-button>
-
+    <!-- <el-form-item> -->
+    <!-- 弹框底部按钮 -->
+    <el-button slot="button" v-if="hasCancel" @click="close">{{cancelText||'取消'}}</el-button>
+    <el-button slot="button" v-if="hasOK" type="primary" @click="clickOK()">{{okText||'确认'}}</el-button>
+    <el-button slot="button" v-if="isDev" @click="clickOK(true)">{{'开发确认按钮'}}</el-button>
   </SweetModal>
 </template>
 
@@ -219,7 +216,9 @@ export default {
         );
         if (
           this.formBox.hasOwnProperty("children") &&
-          (this.formBox.children.length > 0 || (this.formBox.hasOwnProperty("body") && this.formBox.body.length > 0))
+          (this.formBox.children.length > 0 ||
+            (this.formBox.hasOwnProperty("body") &&
+              this.formBox.body.length > 0))
         ) {
           this.formBox.model = {};
           this.formBox.children.map(child => {
@@ -233,19 +232,19 @@ export default {
             }
           });
 
-          if(this.formBox.hasOwnProperty("body")){
-            this.formBox.body.map(b=>{
-              if(b.hasOwnProperty('children')){
-                b.children.map(child=>{
+          if (this.formBox.hasOwnProperty("body")) {
+            this.formBox.body.map(b => {
+              if (b.hasOwnProperty("children")) {
+                b.children.map(child => {
                   if (window.formObj.model[child.name]) {
                     this.formBox.model[child.name] =
                       window.formObj.model[child.name];
                   } else {
                     this.formBox.model[child.name] = "";
                   }
-                })
+                });
               }
-            })
+            });
           }
 
           // for (const key in this.formBox.model) {
@@ -269,7 +268,6 @@ export default {
         this.clearUIFormData(this.formBox.model);
       }
       // this.$forceUpdate();
-
 
       // 根据ID获取表单数据
       // this.formBox.model.id
@@ -305,9 +303,9 @@ export default {
           };
 
           // signerName = this.empName()
-          if(!this.formBox.model.signerName){
-            this.formBox.model.signerName = this.empName ||''
-            this.$root.$refs['signerName'].setCurrentValue(this.empName)
+          if (!this.formBox.model.signerName) {
+            this.formBox.model.signerName = this.empName || "";
+            this.$root.$refs["signerName"].setCurrentValue(this.empName);
           }
 
           console.log(
@@ -324,18 +322,18 @@ export default {
       }
 
       // signerName = this.empName()
-        if(!this.formBox.model.signerName){
-            this.formBox.model.signerName = this.empName ||''
-            console.log(
-            "根据ID获取表单数据signerName",
-            this.formBox,
-            this.$root.$refs,
-            this.empName
-          );
-          if(this.$root.$refs['signerName']){
-            this.$root.$refs['signerName'].setCurrentValue(this.empName)
-          }
+      if (!this.formBox.model.signerName) {
+        this.formBox.model.signerName = this.empName || "";
+        console.log(
+          "根据ID获取表单数据signerName",
+          this.formBox,
+          this.$root.$refs,
+          this.empName
+        );
+        if (this.$root.$refs["signerName"]) {
+          this.$root.$refs["signerName"].setCurrentValue(this.empName);
         }
+      }
 
       //
     },
@@ -345,12 +343,12 @@ export default {
       for (const key in model) {
         if (model.hasOwnProperty(key)) {
           let value = model[key];
-          console.log(
-            "===fillFormData:value",
-            value,
-            key,
-            this.$root.$refs[key]
-          );
+          // console.log(
+          //   "===fillFormData:value",
+          //   value,
+          //   key,
+          //   this.$root.$refs[key]
+          // );
 
           if (!value || !this.$root.$refs[key]) {
             continue;
@@ -359,35 +357,43 @@ export default {
           // text
           try {
             if (this.$root.$refs[key]) {
-              console.log(
-                "---this.$root.$refs[key]:",
-                key,
-                this.formBox.model[key],
-                this.$root.$refs[key]
-              );
+              // console.log(
+              //   "---this.$root.$refs[key]:",
+              //   key,
+              //   this.formBox.model[key],
+              //   this.$root.$refs[key]
+              // );
+
+              // text
               if (this.$root.$refs[key].type === "text") {
                 let refObj = this.$root.$refs[key];
-                let textResult = ""
+                let textResult = "";
                 // let resultText = refObj.checkValueRule(value);
                 // refObj.setCurrentValue(resultText);
+                console.log("text!!!", key, refObj);
                 if (key === "status") {
                   textResult = refObj.checkValueRule(value + "");
                   // console.log("----refObj", refObj, key, textResult);
                   refObj.setCurrentValue(textResult + "");
-                }else if(key === "evalDesc"){
-                  let evalScore = model['evalScore']
-                  console.log('---evalDesc',evalScore,this.$root.$refs)
-                  if(evalScore){
+                } else if (key === "evalDesc") {
+                  let evalScore = model["evalScore"];
+                  console.log("---evalDesc", evalScore, this.$root.$refs);
+                  if (evalScore) {
                     textResult = refObj.checkValueRule(evalScore + "");
-                    refObj.setCurrentValue(textResult + "")
+                    refObj.setCurrentValue(textResult + "");
                   }
                 } else {
                   refObj.setCurrentValue(value);
                   refObj.checkValueRule(value);
                 }
-              } else if (this.$root.$refs[key].type === "datetime") {
+              }
+              // datetime
+              if (this.$root.$refs[key].type === "datetime") {
                 // if (key === "datePicker") {
-                if (this.$root.$refs[key].$parent&&this.$root.$refs[key].$parent.obj.name_date) {
+                if (
+                  this.$root.$refs[key].$parent &&
+                  this.$root.$refs[key].$parent.obj.name_date
+                ) {
                   let name_date = this.$root.$refs[key].$parent.obj.name_date;
                   let name_time = this.$root.$refs[key].$parent.obj.name_time;
                   this.$root.$refs[key].$parent.datePickerValue =
@@ -404,15 +410,15 @@ export default {
             console.log("error", error);
           }
 
-          if (
-            this.$root.$refs.hasOwnProperty(key) > -1 &&
-            this.$root.$refs[key].hasOwnProperty("constructor") > -1
-          ) {
-            console.log(
-              "===constructor",
-              this.$root.$refs[key].constructor === Array
-            );
-          }
+          // if (
+          //   this.$root.$refs.hasOwnProperty(key) > -1 &&
+          //   this.$root.$refs[key].hasOwnProperty("constructor") > -1
+          // ) {
+          //   // console.log(
+          //   //   "===constructor",
+          //   //   this.$root.$refs[key].constructor === Array
+          //   // );
+          // }
 
           // this.$root.$refs[key].hasOwnProperty('constructor)
 
@@ -425,24 +431,35 @@ export default {
             // items = [...items]
 
             // let rootRefs = this.$root.$refs[this.obj.name]
-            console.log(
-              "--obj.name:",
-              this.obj,
-              items,
-              items.length,
-              this.$root.$refs[key],
-              value
-            );
+            // console.log(
+            //   "-Array-obj.name:",
+            //   this.obj,
+            //   items,
+            //   items.length,
+            //   this.$root.$refs[key],
+            //   value
+            // );
 
             let name = key;
             for (let k in items) {
               if (items.hasOwnProperty(k)) {
                 let item = items[k];
-                let code = item.childObjct.code || item.childObjct.title;
-                if(!item.$parent){continue}
+                let title = item.childObjct.title;
+                let code = item.childObjct.code || title;
+                if (!item.$parent) {
+                  continue;
+                }
+
                 // console.log('-----',item.childObjct.title ,item,item.childObjct.code,value,item.childObjct.code == value,item.childObjct.title == value,code)
                 // || item.childObjct.title == value
-                if (code == value) {
+                let valueArr = value.split(",");
+                console.log("选项:", item, [code], [value], [valueArr]);
+                if (
+                  code == value ||
+                  title == value ||
+                  valueArr.indexOf(code) > -1 ||
+                  valueArr.indexOf(title) > -1
+                ) {
                   // console.log('---++',item.childObjct.title ,item)
                   this.formBox["selectedItems"].push(item.childObjct);
                   // item.model = []
@@ -453,6 +470,7 @@ export default {
                   if (this.$root.$refs[key][k].model.length == 0) {
                     this.$root.$refs[key][k].model.push(value);
                   }
+                  console.log("selectedItems", this.formBox["selectedItems"]);
                 }
                 if (value == "on,") {
                   item.$parent.checkboxValue = [code];
@@ -465,7 +483,7 @@ export default {
                   }
                 }
 
-                console.log("多选项", item, "code", code);
+                // console.log("多选项", item, "code", code);
               }
             }
 
@@ -505,13 +523,13 @@ export default {
           }
         }
         //
-        console.log("fillFormData:END", model, this.formBox, this.$root.$refs);
+        // console.log("fillFormData:END", model, this.formBox, this.$root.$refs);
         // this.$root.$refs[]
         // this.dialogLoading = false;
       } // for
     },
     clearUIFormData(model = this.formBox.model) {
-      console.log("clearUIFormData", model, this.formBox);
+      // console.log("clearUIFormData", model, this.formBox);
       this.formBox["selectedItems"] = [];
       for (const key in model) {
         if (model.hasOwnProperty(key)) {
@@ -525,12 +543,12 @@ export default {
             }
           }
           if (this.$root.$refs[key]) {
-            console.log(
-              "---this.$root.$refs[key]:",
-              key,
-              this.formBox.model[key],
-              this.$root.$refs[key]
-            );
+            // console.log(
+            //   "---this.$root.$refs[key]:",
+            //   key,
+            //   this.formBox.model[key],
+            //   this.$root.$refs[key]
+            // );
             if (this.$root.$refs[key].type === "text") {
               this.$root.$refs[key].setCurrentValue(value + "");
               this.$root.$refs[key].checkValueRule(value + "");
@@ -541,18 +559,20 @@ export default {
           // } catch (error) {
 
           // }
-          console.log(
-            "clearUIFormData:end",
-            model,
-            this.formBox,
-            this.$root.$refs
-          );
+          // console.log(
+          //   "clearUIFormData:end",
+          //   model,
+          //   this.formBox,
+          //   this.$root.$refs
+          // );
         }
       }
     },
     open() {
       console.log("sweetModalOpen", this.$refs, this.$root.$refs);
-      this.$refs.sweetModal.open();
+      if (this.$refs.sweetModal) {
+        this.$refs.sweetModal.open();
+      }
       // this.dialogLoading = true;
       this.show = false;
       this.$nextTick(() => {
@@ -565,23 +585,23 @@ export default {
           }, 100);
         }
       });
-      console.log("clearUIFormData:end", model, this.formBox, this.$root.$refs);
+      console.log("clearUIFormData:end", this.formBox, this.$root.$refs);
     },
-    open() {
-      console.log("sweetModalOpen", this.$refs, this.$root.$refs);
-      this.$refs.sweetModal.open();
-      // this.dialogLoading = true;
-      this.show = false;
-      this.$nextTick(() => {
-        this.show = true;
-        if (this.type === "dependent") {
-          setTimeout(() => {
-            this.fillUIFormData();
-            this.dialogLoading = false;
-          }, 100);
-        }
-      });
-    },
+    // open() {
+    //   console.log("sweetModalOpen", this.$refs, this.$root.$refs);
+    //   this.$refs.sweetModal.open();
+    //   // this.dialogLoading = true;
+    //   this.show = false;
+    //   this.$nextTick(() => {
+    //     this.show = true;
+    //     if (this.type === "dependent") {
+    //       setTimeout(() => {
+    //         this.fillUIFormData();
+    //         this.dialogLoading = false;
+    //       }, 100);
+    //     }
+    //   });
+    // },
     close() {
       this.$refs.sweetModal.close();
       if (this.type !== "dependent") {
@@ -617,10 +637,13 @@ export default {
               let newKey = key.split("CLONE_")[1];
               this.formBox.model[newKey] = this.formBox.model[key];
               // console.log(newKey, "newKeynewKeynewKeynewKeynewKey");
-              if(this.$root.$refs[newKey]&&this.$root.$refs[newKey].$parent){
-                this.$root.$refs[newKey].$parent.inputValue = this.formBox.model[
-                newKey
-                ];
+              if (
+                this.$root.$refs[newKey] &&
+                this.$root.$refs[newKey].$parent
+              ) {
+                this.$root.$refs[
+                  newKey
+                ].$parent.inputValue = this.formBox.model[newKey];
                 // delete this.formBox.model[key];
               }
             }
@@ -648,9 +671,11 @@ export default {
 
       if (this.dialogFormCode) {
         // this.formBox.model.parentId = this.formObj.model.id;
-        this.formBox.model.parentId = window.formObj.model.formId|| window.formObj.model.id;
+        this.formBox["formCode"] = this.dialogFormCode;
+        this.formBox.model.parentId =
+          window.formObj.model.formId || window.formObj.model.id;
         saveForm({ ...this.formBox }, res => {
-          this.dialogLoading = false
+          this.dialogLoading = false;
           let {
             data: {
               data: {
@@ -660,51 +685,56 @@ export default {
           } = res;
           this.formObj.model[this.dialogFormCode] = id;
 
-          let getYinYang = (str) =>{
-            return str === '+' ? '阳性':'阴性'
-          }
+          let getYinYang = str => {
+            return str === "+" ? "阳性" : "阴性";
+          };
 
-          try{
-            console.log('root.refs',this.$root.$refs)
+          try {
+            console.log("root.refs", this.$root.$refs);
             // parentName
             if (this.parentName) {
               if (this.parentName == "I100028") {
                 // 吞咽评估特殊处理
                 let result = "";
                 if (this.formBox.model.I047012) {
-                  result += "吞水:" + getYinYang(this.formBox.model.I047012) + " ";
+                  result +=
+                    "吞水:" + getYinYang(this.formBox.model.I047012) + " ";
                 }
                 if (this.formBox.model.I047024) {
-                  result += "吞糊:" + getYinYang(this.formBox.model.I047024) + " ";
+                  result +=
+                    "吞糊:" + getYinYang(this.formBox.model.I047024) + " ";
                 }
-                this.formBox.model.evalDesc = result
+                this.formBox.model.evalDesc = result;
                 this.formObj.model.I100028 = result;
 
-                if(this.$root.$refs[this.parentName + "_clone"]){
+                if (this.$root.$refs[this.parentName + "_clone"]) {
                   this.$root.$refs[this.parentName + "_clone"].setCurrentValue(
-                  result
+                    result
                   );
                   this.$root.$refs[this.parentName + "_clone"].checkValueRule(
                     result
                   );
                 }
-                if(this.$root.$refs[this.parentName]){
+                if (this.$root.$refs[this.parentName]) {
                   this.$root.$refs[this.parentName].setCurrentValue(result);
                   this.$root.$refs[this.parentName].checkValueRule(result);
                   this.formObj.model[this.parentName] = result;
                   this.formBox.model[this.parentName] = result;
-                  consoleo.log('parentName:',this.parentName,result)
+                  consoleo.log("parentName:", this.parentName, result);
                 }
-                consoleo.log('--parentName:',this.parentName,result)
-                debugger
-
+                consoleo.log("--parentName:", this.parentName, result);
+                debugger;
               } else {
                 let score = this.formBox.model.evalScore;
                 let desc = this.formBox.model.evalDesc || "";
                 let result = score + "分 " + desc;
                 this.formObj.model[this.parentName] = result;
-                this.$root.$refs[this.parentName].setCurrentValue(result);
-                this.$root.$refs[this.parentName].checkValueRule(result);
+
+                if (this.$root.$refs[this.parentName]) {
+                  console.log("parentName", this.parentName);
+                  this.$root.$refs[this.parentName].setCurrentValue(result);
+                  this.$root.$refs[this.parentName].checkValueRule(result);
+                }
 
                 /** GCS评估特殊处理 */
                 if (this.parentName == "I100020") {
@@ -714,9 +744,8 @@ export default {
                 }
               }
             }
-
-          }catch(e){
-            console.log('saveError:',e)
+          } catch (e) {
+            console.log("saveError:", e);
           }
 
           console.log(
@@ -728,6 +757,14 @@ export default {
             this.parentName,
             this.$root.$refs[this.parentName]
           );
+          //
+          try {
+            window.formTool.formSave();
+          } catch (err) {
+            console.log("formSave", err, window.formTool);
+          }
+
+          //
           if (!isDev) {
             this.close();
           }
@@ -739,7 +776,6 @@ export default {
         this.callback(this.formDialogObj);
       }
       console.log("formDialogObj", this.formBox, isDev);
-
     },
     initForm(config, value = null) {
       console.log("openBox", config, value, this.obj, this.formObj);
@@ -770,12 +806,12 @@ export default {
       );
 
       //
-      if(config.otherDialog){
-        this.formBox.name = config.otherDialog.name||''
-        this.formBox.children.map(c=>{
-          c.name = config.otherDialog.name||''
-        })
-        this.formBox.aliasTitle = config.otherDialog.title||''
+      if (config.otherDialog) {
+        this.formBox.name = config.otherDialog.name || "";
+        this.formBox.children.map(c => {
+          c.name = config.otherDialog.name || "";
+        });
+        this.formBox.aliasTitle = config.otherDialog.title || "";
       }
 
       // try {
@@ -790,9 +826,9 @@ export default {
       //
       // }
 
-      if (!this.formBox) {
-        return console.error("弹窗配置为空");
-      }
+      // if (!this.formBox) {
+      //   return console.error("弹窗配置为空");
+      // }
       //
       this.formBox.model = this.formBox.model ? this.formBox.model : {};
 

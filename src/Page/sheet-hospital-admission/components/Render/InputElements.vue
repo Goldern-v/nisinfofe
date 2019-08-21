@@ -355,17 +355,17 @@ export default {
                 if (child.title.indexOf("VTE") > -1 &&
                  this.formObj.model[child.name] &&
                   this.formObj.model[child.name].indexOf(title)>-1) {
-                  console.log(
-                    "!!!=vet=!!!",
-                    title,
-                    d,
-                    d.dialog.parentName,
-                    obj,
-                    child,
-                    child.title,
-                    child.name,
-                    this.formObj.model[child.name]
-                  );
+                  // console.log(
+                  //   "!!!=vet=!!!",
+                  //   title,
+                  //   d,
+                  //   d.dialog.parentName,
+                  //   obj,
+                  //   child,
+                  //   child.title,
+                  //   child.name,
+                  //   this.formObj.model[child.name]
+                  // );
                   html += `<p>${title}:<span style='${obj.style}'>${this.formObj
                     .model[d.dialog.parentName] || ""}${obj.suffixDesc ||
                     ""}</span></p>`;

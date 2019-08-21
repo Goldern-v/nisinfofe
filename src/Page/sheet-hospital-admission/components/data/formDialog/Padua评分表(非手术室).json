@@ -133,17 +133,26 @@
           "readOnly": true,
           "rule": [
             {
-              "equals": ["-1", "未保存"],
+              "equals": [
+                "-1",
+                "未保存"
+              ],
               "style": "color:gray",
               "display": "未签名"
             },
             {
-              "equals": ["0", "已保存 "],
+              "equals": [
+                "0",
+                "已保存 "
+              ],
               "style": "color:blue",
               "display": "未签名"
             },
             {
-              "equals": ["1", "已签名"],
+              "equals": [
+                "1",
+                "已签名"
+              ],
               "style": "color:red",
               "display": "已签名"
             }
@@ -313,7 +322,10 @@
       "name": "",
       "type": "formGroupColBox",
       "col": 2,
-      "colWidth": ["40%", "60%"],
+      "colWidth": [
+        "40%",
+        "60%"
+      ],
       "title": "",
       "message": "",
       "require": "false",
@@ -408,7 +420,6 @@
           "type": "checkbox",
           "title": "抬高患肢20-25cm",
           "code": "√",
-          "score": 0,
           "style": null,
           "class": null,
           "readOnly": null
@@ -418,7 +429,6 @@
           "type": "checkbox",
           "title": "踝泵运动",
           "code": "√",
-          "score": 1,
           "style": null,
           "class": null,
           "readOnly": null
@@ -428,7 +438,6 @@
           "type": "checkbox",
           "title": "股四头肌肌肉收缩训练",
           "code": "√",
-          "score": 1,
           "style": null,
           "class": null,
           "readOnly": null
@@ -438,7 +447,6 @@
           "type": "checkbox",
           "title": "做深呼吸或吹气球及咳嗽动作",
           "code": "√",
-          "score": 1,
           "style": null,
           "class": null,
           "readOnly": null
@@ -448,7 +456,6 @@
           "type": "checkbox",
           "title": "指导戒烟戒酒",
           "code": "√",
-          "score": 1,
           "style": null,
           "class": null,
           "readOnly": null
@@ -458,7 +465,6 @@
           "type": "checkbox",
           "title": "指导多饮水、保持大便通畅",
           "code": "√",
-          "score": 1,
           "style": null,
           "class": null,
           "readOnly": null
@@ -468,7 +474,6 @@
           "type": "checkbox",
           "title": "下床活动",
           "code": "√",
-          "score": 1,
           "style": null,
           "class": null,
           "readOnly": null
@@ -505,7 +510,6 @@
           "type": "checkbox",
           "title": "下床使用足底静脉泵",
           "code": "√",
-          "score": 0,
           "style": null,
           "class": null,
           "readOnly": null
@@ -515,7 +519,6 @@
           "type": "checkbox",
           "title": "下床间歇充气加压装置",
           "code": "√",
-          "score": 0,
           "style": null,
           "class": null,
           "readOnly": null
@@ -525,7 +528,6 @@
           "type": "checkbox",
           "title": "下床穿弹力袜",
           "code": "√",
-          "score": 4,
           "style": null,
           "class": null,
           "readOnly": null
@@ -562,7 +564,6 @@
           "type": "checkbox",
           "title": "低分子肝素皮下注射",
           "code": "√",
-          "score": 0,
           "style": null,
           "class": null,
           "html": null,
@@ -573,7 +574,6 @@
           "type": "checkbox",
           "title": "利伐沙班口服",
           "code": "√",
-          "score": 2,
           "style": null,
           "class": null,
           "readOnly": null
@@ -583,7 +583,6 @@
           "type": "checkbox",
           "title": "华法林口服",
           "code": "√",
-          "score": 4,
           "style": null,
           "class": null,
           "readOnly": null
@@ -593,7 +592,6 @@
           "type": "",
           "title": "",
           "code": "√",
-          "score": 4,
           "style": null,
           "class": null,
           "readOnly": null,
@@ -603,7 +601,6 @@
               "type": "checkbox",
               "title": "其它抗凝药：",
               "code": "√",
-              "score": 4,
               "style": null,
               "class": null,
               "readOnly": null
@@ -613,7 +610,6 @@
               "type": "input",
               "title": "",
               "code": "√",
-              "score": 4,
               "style": "position:relative;top:-5px;",
               "class": null,
               "readOnly": null
@@ -654,7 +650,10 @@
               "labelClass": "select-label",
               "class": "select-box-small",
               "readOnly": null,
-              "options": ["+", "-"]
+              "options": [
+                "+",
+                "-"
+              ]
             },
             {
               "name": "M045016",
@@ -667,7 +666,10 @@
               "labelClass": "select-label",
               "class": "select-box-small",
               "readOnly": null,
-              "options": ["+", "-"]
+              "options": [
+                "+",
+                "-"
+              ]
             }
           ]
         },
@@ -690,7 +692,11 @@
               "labelClass": "select-label",
               "class": "select-box-small",
               "readOnly": null,
-              "options": ["I度", "II度", "III度"]
+              "options": [
+                "I度",
+                "II度",
+                "III度"
+              ]
             },
             {
               "name": "M045018",
@@ -703,7 +709,11 @@
               "labelClass": "select-label",
               "class": "select-box-small",
               "readOnly": null,
-              "options": ["I度", "II度", "III度"]
+              "options": [
+                "I度",
+                "II度",
+                "III度"
+              ]
             }
           ]
         },
@@ -726,7 +736,10 @@
               "labelClass": "select-label",
               "class": "select-box-small",
               "readOnly": null,
-              "options": ["有", "无"]
+              "options": [
+                "有",
+                "无"
+              ]
             },
             {
               "name": "M045020",
@@ -740,7 +753,10 @@
               "labelClass": "select-label",
               "class": "select-box-small",
               "readOnly": null,
-              "options": ["有", "无"]
+              "options": [
+                "有",
+                "无"
+              ]
             }
           ]
         },
@@ -831,7 +847,11 @@
               "labelClass": "select-label",
               "class": "select-box-small",
               "readOnly": null,
-              "options": ["淡红色", "紫红色", "红色"]
+              "options": [
+                "淡红色",
+                "紫红色",
+                "红色"
+              ]
             },
             {
               "name": "M045026",
@@ -844,7 +864,11 @@
               "labelClass": "select-label",
               "class": "select-box-small",
               "readOnly": null,
-              "options": ["淡红色", "紫红色", "红色"]
+              "options": [
+                "淡红色",
+                "紫红色",
+                "红色"
+              ]
             }
           ]
         },
@@ -867,7 +891,11 @@
               "labelClass": "select-label",
               "class": "select-box-small",
               "readOnly": null,
-              "options": ["正常", "变弱", "不能触及"]
+              "options": [
+                "正常",
+                "变弱",
+                "不能触及"
+              ]
             },
             {
               "name": "M045028",
@@ -880,7 +908,11 @@
               "labelClass": "select-label",
               "class": "select-box-small",
               "readOnly": null,
-              "options": ["正常", "变弱", "不能触及"]
+              "options": [
+                "正常",
+                "变弱",
+                "不能触及"
+              ]
             }
           ]
         }

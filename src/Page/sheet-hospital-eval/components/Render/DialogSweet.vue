@@ -310,12 +310,12 @@ export default {
           // text
           try {
             if (this.$root.$refs[key]) {
-              console.log(
-                "---this.$root.$refs[key]:",
-                key,
-                this.formBox.model[key],
-                this.$root.$refs[key]
-              );
+              // console.log(
+              //   "---this.$root.$refs[key]:",
+              //   key,
+              //   this.formBox.model[key],
+              //   this.$root.$refs[key]
+              // );
               if (this.$root.$refs[key].type === "text") {
                 let refObj = this.$root.$refs[key];
                 // let resultText = refObj.checkValueRule(value);
@@ -381,10 +381,17 @@ export default {
             for (let k in items) {
               if (items.hasOwnProperty(k)) {
                 let item = items[k];
-                let code = item.childObjct.code || item.childObjct.title;
+                let title = item.childObjct.title
+                let code = item.childObjct.code || title;
                 // console.log('-----',item.childObjct.title ,item,item.childObjct.code,value,item.childObjct.code == value,item.childObjct.title == value,code)
                 // || item.childObjct.title == value
-                if (code == value) {
+                let valueArr = value.split(',')
+                console.log('选项:',item,[code],[value],[valueArr])
+                if (code == value || 
+                title == value ||
+                valueArr.indexOf(code)>-1 ||
+                valueArr.indexOf(title)>-1 
+                ) {
                   // console.log('---++',item.childObjct.title ,item)
                   this.formBox["selectedItems"].push(item.childObjct);
                   // item.model = []
@@ -395,6 +402,8 @@ export default {
                   if (this.$root.$refs[key][k].model.length == 0) {
                     this.$root.$refs[key][k].model.push(value);
                   }
+                  //
+                  console.log("selectedItems", this.formBox["selectedItems"]);
                 }
                 if (value == "on,") {
                   item.$parent.checkboxValue = [code];
@@ -467,12 +476,12 @@ export default {
             }
           }
           if (this.$root.$refs[key]) {
-            console.log(
-              "---this.$root.$refs[key]:",
-              key,
-              this.formBox.model[key],
-              this.$root.$refs[key]
-            );
+            // console.log(
+            //   "---this.$root.$refs[key]:",
+            //   key,
+            //   this.formBox.model[key],
+            //   this.$root.$refs[key]
+            // );
             if (this.$root.$refs[key].type === "text") {
               this.$root.$refs[key].setCurrentValue(value + "");
               this.$root.$refs[key].checkValueRule(value + "");
@@ -483,12 +492,12 @@ export default {
           // } catch (error) {
 
           // }
-          console.log(
-            "clearUIFormData:end",
-            model,
-            this.formBox,
-            this.$root.$refs
-          );
+          // console.log(
+          //   "clearUIFormData:end",
+          //   model,
+          //   this.formBox,
+          //   this.$root.$refs
+          // );
         }
       }
     },
@@ -507,7 +516,7 @@ export default {
           }, 100);
         }
       });
-      console.log("clearUIFormData:end", model, this.formBox, this.$root.$refs);
+      // console.log("clearUIFormData:end", model, this.formBox, this.$root.$refs);
     },
     open() {
       console.log("sweetModalOpen", this.$refs, this.$root.$refs);
@@ -585,7 +594,8 @@ export default {
       // 15-18分轻度危险；13-14分中度危险；10-12分高度危险；＜9分极度危险
 
       if (this.dialogFormCode) {
-        this.formBox.model.parentId = window.formObj.model.formId|| window.formObj.model.id;
+        this.formBox.model.parentId =
+          window.formObj.model.formId || window.formObj.model.id;
         saveForm({ ...this.formBox }, res => {
           let {
             data: {

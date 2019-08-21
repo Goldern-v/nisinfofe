@@ -100,7 +100,8 @@ export default {
       }
 
       if (this.$refs[this.refName]) {
-        this.$refs[this.refName].$parent.$parent.$parent.$el.style.outline = "none";
+        this.$refs[this.refName].$parent.$parent.$parent.$el.style.outline =
+          "none";
         // if(this.$root.$refs.mainPage.checkFormMissingItems){
         //   this.$root.$refs.mainPage.checkFormMissingItems()
         // }
@@ -108,7 +109,13 @@ export default {
 
       let rootRefs = this.$root.$refs[this.obj.name];
 
-      console.log("--obj.name:", this.obj.name, rootRefs, this.$root.$refs, this.$refs[this.refName]);
+      console.log(
+        "--obj.name:",
+        this.obj.name,
+        rootRefs,
+        this.$root.$refs,
+        this.$refs[this.refName]
+      );
 
       if (!this.formObj.model[this.obj.name]) {
         this.formObj.model[this.obj.name] = "";
@@ -184,6 +191,8 @@ export default {
         });
       }
       //
+
+      //
       if (this.obj.score != undefined) {
         this.formObj.model["evalScore"] = score;
         if (this.$root.$refs["evalScore"]) {
@@ -191,7 +200,7 @@ export default {
           this.$root.$refs["evalScore"].setCurrentValue(score);
 
           let textResult = this.$root.$refs["evalDesc"].checkValueRule(score);
-          console.log("evalDesc-textResult", textResult);
+          console.log("evalDesc-textResult", score, textResult);
           this.formObj.model["evalDesc"] = textResult + "";
           this.$root.$refs["evalDesc"].setCurrentValue(textResult);
           this.$root.$refs["evalDesc"].checkValueRule(textResult);

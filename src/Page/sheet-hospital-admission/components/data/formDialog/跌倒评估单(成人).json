@@ -647,7 +647,7 @@
           "name": "I004009",
           "type": "radio",
           "title": "在过去的5天中曾变换药物或/和变换剂量（1分)",
-          "code": "4",
+          "code": "1",
           "score": 1,
           "style": null,
           "class": null,

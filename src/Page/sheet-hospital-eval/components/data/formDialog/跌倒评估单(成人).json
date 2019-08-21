@@ -133,17 +133,26 @@
           "readOnly": true,
           "rule": [
             {
-              "equals": ["-1", "未保存"],
+              "equals": [
+                "-1",
+                "未保存"
+              ],
               "style": "color:gray",
               "display": "未签名"
             },
             {
-              "equals": ["0", "已保存 "],
+              "equals": [
+                "0",
+                "已保存 "
+              ],
               "style": "color:blue",
               "display": "已保存"
             },
             {
-              "equals": ["1", "已签名"],
+              "equals": [
+                "1",
+                "已签名"
+              ],
               "style": "color:red",
               "display": "已签名"
             }
@@ -638,7 +647,7 @@
           "name": "I004009",
           "type": "radio",
           "title": "在过去的5天中曾变换药物或/和变换剂量（1分)",
-          "code": "4",
+          "code": "1",
           "score": 1,
           "style": null,
           "class": null,
@@ -718,7 +727,10 @@
       "name": "I100001",
       "type": "formGroupColBox",
       "col": 2,
-      "colWidth": ["40%", "60%"],
+      "colWidth": [
+        "40%",
+        "60%"
+      ],
       "title": "",
       "message": "",
       "require": "false",
@@ -797,7 +809,10 @@
     {
       "name": " ",
       "type": "formGroupVerticalBox",
-      "colWidth": ["0%", "100%"],
+      "colWidth": [
+        "0%",
+        "100%"
+      ],
       "title": " ",
       "message": "",
       "require": "false",
