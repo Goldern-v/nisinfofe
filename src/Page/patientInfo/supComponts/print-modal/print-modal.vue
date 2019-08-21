@@ -34,6 +34,7 @@
             <template slot-scope="scope">
               <!-- <el-button type="primary" size="mini">打印</el-button> -->
               <span class="print-text" @click="toPrint(scope.row)">打印</span>
+              <span class="print-text" @click="openPreviewModal(scope.row)">查看</span>
             </template>
           </el-table-column>
         </el-table>
@@ -45,6 +46,7 @@
         <el-button class="modal-btn" type="primary" @click="post">确定</el-button>
       </div>
     </sweet-modal>
+    <previewModal ref="previewModal"></previewModal>
   </div>
 </template>
 <style lang='scss' scoped>
@@ -75,6 +77,8 @@ import { printArchive, updatePrintStatus } from "../modal/api/index";
 import { formUrl } from "@/common/pathConfig/index.js";
 import qs from "qs";
 import common from "@/common/mixin/common.mixin";
+import previewModal from "./preview-modal";
+import getFormUrl from "./getFormUrl";
 export default {
   mixins: [common],
   data() {
@@ -119,9 +123,7 @@ export default {
         "App-Token-Nursing": appToken,
         "Auth-Token-Nursing": token
       } = qs.parse(this.token);
-      let url = `/crNursing/sheet-print?id=${info.formId}&startPageIndex=${
-        info.pageIndex
-      }&endPageIndex=${info.endPageIndex}&appToken=${appToken}&token=${token}`;
+      let url = `/crNursing/sheet-print?id=${info.formId}&startPageIndex=${info.pageIndex}&endPageIndex=${info.endPageIndex}&appToken=${appToken}&token=${token}`;
       this.$message("正在准备打印中，请稍等");
       if (this.formPrintUrl == url) {
         setTimeout(() => {
@@ -212,8 +214,13 @@ export default {
           }, 2000);
         }
       }
+    },
+    openPreviewModal(formObj) {
+      this.$refs.previewModal.open(getFormUrl(formObj));
     }
   },
-  components: {}
+  components: {
+    previewModal
+  }
 };
 </script>

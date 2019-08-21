@@ -8,13 +8,13 @@
     @end="dragEnd">
     <transition-group>-->
 
-    <div v-for="(group,index) in obj" :key="group.name+index+obj.name">
-      <FormGroupHTML :obj="group" :formObj="formObj"/>
-      <FormGroupTitle :obj="group" :formObj="formObj"/>
-      <FormGroupHR :obj="group" :formObj="formObj"/>
-      <FormGroupHorizontalBox :obj="group" :formObj="formObj"/>
-      <FormGroupVerticalBox :obj="group" :formObj="formObj"/>
-      <FormGroupColBox :obj="group" :formObj="formObj"/>
+    <div v-for="(group,index) in obj" :key="group.name+index+obj.name+getUUID()">
+      <FormGroupHTML :obj="group" :formObj="formObj" />
+      <FormGroupTitle :obj="group" :formObj="formObj" />
+      <FormGroupHR :obj="group" :formObj="formObj" />
+      <FormGroupHorizontalBox :obj="group" :formObj="formObj" />
+      <FormGroupVerticalBox :obj="group" :formObj="formObj" />
+      <FormGroupColBox :obj="group" :formObj="formObj" />
     </div>
 
     <!-- </transition-group>
@@ -24,6 +24,7 @@
 
 <script>
 import vue from "vue";
+import uuid from "node-uuid";
 import FormGroupTitle from "./FormGroupTitle";
 import FormGroupHR from "./FormGroupHR";
 import FormGroupHTML from "./FormGroupHTML";
@@ -74,6 +75,10 @@ export default {
     },
     updateFunc(e) {
       console.log("updateFunc", e);
+    },
+    getUUID(child = null) {
+      let uuid_ = uuid.v1();
+      return uuid_;
     }
   }
 };

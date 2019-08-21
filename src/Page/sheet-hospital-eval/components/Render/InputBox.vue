@@ -383,7 +383,10 @@ export default {
         let dataList = this.obj.options;
         let key = this.obj.name;
         let obj = this.formObj.model;
-        if (this.$root.$refs.autoInput) {
+        if (this.$root.$refs && 
+        this.$root.$refs.autoInput && 
+        this.$root.$refs.autoInput.open
+        ) {
           this.$root.$refs.autoInput.open({
             parentEl: e.target,
             currentValue: this.inputValue,

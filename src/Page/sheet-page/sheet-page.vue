@@ -11,7 +11,7 @@
         <patientList :data="data.bedList" v-loading="patientListLoading"></patientList>
       </div>
       <div class="right-part" :style="{marginLeft: openLeft?'200px':'0'}" v-loading="tableLoading">
-        <div class="sheetTable-contain" ref="scrollCon" @scroll="onScroll">
+        <div class="sheetTable-contain" ref="scrollCon" @scroll="(e) => onScroll(e)">
           <div ref="sheetTableContain">
             <component
               v-bind:is="sheetTable"
@@ -370,7 +370,7 @@ export default {
       );
     },
     onScroll(e) {
-      if (sheetInfo.sheetTyp.indexOf("_wx") > -1) {
+      if (sheetInfo.sheetType.indexOf("_wx") > -1) {
       } else {
         this.scrollY = parseInt(e.target.scrollTop);
       }

@@ -106,11 +106,11 @@ export default {
       style: {},
       data: [],
       callback: null,
-      selectedList:[],
+      selectedList: [],
       selectIndex: 0,
       parentEl: null,
       multiplechoice: false,
-      obj:new Object(),
+      obj: new Object(),
       id: ""
     };
   },
@@ -125,13 +125,15 @@ export default {
       if (!config.currentValue && config.data && config.data.length > 0) {
         config.currentValue = config.data[0].name;
       }
-      this.multiplechoice = config.multiplechoice?config.multiplechoice:false;
+      this.multiplechoice = config.multiplechoice
+        ? config.multiplechoice
+        : false;
       this.style = config.style || "";
       this.obj = config.obj;
       this.callback = config.callback || null;
       this.data = config.data || [];
       this.parentEl = config.parentEl || null;
-      this.selectedList = config.selectedList?config.selectedList:[];
+      this.selectedList = config.selectedList ? config.selectedList : [];
       this.selectIndex =
         this.data.map(item => item.name).indexOf(config.currentValue) || 0;
       this.id = config.id;
@@ -191,16 +193,22 @@ export default {
       }
     },
     post(e, item) {
-      console.log("!!!post:autoPost", e, item, this.selectedList,this.obj[this.id]);
+      console.log(
+        "!!!post:autoPost",
+        e,
+        item,
+        this.selectedList,
+        this.obj[this.id]
+      );
       // if (this.callback) {
-        this.callback(item);
+      this.callback(item);
       // }
       // this.multiplechoice===true &&
-      if(this.obj[this.id]){
-        this.selectedList = this.obj[this.id].split(',')
+      if (this.obj[this.id] && typeof this.obj[this.id] == "string") {
+        this.selectedList = this.obj[this.id].split(",");
       }
       // this.show = false;
-      if(!this.multiplechoice){
+      if (!this.multiplechoice) {
         this.show = false;
       }
     },

@@ -200,7 +200,7 @@ export default {
         {
           label: "保存",
           onClick: e => {
-            this.fromSave();
+            this.formSave();
             console.log("保存", this.user, this.formObj);
           },
           getDisabled(selectBlock) {
@@ -484,6 +484,8 @@ export default {
             // });
           } catch (error) {}
         }
+        //
+        //
       });
       // // His data
       // loadPatient(this.patientInfo.patientId,this.patientInfo.visitId).then(res=>{
@@ -601,6 +603,7 @@ export default {
             // 增加默认值
             mergeDefaultValue(formObj);
             setDefaultValue(formObj);
+            this.formSave();
           }
           // window.formObj.model.I100000 = "耳温";
           // window.formObj.model = Object.assign(window.formObj.model, itemData);
@@ -1192,7 +1195,7 @@ export default {
       }, "你确定要删除本记录吗？");
     },
     // 保存表单
-    fromSave() {
+    formSave() {
       if (this.patientInfo && this.patientInfo.hasOwnProperty("patientId")) {
         this.bus.$emit("setHosptialAdmissionLoading", {
           status: true,
@@ -1298,6 +1301,20 @@ export default {
     };
     //
     this.isNewForm = false;
+    //
+    let tool = {
+      formSave: this.formSave,
+      formDelete: this.formDelete,
+      reloadForm: this.reloadForm
+    };
+    window.formTool = tool;
+    //
+    // if (window.formObj && !window.formObj.hasOwnProperty("tool")) {
+    //   window.formObj["tool"] = {};
+    //   window.formObj["tool"] = tool;
+    //   this.formObj["tool"] = {};
+    //   this.formObj["tool"] = tool;
+    // }
     //
     // this.$root.$refs.mainPage['formSignOrAudit'] = this.formSignOrAudit
     //

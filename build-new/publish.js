@@ -2,15 +2,25 @@ var path, node_ssh, ssh, fs, folderSrc, localSrc
 
 var log = console.log
 
-let sshUpload = (localSrc = './dist', folderSrc = '/crdata/webProject/nursingInfoSystem/') => {
+let sshUpload = (hospitalName = "东莞市厚街医院", localSrc = './dist', folderSrc = '/crdata/webProject/nursingInfoSystem/dongguanhoujie/') => {
   fs = require('fs')
   path = require('path')
   var chalk = require("chalk");
   var ora = require("ora");
   node_ssh = require('node-ssh')
   ssh = new node_ssh()
+
+  let hospitalList = {
+    "东莞市厚街医院": "dongguanhoujie",
+    "威县人民医院": "weixian"
+  }
+  let hospitalEN = "dongguanhoujie"
+  if (hospitalList[hospitalName]) {
+    hospitalEN = hospitalList[hospitalName]
+    folderSrc = `/crdata/webProject/nursingInfoSystem/${hospitalEN}/`
+  }
   if (['/', '', '\\', undefined, null].indexOf(folderSrc) > -1) {
-    folderSrc = '/crdata/webProject/nursingInfoSystem/'
+    folderSrc = `/crdata/webProject/nursingInfoSystem/${hospitalEN}/`
   }
   // localSrc = './build'
 

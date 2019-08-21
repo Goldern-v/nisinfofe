@@ -154,7 +154,7 @@ let start = async () => {
 
 let upload = () => {
     let url = path.resolve(__dirname, `../dist/${buildFileName}`)
-    publish.sshUpload(url)
+    publish.sshUpload(hospitalName, url)
 }
 
 let zip = () => {
