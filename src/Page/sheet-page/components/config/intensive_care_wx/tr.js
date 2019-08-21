@@ -17,7 +17,7 @@ let 体位 = [];
 let 基础护理 = [];
 let 翻身拍背 = [];
 let 物理降温 = [];
-let 管路 = [];
+let 管路 = {};
 let 理疗 = [];
 let 健康指导 = {};
 
@@ -72,13 +72,13 @@ export default [
     name: "疼痛部位"
   },
   {
-    key: "field3", //疼痛性质
+    key: "field2", //疼痛性质
     value: "",
     event: keyf1,
     name: "疼痛性质"
   },
   {
-    key: "field2", //疼痛评分
+    key: "field3", //疼痛评分
     value: "",
     event: keyf1,
     name: "疼痛评分"
@@ -125,31 +125,31 @@ export default [
     name: "其他"
   },
   {
-    key: "field40", //出量尿性质
+    key: "field10", //出量尿性质
     value: "",
     event: keyf1,
     name: "尿性质"
   },
   {
-    key: "field10", //出量量
+    key: "field11", //出量尿量
     value: "",
     event: keyf1,
     name: "出量量"
   },
   {
-    key: "field70", //出量其他性质
+    key: "field12", //出量其他性质
     value: "",
     event: keyf1,
     name: "其他性质"
   },
   {
-    key: "field11", //出量其他量
+    key: "field13", //出量其他量
     value: "",
     event: keyf1,
     name: "其他量"
   },
   {
-    key: "field50", //GCS
+    key: "field14", //GCS
     value: "",
     event: keyf1,
     name: "GCS",
@@ -178,55 +178,55 @@ export default [
     event: keyf1
   },
   {
-    key: "field12", //肢体肌力左上
+    key: "field15", //肢体肌力左上
     value: "",
     event: keyf1,
     name: "肢体肌力左上"
   },
   {
-    key: "field13", //肢体肌力左下
+    key: "field16", //肢体肌力左下
     value: "",
     event: keyf1,
     name: "肢体肌力左下"
   },
   {
-    key: "field14", //肢体肌力右上
+    key: "field17", //肢体肌力右上
     value: "",
     event: keyf1,
     name: "肢体肌力右上"
   },
   {
-    key: "field15", //肢体肌力右下
+    key: "field18", //肢体肌力右下
     value: "",
     event: keyf1,
     name: "肢体肌力右下"
   },
   {
-    key: "field52", //吸痰
+    key: "field19", //吸痰
     value: "",
     event: keyf1,
     isSelected: true
   },
   {
-    key: "field53", //气垫
+    key: "field20", //气垫
     value: "",
     event: keyf1,
     isSelected: true
   },
   {
-    key: "field65", //雾化吸入
+    key: "field21", //雾化吸入
     value: "",
     event: keyf1,
     isSelected: true
   },
   {
-    key: "field54", //约束带
+    key: "field22", //约束带
     value: "",
     event: keyf1,
     isSelected: true
   },
   {
-    key: "field55", //心电图
+    key: "field23", //心电图
     value: "",
     event: keyf1,
     autoComplete: {
@@ -234,7 +234,7 @@ export default [
     }
   },	
   {
-    key: "field56", //皮肤
+    key: "field24", //皮肤
     value: "",
     event: keyf1,
     autoComplete: {
@@ -242,7 +242,7 @@ export default [
     }
   },
   {
-    key: "field57", //体位
+    key: "field25", //体位
     value: "",
     event: keyf1,
     autoComplete: {
@@ -250,7 +250,7 @@ export default [
     }
   },
   {
-    key: "field85", //基础护理	
+    key: "field26", //基础护理	
     value: "",
     event: keyf1,
     autoComplete: {
@@ -258,7 +258,7 @@ export default [
     }
   },
   {
-    key: "field58", //翻身拍背
+    key: "field27", //翻身拍背
     value: "",
     event: keyf1,
     autoComplete: {
@@ -266,7 +266,7 @@ export default [
     }
   },
   {
-    key: "field59", //物理降温
+    key: "field28", //物理降温
     value: "",
     event: keyf1,
     autoComplete: {
@@ -274,7 +274,7 @@ export default [
     }
   },
   {
-    key: "field60", //管路
+    key: "field29", //管路
     value: "",
     event: keyf1,
     autoComplete: {
@@ -282,7 +282,7 @@ export default [
     }
   },
   {
-    key: "field61", //理疗
+    key: "field30", //理疗
     value: "",
     event: keyf1,
     autoComplete: {
@@ -290,7 +290,7 @@ export default [
     }
   },
   {
-    key: "field62", //健康指导
+    key: "field31", //健康指导
     value: "",
     event: keyf1,
     autoComplete: {
@@ -298,7 +298,7 @@ export default [
     }
   },
   {
-    key: "field18", //标题1
+    key: "field32", //标题1
     value: "",
     event: keyf1,
     textarea: {
@@ -306,7 +306,7 @@ export default [
     }
   },
   {
-    key: "field19", //标题2
+    key: "field33", //标题2
     value: "",
     event: keyf1,
     textarea: {
@@ -314,7 +314,7 @@ export default [
     }
   },
   {
-    key: "field20", //标题3
+    key: "field34", //标题3
     value: "",
     event: keyf1,
     textarea: {
@@ -322,7 +322,7 @@ export default [
     }
   },
   {
-    key: "field21", //标题4
+    key: "field35", //标题4
     value: "",
     event: keyf1,
     textarea: {
@@ -330,7 +330,7 @@ export default [
     }
   },
   {
-    key: "field22", //标题5
+    key: "field36", //标题5
     value: "",
     event: keyf1,
     textarea: {
@@ -338,7 +338,7 @@ export default [
     }
   },
   {
-    key: "field23", //标题6
+    key: "field37", //标题6
     value: "",
     event: keyf1,
     textarea: {
@@ -439,7 +439,8 @@ export default [
 ];
 
 let filterKey = '威县'+':';
-let filterKey2 = '监护单'+':';
+let filterKey2 = '脑外科重症监护单'+':';
+let filterKey2Arr = ["心电图","健康指导"]
 
 export function getListData4() {
   let list = [
@@ -451,12 +452,14 @@ export function getListData4() {
     "翻身拍背",
     "物理降温",
     "管路",
+    "静脉管路",
     "理疗",
     "健康指导",
     "肺功能锻炼"
   ];
+  
   list = list.map(key => {
-    return key.includes('基础护理')? filterKey + filterKey2 + key : filterKey + key;
+    return filterKey2Arr.includes(key)? filterKey + filterKey2 + key : filterKey + key;
   });
   multiDictInfo(list).then(res => {
     let data = res.data.data;
@@ -467,7 +470,7 @@ export function getListData4() {
     setList(基础护理, "基础护理", data);
     setList(翻身拍背, "翻身拍背", data);
     setList(物理降温, "物理降温", data);
-    setList(管路, "管路", data);
+    setList(管路, "管路", data,true);
     setList(理疗, "理疗", data);
     setList(健康指导, "健康指导", data,true);
   });
@@ -482,10 +485,10 @@ getListData4();
  * @param {*} isChildOptions 当前选项是否有下拉子选项
  */
 function setList(list, key, data,isChildOptions) {
-  key = key.includes('基础护理')? filterKey + filterKey2 + key : filterKey + key;
+  key = filterKey2Arr.includes(key)? filterKey + filterKey2 + key : filterKey + key;
   if(isChildOptions){
     let arr = [],obj={};
-    let childKeys = ['肺功能锻炼'];
+    let childKeys = ['肺功能锻炼','静脉管路'];
     for (let item of data[key]) {
       let childArr = '';
       if(childKeys.includes(item.name)){

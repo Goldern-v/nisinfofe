@@ -275,8 +275,8 @@ export default {
       {
         name: `管路`,
         style: {
-          minWidth: "50px",
-          maxWidth: "50px"
+          minWidth: "110px",
+          maxWidth: "110px"
         },
         colspan: "1",
         rowspan: "3"
@@ -305,7 +305,7 @@ export default {
         colspan: "1",
         rowspan: "3",
         canSet: true,
-        key: "field18",
+        key: "field32",
         style: {
           minWidth: "40px",
           maxWidth: "40px"
@@ -317,7 +317,7 @@ export default {
         colspan: "1",
         rowspan: "3",
         canSet: true,
-        key: "field19",
+        key: "field33",
         style: {
           minWidth: "40px",
           maxWidth: "40px"
@@ -329,7 +329,7 @@ export default {
         colspan: "1",
         rowspan: "3",
         canSet: true,
-        key: "field20",
+        key: "field34",
         style: {
           minWidth: "40px",
           maxWidth: "40px"
@@ -341,7 +341,7 @@ export default {
         colspan: "1",
         rowspan: "3",
         canSet: true,
-        key: "field21",
+        key: "field35",
         style: {
           minWidth: "40px",
           maxWidth: "40px"
@@ -353,7 +353,7 @@ export default {
         colspan: "1",
         rowspan: "3",
         canSet: true,
-        key: "field22",
+        key: "field36",
         style: {
           minWidth: "40px",
           maxWidth: "40px"
@@ -365,7 +365,7 @@ export default {
         colspan: "1",
         rowspan: "3",
         canSet: true,
-        key: "field23",
+        key: "field37",
         style: {
           minWidth: "40px",
           maxWidth: "40px"

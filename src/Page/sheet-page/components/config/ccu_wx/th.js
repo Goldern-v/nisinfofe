@@ -2,7 +2,7 @@ export default {
   // 科室的名称
   deptType: "",
   style: {
-    width: "1700px"
+    width: "1850px"
   },
   th: {
     top: [
@@ -235,8 +235,8 @@ export default {
       {
         name: `穿刺部位`,
         style: {
-          minWidth: "52px",
-          maxWidth: "52px"
+          minWidth: "65px",
+          maxWidth: "65px"
         },
         colspan: "1",
         rowspan: "2"
@@ -369,21 +369,21 @@ export default {
       },
       {
         name: `
-        部
+        部位
         `,
         colspan: "1",
         rowspan: "1"
       },
       {
         name: `
-        性
+        性质
         `,
         colspan: "1",
         rowspan: "1"
       },
       {
         name: `
-        评
+        评分
         `,
         colspan: "1",
         rowspan: "1"
