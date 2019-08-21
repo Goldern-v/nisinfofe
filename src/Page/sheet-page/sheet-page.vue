@@ -164,7 +164,6 @@ import sheetTable from "./components/sheetTable/sheetTable.vue";
 import sheetTableNeonatology from "./components/sheetTable-neonatology/sheetTable";
 import sheeTableBurn_plastic from "./components/sheeTable-burn_plastic/sheetTable";
 import sheetTablePost_partum from "./components/sheetTable-post_partum/sheetTable";
-import sheetTablePost_xt from "./components/sheetTable-血透/sheetTable";
 import common from "@/common/mixin/common.mixin.js";
 import evalModel from "./components/modal/eval-model/eval-model.vue";
 import { typeList } from "@/api/lesion";
@@ -266,9 +265,6 @@ export default {
         //  return sheetTablePost_partum;
       } else if (sheetInfo.sheetType == "post_partum") {
         return sheetTablePost_partum;
-      } else if (sheetInfo.sheetType == "blood_purification") {
-        /** 血液 */
-        return sheetTablePost_xt;
       } else {
         return sheetTable;
       }
@@ -606,7 +602,6 @@ export default {
     pizhuModal,
     sheetTableNeonatology,
     sheetTablePost_partum,
-    sheetTablePost_xt,
     evalModel
   }
 };
