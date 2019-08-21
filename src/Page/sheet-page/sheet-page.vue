@@ -371,10 +371,10 @@ export default {
       );
     },
     onScroll(e) {
-      if (sheetInfo.sheetTyp.indexOf("_wx") > -1) {
-      } else {
-        this.scrollY = parseInt(e.target.scrollTop);
-      }
+      // if (sheetInfo.sheetTyp.indexOf("_wx") > -1) {
+      // } else {
+      //   this.scrollY = parseInt(e.target.scrollTop);
+      // }
     }
   },
   created() {

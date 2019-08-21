@@ -211,9 +211,33 @@ export default function Title(data = [], autoData = [], index) {
       break;
     case "neurology_wx":
       {
-        // 产后观察
+        // 威县-神经内科
         Th = JSON.parse(
           JSON.stringify(require("../config/neurology_wx/th").default)
+        );
+      }
+      break;
+    case "unified_wx":
+      {
+        // 威县-统一护理记录单
+        Th = JSON.parse(
+          JSON.stringify(require("../config/unified_wx/th").default)
+        );
+      }
+      break;
+    case "intensive_care_wx":
+      {
+        // 威县-脑外科重症监护单
+        Th = JSON.parse(
+          JSON.stringify(require("../config/intensive_care_wx/th").default)
+        );
+      }
+      break;
+    case "ccu_wx":
+      {
+        // 威县-CCU监护单（心血管内科）
+        Th = JSON.parse(
+          JSON.stringify(require("../config/ccu_wx/th").default)
         );
       }
       break;
@@ -221,6 +245,28 @@ export default function Title(data = [], autoData = [], index) {
       Th = JSON.parse(JSON.stringify(require("../config/default/th").default));
     }
   }
+  if(Th.th.title && Th.th.title.length){
+    for (let i = 0; i < Th.th.title.length; i++) {
+      if (Th.th.title[i].canSet) {
+        try {
+          Th.th.title[i].name = data.find(item => {
+            return item.fieldEn == Th.th.title[i].key;
+          }).fieldCn;
+        } catch (e) {
+          try {
+            let reverseArr = [];
+            if (sheetInfo.selectBlock.recordTitleCoyeType !== "no") {
+              reverseArr = [...autoData];
+            }
+            Th.th.title[i].name = reverseArr.find(item => {
+              return item.fieldEn == Th.th.title[i].key && item.pageIndex === index;
+            }).fieldCn;
+          } catch (e) {}
+        }
+      }
+    }
+  }
+  
   for (let i = 0; i < Th.th.top.length; i++) {
     if (Th.th.top[i].canSet) {
       try {
