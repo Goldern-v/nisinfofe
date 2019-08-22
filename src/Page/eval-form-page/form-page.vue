@@ -3,7 +3,7 @@
   <div class="contain">
     <div class="body-con" id="sheet_body_con" :style="{height: containHeight}">
       <div class="left-part">
-        <patientList :data="data.bedList" v-loading="patientListLoading"></patientList>
+        <patientList :data="data.bedList" :isSelectPatient="isSelectPatient" v-loading="patientListLoading"></patientList>
       </div>
       <div class="right-part" :style="{marginLeft: openLeft?'200px':'0'}">
         <record></record>
@@ -81,6 +81,18 @@ export default {
           this.patientListLoading = false;
         });
       }
+    },
+    isSelectPatient(item){
+      this.$router.replace(
+        {
+          path: "/formPage",
+          query: item
+        },
+        () => {
+          this.bus.$emit("refreshTree", true);
+          this.bus.$emit("closeAssessment");
+        }
+      );
     }
   },
   created() {

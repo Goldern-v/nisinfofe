@@ -196,7 +196,8 @@ import common from "@/common/mixin/common.mixin.js";
 import bus from "vue-happy-bus";
 export default {
   props: {
-    data: Array
+    data: Array,
+    isSelectPatient: Function
   },
   mixins: [common],
   data() {
@@ -214,31 +215,10 @@ export default {
   },
   methods: {
     selectPatient(item) {
-      // this.$message({
-      //     message: `${item.name}`,
-      //     type: 'success'
-      //   });
-      console.log("selectPatient", item);
-
-      // this.bus.$emit("openHosptialAdmissionForm", item);
-      this.bus.$emit("setHosptialAdmissionLoading", true);
-
-      this.bus.$emit("setIsNewForm", false);
-
-      this.bus.$emit("getHEvalBlockList", item);
       this.selectPatientId = item.patientId;
-
-      this.$store.commit("upPatientInfo", item);
-      // this.$router.replace(
-      //   {
-      //     path: "/formPage",
-      //     query: item
-      //   },
-      //   () => {
-      //     this.bus.$emit("refreshTree", true);
-      //     this.bus.$emit("closeAssessment");
-      //   }
-      // );
+      if(this.isSelectPatient){
+        this.isSelectPatient(item);
+      }
     },
     isActive(item) {
       return item.patientId == this.selectPatientId; //this.$route.query.patientId;

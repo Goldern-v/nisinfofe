@@ -13,7 +13,7 @@
     </div>
     <div class="body-con" id="sheet_body_con" :style="{height: containHeight}">
       <div class="left-part">
-        <patientList :data="data.bedList" v-loading="patientListLoading"></patientList>
+        <patientList :data="data.bedList" :isSelectPatient="isSelectPatient" v-loading="patientListLoading"></patientList>
       </div>
       <div class="right-part" v-loading="tableLoading">
         <div class="sheetTable-contain" ref="scrollCon">
@@ -326,6 +326,9 @@ export default {
         .then(res => {
           console.log("获取字典", res);
         });
+    },
+    isSelectPatient(item){
+      this.$store.commit("upPatientInfo", item);
     }
   },
   created() {

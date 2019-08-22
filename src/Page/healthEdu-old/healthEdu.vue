@@ -1,6 +1,6 @@
 
 <template>
-  <div class="contain" :class="{fullpage}" v-loading="pageLoading" element-loading-text="正在保存">
+  <div class="contain" :class="{fullpage}" :isSelectPatient="isSelectPatient" v-loading="pageLoading" element-loading-text="正在保存">
     <div class="head-con" flex>
       <div class="dept-select-con"></div>
       <div class="tool-con" flex-box="1">
@@ -244,6 +244,9 @@ export default {
 
         wid.data.setFormData("页面ID", this.store.selectedForm.missionId || "");
       }, 500);
+    },
+    isSelectPatient(item){
+      this.$store.commit("upPatientInfo", item);
     }
   },
   created() {
