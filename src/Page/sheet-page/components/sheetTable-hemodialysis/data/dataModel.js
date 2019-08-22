@@ -127,7 +127,7 @@ let tableModel = {
 								class: "bottom-line",
 								value: "",
 								name: "touxipinci",
-								style: "width:100px;text-align:center;",
+								style: "width:50px;text-align:center;",
 								next: "次/  周"
 							},
 							{
@@ -256,7 +256,7 @@ let tableModel = {
 								class: "bottom-line",
 								value: "",
 								name: "fanwei",
-								style: "width:100px;text-align:center;",
+								style: "width:50px;text-align:center;",
 								next: "cm）"
 							},
 							{
@@ -375,7 +375,7 @@ let tableModel = {
 										class: "bottom-line",
 										value: "",
 										name: "xianliang",
-										style: "width:100px;text-align:center;",
+										style: "width:50px;text-align:center;",
 										next: "mL/d",
 										tasks: [
 											{
@@ -396,7 +396,7 @@ let tableModel = {
 										class: "bottom-line",
 										value: "",
 										name: "niaoliang",
-										style: "width:100px;text-align:center;",
+										style: "width:50px;text-align:center;",
 										prev: "尿量：",
 										next: "ml/d"
 									}
@@ -413,6 +413,7 @@ let tableModel = {
 								name: "tiyeguoduozj",
 								style: "width:100px;text-align:center;",
 								prev: "体液过多相关症状：",
+								next: "；",
 							},
 							{
 								type: "radio",
@@ -441,6 +442,7 @@ let tableModel = {
 								type: "radio",
 								prev: "下肢水肿",
 								name: "xiazhishuizhong",
+								eleStyle: 'margin-right: 10px;',
 								children: [
 									{
 										type: "radio",
@@ -464,7 +466,7 @@ let tableModel = {
 										type: "radio",
 										value: "-",
 										name: "xiazhishuizhong",
-										addClass: "",
+										addClass: ""
 									}
 								]
 							},
@@ -678,6 +680,7 @@ let tableModel = {
 								type: "radio",
 								prev: "血管通路：",
 								name: "xueguantonglu",
+								eleStyle: 'margin-right: 10px;',
 								children: [
 									{
 										type: "radio",
@@ -771,6 +774,7 @@ let tableModel = {
 								type: "radio",
 								prev: "内瘘震颤和血管杂音：",
 								name: "xueguanzayin",
+								eleStyle: 'margin-right: 10px;',
 								children: [
 									{
 										type: "radio",
@@ -1151,7 +1155,7 @@ let tableModel = {
 							},
 							{
 								type: "radio",
-								prev: "A液（mmol/l）",
+								prev: "A液(mmol/l):",
 								name: "aye",
 								children: [
 									{
@@ -1189,7 +1193,7 @@ let tableModel = {
 										class: "bottom-line",
 										value: "",
 										name: "ayeVal",
-										style: "width:100px;text-align:center;",
+										style: "width:70px;text-align:center;",
 										tasks: [
 											{
 												active: {
@@ -1319,6 +1323,7 @@ let tableModel = {
 								value: "",
 								name: "zhixueshijian",
 								style: "width:35px;text-align:center;",
+								eleStyle: 'margin-right: 5px;',
 							},
 							{
 								type: "radio",
@@ -1375,6 +1380,7 @@ let tableModel = {
 								type: "radio",
 								prev: "颈静脉怒张：",
 								name: "txhjingmai",
+								eleStyle: 'margin-right: 10px;',
 								children: [
 									{
 										type: "radio",
@@ -1386,7 +1392,7 @@ let tableModel = {
 										type: "radio",
 										value: "（-）",
 										name: "txhjingmai",
-										addClass: "",
+										addClass: ""
 									}
 								]
 							},
@@ -1394,6 +1400,7 @@ let tableModel = {
 								type: "radio",
 								prev: "肺部听诊湿罗音",
 								name: "txhshiluoyin",
+								eleStyle: 'margin-right: 10px;',
 								children: [
 									{
 										type: "radio",
@@ -1452,6 +1459,7 @@ let tableModel = {
 								type: "radio",
 								prev: "动脉管道：",
 								name: "txhshuizhong",
+								eleStyle: 'margin-right: 10px;',
 								children: [
 									{
 										type: "radio",
@@ -1483,7 +1491,6 @@ let tableModel = {
 								type: "radio",
 								prev: "静脉管道",
 								name: "txhjingmai",
-								eleStyle: 'margin-right: 0;',
 								children: [
 									{
 										type: "radio",
@@ -1640,7 +1647,8 @@ let tableModel = {
 										class: "bottom-line",
 										value: "",
 										name: "huanzhequxiangVal",
-										style: "width:100px;text-align:center;",
+										style: "width:90px;text-align:center;",
+										eleStyle:"margin-left: -5px;",
 										tasks: [
 											{
 												active: {
@@ -1655,7 +1663,8 @@ let tableModel = {
 										class: "bottom-line",
 										value: "",
 										name: "xiacitouxisj",
-										style: "width:100px;text-align:center;",
+										style: "width:90px;text-align:center;",
+										eleStyle:"margin-left: -15px;"
 									},
 									{
 										type: "input",
@@ -1663,7 +1672,7 @@ let tableModel = {
 										class: "bottom-line",
 										value: "",
 										name: "hushiqianming",
-										style: "width:100px;text-align:center;",
+										style: "width:70px;text-align:center;",
 									},
 								]
 							},

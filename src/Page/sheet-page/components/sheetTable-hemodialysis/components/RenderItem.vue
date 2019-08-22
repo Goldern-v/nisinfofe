@@ -54,7 +54,6 @@ export default {
 <style lang="scss" scoped>
 .renderItem {
   display: inline-block;
-  margin-right: 5px;
   &:last-of-type {
     margin-right: 0;
   }

@@ -1,6 +1,6 @@
 <template>
   <span class="TableRadio" v-if="item.type=='radio'">
-    <span class="radio" v-for="(child,chInde) in item.children" :key="chInde">
+    <span class="radio" v-for="(child,chInde) in item.children" :key="chInde" :style="child.eleStyle">
       <label @click="handleRadioClick(child)" v-if="child.type=='radio'">
         <span class="radio_input" :class="child.addClass">
           <span class="radio_inner"></span>
@@ -77,7 +77,6 @@ export default {
 <style lang="scss" scoped>
 .TableRadio {
   .radio {
-    margin-right: 8px;
     &:last-of-type {
       margin-right: 0;
     }

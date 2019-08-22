@@ -142,6 +142,7 @@
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+    vertical-align: bottom;
   }
 }
 
@@ -187,7 +188,7 @@ input {
 
 .next {
   vertical-align: middle;
-  margin-right: 10px;
+  margin-right: 5px;
 }
 
 .unchecked {
