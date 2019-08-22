@@ -161,10 +161,10 @@
 import sheetTool from "./components/sheet-tool/sheet-tool.vue";
 import patientList from "@/components/patient-list/patient-list.vue";
 import sheetTable from "./components/sheetTable/sheetTable.vue";
-// import sheetTableHemodialysis from "./components/sheetTable-hemodialysis/sheetTable.vue";
 import sheetTableNeonatology from "./components/sheetTable-neonatology/sheetTable";
 import sheeTableBurn_plastic from "./components/sheeTable-burn_plastic/sheetTable";
 import sheetTablePost_partum from "./components/sheetTable-post_partum/sheetTable";
+import sheetTablePost_hemodialysis from "./components/sheetTable-hemodialysis/sheetTable";
 import common from "@/common/mixin/common.mixin.js";
 import evalModel from "./components/modal/eval-model/eval-model.vue";
 import { typeList } from "@/api/lesion";
@@ -266,6 +266,8 @@ export default {
         //  return sheetTablePost_partum;
       } else if (sheetInfo.sheetType == "post_partum") {
         return sheetTablePost_partum;
+      } else if (sheetInfo.sheetType == "blood_purification") {
+        return sheetTablePost_hemodialysis;
       } else {
         return sheetTable;
       }
@@ -498,43 +500,45 @@ export default {
       this.getSheetData(isFirst);
     });
     this.bus.$on("toSheetPrintPage", newWid => {
-      // 判断是否存在标记
-      if ($(".mark-mark-mark").length) {
-        $(this.$refs.scrollCon).animate({
-          scrollTop:
-            $(".mark-mark-mark")
-              .eq(0)
-              .addClass("red-border")
-              .offset().top +
-            this.$refs.scrollCon.scrollTop -
-            150
-        });
-        return this.$message.warning("打印前必须去除所有标记");
-      }
-      // 判断是否存在未签名
-      if ($(".noSignRow").length) {
-        $(this.$refs.scrollCon).animate({
-          scrollTop:
-            $(".noSignRow")
-              .eq(0)
-              .addClass("red-border")
-              .offset().top +
-            this.$refs.scrollCon.scrollTop -
-            150
-        });
-        return this.$message.warning("存在未签名的记录，请全部签名后再打印");
-      }
-      if ($(".multiSign").length) {
-        $(this.$refs.scrollCon).animate({
-          scrollTop:
-            $(".multiSign")
-              .eq(0)
-              .addClass("red-border")
-              .offset().top +
-            this.$refs.scrollCon.scrollTop -
-            150
-        });
-        return this.$message.warning("记录存在多个签名，或者忘记填写时间");
+      if ($("sign-text").length) {
+        // 判断是否存在标记
+        if ($(".mark-mark-mark").length) {
+          $(this.$refs.scrollCon).animate({
+            scrollTop:
+              $(".mark-mark-mark")
+                .eq(0)
+                .addClass("red-border")
+                .offset().top +
+              this.$refs.scrollCon.scrollTop -
+              150
+          });
+          return this.$message.warning("打印前必须去除所有标记");
+        }
+        // 判断是否存在未签名
+        if ($(".noSignRow").length) {
+          $(this.$refs.scrollCon).animate({
+            scrollTop:
+              $(".noSignRow")
+                .eq(0)
+                .addClass("red-border")
+                .offset().top +
+              this.$refs.scrollCon.scrollTop -
+              150
+          });
+          return this.$message.warning("存在未签名的记录，请全部签名后再打印");
+        }
+        if ($(".multiSign").length) {
+          $(this.$refs.scrollCon).animate({
+            scrollTop:
+              $(".multiSign")
+                .eq(0)
+                .addClass("red-border")
+                .offset().top +
+              this.$refs.scrollCon.scrollTop -
+              150
+          });
+          return this.$message.warning("记录存在多个签名，或者忘记填写时间");
+        }
       }
 
       window.localStorage.sheetModel = $(this.$refs.sheetTableContain).html();
@@ -606,8 +610,8 @@ export default {
     pizhuModal,
     sheetTableNeonatology,
     sheetTablePost_partum,
-    evalModel
-    // sheetTableHemodialysis
+    evalModel,
+    sheetTablePost_hemodialysis
   }
 };
 </script>

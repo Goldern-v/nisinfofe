@@ -25,8 +25,10 @@
           />
           <div class="name" flex-box="1">{{item.name}}</div>
           <div class="bed">{{item.bedLabel}} 床</div>
+
           <span
             class="point-box"
+            v-if="$route.path == '/formPage'"
             v-show="item.formLowestStatus !== '' && item.formLowestStatus != '2'"
             :class="{red: item.formLowestStatus == 0, green: item.formLowestStatus == 1,isImg2: img2Show}"
           ></span>

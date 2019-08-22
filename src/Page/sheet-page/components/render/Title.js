@@ -209,6 +209,14 @@ export default function Title(data = [], autoData = [], index) {
         );
       }
       break;
+    case "blood_purification":
+      {
+        // 血透
+        Th = JSON.parse(
+          JSON.stringify(require("../config/blood_purification/th").default)
+        );
+      }
+      break;
     case "neurology_wx":
       {
         // 威县-神经内科
