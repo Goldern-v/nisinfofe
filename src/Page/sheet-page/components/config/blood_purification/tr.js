@@ -147,16 +147,16 @@ export default [
     key: "monthHour",
     value: ""
   },
-  {
-    hidden: false,
-    key: "signerNo",
-    value: ""
-  },
-  {
-    hidden: false,
-    key: "auditorNo",
-    value: ""
-  },
+  // {
+  //   hidden: false,
+  //   key: "signerNo",
+  //   value: ""
+  // },
+  // {
+  //   hidden: false,
+  //   key: "auditorNo",
+  //   value: ""
+  // },
   {
     hidden: true,
     key: "auditorName",

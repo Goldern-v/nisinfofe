@@ -26,7 +26,7 @@
           </tr>
         </tbody>
       </table>
-      <div class="table-footer">第 {{index+1}} 页</div>
+      <!-- <div class="table-footer">第 {{index+1}} 页</div> -->
     </div>
     <!-- <p @click="save">保存</p> -->
   </div>
@@ -35,7 +35,7 @@
 <script>
 import RenderItem from "./RenderItem";
 import tableModel from "../data/dataModel";
-
+import sheetInfo from "../../config/sheetInfo";
 export default {
   data() {
     return {
@@ -48,13 +48,16 @@ export default {
   components: { RenderItem },
   methods: {
     save() {
+      console.log(this.model);
       // localStorage.setItem("test", JSON.stringify(this.model));
     }
   },
-  mounted() {
-    // this.model = JSON.parse(localStorage.getItem("test")) || this.model;
-  },
-  watch: {}
+  created() {
+    this.model = {};
+    this.$nextTick(() => {
+      this.model = sheetInfo.relObj;
+    });
+  }
 };
 </script>
 
@@ -88,8 +91,9 @@ th {
   }
 }
 .table {
+  page-break-after: always;
   &:first-child {
-    padding-bottom: 120px;
+    /* padding-bottom: 120px; */
   }
   &:nth-child(2) {
     padding-top: 50px;

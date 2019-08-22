@@ -57,7 +57,7 @@ export default {
         rowspan: "3",
         style: {
           whiteSpace: "nowrap",
-          minWidth: "38px"
+          minWidth: "36px"
         }
       },
 
@@ -69,7 +69,7 @@ export default {
         colspan: "1",
         rowspan: "3",
         style: {
-          minWidth: "38px"
+          minWidth: "36px"
         }
       },
       {
@@ -80,7 +80,7 @@ export default {
         colspan: "1",
         rowspan: "3",
         style: {
-          minWidth: "38px"
+          minWidth: "36px"
         }
       },
       {
@@ -91,7 +91,7 @@ export default {
         colspan: "1",
         rowspan: "3",
         style: {
-          minWidth: "38px"
+          minWidth: "36px"
         }
       },
       {
@@ -102,7 +102,7 @@ export default {
         colspan: "1",
         rowspan: "3",
         style: {
-          minWidth: "38px"
+          minWidth: "36px"
         }
       },
       {
@@ -113,7 +113,7 @@ export default {
         colspan: "1",
         rowspan: "3",
         style: {
-          minWidth: "38px"
+          minWidth: "36px"
         }
       },
       {
@@ -124,7 +124,7 @@ export default {
         colspan: "1",
         rowspan: "3",
         style: {
-          minWidth: "38px"
+          minWidth: "36px"
         }
       },
       {
@@ -135,7 +135,7 @@ export default {
         colspan: "1",
         rowspan: "3",
         style: {
-          minWidth: "38px"
+          minWidth: "36px"
         }
       },
       {
@@ -146,7 +146,7 @@ export default {
         colspan: "1",
         rowspan: "3",
         style: {
-          minWidth: "38px"
+          minWidth: "36px"
         }
       },
 

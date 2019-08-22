@@ -1,7 +1,7 @@
 <template>
   <div>
     <div
-      class="contant sheet-page-container-neonatology"
+      class="contant sheet-page-container-hemodialysis"
       :style="data.titleModel.style"
       :class="{readOnly}"
     >
@@ -61,7 +61,7 @@
   </div>
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus">
-.sheet-page-container-neonatology {
+.sheet-page-container-hemodialysis {
   & {
     border-radius: 2px;
     position: relative;
@@ -238,7 +238,7 @@ table {
 }
 </style>
 <script>
-import excel from "../../components/sheetTable/components/excel/excel";
+import excel from "./components/excel/excel";
 import bus from "vue-happy-bus";
 import sheetInfo from "../config/sheetInfo/index.js";
 import $ from "jquery";
