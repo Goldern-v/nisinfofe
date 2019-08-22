@@ -113,6 +113,7 @@ import $ from "jquery";
 import common from "@/common/mixin/common.mixin";
 import tableHead from "./components/table-head/table-head";
 import tableHeadPrenata from "./components/table-head/table-head-prenatal";
+import tableHead2 from "./components/table-head/table-head2";
 export default {
   props: {
     data: Object,
@@ -143,7 +144,9 @@ export default {
       /** 产科 */
       if (sheetInfo.sheetType === "prenatal") {
         return tableHeadPrenata;
-      } else {
+      } else if(sheetInfo.sheetType == "unified_wx" || sheetInfo.sheetType === "ccu_wx" || sheetInfo.sheetType == "intensive_care_wx"){
+        return tableHead2;
+      }else {
         return tableHead;
       }
     }

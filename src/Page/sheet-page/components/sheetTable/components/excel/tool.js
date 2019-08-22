@@ -120,9 +120,25 @@ function onFocusToAutoComplete(e, bind) {
       },
       data: autoComplete.data,
       callback: function(data) {
-        if (data) td.value = data;
+        // 下拉选项后一个选项依赖于前一个td的选择
+        let relyParent = autoComplete.data.relyParent;
+        // 选择出量名称的时候和上次不一样 则清除出量性质
+        if(td.value && td.value != data){
+          tr.map((item,i) =>{
+            if(relyParent && relyParent.includes(item.name)){
+              tr[i+1].value = '';
+            }
+          });
+        }
+        if(autoComplete.data.constructor == Object && relyParent && relyParent.includes(td.name)){
+          autoComplete.data['parentSelected' + `${x+1}${y}${z}`] = data;
+        }
+
+        if (data){td.value = data.trim()};
       },
-      id: `${x}${y}${z}`
+      id: `${x}${y}${z}`,
+      td,
+      tr
     });
   });
 }
