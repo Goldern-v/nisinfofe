@@ -212,12 +212,13 @@ function switechSheetType(type) {
         schema = require("../config/post_partum/tr.js").default;
       }
       break;
+    case "blood_purification":
       {
-        // 产后观察
-        schema = require("../config/post_partum/tr.js").default;
+        // 血透
+        schema = require("../config/blood_purification/tr.js").default;
       }
       break;
-      case "neurology_wx":
+    case "neurology_wx":
       {
         // 威县-神经内科
         schema = require("../config/neurology_wx/tr.js").default;

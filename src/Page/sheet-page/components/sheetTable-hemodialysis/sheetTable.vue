@@ -24,32 +24,39 @@
             性别：
             <div class="bottom-line" style="min-width: 30px">{{patientInfo.sex}}</div>
           </span>
-          <span @click="updateTetxInfo('bedLabel', '床号', patientInfo.bedLabel)">
+          <!-- <span @click="updateTetxInfo('bedLabel', '床号', patientInfo.bedLabel)">
             床号：
             <div class="bottom-line" style="min-width: 30px">{{patientInfo.bedLabel}}</div>
-          </span>
-          <span @click="updateBirthDay">
+          </span>-->
+          <!-- <span @click="updateBirthDay">
             出生日期：
             {{patientInfo.birthday | toymd}}
+          </span>-->
+          <span>
+            年龄：
+            <div class="bottom-line" style="min-width: 50px">{{patientInfo.inpNo}}</div>
           </span>
           <span>
-            住院号：
-            <div class="bottom-line" style="min-width: 50px">{{patientInfo.inpNo}}</div>
+            诊断：
+            <div
+              class="bottom-line"
+              style="min-width: 150px;max-width: 200px;"
+            >{{patientInfo.diagnosis}}</div>
           </span>
         </div>
       </div>
-      <headCon v-if="isFirst"></headCon>
+      <!-- <headCon v-if="isFirst"></headCon> -->
       <Table>
         <!-- 插入表格地方 -->
+        <excel
+          :data="data"
+          :index="index"
+          :length="length"
+          :scrollY="scrollY"
+          :hasFiexHeader="true"
+          :isInPatientDetails="isInPatientDetails"
+        ></excel>
       </Table>
-      <excel
-        :data="data"
-        :index="index"
-        :length="length"
-        :scrollY="scrollY"
-        :hasFiexHeader="true"
-        :isInPatientDetails="isInPatientDetails"
-      ></excel>
     </div>
   </div>
 </template>
@@ -131,7 +138,10 @@
   .bottom-line {
     display: inline-block;
     // border-bottom 1px solid #000
-    padding: 2px 0 2px 2px;
+    // padding: 2px 0 2px 2px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
 }
 
@@ -234,7 +244,7 @@ import sheetInfo from "../config/sheetInfo/index.js";
 import $ from "jquery";
 import moment from "moment";
 import common from "@/common/mixin/common.mixin";
-import headCon from "./components/headCon/headCon";
+// import headCon from "./components/headCon/headCon";
 import { updateSheetHeadInfo } from "../../api/index";
 import Table from "./components/Table";
 export default {
@@ -302,7 +312,7 @@ export default {
   destroyed() {} /* fix vue-happy-bus bug */,
   components: {
     excel,
-    headCon,
+
     Table
   }
 };

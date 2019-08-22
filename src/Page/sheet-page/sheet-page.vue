@@ -161,10 +161,10 @@
 import sheetTool from "./components/sheet-tool/sheet-tool.vue";
 import patientList from "@/components/patient-list/patient-list.vue";
 import sheetTable from "./components/sheetTable/sheetTable.vue";
-// import sheetTableHemodialysis from "./components/sheetTable-hemodialysis/sheetTable.vue";
 import sheetTableNeonatology from "./components/sheetTable-neonatology/sheetTable";
 import sheeTableBurn_plastic from "./components/sheeTable-burn_plastic/sheetTable";
 import sheetTablePost_partum from "./components/sheetTable-post_partum/sheetTable";
+import sheetTablePost_hemodialysis from "./components/sheetTable-hemodialysis/sheetTable";
 import common from "@/common/mixin/common.mixin.js";
 import evalModel from "./components/modal/eval-model/eval-model.vue";
 import { typeList } from "@/api/lesion";
@@ -266,6 +266,8 @@ export default {
         //  return sheetTablePost_partum;
       } else if (sheetInfo.sheetType == "post_partum") {
         return sheetTablePost_partum;
+      } else if (sheetInfo.sheetType == "blood_purification") {
+        return sheetTablePost_hemodialysis;
       } else {
         return sheetTable;
       }
@@ -603,8 +605,8 @@ export default {
     pizhuModal,
     sheetTableNeonatology,
     sheetTablePost_partum,
-    evalModel
-    // sheetTableHemodialysis
+    evalModel,
+    sheetTablePost_hemodialysis
   }
 };
 </script>
