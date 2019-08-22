@@ -399,7 +399,12 @@ export default {
         mmHg
         `,
         colspan: "1",
-        rowspan: "1"
+        rowspan: "1",
+        style: {
+          minWidth: "52px",
+          maxWidth: "52px",
+          whiteSpace: "nowrap"
+        }
       },
       {
         name: `

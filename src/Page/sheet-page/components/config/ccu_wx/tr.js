@@ -383,7 +383,6 @@ export function getListData4() {
   list = list.map(key => {
     return filterKey2Arr.includes(key)? filterKey + filterKey2 + key : filterKey + key;
   });
-  console.log(list);
   multiDictInfo(list).then(res => {
     let data = res.data.data;
     setList(心电图, "心电图", data);

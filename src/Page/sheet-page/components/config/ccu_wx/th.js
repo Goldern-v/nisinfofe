@@ -2,7 +2,7 @@ export default {
   // 科室的名称
   deptType: "",
   style: {
-    width: "1850px"
+    width: "1900px"
   },
   th: {
     top: [
@@ -365,7 +365,12 @@ export default {
         mmHg
         `,
         colspan: "1",
-        rowspan: "1"
+        rowspan: "1",
+        style: {
+          minWidth: "52px",
+          maxWidth: "52px",
+          whiteSpace: "nowrap"
+        }
       },
       {
         name: `
