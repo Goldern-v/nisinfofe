@@ -22,7 +22,7 @@ let tableModel = {
 								class: "bottom-line",
 								name: "zhuyuanhao",
 								value: "",
-								style: "width:70px;text-align:center;"
+								style: "width:80px;text-align:center;"
 							},
 							{
 								type: "input",
@@ -407,17 +407,23 @@ let tableModel = {
 								value: "<br/>"
 							},
 							{
-								type: "input",
-								class: "bottom-line",
-								value: "",
-								name: "tiyeguoduozj",
-								style: "width:100px;text-align:center;",
+								type: "radio",
 								prev: "体液过多相关症状：",
 								next: "；",
+								name: "tiyeguoduozz",
+								children: [
+									{
+										type: "radio",
+										value: "无",
+										name: "tiyeguoduozz",
+										addClass: "",
+									},
+								]
 							},
 							{
 								type: "radio",
 								prev: "颈静脉怒张：",
+								next: "；",
 								name: "txqjingmai",
 								children: [
 									{
@@ -441,8 +447,9 @@ let tableModel = {
 							{
 								type: "radio",
 								prev: "下肢水肿",
+								next: "；",
 								name: "xiazhishuizhong",
-								eleStyle: 'margin-right: 10px;',
+								elementClass:"mr10",
 								children: [
 									{
 										type: "radio",
@@ -680,7 +687,7 @@ let tableModel = {
 								type: "radio",
 								prev: "血管通路：",
 								name: "xueguantonglu",
-								eleStyle: 'margin-right: 10px;',
+								elementClass:"mr10",
 								children: [
 									{
 										type: "radio",
@@ -731,7 +738,7 @@ let tableModel = {
 										value: "",
 										name: "chuancifangshiVal",
 										style: "width:60px;text-align:center;",
-										prev: "位置"
+										prev: "； 位置"
 									}
 								]
 							},
@@ -741,7 +748,7 @@ let tableModel = {
 							},
 							{
 								type: "radio",
-								prev: "中心静脉置管",
+								prev: "中心静脉置管（",
 								name: "zhongxinjingmaizg",
 								children: [
 									{
@@ -762,7 +769,7 @@ let tableModel = {
 										value: "",
 										name: "zhongxinjingmaizgVal",
 										style: "width:100px;text-align:center;",
-										prev: "位置",
+										prev: "）   位置",
 									}
 								]
 							},
@@ -773,8 +780,9 @@ let tableModel = {
 							{
 								type: "radio",
 								prev: "内瘘震颤和血管杂音：",
+								next: "；",
 								name: "xueguanzayin",
-								eleStyle: 'margin-right: 10px;',
+								elementClass:"mr10",
 								children: [
 									{
 										type: "radio",
@@ -950,13 +958,31 @@ let tableModel = {
 								]
 							},
 							{
-								type: "input",
+								type: "radio",
 								prev: "置换液管：",
-								next: "内瘘穿刺针 A:尖针 钝针 16G 17G；  V:尖针 钝针 16G 17G",
-								class: "bottom-line",
-								value: "",
 								name: "zhihuanyeguan",
-								style: "width:100px;text-align:center;"
+								children: [
+									{
+										type: "input",
+										next: "内瘘穿刺针",
+										class: "bottom-line",
+										value: "",
+										name: "zhihuanyeguanVal",
+										style: "width:100px;text-align:center;"
+									},
+									{
+										type: "radio",
+										value: "A:尖针 钝针 16G 17G",
+										name: "zhihuanyeguan",
+										addClass: "",
+									},
+									{
+										type: "radio",
+										value: "V:尖针 钝针 16G 17G",
+										name: "zhihuanyeguan",
+										addClass: "",
+									}
+								]
 							},
 							{
 								type: "text",
@@ -969,7 +995,8 @@ let tableModel = {
 								class: "bottom-line",
 								value: "",
 								name: "tizhongVal1",
-								style: "width:50px;text-align:center;"
+								style: "width:50px;text-align:center;",
+								elementClass:"mr10"
 							},
 							{
 								type: "input",
@@ -978,7 +1005,8 @@ let tableModel = {
 								class: "bottom-line",
 								value: "",
 								name: "tizhongVal2",
-								style: "width:50px;text-align:center;"
+								style: "width:50px;text-align:center;",
+								elementClass:"mr10"
 							},
 							{
 								type: "input",
@@ -1008,7 +1036,8 @@ let tableModel = {
 								class: "bottom-line",
 								value: "",
 								name: "tuoshuiliang2",
-								style: "width:50px;text-align:center;"
+								style: "width:50px;text-align:center;",
+								eleStyle: 'margin-right: 20px;'
 							},
 							{
 								type: "input",
@@ -1038,7 +1067,8 @@ let tableModel = {
 								class: "bottom-line",
 								value: "",
 								name: "touxi2",
-								style: "width:35px;text-align:center;"
+								style: "width:35px;text-align:center;",
+								elementClass:"mr10"
 							},
 							{
 								type: "input",
@@ -1193,7 +1223,7 @@ let tableModel = {
 										class: "bottom-line",
 										value: "",
 										name: "ayeVal",
-										style: "width:70px;text-align:center;",
+										style: "width:60px;text-align:center;",
 										tasks: [
 											{
 												active: {
@@ -1216,6 +1246,7 @@ let tableModel = {
 								value: "",
 								name: "yuchongliang",
 								style: "width:35px;text-align:center;",
+								elementClass:"mr10"
 							},
 							{
 								type: "input",
@@ -1225,6 +1256,7 @@ let tableModel = {
 								value: "",
 								name: "huishuiliang",
 								style: "width:35px;text-align:center;",
+								elementClass:"mr10"
 							},
 							{
 								type: "input",
@@ -1234,6 +1266,7 @@ let tableModel = {
 								value: "",
 								name: "buye",
 								style: "width:35px;text-align:center;",
+								elementClass:"mr10"
 							},
 							{
 								type: "input",
@@ -1243,6 +1276,7 @@ let tableModel = {
 								value: "",
 								name: "shuxue",
 								style: "width:35px;text-align:center;",
+								elementClass:"mr10"
 							},
 							{
 								type: "input",
@@ -1265,6 +1299,7 @@ let tableModel = {
 								value: "",
 								name: "diandaolv",
 								style: "width:35px;text-align:center;",
+								elementClass:"mr10"
 							},
 							{
 								type: "input",
@@ -1274,6 +1309,7 @@ let tableModel = {
 								value: "",
 								name: "tansua",
 								style: "width:35px;text-align:center;",
+								elementClass:"mr10"
 							},
 							{
 								type: "input",
@@ -1282,6 +1318,7 @@ let tableModel = {
 								value: "",
 								name: "touxiyeliuliang",
 								style: "width:35px;text-align:center;",
+								elementClass:"mr10"
 							},
 							{
 								type: "input",
@@ -1379,8 +1416,9 @@ let tableModel = {
 							{
 								type: "radio",
 								prev: "颈静脉怒张：",
+								next: "；",
 								name: "txhjingmai",
-								eleStyle: 'margin-right: 10px;',
+								elementClass:"mr10",
 								children: [
 									{
 										type: "radio",
@@ -1399,8 +1437,9 @@ let tableModel = {
 							{
 								type: "radio",
 								prev: "肺部听诊湿罗音",
+								next: "；",
 								name: "txhshiluoyin",
-								eleStyle: 'margin-right: 10px;',
+								elementClass:"mr10",
 								children: [
 									{
 										type: "radio",
@@ -1459,7 +1498,7 @@ let tableModel = {
 								type: "radio",
 								prev: "动脉管道：",
 								name: "txhshuizhong",
-								eleStyle: 'margin-right: 10px;',
+								elementClass:"mr10",
 								children: [
 									{
 										type: "radio",
@@ -1526,6 +1565,7 @@ let tableModel = {
 								type: "radio",
 								prev: "透析器：",
 								name: "txhtouxiqi",
+								class: "txhtouxiqi",
 								children: [
 									{
 										type: "radio",
@@ -1609,7 +1649,7 @@ let tableModel = {
 							},
 							{
 								type: "text",
-								value: "告知：1.防跌倒（跌倒/晕倒/坠床）；2.血管通路自我监护（AVF  AVG  深静脉置管）3.用药（降压药 降糖药 抗凝药 降磷药 维生素 安定类 其他                     ）；4.饮食（水 钠 钾 磷 蛋白 脂肪 ）；5.预防DVT及PTE；6.其他"
+								value: "告知：1.防跌倒（跌倒/晕倒/坠床）；2.血管通路自我监护（AVF  AVG  深静脉置管）<br/>3.用药（降压药 降糖药 抗凝药 降磷药 维生素 安定类 其他                     ）；<br/>4.饮食（水 钠 钾 磷 蛋白 脂肪 ）；5.预防DVT及PTE；6.其他"
 							},
 							{
 								type: "text",
@@ -1617,7 +1657,7 @@ let tableModel = {
 							},
 							{
 								type: "text",
-								value: "凝血程度：无 无凝血或数条纤维凝血；+ 部分凝血，成束纤维凝血或动、静脉壶管壁、滤网见轻微凝血； ++ 严重凝血，半数以上纤维凝血或滤网出现凝血块；+++ 凝血需要更换透析器、血路管",
+								value: "凝血程度：无 无凝血或数条纤维凝血；+ 部分凝血，成束纤维凝血或动、静脉壶管壁、滤网见轻微凝血；<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;++ 严重凝血，半数以上纤维凝血或滤网出现凝血块；+++ 凝血需要更换透析器、血路管",
 								class: "line"
 							},
 							{
@@ -1647,15 +1687,8 @@ let tableModel = {
 										class: "bottom-line",
 										value: "",
 										name: "huanzhequxiangVal",
-										style: "width:90px;text-align:center;",
-										eleStyle:"margin-left: -5px;",
-										tasks: [
-											{
-												active: {
-													huanzhequxiang: "住院"
-												}
-											}
-										]
+										style: "width:50px;text-align:center;",
+										eleStyle:"margin-left: -5px;"
 									},
 									{
 										type: "input",
@@ -1663,8 +1696,7 @@ let tableModel = {
 										class: "bottom-line",
 										value: "",
 										name: "xiacitouxisj",
-										style: "width:90px;text-align:center;",
-										eleStyle:"margin-left: -15px;"
+										style: "width:90px;text-align:center;"
 									},
 									{
 										type: "input",
