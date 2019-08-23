@@ -127,7 +127,7 @@
           <input
             type="text"
             :readonly="isRead(tr)"
-            v-model.trim="td.value"
+            v-model="td.value"
             :data-value="td.value"
             :position="`${x},${y},${index}`"
             :style="[td.style, td.key === 'recordMonth' && tr.find((item) => item.key == 'yearBreak').value && {height: '12px'}]"
@@ -870,9 +870,9 @@ export default {
         }
       }
     },
-    selectedItem(td){
-      if(td.isSelected){
-        td.value="✓";
+    selectedItem(td) {
+      if (td.isSelected) {
+        td.value = "✓";
       }
     }
   },
