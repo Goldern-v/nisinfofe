@@ -212,15 +212,34 @@ function switechSheetType(type) {
         schema = require("../config/post_partum/tr.js").default;
       }
       break;
+    case "blood_purification":
       {
-        // 产后观察
-        schema = require("../config/post_partum/tr.js").default;
+        // 血透
+        schema = require("../config/blood_purification/tr.js").default;
       }
       break;
-      case "neurology_wx":
+    case "neurology_wx":
       {
         // 威县-神经内科
         schema = require("../config/neurology_wx/tr.js").default;
+      }
+      break;
+      case "unified_wx":
+      {
+        // 威县-统一护理记录单
+        schema = require("../config/unified_wx/tr.js").default;
+      }
+      break;
+      case "intensive_care_wx":
+      {
+        // 威县-脑外科重症监护单 
+        schema = require("../config/intensive_care_wx/tr.js").default;
+      }
+      break;
+      case "ccu_wx":
+      {
+        // 威县-CCU监护单（心血管内科）
+        schema = require("../config/ccu_wx/tr.js").default;
       }
       break;
     default: {

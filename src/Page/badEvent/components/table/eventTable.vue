@@ -13,7 +13,6 @@
       align="center"
       stripe
       highlight-current-row
-      :row-class-name="tableRowClassName"
     >
       <el-table-column
         label="序号"
@@ -21,11 +20,7 @@
         type="index"
         min-width="60px"
         align="center"
-      >
-        <!-- <template slot-scope="scope">
-          <span>{{scope.row.id}}</span>
-        </template>-->
-      </el-table-column>
+      ></el-table-column>
 
       <el-table-column
         header-align="center"
@@ -58,24 +53,6 @@
         prop="wardName"
         min-width="140px"
       ></el-table-column>
-
-      <!-- <el-table-column
-        prop="bedLabel"
-        header-align="center"
-        align="center"
-        label="床号"
-        width="70px"
-        min-width="70px">
-      </el-table-column>-->
-
-      <!-- <el-table-column
-        prop="name"
-        header-align="center"
-        align="center"
-        label="病人姓名"
-        min-width="110px"
-        width="110px">
-      </el-table-column>-->
 
       <el-table-column
         prop="affected"
@@ -131,7 +108,7 @@
       >
         <template slot-scope="scope">
           <!-- {{scope.row.status}} -->
-          <div :class="cellFormatter(scope.row.status)">
+          <div :class="{'nopass-row':scope.row.status==-2}">
             <span>{{getStatus(scope.row.status)}}</span>
           </div>
         </template>
@@ -142,15 +119,9 @@
           <div class="justify">
             <el-button type="text" @click="openDetail(scope.row)">查看</el-button>
             <el-button
-              v-if="[0,3,5].indexOf(scope.row.status)>-1"
+              v-if="scope.row.status == 0 || scope.row.status == 1"
               type="text"
               @click="delDetail(scope.row)"
-            >删除</el-button>
-            <el-button
-              v-if="[0,3,5].indexOf(scope.row.status)==-1"
-              style="color:transparent"
-              type="text"
-              @click="openDetail(scope.row)"
             >删除</el-button>
           </div>
         </template>
@@ -201,10 +172,6 @@
     text-align: center;
   }
 
-  >>>.el-table__body-wrapper {
-    // overflow-x hidden
-  }
-
   >>>.el-table--striped .el-table__body tr.el-table__row--striped.current-row td {
     background: rgb(255, 251, 186);
   }
@@ -214,13 +181,8 @@
   }
 }
 
-.pass-row {
-  // font-weight: bold;
-}
-
 .nopass-row {
   color: red;
-  // font-weight: bold;
 }
 </style>
 <script>
@@ -268,38 +230,7 @@ export default {
       this.currentRow = this.tableData.indexOf(val);
       localStorage["BadEvent-CurrentRow"] = this.currentRow;
     },
-    // cellFormatter(row, column, cellValue){
-    cellFormatter(status) {
-      // console.log('cellFormatter',status)
-      if ([2, 3, 4, 5].indexOf(status) > -1) {
-        return "pass-row";
-      } else if (status == -2) {
-        return "nopass-row";
-      }
-      return "";
-    },
-    tableRowClassName(row, index) {
-      // console.log(row, index,row.status,[2,4].indexOf(row.status))
-      // if ([2,4].indexOf(row.status)>-1) {
-      //   return 'pass-row';
-      // } else if ([3,5].indexOf(row.status)>-1)  {
-      //   return 'nopass-row';
-      // }
-      // return '';
-    },
     async openDetail(row) {
-      // if (row.status == 0) {
-      //   this.$router.push({
-      //     name: "badEventEdit",
-      //     params: {
-      //       id: row.id,
-      //       name: row.badEventName,
-      //       code: row.badEventCode,
-      //       type: row.eventType,
-      //       operation: "edit"
-      //     }
-      //   });
-      // } else {
       this.$router.push({
         name: "badEventView",
         params: {
@@ -314,13 +245,15 @@ export default {
           badEventOrderNo: row.badEventOrderNo
         }
       });
-      // }
     },
     async delDetail(row) {
+      let happenPlace = row.happenPlace
+        ? row.happenPlace.slice(0, 15) + "等场所"
+        : "";
       this.$confirm(
         `是否要删除,${row.name || ""}于${row.happenDate ||
-          ""} ${row.happenTime || ""}在${row.happenPlace ||
-          ""}因${row.happenReason || ""}发生的${row.eventType || ""}不良事件?`,
+          ""} ${row.happenTime || ""}在${happenPlace}因${row.happenReason ||
+          ""}发生的${row.eventType || ""}不良事件?`,
         "提示",
         {
           confirmButtonText: "确认",
@@ -348,10 +281,6 @@ export default {
         })
         .catch(() => {
           console.log("删除取消");
-          // this.$message({
-          //   type: 'info',
-          //   message: '删除取消'
-          // });
         });
     },
     getStatus(i) {

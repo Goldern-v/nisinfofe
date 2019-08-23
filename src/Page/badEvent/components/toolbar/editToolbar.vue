@@ -162,7 +162,15 @@ export default {
     },
     save(e) {
       console.log("save", e);
-      // e.target.disabled = true;
+      if (
+        this.wid.formObj &&
+        this.wid.formObj.model &&
+        !this.wid.formObj.model.ward_name
+      ) {
+        window.messageBox.show("请选择科室", "error", 3000);
+        return;
+      }
+
       if (this.wid) {
         this.isSaved = true;
         // this.wid.saveForm()

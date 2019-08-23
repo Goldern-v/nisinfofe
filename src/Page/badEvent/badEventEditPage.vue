@@ -13,7 +13,7 @@
 
     <div class="bad-event-container" :style="'height:'+(wih-100)+'px!important;'">
       <div class="bad-event-edit">
-        <NullBg v-if="iframeHeight===0" text="该页面没有找到～"/>
+        <NullBg v-if="iframeHeight===0" text="该页面没有找到～" />
         <div
           v-else
           class="bad-event-paper"
@@ -37,78 +37,83 @@
 </template>
 
 <style lang="stylus"  rel="stylesheet/stylus" type="text/stylus" scoped>
+.editbar {
+  margin-right: 0px;
+  font-size: 13px;
+  position: relative;
+}
 
-.editbar
-    margin-right 0px
-    font-size 13px
-    position relative
-.editbar-left
-    width 200px
-    min-width 200px
-    height auto
-    background #fff
-    margin-right 0px
-    padding 0px 0px
-    position absolute
-    border-right 1px solid #CBD5DD
+.editbar-left {
+  width: 200px;
+  min-width: 200px;
+  height: auto;
+  background: #fff;
+  margin-right: 0px;
+  padding: 0px 0px;
+  position: absolute;
+  border-right: 1px solid #CBD5DD;
+}
+
 // .editbar-right
-//     margin-left 200px
+// margin-left 200px
 
 // .editbar-left
-//     width 199px
-//     position absolute
-//     left 0
-//     top 0
-//     bottom 0
+// width 199px
+// position absolute
+// left 0
+// top 0
+// bottom 0
 // .editbar-right
-//     margin-left 199px
-//     height 100%
-//     overflow hidden
-//     transition: all .4s cubic-bezier(.55, 0, .1, 1)
+// margin-left 199px
+// height 100%
+// overflow hidden
+// transition: all .4s cubic-bezier(.55, 0, .1, 1)
+.bad-event-container {
+  padding: 0;
+  flex: 1;
+  overflow: auto;
+}
 
+.bad-event-edit {
+  display: flex;
+  flex-direction: column;
+}
 
+.bad-event-paper {
+  position: relative;
+  margin: 0px;
+  padding: 0px;
+  // height 2080px
+  // min-height 1080px
+  width: 100%;
+  height: 100%;
+  border-radius: 0px;
+  background: #fff;
+  box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.5);
+  box-sizing: border-box;
+}
 
-.bad-event-container
-    padding 0
-    flex 1
-    overflow auto
+.badEvent-iframe {
+  width: 100%;
+  // min-height 1080px
+  height: auto;
+  height: -webkit-fill-available;
+  background: #eee;
+  min-height: 600px;
+}
 
-.bad-event-edit
-    display flex
-    flex-direction column
-
-  .bad-event-paper
-    position relative
-    margin 0px
-    padding 0px
-    // height 2080px
-    // min-height 1080px
-    width 100%
-    height 100%
-    border-radius 0px
-    background #fff
-    box-shadow 0 5px 10px 0 rgba(0, 0, 0, 0.5)
-    box-sizing border-box
-
-.badEvent-iframe
-    width 100%
-    // min-height 1080px
-    height auto
-    height -webkit-fill-available
-    background #eee
-    min-height 600px
-
->>>.el-message
-    &.my-message-box
-        top 6%!important
-        z-index: 20004 !important;
-
+>>>.el-message {
+  &.my-message-box {
+    top: 6% !important;
+    z-index: 20004 !important;
+  }
+}
 </style>
 
 <script>
 import common from "@/common/mixin/common.mixin.js";
 import Button from "./components/button";
-import patientList from "./components/patient-list/patient-list.vue";
+import patientList from "@/components/patient-list/patient-list.vue";
 import EditToolbar from "./components/toolbar/editToolbar";
 import NullBg from "@/components/null/null-bg.vue";
 
@@ -150,7 +155,7 @@ export default {
     this.load();
     this.bus.$on("loadPatientData", this.loadPatientData);
     this.bus.$on("loadError", this.loadError);
-    this.bus.$on("updatePatientsList", this.getDate);
+    // this.bus.$on("updatePatientsList", this.getDate);
 
     function MessageBox() {
       var mesg = null;
@@ -194,9 +199,9 @@ export default {
     window.messageBox = new MessageBox();
   },
   mounted() {
-    if (this.deptCode) {
-      this.getDate();
-    }
+    // if (this.deptCode) {
+    //   this.getDate();
+    // }
   },
   watch: {
     "$route.params.operation"() {
@@ -216,9 +221,9 @@ export default {
       }
     },
     deptCode() {
-      if (this.deptCode) {
-        this.getDate();
-      }
+      // if (this.deptCode) {
+      //   this.getDate();
+      // }
     }
   },
   methods: {
@@ -246,10 +251,10 @@ export default {
           // "diagnosis":"",
           // "bedLabel": "",
           // "inpNo": "",
-          deptCode: this.deptCode || "",
-          wardCode: this.deptCode || "",
-          deptName: this.deptName || "",
-          wardName: this.deptName || "",
+          deptCode: "",
+          wardCode: "",
+          deptName: "",
+          wardName: "",
           eventType: this.$route.params.type || "",
           happenDate: "",
           happenTime: "",
