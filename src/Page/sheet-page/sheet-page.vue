@@ -377,6 +377,9 @@ export default {
       } else {
         this.scrollY = parseInt(e.target.scrollTop);
       }
+    },
+    isSelectPatient(item){
+      this.$store.commit("upPatientInfo", item);
     }
   },
   created() {
