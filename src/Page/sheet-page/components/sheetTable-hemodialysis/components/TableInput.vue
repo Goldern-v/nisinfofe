@@ -33,13 +33,10 @@ export default {
                     this.model[key] = obj.active[key];
                     ite.addClass =
                       this.model[key] == ite.value ? "is-checked" : "";
-                  } else {
+                  } else if(ite.value == obj.active[key]){
                     let arr = this.model[key] ? this.model[key].split(",") : [];
-                    let index = arr.indexOf(obj.active[key]);
-                    this.model[key] =
-                      index == -1
-                        ? this.model[key] + "," + obj.active[key]
-                        : this.model[key];
+                    arr.push(obj.active[key]);
+                    this.model[key] = arr.join(',');
                     ite.addClass = "is-checked";
                   }
                 }

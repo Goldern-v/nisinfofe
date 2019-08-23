@@ -17,12 +17,11 @@ let tableModel = {
 								style: "width:100px;text-align:center;"
 							},
 							{
-								type: "input",
+								type: "text",
 								prev: "住院号/ID号：",
-								class: "bottom-line",
-								name: "zhuyuanhao",
-								value: "",
-								style: "width:80px;text-align:center;"
+								class: "bottom-line inpNo",
+								name: "inpNo",
+								value: ""
 							},
 							{
 								type: "input",
@@ -119,7 +118,8 @@ let tableModel = {
 								class: "bottom-line",
 								value: "",
 								name: "touxiriqi",
-								style: "width:100px;text-align:center;"
+								style: "width:100px;text-align:center;",
+								elementClass:"mr10"
 							},
 							{
 								type: "input",
@@ -1648,8 +1648,184 @@ let tableModel = {
 								value: "<br/>"
 							},
 							{
+								type: "checkbox",
+								prev: "告知：1.防跌倒（",
+								next: "）；",
+								name: "diedao",
+								children: [
+									{
+										type: "checkbox",
+										value: "跌倒",
+										name: "diedao",
+										addClass: "",
+									},
+									{
+										type: "checkbox",
+										value: "晕倒",
+										name: "diedao",
+										addClass: "",
+										childType: "checkbox"
+									},
+									{
+										type: "checkbox",
+										value: "坠床",
+										name: "diedao",
+										addClass: "",
+										childType: "checkbox"
+									}
+								]
+							},
+							{
+								type: "checkbox",
+								prev: "2.血管通路自我监护（",
+								next: "）",
+								name: "xueguanzwjh",
+								children: [
+									{
+										type: "checkbox",
+										value: "AVF",
+										name: "xueguanzwjh",
+										addClass: "",
+									},
+									{
+										type: "checkbox",
+										value: "AVG",
+										name: "xueguanzwjh",
+										addClass: "",
+										childType: "checkbox"
+									},
+									{
+										type: "checkbox",
+										value: "深静脉置管",
+										name: "xueguanzwjh",
+										addClass: "",
+										childType: "checkbox"
+									}
+								]
+							},
+							{
 								type: "text",
-								value: "告知：1.防跌倒（跌倒/晕倒/坠床）；2.血管通路自我监护（AVF  AVG  深静脉置管）<br/>3.用药（降压药 降糖药 抗凝药 降磷药 维生素 安定类 其他                     ）；<br/>4.饮食（水 钠 钾 磷 蛋白 脂肪 ）；5.预防DVT及PTE；6.其他"
+								value: "<br/>"
+							},
+							{
+								type: "checkbox",
+								prev: "3.用药（",
+								name: "yongyao",
+								children: [
+									{
+										type: "checkbox",
+										value: "降压药",
+										name: "yongyao",
+										addClass: "",
+									},
+									{
+										type: "checkbox",
+										value: "降糖药",
+										name: "yongyao",
+										addClass: "",
+										childType: "checkbox"
+									},
+									{
+										type: "checkbox",
+										value: "抗凝药",
+										name: "yongyao",
+										addClass: "",
+										childType: "checkbox"
+									},
+									{
+										type: "checkbox",
+										value: "降磷药",
+										name: "yongyao",
+										addClass: "",
+										childType: "checkbox"
+									},
+									{
+										type: "checkbox",
+										value: "维生素",
+										name: "yongyao",
+										addClass: "",
+										childType: "checkbox"
+									},
+									{
+										type: "checkbox",
+										value: "安定类",
+										name: "yongyao",
+										addClass: "",
+										childType: "checkbox"
+									},
+									{
+										type: "checkbox",
+										value: "其他",
+										name: "yongyao",
+										addClass: "",
+										childType: "checkbox"
+									},
+									{
+										type: "input",
+										class: "bottom-line",
+										value: "",
+										name: "yongyaoVal",
+										style: "width:100px;text-align:center;",
+										next: "）；",
+										tasks: [
+											{
+												active: {
+													yongyao: "其他"
+												}
+											}
+										]
+									}
+								]
+							},
+							{
+								type: "text",
+								value: "<br/>"
+							},
+							{
+								type: "checkbox",
+								prev: "4.饮食（",
+								next: "）；",
+								name: "gaozhiyinshi",
+								children: [
+									{
+										type: "checkbox",
+										value: "水",
+										name: "gaozhiyinshi",
+										addClass: "",
+									},
+									{
+										type: "checkbox",
+										value: "钠",
+										name: "gaozhiyinshi",
+										addClass: "",
+										childType: "checkbox"
+									},
+									{
+										type: "checkbox",
+										value: "磷",
+										name: "gaozhiyinshi",
+										addClass: "",
+										childType: "checkbox"
+									},
+									{
+										type: "checkbox",
+										value: "蛋白",
+										name: "gaozhiyinshi",
+										addClass: "",
+										childType: "checkbox"
+									},
+									{
+										type: "checkbox",
+										value: "脂肪",
+										name: "gaozhiyinshi",
+										addClass: "",
+										childType: "checkbox"
+									}
+								]
+							},
+							{
+								type: "text",
+								value: "5.预防DVT及PTE；6.其他"
 							},
 							{
 								type: "text",
@@ -1658,7 +1834,8 @@ let tableModel = {
 							{
 								type: "text",
 								value: "凝血程度：无 无凝血或数条纤维凝血；+ 部分凝血，成束纤维凝血或动、静脉壶管壁、滤网见轻微凝血；<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;++ 严重凝血，半数以上纤维凝血或滤网出现凝血块；+++ 凝血需要更换透析器、血路管",
-								class: "line"
+								class: "line",
+								eleStyle: "margin-top: 200px;"
 							},
 							{
 								type: "text",

@@ -34,7 +34,7 @@
           </span>-->
           <span>
             年龄：
-            <div class="bottom-line" style="min-width: 50px">{{patientInfo.inpNo}}</div>
+            <div class="bottom-line" style="min-width: 50px">{{patientInfo.age}}</div>
           </span>
           <span>
             诊断：

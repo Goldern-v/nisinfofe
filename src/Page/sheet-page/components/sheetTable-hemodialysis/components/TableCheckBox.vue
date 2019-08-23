@@ -8,7 +8,11 @@
         </span>
         <span class="check_label">{{child.value}}</span>
       </label>
-      <TableInput v-if="child.type=='input'" :item="child" :model="model" :data="item"></TableInput>
+      <span v-if="child.type=='input'">
+        <span class="prev" v-if="child.prev" v-html="child.prev" />
+        <TableInput :item="child" :model="model" :data="item"></TableInput>
+        <span class="next" v-if="child.next" v-html="child.next" />
+      </span>
     </span>
   </span>
 </template>

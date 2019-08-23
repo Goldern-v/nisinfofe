@@ -1,6 +1,7 @@
 <template>
   <div>
     <div class="table" v-for="(tbody,index) in table" :key="index">
+      <span v-if="index==1">续表</span>
       <slot v-if="index==1"></slot>
       <table border="1px solid #ccc" cellspacing="0">
         <colgroup>
