@@ -47,6 +47,7 @@
       </div>
     </div>
     <bedModal ref="bedModal"></bedModal>
+    <bedModalWx ref="bedModalWx"></bedModalWx>
     <printModal ref="printModal"></printModal>
   </div>
 </template>
@@ -176,6 +177,7 @@
 </style>
 <script>
 import bedModal from "./modal/bed-modal.vue";
+import bedModalWx from "./modal/bed-modal_wx.vue";
 import printModal from "./print-modal/print-modal";
 export default {
   data() {
@@ -202,7 +204,11 @@ export default {
       this.$store.commit("upOpenLeft", !this.openLeft);
     },
     openBedPrint() {
-      this.$refs.bedModal.open();
+      if (this.HOSPITAL_ID == "weixian") {
+        this.$refs.bedModalWx.open();
+      } else {
+        this.$refs.bedModal.open();
+      }
     },
     openPrintModal() {
       this.$refs.printModal.open();
@@ -217,7 +223,8 @@ export default {
   },
   components: {
     bedModal,
-    printModal
+    printModal,
+    bedModalWx
   }
 };
 </script>
