@@ -4,48 +4,48 @@
     <span v-if="showMessage">渲染消息 {{test}}</span>
 
     <!-- UIEditor -->
-    <UIEditor ref="uiEditor" :formObj="formObj" v-if="showUIEditor"/>
+    <UIEditor ref="uiEditor" :formObj="formObj" v-if="showUIEditor" />
 
     <!-- 弹窗 -->
     <!-- <Dialog ref="dialogBox" :formObj="formObj"/> -->
 
     <!-- 弹窗 -->
-    <DialogSweet ref="dialogBox" :formObj="formObj"/>
+    <DialogSweet ref="dialogBox" :formObj="formObj" />
 
     <!-- 人体图 -->
-    <bodyModal ref="bodyModal" :formObj="formObj"/>
+    <bodyModal ref="bodyModal" :formObj="formObj" />
 
     <!-- 诊断右侧弹窗 -->
-    <diagnosisSlide ref="diagnosisSlide" :formObj="formObj"/>
+    <diagnosisSlide ref="diagnosisSlide" :formObj="formObj" />
 
     <!-- 诊断弹窗 -->
-    <diagnosisModal ref="diagnosisModal" :formObj="formObj"/>
+    <diagnosisModal ref="diagnosisModal" :formObj="formObj" />
 
     <!-- 下拉框 -->
-    <autoComplete ref="autoInput"/>
+    <autoComplete ref="autoInput" />
 
     <!-- 模板 -->
-    <templateSlide ref="templateSlide"/>
+    <templateSlide ref="templateSlide" />
 
     <!-- 页面信息 -->
     <div v-if="formObj && formObj.model" ref="mainPage" class="cover-page">
       <div :style="formObj.pageSetting.style || '' " class="main-page" :class="{lock: lock}">
-        <img src="../../images/责任护士已签.png" alt v-if=" formObj.model.status==1" class="lock-img">
-        <img src="../../images/审核护士已签.png" alt v-if=" formObj.model.status==2" class="lock-img">
+        <img src="../../images/责任护士已签.png" alt v-if=" formObj.model.status==1" class="lock-img" />
+        <img src="../../images/审核护士已签.png" alt v-if=" formObj.model.status==2" class="lock-img" />
         <!-- 页面标题 -->
-        <FormTitle :obj="formObj.formSetting" :formObj="formObj"/>
+        <FormTitle :obj="formObj.formSetting" :formObj="formObj" />
 
         <!-- 页面头部 -->
-        <FormHeader :obj="formObj.header" :formObj="formObj"/>
+        <FormHeader :obj="formObj.header" :formObj="formObj" />
 
         <!-- 页面正文 -->
-        <FormBody :obj="formObj.body" :formObj="formObj"/>
+        <FormBody :obj="formObj.body" :formObj="formObj" />
 
         <!-- 页面尾部 -->
-        <FormFooter :obj="formObj.footer" :formObj="formObj"/>
+        <FormFooter :obj="formObj.footer" :formObj="formObj" />
 
         <!-- TableOfContent -->
-        <TableOfContent ref="tableOfContent"  :formObj="formObj"/>
+        <TableOfContent ref="tableOfContent" :formObj="formObj" />
       </div>
     </div>
   </div>
@@ -158,14 +158,11 @@ export default {
     this.$root.$refs.tableOfContent = this.$refs.tableOfContent;
     this.$root.$refs.templateSlide = this.$refs.templateSlide;
 
-
-
-
     // console.log("allInputs", allInputs, this.$refs.mainPage);
     setTimeout(() => {
       //
       let allInputs = this.$root.$refs.mainPage.querySelectorAll(
-        'input'
+        'input[type="text"]'
       );
       allInputs = [...allInputs];
       allInputs.map((input, index) => {
@@ -184,11 +181,11 @@ export default {
     this.initial();
   },
   methods: {
-    runDevMode(){
-      this.formObj.pageSetting.mode = "development"
-      window.formObj.pageSetting.mode = "development"
-      this.initial()
-      this.showUIEditor = true
+    runDevMode() {
+      this.formObj.pageSetting.mode = "development";
+      window.formObj.pageSetting.mode = "development";
+      this.initial();
+      this.showUIEditor = true;
     },
     initial() {
       // 初始化载入JSON
@@ -276,12 +273,13 @@ export default {
   position: relative;
   &.lock {
     pointer-events: none;
-    /deep/ input, /deep/ .el-checkbox__inner {
+    /deep/ input,
+    /deep/ .el-checkbox__inner {
       background: #f5f7faff !important;
     }
 
     /deep/ .el-checkbox__inner::after {
-      border-color: black!important;
+      border-color: black !important;
     }
   }
   /* /deep/ .el-input-group__append {
