@@ -12,10 +12,11 @@ export function getRowNum(index) {
     if (index === 0) {
       return 16;
     } else {
-      return 28
+      return 28;
     }
-   } else {
+  } else if (sheetInfo.sheetType == "blood_purification") {
+    return 11;
+  } else {
     return 17;
   }
-
 }

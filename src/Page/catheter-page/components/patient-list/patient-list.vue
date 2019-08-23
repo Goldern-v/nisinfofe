@@ -6,13 +6,23 @@
         <div
           class="patient-box"
           flex="cross:center"
-          v-for="item in list"
+          v-for="item in sortList"
           :key="item.patientId"
           @click="selectPatient(item)"
           :class="{active: isActive(item)}"
         >
-          <img src="./images/男默认头像.png" alt class="img" v-if="item.sex == '男'">
-          <img src="./images/女士默认头像.png" alt class="img" v-else>
+          <img
+            :src="item.bedLabel.includes('_')?imageBoy:imageMan"
+            alt
+            :class="{img1:img1Show,img2:img2Show}"
+            v-if="item.sex == '男'"
+          />
+          <img
+            :src="item.bedLabel.includes('_')?imageGirl:imageWomen"
+            alt
+            :class="{img1:img1Show,img2:img2Show}"
+            v-else
+          />
           <div class="name" flex-box="1">{{item.name}}</div>
           <div class="bed">{{item.bedLabel}} 床</div>
           <div
@@ -22,7 +32,7 @@
           <span
             class="point-box"
             v-show="item.config.catheter.status != null"
-            :class="{red: item.config.catheter.status == '0', green: item.config.catheter.status == '1'}"
+            :class="{red: item.config.catheter.status == '0', green: item.config.catheter.status == '1',isImg2: img2Show}"
           ></span>
           <span class="todayPullCatheter" v-if="item.config.catheter.todayPullCatheter">拔</span>
         </div>
@@ -67,6 +77,20 @@
       width 30px
       border-radius 50%
       margin-right 11px
+    .img1 {
+      height: 30px;
+      width: 30px;
+      border-radius: 50%;
+      margin-right: 11px;
+    }
+
+    .img2 {
+      height: 30px;
+      width: 30px;
+      border-radius: 50%;
+      margin-right: 11px;
+      margin-left: -11px;
+    }
     .name
       color #687179
     .bed
@@ -144,6 +168,9 @@
     background: #E62C2C
   &.green:after
     background: #27A45E   
+  &.isImg2 {
+    left: 14px;
+  }
 .catheter-block
   width 18px
   height 18px
@@ -171,7 +198,13 @@ export default {
     return {
       searchWord: "",
       bus: bus(this),
-      model
+      model,
+      img1Show: true,
+      img2Show: false,
+      imageBoy: require("./images/男婴.png"),
+      imageGirl: require("./images/女婴.png"),
+      imageMan: require("./images/男.png"),
+      imageWomen: require("./images/女.png")
     };
   },
   methods: {
@@ -199,6 +232,51 @@ export default {
         );
       });
     },
+     //排序对应婴儿数据
+    sortList() {
+      let cacheGetList = [];
+      let endList = [];
+      let cacheList = JSON.parse(JSON.stringify(this.list));
+      for (let i = 0; i < cacheList.length; i++) {
+        // 736
+        // let cacheSign = cacheList[i].name.indexOf("婴");
+        let cacheSign;
+        if (cacheList[i].name.charAt(cacheList[i].name.length - 1) === "婴") {
+          cacheSign = cacheList[i].name.indexOf("婴");
+        }
+        if (cacheSign > -1) {
+          cacheList[i].babyName = cacheList[i].name.substring(cacheSign);
+          cacheList[i].name = cacheList[i].name.substring(0, cacheSign);
+        }
+        cacheList[i].cacheNum = i;
+      }
+      let sortData = [];
+      for (let i = 0; i < cacheList.length; i++) {
+        let filter1Array = [];
+        let sortFliter = [];
+        let cacheData = [];
+        if (!cacheList[i].babyName) {
+          sortFliter.push(cacheList[i]);
+        }
+        for (let j = 0; j < cacheList.length; j++) {
+          if (
+            !cacheList[i].babyName &&
+            cacheList[i].bedLabel !== cacheList[j].bedLabel &&
+            cacheList[i].name === cacheList[j].name &&
+            cacheList[j].babyName == "婴"
+          ) {
+            filter1Array.push(cacheList[j]);
+          }
+        }
+        cacheData = sortFliter.concat(filter1Array);
+        sortData = sortData.concat(cacheData);
+      }
+      let putSortList = [];
+      sortData.forEach((item, index) => {
+        putSortList[index] = this.list[item.cacheNum];
+      });
+      return putSortList;
+    },
     openLeft() {
       return this.$store.state.sheet.openSheetLeft;
     },
@@ -209,7 +287,24 @@ export default {
       return `${this.wih * 0.4}px`;
     }
   },
+  watch: {
+    deptCode(ndata, odata) {
+      if (ndata == "051102") {
+        this.img1Show = false;
+        this.img2Show = true;
+      } else {
+        this.img1Show = true;
+        this.img2Show = false;
+      }
+    }
+  },
   created() {},
+  mounted() {
+    if (this.deptCode == "051102") {
+      this.img1Show = false;
+      this.img2Show = true;
+    }
+  },
   components: {}
 };
 </script>

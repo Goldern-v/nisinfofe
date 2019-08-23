@@ -72,6 +72,7 @@
           @mouseout="closeMarkTip"
           :class="[td.markObj && `mark-mark-mark mark-cell-status-${td.markObj.status}`]"
           @contextmenu.stop="openContextMenu($event, y, tr, td)"
+          @click="selectedItem(td)"
         >
           <!-- for 年份 -->
           <input
@@ -126,7 +127,7 @@
           <input
             type="text"
             :readonly="isRead(tr)"
-            v-model="td.value"
+            v-model.trim="td.value"
             :data-value="td.value"
             :position="`${x},${y},${index}`"
             :style="[td.style, td.key === 'recordMonth' && tr.find((item) => item.key == 'yearBreak').value && {height: '12px'}]"
@@ -867,6 +868,11 @@ export default {
         } else {
           this.sheetInfo.selectRow.push(tr);
         }
+      }
+    },
+    selectedItem(td){
+      if(td.isSelected){
+        td.value="✓";
       }
     }
   },

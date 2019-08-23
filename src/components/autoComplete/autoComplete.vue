@@ -14,8 +14,23 @@
         <ul class="el-scrollbar__view el-autocomplete-suggestion__list" style="position: relative;">
           <li
             class
-            @click="post(item)"
+            @click="post(item,index)"
             v-for="(item, index) in data"
+            :key="item"
+            :class="{autoSelected: index == selectIndex}"
+          >{{item}}</li>
+        </ul>
+      </div>
+    </div>
+    <div class="el-scrollbar child-scrollBar" v-if="childData && childData.length">
+      <div
+        class="el-autocomplete-suggestion__wrap el-scrollbar__wrap el-scrollbar__wrap--hidden-default"
+      >
+        <ul class="el-scrollbar__view el-autocomplete-suggestion__list" style="position: relative;">
+          <li
+            class
+            @click="post(item)"
+            v-for="(item, index) in childData"
             :key="item"
             :class="{autoSelected: index == selectIndex}"
           >{{item}}</li>
@@ -33,6 +48,16 @@
 #CrAutocomplete li:active {
   background: rgb(228, 241, 240);
 }
+.child-scrollBar {
+  width: 100%;
+  position: absolute;
+  right: -120px;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+	-ms-transform: translateY(-50%);
+	-o-transform: translateY(-50%);
+	transform: translateY(-50%);
+}
 
 </style>
 
@@ -45,17 +70,66 @@ export default {
       data: [],
       callback: "",
       selectIndex: 0,
-      id: ""
+      id: "",
+      childData: [],//子下拉组件
+      options: '',//父子数据（父子下拉同时显示数据）
+      parentVal: '',//当前父下拉
     };
   },
   methods: {
     open(config) {
-      if (config.data.length >= 1) {
-        this.show = true;
-      }
       this.style = config.style;
       this.callback = config.callback;
-      this.data = config.data;
+
+      this.options = [];
+      this.childData = [];
+      this.parentVal = '';
+
+      // 下拉选项有子选项/后一个选项依赖于前一个td的选择
+      if(config && config.data && config.data.constructor == Object){
+        if(config.data['childOptions']){
+          this.options = config.data['option'];
+          let parentArr = [];
+          parentArr = this.options.map(item => {
+            return item.key;
+          });
+          this.data = [...parentArr];
+        }else {
+          // 出量名称和出量性质
+          let arr = [],parentKey = 'parentSelected'+ config.id;
+          let relyParent = config.data.relyParent;
+
+          // 首次点击出量性质
+          if(config.td && config.td.value && !config.data[parentKey]){
+            let tr = config.tr;
+            tr.map(td => {
+              if(relyParent.includes(td.name)){
+                config.data[parentKey] = td.value;
+              }
+            })
+          }
+
+          if(relyParent.includes(config.td.name)){
+            for(let key in config.data){
+              if(!key.includes('parentSelected') && !key.includes('relyParent')){
+                arr.push(key)
+              }
+            }
+          }else {
+            arr = config.data[config.data[parentKey]] || arr;
+          }
+          this.data = [...arr];
+        }
+      }else {
+        this.data = config.data || [];
+      }
+
+      if (this.data && this.data.length >= 1) {
+        this.show = true;
+      }else {
+        this.show = false;
+      }
+      
       (this.selectIndex = this.data.length), (this.id = config.id);
       this.$nextTick(() => {
         let offset = this.$refs.autoBox.getBoundingClientRect();
@@ -73,13 +147,34 @@ export default {
       } catch (e) {}
     },
     close(id) {
-      if (this.id == id) {
+      if(this.childData && this.childData.length && this.id == id){
+        let timeId = setTimeout(() => {
+          clearTimeout(timeId);
+          if(this.childData && this.childData.length){
+            this.show = false;
+          }
+        }, 2000);
+      }else if (this.id == id) {
         this.show = false;
       }
     },
     post(item) {
-      this.callback(item);
-      this.show = false;
+      let flag = true;
+      if(this.options && this.options.length){
+        this.options.map(opt => {
+          if(opt.key == item && opt.children){
+            this.childData = opt.children || [];
+            this.parentVal = item;
+            this.show = true;
+            flag = false;
+          }
+        });
+      }
+      if(flag){
+        item = this.parentVal?item + '(' + this.parentVal + ')': item;
+        this.callback(item);
+        this.show = false;
+      }
     },
     attachWindow() {
       window.openAutoComplete = config => {

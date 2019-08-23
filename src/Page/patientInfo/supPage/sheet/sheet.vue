@@ -137,7 +137,7 @@
 
 <script>
 import sheetTool from "@/Page/sheet-page/components/sheet-tool/sheet-tool.vue";
-import patientList from "@/Page/sheet-page/components/patient-list/patient-list.vue";
+import patientList from "@/components/patient-list/patient-list.vue";
 import sheetTable from "@/Page/sheet-page/components/sheetTable/sheetTable.vue";
 import sheetTableNeonatology from "@/Page/sheet-page/components/sheetTable-neonatology/sheetTable";
 import common from "@/common/mixin/common.mixin.js";
