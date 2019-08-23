@@ -8,7 +8,11 @@
     </div>
     <div class="body-con" id="sheet_body_con" :style="{height: containHeight}">
       <div class="left-part">
-        <patientList :data="data.bedList" :isSelectPatient="isSelectPatient" v-loading="patientListLoading"></patientList>
+        <patientList
+          :data="data.bedList"
+          :isSelectPatient="isSelectPatient"
+          v-loading="patientListLoading"
+        ></patientList>
       </div>
       <div class="right-part" :style="{marginLeft: openLeft?'200px':'0'}" v-loading="tableLoading">
         <div class="sheetTable-contain" ref="scrollCon" @scroll="(e) => onScroll(e)">
@@ -373,12 +377,12 @@ export default {
       );
     },
     onScroll(e) {
-      if (sheetInfo.sheetTyp.indexOf("_wx") > -1) {
+      if (sheetInfo.sheetType.indexOf("_wx") > -1) {
       } else {
         this.scrollY = parseInt(e.target.scrollTop);
       }
     },
-    isSelectPatient(item){
+    isSelectPatient(item) {
       this.$store.commit("upPatientInfo", item);
     }
   },

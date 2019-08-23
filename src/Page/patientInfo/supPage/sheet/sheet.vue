@@ -442,7 +442,8 @@ export default {
       this.getSheetData(isFirst);
     });
     this.bus.$on("toSheetPrintPage", newWid => {
-      // 判断是否存在标记
+       if ($("sign-text").length) {
+          // 判断是否存在标记
       if ($(".mark-mark-mark").length) {
         $(this.$refs.scrollCon).animate({
           scrollTop:
@@ -481,6 +482,8 @@ export default {
         });
         return this.$message.warning("记录存在多个签名，或者忘记填写时间");
       }
+       }
+     
 
       window.localStorage.sheetModel = $(this.$refs.sheetTableContain).html();
       if (process.env.NODE_ENV === "production") {
