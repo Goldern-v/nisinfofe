@@ -2,7 +2,7 @@
   <div class="header-con">
     <div class="his-name">{{HOSPITAL_NAME_SPACE}}</div>
     <div class="title">{{patientInfo.recordName}}</div>
-    {{sheetInfo.relObj}}
+    <!-- {{sheetInfo.relObj}} -->
     <div class="info-con" flex="main:justify">
       <span @click="updateTetxInfo('patientName', '病人姓名', patientInfo.patientName)">
         病人姓名：
