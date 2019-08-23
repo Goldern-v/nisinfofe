@@ -39,10 +39,21 @@ export default {
       } else {
         arr.splice(index, 1);
         child.addClass = "";
-        if (child.tasks) {
-          this.bus.$emit("inputChange", { name: ite.name, value: "" });
-        }
+        this.item.children.map(ite => {
+          if (ite.tasks && ite.tasks.constructor == Array) {
+            ite.tasks.map(obj => {
+              if (obj.active) {
+                for (let key in obj.active) {
+                  if(obj.active[key] == child.value){
+                    this.bus.$emit("inputChange", { name: ite.name, value: "" });
+                  }
+                }
+              }
+            });
+          }
+       });
       }
+      
       this.model[child.name] = arr.join(",");
 
       console.log(this.model);

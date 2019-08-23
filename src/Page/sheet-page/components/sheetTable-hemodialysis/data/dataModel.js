@@ -1864,7 +1864,7 @@ let tableModel = {
 										class: "bottom-line",
 										value: "",
 										name: "huanzhequxiangVal",
-										style: "width:50px;text-align:center;",
+										style: "width:40px;text-align:center;",
 										eleStyle:"margin-left: -5px;"
 									},
 									{
@@ -1873,17 +1873,26 @@ let tableModel = {
 										class: "bottom-line",
 										value: "",
 										name: "xiacitouxisj",
-										style: "width:90px;text-align:center;"
-									},
-									{
-										type: "input",
-										prev: "护士签名：",
-										class: "bottom-line",
-										value: "",
-										name: "hushiqianming",
-										style: "width:70px;text-align:center;",
-									},
+										style: "width:70px;text-align:left;",
+										eleStyle:"margin-left: -10px;"
+									}
 								]
+							},
+							{
+								type: "input",
+								prev: "护士签名：",
+								class: "bottom-line",
+								value: "",
+								name: "hushiqianming1",
+								style: "width:60px;text-align:left;border: none !important;",
+							},
+							{
+								type: "input",
+								prev: "/",
+								class: "bottom-line",
+								value: "",
+								name: "hushiqianming2",
+								style: "width:60px;text-align:left;border: none !important;",
 							},
 						]
 					}

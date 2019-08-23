@@ -35,7 +35,9 @@ export default {
                       this.model[key] == ite.value ? "is-checked" : "";
                   } else if(ite.value == obj.active[key]){
                     let arr = this.model[key] ? this.model[key].split(",") : [];
-                    arr.push(obj.active[key]);
+                    if(arr.indexOf(obj.active[key])==-1){
+                      arr.push(obj.active[key]);
+                    }
                     this.model[key] = arr.join(',');
                     ite.addClass = "is-checked";
                   }
