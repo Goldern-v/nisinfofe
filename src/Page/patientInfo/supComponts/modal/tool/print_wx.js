@@ -87,7 +87,7 @@ function print(source, beforePrint, selfShow) {
    font-family: 'SimHei','Microsoft Yahei' !important;
   }
     @page{
-      margin: 6mm;
+      margin: 0mm;
     }
     body {
       margin: 0;

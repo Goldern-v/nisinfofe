@@ -270,7 +270,8 @@
     width: 102px;
     text-align: center;
     z-index: 2;
-    font-size: 14px;
+    font-size: 13px;
+    white-space: nowrap;
 
     &.hasRemark {
       top: 78px;
