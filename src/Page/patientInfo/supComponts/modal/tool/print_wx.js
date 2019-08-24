@@ -116,7 +116,7 @@ function print(source, beforePrint, selfShow) {
     left: 2px;
    }
    body {
-    transform: scale(0.61);
+    transform: scale(0.6);
     transform-origin: 100% 50%;
    }
   `

@@ -7,11 +7,11 @@
       :enable-mobile-fullscreen="false"
       class="modal"
     >
-      <div class="bed-card-warpper" v-loading="modalLoading" ref="printCon">
-        <div class="bed-card-con" flex :class="{remarkCon: formData.remarkPrint}">
+      <div class="bed-card-warpper" v-loading="modalLoading">
+        <div class="bed-card-con" flex :class="{remarkCon: formData.remarkPrint}" ref="printCon">
           <img class="qr-code" :class="{hasRemark: hasRemark}" :src="qrCode" />
           <div class="qr-code-num" :class="{hasRemark: hasRemark}">{{qrCodeNum}}</div>
-          <div style="width: 0" flex-box="1" flex="dir:top main:justify">
+          <div style="width: 0" flex-box="1" flex="dir:top main:justify" class="list-con">
             <div flex="cross:center" class="input-item" style="height: 43px">
               <!-- <span class="label">患者姓名:</span> -->
               <span :style="`width: ${hasRemark? 85: 100}px`"></span>
@@ -21,6 +21,7 @@
                 style="font-size: 32px;padding-left: 5px;"
                 flex-box="1"
                 class="bottom-line"
+                :data-value="query.name + ' ' + query.sex + ' ' + query.age"
                 :value="query.name + ' ' + query.sex + ' ' + query.age"
               />
             </div>
@@ -31,6 +32,7 @@
                 type="text"
                 style="width: 75px;font-size: 30px; padding-left: 5px;"
                 class="bottom-line"
+                :data-value="query.bedLabel + '床'"
                 :value="query.bedLabel + '床'"
               />
               <input
@@ -39,6 +41,7 @@
                 style="width: 0px;font-size: 30px; padding-left: 2px;"
                 nowidth
                 class="bottom-line"
+                :data-value="moment(query.admissionDate).format('YYYY-MM-DD')"
                 :value="moment(query.admissionDate).format('YYYY-MM-DD')"
               />
             </div>
@@ -75,6 +78,7 @@
                   class="bottom-line"
                   style="font-size: 26px"
                   v-model="formData.diet"
+                  :data-value="formData.diet"
                   @focus="onFocusToAutoComplete($event, {autoComplete: ysList, obj: formData, key: 'diet'})"
                   @blur="onBlurToAutoComplete"
                 />
@@ -146,6 +150,7 @@
                 style="font-size: 26px"
                 flex-box="1"
                 class="bottom-line"
+                :data-value="formData.mainDoctors"
                 v-model="formData.mainDoctors"
               />
             </div>
@@ -163,6 +168,7 @@
                 flex-box="1"
                 class="bottom-line"
                 style="font-size: 26px"
+                :data-value="formData.dutyNurses"
                 v-model="formData.dutyNurses"
               />
             </div>
@@ -181,6 +187,7 @@
                 nowidth
                 flex-box="1"
                 class="bottom-line remark"
+                :data-value="formData.remark"
                 :value="formData.remark"
                 :maxlength="35"
               ></textarea>
@@ -453,7 +460,7 @@ label {
 .auto-input {
   width: 0;
 
-  >>>input {
+  >>>input, .input {
     @extend .bottom-line;
     height: 21px;
     color: #000;
@@ -476,9 +483,10 @@ import {
   findByKeywordNur,
   saveBed
 } from "./api/index.js";
-import print from "./tool/print_wx";
+// import print from "./tool/print_wx";
 var qr = require("qr-image");
 import moment from "moment";
+import print from "printing";
 import { textOver } from "@/utils/text-over";
 import { multiDictInfo } from "@/api/common";
 export default {
@@ -536,7 +544,7 @@ export default {
       };
       getEntity(this.query.patientId, this.query.visitId).then(res => {
         let resData = res.data.data;
-        let diagnosis = textOver(this.query.diagnosis, 52);
+        let diagnosis = textOver(this.query.diagnosis || "", 52);
         this.formData = {
           diet: resData.diet || "",
           registCare: resData.registCare
@@ -624,10 +632,73 @@ export default {
       });
     },
     onPrint() {
-      this.$nextTick(() => {
+      this.$nextTick(async () => {
         this.post();
-        print(this.$refs.printCon);
+        await print(this.$refs.printCon, {
+          // beforePrint: formatter,
+          direction: "horizontal",
+          injectGlobalCss: true,
+          scanStyles: false,
+          css: `
+          pre.bottom-line {
+           border: 0;
+           border-bottom: 1px solid #000;
+           text-align: left;
+           padding-left: 5px;
+           outline: none;
+           font-size: 28px;
+           flex: 1;
+           width: 0;
+           min-height: 33px;
+           font-size: 26px;
+         }
+
+          .list-con .input-item:nth-of-type(1) pre.bottom-line{
+           font-size: 32px; padding-left: 5px;
+         }
+           .list-con .input-item:nth-of-type(2) pre.bottom-line:nth-of-type(1){
+           width: 75px; font-size: 30px; padding-left: 5px;flex: none;
+         }
+            .list-con .input-item:nth-of-type(2) pre.bottom-line:nth-of-type(2){
+           width: 0px; font-size: 30px; padding-left: 2px;
+         }
+            .list-con .input-item:nth-of-type(8) pre.bottom-line{
+           white-space: normal;
+         }
+
+         * {
+   font-family: 'SimHei','Microsoft Yahei' !important;
+  }
+    @page{
+      margin: 0mm;
+    }
+    body {
+      margin: 0;
+      font-weight: bold;
+      overflow: hidden;
+      height: 100%;
+      wdith: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      transform: scale(0.6);
+    transform-origin: 100% 50%;
+    background: #fff;
+
+    }
+    .bed-card-con {
+      overflow: hidden;
+
+    }
+
+        `
+        });
       });
+
+      // this.$nextTick(() => {
+      //   this.post();
+      //   print(this.$refs.printCon);
+      // });
     },
     querySearchAsyncDoc(queryString, cb) {
       // findByKeyword(queryString).then(res => {
