@@ -504,7 +504,7 @@ export default {
       this.getSheetData(isFirst);
     });
     this.bus.$on("toSheetPrintPage", newWid => {
-      if ($("sign-text").length) {
+      if ($(".sign-text").length) {
         // 判断是否存在标记
         if ($(".mark-mark-mark").length) {
           $(this.$refs.scrollCon).animate({
