@@ -116,22 +116,22 @@ function print(source, beforePrint, selfShow) {
     left: 2px;
    }
    body {
-    transform: scale(0.6);
-    transform-origin: 100% 50%;
+    // transform: scale(0.6);
+    // transform-origin: 100% 50%;
    }
   `
   );
   iframeDocument.body.appendChild(clonedEl);
   // iframeDocument.body.style.width = "1300px";
-  iframeDocument.body.style.width = "100%";
-  iframeDocument.body.style.height = "100%";
+  // iframeDocument.body.style.width = "100%";
+  // iframeDocument.body.style.height = "100%";
   // iframeDocument.body.style.height = "300px";
-  iframeDocument.body.style.paddingLeft = "10px";
+  // iframeDocument.body.style.paddingLeft = "10px";
   // iframeDocument.body.style.height = "3200px";
   // iframeDocument.body.style.width = "3200px";
-  iframeDocument.body.style.justifyContent = "flex-end";
-  iframeDocument.body.style.alignItems = "center";
-  iframeDocument.body.style.display = "flex";
+  // iframeDocument.body.style.justifyContent = "flex-end";
+  // iframeDocument.body.style.alignItems = "center";
+  // iframeDocument.body.style.display = "flex";
   const images = iframeDocument.querySelectorAll("img[src]");
 
   return Promise.all(
