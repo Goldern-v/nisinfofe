@@ -31,6 +31,9 @@ export default {
   components: { TableInput },
   methods: {
     handlecheckClick(child) {
+      if(child.addClass == "is-disabled"){
+        return;
+      }
       let arr = this.model[child.name] ? this.model[child.name].split(",") : [];
       let index = arr.indexOf(child.value);
       if (index == -1) {
@@ -65,7 +68,7 @@ export default {
   watch: {
     model() {
       this.item.children.map(chil => {
-        chil.addClass = "";
+        chil.addClass = chil.addClass == "is-checked" ?"":chil.addClass;
         if (this.model[chil.name]) {
           let arr = this.model[chil.name].split(",");
           if (arr.indexOf(chil.value) != -1) {

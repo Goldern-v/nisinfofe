@@ -43,7 +43,7 @@ export default {
 
       this.item.children.map(ite => {
         ite.addClass = this.model[ite.name] == ite.value ? "is-checked" : "";
-        if (ite.type == "input" && this.model[ite.name] != child.value) {
+        if (ite.type == "input" && ite.name == child.name && this.model[ite.name] != child.value) {
           this.bus.$emit("inputChange", { name: ite.name, value: "" });
         }
         if (ite.children) {

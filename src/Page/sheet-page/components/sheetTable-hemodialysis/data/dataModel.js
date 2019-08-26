@@ -1864,8 +1864,8 @@ let tableModel = {
 										class: "bottom-line",
 										value: "",
 										name: "huanzhequxiangVal",
-										style: "width:40px;text-align:center;",
-										eleStyle: "margin-left: -5px;"
+										style: "width:60px;text-align:center;",
+										eleStyle: "margin-left: -10px;"
 									}
 								]
 							},
@@ -1875,7 +1875,7 @@ let tableModel = {
 								class: "bottom-line",
 								value: "",
 								name: "xiacitouxisj",
-								style: "width:60px;text-align:left;"
+								style: "width:50px;text-align:left;"
 							},
 							{
 								type: "text",
