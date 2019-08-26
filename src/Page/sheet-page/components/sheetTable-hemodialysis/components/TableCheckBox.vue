@@ -44,16 +44,19 @@ export default {
             ite.tasks.map(obj => {
               if (obj.active) {
                 for (let key in obj.active) {
-                  if(obj.active[key] == child.value){
-                    this.bus.$emit("inputChange", { name: ite.name, value: "" });
+                  if (obj.active[key] == child.value) {
+                    this.bus.$emit("inputChange", {
+                      name: ite.name,
+                      value: ""
+                    });
                   }
                 }
               }
             });
           }
-       });
+        });
       }
-      
+
       this.model[child.name] = arr.join(",");
 
       console.log(this.model);
@@ -62,6 +65,7 @@ export default {
   watch: {
     model() {
       this.item.children.map(chil => {
+        chil.addClass = "";
         if (this.model[chil.name]) {
           let arr = this.model[chil.name].split(",");
           if (arr.indexOf(chil.value) != -1) {
