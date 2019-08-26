@@ -69,7 +69,7 @@ let tableModel = {
 						colspan: 2,
 						rowspan: '',
 						class: "",
-						style: "padding-left: 5px;",
+						style: "padding-left: 4px;",
 						children: [
 							{
 								type: "radio",
@@ -1223,7 +1223,7 @@ let tableModel = {
 										class: "bottom-line",
 										value: "",
 										name: "ayeVal",
-										style: "width:60px;text-align:center;",
+										style: "width:50px;text-align:center;",
 										tasks: [
 											{
 												active: {
@@ -1882,7 +1882,7 @@ let tableModel = {
 								prev: "护士签名：",
 								value: "",
 								name: "signerName",
-								style: "display: inline-block;width:60px;min-height: 13px;text-align:left;vertical-align: middle;",
+								style: "display: inline-block;width:55px;min-height: 13px;text-align:left;vertical-align: middle;",
 								eleStyle: "margin-left: 5px;",
 								sign: true,
 								otherKey: "signerNo",
@@ -1893,7 +1893,7 @@ let tableModel = {
 								prev: "/",
 								value: "",
 								name: "auditorName",
-								style: "display: inline-block;width:60px;min-height: 13px;text-align:left;vertical-align: middle;",
+								style: "display: inline-block;width:55px;min-height: 13px;text-align:left;vertical-align: middle;",
 								sign: true,
 								otherKey: "auditorNo",
 								elementClass: "auditorName"

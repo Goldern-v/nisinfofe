@@ -63,6 +63,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.table {
+  padding: 1px;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
 table {
   border-collapse: collapse;
   width: 100%;
@@ -78,6 +83,8 @@ th {
   border: 1px solid #000;
   line-height: 20px;
   padding: 2px;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
   span {
     font-size: 13px;
     word-break: break-all;
