@@ -160,6 +160,11 @@
   }
 }
 </style>
+<style lang="stylus">
+.sheet-excel-container /deep/ td{
+  overflow: hidden;
+}
+</style>
 
 <script>
 import sheetTool from "./components/sheet-tool/sheet-tool.vue";

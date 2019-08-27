@@ -5,14 +5,19 @@
       :style="item.style||''"
       v-model="inputVal"
       :data-value="inputVal"
-      ref="test"
-      @focus="runTask(true)"
+      @focus="onFocus($event)"
+      @blur="onBlur($event)"
     />
   </span>
 </template>
 
 <script>
 import bus from "vue-happy-bus";
+import {
+  onFocusToAutoComplete,
+  onBlurToAutoComplete
+} from "./excel/tool.js";
+import sheetInfo from "../../config/sheetInfo";
 export default {
   data() {
     return {
@@ -54,7 +59,20 @@ export default {
           }
         });
       }
-    }
+    },
+    onFocus(e, bind){
+      this.runTask(true);
+      if(this.item.autoComplete){
+        if (sheetInfo.model == "print") return;
+        if (!sheetInfo.downControl) {
+          onFocusToAutoComplete(e, bind);
+        }
+      }
+    },
+    onBlur(e, bind) {
+      if (sheetInfo.model == "print") return;
+      onBlurToAutoComplete(e, bind);
+    },
   },
   created() {
     if (this.data) {

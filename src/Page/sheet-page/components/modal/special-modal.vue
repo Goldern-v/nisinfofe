@@ -8,7 +8,16 @@
       :enable-mobile-fullscreen="false"
     >
       <div id="specialForm">
-        <div flex="cross:center" class="special-date-con">
+        <div flex="cross:center" class="special-date-con" v-if="formType == 'hemodialysis'">
+          <div class="label">时间：</div>
+          <input
+            type="text"
+            :disabled="recordDate != ''"
+            v-model="staticObj.recordHour"
+            @keyup="timeKey($event, staticObj, 'recordHour')"
+          />
+        </div>
+        <div flex="cross:center" class="special-date-con" v-else>
           <div class="label">日期：</div>
           <input
             type="text"
@@ -27,7 +36,33 @@
           />
         </div>
         <el-tabs v-model="activeTab" class="tab-content" type="card">
-          <el-tab-pane label="固定项目" name="1">
+          <el-tab-pane label="固定项目" name="1" v-if="formType == 'hemodialysis'">
+            <div flex="wrap:wrap">
+              <div
+                v-for="(item, key) in fixedList"
+                :key="key"
+                style="width: 33%;margin-bottom: 12px;overflow: hidden;"
+              >
+                <div class="input-cell" flex="cross:center">
+                  <div class="label" style="width: 70px;">{{ item.name || key}}：</div>
+                  <input
+                  type="text"
+                  :readonly="isRead"
+                  v-model="fixedList[key].value"
+                  @keydown="spaceToKey($event,staticObj, 'bloodPressure')" v-if="key == 'bloodPressure'" style="width: 65px;margin-right: 5px;"
+                />
+                  <input
+                    type="text"
+                    :readonly="isRead"
+                    v-model="fixedList[key].value"
+                    v-autoComplete="{dataList: dictionary[key], obj:fixedList, key: key}" style="width: 65px;margin-right: 5px;" v-else
+                  />
+                  <div class="uniq">{{item.next}}</div>
+                </div>
+              </div>
+            </div>
+          </el-tab-pane>
+          <el-tab-pane label="固定项目" name="1" v-else>
             <div class="input-row" flex="main:justify">
               <div class="input-cell" flex="cross:center" flex-box="1">
                 <div class="label">体温：</div>
@@ -39,7 +74,7 @@
                 <input type="text" :readonly="isRead" v-model="staticObj.pulse" />
                 <div class="uniq">次/分</div>
               </div>
-              <div class="input-cell" flex="cross:center" flex-box="1">
+              <div class="input-cell" flex="cross:center" flex-box="1" v-if="staticObj.breath !== undefined">
                 <div class="label">呼吸：</div>
                 <input type="text" :readonly="isRead" v-model="staticObj.breath" />
                 <div class="uniq">次/分</div>
@@ -454,7 +489,8 @@ export default {
         false,
         false,
         false
-      ]
+      ],
+      formType: "",//表单类型
     };
   },
   computed: {
@@ -483,6 +519,7 @@ export default {
   },
   methods: {
     open(config) {
+      this.formType = config.formType || "";
       setTimeout(() => {
         window.closeAutoCompleteNoId();
       }, 300);

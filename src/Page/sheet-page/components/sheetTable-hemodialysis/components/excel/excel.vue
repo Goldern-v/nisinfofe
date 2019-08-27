@@ -39,7 +39,7 @@
     <table class="sheet-table" ref="table">
       <tr>
         <td
-          :rowspan="15"
+          :rowspan="data.bodyModel.length+4 || 15"
           style="text-align: center;
     background: #eee !important;
     vertical-align: middle;
@@ -811,6 +811,7 @@ export default {
         tab,
         isLast
       };
+      config.formType = 'hemodialysis';
       window.openSpecialModal(config);
     },
     markTip(e, td) {
