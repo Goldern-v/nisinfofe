@@ -69,7 +69,7 @@ let tableModel = {
 						colspan: 2,
 						rowspan: '',
 						class: "",
-						style: "padding-left: 5px;",
+						style: "padding-left: 4px;",
 						children: [
 							{
 								type: "radio",
@@ -119,7 +119,7 @@ let tableModel = {
 								value: "",
 								name: "touxiriqi",
 								style: "width:100px;text-align:center;",
-								elementClass:"mr10"
+								elementClass: "mr10"
 							},
 							{
 								type: "input",
@@ -449,7 +449,7 @@ let tableModel = {
 								prev: "下肢水肿",
 								next: "；",
 								name: "xiazhishuizhong",
-								elementClass:"mr10",
+								elementClass: "mr10",
 								children: [
 									{
 										type: "radio",
@@ -687,7 +687,7 @@ let tableModel = {
 								type: "radio",
 								prev: "血管通路：",
 								name: "xueguantonglu",
-								elementClass:"mr10",
+								elementClass: "mr10",
 								children: [
 									{
 										type: "radio",
@@ -782,7 +782,7 @@ let tableModel = {
 								prev: "内瘘震颤和血管杂音：",
 								next: "；",
 								name: "xueguanzayin",
-								elementClass:"mr10",
+								elementClass: "mr10",
 								children: [
 									{
 										type: "radio",
@@ -996,7 +996,7 @@ let tableModel = {
 								value: "",
 								name: "tizhongVal1",
 								style: "width:50px;text-align:center;",
-								elementClass:"mr10"
+								elementClass: "mr10"
 							},
 							{
 								type: "input",
@@ -1006,7 +1006,7 @@ let tableModel = {
 								value: "",
 								name: "tizhongVal2",
 								style: "width:50px;text-align:center;",
-								elementClass:"mr10"
+								elementClass: "mr10"
 							},
 							{
 								type: "input",
@@ -1068,7 +1068,7 @@ let tableModel = {
 								value: "",
 								name: "touxi2",
 								style: "width:35px;text-align:center;",
-								elementClass:"mr10"
+								elementClass: "mr10"
 							},
 							{
 								type: "input",
@@ -1223,7 +1223,7 @@ let tableModel = {
 										class: "bottom-line",
 										value: "",
 										name: "ayeVal",
-										style: "width:60px;text-align:center;",
+										style: "width:50px;text-align:center;",
 										tasks: [
 											{
 												active: {
@@ -1246,7 +1246,7 @@ let tableModel = {
 								value: "",
 								name: "yuchongliang",
 								style: "width:35px;text-align:center;",
-								elementClass:"mr10"
+								elementClass: "mr10"
 							},
 							{
 								type: "input",
@@ -1256,7 +1256,7 @@ let tableModel = {
 								value: "",
 								name: "huishuiliang",
 								style: "width:35px;text-align:center;",
-								elementClass:"mr10"
+								elementClass: "mr10"
 							},
 							{
 								type: "input",
@@ -1266,7 +1266,7 @@ let tableModel = {
 								value: "",
 								name: "buye",
 								style: "width:35px;text-align:center;",
-								elementClass:"mr10"
+								elementClass: "mr10"
 							},
 							{
 								type: "input",
@@ -1276,7 +1276,7 @@ let tableModel = {
 								value: "",
 								name: "shuxue",
 								style: "width:35px;text-align:center;",
-								elementClass:"mr10"
+								elementClass: "mr10"
 							},
 							{
 								type: "input",
@@ -1299,7 +1299,7 @@ let tableModel = {
 								value: "",
 								name: "diandaolv",
 								style: "width:35px;text-align:center;",
-								elementClass:"mr10"
+								elementClass: "mr10"
 							},
 							{
 								type: "input",
@@ -1309,7 +1309,7 @@ let tableModel = {
 								value: "",
 								name: "tansua",
 								style: "width:35px;text-align:center;",
-								elementClass:"mr10"
+								elementClass: "mr10"
 							},
 							{
 								type: "input",
@@ -1318,7 +1318,7 @@ let tableModel = {
 								value: "",
 								name: "touxiyeliuliang",
 								style: "width:35px;text-align:center;",
-								elementClass:"mr10"
+								elementClass: "mr10"
 							},
 							{
 								type: "input",
@@ -1418,7 +1418,7 @@ let tableModel = {
 								prev: "颈静脉怒张：",
 								next: "；",
 								name: "txhjingmai",
-								elementClass:"mr10",
+								elementClass: "mr10",
 								children: [
 									{
 										type: "radio",
@@ -1439,7 +1439,7 @@ let tableModel = {
 								prev: "肺部听诊湿罗音",
 								next: "；",
 								name: "txhshiluoyin",
-								elementClass:"mr10",
+								elementClass: "mr10",
 								children: [
 									{
 										type: "radio",
@@ -1498,7 +1498,7 @@ let tableModel = {
 								type: "radio",
 								prev: "动脉管道：",
 								name: "txhshuizhong",
-								elementClass:"mr10",
+								elementClass: "mr10",
 								children: [
 									{
 										type: "radio",
@@ -1864,27 +1864,40 @@ let tableModel = {
 										class: "bottom-line",
 										value: "",
 										name: "huanzhequxiangVal",
-										style: "width:50px;text-align:center;",
-										eleStyle:"margin-left: -5px;"
-									},
-									{
-										type: "input",
-										prev: "下次透析时间：",
-										class: "bottom-line",
-										value: "",
-										name: "xiacitouxisj",
-										style: "width:90px;text-align:center;"
-									},
-									{
-										type: "input",
-										prev: "护士签名：",
-										class: "bottom-line",
-										value: "",
-										name: "hushiqianming",
-										style: "width:70px;text-align:center;",
-									},
+										style: "width:60px;text-align:center;",
+										eleStyle: "margin-left: -10px;"
+									}
 								]
 							},
+							{
+								type: "input",
+								prev: "下次透析时间：",
+								class: "bottom-line",
+								value: "",
+								name: "xiacitouxisj",
+								style: "width:50px;text-align:left;"
+							},
+							{
+								type: "text",
+								prev: "护士签名：",
+								value: "",
+								name: "signerName",
+								style: "display: inline-block;width:55px;min-height: 13px;text-align:left;vertical-align: middle;",
+								eleStyle: "margin-left: 5px;",
+								sign: true,
+								otherKey: "signerNo",
+								elementClass: "signerName"
+							},
+							{
+								type: "text",
+								prev: "/",
+								value: "",
+								name: "auditorName",
+								style: "display: inline-block;width:55px;min-height: 13px;text-align:left;vertical-align: middle;",
+								sign: true,
+								otherKey: "auditorNo",
+								elementClass: "auditorName"
+							}
 						]
 					}
 				]

@@ -1,5 +1,9 @@
 <template>
-  <span class="renderItem" :class="[{iswrap:item.value=='<br/>'},item.elementClass]" :style="item.eleStyle">
+  <span
+    class="renderItem"
+    :class="[{iswrap:item.value=='<br/>'},item.elementClass]"
+    :style="item.eleStyle"
+  >
     <span class="prev" v-if="item.prev" v-html="item.prev" />
     <component :is="ChildComponent(item)" :item="item" :model.sync="model">
       <!-- <template v-if="item.children">

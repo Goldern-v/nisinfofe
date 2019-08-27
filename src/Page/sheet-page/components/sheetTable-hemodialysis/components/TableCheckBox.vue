@@ -31,6 +31,9 @@ export default {
   components: { TableInput },
   methods: {
     handlecheckClick(child) {
+      if(child.addClass == "is-disabled"){
+        return;
+      }
       let arr = this.model[child.name] ? this.model[child.name].split(",") : [];
       let index = arr.indexOf(child.value);
       if (index == -1) {
@@ -39,10 +42,24 @@ export default {
       } else {
         arr.splice(index, 1);
         child.addClass = "";
-        if (child.tasks) {
-          this.bus.$emit("inputChange", { name: ite.name, value: "" });
-        }
+        this.item.children.map(ite => {
+          if (ite.tasks && ite.tasks.constructor == Array) {
+            ite.tasks.map(obj => {
+              if (obj.active) {
+                for (let key in obj.active) {
+                  if (obj.active[key] == child.value) {
+                    this.bus.$emit("inputChange", {
+                      name: ite.name,
+                      value: ""
+                    });
+                  }
+                }
+              }
+            });
+          }
+        });
       }
+
       this.model[child.name] = arr.join(",");
 
       console.log(this.model);
@@ -51,6 +68,7 @@ export default {
   watch: {
     model() {
       this.item.children.map(chil => {
+        chil.addClass = chil.addClass == "is-checked" ?"":chil.addClass;
         if (this.model[chil.name]) {
           let arr = this.model[chil.name].split(",");
           if (arr.indexOf(chil.value) != -1) {

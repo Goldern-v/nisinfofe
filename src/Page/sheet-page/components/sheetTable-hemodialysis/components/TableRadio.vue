@@ -1,6 +1,11 @@
 <template>
   <span class="TableRadio" v-if="item.type=='radio'">
-    <span class="radio" v-for="(child,chInde) in item.children" :key="chInde" :style="child.eleStyle">
+    <span
+      class="radio"
+      v-for="(child,chInde) in item.children"
+      :key="chInde"
+      :style="child.eleStyle"
+    >
       <label @click="handleRadioClick(child)" v-if="child.type=='radio'">
         <span class="radio_input" :class="child.addClass">
           <span class="radio_inner"></span>
@@ -38,7 +43,7 @@ export default {
 
       this.item.children.map(ite => {
         ite.addClass = this.model[ite.name] == ite.value ? "is-checked" : "";
-        if (ite.type == "input" && this.model[ite.name] != child.value) {
+        if (ite.type == "input" && ite.name == child.name && this.model[ite.name] != child.value) {
           this.bus.$emit("inputChange", { name: ite.name, value: "" });
         }
         if (ite.children) {
@@ -56,8 +61,8 @@ export default {
   mounted() {},
   watch: {
     model() {
-      console.log(11);
       this.item.children.map(chil => {
+        chil.addClass = "";
         for (let key in this.model) {
           if (
             key == chil.name &&

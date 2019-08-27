@@ -145,25 +145,11 @@
     vertical-align: bottom;
   }
 
-  body, html {
-    margin: 0;
-    padding: 0;
-    font-family: 'Simsun';
-  }
-
   .bottom-line {
     // margin: 0 4px;
     input {
       border-bottom: 1px solid #000 !important;
       text-align: center;
-    }
-  }
-
-  span.margin-10 {
-    margin: 0 10px;
-
-    &:first-of-type {
-      margin-left: 0;
     }
   }
 
@@ -177,10 +163,6 @@
     }
   }
 
-  input {
-    font-size: 13px !important;
-  }
-
   .prev {
     vertical-align: middle;
   }
@@ -188,53 +170,6 @@
   .next {
     vertical-align: middle;
     margin-right: 5px;
-  }
-
-  .unchecked {
-    outline: 2px auto red;
-
-    & > input {
-      background: tomato;
-    }
-  }
-
-  .mr-10 {
-    margin-right: 10px;
-  }
-
-  table {
-    td {
-      line-height: 20px;
-
-      &.vertical-top {
-        >span {
-          vertical-align: top;
-
-          >span {
-            vertical-align: top;
-          }
-        }
-      }
-
-      &.no-border-right {
-        position: relative;
-
-        &:after {
-          position: absolute;
-          content: '';
-          display: block;
-          width: 1px;
-          background: #fff;
-          right: -1px;
-          top: 0;
-          height: 100%;
-        }
-      }
-    }
-  }
-
-  .inline-block {
-    display: inline-block;
   }
 }
 </style>
