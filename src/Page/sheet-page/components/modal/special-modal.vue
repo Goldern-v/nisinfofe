@@ -37,6 +37,28 @@
         </div>
         <el-tabs v-model="activeTab" class="tab-content" type="card">
           <el-tab-pane label="固定项目" name="1" v-if="formType == 'hemodialysis'">
+            <div class="input-row" flex="main:justify">
+              <div class="input-cell" flex="cross:center" flex-box="1">
+                <div class="label">体温：</div>
+                <input type="text" :readonly="isRead" v-model="staticObj.temperature" />
+                <div class="uniq">℃</div>
+              </div>
+              <div class="input-cell" flex="cross:center" flex-box="1">
+                <div class="label">血压：</div>
+                <input
+                  type="text"
+                  :readonly="isRead"
+                  v-model="staticObj.bloodPressure"
+                  @keydown="spaceToKey($event,staticObj, 'bloodPressure')"
+                />
+                <div class="uniq">mmHg</div>
+              </div>
+              <div class="input-cell" flex="cross:center" flex-box="1">
+                <div class="label">脉搏：</div>
+                <input type="text" :readonly="isRead" v-model="staticObj.pulse" />
+                <div class="uniq">次/分</div>
+              </div>
+            </div>
             <div flex="wrap:wrap">
               <div
                 v-for="(item, key) in fixedList"

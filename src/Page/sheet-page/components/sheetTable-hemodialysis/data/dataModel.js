@@ -1912,8 +1912,11 @@ let tableModel = {
 	}
 }
 
-getEquiDict(list).then(res => {
-	console.log(res);
+getEquiDict().then(res => {
+	if(res.data && res.data.code == 200){
+		使用机器.data = res.data.data;
+	}
+	
 })
 
 export default tableModel;

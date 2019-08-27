@@ -73,7 +73,6 @@ table {
   width: 100%;
   background: #fff;
   td {
-    overflow: hidden;
     padding-top: 10px;
     padding-bottom: 10px;
   }

@@ -40,7 +40,7 @@
             诊断：
             <div
               class="bottom-line"
-              style="min-width: 150px;max-width: 200px;" @click="updateTetxInfo('diagnosis', '诊断：', patientInfo.diagnosis)"
+              style="min-width: 150px;max-width: 200px;min-height: 13px;" @click="updateTetxInfo('diagnosis', '诊断：', patientInfo.diagnosis)"
             >{{patientInfo.diagnosis}}</div>
           </span>
         </div>

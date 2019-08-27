@@ -1,28 +1,28 @@
 <template>
-  <span :class="item.class||''" v-if="item.type=='input'">
+  <span :class="[item.class,{showModal:showModal && item.autoComplete.data}]" v-if="item.type=='input'">
     <input
       type="text"
       :style="item.style||''"
       v-model="inputVal"
       :data-value="inputVal"
       @focus="onFocus($event)"
-      @blur="onBlur($event)"
+      @blur ="item.autoComplete && onBlur()"
     />
+    <ul v-if="showModal && item.autoComplete.data">
+      <li v-for="child in item.autoComplete.data.data" :key="child.sortNo" @click="selectedItem(child.equiName)">{{child.equiName}}</li>
+    </ul>
   </span>
 </template>
 
 <script>
 import bus from "vue-happy-bus";
-import {
-  onFocusToAutoComplete,
-  onBlurToAutoComplete
-} from "./excel/tool.js";
 import sheetInfo from "../../config/sheetInfo";
 export default {
   data() {
     return {
       inputVal: "",
-      bus: bus(this)
+      bus: bus(this),
+      showModal: false,
     };
   },
   props: ["item", "model", "data"],
@@ -64,15 +64,20 @@ export default {
       this.runTask(true);
       if(this.item.autoComplete){
         if (sheetInfo.model == "print") return;
-        if (!sheetInfo.downControl) {
-          onFocusToAutoComplete(e, bind);
-        }
+        this.showModal = true;
       }
     },
     onBlur(e, bind) {
       if (sheetInfo.model == "print") return;
-      onBlurToAutoComplete(e, bind);
+      let timeId = setTimeout(()=>{
+        clearTimeout(timeId);
+        this.showModal = false;
+      },400);
     },
+    selectedItem(val){
+      this.inputVal = val;
+      this.showModal = false;
+    }
   },
   created() {
     if (this.data) {
@@ -106,6 +111,41 @@ input {
   height: 14px;
   vertical-align: middle;
   outline: none;
+}
+.showModal {
+  position: relative;
+  ul {
+    z-index: 1000;
+    width: 100px;
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    -o-transform: translateX(-50%);
+    transform: translateX(-50%);
+    max-height: 280px;
+    overflow: auto;
+    background-color: #fff;
+    padding: 6px 0;
+    border-radius: 2px;
+    border: 1px solid #eee;
+  }
+  li {
+    list-style: none;
+    line-height: 36px;
+    padding: 0 10px;
+    margin: 0;
+    cursor: pointer;
+    color: rgb(72, 106, 98);
+    font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    &:hover {
+      background-color: rgb(228, 241, 240);
+    }
+  }
 }
 </style>
 
