@@ -6,7 +6,7 @@
         <el-select
           filterable
           v-model="this_deptCode"
-          placeholder="选择类型"
+          placeholder="选择科室"
           class="type-select"
           @change="changeDept"
         >
@@ -29,7 +29,7 @@
           :key="item.id"
         >
           <el-row type="flex" align="middle">
-            <img src="../../../../common/images/record/文件创建.png" alt height="35">
+            <img src="../../../../common/images/record/文件创建.png" alt height="35" />
             <span class="name" v-if="item.name">{{item.name}}</span>
             <span class="name" v-if="item.recordName">{{item.recordName}}</span>
           </el-row>
@@ -244,6 +244,9 @@ export default {
     formType() {
       this.getData();
       this.selectData = "";
+    },
+    deptCode() {
+      this.deptCode && (this.this_deptCode = this.deptCode);
     }
   },
   components: {}
