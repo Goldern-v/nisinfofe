@@ -28,7 +28,7 @@
         住院号/ID号：
         <div class="bottom-line" style="min-width: 80px">{{patientInfo.inpNo}}</div>
       </span>
-      <span v-if="sheetInfo.sheetType == 'neonatology2'">
+      <!-- <span v-if="sheetInfo.sheetType == 'neonatology2'">
         温箱编号：
         <input
           class="bottom-line"
@@ -37,7 +37,7 @@
           @blur="onBlurToAutoComplete"
           v-model="relObj.wxNo"
         />
-      </span>
+      </span>-->
       <span>
         入院日期：
         {{patientInfo.admissionDate | toymd}}
@@ -59,10 +59,10 @@ export default {
   },
   data() {
     return {
-      sheetInfo,
-      relObj: {
-        wxNo: ""
-      }
+      sheetInfo
+      // relObj: {
+      //   wxNo: ""
+      // }
     };
   },
   methods: {
@@ -140,17 +140,17 @@ export default {
     }
   },
   created() {
-    if (sheetInfo.relObj && Object.keys(sheetInfo.relObj).length > 0) {
-      this.relObj = sheetInfo.relObj;
-    }
+    // if (sheetInfo.relObj && Object.keys(sheetInfo.relObj).length > 0) {
+    //   this.relObj = sheetInfo.relObj;
+    // }
   },
   watch: {
-    relObj: {
-      deep: true,
-      handler() {
-        sheetInfo.relObj = this.relObj;
-      }
-    }
+    // relObj: {
+    //   deep: true,
+    //   handler() {
+    //     sheetInfo.relObj = this.relObj;
+    //   }
+    // }
   },
   components: {}
 };

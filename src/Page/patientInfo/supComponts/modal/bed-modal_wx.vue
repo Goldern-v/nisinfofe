@@ -7,8 +7,9 @@
       :enable-mobile-fullscreen="false"
       class="modal"
     >
-      <div class="bed-card-warpper" v-loading="modalLoading">
-        <div class="bed-card-con" flex :class="{remarkCon: formData.remarkPrint}" ref="printCon">
+      <div class="bed-card-warpper" v-loading="modalLoading" ref="printCon">
+        <!-- <div id="aaa"> -->
+        <div class="bed-card-con" flex :class="{remarkCon: formData.remarkPrint}">
           <img class="qr-code" :class="{hasRemark: hasRemark}" :src="qrCode" />
           <div class="qr-code-num" :class="{hasRemark: hasRemark}">{{qrCodeNum}}</div>
           <div style="width: 0" flex-box="1" flex="dir:top main:justify" class="list-con">
@@ -209,6 +210,7 @@
             </div>
           </div>-->
         </div>
+        <!-- </div> -->
       </div>
       <div class="print-img-con" ref="printImgCon">
         <img :src="printBase64" alt ref="printImg" />
@@ -504,8 +506,9 @@ import moment from "moment";
 // import print from "printing";
 import { textOver } from "@/utils/text-over";
 import { multiDictInfo } from "@/api/common";
-import html2canvas from "html2canvas";
+import html2canvas from "./tool/html2canvas";
 import { setTimeout } from "timers";
+window.html2canvas = html2canvas;
 export default {
   data() {
     return {
@@ -714,19 +717,35 @@ export default {
       //       });
       //     });
 
-      this.$nextTick(() => {
-        this.printLoading = true;
-        html2canvas(this.$refs.printCon).then(cas => {
-          var data = cas.toDataURL("image/png", 1); //1表示质量(无损压缩)
-          this.printBase64 = data;
-          setTimeout(() => {
-            print(this.$refs.printImg);
-            this.printLoading = false;
-            this.post();
-          }, 1000);
-        });
-        // print(this.$refs.printCon);
-      });
+      // this.$nextTick(() => {
+      //   this.printLoading = true;
+      //   setTimeout(() => {
+      //     html2canvas(this.$refs.printCon, {
+      //       width: 370,
+      //       height: 370,
+      //       removeContainer: true,
+      //       useCORS: true,
+      //       allowTaint: true,
+      //       imageTimeout: 0
+
+      //       // logging: true
+      //     }).then(cas => {
+      //       var data = cas.toDataURL("image/png", 1); //1表示质量(无损压缩)
+      //       this.printBase64 = data;
+      //       setTimeout(() => {
+      //         print(this.$refs.printImg);
+      //         this.printLoading = false;
+      //         // this.post();
+      //       }, 1000);
+      //     });
+      //     // print(this.$refs.printCon);
+      //   }, 1000);
+      // });
+      print(this.$refs.printCon);
+
+      setTimeout(() => {
+        this.post();
+      }, 2000);
     },
     querySearchAsyncDoc(queryString, cb) {
       // findByKeyword(queryString).then(res => {

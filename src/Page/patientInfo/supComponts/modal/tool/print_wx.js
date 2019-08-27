@@ -1,3 +1,4 @@
+import html2canvas from "./html2canvas";
 function printDir(dir, wid = window) {
   let dirTetx = "";
   if (dir == "h") {
@@ -79,7 +80,7 @@ function print(source, beforePrint, selfShow) {
 
   const iframeDocument = iframe.contentDocument;
   const iframeWindow = iframe.contentWindow;
-  printDir("h", iframeWindow);
+  printDir("v", iframeWindow);
   addCSS(
     iframeWindow,
     `
@@ -96,6 +97,7 @@ function print(source, beforePrint, selfShow) {
     }
     .bed-card-con {
       overflow: hidden;
+      margin: 5px !important;
     }
     input[type='checkbox']:checked:before {
       content: '';
@@ -116,8 +118,21 @@ function print(source, beforePrint, selfShow) {
     left: 2px;
    }
    body {
-    // transform: scale(0.6);
-    // transform-origin: 100% 50%;
+    // transform: scale(0.9);
+    // transform-origin: 0% 0%;
+    // padding: 5px;
+    width:382px;
+    height:382px;
+    // width:300px;
+    // height:300px;
+   }
+  //  body canvas {
+  //    width: 100% !important;
+  //    height: 100%  !important;
+  //  }
+   body #printImg {
+     width: 100% !important;
+     height: 100%  !important;
    }
   `
   );
@@ -153,9 +168,25 @@ function print(source, beforePrint, selfShow) {
     // 新建窗口（用于调试）
     // const win = window.open();
     // win.window.document.body.innerHTML = clonedEl.outerHTML;
-    iframeWindow.print();
-    document.body.removeChild(iframe);
-    selfShow.show = true;
+
+    html2canvas(iframeWindow.document.body).then(cas => {
+      // function convertCanvasToImage(canvas) {
+      var image = new Image();
+      image.src = cas.toDataURL("image/png", 1);
+      image.id = "printImg";
+
+      // }
+      iframeWindow.document.body.innerHTML = "";
+      iframeWindow.document.body.appendChild(image);
+      iframeDocument.body.style.width = "58mm";
+      iframeDocument.body.style.height = "58mm";
+      // console.log(iframeDocument.body, "body");
+      setTimeout(() => {
+        iframeWindow.print();
+        document.body.removeChild(iframe);
+      }, 500);
+    });
+    // selfShow.show = true;
   });
 }
 
