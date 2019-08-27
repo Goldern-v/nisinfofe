@@ -219,7 +219,7 @@ export default {
         rowspan: "3"
       },
       {
-        name: `心电图`,
+        name: `心电`,
         style: {
           minWidth: "52px",
           maxWidth: "52px"
