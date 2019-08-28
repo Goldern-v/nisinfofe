@@ -12,6 +12,10 @@ let ruList = [];
 
 let GCS = [];
 let 心电图 = [];
+let 吸痰 = [];
+let 气垫 = [];
+let 雾化吸入 = [];
+let 约束带 = [];
 let 皮肤 = [];
 let 体位 = [];
 let 基础护理 = [];
@@ -205,25 +209,37 @@ export default [
     key: "field19", //吸痰
     value: "",
     event: keyf1,
-    isSelected: true
+    // isSelected: true,
+    autoComplete: {
+      data: 吸痰
+    }
   },
   {
     key: "field20", //气垫
     value: "",
     event: keyf1,
-    isSelected: true
+    // isSelected: true,
+    autoComplete: {
+      data: 气垫
+    }
   },
   {
     key: "field21", //雾化吸入
     value: "",
     event: keyf1,
-    isSelected: true
+    // isSelected: true,
+    autoComplete: {
+      data: 雾化吸入
+    }
   },
   {
     key: "field22", //约束带
     value: "",
     event: keyf1,
-    isSelected: true
+    // isSelected: true,
+    autoComplete: {
+      data: 约束带
+    }
   },
   {
     key: "field23", //心电图
@@ -440,12 +456,16 @@ export default [
 
 let filterKey = '威县'+':';
 let filterKey2 = '脑外科重症监护单'+':';
-let filterKey2Arr = ["心电图","健康指导"]
+let filterKey2Arr = ["心电图","吸痰","气垫","雾化吸入","约束带","健康指导"]
 
 export function getListData4() {
   let list = [
     "GCS",
     "心电图",
+    "吸痰",
+    "气垫",
+    "雾化吸入",
+    "约束带",
     "皮肤",
     "体位",
     "基础护理",
@@ -465,6 +485,10 @@ export function getListData4() {
     let data = res.data.data;
     setList(GCS, "GCS", data);
     setList(心电图, "心电图", data);
+    setList(吸痰, "吸痰", data);
+    setList(气垫, "气垫", data);
+    setList(雾化吸入, "雾化吸入", data);
+    setList(约束带, "约束带", data);
     setList(皮肤, "皮肤", data);
     setList(体位, "体位", data);
     setList(基础护理, "基础护理", data);
