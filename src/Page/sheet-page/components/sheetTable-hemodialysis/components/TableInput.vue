@@ -1,6 +1,13 @@
 <template>
   <span :class="item.class||''" v-if="item.type=='input'">
-    <input type="text" :style="item.style||''" v-model="inputVal" ref="test" @focus="runTask(true)" />
+    <input
+      type="text"
+      :style="item.style||''"
+      v-model="inputVal"
+      :data-value="inputVal"
+      ref="test"
+      @focus="runTask(true)"
+    />
   </span>
 </template>
 
@@ -33,10 +40,12 @@ export default {
                     this.model[key] = obj.active[key];
                     ite.addClass =
                       this.model[key] == ite.value ? "is-checked" : "";
-                  } else if(ite.value == obj.active[key]){
+                  } else if (ite.value == obj.active[key]) {
                     let arr = this.model[key] ? this.model[key].split(",") : [];
-                    arr.push(obj.active[key]);
-                    this.model[key] = arr.join(',');
+                    if (arr.indexOf(obj.active[key]) == -1) {
+                      arr.push(obj.active[key]);
+                    }
+                    this.model[key] = arr.join(",");
                     ite.addClass = "is-checked";
                   }
                 }
@@ -45,7 +54,6 @@ export default {
           }
         });
       }
-      console.log(this.model);
     }
   },
   created() {

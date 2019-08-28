@@ -43,17 +43,12 @@
           style="text-align: center;
     background: #eee !important;
     vertical-align: middle;
-    min-width:29px;
-    max-width:29px;
+    min-width:30px;
+    max-width:30px;
     font-size: 14px;
     line-height: 20px;
-    "
-        >
-          监
-          <br />测
-          <br />记
-          <br />录
-        </td>
+    padding: 8px;
+    ">监测记录</td>
       </tr>
       <tr class="head-con" v-for="(th, index) in data.titleModel.th" :key="index">
         <th

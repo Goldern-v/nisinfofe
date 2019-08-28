@@ -23,7 +23,18 @@ export default {
       },
       {
         name: `
-        台/<br/>箱温<br/>度<br/>(℃)
+        温箱编号
+        `,
+        style: {},
+        colspan: "1",
+        rowspan: "3",
+        style: {
+          minWidth: "20px"
+        }
+      },
+      {
+        name: `
+        温度<br/>(℃)
         `,
         style: {},
         colspan: "1",
