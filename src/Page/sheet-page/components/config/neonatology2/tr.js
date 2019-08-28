@@ -15,6 +15,7 @@ let fsList = [];
 let twList = [];
 let wyfsList = [];
 let wyzlList = [];
+let wxbhList = [];
 export default [
   {
     key: "recordMonth", //日期
@@ -28,10 +29,22 @@ export default [
     event: event_time
   },
   {
+    key: "box", //台/箱温度（℃）
+    value: "",
+    event: keyf1,
+    name: "温箱编号",
+    textarea: {
+      width: 34
+    },
+    autoComplete: {
+      data: wxbhList
+    }
+  },
+  {
     key: "boxTemp", //台/箱温度（℃）
     value: "",
     event: keyf1,
-    name: "台/箱温度（℃）",
+    name: "温度（℃）",
     textarea: {
       width: 34
     }
@@ -359,7 +372,8 @@ export function getListData() {
     "肤色",
     "体位",
     "喂养方式",
-    "喂养种类"
+    "喂养种类",
+    "温箱编号"
   ];
   multiDictInfo(list).then(res => {
     let data = res.data.data;
@@ -371,6 +385,7 @@ export function getListData() {
     setList(twList, list[5], data);
     setList(wyfsList, list[6], data);
     setList(wyzlList, list[7], data);
+    setList(wxbhList, list[8], data);
   });
 }
 
