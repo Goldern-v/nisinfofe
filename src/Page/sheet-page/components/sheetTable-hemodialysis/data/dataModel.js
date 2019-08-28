@@ -1,3 +1,5 @@
+import { getEquiDict } from "../api/index";
+let 使用机器 = {};
 let tableModel = {
 	table: {
 		cols: ["30px", "30px", ""],
@@ -28,7 +30,7 @@ let tableModel = {
 								prev: "记录日期：",
 								class: "bottom-line",
 								value: "",
-								name: "jiluriqi",
+								name: "recordMonth",
 								style: "width:100px;text-align:center;"
 							},
 							{
@@ -37,7 +39,10 @@ let tableModel = {
 								class: "bottom-line",
 								value: "",
 								name: "shiyongjiqi",
-								style: "width:70px;text-align:center;"
+								style: "width:70px;text-align:center;",
+								autoComplete: {
+									data: 使用机器
+								}
 							},
 						]
 					}
@@ -1349,8 +1354,8 @@ let tableModel = {
 					{
 						colspan: 2,
 						rowspan: '',
-						class: "",
-						style: "padding-left: 5px;",
+						class: "signTd",
+						style: "padding-left: 5px;overflow: hidden;",
 						children: [
 							{
 								type: "input",
@@ -1906,5 +1911,12 @@ let tableModel = {
 		]
 	}
 }
+
+getEquiDict().then(res => {
+	if(res.data && res.data.code == 200){
+		使用机器.data = res.data.data;
+	}
+	
+})
 
 export default tableModel;

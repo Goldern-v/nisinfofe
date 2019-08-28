@@ -16,3 +16,8 @@ export const putGroupCount = (patientId, visitId, startTime, endTime) => {
 export function getUser(password, empNo) {
   return axios.post(`${apiPath}user/getUser`, { password, empNo });
 }
+// 获取使用机器下拉
+export function getEquiDict() {
+  return axios.get(`${apiPath}hemodialysis/getEquiDict`);
+}
+

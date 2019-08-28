@@ -14,7 +14,8 @@ export default [
     key: "recordMonth", //日期
     value: "",
     event: event_date,
-    click: click_date
+    click: click_date,
+    hidden: true,
   },
   {
     key: "recordHour", //时间
@@ -24,7 +25,9 @@ export default [
   {
     key: "temperature", //体温
     value: "",
-    event: keyf1
+    event: keyf1,
+    name: "体温",
+    next: "℃"
   },
   {
     key: "bloodPressure", //血压
@@ -35,53 +38,73 @@ export default [
         e.preventDefault();
       }
       keyf1(e, td);
-    }
+    },
+    name: "血压",
+    next: "mmHg"
   },
   {
     key: "pulse", //脉搏
     value: "",
-    event: keyf1
+    event: keyf1,
+    name: "脉搏",
+    next: "次/分"
   },
 
   {
     key: "field1", //动脉压(mmHg或kPa)
     value: "",
-    event: keyf1
+    event: keyf1,
+    name: "动脉压",
+    next: "mmHg或kPa"
   },
   {
     key: "field2", //静脉压(mmHg或kPa)
     value: "",
-    event: keyf1
+    event: keyf1,
+    name: "静脉压",
+    next: "mmHg或kPa"
   },
   {
     key: "field3", //跨膜压(mmHg或kPa)
     value: "",
-    event: keyf1
+    event: keyf1,
+    name: "跨膜压",
+    next: "mmHg或kPa"
   },
   {
     key: "field4", //血流量(ml/min)
     value: "",
-    event: keyf1
+    event: keyf1,
+    name: "血流量",
+    next: "ml/min"
   },
   {
     key: "field5", //肝素钠(mg)
     value: "",
-    event: keyf1
+    event: keyf1,
+    name: "肝素钠",
+    next: "mg"
   },
   {
     key: "field6", //低分子肝素钙(iu)
     value: "",
-    event: keyf1
+    event: keyf1,
+    name: "低分子肝素钙",
+    next: "iu"
   },
   {
     key: "field7", //实际超滤量(ml)
     value: "",
-    event: keyf1
+    event: keyf1,
+    name: "实际超滤量",
+    next: "ml"
   },
   {
     key: "field8", //电导度ms/cm
     value: "",
-    event: keyf1
+    event: keyf1,
+    name: "电导度",
+    next: "ms/cm"
   },
 
   {

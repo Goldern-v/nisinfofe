@@ -1,6 +1,6 @@
 <template>
   <span :class="item.class||''" :style="item.style">
-    <span v-html="item.value" @click="openSignModal" :style="item.style" class="sign-txt"></span>
+    <span v-html="item.value" @click="openSignModal" :style="item.style" class="printSign" :class="{'isNoSign': item.sign && isNoSign}"></span>
     <div class="sign-img">
       <img :src="`/crNursing/api/file/signImage/${signerNo}?${token}`" alt v-if="signerNo" />
       <span v-if="signerNo">/</span>
@@ -20,7 +20,8 @@ export default {
       sheetInfo,
       bus: bus(this),
       auditorNo: "",
-      signerNo: ""
+      signerNo: "",
+      isNoSign: false
     };
   },
   mixins: [common],
@@ -52,6 +53,8 @@ export default {
               this.auditorNo = this.model[this.item.otherKey];
             }
 
+            this.isNoSign = false;
+            
             this.bus.$emit("saveSheetPage");
             this.$notify.success({
               title: "提示",
@@ -72,6 +75,8 @@ export default {
           this.auditorNo = this.model[this.item.otherKey] || "";
         }
         this.item.value = this.model[this.item.name] || "";
+
+        this.isNoSign = this.model[this.item.otherKey] ? false: true;
       }
     }
   }
@@ -106,9 +111,12 @@ export default {
 .sign-img {
   display: none;
 }
+.auditorName .sign-img{
+  padding-right: 8px;
+}
 </style>
 <style lang="stylus">
-#sheetPagePrint .sign-txt, #sheetPagePrint .auditorName .prev {
+#sheetPagePrint .printSign, #sheetPagePrint .auditorName .prev {
   display: none !important;
 }
 </style>
