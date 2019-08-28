@@ -79,6 +79,7 @@ module.exports = {
         // target: "http://60.6.218.17:9093", //威县
 
         target: "http://120.25.105.45:9864", //厚街测试
+        // target: "http://120.25.105.45:9866", //厚街测试
         // target: "http://120.25.105.45:9865", //威县测试
         // target: "http://192.168.1.20:8964", // 内网测试cno
         // target: "http://dev.cr-health.com:4453", // 外网测试

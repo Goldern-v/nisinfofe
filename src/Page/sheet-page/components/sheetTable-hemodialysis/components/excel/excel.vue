@@ -811,8 +811,18 @@ export default {
         tab,
         isLast
       };
-      config.formType = 'hemodialysis';
-      window.openSpecialModal(config);
+      let recordHour = tr.find(td => td.key == "recordHour").value;
+      let recordMonth = this.sheetInfo.relObj.recordMonth;
+      let recordDate = tr.find(td => td.key == "recordDate").value;
+      if(!recordHour && recordDate){
+        recordHour = recordDate.split(' ')[1];
+      }
+      if(recordMonth && recordHour){
+        config.recordDate = recordMonth + ' ' + recordHour;
+      }else {
+        config.recordDate = recordHour;
+      }
+      window.openSpecialModal2(config);
     },
     markTip(e, td) {
       if (sheetInfo.model == "print") return;

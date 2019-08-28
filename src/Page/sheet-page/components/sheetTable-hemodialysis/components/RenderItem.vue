@@ -17,8 +17,6 @@
 <script>
 import TableText from "./TableText";
 import TableInput from "./TableInput";
-// import TableRadioGroup from "./TableRadioGroup";
-// import TableCheckBoxGroup from "./TableCheckBoxGroup";
 import TableRadio from "./TableRadio";
 import TableCheckBox from "./TableCheckBox";
 export default {
@@ -27,8 +25,6 @@ export default {
   components: {
     TableText,
     TableInput,
-    // TableRadioGroup,
-    // TableCheckBoxGroup,
     TableCheckBox,
     TableRadio
   },
@@ -42,8 +38,6 @@ export default {
           return "TableText";
         case "input":
           return "TableInput";
-        // case 'radioGroup': return 'TableRadioGroup'
-        // case 'checkBoxGroup': return 'TableCheckBoxGroup'
         case "radio":
           return "TableRadio";
         case "checkbox":

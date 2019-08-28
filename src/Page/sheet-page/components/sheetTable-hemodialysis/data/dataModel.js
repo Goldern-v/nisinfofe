@@ -1354,8 +1354,8 @@ let tableModel = {
 					{
 						colspan: 2,
 						rowspan: '',
-						class: "",
-						style: "padding-left: 5px;",
+						class: "signTd",
+						style: "padding-left: 5px;overflow: hidden;",
 						children: [
 							{
 								type: "input",

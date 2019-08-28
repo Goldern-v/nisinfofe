@@ -58,6 +58,9 @@ export default {
     this.$nextTick(() => {
       this.model = sheetInfo.relObj;
     });
+    window.getRelObj = ()=>{
+      return this.model;
+    }
   }
 };
 </script>
@@ -75,6 +78,26 @@ table {
   td {
     padding-top: 10px;
     padding-bottom: 10px;
+    position: relative;
+    &.red-border {
+      border: 1px solid #000 !important;
+      &::after {
+        position: absolute;
+        content: "";
+        width: 100%;
+        height: 40px;
+        border: 2px solid #f00;
+        left: 0;
+        bottom: 0;
+        background-color: transparent;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+      }
+      .renderItem {
+        z-index: 1000;
+        position: relative;
+      }
+    }
   }
 }
 td,

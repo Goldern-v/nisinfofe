@@ -53,6 +53,7 @@
     <HjModal ref="HjModal"></HjModal>
     <signModal ref="signModal" title="需要该行签名者确认"></signModal>
     <specialModal ref="specialModal"></specialModal>
+    <specialModal2 ref="specialModal2"></specialModal2>
     <setPageModal ref="setPageModal"></setPageModal>
     <pizhuModal ref="pizhuModal"></pizhuModal>
     <evalModel ref="evalModel"></evalModel>
@@ -160,11 +161,6 @@
   }
 }
 </style>
-<style lang="stylus">
-.sheet-excel-container /deep/ td{
-  overflow: hidden;
-}
-</style>
 
 <script>
 import sheetTool from "./components/sheet-tool/sheet-tool.vue";
@@ -199,6 +195,7 @@ import $ from "jquery";
 import HjModal from "./components/modal/hj-modal.vue";
 import signModal from "@/components/modal/sign.vue";
 import specialModal from "@/Page/sheet-page/components/modal/special-modal.vue";
+import specialModal2 from "@/Page/sheet-page/components/modal/special-modal2.vue";
 import setPageModal from "@/Page/sheet-page/components/modal/setPage-modal.vue";
 import pizhuModal from "@/Page/sheet-page/components/modal/pizhu-modal.vue";
 import { getHomePage } from "@/Page/sheet-page/api/index.js";
@@ -549,6 +546,18 @@ export default {
           return this.$message.warning("记录存在多个签名，或者忘记填写时间");
         }
       }
+      if($(".isNoSign") && $(".isNoSign").length){
+        $(".signTd").eq(0).addClass("red-border");
+        $(this.$refs.scrollCon).animate({
+            scrollTop:
+              $(".isNoSign")
+                .eq(0)
+                .offset().top +
+              this.$refs.scrollCon.scrollTop -
+              150
+        });
+        return this.$message.warning("存在未签名的记录，请全部签名后再打印");
+      }
 
       window.localStorage.sheetModel = $(this.$refs.sheetTableContain).html();
       if (process.env.NODE_ENV === "production") {
@@ -615,6 +624,7 @@ export default {
     HjModal,
     signModal,
     specialModal,
+    specialModal2,
     setPageModal,
     pizhuModal,
     sheetTableNeonatology,

@@ -9,7 +9,7 @@
       @blur ="item.autoComplete && onBlur()"
     />
     <ul v-if="showModal && item.autoComplete.data">
-      <li v-for="child in item.autoComplete.data.data" :key="child.sortNo" @click="selectedItem(child.equiName)">{{child.equiName}}</li>
+      <li v-for="child in item.autoComplete.data.data" :key="child.sortNo" :class="{active: inputVal == child.equiName}" @click="selectedItem(child.equiName)">{{child.equiName}}</li>
     </ul>
   </span>
 </template>
@@ -114,9 +114,10 @@ input {
 }
 .showModal {
   position: relative;
+  overflow: visible;
   ul {
     z-index: 1000;
-    width: 100px;
+    width: 80px;
     position: absolute;
     top: 20px;
     left: 50%;
@@ -142,7 +143,7 @@ input {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    &:hover {
+    &:hover,&.active {
       background-color: rgb(228, 241, 240);
     }
   }
