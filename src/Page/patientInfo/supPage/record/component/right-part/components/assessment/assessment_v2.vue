@@ -324,13 +324,15 @@ export default {
       }
     },
     onload() {
-      console.log("!!!!onload!!!!");
       // this.pageLoading = true;
       // this.pageLoadingText = "数据加载中";
       // this.marklist = [];
       // let wid = this.$refs.iframeV2.contentWindow;
       this.wid = this.$refs.iframeV2.contentWindow;
       window.wid = this.$refs.iframeV2.contentWindow;
+
+
+      console.log("!!!!onload!!!!",this.wid);
 
       // window.document.addEventListener()
       // this.wid.document.removeEventListener("click", this.onClick);
