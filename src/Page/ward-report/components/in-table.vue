@@ -1,11 +1,11 @@
 <template>
   <table class="in-table">
     <colgroup>
-      <col width="60px"/>
-      <col width="120px"/>
-      <col width="60px"/>
-      <col width="110px"/>
-      <col/>
+      <col width="60px" />
+      <col width="120px" />
+      <col width="60px" />
+      <col width="110px" />
+      <col />
     </colgroup>
     <thead>
       <tr>
@@ -22,7 +22,10 @@
     <tbody>
       <tr v-for="(item, i) of data" :key="item.name">
         <td>{{index + i}}</td>
-        <td @click="toPatientHome(item.patientId, item.visitId)" style="cursor: pointer">{{item.name}}</td>
+        <td
+          @click="item.patientId && toPatientHome(item.patientId, item.visitId)"
+          style="cursor: pointer"
+        >{{item.name}}</td>
         <td>{{item.bedLabel}}</td>
         <td>{{item.isEmergency === '1' ? '√' : ''}}</td>
         <td>{{item.transferFrom}}</td>
@@ -32,21 +35,21 @@
 </template>
 
 <script>
-import common from '@/common/mixin/common.mixin.js'
-  export default {
-    props: {
-      data: Array,
-      index: Number,
-    },
-    mixins: [common],
-    data () {
-      return {}
-    }
+import common from "@/common/mixin/common.mixin.js";
+export default {
+  props: {
+    data: Array,
+    index: Number
+  },
+  mixins: [common],
+  data() {
+    return {};
   }
+};
 </script>
 
 <style lang="stylus" scoped>
-  .in-table {
-    height: 100%;
-  }
+.in-table {
+  height: 100%;
+}
 </style>
