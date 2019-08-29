@@ -25,6 +25,9 @@
       <router-link :to="{path:'/bloodSugar', query:$route.query}" tag="span">
         <div class="nav-item">血糖</div>
       </router-link>
+      <router-link :to="{path:'/healthEducation', query:$route.query}" tag="span">
+        <div class="nav-item">健康教育单</div>
+      </router-link>
       <router-link :to="{path:'/cost', query: query}" tag="span">
         <div class="nav-item">费用信息</div>
       </router-link>
