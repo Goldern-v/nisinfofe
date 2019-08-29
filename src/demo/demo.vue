@@ -1,12 +1,11 @@
 <template>
   <div>
-    <input type="password" style="display:none">
-    <cr-date-picker v-model="text"></cr-date-picker>
-    {{text}}
+    <mewsChart></mewsChart>
   </div>
 </template>
 
 <script>
+import mewsChart from "@/components/chart/mews-chart";
 export default {
   data() {
     return {
@@ -14,7 +13,9 @@ export default {
     };
   },
   methods: {},
-  components: {}
+  components: {
+    mewsChart
+  }
 };
 </script>
 

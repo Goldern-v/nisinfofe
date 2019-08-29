@@ -72,6 +72,7 @@
           @mouseout="closeMarkTip"
           :class="[td.markObj && `mark-mark-mark mark-cell-status-${td.markObj.status}`]"
           @contextmenu.stop="openContextMenu($event, y, tr, td)"
+          @click="selectedItem(td)"
         >
           <!-- for 年份 -->
           <input
@@ -867,6 +868,11 @@ export default {
         } else {
           this.sheetInfo.selectRow.push(tr);
         }
+      }
+    },
+    selectedItem(td) {
+      if (td.isSelected) {
+        td.value = "✓";
       }
     }
   },

@@ -33,7 +33,7 @@
     "escape-string-regexp": "^2.0.0",
     "execa": "^2.0.3",
     "glob": "^7.1.2",
-    "html2canvas": "^1.0.0-alpha.12",
+    "html2canvas": "^1.0.0-rc.3",
     "jquery": "^3.3.1",
     "js-cookie": "^2.2.0",
     "js-model": "^1.5.1",

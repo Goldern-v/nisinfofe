@@ -48,9 +48,9 @@
   margin: 0;
   background: #fff;
   border: 1px solid #CBD5DD;
-  border-top 0
+  border-top: 0;
   border-radius: 2px;
-  overflow hidden
+  overflow: hidden;
 
   &.fullpage {
     position: fixed !important;
@@ -71,7 +71,7 @@
 
     .right-part {
       height: 100%;
-      overflow: hidden
+      overflow: hidden;
     }
   }
 }
@@ -132,12 +132,11 @@
     margin-right: 4px;
   }
 }
-
 </style>
 
 <script>
 import sheetTool from "@/Page/sheet-page/components/sheet-tool/sheet-tool.vue";
-import patientList from "@/Page/sheet-page/components/patient-list/patient-list.vue";
+import patientList from "@/components/patient-list/patient-list.vue";
 import sheetTable from "@/Page/sheet-page/components/sheetTable/sheetTable.vue";
 import sheetTableNeonatology from "@/Page/sheet-page/components/sheetTable-neonatology/sheetTable";
 import common from "@/common/mixin/common.mixin.js";
@@ -442,44 +441,46 @@ export default {
       this.getSheetData(isFirst);
     });
     this.bus.$on("toSheetPrintPage", newWid => {
-      // 判断是否存在标记
-      if ($(".mark-mark-mark").length) {
-        $(this.$refs.scrollCon).animate({
-          scrollTop:
-            $(".mark-mark-mark")
-              .eq(0)
-              .addClass("red-border")
-              .offset().top +
-            this.$refs.scrollCon.scrollTop -
-            150
-        });
-        return this.$message.warning("打印前必须去除所有标记");
-      }
-      // 判断是否存在未签名
-      if ($(".noSignRow").length) {
-        $(this.$refs.scrollCon).animate({
-          scrollTop:
-            $(".noSignRow")
-              .eq(0)
-              .addClass("red-border")
-              .offset().top +
-            this.$refs.scrollCon.scrollTop -
-            150
-        });
-        return this.$message.warning("存在未签名的记录，请全部签名后再打印");
-      }
-      // 判断是否存在多签名
-      if ($(".multiSign").length) {
-        $(this.$refs.scrollCon).animate({
-          scrollTop:
-            $(".multiSign")
-              .eq(0)
-              .addClass("red-border")
-              .offset().top +
-            this.$refs.scrollCon.scrollTop -
-            150
-        });
-        return this.$message.warning("记录存在多个签名，或者忘记填写时间");
+      if ($(".sign-text").length) {
+        // 判断是否存在标记
+        if ($(".mark-mark-mark").length) {
+          $(this.$refs.scrollCon).animate({
+            scrollTop:
+              $(".mark-mark-mark")
+                .eq(0)
+                .addClass("red-border")
+                .offset().top +
+              this.$refs.scrollCon.scrollTop -
+              150
+          });
+          return this.$message.warning("打印前必须去除所有标记");
+        }
+        // 判断是否存在未签名
+        if ($(".noSignRow").length) {
+          $(this.$refs.scrollCon).animate({
+            scrollTop:
+              $(".noSignRow")
+                .eq(0)
+                .addClass("red-border")
+                .offset().top +
+              this.$refs.scrollCon.scrollTop -
+              150
+          });
+          return this.$message.warning("存在未签名的记录，请全部签名后再打印");
+        }
+        // 判断是否存在多签名
+        if ($(".multiSign").length) {
+          $(this.$refs.scrollCon).animate({
+            scrollTop:
+              $(".multiSign")
+                .eq(0)
+                .addClass("red-border")
+                .offset().top +
+              this.$refs.scrollCon.scrollTop -
+              150
+          });
+          return this.$message.warning("记录存在多个签名，或者忘记填写时间");
+        }
       }
 
       window.localStorage.sheetModel = $(this.$refs.sheetTableContain).html();

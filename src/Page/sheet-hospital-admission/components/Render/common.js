@@ -10,7 +10,7 @@ import bus from "vue-happy-bus";
 import commom from "@/common/mixin/common.mixin.js";
 import dayjs from "dayjs";
 
-export const getUUID = () => {};
+export const getUUID = () => { };
 
 export const getFormDetail = (id, callback = null) => {
   let result = null;
@@ -56,6 +56,10 @@ export const saveForm = (formObj, callback = null) => {
 
     post = Object.assign({}, post, formObj.model);
 
+    if (!post.evalDate) {
+      post.evalDate = dayjs().format("YYYY-MM-DD HH:mm")
+    }
+
     let postData = new Object();
     for (const key in post) {
       if (post.hasOwnProperty(key)) {
@@ -71,6 +75,8 @@ export const saveForm = (formObj, callback = null) => {
     }
 
     console.log("保存post", "post", post, "postData", postData);
+
+
 
     save(postData)
       .then(res => {

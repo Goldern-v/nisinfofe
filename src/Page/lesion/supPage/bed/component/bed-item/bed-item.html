@@ -1,6 +1,7 @@
 <div class="bed-box">
   <div
     class="bed-box-inner"
+    :class="{infectFlag: data.infectFlag == 1,bornFlag: data.bornFlag == 1}"
     :style="[data.bedLabel.includes('_') && data.patientId && (data.newBornOut ? {background: 'rgba(255, 207, 219, .5)'} : {background: '#D9F4FE'}), data.bornStatus === '送产房' && {background: '#FFBCBC'}]"
   >
     <span @click="toInfo(data)" v-if="data.patientId">

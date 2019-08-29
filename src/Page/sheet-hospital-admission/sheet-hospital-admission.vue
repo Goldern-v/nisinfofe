@@ -12,7 +12,7 @@
     </div>
     <div class="body-con" id="sheet_body_con" :style="{height: containHeight}">
       <div class="left-part">
-        <patientList :data="data.bedList" v-loading="patientListLoading"></patientList>
+        <patientList :data="data.bedList" :isSelectPatient="isSelectPatient" v-loading="patientListLoading"></patientList>
       </div>
       <div class="right-part" :style="{marginLeft: openLeft?'200px':'0'}">
         <!-- <record></record> -->
@@ -103,7 +103,7 @@
 </style>
 
 <script>
-import patientList from "./components/patient-list/patient-list.vue";
+import patientList from "@/components/patient-list/patient-list.vue";
 import sheetTool from "./components/sheet-tool/sheet-tool.vue";
 import pages from "./components/pages/page.vue";
 import common from "@/common/mixin/common.mixin.js";
@@ -174,6 +174,16 @@ export default {
             console.log("error:patientList", error);
           });
       }
+    },
+    isSelectPatient(item){
+      this.bus.$emit("setHosptialAdmissionLoading", true);
+
+      this.bus.$emit("setIsNewForm", false);
+
+      this.bus.$emit("getHEvalBlockList", item);
+      this.selectPatientId = item.patientId;
+
+      this.$store.commit("upPatientInfo", item);
     }
   },
   created() {
