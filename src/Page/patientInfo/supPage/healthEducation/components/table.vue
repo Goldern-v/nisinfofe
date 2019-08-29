@@ -59,6 +59,7 @@
         </tr>
       </tbody>
     </table>
+    <!-- 分页 -->
     <el-pagination
       v-if="total > 30 && isprint === 2"
       @current-change="handleCurrentChange"
@@ -150,30 +151,30 @@ export default {
       getAllByPatientInfo(patientId, visitId).then(res => {
         let value = res.data.data && res.data.data.length > 0 ? 1 : 2
         this.$emit('isShowTable', value)
-        let array = []
-        res.data.data.map(item => {
-          array.push(item)
-          array.push(item)
-          array.push(item)
-          array.push(item)
-          array.push(item)
-          array.push(item)
-          array.push(item)
-          array.push(item)
-          array.push(item)
-          array.push(item)
-          array.push(item)
-          array.push(item)
-          array.push(item)
-          array.push(item)
-          array.push(item)
-          array.push(item)
-          array.push(item)
-          array.push(item)
-          array.push(item)
-        })
-        let data = array
-        // let data = res.data.data
+        // let array = []
+        // res.data.data.map(item => {
+        //   array.push(item)
+        //   array.push(item)
+        //   array.push(item)
+        //   array.push(item)
+        //   array.push(item)
+        //   array.push(item)
+        //   array.push(item)
+        //   array.push(item)
+        //   array.push(item)
+        //   array.push(item)
+        //   array.push(item)
+        //   array.push(item)
+        //   array.push(item)
+        //   array.push(item)
+        //   array.push(item)
+        //   array.push(item)
+        //   array.push(item)
+        //   array.push(item)
+        //   array.push(item)
+        // })
+        // let data = array
+        let data = res.data.data
         this.pageParam = data.slice()
         this.total = data.length
         this.isSetParam = data.length > 30 ? data.slice(0, 30) : data.slice()

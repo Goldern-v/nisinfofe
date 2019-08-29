@@ -28,6 +28,6 @@ export function deleteMission(id) {
 }
 
 // 根据科室获取宣教内容模板列表
-export const getEduFormTemplateByDeptCode = params => {
+export const getEduFormTemplate = params => {
   return axios.post(`${apiPath}/briefMission/getBriefMission`,params)
 };

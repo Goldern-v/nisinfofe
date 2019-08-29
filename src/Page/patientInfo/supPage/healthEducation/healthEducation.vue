@@ -9,9 +9,12 @@
     </div>
   </div>
 
+  <!-- 有推送内容 -->
   <div v-show="isData === 1" class="healthEducation">
+
+    <!-- 表单 -->
     <div ref="Contain">
-      <!-- 头部信息 -->
+      <!-- 表单头部信息 -->
       <div class="health-education-head">
         <div class="hospital">东 莞 市 厚 街 医 院</div>
         <div class="title">住院患者健康教育评估及实施记录单</div>
@@ -24,11 +27,10 @@
               <span>住院号：{{patientInfo.inpNo}}</span>
         </div>
       </div>
-
-      <!-- 表格 -->
+      <!-- 表单内容 -->
       <Table @isShowTable="isShowTable" ref="tableParams" :selected.sync="selected" @dblclick="onEdit"/>
-
     </div>
+
     <!-- 操作按钮 -->
     <div class="tool-con">
       <div class="tool-fix" flex="dir:top">
@@ -84,6 +86,7 @@ export default {
       this.isData = val
       this.pageLoading = false
     },
+    // 无数据时点击打开表单
     onAddTable() {
       if (this.$route.query.patientId) {
         this.isData = 1
@@ -128,22 +131,22 @@ export default {
       let params = {
         list: [
           {
-            id: selected.id,
-            patientId: queryInfo.patientId, //"0988726",
-            patientName: queryInfo.name, // "陈晓芳",
+            id: selected.id, // 每条推送对应的id
+            patientId: queryInfo.patientId, // 病人id
+            patientName: queryInfo.name, // 病人姓名
             visitId: queryInfo.visitId, //"1",
-            bedLabel: queryInfo.bedLabel, //"3",
+            bedLabel: queryInfo.bedLabel, // 床头号
             eduFormCode: "form_edu",
-            wardCode: queryInfo.wardCode, //"4012",
-            wardName: queryInfo.wardName, // "神内护理单元",
-            missionId: selected.missionId, //"88324",
-            title: selected.title, //"头晕的健康宣教2",
-            address: selected.address,
-            type: selected.type,
-            status: selected.status, // window.formInfo.status, //"1",
-            pusher: selected.pusher, //"1158",
-            pusherName: selected.pusherName, //"叶山豪",
-            pushDate: dayjs().format("YYYY-MM-DD HH:mm:ss") // "2019-01-09 09:28:22"
+            wardCode: queryInfo.wardCode, // 科室号
+            wardName: queryInfo.wardName, // 科室名
+            missionId: selected.missionId, // 宣教标题对应id
+            title: selected.title, // 宣教标题
+            address: selected.address, // 地址
+            type: selected.type, // 类型
+            status: selected.status, // 推送状态（）
+            pusher: selected.pusher, // 推送人
+            pusherName: selected.pusherName, // 推送人名
+            pushDate: dayjs().format("MM-DD HH:mm") // "01-09 09:28:22"
           }
         ]
       };
@@ -208,9 +211,6 @@ export default {
       }
     }
   }
-</style>
-
-<style lang="scss">
   .health-education-head {
     padding: 10px;
     .hospital {
@@ -233,4 +233,5 @@ export default {
       font-size: 13px; // 小四
     }
   }
+
 </style>

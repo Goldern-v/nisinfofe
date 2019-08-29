@@ -73,7 +73,7 @@
 <script>
 import { educationObiect, educationMethod, educationAssessment } from '../text'
 import dayjs from 'dayjs'
-import { getEduFormTemplateByDeptCode, saveMission } from '../api/healthApi'
+import { getEduFormTemplate, saveMission } from '../api/healthApi'
 import qs from "qs";
 export default {
   data () {
@@ -195,7 +195,7 @@ export default {
             type: '',
             name: query
           }
-          let { data } = await getEduFormTemplateByDeptCode(params)
+          let { data } = await getEduFormTemplate(params)
           this.options = data.data;
         } catch (e) {
           this.options = [];
@@ -257,7 +257,7 @@ export default {
 }
 </script>
 
-<style lang="stylus" scoped>
+<style lang="scss" scoped>
 .status-text {
   position: absolute;
   top: 0px;
@@ -274,14 +274,14 @@ export default {
 .modal{
   width: "450px"
 }
->>> .el-autocomplete {
+.el-autocomplete {
   width: 264px !important;
 }
 .edit-modal-form {
   padding-right: 50px;
 
-  >>>.el-input, >>>.el-select, >>>.el-input-number {
-    width: 100% !important;
+  .el-input, .el-select, .el-input-number {
+   width: 264px !important;
   }
 
   .unit {
