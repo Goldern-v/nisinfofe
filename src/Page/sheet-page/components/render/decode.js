@@ -19,10 +19,10 @@ function decode() {
     allData = [...allData, ...result];
   }
 
-  if(getRelObj && getRelObj.constructor == Function){
-    sheetInfo.relObj = getRelObj() || sheetInfo.relObj;
+  if (window.getRelObj && window.getRelObj.constructor == Function) {
+    sheetInfo.relObj = window.getRelObj() || sheetInfo.relObj;
   }
-  
+
   return {
     list: allData,
     relObj: renderRelObj(sheetInfo.relObj)

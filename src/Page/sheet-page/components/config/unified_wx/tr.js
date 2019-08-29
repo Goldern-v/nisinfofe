@@ -1,20 +1,12 @@
-import { listItem } from "../../../api/recordDesc";
 import { multiDictInfo } from "../../../api/index";
 import { keyf1 } from "../keyEvent/f1.js";
 import { event_date, event_time, click_date } from "../keyEvent/date";
-import info from "../sheetInfo";
-// let info = {
-//   sheetType: "neurology"
-// };
-let ysList = [];
-let chuList = [];
-let ruList = [];
 let 静脉性质 = [];
 let 饮食性质 = [];
 let 出量名称 = {};
 let 出量性质 = 出量名称;
 let 意识 = [];
-let 吸氧方式 = ["面罩","鼻塞","呼吸机"];
+let 吸氧方式 = [];
 export default [
   {
     key: "recordMonth", //日期
@@ -30,17 +22,23 @@ export default [
   {
     key: "temperature", //体温
     value: "",
-    event: keyf1
+    event: keyf1,
+    name: "体温",
+    next: "℃"
   },
   {
     key: "pulse", //脉搏
     value: "",
-    event: keyf1
+    event: keyf1,
+    name: "脉搏",
+    next: "次/分"
   },
   {
     key: "breath", //呼吸
     value: "",
-    event: keyf1
+    event: keyf1,
+    name: "呼吸",
+    next: "次/分"
   },
   {
     key: "bloodPressure", //血压
@@ -51,12 +49,16 @@ export default [
         e.preventDefault();
       }
       keyf1(e, td);
-    }
+    },
+    name: "血压",
+    next: "mmHg"
   },
   {
     key: "spo2", //spo2
     value: "",
-    event: keyf1
+    event: keyf1,
+    name: "血氧饱和度",
+    next: "%"
   },
 
   {
@@ -108,7 +110,8 @@ export default [
     autoComplete: {
       data: 饮食性质
     },
-    name: "饮食性质"
+    name: "饮食性质",
+    width: 90
   },
   {
     key: "field7", //饮食量
@@ -133,13 +136,14 @@ export default [
     autoComplete: {
       data: 出量性质
     },
-    name: "出量性质"
+    name: "出量性质",
+    parentKey: "出量名称"
   },
   {
     key: "field10", //出量量
     value: "",
     event: keyf1,
-    name: "出量"
+    name: "出量量"
   },
   {
     key: "consciousness", //意识
@@ -147,7 +151,8 @@ export default [
     event: keyf1,
     autoComplete: {
       data: 意识
-    }
+    },
+    name: "意识"
   },
   {
     key: "field11", //吸氧方式
@@ -377,23 +382,10 @@ export default [
   }
 ];
 
-let filterKey = '威县'+':';
-let filterKey2 = '统一护理记录单'+':';
+let filterKey = '威县' + ':';
+let filterKey2 = '统一护理记录单' + ':';
 
 export function getListData4() {
-  // listItem("入量名称", info.sheetType).then(res => {
-  //   ruList.splice(0, ruList.length);
-  //   for (let item of res.data.data) {
-  //     ruList.push(item.name);
-  //   }
-  // });
-  // listItem("出量名称", info.sheetType).then(res => {
-  //   chuList.splice(0, chuList.length);
-  //   for (let item of res.data.data) {
-  //     chuList.push(item.name);
-  //   }
-  //   chuList.push("阴道出血");
-  // });
   let list = [
     "意识",
     "饮食性质",
@@ -405,15 +397,14 @@ export function getListData4() {
     "吸氧方式"
   ];
   list = list.map(key => {
-    return key.includes('出量名称')? filterKey + filterKey2 + key : filterKey + key;
+    return key.includes('出量名称') ? filterKey + filterKey2 + key : filterKey + key;
   });
   multiDictInfo(list).then(res => {
     let data = res.data.data;
-    console.log(data);
     setList(意识, "意识", data);
     setList(静脉性质, "静脉性质", data);
     setList(饮食性质, "饮食性质", data);
-    setList(出量名称, "出量名称", data,true);
+    setList(出量名称, "出量名称", data, true);
     setList(吸氧方式, "吸氧方式", data);
   });
 }
@@ -426,23 +417,21 @@ getListData4();
  * @param {*} data 数据源
  * @param {*} isChildOptions2 是否有子下拉选项（依赖于前一个td选择）
  */
-function setList(list, key, data,isChildOptions2) {
-  key = key.includes('出量名称')? filterKey + filterKey2 + key : filterKey + key;
-  if(isChildOptions2){
-    let relyParent = ['出量名称'];
-    list['relyParent'] = [...relyParent];
+function setList(list, key, data, isChildOptions2) {
+  key = key.includes('出量名称') ? filterKey + filterKey2 + key : filterKey + key;
+  if (isChildOptions2) {
     for (let item of data[key]) {
-      let arr = data[filterKey + item.name+'性质'];
-      if(arr && arr.constructor == Array){
-        arr = arr.map(function(child,index){
+      let arr = data[filterKey + item.name + '性质'];
+      if (arr && arr.constructor == Array) {
+        arr = arr.map(function (child, index) {
           return child.name;
         })
-        list[item.name] = arr; 
-      }else {
+        list[item.name] = arr;
+      } else {
         list[item.name] = '';
       }
     }
-  }else {
+  } else {
     list.splice(0, list.length);
     for (let item of data[key]) {
       list.push(item.name);

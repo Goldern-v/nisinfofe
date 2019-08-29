@@ -9,13 +9,25 @@
     >
       <div id="specialForm">
         <div flex="cross:center" class="special-date-con">
-          <div class="label">时间：</div>
-          <input
-            type="text"
-            :disabled="recordDate != ''"
-            v-model="staticObj.recordHour"
-            @keyup="timeKey($event, staticObj, 'recordHour')"
-          />
+          <div class="date" v-if="tr && tr.length && isShowItem()">
+            <label class="label">日期：</label>
+            <input
+              type="text"
+              :placeholder="autoDate"
+              :disabled="recordDate != ''"
+              v-model="staticObj.recordMonth"
+              @keyup="dateKey($event, staticObj, 'recordMonth')"
+            />
+          </div>
+          <div class="time">
+            <label class="label">时间：</label>
+            <input
+              type="text"
+              :disabled="recordDate != ''"
+              v-model="staticObj.recordHour"
+              @keyup="timeKey($event, staticObj, 'recordHour')"
+            />
+          </div>
         </div>
         <el-tabs v-model="activeTab" class="tab-content" type="card">
           <el-tab-pane label="固定项目" name="1">
@@ -23,21 +35,26 @@
               <div
                 v-for="(item, key) in fixedList"
                 :key="key"
-                style="width: 33%;margin-bottom: 12px;overflow: hidden;"
+                style="min-width: 33%;margin-bottom: 12px;overflow: hidden;"
+                :style="item.isWrap && {'min-width':'50%' }"
               >
                 <div class="input-cell" flex="cross:center">
-                  <div class="label" style="width: 70px;">{{ item.name || key}}：</div>
-                  <input
-                  type="text"
-                  :readonly="isRead"
-                  v-model="fixedList[key].value"
-                  @keydown="spaceToKey($event,staticObj, 'bloodPressure')" v-if="key == 'bloodPressure'" style="width: 65px;margin-right: 5px;"
-                />
+                  <div class="label" style="min-width: 70px;">{{ item.name || key}}：</div>
                   <input
                     type="text"
                     :readonly="isRead"
                     v-model="fixedList[key].value"
-                    v-autoComplete="{dataList: dictionary[key], obj:fixedList, key: key}" style="width: 65px;margin-right: 5px;" v-else
+                    @keydown="spaceToKey($event,fixedList[key], 'bloodPressure')"
+                    v-if="key == 'bloodPressure'"
+                    :style="item.maxWidth && {width: item.maxWidth+'px'}"
+                  />
+                  <input
+                    type="text"
+                    :readonly="isRead"
+                    v-model="fixedList[key].value"
+                    v-autoComplete="{dataList: dictionary[key], obj:fixedList, key: key,tr,td:item}"
+                    :style="item.maxWidth && {width: item.maxWidth+'px'}"
+                    v-else
                   />
                   <div class="uniq">{{item.next}}</div>
                 </div>
@@ -96,6 +113,10 @@
 .special-date-con {
   margin: 0 0 18px 0;
 
+  .date {
+    margin-right: 30px;
+  }
+
   .label {
     font-size: 14px;
     color: #333333;
@@ -153,6 +174,8 @@
 }
 
 .input-cell {
+  padding-right: 20px;
+
   &[flex-box] {
     width: 0;
   }
@@ -167,11 +190,11 @@
     border: 1px solid #CBD5DD;
     border-radius: 2px;
     height: 32px;
-    width: 107px;
+    width: 85px;
     outline: none;
     text-align: center;
     margin-left: 5px;
-    margin-right: 12px;
+    margin-right: 5px;
   }
 }
 
@@ -236,10 +259,13 @@ import { offset } from "../sheetTable/components/excel/tool.js";
 import { listItem } from "../../api/recordDesc.js";
 import { FormToEnter } from "@/plugin/tool/FormToTab.js";
 import $ from "jquery";
+import { isNumber } from "util";
 function autoComplete(el, bind) {
   if (bind.value.dataList) {
     let obj = bind.value.obj;
     let key = bind.value.key;
+    let tr = bind.value.tr;
+    let td = bind.value.td;
     el.onfocus = e => {
       let dataList = bind.value.dataList;
       if (el.readOnly) return;
@@ -254,7 +280,14 @@ function autoComplete(el, bind) {
           },
           data: dataList,
           callback: function(data) {
-            // console.log(obj, key)
+            if (td.value && td.value != data && !td.parentKey) {
+              tr.map(item => {
+                if (item.parentKey == td.name) {
+                  item.value = '';
+                }
+              });
+            }
+
             if (data) {
               if (typeof obj[key] == "object") {
                 obj[key].value = data;
@@ -263,7 +296,9 @@ function autoComplete(el, bind) {
               }
             }
           },
-          id: key
+          id: key,
+          tr: tr,
+          td: td
         });
       });
     };
@@ -308,7 +343,8 @@ export default {
         false,
         false,
         false
-      ]
+      ],
+      tr: []
     };
   },
   computed: {
@@ -345,6 +381,7 @@ export default {
       this.isLast = config.isLast;
       // 判断是否能编辑
       let tr = record[record.length - 1];
+      this.tr = tr || [];
       let isRead;
       let status = tr.find(item => item.key == "status").value;
       let empNo = tr.find(item => item.key == "empNo").value;
@@ -365,6 +402,12 @@ export default {
       this.staticObj = decodeData[0];
       this.dictionary = decodeData[1];
       this.fixedList = decodeData[2];
+      for (let item in this.fixedList) {
+        let width = this.fixedList[item].width;
+        if (width && Number(width) && width > 85) {
+          this.fixedList[item].maxWidth = width + 10;
+        }
+      }
       let tab = config.tab;
       // 特殊记录组合
       let doc = "";
@@ -372,7 +415,9 @@ export default {
         doc += record[i].find(item => item.key == "description").value || "";
       }
       this.recordDate =
-        config.recordDate || record[0].find(item => item.key == "recordDate").value || "";
+        config.recordDate ||
+        record[0].find(item => item.key == "recordDate").value ||
+        "";
 
       if (true) {
         // 清除空格
@@ -521,7 +566,7 @@ export default {
     timeKey,
     spaceToKey(e, obj, key) {
       if (e.keyCode == 32) {
-        obj[key] += "/";
+        obj.value += "/";
         e.preventDefault();
       }
     },
@@ -530,6 +575,10 @@ export default {
         obj[key] += "✓";
         e.preventDefault();
       }
+    },
+    // 是否显示该选项
+    isShowItem() {
+      return !this.tr.find(item => item.key == "recordMonth").hidden;
     }
   },
   mounted() {

@@ -28,27 +28,38 @@ export default [
     key: "recordMonth", //日期
     value: "",
     event: event_date,
-    click: click_date
+    click: click_date,
+    width: 36
   },
   {
     key: "recordHour", //时间
     value: "",
-    event: event_time
+    event: event_time,
+    width: 36
   },
   {
     key: "temperature", //体温
     value: "",
-    event: keyf1
+    event: keyf1,
+    name: "体温",
+    next: "℃",
+    width: 34
   },
   {
     key: "pulse", //脉搏
     value: "",
-    event: keyf1
+    event: keyf1,
+    name: "脉搏",
+    next: "次/分",
+    width: 38
   },
   {
     key: "breath", //呼吸
     value: "",
-    event: keyf1
+    event: keyf1,
+    name: "呼吸",
+    next: "次/分",
+    width: 38
   },
   {
     key: "bloodPressure", //血压
@@ -59,19 +70,26 @@ export default [
         e.preventDefault();
       }
       keyf1(e, td);
-    }
+    },
+    name: "血压",
+    next: "mmHg",
+    width: 52
   },
   {
-    key: "spo2", //spo2
+    key: "spo2", //spo2 
     value: "",
-    event: keyf1
+    event: keyf1,
+    name: "血氧饱和度",
+    next: "%",
+    width: 31
   },
 
   {
     key: "field1", //疼痛部位
     value: "",
     event: keyf1,
-    name: "疼痛部位"
+    name: "疼痛部位",
+    width: 65
   },
   {
     key: "field2", //疼痛性质
@@ -88,7 +106,9 @@ export default [
   {
     key: "consciousness", //意识
     value: "",
-    event: keyf1
+    event: keyf1,
+    name: "意识",
+    width: 50
   },
   {
     key: "field4", //吸氧 - 鼻 塞
@@ -121,10 +141,10 @@ export default [
     name: "尿"
   },
   {
-    key: "field9",
+    key: "field9",//出量其他
     value: "",
     event: keyf1,
-    name: ""
+    name: "出量其他"
   },
   {
     key: "field10", //心电图
@@ -133,39 +153,48 @@ export default [
     name: "心电图",
     autoComplete: {
       data: 心电图
-    }
+    },
+    width: 52
   },
   {
     key: "field11", //体位
     value: "",
     event: keyf1,
+    name: "体位",
     autoComplete: {
       data: 体位
-    }
+    },
+    width: 70
   },
   {
     key: "field12", //基础护理
     value: "",
     event: keyf1,
+    name: "基础护理",
     autoComplete: {
       data: 基础护理
-    }
+    },
+    width: 52
   },
   {
     key: "field13", //翻身拍背
     value: "",
     event: keyf1,
+    name: "翻身拍背",
     autoComplete: {
       data: 翻身拍背
-    }
+    },
+    width: 52
   },
   {
     key: "field14", //物理降温
     value: "",
     event: keyf1,
+    name: "物理降温",
     autoComplete: {
       data: 物理降温
-    }
+    },
+    width: 52
   },
   {
     key: "field15", //管路
@@ -174,7 +203,8 @@ export default [
     name: "管路",
     autoComplete: {
       data: 管路
-    }
+    },
+    width: 110
   },
   {
     key: "field16", //健康指导
@@ -183,47 +213,58 @@ export default [
     name: "健康指导",
     autoComplete: {
       data: 健康指导
-    }
+    },
+    width: 125
   },
   {
     key: "field17", //穿刺部位
     value: "",
     event: keyf1,
+    name: "穿刺部位",
     autoComplete: {
       data: 穿刺部位
-    }
+    },
+    width: 65
   },
   {
     key: "field18", //穿刺口
     value: "",
     event: keyf1,
+    name: "穿刺口",
     autoComplete: {
-      data: 穿刺口	
-    }
+      data: 穿刺口
+    },
+    width: 52
   },
   {
     key: "field19", //动脉搏动
     value: "",
     event: keyf1,
+    name: "动脉搏动",
     autoComplete: {
       data: 动脉搏动
-    }
+    },
+    width: 20
   },
   {
     key: "field20", //皮肤胀力
     value: "",
     event: keyf1,
+    name: "皮肤胀力",
     autoComplete: {
       data: 皮肤胀力
-    }
+    },
+    width: 20
   },
   {
     key: "field21", //皮温
     value: "",
     event: keyf1,
+    name: "皮温",
     autoComplete: {
       data: 皮温
-    }
+    },
+    width: 20
   },
   {
     key: "field22", //标题1
@@ -358,9 +399,9 @@ export default [
   }
 ];
 
-let filterKey = '威县'+':';
-let filterKey2 = 'CCU监护单'+':';
-let filterKey2Arr = ["心电图","健康指导"];
+let filterKey = '威县' + ':';
+let filterKey2 = 'CCU监护单' + ':';
+let filterKey2Arr = ["心电图", "健康指导"];
 
 export function getListData4() {
   let list = [
@@ -379,9 +420,9 @@ export function getListData4() {
     "皮肤胀力",
     "皮温",
   ];
-  
+
   list = list.map(key => {
-    return filterKey2Arr.includes(key)? filterKey + filterKey2 + key : filterKey + key;
+    return filterKey2Arr.includes(key) ? filterKey + filterKey2 + key : filterKey + key;
   });
   multiDictInfo(list).then(res => {
     let data = res.data.data;
@@ -390,8 +431,8 @@ export function getListData4() {
     setList(基础护理, "基础护理", data);
     setList(翻身拍背, "翻身拍背", data);
     setList(物理降温, "物理降温", data);
-    setList(管路, "管路", data,true);
-    setList(健康指导, "健康指导", data,true);
+    setList(管路, "管路", data, true);
+    setList(健康指导, "健康指导", data, true);
     setList(穿刺部位, "穿刺部位", data);
     setList(穿刺口, "穿刺口", data);
     setList(动脉搏动, "动脉搏动", data);
@@ -408,22 +449,22 @@ getListData4();
  * @param {*} data 数据源
  * @param {*} isChildOptions 当前选项是否有下拉子选项
  */
-function setList(list, key, data,isChildOptions) {
-  key = filterKey2Arr.includes(key)? filterKey + filterKey2 + key : filterKey + key;
-  if(isChildOptions){
-    let arr = [],obj={};
-    let childKeys = ['静脉管路','心脏康复'];
+function setList(list, key, data, isChildOptions) {
+  key = filterKey2Arr.includes(key) ? filterKey + filterKey2 + key : filterKey + key;
+  if (isChildOptions) {
+    let arr = [], obj = {};
+    let childKeys = ['静脉管路', '心脏康复'];
     for (let item of data[key]) {
       let childArr = '';
-      if(childKeys.includes(item.name)){
+      if (childKeys.includes(item.name)) {
         childArr = data[filterKey + item.name];
-        if(childArr && childArr.constructor == Array){
+        if (childArr && childArr.constructor == Array) {
           childArr = childArr.map(child => {
             return child.name;
           });
         }
       }
-      obj =  {
+      obj = {
         key: item.name,
         children: childArr
       }
@@ -431,7 +472,7 @@ function setList(list, key, data,isChildOptions) {
     }
     list['childOptions'] = true;
     list['option'] = arr;
-  }else {
+  } else {
     list.splice(0, list.length);
     for (let item of data[key]) {
       list.push(item.name);
