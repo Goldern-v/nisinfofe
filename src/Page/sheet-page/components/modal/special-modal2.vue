@@ -34,7 +34,7 @@
             <div flex="wrap:wrap">
               <div
                 v-for="(item, key) in fixedList"
-                :key="key"
+                :key="sheetInfo.sheetType + item.key"
                 style="min-width: 33%;margin-bottom: 12px;overflow: hidden;"
                 :style="item.isWrap && {'min-width':'50%' }"
               >
@@ -52,7 +52,7 @@
                     type="text"
                     :readonly="isRead"
                     v-model="fixedList[key].value"
-                    v-autoComplete="{dataList: dictionary[key], obj:fixedList, key: key,tr,td:item}"
+                    v-autoComplete="{dataList: dictionary[item.key], obj:fixedList, key: key,tr,td:item}"
                     :style="item.maxWidth && {width: item.maxWidth+'px'}"
                     v-else
                   />
@@ -307,6 +307,8 @@ function autoComplete(el, bind) {
         window.closeAutoComplete(key);
       }, 400);
     };
+  }else {
+    el.onfocus = null;
   }
 }
 export default {

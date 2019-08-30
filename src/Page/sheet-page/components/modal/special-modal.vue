@@ -174,7 +174,7 @@
             <div flex="wrap:wrap">
               <div
                 v-for="(item, key) in fixedList"
-                :key="key"
+                :key="sheetInfo.sheetType + item.key"
                 style="width: 33%;margin-bottom: 12px;overflow: hidden;"
               >
                 <div class="input-cell" flex="cross:center">
@@ -183,7 +183,7 @@
                     type="text"
                     :readonly="isRead"
                     v-model="fixedList[key].value"
-                    v-autoComplete="{dataList: dictionary[key], obj:fixedList, key: key}"
+                    v-autoComplete="{dataList: dictionary[item.key], obj:fixedList, key: key}"
                   />
                   <div class="uniq"></div>
                 </div>
@@ -418,6 +418,8 @@ function autoComplete(el, bind) {
         window.closeAutoComplete(key);
       }, 400);
     };
+  }else {
+    el.onfocus = null;
   }
 }
 export default {
