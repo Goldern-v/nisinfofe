@@ -185,6 +185,7 @@ export default {
       })
       return data
     },
+
     // 宣教内容下拉搜索框
     async remoteMethod (query) {
       if (query !== '') {
@@ -206,6 +207,9 @@ export default {
         this.options = [];
       }
     },
+
+
+
     // 处理保存入参
     setParams () {
       let date = dayjs(new Date()).format("MM-DD HH:mm")

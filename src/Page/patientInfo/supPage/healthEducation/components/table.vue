@@ -60,14 +60,14 @@
       </tbody>
     </table>
     <!-- 分页 -->
-    <el-pagination
+    <!-- <el-pagination
       v-if="total > 30 && isprint === 2"
       @current-change="handleCurrentChange"
       :current-page="page"
       :page-size="pageSize"
       layout="total, sizes, prev, pager, next, jumper"
       :total="total">
-    </el-pagination>
+    </el-pagination> -->
   </div>
 </template>
 
@@ -104,9 +104,9 @@ export default {
           { text: '需强化', width: 30 }
         ]
       ],
-      pageSize: 30, // 页码大小
-      page: 1, // 第几页
-      total: 1, // 总条数
+      // pageSize: 30, // 页码大小
+      // page: 1, // 第几页
+      // total: 1, // 总条数
       object: ["患者", "家属"],
       method: ["口述", "书面", "在线", "示范"],
       assessment: ["能理解", "会演示", "需强化"],
@@ -115,7 +115,7 @@ export default {
       pageParam: [], // 未处理的表格数据
       isSetParam: [], // 已处理的表格数据
       patientId: '',
-      isprint: 2 // 是否是打印 打印分页隐藏 1-打印 2-非打印
+      // isprint: 2 // 是否是打印 打印分页隐藏 1-打印 2-非打印
     }
   },
   created () {
@@ -207,16 +207,16 @@ export default {
       this.$emit("dblclick", data);
     },
     // 页数变化
-    handleCurrentChange (page) {
-      this.page = page;
-      let number = (page - 1) * this.pageSize
-      this.isSetParam = this.pageParam.slice(number, this.pageSize + number)
-      this.setTableData()
-    },
+    // handleCurrentChange (page) {
+    //   this.page = page;
+    //   let number = (page - 1) * this.pageSize
+    //   this.isSetParam = this.pageParam.slice(number, this.pageSize + number)
+    //   this.setTableData()
+    // },
     // 打印隐藏分页
-    concealpagination () {
-      this.isprint = 1
-    }
+    // concealpagination () {
+    //   this.isprint = 1
+    // }
   }
 }
 </script>

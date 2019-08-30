@@ -1,19 +1,34 @@
 <template>
 <div class="health-education" v-loading="pageLoading">
 
-  <!-- 无数据 -->
+  <!-- 无推送内容 -->
   <div v-if="isData === 2" style="height:100%">
-    <nullBg></nullBg>
+    <NullBg></NullBg>
     <div class="addBtn">
-      <whiteButton text="添加健康教育单" @click="onAddTable" />
+      <WhiteButton text="添加健康教育单" @click="onAddTable" />
     </div>
   </div>
 
   <!-- 有推送内容 -->
-  <div v-show="isData === 1" class="healthEducation">
+  <!-- 操作按钮 -->
+  <div class="tool-con" v-show="isData === 1">
+    <div class="tool-fix">
+      <WhiteButton text="添加" @click="onAdd"></WhiteButton>
+      <WhiteButton text="修改" @click="onEdit" :disabled="!selected"></WhiteButton>
+      <WhiteButton text="删除" @click="onRemove" :disabled="!selected"></WhiteButton>
+      <WhiteButton text="推送" @click="onPush" :disabled="!selected" ></whiteButton>
+      <WhiteButton text="打印预览" @click="toPrint"></WhiteButton>
+    </div>
+    <div class="tool-fix tool-right">
+      <WhiteButton text="新建教育单" @click="makeNew"></WhiteButton>
+      <WhiteButton text="新建教育单"></WhiteButton>
+    </div>
+  </div>
 
+  <div v-show="isData === 1" class="healthEducation">
     <!-- 表单 -->
     <div ref="Contain">
+
       <!-- 表单头部信息 -->
       <div class="health-education-head">
         <div class="hospital">东 莞 市 厚 街 医 院</div>
@@ -27,19 +42,9 @@
               <span>住院号：{{patientInfo.inpNo}}</span>
         </div>
       </div>
+
       <!-- 表单内容 -->
       <Table @isShowTable="isShowTable" ref="tableParams" :selected.sync="selected" @dblclick="onEdit"/>
-    </div>
-
-    <!-- 操作按钮 -->
-    <div class="tool-con">
-      <div class="tool-fix" flex="dir:top">
-        <whiteButton text="添加" @click="onAdd"></whiteButton>
-        <whiteButton text="修改" @click="onEdit" :disabled="!selected"></whiteButton>
-        <whiteButton text="删除" @click="onRemove" :disabled="!selected"></whiteButton>
-        <whiteButton text="推送" @click="onPush" :disabled="!selected" ></whiteButton>
-        <whiteButton text="打印预览" @click="toPrint"></whiteButton>
-      </div>
     </div>
 
     <!-- 弹框 -->
@@ -49,10 +54,12 @@
 </template>
 
 <script>
-import whiteButton from "@/components/button/white-button.vue"; // 添加按钮
-import nullBg from "@/components/null/null-bg.vue"; // 页面初始化背景
+import WhiteButton from "@/components/button/white-button.vue"; // 添加按钮
+import NullBg from "@/components/null/null-bg.vue"; // 页面初始化背景
 import Table from './components/table'
 import EditModal from "./components/editModal";
+// import makeNewModal from "../components/makeNewModal";
+
 import { getMissionPageParamById, deleteMission, pushMission } from './api/healthApi'
 import dayjs from 'dayjs'
 import { setTimeout } from 'timers';
@@ -61,9 +68,9 @@ export default {
   name: "healthEducation",
   components: {
     Table,
-    whiteButton,
+    WhiteButton,
     EditModal,
-    nullBg
+    NullBg
   },
 
   data() {
@@ -94,6 +101,7 @@ export default {
         this.$message.warning("请先选择一名患者");
       }
     },
+
     // 删除
     async onRemove() {
       await this.$confirm(
@@ -124,6 +132,11 @@ export default {
     onEdit (data) {
       this.$refs.editModal.open("编辑健康宣教", data || this.selected);
     },
+
+    makeNew() {
+
+    },
+
     // 推送
     async onPush () {
       let queryInfo = this.$route.query
@@ -161,7 +174,7 @@ export default {
     },
     // 打印
     toPrint() {
-      this.$refs.tableParams.concealpagination()
+      // this.$refs.tableParams.concealpagination()
       setTimeout(() => {
         window.localStorage.sugarModel = $(this.$refs.Contain).html();
         if (process.env.NODE_ENV === "production") {
@@ -179,6 +192,7 @@ export default {
 <style scoped lang='scss'>
   .health-education {
     min-height: calc(100vh - 65px);
+    overflow: hidden;
     .addBtn {
       margin-top: 20px;
       text-align: center;
@@ -188,19 +202,25 @@ export default {
       }
     }
     .healthEducation{
-      margin: 20px auto;
+      margin: 60px auto;
       background: #ffffff;
-      width: 700px;
+      width: 706px;
       padding: 20px;
       min-height: 945px;
       box-shadow: 0 5px 9px 0 rgba(0, 0, 0, 0.5);
       position: relative;
     }
     .tool-con {
+      width: calc(100vw - 200px);
+      height: 50px;
+      /* background: yellow; */
+      background: #f2f2f2;
       position: fixed;
-      top: 70px;
-      right: 10px;
+      top: 50px;
+      z-index: 100;
       .tool-fix {
+        float: left;
+        margin-left: 10px;
         /deep/ .white-btn {
           justify-content: center !important;
           text-align: center !important;
@@ -208,6 +228,10 @@ export default {
         .btn-con + .btn-con {
           margin-top: 10px;
         }
+      }
+      .tool-right{
+        float: right;
+        margin-right: 10px;
       }
     }
   }
