@@ -19,6 +19,8 @@ import diagnosis from "@/Page/patientInfo/supPage/diagnosis/diagnosis";
 import diganosisDetails from "@/Page/patientInfo/supPage/diagnosis/diganosis-details/diganosisDetails";
 import bloodSugar from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar.vue"; // 厚街
 import bloodSugarWeiXian from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_weixian.vue"; // 威县
+import healthEducation from "@/Page/patientInfo/supPage/healthEducation/healthEducation.vue"; // 厚街
+
 
 import task from "@/Page/lesion/supPage/task/task";
 import bed from "@/Page/lesion/supPage/bed/bed";
@@ -349,6 +351,12 @@ const router = new Router({
               component: process.env.HOSPITAL_NAME == "威县人民医院" ? bloodSugarWeiXian : bloodSugar,
               name: "血糖",
               alias: "血糖"
+            },
+            {
+              path: "/healthEducation",
+              component: healthEducation,
+              name: "健康教育单",
+              alias: "健康教育单"
             },
             {
               path: "/hospitalEval",

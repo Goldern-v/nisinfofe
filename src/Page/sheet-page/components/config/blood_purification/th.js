@@ -7,15 +7,6 @@ export default {
   th: {
     top: [
       {
-        name: "日期",
-        style: {
-          minWidth: "36px",
-          maxWidth: "36px"
-        },
-        colspan: "1",
-        rowspan: "3"
-      },
-      {
         name: "时间",
         style: {
           minWidth: "36px",
@@ -50,7 +41,7 @@ export default {
       },
       {
         name: `
-        P/HR<br/>(次/分)
+        P/HR<br/>(次/min)
         `,
         style: {},
         colspan: "1",

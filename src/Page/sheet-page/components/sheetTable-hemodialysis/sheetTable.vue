@@ -22,7 +22,7 @@
           </span>
           <span>
             性别：
-            <div class="bottom-line" style="min-width: 30px">{{patientInfo.sex}}</div>
+            <div class="bottom-line" style="min-width: 30px" @click="updateTetxInfo('sex', '性别', patientInfo.sex)">{{patientInfo.sex}}</div>
           </span>
           <!-- <span @click="updateTetxInfo('bedLabel', '床号', patientInfo.bedLabel)">
             床号：
@@ -34,13 +34,13 @@
           </span>-->
           <span>
             年龄：
-            <div class="bottom-line" style="min-width: 50px">{{patientInfo.age}}</div>
+            <div class="bottom-line" style="min-width: 50px" @click="updateTetxInfo('age', '年龄', patientInfo.age)">{{patientInfo.age}}</div>
           </span>
           <span>
             诊断：
             <div
               class="bottom-line"
-              style="min-width: 150px;max-width: 200px;"
+              style="min-width: 150px;max-width: 200px;min-height: 13px;" @click="updateTetxInfo('diagnosis', '诊断：', patientInfo.diagnosis)"
             >{{patientInfo.diagnosis}}</div>
           </span>
         </div>

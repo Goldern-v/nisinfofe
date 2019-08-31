@@ -12,6 +12,10 @@ let ruList = [];
 
 let GCS = [];
 let 心电图 = [];
+let 吸痰 = [];
+let 气垫 = [];
+let 雾化吸入 = [];
+let 约束带 = [];
 let 皮肤 = [];
 let 体位 = [];
 let 基础护理 = [];
@@ -36,17 +40,24 @@ export default [
   {
     key: "temperature", //体温
     value: "",
-    event: keyf1
+    event: keyf1,
+    name: "体温",
+    next: "℃",
+    width: 34
   },
   {
     key: "pulse", //脉搏
     value: "",
-    event: keyf1
+    event: keyf1,
+    name: "脉搏",
+    next: "次/分"
   },
   {
     key: "breath", //呼吸
     value: "",
-    event: keyf1
+    event: keyf1,
+    name: "呼吸",
+    next: "次/分"
   },
   {
     key: "bloodPressure", //血压
@@ -57,12 +68,16 @@ export default [
         e.preventDefault();
       }
       keyf1(e, td);
-    }
+    },
+    name: "血压",
+    next: "mmHg"
   },
   {
     key: "spo2", //spo2
     value: "",
-    event: keyf1
+    event: keyf1,
+    name: "血氧饱和度",
+    next: "%"
   },
 
   {
@@ -86,7 +101,8 @@ export default [
   {
     key: "consciousness", //意识
     value: "",
-    event: keyf1
+    event: keyf1,
+    name: "意识"
   },
   {
     key: "field4", //吸氧 - 鼻 塞
@@ -122,31 +138,31 @@ export default [
     key: "field9", //静脉其他
     value: "",
     event: keyf1,
-    name: "其他"
+    name: "静脉其他"
   },
   {
     key: "field10", //出量尿性质
     value: "",
     event: keyf1,
-    name: "尿性质"
+    name: "出量尿性质"
   },
   {
     key: "field11", //出量尿量
     value: "",
     event: keyf1,
-    name: "出量量"
+    name: "出量尿量"
   },
   {
     key: "field12", //出量其他性质
     value: "",
     event: keyf1,
-    name: "其他性质"
+    name: "出量其他性质"
   },
   {
     key: "field13", //出量其他量
     value: "",
     event: keyf1,
-    name: "其他量"
+    name: "出量其他量"
   },
   {
     key: "field14", //GCS
@@ -155,27 +171,33 @@ export default [
     name: "GCS",
     autoComplete: {
       data: GCS
-    }
+    },
+    isWrap: true
   },
   {
     key: "pupilSizeLeft", //瞳孔直径左
     value: "",
-    event: keyf1
+    event: keyf1,
+    name: "瞳孔（大小）  左",
   },
   {
     key: "pupilSizeRight", //瞳孔直径右
     value: "",
-    event: keyf1
+    event: keyf1,
+    name: "右",
+    isWrap: true
   },
   {
     key: "pupilReflexLeft", //瞳孔反射左
     value: "",
-    event: keyf1
+    event: keyf1,
+    name: "瞳孔（反射） 左"
   },
   {
     key: "pupilReflexRight", //瞳孔反射右
     value: "",
-    event: keyf1
+    event: keyf1,
+    name: "瞳孔（反射） 右"
   },
   {
     key: "field15", //肢体肌力左上
@@ -205,25 +227,41 @@ export default [
     key: "field19", //吸痰
     value: "",
     event: keyf1,
-    isSelected: true
+    // isSelected: true,
+    autoComplete: {
+      data: 吸痰
+    },
+    name: "吸痰"
   },
   {
     key: "field20", //气垫
     value: "",
     event: keyf1,
-    isSelected: true
+    // isSelected: true,
+    autoComplete: {
+      data: 气垫
+    },
+    name: "气垫"
   },
   {
     key: "field21", //雾化吸入
     value: "",
     event: keyf1,
-    isSelected: true
+    // isSelected: true,
+    autoComplete: {
+      data: 雾化吸入
+    },
+    name: "雾化吸入"
   },
   {
     key: "field22", //约束带
     value: "",
     event: keyf1,
-    isSelected: true
+    // isSelected: true,
+    autoComplete: {
+      data: 约束带
+    },
+    name: "约束带"
   },
   {
     key: "field23", //心电图
@@ -231,15 +269,17 @@ export default [
     event: keyf1,
     autoComplete: {
       data: 心电图
-    }
-  },	
+    },
+    name: "心电图"
+  },
   {
     key: "field24", //皮肤
     value: "",
     event: keyf1,
     autoComplete: {
       data: 皮肤
-    }
+    },
+    name: "皮肤"
   },
   {
     key: "field25", //体位
@@ -247,15 +287,17 @@ export default [
     event: keyf1,
     autoComplete: {
       data: 体位
-    }
+    },
+    name: "体位"
   },
   {
     key: "field26", //基础护理	
     value: "",
     event: keyf1,
     autoComplete: {
-      data: 基础护理	
-    }
+      data: 基础护理
+    },
+    name: "基础护理"
   },
   {
     key: "field27", //翻身拍背
@@ -263,7 +305,8 @@ export default [
     event: keyf1,
     autoComplete: {
       data: 翻身拍背
-    }
+    },
+    name: "翻身拍背"
   },
   {
     key: "field28", //物理降温
@@ -271,7 +314,8 @@ export default [
     event: keyf1,
     autoComplete: {
       data: 物理降温
-    }
+    },
+    name: "物理降温"
   },
   {
     key: "field29", //管路
@@ -279,7 +323,9 @@ export default [
     event: keyf1,
     autoComplete: {
       data: 管路
-    }
+    },
+    name: "管路",
+    width: 110
   },
   {
     key: "field30", //理疗
@@ -287,7 +333,8 @@ export default [
     event: keyf1,
     autoComplete: {
       data: 理疗
-    }
+    },
+    name: "理疗"
   },
   {
     key: "field31", //健康指导
@@ -295,7 +342,9 @@ export default [
     event: keyf1,
     autoComplete: {
       data: 健康指导
-    }
+    },
+    name: "健康指导",
+    width: 135
   },
   {
     key: "field32", //标题1
@@ -438,14 +487,18 @@ export default [
   }
 ];
 
-let filterKey = '威县'+':';
-let filterKey2 = '脑外科重症监护单'+':';
-let filterKey2Arr = ["心电图","健康指导"]
+let filterKey = '威县' + ':';
+let filterKey2 = '脑外科重症监护单' + ':';
+let filterKey2Arr = ["心电图", "吸痰", "气垫", "雾化吸入", "约束带", "健康指导"]
 
 export function getListData4() {
   let list = [
     "GCS",
     "心电图",
+    "吸痰",
+    "气垫",
+    "雾化吸入",
+    "约束带",
     "皮肤",
     "体位",
     "基础护理",
@@ -457,22 +510,26 @@ export function getListData4() {
     "健康指导",
     "肺功能锻炼"
   ];
-  
+
   list = list.map(key => {
-    return filterKey2Arr.includes(key)? filterKey + filterKey2 + key : filterKey + key;
+    return filterKey2Arr.includes(key) ? filterKey + filterKey2 + key : filterKey + key;
   });
   multiDictInfo(list).then(res => {
     let data = res.data.data;
     setList(GCS, "GCS", data);
     setList(心电图, "心电图", data);
+    setList(吸痰, "吸痰", data);
+    setList(气垫, "气垫", data);
+    setList(雾化吸入, "雾化吸入", data);
+    setList(约束带, "约束带", data);
     setList(皮肤, "皮肤", data);
     setList(体位, "体位", data);
     setList(基础护理, "基础护理", data);
     setList(翻身拍背, "翻身拍背", data);
     setList(物理降温, "物理降温", data);
-    setList(管路, "管路", data,true);
+    setList(管路, "管路", data, true);
     setList(理疗, "理疗", data);
-    setList(健康指导, "健康指导", data,true);
+    setList(健康指导, "健康指导", data, true);
   });
 }
 
@@ -484,22 +541,22 @@ getListData4();
  * @param {*} data 数据源
  * @param {*} isChildOptions 当前选项是否有下拉子选项
  */
-function setList(list, key, data,isChildOptions) {
-  key = filterKey2Arr.includes(key)? filterKey + filterKey2 + key : filterKey + key;
-  if(isChildOptions){
-    let arr = [],obj={};
-    let childKeys = ['肺功能锻炼','静脉管路'];
+function setList(list, key, data, isChildOptions) {
+  key = filterKey2Arr.includes(key) ? filterKey + filterKey2 + key : filterKey + key;
+  if (isChildOptions) {
+    let arr = [], obj = {};
+    let childKeys = ['肺功能锻炼', '静脉管路'];
     for (let item of data[key]) {
       let childArr = '';
-      if(childKeys.includes(item.name)){
+      if (childKeys.includes(item.name)) {
         childArr = data[filterKey + item.name];
-        if(childArr && childArr.constructor == Array){
+        if (childArr && childArr.constructor == Array) {
           childArr = childArr.map(child => {
             return child.name;
           });
         }
       }
-      obj =  {
+      obj = {
         key: item.name,
         children: childArr
       }
@@ -507,7 +564,7 @@ function setList(list, key, data,isChildOptions) {
     }
     list['childOptions'] = true;
     list['option'] = arr;
-  }else {
+  } else {
     list.splice(0, list.length);
     for (let item of data[key]) {
       list.push(item.name);

@@ -39,7 +39,7 @@
     <table class="sheet-table" ref="table">
       <tr>
         <td
-          :rowspan="15"
+          :rowspan="data.bodyModel.length+4 || 15"
           style="text-align: center;
     background: #eee !important;
     vertical-align: middle;
@@ -811,7 +811,18 @@ export default {
         tab,
         isLast
       };
-      window.openSpecialModal(config);
+      let recordHour = tr.find(td => td.key == "recordHour").value;
+      let recordMonth = this.sheetInfo.relObj.recordMonth;
+      let recordDate = tr.find(td => td.key == "recordDate").value;
+      if(!recordHour && recordDate){
+        recordHour = recordDate.split(' ')[1];
+      }
+      if(recordMonth && recordHour){
+        config.recordDate = recordMonth + ' ' + recordHour;
+      }else {
+        config.recordDate = recordHour;
+      }
+      window.openSpecialModal2(config);
     },
     markTip(e, td) {
       if (sheetInfo.model == "print") return;

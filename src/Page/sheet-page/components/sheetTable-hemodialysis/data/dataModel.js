@@ -28,7 +28,7 @@ let tableModel = {
 								prev: "记录日期：",
 								class: "bottom-line",
 								value: "",
-								name: "jiluriqi",
+								name: "recordMonth",
 								style: "width:100px;text-align:center;"
 							},
 							{
@@ -37,7 +37,10 @@ let tableModel = {
 								class: "bottom-line",
 								value: "",
 								name: "shiyongjiqi",
-								style: "width:70px;text-align:center;"
+								style: "width:70px;text-align:center;",
+								autoComplete: {
+									data: {}
+								}
 							},
 						]
 					}
@@ -1349,8 +1352,8 @@ let tableModel = {
 					{
 						colspan: 2,
 						rowspan: '',
-						class: "",
-						style: "padding-left: 5px;",
+						class: "signTd",
+						style: "padding-left: 5px;overflow: hidden;",
 						children: [
 							{
 								type: "input",

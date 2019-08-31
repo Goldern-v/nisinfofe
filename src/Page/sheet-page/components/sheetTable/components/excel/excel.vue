@@ -806,7 +806,15 @@ export default {
         tab,
         isLast
       };
-      window.openSpecialModal(config);
+      if (
+        sheetInfo.sheetType == "unified_wx" ||
+        sheetInfo.sheetType === "ccu_wx" ||
+        sheetInfo.sheetType == "intensive_care_wx"
+      ) {
+        window.openSpecialModal2(config);
+      } else {
+        window.openSpecialModal(config);
+      }
     },
     markTip(e, td) {
       if (sheetInfo.model == "print") return;

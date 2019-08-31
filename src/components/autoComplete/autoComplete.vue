@@ -96,27 +96,20 @@ export default {
           this.data = [...parentArr];
         }else {
           // 出量名称和出量性质
-          let arr = [],parentKey = 'parentSelected'+ config.id;
-          let relyParent = config.data.relyParent;
+          let arr = [];
 
           // 首次点击出量性质
-          if(config.td && config.td.value && !config.data[parentKey]){
+          if (config.td && config.td.parentKey) {
             let tr = config.tr;
             tr.map(td => {
-              if(relyParent.includes(td.name)){
-                config.data[parentKey] = td.value;
+              if (td.name == config.td.parentKey) {
+                arr = config.data[td.value] || [];
               }
-            })
-          }
-
-          if(relyParent.includes(config.td.name)){
-            for(let key in config.data){
-              if(!key.includes('parentSelected') && !key.includes('relyParent')){
-                arr.push(key)
-              }
+            });
+          } else {
+            for (let key in config.data) {
+              arr.push(key);
             }
-          }else {
-            arr = config.data[config.data[parentKey]] || arr;
           }
           this.data = [...arr];
         }

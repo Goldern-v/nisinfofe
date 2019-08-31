@@ -9,188 +9,59 @@
     >
       <div id="specialForm">
         <div flex="cross:center" class="special-date-con">
-          <div class="label">日期：</div>
-          <input
-            type="text"
-            :placeholder="autoDate"
-            :disabled="recordDate != ''"
-            v-model="staticObj.recordMonth"
-            @keyup="dateKey($event, staticObj, 'recordMonth')"
-          />
-          <div style="width: 30px"></div>
-          <div class="label">时间：</div>
-          <input
-            type="text"
-            :disabled="recordDate != ''"
-            v-model="staticObj.recordHour"
-            @keyup="timeKey($event, staticObj, 'recordHour')"
-          />
+          <div class="date" v-if="tr && tr.length && isShowItem()">
+            <label class="label">日期：</label>
+            <input
+              type="text"
+              :placeholder="autoDate"
+              :disabled="recordDate != ''"
+              v-model="staticObj.recordMonth"
+              @keyup="dateKey($event, staticObj, 'recordMonth')"
+            />
+          </div>
+          <div class="time">
+            <label class="label">时间：</label>
+            <input
+              type="text"
+              :disabled="recordDate != ''"
+              v-model="staticObj.recordHour"
+              @keyup="timeKey($event, staticObj, 'recordHour')"
+            />
+          </div>
         </div>
         <el-tabs v-model="activeTab" class="tab-content" type="card">
           <el-tab-pane label="固定项目" name="1">
-            <div class="input-row" flex="main:justify">
-              <div class="input-cell" flex="cross:center" flex-box="1">
-                <div class="label">体温：</div>
-                <input type="text" :readonly="isRead" v-model="staticObj.temperature" />
-                <div class="uniq">℃</div>
-              </div>
-              <div class="input-cell" flex="cross:center" flex-box="1">
-                <div class="label">脉搏：</div>
-                <input type="text" :readonly="isRead" v-model="staticObj.pulse" />
-                <div class="uniq">次/分</div>
-              </div>
-              <div class="input-cell" flex="cross:center" flex-box="1">
-                <div class="label">呼吸：</div>
-                <input type="text" :readonly="isRead" v-model="staticObj.breath" />
-                <div class="uniq">次/分</div>
-              </div>
-            </div>
-            <div class="input-row" flex="main:justify">
-              <div class="input-cell" flex="cross:center" flex-box="1">
-                <div class="label">血压：</div>
-                <input
-                  type="text"
-                  :readonly="isRead"
-                  v-model="staticObj.bloodPressure"
-                  @keydown="spaceToKey($event,staticObj, 'bloodPressure')"
-                />
-                <div class="uniq">mmHg</div>
-              </div>
-              <div
-                class="input-cell"
-                flex="cross:center"
-                flex-box="1"
-                v-if="staticObj.consciousness !== undefined"
-              >
-                <div class="label">意识：</div>
-                <input
-                  type="text"
-                  :readonly="isRead"
-                  v-model="staticObj.consciousness"
-                  v-autoComplete="{dataList: dictionary.consciousness, obj:staticObj, key: 'consciousness'}"
-                />
-                <div class="uniq"></div>
-              </div>
-              <div
-                class="input-cell"
-                flex="cross:center"
-                flex-box="1"
-                v-if="staticObj.spo2 !== undefined"
-              >
-                <div class="label">
-                  SOP
-                  <sub>2</sub>：
-                </div>
-                <input type="text" :readonly="isRead" v-model="staticObj.spo2" />
-                <div class="uniq">%</div>
-              </div>
-              <div flex-box="1" v-if="staticObj.consciousness === undefined"></div>
-              <div flex-box="1" v-if="staticObj.spo2 === undefined"></div>
-            </div>
-            <div class="input-row" v-if="staticObj.pupilSizeLeft !== undefined" flex="main:justify">
-              <div class="input-cell" flex="cross:center" flex-box="1">
-                <div class="label">瞳孔(大小)</div>
-              </div>
-              <div class="input-cell" flex="cross:center" flex-box="2">
-                <div class="label">左：</div>
-                <input type="text" :readonly="isRead" v-model="staticObj.pupilSizeLeft" />
-                <div class="uniq"></div>
-              </div>
-              <div class="input-cell" flex="cross:center" flex-box="2">
-                <div class="label">右：</div>
-                <input type="text" :readonly="isRead" v-model="staticObj.pupilSizeRight" />
-                <div class="uniq"></div>
-              </div>
-              <div flex-box="2"></div>
-            </div>
-            <div
-              class="input-row"
-              v-if="staticObj.pupilReflexLeft !== undefined"
-              flex="main:justify"
-            >
-              <div class="input-cell" flex="cross:center" flex-box="1">
-                <div class="label">瞳孔(反射)</div>
-              </div>
-              <div class="input-cell" flex="cross:center" flex-box="2">
-                <div class="label">左：</div>
-                <input
-                  type="text"
-                  :readonly="isRead"
-                  v-model="staticObj.pupilReflexLeft"
-                  v-autoComplete="{dataList: dictionary.pupilReflexLeft, obj:staticObj, key: 'pupilReflexLeft'}"
-                />
-                <div class="uniq"></div>
-              </div>
-              <div class="input-cell" flex="cross:center" flex-box="2">
-                <div class="label">右：</div>
-                <input
-                  type="text"
-                  :readonly="isRead"
-                  v-model="staticObj.pupilReflexRight"
-                  v-autoComplete="{dataList: dictionary.pupilReflexRight, obj:staticObj, key: 'pupilReflexRight'}"
-                />
-                <div class="uniq"></div>
-              </div>
-              <div flex-box="2"></div>
-            </div>
-            <div class="input-row" v-if="staticObj.food !== undefined" flex="main:left">
-              <div class="input-cell" flex="cross:center">
-                <div class="label">入量名称：</div>
-                <input
-                  type="text"
-                  :readonly="isRead"
-                  style="width: 195px"
-                  v-model="staticObj.food"
-                  v-autoComplete="{dataList: dictionary.food, obj:staticObj, key: 'food'}"
-                />
-                <div class="uniq"></div>
-              </div>
-              <div class="input-cell" flex="cross:center" style="margin-left: 4px">
-                <div class="label">量：</div>
-                <input type="text" :readonly="isRead" v-model="staticObj.foodSize" />
-                <div class="uniq">ml</div>
-              </div>
-              <div flex-box="1"></div>
-            </div>
-            <div class="input-row" v-if="staticObj.discharge !== undefined" flex="main:left">
-              <div class="input-cell" flex="cross:center">
-                <div class="label">出量名称：</div>
-                <input
-                  type="text"
-                  :readonly="isRead"
-                  style="width: 195px"
-                  v-model="staticObj.discharge"
-                  v-autoComplete="{dataList: dictionary.discharge, obj:staticObj, key: 'discharge'}"
-                />
-                <div class="uniq"></div>
-              </div>
-              <div class="input-cell" flex="cross:center" style="margin-left: 4px">
-                <div class="label">量：</div>
-                <input type="text" :readonly="isRead" v-model="staticObj.dischargeSize" />
-                <div class="uniq">ml</div>
-              </div>
-              <div flex-box="1"></div>
-            </div>
             <div flex="wrap:wrap">
               <div
                 v-for="(item, key) in fixedList"
                 :key="sheetInfo.sheetType + item.key"
-                style="width: 33%;margin-bottom: 12px;overflow: hidden;"
+                style="min-width: 33%;margin-bottom: 12px;overflow: hidden;"
+                :style="item.isWrap && {'min-width':'50%' }"
               >
                 <div class="input-cell" flex="cross:center">
-                  <div class="label" style="width: 70px;">{{ item.name || key}}：</div>
+                  <div class="label" style="min-width: 70px;">{{ item.name || key}}：</div>
                   <input
                     type="text"
                     :readonly="isRead"
                     v-model="fixedList[key].value"
-                    v-autoComplete="{dataList: dictionary[item.key], obj:fixedList, key: key}"
+                    @keydown="spaceToKey($event,fixedList[key], 'bloodPressure')"
+                    v-if="key == 'bloodPressure'"
+                    :style="item.maxWidth && {width: item.maxWidth+'px'}"
                   />
-                  <div class="uniq"></div>
+                  <input
+                    type="text"
+                    :readonly="isRead"
+                    v-model="fixedList[key].value"
+                    v-autoComplete="{dataList: dictionary[item.key], obj:fixedList, key: key,tr,td:item}"
+                    :style="item.maxWidth && {width: item.maxWidth+'px'}"
+                    v-else
+                  />
+                  <div class="uniq">{{item.next}}</div>
                 </div>
               </div>
             </div>
           </el-tab-pane>
-          <el-tab-pane label="自定义项目" name="2">
+          <el-tab-pane label="自定义项目" name="2" v-if="customTitle && customTitle.length">
             <div class="custom-cell" v-for="(item, index) in customTitle" :key="item.key">
               <div class="custom-box" flex="cross:center">
                 <div class="label">{{item.name}}</div>
@@ -241,6 +112,10 @@
 
 .special-date-con {
   margin: 0 0 18px 0;
+
+  .date {
+    margin-right: 30px;
+  }
 
   .label {
     font-size: 14px;
@@ -299,6 +174,8 @@
 }
 
 .input-cell {
+  padding-right: 20px;
+
   &[flex-box] {
     width: 0;
   }
@@ -313,11 +190,11 @@
     border: 1px solid #CBD5DD;
     border-radius: 2px;
     height: 32px;
-    width: 107px;
+    width: 85px;
     outline: none;
     text-align: center;
     margin-left: 5px;
-    margin-right: 12px;
+    margin-right: 5px;
   }
 }
 
@@ -375,17 +252,20 @@ import { nullRow } from "@/Page/sheet-page/components/render/Body.js";
 import sheetModel from "@/Page/sheet-page/sheet.js";
 import templateSlide from "./template-slide.vue";
 import sheetInfo from "../config/sheetInfo";
-import { decoder_title, decoder_record } from "./render/decode.js";
+import { decoder_title, decoder_record2 } from "./render/decode.js";
 import { mergeTr } from "./render/render.js";
 import { dateKey, timeKey } from "../config/keyEvent/date.js";
 import { offset } from "../sheetTable/components/excel/tool.js";
 import { listItem } from "../../api/recordDesc.js";
 import { FormToEnter } from "@/plugin/tool/FormToTab.js";
 import $ from "jquery";
+import { isNumber } from "util";
 function autoComplete(el, bind) {
   if (bind.value.dataList) {
     let obj = bind.value.obj;
     let key = bind.value.key;
+    let tr = bind.value.tr;
+    let td = bind.value.td;
     el.onfocus = e => {
       let dataList = bind.value.dataList;
       if (el.readOnly) return;
@@ -400,7 +280,14 @@ function autoComplete(el, bind) {
           },
           data: dataList,
           callback: function(data) {
-            // console.log(obj, key)
+            if (td.value && td.value != data && !td.parentKey) {
+              tr.map(item => {
+                if (item.parentKey == td.name) {
+                  item.value = '';
+                }
+              });
+            }
+
             if (data) {
               if (typeof obj[key] == "object") {
                 obj[key].value = data;
@@ -409,7 +296,9 @@ function autoComplete(el, bind) {
               }
             }
           },
-          id: key
+          id: key,
+          tr: tr,
+          td: td
         });
       });
     };
@@ -456,7 +345,8 @@ export default {
         false,
         false,
         false
-      ]
+      ],
+      tr: []
     };
   },
   computed: {
@@ -493,6 +383,7 @@ export default {
       this.isLast = config.isLast;
       // 判断是否能编辑
       let tr = record[record.length - 1];
+      this.tr = tr || [];
       let isRead;
       let status = tr.find(item => item.key == "status").value;
       let empNo = tr.find(item => item.key == "empNo").value;
@@ -509,10 +400,16 @@ export default {
       this.isRead = isRead;
       this.table = config.table;
       this.customTitle = decoder_title(config.thead);
-      let decodeData = decoder_record(config.record, this.customTitle);
+      let decodeData = decoder_record2(config.record, this.customTitle);
       this.staticObj = decodeData[0];
       this.dictionary = decodeData[1];
       this.fixedList = decodeData[2];
+      for (let item in this.fixedList) {
+        let width = this.fixedList[item].width;
+        if (width && Number(width) && width > 85) {
+          this.fixedList[item].maxWidth = width + 10;
+        }
+      }
       let tab = config.tab;
       // 特殊记录组合
       let doc = "";
@@ -520,7 +417,9 @@ export default {
         doc += record[i].find(item => item.key == "description").value || "";
       }
       this.recordDate =
-        record[0].find(item => item.key == "recordDate").value || "";
+        config.recordDate ||
+        record[0].find(item => item.key == "recordDate").value ||
+        "";
 
       if (true) {
         // 清除空格
@@ -669,7 +568,7 @@ export default {
     timeKey,
     spaceToKey(e, obj, key) {
       if (e.keyCode == 32) {
-        obj[key] += "/";
+        obj.value += "/";
         e.preventDefault();
       }
     },
@@ -678,11 +577,15 @@ export default {
         obj[key] += "✓";
         e.preventDefault();
       }
+    },
+    // 是否显示该选项
+    isShowItem() {
+      return !this.tr.find(item => item.key == "recordMonth").hidden;
     }
   },
   mounted() {
     // 打开特殊情况
-    window.openSpecialModal = config => {
+    window.openSpecialModal2 = config => {
       this.open(config);
     };
   },

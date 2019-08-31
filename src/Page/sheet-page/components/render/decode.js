@@ -18,6 +18,11 @@ function decode() {
     }
     allData = [...allData, ...result];
   }
+
+  if (window.getRelObj && window.getRelObj.constructor == Function) {
+    sheetInfo.relObj = window.getRelObj() || sheetInfo.relObj;
+  }
+
   return {
     list: allData,
     relObj: renderRelObj(sheetInfo.relObj)

@@ -383,9 +383,10 @@ export default {
         let dataList = this.obj.options;
         let key = this.obj.name;
         let obj = this.formObj.model;
-        if (this.$root.$refs && 
-        this.$root.$refs.autoInput && 
-        this.$root.$refs.autoInput.open
+        if (
+          this.$root.$refs &&
+          this.$root.$refs.autoInput &&
+          this.$root.$refs.autoInput.open
         ) {
           this.$root.$refs.autoInput.open({
             parentEl: e.target,
@@ -460,7 +461,11 @@ export default {
         e.target.selectionEnd
       );
 
-      if (e.keyCode === 37 && e.target.selectionStart === 0) {
+      if (
+        e.keyCode == 37 &&
+        (e.target.selectionStart == 0 ||
+          (e.target.selectionStart == null && e.target.selectionEnd == null))
+      ) {
         // ArrowLeft
         let leftNode = e.target.$leftNode;
         while (leftNode && leftNode.disabled === true) {
@@ -471,9 +476,9 @@ export default {
         }
         console.log("ArrowLeft", e, e.target, leftNode, leftNode.disabled);
       } else if (
-        e.keyCode === 39 &&
-        e.target.selectionEnd === e.target.value.length
-      ) {
+            e.keyCode == 39 &&
+            (e.target.selectionEnd === e.target.value.length || (e.target.selectionStart == null && e.target.selectionEnd == null))
+          ){
         // ArrowRight
         let rightNode = e.target.$rightNode;
         while (rightNode && rightNode.disabled === true) {
