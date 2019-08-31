@@ -19,27 +19,40 @@ export function verifyCertAndUse(cert, signValue, algType) {
     })
   );
 }
+//  验证服务器证书和随机数签名
+export function saveSignPic(signPic) {
+  return axios.post(
+    `${apiPath}dsvs/saveSignPic `,
+    qs.stringify({
+      signPic
+    })
+  );
+}
 
 export function verifyCaSign() {
-  // 获取用户id
-
-  $_$WebSocketObj.GetUserList(usrInfo => {
-    let strUserCertID = usrInfo.retVal
-      .substring(usrInfo.retVal.indexOf("||") + 2, usrInfo.retVal.length)
-      .replace("&&&", "");
-    console.log(strUserCertID, "strUserCertID");
-    GetSignCert(strUserCertID, function(certObj) {
-      let cert = certObj.retVal;
-      console.log(cert, "cert");
-      getCertAndRandomSign().then(res => {
-        let random = res.data.data.random;
-        $_$WebSocketObj.SignData(strUserCertID, random, retValObj => {
-          let signValue = retValObj.retVal;
-          verifyCertAndUse(cert, signValue, "SM2-256").then(res => {
-            $_$WebSocketObj.GetPic(strUserCertID, function(str) {
-              console.log(str.retVal);
-              let src = "data:image/gif;base64," + str.retVal + "";
-              console.log(str, "str");
+  new Promise((resolve, reject) => {
+    // 获取用户id
+    $_$WebSocketObj.GetUserList(usrInfo => {
+      let strUserCertID = usrInfo.retVal
+        .substring(usrInfo.retVal.indexOf("||") + 2, usrInfo.retVal.length)
+        .replace("&&&", "");
+      console.log(strUserCertID, "strUserCertID");
+      GetSignCert(strUserCertID, function(certObj) {
+        let cert = certObj.retVal;
+        console.log(cert, "cert");
+        getCertAndRandomSign().then(res => {
+          let random = res.data.data.random;
+          $_$WebSocketObj.SignData(strUserCertID, random, retValObj => {
+            let signValue = retValObj.retVal;
+            console.log(signValue, "signValuesignValue");
+            verifyCertAndUse(cert, signValue, "SM2-256").then(res => {
+              $_$WebSocketObj.GetPic(strUserCertID, function(str) {
+                saveSignPic(str.retVal).then(res => {
+                  resolve();
+                });
+                // let src = "data:image/gif;base64," + str.retVal + "";
+                // console.log(str, "str");
+              });
             });
           });
         });
