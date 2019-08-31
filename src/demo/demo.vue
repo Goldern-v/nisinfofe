@@ -7,7 +7,7 @@
 
 <script>
 import mewsChart from "@/components/chart/mews-chart";
-import { getCertAndRandomSign } from "@/api/ca-sign_wx.js";
+import { verifyCaSign } from "@/api/ca-sign_wx.js";
 export default {
   data() {
     return {
@@ -16,7 +16,7 @@ export default {
   },
   methods: {
     getCertAndRandomSign() {
-      getCertAndRandomSign();
+      verifyCaSign();
     }
   },
   components: {
