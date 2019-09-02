@@ -355,7 +355,7 @@ export function initList(wid, pdata = window.app.$route.query) {
       // 表单病人基础数据
 
       var formTableData = {};
-      var formCode = getFormCode(wid);
+      var formCode = postData.formCode ? postData.formCode : getFormCode(wid);
       let token = window.app.$getCookie('NURSING_USER').split('##')[1]
 
       console.log("postData", postData);
@@ -381,11 +381,13 @@ export function initList(wid, pdata = window.app.$route.query) {
         'visitDate': moment().format('YYYY-MM-DD HH:mm:ss'),
       }
 
-      for (var val in mappingKeys) {
-        if (mappingKeys.hasOwnProperty(val)) {
-          formTableData[val] = mappingKeys[val]
-        }
-      }
+      // for (var val in mappingKeys) {
+      //   if (mappingKeys.hasOwnProperty(val)) {
+      //     formTableData[val] = mappingKeys[val]
+      //   }
+      // }
+
+      formTableData = { ...formTableData, ...mappingKeys, ...postData }
 
       // formTableData['formCode']=formCode;
       // formTableData['patientId']=pdata['patientId'];
@@ -415,7 +417,7 @@ export function initList(wid, pdata = window.app.$route.query) {
         // data: postData,
         method: 'post',
         url: '/crNursing/api/form/save?',
-        data: qs.stringify(formTableData) + '&' + qs.stringify(postData),
+        data: qs.stringify(formTableData),// + '&' + qs.stringify(postData),
         success: function (data) {
           bus.$emit('refreshTree');
           if (data.code == 200) {
@@ -577,6 +579,7 @@ export function initList(wid, pdata = window.app.$route.query) {
     callbackDVTAssessment(pdata)
     callbackSwallowingAssessment(pdata)
     callbackFallAssessment(pdata)
+
   }
 
   // 入院评估项
@@ -1101,6 +1104,8 @@ export function initList(wid, pdata = window.app.$route.query) {
           wardName: query.wardName,
           admissionDate: query.admissionDate,
           token: token,
+          "App-Token-Nursing": "51e827c9-d80e-40a1-a95a-1edc257596e7",
+          "Auth-Token-Nursing": token || ""
           // todo: this.info.todo,
           // title:this.info.title || ''
         }
@@ -1224,6 +1229,11 @@ export function initList(wid, pdata = window.app.$route.query) {
     jQuery("[name*='tt_option'][value*='无']", wid.document).prop("checked", "")
     // wid.jQuery(`[name$="_p2_ttxz"][value=${data['form_pain_assessment_xz_option']}]`).prop("checked", "checked")
     // wid.jQuery('[name$="_p2_ttxzqt"]').val(data['form_pain_assessment_xz_other'])
+    //
+
+    //
+    try { wid.saveForm() } catch (error) { console.log(error) }
+
   }
 
 
@@ -1257,6 +1267,8 @@ export function initList(wid, pdata = window.app.$route.query) {
       console.log("ERROR:callbackSelfcareAssessment", e)
     }
     console.log("callbackSelfcareAssessment", evalscore, data, callbackData);
+
+    try { wid.saveForm() } catch (error) { console.log(error) }
   }
 
   // 压舱
@@ -1294,6 +1306,8 @@ export function initList(wid, pdata = window.app.$route.query) {
       console.log("ERROR:callbackPressureRiskAssessment", e)
     }
     console.log("callbackPressureRiskAssessment", evalscore, data, callbackData);
+
+    try { wid.saveForm() } catch (error) { console.log(error) }
   }
 
 
@@ -1366,7 +1380,7 @@ export function initList(wid, pdata = window.app.$route.query) {
     }
     console.log("callbackVTEAssessment", res);
 
-
+    try { wid.saveForm() } catch (error) { console.log(error) }
   }
 
   // DVT
@@ -1400,6 +1414,8 @@ export function initList(wid, pdata = window.app.$route.query) {
       console.log("ERROR:callbackDVTAssessment", e)
     }
     console.log("callbackDVTAssessment", evalscore, data, callbackData);
+
+    try { wid.saveForm() } catch (error) { console.log(error) }
   }
 
   // 跌倒
@@ -1441,6 +1457,8 @@ export function initList(wid, pdata = window.app.$route.query) {
       console.log("ERROR:callbackFallAssessment", e)
     }
     console.log("callbackFallAssessment", evalscore, data, callbackData);
+
+    try { wid.saveForm() } catch (error) { console.log(error) }
 
   }
 
@@ -1493,6 +1511,8 @@ export function initList(wid, pdata = window.app.$route.query) {
       jQuery("[name$='tykn_option'][value*='有']", wid.document).prop("checked", "");
       jQuery("[name$='tykn_option'][value*='无']", wid.document).prop("checked", "checked");
     }
+
+    try { wid.saveForm() } catch (error) { console.log(error) }
 
   }
 
