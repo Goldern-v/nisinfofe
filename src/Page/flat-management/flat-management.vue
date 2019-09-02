@@ -169,21 +169,9 @@ export default {
       this.setTableData();
       this.getTypeByDeptCode();
     }
-
+    
     // 设置默认日期
-    if (!this.query.checkDateStart) {
-      let month = parseInt(new Date().getMonth()) + 1;
-      if (month < 10) {
-        this.query.checkDateStart =
-          new Date().getFullYear() + "-0" + month + "-01";
-      } else {
-        this.query.checkDateStart =
-          new Date().getFullYear() + "-" + month + "-01";
-      }
-    }
-    this.query.checkDateEnd = this.query.checkDateEnd
-      ? this.query.checkDateEnd
-      : dayjs(new Date()).format("YYYY-MM-DD");
+    this.getDate();
   },
   beforeDestroy() {
     window.removeEventListener("resize", this.handelResize);
@@ -201,10 +189,8 @@ export default {
   methods: {
     // 获取类型
     getTypeByDeptCode() {
-      console.log(this.deptCode);
       getTypeByDeptCode({ deptCode: this.deptCode }).then(res => {
         if (res.data.data instanceof Array) this.typeList = res.data.data;
-        console.log(this.typeList);
       });
     },
     handelResize() {
@@ -252,8 +238,7 @@ export default {
     setTableData() {
       this.pageLoadng = true;
       this.query.deptCode = this.deptCode;
-      this.query.checkDateStart = dayjs(this.query.checkDateStart).format("YYYY-MM-DD");
-      this.query.checkDateEnd = dayjs(this.query.checkDateEnd).format("YYYY-MM-DD");
+      this.getDate();
       getList(this.query).then(
         res => {
           if (res.data && res.data.code == 200) {
@@ -290,6 +275,24 @@ export default {
           }
         }
       }
+    },
+    // 设置默认日期
+    getDate(){
+      if (!this.query.checkDateStart) {
+        let month = parseInt(new Date().getMonth()) + 1;
+        if (month < 10) {
+          this.query.checkDateStart =
+            new Date().getFullYear() + "-0" + month + "-01";
+        } else {
+          this.query.checkDateStart =
+            new Date().getFullYear() + "-" + month + "-01";
+        }
+      }
+      this.query.checkDateEnd = this.query.checkDateEnd
+        ? this.query.checkDateEnd
+        : dayjs(new Date()).format("YYYY-MM-DD");
+      this.query.checkDateStart = dayjs(this.query.checkDateStart).format("YYYY-MM-DD");
+      this.query.checkDateEnd = dayjs(this.query.checkDateEnd).format("YYYY-MM-DD");
     }
   }
 };
