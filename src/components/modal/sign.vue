@@ -8,9 +8,7 @@
     style="z-index: 10002"
   >
     <div v-show="message && message.length>0" class="message-box">
-      <span >
-        {{message}}
-      </span>
+      <span>{{message}}</span>
     </div>
     <span v-show="showUserName">
       <p for class="name-title">输入用户名或者工号</p>
@@ -45,26 +43,36 @@
 </template>
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
-.name-title
-  font-size 14px;
-  margin 5px 0 10px
-  font-weight bold
-.el-date-editor.el-input
-  width 100%
->>>.el-picker-panel .el-date-picker .has-time .picker-dropdown
-      z-index 20003!important
->>>.picker-dropdown
-      z-index 20003!important
-.message-box
-  outline 1px dashed gray
-  margin 0 0 10px 0px
-  padding: 5px
-  text-align: justify
+.name-title {
+  font-size: 14px;
+  margin: 5px 0 10px;
+  font-weight: bold;
+}
+
+.el-date-editor.el-input {
+  width: 100%;
+}
+
+>>>.el-picker-panel .el-date-picker .has-time .picker-dropdown {
+  z-index: 20003 !important;
+}
+
+>>>.picker-dropdown {
+  z-index: 20003 !important;
+}
+
+.message-box {
+  outline: 1px dashed gray;
+  margin: 0 0 10px 0px;
+  padding: 5px;
+  text-align: justify;
+}
 </style>
 
 <script>
 import dayjs from "dayjs";
-import bus from 'vue-happy-bus';
+import bus from "vue-happy-bus";
+import { verifyCaSign } from "@/api/ca-sign_wx.js";
 export default {
   props: {
     title: {
@@ -90,7 +98,7 @@ export default {
     showMessage: {
       type: Boolean,
       default: false
-    },
+    }
   },
   data() {
     return {
@@ -102,13 +110,13 @@ export default {
       signDate: dayjs().format("YYYY-MM-DD HH:mm") || "",
       callback: "",
       title1: "",
-      message:"",
+      message: "",
       showDate: false,
-      bus: bus(this),
+      bus: bus(this)
     };
   },
   methods: {
-    open(callback, title, showDate = false,message='') {
+    open(callback, title, showDate = false, message = "") {
       this.title1 = "";
       title && (this.title1 = title);
       (this.username =
@@ -118,7 +126,7 @@ export default {
         (this.callback = callback);
       this.showDate = showDate;
       // this.showMessage = showMessage;
-      this.message = message
+      this.message = message;
       this.password = "";
       this.signDate = dayjs().format("YYYY-MM-DD HH:mm") || ""; //改
       this.$refs.modalName.open();
@@ -145,20 +153,24 @@ export default {
       return null;
     },
     post() {
-      if (this.password == "") {
-        return this.$message({
-          message: "请输入密码",
-          type: "warning",
-          showClose: true
-        });
-      }
-      this.$refs.modalName.close();
-      if (this.signDate) {
-        return this.callback(this.password, this.username, this.signDate);
+      if (this.HOSPITAL_ID == "weixian") {
+        verifyCaSign();
       } else {
-        return this.callback(this.password, this.username);
+        if (this.password == "") {
+          return this.$message({
+            message: "请输入密码",
+            type: "warning",
+            showClose: true
+          });
+        }
+        this.$refs.modalName.close();
+        if (this.signDate) {
+          return this.callback(this.password, this.username, this.signDate);
+        } else {
+          return this.callback(this.password, this.username);
+        }
+        parent.app.bus.$emit("assessmentRefresh");
       }
-      parent.app.bus.$emit('assessmentRefresh')
     }
   },
   components: {}

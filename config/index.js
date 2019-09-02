@@ -88,6 +88,7 @@ module.exports = {
         // target: "http://192.168.2.229:8084", // 厚街内网俊涛ip测试
         // target: "http://192.168.2.91:8062", //东莞兆彬ip测试
         // target: "http://192.168.2.144:8080", //广豪
+        target: "http://192.168.1.116:8964", //兆斌
 
         changeOrigin: true,
         pathRewrite: {
