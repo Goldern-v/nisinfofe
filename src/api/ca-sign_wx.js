@@ -2,20 +2,26 @@
 import axios from "./axios";
 import { apiPath } from "./apiConfig";
 import qs from "qs";
-import { $_$WebSocketObj, GetSignCert } from "./XTXSAB";
+import {
+  $_$WebSocketObj,
+  GetSignCert,
+  SignedData,
+  DecryptData
+} from "./XTXSAB";
 
 //  获取服务器证书和随机数签名
 export function getCertAndRandomSign() {
   return axios.post(`${apiPath}dsvs/getCertAndRandomSign`);
 }
 //  验证服务器证书和随机数签名
-export function verifyCertAndUse(cert, signValue, algType) {
+export function verifyCertAndUse(cert, signValue, algType, signPic) {
   return axios.post(
     `${apiPath}dsvs/verifyCertAndUser`,
     qs.stringify({
       cert,
       signValue,
-      algType
+      algType,
+      signPic
     })
   );
 }
@@ -30,7 +36,7 @@ export function saveSignPic(signPic) {
 }
 
 export function verifyCaSign() {
-  new Promise((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     // 获取用户id
     $_$WebSocketObj.GetUserList(usrInfo => {
       let strUserCertID = usrInfo.retVal
@@ -42,17 +48,19 @@ export function verifyCaSign() {
         console.log(cert, "cert");
         getCertAndRandomSign().then(res => {
           let random = res.data.data.random;
-          $_$WebSocketObj.SignData(strUserCertID, random, retValObj => {
+          console.log(`strUserCertID-${strUserCertID}`, `random-${random}`);
+          SignedData(strUserCertID, random, retValObj => {
+            console.log(retValObj, "retValObj");
             let signValue = retValObj.retVal;
-            console.log(signValue, "signValuesignValue");
-            verifyCertAndUse(cert, signValue, "SM2-256").then(res => {
-              $_$WebSocketObj.GetPic(strUserCertID, function(str) {
-                saveSignPic(str.retVal).then(res => {
-                  resolve();
-                });
-                // let src = "data:image/gif;base64," + str.retVal + "";
-                // console.log(str, "str");
-              });
+            $_$WebSocketObj.GetPic(strUserCertID, function(str) {
+              verifyCertAndUse(cert, signValue, "SM2-256", str.retVal).then(
+                res => {
+                  DecryptData(random, res.data.data, retValObj => {
+                    let password = retValObj.retVal;
+                    resolve("");
+                  });
+                }
+              );
             });
           });
         });

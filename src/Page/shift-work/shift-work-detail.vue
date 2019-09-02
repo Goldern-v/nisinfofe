@@ -4,7 +4,7 @@
       <!-- test -->
       <span>科室：</span>
       <ElSelect size="small" :value="$route.params.code" @input="onCodeChange">
-        <ElOption v-for="d of depts" :key="d.deptCode" :label="d.deptName" :value="d.deptCode"/>
+        <ElOption v-for="d of depts" :key="d.deptCode" :label="d.deptName" :value="d.deptCode" />
       </ElSelect>
       <Button :disabled="isEmpty || allSigned" @click="onPatientsModalShow()">添加患者</Button>
       <Button
@@ -239,7 +239,7 @@
         </div>
       </div>
     </div>
-    <PatientsModal ref="patientsModal" @confirm="onPatientsModalConfirm"/>
+    <PatientsModal ref="patientsModal" @confirm="onPatientsModalConfirm" />
     <PatientModal
       ref="patientModal"
       :date="record ? record.changeShiftDate : ''"
@@ -253,8 +253,8 @@
       @tab-change="onPatientPanelTabChange"
       @apply-template="onPatientPanelApply"
     />
-    <SpecialCasePanel ref="specialCasePanel" @apply-template="onSpecialCasePanelApply"/>
-    <SignModal ref="signModal"/>
+    <SpecialCasePanel ref="specialCasePanel" @apply-template="onSpecialCasePanelApply" />
+    <SignModal ref="signModal" />
   </div>
 </template>
 
@@ -852,54 +852,94 @@ export default {
       //   return this.$message.warning("需要P班先签名");
       // }
 
-      this.$refs.signModal.open({
-        callback: async ({ username, password }) => {
-          await apis.signShiftRecord(this.record.id, type, username, password);
+      // this.$refs.signModal.open({
+      //   callback: async ({ username, password }) => {
+      //     await apis.signShiftRecord(this.record.id, type, username, password);
 
-          this.load();
-          this.$refs.signModal.close();
-          this.$message.success("签名成功");
+      //     this.load();
+      //     this.$refs.signModal.close();
+      //     this.$message.success("签名成功");
 
-          if (type === "N") {
-            this.reloadSideList();
-          }
+      //     if (type === "N") {
+      //       this.reloadSideList();
+      //     }
+      //   }
+      // });
+
+      window.openSignModal(async (password, username) => {
+        await apis.signShiftRecord(this.record.id, type, username, password);
+
+        this.load();
+        this.$refs.signModal.close();
+        this.$message.success("签名成功");
+
+        if (type === "N") {
+          this.reloadSideList();
         }
       });
     },
     onDelSignModalOpen(type, sourceEmpNo) {
-      this.$refs.signModal.open({
-        title: "取消签名确认",
-        callback: async ({ username, password }) => {
-          await apis.delSignShiftRecord(
-            this.record.id,
-            username,
-            password,
-            type,
-            sourceEmpNo
-          );
+      // this.$refs.signModal.open({
+      //   title: "取消签名确认",
+      //   callback: async ({ username, password }) => {
+      //     await apis.delSignShiftRecord(
+      //       this.record.id,
+      //       username,
+      //       password,
+      //       type,
+      //       sourceEmpNo
+      //     );
 
-          this.load();
-          this.$refs.signModal.close();
-          this.$message.success("已取消签名");
-          this.reloadSideList();
-        }
+      //     this.load();
+      //     this.$refs.signModal.close();
+      //     this.$message.success("已取消签名");
+      //     this.reloadSideList();
+      //   }
+      // });
+
+      window.openSignModal(async (password, username) => {
+        await apis.delSignShiftRecord(
+          this.record.id,
+          username,
+          password,
+          type,
+          sourceEmpNo
+        );
+
+        this.load();
+        this.$refs.signModal.close();
+        this.$message.success("已取消签名");
+        this.reloadSideList();
       });
     },
     async onRemove() {
-      this.$refs.signModal.open({
-        callback: async ({ username, password }) => {
-          await apis.removeShiftRecord(this.record.id, username, password);
+      // this.$refs.signModal.open({
+      //   callback: async ({ username, password }) => {
+      //     await apis.removeShiftRecord(this.record.id, username, password);
 
-          const code = this.$route.params.code;
+      //     const code = this.$route.params.code;
 
-          this.$message.success("删除成功");
-          this.$refs.signModal.close();
-          this.modified = false;
-          this.record = null;
-          this.patients = [];
-          this.$router.push({ path: `/shiftWork/${code}` });
-          this.reloadSideList();
-        }
+      //     this.$message.success("删除成功");
+      //     this.$refs.signModal.close();
+      //     this.modified = false;
+      //     this.record = null;
+      //     this.patients = [];
+      //     this.$router.push({ path: `/shiftWork/${code}` });
+      //     this.reloadSideList();
+      //   }
+      // });
+      window.openSignModal(async (password, username) => {
+        await apis.removeShiftRecord(this.record.id, username, password);
+
+        const code = this.$route.params.code;
+
+        this.$message.success("删除成功");
+        this.$refs.signModal.close();
+        this.modified = false;
+        this.record = null;
+        this.patients = [];
+        this.$router.push({ path: `/shiftWork/${code}` });
+        this.reloadSideList();
       });
     },
     async onPrint() {
@@ -1009,132 +1049,157 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-  .shift-work-detail
-    display flex
-    flex-direction column
-    height 100%
+.shift-work-detail {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
 
-  .toolbar
-    display flex
-    align-items center
-    height 41px
-    padding 0 18px
-    background-image linear-gradient(-180deg, #F8F8FA 0%, #EBECF0 100%)
-    border 1px solid #CBD5DD
-    overflow hidden
-    font-size: 14px;
+.toolbar {
+  display: flex;
+  align-items: center;
+  height: 41px;
+  padding: 0 18px;
+  background-image: linear-gradient(-180deg, #F8F8FA 0%, #EBECF0 100%);
+  border: 1px solid #CBD5DD;
+  overflow: hidden;
+  font-size: 14px;
 
-    .el-select
-      margin-left: 8px;
-      margin-right: 10px;
+  .el-select {
+    margin-left: 8px;
+    margin-right: 10px;
+  }
 
-    .empty
-      flex 1
+  .empty {
+    flex: 1;
+  }
+}
 
-  .container
-    padding 15px 0
-    flex 1
-    min-height 0
-    background #dfdfdf
-    overflow auto
+.container {
+  padding: 15px 0;
+  flex: 1;
+  min-height: 0;
+  background: #dfdfdf;
+  overflow: auto;
+}
 
-  .paper
-    margin 0 auto 20px
-    padding 20px
-    width 1080px
-    min-height 700px
-    border-radius 2px
-    background #fff
-    box-shadow 0 5px 10px 0 rgba(0, 0, 0, 0.5)
-    box-sizing border-box
+.paper {
+  margin: 0 auto 20px;
+  padding: 20px;
+  width: 1080px;
+  min-height: 700px;
+  border-radius: 2px;
+  background: #fff;
+  box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.5);
+  box-sizing: border-box;
+}
 
-  .head
-    position relative
-    // padding 15px 0 10px
+.head {
+  position: relative;
+  // padding 15px 0 10px
+}
 
-  .logo
-    position absolute
-    left 0
-    top 0
-    height 44px
+.logo {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 44px;
+}
 
-  .title
-    font-size 22px
-    text-align center
+.title {
+  font-size: 22px;
+  text-align: center;
+}
 
-  .sub-title
-    margin-top 10px
-    text-align center
+.sub-title {
+  margin-top: 10px;
+  text-align: center;
+}
 
-  .details
-    margin-top 15px
-    margin-bottom 5px
-    display flex
-    justify-content space-between
-    font-size 13px
-    >span
-      flex 1
-      white-space nowrap
+.details {
+  margin-top: 15px;
+  margin-bottom: 5px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
 
-  .table
-    margin-top 5px
+  >span {
+    flex: 1;
+    white-space: nowrap;
+  }
+}
 
-    >>>pre
-      white-space: pre-wrap;
+.table {
+  margin-top: 5px;
 
-  .normal-row
-    background white !important
+  >>>pre {
+    white-space: pre-wrap;
+  }
+}
 
-  .row-title
-    height 32px
-    font-size 13px
-    font-weight bold
+.normal-row {
+  background: white !important;
+}
 
-  .row-action
-    float right
-    color rgb(40, 79, 194)
-    cursor pointer
+.row-title {
+  height: 32px;
+  font-size: 13px;
+  font-weight: bold;
+}
 
-  .special-case-title
-    padding: 10px;
+.row-action {
+  float: right;
+  color: rgb(40, 79, 194);
+  cursor: pointer;
+}
 
-  .special-case
-    width 100%
-    padding 8px 8px
-    display block
-    border none
-    outline none
-    box-sizing border-box
-    line-height 1.4em
-    font-size 13px
-    min-height 100px !important
+.special-case-title {
+  padding: 10px;
+}
 
-  .foot
-    margin-top: 8px
-    display flex
-    justify-content space-between
-    line-height 25px
+.special-case {
+  width: 100%;
+  padding: 8px 8px;
+  display: block;
+  border: none;
+  outline: none;
+  box-sizing: border-box;
+  line-height: 1.4em;
+  font-size: 13px;
+  min-height: 100px !important;
+}
 
-    div
-      font-size 0
-      white-space nowrap
+.foot {
+  margin-top: 8px;
+  display: flex;
+  justify-content: space-between;
+  line-height: 25px;
 
-    img, span
-      vertical-align middle
-      font-size 13px
+  div {
+    font-size: 0;
+    white-space: nowrap;
+  }
 
-    .img
-      display none
-      width 52px
-      max-height 25px
+  img, span {
+    vertical-align: middle;
+    font-size: 13px;
+  }
 
-    button
-      padding 0
-      border none
-      outline none
-      background none
-      color rgb(40, 79, 194)
-      cursor pointer
+  .img {
+    display: none;
+    width: 52px;
+    max-height: 25px;
+  }
+
+  button {
+    padding: 0;
+    border: none;
+    outline: none;
+    background: none;
+    color: rgb(40, 79, 194);
+    cursor: pointer;
+  }
+}
 </style>
 <style lang="stylus">
 @media print {
@@ -1142,6 +1207,7 @@ export default {
     padding-top: 40px !important;
   }
 }
+
 @page {
   margin: 0 10mm;
 }

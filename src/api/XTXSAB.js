@@ -2018,4 +2018,4 @@ function ConvertPicSize(strInData, w, h, cb, ctx) {
 
 
 
-export {$_$WebSocketObj, GetSignCert}
+export {$_$WebSocketObj, GetSignCert, SignedData, $loginVerifyPINCallBack, VerifyUserPIN, Logout, DecryptData}
