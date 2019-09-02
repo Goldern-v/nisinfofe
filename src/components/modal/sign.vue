@@ -13,13 +13,33 @@
     <span v-show="showUserName">
       <p for class="name-title">输入用户名或者工号</p>
       <div action class="sign-input" ref="userInput">
-        <el-input size="small" type="text" placeholder="输入用户名或者工号" v-model="username"></el-input>
+        <el-input
+          size="small"
+          type="text"
+          placeholder="输入用户名或者工号"
+          v-model="username"
+          :readonly="HOSPITAL_ID == 'weixian'"
+        ></el-input>
       </div>
     </span>
-    <p for class="name-title">{{label}}</p>
-    <div ref="passwordInput">
-      <el-input size="small" type="password" :placeholder="placeholder" v-model="password"></el-input>
-    </div>
+    <div style="height: 5px"></div>
+    <span v-if="HOSPITAL_ID != 'weixian'">
+      <p for class="name-title">{{label}}</p>
+      <div ref="passwordInput">
+        <el-input size="small" type="password" :placeholder="placeholder" v-model="password"></el-input>
+      </div>
+    </span>
+
+    <span v-else>
+      <p for class="name-title">
+        验证方式
+        <span :style="{color: ca_isLogin ? 'green': 'red'}">
+          {{ca_name || '无'}}证书
+          {{ca_isLogin ? '已登录' : '未登录'}}
+        </span>
+      </p>
+    </span>
+
     <span v-show="showDate">
       <p for class="name-title">输入签名时间</p>
       <div action class="sign-input" ref="dateInput">
@@ -112,7 +132,9 @@ export default {
       title1: "",
       message: "",
       showDate: false,
-      bus: bus(this)
+      bus: bus(this),
+      ca_name: "",
+      ca_isLogin: ""
     };
   },
   methods: {
@@ -128,33 +150,54 @@ export default {
       // this.showMessage = showMessage;
       this.message = message;
       this.password = "";
+
+      this.ca_name = window.ca_name;
+      this.ca_isLogin = window.ca_isLogin;
+
       this.signDate = dayjs().format("YYYY-MM-DD HH:mm") || ""; //改
       this.$refs.modalName.open();
-      this.$nextTick(() => {
-        // if(showDate){
-        //   let dateInput = this.$refs.dateInput.querySelector("input");
-        // }
-        let userInput = this.$refs.userInput.querySelector("input");
-        let passwordInput = this.$refs.passwordInput.querySelector("input");
-        userInput.focus();
-        userInput.select();
-        userInput.onkeydown = e => {
-          if (e.keyCode == 13) {
-            e.preventDefault();
-            passwordInput.focus();
-          }
-        };
-        passwordInput.onkeydown = e => {
-          if (e.keyCode == 13) {
-            return this.post();
-          }
-        };
-      });
+      if (this.HOSPITAL_ID != "weixian") {
+        this.$nextTick(() => {
+          // if(showDate){
+          //   let dateInput = this.$refs.dateInput.querySelector("input");
+          // }
+          let userInput = this.$refs.userInput.querySelector("input");
+          let passwordInput =
+            this.$refs.passwordInput &&
+            this.$refs.passwordInput.querySelector("input");
+          userInput.focus();
+          userInput.select();
+          userInput.onkeydown = e => {
+            if (e.keyCode == 13) {
+              e.preventDefault();
+              passwordInput.focus();
+            }
+          };
+          passwordInput &&
+            (passwordInput.onkeydown = e => {
+              if (e.keyCode == 13) {
+                return this.post();
+              }
+            });
+        });
+      }
+
       return null;
     },
     post() {
       if (this.HOSPITAL_ID == "weixian") {
-        verifyCaSign();
+        verifyCaSign().then(password => {
+          this.$refs.modalName.close();
+          if (this.signDate) {
+            return this.callback(
+              localStorage.ppp,
+              this.username,
+              this.signDate
+            );
+          } else {
+            return this.callback(localStorage.ppp, this.username);
+          }
+        });
       } else {
         if (this.password == "") {
           return this.$message({

@@ -115,6 +115,9 @@ import departmentSharedFile from "@/Page/department-shared-file/department-share
 // 扁平管理
 import flatManagement from "@/Page/flat-management/flat-management";
 
+// 归档
+import archive from "@/Page/archive/archive.vue";
+
 /** demo */
 import demo from "@/demo/demo";
 Vue.use(Router);
@@ -148,6 +151,11 @@ const router = new Router({
         {
           path: "/index",
           component: indexXin
+        },
+        {
+          path: "/archive",
+          component: archive,
+          alias: "归档"
         },
         {
           path: "/board",
