@@ -86,7 +86,7 @@ export default {
       this.parentVal = '';
 
       // 下拉选项有子选项/后一个选项依赖于前一个td的选择
-      if(config && config.data && config.data.constructor == Object){
+      if(process.env.HOSPITAL_ID == 'wx' && config && config.data && config.data.constructor == Object){
         if(config.data['childOptions']){
           this.options = config.data['option'];
           let parentArr = [];

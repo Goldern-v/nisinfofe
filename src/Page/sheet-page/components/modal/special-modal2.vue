@@ -280,19 +280,20 @@ function autoComplete(el, bind) {
           },
           data: dataList,
           callback: function(data) {
-            if (td.value && td.value != data && !td.parentKey) {
-              tr.map(item => {
-                if (item.parentKey == td.name) {
-                  item.value = '';
-                }
-              });
+            if(process.env.HOSPITAL_ID == 'weixian'){
+              if (td.value && td.value != data && td.childKey) {
+                tr.map(item => {
+                  if (item.parentKey && item.parentKey == td.name) {
+                    item.value = '';
+                  }
+                });
+              }
             }
-
             if (data) {
               if (typeof obj[key] == "object") {
-                obj[key].value = data;
+                obj[key].value = data.trim();
               } else {
-                obj[key] = data;
+                obj[key] = data.trim();
               }
             }
           },
