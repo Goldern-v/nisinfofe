@@ -39,31 +39,27 @@ export let countData = {
         type: "text",
         value: "",
         isChecked: true,
-        name:""
+        name:"gongjingkuozhang"
       },
       {
         type: "text",
-        value: "1-2",
-        isChecked: true,
-        name:""
-      },
-      {
-        type: "text",
-        value: "",
-        isChecked: true,
-        name:""
-      },
-      {
-        type: "text",
-        value: "3-4",
-        isChecked: true,
-        name:""
+        value: "1-2"
       },
       {
         type: "text",
         value: "",
         isChecked: true,
-        name:""
+        name:"gongjingkuozhang"
+      },
+      {
+        type: "text",
+        value: "3-4"
+      },
+      {
+        type: "text",
+        value: "",
+        isChecked: true,
+        name:"gongjingkuozhang"
       },
       {
         type: "text",
@@ -73,220 +69,202 @@ export let countData = {
         type: "text",
         value: "",
         isChecked: true,
-        name:""
+        name:"gongjingkuozhang"
       }
     ],
     [
       {
         type: "text",
-        value: "宫颈扩张（CM）"
+        value: "宫颈退缩（%）"
       },
       {
         type: "text",
-        value: "未开"
-      },
-      {
-        type: "text",
-        value: "",
-        isChecked: true,
-        name:""
-      },
-      {
-        type: "text",
-        value: "1-2",
-        isChecked: true,
-        name:""
+        value: "0-30"
       },
       {
         type: "text",
         value: "",
         isChecked: true,
-        name:""
+        name:"gongjingtuisuo"
       },
       {
         type: "text",
-        value: "3-4",
-        isChecked: true,
-        name:""
-      },
-      {
-        type: "text",
-        value: "",
-        isChecked: true,
-        name:""
-      },
-      {
-        type: "text",
-        value: ">=5"
+        value: "40-50"
       },
       {
         type: "text",
         value: "",
         isChecked: true,
-        name:""
+        name:"gongjingtuisuo"
+      },
+      {
+        type: "text",
+        value: "60-70"
+      },
+      {
+        type: "text",
+        value: "",
+        isChecked: true,
+        name:"gongjingtuisuo"
+      },
+      {
+        type: "text",
+        value: ">=80"
+      },
+      {
+        type: "text",
+        value: "",
+        isChecked: true,
+        name:"gongjingtuisuo"
       }
     ],
     [
       {
         type: "text",
-        value: "宫颈扩张（CM）"
+        value: "先露高低（CM）"
       },
       {
         type: "text",
-        value: "未开"
-      },
-      {
-        type: "text",
-        value: "",
-        isChecked: true,
-        name:""
-      },
-      {
-        type: "text",
-        value: "1-2",
-        isChecked: true,
-        name:""
+        value: "-3"
       },
       {
         type: "text",
         value: "",
         isChecked: true,
-        name:""
+        name:"xianlougaodi"
       },
       {
         type: "text",
-        value: "3-4",
-        isChecked: true,
-        name:""
-      },
-      {
-        type: "text",
-        value: "",
-        isChecked: true,
-        name:""
-      },
-      {
-        type: "text",
-        value: ">=5"
+        value: "-2"
       },
       {
         type: "text",
         value: "",
         isChecked: true,
-        name:""
+        name:"xianlougaodi"
+      },
+      {
+        type: "text",
+        value: "-1或0"
+      },
+      {
+        type: "text",
+        value: "",
+        isChecked: true,
+        name:"xianlougaodi"
+      },
+      {
+        type: "text",
+        value: "+1或+2"
+      },
+      {
+        type: "text",
+        value: "",
+        isChecked: true,
+        name:"xianlougaodi"
       }
     ],
     [
       {
         type: "text",
-        value: "宫颈扩张（CM）"
+        value: "宫颈硬度"
       },
       {
         type: "text",
-        value: "未开"
-      },
-      {
-        type: "text",
-        value: "",
-        isChecked: true,
-        name:""
-      },
-      {
-        type: "text",
-        value: "1-2",
-        isChecked: true,
-        name:""
+        value: "硬"
       },
       {
         type: "text",
         value: "",
         isChecked: true,
-        name:""
+        name:"gongjingyingdu"
       },
       {
         type: "text",
-        value: "3-4",
-        isChecked: true,
-        name:""
-      },
-      {
-        type: "text",
-        value: "",
-        isChecked: true,
-        name:""
-      },
-      {
-        type: "text",
-        value: ">=5"
+        value: "中等"
       },
       {
         type: "text",
         value: "",
         isChecked: true,
-        name:""
+        name:"gongjingyingdu"
+      },
+      {
+        type: "text",
+        value: "软"
+      },
+      {
+        type: "text",
+        value: "",
+        isChecked: true,
+        name:"gongjingyingdu"
+      },
+      {
+        type: "text",
+        value: ""
+      },
+      {
+        type: "text",
+        value: ""
       }
     ],
     [
       {
         type: "text",
-        value: "宫颈扩张（CM）"
+        value: "宫颈位置"
       },
       {
         type: "text",
-        value: "未开"
-      },
-      {
-        type: "text",
-        value: "",
-        isChecked: true,
-        name:""
-      },
-      {
-        type: "text",
-        value: "1-2",
-        isChecked: true,
-        name:""
+        value: "后位"
       },
       {
         type: "text",
         value: "",
         isChecked: true,
-        name:""
+        name:"gongjingweizhi"
       },
       {
         type: "text",
-        value: "3-4",
-        isChecked: true,
-        name:""
-      },
-      {
-        type: "text",
-        value: "",
-        isChecked: true,
-        name:""
-      },
-      {
-        type: "text",
-        value: ">=5"
+        value: "中位"
       },
       {
         type: "text",
         value: "",
         isChecked: true,
-        name:""
+        name:"gongjingweizhi"
+      },
+      {
+        type: "text",
+        value: "前位"
+      },
+      {
+        type: "text",
+        value: "",
+        isChecked: true,
+        name:"gongjingweizhi"
+      },
+      {
+        type: "text",
+        value: ""
+      },
+      {
+        type: "text",
+        value: ""
       }
     ],
     [
       {
         type: "text",
-        value: "宫颈扩张（CM）",
+        value: "将检查结果在相应栏内够“√”累计宫颈评分。",
         colspan: 5,
+        style:"border-right: none"
       },
       {
-        type: "input",
-        prev: "医生签名",
+        type: "text",
+        prev: "医生签名:",
         value: "",
-        colspan: 4
+        colspan: 4,
+        class: "sign"
       },
     ]
   ]

@@ -65,8 +65,12 @@
         :isInPatientDetails="isInPatientDetails"
       ></excel>
       <div class="bottomCon">
-        <input type="checkbox" class="bottomCheck">阴道分娩产后2h总出血量：
-        <input type="text" class="bottomInput">ml
+        <div>
+          催产素使用总量：<input type="text" class="bottomInput">
+        </div>
+        <div>
+          分娩方式：<input type="text" class="bottomInput">
+        </div>
       </div>
     </div>
   </div>
@@ -154,48 +158,16 @@
   .bottomCon {
     position relative;
     bottom :40px;
+    display: flex;
     // transform translateY(-30px)
     // margin-top:-80px;
     width: 100%;
-    input[type="checkbox"] {
-      position: relative;
-    }
-    input[type="checkbox"] {
-      -webkit-appearance: none;
-      vertical-align: text-top;
-      width: 14px;
-      height: 14px;
-      border: 1px solid #000;
-      border-radius: 0px;
-      outline: none;
-      margin:1px 3px 0 0;
-    }
-    input[type="checkbox"]:checked {
-      font-size: 10;
-      position: relative;
-    }
-    input[type="checkbox"]:checked:before {
-      content: "";
-      width: 8px;
-      transform: rotate(45deg);
-      position: absolute;
-      top: 7px;
-      left: -2px;
-      border-top: 2px solid #000;
-    }
-    input[type="checkbox"]:checked:after {
-      content: "";
-      width: 14px;
-      transform: rotate(-50deg) translateY(-50%) translateX(50%);
-      position: absolute;
-      border-top: 1px solid #000;
-      top: 10px;
-      left: -2px;
+    > div {
+      flex: 1;
     }
     .bottomInput{
       border: none;
       outline: none;
-      border-bottom: 1px solid #000;
       font-size:16px;
       width: 80px;
     }
