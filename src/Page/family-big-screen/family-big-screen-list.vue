@@ -117,7 +117,6 @@ import nullText from "@/components/null/null-text.vue";
 import info1modal from "./modal/info-1-modal.vue";
 import info3modal from "./modal/info-3-modal.vue";
 import mixin from "./mixins";
-import BoxScroll from "./components/box-scroll.vue";
 import right2 from "./components/right2.vue";
 export default {
   mixins: [common, mixin],
@@ -130,7 +129,6 @@ export default {
     nullText,
     info1modal,
     info3modal,
-    BoxScroll,
     right2
   },
   data() {
