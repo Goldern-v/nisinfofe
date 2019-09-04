@@ -18,12 +18,12 @@
           type="text"
           placeholder="输入用户名或者工号"
           v-model="username"
-          :readonly="HOSPITAL_ID == 'weixiandev'"
+          :readonly="HOSPITAL_ID == 'weixian'"
         ></el-input>
       </div>
     </span>
     <div style="height: 5px"></div>
-    <span v-if="HOSPITAL_ID != 'weixiandev'">
+    <span v-if="HOSPITAL_ID != 'weixian'">
       <p for class="name-title">{{label}}</p>
       <div ref="passwordInput">
         <el-input size="small" type="password" :placeholder="placeholder" v-model="password"></el-input>
@@ -156,7 +156,7 @@ export default {
 
       this.signDate = dayjs().format("YYYY-MM-DD HH:mm") || ""; //改
       this.$refs.modalName.open();
-      if (this.HOSPITAL_ID != "weixiandev") {
+      if (this.HOSPITAL_ID != "weixian") {
         this.$nextTick(() => {
           // if(showDate){
           //   let dateInput = this.$refs.dateInput.querySelector("input");
@@ -185,17 +185,18 @@ export default {
       return null;
     },
     post() {
-      if (this.HOSPITAL_ID == "weixiandev") {
-        verifyCaSign().then(password => {
+      if (this.HOSPITAL_ID == "weixian") {
+        verifyCaSign().then(random => {
           this.$refs.modalName.close();
           if (this.signDate) {
             return this.callback(
               localStorage.ppp,
               this.username,
-              this.signDate
+              this.signDate,
+              random
             );
           } else {
-            return this.callback(localStorage.ppp, this.username);
+            return this.callback(localStorage.ppp, this.username, "", random);
           }
         });
       } else {
