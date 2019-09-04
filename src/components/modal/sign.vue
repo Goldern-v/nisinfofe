@@ -18,12 +18,12 @@
           type="text"
           placeholder="输入用户名或者工号"
           v-model="username"
-          :readonly="HOSPITAL_ID == 'weixian'"
+          :readonly="HOSPITAL_ID == 'weixian_dev'"
         ></el-input>
       </div>
     </span>
     <div style="height: 5px"></div>
-    <span v-if="HOSPITAL_ID != 'weixian'">
+    <span v-if="HOSPITAL_ID != 'weixian_dev'">
       <p for class="name-title">{{label}}</p>
       <div ref="passwordInput">
         <el-input size="small" type="password" :placeholder="placeholder" v-model="password"></el-input>
@@ -156,7 +156,7 @@ export default {
 
       this.signDate = dayjs().format("YYYY-MM-DD HH:mm") || ""; //改
       this.$refs.modalName.open();
-      if (this.HOSPITAL_ID != "weixian") {
+      if (this.HOSPITAL_ID != "weixian_dev") {
         this.$nextTick(() => {
           // if(showDate){
           //   let dateInput = this.$refs.dateInput.querySelector("input");
@@ -185,7 +185,7 @@ export default {
       return null;
     },
     post() {
-      if (this.HOSPITAL_ID == "weixian") {
+      if (this.HOSPITAL_ID == "weixian_dev_dev") {
         verifyCaSign().then(random => {
           this.$refs.modalName.close();
           if (this.signDate) {
