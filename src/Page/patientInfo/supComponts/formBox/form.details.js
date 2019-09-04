@@ -1089,6 +1089,7 @@ export function initList(wid, pdata = window.app.$route.query) {
         // let query = this.$route.query
         let queryObj = {
           id: id || '',
+          isNoAutoCreated: true,
           formCode: wid.formInfo.formCode || '',
           patientId: query.patientId,
           visitId: query.visitId,
@@ -1166,7 +1167,23 @@ export function initList(wid, pdata = window.app.$route.query) {
             // localhost:8088/VTE风险评估量表(手术科室).html?id=1550&formCode=form_caprini&patientId=0989826&visitId=1&name=%E9%99%88%E6%9C%89%E6%A2%85&sex=%E5%A5%B3&age=73%E5%B2%81&deptCode=3007&bedLabel=5&inpNo=P111902&wardCode=4003&wardName=%E6%99%AE%E5%A4%96%E6%8A%A4%E7%90%86%E5%8D%95%E5%85%83&admissionDate=2015-09-21%2015%3A25%3A32&token=App-Token-Nursing%3D51e827c9-d80e-40a1-a95a-1edc257596e7%26Auth-Token-Nursing%3D70212136-20cc-4cd0-8b25-4078e97cd687
             // /form/list/form_caprini/0989826/1
             //  let query = this.$route.query
-            let queryObj = { id: id || "", formCode: formCode, patientId: query.patientId, visitId: query.visitId, name: query.name, sex: query.sex, age: query.age, deptCode: query.deptCode, bedLabel: query.bedLabel, inpNo: query.inpNo, wardCode: query.wardCode, wardName: query.wardName, admissionDate: query.admissionDate, token: tokens };
+            let queryObj = {
+              id: id || "",
+              isNoAutoCreated: true,
+              formCode: formCode,
+              patientId: query.patientId,
+              visitId: query.visitId,
+              name: query.name,
+              sex: query.sex,
+              age: query.age,
+              deptCode: query.deptCode,
+              bedLabel: query.bedLabel,
+              inpNo: query.inpNo,
+              wardCode: query.wardCode,
+              wardName: query.wardName,
+              admissionDate: query.admissionDate,
+              token: tokens
+            };
 
             console.log('-==URL:', qs.stringify(queryObj))
 
