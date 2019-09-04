@@ -186,16 +186,18 @@ export default {
     },
     post() {
       if (this.HOSPITAL_ID == "weixian") {
-        verifyCaSign().then(password => {
+        verifyCaSign().then(random => {
           this.$refs.modalName.close();
           if (this.signDate) {
             return this.callback(
-              localStorage.ppp,
+              // localStorage.ppp,
+              random,
               this.username,
-              this.signDate
+              this.signDate,
+              random
             );
           } else {
-            return this.callback(localStorage.ppp, this.username);
+            return this.callback(random, this.username);
           }
         });
       } else {
