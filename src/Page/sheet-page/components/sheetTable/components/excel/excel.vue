@@ -495,6 +495,7 @@ export default {
         if (this.HOSPITAL_ID == "weixian") {
           return trArr.find(item => item.key == "signerNo").value
             ? `<img
+              width="40"
               src="/crNursing/api/file/signImage/${
                 trArr.find(item => item.key == "signerNo").value
               }?${this.token}"
