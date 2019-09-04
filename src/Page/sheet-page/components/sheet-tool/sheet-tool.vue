@@ -49,29 +49,30 @@
         value-key="id"
         placeholder="请选择护理记录单"
         class="select-con"
-        popper-class="sheetSelect-con-sheet"
       >
-        <div class="head-con" flex="cross:stretch">
-          <div class="col-1">记录单标题</div>
-          <div class="col-2">科室</div>
-          <div class="col-3">开始时间</div>
-          <div class="col-4">页码</div>
-          <!-- <div class="col-3">结束时间</div> -->
-        </div>
-        <el-option
-          v-for="item in sheetBlockList"
-          :key="item.id"
-          :label="blockLabel(item, sheetBlockList.length)"
-          :value="item"
-        >
-          <div class="list-con" flex="cross:stretch">
-            <div class="col-1" :title="item.recordName">{{item.recordName}}</div>
-            <div class="col-2" :title="item.deptName">{{item.deptName}}</div>
-            <div class="col-3" :title="item.createTime">{{item.createTime}}</div>
-            <div class="col-4" :title="item.completeName">{{item.pageIndex}} - {{item.endPageIndex}}</div>
-            <!-- <div class="col-3" :title="item.completeName">{{item.completeName}}</div> -->
+        <div class="sheetSelect-con-sheet">
+          <div class="head-con" flex="cross:stretch">
+            <div class="col-1">记录单标题</div>
+            <div class="col-2">科室</div>
+            <div class="col-3">开始时间</div>
+            <div class="col-4">页码</div>
+            <!-- <div class="col-3">结束时间</div> -->
           </div>
-        </el-option>
+          <el-option
+            v-for="item in sheetBlockList"
+            :key="item.id"
+            :label="blockLabel(item, sheetBlockList.length)"
+            :value="item"
+          >
+            <div class="list-con" flex="cross:stretch">
+              <div class="col-1" :title="item.recordName">{{item.recordName}}</div>
+              <div class="col-2" :title="item.deptName">{{item.deptName}}</div>
+              <div class="col-3" :title="item.createTime">{{item.createTime}}</div>
+              <div class="col-4" :title="item.completeName">{{item.pageIndex}} - {{item.endPageIndex}}</div>
+              <!-- <div class="col-3" :title="item.completeName">{{item.completeName}}</div> -->
+            </div>
+          </el-option>
+        </div>
       </el-select>
       <!-- <span class="label">页码范围:</span> -->
       <div class="item-box" style="width: 85px" flex="cross:center main:center">
@@ -133,7 +134,7 @@
 }
 </style>
 
-<style lang="stylus">
+<style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
 .sheetSelect-con-sheet {
   background: #FFFFFF;
   box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.5);
