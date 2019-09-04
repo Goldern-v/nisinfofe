@@ -53,7 +53,6 @@ export function verifyCaSign() {
             console.log(retValObj, "retValObj");
             let signValue = retValObj.retVal;
             $_$WebSocketObj.GetPic(strUserCertID, function(str) {
-              resolve();
               verifyCertAndUse(cert, signValue, "SM2-256", str.retVal).then(
                 res => {
                   resolve(random);

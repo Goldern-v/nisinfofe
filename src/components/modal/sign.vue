@@ -190,13 +190,14 @@ export default {
           this.$refs.modalName.close();
           if (this.signDate) {
             return this.callback(
-              localStorage.ppp,
+              // localStorage.ppp,
+              random,
               this.username,
               this.signDate,
               random
             );
           } else {
-            return this.callback(localStorage.ppp, this.username, "", random);
+            return this.callback(random, this.username);
           }
         });
       } else {
