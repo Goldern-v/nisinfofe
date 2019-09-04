@@ -96,6 +96,7 @@ export default {
     }
   },
   mounted() {
+    this.params = this.$route.params
   },
   created() {
   },
