@@ -492,7 +492,18 @@ export default {
         return item.key == "signerName";
       }).value;
       if (status == "1" || status == "2") {
-        return signerName;
+        if (this.HOSPITAL_ID == "weixian") {
+          return trArr.find(item => item.key == "signerNo").value
+            ? `<img
+              src="/crNursing/api/file/signImage/${
+                trArr.find(item => item.key == "signerNo").value
+              }?${this.token}"
+              alt
+            /> `
+            : "";
+        } else {
+          return signerName;
+        }
       } else {
         return "";
       }
@@ -901,7 +912,8 @@ export default {
   },
   destroyed() {} /* fix vue-happy-bus bug */,
   mounted() {
-    this.fiexHeaderWidth = this.$refs.table.offsetWidth + "px";
+    this.fiexHeaderWidth =
+      this.$refs.table && this.$refs.table.offsetWidth + "px";
   },
   components: {
     signModal
