@@ -396,7 +396,7 @@ export default {
     },
     toMoreSign() {
       if (this.sheetInfo.selectRow.length) {
-        window.openSignModal((password, empNo) => {
+        window.openSignModal((password, empNo, signDate, dsvsRandom) => {
           let list = [];
           for (let trArr of this.sheetInfo.selectRow) {
             let trObj = {};
@@ -418,7 +418,8 @@ export default {
           let data = {
             empNo,
             password,
-            list
+            list,
+            dsvsRandom
           };
           sign(this.patientInfo.patientId, this.patientInfo.visitId, data).then(
             res => {

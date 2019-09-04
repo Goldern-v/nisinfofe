@@ -7,51 +7,64 @@
 </template>
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus">
-#sheetPagePrint{
-  overflow hidden
-  .contant{
-    margin 0 !important
-    padding 20px 20px
-    box-sizing content-box
-    }
+#sheetPagePrint {
+  overflow: hidden;
+
+  .contant {
+    margin: 0 !important;
+    padding: 20px 20px;
+    box-sizing: content-box;
+  }
+
   .sheet-table {
-      // width 1100px !important
-      }
+    // width 1100px !important
+  }
+
   .add-row {
-      display none
-    }
+    display: none;
+  }
+
   .body-con {
-    background #fff !important
+    background: #fff !important;
   }
+
   input {
-    color #000 !important;
+    color: #000 !important;
   }
-  .canSet{
-    color #000
+
+  .canSet {
+    color: #000;
   }
-td[datakey="signerNo"] {
-  display: table-cell !important
-}
-td[datakey="sign"] {
-  display none !important
-}
-// td[datakey="auditorNo"] {
-//   display: table-cell !important
-// }
-td[datakey="audit"] {
-  display none !important
-}
-td[datakey="auditorNo"] {
-  display: none !important
-}
-th[dataname="护士签名"] {
-  width 90px !important
-}
-th[dataname="审核签名"] {
-  display none !important
-}
-.sign-img {
-    width 100%
+
+  td[datakey='signerNo'] {
+    display: table-cell !important;
+  }
+
+  td[datakey='sign'] {
+    display: none !important;
+  }
+
+  // td[datakey="auditorNo"] {
+  // display: table-cell !important
+  // }
+  td[datakey='audit'] {
+    display: none !important;
+  }
+
+  td[datakey='auditorNo'] {
+    display: none !important;
+  }
+
+  th[dataname='护士签名'] {
+    width: 90px !important;
+  }
+
+  th[dataname='审核签名'] {
+    display: none !important;
+  }
+
+  .sign-img {
+    width: 100%;
     text-align: center;
     height: 100%;
     display: flex;
@@ -59,66 +72,75 @@ th[dataname="审核签名"] {
     justify-content: center;
 
     img {
-      width 0
-      flex 1
+      width: 0;
+      flex: 1;
       height: 30px;
       object-fit: contain;
-      margin 0 -5px
+      margin: 0 -5px;
     }
+
     span {
-      font-size 20px;
-      color #000
-      margin 0 -1px
+      font-size: 20px;
+      color: #000;
+      margin: 0 -1px;
     }
   }
-.no-print {
-  display none !important;
-}
-.border-none {
-  border: 0 !important;
-}
-.head-sign-text {
+
+  .no-print {
+    display: none !important;
+  }
+
+  .border-none {
+    border: 0 !important;
+  }
+
+  .head-sign-text {
     display: none;
   }
+
   .head-sign-img {
-     display: inline-block;
+    display: inline-block;
   }
- [datakey="description"] {
-   text-align left
- }
+
+  [datakey='description'] {
+    text-align: left;
+  }
 }
+
 @media print {
   #sheetPagePrint {
-     .contant {
-       box-shadow 0 0 0 !important
-       padding 0 !important
-      //  margin 80px 0 0 !important
-      //  width 1100px !important
-      margin 0 !important
-      }
+    .contant {
+      box-shadow: 0 0 0 !important;
+      padding: 0 !important;
+      // margin 80px 0 0 !important
+      // width 1100px !important
+      margin: 0 !important;
+    }
+
     .his-logo {
-      top 0 !important
-      left 0 !important
-      }
+      top: 0 !important;
+      left: 0 !important;
+    }
+
     .header-con h1 {
-      margin-top 0 !important
-      }
-      .iframe > div {
-      page-break-after always
-      padding-top 80px
-      box-sizing border-box
+      margin-top: 0 !important;
+    }
+
+    .iframe > div {
+      page-break-after: always;
+      padding-top: 80px;
+      box-sizing: border-box;
     }
 
     .iframe > div:nth-of-type(2n) {
-        transform:rotate(180deg)
-      }
+      transform: rotate(180deg);
     }
+  }
 }
 
 @page {
-  margin 0 10mm
+  margin: 0 10mm;
 }
-
 </style>
 
 <script>
@@ -180,6 +202,30 @@ export default {
            .iframe > div:nth-of-type(2n) {
                transform: rotate(0) !important;
           }
+       }
+        `
+      );
+    }
+
+    /** 如果是威县超宽打印 */
+    if (this.HOSPITAL_ID == "weixian") {
+      addCSS(
+        window,
+        `
+        @page{
+          margin: 5mm;
+          size: ${Math.round((sheetTableWidth * 25.4) / 96)}mm ${Math.round(
+          ((sheetTableWidth * 25.4) / 96) * 0.68
+        )}mm;
+        }
+
+        @media print {
+        #sheetPagePrint#sheetPagePrint .iframe > div:nth-of-type(2n) {
+         height: auto !important;
+         }
+        #sheetPagePrint#sheetPagePrint .iframe > div:nth-of-type(2n) {
+            transform: rotate(0deg) !important;
+       }
        }
         `
       );

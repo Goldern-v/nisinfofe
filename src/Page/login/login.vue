@@ -326,7 +326,7 @@ export default {
             this.$router.push("/index");
             if (this.HOSPITAL_ID == "weixian") {
               /** 验证证书 */
-              window.openCaSignModal();
+              // window.openCaSignModal();
             }
           }
           // 清除科室记录
