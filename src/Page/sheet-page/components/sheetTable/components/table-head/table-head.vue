@@ -136,7 +136,11 @@ export default {
   },
   filters: {
     toymd(val) {
-      return moment(val).format("YYYY年MM月");
+      if (process.env.HOSPITAL_ID == "weixian") {
+        return moment(val).format("YYYY-MM-DD");
+      } else {
+        return moment(val).format("YYYY年MM月");
+      }
     }
   },
   created() {

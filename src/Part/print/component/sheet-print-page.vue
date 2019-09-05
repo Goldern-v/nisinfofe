@@ -213,7 +213,7 @@ export default {
         window,
         `
         @page{
-          margin: 5mm;
+          margin: 0 5mm;
           size: ${Math.round((sheetTableWidth * 25.4) / 96)}mm ${Math.round(
           ((sheetTableWidth * 25.4) / 96) * 0.68
         )}mm;
