@@ -272,8 +272,8 @@ export default {
         return sheetTableNeonatology;
         //  return sheetTablePost_partum;
       } else if (sheetInfo.sheetType == "post_partum") {
-        // return sheetTablePost_partum;
-        return sheetTable_oxytocin;
+        return sheetTablePost_partum;
+        // return sheetTable_oxytocin;
       } else if (sheetInfo.sheetType == "blood_purification") {
         return sheetTablePost_hemodialysis;
       } else {

@@ -204,12 +204,12 @@ export default function Title(data = [], autoData = [], index) {
     case "post_partum":
       {
         // 产后观察
-        // Th = JSON.parse(
-        //   JSON.stringify(require("../config/post_partum/th").default)
-        // );
         Th = JSON.parse(
-          JSON.stringify(require("../config/oxytocin/th").default)
+          JSON.stringify(require("../config/post_partum/th").default)
         );
+        // Th = JSON.parse(
+        //   JSON.stringify(require("../config/oxytocin/th").default)
+        // );
       }
       break;
     case "blood_purification":

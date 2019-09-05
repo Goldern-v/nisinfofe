@@ -209,8 +209,8 @@ function switechSheetType(type) {
     case "post_partum":
       {
         // 产后观察
-        // schema = require("../config/post_partum/tr.js").default;
-        schema = require("../config/oxytocin/tr.js").default;
+        schema = require("../config/post_partum/tr.js").default;
+        // schema = require("../config/oxytocin/tr.js").default;
       }
       break;
     case "blood_purification":
