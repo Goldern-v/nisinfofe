@@ -38,6 +38,11 @@
                 <i class="iconfont icon-baiban"></i> 白板
               </el-row>
             </router-link>
+            <!-- <router-link to="/familyBigScreen" tag="span">
+              <el-row class="nav-item" type="flex" align="middle">
+                <i class="iconfont icon-family"></i> 家属大屏
+              </el-row>
+            </router-link> -->
 
             <router-link to="/MEWS" tag="span">
               <el-row class="nav-item" type="flex" align="middle">

@@ -63,25 +63,26 @@
         value-key="id"
         placeholder="请选择评估记录"
         class="select-con"
-        popper-class="sheetSelect-con-sheet"
       >
-        <div class="head-con" flex="cross:stretch">
-          <div class="col-1">ID</div>
-          <div class="col-2">科室</div>
-          <div class="col-3">评估时间</div>
-        </div>
-        <el-option
-          v-for="(item,i) in sheetBlockList"
-          :key="i"
-          :label="(i+1)+' - '+blockLabel(item)"
-          :value="item"
-        >
-          <div class="list-con" flex="cross:stretch">
-            <div class="col-1" :title="item.id">{{i+1}}-{{item.id}}</div>
-            <div class="col-2" :title="item.wardName">{{item.wardName}}</div>
-            <div class="col-3" :title="item.evalDate">{{item.evalDate}}</div>
+        <div class="sheetSelect-con-sheet">
+          <div class="head-con" flex="cross:stretch">
+            <div class="col-1">ID</div>
+            <div class="col-2">科室</div>
+            <div class="col-3">评估时间</div>
           </div>
-        </el-option>
+          <el-option
+            v-for="(item,i) in sheetBlockList"
+            :key="i"
+            :label="(i+1)+' - '+blockLabel(item)"
+            :value="item"
+          >
+            <div class="list-con" flex="cross:stretch">
+              <div class="col-1" :title="item.id">{{i+1}}-{{item.id}}</div>
+              <div class="col-2" :title="item.wardName">{{item.wardName}}</div>
+              <div class="col-3" :title="item.evalDate">{{item.evalDate}}</div>
+            </div>
+          </el-option>
+        </div>
       </el-select>
 
       <div style="width: 5px;"></div>
@@ -103,7 +104,7 @@
   color #333
 </style>
 
-<style lang="stylus">
+<style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
 .sheetSelect-con-sheet
   background: #FFFFFF;
   box-shadow: 0 2px 6px 0 rgba(0,0,0,0.50);
