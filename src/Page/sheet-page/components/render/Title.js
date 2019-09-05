@@ -207,6 +207,9 @@ export default function Title(data = [], autoData = [], index) {
         Th = JSON.parse(
           JSON.stringify(require("../config/post_partum/th").default)
         );
+        // Th = JSON.parse(
+        //   JSON.stringify(require("../config/oxytocin/th").default)
+        // );
       }
       break;
     case "blood_purification":
@@ -214,6 +217,14 @@ export default function Title(data = [], autoData = [], index) {
         // 血透
         Th = JSON.parse(
           JSON.stringify(require("../config/blood_purification/th").default)
+        );
+      }
+      break;
+    case "oxytocin":
+      {
+        // 催产素静脉点滴观察
+        Th = JSON.parse(
+          JSON.stringify(require("../config/oxytocin/th").default)
         );
       }
       break;
