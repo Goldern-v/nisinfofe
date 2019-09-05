@@ -256,7 +256,8 @@ export default {
             window.performance.memory.usedJSHeapSize
           )}`
         },
-        { key: "CPU总线程数", value: window.navigator.hardwareConcurrency }
+        { key: "CPU总线程数", value: window.navigator.hardwareConcurrency },
+        { key: "蓝牙签名功能激活", value: process.env.ENABLE_BLUETOOTH_SIGN || 'false' },
       ];
     }
   },
@@ -363,11 +364,15 @@ export default {
     this.bus.$on("refreshSign", () => {
       this.getSignImg();
     });
+    // let HOSPITAL_ENABLE_LIST = ["威县人民医院"]
+    console.log('process.env.ENABLE_BLUETOOTH_SIGN',process.env.ENABLE_BLUETOOTH_SIGN)
     clearInterval(timer);
-    this.getCaStatus();
-    let timer = setInterval(() => {
+    if(process.env.ENABLE_BLUETOOTH_SIGN){
       this.getCaStatus();
-    }, 5000);
+      let timer = setInterval(() => {
+        this.getCaStatus();
+      }, 5000);
+    }
   },
   mounted() {
     this.getUserImg();
