@@ -170,6 +170,7 @@ import sheetTableNeonatology from "./components/sheetTable-neonatology/sheetTabl
 import sheeTableBurn_plastic from "./components/sheeTable-burn_plastic/sheetTable";
 import sheetTablePost_partum from "./components/sheetTable-post_partum/sheetTable";
 import sheetTablePost_hemodialysis from "./components/sheetTable-hemodialysis/sheetTable";
+import sheetTable_oxytocin from "./components/sheetTable-oxytocin/sheetTable";
 import common from "@/common/mixin/common.mixin.js";
 import evalModel from "./components/modal/eval-model/eval-model.vue";
 import { typeList } from "@/api/lesion";
@@ -272,6 +273,7 @@ export default {
         //  return sheetTablePost_partum;
       } else if (sheetInfo.sheetType == "post_partum") {
         return sheetTablePost_partum;
+        // return sheetTable_oxytocin;
       } else if (sheetInfo.sheetType == "blood_purification") {
         return sheetTablePost_hemodialysis;
       } else {
@@ -630,7 +632,8 @@ export default {
     sheetTableNeonatology,
     sheetTablePost_partum,
     evalModel,
-    sheetTablePost_hemodialysis
+    sheetTablePost_hemodialysis,
+    sheetTable_oxytocin
   }
 };
 </script>

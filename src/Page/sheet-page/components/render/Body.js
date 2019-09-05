@@ -210,12 +210,19 @@ function switechSheetType(type) {
       {
         // 产后观察
         schema = require("../config/post_partum/tr.js").default;
+        // schema = require("../config/oxytocin/tr.js").default;
       }
       break;
     case "blood_purification":
       {
         // 血透
         schema = require("../config/blood_purification/tr.js").default;
+      }
+      break;
+    case "oxytocin":
+      {
+        // 催产素静脉点滴观察
+        schema = require("../config/oxytocin/tr.js").default;
       }
       break;
     case "neurology_wx":

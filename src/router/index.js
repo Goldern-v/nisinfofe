@@ -118,6 +118,10 @@ import flatManagement from "@/Page/flat-management/flat-management";
 // 归档
 import archive from "@/Page/archive/archive.vue";
 
+// 家属大屏
+import familyBigScreen from "@/Page/family-big-screen/family-big-screen.vue";
+import videoListSetting from "@/Page/family-big-screen/video-list-setting.vue";
+
 /** demo */
 import demo from "@/demo/demo";
 Vue.use(Router);
@@ -161,6 +165,18 @@ const router = new Router({
           path: "/board",
           component: white,
           alias: "白板"
+        },
+        {
+          path: "/familyBigScreen",
+          component: familyBigScreen,
+          alias: "家属大屏",
+          children: [
+            {
+              name: "videoListSetting",
+              path: "/familyBigScreen/:name?",
+              component: videoListSetting
+            },
+          ]
         },
         {
           path: "/inBox",
