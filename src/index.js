@@ -122,6 +122,13 @@ import "./common/directives/common.directive";
 /** 时间控件 */
 import crDatePicker from "@/components/cr-date-picker/cr-date-picker";
 Vue.component("cr-date-picker", crDatePicker);
+//添加element-ui2.0表格组件
+import { Table as EcrmTable, TableColumn as EcrmTableColumn} from 'ecrm-element-ui';
+Vue.component('EcrmTable',EcrmTable)
+Vue.component('EcrmTableColumn',EcrmTableColumn)
+//组件
+import VueContextMenu from 'vue-contextmenu'
+Vue.use(VueContextMenu)
 /** 环境变量 */
 Vue.prototype.HOSPITAL_ID = process.env.HOSPITAL_ID;
 Vue.prototype.HOSPITAL_NAME = process.env.HOSPITAL_NAME;

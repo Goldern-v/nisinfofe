@@ -78,7 +78,7 @@ export default {
   },
   filters: {
     toymd(val) {
-      return moment(val).format("YYYY年MM月");
+      return moment(val).format("YYYY-MM-DD");
     }
   },
   components: {}

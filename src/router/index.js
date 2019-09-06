@@ -21,7 +21,6 @@ import bloodSugar from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar.vue";
 import bloodSugarWeiXian from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_weixian.vue"; // 威县
 import healthEducation from "@/Page/patientInfo/supPage/healthEducation/healthEducation.vue"; // 厚街
 
-
 import task from "@/Page/lesion/supPage/task/task";
 import bed from "@/Page/lesion/supPage/bed/bed";
 import shift from "@/Page/lesion/supPage/shift/shift";
@@ -115,13 +114,15 @@ import departmentSharedFile from "@/Page/department-shared-file/department-share
 // 扁平管理
 import flatManagement from "@/Page/flat-management/flat-management";
 
+//产科分娩登记表
+import puerperantSituation from "@/Page/puerperantSituation/puerperantSituation";
+
 // 归档
 import archive from "@/Page/archive/archive.vue";
 
 // 家属大屏
 import familyBigScreen from "@/Page/family-big-screen/family-big-screen.vue";
 import videoListSetting from "@/Page/family-big-screen/video-list-setting.vue";
-
 /** demo */
 import demo from "@/demo/demo";
 Vue.use(Router);
@@ -175,7 +176,7 @@ const router = new Router({
               name: "videoListSetting",
               path: "/familyBigScreen/:name?",
               component: videoListSetting
-            },
+            }
           ]
         },
         {
@@ -372,7 +373,10 @@ const router = new Router({
             },
             {
               path: "/bloodSugar",
-              component: process.env.HOSPITAL_NAME == "威县人民医院" ? bloodSugarWeiXian : bloodSugar,
+              component:
+                process.env.HOSPITAL_NAME == "威县人民医院"
+                  ? bloodSugarWeiXian
+                  : bloodSugar,
               name: "血糖",
               alias: "血糖"
             },
@@ -429,6 +433,7 @@ const router = new Router({
         { path: "/noCheckTest", component: noCheckTest },
         { path: "/departmentSharedFile", component: departmentSharedFile },
         { path: "/flatManagement", component: flatManagement },
+        { path: "/puerperantSituation", component: puerperantSituation }
       ]
     },
     {

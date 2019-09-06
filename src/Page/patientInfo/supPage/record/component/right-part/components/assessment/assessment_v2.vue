@@ -288,7 +288,10 @@ export default {
       }
 
       this.url = url;
-      this.$refs.iframeV2.contentWindow.location.href = url;
+      if(this.$refs.iframeV2){
+        this.$refs.iframeV2.contentWindow.location.href = url;
+      }
+
       // wid.location.href
       // if (url == this.url) {
       //   this.refresh();
@@ -331,7 +334,7 @@ export default {
       this.wid = this.$refs.iframeV2.contentWindow;
       window.wid = this.$refs.iframeV2.contentWindow;
 
-      console.log("!!!!onload!!!!", this.wid);
+      // console.log("!!!!onload!!!!", this.wid);
 
       // window.document.addEventListener()
       // this.wid.document.removeEventListener("click", this.onClick);
@@ -387,12 +390,12 @@ export default {
           this.refresh();
         });
       }
-      console.log(
-        "this.wid.formInfo",
-        this.wid.formInfo,
-        "isLandscape",
-        this.isLandscape
-      );
+      // console.log(
+      //   "this.wid.formInfo",
+      //   this.wid.formInfo,
+      //   "isLandscape",
+      //   this.isLandscape
+      // );
 
       if (
         this.wid.loadTimeData &&
