@@ -12,19 +12,22 @@
           <el-col :span="5">
             <el-select 
               v-model="params.hospitalizationNumber" 
-              placeholder="产妇姓名" 
+              placeholder="产妇姓名/床号/住院号" 
               filterable
+              :filter-method="patientsFilterMethod"
               @change="handlePatinentChange">
-              <el-option
-                v-for="(item,idx) in patientListFiltered"
-                :key="idx"
-                :label="item.name"
-                :value="item.patientId">
-                <div>
-                  <div style="float: left;">{{item.name}}</div>
-                  <div  style="float: right;">{{item.bedLabel}}床</div>
-                </div>
-              </el-option>
+              <template  v-for="(item,idx) in patientListFiltered">
+                <el-option
+                  :key="idx"
+                  v-if="patientOptionVisible(item,filterSearch)"
+                  :label="item.name"
+                  :value="item.patientId">
+                  <div>
+                    <div style="float: left;">{{item.name}}</div>
+                    <div  style="float: right;">{{item.bedLabel}}床</div>
+                  </div>
+                </el-option>
+              </template>
             </el-select>
           </el-col>
           <el-col :span="3">身份证号:</el-col>
@@ -371,7 +374,8 @@ export default {
         remarks: ''
       },
       patientList:[],
-      patientListFiltered:[]
+      patientListFiltered:[],
+      filterSearch: ''
     };
   },
   mounted() {
@@ -385,6 +389,16 @@ export default {
     })
   },
   methods: {
+    patientsFilterMethod(search){
+      this.filterSearch = search;
+    },
+    patientOptionVisible(item,search){
+        if(!search)return true
+        if(item.patientId.match(search)!==null)return true
+        if(item.bedLabel.match(search)!==null)return true
+        if(item.name.match(search)!==null)return true
+        return false
+    },
     formatPatientList(list){
       let newList = [];
       newList = list.filter((item)=>{
