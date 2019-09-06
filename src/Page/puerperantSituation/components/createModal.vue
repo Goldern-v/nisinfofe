@@ -3,7 +3,7 @@
     <el-dialog ref="modal" size="small" v-model="dialogVisible" title="新建分娩记录" @close="handleClose" custom-class="puperant-record-create-modal">
       <div class="model-content">
         <div class="title-row">基本信息:</div>
-        <el-row class="content-row" :gutter="20">
+        <el-row class="content-row" :gutter="8">
           <el-col :span="3">住院号:</el-col>
           <el-col :span="5">
             <el-input size="small" :disabled="true" v-model="params.hospitalizationNumber"/>
@@ -35,7 +35,7 @@
             <el-input size="small" v-model="params.femaleId"/>
           </el-col>
         </el-row>
-        <el-row class="content-row" :gutter="20">
+        <el-row class="content-row" :gutter="8">
           <el-col :span="3">年龄:</el-col>
           <el-col :span="5">
             <el-input 
@@ -53,7 +53,7 @@
             <el-input size="small" v-model="params.femaleJob"/>
           </el-col>
         </el-row>
-        <el-row class="content-row" :gutter="20">
+        <el-row class="content-row" :gutter="8">
           <el-col :span="3">文化程度:</el-col>
           <el-col :span="5">
             <el-input size="small" v-model="params.femaleEdu"/>
@@ -64,7 +64,7 @@
           </el-col>
         </el-row>
         <div class="sub-title-row"> </div>
-        <el-row class="content-row" :gutter="20">
+        <el-row class="content-row" :gutter="8">
           <el-col :span="3">丈夫姓名:</el-col>
           <el-col :span="5">
             <el-input size="small"  v-model="params.man"/>
@@ -82,7 +82,7 @@
               @change="(val)=>handleNumberChange(val,'manAge')"/>
           </el-col>
         </el-row>
-        <el-row class="content-row" :gutter="20">
+        <el-row class="content-row" :gutter="8">
           <el-col :span="3">丈夫籍贯:</el-col>
           <el-col :span="5">
             <el-input size="small" v-model="params.manBrithPlace"/>
@@ -103,7 +103,7 @@
           </el-col>
         </el-row>
         <div class="title-row">产妇情况:</div>
-        <el-row class="content-row" :gutter="20">
+        <el-row class="content-row" :gutter="8">
           <el-col :span="3">现住地址:</el-col>
           <el-col :span="5">
             <el-input size="small" v-model="params.nowAddress"/>
@@ -113,7 +113,7 @@
             <el-input size="small" v-model="params.dangerousSituation"/>
           </el-col>
         </el-row>
-        <el-row class="content-row" :gutter="20">
+        <el-row class="content-row" :gutter="8">
           <el-col :span="3">孕周:</el-col>
           <el-col :span="5">
             <el-input 
@@ -140,7 +140,7 @@
           </el-col>
         </el-row>
         <div class="sub-title-row">破膜时间:</div>
-        <el-row class="content-row" :gutter="20">
+        <el-row class="content-row" :gutter="8">
           <el-col :span="3">人工:</el-col>
           <el-col :span="5">
             <el-date-picker type="datetime" size="small" v-model="params.artiBrokenMembraneTime"/>
@@ -151,7 +151,7 @@
           </el-col>
         </el-row>
         <div class="sub-title-row">产程时间(小时):</div>
-        <el-row class="content-row" :gutter="20">
+        <el-row class="content-row" :gutter="8">
           <el-col :span="3">一:</el-col>
           <el-col :span="5">
             <el-input size="small" v-model="params.productionProcess1"/>
@@ -165,17 +165,21 @@
             <el-input size="small" v-model="params.productionProcess3"/>
           </el-col>
         </el-row>
-        <el-row class="content-row" :gutter="20">
+        <el-row class="content-row" :gutter="8">
           <el-col :span="3">总产程:</el-col>
           <el-col :span="5">
             <el-input size="small" v-model="params.productionProcessCount"/>
           </el-col>
         </el-row>
         <div class="sub-title-row"> </div>
-        <el-row class="content-row" :gutter="20">
-          <el-col :span="4">产前是否点滴催产素:</el-col>
-          <el-col :span="4">
-            <el-input size="small" v-model="params.hadOxytocin"/>
+        <el-row class="content-row" :gutter="8">
+          <el-col :span="3">产前是否点滴催产素:</el-col>
+          <el-col :span="5">
+            <!-- <el-input size="small" v-model="params.hadOxytocin"/> -->
+            <el-radio-group v-model="params.hadOxytocin">
+              <el-radio label="是" value="是"/>
+              <el-radio label="否" value="否"/>
+            </el-radio-group>
           </el-col>
           <el-col :span="3">分娩时间:</el-col>
           <el-col :span="5">
@@ -186,14 +190,14 @@
             <el-input size="small" v-model="params.childBirthWay"/>
           </el-col>
         </el-row>
-        <el-row class="content-row" :gutter="20">
+        <el-row class="content-row" :gutter="8">
            <el-col :span="3">手术指征:</el-col>
           <el-col :span="5">
             <el-input size="small" v-model="params.surgicalIndication"/>
           </el-col>
         </el-row>
         <div class="sub-title-row">会阴情况：</div>
-        <el-row class="content-row" :gutter="20">
+        <el-row class="content-row" :gutter="8">
           <el-col :span="3">Ⅰ:</el-col>
           <el-col :span="5">
             <el-input size="small" v-model="params.perineumSituation1"/>
@@ -207,24 +211,28 @@
             <el-input size="small" v-model="params.perineumSituation3"/>
           </el-col>
         </el-row>
-        <el-row class="content-row" :gutter="20">
+        <el-row class="content-row" :gutter="8">
           <el-col :span="3">切开:</el-col>
           <el-col :span="5">
             <el-input size="small" v-model="params.perineumSituation"/>
           </el-col>
         </el-row>
         <div class="sub-title-row"> </div>
-        <el-row class="content-row" :gutter="20">
+        <el-row class="content-row" :gutter="8">
           <el-col :span="3">产后2h出血量(ml):</el-col>
           <el-col :span="5">
             <el-input size="small" v-model="params.birthBloodVolume"/>
           </el-col>
         </el-row>
         <div class="title-row">新生儿情况:</div>
-        <el-row class="content-row" :gutter="20">
+        <el-row class="content-row" :gutter="8">
           <el-col :span="3">性别:</el-col>
           <el-col :span="5">
-            <el-input size="small" v-model="params.newBornSex"/>
+            <!-- <el-input size="small" v-model="params.newBornSex"/> -->
+            <el-radio-group v-model="params.newBornSex">
+              <el-radio label="男" value="男">男</el-radio>
+              <el-radio label="女" value="女">女</el-radio>
+            </el-radio-group>
           </el-col>
           <el-col :span="3">身长cm:</el-col>
           <el-col :span="5">
@@ -236,7 +244,7 @@
           </el-col>
         </el-row>
         <div class="sub-title-row">阿氏评分:</div>
-        <el-row class="content-row" :gutter="20">
+        <el-row class="content-row" :gutter="8">
           <el-col :span="3">一分钟:</el-col>
           <el-col :span="5">
             <el-input size="small" v-model="params.aShiScore1"/>
@@ -247,7 +255,7 @@
           </el-col>
         </el-row>
         <div class="sub-title-row"></div>
-        <el-row class="content-row" :gutter="20">
+        <el-row class="content-row" :gutter="8">
           <el-col :span="3">早接触:</el-col>
           <el-col :span="5">
             <el-input size="small" v-model="params.earlyContact"/>
@@ -261,7 +269,7 @@
             <el-input size="small" v-model="params.deadBirth"/>
           </el-col>
         </el-row>
-        <el-row class="content-row" :gutter="20">
+        <el-row class="content-row" :gutter="8">
           <el-col :span="3">死产:</el-col>
           <el-col :span="5">
             <el-input size="small" v-model="params.deadProduce"/>
@@ -275,17 +283,21 @@
             <el-input size="small" v-model="params.newBornDead"/>
           </el-col>
         </el-row>
-        <el-row class="content-row" :gutter="20">
+        <el-row class="content-row" :gutter="8">
           <el-col :span="3">死因:</el-col>
           <el-col :span="5">
             <el-input size="small" v-model="params.deadReason"/>
           </el-col>
         </el-row>
         <div class="title-row">其他:</div>
-        <el-row class="content-row" :gutter="20">
+        <el-row class="content-row" :gutter="8">
           <el-col :span="3">生育证号码:</el-col>
           <el-col :span="5">
-            <el-input size="small" v-model="params.birthCertificateNum"/>
+            <!-- <el-input size="small" v-model="params.birthCertificateNum"/> -->
+            <el-radio-group v-model="params.birthCertificateNum">
+              <el-radio label="有" value="有"/>
+              <el-radio label="无" value="无"/>
+            </el-radio-group>
           </el-col>
           <el-col :span="3">出生医学证明号码:</el-col>
           <el-col :span="5">
@@ -425,7 +437,6 @@ export default {
       }
 
       if(!params.hospitalizationNumber)errMsg = '未选择产妇'
-      if(!params.childBirthTime)errMsg = '分娩时间不能为空'
 
       if(errMsg){
         this.$message({
@@ -519,7 +530,7 @@ export default {
 
 <style lang="scss" scoped>
 .model-content {
-  max-height: 500px;
+  max-height: 400px;
   overflow-x: hidden;
   overflow-y: auto;
   padding: 0 10px;
@@ -548,6 +559,9 @@ export default {
   }
   .nurse-select {
     width: 100%;
+  }
+  .el-col-5,.el-col-12{
+    padding-right: 10px!important;
   }
 }
 </style>

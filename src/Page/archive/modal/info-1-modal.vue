@@ -1,6 +1,6 @@
 <template>
   <div>
-    <sweet-modal ref="modal" :modalWidth="400" title="患者信息" :enable-mobile-fullscreen="false">
+    <sweet-modal ref="modal" :modalWidth="400" title="归档" :enable-mobile-fullscreen="false">
       <!-- <div v-loading="iconLoading">
         <div class="list-con">
           <span class="key">时间：</span>
@@ -23,7 +23,7 @@
               {{item.iconText}}
           </div>
          </div>  
-      </div> -->
+      </div>-->
       <p>是否归档</p>
       <div slot="button">
         <el-button class="modal-btn" @click="close">取消</el-button>
@@ -34,73 +34,93 @@
   </div>
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
-.list-con
-  margin 0 40px 10px
+.list-con {
+  margin: 0 40px 10px;
   font-size: 14px;
-  .key
+
+  .key {
     color: #687179;
-  .value
-    color: #333333;  
-.icon-con
-  margin 0 38px 10px  
-  min-height 20px  
-.table-name
+  }
+
+  .value {
+    color: #333333;
+  }
+}
+
+.icon-con {
+  margin: 0 38px 10px;
+  min-height: 20px;
+}
+
+.table-name {
   background: #FF263C;
   border-radius: 2px;
-  width 18px
-  height 18px;
-  margin-left 4px
+  width: 18px;
+  height: 18px;
+  margin-left: 4px;
   font-size: 12px;
   color: #FFFFFF;
-  text-align: center
-  line-height 18px   
-.modal-btn
-  overflow hidden   
+  text-align: center;
+  line-height: 18px;
+}
+
+.modal-btn {
+  overflow: hidden;
+}
 </style>
 <script>
-import common from '@/common/mixin/common.mixin.js'
-import mixin from '../mixins/index.js'
-import {patList} from '../api/index-xin.js'
-import qs from 'qs'
-  export default {
-    mixins: [common, mixin],
-    data() {
-      return {
-        data: {},
-        details: {},
-        iconLoading: false,
-      }
+import common from "@/common/mixin/common.mixin.js";
+import mixin from "../mixins/index.js";
+import { uploadFileArchive } from "../api/index.js";
+import qs from "qs";
+export default {
+  mixins: [common, mixin],
+  data() {
+    return {
+      data: {},
+      details: {},
+      iconLoading: false,
+      item: {}
+    };
+  },
+  props: {
+    getArchiveList: Function
+  },
+  methods: {
+    open(data) {
+      this.item = data;
+      this.$refs.modal.open();
     },
-    methods: {
-      open(data) {
-        this.data = data
-        this.details = {} 
-        this.iconLoading = true
-        patList(this.deptCode, data.patientId, data.visitId).then(res => {
-          this.details = res.data.data
-          this.iconLoading = false
-        })
-        this.$refs.modal.open()
-      },
-      close() {
-        this.$refs.modal.close()
-      },
-      // post() {
-      //   let obj = {}
-      //   let item = this.details
-      //   for(let i in item) {
-      //     if(item[i]) {
-      //       obj[i] = item[i]
-      //     }
-      //   }
-      //   window.open(`/crNursing/home?${qs.stringify(obj)}`)
-      //   this.close()
-      // },
-      confirm(){
-        this.close();
-      }
+    close() {
+      this.$refs.modal.close();
     },
-    components: {}
-  }
+    // 文件归档上传
+    uploadFileArchive() {
+      uploadFileArchive(this.item.patientId, this.item.visitId).then(rep => {
+        this.$message({
+          type: "success",
+          message: "文件上传成功"
+        });
+        this.getArchiveList();
+      });
+    },
+    // post() {
+    //   let obj = {}
+    //   let item = this.details
+    //   for(let i in item) {
+    //     if(item[i]) {
+    //       obj[i] = item[i]
+    //     }
+    //   }
+    //   window.open(`/crNursing/home?${qs.stringify(obj)}`)
+    //   this.close()
+    // },
+    confirm() {
+      this.close();
+      this.uploadFileArchive();
+    }
+  },
+  components: {}
+};
 </script>
 

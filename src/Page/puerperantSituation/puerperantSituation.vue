@@ -141,8 +141,8 @@
             </ecrm-table-column>
             <ecrm-table-column label="分娩方式" prop="childBirthWay" width="60" align="center">
               <template slot-scope="scope">
-                  <span :style="{color:scope.row.childBirthWay=='剖宫产'?'red':''}">{{scope.row.childBirthWay}}</span>
-                </template>
+                <span :style="{color:scope.row.childBirthWay.match('剖宫产')!==null?'red':''}">{{scope.row.childBirthWay}}</span>
+              </template>
             </ecrm-table-column>
             <ecrm-table-column label="手术指征" prop="surgicalIndication" width="60" align="center"></ecrm-table-column>
             <ecrm-table-column label="会阴情况" width="60" align="center">
@@ -170,7 +170,7 @@
             <ecrm-table-column label="死因" prop="deadReason" width="60" align="center"></ecrm-table-column>
           </ecrm-table-column>
           <ecrm-table-column label="其他" align="center">
-            <ecrm-table-column label="生育证号码" prop="birthCertificateNum" width="120" align="center"></ecrm-table-column>
+            <ecrm-table-column label="生育证号码" prop="birthCertificateNum" width="100" align="center"></ecrm-table-column>
             <ecrm-table-column label="接生者" prop="接生者" width="160" align="center">
               <template slot-scope="scope">
                 <span class="sign-name" @click="()=>handleSign(scope.row,'birthAttendantName1')">{{scope.row.birthAttendantName1||''}}</span>
@@ -178,7 +178,7 @@
                 <span class="sign-name" @click="()=>handleSign(scope.row,'birthAttendantName2')">{{scope.row.birthAttendantName2||''}}</span>
               </template>
             </ecrm-table-column>
-            <ecrm-table-column label="出生医学证明号码" prop="birthCertificateNumber" width="120" align="center"></ecrm-table-column>
+            <ecrm-table-column label="出生医学证明号码" prop="birthCertificateNumber" width="150" align="center"></ecrm-table-column>
             <ecrm-table-column label="备注" prop="remarks" width="100" align="center"></ecrm-table-column>
           </ecrm-table-column>
           <ecrm-table-column label="操作" align="center" fixed="right">
@@ -317,7 +317,7 @@ export default {
       else if(!query.endDate )
         query.endDate = ''
 
-      console.log(query)
+      // console.log(query)
 
       getList(query).then(res=>{
         this.tableLoading= false;
@@ -352,7 +352,7 @@ export default {
         newList = newList.concat([{...list[i]},{...list[i]}])
       }
 
-      console.log(newList)
+      // console.log(newList)
 
       return newList;
     },
@@ -507,6 +507,18 @@ export default {
         case 'pregnancyTimes':
         case 'birthTimes':
           editType= 'int'
+          break
+        case 'newBornSex':
+          editType= 'radioGroup'
+          options=['男','女']
+          break
+        case 'birthCertificateNum':
+          editType= 'radioGroup'
+          options=['有','无']
+          break
+        case 'hadOxytocin':
+          editType= 'radioGroup'
+          options=['是','否']
           break
         case 'hospitalizationNumber':
         case '接生者':
