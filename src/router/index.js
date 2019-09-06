@@ -115,13 +115,15 @@ import departmentSharedFile from "@/Page/department-shared-file/department-share
 // 扁平管理
 import flatManagement from "@/Page/flat-management/flat-management";
 
+//产科分娩登记表
+import puerperantSituation from "@/Page/puerperantSituation/puerperantSituation"
+
 // 归档
 import archive from "@/Page/archive/archive.vue";
 
 // 家属大屏
 import familyBigScreen from "@/Page/family-big-screen/family-big-screen.vue";
 import videoListSetting from "@/Page/family-big-screen/video-list-setting.vue";
-
 /** demo */
 import demo from "@/demo/demo";
 Vue.use(Router);
@@ -429,6 +431,7 @@ const router = new Router({
         { path: "/noCheckTest", component: noCheckTest },
         { path: "/departmentSharedFile", component: departmentSharedFile },
         { path: "/flatManagement", component: flatManagement },
+        { path: "/puerperantSituation", component: puerperantSituation},
       ]
     },
     {
