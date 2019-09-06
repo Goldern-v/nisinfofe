@@ -21,7 +21,6 @@ import bloodSugar from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar.vue";
 import bloodSugarWeiXian from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_weixian.vue"; // 威县
 import healthEducation from "@/Page/patientInfo/supPage/healthEducation/healthEducation.vue"; // 厚街
 
-
 import task from "@/Page/lesion/supPage/task/task";
 import bed from "@/Page/lesion/supPage/bed/bed";
 import shift from "@/Page/lesion/supPage/shift/shift";
@@ -175,7 +174,7 @@ const router = new Router({
               name: "videoListSetting",
               path: "/familyBigScreen/:name?",
               component: videoListSetting
-            },
+            }
           ]
         },
         {
@@ -372,7 +371,10 @@ const router = new Router({
             },
             {
               path: "/bloodSugar",
-              component: process.env.HOSPITAL_NAME == "威县人民医院" ? bloodSugarWeiXian : bloodSugar,
+              component:
+                process.env.HOSPITAL_NAME == "威县人民医院"
+                  ? bloodSugarWeiXian
+                  : bloodSugar,
               name: "血糖",
               alias: "血糖"
             },
@@ -428,7 +430,7 @@ const router = new Router({
         { path: "/nursingRules", component: nursingRules },
         { path: "/noCheckTest", component: noCheckTest },
         { path: "/departmentSharedFile", component: departmentSharedFile },
-        { path: "/flatManagement", component: flatManagement },
+        { path: "/flatManagement", component: flatManagement }
       ]
     },
     {

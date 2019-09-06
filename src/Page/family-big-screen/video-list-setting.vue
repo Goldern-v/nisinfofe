@@ -1,5 +1,16 @@
 <template>
   <div class="nursing-rules">
+    <div class="search-topbar">
+      <!-- <span class="title">护理制度</span> -->
+      <div class="float-left">
+        <h3>产科宣教视频设置</h3>
+      </div>
+      <div class="float-right">
+        <el-button>添加</el-button>
+        <el-button>保存</el-button>
+        <el-button>返回</el-button>
+      </div>
+    </div>
     <div class="main-contain">
       <div class="table-contain">
         <el-table :data="data" :height="tableHeight" border v-loading="pageLoadng" stripe>
@@ -9,7 +20,7 @@
           <el-table-column prop="inspectorName" label="上传时间" width="150" align="center"></el-table-column>
           <el-table-column prop="responsibleEmpName" label="加入播放列表" width="150" align="center">
             <template slot-scope="scope">
-              <input type="checkbox" v-model="scope.row">
+              <input type="checkbox" v-model="scope.row" />
             </template>
           </el-table-column>
           <el-table-column prop="operation" label="操作" width="200" align="center">
@@ -23,9 +34,7 @@
       </div>
     </div>
     <sweet-modal ref="preview-modal" class="nursing-rules-preview-modal" :title="preview.title">
-      <div class="modal-content">
-        111
-      </div>
+      <div class="modal-content">111</div>
     </sweet-modal>
   </div>
 </template>
@@ -68,7 +77,7 @@ export default {
       this.setTableData();
       this.getTypeByDeptCode();
     }
-    
+
     // 设置默认日期
     this.getDate();
   },
@@ -176,7 +185,7 @@ export default {
       }
     },
     // 设置默认日期
-    getDate(){
+    getDate() {
       if (!this.query.checkDateStart) {
         let month = parseInt(new Date().getMonth()) + 1;
         if (month < 10) {
@@ -190,14 +199,42 @@ export default {
       this.query.checkDateEnd = this.query.checkDateEnd
         ? this.query.checkDateEnd
         : dayjs(new Date()).format("YYYY-MM-DD");
-      this.query.checkDateStart = dayjs(this.query.checkDateStart).format("YYYY-MM-DD");
-      this.query.checkDateEnd = dayjs(this.query.checkDateEnd).format("YYYY-MM-DD");
+      this.query.checkDateStart = dayjs(this.query.checkDateStart).format(
+        "YYYY-MM-DD"
+      );
+      this.query.checkDateEnd = dayjs(this.query.checkDateEnd).format(
+        "YYYY-MM-DD"
+      );
     }
   }
 };
 </script>
 <style lang="scss">
 .nursing-rules {
+  .search-topbar {
+    .float-right {
+      float: right;
+      .type-label {
+        font-size: 13px;
+        vertical-align: middle;
+      }
+      .type-content {
+        margin-right: 15px;
+        input {
+          height: 31px;
+        }
+      }
+      .search-el {
+        input {
+          height: 31px;
+        }
+      }
+      .el-button {
+        width: 100px;
+        margin-left: 1px;
+      }
+    }
+  }
   .main-contain {
     div {
       cursor: default;
