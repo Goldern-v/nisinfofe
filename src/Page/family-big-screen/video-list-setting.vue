@@ -6,36 +6,52 @@
         <h3>产科宣教视频设置</h3>
       </div>
       <div class="float-right">
-        <el-button>添加</el-button>
+        <el-button @click="openUploadVideoModal">添加</el-button>
         <el-button>保存</el-button>
         <el-button>返回</el-button>
       </div>
     </div>
     <div class="main-contain">
       <div class="table-contain">
-        <el-table :data="data" :height="tableHeight" border v-loading="pageLoadng" stripe>
-          <el-table-column prop="index" label="序号" width="50" align="center"></el-table-column>
-          <el-table-column prop="checkDate" label="视频名称" align="center"></el-table-column>
-          <el-table-column prop="wardName" label="上传者" width="120" align="center"></el-table-column>
-          <el-table-column prop="inspectorName" label="上传时间" width="150" align="center"></el-table-column>
-          <el-table-column prop="responsibleEmpName" label="加入播放列表" width="150" align="center">
+        <el-table :data="data" :height="wih - 160" border v-loading="pageLoadng" stripe>
+          <el-table-column type="index" label="序号" min-width="50px" align="center"></el-table-column>
+          <el-table-column prop="videoName" label="视频名称" align="center" min-width="300px"></el-table-column>
+          <el-table-column prop="uploaderEmpName" label="上传者" min-width="100px" align="center"></el-table-column>
+          <el-table-column prop="uploadTime" label="上传时间" min-width="120px" align="center"></el-table-column>
+          <el-table-column prop="responsibleEmpName" label="加入播放列表" width="120" align="center">
             <template slot-scope="scope">
-              <input type="checkbox" v-model="scope.row" />
+              <el-switch
+                style="cursor: pointer;"
+                v-model="scope.row.inPlayList"
+                :on-value="1"
+                :off-value="0"
+                on-text
+                off-text
+                @change="joinPlayList(scope.row)"
+              ></el-switch>
             </template>
           </el-table-column>
           <el-table-column prop="operation" label="操作" width="200" align="center">
             <template slot-scope="scope">
-              <span class="operation-text" @click="previewFile(scope.row)">预览</span>
-              <span class="operation-text" @click="previewFile(scope.row)">删除</span>
-              <span class="operation-text" @click="previewFile(scope.row)">修改</span>
+              <span class="operation-text">预览</span>
+              <span class="operation-text" @click="openUploadVideoModal(scope.row)">修改</span>
+              <span class="operation-text" @click="delVideo(scope.row)">删除</span>
             </template>
           </el-table-column>
         </el-table>
       </div>
+      <pagination
+        :pageIndex="query.pageIndex"
+        :size="query.pageSize"
+        :total="total"
+        @sizeChange="handleSizeChange"
+        @currentChange="handleCurrentChange"
+      ></pagination>
     </div>
-    <sweet-modal ref="preview-modal" class="nursing-rules-preview-modal" :title="preview.title">
+    <sweet-modal ref="preview-modal" class="nursing-rules-preview-modal" title>
       <div class="modal-content">111</div>
     </sweet-modal>
+    <uploadVideoModal ref="uploadVideoModal" @refresh="getPageList"></uploadVideoModal>
   </div>
 </template>
 
@@ -43,169 +59,70 @@
 import commonMixin from "./../../common/mixin/common.mixin";
 import { getList, getTypeByDeptCode } from "./api/index-xin";
 import dayjs from "dayjs";
+import uploadVideoModal from "./modal/upload-video-modal";
+import { getPageList, joinPlayList, deleteVideo } from "./api/index-xin";
+import pagination from "./components/pagination";
 export default {
   mixins: [commonMixin],
   data() {
     return {
-      query: {
-        typeId: "", //类型id
-        deptCode: "", //科室代码
-        status: "", //状态1:提交未审核，2：已审核
-        checkDateStart: "", //检查日期开始日期（yyyy-MM-dd）
-        checkDateEnd: "", //检查日期结束日期（yyyy-MM-dd
-        pageIndex: 1, //页码
-        pageSize: 20, //每页条数
-        pageSize: 20
-      },
-      typeList: [], //类型
-      statusList: [{ id: 1, name: "待审核" }, { id: 2, name: "已审核" }],
-      tableHeight: 0,
-      total: 0, //总条数
+      pageLoadng: false,
       data: [],
-      preview: {},
-      pageLoadng: true,
-      isSelectedType: "", //选择类型
-      isSelectedStatus: "" //选择状态
+      total: 0,
+      query: {
+        pageIndex: 1, //页码
+        pageSize: 20 //每页条数
+      }
     };
   },
   mounted() {
-    this.handelResize = this.handelResize.bind(this);
-    this.handelResize();
-    window.addEventListener("resize", this.handelResize);
-
-    if (this.deptCode) {
-      this.setTableData();
-      this.getTypeByDeptCode();
-    }
-
-    // 设置默认日期
-    this.getDate();
+    this.getPageList();
   },
-  beforeDestroy() {
-    window.removeEventListener("resize", this.handelResize);
-  },
-  watch: {
-    deptCode(val, oldVal) {
-      if (val && oldVal) this.query.page = 1;
+  beforeDestroy() {},
 
-      if (val) {
-        this.getTypeByDeptCode();
-        this.setTableData();
-      }
-    }
-  },
   methods: {
-    // 获取类型
-    getTypeByDeptCode() {
-      getTypeByDeptCode({ deptCode: this.deptCode }).then(res => {
-        if (res.data.data instanceof Array) this.typeList = res.data.data;
+    openUploadVideoModal(item) {
+      this.$refs.uploadVideoModal.open(item);
+    },
+    getPageList() {
+      this.pageLoadng = true;
+      getPageList(this.query).then(res => {
+        this.pageLoadng = false;
+        this.data = res.data.data.list;
+        this.query.pageIndex = res.data.data.pageIndex;
+        this.query.pageSize = res.data.data.pageSize;
+        this.total = res.data.data.total;
       });
-    },
-    handelResize() {
-      let tableHeight = document.querySelector(".main-contain .table-contain")
-        .offsetHeight;
-      this.tableHeight = tableHeight;
-    },
-    previewFile(scope) {
-      let {
-        checkDate,
-        inspectorName,
-        problem,
-        responsibleEmpName,
-        deduction,
-        causeAnalysis,
-        measures
-      } = scope;
-
-      this.preview = {
-        title: "问题详情",
-        checkDate,
-        inspectorName,
-        problem,
-        responsibleEmpName,
-        deduction,
-        causeAnalysis,
-        measures
-      };
-
-      this.$refs["preview-modal"].open();
     },
     handleSizeChange(newSize) {
       this.query.pageSize = newSize;
+      this.getPageList();
     },
     handleCurrentChange(newPage) {
       this.query.pageIndex = newPage;
-      this.setTableData();
+      this.getPageList();
     },
-    // 查询
-    handleSearch() {
-      this.query.pageIndex = 1;
-      this.query.pageSize = 20;
-      this.setTableData();
+    joinPlayList(item) {
+      joinPlayList(item.id, item.inPlayList).then(res => {
+        this.getPageList();
+      });
     },
-    setTableData() {
-      this.pageLoadng = true;
-      this.query.deptCode = this.deptCode;
-      this.getDate();
-      getList(this.query).then(
-        res => {
-          if (res.data && res.data.code == 200) {
-            this.total = res.data.data.totalCount || 0;
-            this.data = res.data.data.list;
-          }
-          this.pageLoadng = false;
-        },
-        err => {
-          this.pageLoadng = false;
-        }
-      );
-    },
-    // 选择类型
-    handleFileTypeChange(id) {
-      if (!isNaN(Number(id))) {
-        this.query.typeId = id;
-        for (let i = 0; i < this.typeList.length; i++) {
-          if (this.typeList[i].id == id) {
-            this.isSelectedType = this.typeList[i].manageType;
-            return;
-          }
-        }
-      }
-    },
-    // 选择状态
-    selectedStatus(id) {
-      if (!isNaN(Number(id))) {
-        this.query.status = id;
-        for (let i = 0; i < this.statusList.length; i++) {
-          if (this.statusList[i].id == id) {
-            this.isSelectedStatus = this.statusList[i].name;
-            return;
-          }
-        }
-      }
-    },
-    // 设置默认日期
-    getDate() {
-      if (!this.query.checkDateStart) {
-        let month = parseInt(new Date().getMonth()) + 1;
-        if (month < 10) {
-          this.query.checkDateStart =
-            new Date().getFullYear() + "-0" + month + "-01";
-        } else {
-          this.query.checkDateStart =
-            new Date().getFullYear() + "-" + month + "-01";
-        }
-      }
-      this.query.checkDateEnd = this.query.checkDateEnd
-        ? this.query.checkDateEnd
-        : dayjs(new Date()).format("YYYY-MM-DD");
-      this.query.checkDateStart = dayjs(this.query.checkDateStart).format(
-        "YYYY-MM-DD"
-      );
-      this.query.checkDateEnd = dayjs(this.query.checkDateEnd).format(
-        "YYYY-MM-DD"
-      );
+    delVideo(item) {
+      this.$confirm("此操作将永久删除该视频, 是否继续?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      }).then(res => {
+        deleteVideo(item.id).then(res => {
+          this.$message.success("删除成功");
+          this.getPageList();
+        });
+      });
     }
+  },
+  components: {
+    uploadVideoModal,
+    pagination
   }
 };
 </script>
@@ -236,8 +153,8 @@ export default {
     }
   }
   .main-contain {
+    background: #fff;
     div {
-      cursor: default;
       .operation-text {
         cursor: pointer;
         color: #4bb08d;

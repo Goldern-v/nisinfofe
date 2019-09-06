@@ -57,7 +57,34 @@ export function getList(query) {
 
 // 获取扁平管理类型
 export function getTypeByDeptCode(query) {
-  return axios.post(`${apiPath}flatManageInstance/getMangeTypeList`, qs.stringify(query));
+  return axios.post(
+    `${apiPath}flatManageInstance/getMangeTypeList`,
+    qs.stringify(query)
+  );
+}
+
+// 视频播放列表
+export function getPageList(query) {
+  return axios.post(`${apiPath}familyScreen/getPageList`, query);
+}
+// 视频播放列表
+export function joinPlayList(id, operateType) {
+  return axios.post(
+    `${apiPath}familyScreen/joinPlayList`,
+    qs.stringify({ id, operateType })
+  );
+}
+// 上传视频
+export function saveVideo(obj) {
+  return axios.post(`${apiPath}familyScreen/saveVideo`, obj);
+}
+// 上传视频
+export function updateVideo(obj) {
+  return axios.post(`${apiPath}familyScreen/updateVideo`, obj);
+}
+// 删除视频
+export function deleteVideo(id) {
+  return axios.post(`${apiPath}familyScreen/deleteVideo`, qs.stringify({ id }));
 }
 
 export { nurseTast, bodyTast, recordJob };
