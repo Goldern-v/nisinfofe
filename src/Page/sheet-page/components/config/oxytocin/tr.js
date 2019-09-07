@@ -21,31 +21,31 @@ export default [
     value: "",
     event: event_time
   }, {
-    key: "pulse", //催产素浓度
+    key: "fieldOne", //催产素浓度
     value: "",
     event: keyf1
   }, {
-    key: "breath ", //滴数<（滴/分）
+    key: "fieldTwo ", //滴数<（滴/分）
     value: "",
     event: keyf1
   }, {
-    key: "bloodPressure", //宫缩
+    key: "fieldThree", //宫缩
     value: "",
     event: keyf1
   }, {
-    key: "bloodPressure ", //胎心
+    key: "fieldFour ", //胎心
     value: "",
     event: keyf1
   }, {
-    key: "fieldOne ", //宫口扩张
+    key: "fieldFive ", //宫口扩张
     value: "",
     event: keyf1
   }, {
-    key: "fieldTwo ", //先露高低
+    key: "fieldSix ", //先露高低
     value: "",
     event: keyf1
   }, {
-    key: "fieldThree", //血压mmHg
+    key: "bloodPressure", //血压mmHg
     value: "",
     event: keyf1,
     event: function(e, td) {

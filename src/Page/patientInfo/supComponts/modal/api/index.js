@@ -42,3 +42,19 @@ export function printArchive(patientId, visitId) {
 export function updatePrintStatus(obj) {
   return axios.post(`${apiPath}print/updatePrintStatus`, obj);
 }
+
+//  生成归档文件
+export function generateArchive(patientId, visitId) {
+  return axios.get(
+    `${apiPath}print/archive/genDoc/${patientId}/${visitId}`);
+}
+// 预览归档文件
+export function previewArchive(patientId, visitId) {
+  return axios.get(
+    `${apiPath}print/archive/detail/${patientId}/${visitId}`);
+}
+// 文件归档上传
+export function uploadFileArchive(patientId, visitId) {
+  return axios.get(
+    `${apiPath}print/archive/upload/${patientId}/${visitId}`);
+}

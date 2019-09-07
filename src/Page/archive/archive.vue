@@ -32,16 +32,26 @@
         <div class="content-center" flex-box="1">
           <table cellspacing="0" border="1" class="tables">
             <colgroup>
+              <col width="60" />
               <col width="228" />
-              <col />
-              <col width="200" />
+              <col width="80" />
+              <col width="100" />
+              <col width="80" />
+              <col width="100" />
               <col width="150" />
+              <col />
+              <col width="160" />
             </colgroup>
             <thead>
               <tr>
-                <th>患者</th>
-                <th>归档内容</th>
+                <th>序号</th>
+                <th>护理单元</th>
+                <th>床号</th>
+                <th>姓名</th>
+                <th>住院号</th>
+                <th>出院日期</th>
                 <th>时间</th>
+                <th>状态</th>
                 <th>操作</th>
                 <th class="scrollBlock" v-if="table2"></th>
               </tr>
@@ -50,23 +60,40 @@
           <div class="table-con" v-loading="page2Loading" :style="{height: wih - 210+'px'}">
             <table cellspacing="0" border="1" class="table1" ref="table2">
               <colgroup>
+                <col width="60" />
                 <col width="228" />
-                <col />
-                <col width="200" />
+                <col width="80" />
+                <col width="100" />
+                <col width="80" />
+                <col width="100" />
                 <col width="150" />
+                <col />
+                <col width="160" />
               </colgroup>
               <tbody>
                 <tr v-for="(item,index) in patientArchiveList" :key="index" class="data-row">
-                  <td>{{item.patientId}}</td>
-                  <td></td>
-                  <td>{{item.updateTime}}</td>
+                  <td>{{index}}</td>
+                  <td>{{item.wardName}}</td>
+                  <td>{{item.bedLabel}}</td>
+                  <td>{{item.patientName}}</td>
+                  <td>{{item.inpNo}}</td>
+                  <td>{{item.dischargeDate}}</td>
+                  <td>{{item.uploadTime}}</td>
+                  <td
+                    style="text-align: left;"
+                    :style="item.printStatus ==1 && {color: 'red'}"
+                  >{{item.statusDesc}}</td>
                   <td>
                     <div>
                       <!-- 打印生成pdf文件 -->
                       <span
                         @click="generateArchive(item)"
-                        v-if="item.printStatus!=1 && item.resultStatus!=1"
+                        v-if="item.printStatus==0 && item.resultStatus!=1"
                       >转pdf</span>
+                      <span
+                        @click="generateArchive(item)"
+                        v-if="item.printStatus!=0 && item.printStatus!=1 && item.uploadStatus!=1 && item.uploadStatus!=2"
+                      >重转pdf</span>
                       <span
                         class="viewFile"
                         @click="previewArchive(item)"
@@ -95,7 +122,13 @@
       @sizeChange="handleSizeChange"
       @currentChange="handleCurrentChange"
     ></pagination>
-    <sweet-modal ref="preview-modal" class="archive-preview-modal" :title="preview.title">
+    <sweet-modal
+      ref="preview-modal"
+      class="archive-preview-modal"
+      :fullBtn="true"
+      :modalWidth="800"
+      :title="preview.title"
+    >
       <!-- <div v-if="preview.type=='img'">
         <img :src="preview.url" alt style="width:100%" />
       </div>-->
@@ -113,7 +146,7 @@
       </div>
 
       <div v-if="preview.type=='pdf'" :style="{height: pdfHeight+'px'}">
-        <iframe width="100%" height="100%" :src="preview.url" />
+        <iframe width="100%" height="100%" :src="preview.url+'#toolbar=0'" />
       </div>
       <!-- <div v-else style="height: 300px;text-align:center;line-height:300px;">该文件格式不支持预览，请在app内查看</div> -->
     </sweet-modal>
@@ -202,19 +235,53 @@ export default {
       // 预览按钮: resultStatus ==1
       // 归档按钮（上传）: item.resultStatus==1 && item.uploadStatus!=1 && item.uploadStatus!=2
       this.query.wardCode = this.deptCode;
+      this.query.dischargeDateBegin = moment(
+        this.query.dischargeDateBegin
+      ).format("YYYY-MM-DD");
+      this.query.dischargeDateEnd = moment(this.query.dischargeDateEnd).format(
+        "YYYY-MM-DD"
+      );
+
       getArchiveList(this.query).then(res => {
-        this.patientArchiveList = res.data.data;
-        this.total = this.patientArchiveList.length || 0;
+        this.patientArchiveList = res.data.data.list;
+        this.total = res.data.data.totalPage || 0;
         this.page2Loading = false;
+
+        if (this.query.pageSize >= 100) {
+          return;
+        }
+        let timeId;
+        let len = this.patientArchiveList.length;
+        for (let i = 0; i < len; i++) {
+          // 如果还在打印中
+          if (
+            this.patientArchiveList[i].printStatus == 1 &&
+            this.patientArchiveList[i].sysDate &&
+            this.patientArchiveList[i].printTime
+          ) {
+            let min =
+              (moment(this.patientArchiveList[i].sysDate) -
+                moment(this.patientArchiveList[i].printTime)) /
+              1000 /
+              60;
+            if (min <= 20) {
+              clearTimeout(timeId);
+              timeId = setTimeout(() => {
+                this.getArchiveList();
+                return;
+              }, 10000);
+            }
+          }
+        }
       });
     },
     // 生成归档文件
     generateArchive(item) {
       generateArchive(item.patientId, item.visitId).then(rep => {
-        // this.$message({
-        //   type: "success",
-        //   message: "文件上传成功"
-        // });
+        this.$message({
+          type: "success",
+          message: "正在转pdf，请稍等"
+        });
         this.getArchiveList();
       });
     },
@@ -234,15 +301,6 @@ export default {
     },
 
     previewFile() {
-      // this.preview.type='pdf';
-      // this.preview.title= printDetailList.formName +'/'+seqment;
-      // this.preview.url= printDetailList[0].filePath;
-
-      // this.preview = {
-      //   title: printDetailList.formName +'/'+seqment,
-      //   url: `/crNursing/asset/deptShareFile${scope.path}`,
-      //   type: this.previewType(type)
-      // };
       if (this.printDetailList) {
         this.preview = {
           title:
@@ -282,18 +340,17 @@ export default {
       let day = parseInt(new Date().getDate()) - 2;
       day = day < 10 ? "-0" + day : "-" + day;
       this.query.dischargeDateBegin =
-        parseInt(new Date().getFullYear()) - 3 + month + day;
+        parseInt(new Date().getFullYear()) - 1 + month + day;
     }
     this.query.dischargeDateEnd = this.query.dischargeDateEnd
       ? this.query.dischargeDateEnd
       : moment().format("YYYY-MM-DD");
+    this.init();
   },
   updated() {
     this.tablesHeight();
   },
-  created() {
-    this.init();
-  },
+  created() {},
   watch: {
     deptCode() {
       this.init();
@@ -520,13 +577,17 @@ export default {
   padding: 0 !important;
 }
 
+table {
+  th, td {
+    text-align: center;
+
+    &:first-of-type {
+      text-align: left;
+    }
+  }
+}
+
 .arrow {
-  // position: fixed;
-  // width: 100%;
-  // height: 100%;
-  // top: 0;
-  // left: 0;
-  // z-index: 10002;
   .el-icon-arrow-left, .el-icon-arrow-right {
     font-size: 40px;
     position: fixed;

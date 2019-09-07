@@ -180,7 +180,7 @@ export const updateSheetHeadInfo = (obj = {}) => {
 export const getVitalSign = (patientId, visitId, recordDate) => {
   return axios.get(
     `${apiPath}record/${
-      sheetInfo.sheetType
+    sheetInfo.sheetType
     }/vitalSign/get/${patientId}/${visitId}/${recordDate}`
   );
 };
@@ -196,3 +196,7 @@ export const saveVitalSign = data => {
     d
   );
 };
+// 获取用户信息
+export function getUser(password, empNo) {
+  return axios.post(`${apiPath}user/getUser`, { password, empNo });
+}

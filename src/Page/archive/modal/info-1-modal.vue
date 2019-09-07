@@ -1,6 +1,6 @@
 <template>
   <div>
-    <sweet-modal ref="modal" :modalWidth="400" title="归档" :enable-mobile-fullscreen="false">
+    <sweet-modal ref="modal" :modalWidth="400" title="归档打印" :enable-mobile-fullscreen="false">
       <!-- <div v-loading="iconLoading">
         <div class="list-con">
           <span class="key">时间：</span>

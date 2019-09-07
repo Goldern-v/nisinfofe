@@ -39,7 +39,7 @@ export let countData = {
         type: "text",
         value: "",
         isChecked: true,
-        name:"gongjingkuozhang"
+        name: "cervix1"
       },
       {
         type: "text",
@@ -49,7 +49,7 @@ export let countData = {
         type: "text",
         value: "",
         isChecked: true,
-        name:"gongjingkuozhang"
+        name: "cervix1"
       },
       {
         type: "text",
@@ -59,7 +59,7 @@ export let countData = {
         type: "text",
         value: "",
         isChecked: true,
-        name:"gongjingkuozhang"
+        name: "cervix1"
       },
       {
         type: "text",
@@ -69,7 +69,7 @@ export let countData = {
         type: "text",
         value: "",
         isChecked: true,
-        name:"gongjingkuozhang"
+        name: "cervix1"
       }
     ],
     [
@@ -85,7 +85,7 @@ export let countData = {
         type: "text",
         value: "",
         isChecked: true,
-        name:"gongjingtuisuo"
+        name: "cervix2"
       },
       {
         type: "text",
@@ -95,7 +95,7 @@ export let countData = {
         type: "text",
         value: "",
         isChecked: true,
-        name:"gongjingtuisuo"
+        name: "cervix2"
       },
       {
         type: "text",
@@ -105,7 +105,7 @@ export let countData = {
         type: "text",
         value: "",
         isChecked: true,
-        name:"gongjingtuisuo"
+        name: "cervix2"
       },
       {
         type: "text",
@@ -115,7 +115,7 @@ export let countData = {
         type: "text",
         value: "",
         isChecked: true,
-        name:"gongjingtuisuo"
+        name: "cervix2"
       }
     ],
     [
@@ -131,7 +131,7 @@ export let countData = {
         type: "text",
         value: "",
         isChecked: true,
-        name:"xianlougaodi"
+        name: "cervix3"
       },
       {
         type: "text",
@@ -141,7 +141,7 @@ export let countData = {
         type: "text",
         value: "",
         isChecked: true,
-        name:"xianlougaodi"
+        name: "cervix3"
       },
       {
         type: "text",
@@ -151,7 +151,7 @@ export let countData = {
         type: "text",
         value: "",
         isChecked: true,
-        name:"xianlougaodi"
+        name: "cervix3"
       },
       {
         type: "text",
@@ -161,7 +161,7 @@ export let countData = {
         type: "text",
         value: "",
         isChecked: true,
-        name:"xianlougaodi"
+        name: "cervix3"
       }
     ],
     [
@@ -177,7 +177,7 @@ export let countData = {
         type: "text",
         value: "",
         isChecked: true,
-        name:"gongjingyingdu"
+        name: "cervix4"
       },
       {
         type: "text",
@@ -187,7 +187,7 @@ export let countData = {
         type: "text",
         value: "",
         isChecked: true,
-        name:"gongjingyingdu"
+        name: "cervix4"
       },
       {
         type: "text",
@@ -197,7 +197,7 @@ export let countData = {
         type: "text",
         value: "",
         isChecked: true,
-        name:"gongjingyingdu"
+        name: "cervix4"
       },
       {
         type: "text",
@@ -221,7 +221,7 @@ export let countData = {
         type: "text",
         value: "",
         isChecked: true,
-        name:"gongjingweizhi"
+        name: "cervix5"
       },
       {
         type: "text",
@@ -231,7 +231,7 @@ export let countData = {
         type: "text",
         value: "",
         isChecked: true,
-        name:"gongjingweizhi"
+        name: "cervix5"
       },
       {
         type: "text",
@@ -241,7 +241,7 @@ export let countData = {
         type: "text",
         value: "",
         isChecked: true,
-        name:"gongjingweizhi"
+        name: "cervix5"
       },
       {
         type: "text",
@@ -257,14 +257,15 @@ export let countData = {
         type: "text",
         value: "将检查结果在相应栏内够“√”累计宫颈评分。",
         colspan: 5,
-        style:"border-right: none"
+        style: "border-right: none"
       },
       {
         type: "text",
         prev: "医生签名:",
         value: "",
         colspan: 4,
-        class: "sign"
+        class: "sign",
+        sign: true
       },
     ]
   ]
