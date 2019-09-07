@@ -7,7 +7,6 @@
       </div>
       <div class="float-right">
         <el-button @click="openUploadVideoModal">添加</el-button>
-        <el-button>保存</el-button>
         <el-button>返回</el-button>
       </div>
     </div>
@@ -33,7 +32,7 @@
           </el-table-column>
           <el-table-column prop="operation" label="操作" width="200" align="center">
             <template slot-scope="scope">
-              <span class="operation-text">预览</span>
+              <span class="operation-text" @click="openPreviewVideoModal(scope.row)">预览</span>
               <span class="operation-text" @click="openUploadVideoModal(scope.row)">修改</span>
               <span class="operation-text" @click="delVideo(scope.row)">删除</span>
             </template>
@@ -52,6 +51,7 @@
       <div class="modal-content">111</div>
     </sweet-modal>
     <uploadVideoModal ref="uploadVideoModal" @refresh="getPageList"></uploadVideoModal>
+    <previewVideoModal ref="previewVideoModal"></previewVideoModal>
   </div>
 </template>
 
@@ -62,6 +62,7 @@ import dayjs from "dayjs";
 import uploadVideoModal from "./modal/upload-video-modal";
 import { getPageList, joinPlayList, deleteVideo } from "./api/index-xin";
 import pagination from "./components/pagination";
+import previewVideoModal from "./modal/preview-video-modal";
 export default {
   mixins: [commonMixin],
   data() {
@@ -118,11 +119,15 @@ export default {
           this.getPageList();
         });
       });
+    },
+    openPreviewVideoModal(item) {
+      this.$refs.previewVideoModal.open(item);
     }
   },
   components: {
     uploadVideoModal,
-    pagination
+    pagination,
+    previewVideoModal
   }
 };
 </script>
