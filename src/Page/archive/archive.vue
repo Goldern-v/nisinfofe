@@ -88,7 +88,7 @@
                       <!-- 打印生成pdf文件 -->
                       <span
                         @click="generateArchive(item)"
-                        v-if="item.printStatus!=1 && item.resultStatus!=1"
+                        v-if="item.printStatus==0 && item.resultStatus!=1"
                       >转pdf</span>
                       <span
                         @click="generateArchive(item)"
@@ -301,15 +301,6 @@ export default {
     },
 
     previewFile() {
-      // this.preview.type='pdf';
-      // this.preview.title= printDetailList.formName +'/'+seqment;
-      // this.preview.url= printDetailList[0].filePath;
-
-      // this.preview = {
-      //   title: printDetailList.formName +'/'+seqment,
-      //   url: `/crNursing/asset/deptShareFile${scope.path}`,
-      //   type: this.previewType(type)
-      // };
       if (this.printDetailList) {
         this.preview = {
           title:
