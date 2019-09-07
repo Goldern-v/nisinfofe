@@ -3,7 +3,7 @@
     <div class="contant sheetTable-post_partum" :style="data.titleModel.style" :class="{readOnly}">
       <!-- <img class="his-logo"
       src="../../../../common/images/his-logo/厚街医徽.png" />-->
-      <img src="../../images/仅供查阅.jpg" class="readOnly-img no-print" v-if="readOnly" alt>
+      <img src="../../images/仅供查阅.jpg" class="readOnly-img no-print" v-if="readOnly" alt />
       <div class="header-con">
         <div class="his-name">{{HOSPITAL_NAME_SPACE}}</div>
         <div class="title">{{patientInfo.recordName}}</div>
@@ -29,7 +29,7 @@
               class="bottom-line-input"
               :data-value="sheetInfo.relObj['yyc_' + index]"
               v-model="sheetInfo.relObj['yyc_' + index]"
-            >
+            />
           </span>
           <span>
             孕周：
@@ -37,7 +37,7 @@
               class="bottom-line-input"
               :data-value="sheetInfo.relObj['yz_' + index]"
               v-model="sheetInfo.relObj['yz_' + index]"
-            >
+            />
             周
           </span>
           <span>
@@ -66,10 +66,22 @@
       ></excel>
       <div class="bottomCon">
         <div>
-          催产素使用总量：<input type="text" class="bottomInput">
+          催产素使用总量：
+          <input
+            type="text"
+            class="bottomInput"
+            :data-value="sheetInfo.relObj.totalOxytocin"
+            v-model="sheetInfo.relObj.totalOxytocin"
+          />
         </div>
         <div>
-          分娩方式：<input type="text" class="bottomInput">
+          分娩方式：
+          <input
+            type="text"
+            class="bottomInput"
+            :data-value="sheetInfo.relObj.deliveryWay"
+            v-model="sheetInfo.relObj.deliveryWay"
+          />
         </div>
       </div>
     </div>
@@ -87,8 +99,7 @@
     width: 700px; // 关键
     margin: 0 auto 20px;
     box-sizing: content-box;
-    position relative;
-
+    position: relative;
   }
 
   .header-con {
@@ -141,40 +152,48 @@
     text-overflow: ellipsis;
     white-space: nowrap;
   }
-   &.readOnly {
-    pointer-events none
+
+  &.readOnly {
+    pointer-events: none;
   }
+
   .readOnly-img {
-    position absolute;
-    right 5px;
-    top 5px
+    position: absolute;
+    right: 5px;
+    top: 5px;
   }
+
   .bottom-line {
-    display inline-block
+    display: inline-block;
     // border-bottom 1px solid #000
-    padding 2px 0 2px 2px
-    border-bottom 1px solid #000
+    padding: 2px 0 2px 2px;
+    border-bottom: 1px solid #000;
   }
+
   .bottomCon {
-    position relative;
-    bottom :40px;
+    position: relative;
+    bottom: 40px;
     display: flex;
     // transform translateY(-30px)
     // margin-top:-80px;
     width: 100%;
+
     > div {
       flex: 1;
     }
-    .bottomInput{
+
+    .bottomInput {
       border: none;
       outline: none;
-      font-size:16px;
+      font-size: 16px;
       width: 80px;
     }
   }
-  .table-footer{
-    margin-top:40px !important
+
+  .table-footer {
+    margin-top: 40px !important;
   }
+
   .bottom-line-input {
     display: inline-block;
     border: 0;
