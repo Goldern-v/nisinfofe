@@ -13,16 +13,17 @@
             @click="nextFile"
             :style="currentFileIndex == printDetailList.length - 1 && {opacity:0.5}"
           ></span>
-          <!-- <p v-if="printArchiveMaster.resultStatus == 1 &&
-          printArchiveMaster.uploadStatus != 1 &&
-          printArchiveMaster.uploadStatus != 2">是否归档</p>-->
-          <div slot="button" class="button">
-            <el-button class="modal-btn">归档</el-button>
-          </div>
+          
         </div>
 
         <div v-if="preview.type=='pdf'" :style="{height: pdfHeight+'px'}">
           <iframe width="100%" height="100%" :src="preview.url+'#toolbar=0'" />
+        </div>
+        <p>是否归档</p>
+        <div slot="button" class="button">
+          <el-button class="modal-btn" @click="close">取消</el-button>
+          <el-button class="modal-btn" @click="close">预览</el-button>
+          <el-button class="modal-btn" @click="confirm">归档</el-button>
         </div>
       </div>
       <div class="archive-detail-modal" v-else>

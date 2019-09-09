@@ -36,7 +36,7 @@
               <col width="228" />
               <col width="80" />
               <col width="100" />
-              <col width="80" />
+              <col width="160" />
               <col width="100" />
               <col width="150" />
               <col />
@@ -64,7 +64,7 @@
                 <col width="228" />
                 <col width="80" />
                 <col width="100" />
-                <col width="80" />
+                <col width="160" />
                 <col width="100" />
                 <col width="150" />
                 <col />
@@ -581,7 +581,7 @@ table {
   th, td {
     text-align: center;
 
-    &:first-of-type {
+    &:nth-of-type(2){
       text-align: left;
     }
   }

@@ -35,9 +35,8 @@
         <div class="list2-li over-text" :title="info.diagnosis">诊断：{{info.diagnosis}}</div>
         <div class="print-btn" flex="cross:center main:center" @click="openBedPrint">打印床头卡</div>
         <div class="print-btn" flex="cross:center main:center" @click="openPrintModal">
-          归档打印
-          <span>{{'（'+ archiveStatus +'）'}}</span>
-          <!-- <span>{{'（'+ info.statusDesc +'）'}}</span> -->
+          <span>归档打印</span>
+          <span v-if="printArchiveMaster.statusDesc">{{'（'+ printArchiveMaster.statusDesc +'）'}}</span>
         </div>
       </div>
       <div
@@ -225,20 +224,34 @@ export default {
       }
     },
     openPrintModal() {
-      // let item = {
-      //   patientId: this.info.patientId,
-      //   visitId: this.info.visitId
-      // };
-      // console.log(item);
-      // this.$refs.archiveModal.open(item);
-      this.$refs.printModal.open();
+      if(this.printArchiveMaster.printStatus == 1 || this.printArchiveMaster.uploadStatus == 1){
+        return;
+      }
+      let item = {
+        patientId: this.info.patientId,
+        visitId: this.info.visitId
+      };
+      this.$refs.archiveModal.open(item);
+      // this.$refs.printModal.open();
     },
     // 获取归档打印详情
     getArchiveStatus() {
       previewArchive(this.info.patientId, this.info.visitId).then(res => {
         this.printDetailList = res.data.data.printDetailList;
-        this.printArchiveMaster = res.data.data.printArchiveMaster;
-        // this.previewFile();
+        this.printArchiveMaster = res.data.data.printArchiveMasters || {};
+        // if(this.printArchiveMaster.printStatus == 0 &&
+        //   this.printArchiveMaster.resultStatus != 1){
+        //   this.archiveStatus = "转pdf";
+        // }else if(this.printArchiveMaster.printStatus == 1){
+        //   this.archiveStatus = "正生成pdf";
+        // } if(this.printArchiveMaster.resultStatus == 1 && this.printArchiveMaster.uploadStatus == 0){
+        //   this.archiveStatus = "待归档";
+        // } if(this.printArchiveMaster.resultStatus == -1){
+        //   this.archiveStatus = "转pdf失败";
+        // } if(this.printArchiveMaster.uploadStatus == 1){
+        //   this.archiveStatus = "归档成功";
+        // }
+
         // if (
         //   this.printArchiveMaster.printStatus == 0 &&
         //   this.printArchiveMaster.resultStatus != 1
