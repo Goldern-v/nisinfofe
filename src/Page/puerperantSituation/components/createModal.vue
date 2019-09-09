@@ -17,8 +17,8 @@
           </el-col>
           <el-col :span="3">姓名:</el-col>
           <el-col :span="5">
-            <el-select 
-              v-model="params.hospitalizationNumber" 
+            <el-select
+              v-model="patientId"
               placeholder="产妇姓名/床号/住院号" 
               filterable
               :filter-method="patientsFilterMethod"
@@ -329,6 +329,8 @@ import commonMixin from "./../../../common/mixin/common.mixin";
 import {getPatientList,changeOrSaveForm} from './../api/api'
 import moment from 'moment';
 import { setTimeout } from 'timers';
+import { getPatientInfo } from "@/api/common.js";
+
 export default {
   mixins: [commonMixin],
   props: {
@@ -392,6 +394,7 @@ export default {
         birthCertificateNum: '',
         remarks: ''
       },
+      patientId:'',
       patientList:[],
       patientListFiltered:[],
       filterSearch: ''
@@ -467,13 +470,36 @@ export default {
       })
     },
     handlePatinentChange(patientId){
+      if(!patientId)return
       let target = this.patientList.find((item)=>item.patientId==patientId);
       if(target)this.params.female=target.name
+      this.params.hospitalizationNumber = target.inpNo
+      this.setPatientInfo()
+    },
+    setPatientInfo(){
+      getPatientInfo(this.patientId,'0').then(res=>{
+        if(res.data.data){
+          let re = res.data.data;
+          let age = parseInt(re.age);
+          if(isNaN(age))age=''
+          this.params = {
+            ...this.params,
+            femaleId: re.idNo||'',
+            femaleAge: age,
+            femaleBrithPlace: re.nativePlace||'',
+            femaleBirthAddress: re.birthPlace||'',
+            nowAddress: re.address||'',
+            femaleJob: re.occupation||''
+          }
+        }
+      },err=>{
+
+      })
     },
     filterPatients(ipt){
       if(ipt){
         this.patientListFiltered = this.patientList.filter((item)=>{
-          if(item.bedLabel.match(ipt)||item.patientId.match(ipt)||item.name.match(ipt))
+          if(item.bedLabel.match(ipt)||item.inpNo.match(ipt)||item.name.match(ipt))
           return true
           
           return false
@@ -510,7 +536,7 @@ export default {
       this.dialogVisible=val;
       if(!val){
         if(this.$refs.modal.is_open)this.$refs.modal.close()
-
+        this.patientId=''
         for(let x in this.params){
           this.params[x]=''
         }
