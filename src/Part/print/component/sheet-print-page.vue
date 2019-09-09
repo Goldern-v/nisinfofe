@@ -227,6 +227,12 @@ export default {
             transform: rotate(0deg) !important;
        }
        }
+       #sheetPagePrint#sheetPagePrint th[dataname='护士签名'] {
+         width: 60px !important;
+       }
+       .sign-img img {
+         width: 40px !important;
+       }
         `
       );
     }

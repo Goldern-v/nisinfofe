@@ -23,7 +23,7 @@
       </div>
     </span>
     <div style="height: 5px"></div>
-    <span v-if="HOSPITAL_ID != 'weixian_dev'">
+    <span v-if="HOSPITAL_ID != 'weixian_dev' || pw">
       <p for class="name-title">{{label}}</p>
       <div ref="passwordInput">
         <el-input size="small" type="password" :placeholder="placeholder" v-model="password"></el-input>
@@ -39,6 +39,12 @@
         </span>
       </p>
     </span>
+
+    <div v-if="HOSPITAL_ID == 'weixian_dev'" style="margin-top: 5px">
+      <span @click="openCaSignModal" class="loginCa" v-if="!ca_isLogin">登录证书</span>
+      <span class="loginCa" v-if="!pw" @click="pw = true">密码验证</span>
+      <span class="loginCa" v-else @click="pw = false">证书验证</span>
+    </div>
 
     <span v-show="showDate">
       <p for class="name-title">输入签名时间</p>
@@ -87,6 +93,16 @@
   padding: 5px;
   text-align: justify;
 }
+
+.loginCa {
+  font-size: 13px;
+  color: #4bb08d;
+  cursor: pointer;
+
+  &:hover {
+    font-weight: bold;
+  }
+}
 </style>
 
 <script>
@@ -134,7 +150,8 @@ export default {
       showDate: false,
       bus: bus(this),
       ca_name: "",
-      ca_isLogin: ""
+      ca_isLogin: "",
+      pw: false
     };
   },
   methods: {
@@ -150,6 +167,7 @@ export default {
       // this.showMessage = showMessage;
       this.message = message;
       this.password = "";
+      this.pw = false;
 
       this.ca_name = window.ca_name;
       this.ca_isLogin = window.ca_isLogin;
@@ -185,21 +203,38 @@ export default {
       return null;
     },
     post() {
-      if (this.HOSPITAL_ID == "weixian_dev_dev") {
-        verifyCaSign().then(random => {
+      if (this.HOSPITAL_ID == "weixian_dev") {
+        if (this.pw) {
+          if (this.password == "") {
+            return this.$message({
+              message: "请输入密码",
+              type: "warning",
+              showClose: true
+            });
+          }
           this.$refs.modalName.close();
           if (this.signDate) {
-            return this.callback(
-              // localStorage.ppp,
-              random,
-              this.username,
-              this.signDate,
-              random
-            );
+            return this.callback(this.password, this.username, this.signDate);
           } else {
-            return this.callback(random, this.username);
+            return this.callback(this.password, this.username);
           }
-        });
+          parent.app.bus.$emit("assessmentRefresh");
+        } else {
+          verifyCaSign().then(random => {
+            this.$refs.modalName.close();
+            if (this.signDate) {
+              return this.callback(
+                // localStorage.ppp,
+                random,
+                this.username,
+                this.signDate,
+                random
+              );
+            } else {
+              return this.callback(random, this.username);
+            }
+          });
+        }
       } else {
         if (this.password == "") {
           return this.$message({
@@ -216,6 +251,10 @@ export default {
         }
         parent.app.bus.$emit("assessmentRefresh");
       }
+    },
+    openCaSignModal() {
+      window.openCaSignModal();
+      this.$refs.modalName.close();
     }
   },
   components: {}
