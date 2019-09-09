@@ -1,6 +1,6 @@
 <template>
   <div>
-    <sweet-modal ref="modal" size="small" :title="title">
+    <sweet-modal ref="modal" size="small" :title="title" @onClose="handleClose">
       <div class="model-content" v-loading="saveLoading" @keyup.enter="handleSave">
         <!-- 输入框 -->
         <el-input :value="editValue" class="pueperant-editmodal-input" v-if="type=='input'||type=='int'" @change="handleInputChange"></el-input>
@@ -85,8 +85,8 @@ export default {
   },
   methods: {
     handleClose() {
-      this.$refs.modal.close();
       this.$emit("update:visible", false);
+      this.$emit("update:onClose", false);
     },
     handleValueChange(val) {
       this.$emit("update:value", val);
@@ -133,7 +133,7 @@ export default {
       if (val) {
         this.$refs.modal.open();
       }else{
-        this.$refs.modal.close();
+        if(this.$refs.modal.is_open)this.$refs.modal.close();
       }
     },
     value(val) {

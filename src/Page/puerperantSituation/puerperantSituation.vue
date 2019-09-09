@@ -5,7 +5,7 @@
         <h3>产科分娩登记表</h3>
       </div>
       <div class="float-right">
-        <span class="type-label">分娩时间:</span>
+        <span class="type-label">创建时间:</span>
         <span class="type-content">
           <el-date-picker @change="handleDateChange" v-model="query.startDate" :clearable="false" style="width:120px;"/>
           <span> - </span>
@@ -197,7 +197,6 @@
       />
     </div>
     <editModal
-      ref="editModal"
       :value.sync="editCfg.value"
       :title="editCfg.title"
       :name="editCfg.name"
@@ -537,7 +536,6 @@ export default {
       });
     },
     openEditModal(payload) {
-      this.$refs.editModal.$refs.modal.open()
       this.editCfg = {
         ...this.editCfg,
         ...payload,
@@ -570,7 +568,7 @@ export default {
         let params = {...record}
         params[name] = isCancel?'':empNo;
 
-        console.log(params)
+        // console.log(params)
         this.saveData(params)
       },isCancel?'取消签名':'接生者签名',false)
     },
