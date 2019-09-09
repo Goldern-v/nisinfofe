@@ -69,7 +69,7 @@ export function getPageList(query) {
 }
 // 视频播放列表
 export function joinPlayList(id, operateType) {
-  return axios.post(
+  return axios.get(
     `${apiPath}familyScreen/joinPlayList`,
     qs.stringify({ id, operateType })
   );
@@ -86,5 +86,30 @@ export function updateVideo(obj) {
 export function deleteVideo(id) {
   return axios.post(`${apiPath}familyScreen/deleteVideo`, qs.stringify({ id }));
 }
+// 获取播放列表
+export function getPlayList() {
+  return axios.get(`${apiPath}familyScreen/getPlayList`);
+}
+// 家属大屏-播放|停止|暂停
+export function startAndStopVideo(id, actionType) {
+  return axios.post(`${apiPath}familyScreen/startAndStop`, qs.stringify({ id, actionType }));
+}
+// 家属大屏-上移
+export function moveUpVideo(id) {
+  return axios.post(`${apiPath}familyScreen/moveUp`, qs.stringify({ id }));
+}
+// 家属大屏-下移
+export function moveDownVideo(id) {
+  return axios.post(`${apiPath}familyScreen/moveDown`, qs.stringify({ id }));
+}
+// 保存温馨提示信息
+export function saveWarmTips(content) {
+  return axios.post(`${apiPath}familyScreen/saveWarmTips`, qs.stringify({ content }));
+}
+// 家属大屏-获取温馨提示信息
+export function getWarmTips() {
+  return axios.get(`${apiPath}familyScreen/getWarmTips`);
+}
+
 
 export { nurseTast, bodyTast, recordJob };

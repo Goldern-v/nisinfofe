@@ -42,7 +42,7 @@ export default {
   created() {},
   methods: {
     saveData() {
-      this.update().then(res => {
+      this.update(this.data.message).then(res => {
         this.$message.success("保存成功");
         this.isSave = true;
       });

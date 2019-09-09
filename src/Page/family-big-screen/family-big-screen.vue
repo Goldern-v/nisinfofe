@@ -38,17 +38,6 @@ export default {
       this.page1Loading = true;
       this.page2Loading = true;
       this.page3Loading = true;
-      bodyTast(this.deptCode, time) // 获取数据--体症任务
-        .then(rep => {
-          let data = rep.data.data;
-          this.page1Loading = false;
-        });
-      nurseTast(this.deptCode, time) //获取数据---评估任务
-        .then(rep => {
-          let data = rep.data.data;
-          this.page2Loading = false;
-        });
-      this.getData();
     },
     tablesHeight() {
       try {
@@ -91,24 +80,21 @@ export default {
       });
       return updateByDeptCode(data).then(res => {
         // this.$message.success('更新数据成功')
-        this.getData();
+        // this.getData();
       });
     }
   },
   mounted() {
-    this.params = this.$route.params
+    this.params = this.$route.params;
   },
-  created() {
-  },
+  created() {},
   watch: {
-    '$route.params' () {
-        this.params = this.$route.params
-        console.log(this.params);
-      },
+    "$route.params"() {
+      this.params = this.$route.params;
+      console.log(this.params);
+    }
   }
 };
 </script>
 
-<style lang="stylus" scoped>
-
-</style>
+<style lang="stylus" scoped></style>
