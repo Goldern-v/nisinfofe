@@ -85,7 +85,6 @@ export default {
   },
   methods: {
     handleClose() {
-      this.$refs.modal.close();
       this.$emit("update:visible", false);
       this.$emit("update:onClose", false);
     },
