@@ -340,7 +340,7 @@ export default {
       let day = parseInt(new Date().getDate()) - 2;
       day = day < 10 ? "-0" + day : "-" + day;
       this.query.dischargeDateBegin =
-        parseInt(new Date().getFullYear()) - 1 + month + day;
+        parseInt(new Date().getFullYear()) + month + day;
     }
     this.query.dischargeDateEnd = this.query.dischargeDateEnd
       ? this.query.dischargeDateEnd
