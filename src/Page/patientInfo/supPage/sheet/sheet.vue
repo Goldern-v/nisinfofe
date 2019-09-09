@@ -333,7 +333,10 @@ export default {
       );
     },
     onScroll(e) {
-      this.scrollY = parseInt(e.target.scrollTop);
+      if (sheetInfo.sheetType.indexOf("_wx") > -1) {
+      } else {
+        this.scrollY = parseInt(e.target.scrollTop);
+      }
     }
   },
   created() {

@@ -114,7 +114,7 @@ export default {
         if (username) {
           this.username = username;
         } else {
-          this.$message.warnning("没有检查到证书");
+          this.$message.warning("没有检查到证书");
         }
       });
     },

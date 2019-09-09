@@ -1,6 +1,13 @@
 <template>
   <div>
-    <el-dialog ref="modal" size="small" v-model="dialogVisible" title="新建分娩记录" @close="handleClose" custom-class="puperant-record-create-modal">
+    <sweet-modal 
+      ref="modal" 
+      size="small" 
+      v-model="dialogVisible" 
+      :modalWidth="1200" 
+      title="新建分娩记录" 
+      @close="handleClose" 
+      class="puperant-record-create-modal">
       <div class="model-content">
         <div class="title-row">基本信息:</div>
         <el-row class="content-row" :gutter="8">
@@ -309,11 +316,11 @@
           </el-col>
         </el-row>
       </div>
-      <div slot="footer">
+      <div slot="button">
         <el-button @click="handleClose" :disabled="saveLoading">取消</el-button>
         <el-button @click="handleSave" type="primary" :disabled="saveLoading">确认</el-button>
       </div>
-    </el-dialog>
+    </sweet-modal>
   </div>
 </template>
 
@@ -502,9 +509,13 @@ export default {
     visible(val) {
       this.dialogVisible=val;
       if(!val){
+        if(this.$refs.modal.is_open)this.$refs.modal.close()
+
         for(let x in this.params){
           this.params[x]=''
         }
+      }else{
+        this.$refs.modal.open();
       }
     },
     value(val) {
@@ -516,7 +527,6 @@ export default {
 
 <style lang="scss">
 .puperant-record-create-modal{
-  width: 1200px;
   .el-select{
     width: 100%;
     .el-input{
@@ -530,9 +540,9 @@ export default {
 
 <style lang="scss" scoped>
 .model-content {
-  max-height: 400px;
-  overflow-x: hidden;
-  overflow-y: auto;
+  // max-height: 400px;
+  // overflow-x: hidden;
+  // overflow-y: auto;
   padding: 0 10px;
   .title-row{
     font-size: 16px;
