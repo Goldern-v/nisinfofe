@@ -10,7 +10,7 @@ dist/*/*
 .yarn-debug.log*
 .yarn-error.log*
 .idea/*
-.vscode/*
+# .vscode/*
 debug.log
 yarn-error.log
 ./yarn-error.log
