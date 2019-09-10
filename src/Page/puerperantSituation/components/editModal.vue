@@ -1,6 +1,6 @@
 <template>
   <div>
-    <sweet-modal ref="modal" size="small" :title="title" @onClose="handleClose">
+    <sweet-modal ref="modal" size="small" :title="title" @close="handleClose">
       <div class="model-content" v-loading="saveLoading" @keyup.enter="handleSave">
         <!-- 输入框 -->
         <el-input :value="editValue" class="pueperant-editmodal-input" v-if="type=='input'||type=='int'" @change="handleInputChange"></el-input>

@@ -278,7 +278,7 @@
                 <el-dropdown-item :class="{active: $route.path == '/puerperantSituation'}">
                   <router-link to="/puerperantSituation" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
-                      <i class="wardReport"></i>产科分娩登记表
+                      <i class="puerperantSituation"></i>产科分娩登记表
                     </el-row>
                   </router-link>
                 </el-dropdown-item>
@@ -500,6 +500,9 @@
 
     &.flatManagement {
       background-image: url('../../common/images/index/扁平管理.png');
+    }
+    &.puerperantSituation {
+      background-image: url('../../common/images/index/产科分娩登记表.png');
     }
   }
 }
