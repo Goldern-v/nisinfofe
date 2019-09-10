@@ -288,7 +288,10 @@ export default {
       }
 
       this.url = url;
-      this.$refs.iframeV2.contentWindow.location.href = url;
+      if(this.$refs.iframeV2){
+        this.$refs.iframeV2.contentWindow.location.href = url;
+      }
+
       // wid.location.href
       // if (url == this.url) {
       //   this.refresh();
@@ -317,7 +320,7 @@ export default {
     },
     onmessage(e) {
       // alert(e.data.type)
-      console.log(e, "message", e.data.type);
+      // console.log(e, "message", e.data.type);
       // if (e.data.type == 'loaded' || e.data.type == "webpackOk") {
       if (e.data.type === "loaded") {
         this.onFormLoaded("onmessage");
@@ -331,8 +334,7 @@ export default {
       this.wid = this.$refs.iframeV2.contentWindow;
       window.wid = this.$refs.iframeV2.contentWindow;
 
-
-      console.log("!!!!onload!!!!",this.wid);
+      // console.log("!!!!onload!!!!", this.wid);
 
       // window.document.addEventListener()
       // this.wid.document.removeEventListener("click", this.onClick);
@@ -388,12 +390,12 @@ export default {
           this.refresh();
         });
       }
-      console.log(
-        "this.wid.formInfo",
-        this.wid.formInfo,
-        "isLandscape",
-        this.isLandscape
-      );
+      // console.log(
+      //   "this.wid.formInfo",
+      //   this.wid.formInfo,
+      //   "isLandscape",
+      //   this.isLandscape
+      // );
 
       if (
         this.wid.loadTimeData &&
@@ -801,7 +803,9 @@ export default {
       let select = this.$store.state.form.select;
 
       console.log("Assessment_saveFormbyPw", list, select);
-      var formCode = jQuery(`input[name='formCode']`, wid.document).val();
+      var formCode =
+        wid.CRForm.formInfo.formCode ||
+        jQuery(`input[name='formCode']`, wid.document).val();
 
       let result = [];
       for (let item of list) {

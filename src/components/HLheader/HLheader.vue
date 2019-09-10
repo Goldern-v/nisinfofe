@@ -28,9 +28,19 @@
                 <i class="iconfont icon-jiaobanzhi"></i> 血透排班
               </el-row>
             </router-link>
+            <!-- <router-link to="/archive" tag="span">
+              <el-row class="nav-item" type="flex" align="middle">
+                <i class="iconfont icon-guidang"></i> 归档
+              </el-row>
+            </router-link> -->
             <router-link to="/board" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-baiban"></i> 白板
+              </el-row>
+            </router-link>
+            <router-link to="/familyBigScreen" tag="span">
+              <el-row class="nav-item" type="flex" align="middle">
+                <i class="iconfont icon-family"></i> 家属大屏
               </el-row>
             </router-link>
 
@@ -116,7 +126,7 @@
                     </el-row>
                   </router-link>
                 </el-dropdown-item>
-                <el-dropdown-item  :class="{active: $route.path == '/handlingPage'}">
+                <el-dropdown-item :class="{active: $route.path == '/handlingPage'}">
                   <router-link to="/handlingPage" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
                       <i class="healthEducation"></i>住院病人处理单
@@ -235,7 +245,7 @@
                     <el-row class="menu-item" type="flex" align="middle">
                       <i class="badEvent"></i>不良事件
                     </el-row>
-                  </router-link>
+                  </el-dropdown-item>
                 </el-dropdown-item>-->
                 <el-dropdown-item :class="{active: $route.path == '/nursingRules'}">
                   <router-link to="/nursingRules" tag="span">
@@ -262,6 +272,13 @@
                   <router-link to="/flatManagement" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
                       <i class="flatManagement"></i>扁平管理
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item>
+                <el-dropdown-item :class="{active: $route.path == '/puerperantSituation'}">
+                  <router-link to="/puerperantSituation" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="puerperantSituation"></i>产科分娩登记表
                     </el-row>
                   </router-link>
                 </el-dropdown-item>
@@ -483,6 +500,9 @@
 
     &.flatManagement {
       background-image: url('../../common/images/index/扁平管理.png');
+    }
+    &.puerperantSituation {
+      background-image: url('../../common/images/index/产科分娩登记表.png');
     }
   }
 }

@@ -8,20 +8,44 @@
     style="z-index: 10002"
   >
     <div v-show="message && message.length>0" class="message-box">
-      <span >
-        {{message}}
-      </span>
+      <span>{{message}}</span>
     </div>
     <span v-show="showUserName">
       <p for class="name-title">输入用户名或者工号</p>
       <div action class="sign-input" ref="userInput">
-        <el-input size="small" type="text" placeholder="输入用户名或者工号" v-model="username"></el-input>
+        <el-input
+          size="small"
+          type="text"
+          placeholder="输入用户名或者工号"
+          v-model="username"
+          :readonly="HOSPITAL_ID == 'weixian_dev'"
+        ></el-input>
       </div>
     </span>
-    <p for class="name-title">{{label}}</p>
-    <div ref="passwordInput">
-      <el-input size="small" type="password" :placeholder="placeholder" v-model="password"></el-input>
+    <div style="height: 5px"></div>
+    <span v-if="HOSPITAL_ID != 'weixian_dev' || pw">
+      <p for class="name-title">{{label}}</p>
+      <div ref="passwordInput">
+        <el-input size="small" type="password" :placeholder="placeholder" v-model="password"></el-input>
+      </div>
+    </span>
+
+    <span v-else>
+      <p for class="name-title">
+        验证方式
+        <span :style="{color: ca_isLogin ? 'green': 'red'}">
+          {{ca_name || '无'}}证书
+          {{ca_isLogin ? '已登录' : '未登录'}}
+        </span>
+      </p>
+    </span>
+
+    <div v-if="HOSPITAL_ID == 'weixian_dev'" style="margin-top: 5px">
+      <span @click="openCaSignModal" class="loginCa" v-if="!ca_isLogin">登录证书</span>
+      <span class="loginCa" v-if="!pw" @click="pw = true">密码验证</span>
+      <span class="loginCa" v-else @click="pw = false">证书验证</span>
     </div>
+
     <span v-show="showDate">
       <p for class="name-title">输入签名时间</p>
       <div action class="sign-input" ref="dateInput">
@@ -45,26 +69,46 @@
 </template>
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
-.name-title
-  font-size 14px;
-  margin 5px 0 10px
-  font-weight bold
-.el-date-editor.el-input
-  width 100%
->>>.el-picker-panel .el-date-picker .has-time .picker-dropdown
-      z-index 20003!important
->>>.picker-dropdown
-      z-index 20003!important
-.message-box
-  outline 1px dashed gray
-  margin 0 0 10px 0px
-  padding: 5px
-  text-align: justify
+.name-title {
+  font-size: 14px;
+  margin: 5px 0 10px;
+  font-weight: bold;
+}
+
+.el-date-editor.el-input {
+  width: 100%;
+}
+
+>>>.el-picker-panel .el-date-picker .has-time .picker-dropdown {
+  z-index: 20003 !important;
+}
+
+>>>.picker-dropdown {
+  z-index: 20003 !important;
+}
+
+.message-box {
+  outline: 1px dashed gray;
+  margin: 0 0 10px 0px;
+  padding: 5px;
+  text-align: justify;
+}
+
+.loginCa {
+  font-size: 13px;
+  color: #4bb08d;
+  cursor: pointer;
+
+  &:hover {
+    font-weight: bold;
+  }
+}
 </style>
 
 <script>
 import dayjs from "dayjs";
-import bus from 'vue-happy-bus';
+import bus from "vue-happy-bus";
+import { verifyCaSign } from "@/api/ca-sign_wx.js";
 export default {
   props: {
     title: {
@@ -90,7 +134,7 @@ export default {
     showMessage: {
       type: Boolean,
       default: false
-    },
+    }
   },
   data() {
     return {
@@ -102,13 +146,16 @@ export default {
       signDate: dayjs().format("YYYY-MM-DD HH:mm") || "",
       callback: "",
       title1: "",
-      message:"",
+      message: "",
       showDate: false,
       bus: bus(this),
+      ca_name: "",
+      ca_isLogin: "",
+      pw: false
     };
   },
   methods: {
-    open(callback, title, showDate = false,message='') {
+    open(callback, title, showDate = false, message = "") {
       this.title1 = "";
       title && (this.title1 = title);
       (this.username =
@@ -118,47 +165,96 @@ export default {
         (this.callback = callback);
       this.showDate = showDate;
       // this.showMessage = showMessage;
-      this.message = message
+      this.message = message;
       this.password = "";
+      this.pw = false;
+
+      this.ca_name = window.ca_name;
+      this.ca_isLogin = window.ca_isLogin;
+
       this.signDate = dayjs().format("YYYY-MM-DD HH:mm") || ""; //改
       this.$refs.modalName.open();
-      this.$nextTick(() => {
-        // if(showDate){
-        //   let dateInput = this.$refs.dateInput.querySelector("input");
-        // }
-        let userInput = this.$refs.userInput.querySelector("input");
-        let passwordInput = this.$refs.passwordInput.querySelector("input");
-        userInput.focus();
-        userInput.select();
-        userInput.onkeydown = e => {
-          if (e.keyCode == 13) {
-            e.preventDefault();
-            passwordInput.focus();
-          }
-        };
-        passwordInput.onkeydown = e => {
-          if (e.keyCode == 13) {
-            return this.post();
-          }
-        };
-      });
+      if (this.HOSPITAL_ID != "weixian_dev") {
+        this.$nextTick(() => {
+          // if(showDate){
+          //   let dateInput = this.$refs.dateInput.querySelector("input");
+          // }
+          let userInput = this.$refs.userInput.querySelector("input");
+          let passwordInput =
+            this.$refs.passwordInput &&
+            this.$refs.passwordInput.querySelector("input");
+          userInput.focus();
+          userInput.select();
+          userInput.onkeydown = e => {
+            if (e.keyCode == 13) {
+              e.preventDefault();
+              passwordInput.focus();
+            }
+          };
+          passwordInput &&
+            (passwordInput.onkeydown = e => {
+              if (e.keyCode == 13) {
+                return this.post();
+              }
+            });
+        });
+      }
+
       return null;
     },
     post() {
-      if (this.password == "") {
-        return this.$message({
-          message: "请输入密码",
-          type: "warning",
-          showClose: true
-        });
-      }
-      this.$refs.modalName.close();
-      if (this.signDate) {
-        return this.callback(this.password, this.username, this.signDate);
+      if (this.HOSPITAL_ID == "weixian_dev") {
+        if (this.pw) {
+          if (this.password == "") {
+            return this.$message({
+              message: "请输入密码",
+              type: "warning",
+              showClose: true
+            });
+          }
+          this.$refs.modalName.close();
+          if (this.signDate) {
+            return this.callback(this.password, this.username, this.signDate);
+          } else {
+            return this.callback(this.password, this.username);
+          }
+          parent.app.bus.$emit("assessmentRefresh");
+        } else {
+          verifyCaSign().then(random => {
+            this.$refs.modalName.close();
+            if (this.signDate) {
+              return this.callback(
+                // localStorage.ppp,
+                random,
+                this.username,
+                this.signDate,
+                random
+              );
+            } else {
+              return this.callback(random, this.username);
+            }
+          });
+        }
       } else {
-        return this.callback(this.password, this.username);
+        if (this.password == "") {
+          return this.$message({
+            message: "请输入密码",
+            type: "warning",
+            showClose: true
+          });
+        }
+        this.$refs.modalName.close();
+        if (this.signDate) {
+          return this.callback(this.password, this.username, this.signDate);
+        } else {
+          return this.callback(this.password, this.username);
+        }
+        parent.app.bus.$emit("assessmentRefresh");
       }
-      parent.app.bus.$emit('assessmentRefresh')
+    },
+    openCaSignModal() {
+      window.openCaSignModal();
+      this.$refs.modalName.close();
     }
   },
   components: {}

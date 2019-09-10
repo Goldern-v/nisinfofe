@@ -218,25 +218,31 @@ function switechSheetType(type) {
         schema = require("../config/blood_purification/tr.js").default;
       }
       break;
+    case "oxytocin":
+      {
+        // 催产素静脉点滴观察
+        schema = require("../config/oxytocin/tr.js").default;
+      }
+      break;
     case "neurology_wx":
       {
         // 威县-神经内科
         schema = require("../config/neurology_wx/tr.js").default;
       }
       break;
-      case "unified_wx":
+    case "unified_wx":
       {
         // 威县-统一护理记录单
         schema = require("../config/unified_wx/tr.js").default;
       }
       break;
-      case "intensive_care_wx":
+    case "intensive_care_wx":
       {
         // 威县-脑外科重症监护单 
         schema = require("../config/intensive_care_wx/tr.js").default;
       }
       break;
-      case "ccu_wx":
+    case "ccu_wx":
       {
         // 威县-CCU监护单（心血管内科）
         schema = require("../config/ccu_wx/tr.js").default;

@@ -127,7 +127,8 @@ export default [
     autoComplete: {
       data: 出量名称
     },
-    name: "出量名称"
+    name: "出量名称",
+    childKey: "出量性质"
   },
   {
     key: "field9", //出量性质

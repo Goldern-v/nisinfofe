@@ -1,9 +1,6 @@
-<template src="./bed-item.html">
+<template src="./bed-item.html"></template>
 
-</template>
-
-<style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped src="./bed-item.styl">
-</style>
+<style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped src="./bed-item.styl"></style>
 
 <script>
 import qs from "qs";
@@ -41,7 +38,11 @@ export default {
       return new Date(date).Format("yyyy-MM-dd");
     },
     toFormPage(data, item) {
-      let query = qs.stringify(data);
+      // let query = qs.stringify(data);
+      let query = qs.stringify({
+        patientId: data.patientId,
+        visitId: data.visitId
+      });
       let newWid = window.open(`/crNursing/record?${query}`);
       newWid.onload = () => {
         setTimeout(() => {

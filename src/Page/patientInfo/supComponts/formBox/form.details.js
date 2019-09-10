@@ -355,7 +355,7 @@ export function initList(wid, pdata = window.app.$route.query) {
       // 表单病人基础数据
 
       var formTableData = {};
-      var formCode = getFormCode(wid);
+      var formCode = postData.formCode ? postData.formCode : getFormCode(wid);
       let token = window.app.$getCookie('NURSING_USER').split('##')[1]
 
       console.log("postData", postData);
@@ -381,11 +381,13 @@ export function initList(wid, pdata = window.app.$route.query) {
         'visitDate': moment().format('YYYY-MM-DD HH:mm:ss'),
       }
 
-      for (var val in mappingKeys) {
-        if (mappingKeys.hasOwnProperty(val)) {
-          formTableData[val] = mappingKeys[val]
-        }
-      }
+      // for (var val in mappingKeys) {
+      //   if (mappingKeys.hasOwnProperty(val)) {
+      //     formTableData[val] = mappingKeys[val]
+      //   }
+      // }
+
+      formTableData = { ...formTableData, ...mappingKeys, ...postData }
 
       // formTableData['formCode']=formCode;
       // formTableData['patientId']=pdata['patientId'];
@@ -415,7 +417,7 @@ export function initList(wid, pdata = window.app.$route.query) {
         // data: postData,
         method: 'post',
         url: '/crNursing/api/form/save?',
-        data: qs.stringify(formTableData) + '&' + qs.stringify(postData),
+        data: qs.stringify(formTableData),// + '&' + qs.stringify(postData),
         success: function (data) {
           bus.$emit('refreshTree');
           if (data.code == 200) {
@@ -577,6 +579,7 @@ export function initList(wid, pdata = window.app.$route.query) {
     callbackDVTAssessment(pdata)
     callbackSwallowingAssessment(pdata)
     callbackFallAssessment(pdata)
+
   }
 
   // 入院评估项
@@ -1086,6 +1089,7 @@ export function initList(wid, pdata = window.app.$route.query) {
         // let query = this.$route.query
         let queryObj = {
           id: id || '',
+          isNoAutoCreated: true,
           formCode: wid.formInfo.formCode || '',
           patientId: query.patientId,
           visitId: query.visitId,
@@ -1101,6 +1105,8 @@ export function initList(wid, pdata = window.app.$route.query) {
           wardName: query.wardName,
           admissionDate: query.admissionDate,
           token: token,
+          "App-Token-Nursing": "51e827c9-d80e-40a1-a95a-1edc257596e7",
+          "Auth-Token-Nursing": token || ""
           // todo: this.info.todo,
           // title:this.info.title || ''
         }
@@ -1161,7 +1167,23 @@ export function initList(wid, pdata = window.app.$route.query) {
             // localhost:8088/VTE风险评估量表(手术科室).html?id=1550&formCode=form_caprini&patientId=0989826&visitId=1&name=%E9%99%88%E6%9C%89%E6%A2%85&sex=%E5%A5%B3&age=73%E5%B2%81&deptCode=3007&bedLabel=5&inpNo=P111902&wardCode=4003&wardName=%E6%99%AE%E5%A4%96%E6%8A%A4%E7%90%86%E5%8D%95%E5%85%83&admissionDate=2015-09-21%2015%3A25%3A32&token=App-Token-Nursing%3D51e827c9-d80e-40a1-a95a-1edc257596e7%26Auth-Token-Nursing%3D70212136-20cc-4cd0-8b25-4078e97cd687
             // /form/list/form_caprini/0989826/1
             //  let query = this.$route.query
-            let queryObj = { id: id || "", formCode: formCode, patientId: query.patientId, visitId: query.visitId, name: query.name, sex: query.sex, age: query.age, deptCode: query.deptCode, bedLabel: query.bedLabel, inpNo: query.inpNo, wardCode: query.wardCode, wardName: query.wardName, admissionDate: query.admissionDate, token: tokens };
+            let queryObj = {
+              id: id || "",
+              isNoAutoCreated: true,
+              formCode: formCode,
+              patientId: query.patientId,
+              visitId: query.visitId,
+              name: query.name,
+              sex: query.sex,
+              age: query.age,
+              deptCode: query.deptCode,
+              bedLabel: query.bedLabel,
+              inpNo: query.inpNo,
+              wardCode: query.wardCode,
+              wardName: query.wardName,
+              admissionDate: query.admissionDate,
+              token: tokens
+            };
 
             console.log('-==URL:', qs.stringify(queryObj))
 
@@ -1224,6 +1246,11 @@ export function initList(wid, pdata = window.app.$route.query) {
     jQuery("[name*='tt_option'][value*='无']", wid.document).prop("checked", "")
     // wid.jQuery(`[name$="_p2_ttxz"][value=${data['form_pain_assessment_xz_option']}]`).prop("checked", "checked")
     // wid.jQuery('[name$="_p2_ttxzqt"]').val(data['form_pain_assessment_xz_other'])
+    //
+
+    //
+    try { wid.saveForm() } catch (error) { console.log(error) }
+
   }
 
 
@@ -1257,6 +1284,8 @@ export function initList(wid, pdata = window.app.$route.query) {
       console.log("ERROR:callbackSelfcareAssessment", e)
     }
     console.log("callbackSelfcareAssessment", evalscore, data, callbackData);
+
+    try { wid.saveForm() } catch (error) { console.log(error) }
   }
 
   // 压舱
@@ -1294,6 +1323,8 @@ export function initList(wid, pdata = window.app.$route.query) {
       console.log("ERROR:callbackPressureRiskAssessment", e)
     }
     console.log("callbackPressureRiskAssessment", evalscore, data, callbackData);
+
+    try { wid.saveForm() } catch (error) { console.log(error) }
   }
 
 
@@ -1366,7 +1397,7 @@ export function initList(wid, pdata = window.app.$route.query) {
     }
     console.log("callbackVTEAssessment", res);
 
-
+    try { wid.saveForm() } catch (error) { console.log(error) }
   }
 
   // DVT
@@ -1400,6 +1431,8 @@ export function initList(wid, pdata = window.app.$route.query) {
       console.log("ERROR:callbackDVTAssessment", e)
     }
     console.log("callbackDVTAssessment", evalscore, data, callbackData);
+
+    try { wid.saveForm() } catch (error) { console.log(error) }
   }
 
   // 跌倒
@@ -1441,6 +1474,8 @@ export function initList(wid, pdata = window.app.$route.query) {
       console.log("ERROR:callbackFallAssessment", e)
     }
     console.log("callbackFallAssessment", evalscore, data, callbackData);
+
+    try { wid.saveForm() } catch (error) { console.log(error) }
 
   }
 
@@ -1493,6 +1528,8 @@ export function initList(wid, pdata = window.app.$route.query) {
       jQuery("[name$='tykn_option'][value*='有']", wid.document).prop("checked", "");
       jQuery("[name$='tykn_option'][value*='无']", wid.document).prop("checked", "checked");
     }
+
+    try { wid.saveForm() } catch (error) { console.log(error) }
 
   }
 

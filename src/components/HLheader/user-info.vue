@@ -34,6 +34,17 @@
     </div>
     <!-- <div class="line"></div> -->
     <!-- empNo  admin -->
+    <div class="admin-system-info" v-if="HOSPITAL_ID==='weixian'">
+      证书状态:
+      <p>
+        <label>{{ca_name || '无证书'}}:</label>
+        <span>{{ ca_isLogin ? '已登录' : '未登录'}}</span>
+      </p>
+      <div class="button-con">
+        <el-button size="mini" @click="openCaSignModal">证书登录</el-button>
+        <el-button size="mini" @click="logoutCaSign">证书退出</el-button>
+      </div>
+    </div>
     <div class="admin-system-info" v-if="empNo==='admin'">
       仅管理员可见:
       <p v-for="(info,i) in adminSystemInfo" :key="i">
@@ -49,86 +60,136 @@
       <span @click="clear">清除缓存</span>
     </div>
     <uploadImgModal ref="uploadImgModal"></uploadImgModal>
+    <caSignModal ref="caSignModal"></caSignModal>
   </div>
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
-.info-con
-  padding 10px 10px 0
-  .user-head
-    position relative
-    width 60px
-    height 60px
-    border-radius 50%
-    background-image  url('../../common/images/info/头像图.png')
-    background-size cover
-    margin-right 20px
-    cursor pointer
-    .text
+.info-con {
+  padding: 10px 10px 0;
+
+  .user-head {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-image: url('../../common/images/info/头像图.png');
+    background-size: cover;
+    margin-right: 20px;
+    cursor: pointer;
+
+    .text {
       font-size: 12px;
       color: #FFFFFF;
-      font-weight lighter
-  .user-text
-    .name
+      font-weight: lighter;
+    }
+  }
+
+  .user-text {
+    .name {
       font-size: 14px;
       color: #333333;
-      .year
+
+      .year {
         font-size: 12px;
         color: #333333;
-        font-weight lighter
-    .work
+        font-weight: lighter;
+      }
+    }
+
+    .work {
       font-size: 12px;
       color: #333333;
-      margin-top 10px
-    .dept
+      margin-top: 10px;
+    }
+
+    .dept {
       font-size: 12px;
       color: #687179;
-      margin-top 4px
-.line
+      margin-top: 4px;
+    }
+  }
+}
+
+.line {
   border-top: 1px solid #E7EAEC;
-  margin-top 20px
-  margin-bottom 10px
-.sign-title
-  margin-bottom 10px
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.sign-title {
+  margin-bottom: 10px;
   font-size: 13px;
   color: #333333;
-.sign-con
+}
+
+.sign-con {
   font-size: 13px;
   color: #999999;
-  line-height 20px
-  min-height 87px
-  img
-    display block
-    margin 0 auto
-    cursor pointer
-    max-width 100%
-.setting-sign
-  color blue
-  cursor pointer
-  &:hover
-    font-weight bold
-.footer-con
+  line-height: 20px;
+  min-height: 87px;
+
+  img {
+    display: block;
+    margin: 0 auto;
+    cursor: pointer;
+    max-width: 100%;
+  }
+}
+
+.setting-sign {
+  color: blue;
+  cursor: pointer;
+
+  &:hover {
+    font-weight: bold;
+  }
+}
+
+.footer-con {
   background: #F7F7F7;
-  height 35px
-  margin 0 -20px -10px
+  height: 35px;
+  margin: 0 -20px -10px;
   border-top: 1px solid #E7EAEC;
-  padding 0 20px
+  padding: 0 20px;
   font-size: 12px;
   color: #687179;
-  font-weight lighter
-  span
-    cursor pointer
-    &:hover
-      font-weight normal
+  font-weight: lighter;
 
-.admin-system-info
-  padding:10px 0px;
+  span {
+    cursor: pointer;
+
+    &:hover {
+      font-weight: normal;
+    }
+  }
+}
+
+.admin-system-info {
+  padding: 10px 0px;
   line-height: 1.5em;
-  p
+
+  p {
     display: flex;
     justify-content: space-between;
-  span
-    color:blue;
-    padding:0 5px;
+  }
+
+  span {
+    color: blue;
+    padding: 0 5px;
+  }
+}
+
+.button-con {
+  padding: 5px 0;
+
+  >>> .el-button {
+    padding: 4px 8px;
+  }
+
+  >>> .el-button + .el-button {
+    margin-left: 5px;
+  }
+}
 </style>
 <script>
 import moment from "moment";
@@ -137,6 +198,10 @@ import uploadImgModal from "./modal/uploadImg.vue";
 import bus from "vue-happy-bus";
 import { imageView } from "@/api/common.js";
 import common from "@/common/mixin/common.mixin.js";
+import caSignModal from "@/components/modal/ca-sign";
+import { $_$WebSocketObj, SignedData, Logout } from "@/api/XTXSAB.js";
+import { setInterval } from "timers";
+let timer = null;
 export default {
   mixins: [common],
   data() {
@@ -145,7 +210,10 @@ export default {
       imageView,
       img: "",
       user: JSON.parse(localStorage.user),
-      signature: ""
+      signature: "",
+      ca_name: "",
+      ca_isLogin: "",
+      strUserCertID: ""
     };
   },
   computed: {
@@ -188,7 +256,8 @@ export default {
             window.performance.memory.usedJSHeapSize
           )}`
         },
-        { key: "CPU总线程数", value: window.navigator.hardwareConcurrency }
+        { key: "CPU总线程数", value: window.navigator.hardwareConcurrency },
+        { key: "蓝牙签名功能激活", value: process.env.ENABLE_BLUETOOTH_SIGN || 'false' },
       ];
     }
   },
@@ -252,6 +321,40 @@ export default {
     },
     clear() {
       location.reload(true);
+    },
+    openCaSignModal() {
+      this.$refs.caSignModal.open(() => this.getCaStatus());
+    },
+    getCaStatus() {
+      $_$WebSocketObj.GetUserList(usrInfo => {
+        this.strUserCertID = usrInfo.retVal
+          .substring(usrInfo.retVal.indexOf("||") + 2, usrInfo.retVal.length)
+          .replace("&&&", "");
+        this.ca_name = usrInfo.retVal.substring(
+          0,
+          usrInfo.retVal.indexOf("||")
+        );
+
+        SignedData(this.strUserCertID, "123213", retValObj => {
+          this.ca_isLogin = !!retValObj.retVal;
+          window.ca_isLogin = this.ca_isLogin;
+          window.ca_name = this.ca_name;
+        });
+      });
+    },
+    logoutCaSign() {
+      this.$confirm("是否确认退出证书登录?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      }).then(() => {
+        Logout(this.strUserCertID, retValObj => {
+          if (retValObj.retVal) {
+            this.$message.success("退出证书登录成功");
+            this.getCaStatus();
+          }
+        });
+      });
     }
   },
   created() {
@@ -261,6 +364,15 @@ export default {
     this.bus.$on("refreshSign", () => {
       this.getSignImg();
     });
+    // let HOSPITAL_ENABLE_LIST = ["威县人民医院"]
+    console.log('process.env.ENABLE_BLUETOOTH_SIGN',process.env.ENABLE_BLUETOOTH_SIGN)
+    clearInterval(timer);
+    if(process.env.ENABLE_BLUETOOTH_SIGN){
+      this.getCaStatus();
+      let timer = setInterval(() => {
+        this.getCaStatus();
+      }, 5000);
+    }
   },
   mounted() {
     this.getUserImg();
@@ -268,7 +380,8 @@ export default {
   },
   components: {
     whiteButton,
-    uploadImgModal
+    uploadImgModal,
+    caSignModal
   }
 };
 </script>

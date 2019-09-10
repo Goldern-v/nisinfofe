@@ -43,27 +43,41 @@
   </div>
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
-.d-table
-  border 1px solid #cbd5dd
-  >>>.el-table
-        border 0 !important
-        td
-          height 30px
-        th >.cell, th >div
-          padding: 0px;
-          text-align: center;
+.d-table {
+  border: 1px solid #cbd5dd;
 
-  >>>.el-table::after, .el-table::before
-    background #cbd5dd
-    display none
-  >>>.el-table__row td:first-child .cell, >>>.el-table__row td:last-child .cell
-    padding 0 5px
-    text-align center
-    >>>.cell
-        padding: 0px;
-        text-align: center;
-  >>>.el-table__body-wrapper
+  >>>.el-table {
+    border: 0 !important;
+
+    td {
+      height: 30px;
+    }
+
+    th >.cell, th >div {
+      padding: 0px;
+      text-align: center;
+    }
+  }
+
+  >>>.el-table::after, .el-table::before {
+    background: #cbd5dd;
+    display: none;
+  }
+
+  >>>.el-table__row td:first-child .cell, >>>.el-table__row td:last-child .cell {
+    padding: 0 5px;
+    text-align: center;
+
+    >>>.cell {
+      padding: 0px;
+      text-align: center;
+    }
+  }
+
+  >>>.el-table__body-wrapper {
     // overflow-x hidden
+  }
+}
 </style>
 <script>
 import { info } from "@/api/task";
@@ -88,7 +102,12 @@ export default {
           res.data.data[index] = "";
         }
       }
-      window.open(`/crNursing/home?${qs.stringify(res.data.data)}`);
+      window.open(
+        `/crNursing/home?${qs.stringify({
+          patientId: res.data.data.patientId,
+          visitId: res.data.data.visitId
+        })}`
+      );
     }
   },
   components: {}

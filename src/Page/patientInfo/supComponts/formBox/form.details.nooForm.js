@@ -147,6 +147,7 @@ function openAssessmentsBox(buttonItem, formCode, callback, wid) {
 
       let queryObj = {
         id: id || "",
+        isNoAutoCreated: true,
         formCode: formCode,
         patientId: query.patientId,
         visitId: query.visitId,
@@ -376,6 +377,7 @@ export function openInsideBoxes(wid) {
     jQuery("[name*='tt_option'][value*='无']", wid.document).prop("checked", "");
     // wid.jQuery(`[name$="_p2_ttxz"][value=${data['form_pain_assessment_xz_option']}]`).prop("checked", "checked")
     // wid.jQuery('[name$="_p2_ttxzqt"]').val(data['form_pain_assessment_xz_other'])
+    try { wid.saveForm() } catch (error) { console.log('saveForm:error', error) }
   }
 
   function callbackSelfcareAssessment(data, callbackData) {
@@ -426,6 +428,7 @@ export function openInsideBoxes(wid) {
       console.log("ERROR:callbackSelfcareAssessment", e);
     }
     console.log("callbackSelfcareAssessment", evalscore, data, callbackData);
+    try { wid.saveForm() } catch (error) { console.log('saveForm:error', error) }
   }
 
   // 压舱
@@ -498,6 +501,8 @@ export function openInsideBoxes(wid) {
 
 
     console.log("callbackPressureRiskAssessment", evalscore, data, callbackData, callbackData.data.id, wid.getRawData(), wid.getFormData());
+
+    try { wid.saveForm() } catch (error) { console.log('saveForm:error', error) }
 
 
   }
@@ -572,6 +577,8 @@ export function openInsideBoxes(wid) {
     }
     console.log("callbackVTEAssessment", res);
 
+    try { wid.saveForm() } catch (error) { console.log('saveForm:error', error) }
+
 
   }
 
@@ -629,6 +636,7 @@ form_internal_first_dvt_or_pte_score form_internal_first_dvt_or_pte_option
       console.log("ERROR:callbackDVTAssessment", e);
     }
     console.log("callbackDVTAssessment", evalscore, data, callbackData);
+    try { wid.saveForm() } catch (error) { console.log('saveForm:error', error) }
   }
 
   // 跌倒
@@ -692,6 +700,7 @@ form_internal_first_dvt_or_pte_score form_internal_first_dvt_or_pte_option
       console.log("ERROR:callbackFallAssessment", e);
     }
     console.log("callbackFallAssessment", evalscore, data, callbackData);
+    try { wid.saveForm() } catch (error) { console.log('saveForm:error', error) }
   }
 
   // 吞咽评估单
@@ -781,6 +790,7 @@ form_internal_first_dvt_or_pte_score form_internal_first_dvt_or_pte_option
       //
       wid.setFormData(formCodeSource + "_tykn_option", "无", "object");
     }
+    try { wid.saveForm() } catch (error) { console.log('saveForm:error', error) }
   }
 
 }

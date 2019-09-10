@@ -58,3 +58,8 @@ export function dictUpdate(data) {
 export function dictDelete(data) {
   return axios.post(`${apiPath}/dict/delete`, data);
 }
+
+//病人信息
+export const getPatientInfo = (patientId, visitId) => {
+  return axios.get(`${apiPath}patient/info/${patientId}/${visitId}`);
+};

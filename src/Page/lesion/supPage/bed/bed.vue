@@ -12,7 +12,7 @@
     >
       <el-row :gutter="12" class="card-con">
         <div class="null-bg" v-if="bedList.length == 0 && !loading">
-          <img src="../../../../common/images/card/默认图.png" height="220" width="220">
+          <img src="../../../../common/images/card/默认图.png" height="220" width="220" />
           <p>暂时没有护理单元～</p>
         </div>
         <bed-item
@@ -30,23 +30,29 @@
 </template>
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
-.left-part
-  margin-right 160px
-  overflow auto
-  overflow-x hidden
-  position relative
+.left-part {
+  margin-right: 160px;
+  overflow: auto;
+  overflow-x: hidden;
+  position: relative;
   // z-index 10
-.card-con
-  padding 5px 10px 50px
-.right-part
-  position fixed
-  right 0
-  bottom 0
-  width 160px
-  background #fff
+}
+
+.card-con {
+  padding: 5px 10px 50px;
+}
+
+.right-part {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  width: 160px;
+  background: #fff;
   border-left: 1px solid #D4DADE;
-  z-index 2
-  top 62px
+  z-index: 2;
+  top: 62px;
+}
+
 .null-bg {
   img {
     display: block;
@@ -65,23 +71,28 @@
 </style>
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus">
-.custorm-tip
-   background:rgba(255,255,255,1);
-   border-radius:4px;
-   border:1px solid rgba(189,195,196,1);
-   .head
-     font-size:13px;
-     font-weight:400;
-     color:rgba(51,51,51,1);
-     border-left: 4px solid rgba(75,176,141,1);
-     padding-left 6px
-     margin-bottom 10px
-     line-height 13px
-     font-weight bold
-   .desc
-     font-size:12px;;
-     color:rgba(51,51,51,1);
-     line-height:20px
+.custorm-tip {
+  background: rgba(255, 255, 255, 1);
+  border-radius: 4px;
+  border: 1px solid rgba(189, 195, 196, 1);
+
+  .head {
+    font-size: 13px;
+    font-weight: 400;
+    color: rgba(51, 51, 51, 1);
+    border-left: 4px solid rgba(75, 176, 141, 1);
+    padding-left: 6px;
+    margin-bottom: 10px;
+    line-height: 13px;
+    font-weight: bold;
+  }
+
+  .desc {
+    font-size: 12px;
+    color: rgba(51, 51, 51, 1);
+    line-height: 20px;
+  }
+}
 </style>
 
 <script>
@@ -201,7 +212,12 @@ export default {
       //   path: '/home',
       //   query: obj
       // })
-      window.open(`/crNursing/home?${qs.stringify(obj)}`);
+      window.open(
+        `/crNursing/home?${qs.stringify({
+          patientId: obj.patientId,
+          visitId: obj.visitId
+        })}`
+      );
     }
   },
   components: {

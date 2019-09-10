@@ -2,15 +2,15 @@ export default {
   // 科室的名称
   deptType: "",
   style: {
-    width: "1900px"
+    width: "1700px"
   },
   th: {
     top: [
       {
         name: "日期",
         style: {
-          minWidth: "36px",
-          maxWidth: "36px"
+          minWidth: "25px",
+          maxWidth: "25px"
         },
         colspan: "1",
         rowspan: "3"
@@ -18,8 +18,8 @@ export default {
       {
         name: "时间",
         style: {
-          minWidth: "36px",
-          maxWidth: "36px"
+          minWidth: "25px",
+          maxWidth: "25px"
         },
         colspan: "1",
         rowspan: "3"
@@ -78,7 +78,8 @@ export default {
         rowspan: "1",
         style: {
           whiteSpace: "nowrap",
-          minWidth: "34px"
+          minWidth: "20px",
+          maxWidth: "20px"
         }
       },
       {
@@ -90,7 +91,7 @@ export default {
         rowspan: "1",
         style: {
           whiteSpace: "nowrap",
-          minWidth: "38px"
+          minWidth: "25px"
         }
       },
       {
@@ -102,7 +103,7 @@ export default {
         rowspan: "1",
         style: {
           whiteSpace: "nowrap",
-          minWidth: "38px"
+          minWidth: "25px"
         }
       },
       {
@@ -110,8 +111,8 @@ export default {
         BP
         `,
         style: {
-          minWidth: "52px",
-          maxWidth: "52px",
+          minWidth: "30px",
+          maxWidth: "30px",
           whiteSpace: "nowrap"
         },
         colspan: "1",
@@ -181,8 +182,8 @@ export default {
       {
         name: `体位`,
         style: {
-          minWidth: "70px",
-          maxWidth: "70px"
+          minWidth: "62px",
+          maxWidth: "62px"
         },
         colspan: "1",
         rowspan: "2"
@@ -199,8 +200,8 @@ export default {
       {
         name: `翻身拍背`,
         style: {
-          minWidth: "52px",
-          maxWidth: "52px"
+          minWidth: "25px",
+          maxWidth: "25px"
         },
         colspan: "1",
         rowspan: "2"
@@ -253,8 +254,8 @@ export default {
       {
         name: `动脉搏动`,
         style: {
-          minWidth: "20px",
-          maxWidth: "20px"
+          minWidth: "30px",
+          maxWidth: "30px"
         },
         colspan: "1",
         rowspan: "2"
@@ -262,8 +263,8 @@ export default {
       {
         name: `皮肤胀力`,
         style: {
-          minWidth: "20px",
-          maxWidth: "20px"
+          minWidth: "30px",
+          maxWidth: "30px"
         },
         colspan: "1",
         rowspan: "2"
@@ -271,8 +272,8 @@ export default {
       {
         name: `皮温`,
         style: {
-          minWidth: "20px",
-          maxWidth: "20px"
+          minWidth: "25px",
+          maxWidth: "25px"
         },
         colspan: "1",
         rowspan: "2"
@@ -344,7 +345,12 @@ export default {
         ℃
         `,
         colspan: "1",
-        rowspan: "1"
+        rowspan: "1",
+        style: {
+          whiteSpace: "nowrap",
+          minWidth: "20px",
+          maxWidth: "20px"
+        }
       },
       {
         name: `
@@ -367,8 +373,8 @@ export default {
         colspan: "1",
         rowspan: "1",
         style: {
-          minWidth: "52px",
-          maxWidth: "52px",
+          minWidth: "30px",
+          maxWidth: "30px",
           whiteSpace: "nowrap"
         }
       },

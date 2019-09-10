@@ -9583,3 +9583,11 @@
 .el-transfer-panel__filter .el-icon-circle-close {
   cursor: pointer
 }
+
+.el-table td, .el-table th{
+  padding-top:0;
+  padding-bottom:0;
+}
+.el-table thead.is-group th{
+  background-color: rgb(238, 246, 245);
+}

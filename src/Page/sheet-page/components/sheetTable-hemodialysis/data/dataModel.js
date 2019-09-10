@@ -1,5 +1,3 @@
-import { getEquiDict } from "../api/index";
-let 使用机器 = {};
 let tableModel = {
 	table: {
 		cols: ["30px", "30px", ""],
@@ -41,7 +39,7 @@ let tableModel = {
 								name: "shiyongjiqi",
 								style: "width:70px;text-align:center;",
 								autoComplete: {
-									data: 使用机器
+									data: {}
 								}
 							},
 						]
@@ -1911,12 +1909,5 @@ let tableModel = {
 		]
 	}
 }
-
-getEquiDict().then(res => {
-	if(res.data && res.data.code == 200){
-		使用机器.data = res.data.data;
-	}
-	
-})
 
 export default tableModel;

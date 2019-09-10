@@ -6,7 +6,6 @@
       :element-loading-text="pageLoadingText"
       ref="iframeLoading"
     >
-
       <iframe
         :style="{height: iframeHeight + 'px'}"
         frameborder="0"
@@ -342,9 +341,11 @@ export default {
     },
     onmessage(e) {
       // alert(e.data.type)
-      console.log(e, "message");
+      if (["webpackClose"].indexOf(e.data.type) == -1) {
+        console.log(e, "message");
+      }
       // if (e.data.type == 'loaded' || e.data.type == "webpackOk") {
-      if (e.data.type === "loaded" || e.data.type == "webpackOk") {
+      if (["webpackOk", "loaded"].indexOf(e.data.type) > -1) {
         this.onPageLoaded("onmessage");
       }
     },

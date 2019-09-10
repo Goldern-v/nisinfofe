@@ -115,7 +115,7 @@ export default {
       return window.location.href.indexOf("print") > -1;
     },
     systemInfo() {
-      return window.system || window.app.$system
+      return window.system || window.app.$system;
     }
   },
   methods: {
@@ -127,7 +127,12 @@ export default {
           res.data.data[index] = "";
         }
       }
-      window.open(`/crNursing/home?${qs.stringify(res.data.data)}`);
+      window.open(
+        `/crNursing/home?${qs.stringify({
+          patientId: res.data.data.patientId,
+          visitId: res.data.data.visitId
+        })}`
+      );
     },
     // 加载间提示文字
     getLoadingText() {

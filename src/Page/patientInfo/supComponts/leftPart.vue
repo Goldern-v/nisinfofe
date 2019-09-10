@@ -34,7 +34,11 @@
         <div class="list2-li">医生：{{info.doctorInCharge}}</div>
         <div class="list2-li over-text" :title="info.diagnosis">诊断：{{info.diagnosis}}</div>
         <div class="print-btn" flex="cross:center main:center" @click="openBedPrint">打印床头卡</div>
-        <div class="print-btn" flex="cross:center main:center" @click="openPrintModal">归档打印</div>
+        <div class="print-btn" flex="cross:center main:center" @click="openPrintModal">
+          归档打印
+          <span>{{'（'+ archiveStatus +'）'}}</span>
+          <!-- <span>{{'（'+ info.statusDesc +'）'}}</span> -->
+        </div>
       </div>
       <div
         class="flag-con"
@@ -49,6 +53,11 @@
     <bedModal ref="bedModal"></bedModal>
     <bedModalWx ref="bedModalWx"></bedModalWx>
     <printModal ref="printModal"></printModal>
+    <archiveModal
+      ref="archiveModal"
+      :printArchiveMaster="printArchiveMaster"
+      :getArchiveStatus="getArchiveStatus"
+    ></archiveModal>
   </div>
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
@@ -179,10 +188,15 @@
 import bedModal from "./modal/bed-modal.vue";
 import bedModalWx from "./modal/bed-modal_wx.vue";
 import printModal from "./print-modal/print-modal";
+import archiveModal from "./modal/archive-modal";
+import { previewArchive } from "./modal/api/index";
 export default {
   data() {
     return {
-      overflow: "hidden"
+      overflow: "hidden",
+      printDetailList: "", //归档详情
+      archiveStatus: "",
+      printArchiveMaster: {} //归档、转pdf状态对象
     };
   },
   computed: {
@@ -211,12 +225,50 @@ export default {
       }
     },
     openPrintModal() {
+      // let item = {
+      //   patientId: this.info.patientId,
+      //   visitId: this.info.visitId
+      // };
+      // console.log(item);
+      // this.$refs.archiveModal.open(item);
       this.$refs.printModal.open();
+    },
+    // 获取归档打印详情
+    getArchiveStatus() {
+      previewArchive(this.info.patientId, this.info.visitId).then(res => {
+        this.printDetailList = res.data.data.printDetailList;
+        this.printArchiveMaster = res.data.data.printArchiveMaster;
+        // this.previewFile();
+        // if (
+        //   this.printArchiveMaster.printStatus == 0 &&
+        //   this.printArchiveMaster.resultStatus != 1
+        // ) {
+        //   this.archiveStatus = "转pdf";
+        // } else if (
+        //   this.printArchiveMaster.printStatus != 0 &&
+        //   this.printArchiveMaster.printStatus != 1 &&
+        //   this.printArchiveMaster.uploadStatus != 1 &&
+        //   this.printArchiveMaster.uploadStatus != 2
+        // ) {
+        //   this.archiveStatus = "重转pdf";
+        // } else if (this.printArchiveMaster.resultStatus == 1) {
+        //   this.archiveStatus = "预览";
+        // } else if (
+        //   this.printArchiveMaster.resultStatus == 1 &&
+        //   this.printArchiveMaster.uploadStatus != 1 &&
+        //   this.printArchiveMaster.uploadStatus != 2
+        // ) {
+        //   this.archiveStatus = "归档";
+        // }
+      });
     }
   },
   created() {
     console.log("P:created");
     window.document.title = `${this.info.bedLabel}-${this.info.name}`;
+  },
+  mounted() {
+    this.getArchiveStatus();
   },
   beforeDestroy() {
     window.document.title = "宸瑞智慧护理信息系统";
@@ -224,7 +276,8 @@ export default {
   components: {
     bedModal,
     printModal,
-    bedModalWx
+    bedModalWx,
+    archiveModal
   }
 };
 </script>

@@ -59,173 +59,211 @@
 </template>
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
-.input-con
-  input::-webkit-input-placeholder, textarea::-webkit-input-placeholder
-    color #aaa !important
+.input-con {
+  input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
+    color: #aaa !important;
+  }
+}
 
-input:-moz-placeholder, textarea:-moz-placeholder
-  color #aaa !important
+input:-moz-placeholder, textarea:-moz-placeholder {
+  color: #aaa !important;
+}
 
-input::-moz-placeholder, textarea::-moz-placeholder
-  color #aaa !important
+input::-moz-placeholder, textarea::-moz-placeholder {
+  color: #aaa !important;
+}
 
-input:-ms-input-placeholder, textarea:-ms-input-placeholder
-  color #aaa !important
+input:-ms-input-placeholder, textarea:-ms-input-placeholder {
+  color: #aaa !important;
+}
 </style>
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
-.input-con
-  input::-webkit-input-placeholder, textarea::-webkit-input-placeholder
-    color #aaa !important
+.input-con {
+  input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
+    color: #aaa !important;
+  }
+}
 
-input:-moz-placeholder, textarea:-moz-placeholder
-  color #aaa !important
+input:-moz-placeholder, textarea:-moz-placeholder {
+  color: #aaa !important;
+}
 
-input::-moz-placeholder, textarea::-moz-placeholder
-  color #aaa !important
+input::-moz-placeholder, textarea::-moz-placeholder {
+  color: #aaa !important;
+}
 
-input:-ms-input-placeholder, textarea:-ms-input-placeholder
-  color #aaa !important
+input:-ms-input-placeholder, textarea:-ms-input-placeholder {
+  color: #aaa !important;
+}
 </style>
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
-  .login-bg {
-    position: absolute
-    width 100%
-    height 100%
-    background url("../../common/images/login-bg.png") repeat-y
-    background-size 100% 1px
+.login-bg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: url('../../common/images/login-bg.png') repeat-y;
+  background-size: 100% 1px;
+}
+
+.login-warpper {
+  width: 838px;
+  margin: 0 auto 0;
+  position: relative;
+}
+
+.login-con {
+  width: 300px;
+  height: 353px;
+  float: right;
+  background: #FBFDFF;
+  border-radius: 2px;
+  position: relative;
+  z-index: 2;
+}
+
+.logo-con {
+  height: 63px;
+  width: 63px;
+  margin: 24px auto 19px;
+
+  img {
+    width: 100%;
+    height: 100%;
   }
+}
 
-  .login-warpper {
-    width 838px
-    margin 0 auto 0
-    position relative
-  }
+a {
+  text-decoration: none;
+  color: white;
+}
 
-  .login-con
-    width 300px
-    height 353px
-    float right
-    background: #FBFDFF;
-    border-radius: 2px;
-    position: relative
-    z-index 2
+.name {
+  font-size: 18px;
+  color: #333333;
+  letter-spacing: 0;
+  text-align: center;
+  margin-bottom: 24px;
+}
 
-  .logo-con
-    height 63px
-    width 63px
-    margin 24px auto 19px
-    img
-      width 100%
-      height 100%
+.input-con {
+  width: 260px;
+  height: 37px;
+  margin: 0 auto;
+  position: relative;
 
-  a
-    text-decoration: none;
-    color: white;
-
-  .name
-    font-size: 18px;
-    color: #333333;
-    letter-spacing: 0;
-    text-align center
-    margin-bottom 24px
-
-  .input-con
-    width 260px
-    height 37px
-    margin 0 auto
-    position: relative
-    input
-      width 260px
-      height 37px
-      outline none
-      background: #FFFFFF;
-      border: 1px solid #CBD5DD;
-      padding-left 30px
-      box-sizing border-box
-      font-size: 13px;
-    img
-      position: absolute
-      left 10px
-      top 0
-      bottom 0
-      margin auto 0
-
-  .remember-con
-    width 260px
-    margin 13px auto 26px
-
-  .login-btn
-    width 260px
-    height 37px;
-    margin 0 auto
-    display block
-    background: #4BB08D;
-    border-radius: 2px;
-    border 0
-    color #fff
+  input {
+    width: 260px;
+    height: 37px;
+    outline: none;
+    background: #FFFFFF;
+    border: 1px solid #CBD5DD;
+    padding-left: 30px;
+    box-sizing: border-box;
     font-size: 13px;
-    font-weight lighter
-    outline none
-    cursor: pointer
-    &:hover {
-      background #5CC6A1
-    }
+  }
 
-  .login-img
-    width 582px
-    height 520px
-    position: absolute
-    margin-top -66px
-    margin-left -115px
-    img
-      width 100%
-    .his-name
-      position absolute
-      color #fff
-      top 4px
-      font-size 20px
-      letter-spacing 1px
-      // font-family '微软雅黑' !important
-      left 146px
-    .sys-name
-      position absolute
-      color #fff
-      top 35px
-      right 75px
-      font-size 22px
-      letter-spacing 2px
-      // font-family '微软雅黑' !important
-    .sys-version
-      position absolute
-      font-size 12px
-      color #fff
-      top 43px
-      left 235px
-      // font-family '微软雅黑' !important
-      opacity .8
-      letter-spacing 1px
-  .login-shaw
-    position: absolute
-    top 119px
-    right -130px
+  img {
+    position: absolute;
+    left: 10px;
+    top: 0;
+    bottom: 0;
+    margin: auto 0;
+  }
+}
 
-  .footer-text
+.remember-con {
+  width: 260px;
+  margin: 13px auto 26px;
+}
+
+.login-btn {
+  width: 260px;
+  height: 37px;
+  margin: 0 auto;
+  display: block;
+  background: #4BB08D;
+  border-radius: 2px;
+  border: 0;
+  color: #fff;
+  font-size: 13px;
+  font-weight: lighter;
+  outline: none;
+  cursor: pointer;
+
+  &:hover {
+    background: #5CC6A1;
+  }
+}
+
+.login-img {
+  width: 582px;
+  height: 520px;
+  position: absolute;
+  margin-top: -66px;
+  margin-left: -115px;
+
+  img {
+    width: 100%;
+  }
+
+  .his-name {
+    position: absolute;
+    color: #fff;
+    top: 4px;
+    font-size: 20px;
+    letter-spacing: 1px;
+    // font-family '微软雅黑' !important
+    left: 146px;
+  }
+
+  .sys-name {
+    position: absolute;
+    color: #fff;
+    top: 35px;
+    right: 75px;
+    font-size: 22px;
+    letter-spacing: 2px;
+    // font-family '微软雅黑' !important
+  }
+
+  .sys-version {
+    position: absolute;
     font-size: 12px;
-    color: #EEF8F3;
-    letter-spacing: 0;
-    text-align center
-    display: inline-flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    position: absolute
-    bottom 20px
-    width 100%
-    font-family: sans-serif!important;
-    span
-      font-family: sans-serif!important;
-      margin 0px 10px
+    color: #fff;
+    top: 43px;
+    left: 235px;
+    // font-family '微软雅黑' !important
+    opacity: 0.8;
+    letter-spacing: 1px;
+  }
+}
+
+.login-shaw {
+  position: absolute;
+  top: 119px;
+  right: -130px;
+}
+
+.footer-text {
+  font-size: 12px;
+  color: #EEF8F3;
+  letter-spacing: 0;
+  text-align: center;
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  position: absolute;
+  bottom: 20px;
+  width: 100%;
+  font-family: sans-serif !important;
+
+  span {
+    font-family: sans-serif !important;
+    margin: 0px 10px;
+  }
+}
 </style>
 
 <script>
@@ -267,6 +305,7 @@ export default {
           let user = res.data.data.user;
           user.token = res.data.data.authToken;
           window.app.authToken = res.data.data.authToken;
+          localStorage["ppp"] = this.password;
           localStorage["user"] = JSON.stringify(res.data.data.user);
           localStorage["adminNurse"] = res.data.data.adminNurse;
           Cookies.remove("NURSING_USER");
@@ -285,6 +324,10 @@ export default {
           } else {
             this.$store.commit("upRelogin", false);
             this.$router.push("/index");
+            if (this.HOSPITAL_ID == "weixian") {
+              /** 验证证书 */
+              // window.openCaSignModal();
+            }
           }
           // 清除科室记录
           this.$store.commit("upDeptCode", "");

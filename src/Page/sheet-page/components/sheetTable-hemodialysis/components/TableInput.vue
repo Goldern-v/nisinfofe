@@ -9,7 +9,7 @@
       @blur ="item.autoComplete && onBlur()"
     />
     <ul v-if="showModal && item.autoComplete.data">
-      <li v-for="child in item.autoComplete.data.data" :key="child.sortNo" :class="{active: inputVal == child.equiName}" @click="selectedItem(child.equiName)">{{child.equiName}}</li>
+      <li v-for="child in item.autoComplete.data" :key="child.sortNo" :class="{active: inputVal == child.equiName}" @click="selectedItem(child.equiName)">{{child.equiName}}</li>
     </ul>
   </span>
 </template>
@@ -17,6 +17,7 @@
 <script>
 import bus from "vue-happy-bus";
 import sheetInfo from "../../config/sheetInfo";
+import { getEquiDict } from "../api/index";
 export default {
   data() {
     return {
@@ -60,6 +61,14 @@ export default {
         });
       }
     },
+    // 获取机器码
+    getEquiDictList(){
+      getEquiDict().then(res => {
+        if(res.data && res.data.code == 200){
+          this.item.autoComplete.data = res.data.data;
+        }
+      })
+    },
     onFocus(e, bind){
       this.runTask(true);
       if(this.item.autoComplete){
@@ -84,6 +93,9 @@ export default {
       this.bus.$on("inputChange", val => {
         this.inputChange(val);
       });
+    }
+    if(this.item.autoComplete){
+      this.getEquiDictList();
     }
   },
   mounted() {},

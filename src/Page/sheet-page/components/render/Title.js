@@ -217,6 +217,14 @@ export default function Title(data = [], autoData = [], index) {
         );
       }
       break;
+    case "oxytocin":
+      {
+        // 催产素静脉点滴观察
+        Th = JSON.parse(
+          JSON.stringify(require("../config/oxytocin/th").default)
+        );
+      }
+      break;
     case "neurology_wx":
       {
         // 威县-神经内科
@@ -253,7 +261,7 @@ export default function Title(data = [], autoData = [], index) {
       Th = JSON.parse(JSON.stringify(require("../config/default/th").default));
     }
   }
-  if(Th.th.title && Th.th.title.length){
+  if (Th.th.title && Th.th.title.length) {
     for (let i = 0; i < Th.th.title.length; i++) {
       if (Th.th.title[i].canSet) {
         try {
@@ -269,12 +277,12 @@ export default function Title(data = [], autoData = [], index) {
             Th.th.title[i].name = reverseArr.find(item => {
               return item.fieldEn == Th.th.title[i].key && item.pageIndex === index;
             }).fieldCn;
-          } catch (e) {}
+          } catch (e) { }
         }
       }
     }
   }
-  
+
   for (let i = 0; i < Th.th.top.length; i++) {
     if (Th.th.top[i].canSet) {
       try {
@@ -290,7 +298,7 @@ export default function Title(data = [], autoData = [], index) {
           Th.th.top[i].name = reverseArr.find(item => {
             return item.fieldEn == Th.th.top[i].key && item.pageIndex === index;
           }).fieldCn;
-        } catch (e) {}
+        } catch (e) { }
       }
     }
   }
@@ -309,7 +317,7 @@ export default function Title(data = [], autoData = [], index) {
           Th.th.mid[i].name = reverseArr.find(item => {
             return item.fieldEn == Th.th.mid[i].key && item.pageIndex === index;
           }).fieldCn;
-        } catch (e) {}
+        } catch (e) { }
       }
     }
   }
@@ -331,7 +339,7 @@ export default function Title(data = [], autoData = [], index) {
                 item.fieldEn == Th.th.bottom[i].key && item.pageIndex === index
               );
             }).fieldCn;
-          } catch (e) {}
+          } catch (e) { }
         }
       }
     }

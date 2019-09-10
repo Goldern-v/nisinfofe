@@ -120,16 +120,21 @@ function onFocusToAutoComplete(e, bind) {
       },
       data: autoComplete.data,
       callback: function(data) {
-        // 下拉选项后一个选项依赖于前一个td的选择
+        // 威县下拉选项后一个选项依赖于前一个td的选择
         // 选择出量名称的时候和上次不一样 则清除出量性质
-        if (td.value && td.value != data && !td.parentKey) {
-          tr.map(item => {
-            if (item.parentKey == td.name) {
-              item.value = '';
-            }
-          });
+        if(process.env.HOSPITAL_ID == 'weixian'){
+          if (td.value && td.value != data && td.childKey) {
+            tr.map(item => {
+              if (item.parentKey && item.parentKey == td.name) {
+                item.value = '';
+              }
+            });
+          }
+          if (data) { td.value = data.trim() };
+          return;
         }
-        if (data) { td.value = data.trim() };
+       
+        if (data) { td.value = data };
       },
       id: `${x}${y}${z}`,
       td,

@@ -1,27 +1,31 @@
 <template>
   <div>
-    <leftPart></leftPart>
+    <leftPart v-if="inited"></leftPart>
     <div class="right-part" :style="{marginLeft: openLeft?'200px':'0'}">
       <!-- <topPart></topPart> -->
-      <component :is="switchCompt()" />
-      <router-view></router-view>
+      <component :is="switchCompt()" v-if="inited" />
+      <router-view v-if="inited"></router-view>
     </div>
   </div>
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
-  .right-part
-    transition: all .4s cubic-bezier(.55, 0, .1, 1)
+.right-part {
+  transition: all 0.4s cubic-bezier(0.55, 0, 0.1, 1);
+}
 </style>
 <script>
 import topPart from "@/Page/patientInfo/supComponts/topPart"; // 东莞市厚街医院
 import topPartWeiXian from "@/Page/patientInfo/supComponts/topPart_WeiXian"; // 威县人民医院
 import leftPart from "@/Page/patientInfo/supComponts/leftPart";
+import { getPatientInfo } from "@/api/common.js";
 export default {
   data() {
     return {
       open: false,
       url: "",
-      refresh: false
+      refresh: false,
+      inited: false,
+      query: {}
     };
   },
   computed: {
@@ -35,6 +39,14 @@ export default {
     window.onresize = () => {
       this.$store.commit("upWihInPatient");
     };
+    this.inited = false;
+    getPatientInfo(this.$route.query.patientId, this.$route.query.visitId).then(
+      res => {
+        this.inited = true;
+        this.query = res.data.data;
+        Object.assign(this.$route.query, this.query);
+      }
+    );
   },
   methods: {
     // openNewFormBoxClean(box){
@@ -59,6 +71,14 @@ export default {
     try {
       document.getElementById("hl-nav-con").style.display = "block";
     } catch (e) {}
+  },
+  beforeRouteUpdate(to, from, next) {
+    next(true);
+    this.inited = false;
+    Object.assign(this.$route.query, this.query);
+    this.$nextTick(() => {
+      this.inited = true;
+    });
   },
   components: {
     topPart,

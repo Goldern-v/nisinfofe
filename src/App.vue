@@ -18,6 +18,7 @@
     <subFormModal ref="subFormDiagnosis"></subFormModal>
     <setAuditDateModal ref="setAuditDateModal"></setAuditDateModal>
     <setTextModal ref="setTextModal"></setTextModal>
+    <caSignModal ref="caSignModal"></caSignModal>
   </div>
 </template>
 
@@ -39,6 +40,7 @@ import newFormBox from "@/Page/patientInfo/supComponts/formBox/newFormBox";
 import newDiagnosisBox from "@/Page/patientInfo/supComponts/formBox/newDiagnosisBox";
 import setAuditDateModal from "@/components/modal/set-audit-date.vue";
 import setTextModal from "@/components/modal/set-text-modal.vue";
+import caSignModal from "@/components/modal/ca-sign";
 import common from "@/common/mixin/common.mixin";
 export default {
   mixins: [common],
@@ -143,6 +145,13 @@ export default {
     window.closeSetTextModal = () => {
       this.$refs.setTextModal.close();
     };
+    /** 威县ca签名 */
+    window.openCaSignModal = (...item) => {
+      return this.$refs.caSignModal.open();
+    };
+    window.closeCaSignModal = () => {
+      this.$refs.caSignModal.close();
+    };
 
     /** 关闭前提示 */
     !this.isDev &&
@@ -168,7 +177,8 @@ export default {
     formBoxClean,
     formBoxEdu,
     setAuditDateModal,
-    setTextModal
+    setTextModal,
+    caSignModal
   }
 };
 </script>

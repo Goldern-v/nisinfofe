@@ -23,9 +23,9 @@
         年龄：
         <div class="bottom-line" style="min-width: 50px">{{patientInfo.age}}</div>
       </span>
-      <span>
+      <span @click="updateTetxInfo('diagnosis', '诊断', patientInfo.diagnosis)">
         诊断：
-        <div class="bottom-line" style="min-width: 200px">{{patientInfo.diagnosis}}</div>
+        <div class="bottom-line" style="min-width: 200px;min-height:13px;">{{patientInfo.diagnosis}}</div>
       </span>
       <span>
         住院号：
@@ -78,7 +78,7 @@ export default {
   },
   filters: {
     toymd(val) {
-      return moment(val).format("YYYY年MM月");
+      return moment(val).format("YYYY-MM-DD");
     }
   },
   components: {}
