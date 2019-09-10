@@ -57,7 +57,7 @@
               </tr>
             </thead>
           </table>
-          <div class="table-con" v-loading="page2Loading" :style="{height: wih - 210+'px'}">
+          <div class="table-con" v-loading="pageLoading" :style="{height: wih - 210+'px'}">
             <table cellspacing="0" border="1" class="table1" ref="table2">
               <colgroup>
                 <col width="60" />
@@ -129,26 +129,30 @@
       :modalWidth="800"
       :title="preview.title"
     >
-      <!-- <div v-if="preview.type=='img'">
-        <img :src="preview.url" alt style="width:100%" />
-      </div>-->
-      <div class="arrow" v-if="printDetailList && printDetailList.length">
-        <span
-          class="el-icon-arrow-left"
-          @click="preveFile"
-          :style="!currentFileIndex && {opacity:0.5}"
-        ></span>
-        <span
-          class="el-icon-arrow-right"
-          @click="nextFile"
-          :style="currentFileIndex == printDetailList.length - 1 && {opacity:0.5}"
-        ></span>
+      <div class="archive-detail-modal" v-loading="pageLoading2">
+        <div
+          class="arrow"
+          :class="{isFullMode: modalObj.infull}"
+          v-if="printDetailList && printDetailList.length>1"
+        >
+          <span
+            class="el-icon-arrow-left"
+            @click="preveFile"
+            :style="!currentFileIndex && {opacity:0.5}"
+          ></span>
+          <span
+            class="el-icon-arrow-right"
+            @click="nextFile"
+            :style="currentFileIndex == printDetailList.length - 1 && {opacity:0.5}"
+          ></span>
+        </div>
+        <div v-if="preview.type=='pdf'" :style="{height: pdfHeight+'px'}">
+          <iframe width="100%" height="100%" :src="preview.url+'#toolbar=0'" />
+        </div>
       </div>
-
-      <div v-if="preview.type=='pdf'" :style="{height: pdfHeight+'px'}">
-        <iframe width="100%" height="100%" :src="preview.url+'#toolbar=0'" />
+      <div slot="button" class="button">
+        <el-button class="modal-btn" @click="close">取消</el-button>
       </div>
-      <!-- <div v-else style="height: 300px;text-align:center;line-height:300px;">该文件格式不支持预览，请在app内查看</div> -->
     </sweet-modal>
   </div>
 </template>
@@ -172,7 +176,8 @@ export default {
   },
   data() {
     return {
-      page2Loading: false,
+      pageLoading: false,
+      pageLoading2: false,
       preview: {
         type: "",
         name: "",
@@ -190,10 +195,14 @@ export default {
       total: 1,
       patientArchiveList: [], //科室患者归档列表
       currentFileIndex: 0, //当前预览pdf索引
-      printDetailList: "" //归档详情
+      printDetailList: "", //归档详情
+      modalObj: {} //modal对象
     };
   },
   methods: {
+    close() {
+      this.$refs["preview-modal"].close();
+    },
     uploadFileArchive(item) {
       this.$refs.info1modal.open(item);
     },
@@ -209,7 +218,6 @@ export default {
         this.user.name = JSON.parse(user).empName;
       } catch (error) {}
 
-      this.page2Loading = true;
       this.getArchiveList();
     },
     tablesHeight() {
@@ -241,39 +249,44 @@ export default {
       this.query.dischargeDateEnd = moment(this.query.dischargeDateEnd).format(
         "YYYY-MM-DD"
       );
+      this.pageLoading = true;
 
-      getArchiveList(this.query).then(res => {
-        this.patientArchiveList = res.data.data.list;
-        this.total = res.data.data.totalPage || 0;
-        this.page2Loading = false;
+      getArchiveList(this.query)
+        .then(res => {
+          this.patientArchiveList = res.data.data.list;
+          this.total = res.data.data.totalPage || 0;
+          this.pageLoading = false;
 
-        if (this.query.pageSize >= 100) {
-          return;
-        }
-        let timeId;
-        let len = this.patientArchiveList.length;
-        for (let i = 0; i < len; i++) {
-          // 如果还在打印中
-          if (
-            this.patientArchiveList[i].printStatus == 1 &&
-            this.patientArchiveList[i].sysDate &&
-            this.patientArchiveList[i].printTime
-          ) {
-            let min =
-              (moment(this.patientArchiveList[i].sysDate) -
-                moment(this.patientArchiveList[i].printTime)) /
-              1000 /
-              60;
-            if (min <= 20) {
-              clearTimeout(timeId);
-              timeId = setTimeout(() => {
-                this.getArchiveList();
-                return;
-              }, 10000);
+          if (this.query.pageSize >= 100) {
+            return;
+          }
+          let timeId;
+          let len = this.patientArchiveList.length;
+          for (let i = 0; i < len; i++) {
+            // 如果还在打印中
+            if (
+              this.patientArchiveList[i].printStatus == 1 &&
+              this.patientArchiveList[i].sysDate &&
+              this.patientArchiveList[i].printTime
+            ) {
+              let min =
+                (moment(this.patientArchiveList[i].sysDate) -
+                  moment(this.patientArchiveList[i].printTime)) /
+                1000 /
+                60;
+              if (min <= 20) {
+                clearTimeout(timeId);
+                timeId = setTimeout(() => {
+                  this.getArchiveList();
+                  return;
+                }, 10000);
+              }
             }
           }
-        }
-      });
+        })
+        .catch(err => {
+          this.pageLoading = false;
+        });
     },
     // 生成归档文件
     generateArchive(item) {
@@ -289,15 +302,16 @@ export default {
     previewArchive(item) {
       this.currentFileIndex = 0;
       this.printDetailList = "";
-      previewArchive(item.patientId, item.visitId).then(res => {
-        // this.$message({
-        //   type: "success",
-        //   message: "文件上传成功"
-        // });
-        this.printDetailList = res.data.data.printDetailList;
-
-        this.previewFile();
-      });
+      this.pageLoading2 = true;
+      previewArchive(item.patientId, item.visitId)
+        .then(res => {
+          this.printDetailList = res.data.data.printDetailList;
+          this.previewFile();
+          this.pageLoading2 = false;
+        })
+        .catch(err => {
+          this.pageLoading2 = false;
+        });
     },
 
     previewFile() {
@@ -305,31 +319,38 @@ export default {
         this.preview = {
           title:
             this.printDetailList[this.currentFileIndex].formName +
+            "(" +
+            (this.currentFileIndex + 1) +
             "/" +
-            this.printDetailList[this.currentFileIndex].seqment,
+            this.printDetailList.length +
+            ")",
           url: this.printDetailList[this.currentFileIndex].filePath,
-          // url:
-          //   "/crNursing/asset/deptShareFile/20190719/201907191941146riPfqBB.pdf",
           type: "pdf"
         };
-
         this.$refs["preview-modal"].open();
         this.pdfHeight = window.innerHeight * 0.8;
+        if (this.$refs["preview-modal"]) {
+          this.modalObj = this.$refs["preview-modal"];
+        }
       }
     },
     // 上一个文件
     preveFile() {
+      let infull = this.modalObj.infull;
       if (this.currentFileIndex > 0) {
         this.currentFileIndex--;
         this.previewFile();
       }
+      this.modalObj.infull = infull;
     },
     // 下一个文件
     nextFile() {
+      let infull = this.modalObj.infull;
       if (this.currentFileIndex < this.printDetailList.length - 1) {
         this.currentFileIndex++;
         this.previewFile();
       }
+      this.modalObj.infull = infull;
     }
   },
   mounted() {
@@ -346,6 +367,9 @@ export default {
       ? this.query.dischargeDateEnd
       : moment().format("YYYY-MM-DD");
     this.init();
+    if (this.$refs["preview-modal"]) {
+      this.modalObj = this.$refs["preview-modal"];
+    }
   },
   updated() {
     this.tablesHeight();
@@ -581,7 +605,7 @@ table {
   th, td {
     text-align: center;
 
-    &:nth-of-type(2){
+    &:nth-of-type(2) {
       text-align: left;
     }
   }
@@ -616,12 +640,17 @@ table {
 <style lang="stylus">
 .archive-preview-modal {
   .sweet-modal {
-    width: 900px;
     overflow: visible;
   }
 
-  .sweet-content {
-    max-height: none;
+  .isFullMode {
+    .el-icon-arrow-left {
+      left: 150px;
+    }
+
+    .el-icon-arrow-right {
+      right: 150px;
+    }
   }
 }
 </style>

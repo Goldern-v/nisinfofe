@@ -1,46 +1,49 @@
 <template>
   <div>
-    <sweet-modal ref="modal" :modalWidth="400" title="归档打印" :enable-mobile-fullscreen="false">
-      <div class="archive-detail-modal preview" v-if="printArchiveMaster.resultStatus == 1">
-        <div class="arrow" v-if="printDetailList && printDetailList.length">
-          <span
-            class="el-icon-arrow-left"
-            @click="preveFile"
-            :style="!currentFileIndex && {opacity:0.5}"
-          ></span>
-          <span
-            class="el-icon-arrow-right"
-            @click="nextFile"
-            :style="currentFileIndex == printDetailList.length - 1 && {opacity:0.5}"
-          ></span>
-          
-        </div>
-
-        <div v-if="preview.type=='pdf'" :style="{height: pdfHeight+'px'}">
-          <iframe width="100%" height="100%" :src="preview.url+'#toolbar=0'" />
-        </div>
-        <p>是否归档</p>
-        <div slot="button" class="button">
-          <el-button class="modal-btn" @click="close">取消</el-button>
-          <el-button class="modal-btn" @click="close">预览</el-button>
-          <el-button class="modal-btn" @click="confirm">归档</el-button>
+    <sweet-modal
+      ref="modal"
+      :title="preview.title"
+      :enable-mobile-fullscreen="false"
+      class="archive-preview-modal"
+      :fullBtn="true"
+      :modalWidth="800"
+    >
+      <div class="archive-detail-modal">
+        <div class="preview" v-if="printDetailList && printDetailList.length">
+          <div class="arrow" :class="{isFullMode: modalObj.infull}">
+            <span
+              class="el-icon-arrow-left"
+              @click="preveFile"
+              :style="!currentFileIndex && {opacity:0.5}"
+            ></span>
+            <span
+              class="el-icon-arrow-right"
+              @click="nextFile"
+              :style="currentFileIndex == printDetailList.length - 1 && {opacity:0.5}"
+            ></span>
+          </div>
+          <div v-if="preview.type=='pdf'" :style="{height: pdfHeight+'px'}">
+            <iframe width="100%" height="100%" :src="preview.url+'#toolbar=0'" />
+          </div>
         </div>
       </div>
-      <div class="archive-detail-modal" v-else>
-        <p v-if="printArchiveMaster.printStatus==0 && printArchiveMaster.resultStatus!=1">是否转pdf</p>
-        <p
-          v-if="printArchiveMaster.printStatus != 0 &&
-        printArchiveMaster.printStatus != 1 &&
-        printArchiveMaster.uploadStatus != 1 &&
-        printArchiveMaster.uploadStatus != 2"
-        >是否重转pdf</p>
-
-        <!-- <p v-if="printArchiveMaster.uploadStatus == 1">归档成功</p> -->
-
-        <div slot="button" class="button">
-          <el-button class="modal-btn" @click="close">取消</el-button>
-          <el-button class="modal-btn" @click="confirm">确定</el-button>
-        </div>
+      <div slot="button" class="button">
+        <el-button class="modal-btn" @click="close">取消</el-button>
+        <el-button
+          class="modal-btn"
+          @click="generateArchive()"
+          v-if="printArchiveMaster.printStatus==0 && printArchiveMaster.resultStatus!=1"
+        >转pdf</el-button>
+        <el-button
+          class="modal-btn"
+          @click="generateArchive()"
+          v-if="printArchiveMaster.printStatus!=0 && printArchiveMaster.printStatus!=1 && printArchiveMaster.uploadStatus!=1 && printArchiveMaster.uploadStatus!=2"
+        >重转pdf</el-button>
+        <el-button
+          class="modal-btn"
+          @click="uploadFileArchive()"
+          v-if="printArchiveMaster.resultStatus==1 && printArchiveMaster.uploadStatus!=1 && printArchiveMaster.uploadStatus!=2"
+        >归档</el-button>
       </div>
     </sweet-modal>
   </div>
@@ -107,17 +110,29 @@
 }
 </style>
 <style lang="stylus">
-.archive-detail-modal {
-  p {
-    text-align: center;
+.archive-preview-modal {
+  .sweet-modal {
+    overflow: visible;
   }
+}
 
+.archive-detail-modal {
   .button {
     padding-top: 20px;
     padding-bottom: 20px;
     display: flex;
     justify-content: space-around;
     align-content: center;
+  }
+
+  .isFullMode {
+    .el-icon-arrow-left {
+      left: 150px;
+    }
+
+    .el-icon-arrow-right {
+      right: 150px;
+    }
   }
 }
 </style>
@@ -129,6 +144,7 @@ import {
   previewArchive,
   uploadFileArchive
 } from "./api/index";
+import { setInterval } from "timers";
 export default {
   data() {
     return {
@@ -137,22 +153,29 @@ export default {
       iconLoading: false,
       item: {},
       currentFileIndex: 0, //当前预览pdf索引
-      printDetailList: "", //归档详情
       preview: {
         type: "",
         name: "",
         url: ""
-      }
+      },
+      pdfHeight: window.innerHeight * 0.8,
+      modalObj: {} //modal对象
     };
   },
   props: {
     printArchiveMaster: Object,
-    getArchiveStatus: Function
+    getArchiveStatus: Function,
+    printDetailList: Array
+  },
+  mounted() {
+    if (this.$refs.modal) {
+      this.modalObj = this.$refs.modal;
+    }
   },
   methods: {
     open(data) {
       this.item = data;
-      console.log(this.item);
+      this.previewArchive();
       this.$refs.modal.open();
     },
     close() {
@@ -165,17 +188,54 @@ export default {
           type: "success",
           message: "正在转pdf，请稍等"
         });
+        this.close();
         this.getArchiveStatus();
       });
     },
     // 预览归档文件
     previewArchive() {
       this.currentFileIndex = 0;
-      this.printDetailList = "";
-      previewArchive(this.item.patientId, this.item.visitId).then(res => {
-        this.printDetailList = res.data.data.printDetailList;
+      this.previewFile();
+    },
+    // 预览
+    previewFile() {
+      if (this.printDetailList) {
+        this.preview = {
+          title:
+            this.printDetailList[this.currentFileIndex].formName +
+            "(" +
+            (this.currentFileIndex + 1) +
+            "/" +
+            this.printDetailList.length +
+            ")" +
+            "<span style='margin-left: 10px;'>" +
+            this.printArchiveMaster.statusDesc +
+            "</span>",
+          url: this.printDetailList[this.currentFileIndex].filePath,
+          type: "pdf"
+        };
+
+        // this.$refs["preview-modal"].open();
+        this.pdfHeight = window.innerHeight * 0.8;
+      }
+    },
+    // 上一个文件
+    preveFile() {
+      let infull = this.modalObj.infull;
+      if (this.currentFileIndex > 0) {
+        this.currentFileIndex--;
         this.previewFile();
-      });
+      }
+      this.modalObj.infull = infull;
+    },
+    // 下一个文件
+    nextFile() {
+      let infull = this.modalObj.infull;
+      if (this.currentFileIndex < this.printDetailList.length - 1) {
+        this.currentFileIndex++;
+        this.previewFile();
+      }
+      this.modalObj.infull = infull;
     },
     // 文件归档上传
     uploadFileArchive() {
@@ -184,21 +244,9 @@ export default {
           type: "success",
           message: "文件上传成功"
         });
-      });
-    },
-    // 文件归档上传
-    uploadFileArchive() {
-      uploadFileArchive(this.item.patientId, this.item.visitId).then(rep => {
-        this.$message({
-          type: "success",
-          message: "文件上传成功"
-        });
+        this.close();
         this.getArchiveStatus();
       });
-    },
-    confirm() {
-      this.close();
-      this.generateArchive();
     }
   },
   components: {}

@@ -56,6 +56,7 @@
       ref="archiveModal"
       :printArchiveMaster="printArchiveMaster"
       :getArchiveStatus="getArchiveStatus"
+      :printDetailList="printDetailList"
     ></archiveModal>
   </div>
 </template>
@@ -193,7 +194,7 @@ export default {
   data() {
     return {
       overflow: "hidden",
-      printDetailList: "", //归档详情
+      printDetailList: [], //归档详情
       archiveStatus: "",
       printArchiveMaster: {} //归档、转pdf状态对象
     };
@@ -224,7 +225,18 @@ export default {
       }
     },
     openPrintModal() {
-      if(this.printArchiveMaster.printStatus == 1 || this.printArchiveMaster.uploadStatus == 1){
+      if (this.printArchiveMaster.printStatus == 1) {
+        this.$message({
+          type: "warning",
+          message: "转pdf中，请稍等"
+        });
+        return;
+      }
+      if (this.printArchiveMaster.uploadStatus == 1) {
+        this.$message({
+          type: "warning",
+          message: "归档中，请稍等"
+        });
         return;
       }
       let item = {
@@ -239,40 +251,6 @@ export default {
       previewArchive(this.info.patientId, this.info.visitId).then(res => {
         this.printDetailList = res.data.data.printDetailList;
         this.printArchiveMaster = res.data.data.printArchiveMasters || {};
-        // if(this.printArchiveMaster.printStatus == 0 &&
-        //   this.printArchiveMaster.resultStatus != 1){
-        //   this.archiveStatus = "转pdf";
-        // }else if(this.printArchiveMaster.printStatus == 1){
-        //   this.archiveStatus = "正生成pdf";
-        // } if(this.printArchiveMaster.resultStatus == 1 && this.printArchiveMaster.uploadStatus == 0){
-        //   this.archiveStatus = "待归档";
-        // } if(this.printArchiveMaster.resultStatus == -1){
-        //   this.archiveStatus = "转pdf失败";
-        // } if(this.printArchiveMaster.uploadStatus == 1){
-        //   this.archiveStatus = "归档成功";
-        // }
-
-        // if (
-        //   this.printArchiveMaster.printStatus == 0 &&
-        //   this.printArchiveMaster.resultStatus != 1
-        // ) {
-        //   this.archiveStatus = "转pdf";
-        // } else if (
-        //   this.printArchiveMaster.printStatus != 0 &&
-        //   this.printArchiveMaster.printStatus != 1 &&
-        //   this.printArchiveMaster.uploadStatus != 1 &&
-        //   this.printArchiveMaster.uploadStatus != 2
-        // ) {
-        //   this.archiveStatus = "重转pdf";
-        // } else if (this.printArchiveMaster.resultStatus == 1) {
-        //   this.archiveStatus = "预览";
-        // } else if (
-        //   this.printArchiveMaster.resultStatus == 1 &&
-        //   this.printArchiveMaster.uploadStatus != 1 &&
-        //   this.printArchiveMaster.uploadStatus != 2
-        // ) {
-        //   this.archiveStatus = "归档";
-        // }
       });
     }
   },
