@@ -64,6 +64,7 @@
         <sheetPrintPage v-if="$route.params.type == 'sheetPage'" :qoSelect="qoSelect"></sheetPrintPage>
         <sheetPrintNursingOrder v-if="$route.params.type == 'sheetNursingOrder'"></sheetPrintNursingOrder>
         <sugar v-if="$route.params.type == 'sugar'"></sugar>
+        <health v-if="$route.params.type == 'health'"></health>
         <growthPrintPage v-if="$route.params.type == 'growth'"></growthPrintPage>
       </div>
     </div>
@@ -160,6 +161,7 @@ import notice from "./component/notice";
 import sheetPrintPage from "./component/sheet-print-page";
 import sheetPrintNursingOrder from "./component/sheet-print-nursing-order";
 import sugar from "./component/sugar-print-page.vue";
+import health from "./component/health-print-page"
 import growthPrintPage from "./component/growth-print-page.vue";
 import bus from "vue-happy-bus";
 import { setTimeout } from "timers";
@@ -217,7 +219,8 @@ export default {
     sheetPrintNursingOrder,
     notice,
     sugar,
-    growthPrintPage
+    growthPrintPage,
+    health
   }
 };
 </script>

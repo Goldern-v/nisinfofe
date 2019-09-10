@@ -19,7 +19,7 @@
         <tr
           v-for="(data, k) in tableData"
           :key="k+'ab'"
-          class="point"
+          class="health-tr point"
           :class="{selected: selected === data}"
           @click="onSelect(data)"
           @dblclick="onDblClick(data)"
@@ -29,7 +29,7 @@
             <span>{{data['教育时间']}}</span>
           </td>
           <!-- 宣教内容 -->
-          <td>
+          <td class="contentLeft">
             <span>{{data['宣教内容']}}</span>
           </td>
           <!-- 教育对象 -->
@@ -45,7 +45,7 @@
             <span class="is-radio" v-if="data['教育评估'] === q">√</span>
           </td>
           <!-- 备注 -->
-          <td class="remark">
+          <td class="remark contentLeft">
             <span
               class="remark-span"
             >
@@ -59,24 +59,28 @@
         </tr>
       </tbody>
     </table>
-    <!-- 分页 -->
-    <!-- <el-pagination
-      v-if="total > 30 && isprint === 2"
-      @current-change="handleCurrentChange"
-      :current-page="page"
-      :page-size="pageSize"
-      layout="total, sizes, prev, pager, next, jumper"
-      :total="total">
-    </el-pagination> -->
+    <!-- 页码 -->
+    <div class="health-table-page">{{`第${index + 1}/${page}页`}}</div>
   </div>
 </template>
 
 <script>
-import { getAllByPatientInfo } from '../api/healthApi'
 
 export default {
   props: {
-    selected: Object
+    selected: Object,
+    pageParam: { // 未处理的表格数据
+      type: Array,
+      default: () => []
+    },
+    index: { // 未处理的表格数据
+      type: Number,
+      default: 1
+    },
+    page: { // 未处理的表格数据
+      type: Number,
+      default: 1
+    }
   },
   components: {
   },
@@ -85,16 +89,16 @@ export default {
       theadData: [
         [
           { rowspan: 2, text: '教育时间', width: 80 },
-          { rowspan: 2, text: '宣教内容', width: 160 },
+          { rowspan: 2, text: '宣教内容', width: 140 },
           { colspan: 2, text: '教育对象'},
           { colspan: 4, text: '教育方法'},
           { colspan: 3, text: '教育评估'},
-          { rowspan: 2, text: '备注', width: 120 },
+          { rowspan: 2, text: '备注', width: 100 },
           { rowspan: 2, text: '签名', width: 70 }
         ],
         [
-          { text: '患者', width: 35 },
-          { text: '家属', width: 35 },
+          { text: '患者', width: 30 },
+          { text: '家属', width: 30 },
           { text: '口述', width: 30 },
           { text: '书面', width: 30 },
           { text: '在线', width: 30 },
@@ -104,18 +108,21 @@ export default {
           { text: '需强化', width: 30 }
         ]
       ],
-      // pageSize: 30, // 页码大小
-      // page: 1, // 第几页
-      // total: 1, // 总条数
       object: ["患者", "家属"],
       method: ["口述", "书面", "在线", "示范"],
       assessment: ["能理解", "会演示", "需强化"],
       tableData: [],
       resData: [],
-      pageParam: [], // 未处理的表格数据
-      isSetParam: [], // 已处理的表格数据
-      patientId: '',
-      // isprint: 2 // 是否是打印 打印分页隐藏 1-打印 2-非打印
+      patientId: ''
+    }
+  },
+  watch: {
+    pageParam: {
+      handler (val) {
+        this.setTableData(val)
+      },
+      immediate: true,
+      deep: true
     }
   },
   created () {
@@ -124,13 +131,11 @@ export default {
   methods: {
     init () {
       this.patientId = this.$route.query.patientId
-      this.setData()
-      this.getTableData()
     },
     // 初始化默认值
-    setData () {
+    setData (total) {
       let array = []
-      for (let i = 0; i < 30; i++) {
+      for (let i = 0; i < total; i++) {
         array.push(
           {
             '教育时间': '',
@@ -145,48 +150,10 @@ export default {
       }
       this.tableData = array
     },
-    // 获取表格数据
-    getTableData () {
-      let { visitId, patientId } = this.$route.query
-      getAllByPatientInfo(patientId, visitId).then(res => {
-        let value = res.data.data && res.data.data.length > 0 ? 1 : 2
-        this.$emit('isShowTable', value)
-        // let array = []
-        // res.data.data.map(item => {
-        //   array.push(item)
-        //   array.push(item)
-        //   array.push(item)
-        //   array.push(item)
-        //   array.push(item)
-        //   array.push(item)
-        //   array.push(item)
-        //   array.push(item)
-        //   array.push(item)
-        //   array.push(item)
-        //   array.push(item)
-        //   array.push(item)
-        //   array.push(item)
-        //   array.push(item)
-        //   array.push(item)
-        //   array.push(item)
-        //   array.push(item)
-        //   array.push(item)
-        //   array.push(item)
-        // })
-        // let data = array
-        let data = res.data.data
-        this.pageParam = data.slice()
-        this.total = data.length
-        this.isSetParam = data.length > 30 ? data.slice(0, 30) : data.slice()
-        this.setTableData()
-      }).catch(() => {
-        this.$emit('isShowTable', 1)
-      })
-    },
     // 处理表格数据
-    setTableData () {
-      this.setData() // 重置表格
-      this.isSetParam.map((item, index)=> {
+    setTableData (val) {
+      this.setData(val.length > 30 ? val.length : 30) // 重置表格
+      val.map((item, index)=> {
         this.$set(this.tableData, index, JSON.parse(item.pageParam.pageParam))
         this.$set(this.tableData[index], "宣教内容", item.instance.title)
         this.$set(this.tableData[index], "item", item.instance)
@@ -205,18 +172,7 @@ export default {
     onDblClick(data) {
       if (!data['宣教内容']) return
       this.$emit("dblclick", data);
-    },
-    // 页数变化
-    // handleCurrentChange (page) {
-    //   this.page = page;
-    //   let number = (page - 1) * this.pageSize
-    //   this.isSetParam = this.pageParam.slice(number, this.pageSize + number)
-    //   this.setTableData()
-    // },
-    // 打印隐藏分页
-    // concealpagination () {
-    //   this.isprint = 1
-    // }
+    }
   }
 }
 </script>
@@ -224,13 +180,18 @@ export default {
 <style scoped lang='scss'>
 .health-education {
   font-size: 12px;
-
   * {
     box-sizing: border-box;
   };
 
+  .health-table-page {
+    font-size: 13px;
+    text-align: center;
+    height: 50px;
+    line-height: 50px;
+  }
   .education-table {
-    width: 706px;
+    width: 660px;
     color: #000;
     border-collapse: collapse;
 
@@ -245,6 +206,7 @@ export default {
       border: 1px solid #222;
       height: 25px;
       vertical-align: middle !important;
+      box-sizing: border-box;
     }
 
     .is-radio {
@@ -275,6 +237,10 @@ export default {
         background: #FFF8B1;
       }
     }
+    .contentLeft{
+      text-align: left;
+      padding-left: 10px;
+    }
   }
 
   .remark {
@@ -286,10 +252,6 @@ export default {
       border-bottom: 1px solid #000;
       outline: none;
     }
-  }
-  /deep/ .el-pagination {
-    text-align: center;
-    margin-top: 20px;
   }
 }
 </style>
