@@ -2028,7 +2028,7 @@
               "name": "I001351",
               "type": "radio",
               "title": "无",
-              "elementStyle": "margin: 0 5px 0 0;",
+              "elementStyle": "margin: 3px 5px 0 0;",
               "elementClass": "el-radio",
               "style": null,
               "class": null,
@@ -2046,7 +2046,7 @@
               "name": "I001351",
               "type": "radio",
               "title": "妇科",
-              "elementStyle": "margin: 0 5px 0 0;",
+              "elementStyle": "margin: 3px 5px 0 0;",
               "elementClass": "el-radio",
               "style": null,
               "class": null,
@@ -2066,7 +2066,7 @@
               "name": "I001351",
               "type": "radio",
               "title": "儿科",
-              "elementStyle": "margin: 0 5px 0 0;",
+              "elementStyle": "margin: 3px 5px 0 0;",
               "elementClass": "el-radio",
               "style": null,
               "class": null,
@@ -2551,13 +2551,14 @@
           "title": "宣教对象",
           "titleStyle": "width:95px!important",
           "boxStyle":"height:auto!important",
+          "elementsStyle":"margin-top:8px",
           "class": null,
           "children": [
             {
               "name": "I001452",
               "type": "checkbox",
               "title": "女儿",
-              "elementStyle": "margin: 0 5px 0 0;",
+              "elementStyle": "margin: 8px 5px 0 0;",
               "elementClass": "el-radio",
               "style": null,
               "class": null
@@ -2566,7 +2567,7 @@
               "name": "I001452",
               "type": "checkbox",
               "title": "儿子",
-              "elementStyle": "margin: 0 5px 0 0;",
+              "elementStyle": "margin: 8px 5px 0 0;",
               "elementClass": "el-radio",
               "style": null,
               "class": null
@@ -2575,7 +2576,7 @@
               "name": "I001452",
               "type": "checkbox",
               "title": "父亲",
-              "elementStyle": "margin: 0 5px 0 0;",
+              "elementStyle": "margin: 8px 5px 0 0;",
               "elementClass": "el-radio",
               "style": null,
               "class": null
@@ -2584,7 +2585,7 @@
               "name": "I001452",
               "type": "checkbox",
               "title": "母亲",
-              "elementStyle": "margin: 0 5px 0 0;",
+              "elementStyle": "margin: 8px 5px 0 0;",
               "elementClass": "el-radio",
               "style": null,
               "class": null
@@ -2593,7 +2594,7 @@
               "name": "I001452",
               "type": "checkbox",
               "title": "爷爷",
-              "elementStyle": "margin: 0 5px 0 0;",
+              "elementStyle": "margin: 8px 5px 0 0;",
               "elementClass": "el-radio",
               "style": null,
               "class": null
@@ -2602,7 +2603,7 @@
               "name": "I001452",
               "type": "checkbox",
               "title": "奶奶",
-              "elementStyle": "margin: 0 5px 0 0;",
+              "elementStyle": "margin: 8px 5px 0 0;",
               "elementClass": "el-radio",
               "style": null,
               "class": null
@@ -2611,7 +2612,7 @@
               "name": "I001452",
               "type": "checkbox",
               "title": "配偶",
-              "elementStyle": "margin: 0 5px 0 0;",
+              "elementStyle": "margin: 8px 5px 0 0;",
               "elementClass": "el-radio",
               "style": null,
               "class": null
@@ -2620,7 +2621,7 @@
               "name": "I001452",
               "type": "checkbox",
               "title": "亲戚",
-              "elementStyle": "margin: 0 5px 0 0;",
+              "elementStyle": "margin: 8px 5px 0 0;",
               "elementClass": "el-radio",
               "style": null,
               "class": null
@@ -2629,7 +2630,7 @@
               "name": "I001452",
               "type": "checkbox",
               "title": "朋友",
-              "elementStyle": "margin: 0 5px 0 0;",
+              "elementStyle": "margin: 8px 5px 0 0;",
               "elementClass": "el-radio",
               "style": null,
               "class": null
@@ -2638,7 +2639,7 @@
               "name": "I001452",
               "type": "checkbox",
               "title": "患者",
-              "elementStyle": "margin: 0 5px 0 0;",
+              "elementStyle": "margin: 8px 5px 0 0;",
               "elementClass": "el-radio",
               "style": null,
               "class": null
@@ -2682,12 +2683,13 @@
           "titleStyle": "width:95px!important",
           "class": null,
           "boxStyle":"height:auto!important",
+          "elementsStyle":"margin-top:8px",
           "children": [
             {
               "name": "I001453",
               "type": "checkbox",
               "title": "讲解",
-              "elementStyle": "margin: 0 5px 0 0;",
+              "elementStyle": "margin: 8px 5px 0 0;",
               "elementClass": "el-radio",
               "style": null,
               "class": null
@@ -2696,7 +2698,7 @@
               "name": "I001453",
               "type": "checkbox",
               "title": "示范",
-              "elementStyle": "margin: 0 5px 0 0;",
+              "elementStyle": "margin: 8px 5px 0 0;",
               "elementClass": "el-radio",
               "style": null,
               "class": null
@@ -2705,7 +2707,7 @@
               "name": "I001453",
               "type": "checkbox",
               "title": "视频",
-              "elementStyle": "margin: 0 5px 0 0;",
+              "elementStyle": "margin: 8px 5px 0 0;",
               "elementClass": "el-radio",
               "style": null,
               "class": null
@@ -2714,7 +2716,7 @@
               "name": "I001453",
               "type": "checkbox",
               "title": "免费资料",
-              "elementStyle": "margin: 0 5px 0 0;",
+              "elementStyle": "margin: 8px 5px 0 0;",
               "elementClass": "el-radio",
               "style": null,
               "class": null
@@ -2723,7 +2725,7 @@
               "name": "I001453",
               "type": "checkbox",
               "title": "讨论",
-              "elementStyle": "margin: 0 5px 0 0;",
+              "elementStyle": "margin: 8px 5px 0 0;",
               "elementClass": "el-radio",
               "style": null,
               "class": null
@@ -2771,7 +2773,7 @@
               "name": "I001454",
               "type": "radio",
               "title": "能接受",
-              "elementStyle": "margin: 0 5px 0 0;",
+              "elementStyle": "margin: 8px 5px 0 0;",
               "elementClass": "el-radio",
               "style": null,
               "class": null
@@ -2780,7 +2782,7 @@
               "name": "I001454",
               "type": "radio",
               "title": "不能接受",
-              "elementStyle": "margin: 0 5px 0 0;",
+              "elementStyle": "margin: 8px 5px 0 0;",
               "elementClass": "el-radio",
               "style": null,
               "class": null
@@ -2789,7 +2791,7 @@
               "name": "I001454",
               "type": "radio",
               "title": "语言障碍",
-              "elementStyle": "margin: 0 5px 0 0;",
+              "elementStyle": "margin: 8px 5px 0 0;",
               "elementClass": "el-radio",
               "style": null,
               "class": null
@@ -2798,7 +2800,7 @@
               "name": "I001454",
               "type": "radio",
               "title": "文化差异",
-              "elementStyle": "margin: 0 5px 0 0;",
+              "elementStyle": "margin: 8px 5px 0 0;",
               "elementClass": "el-radio",
               "style": null,
               "class": null
@@ -2807,7 +2809,7 @@
               "name": "I001454",
               "type": "radio",
               "title": "教育水平低",
-              "elementStyle": "margin: 0 5px 0 0;",
+              "elementStyle": "margin: 8px 5px 0 0;",
               "elementClass": "el-radio",
               "style": null,
               "class": null
@@ -2816,7 +2818,7 @@
               "name": "I001454",
               "type": "radio",
               "title": "听力障碍",
-              "elementStyle": "margin: 0 5px 0 0;",
+              "elementStyle": "margin: 8px 5px 0 0;",
               "elementClass": "el-radio",
               "style": null,
               "class": null
@@ -2870,6 +2872,7 @@
           "titleStyle": "width:95px!important",
           "class": null,
           "boxStyle":"height:auto!important",
+          "inputStyle":"margin-top:8px",
           "children": [
             {
               "name": "I001501",
@@ -3017,6 +3020,7 @@
           "titleStyle": "width:95px!important",
           "class": null,
           "boxStyle":"height:auto!important",
+          "inputStyle":"margin-top:8px",
           "children": [
             {
               "name": "I001551",
@@ -3217,6 +3221,7 @@
           "titleStyle": "width:95px!important",
           "class": null,
           "boxStyle":"height:auto!important",
+          "inputStyle":"margin-top:8px",
           "children": [
             {
               "name": "I001553",
@@ -3313,6 +3318,7 @@
           "titleStyle": "width:95px!important",
           "class": null,
           "boxStyle":"height:auto!important",
+          "inputStyle":"margin-top:8px",
           "children": [
             {
               "name": "I001555",

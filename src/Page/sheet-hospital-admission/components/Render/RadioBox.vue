@@ -296,8 +296,8 @@ export default {
 .el-checkbox,
 .el-checkbox__input {
   white-space: inherit !important;
-  display: flex;
-  /* display: inline-block; */
+  /* display: flex; */
+  display: inline-block;
 }
 
 .el-checkbox>>>.el-checkbox__label{
