@@ -8,7 +8,7 @@ export function getRowNum(index) {
     } else {
       return 27;
     }
-  } else if (sheetInfo.sheetType == "post_partum") {
+  } else if (sheetInfo.sheetType == "post_partum" || sheetInfo.sheetType == "dressing_count") {
     if (index === 0) {
       return 16;
     } else {

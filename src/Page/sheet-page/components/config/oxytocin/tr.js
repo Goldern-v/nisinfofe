@@ -9,6 +9,10 @@ import info from "../sheetInfo";
 let ysList = [];
 let chuList = [];
 let ruList = [];
+let 宫缩 = [];
+let 胎心 = [];
+let 宫口扩张 = [];
+let 先露高低 = [];
 export default [
   {
     key: "recordMonth", //日期
@@ -34,21 +38,34 @@ export default [
     key: "fieldThree", //宫缩
     value: "",
     event: keyf1,
-    name: "宫缩"
+    name: "宫缩",
+    autoComplete: {
+      data: 宫缩
+    }
   }, {
     key: "fieldFour", //胎心
     value: "",
     event: keyf1,
-    name: "胎心"
+    name: "胎心",
+    autoComplete: {
+      data: 胎心
+    }
   }, {
     key: "fieldFive", //宫口扩张
     value: "",
-    event: keyf1
+    event: keyf1,
+    name: "宫口扩张",
+    autoComplete: {
+      data: 宫口扩张
+    }
   }, {
     key: "fieldSix", //先露高低
     value: "",
     event: keyf1,
-    name: "先露高低"
+    name: "先露高低",
+    autoComplete: {
+      data: 先露高低
+    }
   }, {
     key: "bloodPressure", //血压mmHg
     value: "",
@@ -158,23 +175,19 @@ export default [
 ];
 
 export function getListData4() {
-  listItem("入量名称", info.sheetType).then(res => {
-    ruList.splice(0, ruList.length);
-    for (let item of res.data.data) {
-      ruList.push(item.name);
-    }
+  let list = [
+    "宫缩",
+    "胎心",
+    "宫口扩张",
+    "先露高低"
+  ];
+  multiDictInfo(list).then(res => {
+    let data = res.data.data;
+    setList(宫缩, "宫缩", data);
+    setList(胎心, "胎心", data);
+    setList(宫口扩张, "宫口扩张", data);
+    setList(先露高低, "先露高低", data);
   });
-  listItem("出量名称", info.sheetType).then(res => {
-    chuList.splice(0, chuList.length);
-    for (let item of res.data.data) {
-      chuList.push(item.name);
-    }
-  });
-  // let list = ["意识"];
-  // multiDictInfo(list).then(res => {
-  //   let data = res.data.data;
-  //   setList(ysList, "意识", data);
-  // });
 }
 
 getListData4();

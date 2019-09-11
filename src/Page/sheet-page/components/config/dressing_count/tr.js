@@ -9,6 +9,11 @@ import info from "../sheetInfo";
 let ysList = [];
 let chuList = [];
 let ruList = [];
+let 宫底 = [];
+let 子宫收缩 = [];
+let 膀胱情况 = [];
+let 入量项目 = [];
+let 出量项目 = [];
 export default [
   {
     hidden: true,
@@ -51,12 +56,18 @@ export default [
     key: "fieldOne", //宫底U-Fb
     value: "",
     event: keyf1,
-    name: "宫底U-Fb"
+    name: "宫底",
+    autoComplete: {
+      data: 宫底
+    }
   }, {
     key: "fieldTwo", //子宫收缩
     value: "",
     event: keyf1,
-    name: "子宫收缩"
+    name: "子宫收缩",
+    autoComplete: {
+      data: 子宫收缩
+    }
   }, {
     key: "fieldThree", //出血量
     value: "",
@@ -66,11 +77,17 @@ export default [
     key: "fieldFour", //膀胱情况
     value: "",
     event: keyf1,
-    name: "膀胱情况"
+    name: "膀胱情况",
+    autoComplete: {
+      data: 膀胱情况
+    }
   }, {
     key: "food", //入 项
     value: "",
-    event: keyf1
+    event: keyf1,
+    autoComplete: {
+      data: 入量项目
+    }
   }, {
     key: "foodSize", // 入 量
     value: "",
@@ -78,7 +95,10 @@ export default [
   }, {
     key: "discharge", //出 项
     value: "",
-    event: keyf1
+    event: keyf1,
+    autoComplete: {
+      data: 出量项目
+    }
   }, {
     key: "dischargeSize", //出 量
     value: "",
@@ -185,23 +205,21 @@ export default [
 ];
 
 export function getListData4() {
-  listItem("入量名称", info.sheetType).then(res => {
-    ruList.splice(0, ruList.length);
-    for (let item of res.data.data) {
-      ruList.push(item.name);
-    }
+  let list = [
+    "宫底",
+    "子宫收缩",
+    "膀胱情况",
+    "入量项目",
+    "出量项目"
+  ];
+  multiDictInfo(list).then(res => {
+    let data = res.data.data;
+    setList(宫底, "宫底", data);
+    setList(子宫收缩, "子宫收缩", data);
+    setList(膀胱情况, "膀胱情况", data);
+    setList(入量项目, "入量项目", data);
+    setList(出量项目, "出量项目", data);
   });
-  listItem("出量名称", info.sheetType).then(res => {
-    chuList.splice(0, chuList.length);
-    for (let item of res.data.data) {
-      chuList.push(item.name);
-    }
-  });
-  // let list = ["意识"];
-  // multiDictInfo(list).then(res => {
-  //   let data = res.data.data;
-  //   setList(ysList, "意识", data);
-  // });
 }
 
 getListData4();

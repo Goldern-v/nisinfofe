@@ -58,6 +58,7 @@
         催产素静脉点滴情况：
         <input
           type="text"
+          style="width: 180px;"
           :data-value="sheetInfo.relObj.oxytocinIntravenousDrip"
           v-model="sheetInfo.relObj.oxytocinIntravenousDrip"
         />
@@ -172,10 +173,8 @@ export default {
     padding: 10px 0;
     div {
       flex: 1;
-      &:last-of-type {
-        input {
-          border-bottom: 1px solid #000;
-        }
+      input {
+        border-bottom: 1px solid #000;
       }
     }
     input {
