@@ -25,11 +25,12 @@
           @dblclick="onDblClick(data)"
         >
           <!-- 教育时间 -->
+
           <td>
             <span>{{data['教育时间']}}</span>
           </td>
           <!-- 宣教内容 -->
-          <td class="contentLeft">
+          <td :class="['contentLeft', {'isPrint': !isPrint}]" @click="healthContent($event, data)">
             <span>{{data['宣教内容']}}</span>
           </td>
           <!-- 教育对象 -->
@@ -61,10 +62,16 @@
     </table>
     <!-- 页码 -->
     <div class="health-table-page">{{`第${index + 1}/${page}页`}}</div>
+    <!-- 宣教内容弹窗 -->
+    <healthContentModal ref="healthContentModal" :content="content" :name="name"/>
+
+    <!-- <div v-show="isContent" class="health-content" v-html="content"></div> -->
   </div>
 </template>
 
 <script>
+import { getContentByMissionId } from '../api/healthApi'
+import healthContentModal from "./healthContentModal"; // 添加修改弹窗
 
 export default {
   props: {
@@ -83,18 +90,23 @@ export default {
     }
   },
   components: {
+    healthContentModal
   },
   data () {
     return {
+      content: '',
+      name: '',
+      isContent: false,
+      isPrint: false,
       theadData: [
         [
           { rowspan: 2, text: '教育时间', width: 80 },
-          { rowspan: 2, text: '宣教内容', width: 140 },
+          { rowspan: 2, text: '宣教内容', width: 160 },
           { colspan: 2, text: '教育对象'},
           { colspan: 4, text: '教育方法'},
           { colspan: 3, text: '教育评估'},
-          { rowspan: 2, text: '备注', width: 100 },
-          { rowspan: 2, text: '签名', width: 70 }
+          { rowspan: 2, text: '备注', width: 90 },
+          { rowspan: 2, text: '签名', width: 60 },
         ],
         [
           { text: '患者', width: 30 },
@@ -128,10 +140,17 @@ export default {
   created () {
     this.init()
   },
+
   methods: {
     init () {
       this.patientId = this.$route.query.patientId
     },
+
+    // 打印
+    print () {
+      this.isPrint = true
+    },
+
     // 初始化默认值
     setData (total) {
       let array = []
@@ -159,6 +178,19 @@ export default {
         this.$set(this.tableData[index], "item", item.instance)
       })
     },
+    //点击宣教内容
+    healthContent(e, data) {
+      e.stopPropagation();
+      let ids = data.item ? data.item.missionId : ''
+      getContentByMissionId(ids).then(res => {
+        this.content =  res.data.data[0].content
+        this.name = res.data.data[0].name
+                console.log(this.name)
+        this.isContent = true
+        this.$refs.healthContentModal.open("打开健康宣教内容");
+      }).catch(e => {
+      })
+    },
     // 点击行
     onSelect(data) {
       if (!data['宣教内容']) return
@@ -180,6 +212,7 @@ export default {
 <style scoped lang='scss'>
 .health-education {
   font-size: 12px;
+  position: relative;
   * {
     box-sizing: border-box;
   };
@@ -194,11 +227,15 @@ export default {
     width: 660px;
     color: #000;
     border-collapse: collapse;
-
     thead{
       background: #f4f2f5
     }
-
+    .isPrint {
+      color: blue;
+    }
+    .isPrint:hover {
+      font-size: 13px;
+    }
     th, td {
       position: relative;
       padding: 5px;
@@ -208,7 +245,6 @@ export default {
       vertical-align: middle !important;
       box-sizing: border-box;
     }
-
     .is-radio {
       position: absolute;
       width: 20px;
@@ -221,13 +257,11 @@ export default {
       color: #000;
       line-height: 20px;
     }
-
     .radio {
       width: 20px;
       height: 20px;
       opacity: 0;
     }
-
     .point{
       &:hover {
         cursor: pointer;
@@ -253,5 +287,16 @@ export default {
       outline: none;
     }
   }
+
+  .health-content{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 500px;
+    height: 600px;
+    overflow: auto;
+    background: #ccc;
+  }
+
 }
 </style>

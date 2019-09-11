@@ -41,3 +41,15 @@ export const getEduFormList = params => {
 export const saveEducation = params => {
   return axios.post(`${apiPath}missionBlock/saveBlock`, params)
 }
+
+// 健康教育内容弹窗
+export function getContentByMissionId(ids) {
+  return axios.post(`${apiPath}/briefMission/getContentByMissionIds`,qs.stringify({ids}))
+}
+
+//删除整张教育单
+export function deleteBlock(id) {
+  return axios.post(`${apiPath}/missionBlock/deleteBlock/${id}`)
+}
+
+
