@@ -63,7 +63,7 @@
             </template>
           </ecrm-table-column>
           <ecrm-table-column label="产妇情况" align="center">
-            <ecrm-table-column prop="femaleId" label="身份证号码" width="140">
+            <ecrm-table-column prop="femaleId" label="身份证号码" width="160">
               <template slot-scope="scope">
                 <span v-if="scope.$index%2==0">
                   <el-input
