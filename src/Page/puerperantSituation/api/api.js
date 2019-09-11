@@ -24,3 +24,8 @@ export function changeOrSaveForm (params){
 export function deleteForm (params){
     return axios.post(`${apiPath}obstetricBirthFormControl/deleteForm`,params);
 }
+
+//获取产妇其他基本资料
+export function getCommonInfo (params){
+    return axios.post(`${apiPath}obstetricBirthFormControl/getCommonInfoByPVList`,params);
+}

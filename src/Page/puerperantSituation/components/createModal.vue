@@ -63,7 +63,9 @@
         <el-row class="content-row" :gutter="8">
           <el-col :span="3">文化程度:</el-col>
           <el-col :span="5">
-            <el-input size="small" v-model="params.femaleEdu"/>
+            <el-select size="small" v-model="params.femaleEdu">
+              <el-option v-for="(item,idx) in eduOptions" :key="idx" :value="item" :label="item"></el-option>
+            </el-select>
           </el-col>
           <el-col :span="4">户口地址(市、镇、村):</el-col>
           <el-col :span="12">
@@ -100,7 +102,9 @@
           </el-col>
           <el-col :span="3">丈夫文化程度:</el-col>
           <el-col :span="5">
-            <el-input size="small" v-model="params.manEdu"/>
+            <el-select size="small" v-model="params.manEdu">
+              <el-option v-for="(item,idx) in eduOptions" :key="idx" :value="item" :label="item"></el-option>
+            </el-select>
           </el-col>
         </el-row>
         <el-row class="content-row" :gutter="10">
@@ -182,11 +186,9 @@
         <el-row class="content-row" :gutter="8">
           <el-col :span="3">产前是否点滴催产素:</el-col>
           <el-col :span="5">
-            <!-- <el-input size="small" v-model="params.hadOxytocin"/> -->
-            <el-radio-group v-model="params.hadOxytocin">
-              <el-radio label="是" value="是"/>
-              <el-radio label="否" value="否"/>
-            </el-radio-group>
+            <el-select size="small" v-model="params.hadOxytocin">
+              <el-option v-for="(item,idx) in hadOxytocinOptions" :key="idx" :value="item" :label="item"></el-option>
+            </el-select>
           </el-col>
           <el-col :span="3">分娩时间:</el-col>
           <el-col :span="5">
@@ -194,7 +196,9 @@
           </el-col>
           <el-col :span="3">分娩方式:</el-col>
           <el-col :span="5">
-            <el-input size="small" v-model="params.childBirthWay"/>
+            <el-select size="small" v-model="params.childBirthWay">
+              <el-option v-for="(item,idx) in childBirthWayOptions" :key="idx" :value="item" :label="item"></el-option>
+            </el-select>
           </el-col>
         </el-row>
         <el-row class="content-row" :gutter="8">
@@ -235,11 +239,9 @@
         <el-row class="content-row" :gutter="8">
           <el-col :span="3">性别:</el-col>
           <el-col :span="5">
-            <!-- <el-input size="small" v-model="params.newBornSex"/> -->
-            <el-radio-group v-model="params.newBornSex">
-              <el-radio label="男" value="男">男</el-radio>
-              <el-radio label="女" value="女">女</el-radio>
-            </el-radio-group>
+            <el-select size="small" v-model="params.newBornSex">
+              <el-option v-for="(item,idx) in sexOptions" :key="idx" :value="item" :label="item"></el-option>
+            </el-select>
           </el-col>
           <el-col :span="3">身长cm:</el-col>
           <el-col :span="5">
@@ -300,11 +302,9 @@
         <el-row class="content-row" :gutter="8">
           <el-col :span="3">生育证号码:</el-col>
           <el-col :span="5">
-            <!-- <el-input size="small" v-model="params.birthCertificateNum"/> -->
-            <el-radio-group v-model="params.birthCertificateNum">
-              <el-radio label="有" value="有"/>
-              <el-radio label="无" value="无"/>
-            </el-radio-group>
+            <el-select size="small" v-model="params.birthCertificateNum">
+              <el-option v-for="(item,idx) in birthCertificateNumOptions" :key="idx" :value="item" :label="item"></el-option>
+            </el-select>
           </el-col>
           <el-col :span="3">出生医学证明号码:</el-col>
           <el-col :span="5">
@@ -330,6 +330,7 @@ import {getPatientList,changeOrSaveForm} from './../api/api'
 import moment from 'moment';
 import { setTimeout } from 'timers';
 import { getPatientInfo } from "@/api/common.js";
+import { getCommonInfo } from './../api/api'
 
 export default {
   mixins: [commonMixin],
@@ -397,7 +398,12 @@ export default {
       patientId:'',
       patientList:[],
       patientListFiltered:[],
-      filterSearch: ''
+      filterSearch: '',
+      eduOptions:['文盲','小学','中学','大专','大专以上'],
+      childBirthWayOptions:['顺产','吸引产','钳产','剖宫产','臀助产','臀牵引'],
+      sexOptions:['男','女'],
+      birthCertificateNumOptions:['有','无'],
+      hadOxytocinOptions: ['是','否'],
     };
   },
   mounted() {
@@ -477,9 +483,15 @@ export default {
       this.setPatientInfo()
     },
     setPatientInfo(){
-      getPatientInfo(this.patientId,'0').then(res=>{
-        if(res.data.data){
-          let re = res.data.data;
+      Promise.all([
+        getPatientInfo(this.patientId,'1'),
+        getCommonInfo({
+          list:[{patientId:this.patientId,visitId:'1'}]
+        })
+      ])
+      .then(res=>{
+        if(res[0].data.data){
+          let re = res[0].data.data;
           let age = parseInt(re.age);
           if(isNaN(age))age=''
           this.params = {
@@ -492,6 +504,18 @@ export default {
             femaleJob: re.occupation||''
           }
         }
+        if(res[1].data.data&&res[1].data.data[0]){
+          let re1 = res[1].data.data[0]
+          this.params = {
+            ...this.params,
+            man: re1.contactName||'',
+            manBirthAddress: re1.contactAddr||'',
+            femaleEdu: re1.whcd||'',
+            pregnancyTimes:  re1.yy||'',
+            birthTimes:  re1.cy||''
+          }
+        }
+
       },err=>{
 
       })
