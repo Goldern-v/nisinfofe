@@ -19,17 +19,18 @@
         <tr
           v-for="(data, k) in tableData"
           :key="k+'ab'"
-          class="point"
+          class="health-tr point"
           :class="{selected: selected === data}"
           @click="onSelect(data)"
           @dblclick="onDblClick(data)"
         >
           <!-- 教育时间 -->
+
           <td>
             <span>{{data['教育时间']}}</span>
           </td>
           <!-- 宣教内容 -->
-          <td>
+          <td :class="['contentLeft', {'isPrint': !isPrint}]" @click="healthContent($event, data)">
             <span>{{data['宣教内容']}}</span>
           </td>
           <!-- 教育对象 -->
@@ -45,7 +46,7 @@
             <span class="is-radio" v-if="data['教育评估'] === q">√</span>
           </td>
           <!-- 备注 -->
-          <td class="remark">
+          <td class="remark contentLeft">
             <span
               class="remark-span"
             >
@@ -59,29 +60,44 @@
         </tr>
       </tbody>
     </table>
-    <!-- 分页 -->
-    <!-- <el-pagination
-      v-if="total > 30 && isprint === 2"
-      @current-change="handleCurrentChange"
-      :current-page="page"
-      :page-size="pageSize"
-      layout="total, sizes, prev, pager, next, jumper"
-      :total="total">
-    </el-pagination> -->
+    <!-- 页码 -->
+    <div class="health-table-page">{{`第${index + 1}/${page}页`}}</div>
+    <!-- 宣教内容弹窗 -->
+    <healthContentModal ref="healthContentModal" :content="content" :name="name"/>
+
+    <!-- <div v-show="isContent" class="health-content" v-html="content"></div> -->
   </div>
 </template>
 
 <script>
-import { getAllByPatientInfo } from '../api/healthApi'
+import { getContentByMissionId } from '../api/healthApi'
+import healthContentModal from "./healthContentModal"; // 添加修改弹窗
 
 export default {
   props: {
-    selected: Object
+    selected: Object,
+    pageParam: { // 未处理的表格数据
+      type: Array,
+      default: () => []
+    },
+    index: { // 未处理的表格数据
+      type: Number,
+      default: 1
+    },
+    page: { // 未处理的表格数据
+      type: Number,
+      default: 1
+    }
   },
   components: {
+    healthContentModal
   },
   data () {
     return {
+      content: '',
+      name: '',
+      isContent: false,
+      isPrint: false,
       theadData: [
         [
           { rowspan: 2, text: '教育时间', width: 80 },
@@ -89,12 +105,12 @@ export default {
           { colspan: 2, text: '教育对象'},
           { colspan: 4, text: '教育方法'},
           { colspan: 3, text: '教育评估'},
-          { rowspan: 2, text: '备注', width: 120 },
-          { rowspan: 2, text: '签名', width: 70 }
+          { rowspan: 2, text: '备注', width: 90 },
+          { rowspan: 2, text: '签名', width: 60 },
         ],
         [
-          { text: '患者', width: 35 },
-          { text: '家属', width: 35 },
+          { text: '患者', width: 30 },
+          { text: '家属', width: 30 },
           { text: '口述', width: 30 },
           { text: '书面', width: 30 },
           { text: '在线', width: 30 },
@@ -104,33 +120,41 @@ export default {
           { text: '需强化', width: 30 }
         ]
       ],
-      // pageSize: 30, // 页码大小
-      // page: 1, // 第几页
-      // total: 1, // 总条数
       object: ["患者", "家属"],
       method: ["口述", "书面", "在线", "示范"],
       assessment: ["能理解", "会演示", "需强化"],
       tableData: [],
       resData: [],
-      pageParam: [], // 未处理的表格数据
-      isSetParam: [], // 已处理的表格数据
-      patientId: '',
-      // isprint: 2 // 是否是打印 打印分页隐藏 1-打印 2-非打印
+      patientId: ''
+    }
+  },
+  watch: {
+    pageParam: {
+      handler (val) {
+        this.setTableData(val)
+      },
+      immediate: true,
+      deep: true
     }
   },
   created () {
     this.init()
   },
+
   methods: {
     init () {
       this.patientId = this.$route.query.patientId
-      this.setData()
-      this.getTableData()
     },
+
+    // 打印
+    print () {
+      this.isPrint = true
+    },
+
     // 初始化默认值
-    setData () {
+    setData (total) {
       let array = []
-      for (let i = 0; i < 30; i++) {
+      for (let i = 0; i < total; i++) {
         array.push(
           {
             '教育时间': '',
@@ -145,51 +169,26 @@ export default {
       }
       this.tableData = array
     },
-    // 获取表格数据
-    getTableData () {
-      let { visitId, patientId } = this.$route.query
-      getAllByPatientInfo(patientId, visitId).then(res => {
-        let value = res.data.data && res.data.data.length > 0 ? 1 : 2
-        this.$emit('isShowTable', value)
-        // let array = []
-        // res.data.data.map(item => {
-        //   array.push(item)
-        //   array.push(item)
-        //   array.push(item)
-        //   array.push(item)
-        //   array.push(item)
-        //   array.push(item)
-        //   array.push(item)
-        //   array.push(item)
-        //   array.push(item)
-        //   array.push(item)
-        //   array.push(item)
-        //   array.push(item)
-        //   array.push(item)
-        //   array.push(item)
-        //   array.push(item)
-        //   array.push(item)
-        //   array.push(item)
-        //   array.push(item)
-        //   array.push(item)
-        // })
-        // let data = array
-        let data = res.data.data
-        this.pageParam = data.slice()
-        this.total = data.length
-        this.isSetParam = data.length > 30 ? data.slice(0, 30) : data.slice()
-        this.setTableData()
-      }).catch(() => {
-        this.$emit('isShowTable', 1)
-      })
-    },
     // 处理表格数据
-    setTableData () {
-      this.setData() // 重置表格
-      this.isSetParam.map((item, index)=> {
+    setTableData (val) {
+      this.setData(val.length > 30 ? val.length : 30) // 重置表格
+      val.map((item, index)=> {
         this.$set(this.tableData, index, JSON.parse(item.pageParam.pageParam))
         this.$set(this.tableData[index], "宣教内容", item.instance.title)
         this.$set(this.tableData[index], "item", item.instance)
+      })
+    },
+    //点击宣教内容
+    healthContent(e, data) {
+      e.stopPropagation();
+      let ids = data.item ? data.item.missionId : ''
+      getContentByMissionId(ids).then(res => {
+        this.content =  res.data.data[0].content
+        this.name = res.data.data[0].name
+                console.log(this.name)
+        this.isContent = true
+        this.$refs.healthContentModal.open("打开健康宣教内容");
+      }).catch(e => {
       })
     },
     // 点击行
@@ -205,18 +204,7 @@ export default {
     onDblClick(data) {
       if (!data['宣教内容']) return
       this.$emit("dblclick", data);
-    },
-    // 页数变化
-    // handleCurrentChange (page) {
-    //   this.page = page;
-    //   let number = (page - 1) * this.pageSize
-    //   this.isSetParam = this.pageParam.slice(number, this.pageSize + number)
-    //   this.setTableData()
-    // },
-    // 打印隐藏分页
-    // concealpagination () {
-    //   this.isprint = 1
-    // }
+    }
   }
 }
 </script>
@@ -224,20 +212,30 @@ export default {
 <style scoped lang='scss'>
 .health-education {
   font-size: 12px;
-
+  position: relative;
   * {
     box-sizing: border-box;
   };
 
+  .health-table-page {
+    font-size: 13px;
+    text-align: center;
+    height: 50px;
+    line-height: 50px;
+  }
   .education-table {
-    width: 706px;
+    width: 660px;
     color: #000;
     border-collapse: collapse;
-
     thead{
       background: #f4f2f5
     }
-
+    .isPrint {
+      color: blue;
+    }
+    .isPrint:hover {
+      font-size: 13px;
+    }
     th, td {
       position: relative;
       padding: 5px;
@@ -245,8 +243,8 @@ export default {
       border: 1px solid #222;
       height: 25px;
       vertical-align: middle !important;
+      box-sizing: border-box;
     }
-
     .is-radio {
       position: absolute;
       width: 20px;
@@ -259,13 +257,11 @@ export default {
       color: #000;
       line-height: 20px;
     }
-
     .radio {
       width: 20px;
       height: 20px;
       opacity: 0;
     }
-
     .point{
       &:hover {
         cursor: pointer;
@@ -274,6 +270,10 @@ export default {
       &.selected {
         background: #FFF8B1;
       }
+    }
+    .contentLeft{
+      text-align: left;
+      padding-left: 10px;
     }
   }
 
@@ -287,9 +287,16 @@ export default {
       outline: none;
     }
   }
-  /deep/ .el-pagination {
-    text-align: center;
-    margin-top: 20px;
+
+  .health-content{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 500px;
+    height: 600px;
+    overflow: auto;
+    background: #ccc;
   }
+
 }
 </style>

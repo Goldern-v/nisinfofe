@@ -275,7 +275,7 @@
                     </el-row>
                   </router-link>
                 </el-dropdown-item>
-                <el-dropdown-item :class="{active: $route.path == '/puerperantSituation'}">
+                <el-dropdown-item v-if="deptCode.match('051102')" :class="{active: $route.path == '/puerperantSituation'}">
                   <router-link to="/puerperantSituation" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
                       <i class="puerperantSituation"></i>产科分娩登记表
