@@ -22,9 +22,9 @@ export default {
         rowspan: "3"
       },
       {
-        name: `
-        温箱编号
-        `,
+        name: `温箱编号`,
+        canSet: true,
+        key: "box",
         style: {},
         colspan: "1",
         rowspan: "3",

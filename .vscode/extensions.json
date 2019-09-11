@@ -5,6 +5,7 @@
   // List of extensions which should be recommended for users of this workspace.
   "recommendations": [
     "octref.vetur",
+    "christian-kohler.path-intellisense",
     "sysoev.language-stylus",
   ],
   // "orta.vscode-jest",

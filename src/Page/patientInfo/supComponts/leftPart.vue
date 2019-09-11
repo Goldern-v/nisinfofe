@@ -35,9 +35,8 @@
         <div class="list2-li over-text" :title="info.diagnosis">诊断：{{info.diagnosis}}</div>
         <div class="print-btn" flex="cross:center main:center" @click="openBedPrint">打印床头卡</div>
         <div class="print-btn" flex="cross:center main:center" @click="openPrintModal">
-          归档打印
-          <span>{{'（'+ archiveStatus +'）'}}</span>
-          <!-- <span>{{'（'+ info.statusDesc +'）'}}</span> -->
+          <span>归档打印</span>
+          <span v-if="printArchiveMaster.statusDesc">{{'（'+ printArchiveMaster.statusDesc +'）'}}</span>
         </div>
       </div>
       <div
@@ -57,6 +56,7 @@
       ref="archiveModal"
       :printArchiveMaster="printArchiveMaster"
       :getArchiveStatus="getArchiveStatus"
+      :printDetailList="printDetailList"
     ></archiveModal>
   </div>
 </template>
@@ -194,7 +194,7 @@ export default {
   data() {
     return {
       overflow: "hidden",
-      printDetailList: "", //归档详情
+      printDetailList: [], //归档详情
       archiveStatus: "",
       printArchiveMaster: {} //归档、转pdf状态对象
     };
@@ -225,41 +225,32 @@ export default {
       }
     },
     openPrintModal() {
-      // let item = {
-      //   patientId: this.info.patientId,
-      //   visitId: this.info.visitId
-      // };
-      // console.log(item);
-      // this.$refs.archiveModal.open(item);
-      this.$refs.printModal.open();
+      if (this.printArchiveMaster.printStatus == 1) {
+        this.$message({
+          type: "warning",
+          message: "转pdf中，请稍等"
+        });
+        return;
+      }
+      if (this.printArchiveMaster.uploadStatus == 1) {
+        this.$message({
+          type: "warning",
+          message: "归档中，请稍等"
+        });
+        return;
+      }
+      let item = {
+        patientId: this.info.patientId,
+        visitId: this.info.visitId
+      };
+      this.$refs.archiveModal.open(item);
+      // this.$refs.printModal.open();
     },
     // 获取归档打印详情
     getArchiveStatus() {
       previewArchive(this.info.patientId, this.info.visitId).then(res => {
         this.printDetailList = res.data.data.printDetailList;
-        this.printArchiveMaster = res.data.data.printArchiveMaster;
-        // this.previewFile();
-        // if (
-        //   this.printArchiveMaster.printStatus == 0 &&
-        //   this.printArchiveMaster.resultStatus != 1
-        // ) {
-        //   this.archiveStatus = "转pdf";
-        // } else if (
-        //   this.printArchiveMaster.printStatus != 0 &&
-        //   this.printArchiveMaster.printStatus != 1 &&
-        //   this.printArchiveMaster.uploadStatus != 1 &&
-        //   this.printArchiveMaster.uploadStatus != 2
-        // ) {
-        //   this.archiveStatus = "重转pdf";
-        // } else if (this.printArchiveMaster.resultStatus == 1) {
-        //   this.archiveStatus = "预览";
-        // } else if (
-        //   this.printArchiveMaster.resultStatus == 1 &&
-        //   this.printArchiveMaster.uploadStatus != 1 &&
-        //   this.printArchiveMaster.uploadStatus != 2
-        // ) {
-        //   this.archiveStatus = "归档";
-        // }
+        this.printArchiveMaster = res.data.data.printArchiveMasters || {};
       });
     }
   },

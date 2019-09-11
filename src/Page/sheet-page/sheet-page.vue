@@ -171,6 +171,7 @@ import sheeTableBurn_plastic from "./components/sheeTable-burn_plastic/sheetTabl
 import sheetTablePost_partum from "./components/sheetTable-post_partum/sheetTable";
 import sheetTablePost_hemodialysis from "./components/sheetTable-hemodialysis/sheetTable";
 import sheetTable_oxytocin from "./components/sheetTable-oxytocin/sheetTable";
+import sheetTableDressing_count from "./components/sheetTable-dressing_count/sheetTable";
 import common from "@/common/mixin/common.mixin.js";
 import evalModel from "./components/modal/eval-model/eval-model.vue";
 import { typeList } from "@/api/lesion";
@@ -275,9 +276,11 @@ export default {
         return sheetTablePost_partum;
       } else if (sheetInfo.sheetType == "blood_purification") {
         return sheetTablePost_hemodialysis;
-      } else if(sheetInfo.sheetType == "oxytocin"){
+      } else if (sheetInfo.sheetType == "oxytocin") {
         return sheetTable_oxytocin;
-      }else {
+      } else if (sheetInfo.sheetType == "dressing_count") {
+        return sheetTableDressing_count;
+      } else {
         return sheetTable;
       }
     }
@@ -549,15 +552,17 @@ export default {
           return this.$message.warning("记录存在多个签名，或者忘记填写时间");
         }
       }
-      if($(".isNoSign") && $(".isNoSign").length){
-        $(".signTd").eq(0).addClass("red-border");
+      if ($(".isNoSign") && $(".isNoSign").length) {
+        $(".signTd")
+          .eq(0)
+          .addClass("red-border");
         $(this.$refs.scrollCon).animate({
-            scrollTop:
-              $(".isNoSign")
-                .eq(0)
-                .offset().top +
-              this.$refs.scrollCon.scrollTop -
-              150
+          scrollTop:
+            $(".isNoSign")
+              .eq(0)
+              .offset().top +
+            this.$refs.scrollCon.scrollTop -
+            150
         });
         return this.$message.warning("存在未签名的记录，请全部签名后再打印");
       }
@@ -634,7 +639,8 @@ export default {
     sheetTablePost_partum,
     evalModel,
     sheetTablePost_hemodialysis,
-    sheetTable_oxytocin
+    sheetTable_oxytocin,
+    sheetTableDressing_count
   }
 };
 </script>

@@ -8,6 +8,7 @@
         <el-date-picker
           v-if="type=='dateTime'"
           v-model="editValue"
+          class="pueperant-editmodal-input"
           type="datetime"
           @change="handleValueChange"
           placeholder="选择日期时间"
@@ -148,6 +149,9 @@ export default {
   margin: 15px auto;
   text-align: center;
   .nurse-select{
+    width: 100%;
+  }
+  .pueperant-editmodal-input{
     width: 100%;
   }
 }

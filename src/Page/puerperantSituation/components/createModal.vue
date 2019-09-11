@@ -11,308 +11,498 @@
       <div class="model-content">
         <div class="title-row">基本信息:</div>
         <el-row class="content-row" :gutter="8">
-          <el-col :span="3">住院号:</el-col>
-          <el-col :span="5">
-            <el-input size="small" :disabled="true" v-model="params.hospitalizationNumber"/>
+          <el-col :span="8">
+            <div class="label">
+              <span class="lc3">住</span>
+              <span class="lc3">院</span>
+              <span>号:</span>
+            </div>
+            <div class="content">
+              <el-input size="small" :disabled="true" v-model="params.hospitalizationNumber"/>
+            </div>
           </el-col>
-          <el-col :span="3">姓名:</el-col>
-          <el-col :span="5">
-            <el-select
-              v-model="patientId"
-              placeholder="产妇姓名/床号/住院号" 
-              filterable
-              :filter-method="patientsFilterMethod"
-              @change="handlePatinentChange">
-              <template  v-for="(item,idx) in patientListFiltered">
-                <el-option
-                  :key="idx"
-                  v-if="patientOptionVisible(item,filterSearch)"
-                  :label="item.name"
-                  :value="item.patientId">
-                  <div>
-                    <div style="float: left;">{{item.name}}</div>
-                    <div  style="float: right;">{{item.bedLabel}}床</div>
-                  </div>
-                </el-option>
-              </template>
-            </el-select>
+          <el-col :span="8">
+            <div class="label">
+              <span class="lc2">姓</span>
+              <span>名:</span>
+            </div>
+            <div class="content">
+              <el-select
+                v-model="patientId"
+                placeholder="产妇姓名/床号/住院号" 
+                filterable
+                :filter-method="patientsFilterMethod"
+                @change="handlePatinentChange">
+                <template  v-for="(item,idx) in patientListFiltered">
+                  <el-option
+                    :key="idx"
+                    v-if="patientOptionVisible(item,filterSearch)"
+                    :label="item.name"
+                    :value="item.patientId">
+                    <div>
+                      <div style="float: left;">{{item.name}}</div>
+                      <div  style="float: right;">{{item.bedLabel}}床</div>
+                    </div>
+                  </el-option>
+                </template>
+              </el-select>
+            </div>
           </el-col>
-          <el-col :span="3">身份证号:</el-col>
-          <el-col :span="5">
-            <el-input size="small" v-model="params.femaleId"/>
+          <el-col :span="8">
+            <div class="label">身份证号:</div>
+            <div class="content">
+              <el-input size="small" v-model="params.femaleId"/>
+            </div>
           </el-col>
         </el-row>
         <el-row class="content-row" :gutter="8">
-          <el-col :span="3">年龄:</el-col>
-          <el-col :span="5">
-            <el-input 
+          <el-col :span="8">
+            <div class="label">
+              <span class="lc2">年</span>
+              <span>龄:</span>
+            </div>
+            <div class="content">
+              <el-input 
               size="small" 
               :value="params.femaleAge" 
               class="femaleAge-input"
               @change="(val)=>handleNumberChange(val,'femaleAge')"/>
+            </div>
           </el-col>
-          <el-col :span="3">籍贯:</el-col>
-          <el-col :span="5">
-            <el-input size="small" v-model="params.femaleBrithPlace"/>
+          <el-col :span="8">
+            <div class="label">
+              <span class="lc2">籍</span>
+              <span>贯:</span>
+            </div>
+            <div class="content">
+              <el-input size="small" v-model="params.femaleBrithPlace"/>
+            </div>
           </el-col>
-          <el-col :span="3">职业:</el-col>
-          <el-col :span="5">
-            <el-input size="small" v-model="params.femaleJob"/>
+          <el-col :span="8">
+            <div class="label">
+              <span class="lc2">职</span>
+              <span>业:</span>
+            </div>
+            <div class="content">
+              <el-input size="small" v-model="params.femaleJob"/>
+            </div>
           </el-col>
         </el-row>
         <el-row class="content-row" :gutter="8">
-          <el-col :span="3">文化程度:</el-col>
-          <el-col :span="5">
-            <el-input size="small" v-model="params.femaleEdu"/>
+          <el-col :span="8">
+            <div class="label">文化程度:</div>
+            <div class="content">
+              <el-select size="small" v-model="params.femaleEdu">
+                <el-option v-for="(item,idx) in eduOptions" :key="idx" :value="item" :label="item"></el-option>
+              </el-select>
+            </div>
           </el-col>
-          <el-col :span="4">户口地址(市、镇、村):</el-col>
-          <el-col :span="12">
-            <el-input size="small" v-model="params.femaleBirthAddress"/>
+          <el-col :span="16">
+            <div class="label">户口地址(市、镇、村):</div>
+            <div class="content">
+              <el-input size="small" v-model="params.femaleBirthAddress"/>
+            </div>
           </el-col>
         </el-row>
         <div class="sub-title-row"> </div>
         <el-row class="content-row" :gutter="8">
-          <el-col :span="3">丈夫姓名:</el-col>
-          <el-col :span="5">
-            <el-input size="small"  v-model="params.man"/>
+          <el-col :span="8">
+            <div class="label">丈夫姓名:</div>
+            <div class="content">
+              <el-input size="small"  v-model="params.man"/>
+            </div>
           </el-col>
-          <el-col :span="3">丈夫身份证号:</el-col>
-          <el-col :span="5">
-            <el-input size="small" v-model="params.manId"/>
+          <el-col :span="8">
+            <div class="label">丈夫身份证号:</div>
+            <div class="content">
+              <el-input size="small" v-model="params.manId"/>
+            </div>
           </el-col>
-          <el-col :span="3">丈夫年龄:</el-col>
-          <el-col :span="5">
-            <el-input 
+          <el-col :span="8">
+            <div class="label">丈夫年龄:</div>
+            <div class="content">
+              <el-input 
               size="small" 
               :value="params.manAge" 
               class="manAge-input"
               @change="(val)=>handleNumberChange(val,'manAge')"/>
+            </div>
           </el-col>
         </el-row>
         <el-row class="content-row" :gutter="8">
-          <el-col :span="3">丈夫籍贯:</el-col>
-          <el-col :span="5">
-            <el-input size="small" v-model="params.manBrithPlace"/>
+          <el-col :span="8">
+            <div class="label">丈夫籍贯:</div>
+            <div class="content">
+              <el-input size="small" v-model="params.manBrithPlace"/>
+            </div>
           </el-col>
-          <el-col :span="3">丈夫职业:</el-col>
-          <el-col :span="5">
-            <el-input size="small" v-model="params.manJob"/>
+          <el-col :span="8">
+            <div class="label">丈夫职业:</div>
+            <div class="content">
+              <el-input size="small" v-model="params.manJob"/>
+            </div>
           </el-col>
-          <el-col :span="3">丈夫文化程度:</el-col>
-          <el-col :span="5">
-            <el-input size="small" v-model="params.manEdu"/>
+          <el-col :span="8">
+            <div class="label">丈夫文化程度:</div>
+            <div class="content">
+              <el-select size="small" v-model="params.manEdu">
+                <el-option v-for="(item,idx) in eduOptions" :key="idx" :value="item" :label="item"></el-option>
+              </el-select>
+            </div>
           </el-col>
         </el-row>
-        <el-row class="content-row" :gutter="10">
-          <el-col :span="4">丈夫户口地址(市、镇、村):</el-col>
-          <el-col :span="12">
-            <el-input size="small" v-model="params.manBirthAddress"/>
+        <el-row class="content-row" :gutter="8">
+          <el-col :span="16">
+            <div class="label">丈夫户口地址(市、镇、村):</div>
+            <div class="content">
+              <el-input size="small" v-model="params.manBirthAddress"/>
+            </div>
           </el-col>
         </el-row>
         <div class="title-row">产妇情况:</div>
         <el-row class="content-row" :gutter="8">
-          <el-col :span="3">现住地址:</el-col>
-          <el-col :span="5">
-            <el-input size="small" v-model="params.nowAddress"/>
+          <el-col :span="8">
+            <div class="label">现住地址:</div>
+            <div class="content">
+              <el-input size="small" v-model="params.nowAddress"/>
+            </div>
           </el-col>
-          <el-col :span="3">高危情况:</el-col>
-          <el-col :span="5">
-            <el-input size="small" v-model="params.dangerousSituation"/>
+          <el-col :span="8">
+            <div class="label">高危情况:</div>
+            <div class="content">
+              <el-input size="small" v-model="params.dangerousSituation"/>
+            </div>
           </el-col>
         </el-row>
         <el-row class="content-row" :gutter="8">
-          <el-col :span="3">孕周:</el-col>
-          <el-col :span="5">
-            <el-input 
+          <el-col :span="8">
+            <div class="label">
+              <span class="lc2">孕</span>
+              <span>周:</span>
+            </div>
+            <div class="content">
+              <el-input 
               size="small"
               :value="params.pregnancyWeek" 
               class="pregnancyWeek-input"
               @change="(val)=>handleNumberChange(val,'pregnancyWeek')"/>
+            </div>
           </el-col>
-          <el-col :span="3">孕次:</el-col>
-          <el-col :span="5">
-            <el-input 
+          <el-col :span="8">
+            <div class="label">
+              <span class="lc2">孕</span>
+              <span>次:</span>
+            </div>
+            <div class="content">
+              <el-input 
               size="small"
               :value="params.pregnancyTimes" 
               class="pregnancyTimes-input"
               @change="(val)=>handleNumberChange(val,'pregnancyTimes')"/>
+            </div>
           </el-col>
-          <el-col :span="3">产次:</el-col>
-          <el-col :span="5">
-            <el-input 
+          <el-col :span="8">
+            <div class="label">
+              <span class="lc2">产</span>
+              <span>次:</span>
+            </div>
+            <div class="content">
+              <el-input 
               size="small"
               :value="params.birthTimes" 
               class="birthTimes-input"
               @change="(val)=>handleNumberChange(val,'birthTimes')"/>
+            </div>
           </el-col>
         </el-row>
         <div class="sub-title-row">破膜时间:</div>
         <el-row class="content-row" :gutter="8">
-          <el-col :span="3">人工:</el-col>
-          <el-col :span="5">
-            <el-date-picker type="datetime" size="small" v-model="params.artiBrokenMembraneTime"/>
+          <el-col :span="8">
+            <div class="label">
+              <span class="lc2">人</span>
+              <span>工:</span>
+            </div>
+            <div class="content">
+              <el-date-picker type="datetime" size="small" v-model="params.artiBrokenMembraneTime"/>
+            </div>
           </el-col>
-          <el-col :span="3">自然:</el-col>
-          <el-col :span="5">
-            <el-date-picker type="datetime" size="small" v-model="params.natureBrokenMenbraneTime"/>
+          <el-col :span="8">
+            <div class="label">
+              <span class="lc2">自</span>
+              <span>然:</span>
+            </div>
+            <div class="content">
+              <el-date-picker type="datetime" size="small" v-model="params.natureBrokenMenbraneTime"/>
+            </div>
           </el-col>
         </el-row>
         <div class="sub-title-row">产程时间(小时):</div>
         <el-row class="content-row" :gutter="8">
-          <el-col :span="3">一:</el-col>
-          <el-col :span="5">
-            <el-input size="small" v-model="params.productionProcess1"/>
+          <el-col :span="8">
+            <div class="label">
+              <span class="lc1">一</span>
+              <span>:</span>
+            </div>
+            <div class="content">
+              <el-input size="small" v-model="params.productionProcess1"/>
+            </div>
           </el-col>
-          <el-col :span="3">二:</el-col>
-          <el-col :span="5">
-            <el-input size="small" v-model="params.productionProcess2"/>
+          <el-col :span="8">
+            <div class="label">
+              <span class="lc1">二</span>
+              <span>:</span>
+            </div>
+            <div class="content">
+              <el-input size="small" v-model="params.productionProcess2"/>
+            </div>
           </el-col>
-          <el-col :span="3">三:</el-col>
-          <el-col :span="5">
-            <el-input size="small" v-model="params.productionProcess3"/>
+          <el-col :span="8">
+            <div class="label">
+              <span class="lc1">三</span>
+              <span>:</span>
+            </div>
+            <div class="content">
+              <el-input size="small" v-model="params.productionProcess3"/>
+            </div>
           </el-col>
         </el-row>
         <el-row class="content-row" :gutter="8">
-          <el-col :span="3">总产程:</el-col>
-          <el-col :span="5">
-            <el-input size="small" v-model="params.productionProcessCount"/>
+          <el-col :span="8">
+            <div class="label">
+              <span class="lc3">总</span>
+              <span class="cl3">产</span>
+              <span>程:</span>
+            </div>
+            <div class="content">
+              <el-input size="small" v-model="params.productionProcessCount"/>
+            </div>
           </el-col>
         </el-row>
         <div class="sub-title-row"> </div>
         <el-row class="content-row" :gutter="8">
-          <el-col :span="3">产前是否点滴催产素:</el-col>
-          <el-col :span="5">
-            <!-- <el-input size="small" v-model="params.hadOxytocin"/> -->
-            <el-radio-group v-model="params.hadOxytocin">
-              <el-radio label="是" value="是"/>
-              <el-radio label="否" value="否"/>
-            </el-radio-group>
+          <el-col :span="8">
+            <div class="label">产前是否点滴催产素:</div>
+            <div class="content">
+              <el-select size="small" v-model="params.hadOxytocin">
+                <el-option v-for="(item,idx) in hadOxytocinOptions" :key="idx" :value="item" :label="item"></el-option>
+              </el-select>
+            </div>
           </el-col>
-          <el-col :span="3">分娩时间:</el-col>
-          <el-col :span="5">
-            <el-date-picker type="datetime" size="small" v-model="params.childBirthTime"/>
+          <el-col :span="8">
+            <div class="label">分娩时间:</div>
+            <div class="content">
+              <el-date-picker type="datetime" size="small" v-model="params.childBirthTime"/>
+            </div>
           </el-col>
-          <el-col :span="3">分娩方式:</el-col>
-          <el-col :span="5">
-            <el-input size="small" v-model="params.childBirthWay"/>
+          <el-col :span="8">
+            <div class="label">分娩方式:</div>
+            <div class="content">
+              <el-select size="small" v-model="params.childBirthWay">
+                <el-option v-for="(item,idx) in childBirthWayOptions" :key="idx" :value="item" :label="item"></el-option>
+              </el-select>
+            </div>
           </el-col>
         </el-row>
         <el-row class="content-row" :gutter="8">
-           <el-col :span="3">手术指征:</el-col>
-          <el-col :span="5">
-            <el-input size="small" v-model="params.surgicalIndication"/>
+           <el-col :span="8">
+            <div class="content">手术指征:</div>
+            <div class="content">
+              <el-input size="small" v-model="params.surgicalIndication"/>
+            </div>
           </el-col>
         </el-row>
         <div class="sub-title-row">会阴情况：</div>
         <el-row class="content-row" :gutter="8">
-          <el-col :span="3">Ⅰ:</el-col>
-          <el-col :span="5">
-            <el-input size="small" v-model="params.perineumSituation1"/>
+          <el-col :span="8">
+            <div class="label">
+              <span class="lc1">Ⅰ</span>
+              <span>:</span>
+            </div>
+            <div class="content">
+              <el-input size="small" v-model="params.perineumSituation1"/>
+            </div>
           </el-col>
-          <el-col :span="3">Ⅱ:</el-col>
-          <el-col :span="5">
-            <el-input size="small" v-model="params.perineumSituation2"/>
+          <el-col :span="8">
+            <div class="label">
+              <span class="lc1">Ⅱ</span>
+              <span>:</span>
+            </div>
+            <div class="content">
+              <el-input size="small" v-model="params.perineumSituation2"/>
+            </div>
           </el-col>
-          <el-col :span="3">Ⅲ:</el-col>
-          <el-col :span="5">
-            <el-input size="small" v-model="params.perineumSituation3"/>
+          <el-col :span="8">
+            <div class="label">
+              <span class="lc1">Ⅲ</span>
+              <span>:</span>
+            </div>
+            <div class="content">
+              <el-input size="small" v-model="params.perineumSituation3"/>
+            </div>
           </el-col>
         </el-row>
         <el-row class="content-row" :gutter="8">
-          <el-col :span="3">切开:</el-col>
-          <el-col :span="5">
-            <el-input size="small" v-model="params.perineumSituation"/>
+          <el-col :span="8">
+            <div class="label">
+              <span class="lc2">切</span>
+              <span>开:</span>
+            </div>
+            <div class="content">
+              <el-input size="small" v-model="params.perineumSituation"/>
+            </div>
           </el-col>
         </el-row>
         <div class="sub-title-row"> </div>
         <el-row class="content-row" :gutter="8">
-          <el-col :span="3">产后2h出血量(ml):</el-col>
-          <el-col :span="5">
-            <el-input size="small" v-model="params.birthBloodVolume"/>
+          <el-col :span="8">
+            <div class="label">产后2h出血量(ml):</div>
+            <div class="content">
+              <el-input size="small" v-model="params.birthBloodVolume"/>
+            </div>
           </el-col>
         </el-row>
         <div class="title-row">新生儿情况:</div>
         <el-row class="content-row" :gutter="8">
-          <el-col :span="3">性别:</el-col>
-          <el-col :span="5">
-            <!-- <el-input size="small" v-model="params.newBornSex"/> -->
-            <el-radio-group v-model="params.newBornSex">
-              <el-radio label="男" value="男">男</el-radio>
-              <el-radio label="女" value="女">女</el-radio>
-            </el-radio-group>
+          <el-col :span="8">
+            <div class="label">
+              <span class="lc2">性</span>
+              <span>别:</span>
+            </div>
+            <div class="content">
+              <el-select size="small" v-model="params.newBornSex">
+                <el-option v-for="(item,idx) in sexOptions" :key="idx" :value="item" :label="item"></el-option>
+              </el-select>
+            </div>
           </el-col>
-          <el-col :span="3">身长cm:</el-col>
-          <el-col :span="5">
-            <el-input size="small" v-model="params.newBornHeight"/>
+          <el-col :span="8">
+            <div class="label">身长(cm):</div>
+            <div class="content">
+              <el-input size="small" v-model="params.newBornHeight"/>
+            </div>
           </el-col>
-          <el-col :span="3">体重kg:</el-col>
-          <el-col :span="5">
-            <el-input size="small" v-model="params.newBornWeight"/>
+          <el-col :span="8">
+            <div class="label">体重(kg):</div>
+            <div class="content">
+              <el-input size="small" v-model="params.newBornWeight"/>
+            </div>
           </el-col>
         </el-row>
         <div class="sub-title-row">阿氏评分:</div>
         <el-row class="content-row" :gutter="8">
-          <el-col :span="3">一分钟:</el-col>
-          <el-col :span="5">
-            <el-input size="small" v-model="params.aShiScore1"/>
+          <el-col :span="8">
+            <div class="label">
+              <span class="lc3">一</span>
+              <span class="lc3">分</span>
+              <span>钟:</span>
+            </div>
+            <div class="content">
+              <el-input size="small" v-model="params.aShiScore1"/>
+            </div>
           </el-col>
-          <el-col :span="3">五分钟:</el-col>
-          <el-col :span="5">
-            <el-input size="small" v-model="params.aShiScore5"/>
+          <el-col :span="8">
+            <div class="label">
+              <span class="lc3">五</span>
+              <span class="lc3">分</span>
+              <span>钟:</span>
+            </div>
+            <div class="content">
+              <el-input size="small" v-model="params.aShiScore5"/>
+            </div>
           </el-col>
         </el-row>
         <div class="sub-title-row"></div>
         <el-row class="content-row" :gutter="8">
-          <el-col :span="3">早接触:</el-col>
-          <el-col :span="5">
-            <el-input size="small" v-model="params.earlyContact"/>
+          <el-col :span="8">
+            <div class="label">
+              <span class="lc3">早</span>
+              <span class="lc3">接</span>
+              <span>触:</span>
+            </div>
+            <div class="content">
+              <el-input size="small" v-model="params.earlyContact"/>
+            </div>
           </el-col>
-          <el-col :span="3">早吮吸:</el-col>
-          <el-col :span="5">
-            <el-input size="small" v-model="params.earlySucking"/>
+          <el-col :span="8">
+            <div class="label">
+              <span class="lc3">早</span>
+              <span class="lc3">吮</span>
+              <span>吸:</span>
+            </div>
+            <div class="content">
+              <el-input size="small" v-model="params.earlySucking"/>
+            </div>
           </el-col>
-          <el-col :span="3">死胎:</el-col>
-          <el-col :span="5">
-            <el-input size="small" v-model="params.deadBirth"/>
+          <el-col :span="8">
+            <div class="label">
+              <span class="lc2">死</span>
+              <span>胎:</span>
+            </div>
+            <div class="content">
+              <el-input size="small" v-model="params.deadBirth"/>
+            </div>
           </el-col>
         </el-row>
         <el-row class="content-row" :gutter="8">
-          <el-col :span="3">死产:</el-col>
-          <el-col :span="5">
-            <el-input size="small" v-model="params.deadProduce"/>
+          <el-col :span="8">
+            <div class="label">
+              <span class="lc2">死</span>
+              <span>产:</span>
+            </div>
+            <div class="content">
+              <el-input size="small" v-model="params.deadProduce"/>
+            </div>
           </el-col>
-          <el-col :span="3">畸形:</el-col>
-          <el-col :span="5">
-            <el-input size="small" v-model="params.deformity"/>
+          <el-col :span="8">
+            <div class="label">
+              <span class="lc2">畸</span>
+              <span>形:</span>
+            </div>
+            <div class="content">
+              <el-input size="small" v-model="params.deformity"/>
+            </div>
           </el-col>
-          <el-col :span="3">新生儿死亡:</el-col>
-          <el-col :span="5">
-            <el-input size="small" v-model="params.newBornDead"/>
+          <el-col :span="8">
+            <div class="label">新生儿死亡:</div>
+            <div class="content">
+              <el-input size="small" v-model="params.newBornDead"/>
+            </div>
           </el-col>
         </el-row>
         <el-row class="content-row" :gutter="8">
-          <el-col :span="3">死因:</el-col>
-          <el-col :span="5">
-            <el-input size="small" v-model="params.deadReason"/>
+          <el-col :span="8">
+            <div class="label">
+              <span class="lc2">死</span>
+              <span>因:</span>
+            </div>
+            <div class="content">
+              <el-input size="small" v-model="params.deadReason"/>
+            </div>
           </el-col>
         </el-row>
         <div class="title-row">其他:</div>
         <el-row class="content-row" :gutter="8">
-          <el-col :span="3">生育证号码:</el-col>
-          <el-col :span="5">
-            <!-- <el-input size="small" v-model="params.birthCertificateNum"/> -->
-            <el-radio-group v-model="params.birthCertificateNum">
-              <el-radio label="有" value="有"/>
-              <el-radio label="无" value="无"/>
-            </el-radio-group>
+          <el-col :span="8">
+            <div class="label">生育证号码:</div>
+            <div class="content">
+              <el-select size="small" v-model="params.birthCertificateNum">
+                <el-option v-for="(item,idx) in birthCertificateNumOptions" :key="idx" :value="item" :label="item"></el-option>
+              </el-select>
+            </div>
           </el-col>
-          <el-col :span="3">出生医学证明号码:</el-col>
-          <el-col :span="5">
-            <el-input size="small" v-model="params.birthCertificateNumber"/>
+          <el-col :span="8">
+            <div class="label">出生医学证明号码:</div>
+            <div class="content">
+              <el-input size="small" v-model="params.birthCertificateNumber"/>
+            </div>
           </el-col>
-          <el-col :span="3">备注:</el-col>
-          <el-col :span="5">
-            <el-input size="small" v-model="params.remarks"/>
+          <el-col :span="8">
+            <div class="label">
+              <span class="lc2">备</span>
+              <span>注:</span>
+            </div>
+            <div class="content">
+              <el-input size="small" v-model="params.remarks"/>
+            </div>
           </el-col>
         </el-row>
       </div>
@@ -330,6 +520,7 @@ import {getPatientList,changeOrSaveForm} from './../api/api'
 import moment from 'moment';
 import { setTimeout } from 'timers';
 import { getPatientInfo } from "@/api/common.js";
+import { getCommonInfo } from './../api/api'
 
 export default {
   mixins: [commonMixin],
@@ -397,7 +588,12 @@ export default {
       patientId:'',
       patientList:[],
       patientListFiltered:[],
-      filterSearch: ''
+      filterSearch: '',
+      eduOptions:['文盲','小学','中学','大专','大专以上'],
+      childBirthWayOptions:['顺产','吸引产','钳产','剖宫产','臀助产','臀牵引'],
+      sexOptions:['男','女'],
+      birthCertificateNumOptions:['有','无'],
+      hadOxytocinOptions: ['是','否'],
     };
   },
   mounted() {
@@ -477,9 +673,15 @@ export default {
       this.setPatientInfo()
     },
     setPatientInfo(){
-      getPatientInfo(this.patientId,'0').then(res=>{
-        if(res.data.data){
-          let re = res.data.data;
+      Promise.all([
+        getPatientInfo(this.patientId,'1'),
+        getCommonInfo({
+          list:[{patientId:this.patientId,visitId:'1'}]
+        })
+      ])
+      .then(res=>{
+        if(res[0].data.data){
+          let re = res[0].data.data;
           let age = parseInt(re.age);
           if(isNaN(age))age=''
           this.params = {
@@ -492,6 +694,18 @@ export default {
             femaleJob: re.occupation||''
           }
         }
+        if(res[1].data.data&&res[1].data.data[0]){
+          let re1 = res[1].data.data[0]
+          this.params = {
+            ...this.params,
+            man: re1.contactName||'',
+            manBirthAddress: re1.contactAddr||'',
+            femaleEdu: re1.whcd||'',
+            pregnancyTimes:  re1.yy||'',
+            birthTimes:  re1.cy||''
+          }
+        }
+
       },err=>{
 
       })
@@ -580,14 +794,38 @@ export default {
   }
   .sub-title-row{
     font-size: 14px;
-    color: #999;
+    color: #333;
     font-weight: bold;
     margin-bottom: 15px;
-    min-height: 14px;
+    min-height: 10px;
+    border-bottom: 1px dotted #bbb;
   }
   .content-row{
     line-height: 30px;
     margin-bottom: 10px;
+    &>div{
+      display: flex;
+      padding-right: 30px!important;
+      &>.label{
+        display: inline-block;
+        padding-right: 8px;
+        span{
+          vertical-align: middle;
+        }
+        .lc3{
+          letter-spacing: 0px;
+        }
+        .lc2{
+          letter-spacing: 20px;
+        }
+        .lc1{
+          letter-spacing: 34px;
+        }
+      }
+      &>.content{
+        flex:1; 
+      }
+    }
     .el-date-editor{
       width: 100%;
     }
@@ -595,9 +833,6 @@ export default {
   }
   .nurse-select {
     width: 100%;
-  }
-  .el-col-5,.el-col-12{
-    padding-right: 10px!important;
   }
 }
 </style>

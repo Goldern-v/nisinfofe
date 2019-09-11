@@ -370,6 +370,7 @@ export default {
 
       if (this.$refs[this.obj.name]) {
         this.$refs[this.obj.name].$el.style.outline = "none";
+        this.$refs[this.obj.name].$el.style.backgroundColor = "transparent";
       }
 
       //

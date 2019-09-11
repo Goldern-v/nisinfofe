@@ -225,6 +225,14 @@ export default function Title(data = [], autoData = [], index) {
         );
       }
       break;
+    case "dressing_count":
+      {
+        // 经阴道接生器械敷料清点
+        Th = JSON.parse(
+          JSON.stringify(require("../config/dressing_count/th").default)
+        );
+      }
+      break;
     case "neurology_wx":
       {
         // 威县-神经内科

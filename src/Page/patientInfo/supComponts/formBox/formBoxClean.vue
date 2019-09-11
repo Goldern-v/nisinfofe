@@ -8,13 +8,14 @@
               id="fromBoxClean"
               ref="ifamme-modal"
               class="iframe-form-con"
+              :style="formListData&&Object.keys(formListData).length>0?'':'background: #dfdfdf;'"
               v-if="url"
               :src="url"
               frameborder="0"
               @load="onload"
             ></iframe>
           </div>
-          <div v-if="isShowListData" flex-box="1" style="width:0; overflow:visible; height:100%">
+          <div v-if="formListData&&Object.keys(formListData).length>0" flex-box="1" style="width:0; overflow:visible; height:100%">
             <div flex-box="2" style="width:100%; height:100%" v-loading="formListModalLoading">
               <formList :formCode="formCode" :formListData="formListData" ref="formList"></formList>
             </div>
@@ -134,6 +135,7 @@ export default {
   },
   methods: {
     open(url, callback, title = "") {
+
       console.log("----formBoxClean", url, this.activeTabName);
       this.activeTabName = "护理措施";
       try {
@@ -143,6 +145,12 @@ export default {
       let wid = null;
       if (this.$refs["ifamme-modal"]) {
         wid = this.$refs["ifamme-modal"].contentWindow;
+      }
+
+      try {
+        console.log("version:",wid.formInfo.version,wid.formInfo.nooForm)
+      } catch (error) {
+        console.log("version:error:",error)
       }
 
       this.callback = callback;
