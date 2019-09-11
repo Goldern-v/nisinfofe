@@ -28,21 +28,21 @@
                 <i class="iconfont icon-jiaobanzhi"></i> 血透排班
               </el-row>
             </router-link>
-            <!-- <router-link to="/archive" tag="span">
+            <router-link to="/archive" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-guidang"></i> 归档
               </el-row>
-            </router-link> -->
+            </router-link>
             <router-link to="/board" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-baiban"></i> 白板
               </el-row>
             </router-link>
-            <router-link to="/familyBigScreen" tag="span">
+            <!-- <router-link to="/familyBigScreen" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-family"></i> 家属大屏
               </el-row>
-            </router-link>
+            </router-link> -->
 
             <router-link to="/MEWS" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
@@ -275,13 +275,13 @@
                     </el-row>
                   </router-link>
                 </el-dropdown-item>
-                <el-dropdown-item :class="{active: $route.path == '/puerperantSituation'}">
+                <!-- <el-dropdown-item :class="{active: $route.path == '/puerperantSituation'}">
                   <router-link to="/puerperantSituation" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
                       <i class="puerperantSituation"></i>产科分娩登记表
                     </el-row>
                   </router-link>
-                </el-dropdown-item>
+                </el-dropdown-item> -->
               </el-dropdown-menu>
             </el-dropdown>
           </el-row>

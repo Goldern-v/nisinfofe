@@ -224,6 +224,12 @@ function switechSheetType(type) {
         schema = require("../config/oxytocin/tr.js").default;
       }
       break;
+    case "dressing_count":
+      {
+        // 经阴道接生器械敷料清点
+        schema = require("../config/dressing_count/tr.js").default;
+      }
+      break;
     case "neurology_wx":
       {
         // 威县-神经内科

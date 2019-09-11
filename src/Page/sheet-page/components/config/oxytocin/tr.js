@@ -23,39 +23,44 @@ export default [
   }, {
     key: "fieldOne", //催产素浓度
     value: "",
-    event: keyf1
+    event: keyf1,
+    name: "催产素浓度"
   }, {
-    key: "fieldTwo ", //滴数<（滴/分）
+    key: "fieldTwo", //滴数（滴/分）
     value: "",
-    event: keyf1
+    event: keyf1,
+    name: "滴数（滴/分）"
   }, {
     key: "fieldThree", //宫缩
     value: "",
-    event: keyf1
+    event: keyf1,
+    name: "宫缩"
   }, {
-    key: "fieldFour ", //胎心
+    key: "fieldFour", //胎心
+    value: "",
+    event: keyf1,
+    name: "胎心"
+  }, {
+    key: "fieldFive", //宫口扩张
     value: "",
     event: keyf1
   }, {
-    key: "fieldFive ", //宫口扩张
+    key: "fieldSix", //先露高低
     value: "",
-    event: keyf1
-  }, {
-    key: "fieldSix ", //先露高低
-    value: "",
-    event: keyf1
+    event: keyf1,
+    name: "先露高低"
   }, {
     key: "bloodPressure", //血压mmHg
     value: "",
     event: keyf1,
-    event: function(e, td) {
+    event: function (e, td) {
       if (e.keyCode == 32) {
         e.target.value += "/";
         e.preventDefault();
       }
       keyf1(e, td);
     }
-  },{
+  }, {
     key: "description", //特殊情况记录
     value: "",
     style: {
@@ -67,7 +72,7 @@ export default [
       width: "130px",
       background: "transparent"
     },
-    event: function(e, td) {
+    event: function (e, td) {
       console.log(e.keyCode);
       if (e.keyCode == 9) {
         td.value = "    " + td.value;
