@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="contant sheetTable-post_partum" :style="data.titleModel.style" :class="{readOnly}">
+    <div class="contant sheetTable-oxytocin" :style="data.titleModel.style" :class="{readOnly}">
       <!-- <img class="his-logo"
       src="../../../../common/images/his-logo/厚街医徽.png" />-->
       <img src="../../images/仅供查阅.jpg" class="readOnly-img no-print" v-if="readOnly" alt />
@@ -74,21 +74,31 @@
             v-model="sheetInfo.relObj.totalOxytocin"
           />
         </div>
-        <div>
+        <div class="showModal">
           分娩方式：
           <input
             type="text"
             class="bottomInput"
             :data-value="sheetInfo.relObj.deliveryWay"
             v-model="sheetInfo.relObj.deliveryWay"
+            @focus="onFocus($event)"
+            @blur="onBlur()"
           />
+          <ul v-if="showModal && deliveryWay">
+            <li
+              v-for="item in deliveryWay"
+              :key="item"
+              :class="{active: sheetInfo.relObj.deliveryWay == item}"
+              @click="selectedItem(item)"
+            >{{item}}</li>
+          </ul>
         </div>
       </div>
     </div>
   </div>
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus">
-.sheetTable-post_partum {
+.sheetTable-oxytocin {
   & {
     border-radius: 2px;
     // position: relative;
@@ -205,6 +215,46 @@
     outline: none;
     text-align: center;
   }
+
+  .showModal {
+    position: relative;
+
+    ul {
+      z-index: 1000;
+      width: 120px;
+      position: absolute;
+      bottom: 27px;
+      left: 80px;
+      max-height: 280px;
+      overflow: auto;
+      background-color: #fff;
+      border-radius: 2px;
+      border: 1px solid #eee;
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+    }
+
+    li {
+      list-style: none;
+      line-height: 36px;
+      padding: 0 10px;
+      margin: 0;
+      cursor: pointer;
+      color: rgb(72, 106, 98);
+      font-size: 14px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+
+      &:hover, &.active {
+        background-color: rgb(228, 241, 240);
+      }
+    }
+
+    ::-webkit-scrollbar {
+      display: none;
+    }
+  }
 }
 </style>
 <script>
@@ -217,6 +267,20 @@ import moment from "moment";
 import common from "@/common/mixin/common.mixin";
 import headCon from "./components/headCon/headCon";
 import { updateSheetHeadInfo } from "../../api/index";
+import { multiDictInfo } from "../../api/index";
+/**
+ *
+ * @param {*} list 原数组
+ * @param {*} key 对应的key
+ * @param {*} data 数据源
+ */
+function setList(list, key, data) {
+  list.splice(0, list.length);
+  for (let item of data[key]) {
+    list.push(item.name);
+  }
+}
+
 export default {
   props: {
     data: Object,
@@ -230,7 +294,9 @@ export default {
   data() {
     return {
       bus: bus(this),
-      sheetInfo
+      sheetInfo,
+      deliveryWay: [], //分娩方式
+      showModal: false
     };
   },
   methods: {
@@ -245,6 +311,28 @@ export default {
         autoText,
         `修改${label}`
       );
+    },
+    getData() {
+      let list = ["分娩方式"];
+      multiDictInfo(list).then(res => {
+        let data = res.data.data;
+        setList(this.deliveryWay, "分娩方式", data);
+      });
+    },
+    onFocus(e, bind) {
+      if (sheetInfo.model == "print") return;
+      this.showModal = true;
+    },
+    onBlur(e, bind) {
+      if (sheetInfo.model == "print") return;
+      let timeId = setTimeout(() => {
+        clearTimeout(timeId);
+        this.showModal = false;
+      }, 400);
+    },
+    selectedItem(val) {
+      sheetInfo.relObj.deliveryWay = val;
+      this.showModal = false;
     }
   },
   computed: {
@@ -261,7 +349,10 @@ export default {
   },
   created() {},
   update() {},
-  mounted() {},
+  mounted() {
+    // 获取分娩方式
+    this.getData();
+  },
   destroyed() {} /* fix vue-happy-bus bug */,
   components: {
     excel,
