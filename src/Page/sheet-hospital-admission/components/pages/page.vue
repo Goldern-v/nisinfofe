@@ -151,7 +151,7 @@ export default {
         }
 
         if (patient) {
-          console.log(patient, "patientpatientpatientpatient");
+          // console.log(patient, "patientpatientpatientpatient");
           this.setPatientInfo(djson, patient);
         }
         if (djson.constructor === Array) {

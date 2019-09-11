@@ -1,10 +1,11 @@
 
 <template>
-  <span style="margin: 0 0px 0 0;" class="input-box">
+  <span style="margin: 0;" class="input-box">
     <!-- <autoComplete v-if="isShow" ref="autoInput" /> -->
     <!-- <el-input v-if="obj.type==='input'" v-model="checkboxValue" border size="small" :label="obj.title" :class="obj.class" :style="obj.style">{{obj.title}}</el-input> -->
-    <span v-if="obj.label">
-      <span style="font-size: 13px;" :style="obj.labelStyle" :class="obj.labelClass">{{obj.label}}</span>
+    <span v-if="obj.label"
+      :style="{width: obj.labelWidth, textAlign: 'right', paddingRight: '10px'}">
+      <span style="font-size: 12px;" :style="obj.labelStyle" :class="obj.labelClass">{{obj.label}}</span>
     </span>
 
     <!-- v-autoComplete="{dataList: obj.options, obj:formObj.model, key: obj.name}" -->
@@ -16,10 +17,11 @@
       v-if="['select','selectInput'].indexOf(obj.type)>-1 && !obj.children"
       placeholder="空"
       :class="obj.class||'select-cursor'"
-      :style="obj.style||''"
+      :style="[obj.style, obj.inputWidth && {width: obj.inputWidth}]"
       :size="obj.size||''"
       :type="obj.inputType||'text'"
       :disabled="obj.readOnly?true:false"
+      v-bind="obj.props"
       @change="inputChange($event, obj)"
       @dblclick.native.stop="inputdbClick($event, obj)"
       @click.native.stop="inputClick($event, obj)"
@@ -29,13 +31,13 @@
     >
       <span class="pre-text" v-if="obj.prefixDesc" slot="prepend">{{obj.prefixDesc}}</span>
       <!-- <span slot="append"> -->
-      <i
+      <!-- <i
         slot="append"
         v-if="obj.options&&!obj.suffixDesc"
         @click.prevent.stop="iconClick"
         class="el-input__icon el-icon-caret-top"
         :style="isShowDownList?'transform: translateY(-50%)!important;':''"
-      ></i>
+      ></i>-->
       <span slot="append" class="post-text" v-if="obj.suffixDesc">{{obj.suffixDesc}}</span>
       <!-- </span> -->
       <!-- <template slot="append" v-if="obj.options"> -->
@@ -222,6 +224,8 @@ export default {
             }
           }
         });
+      }else{
+        return
       }
       try {
         this.$refs[this.obj.name].$refs.input.style = this.obj.style;
@@ -320,6 +324,7 @@ export default {
 
       if (this.$refs[this.obj.name]) {
         this.$refs[this.obj.name].$el.style.outline = "none";
+        this.$refs[this.obj.name].$el.style.backgroundColor = "transparent";
       }
 
       // if(e.target.tagName!=='INPUT'){
@@ -369,10 +374,10 @@ export default {
             selectedList: obj[key] ? obj[key].split(",") : [],
             data: dataList,
             callback: data => {
-              console.log('===callback',obj, key, target)
+              console.log("===callback", obj, key, target);
               if (obj && data) {
                 // 单选
-                if (!multiplechoice || multiplechoice==false) {
+                if (!multiplechoice || multiplechoice == false) {
                   // obj[key] = data;
                   obj[key] = data.code;
                   this.inputValue = data.name;
@@ -382,13 +387,13 @@ export default {
                   // }
                 }
                 // 多选
-                if (multiplechoice===true) {
+                if (multiplechoice === true) {
                   let values = obj[key] ? obj[key].split(",") : [];
-              console.log('==多选=callback',values,obj, key, target)
+                  console.log("==多选=callback", values, obj, key, target);
                   // 新增选项
                   if (!obj[key] || obj[key].indexOf(data.code) === -1) {
                     // values.push(data.code);
-                    values = [...values, data.code]
+                    values = [...values, data.code];
                   } else if (obj[key] && obj[key].indexOf(data.code) > -1) {
                     // 反选选项
                     values = values.filter(v => {
@@ -402,8 +407,8 @@ export default {
                 }
               }
               if (target.tagName !== "INPUT") {
-                  target.innerText = obj[key] + "";
-                }
+                target.innerText = obj[key] + "";
+              }
               //
               // // console.log('callback',obj,data,e)
               // if (data) {
@@ -520,7 +525,7 @@ export default {
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
 
 .input-box
-  font-size 13px
+  font-size 12px
   &:focus,:ative
     outline none
     border 1px solid #4baf8d
@@ -533,9 +538,9 @@ export default {
 .el-input--small,
 .el-input-group,
 .el-input-group--prepend
-  margin: 5px 0px;
+  margin: 5px 1px;
   vertical-align: bottom;
-  width: 100%;
+  width: calc(100% - 2px);
   &:hover
     outline 1px solid #4baf8d
     border none
@@ -562,6 +567,10 @@ export default {
   border-radius 0px
   cursor pointer
   color blue
+  padding: 0px 5px!important;
+  height: 22px!important;
+  background: transparent;
+
   &:focus
     outline none
     border 1px solid #4baf8d

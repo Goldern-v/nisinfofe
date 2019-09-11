@@ -75,9 +75,9 @@ export default {
     text-indent 1.25em
     margin 10px -21px 15px -21px
     border 1px solid #f2f2f2
-    background #f2f2f2
-    height 20px
-    border 1px solid #d7d7d7
+    background #d7d7d7
+    height 1px
+    border 0px solid #d7d7d7
     // border-top 1px solid #d7d7d7
     // border-bottom 1px solid #d7d7d7
   .group-hr-dashed-box

@@ -7,8 +7,8 @@
     <span
       v-for="(child,cindex) in obj"
       :key="child.name+cindex+getUUID(child,cindex)"
-      :class="child.elementClass"
-      :style="child.elementStyle ? child.elementStyle : 'margin: 0 10px 0 0;'"
+      :class="[child.elementClass,(child.type=='select'?'result-text-display':'')]"
+      :style="child.elementStyle ? child.elementStyle : 'margin: 0 0px 0 0;'"
       class="input-element"
     >
       <!-- html -->
@@ -113,7 +113,7 @@
       <span v-if="child.type==='radioBox'" style="display: flex" :style="child.style">
         <span
           :style="{width: child.labelWidth}"
-          style="text-align: right; padding-right: 10px;box-sizing: border-box"
+          style="text-align: right; padding-right: 10px;    padding-left: 4px;box-sizing: border-box"
         >{{child.label}}</span>
         <span>
           <InputElements v-if="child.children" :obj="child.children" :formObj="formObj"/>
@@ -127,7 +127,7 @@
 
       <!-- :getOtherText="''" -->
       <!-- 下拉输入框 -->
-      <SelectInputBox v-if="child.type==='select'" :obj="child" :formObj="formObj" :col="col"/>
+      <SelectInputBox v-if="child.type==='select'" :obj="child" :formObj="formObj" :col="col" />
 
       <!-- 输入框 -->
       <InputBox v-if="child.type==='input'" :obj="child" :formObj="formObj" :col="col"/>
@@ -316,6 +316,16 @@ export default {
     this.lightImg = require("./image/light.png");
   },
   methods: {
+    getStringLen(str){
+      var l = str.length;
+      var blen = 0;
+      for(i=0; i<l; i++) {
+        if ((str.charCodeAt(i) & 0xff00) != 0) {
+          blen ++;
+        }
+        blen ++;
+      }
+    },
     dialogResult(child) {
       let isShow = false;
       let dialog = [];
@@ -366,9 +376,9 @@ export default {
                   //   child.name,
                   //   this.formObj.model[child.name]
                   // );
-                  html += `<p>${title}:<span style='${obj.style}'>${this.formObj
+                  html += `<span><span style='${obj.style}'>${this.formObj
                     .model[d.dialog.parentName] || ""}${obj.suffixDesc ||
-                    ""}</span></p>`;
+                    ""}</span></span>`;
                 }
                 //
                 // console.log('d.cleanKey',d,d.dialog.cleanKey,'child.title',child.title,this.formObj.model[child.name])
@@ -391,9 +401,9 @@ export default {
                   child.title.indexOf("VTE") === -1 &&
                   !cleanKeyCheck()
                 ) {
-                  html += `<p>${title}:<span style='${obj.style}'>${this.formObj
+                  html += `<span><span style='${obj.style}'>${this.formObj
                     .model[d.dialog.parentName] || ""}${obj.suffixDesc ||
-                    ""}</span></p>`;
+                    ""}</span></span>`;
                 }
               } else {
                 title = child.postTitle || obj.aliasTitle || obj.title;
@@ -416,8 +426,8 @@ export default {
                   ) {
                     title = obj.aliasTitle || obj.label || obj.title;
                     console.log("formGroup:title", title);
-                    html += `<p>${title}:${this.formObj.model[obj.name] ||
-                      ""}${obj.suffixDesc || ""}</p>`;
+                    html += `<span>${this.formObj.model[obj.name] ||
+                      ""}${obj.suffixDesc || ""}</span>`;
                   }
                 }
                 //
@@ -454,8 +464,8 @@ export default {
                     //
                     if (child.children) {
                       if (this.formObj.model[child.name]) {
-                        html += `<p>${title}:${this.formObj.model[child.name] ||
-                          ""}${child.suffixDesc || ""}</p>`;
+                        html += `<span>${this.formObj.model[child.name] ||
+                          ""}${child.suffixDesc || ""}</span>`;
                       }
                       // else{
                       //   html += `<p style="color:red">${ title }:${this.formObj.model[child.name]||""}</p>`
@@ -473,9 +483,9 @@ export default {
                         this.formObj.model[child.name] &&
                         child.name != "evalScore"
                       ) {
-                        html += `<p>${title}:<span style='${child.style}'>${this
+                        html += `<span><span style='${child.style}'>${this
                           .formObj.model[child.name] || ""}${child.suffixDesc ||
-                          ""}</span></p>`;
+                          ""}</span></span>`;
                       }
                       // else{
                       //   html += `<p style="color:red">${ title }:${this.formObj.model[child.name]||""}</p>`
@@ -741,16 +751,19 @@ export default {
 .el-radio-long
   min-width: 130px;
   white-space normal
-  margin: 5px 10px 0px 0px!important;
+  margin: 0px 10px 0px 0px!important;
 
 .el-input__inner.el-input__inner.el-input__inner
   width: 100%;
+  padding: 0px 5px!important;
+  height: 22px!important;
   &:hover,:focus
     border 1px solid #4baf8d
 
 .input-elements
   display: inline-flex;
   flex-wrap: wrap;
+  width:100%;
 
 .input-elements-nowrap
   display: flex;
@@ -774,7 +787,19 @@ export default {
 .tip
   font-size 12px
   color blue
-  margin-bottom 4px
-  display inherit
+  // margin-bottom 4px
+  // display inherit
   cursor pointer
+  position: relative;
+  bottom: 8px;
+
+.result-text-display
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 100%;
+    white-space: nowrap;
+    display: inline;
+    color: blue;
+    font-size: 12px;
+
 </style>

@@ -189,7 +189,7 @@ export default {
 }
 
 .title-level-two {
-  font-size: 13px;
+  font-size: 12px;
   text-indent: 1.25em;
 }
 
@@ -201,7 +201,7 @@ export default {
 
 ul, li {
   line-height: 1.8em;
-  font-size: 13px;
+  font-size: 12px;
   list-style-type: none;
   padding-left: 5px;
 }
@@ -217,7 +217,7 @@ li:hover {
 a {
   text-decoration-line: none;
   color: black;
-  font-size: 13px;
+  font-size: 12px;
 
   &:visited {
     color: black;

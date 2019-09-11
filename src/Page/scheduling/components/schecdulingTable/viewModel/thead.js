@@ -2,7 +2,7 @@ import moment from "moment";
 import { variables } from "./variables";
 
 function getWeekDays(date) {
-  console.log(date, "datedatedatedate");
+  // console.log(date, "datedatedatedate");
   return variables.WEEK_DAYS.map((item, index) => {
     let label = "";
     if (

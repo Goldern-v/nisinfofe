@@ -12,10 +12,13 @@
     :style="obj.style"
     @click.native.stop="radioClicked($event,obj)"
   >{{obj.title}}</el-radio>-->
-  <span v-if="obj.readOnly!=true">
+  <span v-if="obj.readOnly!=true && !obj.hiddenTips">
     <el-tooltip class="item" effect="light" placement="top">
       <div slot="content">
-        <span>标记:未能获取<span style="color:red">{{obj.title}}</span>信息</span>
+        <span>
+          <span>标记:未能获取</span>
+          <span style="color:red">{{obj.title}}</span>信息
+        </span>
       </div>
       <input
         :ref="obj.title"
@@ -24,7 +27,7 @@
         type="checkbox"
         @click="radioClicked($event,obj)"
         :id="`CR-X-${(obj.name)}-${getUUID()}`"
-      >
+      />
     </el-tooltip>
   </span>
   <!-- </TipsBox> -->
@@ -113,25 +116,29 @@ export default {
       );
 
       if (e.target.tagName === "INPUT") {
-
-        if(this.$root.$refs[this.obj.name]){
-          console.log('!!!!!',this.obj.title,this.obj.name,this.obj)
+        if (this.$root.$refs[this.obj.name]) {
+          console.log("!!!!!", this.obj.title, this.obj.name, this.obj);
           try {
             this.$root.$refs[this.obj.name].$el.style.outline = "none";
+            this.$refs[this.obj.name].$el.style.backgroundColor = "transparent";
           } catch (error) {
-            console.log(error,this.$root.$refs[this.obj.name])
-            if(this.$root.$refs[this.obj.name].constructor === Array){
-              let keys = Object.keys(this.$root.$refs[this.obj.name])
-              this.$root.$refs[this.obj.name][keys[0]].$parent.$parent.$parent.$el.style.outline = "none";
+            console.log(error, this.$root.$refs[this.obj.name]);
+            if (this.$root.$refs[this.obj.name].constructor === Array) {
+              let keys = Object.keys(this.$root.$refs[this.obj.name]);
+              this.$root.$refs[this.obj.name][
+                keys[0]
+              ].$parent.$parent.$parent.$el.style.outline = "none";
+              this.$root.$refs[this.obj.name][
+                keys[0]
+              ].$parent.$parent.$parent.$el.style.backgroundColor = "transparent";
             }
           }
         }
 
-
         if (!this.formObj.model[name]) {
           this.formObj.model[name] = "";
         }
-        if (this.formObj.model[name] || this.formObj.model[name]=="") {
+        if (this.formObj.model[name] || this.formObj.model[name] == "") {
           arr = this.formObj.model[name].split(",");
           if (arr.indexOf(this.obj.title) == -1 && e.target.checked) {
             // arr = [...arr, this.obj.title]
@@ -194,6 +201,8 @@ input[type="checkbox"] {
   border: 1px solid #a5a5a6;
   border-radius: 0px;
   outline: none;
+  position: absolute;
+  margin-left: -16px;
 }
 input[type="checkbox"]:focus,
 input[type="checkbox"]:hover {
