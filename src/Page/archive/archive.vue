@@ -72,7 +72,7 @@
               </colgroup>
               <tbody>
                 <tr v-for="(item,index) in patientArchiveList" :key="index" class="data-row">
-                  <td>{{index}}</td>
+                  <td>{{index+1}}</td>
                   <td>{{item.wardName}}</td>
                   <td>{{item.bedLabel}}</td>
                   <td>{{item.patientName}}</td>
@@ -114,7 +114,6 @@
         </div>
       </div>
     </div>
-    <info1modal ref="info1modal" :getArchiveList="getArchiveList"></info1modal>
     <pagination
       :pageIndex="query.pageIndex"
       :size="query.pageSize"
@@ -160,18 +159,21 @@
 <script>
 var moment = require("moment"); //使用时间插件
 import Cookie from "js-cookie";
-import { getArchiveList, generateArchive, previewArchive } from "./api/index";
+import {
+  getArchiveList,
+  generateArchive,
+  previewArchive,
+  uploadFileArchive
+} from "./api/index";
 import { TSNeverKeyword } from "babel-types";
 import common from "@/common/mixin/common.mixin.js";
 import nullText from "@/components/null/null-text.vue";
-import info1modal from "./modal/info-1-modal.vue";
 import mixin from "./mixins";
 import pagination from "@/components/pagination/pagination.vue";
 export default {
   mixins: [common, mixin],
   components: {
     nullText,
-    info1modal,
     pagination
   },
   data() {
@@ -196,15 +198,30 @@ export default {
       patientArchiveList: [], //科室患者归档列表
       currentFileIndex: 0, //当前预览pdf索引
       printDetailList: "", //归档详情
-      modalObj: {} //modal对象
+      modalObj: {}, //modal对象
+      isFlag: false,
+      timeId: ""
     };
   },
   methods: {
     close() {
       this.$refs["preview-modal"].close();
     },
+    // 文件归档上传
     uploadFileArchive(item) {
-      this.$refs.info1modal.open(item);
+      this.$confirm("是否归档?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      }).then(() => {
+        uploadFileArchive(item.patientId, item.visitId).then(rep => {
+          this.$message({
+            type: "success",
+            message: "文件上传成功"
+          });
+          this.getArchiveList();
+        });
+      });
     },
     init() {
       if (!this.deptCode) return;
@@ -250,9 +267,14 @@ export default {
         "YYYY-MM-DD"
       );
       this.pageLoading = true;
-
+      if (this.isFlag) {
+        return;
+      }
+      this.isFlag = true;
+      clearTimeout(this.timeId);
       getArchiveList(this.query)
         .then(res => {
+          this.isFlag = false;
           this.patientArchiveList = res.data.data.list;
           this.total = res.data.data.totalPage || 0;
           this.pageLoading = false;
@@ -260,9 +282,12 @@ export default {
           if (this.query.pageSize >= 100) {
             return;
           }
-          let timeId;
-          let len = this.patientArchiveList.length;
+          let len = this.patientArchiveList.length,
+            isFlag2 = false;
           for (let i = 0; i < len; i++) {
+            if (isFlag2) {
+              return;
+            }
             // 如果还在打印中
             if (
               this.patientArchiveList[i].printStatus == 1 &&
@@ -275,8 +300,9 @@ export default {
                 1000 /
                 60;
               if (min <= 20) {
-                clearTimeout(timeId);
-                timeId = setTimeout(() => {
+                isFlag2 = true;
+                clearTimeout(this.timeId);
+                this.timeId = setTimeout(() => {
                   this.getArchiveList();
                   return;
                 }, 10000);
@@ -285,6 +311,7 @@ export default {
           }
         })
         .catch(err => {
+          this.isFlag = false;
           this.pageLoading = false;
         });
     },

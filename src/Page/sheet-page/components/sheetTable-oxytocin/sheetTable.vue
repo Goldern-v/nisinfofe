@@ -69,7 +69,7 @@
           催产素使用总量：
           <input
             type="text"
-            class="bottomInput"
+            class="bottomInput bottom-line"
             :data-value="sheetInfo.relObj.totalOxytocin"
             v-model="sheetInfo.relObj.totalOxytocin"
           />
@@ -78,13 +78,13 @@
           分娩方式：
           <input
             type="text"
-            class="bottomInput"
+            class="bottomInput bottom-line"
             :data-value="sheetInfo.relObj.deliveryWay"
             v-model="sheetInfo.relObj.deliveryWay"
             @focus="onFocus($event)"
             @blur="onBlur()"
           />
-          <ul v-if="showModal && deliveryWay">
+          <ul v-if="showModal && deliveryWay && deliveryWay.length">
             <li
               v-for="item in deliveryWay"
               :key="item"
@@ -177,7 +177,7 @@
     display: inline-block;
     // border-bottom 1px solid #000
     padding: 2px 0 2px 2px;
-    border-bottom: 1px solid #000;
+    border-bottom: 1px solid #000 !important;
   }
 
   .bottomCon {
