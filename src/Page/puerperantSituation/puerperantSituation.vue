@@ -240,16 +240,20 @@
             <ecrm-table-column label="破膜时间" width="100" align="center">
               <ecrm-table-column prop="artiBrokenMembraneTime" label="人工" width="100" align="center">
                 <template slot-scope="scope">
-                  <span>{{formatDate(scope.row.artiBrokenMembraneTime,'D/M')}}</span>
-                  <br />
-                  <span>{{formatDate(scope.row.artiBrokenMembraneTime,'H:m')}}</span>
+                  <span style="cursor:pointer;">
+                    <span>{{formatDate(scope.row.artiBrokenMembraneTime,'D/M')}}</span>
+                    <br />
+                    <span>{{formatDate(scope.row.artiBrokenMembraneTime,'H:m')}}</span>
+                  </span>
                 </template>
               </ecrm-table-column>
               <ecrm-table-column prop="natureBrokenMenbraneTime" label="自然" width="100" align="center">
                 <template slot-scope="scope">
-                  <span>{{formatDate(scope.row.natureBrokenMenbraneTime,'D/M')}}</span>
-                  <br />
-                  <span>{{formatDate(scope.row.natureBrokenMenbraneTime,'H:m')}}</span>
+                  <span style="cursor:pointer;">
+                    <span>{{formatDate(scope.row.natureBrokenMenbraneTime,'D/M')}}</span>
+                    <br />
+                    <span>{{formatDate(scope.row.natureBrokenMenbraneTime,'H:m')}}</span>
+                  </span>
                 </template>
               </ecrm-table-column>
             </ecrm-table-column>
@@ -314,22 +318,22 @@
               </ecrm-table-column>
               <ecrm-table-column label="月" prop="分娩时间-月" width="60" align="center">
                 <template slot-scope="scope">
-                  <span>{{formatDate(scope.row.childBirthTime,'M')}}</span>
+                  <span style="cursor:pointer;">{{formatDate(scope.row.childBirthTime,'M')}}</span>
                 </template>
               </ecrm-table-column>
               <ecrm-table-column label="日" prop="分娩时间-日" width="60" align="center">
                 <template slot-scope="scope">
-                  <span>{{formatDate(scope.row.childBirthTime,'D')}}</span>
+                  <span style="cursor:pointer;">{{formatDate(scope.row.childBirthTime,'D')}}</span>
                 </template>
               </ecrm-table-column>
               <ecrm-table-column label="时" prop="分娩时间-时" width="60" align="center">
                 <template slot-scope="scope">
-                  <span>{{formatDate(scope.row.childBirthTime,'H')}}</span>
+                  <span style="cursor:pointer;">{{formatDate(scope.row.childBirthTime,'H')}}</span>
                 </template>
               </ecrm-table-column>
               <ecrm-table-column label="分" prop="分娩时间-分" width="60" align="center">
                 <template slot-scope="scope">
-                  <span>{{formatDate(scope.row.childBirthTime,'m')}}</span>
+                  <span style="cursor:pointer;">{{formatDate(scope.row.childBirthTime,'m')}}</span>
                 </template>
               </ecrm-table-column>
             </ecrm-table-column>
@@ -781,6 +785,7 @@ export default {
       return "";
     },
     cellClassName(payload) {
+      return ''
       if (this.tableData.indexOf(payload.row) != this.activeCell.row) return "";
       if (payload.column.property != this.activeCell.name) return "";
 
