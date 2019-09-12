@@ -87,10 +87,6 @@ export default function (win) {
   pageNums.forEach((pageNum, i) => {
     pageNum.innerHTML = `第 ${i + 1} / ${pageNums.length} 页`;
   })
-
-  console.log(page);
   root.removeChild(tables);
   root.appendChild(page);
-  console.log(page);
-  console.log(root);
 }

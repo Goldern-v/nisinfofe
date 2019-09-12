@@ -244,7 +244,6 @@ export default {
         type: Number(this.form.state) ? itemData.type : this.itemData.type, // 非必须，宣教类型
         pageParam: JSON.stringify(pageParam), // 非必须，页面参数
       };
-      console.log(data.blockId)
       return data
     },
     // 保存
@@ -307,6 +306,5 @@ export default {
     margin-left: 5px;
   }
 }
-
 </style>
 

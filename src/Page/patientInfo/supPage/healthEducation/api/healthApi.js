@@ -34,7 +34,7 @@ export const getEduFormTemplate = params => {
 
 // 健康教育的下拉列表
 export const getEduFormList = params => {
-  return axios.post(`${apiPath}missionBlock/getBlockByPV/${params.patientId}/${params.visitId}`)
+  return axios.get(`${apiPath}missionBlock/getBlockByPV/${params.patientId}/${params.visitId}`)
 }
 
 // 保存健康教育块
@@ -49,7 +49,7 @@ export function getContentByMissionId(ids) {
 
 //删除整张教育单
 export function deleteBlock(id) {
-  return axios.post(`${apiPath}/missionBlock/deleteBlock/${id}`)
+  return axios.get(`${apiPath}/missionBlock/deleteBlock/${id}`)
 }
 
 

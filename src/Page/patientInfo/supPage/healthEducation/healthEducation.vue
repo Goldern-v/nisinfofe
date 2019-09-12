@@ -161,9 +161,6 @@ export default {
     },
     // 新建教育单
     async addEducation () {
-      // if (!this.$route.query.patientId) {
-      //   this.$message.warning("请先选择一名患者");
-      // }
       await this.$confirm(
         "确定要新建教育单吗？",
         "提示",
@@ -222,6 +219,7 @@ export default {
       );
       await deleteBlock(this.blockId);
       this.pullData()
+      this.getSelectData ()
       this.$message.success('删除成功！')
       this.selected = null;
     },

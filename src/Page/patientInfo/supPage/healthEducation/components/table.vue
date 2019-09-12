@@ -185,7 +185,6 @@ export default {
       getContentByMissionId(ids).then(res => {
         this.content =  res.data.data[0].content
         this.name = res.data.data[0].name
-                console.log(this.name)
         this.isContent = true
         this.$refs.healthContentModal.open("打开健康宣教内容");
       }).catch(e => {
@@ -235,6 +234,7 @@ export default {
     }
     .isPrint:hover {
       font-size: 13px;
+      text-decoration: underline;
     }
     th, td {
       position: relative;
@@ -297,6 +297,5 @@ export default {
     overflow: auto;
     background: #ccc;
   }
-
 }
 </style>
