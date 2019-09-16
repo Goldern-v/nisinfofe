@@ -103,7 +103,9 @@ h4 {
 }
 .title-box {
   border-bottom: 0px dashed #eee;
-  padding: 10px 20px;
+  /* padding: 10px 30px; */
+  padding: 10px 20px 50px 30px;
+  /* padding-bottom: 50px; */
 }
 
 .header-box {

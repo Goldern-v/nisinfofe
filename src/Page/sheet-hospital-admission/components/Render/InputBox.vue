@@ -1,14 +1,15 @@
 
 <template>
-  <span style="margin: 0 0px 0 0;" :style="obj.label  && {display: 'flex', alignItems: 'center' }">
+  <span style="" :style="(obj.label||obj.suffixDesc)  && {display: 'flex', alignItems: 'center' }">
     <!-- <autoComplete v-if="isShow" ref="autoInput" /> -->
     <!-- <el-input v-if="obj.type==='input'" v-model="checkboxValue" border size="small" :label="obj.title" :class="obj.class" :style="obj.style">{{obj.title}}</el-input> -->
     <span
       v-if="obj.label"
       :style="{width: obj.labelWidth, textAlign: 'right', paddingRight: '10px'}"
     >
-      <span style="font-size: 13px;" :style="obj.labelStyle" :class="obj.labelClass">{{obj.label}}</span>
+      <span style="font-size: 12px;" :style="obj.labelStyle" :class="obj.labelClass">{{obj.label}}</span>
     </span>
+
     <!-- v-autoComplete="{dataList: obj.options, obj:formObj.model, key: obj.name}" -->
     <el-input
       v-model="inputValue"
@@ -22,6 +23,7 @@
       :type="obj.inputType||'text'"
       :disabled="obj.disabled?true:false"
       :readonly="obj.readOnly?obj.readOnly:false"
+      v-bind="obj.props"
       @change="inputChange($event, obj)"
       @dblclick.native.stop="inputClick($event, obj)"
       @click.native.stop="inputFocus($event, obj); obj.readOnly && inputClick($event, obj)"
@@ -37,12 +39,13 @@
         @click.prevent.stop="()=>{}"
         class="el-input__icon el-icon-caret-top"
       ></i>-->
-      <span slot="append" class="post-text" v-if="obj.suffixDesc">{{obj.suffixDesc}}</span>
+      <!-- <span slot="append" class="post-text" v-if="obj.suffixDesc">{{obj.suffixDesc}}</span> -->
       <!-- </span> -->
       <!-- <template slot="append" v-if="obj.options"> -->
       <!-- </template> -->
     </el-input>
     <!-- <span>{{obj.suffixDesc}}</span> -->
+    <span class="post-text" v-if="obj.suffixDesc" v-html="obj.suffixDesc"></span>
   </span>
 </template>
 
@@ -243,14 +246,19 @@ export default {
 
           // 计算BMI
           if (r.name === "计算BMI") {
-
             if (
               this.$root.$refs[r.height] &&
               this.$root.$refs[r.weight] &&
               this.$root.$refs[r.result]
             ) {
-              let height = ~~this.$root.$refs[r.height].currentValue || this.formObj.model[r.height] || 0;
-              let weight = ~~this.$root.$refs[r.weight].currentValue || this.formObj.model[r.weight] ||0;
+              let height =
+                ~~this.$root.$refs[r.height].currentValue ||
+                this.formObj.model[r.height] ||
+                0;
+              let weight =
+                ~~this.$root.$refs[r.weight].currentValue ||
+                this.formObj.model[r.weight] ||
+                0;
               let result = weight / Math.pow(height / 100, 2).toFixed(2);
               result = isNaN(Number(result)) || !isFinite(result) ? 0 : result;
               // if(this.obj.name==='I100011'){
@@ -260,7 +268,6 @@ export default {
                 result ? result.toFixed(2) : ""
               );
               this.formObj.model[r.result] = result ? result.toFixed(2) : "";
-
             }
           }
 
@@ -386,6 +393,7 @@ export default {
 
       if (this.$refs[this.obj.name]) {
         this.$refs[this.obj.name].$el.style.outline = "none";
+        this.$refs[this.obj.name].$el.style.backgroundColor = "transparent";
       }
 
       // if(this.$root.$refs.mainPage.checkFormMissingItems){
@@ -443,7 +451,7 @@ export default {
         let obj = this.formObj.model;
         if (this.$root.$refs.autoInput) {
           this.$root.$refs.autoInput.open({
-            obj:obj,
+            obj: obj,
             multiplechoice: this.obj.multiplechoice,
             parentEl: e.target,
             currentValue: this.inputValue,
@@ -517,8 +525,11 @@ export default {
         e.target.selectionEnd
       );
 
-      if (e.keyCode == 37 && ((e.target.selectionStart == 0) || (e.target.selectionStart == null && e.target.selectionEnd == null))
-          )  {
+      if (
+        e.keyCode == 37 &&
+        (e.target.selectionStart == 0 ||
+          (e.target.selectionStart == null && e.target.selectionEnd == null))
+      ) {
         // ArrowLeft
         let leftNode = e.target.$leftNode;
         while (leftNode && leftNode.disabled === true) {
@@ -529,9 +540,10 @@ export default {
         }
         console.log("ArrowLeft", e, e.target, leftNode, leftNode.disabled);
       } else if (
-            e.keyCode == 39 &&
-            (e.target.selectionEnd === e.target.value.length || (e.target.selectionStart == null && e.target.selectionEnd == null))
-          ) {
+        e.keyCode == 39 &&
+        (e.target.selectionEnd === e.target.value.length ||
+          (e.target.selectionStart == null && e.target.selectionEnd == null))
+      ) {
         // ArrowRight
         let rightNode = e.target.$rightNode;
         while (rightNode && rightNode.disabled === true) {
@@ -649,6 +661,9 @@ export default {
   width: 100%;
   border-radius: 0px;
   color: blue!important;
+  padding: 0px 5px!important;
+  height: 22px!important;
+  background: transparent;
 
   &:focus {
     outline: none;
@@ -676,6 +691,10 @@ export default {
     width: 100% !important;
   }
 
+  &.text-margin-0{
+    margin: 0px!important
+  }
+
   >>>.el-input-group__prepend {
     border-radius: 0 !important;
     border: 0px!important;
@@ -696,6 +715,7 @@ export default {
   // border: 1px solid green;
   // margin-left:2px;
   background: transparent;
+  font-size: 12px!important;
 }
 
 .el-input__icon {
@@ -734,11 +754,12 @@ export default {
   vertical-align: middle;
 }
 .post-text {
-  margin -8px -10px -9px -10px
-  padding 0px 10px 0 10px
+  // margin -8px -10px -9px -10px
+  padding 0px 0px 0 5px
   // border 1px solid green
   // padding 8px 14px 9px 10px
-  background #fff
+  // background #fff
+  font-size 12px!important
 }
 
 >>>.el-input:hover {
@@ -746,6 +767,9 @@ export default {
     // border-left 1px solid #4baf8d
     background #eef5f5
   }
+
+
+
 }
 </style>
 

@@ -157,6 +157,9 @@ export default {
   >>>.el-input__inner
     width 100%!important
     border-radius 0px
+    padding: 0px 5px!important;
+    height: 22px!important;
+    font-size: 12px!important;
 
   .date-picker-box {
     display: inline-block;

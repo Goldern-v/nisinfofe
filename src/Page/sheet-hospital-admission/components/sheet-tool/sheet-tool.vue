@@ -32,7 +32,7 @@
           <el-option
             v-for="(item,i) in sheetBlockList"
             :key="i"
-            :label="(item.id)+' - '+blockLabel(item)"
+            :label="blockLabel(item)+' '+(item.wardName)"
             :value="item"
           >
             <div class="list-con" flex="cross:stretch">
@@ -660,7 +660,7 @@ export default {
       this.bus.$emit("setHosptialAdmissionLoading", false);
     },
     blockLabel(item) {
-      return `${item.evalDate}`;
+      return `${dayjs(item.evalDate).format('MM-DD')}`;
       // return `${item.wardName} ${dayjs(item.createTime).format('MM-DD')} 至 ${item.completeTime ? dayjs(item.completeTime).format('MM-DD') : '至今'}`
     },
     showMeasureDetialBox(res) {
@@ -729,6 +729,7 @@ export default {
             try {
               element[keys[0]].$parent.$parent.$parent.$el.style.outline =
                 "none";
+              element[keys[0]].$parent.$parent.$parent.$el.style.backgroundColor = "transparent"
             } catch (error) {
               console.log("----error", error, key, element);
             }
@@ -747,6 +748,7 @@ export default {
             element.$parent.obj.hasOwnProperty("name") > -1
           ) {
             element.$el.style.outline = "none";
+            element.$el.style.backgroundColor = "transparent";
           }
         }
       }
@@ -815,6 +817,7 @@ export default {
                   missItems += 1;
                   element[keys[0]].$parent.$parent.$parent.$el.style.outline =
                     "1px solid red";
+                  element[keys[0]].$parent.$parent.$parent.$el.style.backgroundColor = "yellow;";
                   console.log("!!!!", title, element, missingObj);
 
                   let itemTitle =
@@ -833,6 +836,7 @@ export default {
                     console.log("===多选单选组件:title", title, skipItems);
                     element[keys[0]].$parent.$parent.$parent.$el.style.outline =
                       "none";
+                    element[keys[0]].$parent.$parent.$parent.$el.style.backgroundColor = "transparent"
                     continue;
                   }
 
@@ -874,6 +878,8 @@ export default {
               } else {
                 element[keys[0]].$parent.$parent.$parent.$el.style.outline =
                   "none";
+                element[keys[0]].$parent.$parent.$parent.$el.style.backgroundColor =
+                    "transparent"
                 // element[keys[0]].$parent.$parent.$el.style.outline = "none";
               }
             } catch (error) {
@@ -920,6 +926,7 @@ export default {
               ) {
                 console.log("===输入框组件:title", title, skipItems);
                 element.$el.style.outline = "none";
+                element.$el.style.backgroundColor = "transparent";
                 continue;
               }
 
@@ -997,6 +1004,7 @@ export default {
 
                   missItems += 1;
                   element.$el.style.outline = "1px solid red";
+                  element.$el.style.backgroundColor = "yellow";
                 }
                 //
                 console.log(
@@ -1016,6 +1024,7 @@ export default {
                 // element.$el.style.border = "1px solid red"
               } else {
                 element.$el.style.outline = "none";
+                element.$el.style.backgroundColor = "transparent";
                 // element.$el.style.border = "1px solid #eee"
               }
             }

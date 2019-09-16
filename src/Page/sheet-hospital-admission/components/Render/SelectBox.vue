@@ -3,8 +3,9 @@
   <span style="margin: 0 0px 0 0;">
     <!-- <el-input v-if="obj.type==='input'" v-model="checkboxValue" border size="small" :label="obj.title" :class="obj.class" :style="obj.style">{{obj.title}}</el-input> -->
     <!-- obj.options && obj.options.length>0 ? obj.options[0]+'' : (obj.placeholder+''||'') -->
-    <span v-if="obj.label">
-      <span style="font-size: 13px;" :style="obj.labelStyle" :class="obj.labelClass">{{obj.label}}</span>
+    <span v-if="obj.label"
+      :style="{width: obj.labelWidth, textAlign: 'right', paddingRight: '10px'}">
+      <span style="font-size: 12px;" :style="obj.labelStyle" :class="obj.labelClass">{{obj.label}}</span>
     </span>
     <!-- 单选下拉框 -->
     <el-select
@@ -12,8 +13,9 @@
       :id="getUUID()"
       :ref="obj.name"
       :class="obj.class||''"
-      :style="obj.style||''"
+      :style="[obj.style, obj.inputWidth && {width: obj.inputWidth}]"
       :size="obj.size||'small'"
+      v-bind="obj.props"
       v-model="selectValue"
       :name="obj.name"
       @change="selectChange"
@@ -87,7 +89,7 @@ export default {
 
       // this.$refs[this.obj.name].$refs.reference.$refs.input.focus()
 
-      this.$refs[this.obj.name].$children[0].$el.lastElementChild.focus();
+      // this.$refs[this.obj.name].$children[0].$el.lastElementChild.focus();
     }
   },
   mounted() {
@@ -175,10 +177,16 @@ export default {
     margin: 5px 0px;
     vertical-align: bottom;
     width: 100%;
+    &:hover
+      outline 1px solid #4baf8d
+      border none
 
 >>>.el-input__inner.el-input__inner.el-input__inner
   width 100%
   border-radius 0px
+  padding: 0px 5px!important;
+  height: 22px!important;
+  background: transparent;
 
 .select-label
   margin-right: -6px;

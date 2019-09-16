@@ -5,7 +5,7 @@
     "margin": "0",
     "width": "750px",
     "height": "auto",
-    "mode": "development",
+    "mode": "development_",
     "style": ""
   },
   "formSetting": {
@@ -101,15 +101,15 @@
       "readOnly": ""
     },
     {
-      "name": "I100001",
+      "name": "",
       "type": "formGroupColBox",
-      "col": 2,
-      "title": "一般资料",
+      "col": 4,
+      "title": "一、一般资料",
       "message": "",
       "require": "false",
       "prefixDesc": "",
       "suffixDesc": "",
-      "keys": "I100001",
+      "keys": "",
       "style": null,
       "classes": null,
       "readOnly": null,
@@ -153,6 +153,7 @@
           "title": "科室",
           "suffixDesc": "",
           "placeholder": "",
+          "titleSpanStyle":"text-align:left;",
           "style": null,
           "class": null,
           "readOnly": true,
@@ -179,14 +180,37 @@
           "class": null,
           "readOnly": true,
           "disabled": true
-        },
+        }
+      ]
+    },
+    {
+      "name": "I001001",
+      "type": "formGroupHorizontalBox",
+      "colWidth": [
+        "14%",
+        "86%"
+      ],
+      "title": "入院日期",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "admissionDate",
+      "style": "width:100%",
+      "titleStyle": "font-size:12px;text-align:left;padding: 0px 5px 0px 5px;",
+      "tdStyle": "width:50%",
+      "showTitle": true,
+      "classes": null,
+      "readOnly": null,
+      "children": [
         {
           "name": "admissionDate",
           "type": "input",
           "title": "入院日期",
           "suffixDesc": "",
           "placeholder": "",
-          "style": null,
+          "style": "width:100%",
+          "elementStyle": "width:100%",
           "class": null
         }
       ]
@@ -194,7 +218,10 @@
     {
       "name": "I001001",
       "type": "formGroupHorizontalBox",
-      "colWidth": ["14%","86%"],
+      "colWidth": [
+        "14%",
+        "86%"
+      ],
       "title": "入院诊断",
       "message": "",
       "require": "false",
@@ -202,9 +229,9 @@
       "suffixDesc": "",
       "keys": "I001001",
       "style": "width:100%",
-      "titleStyle":"font-size:13px;text-align:right;padding: 0px 5px 0px 5px;",
+      "titleStyle": "font-size:12px;text-align:left;padding: 0px 5px 0px 5px;",
       "tdStyle": "width:100%",
-      "showTitle":true,
+      "showTitle": true,
       "classes": null,
       "readOnly": null,
       "children": [
@@ -233,22 +260,22 @@
       "readOnly": ""
     },
     {
-      "name": "I100001",
+      "name": "",
       "type": "formGroupColBox",
       "col": 2,
-      "title": "一般资料",
+      "title": "一、一般资料",
       "message": "",
       "require": "false",
       "prefixDesc": "",
       "suffixDesc": "",
-      "keys": "I100001",
+      "keys": "",
       "style": null,
       "classes": null,
       "readOnly": null,
       "children": [
         {
           "name": "I001002",
-          "type": "select",
+          "type": "input",
           "title": "职业",
           "style": null,
           "class": null,
@@ -256,7 +283,7 @@
         },
         {
           "name": "I001003",
-          "type": "select",
+          "type": "input",
           "title": "民族",
           "style": null,
           "class": null,
@@ -264,7 +291,7 @@
         },
         {
           "name": "I001004",
-          "type": "select",
+          "type": "input",
           "title": "宗教",
           "style": null,
           "class": null,
@@ -278,12 +305,12 @@
           "style": null,
           "class": null,
           "readOnly": null,
-          "rule":[
+          "rule": [
             {
-              "name":"计算BMI",
-              "height":"I100009",
-              "weight":"I100010",
-              "result":"I100011"
+              "name": "计算BMI",
+              "height": "I100009",
+              "weight": "I100010",
+              "result": "I100011"
             }
           ]
         },
@@ -295,12 +322,12 @@
           "style": null,
           "class": null,
           "readOnly": null,
-          "rule":[
+          "rule": [
             {
-              "name":"计算BMI",
-              "height":"I100009",
-              "weight":"I100010",
-              "result":"I100011"
+              "name": "计算BMI",
+              "height": "I100009",
+              "weight": "I100010",
+              "result": "I100011"
             }
           ]
         },
@@ -312,12 +339,12 @@
           "style": null,
           "class": null,
           "readOnly": null,
-          "rule":[
+          "rule": [
             {
-              "name":"计算BMI",
-              "height":"I100009",
-              "weight":"I100010",
-              "result":"I100011"
+              "name": "计算BMI",
+              "height": "I100009",
+              "weight": "I100010",
+              "result": "I100011"
             }
           ]
         }
@@ -336,15 +363,15 @@
       "readOnly": ""
     },
     {
-      "name": "I100001",
+      "name": "",
       "type": "formGroupColBox",
       "col": 2,
-      "title": "一般资料",
+      "title": "一、一般资料",
       "message": "",
       "require": "false",
       "prefixDesc": "",
       "suffixDesc": "",
-      "keys": "I100001",
+      "keys": "",
       "style": null,
       "classes": null,
       "readOnly": null,
@@ -368,8 +395,11 @@
             {
               "dialog": {
                 "openKey": "其他",
-                "cleanKey":["无"],
+                "cleanKey": [
+                  "无"
+                ],
                 "title": "其他入院方式",
+                "cleanKeyDiff": "其他",
                 "parentName": "I001009",
                 "type": "dependent"
               }
@@ -410,7 +440,25 @@
           "title": "资源来源",
           "style": null,
           "class": null,
-          "readOnly": null
+          "readOnly": null,
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "其他",
+                "cleanKey": [
+                  "无"
+                ],
+                "cleanKeyDiff": "其他",
+                "title": "其他资料来源",
+                "parentName": "I001013",
+                "type": "dependent"
+              }
+            },
+            {
+              "equal": "有",
+              "style": "color:red"
+            }
+          ]
         },
         {
           "name": "I001014",
@@ -423,7 +471,10 @@
             {
               "dialog": {
                 "openKey": "其他",
-                "cleanKey":["无"],
+                "cleanKey": [
+                  "无"
+                ],
+                "cleanKeyDiff": "其他",
                 "title": "其他费用支付方式",
                 "parentName": "I001014",
                 "type": "dependent"
@@ -461,7 +512,7 @@
       "readOnly": ""
     },
     {
-      "name": "I100001",
+      "name": "",
       "type": "formGroupColBox",
       "col": 2,
       "title": "二、生命体症",
@@ -469,7 +520,7 @@
       "require": "false",
       "prefixDesc": "",
       "suffixDesc": "",
-      "keys": "I100001",
+      "keys": "",
       "style": null,
       "classes": null,
       "readOnly": null,
@@ -560,7 +611,7 @@
       "name": "",
       "type": "formGroupColBox",
       "col": 2,
-      "title": "健康史",
+      "title": "3.1 健康史",
       "message": "",
       "require": "false",
       "prefixDesc": "",
@@ -591,6 +642,7 @@
                 "cleanKey": "无",
                 "title": "心脏起搏",
                 "parentName": "I001102",
+                "name": "I001102",
                 "type": "dependent"
               }
             },
@@ -603,9 +655,9 @@
         {
           "name": "I001104",
           "type": "select",
-          "title": "生活习惯：吸烟",
-          "postTitle":"吸烟频率",
-          "postText":"(支/天)",
+          "title": "生活习惯:吸烟",
+          "postTitle": "吸烟频率",
+          "postText": "(支/天)",
           "style": null,
           "class": null,
           "rule": [
@@ -627,9 +679,9 @@
         {
           "name": "I001106",
           "type": "select",
-          "title": "生活习惯：嗜酒",
-          "postTitle":"嗜酒频率",
-          "postText":"(两/斤)",
+          "title": "生活习惯:嗜酒",
+          "postTitle": "嗜酒频率",
+          "postText": "(两/斤)",
           "style": null,
           "class": null,
           "rule": [
@@ -652,7 +704,7 @@
           "name": "I001108",
           "type": "select",
           "title": "药物依赖/吸毒",
-          "postTitle":"药物名称",
+          "postTitle": "药物名称",
           "style": null,
           "class": null,
           "rule": [
@@ -675,8 +727,8 @@
           "name": "I001110",
           "type": "select",
           "title": "父/母药物依赖/吸毒",
-          "titleSpanStyle":"margin-left:-25px!important",
-          "postTitle":"药物名称",
+          "titleSpanStyle": "margin-left:-25px!important",
+          "postTitle": "药物名称",
           "style": null,
           "class": null,
           "rule": [
@@ -721,7 +773,7 @@
           "name": "I001114",
           "type": "select",
           "title": "健康史",
-          "postTitle":"曾有病史",
+          "postTitle": "曾有病史",
           "style": null,
           "class": null,
           "rule": [
@@ -770,7 +822,7 @@
       "name": "",
       "type": "formGroupColBox",
       "col": 2,
-      "title": "饮食",
+      "title": "3.2 饮食",
       "message": "",
       "require": "false",
       "prefixDesc": "",
@@ -820,7 +872,10 @@
             {
               "dialog": {
                 "openKey": "有",
-                "cleanKey": ["无","不明确"],
+                "cleanKey": [
+                  "无",
+                  "不明确"
+                ],
                 "title": "过敏史",
                 "parentName": "I001119",
                 "type": "dependent"
@@ -838,11 +893,14 @@
           "title": "接种史",
           "style": null,
           "class": null,
+          "readOnly":true,
           "rule": [
             {
               "dialog": {
                 "openKey": "有",
-                "cleanKey": ["无"],
+                "cleanKey": [
+                  "无"
+                ],
                 "title": "接种情况",
                 "parentName": "I001123",
                 "type": "dependent"
@@ -858,6 +916,7 @@
           "name": "I100094",
           "type": "select",
           "title": "饮食",
+          "multiplechoice":true,
           "postTitle": "治疗饮食",
           "style": null,
           "class": null,
@@ -865,7 +924,10 @@
             {
               "dialog": {
                 "openKey": "治疗饮食",
-                "cleanKey": ["自行进食","协助进食"],
+                "cleanKey": [
+                  "自行进食",
+                  "协助进食"
+                ],
                 "title": "治疗饮食",
                 "parentName": "I100094",
                 "type": "dependent"
@@ -896,7 +958,8 @@
           "type": "select",
           "title": "吸吮力",
           "style": null,
-          "class": null
+          "class": null,
+          "readOnly":true
         },
         {
           "name": "I100096",
@@ -916,7 +979,9 @@
             {
               "dialog": {
                 "openKey": "有",
-                "cleanKey":["无"],
+                "cleanKey": [
+                  "无"
+                ],
                 "title": "呕吐描述",
                 "parentName": "I100097",
                 "type": "dependent"
@@ -938,7 +1003,9 @@
             {
               "dialog": {
                 "openKey": "有",
-                "cleanKey":["无"],
+                "cleanKey": [
+                  "无"
+                ],
                 "title": "义齿情况",
                 "parentName": "I001135",
                 "type": "dependent"
@@ -960,7 +1027,9 @@
             {
               "dialog": {
                 "openKey": "其他",
-                "cleanKey":["无"],
+                "cleanKey": [
+                  "无"
+                ],
                 "title": "其他口腔黏膜",
                 "parentName": "I001137",
                 "type": "dependent"
@@ -979,8 +1048,24 @@
           "name": "I001141",
           "type": "select",
           "title": "听力",
+          "postTitle": "",
           "style": null,
-          "class": null
+          "class": null,
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "异常",
+                "cleanKey": "正常",
+                "title": "听力异常",
+                "parentName": "I001141",
+                "type": "dependent"
+              }
+            },
+            {
+              "equal": "异常",
+              "style": "color:red"
+            }
+          ]
         },
         {
           "name": "I001138",
@@ -994,7 +1079,8 @@
           "type": "select",
           "title": "吞咽功能",
           "style": null,
-          "class": null
+          "class": null,
+          "readOnly": true
         }
       ]
     },
@@ -1025,24 +1111,30 @@
       "readOnly": true,
       "children": [
         {
-          "name": "I100028",
-          "type": "input",
-          "title": "吞咽评估",
+          "name": "I001163",
+          "type": "select",
+          "title": "吞咽困难",
           "style": null,
           "class": null,
-          "readOnly": true,
-          "isClone": true,
-          "dialog": {
-            "title": "吞咽评估单",
-            "default": "吞咽评估单",
-            "name": "I100028",
-            "parentName": "I100028",
-            "type": "independent",
-            "showHead": "true"
-          },
+          "options": [
+            "无",
+            "有"
+          ],
           "rule": [
             {
-              "equal": "吞水：+ ;吞糊：+ ;",
+              "dialog": {
+                "openKey": "有",
+                "cleanKey": "无",
+                "title": "吞咽评估单",
+                "default": "吞咽评估单",
+                "name": "I100028",
+                "parentName": "I100028",
+                "type": "independent",
+                "showHead": "true"
+              }
+            },
+            {
+              "equal": "有",
               "style": "color:red"
             }
           ]
@@ -1077,7 +1169,7 @@
       "name": "I001142",
       "type": "formGroupColBox",
       "col": 2,
-      "title": "认知",
+      "title": "3.3 认知",
       "message": "",
       "require": "false",
       "prefixDesc": "",
@@ -1090,7 +1182,7 @@
         {
           "name": "I001142",
           "type": "select",
-          "title": "意识状态：呼之",
+          "title": "意识状态:呼之",
           "style": null,
           "class": null
         },
@@ -1104,7 +1196,7 @@
         {
           "name": "I100021",
           "type": "input",
-          "title": "瞳孔大小：左",
+          "title": "瞳孔大小:左",
           "suffixDesc": "mm",
           "style": null,
           "class": null
@@ -1112,7 +1204,7 @@
         {
           "name": "I100023",
           "type": "input",
-          "title": "瞳孔大小：右",
+          "title": "瞳孔大小:右",
           "suffixDesc": "mm",
           "style": null,
           "class": null
@@ -1120,14 +1212,14 @@
         {
           "name": "I100022",
           "type": "select",
-          "title": "对光反射：左",
+          "title": "对光反射:左",
           "style": null,
           "class": null
         },
         {
           "name": "I100024",
           "type": "select",
-          "title": "对光反射：右",
+          "title": "对光反射:右",
           "style": null,
           "class": null
         },
@@ -1141,7 +1233,13 @@
             {
               "dialog": {
                 "openKey": "能应答",
-                "cleanKey":["正常","不应答","激惹","迟钝","全无"],
+                "cleanKey": [
+                  "正常",
+                  "不应答",
+                  "激惹",
+                  "迟钝",
+                  "全无"
+                ],
                 "title": "切题情况",
                 "parentName": "I001148",
                 "type": "dependent"
@@ -1158,7 +1256,8 @@
           "type": "select",
           "title": "哭声",
           "style": null,
-          "class": null
+          "class": null,
+          "readOnly": true
         }
       ]
     },
@@ -1190,7 +1289,7 @@
       "name": "I001151",
       "type": "formGroupColBox",
       "col": 2,
-      "title": "语言沟通",
+      "title": "3.4 语言沟通",
       "message": "",
       "require": "false",
       "prefixDesc": "",
@@ -1204,6 +1303,7 @@
           "name": "I001151",
           "type": "select",
           "title": "情绪状态",
+          "multiplechoice":true,
           "style": null,
           "class": null,
           "readOnly": null
@@ -1227,7 +1327,9 @@
             {
               "dialog": {
                 "openKey": "其他语言",
-                "cleanKey":["无"],
+                "cleanKey": [
+                  "无"
+                ],
                 "title": "其他语言",
                 "parentName": "I001153",
                 "type": "dependent"
@@ -1250,7 +1352,9 @@
             {
               "dialog": {
                 "openKey": "其他",
-                "cleanKey":["无"],
+                "cleanKey": [
+                  "无"
+                ],
                 "title": "其他语言表达",
                 "parentName": "I001155",
                 "type": "dependent"
@@ -1280,35 +1384,42 @@
       "name": "I100132",
       "type": "formGroupColBox",
       "col": 1,
-      "title": "疼痛评估",
+      "title": "3.4.1 疼痛评估",
       "message": "",
       "require": "false",
       "prefixDesc": "",
       "suffixDesc": "",
-      "keys": "E0003",
+      "keys": "I100132",
       "style": null,
       "classes": null,
       "readOnly": true,
       "children": [
         {
-          "name": "I100132",
-          "type": "input",
-          "title": "疼痛评估",
+          "name": "I001156",
+          "type": "select",
+          "title": "疼痛",
           "style": null,
           "class": null,
-          "readOnly": true,
-          "dialog": {
-            "title": "疼痛评估单",
-            "default": "疼痛评估单",
-            "name": "I100132",
-            "parentName": "I100132",
-            "type": "independent",
-            "showHead": "true"
-          },
+          "options": [
+            "无",
+            "不会诉说",
+            "有"
+          ],
           "rule": [
             {
-              "scoreMin": "4",
-              "scoreMax": "100",
+              "dialog": {
+                "openKey": "有",
+                "cleanKey": "无",
+                "title": "疼痛评估单",
+                "default": "疼痛评估单",
+                "name": "I100132",
+                "parentName": "I100132",
+                "type": "independent",
+                "showHead": "true"
+              }
+            },
+            {
+              "equal": "有",
               "style": "color:red"
             }
           ]
@@ -1356,6 +1467,7 @@
           "name": "I100112",
           "type": "select",
           "title": "排尿",
+          "multiplechoice":true,
           "postTitle": "其他",
           "style": null,
           "class": null,
@@ -1363,7 +1475,9 @@
             {
               "dialog": {
                 "openKey": "其他",
-                "cleanKey":["无"],
+                "cleanKey": [
+                  "无"
+                ],
                 "title": "其他排尿说明",
                 "parentName": "I100112",
                 "type": "dependent"
@@ -1386,7 +1500,9 @@
             {
               "dialog": {
                 "openKey": "其他",
-                "cleanKey":["无"],
+                "cleanKey": [
+                  "无"
+                ],
                 "title": "其他排便说明",
                 "parentName": "I100105",
                 "type": "dependent"
@@ -1420,20 +1536,39 @@
           "type": "select",
           "title": "造瘘",
           "style": null,
-          "class": null
+          "class": null,
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "有",
+                "cleanKey": [
+                  "无"
+                ],
+                "title": "造瘘情况",
+                "parentName": "I001206",
+                "type": "dependent"
+              }
+            },
+            {
+              "equal": "有",
+              "style": "color:red"
+            }
+          ]
         },
         {
           "name": "I001210",
           "type": "select",
           "title": "留置引流管",
-          "postTitle": " ",
+          "postTitle": "留置引流管",
           "style": null,
           "class": null,
           "rule": [
             {
               "dialog": {
                 "openKey": "有",
-                "cleanKey":["无"],
+                "cleanKey": [
+                  "无"
+                ],
                 "title": "留置引流管情况",
                 "parentName": "I001210",
                 "type": "dependent"
@@ -1455,7 +1590,9 @@
             {
               "dialog": {
                 "openKey": "有",
-                "cleanKey":["无"],
+                "cleanKey": [
+                  "无"
+                ],
                 "title": "中心静脉置管情况",
                 "parentName": "I001216",
                 "type": "dependent"
@@ -1516,7 +1653,9 @@
             {
               "dialog": {
                 "openKey": "有",
-                "cleanKey":["无"],
+                "cleanKey": [
+                  "无"
+                ],
                 "title": "伤口情况",
                 "parentName": "I100079",
                 "type": "dependent"
@@ -1529,23 +1668,19 @@
           ]
         },
         {
-          "name": "I100081",
-          "type": "select",
-          "title": "敷料",
-          "style": null,
-          "class": null
-        },
-        {
           "name": "I001254",
           "type": "select",
           "title": "皮肤情况",
+          "multiplechoice":true,
           "style": null,
           "class": null,
           "rule": [
             {
               "dialog": {
                 "openKey": "水肿",
-                "cleanKey":["无"],
+                "cleanKey": [
+                  "无"
+                ],
                 "title": "水肿程度情况",
                 "parentName": "I001254",
                 "type": "dependent"
@@ -1556,13 +1691,6 @@
               "style": "color:red"
             }
           ]
-        },
-        {
-          "name": "I001256",
-          "type": "input",
-          "title": "详细描述",
-          "style": null,
-          "class": null
         },
         {
           "name": "I100067",
@@ -1581,7 +1709,9 @@
             {
               "dialog": {
                 "openKey": "有",
-                "cleanKey":["无"],
+                "cleanKey": [
+                  "无"
+                ],
                 "title": "臀红程度情况",
                 "parentName": "I001254",
                 "type": "dependent"
@@ -1608,10 +1738,10 @@
       "readOnly": true
     },
     {
-      "name": "I100127",
+      "name": "I001260",
       "type": "formGroupColBox",
       "col": 1,
-      "title": "Barden压疮风险",
+      "title": "5.1 Barden压疮风险",
       "message": "",
       "require": "false",
       "prefixDesc": "",
@@ -1622,19 +1752,32 @@
       "readOnly": true,
       "children": [
         {
-          "name": "I100127",
-          "type": "input",
-          "title": "Barden压疮风险",
+          "name": "I001260",
+          "type": "select",
+          "title": "压疮风险",
           "style": null,
           "class": null,
-          "readOnly": true,
-          "dialog": {
-            "title": "Barden压疮风险评估表",
-            "default": "Barden压疮风险评估表",
-            "type": "independent",
-            "parentName": "I100127",
-            "showHead": "true"
-          }
+          "options": [
+            "无",
+            "有"
+          ],
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "有",
+                "cleanKey": "无",
+                "title": "Barden压疮风险评估表",
+                "default": "Barden压疮风险评估表",
+                "type": "independent",
+                "parentName": "I100127",
+                "showHead": "true"
+              }
+            },
+            {
+              "equal": "有",
+              "style": "color:red"
+            }
+          ]
         }
       ]
     },
@@ -1704,6 +1847,7 @@
           "name": "I100129",
           "type": "select",
           "title": "日常照顾者",
+          "multiplechoice":true,
           "style": null,
           "class": null,
           "readOnly": null
@@ -1718,7 +1862,9 @@
             {
               "dialog": {
                 "openKey": "其他",
-                "cleanKey":["无"],
+                "cleanKey": [
+                  "无"
+                ],
                 "title": "其他活动辅助装置",
                 "parentName": "I001306",
                 "type": "dependent"
@@ -1744,7 +1890,7 @@
       "name": "I100126",
       "type": "formGroupColBox",
       "col": 1,
-      "title": "自理能力",
+      "title": "6.1 自理能力",
       "message": "",
       "require": "false",
       "prefixDesc": "",
@@ -1791,47 +1937,44 @@
       "readOnly": ""
     },
     {
-      "name": "I100130",
+      "name": "",
       "type": "formGroupColBox",
-      "col": 1,
-      "title": "跌倒风险",
+      "col": 2,
+      "title": "6.2 跌倒风险",
       "message": "",
       "require": "false",
       "prefixDesc": "",
       "suffixDesc": "",
-      "keys": "I100130",
+      "keys": "",
       "style": null,
       "classes": null,
       "readOnly": null,
       "children": [
         {
-          "name": "I100130",
-          "type": "input",
-          "title": "跌倒风险评估",
+          "name": "I001308",
+          "type": "select",
+          "title": "跌倒风险",
           "style": null,
           "class": null,
-          "readOnly": true,
-          "dialog": [
-            {
-              "title": "跌倒评估单(儿童)",
-              "default": "跌倒评估单(儿童)",
-              "name": "I100130",
-              "parentName": "I100130",
-              "type": "independent",
-              "showHead": "true"
-            },
-            {
-              "title": "跌倒评估单(成人)",
-              "default": "跌倒评估单(成人)",
-              "name": "I100130",
-              "parentName": "I100130",
-              "type": "independent",
-              "showHead": "true"
-            }
+          "options": [
+            "无",
+            "有"
           ],
           "rule": [
             {
-              "indexOf": "高风险",
+              "dialog": {
+                "openKey": "有",
+                "cleanKey": "无",
+                "title": "跌倒评估单(成人)",
+                "default": "跌倒评估单(成人)",
+                "name": "I100130",
+                "type": "independent",
+                "parentName": "I100130",
+                "showHead": "true"
+              }
+            },
+            {
+              "equal": "有",
               "style": "color:red"
             }
           ]
@@ -1853,8 +1996,8 @@
     {
       "name": "I100136",
       "type": "formGroupColBox",
-      "col": 1,
-      "title": "VTE风险评估",
+      "col": 2,
+      "title": "6.3 VTE风险评估",
       "message": "",
       "require": "false",
       "prefixDesc": "",
@@ -1865,33 +2008,43 @@
       "readOnly": null,
       "children": [
         {
-          "name": "I100136",
-          "type": "input",
-          "title": "VTE风险评估",
+          "name": "I001309",
+          "type": "select",
+          "title": "VTE风险",
           "style": null,
           "class": null,
-          "readOnly": true,
-          "dialog": [
-            {
-              "title": "Caprini评分表(非手术室)",
-              "default": "Caprini评分表(非手术室)",
-              "name": "I100136",
-              "parentName": "I100136",
-              "type": "independent",
-              "showHead": "true"
-            },
-            {
-              "title": "Caprini评分表(手术室)",
-              "default": "Caprini评分表(手术室)",
-              "name": "I100136",
-              "parentName": "I100136",
-              "type": "independent",
-              "showHead": "true"
-            }
+          "options": [
+            "无",
+            "有,Padua评分表(非手术室)",
+            "有,Caprini评分表(手术室)"
           ],
           "rule": [
             {
-              "indexOf": "高风险",
+              "dialog": {
+                "openKey": "有,Padua评分表(非手术室)",
+                "cleanKey": "无",
+                "title": "Padua评分表(非手术室)",
+                "default": "Padua评分表(非手术室)",
+                "name": "I100136",
+                "type": "independent",
+                "parentName": "I100136",
+                "showHead": "true"
+              }
+            },
+            {
+              "dialog": {
+                "openKey": "有,Caprini评分表(手术室)",
+                "cleanKey": "无",
+                "title": "Caprini评分表(手术室)",
+                "default": "Caprini评分表(手术室)",
+                "name": "I100136",
+                "type": "independent",
+                "parentName": "I100136",
+                "showHead": "true"
+              }
+            },
+            {
+              "equal": "有",
               "style": "color:red"
             }
           ]
@@ -1925,7 +2078,7 @@
       "name": "",
       "type": "formGroupColBox",
       "col": 1,
-      "title": "专科评估",
+      "title": "七、专科护理评估",
       "message": "",
       "require": "false",
       "prefixDesc": "",
@@ -1946,14 +2099,17 @@
               "name": "I001351",
               "type": "radio",
               "title": "无",
-              "elementStyle":"margin: 0 5px 0 0;",
-              "elementClass":"el-radio",
+              "elementStyle": "margin: 0 5px 0 0;",
+              "elementClass": "el-radio",
               "style": null,
               "class": null,
-              "defaultValue":true,
-              "tasks":[
+              "defaultValue": true,
+              "tasks": [
                 {
-                  "clean":["妇科","儿科"]
+                  "clean": [
+                    "妇科",
+                    "儿科"
+                  ]
                 }
               ]
             },
@@ -1961,16 +2117,19 @@
               "name": "I001351",
               "type": "radio",
               "title": "妇科",
-              "elementStyle":"margin: 0 5px 0 0;",
-              "elementClass":"el-radio",
+              "elementStyle": "margin: 0 5px 0 0;",
+              "elementClass": "el-radio",
               "style": null,
               "class": null,
-              "tasks":[
+              "tasks": [
                 {
-                  "clean":["妇科","儿科"]
+                  "clean": [
+                    "妇科",
+                    "儿科"
+                  ]
                 },
                 {
-                  "show":"妇科"
+                  "show": "妇科"
                 }
               ]
             },
@@ -1978,16 +2137,19 @@
               "name": "I001351",
               "type": "radio",
               "title": "儿科",
-              "elementStyle":"margin: 0 5px 0 0;",
-              "elementClass":"el-radio",
+              "elementStyle": "margin: 0 5px 0 0;",
+              "elementClass": "el-radio",
               "style": null,
               "class": null,
-              "tasks":[
+              "tasks": [
                 {
-                  "clean":["妇科","儿科"]
+                  "clean": [
+                    "妇科",
+                    "儿科"
+                  ]
                 },
                 {
-                  "show":"儿科"
+                  "show": "儿科"
                 }
               ]
             }
@@ -2012,12 +2174,12 @@
       "type": "formGroupColBox",
       "col": 2,
       "title": "妇科",
-      "parentKey":"I001351",
+      "parentKey": "I001351",
       "message": "",
       "require": "false",
       "prefixDesc": "",
       "suffixDesc": "",
-      "hidden":true,
+      "hidden": true,
       "keys": "",
       "style": null,
       "classes": null,
@@ -2034,7 +2196,9 @@
             {
               "dialog": {
                 "openKey": "末次月经",
-                "cleanKey":["无"],
+                "cleanKey": [
+                  "无"
+                ],
                 "title": "末次月经情况",
                 "parentName": "I001352",
                 "type": "dependent"
@@ -2043,7 +2207,9 @@
             {
               "dialog": {
                 "openKey": "其他",
-                "cleanKey":["无"],
+                "cleanKey": [
+                  "无"
+                ],
                 "title": "月经其他情况",
                 "parentName": "I001352",
                 "type": "dependent"
@@ -2062,7 +2228,9 @@
             {
               "dialog": {
                 "openKey": "其他",
-                "cleanKey":["无"],
+                "cleanKey": [
+                  "无"
+                ],
                 "title": "月经失调其他情况",
                 "parentName": "I001355",
                 "type": "dependent"
@@ -2081,7 +2249,9 @@
             {
               "dialog": {
                 "openKey": "其他",
-                "cleanKey":["无"],
+                "cleanKey": [
+                  "无"
+                ],
                 "title": "避孕方法其他情况",
                 "parentName": "I001357",
                 "type": "dependent"
@@ -2100,7 +2270,9 @@
             {
               "dialog": {
                 "openKey": "有",
-                "cleanKey":["无"],
+                "cleanKey": [
+                  "无"
+                ],
                 "title": "阴道流血情况",
                 "parentName": "I100119",
                 "type": "dependent"
@@ -2119,7 +2291,10 @@
             {
               "dialog": {
                 "openKey": "其他",
-                "cleanKey":["无","有"],
+                "cleanKey": [
+                  "无",
+                  "有"
+                ],
                 "title": "阴道异常分泌物其他情况",
                 "parentName": "I100122",
                 "type": "dependent"
@@ -2128,7 +2303,9 @@
             {
               "dialog": {
                 "openKey": "有",
-                "cleanKey":["无"],
+                "cleanKey": [
+                  "无"
+                ],
                 "title": "阴道分泌物情况",
                 "parentName": "I100122",
                 "type": "dependent"
@@ -2143,9 +2320,9 @@
       "type": "formGroupColBox",
       "col": 2,
       "title": "儿科",
-      "parentKey":"I001351",
+      "parentKey": "I001351",
       "message": "",
-      "hidden":true,
+      "hidden": true,
       "require": "false",
       "prefixDesc": "",
       "suffixDesc": "",
@@ -2157,7 +2334,7 @@
         {
           "name": "I001367",
           "type": "select",
-          "title": "头面部：头颅",
+          "title": "头面部:头颅",
           "postTitle": "头颅情况",
           "style": null,
           "class": null,
@@ -2166,13 +2343,13 @@
             {
               "dialog": {
                 "openKey": "其他",
-                "cleanKey":"无",
+                "cleanKey": "无",
                 "title": "其他说明",
                 "parentName": "I001367",
                 "type": "dependent",
-                "otherDialog":{
-                  "name":"I001368",
-                  "title":"其他说明："
+                "otherDialog": {
+                  "name": "I001368",
+                  "title": "其他说明:"
                 }
               }
             }
@@ -2181,7 +2358,7 @@
         {
           "name": "I001369",
           "type": "select",
-          "title": "头面部：前囟",
+          "title": "头面部:前囟",
           "postTitle": "前囟情况",
           "style": null,
           "class": null,
@@ -2189,7 +2366,7 @@
             {
               "dialog": {
                 "openKey": "未闭",
-                "cleanKey":"已闭",
+                "cleanKey": "已闭",
                 "title": "前囟未闭情况",
                 "parentName": "I001369",
                 "type": "dependent"
@@ -2216,7 +2393,9 @@
             {
               "dialog": {
                 "openKey": "呼吸受限",
-                "cleanKey":["平顺"],
+                "cleanKey": [
+                  "平顺"
+                ],
                 "title": "呼吸受限情况",
                 "parentName": "I001373",
                 "type": "dependent"
@@ -2290,10 +2469,15 @@
       "readOnly": ""
     },
     {
-      "name": "八、其他症状和体征",
+      "name": "",
       "type": "formGroupHorizontalBox",
+      "colWidth": [
+        "2%",
+        ""
+      ],
       "title": "",
-      "showTitle":false,
+      "parentTitle":"八、其他症状和体征",
+      "showTitle": true,
       "message": "",
       "require": "false",
       "prefixDesc": "",
@@ -2306,11 +2490,10 @@
       "children": [
         {
           "name": "I001401",
-          "type": "input",
-          "inputType":"textarea",
+          "type": "mark",
           "title": "其他症状和体征",
-          "style": "width:100%",
-          "elementStyle": "width:100%",
+          "style": "",
+          "elementStyle": "",
           "class": null
         }
       ]
@@ -2377,7 +2560,7 @@
       "name": "I001452",
       "type": "formGroupColBox",
       "col": 1,
-      "title": "宣教对象",
+      "title": "九、入院宣教",
       "message": "",
       "require": "false",
       "prefixDesc": "",
@@ -2398,8 +2581,8 @@
               "name": "I001452",
               "type": "checkbox",
               "title": "女儿",
-              "elementStyle":"margin: 0 5px 0 0;",
-              "elementClass":"el-radio",
+              "elementStyle": "margin: 0 5px 0 0;",
+              "elementClass": "el-radio",
               "style": null,
               "class": null
             },
@@ -2407,8 +2590,8 @@
               "name": "I001452",
               "type": "checkbox",
               "title": "儿子",
-              "elementStyle":"margin: 0 5px 0 0;",
-              "elementClass":"el-radio",
+              "elementStyle": "margin: 0 5px 0 0;",
+              "elementClass": "el-radio",
               "style": null,
               "class": null
             },
@@ -2416,8 +2599,8 @@
               "name": "I001452",
               "type": "checkbox",
               "title": "父亲",
-              "elementStyle":"margin: 0 5px 0 0;",
-              "elementClass":"el-radio",
+              "elementStyle": "margin: 0 5px 0 0;",
+              "elementClass": "el-radio",
               "style": null,
               "class": null
             },
@@ -2425,8 +2608,8 @@
               "name": "I001452",
               "type": "checkbox",
               "title": "母亲",
-              "elementStyle":"margin: 0 5px 0 0;",
-              "elementClass":"el-radio",
+              "elementStyle": "margin: 0 5px 0 0;",
+              "elementClass": "el-radio",
               "style": null,
               "class": null
             },
@@ -2434,8 +2617,8 @@
               "name": "I001452",
               "type": "checkbox",
               "title": "爷爷",
-              "elementStyle":"margin: 0 5px 0 0;",
-              "elementClass":"el-radio",
+              "elementStyle": "margin: 0 5px 0 0;",
+              "elementClass": "el-radio",
               "style": null,
               "class": null
             },
@@ -2443,8 +2626,8 @@
               "name": "I001452",
               "type": "checkbox",
               "title": "奶奶",
-              "elementStyle":"margin: 0 5px 0 0;",
-              "elementClass":"el-radio",
+              "elementStyle": "margin: 0 5px 0 0;",
+              "elementClass": "el-radio",
               "style": null,
               "class": null
             },
@@ -2452,8 +2635,8 @@
               "name": "I001452",
               "type": "checkbox",
               "title": "配偶",
-              "elementStyle":"margin: 0 5px 0 0;",
-              "elementClass":"el-radio",
+              "elementStyle": "margin: 0 5px 0 0;",
+              "elementClass": "el-radio",
               "style": null,
               "class": null
             },
@@ -2461,8 +2644,8 @@
               "name": "I001452",
               "type": "checkbox",
               "title": "亲戚",
-              "elementStyle":"margin: 0 5px 0 0;",
-              "elementClass":"el-radio",
+              "elementStyle": "margin: 0 5px 0 0;",
+              "elementClass": "el-radio",
               "style": null,
               "class": null
             },
@@ -2470,8 +2653,8 @@
               "name": "I001452",
               "type": "checkbox",
               "title": "朋友",
-              "elementStyle":"margin: 0 5px 0 0;",
-              "elementClass":"el-radio",
+              "elementStyle": "margin: 0 5px 0 0;",
+              "elementClass": "el-radio",
               "style": null,
               "class": null
             },
@@ -2479,8 +2662,8 @@
               "name": "I001452",
               "type": "checkbox",
               "title": "患者",
-              "elementStyle":"margin: 0 5px 0 0;",
-              "elementClass":"el-radio",
+              "elementStyle": "margin: 0 5px 0 0;",
+              "elementClass": "el-radio",
               "style": null,
               "class": null
             }
@@ -2504,7 +2687,7 @@
       "name": "I001453",
       "type": "formGroupColBox",
       "col": 1,
-      "title": "方法",
+      "title": "九、入院宣教",
       "message": "",
       "require": "false",
       "prefixDesc": "",
@@ -2525,8 +2708,8 @@
               "name": "I001453",
               "type": "checkbox",
               "title": "讲解",
-              "elementStyle":"margin: 0 5px 0 0;",
-              "elementClass":"el-radio",
+              "elementStyle": "margin: 0 5px 0 0;",
+              "elementClass": "el-radio",
               "style": null,
               "class": null
             },
@@ -2534,8 +2717,8 @@
               "name": "I001453",
               "type": "checkbox",
               "title": "示范",
-              "elementStyle":"margin: 0 5px 0 0;",
-              "elementClass":"el-radio",
+              "elementStyle": "margin: 0 5px 0 0;",
+              "elementClass": "el-radio",
               "style": null,
               "class": null
             },
@@ -2543,8 +2726,8 @@
               "name": "I001453",
               "type": "checkbox",
               "title": "视频",
-              "elementStyle":"margin: 0 5px 0 0;",
-              "elementClass":"el-radio",
+              "elementStyle": "margin: 0 5px 0 0;",
+              "elementClass": "el-radio",
               "style": null,
               "class": null
             },
@@ -2552,8 +2735,8 @@
               "name": "I001453",
               "type": "checkbox",
               "title": "免费资料",
-              "elementStyle":"margin: 0 5px 0 0;",
-              "elementClass":"el-radio",
+              "elementStyle": "margin: 0 5px 0 0;",
+              "elementClass": "el-radio",
               "style": null,
               "class": null
             },
@@ -2561,8 +2744,8 @@
               "name": "I001453",
               "type": "checkbox",
               "title": "讨论",
-              "elementStyle":"margin: 0 5px 0 0;",
-              "elementClass":"el-radio",
+              "elementStyle": "margin: 0 5px 0 0;",
+              "elementClass": "el-radio",
               "style": null,
               "class": null
             }
@@ -2586,7 +2769,7 @@
       "name": "I001454",
       "type": "formGroupColBox",
       "col": 1,
-      "title": "接受能力",
+      "title": "九、入院宣教",
       "message": "",
       "require": "false",
       "prefixDesc": "",
@@ -2607,8 +2790,8 @@
               "name": "I001454",
               "type": "radio",
               "title": "能接受",
-              "elementStyle":"margin: 0 5px 0 0;",
-              "elementClass":"el-radio",
+              "elementStyle": "margin: 0 5px 0 0;",
+              "elementClass": "el-radio",
               "style": null,
               "class": null
             },
@@ -2616,8 +2799,8 @@
               "name": "I001454",
               "type": "radio",
               "title": "不能接受",
-              "elementStyle":"margin: 0 5px 0 0;",
-              "elementClass":"el-radio",
+              "elementStyle": "margin: 0 5px 0 0;",
+              "elementClass": "el-radio",
               "style": null,
               "class": null
             },
@@ -2625,8 +2808,8 @@
               "name": "I001454",
               "type": "radio",
               "title": "语言障碍",
-              "elementStyle":"margin: 0 5px 0 0;",
-              "elementClass":"el-radio",
+              "elementStyle": "margin: 0 5px 0 0;",
+              "elementClass": "el-radio",
               "style": null,
               "class": null
             },
@@ -2634,8 +2817,8 @@
               "name": "I001454",
               "type": "radio",
               "title": "文化差异",
-              "elementStyle":"margin: 0 5px 0 0;",
-              "elementClass":"el-radio",
+              "elementStyle": "margin: 0 5px 0 0;",
+              "elementClass": "el-radio",
               "style": null,
               "class": null
             },
@@ -2643,8 +2826,8 @@
               "name": "I001454",
               "type": "radio",
               "title": "教育水平低",
-              "elementStyle":"margin: 0 5px 0 0;",
-              "elementClass":"el-radio",
+              "elementStyle": "margin: 0 5px 0 0;",
+              "elementClass": "el-radio",
               "style": null,
               "class": null
             },
@@ -2652,8 +2835,8 @@
               "name": "I001454",
               "type": "radio",
               "title": "听力障碍",
-              "elementStyle":"margin: 0 5px 0 0;",
-              "elementClass":"el-radio",
+              "elementStyle": "margin: 0 5px 0 0;",
+              "elementClass": "el-radio",
               "style": null,
               "class": null
             }
@@ -2688,7 +2871,7 @@
       "name": "I001501",
       "type": "formGroupColBox",
       "col": 1,
-      "title": "住院告知",
+      "title": "十、住院告知",
       "message": "",
       "require": "false",
       "prefixDesc": "",
@@ -2709,7 +2892,7 @@
               "name": "I001501",
               "type": "checkbox",
               "title": "住院须知",
-              "elementClass":"el-radio-long",
+              "elementClass": "el-radio-long",
               "style": null,
               "class": null
             },
@@ -2717,7 +2900,7 @@
               "name": "I001501",
               "type": "checkbox",
               "title": "物品管理",
-              "elementClass":"el-radio-long",
+              "elementClass": "el-radio-long",
               "style": null,
               "class": null
             },
@@ -2725,7 +2908,7 @@
               "name": "I001501",
               "type": "checkbox",
               "title": "作息",
-              "elementClass":"el-radio-long",
+              "elementClass": "el-radio-long",
               "style": null,
               "class": null
             },
@@ -2733,7 +2916,7 @@
               "name": "I001501",
               "type": "checkbox",
               "title": "探陪",
-              "elementClass":"el-radio-long",
+              "elementClass": "el-radio-long",
               "style": null,
               "class": null
             },
@@ -2741,7 +2924,7 @@
               "name": "I001501",
               "type": "checkbox",
               "title": "订餐",
-              "elementClass":"el-radio-long",
+              "elementClass": "el-radio-long",
               "style": null,
               "class": null
             },
@@ -2749,7 +2932,7 @@
               "name": "I001501",
               "type": "checkbox",
               "title": "介绍主管医生",
-              "elementClass":"el-radio-long",
+              "elementClass": "el-radio-long",
               "style": null,
               "class": null
             },
@@ -2757,7 +2940,7 @@
               "name": "I001501",
               "type": "checkbox",
               "title": "介绍主管护士",
-              "elementClass":"el-radio-long",
+              "elementClass": "el-radio-long",
               "style": null,
               "class": null
             },
@@ -2765,7 +2948,7 @@
               "name": "I001501",
               "type": "checkbox",
               "title": "住院押金管理",
-              "elementClass":"el-radio-long",
+              "elementClass": "el-radio-long",
               "style": null,
               "class": null
             },
@@ -2773,7 +2956,7 @@
               "name": "I001501",
               "type": "checkbox",
               "title": "体温计管理",
-              "elementClass":"el-radio-long",
+              "elementClass": "el-radio-long",
               "style": null,
               "class": null
             },
@@ -2781,7 +2964,7 @@
               "name": "I001501",
               "type": "checkbox",
               "title": "社保管理",
-              "elementClass":"el-radio-long",
+              "elementClass": "el-radio-long",
               "style": null,
               "class": null
             },
@@ -2789,7 +2972,7 @@
               "name": "I001501",
               "type": "checkbox",
               "title": "其他",
-              "elementStyle":"margin: 5px 10px 0px 0px!important;",
+              "elementStyle": "margin: 5px 10px 0px 0px!important;",
               "style": null,
               "class": null
             },
@@ -2797,7 +2980,8 @@
               "name": "I001502",
               "type": "input",
               "title": "其他",
-              "elementClass":"",
+              "parentName": "I001501",
+              "elementClass": "",
               "style": null,
               "class": null
             }
@@ -2832,7 +3016,7 @@
       "name": "",
       "type": "formGroupColBox",
       "col": 1,
-      "title": "基础护理",
+      "title": "十一、护理重点",
       "message": "",
       "require": "false",
       "prefixDesc": "",
@@ -2853,7 +3037,7 @@
               "name": "I001551",
               "type": "checkbox",
               "title": "协助漱口",
-              "elementClass":"el-radio-long",
+              "elementClass": "el-radio-long",
               "style": null,
               "class": null
             },
@@ -2861,7 +3045,7 @@
               "name": "I001551",
               "type": "checkbox",
               "title": "指导∕协助刷牙",
-              "elementClass":"el-radio-long",
+              "elementClass": "el-radio-long",
               "style": null,
               "class": null
             },
@@ -2869,7 +3053,7 @@
               "name": "I001551",
               "type": "checkbox",
               "title": "口腔护理",
-              "elementClass":"el-radio-long",
+              "elementClass": "el-radio-long",
               "style": null,
               "class": null
             },
@@ -2877,7 +3061,7 @@
               "name": "I001551",
               "type": "checkbox",
               "title": "面部清洁",
-              "elementClass":"el-radio-long",
+              "elementClass": "el-radio-long",
               "style": null,
               "class": null
             },
@@ -2885,7 +3069,7 @@
               "name": "I001551",
               "type": "checkbox",
               "title": "协助沐浴",
-              "elementClass":"el-radio-long",
+              "elementClass": "el-radio-long",
               "style": null,
               "class": null
             },
@@ -2893,7 +3077,7 @@
               "name": "I001551",
               "type": "checkbox",
               "title": "床上擦浴",
-              "elementClass":"el-radio-long",
+              "elementClass": "el-radio-long",
               "style": null,
               "class": null
             },
@@ -2901,7 +3085,7 @@
               "name": "I001551",
               "type": "checkbox",
               "title": "床上洗头",
-              "elementClass":"el-radio-long",
+              "elementClass": "el-radio-long",
               "style": null,
               "class": null
             },
@@ -2909,7 +3093,7 @@
               "name": "I001551",
               "type": "checkbox",
               "title": "梳头",
-              "elementClass":"el-radio-long",
+              "elementClass": "el-radio-long",
               "style": null,
               "class": null
             },
@@ -2917,7 +3101,7 @@
               "name": "I001551",
               "type": "checkbox",
               "title": "会阴清洁/消毒",
-              "elementClass":"el-radio-long",
+              "elementClass": "el-radio-long",
               "style": null,
               "class": null
             },
@@ -2925,7 +3109,7 @@
               "name": "I001551",
               "type": "checkbox",
               "title": "足部清洁",
-              "elementClass":"el-radio-long",
+              "elementClass": "el-radio-long",
               "style": null,
               "class": null
             },
@@ -2933,7 +3117,7 @@
               "name": "I001551",
               "type": "checkbox",
               "title": "协助更衣",
-              "elementClass":"el-radio-long",
+              "elementClass": "el-radio-long",
               "style": null,
               "class": null
             },
@@ -2941,7 +3125,7 @@
               "name": "I001551",
               "type": "checkbox",
               "title": "协助进食/水",
-              "elementClass":"el-radio-long",
+              "elementClass": "el-radio-long",
               "style": null,
               "class": null
             },
@@ -2949,7 +3133,7 @@
               "name": "I001551",
               "type": "checkbox",
               "title": "协助床上移动",
-              "elementClass":"el-radio-long",
+              "elementClass": "el-radio-long",
               "style": null,
               "class": null
             },
@@ -2957,7 +3141,7 @@
               "name": "I001551",
               "type": "checkbox",
               "title": "留置尿管护理",
-              "elementClass":"el-radio-long",
+              "elementClass": "el-radio-long",
               "style": null,
               "class": null
             },
@@ -2965,7 +3149,7 @@
               "name": "I001551",
               "type": "checkbox",
               "title": "指/趾甲护理",
-              "elementClass":"el-radio-long",
+              "elementClass": "el-radio-long",
               "style": null,
               "class": null
             },
@@ -2973,7 +3157,7 @@
               "name": "I001551",
               "type": "checkbox",
               "title": "臀部护理",
-              "elementClass":"el-radio-long",
+              "elementClass": "el-radio-long",
               "style": null,
               "class": null
             },
@@ -2981,7 +3165,7 @@
               "name": "I001551",
               "type": "checkbox",
               "title": "协助翻身/有效咳嗽",
-              "elementClass":"el-radio-long",
+              "elementClass": "el-radio-long",
               "style": null,
               "class": null
             },
@@ -2989,7 +3173,7 @@
               "name": "I001551",
               "type": "checkbox",
               "title": "帮助/协助使用便器",
-              "elementClass":"el-radio-long",
+              "elementClass": "el-radio-long",
               "style": null,
               "class": null
             },
@@ -2997,15 +3181,16 @@
               "name": "I001551",
               "type": "checkbox",
               "title": "其他",
-              "elementStyle":"margin: 5px 10px 0px 0px!important;",
+              "elementStyle": "margin: 5px 10px 0px 0px!important;",
               "style": null,
               "class": null
             },
             {
               "name": "I001552",
               "type": "input",
-              "title": "其他（基础护理）",
-              "elementClass":"",
+              "title": "其他",
+              "parentName": "I001551",
+              "elementClass": "",
               "style": null,
               "class": null
             }
@@ -3029,7 +3214,7 @@
       "name": "I001553",
       "type": "formGroupColBox",
       "col": 1,
-      "title": "专科护理",
+      "title": "十一、护理重点",
       "message": "",
       "require": "false",
       "prefixDesc": "",
@@ -3050,7 +3235,7 @@
               "name": "I001553",
               "type": "checkbox",
               "title": "排痰护理",
-              "elementClass":"el-radio-long",
+              "elementClass": "el-radio-long",
               "style": null,
               "class": null
             },
@@ -3058,7 +3243,7 @@
               "name": "I001553",
               "type": "checkbox",
               "title": "高热护理",
-              "elementClass":"el-radio-long",
+              "elementClass": "el-radio-long",
               "style": null,
               "class": null
             },
@@ -3066,7 +3251,7 @@
               "name": "I001553",
               "type": "checkbox",
               "title": "留置针护理",
-              "elementClass":"el-radio-long",
+              "elementClass": "el-radio-long",
               "style": null,
               "class": null
             },
@@ -3074,7 +3259,7 @@
               "name": "I001553",
               "type": "checkbox",
               "title": "惊厥护理",
-              "elementClass":"el-radio-long",
+              "elementClass": "el-radio-long",
               "style": null,
               "class": null
             },
@@ -3082,7 +3267,7 @@
               "name": "I001553",
               "type": "checkbox",
               "title": "尿管护理",
-              "elementClass":"el-radio-long",
+              "elementClass": "el-radio-long",
               "style": null,
               "class": null
             },
@@ -3090,7 +3275,7 @@
               "name": "I001553",
               "type": "checkbox",
               "title": "其他",
-              "elementStyle":"margin: 5px 10px 0px 0px!important;",
+              "elementStyle": "margin: 5px 10px 0px 0px!important;",
               "style": null,
               "class": null
             },
@@ -3098,7 +3283,8 @@
               "name": "I001554",
               "type": "input",
               "title": "其他",
-              "elementClass":"",
+              "parentName": "I001553",
+              "elementClass": "",
               "style": null,
               "class": null
             }
@@ -3122,7 +3308,7 @@
       "name": "I001555",
       "type": "formGroupColBox",
       "col": 1,
-      "title": "患者安全",
+      "title": "十一、护理重点",
       "message": "",
       "require": "false",
       "prefixDesc": "",
@@ -3143,7 +3329,7 @@
               "name": "I001555",
               "type": "checkbox",
               "title": "安全转运护理",
-              "elementClass":"el-radio-long",
+              "elementClass": "el-radio-long",
               "style": null,
               "class": null
             },
@@ -3151,7 +3337,7 @@
               "name": "I001555",
               "type": "checkbox",
               "title": "防跌倒/坠床护理",
-              "elementClass":"el-radio-long",
+              "elementClass": "el-radio-long",
               "style": null,
               "class": null
             },
@@ -3159,7 +3345,7 @@
               "name": "I001555",
               "type": "checkbox",
               "title": "防烫伤护理",
-              "elementClass":"el-radio-long",
+              "elementClass": "el-radio-long",
               "style": null,
               "class": null
             },
@@ -3167,7 +3353,7 @@
               "name": "I001555",
               "type": "checkbox",
               "title": "防走失护理",
-              "elementClass":"el-radio-long",
+              "elementClass": "el-radio-long",
               "style": null,
               "class": null
             },
@@ -3175,7 +3361,7 @@
               "name": "I001555",
               "type": "checkbox",
               "title": "安全约束护理",
-              "elementClass":"el-radio-long",
+              "elementClass": "el-radio-long",
               "style": null,
               "class": null
             },
@@ -3183,7 +3369,7 @@
               "name": "I001555",
               "type": "checkbox",
               "title": "入院护理",
-              "elementClass":"el-radio-long",
+              "elementClass": "el-radio-long",
               "style": null,
               "class": null
             },
@@ -3191,7 +3377,7 @@
               "name": "I001555",
               "type": "checkbox",
               "title": "出院护理",
-              "elementClass":"el-radio-long",
+              "elementClass": "el-radio-long",
               "style": null,
               "class": null
             },
@@ -3199,7 +3385,7 @@
               "name": "I001555",
               "type": "checkbox",
               "title": "防呛噎护理",
-              "elementClass":"el-radio-long",
+              "elementClass": "el-radio-long",
               "style": null,
               "class": null
             },
@@ -3207,15 +3393,16 @@
               "name": "I001555",
               "type": "checkbox",
               "title": "其他",
-              "elementStyle":"margin: 5px 10px 0px 0px!important;",
+              "elementStyle": "margin: 5px 10px 0px 0px!important;",
               "style": null,
               "class": null
             },
             {
               "name": "I001556",
+              "parentName": "I001555",
               "type": "input",
               "title": "其他",
-              "elementClass":"",
+              "elementClass": "",
               "style": null,
               "class": null
             }
@@ -3239,7 +3426,7 @@
       "name": "",
       "type": "formGroupColBox",
       "col": 1,
-      "title": "其他（护理重点）",
+      "title": "十一、护理重点",
       "message": "",
       "require": "false",
       "prefixDesc": "",
@@ -3247,7 +3434,7 @@
       "keys": "",
       "style": "width:100%",
       "tdStyle": "width:100%",
-      "elementStyle":"width:100%",
+      "elementStyle": "width:100%",
       "titleStyle": "margin-top: 12px;",
       "classes": null,
       "readOnly": null,
@@ -3258,15 +3445,13 @@
           "title": "其他",
           "style": "width:100%",
           "tdStyle": "width:100%",
-          "elementStyle":"width:100%",
+          "elementStyle": "width:100%",
           "class": null,
           "children": [
             {
               "name": "I001557",
-              "type": "input",
+              "type": "mark",
               "title": "其他",
-              "style": "width:100%",
-              "elementStyle":"width:100%",
               "class": null
             }
           ]
@@ -3277,7 +3462,7 @@
       "name": "",
       "type": "formGroupColBox",
       "col": 1,
-      "title": "护理交接班重点",
+      "title": "十一、护理重点",
       "message": "",
       "require": "false",
       "prefixDesc": "",
@@ -3285,7 +3470,7 @@
       "keys": "",
       "style": "width:100%",
       "tdStyle": "width:100%",
-      "elementStyle":"width:100%",
+      "elementStyle": "width:100%",
       "titleStyle": "margin-top: 12px;",
       "classes": null,
       "readOnly": null,
@@ -3296,16 +3481,13 @@
           "title": "护理交接班重点",
           "style": "width:100%",
           "tdStyle": "width:100%",
-          "elementStyle":"width:100%",
+          "elementStyle": "",
           "class": null,
           "children": [
             {
               "name": "I001558",
-              "type": "input",
+              "type": "mark",
               "title": "护理交接班重点",
-              "style": "width:100%",
-              "elementsStyle": "width:100%",
-              "elementStyle":"width:100%",
               "class": null
             }
           ]
@@ -3316,7 +3498,7 @@
       "name": "I001502",
       "type": "formGroupColBox",
       "col": 1,
-      "title": "提醒医生给予关注",
+      "title": "十一、护理重点",
       "message": "",
       "require": "false",
       "prefixDesc": "",
@@ -3324,7 +3506,7 @@
       "keys": "",
       "style": "width:100%",
       "tdStyle": "width:100%",
-      "elementStyle":"width:100%",
+      "elementStyle": "width:100%",
       "titleStyle": "margin-top: 12px;",
       "classes": null,
       "readOnly": null,
@@ -3332,18 +3514,19 @@
         {
           "name": "I001559",
           "type": "",
-          "title": "提醒医生给予关注","titleSpanStyle":"margin-left:-25px!important",
+          "title": "提醒医生给予关注",
+          "titleSpanStyle": "margin-left:0px!important",
           "style": "width:100%",
           "tdStyle": "width:100%",
-          "elementStyle":"width:100%",
+          "elementStyle": "width:100%",
           "class": null,
           "children": [
             {
               "name": "I001559",
-              "type": "input",
+              "type": "mark",
               "title": "提醒医生给予关注",
-              "style": "width:100%",
-              "elementStyle":"width:100%",
+              "style": "",
+              "elementStyle": "",
               "class": null
             }
           ]
@@ -3354,7 +3537,7 @@
       "name": "",
       "type": "formGroupColBox",
       "col": 1,
-      "title": "提醒家属给予关爱",
+      "title": "十一、护理重点",
       "message": "",
       "require": "false",
       "prefixDesc": "",
@@ -3362,7 +3545,7 @@
       "keys": "",
       "style": "width:100%",
       "tdStyle": "width:100%",
-      "elementStyle":"width:100%",
+      "elementStyle": "width:100%",
       "titleStyle": "margin-top: 12px;",
       "classes": null,
       "readOnly": null,
@@ -3370,64 +3553,19 @@
         {
           "name": "",
           "type": "",
-          "title": "提醒家属给予关爱","titleSpanStyle":"margin-left:-25px!important",
+          "title": "提醒家属给予关爱",
+          "titleSpanStyle": "margin-left:0px!important",
           "style": "width:100%",
           "tdStyle": "width:100%",
-          "elementStyle":"width:100%",
+          "elementStyle": "width:100%",
           "class": null,
           "children": [
             {
               "name": "I001560",
-              "type": "input",
+              "type": "mark",
               "title": "提醒家属给予关爱",
-              "style": "width:100%",
-              "elementStyle":"width:100%",
-              "class": null
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "",
-      "type": "formGroupColBox",
-      "col": 1,
-      "title": "科室名称",
-      "message": "",
-      "require": "false",
-      "prefixDesc": "",
-      "suffixDesc": "",
-      "keys": "",
-      "style": "width:100%",
-      "tdStyle": "width:100%",
-      "elementStyle":"width:100%",
-      "titleStyle": "margin-top: 12px;",
-      "classes": null,
-      "readOnly": null,
-      "children": [
-        {
-          "name": "",
-          "type": "",
-          "title": "科室名称","titleSpanStyle":"margin-left:-25px!important",
-          "style": "width:100%",
-          "tdStyle": "width:100%",
-          "elementStyle":"width:100%",
-          "class": null,
-          "children": [
-            {
-              "name": "I001560",
-              "type": "input",
-              "title": "科室名称",
-              "style": "width:50%",
-              "elementStyle":"width:50%",
-              "class": null
-            },
-            {
-              "name": "I001560",
-              "type": "checkbox",
-              "title": "科室名称",
-              "style": "width:50%",
-              "elementStyle":"width:50%",
+              "style": "",
+              "elementStyle": "",
               "class": null
             }
           ]
@@ -3441,11 +3579,70 @@
       "prefixDesc": "",
       "suffixDesc": "",
       "keys": "",
-      "style": "margin: 10px -21px -20px -21px",
+      "style": "margin: 10px -21px 20px -21px",
       "classes": "",
       "readOnly": ""
+    },
+    {
+      "name": "",
+      "type": "formGroupColBox",
+      "col": 2,
+      "title": "签名",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "evalDate",
+          "type": "input",
+          "title": "记录时间",
+          "suffixDesc": "",
+          "style": null,
+          "class": null,
+          "readOnly": true
+        },
+        {
+          "name": "signerName",
+          "type": "input",
+          "title": "责任护士签名",
+          "suffixDesc": "",
+          "style": "cursor: pointer!important",
+          "class": null,
+          "readOnly": true
+        },
+        {
+          "name": "auditTime",
+          "type": "input",
+          "title": "审核时间",
+          "suffixDesc": "",
+          "style": null,
+          "class": null,
+          "readOnly": true
+        },
+        {
+          "name": "auditorName",
+          "type": "input",
+          "title": "审核人签名",
+          "suffixDesc": "",
+          "style": "cursor: pointer!important",
+          "class": null,
+          "readOnly": true
+        }
+      ]
     }
   ],
   "dialogs": [],
-  "header": []
+  "header": [],
+  "design":
+    {
+      "XRadiobox":{
+        "name":"K0001",
+        "title":"红叉辅助单选框组件"
+      }
+    }
 }

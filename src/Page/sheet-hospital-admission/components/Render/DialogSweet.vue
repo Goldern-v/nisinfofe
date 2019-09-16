@@ -4,7 +4,7 @@
     ref="sweetModal"
     :title="title || ' '"
     :modal-width="modalWidth"
-    :fullBtn="true"
+    :fullBtn="false"
     class="custom-sweet-modal"
   >
     <!-- dialog-loading -->

@@ -103,6 +103,7 @@ export default {
 
       if (this.$refs[this.refName]) {
         this.$refs[this.refName].$parent.$parent.$parent.$el.style.outline = "none";
+        this.$refs[this.refName].$parent.$parent.$parent.$el.style.backgroundColor = "transparent";
         // if(this.$root.$refs.mainPage.checkFormMissingItems){
         //   this.$root.$refs.mainPage.checkFormMissingItems()
         // }
@@ -289,7 +290,7 @@ export default {
 .el-input--small,
 .el-input-group,
 .el-input-group--prepend {
-  margin: 5px 0px;
+  margin: 2px 0px;
 }
 
 .el-checkbox,
@@ -302,4 +303,26 @@ export default {
 .el-checkbox>>>.el-checkbox__label{
   padding-top: 2px;
 }
+</style>
+
+<style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
+
+>>>.el-checkbox__label
+      font-size 12px!important;
+      padding-left: 5px;
+      padding-right: 5px;
+
+>>>.el-checkbox__inner
+      border-radius 15px!important;
+      width: 15px;
+      height: 15px;
+      border-color: #4bb08d!important;
+
+>>>.el-checkbox__inner::after
+      border 2px solid #fff;
+      border-left: 0;
+      border-top: 0;
+      left: 3px;
+      top: 0px;
+
 </style>

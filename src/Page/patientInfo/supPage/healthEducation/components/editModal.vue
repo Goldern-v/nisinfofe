@@ -76,6 +76,12 @@ import dayjs from 'dayjs'
 import { getEduFormTemplate, saveMission } from '../api/healthApi'
 import qs from "qs";
 export default {
+  props: {
+    blockId: {
+      type: Number,
+      default: ''
+    }
+  },
   data () {
     return {
       title: '',
@@ -207,9 +213,6 @@ export default {
         this.options = [];
       }
     },
-
-
-
     // 处理保存入参
     setParams () {
       let date = dayjs(new Date()).format("MM-DD HH:mm")
@@ -227,6 +230,7 @@ export default {
       }
       let queryInfo = this.$route.query
       let data = {
+        blockId: this.blockId,
         id: this.type === 2 ? this.itemData.id : '', // 非必须，宣教实例id
         patientId: queryInfo.patientId, // 非必须，病人id
         patientName: queryInfo.name, // 非必须，病人姓名
@@ -257,7 +261,7 @@ export default {
         }
       });
     }
-  }
+  },
 }
 </script>
 
@@ -302,6 +306,5 @@ export default {
     margin-left: 5px;
   }
 }
-
 </style>
 

@@ -28,9 +28,9 @@
             </el-radio-group>
 
 
-            <div class="text-li"  @dblclick="textboxOndbClick" v-if="item.group==='text'" size="small" v-for="(kid, index) in item.child" :key="index" :name="item.name"> 
+            <div class="text-li"  @dblclick="textboxOndbClick" v-if="item.group==='text'" size="small" v-for="(kid, index) in item.child" :key="index" :name="item.name">
               <!--  v-model="item.result" @click="textboxOnClick" -->
-              
+
                 <el-date-picker v-if="kid.type==='datetime'" type="datetime" :name="kid.name" placeholder="日期" v-model="kid.result" format="yyyy-MM-dd HH:mm" value-format="yyyy-MM-dd HH:mm"></el-date-picker>
 
                 <el-input v-if="kid.type==='text'" :checked="kid.checked" :placeholder="kid.placeholder" :label="kid.code" :name="kid.name" v-model='kid.result'><template slot="prepend" style="color:black">{{kid.value||kid.code}}</template></el-input>
@@ -79,8 +79,8 @@
                 </el-autocomplete>
 
                 </div>
-                
-                
+
+
             </div>
 
 
@@ -151,7 +151,7 @@
     .el-input
       width 90%
       padding 5px
-    
+
   .zd-li
     color black
     font-size 14px
@@ -161,6 +161,7 @@
     .el-checkbox__label
       font-size 14px!important
       color black!important
+      display inherit!important
     .el-radio
       margin-right 0px
       margin-left 0px
@@ -171,7 +172,7 @@
     .el-input-group__prepend
       color black
       background-color white
-    
+
   .list
     li
       height 36px;
@@ -250,7 +251,7 @@ export default {
   },
   mounted() {
     // this.modalLoading = false
-    
+
   },
   computed: {
     formData() {

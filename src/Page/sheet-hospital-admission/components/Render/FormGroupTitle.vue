@@ -7,9 +7,7 @@
     <div v-if="obj.type==='formGroupTitle'"
     :style='obj.style'
     :class='obj.class|| obj.level&&obj.level==="1"?"group-title-box":"group-sub-title-box"'
-    >
-      {{obj.title}}
-    </div>
+    >{{obj.title}}</div>
   </div>
 </template>
 
@@ -54,10 +52,10 @@ export default {
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
   .group-title-box
-    margin 10px 0 20px 0
+    margin 10px 0 10px 0
     font-weight bold
   .group-sub-title-box
     font-size 15px
     text-indent 1.25em
-    margin 10px 0 15px 0
+    margin 10px 0 5px 0
 </style>

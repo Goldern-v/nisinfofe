@@ -41,6 +41,8 @@ yarn build: wuhang 林兆彬
 
 # 新版配置的路径打包
 yarn buildNew: wuhang 林兆彬
+yarn buildNew: houjie 林兆彬
+yarn buildNew: weixian 林兆彬
 
 # 自动发布到45测试服务器
 yarn deploy weixian 兆大彬 #打包并自动部署威县医院包到45测试服务器

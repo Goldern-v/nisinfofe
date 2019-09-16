@@ -8,14 +8,14 @@
               id="fromBoxClean"
               ref="ifamme-modal"
               class="iframe-form-con"
-              :style="formListData&&formListData.length>0?'':'background: #dfdfdf;'"
+              :style="formListData&&Object.keys(formListData).length>0?'':'background: #dfdfdf;'"
               v-if="url"
               :src="url"
               frameborder="0"
               @load="onload"
             ></iframe>
           </div>
-          <div v-if="formListData&&formListData.length>0" flex-box="1" style="width:0; overflow:visible; height:100%">
+          <div v-if="formListData&&Object.keys(formListData).length>0" flex-box="1" style="width:0; overflow:visible; height:100%">
             <div flex-box="2" style="width:100%; height:100%" v-loading="formListModalLoading">
               <formList :formCode="formCode" :formListData="formListData" ref="formList"></formList>
             </div>

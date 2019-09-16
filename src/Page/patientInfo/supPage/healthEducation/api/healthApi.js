@@ -3,8 +3,8 @@ import {apiPath} from '@/api/apiConfig'
 import qs from 'qs'
 
 // 获取病人全部宣教实例和页面参数
-export function getAllByPatientInfo(patientId, visitId) {
-  return axios.post(`${apiPath}missionInstance/getAllByPatientInfo`, qs.stringify({patientId, visitId}))
+export function getAllByPatientInfo(blockId) {
+  return axios.post(`${apiPath}missionInstance/getAllByPatientInfo`, qs.stringify({blockId}))
 }
 
 // 推送健康宣教
@@ -27,7 +27,29 @@ export function deleteMission(id) {
   return axios.get(`${apiPath}missionInstance/deleteMission/${id}`)
 }
 
-// 根据科室获取宣教内容模板列表
+// 宣教内容下拉列表
 export const getEduFormTemplate = params => {
-  return axios.post(`${apiPath}/briefMission/getBriefMission`,params)
-};
+  return axios.post(`${apiPath}briefMission/getBriefMission`,params)
+}
+
+// 健康教育的下拉列表
+export const getEduFormList = params => {
+  return axios.get(`${apiPath}missionBlock/getBlockByPV/${params.patientId}/${params.visitId}`)
+}
+
+// 保存健康教育块
+export const saveEducation = params => {
+  return axios.post(`${apiPath}missionBlock/saveBlock`, params)
+}
+
+// 健康教育内容弹窗
+export function getContentByMissionId(ids) {
+  return axios.post(`${apiPath}/briefMission/getContentByMissionIds`,qs.stringify({ids}))
+}
+
+//删除整张教育单
+export function deleteBlock(id) {
+  return axios.get(`${apiPath}/missionBlock/deleteBlock/${id}`)
+}
+
+

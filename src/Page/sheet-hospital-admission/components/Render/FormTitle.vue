@@ -5,7 +5,7 @@
       <div class="title-box">
         <h1>{{obj.formTitle.hospitalName}}</h1>
         <h1>{{obj.formTitle.formName}}</h1>
-        <div class="header-box">
+        <div class="header-box" v-if="obj.formHeads && obj.formHeads.length>0">
           <span v-for="(item, index) in obj.formHeads " :key="index">{{item.title}}:{{item.value}}</span>
         </div>
       </div>

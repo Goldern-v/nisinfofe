@@ -6,9 +6,12 @@
         <img :src="contentImgae" alt>
     </el-tooltip>-->
     <!-- </div> -->
-    <div v-if="isShow" class="table-of-content-box" :class="isShow?'':'table-show'" ref="tableOfContent">
+    <div v-if="isShow" class="table-of-content-box" :class="isShow?'':'table-show'" ref="tableOfContent"  :style="{height:(wih-100)+'px'}">
       <!-- formGroupTitle -->
+      <div class="title-box">目录</div>
+      <div class="list-box">
       <ul>
+
         <li
           v-for="(t,i) in formObj.body"
           v-if="t.type ==='formGroupTitle'"
@@ -16,11 +19,18 @@
           :class="t.level==='2' ?'title-level-two':''"
           @click="scrollTo($event,t.title)"
         >
-          <span :class="{'missing-items':missingItems&&missingItems[t.title]}">{{formatTitle(t.title)}}{{missingItems&&missingItems[t.title]?`(漏${missingItems[t.title].length}项)`:''}}</span>
+        <el-tooltip class="item" effect="light" placement="top" >
+        <div slot="content">
+          <span>
+            <span :class="{'missing-items':missingItems&&missingItems[t.title]}">{{t.title}}{{missingItems&&missingItems[t.title]?`(漏${missingItems[t.title].length}项)`:''}}</span>
+          </span>
+        </div>
+          <span :class="{'missing-items':missingItems&&missingItems[t.title]}">{{formatTitle(t.title+(missingItems&&missingItems[t.title]?`(漏${missingItems[t.title].length}项)`:''))}}</span>
+      </el-tooltip>
         </li>
-
         <!-- <a :href="'#'+t.title">{{t.title}}</a> -->
       </ul>
+      </div>
     </div>
   </div>
 </template>
@@ -28,14 +38,17 @@
 <script>
 import vue from "vue";
 import uuid from "node-uuid";
-
+import commonMixin from "@/common/mixin/common.mixin";
 export default {
+  mixins: [commonMixin],
   name: "TableOfContent",
   props: {
     obj: Object,
     formObj: Object
   },
-  components: {},
+  components: {
+    // tooltip
+  },
   data() {
     return {
       contentImgae: null,
@@ -153,6 +166,17 @@ export default {
   }
 }
 
+.title-box {
+  height: 13px;
+  background: #F1F1F5;
+  padding: 10px;
+  font-size: 13px;
+}
+
+.list-box {
+  margin: 10px 0;
+}
+
 // .table-of-content {
 //   position: fixed;
 //   top: 40%;
@@ -165,7 +189,7 @@ export default {
   width 0
   height 0
   position: fixed;
-  top: 126px;
+  top: 100px;
   background: transparent;
   z-index: 9;
   transition: all 0.3s ease-out;
@@ -181,15 +205,15 @@ export default {
   // position: fixed;
   // right: calc(2% + 40px);
   // top: 18%;
-  padding: 10px;
+  // padding: 10px;
   background: rgba(255, 255, 255, 1);
   box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.2);
-  position relative
-  right -770px
+  position: fixed;
+  right: 10px;
 }
 
 .title-level-two {
-  font-size: 13px;
+  font-size: 12px;
   text-indent: 1.25em;
 }
 
@@ -200,10 +224,10 @@ export default {
 }
 
 ul, li {
-  line-height: 1.8em;
-  font-size: 13px;
+  line-height: 2em;
+  font-size: 12px;
   list-style-type: none;
-  padding-left: 5px;
+  padding-left: 7px;
 }
 
 li:hover {
@@ -217,7 +241,7 @@ li:hover {
 a {
   text-decoration-line: none;
   color: black;
-  font-size: 13px;
+  font-size: 12px;
 
   &:visited {
     color: black;
