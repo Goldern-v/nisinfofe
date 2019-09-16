@@ -11,6 +11,7 @@
       <div class="title-box">目录</div>
       <div class="list-box">
       <ul>
+
         <li
           v-for="(t,i) in formObj.body"
           v-if="t.type ==='formGroupTitle'"
@@ -18,9 +19,15 @@
           :class="t.level==='2' ?'title-level-two':''"
           @click="scrollTo($event,t.title)"
         >
-          <span :class="{'missing-items':missingItems&&missingItems[t.title]}">{{formatTitle(t.title)}}{{missingItems&&missingItems[t.title]?`(漏${missingItems[t.title].length}项)`:''}}</span>
+        <el-tooltip class="item" effect="light" placement="top" >
+        <div slot="content">
+          <span>
+            <span :class="{'missing-items':missingItems&&missingItems[t.title]}">{{t.title}}{{missingItems&&missingItems[t.title]?`(漏${missingItems[t.title].length}项)`:''}}</span>
+          </span>
+        </div>
+          <span :class="{'missing-items':missingItems&&missingItems[t.title]}">{{formatTitle(t.title+(missingItems&&missingItems[t.title]?`(漏${missingItems[t.title].length}项)`:''))}}</span>
+      </el-tooltip>
         </li>
-
         <!-- <a :href="'#'+t.title">{{t.title}}</a> -->
       </ul>
       </div>
@@ -39,7 +46,9 @@ export default {
     obj: Object,
     formObj: Object
   },
-  components: {},
+  components: {
+    // tooltip
+  },
   data() {
     return {
       contentImgae: null,
