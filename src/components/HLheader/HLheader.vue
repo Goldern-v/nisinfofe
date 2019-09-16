@@ -38,11 +38,11 @@
                 <i class="iconfont icon-baiban"></i> 白板
               </el-row>
             </router-link>
-            <!-- <router-link to="/familyBigScreen" tag="span">
+            <router-link to="/familyBigScreen" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-family"></i> 家属大屏
               </el-row>
-            </router-link>-->
+            </router-link>
 
             <router-link to="/MEWS" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
@@ -282,6 +282,16 @@
                     </el-row>
                   </router-link>
                 </el-dropdown-item>
+                <el-dropdown-item
+                  :class="{active: $route.path == '/vaccineManagement'}"
+                  v-if="deptName.includes('产科')"
+                >
+                  <router-link to="/vaccineManagement" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="vaccineManagement"></i>疫苗管理
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
           </el-row>
@@ -505,6 +515,10 @@
     &.puerperantSituation {
       background-image: url('../../common/images/index/产科分娩登记表.png');
     }
+
+    &.vaccineManagement {
+      background-image: url('../../common/images/index/疫苗管理.png');
+    }
   }
 }
 
@@ -642,6 +656,9 @@ export default {
     deptCode() {
       return this.$store.state.lesion.deptCode;
     },
+    deptName() {
+      return this.$store.state.lesion.deptName;
+    },
     nursingStaff() {
       let nursingStaff = false;
       try {
@@ -669,6 +686,7 @@ export default {
       if (this.$route.path == "/noCheckTest") return true;
       if (this.$route.path == "/departmentSharedFile") return true;
       if (this.$route.path == "/flatManagement") return true;
+      if (this.$route.path == "/vaccineManagement") return true;
     },
     isActiveFormPage() {
       if (this.$route.path == "/sheetPage") return true;

@@ -123,6 +123,9 @@ import archive from "@/Page/archive/archive.vue";
 // 家属大屏
 import familyBigScreen from "@/Page/family-big-screen/family-big-screen.vue";
 import videoListSetting from "@/Page/family-big-screen/video-list-setting.vue";
+
+import vaccineManagement from "@/Page/vaccine-management/vaccine-management.vue";
+
 /** demo */
 import demo from "@/demo/demo";
 Vue.use(Router);
@@ -433,7 +436,8 @@ const router = new Router({
         { path: "/noCheckTest", component: noCheckTest },
         { path: "/departmentSharedFile", component: departmentSharedFile },
         { path: "/flatManagement", component: flatManagement },
-        { path: "/puerperantSituation", component: puerperantSituation }
+        { path: "/puerperantSituation", component: puerperantSituation },
+        { path: "/vaccineManagement", component: vaccineManagement },
       ]
     },
     {

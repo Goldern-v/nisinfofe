@@ -36,9 +36,9 @@
             住院号：
             <div class="bottom-line" style="min-width: 50px">{{patientInfo.inpNo}}</div>
           </span>
-          <span @click="updateBirthDay">
+          <span @click="updateTetxInfo('admissionDate', '日期', patientInfo.admissionDate)">
             日期：
-            {{patientInfo.birthday | toymd}}
+            {{patientInfo.admissionDate}}
           </span>
         </div>
       </div>
