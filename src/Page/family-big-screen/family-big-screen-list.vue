@@ -2,7 +2,7 @@
   <div class="contains">
     <div class="main-content" flex="main:justify">
       <div class="content-left" flex-box="1">
-        <table cellspacing="0" border="1" class="tables">
+        <table cellspacing="0" border="1" class="tables" ref="table-head">
           <colgroup>
             <col width="80" />
             <col width="100" />
@@ -14,8 +14,9 @@
               <th colspan="4">
                 <img src="./images/women.png" />
                 <span>当前产妇列表</span>
-                <span class="sum">共10个床位</span>
+                <span class="sum">共{{data.length}}个床位</span>
               </th>
+              <th class="scrollBlock" v-if="table1"></th>
             </tr>
             <tr>
               <th>床号</th>
@@ -34,16 +35,21 @@
               <col width="100" />
               <col width="140" />
             </colgroup>
-            <tbody>
-              <tr v-for="(item,index) in maternalList" :key="index" class="data-row">
-                <td>111</td>
-                <td>222</td>
-                <td>333</td>
-                <td>444</td>
+            <tbody ref="table-tbody">
+              <tr
+                v-for="(item,index) in data"
+                :key="index"
+                class="data-row"
+                :class="{blue:item.bornStatus && item.bornStatus.includes('分娩')}"
+              >
+                <td>{{item.bedLabel}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.bornStatus}}</td>
+                <td>{{item.bornTime}}</td>
               </tr>
             </tbody>
           </table>
-          <nullText v-show="maternalList.length == 0"></nullText>
+          <nullText v-show="data.length == 0"></nullText>
         </div>
       </div>
       <div class="content-center" flex-box="1">
@@ -128,7 +134,8 @@ import {
   moveUpVideo,
   moveDownVideo,
   saveWarmTips,
-  getWarmTips
+  getWarmTips,
+  getBornPatients
 } from "./api/index-xin";
 import { TSNeverKeyword } from "babel-types";
 import common from "@/common/mixin/common.mixin.js";
@@ -149,7 +156,7 @@ export default {
   },
   data() {
     return {
-      maternalList: [1, 2, 3], //产妇列表
+      data: [], //产妇列表
       videoList: [], //视频列表
       centerDialogVisible1: false, //显示table1弹窗
       centerDialogVisible2: false, //显示table2弹窗
@@ -159,7 +166,11 @@ export default {
       page2Loading: false,
       warmTips: {
         message: ""
-      } //温馨提示
+      }, //温馨提示
+      bornPatientList: [],
+      isFlag: false,
+      timeId2: "",
+      tbodyH: ""
     };
   },
   methods: {
@@ -174,6 +185,55 @@ export default {
 
       this.getPlayList();
       this.getWarmTips();
+      this.getBornPatients();
+    },
+    updateTips(index, rowH, isFlag2) {
+      let num = Math.floor(this.tbodyH / rowH);
+      let sum = this.bornPatientList.length;
+      if (num <= sum) {
+        this.data = [...this.bornPatientList];
+        if (this.isFlag && isFlag2) {
+          this.getBornPatients();
+        }
+      } else if (index * num > sum - 1 && this.isFlag && isFlag2) {
+        this.getBornPatients();
+      } else {
+        this.data = [...this.bornPatientList.slice(index * num, num)];
+      }
+    },
+    // 获取产科家属白板
+    getBornPatients() {
+      this.isFlag = false;
+      getBornPatients()
+        .then(res => {
+          this.isFlag = true;
+          if (res.data && res.data.code == 200) {
+            this.bornPatientList = res.data.data;
+          }
+          if (this.bornPatientList && this.bornPatientList.length) {
+            this.noTableData = false;
+          } else {
+            this.noTableData = true;
+          }
+
+          if (this.$refs["table-tbody"] && this.$refs["table-head"]) {
+            this.tbodyH =
+              window.innerHeight - this.$refs["table-tbody"].offsetTop;
+            let rowH = this.$refs["table-head"].offsetHeight;
+            let index = 0;
+            this.updateTips(index, rowH);
+            clearInterval(this.timeId2);
+            this.timeId2 = setInterval(() => {
+              // 10s刷新一次列表数据
+              ++index;
+              this.updateTips(index, rowH, true);
+            }, 10 * 1000);
+          }
+        })
+        .catch(err => {
+          this.isFlag = true;
+          this.noTableData = true;
+        });
     },
     // 获取播放列表
     getPlayList() {
@@ -305,6 +365,12 @@ export default {
 
         img {
           width: 17px;
+        }
+      }
+
+      .blue {
+        td {
+          color: #4e46db;
         }
       }
 

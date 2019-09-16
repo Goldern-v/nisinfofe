@@ -7,7 +7,7 @@
       </div>
       <div class="float-right">
         <el-button @click="openUploadVideoModal">添加</el-button>
-        <el-button>返回</el-button>
+        <el-button @click="goBack">返回</el-button>
       </div>
     </div>
     <div class="main-contain">
@@ -85,6 +85,9 @@ export default {
     openUploadVideoModal(item) {
       this.$refs.uploadVideoModal.open(item);
     },
+    goBack() {
+      this.$router.push({ path: "/familyBigScreen" });
+    },
     getPageList() {
       this.pageLoadng = true;
       getPageList(this.query).then(res => {
@@ -92,7 +95,7 @@ export default {
         this.data = res.data.data.list;
         this.query.pageIndex = res.data.data.pageIndex;
         this.query.pageSize = res.data.data.pageSize;
-        this.total = res.data.data.total;
+        this.total = res.data.data.totalCount;
       });
     },
     handleSizeChange(newSize) {

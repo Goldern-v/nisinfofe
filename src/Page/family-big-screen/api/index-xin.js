@@ -111,5 +111,10 @@ export function getWarmTips() {
   return axios.get(`${apiPath}familyScreen/getWarmTips`);
 }
 
+// 获取产科家属白板
+export function getBornPatients() {
+  return axios.post(`${apiPath}whiteboard/getBornPatients`);
+}
+
 
 export { nurseTast, bodyTast, recordJob };
