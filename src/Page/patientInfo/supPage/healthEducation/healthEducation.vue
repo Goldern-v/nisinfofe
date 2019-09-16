@@ -101,11 +101,15 @@ export default {
     }
   },
   created () {
-    this.getSelectData(1)
-    this.getTableData()
+    this.init()
   },
   methods:{
     // 获取下拉框数据列表
+    init(){
+      this.getSelectData(1)
+      this.getTableData()
+    },
+    
     getSelectData (index) {
       let { visitId, patientId } = this.$route.query
       let params = {
