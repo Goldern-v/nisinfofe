@@ -266,12 +266,14 @@ export default {
   width: 750px;
   /* margin: auto; */
   margin-top: 10px;
-  margin-left: auto;
-  margin-right: auto;
+  /* margin-left: auto;
+  margin-right: auto; */
   margin-bottom: 50px;
   border: 1px solid #eee;
   box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.5);
-  position: relative;
+  /* position: relative; */
+  position: absolute;
+  left: calc(50% - 520px);
   &.lock {
     pointer-events: none;
     /deep/ input,
