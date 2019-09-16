@@ -309,6 +309,8 @@ export default {
 
 >>>.el-checkbox__label
       font-size 12px!important;
+      padding-left: 5px;
+      padding-right: 5px;
 
 >>>.el-checkbox__inner
       border-radius 15px!important;

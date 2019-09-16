@@ -273,7 +273,7 @@ export default {
   box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.5);
   /* position: relative; */
   position: absolute;
-  left: calc(50% - 520px);
+  left: calc(50% - 500px);
   &.lock {
     pointer-events: none;
     /deep/ input,
