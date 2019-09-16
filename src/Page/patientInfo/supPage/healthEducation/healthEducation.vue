@@ -20,7 +20,7 @@
         <div class="tool-fix">
           <WhiteButton text="添加" @click="onAdd"></WhiteButton>
           <WhiteButton text="修改" @click="onEdit" :disabled="!selected"></WhiteButton>
-          <WhiteButton text="删除" @click="onRemove" :disabled="!selected"></WhiteButton>
+          <WhiteButton text="删除当条" @click="onRemove" :disabled="!selected"></WhiteButton>
           <WhiteButton text="推送" @click="onPush" :disabled="!selected" ></whiteButton>
         </div>
         <div class="tool-fix tool-right">
@@ -222,6 +222,7 @@ export default {
       this.getSelectData ()
       this.$message.success('删除成功！')
       this.selected = null;
+
     },
 
     // 更新列表数据

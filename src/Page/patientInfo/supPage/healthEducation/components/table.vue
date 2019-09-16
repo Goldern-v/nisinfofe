@@ -64,8 +64,6 @@
     <div class="health-table-page">{{`第${index + 1}/${page}页`}}</div>
     <!-- 宣教内容弹窗 -->
     <healthContentModal ref="healthContentModal" :content="content" :name="name"/>
-
-    <!-- <div v-show="isContent" class="health-content" v-html="content"></div> -->
   </div>
 </template>
 
@@ -180,6 +178,7 @@ export default {
     },
     //点击宣教内容
     healthContent(e, data) {
+      if (!data['宣教内容']) return
       e.stopPropagation();
       let ids = data.item ? data.item.missionId : ''
       getContentByMissionId(ids).then(res => {
@@ -233,7 +232,6 @@ export default {
       color: blue;
     }
     .isPrint:hover {
-      font-size: 13px;
       text-decoration: underline;
     }
     th, td {
