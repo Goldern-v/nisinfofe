@@ -101,11 +101,15 @@ export default {
     }
   },
   created () {
-    this.getSelectData(1)
-    this.getTableData()
+    this.init()
   },
   methods:{
     // 获取下拉框数据列表
+    init(){
+      this.getSelectData(1)
+      this.getTableData()
+    },
+
     getSelectData (index) {
       let { visitId, patientId } = this.$route.query
       let params = {
@@ -161,32 +165,36 @@ export default {
     },
     // 新建教育单
     async addEducation () {
-      await this.$confirm(
-        "确定要新建教育单吗？",
-        "提示",
-        {
-          confirmButtonText: "确定",
-          cancelButtonText: "取消",
-          type: "warning"
+      if (this.$route.query.patientId) {
+        await this.$confirm(
+          "确定要新建教育单吗？",
+          "提示",
+          {
+            confirmButtonText: "确定",
+            cancelButtonText: "取消",
+            type: "warning"
+          }
+        );
+        let queryInfo = this.$route.query
+        let params = {
+          patientId: queryInfo.patientId,
+          visitId: queryInfo.visitId,
+          patientName: queryInfo.patientName,
+          bedLabel: queryInfo.bedLabel,
+          wardCode: queryInfo.wardCode,
+          wardName: queryInfo.wardName,
+          creatDate: dayjs().format("YYYY-MM-DD HH:mm"),
         }
-      );
-      let queryInfo = this.$route.query
-      let params = {
-        patientId: queryInfo.patientId,
-        visitId: queryInfo.visitId,
-        patientName: queryInfo.patientName,
-        bedLabel: queryInfo.bedLabel,
-        wardCode: queryInfo.wardCode,
-        wardName: queryInfo.wardName,
-        creatDate: dayjs().format("YYYY-MM-DD HH:mm"),
+        saveEducation(params).then(res => {
+          this.blockId = res.data.data.id
+          this.pageParam = []
+          this.isData = 1
+          this.getSelectData ()
+        }).catch(e => {
+        })
+      } else {
+        this.$message.warning("请先选择一名患者");
       }
-      saveEducation(params).then(res => {
-        this.blockId = res.data.data.id
-        this.pageParam = []
-        this.isData = 1
-        this.getSelectData ()
-      }).catch(e => {
-      })
     },
     // 删除
     async onRemove() {

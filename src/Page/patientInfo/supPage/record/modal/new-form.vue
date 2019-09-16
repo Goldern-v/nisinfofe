@@ -168,11 +168,11 @@ export default {
         {
           value: "report",
           label: "报告类"
-        },
-        {
-          value: "4",
-          label: "健康宣教"
         }
+        // {
+        //   value: "4",
+        //   label: "健康宣教"
+        // }
       ],
       formType: "1",
       pageLoading: true,

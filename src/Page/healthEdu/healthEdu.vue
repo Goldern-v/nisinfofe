@@ -6,7 +6,7 @@
         <patientList :data="data.bedList" :isSelectPatient="isSelectPatient" v-loading="patientListLoading"></patientList>
       </div>
       <div class="right-part" :style="{marginLeft: openLeft?'200px':'0'}">
-        <record :filterObj="filterObj"></record>
+        <healthEducation ref="healthEducation"></healthEducation>
       </div>
     </div>
   </div>
@@ -47,15 +47,11 @@ import patientList from "@/components/patient-list/patient-list.vue";
 import common from "@/common/mixin/common.mixin.js";
 import { patients } from "@/api/lesion";
 import bus from "vue-happy-bus";
-import record from "@/Page/patientInfo/supPage/record/record";
+import healthEducation from "@/Page/patientInfo/supPage/healthEducation/healthEducation";
 export default {
   mixins: [common],
   data() {
     return {
-      filterObj: {
-        label: '健康教育单',
-        formType: "4"
-      },
       data: {
         bedList: []
       },
@@ -93,8 +89,7 @@ export default {
           query: item
         },
         () => {
-          this.bus.$emit("refreshTree", true);
-          this.bus.$emit("closeAssessment");
+          this.$refs.healthEducation.init()
         }
       );
     }
@@ -115,16 +110,17 @@ export default {
         this.$router.replace({
           path: "/healthEdu",
           query: {}
+        },
+        () => {
+          this.$refs.healthEducation.init()
         });
-        this.bus.$emit("refreshTree", true);
-        this.bus.$emit("closeAssessment");
       }
       this.getDate();
     }
   },
   components: {
     patientList,
-    record
+    healthEducation
   }
 };
 </script>
