@@ -131,32 +131,32 @@ export default {
 
 <style lang="scss" scoped>
   .pagination{
-      padding: 10px 15px;
-      box-sizing: border-box;
-      background: #fff;
-      overflow: hidden;
-      font-size: 14px;
-      .now-page{
-        width: 50px;
-      }
-      .page-size{
+    padding: 10px 15px;
+    box-sizing: border-box;
+    background: #fff;
+    overflow: hidden;
+    font-size: 14px;
+    .now-page{
+      width: 50px;
+    }
+    .page-size{
+      display: inline-block;
+      width: 50px;
+    }
+    .left-part{
+      float: left;
+    }
+    .right-part{
+      display: inline-block;
+      float: right;
+      .el-pagination-content{
+        position: relative;
+        top: -1px;
         display: inline-block;
-        width: 50px;
-      }
-      .left-part{
-        float: left;
-      }
-      .right-part{
-        display: inline-block;
-        float: right;
-        .el-pagination-content{
-          position: relative;
-          top: -1px;
-          display: inline-block;
-          vertical-align: middle;
-        }
+        vertical-align: middle;
       }
     }
+  }
 </style>
 
 

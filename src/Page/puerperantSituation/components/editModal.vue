@@ -17,20 +17,6 @@
         <el-radio-group v-if="type=='radioGroup'" v-model="editValue" @change="handleValueChange">
           <el-radio :label="item" v-for="(item,idx) in options" :key="idx">{{item}}</el-radio>
         </el-radio-group>
-        <!-- 接生者 护士列表 -->
-        <el-select 
-          class="nurse-select"
-          v-if="type=='nurseGroup'" 
-          v-model="nurseSelected" 
-          multiple
-          filterable
-          value-key="empNo"
-          @change="handleNurseSelect">
-          <el-option 
-            v-for="(item) in nurseList" 
-            :key="item.empNo" 
-            :value="item" :label="item.empName" />
-        </el-select>
       </div>
       <div slot="button">
         <el-button class="modal-btn" @click="handleClose" :disabled="saveLoading">取消</el-button>
@@ -77,8 +63,6 @@ export default {
     return {
       editValue: "",
       saveLoading: false,
-      nurseList: [],
-      nurseSelected: []
     };
   },
   mounted() {
@@ -123,11 +107,7 @@ export default {
     handleSave() {
       // console.log(this.value);
       this.$emit("onOk", {modal:this,value: this.editValue});
-    },
-    handleNurseSelect(info){
-      console.log(info);
-      console.log(this.nurseSelected)
-    } 
+    }
   },
   watch: {
     visible(val) {
