@@ -32,7 +32,7 @@
           <el-option
             v-for="(item,i) in sheetBlockList"
             :key="i"
-            :label="(item.id)+' - '+blockLabel(item)"
+            :label="blockLabel(item)+' '+(item.wardName)"
             :value="item"
           >
             <div class="list-con" flex="cross:stretch">
@@ -660,7 +660,7 @@ export default {
       this.bus.$emit("setHosptialAdmissionLoading", false);
     },
     blockLabel(item) {
-      return `${item.evalDate}`;
+      return `${dayjs(item.evalDate).format('MM-DD')}`;
       // return `${item.wardName} ${dayjs(item.createTime).format('MM-DD')} 至 ${item.completeTime ? dayjs(item.completeTime).format('MM-DD') : '至今'}`
     },
     showMeasureDetialBox(res) {
