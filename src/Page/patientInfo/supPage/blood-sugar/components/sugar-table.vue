@@ -6,7 +6,7 @@
         <th style="width: 24%">项目</th>
         <th style="width: 22%">
           血糖值
-          <br>(mmol/L)
+          <br />(mmol/L)
         </th>
         <th style="width: 16%" v-if="HOSPITAL_ID != 'gy'">RI剂量</th>
         <th style="width: 16%">执行人</th>
@@ -45,7 +45,7 @@
               :src="`/crNursing/api/file/signImage/${item.nurseEmpNo}?${token}`"
               :alt="item.nurse"
               v-if="item.nurseEmpNo"
-            >
+            />
           </div>
         </td>
       </tr>

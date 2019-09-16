@@ -86,8 +86,6 @@
     }
   }
 
-
-
   .his-logo {
     position: absolute;
     left: 21px;
@@ -114,7 +112,6 @@
     }
   }
 }
-
 </style>
 
 <style lang="scss" scoped>
@@ -152,8 +149,8 @@ import editModal from "./components/edit-modal.vue";
 import setPageModal from "./components/setPage-modal.vue";
 import $ from "jquery";
 import moment from "moment";
-
 import common from "@/common/mixin/common.mixin.js";
+
 export default {
   mixins: [common],
   data() {
