@@ -36,9 +36,9 @@
             住院号：
             <div class="bottom-line" style="min-width: 50px">{{patientInfo.inpNo}}</div>
           </span>
-          <span @click="updateTetxInfo('admissionDate', '日期', patientInfo.admissionDate)">
+          <span>
             日期：
-            {{patientInfo.admissionDate}}
+            {{patientInfo.admissionDate | toymd}}
           </span>
         </div>
       </div>
@@ -271,7 +271,7 @@ export default {
   },
   filters: {
     toymd(val) {
-      return moment(val).format("YYYY年MM月DD日 HH时mm分");
+      return moment(val).format("YYYY年MM月DD日");
     }
   },
   created() {},

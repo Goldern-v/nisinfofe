@@ -38,7 +38,7 @@
                 <i class="iconfont icon-baiban"></i> 白板
               </el-row>
             </router-link>
-            <router-link to="/familyBigScreen" tag="span">
+            <router-link to="/familyBigScreen" tag="span" v-if="deptName.includes('产科')">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-family"></i> 家属大屏
               </el-row>
@@ -660,6 +660,11 @@ export default {
       return this.$store.state.lesion.deptCode;
     },
     deptName() {
+      if(this.$route.path.includes('/vaccineManagement') || this.$route.path.includes('/familyBigScreen')){
+        if(this.$store.state.lesion.deptName && !this.$store.state.lesion.deptName.includes('产科')){
+          this.$router.push("/index");
+        }
+      }
       return this.$store.state.lesion.deptName;
     },
     nursingStaff() {

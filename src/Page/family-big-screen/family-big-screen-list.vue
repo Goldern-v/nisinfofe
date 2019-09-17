@@ -57,7 +57,8 @@
           <colgroup>
             <col width="60" />
             <col />
-            <col width="130" />
+            <!-- <col width="130" /> -->
+            <col width="80" />
           </colgroup>
           <thead>
             <tr>
@@ -69,7 +70,7 @@
               </th>
             </tr>
             <tr>
-              <th>序号</th>
+              <th style="text-align: center;">序号</th>
               <th>视频名称</th>
               <th style="text-align: center;">操作</th>
               <th class="scrollBlock" v-if="table2"></th>
@@ -81,35 +82,37 @@
             <colgroup>
               <col width="60" />
               <col />
-              <col width="130" />
+              <col width="80" />
             </colgroup>
             <tbody>
               <tr v-for="(item,index) in videoList" :key="index" class="data-row">
                 <td>{{index+1}}</td>
-                <td :class="{active:item.status == 1}">
+                <!-- <td :class="{active:item.status == 1}">
                   <span v-if="item.status == 1">
                     <img src="./images/playing_logo.png" />
                   </span>
                   {{item.videoName}}
+                </td> -->
+                <td>
+                  {{item.videoName}}
                 </td>
                 <td>
-                  <span
+                  <!-- <span
                     v-if="item.status ==0 || item.status ==2"
-                    @click="startAndStopVideo(item.id,1)"
+                    @click="startAndStopVideo(item.id,1)" title="播放"
                   >
-                    <img src="./images/playing.png" />
-                  </span>
-                  <span v-if="item.status == 1" @click="startAndStopVideo(item.id,2)">
                     <img src="./images/pause_btn.png" />
                   </span>
-                  <span v-if="item.status == 1" @click="startAndStopVideo(item.id,0)">
+                  <span v-if="item.status == 1" @click="startAndStopVideo(item.id,2)" title="暂停">
+                    <img src="./images/playing.png" />
+                  </span>
+                  <span v-if="item.status == 1" @click="startAndStopVideo(item.id,0)" title="停止">
                     <img src="./images/stop_btn.png" />
-                  </span>
+                  </span> -->
                   <span>
-                    <img src="./images/up_btn.png" @click="moveUpVideo(item.id)" />
-                  </span>
-                  <span>
-                    <img src="./images/down_btn.png" @click="moveDownVideo(item.id)" />
+                    <img src="./images/up_btn.png" @click="moveUpVideo(item.id)" title="上移"/>
+                  </span><span>
+                    <img src="./images/down_btn.png" @click="moveDownVideo(item.id)" title="下移"/>
                   </span>
                 </td>
               </tr>
@@ -328,19 +331,27 @@ export default {
       .videoSetting {
         float: right;
         margin-right: 10px;
-        color: #00f;
+        font-size: 12px;
+        color: #333;
+        font-weight normal;
+        height: 21px;
+        line-height: 22px;
+        border: 1px solid #cbd5dd;
+        border-radius: 2px;
+        padding: 0 8px;
         text-decoration: none;
       }
 
       td {
         &:last-child {
-          text-align: right;
-          padding: 0 8px 0 0 !important;
+          text-align: center;
+          padding: 0 7px !important;
+          // text-align: right;
+          // padding: 0 8px 0 0 !important;
         }
 
         &:first-child {
           text-align: center;
-          padding-left: 0 !important;
         }
 
         &:nth-of-type(2) {
