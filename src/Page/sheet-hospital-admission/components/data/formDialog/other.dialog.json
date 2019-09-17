@@ -1442,7 +1442,7 @@
         "type": "input",
         "title": "吸烟频率",
         "suffixDesc": "(支/天)",
-        "style": null,
+        "inputWidth": "auto!important",
         "class": null,
         "html": null,
         "readOnly": null
@@ -1463,7 +1463,7 @@
     "showTitle": true,
     "suffixDesc": "(两/斤)",
     "keys": "",
-    "style": null,
+    "inputWidth": "auto!important",
     "classes": null,
     "readOnly": null,
     "modalWidth": 400,
@@ -1473,7 +1473,7 @@
         "type": "input",
         "title": "嗜酒频率",
         "suffixDesc": "(两/斤)",
-        "style": null,
+        "inputWidth": "auto!important",
         "class": null,
         "html": null,
         "readOnly": null
@@ -1564,6 +1564,7 @@
       {
         "name": "I001113",
         "type": "input",
+        "inputType":"textarea",
         "title": "家族史",
         "style": "width:100%",
         "tdStyle": "width:100%",
@@ -1598,6 +1599,7 @@
       {
         "name": "I001115",
         "type": "input",
+        "inputType":"textarea",
         "title": "健康史",
         "style": "width:100%",
         "tdStyle": "width:100%",

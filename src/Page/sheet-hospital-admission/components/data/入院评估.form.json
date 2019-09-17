@@ -2088,18 +2088,6 @@
     },
     {
       "name": "",
-      "type": "formGroupHR",
-      "title": "---hr---",
-      "line": "dashed",
-      "prefixDesc": "",
-      "suffixDesc": "",
-      "keys": "",
-      "style": "",
-      "classes": "",
-      "readOnly": ""
-    },
-    {
-      "name": "",
       "type": "formGroupColBox",
       "col": 2,
       "title": "妇科",
@@ -3586,7 +3574,7 @@
       "prefixDesc": "",
       "suffixDesc": "",
       "keys": "",
-      "style": "margin: 10px -21px 20px -21px",
+      "style": "",
       "classes": "",
       "readOnly": ""
     },
