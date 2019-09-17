@@ -73,7 +73,7 @@ export default {
   .group-sub-hr-box
     font-size 15px
     text-indent 1.25em
-    margin 10px -21px 15px -21px
+    margin 10px -20px 15px -30px
     border 1px solid #f2f2f2
     background #d7d7d7
     height 1px
@@ -82,5 +82,5 @@ export default {
     // border-bottom 1px solid #d7d7d7
   .group-hr-dashed-box
     border-bottom 1px dashed #d7d7d7
-    margin 10px 0
+    margin 10px -20px 10px -31px
 </style>

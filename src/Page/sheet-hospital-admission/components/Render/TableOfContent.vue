@@ -19,7 +19,7 @@
           :class="t.level==='2' ?'title-level-two':''"
           @click="scrollTo($event,t.title)"
         >
-        <el-tooltip class="item" effect="light" placement="top" >
+        <el-tooltip class="item" effect="light" placement="left" v-if="formatTitle(t.title+(missingItems&&missingItems[t.title]?`(漏${missingItems[t.title].length}项)`:'')).length>16">
         <div slot="content">
           <span>
             <span :class="{'missing-items':missingItems&&missingItems[t.title]}">{{t.title}}{{missingItems&&missingItems[t.title]?`(漏${missingItems[t.title].length}项)`:''}}</span>
@@ -27,6 +27,7 @@
         </div>
           <span :class="{'missing-items':missingItems&&missingItems[t.title]}">{{formatTitle(t.title+(missingItems&&missingItems[t.title]?`(漏${missingItems[t.title].length}项)`:''))}}</span>
       </el-tooltip>
+          <span v-if="formatTitle(t.title+(missingItems&&missingItems[t.title]?`(漏${missingItems[t.title].length}项)`:'')).length<=16" :class="{'missing-items':missingItems&&missingItems[t.title]}">{{formatTitle(t.title+(missingItems&&missingItems[t.title]?`(漏${missingItems[t.title].length}项)`:''))}}</span>
         </li>
         <!-- <a :href="'#'+t.title">{{t.title}}</a> -->
       </ul>
@@ -191,7 +192,7 @@ export default {
   position: fixed;
   top: 100px;
   background: transparent;
-  z-index: 9;
+  // z-index: 9;
   transition: all 0.3s ease-out;
 }
 
@@ -207,9 +208,9 @@ export default {
   // top: 18%;
   // padding: 10px;
   background: rgba(255, 255, 255, 1);
-  box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.2);
+  // box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.2);
   position: fixed;
-  right: 10px;
+  right: 8px;
 }
 
 .title-level-two {

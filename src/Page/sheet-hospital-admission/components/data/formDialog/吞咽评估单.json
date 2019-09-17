@@ -357,7 +357,7 @@
           "title": "",
           "type": "html",
           "name": "C003007",
-          "style": "text-indent: 0; padding-left: 2em;margin-bottom: 5px;color: #666;font-size: 12px;",
+          "style": "text-indent: 0; padding-left: 2em;margin-bottom: 5px;color: #666;font-size: 12px;display: inline-block;",
           "html": "<div>注：1. 默认 - （阴性）</div> <div><span style=\"color: #fff\">注：</span>2. 若结果为“+”（阳性），此符号请用红笔填写</div> "
         }
       ]
@@ -573,7 +573,7 @@
         {
           "type": "html",
           "name": "C003007",
-          "style": "margin-top: -15px; text-indent: 0; padding-left: 2em;margin-bottom: 5px;color: #666;font-size: 12px;",
+          "style": "margin-top: -15px; text-indent: 0; padding-left: 2em;margin-bottom: 5px;color: #666;font-size: 12px;display: inline-block;",
           "html": "<div>注：1. 默认 - （阴性）</div> <div><span style=\"color: #fff\">注：</span>2. 若结果为“+”（阳性），此符号请用红笔填写</div> "
         }
       ]

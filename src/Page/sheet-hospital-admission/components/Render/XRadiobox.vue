@@ -16,8 +16,7 @@
     <el-tooltip class="item" effect="light" placement="top">
       <div slot="content">
         <span>
-          <span>标记:未能获取</span>
-          <span style="color:red">{{obj.title}}</span>信息
+          <span>标记:未能获取</span><span style="color:red">{{obj.title}}</span>信息
         </span>
       </div>
       <input

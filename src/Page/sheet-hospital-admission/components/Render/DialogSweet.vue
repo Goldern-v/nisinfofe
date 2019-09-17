@@ -365,7 +365,7 @@ export default {
               // );
 
               // text
-              if (this.$root.$refs[key].type === "text") {
+              if (["text","textarea"].indexOf(this.$root.$refs[key].type)>-1) {
                 let refObj = this.$root.$refs[key];
                 let textResult = "";
                 // let resultText = refObj.checkValueRule(value);
@@ -549,7 +549,7 @@ export default {
             //   this.formBox.model[key],
             //   this.$root.$refs[key]
             // );
-            if (this.$root.$refs[key].type === "text") {
+            if (["text","textarea"].indexOf(this.$root.$refs[key].type)>-1) {
               this.$root.$refs[key].setCurrentValue(value + "");
               this.$root.$refs[key].checkValueRule(value + "");
             }

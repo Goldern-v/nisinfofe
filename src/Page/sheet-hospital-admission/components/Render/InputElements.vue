@@ -158,13 +158,16 @@
         v-if="getOtherText(child) && getOtherText(child)!='null'  && formObj.model[child.name]"
         @click="openTip(child)"
       >{{child.postTitle||child.title}}:{{getOtherText(child)}}{{child.postText}}</span>-->
-
+      <el-tooltip class="item" effect="light" placement="left" v-if="dialogResult(child).isShow">
+        <div slot="content" style="max-width:200px">
+          <span v-html="dialogResult(child).html"></span>
+        </div>
       <span
         class="tip"
-        v-if="dialogResult(child).isShow"
         v-html="dialogResult(child).html"
         @click="openTip(child)"
       ></span>
+      </el-tooltip>
     </span>
   </span>
 </template>
@@ -464,8 +467,8 @@ export default {
                     //
                     if (child.children) {
                       if (this.formObj.model[child.name]) {
-                        html += `<span>${this.formObj.model[child.name] ||
-                          ""}${child.suffixDesc || ""}</span>`;
+                        html += `<span style='margin-right:5px'><span style='color:green'>${title}</span>:<span>${this.formObj.model[child.name] ||
+                          ""}${child.suffixDesc || ""}</span></span>`;
                       }
                       // else{
                       //   html += `<p style="color:red">${ title }:${this.formObj.model[child.name]||""}</p>`
@@ -483,7 +486,7 @@ export default {
                         this.formObj.model[child.name] &&
                         child.name != "evalScore"
                       ) {
-                        html += `<span><span style='${child.style}'>${this
+                        html += `<span><span style='color:green'>${title}</span>:<span style='${child.style}'>${this
                           .formObj.model[child.name] || ""}${child.suffixDesc ||
                           ""}</span></span>`;
                       }
