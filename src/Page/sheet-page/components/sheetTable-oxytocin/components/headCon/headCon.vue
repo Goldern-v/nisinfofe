@@ -70,7 +70,7 @@
           style="text-align: center;"
           :data-value="sheetInfo.relObj.oxytocinDropScore"
           v-model="sheetInfo.relObj.oxytocinDropScore"
-        />分
+        />
       </div>
     </div>
   </div>

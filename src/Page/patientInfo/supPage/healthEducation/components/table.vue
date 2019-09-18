@@ -172,7 +172,7 @@ export default {
       this.setData(val.length > 30 ? val.length : 30) // 重置表格
       val.map((item, index)=> {
         let creatDateStr = item.instance.creatDateStr.substring(5);
-        let pageParam = item.pageParam.pageParam ? JSON.parse(item.pageParam.pageParam) : {}
+        let pageParam = item.pageParam == null ? {} : (item.pageParam.pageParam ? JSON.parse(item.pageParam.pageParam) : {})
         this.$set(this.tableData, index, pageParam)
         this.$set(this.tableData[index], "宣教内容", item.instance.title)
         this.$set(this.tableData[index], "教育时间", creatDateStr)
