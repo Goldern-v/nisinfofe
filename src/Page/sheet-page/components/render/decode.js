@@ -21,7 +21,7 @@ function decode() {
   
   // 血液净化护理单
   if (sheetInfo.sheetType == "blood_purification" && window.getRelObj && window.getRelObj.constructor == Function) {
-    sheetInfo.relObj = window.getRelObj();
+    sheetInfo.relObj = window.getRelObj() || sheetInfo.relObj;
   }
 
   return {
