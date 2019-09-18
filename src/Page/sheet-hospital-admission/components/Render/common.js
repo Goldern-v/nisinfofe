@@ -85,12 +85,17 @@ export const saveForm = (formObj, callback = null) => {
         let {
           data: {
             data: {
-              formResult: { id: id }
+              formResult: { id: id },
+              master:master,
             }
           }
         } = res;
         console.log("保存评估id", id);
         formObj.model["id"] = id;
+        //
+        if(master.updaterName && master.updateTime){
+          formObj.formSetting.updateInfo = `由${master.updaterName}创建，最后编辑于${master.updateTime}`
+        }
         if (callback) {
           callback(res);
         }

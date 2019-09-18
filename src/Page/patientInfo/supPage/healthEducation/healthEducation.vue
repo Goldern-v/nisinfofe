@@ -121,6 +121,12 @@ export default {
         this.sheetBlockList = res.data.data
         if (res.data.data.length === 0) {
           this.isData = 2 // 如果没数据 直接显示 添加健康教育单按钮
+          this.configList = [
+            {
+              label: '健康教育单',
+              children: []
+            }
+          ]
           return
         }
         let array = []
@@ -189,7 +195,7 @@ export default {
           this.blockId = res.data.data.id
           this.pageParam = []
           this.isData = 1
-          this.getSelectData ()
+          this.getSelectData()
         }).catch(e => {
         })
       } else {
@@ -227,7 +233,7 @@ export default {
       );
       await deleteBlock(this.blockId);
       this.pullData()
-      this.getSelectData ()
+      this.getSelectData(1)
       this.$message.success('删除成功！')
       this.selected = null;
 

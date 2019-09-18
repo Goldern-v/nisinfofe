@@ -272,7 +272,7 @@ export default {
         pageSize: 20,
         totalPage: 1
       },
-      total: 1, //列表总条数
+      total: 0, //列表总条数
       patientList: localStorage["patientList" + this.deptCode] || [],
       allDepartmentsList: [], //所有护理单元科室列表（不良事件）
       selectedDeptValue: "" //选中的科室
@@ -360,7 +360,7 @@ export default {
             this.tableData = res.data.data.list;
             this.page.totalPage =
               res.data.data.totalPage || this.page.totalPage;
-            this.total = res.data.data.totalCount || this.total;
+            this.total = res.data.data.totalCount;
           }
           this.bus.$emit("setTableData", {
             tableData: this.tableData

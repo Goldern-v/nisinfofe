@@ -10,7 +10,7 @@
         </colgroup>
         <tr>
           <td v-if="obj.showTitle===false?false:true" class="td-box" right :style="obj.titleStyle">
-            <label for>{{obj.aliasTitle || obj.title}}</label>
+            <label for>{{getTitle(obj.aliasTitle || obj.title)}}</label>
           </td>
           <td
           class="td-box"
@@ -56,6 +56,9 @@ export default {
   mounted() {},
   created() {},
   methods: {
+    getTitle(str){
+      return str?str+':':''
+    },
     getUUID() {
       let uuid_ = uuid.v1();
       // console.log(uuid_)

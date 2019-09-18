@@ -134,11 +134,14 @@ export default {
         this.itemData = form['item']
         this.form.state = form['宣教内容']
         this.date = form['教育时间']
-        this.form.object = educationObiect.filter(item => item.text === form['教育对象'])[0].value
-        this.form.method = educationMethod.filter(item => item.text === form['教育方法'])[0].value
-        this.form.assessment = educationAssessment.filter(item => item.text === form['教育评估'])[0].value
+        let object = educationObiect.filter(item => item.text === form['教育对象'])[0]
+        let method = educationMethod.filter(item => item.text === form['教育方法'])[0]
+        let assessment = educationAssessment.filter(item => item.text === form['教育评估'])[0]
+        this.form.object = object ? object.value : ''
+        this.form.method = method ? method.value : ''
+        this.form.assessment = assessment ? assessment.value : ''
         this.form.remarks = form['备注'] || ''
-        this.form.signature = form['签名']
+        this.form.signature = form['签名'] || ''
       } else {
         this.title = title
         // 添加时清空表单

@@ -201,7 +201,7 @@
           "title": "完全受限",
           "code": "1",
           "score": "1",
-          "style": null,
+          "style": "min-width: 85px!important;",
           "class": null,
           "html": null,
           "readOnly": null
@@ -212,7 +212,7 @@
           "title": "非常受限",
           "code": "2",
           "score": "2",
-          "style": null,
+          "style": "min-width: 85px!important;",
           "class": null,
           "readOnly": null
         },
@@ -222,7 +222,7 @@
           "title": "轻度受限",
           "code": "3",
           "score": "3",
-          "style": null,
+          "style": "min-width: 85px!important;",
           "class": null,
           "readOnly": null
         },
@@ -232,7 +232,7 @@
           "title": "未受损害",
           "code": "4",
           "score": "4",
-          "style": null,
+          "style": "min-width: 85px!important;",
           "class": null,
           "readOnly": null
         }
@@ -258,7 +258,7 @@
           "title": "持久潮湿",
           "code": "1",
           "score": "1",
-          "style": null,
+          "style": "min-width: 85px!important;",
           "class": null,
           "html": null,
           "readOnly": null
@@ -269,7 +269,7 @@
           "title": "非常潮湿",
           "code": "2",
           "score": "2",
-          "style": null,
+          "style": "min-width: 85px!important;",
           "class": null,
           "readOnly": null
         },
@@ -279,7 +279,7 @@
           "title": "偶尔潮湿",
           "code": "3",
           "score": "3",
-          "style": null,
+          "style": "min-width: 85px!important;",
           "class": null,
           "readOnly": null
         },
@@ -289,7 +289,7 @@
           "title": "很少潮湿",
           "code": "4",
           "score": "4",
-          "style": null,
+          "style": "min-width: 85px!important;",
           "class": null,
           "readOnly": null
         }
@@ -315,7 +315,7 @@
           "title": "卧床不起",
           "code": "1",
           "score": "1",
-          "style": null,
+          "style": "min-width: 85px!important;",
           "class": null,
           "html": null,
           "readOnly": null
@@ -326,7 +326,7 @@
           "title": "局限于椅",
           "code": "2",
           "score": "2",
-          "style": null,
+          "style": "min-width: 85px!important;",
           "class": null,
           "readOnly": null
         },
@@ -336,7 +336,7 @@
           "title": "偶尔步行",
           "code": "3",
           "score": "3",
-          "style": null,
+          "style": "min-width: 85px!important;",
           "class": null,
           "readOnly": null
         },
@@ -346,7 +346,7 @@
           "title": "经常步行",
           "code": "4",
           "score": "4",
-          "style": null,
+          "style": "min-width: 85px!important;",
           "class": null,
           "readOnly": null
         }
@@ -372,7 +372,7 @@
           "title": "完全不能",
           "code": "1",
           "score": "1",
-          "style": null,
+          "style": "min-width: 85px!important;",
           "class": null,
           "html": null,
           "readOnly": null
@@ -383,7 +383,7 @@
           "title": "严重受限",
           "code": "2",
           "score": "2",
-          "style": null,
+          "style": "min-width: 85px!important;",
           "class": null,
           "readOnly": null
         },
@@ -393,7 +393,7 @@
           "title": "轻度受限",
           "code": "3",
           "score": "3",
-          "style": null,
+          "style": "min-width: 85px!important;",
           "class": null,
           "readOnly": null
         },
@@ -403,7 +403,7 @@
           "title": "不受限",
           "code": "4",
           "score": "4",
-          "style": null,
+          "style": "min-width: 85px!important;",
           "class": null,
           "readOnly": null
         }
@@ -429,7 +429,7 @@
           "title": "非常差",
           "code": "1",
           "score": "1",
-          "style": null,
+          "style": "min-width: 85px!important;",
           "class": null,
           "html": null,
           "readOnly": null
@@ -440,7 +440,7 @@
           "title": "可能不足",
           "code": "2",
           "score": "2",
-          "style": null,
+          "style": "min-width: 85px!important;",
           "class": null,
           "readOnly": null
         },
@@ -450,7 +450,7 @@
           "title": "适当",
           "code": "3",
           "score": "3",
-          "style": null,
+          "style": "min-width: 85px!important;",
           "class": null,
           "readOnly": null
         },
@@ -460,7 +460,7 @@
           "title": "良好",
           "code": "4",
           "score": "4",
-          "style": null,
+          "style": "min-width: 85px!important;",
           "class": null,
           "readOnly": null
         }
@@ -486,7 +486,7 @@
           "title": "有问题",
           "code": "1",
           "score": "1",
-          "style": null,
+          "style": "min-width: 85px!important;",
           "class": null,
           "html": null,
           "readOnly": null
@@ -497,7 +497,7 @@
           "title": "有潜在问题",
           "code": "2",
           "score": "2",
-          "style": null,
+          "style": "min-width: 85px!important;",
           "class": null,
           "readOnly": null
         },
@@ -507,7 +507,7 @@
           "title": "无明显问题",
           "code": "3",
           "score": "3",
-          "style": null,
+          "style": "min-width: 85px!important;",
           "class": null,
           "readOnly": null
         }
