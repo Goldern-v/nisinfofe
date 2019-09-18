@@ -190,6 +190,36 @@ export default {
                     );
                   }
 
+                  /** 如果是威县超宽打印 */
+                  if (this.HOSPITAL_ID == "weixian") {
+                    addCSS(
+                      window,
+                      `
+        @page{
+          margin: 0 5mm;
+          size: ${Math.round((sheetTableWidth * 25.4) / 96)}mm ${Math.round(
+                        ((sheetTableWidth * 25.4) / 96) * 0.68
+                      )}mm;
+        }
+
+        @media print {
+        #sheetPagePrint#sheetPagePrint .iframe > div:nth-of-type(2n) {
+         height: auto !important;
+         }
+        #sheetPagePrint#sheetPagePrint .iframe > div:nth-of-type(2n) {
+            transform: rotate(0deg) !important;
+       }
+       }
+       #sheetPagePrint#sheetPagePrint th[dataname='护士签名'] {
+         width: 60px !important;
+       }
+       .sign-img img {
+         width: 40px !important;
+       }
+        `
+                    );
+                  }
+
                   if (!this.isDev) $('[style="display: none;"]').remove();
                   if (!this.isDev) $(".no-print").remove();
                 });
