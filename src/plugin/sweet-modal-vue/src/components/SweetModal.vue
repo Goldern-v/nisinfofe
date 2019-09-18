@@ -106,7 +106,8 @@
 
         <!-- Title -->
         <template v-if="has_title">
-          <h2 v-if="title" ref="dragTitle">
+          <h2 v-if="title" ref="dragTitle" style="width:100%">
+            <span v-if="titleIcon"><img :src="titleIcon"  width="22" height="auto" style="vertical-align: middle;" ></span>
             <span v-html="title"></span>
             <slot name="title-bar"></slot>
           </h2>
@@ -189,6 +190,11 @@ import drag from "@/plugin/tool/drag.js";
 export default {
   name: "SweetModal",
   props: {
+    titleIcon: {
+      type: String,
+      required: false,
+      default: ""
+    },
     title: {
       type: String,
       required: false,
@@ -927,7 +933,7 @@ export default {
     position: relative;
     cursor: move;
     padding: {
-      left: 18px;
+      left: 12px;
       right: 12px;
     }
     > h2 {

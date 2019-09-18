@@ -49,7 +49,7 @@
                     :style="obj.children[n+(col-1)].titleSpanStyle"
                     :class="obj.children[n+(col-1)].titleSpanClass"
                   >
-                    <XRadiobox :obj="obj.children[n+(col-1)]" :formObj="formObj" /><span v-html="titleFeedSpace(obj.children[n+(col-1)].title)"></span>{{obj.children[n+(col-1)].labelTitle}}</span>
+                    <XRadiobox :obj="obj.children[n+(col-1)]" :formObj="formObj" /><span v-html="titleFeedSpace(obj.children[n+(col-1)].title)"></span>{{obj.children[n+(col-1)].labelTitle?obj.children[n+(col-1)].labelTitle+':':''}}</span>
                   <span
                     v-if="obj.children[n+(col-1)].dialog"
                     style="cursor:pointer;color:blue"
@@ -137,13 +137,13 @@ export default {
       if(!str){return ""}
       if(str.length == 2) {
         // for(i of str){ console.log(i)}
-        return `${str[0]}<span style='text-indent: 2em;display: inline-block;'>${str[1]}</span>`
+        return `${str[0]}<span style='text-indent: 2em;display: inline-block;'>${str[1]}</span>:`
       }
       if(str.length == 3) {
         // for(i of str){ console.log(i)}
-        return `<span>${str[0]}</span><span style='text-indent: 0.5em;display: inline-block;'>${str[1]}</span><span style='text-indent: 0.5em;display: inline-block;'>${str[2]}</span>`
+        return `<span>${str[0]}</span><span style='text-indent: 0.5em;display: inline-block;'>${str[1]}</span><span style='text-indent: 0.5em;display: inline-block;'>${str[2]}</span>:`
       }
-      return str// + str.length
+      return str+':'// + str.length
     },
     titleClick(e, child) {
       console.log("titleClick", e, child, this.formObj.model, e.target.tagName);

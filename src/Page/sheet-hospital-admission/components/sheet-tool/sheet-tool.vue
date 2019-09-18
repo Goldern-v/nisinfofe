@@ -622,6 +622,11 @@ export default {
             formObj
           );
 
+          //
+          if(master.updaterName && master.updateTime){
+            this.formObj.formSetting.updateInfo = `由${master.updaterName}创建，最后编辑于${master.updateTime}`
+          }
+
           this.currentFormConfig = {
             patient: item,
             formObj: window.formObj.model,
@@ -1170,6 +1175,17 @@ export default {
                 this.changeSelectBlock(this.selectBlock);
                 // this.bus.$emit("setHosptialAdmissionLoading", false);
                 //
+                let {
+                  data: {
+                    data: {
+                      master,
+                    }
+                  }
+                } = res;
+                //
+                if(master.updaterName && master.updateTime){
+                  this.formObj.formSetting.updateInfo = `由${master.updaterName}创建，最后编辑于${master.updateTime}`
+                }
                 this.checkFormMissingItems();
               })
               .catch(err => {
@@ -1266,6 +1282,18 @@ export default {
             this.$message.success("保存成功");
             this.bus.$emit("setHosptialAdmissionLoading", false);
             // this.showMeasureDetialBox(res);
+            //
+            let {
+              data: {
+                data: {
+                  master,
+                }
+              }
+            } = res;
+            //
+            if(master.updaterName && master.updateTime){
+              this.formObj.formSetting.updateInfo = `由${master.updaterName}创建，最后编辑于${master.updateTime}`
+            }
             this.checkFormMissingItems();
           })
           .catch(err => {

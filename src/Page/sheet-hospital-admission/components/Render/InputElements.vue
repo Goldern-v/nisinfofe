@@ -160,7 +160,7 @@
       >{{child.postTitle||child.title}}:{{getOtherText(child)}}{{child.postText}}</span>-->
       <el-tooltip class="item" effect="light" placement="left" v-if="dialogResult(child).isShow">
         <div slot="content" style="max-width:200px">
-          <span v-html="dialogResult(child).html"></span>
+          <span v-html="dialogResult(child,true).html"></span>
         </div>
       <span
         class="tip"
@@ -329,10 +329,11 @@ export default {
         blen ++;
       }
     },
-    dialogResult(child) {
+    dialogResult(child, hasNewLine=false) {
       let isShow = false;
       let dialog = [];
       let html = "";
+      let newLine = "<br/>";
       if (child.rule && child.rule.hasOwnProperty("dialog") > -1) {
         let d = child.rule.filter(item => {
           return item.dialog;
@@ -382,6 +383,7 @@ export default {
                   html += `<span><span style='${obj.style}'>${this.formObj
                     .model[d.dialog.parentName] || ""}${obj.suffixDesc ||
                     ""}</span></span>`;
+                  hasNewLine?html+=newLine:html=html;
                 }
                 //
                 // console.log('d.cleanKey',d,d.dialog.cleanKey,'child.title',child.title,this.formObj.model[child.name])
@@ -407,6 +409,7 @@ export default {
                   html += `<span><span style='${obj.style}'>${this.formObj
                     .model[d.dialog.parentName] || ""}${obj.suffixDesc ||
                     ""}</span></span>`;
+                  hasNewLine?html+=newLine:html=html;
                 }
               } else {
                 title = child.postTitle || obj.aliasTitle || obj.title;
@@ -431,6 +434,7 @@ export default {
                     console.log("formGroup:title", title);
                     html += `<span>${this.formObj.model[obj.name] ||
                       ""}${obj.suffixDesc || ""}</span>`;
+                    hasNewLine?html+=newLine:html=html;
                   }
                 }
                 //
@@ -469,6 +473,7 @@ export default {
                       if (this.formObj.model[child.name]) {
                         html += `<span style='margin-right:5px'><span style='color:green'>${title}</span>:<span>${this.formObj.model[child.name] ||
                           ""}${child.suffixDesc || ""}</span></span>`;
+                        hasNewLine?html+=newLine:html=html;
                       }
                       // else{
                       //   html += `<p style="color:red">${ title }:${this.formObj.model[child.name]||""}</p>`
@@ -489,6 +494,7 @@ export default {
                         html += `<span><span style='color:green'>${title}</span>:<span style='${child.style}'>${this
                           .formObj.model[child.name] || ""}${child.suffixDesc ||
                           ""}</span></span>`;
+                        hasNewLine?html+=newLine:html=html;
                       }
                       // else{
                       //   html += `<p style="color:red">${ title }:${this.formObj.model[child.name]||""}</p>`

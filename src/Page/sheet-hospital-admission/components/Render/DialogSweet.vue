@@ -2,7 +2,8 @@
 <template>
   <SweetModal
     ref="sweetModal"
-    :title="title || ' '"
+    :titleIcon="getTitleIcon(title)"
+    :title="title|| ' '"
     :modal-width="modalWidth"
     :fullBtn="false"
     class="custom-sweet-modal"
@@ -390,6 +391,7 @@ export default {
               // datetime
               if (this.$root.$refs[key].type === "datetime") {
                 // if (key === "datePicker") {
+                  console.log('datePicker:',this.$root.$refs[key],key,value)
                 if (
                   this.$root.$refs[key].$parent &&
                   this.$root.$refs[key].$parent.obj.name_date
@@ -895,6 +897,16 @@ export default {
     getUUID(child = null) {
       let uuid_ = uuid.v1();
       return uuid_;
+    },
+    getTitleIcon(title){
+      let icon = null
+      try {
+        icon = require('./image/icons/'+title+'@2x.png')
+        return icon
+      } catch (error) {
+        console.log('icon:error',error)
+      }
+      return ''
     }
   }
 };

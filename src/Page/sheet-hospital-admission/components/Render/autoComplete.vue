@@ -1,6 +1,6 @@
 <template>
   <div
-    v-show="show"
+    v-show="show && data && data.length>0"
     id="CrAutocomplete"
     class="cr-autocomplete-suggestion-his"
     :style="style"
