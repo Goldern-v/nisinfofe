@@ -17,8 +17,9 @@
 </template>
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
-.sheetTable-contain
-  background #DFDFDF
+.sheetTable-contain {
+  background: #DFDFDF;
+}
 </style>
 
 <script>
@@ -88,97 +89,95 @@ export default {
       getBlock($params.id).then(res_b => {
         this.sheetInfo.selectBlock = res_b.data.data;
         this.sheetInfo.sheetType = this.sheetInfo.selectBlock.recordCode;
-        Promise.all([showTitle(), showBody(), markList(), getHomePage()]).then(
-          res => {
-            let titleData = res[0].data.data;
-            let bodyData = res[1].data.data;
-            let markData = res[2].data.data.list || [];
-            let pageData = res[3].data.data;
+        Promise.all([showTitle(), showBody(), getHomePage()]).then(res => {
+          let titleData = res[0].data.data;
+          let bodyData = res[1].data.data;
+          let markData = [];
+          let pageData = res[2].data.data;
+          this.$nextTick(() => {
+            initSheetPage(titleData, bodyData, markData);
+            this.sheetInfo.sheetStartPage = (pageData && pageData.indexNo) || 1;
+            this.sheetInfo.sheetMaxPage =
+              (pageData && pageData.maxIndexNo) || 1;
             this.$nextTick(() => {
-              initSheetPage(titleData, bodyData, markData);
-              this.sheetInfo.sheetStartPage =
-                (pageData && pageData.indexNo) || 1;
-              this.sheetInfo.sheetMaxPage =
-                (pageData && pageData.maxIndexNo) || 1;
-              this.$nextTick(() => {
-                $("#sheetPagePrint")
-                  .find("span")
-                  .each((index, item) => {
-                    if ($(item).html() == "签名") {
-                      $(item).html("");
-                    }
-                    if (
-                      $(item)
-                        .html()
-                        .indexOf("标题1") > -1 ||
-                      $(item)
-                        .html()
-                        .indexOf("标题2") > -1 ||
-                      $(item)
-                        .html()
-                        .indexOf("标题3") > -1 ||
-                      $(item)
-                        .html()
-                        .indexOf("标题4") > -1 ||
-                      $(item)
-                        .html()
-                        .indexOf("标题5") > -1 ||
-                      $(item)
-                        .html()
-                        .indexOf("标题6") > -1 ||
-                      $(item)
-                        .html()
-                        .indexOf("标题7") > -1 ||
-                      $(item)
-                        .html()
-                        .indexOf("标题8") > -1 ||
-                      $(item)
-                        .html()
-                        .indexOf("标题9") > -1
-                    ) {
-                      $(item).html("");
-                    }
-                    if (document.querySelector('th[dataname="审核签名"]')) {
-                      $(".contant").width(Math.max($(".contant").width()));
-                    }
+              $("#sheetPagePrint")
+                .find("head-con span")
+                .each((index, item) => {
+                  if ($(item).html() == "签名") {
+                    $(item).html("");
+                  }
+                  if (
+                    $(item)
+                      .html()
+                      .indexOf("标题1") > -1 ||
+                    $(item)
+                      .html()
+                      .indexOf("标题2") > -1 ||
+                    $(item)
+                      .html()
+                      .indexOf("标题3") > -1 ||
+                    $(item)
+                      .html()
+                      .indexOf("标题4") > -1 ||
+                    $(item)
+                      .html()
+                      .indexOf("标题5") > -1 ||
+                    $(item)
+                      .html()
+                      .indexOf("标题6") > -1 ||
+                    $(item)
+                      .html()
+                      .indexOf("标题7") > -1 ||
+                    $(item)
+                      .html()
+                      .indexOf("标题8") > -1 ||
+                    $(item)
+                      .html()
+                      .indexOf("标题9") > -1
+                  ) {
+                    $(item).html("");
+                  }
+                  if (document.querySelector('th[dataname="审核签名"]')) {
+                    $(".contant").width(Math.max($(".contant").width()));
+                  }
 
-                    /** 添加上标下标 */
-                    $('[datakey="description"]').each((index, el) => {
-                      let dataValue = $(el)
-                        .find("input")
-                        .val();
-                      let resultValue = `<span>${formatSub(
-                        formatSub(formatSub(dataValue))
-                      )}</span>`;
-                      if (dataValue.indexOf("^") > -1) {
-                        $(el)
-                          .empty()
-                          .append(resultValue);
-                      }
-                    });
+                  /** 添加上标下标 */
+                  $('[datakey="description"]').each((index, el) => {
+                    let dataValue = $(el)
+                      .find("input")
+                      .val();
+                    let resultValue = `<span>${formatSub(
+                      formatSub(formatSub(dataValue))
+                    )}</span>`;
+                    if (dataValue.indexOf("^") > -1) {
+                      $(el)
+                        .empty()
+                        .append(resultValue);
+                    }
+                  });
 
-                    let sheetTableWidth = document.querySelector("div.contant")
-                      .offsetWidth;
-                    $("#sheetPagePrint").css({
-                      minWidth: sheetTableWidth + "px"
-                    });
-                    if (sheetTableWidth > 1000) {
-                      printDir("h");
-                      addCSS(
-                        window,
-                        `
+                  let sheetTableWidth = document.querySelector("div.contant")
+                    .offsetWidth;
+                  $("#sheetPagePrint").css({
+                    minWidth: sheetTableWidth + "px"
+                  });
+                  if (sheetTableWidth > 1000) {
+                    printDir("h");
+                    addCSS(
+                      window,
+                      `
     @media print {
        .iframe > div:nth-of-type(2n) {
          height: ${sheetTableWidth * 0.755}px !important;
        }
     }
     `
-                      );
-                    } else {
-                      printDir("v");
-                      addCSS(
-                        window,
-                        `
+                    );
+                  } else {
+                    printDir("v");
+                    addCSS(
+                      window,
+                      `
         @media print {
           #sheetPagePrint .iframe > div{
            padding-top: 40px !important;
@@ -188,16 +187,15 @@ export default {
           }
        }
         `
-                      );
-                    }
+                    );
+                  }
 
-                    if (!this.isDev) $('[style="display: none;"]').remove();
-                    if (!this.isDev) $(".no-print").remove();
-                  });
-              });
+                  if (!this.isDev) $('[style="display: none;"]').remove();
+                  if (!this.isDev) $(".no-print").remove();
+                });
             });
-          }
-        );
+          });
+        });
       });
     }
   },

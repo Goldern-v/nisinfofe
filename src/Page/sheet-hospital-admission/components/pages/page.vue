@@ -293,7 +293,7 @@ export default {
               this.$root.$refs[key] &&
               this.$root.$refs[key].type === "datetime"
             ) {
-              this.$root.$refs[key].currentValue = element;
+              this.$root.$refs[key].currentValue = element||"";
               console.log("datetime", this.$root.$refs[key], key, element);
             }
             // 选项回填

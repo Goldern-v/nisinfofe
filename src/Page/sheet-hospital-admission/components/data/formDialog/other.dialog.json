@@ -1715,7 +1715,7 @@
     "style": null,
     "classes": null,
     "readOnly": null,
-    "modalWidth": 500,
+    "modalWidth": 400,
     "children": [
       {
         "name": "I001126",
@@ -1821,7 +1821,7 @@
     "style": null,
     "classes": null,
     "readOnly": null,
-    "modalWidth": 500,
+    "modalWidth": 400,
     "children": [
       {
         "name": "I001149",
@@ -1857,7 +1857,7 @@
     "style": null,
     "classes": null,
     "readOnly": null,
-    "modalWidth": 500,
+    "modalWidth": 400,
     "children": [
       {
         "name": "I001124",
@@ -1881,7 +1881,7 @@
     ]
   },
   {
-    "title": "义齿情况",
+    "title": "义齿",
     "type": "formGroupHorizontalBox",
     "name": "I001136",
     "message": "",
@@ -1893,7 +1893,7 @@
     "style": null,
     "classes": null,
     "readOnly": null,
-    "modalWidth": 500,
+    "modalWidth": 400,
     "children": [
       {
         "name": "I001136",
@@ -2078,7 +2078,7 @@
     ]
   },
   {
-    "title": "留置引流管情况",
+    "title": "留置引流管",
     "type": "formGroupVerticalBox",
     "name": "",
     "showTitle": false,
@@ -2201,19 +2201,21 @@
       },
       {
         "name": "I001219",
-        "type": "input",
+        "type": "datePicker",
         "label": "置管日期",
         "labelWidth": "100px",
-        "style": "width:150px!important",
+        "placeholder": "空",
+        "style": "width:136px!important",
         "class": null,
         "readOnly": null
       },
       {
         "name": "I001220",
-        "type": "input",
+        "type": "datePicker",
         "label": "预计拔管日期",
         "labelWidth": "100px",
-        "style": "width:150px!important",
+        "placeholder": "空",
+        "style": "width:136px!important",
         "class": null,
         "readOnly": null
       }
@@ -2280,7 +2282,7 @@
     "style": null,
     "classes": null,
     "readOnly": null,
-    "modalWidth": 500,
+    "modalWidth": 400,
     "children": [
       {
         "name": "I100075",
@@ -2335,7 +2337,7 @@
     "style": null,
     "classes": null,
     "readOnly": null,
-    "modalWidth": 500,
+    "modalWidth": 400,
     "children": [
       {
         "name": "I001259",
@@ -2375,12 +2377,12 @@
     "children": [
       {
         "name": "I001353",
-        "type": "input",
+        "type": "datePicker",
         "label": "末次月经日期",
         "labelWidth": "100px",
         "value": "",
         "suffixDesc": "",
-        "style": null,
+        "style": "width: 200px",
         "class": null,
         "html": null,
         "readOnly": null

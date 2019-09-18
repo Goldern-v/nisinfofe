@@ -47,6 +47,7 @@ export default {
   computed: {},
   watch: {
     datePickerValue(valueNew, oldvaule) {
+      console.log("datePickerValue:", valueNew, oldvaule);
       // let value = valueNew.toString();
       // let index = -1;
       // if (!this.formObj.model[this.obj.name]) {
@@ -63,7 +64,10 @@ export default {
       //   console.log("datePickerValue:", valueNew, oldvaule);
       // }
       // console.log("datePickerValue-model:", this.formObj.model);
-
+      if(!valueNew){
+        this.formObj.model[this.obj.name] = ""
+        return
+      }
       if (this.obj.name) {
         this.formObj.model[this.obj.name] = moment(valueNew).format(
           "YYYY-MM-DD HH:mm"
@@ -89,7 +93,9 @@ export default {
 
     let refName = this.obj.name;
     if (this.$refs[refName]) {
-      this.$refs[refName].currentValue = moment().format("YYYY-MM-DD HH:mm");
+      // this.$refs[refName].currentValue = moment().format("YYYY-MM-DD HH:mm");
+      // this.$refs[refName].placeholder = moment().format("YYYY-MM-DD HH:mm");
+      // console.log('mounted:DatePicker',this.obj.name,this.formObj.model[this.obj.name])
       this.$root.$refs[refName] = this.$refs[refName];
     }
     // console.log('datePickerMounted',this.$refs,this.$root.$refs)
@@ -100,6 +106,7 @@ export default {
     if (this.obj.name === "evalDate" && this.formObj.model[this.obj.name]) {
       //
       this.formObj.model[this.obj.name] = moment().format("YYYY-MM-DD HH:mm");
+      // console.log('created:DatePicker',this.obj.name,this.formObj.model[this.obj.name])
       // this.$refs[refName].currentValue = moment().format("YYYY-MM-DD HH:mm")
       //
     }
@@ -152,6 +159,13 @@ export default {
    .el-input-group--prepend {
     margin: 5px 0px;
     width: 100%;
+    &:read-only{
+      cursor: no-drop!important;
+      color: black!important;
+    }
+    &:placeholder{
+      color: #dbe6e4;
+    }
   }
 
   >>>.el-input__inner
@@ -162,8 +176,10 @@ export default {
     font-size: 12px!important;
 
   .date-picker-box {
-    display: inline-block;
+    // display: inline-block;
     width: 100%;
     font-size: 13px;
+    display: flex;
+    align-items: center;
   }
 </style>
