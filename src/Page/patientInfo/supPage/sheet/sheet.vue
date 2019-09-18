@@ -38,6 +38,7 @@
     <signModal ref="signModal" title="需要该行签名着确认"></signModal>
     <setPageModal ref="setPageModal"></setPageModal>
     <specialModal ref="specialModal"></specialModal>
+    <specialModal2 ref="specialModal2"></specialModal2>
     <pizhuModal ref="pizhuModal"></pizhuModal>
     <evalModel ref="evalModel"></evalModel>
   </div>
@@ -139,6 +140,10 @@ import sheetTool from "@/Page/sheet-page/components/sheet-tool/sheet-tool.vue";
 import patientList from "@/components/patient-list/patient-list.vue";
 import sheetTable from "@/Page/sheet-page/components/sheetTable/sheetTable.vue";
 import sheetTableNeonatology from "@/Page/sheet-page/components/sheetTable-neonatology/sheetTable";
+import sheetTablePost_partum from "@/Page/sheet-page/components/sheetTable-post_partum/sheetTable";
+import sheetTablePost_hemodialysis from "@/Page/sheet-page/components/sheetTable-hemodialysis/sheetTable";
+import sheetTable_oxytocin from "@/Page/sheet-page/components/sheetTable-oxytocin/sheetTable";
+import sheetTableDressing_count from "@/Page/sheet-page/components/sheetTable-dressing_count/sheetTable";
 import common from "@/common/mixin/common.mixin.js";
 import { nursingUnit } from "@/api/lesion";
 import sheetModel, {
@@ -160,9 +165,11 @@ import sheetInfo from "@/Page/sheet-page/components/config/sheetInfo/index.js";
 import bus from "vue-happy-bus";
 import delPageModal from "@/Page/sheet-page/components/modal/del-page.vue";
 import $ from "jquery";
+import moment from "moment";
 import HjModal from "@/Page/sheet-page/components/modal/hj-modal.vue";
 import signModal from "@/components/modal/sign.vue";
 import specialModal from "@/Page/sheet-page/components/modal/special-modal.vue";
+import specialModal2 from "@/Page/sheet-page/components/modal/special-modal2.vue";
 import setPageModal from "@/Page/sheet-page/components/modal/setPage-modal.vue";
 import pizhuModal from "@/Page/sheet-page/components/modal/pizhu-modal.vue";
 import evalModel from "@/Page/sheet-page/components/modal/eval-model/eval-model.vue";
@@ -220,6 +227,14 @@ export default {
         }
       };
       let mapSheetModel = this.sheetModel.map((item, index, arr) => {
+        // 没有填写日期选项动态填充（产后观察记录单、经阴道接生器械敷料清点记录单）
+        if(this.sheetInfo.sheetType == 'dressing_count' || this.sheetInfo.sheetType == 'post_partum'){
+          item.bodyModel.map(row => {
+            if(row[0] && row[0].key=='recordMonth' && row[0].hidden){
+              row[0].value = moment(this.sheetInfo.selectBlock.admissionDate).format("MM-DD");
+            }
+          });
+        }
         let obj = {
           index,
           data: item,
@@ -236,6 +251,14 @@ export default {
     sheetTable() {
       if (sheetInfo.sheetType == "neonatology") {
         return sheetTableNeonatology;
+      } else if (sheetInfo.sheetType == "post_partum") {
+        return sheetTablePost_partum;
+      } else if (sheetInfo.sheetType == "blood_purification") {
+        return sheetTablePost_hemodialysis;
+      } else if (sheetInfo.sheetType == "oxytocin") {
+        return sheetTable_oxytocin;
+      } else if (sheetInfo.sheetType == "dressing_count") {
+        return sheetTableDressing_count;
       } else {
         return sheetTable;
       }
@@ -542,10 +565,15 @@ export default {
     HjModal,
     signModal,
     specialModal,
+    specialModal2,
     setPageModal,
     pizhuModal,
     sheetTableNeonatology,
-    evalModel
+    evalModel,
+    sheetTablePost_partum,
+    sheetTablePost_hemodialysis,
+    sheetTable_oxytocin,
+    sheetTableDressing_count
   }
 };
 </script>
