@@ -16,11 +16,13 @@
   box-sizing border-box
   // min-height 220px
   overflow hidden
+  height calc(100vh - 120px)
   >>>
     textarea, .el-textarea
-      height 100%
+      height 100% !important
       width 100%
       min-height 150px !important
+      resize none
 </style>
 <script>
 import boxBase from "../base/box-base.vue";

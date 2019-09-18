@@ -282,7 +282,7 @@ export default {
     },
     // 删除疫苗
     delVaccine(id) {
-      this.$confirm("是否成功?", "提示", {
+      this.$confirm("是否删除?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning"
