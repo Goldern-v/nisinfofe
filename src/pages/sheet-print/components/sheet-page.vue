@@ -101,7 +101,7 @@ export default {
               (pageData && pageData.maxIndexNo) || 1;
             this.$nextTick(() => {
               $("#sheetPagePrint")
-                .find("head-con span")
+                .find(".head-con span")
                 .each((index, item) => {
                   if ($(item).html() == "签名") {
                     $(item).html("");
@@ -137,47 +137,47 @@ export default {
                   ) {
                     $(item).html("");
                   }
-                  if (document.querySelector('th[dataname="审核签名"]')) {
-                    $(".contant").width(Math.max($(".contant").width()));
-                  }
+                });
+              if (document.querySelector('th[dataname="审核签名"]')) {
+                $(".contant").width(Math.max($(".contant").width()));
+              }
 
-                  /** 添加上标下标 */
-                  $('[datakey="description"]').each((index, el) => {
-                    let dataValue = $(el)
-                      .find("input")
-                      .val();
-                    let resultValue = `<span>${formatSub(
-                      formatSub(formatSub(dataValue))
-                    )}</span>`;
-                    if (dataValue.indexOf("^") > -1) {
-                      $(el)
-                        .empty()
-                        .append(resultValue);
-                    }
-                  });
-
-                  let sheetTableWidth = document.querySelector("div.contant")
-                    .offsetWidth;
-                  $("#sheetPagePrint").css({
-                    minWidth: sheetTableWidth + "px"
-                  });
-                  if (sheetTableWidth > 1000) {
-                    printDir("h");
-                    addCSS(
-                      window,
-                      `
+              /** 添加上标下标 */
+              $('[datakey="description"]').each((index, el) => {
+                let dataValue = $(el)
+                  .find("input")
+                  .val();
+                let resultValue = `<span>${formatSub(
+                  formatSub(formatSub(dataValue))
+                )}</span>`;
+                if (dataValue.indexOf("^") > -1) {
+                  $(el)
+                    .empty()
+                    .append(resultValue);
+                }
+              });
+              let sheetTableWidth = document.querySelector("div.contant")
+                .offsetWidth;
+              $("#sheetPagePrint").css({
+                minWidth: sheetTableWidth + "px"
+              });
+              if (sheetTableWidth > 1000) {
+                printDir("h");
+                addCSS(
+                  window,
+                  `
     @media print {
        .iframe > div:nth-of-type(2n) {
          height: ${sheetTableWidth * 0.755}px !important;
        }
     }
     `
-                    );
-                  } else {
-                    printDir("v");
-                    addCSS(
-                      window,
-                      `
+                );
+              } else {
+                printDir("v");
+                addCSS(
+                  window,
+                  `
         @media print {
           #sheetPagePrint .iframe > div{
            padding-top: 40px !important;
@@ -187,19 +187,19 @@ export default {
           }
        }
         `
-                    );
-                  }
+                );
+              }
 
-                  /** 如果是威县超宽打印 */
-                  if (this.HOSPITAL_ID == "weixian") {
-                    addCSS(
-                      window,
-                      `
+              /** 如果是威县超宽打印 */
+              if (this.HOSPITAL_ID == "weixian") {
+                addCSS(
+                  window,
+                  `
         @page{
           margin: 0 5mm;
           size: ${Math.round((sheetTableWidth * 25.4) / 96)}mm ${Math.round(
-                        ((sheetTableWidth * 25.4) / 96) * 0.68
-                      )}mm;
+                    ((sheetTableWidth * 25.4) / 96) * 0.68
+                  )}mm;
         }
 
         @media print {
@@ -217,12 +217,11 @@ export default {
          width: 40px !important;
        }
         `
-                    );
-                  }
+                );
+              }
 
-                  if (!this.isDev) $('[style="display: none;"]').remove();
-                  if (!this.isDev) $(".no-print").remove();
-                });
+              if (!this.isDev) $('[style="display: none;"]').remove();
+              if (!this.isDev) $(".no-print").remove();
             });
           });
         });
