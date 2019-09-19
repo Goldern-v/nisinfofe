@@ -79,7 +79,7 @@ export default {
       // this.$refs[this.refName].store = this.refName
       // this.$refs[this.refName].store.push(this.refName)
       this.$refs[this.refName]["runTasks"] = this.runTasks;
-      this.$refs[this.refName]["childObjct"] = this.obj;
+      this.$refs[this.refName]["childObject"] = this.obj;
       // this.$refs[this.refName]['checkboxValue'] = this.checkboxValue
       // if(this.obj.defaultValue){
       //   this.checkboxValue = this.obj.defaultValue

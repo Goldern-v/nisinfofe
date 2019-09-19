@@ -64,7 +64,7 @@ export default {
   mounted() {
     let refName = this.obj.title || this.obj.label; //this.obj.name +this.obj.type.toUpperCase() +(this.obj.title || this.obj.label);
     if (!this.$root.$refs[this.obj.name]) {
-      this.$root.$refs[this.obj.name] = new Array();
+      this.$root.$refs[this.obj.name] = []//new Array();
     }
 
 
@@ -81,7 +81,7 @@ export default {
         this.checkboxValue = this.obj.defaultValue
       }
       this.$refs[refName]["runTasks"] =this.runTasks
-      this.$refs[refName]["childObjct"] = this.obj;
+      this.$refs[refName]["childObject"] = this.obj;
       this.$root.$refs[this.obj.name][refName] = this.$refs[refName];
     }
 
@@ -115,19 +115,20 @@ export default {
       //   return;
       // }
       for (const key in rootRefs) {
-        if (rootRefs.hasOwnProperty(key)) {
+        if (rootRefs.hasOwnProperty(key)>-1) {
           let item = rootRefs[key];
-          if(item){
-            console.log("-----", item.childObjct.title, item, key, rootRefs);
+          if(item && typeof(item)=='object'){
+            // , item && item.childObject && item.childObject.title
+            console.log("-----typeof:", typeof(item), item, key, rootRefs,rootRefs[key]);
             // if(item && typeof item.constructor !== 'object'){
             //   continue
             // }
 
             // item &&
             // item.constructor === "object" &&
-            // item.hasOwnProperty("childObjct") &&
-            if (item.childObjct && item.childObjct.title !== this.obj.title) {
-              // console.log('---++',item.childObjct.title ,item)
+            // item.hasOwnProperty("childObject") &&
+            if (item.childObject && item.childObject.title !== this.obj.title) {
+              // console.log('---++',item.childObject.title ,item)
               item.model = [];
               // this.$root.$refs[this.obj.name][key].model = [];
             }
@@ -137,9 +138,9 @@ export default {
 
       // if(this.$root.$refs[this.obj.name]){
       // this.$root.$refs[this.obj.name].map(item=>{
-      //   console.log('-----',item.childObjct.title ,item)
-      //   if(item.childObjct.title !== this.obj.title){
-      //     console.log('---++',item.childObjct.title ,item)
+      //   console.log('-----',item.childObject.title ,item)
+      //   if(item.childObject.title !== this.obj.title){
+      //     console.log('---++',item.childObject.title ,item)
       //     item.value = []
       //   }
       // })

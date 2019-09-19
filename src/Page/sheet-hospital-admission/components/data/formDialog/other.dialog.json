@@ -2596,7 +2596,7 @@
   {
     "title": "前囟未闭情况",
     "type": "formGroupHorizontalBox",
-    "name": "",
+    "name": "I001370",
     "message": "",
     "require": "false",
     "prefixDesc": "",
