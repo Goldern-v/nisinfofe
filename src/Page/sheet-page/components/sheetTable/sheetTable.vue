@@ -144,7 +144,7 @@ export default {
       /** 产科 */
       if (sheetInfo.sheetType === "prenatal") {
         return tableHeadPrenata;
-      } else if(sheetInfo.sheetType == "unified_wx" || sheetInfo.sheetType === "ccu_wx" || sheetInfo.sheetType == "intensive_care_wx"){
+      } else if(process.env.HOSPITAL_ID == "weixian"){
         return tableHead2;
       }else {
         return tableHead;
