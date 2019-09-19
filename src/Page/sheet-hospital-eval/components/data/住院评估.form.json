@@ -3,12 +3,13 @@
     "size": "4A",
     "rotation": "portrait",
     "margin": "0",
-    "width": "750px",
+    "width": "820px",
     "height": "auto",
     "mode": "_development",
     "style": ""
   },
   "formSetting": {
+    "updateInfo":"由{{updaterName}}创建，最后编辑于{{updateTime}}",
     "formTitle": {
       "hospitalName": "东莞市厚街医院",
       "formName": "住 院 评 估"
@@ -2780,17 +2781,6 @@
           ]
         }
       ]
-    },
-    {
-      "name": "",
-      "type": "formGroupHR",
-      "title": "---hr---",
-      "prefixDesc": "",
-      "suffixDesc": "",
-      "keys": "",
-      "style": "margin: 10px -21px -20px -21px",
-      "classes": "",
-      "readOnly": ""
     }
   ],
   "dialogs": [],

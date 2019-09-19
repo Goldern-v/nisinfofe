@@ -168,6 +168,7 @@
         @click="openTip(child)"
       ></span>
       </el-tooltip>
+      <!-- <span>{{dialogResult(child).isShow}}</span> -->
     </span>
   </span>
 </template>
@@ -286,7 +287,7 @@ export default {
               return key.indexOf(item.type + item.name + item.title) > -1;
             });
 
-            element[0]["childObjct"] = childObj;
+            element[0]["childObject"] = childObj;
 
             try {
               if (childObj.code === window.formObj.model[childObj.name]) {
@@ -307,7 +308,7 @@ export default {
       } else {
         if (this.$refs[refName]) {
           // console.log(this.childIndex,'this.$refs:',this.$refs[refName])
-          this.$refs[refName]["childObjct"] = this.element;
+          this.$refs[refName]["childObject"] = this.element;
           this.$root.$refs[refName] = this.$refs[refName];
         }
       }

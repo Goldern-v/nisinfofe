@@ -2284,12 +2284,12 @@
               "dialog": {
                 "openKey": "其他",
                 "cleanKey": "无",
-                "title": "其他说明",
+                "title": "头颅其他说明",
                 "parentName": "I001367",
                 "type": "dependent",
                 "otherDialog": {
                   "name": "I001368",
-                  "title": "其他说明"
+                  "title": "头颅其他说明"
                 }
               }
             }
@@ -2951,7 +2951,7 @@
               "name": "I001501",
               "type": "checkbox",
               "title": "其他",
-              "elementStyle": "margin: 0px 10px 0px 0px!important;",
+              "elementStyle": "margin: 0px 0px 0px 0px!important;",
               "style": null,
               "class": null
             },
@@ -3163,7 +3163,7 @@
               "name": "I001551",
               "type": "checkbox",
               "title": "其他",
-              "elementStyle": "margin: 0px 10px 0px 0px!important;",
+              "elementStyle": "margin: 0px 0px 0px 0px!important;",
               "style": null,
               "class": null
             },
@@ -3172,6 +3172,7 @@
               "type": "input",
               "title": "其他",
               "parentName": "I001551",
+              "elementStyle": "width:160px",
               "elementClass": "",
               "style": null,
               "class": "text-margin-0"
@@ -3260,7 +3261,7 @@
               "name": "I001553",
               "type": "checkbox",
               "title": "其他",
-              "elementStyle": "margin: 0px 10px 0px 0px!important;",
+              "elementStyle": "margin: 0px 0px 0px 0px!important;",
               "style": null,
               "class": null
             },
@@ -3269,6 +3270,7 @@
               "type": "input",
               "title": "其他",
               "parentName": "I001553",
+              "elementStyle": "width:300px",
               "elementClass": "",
               "style": null,
               "class": "text-margin-0"
@@ -3381,7 +3383,7 @@
               "name": "I001555",
               "type": "checkbox",
               "title": "其他",
-              "elementStyle": "margin: 0px 10px 0px 0px!important;",
+              "elementStyle": "margin-right: 5px!important;",
               "style": null,
               "class": null
             },
@@ -3390,6 +3392,7 @@
               "parentName": "I001555",
               "type": "input",
               "title": "其他",
+              "elementStyle": "width:160px",
               "elementClass": "",
               "style": null,
               "class": "text-margin-0"
