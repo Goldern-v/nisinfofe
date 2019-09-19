@@ -150,6 +150,7 @@
     // transform translateY(-30px)
     // margin-top:-80px;
     width: 100%;
+    font-size: 14px;
 
     input[type='checkbox'] {
       position: relative;
@@ -195,7 +196,7 @@
       border: none;
       outline: none;
       border-bottom: 1px solid #000;
-      font-size: 16px;
+      font-size: 14px;
       width: 80px;
     }
   }

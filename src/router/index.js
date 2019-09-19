@@ -126,6 +126,9 @@ import videoListSetting from "@/Page/family-big-screen/video-list-setting.vue";
 
 import vaccineManagement from "@/Page/vaccine-management/vaccine-management.vue";
 
+
+import deliveryRoomWhiteboard from "@/Page/delivery-room-whiteboard/delivery-room-whiteboard.vue";
+
 /** demo */
 import demo from "@/demo/demo";
 Vue.use(Router);
@@ -438,6 +441,7 @@ const router = new Router({
         { path: "/flatManagement", component: flatManagement },
         { path: "/puerperantSituation", component: puerperantSituation },
         { path: "/vaccineManagement", component: vaccineManagement },
+        { path: "/deliveryRoomWhiteboard", component: deliveryRoomWhiteboard },
       ]
     },
     {
