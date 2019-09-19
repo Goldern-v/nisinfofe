@@ -29,13 +29,13 @@
     >
       <span class="pre-text" v-if="obj.prefixDesc" slot="prepend">{{obj.prefixDesc}}</span>
       <!-- <span slot="append"> -->
-      <i
+      <!-- <i
         slot="append"
         v-if="obj.options&&!obj.suffixDesc"
         @click.prevent.stop="iconClick"
         class="el-input__icon el-icon-caret-top"
         :style="isShowDownList?'transform: translateY(-50%)!important;':''"
-      ></i>
+      ></i> -->
       <span slot="append" class="post-text" v-if="obj.suffixDesc">{{obj.suffixDesc}}</span>
       <!-- </span> -->
       <!-- <template slot="append" v-if="obj.options"> -->
@@ -491,7 +491,7 @@ export default {
 .el-input-group--prepend
   margin: 5px 0px;
   vertical-align: bottom;
-  width: 100%;
+  width: calc(100% - 2px);
   &:hover
     outline 1px solid #4baf8d
     border none
@@ -513,6 +513,11 @@ export default {
 >>>.el-input__inner.el-input__inner.el-input__inner
   width 100%
   border-radius 0px
+  cursor pointer
+  color blue
+  padding: 0px 5px!important;
+  height: 22px!important;
+  background: transparent;
   &:focus
     outline none
     border 1px solid #4baf8d
@@ -574,8 +579,8 @@ i {
 }
 
 .post-text {
-  margin -8px -14px -9px -10px
-  padding 8px 14px 9px 10px
+  margin -8px -14px -8px -10px;
+  padding 8px 12px 8px 10px
   background #fff
 }
 >>>.el-input:hover {

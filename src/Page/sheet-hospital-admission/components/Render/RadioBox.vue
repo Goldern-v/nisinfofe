@@ -326,4 +326,7 @@ export default {
       left: 3px;
       top: 0px;
 
+>>>.el-checkbox__input.is-checked+.el-checkbox__label
+      color: #333!important;
+
 </style>

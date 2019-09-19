@@ -31,12 +31,12 @@
     >
       <span class="pre-text" v-if="obj.prefixDesc" slot="prepend">{{obj.prefixDesc}}</span>
       <!-- <span slot="append"> -->
-      <i
+      <!-- <i
         slot="append"
         v-if="obj.options&&!obj.suffixDesc"
         @click.prevent.stop="()=>{}"
         class="el-input__icon el-icon-caret-top"
-      ></i>
+      ></i> -->
       <span slot="append" class="post-text" v-if="obj.suffixDesc">{{obj.suffixDesc}}</span>
       <!-- </span> -->
       <!-- <template slot="append" v-if="obj.options"> -->
@@ -581,6 +581,10 @@ export default {
 >>>.el-input__inner.el-input__inner.el-input__inner {
   width: 100%;
   border-radius: 0px;
+  color: blue!important;
+  padding: 0px 5px!important;
+  height: 22px!important;
+  background: transparent;
 
   &:focus {
     outline: none;
@@ -611,6 +615,9 @@ export default {
   color: #486a62;
   background: white;
   border-radius: 0;
+  border: 0px!important;
+  background: transparent;
+  font-size: 12px!important;
 }
 
 .el-input__icon {

@@ -158,7 +158,7 @@
       <!-- <span class="tip" v-if="getOtherText(child)">{{ getOtherText(child)}}</span> -->
       <span
         class="tip"
-        :style="child.name === 'I100001' && {position: 'absolute', left: '74px',top: '258px'}"
+        :style="child.name === 'I100001' && {position: 'absolute', left: '78px',top: '219px'}"
         v-if="getOtherText(child)"
         @click="openTip(child)"
       >{{ getOtherText(child)}}</span>

@@ -133,13 +133,15 @@ export default {
     max-width: 95px
     margin: 11px 5px 0 0
     text-align: right
-    font-size: 13px;
+    font-size: 12px;
   .right-td
     width: auto
 
   .Form-Group-Col-Box
     // border 1px dashed red
     font-size 14px
+    min-height 28px
+    height 28px
 
   // .group-col-box
   //   border-bottom 1px dashed #eee
