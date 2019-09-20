@@ -202,7 +202,7 @@ export default {
     td {
       border: 1px solid #000;
       min-width: 50px;
-      padding: 10px 0;
+      padding: 10px 3px;
       text-align: center;
       &:first-of-type {
         text-align: left;
