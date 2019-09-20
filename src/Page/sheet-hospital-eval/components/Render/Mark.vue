@@ -665,6 +665,7 @@ export default {
   white-space: nowrap;
   margin-top: 10px;
   margin-left: 10px;
+  font-size: 12px;
 }
 </style>
 

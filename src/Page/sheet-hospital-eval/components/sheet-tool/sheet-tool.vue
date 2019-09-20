@@ -265,6 +265,18 @@ export default {
                   this.$message.success("保存成功");
                   this.bus.$emit("setHosptialEvalLoading", false);
                   this.showMeasureDetialBox(res);
+                  //
+                  let {
+                    data: {
+                      data: {
+                        master,
+                      }
+                    }
+                  } = res;
+                  //
+                  if(master.updaterName && master.updateTime){
+                    this.formObj.formSetting.updateInfo = `由${master.updaterName}创建，最后编辑于${master.updateTime}`
+                  }
                 })
                 .catch(err => {
                   console.log("保存评估err", err);
@@ -346,6 +358,18 @@ export default {
                     this.$message.success("签名成功");
                     this.selectBlock.status = "1";
                     this.changeSelectBlock(this.selectBlock);
+                    //
+                    let {
+                      data: {
+                        data: {
+                          master,
+                        }
+                      }
+                    } = res;
+                    //
+                    if(master.updaterName && master.updateTime){
+                      this.formObj.formSetting.updateInfo = `由${master.updaterName}创建，最后编辑于${master.updateTime}`
+                    }
                     //
                   })
                   .catch(err => {
@@ -536,6 +560,11 @@ export default {
             "formObj",
             window.formObj
           );
+
+          //
+          if(master.updaterName && master.updateTime){
+            this.formObj.formSetting.updateInfo = `由${master.updaterName}创建，最后编辑于${master.updateTime}`
+          }
 
           // window.formObj.header.children
           // master

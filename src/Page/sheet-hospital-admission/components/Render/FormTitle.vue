@@ -3,8 +3,8 @@
   <div>
     <TipsBox :obj="obj" :formObj="formObj">
       <div class="title-box">
-        <h1>{{obj.formTitle.hospitalName}}</h1>
-        <h1>{{obj.formTitle.formName}}</h1>
+        <h1 class="hospital-title">{{obj.formTitle.hospitalName}}</h1>
+        <span class="form-title">{{obj.formTitle.formName}}</span>
         <div class="header-box" v-if="obj.formHeads && obj.formHeads.length>0">
           <span v-for="(item, index) in obj.formHeads " :key="index">{{item.title}}:{{item.value}}</span>
         </div>
@@ -50,7 +50,7 @@ h4 {
   font-family: sim;
 }
 h1 {
-  font-size: 18px;
+  font-size: 17px;
 }
 .el-checkbox,
 .is-bordered,
@@ -59,8 +59,18 @@ h1 {
 }
 .title-box {
   border-bottom: 1px dashed #eee;
-  padding: 15px 0px 2px 0px;
-  line-height: 2em;
+  padding: 25px 0px 2px 0px;
+  line-height: 1.5em;
+}
+
+.hospital-title {
+  letter-spacing: 0.5em;
+}
+.form-title {
+  font-size: 21px;
+  margin-bottom: 10px;
+  text-align: center;
+  display: block;
 }
 
 .header-box {

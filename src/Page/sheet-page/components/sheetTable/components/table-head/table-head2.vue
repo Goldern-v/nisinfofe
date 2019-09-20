@@ -4,36 +4,28 @@
     <div class="title">{{patientInfo.recordName}}</div>
     <div class="info-con" flex="main:justify">
       <span>
-        科室：
-        <div class="bottom-line" style="min-width: 120px">{{patientInfo.deptName}}</div>
+        科室：<div class="bottom-line" style="min-width: 120px">{{patientInfo.deptName}}</div>
       </span>
       <span @click="updateTetxInfo('bedLabel', '床号', patientInfo.bedLabel)">
-        床号：
-        <div class="bottom-line" style="min-width: 50px">{{patientInfo.bedLabel}}</div>
+        床号：<div class="bottom-line" style="min-width: 45px">{{patientInfo.bedLabel}}</div>
       </span>
       <span @click="updateTetxInfo('patientName', '姓名', patientInfo.patientName)">
-        姓名：
-        <div class="bottom-line" style="min-width: 80px">{{patientInfo.patientName}}</div>
+        姓名：<div class="bottom-line" style="min-width: 80px">{{patientInfo.patientName}}</div>
       </span>
       <span>
-        性别：
-        <div class="bottom-line" style="min-width: 50px">{{patientInfo.sex}}</div>
+        性别：<div class="bottom-line" style="min-width: 45px">{{patientInfo.sex}}</div>
       </span>
       <span @click="updateTetxInfo('age', '年龄', patientInfo.age)">
-        年龄：
-        <div class="bottom-line" style="min-width: 50px">{{patientInfo.age}}</div>
+        年龄：<div class="bottom-line" style="min-width: 45px">{{patientInfo.age}}</div>
       </span>
       <span @click="updateTetxInfo('diagnosis', '诊断', patientInfo.diagnosis)">
-        诊断：
-        <div class="bottom-line" style="min-width: 200px;min-height:13px;">{{patientInfo.diagnosis}}</div>
+        诊断：<div class="bottom-line" style="min-width: 150px;min-height:13px;">{{patientInfo.diagnosis}}</div>
       </span>
       <span>
-        住院号：
-        <div class="bottom-line" style="min-width: 80px">{{patientInfo.inpNo}}</div>
+        住院号：<div class="bottom-line" style="min-width: 80px">{{patientInfo.inpNo}}</div>
       </span>
       <span>
-        入院时间：
-        {{patientInfo.admissionDate | toymd}}
+        入院时间：{{patientInfo.admissionDate | toymd}}
       </span>
     </div>
     <!-- <span class="diagnosis-con" :title="patientInfo.diagnosis">诊断：{{patientInfo.diagnosis}}</span> -->
@@ -86,4 +78,18 @@ export default {
 </script>
 
 <style lang='scss' scoped>
+.header-con {
+  .info-con {
+    > span {
+      height: 23px;
+      line-height: 23px;
+      > div {
+        height: 23px;
+        vertical-align: bottom;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+      }
+    }
+  }
+}
 </style>

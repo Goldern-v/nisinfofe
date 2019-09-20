@@ -184,18 +184,16 @@
     position: relative;
     bottom: 40px;
     display: flex;
+    justify-content: space-between;
     // transform translateY(-30px)
     // margin-top:-80px;
     width: 100%;
-
-    > div {
-      flex: 1;
-    }
+    font-size: 14px;
 
     .bottomInput {
       border: none;
       outline: none;
-      font-size: 16px;
+      font-size: 14px;
       width: 80px;
     }
   }
@@ -218,6 +216,9 @@
 
   .showModal {
     position: relative;
+    .bottomInput {
+      width: 230px;
+    }
 
     ul {
       z-index: 1000;

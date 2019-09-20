@@ -83,7 +83,7 @@ export default {
       this.$root.$refs[this.Xname] = [];
     }
     if (this.$refs[refName]) {
-      this.$refs[refName]["childObjct"] = this.obj;
+      this.$refs[refName]["childObject"] = this.obj;
       this.$root.$refs[this.Xname][refName] = this.$refs[refName];
     }
     // console.log("RadioboxMounted", this.$refs, this.$root.$refs);

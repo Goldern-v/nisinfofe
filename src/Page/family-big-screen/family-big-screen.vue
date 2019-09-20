@@ -48,20 +48,6 @@ export default {
           this.$refs.table2.clientHeight > tableHeight ? true : false;
       } catch (e) {}
     },
-    beColor(type) {
-      switch (type) {
-        case "1":
-          return "rgba(185, 89, 255, .8)";
-        case "2":
-          return "rgba(48, 163, 255, .8)";
-        case "3":
-          return "rgba(162, 131, 94, .8)";
-        case "4":
-          return "rgba(208, 196, 79, .8)";
-        case "5":
-          return "rgba(80, 208, 101, .8)";
-      }
-    },
     getData() {
       this.page3Loading = true;
       queryByDeptCode(this.deptCode).then(res => {

@@ -79,7 +79,7 @@ export default {
       // this.$refs[this.refName].store = this.refName
       // this.$refs[this.refName].store.push(this.refName)
       this.$refs[this.refName]["runTasks"] = this.runTasks;
-      this.$refs[this.refName]["childObjct"] = this.obj;
+      this.$refs[this.refName]["childObject"] = this.obj;
       // this.$refs[this.refName]['checkboxValue'] = this.checkboxValue
       // if(this.obj.defaultValue){
       //   this.checkboxValue = this.obj.defaultValue
@@ -291,6 +291,9 @@ export default {
       border-top: 0;
       left: 3px;
       top: 0px;
+
+>>>.el-checkbox__input.is-checked+.el-checkbox__label
+      color: #333!important;
 
 </style>
 

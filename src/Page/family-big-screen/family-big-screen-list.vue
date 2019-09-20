@@ -92,10 +92,8 @@
                     <img src="./images/playing_logo.png" />
                   </span>
                   {{item.videoName}}
-                </td> -->
-                <td>
-                  {{item.videoName}}
-                </td>
+                </td>-->
+                <td>{{item.videoName}}</td>
                 <td>
                   <!-- <span
                     v-if="item.status ==0 || item.status ==2"
@@ -108,11 +106,12 @@
                   </span>
                   <span v-if="item.status == 1" @click="startAndStopVideo(item.id,0)" title="停止">
                     <img src="./images/stop_btn.png" />
-                  </span> -->
+                  </span>-->
                   <span>
-                    <img src="./images/up_btn.png" @click="moveUpVideo(item.id)" title="上移"/>
-                  </span><span>
-                    <img src="./images/down_btn.png" @click="moveDownVideo(item.id)" title="下移"/>
+                    <img src="./images/up_btn.png" @click="moveUpVideo(item.id)" title="上移" />
+                  </span>
+                  <span>
+                    <img src="./images/down_btn.png" @click="moveDownVideo(item.id)" title="下移" />
                   </span>
                 </td>
               </tr>
@@ -333,13 +332,14 @@ export default {
         margin-right: 10px;
         font-size: 12px;
         color: #333;
-        font-weight normal;
+        font-weight: normal;
         height: 21px;
         line-height: 22px;
         border: 1px solid #cbd5dd;
         border-radius: 2px;
         padding: 0 8px;
         text-decoration: none;
+        background-color: #fff;
       }
 
       td {

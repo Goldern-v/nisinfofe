@@ -30,6 +30,7 @@
     <!-- 页面信息 -->
     <div v-if="formObj && formObj.model" ref="mainPage" class="cover-page">
       <div :style="formObj.pageSetting.style || '' " class="main-page" :class="{lock: lock}">
+        <span class="update-message-page" v-if="formObj.formSetting.updateInfo" v-html="formObj.formSetting.updateInfo"></span>
         <img src="../../images/责任护士已签.png" alt v-if="lock" class="lock-img">
         <!-- 页面标题 -->
         <FormTitle :obj="formObj.formSetting" :formObj="formObj"/>
@@ -263,7 +264,8 @@ export default {
   margin-bottom: 50px;
   border: 1px solid #eee;
   box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.5);
-  position: relative;
+  position: absolute;
+  left: calc(50% - 500px);
   &.lock {
     pointer-events: none;
     /deep/ input {
@@ -279,4 +281,16 @@ export default {
   top: 20px;
   right: 20px;
 }
+
+.update-message-page {
+  font-size:12px;
+  font-family:STSongti-SC;
+  font-weight:400;
+  color:#c1c1c1;
+  line-height:17px;
+  top: 10px;
+  left: 25px;
+  position: absolute;
+}
+
 </style>

@@ -30,10 +30,10 @@
     ]
   },
   {
-    "title": "其他说明",
+    "title": "头颅其他说明",
     "type": "formGroupHorizontalBox",
     "colWidth":["40%","60%"],
-    "name": "I001154",
+    "name": "I001368",
     "message": "",
     "require": "false",
     "aliasTitle": "其他说明",
@@ -46,7 +46,7 @@
     "modalWidth": 400,
     "children": [
       {
-        "name": "I001154",
+        "name": "I001368",
         "type": "input",
         "title": "其他",
         "style": null,

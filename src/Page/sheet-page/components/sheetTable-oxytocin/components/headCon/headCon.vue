@@ -58,7 +58,6 @@
         催产素静脉点滴情况：
         <input
           type="text"
-          style="width: 180px;"
           :data-value="sheetInfo.relObj.oxytocinIntravenousDrip"
           v-model="sheetInfo.relObj.oxytocinIntravenousDrip"
         />
@@ -67,7 +66,6 @@
         静滴催产素指症：
         <input
           type="text"
-          style="text-align: center;"
           :data-value="sheetInfo.relObj.oxytocinDropScore"
           v-model="sheetInfo.relObj.oxytocinDropScore"
         />
@@ -170,9 +168,9 @@ export default {
   .info {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     padding: 10px 0;
     div {
-      flex: 1;
       input {
         border-bottom: 1px solid #000;
       }
@@ -181,20 +179,22 @@ export default {
       border: none;
       outline: none;
       font-size: 16px;
-      width: 80px;
     }
   }
   .sum {
     div {
-      &:last-of-type {
         input {
+          width: 80px;
           text-align: center;
         }
-      }
     }
   }
   .info {
     padding: 10px 0 0 0;
+    input {
+      width: 200px;
+      padding-left: 5px;
+    }
   }
   table {
     width: 100%;
@@ -202,7 +202,7 @@ export default {
     td {
       border: 1px solid #000;
       min-width: 50px;
-      padding: 10px 0;
+      padding: 10px 3px;
       text-align: center;
       &:first-of-type {
         text-align: left;

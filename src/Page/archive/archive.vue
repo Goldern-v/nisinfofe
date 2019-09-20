@@ -40,7 +40,7 @@
               <col width="100" />
               <col width="150" />
               <col />
-              <col width="160" />
+              <col width="180" />
             </colgroup>
             <thead>
               <tr>
@@ -50,7 +50,7 @@
                 <th>姓名</th>
                 <th>住院号</th>
                 <th>出院日期</th>
-                <th>时间</th>
+                <th>归档时间</th>
                 <th>状态</th>
                 <th>操作</th>
                 <th class="scrollBlock" v-if="table2"></th>
@@ -68,7 +68,7 @@
                 <col width="100" />
                 <col width="150" />
                 <col />
-                <col width="160" />
+                <col width="180" />
               </colgroup>
               <tbody>
                 <tr v-for="(item,index) in patientArchiveList" :key="index" class="data-row">
