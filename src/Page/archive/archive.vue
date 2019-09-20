@@ -276,7 +276,7 @@ export default {
         .then(res => {
           this.isFlag = false;
           this.patientArchiveList = res.data.data.list;
-          this.total = res.data.data.totalPage || 0;
+          this.total = res.data.data.totalCount || 0;
           this.pageLoading = false;
 
           if (this.query.pageSize >= 100) {
