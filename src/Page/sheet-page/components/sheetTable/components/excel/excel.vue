@@ -191,7 +191,8 @@ import bus from "vue-happy-bus";
 import sheetModel from "../../../../sheet.js";
 import common from "@/common/mixin/common.mixin.js";
 import { handlepz, delpz, auditpz } from "../../../../api/index.js";
-
+import decode from "../../../../components/render/decode.js";
+import moment from "moment";
 export default {
   props: {
     data: Object,
@@ -333,28 +334,32 @@ export default {
           return item.key == "status";
         }).value;
         // if (status == 1) return this.$message.warning('该记录已经签名了')
-        this.$refs.signModal.open((password, empNo) => {
-          let trObj = {};
-          for (let i = 0; i < trArr.length; i++) {
-            trObj[trArr[i].key] = trArr[i].value;
-          }
-          let [allList, currIndex] = this.getAllListAndCurrIndex(trArr);
-          let data = {
-            empNo,
-            password,
-            list: [
-              Object.assign({}, trObj, {
-                recordMonth: this.getPrev(currIndex, allList, "recordMonth"),
-                recordHour: this.getPrev(currIndex, allList, "recordHour"),
-                recordYear: this.getPrev(currIndex, allList, "recordYear"),
-                patientId: this.patientInfo.patientId,
-                visitId: this.patientInfo.visitId,
-                pageIndex: this.index
-              })
-            ]
-          };
-          sign(this.patientInfo.patientId, this.patientInfo.visitId, data).then(
-            res => {
+        let save = () => {
+          this.$refs.signModal.open((password, empNo) => {
+            let trObj = {};
+            for (let i = 0; i < trArr.length; i++) {
+              trObj[trArr[i].key] = trArr[i].value;
+            }
+            let [allList, currIndex] = this.getAllListAndCurrIndex(trArr);
+            let data = {
+              empNo,
+              password,
+              list: [
+                Object.assign({}, trObj, {
+                  recordMonth: this.getPrev(currIndex, allList, "recordMonth"),
+                  recordHour: this.getPrev(currIndex, allList, "recordHour"),
+                  recordYear: this.getPrev(currIndex, allList, "recordYear"),
+                  patientId: this.patientInfo.patientId,
+                  visitId: this.patientInfo.visitId,
+                  pageIndex: this.index
+                })
+              ]
+            };
+            sign(
+              this.patientInfo.patientId,
+              this.patientInfo.visitId,
+              data
+            ).then(res => {
               let trArrClone = Tr(res.data.data[0]);
               if (
                 trArr.find(item => {
@@ -383,9 +388,37 @@ export default {
                 message: "签名成功"
               });
               this.bus.$emit("saveSheetPage", true);
-            }
-          );
-        });
+            });
+          });
+        };
+        let reverseList = [...decode().list].reverse();
+        /** 最后的时间 */
+        let lastRecordHour = (
+          reverseList.find(item => item.recordDate && item.recordHour) || {}
+        ).recordHour;
+        /** 所有新增的时间 */
+        let newRecordHours = reverseList
+          .filter(
+            item => item.recordHour && !item.recordMonth && !item.recordDate
+          )
+          .map(item => item.recordHour);
+        /** 新增记录是否存在比原有记录更前 */
+        let isBefore = newRecordHours.some(
+          item =>
+            moment("2019-9-20 " + item).unix() <
+            moment("2019-9-20 " + lastRecordHour).unix()
+        );
+        if (isBefore) {
+          this.$confirm("新增记录比原有记录时间更前, 是否确认保存", "提示", {
+            confirmButtonText: "确认",
+            cancelButtonText: "取消",
+            type: "warning"
+          }).then(res => {
+            save();
+          });
+        } else {
+          save();
+        }
       } else {
         // 删除签名
         this.$refs.delsignModal.open((password, empNo) => {
