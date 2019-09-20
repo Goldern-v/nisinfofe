@@ -8,14 +8,14 @@
       <div class="content-left" flex-box="1">
         <table cellspacing="0" border="1" class="tables">
           <colgroup>
-            <col width="114">
-            <col width="240">
-            <col width="100">
+            <col width="114" />
+            <col width="240" />
+            <col width="100" />
           </colgroup>
           <thead>
             <tr>
               <th colspan="4">
-                <img src="./img/体征任务.png">
+                <img src="./img/体征任务.png" />
                 <span>体症任务（{{body.content.length}}）</span>
               </th>
             </tr>
@@ -30,9 +30,9 @@
         <div class="table-con" v-loading="page1Loading">
           <table cellspacing="0" border="1" class="table1" ref="table1">
             <colgroup>
-              <col width="114">
-              <col width="240">
-              <col width="100">
+              <col width="114" />
+              <col width="240" />
+              <col width="100" />
             </colgroup>
             <tbody>
               <tr
@@ -53,14 +53,14 @@
       <div class="content-center" flex-box="1">
         <table cellspacing="0" border="1" class="tables">
           <colgroup>
-            <col width="114">
-            <col width="264">
-            <col width="100">
+            <col width="114" />
+            <col width="264" />
+            <col width="100" />
           </colgroup>
           <thead>
             <tr>
               <th colspan="4">
-                <img src="./img/护理评估任务.png">
+                <img src="./img/护理评估任务.png" />
                 <span>护理评估任务（{{nurse.content.length}}）</span>
               </th>
             </tr>
@@ -75,9 +75,9 @@
         <div class="table-con" v-loading="page2Loading">
           <table cellspacing="0" border="1" class="table1" ref="table2">
             <colgroup>
-              <col width="114">
-              <col width="264">
-              <col width="100">
+              <col width="114" />
+              <col width="264" />
+              <col width="100" />
             </colgroup>
             <tbody>
               <tr
@@ -98,17 +98,17 @@
       <div class="content-right" flex-box="1">
         <table cellspacing="0" border="1" class="table2">
           <colgroup>
-            <col width="34">
-            <col width="110">
-            <col width="266">
-            <col width="80">
+            <col width="34" />
+            <col width="110" />
+            <col width="266" />
+            <col width="80" />
           </colgroup>
           <thead>
             <tr>
               <th colspan="5">
-                <img src="./img/护理文书批注.png">
+                <img src="./img/护理文书批注.png" />
                 <span>护理记录单（{{postil.content.length}}）</span>
-                <el-switch
+                <!-- <el-switch
                   style="position:absolute;top:9px;right:110px;display: inline-block"
                   v-model="postil.isshow"
                   active-color="#4BB08D"
@@ -116,8 +116,8 @@
                   on-text
                   off-text
                   @change="onlyme"
-                ></el-switch>
-                <b>只显示我的记录</b>
+                ></el-switch>-->
+                <!-- <b>只显示我的记录</b> -->
               </th>
             </tr>
             <tr>
@@ -134,10 +134,10 @@
         <div class="table-con" v-loading="page3Loading">
           <table cellspacing="0" border="1" ref="table3">
             <colgroup>
-              <col width="34">
-              <col width="110">
-              <col width="266">
-              <col width="80">
+              <col width="34" />
+              <col width="110" />
+              <col width="266" />
+              <col width="80" />
             </colgroup>
             <tbody>
               <tr
@@ -200,7 +200,7 @@ export default {
       postil: {
         //右侧批注
         number: 0,
-        isshow: true,
+        isshow: false,
         content: []
       },
       user: {
@@ -355,186 +355,274 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-.contains
-    >>> .el-dialog__header
-        padding 15px 20px 15px!important
-        font-family PingFangSC-Regular!important
-        font-size 13px!important
-        border-radius 4px!important
-        background #F7FAFA!important
-        color #333333!important
-        letter-spacing 0
->>> .el-dialog__headerbtn
-        font-size 13px!important
-        font-family PingFangSC-Regular!important
->>> .el-dialog__title
-        font-size 14px!important
-        font-family PingFangSC-Regular!important
-        color #333!important
->>> .el-dialog__body
-    padding 30px 40px 10px
-    & > div > div
-        margin-bottom 24px!important
-        font-family PingFangSC-Regular!important
-        color #687179!important
-        letter-spacing 0!important
-        clear both
-        & > div
-            color #333!important
-            float right
-            display inline-block
-            width: 206px;
-            margin-bottom 10px
-            line-height 18px
-            vertical-align: top;
-            font-family PingFangSC-Regular!important
->>> .el-dialog__footer
-        padding 10px 20px 10px
-        font-family PingFangSC-Regular!important
-        text-align center
-        box-sizing border-box
-        background #F7FAFA
-        border-radius 4px!important
->>>.el-dialog--small
-        width 27%!important
-        top 20%!important
-        font-family PingFangSC-Regular!important
-        background #FFFFFF!important
-        box-shadow 0 2px 6px 0 rgba(0,0,0,0.50)!important
-        border-radius 4px!important
-.contains
-    padding 10px 10px 0px
-    .main-title
-        height 50px
-        line-height 50px
-        & > b
-            font-size 26px
+.contains {
+  >>> .el-dialog__header {
+    padding: 15px 20px 15px !important;
+    font-family: PingFangSC-Regular !important;
+    font-size: 13px !important;
+    border-radius: 4px !important;
+    background: #F7FAFA !important;
+    color: #333333 !important;
+    letter-spacing: 0;
+  }
+}
+
+>>> .el-dialog__headerbtn {
+  font-size: 13px !important;
+  font-family: PingFangSC-Regular !important;
+}
+
+>>> .el-dialog__title {
+  font-size: 14px !important;
+  font-family: PingFangSC-Regular !important;
+  color: #333 !important;
+}
+
+>>> .el-dialog__body {
+  padding: 30px 40px 10px;
+
+  & > div > div {
+    margin-bottom: 24px !important;
+    font-family: PingFangSC-Regular !important;
+    color: #687179 !important;
+    letter-spacing: 0 !important;
+    clear: both;
+
+    & > div {
+      color: #333 !important;
+      float: right;
+      display: inline-block;
+      width: 206px;
+      margin-bottom: 10px;
+      line-height: 18px;
+      vertical-align: top;
+      font-family: PingFangSC-Regular !important;
+    }
+  }
+}
+
+>>> .el-dialog__footer {
+  padding: 10px 20px 10px;
+  font-family: PingFangSC-Regular !important;
+  text-align: center;
+  box-sizing: border-box;
+  background: #F7FAFA;
+  border-radius: 4px !important;
+}
+
+>>>.el-dialog--small {
+  width: 27% !important;
+  top: 20% !important;
+  font-family: PingFangSC-Regular !important;
+  background: #FFFFFF !important;
+  box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.5) !important;
+  border-radius: 4px !important;
+}
+
+.contains {
+  padding: 10px 10px 0px;
+
+  .main-title {
+    height: 50px;
+    line-height: 50px;
+
+    & > b {
+      font-size: 26px;
+      color: #333333;
+      letter-spacing: 0;
+      margin-left: 5px;
+      margin-right: 15px;
+    }
+
+    & > span {
+      font-size: 13px;
+      vertical-align: bottom;
+      color: #687179;
+      letter-spacing: 0;
+    }
+  }
+
+  .main-content {
+    padding: 0 0px;
+
+    .table-con {
+      background: #fff;
+    }
+
+    .content-left, .content-right {
+      margin: 0;
+    }
+
+    .content-center {
+      margin: 0 12px;
+    }
+
+    .content-left, .content-center, .content-right {
+      width: 0;
+      position: relative;
+
+      .tables {
+        font-size: 13px;
+        text-align: left;
+        width: 100%;
+
+        & > thead > tr {
+          background: #F7FAFA;
+
+          & > th {
+            padding: 0px 7px;
+            height: 35px;
+            border: 1px solid #E3E7EA;
+            vertical-align: middle;
+          }
+
+          &:first-child {
             color: #333333;
-            letter-spacing: 0;
-            margin-left 5px
-            margin-right 15px
-        & > span
-            font-size 13px
-            vertical-align bottom
+            font-size: 14px;
+            height: 40px;
+
+            & > th {
+              & > span {
+                vertical-align: middle;
+              }
+
+              & > img {
+                vertical-align: middle;
+                position: relative;
+                top: -2px;
+              }
+            }
+          }
+
+          &:last-child {
             color: #687179;
-            letter-spacing: 0;
-    .main-content
-        padding 0 0px
-        .table-con
-          background #fff
-        .content-left, .content-right
-            margin 0
-        .content-center
-            margin 0 12px
-        .content-left, .content-center, .content-right
-            width 0
-            position relative
-            .tables
-                font-size 13px
-                text-align left
-                width 100%
-                & > thead > tr
-                    background #F7FAFA;
-                    & > th
-                        padding 0px 7px
-                        height 35px
-                        border 1px solid #E3E7EA
-                        vertical-align middle
-                    &:first-child
-                        color #333333
-                        font-size 14px
-                        height 40px
-                        & > th
-                            & > span
-                                vertical-align middle
-                            & > img
-                                vertical-align middle
-                                position relative
-                                top -2px
-                    &:last-child
-                        color #687179
-                        font-size 13px
-            & > div
-                height calc(100vh - 206px)
-                overflow auto
-                .table1
-                    width 100%
-                    & > tbody > tr
-                        &:hover
-                            background #EEF6F5
-                        & > td
-                            font-size 13px
-                            padding 0 8px
-                            color #333333
-                            border 1px solid #E3E7EA
-                            border-top 0
-                            height 35px
-                            vertical-align middle
-        .content-right
-            .table2
-                width 100%
-                text-align left
-                & > thead >tr
-                    background #F7FAFA;
-                    &:first-child > th
-                        position relative
-                        padding 0 7px
-                        height 40px
-                        vertical-align middle
-                        border 1px solid #E3E7EA
-                        font-size 14px
-                        & > img
-                            vertical-align middle
-                        & > span
-                            color #333333
-                            font-weight bold
-                            vertical-align middle
-                        & > b
-                            font-size 13px
-                            font-weight normal
-                            position absolute
-                            right 14px
-                            top 14px
-                    &:last-child > th
-                        color #687179
-                        border 1px solid #E3E7EA
-                        font-size 13px
-                        height 35px
-                        vertical-align middle
-                        padding 0 8px
-            & > div
-                overflow-y auto
-                height calc(100vh - 206px)
-                & > table
-                    width 100%
-                    &> tbody > tr
-                        &:hover
-                            background #EEF6F5
-                        & >td
-                            font-size 13px
-                            border 1px solid #E3E7EA
-                            border-top 0
-                            padding: 0 0 0 6px
-                            text-align: left;
-                            vertical-align: middle;
-                            height 35px
-                            &:nth-child(1)
-                                text-align center
-                                padding 0
-                                i
-                                  display:inline-block
-                                  width 10px
-                                  height 10px
-                                  background red
-                                  border-radius 50%
-                                  vertical-align middle
-                                  padding 0
-                                  margin-left 3px
+            font-size: 13px;
+          }
+        }
+      }
 
+      & > div {
+        height: calc(100vh - 206px);
+        overflow: auto;
 
-.scrollBlock
-  width 5px
-  padding 0 !important
-.data-row
-  cursor pointer
+        .table1 {
+          width: 100%;
+
+          & > tbody > tr {
+            &:hover {
+              background: #EEF6F5;
+            }
+
+            & > td {
+              font-size: 13px;
+              padding: 0 8px;
+              color: #333333;
+              border: 1px solid #E3E7EA;
+              border-top: 0;
+              height: 35px;
+              vertical-align: middle;
+            }
+          }
+        }
+      }
+    }
+
+    .content-right {
+      .table2 {
+        width: 100%;
+        text-align: left;
+
+        & > thead >tr {
+          background: #F7FAFA;
+
+          &:first-child > th {
+            position: relative;
+            padding: 0 7px;
+            height: 40px;
+            vertical-align: middle;
+            border: 1px solid #E3E7EA;
+            font-size: 14px;
+
+            & > img {
+              vertical-align: middle;
+            }
+
+            & > span {
+              color: #333333;
+              font-weight: bold;
+              vertical-align: middle;
+            }
+
+            & > b {
+              font-size: 13px;
+              font-weight: normal;
+              position: absolute;
+              right: 14px;
+              top: 14px;
+            }
+          }
+
+          &:last-child > th {
+            color: #687179;
+            border: 1px solid #E3E7EA;
+            font-size: 13px;
+            height: 35px;
+            vertical-align: middle;
+            padding: 0 8px;
+          }
+        }
+      }
+
+      & > div {
+        overflow-y: auto;
+        height: calc(100vh - 206px);
+
+        & > table {
+          width: 100%;
+
+          &> tbody > tr {
+            &:hover {
+              background: #EEF6F5;
+            }
+
+            & >td {
+              font-size: 13px;
+              border: 1px solid #E3E7EA;
+              border-top: 0;
+              padding: 0 0 0 6px;
+              text-align: left;
+              vertical-align: middle;
+              height: 35px;
+
+              &:nth-child(1) {
+                text-align: center;
+                padding: 0;
+
+                i {
+                  display: inline-block;
+                  width: 10px;
+                  height: 10px;
+                  background: red;
+                  border-radius: 50%;
+                  vertical-align: middle;
+                  padding: 0;
+                  margin-left: 3px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.scrollBlock {
+  width: 5px;
+  padding: 0 !important;
+}
+
+.data-row {
+  cursor: pointer;
+}
 </style>
