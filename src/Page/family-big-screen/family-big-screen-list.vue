@@ -166,9 +166,7 @@ export default {
       table2: false, //是否table2内容出现滚动条
       page1Loading: false,
       page2Loading: false,
-      warmTips: {
-        message: ""
-      }, //温馨提示
+      warmTips: {}, //温馨提示
       bornPatientList: [],
       isFlag: false,
       timeId2: "",
@@ -265,15 +263,12 @@ export default {
     },
     // 家属大屏-获取温馨提示信息
     getWarmTips() {
-      let timeId;
       getWarmTips().then(res => {
-        this.warmTips.message = res.data.data;
-        clearTimeout(timeId);
-        timeId = setTimeout(() => {
-          try {
-            this.$refs.right2.isSave = true;
-          } catch (error) {}
-        }, 300);
+        let obj ={
+          message: res.data.data
+        }
+        this.warmTips = obj;
+        this.$refs.right2.isSave = true;
       });
     },
     tablesHeight() {

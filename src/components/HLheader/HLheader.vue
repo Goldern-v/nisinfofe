@@ -38,12 +38,12 @@
                 <i class="iconfont icon-baiban"></i> 白板
               </el-row>
             </router-link>
-            <!-- <router-link to="/deliveryRoomWhiteboard" tag="span" v-if="deptName.includes('产科')">
+            <router-link to="/deliveryRoomWhiteboard" tag="span" v-if="deptCode == '051102_01'">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-whiteboard"></i> 产房白板
               </el-row>
-            </router-link>-->
-            <router-link to="/familyBigScreen" tag="span" v-if="deptName.includes('产科')">
+            </router-link>
+            <router-link to="/familyBigScreen" tag="span" v-if="deptCode == '051102_01'">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-family"></i> 家属大屏
               </el-row>
@@ -662,13 +662,18 @@ export default {
   },
   computed: {
     deptCode() {
+       if (
+        this.$route.path.includes("/deliveryRoomWhiteboard") ||
+        this.$route.path.includes("/familyBigScreen")
+      ) {
+        if(this.$store.state.lesion.deptCode != "051102_01"){
+          this.$router.push("/index");
+        }
+      }
       return this.$store.state.lesion.deptCode;
     },
     deptName() {
-      if (
-        this.$route.path.includes("/vaccineManagement") ||
-        this.$route.path.includes("/familyBigScreen")
-      ) {
+      if (this.$route.path.includes("/vaccineManagement")) {
         if (
           this.$store.state.lesion.deptName &&
           !this.$store.state.lesion.deptName.includes("产科")

@@ -12,12 +12,13 @@
               <th colspan="2">
                 <img src="./images/留言板.png" />
                 <span>产房患者特殊情况记录表</span>
+                <span style='color: red' v-if="!isSave2">（未保存）</span>
                 <span class="save" @click="saveOrUpdateDescription">保存</span>
               </th>
             </tr>
           </thead>
         </table>
-        <div class="table-con" v-loading="page2Loading">
+        <div class="table-con" v-loading="page1Loading">
           <table cellspacing="0" border="1" class="table1" ref="table2">
             <colgroup>
               <col width="100" />
@@ -78,8 +79,8 @@ export default {
       table1: false, //是否table1内容出现滚动条
       table2: false, //是否table2内容出现滚动条
       page1Loading: false,
-      page2Loading: false,
-      warmTips: {} //温馨提示
+      warmTips: {}, //温馨提示
+      isSave2: true
     };
   },
   methods: {
@@ -90,15 +91,23 @@ export default {
       if (!data) {
         window.location.href = "/login";
       }
-      // this.page1Loading = true;
 
       this.getListDescription();
       this.getListMessage();
     },
-    // getListDescription
+    tablesHeight() {
+      try {
+        let tableHeight = this.wih - 210;
+        this.table1 =
+          this.$refs.table1.clientHeight > tableHeight ? true : false;
+        this.table2 =
+          this.$refs.table2.clientHeight > tableHeight ? true : false;
+      } catch (e) {}
+    },
+    // 保存产科产房得特殊情况
     saveOrUpdateDescription() {
       let query = {
-        wardCode: "051102_01" || this.deptCode,
+        wardCode: "051102_01",
         nursePatsInHospitalBornDescriptions: []
       };
 
@@ -119,7 +128,7 @@ export default {
           let obj = {
             patientId: item.patientId,
             visitId: item.visitId,
-            wardCode: "051102_01" || this.deptCode,
+            wardCode: "051102_01",
             bedLabel: item.bedLabel,
             description: item.description
           };
@@ -139,41 +148,35 @@ export default {
     },
     // 获取产房患者特殊情况记录表
     getListDescription() {
-      this.page2Loading = true;
+      this.page1Loading = true;
       getListDescription().then(res => {
-        this.descriptionList = res.data.data;
-        this.page2Loading = false;
+        let data = res.data.data;
+        if(this.descriptionList && this.descriptionList.length){
+          this.descriptionList.map((item,index) =>{
+            if(item.patientId == data[index].patientId){
+              item.description = data[index].description;
+            }
+          })
+        }else {
+          this.descriptionList = data;
+        }
+        this.isSave2 = true;
+        this.page1Loading = false;
       });
     },
     // 获取留言板信息
     getListMessage() {
-      let timeId;
       getListMessage().then(res => {
         this.warmTips = res.data.data;
-        clearTimeout(timeId);
-        timeId = setTimeout(() => {
-          try {
-            this.$refs.right2.isSave = true;
-          } catch (error) {}
-        }, 300);
+        this.$refs.right2.isSave = true;
       });
-    },
-
-    tablesHeight() {
-      try {
-        let tableHeight = this.wih - 210;
-        this.table1 =
-          this.$refs.table1.clientHeight > tableHeight ? true : false;
-        this.table2 =
-          this.$refs.table2.clientHeight > tableHeight ? true : false;
-      } catch (e) {}
     },
     update(message) {
       let query = {
         wardCode: "051102_01",
         message: message
       };
-      // 保存温馨提示
+      // 保存留言板信息
       return saveOrUpdateMessage(query).then(res => {
         this.getListMessage();
       });
@@ -188,9 +191,34 @@ export default {
   created() {
     this.init();
   },
+  beforeRouteLeave(to, from, next) {
+    let tips = this.isSave2 ? "留言板" : "产房患者特殊情况记录表"
+    if (!this.isSave2 || !this.$refs.right2.isSave) {
+      window.app
+        .$confirm(tips+"还未保存，离开将会丢失数据", "提示", {
+          confirmButtonText: "离开",
+          cancelButtonText: "取消",
+          type: "warning"
+        })
+        .then(res => {
+          next();
+        });
+    } else {
+      next();
+    }
+  },
   watch: {
     deptCode() {
       this.init();
+    },
+    // 监听特殊记录列表是否保存
+    descriptionList: {
+      deep: true,
+      handler(newVal,oldVal) {
+        if(newVal && newVal.length && oldVal && oldVal.length){
+          this.isSave2 = false;
+        }
+      }
     }
   }
 };
@@ -237,7 +265,7 @@ export default {
         top: 0;
         width: 100%;
         height: 100%;
-        z-index: 10000;
+        z-index: 1000;
         outline: none;
         padding: 10px 8px;
         border: none;
@@ -290,8 +318,11 @@ export default {
       }
 
       & > div {
-        height: calc(100vh - 120px);
+        height: calc(100vh - 124px);
         overflow: auto;
+        padding-bottom: 22px;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
 
         .table1 {
           width: 100%;
