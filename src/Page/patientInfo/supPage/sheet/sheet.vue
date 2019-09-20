@@ -228,10 +228,15 @@ export default {
       };
       let mapSheetModel = this.sheetModel.map((item, index, arr) => {
         // 没有填写日期选项动态填充（产后观察记录单、经阴道接生器械敷料清点记录单）
-        if(this.sheetInfo.sheetType == 'dressing_count' || this.sheetInfo.sheetType == 'post_partum'){
+        if (
+          this.sheetInfo.sheetType == "dressing_count" ||
+          this.sheetInfo.sheetType == "post_partum"
+        ) {
           item.bodyModel.map(row => {
-            if(row[0] && row[0].key=='recordMonth' && row[0].hidden){
-              row[0].value = moment(this.sheetInfo.selectBlock.admissionDate).format("MM-DD");
+            if (row[0] && row[0].key == "recordMonth" && row[0].hidden) {
+              row[0].value = moment(
+                this.sheetInfo.selectBlock.admissionDate
+              ).format("MM-DD");
             }
           });
         }
@@ -356,7 +361,7 @@ export default {
       );
     },
     onScroll(e) {
-      if (sheetInfo.sheetType.indexOf("_wx") > -1) {
+      if (sheetInfo.sheetType && sheetInfo.sheetType.indexOf("_wx") > -1) {
       } else {
         this.scrollY = parseInt(e.target.scrollTop);
       }
@@ -405,63 +410,102 @@ export default {
       });
     });
     this.bus.$on("saveSheetPage", (isInitSheetPageSize = true) => {
-      this.pageloading = true;
-      this.scrollTop = this.$refs.scrollCon.scrollTop;
-      saveBody(this.patientInfo.patientId, this.patientInfo.visitId, decode())
-        .then(res => {
-          this.$notify.success({
-            title: "提示",
-            message: "保存成功"
-          });
-          this.pageloading = false;
-          this.getSheetData().then(res => {
-            isInitSheetPageSize &&
-              setTimeout(() => {
-                this.bus.$emit("initSheetPageSize");
-              }, 100);
-            this.$nextTick(() => {
-              this.$refs.scrollCon.scrollTop = this.scrollTop;
-              setTimeout(() => {
-                if (this.$refs.scrollCon.scrollTop == 0) {
-                  this.$refs.scrollCon.scrollTop = this.scrollTop;
-                }
-              }, 100);
+      let save = () => {
+        this.pageLoading = true;
+        this.scrollTop = this.$refs.scrollCon.scrollTop;
+        saveBody(this.patientInfo.patientId, this.patientInfo.visitId, decode())
+          .then(res => {
+            this.$notify.success({
+              title: "提示",
+              message: "保存成功"
+            });
+            this.getSheetData().then(res => {
+              isInitSheetPageSize &&
+                setTimeout(() => {
+                  this.bus.$emit("initSheetPageSize");
+                }, 100);
+              this.$nextTick(() => {
+                this.$refs.scrollCon.scrollTop = this.scrollTop;
+                $(".red-border").removeClass("red-border");
+              });
               setTimeout(() => {
                 if (this.$refs.scrollCon.scrollTop == 0) {
                   this.$refs.scrollCon.scrollTop = this.scrollTop;
                 }
+                $(".red-border").removeClass("red-border");
+              }, 100);
+              setTimeout(() => {
+                if (this.$refs.scrollCon.scrollTop == 0) {
+                  this.$refs.scrollCon.scrollTop = this.scrollTop;
+                }
+                $(".red-border").removeClass("red-border");
               }, 200);
               setTimeout(() => {
                 if (this.$refs.scrollCon.scrollTop == 0) {
                   this.$refs.scrollCon.scrollTop = this.scrollTop;
                 }
+                $(".red-border").removeClass("red-border");
               }, 300);
               setTimeout(() => {
                 if (this.$refs.scrollCon.scrollTop == 0) {
                   this.$refs.scrollCon.scrollTop = this.scrollTop;
                 }
+                $(".red-border").removeClass("red-border");
               }, 400);
               setTimeout(() => {
                 if (this.$refs.scrollCon.scrollTop == 0) {
                   this.$refs.scrollCon.scrollTop = this.scrollTop;
                 }
               }, 500);
+              $(".red-border").removeClass("red-border");
               setTimeout(() => {
                 if (this.$refs.scrollCon.scrollTop == 0) {
                   this.$refs.scrollCon.scrollTop = this.scrollTop;
                 }
+                $(".red-border").removeClass("red-border");
               }, 600);
               setTimeout(() => {
                 if (this.$refs.scrollCon.scrollTop == 0) {
                   this.$refs.scrollCon.scrollTop = this.scrollTop;
                 }
+                $(".red-border").removeClass("red-border");
               }, 1000);
             });
+            this.pageLoading = false;
+          })
+          .catch(() => {
+            this.pageLoading = false;
           });
-        })
-        .catch(() => {
-          this.pageloading = false;
+      };
+
+      let reverseList = [...decode().list].reverse();
+      /** 最后的时间 */
+      let lastRecordHour = (
+        reverseList.find(item => item.recordDate && item.recordHour) || {}
+      ).recordHour;
+      /** 所有新增的时间 */
+      let newRecordHours = reverseList
+        .filter(
+          item => item.recordHour && !item.recordMonth && !item.recordDate
+        )
+        .map(item => item.recordHour);
+      /** 新增记录是否存在比原有记录更前 */
+      let isBefore = newRecordHours.some(
+        item =>
+          moment("2019-9-20 " + item).unix() <
+          moment("2019-9-20 " + lastRecordHour).unix()
+      );
+      if (isBefore) {
+        this.$confirm("新增记录比原有记录时间更前, 是否确认保存", "提示", {
+          confirmButtonText: "确认",
+          cancelButtonText: "取消",
+          type: "warning"
+        }).then(res => {
+          save();
         });
+      } else {
+        save();
+      }
     });
     this.bus.$on("refreshSheetPage", isFirst => {
       this.getSheetData(isFirst);

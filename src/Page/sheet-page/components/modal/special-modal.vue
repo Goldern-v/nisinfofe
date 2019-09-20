@@ -592,7 +592,7 @@ export default {
       let result = [];
       let text = "";
       let allDoc = this.doc;
-      if (this.sheetInfo.sheetType.indexOf("_wx") == -1) {
+      if (this.sheetInfo.sheetType && this.sheetInfo.sheetType.indexOf("_wx") == -1) {
         allDoc = "    " + this.doc;
       }
       for (let i = 0; i < allDoc.length; i++) {
