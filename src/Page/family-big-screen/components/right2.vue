@@ -49,11 +49,6 @@ export default {
         this.isSave = true;
       });
     }
-    // blur() {
-    //   setTimeout(() => {
-    //     this.$message.warning("记事本未保存，注意保存，以免数据丢失");
-    //   }, 100);
-    // }
   },
   computed: {
     message() {
@@ -61,8 +56,10 @@ export default {
     }
   },
   watch: {
-    message() {
-      this.isSave = false;
+    'data.message'(newVal,oldVal) {
+      if(newVal && oldVal){
+        this.isSave = false;
+      }
     }
   },
   components: {
