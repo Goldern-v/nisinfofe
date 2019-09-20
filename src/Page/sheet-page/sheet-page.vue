@@ -541,11 +541,15 @@ export default {
           moment("2019-9-20 " + lastRecordHour).unix()
       );
       if (isBefore) {
-        this.$confirm("新增记录比原有记录时间更前, 是否确认保存", "提示", {
-          confirmButtonText: "确认",
-          cancelButtonText: "取消",
-          type: "warning"
-        }).then(res => {
+        this.$confirm(
+          "新增记录比原有记录时间更前, 请确定日期, 是否确认保存?",
+          "提示",
+          {
+            confirmButtonText: "确认",
+            cancelButtonText: "取消",
+            type: "warning"
+          }
+        ).then(res => {
           save();
         });
       } else {
