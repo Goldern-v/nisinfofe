@@ -51,7 +51,7 @@
         </div>
       </div>
       <!-- 弹框 -->
-      <EditModal :blockId="blockId" ref="editModal" @confirm="pullData"/>
+      <EditModal :blockId="blockId" ref="editModal" @confirm="pullData" :pageParam="pageParam"/>
       </div>
     </div>
   </div>

@@ -80,6 +80,10 @@ export default {
     blockId: {
       type: Number,
       default: ''
+    },
+    pageParam: { //表格数据
+      type: Array,
+      default: () => []
     }
   },
   data () {
@@ -254,11 +258,30 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           let data = this.setParams()
-          saveMission(data).then(res => {
-            this.$message.success('保存成功')
-            this.$emit('confirm')
-            this.close()
-          })
+          let isOk = false //用来判断是否弹窗提示已推送是否继续添加
+          let arr = this.pageParam.filter(item => item.instance.missionId == this.form.state)
+          if (arr.length > 0) {
+            arr.map(item => {
+              if (item.instance.status == '1') {
+                isOk = true
+              }
+            })
+          }
+          if (isOk) {
+            this.$confirm("该宣教内容已推送过，确定再次添加？", "提示", {
+              confirmButtonText: "确定",
+              cancelButtonText: "取消",
+              type: "warning"
+            }).then(() => {
+              saveMission(data).then(res => {
+                this.$message.success('保存成功')
+                this.$emit('confirm')
+                this.close()
+              })
+            }).catch(e => {
+              this.close()
+            })
+          }
         } else {
           return false;
         }
