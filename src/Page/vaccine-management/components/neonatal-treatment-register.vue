@@ -31,29 +31,31 @@
     <div class="content">
       <h3>产科新生儿治疗登记本</h3>
       <div class="table-container" v-loading="page1Loading">
+        <nullText v-show="tableData1.length ==0"></nullText>
+
         <div class="table">
           <table cellspacing="0">
             <colgroup>
               <col width="75" />
               <col width="45" />
               <col width="50" />
-              <col width="60" />
-              <col width="60" />
-              <col width="60" />
+              <col width="65" />
+              <col width="65" />
+              <col width="65" />
             </colgroup>
             <thead>
               <tr>
                 <th rowspan="2">日期</th>
                 <th rowspan="2">时间</th>
                 <th colspan="4">乙肝疫苗</th>
-                <th class="scrollBlock" v-if="table1"></th>
+                <!-- <th class="scrollBlock" v-if="table1"></th> -->
               </tr>
               <tr>
                 <th>床号</th>
                 <th>产妇姓名</th>
                 <th>疫苗批号</th>
                 <th>执行签名</th>
-                <th class="scrollBlock" v-if="table1"></th>
+                <!-- <th class="scrollBlock" v-if="table1"></th> -->
               </tr>
             </thead>
           </table>
@@ -63,9 +65,9 @@
                 <col width="75" />
                 <col width="45" />
                 <col width="50" />
-                <col width="60" />
-                <col width="60" />
-                <col width="60" />
+                <col width="65" />
+                <col width="65" />
+                <col width="65" />
               </colgroup>
               <tbody>
                 <tr v-for="(item,index1) in tableData1" :key="index1">
@@ -117,29 +119,28 @@
                 </tr>-->
               </tbody>
             </table>
-            <nullText v-show="tableData1.length == 0"></nullText>
           </div>
         </div>
 
-        <div class="table">
+        <div class="table tableArea">
           <table cellspacing="0">
             <colgroup>
               <col width="50" />
-              <col width="60" />
-              <col width="60" />
-              <col width="60" />
+              <col width="65" />
+              <col width="65" />
+              <col width="65" />
             </colgroup>
             <thead>
               <tr>
                 <th colspan="4">卡介苗</th>
-                <th class="scrollBlock" v-if="table2"></th>
+                <!-- <th class="scrollBlock" v-if="table2"></th> -->
               </tr>
               <tr>
                 <th>床号</th>
                 <th>产妇姓名</th>
                 <th>疫苗批号</th>
                 <th>执行签名</th>
-                <th class="scrollBlock" v-if="table2"></th>
+                <!-- <th class="scrollBlock" v-if="table2"></th> -->
               </tr>
             </thead>
           </table>
@@ -147,9 +148,9 @@
             <table cellspacing="0" ref="table2">
               <colgroup>
                 <col width="50" />
-                <col width="60" />
-                <col width="60" />
-                <col width="60" />
+                <col width="65" />
+                <col width="65" />
+                <col width="65" />
               </colgroup>
               <tbody>
                 <tr v-for="(item,index2) in tableData2" :key="index2">
@@ -191,29 +192,28 @@
                 </tr>-->
               </tbody>
             </table>
-            <nullText v-show="tableData2.length == 0"></nullText>
           </div>
         </div>
 
-        <div class="table">
+        <div class="table tableArea">
           <table cellspacing="0">
             <colgroup>
               <col width="50" />
-              <col width="60" />
+              <col width="65" />
               <col width="70" />
-              <col width="60" />
+              <col width="65" />
             </colgroup>
             <thead>
               <tr>
                 <th colspan="4">疾病筛查</th>
-                <th class="scrollBlock" v-if="table3"></th>
+                <!-- <th class="scrollBlock" v-if="table3"></th> -->
               </tr>
               <tr>
                 <th>床号</th>
                 <th>产妇姓名</th>
                 <th>套餐</th>
                 <th>执行签名</th>
-                <th class="scrollBlock" v-if="table3"></th>
+                <!-- <th class="scrollBlock" v-if="table3"></th> -->
               </tr>
             </thead>
           </table>
@@ -221,9 +221,9 @@
             <table cellspacing="0" ref="table3">
               <colgroup>
                 <col width="50" />
-                <col width="60" />
+                <col width="65" />
                 <col width="70" />
-                <col width="60" />
+                <col width="65" />
               </colgroup>
               <tbody>
                 <tr v-for="(item,index3) in tableData3" :key="index3">
@@ -265,29 +265,28 @@
                 </tr>-->
               </tbody>
             </table>
-            <nullText v-show="tableData3.length == 0"></nullText>
           </div>
         </div>
 
-        <div class="table">
+        <div class="table tableArea">
           <table cellspacing="0">
             <colgroup>
               <col width="50" />
-              <col width="60" />
-              <col width="80" />
-              <col width="60" />
+              <col width="65" />
+              <col width="70" />
+              <col width="65" />
             </colgroup>
             <thead>
               <tr>
                 <th colspan="4">听力筛查</th>
-                <th class="scrollBlock" v-if="table4"></th>
+                <!-- <th class="scrollBlock" v-if="table4"></th> -->
               </tr>
               <tr>
                 <th>床号</th>
                 <th>产妇姓名</th>
                 <th>套餐</th>
                 <th>执行签名</th>
-                <th class="scrollBlock" v-if="table4"></th>
+                <!-- <th class="scrollBlock" v-if="table4"></th> -->
               </tr>
             </thead>
           </table>
@@ -295,9 +294,9 @@
             <table cellspacing="0" ref="table4">
               <colgroup>
                 <col width="50" />
-                <col width="60" />
-                <col width="80" />
-                <col width="60" />
+                <col width="65" />
+                <col width="70" />
+                <col width="65" />
               </colgroup>
               <tbody>
                 <tr v-for="(item,index4) in tableData4" :key="index4">
@@ -339,7 +338,6 @@
                 </tr>-->
               </tbody>
             </table>
-            <nullText v-show="tableData4.length == 0"></nullText>
           </div>
         </div>
       </div>
@@ -400,7 +398,7 @@
     border-radius: 4px;
   }
   .content {
-    padding: 16px 14px 56px 14px;
+    padding: 16px 14px;
     h3 {
       font-size: 18px;
       line-height: 31px;
@@ -415,10 +413,19 @@
       border: 1px solid #cbd5dd;
       border-bottom: none;
       border-radius: 2px;
+      height: calc(100vh - 174px);
+      padding-bottom: 41px;
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+      overflow: auto;
+      position: relative;
+
       .table {
+        height: 100%;
+        padding-right: 3px;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
         > div {
-          height: calc(100vh - 291px);
-          overflow: auto;
           border-left: 1px solid #cbd5dd;
           border-right: 1px solid #cbd5dd;
         }
@@ -431,7 +438,7 @@
             }
           }
         }
-        &:first-of-type {
+        &:nth-of-type(2) {
           > div {
             border-left: none;
           }
@@ -443,6 +450,7 @@
           }
         }
         &:last-of-type {
+          padding-right: 0;
           > div {
             border-right: none;
           }
@@ -452,6 +460,9 @@
               border-right: none;
             }
           }
+        }
+        &.tableArea {
+          flex: 1;
         }
         tbody {
           tr {
@@ -468,14 +479,15 @@
         background: #fff;
         th,
         td {
-          font-size: 13px;
+          font-size: 12px;
           color: #333;
           text-align: center;
           border: 1px solid #cbd5dd;
-          height: 38px;
+          height: 30px;
           vertical-align: middle;
         }
         th {
+          font-weight: normal;
           background-color: #eef6f5;
         }
         tr {
@@ -505,6 +517,10 @@
   .scrollBlock {
     width: 5px;
     padding: 0 !important;
+  }
+  .null-bg {
+    position: absolute;
+    top: 11px;
   }
 }
 </style>
