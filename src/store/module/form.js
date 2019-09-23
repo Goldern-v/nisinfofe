@@ -7,8 +7,18 @@ export default {
     select: [],
     //
     formFilledData:[],
+    // 表单最早ID  { keyName:valueId }
+    formLastId:[],
+  },
+  getters:{
+    getFormLastId:(state)=>({patientId,formCode,formName})=>{
+      return state.formLastId.find(form=> form.patientId == patientId && (form.formCode == formCode||form.formName == formName))
+    }
   },
   mutations: {
+    upFormLastId(state, value) {
+      state.formLastId = [...state.formLastId, value]
+    },
     upMyDept(state, value) {
       state.myDept = value
     },
@@ -49,6 +59,9 @@ export default {
       state.hisDiags = []
       state.measure = []
       state.select = []
+    },
+    cleanFormLastId(state) {
+      state.formLastId = []
     },
   }
 }

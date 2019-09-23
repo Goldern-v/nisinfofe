@@ -308,6 +308,9 @@ export default {
         .then(res => {
           console.log("Promise.all", res, res[1].data.data);
           let index = 0;
+          //
+          window.app.$store.commit("cleanFormLastId");
+          //
           let list_1 = res[0].data.data.map(item => {
             index += 1;
             return {
@@ -320,6 +323,19 @@ export default {
               nooForm: item.nooForm,
               pageUrl: item.pageUrl,
               children: item.formInstanceDtoList.map((option, i) => {
+                //
+                // item.formCode
+                // this.$store.state.form.upFormLastId
+                // window.app.$store.commit('upFormLastId', data)
+                if (item.formInstanceDtoList.length - 1 == i) {
+                  window.app.$store.commit('upFormLastId', {
+                    formName:item.formName,
+                    formCode:item.formCode,
+                    id:option.id,
+                    patientId:this.$route.query.patientId,
+                    evalDate:option.evalDate
+                   })
+                }
                 // formName: "疼痛护理单"
                 // 查找第一张填写的疼痛评估单
                 if (item.formName && item.formName === "疼痛护理单") {
