@@ -108,7 +108,7 @@
               <th colspan="5">
                 <img src="./img/护理文书批注.png" />
                 <span>护理记录单（{{postil.content.length}}）</span>
-                <!-- <el-switch
+                <el-switch
                   style="position:absolute;top:9px;right:110px;display: inline-block"
                   v-model="postil.isshow"
                   active-color="#4BB08D"
@@ -116,8 +116,8 @@
                   on-text
                   off-text
                   @change="onlyme"
-                ></el-switch>-->
-                <!-- <b>只显示我的记录</b> -->
+                ></el-switch>
+                <b>只显示我的记录</b>
               </th>
             </tr>
             <tr>

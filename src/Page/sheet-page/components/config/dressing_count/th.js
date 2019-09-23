@@ -24,24 +24,24 @@ export default {
       },{
         name: `脉<br/>搏<br/>（次/<br/>min）`,
         style: {
-          minWidth: '44px',
-          maxWidth: '44px'
+          minWidth: '40px',
+          maxWidth: '40px'
         },
         colspan: '1',
         rowspan: '3'
       },{
         name: `呼<br/>吸<br/>（次/<br/>min）`,
         style: {
-          minWidth: '44px',
-          maxWidth: '44px'
+          minWidth: '40px',
+          maxWidth: '40px'
         },
         colspan: '1',
         rowspan: '3'
       },{
         name: `血<br/>压<br/>（mm/<br/>Hg）`,
         style: {
-          minWidth: '44px',
-          maxWidth: '44px'
+          minWidth: '40px',
+          maxWidth: '40px'
         },
         colspan: '1',
         rowspan: '3'
@@ -111,8 +111,8 @@ export default {
       },{
         name: `附注`,
         style: {
-          minWidth: '134px',
-          maxWidth: '134px',
+          minWidth: '145px',
+          maxWidth: '145px',
         },
         colspan: '1',
         rowspan: '3'

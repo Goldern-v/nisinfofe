@@ -232,6 +232,8 @@ export default {
        }
        .sign-img img {
          width: 40px !important;
+         height: calc(100% - 2px)  !important;
+         margin: 0  !important;
        }
         `
       );

@@ -290,6 +290,7 @@ export default {
         return;
       }
       this.tableLoading = true;
+      $(".red-border").removeClass("red-border");
       return Promise.all([
         showTitle(this.patientInfo.patientId, this.patientInfo.visitId),
         showBody(this.patientInfo.patientId, this.patientInfo.visitId),
@@ -496,7 +497,7 @@ export default {
           moment("2019-9-20 " + lastRecordHour).unix()
       );
       if (isBefore) {
-        this.$confirm("新增记录比原有记录时间更前, 是否确认保存", "提示", {
+        this.$confirm("新增记录比原有记录时间更前, 请确定日期, 是否确认保存?", "提示", {
           confirmButtonText: "确认",
           cancelButtonText: "取消",
           type: "warning"
@@ -551,6 +552,21 @@ export default {
           });
           return this.$message.warning("记录存在多个签名，或者忘记填写时间");
         }
+      }
+
+      if ($(".sheet-page-container-hemodialysis .isNoSign") && $(".sheet-page-container-hemodialysis .isNoSign").length) {
+        $(".signTd")
+          .eq(0)
+          .addClass("red-border");
+        $(this.$refs.scrollCon).animate({
+          scrollTop:
+            $(".sheet-page-container-hemodialysis .isNoSign")
+              .eq(0)
+              .offset().top +
+            this.$refs.scrollCon.scrollTop -
+            150
+        });
+        return this.$message.warning("存在未签名的记录，请全部签名后再打印");
       }
 
       window.localStorage.sheetModel = $(this.$refs.sheetTableContain).html();
