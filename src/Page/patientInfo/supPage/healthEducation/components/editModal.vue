@@ -281,6 +281,12 @@ export default {
             }).catch(e => {
               this.close()
             })
+          } else {
+             saveMission(data).then(res => {
+              this.$message.success('保存成功')
+              this.$emit('confirm')
+              this.close()
+            })
           }
         } else {
           return false;
