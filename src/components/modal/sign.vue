@@ -18,12 +18,12 @@
           type="text"
           placeholder="输入用户名或者工号"
           v-model="username"
-          :readonly="HOSPITAL_ID == 'weixian_dev'"
+          :readonly="HOSPITAL_ID == 'weixian'"
         ></el-input>
       </div>
     </span>
     <div style="height: 5px"></div>
-    <span v-if="HOSPITAL_ID != 'weixian_dev' || pw">
+    <span v-if="HOSPITAL_ID != 'weixian' || pw">
       <p for class="name-title">{{label}}</p>
       <div ref="passwordInput">
         <el-input size="small" type="password" :placeholder="placeholder" v-model="password"></el-input>
@@ -40,7 +40,7 @@
       </p>
     </span>
 
-    <div v-if="HOSPITAL_ID == 'weixian_dev'" style="margin-top: 5px">
+    <div v-if="HOSPITAL_ID == 'weixian'" style="margin-top: 5px">
       <span @click="openCaSignModal" class="loginCa" v-if="!ca_isLogin">登录证书</span>
       <span class="loginCa" v-if="!pw" @click="pw = true">密码验证</span>
       <span class="loginCa" v-else @click="pw = false">证书验证</span>
@@ -174,7 +174,7 @@ export default {
 
       this.signDate = dayjs().format("YYYY-MM-DD HH:mm") || ""; //改
       this.$refs.modalName.open();
-      if (this.HOSPITAL_ID != "weixian_dev") {
+      if (this.HOSPITAL_ID != "weixian") {
         this.$nextTick(() => {
           // if(showDate){
           //   let dateInput = this.$refs.dateInput.querySelector("input");
@@ -203,7 +203,7 @@ export default {
       return null;
     },
     post() {
-      if (this.HOSPITAL_ID == "weixian_dev") {
+      if (this.HOSPITAL_ID == "weixian") {
         if (this.pw) {
           if (this.password == "") {
             return this.$message({
@@ -224,14 +224,14 @@ export default {
             this.$refs.modalName.close();
             if (this.signDate) {
               return this.callback(
-                // localStorage.ppp,
-                random,
+                localStorage.ppp,
+                // random,
                 this.username,
                 this.signDate,
                 random
               );
             } else {
-              return this.callback(random, this.username);
+              return this.callback(localStorage.ppp, this.username);
             }
           });
         }
