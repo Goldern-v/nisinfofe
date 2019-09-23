@@ -170,7 +170,8 @@ function openAssessmentsBox(buttonItem, formCode, callback, wid) {
         "form_selfcare": "自理能力护理单.html",
         "form_pressure_risk": "Braden压疮风险护理单.html",
         "form_fall": "跌倒护理单.html",
-        "form_swallowing": "吞咽护理单.html"
+        "form_swallowing": "吞咽护理单.html",
+        "form_swallowing_eat": "吞咽进食护理单.html"
       }
 
       let pageUrl = pageUrlMap[formCode]; //"VTE风险评估量表(手术科室).html";
@@ -281,7 +282,11 @@ export function openInsideBoxes(wid) {
   // form_caprini
 
   // 启用吞咽评估单 form_internal_first_tykn_option    form_swallowing
-  openAssessmentsBox(jQuery("[name$='swallowing_id']", wid.document), "form_swallowing", callbackSwallowingAssessment, wid);
+  // openAssessmentsBox(jQuery("[name$='swallowing_id']", wid.document), "form_swallowing", callbackSwallowingAssessment, wid);
+
+  // form_swallowing_eat
+  // 启用新吞咽评估单 form_internal_first_tykn_option    form_swallowing
+  openAssessmentsBox(jQuery("[name$='swallowing_id']", wid.document), "form_swallowing_eat", callbackSwallowingEatAssessment, wid);
 
   // 启用跌倒护理单 form_internal_first_ddfxpg_option  form_fall
   openAssessmentsBox(jQuery("[name$='fall_id']", wid.document), "form_fall", callbackFallAssessment, wid);
@@ -703,17 +708,23 @@ form_internal_first_dvt_or_pte_score form_internal_first_dvt_or_pte_option
     try { wid.saveForm() } catch (error) { console.log('saveForm:error', error) }
   }
 
+  // 新吞咽评估单
+  function callbackSwallowingEatAssessment(data, callbackData) {
+    return callbackSwallowingAssessment(data, callbackData)
+  }
+
   // 吞咽评估单
   function callbackSwallowingAssessment(data, callbackData) {
     // let evalscore = 0;
     // let age=0;
     // console.log("回填数据",data);
     console.log("回填数据callbackSwallowingAssessment", data, callbackData);
-    let formCode = "form_swallowing";
+    let formCode = data.formCode || "form_swallowing";
     // 入院表formCode
+    // form_swallowing_eat
     var formCodeSource = wid.formInfo.formCode;
 
-
+    // if(data.formCode != formCode){return}
 
     try {
       /*
@@ -747,28 +758,28 @@ form_internal_first_dvt_or_pte_score form_internal_first_dvt_or_pte_option
     let has = false;
     jQuery("[name$='tykn_ts_option']", wid.document).prop("checked", "");
     jQuery("[name$='tykn_th_option']", wid.document).prop("checked", "");
-    if (data["form_swallowing_swallow_water_result"].indexOf("+") > -1) {
+    if (data[formCode+"_swallow_water_result"].indexOf("+") > -1) {
       jQuery("[name$='tykn_ts_option'][value*='阳性']", wid.document).prop("checked", "checked");
       has = true;
       //
       wid.setFormData(formCodeSource + "_tssy_option", "阳性", 'object');
       wid.setFormData(formCodeSource + "_tykn_ts_option", "阳性", 'object');
     }
-    if (data["form_swallowing_swallow_water_result"].indexOf("-") > -1) {
+    if (data[formCode+"_swallow_water_result"].indexOf("-") > -1) {
       jQuery("[name$='tykn_ts_option'][value*='阴性']", wid.document).prop("checked", "checked");
       // has = false;
       //
       wid.setFormData(formCodeSource + "_tssy_option", "阴性", "object");
       wid.setFormData(formCodeSource + "_tykn_ts_option", "阴性", "object");
     }
-    if (data["form_swallowing_swallow_paste_result"].indexOf("+") > -1) {
+    if (data[formCode+"_swallow_paste_result"].indexOf("+") > -1) {
       jQuery("[name$='tykn_th_option'][value*='阳性']", wid.document).prop("checked", "checked");
       has = true;
       //
       wid.setFormData(formCodeSource + "_thsy_option", "阳性", "object");
       wid.setFormData(formCodeSource + "_tykn_th_option", "阳性", "object");
     }
-    if (data["form_swallowing_swallow_paste_result"].indexOf("-") > -1) {
+    if (data[formCode+"_swallow_paste_result"].indexOf("-") > -1) {
       jQuery("[name$='tykn_th_option'][value*='阴性']", wid.document).prop("checked", "checked");
       // has = false;
       //
