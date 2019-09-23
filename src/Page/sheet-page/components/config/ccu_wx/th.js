@@ -261,7 +261,7 @@ export default {
         rowspan: "2"
       },
       {
-        name: `皮肤胀力`,
+        name: `皮肤张力`,
         style: {
           minWidth: "30px",
           maxWidth: "30px"
