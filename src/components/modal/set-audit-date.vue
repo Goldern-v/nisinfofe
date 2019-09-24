@@ -20,7 +20,7 @@
       </div>
     </span>
 
-    
+
     <p for class="name-title">{{label}}</p>
     <div ref="passwordInput">
       <el-input size="small" type="password" :placeholder="placeholder" v-model="password"></el-input>
@@ -34,10 +34,11 @@
 </template>
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
-.name-title
-  font-size 14px;
-  margin 5px 0 10px
-  font-weight bold
+.name-title {
+  font-size: 14px;
+  margin: 5px 0 10px;
+  font-weight: bold;
+}
 </style>
 
 <script>
@@ -104,7 +105,7 @@ export default {
       //   });
       // }
       this.$refs.modalName.close();
-      let date = dayjs(this.date).format("YYYY-MM-DD HH:mm");
+      let date = this.date ? dayjs(this.date).format("YYYY-MM-DD HH:mm") : "";
       this.callback(date);
     }
   },
