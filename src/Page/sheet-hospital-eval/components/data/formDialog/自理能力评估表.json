@@ -109,6 +109,7 @@
           "value": "",
           "placeholder": "评估时间",
           "style": "width:145px",
+          "inputWidth":"145px",
           "class": null,
           "readOnly": null
         },
@@ -119,6 +120,7 @@
           "value": "",
           "placeholder": "评估人",
           "style": "width:80px",
+          "inputWidth":"80px",
           "class": null,
           "readOnly": true
         },
@@ -129,6 +131,7 @@
           "value": "",
           "placeholder": "状态",
           "style": "width:80px",
+          "inputWidth":"80px",
           "class": null,
           "readOnly": true,
           "rule": [
@@ -686,6 +689,7 @@
           "code": "evalScore",
           "placeholder": "评估得分",
           "style": "width:80px",
+          "inputWidth":"80px",
           "class": null,
           "readOnly": true
         },
@@ -696,6 +700,7 @@
           "code": "",
           "placeholder": "结果程度",
           "style": "width:80px",
+          "inputWidth":"80px",
           "class": null,
           "readOnly": true,
           "rule": [

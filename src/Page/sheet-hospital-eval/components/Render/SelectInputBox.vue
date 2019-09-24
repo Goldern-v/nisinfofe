@@ -4,7 +4,7 @@
     <!-- <autoComplete v-if="isShow" ref="autoInput" /> -->
     <!-- <el-input v-if="obj.type==='input'" v-model="checkboxValue" border size="small" :label="obj.title" :class="obj.class" :style="obj.style">{{obj.title}}</el-input> -->
     <span v-if="obj.label">
-      <span style="font-size: 13px;" :style="obj.labelStyle" :class="obj.labelClass">{{obj.label}}</span>
+      <span style="font-size: 12px;" :style="obj.labelStyle" :class="obj.labelClass">{{obj.label}}:</span>
     </span>
 
     <!-- v-autoComplete="{dataList: obj.options, obj:formObj.model, key: obj.name}" -->
@@ -16,7 +16,7 @@
       v-if="['select','selectInput'].indexOf(obj.type)>-1 && !obj.children"
       placeholder="空"
       :class="obj.class||''"
-      :style="obj.style||''"
+      :style="[obj.style, obj.inputWidth && {width: obj.inputWidth}]"
       :size="obj.size||''"
       :type="obj.inputType||'text'"
       :disabled="obj.readOnly?true:false"
@@ -525,8 +525,8 @@ export default {
   &:placeholder
     color: #dbe6e4;
 
-// .el-input
-//   width: 172px;
+.el-input
+  width: 227px;
 
 .pre-text, .post-text, >>>.el-input-group__append
   color #486a62
@@ -580,7 +580,7 @@ i {
 
 .post-text {
   margin -8px -14px -8px -10px;
-  padding 8px 12px 8px 10px
+  padding 8px 12px 8px 3px
   background #fff
 }
 >>>.el-input:hover {

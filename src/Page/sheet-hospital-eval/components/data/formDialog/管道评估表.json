@@ -108,6 +108,7 @@
           "value": "",
           "placeholder": "评估时间",
           "style": "width:145px",
+          "inputWidth":"145px",
           "class": null,
           "readOnly": null
         },
@@ -118,6 +119,7 @@
           "value": "0",
           "placeholder": "评估人",
           "style": "width:80px",
+          "inputWidth":"80px",
           "class": null,
           "readOnly": true
         },
@@ -128,6 +130,7 @@
           "value": "0",
           "placeholder": "状态",
           "style": "width:80px",
+          "inputWidth":"80px",
           "class": null,
           "readOnly": true,
           "rule": [{

@@ -32,16 +32,14 @@
             <div class="box-td">
               <div class="left-td" :class="obj.titleStyle" v-if="obj.children[n+(col-1)].title">
                 <!-- {{n+(col-1)}} -->
-                <span v-if="!obj.children[n+(col-1)].dialog">{{obj.children[n+(col-1)].title}}</span>
+                <span v-if="!obj.children[n+(col-1)].dialog"><span v-html="titleFeedSpace(obj.children[n+(col-1)].title)"></span>{{obj.children[n+(col-1)].labelTitle?obj.children[n+(col-1)].labelTitle+':':''}}</span>
                 <span
                   v-if="obj.children[n+(col-1)].dialog"
                   style="cursor:pointer;color:blue"
                   @click="titleClick($event,obj.children[n+(col-1)])"
                 >
-                  {{obj.children[n+(col-1)].title}}
-                  <span v-if="obj.children[n+(col-1)].name === 'I100001'">
-                    (
-                    <span style="color: transparent">空白</span>）
+                  <span>{{obj.children[n+(col-1)].title}}:</span>
+                  <span v-if="obj.children[n+(col-1)].name === 'I100001'">(<span style="color: transparent">空白</span>):
                   </span>
                 </span>
               </div>
@@ -88,6 +86,19 @@ export default {
   mounted() {},
   created() {},
   methods: {
+    titleFeedSpace(str){
+      //
+      if(!str){return ""}
+      if(str.length == 2) {
+        // for(i of str){ console.log(i)}
+        return `${str[0]}<span style='text-indent: 2em;display: inline-block;'>${str[1]}</span>:`
+      }
+      if(str.length == 3) {
+        // for(i of str){ console.log(i)}
+        return `<span>${str[0]}</span><span style='text-indent: 0.5em;display: inline-block;'>${str[1]}</span><span style='text-indent: 0.5em;display: inline-block;'>${str[2]}</span>:`
+      }
+      return str+':'// + str.length
+    },
     titleClick(e, child) {
       console.log("titleClick", e, child, this.formObj.model, e.target.tagName);
       if (child.dialog) {
@@ -129,10 +140,10 @@ export default {
     // justify-content: space-between
   .left-td
     // border 1px solid green
-    width: 100%
-    max-width: 95px
-    margin: 11px 5px 0 0
-    text-align: right
+    // width: 100%
+    max-width: 100px
+    margin: 8px 5px 0 0
+    text-align: left
     font-size: 12px;
   .right-td
     width: auto

@@ -99,6 +99,7 @@ h4 {
 .title-box {
   border-bottom: 0px dashed #eee;
   padding: 10px 20px;
+  padding-bottom: 40px;
 }
 
 .header-box {
