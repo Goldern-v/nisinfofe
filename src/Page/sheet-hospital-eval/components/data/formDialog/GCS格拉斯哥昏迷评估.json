@@ -118,6 +118,7 @@
           "name": "signerName",
           "type": "input",
           "title": "评估人",
+          "inputWidth":"120px",
           "code": "0",
           "placeholder": "评估人",
           "style": "width:80px",
@@ -128,6 +129,7 @@
           "name": "status",
           "type": "input",
           "title": "状态",
+          "inputWidth":"120px",
           "code": "0",
           "placeholder": "状态",
           "style": "width:80px",
@@ -441,6 +443,7 @@
           "code": "evalScore",
           "placeholder": "评估得分",
           "style": "width:80px",
+          "inputWidth":"80px",
           "class": null,
           "readOnly": true
         },
@@ -451,6 +454,7 @@
           "code": "",
           "placeholder": "结果程度",
           "style": "width:80px",
+          "inputWidth":"80px",
           "class": null,
           "readOnly": true,
           "rule": [
@@ -485,18 +489,6 @@
           ]
         }
       ]
-    },
-    {
-      "name": "",
-      "type": "formGroupHR",
-      "title": "---hr---",
-      "line": "",
-      "prefixDesc": "",
-      "suffixDesc": "",
-      "keys": "",
-      "style": "",
-      "classes": "",
-      "readOnly": ""
     }
   ],
   "dialogs": [],

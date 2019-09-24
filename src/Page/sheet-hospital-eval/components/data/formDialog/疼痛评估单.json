@@ -111,6 +111,7 @@
           "value": "",
           "placeholder": "评估时间",
           "style": "width:145px",
+          "inputWidth":"145px",
           "class": null,
           "readOnly": null
         },
@@ -121,6 +122,7 @@
           "value": "",
           "placeholder": "评估人",
           "style": "width:80px",
+          "inputWidth":"80px",
           "class": null,
           "readOnly": true
         },
@@ -131,6 +133,7 @@
           "value": "",
           "placeholder": "状态",
           "style": "width:80px",
+          "inputWidth":"80px",
           "class": null,
           "readOnly": true,
           "rule": [
@@ -169,7 +172,7 @@
       "name": "",
       "type": "formGroupTitle",
       "level": "1",
-      "title": "一、评估内容：",
+      "title": "一、评估内容",
       "prefixDesc": "",
       "suffixDesc": "",
       "keys": "",
@@ -194,7 +197,8 @@
         {
           "name": "I003003",
           "type": "select",
-          "title": "评分工具：",
+          "title": "评分工具",
+          "inputWidth":"140px",
           "style": null,
           "class": null,
           "readOnly": null,
@@ -204,7 +208,8 @@
         {
           "name": "evalScore",
           "type": "input",
-          "title": "疼痛评分：",
+          "title": "疼痛评分",
+          "inputWidth":"140px",
           "suffixDesc": "",
           "style": null,
           "class": null,
@@ -214,8 +219,9 @@
         {
           "name": "I003004",
           "type": "select",
-          "title": "活动时疼痛评分：",
+          "title": "活动时疼痛评分",
           "suffixDesc": "",
+          "inputWidth":"104px",
           "style": null,
           "class": null,
           "readOnly": false,
@@ -224,7 +230,7 @@
         {
           "name": "I003001",
           "type": "select",
-          "title": "疼痛部位：",
+          "title": "疼痛部位",
           "suffixDesc": "",
           "style": null,
           "class": null,
@@ -233,7 +239,8 @@
             {
               "name": "I003001",
               "type": "input",
-              "title": "疼痛部位：",
+              "title": "疼痛部位",
+              "inputWidth":"140px",
               "style": null,
               "class": null,
               "readOnly": null
@@ -249,8 +256,9 @@
         {
           "name": "I003005",
           "type": "input",
-          "title": "疼痛性质：",
+          "title": "疼痛性质",
           "suffixDesc": "",
+          "inputWidth":"140px",
           "style": null,
           "class": null,
           "readOnly": false,
@@ -268,8 +276,9 @@
         {
           "name": "I003006",
           "type": "input",
-          "title": "疼痛规律性：",
+          "title": "疼痛规律性",
           "suffixDesc": "",
+          "inputWidth":"128px",
           "style": null,
           "class": null,
           "readOnly": false,
@@ -278,8 +287,9 @@
         {
           "name": "I003007",
           "type": "input",
-          "title": "疼痛控制：",
+          "title": "疼痛控制",
           "suffixDesc": "",
+          "inputWidth":"140px",
           "style": null,
           "class": null,
           "readOnly": false,
@@ -288,8 +298,9 @@
         {
           "name": "I003008",
           "type": "select",
-          "title": "活动情况：",
+          "title": "活动情况",
           "suffixDesc": "",
+          "inputWidth":"140px",
           "style": null,
           "class": null,
           "readOnly": false,
@@ -314,7 +325,7 @@
       "name": "",
       "type": "formGroupTitle",
       "level": "1",
-      "title": "二、护理措施：",
+      "title": "二、护理措施",
       "prefixDesc": "",
       "suffixDesc": "",
       "keys": "",
@@ -466,7 +477,8 @@
         {
           "name": "M003012",
           "type": "datePicker",
-          "title": "时间：",
+          "title": "时间",
+          "inputWidth":"145px",
           "style": null,
           "class": null,
           "readOnly": null
@@ -474,7 +486,8 @@
         {
           "name": "M003013",
           "type": "input",
-          "title": "药品：",
+          "title": "药品",
+          "inputWidth":"145px",
           "style": null,
           "class": null,
           "readOnly": null
@@ -482,7 +495,8 @@
         {
           "name": "M003014",
           "type": "input",
-          "title": "途径：",
+          "title": "途径",
+          "inputWidth":"145px",
           "style": null,
           "class": null,
           "readOnly": null

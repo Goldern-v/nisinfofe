@@ -5,9 +5,9 @@
     <!-- <el-input v-if="obj.type==='input'" v-model="checkboxValue" border size="small" :label="obj.title" :class="obj.class" :style="obj.style">{{obj.title}}</el-input> -->
     <span
       v-if="obj.label"
-      :style="{width: obj.labelWidth, textAlign: 'right', paddingRight: '10px'}"
+      :style="{width: obj.labelWidth, textAlign: 'right', paddingRight: '0px'}"
     >
-      <span style="font-size: 13px;" :style="obj.labelStyle" :class="obj.labelClass">{{obj.label}}</span>
+      <span style="font-size: 12px;" :style="obj.labelStyle" :class="obj.labelClass">{{obj.label}}:</span>
     </span>
     <!-- v-autoComplete="{dataList: obj.options, obj:formObj.model, key: obj.name}" -->
     <el-input
@@ -600,7 +600,7 @@ export default {
 }
 
 .el-input {
-  // width: 172px;
+  width: 227px;
 
   &.development-model {
     width: 100% !important;
@@ -657,15 +657,21 @@ export default {
 }
 .post-text {
   margin -8px -14px -9px -10px
-  padding 8px 14px 9px 10px
+  padding 8px 14px 9px 3px
   background #fff
 }
+
 >>>.el-input:hover {
   .post-text {
     border-left 1px solid #4baf8d
     background #eef5f5
   }
 }
+
+.el-input {
+  width: 227px;
+}
+
 </style>
 
 <style lang="scss">

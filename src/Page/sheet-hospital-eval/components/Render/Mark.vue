@@ -7,7 +7,7 @@
       v-if="obj.label"
       :style="{width: obj.labelWidth, textAlign: 'right', paddingRight: '10px'}"
     >
-      <span style="font-size: 13px;" :style="obj.labelStyle" :class="obj.labelClass">{{obj.label}}</span>
+      <span style="font-size: 12px;" :style="obj.labelStyle" :class="obj.labelClass">{{obj.label}}</span>
     </span>
     <!-- v-autoComplete="{dataList: obj.options, obj:formObj.model, key: obj.name}" -->
     <el-input
@@ -574,7 +574,9 @@ export default {
 
 >>>.el-textarea__inner.el-textarea__inner.el-textarea__inner {
   // width: 100%;
+  font-size: 12px;
   border-radius: 0px;
+  padding: 0px 5px;
 
   &:focus {
     outline: none;
@@ -654,7 +656,7 @@ export default {
   }
 }
 >>>.el-textarea textarea {
-  width: 512px;
+  width: 582px;
   margin-top: 8px;
   margin-bottom: 10px;
   resize:none;

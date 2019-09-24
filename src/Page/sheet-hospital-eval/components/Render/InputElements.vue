@@ -35,7 +35,7 @@
           :class="child.class"
           :style="child.style"
           @click="helpClick($event,child)"
-          width="24"
+          width="16"
         >
       </span>
 
@@ -158,7 +158,7 @@
       <!-- <span class="tip" v-if="getOtherText(child)">{{ getOtherText(child)}}</span> -->
       <span
         class="tip"
-        :style="child.name === 'I100001' && {position: 'absolute', left: '78px',top: '219px'}"
+        :style="child.name === 'I100001' && {position: 'absolute', left: '62px',top: '216px'}"
         v-if="getOtherText(child)"
         @click="openTip(child)"
       >{{ getOtherText(child)}}</span>
@@ -222,6 +222,7 @@ export default {
       radioValue: "",
       helpImg: "",
       lightImg: "",
+      alertImg: "",
       elementName: "",
       element: {},
       childIndex: 0,
@@ -310,8 +311,9 @@ export default {
     //
   },
   created() {
-    this.helpImg = require("./image/question.png");
+    this.helpImg = require("./image/说明@2x.png");
     this.lightImg = require("./image/light.png");
+    this.alertImg = require("./image/预警@2x.png");
   },
   methods: {
     getOtherText(child) {
@@ -526,4 +528,7 @@ export default {
   margin-bottom 4px
   display inherit
   cursor pointer
+.el-input
+  width 227px;
+
 </style>
