@@ -24,7 +24,7 @@
           >{{scope.row.orderNo}}</span>
         </template>
       </el-table-column>
-      <el-table-column fixed label=" " min-width="50px" prop="orderNo" v-else>
+      <el-table-column fixed label="医嘱号" min-width="90px" prop="orderNo" v-else>
         <template slot-scope="scope">
           <span
             :class="type(scope.row.orderStatusName)"
@@ -32,7 +32,7 @@
           >{{scope.row.orderNo}}</span>
         </template>
       </el-table-column>
-      <el-table-column fixed label="开始时间" min-width="160px">
+      <el-table-column fixed label="开始时间" min-width="130px">
         <template slot-scope="scope">
           <span
             :class="type(scope.row.orderStatusName)"
@@ -40,7 +40,7 @@
           >{{scope.row.startDate}}</span>
         </template>
       </el-table-column>
-      <el-table-column fixed label="医嘱内容" min-width="197px" prop="orderText">
+      <el-table-column fixed label="医嘱内容" min-width="200px" prop="orderText">
         <template slot-scope="scope">
           <span :class="type(scope.row.orderStatusName)">{{scope.row.orderText}}</span>
         </template>
@@ -74,7 +74,7 @@
         prop="performSchedule"
         v-if="HOSPITAL_ID == 'gy'"
       ></el-table-column>
-      <el-table-column label="执行时间" min-width="80px" prop="performSchedule" v-else>
+      <el-table-column label="执行时间" min-width="130px" prop="performSchedule" v-else>
         <template slot-scope="scope">
           <span
             :class="type(scope.row.orderStatusName)"
@@ -90,7 +90,7 @@
           >{{scope.row.freqDetail}}</span>
         </template>
       </el-table-column>
-      <el-table-column label="开始医生" min-width="80px" prop="doctor">
+      <el-table-column label="开始医生" min-width="120px" prop="doctor">
         <template slot-scope="scope">
           <span
             :class="type(scope.row.orderStatusName)"
@@ -98,7 +98,7 @@
           >{{scope.row.doctor}}</span>
         </template>
       </el-table-column>
-      <el-table-column label="校对护士" min-width="80px" prop="nurse">
+      <el-table-column label="校对护士" min-width="120px" prop="nurse">
         <template slot-scope="scope">
           <span
             :class="type(scope.row.orderStatusName)"
@@ -106,7 +106,7 @@
           >{{scope.row.nurse}}</span>
         </template>
       </el-table-column>
-      <el-table-column label="医嘱状态" min-width="80px" prop="orderStatusName">
+      <el-table-column label="医嘱状态" min-width="90px" prop="orderStatusName">
         <template slot-scope="scope">
           <span
             :class="type(scope.row.orderStatusName)"
@@ -114,7 +114,7 @@
           >{{scope.row.orderStatusName}}</span>
         </template>
       </el-table-column>
-      <el-table-column label="停止日期" min-width="160px" prop="stopDate">
+      <el-table-column label="停止日期" min-width="130px" prop="stopDate">
         <template slot-scope="scope">
           <span
             :class="type(scope.row.orderStatusName)"
@@ -122,7 +122,7 @@
           >{{scope.row.startDate}}</span>
         </template>
       </el-table-column>
-      <el-table-column label="停止医生" min-width="80px" prop="stopDoctor">
+      <el-table-column label="停止医生" min-width="120px" prop="stopDoctor">
         <template slot-scope="scope">
           <span
             :class="type(scope.row.orderStatusName)"
@@ -130,7 +130,7 @@
           >{{scope.row.stopDoctor}}</span>
         </template>
       </el-table-column>
-      <el-table-column label="停止护士" min-width="80px" prop="stopNurse">
+      <el-table-column label="停止护士" min-width="120px" prop="stopNurse">
         <template slot-scope="scope">
           <span
             :class="type(scope.row.orderStatusName)"
@@ -146,7 +146,7 @@
           >{{scope.row.skinWay}}</span>
         </template>
       </el-table-column>
-      <el-table-column label="皮试结果" min-width="80px" prop="skinResult">
+      <el-table-column label="皮试结果" min-width="100px" prop="skinResult">
         <template slot-scope="scope">
           <span
             :class="type(scope.row.orderStatusName)"
@@ -194,13 +194,14 @@
 }
 
 .advice-table {
-  .el-table__row td:first-child .cell {
-    text-align: center;
-    padding: 0 5px;
-  }
-
   .cell {
     padding: 0 8px;
+  }
+
+  ::-webkit-scrollbar {
+    // width: 14px;
+    // height: 14px;
+    // background-color: #EAEAEA;
   }
 }
 

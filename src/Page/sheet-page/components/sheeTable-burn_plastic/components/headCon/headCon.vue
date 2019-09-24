@@ -12,7 +12,7 @@
           v-if="sheetInfo.selectBlock.signerNo"
           :src="`/crNursing/api/file/signImage/${sheetInfo.selectBlock.signerNo}?${token}`"
           alt
-        >
+        />
       </span>
     </div>
     <div>二、新生儿观察护理记录</div>
