@@ -1,6 +1,12 @@
 <template>
   <!-- 签名确认 -->
-  <sweet-modal ref="modalName" size="small" :title="title" :overlay-theme="overlayTheme">
+  <sweet-modal
+    ref="modalName"
+    size="small"
+    :title="title"
+    :overlay-theme="overlayTheme"
+    :blocking="true"
+  >
     <p for class="name-title">{{title}}</p>
     <div ref="passwordInput">
       <!-- <el-date-picker

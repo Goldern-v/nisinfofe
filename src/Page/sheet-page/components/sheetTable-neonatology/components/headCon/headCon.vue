@@ -60,6 +60,7 @@ export default {
           } else {
             sheetInfo.relObj.noDate = "1";
             this.noDate = "1";
+            this.$message.success("时间删除成功，需要保存护记后生效");
           }
         },
         this.sheetInfo.selectBlock.createTime,

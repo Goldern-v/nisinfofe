@@ -22,12 +22,13 @@
           v-if="HOSPITAL_ID == 'weixian'"
           @click="syncGetPatientOrders"
         >同步数据</el-button>
-        <el-button
-          class="select-btn"
-          type="primary"
+        <a
+          :href="`crprintorder://${infoData.patientId}/${infoData.visitId}`"
           v-if="HOSPITAL_ID == 'weixian'"
-          @click="print"
-        >打印</el-button>
+          style="margin-left: 10px"
+        >
+          <el-button class="select-btn" type="primary">打印</el-button>
+        </a>
       </div>
       <adviceTableWx
         :tableData="tableDataSelect"
