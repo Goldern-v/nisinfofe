@@ -6,6 +6,26 @@
       "pinyin": "qx"
     },
     {
+      "code": "清醒",
+      "name": "清醒",
+      "pinyin": "qx"
+    },
+    {
+      "code": "嗜睡",
+      "name": "嗜睡",
+      "pinyin": "ss"
+    },
+    {
+      "code": "意识模糊",
+      "name": "意识模糊",
+      "pinyin": "ysmh"
+    },
+    {
+      "code": "昏迷",
+      "name": "昏迷",
+      "pinyin": "hm"
+    },
+    {
       "code": "对说话有反应",
       "name": "对说话有反应",
       "pinyin": "dshyfy"
@@ -413,6 +433,11 @@
       "code": "间歇呼吸",
       "name": "间歇呼吸",
       "pinyin": "jxhx"
+    },
+    {
+      "code": "胸腹矛盾呼吸",
+      "name": "胸腹矛盾呼吸",
+      "pinyin": "xfmdhx"
     }
   ],
   "I100037": [

@@ -135,8 +135,8 @@ export default {
         e.target.tagName,
         e.keyCode,
         e.key,
-        e.target.selectionStart,
-        e.target.selectionEnd
+        // e.target.selectionStart,
+        // e.target.selectionEnd
       );
       if (e.keyCode === 37) {
         // ArrowLeft

@@ -5,7 +5,7 @@
     <!-- <el-input v-if="obj.type==='input'" v-model="checkboxValue" border size="small" :label="obj.title" :class="obj.class" :style="obj.style">{{obj.title}}</el-input> -->
     <span
       v-if="obj.label"
-      :style="{width: obj.labelWidth, textAlign: 'right', paddingRight: '0px'}"
+      :style="[obj.spanStyle, {width: obj.labelWidth, textAlign: 'right', paddingRight: '0px', marginBottom:obj.marginBottom}]"
     >
       <span style="font-size: 12px;" :style="obj.labelStyle" :class="obj.labelClass">{{obj.label}}:</span>
     </span>
@@ -43,6 +43,25 @@
       <!-- </template> -->
     </el-input>
     <!-- <span>{{obj.suffixDesc}}</span> -->
+    <span v-if="obj.type==='input' && alertMessage" :class="obj.suffixDesc?'alert-message-post':'alert-message'">
+      <el-tooltip
+        class="item"
+        effect="light"
+        placement="top"
+      >
+        <div class="el-tooltip-content" slot="content">
+          <div v-html="alertMessage||''"></div>
+        </div>
+      <img
+          :src="alertImg"
+          :alt="obj.title"
+          :style="obj.tips?'margin-left:28px!important':''"
+          :name="`${obj.name}_${obj.title}_${obj.label}_img`"
+          @click="alertClick($event,obj)"
+          width="16"
+        >
+        </el-tooltip>
+      </span>
   </span>
 </template>
 
@@ -76,8 +95,10 @@ export default {
   data() {
     return {
       inputValue: "",
+      alertImg:require("./image/预警@2x.png"),
       isShow: true,
-      isClone: false
+      isClone: false,
+      alertMessage:""
     };
   },
   computed: {},
@@ -134,6 +155,7 @@ export default {
     // try {
     //   this.inputValue = this.formObj.model[this.obj.name];
     // } catch (error) {}
+    this.alertMessage = ""
     let refName = this.obj.name; //+this.obj.type.toUpperCase()+(this.obj.title||this.obj.label)
     if (this.$refs[refName]) {
       this.formObj.model[this.obj.name] = this.$refs[refName].currentValue;
@@ -235,6 +257,7 @@ export default {
     checkValueRule(valueNew) {
       let textResult = valueNew;
       this.obj.style = "";
+      this.alertMessage = ""
       if (
         this.obj.hasOwnProperty("rule") !== -1 &&
         this.obj.rule &&
@@ -253,6 +276,10 @@ export default {
           if (r.min && r.max && (value >= min && value < max)) {
             this.obj.style = r.style;
             // 替换显示 r.display
+            if(r.message){
+              console.log('rule:message',r.message)
+              this.alertMessage = r.message+"";
+            }
             if (
               r.display &&
               this.$refs[this.obj.name] &&
@@ -318,6 +345,10 @@ export default {
                 for (let i = 0; i < arr.length; i++) {
                   if (arr[i] && arr[i] > r.maxs[i]) {
                     this.obj.style = r.style;
+                    if(r.message){
+                      console.log('rule:message',r.message)
+                      this.alertMessage = r.message+"";
+                    }
                   }
                 }
               }
@@ -328,6 +359,10 @@ export default {
                 for (let i = 0; i < arr.length; i++) {
                   if (arr[i] && arr[i] < r.mins[i]) {
                     this.obj.style = r.style;
+                    if(r.message){
+                      console.log('rule:message',r.message)
+                      this.alertMessage = r.message+"";
+                    }
                   }
                 }
               }
@@ -555,6 +590,9 @@ export default {
     getUUID(child = null) {
       let uuid_ = uuid.v1();
       return uuid_;
+    },
+    alertClick(event){
+      console.log('alertClick',event, this.obj)
     }
   }
 };
@@ -568,7 +606,7 @@ export default {
   // width: 100%;
 
   &:hover {
-    outline: 1px solid #4baf8d;
+    // outline: 1px solid #4baf8d;
     border: none;
   }
 
@@ -581,7 +619,7 @@ export default {
 >>>.el-input__inner.el-input__inner.el-input__inner {
   width: 100%;
   border-radius: 0px;
-  color: blue!important;
+  color: blue;
   padding: 0px 5px!important;
   height: 22px!important;
   background: transparent;
@@ -663,13 +701,35 @@ export default {
 
 >>>.el-input:hover {
   .post-text {
-    border-left 1px solid #4baf8d
+    // border-left 1px solid #4baf8d
     background #eef5f5
   }
 }
 
 .el-input {
   width: 227px;
+}
+
+>>>.el-input__inner:hover {
+    border: 1px solid #4baf8d;
+}
+
+.alert-message {
+  cursor: pointer;
+  color:red;
+  font-size:12px;
+  position: absolute;
+  margin-top: 7px;
+  margin-left: 8px;
+}
+
+.alert-message-post {
+  cursor: pointer;
+  color:red;
+  font-size:12px;
+  position: absolute;
+  margin-top: 7px;
+  margin-left: 2px;
 }
 
 </style>
