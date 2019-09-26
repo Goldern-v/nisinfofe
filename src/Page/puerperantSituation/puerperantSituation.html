@@ -256,22 +256,31 @@
             </template>
           </ecrm-table-column>
           <ecrm-table-column label="会阴情况" width="100" align="center">
-            <ecrm-table-column label="Ⅰ" prop="perineumSituation1" width="100" align="center">
+            <ecrm-table-column label="Ⅰ" prop="perineumSituation1" width="60" align="center">
               <template slot-scope="scope">
-                <el-input resize="none" type="textarea" @blur="handleEditDone(scope.$index,'perineumSituation1')"
-                  :autosize="{ minRows: 1}" v-model="scope.row.perineumSituation1" />
+                <el-select class="align-center" v-model="scope.row.perineumSituation1"
+                  @change="()=>handleEditDone(scope.$index,'perineumSituation1')" placeholder=" ">
+                  <el-option v-for="(item,idx) in perineumSituationOptions" :key="idx" :value="item" :label="item">
+                  </el-option>
+                </el-select>
               </template>
             </ecrm-table-column>
-            <ecrm-table-column label="Ⅱ" prop="perineumSituation2" width="100" align="center">
+            <ecrm-table-column label="Ⅱ" prop="perineumSituation2" width="60" align="center">
               <template slot-scope="scope">
-                <el-input resize="none" type="textarea" @blur="handleEditDone(scope.$index,'perineumSituation2')"
-                  :autosize="{ minRows: 1}" v-model="scope.row.perineumSituation2" />
+                <el-select class="align-center" v-model="scope.row.perineumSituation2"
+                  @change="()=>handleEditDone(scope.$index,'perineumSituation2')" placeholder=" ">
+                  <el-option v-for="(item,idx) in perineumSituationOptions" :key="idx" :value="item" :label="item">
+                  </el-option>
+                </el-select>
               </template>
             </ecrm-table-column>
-            <ecrm-table-column label="Ⅲ" prop="perineumSituation3" width="100" align="center">
+            <ecrm-table-column label="Ⅲ" prop="perineumSituation3" width="60" align="center">
               <template slot-scope="scope">
-                <el-input resize="none" type="textarea" @blur="handleEditDone(scope.$index,'perineumSituation3')"
-                  :autosize="{ minRows: 1}" v-model="scope.row.perineumSituation3" />
+                <el-select class="align-center" v-model="scope.row.perineumSituation3"
+                  @change="()=>handleEditDone(scope.$index,'perineumSituation3')" placeholder=" ">
+                  <el-option v-for="(item,idx) in perineumSituationOptions" :key="idx" :value="item" :label="item">
+                  </el-option>
+                </el-select>
               </template>
             </ecrm-table-column>
             <ecrm-table-column label="切开" prop="perineumSituation" width="100" align="center">

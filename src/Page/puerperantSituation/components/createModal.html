@@ -3,7 +3,7 @@
     ref="modal" 
     size="small" 
     v-model="dialogVisible" 
-    :modalWidth="1200" 
+    :modalWidth="1000" 
     title="新建分娩记录" 
     @close="handleClose" 
     class="puperant-record-create-modal">
@@ -304,7 +304,7 @@
       </el-row>
       <el-row class="content-row" :gutter="8">
           <el-col :span="8">
-          <div class="content">手术指征:</div>
+          <div class="label">手术指征:</div>
           <div class="content">
             <el-input size="small" v-model="params.surgicalIndication"/>
           </div>
@@ -318,7 +318,9 @@
             <span>:</span>
           </div>
           <div class="content">
-            <el-input size="small" v-model="params.perineumSituation1"/>
+            <el-select size="small" v-model="params.perineumSituation1">
+              <el-option v-for="(item,idx) in perineumSituationOptions" :key="idx" :value="item" :label="item"></el-option>
+            </el-select>
           </div>
         </el-col>
         <el-col :span="8">
@@ -327,7 +329,9 @@
             <span>:</span>
           </div>
           <div class="content">
-            <el-input size="small" v-model="params.perineumSituation2"/>
+            <el-select size="small" v-model="params.perineumSituation2">
+              <el-option v-for="(item,idx) in perineumSituationOptions" :key="idx" :value="item" :label="item"></el-option>
+            </el-select>
           </div>
         </el-col>
         <el-col :span="8">
@@ -336,7 +340,9 @@
             <span>:</span>
           </div>
           <div class="content">
-            <el-input size="small" v-model="params.perineumSituation3"/>
+            <el-select size="small" v-model="params.perineumSituation3">
+              <el-option v-for="(item,idx) in perineumSituationOptions" :key="idx" :value="item" :label="item"></el-option>
+            </el-select>
           </div>
         </el-col>
       </el-row>

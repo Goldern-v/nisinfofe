@@ -50,6 +50,7 @@ export default {
       sexOptions:['男','女'],
       birthCertificateNumOptions:['有','无'],
       hadOxytocinOptions: ['是','否'],
+      perineumSituationOptions: ['/','√'],
       tableLoading: false,
       editCfg: {
         idx: "",
@@ -230,7 +231,7 @@ export default {
       }else{
         otherIdx=idx+1;
       }
-
+      
       //同时修改产妇及丈夫两列信息并保存 不重新请求列表接口
       if(this.tableData[idx][name]!==this.tableData[otherIdx][name]){
         this.tableData[otherIdx][name]=this.tableData[idx][name];
