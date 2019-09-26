@@ -169,7 +169,7 @@ export default {
         // 开启编辑护理评估表旧版
         if (item.nooForm == '-1') {
           let url =
-            `${host}/crNursing/api/form/input/${item.formCode}/${query.patientId}/${query.visitId}/${query.name}/${query.sex}/${query.age}/${query.deptCode}/${query.bedLabel}/${query.inpNo}/${query.wardCode}?App-Token-Nursing=51e827c9-d80e-40a1-a95a-1edc257596e7&Auth-Token-Nursing=${token}`
+            `${host}/crNursing/api/form/input/${item.formCode}/${query.patientId}/${query.visitId}/${query.name}/${query.sex}/${query.age}/${query.deptCode}/${query.bedLabel}/${query.inpNo}/${query.wardCode}?isNoAutoCreated=true&App-Token-Nursing=51e827c9-d80e-40a1-a95a-1edc257596e7&Auth-Token-Nursing=${token}`
           // window.openFormBox(url)
           this.$refs.newFormRecord.close()
           window.openFormBoxClean(url, this.callback);
@@ -181,6 +181,7 @@ export default {
           if(!getFormConfig(item.name).hasMeasure) {
              this.bus.$emit('openAssessment', Object.assign(getFormConfig(item.name),{
               id: '',
+              isNoAutoCreated: true,
               formCode: item.formCode,
               nooForm: item.nooForm,
               pageUrl: item.pageUrl,
@@ -188,6 +189,7 @@ export default {
           } else {
             let queryObj = {
               id: '',
+              isNoAutoCreated: true,
               formCode: item.formCode,
               patientId: query.patientId,
               visitId: query.visitId,

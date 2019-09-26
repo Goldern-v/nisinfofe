@@ -186,7 +186,7 @@ function openAssessmentsBox(buttonItem, formCode, callback, wid) {
 
 
       // 新表单
-      if (wid.formInfo && (wid.formInfo.nooForm === "1")) {
+      if (wid.formInfo && (wid.formInfo.nooForm !== "0")) {
         // /crNursing/formUrl/VTE风险评估量表(手术科室).html
         // localhost:8088/VTE风险评估量表(手术科室).html?id=1550&formCode=form_caprini&patientId=0989826&visitId=1&name=%E9%99%88%E6%9C%89%E6%A2%85&sex=%E5%A5%B3&age=73%E5%B2%81&deptCode=3007&bedLabel=5&inpNo=P111902&wardCode=4003&wardName=%E6%99%AE%E5%A4%96%E6%8A%A4%E7%90%86%E5%8D%95%E5%85%83&admissionDate=2015-09-21%2015%3A25%3A32&token=App-Token-Nursing%3D51e827c9-d80e-40a1-a95a-1edc257596e7%26Auth-Token-Nursing%3D70212136-20cc-4cd0-8b25-4078e97cd687
         // /form/list/form_caprini/0989826/1
@@ -513,9 +513,12 @@ export function openInsideBoxes(wid) {
   }
 
   // VTE
-  function callbackVTEAssessment(res) {
-    console.log("VTE表返回数据：", res);
-    let data = res.data.data
+  // function callbackVTEAssessment(res) {
+  function callbackVTEAssessment(fdata, callbackData=null) {
+    console.log("===VTE表返回数据：fdata", fdata);
+    if(!callbackData){return}
+    let data = callbackData.data
+    console.log("===VTE表返回数据：callbackData",callbackData,data);
     let evalscore = 0;
     let formCode = data.formCode;
     // 入院表formCode
@@ -580,7 +583,7 @@ export function openInsideBoxes(wid) {
     } catch (e) {
       console.log("ERROR:callbackVTEAssessment", e);
     }
-    console.log("callbackVTEAssessment", res);
+    // console.log("callbackVTEAssessment", res);
 
     try { wid.saveForm() } catch (error) { console.log('saveForm:error', error) }
 
