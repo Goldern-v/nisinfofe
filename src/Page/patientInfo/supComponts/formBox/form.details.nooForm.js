@@ -207,7 +207,7 @@ function openAssessmentsBox(buttonItem, formCode, callback, wid) {
           //
           let box = {
             title: "VTE风险评估单",
-            templates: [{ name: "VTE风险评估单(非手术科室)", formCode: "form_padua", formType: 'eval', nooForm: '1', pageUrl: "VTE风险评估量表(非手术科室).html" }, { name: "VTE风险评估单(手术科室)", formCode: 'form_caprini', formType: 'eval', nooForm: '1', pageUrl: "VTE风险评估量表(手术科室).html" }],
+            templates: [{ name: "VTE风险评估单(非手术科室)", formCode: "form_padua", formType: 'eval', nooForm: '2', id, pageUrl: "VTE风险评估量表(非手术科室).html" }, { name: "VTE风险评估单(手术科室)", formCode: 'form_caprini', formType: 'eval', nooForm: '2', id, pageUrl: "VTE风险评估量表(手术科室).html" }],
             callback: callback,
           };
 
@@ -224,15 +224,13 @@ function openAssessmentsBox(buttonItem, formCode, callback, wid) {
           // }
           //
           return;
-
-          if (process.env.NODE_ENV === "development") {
-            // url = `${devFormUrl}/${this.info.pageUrl + '.html'}?${qs.stringify(queryObj)}`
-            // 后台传回补了 '.html'
-            url = `${devFormUrl}/${pageUrl}?${qs.stringify(queryObj)}`;
-          } else {
-            url = `${formUrl}/${pageUrl}?${qs.stringify(queryObj)}`;
-          }
-
+        }
+        if (process.env.NODE_ENV === "development") {
+          // url = `${devFormUrl}/${this.info.pageUrl + '.html'}?${qs.stringify(queryObj)}`
+          // 后台传回补了 '.html'
+          url = `${devFormUrl}/${pageUrl}?${qs.stringify(queryObj)}`;
+        } else {
+          url = `${formUrl}/${pageUrl}?${qs.stringify(queryObj)}`;
         }
       }
 

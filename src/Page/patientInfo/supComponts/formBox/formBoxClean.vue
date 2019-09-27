@@ -147,11 +147,11 @@ export default {
         wid = this.$refs["ifamme-modal"].contentWindow;
       }
 
-      try {
-        console.log("version:",wid.formInfo.version,wid.formInfo.nooForm)
-      } catch (error) {
-        console.log("version:error:",error)
-      }
+      // try {
+      //   console.log("version:",wid.formInfo.version,wid.formInfo.nooForm)
+      // } catch (error) {
+      //   console.log("version:error:",error)
+      // }
 
       this.callback = callback;
       this.controlBtn = "";
@@ -234,9 +234,11 @@ export default {
         //
       }
 
+      console.log('如果是新表单:',wid.formInfo,wid)
+
       // 如果是新表单
       try {
-        if (wid.formInfo.nooForm == "1") {
+        if (wid.formInfo && ["1"].indexOf(wid.formInfo.nooForm)>-1) {
           wid.onmessage = this.onmessage;
           initNooForm(wid);
           return;
@@ -385,27 +387,36 @@ export default {
         this.$nextTick(() => {
           console.log("保存表单===", wid, wid.formInfo);
 
-          if (wid.formInfo && wid.formInfo.nooForm === "1") {
+          // if (["1","2"].indexOf(wid.formInfo.nooForm)>-1) {
+          if (wid.formInfo && ["1"].indexOf(wid.formInfo.nooForm)>-1) {
             // signForm  saveForm
             // wid.saveForm().then(res => {
-            wid.signForm(empNo, password).then(res => {
-              this.$notify({
-                title: "成功",
-                message: "签名成功",
-                type: "success"
+
+            if(wid.signForm){
+              wid.signForm(empNo, password).then(res => {
+                this.$notify({
+                  title: "成功",
+                  message: "签名成功",
+                  type: "success"
+                });
+                if (res) {
+                  let evalScoreAndUnit = res.data.evalScoreAndUnit;
+                  let id = res.data.id || this.$route.query.id;
+                  // _this.bus.$emit('openAssessment', {
+                  //   id: item.id,
+                  // })
+                  // console.log(res)
+                  this.callback(res, wid.formInfo);
+                }
+                this.$refs.modal.close();
+                bus.$emit("refreshTree");
               });
-              if (res) {
-                let evalScoreAndUnit = res.data.evalScoreAndUnit;
-                let id = res.data.id || this.$route.query.id;
-                // _this.bus.$emit('openAssessment', {
-                //   id: item.id,
-                // })
-                // console.log(res)
-                this.callback(res, wid.formInfo);
-              }
-              this.$refs.modal.close();
-              bus.$emit("refreshTree");
-            });
+            } else if(wid.CRFormObj){
+              wid.CRFormObj.controller.signerForm({ "auditorEmpNo": "" }, "责任护士签名验证", true, true)
+            }
+
+
+
 
             return;
           }
@@ -644,6 +655,10 @@ export default {
             let paramMap = formAllData.paramMap;
             let signData = { auditSign: password, createSign: password };
             postData = { ...postData, ...paramMap, formCode, ...signData };
+            if(postData.hasOwnProperty(`${formCode}_id`)>-1){
+              postData['id'] = (postData[`${formCode}_id`]||'') + ''
+              delete postData[`${formCode}_id`]
+            }
           }
           //
           console.log("FormBoxpostData", postData, formCode, wid);

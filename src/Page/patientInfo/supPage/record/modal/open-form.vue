@@ -11,7 +11,7 @@
       </el-input>
     </div> -->
     <div class="record-con" v-loading="pageLoading">
-      <div @click="openUrl(item)" @dblclick="create(item)" class="record-box" :class="{active: selectData == item}" v-for="item of filterData" :key="item.id">
+      <div @click="openUrl(item)" @dblclick="create(item)" class="record-box" :class="{active: selectData == item}" v-for="item of filterData" :key="item.id+item.name">
         <el-row type="flex" align="middle">
           <img src="../../../../../common/images/record/文件创建.png" alt="" height="35">
           <span class="name" v-if="item.name">{{item.name}}</span>
@@ -173,14 +173,14 @@ export default {
           // window.openFormBox(url)
           this.$refs.newFormRecord.close()
           window.openFormBoxClean(url, this.callback);
-        } else if (item.nooForm == '1' || item.nooForm == '0') {
+        } else if (['0','1','2'].indexOf(item.nooForm) >-1) {
           let url
           //  url = `http://localhost:3000/MMSE`
           let query = this.$route.query
           // 判断是否存在措施
           if(!getFormConfig(item.name).hasMeasure) {
              this.bus.$emit('openAssessment', Object.assign(getFormConfig(item.name),{
-              id: '',
+              id: data.id||'',
               isNoAutoCreated: true,
               formCode: item.formCode,
               nooForm: item.nooForm,
@@ -188,7 +188,7 @@ export default {
             }))
           } else {
             let queryObj = {
-              id: '',
+              id: data.id||'',
               isNoAutoCreated: true,
               formCode: item.formCode,
               patientId: query.patientId,
