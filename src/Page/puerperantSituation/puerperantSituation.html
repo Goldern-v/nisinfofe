@@ -71,7 +71,7 @@
               </span>
             </template>
           </ecrm-table-column>
-          <ecrm-table-column prop="femaleBrithPlace" label="籍贯" width="60">
+          <ecrm-table-column prop="femaleBrithPlace" label="籍贯" width="100">
             <template slot-scope="scope">
               <span v-if="scope.$index%2==0">
                 <el-input resize="none" type="textarea" @blur="handleEditDone(scope.$index,'femaleBrithPlace')"
