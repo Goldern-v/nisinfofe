@@ -30,8 +30,8 @@ export default {
       addDay = 7-nowtDay;
     }
 
-    let startDate = moment(new Date(nowTime-reduceDay*86400000)).format('YYYY-MM-DD');
-    let endDate = moment(new Date(nowTime+addDay*86400000)).format('YYYY-MM-DD');
+    let startDate = moment(new Date(nowTime-reduceDay*86400000)).format('YYYY-MM-DD')+' 00:00:00';
+    let endDate = moment(new Date(nowTime+addDay*86400000)).format('YYYY-MM-DD')+' 23:59:59';
 
     return {
       query: {
@@ -115,8 +115,6 @@ export default {
         query.endDate = moment(query.endDate).format('YYYY-MM-DD')+' 23:59:59'
       else if(!query.endDate )
         query.endDate = ''
-
-      // console.log(query)
 
       getList(query).then(res=>{
         this.tableLoading= false;
