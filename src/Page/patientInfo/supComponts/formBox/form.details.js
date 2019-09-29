@@ -1139,13 +1139,13 @@ export function initList(wid, pdata = window.app.$route.query) {
 
 
 
-        if (wid.formInfo && (wid.formInfo.nooForm === "1")) {
+        if (wid.formInfo && (["1","2"].indexOf(wid.formInfo.nooForm)>-1)) {
           // 新表单
           if (pageUrl) {
             //
             let box = {
               title: "VTE风险评估单",
-              templates: [{ name: "VTE风险评估单(非手术科室)", formCode: "form_padua", formType: 'eval', nooForm: '1', pageUrl: "VTE风险评估量表(非手术科室).html" }, { name: "VTE风险评估单(手术科室)", formCode: 'form_caprini', formType: 'eval', nooForm: '1', pageUrl: "VTE风险评估量表(手术科室).html" }],
+              templates: [{ name: "VTE风险评估单(非手术科室)", formCode: "form_padua", formType: 'eval', nooForm: '2', id, pageUrl: "VTE风险评估量表(非手术科室).html" }, { name: "VTE风险评估单(手术科室)", formCode: 'form_caprini', formType: 'eval', nooForm: '2', id, pageUrl: "VTE风险评估量表(手术科室).html" }],
               callback: callback,
             };
 
