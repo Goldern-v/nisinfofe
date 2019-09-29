@@ -80,6 +80,7 @@ export default {
       sexOptions:['男','女'],
       birthCertificateNumOptions:['有','无'],
       hadOxytocinOptions: ['是','否'],
+      perineumSituationOptions: ['/','√']
     };
   },
   mounted() {

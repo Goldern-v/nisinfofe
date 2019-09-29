@@ -178,6 +178,7 @@
     "title": "咳嗽咳痰",
     "type": "formGroupVerticalBox",
     "name": "I100041",
+    "showTitle": false,
     "message": "",
     "require": "false",
     "prefixDesc": "",
@@ -191,7 +192,7 @@
       {
         "name": "I100042",
         "type": "input",
-        "label": "呕吐物：",
+        "label": "呕吐物",
         "labelWidth": "100px",
         "value": "",
         "options": [
@@ -211,7 +212,7 @@
       {
         "name": "I100043",
         "type": "input",
-        "label": "痰液量：",
+        "label": "痰液量",
         "labelWidth": "100px",
         "value": "",
         "options": ["增多", "减少"],
@@ -223,7 +224,7 @@
       {
         "name": "I100044",
         "type": "input",
-        "label": "排吸痰：",
+        "label": "排吸痰",
         "labelWidth": "100px",
         "value": "",
         "options": ["排痰", "吸痰"],
@@ -240,7 +241,7 @@
     "name": "I100046",
     "message": "",
     "require": "false",
-    "aliasTitle": "固定效果：",
+    "aliasTitle": "固定效果",
     "showTitle": false,
     "suffixDesc": "",
     "keys": "I100046",
@@ -297,7 +298,7 @@
       {
         "name": "I100048",
         "type": "input",
-        "label": "固定效果：",
+        "label": "固定效果",
         "labelWidth": "100px",
         "value": "",
         "options": ["过紧", "过松", "合适"],
@@ -309,7 +310,7 @@
       {
         "name": "I100049",
         "type": "input",
-        "label": "插管深度：",
+        "label": "插管深度",
         "labelWidth": "100px",
         "value": "",
         "suffixDesc": "cm",
@@ -321,7 +322,7 @@
       {
         "name": "I100050",
         "type": "input",
-        "label": "气囊压力：",
+        "label": "气囊压力",
         "labelWidth": "100px",
         "value": "",
         "suffixDesc": "kp",
@@ -350,7 +351,7 @@
       {
         "name": "I100052",
         "type": "input",
-        "label": "给氧方式：",
+        "label": "给氧方式",
         "labelWidth": "100px",
         "value": "",
         "options": [
@@ -370,7 +371,7 @@
       {
         "name": "I100053",
         "type": "input",
-        "label": "给氧流量：",
+        "label": "给氧流量",
         "labelWidth": "100px",
         "value": "",
         "suffixDesc": "cm",
@@ -399,7 +400,7 @@
       {
         "name": "I100080",
         "type": "input",
-        "label": "部位：",
+        "label": "部位",
         "labelWidth": "100px",
         "inputWidth": "500px",
         "value": "",
@@ -440,7 +441,7 @@
       {
         "name": "I100085",
         "type": "input",
-        "label": "部位：",
+        "label": "部位",
         "labelWidth": "100px",
         "inputWidth": "500px",
         "value": "",
@@ -483,7 +484,7 @@
       {
         "name": "I100071",
         "type": "input",
-        "label": "出血部位：",
+        "label": "出血部位",
         "labelWidth": "100px",
         "value": "",
         "style": null,
@@ -494,7 +495,7 @@
       {
         "name": "I100072",
         "type": "radioBox",
-        "label": "出血范围：",
+        "label": "出血范围",
         "labelWidth": "100px",
         "value": "",
         "style": "margin: 10px 0",
@@ -564,7 +565,7 @@
       {
         "name": "I100069",
         "type": "input",
-        "label": "部位：",
+        "label": "部位",
         "labelWidth": "100px",
         "inputWidth": "500px",
         "value": "",
@@ -605,7 +606,7 @@
       {
         "name": "I100083",
         "type": "input",
-        "label": "部位：",
+        "label": "部位",
         "labelWidth": "100px",
         "inputWidth": "500px",
         "value": "",
@@ -646,7 +647,7 @@
       {
         "name": "I100099",
         "type": "input",
-        "label": "部位：",
+        "label": "部位",
         "labelWidth": "100px",
         "inputWidth": "500px",
         "value": "",
@@ -687,7 +688,7 @@
       {
         "name": "I100102",
         "type": "input",
-        "label": "部位：",
+        "label": "部位",
         "labelWidth": "100px",
         "inputWidth": "500px",
         "value": "",
@@ -728,7 +729,7 @@
       {
         "name": "I100087",
         "type": "input",
-        "label": "外固定类型：",
+        "label": "外固定类型",
         "labelWidth": "140px",
         "value": "",
         "style": null,
@@ -740,7 +741,7 @@
       {
         "name": "I100088",
         "type": "input",
-        "label": "固定/牵引效果：",
+        "label": "固定/牵引效果",
         "labelWidth": "140px",
         "value": "",
         "style": null,
@@ -769,7 +770,7 @@
       {
         "name": "I100137",
         "type": "input",
-        "label": "呕吐物：",
+        "label": "呕吐物",
         "labelWidth": "100px",
         "value": "",
         "style": null,
@@ -781,7 +782,7 @@
       {
         "name": "I100138",
         "type": "input",
-        "label": "量：",
+        "label": "量",
         "suffixDesc": "ml",
         "labelWidth": "100px",
         "value": "",
@@ -810,7 +811,7 @@
       {
         "name": "I100106",
         "type": "input",
-        "label": "频率：",
+        "label": "频率",
         "suffixDesc": "次/天",
         "labelWidth": "50px",
         "value": "",
@@ -839,7 +840,7 @@
       {
         "name": "I100107",
         "type": "input",
-        "label": "频率：",
+        "label": "频率",
         "suffixDesc": "次/天",
         "labelWidth": "50px",
         "value": "",
@@ -851,7 +852,7 @@
       {
         "name": "I100108",
         "type": "input",
-        "label": "性状：",
+        "label": "性状",
         "suffixDesc": "ml",
         "labelWidth": "50px",
         "value": "",
@@ -880,7 +881,7 @@
       {
         "name": "I100116",
         "type": "input",
-        "label": "频率：",
+        "label": "频率",
         "suffixDesc": "次/天",
         "labelWidth": "50px",
         "value": "",
@@ -909,7 +910,7 @@
       {
         "name": "I100120",
         "type": "input",
-        "label": "流血量：",
+        "label": "流血量",
         "labelWidth": "100px",
         "value": "",
         "style": null,
@@ -921,7 +922,7 @@
       {
         "name": "I100121",
         "type": "input",
-        "label": "颜色：",
+        "label": "颜色",
         "labelWidth": "100px",
         "value": "",
         "style": null,
@@ -949,7 +950,7 @@
       {
         "name": "I100123",
         "type": "input",
-        "label": "性状：",
+        "label": "性状",
         "labelWidth": "80px",
         "value": "",
         "style": null,
@@ -961,7 +962,7 @@
       {
         "name": "I100124",
         "type": "input",
-        "label": "量：",
+        "label": "量",
         "suffixDesc": "ml",
         "labelWidth": "80px",
         "value": "",
@@ -1046,7 +1047,7 @@
       {
         "name": "CLONE_I100029",
         "type": "radioBox",
-        "label": "肌力（左上肢）：",
+        "label": "肌力（左上肢）",
         "labelWidth": "160px",
         "value": "",
         "style": "margin: 10px 0",
@@ -1119,7 +1120,7 @@
       {
         "name": "CLONE_I100030",
         "type": "radioBox",
-        "label": "肌力（右上肢）：",
+        "label": "肌力（右上肢）",
         "labelWidth": "160px",
         "value": "",
         "style": "margin: 10px 0",
@@ -1192,7 +1193,7 @@
       {
         "name": "CLONE_I100031",
         "type": "radioBox",
-        "label": "肌力（左下肢）：",
+        "label": "肌力（左下肢）",
         "labelWidth": "160px",
         "value": "",
         "style": "margin: 10px 0",
@@ -1265,7 +1266,7 @@
       {
         "name": "CLONE_I100032",
         "type": "radioBox",
-        "label": "肌力（右下肢）：",
+        "label": "肌力（右下肢）",
         "labelWidth": "160px",
         "value": "",
         "style": "margin: 10px 0",
@@ -1342,7 +1343,7 @@
         "code": "",
         "style": null,
         "class": null,
-        "html": "<div>评估说明：5级（评估说明：肌力正常）；</div><div><span style=\"color: #fff\">评估说明：</span>4级（评估说明：能对抗阻力活动，但比正常者弱）；</div><div><span style=\"color: #fff\">评估说明：</span>3级（评估说明：肢体能抬离床面，但不能对抗阻力)；</div><div><span style=\"color: #fff\">评估说明：</span>2级（评估说明：肢体能在床上平行移动，但不能抬离床面）；</div><div><span style=\"color: #fff\">评估说明：</span>1级（评估说明：肌肉有主动收缩力，但不能带动关节活动）；</div><div><span style=\"color: #fff\">评估说明：</span>0级（完全麻痹，触诊肌肉完全无收缩力）。</div>",
+        "html": "<div>评估说明5级（评估说明肌力正常）；</div><div><span style=\"color: #fff\">评估说明</span>4级（评估说明能对抗阻力活动，但比正常者弱）；</div><div><span style=\"color: #fff\">评估说明</span>3级（评估说明肢体能抬离床面，但不能对抗阻力)；</div><div><span style=\"color: #fff\">评估说明</span>2级（评估说明肢体能在床上平行移动，但不能抬离床面）；</div><div><span style=\"color: #fff\">评估说明</span>1级（评估说明肌肉有主动收缩力，但不能带动关节活动）；</div><div><span style=\"color: #fff\">评估说明</span>0级（完全麻痹，触诊肌肉完全无收缩力）。</div>",
         "readOnly": null
       }
     ]

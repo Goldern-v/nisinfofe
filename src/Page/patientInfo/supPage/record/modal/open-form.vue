@@ -11,7 +11,7 @@
       </el-input>
     </div> -->
     <div class="record-con" v-loading="pageLoading">
-      <div @click="openUrl(item)" @dblclick="create(item)" class="record-box" :class="{active: selectData == item}" v-for="item of filterData" :key="item.id">
+      <div @click="openUrl(item)" @dblclick="create(item)" class="record-box" :class="{active: selectData == item}" v-for="item of filterData" :key="item.id+item.name">
         <el-row type="flex" align="middle">
           <img src="../../../../../common/images/record/文件创建.png" alt="" height="35">
           <span class="name" v-if="item.name">{{item.name}}</span>
@@ -169,25 +169,27 @@ export default {
         // 开启编辑护理评估表旧版
         if (item.nooForm == '-1') {
           let url =
-            `${host}/crNursing/api/form/input/${item.formCode}/${query.patientId}/${query.visitId}/${query.name}/${query.sex}/${query.age}/${query.deptCode}/${query.bedLabel}/${query.inpNo}/${query.wardCode}?App-Token-Nursing=51e827c9-d80e-40a1-a95a-1edc257596e7&Auth-Token-Nursing=${token}`
+            `${host}/crNursing/api/form/input/${item.formCode}/${query.patientId}/${query.visitId}/${query.name}/${query.sex}/${query.age}/${query.deptCode}/${query.bedLabel}/${query.inpNo}/${query.wardCode}?isNoAutoCreated=true&App-Token-Nursing=51e827c9-d80e-40a1-a95a-1edc257596e7&Auth-Token-Nursing=${token}`
           // window.openFormBox(url)
           this.$refs.newFormRecord.close()
           window.openFormBoxClean(url, this.callback);
-        } else if (item.nooForm == '1' || item.nooForm == '0') {
+        } else if (['0','1','2'].indexOf(item.nooForm) >-1) {
           let url
           //  url = `http://localhost:3000/MMSE`
           let query = this.$route.query
           // 判断是否存在措施
           if(!getFormConfig(item.name).hasMeasure) {
              this.bus.$emit('openAssessment', Object.assign(getFormConfig(item.name),{
-              id: '',
+              id: data.id||'',
+              isNoAutoCreated: true,
               formCode: item.formCode,
               nooForm: item.nooForm,
               pageUrl: item.pageUrl,
             }))
           } else {
             let queryObj = {
-              id: '',
+              id: data.id||'',
+              isNoAutoCreated: true,
               formCode: item.formCode,
               patientId: query.patientId,
               visitId: query.visitId,

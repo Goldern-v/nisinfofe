@@ -276,7 +276,7 @@ export default {
       if (fileHasSave) {
         icon = fileiconRed;
       } else if (fileHasSign) {
-        icon = fileicon;
+        icon = fileiconGreen;
       } else {
         icon = fileicon;
       }

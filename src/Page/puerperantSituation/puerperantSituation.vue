@@ -30,8 +30,8 @@ export default {
       addDay = 7-nowtDay;
     }
 
-    let startDate = moment(new Date(nowTime-reduceDay*86400000)).format('YYYY-MM-DD');
-    let endDate = moment(new Date(nowTime+addDay*86400000)).format('YYYY-MM-DD');
+    let startDate = moment(new Date(nowTime-reduceDay*86400000)).format('YYYY-MM-DD')+' 00:00:00';
+    let endDate = moment(new Date(nowTime+addDay*86400000)).format('YYYY-MM-DD')+' 23:59:59';
 
     return {
       query: {
@@ -50,6 +50,7 @@ export default {
       sexOptions:['男','女'],
       birthCertificateNumOptions:['有','无'],
       hadOxytocinOptions: ['是','否'],
+      perineumSituationOptions: ['/','√'],
       tableLoading: false,
       editCfg: {
         idx: "",
@@ -114,8 +115,6 @@ export default {
         query.endDate = moment(query.endDate).format('YYYY-MM-DD')+' 23:59:59'
       else if(!query.endDate )
         query.endDate = ''
-
-      // console.log(query)
 
       getList(query).then(res=>{
         this.tableLoading= false;
@@ -230,7 +229,7 @@ export default {
       }else{
         otherIdx=idx+1;
       }
-
+      
       //同时修改产妇及丈夫两列信息并保存 不重新请求列表接口
       if(this.tableData[idx][name]!==this.tableData[otherIdx][name]){
         this.tableData[otherIdx][name]=this.tableData[idx][name];
@@ -253,6 +252,9 @@ export default {
         newVal=this.tableData[idx][name]
         valChange = true;
       }
+
+      
+      console.log(name+idx)
 
       if(newVal.length!==val.length)valChange = true
 
@@ -373,6 +375,16 @@ export default {
       window.openSignModal((password,empNo,signDate)=>{
         // console.log(password,empNo,signDate)
         let params = {...record}
+       
+        if(isCancel)
+        if(empNo!=params[name]){
+          this.$message({
+            message: '非本人操作,不能取消签名',
+            type: 'error'
+          })
+          return
+        }
+
         params[name] = isCancel?'':empNo;
 
         // console.log(params)

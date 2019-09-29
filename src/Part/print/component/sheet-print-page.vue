@@ -74,7 +74,7 @@
     img {
       width: 0;
       flex: 1;
-      height: 100%;
+      height: 30px;
       object-fit: contain;
       margin: 0 -5px;
     }

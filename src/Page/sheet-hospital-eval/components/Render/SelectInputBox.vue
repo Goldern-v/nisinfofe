@@ -1,10 +1,36 @@
 
 <template>
-  <span style="margin: 0 0px 0 0;" class="input-box">
+
+  <span>
+
+    <!-- 警报icon -->
+    <span v-if="['select','selectInput'].indexOf(obj.type)>-1 && alertMessage" :class="obj.suffixDesc?'alert-message-post':'alert-message'">
+      <el-tooltip
+        class="item"
+        effect="light"
+        :enterable="false"
+        placement="top"
+      >
+        <div class="el-tooltip-content" slot="content">
+          <div v-html="alertMessage"></div>
+        </div>
+      <img
+          :src="alertImg"
+          :alt="obj.title"
+          :style="obj.tips?'margin-left:20px!important':''"
+          :name="`${obj.name}_${obj.title}_${obj.label}_img`"
+          @click="alertClick($event,obj)"
+          width="14"
+        >
+        </el-tooltip>
+      </span>
+
+
+  <span style="margin: 0 0px 0 0;" class="input-box" :class="obj.suffixDesc?'postText':''">
     <!-- <autoComplete v-if="isShow" ref="autoInput" /> -->
     <!-- <el-input v-if="obj.type==='input'" v-model="checkboxValue" border size="small" :label="obj.title" :class="obj.class" :style="obj.style">{{obj.title}}</el-input> -->
     <span v-if="obj.label">
-      <span style="font-size: 13px;" :style="obj.labelStyle" :class="obj.labelClass">{{obj.label}}</span>
+      <span style="font-size: 12px;" :style="obj.labelStyle" :class="obj.labelClass">{{obj.label}}:</span>
     </span>
 
     <!-- v-autoComplete="{dataList: obj.options, obj:formObj.model, key: obj.name}" -->
@@ -16,7 +42,7 @@
       v-if="['select','selectInput'].indexOf(obj.type)>-1 && !obj.children"
       placeholder="空"
       :class="obj.class||''"
-      :style="obj.style||''"
+      :style="[obj.style, obj.inputWidth && {width: obj.inputWidth}]"
       :size="obj.size||''"
       :type="obj.inputType||'text'"
       :disabled="obj.readOnly?true:false"
@@ -36,12 +62,14 @@
         class="el-input__icon el-icon-caret-top"
         :style="isShowDownList?'transform: translateY(-50%)!important;':''"
       ></i> -->
-      <span slot="append" class="post-text" v-if="obj.suffixDesc">{{obj.suffixDesc}}</span>
+      <!-- <span slot="append" class="post-text" v-if="obj.suffixDesc">{{obj.suffixDesc}}</span> -->
       <!-- </span> -->
       <!-- <template slot="append" v-if="obj.options"> -->
       <!-- </template> -->
     </el-input>
     <!-- <span>{{obj.suffixDesc}}</span> -->
+    <!-- <span class="post-text" v-if="obj.suffixDesc">{{obj.suffixDesc}}</span> -->
+    </span>
   </span>
 </template>
 
@@ -76,11 +104,13 @@ export default {
   data() {
     return {
       inputValue: "",
+      alertImg:"",
       isShow: true,
       isFirstClick: true,
       isShowDownList: false,
       readOnly: false,
-      isClone: false
+      isClone: false,
+      alertMessage:""
     };
   },
   computed: {},
@@ -133,6 +163,7 @@ export default {
   created() {
     let refName = this.obj.name + "";
     let dictionary = {};
+    this.alertImg = require("./image/预警@2x.png");
     if (window.formObj && window.formObj.hasOwnProperty("dictionary")) {
       dictionary = window.formObj.dictionary;
     }
@@ -163,6 +194,7 @@ export default {
     checkValueRule(valueNew, isClick) {
       let textResult = valueNew;
       this.obj.style = "";
+      this.alertMessage = "";
       if (
         this.obj.hasOwnProperty("rule") !== -1 &&
         this.obj.rule &&
@@ -179,6 +211,10 @@ export default {
           // 判断规则
           if (r.min && r.max && (value >= min && value < max)) {
             this.obj.style = r.style;
+            if(r.message){
+              console.log('rule:message',r.message)
+              this.alertMessage = r.message+"";
+            }
             // this.obj.style = Object.assign({}, this.obj.style, r.style);
           } else if (r.equal && r.equal === valueNew) {
             this.obj.style = r.style;
@@ -187,10 +223,15 @@ export default {
             this.obj.style = r.style;
             // this.obj.style = Object.assign({}, this.obj.style, r.style);
           } else if (
+            valueNew &&
             r.diff &&
             (r.diff != valueNew || r.diff.indexOf(valueNew) == -1)
           ) {
             this.obj.style = r.style;
+            if(r.message && valueNew){
+              console.log('rule:message',r.message)
+              this.alertMessage = r.message+"";
+            }
             // this.obj.style = Object.assign({}, this.obj.style, r.style);
           } else if (r.scoreMin || r.scoreMax) {
             let [scoreMin, scoreMax] = [Number(r.scoreMin), Number(r.scoreMax)];
@@ -419,33 +460,43 @@ export default {
         e.target.tagName,
         e.keyCode,
         e.key,
-        e.target.selectionStart,
-        e.target.selectionEnd
+        // e.target.selectionStart,
+        // e.target.selectionEnd
       );
-      if (e.keyCode === 37 && e.target.selectionStart === 0) {
+      if (
+        e.keyCode == 37 &&
+        (e.target.selectionStart == 0 ||
+          (e.target.selectionStart == null && e.target.selectionEnd == null))
+      ) {
         // ArrowLeft
-        e.target.$leftNode.focus();
+        if( e.target.$leftNode){
+          e.target.$leftNode.focus();
+        }
+
         this.isShowDownList = false;
         console.log(
           "ArrowLeft",
           e,
           e.target,
           e.target.$leftNode,
-          e.target.$leftNode.disabled
+          // e.target.$leftNode.disabled
         );
       } else if (
-        e.keyCode === 39 &&
-        e.target.selectionEnd === e.target.value.length
-      ) {
+            e.keyCode == 39 &&
+            (e.target.selectionEnd === e.target.value.length || (e.target.selectionStart == null && e.target.selectionEnd == null))
+          ) {
+        if( e.target.$rightNode){
+          e.target.$leftNode.focus();
+        }
         // ArrowRight
-        e.target.$rightNode.focus();
+        // e.target.$rightNode.focus();
         this.isShowDownList = false;
         console.log(
           "ArrowRight",
           e,
           e.target,
           e.target.$rightNode,
-          e.target.$rightNode.disabled
+          // e.target.$rightNode.disabled
         );
       } else if (e.keyCode === 13) {
         // 13 Enter
@@ -467,6 +518,9 @@ export default {
     getUUID(child = null) {
       let uuid_ = uuid.v1();
       return uuid_;
+    },
+    alertClick(event){
+      console.log('alertClick',event, this.obj)
     }
   }
 };
@@ -480,6 +534,9 @@ export default {
   &:focus,:ative
     outline none
     border 1px solid #4baf8d
+  &.postText
+    display: flex;
+    align-items: center;
 
 .el-checkbox,
 .el-select,
@@ -493,7 +550,7 @@ export default {
   vertical-align: bottom;
   width: calc(100% - 2px);
   &:hover
-    outline 1px solid #4baf8d
+    // outline 1px solid #4baf8d
     border none
   &:focus
     outline none
@@ -525,8 +582,8 @@ export default {
   &:placeholder
     color: #dbe6e4;
 
-// .el-input
-//   width: 172px;
+.el-input
+  width: 227px;
 
 .pre-text, .post-text, >>>.el-input-group__append
   color #486a62
@@ -579,16 +636,42 @@ i {
 }
 
 .post-text {
-  margin -8px -14px -8px -10px;
-  padding 8px 12px 8px 10px
+  // margin -8px -14px -8px -10px;
+  // padding 8px 12px 8px 3px
+  margin: 0px 0px 0px 0px
+  padding: 0px 0px 0px 5px
   background #fff
 }
 >>>.el-input:hover {
   .post-text {
-    border-left 1px solid #4baf8d
+    // border-left 1px solid #4baf8d
     background #eef5f5
   }
 }
+
+>>>.el-input__inner:hover {
+    border: 1px solid #4baf8d;
+}
+
+.alert-message {
+  cursor: pointer;
+  color:red;
+  font-size:12px;
+  // position: absolute;
+  // margin-top: 7px;
+  // margin-left: 8px;
+}
+
+.alert-message-post {
+  cursor: pointer;
+  color:red;
+  font-size:12px;
+  position: absolute;
+  margin-left: -10px!important;
+  margin-top: 0px;
+  z-index: 2;
+}
+
 </style>
 
 <style lang="scss">

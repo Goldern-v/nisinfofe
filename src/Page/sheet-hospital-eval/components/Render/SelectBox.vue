@@ -4,7 +4,7 @@
     <!-- <el-input v-if="obj.type==='input'" v-model="checkboxValue" border size="small" :label="obj.title" :class="obj.class" :style="obj.style">{{obj.title}}</el-input> -->
     <!-- obj.options && obj.options.length>0 ? obj.options[0]+'' : (obj.placeholder+''||'') -->
     <span v-if="obj.label">
-      <span style="font-size: 13px;" :style="obj.labelStyle" :class="obj.labelClass">{{obj.label}}</span>
+      <span style="font-size: 12px;" :style="obj.labelStyle" :class="obj.labelClass">{{obj.label}}</span>
     </span>
     <!-- 单选下拉框 -->
     <el-select
@@ -135,8 +135,8 @@ export default {
         e.target.tagName,
         e.keyCode,
         e.key,
-        e.target.selectionStart,
-        e.target.selectionEnd
+        // e.target.selectionStart,
+        // e.target.selectionEnd
       );
       if (e.keyCode === 37) {
         // ArrowLeft
@@ -179,6 +179,9 @@ export default {
 >>>.el-input__inner.el-input__inner.el-input__inner
   width 100%
   border-radius 0px
+
+.el-input
+  width: 227px;
 
 .select-label
   margin-right: -6px;

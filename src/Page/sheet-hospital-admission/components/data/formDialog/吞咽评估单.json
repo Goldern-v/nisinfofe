@@ -194,7 +194,7 @@
           "name_date": "I047001",
           "name_time": "I047002",
           "type": "datePicker",
-          "title": "评估时间：",
+          "title": "评估时间",
           "titleStyle": "width:90px!important;margin:7px 0 0 0;",
           "hiddenTips": true,
           "value": "",
@@ -339,7 +339,7 @@
         {
           "name": "I047012",
           "type": "input",
-          "title": "评估结果：",
+          "title": "评估结果",
           "titleStyle": "width:90px!important;margin:7px 0 0 0;",
           "hiddenTips": true,
           "value": "",
@@ -358,7 +358,7 @@
           "type": "html",
           "name": "C003007",
           "style": "text-indent: 0; padding-left: 2em;margin-bottom: 5px;color: #666;font-size: 12px;display: inline-block;",
-          "html": "<div>注：1. 默认 - （阴性）</div> <div><span style=\"color: #fff\">注：</span>2. 若结果为“+”（阳性），此符号请用红笔填写</div> "
+          "html": "<div>注1. 默认 - （阴性）</div> <div><span style=\"color: #fff\">注</span>2. 若结果为“+”（阳性），此符号请用红笔填写</div> "
         }
       ]
     },
@@ -411,7 +411,7 @@
           "name_date": "I047013",
           "name_time": "I047014",
           "type": "datePicker",
-          "title": "评估时间：",
+          "title": "评估时间",
           "titleStyle": "width:90px!important;margin:7px 0 0 0;",
           "hiddenTips": true,
           "value": "",
@@ -556,7 +556,7 @@
         {
           "name": "I047024",
           "type": "input",
-          "title": "评估结果：",
+          "title": "评估结果",
           "titleStyle": "width:90px!important;margin:7px 0 0 0;",
           "hiddenTips": true,
           "value": "",
@@ -574,7 +574,7 @@
           "type": "html",
           "name": "C003007",
           "style": "margin-top: -15px; text-indent: 0; padding-left: 2em;margin-bottom: 5px;color: #666;font-size: 12px;display: inline-block;",
-          "html": "<div>注：1. 默认 - （阴性）</div> <div><span style=\"color: #fff\">注：</span>2. 若结果为“+”（阳性），此符号请用红笔填写</div> "
+          "html": "<div>注1. 默认 - （阴性）</div> <div><span style=\"color: #fff\">注</span>2. 若结果为“+”（阳性），此符号请用红笔填写</div> "
         }
       ]
     },
@@ -621,7 +621,7 @@
       "type": "html",
       "name": "",
       "style": " text-indent: 0; padding-left: 2em;margin-bottom: 5px;font-size:13px",
-      "html": "<div>结果：饮水测试通过（-）→由口进食 不通过（+）→吞糊测试<p>注：1.请于适当的□内打“√”。</p><p>2.如病人无作测试应在“其他”格内记录原因。</p><p>3.有吞咽困难者，至少每周评估一次。遇病情变化则随时评估。</p><p>4.当吞水测试不通过但有呛咳反应者，作吞糊测试。</p><p>备注：</p><p>1.若结果为“+”，此符号请用红笔填写。</p><p>2.建议的食物种类或进食方法请一定要填写，并将结果告知医生。</p></div>"
+      "html": "<div>结果饮水测试通过（-）→由口进食 不通过（+）→吞糊测试<p>注1.请于适当的□内打“√”。</p><p>2.如病人无作测试应在“其他”格内记录原因。</p><p>3.有吞咽困难者，至少每周评估一次。遇病情变化则随时评估。</p><p>4.当吞水测试不通过但有呛咳反应者，作吞糊测试。</p><p>备注</p><p>1.若结果为“+”，此符号请用红笔填写。</p><p>2.建议的食物种类或进食方法请一定要填写，并将结果告知医生。</p></div>"
     }
   ],
   "dialogs": [],

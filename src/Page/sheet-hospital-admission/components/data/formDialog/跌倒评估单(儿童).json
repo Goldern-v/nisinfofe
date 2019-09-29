@@ -184,9 +184,9 @@
       "readOnly": ""
     },
     {
-      "name": "1. 年龄：",
+      "name": "1. 年龄",
       "type": "formGroupVerticalBox",
-      "title": "1. 年龄：",
+      "title": "1. 年龄",
       "message": "",
       "require": "false",
       "prefixDesc": "",
@@ -252,9 +252,9 @@
       "readOnly": ""
     },
     {
-      "name": "2. 性别：",
+      "name": "2. 性别",
       "type": "formGroupVerticalBox",
-      "title": "2. 性别：",
+      "title": "2. 性别",
       "message": "",
       "require": "false",
       "prefixDesc": "",
@@ -299,7 +299,7 @@
       "readOnly": ""
     },
     {
-      "name": "3. 诊断：",
+      "name": "3. 诊断",
       "type": "formGroupVerticalBox",
       "title": "3. 压力减缓用具的使用",
       "message": "",
@@ -366,9 +366,9 @@
       "readOnly": ""
     },
     {
-      "name": "4. 认知障碍：",
+      "name": "4. 认知障碍",
       "type": "formGroupVerticalBox",
-      "title": "4. 认知障碍：",
+      "title": "4. 认知障碍",
       "message": "",
       "require": "false",
       "prefixDesc": "",
@@ -423,9 +423,9 @@
       "readOnly": ""
     },
     {
-      "name": "5. 环境因子：",
+      "name": "5. 环境因子",
       "type": "formGroupVerticalBox",
-      "title": "5. 环境因子：",
+      "title": "5. 环境因子",
       "message": "",
       "require": "false",
       "prefixDesc": "",
@@ -491,9 +491,9 @@
       "readOnly": ""
     },
     {
-      "name": "6. 对手术、镇静或麻醉的反应：",
+      "name": "6. 对手术、镇静或麻醉的反应",
       "type": "formGroupVerticalBox",
-      "title": "6. 对手术、镇静或麻醉的反应：",
+      "title": "6. 对手术、镇静或麻醉的反应",
       "message": "",
       "require": "false",
       "prefixDesc": "",
@@ -549,9 +549,9 @@
       "readOnly": ""
     },
     {
-      "name": "7. 用药情况：",
+      "name": "7. 用药情况",
       "type": "formGroupVerticalBox",
-      "title": "7. 用药情况：",
+      "title": "7. 用药情况",
       "message": "",
       "require": "false",
       "prefixDesc": "",
@@ -564,7 +564,7 @@
         {
           "name": "I004207",
           "type": "radio",
-          "title": "综合使用：镇静剂（不包括ICU患者）、催眠药物、巴比妥类、吩噻嗪类、抗抑郁类、泻药/利尿剂、麻醉剂（3分）",
+          "title": "综合使用镇静剂（不包括ICU患者）、催眠药物、巴比妥类、吩噻嗪类、抗抑郁类、泻药/利尿剂、麻醉剂（3分）",
           "code": "3",
           "score": 3,
           "style": null,
@@ -612,7 +612,7 @@
         {
           "name": "evalScore",
           "type": "input",
-          "title": "评估得分：",
+          "title": "评估得分",
           "titleStyle": "width:90px!important;margin:7px 0 0 0;",
           "hiddenTips": true,
           "value": "",
@@ -622,7 +622,7 @@
         {
           "name": "evalDesc",
           "type": "input",
-          "title": "结果程度：",
+          "title": "结果程度",
           "titleStyle": "width:90px!important;margin:7px 0 0 0;",
           "hiddenTips": true,
           "value": "",

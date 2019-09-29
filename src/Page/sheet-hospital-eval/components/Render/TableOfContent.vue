@@ -19,7 +19,7 @@
           :class="t.level==='2' ?'title-level-two':''"
           @click="scrollTo($event,t.title)"
         >
-        <el-tooltip class="item" effect="light" placement="left" v-if="formatTitle(t.title+(missingItems&&missingItems[t.title]?`(漏${missingItems[t.title].length}项)`:'')).length>16">
+        <el-tooltip class="item" effect="light" :enterable="false" placement="left" v-if="formatTitle(t.title+(missingItems&&missingItems[t.title]?`(漏${missingItems[t.title].length}项)`:'')).length>16">
         <div slot="content">
           <span>
             <span :class="{'missing-items':missingItems&&missingItems[t.title]}">{{t.title}}{{missingItems&&missingItems[t.title]?`(漏${missingItems[t.title].length}项)`:''}}</span>

@@ -134,7 +134,8 @@ export default {
       isLandscape: false,
       eventTarget: null,
       marklist: [],
-      handleMarklist: []
+      handleMarklist: [],
+      clipboardData: ""
     };
   },
   created() {
@@ -189,6 +190,9 @@ export default {
       if (!this.info.nooForm) {
         this.info.nooForm = "0";
       }
+
+      this.clipboardData = "";
+      window.localStorage["clipboardData"] = "";
 
       // 关闭右键菜单\批注
       window.closeContextMenu();
@@ -646,7 +650,7 @@ export default {
     cleanAllMark(str = "") {
       try {
         let qStr = str;
-        // if(!this.wid.formatData || !this.wid.formatData.dataShop){}
+        if(!this.wid.formatData || !this.wid.formatData.dataShop){return}
         let keys = this.wid.formatData.dataShop.getModel();
         Object.keys(keys).map(k => {
           qStr = str ? str : '[name="' + k + '"]';
@@ -1544,6 +1548,99 @@ export default {
           }
         },
         {
+          name: "复制",
+          icon: "shanchuzhenghang",
+          // disable: this.clipboardData,
+          click: () => {
+            // this.delRecord(recordObj, rowData);
+            console.log("复制区域", event, rowData);
+            try {
+              // event.target.clipboardData.setData(
+              //   "text/plain",
+              //   event.target.value
+              // );
+              this.clipboardData = event.target.value || event.target.textContent || "";
+              window.localStorage["clipboardData"] = this.clipboardData;
+              window.localStorage["clipboardDataObj"] = JSON.stringify(rowData);
+            } catch (error) {
+              console.log("复制:error", error);
+            }
+            console.log(
+              "复制区域",
+              this.clipboardData,
+              event,
+              rowData,
+              window.localStorage["clipboardDataObj"]
+            );
+            // event.view.print();
+            // this.printIframe(event.target.innerHTML);
+          }
+        },
+        {
+          name: this.clipboardData?`粘贴 (${this.clipboardData})`:'粘贴',
+          icon: "shanchuzhenghang",
+          disable: !this.clipboardData,
+          click: () => {
+            // this.delRecord(recordObj, rowData);
+            console.log("粘贴区域", this.clipboardData, event, rowData);
+            try {
+              // event.target.value =
+              //   event.target.clipboardData.getData("text") + "";
+              event.target.value = this.clipboardData;
+              // tagName: "SPAN"
+              // textContent
+              if (window.localStorage["clipboardDataObj"] && this.wid.formatData && this.wid.formatData.recordsPages) {
+                //   rowData = JSON.parse(window.localStorage["clipboardDataObj"]);
+                // }
+                // this.wid.formatData.recordsPages[pageIndex][recordIndex]
+                // if (this.wid.formatData.recordsPages[pageIndex][recordIndex]) {
+                let clipObj = JSON.parse(window.localStorage["clipboardDataObj"])||{}
+
+                console.log('clipObj:',clipObj,rowData)
+
+                try {
+                  ['dataHash','id','signerName','signerNo','timeStr','dateStr','recordDate','recordHourMinute','recordMonthDay'].map(kname=>{
+                    if(clipObj && Object.keys(clipObj).length>0 && clipObj.hasOwnProperty(kname)>-1 && clipObj[kname]){
+                      delete clipObj[kname]
+                    }
+                  })
+                } catch (error) {}
+                console.log('clipObj::',clipObj,rowData)
+
+                rowData = {
+                  ...rowData,
+                  ...clipObj
+                };
+                this.wid.formatData.recordsPages[pageIndex][
+                  recordIndex
+                ] = JSON.parse(JSON.stringify(rowData));
+              }
+              if (this.wid.updateListTabelUI) {
+                this.wid.updateListTabelUI();
+              }
+              if(event.target.tagName == "SPAN"){
+                event.target.textContent = window.localStorage["clipboardData"] || this.clipboardData
+              }
+              // this.clipboardData = "";
+              // window.localStorage["clipboardDataObj"] = "";
+              // window.localStorage["clipboardData"] = "";
+            } catch (error) {
+              console.log("粘贴:error", error);
+            }
+            console.log(
+              "粘贴区域:clipboard",
+              this.clipboardData,
+              rowData,
+              pageIndex,
+              recordIndex,
+              window.localStorage,
+              JSON.parse(window.localStorage["clipboardDataObj"])
+            );
+            // event.view.print();
+            // this.printIframe(event.target.innerHTML);
+          }
+        },
+        {
           name: "删除整行",
           icon: "shanchuzhenghang",
           disable: !recordObj.formApiCode,
@@ -1570,17 +1667,17 @@ export default {
             }
           }
         },
-        {
-          name: "打印区域",
-          icon: "shanchuzhenghang",
-          // disable: !recordObj.formApiCode,
-          click: () => {
-            // this.delRecord(recordObj, rowData);
-            console.log("打印区域", event, rowData);
-            event.view.print();
-            // this.printIframe(event.target.innerHTML);
-          }
-        }
+        // {
+        //   name: "打印区域",
+        //   icon: "shanchuzhenghang",
+        //   // disable: !recordObj.formApiCode,
+        //   click: () => {
+        //     // this.delRecord(recordObj, rowData);
+        //     console.log("打印区域", event, rowData);
+        //     event.view.print();
+        //     // this.printIframe(event.target.innerHTML);
+        //   }
+        // }
         // {
         //   name: "添加行批注",
         //   icon: "pizhu",

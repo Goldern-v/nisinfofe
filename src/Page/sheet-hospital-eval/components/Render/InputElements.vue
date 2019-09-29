@@ -7,7 +7,8 @@
     <span
       v-for="(child,cindex) in obj"
       :key="child.name+cindex+getUUID(child,cindex)"
-      :style="child.elementStyle ? child.elementStyle : 'margin: 0 10px 0 0;'"
+      :class="[child.elementClass,(['select','input','selectInput'].indexOf(child.type)>-1?'result-text-display':'')]"
+      :style="child.elementStyle ? child.elementStyle : 'margin: 0 0px 0 0;width: 100%;'"
       class="input-element"
     >
       <!-- html -->
@@ -28,6 +29,16 @@
 
       <!-- 图片显示 -->
       <span>
+        <el-tooltip
+        class="item"
+        effect="light"
+        placement="top"
+        :enterable="false"
+        v-if="child.type==='help'"
+      >
+        <div class="el-tooltip-content" slot="content">
+          <div v-html="child.tips"></div>
+        </div>
         <img
           v-if="child.type==='help'"
           :src="helpImg"
@@ -35,8 +46,9 @@
           :class="child.class"
           :style="child.style"
           @click="helpClick($event,child)"
-          width="24"
+          width="16"
         >
+        </el-tooltip>
       </span>
 
       <!-- 人体图按钮显示显示 -->
@@ -44,7 +56,7 @@
         <span
           v-if="child.type==='bodyBtn'"
           :class="child.class"
-          :style="'color:#0000FF;cursor:pointer;padding-top: 9px;display: block;' + child.style"
+          :style="'color:#0000FF;cursor:pointer;padding-top: 9px;display: block;position: absolute;' + child.style"
           @click="openBodyModal($event,child)"
           width="24"
         >人体图</span>
@@ -88,6 +100,7 @@
         class="item"
         effect="light"
         placement="top"
+        :enterable="false"
         v-if="child.type==='radio' && child.tips"
       >
         <div class="el-tooltip-content" slot="content">
@@ -157,12 +170,25 @@
       <!-- <span>{{child.dialog && child.dialog.title}}</span> -->
       <!-- <span class="tip" v-if="getOtherText(child)">{{ getOtherText(child)}}</span> -->
       <span
-        class="tip"
-        :style="child.name === 'I100001' && {position: 'absolute', left: '78px',top: '219px'}"
-        v-if="getOtherText(child)"
+        class="tip-label"
+        :style="child.name === 'I100001' && {position: 'absolute', left: '57px',top: '218px'}"
+        v-if="child.name === 'I100001' && getOtherText(child)"
         @click="openTip(child)"
       >{{ getOtherText(child)}}</span>
       <!-- <span>{{getOtherText(child)}}</span> -->
+
+      <el-tooltip class="item" effect="light" :enterable="false" placement="left" v-if="(child.name != 'I100001' || !child.name )&& dialogResult(child).isShow">
+        <div slot="content" style="max-width:200px">
+          <span v-html="dialogResult(child,true).html"></span>
+        </div>
+      <span
+        class="tip"
+        v-html="dialogResult(child).html"
+        @click="openTip(child)"
+      ></span>
+      </el-tooltip>
+
+
     </span>
   </span>
 </template>
@@ -222,6 +248,7 @@ export default {
       radioValue: "",
       helpImg: "",
       lightImg: "",
+      alertImg: "",
       elementName: "",
       element: {},
       childIndex: 0,
@@ -310,10 +337,219 @@ export default {
     //
   },
   created() {
-    this.helpImg = require("./image/question.png");
+    this.helpImg = require("./image/说明@2x.png");
     this.lightImg = require("./image/light.png");
+    this.alertImg = require("./image/预警@2x.png");
   },
   methods: {
+    getStringLen(str){
+      var l = str.length;
+      var blen = 0;
+      for(i=0; i<l; i++) {
+        if ((str.charCodeAt(i) & 0xff00) != 0) {
+          blen ++;
+        }
+        blen ++;
+      }
+    },
+    dialogResult(child, hasNewLine=false) {
+      let isShow = false;
+      let dialog = [];
+      let html = "";
+      let newLine = "<br/>";
+      if (child.rule && child.rule.hasOwnProperty("dialog") > -1) {
+        let d = child.rule.filter(item => {
+          return item.dialog;
+        });
+        if (d && d.length > 0) {
+          dialog = [...d];
+          isShow = true;
+        }
+      }
+      if (child.dialog) {
+        isShow = true;
+        if (child.dialog.constructor === Array) {
+          dialog = [...dialog, ...child.dialog];
+        } else {
+          dialog = [...dialog, child.dialog];
+        }
+      }
+      if (isShow) {
+        // console.log('!!!dialogs',dialog[0].dialog.title,dialog)
+        dialog.map(d => {
+          if (d) {
+            let title = d.title || d.dialog.title || "";
+            // console.log("!!!==!!!", title, d, d.parentName, child);
+            let obj = this.formObj.dialogs.find(
+              item =>
+                (item.title || item.formSetting.formTitle.formName) === title
+            );
+            if (obj) {
+              if (obj.formSetting) {
+                title = obj.formSetting.formTitle.formName;
+
+                // VTE表单特殊处理
+                if (child.title.indexOf("VTE") > -1 &&
+                 this.formObj.model[child.name] &&
+                  this.formObj.model[child.name].indexOf(title)>-1) {
+                  // console.log(
+                  //   "!!!=vet=!!!",
+                  //   title,
+                  //   d,
+                  //   d.dialog.parentName,
+                  //   obj,
+                  //   child,
+                  //   child.title,
+                  //   child.name,
+                  //   this.formObj.model[child.name]
+                  // );
+                  html += `<span><span style='${obj.style}'>${this.formObj
+                    .model[d.dialog.parentName] || ""}${obj.suffixDesc ||
+                    ""}</span></span>`;
+                  hasNewLine?html+=newLine:html=html;
+                }
+                //
+                // console.log('d.cleanKey',d,d.dialog.cleanKey,'child.title',child.title,this.formObj.model[child.name])
+                let cleanKeyCheck = () => {
+                  // console.log('===d.cleanKey',d.cleanKey,'child.title',child.title)
+                  if(d.dialog && d.dialog.hasOwnProperty('cleanKey')>-1){
+                    if(typeof(d.dialog.cleanKey)==='object'){
+                      return d.dialog.cleanKey.indexOf(this.formObj.model[child.name])>-1
+                    }else if(typeof(d.dialog.cleanKey)==='string'){
+                      return d.dialog.cleanKey == (this.formObj.model[child.name] || "")
+                    }
+                  }
+                }
+                // 表单结果显示
+                if (
+                  d.hasOwnProperty("dialog") > -1 &&
+                  d.dialog &&
+                  d.dialog.hasOwnProperty("parentName") > -1 &&
+                  this.formObj.model[d.dialog.parentName] &&
+                  child.title.indexOf("VTE") === -1 &&
+                  !cleanKeyCheck()
+                ) {
+                  html += `<span><span style='${obj.style}'>${this.formObj
+                    .model[d.dialog.parentName] || ""}${obj.suffixDesc ||
+                    ""}</span></span>`;
+                  hasNewLine?html+=newLine:html=html;
+                }
+              } else {
+                title = child.postTitle || obj.aliasTitle || obj.title;
+              }
+              let objChildren = obj.body ? obj.body : obj.children;
+              // console.log('!!title!!',obj.title,obj,objChildren)
+              try {
+                // 单组或多组选项结果分行显示
+                if (
+                  obj.hasOwnProperty("children") > -1 &&
+                  obj.hasOwnProperty("type") > -1
+                ) {
+                  if (
+                    obj.type &&
+                    obj.type.indexOf("formGroup") > -1 &&
+                    this.formObj.model[obj.name] &&
+                    obj.children &&
+                    obj.children.length > 0 &&
+                    ["radio", "checkbox"].indexOf(obj.children[0].type) > -1
+                  ) {
+                    title = obj.aliasTitle || obj.label || obj.title;
+                    console.log("formGroup:title", title);
+                    html += `<span>${this.formObj.model[obj.name] ||
+                      ""}${obj.suffixDesc || ""}</span>`;
+                    hasNewLine?html+=newLine:html=html;
+                  }
+                }
+                //
+
+                //
+                // if(d.parentName && this.formObj.model && this.formObj.model[d.parentName]){
+                //     title = d.title || d.dialog.title || ""
+                //     let value = this.formObj.model[d.parentName]
+                //     console.log('!!parentName!!',title,obj,d.parentName,value)
+                //     // if(value){
+                //       html += `<p>表单${title}:<span style='${d.style}'>${value||""}${d.suffixDesc||""}??</span></p>`
+                //     // }
+                //   }
+              } catch (e) {
+                //
+                console.log("error", e);
+              }
+              //
+              let handleChild = children => {
+                if (children) {
+                  children.map(child => {
+                    title =
+                      children.aliasTitle ||
+                      child.aliasTitle ||
+                      child.label ||
+                      child.title;
+                    // console.log('!!child!!',title, child)
+                    if (
+                      !title ||
+                      (child.type && child.type === "formGroupHR")
+                    ) {
+                      return;
+                    }
+                    //
+                    if (child.children) {
+                      if (this.formObj.model[child.name]) {
+                        html += `<span style='margin-right:5px'><span style='color:green'>${title}</span>:<span>${this.formObj.model[child.name] ||
+                          ""}${child.suffixDesc || ""}</span></span>`;
+                        hasNewLine?html+=newLine:html=html;
+                      }
+                      // else{
+                      //   html += `<p style="color:red">${ title }:${this.formObj.model[child.name]||""}</p>`
+                      // }
+                      // console.log('!!children!!',child,title,child.label, child.children)
+                      handleChild(child.children);
+                      return;
+                    }
+                    //
+                    if (
+                      child.hasOwnProperty("children") > -1 &&
+                      ["radio", "checkbox"].indexOf(child.type) === -1
+                    ) {
+                      if (
+                        this.formObj.model[child.name] &&
+                        child.name != "evalScore"
+                      ) {
+                        html += `<span><span style='color:green'>${title}</span>:<span style='${child.style}'>${this
+                          .formObj.model[child.name] || ""}${child.suffixDesc ||
+                          ""}</span></span>`;
+                        hasNewLine?html+=newLine:html=html;
+                      }
+                      // else{
+                      //   html += `<p style="color:red">${ title }:${this.formObj.model[child.name]||""}</p>`
+                      // }
+                    }
+                    //
+                  });
+                }
+              };
+
+              handleChild(objChildren);
+            }
+            // else{
+            // if(d.parentName){
+            //   title = d.title || d.dialog.title || ""
+            //   console.log('!!parentName!!',title,obj,d.parentName,this.formObj.model[d.parentName])
+            //   html += `<p>表单${title}:<span style='${d.style}'>${this.formObj.model[d.parentName]||""}${d.suffixDesc||""}??</span></p>`
+            // }
+            // }
+          } else {
+            // console.log('!!!!!!',d)
+          }
+        });
+        // html
+      }
+      let result = {
+        isShow: isShow,
+        html: html
+      };
+
+      return result;
+    },
     getOtherText(child) {
       if (child.dialog || child.rule) {
         try {
@@ -500,6 +736,7 @@ export default {
 .input-elements
   display: inline-flex;
   flex-wrap: wrap;
+  // width: 100%;
 
 .input-elements-nowrap
   display: flex;
@@ -515,15 +752,45 @@ export default {
   position: absolute;
 
 .el-tooltip-content
-  max-width: 270px!important;
+  max-width: 310px!important;
   text-align: justify;
-  font-size: 14px;
+  font-size: 13px;
   line-height: 1.5em;
   letter-spacing: 0px;
 .tip
   font-size 12px
   color blue
+  // margin-bottom 4px
+  // display inherit
+  cursor pointer
+  position: relative;
+  bottom: 8px;
+.tip-label
+  font-size 12px
+  color blue
   margin-bottom 4px
   display inherit
   cursor pointer
+.result-text-display
+  text-overflow: ellipsis;
+  overflow: hidden;
+  width: auto;
+  white-space: nowrap;
+  display: inline;
+  color: blue;
+  font-size: 12px;
+  max-width: 290px;
+.el-input
+  width 227px;
+
+// .post-text
+//   color: #486a62;
+//   background: white;
+//   border-radius: 0;
+//   border: 0px!important;
+//   background: transparent;
+//   font-size: 12px!important;
+//   display: flex;
+//   align-items: center;
+
 </style>

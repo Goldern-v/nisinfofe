@@ -2,8 +2,13 @@
   <div class="sheet-head-con-neonatology">
     <tableCon :formatData="formatData" tableName="头部表格"></tableCon>
     <div class="sign-con">
-      <span>记录时间:</span>
-      <span class="sign-date" @click="setDate">{{sheetInfo.selectBlock.createTime | toCn}}</span>
+      <span @click="setDate">记录时间:</span>
+      <span
+        class="sign-date"
+        @click="setDate"
+        v-if="noDate != '1'"
+      >{{sheetInfo.selectBlock.createTime | toCn}}</span>
+      <span class="sign-date" @click="setDate" v-else></span>
       <span>责任护士签字:</span>
       <span class="sign-img-con" @click="sign">
         <span v-if="!isPrint" class="head-sign-text">{{sheetInfo.selectBlock.signerName || '未签名'}}</span>
@@ -12,7 +17,7 @@
           v-if="sheetInfo.selectBlock.signerNo"
           :src="`/crNursing/api/file/signImage/${sheetInfo.selectBlock.signerNo}?${token}`"
           alt
-        >
+        />
       </span>
     </div>
     <div>二、新生儿观察护理记录</div>
@@ -37,17 +42,26 @@ export default {
     return {
       formatData,
       sheetInfo,
-      bus: bus(this)
+      bus: bus(this),
+      noDate: sheetInfo.relObj.noDate
     };
   },
   methods: {
     setDate() {
       window.openSetAuditDateModal(
         date => {
-          setBlockCreateTime(date).then(res => {
-            this.$message.success("修改时间成功");
-            this.sheetInfo.selectBlock.createTime = res.data.data.createTime;
-          });
+          if (date) {
+            setBlockCreateTime(date).then(res => {
+              this.$message.success("修改时间成功");
+              this.sheetInfo.selectBlock.createTime = res.data.data.createTime;
+              sheetInfo.relObj.noDate = "0";
+              this.noDate = "0";
+            });
+          } else {
+            sheetInfo.relObj.noDate = "1";
+            this.noDate = "1";
+            this.$message.success("时间删除成功，需要保存护记后生效");
+          }
         },
         this.sheetInfo.selectBlock.createTime,
         "修改记录时间"
@@ -75,7 +89,7 @@ export default {
   },
   filters: {
     toCn(val) {
-      return moment(val).format("YYYY年MM月DD日 HH时mm分");
+      return val ? moment(val).format("YYYY年MM月DD日 HH时mm分") : "";
     }
   },
   components: {
@@ -95,6 +109,7 @@ export default {
       width: 200px;
       margin-right: 20px;
       cursor: pointer;
+      min-height: 12px;
     }
     .sign-img-con {
       width: 100px;
