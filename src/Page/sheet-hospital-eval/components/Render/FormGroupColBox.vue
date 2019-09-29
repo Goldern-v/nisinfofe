@@ -30,7 +30,7 @@
         >
           <TipsBox :obj="obj.children[n+(col-1)]" :formObj="formObj">
             <div class="box-td">
-              <div class="left-td" :class="obj.titleStyle" v-if="obj.children[n+(col-1)].title">
+              <div class="left-td" :style="obj.children[n+(col-1)].leftTdStyle||obj.titleStyle" v-if="obj.children[n+(col-1)].title">
                 <!-- {{n+(col-1)}} -->
                 <span v-if="!obj.children[n+(col-1)].dialog"><span v-html="titleFeedSpace(obj.children[n+(col-1)].title)"></span>{{obj.children[n+(col-1)].labelTitle?obj.children[n+(col-1)].labelTitle+':':''}}</span>
                 <span
@@ -38,13 +38,16 @@
                   style="cursor:pointer;color:blue"
                   @click="titleClick($event,obj.children[n+(col-1)])"
                 >
-                  <span>{{obj.children[n+(col-1)].title}}:</span>
-                  <span v-if="obj.children[n+(col-1)].name === 'I100001'">(<span style="color: transparent">空白</span>):
+                  <span v-html="titleFeedSpace(obj.children[n+(col-1)].title)"></span>
+                  <span v-if="obj.children[n+(col-1)].name === 'I100001'" style="margin-left:-5px;">(<span style="color: transparent;">空白</span>):
                   </span>
                 </span>
               </div>
-              <div class="right-td">
-                <InputElements :col="obj.col" :obj="[obj.children[n+(col-1)]]" :formObj="formObj"/>
+              <div class="right-td" :style="obj.children[n+(col-1)].rightTdStyle||c.rightTdStyle">
+                <InputElements :col="obj.children[n+(col-1)].col" :obj="[obj.children[n+(col-1)]]" :formObj="formObj"/>
+              </div>
+              <div class="right-unit" :style="obj.children[n+(col-1)].unitStyle" v-if="obj.children[n+(col-1)].suffixDesc">
+                <span class="post-text">{{obj.children[n+(col-1)].suffixDesc}}</span>
               </div>
             </div>
           </TipsBox>
@@ -87,17 +90,26 @@ export default {
   created() {},
   methods: {
     titleFeedSpace(str){
+      // console.log('--titleFeedSpace:',[str.length],[str])
       //
-      if(!str){return ""}
-      if(str.length == 2) {
-        // for(i of str){ console.log(i)}
-        return `${str[0]}<span style='text-indent: 2em;display: inline-block;'>${str[1]}</span>:`
+      if(!str){return ''}
+      if(str == '体温'){return str+':'}
+      let ret = ''
+      if(str.length < 5) {
+        let space = 1
+        for (let index = 0; index < str.length; index++) {
+          let char = str[index];
+          if(str.length==4){space=1/3}
+          if(str.length==3){space=1}
+          if(str.length==2){space=3}
+          if(str.length==index+1){space=0}
+          ret += `<span style='letter-spacing: ${space}em;display: inline-block;'>${char}</span>`
+        }
+        return ret+':'
+      }else{
+        ret = str+':'
       }
-      if(str.length == 3) {
-        // for(i of str){ console.log(i)}
-        return `<span>${str[0]}</span><span style='text-indent: 0.5em;display: inline-block;'>${str[1]}</span><span style='text-indent: 0.5em;display: inline-block;'>${str[2]}</span>:`
-      }
-      return str+':'// + str.length
+      return ret
     },
     titleClick(e, child) {
       console.log("titleClick", e, child, this.formObj.model, e.target.tagName);
@@ -137,16 +149,24 @@ export default {
   .box-td
     width: 100%
     display inline-flex
+    align-items: center;
+    max-width: 350px;
     // justify-content: space-between
   .left-td
     // border 1px solid green
     // width: 100%
     max-width: 100px
-    margin: 8px 5px 0 0
+    min-width: 70px
+    // margin: 8px 5px 0 0
     text-align: left
     font-size: 12px;
   .right-td
     width: auto
+    width: 100%
+    // width: calc(100% - 110px);
+  .right-unit
+    width: 100px!important
+    padding-left: 5px;
 
   .Form-Group-Col-Box
     // border 1px dashed red
@@ -160,5 +180,15 @@ export default {
   .el-checkbox, .is-bordered, .el-checkbox--medium {
     margin: 5px 0px;
   }
+
+.post-text
+  color: #486a62;
+  background: white;
+  border-radius: 0;
+  border: 0px!important;
+  background: transparent;
+  font-size: 12px!important;
+  display: flex;
+  align-items: center;
 
 </style>

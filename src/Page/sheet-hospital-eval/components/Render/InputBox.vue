@@ -1,13 +1,38 @@
 
 <template>
-  <span style="margin: 0 0px 0 0;" :style="obj.label  && {display: 'flex', alignItems: 'center' }">
+  <span>
+
+    <!-- 警报icon -->
+    <div v-if="obj.type==='input' && alertMessage" :class="obj.suffixDesc?'alert-message-post':'alert-message'">
+      <el-tooltip
+        class="item"
+        effect="light"
+        :enterable="false"
+        placement="top"
+      >
+        <div class="el-tooltip-content" slot="content">
+          <div v-html="alertMessage||''"></div>
+        </div>
+      <img
+          :src="alertImg"
+          :alt="obj.title"
+          :style="obj.tips?'margin-left:28px!important':''"
+          :name="`${obj.name}_${obj.title}_${obj.label}_img`"
+          @click="alertClick($event,obj)"
+          width="14"
+        >
+        </el-tooltip>
+      </div>
+
+
+  <span style="margin: 0 0px 0 0;display: inline-flex;align-items: center;" :style="obj.label  && {display: 'flex', alignItems: 'center' }">
     <!-- <autoComplete v-if="isShow" ref="autoInput" /> -->
     <!-- <el-input v-if="obj.type==='input'" v-model="checkboxValue" border size="small" :label="obj.title" :class="obj.class" :style="obj.style">{{obj.title}}</el-input> -->
     <span
       v-if="obj.label"
       :style="[obj.spanStyle, {width: obj.labelWidth, textAlign: 'right', paddingRight: '0px', marginBottom:obj.marginBottom}]"
     >
-      <span style="font-size: 12px;" :style="obj.labelStyle" :class="obj.labelClass">{{obj.label}}:</span>
+      <span style="font-size: 12px;padding:0px 2px;" :style="obj.labelStyle" :class="obj.labelClass">{{obj.label}}:</span>
     </span>
     <!-- v-autoComplete="{dataList: obj.options, obj:formObj.model, key: obj.name}" -->
     <el-input
@@ -17,7 +42,7 @@
       :ref="obj.name"
       v-if="obj.type==='input'"
       :placeholder="obj.dialog ? '点击评估' : '空'"
-      :class="model === 'development' ? 'development-model' : (obj.class||'')"
+      :class="[model === 'development' ? 'development-model' : (obj.class||''),obj.tips?'red-border':'']"
       :size="obj.size||''"
       :type="obj.inputType||'text'"
       :disabled="obj.disabled?true:false"
@@ -37,31 +62,17 @@
         @click.prevent.stop="()=>{}"
         class="el-input__icon el-icon-caret-top"
       ></i> -->
-      <span slot="append" class="post-text" v-if="obj.suffixDesc">{{obj.suffixDesc}}</span>
+      <!-- <span slot="append" class="post-text" v-if="obj.suffixDesc">{{obj.suffixDesc}}</span> -->
       <!-- </span> -->
       <!-- <template slot="append" v-if="obj.options"> -->
       <!-- </template> -->
     </el-input>
-    <!-- <span>{{obj.suffixDesc}}</span> -->
-    <span v-if="obj.type==='input' && alertMessage" :class="obj.suffixDesc?'alert-message-post':'alert-message'">
-      <el-tooltip
-        class="item"
-        effect="light"
-        placement="top"
-      >
-        <div class="el-tooltip-content" slot="content">
-          <div v-html="alertMessage||''"></div>
-        </div>
-      <img
-          :src="alertImg"
-          :alt="obj.title"
-          :style="obj.tips?'margin-left:28px!important':''"
-          :name="`${obj.name}_${obj.title}_${obj.label}_img`"
-          @click="alertClick($event,obj)"
-          width="16"
-        >
-        </el-tooltip>
-      </span>
+    <!-- <span class="post-text" v-if="obj.suffixDesc">{{obj.suffixDesc}}</span> -->
+    </span>
+
+
+
+
   </span>
 </template>
 
@@ -620,9 +631,10 @@ export default {
   width: 100%;
   border-radius: 0px;
   color: blue;
-  padding: 0px 5px!important;
+  padding: 0px 8px!important;
   height: 22px!important;
   background: transparent;
+  background: white;
 
   &:focus {
     outline: none;
@@ -655,6 +667,7 @@ export default {
   border-radius: 0;
   border: 0px!important;
   background: transparent;
+  background: white;
   font-size: 12px!important;
 }
 
@@ -694,8 +707,10 @@ export default {
   vertical-align: middle;
 }
 .post-text {
-  margin -8px -14px -9px -10px
-  padding 8px 14px 9px 3px
+  // margin -8px -14px -9px -10px
+  // padding 8px 14px 9px 3px
+  margin: 0px 0px 0px 0px
+  padding: 0px 0px 0px 5px
   background #fff
 }
 
@@ -718,9 +733,9 @@ export default {
   cursor: pointer;
   color:red;
   font-size:12px;
-  position: absolute;
-  margin-top: 7px;
-  margin-left: 8px;
+  // position: absolute;
+  // margin-top: 7px;
+  // margin-left: 8px;
 }
 
 .alert-message-post {
@@ -728,8 +743,13 @@ export default {
   color:red;
   font-size:12px;
   position: absolute;
-  margin-top: 7px;
-  margin-left: 2px;
+  margin-left: -10px!important;
+  margin-top: 0px;
+  z-index: 2;
+}
+
+>>>.red-border {
+  border-color: red!important;
 }
 
 </style>

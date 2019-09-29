@@ -8,7 +8,7 @@
       v-for="(child,cindex) in obj"
       :key="child.name+cindex+getUUID(child,cindex)"
       :class="[child.elementClass,(['select','input','selectInput'].indexOf(child.type)>-1?'result-text-display':'')]"
-      :style="child.elementStyle ? child.elementStyle : 'margin: 0 0px 0 0;'"
+      :style="child.elementStyle ? child.elementStyle : 'margin: 0 0px 0 0;width: 100%;'"
       class="input-element"
     >
       <!-- html -->
@@ -33,6 +33,7 @@
         class="item"
         effect="light"
         placement="top"
+        :enterable="false"
         v-if="child.type==='help'"
       >
         <div class="el-tooltip-content" slot="content">
@@ -99,6 +100,7 @@
         class="item"
         effect="light"
         placement="top"
+        :enterable="false"
         v-if="child.type==='radio' && child.tips"
       >
         <div class="el-tooltip-content" slot="content">
@@ -169,13 +171,13 @@
       <!-- <span class="tip" v-if="getOtherText(child)">{{ getOtherText(child)}}</span> -->
       <span
         class="tip-label"
-        :style="child.name === 'I100001' && {position: 'absolute', left: '62px',top: '216px'}"
+        :style="child.name === 'I100001' && {position: 'absolute', left: '57px',top: '218px'}"
         v-if="child.name === 'I100001' && getOtherText(child)"
         @click="openTip(child)"
       >{{ getOtherText(child)}}</span>
       <!-- <span>{{getOtherText(child)}}</span> -->
 
-      <el-tooltip class="item" effect="light" placement="left" v-if="(child.name != 'I100001' || !child.name )&& dialogResult(child).isShow">
+      <el-tooltip class="item" effect="light" :enterable="false" placement="left" v-if="(child.name != 'I100001' || !child.name )&& dialogResult(child).isShow">
         <div slot="content" style="max-width:200px">
           <span v-html="dialogResult(child,true).html"></span>
         </div>
@@ -734,6 +736,7 @@ export default {
 .input-elements
   display: inline-flex;
   flex-wrap: wrap;
+  // width: 100%;
 
 .input-elements-nowrap
   display: flex;
@@ -779,5 +782,15 @@ export default {
   max-width: 290px;
 .el-input
   width 227px;
+
+// .post-text
+//   color: #486a62;
+//   background: white;
+//   border-radius: 0;
+//   border: 0px!important;
+//   background: transparent;
+//   font-size: 12px!important;
+//   display: flex;
+//   align-items: center;
 
 </style>

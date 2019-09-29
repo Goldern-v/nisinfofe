@@ -1,6 +1,32 @@
 
 <template>
-  <span style="margin: 0 0px 0 0;" class="input-box">
+
+  <span>
+
+    <!-- 警报icon -->
+    <span v-if="['select','selectInput'].indexOf(obj.type)>-1 && alertMessage" :class="obj.suffixDesc?'alert-message-post':'alert-message'">
+      <el-tooltip
+        class="item"
+        effect="light"
+        :enterable="false"
+        placement="top"
+      >
+        <div class="el-tooltip-content" slot="content">
+          <div v-html="alertMessage"></div>
+        </div>
+      <img
+          :src="alertImg"
+          :alt="obj.title"
+          :style="obj.tips?'margin-left:20px!important':''"
+          :name="`${obj.name}_${obj.title}_${obj.label}_img`"
+          @click="alertClick($event,obj)"
+          width="14"
+        >
+        </el-tooltip>
+      </span>
+
+
+  <span style="margin: 0 0px 0 0;" class="input-box" :class="obj.suffixDesc?'postText':''">
     <!-- <autoComplete v-if="isShow" ref="autoInput" /> -->
     <!-- <el-input v-if="obj.type==='input'" v-model="checkboxValue" border size="small" :label="obj.title" :class="obj.class" :style="obj.style">{{obj.title}}</el-input> -->
     <span v-if="obj.label">
@@ -36,31 +62,14 @@
         class="el-input__icon el-icon-caret-top"
         :style="isShowDownList?'transform: translateY(-50%)!important;':''"
       ></i> -->
-      <span slot="append" class="post-text" v-if="obj.suffixDesc">{{obj.suffixDesc}}</span>
+      <!-- <span slot="append" class="post-text" v-if="obj.suffixDesc">{{obj.suffixDesc}}</span> -->
       <!-- </span> -->
       <!-- <template slot="append" v-if="obj.options"> -->
       <!-- </template> -->
     </el-input>
     <!-- <span>{{obj.suffixDesc}}</span> -->
-    <span v-if="['select','selectInput'].indexOf(obj.type)>-1 && alertMessage" :class="obj.suffixDesc?'alert-message-post':'alert-message'">
-      <el-tooltip
-        class="item"
-        effect="light"
-        placement="top"
-      >
-        <div class="el-tooltip-content" slot="content">
-          <div v-html="alertMessage"></div>
-        </div>
-      <img
-          :src="alertImg"
-          :alt="obj.title"
-          :style="obj.tips?'margin-left:20px!important':''"
-          :name="`${obj.name}_${obj.title}_${obj.label}_img`"
-          @click="alertClick($event,obj)"
-          width="16"
-        >
-        </el-tooltip>
-      </span>
+    <!-- <span class="post-text" v-if="obj.suffixDesc">{{obj.suffixDesc}}</span> -->
+    </span>
   </span>
 </template>
 
@@ -214,6 +223,7 @@ export default {
             this.obj.style = r.style;
             // this.obj.style = Object.assign({}, this.obj.style, r.style);
           } else if (
+            valueNew &&
             r.diff &&
             (r.diff != valueNew || r.diff.indexOf(valueNew) == -1)
           ) {
@@ -524,6 +534,9 @@ export default {
   &:focus,:ative
     outline none
     border 1px solid #4baf8d
+  &.postText
+    display: flex;
+    align-items: center;
 
 .el-checkbox,
 .el-select,
@@ -623,8 +636,10 @@ i {
 }
 
 .post-text {
-  margin -8px -14px -8px -10px;
-  padding 8px 12px 8px 3px
+  // margin -8px -14px -8px -10px;
+  // padding 8px 12px 8px 3px
+  margin: 0px 0px 0px 0px
+  padding: 0px 0px 0px 5px
   background #fff
 }
 >>>.el-input:hover {
@@ -642,9 +657,9 @@ i {
   cursor: pointer;
   color:red;
   font-size:12px;
-  position: absolute;
-  margin-top: 7px;
-  margin-left: 8px;
+  // position: absolute;
+  // margin-top: 7px;
+  // margin-left: 8px;
 }
 
 .alert-message-post {
@@ -652,8 +667,9 @@ i {
   color:red;
   font-size:12px;
   position: absolute;
-  margin-top: 7px;
-  margin-left: 2px;
+  margin-left: -10px!important;
+  margin-top: 0px;
+  z-index: 2;
 }
 
 </style>
