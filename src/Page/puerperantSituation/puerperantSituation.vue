@@ -375,6 +375,16 @@ export default {
       window.openSignModal((password,empNo,signDate)=>{
         // console.log(password,empNo,signDate)
         let params = {...record}
+       
+        if(isCancel)
+        if(empNo!=params[name]){
+          this.$message({
+            message: '非本人操作,不能取消签名',
+            type: 'error'
+          })
+          return
+        }
+
         params[name] = isCancel?'':empNo;
 
         // console.log(params)
