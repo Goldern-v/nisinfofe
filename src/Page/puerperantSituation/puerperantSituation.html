@@ -138,7 +138,6 @@
           <ecrm-table-column prop="pregnancyWeek" label="孕周" width="60" align="center">
             <template slot-scope="scope">
               <el-input resize="none" type="textarea" :class="'pregnancyWeek'+scope.$index"
-                @change="(val)=>handleNumInput(val,scope.$index,scope.column)"
                 @blur="handleEditDone(scope.$index,'pregnancyWeek')" :autosize="{ minRows: 1}"
                 v-model="scope.row.pregnancyWeek" />
             </template>
@@ -146,7 +145,6 @@
           <ecrm-table-column prop="pregnancyTimes" label="孕次" width="60" align="center">
             <template slot-scope="scope">
               <el-input resize="none" type="textarea" :class="'pregnancyTimes'+scope.$index"
-                @change="(val)=>handleNumInput(val,scope.$index,scope.column)"
                 @blur="handleEditDone(scope.$index,'pregnancyTimes')" :autosize="{ minRows: 1}"
                 v-model="scope.row.pregnancyTimes" />
             </template>
@@ -154,7 +152,6 @@
           <ecrm-table-column prop="birthTimes" label="产次" width="60" align="center">
             <template slot-scope="scope">
               <el-input resize="none" type="textarea" :class="'birthTimes'+scope.$index"
-                @change="(val)=>handleNumInput(val,scope.$index,scope.column)"
                 @blur="handleEditDone(scope.$index,'birthTimes')" :autosize="{ minRows: 1}"
                 v-model="scope.row.birthTimes" />
             </template>

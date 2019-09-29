@@ -255,6 +255,9 @@ export default {
         valChange = true;
       }
 
+      
+      console.log(name+idx)
+
       if(newVal.length!==val.length)valChange = true
 
       this.tableData[idx][name] = newVal;

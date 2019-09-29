@@ -182,9 +182,8 @@
           <div class="content">
             <el-input 
             size="small"
-            :value="params.pregnancyWeek" 
-            class="pregnancyWeek-input"
-            @change="(val)=>handleNumberChange(val,'pregnancyWeek')"/>
+            v-model="params.pregnancyWeek" 
+            class="pregnancyWeek-input"/>
           </div>
         </el-col>
         <el-col :span="8">
@@ -195,9 +194,8 @@
           <div class="content">
             <el-input 
             size="small"
-            :value="params.pregnancyTimes" 
-            class="pregnancyTimes-input"
-            @change="(val)=>handleNumberChange(val,'pregnancyTimes')"/>
+            v-model="params.pregnancyTimes" 
+            class="pregnancyTimes-input"/>
           </div>
         </el-col>
         <el-col :span="8">
@@ -208,9 +206,8 @@
           <div class="content">
             <el-input 
             size="small"
-            :value="params.birthTimes" 
-            class="birthTimes-input"
-            @change="(val)=>handleNumberChange(val,'birthTimes')"/>
+            v-model="params.birthTimes" 
+            class="birthTimes-input"/>
           </div>
         </el-col>
       </el-row>
