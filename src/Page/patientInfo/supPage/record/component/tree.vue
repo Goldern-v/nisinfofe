@@ -144,7 +144,8 @@ import {
   emrList,
   groupList,
   getInstanceByPatientInfo,
-  listRecord
+  listRecord,
+  getBlockByPV
 } from "@/api/patientInfo";
 import moment from "moment";
 import commonData from "@/api/commonData"; //入院HIS数据等
@@ -164,7 +165,8 @@ export default {
       treeLoading: false,
       expandList: [],
       expandListCopy: [],
-      ifTree: true
+      ifTree: true,
+      formTransfusionSafety: [],
     };
   },
   computed: {
@@ -274,7 +276,7 @@ export default {
       if (fileHasSave) {
         icon = fileiconRed;
       } else if (fileHasSign) {
-        icon = fileicon;
+        icon = fileiconGreen;
       } else {
         icon = fileicon;
       }
@@ -296,6 +298,12 @@ export default {
         );
       }
     },
+    getBlockByPV(){
+      // getBlockByPV(this.$route.query.patientId,this.$route.query.visitId).then(res=>{
+      //   this.formTransfusionSafety = res.data.data || [];
+      //    console.log(this.formTransfusionSafety);
+      // })
+    },
     getTreeData() {
       this.treeLoading = true;
       Promise.all([
@@ -303,7 +311,8 @@ export default {
         getInstanceByPatientInfo(
           this.$route.query.patientId,
           this.$route.query.visitId
-        )
+        ),
+        this.getBlockByPV()
       ])
         .then(res => {
           console.log("Promise.all", res, res[1].data.data);
@@ -313,6 +322,32 @@ export default {
           //
           let list_1 = res[0].data.data.map(item => {
             index += 1;
+            let childrenData;
+            if(item.formCode == 'form_transfusion_safety' && this.formTransfusionSafety){
+              childrenData = this.formTransfusionSafety.map((option, i) => {
+                if (this.formTransfusionSafety.length - 1 == i) {
+                  window.app.$store.commit('upFormLastId', {
+                    formName:item.formName,
+                    formCode:item.formCode,
+                    id:option.id,
+                    patientId:this.$route.query.patientId,
+                    evalDate:option.creatDate
+                    })
+                }
+                return {
+                  status: option.status,
+                  label: `${option.creatDate}
+                  ${option.wardAlias}
+                  ${option.countSize ? option.countSize + "条" : ""}
+                  ${option.evalScore ? option.evalScore + "分" : ""}
+                  ${option.pusherName ? option.pusherName : option.creatorName}`,
+                  // ${option.status == 0 ? "T" : option.status}`,
+                  form_id: option.id,
+                  formName: item.formName,
+                  id:option.id,
+                };
+              });
+            }
             return {
               label: item.formName,
               index: index,
@@ -322,7 +357,7 @@ export default {
               listPrint: item.listPrint,
               nooForm: item.nooForm,
               pageUrl: item.pageUrl,
-              children: item.formInstanceDtoList.map((option, i) => {
+              children: childrenData || item.formInstanceDtoList.map((option, i) => {
                 //
                 // item.formCode
                 // this.$store.state.form.upFormLastId
@@ -393,6 +428,8 @@ export default {
               })
             };
           };
+          
+
           // console.log(res[1].data.data.length,"res[1].data.data")
           if (res[1].data.data.length > 0) {
             list_1.push(list_2(res[1].data.data));
@@ -405,6 +442,7 @@ export default {
           } else {
             this.regions = list_1;
           }
+          console.log(this.regions);
 
           // console.log(list_1, "list_1list_1list_1");
         })

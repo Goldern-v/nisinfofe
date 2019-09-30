@@ -16,14 +16,10 @@ let 入量项目 = [];
 let 出量项目 = [];
 export default [
   {
-    hidden: true,
     key: "recordMonth", //日期
     value: "",
-    style: {
-      display: "none"
-    },
-    //   event: event_date,
-    // click: click_date
+    event: event_date,
+    click: click_date
   },
   {
     key: "recordHour", //时间
@@ -214,6 +210,7 @@ export function getListData4() {
   ];
   multiDictInfo(list).then(res => {
     let data = res.data.data;
+    console.log(data);
     setList(宫底, "宫底", data);
     setList(子宫收缩, "子宫收缩", data);
     setList(膀胱情况, "膀胱情况", data);

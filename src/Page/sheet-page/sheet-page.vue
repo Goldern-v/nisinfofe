@@ -256,18 +256,6 @@ export default {
         }
       };
       let mapSheetModel = this.sheetModel.map((item, index, arr) => {
-        if (
-          this.sheetInfo.sheetType == "dressing_count" ||
-          this.sheetInfo.sheetType == "post_partum"
-        ) {
-          item.bodyModel.map(row => {
-            if (row[0] && row[0].key == "recordMonth" && row[0].hidden) {
-              row[0].value = moment(
-                this.sheetInfo.selectBlock.admissionDate
-              ).format("MM-DD");
-            }
-          });
-        }
         let obj = {
           index,
           data: item,

@@ -227,19 +227,6 @@ export default {
         }
       };
       let mapSheetModel = this.sheetModel.map((item, index, arr) => {
-        // 没有填写日期选项动态填充（产后观察记录单、经阴道接生器械敷料清点记录单）
-        if (
-          this.sheetInfo.sheetType == "dressing_count" ||
-          this.sheetInfo.sheetType == "post_partum"
-        ) {
-          item.bodyModel.map(row => {
-            if (row[0] && row[0].key == "recordMonth" && row[0].hidden) {
-              row[0].value = moment(
-                this.sheetInfo.selectBlock.admissionDate
-              ).format("MM-DD");
-            }
-          });
-        }
         let obj = {
           index,
           data: item,

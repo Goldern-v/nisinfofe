@@ -739,7 +739,7 @@
         {
           "name": "evalScore",
           "type": "input",
-          "title": "评估得分：",
+          "title": "评估得分",
           "titleStyle": "width:90px!important;margin:7px 0 0 0;",
           "hiddenTips": true,
           "value": "",
@@ -804,7 +804,7 @@
       "name": "",
       "type": "formGroupTitle",
       "le√el": "1",
-      "title": "二、护理措施：",
+      "title": "二、护理措施",
       "prefixDesc": "",
       "suffixDesc": "",
       "keys": "",
@@ -815,7 +815,7 @@
     {
       "name": "",
       "type": "formGroupVerticalBox",
-      "title": "1. 基本措施：",
+      "title": "1. 基本措施",
       "message": "",
       "require": "false",
       "prefixDesc": "",
@@ -903,9 +903,9 @@
       "readOnly": ""
     },
     {
-      "name": "2 物理措施：",
+      "name": "2 物理措施",
       "type": "formGroupVerticalBox",
-      "title": "2 物理措施：",
+      "title": "2 物理措施",
       "message": "",
       "require": "false",
       "prefixDesc": "",
@@ -1009,7 +1009,7 @@
             {
               "name": "",
               "type": "checkbox",
-              "title": "其它抗凝药：",
+              "title": "其它抗凝药",
               "code": "√",
               "style": null,
               "class": null,
@@ -1052,7 +1052,7 @@
             {
               "name": "M045015",
               "type": "input",
-              "label": "Homan's： 左",
+              "label": "Homan's 左",
               "labelWidth": "100px",
               "inputWidth": "130px",
               "elementStyle": "margin:0px",
@@ -1094,7 +1094,7 @@
             {
               "name": "M045017",
               "type": "input",
-              "label": "下肢肿胀：左",
+              "label": "下肢肿胀左",
               "labelWidth": "100px",
               "inputWidth": "130px",
               "elementStyle": "margin:0px",
@@ -1138,7 +1138,7 @@
             {
               "name": "M045019",
               "type": "input",
-              "label": "主观麻痹：左",
+              "label": "主观麻痹左",
               "labelWidth": "100px",
               "inputWidth": "130px",
               "elementStyle": "margin:0px",
@@ -1181,7 +1181,7 @@
             {
               "name": "M045021",
               "type": "input",
-              "label": "大腿周径：左",
+              "label": "大腿周径左",
               "labelWidth": "100px",
               "inputWidth": "130px",
               "elementStyle": "margin:0px",
@@ -1215,7 +1215,7 @@
             {
               "name": "M045023",
               "type": "input",
-              "label": "小腿周径：左",
+              "label": "小腿周径左",
               "labelWidth": "100px",
               "inputWidth": "130px",
               "elementStyle": "margin:0px",
@@ -1249,7 +1249,7 @@
             {
               "name": "M045025",
               "type": "input",
-              "label": "皮肤颜色：左",
+              "label": "皮肤颜色左",
               "labelWidth": "100px",
               "inputWidth": "130px",
               "elementStyle": "margin:0px",
@@ -1293,7 +1293,7 @@
             {
               "name": "M045027",
               "type": "input",
-              "label": "足背动脉：左",
+              "label": "足背动脉左",
               "labelWidth": "100px",
               "inputWidth": "130px",
               "elementStyle": "margin:0px",

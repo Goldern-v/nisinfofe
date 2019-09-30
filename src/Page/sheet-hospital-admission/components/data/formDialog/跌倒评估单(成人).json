@@ -204,7 +204,7 @@
         {
           "name": "I004001",
           "type": "radio",
-          "title": "警觉、定向力、安全意识：昏睡状态（0分）",
+          "title": "警觉、定向力、安全意识昏睡状态（0分）",
           "code": "0",
           "score": 0,
           "style": null,
@@ -247,9 +247,9 @@
       "readOnly": ""
     },
     {
-      "name": "2. 运动状态：",
+      "name": "2. 运动状态",
       "type": "formGroupVerticalBox",
-      "title": "2. 运动状态：",
+      "title": "2. 运动状态",
       "message": "",
       "require": "false",
       "prefixDesc": "",
@@ -304,9 +304,9 @@
       "readOnly": ""
     },
     {
-      "name": "步态/平衡状态：",
+      "name": "步态/平衡状态",
       "type": "formGroupVerticalBox",
-      "title": "3. 步态/平衡状态：",
+      "title": "3. 步态/平衡状态",
       "message": "",
       "require": "false",
       "prefixDesc": "",
@@ -411,9 +411,9 @@
       "readOnly": ""
     },
     {
-      "name": "4. 视力情况：",
+      "name": "4. 视力情况",
       "type": "formGroupVerticalBox",
-      "title": "4. 视力情况：",
+      "title": "4. 视力情况",
       "message": "",
       "require": "false",
       "prefixDesc": "",
@@ -492,9 +492,9 @@
       "readOnly": ""
     },
     {
-      "name": "5. 直立性血压(收缩压)：",
+      "name": "5. 直立性血压(收缩压)",
       "type": "formGroupVerticalBox",
-      "title": "5. 直立性血压(收缩压)：",
+      "title": "5. 直立性血压(收缩压)",
       "message": "",
       "require": "false",
       "prefixDesc": "",
@@ -552,7 +552,7 @@
     {
       "name": "",
       "type": "formGroupVerticalBox",
-      "title": "6. 跌倒史(在过去3个月)：",
+      "title": "6. 跌倒史(在过去3个月)",
       "message": "",
       "require": "false",
       "prefixDesc": "",
@@ -610,7 +610,7 @@
     {
       "name": "",
       "type": "formGroupVerticalBox",
-      "title": "7. 用药情况：（麻醉药、精神药、抗高血压药、抗心律失常药、安定类药、利尿药）：",
+      "title": "7. 用药情况（麻醉药、精神药、抗高血压药、抗心律失常药、安定类药、利尿药）",
       "message": "",
       "require": "false",
       "prefixDesc": "",
@@ -678,7 +678,7 @@
     {
       "name": "",
       "type": "formGroupVerticalBox",
-      "title": "8. 曾患疾病：高血压、眩晕、帕金森氏病、肢体残疾、哮喘、骨折、贫血、梦游、跌倒",
+      "title": "8. 曾患疾病高血压、眩晕、帕金森氏病、肢体残疾、哮喘、骨折、贫血、梦游、跌倒",
       "message": "",
       "require": "false",
       "prefixDesc": "",
@@ -752,7 +752,7 @@
         {
           "name": "evalScore",
           "type": "input",
-          "title": "评估得分：",
+          "title": "评估得分",
           "titleStyle": "width:90px!important;margin:7px 0 0 0;",
           "hiddenTips": true,
           "value": "",
@@ -762,7 +762,7 @@
         {
           "name": "evalDesc",
           "type": "input",
-          "title": "结果程度：",
+          "title": "结果程度",
           "titleStyle": "width:90px!important;margin:7px 0 0 0;",
           "hiddenTips": true,
           "value": "",

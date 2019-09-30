@@ -21,6 +21,7 @@ export default {
       dialogVisible:false,
       saveLoading: false,
       params:{
+        patientId: '',
         hospitalizationNumber: '',
         female: '',
         femaleId: '',
@@ -80,6 +81,7 @@ export default {
       sexOptions:['男','女'],
       birthCertificateNumOptions:['有','无'],
       hadOxytocinOptions: ['是','否'],
+      perineumSituationOptions: ['/','√']
     };
   },
   mounted() {
@@ -156,6 +158,7 @@ export default {
       let target = this.patientList.find((item)=>item.patientId==patientId);
       if(target)this.params.female=target.name
       this.params.hospitalizationNumber = target.inpNo
+      this.params.patientId = target.patientId
       this.setPatientInfo()
     },
     setPatientInfo(){

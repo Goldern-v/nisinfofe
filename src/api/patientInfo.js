@@ -113,4 +113,8 @@ axios.get(`${apiPath}form/common/inform?deptCode=${deptCode}`)
 export const healthEdu = (deptCode) => 
 axios.get(`${apiPath}form/common/healthEdu?deptCode=${deptCode}`)
 
+// 根据病人信息获取记录块列表(输血安全记录单)
+export const getBlockByPV = (patientId, visitId) => 
+axios.get(`${apiPath}formBlock/getBlockByPV/${patientId}/${visitId}`)
+
 export { info, orders, examList, examResult, testList, testItems, inpRecordResults, emrList, templates, briefMission, getContentByMissionIds, getFeePercent, getFeeByDay, getFeeDetail, getDrugFeePercent, patientNursing, testResultsForChart, pic, picNum}
