@@ -179,6 +179,7 @@ export default {
       ).then(res => {
         this.bus.$emit("getBlockList");
         this.$message.success("创建成功");
+        this.bus.$emit("setSheetTableLoading", true);
       });
       this.newRecordClose();
     },

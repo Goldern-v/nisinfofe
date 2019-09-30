@@ -68,7 +68,10 @@
               <div class="col-1" :title="item.recordName">{{item.recordName}}</div>
               <div class="col-2" :title="item.deptName">{{item.deptName}}</div>
               <div class="col-3" :title="item.createTime">{{item.createTime}}</div>
-              <div class="col-4" :title="item.completeName">{{item.pageIndex}} - {{item.endPageIndex}}</div>
+              <div
+                class="col-4"
+                :title="item.completeName"
+              >{{item.pageIndex}} - {{item.endPageIndex}}</div>
               <!-- <div class="col-3" :title="item.completeName">{{item.completeName}}</div> -->
             </div>
           </el-option>
@@ -783,6 +786,7 @@ export default {
         if (this.patientInfo.patientId) {
           this.$parent.breforeQuit(() => {
             this.getBlockList();
+            this.bus.$emit("setSheetTableLoading", true);
             // 初始化页面区间列表
             this.selectList = [];
           });
