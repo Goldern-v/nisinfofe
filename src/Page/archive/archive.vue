@@ -24,95 +24,196 @@
         />
       </div>
       <div class="filterItem">
-        <button @click.stop="getArchiveList">查询</button>
+        <button @click.stop="search">查询</button>
       </div>
     </div>
-    <div class="contains">
-      <div class="main-content" flex="main:justify">
-        <div class="content-center" flex-box="1">
-          <table cellspacing="0" border="1" class="tables">
-            <colgroup>
-              <col width="60" />
-              <col width="228" />
-              <col width="80" />
-              <col width="100" />
-              <col width="160" />
-              <col width="100" />
-              <col width="150" />
-              <col />
-              <col width="180" />
-            </colgroup>
-            <thead>
-              <tr>
-                <th>序号</th>
-                <th>护理单元</th>
-                <th>床号</th>
-                <th>姓名</th>
-                <th>住院号</th>
-                <th>出院日期</th>
-                <th>归档时间</th>
-                <th>状态</th>
-                <th>操作</th>
-                <th class="scrollBlock" v-if="table2"></th>
-              </tr>
-            </thead>
-          </table>
-          <div class="table-con" v-loading="pageLoading" :style="{height: wih - 210+'px'}">
-            <table cellspacing="0" border="1" class="table1" ref="table2">
-              <colgroup>
-                <col width="60" />
-                <col width="228" />
-                <col width="80" />
-                <col width="100" />
-                <col width="160" />
-                <col width="100" />
-                <col width="150" />
-                <col />
-                <col width="180" />
-              </colgroup>
-              <tbody>
-                <tr v-for="(item,index) in patientArchiveList" :key="index" class="data-row">
-                  <td>{{index+1}}</td>
-                  <td>{{item.wardName}}</td>
-                  <td>{{item.bedLabel}}</td>
-                  <td>{{item.patientName}}</td>
-                  <td>{{item.inpNo}}</td>
-                  <td>{{item.dischargeDate}}</td>
-                  <td>{{item.uploadTime}}</td>
-                  <td
-                    style="text-align: left;"
-                    :style="item.printStatus ==1 && {color: 'red'}"
-                  >{{item.statusDesc}}</td>
-                  <td>
-                    <div>
-                      <!-- 打印生成pdf文件 -->
-                      <span
-                        @click="generateArchive(item)"
-                        v-if="item.printStatus==0 && item.resultStatus!=1"
-                      >转pdf</span>
-                      <span
-                        @click="generateArchive(item)"
-                        v-if="item.printStatus!=0 && item.printStatus!=1 && item.uploadStatus!=1 && item.uploadStatus!=2"
-                      >重转pdf</span>
-                      <span
-                        class="viewFile"
-                        @click="previewArchive(item)"
-                        v-if="item.resultStatus==1"
-                      >预览</span>
-                      <!-- 上传 -->
-                      <span
-                        @click="uploadFileArchive(item)"
-                        v-if="item.resultStatus==1 && item.uploadStatus!=1 && item.uploadStatus!=2"
-                      >归档</span>
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-            <nullText v-show="patientArchiveList.length == 0"></nullText>
-          </div>
-        </div>
-      </div>
+    <div class="content-center">
+      <el-table
+        :data="patientArchiveList"
+        style="width: 100%"
+        border
+        :height="wih - 170"
+        v-loading="pageLoading"
+        header-align="center"
+        align="center"
+        stripe
+        highlight-current-row
+      >
+        <el-table-column
+          label="序号"
+          header-align="center"
+          type="index"
+          min-width="60px"
+          align="center"
+        ></el-table-column>
+
+        <el-table-column
+          header-align="center"
+          align="left"
+          label="护理单元"
+          prop="wardName"
+          min-width="185px"
+        ></el-table-column>
+
+        <el-table-column
+          prop="bedLabel"
+          header-align="center"
+          align="center"
+          label="床号"
+          min-width="80px"
+        ></el-table-column>
+
+        <el-table-column
+          prop="patientName"
+          header-align="center"
+          align="center"
+          label="姓名"
+          min-width="100px"
+        ></el-table-column>
+
+        <el-table-column
+          header-align="center"
+          align="center"
+          label="住院号"
+          prop="inpNo"
+          min-width="160px"
+        ></el-table-column>
+
+        <el-table-column
+          prop="dischargeDate"
+          header-align="center"
+          align="left"
+          label="出院日期"
+          min-width="90px"
+        ></el-table-column>
+
+        <el-table-column
+          prop="uploadTime"
+          header-align="center"
+          align="center"
+          label="归档时间"
+          min-width="140px"
+        ></el-table-column>
+
+        <el-table-column
+          prop="printStatus"
+          header-align="center"
+          align="left"
+          label="状态"
+          min-width="150px"
+        >
+          <template slot-scope="scope">
+            <div style="text-align: left;" :style="scope.row.printStatus ==1 && {color: 'red'}">
+              <span>{{scope.row.statusDesc}}</span>
+            </div>
+          </template>
+        </el-table-column>
+
+        <el-table-column header-align="center" align="center" label="操作" min-width="150px">
+          <template slot-scope="scope">
+            <div class="justify">
+                  <!-- 打印生成pdf文件 -->
+                  <el-button type="text"
+                    @click="generateArchive(scope.row)"
+                    v-if="scope.row.printStatus==0 && scope.row.resultStatus!=1"
+                  >转pdf</el-button>
+                  <el-button type="text"
+                    @click="generateArchive(scope.row)"
+                    v-if="scope.row.printStatus!=0 && scope.row.printStatus!=1 && scope.row.uploadStatus!=1 && scope.row.uploadStatus!=2"
+                  >重转pdf</el-button>
+                  <el-button type="text"
+                    class="viewFile"
+                    @click="previewArchive(scope.row)"
+                    v-if="scope.row.resultStatus==1"
+                  >预览</el-button>
+                  <!-- 上传 -->
+                  <el-button type="text"
+                    @click="uploadFileArchive(scope.row)"
+                    v-if="scope.row.resultStatus==1 && scope.row.uploadStatus!=1 && scope.row.uploadStatus!=2"
+                  >归档</el-button>
+            </div>
+          </template>
+        </el-table-column>
+      </el-table>
+      <!-- <table cellspacing="0" border="1" class="tables">
+        <colgroup>
+          <col width="50" />
+          <col />
+          <col width="80" />
+          <col width="100" />
+          <col width="160" />
+          <col width="90" />
+          <col width="140" />
+          <col width="150"/>
+          <col width="170" />
+        </colgroup>
+        <thead>
+          <tr>
+            <th>序号</th>
+            <th>护理单元</th>
+            <th>床号</th>
+            <th>姓名</th>
+            <th>住院号</th>
+            <th>出院日期</th>
+            <th>归档时间</th>
+            <th>状态</th>
+            <th>操作</th>
+            <th class="scrollBlock" v-if="table2"></th>
+          </tr>
+        </thead>
+      </table> -->
+      <!-- <div class="table-con" v-loading="pageLoading" :style="{height: wih - 210+'px'}">
+        <table cellspacing="0" border="1" class="table1" ref="table2">
+          <colgroup>
+            <col width="50" />
+            <col />
+            <col width="80" />
+            <col width="100" />
+            <col width="160" />
+            <col width="90" />
+            <col width="140" />
+            <col width="150"/>
+            <col width="170" />
+          </colgroup>
+          <tbody>
+            <tr v-for="(item,index) in patientArchiveList" :key="index" class="data-row">
+              <td>{{index+1}}</td>
+              <td>{{item.wardName}}</td>
+              <td>{{item.bedLabel}}</td>
+              <td>{{item.patientName}}</td>
+              <td>{{item.inpNo}}</td>
+              <td>{{item.dischargeDate}}</td>
+              <td>{{item.uploadTime}}</td>
+              <td
+                style="text-align: left;"
+                :style="item.printStatus ==1 && {color: 'red'}"
+              >{{item.statusDesc}}</td>
+              <td>
+                <div>
+                  <span
+                    @click="generateArchive(item)"
+                    v-if="item.printStatus==0 && item.resultStatus!=1"
+                  >转pdf</span>
+                  <span
+                    @click="generateArchive(item)"
+                    v-if="item.printStatus!=0 && item.printStatus!=1 && item.uploadStatus!=1 && item.uploadStatus!=2"
+                  >重转pdf</span>
+                  <span
+                    class="viewFile"
+                    @click="previewArchive(item)"
+                    v-if="item.resultStatus==1"
+                  >预览</span>
+                  <span
+                    @click="uploadFileArchive(item)"
+                    v-if="item.resultStatus==1 && item.uploadStatus!=1 && item.uploadStatus!=2"
+                  >归档</span>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <nullText v-show="patientArchiveList.length == 0"></nullText>
+      </div> -->
     </div>
     <pagination
       :pageIndex="query.pageIndex"
@@ -249,6 +350,11 @@ export default {
     },
     handleCurrentChange(newPage) {
       this.query.pageIndex = newPage;
+      this.getArchiveList();
+    },
+    search(){
+      this.query.pageIndex = 1;
+      this.query.pageSize= 20;
       this.getArchiveList();
     },
     //科室患者归档列表
@@ -411,70 +517,6 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-.contains {
-  >>> .el-dialog__header {
-    padding: 15px 20px 15px !important;
-    font-family: PingFangSC-Regular !important;
-    font-size: 13px !important;
-    border-radius: 4px !important;
-    background: #F7FAFA !important;
-    color: #333333 !important;
-    letter-spacing: 0;
-  }
-}
-
->>> .el-dialog__headerbtn {
-  font-size: 13px !important;
-  font-family: PingFangSC-Regular !important;
-}
-
->>> .el-dialog__title {
-  font-size: 14px !important;
-  font-family: PingFangSC-Regular !important;
-  color: #333 !important;
-}
-
->>> .el-dialog__body {
-  padding: 30px 40px 10px;
-
-  & > div > div {
-    margin-bottom: 24px !important;
-    font-family: PingFangSC-Regular !important;
-    color: #687179 !important;
-    letter-spacing: 0 !important;
-    clear: both;
-
-    & > div {
-      color: #333 !important;
-      float: right;
-      display: inline-block;
-      width: 206px;
-      margin-bottom: 10px;
-      line-height: 18px;
-      vertical-align: top;
-      font-family: PingFangSC-Regular !important;
-    }
-  }
-}
-
->>> .el-dialog__footer {
-  padding: 10px 20px 10px;
-  font-family: PingFangSC-Regular !important;
-  text-align: center;
-  box-sizing: border-box;
-  background: #F7FAFA;
-  border-radius: 4px !important;
-}
-
->>>.el-dialog--small {
-  width: 27% !important;
-  top: 20% !important;
-  font-family: PingFangSC-Regular !important;
-  background: #FFFFFF !important;
-  box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.5) !important;
-  border-radius: 4px !important;
-}
-
 .toolbar {
   display: flex;
   align-items: center;
@@ -516,128 +558,6 @@ export default {
   }
 }
 
-.contains {
-  padding: 10px 10px 0px;
-
-  .main-content {
-    padding: 0 0px;
-
-    .table-con {
-      background: #fff;
-      border-bottom: 1px solid #E3E7EA;
-    }
-
-    .content-center {
-      width: 0;
-      position: relative;
-
-      .tables {
-        font-size: 13px;
-        text-align: left;
-        width: 100%;
-
-        & > thead > tr {
-          background: #F7FAFA;
-
-          & > th {
-            padding: 0px 7px;
-            height: 35px;
-            border: 1px solid #E3E7EA;
-            vertical-align: middle;
-            text-align: center;
-          }
-
-          &:first-child {
-            color: #333333;
-            font-size: 14px;
-            height: 40px;
-
-            & > th {
-              & > span {
-                vertical-align: middle;
-              }
-
-              & > img {
-                vertical-align: middle;
-                position: relative;
-                top: -2px;
-              }
-            }
-          }
-
-          &:last-child {
-            color: #687179;
-            font-size: 13px;
-          }
-        }
-      }
-
-      & > div {
-        // height: calc(100vh - 159px);
-        overflow: auto;
-
-        .table1 {
-          width: 100%;
-
-          & > tbody > tr {
-            &:hover {
-              background: #EEF6F5;
-            }
-
-            &:last-of-type {
-              td {
-                border-bottom: 0;
-              }
-            }
-
-            & > td {
-              font-size: 13px;
-              padding: 0 8px;
-              color: #333333;
-              border: 1px solid #E3E7EA;
-              border-top: 0;
-              height: 35px;
-              vertical-align: middle;
-
-              &:last-of-type {
-                > div {
-                  display: flex;
-                  justify-content: space-around;
-                  align-items: center;
-
-                  span {
-                    flex: 1;
-                    color: #4bb08d;
-                    padding: 10px 0;
-                    -webkit-box-sizing: border-box;
-                    box-sizing: border-box;
-                    cursor: pointer;
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-}
-
-.scrollBlock {
-  width: 6px;
-  padding: 0 !important;
-}
-
-table {
-  th, td {
-    text-align: center;
-
-    &:nth-of-type(2) {
-      text-align: left;
-    }
-  }
-}
-
 .arrow {
   .el-icon-arrow-left, .el-icon-arrow-right {
     font-size: 40px;
@@ -663,6 +583,62 @@ table {
     right: -150px;
   }
 }
+.content-center {
+  width: 99%;
+  margin: auto auto;
+  margin-top: 10px;
+  border: 1px solid #cbd5dd;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+
+  .justify {
+    span {
+      font-size: 13px;
+    }
+  }
+
+  >>>.el-button {
+    // padding: 0px;
+  }
+
+  >>>.el-table {
+    border: 0 !important;
+    .el-button {
+      font-size: 13px;
+      padding: 0px;
+     }
+
+    td, th, tr {
+      height: 40px;
+
+      div {
+        font-size: 13px;
+        color: #333;
+        padding-left: 0px;
+        padding-right: 0px;
+      }
+    }
+  }
+
+  >>>.el-table::after, .el-table::before {
+    background: #cbd5dd;
+    display: none;
+  }
+
+  >>>.el-table__row td:first-child .cell, >>>.el-table__row td:last-child .cell {
+    padding: 0 5px;
+    text-align: center;
+  }
+
+  >>>.el-table--striped .el-table__body tr.el-table__row--striped.current-row td {
+    background: rgb(255, 251, 186);
+  }
+
+  >>>.el-table__body tr.current-row td {
+    background: rgb(255, 251, 186);
+  }
+}
+
 </style>
 <style lang="stylus">
 .archive-preview-modal {
