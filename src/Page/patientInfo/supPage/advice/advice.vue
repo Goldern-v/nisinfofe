@@ -27,7 +27,7 @@
           v-if="HOSPITAL_ID == 'weixian'"
           style="margin-left: 10px"
         >
-          <el-button class="select-btn" type="primary">打印</el-button>
+          <el-button class="select-btn" type="primary">打印执行单</el-button>
         </a>
       </div>
       <adviceTableWx

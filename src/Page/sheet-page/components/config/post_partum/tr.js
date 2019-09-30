@@ -16,14 +16,10 @@ let 入量项目 = [];
 let 出量项目 = [];
 export default [
   {
-    hidden: true,
     key: "recordMonth", //日期
     value: "",
-    style: {
-      display: "none"
-    },
-    //   event: event_date,
-    // click: click_date
+    event: event_date,
+    click: click_date
   },
   {
     key: "recordHour", //时间

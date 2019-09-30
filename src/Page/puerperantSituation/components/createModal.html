@@ -22,6 +22,15 @@
         </el-col>
         <el-col :span="8">
           <div class="label">
+            <span class="lc2">I</span>
+            <span>D:</span>
+          </div>
+          <div class="content">
+            <el-input size="small" v-model="params.patientId"/>
+          </div>
+        </el-col>
+        <el-col :span="8">
+          <div class="label">
             <span class="lc2">姓</span>
             <span>名:</span>
           </div>
@@ -47,14 +56,14 @@
             </el-select>
           </div>
         </el-col>
+      </el-row>
+      <el-row class="content-row" :gutter="8">
         <el-col :span="8">
           <div class="label">身份证号:</div>
           <div class="content">
             <el-input size="small" v-model="params.femaleId"/>
           </div>
         </el-col>
-      </el-row>
-      <el-row class="content-row" :gutter="8">
         <el-col :span="8">
           <div class="label">
             <span class="lc2">年</span>
@@ -77,6 +86,8 @@
             <el-input size="small" v-model="params.femaleBrithPlace"/>
           </div>
         </el-col>
+      </el-row>
+      <el-row class="content-row" :gutter="8">
         <el-col :span="8">
           <div class="label">
             <span class="lc2">职</span>
@@ -86,8 +97,6 @@
             <el-input size="small" v-model="params.femaleJob"/>
           </div>
         </el-col>
-      </el-row>
-      <el-row class="content-row" :gutter="8">
         <el-col :span="8">
           <div class="label">文化程度:</div>
           <div class="content">
@@ -96,6 +105,8 @@
             </el-select>
           </div>
         </el-col>
+      </el-row>
+      <el-row class="content-row" :span="8">
         <el-col :span="16">
           <div class="label">户口地址(市、镇、村):</div>
           <div class="content">

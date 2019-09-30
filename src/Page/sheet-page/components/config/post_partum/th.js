@@ -6,9 +6,9 @@ export default {
       {
         name: '日期',
         style: {
-          minWidth: '36px',
-          maxWidth: '36px',
-          display: 'none',
+          minWidth: '34px',
+          maxWidth: '34px',
+          // display: 'none',
         },
         colspan: '1',
         rowspan: '3'
@@ -16,24 +16,24 @@ export default {
       {
         name: '时间',
         style: {
-          minWidth: '36px',
-          maxWidth: '36px'
+          minWidth: '34px',
+          maxWidth: '34px'
         },
         colspan: '1',
         rowspan: '3'
       },{
         name: `脉<br/>搏<br/>（次/<br/>min）`,
         style: {
-          minWidth: '40px',
-          maxWidth: '40px'
+          minWidth: '34px',
+          maxWidth: '34px'
         },
         colspan: '1',
         rowspan: '3'
       },{
         name: `呼<br/>吸<br/>（次/<br/>min）`,
         style: {
-          minWidth: '40px',
-          maxWidth: '40px'
+          minWidth: '30px',
+          maxWidth: '30px'
         },
         colspan: '1',
         rowspan: '3'
@@ -48,8 +48,8 @@ export default {
       },{
         name: `血氧<br/>饱<br/>和度/<br/>（%）`,
         style: {
-          minWidth: '44px',
-          maxWidth: '44px'
+          minWidth: '36px',
+          maxWidth: '36px'
         },
         colspan: '1',
         rowspan: '3'
@@ -72,8 +72,8 @@ export default {
       },{
         name: `出血<br/>量<br/>(mL)`,
         style: {
-          minWidth: '36px',
-          maxWidth: '36px'
+          minWidth: '30px',
+          maxWidth: '30px'
         },
         colspan: '1',
         rowspan: '3'
@@ -145,7 +145,7 @@ export default {
           colspan: '1',
           rowspan: '2',
           style: {
-            minWidth: '36px',
+            width: '30px'
           },
       }, {
           name: `
@@ -163,7 +163,7 @@ export default {
           colspan: '1',
           rowspan: '2',
           style: {
-            minWidth: '36px',
+            width: '30px'
           },
         },
     ],
