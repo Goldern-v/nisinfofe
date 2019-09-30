@@ -91,6 +91,7 @@ export default {
     }
   },
   mounted() {
+    this.alertMessage = ""
     let refName = this.obj.name; //+this.obj.type.toUpperCase()+(this.obj.title||this.obj.label)
     if (this.$refs[refName]) {
       this.$root.$refs[refName] = this.$refs[refName];

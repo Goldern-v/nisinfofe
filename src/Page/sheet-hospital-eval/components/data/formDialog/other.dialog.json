@@ -66,21 +66,23 @@
     "title": "肌力分级说明",
     "type": "html",
     "name": "C003007",
+    "modalWidth": 540,
     "showLight": true,
-    "html": "<p>0级    肌肉无任何收缩现象</p><p>1级    肌肉仅能轻微收缩</p><p>2级    肢体能在床上平行移动，但不能对抗阻力</p><p>3级    肢体能抬高床面，但不能对抗阻力</p><p>4级    能对抗阻力活动</p><p>5级    肌力正常</p>"
+    "html": "<p><span style='color:blue'>0级</span>    肌肉无任何收缩现象</sp><p><span style='color:blue'>1级</span>    肌肉仅能轻微收缩</p><p><span style='color:blue'>2级</span>    肢体能在床上平行移动，但不能对抗阻力</p><p><span style='color:blue'>3级</span>    肢体能抬高床面，但不能对抗阻力</p><p><span style='color:blue'>4级</span>    能对抗阻力活动</p><p><span style='color:blue'>5级</span>    肌力正常</p>"
   },
   {
     "title": "毛细血管充盈说明",
     "type": "html",
     "name": "C003007",
+    "modalWidth": 540,
     "showLight": true,
-    "html": "<p>阴性    撤除压力后，局部皮肤颜色由白转红的时间≤2s</p><p>阳性    撤除压力后，局部皮肤颜色由白转红的时间＞3s,或成斑点状发红</p>"
+    "html": "<p><span style='color:blue'>阴性</span>    撤除压力后，局部皮肤颜色由白转红的时间≤2s</p><p><span style='color:blue'>阳性</span>    撤除压力后，局部皮肤颜色由白转红的时间＞3s,或成斑点状发红</p>"
   },
   {
     "title": "体温类型",
     "type": "formGroupHorizontalBox",
     "name": "I100000",
-    "modalWidth": 460,
+    "modalWidth": 540,
     "message": "",
     "require": "false",
     "prefixDesc": "",
@@ -133,13 +135,14 @@
   {
     "title": "呼吸困难",
     "type": "formGroupHorizontalBox",
-    "name": "I100037",
+    "name": "I100038",
+    "showTitle": true,
     "modalWidth": 540,
     "message": "",
     "require": "false",
     "prefixDesc": "",
     "suffixDesc": "",
-    "keys": "I100037",
+    "keys": "I100038",
     "style": null,
     "classes": null,
     "readOnly": null,
@@ -187,7 +190,7 @@
     "style": null,
     "classes": null,
     "readOnly": null,
-    "modalWidth": 400,
+    "modalWidth": 540,
     "children": [
       {
         "name": "I100042",
@@ -248,7 +251,7 @@
     "style": null,
     "classes": null,
     "readOnly": null,
-    "modalWidth": 700,
+    "modalWidth": 540,
     "children": [
       {
         "name": "I100046",
@@ -293,7 +296,7 @@
     "style": null,
     "classes": null,
     "readOnly": null,
-    "modalWidth": 400,
+    "modalWidth": 540,
     "children": [
       {
         "name": "I100048",
@@ -346,7 +349,7 @@
     "style": null,
     "classes": null,
     "readOnly": null,
-    "modalWidth": 400,
+    "modalWidth": 540,
     "children": [
       {
         "name": "I100052",
@@ -724,7 +727,7 @@
     "style": null,
     "classes": null,
     "readOnly": null,
-    "modalWidth": 400,
+    "modalWidth": 540,
     "children": [
       {
         "name": "I100087",
@@ -765,7 +768,7 @@
     "style": null,
     "classes": null,
     "readOnly": null,
-    "modalWidth": 400,
+    "modalWidth": 540,
     "children": [
       {
         "name": "I100137",
@@ -806,7 +809,7 @@
     "style": null,
     "classes": null,
     "readOnly": null,
-    "modalWidth": 400,
+    "modalWidth": 540,
     "children": [
       {
         "name": "I100106",
@@ -835,7 +838,7 @@
     "style": null,
     "classes": null,
     "readOnly": null,
-    "modalWidth": 400,
+    "modalWidth": 540,
     "children": [
       {
         "name": "I100107",
@@ -876,7 +879,7 @@
     "style": null,
     "classes": null,
     "readOnly": null,
-    "modalWidth": 400,
+    "modalWidth": 540,
     "children": [
       {
         "name": "I100116",
@@ -905,7 +908,7 @@
     "style": null,
     "classes": null,
     "readOnly": null,
-    "modalWidth": 400,
+    "modalWidth": 540,
     "children": [
       {
         "name": "I100120",
@@ -945,7 +948,7 @@
     "style": null,
     "classes": null,
     "readOnly": null,
-    "modalWidth": 400,
+    "modalWidth": 540,
     "children": [
       {
         "name": "I100123",
@@ -978,7 +981,7 @@
     "type": "formGroupVerticalBox",
     "name": "C003007",
     "showTitle": false,
-    "modalWidth": 400,
+    "modalWidth": 540,
     "message": "",
     "require": "false",
     "prefixDesc": "",
