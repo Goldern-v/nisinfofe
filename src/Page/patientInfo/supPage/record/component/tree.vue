@@ -166,7 +166,7 @@ export default {
       expandList: [],
       expandListCopy: [],
       ifTree: true,
-      formTransfusionSafety: {},
+      formTransfusionSafety: [],
     };
   },
   computed: {
@@ -299,10 +299,10 @@ export default {
       }
     },
     getBlockByPV(){
-      getBlockByPV(this.$route.query.patientId,this.$route.query.visitId).then(res=>{
-        this.formTransfusionSafety = res.data.data || [];
-         console.log(this.formTransfusionSafety);
-      })
+      // getBlockByPV(this.$route.query.patientId,this.$route.query.visitId).then(res=>{
+      //   this.formTransfusionSafety = res.data.data || [];
+      //    console.log(this.formTransfusionSafety);
+      // })
     },
     getTreeData() {
       this.treeLoading = true;
