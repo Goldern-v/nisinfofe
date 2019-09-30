@@ -484,11 +484,15 @@ export default {
           moment("2019-9-20 " + lastRecordHour).unix()
       );
       if (isBefore) {
-        this.$confirm("新增记录比原有记录时间更前, 请确定日期, 是否确认保存?", "提示", {
-          confirmButtonText: "确认",
-          cancelButtonText: "取消",
-          type: "warning"
-        }).then(res => {
+        this.$confirm(
+          "新增记录比原有记录时间更前, 请确定日期, 是否确认保存?",
+          "提示",
+          {
+            confirmButtonText: "确认",
+            cancelButtonText: "取消",
+            type: "warning"
+          }
+        ).then(res => {
           save();
         });
       } else {
@@ -541,7 +545,10 @@ export default {
         }
       }
 
-      if ($(".sheet-page-container-hemodialysis .isNoSign") && $(".sheet-page-container-hemodialysis .isNoSign").length) {
+      if (
+        $(".sheet-page-container-hemodialysis .isNoSign") &&
+        $(".sheet-page-container-hemodialysis .isNoSign").length
+      ) {
         $(".signTd")
           .eq(0)
           .addClass("red-border");
@@ -577,6 +584,9 @@ export default {
     });
     this.bus.$on("openPizhuModal", (tr, td) => {
       this.$refs.pizhuModal.open(tr, td);
+    });
+    this.bus.$on("setSheetTableLoading", (state = false) => {
+      this.tableLoading = state;
     });
   },
   watch: {

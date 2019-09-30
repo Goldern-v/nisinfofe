@@ -625,6 +625,9 @@ export default {
     this.bus.$on("refrehSheetStartPage", () => {
       this.getHomePage();
     });
+    this.bus.$on("setSheetTableLoading", (state = false) => {
+      this.tableLoading = state;
+    });
   },
   watch: {
     deptCode(val) {

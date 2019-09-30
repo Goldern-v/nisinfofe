@@ -8,7 +8,7 @@
       v-for="(child,cindex) in obj"
       :key="child.name+cindex+getUUID(child,cindex)"
       :class="[child.elementClass,(['select','input','selectInput'].indexOf(child.type)>-1?'result-text-display':'')]"
-      :style="child.elementStyle ? child.elementStyle : 'margin: 0 0px 0 0;width: 100%;'"
+      :style="child.elementStyle ? child.elementStyle : 'margin: 0 0px 0 0;'"
       class="input-element"
     >
       <!-- html -->
@@ -46,7 +46,7 @@
           :class="child.class"
           :style="child.style"
           @click="helpClick($event,child)"
-          width="16"
+          width="14"
         >
         </el-tooltip>
       </span>
@@ -177,15 +177,20 @@
       >{{ getOtherText(child)}}</span>
       <!-- <span>{{getOtherText(child)}}</span> -->
 
+
+      <!-- 对话框结果 -->
       <el-tooltip class="item" effect="light" :enterable="false" placement="left" v-if="(child.name != 'I100001' || !child.name )&& dialogResult(child).isShow">
         <div slot="content" style="max-width:200px">
           <span v-html="dialogResult(child,true).html"></span>
         </div>
-      <span
-        class="tip"
-        v-html="dialogResult(child).html"
-        @click="openTip(child)"
-      ></span>
+      <!-- <span style="outline:1px solid red;min-width:50px;min-height:10px;background-color:red;display:inline-block;"></span> -->
+      <span>
+        <span
+          class="tip"
+          v-html="dialogResult(child).html"
+          @click="openTip(child)"
+        ></span>
+      </span>
       </el-tooltip>
 
 
@@ -429,7 +434,7 @@ export default {
                   child.title.indexOf("VTE") === -1 &&
                   !cleanKeyCheck()
                 ) {
-                  html += `<span><span style='${obj.style}'>${this.formObj
+                  html += `<span>::<span style='${obj.style}'>${this.formObj
                     .model[d.dialog.parentName] || ""}${obj.suffixDesc ||
                     ""}</span></span>`;
                   hasNewLine?html+=newLine:html=html;
@@ -455,7 +460,7 @@ export default {
                   ) {
                     title = obj.aliasTitle || obj.label || obj.title;
                     console.log("formGroup:title", title);
-                    html += `<span>${this.formObj.model[obj.name] ||
+                    html += `<span style='color:green'>${title}:</span><span>${this.formObj.model[obj.name] ||
                       ""}${obj.suffixDesc || ""}</span>`;
                     hasNewLine?html+=newLine:html=html;
                   }
@@ -478,49 +483,49 @@ export default {
               //
               let handleChild = children => {
                 if (children) {
-                  children.map(child => {
+                  children.map(mychild => {
                     title =
                       children.aliasTitle ||
-                      child.aliasTitle ||
-                      child.label ||
-                      child.title;
-                    // console.log('!!child!!',title, child)
+                      mychild.aliasTitle ||
+                      mychild.label ||
+                      mychild.title;
+                    // console.log('!!mychild!!',title, mychild)
                     if (
                       !title ||
-                      (child.type && child.type === "formGroupHR")
+                      (mychild.type && mychild.type === "formGroupHR")
                     ) {
                       return;
                     }
                     //
-                    if (child.children) {
+                    if (mychild.children) {
                       if (this.formObj.model[child.name]) {
-                        html += `<span style='margin-right:5px'><span style='color:green'>${title}</span>:<span>${this.formObj.model[child.name] ||
+                        html += `<span style='margin-right:5px'><span style='color:green'>${title}</span>:<span>${this.formObj.model[mychild.name] ||
                           ""}${child.suffixDesc || ""}</span></span>`;
                         hasNewLine?html+=newLine:html=html;
+                        handleChild(mychild.children);
                       }
                       // else{
-                      //   html += `<p style="color:red">${ title }:${this.formObj.model[child.name]||""}</p>`
+                      //   html += `<p style="color:red">${ title }:${this.formObj.model[mychild.name]||""}</p>`
                       // }
-                      // console.log('!!children!!',child,title,child.label, child.children)
-                      handleChild(child.children);
+                      // console.log('!!children!!',mychild,title,mychild.label, mychild.children)
                       return;
                     }
                     //
                     if (
-                      child.hasOwnProperty("children") > -1 &&
-                      ["radio", "checkbox"].indexOf(child.type) === -1
+                      mychild.hasOwnProperty("children") > -1 &&
+                      ["radio", "checkbox"].indexOf(mychild.type) === -1
                     ) {
                       if (
-                        this.formObj.model[child.name] &&
-                        child.name != "evalScore"
+                        this.formObj.model[mychild.name] &&
+                        mychild.name != "evalScore"
                       ) {
-                        html += `<span><span style='color:green'>${title}</span>:<span style='${child.style}'>${this
-                          .formObj.model[child.name] || ""}${child.suffixDesc ||
-                          ""}</span></span>`;
+                        html += `<span><span style='color:green'>${title}</span>:<span style='${mychild.style}'>${this
+                          .formObj.model[mychild.name] || ""}${mychild.suffixDesc ||
+                          ""}`;
                         hasNewLine?html+=newLine:html=html;
                       }
                       // else{
-                      //   html += `<p style="color:red">${ title }:${this.formObj.model[child.name]||""}</p>`
+                      //   html += `<p style="color:red">${ title }:${this.formObj.model[mychild.name]||""}</p>`
                       // }
                     }
                     //
@@ -704,6 +709,10 @@ export default {
           this.formObj.model[child.name]
         );
       }
+    },
+    isChineseChar(str){
+      var reg = /[\u4E00-\u9FA5\uF900-\uFA2D]/;
+      return reg.test(str);
     }
   }
 };

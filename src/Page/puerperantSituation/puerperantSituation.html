@@ -29,6 +29,14 @@
             <span v-else></span>
           </template>
         </ecrm-table-column>
+        <ecrm-table-column prop="patientId" label="ID" width="134" fixed="left">
+          <template slot-scope="scope">
+            <span v-if="scope.$index%2==0">
+              <el-input resize="none" type="textarea" @blur="handleEditDone(scope.$index,'patientId')"
+                :autosize="{ minRows: 1}" v-model="scope.row.patientId" />
+            </span>
+          </template>
+        </ecrm-table-column>
         <ecrm-table-column prop="female" label="姓名" width="134" fixed="left">
           <template slot-scope="scope">
             <span v-if="scope.$index%2==0">

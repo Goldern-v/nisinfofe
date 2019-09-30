@@ -4,7 +4,7 @@
   <span>
 
     <!-- 警报icon -->
-    <span v-if="['select','selectInput'].indexOf(obj.type)>-1 && alertMessage" :class="obj.suffixDesc?'alert-message-post':'alert-message'">
+    <div v-if="['select','selectInput'].indexOf(obj.type)>-1 && alertMessage" :class="obj.suffixDesc?'alert-message-post':'alert-message'">
       <el-tooltip
         class="item"
         effect="light"
@@ -23,7 +23,7 @@
           width="14"
         >
         </el-tooltip>
-      </span>
+      </div>
 
 
   <span style="margin: 0 0px 0 0;" class="input-box" :class="obj.suffixDesc?'postText':''">
@@ -139,6 +139,7 @@ export default {
     }
   },
   mounted() {
+    this.alertMessage = ""
     try {
       this.inputValue = this.formObj.model[this.obj.name];
     } catch (error) {}
@@ -531,6 +532,8 @@ export default {
 
 .input-box
   font-size 13px
+  // display: inline-flex;
+  // align-items: center;
   &:focus,:ative
     outline none
     border 1px solid #4baf8d
@@ -575,6 +578,7 @@ export default {
   padding: 0px 5px!important;
   height: 22px!important;
   background: transparent;
+  background: white;
   &:focus
     outline none
     border 1px solid #4baf8d
@@ -657,9 +661,10 @@ i {
   cursor: pointer;
   color:red;
   font-size:12px;
-  // position: absolute;
-  // margin-top: 7px;
-  // margin-left: 8px;
+  position: absolute;
+  margin-left: -10px!important;
+  margin-top: 0px;
+  z-index: 2;
 }
 
 .alert-message-post {

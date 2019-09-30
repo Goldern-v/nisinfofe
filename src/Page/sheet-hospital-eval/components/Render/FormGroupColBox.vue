@@ -99,9 +99,11 @@ export default {
         let space = 1
         for (let index = 0; index < str.length; index++) {
           let char = str[index];
-          if(str.length==4){space=1/3}
+          // let strNum=str.replace( /[^\u4E00-\u9FA5\uF900-\uFA2D]/g,'')
+          if(str.length>=4){space=1/3}
           if(str.length==3){space=1}
           if(str.length==2){space=3}
+          if(!this.isChineseChar(char)){space*=1.75}
           if(str.length==index+1){space=0}
           ret += `<span style='letter-spacing: ${space}em;display: inline-block;'>${char}</span>`
         }
@@ -130,6 +132,10 @@ export default {
       let uuid_ = uuid.v1();
       // console.log(uuid_)
       return uuid_;
+    },
+    isChineseChar(str){
+      var reg = /[\u4E00-\u9FA5\uF900-\uFA2D]/;
+      return reg.test(str);
     }
   }
 };
