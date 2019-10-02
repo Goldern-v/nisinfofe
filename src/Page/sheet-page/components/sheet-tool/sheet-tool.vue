@@ -557,6 +557,7 @@ export default {
           this.patientInfo.visitId,
           this.deptCode
         ).then(res => {
+          this.bus.$emit("setSheetTableLoading", false);
           this.selectList = [];
           this.sheetBlockList = res.data.data.list;
           this.sheetInfo.selectBlock =
