@@ -299,7 +299,7 @@ export default {
       }
     },
     getBlockByPV(){
-      if(process.env.HOSPITAL_ID == "hj"){
+      if(this.HOSPITAL_ID == "hj"){
         getBlockByPV(this.$route.query.patientId,this.$route.query.visitId).then(res=>{
           this.formTransfusionSafety = res.data.data || [];
         })
