@@ -300,10 +300,12 @@ export default {
       }
     },
     getBlockByPV(){
-      // getBlockByPV(this.$route.query.patientId,this.$route.query.visitId).then(res=>{
-      //   this.formTransfusionSafety = res.data.data || [];
-      //    console.log(this.formTransfusionSafety);
-      // })
+      console.log(this.HOSPITAL_ID);
+      if(this.HOSPITAL_ID == "hj" || this.HOSPITAL_ID == "houjie"){
+        getBlockByPV(this.$route.query.patientId,this.$route.query.visitId).then(res=>{
+          this.formTransfusionSafety = res.data.data || [];
+        })
+      }
     },
     getTreeData() {
       this.treeLoading = true;
@@ -324,7 +326,7 @@ export default {
           let list_1 = res[0].data.data.map(item => {
             index += 1;
             let childrenData;
-            if(item.formCode == 'form_transfusion_safety' && this.formTransfusionSafety){
+            if(item.formCode == 'form_transfusion_safety' && this.formTransfusionSafety && this.formTransfusionSafety.length){
               childrenData = this.formTransfusionSafety.map((option, i) => {
                 if (this.formTransfusionSafety.length - 1 == i) {
                   window.app.$store.commit('upFormLastId', {
