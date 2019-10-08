@@ -1,6 +1,8 @@
 <template>
   <div class="patient-list-part" :style="{left: openLeft?'0':'-201px'}">
-    <el-input placeholder="床号/姓名" icon="search" class="search-box" v-model="searchWord"></el-input>
+    <div  class="search-box" >
+      <el-input placeholder="床号/姓名" icon="search"  v-model="searchWord"></el-input>
+    </div>
     <div class="left-wapper">
       <div class="patient-list-contain">
         <div
@@ -281,6 +283,8 @@ export default {
       sortData.forEach((item, index) => {
         putSortList[index] = this.list[item.cacheNum];
       });
+      //
+      window.app.$store.commit('upPatientListObj', JSON.parse(JSON.stringify(putSortList)))
       return putSortList;
     },
     openLeft() {

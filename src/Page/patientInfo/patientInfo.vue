@@ -45,6 +45,9 @@ export default {
         this.inited = true;
         this.query = res.data.data;
         Object.assign(this.$route.query, this.query);
+        console.log('getPatientInfo',res)
+        // getPatientInfo
+        window.app.$store.commit('upCurrentPatientObj', JSON.parse(JSON.stringify(this.query)))
       }
     );
   },

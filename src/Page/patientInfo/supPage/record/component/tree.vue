@@ -218,6 +218,7 @@ export default {
         node.data.formName,
         data.pageTitle
       );
+      // window.app.$store.commit('upFormFilledData', data)
       // wid.setTitle(data.pageTitle+"健康教育单")
       this.bus.$emit("activeAllButons");
       // console.log("555555555555")
@@ -368,6 +369,7 @@ export default {
                     formCode:item.formCode,
                     id:option.id,
                     patientId:this.$route.query.patientId,
+                    visitId:this.$route.query.visitId,
                     evalDate:option.evalDate
                    })
                 }
@@ -428,7 +430,7 @@ export default {
               })
             };
           };
-          
+
 
           // console.log(res[1].data.data.length,"res[1].data.data")
           if (res[1].data.data.length > 0) {

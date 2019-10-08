@@ -8,6 +8,7 @@ import common from './module/common'
 import inBox from './module/inBox'
 import record from './module/record'
 import sheet from './module/sheet'
+import patient from './module/patient'
 import hospitalEval from './module/hospitalEval'
 Vue.use(vuex)
 
@@ -21,6 +22,7 @@ let store = new vuex.Store({
     inBox,
     record,
     sheet,
+    patient,
     hospitalEval
   }
 })
