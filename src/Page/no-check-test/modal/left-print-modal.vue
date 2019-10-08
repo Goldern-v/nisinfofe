@@ -1,7 +1,7 @@
 <template>
   <div class="left-print-modal">
     <sweet-modal ref="modal" :modalWidth="700" title="检查预约打印">
-      <div class="printable" ref="printable">
+      <div>
         <table v-for="(item,index) in printData" :key="index">
           <thead>
             <tr>
@@ -21,7 +21,26 @@
           </tbody>
         </table>
       </div>
-      <!-- <div ref="printable"></div> -->
+      <div class="printable" ref="printable" style="display: none;">
+        <table v-for="(item,index) in printData" :key="index">
+          <thead>
+            <tr>
+              <th>床号</th>
+              <th>姓名</th>
+              <th>检查时间</th>
+              <th>检查项目</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(rows,i) in item.data" :key="i">
+              <td>{{rows.bedLabel}}床</td>
+              <td>{{rows.nameOrigin || rows.name}}</td>
+              <td>{{rows.scheduleDate}}</td>
+              <td>{{rows.examItem}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
       <div slot="button">
         <el-button class="modal-btn" @click="close">取消</el-button>
         <el-button class="modal-btn" type="primary" @click="onPrint">打印</el-button>
@@ -114,8 +133,8 @@ export default {
         injectGlobalCss: true,
         scanStyles: false,
         css: `
-       .col-0 {
-         display: none !important;
+       .printable {
+         display: block !important;
        }
        body {
         background: #fff !important;

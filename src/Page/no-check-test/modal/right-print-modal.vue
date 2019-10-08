@@ -2,7 +2,7 @@
 <template>
   <div class="right-print-modal">
     <sweet-modal ref="modal" :modalWidth="700" title="未做化验打印">
-      <div class="printable" ref="printable">
+      <div>
         <table>
           <thead>
             <tr>
@@ -18,6 +18,28 @@
               <td>{{i+1}}</td>
               <td>{{rows.bedLabel}}床</td>
               <td>{{rows.name}}</td>
+              <td>{{rows.scheduleDate }}</td>
+              <td>{{rows.examItem}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="printable" ref="printable" style="display: none;">
+        <table>
+          <thead>
+            <tr>
+              <th>序号</th>
+              <th>床号</th>
+              <th>姓名</th>
+              <th>申请时间</th>
+              <th>化验项目</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(rows,i) in printData" :key="i">
+              <td>{{i+1}}</td>
+              <td>{{rows.bedLabel}}床</td>
+              <td>{{rows.nameOrigin || rows.name}}</td>
               <td>{{rows.scheduleDate }}</td>
               <td>{{rows.examItem}}</td>
             </tr>
@@ -111,6 +133,9 @@ export default {
         injectGlobalCss: true,
         scanStyles: false,
         css: `
+        .printable {
+         display: block !important;
+        }
         body {
         background: #fff !important;
        }
