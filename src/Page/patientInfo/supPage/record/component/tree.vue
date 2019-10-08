@@ -299,7 +299,8 @@ export default {
       }
     },
     getBlockByPV(){
-      if(this.HOSPITAL_ID == "hj"){
+      console.log(this.HOSPITAL_ID);
+      if(this.HOSPITAL_ID == "hj" || this.HOSPITAL_ID == "houjie"){
         getBlockByPV(this.$route.query.patientId,this.$route.query.visitId).then(res=>{
           this.formTransfusionSafety = res.data.data || [];
         })
