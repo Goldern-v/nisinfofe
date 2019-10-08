@@ -284,7 +284,12 @@ export default {
         putSortList[index] = this.list[item.cacheNum];
       });
       //
-      window.app.$store.commit('upPatientListObj', JSON.parse(JSON.stringify(putSortList)))
+      try {
+        this.$store.commit('upPatientListObj', JSON.parse(JSON.stringify(putSortList)))
+      } catch (error) {
+
+      }
+
       return putSortList;
     },
     openLeft() {

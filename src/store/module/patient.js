@@ -17,6 +17,9 @@ export default {
     },
     getCurrentPatient:(state)=>()=>{
       return state.currentPatient
+    },
+    getPatientList:(state)=>()=>{
+      return state.patientList
     }
   }
 }
