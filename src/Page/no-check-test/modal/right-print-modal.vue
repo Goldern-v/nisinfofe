@@ -2,7 +2,7 @@
 <template>
   <div class="right-print-modal">
     <sweet-modal ref="modal" :modalWidth="700" title="未做化验打印">
-      <div>
+      <div class="showTableContent">
         <table>
           <thead>
             <tr>
@@ -133,11 +133,11 @@ export default {
         injectGlobalCss: true,
         scanStyles: false,
         css: `
-        .printable {
-         display: block !important;
-        }
         body {
         background: #fff !important;
+       }
+       .printable {
+         display: block !important;
        }
        .pageBox {
          width: 740px;
