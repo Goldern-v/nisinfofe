@@ -11,8 +11,8 @@ export default {
     formLastId:[],
   },
   getters:{
-    getFormLastId:(state)=>({patientId,formCode,formName})=>{
-      return state.formLastId.find(form=> form.patientId == patientId && (form.formCode == formCode||form.formName == formName))
+    getFormLastId:(state)=>({patientId,visitId,formCode,formName})=>{
+      return state.formLastId.find(form=> form.patientId == patientId && form.visitId == visitId && (form.formCode == formCode||form.formName == formName))
     }
   },
   mutations: {
