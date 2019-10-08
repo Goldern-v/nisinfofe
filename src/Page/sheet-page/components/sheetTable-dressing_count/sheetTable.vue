@@ -36,9 +36,9 @@
             住院号：
             <div class="bottom-line" style="min-width: 50px">{{patientInfo.inpNo}}</div>
           </span>
-          <span>
+          <span @click="changeDate" style="cursor: pointer;">
             日期：
-            {{patientInfo.admissionDate | toymd}}
+            {{admissionDate | toymd}}
           </span>
         </div>
       </div>
@@ -235,7 +235,10 @@ export default {
   data() {
     return {
       bus: bus(this),
-      sheetInfo
+      sheetInfo,
+      admissionDate:
+        (sheetInfo.relObj && sheetInfo.relObj.admissionDate) ||
+        sheetInfo.selectBlock.admissionDate
     };
   },
   methods: {
@@ -262,6 +265,17 @@ export default {
         autoText,
         `修改${label}`
       );
+    },
+    changeDate() {
+      window.openSetAuditDateModal(
+        date => {
+          this.admissionDate = date;
+          sheetInfo.relObj.admissionDate = date;
+          this.$message.success("修改日期成功，保存护记后生效");
+        },
+        this.admissionDate,
+        "修改日期"
+      );
     }
   },
   computed: {
@@ -278,7 +292,7 @@ export default {
   },
   filters: {
     toymd(val) {
-      return moment(val).format("YYYY年MM月DD日");
+      return val ? moment(val).format("YYYY年MM月DD日") : "";
     }
   },
   created() {},
