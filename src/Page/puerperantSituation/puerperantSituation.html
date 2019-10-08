@@ -25,7 +25,10 @@
         v-loading="tableLoading" style="width: 100%;">
         <ecrm-table-column prop="hospitalizationNumber" label="住院号" width="100" fixed="left">
           <template slot-scope="scope">
-            <span v-if="scope.$index%2==0">{{scope.row.hospitalizationNumber}}</span>
+            <span v-if="scope.$index%2==0">
+              <el-input resize="none" type="textarea" @blur="handleEditDone(scope.$index,'hospitalizationNumber')"
+                :autosize="{ minRows: 1}" v-model="scope.row.hospitalizationNumber" />
+            </span>
             <span v-else></span>
           </template>
         </ecrm-table-column>

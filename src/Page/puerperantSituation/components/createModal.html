@@ -17,7 +17,7 @@
             <span>号:</span>
           </div>
           <div class="content">
-            <el-input size="small" :disabled="true" v-model="params.hospitalizationNumber"/>
+            <el-input size="small" v-model="params.hospitalizationNumber"/>
           </div>
         </el-col>
         <el-col :span="8">
@@ -36,7 +36,7 @@
           </div>
           <div class="content">
             <el-select
-              v-model="patientId"
+              v-model="patientName"
               placeholder="产妇姓名/床号/住院号" 
               filterable
               :filter-method="patientsFilterMethod"
@@ -46,7 +46,7 @@
                   :key="idx"
                   v-if="patientOptionVisible(item,filterSearch)"
                   :label="item.name"
-                  :value="item.patientId">
+                  :value="item.name+' '+item.patientId">
                   <div>
                     <div style="float: left;">{{item.name}}</div>
                     <div  style="float: right;">{{item.bedLabel}}床</div>

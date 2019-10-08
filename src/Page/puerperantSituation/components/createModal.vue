@@ -72,7 +72,7 @@ export default {
         birthCertificateNum: '',
         remarks: ''
       },
-      patientId:'',
+      patientName:'',
       patientList:[],
       patientListFiltered:[],
       filterSearch: '',
@@ -96,6 +96,9 @@ export default {
   },
   methods: {
     patientsFilterMethod(search){
+      this.patientName = search
+      this.params.female = search
+
       this.filterSearch = search;
     },
     patientOptionVisible(item,search){
@@ -153,19 +156,24 @@ export default {
          this.saveLoading = false;
       })
     },
-    handlePatinentChange(patientId){
+    handlePatinentChange(patientOptionVal){
+      let patientName = patientOptionVal.split(' ')[0]
+      let patientId = patientOptionVal.split(' ')[1]||null
+
       if(!patientId)return
       let target = this.patientList.find((item)=>item.patientId==patientId);
-      if(target)this.params.female=target.name
-      this.params.hospitalizationNumber = target.inpNo
-      this.params.patientId = target.patientId
-      this.setPatientInfo()
+      if(target){
+        this.params.female=target.name
+        this.params.hospitalizationNumber = target.inpNo
+        this.params.patientId = target.patientId
+        this.setPatientInfo(target.patientId)
+      }
     },
-    setPatientInfo(){
+    setPatientInfo(patientId){
       Promise.all([
-        getPatientInfo(this.patientId,'1'),
+        getPatientInfo(patientId,'1'),
         getCommonInfo({
-          list:[{patientId:this.patientId,visitId:'1'}]
+          list:[{patientId:patientId,visitId:'1'}]
         })
       ])
       .then(res=>{
@@ -199,19 +207,6 @@ export default {
 
       })
     },
-    filterPatients(ipt){
-      if(ipt){
-        this.patientListFiltered = this.patientList.filter((item)=>{
-          if(item.bedLabel.match(ipt)||item.inpNo.match(ipt)||item.name.match(ipt))
-          return true
-          
-          return false
-        })
-      }else{
-        this.patientListFiltered = this.patientList.concat();
-      }
-      
-    },
     handleNumberChange(val,name){
       if(!val){
         this.params[name] = ''
@@ -239,7 +234,7 @@ export default {
       this.dialogVisible=val;
       if(!val){
         if(this.$refs.modal.is_open)this.$refs.modal.close()
-        this.patientId=''
+        this.patientName=''
         for(let x in this.params){
           this.params[x]=''
         }
