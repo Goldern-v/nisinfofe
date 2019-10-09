@@ -450,7 +450,8 @@ export default {
       firstTableBody,
       firstTableBody1,
       mid: ["", ""],
-      bus: bus(this)
+      bus: bus(this),
+      relObj: {...sheetInfo.relObj}
     };
   },
   methods: {
@@ -601,7 +602,7 @@ export default {
       this.$set(this.sheetInfo.selectBlock, "relSignInfo", {});
     }
 
-    if (JSON.stringify(this.sheetInfo.relObj) == "{}") {
+    if (JSON.stringify(this.relObj) == "{}") {
       Object.assign(this.sheetInfo.relObj, this.firstTableBody1);
     }
   },

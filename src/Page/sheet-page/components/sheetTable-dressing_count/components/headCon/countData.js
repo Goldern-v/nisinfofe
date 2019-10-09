@@ -25,7 +25,7 @@ export const firstTableBody = [{
   name: "剪刀",
   deliveryBefore: "",
   deliveryAfter: "",
-  name1: "脐卷",
+  name1: "脐包",
   deliveryBefore1: "",
   deliveryAfter1: ""
 }, {
@@ -67,52 +67,52 @@ export const firstTableBody = [{
 
 export const firstTableBody1 = {
   name1: "血管钳",
-  deliveryBefore1: "",
-  deliveryAfter1: ""
+  deliveryBefore1: "4",
+  deliveryAfter1: "4"
   ,
   name2: "纱块",
-  deliveryBefore2: "",
-  deliveryAfter2: ""
+  deliveryBefore2: "2",
+  deliveryAfter2: "2"
   ,
   name3: "持针器",
-  deliveryBefore3: "",
-  deliveryAfter3: ""
+  deliveryBefore3: "1",
+  deliveryAfter3: "1"
   ,
   name4: "有尾纱",
-  deliveryBefore4: "",
-  deliveryAfter4: ""
+  deliveryBefore4: "5",
+  deliveryAfter4: "5"
   ,
   name5: "剪刀",
-  deliveryBefore5: "",
-  deliveryAfter5: ""
+  deliveryBefore5: "2",
+  deliveryAfter5: "2"
   ,
   name6: "脐包",
-  deliveryBefore6: "",
-  deliveryAfter6: ""
+  deliveryBefore6: "1",
+  deliveryAfter6: "1"
   ,
   name7: "镊子",
-  deliveryBefore7: "",
-  deliveryAfter7: ""
+  deliveryBefore7: "1",
+  deliveryAfter7: "1"
   ,
   name8: "注射器",
-  deliveryBefore8: "",
-  deliveryAfter8: ""
+  deliveryBefore8: "3",
+  deliveryAfter8: "3"
   ,
   name9: "",
   deliveryBefore9: "",
   deliveryAfter9: ""
   ,
   name10: "缝针",
-  deliveryBefore10: "",
-  deliveryAfter10: ""
+  deliveryBefore10: "1",
+  deliveryAfter10: "1"
   ,
   name11: "",
   deliveryBefore11: "",
   deliveryAfter11: ""
   ,
   name12: "封闭针",
-  deliveryBefore12: "",
-  deliveryAfter12: ""
+  deliveryBefore12: "0",
+  deliveryAfter12: "0"
   ,
   name13: "",
   deliveryBefore13: "",

@@ -38,7 +38,7 @@
           </span>
           <span @click="changeDate" style="cursor: pointer;">
             日期：
-            {{admissionDate | toymd}}
+            {{createTime | toymd}}
           </span>
         </div>
       </div>
@@ -236,9 +236,9 @@ export default {
     return {
       bus: bus(this),
       sheetInfo,
-      admissionDate:
-        (sheetInfo.relObj && sheetInfo.relObj.admissionDate) ||
-        sheetInfo.selectBlock.admissionDate
+      createTime:
+        (sheetInfo.relObj && sheetInfo.relObj.createTime) ||
+        sheetInfo.selectBlock.createTime
     };
   },
   methods: {
@@ -269,11 +269,11 @@ export default {
     changeDate() {
       window.openSetAuditDateModal(
         date => {
-          this.admissionDate = date;
-          sheetInfo.relObj.admissionDate = date;
+          this.createTime = date;
+          sheetInfo.relObj.createTime = date;
           this.$message.success("修改日期成功，保存护记后生效");
         },
-        this.admissionDate,
+        this.createTime,
         "修改日期"
       );
     }
