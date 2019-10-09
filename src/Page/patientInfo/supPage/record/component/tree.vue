@@ -325,32 +325,6 @@ export default {
           //
           let list_1 = res[0].data.data.map(item => {
             index += 1;
-            let childrenData;
-            if(item.formCode == 'form_transfusion_safety' && this.formTransfusionSafety && this.formTransfusionSafety.length){
-              childrenData = this.formTransfusionSafety.map((option, i) => {
-                if (this.formTransfusionSafety.length - 1 == i) {
-                  window.app.$store.commit('upFormLastId', {
-                    formName:item.formName,
-                    formCode:item.formCode,
-                    id:option.id,
-                    patientId:this.$route.query.patientId,
-                    evalDate:option.creatDate
-                    })
-                }
-                return {
-                  status: option.status,
-                  label: `${option.creatDate}
-                  ${option.wardAlias}
-                  ${option.countSize ? option.countSize + "条" : ""}
-                  ${option.evalScore ? option.evalScore + "分" : ""}
-                  ${option.pusherName ? option.pusherName : option.creatorName}`,
-                  // ${option.status == 0 ? "T" : option.status}`,
-                  form_id: option.id,
-                  formName: item.formName,
-                  id:option.id,
-                };
-              });
-            }
             return {
               label: item.formName,
               index: index,
@@ -360,7 +334,7 @@ export default {
               listPrint: item.listPrint,
               nooForm: item.nooForm,
               pageUrl: item.pageUrl,
-              children: childrenData || item.formInstanceDtoList.map((option, i) => {
+              children: item.formInstanceDtoList.map((option, i) => {
                 //
                 // item.formCode
                 // this.$store.state.form.upFormLastId
@@ -373,7 +347,7 @@ export default {
                     patientId:this.$route.query.patientId,
                     visitId:this.$route.query.visitId,
                     evalDate:option.evalDate
-                   })
+                  })
                 }
                 // formName: "疼痛护理单"
                 // 查找第一张填写的疼痛评估单
@@ -433,12 +407,38 @@ export default {
             };
           };
 
-
+          
           // console.log(res[1].data.data.length,"res[1].data.data")
           if (res[1].data.data.length > 0) {
             list_1.push(list_2(res[1].data.data));
           }
-          // console.log(this.filterObj, "aaaa");
+
+          let list_3 = {
+            label: "输血安全护理记录单",
+            index: index+1,
+            formCode: "form_transfusion_safety",
+            nooForm: 2,
+            pageUrl: "输血安全护理记录单.html",
+            children: this.formTransfusionSafety.map(option => {
+              return {
+                status: option.status,
+                label: `${option.creatDate}
+                  ${option.wardAlias}
+                  ${option.countSize ? option.countSize + "条" : ""}
+                  ${option.evalScore ? option.evalScore + "分" : ""}
+                  ${option.pusherName ? option.pusherName : option.creatorName}`,
+                  // ${option.status == 0 ? "T" : option.status}`,
+                form_id: option.id,
+                formName: "输血安全护理记录单"
+              };
+            })
+          };
+
+          list_1 = list_1.filter(item => item.formCode != "form_transfusion_safety");
+          if(this.formTransfusionSafety.length){
+            list_1.push(list_3);
+          }
+
           if (this.filterObj) {
             this.regions = list_1.filter(
               item => item.label == this.filterObj.label

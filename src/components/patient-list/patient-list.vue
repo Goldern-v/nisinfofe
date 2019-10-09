@@ -1,7 +1,7 @@
 <template>
   <div class="patient-list-part" :style="{left: openLeft?'0':'-201px'}">
-    <div  class="search-box" >
-      <el-input placeholder="床号/姓名" icon="search"  v-model="searchWord"></el-input>
+    <div class="search-box">
+      <el-input placeholder="床号/姓名" icon="search" v-model="searchWord"></el-input>
     </div>
     <div class="left-wapper">
       <div class="patient-list-contain">
@@ -220,12 +220,14 @@ export default {
   methods: {
     selectPatient(item) {
       this.selectPatientId = item.patientId;
-      if(this.isSelectPatient){
+      if (this.isSelectPatient) {
         this.isSelectPatient(item);
       }
     },
     isActive(item) {
-      return item.patientId == this.selectPatientId; //this.$route.query.patientId;
+      return (
+        item.patientId == (this.selectPatientId || this.$route.query.patientId)
+      );
     },
     toOpenLeft() {
       this.$store.commit("upOpenSheetLeft", !this.openLeft);
@@ -285,10 +287,11 @@ export default {
       });
       //
       try {
-        this.$store.commit('upPatientListObj', JSON.parse(JSON.stringify(putSortList)))
-      } catch (error) {
-
-      }
+        this.$store.commit(
+          "upPatientListObj",
+          JSON.parse(JSON.stringify(putSortList))
+        );
+      } catch (error) {}
 
       return putSortList;
     },
