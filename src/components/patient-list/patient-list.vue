@@ -222,6 +222,8 @@ export default {
       this.selectPatientId = item.patientId;
       if (this.isSelectPatient) {
         this.isSelectPatient(item);
+        //
+        this.$store.commit('upCurrentPatientObj', JSON.parse(JSON.stringify(item)))
       }
     },
     isActive(item) {
