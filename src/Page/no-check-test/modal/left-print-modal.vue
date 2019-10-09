@@ -1,7 +1,7 @@
 <template>
   <div class="left-print-modal">
     <sweet-modal ref="modal" :modalWidth="700" title="检查预约打印">
-      <div>
+      <div class="showTableContent">
         <table v-for="(item,index) in printData" :key="index">
           <thead>
             <tr>

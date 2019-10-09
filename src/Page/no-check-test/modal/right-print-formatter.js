@@ -8,7 +8,7 @@ export default function (win) {
   pageBox.className = "pageBox";
   pageBox.style = 'height:' + page_height + 'px';
 
-  let rowsArr = document.querySelectorAll('.right-print-modal .printable tr');
+  let rowsArr = document.querySelectorAll('.right-print-modal .showTableContent tr');
 
   // 获取打印元素
   const root = win.document.body.children[0];

@@ -12,7 +12,7 @@ export default function (win) {
     const root = win.document.body.children[0];
 
     // 获取所有行数
-    let originalRowsArr = document.querySelectorAll('.left-print-modal .printable tr');
+    let originalRowsArr = document.querySelectorAll('.left-print-modal .showTableContent tr');
     // 获取打印行数(把每行高度添加进去)
     let printRowsArr = root.querySelectorAll('.printable tr');
     originalRowsArr = Array.from(originalRowsArr);
