@@ -6,7 +6,7 @@ import customPagenation from "./components/pagination";
 import editModal from "./components/editModal";
 import createModal from "./components/createModal";
 import moment from "moment";
-import {getList,changeOrSaveForm,deleteForm} from './api/api'
+import {getList,changeOrSaveForm,deleteForm,getPatEmrList} from './api/api'
 
 export default {
   components: {
@@ -46,7 +46,7 @@ export default {
       tableHeight: 0,
       tableData: [],
       eduOptions:['文盲','小学','中学','大专','大专以上'],
-      childBirthWayOptions:['顺产','吸引产','钳产','剖宫产','臀助产','臀牵引'],
+      childBirthWayOptions:['顺产','吸引产','钳产','剖宫产','臀助产','臀牵引','院外分娩'],
       sexOptions:['男','女'],
       birthCertificateNumOptions:['有','无'],
       hadOxytocinOptions: ['是','否'],

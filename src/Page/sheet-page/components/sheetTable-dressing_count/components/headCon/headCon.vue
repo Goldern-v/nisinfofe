@@ -619,7 +619,7 @@ export default {
 
 <style lang='scss'>
 .tableCon {
-  width: 700px;
+  width: 800px;
   font-family: simsun, "Times New Roman", Georgia, Serif;
   font-size: 12px;
   .firstTabel {
