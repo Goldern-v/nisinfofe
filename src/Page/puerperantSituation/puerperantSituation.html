@@ -248,7 +248,7 @@
               </template>
             </ecrm-table-column>
           </ecrm-table-column>
-          <ecrm-table-column label="分娩方式" prop="childBirthWay" width="80" align="center">
+          <ecrm-table-column label="分娩方式" prop="childBirthWay" width="90" align="center">
             <template slot-scope="scope">
               <el-select v-model="scope.row.childBirthWay" @change="()=>handleEditDone(scope.$index,'childBirthWay')"
                 placeholder=" ">
@@ -295,6 +295,12 @@
               <template slot-scope="scope">
                 <el-input resize="none" type="textarea" @blur="handleEditDone(scope.$index,'perineumSituation')"
                   :autosize="{ minRows: 1}" v-model="scope.row.perineumSituation" />
+              </template>
+            </ecrm-table-column>
+            <ecrm-table-column label="完整" prop="perineumSituationFull" width="100" align="center">
+              <template slot-scope="scope">
+                <el-input resize="none" type="textarea" @blur="handleEditDone(scope.$index,'perineumSituationFull')"
+                  :autosize="{ minRows: 1}" v-model="scope.row.perineumSituationFull" />
               </template>
             </ecrm-table-column>
           </ecrm-table-column>
