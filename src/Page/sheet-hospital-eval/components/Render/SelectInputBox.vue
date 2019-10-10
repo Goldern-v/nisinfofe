@@ -116,18 +116,18 @@ export default {
   computed: {},
   watch: {
     inputValue(valueNew, oldvaule) {
-      console.log("inputValue:", valueNew, oldvaule);
+      // console.log("inputValue:", valueNew, oldvaule);
       this.formObj.model[this.obj.name] = valueNew;
       this.checkValueRule(valueNew);
-      console.log("obj:", this.obj, this.$refs);
+      // console.log("obj:", this.obj, this.$refs);
       this.isShowDownList = false;
 
       /** 如果存在clone ref */
       setTimeout(() => {
-        if (this.isClone) {
+        if (this.isClone && this.$root.$refs[this.obj.name].setCurrentValue) {
           this.$root.$refs[this.obj.name].setCurrentValue(valueNew);
           this.$root.$refs[this.obj.name].$parent.checkValueRule(valueNew);
-        } else if (this.$root.$refs[this.obj.name + "_clone"]) {
+        } else if (this.$root.$refs[this.obj.name + "_clone"] && this.$root.$refs[this.obj.name + "_clone"].setCurrentValue) {
           this.$root.$refs[this.obj.name + "_clone"].setCurrentValue(valueNew);
           this.$root.$refs[this.obj.name + "_clone"].$parent.checkValueRule(
             valueNew
@@ -201,7 +201,7 @@ export default {
         this.obj.rule &&
         this.obj.rule.constructor === Array
       ) {
-        console.log("rule:", this.obj.rule);
+        // console.log("rule:", this.obj.rule);
         // 遍历规则
         this.obj.rule.map(r => {
           let [min, max] = [Number(r.min), Number(r.max)];

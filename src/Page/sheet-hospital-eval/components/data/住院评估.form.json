@@ -1614,60 +1614,6 @@
           "style": null,
           "class": null,
           "readOnly": null
-        },
-        {
-          "name": "I100064",
-          "type": "",
-          "title": "毛细血管充盈",
-          "inputWidth":"212px",
-          "leftTdStyle":"min-width:85px!important",
-          "style": null,
-          "class": "input-elements-nowrap",
-          "readOnly": null,
-          "children": [
-            {
-              "name": "I100064",
-              "type": "select",
-              "title": "毛细血管充盈",
-              "inputWidth":"212px",
-              "leftTdStyle":"min-width:85px!important",
-              "style": null,
-              "class": null,
-              "readOnly": null,
-              "options": [
-                "阴性",
-                "阳性"
-              ],
-              "rule": [
-                {
-                  "equals": [
-                    "阳性"
-                  ],
-                  "style": "color: red;border-color: red;"
-                }
-              ],
-              "tips":"毛细血管充盈说明"
-            },
-            {
-              "name": "I100064",
-              "type": "help",
-              "title": "毛细血管充盈说明",
-              "style": null,
-              "elementStyle": "margin-left: 8px;",
-              "class": "help-image",
-              "labelStyle": "",
-              "labelClass": "select-label",
-              "readOnly": null,
-              "dialog": {
-                "title": "毛细血管充盈说明",
-                "default": "毛细血管充盈说明",
-                "okText": "好的，知道了",
-                "hasCancel": false,
-                "type": "dependent"
-              },
-              "tips":"<p style='color:green'>毛细血管充盈说明:</p><p><span style='color:blue'>阴性</span>    撤除压力后，局部皮肤颜色由白转红的时间≤2s</p><p><span style='color:blue'>阳性</span>    撤除压力后，局部皮肤颜色由白转红的时间＞3s,或成斑点状发红</p>"
-            }
-          ]
         }
       ]
     },
@@ -1737,6 +1683,60 @@
       "readOnly": null,
       "children": [
         {
+          "name": "I100064",
+          "type": "",
+          "title": "毛细血管充盈",
+          "inputWidth":"212px",
+          "leftTdStyle":"min-width:85px!important",
+          "style": null,
+          "class": "input-elements-nowrap",
+          "readOnly": null,
+          "children": [
+            {
+              "name": "I100064",
+              "type": "select",
+              "title": "毛细血管充盈",
+              "inputWidth":"212px",
+              "leftTdStyle":"min-width:85px!important",
+              "style": null,
+              "class": null,
+              "readOnly": null,
+              "options": [
+                "阴性",
+                "阳性"
+              ],
+              "rule": [
+                {
+                  "equals": [
+                    "阳性"
+                  ],
+                  "style": "color: red;border-color: red;"
+                }
+              ],
+              "tips":"毛细血管充盈说明"
+            },
+            {
+              "name": "I100064",
+              "type": "help",
+              "title": "毛细血管充盈说明",
+              "style": null,
+              "elementStyle": "margin-left: 8px;",
+              "class": "help-image",
+              "labelStyle": "",
+              "labelClass": "select-label",
+              "readOnly": null,
+              "dialog": {
+                "title": "毛细血管充盈说明",
+                "default": "毛细血管充盈说明",
+                "okText": "好的，知道了",
+                "hasCancel": false,
+                "type": "dependent"
+              },
+              "tips":"<p style='color:green'>毛细血管充盈说明:</p><p><span style='color:blue'>阴性</span>    撤除压力后，局部皮肤颜色由白转红的时间≤2s</p><p><span style='color:blue'>阳性</span>    撤除压力后，局部皮肤颜色由白转红的时间＞3s,或成斑点状发红</p>"
+            }
+          ]
+        },
+        {
           "name": "I100066",
           "type": "select",
           "title": "皮肤颜色",
@@ -1796,7 +1796,14 @@
           "title": "水肿范围",
           "style": null,
           "class": null,
-          "readOnly": null
+          "readOnly": null,
+          "rule": [
+            {
+              "diff": "无",
+              "message":"有皮肤受损的危险",
+              "style": "color: red;border-color: red;"
+            }
+          ]
         },
         {
           "name": "I100074",
@@ -1839,7 +1846,40 @@
           "leftTdStyle":"min-width:85px!important",
           "style": null,
           "class": null,
-          "readOnly": null
+          "readOnly": null,
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "有",
+                "cleanKey": "无",
+                "title": "肢体活动受限",
+                "default": "肢体活动受限",
+                "type": "dependent"
+              }
+            }
+          ]
+        },
+        {
+          "name": "I100159",
+          "type": "select",
+          "title": "伤口皮肤情况",
+          "inputWidth":"212px",
+          "leftTdStyle":"min-width:85px!important",
+          "elementStyle":"width: 270px;",
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "异常",
+                "cleanKey": "正常",
+                "title": "伤口皮肤情况异常",
+                "default": "伤口皮肤情况异常",
+                "type": "dependent"
+              }
+            }
+          ]
         },
         {
           "name": "I100078",
@@ -2191,7 +2231,8 @@
                 "openKey": "正常",
                 "cleanKey": [
                   "失禁",
-                  "造瘘"
+                  "造瘘",
+                  "腹泻"
                 ],
                 "title": "大便频率",
                 "default": "大便频率",
@@ -2203,7 +2244,8 @@
                 "openKey": "便秘",
                 "cleanKey": [
                   "失禁",
-                  "造瘘"
+                  "造瘘",
+                  "腹泻"
                 ],
                 "title": "大便频率",
                 "default": "大便频率",
@@ -2215,7 +2257,9 @@
                 "openKey": "腹泻",
                 "cleanKey": [
                   "失禁",
-                  "造瘘"
+                  "造瘘",
+                  "便秘",
+                  "正常"
                 ],
                 "title": "腹泻",
                 "default": "腹泻",

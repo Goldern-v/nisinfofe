@@ -362,6 +362,9 @@ export default {
       let dialog = [];
       let html = "";
       let newLine = "<br/>";
+      let childrenArr = []
+      let fIndex = -1
+
       if (child.rule && child.rule.hasOwnProperty("dialog") > -1) {
         let d = child.rule.filter(item => {
           return item.dialog;
@@ -380,6 +383,7 @@ export default {
         }
       }
       if (isShow) {
+
         // console.log('!!!dialogs',dialog[0].dialog.title,dialog)
         dialog.map(d => {
           if (d) {
@@ -480,10 +484,14 @@ export default {
                 //
                 console.log("error", e);
               }
+
               //
               let handleChild = children => {
                 if (children) {
-                  children.map(mychild => {
+                  // console.log('!!!children',children,children.length)
+
+                  children.map((mychild,cindex) => {
+
                     title =
                       children.aliasTitle ||
                       mychild.aliasTitle ||
@@ -496,6 +504,19 @@ export default {
                     ) {
                       return;
                     }
+                    if(childrenArr && childrenArr.length>0){
+                      fIndex = childrenArr.findIndex(res=>{
+                        return res.name == mychild.name && res.type == mychild.type
+                      })
+                      if(fIndex!=-1){return}else{
+                        childrenArr = [...childrenArr, mychild]
+                      }
+                    }else{
+                      childrenArr = [...childrenArr, mychild]
+                    }
+
+                    // console.log('childrenArr:',fIndex,mychild.name,childrenArr)
+
                     //
                     if (mychild.children) {
                       if (this.formObj.model[child.name]) {

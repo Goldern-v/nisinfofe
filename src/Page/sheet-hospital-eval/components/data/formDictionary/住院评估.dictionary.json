@@ -272,11 +272,6 @@
   ],
   "I100075": [
     {
-      "code": "I度水肿",
-      "name": "I度水肿",
-      "pinyin": "Idsz"
-    },
-    {
       "code": "无",
       "name": "无",
       "pinyin": "w"
@@ -295,6 +290,11 @@
       "code": "重度",
       "name": "重度",
       "pinyin": "zd"
+    },
+    {
+      "code": "I度水肿",
+      "name": "I度水肿",
+      "pinyin": "Idsz"
     },
     {
       "code": "II度水肿",
@@ -940,6 +940,13 @@
       "pinyin": "yx"
     }
   ],
+  "I100065": [
+    {
+      "code": "缓脉",
+      "name": "缓脉",
+      "pinyin": "hm"
+    }
+  ],
   "I100067": [
     {
       "code": "脉搏短绌",
@@ -1056,19 +1063,9 @@
       "pinyin": "w"
     },
     {
-      "code": "轻度",
-      "name": "轻度",
-      "pinyin": "qd"
-    },
-    {
-      "code": "中度",
-      "name": "中度",
-      "pinyin": "zd"
-    },
-    {
-      "code": "重度",
-      "name": "重度",
-      "pinyin": "zd"
+      "code": "有",
+      "name": "有",
+      "pinyin": "y"
     }
   ],
   "I100078": [
