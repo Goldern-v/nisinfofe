@@ -156,7 +156,7 @@ export default {
     this.$root.$refs.diagnosisSlide = this.$refs.diagnosisSlide;
     this.$root.$refs.diagnosisModal = this.$refs.diagnosisModal;
     this.$root.$refs.templateSlide = this.$refs.templateSlide;
-    console.log(this.$refs.dialogBox);
+    // console.log(this.$refs.dialogBox);
 
     //
     let allInputs = this.$root.$refs.mainPage.querySelectorAll(
@@ -197,7 +197,7 @@ export default {
         // 初始化绑定UI字段
         this.modelBindUI(this.formObj.body, this.formObj);
         //
-        console.log("modelBindUI", this.formObj);
+        // console.log("modelBindUI", this.formObj);
         //
         try {
           this.showUIEditor = this.formObj.pageSetting.mode === "development";
@@ -217,7 +217,7 @@ export default {
       if (!formArray) {
         return;
       }
-      console.log("--constructor", formArray.constructor);
+      // console.log("--constructor", formArray.constructor);
       switch (formArray.constructor) {
         case Array:
           // 初始化类型

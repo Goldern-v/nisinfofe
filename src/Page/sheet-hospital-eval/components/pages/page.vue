@@ -94,7 +94,7 @@ export default {
   },
   watch: {
     loading(newVal, oldVal) {
-      console.log("loading", newVal, oldVal, this.isShowLoadingLayout);
+      // console.log("loading", newVal, oldVal, this.isShowLoadingLayout);
       this.isShowLoadingLayout = newVal;
     }
   },
@@ -185,7 +185,7 @@ export default {
         }
 
         if (patient) {
-          console.log(patient, "patientpatientpatientpatient");
+          // console.log(patient, "patientpatientpatientpatient");
           this.setPatientInfo(djson, patient);
         }
         if (djson.constructor === Array) {

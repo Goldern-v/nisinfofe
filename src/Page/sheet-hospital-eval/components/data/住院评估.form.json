@@ -240,7 +240,7 @@
             },
             {
               "min": "38.6",
-              "max": "999",
+              "max": "Infinity",
               "equal": "",
               "message": "体温过高",
               "style": "color: red;border-color: red;"
@@ -267,7 +267,7 @@
             },
             {
               "min": "110",
-              "max": "999",
+              "max": "Infinity",
               "equal": "",
               "message":"心率脉率异常",
               "style": "color: red;border-color: red;"
@@ -291,7 +291,7 @@
             },
             {
               "min": "25",
-              "max": "999",
+              "max": "Infinity",
               "equal": "",
               "message": "低效性呼吸形态",
               "style": "color: red;border-color: red;"
@@ -316,7 +316,7 @@
             },
             {
               "min": "90",
-              "max": "999",
+              "max": "Infinity",
               "equal": "",
               "style": "color:black"
             }
@@ -366,7 +366,7 @@
           "rule": [
             {
               "min": 7.8,
-              "max": 999,
+              "max": "Infinity",
               "message":"血糖异常",
               "style": "color: red;border-color: red;"
             },
@@ -395,7 +395,7 @@
             },
             {
               "min": "12",
-              "max": "999",
+              "max": "Infinity",
               "equal": "",
               "message":"CVP异常",
               "style": "color: red;border-color: red;"
@@ -491,7 +491,7 @@
             },
             {
               "min": "40",
-              "max": "999",
+              "max": "Infinity",
               "equal": "",
               "message": "极重度肥胖",
               "style": "color: red;border-color: red;"
@@ -1058,7 +1058,7 @@
             },
             {
               "min": 25,
-              "max": 999,
+              "max": "Infinity",
               "message": "呼吸次数异常",
               "style": "color: red;border-color: red;"
             }
@@ -1102,6 +1102,76 @@
             },
             {
               "equal": "有",
+              "style": "color: red;border-color: red;"
+            }
+          ]
+        },
+        {
+          "name": "I100141",
+          "type": "select",
+          "title": "口唇甲床紫绀",
+          "inputWidth":"212px",
+          "leftTdStyle":"min-width:85px!important",
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "rule": [
+            {
+              "diff": "无",
+              "message":"有，每天评估",
+              "style": "color: red;border-color: red;"
+            }
+          ]
+        },
+        {
+          "name": "I100142",
+          "type": "select",
+          "title": "紫绀程度",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I100143",
+          "type": "select",
+          "title": "卧位",
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "rule": [
+            {
+              "diff": "无",
+              "message":"有，每天评估",
+              "style": "color: red;border-color: red;"
+            }
+          ]
+        },
+        {
+          "name": "I100144",
+          "type": "select",
+          "title": "鼻塞鼻涕",
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "rule": [
+            {
+              "diff": "无",
+              "message":"有，每天评估",
+              "style": "color: red;border-color: red;"
+            }
+          ]
+        },
+        {
+          "name": "I100145",
+          "type": "select",
+          "title": "其他症状",
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "rule": [
+            {
+              "diff": "无",
+              "message":"有，每天评估",
               "style": "color: red;border-color: red;"
             }
           ]
@@ -1225,6 +1295,30 @@
               "style": "color: red;border-color: red;"
             }
           ]
+        },
+        {
+          "name": "I100146",
+          "type": "select",
+          "title": "机械通气",
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "有",
+                "cleanKey": "无",
+                "title": "机械通气",
+                "parentName": "I100146",
+                "type": "dependent"
+              }
+            },
+            {
+              "diff": "无",
+              "message":"有，每天评估",
+              "style": "color: red;border-color: red;"
+            }
+          ]
         }
       ]
     },
@@ -1316,16 +1410,81 @@
           ]
         },
         {
-          "name": "I100039",
+          "name": "I100152",
           "type": "select",
           "isClone": true,
-          "title": "胸闷",
+          "title": "胸痛",
           "style": null,
           "class": null,
           "readOnly": null,
           "rule": [
             {
-              "equal": "有",
+              "diff": "无",
+              "message":"有，每班评估",
+              "style": "color: red;border-color: red;"
+            }
+          ]
+        },
+        {
+          "name": "I100026",
+          "type": "select",
+          "isClone": true,
+          "title": "头晕",
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "rule": [
+            {
+              "diff": "无",
+              "message":"有，每班评估",
+              "style": "color: red;border-color: red;"
+            }
+          ]
+        },
+        {
+          "name": "I100153",
+          "type": "select",
+          "isClone": true,
+          "title": "头痛",
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "rule": [
+            {
+              "diff": "无",
+              "message":"有，每班评估",
+              "style": "color: red;border-color: red;"
+            }
+          ]
+        },
+        {
+          "name": "I100154",
+          "type": "select",
+          "isClone": true,
+          "title": "水肿",
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "rule": [
+            {
+              "diff": "无",
+              "message":"有，每班评估",
+              "style": "color: red;border-color: red;"
+            }
+          ]
+        },
+        {
+          "name": "I100157",
+          "type": "select",
+          "isClone": true,
+          "title": "内瘘震颤音",
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "rule": [
+            {
+              "diff": "无",
+              "message":"有，每天评估",
               "style": "color: red;border-color: red;"
             }
           ]

@@ -409,7 +409,7 @@ export default {
                   //   this.formObj.model[child.name]
                   // );
                   html += `<span><span style='${obj.style}'>${this.formObj
-                    .model[d.dialog.parentName] || ""}${obj.suffixDesc ||
+                    .model[d.dialog.parentName] || ""}${obj.postText || obj.suffixDesc ||
                     ""}</span></span>`;
                   hasNewLine?html+=newLine:html=html;
                 }
@@ -435,7 +435,7 @@ export default {
                   !cleanKeyCheck()
                 ) {
                   html += `<span>::<span style='${obj.style}'>${this.formObj
-                    .model[d.dialog.parentName] || ""}${obj.suffixDesc ||
+                    .model[d.dialog.parentName] || ""}${obj.postText || obj.suffixDesc ||
                     ""}</span></span>`;
                   hasNewLine?html+=newLine:html=html;
                 }
@@ -461,7 +461,7 @@ export default {
                     title = obj.aliasTitle || obj.label || obj.title;
                     console.log("formGroup:title", title);
                     html += `<span style='color:green'>${title}:</span><span>${this.formObj.model[obj.name] ||
-                      ""}${obj.suffixDesc || ""}</span>`;
+                      ""}${obj.postText || obj.suffixDesc || ""}</span>`;
                     hasNewLine?html+=newLine:html=html;
                   }
                 }
@@ -500,7 +500,7 @@ export default {
                     if (mychild.children) {
                       if (this.formObj.model[child.name]) {
                         html += `<span style='margin-right:5px'><span style='color:green'>${title}</span>:<span>${this.formObj.model[mychild.name] ||
-                          ""}${child.suffixDesc || ""}</span></span>`;
+                          ""}<span style='color:chocolate'>${child.postText ||child.suffixDesc || ""}</span></span></span>`;
                         hasNewLine?html+=newLine:html=html;
                         handleChild(mychild.children);
                       }
@@ -520,8 +520,8 @@ export default {
                         mychild.name != "evalScore"
                       ) {
                         html += `<span><span style='color:green'>${title}</span>:<span style='${mychild.style}'>${this
-                          .formObj.model[mychild.name] || ""}${mychild.suffixDesc ||
-                          ""}`;
+                          .formObj.model[mychild.name] || ""}<span style='color:chocolate'>${mychild.postText ||mychild.suffixDesc ||
+                          ""}</span>`;
                         hasNewLine?html+=newLine:html=html;
                       }
                       // else{
@@ -582,7 +582,7 @@ export default {
                 code.push(c);
                 // text.push(c);
               });
-              console.log(codeList, "codeListcodeListcodeListcodeList");
+              // console.log(codeList, "codeListcodeListcodeListcodeList");
             }
           });
           return Array.from(new Set(code.map(c => this.formObj.model[c]))).join(

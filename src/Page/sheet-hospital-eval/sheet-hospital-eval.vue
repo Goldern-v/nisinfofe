@@ -193,7 +193,7 @@ export default {
   },
   watch: {
     deptCode(val, oldValue) {
-      console.log(oldValue, val, "oldValue");
+      // console.log(oldValue, val, "oldValue");
       if (oldValue && val) {
         this.$router.replace({
           path: "/sheetHospitalEval",

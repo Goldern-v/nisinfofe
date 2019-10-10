@@ -67,7 +67,7 @@
       <!-- <template slot="append" v-if="obj.options"> -->
       <!-- </template> -->
     </el-input>
-    <!-- <span class="post-text" v-if="obj.suffixDesc">{{obj.suffixDesc}}</span> -->
+    <span class="post-text" v-if="obj.postText">{{obj.postText}}</span>
     </span>
 
 
@@ -221,13 +221,13 @@ export default {
   },
   created() {
     let refName = this.obj.name + "";
-    console.log(
-      "created:refName",
-      refName,
-      window.formObj,
-      this.formObj,
-      this.formObj.dictionary
-    );
+    // console.log(
+    //   "created:refName",
+    //   refName,
+    //   window.formObj,
+    //   this.formObj,
+    //   this.formObj.dictionary
+    // );
     try {
       let dictionary = {};
       if (window.formObj && window.formObj.hasOwnProperty("dictionary")) {
@@ -240,7 +240,7 @@ export default {
       let options = dictionary[refName]
         ? dictionary[refName]
         : this.obj.options;
-      console.log("created:options", this.obj.title, options);
+      // console.log("created:options", this.obj.title, options);
       if (options && options.length > 0) {
         if (options[0].constructor === Object) {
           this.obj.options = options;
@@ -712,6 +712,8 @@ export default {
   margin: 0px 0px 0px 0px
   padding: 0px 0px 0px 5px
   background #fff
+  position: absolute;
+  left: 322px;
 }
 
 >>>.el-input:hover {

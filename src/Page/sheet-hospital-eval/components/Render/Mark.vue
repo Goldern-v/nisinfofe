@@ -187,13 +187,13 @@ export default {
   },
   created() {
     let refName = this.obj.name + "";
-    console.log(
-      "created:refName",
-      refName,
-      window.formObj,
-      this.formObj,
-      this.formObj.dictionary
-    );
+    // console.log(
+    //   "created:refName",
+    //   refName,
+    //   window.formObj,
+    //   this.formObj,
+    //   this.formObj.dictionary
+    // );
     try {
       let dictionary = {};
       if (window.formObj && window.formObj.hasOwnProperty("dictionary")) {
@@ -206,7 +206,7 @@ export default {
       let options = dictionary[refName]
         ? dictionary[refName]
         : this.obj.options;
-      console.log("created:options", this.obj.title, options);
+      // console.log("created:options", this.obj.title, options);
       if (options && options.length > 0) {
         if (options[0].constructor === Object) {
           this.obj.options = options;

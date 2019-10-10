@@ -8,8 +8,8 @@
         <div
           class="patient-box"
           flex="cross:center"
-          v-for="item in sortList"
-          :key="item.patientId+item.visitId+item.bedLabel"
+          v-for="(item,index) in sortList"
+          :key="item.patientId+item.visitId+item.bedLabel+item.inpNo+index"
           @click="selectPatient(item)"
           :class="{active: isActive(item)}"
         >
