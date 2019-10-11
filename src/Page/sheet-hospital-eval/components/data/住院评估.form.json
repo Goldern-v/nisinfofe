@@ -5,7 +5,7 @@
     "margin": "0",
     "width": "820px",
     "height": "auto",
-    "mode": "_development",
+    "mode": "development",
     "style": ""
   },
   "formSetting": {
@@ -1467,6 +1467,15 @@
           "readOnly": null,
           "rule": [
             {
+              "dialog": {
+                "openKey": "有",
+                "cleanKey": "无",
+                "title": "机械通气",
+                "parentName": "I100154",
+                "type": "dependent"
+              }
+            },
+            {
               "diff": "无",
               "message":"有，每班评估",
               "style": "color: red;border-color: red;"
@@ -2005,6 +2014,7 @@
           "name": "I100089",
           "type": "select",
           "title": "口腔粘膜",
+          "multiplechoice": true,
           "style": null,
           "class": null,
           "readOnly": null,
@@ -2094,6 +2104,7 @@
           "name": "I100094",
           "type": "select",
           "title": "饮食",
+          "multiplechoice": true,
           "style": null,
           "class": null,
           "readOnly": null
@@ -2369,6 +2380,7 @@
           "name": "I100112",
           "type": "select",
           "title": "排尿",
+          "multiplechoice": true,
           "style": null,
           "class": null,
           "readOnly": null,

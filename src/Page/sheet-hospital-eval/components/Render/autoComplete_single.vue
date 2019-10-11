@@ -1,6 +1,6 @@
 <template>
   <div
-    v-show="show && data && data.length>0"
+    v-show="show"
     id="CrAutocomplete"
     class="cr-autocomplete-suggestion-his"
     :style="style"
@@ -15,10 +15,9 @@
             class
             sytle="width:100%"
             v-for="(item, index) in data"
-            @onblur.native.stop="close(id)"
             @click="post($event,item)"
             :key="item+index"
-            :class="{autoSelected: (index == selectIndex||selectedList.indexOf(item.code)>-1)}"
+            :class="{autoSelected: index === selectIndex}"
           >
             <span>{{item.name}}</span>
           </li>
@@ -31,8 +30,6 @@
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus">
 .autoSelected {
   background: #EEF6F5 !important;
-  // background: #52b08e !important;
-  // color: white!important;
 }
 
 #CrAutocomplete li:active {
@@ -106,11 +103,8 @@ export default {
       style: {},
       data: [],
       callback: null,
-      selectedList: [],
       selectIndex: 0,
       parentEl: null,
-      multiplechoice: false,
-      obj: new Object(),
       id: ""
     };
   },
@@ -125,22 +119,15 @@ export default {
       if (!config.currentValue && config.data && config.data.length > 0) {
         config.currentValue = config.data[0].name;
       }
-      this.multiplechoice = config.multiplechoice
-        ? config.multiplechoice
-        : false;
       this.style = config.style || "";
-      this.obj = config.obj;
       this.callback = config.callback || null;
       this.data = config.data || [];
       this.parentEl = config.parentEl || null;
-      this.selectedList = config.selectedList ? config.selectedList : [];
       this.selectIndex =
         this.data.map(item => item.name).indexOf(config.currentValue) || 0;
       this.id = config.id;
 
-      (this.selectIndex = this.data.length), (this.id = config.id);
-
-      console.log("open:config", config, this.selectedList, this.getStatus());
+      console.log("open:config", config, this.getStatus());
 
       this.$nextTick(() => {
         if (this.$refs.autoBox) {
@@ -187,30 +174,12 @@ export default {
 
       // this.post(this.parentEl,this.data[this.selectIndex])
     },
-    close(id) {
-      if (this.id == id) {
-        this.show = false;
-      }
-    },
     post(e, item) {
-      console.log(
-        "!!!post:autoPost",
-        e,
-        item,
-        this.selectedList,
-        this.obj[this.id]
-      );
-      // if (this.callback) {
-      this.callback(item);
-      // }
-      // this.multiplechoice===true &&
-      if (this.obj[this.id] && typeof this.obj[this.id] == "string") {
-        this.selectedList = this.obj[this.id].split(",");
+      console.log("autoPost", e, item);
+      if (this.callback) {
+        this.callback(item);
       }
-      // this.show = false;
-      if (!this.multiplechoice) {
-        this.show = false;
-      }
+      this.show = false;
     },
     getInputElement() {
       return this.parentEl;

@@ -1,7 +1,7 @@
 
 <template>
 
-<span>
+  <span>
 
     <!-- 警报icon -->
     <div v-if="['select','selectInput'].indexOf(obj.type)>-1 && alertMessage" :class="obj.suffixDesc?'alert-message-post':'alert-message'">
@@ -25,34 +25,33 @@
         </el-tooltip>
       </div>
 
-  <span style="margin: 0;" class="input-box">
+
+  <span style="margin: 0 0px 0 0;" class="input-box" :class="obj.suffixDesc?'postText':''">
     <!-- <autoComplete v-if="isShow" ref="autoInput" /> -->
     <!-- <el-input v-if="obj.type==='input'" v-model="checkboxValue" border size="small" :label="obj.title" :class="obj.class" :style="obj.style">{{obj.title}}</el-input> -->
-    <span v-if="obj.label"
-      :style="{width: obj.labelWidth, textAlign: 'right', paddingRight: '10px'}">
-      <span style="font-size: 12px;" :style="obj.labelStyle" :class="obj.labelClass">{{obj.label}}</span>
+    <span v-if="obj.label">
+      <span style="font-size: 12px;" :style="obj.labelStyle" :class="obj.labelClass">{{obj.label}}:</span>
     </span>
 
     <!-- v-autoComplete="{dataList: obj.options, obj:formObj.model, key: obj.name}" -->
-    <!-- :placeholder="obj.options && obj.options.length>0 ? (obj.options[0].name + '') : (obj.placeholder||'')"  || obj.type==='select' -->
+    <!-- :placeholder="obj.options && obj.options.length>0 ? (obj.options[0].name + '') : (obj.placeholder||'')" -->
     <el-input
       v-model="inputValue"
       :id="getUUID()"
       :ref="obj.name"
       v-if="['select','selectInput'].indexOf(obj.type)>-1 && !obj.children"
       placeholder="空"
-      :class="obj.class||'select-cursor'"
+      :class="obj.class||''"
       :style="[obj.style, obj.inputWidth && {width: obj.inputWidth}]"
       :size="obj.size||''"
       :type="obj.inputType||'text'"
       :disabled="obj.readOnly?true:false"
-      v-bind="obj.props"
       @change="inputChange($event, obj)"
       @dblclick.native.stop="inputdbClick($event, obj)"
       @click.native.stop="inputClick($event, obj)"
       @focus="inputFocus($event, obj)"
       @keydown.native="inputKeyDown($event, obj)"
-      :readonly="obj.selectOnly "
+      :readonly="obj.selectOnly"
     >
       <span class="pre-text" v-if="obj.prefixDesc" slot="prepend">{{obj.prefixDesc}}</span>
       <!-- <span slot="append"> -->
@@ -62,14 +61,15 @@
         @click.prevent.stop="iconClick"
         class="el-input__icon el-icon-caret-top"
         :style="isShowDownList?'transform: translateY(-50%)!important;':''"
-      ></i>-->
+      ></i> -->
       <!-- <span slot="append" class="post-text" v-if="obj.suffixDesc">{{obj.suffixDesc}}</span> -->
       <!-- </span> -->
       <!-- <template slot="append" v-if="obj.options"> -->
       <!-- </template> -->
     </el-input>
     <!-- <span>{{obj.suffixDesc}}</span> -->
-  </span>
+    <!-- <span class="post-text" v-if="obj.suffixDesc">{{obj.suffixDesc}}</span> -->
+    </span>
   </span>
 </template>
 
@@ -121,19 +121,39 @@ export default {
       this.checkValueRule(valueNew);
       // console.log("obj:", this.obj, this.$refs);
       this.isShowDownList = false;
+
+      /** 如果存在clone ref */
+      setTimeout(() => {
+        if (this.isClone && this.$root.$refs[this.obj.name].setCurrentValue) {
+          this.$root.$refs[this.obj.name].setCurrentValue(valueNew);
+          this.$root.$refs[this.obj.name].$parent.checkValueRule(valueNew);
+        } else if (this.$root.$refs[this.obj.name + "_clone"] && this.$root.$refs[this.obj.name + "_clone"].setCurrentValue) {
+          this.$root.$refs[this.obj.name + "_clone"].setCurrentValue(valueNew);
+          this.$root.$refs[this.obj.name + "_clone"].$parent.checkValueRule(
+            valueNew
+          );
+        }
+      }, 100);
+
       return valueNew;
     }
   },
   mounted() {
+    this.alertMessage = ""
     try {
       this.inputValue = this.formObj.model[this.obj.name];
     } catch (error) {}
     let refName = this.obj.name; //+this.obj.type.toUpperCase()+(this.obj.title||this.obj.label)
     this.readOnly = this.obj.readOnly ? this.obj.readOnly : false;
     if (this.$refs[refName]) {
-      this.$refs[refName]["childObject"] = this.obj;
+      this.$refs[refName]["childObjct"] = this.obj;
       this.$refs[refName]["checkValueRule"] = this.checkValueRule;
-      this.$root.$refs[refName] = this.$refs[refName];
+      if (this.obj.isClone) {
+        this.$root.$refs[refName + "_clone"] = this.$refs[refName];
+        this.isClone = true;
+      } else {
+        this.$root.$refs[refName] = this.$refs[refName];
+      }
     }
 
     // if(this.obj && this.obj.hasOwnProperty('value')>-1 && this.obj.value &&this.obj.value.constructor === Array){
@@ -349,12 +369,6 @@ export default {
         window.document.getSelection()
       );
       let target = this.$refs[this.obj.name].$refs.input;
-
-      if (this.$refs[this.obj.name]) {
-        this.$refs[this.obj.name].$el.style.outline = "none";
-        this.$refs[this.obj.name].$el.style.backgroundColor = "transparent";
-      }
-
       // if(e.target.tagName!=='INPUT'){
       //   let target = this.$refs[this.obj.name].$refs.input
       //   target.focus()
@@ -383,14 +397,9 @@ export default {
         let dataList = this.obj.options;
         let key = this.obj.name;
         let obj = this.formObj.model;
-        let multiplechoice = this.obj.multiplechoice
-          ? this.obj.multiplechoice
-          : false;
         if (this.$root.$refs.autoInput) {
           this.isShowDownList = true;
           this.$root.$refs.autoInput.open({
-            obj: obj,
-            multiplechoice: multiplechoice,
             parentEl: target,
             currentValue: this.inputValue,
             style: {
@@ -399,61 +408,24 @@ export default {
               width: `${xy.width}px`,
               "min-width": "max-content"
             },
-            selectedList: obj[key] ? obj[key].split(",") : [],
             data: dataList,
             callback: data => {
-              console.log("===callback", obj, key, target);
-              if (obj && data) {
-                // 单选
-                if (!multiplechoice || multiplechoice == false) {
-                  // obj[key] = data;
-                  obj[key] = data.code;
-                  this.inputValue = data.name;
-                  this.checkValueRule(data.name, true);
-                  // if (target.hasOwnProperty("$rightNode")) {
-                  //   target.$rightNode.focus();
-                  // }
+              // console.log('callback',obj,data,e)
+              if (data) {
+                // console.log('==callback',obj,data)
+                obj[key] = data.code;
+                this.inputValue = data.name;
+                this.checkValueRule(data.name, true);
+                if (target.tagName !== "INPUT") {
+                  target.innerText = data.name;
                 }
-                // 多选
-                if (multiplechoice === true) {
-                  let values = obj[key] ? obj[key].split(",") : [];
-                  console.log("==多选=callback", values, obj, key, target);
-                  // 新增选项
-                  if (!obj[key] || obj[key].indexOf(data.code) === -1) {
-                    // values.push(data.code);
-                    values = [...values, data.code];
-                  } else if (obj[key] && obj[key].indexOf(data.code) > -1) {
-                    // 反选选项
-                    values = values.filter(v => {
-                      return v != data.code;
-                    });
-                  }
-                  obj[key] = values + "";
-                  this.inputValue = obj[key] + "";
-                  // this.checkValueRule(obj[key], true);
-                  target.focus();
+                if (target.tagName === "INPUT") {
+                  target.value = data.name;
                 }
               }
-              if (target.tagName !== "INPUT") {
-                target.innerText = obj[key] + "";
-              }
-              //
-              // // console.log('callback',obj,data,e)
-              // if (data) {
-              //   // console.log('==callback',obj,data)
-              //   obj[key] = data.code;
-              //   this.inputValue = data.name;
-              //   this.checkValueRule(data.name, true);
-              //   if (target.tagName !== "INPUT") {
-              //     target.innerText = data.name;
-              //   }
-              //   if (target.tagName === "INPUT") {
-              //     target.value = data.name;
-              //   }
-              // }
-              // // target.focus();
-              // // this.isShowDownList = false
-              // return false;
+              // target.focus();
+              // this.isShowDownList = false
+              return false;
             },
             id: key
           });
@@ -489,47 +461,50 @@ export default {
         e.target.tagName,
         e.keyCode,
         e.key,
-        e.target.selectionStart,
-        e.target.selectionEnd
+        // e.target.selectionStart,
+        // e.target.selectionEnd
       );
       if (
-        e.keyCode === 37 &&
-        e.target.selectionStart === 0 &&
-        e.target.$leftNode
+        e.keyCode == 37 &&
+        (e.target.selectionStart == 0 ||
+          (e.target.selectionStart == null && e.target.selectionEnd == null))
       ) {
         // ArrowLeft
-        e.target.$leftNode.focus();
+        if( e.target.$leftNode){
+          e.target.$leftNode.focus();
+        }
+
         this.isShowDownList = false;
         console.log(
           "ArrowLeft",
           e,
           e.target,
           e.target.$leftNode,
-          e.target.$leftNode.disabled
+          // e.target.$leftNode.disabled
         );
       } else if (
-        e.keyCode === 39 &&
-        e.target.selectionEnd === e.target.value.length &&
-        e.target.$rightNode
-      ) {
+            e.keyCode == 39 &&
+            (e.target.selectionEnd === e.target.value.length || (e.target.selectionStart == null && e.target.selectionEnd == null))
+          ) {
+        if( e.target.$rightNode){
+          e.target.$leftNode.focus();
+        }
         // ArrowRight
-        // if(e.target.$rightNode){
-        e.target.$rightNode.focus();
+        // e.target.$rightNode.focus();
         this.isShowDownList = false;
-        // }
         console.log(
           "ArrowRight",
           e,
           e.target,
           e.target.$rightNode,
-          e.target.$rightNode.disabled
+          // e.target.$rightNode.disabled
         );
       } else if (e.keyCode === 13) {
         // 13 Enter
         console.log("Enter", e.target, this.$root.$refs.autoInput.getStatus());
         // this.isShowDownList = false
         setTimeout(() => {
-          if (!this.$root.$refs.autoInput.getStatus() && e.target.$rightNode) {
+          if (!this.$root.$refs.autoInput.getStatus()) {
             e.target.$rightNode.focus();
             // this.openAutoCompleteBox(e.target.$rightNode)
           }
@@ -544,6 +519,9 @@ export default {
     getUUID(child = null) {
       let uuid_ = uuid.v1();
       return uuid_;
+    },
+    alertClick(event){
+      console.log('alertClick',event, this.obj)
     }
   }
 };
