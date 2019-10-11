@@ -19,10 +19,15 @@
   </div>
   <div class="main-contain">
     <div class="table-contain">
-      <ecrm-table :data="tableData" :span-method="objectSpanMethod" border :row-class-name="rowClassName"
-        :cell-class-name="cellClassName" :height="tableHeight" @cell-mouse-enter="handleCellEnter"
-        @cell-mouse-leave="handleCellLeave" @cell-click="handleCellClick" @row-contextmenu="handleRowContextmenu"
-        v-loading="tableLoading" style="width: 100%;">
+      <ecrm-table 
+        :data="tableData" 
+        :span-method="objectSpanMethod" 
+        border 
+        :row-class-name="rowClassName"
+        :height="tableHeight" 
+        @cell-click="handleCellClick" 
+        v-loading="tableLoading" 
+        style="width: 100%;">
         <ecrm-table-column prop="hospitalizationNumber" label="住院号" width="100" fixed="left">
           <template slot-scope="scope">
             <span v-if="scope.$index%2==0">
@@ -82,7 +87,7 @@
               </span>
             </template>
           </ecrm-table-column>
-          <ecrm-table-column prop="femaleBrithPlace" label="籍贯" width="100">
+          <ecrm-table-column prop="femaleBrithPlace" label="籍贯" width="120">
             <template slot-scope="scope">
               <span v-if="scope.$index%2==0">
                 <el-input resize="none" type="textarea" @blur="handleEditDone(scope.$index,'femaleBrithPlace')"
@@ -257,7 +262,7 @@
               </el-select>
             </template>
           </ecrm-table-column>
-          <ecrm-table-column label="手术指征" prop="surgicalIndication" width="100" align="center">
+          <ecrm-table-column label="手术指征" prop="surgicalIndication" width="120" align="center">
             <template slot-scope="scope">
               <el-input resize="none" type="textarea" @blur="handleEditDone(scope.$index,'surgicalIndication')"
                 :autosize="{ minRows: 1}" v-model="scope.row.surgicalIndication" />
@@ -346,13 +351,13 @@
               </template>
             </ecrm-table-column>
           </ecrm-table-column>
-          <ecrm-table-column label="早接触" prop="earlyContact" width="100" align="center">
+          <ecrm-table-column label="早接触" prop="earlyContact" width="120" align="center">
             <template slot-scope="scope">
               <el-input resize="none" type="textarea" @blur="handleEditDone(scope.$index,'earlyContact')"
                 :autosize="{ minRows: 1}" v-model="scope.row.earlyContact" />
             </template>
           </ecrm-table-column>
-          <ecrm-table-column label="早吮吸" prop="earlySucking" width="100" align="center">
+          <ecrm-table-column label="早吮吸" prop="earlySucking" width="120" align="center">
             <template slot-scope="scope">
               <el-input resize="none" type="textarea" @blur="handleEditDone(scope.$index,'earlySucking')"
                 :autosize="{ minRows: 1}" v-model="scope.row.earlySucking" />
