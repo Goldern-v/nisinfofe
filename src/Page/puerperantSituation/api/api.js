@@ -1,6 +1,7 @@
 import axios from "@/api/axios";
 import qs from "qs";
 import { apiPath } from "@/api/apiConfig";
+import moment from 'moment';
 
 export function getNurseList (query){
     return axios.post(`${apiPath}auditeNurseList/getByFormCodePC`,qs.stringify(query));
@@ -28,4 +29,22 @@ export function deleteForm (params){
 //获取产妇其他基本资料
 export function getCommonInfo (params){
     return axios.post(`${apiPath}obstetricBirthFormControl/getCommonInfoByPVList`,params);
+}
+
+//获取产妇列表
+export function getPatientListNew (){
+    let endDate = moment().format('YYYY-MM-DD')
+    let startDate = new Date(endDate.replace(/-/g,'/'))
+    startDate = startDate.getTime()-30*86400000
+    startDate = moment(new Date(startDate)).format('YYYY-MM-DD')
+
+    return axios.post(`${apiPath}bed/patListCK`,{
+        wardCode: '051102',
+        admissionDateEnd: '',
+        admissionDateBegin: '',
+        dischargeDateBegin: startDate,
+        dischargeDateEnd: endDate,
+        pageNum: 1000,
+        pageIndex: 1,
+    });
 }

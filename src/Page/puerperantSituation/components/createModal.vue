@@ -2,7 +2,7 @@
 
 <script>
 import commonMixin from "./../../../common/mixin/common.mixin";
-import {getPatientList,changeOrSaveForm} from './../api/api'
+import {getPatientList,changeOrSaveForm,getPatientListNew} from './../api/api'
 import moment from 'moment';
 import { setTimeout } from 'timers';
 import { getPatientInfo } from "@/api/common.js";
@@ -86,13 +86,11 @@ export default {
     };
   },
   mounted() {
-    getPatientList().then(res=>{
+    getPatientListNew().then(res=>{
       if(res.data.data){
         this.patientList=this.formatPatientList(res.data.data);
         this.patientListFiltered = this.patientList.concat();
       }
-    },err=>{
-
     })
   },
   methods: {
@@ -104,16 +102,20 @@ export default {
     },
     patientOptionVisible(item,search){
         if(!search)return true
-        if(item.patientId.match(search)!==null)return true
-        if(item.bedLabel.match(search)!==null)return true
-        if(item.name.match(search)!==null)return true
+        if(new RegExp(search).test(item.patientId))return true
+
+        if(new RegExp(search).test(item.bedLabel))return true
+
+        if(new RegExp(search).test(item.name))return true
+
         return false
     },
     formatPatientList(list){
       let newList = [];
       newList = list.filter((item)=>{
+        if(!item.name||item.name=='')return false
         if(!item.patientId)return false
-        if(item.bedLabel.includes('_'))return false
+        if(item.bedLabel.includes('_')||item.patientId.includes('_'))return false
         return true
       })
 

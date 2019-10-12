@@ -39,7 +39,7 @@ export default {
         endDate: endDate,
         searchingContent:'',
         pageIndex: 1,
-        pageSize: 15
+        pageSize: 6
       },
       activeCell: { row: "", name: "" },
       fileTotal: 0,
@@ -252,9 +252,6 @@ export default {
         newVal=this.tableData[idx][name]
         valChange = true;
       }
-
-      
-      console.log(name+idx)
 
       if(newVal.length!==val.length)valChange = true
 
