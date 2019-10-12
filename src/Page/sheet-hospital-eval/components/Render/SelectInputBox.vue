@@ -1,75 +1,77 @@
 
 <template>
-
-<span>
-
+  <span>
     <!-- 警报icon -->
-    <div v-if="['select','selectInput'].indexOf(obj.type)>-1 && alertMessage" :class="obj.suffixDesc?'alert-message-post':'alert-message'">
-      <el-tooltip
-        class="item"
-        effect="light"
-        :enterable="false"
-        placement="top"
-      >
+    <div
+      v-if="['select','selectInput'].indexOf(obj.type)>-1 && alertMessage"
+      :class="obj.suffixDesc?'alert-message-post':'alert-message'"
+    >
+      <el-tooltip class="item" effect="light" :enterable="false" placement="top">
         <div class="el-tooltip-content" slot="content">
           <div v-html="alertMessage"></div>
         </div>
-      <img
+        <img
           :src="alertImg"
           :alt="obj.title"
           :style="obj.tips?'margin-left:20px!important':''"
           :name="`${obj.name}_${obj.title}_${obj.label}_img`"
           @click="alertClick($event,obj)"
           width="14"
-        >
-        </el-tooltip>
-      </div>
+        />
+      </el-tooltip>
+    </div>
 
-  <span style="margin: 0;" class="input-box">
-    <!-- <autoComplete v-if="isShow" ref="autoInput" /> -->
-    <!-- <el-input v-if="obj.type==='input'" v-model="checkboxValue" border size="small" :label="obj.title" :class="obj.class" :style="obj.style">{{obj.title}}</el-input> -->
-    <span v-if="obj.label"
-      :style="{width: obj.labelWidth, textAlign: 'right', paddingRight: '10px'}">
-      <span style="font-size: 12px;" :style="obj.labelStyle" :class="obj.labelClass">{{obj.label}}</span>
-    </span>
+    <span style="margin: 0;" class="input-box">
+      <!-- <autoComplete v-if="isShow" ref="autoInput" /> -->
+      <!-- <el-input v-if="obj.type==='input'" v-model="checkboxValue" border size="small" :label="obj.title" :class="obj.class" :style="obj.style">{{obj.title}}</el-input> -->
+      <span
+        v-if="obj.label"
+        :style="{width: obj.labelWidth, textAlign: 'right', paddingRight: '0px'}"
+      >
+        <span
+          style="font-size: 12px;"
+          :style="obj.labelStyle"
+          :class="obj.labelClass"
+        >{{obj.label}}:</span>
+      </span>
 
-    <!-- v-autoComplete="{dataList: obj.options, obj:formObj.model, key: obj.name}" -->
-    <!-- :placeholder="obj.options && obj.options.length>0 ? (obj.options[0].name + '') : (obj.placeholder||'')"  || obj.type==='select' -->
-    <el-input
-      v-model="inputValue"
-      :id="getUUID()"
-      :ref="obj.name"
-      v-if="['select','selectInput'].indexOf(obj.type)>-1 && !obj.children"
-      placeholder="空"
-      :class="obj.class||'select-cursor'"
-      :style="[obj.style, obj.inputWidth && {width: obj.inputWidth}]"
-      :size="obj.size||''"
-      :type="obj.inputType||'text'"
-      :disabled="obj.readOnly?true:false"
-      v-bind="obj.props"
-      @change="inputChange($event, obj)"
-      @dblclick.native.stop="inputdbClick($event, obj)"
-      @click.native.stop="inputClick($event, obj)"
-      @focus="inputFocus($event, obj)"
-      @keydown.native="inputKeyDown($event, obj)"
-      :readonly="obj.selectOnly "
-    >
-      <span class="pre-text" v-if="obj.prefixDesc" slot="prepend">{{obj.prefixDesc}}</span>
-      <!-- <span slot="append"> -->
-      <!-- <i
+      <!-- v-autoComplete="{dataList: obj.options, obj:formObj.model, key: obj.name}" -->
+      <!-- :placeholder="obj.options && obj.options.length>0 ? (obj.options[0].name + '') : (obj.placeholder||'')"  || obj.type==='select' -->
+      <el-input
+        v-model="inputValue"
+        :id="getUUID()"
+        :ref="obj.name"
+        v-if="['select','selectInput'].indexOf(obj.type)>-1 && !obj.children"
+        placeholder="空"
+        :class="obj.class||'select-cursor'"
+        :style="[obj.style, obj.inputWidth && {width: obj.inputWidth}]"
+        :size="obj.size||''"
+        :type="obj.inputType||'text'"
+        :disabled="obj.readOnly?true:false"
+        v-bind="obj.props"
+        @change="inputChange($event, obj)"
+        @dblclick.native.stop="inputdbClick($event, obj)"
+        @click.native.stop="inputClick($event, obj)"
+        @focus="inputFocus($event, obj)"
+        @keydown.native="inputKeyDown($event, obj)"
+        :readonly="obj.selectOnly "
+      >
+        <span class="pre-text" v-if="obj.prefixDesc" slot="prepend">{{obj.prefixDesc}}</span>
+        <!-- <span slot="append"> -->
+        <!-- <i
         slot="append"
         v-if="obj.options&&!obj.suffixDesc"
         @click.prevent.stop="iconClick"
         class="el-input__icon el-icon-caret-top"
         :style="isShowDownList?'transform: translateY(-50%)!important;':''"
-      ></i>-->
-      <!-- <span slot="append" class="post-text" v-if="obj.suffixDesc">{{obj.suffixDesc}}</span> -->
-      <!-- </span> -->
-      <!-- <template slot="append" v-if="obj.options"> -->
-      <!-- </template> -->
-    </el-input>
-    <!-- <span>{{obj.suffixDesc}}</span> -->
-  </span>
+        ></i>-->
+        <!-- <span slot="append" class="post-text" v-if="obj.suffixDesc">{{obj.suffixDesc}}</span> -->
+        <!-- </span> -->
+        <!-- <template slot="append" v-if="obj.options"> -->
+        <!-- </template> -->
+      </el-input>
+      <!-- <span>{{obj.suffixDesc}}</span> -->
+    </span>
   </span>
 </template>
 
@@ -104,13 +106,13 @@ export default {
   data() {
     return {
       inputValue: "",
-      alertImg:"",
+      alertImg: "",
       isShow: true,
       isFirstClick: true,
       isShowDownList: false,
       readOnly: false,
       isClone: false,
-      alertMessage:""
+      alertMessage: ""
     };
   },
   computed: {},
@@ -192,9 +194,9 @@ export default {
           // 判断规则
           if (r.min && r.max && (value >= min && value < max)) {
             this.obj.style = r.style;
-            if(r.message){
-              console.log('rule:message',r.message)
-              this.alertMessage = r.message+"";
+            if (r.message) {
+              console.log("rule:message", r.message);
+              this.alertMessage = r.message + "";
             }
             // this.obj.style = Object.assign({}, this.obj.style, r.style);
           } else if (r.equal && r.equal === valueNew) {
@@ -209,9 +211,9 @@ export default {
             (r.diff != valueNew || r.diff.indexOf(valueNew) == -1)
           ) {
             this.obj.style = r.style;
-            if(r.message && valueNew){
-              console.log('rule:message',r.message)
-              this.alertMessage = r.message+"";
+            if (r.message && valueNew) {
+              console.log("rule:message", r.message);
+              this.alertMessage = r.message + "";
             }
             // this.obj.style = Object.assign({}, this.obj.style, r.style);
           } else if (r.scoreMin || r.scoreMax) {
@@ -589,7 +591,7 @@ export default {
 
 .select-label
   margin-right: -4px;
-  margin-left: 4px;
+  // margin-left: 4px;
   vertical-align: super;
 
 >>>.el-input__inner.el-input__inner.el-input__inner

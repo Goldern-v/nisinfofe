@@ -896,32 +896,75 @@
   {
     "title": "外固定",
     "type": "formGroupVerticalBox",
-    "name": "I100071",
+    "name": "I100161",
     "showTitle": false,
     "message": "",
     "require": "false",
     "prefixDesc": "",
     "postText": "",
-    "keys": "I100071",
+    "keys": "I100161",
     "style": null,
     "classes": null,
     "readOnly": null,
     "modalWidth": 540,
     "children": [
       {
-        "name": "I100087",
+        "name": "I100161",
         "type": "input",
-        "label": "外固定类型",
+        "label": "外固定有",
         "labelWidth": "140px",
         "value": "",
         "style": null,
         "class": null,
         "html": null,
-        "readOnly": null,
-        "options": ["皮牵引", "骨牵引", "石膏", "夹板", "外固定架"]
+        "readOnly": null
       },
       {
-        "name": "I100088",
+        "name": "I100162",
+        "type": "input",
+        "label": "外固定部位",
+        "labelWidth": "140px",
+        "value": "",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      },
+      {
+        "name": "I100163",
+        "type": "input",
+        "label": "外固定是否有效",
+        "labelWidth": "140px",
+        "value": "",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      },
+      {
+        "name": "I100164",
+        "type": "input",
+        "label": "外固定器",
+        "labelWidth": "140px",
+        "value": "",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      },
+      {
+        "name": "I100165",
+        "type": "input",
+        "label": "外固定器有",
+        "labelWidth": "140px",
+        "value": "",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      },
+      {
+        "name": "I100166",
         "type": "input",
         "label": "固定/牵引效果",
         "labelWidth": "140px",
@@ -929,8 +972,7 @@
         "style": null,
         "class": null,
         "html": null,
-        "readOnly": null,
-        "options": ["牵引有效", "牵引合适", "无效", "过紧", "过松"]
+        "readOnly": null
       }
     ]
   },

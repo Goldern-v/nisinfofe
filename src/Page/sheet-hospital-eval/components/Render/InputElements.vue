@@ -56,7 +56,7 @@
         <span
           v-if="child.type==='bodyBtn'"
           :class="child.class"
-          :style="'color:#0000FF;cursor:pointer;padding-top: 9px;display: block;position: absolute;' + child.style"
+          :style="'color:#0000FF;cursor:pointer;padding-left:5px;padding-top:9px;display: block;' + child.style"
           @click="openBodyModal($event,child)"
           width="24"
         >人体图</span>

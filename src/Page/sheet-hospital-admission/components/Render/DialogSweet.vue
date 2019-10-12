@@ -446,7 +446,7 @@ export default {
             for (let k in items) {
               if (items.hasOwnProperty(k)) {
                 let item = items[k];
-                let title = item.childObject.title;
+                let title = item.childObject.title||"";
                 let code = item.childObject.code || title;
                 if (!item.$parent) {
                   continue;

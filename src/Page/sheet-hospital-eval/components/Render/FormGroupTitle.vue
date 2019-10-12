@@ -59,6 +59,6 @@ export default {
     font-size: 14px;
   .group-sub-title-box
     font-size 13px
-    text-indent 1.25em
+    // text-indent 1.25em
     margin 10px 0 15px 0
 </style>

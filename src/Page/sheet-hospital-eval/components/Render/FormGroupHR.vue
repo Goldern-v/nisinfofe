@@ -72,7 +72,7 @@ export default {
     font-weight bold
   .group-sub-hr-box
     font-size 15px
-    text-indent 1.25em
+    // text-indent 1.25em
     margin 10px -20px 15px -20px
     border 1px solid #f2f2f2
     background #d7d7d7

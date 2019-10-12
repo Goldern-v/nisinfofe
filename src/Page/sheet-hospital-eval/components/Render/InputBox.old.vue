@@ -1,6 +1,5 @@
 
 <template>
-
   <span>
     <!-- 警报icon -->
     <div
@@ -26,55 +25,53 @@
       style="margin: 0 0px 0 0;display: inline-flex;align-items: center;"
       :style="obj.label  && {display: 'flex', alignItems: 'center' }"
     >
-
-  <!-- <span style="" :style="(obj.label||obj.suffixDesc)  && {display: 'flex', alignItems: 'center' }"> -->
-    <!-- <autoComplete v-if="isShow" ref="autoInput" /> -->
-    <!-- <el-input v-if="obj.type==='input'" v-model="checkboxValue" border size="small" :label="obj.title" :class="obj.class" :style="obj.style">{{obj.title}}</el-input> -->
-    <span
-      v-if="obj.label"
-      :style="[obj.spanStyle, {width: obj.labelWidth, textAlign: 'right', paddingRight: '0px', marginBottom:obj.marginBottom}]"
-    >
-      <span style="font-size: 12px;padding:0px 0px;" :style="obj.labelStyle" :class="obj.labelClass">{{obj.label}}:</span>
-    </span>
-
-    <!-- v-autoComplete="{dataList: obj.options, obj:formObj.model, key: obj.name}" -->
-    <el-input
-      v-model="inputValue"
-      :id="getUUID()"
-      :style="[obj.style, obj.inputWidth && {width: obj.inputWidth}]"
-      :ref="obj.name"
-      v-if="obj.type==='input'"
-      :placeholder="obj.dialog ? '点击评估' : (obj.placeholder?obj.placeholder:'空')"
-      :class="model === 'development' ? 'development-model' : (obj.class||'')"
-      :size="obj.size||''"
-      :type="obj.inputType||'text'"
-      :disabled="obj.disabled?true:false"
-      :readonly="obj.readOnly?obj.readOnly:false"
-      v-bind="obj.props"
-      @change="inputChange($event, obj)"
-      @dblclick.native.stop="inputClick($event, obj)"
-      @click.native.stop="inputFocus($event, obj); obj.readOnly && inputClick($event, obj)"
-      @focus="inputFocus($event, obj)"
-      @blur.native.stop="inputBlur"
-      @keydown.native="inputKeyDown($event, obj)"
-    >
-      <span class="pre-text" v-if="obj.prefixDesc" slot="prepend">{{obj.prefixDesc}}</span>
-      <!-- <span slot="append"> -->
-      <!-- <i
+      <!-- <autoComplete v-if="isShow" ref="autoInput" /> -->
+      <!-- <el-input v-if="obj.type==='input'" v-model="checkboxValue" border size="small" :label="obj.title" :class="obj.class" :style="obj.style">{{obj.title}}</el-input> -->
+      <span
+        v-if="obj.label"
+        :style="[obj.spanStyle, {width: obj.labelWidth, textAlign: 'right', paddingRight: '0px', marginBottom:obj.marginBottom}]"
+      >
+        <span
+          style="font-size: 12px;padding:0px 0px;"
+          :style="obj.labelStyle"
+          :class="obj.labelClass"
+        >{{obj.label}}:</span>
+      </span>
+      <!-- v-autoComplete="{dataList: obj.options, obj:formObj.model, key: obj.name}" -->
+      <el-input
+        v-model="inputValue"
+        :id="getUUID()"
+        :style="[obj.style, obj.inputWidth && {width: obj.inputWidth}]"
+        :ref="obj.name"
+        v-if="obj.type==='input'"
+        :placeholder="obj.dialog ? '点击评估' : '空'"
+        :class="[model === 'development' ? 'development-model' : (obj.class||''),obj.tips?'red-border':'']"
+        :size="obj.size||''"
+        :type="obj.inputType||'text'"
+        :disabled="obj.disabled?true:false"
+        :readonly="obj.readOnly?obj.readOnly:false"
+        @change="inputChange($event, obj)"
+        @dblclick.native.stop="inputClick($event, obj)"
+        @click.native.stop="inputFocus($event, obj); obj.readOnly && inputClick($event, obj)"
+        @focus="inputFocus($event, obj)"
+        @blur.native.stop="inputBlur"
+        @keydown.native="inputKeyDown($event, obj)"
+      >
+        <span class="pre-text" v-if="obj.prefixDesc" slot="prepend">{{obj.prefixDesc}}</span>
+        <!-- <span slot="append"> -->
+        <!-- <i
         slot="append"
         v-if="obj.options&&!obj.suffixDesc"
         @click.prevent.stop="()=>{}"
         class="el-input__icon el-icon-caret-top"
-      ></i>-->
-      <!-- <span slot="append" class="post-text" v-if="obj.suffixDesc">{{obj.suffixDesc}}</span> -->
-      <!-- </span> -->
-      <!-- <template slot="append" v-if="obj.options"> -->
-      <!-- </template> -->
-    </el-input>
-    <!-- <span>{{obj.suffixDesc}}</span> -->
-    <!-- <span class="post-text" v-if="obj.suffixDesc" v-html="obj.suffixDesc"></span> -->
-    <span class="post-text" v-if="obj.postText">{{obj.postText}}</span>
-  </span>
+        ></i>-->
+        <!-- <span slot="append" class="post-text" v-if="obj.suffixDesc">{{obj.suffixDesc}}</span> -->
+        <!-- </span> -->
+        <!-- <template slot="append" v-if="obj.options"> -->
+        <!-- </template> -->
+      </el-input>
+      <span class="post-text" v-if="obj.postText">{{obj.postText}}</span>
+    </span>
   </span>
 </template>
 
@@ -108,8 +105,10 @@ export default {
   data() {
     return {
       inputValue: "",
+      alertImg: require("./image/预警@2x.png"),
       isShow: true,
-      isClone: false
+      isClone: false,
+      alertMessage: ""
     };
   },
   computed: {},
@@ -135,6 +134,14 @@ export default {
         }
       }, 100);
 
+      /** 如果是身高体重，自动计算bmi指数 */
+      if (this.obj.name == "I100009" || this.obj.name == "I100010") {
+        let sg = Number(this.$root.$refs.I100009.$parent.inputValue) / 100;
+        let tz = this.$root.$refs.I100010.$parent.inputValue;
+        let result = tz / (sg * sg);
+        result &&
+          (this.$root.$refs.I100011.$parent.inputValue = result.toFixed(2));
+      }
       return valueNew;
     },
     obj: {
@@ -155,10 +162,14 @@ export default {
     }
   },
   mounted() {
+    // try {
+    //   this.inputValue = this.formObj.model[this.obj.name];
+    // } catch (error) {}
+    this.alertMessage = "";
     let refName = this.obj.name; //+this.obj.type.toUpperCase()+(this.obj.title||this.obj.label)
     if (this.$refs[refName]) {
-      // this.formObj.model[this.obj.name] = this.$refs[refName].currentValue;
-      this.$refs[refName]["childObject"] = this.obj;
+      this.formObj.model[this.obj.name] = this.$refs[refName].currentValue;
+      this.$refs[refName]["childObjct"] = this.obj;
       this.$refs[refName]["checkValueRule"] = this.checkValueRule;
       if (this.obj.isClone) {
         this.$root.$refs[refName + "_clone"] = this.$refs[refName];
@@ -246,19 +257,17 @@ export default {
 
     if (
       this.obj.hasOwnProperty("options") &&
-      this.obj.options &&
       this.obj.options.length === 0 &&
-      (!this.formObj.dictionary ||
-        !this.formObj.dictionary.hasOwnProperty(refName) ||
-        !this.formObj.dictionary[refName])
+      !this.formObj.dictionary[refName]
     ) {
-      // this.obj["options"] = [{ name: "未测量", code: "未测量", pinyin: "wcl" }];
+      this.obj["options"] = [{ name: "未测量", code: "未测量", pinyin: "wcl" }];
     }
   },
   methods: {
     checkValueRule(valueNew) {
       let textResult = valueNew;
       this.obj.style = "";
+      this.alertMessage = "";
       if (
         this.obj.hasOwnProperty("rule") !== -1 &&
         this.obj.rule &&
@@ -269,41 +278,18 @@ export default {
         this.obj.rule.map(r => {
           let [min, max] = [Number(r.min), Number(r.max)];
           let value = Number(valueNew);
-          min = isNaN(min) ? 0 : min;
-          max = isNaN(max) ? 0 : max;
+          min = min === NaN ? 0 : min;
+          max = max === NaN ? 0 : max;
           value = value === NaN ? 0 : value;
-
-          // 计算BMI
-          if (r.name === "计算BMI") {
-            if (
-              this.$root.$refs[r.height] &&
-              this.$root.$refs[r.weight] &&
-              this.$root.$refs[r.result]
-            ) {
-              let height =
-                ~~this.$root.$refs[r.height].currentValue ||
-                this.formObj.model[r.height] ||
-                0;
-              let weight =
-                ~~this.$root.$refs[r.weight].currentValue ||
-                this.formObj.model[r.weight] ||
-                0;
-              let result = weight / Math.pow(height / 100, 2).toFixed(2);
-              result = isNaN(Number(result)) || !isFinite(result) ? 0 : result;
-              // if(this.obj.name==='I100011'){
-              //   console.log('!!!!计算BMI',this.obj.title,this.obj,r,height,weight,result)
-              // }
-              this.$root.$refs[r.result].setCurrentValue(
-                result ? result.toFixed(2) : ""
-              );
-              this.formObj.model[r.result] = result ? result.toFixed(2) : "";
-            }
-          }
 
           // 判断规则
           if (r.min && r.max && (value >= min && value < max)) {
             this.obj.style = r.style;
             // 替换显示 r.display
+            if (r.message) {
+              console.log("rule:message", r.message);
+              this.alertMessage = r.message + "";
+            }
             if (
               r.display &&
               this.$refs[this.obj.name] &&
@@ -352,7 +338,7 @@ export default {
             if (
               r.scoreMin &&
               r.scoreMax &&
-              (score >= scoreMin && score < scoreMax)
+              (score >= scoreMin && score <= scoreMax)
             ) {
               this.obj.style = r.style;
             }
@@ -369,6 +355,10 @@ export default {
                 for (let i = 0; i < arr.length; i++) {
                   if (arr[i] && arr[i] > r.maxs[i]) {
                     this.obj.style = r.style;
+                    if (r.message) {
+                      console.log("rule:message", r.message);
+                      this.alertMessage = r.message + "";
+                    }
                   }
                 }
               }
@@ -377,8 +367,12 @@ export default {
               let arr = valueNew.split(r.split) || [];
               if (r.mins.length === arr.length) {
                 for (let i = 0; i < arr.length; i++) {
-                  if (arr[i] && arr[i] <= r.mins[i]) {
+                  if (arr[i] && arr[i] < r.mins[i]) {
                     this.obj.style = r.style;
+                    if (r.message) {
+                      console.log("rule:message", r.message);
+                      this.alertMessage = r.message + "";
+                    }
                   }
                 }
               }
@@ -419,50 +413,6 @@ export default {
         this.$root.$refs
       );
       let delt = xy.height;
-
-      if (this.$refs[this.obj.name]) {
-        this.$refs[this.obj.name].$el.style.outline = "none";
-        this.$refs[this.obj.name].$el.style.backgroundColor = "transparent";
-      }
-
-      // if(this.$root.$refs.mainPage.checkFormMissingItems){
-      //   this.$root.$refs.mainPage.checkFormMissingItems()
-      // }
-      // cancelSignOrAduit formSignOrAudit
-
-      if (this.obj.name === "signerName") {
-        // console.log('---',this.obj.name,this.$root.$refs.mainPage)
-        if (
-          this.$root.$refs.mainPage.formSignOrAudit &&
-          this.formObj.model.status == "0"
-        ) {
-          this.$root.$refs.mainPage.formSignOrAudit();
-        } else if (
-          this.$root.$refs.mainPage.cancelSignOrAduit &&
-          this.formObj.model.status == "1"
-        ) {
-          this.$root.$refs.mainPage.cancelSignOrAduit();
-        }
-      } else if (this.obj.name === "auditorName") {
-        console.log(
-          "---",
-          this.obj.name,
-          this.$root.$refs,
-          this.$root.$refs.mainPage
-        );
-        if (
-          this.$root.$refs.mainPage.formSignOrAudit &&
-          this.formObj.model.status == "1"
-        ) {
-          this.$root.$refs.mainPage.formSignOrAudit({ type: "audit" });
-        } else if (
-          this.$root.$refs.mainPage.cancelSignOrAduit &&
-          this.formObj.model.status == "2"
-        ) {
-          this.$root.$refs.mainPage.cancelSignOrAduit({ type: "audit" });
-        }
-      }
-
       //
       // let autoBox = this.$root.$refs.autoBox.getBoundingClientRect()
       // //
@@ -478,7 +428,11 @@ export default {
         let dataList = this.obj.options;
         let key = this.obj.name;
         let obj = this.formObj.model;
-        if (this.$root.$refs.autoInput) {
+        if (
+          this.$root.$refs &&
+          this.$root.$refs.autoInput &&
+          this.$root.$refs.autoInput.open
+        ) {
           this.$root.$refs.autoInput.open({
             obj: obj,
             multiplechoice: this.obj.multiplechoice,
@@ -589,7 +543,7 @@ export default {
           e.target.$rightNode,
           e.target.$rightNode.disabled
         );
-      } else if (e.keyCode === 13 && e.target.$rightNode) {
+      } else if (e.keyCode === 13) {
         // 13 Enter
         console.log("Enter", e.target, this.$root.$refs.autoInput.getStatus());
         if (!this.$root.$refs.autoInput.getStatus()) {
@@ -649,6 +603,9 @@ export default {
     getUUID(child = null) {
       let uuid_ = uuid.v1();
       return uuid_;
+    },
+    alertClick(event) {
+      console.log("alertClick", event, this.obj);
     }
   }
 };
@@ -656,7 +613,6 @@ export default {
 
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
-
 .el-checkbox, .el-select, .is-bordered, .el-checkbox--small, .el-input, .el-input--small, .el-input-group, .el-input-group--prepend {
   margin: 5px 0px;
   vertical-align: bottom;
@@ -799,7 +755,6 @@ export default {
 >>>.red-border {
   border-color: red!important;
 }
-
 
 </style>
 

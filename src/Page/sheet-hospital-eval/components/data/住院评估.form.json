@@ -5,11 +5,11 @@
     "margin": "0",
     "width": "820px",
     "height": "auto",
-    "mode": "development",
+    "mode": "_development",
     "style": ""
   },
   "formSetting": {
-    "updateInfo":"由{{updaterName}}创建，最后编辑于{{updateTime}}",
+    "updateInfo": "由{{updaterName}}创建，最后编辑于{{updateTime}}",
     "formTitle": {
       "hospitalName": "东莞市厚街医院",
       "formName": "住 院 评 估"
@@ -117,10 +117,10 @@
           "name": "signerName",
           "type": "input",
           "title": "评估人",
-          "inputWidth":"120px!important",
-          "leftTdStyle":"text-align: right;min-width: 88px;",
-          "rightTdStyle":"",
-          "unitStyle":"",
+          "inputWidth": "120px!important",
+          "leftTdStyle": "text-align: right;min-width: 88px;",
+          "rightTdStyle": "",
+          "unitStyle": "",
           "value": "",
           "placeholder": "",
           "style": "",
@@ -131,7 +131,7 @@
           "name": "status",
           "type": "input",
           "title": "状态",
-          "inputWidth":"120px!important",
+          "inputWidth": "120px!important",
           "value": "",
           "placeholder": "状态",
           "style": "",
@@ -207,10 +207,10 @@
           "name": "I100001",
           "type": "select",
           "title": "体温",
-          "inputWidth":"217px",
-          "leftTdStyle":"min-width:80px!important",
-          "rightTdStyle":"width:237px!important",
-          "unitStyle":"",
+          "inputWidth": "217px",
+          "leftTdStyle": "min-width:80px!important",
+          "rightTdStyle": "width:237px!important",
+          "unitStyle": "",
           "titleDisplay": "体温",
           "suffixDesc": "℃",
           "style": null,
@@ -252,8 +252,8 @@
           "type": "input",
           "title": "心率/脉率",
           "suffixDesc": "次/分",
-          "inputWidth":"227px",
-          "rightTdStyle":"width:256px!important",
+          "inputWidth": "227px",
+          "rightTdStyle": "width:256px!important",
           "style": "color:black",
           "isClone": true,
           "class": null,
@@ -269,7 +269,7 @@
               "min": "110",
               "max": "Infinity",
               "equal": "",
-              "message":"心率脉率异常",
+              "message": "心率脉率异常",
               "style": "color: red;border-color: red;"
             }
           ]
@@ -278,7 +278,7 @@
           "name": "I100003",
           "type": "input",
           "title": "呼吸",
-          "inputWidth":"227px!important",
+          "inputWidth": "227px!important",
           "suffixDesc": "次/分",
           "class": null,
           "readOnly": false,
@@ -302,7 +302,7 @@
           "name": "I100004",
           "type": "input",
           "title": "SPO2",
-          "inputWidth":"227px!important",
+          "inputWidth": "227px!important",
           "suffixDesc": "%",
           "style": null,
           "class": null,
@@ -326,7 +326,7 @@
           "name": "I100005",
           "type": "input",
           "title": "血压",
-          "inputWidth":"227px!important",
+          "inputWidth": "227px!important",
           "suffixDesc": "mmhg",
           "style": null,
           "class": null,
@@ -338,7 +338,7 @@
                 200,
                 100
               ],
-              "message":"血压异常",
+              "message": "血压异常",
               "style": "color: red;border-color: red;"
             },
             {
@@ -355,11 +355,11 @@
           "name": "I100006",
           "type": "input",
           "title": "微量法血糖",
-          "inputWidth":"227px",
+          "inputWidth": "227px",
           "suffixDesc": "mmol/l",
-          "leftTdStyle":"",
-          "rightTdStyle":"",
-          "unitStyle":"",
+          "leftTdStyle": "",
+          "rightTdStyle": "",
+          "unitStyle": "",
           "style": null,
           "class": null,
           "readOnly": null,
@@ -367,7 +367,7 @@
             {
               "min": 7.8,
               "max": "Infinity",
-              "message":"血糖异常",
+              "message": "血糖异常",
               "style": "color: red;border-color: red;"
             },
             {
@@ -381,7 +381,7 @@
           "name": "I100007",
           "type": "input",
           "title": "CVP",
-          "inputWidth":"227px!important",
+          "inputWidth": "227px!important",
           "suffixDesc": "cmH2O",
           "style": null,
           "class": null,
@@ -397,7 +397,7 @@
               "min": "12",
               "max": "Infinity",
               "equal": "",
-              "message":"CVP异常",
+              "message": "CVP异常",
               "style": "color: red;border-color: red;"
             }
           ]
@@ -407,7 +407,7 @@
           "type": "select",
           "title": "意识",
           "suffixDesc": "",
-          "inputWidth":"227px!important",
+          "inputWidth": "227px!important",
           "style": null,
           "class": null,
           "readOnly": false,
@@ -436,7 +436,7 @@
           "name": "I100009",
           "type": "input",
           "title": "身高",
-          "inputWidth":"227px!important",
+          "inputWidth": "227px!important",
           "suffixDesc": "cm",
           "style": null,
           "class": null,
@@ -446,7 +446,7 @@
           "name": "I100010",
           "type": "input",
           "title": "体重",
-          "inputWidth":"227px",
+          "inputWidth": "227px",
           "suffixDesc": "kg",
           "style": null,
           "class": null,
@@ -456,7 +456,7 @@
           "name": "I100011",
           "type": "input",
           "title": "BMI",
-          "inputWidth":"227px!important",
+          "inputWidth": "227px!important",
           "suffixDesc": "kg/㎡",
           "style": null,
           "class": null,
@@ -502,7 +502,7 @@
           "name": "I100012",
           "type": "input",
           "title": "尿量",
-          "inputWidth":"227px",
+          "inputWidth": "227px",
           "suffixDesc": "ml",
           "style": null,
           "class": null,
@@ -555,7 +555,7 @@
           "name": "I100014",
           "type": "select",
           "title": "腹围",
-          "inputWidth":"227px!important",
+          "inputWidth": "227px!important",
           "suffixDesc": "cm",
           "style": null,
           "class": null,
@@ -730,7 +730,8 @@
               "inputWidth": "80px!important",
               "suffixDesc": "mm",
               "style": "",
-              "elementStyle": "margin-right:0px","marginBottom": "0px",
+              "elementStyle": "margin-right:7px;",
+              "marginBottom": "0px",
               "labelClass": "select-label",
               "class": "select-box-small",
               "readOnly": null
@@ -769,7 +770,7 @@
               "inputWidth": "80px!important",
               "suffixDesc": "mm",
               "style": "",
-              "elementStyle": "margin-right:0px",
+              "elementStyle": "margin-right:7px;",
               "marginBottom": "0px",
               "labelClass": "select-label",
               "class": "select-box-small",
@@ -829,7 +830,7 @@
               "type": "select",
               "label": "左上肢",
               "style": "",
-              "elementStyle": "margin:0px",
+              "elementStyle": "margin-right:7px;",
               "labelStyle": "",
               "labelClass": "select-label",
               "class": "select-box-small",
@@ -861,7 +862,7 @@
                 "4级",
                 "5级"
               ],
-              "tips":"肌力分级说明"
+              "tips": "肌力分级说明"
             },
             {
               "name": "I100029",
@@ -897,7 +898,7 @@
               "type": "select",
               "label": "左下肢",
               "style": "width:65px;",
-              "elementStyle": "margin:0px",
+              "elementStyle": "margin-right:7px;",
               "labelStyle": "",
               "labelClass": "select-label",
               "class": "select-box-small",
@@ -929,7 +930,7 @@
                 "4级",
                 "5级"
               ],
-              "tips":"肌力分级说明"
+              "tips": "肌力分级说明"
             },
             {
               "name": "I100032",
@@ -1045,7 +1046,7 @@
           "name": "I100035",
           "type": "input",
           "title": "呼吸次数",
-          "inputWidth":"227px!important",
+          "inputWidth": "227px!important",
           "suffixDesc": "次/分",
           "style": null,
           "class": null,
@@ -1074,7 +1075,7 @@
           "rule": [
             {
               "diff": "正常",
-              "message":"呼吸节律异常，每天评估。",
+              "message": "呼吸节律异常，每天评估。",
               "style": "color: red;border-color: red;"
             }
           ]
@@ -1110,15 +1111,15 @@
           "name": "I100141",
           "type": "select",
           "title": "口唇甲床紫绀",
-          "inputWidth":"212px",
-          "leftTdStyle":"min-width:85px!important",
+          "inputWidth": "212px",
+          "leftTdStyle": "min-width:85px!important",
           "style": null,
           "class": null,
           "readOnly": null,
           "rule": [
             {
               "diff": "无",
-              "message":"有，每天评估",
+              "message": "有，每天评估",
               "style": "color: red;border-color: red;"
             }
           ]
@@ -1141,7 +1142,7 @@
           "rule": [
             {
               "diff": "无",
-              "message":"有，每天评估",
+              "message": "有，每天评估",
               "style": "color: red;border-color: red;"
             }
           ]
@@ -1156,7 +1157,7 @@
           "rule": [
             {
               "diff": "无",
-              "message":"有，每天评估",
+              "message": "有，每天评估",
               "style": "color: red;border-color: red;"
             }
           ]
@@ -1171,7 +1172,7 @@
           "rule": [
             {
               "diff": "无",
-              "message":"有，每天评估",
+              "message": "有，每天评估",
               "style": "color: red;border-color: red;"
             }
           ]
@@ -1315,7 +1316,7 @@
             },
             {
               "diff": "无",
-              "message":"有，每天评估",
+              "message": "有，每天评估",
               "style": "color: red;border-color: red;"
             }
           ]
@@ -1420,7 +1421,7 @@
           "rule": [
             {
               "diff": "无",
-              "message":"有，每班评估",
+              "message": "有，每班评估",
               "style": "color: red;border-color: red;"
             }
           ]
@@ -1436,7 +1437,7 @@
           "rule": [
             {
               "diff": "无",
-              "message":"有，每班评估",
+              "message": "有，每班评估",
               "style": "color: red;border-color: red;"
             }
           ]
@@ -1452,7 +1453,7 @@
           "rule": [
             {
               "diff": "无",
-              "message":"有，每班评估",
+              "message": "有，每班评估",
               "style": "color: red;border-color: red;"
             }
           ]
@@ -1477,7 +1478,7 @@
             },
             {
               "diff": "无",
-              "message":"有，每班评估",
+              "message": "有，每班评估",
               "style": "color: red;border-color: red;"
             }
           ]
@@ -1493,7 +1494,7 @@
           "rule": [
             {
               "diff": "无",
-              "message":"有，每天评估",
+              "message": "有，每天评估",
               "style": "color: red;border-color: red;"
             }
           ]
@@ -1516,8 +1517,8 @@
           "name": "I100060",
           "type": "select",
           "title": "左足背动脉搏动",
-          "inputWidth":"197px",
-          "leftTdStyle":"min-width:100px!important",
+          "inputWidth": "197px",
+          "leftTdStyle": "min-width:100px!important",
           "style": null,
           "class": null,
           "readOnly": null,
@@ -1562,8 +1563,8 @@
           "name": "I100061",
           "type": "select",
           "title": "右足背动脉搏动",
-          "inputWidth":"197px",
-          "leftTdStyle":"min-width:100px!important",
+          "inputWidth": "197px",
+          "leftTdStyle": "min-width:100px!important",
           "style": null,
           "class": null,
           "readOnly": null,
@@ -1608,8 +1609,8 @@
           "name": "I100062",
           "type": "select",
           "title": "左桡动脉搏动",
-          "inputWidth":"212px",
-          "leftTdStyle":"min-width:85px!important",
+          "inputWidth": "212px",
+          "leftTdStyle": "min-width:85px!important",
           "style": null,
           "class": null,
           "readOnly": null
@@ -1618,8 +1619,8 @@
           "name": "I100063",
           "type": "select",
           "title": "右桡动脉搏动",
-          "inputWidth":"212px",
-          "leftTdStyle":"min-width:85px!important",
+          "inputWidth": "212px",
+          "leftTdStyle": "min-width:85px!important",
           "style": null,
           "class": null,
           "readOnly": null
@@ -1695,8 +1696,8 @@
           "name": "I100064",
           "type": "",
           "title": "毛细血管充盈",
-          "inputWidth":"212px",
-          "leftTdStyle":"min-width:85px!important",
+          "inputWidth": "212px",
+          "leftTdStyle": "min-width:85px!important",
           "style": null,
           "class": "input-elements-nowrap",
           "readOnly": null,
@@ -1705,8 +1706,8 @@
               "name": "I100064",
               "type": "select",
               "title": "毛细血管充盈",
-              "inputWidth":"212px",
-              "leftTdStyle":"min-width:85px!important",
+              "inputWidth": "212px",
+              "leftTdStyle": "min-width:85px!important",
               "style": null,
               "class": null,
               "readOnly": null,
@@ -1722,7 +1723,7 @@
                   "style": "color: red;border-color: red;"
                 }
               ],
-              "tips":"毛细血管充盈说明"
+              "tips": "毛细血管充盈说明"
             },
             {
               "name": "I100064",
@@ -1741,7 +1742,7 @@
                 "hasCancel": false,
                 "type": "dependent"
               },
-              "tips":"<p style='color:green'>毛细血管充盈说明:</p><p><span style='color:blue'>阴性</span>    撤除压力后，局部皮肤颜色由白转红的时间≤2s</p><p><span style='color:blue'>阳性</span>    撤除压力后，局部皮肤颜色由白转红的时间＞3s,或成斑点状发红</p>"
+              "tips": "<p style='color:green'>毛细血管充盈说明:</p><p><span style='color:blue'>阴性</span>    撤除压力后，局部皮肤颜色由白转红的时间≤2s</p><p><span style='color:blue'>阳性</span>    撤除压力后，局部皮肤颜色由白转红的时间＞3s,或成斑点状发红</p>"
             }
           ]
         },
@@ -1809,7 +1810,7 @@
           "rule": [
             {
               "diff": "无",
-              "message":"有皮肤受损的危险",
+              "message": "有皮肤受损的危险",
               "style": "color: red;border-color: red;"
             }
           ]
@@ -1851,8 +1852,8 @@
           "name": "I100077",
           "type": "select",
           "title": "肢体活动受限",
-          "inputWidth":"212px",
-          "leftTdStyle":"min-width:85px!important",
+          "inputWidth": "212px",
+          "leftTdStyle": "min-width:85px!important",
           "style": null,
           "class": null,
           "readOnly": null,
@@ -1872,9 +1873,9 @@
           "name": "I100159",
           "type": "select",
           "title": "伤口皮肤情况",
-          "inputWidth":"212px",
-          "leftTdStyle":"min-width:85px!important",
-          "elementStyle":"width: 270px;",
+          "inputWidth": "212px",
+          "leftTdStyle": "min-width:85px!important",
+          "elementStyle": "width: 270px;",
           "style": null,
           "class": null,
           "readOnly": null,
@@ -1928,8 +1929,8 @@
           "name": "I100081",
           "type": "select",
           "title": "伤口敷料情况",
-          "inputWidth":"212px",
-          "leftTdStyle":"min-width:85px!important",
+          "inputWidth": "212px",
+          "leftTdStyle": "min-width:85px!important",
           "style": null,
           "class": null,
           "readOnly": null
@@ -2497,8 +2498,8 @@
           "name": "I100122",
           "type": "select",
           "title": "阴道异常分泌物",
-          "inputWidth":"197px",
-          "leftTdStyle":"min-width:100px!important",
+          "inputWidth": "197px",
+          "leftTdStyle": "min-width:100px!important",
           "style": null,
           "class": null,
           "readOnly": null,
@@ -2600,8 +2601,8 @@
           "name": "I100126",
           "type": "input",
           "title": "自理能力评估",
-          "inputWidth":"213px",
-          "leftTdStyle":"min-width:85px!important",
+          "inputWidth": "213px",
+          "leftTdStyle": "min-width:85px!important",
           "style": null,
           "class": null,
           "readOnly": true,
@@ -2624,8 +2625,8 @@
           "name": "I100127",
           "type": "input",
           "title": "Barden压疮风险",
-          "inputWidth":"197px",
-          "leftTdStyle":"min-width:100px!important",
+          "inputWidth": "197px",
+          "leftTdStyle": "min-width:100px!important",
           "style": null,
           "class": null,
           "readOnly": true,
@@ -2681,8 +2682,8 @@
           "name": "I100128",
           "type": "select",
           "title": "四肢活动",
-          "inputWidth":"213px",
-          "leftTdStyle":"min-width:85px!important",
+          "inputWidth": "213px",
+          "leftTdStyle": "min-width:85px!important",
           "style": null,
           "class": null,
           "readOnly": null,
@@ -2708,8 +2709,8 @@
           "name": "I100129",
           "type": "select",
           "title": "日常照顾者",
-          "inputWidth":"213px",
-          "leftTdStyle":"min-width:85px!important",
+          "inputWidth": "213px",
+          "leftTdStyle": "min-width:85px!important",
           "style": null,
           "class": null,
           "readOnly": null
@@ -2746,8 +2747,8 @@
           "name": "I100130",
           "type": "input",
           "title": "跌倒风险评估",
-          "inputWidth":"213px",
-          "leftTdStyle":"min-width:85px!important",
+          "inputWidth": "213px",
+          "leftTdStyle": "min-width:85px!important",
           "style": null,
           "class": null,
           "readOnly": true,
@@ -2780,8 +2781,8 @@
           "name": "I100132",
           "type": "input",
           "title": "疼痛评估",
-          "inputWidth":"213px",
-          "leftTdStyle":"min-width:85px!important",
+          "inputWidth": "213px",
+          "leftTdStyle": "min-width:85px!important",
           "style": null,
           "class": null,
           "readOnly": true,
@@ -2845,8 +2846,8 @@
           "name": "I100028",
           "type": "input",
           "title": "吞咽评估",
-          "inputWidth":"213px",
-          "leftTdStyle":"min-width:85px!important",
+          "inputWidth": "213px",
+          "leftTdStyle": "min-width:85px!important",
           "style": null,
           "readOnly": true,
           "isClone": true,
@@ -2869,8 +2870,8 @@
           "name": "I100136",
           "type": "input",
           "title": "VTE风险评估",
-          "inputWidth":"213px",
-          "leftTdStyle":"min-width:85px!important",
+          "inputWidth": "213px",
+          "leftTdStyle": "min-width:85px!important",
           "style": null,
           "class": null,
           "readOnly": true,
@@ -2903,8 +2904,8 @@
           "name": "I100020",
           "type": "input",
           "title": "GCS评估",
-          "inputWidth":"213px",
-          "leftTdStyle":"min-width:85px!important",
+          "inputWidth": "213px",
+          "leftTdStyle": "min-width:85px!important",
           "style": null,
           "class": null,
           "readOnly": true,

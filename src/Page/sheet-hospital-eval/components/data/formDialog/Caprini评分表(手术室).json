@@ -767,7 +767,7 @@
             },
             {
               "min": "5",
-              "max": "999",
+              "max": "Infinity",
               "equal": "高风险",
               "style": "color:red",
               "display": "高风险"

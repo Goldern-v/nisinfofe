@@ -537,28 +537,28 @@
           "code": "",
           "value": "",
           "placeholder": "结果程度",
-          "style": "width:80px",
-          "inputWidth":"80px",
+          "style": "width:180px",
+          "inputWidth":"180px",
           "class": null,
           "readOnly": true,
           "rule": [
             {
               "min": "0",
-              "max": "9",
+              "max": "10",
               "equal": "极度危险",
               "style": "color:red",
               "display": "极度危险"
             },
             {
               "min": "10",
-              "max": "12",
+              "max": "13",
               "equal": "高度危险",
               "style": "color:red",
               "display": "高度危险"
             },
             {
               "min": "13",
-              "max": "14",
+              "max": "15",
               "equal": "中度危险",
               "style": "color:blue",
               "display": "中度危险"
@@ -569,6 +569,13 @@
               "equal": "轻度危险",
               "style": "color:blue",
               "display": "轻度危险"
+            },
+            {
+              "min": "18",
+              "max": "Infinity",
+              "equal": "没有风险",
+              "style": "color:black",
+              "display": "没有风险"
             }
           ]
         }

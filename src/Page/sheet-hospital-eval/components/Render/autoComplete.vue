@@ -110,7 +110,7 @@ export default {
       selectIndex: 0,
       parentEl: null,
       multiplechoice: false,
-      obj: new Object(),
+      obj: {},
       id: ""
     };
   },
@@ -197,6 +197,11 @@ export default {
         "!!!post:autoPost",
         e,
         item,
+        this.id,
+        this.obj
+      );
+      console.log(
+        "!!!post:id",
         this.selectedList,
         this.obj[this.id]
       );
