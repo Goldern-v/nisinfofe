@@ -66,8 +66,12 @@ class WebSocketService {
 
   // 根据连接id取消订阅
   unsubscribe(subscribId) {
-    this.caseSubscribeMap[subscribId].unsubscribe()
-    delete this.caseSubscribeMap[subscribId]
+    try {
+      this.caseSubscribeMap[subscribId].unsubscribe()
+      delete this.caseSubscribeMap[subscribId]
+    } catch (error) {
+    }
+
   }
 
   // md5 队列插入

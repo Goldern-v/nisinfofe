@@ -29,31 +29,46 @@
   </div>
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus">
-.home-b-l-t
-  .el-table
-    border 0
-  .el-table::after
-    display none
-  .el-table::before
-    display none
-  .el-table th
-    background #fff
+.home-b-l-t {
+  .el-table {
+    border: 0;
+  }
+
+  .el-table::after {
+    display: none;
+  }
+
+  .el-table::before {
+    display: none;
+  }
+
+  .el-table th {
+    background: #fff;
     font-size: 13px;
     color: #687179;
-    font-weight bold
-    .cell
-      background #fff
-  td .cell
-    cursor pointer
+    font-weight: bold;
+
+    .cell {
+      background: #fff;
+    }
+  }
+
+  td .cell {
+    cursor: pointer;
+  }
+}
 </style>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
-.box-contain
-  padding 15px 20px
-.label-con
+.box-contain {
+  padding: 15px 20px;
+}
+
+.label-con {
   border-radius: 2px;
   font-size: 13px;
   color: #FFFFFF;
-  padding 2px 10px
+  padding: 2px 10px;
+}
 </style>
 <script>
 import { getNote } from "@/api/home";
@@ -126,7 +141,10 @@ export default {
       this.$router.push(
         {
           path: "/record",
-          query: this.$route.query
+          query: {
+            patientId: this.$route.query.patientId,
+            visitId: this.$route.query.visitId
+          }
         },
         () => {
           this.$nextTick(() => {
@@ -143,20 +161,21 @@ export default {
               //   东莞市厚街医院: "openAssessment"
               // };
               // let emitCode = hisList[HisName] || "openAssessment";
-
-              this.bus.$emit(
-                "openAssessmentBox",
-                Object.assign({}, getFormConfig(row.formName), {
-                  id: row.dataId,
-                  formCode: row.formCode,
-                  type: row.formType,
-                  showCurve: row.showCurve,
-                  creator: row.creator,
-                  listPrint: row.listPrint,
-                  nooForm: row.nooForm,
-                  pageUrl: row.pageUrl
-                })
-              );
+              setTimeout(() => {
+                this.bus.$emit(
+                  "openAssessmentBox",
+                  Object.assign({}, getFormConfig(row.formName), {
+                    id: row.dataId,
+                    formCode: row.formCode,
+                    type: row.formType,
+                    showCurve: row.showCurve,
+                    creator: row.creator,
+                    listPrint: row.listPrint,
+                    nooForm: row.nooForm,
+                    pageUrl: row.pageUrl
+                  })
+                );
+              }, 200);
             }
           });
         }
