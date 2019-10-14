@@ -207,6 +207,7 @@
           "name": "I100001",
           "type": "select",
           "title": "体温",
+          "subTitle":"I100000",
           "inputWidth": "217px",
           "leftTdStyle": "min-width:80px!important",
           "rightTdStyle": "width:237px!important",
@@ -244,6 +245,11 @@
               "equal": "",
               "message": "体温过高",
               "style": "color: red;border-color: red;"
+            },
+            {
+              "source":"I100000",
+              "target":"I100001",
+              "type":"signValue"
             }
           ]
         },
@@ -255,7 +261,6 @@
           "inputWidth": "227px",
           "rightTdStyle": "width:256px!important",
           "style": "color:black",
-          "isClone": true,
           "class": null,
           "readOnly": null,
           "rule": [
@@ -716,84 +721,48 @@
       "readOnly": null,
       "children": [
         {
-          "name": "I100029",
-          "type": "",
-          "title": "瞳孔(左)",
+          "name": "I100021",
+          "type": "input",
+          "title": "瞳孔(左大小)",
+          "inputWidth": "212px",
+          "leftTdStyle": "min-width:85px!important",
+          "suffixDesc": "mm",
+          "rightTdStyle": "",
+          "unitStyle": "",
           "style": "",
-          "class": "input-elements-nowrap",
-          "readOnly": null,
-          "children": [
-            {
-              "name": "I100021",
-              "type": "input",
-              "label": "大小",
-              "inputWidth": "80px!important",
-              "suffixDesc": "mm",
-              "style": "",
-              "elementStyle": "margin-right:7px;",
-              "marginBottom": "0px",
-              "labelClass": "select-label",
-              "class": "select-box-small",
-              "readOnly": null
-            },
-            {
-              "name": "I100022",
-              "type": "select",
-              "label": "反射",
-              "inputWidth": "77px!important",
-              "style": "width:80px;",
-              "elementStyle": "margin:0px",
-              "labelStyle": "",
-              "labelClass": "select-label",
-              "class": "select-box-small",
-              "readOnly": null,
-              "options": [
-                "灵敏",
-                "迟钝",
-                "消失"
-              ]
-            }
-          ]
+          "readOnly": null
         },
         {
           "name": "I100023",
-          "type": "",
-          "title": "瞳孔(右)",
+          "type": "input",
+          "title": "瞳孔(右大小)",
+          "inputWidth": "212px",
+          "leftTdStyle": "min-width:85px!important",
+          "suffixDesc": "mm",
+          "rightTdStyle": "",
+          "unitStyle": "",
           "style": "",
-          "class": "input-elements-nowrap",
-          "readOnly": null,
-          "children": [
-            {
-              "name": "I100023",
-              "type": "input",
-              "label": "大小",
-              "inputWidth": "80px!important",
-              "suffixDesc": "mm",
-              "style": "",
-              "elementStyle": "margin-right:7px;",
-              "marginBottom": "0px",
-              "labelClass": "select-label",
-              "class": "select-box-small",
-              "readOnly": null
-            },
-            {
-              "name": "I100024",
-              "type": "select",
-              "label": "反射",
-              "inputWidth": "77px!important",
-              "style": "width:80px;",
-              "elementStyle": "margin:0px",
-              "labelStyle": "",
-              "labelClass": "select-label",
-              "class": "select-box-small",
-              "readOnly": null,
-              "options": [
-                "灵敏",
-                "迟钝",
-                "消失"
-              ]
-            }
-          ]
+          "readOnly": null
+        },
+        {
+          "name": "I100022",
+          "type": "select",
+          "title": "瞳孔(左反射)",
+          "inputWidth": "212px",
+          "leftTdStyle": "min-width:85px!important",
+          "style": null,
+          "class": null,
+          "readOnly": false
+        },
+        {
+          "name": "I100024",
+          "type": "select",
+          "title": "瞳孔(右反射)",
+          "inputWidth": "212px",
+          "leftTdStyle": "min-width:85px!important",
+          "style": null,
+          "class": null,
+          "readOnly": false
         },
         {
           "name": "I100025",
@@ -814,139 +783,6 @@
             {
               "equal": "有",
               "style": "color: red;border-color: red;"
-            }
-          ]
-        },
-        {
-          "name": "I100029",
-          "type": "",
-          "title": "肌力",
-          "style": "",
-          "class": "input-elements-nowrap",
-          "readOnly": null,
-          "children": [
-            {
-              "name": "I100029",
-              "type": "select",
-              "label": "左上肢",
-              "style": "",
-              "elementStyle": "margin-right:7px;",
-              "labelStyle": "",
-              "labelClass": "select-label",
-              "class": "select-box-small",
-              "readOnly": null,
-              "options": [
-                "0级",
-                "1级",
-                "2级",
-                "3级",
-                "4级",
-                "5级"
-              ]
-            },
-            {
-              "name": "I100030",
-              "type": "select",
-              "label": "右上肢",
-              "style": "width:65px;",
-              "elementStyle": "margin:0px",
-              "labelStyle": "",
-              "labelClass": "select-label",
-              "class": "select-box-small",
-              "readOnly": null,
-              "options": [
-                "0级",
-                "1级",
-                "2级",
-                "3级",
-                "4级",
-                "5级"
-              ],
-              "tips": "肌力分级说明"
-            },
-            {
-              "name": "I100029",
-              "type": "help",
-              "title": "肌力分级说明",
-              "style": null,
-              "elementStyle": "margin-left: 8px;",
-              "class": "help-image",
-              "labelStyle": "",
-              "labelClass": "select-label",
-              "readOnly": null,
-              "dialog": {
-                "title": "肌力分级说明",
-                "default": "肌力分级说明",
-                "okText": "好的，知道了",
-                "hasCancel": false,
-                "type": "dependent"
-              },
-              "tips": "<p style='color:green'>肌力分级说明:</p><p><span style='color:blue'>0级</span>    肌肉无任何收缩现象</sp><p><span style='color:blue'>1级</span>    肌肉仅能轻微收缩</p><p><span style='color:blue'>2级</span>    肢体能在床上平行移动，但不能对抗阻力</p><p><span style='color:blue'>3级</span>    肢体能抬高床面，但不能对抗阻力</p><p><span style='color:blue'>4级</span>    能对抗阻力活动</p><p><span style='color:blue'>5级</span>    肌力正常</p>"
-            }
-          ]
-        },
-        {
-          "name": "I100031",
-          "type": "",
-          "title": "肌力",
-          "style": null,
-          "class": "input-elements-nowrap",
-          "readOnly": null,
-          "children": [
-            {
-              "name": "I100031",
-              "type": "select",
-              "label": "左下肢",
-              "style": "width:65px;",
-              "elementStyle": "margin-right:7px;",
-              "labelStyle": "",
-              "labelClass": "select-label",
-              "class": "select-box-small",
-              "readOnly": null,
-              "options": [
-                "0级",
-                "1级",
-                "2级",
-                "3级",
-                "4级",
-                "5级"
-              ]
-            },
-            {
-              "name": "I100032",
-              "type": "select",
-              "label": "右下肢",
-              "style": "width:65px;",
-              "elementStyle": "margin:0px",
-              "labelStyle": "",
-              "labelClass": "select-label",
-              "class": "select-box-small",
-              "readOnly": null,
-              "options": [
-                "0级",
-                "1级",
-                "2级",
-                "3级",
-                "4级",
-                "5级"
-              ],
-              "tips": "肌力分级说明"
-            },
-            {
-              "name": "I100032",
-              "type": "help",
-              "title": "肌力分级说明",
-              "style": null,
-              "elementStyle": "margin-left: 8px;",
-              "class": "help-image",
-              "readOnly": null,
-              "dialog": {
-                "title": "肌力分级说明",
-                "default": "肌力分级说明",
-                "okText": "好的，知道了",
-                "hasCancel": false
-              },
-              "tips": "<p style='color:green'>肌力分级说明:</p><p><span style='color:blue'>0级</span>    肌肉无任何收缩现象</sp><p><span style='color:blue'>1级</span>    肌肉仅能轻微收缩</p><p><span style='color:blue'>2级</span>    肢体能在床上平行移动，但不能对抗阻力</p><p><span style='color:blue'>3级</span>    肢体能抬高床面，但不能对抗阻力</p><p><span style='color:blue'>4级</span>    能对抗阻力活动</p><p><span style='color:blue'>5级</span>    肌力正常</p>"
             }
           ]
         },
@@ -1413,7 +1249,6 @@
         {
           "name": "I100152",
           "type": "select",
-          "isClone": true,
           "title": "胸痛",
           "style": null,
           "class": null,
@@ -1429,7 +1264,6 @@
         {
           "name": "I100026",
           "type": "select",
-          "isClone": true,
           "title": "头晕",
           "style": null,
           "class": null,
@@ -1445,7 +1279,6 @@
         {
           "name": "I100153",
           "type": "select",
-          "isClone": true,
           "title": "头痛",
           "style": null,
           "class": null,
@@ -1461,7 +1294,6 @@
         {
           "name": "I100154",
           "type": "select",
-          "isClone": true,
           "title": "水肿",
           "style": null,
           "class": null,
@@ -1486,7 +1318,6 @@
         {
           "name": "I100157",
           "type": "select",
-          "isClone": true,
           "title": "内瘘震颤音",
           "style": null,
           "class": null,
@@ -1628,7 +1459,7 @@
       ]
     },
     {
-      "name": "",
+      "name": "I100065",
       "type": "formGroupColBox",
       "col": 1,
       "colWidth": [
@@ -1870,6 +1701,39 @@
           ]
         },
         {
+          "name": "I100139",
+          "type": "select",
+          "title": "肢体",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I100084",
+          "type": "select",
+          "title": "假肢",
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "有",
+                "cleanKey": "无",
+                "title": "假肢",
+                "default": "假肢",
+                "type": "dependent"
+              }
+            },
+            {
+              "equals": [
+                "有"
+              ],
+              "style": "color: red;border-color: red;"
+            }
+          ]
+        },
+        {
           "name": "I100159",
           "type": "select",
           "title": "伤口皮肤情况",
@@ -1895,6 +1759,7 @@
           "name": "I100078",
           "type": "select",
           "title": "造口粘膜",
+          "multiplechoice": true,
           "style": null,
           "class": null,
           "readOnly": null
@@ -1921,6 +1786,21 @@
               "equals": [
                 "有"
               ],
+              "style": "color: red;border-color: red;"
+            }
+          ]
+        },
+        {
+          "name": "I100089",
+          "type": "select",
+          "title": "口腔粘膜",
+          "multiplechoice": true,
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "rule": [
+            {
+              "diff": "正常",
               "style": "color: red;border-color: red;"
             }
           ]
@@ -1962,31 +1842,6 @@
           ]
         },
         {
-          "name": "I100084",
-          "type": "select",
-          "title": "假肢",
-          "style": null,
-          "class": null,
-          "readOnly": null,
-          "rule": [
-            {
-              "dialog": {
-                "openKey": "有",
-                "cleanKey": "无",
-                "title": "假肢",
-                "default": "假肢",
-                "type": "dependent"
-              }
-            },
-            {
-              "equals": [
-                "有"
-              ],
-              "style": "color: red;border-color: red;"
-            }
-          ]
-        },
-        {
           "name": "I100086",
           "type": "select",
           "title": "外固定",
@@ -2012,27 +1867,223 @@
           ]
         },
         {
-          "name": "I100089",
+          "name": "I100167",
           "type": "select",
-          "title": "口腔粘膜",
-          "multiplechoice": true,
+          "title": "感觉",
           "style": null,
           "class": null,
           "readOnly": null,
           "rule": [
             {
-              "diff": "正常",
-              "style": "color: red;border-color: red;"
+              "dialog": {
+                "openKey": "异常",
+                "cleanKey": "正常",
+                "title": "感觉异常",
+                "default": "感觉异常",
+                "type": "dependent"
+              }
             }
           ]
         },
         {
-          "name": "I100139",
+          "name": "I100170",
           "type": "select",
-          "title": "肢体",
+          "title": "牵引",
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "有",
+                "cleanKey": "无",
+                "title": "牵引有",
+                "default": "牵引有",
+                "type": "dependent"
+              }
+            }
+          ]
+        },
+        {
+          "name": "I100174",
+          "type": "select",
+          "title": "体位护理",
+          "multiplechoice": true,
           "style": null,
           "class": null,
           "readOnly": null
+        },
+        {
+          "name": "I100029",
+          "type": "select",
+          "title": "肌力(左上肢)",
+          "style": null,
+          "inputWidth": "212px",
+          "leftTdStyle": "min-width:85px!important",
+          "class": null,
+          "tips": "肌力分级说明",
+          "readOnly": null,
+          "children": [
+            {
+              "name": "I100029",
+              "type": "select",
+              "title": "肌力(左上肢)",
+              "style": null,
+              "inputWidth": "212px",
+              "leftTdStyle": "min-width:85px!important",
+              "class": null,
+              "tips": "肌力分级说明",
+              "readOnly": null
+            },
+            {
+              "name": "I100029",
+              "type": "help",
+              "title": "肌力分级说明",
+              "style": null,
+              "elementStyle": "margin-left: 8px;",
+              "class": "help-image",
+              "labelStyle": "",
+              "labelClass": "select-label",
+              "readOnly": null,
+              "dialog": {
+                "title": "肌力分级说明",
+                "default": "肌力分级说明",
+                "okText": "好的，知道了",
+                "hasCancel": false,
+                "type": "dependent"
+              },
+              "tips": "<p style='color:green'>肌力分级说明:</p><p><span style='color:blue'>0级</span>    肌肉无任何收缩现象</sp><p><span style='color:blue'>1级</span>    肌肉仅能轻微收缩</p><p><span style='color:blue'>2级</span>    肢体能在床上平行移动，但不能对抗阻力</p><p><span style='color:blue'>3级</span>    肢体能抬高床面，但不能对抗阻力</p><p><span style='color:blue'>4级</span>    能对抗阻力活动</p><p><span style='color:blue'>5级</span>    肌力正常</p>"
+            }
+          ]
+        },
+        {
+          "name": "I100030",
+          "type": "select",
+          "title": "肌力(右上肢)",
+          "style": null,
+          "inputWidth": "212px",
+          "leftTdStyle": "min-width:85px!important",
+          "class": null,
+          "tips": "肌力分级说明",
+          "readOnly": null,
+          "children": [
+            {
+              "name": "I100030",
+              "type": "select",
+              "title": "肌力(右上肢)",
+              "style": null,
+              "inputWidth": "212px",
+              "leftTdStyle": "min-width:85px!important",
+              "class": null,
+              "tips": "肌力分级说明",
+              "readOnly": null
+            },
+            {
+              "name": "I100030",
+              "type": "help",
+              "title": "肌力分级说明",
+              "style": null,
+              "elementStyle": "margin-left: 8px;",
+              "class": "help-image",
+              "labelStyle": "",
+              "labelClass": "select-label",
+              "readOnly": null,
+              "dialog": {
+                "title": "肌力分级说明",
+                "default": "肌力分级说明",
+                "okText": "好的，知道了",
+                "hasCancel": false,
+                "type": "dependent"
+              },
+              "tips": "<p style='color:green'>肌力分级说明:</p><p><span style='color:blue'>0级</span>    肌肉无任何收缩现象</sp><p><span style='color:blue'>1级</span>    肌肉仅能轻微收缩</p><p><span style='color:blue'>2级</span>    肢体能在床上平行移动，但不能对抗阻力</p><p><span style='color:blue'>3级</span>    肢体能抬高床面，但不能对抗阻力</p><p><span style='color:blue'>4级</span>    能对抗阻力活动</p><p><span style='color:blue'>5级</span>    肌力正常</p>"
+            }
+          ]
+        },
+        {
+          "name": "I100031",
+          "type": "select",
+          "title": "肌力(左下肢)",
+          "style": null,
+          "inputWidth": "212px",
+          "leftTdStyle": "min-width:85px!important",
+          "class": null,
+          "tips": "肌力分级说明",
+          "readOnly": null,
+          "children": [
+            {
+              "name": "I100031",
+              "type": "select",
+              "title": "肌力(左下肢)",
+              "style": null,
+              "inputWidth": "212px",
+              "leftTdStyle": "min-width:85px!important",
+              "class": null,
+              "tips": "肌力分级说明",
+              "readOnly": null
+            },
+            {
+              "name": "I100031",
+              "type": "help",
+              "title": "肌力分级说明",
+              "style": null,
+              "elementStyle": "margin-left: 8px;",
+              "class": "help-image",
+              "labelStyle": "",
+              "labelClass": "select-label",
+              "readOnly": null,
+              "dialog": {
+                "title": "肌力分级说明",
+                "default": "肌力分级说明",
+                "okText": "好的，知道了",
+                "hasCancel": false,
+                "type": "dependent"
+              },
+              "tips": "<p style='color:green'>肌力分级说明:</p><p><span style='color:blue'>0级</span>    肌肉无任何收缩现象</sp><p><span style='color:blue'>1级</span>    肌肉仅能轻微收缩</p><p><span style='color:blue'>2级</span>    肢体能在床上平行移动，但不能对抗阻力</p><p><span style='color:blue'>3级</span>    肢体能抬高床面，但不能对抗阻力</p><p><span style='color:blue'>4级</span>    能对抗阻力活动</p><p><span style='color:blue'>5级</span>    肌力正常</p>"
+            }
+          ]
+        },
+        {
+          "name": "I100032",
+          "type": "select",
+          "title": "肌力(右下肢)",
+          "style": null,
+          "inputWidth": "212px",
+          "leftTdStyle": "min-width:85px!important",
+          "class": null,
+          "tips": "肌力分级说明",
+          "readOnly": null,
+          "children": [
+            {
+              "name": "I100032",
+              "type": "select",
+              "title": "肌力(右下肢)",
+              "style": null,
+              "inputWidth": "212px",
+              "leftTdStyle": "min-width:85px!important",
+              "class": null,
+              "tips": "肌力分级说明",
+              "readOnly": null
+            },
+            {
+              "name": "I100031",
+              "type": "help",
+              "title": "肌力分级说明",
+              "style": null,
+              "elementStyle": "margin-left: 8px;",
+              "class": "help-image",
+              "labelStyle": "",
+              "labelClass": "select-label",
+              "readOnly": null,
+              "dialog": {
+                "title": "肌力分级说明",
+                "default": "肌力分级说明",
+                "okText": "好的，知道了",
+                "hasCancel": false,
+                "type": "dependent"
+              },
+              "tips": "<p style='color:green'>肌力分级说明:</p><p><span style='color:blue'>0级</span>    肌肉无任何收缩现象</sp><p><span style='color:blue'>1级</span>    肌肉仅能轻微收缩</p><p><span style='color:blue'>2级</span>    肢体能在床上平行移动，但不能对抗阻力</p><p><span style='color:blue'>3级</span>    肢体能抬高床面，但不能对抗阻力</p><p><span style='color:blue'>4级</span>    能对抗阻力活动</p><p><span style='color:blue'>5级</span>    肌力正常</p>"
+            }
+          ]
         }
       ]
     },
@@ -2161,9 +2212,8 @@
               }
             },
             {
-              "equals": [
-                "有"
-              ],
+              "diff": "无",
+              "message": "护理问题：恶心，舒适状态的改变,每班评估",
               "style": "color: red;border-color: red;"
             }
           ]
@@ -2223,12 +2273,51 @@
           "readOnly": null
         },
         {
+          "name": "I100181",
+          "type": "select",
+          "title": "反酸/嗳气",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
           "name": "I100104",
           "type": "select",
           "title": "肠鸣音",
           "style": null,
           "class": null,
           "readOnly": null
+        },
+        {
+          "name": "I100175",
+          "type": "select",
+          "title": "肠内营养方式",
+          "inputWidth": "212px",
+          "leftTdStyle": "min-width:85px!important",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I100182",
+          "type": "select",
+          "title": "腹水",
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "有",
+                "cleanKey": [
+                  "无"
+                ],
+                "title": "腹水测量",
+                "default": "腹水测量",
+                "type": "dependent"
+              }
+            }
+          ]
         },
         {
           "name": "I100105",
@@ -2364,6 +2453,18 @@
       "readOnly": ""
     },
     {
+      "name": "",
+      "type": "formGroupTitle",
+      "level": "3",
+      "title": "2.7.1 男性生殖泌尿系统",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
       "name": "I100112",
       "type": "formGroupColBox",
       "col": 2,
@@ -2390,6 +2491,7 @@
               "diff": [
                 "未发现异常"
               ],
+              "message": "每班评估",
               "style": "color: red;border-color: red;"
             }
           ]
@@ -2414,6 +2516,96 @@
               "diff": [
                 "黄色"
               ],
+              "style": "color: red;border-color: red;"
+            }
+          ]
+        },
+        {
+          "name": "I100184",
+          "type": "select",
+          "title": "阴囊",
+          "multiplechoice": true,
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "rule": [
+            {
+              "diff": [
+                "无"
+              ],
+              "message": "每天评估",
+              "style": "color: red;border-color: red;"
+            }
+          ]
+        },
+        {
+          "name": "I100185",
+          "type": "select",
+          "title": "尿道口分泌物",
+          "inputWidth": "212px",
+          "leftTdStyle": "min-width:85px!important",
+          "multiplechoice": true,
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "rule": [
+            {
+              "diff": [
+                "无"
+              ],
+              "message": "有感染的危险，每天评估",
+              "style": "color: red;border-color: red;"
+            }
+          ]
+        },
+        {
+          "name": "I100186",
+          "type": "select",
+          "title": "尿道口渗血",
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "rule": [
+            {
+              "diff": [
+                "无"
+              ],
+              "message": "每班评估量",
+              "style": "color: red;border-color: red;"
+            }
+          ]
+        },
+        {
+          "name": "I100187",
+          "type": "select",
+          "title": "阴茎",
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "rule": [
+            {
+              "diff": [
+                "无"
+              ],
+              "message": "每班评估量",
+              "style": "color: red;border-color: red;"
+            }
+          ]
+        },
+        {
+          "name": "I100188",
+          "type": "select",
+          "title": "睾丸",
+          "multiplechoice": true,
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "rule": [
+            {
+              "diff": [
+                "无"
+              ],
+              "message": "有睾丸扭转，即时处理后评估",
               "style": "color: red;border-color: red;"
             }
           ]
@@ -2470,7 +2662,74 @@
               "style": "color: red;border-color: red;"
             }
           ]
-        },
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupColBox",
+      "col": 1,
+      "colWidth": [
+        "100%"
+      ],
+      "title": "",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I100125",
+          "type": "mark",
+          "title": "备注",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "",
+      "type": "formGroupTitle",
+      "level": "3",
+      "title": "2.7.2 产科生殖泌尿系统",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "I100112",
+      "type": "formGroupColBox",
+      "col": 2,
+      "title": "产科生殖泌尿系统",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "I100112",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
         {
           "name": "I100119",
           "type": "select",
@@ -2518,33 +2777,6 @@
               "style": "color: red;border-color: red;"
             }
           ]
-        }
-      ]
-    },
-    {
-      "name": "",
-      "type": "formGroupColBox",
-      "col": 1,
-      "colWidth": [
-        "100%"
-      ],
-      "title": "",
-      "message": "",
-      "require": "false",
-      "prefixDesc": "",
-      "suffixDesc": "",
-      "keys": "",
-      "style": null,
-      "classes": null,
-      "readOnly": null,
-      "children": [
-        {
-          "name": "I100125",
-          "type": "mark",
-          "title": "备注",
-          "style": null,
-          "class": null,
-          "readOnly": null
         }
       ]
     },
@@ -2603,6 +2835,7 @@
           "title": "自理能力评估",
           "inputWidth": "213px",
           "leftTdStyle": "min-width:85px!important",
+          "elementStyle": "width: 270px;",
           "style": null,
           "class": null,
           "readOnly": true,
@@ -2627,6 +2860,7 @@
           "title": "Barden压疮风险",
           "inputWidth": "197px",
           "leftTdStyle": "min-width:100px!important",
+          "elementStyle": "width: 270px;",
           "style": null,
           "class": null,
           "readOnly": true,
@@ -2684,6 +2918,7 @@
           "title": "四肢活动",
           "inputWidth": "213px",
           "leftTdStyle": "min-width:85px!important",
+          "elementStyle": "width: 270px;",
           "style": null,
           "class": null,
           "readOnly": null,
@@ -2711,6 +2946,7 @@
           "title": "日常照顾者",
           "inputWidth": "213px",
           "leftTdStyle": "min-width:85px!important",
+          "elementStyle": "width: 270px;",
           "style": null,
           "class": null,
           "readOnly": null
@@ -2749,6 +2985,7 @@
           "title": "跌倒风险评估",
           "inputWidth": "213px",
           "leftTdStyle": "min-width:85px!important",
+          "elementStyle": "width: 270px;",
           "style": null,
           "class": null,
           "readOnly": true,
@@ -2783,6 +3020,7 @@
           "title": "疼痛评估",
           "inputWidth": "213px",
           "leftTdStyle": "min-width:85px!important",
+          "elementStyle": "width: 270px;",
           "style": null,
           "class": null,
           "readOnly": true,
@@ -2848,9 +3086,9 @@
           "title": "吞咽评估",
           "inputWidth": "213px",
           "leftTdStyle": "min-width:85px!important",
+          "elementStyle": "width: 270px;",
           "style": null,
           "readOnly": true,
-          "isClone": true,
           "dialog": {
             "title": "吞咽评估单",
             "default": "吞咽评估单",
@@ -2872,6 +3110,7 @@
           "title": "VTE风险评估",
           "inputWidth": "213px",
           "leftTdStyle": "min-width:85px!important",
+          "elementStyle": "width: 270px;",
           "style": null,
           "class": null,
           "readOnly": true,
@@ -2906,6 +3145,7 @@
           "title": "GCS评估",
           "inputWidth": "213px",
           "leftTdStyle": "min-width:85px!important",
+          "elementStyle": "width: 270px;",
           "style": null,
           "class": null,
           "readOnly": true,

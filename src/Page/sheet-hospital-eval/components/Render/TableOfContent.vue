@@ -16,7 +16,7 @@
           v-for="(t,i) in formObj.body"
           v-if="t.type ==='formGroupTitle'"
           :key="i"
-          :class="t.level==='2' ?'title-level-two':''"
+          :class="t.level ?'title-level-'+t.level:''"
           @click="scrollTo($event,t.title)"
         >
         <el-tooltip class="item" effect="light" :enterable="false" placement="left" v-if="formatTitle(t.title+(missingItems&&missingItems[t.title]?`(漏${missingItems[t.title].length}项)`:'')).length>16">
@@ -213,9 +213,14 @@ export default {
   right: 8px;
 }
 
-.title-level-two {
+.title-level-2 {
   font-size: 12px;
   text-indent: 1.25em;
+}
+
+.title-level-3 {
+  font-size: 12px;
+  text-indent: 2.25em;
 }
 
 .table-show {

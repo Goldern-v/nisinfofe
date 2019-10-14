@@ -39,7 +39,7 @@
                   @click="titleClick($event,obj.children[n+(col-1)])"
                 >
                   <span v-html="titleFeedSpace(obj.children[n+(col-1)].title)"></span>
-                  <span v-if="obj.children[n+(col-1)].name === 'I100001'" style="margin-left:-5px;">(<span style="color: transparent;">空白</span>):
+                  <span v-if="obj.children[n+(col-1)].name === 'I100001'" style="margin-left:-5px;">(<span>{{formObj.model[obj.children[n+(col-1)].subTitle]||'  '}}</span>):
                   </span>
                 </span>
               </div>

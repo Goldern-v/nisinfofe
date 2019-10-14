@@ -218,7 +218,10 @@
         "label": "痰液量",
         "labelWidth": "100px",
         "value": "",
-        "options": ["增多", "减少"],
+        "options": [
+          "增多",
+          "减少"
+        ],
         "style": null,
         "class": null,
         "html": null,
@@ -230,7 +233,10 @@
         "label": "排吸痰",
         "labelWidth": "100px",
         "value": "",
-        "options": ["排痰", "吸痰"],
+        "options": [
+          "排痰",
+          "吸痰"
+        ],
         "style": null,
         "class": null,
         "html": null,
@@ -304,7 +310,11 @@
         "label": "固定效果",
         "labelWidth": "100px",
         "value": "",
-        "options": ["过紧", "过松", "合适"],
+        "options": [
+          "过紧",
+          "过松",
+          "合适"
+        ],
         "style": null,
         "class": null,
         "html": null,
@@ -495,13 +505,12 @@
     "children": [
       {
         "name": "I100160",
-        "type": "input",
-        "label": "伤口皮肤情况异常",
-        "labelWidth": "110px",
-        "value": "",
+        "type": "select",
+        "label": "异常情况",
+        "multiplechoice": true,
         "style": null,
         "class": null,
-        "html": null,
+        "labelClass": "select-label",
         "readOnly": null
       }
     ]
@@ -527,8 +536,8 @@
         "label": "部位",
         "labelWidth": "100px",
         "inputWidth": "500px",
-        "rightTdStyle":"width:100%!important;",
-        "elementStyle":"max-width:100%!important;",
+        "rightTdStyle": "width:100%!important;",
+        "elementStyle": "max-width:100%!important;",
         "value": "",
         "style": null,
         "class": null,
@@ -570,8 +579,8 @@
         "label": "部位",
         "labelWidth": "100px",
         "inputWidth": "500px",
-        "rightTdStyle":"width:100%!important;",
-        "elementStyle":"max-width:100%!important;",
+        "rightTdStyle": "width:100%!important;",
+        "elementStyle": "max-width:100%!important;",
         "value": "",
         "style": null,
         "class": null,
@@ -613,8 +622,8 @@
         "label": "部位",
         "labelWidth": "100px",
         "inputWidth": "500px",
-        "rightTdStyle":"width:100%!important;",
-        "elementStyle":"max-width:100%!important;",
+        "rightTdStyle": "width:100%!important;",
+        "elementStyle": "max-width:100%!important;",
         "value": "",
         "style": "flex:1",
         "class": null,
@@ -657,9 +666,9 @@
         "type": "input",
         "label": "出血部位",
         "labelWidth": "100px",
-        "inputWidth":"100%",
-        "rightTdStyle":"width:100%!important;",
-        "elementStyle":"max-width:100%!important;",
+        "inputWidth": "100%",
+        "rightTdStyle": "width:100%!important;",
+        "elementStyle": "max-width:100%!important;",
         "value": "",
         "style": null,
         "class": null,
@@ -722,6 +731,65 @@
     ]
   },
   {
+    "title": "感觉异常",
+    "aliasTitle": "感觉异常",
+    "type": "formGroupVerticalBox",
+    "inputWidth": "500px",
+    "name": "I100167",
+    "showTitle": false,
+    "message": "",
+    "require": "false",
+    "prefixDesc": "",
+    "postText": "",
+    "keys": "I100167",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 730,
+    "children": [
+      {
+        "name": "I100168",
+        "type": "input",
+        "label": "异常部位",
+        "labelWidth": "100px",
+        "inputWidth": "550px",
+        "rightTdStyle": "width:100%!important;",
+        "elementStyle": "max-width:100%!important;",
+        "value": "",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      },
+      {
+        "name": "I100169",
+        "type": "input",
+        "label": "感觉类型",
+        "labelWidth": "100px",
+        "inputWidth": "200px",
+        "rightTdStyle": "width:100%!important;",
+        "elementStyle": "max-width:100%!important;",
+        "value": "",
+        "style": "",
+        "class": null,
+        "html": null,
+        "readOnly": null
+      },
+      {
+        "name": "I100168",
+        "type": "body",
+        "label": "",
+        "labelWidth": "100px",
+        "value": "",
+        "postText": "",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
     "title": "皮疹",
     "type": "formGroupVerticalBox",
     "name": "I100069",
@@ -742,8 +810,8 @@
         "label": "部位",
         "labelWidth": "100px",
         "inputWidth": "500px",
-        "rightTdStyle":"width:100%!important;",
-        "elementStyle":"max-width:100%!important;",
+        "rightTdStyle": "width:100%!important;",
+        "elementStyle": "max-width:100%!important;",
         "value": "",
         "style": null,
         "class": null,
@@ -785,8 +853,8 @@
         "label": "部位",
         "labelWidth": "100px",
         "inputWidth": "500px",
-        "rightTdStyle":"width:100%!important;",
-        "elementStyle":"max-width:100%!important;",
+        "rightTdStyle": "width:100%!important;",
+        "elementStyle": "max-width:100%!important;",
         "value": "",
         "style": null,
         "class": null,
@@ -828,8 +896,8 @@
         "label": "部位",
         "labelWidth": "100px",
         "inputWidth": "500px",
-        "rightTdStyle":"width:100%!important;",
-        "elementStyle":"max-width:100%!important;",
+        "rightTdStyle": "width:100%!important;",
+        "elementStyle": "max-width:100%!important;",
         "value": "",
         "style": null,
         "class": null,
@@ -871,8 +939,8 @@
         "label": "部位",
         "labelWidth": "100px",
         "inputWidth": "500px",
-        "rightTdStyle":"width:100%!important;",
-        "elementStyle":"max-width:100%!important;",
+        "rightTdStyle": "width:100%!important;",
+        "elementStyle": "max-width:100%!important;",
         "value": "",
         "style": null,
         "class": null,
@@ -977,6 +1045,56 @@
     ]
   },
   {
+    "title": "牵引有",
+    "type": "formGroupVerticalBox",
+    "name": "I100170",
+    "showTitle": false,
+    "message": "",
+    "require": "false",
+    "prefixDesc": "",
+    "postText": "",
+    "keys": "I100170",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 540,
+    "children": [
+      {
+        "name": "I100171",
+        "type": "input",
+        "label": "牵引部位",
+        "labelWidth": "140px",
+        "value": "",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      },
+      {
+        "name": "I100172",
+        "type": "input",
+        "label": "牵引类型",
+        "labelWidth": "140px",
+        "value": "",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      },
+      {
+        "name": "I100173",
+        "type": "input",
+        "label": "牵引是否有效",
+        "labelWidth": "140px",
+        "value": "",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
     "title": "呕吐",
     "type": "formGroupVerticalBox",
     "name": "I100071",
@@ -1001,7 +1119,12 @@
         "class": null,
         "html": null,
         "readOnly": null,
-        "options": ["胃内容物", "咖啡渣样物", "暗红色血液", "鲜血"]
+        "options": [
+          "胃内容物",
+          "咖啡渣样物",
+          "暗红色血液",
+          "鲜血"
+        ]
       },
       {
         "name": "I100138",
@@ -1037,6 +1160,35 @@
         "type": "input",
         "label": "频率",
         "postText": "次/天",
+        "labelWidth": "100px",
+        "value": "",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
+    "title": "腹水测量",
+    "type": "formGroupVerticalBox",
+    "name": "I100183",
+    "showTitle": false,
+    "message": "",
+    "require": "false",
+    "prefixDesc": "",
+    "postText": "",
+    "keys": "I100183",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 540,
+    "children": [
+      {
+        "name": "I100183",
+        "type": "input",
+        "label": "测量腹围",
+        "postText": "cm",
         "labelWidth": "100px",
         "value": "",
         "style": null,
@@ -1141,7 +1293,11 @@
         "class": null,
         "html": null,
         "readOnly": null,
-        "options": ["少许", "月经量", "多余月经量"]
+        "options": [
+          "少许",
+          "月经量",
+          "多余月经量"
+        ]
       },
       {
         "name": "I100121",
@@ -1181,7 +1337,11 @@
         "class": null,
         "html": null,
         "readOnly": null,
-        "options": ["血性", "脓样", "水样"]
+        "options": [
+          "血性",
+          "脓样",
+          "水样"
+        ]
       },
       {
         "name": "I100124",

@@ -1,6 +1,5 @@
 
 <template>
-
   <span>
     <!-- 警报icon -->
     <div
@@ -26,55 +25,58 @@
       style="margin: 0 0px 0 0;display: inline-flex;align-items: center;"
       :style="obj.label  && {display: 'flex', alignItems: 'center' }"
     >
+      <!-- <span style="" :style="(obj.label||obj.suffixDesc)  && {display: 'flex', alignItems: 'center' }"> -->
+      <!-- <autoComplete v-if="isShow" ref="autoInput" /> -->
+      <!-- <el-input v-if="obj.type==='input'" v-model="checkboxValue" border size="small" :label="obj.title" :class="obj.class" :style="obj.style">{{obj.title}}</el-input> -->
+      <span
+        v-if="obj.label"
+        :style="[obj.spanStyle, {width: obj.labelWidth, textAlign: 'right', paddingRight: '0px', marginBottom:obj.marginBottom}]"
+      >
+        <span
+          style="font-size: 12px;padding:0px 0px;"
+          :style="obj.labelStyle"
+          :class="obj.labelClass"
+        >{{obj.label}}:</span>
+      </span>
 
-  <!-- <span style="" :style="(obj.label||obj.suffixDesc)  && {display: 'flex', alignItems: 'center' }"> -->
-    <!-- <autoComplete v-if="isShow" ref="autoInput" /> -->
-    <!-- <el-input v-if="obj.type==='input'" v-model="checkboxValue" border size="small" :label="obj.title" :class="obj.class" :style="obj.style">{{obj.title}}</el-input> -->
-    <span
-      v-if="obj.label"
-      :style="[obj.spanStyle, {width: obj.labelWidth, textAlign: 'right', paddingRight: '0px', marginBottom:obj.marginBottom}]"
-    >
-      <span style="font-size: 12px;padding:0px 0px;" :style="obj.labelStyle" :class="obj.labelClass">{{obj.label}}:</span>
-    </span>
-
-    <!-- v-autoComplete="{dataList: obj.options, obj:formObj.model, key: obj.name}" -->
-    <el-input
-      v-model="inputValue"
-      :id="getUUID()"
-      :style="[obj.style, obj.inputWidth && {width: obj.inputWidth}]"
-      :ref="obj.name"
-      v-if="obj.type==='input'"
-      :placeholder="obj.dialog ? '点击评估' : (obj.placeholder?obj.placeholder:'空')"
-      :class="model === 'development' ? 'development-model' : (obj.class||'')"
-      :size="obj.size||''"
-      :type="obj.inputType||'text'"
-      :disabled="obj.disabled?true:false"
-      :readonly="obj.readOnly?obj.readOnly:false"
-      v-bind="obj.props"
-      @change="inputChange($event, obj)"
-      @dblclick.native.stop="inputClick($event, obj)"
-      @click.native.stop="inputFocus($event, obj); obj.readOnly && inputClick($event, obj)"
-      @focus="inputFocus($event, obj)"
-      @blur.native.stop="inputBlur"
-      @keydown.native="inputKeyDown($event, obj)"
-    >
-      <span class="pre-text" v-if="obj.prefixDesc" slot="prepend">{{obj.prefixDesc}}</span>
-      <!-- <span slot="append"> -->
-      <!-- <i
+      <!-- v-autoComplete="{dataList: obj.options, obj:formObj.model, key: obj.name}" -->
+      <el-input
+        v-model="inputValue"
+        :id="getUUID()"
+        :style="[obj.style, obj.inputWidth && {width: obj.inputWidth}]"
+        :ref="obj.name"
+        v-if="obj.type==='input'"
+        :placeholder="obj.dialog ? '点击评估' : (obj.placeholder?obj.placeholder:'空')"
+        :class="model === 'development' ? 'development-model' : (obj.class||'')"
+        :size="obj.size||''"
+        :type="obj.inputType||'text'"
+        :disabled="obj.disabled?true:false"
+        :readonly="obj.readOnly?obj.readOnly:false"
+        v-bind="obj.props"
+        @change="inputChange($event, obj)"
+        @dblclick.native.stop="inputClick($event, obj)"
+        @click.native.stop="inputFocus($event, obj); obj.readOnly && inputClick($event, obj)"
+        @focus="inputFocus($event, obj)"
+        @blur.native.stop="inputBlur"
+        @keydown.native="inputKeyDown($event, obj)"
+      >
+        <span class="pre-text" v-if="obj.prefixDesc" slot="prepend">{{obj.prefixDesc}}</span>
+        <!-- <span slot="append"> -->
+        <!-- <i
         slot="append"
         v-if="obj.options&&!obj.suffixDesc"
         @click.prevent.stop="()=>{}"
         class="el-input__icon el-icon-caret-top"
-      ></i>-->
-      <!-- <span slot="append" class="post-text" v-if="obj.suffixDesc">{{obj.suffixDesc}}</span> -->
-      <!-- </span> -->
-      <!-- <template slot="append" v-if="obj.options"> -->
-      <!-- </template> -->
-    </el-input>
-    <!-- <span>{{obj.suffixDesc}}</span> -->
-    <!-- <span class="post-text" v-if="obj.suffixDesc" v-html="obj.suffixDesc"></span> -->
-    <span class="post-text" v-if="obj.postText">{{obj.postText}}</span>
-  </span>
+        ></i>-->
+        <!-- <span slot="append" class="post-text" v-if="obj.suffixDesc">{{obj.suffixDesc}}</span> -->
+        <!-- </span> -->
+        <!-- <template slot="append" v-if="obj.options"> -->
+        <!-- </template> -->
+      </el-input>
+      <!-- <span>{{obj.suffixDesc}}</span> -->
+      <!-- <span class="post-text" v-if="obj.suffixDesc" v-html="obj.suffixDesc"></span> -->
+      <span class="post-text" v-if="obj.postText">{{obj.postText}}</span>
+    </span>
   </span>
 </template>
 
@@ -109,7 +111,8 @@ export default {
     return {
       inputValue: "",
       isShow: true,
-      isClone: false
+      isClone: false,
+      alertMessage: ""
     };
   },
   computed: {},
@@ -259,6 +262,7 @@ export default {
     checkValueRule(valueNew) {
       let textResult = valueNew;
       this.obj.style = "";
+      this.alertMessage = "";
       if (
         this.obj.hasOwnProperty("rule") !== -1 &&
         this.obj.rule &&
@@ -303,6 +307,10 @@ export default {
           // 判断规则
           if (r.min && r.max && (value >= min && value < max)) {
             this.obj.style = r.style;
+            if (r.message) {
+              console.log("rule:message", r.message);
+              this.alertMessage = r.message + "";
+            }
             // 替换显示 r.display
             if (
               r.display &&
@@ -317,6 +325,10 @@ export default {
             // return textResult;
           } else if (r.equal && r.equal === valueNew) {
             this.obj.style = r.style;
+            if (r.message) {
+              console.log("rule:message", r.message);
+              this.alertMessage = r.message + "";
+            }
             // this.$refs[this.obj.name].$refs.input.style = this.obj.style;
             // 替换显示 r.display
             if (

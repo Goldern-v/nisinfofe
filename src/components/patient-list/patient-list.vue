@@ -220,8 +220,14 @@ export default {
   methods: {
     selectPatient(item) {
       this.selectPatientId = item.patientId;
+      //
+      console.log('selectPatient',item,item.patientId,item.visitId,this.$route.path,this.$route)
+      //
+      //
       if (this.isSelectPatient) {
         this.isSelectPatient(item);
+        this.$route.query.patientId = item.patientId
+        this.$route.query.visitId = item.visitId
         //
         this.$store.commit('upCurrentPatientObj', JSON.parse(JSON.stringify(item)))
       }

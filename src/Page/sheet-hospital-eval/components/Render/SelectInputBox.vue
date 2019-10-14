@@ -26,10 +26,10 @@
       <!-- <el-input v-if="obj.type==='input'" v-model="checkboxValue" border size="small" :label="obj.title" :class="obj.class" :style="obj.style">{{obj.title}}</el-input> -->
       <span
         v-if="obj.label"
-        :style="{width: obj.labelWidth, textAlign: 'right', paddingRight: '0px'}"
+        :style="[obj.spanStyle, {width: obj.labelWidth, textAlign: 'right', paddingRight: '0px', marginBottom:obj.marginBottom}]"
       >
         <span
-          style="font-size: 12px;"
+          style="font-size: 12px;padding:0px 0px;"
           :style="obj.labelStyle"
           :class="obj.labelClass"
         >{{obj.label}}:</span>

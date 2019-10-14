@@ -255,17 +255,30 @@ export default {
   background: #fffff0;
 }
 
-.main-page {
+.cover-page {
   background: #fff;
-  width: 750px;
-  /* margin: auto; */
+  width: 950px;
   margin-top: 10px;
   margin-left: 10px;
   margin-bottom: 50px;
   border: 1px solid #eee;
   box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.5);
   position: absolute;
-  left: calc(50% - 500px);
+  left: calc(50% - 600px);
+}
+
+.main-page {
+  background: #fff;
+  width: 850px;
+  margin: auto;
+  margin-left: 80px;
+  /* margin-top: 10px;
+  margin-left: 10px;
+  margin-bottom: 50px;
+  border: 1px solid #eee;
+  box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.5);
+  position: absolute;
+  left: calc(50% - 500px); */
   &.lock {
     pointer-events: none;
     /deep/ input {

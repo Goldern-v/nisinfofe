@@ -3,8 +3,8 @@
   <div>
     <TipsBox :obj="obj" :formObj="formObj">
       <div class="title-box">
-        <h1>{{obj.formTitle.hospitalName}}</h1>
-        <h1>{{obj.formTitle.formName}}</h1>
+       <h1 class="hospital-title">{{obj.formTitle.hospitalName}}</h1>
+        <span class="form-title">{{obj.formTitle.formName}}</span>
         <div class="header-box">
           <span v-for="(item, index) in obj.formHeads " :key="index">{{item.title}}:{{item.value}}</span>
         </div>
@@ -61,6 +61,17 @@ h1 {
   border-bottom: 1px dashed #eee;
   padding: 15px 0px 2px 0px;
   line-height: 2em;
+}
+
+
+.hospital-title {
+  letter-spacing: 0.5em;
+}
+.form-title {
+  font-size: 21px;
+  margin-bottom: 10px;
+  text-align: center;
+  display: block;
 }
 
 .header-box {

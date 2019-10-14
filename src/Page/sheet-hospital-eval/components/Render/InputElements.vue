@@ -169,12 +169,15 @@
       </span>
       <!-- <span>{{child.dialog && child.dialog.title}}</span> -->
       <!-- <span class="tip" v-if="getOtherText(child)">{{ getOtherText(child)}}</span> -->
-      <span
+
+      <!--  体温类型 -->
+      <!-- <span
         class="tip-label"
         :style="child.name === 'I100001' && {position: 'absolute', left: '57px',top: '218px'}"
         v-if="child.name === 'I100001' && getOtherText(child)"
         @click="openTip(child)"
-      >{{ getOtherText(child)}}</span>
+      >{{ getOtherText(child)}}</span> -->
+
       <!-- <span>{{getOtherText(child)}}</span> -->
 
 
@@ -795,6 +798,7 @@ export default {
   cursor pointer
   position: relative;
   bottom: 8px;
+  vertical-align: bottom;
 .tip-label
   font-size 12px
   color blue
