@@ -112,7 +112,8 @@ export default {
       inputValue: "",
       isShow: true,
       isClone: false,
-      alertMessage: ""
+      alertMessage: "",
+      alertImg: require("./image/预警@2x.png")
     };
   },
   computed: {},
