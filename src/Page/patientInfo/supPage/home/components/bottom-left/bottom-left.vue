@@ -133,7 +133,10 @@ export default {
         if (row.formCode == "patSugar") {
           this.$router.push({
             path: "/bloodSugar",
-            query: this.$route.query
+            query: {
+              patientId: this.$route.query.patientId,
+              visitId: this.$route.query.visitId
+            }
           });
         }
         return;
