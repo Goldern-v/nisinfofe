@@ -1037,7 +1037,7 @@ export default {
           console.log("openEditAssessment:", this.$refs, password, empNo);
           checkUser(empNo, password).then(res => {
             console.log("-----checkUser:", res);
-            if (res && res.data && res.data.data.title === "护士长") {
+            if (res && res.data && (res.data.data.title === "护士长" || res.data.data.post === "护长")) {
               window.openFormBox(this.url + "&editMode=true");
             } else {
               this.$message({

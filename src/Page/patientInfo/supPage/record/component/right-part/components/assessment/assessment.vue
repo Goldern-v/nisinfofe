@@ -650,7 +650,9 @@ export default {
     cleanAllMark(str = "") {
       try {
         let qStr = str;
-        if(!this.wid.formatData || !this.wid.formatData.dataShop){return}
+        if (!this.wid.formatData || !this.wid.formatData.dataShop) {
+          return;
+        }
         let keys = this.wid.formatData.dataShop.getModel();
         Object.keys(keys).map(k => {
           qStr = str ? str : '[name="' + k + '"]';
@@ -1264,7 +1266,12 @@ export default {
           console.log("openEditAssessment:", this.$refs, password, empNo);
           checkUser(empNo, password).then(res => {
             console.log("-----checkUser:", res);
-            if (res && res.data && res.data.data.title === "护士长") {
+            if (
+              res &&
+              res.data &&
+              (res.data.data.title === "护士长" ||
+                res.data.data.post === "护长")
+            ) {
               window.openFormBox(this.url + "&editMode=true");
             } else {
               this.$message({
@@ -1559,7 +1566,8 @@ export default {
               //   "text/plain",
               //   event.target.value
               // );
-              this.clipboardData = event.target.value || event.target.textContent || "";
+              this.clipboardData =
+                event.target.value || event.target.textContent || "";
               window.localStorage["clipboardData"] = this.clipboardData;
               window.localStorage["clipboardDataObj"] = JSON.stringify(rowData);
             } catch (error) {
@@ -1577,7 +1585,7 @@ export default {
           }
         },
         {
-          name: this.clipboardData?`粘贴 (${this.clipboardData})`:'粘贴',
+          name: this.clipboardData ? `粘贴 (${this.clipboardData})` : "粘贴",
           icon: "shanchuzhenghang",
           disable: !this.clipboardData,
           click: () => {
@@ -1589,23 +1597,43 @@ export default {
               event.target.value = this.clipboardData;
               // tagName: "SPAN"
               // textContent
-              if (window.localStorage["clipboardDataObj"] && this.wid.formatData && this.wid.formatData.recordsPages) {
+              if (
+                window.localStorage["clipboardDataObj"] &&
+                this.wid.formatData &&
+                this.wid.formatData.recordsPages
+              ) {
                 //   rowData = JSON.parse(window.localStorage["clipboardDataObj"]);
                 // }
                 // this.wid.formatData.recordsPages[pageIndex][recordIndex]
                 // if (this.wid.formatData.recordsPages[pageIndex][recordIndex]) {
-                let clipObj = JSON.parse(window.localStorage["clipboardDataObj"])||{}
+                let clipObj =
+                  JSON.parse(window.localStorage["clipboardDataObj"]) || {};
 
-                console.log('clipObj:',clipObj,rowData)
+                console.log("clipObj:", clipObj, rowData);
 
                 try {
-                  ['dataHash','id','signerName','signerNo','timeStr','dateStr','recordDate','recordHourMinute','recordMonthDay'].map(kname=>{
-                    if(clipObj && Object.keys(clipObj).length>0 && clipObj.hasOwnProperty(kname)>-1 && clipObj[kname]){
-                      delete clipObj[kname]
+                  [
+                    "dataHash",
+                    "id",
+                    "signerName",
+                    "signerNo",
+                    "timeStr",
+                    "dateStr",
+                    "recordDate",
+                    "recordHourMinute",
+                    "recordMonthDay"
+                  ].map(kname => {
+                    if (
+                      clipObj &&
+                      Object.keys(clipObj).length > 0 &&
+                      clipObj.hasOwnProperty(kname) > -1 &&
+                      clipObj[kname]
+                    ) {
+                      delete clipObj[kname];
                     }
-                  })
+                  });
                 } catch (error) {}
-                console.log('clipObj::',clipObj,rowData)
+                console.log("clipObj::", clipObj, rowData);
 
                 rowData = {
                   ...rowData,
@@ -1618,8 +1646,9 @@ export default {
               if (this.wid.updateListTabelUI) {
                 this.wid.updateListTabelUI();
               }
-              if(event.target.tagName == "SPAN"){
-                event.target.textContent = window.localStorage["clipboardData"] || this.clipboardData
+              if (event.target.tagName == "SPAN") {
+                event.target.textContent =
+                  window.localStorage["clipboardData"] || this.clipboardData;
               }
               // this.clipboardData = "";
               // window.localStorage["clipboardDataObj"] = "";
@@ -1666,7 +1695,7 @@ export default {
               );
             }
           }
-        },
+        }
         // {
         //   name: "打印区域",
         //   icon: "shanchuzhenghang",
