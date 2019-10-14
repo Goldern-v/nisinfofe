@@ -1,6 +1,6 @@
 
 <template>
-  <span :style="obj.style" :class="obj.class" class="input-elements">
+  <span :style="obj.elementsStyle" :class="obj.class" class="input-elements">
     <!-- 页面正文 -->
 
     <!-- display: inline-grid;vertical-align: top; -->
@@ -14,7 +14,7 @@
       <!-- html -->
       <!-- <FormGroupTitle :obj="child" :formObj="formObj"/> -->
       <!-- <FormGroupHR :obj="child" :formObj="formObj"/> -->
-      <FormGroupHTML :obj="child" :formObj="formObj"/>
+      <FormGroupHTML :obj="child" :formObj="formObj" />
       <!-- <FormGroupVerticalBox :obj="child" :formObj="formObj"/> -->
       <!-- <FormGroupHorizontalBox :obj="child" :formObj="formObj"/> -->
       <!-- <FormGroupColBox :obj="child" :formObj="formObj"/> -->
@@ -30,24 +30,24 @@
       <!-- 图片显示 -->
       <span>
         <el-tooltip
-        class="item"
-        effect="light"
-        placement="top"
-        :enterable="false"
-        v-if="child.type==='help'"
-      >
-        <div class="el-tooltip-content" slot="content">
-          <div v-html="child.tips"></div>
-        </div>
-        <img
+          class="item"
+          effect="light"
+          placement="top"
+          :enterable="false"
           v-if="child.type==='help'"
-          :src="helpImg"
-          :alt="child.title"
-          :class="child.class"
-          :style="child.style"
-          @click="helpClick($event,child)"
-          width="14"
         >
+          <div class="el-tooltip-content" slot="content">
+            <div v-html="child.tips"></div>
+          </div>
+          <img
+            v-if="child.type==='help'"
+            :src="helpImg"
+            :alt="child.title"
+            :class="child.class"
+            :style="child.style"
+            @click="helpClick($event,child)"
+            width="14"
+          />
         </el-tooltip>
       </span>
 
@@ -107,7 +107,7 @@
           <div v-html="child.tips"></div>
         </div>
         <!-- 单选 -->
-        <Radiobox v-if="child.type==='radio'" :obj="child" :formObj="formObj" class="radio-input"/>
+        <Radiobox v-if="child.type==='radio'" :obj="child" :formObj="formObj" class="radio-input" />
         <!-- <el-checkbox
           v-if="child.type==='radio' && child.tips"
           v-model="radioValue"
@@ -128,7 +128,7 @@
           style="text-align: right; padding-right: 10px;box-sizing: border-box"
         >{{child.label}}</span>
         <span>
-          <InputElements v-if="child.children" :obj="child.children" :formObj="formObj"/>
+          <InputElements v-if="child.children" :obj="child.children" :formObj="formObj" />
         </span>
       </span>
 
@@ -147,15 +147,15 @@
       />
 
       <!-- 输入框 -->
-      <InputBox v-if="child.type==='input'" :obj="child" :formObj="formObj" :col="col"/>
+      <InputBox v-if="child.type==='input'" :obj="child" :formObj="formObj" :col="col" />
 
       <!-- <el-input v-if="child.type==='input'"  placeholder="" v-model="formObj.model[child.name]" :class="child.class||''" :style="child.style||''" size="small" @click.native.stop="inputClick($event, child)" ><template v-if="child.title" slot="prepend">{{child.title}}</template></el-input>{{child.name}} -->
 
       <!-- 日期 -->
-      <DatePicker v-if="child.type==='datePicker'" :obj="child" :formObj="formObj"/>
+      <DatePicker v-if="child.type==='datePicker'" :obj="child" :formObj="formObj" />
 
       <!-- 备注 -->
-      <Mark v-if="child.type==='mark'" :obj="child" :formObj="formObj" :col="col"/>
+      <Mark v-if="child.type==='mark'" :obj="child" :formObj="formObj" :col="col" />
 
       <!-- 子项递归 -->
       <span v-if="child && child.children && child.children.length>0 && child.type != 'radioBox'">
@@ -176,27 +176,26 @@
         :style="child.name === 'I100001' && {position: 'absolute', left: '57px',top: '218px'}"
         v-if="child.name === 'I100001' && getOtherText(child)"
         @click="openTip(child)"
-      >{{ getOtherText(child)}}</span> -->
+      >{{ getOtherText(child)}}</span>-->
 
       <!-- <span>{{getOtherText(child)}}</span> -->
 
-
       <!-- 对话框结果 -->
-      <el-tooltip class="item" effect="light" :enterable="false" placement="left" v-if="(child.name != 'I100001' || !child.name )&& dialogResult(child).isShow">
+      <el-tooltip
+        class="item"
+        effect="light"
+        :enterable="false"
+        placement="left"
+        v-if="(child.name != 'I100001' || !child.name )&& dialogResult(child).isShow"
+      >
         <div slot="content" style="max-width:200px">
           <span v-html="dialogResult(child,true).html"></span>
         </div>
-      <!-- <span style="outline:1px solid red;min-width:50px;min-height:10px;background-color:red;display:inline-block;"></span> -->
-      <span>
-        <span
-          class="tip"
-          v-html="dialogResult(child).html"
-          @click="openTip(child)"
-        ></span>
-      </span>
+        <!-- <span style="outline:1px solid red;min-width:50px;min-height:10px;background-color:red;display:inline-block;"></span> -->
+        <span>
+          <span class="tip" v-html="dialogResult(child).html" @click="openTip(child)"></span>
+        </span>
       </el-tooltip>
-
-
     </span>
   </span>
 </template>
@@ -350,23 +349,23 @@ export default {
     this.alertImg = require("./image/预警@2x.png");
   },
   methods: {
-    getStringLen(str){
+    getStringLen(str) {
       var l = str.length;
       var blen = 0;
-      for(i=0; i<l; i++) {
+      for (i = 0; i < l; i++) {
         if ((str.charCodeAt(i) & 0xff00) != 0) {
-          blen ++;
+          blen++;
         }
-        blen ++;
+        blen++;
       }
     },
-    dialogResult(child, hasNewLine=false) {
+    dialogResult(child, hasNewLine = false) {
       let isShow = false;
       let dialog = [];
       let html = "";
       let newLine = "<br/>";
-      let childrenArr = []
-      let fIndex = -1
+      let childrenArr = [];
+      let fIndex = -1;
 
       if (child.rule && child.rule.hasOwnProperty("dialog") > -1) {
         let d = child.rule.filter(item => {
@@ -386,7 +385,6 @@ export default {
         }
       }
       if (isShow) {
-
         // console.log('!!!dialogs',dialog[0].dialog.title,dialog)
         dialog.map(d => {
           if (d) {
@@ -401,9 +399,11 @@ export default {
                 title = obj.formSetting.formTitle.formName;
 
                 // VTE表单特殊处理
-                if (child.title.indexOf("VTE") > -1 &&
-                 this.formObj.model[child.name] &&
-                  this.formObj.model[child.name].indexOf(title)>-1) {
+                if (
+                  child.title.indexOf("VTE") > -1 &&
+                  this.formObj.model[child.name] &&
+                  this.formObj.model[child.name].indexOf(title) > -1
+                ) {
                   // console.log(
                   //   "!!!=vet=!!!",
                   //   title,
@@ -416,22 +416,30 @@ export default {
                   //   this.formObj.model[child.name]
                   // );
                   html += `<span><span style='${obj.style}'>${this.formObj
-                    .model[d.dialog.parentName] || ""}${obj.postText || obj.suffixDesc ||
+                    .model[d.dialog.parentName] || ""}${obj.postText ||
+                    obj.suffixDesc ||
                     ""}</span></span>`;
-                  hasNewLine?html+=newLine:html=html;
+                  hasNewLine ? (html += newLine) : (html = html);
                 }
                 //
                 // console.log('d.cleanKey',d,d.dialog.cleanKey,'child.title',child.title,this.formObj.model[child.name])
                 let cleanKeyCheck = () => {
                   // console.log('===d.cleanKey',d.cleanKey,'child.title',child.title)
-                  if(d.dialog && d.dialog.hasOwnProperty('cleanKey')>-1){
-                    if(typeof(d.dialog.cleanKey)==='object'){
-                      return d.dialog.cleanKey.indexOf(this.formObj.model[child.name])>-1
-                    }else if(typeof(d.dialog.cleanKey)==='string'){
-                      return d.dialog.cleanKey == (this.formObj.model[child.name] || "")
+                  if (d.dialog && d.dialog.hasOwnProperty("cleanKey") > -1) {
+                    if (typeof d.dialog.cleanKey === "object") {
+                      return (
+                        d.dialog.cleanKey.indexOf(
+                          this.formObj.model[child.name]
+                        ) > -1
+                      );
+                    } else if (typeof d.dialog.cleanKey === "string") {
+                      return (
+                        d.dialog.cleanKey ==
+                        (this.formObj.model[child.name] || "")
+                      );
                     }
                   }
-                }
+                };
                 // 表单结果显示
                 if (
                   d.hasOwnProperty("dialog") > -1 &&
@@ -442,9 +450,10 @@ export default {
                   !cleanKeyCheck()
                 ) {
                   html += `<span>::<span style='${obj.style}'>${this.formObj
-                    .model[d.dialog.parentName] || ""}${obj.postText || obj.suffixDesc ||
+                    .model[d.dialog.parentName] || ""}${obj.postText ||
+                    obj.suffixDesc ||
                     ""}</span></span>`;
-                  hasNewLine?html+=newLine:html=html;
+                  hasNewLine ? (html += newLine) : (html = html);
                 }
               } else {
                 title = child.postTitle || obj.aliasTitle || obj.title;
@@ -467,9 +476,11 @@ export default {
                   ) {
                     title = obj.aliasTitle || obj.label || obj.title;
                     console.log("formGroup:title", title);
-                    html += `<span style='color:green'>${title}:</span><span>${this.formObj.model[obj.name] ||
-                      ""}${obj.postText || obj.suffixDesc || ""}</span>`;
-                    hasNewLine?html+=newLine:html=html;
+                    html += `<span style='color:green'>${title}:</span><span>${this
+                      .formObj.model[obj.name] || ""}${obj.postText ||
+                      obj.suffixDesc ||
+                      ""}</span>`;
+                    hasNewLine ? (html += newLine) : (html = html);
                   }
                 }
                 //
@@ -493,8 +504,7 @@ export default {
                 if (children) {
                   // console.log('!!!children',children,children.length)
 
-                  children.map((mychild,cindex) => {
-
+                  children.map((mychild, cindex) => {
                     title =
                       children.aliasTitle ||
                       mychild.aliasTitle ||
@@ -507,15 +517,19 @@ export default {
                     ) {
                       return;
                     }
-                    if(childrenArr && childrenArr.length>0){
-                      fIndex = childrenArr.findIndex(res=>{
-                        return res.name == mychild.name && res.type == mychild.type
-                      })
-                      if(fIndex!=-1){return}else{
-                        childrenArr = [...childrenArr, mychild]
+                    if (childrenArr && childrenArr.length > 0) {
+                      fIndex = childrenArr.findIndex(res => {
+                        return (
+                          res.name == mychild.name && res.type == mychild.type
+                        );
+                      });
+                      if (fIndex != -1) {
+                        return;
+                      } else {
+                        childrenArr = [...childrenArr, mychild];
                       }
-                    }else{
-                      childrenArr = [...childrenArr, mychild]
+                    } else {
+                      childrenArr = [...childrenArr, mychild];
                     }
 
                     // console.log('childrenArr:',fIndex,mychild.name,childrenArr)
@@ -523,9 +537,12 @@ export default {
                     //
                     if (mychild.children) {
                       if (this.formObj.model[child.name]) {
-                        html += `<span style='margin-right:5px'><span style='color:green'>${title}</span>:<span>${this.formObj.model[mychild.name] ||
-                          ""}<span style='color:chocolate'>${child.postText ||child.suffixDesc || ""}</span></span></span>`;
-                        hasNewLine?html+=newLine:html=html;
+                        html += `<span style='margin-right:5px'><span style='color:green'>${title}</span>:<span>${this
+                          .formObj.model[mychild.name] ||
+                          ""}<span style='color:chocolate'>${child.postText ||
+                          child.suffixDesc ||
+                          ""}</span></span></span>`;
+                        hasNewLine ? (html += newLine) : (html = html);
                         handleChild(mychild.children);
                       }
                       // else{
@@ -543,10 +560,13 @@ export default {
                         this.formObj.model[mychild.name] &&
                         mychild.name != "evalScore"
                       ) {
-                        html += `<span><span style='color:green'>${title}</span>:<span style='${mychild.style}'>${this
-                          .formObj.model[mychild.name] || ""}<span style='color:chocolate'>${mychild.postText ||mychild.suffixDesc ||
+                        html += `<span><span style='color:green'>${title}</span>:<span style='${
+                          mychild.style
+                        }'>${this.formObj.model[mychild.name] ||
+                          ""}<span style='color:chocolate'>${mychild.postText ||
+                          mychild.suffixDesc ||
                           ""}</span>`;
-                        hasNewLine?html+=newLine:html=html;
+                        hasNewLine ? (html += newLine) : (html = html);
                       }
                       // else{
                       //   html += `<p style="color:red">${ title }:${this.formObj.model[mychild.name]||""}</p>`
@@ -734,7 +754,7 @@ export default {
         );
       }
     },
-    isChineseChar(str){
+    isChineseChar(str) {
       var reg = /[\u4E00-\u9FA5\uF900-\uFA2D]/;
       return reg.test(str);
     }
@@ -770,6 +790,7 @@ export default {
   display: inline-flex;
   flex-wrap: wrap;
   // width: 100%;
+  justify-content:center;
 
 .input-elements-nowrap
   display: flex;
@@ -813,9 +834,9 @@ export default {
   display: inline;
   color: blue;
   font-size: 12px;
-  max-width: 290px;
+  max-width: 320px;
 .el-input
-  width 227px;
+  width 228px;
 
 // .post-text
 //   color: #486a62;

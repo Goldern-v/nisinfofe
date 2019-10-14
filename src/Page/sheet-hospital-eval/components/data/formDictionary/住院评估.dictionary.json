@@ -272,6 +272,11 @@
   ],
   "I100075": [
     {
+      "code": "I度水肿",
+      "name": "I度水肿",
+      "pinyin": "Idsz"
+    },
+    {
       "code": "无",
       "name": "无",
       "pinyin": "w"
@@ -290,11 +295,6 @@
       "code": "重度",
       "name": "重度",
       "pinyin": "zd"
-    },
-    {
-      "code": "I度水肿",
-      "name": "I度水肿",
-      "pinyin": "Idsz"
     },
     {
       "code": "II度水肿",
@@ -3579,6 +3579,45 @@
       "pinyin": "Ⅲdzn"
     }
   ],
+  "I100290": [
+    {
+      "code": "清",
+      "name": "清",
+      "pinyin": "q"
+    },
+    {
+      "code": "Ⅰ",
+      "name": "Ⅰ",
+      "pinyin": ""
+    },
+    {
+      "code": "Ⅱ",
+      "name": "Ⅱ",
+      "pinyin": ""
+    },
+    {
+      "code": "Ⅲ",
+      "name": "Ⅲ",
+      "pinyin": ""
+    },
+    {
+      "code": "血性",
+      "name": "血性",
+      "pinyin": "xx"
+    }
+  ],
+  "I100292": [
+    {
+      "code": "规则",
+      "name": "规则",
+      "pinyin": "gz"
+    },
+    {
+      "code": "不规则",
+      "name": "不规则",
+      "pinyin": "bgz"
+    }
+  ],
   "I100272": [
     {
       "code": "肛周",
@@ -3925,6 +3964,288 @@
       "code": "漏出液",
       "name": "漏出液",
       "pinyin": "lcy"
+    }
+  ],
+  "I100293": [
+    {
+      "code": "弱",
+      "name": "弱",
+      "pinyin": "r"
+    },
+    {
+      "code": "中",
+      "name": "中",
+      "pinyin": "z"
+    },
+    {
+      "code": "强",
+      "name": "强",
+      "pinyin": "q"
+    }
+  ],
+  "I100295": [
+    {
+      "code": "无",
+      "name": "无",
+      "pinyin": "w"
+    },
+    {
+      "code": "有",
+      "name": "有",
+      "pinyin": "y"
+    }
+  ],
+  "I100296": [
+    {
+      "code": "少许",
+      "name": "少许",
+      "pinyin": "sx"
+    },
+    {
+      "code": "月经量",
+      "name": "月经量",
+      "pinyin": "yjl"
+    },
+    {
+      "code": "多于月经量",
+      "name": "多于月经量",
+      "pinyin": "dyyjl"
+    }
+  ],
+  "I100298": [
+    {
+      "code": "鲜红",
+      "name": "鲜红",
+      "pinyin": "xh"
+    },
+    {
+      "code": "暗红",
+      "name": "暗红",
+      "pinyin": "ah"
+    },
+    {
+      "code": "褐色",
+      "name": "褐色",
+      "pinyin": "hs"
+    }
+  ],
+  "I100300": [
+    {
+      "code": "LOA",
+      "name": "LOA",
+      "pinyin": ""
+    },
+    {
+      "code": "ROA",
+      "name": "ROA",
+      "pinyin": ""
+    },
+    {
+      "code": "LSA",
+      "name": "LSA",
+      "pinyin": ""
+    },
+    {
+      "code": "RSA",
+      "name": "RSA",
+      "pinyin": ""
+    },
+    {
+      "code": "LSCA",
+      "name": "LSCA",
+      "pinyin": ""
+    },
+    {
+      "code": "RSCA",
+      "name": "RSCA",
+      "pinyin": ""
+    }
+  ],
+  "I100301": [
+    {
+      "code": "LOT",
+      "name": "LOT",
+      "pinyin": ""
+    },
+    {
+      "code": "LOP",
+      "name": "LOP",
+      "pinyin": ""
+    },
+    {
+      "code": "ROT",
+      "name": "ROT",
+      "pinyin": ""
+    },
+    {
+      "code": "ROP",
+      "name": "ROP",
+      "pinyin": ""
+    },
+    {
+      "code": "LMA",
+      "name": "LMA",
+      "pinyin": ""
+    },
+    {
+      "code": "LMT",
+      "name": "LMT",
+      "pinyin": ""
+    },
+    {
+      "code": "LMP",
+      "name": "LMP",
+      "pinyin": ""
+    },
+    {
+      "code": "RMA",
+      "name": "RMA",
+      "pinyin": ""
+    },
+    {
+      "code": "RMT",
+      "name": "RMT",
+      "pinyin": ""
+    },
+    {
+      "code": "RMP",
+      "name": "RMP",
+      "pinyin": ""
+    },
+    {
+      "code": "LST",
+      "name": "LST",
+      "pinyin": ""
+    },
+    {
+      "code": "LSP",
+      "name": "LSP",
+      "pinyin": ""
+    },
+    {
+      "code": "RST",
+      "name": "RST",
+      "pinyin": ""
+    },
+    {
+      "code": "LSCP",
+      "name": "LSCP",
+      "pinyin": ""
+    },
+    {
+      "code": "RSCP",
+      "name": "RSCP",
+      "pinyin": ""
+    }
+  ],
+  "I100302": [
+    {
+      "code": "未消",
+      "name": "未消",
+      "pinyin": "wx"
+    },
+    {
+      "code": "消退",
+      "name": "消退",
+      "pinyin": "xt"
+    }
+  ],
+  "I100305": [
+    {
+      "code": "无",
+      "name": "无",
+      "pinyin": "w"
+    },
+    {
+      "code": "有",
+      "name": "有",
+      "pinyin": "y"
+    }
+  ],
+  "I100306": [
+    {
+      "code": "头晕",
+      "name": "头晕",
+      "pinyin": "ty"
+    },
+    {
+      "code": "眼花",
+      "name": "眼花",
+      "pinyin": "yh"
+    },
+    {
+      "code": "耳鸣",
+      "name": "耳鸣",
+      "pinyin": "em"
+    },
+    {
+      "code": "失眠",
+      "name": "失眠",
+      "pinyin": "sm"
+    },
+    {
+      "code": "多梦",
+      "name": "多梦",
+      "pinyin": "dm"
+    },
+    {
+      "code": "疲乏",
+      "name": "疲乏",
+      "pinyin": "pf"
+    },
+    {
+      "code": "困倦",
+      "name": "困倦",
+      "pinyin": "kj"
+    },
+    {
+      "code": "软弱无力",
+      "name": "软弱无力",
+      "pinyin": "rrwl"
+    }
+  ],
+  "I100307": [
+    {
+      "code": "头晕",
+      "name": "头晕",
+      "pinyin": "ty"
+    },
+    {
+      "code": "眼花",
+      "name": "眼花",
+      "pinyin": "yh"
+    },
+    {
+      "code": "耳鸣",
+      "name": "耳鸣",
+      "pinyin": "em"
+    },
+    {
+      "code": "失眠",
+      "name": "失眠",
+      "pinyin": "sm"
+    },
+    {
+      "code": "多梦",
+      "name": "多梦",
+      "pinyin": "dm"
+    }
+  ],
+  "I100308": [
+    {
+      "code": "疲乏",
+      "name": "疲乏",
+      "pinyin": "pf"
+    },
+    {
+      "code": "困倦",
+      "name": "困倦",
+      "pinyin": "kj"
+    },
+    {
+      "code": "软弱无力",
+      "name": "软弱无力",
+      "pinyin": "rrwl"
     }
   ],
   "I100170": [

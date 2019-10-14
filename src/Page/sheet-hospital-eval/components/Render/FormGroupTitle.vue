@@ -46,16 +46,19 @@ export default {
 
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
+
   .group-title-level-1
     margin 10px 0 10px 0
-    font-weight bold
-    font-size: 14px;
+    font-weight 700
+    font-size: 15px;
   .group-title-level-2
-    font-size 13px
+    font-size 14px
+    font-weight 600
     // text-indent 1.25em
     margin 10px 0 15px 0
   .group-title-level-3
     font-size 13px
     // text-indent 1.25em
     margin 10px 0 15px 0
+
 </style>

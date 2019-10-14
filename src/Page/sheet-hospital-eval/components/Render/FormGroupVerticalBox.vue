@@ -4,8 +4,8 @@
     <TipsBox :obj="obj" :formObj="formObj">
       <table width="100%" class="Form-Group-Vertical-Box">
         <colgroup>
-          <col :width="obj.colWidth?obj.colWidth[0]:'25%'">
-          <col :width="obj.colWidth?obj.colWidth[1]:'75%'">
+          <col :width="obj.colWidth?obj.colWidth[0]:'25%'" />
+          <col :width="obj.colWidth?obj.colWidth[1]:'75%'" />
         </colgroup>
         <tr>
           <td v-if="obj.showTitle===false?false:true" class="td-box" style>
@@ -15,6 +15,7 @@
             <InputElements
               v-if="obj.children"
               class="vertical-box"
+              :style="obj.style||obj.elementsStyle"
               :obj="obj.children"
               :formObj="formObj"
             />

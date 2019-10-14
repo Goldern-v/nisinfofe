@@ -767,11 +767,11 @@ export default {
 .post-text {
   // margin -8px -14px -9px -10px
   // padding 8px 14px 9px 3px
-  margin: 0px 0px 0px 0px
-  padding: 0px 0px 0px 5px
-  background #fff
-  position: absolute;
-  left: 322px;
+  margin: 0px 0px 0px 0px;
+  padding: 0px 0px 0px 5px;
+  background: transparent;
+  // position: absolute;
+  // left: 317px;
 }
 
 >>>.el-input:hover {
@@ -782,11 +782,22 @@ export default {
 }
 
 .el-input {
-  width: 227px;
+  width: 229px;
+  width: auto;
 }
 
 >>>.el-input__inner:hover {
     border: 1px solid #4baf8d;
+}
+
+>>>.sweet-modal .sweet-content .sweet-content-content {
+  color:red!important
+  /deep/.el-input {
+    width: auto;
+  }
+  >>>.el-input {
+    width: auto;
+  }
 }
 
 .alert-message {

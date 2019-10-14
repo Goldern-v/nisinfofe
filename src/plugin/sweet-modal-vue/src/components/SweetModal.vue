@@ -107,7 +107,9 @@
         <!-- Title -->
         <template v-if="has_title">
           <h2 v-if="title" ref="dragTitle" style="width:100%">
-            <span v-if="titleIcon"><img :src="titleIcon"  width="22" height="auto" style="vertical-align: middle;" ></span>
+            <span v-if="titleIcon">
+              <img :src="titleIcon" width="22" height="auto" style="vertical-align: middle;" />
+            </span>
             <span v-html="title"></span>
             <slot name="title-bar"></slot>
           </h2>
@@ -1133,7 +1135,7 @@ export default {
     }
   }
   // Animation
-  transform: scale(0.9) translate(calc(-50% - 32px), -50%);
+  transform: scale(1) translate(calc(-50%), -50%);
   opacity: 0;
   transition: {
     property: transform, opacity;
@@ -1152,10 +1154,10 @@ export default {
     }
   }
   .sweet-content {
-    transform: translateY(-8px);
+    /* transform: translateY(-8px); */
   }
   .sweet-buttons {
-    transform: translateY(16px);
+    /* transform: translateY(16px); */
   }
   &.is-visible {
     transform: translate(-50%, -50%);
@@ -1193,7 +1195,7 @@ export default {
       height: 100vh;
       left: 0;
       top: 0;
-      transform: scale(0.9);
+      transform: scale(1);
       &.is-visible {
         transform: none;
       }

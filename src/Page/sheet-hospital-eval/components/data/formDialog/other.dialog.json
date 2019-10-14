@@ -489,9 +489,9 @@
     ]
   },
   {
-    "title": "伤口皮肤情况异常",
+    "title": "血红蛋白",
     "type": "formGroupVerticalBox",
-    "name": "I100160",
+    "name": "I100205",
     "showTitle": false,
     "message": "",
     "require": "false",
@@ -504,12 +504,68 @@
     "modalWidth": 540,
     "children": [
       {
+        "name": "I100305",
+        "type": "input",
+        "label": "神经系统、组织缺氧表现",
+        "labelWidth": "140px",
+        "inputWidth": "auto",
+        "value": "",
+        "options": [],
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      },
+      {
+        "name": "I100307",
+        "type": "input",
+        "label": "皮肤黏膜苍白",
+        "labelWidth": "140px",
+        "inputWidth": "auto",
+        "value": "",
+        "postText": "",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      },
+      {
+        "name": "I100308",
+        "type": "input",
+        "label": "呼吸",
+        "labelWidth": "140px",
+        "inputWidth": "auto",
+        "value": "",
+        "options": [],
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
+    "title": "伤口皮肤情况异常",
+    "type": "formGroupVerticalBox",
+    "name": "I100160",
+    "showTitle": false,
+    "message": "",
+    "require": "false",
+    "prefixDesc": "",
+    "postText": "",
+    "keys": "",
+    "style": "width:100%!important;",
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 540,
+    "children": [
+      {
         "name": "I100160",
         "type": "select",
         "label": "异常情况",
+        "labelWidth": "100px",
+        "inputWidth": "250px",
         "multiplechoice": true,
-        "style": null,
-        "class": null,
         "labelClass": "select-label",
         "readOnly": null
       }

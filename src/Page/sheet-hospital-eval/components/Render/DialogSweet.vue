@@ -381,16 +381,17 @@ export default {
             for (let k in items) {
               if (items.hasOwnProperty(k)) {
                 let item = items[k];
-                let title = item.childObjct.title
+                let title = item.childObjct.title;
                 let code = item.childObjct.code || title;
                 // console.log('-----',item.childObjct.title ,item,item.childObjct.code,value,item.childObjct.code == value,item.childObjct.title == value,code)
                 // || item.childObjct.title == value
-                let valueArr = value.split(',')
-                console.log('选项:',item,[code],[value],[valueArr])
-                if (code == value ||
-                title == value ||
-                valueArr.indexOf(code)>-1 ||
-                valueArr.indexOf(title)>-1
+                let valueArr = value.split(",");
+                console.log("选项:", item, [code], [value], [valueArr]);
+                if (
+                  code == value ||
+                  title == value ||
+                  valueArr.indexOf(code) > -1 ||
+                  valueArr.indexOf(title) > -1
                 ) {
                   // console.log('---++',item.childObjct.title ,item)
                   this.formBox["selectedItems"].push(item.childObjct);
@@ -817,4 +818,21 @@ export default {
 >>>.el-loading-mask, .is-fullscreen {
   z-index: 20005!important;
 }
+
+
+>>>.sweet-modal, .sweet-content, .sweet-content-content{
+  // color:red!important
+  /deep/.el-input{
+    color:cyan!important
+    width: auto;
+  }
+  >>>.el-input{
+    color:red!important
+    width: auto;
+  }
+  >>>.input-elements, .vertical-box{
+    justify-content: center;
+  }
+}
+
 </style>

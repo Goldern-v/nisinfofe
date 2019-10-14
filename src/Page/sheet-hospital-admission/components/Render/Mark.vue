@@ -660,7 +660,7 @@ export default {
   }
 }
 >>>.el-textarea textarea {
-  width: 523px;
+  width: 633px;
   margin-top: 8px;
   margin-bottom: 10px;
   resize:none;

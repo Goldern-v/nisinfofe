@@ -207,7 +207,7 @@
           "name": "I100001",
           "type": "select",
           "title": "体温",
-          "subTitle":"I100000",
+          "subTitle": "I100000",
           "inputWidth": "217px",
           "leftTdStyle": "min-width:80px!important",
           "rightTdStyle": "width:237px!important",
@@ -247,9 +247,9 @@
               "style": "color: red;border-color: red;"
             },
             {
-              "source":"I100000",
-              "target":"I100001",
-              "type":"signValue"
+              "source": "I100000",
+              "target": "I100001",
+              "type": "signValue"
             }
           ]
         },
@@ -2784,12 +2784,134 @@
       "name": "",
       "type": "formGroupHR",
       "title": "---hr---",
+      "line": "dashed",
       "prefixDesc": "",
       "suffixDesc": "",
       "keys": "",
       "style": "",
       "classes": "",
       "readOnly": ""
+    },
+    {
+      "name": "",
+      "type": "formGroupTitle",
+      "level": "2",
+      "title": "2.8 血液系统"
+    },
+    {
+      "name": "",
+      "type": "formGroupTitle",
+      "level": "3",
+      "title": "2.8.1 贫血"
+    },
+    {
+      "name": "I100205",
+      "type": "formGroupColBox",
+      "col": 2,
+      "title": "2.8.1 贫血",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "I100205",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I100205",
+          "type": "select",
+          "title": "血红蛋白",
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "rule": [
+            {
+              "diff": [
+                "轻度(Hb>90g/l)"
+              ],
+              "message": "",
+              "style": "color: red;border-color: red;"
+            },
+            {
+              "dialog": {
+                "openKey": [
+                  "中度(Hb60~90g/l)",
+                  "重度(Hb30~59g/l)",
+                  "极重度(Hb<30g/l)"
+                ],
+                "cleanKey": [
+                  "轻度(Hb>90g/l)"
+                ],
+                "title": "血红蛋白",
+                "default": "血红蛋白",
+                "type": "dependent"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed"
+    },
+    {
+      "name": "",
+      "type": "formGroupTitle",
+      "level": "3",
+      "title": "2.8.2 出血与出血倾向"
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed"
+    },
+    {
+      "name": "",
+      "type": "formGroupTitle",
+      "level": "3",
+      "title": "2.8.3 继发感染（发热）"
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed"
+    },
+    {
+      "name": "",
+      "type": "formGroupTitle",
+      "level": "2",
+      "title": "2.9 其他系统评估"
+    },
+    {
+      "name": "",
+      "type": "formGroupTitle",
+      "level": "3",
+      "title": "2.9.1 乳房"
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed"
+    },
+    {
+      "name": "",
+      "type": "formGroupTitle",
+      "level": "3",
+      "title": "2.9.2 五官"
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "prefixDesc": "",
+      "suffixDesc": ""
     },
     {
       "name": "",
