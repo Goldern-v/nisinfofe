@@ -10,7 +10,7 @@
     <span class="block" :style="{background: frameData.iconTextRgb}"></span>
     <div class="name" flex-box="1">
       {{item.name}}
-      <span class="red-tip" v-if="isTip"></span>
+      <span class="red-tip" v-if="isTip && (item.iconText != '正常')"></span>
     </div>
     <div class="bed">{{item.bedLabel}} 床</div>
   </div>

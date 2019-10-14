@@ -35,42 +35,43 @@
   margin: 0 auto;
   height: 100%;
   width: 100%;
-  // border: 1px solid red;
 
+  // border: 1px solid red;
   .assessmentv2-iframe {
     width: 100%;
     // min-height: 600px;
     overflow: hidden;
   }
- /deep/ .circular {
-  //  background: red;
+
+  /deep/ .circular {
     // display: none!important;
     // visibility: hidden!important;
     &.hidden-loading {
-    display: none!important;
-    visibility: hidden!important;
+      display: none !important;
+      visibility: hidden !important;
+    }
   }
- }
 }
 
-  /deep/ .hidden-loading {
-    display: none!important;
-    visibility: hidden!important;
-  }
+/deep/ .hidden-loading {
+  display: none !important;
+  visibility: hidden !important;
+}
+
 /deep/ .el-loading-mask {
   // background: white !important;
-  background-color: rgba(255, 255, 255, .98);
+  background-color: rgba(255, 255, 255, 0.98);
 }
 
 /deep/ .mask-loading-button {
-    font-size: 13px;
-    padding: 8px 20px;
-    margin-top: 20px;
-    color: #55b391;
-    outline: 0;
-    cursor: pointer;
-    border: 1px solid #55b391;
-    background: transparent;
+  font-size: 13px;
+  padding: 8px 20px;
+  margin-top: 20px;
+  color: #55b391;
+  outline: 0;
+  cursor: pointer;
+  border: 1px solid #55b391;
+  background: transparent;
 }
 </style>
 
@@ -288,7 +289,7 @@ export default {
       }
 
       this.url = url;
-      if(this.$refs.iframeV2){
+      if (this.$refs.iframeV2) {
         this.$refs.iframeV2.contentWindow.location.href = url;
       }
 
@@ -1037,7 +1038,12 @@ export default {
           console.log("openEditAssessment:", this.$refs, password, empNo);
           checkUser(empNo, password).then(res => {
             console.log("-----checkUser:", res);
-            if (res && res.data && res.data.data.title === "护士长") {
+            if (
+              res &&
+              res.data &&
+              (res.data.data.title === "护士长" ||
+                res.data.data.post === "护长")
+            ) {
               window.openFormBox(this.url + "&editMode=true");
             } else {
               this.$message({
