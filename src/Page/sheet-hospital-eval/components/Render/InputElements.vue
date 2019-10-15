@@ -537,12 +537,12 @@ export default {
                     //
                     if (mychild.children) {
                       if (this.formObj.model[child.name]) {
-                        html += `<span style='margin-right:5px'><span style='color:green'>${title}</span>:<span>${this
+                        html += `<span style='margin-right:5px'><span style='color:green'>${title}--</span>:<span>${this
                           .formObj.model[mychild.name] ||
                           ""}<span style='color:chocolate'>${child.postText ||
                           child.suffixDesc ||
                           ""}</span></span></span>`;
-                        hasNewLine ? (html += newLine) : (html = html);
+                        hasNewLine ? (html += newLine) : html+=((children.length!=(cindex+1))?',':'');
                         handleChild(mychild.children);
                       }
                       // else{
@@ -566,7 +566,9 @@ export default {
                           ""}<span style='color:chocolate'>${mychild.postText ||
                           mychild.suffixDesc ||
                           ""}</span>`;
-                        hasNewLine ? (html += newLine) : (html = html);
+                        hasNewLine ? (html += newLine) : html+=((children.length!=(cindex+1))?',':'');
+
+                        //((cindex!=children.length)?html : html);
                       }
                       // else{
                       //   html += `<p style="color:red">${ title }:${this.formObj.model[mychild.name]||""}</p>`
@@ -832,7 +834,7 @@ export default {
   width: auto;
   white-space: nowrap;
   display: inline;
-  color: blue;
+  color: black;
   font-size: 12px;
   max-width: 320px;
 .el-input

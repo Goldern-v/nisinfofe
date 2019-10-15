@@ -4206,46 +4206,58 @@
   ],
   "I100307": [
     {
-      "code": "头晕",
-      "name": "头晕",
-      "pinyin": "ty"
+      "code": "睑结膜",
+      "name": "睑结膜",
+      "pinyin": "jjm"
     },
     {
-      "code": "眼花",
-      "name": "眼花",
-      "pinyin": "yh"
+      "code": "口唇",
+      "name": "口唇",
+      "pinyin": "kc"
     },
     {
-      "code": "耳鸣",
-      "name": "耳鸣",
-      "pinyin": "em"
+      "code": "舌质",
+      "name": "舌质",
+      "pinyin": "sz"
     },
     {
-      "code": "失眠",
-      "name": "失眠",
-      "pinyin": "sm"
+      "code": "甲床",
+      "name": "甲床",
+      "pinyin": "jc"
     },
     {
-      "code": "多梦",
-      "name": "多梦",
-      "pinyin": "dm"
+      "code": "手掌",
+      "name": "手掌",
+      "pinyin": "sz"
     }
   ],
   "I100308": [
     {
-      "code": "疲乏",
-      "name": "疲乏",
-      "pinyin": "pf"
+      "code": "呼吸频率加快",
+      "name": "呼吸频率加快",
+      "pinyin": "hxpljk"
     },
     {
-      "code": "困倦",
-      "name": "困倦",
-      "pinyin": "kj"
+      "code": "活动后心悸",
+      "name": "活动后心悸",
+      "pinyin": "hdhxj"
     },
     {
-      "code": "软弱无力",
-      "name": "软弱无力",
-      "pinyin": "rrwl"
+      "code": "气促",
+      "name": "气促",
+      "pinyin": "qc"
+    }
+  ],
+  "I100309": [
+    {
+      "code": "是",
+      "name": "是",
+      "pinyin": "s"
+    },
+    {
+      "code": "否",
+      "name": "否",
+      "pinyin": "f"
     }
   ],
   "I100170": [
@@ -5012,16 +5024,6 @@
   ],
   "I100219": [
     {
-      "code": "左眼视力--",
-      "name": "左眼视力--",
-      "pinyin": "zysl"
-    },
-    {
-      "code": "右眼视力--",
-      "name": "右眼视力--",
-      "pinyin": "yysl"
-    },
-    {
       "code": "视物变形",
       "name": "视物变形",
       "pinyin": "swbx"
@@ -5131,23 +5133,23 @@
   "I100223": [
     {
       "code": "疼痛",
-      "name": "无",
-      "pinyin": "w"
+      "name": "疼痛",
+      "pinyin": "tt"
     },
     {
       "code": "畏光",
-      "name": "有",
-      "pinyin": "y"
+      "name": "畏光",
+      "pinyin": "wg"
     },
     {
       "code": "痒，异物感",
-      "name": "无",
-      "pinyin": "w"
+      "name": "痒，异物感",
+      "pinyin": "y，ywg"
     },
     {
       "code": "视力下降",
-      "name": "有",
-      "pinyin": "y"
+      "name": "视力下降",
+      "pinyin": "slxj"
     }
   ],
   "I100224": [

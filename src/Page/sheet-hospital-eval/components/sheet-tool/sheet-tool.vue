@@ -105,6 +105,7 @@
 </style>
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
+
 .sheetSelect-con-sheet
   background: #FFFFFF;
   box-shadow: 0 2px 6px 0 rgba(0,0,0,0.50);
@@ -112,8 +113,8 @@
   width 400px !important
   left auto !important
   right 5px
-  .el-select-dropdown__list, .el-select-dropdown__item
-    padding 0
+  >>>.el-select-dropdown__list, .el-select-dropdown__item
+    padding 0px!important
     height auto
   .el-select-dropdown__wrap
     max-height 500px
@@ -166,6 +167,10 @@
     background #E5F1F0;
 .red-border
   border 2px solid red !important
+
+>>>.el-select-dropdown__list
+    padding 0px!important
+
 </style>
 
 <script>

@@ -6,31 +6,32 @@
         <img :src="contentImgae" alt>
     </el-tooltip>-->
     <!-- </div> -->
-    <div v-if="isShow" class="table-of-content-box" :class="isShow?'':'table-show'" ref="tableOfContent"  :style="{height:(wih-100)+'px'}">
+    <div v-if="isShow" class="table-of-content-box" :class="isShow?'':'table-show'" ref="tableOfContent" :style="{height:'auto'}">
       <!-- formGroupTitle -->
       <div class="title-box">目录</div>
-      <div class="list-box">
-      <ul>
-
-        <li
-          v-for="(t,i) in formObj.body"
-          v-if="t.type ==='formGroupTitle'"
-          :key="i"
-          :class="t.level ?'title-level-'+t.level:''"
-          @click="scrollTo($event,t.title)"
-        >
-        <el-tooltip class="item" effect="light" :enterable="false" placement="left" v-if="formatTitle(t.title+(missingItems&&missingItems[t.title]?`(漏${missingItems[t.title].length}项)`:'')).length>16">
-        <div slot="content">
-          <span>
-            <span :class="{'missing-items':missingItems&&missingItems[t.title]}">{{t.title}}{{missingItems&&missingItems[t.title]?`(漏${missingItems[t.title].length}项)`:''}}</span>
-          </span>
+      <div class="container" :style="{height:(wih-100)+'px'}">
+        <div class="list-box">
+        <ul>
+          <li
+            v-for="(t,i) in formObj.body"
+            v-if="t.type ==='formGroupTitle'"
+            :key="i"
+            :class="t.level ?'title-level-'+t.level:''"
+            @click="scrollTo($event,t.title)"
+          >
+          <el-tooltip class="item" effect="light" :enterable="false" placement="left" v-if="formatTitle(t.title+(missingItems&&missingItems[t.title]?`(漏${missingItems[t.title].length}项)`:'')).length>16">
+          <div slot="content">
+            <span>
+              <span :class="{'missing-items':missingItems&&missingItems[t.title]}">{{t.title}}{{missingItems&&missingItems[t.title]?`(漏${missingItems[t.title].length}项)`:''}}</span>
+            </span>
+          </div>
+            <span :class="{'missing-items':missingItems&&missingItems[t.title]}">{{formatTitle(t.title+(missingItems&&missingItems[t.title]?`(漏${missingItems[t.title].length}项)`:''))}}</span>
+        </el-tooltip>
+            <span v-if="formatTitle(t.title+(missingItems&&missingItems[t.title]?`(漏${missingItems[t.title].length}项)`:'')).length<=16" :class="{'missing-items':missingItems&&missingItems[t.title]}">{{formatTitle(t.title+(missingItems&&missingItems[t.title]?`(漏${missingItems[t.title].length}项)`:''))}}</span>
+          </li>
+          <!-- <a :href="'#'+t.title">{{t.title}}</a> -->
+        </ul>
         </div>
-          <span :class="{'missing-items':missingItems&&missingItems[t.title]}">{{formatTitle(t.title+(missingItems&&missingItems[t.title]?`(漏${missingItems[t.title].length}项)`:''))}}</span>
-      </el-tooltip>
-          <span v-if="formatTitle(t.title+(missingItems&&missingItems[t.title]?`(漏${missingItems[t.title].length}项)`:'')).length<=16" :class="{'missing-items':missingItems&&missingItems[t.title]}">{{formatTitle(t.title+(missingItems&&missingItems[t.title]?`(漏${missingItems[t.title].length}项)`:''))}}</span>
-        </li>
-        <!-- <a :href="'#'+t.title">{{t.title}}</a> -->
-      </ul>
       </div>
     </div>
   </div>
@@ -172,10 +173,16 @@ export default {
   background: #F1F1F5;
   padding: 10px;
   font-size: 13px;
+  position: fixed;
+  width:200px;
+}
+
+.container {
+  overflow: auto;
 }
 
 .list-box {
-  margin: 10px 0;
+  margin: 40px 0px 10px 0px;
 }
 
 // .table-of-content {
@@ -202,7 +209,7 @@ export default {
   width: 220px;
   height: auto;
   // max-height: 480px;
-  overflow: auto;
+  // overflow: auto;
   // position: fixed;
   // right: calc(2% + 40px);
   // top: 18%;

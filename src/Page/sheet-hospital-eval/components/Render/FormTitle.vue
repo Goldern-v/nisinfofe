@@ -59,7 +59,7 @@ h1 {
 }
 .title-box {
   border-bottom: 1px dashed #eee;
-  padding: 15px 0px 2px 0px;
+  margin: 15px 60px 2px 0px;
   line-height: 2em;
 }
 

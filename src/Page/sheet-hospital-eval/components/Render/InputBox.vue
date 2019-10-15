@@ -662,6 +662,9 @@ export default {
     getUUID(child = null) {
       let uuid_ = uuid.v1();
       return uuid_;
+    },
+    alertClick(event) {
+      console.log("alertClick", event, this.obj);
     }
   }
 };

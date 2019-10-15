@@ -911,7 +911,7 @@
           "rule": [
             {
               "diff": "正常",
-              "message": "呼吸节律异常，每天评估。",
+              "message": "呼吸节律异常",
               "style": "color: red;border-color: red;"
             }
           ]
@@ -955,7 +955,7 @@
           "rule": [
             {
               "diff": "无",
-              "message": "有，每天评估",
+              "message": "",
               "style": "color: red;border-color: red;"
             }
           ]
@@ -978,7 +978,7 @@
           "rule": [
             {
               "diff": "无",
-              "message": "有，每天评估",
+              "message": "",
               "style": "color: red;border-color: red;"
             }
           ]
@@ -993,7 +993,7 @@
           "rule": [
             {
               "diff": "无",
-              "message": "有，每天评估",
+              "message": "",
               "style": "color: red;border-color: red;"
             }
           ]
@@ -1008,7 +1008,7 @@
           "rule": [
             {
               "diff": "无",
-              "message": "有，每天评估",
+              "message": "",
               "style": "color: red;border-color: red;"
             }
           ]
@@ -1152,7 +1152,7 @@
             },
             {
               "diff": "无",
-              "message": "有，每天评估",
+              "message": "",
               "style": "color: red;border-color: red;"
             }
           ]
@@ -1256,7 +1256,7 @@
           "rule": [
             {
               "diff": "无",
-              "message": "有，每班评估",
+              "message": "",
               "style": "color: red;border-color: red;"
             }
           ]
@@ -1271,7 +1271,7 @@
           "rule": [
             {
               "diff": "无",
-              "message": "有，每班评估",
+              "message": "",
               "style": "color: red;border-color: red;"
             }
           ]
@@ -1286,7 +1286,7 @@
           "rule": [
             {
               "diff": "无",
-              "message": "有，每班评估",
+              "message": "",
               "style": "color: red;border-color: red;"
             }
           ]
@@ -1310,7 +1310,7 @@
             },
             {
               "diff": "无",
-              "message": "有，每班评估",
+              "message": "",
               "style": "color: red;border-color: red;"
             }
           ]
@@ -1325,7 +1325,7 @@
           "rule": [
             {
               "diff": "无",
-              "message": "有，每天评估",
+              "message": "",
               "style": "color: red;border-color: red;"
             }
           ]
@@ -2213,7 +2213,7 @@
             },
             {
               "diff": "无",
-              "message": "护理问题：恶心，舒适状态的改变,每班评估",
+              "message": "护理问题：恶心，舒适状态的改变",
               "style": "color: red;border-color: red;"
             }
           ]
@@ -2491,7 +2491,7 @@
               "diff": [
                 "未发现异常"
               ],
-              "message": "每班评估",
+              "message": "",
               "style": "color: red;border-color: red;"
             }
           ]
@@ -2533,7 +2533,7 @@
               "diff": [
                 "无"
               ],
-              "message": "每天评估",
+              "message": "",
               "style": "color: red;border-color: red;"
             }
           ]
@@ -2553,7 +2553,7 @@
               "diff": [
                 "无"
               ],
-              "message": "有感染的危险，每天评估",
+              "message": "有感染的危险",
               "style": "color: red;border-color: red;"
             }
           ]
@@ -2570,7 +2570,7 @@
               "diff": [
                 "无"
               ],
-              "message": "每班评估量",
+              "message": "量",
               "style": "color: red;border-color: red;"
             }
           ]
@@ -2587,7 +2587,7 @@
               "diff": [
                 "无"
               ],
-              "message": "每班评估量",
+              "message": "量",
               "style": "color: red;border-color: red;"
             }
           ]
@@ -2731,6 +2731,67 @@
       "readOnly": null,
       "children": [
         {
+          "name": "I100290",
+          "type": "select",
+          "title": "羊水情况",
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "rule": [
+            {
+              "dialog": {
+                "openKey": [
+                  "清",
+                  "Ⅰ",
+                  "Ⅱ",
+                  "Ⅲ",
+                  "血性"
+                ],
+                "cleanKey": "无",
+                "title": "羊水情况",
+                "default": "羊水情况",
+                "type": "dependent"
+              }
+            },
+            {
+              "equal": [
+                "清",
+                "Ⅰ",
+                "Ⅱ",
+                "Ⅲ",
+                "血性"
+              ],
+              "style": "color: red;border-color: red;"
+            }
+          ]
+        },
+        {
+          "name": "I100292",
+          "type": "select",
+          "title": "腹部：宫缩",
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "rule": [
+            {
+              "dialog": {
+                "openKey": [
+                  "不规则",
+                  "规则"
+                ],
+                "cleanKey": "无",
+                "title": "腹部宫缩",
+                "default": "腹部宫缩",
+                "type": "dependent"
+              }
+            },
+            {
+              "equal": "有",
+              "style": "color: red;border-color: red;"
+            }
+          ]
+        },
+        {
           "name": "I100119",
           "type": "select",
           "title": "阴道流血",
@@ -2777,6 +2838,215 @@
               "style": "color: red;border-color: red;"
             }
           ]
+        },
+        {
+          "name": "I100299",
+          "type": "input",
+          "title": "胎心音",
+          "inputWidth": "227px!important",
+          "suffixDesc": "次/分",
+          "rightTdStyle": "",
+          "unitStyle": "",
+          "style": "",
+          "readOnly": null,
+          "rule": [
+            {
+              "min": "1",
+              "max": "110",
+              "message": "胎儿窘迫,胎儿受伤的危险",
+              "style": "color: red;border-color: red;"
+            },
+            {
+              "min": "160",
+              "max": "Infinity",
+              "message": "胎儿窘迫,胎儿受伤的危险",
+              "style": "color: red;border-color: red;"
+            }
+          ]
+        },
+        {
+          "name": "I100300",
+          "type": "input",
+          "title": "胎方位常用",
+          "inputWidth": "227px!important",
+          "suffixDesc": "",
+          "rightTdStyle": "",
+          "unitStyle": "",
+          "style": "",
+          "readOnly": null
+        },
+        {
+          "name": "I100301",
+          "type": "input",
+          "title": "胎方位其他",
+          "inputWidth": "227px!important",
+          "suffixDesc": "",
+          "rightTdStyle": "",
+          "unitStyle": "",
+          "style": "",
+          "readOnly": null
+        },
+        {
+          "name": "I100189",
+          "type": "select",
+          "title": "宫口宫颈管消退",
+          "inputWidth": "197px",
+          "leftTdStyle": "min-width:100px!important",
+          "suffixDesc": "",
+          "rightTdStyle": "",
+          "unitStyle": "",
+          "style": "",
+          "readOnly": null,
+          "rule": [
+            {
+              "dialog": {
+                "openKey": [
+                  "消退"
+                ],
+                "cleanKey": "未消",
+                "title": "宫口宫颈管消退情况",
+                "default": "宫口宫颈管消退情况",
+                "type": "dependent"
+              }
+            }
+          ]
+        },
+        {
+          "name": "I100193",
+          "type": "select",
+          "title": "会阴情况",
+          "inputWidth": "227px",
+          "suffixDesc": "",
+          "rightTdStyle": "",
+          "unitStyle": "",
+          "style": "",
+          "readOnly": null,
+          "rule": [
+            {
+              "dialog": {
+                "openKey": [
+                  "异常"
+                ],
+                "cleanKey": "正常",
+                "title": "会阴情况",
+                "default": "会阴情况",
+                "type": "dependent"
+              }
+            }
+          ]
+        },
+        {
+          "name": "I100196",
+          "type": "input",
+          "title": "宫底高度",
+          "inputWidth": "227px!important",
+          "suffixDesc": "",
+          "rightTdStyle": "",
+          "unitStyle": "",
+          "style": "",
+          "readOnly": null
+        },
+        {
+          "name": "I100197",
+          "type": "input",
+          "title": "子宫收缩",
+          "inputWidth": "227px!important",
+          "suffixDesc": "",
+          "rightTdStyle": "",
+          "unitStyle": "",
+          "style": "",
+          "readOnly": null
+        },
+        {
+          "name": "I100198",
+          "type": "input",
+          "title": "恶露量",
+          "inputWidth": "227px!important",
+          "suffixDesc": "ml",
+          "style": "",
+          "readOnly": null,
+          "rule": [
+            {
+              "min": "50",
+              "max": "Infinity",
+              "equal": "",
+              "message": "有产后出血的危险",
+              "style": "color: red;border-color: red;"
+            }
+          ]
+        },
+        {
+          "name": "I100199",
+          "type": "input",
+          "title": "恶露气味",
+          "inputWidth": "227px!important",
+          "suffixDesc": "",
+          "rightTdStyle": "",
+          "unitStyle": "",
+          "style": "",
+          "readOnly": null
+        },
+        {
+          "name": "I100079",
+          "type": "input",
+          "title": "伤口",
+          "inputWidth": "227px!important",
+          "suffixDesc": "",
+          "rightTdStyle": "",
+          "unitStyle": "",
+          "style": "",
+          "readOnly": null,
+          "rule": [
+            {
+              "dialog": {
+                "openKey": [
+                  "有"
+                ],
+                "cleanKey": "无",
+                "title": "伤口情况",
+                "default": "伤口情况",
+                "type": "dependent"
+              }
+            }
+          ]
+        },
+        {
+          "name": "I100204",
+          "type": "input",
+          "title": "肛门坠胀感",
+          "inputWidth": "227px!important",
+          "suffixDesc": "",
+          "rightTdStyle": "",
+          "unitStyle": "",
+          "style": "",
+          "readOnly": null
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupColBox",
+      "col": 2,
+      "colWidth": [
+        "100%"
+      ],
+      "title": "",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I100018",
+          "type": "mark",
+          "title": "备注",
+          "style": null,
+          "class": null,
+          "readOnly": null
         }
       ]
     },
@@ -2865,6 +3135,119 @@
       "title": "2.8.2 出血与出血倾向"
     },
     {
+      "name": "I100205",
+      "type": "formGroupColBox",
+      "col": 2,
+      "title": "2.8.2 出血与出血倾向",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "I100205",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I100206",
+          "type": "select",
+          "title": "出血部位",
+          "multiplechoice": true,
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "rule": [
+            {
+              "equal": "颅内",
+              "message": "",
+              "style": "color: red;border-color: red;"
+            }
+          ]
+        },
+        {
+          "name": "I100207",
+          "type": "select",
+          "title": "出血程度",
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "children": [
+            {
+              "name": "I100207",
+              "type": "select",
+              "title": "出血程度",
+              "elementStyle": "max-width:270px!important",
+              "style": null,
+              "class": null,
+              "readOnly": null,
+              "rule": [
+                {
+                  "equal": "",
+                  "message": "",
+                  "style": "color: red;border-color: red;"
+                },
+                {
+                  "dialog": {
+                    "openKey": [
+                      "轻度出血"
+                    ],
+                    "cleanKey": [
+                      "中度出血",
+                      "重度出血"
+                    ],
+                    "title": "轻度出血",
+                    "default": "轻度出血",
+                    "type": "dependent"
+                  }
+                },
+                {
+                  "dialog": {
+                    "openKey": [
+                      "中度出血"
+                    ],
+                    "cleanKey": [
+                      "轻度出血",
+                      "重度出血"
+                    ],
+                    "title": "中度出血",
+                    "default": "中度出血",
+                    "type": "dependent"
+                  }
+                },
+                {
+                  "dialog": {
+                    "openKey": [
+                      "重度出血"
+                    ],
+                    "cleanKey": [
+                      "中度出血",
+                      "轻度出血"
+                    ],
+                    "title": "重度出血",
+                    "default": "重度出血",
+                    "type": "dependent"
+                  }
+                }
+              ],
+              "tips": "出血程度说明"
+            },
+            {
+              "name": "I100031",
+              "type": "help",
+              "title": "出血程度说明",
+              "style": null,
+              "elementStyle": "margin-left: 8px;",
+              "class": "help-image",
+              "labelStyle": "",
+              "labelClass": "select-label",
+              "readOnly": null,
+              "tips": "<p style='color:green'>出血程度说明:</p><p><span style='color:blue'>轻度出血</span>    出血量＜500ml</p><p><span style='color:blue'>中度出血</span>    出血量在500-1000ml,收缩压低于90mmHg</p><p><span style='color:blue'>重度出血出</span>    血量＞1000ml,收缩压低于60-75mmHg,心率＞120次/分</p>"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "name": "",
       "type": "formGroupHR",
       "title": "---hr---",
@@ -2875,6 +3258,65 @@
       "type": "formGroupTitle",
       "level": "3",
       "title": "2.8.3 继发感染（发热）"
+    },
+    {
+      "name": "I100212",
+      "type": "formGroupColBox",
+      "col": 2,
+      "title": "2.8.3 继发感染（发热）",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "I100212",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I100212",
+          "type": "select",
+          "title": "发热",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I100212",
+          "type": "select",
+          "title": "降温处理",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupColBox",
+      "col": 1,
+      "colWidth": [
+        "100%"
+      ],
+      "title": "",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I100313",
+          "type": "mark",
+          "title": "备注",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        }
+      ]
     },
     {
       "name": "",
@@ -2895,6 +3337,98 @@
       "title": "2.9.1 乳房"
     },
     {
+      "name": "I100213",
+      "type": "formGroupColBox",
+      "col": 2,
+      "title": "2.9.1 乳房",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "I100213",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I100213",
+          "type": "select",
+          "title": "乳房情况",
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "rule": [
+            {
+              "dialog": {
+                "openKey": [
+                  "(+)"
+                ],
+                "cleanKey": "(-)",
+                "title": "乳房情况",
+                "default": "乳房情况",
+                "type": "dependent"
+              }
+            }
+          ]
+        },
+        {
+          "name": "I100215",
+          "type": "select",
+          "title": "泌乳情况",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I100216",
+          "type": "select",
+          "title": "产后乳房胀痛",
+          "inputWidth": "207px",
+          "leftTdStyle": "min-width:90px!important",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I100217",
+          "type": "select",
+          "title": "产后乳房胀痛程度",
+          "inputWidth": "187px",
+          "leftTdStyle": "min-width:110px!important",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupColBox",
+      "col": 1,
+      "colWidth": [
+        "100%"
+      ],
+      "title": "",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I100314",
+          "type": "mark",
+          "title": "备注",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        }
+      ]
+    },
+    {
       "name": "",
       "type": "formGroupHR",
       "title": "---hr---",
@@ -2905,6 +3439,231 @@
       "type": "formGroupTitle",
       "level": "3",
       "title": "2.9.2 五官"
+    },
+    {
+      "name": "I100218",
+      "type": "formGroupColBox",
+      "col": 2,
+      "title": "2.9.2 五官",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "I100218",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I100218",
+          "type": "select",
+          "title": "视力障碍",
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "rule": [
+            {
+              "dialog": {
+                "openKey": [
+                  "有"
+                ],
+                "cleanKey": "无",
+                "title": "视力障碍",
+                "default": "视力障碍",
+                "type": "dependent"
+              }
+            }
+          ]
+        },
+        {
+          "name": "I100220",
+          "type": "select",
+          "title": "眼部外观异常",
+          "inputWidth": "212px",
+          "leftTdStyle": "min-width:85px!important",
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "rule": [
+            {
+              "dialog": {
+                "openKey": [
+                  "有"
+                ],
+                "cleanKey": "无",
+                "title": "眼部外观异常",
+                "default": "眼部外观异常",
+                "type": "dependent"
+              }
+            }
+          ]
+        },
+        {
+          "name": "I100222",
+          "type": "select",
+          "title": "眼部感觉异常",
+          "inputWidth": "212px",
+          "leftTdStyle": "min-width:85px!important",
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "rule": [
+            {
+              "dialog": {
+                "openKey": [
+                  "有"
+                ],
+                "cleanKey": "无",
+                "title": "眼部感觉异常",
+                "default": "眼部感觉异常",
+                "type": "dependent"
+              }
+            }
+          ]
+        },
+        {
+          "name": "I100227",
+          "type": "select",
+          "title": "耳部的临床症状",
+          "inputWidth": "202px",
+          "leftTdStyle": "min-width:95px!important",
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "rule": [
+            {
+              "dialog": {
+                "openKey": [
+                  "有"
+                ],
+                "cleanKey": "无",
+                "title": "耳部的临床症状",
+                "default": "耳部的临床症状",
+                "type": "dependent"
+              }
+            }
+          ]
+        },
+        {
+          "name": "I100235",
+          "type": "select",
+          "title": "鼻部的临床症状",
+          "inputWidth": "202px",
+          "leftTdStyle": "min-width:95px!important",
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "rule": [
+            {
+              "dialog": {
+                "openKey": [
+                  "有"
+                ],
+                "cleanKey": "无",
+                "title": "鼻部的临床症状",
+                "default": "鼻部的临床症状",
+                "type": "dependent"
+              }
+            }
+          ]
+        },
+        {
+          "name": "I100242",
+          "type": "select",
+          "title": "咽部的临床症状",
+          "inputWidth": "202px",
+          "leftTdStyle": "min-width:95px!important",
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "rule": [
+            {
+              "dialog": {
+                "openKey": [
+                  "有"
+                ],
+                "cleanKey": "无",
+                "title": "咽部的临床症状",
+                "default": "咽部的临床症状",
+                "type": "dependent"
+              }
+            }
+          ]
+        },
+        {
+          "name": "I100250",
+          "type": "select",
+          "title": "喉部的临床症状",
+          "inputWidth": "202px",
+          "leftTdStyle": "min-width:95px!important",
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "rule": [
+            {
+              "dialog": {
+                "openKey": [
+                  "有"
+                ],
+                "cleanKey": "无",
+                "title": "喉部的临床症状",
+                "default": "喉部的临床症状",
+                "type": "dependent"
+              }
+            }
+          ]
+        },
+        {
+          "name": "I100252",
+          "type": "select",
+          "title": "口腔的临床症状",
+          "inputWidth": "202px",
+          "leftTdStyle": "min-width:95px!important",
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "rule": [
+            {
+              "dialog": {
+                "openKey": [
+                  "有"
+                ],
+                "cleanKey": "无",
+                "title": "口腔的临床症状",
+                "default": "口腔的临床症状",
+                "type": "dependent"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupColBox",
+      "col": 1,
+      "colWidth": [
+        "100%"
+      ],
+      "title": "",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I100315",
+          "type": "mark",
+          "title": "备注",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        }
+      ]
     },
     {
       "name": "",
