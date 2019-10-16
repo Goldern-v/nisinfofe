@@ -31,7 +31,7 @@
       @blur.native.stop="inputBlur"
       @keydown.native="inputKeyDown($event, obj)"
     >
-      <span class="pre-text" v-if="obj.prefixDesc" slot="prepend">{{obj.prefixDesc}}</span>
+      <!-- <span class="pre-text" v-if="obj.prefixDesc" slot="prepend">{{obj.prefixDesc}}</span> -->
       <!-- <span slot="append"> -->
       <!-- <i
         slot="append"
@@ -39,13 +39,13 @@
         @click.prevent.stop="()=>{}"
         class="el-input__icon el-icon-caret-top"
       ></i>-->
-      <!-- <span slot="append" class="post-text" v-if="obj.suffixDesc">{{obj.suffixDesc}}</span> -->
+      <span slot="append" class="suffixDesc-text" v-if="obj.postText">!!!{{obj.postText}}</span>
       <!-- </span> -->
       <!-- <template slot="append" v-if="obj.options"> -->
       <!-- </template> -->
     </el-input>
     <!-- <span>{{obj.suffixDesc}}</span> -->
-    <span class="post-text" v-if="obj.suffixDesc" v-html="obj.suffixDesc"></span>
+    <span class="post-text" v-if="obj.postText||obj.suffixDesc" v-html="obj.postText||obj.suffixDesc"></span>
   </span>
 </template>
 
@@ -707,14 +707,14 @@ export default {
   }
 }
 
-.pre-text, .post-text, >>>.el-input-group__append {
+.pre-text, .post-text,.suffixDesc-text, >>>.el-input-group__append {
   color: #486a62;
   // background: white;
   border-radius: 0;
-  border: 0px!important;
+  // border: 0px!important;
   // border: 1px solid green;
   // margin-left:2px;
-  background: transparent;
+  // background: transparent;
   font-size: 12px!important;
 }
 

@@ -9,7 +9,7 @@
         </colgroup>
         <tr>
           <td v-if="obj.showTitle===false?false:true" class="td-box" style>
-            <label for>{{obj.title}}</label>
+            <label for>{{obj.title||obj.label}}</label>
           </td>
           <td class="td-box" style="padding: 0px 5px 0 0px;">
             <InputElements

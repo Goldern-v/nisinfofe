@@ -863,12 +863,23 @@
     "children": [
       {
         "name": "I100223",
-        "type": "select",
+        "type": "input",
         "label": "情况",
         "labelWidth": "100px",
-        "inputWidth": "250px",
         "multiplechoice": true,
-        "labelClass": "select-label",
+        "postText": "",
+        "value": "",
+        "options": [],
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      },
+      {
+        "name": "I100224",
+        "type": "input",
+        "label": "症状",
+        "labelWidth": "100px",
         "postText": "",
         "value": "",
         "options": [],
@@ -886,6 +897,7 @@
     "showTitle": false,
     "message": "",
     "require": "false",
+    "suffixDesc":"",
     "prefixDesc": "",
     "postText": "",
     "keys": "",
@@ -908,68 +920,128 @@
       },
       {
         "name": "I100229",
-        "type": "input",
-        "label": "耳痛",
-        "labelWidth": "100px",
-        "postText": "",
+        "type": "",
+        "title": "耳痛",
         "value": "",
-        "style": null,
-        "class": null,
-        "html": null,
-        "readOnly": null
+        "style": "",
+        "class": "input-elements-nowrap",
+        "readOnly": null,
+        "children":[
+          {
+            "name": "I100316",
+            "type": "input",
+            "title": "耳痛",
+            "preText": "耳痛:",
+            "labelWidth": "80px",
+            "inputWidth":"50px",
+            "suffixDesc":"耳",
+            "postText": "耳",
+            "elementClass":"align",
+            "value": ""
+          },
+          {
+            "name": "I100317",
+            "type": "input",
+            "title": "耳痛",
+            "labelWidth": "30px",
+            "inputWidth":"50px",
+            "elementStyle":"margin-left:10px;",
+            "suffixDesc":"分",
+            "postText": "分",
+            "value": ""
+          }
+        ]
       },
       {
         "name": "I100230",
-        "type": "input",
+        "type": "",
         "label": "耳聋",
         "labelWidth": "100px",
         "postText": "",
         "value": "",
         "style": null,
-        "class": null,
-        "html": null,
-        "readOnly": null
+        "class": "input-elements-nowrap",
+        "readOnly": null,
+        "children":[
+          {
+            "name": "I100319",
+            "type": "input",
+            "title": "耳聋",
+            "preText": "耳聋:",
+            "labelWidth": "80px",
+            "inputWidth":"50px",
+            "suffixDesc":"耳",
+            "postText": "耳",
+            "elementClass":"align",
+            "value": ""
+          },
+          {
+            "name": "I100320",
+            "type": "input",
+            "title": "耳聋",
+            "labelWidth": "30px",
+            "inputWidth":"50px",
+            "elementStyle":"margin-left:10px;",
+            "suffixDesc":"度",
+            "postText": "度",
+            "value": ""
+          }
+        ]
       },
       {
         "name": "I100231",
-        "type": "input",
+        "type": "",
         "label": "耳漏",
         "labelWidth": "100px",
         "postText": "",
         "value": "",
-        "style": null,
-        "class": null,
-        "html": null,
-        "readOnly": null
+        "style": "margin-right: 80px;",
+        "class": "input-elements-nowrap",
+        "readOnly": null,
+        "children":[
+          {
+            "name": "I100318",
+            "type": "input",
+            "title": "耳漏",
+            "preText": "耳漏:",
+            "labelWidth": "80px",
+            "inputWidth":"50px",
+            "suffixDesc":"耳",
+            "postText": "耳",
+            "elementClass":"align",
+            "value": ""
+          }
+        ]
       },
       {
         "name": "I100232",
-        "type": "input",
+        "type": "",
         "label": "耳鸣",
         "labelWidth": "100px",
         "postText": "",
         "value": "",
-        "style": null,
-        "class": null,
-        "html": null,
-        "readOnly": null
+        "style": "margin-right: 80px;",
+        "class": "input-elements-nowrap",
+        "readOnly": null,
+        "children":[
+          {
+            "name": "I100321",
+            "type": "input",
+            "title": "耳鸣",
+            "preText": "耳鸣:",
+            "labelWidth": "80px",
+            "inputWidth":"50px",
+            "suffixDesc":"耳",
+            "postText": "耳",
+            "elementClass":"align",
+            "value": ""
+          }
+        ]
       },
       {
         "name": "I100233",
         "type": "input",
-        "label": "耳部症状常见体征",
-        "labelWidth": "100px",
-        "postText": "",
-        "value": "",
-        "style": null,
-        "class": null,
-        "html": null,
-        "readOnly": null
-      },
-      {
-        "name": "I100234",
-        "type": "input",
-        "label": "耳聋性质",
+        "label": "症状体征",
         "labelWidth": "100px",
         "postText": "",
         "value": "",

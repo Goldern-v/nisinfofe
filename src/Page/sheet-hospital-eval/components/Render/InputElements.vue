@@ -3,6 +3,8 @@
   <span :style="obj.elementsStyle" :class="obj.class" class="input-elements">
     <!-- 页面正文 -->
 
+
+
     <!-- display: inline-grid;vertical-align: top; -->
     <span
       v-for="(child,cindex) in obj"
@@ -11,6 +13,8 @@
       :style="child.elementStyle ? child.elementStyle : 'margin: 0 0px 0 0;'"
       class="input-element"
     >
+
+      <span :class="child.class" v-if="child.preText">{{child.preText}}</span>
       <!-- html -->
       <!-- <FormGroupTitle :obj="child" :formObj="formObj"/> -->
       <!-- <FormGroupHR :obj="child" :formObj="formObj"/> -->
@@ -837,6 +841,10 @@ export default {
   color: black;
   font-size: 12px;
   max-width: 320px;
+  &.align
+    display: inline-flex;
+    align-items: center;
+    margin-right: 5px;
 .el-input
   width 228px;
 
