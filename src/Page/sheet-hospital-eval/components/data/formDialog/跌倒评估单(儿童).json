@@ -592,7 +592,7 @@
       ]
     },
     {
-      "name": "I100001",
+      "name": "",
       "type": "formGroupColBox",
       "col": 2,
       "colWidth": ["40%", "60%"],
@@ -601,7 +601,7 @@
       "require": "false",
       "prefixDesc": "",
       "suffixDesc": "",
-      "keys": "I100001",
+      "keys": "",
       "style": null,
       "classes": null,
       "readOnly": null,
@@ -609,7 +609,7 @@
         {
           "name": "evalScore",
           "type": "input",
-          "title": "评估得分：",
+          "title": "评估得分",
           "inputWidth":"80px",
           "value": "",
           "class": null,
@@ -618,8 +618,9 @@
         {
           "name": "evalDesc",
           "type": "input",
-          "title": "结果程度：",
-          "inputWidth":"80px",
+          "title": "结果程度",
+          "inputWidth":"180px",
+          "style": "width:180px",
           "value": "",
           "class": null,
           "readOnly": null,

@@ -155,7 +155,14 @@ export default {
         )
       );
       //
-      file.dictionary = dictionary;
+      // 其他下拉框选项字典表
+      let otherDictionary = JSON.parse(
+        JSON.stringify(
+          require("../data/formDictionary/other.dictionary.json")
+        )
+      );
+      //
+      file.dictionary = {...dictionary, ...otherDictionary};
       //
       file.schemes = schemes;
       file.schemesObj = {};

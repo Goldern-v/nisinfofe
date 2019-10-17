@@ -181,15 +181,15 @@
       "readOnly": ""
     },
     {
-      "name": "I100001",
+      "name": "",
       "type": "formGroupColBox",
       "col": 2,
-      "title": "基础评估",
+      "title": "",
       "message": "",
       "require": "false",
       "prefixDesc": "",
       "suffixDesc": "",
-      "keys": "I100001",
+      "keys": "",
       "style": null,
       "classes": null,
       "readOnly": null,
@@ -460,7 +460,7 @@
       ]
     },
     {
-      "name": "I100001",
+      "name": "",
       "type": "formGroupColBox",
       "colWidth": ["0%", "100%"],
       "col": 1,
@@ -469,7 +469,7 @@
       "require": "false",
       "prefixDesc": "",
       "suffixDesc": "",
-      "keys": "I100001",
+      "keys": "",
       "style": "margin-left: -20px",
       "classes": null,
       "readOnly": null,

@@ -562,20 +562,20 @@ export default {
       );
 
       if (this.type === "dependent") {
-        for (let key in this.formBox.model) {
-          console.log(key, "keykeykeykeykeykeykeykeykey");
-          if (this.formBox.model.hasOwnProperty(key)) {
-            if (key.indexOf("CLONE_") > -1) {
-              let newKey = key.split("CLONE_")[1];
-              this.formBox.model[newKey] = this.formBox.model[key];
-              console.log(newKey, "newKeynewKeynewKeynewKeynewKey");
-              this.$root.$refs[newKey].$parent.inputValue = this.formBox.model[
-                newKey
-              ];
-              delete this.formBox.model[key];
-            }
-          }
-        }
+        // for (let key in this.formBox.model) {
+        //   console.log(key, "keykeykeykeykeykeykeykeykey");
+        //   if (this.formBox.model.hasOwnProperty(key)) {
+        //     if (key.indexOf("CLONE_") > -1) {
+        //       let newKey = key.split("CLONE_")[1];
+        //       this.formBox.model[newKey] = this.formBox.model[key];
+        //       console.log(newKey, "newKeynewKeynewKeynewKeynewKey");
+        //       this.$root.$refs[newKey].$parent.inputValue = this.formBox.model[
+        //         newKey
+        //       ];
+        //       delete this.formBox.model[key];
+        //     }
+        //   }
+        // }
         this.formObj.model = { ...this.formObj.model, ...this.formBox.model };
         window.formObj.model = {
           ...window.formObj.model,
@@ -601,7 +601,7 @@ export default {
           let {
             data: {
               data: {
-                formResult: { id: id }
+                formResult: { id: id, evalDesc, evalScore }
               }
             }
           } = res;
@@ -620,26 +620,29 @@ export default {
               this.$root.$refs[this.parentName].setCurrentValue(result);
               this.$root.$refs[this.parentName].checkValueRule(result);
               this.formObj.model.I100028 = result;
-              this.$root.$refs[this.parentName + "_clone"].setCurrentValue(
-                result
-              );
-              this.$root.$refs[this.parentName + "_clone"].checkValueRule(
-                result
-              );
+              // this.$root.$refs[this.parentName + "_clone"].setCurrentValue(
+              //   result
+              // );
+              // this.$root.$refs[this.parentName + "_clone"].checkValueRule(
+              //   result
+              // );
             } else {
-              let score = this.formBox.model.evalScore;
-              let desc = this.formBox.model.evalDesc || "";
-              let result = score + "分 " + desc;
-              this.formObj.model[this.parentName] = result;
+              //
+              let score = evalScore || this.formBox.model.evalScore || formResult.evalScore || "" ;
+              let desc = evalDesc || this.formBox.model.evalDesc || formResult.evalDesc || "";
+              let result = score + "分 " + desc||"";
+              result = result.replace(/null/g,'');
+              result = result.replace(/undefined/g,'');
+              this.formObj.model[this.parentName] = result||"";
               this.$root.$refs[this.parentName].setCurrentValue(result);
               this.$root.$refs[this.parentName].checkValueRule(result);
 
               /** GCS评估特殊处理 */
-              if (this.parentName == "I100020") {
-                let result = this.formBox.model.evalDesc;
-                this.$root.$refs["I100019"].setCurrentValue(result);
-                this.$root.$refs["I100019"].checkValueRule(result);
-              }
+              // if (this.parentName == "I100020") {
+              //   let result = this.formBox.model.evalDesc;
+              //   this.$root.$refs["I100019"].setCurrentValue(result);
+              //   this.$root.$refs["I100019"].checkValueRule(result);
+              // }
             }
           }
 

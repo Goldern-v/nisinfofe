@@ -422,7 +422,7 @@
       "readOnly": ""
     },
     {
-      "name": "I100001",
+      "name": "",
       "type": "formGroupColBox",
       "col": 2,
       "colWidth": ["40%", "60%"],
@@ -431,7 +431,7 @@
       "require": "false",
       "prefixDesc": "",
       "suffixDesc": "",
-      "keys": "I100001",
+      "keys": "",
       "style": null,
       "classes": null,
       "readOnly": null,
@@ -453,8 +453,8 @@
           "title": "结果程度",
           "code": "",
           "placeholder": "结果程度",
-          "style": "width:80px",
-          "inputWidth":"80px",
+          "inputWidth":"180px",
+          "style": "width:180px",
           "class": null,
           "readOnly": true,
           "rule": [

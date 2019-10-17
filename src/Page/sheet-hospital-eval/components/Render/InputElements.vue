@@ -506,7 +506,7 @@ export default {
               //
               let handleChild = children => {
                 if (children) {
-                  // console.log('!!!children',children,children.length)
+                  // console.log('!!!children',children.name,children,children.length)
 
                   children.map((mychild, cindex) => {
                     title =
@@ -540,8 +540,9 @@ export default {
 
                     //
                     if (mychild.children) {
-                      if (this.formObj.model[child.name]) {
-                        html += `<span style='margin-right:5px'><span style='color:green'>${title}--</span>:<span>${this
+                      if (this.formObj.model[mychild.name]) {
+                        // console.log('!!!!!mychild',mychild.name,mychild)
+                        html += `<span style='margin-right:5px'><span style='color:green'>${title}</span>:<span>${this
                           .formObj.model[mychild.name] ||
                           ""}<span style='color:chocolate'>${child.postText ||
                           child.suffixDesc ||

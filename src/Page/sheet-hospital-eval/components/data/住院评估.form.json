@@ -707,7 +707,7 @@
       "readOnly": ""
     },
     {
-      "name": "I100019",
+      "name": "",
       "type": "formGroupColBox",
       "col": 2,
       "title": "神经系统",
@@ -715,7 +715,7 @@
       "require": "false",
       "prefixDesc": "",
       "suffixDesc": "",
-      "keys": "I100019",
+      "keys": "",
       "style": null,
       "classes": null,
       "readOnly": null,
@@ -3828,6 +3828,7 @@
           "inputWidth": "213px",
           "leftTdStyle": "min-width:85px!important",
           "elementStyle": "width: 270px;",
+          "multiplechoice": true,
           "style": null,
           "class": null,
           "readOnly": null
@@ -4019,24 +4020,6 @@
               "style": "color: red;border-color: red;"
             }
           ]
-        },
-        {
-          "name": "I100020",
-          "type": "input",
-          "title": "GCS评估",
-          "inputWidth": "213px",
-          "leftTdStyle": "min-width:85px!important",
-          "elementStyle": "width: 270px;",
-          "style": null,
-          "class": null,
-          "readOnly": true,
-          "dialog": {
-            "title": "GCS格拉斯哥昏迷评估",
-            "default": "GCS格拉斯哥昏迷评估",
-            "name": "I100020",
-            "parentName": "I100020",
-            "showHead": "true"
-          }
         }
       ]
     },

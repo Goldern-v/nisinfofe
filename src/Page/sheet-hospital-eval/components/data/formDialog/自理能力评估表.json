@@ -699,8 +699,8 @@
           "title": "结果程度",
           "code": "",
           "placeholder": "结果程度",
-          "style": "width:80px",
-          "inputWidth":"80px",
+          "inputWidth":"180px",
+          "style": "width:180px",
           "class": null,
           "readOnly": true,
           "rule": [

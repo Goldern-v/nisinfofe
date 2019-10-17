@@ -10,10 +10,10 @@
       border
       @click.native.stop="checkboxClick"
       :size="obj.size||'small'"
-      :label="obj.code || obj.title"
+      :label="obj.code || obj.label || obj.title"
       :class="obj.class"
       :style="obj.style"
-    >{{obj.title}}</el-checkbox>
+    >{{obj.title|| obj.label}}</el-checkbox>
     <!-- </TipsBox> -->
   </span>
 </template>
@@ -88,9 +88,9 @@ export default {
       //   return;
       // }
       for (const key in rootRefs) {
-        if (rootRefs.hasOwnProperty(key)) {
+        if (rootRefs && rootRefs.hasOwnProperty(key) && rootRefs[key]) {
           let item = rootRefs[key];
-          console.log("-----", item.childObjct.title, item, key, rootRefs);
+          // console.log("-----", item.childObjct.title, item, key, rootRefs);
           // if(item && typeof item.constructor !== 'object'){
           //   continue
           // }

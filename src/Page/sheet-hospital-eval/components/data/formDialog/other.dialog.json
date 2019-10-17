@@ -3,7 +3,6 @@
     "title": "词语描述量表",
     "type": "formGroupHorizontalBox",
     "name": "C003007",
-    "type": "dependent",
     "children": [
       {
         "name": "C003007",
@@ -788,7 +787,7 @@
       {
         "name": "I100310",
         "type": "input",
-        "label": "左眼视力值",
+        "label": "左眼视力",
         "labelWidth": "100px",
         "postText": "",
         "value": "",
@@ -801,7 +800,7 @@
       {
         "name": "I100311",
         "type": "input",
-        "label": "右眼视力值",
+        "label": "右眼视力",
         "labelWidth": "100px",
         "postText": "",
         "value": "",
@@ -910,7 +909,7 @@
         "name": "I100228",
         "type": "input",
         "label": "情况",
-        "labelWidth": "100px",
+        "labelWidth": "98px",
         "postText": "",
         "value": "",
         "style": null,
@@ -933,7 +932,7 @@
             "title": "耳痛",
             "preText": "耳痛:",
             "labelWidth": "80px",
-            "inputWidth":"50px",
+            "inputWidth":"60px",
             "suffixDesc":"耳",
             "postText": "耳",
             "elementClass":"align",
@@ -969,7 +968,7 @@
             "title": "耳聋",
             "preText": "耳聋:",
             "labelWidth": "80px",
-            "inputWidth":"50px",
+            "inputWidth":"60px",
             "suffixDesc":"耳",
             "postText": "耳",
             "elementClass":"align",
@@ -1005,7 +1004,7 @@
             "title": "耳漏",
             "preText": "耳漏:",
             "labelWidth": "80px",
-            "inputWidth":"50px",
+            "inputWidth":"60px",
             "suffixDesc":"耳",
             "postText": "耳",
             "elementClass":"align",
@@ -1030,7 +1029,7 @@
             "title": "耳鸣",
             "preText": "耳鸣:",
             "labelWidth": "80px",
-            "inputWidth":"50px",
+            "inputWidth":"60px",
             "suffixDesc":"耳",
             "postText": "耳",
             "elementClass":"align",
@@ -1042,7 +1041,7 @@
         "name": "I100233",
         "type": "input",
         "label": "症状体征",
-        "labelWidth": "100px",
+        "labelWidth": "97px",
         "postText": "",
         "value": "",
         "style": null,
@@ -2272,8 +2271,9 @@
     "modalWidth": 730,
     "children": [
       {
-        "name": "CLONE_I100029",
+        "name": "I100029",
         "type": "radioBox",
+        "title": "肌力（左上肢）",
         "label": "肌力（左上肢）",
         "labelWidth": "160px",
         "value": "",
@@ -2283,7 +2283,7 @@
         "readOnly": null,
         "children": [
           {
-            "name": "CLONE_I100029",
+            "name": "I100029",
             "type": "radio",
             "title": "5级",
             "code": "5级",
@@ -2293,7 +2293,7 @@
             "readOnly": null
           },
           {
-            "name": "CLONE_I100029",
+            "name": "I100029",
             "type": "radio",
             "title": "4级",
             "code": "4级",
@@ -2303,7 +2303,7 @@
             "readOnly": null
           },
           {
-            "name": "CLONE_I100029",
+            "name": "I100029",
             "type": "radio",
             "title": "3级",
             "code": "3级",
@@ -2313,7 +2313,7 @@
             "readOnly": null
           },
           {
-            "name": "CLONE_I100029",
+            "name": "I100029",
             "type": "radio",
             "title": "2级",
             "code": "2级",
@@ -2323,7 +2323,7 @@
             "readOnly": null
           },
           {
-            "name": "CLONE_I100029",
+            "name": "I100029",
             "type": "radio",
             "title": "1级",
             "code": "1级",
@@ -2333,7 +2333,7 @@
             "readOnly": null
           },
           {
-            "name": "CLONE_I100029",
+            "name": "I100029",
             "type": "radio",
             "title": "0级",
             "code": "0级",
@@ -2345,7 +2345,7 @@
         ]
       },
       {
-        "name": "CLONE_I100030",
+        "name": "I100030",
         "type": "radioBox",
         "label": "肌力（右上肢）",
         "labelWidth": "160px",
@@ -2356,7 +2356,7 @@
         "readOnly": null,
         "children": [
           {
-            "name": "CLONE_I100030",
+            "name": "I100030",
             "type": "radio",
             "title": "5级",
             "code": "5级",
@@ -2366,7 +2366,7 @@
             "readOnly": null
           },
           {
-            "name": "CLONE_I100030",
+            "name": "I100030",
             "type": "radio",
             "title": "4级",
             "code": "4级",
@@ -2376,7 +2376,7 @@
             "readOnly": null
           },
           {
-            "name": "CLONE_I100030",
+            "name": "I100030",
             "type": "radio",
             "title": "3级",
             "code": "3级",
@@ -2386,7 +2386,7 @@
             "readOnly": null
           },
           {
-            "name": "CLONE_I100030",
+            "name": "I100030",
             "type": "radio",
             "title": "2级",
             "code": "2级",
@@ -2396,7 +2396,7 @@
             "readOnly": null
           },
           {
-            "name": "CLONE_I100030",
+            "name": "I100030",
             "type": "radio",
             "title": "1级",
             "code": "1级",
@@ -2406,7 +2406,7 @@
             "readOnly": null
           },
           {
-            "name": "CLONE_I100030",
+            "name": "I100030",
             "type": "radio",
             "title": "0级",
             "code": "0级",
@@ -2418,7 +2418,7 @@
         ]
       },
       {
-        "name": "CLONE_I100031",
+        "name": "I100031",
         "type": "radioBox",
         "label": "肌力（左下肢）",
         "labelWidth": "160px",
@@ -2429,7 +2429,7 @@
         "readOnly": null,
         "children": [
           {
-            "name": "CLONE_I100031",
+            "name": "I100031",
             "type": "radio",
             "title": "5级",
             "code": "5级",
@@ -2439,7 +2439,7 @@
             "readOnly": null
           },
           {
-            "name": "CLONE_I100031",
+            "name": "I100031",
             "type": "radio",
             "title": "4级",
             "code": "4级",
@@ -2449,7 +2449,7 @@
             "readOnly": null
           },
           {
-            "name": "CLONE_I100031",
+            "name": "I100031",
             "type": "radio",
             "title": "3级",
             "code": "3级",
@@ -2459,7 +2459,7 @@
             "readOnly": null
           },
           {
-            "name": "CLONE_I100031",
+            "name": "I100031",
             "type": "radio",
             "title": "2级",
             "code": "2级",
@@ -2469,7 +2469,7 @@
             "readOnly": null
           },
           {
-            "name": "CLONE_I100031",
+            "name": "I100031",
             "type": "radio",
             "title": "1级",
             "code": "1级",
@@ -2479,7 +2479,7 @@
             "readOnly": null
           },
           {
-            "name": "CLONE_I100031",
+            "name": "I100031",
             "type": "radio",
             "title": "0级",
             "code": "0级",
@@ -2491,7 +2491,7 @@
         ]
       },
       {
-        "name": "CLONE_I100032",
+        "name": "I100032",
         "type": "radioBox",
         "label": "肌力（右下肢）",
         "labelWidth": "160px",
@@ -2502,7 +2502,7 @@
         "readOnly": null,
         "children": [
           {
-            "name": "CLONE_I100032",
+            "name": "I100032",
             "type": "radio",
             "title": "5级",
             "code": "5级",
@@ -2512,7 +2512,7 @@
             "readOnly": null
           },
           {
-            "name": "CLONE_I100032",
+            "name": "I100032",
             "type": "radio",
             "title": "4级",
             "code": "4级",
@@ -2522,7 +2522,7 @@
             "readOnly": null
           },
           {
-            "name": "CLONE_I100032",
+            "name": "I100032",
             "type": "radio",
             "title": "3级",
             "code": "3级",
@@ -2532,7 +2532,7 @@
             "readOnly": null
           },
           {
-            "name": "CLONE_I100032",
+            "name": "I100032",
             "type": "radio",
             "title": "2级",
             "code": "2级",
@@ -2542,7 +2542,7 @@
             "readOnly": null
           },
           {
-            "name": "CLONE_I100032",
+            "name": "I100032",
             "type": "radio",
             "title": "1级",
             "code": "1级",
@@ -2552,7 +2552,7 @@
             "readOnly": null
           },
           {
-            "name": "CLONE_I100032",
+            "name": "I100032",
             "type": "radio",
             "title": "0级",
             "code": "0级",

@@ -174,7 +174,7 @@
       "html": "<div>给患者喂50ml水:前25ml(每匙5ml，共5匙)由护士喂；如5匙均通过，可将剩余25ml水也可如前，或可能的话由病人以正常喝水速度自己喝。</div>"
     },
     {
-      "name": "I100001",
+      "name": "",
       "type": "formGroupColBox",
       "col": 1,
       "title": "基础评估",
@@ -182,7 +182,7 @@
       "require": "false",
       "prefixDesc": "",
       "suffixDesc": "",
-      "keys": "I100001",
+      "keys": "",
       "style": null,
       "classes": null,
       "readOnly": null,
@@ -201,7 +201,7 @@
       ]
     },
     {
-      "name": "I100001",
+      "name": "",
       "type": "formGroupVerticalBox",
       "colWidth": ["30px", ""],
       "title": "",
@@ -209,7 +209,7 @@
       "require": "false",
       "prefixDesc": "",
       "suffixDesc": "",
-      "keys": "I100001",
+      "keys": "",
       "style": null,
       "classes": null,
       "readOnly": null,
@@ -307,7 +307,7 @@
       ]
     },
     {
-      "name": "I100001",
+      "name": "",
       "type": "formGroupColBox",
       "col": 2,
       "colWidth": ["40%", "60%"],
@@ -316,7 +316,7 @@
       "require": "false",
       "prefixDesc": "",
       "suffixDesc": "",
-      "keys": "I100001",
+      "keys": "",
       "style": null,
       "classes": null,
       "readOnly": null,
@@ -377,7 +377,7 @@
       "html": "<div>100ml水+凝固粉4匙,由护士喂（每匙5ml,10匙）。若无凝固粉，可用婴儿米糊或黏稠的白粥测试。</div>"
     },
     {
-      "name": "I100001",
+      "name": "",
       "type": "formGroupColBox",
       "col": 1,
       "title": "基础评估",
@@ -385,7 +385,7 @@
       "require": "false",
       "prefixDesc": "",
       "suffixDesc": "",
-      "keys": "I100001",
+      "keys": "",
       "style": null,
       "classes": null,
       "readOnly": null,
@@ -404,7 +404,7 @@
       ]
     },
     {
-      "name": "I100001",
+      "name": "",
       "type": "formGroupVerticalBox",
       "colWidth": ["30px", ""],
       "title": "",
@@ -412,7 +412,7 @@
       "require": "false",
       "prefixDesc": "",
       "suffixDesc": "",
-      "keys": "I100001",
+      "keys": "",
       "style": null,
       "classes": null,
       "readOnly": null,
@@ -510,7 +510,7 @@
       ]
     },
     {
-      "name": "I100001",
+      "name": "",
       "type": "formGroupColBox",
       "col": 2,
       "colWidth": ["40%", "60%"],
@@ -519,7 +519,7 @@
       "require": "false",
       "prefixDesc": "",
       "suffixDesc": "",
-      "keys": "I100001",
+      "keys": "",
       "style": null,
       "classes": null,
       "readOnly": null,

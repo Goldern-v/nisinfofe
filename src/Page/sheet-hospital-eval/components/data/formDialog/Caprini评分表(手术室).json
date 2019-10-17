@@ -716,7 +716,7 @@
       ]
     },
     {
-      "name": "I100001",
+      "name": "",
       "type": "formGroupColBox",
       "col": 2,
       "colWidth": [
@@ -746,7 +746,8 @@
           "name": "evalDesc",
           "type": "input",
           "title": "结果程度",
-          "inputWidth":"80px",
+          "inputWidth":"180px",
+          "style": "width:180px",
           "√alue": "",
           "class": null,
           "readOnly": null,
