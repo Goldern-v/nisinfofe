@@ -48,3 +48,12 @@ export function getPatientListNew (){
         pageIndex: 1,
     });
 }
+
+//获取分娩记录单信息
+export function getFormChildbirth (query){
+    return axios.post(`${apiPath}/form/getLastDetail`,{
+        formCode: 'form_childbirth',
+        patientId: query.patientId||'',
+        visitId: '1'
+    });
+}
