@@ -315,7 +315,7 @@
       "children": [
         {
           "name": "I004003",
-          "type": "radio",
+          "type": "checkbox",
           "title": "卧床",
           "code": "卧床",
           "score": 0,
@@ -325,7 +325,7 @@
         },
         {
           "name": "I004003",
-          "type": "radio",
+          "type": "checkbox",
           "title": "步态/平衡正常（0分）",
           "code": "步态/平衡正常",
           "score": 0,
@@ -335,7 +335,7 @@
         },
         {
           "name": "I004003",
-          "type": "radio",
+          "type": "checkbox",
           "title": "站立时平衡有问题（1分）",
           "code": "站立时平衡有问题",
           "score": 1,
@@ -345,7 +345,7 @@
         },
         {
           "name": "I004003",
-          "type": "radio",
+          "type": "checkbox",
           "title": "行走时平衡有问题（1分）",
           "code": "行走时平衡有问题",
           "score": 1,
@@ -355,7 +355,7 @@
         },
         {
           "name": "I004003",
-          "type": "radio",
+          "type": "checkbox",
           "title": "肌肉协调能力减弱（1分）",
           "code": "肌肉协调能力减弱",
           "score": 1,
@@ -365,7 +365,7 @@
         },
         {
           "name": "I004003",
-          "type": "radio",
+          "type": "checkbox",
           "title": "当走过门廊时步态改变（1分）",
           "code": "当走过门廊时步态改变",
           "score": 1,
@@ -375,7 +375,7 @@
         },
         {
           "name": "I004003",
-          "type": "radio",
+          "type": "checkbox",
           "title": "转变时肌肉痉挛或不稳（1分）",
           "code": "转变时肌肉痉挛或不稳",
           "score": 1,
@@ -385,7 +385,7 @@
         },
         {
           "name": "I004003",
-          "type": "radio",
+          "type": "checkbox",
           "title": "需要辅助器械走路(拐杖、轮椅）（1分）",
           "code": "需要辅助器械走路(拐杖、轮椅)",
           "score": 1,

@@ -344,7 +344,6 @@
           "type": "input",
           "title": "评估得分",
           "inputWidth":"80px",
-          "value": "",
           "class": null,
           "readOnly": null
         },
@@ -354,7 +353,6 @@
           "title": "结果程度",
           "inputWidth":"180px",
           "style": "width:180px",
-          "value": "",
           "class": null,
           "readOnly": null,
           "rule": [

@@ -90,17 +90,17 @@ export default {
         console.log("obj:", this.obj);
       }
       /** 如果存在clone ref */
-      setTimeout(() => {
-        if (this.isClone) {
-          this.$root.$refs[this.obj.name].setCurrentValue(valueNew);
-          this.$root.$refs[this.obj.name].$parent.checkValueRule(valueNew);
-        } else if (this.$root.$refs[this.obj.name + "_clone"]) {
-          this.$root.$refs[this.obj.name + "_clone"].setCurrentValue(valueNew);
-          this.$root.$refs[this.obj.name + "_clone"].$parent.checkValueRule(
-            valueNew
-          );
-        }
-      }, 100);
+      // setTimeout(() => {
+      //   if (this.isClone) {
+      //     this.$root.$refs[this.obj.name].setCurrentValue(valueNew);
+      //     this.$root.$refs[this.obj.name].$parent.checkValueRule(valueNew);
+      //   } else if (this.$root.$refs[this.obj.name + "_clone"]) {
+      //     this.$root.$refs[this.obj.name + "_clone"].setCurrentValue(valueNew);
+      //     this.$root.$refs[this.obj.name + "_clone"].$parent.checkValueRule(
+      //       valueNew
+      //     );
+      //   }
+      // }, 100);
 
       /** 如果是身高体重，自动计算bmi指数 */
       if (this.obj.name == "I100009" || this.obj.name == "I100010") {
@@ -134,29 +134,40 @@ export default {
     //   this.inputValue = this.formObj.model[this.obj.name];
     // } catch (error) {}
     let refName = this.obj.name; //+this.obj.type.toUpperCase()+(this.obj.title||this.obj.label)
+    let refNameTitle = this.obj.title || this.obj.label;
+    if (!this.$root.$refs[refName]) {
+      this.$root.$refs[refName] = []
+    }
+    //
     if (this.$refs[refName]) {
       this.formObj.model[this.obj.name] = this.$refs[refName].currentValue;
-      this.$refs[refName]["childObjct"] = this.obj;
+      this.$refs[refName]["childObject"] = this.obj;
       this.$refs[refName]["checkValueRule"] = this.checkValueRule;
-      if (this.obj.isClone) {
-        this.$root.$refs[refName + "_clone"] = this.$refs[refName];
-        this.isClone = true;
-      } else {
-        this.$root.$refs[refName] = this.$refs[refName];
-      }
+      // if (this.obj.isClone) {
+      //   this.$root.$refs[refName + "_clone"] = this.$refs[refName];
+      //   this.isClone = true;
+      // } else {
+      //   this.$root.$refs[refName] = this.$refs[refName];
+      // }
+      // this.$root.$refs[refName] = [...this.$root.$refs[refName],this.$refs[refName]];
+      //
+      //
+      this.$root.$refs[refName][refNameTitle] = this.$refs[refName];
+    }else{
+      console.log('!!!!!Mark',this.obj.name,this.$refs,this.$root.$refs)
     }
-    if (
-      this.obj &&
-      this.obj.hasOwnProperty("value") > -1 &&
-      this.obj.value &&
-      this.obj.value.constructor !== Array
-    ) {
-      // console.log(this.obj, this.obj.value, "aaaaaaaaaaa");
-      // setTimeout(() => {
-      //   this.inputValue = this.obj.value;
-      //   this.$refs[refName].setCurrentValue(this.obj.value + "");
-      // }, 1000);
-    }
+    // if (
+    //   this.obj &&
+    //   this.obj.hasOwnProperty("value") > -1 &&
+    //   this.obj.value &&
+    //   this.obj.value.constructor !== Array
+    // ) {
+    //   // console.log(this.obj, this.obj.value, "aaaaaaaaaaa");
+    //   // setTimeout(() => {
+    //   //   this.inputValue = this.obj.value;
+    //   //   this.$refs[refName].setCurrentValue(this.obj.value + "");
+    //   // }, 1000);
+    // }
     if (
       this.obj &&
       this.obj.hasOwnProperty("value") > -1 &&
@@ -168,10 +179,10 @@ export default {
     if (this.model === "development") {
       this.obj.class = "development-model";
     }
-    if (this.obj.hasOwnProperty("focus") && this.obj.focus === true) {
-      this.$refs[refName].$refs.input.focus();
-      console.log("focus", this.$refs[refName]);
-    }
+    // if (this.obj.hasOwnProperty("focus") && this.obj.focus === true) {
+    //   this.$refs[refName].$refs.input.focus();
+    //   console.log("focus", this.$refs[refName]);
+    // }
 
     // console.log("inputMounted", this.$refs, this.$root.$refs);
     // focus()  this.$refs.input.value
@@ -259,7 +270,12 @@ export default {
               this.$refs[this.obj.name].type === "text"
             ) {
               this.$refs[this.obj.name].setCurrentValue(r.display);
-              this.$root.$refs[this.obj.name].setCurrentValue(r.display);
+              // this.$root.$refs[this.obj.name].setCurrentValue(r.display);
+              try {
+                this.$root.$refs[this.obj.name].map(el=>{
+                  el.setCurrentValue(r.display);
+                })
+              } catch (error) {}
             }
             textResult = r.display ? r.display : "";
             // return textResult;
@@ -274,7 +290,12 @@ export default {
               this.$refs[this.obj.name].type === "text"
             ) {
               this.$refs[this.obj.name].setCurrentValue(r.display);
-              this.$root.$refs[this.obj.name].setCurrentValue(r.display);
+              // this.$root.$refs[this.obj.name].setCurrentValue(r.display);
+              try {
+                this.$root.$refs[this.obj.name].map(el=>{
+                  el.setCurrentValue(r.display);
+                })
+              } catch (error) {}
             }
             textResult = r.display ? r.display : "";
             // return textResult;
@@ -288,7 +309,12 @@ export default {
               this.$refs[this.obj.name].type === "text"
             ) {
               this.$refs[this.obj.name].setCurrentValue(r.display);
-              this.$root.$refs[this.obj.name].setCurrentValue(r.display);
+              // this.$root.$refs[this.obj.name].setCurrentValue(r.display);
+              try {
+                this.$root.$refs[this.obj.name].map(el=>{
+                  el.setCurrentValue(r.display);
+                })
+              } catch (error) {}
             }
             textResult = r.display ? r.display : "";
           } else if (r.scoreMin && r.scoreMax && valueNew) {

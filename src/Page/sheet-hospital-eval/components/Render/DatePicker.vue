@@ -84,9 +84,19 @@ export default {
     //   (this.obj.title || this.obj.label);
 
     let refName = this.obj.name;
+    let refNameTitle = this.obj.title || this.obj.label;
+
+    //
+    if (!this.$root.$refs[refName]) {
+      this.$root.$refs[refName] = []
+    }
+
     if (this.$refs[refName]) {
       this.$refs[refName].currentValue = moment().format("YYYY-MM-DD HH:mm");
-      this.$root.$refs[refName] = this.$refs[refName];
+      // this.$root.$refs[refName] = this.$refs[refName];
+      this.$refs[refName]["childObject"] = this.obj;
+      //
+      this.$root.$refs[refName][refNameTitle] = this.$refs[refName];
     }
     // console.log('datePickerMounted',this.$refs,this.$root.$refs)
   },

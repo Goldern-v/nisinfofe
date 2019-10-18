@@ -445,7 +445,15 @@
           "suffixDesc": "cm",
           "style": null,
           "class": null,
-          "readOnly": null
+          "readOnly": null,
+          "rule": [
+            {
+              "name": "计算BMI",
+              "height": "I100009",
+              "weight": "I100010",
+              "result": "I100011"
+            }
+          ]
         },
         {
           "name": "I100010",
@@ -455,7 +463,15 @@
           "suffixDesc": "kg",
           "style": null,
           "class": null,
-          "readOnly": null
+          "readOnly": null,
+          "rule": [
+            {
+              "name": "计算BMI",
+              "height": "I100009",
+              "weight": "I100010",
+              "result": "I100011"
+            }
+          ]
         },
         {
           "name": "I100011",
@@ -500,6 +516,12 @@
               "equal": "",
               "message": "极重度肥胖",
               "style": "color: red;border-color: red;"
+            },
+            {
+              "name": "计算BMI",
+              "height": "I100009",
+              "weight": "I100010",
+              "result": "I100011"
             }
           ]
         },
@@ -656,7 +678,7 @@
       ]
     },
     {
-      "name": "",
+      "name": "I100018",
       "type": "formGroupColBox",
       "col": 2,
       "colWidth": [
@@ -3539,6 +3561,7 @@
                 "cleanKey": "无",
                 "title": "耳部的临床症状",
                 "default": "耳部的临床症状",
+                "parentName":"I100227",
                 "type": "dependent"
               }
             }
@@ -4028,18 +4051,6 @@
       "type": "formGroupTitle",
       "level": "2",
       "title": "3.8 VTE风险评估",
-      "prefixDesc": "",
-      "suffixDesc": "",
-      "keys": "",
-      "style": "color:transparent;height:0px;margin:0",
-      "classes": "",
-      "readOnly": ""
-    },
-    {
-      "name": "",
-      "type": "formGroupTitle",
-      "level": "2",
-      "title": "3.9 GCS评估",
       "prefixDesc": "",
       "suffixDesc": "",
       "keys": "",

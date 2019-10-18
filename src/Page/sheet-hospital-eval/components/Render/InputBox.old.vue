@@ -169,7 +169,7 @@ export default {
     let refName = this.obj.name; //+this.obj.type.toUpperCase()+(this.obj.title||this.obj.label)
     if (this.$refs[refName]) {
       this.formObj.model[this.obj.name] = this.$refs[refName].currentValue;
-      this.$refs[refName]["childObjct"] = this.obj;
+      this.$refs[refName]["childObject"] = this.obj;
       this.$refs[refName]["checkValueRule"] = this.checkValueRule;
       if (this.obj.isClone) {
         this.$root.$refs[refName + "_clone"] = this.$refs[refName];

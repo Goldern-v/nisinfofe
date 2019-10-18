@@ -82,7 +82,6 @@ import {
   getFormDetail
 } from "@/Page/sheet-hospital-eval/components/Render/common.js";
 import { debug } from "util";
-
 import common from "@/common/mixin/common.mixin.js";
 import mergeDefaultValue from "../data/defalutValue/utils";
 export default {
@@ -198,6 +197,23 @@ export default {
 
       this.formBox["selectedItems"] = [];
 
+      let diagModel = {}
+      let handleChildren = (c)=>{
+        if(c.constructor == Array) {
+          [...c].map((n,i)=>{
+            if(n.name){
+              diagModel[n.name]=this.formObj.model[n.name]||""
+              // console.log("handleChildren",i,n,c,n.name,diagModel[n.name],diagModel)
+              this.formBox.model[n.name] = diagModel[n.name]||""
+            }
+            if(n.children){
+              return handleChildren([...n.children])
+            }
+          })
+        }
+        return diagModel
+      }
+
       // todo
       if (this.type === "dependent") {
         console.log(
@@ -207,21 +223,25 @@ export default {
           this.formObj,
           this.$root.$refs
         );
+        //
         if (
           this.formBox.hasOwnProperty("children") &&
           this.formBox.children.length > 0
         ) {
           this.formBox.model = {};
-          this.formBox.children.map(child => {
-            if (child.name) {
-              if (window.formObj.model[child.name]) {
-                this.formBox.model[child.name] =
-                  window.formObj.model[child.name];
-              } else {
-                this.formBox.model[child.name] = "";
-              }
-            }
-          });
+          //
+          handleChildren([...this.formBox.children])
+          //
+          // this.formBox.children.map(child => {
+          //   if (child.name) {
+          //     if (window.formObj.model[child.name]) {
+          //       this.formBox.model[child.name] =
+          //         window.formObj.model[child.name];
+          //     } else {
+          //       this.formBox.model[child.name] = "";
+          //     }
+          //   }
+          // });
           // for (const key in this.formBox.model) {
           //   if (this.formBox.model.hasOwnProperty(key)) {
           //     this.formBox.model[key] = window.formObj.model[key] + ''
@@ -291,71 +311,37 @@ export default {
       //
     },
     fillUIFormData(model = this.formBox.model) {
-      console.log("fillFormData", model, this.formBox);
+      //
+      // console.log("fillFormData", model, this.formBox);
+      //
       this.formBox["selectedItems"] = [];
       for (const key in model) {
         if (model.hasOwnProperty(key)) {
           let value = model[key];
-          console.log(
-            "===fillFormData:value",
-            value,
-            key,
-            this.$root.$refs[key]
-          );
+          //
+          // console.log(
+          //   "===fillFormData:value",
+          //   [value],
+          //   [key],
+          //   [this.$root.$refs[key]],
+          //   // this.$root.$refs[key].type||''
+          // );
 
           if (!value || !this.$root.$refs[key]) {
             continue;
           }
 
-          // text
-          try {
-            if (this.$root.$refs[key]) {
-              // console.log(
-              //   "---this.$root.$refs[key]:",
-              //   key,
-              //   this.formBox.model[key],
-              //   this.$root.$refs[key]
-              // );
-              if (this.$root.$refs[key].type === "text") {
-                let refObj = this.$root.$refs[key];
-                // let resultText = refObj.checkValueRule(value);
-                // refObj.setCurrentValue(resultText);
-                if (key === "status") {
-                  let textResult = refObj.checkValueRule(value + "");
-                  // console.log("----refObj", refObj, key, textResult);
-                  refObj.setCurrentValue(textResult + "");
-                } else {
-                  refObj.setCurrentValue(value);
-                  refObj.checkValueRule(value);
-                }
-              } else if (this.$root.$refs[key].type === "datetime") {
-                // if (key === "datePicker") {
-                if (this.$root.$refs[key].$parent.obj.name_date) {
-                  let name_date = this.$root.$refs[key].$parent.obj.name_date;
-                  let name_time = this.$root.$refs[key].$parent.obj.name_time;
-                  this.$root.$refs[key].$parent.datePickerValue =
-                    model[name_date] + " " + model[name_time];
-                } else {
-                  this.$root.$refs[key].$parent.datePickerValue = value;
-                }
 
-                // }
-              }
-            }
-          } catch (error) {
-            //
-            console.log("error", error);
-          }
 
-          if (
-            this.$root.$refs.hasOwnProperty(key) > -1 &&
-            this.$root.$refs[key].hasOwnProperty("constructor") > -1
-          ) {
-            console.log(
-              "===constructor",
-              this.$root.$refs[key].constructor === Array
-            );
-          }
+          // if (
+          //   this.$root.$refs.hasOwnProperty(key) > -1 &&
+          //   this.$root.$refs[key].hasOwnProperty("constructor") > -1
+          // ) {
+          //   console.log(
+          //     "===constructor",
+          //     this.$root.$refs[key].constructor === Array
+          //   );
+          // }
 
           // this.$root.$refs[key].hasOwnProperty('constructor)
 
@@ -367,40 +353,92 @@ export default {
 
             // items = [...items]
 
-            // let rootRefs = this.$root.$refs[this.obj.name]
-            console.log(
-              "--obj.name:",
-              this.obj,
-              items,
-              items.length,
-              this.$root.$refs[key],
-              value
-            );
+            // items.map(itemObj=>{
 
+            Object.keys(items).map(iKey=>{
+              let itemObj = items[iKey]
+                // text
+              try {
+                if (itemObj) {
+                  // console.log(
+                  //   "---itemObj:",
+                  //   key,
+                  //   itemObj.type,
+                  //   this.formBox.model[key],
+                  //   itemObj
+                  // );
+                  if (itemObj.type === "text") {
+                    let refObj = itemObj;
+                    // let resultText = refObj.checkValueRule(value);
+                    // refObj.setCurrentValue(resultText);
+                    if (key === "status") {
+                      let textResult = refObj.checkValueRule(value + "");
+                      // console.log("----refObj", refObj, key, textResult);
+                      refObj.setCurrentValue(textResult + "");
+                    } else {
+                      refObj.setCurrentValue(value);
+                      refObj.checkValueRule(value);
+                    }
+                    //
+                    // console.log('childObjectText',refObj.childObject.title||refObj.childObject.label||'--',refObj.childObject.name,refObj.childObject)
+                    // //
+                  } else if (itemObj.type === "datetime") {
+                    // if (key === "datePicker") {
+                    if (itemObj.$parent.obj.name_date) {
+                      let name_date = itemObj.$parent.obj.name_date;
+                      let name_time = itemObj.$parent.obj.name_time;
+                      itemObj.$parent.datePickerValue =
+                        model[name_date] + " " + model[name_time];
+                    } else {
+                      itemObj.$parent.datePickerValue = value;
+                    }
+
+                    // }
+                  }
+                }
+              } catch (error) {
+                //
+                console.log("error", error);
+              }
+
+            // let rootRefs = this.$root.$refs[this.obj.name]
+            // console.log(
+            //   "--obj.name:",
+            //   this.obj,
+            //   items,
+            //   items.length,
+            //   this.$root.$refs[key],
+            //   value
+            // );
+            })
             let name = key;
             for (let k in items) {
-              if (items.hasOwnProperty(k)) {
+              if (items.hasOwnProperty(k)>-1) {
                 let item = items[k];
-                let title = item.childObjct.title;
-                let code = item.childObjct.code || title;
-                // console.log('-----',item.childObjct.title ,item,item.childObjct.code,value,item.childObjct.code == value,item.childObjct.title == value,code)
-                // || item.childObjct.title == value
+                //
+                if(!item || typeof(item)!='object'){continue}
+                // console.log('####item',item)
+                //
+                let title = item.childObject.label||item.childObject.title||"";
+                let code = item.childObject.code || title;
+                // console.log('-----',item.childObject.title ,item,item.childObject.code,value,item.childObject.code == value,item.childObject.title == value,code)
+                // || item.childObject.title == value
                 let valueArr = value.split(",");
-                console.log("选项:", item, [code], [value], [valueArr]);
+                // console.log("选项:", item, [code], [value], [valueArr]);
                 if (
                   code == value ||
                   title == value ||
                   valueArr.indexOf(code) > -1 ||
                   valueArr.indexOf(title) > -1
                 ) {
-                  // console.log('---++',item.childObjct.title ,item)
-                  this.formBox["selectedItems"].push(item.childObjct);
+                  // console.log('---++',item.childObject.title ,item)
+                  this.formBox["selectedItems"].push(item.childObject);
                   // item.model = []
                   // if (item.model.length == 0) {
                   //   item.model.push(value);
                   //   this.$root.$refs[key][k].model.push(value);
                   // }
-                  if (this.$root.$refs[key][k].model.length == 0) {
+                  if (this.$root.$refs[key][k] && this.$root.$refs[key][k].model && this.$root.$refs[key][k].model.length == 0) {
                     this.$root.$refs[key][k].model.push(value);
                   }
                   //
@@ -417,19 +455,19 @@ export default {
                   }
                 }
 
-                console.log("多选项", item, "code", code);
+                // console.log("多选项", item, "code", code);
               }
             }
 
             // items.map(item => {
-            //   // console.log('item.childObjct',item,item.label == value,item.childObjct.code == value,value,item.label,item.childObjct.code,item.childObjct,item.childObjct.title,item.childObjct.name)
-            //   if(item.label == value && item.hasOwnProperty('childObjct') ){
+            //   // console.log('item.childObject',item,item.label == value,item.childObject.code == value,value,item.label,item.childObject.code,item.childObject,item.childObject.title,item.childObject.name)
+            //   if(item.label == value && item.hasOwnProperty('childObject') ){
             //     // item.value = value
             //     item.model = value
-            //     // childObjct
-            //     // console.log('item.childObjct',item,value,item.label,item.childObjct.code,item.childObjct,item.childObjct.title,item.childObjct.name)
-            //     // console.table(item.childObjct)
-            //     this.formBox["selectedItems"].push(item.childObjct);
+            //     // childObject
+            //     // console.log('item.childObject',item,value,item.label,item.childObject.code,item.childObject,item.childObject.title,item.childObject.name)
+            //     // console.table(item.childObject)
+            //     this.formBox["selectedItems"].push(item.childObject);
             //     // this.$forceUpdate();
             //   }
             // });
@@ -454,6 +492,7 @@ export default {
             //   //
             //   console.log("error", error);
             // }
+            // })
           }
         }
         //
@@ -465,6 +504,7 @@ export default {
     clearUIFormData(model = this.formBox.model) {
       console.log("clearUIFormData", model, this.formBox);
       this.formBox["selectedItems"] = [];
+      return
       for (const key in model) {
         if (model.hasOwnProperty(key)) {
           let value = model[key];
@@ -476,7 +516,7 @@ export default {
               });
             }
           }
-          if (this.$root.$refs[key]) {
+          if (this.$root.$refs[key] && this.$root.$refs[key].constructor != Array) {
             // console.log(
             //   "---this.$root.$refs[key]:",
             //   key,
@@ -512,34 +552,35 @@ export default {
         if (this.type === "dependent") {
           console.log("formBox", this.formBox, this.$root.$refs);
           setTimeout(() => {
-            this.fillUIFormData(this.formBox.model);
+            // this.fillUIFormData(this.formBox.model);
             this.dialogLoading = false;
           }, 100);
         }
       });
       // console.log("clearUIFormData:end", model, this.formBox, this.$root.$refs);
     },
-    open() {
-      console.log("sweetModalOpen", this.$refs, this.$root.$refs);
-      this.$refs.sweetModal.open();
-      // this.dialogLoading = true;
-      this.show = false;
-      this.$nextTick(() => {
-        this.show = true;
-        if (this.type === "dependent") {
-          setTimeout(() => {
-            this.fillUIFormData();
-            this.dialogLoading = false;
-          }, 100);
-        }
-      });
-    },
+    // open() {
+    //   console.log("sweetModalOpen", this.$refs, this.$root.$refs);
+    //   this.$refs.sweetModal.open();
+    //   // this.dialogLoading = true;
+    //   this.show = false;
+    //   this.$nextTick(() => {
+    //     this.show = true;
+    //     if (this.type === "dependent") {
+    //       setTimeout(() => {
+    //         this.fillUIFormData();
+    //         this.dialogLoading = false;
+    //       }, 100);
+    //     }
+    //   });
+    // },
     close() {
       this.$refs.sweetModal.close();
       if (this.type !== "dependent") {
         this.clearUIFormData();
         // setTimeout(() => {
         this.formBox = {};
+        this.saveEvalForm()
         // }, 1000);
       }
     },
@@ -576,12 +617,20 @@ export default {
         //     }
         //   }
         // }
-        this.formObj.model = { ...this.formObj.model, ...this.formBox.model };
-        window.formObj.model = {
-          ...window.formObj.model,
-          ...this.formBox.model
-        };
+        //
+        // this.formObj.model = { ...this.formObj.model, ...this.formBox.model };
+        // //
+        // window.formObj.model = {
+        //   ...window.formObj.model,
+        //   ...this.formBox.model
+        // };
+        Object.keys(this.formBox.model).map(bKeys=>{
+          this.formObj.model[bKeys] = this.formBox.model[bKeys]+""
+        })
+        //
+        console.log(this.formBox.model, " this.formBox.model");
         console.log(this.formObj.model, " this.formObj.model");
+
         !isDev && this.close();
         // return;
       }
@@ -597,6 +646,8 @@ export default {
       if (this.dialogFormCode) {
         this.formBox.model.parentId =
           window.formObj.model.formId || window.formObj.model.id;
+        //
+        //
         saveForm({ ...this.formBox }, res => {
           let {
             data: {
@@ -617,8 +668,10 @@ export default {
               if (this.formBox.model.I047024) {
                 result += "吞糊：" + this.formBox.model.I047024 + " " + ";";
               }
-              this.$root.$refs[this.parentName].setCurrentValue(result);
-              this.$root.$refs[this.parentName].checkValueRule(result);
+              this.setElementValue(this.parentName,result)
+              this.getValueRule(this.parentName,result)
+              // this.$root.$refs[this.parentName][0].setCurrentValue(result);
+              // this.$root.$refs[this.parentName][0].checkValueRule(result);
               this.formObj.model.I100028 = result;
               // this.$root.$refs[this.parentName + "_clone"].setCurrentValue(
               //   result
@@ -628,14 +681,18 @@ export default {
               // );
             } else {
               //
-              let score = evalScore || this.formBox.model.evalScore || formResult.evalScore || "" ;
-              let desc = evalDesc || this.formBox.model.evalDesc || formResult.evalDesc || "";
+              let score = evalScore || this.formBox.model.evalScore || "" ;
+              //
+              let desc = evalDesc || this.formBox.model.evalDesc || "";
+              //
               let result = score + "分 " + desc||"";
               result = result.replace(/null/g,'');
               result = result.replace(/undefined/g,'');
               this.formObj.model[this.parentName] = result||"";
-              this.$root.$refs[this.parentName].setCurrentValue(result);
-              this.$root.$refs[this.parentName].checkValueRule(result);
+              this.setElementValue(this.parentName,result)
+              // this.$root.$refs[this.parentName][0].setCurrentValue(result);
+              this.getValueRule(this.parentName,result)
+              // this.$root.$refs[this.parentName][0].checkValueRule(result);
 
               /** GCS评估特殊处理 */
               // if (this.parentName == "I100020") {
@@ -660,7 +717,7 @@ export default {
           }
         });
       }
-      console.log(this.callback, "aaaaaaaaa");
+
       if (this.callback) {
         // formBox
         this.callback(this.formDialogObj);
@@ -668,7 +725,7 @@ export default {
       console.log("formDialogObj", this.formBox, isDev);
     },
     initForm(config, value = null) {
-      console.log("openBox", config, value, this.obj, this.formObj);
+      console.log("initForm", config, value, this.obj, this.formObj);
       this.title = config.aliasTitle || config.title || "";
       this.size = config.size || "";
       this.top = config.top || "";
@@ -713,6 +770,8 @@ export default {
       //
       this.formBox.model = this.formBox.model ? this.formBox.model : {};
       //
+
+      //
       try {
         this.parentName = config.parentName || "";
         this.parentFormCode = config.parentFormCode
@@ -746,13 +805,24 @@ export default {
       }, 100);
     },
     openBox(config, value = null) {
-      console.log(config, "configconfigconfigconfig");
+      console.log(config, "openBox");
+      //
+      this.$root.$refs["evalScore"] = null
+      this.$root.$refs["evalDesc"] = null
+      this.$root.$refs["status"] = null
+      this.$root.$refs["signerName"] = null
+      //
+
+      //
       this.formList = [];
       this.selectedForm = null;
       if (config.constructor == Array) {
         if (config.length > 1) {
           this.formList = config;
-          this.selectedForm = 0;
+          this.selectedForm = this.autoSelectForm();
+          //
+          console.log("!!==多表切换",this.selectedForm,this.formList)
+          //
           this.initForm(this.formList[this.selectedForm]);
         } else {
           this.initForm(config[0]);
@@ -760,6 +830,25 @@ export default {
       } else {
         this.initForm(config);
       }
+    },
+    autoSelectForm(formList=[]){
+      // window.app.$store.getters.getCurrentPatient()
+      let result = 0
+      let age = 0, manAge = 16
+      let formNames = ["跌倒评估单(成人)"]
+      try {
+        age = ~~(window.app.$store.getters.getCurrentPatient().age||0).replace(/[^0-9]/g,'')
+        //
+        console.log('autoSelectForm:patient',age)
+        if(this.formList && this.formList.length>0){
+          result = this.formList.findIndex(ret=>{return formNames.indexOf(ret.title)>-1 && age>manAge})
+        }
+        result == -1 ?result=0:result=result
+        return result
+      } catch (error) {
+        console.log('autoSelectForm:error',error)
+      }
+      return result
     },
     changeSelectForm() {
       console.log(
@@ -775,6 +864,22 @@ export default {
     getUUID(child = null) {
       let uuid_ = uuid.v1();
       return uuid_;
+    },
+    setElementValue(key,value){
+      Object.keys(this.$root.$refs[key]).map(elkey=>{
+        this.$root.$refs[key][elkey].setCurrentValue(value);
+      })
+    },
+    getValueRule(key,value){
+      let textResult = ""
+      Object.keys(this.$root.$refs[key]).map(elkey=>{
+        textResult = this.$root.$refs[key][elkey].checkValueRule(value);
+      })
+      return textResult
+    },
+    saveEvalForm(){
+      // this.parentFormCode
+      window.formTool.formSave({showMeasure:false})
     }
   }
 };
@@ -836,6 +941,10 @@ export default {
   >>>.input-elements, .vertical-box{
     justify-content: center;
   }
+}
+
+>>>.el-radio-button__inner {
+  border-radius: 0px!important
 }
 
 </style>

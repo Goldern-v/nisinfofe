@@ -131,11 +131,21 @@ export default {
       this.inputValue = this.formObj.model[this.obj.name];
     } catch (error) {}
     let refName = this.obj.name; //+this.obj.type.toUpperCase()+(this.obj.title||this.obj.label)
+    let refNameTitle = this.obj.title || this.obj.label;
     this.readOnly = this.obj.readOnly ? this.obj.readOnly : false;
+    //
+    if (!this.$root.$refs[refName]) {
+      this.$root.$refs[refName] = []
+    }
+
+    //
     if (this.$refs[refName]) {
       this.$refs[refName]["childObject"] = this.obj;
       this.$refs[refName]["checkValueRule"] = this.checkValueRule;
-      this.$root.$refs[refName] = this.$refs[refName];
+      // this.$root.$refs[refName] = this.$refs[refName];
+      // this.$root.$refs[refName] = [...this.$root.$refs[refName],this.$refs[refName]];
+      //
+      this.$root.$refs[refName][refNameTitle] = this.$refs[refName];
     }
 
     // if(this.obj && this.obj.hasOwnProperty('value')>-1 && this.obj.value &&this.obj.value.constructor === Array){
@@ -219,7 +229,7 @@ export default {
           } else if (r.scoreMin || r.scoreMax) {
             let [scoreMin, scoreMax] = [Number(r.scoreMin), Number(r.scoreMax)];
             let score = Number(valueNew.split("分")[0]);
-            console.log(score, "scorescorescore");
+            // console.log(score, "scorescorescore");
             scoreMin = scoreMin === NaN ? 0 : scoreMin;
             scoreMax = scoreMax === NaN ? 0 : scoreMax;
             score = score === NaN ? 0 : score;
@@ -542,6 +552,9 @@ export default {
       // else if([38,40].indexOf(e.keyCode)===-1){
       //   this.inputFocus(e, child)
       // }
+    },
+    alertClick(){
+
     },
     getUUID(child = null) {
       let uuid_ = uuid.v1();

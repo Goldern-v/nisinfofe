@@ -32,13 +32,13 @@
             <div class="box-td">
               <div class="left-td" :style="obj.children[n+(col-1)].leftTdStyle||obj.titleStyle" v-if="obj.children[n+(col-1)].title">
                 <!-- {{n+(col-1)}} -->
-                <span v-if="!obj.children[n+(col-1)].dialog"><span v-html="titleFeedSpace(obj.children[n+(col-1)].title)"></span>{{obj.children[n+(col-1)].labelTitle?obj.children[n+(col-1)].labelTitle+':':''}}</span>
+                <span v-if="!obj.children[n+(col-1)].dialog"><span v-html="titleFeedSpace(obj.children[n+(col-1)])"></span>{{obj.children[n+(col-1)].labelTitle?obj.children[n+(col-1)].labelTitle+':':''}}</span>
                 <span
                   v-if="obj.children[n+(col-1)].dialog"
                   style="cursor:pointer;color:blue"
                   @click="titleClick($event,obj.children[n+(col-1)])"
                 >
-                  <span v-html="titleFeedSpace(obj.children[n+(col-1)].title)"></span>
+                  <span v-html="titleFeedSpace(obj.children[n+(col-1)])"></span>
                   <span v-if="obj.children[n+(col-1)].name === 'I100001'" style="margin-left:-5px;">(<span>{{formObj.model[obj.children[n+(col-1)].subTitle]||'  '}}</span>):
                   </span>
                 </span>
@@ -89,9 +89,11 @@ export default {
   mounted() {},
   created() {},
   methods: {
-    titleFeedSpace(str){
+    titleFeedSpace(item){
       // console.log('--titleFeedSpace:',[str.length],[str])
       //
+      let str = item.title
+      if(item.hasOwnProperty('noLabelSpace')>-1 &&item.noLabelSpace==true){return `<span style='${item.style}'>${str}:</span>`||''}
       if(!str){return ''}
       if(str == '体温'){return str+':'}
       let ret = ''

@@ -440,7 +440,6 @@
           "name": "evalScore",
           "type": "input",
           "title": "评估得分",
-          "code": "evalScore",
           "placeholder": "评估得分",
           "style": "width:80px",
           "inputWidth":"80px",

@@ -146,7 +146,7 @@ export default {
     let refName = this.obj.name; //+this.obj.type.toUpperCase()+(this.obj.title||this.obj.label)
     this.readOnly = this.obj.readOnly ? this.obj.readOnly : false;
     if (this.$refs[refName]) {
-      this.$refs[refName]["childObjct"] = this.obj;
+      this.$refs[refName]["childObject"] = this.obj;
       this.$refs[refName]["checkValueRule"] = this.checkValueRule;
       if (this.obj.isClone) {
         this.$root.$refs[refName + "_clone"] = this.$refs[refName];

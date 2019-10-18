@@ -27,6 +27,7 @@
         flex="cross:center main:center"
         @click.stop="button.onClick"
         :class="{disabled: button.getDisabled && button.getDisabled(selectBlock)}"
+        :style="button.getDisabled && button.getDisabled(selectBlock)?'display:none':''"
       >
         <div class="text-con">{{button.label}}</div>
       </div>
@@ -219,78 +220,10 @@ export default {
           }
         },
         {
-          label: "保存",
+          label: "提交",
           onClick: e => {
-            if (
-              this.patientInfo &&
-              this.patientInfo.hasOwnProperty("patientId")
-            ) {
-              this.bus.$emit("setHosptialEvalLoading", {
-                status: true,
-                msg: "保存表单中..."
-              });
-
-              let post = {
-                id: this.formId || "",
-                patientId: this.patientInfo.patientId,
-                visitId: this.patientInfo.visitId,
-                formType: "eval",
-                formCode: this.formCode,
-                // evalDate: dayjs().format("YYYY-MM-DD HH:mm"), //"2019-04-16 12:00",
-                // evalScore: "0",
-                sign: false,
-                empNo: this.user.empNo //"admin",
-                // password: "123456"
-              };
-              this.formObj.model.formCode = this.formCode;
-
-              post = Object.assign({}, this.formObj.model, post);
-
-              // post.formCode = this.formCode
-
-              let postData = new Object();
-              for (const key in post) {
-                if (post.hasOwnProperty(key)) {
-                  if (!key) {
-                    continue;
-                  }
-                  if (post[key] === null || post[key] === "null") {
-                    postData[key] = "";
-                    continue;
-                  }
-                  postData[key] = post[key] + "";
-                }
-              }
-
-              console.log("保存post", post, postData);
-
-              save(postData)
-                .then(res => {
-                  console.log("保存评估", res);
-                  this.$message.success("保存成功");
-                  this.bus.$emit("setHosptialEvalLoading", false);
-                  this.showMeasureDetialBox(res);
-                  //
-                  let {
-                    data: {
-                      data: {
-                        master,
-                      }
-                    }
-                  } = res;
-                  //
-                  if(master.updaterName && master.updateTime){
-                    this.formObj.formSetting.updateInfo = `由${master.updaterName}创建，最后编辑于${master.updateTime}`
-                  }
-                })
-                .catch(err => {
-                  console.log("保存评估err", err);
-                  this.bus.$emit("setHosptialEvalLoading", {
-                    status: false
-                  });
-                });
-            }
-            console.log("保存", this.user, this.formObj);
+            this.formSave()
+            console.log("提交", this.user, this.formObj);
           },
           getDisabled(selectBlock) {
             if (!selectBlock.id) return true;
@@ -321,77 +254,77 @@ export default {
             if (!selectBlock.id) return true;
           }
         },
-        {
-          label: "签名",
-          onClick: e => {
-            if (
-              this.patientInfo &&
-              this.patientInfo.hasOwnProperty("patientId")
-            ) {
-              window.openSignModal((password, empNo) => {
-                let post = {
-                  id: this.formId || "",
-                  patientId: this.patientInfo.patientId,
-                  visitId: this.patientInfo.visitId,
-                  formType: "eval",
-                  formCode: this.formCode,
-                  sign: true,
-                  empNo,
-                  password
-                };
-                this.formObj.model.formCode = this.formCode;
+        // {
+        //   label: "签名",
+        //   onClick: e => {
+        //     if (
+        //       this.patientInfo &&
+        //       this.patientInfo.hasOwnProperty("patientId")
+        //     ) {
+        //       window.openSignModal((password, empNo) => {
+        //         let post = {
+        //           id: this.formId || "",
+        //           patientId: this.patientInfo.patientId,
+        //           visitId: this.patientInfo.visitId,
+        //           formType: "eval",
+        //           formCode: this.formCode,
+        //           sign: true,
+        //           empNo,
+        //           password
+        //         };
+        //         this.formObj.model.formCode = this.formCode;
 
-                post = Object.assign({}, this.formObj.model, post);
-                //
-                let postData = new Object();
-                for (const key in post) {
-                  if (post.hasOwnProperty(key)) {
-                    if (!key) {
-                      continue;
-                    }
-                    if (post[key] === null || post[key] === "null") {
-                      postData[key] = "";
-                      continue;
-                    }
-                    postData[key] = post[key] + "";
-                  }
-                }
-                console.log("签名post", post, postData);
-                //
-                save(postData)
-                  .then(res => {
-                    this.$message.success("签名成功");
-                    this.selectBlock.status = "1";
-                    this.changeSelectBlock(this.selectBlock);
-                    //
-                    let {
-                      data: {
-                        data: {
-                          master,
-                        }
-                      }
-                    } = res;
-                    //
-                    if(master.updaterName && master.updateTime){
-                      this.formObj.formSetting.updateInfo = `由${master.updaterName}创建，最后编辑于${master.updateTime}`
-                    }
-                    //
-                  })
-                  .catch(err => {
-                    console.log("签名评估err", err);
-                    this.bus.$emit("setHosptialEvalLoading", {
-                      status: false
-                    });
-                  });
-                console.log("表单填写结果", post);
-              });
-            }
-          },
-          getDisabled(selectBlock) {
-            if (!selectBlock.id) return true;
-            if (selectBlock.status != "0") return true;
-          }
-        },
+        //         post = Object.assign({}, this.formObj.model, post);
+        //         //
+        //         let postData = new Object();
+        //         for (const key in post) {
+        //           if (post.hasOwnProperty(key)) {
+        //             if (!key) {
+        //               continue;
+        //             }
+        //             if (post[key] === null || post[key] === "null") {
+        //               postData[key] = "";
+        //               continue;
+        //             }
+        //             postData[key] = post[key] + "";
+        //           }
+        //         }
+        //         console.log("签名post", post, postData);
+        //         //
+        //         save(postData)
+        //           .then(res => {
+        //             this.$message.success("签名成功");
+        //             this.selectBlock.status = "1";
+        //             this.changeSelectBlock(this.selectBlock);
+        //             //
+        //             let {
+        //               data: {
+        //                 data: {
+        //                   master,
+        //                 }
+        //               }
+        //             } = res;
+        //             //
+        //             if(master.updaterName && master.updateTime){
+        //               this.formObj.formSetting.updateInfo = `由${master.updaterName}创建，最后编辑于${master.updateTime}`
+        //             }
+        //             //
+        //           })
+        //           .catch(err => {
+        //             console.log("签名评估err", err);
+        //             this.bus.$emit("setHosptialEvalLoading", {
+        //               status: false
+        //             });
+        //           });
+        //         console.log("表单填写结果", post);
+        //       });
+        //     }
+        //   },
+        //   getDisabled(selectBlock) {
+        //     if (!selectBlock.id) return true;
+        //     if (selectBlock.status != "0") return true;
+        //   }
+        // },
         {
           label: "取消签名",
           onClick: e => {
@@ -634,6 +567,79 @@ export default {
       // }
       //
       this.$root.$refs.diagnosisModal.open(diagsArray);
+    },
+    formSave({showMeasure=true}={}){
+      if (
+        this.patientInfo &&
+        this.patientInfo.hasOwnProperty("patientId")
+      ) {
+        this.bus.$emit("setHosptialEvalLoading", {
+          status: true,
+          msg: "保存表单中..."
+        });
+
+        let post = {
+          id: this.formId || "",
+          patientId: this.patientInfo.patientId,
+          visitId: this.patientInfo.visitId,
+          formType: "eval",
+          formCode: this.formCode,
+          // evalDate: dayjs().format("YYYY-MM-DD HH:mm"), //"2019-04-16 12:00",
+          // evalScore: "0",
+          sign: false,
+          empNo: this.user.empNo //"admin",
+          // password: "123456"
+        };
+        this.formObj.model.formCode = this.formCode;
+
+        post = Object.assign({}, this.formObj.model, post);
+
+        // post.formCode = this.formCode
+
+        let postData = new Object();
+        for (const key in post) {
+          if (post.hasOwnProperty(key)) {
+            if (!key) {
+              continue;
+            }
+            if (post[key] === null || post[key] === "null") {
+              postData[key] = "";
+              continue;
+            }
+            postData[key] = post[key] + "";
+          }
+        }
+
+        console.log("保存post", post, postData);
+
+        save(postData)
+          .then(res => {
+            console.log("保存评估", res);
+            this.$message.success("保存成功");
+            this.bus.$emit("setHosptialEvalLoading", false);
+            if(showMeasure){
+              this.showMeasureDetialBox(res);
+            }
+            //
+            let {
+              data: {
+                data: {
+                  master,
+                }
+              }
+            } = res;
+            //
+            if(master.updaterName && master.updateTime){
+              this.formObj.formSetting.updateInfo = `由${master.updaterName}创建，最后编辑于${master.updateTime}`
+            }
+          })
+          .catch(err => {
+            console.log("保存评估err", err);
+            this.bus.$emit("setHosptialEvalLoading", {
+              status: false
+            });
+          });
+      }
     }
   },
   computed: {
@@ -657,7 +663,14 @@ export default {
     });
     this.bus.$on("createHEvalForm", this.createNewForm);
   },
-  mounted() {},
+  mounted() {
+    let tool = {
+      formSave: this.formSave,
+      // formDelete: this.formDelete,
+      // reloadForm: this.reloadForm
+    };
+    window.formTool = tool;
+  },
   watch: {},
   components: {}
 };

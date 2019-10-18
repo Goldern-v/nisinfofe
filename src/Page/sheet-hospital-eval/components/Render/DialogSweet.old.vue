@@ -381,10 +381,10 @@ export default {
             for (let k in items) {
               if (items.hasOwnProperty(k)) {
                 let item = items[k];
-                let title = item.childObjct.title
-                let code = item.childObjct.code || title;
-                // console.log('-----',item.childObjct.title ,item,item.childObjct.code,value,item.childObjct.code == value,item.childObjct.title == value,code)
-                // || item.childObjct.title == value
+                let title = item.childObject.title
+                let code = item.childObject.code || title;
+                // console.log('-----',item.childObject.title ,item,item.childObject.code,value,item.childObject.code == value,item.childObject.title == value,code)
+                // || item.childObject.title == value
                 let valueArr = value.split(',')
                 console.log('选项:',item,[code],[value],[valueArr])
                 if (code == value ||
@@ -392,8 +392,8 @@ export default {
                 valueArr.indexOf(code)>-1 ||
                 valueArr.indexOf(title)>-1
                 ) {
-                  // console.log('---++',item.childObjct.title ,item)
-                  this.formBox["selectedItems"].push(item.childObjct);
+                  // console.log('---++',item.childObject.title ,item)
+                  this.formBox["selectedItems"].push(item.childObject);
                   // item.model = []
                   // if (item.model.length == 0) {
                   //   item.model.push(value);
@@ -421,14 +421,14 @@ export default {
             }
 
             // items.map(item => {
-            //   // console.log('item.childObjct',item,item.label == value,item.childObjct.code == value,value,item.label,item.childObjct.code,item.childObjct,item.childObjct.title,item.childObjct.name)
-            //   if(item.label == value && item.hasOwnProperty('childObjct') ){
+            //   // console.log('item.childObject',item,item.label == value,item.childObject.code == value,value,item.label,item.childObject.code,item.childObject,item.childObject.title,item.childObject.name)
+            //   if(item.label == value && item.hasOwnProperty('childObject') ){
             //     // item.value = value
             //     item.model = value
-            //     // childObjct
-            //     // console.log('item.childObjct',item,value,item.label,item.childObjct.code,item.childObjct,item.childObjct.title,item.childObjct.name)
-            //     // console.table(item.childObjct)
-            //     this.formBox["selectedItems"].push(item.childObjct);
+            //     // childObject
+            //     // console.log('item.childObject',item,value,item.label,item.childObject.code,item.childObject,item.childObject.title,item.childObject.name)
+            //     // console.table(item.childObject)
+            //     this.formBox["selectedItems"].push(item.childObject);
             //     // this.$forceUpdate();
             //   }
             // });
@@ -771,6 +771,18 @@ export default {
     getUUID(child = null) {
       let uuid_ = uuid.v1();
       return uuid_;
+    },
+    setElementValue(key,value){
+      Object.keys(this.$root.$refs[key]).map(elkey=>{
+        this.$root.$refs[key][elkey].setCurrentValue(value);
+      })
+    },
+    getValueRule(key,value){
+      let textResult = ""
+      Object.keys(this.$root.$refs[key]).map(elkey=>{
+        textResult = this.$root.$refs[key][elkey].checkValueRule(value);
+      })
+      return textResult
     }
   }
 };

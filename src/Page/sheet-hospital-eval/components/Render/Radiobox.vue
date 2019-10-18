@@ -67,7 +67,7 @@ export default {
     }
 
     if (this.$refs[refName]) {
-      this.$refs[refName]["childObjct"] = this.obj;
+      this.$refs[refName]["childObject"] = this.obj;
       this.$root.$refs[this.obj.name][refName] = this.$refs[refName];
     }
   },
@@ -90,16 +90,16 @@ export default {
       for (const key in rootRefs) {
         if (rootRefs && rootRefs.hasOwnProperty(key) && rootRefs[key]) {
           let item = rootRefs[key];
-          // console.log("-----", item.childObjct.title, item, key, rootRefs);
+          // console.log("-----", item.childObject.title, item, key, rootRefs);
           // if(item && typeof item.constructor !== 'object'){
           //   continue
           // }
 
           // item &&
           // item.constructor === "object" &&
-          // item.hasOwnProperty("childObjct") &&
-          if (item.childObjct && item.childObjct.title !== this.obj.title) {
-            // console.log('---++',item.childObjct.title ,item)
+          // item.hasOwnProperty("childObject") &&
+          if (item.childObject && item.childObject.title !== this.obj.title) {
+            // console.log('---++',item.childObject.title ,item)
             item.model = [];
             // this.$root.$refs[this.obj.name][key].model = [];
           }
@@ -108,9 +108,9 @@ export default {
 
       // if(this.$root.$refs[this.obj.name]){
       // this.$root.$refs[this.obj.name].map(item=>{
-      //   console.log('-----',item.childObjct.title ,item)
-      //   if(item.childObjct.title !== this.obj.title){
-      //     console.log('---++',item.childObjct.title ,item)
+      //   console.log('-----',item.childObject.title ,item)
+      //   if(item.childObject.title !== this.obj.title){
+      //     console.log('---++',item.childObject.title ,item)
       //     item.value = []
       //   }
       // })
@@ -147,13 +147,19 @@ export default {
       this.formObj.model["evalScore"] = score;
       if (this.$root.$refs["evalScore"]) {
         this.formObj.model["evalScore"] = score;
-        this.$root.$refs["evalScore"].setCurrentValue(score);
-
-        let textResult = this.$root.$refs["evalDesc"].checkValueRule(score);
+        //
+        // this.$root.$refs["evalScore"][0].setCurrentValue(score);
+        this.setElementValue("evalScore",score)
+        let textResult = this.getValueRule("evalDesc",score)//this.$root.$refs["evalDesc"][0].checkValueRule(score);
+        //
         console.log("evalDesc-textResult", textResult);
+        //
         this.formObj.model["evalDesc"] = textResult + "";
-        this.$root.$refs["evalDesc"].setCurrentValue(textResult);
-        this.$root.$refs["evalDesc"].checkValueRule(textResult);
+        //
+        // this.$root.$refs["evalDesc"][0].setCurrentValue(textResult);
+        this.setElementValue("evalDesc",textResult)
+        // this.$root.$refs["evalDesc"][0].checkValueRule(textResult);
+        this.getValueRule("evalDesc",textResult)
       }
       //
       // 评估得分：0-20分完全依赖；20-40分严重依赖；40-60分明显依赖；＞60分基本自理
@@ -175,6 +181,18 @@ export default {
         "score",
         score
       );
+    },
+    setElementValue(key,value){
+      Object.keys(this.$root.$refs[key]).map(elkey=>{
+        this.$root.$refs[key][elkey].setCurrentValue(value);
+      })
+    },
+    getValueRule(key,value){
+      let textResult = ""
+      Object.keys(this.$root.$refs[key]).map(elkey=>{
+        textResult = this.$root.$refs[key][elkey].checkValueRule(value);
+      })
+      return textResult
     }
   }
 };

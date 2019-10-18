@@ -220,7 +220,7 @@ import Checkbox from "./Checkbox";
 import InputBox from "./InputBox";
 import Mark from "./Mark";
 import SelectInputBox from "./SelectInputBox";
-import SelectBox from "./SelectBox";
+// import SelectBox from "./SelectBox";
 import DatePicker from "./DatePicker";
 import Body from "../Render/modal/body-modal/body";
 import otherDialog from "../data/formDialog/other.dialog";
@@ -249,7 +249,7 @@ export default {
     Checkbox,
     InputBox,
     Mark,
-    SelectBox,
+    // SelectBox,
     SelectInputBox,
     DatePicker,
     Body
@@ -287,9 +287,9 @@ export default {
         this.$root.$refs[refName],
         this.$root.$refs
       );
-      if (this.$root.$refs[refName]) {
-        this.$root.$refs[refName].value = value;
-      }
+      // if (this.$root.$refs[refName]) {
+      //   this.$root.$refs[refName].value = value;
+      // }
     }
   },
   mounted() {
@@ -301,50 +301,66 @@ export default {
     // }
 
     let refName = this.element.name; //this.element.type + this.element.name + this.element.title+this.childIndex;
+    let refNameTitle = this.obj.title || this.obj.label;
+    //
+    if (!this.$root.$refs[refName]) {
+      this.$root.$refs[refName] = []
+    }
+
+    if (this.$refs[refName]) {
+      this.$refs[refName]["childObject"] = this.obj;
+      this.$refs[refName]["checkValueRule"] = this.checkValueRule;
+        // this.$root.$refs[refName] = [...this.$root.$refs[refName],this.$refs[refName]];
+      //
+      this.$root.$refs[refName][refNameTitle] = this.$refs[refName];
+
+    }
 
     // console.log(this.childIndex,'this.$refs:',this.$refs)
-    if (this.$refs) {
-      let object = this.$refs;
-      if (this.element.type === "radio") {
-        // if(!this.$root.$refs[this.elementName]){
-        //   this.$root.$refs[this.elementName] = new Array()
-        // }
+    //
 
-        return;
-        for (const key in object) {
-          if (object.hasOwnProperty(key)) {
-            let element = object[key];
+    // if (this.$refs) {
+    //   let object = this.$refs;
+    //   if (this.element.type === "radio") {
+    //     // if(!this.$root.$refs[this.elementName]){
+    //     //   this.$root.$refs[this.elementName] = new Array()
+    //     // }
 
-            let childObj = this.obj.find(item => {
-              return key.indexOf(item.type + item.name + item.title) > -1;
-            });
+    //     return;
+    //     // for (const key in object) {
+    //     //   if (object.hasOwnProperty(key)) {
+    //     //     let element = object[key];
 
-            element[0]["childObjct"] = childObj;
+    //     //     let childObj = this.obj.find(item => {
+    //     //       return key.indexOf(item.type + item.name + item.title) > -1;
+    //     //     });
 
-            try {
-              if (childObj.code === window.formObj.model[childObj.name]) {
-                element[0].value = childObj.code;
-                element[0].model = childObj.code;
-              } else {
-                // element[0].value = "" //
-                element[0].model = "";
-              }
-            } catch (error) {
-              //
-            }
+    //     //     element[0]["childObject"] = childObj;
 
-            this.$root.$refs[this.elementName].push(...element);
-            // console.log('--key',key,'element',element,this.element,'this.$refs',this.$refs,this.$root.$refs,'object',object,this.obj,childObj,childObj.code,element[0].label,childObj.code===element[0].label)
-          }
-        }
-      } else {
-        if (this.$refs[refName]) {
-          // console.log(this.childIndex,'this.$refs:',this.$refs[refName])
-          this.$refs[refName]["childObjct"] = this.element;
-          this.$root.$refs[refName] = this.$refs[refName];
-        }
-      }
-    }
+    //     //     try {
+    //     //       if (childObj.code === window.formObj.model[childObj.name]) {
+    //     //         element[0].value = childObj.code;
+    //     //         element[0].model = childObj.code;
+    //     //       } else {
+    //     //         // element[0].value = "" //
+    //     //         element[0].model = "";
+    //     //       }
+    //     //     } catch (error) {
+    //     //       //
+    //     //     }
+
+    //     //     this.$root.$refs[this.elementName].push(...element);
+    //     //     // console.log('--key',key,'element',element,this.element,'this.$refs',this.$refs,this.$root.$refs,'object',object,this.obj,childObj,childObj.code,element[0].label,childObj.code===element[0].label)
+    //     //   }
+    //     // }
+    //   } else {
+    //     if (this.$refs[refName]) {
+    //       // console.log(this.childIndex,'this.$refs:',this.$refs[refName])
+    //       this.$refs[refName]["childObject"] = this.element;
+    //       this.$root.$refs[refName] = this.$refs[refName];
+    //     }
+    //   }
+    // }
     //
   },
   created() {
@@ -548,13 +564,8 @@ export default {
                           child.suffixDesc ||
                           ""}</span></span></span>`;
                         hasNewLine ? (html += newLine) : html+=((children.length!=(cindex+1))?',':'');
-                        handleChild(mychild.children);
                       }
-                      // else{
-                      //   html += `<p style="color:red">${ title }:${this.formObj.model[mychild.name]||""}</p>`
-                      // }
-                      // console.log('!!children!!',mychild,title,mychild.label, mychild.children)
-                      return;
+                      return handleChild(mychild.children);
                     }
                     //
                     if (
@@ -749,11 +760,25 @@ export default {
       return uuid_;
     },
     openTip(child) {
-      console.log(child, "childchild");
-      this.$root.$refs[child.name].$parent.checkValueRule(
-        this.$root.$refs[child.name].$parent.inputValue,
-        true
-      );
+      console.log(child, "childchild",this.formObj.model,this.formObj);
+      try {
+        //
+        //
+        // this.$root.$refs[child.name].map(el=>{
+        //
+        Object.keys(this.$root.$refs[child.name]).map(elKey=>{
+          let el = this.$root.$refs[child.name][elKey]
+          console.log('el',el)
+        //
+          el.$parent.checkValueRule(el.$parent.inputValue,true);
+        })
+      } catch (error) {
+        console.log('openTip',error)
+      }
+      // this.$root.$refs[child.name].$parent.checkValueRule(
+      //   this.$root.$refs[child.name].$parent.inputValue,
+      //   true
+      // );
       if (child.dialog) {
         this.$root.$refs.dialogBox.openBox(
           child.dialog,

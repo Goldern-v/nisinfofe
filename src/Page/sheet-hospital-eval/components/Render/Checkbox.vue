@@ -74,7 +74,7 @@ export default {
     }
 
     if (this.$refs[this.refName]) {
-      this.$refs[this.refName]["childObjct"] = this.obj;
+      this.$refs[this.refName]["childObject"] = this.obj;
       this.$root.$refs[this.obj.name][this.refName] = this.$refs[this.refName];
     }
   },
@@ -165,13 +165,16 @@ export default {
         this.formObj.model["evalScore"] = score;
         if (this.$root.$refs["evalScore"]) {
           this.formObj.model["evalScore"] = score;
-          this.$root.$refs["evalScore"].setCurrentValue(score);
+          // this.$root.$refs["evalScore"][0].setCurrentValue(score);
+          this.setElementValue("evalScore",score)
 
-          let textResult = this.$root.$refs["evalDesc"].checkValueRule(score);
+          let textResult = this.getValueRule("evalDesc",score)//this.$root.$refs["evalDesc"][0].checkValueRule(score);
           console.log("evalDesc-textResult", textResult);
           this.formObj.model["evalDesc"] = textResult + "";
-          this.$root.$refs["evalDesc"].setCurrentValue(textResult);
-          this.$root.$refs["evalDesc"].checkValueRule(textResult);
+          this.setElementValue("evalDesc",textResult)
+          // this.$root.$refs["evalDesc"][0].setCurrentValue(textResult);
+          this.getValueRule("evalDesc",textResult)
+          // this.$root.$refs["evalDesc"][0].checkValueRule(textResult);
         }
       }
 
@@ -191,7 +194,10 @@ export default {
         this.obj.name === "I047010" ||
         this.obj.name === "I047011"
       ) {
-        this.$root.$refs["I047012"].$parent.inputValue = "+";
+        // this.$root.$refs["I047012"].$parent.inputValue = "+";
+        Object.keys(this.$root.$refs["I047012"]).map(elkey=>{
+          this.$root.$refs["I047012"][elkey].$parent.inputValue = "+";
+        })
       }
 
       if (
@@ -205,8 +211,23 @@ export default {
         this.obj.name === "I047022" ||
         this.obj.name === "I047023"
       ) {
-        this.$root.$refs["I047024"].$parent.inputValue = "+";
+        // this.$root.$refs["I047024"].$parent.inputValue = "+";
+        Object.keys(this.$root.$refs["I047024"]).map(elkey=>{
+          this.$root.$refs["I047024"][elkey].$parent.inputValue = "+";
+        })
       }
+    },
+    setElementValue(key,value){
+      Object.keys(this.$root.$refs[key]).map(elkey=>{
+        this.$root.$refs[key][elkey].setCurrentValue(value);
+      })
+    },
+    getValueRule(key,value){
+      let textResult = ""
+      Object.keys(this.$root.$refs[key]).map(elkey=>{
+        textResult = this.$root.$refs[key][elkey].checkValueRule(value);
+      })
+      return textResult
     }
   }
 };

@@ -137,6 +137,14 @@ export default {
   methods: {
     initial(patient = null) {
       this.loading = true;
+      // 清空
+      // this.$root.$refs = {}
+      // Object.keys(this.$root.$refs).map(rkey=>{
+      //   if(this.$root.$refs[rkey] && this.$root.$refs[rkey].constructor == Array){
+      //     // this.$root.$refs[rkey]=[]
+      //   }
+      // })
+      //
       // 主表结构
       let file = JSON.parse(
         JSON.stringify(require("../data/住院评估.form.json"))
@@ -267,40 +275,56 @@ export default {
           if (formObj.hasOwnProperty(key)) {
             let element = formObj[key];
             // let refObj = this.$root.$refs[key];
-            if (
-              this.$root.$refs[key] &&
-              (this.$root.$refs[key].type === "text" ||
-                this.$root.$refs[key].type === "textarea")
-            ) {
-              // this.$root.$refs[key].setCurrentValue(textResult);
-              if (key === "status") {
-                let textResult = this.$root.$refs[key].checkValueRule(
-                  element + ""
-                );
-                console.log(
-                  "----this.$root.$refs[key]",
-                  this.$root.$refs[key],
-                  key,
-                  textResult
-                );
-                this.$root.$refs[key].setCurrentValue(textResult + "");
-                this.$root.$refs[key].checkValueRule(textResult + "");
-              } else {
-                this.$root.$refs[key].setCurrentValue(element);
-                this.$root.$refs[key].checkValueRule(element);
-                if (this.$root.$refs[key + "_clone"]) {
-                  this.$root.$refs[key + "_clone"].setCurrentValue(element);
-                  this.$root.$refs[key + "_clone"].checkValueRule(element);
+            // console.log('!!!!!!',key,element,this.$root.$refs[key])
+            //
+            if(this.$root.$refs[key] && this.$root.$refs[key].constructor == Array){
+              //
+              // console.log('!!!!!!',key,element,this.$root.$refs[key])
+              Object.keys(this.$root.$refs[key]).map(elKey=>{
+              //
+              let el = this.$root.$refs[key][elKey]
+
+              // console.log('!!!el!!!',el,el.type,el.value)
+
+              // this.$root.$refs[key].map(el=>{
+                //
+                if (
+                  el &&
+                  (el.type === "text" ||
+                    el.type === "textarea")
+                ) {
+                  // el.setCurrentValue(textResult);
+                  if (key === "status") {
+                    let textResult = el.checkValueRule(
+                      element + ""
+                    );
+                    // console.log(
+                    //   "----el",
+                    //   el,
+                    //   key,
+                    //   textResult
+                    // );
+                    el.setCurrentValue(textResult + "");
+                    el.checkValueRule(textResult + "");
+                  } else {
+                    el.setCurrentValue(element);
+                    el.checkValueRule(element);
+                    // if (this.$root.$refs[key + "_clone"]) {
+                    //   this.$root.$refs[key + "_clone"].setCurrentValue(element);
+                    //   this.$root.$refs[key + "_clone"].checkValueRule(element);
+                    // }
+                  }
                 }
-              }
+                if (
+                  el &&
+                  el.type === "datetime"
+                ) {
+                  el.currentValue = element;
+                  console.log("datetime", el, key, element);
+                }
+              })
             }
-            if (
-              this.$root.$refs[key] &&
-              this.$root.$refs[key].type === "datetime"
-            ) {
-              this.$root.$refs[key].currentValue = element;
-              console.log("datetime", this.$root.$refs[key], key, element);
-            }
+
           }
         }
       }

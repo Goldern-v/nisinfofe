@@ -8,7 +8,7 @@
     @end="dragEnd">
     <transition-group>-->
 
-    <div v-for="(group,index) in obj" :key="group.name+index">
+    <div v-for="(group,index) in obj" :key="group.name+index+getUUID()">
       <FormGroupHTML :obj="group" :formObj="formObj"/>
       <FormGroupTitle :obj="group" :formObj="formObj"/>
       <FormGroupHR :obj="group" :formObj="formObj"/>
@@ -24,6 +24,7 @@
 
 <script>
 import vue from "vue";
+import uuid from "node-uuid";
 import FormGroupTitle from "./FormGroupTitle";
 import FormGroupHR from "./FormGroupHR";
 import FormGroupHTML from "./FormGroupHTML";
@@ -74,7 +75,11 @@ export default {
     },
     updateFunc(e) {
       console.log("updateFunc", e);
-    }
+    },
+    getUUID(child = null) {
+      let uuid_ = uuid.v1();
+      return uuid_;
+    },
   }
 };
 </script>

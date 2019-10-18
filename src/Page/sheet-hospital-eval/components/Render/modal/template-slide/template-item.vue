@@ -71,7 +71,10 @@ export default {
   computed: {},
   methods: {
     addTemplateAtDoc() {
-      this.$root.$refs[this.refName].$parent.inputValue += this.data.content;
+      // this.$root.$refs[this.refName].$parent.inputValue += this.data.content;
+      Object.keys(this.$root.$refs[this.refName]).map(elkey=>{
+        this.$root.$refs[this.refName][elkey].$parent.inputValue += this.data.content;
+      })
     },
     toEdit() {
       this.bus.$emit("openAddTemplateModal", this.data);

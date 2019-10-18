@@ -178,7 +178,7 @@
     {
       "name": "",
       "type": "formGroupTitle",
-      "le√el": "1",
+      "level": "1",
       "title": "一、评估内容",
       "prefixDesc": "",
       "suffixDesc": "",
@@ -738,7 +738,6 @@
           "type": "input",
           "title": "评估得分",
           "inputWidth":"80px",
-          "√alue": "",
           "class": null,
           "readOnly": null
         },
@@ -748,7 +747,6 @@
           "title": "结果程度",
           "inputWidth":"180px",
           "style": "width:180px",
-          "√alue": "",
           "class": null,
           "readOnly": null,
           "rule": [
@@ -792,7 +790,7 @@
     {
       "name": "",
       "type": "formGroupTitle",
-      "le√el": "1",
+      "level": "1",
       "title": "二、护理措施：",
       "prefixDesc": "",
       "suffixDesc": "",

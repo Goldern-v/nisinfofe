@@ -478,8 +478,10 @@
           "name": "M003012",
           "type": "datePicker",
           "title": "时间",
+          "noLabelSpace":true,
           "inputWidth":"145px",
-          "style": null,
+          "leftTdStyle":"text-align: right;",
+          "style": "width: 145px;",
           "class": null,
           "readOnly": null
         },
@@ -487,8 +489,10 @@
           "name": "M003013",
           "type": "input",
           "title": "药品",
+          "noLabelSpace":true,
           "inputWidth":"145px",
-          "style": null,
+          "leftTdStyle":"text-align: right;",
+          "style": "",
           "class": null,
           "readOnly": null
         },
@@ -496,8 +500,10 @@
           "name": "M003014",
           "type": "input",
           "title": "途径",
+          "noLabelSpace":true,
           "inputWidth":"145px",
-          "style": null,
+          "leftTdStyle":"text-align: right;",
+          "style": "",
           "class": null,
           "readOnly": null
         }
