@@ -54,7 +54,8 @@
         @click.native.stop="inputClick($event, obj)"
         @focus="inputFocus($event, obj)"
         @keydown.native="inputKeyDown($event, obj)"
-        :readonly="obj.selectOnly "
+        :readonly="obj.selectOnly"
+        :clearable="true"
       >
         <span class="pre-text" v-if="obj.prefixDesc" slot="prepend">{{obj.prefixDesc}}</span>
         <!-- <span slot="append"> -->

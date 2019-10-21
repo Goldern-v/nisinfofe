@@ -59,6 +59,7 @@
         @focus="inputFocus($event, obj)"
         @blur.native.stop="inputBlur"
         @keydown.native="inputKeyDown($event, obj)"
+        :clearable="true"
       >
         <span class="pre-text" v-if="obj.prefixDesc" slot="prepend">{{obj.prefixDesc}}</span>
         <!-- <span slot="append"> -->
@@ -509,10 +510,13 @@ export default {
         let dataList = this.obj.options;
         let key = this.obj.name;
         let obj = this.formObj.model;
+        let multiplechoice = this.obj.multiplechoice
+          ? this.obj.multiplechoice
+          : false;
         if (this.$root.$refs.autoInput) {
           this.$root.$refs.autoInput.open({
             obj: obj,
-            multiplechoice: this.obj.multiplechoice,
+            multiplechoice: multiplechoice,
             parentEl: e.target,
             currentValue: this.inputValue,
             style: {
@@ -521,14 +525,39 @@ export default {
               width: `${xy.width}px`,
               "min-width": "max-content"
             },
+            selectedList: obj[key] ? obj[key].split(",") : [],
             data: dataList,
             callback: function(data) {
               // console.log('callback',obj,data,e)
-              if (data) {
-                // console.log('==callback',obj,data)
-                obj[key] = data.code;
-                self.inputValue = data.name;
-                self.checkValueRule(data.name);
+              if (obj && data) {
+                // 单选
+                if (!multiplechoice || multiplechoice == false) {
+                  // console.log('==callback',obj,data)
+                  obj[key] = data.code;
+                  self.inputValue = data.name;
+                  self.checkValueRule(data.name);
+                }
+
+                // 多选
+                if (multiplechoice === true) {
+                  let values = obj[key] ? obj[key].split(",") : [];
+                  console.log("==多选=callback", values, obj, key, e.target);
+                  // 新增选项
+                  if (!obj[key] || obj[key].indexOf(data.code) === -1) {
+                    // values.push(data.code);
+                    values = [...values, data.code];
+                  } else if (obj[key] && obj[key].indexOf(data.code) > -1) {
+                    // 反选选项
+                    values = values.filter(v => {
+                      return v != data.code;
+                    });
+                  }
+                  obj[key] = values + "";
+                  self.inputValue = obj[key] + "";
+                  // self.checkValueRule(obj[key], true);
+                  e.target.focus();
+                }
+
                 if (e.target.tagName !== "INPUT") {
                   e.target.innerText = data.name;
                 }

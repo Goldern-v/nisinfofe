@@ -695,9 +695,15 @@ export default {
           this.bodyList.map(item => bodyData[item]).join("，"),
           "aaa"
         );
-        this.$root.$refs[this.obj.name].$parent.inputValue = this.bodyList
+        // this.$root.$refs[this.obj.name].$parent.inputValue = this.bodyList
+        //   .map(item => bodyData[item])
+        //   .join("，");
+
+        Object.keys(this.$root.$refs[this.obj.name]).map(elkey=>{
+          this.$root.$refs[this.obj.name][elkey].$parent.inputValue = this.bodyList
           .map(item => bodyData[item])
           .join("，");
+        })
       }
     },
     hasSelect(item) {
@@ -710,6 +716,25 @@ export default {
       } else {
         return false;
       }
+    },
+    setElementValue(key,value){
+      Object.keys(this.$root.$refs[key]).map(elkey=>{
+        this.$root.$refs[key][elkey].setCurrentValue(value);
+      })
+    },
+    getElementValue(key){
+      let result = ""
+      Object.keys(this.$root.$refs[key]).map(elkey=>{
+        result = this.$root.$refs[key][elkey].currentValue;
+      })
+      return result
+    },
+    getValueRule(key,value){
+      let textResult = ""
+      Object.keys(this.$root.$refs[key]).map(elkey=>{
+        textResult = this.$root.$refs[key][elkey].checkValueRule(value);
+      })
+      return textResult
     }
   },
   mounted() {

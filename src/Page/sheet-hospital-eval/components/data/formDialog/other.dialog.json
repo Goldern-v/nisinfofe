@@ -244,6 +244,92 @@
     ]
   },
   {
+    "title": "入量情况",
+    "type": "formGroupVerticalBox",
+    "name": "I100323",
+    "showTitle": false,
+    "message": "",
+    "require": "false",
+    "prefixDesc": "",
+    "postText": "",
+    "keys": "",
+    "style": "width:100%!important;",
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 540,
+    "children": [
+      {
+        "name": "I100323",
+        "type": "input",
+        "label": "入量类型",
+        "labelWidth": "100px",
+        "postText": "",
+        "value": "",
+        "options": [],
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      },
+      {
+        "name": "I100324",
+        "type": "input",
+        "label": "入量值",
+        "labelWidth": "100px",
+        "postText": "ml",
+        "value": "",
+        "options": [],
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
+    "title": "出量情况",
+    "type": "formGroupVerticalBox",
+    "name": "I100326",
+    "showTitle": false,
+    "message": "",
+    "require": "false",
+    "prefixDesc": "",
+    "postText": "",
+    "keys": "",
+    "style": "width:100%!important;",
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 540,
+    "children": [
+      {
+        "name": "I100326",
+        "type": "input",
+        "label": "出量类型",
+        "labelWidth": "100px",
+        "postText": "",
+        "value": "",
+        "options": [],
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      },
+      {
+        "name": "I100327",
+        "type": "input",
+        "label": "出量值",
+        "labelWidth": "100px",
+        "postText": "ml",
+        "value": "",
+        "options": [],
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
     "title": "气管切开",
     "type": "formGroupHorizontalBox",
     "name": "I100046",
@@ -910,6 +996,7 @@
         "type": "input",
         "label": "情况",
         "labelWidth": "98px",
+        "multiplechoice": true,
         "postText": "",
         "value": "",
         "style": null,

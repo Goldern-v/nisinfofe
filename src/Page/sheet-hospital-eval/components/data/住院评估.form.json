@@ -265,16 +265,17 @@
           "readOnly": null,
           "rule": [
             {
-              "min": "0",
+              "min": "1",
               "max": "51",
               "equal": "",
-              "style": "color:blue"
+              "message": "心率脉率异常过缓",
+              "style": "color: red;border-color: red;"
             },
             {
               "min": "110",
               "max": "Infinity",
               "equal": "",
-              "message": "心率脉率异常",
+              "message": "心率脉率异常过速",
               "style": "color: red;border-color: red;"
             }
           ]
@@ -526,20 +527,28 @@
           ]
         },
         {
-          "name": "I100012",
-          "type": "input",
-          "title": "尿量",
+          "name": "I100322",
+          "type": "select",
+          "title": "入量",
           "inputWidth": "227px",
-          "suffixDesc": "ml",
+          "suffixDesc": "",
           "style": null,
           "class": null,
           "readOnly": null,
           "rule": [
             {
-              "min": "0",
-              "max": "400",
-              "equal": "",
-              "style": "color:blue"
+              "dialog": {
+                "openKey": "有",
+                "cleanKey": "无",
+                "title": "入量情况",
+                "default": "入量情况",
+                "type": "dependent"
+              }
+            },
+            {
+              "diff": "无",
+              "message": "",
+              "style": "color: red;border-color: red;"
             }
           ]
         },
@@ -574,6 +583,32 @@
                 "早醒",
                 "多梦"
               ],
+              "style": "color: red;border-color: red;"
+            }
+          ]
+        },
+        {
+          "name": "I100325",
+          "type": "select",
+          "title": "出量",
+          "inputWidth": "227px",
+          "suffixDesc": "",
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "有",
+                "cleanKey": "无",
+                "title": "出量情况",
+                "default": "出量情况",
+                "type": "dependent"
+              }
+            },
+            {
+              "diff": "无",
+              "message": "",
               "style": "color: red;border-color: red;"
             }
           ]
@@ -1723,9 +1758,57 @@
           ]
         },
         {
-          "name": "I100139",
+          "name": "I100328",
           "type": "select",
-          "title": "肢体",
+          "title": "翻身",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I100329",
+          "type": "select",
+          "title": "乏力",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I100330",
+          "type": "select",
+          "title": "麻木",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I100331",
+          "type": "select",
+          "title": "视物模糊",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I100332",
+          "type": "select",
+          "title": "视物旋转",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I100333",
+          "type": "select",
+          "title": "口角歪斜",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I100334",
+          "type": "select",
+          "title": "眼闭合不全",
           "style": null,
           "class": null,
           "readOnly": null
@@ -2808,7 +2891,7 @@
               }
             },
             {
-              "equal": "有",
+              "equal": "不规则",
               "style": "color: red;border-color: red;"
             }
           ]
@@ -2875,13 +2958,13 @@
             {
               "min": "1",
               "max": "110",
-              "message": "胎儿窘迫,胎儿受伤的危险",
+              "message": "胎心过缓",
               "style": "color: red;border-color: red;"
             },
             {
               "min": "160",
               "max": "Infinity",
-              "message": "胎儿窘迫,胎儿受伤的危险",
+              "message": "胎心过速",
               "style": "color: red;border-color: red;"
             }
           ]

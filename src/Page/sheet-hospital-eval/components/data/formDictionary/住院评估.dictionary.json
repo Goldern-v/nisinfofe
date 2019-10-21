@@ -397,33 +397,6 @@
       "pinyin": "xs"
     }
   ],
-  "I100025": [
-    {
-      "code": "5",
-      "name": "能对答，定位准确（5分）",
-      "pinyin": "ndd，dwzq（5f"
-    },
-    {
-      "code": "4",
-      "name": "能对答，定位有误（4分）",
-      "pinyin": "ndd，dwyw（4f"
-    },
-    {
-      "code": "3",
-      "name": "能说话，不能对答（3分）",
-      "pinyin": "nsh，bndd（3f"
-    },
-    {
-      "code": "2",
-      "name": "仅能发声，不能说话（2分）",
-      "pinyin": "jnfs，bnsh（2f"
-    },
-    {
-      "code": "1",
-      "name": "不能发声（1分）",
-      "pinyin": "bnfs（1f"
-    }
-  ],
   "I100026": [
     {
       "code": "无",
@@ -1851,6 +1824,11 @@
       "code": "失明",
       "name": "失明",
       "pinyin": "sm"
+    },
+    {
+      "code": "旋转",
+      "name": "旋转",
+      "pinyin": "xz"
     }
   ],
   "I100143": [
@@ -4260,6 +4238,190 @@
       "pinyin": "f"
     }
   ],
+  "I100322": [
+    {
+      "code": "无",
+      "name": "无",
+      "pinyin": "w"
+    },
+    {
+      "code": "有",
+      "name": "有",
+      "pinyin": "y"
+    }
+  ],
+  "I100323": [
+    {
+      "code": "水",
+      "name": "水",
+      "pinyin": "s"
+    },
+    {
+      "code": "输液",
+      "name": "输液",
+      "pinyin": "sy"
+    },
+    {
+      "code": "食物",
+      "name": "食物",
+      "pinyin": "sw"
+    },
+    {
+      "code": "其他",
+      "name": "其他",
+      "pinyin": "qt"
+    }
+  ],
+  "I100325": [
+    {
+      "code": "无",
+      "name": "无",
+      "pinyin": "w"
+    },
+    {
+      "code": "有",
+      "name": "有",
+      "pinyin": "y"
+    }
+  ],
+  "I100326": [
+    {
+      "code": "尿",
+      "name": "尿",
+      "pinyin": "n"
+    },
+    {
+      "code": "大便",
+      "name": "大便",
+      "pinyin": "db"
+    },
+    {
+      "code": "呕吐物",
+      "name": "呕吐物",
+      "pinyin": "otw"
+    },
+    {
+      "code": "汗液",
+      "name": "汗液",
+      "pinyin": "hy"
+    },
+    {
+      "code": "血液",
+      "name": "血液",
+      "pinyin": "xy"
+    },
+    {
+      "code": "其他",
+      "name": "其他",
+      "pinyin": "qt"
+    }
+  ],
+  "I100025": [
+    {
+      "code": "清楚",
+      "name": "清楚",
+      "pinyin": "qc"
+    },
+    {
+      "code": "含糊",
+      "name": "含糊",
+      "pinyin": "hh"
+    },
+    {
+      "code": "失语",
+      "name": "失语",
+      "pinyin": "sy"
+    }
+  ],
+  "I100328": [
+    {
+      "code": "否",
+      "name": "否",
+      "pinyin": "f"
+    },
+    {
+      "code": "是",
+      "name": "是",
+      "pinyin": "s"
+    }
+  ],
+  "I100329": [
+    {
+      "code": "否",
+      "name": "否",
+      "pinyin": "f"
+    },
+    {
+      "code": "是",
+      "name": "是",
+      "pinyin": "s"
+    }
+  ],
+  "I100330": [
+    {
+      "code": "否",
+      "name": "否",
+      "pinyin": "f"
+    },
+    {
+      "code": "是",
+      "name": "是",
+      "pinyin": "s"
+    }
+  ],
+  "I100331": [
+    {
+      "code": "否",
+      "name": "否",
+      "pinyin": "f"
+    },
+    {
+      "code": "是",
+      "name": "是",
+      "pinyin": "s"
+    }
+  ],
+  "I100332": [
+    {
+      "code": "否",
+      "name": "否",
+      "pinyin": "f"
+    },
+    {
+      "code": "是",
+      "name": "是",
+      "pinyin": "s"
+    }
+  ],
+  "I100333": [
+    {
+      "code": "否",
+      "name": "否",
+      "pinyin": "f"
+    },
+    {
+      "code": "是",
+      "name": "是",
+      "pinyin": "s"
+    }
+  ],
+  "I100334": [
+    {
+      "code": "左",
+      "name": "左",
+      "pinyin": "z"
+    },
+    {
+      "code": "右",
+      "name": "右",
+      "pinyin": "y"
+    },
+    {
+      "code": "左右",
+      "name": "左右",
+      "pinyin": "zy"
+    }
+  ],
   "I100170": [
     {
       "code": "无",
@@ -5024,6 +5186,16 @@
   ],
   "I100219": [
     {
+      "code": "左眼视力--",
+      "name": "左眼视力--",
+      "pinyin": "zysl"
+    },
+    {
+      "code": "右眼视力--",
+      "name": "右眼视力--",
+      "pinyin": "yysl"
+    },
+    {
       "code": "视物变形",
       "name": "视物变形",
       "pinyin": "swbx"
@@ -5242,6 +5414,18 @@
       "pinyin": "xy"
     }
   ],
+  "I100229": [
+    {
+      "code": "耳--",
+      "name": "耳--",
+      "pinyin": "e"
+    },
+    {
+      "code": "分--",
+      "name": "分--",
+      "pinyin": "f"
+    }
+  ],
   "I100231": [
     {
       "code": "粘液性",
@@ -5257,6 +5441,18 @@
       "code": "脓性",
       "name": "脓性",
       "pinyin": "nx"
+    }
+  ],
+  "I100230": [
+    {
+      "code": "耳--",
+      "name": "耳--",
+      "pinyin": "e"
+    },
+    {
+      "code": "分--",
+      "name": "分--",
+      "pinyin": "f"
     }
   ],
   "I100247": [
