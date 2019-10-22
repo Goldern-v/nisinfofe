@@ -652,10 +652,12 @@ export default {
           let {
             data: {
               data: {
-                formResult: { id: id, evalDesc, evalScore }
+                master: { id: id, evalDesc:evalDesc, evalScore:evalScore,syncToRecordDesc:syncToRecordDesc }
               }
             }
           } = res;
+          // 弹框内容保存
+          console.log('弹框内容保存',res,evalDesc,evalScore)
           this.formObj.model[this.dialogFormCode] = id;
           // parentName
           if (this.parentName) {
@@ -685,11 +687,11 @@ export default {
               //
               let desc = evalDesc || this.formBox.model.evalDesc || "";
               //
-              let result = score + "分 " + desc||"";
+              let result = syncToRecordDesc || (score + "分 " + desc)||"";
               result = result.replace(/null/g,'');
               result = result.replace(/undefined/g,'');
+              this.setElementValue(this.parentName,result+"")
               this.formObj.model[this.parentName] = result||"";
-              this.setElementValue(this.parentName,result)
               // this.$root.$refs[this.parentName][0].setCurrentValue(result);
               this.getValueRule(this.parentName,result)
               // this.$root.$refs[this.parentName][0].checkValueRule(result);
@@ -700,8 +702,13 @@ export default {
               //   this.$root.$refs["I100019"].setCurrentValue(result);
               //   this.$root.$refs["I100019"].checkValueRule(result);
               // }
+              //
+              console.log('评估结果：',result,this.parentName,this.formObj.model[this.parentName])
             }
           }
+
+          // 更新住院单
+          window.formTool.fillForm()
 
           console.log(
             "===saveForm:res",

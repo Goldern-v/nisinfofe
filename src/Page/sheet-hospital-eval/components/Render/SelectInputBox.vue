@@ -41,6 +41,7 @@
         v-model="inputValue"
         :id="getUUID()"
         :ref="obj.name"
+        :name="obj.name"
         v-if="['select','selectInput'].indexOf(obj.type)>-1 && !obj.children"
         placeholder="空"
         :class="obj.class||'select-cursor'"

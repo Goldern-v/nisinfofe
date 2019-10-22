@@ -731,7 +731,8 @@ export default {
         callback: res => {
           console.log("人体图结果:", res);
           // this.$root.$refs[child.name].$refs.input.value = res;
-          this.$root.$refs[child.name].setCurrentValue(res);
+          // this.$root.$refs[child.name].setCurrentValue(res);
+          this.setElementValue(child.name,res)
           this.formObj.model[child.name] = res;
           // this.$root.$refs[child.name].value = res;
         }
@@ -789,6 +790,25 @@ export default {
     isChineseChar(str) {
       var reg = /[\u4E00-\u9FA5\uF900-\uFA2D]/;
       return reg.test(str);
+    },
+    setElementValue(key,value){
+      Object.keys(this.$root.$refs[key]).map(elkey=>{
+        this.$root.$refs[key][elkey].setCurrentValue(value);
+      })
+    },
+    getElementValue(key){
+      let result = ""
+      Object.keys(this.$root.$refs[key]).map(elkey=>{
+        result = this.$root.$refs[key][elkey].currentValue;
+      })
+      return result
+    },
+    getValueRule(key,value){
+      let textResult = ""
+      Object.keys(this.$root.$refs[key]).map(elkey=>{
+        textResult = this.$root.$refs[key][elkey].checkValueRule(value);
+      })
+      return textResult
     }
   }
 };

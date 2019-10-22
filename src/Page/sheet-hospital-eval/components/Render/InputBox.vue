@@ -45,6 +45,7 @@
         :id="getUUID()"
         :style="[obj.style, obj.inputWidth && {width: obj.inputWidth}]"
         :ref="obj.name"
+        :name="obj.name"
         v-if="obj.type==='input'"
         :placeholder="obj.dialog ? '点击评估' : (obj.placeholder?obj.placeholder:'空')"
         :class="model === 'development' ? 'development-model' : (obj.class||'')"
