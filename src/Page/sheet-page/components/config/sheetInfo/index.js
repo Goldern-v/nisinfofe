@@ -10,5 +10,7 @@ export default {
   selectBlock: {},
   copyRow: "",
   model: "", //填写模型  print  edit
-  relObj: {} /** 护记额外信息 */
+  relObj: {}, /** 护记额外信息 */
+  bedList: [] //病人列表
 };
+

@@ -67,7 +67,7 @@ export const getPatientInfo = (patientId, visitId) => {
 // 'getLastDetail form_childbirth',
 //获最新一张某种评估单信息
 export function getLastDetail(formCode, patientId, visitId) {
-  return axios.post(`${apiPath}/form/getLastDetail`, {
+  return axios.post(`${apiPath}form/getLastDetail`, {
     formCode,
     patientId,
     visitId,

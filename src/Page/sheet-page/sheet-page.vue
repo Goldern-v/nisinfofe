@@ -294,6 +294,7 @@ export default {
           this.data.bedList = res.data.data.filter(item => {
             return item.patientId;
           });
+          sheetInfo.bedList = this.data.bedList;
           this.patientListLoading = false;
           sheetInfo.isSave = true;
         });
