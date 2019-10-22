@@ -15,9 +15,9 @@
         >
       </colgroup>-->
       <colgroup>
-        <col width="25%">
-        <col width="20%">
-        <col width="55%">
+        <col width="25%" />
+        <col width="20%" />
+        <col width="55%" />
       </colgroup>
       <tr
         v-for="(tds,tdsIndex) in tables.tr"
@@ -65,7 +65,7 @@
                 :style="item.style"
                 :class="item.class"
                 :id="'CR-'+getKeyIdString(gkey)+'-'+tablesIndex+'-'+tdsIndex+'-'+gIndex+'-'+elkey"
-              >
+              />
               <label
                 :for="'CR-'+getKeyIdString(gkey)+'-'+tablesIndex+'-'+tdsIndex+'-'+gIndex+'-'+elkey"
               >{{item.label}}</label>
@@ -100,7 +100,7 @@
                   :src="signUrl(formatData.data.formData['empNo'])"
                   style="margin: 0px 0 0 0"
                   :alt="formatData.data.formData['empNo']"
-                >
+                />
               </span>
 
               <span v-html="item.postText"></span>
@@ -322,6 +322,7 @@
 import dayjs from "dayjs";
 import sheetInfo from "../../../../components/config/sheetInfo";
 import { data } from "./formatData";
+import { getLastDetail } from "@/api/common.js";
 export default {
   // mixins: [common],
   props: {
@@ -483,6 +484,10 @@ export default {
     },
     formModel() {
       return this.formatData.data.formData;
+    },
+    patientInfo() {
+      // return this.sheet.patientInfo
+      return this.sheetInfo.selectBlock || {};
     }
   },
   created() {

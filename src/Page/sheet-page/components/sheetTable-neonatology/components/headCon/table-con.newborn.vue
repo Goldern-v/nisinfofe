@@ -16,9 +16,9 @@
         >
       </colgroup>-->
       <colgroup>
-        <col width="25%">
-        <col width="20%">
-        <col width="55%">
+        <col width="25%" />
+        <col width="20%" />
+        <col width="55%" />
       </colgroup>
       <tr
         v-for="(tds,tdsIndex) in tables.tr"
@@ -66,7 +66,7 @@
                 :style="item.style"
                 :class="item.class"
                 :id="'CR-'+getKeyIdString(gkey)+'-'+tablesIndex+'-'+tdsIndex+'-'+gIndex+'-'+elkey"
-              >
+              />
               <label
                 :for="'CR-'+getKeyIdString(gkey)+'-'+tablesIndex+'-'+tdsIndex+'-'+gIndex+'-'+elkey"
               >{{item.label}}</label>
@@ -101,7 +101,7 @@
                   :src="signUrl(formatData.data.formData['empNo'])"
                   style="margin: 0px 0 0 0"
                   :alt="formatData.data.formData['empNo']"
-                >
+                />
               </span>
 
               <span v-html="item.postText"></span>
@@ -323,6 +323,7 @@
 import dayjs from "dayjs";
 import sheetInfo from "../../../../components/config/sheetInfo";
 import { data, tables } from "./formatData";
+import { getLastDetail } from "@/api/common.js";
 export default {
   // mixins: [common],
   props: {
@@ -490,13 +491,54 @@ export default {
     },
     formModel() {
       return this.formatData.data.formData;
+    },
+    patientInfo() {
+      // return this.sheet.patientInfo
+      return this.sheetInfo.selectBlock || {};
     }
   },
   created() {
     data.initFormData(tables, {});
     data.cleanData();
-    Object.assign(this.formModel, sheetInfo.relObj);
-    sheetInfo.relObj = this.formModel;
+
+    /** 如果没有数据 */
+
+    if (Object.keys(sheetInfo.relObj).length == 0) {
+      getLastDetail(
+        "form_childbirth",
+        this.patientInfo.patientId,
+        this.patientInfo.visitId
+      ).then(res => {
+        var lastEvalData = {};
+        if (res.data.data && res.data.data.pageMap) {
+          let pageMap = res.data.data.pageMap;
+          lastEvalData = {
+            孕周: pageMap.form_childbirth_gnyz_explain,
+            分娩方式: pageMap.form_childbirth_temcfs_option
+              ? [pageMap.form_childbirth_temcfs_option]
+              : [],
+            羊水: pageMap.form_childbirth_pmsys_option
+              ? [pageMap.form_childbirth_pmsys_option.replace("°", "")]
+              : [],
+            皮肤: pageMap.form_childbirth_pifu_option
+              ? [pageMap.form_childbirth_pifu_option]
+              : [],
+            "1分钟Apgar评分": pageMap.form_childbirth_zf_1min,
+            "5分钟Apgar评分": pageMap.form_childbirth_zf_5min,
+            "10分钟Apgar评分": pageMap.form_childbirth_zf_10min,
+            体重: pageMap.form_childbirth_tz_explain,
+            身长: pageMap.form_childbirth_sc_explain,
+            头围: pageMap.form_childbirth_tw_explain
+          };
+        }
+        Object.assign(this.formModel, lastEvalData);
+        Object.assign(this.formModel, sheetInfo.relObj);
+        sheetInfo.relObj = this.formModel;
+      });
+    } else {
+      Object.assign(this.formModel, sheetInfo.relObj);
+      sheetInfo.relObj = this.formModel;
+    }
   },
   watch: {
     formModel: {

@@ -87,7 +87,7 @@
       width: 30px;
       border-radius: 50%;
       margin-right: 11px;
-      margin-left: -11px;
+      // margin-left: -11px;
     }
 
     .name {
@@ -221,15 +221,25 @@ export default {
     selectPatient(item) {
       this.selectPatientId = item.patientId;
       //
-      console.log('selectPatient',item,item.patientId,item.visitId,this.$route.path,this.$route)
+      console.log(
+        "selectPatient",
+        item,
+        item.patientId,
+        item.visitId,
+        this.$route.path,
+        this.$route
+      );
       //
       //
       if (this.isSelectPatient) {
         this.isSelectPatient(item);
-        this.$route.query.patientId = item.patientId
-        this.$route.query.visitId = item.visitId
+        this.$route.query.patientId = item.patientId;
+        this.$route.query.visitId = item.visitId;
         //
-        this.$store.commit('upCurrentPatientObj', JSON.parse(JSON.stringify(item)))
+        this.$store.commit(
+          "upCurrentPatientObj",
+          JSON.parse(JSON.stringify(item))
+        );
       }
     },
     isActive(item) {
