@@ -63,3 +63,13 @@ export function dictDelete(data) {
 export const getPatientInfo = (patientId, visitId) => {
   return axios.get(`${apiPath}patient/info/${patientId}/${visitId}`);
 };
+
+// 'getLastDetail form_childbirth',
+//获最新一张某种评估单信息
+export function getLastDetail(formCode, patientId, visitId) {
+  return axios.post(`${apiPath}/form/getLastDetail`, {
+    formCode,
+    patientId,
+    visitId,
+  });
+}

@@ -57,7 +57,7 @@
   position relative
   border-right 1px solid #CBD5DD
   position relative
-  transition: all .4s cubic-bezier(.55, 0, .1, 1); 
+  transition: all .4s cubic-bezier(.55, 0, .1, 1);
   background #fff
 .patient-list-contain
   padding 0px 8px 11px
@@ -89,7 +89,7 @@
       width: 30px;
       border-radius: 50%;
       margin-right: 11px;
-      margin-left: -11px;
+      // margin-left: -11px;
     }
     .name
       color #687179
@@ -131,7 +131,7 @@
   i
     font-size 12px
 .left-wapper
-  position relative   
+  position relative
   height 100%
 .todayPullCatheter
   position absolute
@@ -144,9 +144,9 @@
   border-style: solid;
   border-color: red transparent;
 .point-box
-  width 16px  
-  height 16px 
-  display: inline-block 
+  width 16px
+  height 16px
+  display: inline-block
   border: 1px solid #EAEEF1
   margin-left: 5px
   border-radius: 50%
@@ -167,7 +167,7 @@
   &.red:after
     background: #E62C2C
   &.green:after
-    background: #27A45E   
+    background: #27A45E
   &.isImg2 {
     left: 14px;
   }
@@ -175,7 +175,7 @@
   width 18px
   height 18px
   border-radius:2px;
-  border:1px solid rgba(203,213,221,1);    
+  border:1px solid rgba(203,213,221,1);
   display flex
   justify-content center
   align-items center

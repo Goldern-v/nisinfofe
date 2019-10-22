@@ -20,7 +20,7 @@ export let 头部标题一 = [
 ];
 
 // 孕周:    ；分娩方式: □顺产 □剖宫产  □吸引产   □产钳助产   □臀牵引
-// 羊水:□清  □Ⅰ  □Ⅱ  □Ⅲ；Apger评分：1分钟   分，5分钟   分，10分钟   分；
+// 羊水:□清  □Ⅰ  □Ⅱ  □Ⅲ；Apgar评分：1分钟   分，5分钟   分，10分钟   分；
 // 体重：   kg; 身长：   cm;头围：  cm;皮肤：□红润  □苍白  □紫绀
 // 头部：□正常   □产瘤           □血肿            □畸形
 // 胸部：□正常  □畸形           腹部：□正常  □畸形
@@ -87,7 +87,7 @@ export let 孕周信息 = [
   }
 ];
 
-// 羊水:□清  □Ⅰ  □Ⅱ  □Ⅲ；Apger评分：1分钟   分，5分钟   分，10分钟   分；
+// 羊水:□清  □Ⅰ  □Ⅱ  □Ⅲ；Apgar评分：1分钟   分，5分钟   分，10分钟   分；
 export let 羊水信息 = [
   {
     羊水: [
@@ -145,10 +145,10 @@ export let 羊水信息 = [
   },
   {
     // 单组标题
-    Apger评分: [
+    Apgar评分: [
       {
         label: "1分钟",
-        name: "1分钟Apger评分",
+        name: "1分钟Apgar评分",
         type: "text",
         contenteditable: true,
         class: "border-bottom border-none",
@@ -157,7 +157,7 @@ export let 羊水信息 = [
       },
       {
         label: "5分钟",
-        name: "5分钟Apger评分",
+        name: "5分钟Apgar评分",
         type: "text",
         contenteditable: true,
         class: "border-bottom border-none",
@@ -166,7 +166,7 @@ export let 羊水信息 = [
       },
       {
         label: "10分钟",
-        name: "10分钟Apger评分",
+        name: "10分钟Apgar评分",
         type: "text",
         contenteditable: true,
         class: "border-bottom border-none",
