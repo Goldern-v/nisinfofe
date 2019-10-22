@@ -176,7 +176,7 @@ import evalModel from "@/Page/sheet-page/components/modal/eval-model/eval-model.
 import { getHomePage } from "@/Page/sheet-page/api/index.js";
 import { decodeRelObj } from "@/Page/sheet-page/components/utils/relObj";
 import { sheetScrollBotton } from "@/Page/sheet-page/components/utils/scrollBottom";
-
+import { patients } from "@/api/lesion";
 export default {
   mixins: [common],
   data() {
@@ -353,18 +353,33 @@ export default {
       } else {
         this.scrollY = parseInt(e.target.scrollTop);
       }
+    },
+    getDate() {
+      if (this.deptCode) {
+        this.patientListLoading = true;
+        patients(this.deptCode, {}).then(res => {
+          let bedList = res.data.data.filter(item => {
+            return item.patientId;
+          });
+          sheetInfo.bedList = bedList;
+        });
+      }
     }
   },
+
   created() {
     // getListData1()
     // getListData2()
     // getListData3()
     // getListData4()
+    this.getDate();
     sheetInfo.isSave = true;
+
     this.$store.commit("upPatientInfo", {});
     setTimeout(() => {
       this.$store.commit("upPatientInfo", this.$route.query);
     }, 100);
+
     this.bus.$on("addSheetPage", () => {
       addSheetPage(() => {
         this.$nextTick(() => {
@@ -590,6 +605,11 @@ export default {
     });
   },
   watch: {
+    deptCode(val) {
+      if (val) {
+        this.getDate();
+      }
+    },
     sheetModel: {
       deep: true,
       handler() {

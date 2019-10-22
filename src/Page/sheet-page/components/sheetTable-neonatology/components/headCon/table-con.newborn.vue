@@ -502,39 +502,39 @@ export default {
     data.cleanData();
 
     /** 如果没有数据 */
-
-    if (Object.keys(sheetInfo.relObj).length == 0) {
-      getLastDetail(
-        "form_childbirth",
-        this.patientInfo.patientId,
-        this.patientInfo.visitId
-      ).then(res => {
-        var lastEvalData = {};
-        if (res.data.data && res.data.data.pageMap) {
-          let pageMap = res.data.data.pageMap;
-          lastEvalData = {
-            孕周: pageMap.form_childbirth_gnyz_explain,
-            分娩方式: pageMap.form_childbirth_temcfs_option
-              ? [pageMap.form_childbirth_temcfs_option]
-              : [],
-            羊水: pageMap.form_childbirth_pmsys_option
-              ? [pageMap.form_childbirth_pmsys_option.replace("°", "")]
-              : [],
-            皮肤: pageMap.form_childbirth_pifu_option
-              ? [pageMap.form_childbirth_pifu_option]
-              : [],
-            "1分钟Apgar评分": pageMap.form_childbirth_zf_1min,
-            "5分钟Apgar评分": pageMap.form_childbirth_zf_5min,
-            "10分钟Apgar评分": pageMap.form_childbirth_zf_10min,
-            体重: pageMap.form_childbirth_tz_explain,
-            身长: pageMap.form_childbirth_sc_explain,
-            头围: pageMap.form_childbirth_tw_explain
-          };
+    /** 找到父母的id */
+    let p_id = this.patientInfo.patientId.split("_")[0];
+    let p_obj = sheetInfo.bedList.find(item => item.patientId == p_id);
+    if (Object.keys(sheetInfo.relObj.length == 0) && p_obj) {
+      getLastDetail("form_childbirth", p_obj.patientId, p_obj.visitId).then(
+        res => {
+          var lastEvalData = {};
+          if (res.data.data && res.data.data.pageMap) {
+            let pageMap = res.data.data.pageMap;
+            lastEvalData = {
+              孕周: pageMap.form_childbirth_gnyz_explain,
+              分娩方式: pageMap.form_childbirth_temcfs_option
+                ? [pageMap.form_childbirth_temcfs_option]
+                : [],
+              羊水: pageMap.form_childbirth_pmsys_option
+                ? [pageMap.form_childbirth_pmsys_option.replace("°", "")]
+                : [],
+              皮肤: pageMap.form_childbirth_pifu_option
+                ? [pageMap.form_childbirth_pifu_option]
+                : [],
+              "1分钟Apgar评分": pageMap.form_childbirth_zf_1min,
+              "5分钟Apgar评分": pageMap.form_childbirth_zf_5min,
+              "10分钟Apgar评分": pageMap.form_childbirth_zf_10min,
+              体重: pageMap.form_childbirth_tz_explain,
+              身长: pageMap.form_childbirth_sc_explain,
+              头围: pageMap.form_childbirth_tw_explain
+            };
+          }
+          Object.assign(this.formModel, lastEvalData);
+          Object.assign(this.formModel, sheetInfo.relObj);
+          sheetInfo.relObj = this.formModel;
         }
-        Object.assign(this.formModel, lastEvalData);
-        Object.assign(this.formModel, sheetInfo.relObj);
-        sheetInfo.relObj = this.formModel;
-      });
+      );
     } else {
       Object.assign(this.formModel, sheetInfo.relObj);
       sheetInfo.relObj = this.formModel;
