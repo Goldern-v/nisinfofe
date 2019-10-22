@@ -8,10 +8,23 @@
     <!-- </div> -->
     <div v-if="isShow" class="table-of-content-box" :class="isShow?'':'table-show'" ref="tableOfContent" :style="{height:'auto'}">
       <!-- formGroupTitle -->
-      <div class="title-box">目录</div>
+      <div class="title-box">
+        <span class="flex-box">
+
+          <!-- <span v-if="currentMenu.title!='评估预警'" :class="{'actived':item.isActived}" v-for="(item,i) of menuList" :key="i" @click="switchMenu(item.title)" flex>{{item.title}}</span> -->
+
+          <span :class="{'actived':item.isActived}" v-for="(item,i) of menuList" :key="i" @click="switchMenu(item.title)" flex>
+            <span>{{item.title}}</span>
+            <el-badge v-if="item.title=='评估预警'" :value="alertList.length" :max="99" class="el-badge-item" >
+            </el-badge>
+          </span>
+        </span>
+      </div>
+
       <div class="container" :style="{height:(wih-100)+'px'}">
         <div class="list-box">
-        <ul>
+        <!-- 目录 -->
+        <ul v-show="currentMenu.title=='目录'">
           <li
             v-for="(t,i) in formObj.body"
             v-if="t.type ==='formGroupTitle'"
@@ -30,6 +43,12 @@
             <span v-if="formatTitle(t.title+(missingItems&&missingItems[t.title]?`(漏${missingItems[t.title].length}项)`:'')).length<=16" :class="{'missing-items':missingItems&&missingItems[t.title]}">{{formatTitle(t.title+(missingItems&&missingItems[t.title]?`(漏${missingItems[t.title].length}项)`:''))}}</span>
           </li>
           <!-- <a :href="'#'+t.title">{{t.title}}</a> -->
+        </ul>
+
+        <!-- 预警 -->
+        <ul v-show="currentMenu.title=='评估预警'">
+          <li v-if="alertList&&alertList.length>0" v-for="(item,i) of alertList" :key="i" @click="scrollToByName($event,item.name)"><span class="alert-li-message">{{i+1}}.{{item.message}}</span></li>
+          <li v-if="alertList&&alertList.length==0">暂无预警</li>
         </ul>
         </div>
       </div>
@@ -55,10 +74,26 @@ export default {
     return {
       contentImgae: null,
       isShow: true,
-      missingItems: null
+      missingItems: null,
+      menu:[
+        {title:"目录",isActived:true,content:[]},
+        {title:"评估预警",isActived:false,content:[]}
+      ],
+      currentMenu: {title:"目录",isActived:true,content:[]},//"目录",
+      alertMessageItems:[
+        // {message:"评估预警1",title:"2.5 骨骼、肌、皮肤系统"},
+        // {message:"评估预警2",title:"2.9.2 五官"},
+        // {message:"评估预警3",title:"一、基础评估"}
+      ]
     };
   },
   computed: {
+    menuList(){
+      return this.menu
+    },
+    alertList(){
+      return this.alertMessageItems
+    }
     // missingItems(){
     //   return window.formObj&&window.formObj.missingItems?window.formObj.missingItems:null
     // }
@@ -83,8 +118,16 @@ export default {
   mounted() {
     this.contentImgae = require("./image/锚点定位.png");
 
+    // if(!this.$root.$refs.tableOfContent){
+      this.$root.$refs['tableOfContent']= this.$refs['tableOfContent']
+    // }
+
     if(this.$root.$refs.tableOfContent){
       this.$root.$refs.tableOfContent['updateMissingItems'] = this.updateMissingItems
+      this.$root.$refs.tableOfContent['updateAlertMessageItems'] = this.updateAlertMessageItems
+      this.$root.$refs.tableOfContent['getAlertMessageItems'] = ()=>{
+        return this.alertMessageItems;
+      }
     }
 
     // document.querySelector('.sheetTable-contain').scrollTop
@@ -98,12 +141,65 @@ export default {
       console.log('updateMissingItems',missingItems)
       this.missingItems = missingItems
     },
+    updateAlertMessageItems(alertMessageItems){
+      // console.log('updateAlertMessageItems',alertMessageItems)
+      this.alertMessageItems = alertMessageItems
+    },
     scrollTo(e, title) {
       let target = document.querySelector(".sheetTable-contain");
       // let target = document.querySelector(".pages");
       let currentY = target.scrollTop;
-      let targetY = document.querySelector(`a[name="${title}"]`).offsetTop;
-      this.scrollAnimation(target, currentY, targetY - 20);
+      let targetY = document.querySelector(`a[name="${title}"]`) || document.querySelector(`[name="${title}"]`)
+      if(!targetY){return}
+      //
+      let targetYoffset = targetY.offsetTop;
+      this.scrollAnimation(target, currentY, targetYoffset - 20);
+    },
+    scrollToByName(e, name) {
+      let target = document.querySelector(".sheetTable-contain");
+      // let target = document.querySelector(".pages");
+      let currentY = target.scrollTop;
+      let targetY = document.querySelector(`[name="${name}"]`)
+      if(!targetY||!name){return}
+      //
+      //
+      let targetBound = target.getBoundingClientRect()
+
+      let targetYoffset = targetY.getBoundingClientRect().top - targetBound.top;
+      //
+      let top = targetY.getBoundingClientRect().top
+      //
+      // console.log('scrollToByName',e,name,[targetY],[targetBound],[targetY.getBoundingClientRect()],targetYoffset,[top,targetBound.top])
+      let needScrollTop = top-150
+      //
+      let animation = ()=>{
+        top = targetY.getBoundingClientRect().top;
+        setTimeout(() => {
+          needScrollTop = Math.abs(top-140)
+          const dist = Math.ceil(needScrollTop / 10);
+          if(top>150){
+            target.scrollTop += dist
+          }else if(top<120){
+            target.scrollTop -= dist
+          }
+          if(top && (top>150 || top<0 || top<120)){
+            animation()
+          }
+        }, 1);
+      }
+      animation()
+      //
+      // do{
+      //   top = targetY.getBoundingClientRect().top;
+      //   needScrollTop = Math.abs(top-140)
+      //   const dist = Math.ceil(needScrollTop / 10);
+      //   if(top>150){
+      //     target.scrollTop += dist
+      //   }else if(top<120){
+      //     target.scrollTop -= dist
+      //   }
+      // }while(top && (top>150 || top<0 || top<120))
+      // this.scrollAnimation(target, currentY, targetYoffset - 20);
     },
     scrollAnimation(element, currentY, targetY) {
       if (!element) {
@@ -142,6 +238,16 @@ export default {
         result = title.substring(0,limt)+'..'
       }
       return result
+    },
+    switchMenu(title){
+      this.menu.map(item=>{
+        if(item.title==title){
+          item.isActived=true
+          this.currentMenu=item
+        }else{
+          item.isActived=false
+        }
+      })
     }
   }
 };
@@ -169,12 +275,32 @@ export default {
 }
 
 .title-box {
-  height: 13px;
-  background: #F1F1F5;
-  padding: 10px;
+  height: 33px;
+  background: #f1f1f5;
+  padding: 0px 0px;
   font-size: 13px;
   position: fixed;
-  width:200px;
+  width: 220px;
+}
+
+.flex-box{
+  display:flex;
+  height:100%;
+  [flex]{
+    flex: 1;
+    cursor:pointer;
+    align-items: center;
+    justify-content: center;
+    &:hover{
+      color: #4baf8d;
+      transition: color 0.3s;
+      // background: #fbfafa;
+      border-top: 4px solid #4bb08d;
+    }
+  }
+  .actived{
+    background: white;
+  }
 }
 
 .container {
@@ -279,5 +405,26 @@ a {
   border-radius: 0px;
 }
 
+.el-badge-item{
+  // margin-top: 10px;
+  // margin-right: 40px;
+}
+
+>>>.el-badge__content {
+    background-color: #ff4949;
+    border-radius: 10px;
+    color: #fff;
+    display: inline-block;
+    font-size: 11px;
+    height: 12px;
+    line-height: 13px;
+    padding: 0px 4px;
+    text-align: center;
+    border: 1px solid #ff4949;
+}
+
+.alert-li-message {
+  color:red;
+}
 
 </style>

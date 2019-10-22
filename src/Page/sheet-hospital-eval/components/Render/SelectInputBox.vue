@@ -114,7 +114,8 @@ export default {
       isShowDownList: false,
       readOnly: false,
       isClone: false,
-      alertMessage: ""
+      alertMessage: "",
+      alertActived:false
     };
   },
   computed: {},
@@ -195,6 +196,7 @@ export default {
         this.obj.rule &&
         this.obj.rule.constructor === Array
       ) {
+        this.alertActived = false
         // console.log("rule:", this.obj.rule);
         // 遍历规则
         this.obj.rule.map(r => {
@@ -209,6 +211,7 @@ export default {
             if (r.message) {
               console.log("rule:message", r.message);
               this.alertMessage = r.message + "";
+              this.alertActived = true;
             }
             // this.obj.style = Object.assign({}, this.obj.style, r.style);
           } else if (r.equal && r.equal === valueNew) {
@@ -226,6 +229,7 @@ export default {
             if (r.message && valueNew) {
               console.log("rule:message", r.message);
               this.alertMessage = r.message + "";
+              this.alertActived = true;
             }
             // this.obj.style = Object.assign({}, this.obj.style, r.style);
           } else if (r.scoreMin || r.scoreMax) {
@@ -268,6 +272,39 @@ export default {
             }
           }
         });
+        //
+        let alertMessageItems = [...this.$root.$refs.tableOfContent.getAlertMessageItems()]
+
+        //
+        // if(this.$root.$refs['tableOfContent']){
+          // 未有预警
+          if(this.alertActived){
+            // console.log('规则预警结果：SELECT:getAlertMessageItems:',this.alertActived,this.$root.$refs.tableOfContent.getAlertMessageItems())
+            let hasAlertMessage = false
+            for (let iterator of alertMessageItems) {
+              if(iterator.name && iterator.name == this.obj.name){
+                iterator.message = this.alertMessage
+                hasAlertMessage = true
+                break;
+              }
+            }
+            if(hasAlertMessage==false){
+              alertMessageItems = [...alertMessageItems, {message:this.alertMessage,name:this.obj.name,title:(this.obj.title||this.obj.label)}]
+            }
+            this.$root.$refs.tableOfContent.updateAlertMessageItems(alertMessageItems)
+
+          }else{
+            // if(this.alertMessage){
+            // console.log('规则预警结果：SELECT:getAlertMessageItems:',this.alertActived,this.alertMessage,this.$root.$refs.tableOfContent.getAlertMessageItems())
+            alertMessageItems = alertMessageItems.filter(item=>{
+              return item.name && item.name != this.obj.name
+            })
+            this.$root.$refs.tableOfContent.updateAlertMessageItems(alertMessageItems)
+            // }
+          }
+        // }
+        //
+
       }
       try {
         this.$refs[this.obj.name].$refs.input.style = this.obj.style;

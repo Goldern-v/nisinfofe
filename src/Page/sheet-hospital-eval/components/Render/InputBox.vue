@@ -115,7 +115,8 @@ export default {
       isShow: true,
       isClone: false,
       alertMessage: "",
-      alertImg: require("./image/预警@2x.png")
+      alertImg: require("./image/预警@2x.png"),
+      alertActived:false
     };
   },
   computed: {},
@@ -263,7 +264,8 @@ export default {
     }
   },
   methods: {
-    checkValueRule(valueNew) {
+    checkValueRule(valueNew,repeat=null) {
+      // if(!repeat){return}
       let textResult = valueNew;
       this.obj.style = "";
       this.alertMessage = "";
@@ -272,8 +274,8 @@ export default {
         this.obj.rule &&
         this.obj.rule.constructor === Array
       ) {
-        console.log("rule:", this.obj.rule);
-
+        // console.log("rule:", this.obj.rule);
+        this.alertActived = false
         // 遍历规则
         this.obj.rule.map(r => {
           try {
@@ -316,6 +318,10 @@ export default {
                 //   result ? result.toFixed(2) : ""
                 // );
                 this.formObj.model[r.result] = result ? result.toFixed(2) : "";
+                //
+                if(repeat==null){
+                  this.getValueRule(r.result,result ? result.toFixed(2) : "",false)
+                }
               }
             }
 
@@ -325,6 +331,8 @@ export default {
               if (r.message) {
                 console.log("rule:message", r.message);
                 this.alertMessage = r.message + "";
+                this.alertActived = true;
+                // return;
               }
               // 替换显示 r.display
               if (
@@ -344,6 +352,8 @@ export default {
               if (r.message) {
                 console.log("rule:message", r.message);
                 this.alertMessage = r.message + "";
+                this.alertActived = true;
+                // return;
               }
               // this.$refs[this.obj.name].$refs.input.style = this.obj.style;
               // 替换显示 r.display
@@ -418,6 +428,38 @@ export default {
             console.log('---error',error)
           }
         });
+
+        //
+        let alertMessageItems = [...this.$root.$refs.tableOfContent.getAlertMessageItems()]
+
+        // if(this.$root.$refs['tableOfContent']){
+          // 未有预警
+          if(this.alertActived){
+            // console.log('规则预警结果：SELECT:getAlertMessageItems:',this.alertActived,this.$root.$refs.tableOfContent.getAlertMessageItems())
+            let hasAlertMessage = false
+            for (let iterator of alertMessageItems) {
+              if(iterator.name && iterator.name == this.obj.name){
+                iterator.message = this.alertMessage
+                hasAlertMessage = true
+                break;
+              }
+            }
+            if(hasAlertMessage==false){
+              alertMessageItems = [...alertMessageItems, {message:this.alertMessage,name:this.obj.name,title:(this.obj.title||this.obj.label)}]
+            }
+            this.$root.$refs.tableOfContent.updateAlertMessageItems(alertMessageItems)
+
+          }else{
+            // if(this.alertMessage){
+            // console.log('规则预警结果：SELECT:getAlertMessageItems:',this.alertActived,this.alertMessage,this.$root.$refs.tableOfContent.getAlertMessageItems())
+            alertMessageItems = alertMessageItems.filter(item=>{
+              return item.name && item.name != this.obj.name
+            })
+            this.$root.$refs.tableOfContent.updateAlertMessageItems(alertMessageItems)
+            // }
+          }
+        // }
+        //
       }
       // if (this.$refs && this.$refs[this.obj.name]) {
       try {
@@ -587,6 +629,14 @@ export default {
       ) {
         this.property[this.obj.title] = this.inputValue;
       }
+      // if (e.target.tagName !== "INPUT") {
+      //   e.target.innerText = data.name;
+      // }
+      // if (e.target.tagName === "INPUT") {
+      //   e.target.value = data.name;
+      // }
+      // this.setElementValue(child.name, this.inputValue||e.target.innerText)
+      // this.getValueRule(child.name, this.inputValue||e.target.innerText)
     },
     inputClick(e, child) {
       console.log("inputClick", e, child, this.formObj.model, e.target.tagName);
@@ -731,10 +781,10 @@ export default {
       })
       return result
     },
-    getValueRule(key,value){
+    getValueRule(key,value,repeat=true){
       let textResult = ""
       Object.keys(this.$root.$refs[key]).map(elkey=>{
-        textResult = this.$root.$refs[key][elkey].checkValueRule(value);
+        textResult = this.$root.$refs[key][elkey].checkValueRule(value,repeat);
       })
       return textResult
     }
