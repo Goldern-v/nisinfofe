@@ -133,6 +133,14 @@ export default {
 
     this.initial();
     this.loading = false;
+
+
+
+  },
+  mounted() {
+    //
+    window.formTool ={...window.formTool, fillForm:this.fillForm}
+
   },
   methods: {
     initial(patient = null) {

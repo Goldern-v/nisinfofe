@@ -617,6 +617,10 @@ export default {
             console.log("保存评估", res);
             this.$message.success("保存成功");
             this.bus.$emit("setHosptialEvalLoading", false);
+            // 更新住院单
+            try {window.formTool.fillForm()} catch (error) {}
+
+            //
             if(showMeasure){
               this.showMeasureDetialBox(res);
             }
@@ -695,6 +699,7 @@ export default {
   },
   mounted() {
     let tool = {
+      ...window.formTool,
       formSave: this.formSave,
       // formDelete: this.formDelete,
       // reloadForm: this.reloadForm
