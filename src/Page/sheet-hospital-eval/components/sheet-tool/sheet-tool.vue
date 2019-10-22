@@ -640,6 +640,36 @@ export default {
             });
           });
       }
+    },
+    hotkeyForm() {
+      window.document.onkeydown = e => {
+        var currKey = 0;
+        e = e || event || window.event;
+        currKey = e.keyCode || e.which || e.charCode;
+        var currKeyStr = String.fromCharCode(currKey);
+        // console.log('currKeyStr',currKeyStr)
+        // Ctrl / Command +
+        if ((e.ctrlKey || e.metaKey)) {
+          let text = window.getSelection().toString()
+          switch (currKeyStr.toUpperCase()) {
+            case "S": //Ctrl+S
+              e.preventDefault();
+              e.returnvalue = false;
+              this.formSave({showMeasure:false})
+              e.stopPropagation();
+              break;
+            case "N": //Ctrl+N
+              console.log('新建页面')
+              // createForm()
+              break;
+            case "C": //Ctrl+C
+              console.log('复制', text)
+              break;
+            default:
+              break;
+          }
+        }
+      };
     }
   },
   computed: {
@@ -670,6 +700,9 @@ export default {
       // reloadForm: this.reloadForm
     };
     window.formTool = tool;
+    //
+    this.hotkeyForm()
+    //
   },
   watch: {},
   components: {}

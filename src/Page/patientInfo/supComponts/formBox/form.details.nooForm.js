@@ -698,7 +698,7 @@ form_internal_first_dvt_or_pte_score form_internal_first_dvt_or_pte_option
       // border-bottom
       //
       wid.setFormData(formCodeSource + "_ddfxpg_score", evalscore);
-      // wid.setFormData(formCodeSource + "_ddpf", evalscore);
+      wid.setFormData(formCodeSource + "_ddpf", evalscore);
 
       // jQuery("[name$='ycfxpf_option'][value*='有']",wid.document).prop("checked", "checked");
       // jQuery("[name$='ddfxpg_score']",wid.document).prop("value", evalscore);
