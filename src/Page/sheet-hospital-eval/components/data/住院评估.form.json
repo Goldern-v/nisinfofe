@@ -3846,7 +3846,7 @@
           "name": "I100127",
           "type": "input",
           "title": "Barden压疮风险",
-          "inputWidth": "197px",
+          "inputWidth": "198px",
           "leftTdStyle": "min-width:100px!important",
           "elementStyle": "width: 270px;",
           "style": null,
@@ -4147,7 +4147,7 @@
       "name": "I100020",
       "type": "formGroupColBox",
       "col": 2,
-      "title": "GCS评估",
+      "title": "GCS格拉斯哥昏迷评估",
       "message": "",
       "require": "false",
       "prefixDesc": "",
@@ -4160,8 +4160,10 @@
         {
           "name": "I100020",
           "type": "input",
-          "title": "GCS评估",
-          "inputWidth":"231px!important",
+          "title": "GCS格拉斯哥昏迷评估",
+          "inputWidth": "173px",
+          "leftTdStyle": "min-width:125px!important",
+          "elementStyle": "width: 270px;",
           "style": null,
           "class": null,
           "readOnly": true,
@@ -4191,7 +4193,13 @@
             "parentName": "I100342",
             "type": "independent",
             "showHead": "true"
-          }
+          },
+          "rule": [
+            {
+              "indexOf": "风险",
+              "style": "color: red;border-color: red;"
+            }
+          ]
         }
       ]
     },

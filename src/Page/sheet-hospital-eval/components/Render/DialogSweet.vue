@@ -326,12 +326,18 @@ export default {
           //   [this.$root.$refs[key]],
           //   // this.$root.$refs[key].type||''
           // );
+          //
+          if(key == "evalDesc" && model["evalScore"]){
+              // checkValueRule
+              value = this.getValueRule(key,model["evalScore"])
+              model[key] = value
+              this.setElementValue("evalDesc",value)
+            console.log('!!!结果程度',key,model,model[key],model["evalScore"])
+          }
 
           if (!value || !this.$root.$refs[key]) {
             continue;
           }
-
-
 
           // if (
           //   this.$root.$refs.hasOwnProperty(key) > -1 &&
