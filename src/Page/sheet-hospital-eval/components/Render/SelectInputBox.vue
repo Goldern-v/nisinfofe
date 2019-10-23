@@ -188,7 +188,7 @@ export default {
   },
   methods: {
     checkValueRule(valueNew, isClick) {
-      let textResult = valueNew;
+      let textResult = valueNew+"";
       this.obj.style = "";
       this.alertMessage = "";
       if (
@@ -281,15 +281,30 @@ export default {
           if(this.alertActived){
             // console.log('规则预警结果：SELECT:getAlertMessageItems:',this.alertActived,this.$root.$refs.tableOfContent.getAlertMessageItems())
             let hasAlertMessage = false
+            let title = (this.obj.title||this.obj.label||"")
+            let tips = `<span><span style="color:green">${title}</span>:${valueNew||""}<span style="color:chocolate">${this.obj.suffixDesc||""}</span></span><br><span style="color:red">预警:${this.alertMessage}</span>`
+            //
             for (let iterator of alertMessageItems) {
               if(iterator.name && iterator.name == this.obj.name){
                 iterator.message = this.alertMessage
+                iterator["value"] = valueNew
+                iterator["tips"] = tips
                 hasAlertMessage = true
                 break;
               }
             }
             if(hasAlertMessage==false){
-              alertMessageItems = [...alertMessageItems, {message:this.alertMessage,name:this.obj.name,title:(this.obj.title||this.obj.label)}]
+              alertMessageItems = [
+                ...alertMessageItems,
+                {
+                  message:this.alertMessage,
+                  name:this.obj.name,
+                  title:title,
+                  obj:this.obj,
+                  value:valueNew,
+                  tips: tips
+                }
+              ]
             }
             this.$root.$refs.tableOfContent.updateAlertMessageItems(alertMessageItems)
 

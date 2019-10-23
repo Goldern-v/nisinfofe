@@ -44,10 +44,14 @@
         <!-- 页面尾部 -->
         <FormFooter :obj="formObj.footer" :formObj="formObj"/>
 
-        <!-- TableOfContent -->
-        <TableOfContent :formObj="formObj"/>
+
       </div>
     </div>
+
+    <!-- TableOfContent -->
+    <TableOfContent :formObj="formObj"/>
+
+
   </div>
 </template>
 
