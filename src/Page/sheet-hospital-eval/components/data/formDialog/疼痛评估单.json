@@ -116,7 +116,7 @@
           "readOnly": null
         },
         {
-          "name": "signerName",
+          "name": "updaterName",
           "type": "input",
           "title": "评估人",
           "value": "",

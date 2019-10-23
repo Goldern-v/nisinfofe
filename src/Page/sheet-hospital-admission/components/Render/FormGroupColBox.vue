@@ -186,12 +186,13 @@ export default {
     width: 100%
     display inline-flex
     height: 28px;
+    align-items: center;
     // justify-content: space-between
   .left-td
     // border 1px solid green
     width: 100%
     // max-width: 100px
-    margin: 10px 0px 0 4px
+    // margin: 10px 0px 0 4px
     text-align: left
     font-size: 12px;
   .right-td

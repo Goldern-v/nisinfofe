@@ -302,7 +302,7 @@ export default {
   color:#c1c1c1;
   line-height:17px;
   top: 10px;
-  left: 25px;
+  left: 50px;
   position: absolute;
 }
 
