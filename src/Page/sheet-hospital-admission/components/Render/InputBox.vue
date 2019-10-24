@@ -94,17 +94,17 @@ export default {
         console.log("obj:", this.obj);
       }
       /** 如果存在clone ref */
-      setTimeout(() => {
-        if (this.isClone) {
-          this.$root.$refs[this.obj.name].setCurrentValue(valueNew);
-          this.$root.$refs[this.obj.name].$parent.checkValueRule(valueNew);
-        } else if (this.$root.$refs[this.obj.name + "_clone"]) {
-          this.$root.$refs[this.obj.name + "_clone"].setCurrentValue(valueNew);
-          this.$root.$refs[this.obj.name + "_clone"].$parent.checkValueRule(
-            valueNew
-          );
-        }
-      }, 100);
+      // setTimeout(() => {
+      //   if (this.isClone) {
+      //     this.$root.$refs[this.obj.name].setCurrentValue(valueNew);
+      //     this.$root.$refs[this.obj.name].$parent.checkValueRule(valueNew);
+      //   } else if (this.$root.$refs[this.obj.name + "_clone"]) {
+      //     this.$root.$refs[this.obj.name + "_clone"].setCurrentValue(valueNew);
+      //     this.$root.$refs[this.obj.name + "_clone"].$parent.checkValueRule(
+      //       valueNew
+      //     );
+      //   }
+      // }, 100);
 
       return valueNew;
     },

@@ -57,6 +57,12 @@
               <span v-html="item.tips||item.message||''"></span>
             </div>
               <span style="display:flex">
+                <i style="align-items:center;display:flex;margin-right:3px"><img
+                  :src="alertImg"
+                  :alt="item.title"
+                  :name="`${item.name}_${item.title}_${item.label}_img`"
+                  width="14"
+                /></i>
               <span class="alert-li-message">{{item.message}}</span>
               <span style="font-size:10px">
                 <span style="color:red">{{item.value}}</span><span style="color:grey">{{item.obj.suffixDesc?item.obj.suffixDesc+'|':''}}</span>
@@ -74,7 +80,7 @@
           <!-- 评估任务 -->
           <ul v-show="currentMenu.title=='评估预警'&&evalTaskList&&evalTaskList.length>0">
           <hr>
-          <span style="padding:8px">评估任务</span>
+          <span style="padding:8px">复评任务</span>
           <li v-for="(item,i) of evalTaskList" :key="i" @click="scrollToByName($event,item.name)">
             <el-tooltip
               effect="light"
@@ -83,13 +89,20 @@
             >
             <div slot="content" style="max-width:200px">
               <!-- <span v-html="item.tips||item.message||''"></span> -->
-              <span style="color:green">{{item.title?item.title.replace('（住院评估单）（复评）',''):''}}：</span>{{item.itemValue}}<br>
-              <span style="color:green">定义：</span>{{item.remark}}<br>
-              <span style="color:green">复评时间段：</span>{{item.beginTime}}-{{item.expectedEndTime}}
+              <span style="color:green">{{item.title?item.title.replace('（住院评估单）（复评）',''):''}}：</span><br>{{item.itemValue}}<br>
+              <span style="color:green">定义：</span><br>{{item.remark}}<br>
+              <span style="color:green">复评时间段：</span><br>
+              <span>开始时间：{{item.beginTime}}</span><br><span>结束时间：{{item.expectedEndTime}}</span>
             </div>
               <span style="display:flex">
+                <i style="align-items:center;display:flex;margin-right:3px"><img
+                  :src="alertImg"
+                  :alt="item.title"
+                  :name="`${item.name}_${item.title}_${item.label}_img`"
+                  width="14"
+                /></i>
               <span class="alert-li-message">{{item.remark||item.message||''}}</span>
-              <span>{{item.title?item.title.replace('（住院评估单）',''):''}}</span>
+              <span>{{item.title?item.title.replace('（住院评估单）（复评）',''):''}}</span>
               </span>
             </el-tooltip>
           </li>
@@ -131,7 +144,8 @@ export default {
         // {message:"评估预警1",title:"2.5 骨骼、肌、皮肤系统"},
         // {message:"评估预警2",title:"2.9.2 五官"},
         // {message:"评估预警3",title:"一、基础评估"}
-      ]
+      ],
+      alertImg: require("./image/预警@2x.png"),
     };
   },
   computed: {
