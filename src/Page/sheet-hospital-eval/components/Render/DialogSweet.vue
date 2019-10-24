@@ -888,15 +888,19 @@ export default {
       return uuid_;
     },
     setElementValue(key,value){
-      Object.keys(this.$root.$refs[key]).map(elkey=>{
-        this.$root.$refs[key][elkey].setCurrentValue(value);
-      })
+      try {
+        Object.keys(this.$root.$refs[key]).map(elkey=>{
+          this.$root.$refs[key][elkey].setCurrentValue(value);
+        })
+      } catch (error) {}
     },
     getValueRule(key,value){
       let textResult = ""
-      Object.keys(this.$root.$refs[key]).map(elkey=>{
-        textResult = this.$root.$refs[key][elkey].checkValueRule(value);
-      })
+      try {
+        Object.keys(this.$root.$refs[key]).map(elkey=>{
+          textResult = this.$root.$refs[key][elkey].checkValueRule(value);
+        })
+      } catch (error) {}
       return textResult
     },
     saveEvalForm(){

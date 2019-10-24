@@ -89,7 +89,7 @@
   "model": {},
   "body": [
     {
-      "name": "I003001",
+      "name": "signerName",
       "type": "formGroupColBox",
       "col": 3,
       "title": "",
@@ -97,13 +97,13 @@
       "require": "false",
       "prefixDesc": "",
       "suffixDesc": "",
-      "keys": "I003001",
+      "keys": "signerName",
       "style": null,
       "classes": null,
       "readOnly": null,
       "children": [
         {
-          "name": "I003001",
+          "name": "signerName",
           "type": "input",
           "title": "评估人",
           "inputWidth":"100px",
@@ -114,7 +114,7 @@
           "readOnly": true
         },
         {
-          "name": "I003001",
+          "name": "status",
           "type": "input",
           "title": "状态",
           "inputWidth":"100px",

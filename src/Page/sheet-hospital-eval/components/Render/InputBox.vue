@@ -1,10 +1,10 @@
 
 <template>
-  <span>
+  <span style="display:inline-flex;">
     <!-- 警报icon -->
     <div
       v-if="obj.type==='input' && alertMessage"
-      :class="obj.suffixDesc?'alert-message-post':'alert-message'"
+      :class="(obj.suffixDesc||obj.postText)?'alert-message-post':'alert-message'"
     >
       <el-tooltip class="item" effect="light" :enterable="false" placement="top">
         <div class="el-tooltip-content" slot="content">
@@ -46,6 +46,7 @@
         :style="[obj.style, obj.inputWidth && {width: obj.inputWidth}]"
         :ref="obj.name"
         :name="obj.name"
+        :title="obj.title || obj.label"
         v-if="obj.type==='input'"
         :placeholder="obj.dialog ? '点击评估' : (obj.placeholder?obj.placeholder:'空')"
         :class="model === 'development' ? 'development-model' : (obj.class||'')"
@@ -409,6 +410,12 @@ export default {
                   for (let i = 0; i < arr.length; i++) {
                     if (arr[i] && arr[i] > r.maxs[i]) {
                       this.obj.style = r.style;
+                      if (r.message) {
+                        console.log("rule:message", r.message);
+                        this.alertMessage = r.message + "";
+                        this.alertActived = true;
+                        // return;
+                      }
                     }
                   }
                 }
@@ -419,6 +426,12 @@ export default {
                   for (let i = 0; i < arr.length; i++) {
                     if (arr[i] && arr[i] <= r.mins[i]) {
                       this.obj.style = r.style;
+                      if (r.message) {
+                        console.log("rule:message", r.message);
+                        this.alertMessage = r.message + "";
+                        this.alertActived = true;
+                        // return;
+                      }
                     }
                   }
                 }
@@ -945,16 +958,17 @@ export default {
   cursor: pointer;
   color:red;
   font-size:12px;
-  // position: absolute;
-  // margin-top: 7px;
-  // margin-left: 8px;
+  position: absolute!important;
+  margin-left: -10px!important;
+  margin-top: 0px;
+  z-index: 2;
 }
 
 .alert-message-post {
   cursor: pointer;
   color:red;
   font-size:12px;
-  position: absolute;
+  position: absolute!important;
   margin-left: -10px!important;
   margin-top: 0px;
   z-index: 2;

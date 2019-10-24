@@ -113,7 +113,7 @@
           "readOnly": null
         },
         {
-          "name": "updaterName",
+          "name": "signerName",
           "type": "input",
           "title": "评估人",
           "inputWidth":"120px",

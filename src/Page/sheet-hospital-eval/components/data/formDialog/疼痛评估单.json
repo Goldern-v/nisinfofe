@@ -116,7 +116,7 @@
           "readOnly": null
         },
         {
-          "name": "updaterName",
+          "name": "signerName",
           "type": "input",
           "title": "评估人",
           "value": "",
@@ -220,8 +220,11 @@
           "name": "I003004",
           "type": "select",
           "title": "活动时疼痛评分",
+          "titleStyle": "width:90px!important;margin:7px 0 0 0;",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "104px",
+          "hiddenTips": true,"titleSpanStyle":"margin-left:-25px!important",
           "suffixDesc": "",
-          "inputWidth":"104px",
           "style": null,
           "class": null,
           "readOnly": false,

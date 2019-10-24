@@ -350,7 +350,11 @@ export default {
         {
           label: "检查",
           onClick: e => {
-            this.formCheckEvalTask()
+            this.formSave({
+              showMeasure:false,
+              showLoading:false,
+              callback:this.formCheckEvalTask()
+            })
             console.log("检查");
           }
         }
@@ -586,7 +590,7 @@ export default {
         }
       });
     },
-    formSave({showMeasure=true,showLoading=true}={}){
+    formSave({showMeasure=true,showLoading=true,callback=null}={}){
       if (
         this.patientInfo &&
         this.patientInfo.hasOwnProperty("patientId")
@@ -645,6 +649,10 @@ export default {
             //
             if(showMeasure){
               this.showMeasureDetialBox(res);
+            }
+            //
+            if(callback){
+              callback()
             }
             //
             let {

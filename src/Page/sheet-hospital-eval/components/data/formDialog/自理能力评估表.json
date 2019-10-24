@@ -89,7 +89,7 @@
   "model": {},
   "body": [
     {
-      "name": "I003001",
+      "name": "evalDate",
       "type": "formGroupColBox",
       "col": 3,
       "title": "",
@@ -97,7 +97,7 @@
       "require": "false",
       "prefixDesc": "",
       "suffixDesc": "",
-      "keys": "I003001",
+      "keys": "evalDate",
       "style": null,
       "classes": null,
       "readOnly": null,
@@ -114,7 +114,7 @@
           "readOnly": null
         },
         {
-          "name": "updaterName",
+          "name": "signerName",
           "type": "input",
           "title": "评估人",
           "value": "",
@@ -669,7 +669,7 @@
       ]
     },
     {
-      "name": "I003001",
+      "name": "evalScore",
       "type": "formGroupColBox",
       "col": 3,
       "title": "",

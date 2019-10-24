@@ -349,11 +349,12 @@
             },
             {
               "split": "/",
+              "message": "血压异常",
               "mins": [
                 80,
                 60
               ],
-              "style": "color: blue;"
+              "style": "color: red;border-color: red;"
             }
           ]
         },
@@ -4196,7 +4197,7 @@
           },
           "rule": [
             {
-              "indexOf": "风险",
+              "indexOf": "自杀风险",
               "style": "color: red;border-color: red;"
             }
           ]
