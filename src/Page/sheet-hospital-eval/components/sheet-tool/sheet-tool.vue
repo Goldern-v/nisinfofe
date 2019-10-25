@@ -348,7 +348,7 @@ export default {
           }
         },
         {
-          label: "检查",
+          label: "复评检查",
           onClick: e => {
             this.formSave({
               showMeasure:false,

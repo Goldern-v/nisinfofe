@@ -15,7 +15,7 @@
 
           <span :class="{'actived':item.isActived}" v-for="(item,i) of menuList" :key="i" @click="switchMenu(item.title)" flex>
             <span>{{item.title}}</span>
-            <el-badge v-if="item.title=='评估预警'" :value="alertList.length" :max="99" class="el-badge-item" >
+            <el-badge v-if="item.title=='评估预警'" :value="alertList.length+evalTaskList.length" :max="99" class="el-badge-item" >
             </el-badge>
           </span>
         </span>
@@ -47,6 +47,9 @@
 
         <!-- 预警 -->
         <ul v-show="currentMenu.title=='评估预警'">
+          <span style="padding:8px">预警<span><el-badge v-if="alertList&&alertList.length>0" :value="alertList.length" :max="99" class="el-badge-item" >
+            </el-badge></span></span>
+
           <li v-if="alertList&&alertList.length>0" v-for="(item,i) of alertList" :key="i" @click="scrollToByName($event,item.name)">
             <el-tooltip
               effect="light"
@@ -76,11 +79,12 @@
           </ul>
 
 
-
+          <div style="height:10px"></div>
           <!-- 评估任务 -->
           <ul v-show="currentMenu.title=='评估预警'&&evalTaskList&&evalTaskList.length>0">
-          <hr>
-          <span style="padding:8px">复评任务</span>
+          <!-- <hr> -->
+          <span style="padding:8px">复评任务<span><el-badge v-if="evalTaskList&&evalTaskList.length>0" :value="evalTaskList.length" :max="99" class="el-badge-item" >
+            </el-badge></span></span>
           <li v-for="(item,i) of evalTaskList" :key="i" @click="scrollToByName($event,formatAlertTitle(item.title),'title')">
             <el-tooltip
               effect="light"
