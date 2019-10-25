@@ -231,7 +231,11 @@ export default {
     // this.post(this.parentEl,this.data[this.selectIndex])
   },
   mounted() {
-    this.$root.$refs.autoBox = this.$refs.autoBox;
+
+    if(this.$refs.autoBox){
+      this.$refs.autoBox['closeAutoBox'] = ()=>{return this.closeBox()}
+      this.$root.$refs.autoBox = this.$refs.autoBox;
+    }
 
     document.addEventListener("click", e => {
       if (e.target.tagName != "LI" && e.target.tagName != "INPUT") {

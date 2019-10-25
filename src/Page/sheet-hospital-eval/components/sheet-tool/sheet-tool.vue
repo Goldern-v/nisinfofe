@@ -233,6 +233,9 @@ export default {
         {
           label: "删除",
           onClick: e => {
+            //
+            try {window.app.$refs.autoBox.closeAutoBox()} catch (error) {}
+            //
             window.openSignModal((password, empNo) => {
               let post = {
                 id: this.formObj.model.id,
@@ -357,6 +360,9 @@ export default {
               callback:this.formCheckEvalTask()
             })
             console.log("检查");
+          },
+          getDisabled(selectBlock) {
+            if (!selectBlock.id) return true;
           }
         }
       ]
@@ -377,6 +383,8 @@ export default {
         status: true,
         msg: "新建表单中..."
       });
+      //
+      try {window.app.$refs.autoBox.closeAutoBox()} catch (error) {}
       let post = {
         patientId: this.patientInfo.patientId,
         visitId: this.patientInfo.visitId,
@@ -576,6 +584,9 @@ export default {
         formCode: "E0100"
       };
 
+      //
+      try {window.app.$refs.autoBox.closeAutoBox()} catch (error) {}
+
       try {
         this.$root.$refs.tableOfContent.updateCurrentMenu('评估预警');
       } catch (error) {console.log(error)}
@@ -611,6 +622,9 @@ export default {
             msg: msg+"表单中..."
           });
         }
+
+        //
+        try {window.app.$refs.autoBox.closeAutoBox()} catch (error) {}
 
         let post = {
           id: this.formId || "",
