@@ -17,7 +17,7 @@
             <tr v-for="(rows,i) in printData" :key="i">
               <td>{{i+1}}</td>
               <td>{{rows.bedLabel}}床</td>
-              <td>{{rows.name}}</td>
+              <td>{{rows.nameOrigin || rows.name}}</td>
               <td>{{rows.scheduleDate }}</td>
               <td>{{rows.examItem}}</td>
             </tr>

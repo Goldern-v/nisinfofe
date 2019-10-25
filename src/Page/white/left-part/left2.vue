@@ -125,7 +125,7 @@ export default {
           dest.push({
             isPrint: true,
             bedLabel: ai.bedLabel,
-            name: ai.nameOrigin,
+            name: ai.nameOrigin || ai.name,
             scheduleDate: ai.scheduleDate,
             data: [ai]
           });
