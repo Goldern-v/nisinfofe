@@ -456,7 +456,7 @@ export default {
               //
               let handleChild = children => {
                 if (children) {
-                  children.map(child => {
+                  children.map((child,cindex) => {
                     title =
                       children.aliasTitle ||
                       child.aliasTitle ||
@@ -474,7 +474,8 @@ export default {
                       if (this.formObj.model[child.name]) {
                         html += `<span style='margin-right:5px'><span style='color:green'>${title}</span>:<span>${this.formObj.model[child.name] ||
                           ""}${child.suffixDesc || ""}</span></span>`;
-                        hasNewLine?html+=newLine:html=html;
+                        // hasNewLine?html+=newLine:html=html;
+                        hasNewLine ? (html += newLine) : html+=((children.length!=(cindex+1))?',':'');
                       }
                       // else{
                       //   html += `<p style="color:red">${ title }:${this.formObj.model[child.name]||""}</p>`
@@ -495,7 +496,8 @@ export default {
                         html += `<span><span style='color:green'>${title}</span>:<span style='${child.style}'>${this
                           .formObj.model[child.name] || ""}${child.suffixDesc ||
                           ""}</span></span>`;
-                        hasNewLine?html+=newLine:html=html;
+                        // hasNewLine?html+=newLine:html=html;
+                        hasNewLine ? (html += newLine) : html+=((children.length!=(cindex+1))?',':'');
                       }
                       // else{
                       //   html += `<p style="color:red">${ title }:${this.formObj.model[child.name]||""}</p>`

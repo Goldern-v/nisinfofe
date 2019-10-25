@@ -1,0 +1,599 @@
+{
+  "pageSetting": {
+    "size": "4A",
+    "rotation": "portrait",
+    "margin": "0",
+    "width": "750px",
+    "height": "auto",
+    "mode": "de√elopment_",
+    "style": ""
+  },
+  "formSetting": {
+    "formTitle": {
+      "hospitalName": "东莞市厚街医院",
+      "formName": "住院患者自杀风险评估"
+    },
+    "formHeads": [
+      {
+        "name": "name",
+        "code": null,
+        "title": "姓名",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "sex",
+        "code": null,
+        "title": "性别",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "age",
+        "code": null,
+        "title": "年龄",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "wardName",
+        "code": null,
+        "title": "病区",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "bedLabel",
+        "code": null,
+        "title": "床号",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "inpNo",
+        "code": null,
+        "title": "住院号",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "admissionDate",
+        "code": null,
+        "title": "入院日期",
+        "class": "",
+        "style": "",
+        "show": true
+      }
+    ],
+    "formTail": {
+      "showEvalScore": false,
+      "showSign": true,
+      "showAudit": true
+    },
+    "formInfo": {
+      "formCode": "E0048",
+      "formApiCode": "E0048",
+      "formName": "住院患者自杀风险评估",
+      "status": "0",
+      "formType": "eval"
+    }
+  },
+  "dictionary": {},
+  "schemes": {},
+  "model": {},
+  "body": [
+    {
+      "name": "evalDate",
+      "type": "formGroupColBox",
+      "col": 3,
+      "title": "",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "evalDate",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "evalDate",
+          "type": "datePicker",
+          "title": "评估时间",
+          "code": "",
+          "placeholder": "评估时间",
+          "style": "width:145px",
+          "inputWidth":"145px",
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "signerName",
+          "type": "input",
+          "title": "评估人",
+          "code": "0",
+          "placeholder": "评估人",
+          "style": "width:80px",
+          "inputWidth":"80px",
+          "class": null,
+          "readOnly": true
+        },
+        {
+          "name": "status",
+          "type": "input",
+          "title": "状态",
+          "code": "0",
+          "placeholder": "状态",
+          "style": "width:80px",
+          "inputWidth":"80px",
+          "class": null,
+          "readOnly": true,
+          "rule": [
+            {
+              "equals": [
+                "-1",
+                "未保存"
+              ],
+              "style": "color:gray",
+              "display": "未签名"
+            },
+            {
+              "equals": [
+                "0",
+                "已保存 "
+              ],
+              "style": "color:blue",
+              "display": "未签名"
+            },
+            {
+              "equals": [
+                "1",
+                "已签名"
+              ],
+              "style": "color:red",
+              "display": "已签名"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "",
+      "type": "formGroupTitle",
+      "level": "1",
+      "title": "一、评估内容",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "type": "formGroupVerticalBox",
+      "title": "1分项",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I048001",
+          "type": "checkbox",
+          "title": "1、患者患有难以治愈的严重躯体疾病（如恶性肿瘤、重要脏器衰竭等）",
+          "code": "1",
+          "score": 1,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I048001",
+          "type": "checkbox",
+          "title": "2、患者发生了影响躯体某部位功能的并发症（如毁容、畸形等）",
+          "code": "2",
+          "score": 1,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I048001",
+          "type": "checkbox",
+          "title": "3、患者经常感到身体疼痛难忍（疼痛是由疾病引起）",
+          "code": "3",
+          "score": 1,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I048001",
+          "type": "checkbox",
+          "title": "4、患者失眠（失眠是由疾病引起）",
+          "code": "4",
+          "score": 1,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I048001",
+          "type": "checkbox",
+          "title": "5、患者经常觉得事情不可能好转，对未来悲观失望",
+          "code": "5",
+          "score": 1,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I048001",
+          "type": "checkbox",
+          "title": "6、患者采取消极的（如逃避、自责）应对方式来应对困难和挫折",
+          "code": "6",
+          "score": 1,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I048001",
+          "type": "checkbox",
+          "title": "7、患者自我评价（即自己对自己的看法、想法）是消极悲观的",
+          "code": "7",
+          "score": 1,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I048001",
+          "type": "checkbox",
+          "title": "8、患者经常情绪低落、感到抑郁",
+          "code": "8",
+          "score": 1,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I048001",
+          "type": "checkbox",
+          "title": "9、患者有精神方面相关症状（如精神分裂症、焦点症、边缘型人格障碍等）",
+          "code": "9",
+          "score": 1,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I048001",
+          "type": "checkbox",
+          "title": "10、患者经常表现的很冲动（即因微小刺激突然爆发出冲动性或攻击性行为",
+          "code": "10",
+          "score": 1,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I048001",
+          "type": "checkbox",
+          "title": "11、患者对任何事情都追求尽善尽美（即完美主义）",
+          "code": "11",
+          "score": 1,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I048001",
+          "type": "checkbox",
+          "title": "12、患者经常采取过伤害自己的行为",
+          "code": "12",
+          "score": 1,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I048001",
+          "type": "checkbox",
+          "title": "13、患者说过不想活了，觉得生活没有意义等话语",
+          "code": "13",
+          "score": 1,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I048001",
+          "type": "checkbox",
+          "title": "14、患者生活习惯发生了改变（如开始大量饮酒、使用药物助眠等）",
+          "code": "14",
+          "score": 1,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I048001",
+          "type": "checkbox",
+          "title": "15、患者发生了严重的家庭矛盾",
+          "code": "15",
+          "score": 1,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I048001",
+          "type": "checkbox",
+          "title": "16、患者家人或朋友曾经采取过伤害自己的行为",
+          "code": "16",
+          "score": 1,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I048001",
+          "type": "checkbox",
+          "title": "17、患者遭受了重大挫折",
+          "code": "17",
+          "score": 1,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I048001",
+          "type": "checkbox",
+          "title": "18、患者人际关系处于紧张状态",
+          "code": "18",
+          "score": 1,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupColBox",
+      "col": 2,
+      "colWidth": [
+        "40%",
+        "60%"
+      ],
+      "title": "",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "evalScore",
+          "type": "input",
+          "title": "评估得分",
+          "inputWidth":"80px",
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "evalDesc",
+          "type": "input",
+          "title": "结果程度",
+          "inputWidth":"180px",
+          "style": "width:180px",
+          "class": null,
+          "readOnly": null,
+          "rule": [
+            {
+              "min": "1",
+              "max": "8",
+              "equal": "无风险",
+              "style": "color:blue",
+              "display": "无风险"
+            },
+            {
+              "min": "8",
+              "max": "Infinity",
+              "equal": "患者有自杀风险",
+              "style": "color:red",
+              "display": "患者有自杀风险"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "",
+      "type": "formGroupTitle",
+      "level": "1",
+      "title": "二、护理措施：",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "",
+      "type": "formGroupVerticalBox",
+      "title": "护理措施：",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "M048001",
+          "type": "checkbox",
+          "title": "1、向患者家属告知自杀风险并要求24小时专人有效陪伴",
+          "code": "√",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "M048002",
+          "type": "checkbox",
+          "title": "2、检查患者身边物品和设施，取走用于自杀的物品",
+          "code": "√",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "M048003",
+          "type": "checkbox",
+          "title": "3、检查环境安全设施，保证环境安全",
+          "code": "√",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "M048004",
+          "type": "checkbox",
+          "title": "4、密切巡视病房，观察患者病情和心理状态",
+          "code": "√",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "M048005",
+          "type": "checkbox",
+          "title": "5、加强心理护理，真诚接纳、理解支持、学会倾听，了解内心感受，建立治疗型的护患关系",
+          "code": "√",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "M048006",
+          "type": "checkbox",
+          "title": "6、给患者提供希望，帮助患者正确认识自己的心情或情感，训练学习新的应付方式，教会患者无能应对时如何求助",
+          "code": "√",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "M048007",
+          "type": "checkbox",
+          "title": "7、提高患者自尊",
+          "code": "√",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "M048008",
+          "type": "checkbox",
+          "title": "8、鼓励患者参加有益活动，缓解患者紧张焦虑情绪，增加自我价值感以及治疗的信心",
+          "code": "√",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "M048009",
+          "type": "checkbox",
+          "title": "9、调动社会支持系统，帮助战胜病痛，对患者家属进行与自杀干预有关知识的教育指导，让家属参与干预治疗",
+          "code": "√",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "M048010",
+          "type": "checkbox",
+          "title": "10、使用安全协议，口头不伤害或不自杀协议",
+          "code": "√",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        }
+      ]
+    }
+  ],
+  "dialogs": [],
+  "header": [],
+  "footer": []
+}

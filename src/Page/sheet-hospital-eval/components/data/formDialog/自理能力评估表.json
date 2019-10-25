@@ -89,7 +89,7 @@
   "model": {},
   "body": [
     {
-      "name": "I003001",
+      "name": "evalDate",
       "type": "formGroupColBox",
       "col": 3,
       "title": "",
@@ -97,7 +97,7 @@
       "require": "false",
       "prefixDesc": "",
       "suffixDesc": "",
-      "keys": "I003001",
+      "keys": "evalDate",
       "style": null,
       "classes": null,
       "readOnly": null,
@@ -669,7 +669,7 @@
       ]
     },
     {
-      "name": "I003001",
+      "name": "evalScore",
       "type": "formGroupColBox",
       "col": 3,
       "title": "",
@@ -704,13 +704,13 @@
           "rule": [
             {
               "min": "0",
-              "max": "21",
+              "max": "20",
               "equal": "生活完全依赖",
               "style": "color:red",
               "display": "生活完全依赖"
             },
             {
-              "min": "21",
+              "min": "20",
               "max": "40",
               "equal": "生活需要很大帮助",
               "style": "color:red",
@@ -718,13 +718,13 @@
             },
             {
               "min": "40",
-              "max": "61",
+              "max": "60",
               "equal": "生活需要帮助",
               "style": "color:red",
               "display": "生活需要帮助"
             },
             {
-              "min": "61",
+              "min": "60",
               "max": "100",
               "equal": "生活基本自理",
               "style": "color:blue",

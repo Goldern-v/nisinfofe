@@ -1,10 +1,10 @@
 
 <template>
-  <span>
+  <span style="display:inline-flex;">
     <!-- 警报icon -->
     <div
       v-if="['select','selectInput'].indexOf(obj.type)>-1 && alertMessage"
-      :class="obj.suffixDesc?'alert-message-post':'alert-message'"
+      :class="(obj.suffixDesc||obj.postText)?'alert-message-post':'alert-message'"
     >
       <el-tooltip class="item" effect="light" :enterable="false" placement="top">
         <div class="el-tooltip-content" slot="content">
@@ -42,6 +42,7 @@
         :id="getUUID()"
         :ref="obj.name"
         :name="obj.name"
+        :title="obj.title || obj.label"
         v-if="['select','selectInput'].indexOf(obj.type)>-1 && !obj.children"
         placeholder="空"
         :class="obj.class||'select-cursor'"
@@ -188,7 +189,7 @@ export default {
   },
   methods: {
     checkValueRule(valueNew, isClick) {
-      let textResult = valueNew;
+      let textResult = valueNew+"";
       this.obj.style = "";
       this.alertMessage = "";
       if (
@@ -281,15 +282,30 @@ export default {
           if(this.alertActived){
             // console.log('规则预警结果：SELECT:getAlertMessageItems:',this.alertActived,this.$root.$refs.tableOfContent.getAlertMessageItems())
             let hasAlertMessage = false
+            let title = (this.obj.title||this.obj.label||"")
+            let tips = `<span><span style="color:green">${title}</span>:${valueNew||""}<span style="color:chocolate">${this.obj.suffixDesc||""}</span></span><br><span style="color:red">预警:${this.alertMessage}</span>`
+            //
             for (let iterator of alertMessageItems) {
               if(iterator.name && iterator.name == this.obj.name){
                 iterator.message = this.alertMessage
+                iterator["value"] = valueNew
+                iterator["tips"] = tips
                 hasAlertMessage = true
                 break;
               }
             }
             if(hasAlertMessage==false){
-              alertMessageItems = [...alertMessageItems, {message:this.alertMessage,name:this.obj.name,title:(this.obj.title||this.obj.label)}]
+              alertMessageItems = [
+                ...alertMessageItems,
+                {
+                  message:this.alertMessage,
+                  name:this.obj.name,
+                  title:title,
+                  obj:this.obj,
+                  value:valueNew,
+                  tips: tips
+                }
+              ]
             }
             this.$root.$refs.tableOfContent.updateAlertMessageItems(alertMessageItems)
 
@@ -450,7 +466,7 @@ export default {
               width: `${xy.width}px`,
               "min-width": "max-content"
             },
-            selectedList: obj[key] ? obj[key].split(",") : [],
+            selectedList: obj[key]&&obj[key].split ? obj[key].split(",") : [],
             data: dataList,
             callback: data => {
               console.log("===callback", obj, key, target);
@@ -467,7 +483,7 @@ export default {
                 }
                 // 多选
                 if (multiplechoice === true) {
-                  let values = obj[key] ? obj[key].split(",") : [];
+                  let values = obj[key]&&obj[key].split ? obj[key].split(",") : [];
                   console.log("==多选=callback", values, obj, key, target);
                   // 新增选项
                   if (!obj[key] || obj[key].indexOf(data.code) === -1) {
@@ -737,7 +753,7 @@ i {
   cursor: pointer;
   color:red;
   font-size:12px;
-  position: absolute;
+  position: absolute!important;
   margin-left: -10px!important;
   margin-top: 0px;
   z-index: 2;
@@ -747,7 +763,7 @@ i {
   cursor: pointer;
   color:red;
   font-size:12px;
-  position: absolute;
+  position: absolute!important;
   margin-left: -10px!important;
   margin-top: 0px;
   z-index: 2;

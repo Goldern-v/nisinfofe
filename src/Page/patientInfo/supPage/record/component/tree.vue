@@ -363,6 +363,7 @@ export default {
                 }
                 return {
                   status: option.status,
+                  evalScore: option.evalScore||"",
                   label: `${option.evalDate}
                   ${option.countSize ? option.countSize + "条" : ""}
                   ${option.evalScore ? option.evalScore + "分" : ""}
@@ -374,6 +375,12 @@ export default {
               })
             };
           });
+          //
+          // upFormTree
+          if(list_1){
+            window.app.$store.commit('upFormTree', [...list_1])
+          }
+          //
           let list_2 = info => {
             index += 1;
             info = info.filter(opt => opt.status != "-1");
@@ -407,7 +414,7 @@ export default {
             };
           };
 
-          
+
           // console.log(res[1].data.data.length,"res[1].data.data")
           if (res[1].data.data.length > 0) {
             list_1.push(list_2(res[1].data.data));

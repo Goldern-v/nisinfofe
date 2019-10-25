@@ -9,15 +9,35 @@ export default {
     formFilledData:[],
     // 表单最早ID  { keyName:valueId }
     formLastId:[],
+    formTree:[],
   },
   getters:{
     getFormLastId:(state)=>({patientId,visitId,formCode,formName})=>{
       return state.formLastId.find(form=> form.patientId == patientId && form.visitId == visitId && (form.formCode == formCode||form.formName == formName))
+    },
+    getFormList:(state)=>(formCode)=>{
+      return state.formTree.find(form=>(form.formCode == formCode))
+    },
+    getPreFormId:(state)=>(formCode,formId)=>{
+      let formList = state.formTree.find(form=>(form.formCode == formCode))
+      if(formId && formList && formList.children && formList.children.length>0){
+        formList = formList.children.filter(form=>{return form.form_id !=formId && form.evalScore })
+         if(formList && formList.length>0){
+          return formList[0]
+         }
+      }
+      return null
+    },
+    getFormTree:(state)=>()=>{
+      return state.formTree
     }
   },
   mutations: {
     upFormLastId(state, value) {
       state.formLastId = [...state.formLastId, value]
+    },
+    upFormTree(state, value) {
+      state.formTree = [...value]
     },
     upMyDept(state, value) {
       state.myDept = value

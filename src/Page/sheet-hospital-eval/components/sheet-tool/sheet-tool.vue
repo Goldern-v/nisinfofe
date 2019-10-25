@@ -350,19 +350,11 @@ export default {
         {
           label: "检查",
           onClick: e => {
-            let obj = {
-              patientId: this.patientInfo.patientId,
-              visitId: this.patientInfo.visitId,
-              formCode: "E0100"
-            };
-            getReEvaTask(obj).then(res => {
-              if (res.data.data.length === 0) {
-                this.$notify.info({
-                  title: "检查",
-                  message: "没有超时，未处理的复评任务。"
-                });
-              }
-            });
+            this.formSave({
+              showMeasure:false,
+              showLoading:false,
+              callback:this.formCheckEvalTask()
+            })
             console.log("检查");
           }
         }
@@ -445,6 +437,14 @@ export default {
     },
     changeSelectBlock(item) {
       if (!this.selectBlock.id) return;
+
+      // 清空评估任务
+      try {
+        this.$root.$refs.tableOfContent.updateEvalTaskItems([])
+        this.$root.$refs.tableOfContent.updateAlertMessageItems([])
+      // this.$root.$refs.tableOfContent.updateMissingItems([])
+      } catch (error) {}
+      //
       window.performance.mark("mark_blocklist_start_xhr");
       console.log("changeSelectBlock", item);
       this.bus.$emit("setHosptialEvalLoading", true);
@@ -568,15 +568,41 @@ export default {
       //
       this.$root.$refs.diagnosisModal.open(diagsArray);
     },
-    formSave({showMeasure=true}={}){
+    formCheckEvalTask(){
+      let obj = {
+        patientId: this.patientInfo.patientId,
+        visitId: this.patientInfo.visitId,
+        formCode: "E0100"
+      };
+      getReEvaTask(obj).then(res => {
+        if (res.data.data.length === 0) {
+          this.$notify.info({
+            title: "检查",
+            message: "没有超时，未处理的复评任务。"
+          });
+        }else{
+          //
+          let {data:{data:list}}=res
+          this.$root.$refs.tableOfContent.updateEvalTaskItems([...list])
+          //
+          console.log('评估任务：',res,[...list])
+
+        }
+      });
+    },
+    formSave({showMeasure=true,showLoading=true,callback=null}={}){
       if (
         this.patientInfo &&
         this.patientInfo.hasOwnProperty("patientId")
       ) {
-        this.bus.$emit("setHosptialEvalLoading", {
-          status: true,
-          msg: "保存表单中..."
-        });
+
+        //
+        if(showLoading){
+          this.bus.$emit("setHosptialEvalLoading", {
+            status: true,
+            msg: "保存表单中..."
+          });
+        }
 
         let post = {
           id: this.formId || "",
@@ -625,6 +651,10 @@ export default {
               this.showMeasureDetialBox(res);
             }
             //
+            if(callback){
+              callback()
+            }
+            //
             let {
               data: {
                 data: {
@@ -662,7 +692,8 @@ export default {
               this.formSave({showMeasure:false})
               e.stopPropagation();
               break;
-            case "N": //Ctrl+N
+            case "G": //Ctrl+N
+              this.formSave({showMeasure:false,showLoading:false})
               console.log('新建页面')
               // createForm()
               break;
@@ -701,6 +732,7 @@ export default {
     let tool = {
       ...window.formTool,
       formSave: this.formSave,
+      formCheckEvalTask: this.formCheckEvalTask,
       // formDelete: this.formDelete,
       // reloadForm: this.reloadForm
     };

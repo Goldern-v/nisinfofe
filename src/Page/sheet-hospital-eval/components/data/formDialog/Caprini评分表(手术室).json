@@ -72,7 +72,7 @@
       }
     ],
     "formTail": {
-      "showE√alScore": false,
+      "showEvalScore": false,
       "showSign": true,
       "showAudit": true
     },
@@ -81,7 +81,7 @@
       "formApiCode": "E0045",
       "formName": "Caprini评分表(非手术室)",
       "status": "0",
-      "formType": "e√al"
+      "formType": "eval"
     }
   },
   "dictionary": {},
@@ -89,7 +89,7 @@
   "model": {},
   "body": [
     {
-      "name": "I003001",
+      "name": "evalDate",
       "type": "formGroupColBox",
       "col": 3,
       "title": "",
@@ -97,13 +97,13 @@
       "require": "false",
       "prefixDesc": "",
       "suffixDesc": "",
-      "keys": "I003001",
+      "keys": "evalDate",
       "style": null,
       "classes": null,
       "readOnly": null,
       "children": [
         {
-          "name": "e√alDate",
+          "name": "evalDate",
           "type": "datePicker",
           "title": "评估时间",
           "code": "",

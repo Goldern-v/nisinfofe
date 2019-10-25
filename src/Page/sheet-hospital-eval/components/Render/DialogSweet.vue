@@ -326,12 +326,18 @@ export default {
           //   [this.$root.$refs[key]],
           //   // this.$root.$refs[key].type||''
           // );
+          //
+          if(key == "evalDesc" && model["evalScore"]){
+              // checkValueRule
+              value = this.getValueRule(key,model["evalScore"])
+              model[key] = value
+              this.setElementValue("evalDesc",value)
+            console.log('!!!结果程度',key,model,model[key],model["evalScore"])
+          }
 
           if (!value || !this.$root.$refs[key]) {
             continue;
           }
-
-
 
           // if (
           //   this.$root.$refs.hasOwnProperty(key) > -1 &&
@@ -648,80 +654,85 @@ export default {
           window.formObj.model.formId || window.formObj.model.id;
         //
         //
-        saveForm({ ...this.formBox }, res => {
-          let {
-            data: {
+        // signTime: ""
+        // signerName: ""
+        // signerNo: ""
+        // auditTime: ""
+        // auditorName: ""
+        // auditorNo: ""
+        // updateTime: "2019-10-23 16:56"
+        // updaterName: "管理员"
+        // updaterNo: "admin"
+        //
+        window.openSignModal((password, empNo) => {
+
+          // this.$nextTick(()=>{
+            this.formBox.model = { ...this.formBox.model,
+              sign: true,
+              empNo,
+              password
+            }
+          // })
+          saveForm({ ...this.formBox }, res => {
+
+            console.log('弹框内容保存res',this.formBox,res)
+
+            let {
               data: {
-                master: { id: id, evalDesc:evalDesc, evalScore:evalScore,syncToRecordDesc:syncToRecordDesc }
+                data: {
+                  master: { id: id, evalDesc:evalDesc, evalScore:evalScore,syncToRecordDesc:syncToRecordDesc }
+                }
+              }
+            } = res;
+            // 弹框内容保存
+            console.log('弹框内容保存',res,evalDesc,evalScore)
+            this.formObj.model[this.dialogFormCode] = id;
+            // parentName
+            if (this.parentName) {
+              if (this.parentName == "I100028") {
+                // 吞咽评估特殊处理
+                let result = "";
+                if (this.formBox.model.I047012) {
+                  result += "吞水：" + this.formBox.model.I047012 + " " + ";";
+                }
+                if (this.formBox.model.I047024) {
+                  result += "吞糊：" + this.formBox.model.I047024 + " " + ";";
+                }
+                this.setElementValue(this.parentName,result)
+                this.getValueRule(this.parentName,result)
+                this.formObj.model.I100028 = result;
+              } else {
+                //
+                let score = evalScore || this.formBox.model.evalScore || "" ;
+                //
+                let desc = evalDesc || this.formBox.model.evalDesc || "";
+                //
+                let result = syncToRecordDesc || (score + "分 " + desc)||"";
+                result = result.replace(/null/g,'');
+                result = result.replace(/undefined/g,'');
+                this.setElementValue(this.parentName,result+"")
+                this.formObj.model[this.parentName] = result||"";
+                this.getValueRule(this.parentName,result)
+                // console.log('评估结果：',result,this.parentName,this.formObj.model[this.parentName])
               }
             }
-          } = res;
-          // 弹框内容保存
-          console.log('弹框内容保存',res,evalDesc,evalScore)
-          this.formObj.model[this.dialogFormCode] = id;
-          // parentName
-          if (this.parentName) {
-            if (this.parentName == "I100028") {
-              // 吞咽评估特殊处理
-              let result = "";
-              if (this.formBox.model.I047012) {
-                result += "吞水：" + this.formBox.model.I047012 + " " + ";";
-              }
-              if (this.formBox.model.I047024) {
-                result += "吞糊：" + this.formBox.model.I047024 + " " + ";";
-              }
-              this.setElementValue(this.parentName,result)
-              this.getValueRule(this.parentName,result)
-              // this.$root.$refs[this.parentName][0].setCurrentValue(result);
-              // this.$root.$refs[this.parentName][0].checkValueRule(result);
-              this.formObj.model.I100028 = result;
-              // this.$root.$refs[this.parentName + "_clone"].setCurrentValue(
-              //   result
-              // );
-              // this.$root.$refs[this.parentName + "_clone"].checkValueRule(
-              //   result
-              // );
-            } else {
-              //
-              let score = evalScore || this.formBox.model.evalScore || "" ;
-              //
-              let desc = evalDesc || this.formBox.model.evalDesc || "";
-              //
-              let result = syncToRecordDesc || (score + "分 " + desc)||"";
-              result = result.replace(/null/g,'');
-              result = result.replace(/undefined/g,'');
-              this.setElementValue(this.parentName,result+"")
-              this.formObj.model[this.parentName] = result||"";
-              // this.$root.$refs[this.parentName][0].setCurrentValue(result);
-              this.getValueRule(this.parentName,result)
-              // this.$root.$refs[this.parentName][0].checkValueRule(result);
 
-              /** GCS评估特殊处理 */
-              // if (this.parentName == "I100020") {
-              //   let result = this.formBox.model.evalDesc;
-              //   this.$root.$refs["I100019"].setCurrentValue(result);
-              //   this.$root.$refs["I100019"].checkValueRule(result);
-              // }
-              //
-              console.log('评估结果：',result,this.parentName,this.formObj.model[this.parentName])
+            // 更新住院单
+            window.formTool.fillForm()
+
+            console.log(
+              "===saveForm:res",
+              res,
+              isDev,
+              this.formBox,
+              this.formObj,
+              this.parentName,
+              this.$root.$refs[this.parentName]
+            );
+            if (!isDev) {
+              this.close();
             }
-          }
-
-          // 更新住院单
-          window.formTool.fillForm()
-
-          console.log(
-            "===saveForm:res",
-            res,
-            isDev,
-            this.formBox,
-            this.formObj,
-            this.parentName,
-            this.$root.$refs[this.parentName]
-          );
-          if (!isDev) {
-            this.close();
-          }
+          });
         });
       }
 
@@ -742,6 +753,10 @@ export default {
       this.hasOK = config.hasOK === false ? false : true;
       this.type = config.type || "dependent";
       this.callback = config.callback || null;
+      //
+      if(config.type === "independent"){
+        this.okText = "签名";
+      }
       //
       if (
         config.parentName &&
@@ -873,15 +888,19 @@ export default {
       return uuid_;
     },
     setElementValue(key,value){
-      Object.keys(this.$root.$refs[key]).map(elkey=>{
-        this.$root.$refs[key][elkey].setCurrentValue(value);
-      })
+      try {
+        Object.keys(this.$root.$refs[key]).map(elkey=>{
+          this.$root.$refs[key][elkey].setCurrentValue(value);
+        })
+      } catch (error) {}
     },
     getValueRule(key,value){
       let textResult = ""
-      Object.keys(this.$root.$refs[key]).map(elkey=>{
-        textResult = this.$root.$refs[key][elkey].checkValueRule(value);
-      })
+      try {
+        Object.keys(this.$root.$refs[key]).map(elkey=>{
+          textResult = this.$root.$refs[key][elkey].checkValueRule(value);
+        })
+      } catch (error) {}
       return textResult
     },
     saveEvalForm(){

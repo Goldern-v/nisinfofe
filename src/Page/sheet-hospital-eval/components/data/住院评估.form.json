@@ -349,11 +349,12 @@
             },
             {
               "split": "/",
+              "message": "血压异常",
               "mins": [
                 80,
                 60
               ],
-              "style": "color: blue;"
+              "style": "color: red;border-color: red;"
             }
           ]
         },
@@ -3831,6 +3832,7 @@
             "default": "自理能力评估表",
             "name": "I100126",
             "parentName": "I100126",
+            "type": "independent",
             "showHead": "true"
           },
           "rule": [
@@ -3845,7 +3847,7 @@
           "name": "I100127",
           "type": "input",
           "title": "Barden压疮风险",
-          "inputWidth": "197px",
+          "inputWidth": "198px",
           "leftTdStyle": "min-width:100px!important",
           "elementStyle": "width: 270px;",
           "style": null,
@@ -3855,6 +3857,7 @@
             "title": "Barden压疮风险评估表",
             "default": "Barden压疮风险评估表",
             "type": "independent",
+            "name": "I100127",
             "parentName": "I100127",
             "showHead": "true"
           }
@@ -4134,6 +4137,90 @@
       "type": "formGroupTitle",
       "level": "2",
       "title": "3.8 VTE风险评估",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "color:transparent;height:0px;margin:0",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "I100020",
+      "type": "formGroupColBox",
+      "col": 2,
+      "title": "GCS格拉斯哥昏迷评估",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "I100020",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I100020",
+          "type": "input",
+          "title": "GCS格拉斯哥昏迷评估",
+          "inputWidth": "173px",
+          "leftTdStyle": "min-width:125px!important",
+          "elementStyle": "width: 270px;",
+          "style": null,
+          "class": null,
+          "readOnly": true,
+          "dialog": {
+            "title": "GCS格拉斯哥昏迷评估",
+            "default": "GCS格拉斯哥昏迷评估",
+            "name": "I100020",
+            "parentName": "I100020",
+            "type": "independent",
+            "showHead": "true"
+          }
+        },
+        {
+          "name": "I100342",
+          "type": "input",
+          "title": "自杀风险评估",
+          "inputWidth": "213px",
+          "leftTdStyle": "min-width:85px!important",
+          "elementStyle": "width: 270px;",
+          "style": null,
+          "class": null,
+          "readOnly": true,
+          "dialog": {
+            "title": "住院患者自杀风险评估",
+            "default": "住院患者自杀风险评估",
+            "name": "I100342",
+            "parentName": "I100342",
+            "type": "independent",
+            "showHead": "true"
+          },
+          "rule": [
+            {
+              "indexOf": "自杀风险",
+              "style": "color: red;border-color: red;"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupTitle",
+      "level": "2",
+      "title": "3.9 GCS格拉斯哥昏迷评估",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "color:transparent;height:0px;margin:0",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "",
+      "type": "formGroupTitle",
+      "level": "2",
+      "title": "3.10 住院患者自杀风险评估",
       "prefixDesc": "",
       "suffixDesc": "",
       "keys": "",

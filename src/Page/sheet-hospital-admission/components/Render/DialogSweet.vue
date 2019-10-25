@@ -676,100 +676,113 @@ export default {
         this.formBox["formCode"] = this.dialogFormCode;
         this.formBox.model.parentId =
           window.formObj.model.formId || window.formObj.model.id;
-        saveForm({ ...this.formBox }, res => {
-          this.dialogLoading = false;
-          let {
-            data: {
+
+
+          window.openSignModal((password, empNo) => {
+
+            this.formBox.model = { ...this.formBox.model,
+                sign: true,
+                empNo,
+                password
+              }
+
+        //
+        //
+          saveForm({ ...this.formBox }, res => {
+            this.dialogLoading = false;
+            let {
               data: {
-                formResult: { id: id }
+                data: {
+                  formResult: { id: id }
+                }
               }
-            }
-          } = res;
-          this.formObj.model[this.dialogFormCode] = id;
+            } = res;
+            this.formObj.model[this.dialogFormCode] = id;
 
-          let getYinYang = str => {
-            return str === "+" ? "阳性" : "阴性";
-          };
+            let getYinYang = str => {
+              return str === "+" ? "阳性" : "阴性";
+            };
 
-          try {
-            console.log("root.refs", this.$root.$refs);
-            // parentName
-            if (this.parentName) {
-              if (this.parentName == "I100028") {
-                // 吞咽评估特殊处理
-                let result = "";
-                if (this.formBox.model.I047012) {
-                  result +=
-                    "吞水:" + getYinYang(this.formBox.model.I047012) + " ";
-                }
-                if (this.formBox.model.I047024) {
-                  result +=
-                    "吞糊:" + getYinYang(this.formBox.model.I047024) + " ";
-                }
-                this.formBox.model.evalDesc = result;
-                this.formObj.model.I100028 = result;
+            try {
+              console.log("root.refs", this.$root.$refs);
+              // parentName
+              if (this.parentName) {
+                if (this.parentName == "I100028") {
+                  // 吞咽评估特殊处理
+                  let result = "";
+                  if (this.formBox.model.I047012) {
+                    result +=
+                      "吞水:" + getYinYang(this.formBox.model.I047012) + " ";
+                  }
+                  if (this.formBox.model.I047024) {
+                    result +=
+                      "吞糊:" + getYinYang(this.formBox.model.I047024) + " ";
+                  }
+                  this.formBox.model.evalDesc = result;
+                  this.formObj.model.I100028 = result;
 
-                if (this.$root.$refs[this.parentName + "_clone"]) {
-                  this.$root.$refs[this.parentName + "_clone"].setCurrentValue(
-                    result
-                  );
-                  this.$root.$refs[this.parentName + "_clone"].checkValueRule(
-                    result
-                  );
-                }
-                if (this.$root.$refs[this.parentName]) {
-                  this.$root.$refs[this.parentName].setCurrentValue(result);
-                  this.$root.$refs[this.parentName].checkValueRule(result);
+                  if (this.$root.$refs[this.parentName + "_clone"]) {
+                    this.$root.$refs[this.parentName + "_clone"].setCurrentValue(
+                      result
+                    );
+                    this.$root.$refs[this.parentName + "_clone"].checkValueRule(
+                      result
+                    );
+                  }
+                  if (this.$root.$refs[this.parentName]) {
+                    this.$root.$refs[this.parentName].setCurrentValue(result);
+                    this.$root.$refs[this.parentName].checkValueRule(result);
+                    this.formObj.model[this.parentName] = result;
+                    this.formBox.model[this.parentName] = result;
+                    consoleo.log("parentName:", this.parentName, result);
+                  }
+                  consoleo.log("--parentName:", this.parentName, result);
+                  debugger;
+                } else {
+                  let score = this.formBox.model.evalScore;
+                  let desc = this.formBox.model.evalDesc || "";
+                  let result = score + "分 " + desc;
                   this.formObj.model[this.parentName] = result;
-                  this.formBox.model[this.parentName] = result;
-                  consoleo.log("parentName:", this.parentName, result);
-                }
-                consoleo.log("--parentName:", this.parentName, result);
-                debugger;
-              } else {
-                let score = this.formBox.model.evalScore;
-                let desc = this.formBox.model.evalDesc || "";
-                let result = score + "分 " + desc;
-                this.formObj.model[this.parentName] = result;
 
-                if (this.$root.$refs[this.parentName]) {
-                  console.log("parentName", this.parentName);
-                  this.$root.$refs[this.parentName].setCurrentValue(result);
-                  this.$root.$refs[this.parentName].checkValueRule(result);
-                }
+                  if (this.$root.$refs[this.parentName]) {
+                    console.log("parentName", this.parentName);
+                    this.$root.$refs[this.parentName].setCurrentValue(result);
+                    this.$root.$refs[this.parentName].checkValueRule(result);
+                  }
 
-                /** GCS评估特殊处理 */
-                if (this.parentName == "I100020") {
-                  let result = this.formBox.model.evalDesc;
-                  this.$root.$refs["I100019"].setCurrentValue(result);
-                  this.$root.$refs["I100019"].checkValueRule(result);
+                  /** GCS评估特殊处理 */
+                  if (this.parentName == "I100020") {
+                    let result = this.formBox.model.evalDesc;
+                    this.$root.$refs["I100019"].setCurrentValue(result);
+                    this.$root.$refs["I100019"].checkValueRule(result);
+                  }
                 }
               }
+            } catch (e) {
+              console.log("saveError:", e);
             }
-          } catch (e) {
-            console.log("saveError:", e);
-          }
 
-          console.log(
-            "===saveForm:res",
-            res,
-            isDev,
-            this.formBox,
-            this.formObj,
-            this.parentName,
-            this.$root.$refs[this.parentName]
-          );
-          //
-          try {
-            window.formTool.formSave();
-          } catch (err) {
-            console.log("formSave", err, window.formTool);
-          }
+            console.log(
+              "===saveForm:res",
+              res,
+              isDev,
+              this.formBox,
+              this.formObj,
+              this.parentName,
+              this.$root.$refs[this.parentName]
+            );
+            //
+            try {
+              window.formTool.formSave();
+            } catch (err) {
+              console.log("formSave", err, window.formTool);
+            }
 
-          //
-          if (!isDev) {
-            this.close();
-          }
+            //
+            if (!isDev) {
+              this.close();
+            }
+          });
         });
       }
       // console.log(this.callback, "aaaaaaaaa");
@@ -790,6 +803,11 @@ export default {
       this.hasOK = config.hasOK === false ? false : true;
       this.type = config.type || "dependent";
       this.callback = config.callback || null;
+
+      //
+      if(config.type === "independent"){
+        this.okText = "签名";
+      }
       //
       if (
         config.parentName &&

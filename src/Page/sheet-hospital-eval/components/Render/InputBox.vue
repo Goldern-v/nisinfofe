@@ -1,10 +1,10 @@
 
 <template>
-  <span>
+  <span style="display:inline-flex;">
     <!-- 警报icon -->
     <div
       v-if="obj.type==='input' && alertMessage"
-      :class="obj.suffixDesc?'alert-message-post':'alert-message'"
+      :class="(obj.suffixDesc||obj.postText)?'alert-message-post':'alert-message'"
     >
       <el-tooltip class="item" effect="light" :enterable="false" placement="top">
         <div class="el-tooltip-content" slot="content">
@@ -46,6 +46,7 @@
         :style="[obj.style, obj.inputWidth && {width: obj.inputWidth}]"
         :ref="obj.name"
         :name="obj.name"
+        :title="obj.title || obj.label"
         v-if="obj.type==='input'"
         :placeholder="obj.dialog ? '点击评估' : (obj.placeholder?obj.placeholder:'空')"
         :class="model === 'development' ? 'development-model' : (obj.class||'')"
@@ -266,7 +267,7 @@ export default {
   methods: {
     checkValueRule(valueNew,repeat=null) {
       // if(!repeat){return}
-      let textResult = valueNew;
+      let textResult = valueNew+"";
       this.obj.style = "";
       this.alertMessage = "";
       if (
@@ -409,6 +410,12 @@ export default {
                   for (let i = 0; i < arr.length; i++) {
                     if (arr[i] && arr[i] > r.maxs[i]) {
                       this.obj.style = r.style;
+                      if (r.message) {
+                        console.log("rule:message", r.message);
+                        this.alertMessage = r.message + "";
+                        this.alertActived = true;
+                        // return;
+                      }
                     }
                   }
                 }
@@ -419,6 +426,12 @@ export default {
                   for (let i = 0; i < arr.length; i++) {
                     if (arr[i] && arr[i] <= r.mins[i]) {
                       this.obj.style = r.style;
+                      if (r.message) {
+                        console.log("rule:message", r.message);
+                        this.alertMessage = r.message + "";
+                        this.alertActived = true;
+                        // return;
+                      }
                     }
                   }
                 }
@@ -437,15 +450,30 @@ export default {
           if(this.alertActived){
             // console.log('规则预警结果：SELECT:getAlertMessageItems:',this.alertActived,this.$root.$refs.tableOfContent.getAlertMessageItems())
             let hasAlertMessage = false
+            let title = (this.obj.title||this.obj.label||"")
+            let tips = `<span><span style="color:green">${title}</span>:${valueNew||""}<span style="color:chocolate">${this.obj.suffixDesc||""}</span></span><br><span style="color:red">预警:${this.alertMessage}</span>`
+            //
             for (let iterator of alertMessageItems) {
               if(iterator.name && iterator.name == this.obj.name){
                 iterator.message = this.alertMessage
+                iterator["value"] = valueNew
+                iterator["tips"] = tips
                 hasAlertMessage = true
                 break;
               }
             }
             if(hasAlertMessage==false){
-              alertMessageItems = [...alertMessageItems, {message:this.alertMessage,name:this.obj.name,title:(this.obj.title||this.obj.label)}]
+              alertMessageItems = [
+                ...alertMessageItems,
+                {
+                  message:this.alertMessage,
+                  name:this.obj.name,
+                  title:title,
+                  obj:this.obj,
+                  value:valueNew,
+                  tips: tips
+                }
+              ]
             }
             this.$root.$refs.tableOfContent.updateAlertMessageItems(alertMessageItems)
 
@@ -930,16 +958,17 @@ export default {
   cursor: pointer;
   color:red;
   font-size:12px;
-  // position: absolute;
-  // margin-top: 7px;
-  // margin-left: 8px;
+  position: absolute!important;
+  margin-left: -10px!important;
+  margin-top: 0px;
+  z-index: 2;
 }
 
 .alert-message-post {
   cursor: pointer;
   color:red;
   font-size:12px;
-  position: absolute;
+  position: absolute!important;
   margin-left: -10px!important;
   margin-top: 0px;
   z-index: 2;

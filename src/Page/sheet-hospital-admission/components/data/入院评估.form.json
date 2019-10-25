@@ -11,7 +11,7 @@
   "formSetting": {
     "updateInfo":"由{{updaterName}}创建，最后编辑于{{updateTime}}",
     "formTitle": {
-      "hospitalName": "东莞市厚街医院",
+      "hospitalName": "东 莞 市 厚 街 医 院",
       "formName": "入 院 评 估"
     },
     "formHeads": [],
@@ -324,7 +324,7 @@
           "type": "select",
           "title": "入院类型",
           "style": null,
-          "titleStyle": "width:63px!important",
+          "titleStyle": "width:60px!important",
           "inputStyle": "width:175px!important",
           "inputWidth": "90px",
           "class": null,
@@ -335,9 +335,9 @@
           "type": "select",
           "title": "入院方式",
           "style": null,
-          "titleStyle": "width:63px!important",
+          "titleStyle": "width:60px!important",
           "inputStyle": "width:175px!important",
-          "inputWidth": "70px",
+          "inputWidth": "80px",
           "class": null,
           "readOnly": null,
           "rule": [
@@ -366,7 +366,7 @@
           "style": null,
           "titleStyle": "width:123px!important",
           "inputStyle": "width:100%!important",
-          "inputWidth": "68px",
+          "inputWidth": "66px",
           "class": null,
           "readOnly": null
         },
@@ -375,7 +375,7 @@
           "type": "select",
           "title": "教育程度",
           "style": null,
-          "titleStyle": "width:63px!important",
+          "titleStyle": "width:60px!important",
           "inputStyle": "width:175px!important",
           "inputWidth": "90px",
           "class": null,
@@ -386,9 +386,9 @@
           "type": "select",
           "title": "婚姻状态",
           "style": null,
-          "titleStyle": "width:63px!important",
+          "titleStyle": "width:60px!important",
           "inputStyle": "width:175px!important",
-          "inputWidth": "70px",
+          "inputWidth": "80px",
           "class": null,
           "readOnly": null
         },
@@ -397,7 +397,7 @@
           "type": "select",
           "title": "资源来源",
           "style": null,
-          "titleStyle": "width:63px!important",
+          "titleStyle": "width:60px!important",
           "inputStyle": "width:175px!important",
           "inputWidth": "90px",
           "elementsStyle": "width:175px!important",
@@ -427,7 +427,7 @@
           "type": "select",
           "title": "费用支付方式",
           "style": null,
-          "titleStyle": "width:85px!important",
+          "titleStyle": "width:81px!important",
           "inputStyle": "width:152px!important",
           "inputWidth": "68px",
           "class": null,
@@ -608,7 +608,7 @@
           "title": "心律失常",
           "titleStyle": "width:60px!important",
           "inputStyle": "width:270px!important",
-          "inputWidth": "120px",
+          "inputWidth": "180px",
           "style": null,
           "class": null,
           "readOnly": null
@@ -619,7 +619,7 @@
           "title": "心脏起搏",
           "titleStyle": "width:60px!important",
           "inputStyle": "width:270px!important",
-          "inputWidth": "120px",
+          "inputWidth": "180px",
           "style": null,
           "class": null,
           "rule": [
@@ -645,9 +645,9 @@
           "title": "生活习惯:吸烟",
           "postTitle": "吸烟频率",
           "postText": "(支/天)",
-          "titleStyle": "width:98px!important",
+          "titleStyle": "width:92px!important",
           "inputStyle": "width:270px!important",
-          "inputWidth": "88px",
+          "inputWidth": "148px",
           "style": null,
           "class": null,
           "rule": [
@@ -672,9 +672,9 @@
           "title": "生活习惯:嗜酒",
           "postTitle": "嗜酒频率",
           "postText": "(两/斤)",
-          "titleStyle": "width:98px!important",
+          "titleStyle": "width:92px!important",
           "inputStyle": "width:270px!important",
-          "inputWidth": "88px",
+          "inputWidth": "148px",
           "style": null,
           "class": null,
           "rule": [
@@ -698,9 +698,9 @@
           "type": "select",
           "title": "药物依赖/吸毒",
           "postTitle": "药物名称",
-          "titleStyle": "width:98px!important",
+          "titleStyle": "width:92px!important",
           "inputStyle": "width:270px!important",
-          "inputWidth": "88px",
+          "inputWidth": "148px",
           "style": null,
           "class": null,
           "rule": [
@@ -727,7 +727,7 @@
           "postTitle": "药物名称",
           "titleStyle": "width:123px!important",
           "inputStyle": "width:220px!important",
-          "inputWidth": "57px",
+          "inputWidth": "117px",
           "style": null,
           "class": null,
           "rule": [
@@ -752,7 +752,7 @@
           "title": "家族史",
           "titleStyle": "width:60px!important",
           "inputStyle": "width:270px!important",
-          "inputWidth": "120px",
+          "inputWidth": "180px",
           "style": null,
           "class": null,
           "rule": [
@@ -778,7 +778,7 @@
           "postTitle": "曾有病史",
           "titleStyle": "width:60px!important",
           "inputStyle": "width:270px!important",
-          "inputWidth": "120px",
+          "inputWidth": "180px",
           "style": null,
           "class": null,
           "rule": [
@@ -832,7 +832,7 @@
           "postTitle": "使用辅助药物",
           "titleStyle": "width:60px!important",
           "inputStyle": "width:270px!important",
-          "inputWidth": "120px",
+          "inputWidth": "180px",
           "style": null,
           "class": null,
           "rule": [
@@ -857,7 +857,7 @@
           "title": "醒后疲劳感",
           "titleStyle": "width:75px!important",
           "inputStyle": "width:270px!important",
-          "inputWidth": "105px",
+          "inputWidth": "165px",
           "style": null,
           "class": null
         },
@@ -867,7 +867,7 @@
           "title": "过敏史",
           "titleStyle": "width:60px!important",
           "inputStyle": "width:270px!important",
-          "inputWidth": "120px",
+          "inputWidth": "180px",
           "style": null,
           "class": null,
           "rule": [
@@ -897,7 +897,7 @@
           "postTitle": "治疗饮食",
           "titleStyle": "width:60px!important",
           "inputStyle": "width:270px!important",
-          "inputWidth": "120px",
+          "inputWidth": "180px",
           "style": null,
           "class": null,
           "rule": [
@@ -925,7 +925,7 @@
           "title": "食欲",
           "titleStyle": "width:60px!important",
           "inputStyle": "width:270px!important",
-          "inputWidth": "120px",
+          "inputWidth": "180px",
           "style": null,
           "class": null
         },
@@ -935,7 +935,7 @@
           "title": "咀嚼困难",
           "titleStyle": "width:60px!important",
           "inputStyle": "width:270px!important",
-          "inputWidth": "120px",
+          "inputWidth": "180px",
           "style": null,
           "class": null
         },
@@ -945,7 +945,7 @@
           "title": "恶心",
           "titleStyle": "width:60px!important",
           "inputStyle": "width:270px!important",
-          "inputWidth": "120px",
+          "inputWidth": "180px",
           "style": null,
           "class": null
         },
@@ -956,7 +956,7 @@
           "postTitle": "呕吐物",
           "titleStyle": "width:60px!important",
           "inputStyle": "width:270px!important",
-          "inputWidth": "120px",
+          "inputWidth": "180px",
           "style": null,
           "class": null,
           "rule": [
@@ -983,7 +983,7 @@
           "title": "义齿",
           "titleStyle": "width:60px!important",
           "inputStyle": "width:270px!important",
-          "inputWidth": "120px",
+          "inputWidth": "180px",
           "style": null,
           "class": null,
           "rule": [
@@ -1010,7 +1010,7 @@
           "title": "口腔黏膜",
           "titleStyle": "width:60px!important",
           "inputStyle": "width:270px!important",
-          "inputWidth": "120px",
+          "inputWidth": "180px",
           "style": null,
           "class": null,
           "rule": [
@@ -1033,7 +1033,7 @@
           "title": "视力",
           "titleStyle": "width:60px!important",
           "inputStyle": "width:270px!important",
-          "inputWidth": "120px",
+          "inputWidth": "180px",
           "style": null,
           "class": null
         },
@@ -1044,7 +1044,7 @@
           "postTitle": "",
           "titleStyle": "width:60px!important",
           "inputStyle": "width:270px!important",
-          "inputWidth": "120px",
+          "inputWidth": "180px",
           "style": null,
           "class": null,
           "rule": [
@@ -1069,7 +1069,7 @@
           "title": "口腔卫生",
           "titleStyle": "width:60px!important",
           "inputStyle": "width:270px!important",
-          "inputWidth": "120px",
+          "inputWidth": "180px",
           "style": null,
           "class": null
         }
@@ -1095,7 +1095,7 @@
           "title": "吞咽困难",
           "titleStyle": "width:60px!important",
           "inputStyle": "width:270px!important",
-          "inputWidth": "120px",
+          "inputWidth": "180px",
           "style": null,
           "class": null,
           "options": [
@@ -1153,9 +1153,9 @@
           "name": "I001142",
           "type": "select",
           "title": "意识状态:呼之",
-          "titleStyle": "width:92px!important",
+          "titleStyle": "width:89px!important",
           "inputStyle": "width:270px!important",
-          "inputWidth": "92px",
+          "inputWidth": "152px",
           "style": null,
           "class": null
         },
@@ -1166,7 +1166,7 @@
           "style": null,
           "titleStyle": "width:60px!important",
           "inputStyle": "width:270px!important",
-          "inputWidth": "120px",
+          "inputWidth": "180px",
           "class": null
         },
         {
@@ -1177,7 +1177,7 @@
           "style": null,
           "titleStyle": "width:82px!important",
           "inputStyle": "width:270px!important",
-          "inputWidth": "100px",
+          "inputWidth": "160px",
           "class": null
         },
         {
@@ -1188,7 +1188,7 @@
           "style": null,
           "titleStyle": "width:82px!important",
           "inputStyle": "width:270px!important",
-          "inputWidth": "100px",
+          "inputWidth": "160px",
           "class": null
         },
         {
@@ -1198,7 +1198,7 @@
           "style": null,
           "titleStyle": "width:80px!important",
           "inputStyle": "width:270px!important",
-          "inputWidth": "100px",
+          "inputWidth": "160px",
           "class": null
         },
         {
@@ -1208,7 +1208,7 @@
           "style": null,
           "titleStyle": "width:80px!important",
           "inputStyle": "width:270px!important",
-          "inputWidth": "100px",
+          "inputWidth": "160px",
           "class": null
         },
         {
@@ -1218,7 +1218,7 @@
           "style": null,
           "titleStyle": "width:60px!important",
           "inputStyle": "width:270px!important",
-          "inputWidth": "120px",
+          "inputWidth": "180px",
           "class": null,
           "rule": [
             {
@@ -1278,7 +1278,7 @@
           "style": null,
           "titleStyle": "width:60px!important",
           "inputStyle": "width:270px!important",
-          "inputWidth": "120px",
+          "inputWidth": "180px",
           "class": null,
           "readOnly": null
         },
@@ -1289,7 +1289,7 @@
           "style": null,
           "titleStyle": "width:70px!important",
           "inputStyle": "width:270px!important",
-          "inputWidth": "110px",
+          "inputWidth": "170px",
           "class": null,
           "readOnly": null
         },
@@ -1301,7 +1301,7 @@
           "style": null,
           "titleStyle": "width:60px!important",
           "inputStyle": "width:270px!important",
-          "inputWidth": "120px",
+          "inputWidth": "180px",
           "class": null,
           "rule": [
             {
@@ -1328,7 +1328,7 @@
           "style": null,
           "titleStyle": "width:60px!important",
           "inputStyle": "width:270px!important",
-          "inputWidth": "120px",
+          "inputWidth": "180px",
           "class": null,
           "readOnly": null,
           "rule": [
@@ -1371,7 +1371,7 @@
           "title": "疼痛",
           "titleStyle": "width:60px!important",
           "inputStyle": "width:270px!important",
-          "inputWidth": "120px",
+          "inputWidth": "180px",
           "style": null,
           "class": null,
           "options": [
@@ -1446,7 +1446,7 @@
           "style": null,
           "titleStyle": "width:60px!important",
           "inputStyle": "width:270px!important",
-          "inputWidth": "120px",
+          "inputWidth": "180px",
           "class": null,
           "rule": [
             {
@@ -1474,7 +1474,7 @@
           "style": null,
           "titleStyle": "width:60px!important",
           "inputStyle": "width:270px!important",
-          "inputWidth": "120px",
+          "inputWidth": "180px",
           "class": null,
           "rule": [
             {
@@ -1502,7 +1502,7 @@
           "style": null,
           "titleStyle": "width:61px!important",
           "inputStyle": "width:270px!important",
-          "inputWidth": "120px",
+          "inputWidth": "180px",
           "class": null
         },
         {
@@ -1514,7 +1514,7 @@
           "style": null,
           "titleStyle": "width:61px!important",
           "inputStyle": "width:270px!important",
-          "inputWidth": "120px",
+          "inputWidth": "180px",
           "class": null
         },
         {
@@ -1524,7 +1524,7 @@
           "style": null,
           "titleStyle": "width:60px!important",
           "inputStyle": "width:270px!important",
-          "inputWidth": "120px",
+          "inputWidth": "180px",
           "class": null,
           "rule": [
             {
@@ -1552,7 +1552,7 @@
           "style": null,
           "titleStyle": "width:70px!important",
           "inputStyle": "width:270px!important",
-          "inputWidth": "110px",
+          "inputWidth": "170px",
           "class": null,
           "rule": [
             {
@@ -1579,7 +1579,7 @@
           "style": null,
           "titleStyle": "width:81px!important",
           "inputStyle": "width:266px!important",
-          "inputWidth": "100px",
+          "inputWidth": "160px",
           "elementsStyle":"width: 266px;",
           "class": null,
           "rule": [
@@ -1646,7 +1646,7 @@
           "style": null,
           "titleStyle": "width:60px!important",
           "inputStyle": "width:270px!important",
-          "inputWidth": "120px",
+          "inputWidth": "180px",
           "class": null,
           "rule": [
             {
@@ -1674,7 +1674,7 @@
           "style": null,
           "titleStyle": "width:60px!important",
           "inputStyle": "width:270px!important",
-          "inputWidth": "120px",
+          "inputWidth": "180px",
           "class": null,
           "rule": [
             {
@@ -1701,7 +1701,7 @@
           "style": null,
           "titleStyle": "width:60px!important",
           "inputStyle": "width:270px!important",
-          "inputWidth": "120px",
+          "inputWidth": "180px",
           "class": null
         },
         {
@@ -1711,7 +1711,7 @@
           "style": null,
           "titleStyle": "width:60px!important",
           "inputStyle": "width:270px!important",
-          "inputWidth": "120px",
+          "inputWidth": "180px",
           "class": null,
           "rule": [
             {
@@ -1754,7 +1754,7 @@
           "style": null,
           "titleStyle": "width:60px!important",
           "inputStyle": "width:270px!important",
-          "inputWidth": "120px",
+          "inputWidth": "180px",
           "class": null,
           "options": [
             "无",
@@ -1824,7 +1824,7 @@
           "style": null,
           "titleStyle": "width:81px!important",
           "inputStyle": "width:270px!important",
-          "inputWidth": "100px",
+          "inputWidth": "160px",
           "class": null,
           "readOnly": null,
           "rule": [
@@ -1853,7 +1853,7 @@
           "style": null,
           "titleStyle": "width:81px!important",
           "inputStyle": "width:270px!important",
-          "inputWidth": "100px",
+          "inputWidth": "160px",
           "class": null,
           "readOnly": null
         },
@@ -1864,7 +1864,7 @@
           "style": null,
           "titleStyle": "width:81px!important",
           "inputStyle": "width:270px!important",
-          "inputWidth": "100px",
+          "inputWidth": "160px",
           "class": null,
           "rule": [
             {
@@ -1887,7 +1887,7 @@
           "style": null,
           "titleStyle": "width:82px!important",
           "inputStyle": "width:270px!important",
-          "inputWidth": "100px",
+          "inputWidth": "160px",
           "class": null,
           "readOnly": true,
           "dialog": {
@@ -1912,7 +1912,7 @@
           "style": null,
           "titleStyle": "width:81px!important",
           "inputStyle": "width:270px!important",
-          "inputWidth": "100px",
+          "inputWidth": "160px",
           "class": null,
           "options": [
             "无",
@@ -1944,7 +1944,7 @@
           "style": null,
           "titleStyle": "width:81px!important",
           "inputStyle": "width:270px!important",
-          "inputWidth": "100px",
+          "inputWidth": "160px",
           "class": null,
           "options": [
             "无",
@@ -2114,7 +2114,7 @@
           "style": null,
           "titleStyle": "width:81px!important",
           "inputStyle": "width:270px!important",
-          "inputWidth": "100px",
+          "inputWidth": "160px",
           "class": null,
           "readOnly": null,
           "rule": [
@@ -2149,7 +2149,7 @@
           "style": null,
           "titleStyle": "width:81px!important",
           "inputStyle": "width:270px!important",
-          "inputWidth": "100px",
+          "inputWidth": "160px",
           "class": null,
           "readOnly": null,
           "rule": [
@@ -2173,7 +2173,7 @@
           "style": null,
           "titleStyle": "width:81px!important",
           "inputStyle": "width:270px!important",
-          "inputWidth": "100px",
+          "inputWidth": "160px",
           "class": null,
           "readOnly": null,
           "rule": [
@@ -2197,7 +2197,7 @@
           "style": null,
           "titleStyle": "width:81px!important",
           "inputStyle": "width:270px!important",
-          "inputWidth": "100px",
+          "inputWidth": "160px",
           "class": null,
           "readOnly": null,
           "rule": [
@@ -2276,7 +2276,7 @@
           "style": null,
           "titleStyle": "width:81px!important",
           "inputStyle": "width:270px!important",
-          "inputWidth": "100px",
+          "inputWidth": "160px",
           "class": null,
           "readOnly": null,
           "rule": [
@@ -2303,7 +2303,7 @@
           "style": null,
           "titleStyle": "width:81px!important",
           "inputStyle": "width:270px!important",
-          "inputWidth": "100px",
+          "inputWidth": "160px",
           "class": null,
           "rule": [
             {
@@ -2324,7 +2324,7 @@
           "style": null,
           "titleStyle": "width:81px!important",
           "inputStyle": "width:270px!important",
-          "inputWidth": "100px",
+          "inputWidth": "160px",
           "class": null,
           "readOnly": null
         },
@@ -2335,7 +2335,7 @@
           "style": null,
           "titleStyle": "width:81px!important",
           "inputStyle": "width:270px!important",
-          "inputWidth": "100px",
+          "inputWidth": "160px",
           "class": null,
           "readOnly": null,
           "rule": [
@@ -2359,7 +2359,7 @@
           "style": null,
           "titleStyle": "width:81px!important",
           "inputStyle": "width:270px!important",
-          "inputWidth": "100px",
+          "inputWidth": "160px",
           "class": null,
           "readOnly": null
         },
@@ -2370,7 +2370,7 @@
           "style": null,
           "titleStyle": "width:81px!important",
           "inputStyle": "width:270px!important",
-          "inputWidth": "100px",
+          "inputWidth": "160px",
           "class": null,
           "readOnly": null
         },
@@ -2381,7 +2381,7 @@
           "style": null,
           "titleStyle": "width:81px!important",
           "inputStyle": "width:270px!important",
-          "inputWidth": "100px",
+          "inputWidth": "160px",
           "class": null,
           "readOnly": null
         },
@@ -2392,7 +2392,7 @@
           "style": null,
           "titleStyle": "width:81px!important",
           "inputStyle": "width:270px!important",
-          "inputWidth": "100px",
+          "inputWidth": "160px",
           "class": null,
           "readOnly": null
         },
@@ -2403,7 +2403,7 @@
           "style": null,
           "titleStyle": "width:81px!important",
           "inputStyle": "width:270px!important",
-          "inputWidth": "100px",
+          "inputWidth": "160px",
           "class": null,
           "readOnly": null
         }
@@ -2505,7 +2505,7 @@
           "title": "入院宣教",
           "titleStyle": "width:81px!important",
           "inputStyle": "width:270px!important",
-          "inputWidth": "100px",
+          "inputWidth": "160px",
           "style": null,
           "class": null
         }

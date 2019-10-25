@@ -84,14 +84,12 @@
       "formType": "eval"
     }
   },
-  "dictionary": {
-    "疼痛部位": "A, B, C, D"
-  },
+  "dictionary": {},
   "schemes": {},
   "model": {},
   "body": [
     {
-      "name": "I003001",
+      "name": "评估",
       "type": "formGroupColBox",
       "col": 3,
       "title": "",
@@ -99,7 +97,7 @@
       "require": "false",
       "prefixDesc": "",
       "suffixDesc": "",
-      "keys": "I003001",
+      "keys": "评估",
       "style": null,
       "classes": null,
       "readOnly": null,
