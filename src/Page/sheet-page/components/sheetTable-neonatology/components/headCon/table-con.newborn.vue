@@ -505,7 +505,7 @@ export default {
     /** 找到父母的id */
     let p_id = this.patientInfo.patientId.split("_")[0];
     let p_obj = sheetInfo.bedList.find(item => item.patientId == p_id);
-    if (Object.keys(sheetInfo.relObj.length == 0) && p_obj) {
+    if (Object.keys(sheetInfo.relObj).length == 0 && p_obj) {
       getLastDetail("form_childbirth", p_obj.patientId, p_obj.visitId).then(
         res => {
           var lastEvalData = {};
