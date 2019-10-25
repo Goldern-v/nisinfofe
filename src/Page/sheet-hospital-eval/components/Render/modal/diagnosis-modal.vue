@@ -17,7 +17,7 @@
             :key="index"
             @change="onClickBox(item)"
             v-model="item.checked"
-          >{{item.name}}</el-checkbox>
+          >{{item.matchDiagNames||item.name}}</el-checkbox>
         </div>
       </div>
 

@@ -17,7 +17,7 @@
               <el-checkbox v-model="item.isPrint"></el-checkbox>
             </span>
             <span class="col-2">{{item.bedLabel}}床</span>
-            <span class="col-3">{{item.name}}</span>
+            <span class="col-3">{{item.nameOrigin || item.name}}</span>
             <span class="col-4">{{item.scheduleDate}}</span>
             <span class="col-5" flex-box="1">{{item.examItem}}</span>
           </div>

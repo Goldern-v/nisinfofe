@@ -15,7 +15,7 @@
 
           <span :class="{'actived':item.isActived}" v-for="(item,i) of menuList" :key="i" @click="switchMenu(item.title)" flex>
             <span>{{item.title}}</span>
-            <el-badge v-if="item.title=='评估预警'" :value="alertList.length" :max="99" class="el-badge-item" >
+            <el-badge v-if="item.title=='评估预警'" :value="alertList.length+evalTaskList.length" :max="99" class="el-badge-item" >
             </el-badge>
           </span>
         </span>
@@ -47,6 +47,9 @@
 
         <!-- 预警 -->
         <ul v-show="currentMenu.title=='评估预警'">
+          <span v-if="alertList&&alertList.length>0" style="padding:8px">预警<span><el-badge v-if="alertList&&alertList.length>0" :value="alertList.length" :max="99" class="el-badge-item" >
+            </el-badge></span></span>
+
           <li v-if="alertList&&alertList.length>0" v-for="(item,i) of alertList" :key="i" @click="scrollToByName($event,item.name)">
             <el-tooltip
               effect="light"
@@ -76,12 +79,13 @@
           </ul>
 
 
-
+          <div style="height:10px"></div>
           <!-- 评估任务 -->
           <ul v-show="currentMenu.title=='评估预警'&&evalTaskList&&evalTaskList.length>0">
-          <hr>
-          <span style="padding:8px">复评任务</span>
-          <li v-for="(item,i) of evalTaskList" :key="i" @click="scrollToByName($event,item.name)">
+          <!-- <hr> -->
+          <span style="padding:8px">复评任务<span><el-badge v-if="evalTaskList&&evalTaskList.length>0" :value="evalTaskList.length" :max="99" class="el-badge-item" >
+            </el-badge></span></span>
+          <li v-for="(item,i) of evalTaskList" :key="i" @click="scrollToByName($event,formatAlertTitle(item.title),'title')">
             <el-tooltip
               effect="light"
               :enterable="false"
@@ -89,7 +93,7 @@
             >
             <div slot="content" style="max-width:200px">
               <!-- <span v-html="item.tips||item.message||''"></span> -->
-              <span style="color:green">{{item.title?item.title.replace('（住院评估单）（复评）',''):''}}：</span><br>{{item.itemValue}}<br>
+              <span style="color:green">{{formatAlertTitle(item.title)}}：</span><br>{{item.itemValue}}<br>
               <span style="color:green">定义：</span><br>{{item.remark}}<br>
               <span style="color:green">复评时间段：</span><br>
               <span>开始时间：{{item.beginTime}}</span><br><span>结束时间：{{item.expectedEndTime}}</span>
@@ -102,7 +106,7 @@
                   width="14"
                 /></i>
               <span class="alert-li-message">{{item.remark||item.message||''}}</span>
-              <span>{{item.title?item.title.replace('（住院评估单）（复评）',''):''}}</span>
+              <span>{{formatAlertTitle(item.title)}}</span>
               </span>
             </el-tooltip>
           </li>
@@ -134,6 +138,7 @@ export default {
       contentImgae: null,
       isShow: true,
       missingItems: null,
+      stopScroll:false,
       menu:[
         {title:"目录",isActived:true,content:[]},
         {title:"评估预警",isActived:false,content:[]}
@@ -162,25 +167,10 @@ export default {
     //   return window.formObj&&window.formObj.missingItems?window.formObj.missingItems:null
     // }
   },
-  watch: {
-    // formObj:{
-    //     handler:(val,oldVal)=>{
-    //       console.log('watch:missingItems',val,oldVal)
-    //       if(val && val.hasOwnProperty('missingItems')){
-    //         try {
-    //           this.missingItems = JSON.parse(JSON.stringify(val.missingItems)) || null
-    //         } catch (error) {
-    //           //
-    //         }
-
-    //       }
-    //       // this.missingItems = window.formObj&&window.formObj.missingItems?window.formObj.missingItems:null
-    //     },
-    //     deep:true
-    // }
-  },
+  watch: {},
   mounted() {
     this.contentImgae = require("./image/锚点定位.png");
+    this.stopScroll = false
 
     // if(!this.$root.$refs.tableOfContent){
       this.$root.$refs['tableOfContent']= this.$refs['tableOfContent']
@@ -193,6 +183,8 @@ export default {
       this.$root.$refs.tableOfContent['updateAlertMessageItems'] = this.updateAlertMessageItems
       //
       this.$root.$refs.tableOfContent['updateEvalTaskItems'] = this.updateEvalTaskItems
+      //
+      this.$root.$refs.tableOfContent['updateCurrentMenu'] = this.updateCurrentMenu
       //
       this.$root.$refs.tableOfContent['getAlertMessageItems'] = ()=>{
         return this.alertMessageItems;
@@ -208,6 +200,8 @@ export default {
     // document.querySelector('a[name="2.3 呼吸系统"]').offsetTop
 
     // document.querySelector('.sheetTable-contain').scrollTo(0,document.querySelector('a[name="2.3 呼吸系统"]').offsetTop)
+
+    // window.document.querySelector('[title="睡眠"]')
   },
   created() {},
   methods: {
@@ -220,9 +214,44 @@ export default {
       this.alertMessageItems = alertMessageItems
     },
     updateEvalTaskItems(evalTaskItems){
-      // console.log('updateEvalTaskItems',evalTaskItems)
+      console.log('updateEvalTaskItems',evalTaskItems)
       this.evalTaskItems = evalTaskItems
     },
+    updateCurrentMenu(title){
+      console.log('updateCurrentMenu',this.currentMenu,title)
+      this.menu.map(item=>{
+        console.log('menu:item',item)
+        if(item.title==title){
+          item.isActived = true
+          this.currentMenu = JSON.parse(JSON.stringify(item))
+        }else{
+          item.isActived = false
+        }
+      })
+    },
+    formatAlertTitle(str){
+      return str?str.replace(/[无,有,（,）,住院评估单,复评]/g,''):'';
+    },
+    cleanAllStyle(){
+      let targetY = null
+      if(this.alertMessageItems){
+        this.alertMessageItems.map(item=>{
+          targetY = document.querySelector(`[name="${item.name}"]`)
+          if(targetY){
+            targetY.style.background = 'transparent'
+          }
+        })
+      }
+      if(this.evalTaskItems){
+        this.evalTaskItems.map(item=>{
+          targetY = document.querySelector(`[title="${this.formatAlertTitle(item.title)}"]>input`)
+          if(targetY){
+            targetY.style.background = 'transparent'
+          }
+        })
+      }
+    },
+    //
     scrollTo(e, title) {
       let target = document.querySelector(".sheetTable-contain");
       // let target = document.querySelector(".pages");
@@ -233,13 +262,21 @@ export default {
       let targetYoffset = targetY.offsetTop;
       this.scrollAnimation(target, currentY, targetYoffset - 20);
     },
-    scrollToByName(e, name) {
+    scrollToByName(e, name, type=null) {
       let target = document.querySelector(".sheetTable-contain");
       // let target = document.querySelector(".pages");
       let currentY = target.scrollTop;
       let targetY = document.querySelector(`[name="${name}"]`)
+      this.stopScroll = true
+      if(type){
+        targetY = document.querySelector(`[${type}="${name}"]>input`)
+        // targetY = targetY.querySelector(`input`)
+      }
       if(!targetY||!name){return}
       //
+      this.cleanAllStyle()
+      //
+      targetY.style.background = "yellow";
       //
       let targetBound = target.getBoundingClientRect()
 
@@ -249,36 +286,28 @@ export default {
       //
       // console.log('scrollToByName',e,name,[targetY],[targetBound],[targetY.getBoundingClientRect()],targetYoffset,[top,targetBound.top])
       let needScrollTop = top-150
-      //
-      let animation = ()=>{
-        top = targetY.getBoundingClientRect().top;
+
+      setTimeout(() => {
+        this.stopScroll = false
+        this.animation(targetY,top,needScrollTop,target)
+      }, 100);
+    },
+    animation(el,top,needScrollTop,targetScroll){
+        top = el.getBoundingClientRect().top;
         setTimeout(() => {
-          needScrollTop = Math.abs(top-140)
+          if(this.stopScroll){return}
+          needScrollTop = Math.abs(top-135)
           const dist = Math.ceil(needScrollTop / 10);
           if(top>150){
-            target.scrollTop += dist
+            targetScroll.scrollTop += dist
           }else if(top<120){
-            target.scrollTop -= dist
+            targetScroll.scrollTop -= dist
           }
           if(top && (top>150 || top<0 || top<120)){
-            animation()
+            this.animation(el,top,needScrollTop,targetScroll)
           }
-        }, 1);
-      }
-      animation()
-      //
-      // do{
-      //   top = targetY.getBoundingClientRect().top;
-      //   needScrollTop = Math.abs(top-140)
-      //   const dist = Math.ceil(needScrollTop / 10);
-      //   if(top>150){
-      //     target.scrollTop += dist
-      //   }else if(top<120){
-      //     target.scrollTop -= dist
-      //   }
-      // }while(top && (top>150 || top<0 || top<120))
-      // this.scrollAnimation(target, currentY, targetYoffset - 20);
-    },
+        }, 10);
+      },
     scrollAnimation(element, currentY, targetY) {
       if (!element) {
         return;
@@ -507,6 +536,9 @@ a {
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
+  :hover{
+    white-space: inherit;
+  }
 }
 
 </style>

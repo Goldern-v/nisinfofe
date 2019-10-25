@@ -671,6 +671,7 @@ export default {
   height: 22px!important;
   background: transparent;
   background: white;
+  transition: all 0.3s;
   &:focus
     outline none
     border 1px solid #4baf8d
