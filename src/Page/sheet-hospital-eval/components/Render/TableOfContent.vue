@@ -47,7 +47,7 @@
 
         <!-- 预警 -->
         <ul v-show="currentMenu.title=='评估预警'">
-          <span style="padding:8px">预警<span><el-badge v-if="alertList&&alertList.length>0" :value="alertList.length" :max="99" class="el-badge-item" >
+          <span v-if="alertList&&alertList.length>0" style="padding:8px">预警<span><el-badge v-if="alertList&&alertList.length>0" :value="alertList.length" :max="99" class="el-badge-item" >
             </el-badge></span></span>
 
           <li v-if="alertList&&alertList.length>0" v-for="(item,i) of alertList" :key="i" @click="scrollToByName($event,item.name)">
@@ -138,6 +138,7 @@ export default {
       contentImgae: null,
       isShow: true,
       missingItems: null,
+      stopScroll:false,
       menu:[
         {title:"目录",isActived:true,content:[]},
         {title:"评估预警",isActived:false,content:[]}
@@ -169,6 +170,7 @@ export default {
   watch: {},
   mounted() {
     this.contentImgae = require("./image/锚点定位.png");
+    this.stopScroll = false
 
     // if(!this.$root.$refs.tableOfContent){
       this.$root.$refs['tableOfContent']= this.$refs['tableOfContent']
@@ -265,6 +267,7 @@ export default {
       // let target = document.querySelector(".pages");
       let currentY = target.scrollTop;
       let targetY = document.querySelector(`[name="${name}"]`)
+      this.stopScroll = true
       if(type){
         targetY = document.querySelector(`[${type}="${name}"]>input`)
         // targetY = targetY.querySelector(`input`)
@@ -283,36 +286,28 @@ export default {
       //
       // console.log('scrollToByName',e,name,[targetY],[targetBound],[targetY.getBoundingClientRect()],targetYoffset,[top,targetBound.top])
       let needScrollTop = top-150
-      //
-      let animation = ()=>{
-        top = targetY.getBoundingClientRect().top;
+
+      setTimeout(() => {
+        this.stopScroll = false
+        this.animation(targetY,top,needScrollTop,target)
+      }, 100);
+    },
+    animation(el,top,needScrollTop,targetScroll){
+        top = el.getBoundingClientRect().top;
         setTimeout(() => {
-          needScrollTop = Math.abs(top-140)
+          if(this.stopScroll){return}
+          needScrollTop = Math.abs(top-135)
           const dist = Math.ceil(needScrollTop / 10);
           if(top>150){
-            target.scrollTop += dist
+            targetScroll.scrollTop += dist
           }else if(top<120){
-            target.scrollTop -= dist
+            targetScroll.scrollTop -= dist
           }
           if(top && (top>150 || top<0 || top<120)){
-            animation()
+            this.animation(el,top,needScrollTop,targetScroll)
           }
-        }, 1);
-      }
-      animation()
-      //
-      // do{
-      //   top = targetY.getBoundingClientRect().top;
-      //   needScrollTop = Math.abs(top-140)
-      //   const dist = Math.ceil(needScrollTop / 10);
-      //   if(top>150){
-      //     target.scrollTop += dist
-      //   }else if(top<120){
-      //     target.scrollTop -= dist
-      //   }
-      // }while(top && (top>150 || top<0 || top<120))
-      // this.scrollAnimation(target, currentY, targetYoffset - 20);
-    },
+        }, 10);
+      },
     scrollAnimation(element, currentY, targetY) {
       if (!element) {
         return;
