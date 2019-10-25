@@ -234,7 +234,7 @@
           },
           "rule": [
             {
-              "min": "0",
+              "min": "-Infinity",
               "max": "35",
               "equal": "",
               "style": "color:blue"
@@ -265,7 +265,7 @@
           "readOnly": null,
           "rule": [
             {
-              "min": "1",
+              "min": "-Infinity",
               "max": "51",
               "equal": "",
               "message": "心率脉率异常过缓",
@@ -290,7 +290,7 @@
           "readOnly": false,
           "rule": [
             {
-              "min": "0",
+              "min": "-Infinity",
               "max": "8",
               "equal": "",
               "style": "color:blue"
@@ -315,7 +315,7 @@
           "readOnly": false,
           "rule": [
             {
-              "min": "0",
+              "min": "-Infinity",
               "max": "90",
               "equal": "",
               "message": "SPO2异常",
@@ -396,7 +396,7 @@
           "readOnly": null,
           "rule": [
             {
-              "min": "0",
+              "min": "-Infinity",
               "max": "5",
               "equal": "",
               "style": "color:blue"
@@ -487,7 +487,7 @@
           "readOnly": null,
           "rule": [
             {
-              "min": "0",
+              "min": "-Infinity",
               "max": "18.49",
               "equal": "",
               "style": "color:blue"
@@ -2944,7 +2944,7 @@
           "readOnly": null,
           "rule": [
             {
-              "min": "1",
+              "min": "-Infinity",
               "max": "110",
               "message": "胎心过缓",
               "style": "color: red;border-color: red;"

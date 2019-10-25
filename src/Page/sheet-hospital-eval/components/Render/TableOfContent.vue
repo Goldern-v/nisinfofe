@@ -276,7 +276,8 @@ export default {
       //
       this.cleanAllStyle()
       //
-      targetY.style.background = "yellow";
+      targetY.style.background = "red";
+      targetY.style.color = "white";
 
       //
       let targetBound = target.getBoundingClientRect()
@@ -308,6 +309,8 @@ export default {
             this.animation(el,top,needScrollTop,targetScroll)
           }else{
             el.focus()
+            el.style.background = "yellow";
+            el.style.color = "red";
           }
         }, 10);
       },

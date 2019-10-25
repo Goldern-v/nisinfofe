@@ -207,10 +207,10 @@ export default {
           max = max === NaN ? 0 : max;
           value = value === NaN ? 0 : value;
           // 判断规则
-          if (r.min && r.max && (value >= min && value < max)) {
+          if (valueNew && r.min && r.max && (value >= min && value < max)) {
             this.obj.style = r.style;
             if (r.message) {
-              console.log("rule:message", r.message);
+              console.log("rule:message", r.message,[r.min,r.max]);
               this.alertMessage = r.message + "";
               this.alertActived = true;
             }
