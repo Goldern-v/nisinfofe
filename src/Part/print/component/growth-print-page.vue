@@ -15,7 +15,7 @@
       </div>
     </div>
     <div class="grouth-con">
-      <img :src="bg" alt>
+      <img :src="bg" alt />
       <div class="chartCon">
         <svg width="100%" height="100%" version="1.1" xmlns="http://www.w3.org/2000/svg">
           <line
@@ -27,7 +27,7 @@
             v-for="(point, index) in realWeightOpints"
             :key="index + 'a'"
             v-if="index !== (realWeightOpints.length - 1) "
-          ></line>
+          />
           <line
             :x1="point[0]"
             :y1="point[1]"
@@ -37,7 +37,7 @@
             v-for="(point, index) in realHeadOpints"
             :key="index"
             v-if="index !== (realHeadOpints.length - 1) "
-          ></line>
+          />
           <line
             :x1="point[0]"
             :y1="point[1]"
@@ -47,7 +47,7 @@
             v-for="(point, index) in realLengthOpints"
             :key="index + 'b'"
             v-if="index !== (realLengthOpints.length - 1) "
-          ></line>
+          />
           <circle
             :cx="point[0]"
             :cy="point[1]"
@@ -55,7 +55,7 @@
             fill="blue"
             v-for="(point, index) in realWeightOpints"
             :key="index + 'c'"
-          ></circle>
+          />
           <circle
             :cx="point[0]"
             :cy="point[1]"
@@ -63,7 +63,7 @@
             fill="blue"
             v-for="(point, index) in realHeadOpints"
             :key="index + 'd'"
-          ></circle>
+          />
           <circle
             :cx="point[0]"
             :cy="point[1]"
@@ -71,7 +71,7 @@
             fill="blue"
             v-for="(point, index) in realLengthOpints"
             :key="index + 'e'"
-          ></circle>
+          />
         </svg>
       </div>
     </div>
@@ -117,36 +117,47 @@
 </style>
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
-.head-con
-  position relative
-  margin auto
-.his-logo
-  height 44px
-  position absolute
-  top 0
-  left 0
-.hospital
-  font-size 18px // 四号
+.head-con {
+  position: relative;
+  margin: auto;
+}
+
+.his-logo {
+  height: 44px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.hospital {
+  font-size: 18px; // 四号
   // padding 15px 0 0px
-  text-align center
-  font-weight bold
-.title
-  font-size 21px   // 三号
-  padding 10px 0 20px
-  text-align center
-  font-weight bold
-  font-family simsun
+  text-align: center;
+  font-weight: bold;
+}
+
+.title {
+  font-size: 21px; // 三号
+  padding: 10px 0 20px;
+  text-align: center;
+  font-weight: bold;
+  font-family: simsun;
   // font-family simHei
-.info
-  display flex
-  justify-content space-between
-  font-size 14px   // 小四
-  margin-bottom 5px
-  padding 0 40px;
-.remark
-  line-height 20px
-  font-size 14px
-  padding 0 40px
+}
+
+.info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px; // 小四
+  margin-bottom: 5px;
+  padding: 0 40px;
+}
+
+.remark {
+  line-height: 20px;
+  font-size: 14px;
+  padding: 0 40px;
+}
 </style>
 
 
@@ -214,8 +225,17 @@ export default {
       for (let i = 0; i < list.length; i++) {
         let item = list[i];
         let recordDate = item.recordDate;
-
-        let weeks = moment(recordDate).diff(birthday, "days") / 7;
+        let weeks = 0;
+        if (item.gestationalAge.indexOf("+") != -1) {
+          weeks =
+            Number(item.gestationalAge) +
+            Number(item.gestationalAge.split("+")[1]) / 7;
+        } else {
+          weeks = Number(item.gestationalAge);
+        }
+        console.log(weeks, "weeks");
+        // let weeks = moment(recordDate).diff(birthday, "days") / 7;
+        // let weeks = moment(recordDate).diff(birthday, "days") / 7;
         this.lengthOpints.push([weeks, Number(item.length)]);
         this.weightOpints.push([weeks, Number(item.weight)]);
         this.headOpints.push([weeks, Number(item.headCircumference)]);
