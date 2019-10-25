@@ -847,6 +847,11 @@ export default {
   height: 22px!important;
   background: transparent;
   background: white;
+  transition: all 0.3s;
+
+  &:.selected{
+    background: yellow;
+  }
 
   &:focus {
     outline: none;

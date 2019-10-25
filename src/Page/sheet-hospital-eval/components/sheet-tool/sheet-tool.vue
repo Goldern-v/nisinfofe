@@ -353,6 +353,7 @@ export default {
             this.formSave({
               showMeasure:false,
               showLoading:false,
+              message:'评估预警检查',
               callback:this.formCheckEvalTask()
             })
             console.log("检查");
@@ -574,6 +575,11 @@ export default {
         visitId: this.patientInfo.visitId,
         formCode: "E0100"
       };
+
+      try {
+        this.$root.$refs.tableOfContent.updateCurrentMenu('评估预警');
+      } catch (error) {console.log(error)}
+
       getReEvaTask(obj).then(res => {
         if (res.data.data.length === 0) {
           this.$notify.info({
@@ -590,17 +596,19 @@ export default {
         }
       });
     },
-    formSave({showMeasure=true,showLoading=true,callback=null}={}){
+    formSave({showMeasure=true,showLoading=true,callback=null,message=""}={}){
       if (
         this.patientInfo &&
         this.patientInfo.hasOwnProperty("patientId")
       ) {
 
+        let msg = message || "保存"
+
         //
-        if(showLoading){
+        if(showLoading || msg){
           this.bus.$emit("setHosptialEvalLoading", {
             status: true,
-            msg: "保存表单中..."
+            msg: msg+"表单中..."
           });
         }
 
@@ -640,8 +648,8 @@ export default {
 
         save(postData)
           .then(res => {
-            console.log("保存评估", res);
-            this.$message.success("保存成功");
+            console.log(msg+"评估", res);
+            this.$message.success(msg+"完成");
             this.bus.$emit("setHosptialEvalLoading", false);
             // 更新住院单
             try {window.formTool.fillForm()} catch (error) {}

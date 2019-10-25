@@ -318,7 +318,8 @@
               "min": "0",
               "max": "90",
               "equal": "",
-              "style": "color:blue"
+              "message": "SPO2异常",
+              "style": "color: red;border-color: red;"
             },
             {
               "min": "90",
@@ -829,20 +830,6 @@
           "style": null,
           "class": null,
           "readOnly": null
-        },
-        {
-          "name": "I100026",
-          "type": "select",
-          "title": "头晕",
-          "style": null,
-          "class": null,
-          "readOnly": null,
-          "rule": [
-            {
-              "equal": "有",
-              "style": "color: red;border-color: red;"
-            }
-          ]
         },
         {
           "name": "I100033",
