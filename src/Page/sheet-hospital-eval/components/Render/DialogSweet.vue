@@ -588,7 +588,7 @@ export default {
         this.clearUIFormData();
         // setTimeout(() => {
         this.formBox = {};
-        this.saveEvalForm()
+        // this.saveEvalForm()
         // }, 1000);
       }
     },
@@ -732,6 +732,7 @@ export default {
               this.$root.$refs[this.parentName]
             );
             if (!isDev) {
+              this.saveEvalForm();
               this.close();
             }
           });
@@ -908,6 +909,7 @@ export default {
     },
     saveEvalForm(){
       // this.parentFormCode
+      // window.formTool.formSave({showMeasure:false,showLoading:false,message:""})
       window.formTool.formSave({showMeasure:false})
     }
   }

@@ -14,7 +14,7 @@
       class="input-element"
     >
 
-      <span :style="child.preTextStyle" :class="child.preTextClass" v-if="child.preText">{{child.preText}}</span>
+      <span :style="child.preTextStyle" :class="child.class" v-if="child.preText">{{child.preText}}</span>
       <!-- html -->
       <!-- <FormGroupTitle :obj="child" :formObj="formObj"/> -->
       <!-- <FormGroupHR :obj="child" :formObj="formObj"/> -->
