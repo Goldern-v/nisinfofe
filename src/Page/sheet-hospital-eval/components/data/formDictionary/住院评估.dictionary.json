@@ -2580,33 +2580,33 @@
   "I100238": [
     {
       "code": "清水样",
-      "name": "嗅觉障碍",
-      "pinyin": "xjza"
+      "name": "清水样",
+      "pinyin": "qsy"
     },
     {
       "code": "粘液性",
-      "name": "鼻部体征常见症状",
-      "pinyin": "bbtzcjzz"
+      "name": "粘液性",
+      "pinyin": "zyx"
     },
     {
       "code": "粘脓性",
-      "name": "单侧",
-      "pinyin": "dc"
+      "name": "粘脓性",
+      "pinyin": "znx"
     },
     {
       "code": "脓性",
-      "name": "双侧",
-      "pinyin": "sc"
+      "name": "脓性",
+      "pinyin": "nx"
     },
     {
       "code": "血性",
-      "name": "持续性",
-      "pinyin": "cxx"
+      "name": "血性",
+      "pinyin": "xx"
     },
     {
       "code": "伴有臭味",
-      "name": "间歇性",
-      "pinyin": "jxx"
+      "name": "伴有臭味",
+      "pinyin": "bycw"
     }
   ],
   "I100239": [
