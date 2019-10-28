@@ -4422,6 +4422,50 @@
       "pinyin": "zy"
     }
   ],
+  "I100240": [
+    {
+      "code": "嗅觉减退",
+      "name": "嗅觉减退",
+      "pinyin": "xjjt"
+    },
+    {
+      "code": "失嗅",
+      "name": "失嗅",
+      "pinyin": "sx"
+    }
+  ],
+  "I100241": [
+    {
+      "code": "充血",
+      "name": "充血",
+      "pinyin": "cx"
+    },
+    {
+      "code": "肿胀",
+      "name": "肿胀",
+      "pinyin": "zz"
+    },
+    {
+      "code": "鼻甲充血肿大",
+      "name": "鼻甲充血肿大",
+      "pinyin": "bjcxzd"
+    },
+    {
+      "code": "鼻粘膜干燥",
+      "name": "鼻粘膜干燥",
+      "pinyin": "bzmgz"
+    },
+    {
+      "code": "鼻甲缩小",
+      "name": "鼻甲缩小",
+      "pinyin": "bjsx"
+    },
+    {
+      "code": "鼻窦面部投射点红肿压痛",
+      "name": "鼻窦面部投射点红肿压痛",
+      "pinyin": "bdmbtsdhzyt"
+    }
+  ],
   "I100170": [
     {
       "code": "无",
