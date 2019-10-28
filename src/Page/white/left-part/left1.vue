@@ -35,7 +35,7 @@
               >
                 <span>
                   <span v-show="item.bedLabelShow">{{option.bedLabel}}床</span>
-                  <span v-show="item.nameShow">{{option.name}}</span>
+                  <span v-show="item.nameShow">{{option.nameOrigin}}</span>
                 </span>
                 <!-- <span v-if="item.diagnosisShow">({{option.expand}})</span> -->
                 <!-- <span v-if="item.addExpand && option[item.addExpand]">({{option[item.addExpand]}})</span> -->
@@ -58,19 +58,26 @@
   </div>
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
-.body-con
-  margin 0
-  min-height 220px
-  overflow auto
-.item-con
-  cursor pointer
-.customItem-input
-  width 100%
-  >>>.el-textarea__inner
-    padding 0
-    border 0
-    outline none
-    resize none
+.body-con {
+  margin: 0;
+  min-height: 220px;
+  overflow: auto;
+}
+
+.item-con {
+  cursor: pointer;
+}
+
+.customItem-input {
+  width: 100%;
+
+  >>>.el-textarea__inner {
+    padding: 0;
+    border: 0;
+    outline: none;
+    resize: none;
+  }
+}
 </style>
 <script>
 import boxBase from "../base/box-base.vue";
