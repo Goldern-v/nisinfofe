@@ -233,6 +233,9 @@ export default {
         {
           label: "删除",
           onClick: e => {
+            //
+            try {window.app.$refs.autoBox.closeAutoBox()} catch (error) {}
+            //
             window.openSignModal((password, empNo) => {
               let post = {
                 id: this.formObj.model.id,
@@ -354,9 +357,12 @@ export default {
               showMeasure:false,
               showLoading:false,
               message:'评估预警检查',
-              callback:this.formCheckEvalTask()
+              callback:this.formCheckEvalTask
             })
             console.log("检查");
+          },
+          getDisabled(selectBlock) {
+            if (!selectBlock.id) return true;
           }
         }
       ]
@@ -377,6 +383,8 @@ export default {
         status: true,
         msg: "新建表单中..."
       });
+      //
+      try {window.app.$refs.autoBox.closeAutoBox()} catch (error) {}
       let post = {
         patientId: this.patientInfo.patientId,
         visitId: this.patientInfo.visitId,
@@ -569,12 +577,15 @@ export default {
       //
       this.$root.$refs.diagnosisModal.open(diagsArray);
     },
-    formCheckEvalTask(){
+    formCheckEvalTask(diags=null){
       let obj = {
         patientId: this.patientInfo.patientId,
         visitId: this.patientInfo.visitId,
         formCode: "E0100"
       };
+
+      //
+      try {window.app.$refs.autoBox.closeAutoBox()} catch (error) {}
 
       try {
         this.$root.$refs.tableOfContent.updateCurrentMenu('评估预警');
@@ -586,6 +597,11 @@ export default {
             title: "检查",
             message: "没有超时，未处理的复评任务。"
           });
+          if(diags){
+              this.$root.$refs.tableOfContent.updateEvalTaskItems([...diags])
+              //
+              console.log('评估任务：',[...diags])
+            }
         }else{
           //
           let {data:{data:list}}=res
@@ -611,6 +627,9 @@ export default {
             msg: msg+"表单中..."
           });
         }
+
+        //
+        try {window.app.$refs.autoBox.closeAutoBox()} catch (error) {}
 
         let post = {
           id: this.formId || "",
@@ -659,14 +678,11 @@ export default {
               this.showMeasureDetialBox(res);
             }
             //
-            if(callback){
-              callback()
-            }
-            //
             let {
               data: {
                 data: {
                   master,
+                  diags,
                 }
               }
             } = res;
@@ -674,6 +690,19 @@ export default {
             if(master.updaterName && master.updateTime){
               this.formObj.formSetting.updateInfo = `由${master.updaterName}创建，最后编辑于${master.updateTime}`
             }
+            //
+
+            //
+            if(callback){
+              callback(diags)
+            }
+            //
+            // if(diags){
+            //   this.$root.$refs.tableOfContent.updateEvalTaskItems([...diags])
+            //   //
+            //   console.log('评估任务：',[...diags])
+            // }
+            //
           })
           .catch(err => {
             console.log("保存评估err", err);

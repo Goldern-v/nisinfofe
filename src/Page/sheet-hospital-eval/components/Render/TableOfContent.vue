@@ -85,7 +85,7 @@
           <!-- <hr> -->
           <span style="padding:8px">复评任务<span><el-badge v-if="evalTaskList&&evalTaskList.length>0" :value="evalTaskList.length" :max="99" class="el-badge-item" >
             </el-badge></span></span>
-          <li v-for="(item,i) of evalTaskList" :key="i" @click="scrollToByName($event,formatAlertTitle(item.title),'title')">
+          <li v-for="(item,i) of evalTaskList" :key="i" @click="scrollToByName($event,formatAlertTitle(item.title||item.matchDiagNames),'title')">
             <el-tooltip
               effect="light"
               :enterable="false"
@@ -93,20 +93,20 @@
             >
             <div slot="content" style="max-width:200px">
               <!-- <span v-html="item.tips||item.message||''"></span> -->
-              <span style="color:green">{{formatAlertTitle(item.title)}}：</span><br>{{item.itemValue}}<br>
-              <span style="color:green">定义：</span><br>{{item.remark}}<br>
+              <span style="color:green">{{formatAlertTitle(item.title||'预警')}}：</span><br>{{item.itemValue||item.matchDiagNames}}<br>
+              <span style="color:green">定义：</span><br>{{item.remark||item.definition||item.matchDiagNames}}<br>
               <span style="color:green">复评时间段：</span><br>
               <span>开始时间：{{item.beginTime}}</span><br><span>结束时间：{{item.expectedEndTime}}</span>
             </div>
               <span style="display:flex">
-                <i style="align-items:center;display:flex;margin-right:3px"><img
+                <i style="align-items:center;display:inline-flex;margin-right:3px"><img
                   :src="alertImg"
                   :alt="item.title"
                   :name="`${item.name}_${item.title}_${item.label}_img`"
                   width="14"
                 /></i>
-              <span class="alert-li-message">{{item.remark||item.message||''}}</span>
-              <span>{{formatAlertTitle(item.title)}}</span>
+              <span class="alert-li-message">{{item.remark||item.message||item.definition||item.matchDiagNames||''}}</span>
+              <span>{{formatAlertTitle(item.title||item.matchDiagNames)}}</span>
               </span>
             </el-tooltip>
           </li>
@@ -276,7 +276,9 @@ export default {
       //
       this.cleanAllStyle()
       //
-      targetY.style.background = "yellow";
+      targetY.style.background = "red";
+      targetY.style.color = "white";
+
       //
       let targetBound = target.getBoundingClientRect()
 
@@ -305,6 +307,10 @@ export default {
           }
           if(top && (top>150 || top<0 || top<120)){
             this.animation(el,top,needScrollTop,targetScroll)
+          }else{
+            el.focus()
+            el.style.background = "yellow";
+            el.style.color = "red";
           }
         }, 10);
       },

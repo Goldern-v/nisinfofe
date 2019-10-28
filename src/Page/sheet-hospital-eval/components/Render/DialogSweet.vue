@@ -551,6 +551,8 @@ export default {
     open() {
       console.log("sweetModalOpen", this.$refs, this.$root.$refs);
       this.$refs.sweetModal.open();
+      //
+      try {window.app.$refs.autoBox.closeAutoBox()} catch (error) {}
       // this.dialogLoading = true;
       this.show = false;
       this.$nextTick(() => {
@@ -757,6 +759,7 @@ export default {
       if(config.type === "independent"){
         this.okText = "签名";
       }
+
       //
       if (
         config.parentName &&
