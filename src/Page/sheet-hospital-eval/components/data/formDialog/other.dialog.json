@@ -1400,10 +1400,10 @@
     "children": [
       {
         "name": "I100253",
-        "type": "select",
+        "type": "input",
         "label": "情况",
-        "labelWidth": "100px",
-        "inputWidth": "250px",
+        "labelWidth": "60px",
+        "inputWidth": "236px",
         "multiplechoice": true,
         "labelClass": "select-label",
         "postText": "",
@@ -1416,13 +1416,38 @@
       },
       {
         "name": "I100254",
-        "type": "input",
-        "label": "牙痛",
-        "labelWidth": "30px",
-        "inputWidth": "250px",
-        "paddingRight": "2px",
-        "suffixDesc": "",
-        "postText": ""
+        "type": "",
+        "title": "牙痛",
+        "labelWidth": "0px",
+        "inputWidth": "0px",
+        "style": "",
+        "class": "input-elements-nowrap",
+        "readOnly": null,
+        "children": [
+          {
+            "name": "I100347",
+            "type": "input",
+            "title": "牙痛:部位",
+            "preText": "牙痛部位:",
+            "labelWidth": "80px",
+            "inputWidth": "170px",
+            "suffixDesc": " ",
+            "postText": " ",
+            "elementClass": "align",
+            "value": ""
+          },
+          {
+            "name": "I100348",
+            "type": "input",
+            "title": "牙痛分",
+            "labelWidth": "30px",
+            "inputWidth": "50px",
+            "elementStyle": "margin-left:10px;",
+            "suffixDesc": "分",
+            "postText": "分",
+            "value": ""
+          }
+        ]
       }
     ]
   },
