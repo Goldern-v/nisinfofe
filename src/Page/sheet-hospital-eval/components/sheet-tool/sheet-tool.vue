@@ -697,6 +697,9 @@ export default {
             //
             if(callback){
               callback(diags)
+            }else if(diags && diags.length>0 && this.$root.$refs.tableOfContent){
+              this.$root.$refs.tableOfContent.updateEvalTaskItems([...diags]);
+              console.log('评估任务：',[...diags])
             }
             //
             // if(diags){
