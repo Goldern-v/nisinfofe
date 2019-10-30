@@ -83,6 +83,9 @@ export default [
     event: keyf1,
     autoComplete: {
       data: 入量项目
+    },
+    textarea: {
+      width: 36
     }
   }, {
     key: "foodSize", // 入 量
@@ -94,6 +97,9 @@ export default [
     event: keyf1,
     autoComplete: {
       data: 出量项目
+    },
+    textarea: {
+      width: 36
     }
   }, {
     key: "dischargeSize", //出 量
