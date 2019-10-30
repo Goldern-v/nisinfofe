@@ -125,7 +125,7 @@ function switechSheetType(type) {
     case "urology":
       {
         // 泌尿科
-        schema = require("../config/default/tr.js").default;
+        schema = require("../config/urology/tr.js").default;
       }
       break;
     case "endocrinology":

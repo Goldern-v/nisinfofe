@@ -84,6 +84,9 @@ export default [
     event: keyf1,
     autoComplete: {
       data: ruList
+    },
+    textarea: {
+      width: 62
     }
   },
   {
@@ -97,6 +100,9 @@ export default [
     event: keyf1,
     autoComplete: {
       data: chuList
+    },
+    textarea: {
+      width: 38
     }
   },
   {
