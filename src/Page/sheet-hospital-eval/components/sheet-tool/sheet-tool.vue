@@ -492,6 +492,12 @@ export default {
 
           window.formObj.model = formObj;
           window.formObj.model["formId"] = master.id || "";
+
+          try {
+            window.formObj.formSetting.formInfo.status=master.status || ''
+          } catch (error) {}
+
+
           // 增加默认值
           mergeDefaultValue(formObj);
           // window.formObj.model.I100000 = "耳温";

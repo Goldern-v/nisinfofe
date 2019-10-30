@@ -335,7 +335,11 @@ export default {
           if(top && (top>150 || top<0 || top<120)){
             this.animation(el,top,needScrollTop,targetScroll)
           }else{
-            el.focus()
+            try {
+              if(window.formObj.formSetting.formInfo.status=='0'){
+                el.focus()
+              }
+            } catch (error) {}
             el.style.background = "yellow";
             el.style.color = "red";
           }
