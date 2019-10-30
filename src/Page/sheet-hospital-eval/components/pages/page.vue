@@ -20,63 +20,21 @@
 </template>
 
 <script>
-/**
- *
- * http://120.25.105.45:9864/crNursing/formPage?wardCode=030502&wardName=神经内科护理单元
- * deptCode=030501
- * deptName=神经内科病区
- * bedLabel=05
- * bedNo=5
- * patientId=71025238
- * visitId=8
- * name=尹解放
- * sex=男
- * age=68岁
- * birthday=1950-05-07 00%3A00%3A00
- * inpNo=348371
- * admissionDate=2019-03-12 15%3A00%3A39
- * inpDay=48
- * doctorInCharge=官少兵
- * diagnosis=头晕查因：后循环缺血？，气促查因：气管炎？，冠心病 支架植入术后
- * nursingClass=一级护理
- * patientCondition=普通
- * chargeType=基本险
- * prepayments=1000
- * totalCosts=4012.66
- * isTodayOperation=0
- * isTommorowOperation=0
- * isTodayDischarge=0
- * isTommorowDischarge=0
- * deptLend=
- * lendDeptCode=
- * glFlag=
- * drugGms=
- * weight=55KG
- * height=
- * foodAnDrink=
- * beApprovedType=0
- * newBornOut=
- * isFollow=0
- * sysBedId
- * formLowestStatus=0
- * dangerInMorse=false
- * dangerInYachuang=true
- * hasYachuang=false
- * dangerInTengtong=false
- * dangerInMews=false
- * evalIcons=[object Object]
- * evalIcons=[object Object]
- * evalIcons=[object Object]
- * mewsInstanceDto
- * config
- *
- *  */
 import RenderForm from "@/Page/sheet-hospital-eval/components/Render/main.vue";
 
 import BusFactory from "vue-happy-bus";
 
+import {
+  formUrl,
+  devFormUrl,
+  devFormUrl_p80
+} from "@/common/pathConfig/index.js";
+import common from "@/common/mixin/common.mixin.js";
+import { getJSON } from "./api/index.js";
+
 export default {
   name: "page",
+  mixins: [common],
   components: {
     RenderForm
   },
@@ -133,16 +91,33 @@ export default {
 
     this.initial();
     this.loading = false;
-
-
-
   },
   mounted() {
     //
-    window.formTool ={...window.formTool, fillForm:this.fillForm}
-
+    window.formTool = { ...window.formTool, fillForm: this.fillForm };
   },
   methods: {
+    // async loadingJSON() {
+    //   // remote
+    //   let fileName = "住院评估.index.json";
+    //   let path = "sheet-hospital-eval";
+    //   let urldevForm = `${devFormUrl}/${path}/${fileName}`;
+    //   let urlForm = `${formUrl}/${path}/${fileName}`;
+    //   let url = urlForm;
+    //   if (this.isDev) {
+    //     url = urldevForm;
+    //   }
+    //   //
+    //   console.log("==loadingJSON==", this.isDev, url);
+    //   //
+    //   let fromMainJSON = await getJSON(url)
+    //       .catch(err => {
+    //       console.log("getJSON:err", err);
+    //     });
+    //   //
+    //   //
+    //   console.log("==fromMainJSON==", fromMainJSON,fromMainJSON.data);
+    // },
     initial(patient = null) {
       this.loading = true;
       // 清空
@@ -152,6 +127,7 @@ export default {
       //     // this.$root.$refs[rkey]=[]
       //   }
       // })
+      // this.loadingJSON();
       //
       // 主表结构
       let file = JSON.parse(
@@ -173,12 +149,10 @@ export default {
       //
       // 其他下拉框选项字典表
       let otherDictionary = JSON.parse(
-        JSON.stringify(
-          require("../data/formDictionary/other.dictionary.json")
-        )
+        JSON.stringify(require("../data/formDictionary/other.dictionary.json"))
       );
       //
-      file.dictionary = {...dictionary, ...otherDictionary};
+      file.dictionary = { ...dictionary, ...otherDictionary };
       //
       file.schemes = schemes;
       file.schemesObj = {};
@@ -285,27 +259,24 @@ export default {
             // let refObj = this.$root.$refs[key];
             // console.log('!!!!!!',key,element,this.$root.$refs[key])
             //
-            if(this.$root.$refs[key] && this.$root.$refs[key].constructor == Array){
+            if (
+              this.$root.$refs[key] &&
+              this.$root.$refs[key].constructor == Array
+            ) {
               //
               // console.log('!!!!!!',key,element,this.$root.$refs[key])
-              Object.keys(this.$root.$refs[key]).map(elKey=>{
-              //
-              let el = this.$root.$refs[key][elKey]
-
-              // console.log('!!!el!!!',el,el.type,el.value)
-
-              // this.$root.$refs[key].map(el=>{
+              Object.keys(this.$root.$refs[key]).map(elKey => {
                 //
-                if (
-                  el &&
-                  (el.type === "text" ||
-                    el.type === "textarea")
-                ) {
+                let el = this.$root.$refs[key][elKey];
+
+                // console.log('!!!el!!!',el,el.type,el.value)
+
+                // this.$root.$refs[key].map(el=>{
+                //
+                if (el && (el.type === "text" || el.type === "textarea")) {
                   // el.setCurrentValue(textResult);
                   if (key === "status") {
-                    let textResult = el.checkValueRule(
-                      element + ""
-                    );
+                    let textResult = el.checkValueRule(element + "");
                     // console.log(
                     //   "----el",
                     //   el,
@@ -323,16 +294,12 @@ export default {
                     // }
                   }
                 }
-                if (
-                  el &&
-                  el.type === "datetime"
-                ) {
+                if (el && el.type === "datetime") {
                   el.currentValue = element;
                   console.log("datetime", el, key, element);
                 }
-              })
+              });
             }
-
           }
         }
       }

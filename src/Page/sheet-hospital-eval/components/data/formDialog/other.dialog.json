@@ -579,7 +579,7 @@
         "readOnly": null
       },
       {
-        "name": "I100148",
+        "name": "I100335",
         "type": "input",
         "label": "通气模式",
         "labelWidth": "110px",
@@ -591,30 +591,60 @@
         "readOnly": null
       },
       {
-        "name": "I100149",
+        "name": "I100336",
         "type": "input",
-        "label": "通气参数",
+        "label": "通气参数:IP",
+        "preText": "",
         "labelWidth": "110px",
-        "value": "",
-        "options": [
-          "IP---cmH2O",
-          "EP---cmH2O",
-          "RR----次/分",
-          "FiO2---%",
-          "PEEP---cmH2O",
-          "VT----ml"
-        ],
-        "style": null,
-        "class": null,
-        "html": null,
-        "readOnly": null
+        "preTextStyle": "margin-left:56px",
+        "suffixDesc": "cmH2O",
+        "postText": "cmH2O"
+      },
+      {
+        "name": "I100337",
+        "type": "input",
+        "label": "EP",
+        "labelWidth": "110px",
+        "suffixDesc": "cmH2O",
+        "postText": "cmH2O"
+      },
+      {
+        "name": "I100338",
+        "type": "input",
+        "label": "RR",
+        "labelWidth": "110px",
+        "suffixDesc": "次/分",
+        "postText": "次/分"
+      },
+      {
+        "name": "I100339",
+        "type": "input",
+        "label": "FiO2",
+        "labelWidth": "110px",
+        "suffixDesc": "%",
+        "postText": "%"
+      },
+      {
+        "name": "I100340",
+        "type": "input",
+        "label": "PEEP",
+        "labelWidth": "110px",
+        "suffixDesc": "cmH2O",
+        "postText": "cmH2O"
+      },
+      {
+        "name": "I100341",
+        "type": "input",
+        "label": "VT",
+        "labelWidth": "110px",
+        "suffixDesc": "ml",
+        "postText": "ml"
       },
       {
         "name": "I100150",
         "type": "input",
         "label": "呼吸机运转正常",
         "labelWidth": "110px",
-        "value": "",
         "options": [
           "是",
           "否"
@@ -950,10 +980,11 @@
         "name": "I100223",
         "type": "input",
         "label": "情况",
-        "labelWidth": "100px",
+        "labelWidth": "95px",
+        "inputWidth": "185px",
         "multiplechoice": true,
+        "labelClass": "select-label",
         "postText": "",
-        "value": "",
         "options": [],
         "style": null,
         "class": null,
@@ -961,17 +992,76 @@
         "readOnly": null
       },
       {
-        "name": "I100224",
-        "type": "input",
-        "label": "症状",
-        "labelWidth": "100px",
-        "postText": "",
-        "value": "",
-        "options": [],
-        "style": null,
-        "class": null,
-        "html": null,
-        "readOnly": null
+        "name": "I100343",
+        "type": "",
+        "title": "视力下降",
+        "labelWidth": "0px",
+        "inputWidth": "0px",
+        "style": "",
+        "class": "input-elements-nowrap",
+        "readOnly": null,
+        "children": [
+          {
+            "name": "I100343",
+            "type": "input",
+            "title": "视力下降",
+            "preText": "视力下降:左眼:",
+            "labelWidth": "80px",
+            "inputWidth": "60px",
+            "suffixDesc": " ",
+            "postText": " ",
+            "elementClass": "align",
+            "value": ""
+          },
+          {
+            "name": "I100344",
+            "type": "input",
+            "title": "视力下降",
+            "preText": "右眼:",
+            "labelWidth": "80px",
+            "inputWidth": "60px",
+            "suffixDesc": "",
+            "postText": "",
+            "elementClass": "align",
+            "value": ""
+          }
+        ]
+      },
+      {
+        "name": "I100345",
+        "type": "",
+        "title": "眼压升高",
+        "labelWidth": "0px",
+        "inputWidth": "0px",
+        "style": "",
+        "class": "input-elements-nowrap",
+        "readOnly": null,
+        "children": [
+          {
+            "name": "I100345",
+            "type": "input",
+            "title": "眼压升高",
+            "preText": "眼压升高:左眼:",
+            "labelWidth": "80px",
+            "inputWidth": "60px",
+            "suffixDesc": " ",
+            "postText": " ",
+            "elementClass": "align",
+            "value": ""
+          },
+          {
+            "name": "I100346",
+            "type": "input",
+            "title": "眼压升高",
+            "preText": "右眼:",
+            "labelWidth": "80px",
+            "inputWidth": "60px",
+            "suffixDesc": "",
+            "postText": "",
+            "elementClass": "align",
+            "value": ""
+          }
+        ]
       }
     ]
   },
@@ -982,7 +1072,7 @@
     "showTitle": false,
     "message": "",
     "require": "false",
-    "suffixDesc":"",
+    "suffixDesc": "",
     "prefixDesc": "",
     "postText": "",
     "keys": "",
@@ -998,7 +1088,6 @@
         "labelWidth": "98px",
         "multiplechoice": true,
         "postText": "",
-        "value": "",
         "style": null,
         "class": null,
         "html": null,
@@ -1009,22 +1098,21 @@
         "type": "",
         "title": "耳痛",
         "labelWidth": "0px",
-        "inputWidth":"0px",
-        "value": "",
+        "inputWidth": "0px",
         "style": "",
         "class": "input-elements-nowrap",
         "readOnly": null,
-        "children":[
+        "children": [
           {
             "name": "I100316",
             "type": "input",
             "title": "耳痛",
             "preText": "耳痛:",
             "labelWidth": "80px",
-            "inputWidth":"60px",
-            "suffixDesc":"耳",
+            "inputWidth": "60px",
+            "suffixDesc": "耳",
             "postText": "耳",
-            "elementClass":"align",
+            "elementClass": "align",
             "value": ""
           },
           {
@@ -1032,9 +1120,9 @@
             "type": "input",
             "title": "耳痛",
             "labelWidth": "30px",
-            "inputWidth":"50px",
-            "elementStyle":"margin-left:10px;",
-            "suffixDesc":"分",
+            "inputWidth": "50px",
+            "elementStyle": "margin-left:10px;",
+            "suffixDesc": "分",
             "postText": "分",
             "value": ""
           }
@@ -1050,17 +1138,17 @@
         "style": null,
         "class": "input-elements-nowrap",
         "readOnly": null,
-        "children":[
+        "children": [
           {
             "name": "I100319",
             "type": "input",
             "title": "耳聋",
             "preText": "耳聋:",
             "labelWidth": "80px",
-            "inputWidth":"60px",
-            "suffixDesc":"耳",
+            "inputWidth": "60px",
+            "suffixDesc": "耳",
             "postText": "耳",
-            "elementClass":"align",
+            "elementClass": "align",
             "value": ""
           },
           {
@@ -1068,9 +1156,9 @@
             "type": "input",
             "title": "耳聋",
             "labelWidth": "30px",
-            "inputWidth":"50px",
-            "elementStyle":"margin-left:10px;",
-            "suffixDesc":"度",
+            "inputWidth": "50px",
+            "elementStyle": "margin-left:10px;",
+            "suffixDesc": "度",
             "postText": "度",
             "value": ""
           }
@@ -1086,17 +1174,17 @@
         "style": "margin-right: 80px;",
         "class": "input-elements-nowrap",
         "readOnly": null,
-        "children":[
+        "children": [
           {
             "name": "I100318",
             "type": "input",
             "title": "耳漏",
             "preText": "耳漏:",
             "labelWidth": "80px",
-            "inputWidth":"60px",
-            "suffixDesc":"耳",
+            "inputWidth": "60px",
+            "suffixDesc": "耳",
             "postText": "耳",
-            "elementClass":"align",
+            "elementClass": "align",
             "value": ""
           }
         ]
@@ -1111,17 +1199,17 @@
         "style": "margin-right: 80px;",
         "class": "input-elements-nowrap",
         "readOnly": null,
-        "children":[
+        "children": [
           {
             "name": "I100321",
             "type": "input",
             "title": "耳鸣",
             "preText": "耳鸣:",
             "labelWidth": "80px",
-            "inputWidth":"60px",
-            "suffixDesc":"耳",
+            "inputWidth": "60px",
+            "suffixDesc": "耳",
             "postText": "耳",
-            "elementClass":"align",
+            "elementClass": "align",
             "value": ""
           }
         ]
@@ -1156,20 +1244,44 @@
     "modalWidth": 540,
     "children": [
       {
-        "name": "I100236",
-        "type": "select",
-        "label": "情况",
-        "labelWidth": "100px",
-        "inputWidth": "250px",
-        "multiplechoice": true,
-        "labelClass": "select-label",
-        "postText": "",
-        "value": "",
-        "options": [],
-        "style": null,
-        "class": null,
-        "html": null,
-        "readOnly": null
+        "name": "I100237",
+        "type": "input",
+        "label": "鼻塞",
+        "labelWidth": "110px",
+        "suffixDesc": "",
+        "postText": ""
+      },
+      {
+        "name": "I100238",
+        "type": "input",
+        "label": "鼻漏",
+        "labelWidth": "110px",
+        "suffixDesc": "",
+        "postText": ""
+      },
+      {
+        "name": "I100239",
+        "type": "input",
+        "label": "鼻出血",
+        "labelWidth": "110px",
+        "suffixDesc": "",
+        "postText": ""
+      },
+      {
+        "name": "I100240",
+        "type": "input",
+        "label": "嗅觉障碍",
+        "labelWidth": "110px",
+        "suffixDesc": "",
+        "postText": ""
+      },
+      {
+        "name": "I100241",
+        "type": "input",
+        "label": "鼻部症状常见体征",
+        "labelWidth": "110px",
+        "suffixDesc": "",
+        "postText": ""
       }
     ]
   },
@@ -1189,20 +1301,52 @@
     "modalWidth": 540,
     "children": [
       {
-        "name": "I100243",
-        "type": "select",
-        "label": "情况",
-        "labelWidth": "100px",
-        "inputWidth": "250px",
-        "multiplechoice": true,
-        "labelClass": "select-label",
-        "postText": "",
-        "value": "",
-        "options": [],
-        "style": null,
-        "class": null,
-        "html": null,
-        "readOnly": null
+        "name": "I100244",
+        "type": "input",
+        "label": "咽痛",
+        "labelWidth": "110px",
+        "suffixDesc": "",
+        "postText": ""
+      },
+      {
+        "name": "I100245",
+        "type": "input",
+        "label": "咽部感觉异常",
+        "labelWidth": "110px",
+        "suffixDesc": "",
+        "postText": ""
+      },
+      {
+        "name": "I100246",
+        "type": "input",
+        "label": "吞咽困难",
+        "labelWidth": "110px",
+        "suffixDesc": "",
+        "postText": ""
+      },
+      {
+        "name": "I100247",
+        "type": "input",
+        "label": "打鼾",
+        "labelWidth": "110px",
+        "suffixDesc": "",
+        "postText": ""
+      },
+      {
+        "name": "I100248",
+        "type": "input",
+        "label": "咽部症状常见体征",
+        "labelWidth": "110px",
+        "suffixDesc": "",
+        "postText": ""
+      },
+      {
+        "name": "I100249",
+        "type": "input",
+        "label": "腭扁桃体肥大",
+        "labelWidth": "110px",
+        "suffixDesc": "",
+        "postText": ""
       }
     ]
   },
@@ -1256,10 +1400,10 @@
     "children": [
       {
         "name": "I100253",
-        "type": "select",
+        "type": "input",
         "label": "情况",
-        "labelWidth": "100px",
-        "inputWidth": "250px",
+        "labelWidth": "60px",
+        "inputWidth": "236px",
         "multiplechoice": true,
         "labelClass": "select-label",
         "postText": "",
@@ -1269,6 +1413,41 @@
         "class": null,
         "html": null,
         "readOnly": null
+      },
+      {
+        "name": "I100254",
+        "type": "",
+        "title": "牙痛",
+        "labelWidth": "0px",
+        "inputWidth": "0px",
+        "style": "",
+        "class": "input-elements-nowrap",
+        "readOnly": null,
+        "children": [
+          {
+            "name": "I100347",
+            "type": "input",
+            "title": "牙痛:部位",
+            "preText": "牙痛部位:",
+            "labelWidth": "80px",
+            "inputWidth": "170px",
+            "suffixDesc": " ",
+            "postText": " ",
+            "elementClass": "align",
+            "value": ""
+          },
+          {
+            "name": "I100348",
+            "type": "input",
+            "title": "牙痛分",
+            "labelWidth": "30px",
+            "inputWidth": "50px",
+            "elementStyle": "margin-left:10px;",
+            "suffixDesc": "分",
+            "postText": "分",
+            "value": ""
+          }
+        ]
       }
     ]
   },

@@ -2580,33 +2580,33 @@
   "I100238": [
     {
       "code": "清水样",
-      "name": "嗅觉障碍",
-      "pinyin": "xjza"
+      "name": "清水样",
+      "pinyin": "qsy"
     },
     {
       "code": "粘液性",
-      "name": "鼻部体征常见症状",
-      "pinyin": "bbtzcjzz"
+      "name": "粘液性",
+      "pinyin": "zyx"
     },
     {
       "code": "粘脓性",
-      "name": "单侧",
-      "pinyin": "dc"
+      "name": "粘脓性",
+      "pinyin": "znx"
     },
     {
       "code": "脓性",
-      "name": "双侧",
-      "pinyin": "sc"
+      "name": "脓性",
+      "pinyin": "nx"
     },
     {
       "code": "血性",
-      "name": "持续性",
-      "pinyin": "cxx"
+      "name": "血性",
+      "pinyin": "xx"
     },
     {
       "code": "伴有臭味",
-      "name": "间歇性",
-      "pinyin": "jxx"
+      "name": "伴有臭味",
+      "pinyin": "bycw"
     }
   ],
   "I100239": [
@@ -2717,8 +2717,8 @@
   ],
   "I100244": [
     {
-      "code": "分--",
-      "name": "分--",
+      "code": "分",
+      "name": "分",
       "pinyin": "f"
     },
     {
@@ -4422,6 +4422,50 @@
       "pinyin": "zy"
     }
   ],
+  "I100240": [
+    {
+      "code": "嗅觉减退",
+      "name": "嗅觉减退",
+      "pinyin": "xjjt"
+    },
+    {
+      "code": "失嗅",
+      "name": "失嗅",
+      "pinyin": "sx"
+    }
+  ],
+  "I100241": [
+    {
+      "code": "充血",
+      "name": "充血",
+      "pinyin": "cx"
+    },
+    {
+      "code": "肿胀",
+      "name": "肿胀",
+      "pinyin": "zz"
+    },
+    {
+      "code": "鼻甲充血肿大",
+      "name": "鼻甲充血肿大",
+      "pinyin": "bjcxzd"
+    },
+    {
+      "code": "鼻粘膜干燥",
+      "name": "鼻粘膜干燥",
+      "pinyin": "bzmgz"
+    },
+    {
+      "code": "鼻甲缩小",
+      "name": "鼻甲缩小",
+      "pinyin": "bjsx"
+    },
+    {
+      "code": "鼻窦面部投射点红肿压痛",
+      "name": "鼻窦面部投射点红肿压痛",
+      "pinyin": "bdmbtsdhzyt"
+    }
+  ],
   "I100170": [
     {
       "code": "无",
@@ -5186,16 +5230,6 @@
   ],
   "I100219": [
     {
-      "code": "左眼视力--",
-      "name": "左眼视力--",
-      "pinyin": "zysl"
-    },
-    {
-      "code": "右眼视力--",
-      "name": "右眼视力--",
-      "pinyin": "yysl"
-    },
-    {
       "code": "视物变形",
       "name": "视物变形",
       "pinyin": "swbx"
@@ -5348,25 +5382,25 @@
   ],
   "I100225": [
     {
-      "code": "左眼--",
-      "name": "左眼--",
+      "code": "左眼",
+      "name": "左眼",
       "pinyin": "zy"
     },
     {
-      "code": "右眼--",
-      "name": "右眼--",
+      "code": "右眼",
+      "name": "右眼",
       "pinyin": "yy"
     }
   ],
   "I100226": [
     {
-      "code": "左眼--",
-      "name": "左眼--",
+      "code": "左眼",
+      "name": "左眼",
       "pinyin": "zy"
     },
     {
-      "code": "右眼--",
-      "name": "右眼--",
+      "code": "右眼",
+      "name": "右眼",
       "pinyin": "yy"
     }
   ],
@@ -5416,13 +5450,13 @@
   ],
   "I100229": [
     {
-      "code": "耳--",
-      "name": "耳--",
+      "code": "耳",
+      "name": "耳",
       "pinyin": "e"
     },
     {
-      "code": "分--",
-      "name": "分--",
+      "code": "分",
+      "name": "分",
       "pinyin": "f"
     }
   ],
@@ -5445,13 +5479,13 @@
   ],
   "I100230": [
     {
-      "code": "耳--",
-      "name": "耳--",
+      "code": "耳",
+      "name": "耳",
       "pinyin": "e"
     },
     {
-      "code": "分--",
-      "name": "分--",
+      "code": "分",
+      "name": "分",
       "pinyin": "f"
     }
   ],

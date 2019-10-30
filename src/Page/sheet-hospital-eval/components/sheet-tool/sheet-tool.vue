@@ -621,7 +621,7 @@ export default {
         let msg = message || "保存"
 
         //
-        if(showLoading || msg){
+        if(showLoading || message){
           this.bus.$emit("setHosptialEvalLoading", {
             status: true,
             msg: msg+"表单中..."
@@ -668,7 +668,9 @@ export default {
         save(postData)
           .then(res => {
             console.log(msg+"评估", res);
-            this.$message.success(msg+"完成");
+            if(showLoading){
+              this.$message.success(msg+"完成");
+            }
             this.bus.$emit("setHosptialEvalLoading", false);
             // 更新住院单
             try {window.formTool.fillForm()} catch (error) {}
@@ -695,6 +697,9 @@ export default {
             //
             if(callback){
               callback(diags)
+            }else if(diags && diags.length>0 && this.$root.$refs.tableOfContent){
+              this.$root.$refs.tableOfContent.updateEvalTaskItems([...diags]);
+              console.log('评估任务：',[...diags])
             }
             //
             // if(diags){

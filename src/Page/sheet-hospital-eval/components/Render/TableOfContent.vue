@@ -47,8 +47,18 @@
 
         <!-- 预警 -->
         <ul v-show="currentMenu.title=='评估预警'">
-          <span v-if="alertList&&alertList.length>0" style="padding:8px">预警<span><el-badge v-if="alertList&&alertList.length>0" :value="alertList.length" :max="99" class="el-badge-item" >
-            </el-badge></span></span>
+            <span  v-if="alertList&&alertList.length>0">
+            <span style="display:flex;align-items: center;">
+                <i style="align-items:center;display:flex;margin-right:3px;padding-left:8px"><img
+                  :src="alertImg2"
+                  :name="`预警_img`"
+                  width="14"
+                /></i>
+              <span class="alert-li-message title">预警</span>
+              <span><el-badge v-if="alertList&&alertList.length>0" :value="alertList.length" :max="99" class="el-badge-item" ></el-badge></span>
+            </span>
+            <hr style="border:1px solid #E7EAEC">
+          </span>
 
           <li v-if="alertList&&alertList.length>0" v-for="(item,i) of alertList" :key="i" @click="scrollToByName($event,item.name)">
             <el-tooltip
@@ -59,7 +69,7 @@
             <div slot="content" style="max-width:200px">
               <span v-html="item.tips||item.message||''"></span>
             </div>
-              <span style="display:flex">
+              <span style="display:flex;align-items: center;">
                 <i style="align-items:center;display:flex;margin-right:3px"><img
                   :src="alertImg"
                   :alt="item.title"
@@ -68,9 +78,9 @@
                 /></i>
               <span class="alert-li-message">{{item.message}}</span>
               <span style="font-size:10px">
-                <span style="color:red">{{item.value}}</span><span style="color:grey">{{item.obj.suffixDesc?item.obj.suffixDesc+'|':''}}</span>
+                <span style="color:red">{{item.value}}</span><span style="color:grey">{{item.obj.suffixDesc?item.obj.suffixDesc+'':''}}</span>
                 </span>
-              <span>{{item.title}}</span>
+              <!-- <span>{{item.title}}</span> -->
 
               </span>
             </el-tooltip>
@@ -83,8 +93,23 @@
           <!-- 评估任务 -->
           <ul v-show="currentMenu.title=='评估预警'&&evalTaskList&&evalTaskList.length>0">
           <!-- <hr> -->
-          <span style="padding:8px">复评任务<span><el-badge v-if="evalTaskList&&evalTaskList.length>0" :value="evalTaskList.length" :max="99" class="el-badge-item" >
-            </el-badge></span></span>
+          <!-- <span style="padding:8px">复评任务<span><el-badge v-if="evalTaskList&&evalTaskList.length>0" :value="evalTaskList.length" :max="99" class="el-badge-item" >
+            </el-badge></span></span> -->
+
+          <span  v-if="evalTaskList&&evalTaskList.length>0">
+            <span style="display:flex;align-items: center;">
+                <i style="align-items:center;display:flex;margin-right:3px;padding-left:8px"><img
+                  :src="evalImg"
+                  :name="`预警_img`"
+                  width="14"
+                /></i>
+              <span class="alert-li-message title">复评任务</span>
+              <span><el-badge v-if="evalTaskList&&evalTaskList.length>0" :value="evalTaskList.length" :max="99" class="el-badge-item" ></el-badge></span>
+            </span>
+            <hr style="border:1px solid #E7EAEC">
+          </span>
+
+
           <li v-for="(item,i) of evalTaskList" :key="i" @click="scrollToByName($event,formatAlertTitle(item.title||item.matchDiagNames),'title')">
             <el-tooltip
               effect="light"
@@ -106,7 +131,7 @@
                   width="14"
                 /></i>
               <span class="alert-li-message">{{item.remark||item.message||item.definition||item.matchDiagNames||''}}</span>
-              <span>{{formatAlertTitle(item.title||item.matchDiagNames)}}</span>
+              <!-- <span>{{formatAlertTitle(item.title||item.matchDiagNames)}}</span> -->
               </span>
             </el-tooltip>
           </li>
@@ -151,6 +176,8 @@ export default {
         // {message:"评估预警3",title:"一、基础评估"}
       ],
       alertImg: require("./image/预警@2x.png"),
+      alertImg2: require("./image/预警2@2x.png"),
+      evalImg: require("./image/复评@2x.png"),
     };
   },
   computed: {
@@ -521,6 +548,9 @@ a {
 .el-badge-item{
   // margin-top: 10px;
   // margin-right: 40px;
+  >>>sup{
+    vertical-align: text-bottom!important;
+  }
 }
 
 >>>.el-badge__content {
@@ -544,6 +574,9 @@ a {
   white-space: nowrap;
   :hover{
     white-space: inherit;
+  }
+  &.title{
+    color:black;
   }
 }
 
