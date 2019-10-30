@@ -418,7 +418,7 @@ function autoComplete(el, bind) {
         window.closeAutoComplete(key);
       }, 400);
     };
-  }else {
+  } else {
     el.onfocus = null;
   }
 }
@@ -592,7 +592,10 @@ export default {
       let result = [];
       let text = "";
       let allDoc = this.doc;
-      if (this.sheetInfo.sheetType && this.sheetInfo.sheetType.indexOf("_wx") == -1) {
+      if (
+        this.sheetInfo.sheetType &&
+        this.sheetInfo.sheetType.indexOf("_wx") == -1
+      ) {
         allDoc = "    " + this.doc;
       }
       for (let i = 0; i < allDoc.length; i++) {
@@ -604,6 +607,8 @@ export default {
           charCode == "44" ||
           charCode == "46" ||
           charCode == "65306" ||
+          charCode == "109" ||
+          charCode == "103" ||
           charCode == "58"
         ) {
           text += allDoc[i];
