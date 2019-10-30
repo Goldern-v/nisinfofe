@@ -588,7 +588,7 @@
           "type": "",
           "title": "",
           "code": "√",
-          "style": null,
+          "style": "align-items: center;",
           "class": null,
           "readOnly": null,
           "children": [
