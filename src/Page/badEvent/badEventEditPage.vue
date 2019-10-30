@@ -25,6 +25,7 @@
             frameborder="0"
             class="badEvent-iframe"
             :src="url"
+            :style="`min-height:${wih-100}px`"
             @load="onloadPage"
             ref="iframe"
           ></iframe>
@@ -71,7 +72,7 @@
 .bad-event-container {
   padding: 0;
   flex: 1;
-  overflow: auto;
+  // overflow: auto;
 }
 
 .bad-event-edit {
@@ -96,8 +97,9 @@
 .badEvent-iframe {
   width: 100%;
   // min-height 1080px
-  height: auto;
-  height: -webkit-fill-available;
+  // height: auto;
+  // height: -webkit-fill-available;
+  // height: auto;
   background: #eee;
   min-height: 600px;
 }

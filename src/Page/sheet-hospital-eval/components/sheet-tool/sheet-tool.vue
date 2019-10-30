@@ -27,7 +27,7 @@
         flex="cross:center main:center"
         @click.stop="button.onClick"
         :class="{disabled: button.getDisabled && button.getDisabled(selectBlock)}"
-        :style="button.getDisabled && button.getDisabled(selectBlock)?'display:none':''"
+        :style="button.getDisabled && button.getDisabled(selectBlock)?'display:none':(button.style||'')"
       >
         <div class="text-con">{{button.label}}</div>
       </div>
@@ -106,6 +106,10 @@
 </style>
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
+
+>>>.item-box
+    width: auto;
+    // padding: 0px 10px;
 
 .sheetSelect-con-sheet
   background: #FFFFFF;
@@ -360,6 +364,22 @@ export default {
               callback:this.formCheckEvalTask
             })
             console.log("检查");
+          },
+          getDisabled(selectBlock) {
+            if (!selectBlock.id) return true;
+          }
+        },
+        {
+          label: "查看护理记录",
+          style: "width: auto;padding: 0px 10px;",
+          onClick: e => {
+            // this.formSave({
+            //   showMeasure:false,
+            //   showLoading:false,
+            //   message:'评估预警检查',
+            //   callback:this.formCheckEvalTask
+            // })
+            console.log("查看护理记录单");
           },
           getDisabled(selectBlock) {
             if (!selectBlock.id) return true;

@@ -283,11 +283,19 @@ export default {
       let target = document.querySelector(".sheetTable-contain");
       // let target = document.querySelector(".pages");
       let currentY = target.scrollTop;
-      let targetY = document.querySelector(`a[name="${title}"]`) || document.querySelector(`[name="${title}"]`)
+      let targetY = document.querySelector(`div[name="${title}"]`) || document.querySelector(`a[name="${title}"]`)
       if(!targetY){return}
       //
       let targetYoffset = targetY.offsetTop;
-      this.scrollAnimation(target, currentY, targetYoffset - 20);
+      // clicked-point
+      // targetY.style.background = "red";
+      // targetY.style.color = "white";
+      // targetY.style.padding = "5px";
+      targetY.classList.add('clicked-point')
+      //
+      console.log('targetY:',[targetY])
+      //
+      this.scrollAnimation(target, currentY, targetYoffset - 20,targetY);
     },
     scrollToByName(e, name, type=null) {
       let target = document.querySelector(".sheetTable-contain");
@@ -345,7 +353,7 @@ export default {
           }
         }, 10);
       },
-    scrollAnimation(element, currentY, targetY) {
+    scrollAnimation(element, currentY, targetY,targetEL=null) {
       if (!element) {
         return;
       }
@@ -361,10 +369,15 @@ export default {
           element.scrollTop = _currentY;
           // 如果移动幅度小于十个像素，直接移动，否则递归调用，实现动画效果
           if (needScrollTop > 10 || needScrollTop < -10) {
-            this.scrollAnimation(element, _currentY, targetY);
+            this.scrollAnimation(element, _currentY, targetY,targetEL);
           } else {
             // element.scrollTo(_currentY, targetY);
             element.scrollTop = _currentY;
+            // targetEL clicked-point
+            // targetEL.style.background = "white";
+            // targetEL.style.color = "black";
+            // targetEL.style.padding = "0px";
+            targetEL.classList.remove('clicked-point')
           }
         } catch (error) {
           console.log(error, element);
@@ -404,6 +417,7 @@ export default {
   vertical-align: bottom;
   width: 100%;
 }
+
 
 .table-of-content-button {
   background: white;

@@ -8,6 +8,7 @@
       v-if="obj.type==='formGroupTitle'"
       :style="obj.style"
       :class="obj.class||obj.level?'group-title-level-'+obj.level:''"
+      :name="obj.title||obj.name||obj.code||''"
     >{{obj.title}}</div>
   </div>
 </template>
@@ -51,14 +52,22 @@ export default {
     margin 10px 0 10px 0
     font-weight 700
     font-size: 15px;
+    transition: all 0.3s;
   .group-title-level-2
     font-size 14px
     font-weight 600
     // text-indent 1.25em
+    transition: all 0.3s;
     margin 10px 0 15px 0
   .group-title-level-3
     font-size 13px
     // text-indent 1.25em
     margin 10px 0 15px 0
+    transition: all 0.3s;
+
+  .clicked-point
+    background: red!important;
+    color: white!important;
+    padding: 5px!important;
 
 </style>
