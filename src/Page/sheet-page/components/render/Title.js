@@ -95,7 +95,7 @@ export default function Title(data = [], autoData = [], index) {
       {
         // 泌尿科
         Th = JSON.parse(
-          JSON.stringify(require("../config/default/th").default)
+          JSON.stringify(require("../config/urology/th").default)
         );
       }
       break;
