@@ -128,7 +128,7 @@ export default {
       })
     },
     objectSpanMethod({ row, column, rowIndex, columnIndex }) {
-      if (columnIndex >= 8) {
+      if (columnIndex >= 9) {
         if (rowIndex % 2 === 0) {
           return {
             rowspan: 2,
