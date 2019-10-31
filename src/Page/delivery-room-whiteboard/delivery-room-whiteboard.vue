@@ -167,7 +167,7 @@ export default {
     // 获取留言板信息
     getListMessage() {
       getListMessage().then(res => {
-        this.warmTips = res.data.data;
+        this.warmTips = res.data.data || {};
         this.$refs.right2.isSave = true;
       });
     },

@@ -36,7 +36,10 @@ import bus from "vue-happy-bus";
 export default {
   mixins: [common],
   props: {
-    data: Object
+    data: {
+      type: Object,
+      default: {}
+    }
   },
   inject: ["update"],
   data() {
