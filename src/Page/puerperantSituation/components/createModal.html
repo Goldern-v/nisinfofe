@@ -361,7 +361,9 @@
             <span>开:</span>
           </div>
           <div class="content">
-            <el-input size="small" v-model="params.perineumSituation"/>
+            <el-select size="small" v-model="params.perineumSituation">
+              <el-option v-for="(item,idx) in perineumSituationOptions" :key="idx" :value="item" :label="item"></el-option>
+            </el-select>
           </div>
         </el-col>
         <el-col :span="8">
@@ -370,7 +372,9 @@
             <span>整:</span>
           </div>
           <div class="content">
-            <el-input size="small" v-model="params.perineumSituationFull"/>
+            <el-select size="small" v-model="params.perineumSituationFull">
+              <el-option v-for="(item,idx) in perineumSituationOptions" :key="idx" :value="item" :label="item"></el-option>
+            </el-select>
           </div>
         </el-col>
       </el-row>
@@ -441,7 +445,9 @@
             <span>触:</span>
           </div>
           <div class="content">
-            <el-input size="small" v-model="params.earlyContact"/>
+            <el-select size="small" v-model="params.earlyContact">
+              <el-option v-for="(item,idx) in perineumSituationOptions" :key="idx" :value="item" :label="item"></el-option>
+            </el-select>
           </div>
         </el-col>
         <el-col :span="8">
@@ -451,7 +457,9 @@
             <span>吸:</span>
           </div>
           <div class="content">
-            <el-input size="small" v-model="params.earlySucking"/>
+            <el-select size="small" v-model="params.earlySucking">
+              <el-option v-for="(item,idx) in perineumSituationOptions" :key="idx" :value="item" :label="item"></el-option>
+            </el-select>
           </div>
         </el-col>
         <el-col :span="8">

@@ -28,6 +28,7 @@
                 frameborder="0"
                 class="badEvent-iframe"
                 :src="url"
+                :style="`min-height:${wih-176}px`"
                 @load="onloadPage"
                 ref="iframe"
               ></iframe>
@@ -100,7 +101,7 @@
     background: linear-gradient(180deg, rgba(248, 248, 252, 1) 0%, rgba(235, 236, 240, 1) 100%);
     border-bottom: 1px solid #CBD5DD;
     overflow: hidden;
-    padding: 42px 0 42px 42px;
+    padding: 42px 0 41px 42px;
 
     .btn {
       width: 78px;
@@ -223,7 +224,7 @@ hr {
 .bad-event-container {
   padding: 0;
   flex: 1;
-  overflow: auto;
+  // overflow: auto;
 }
 
 .bad-event-edit {
@@ -248,10 +249,10 @@ hr {
 .badEvent-iframe {
   width: 100%;
   // min-height 1080px
-  height: auto;
   height: -webkit-fill-available;
+  height: auto;
   background: #eee;
-  min-height: 600px;
+  min-height: auto;
 }
 
 .mask {

@@ -296,16 +296,22 @@
                 </el-select>
               </template>
             </ecrm-table-column>
-            <ecrm-table-column label="切开" prop="perineumSituation" width="100" align="center">
+            <ecrm-table-column label="切开" prop="perineumSituation" width="60" align="center">
               <template slot-scope="scope">
-                <el-input resize="none" type="textarea" @blur="handleEditDone(scope.$index,'perineumSituation')"
-                  :autosize="{ minRows: 1}" v-model="scope.row.perineumSituation" />
+                <el-select class="align-center" v-model="scope.row.perineumSituation"
+                  @change="()=>handleEditDone(scope.$index,'perineumSituation')" placeholder=" ">
+                  <el-option v-for="(item,idx) in perineumSituationOptions" :key="idx" :value="item" :label="item">
+                  </el-option>
+                </el-select>
               </template>
             </ecrm-table-column>
-            <ecrm-table-column label="完整" prop="perineumSituationFull" width="100" align="center">
+            <ecrm-table-column label="完整" prop="perineumSituationFull" width="60" align="center">
               <template slot-scope="scope">
-                <el-input resize="none" type="textarea" @blur="handleEditDone(scope.$index,'perineumSituationFull')"
-                  :autosize="{ minRows: 1}" v-model="scope.row.perineumSituationFull" />
+                <el-select class="align-center" v-model="scope.row.perineumSituationFull"
+                  @change="()=>handleEditDone(scope.$index,'perineumSituationFull')" placeholder=" ">
+                  <el-option v-for="(item,idx) in perineumSituationOptions" :key="idx" :value="item" :label="item">
+                  </el-option>
+                </el-select>
               </template>
             </ecrm-table-column>
           </ecrm-table-column>
@@ -351,16 +357,22 @@
               </template>
             </ecrm-table-column>
           </ecrm-table-column>
-          <ecrm-table-column label="早接触" prop="earlyContact" width="120" align="center">
+          <ecrm-table-column label="早接触" prop="earlyContact" width="60" align="center">
             <template slot-scope="scope">
-              <el-input resize="none" type="textarea" @blur="handleEditDone(scope.$index,'earlyContact')"
-                :autosize="{ minRows: 1}" v-model="scope.row.earlyContact" />
+              <el-select class="align-center" v-model="scope.row.earlyContact"
+                @change="()=>handleEditDone(scope.$index,'earlyContact')" placeholder=" ">
+                <el-option v-for="(item,idx) in perineumSituationOptions" :key="idx" :value="item" :label="item">
+                </el-option>
+              </el-select>
             </template>
           </ecrm-table-column>
-          <ecrm-table-column label="早吮吸" prop="earlySucking" width="120" align="center">
+          <ecrm-table-column label="早吮吸" prop="earlySucking" width="60" align="center">
             <template slot-scope="scope">
-              <el-input resize="none" type="textarea" @blur="handleEditDone(scope.$index,'earlySucking')"
-                :autosize="{ minRows: 1}" v-model="scope.row.earlySucking" />
+              <el-select class="align-center" v-model="scope.row.earlySucking"
+                @change="()=>handleEditDone(scope.$index,'earlySucking')" placeholder=" ">
+                <el-option v-for="(item,idx) in perineumSituationOptions" :key="idx" :value="item" :label="item">
+                </el-option>
+              </el-select>
             </template>
           </ecrm-table-column>
           <ecrm-table-column label="死胎" prop="deadBirth" width="100" align="center">

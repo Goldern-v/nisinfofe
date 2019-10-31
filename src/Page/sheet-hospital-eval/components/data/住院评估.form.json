@@ -632,6 +632,14 @@
             "50",
             "未测量"
           ]
+        },
+        {
+          "name": "I100328",
+          "type": "select",
+          "title": "翻身",
+          "style": null,
+          "class": null,
+          "readOnly": null
         }
       ]
     },
@@ -832,6 +840,234 @@
           "readOnly": null
         },
         {
+          "name": "I100140",
+          "type": "select",
+          "title": "视物",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I100329",
+          "type": "select",
+          "title": "乏力",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I100330",
+          "type": "select",
+          "title": "麻木",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I100331",
+          "type": "select",
+          "title": "视物模糊",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I100332",
+          "type": "select",
+          "title": "视物旋转",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I100333",
+          "type": "select",
+          "title": "口角歪斜",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I100334",
+          "type": "select",
+          "title": "眼闭合不全",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I100029",
+          "type": "select",
+          "title": "肌力(左上肢)",
+          "style": null,
+          "inputWidth": "212px",
+          "leftTdStyle": "min-width:78px!important",
+          "class": null,
+          "tips": "肌力分级说明",
+          "readOnly": null,
+          "children": [
+            {
+              "name": "I100029",
+              "type": "select",
+              "title": "肌力(左上肢)",
+              "style": null,
+              "inputWidth": "212px",
+              "leftTdStyle": "min-width:78px!important",
+              "class": null,
+              "tips": "肌力分级说明",
+              "readOnly": null
+            },
+            {
+              "name": "I100029",
+              "type": "help",
+              "title": "肌力分级说明",
+              "style": null,
+              "elementStyle": "margin-left: 8px;",
+              "class": "help-image",
+              "labelStyle": "",
+              "labelClass": "select-label",
+              "readOnly": null,
+              "dialog": {
+                "title": "肌力分级说明",
+                "default": "肌力分级说明",
+                "okText": "好的，知道了",
+                "hasCancel": false,
+                "type": "dependent"
+              },
+              "tips": "<p style='color:green'>肌力分级说明:</p><p><span style='color:blue'>0级</span>    肌肉无任何收缩现象</sp><p><span style='color:blue'>1级</span>    肌肉仅能轻微收缩</p><p><span style='color:blue'>2级</span>    肢体能在床上平行移动，但不能对抗阻力</p><p><span style='color:blue'>3级</span>    肢体能抬高床面，但不能对抗阻力</p><p><span style='color:blue'>4级</span>    能对抗阻力活动</p><p><span style='color:blue'>5级</span>    肌力正常</p>"
+            }
+          ]
+        },
+        {
+          "name": "I100030",
+          "type": "select",
+          "title": "肌力(右上肢)",
+          "style": null,
+          "inputWidth": "212px",
+          "leftTdStyle": "min-width:78px!important",
+          "class": null,
+          "tips": "肌力分级说明",
+          "readOnly": null,
+          "children": [
+            {
+              "name": "I100030",
+              "type": "select",
+              "title": "肌力(右上肢)",
+              "style": null,
+              "inputWidth": "212px",
+              "leftTdStyle": "min-width:78px!important",
+              "class": null,
+              "tips": "肌力分级说明",
+              "readOnly": null
+            },
+            {
+              "name": "I100030",
+              "type": "help",
+              "title": "肌力分级说明",
+              "style": null,
+              "elementStyle": "margin-left: 8px;",
+              "class": "help-image",
+              "labelStyle": "",
+              "labelClass": "select-label",
+              "readOnly": null,
+              "dialog": {
+                "title": "肌力分级说明",
+                "default": "肌力分级说明",
+                "okText": "好的，知道了",
+                "hasCancel": false,
+                "type": "dependent"
+              },
+              "tips": "<p style='color:green'>肌力分级说明:</p><p><span style='color:blue'>0级</span>    肌肉无任何收缩现象</sp><p><span style='color:blue'>1级</span>    肌肉仅能轻微收缩</p><p><span style='color:blue'>2级</span>    肢体能在床上平行移动，但不能对抗阻力</p><p><span style='color:blue'>3级</span>    肢体能抬高床面，但不能对抗阻力</p><p><span style='color:blue'>4级</span>    能对抗阻力活动</p><p><span style='color:blue'>5级</span>    肌力正常</p>"
+            }
+          ]
+        },
+        {
+          "name": "I100031",
+          "type": "select",
+          "title": "肌力(左下肢)",
+          "style": null,
+          "inputWidth": "212px",
+          "leftTdStyle": "min-width:78px!important",
+          "class": null,
+          "tips": "肌力分级说明",
+          "readOnly": null,
+          "children": [
+            {
+              "name": "I100031",
+              "type": "select",
+              "title": "肌力(左下肢)",
+              "style": null,
+              "inputWidth": "212px",
+              "leftTdStyle": "min-width:78px!important",
+              "class": null,
+              "tips": "肌力分级说明",
+              "readOnly": null
+            },
+            {
+              "name": "I100031",
+              "type": "help",
+              "title": "肌力分级说明",
+              "style": null,
+              "elementStyle": "margin-left: 8px;",
+              "class": "help-image",
+              "labelStyle": "",
+              "labelClass": "select-label",
+              "readOnly": null,
+              "dialog": {
+                "title": "肌力分级说明",
+                "default": "肌力分级说明",
+                "okText": "好的，知道了",
+                "hasCancel": false,
+                "type": "dependent"
+              },
+              "tips": "<p style='color:green'>肌力分级说明:</p><p><span style='color:blue'>0级</span>    肌肉无任何收缩现象</sp><p><span style='color:blue'>1级</span>    肌肉仅能轻微收缩</p><p><span style='color:blue'>2级</span>    肢体能在床上平行移动，但不能对抗阻力</p><p><span style='color:blue'>3级</span>    肢体能抬高床面，但不能对抗阻力</p><p><span style='color:blue'>4级</span>    能对抗阻力活动</p><p><span style='color:blue'>5级</span>    肌力正常</p>"
+            }
+          ]
+        },
+        {
+          "name": "I100032",
+          "type": "select",
+          "title": "肌力(右下肢)",
+          "style": null,
+          "inputWidth": "212px",
+          "leftTdStyle": "min-width:78px!important",
+          "class": null,
+          "tips": "肌力分级说明",
+          "readOnly": null,
+          "children": [
+            {
+              "name": "I100032",
+              "type": "select",
+              "title": "肌力(右下肢)",
+              "style": null,
+              "inputWidth": "212px",
+              "leftTdStyle": "min-width:78px!important",
+              "class": null,
+              "tips": "肌力分级说明",
+              "readOnly": null
+            },
+            {
+              "name": "I100031",
+              "type": "help",
+              "title": "肌力分级说明",
+              "style": null,
+              "elementStyle": "margin-left: 8px;",
+              "class": "help-image",
+              "labelStyle": "",
+              "labelClass": "select-label",
+              "readOnly": null,
+              "dialog": {
+                "title": "肌力分级说明",
+                "default": "肌力分级说明",
+                "okText": "好的，知道了",
+                "hasCancel": false,
+                "type": "dependent"
+              },
+              "tips": "<p style='color:green'>肌力分级说明:</p><p><span style='color:blue'>0级</span>    肌肉无任何收缩现象</sp><p><span style='color:blue'>1级</span>    肌肉仅能轻微收缩</p><p><span style='color:blue'>2级</span>    肢体能在床上平行移动，但不能对抗阻力</p><p><span style='color:blue'>3级</span>    肢体能抬高床面，但不能对抗阻力</p><p><span style='color:blue'>4级</span>    能对抗阻力活动</p><p><span style='color:blue'>5级</span>    肌力正常</p>"
+            }
+          ]
+        },
+        {
           "name": "I100033",
           "type": "select",
           "title": "肌张力",
@@ -847,14 +1083,6 @@
               "style": "color: red;border-color: red;"
             }
           ]
-        },
-        {
-          "name": "I100140",
-          "type": "select",
-          "title": "视物",
-          "style": null,
-          "class": null,
-          "readOnly": null
         }
       ]
     },
@@ -1746,62 +1974,6 @@
           ]
         },
         {
-          "name": "I100328",
-          "type": "select",
-          "title": "翻身",
-          "style": null,
-          "class": null,
-          "readOnly": null
-        },
-        {
-          "name": "I100329",
-          "type": "select",
-          "title": "乏力",
-          "style": null,
-          "class": null,
-          "readOnly": null
-        },
-        {
-          "name": "I100330",
-          "type": "select",
-          "title": "麻木",
-          "style": null,
-          "class": null,
-          "readOnly": null
-        },
-        {
-          "name": "I100331",
-          "type": "select",
-          "title": "视物模糊",
-          "style": null,
-          "class": null,
-          "readOnly": null
-        },
-        {
-          "name": "I100332",
-          "type": "select",
-          "title": "视物旋转",
-          "style": null,
-          "class": null,
-          "readOnly": null
-        },
-        {
-          "name": "I100333",
-          "type": "select",
-          "title": "口角歪斜",
-          "style": null,
-          "class": null,
-          "readOnly": null
-        },
-        {
-          "name": "I100334",
-          "type": "select",
-          "title": "眼闭合不全",
-          "style": null,
-          "class": null,
-          "readOnly": null
-        },
-        {
           "name": "I100084",
           "type": "select",
           "title": "假肢",
@@ -2005,178 +2177,6 @@
           "style": null,
           "class": null,
           "readOnly": null
-        },
-        {
-          "name": "I100029",
-          "type": "select",
-          "title": "肌力(左上肢)",
-          "style": null,
-          "inputWidth": "212px",
-          "leftTdStyle": "min-width:78px!important",
-          "class": null,
-          "tips": "肌力分级说明",
-          "readOnly": null,
-          "children": [
-            {
-              "name": "I100029",
-              "type": "select",
-              "title": "肌力(左上肢)",
-              "style": null,
-              "inputWidth": "212px",
-              "leftTdStyle": "min-width:78px!important",
-              "class": null,
-              "tips": "肌力分级说明",
-              "readOnly": null
-            },
-            {
-              "name": "I100029",
-              "type": "help",
-              "title": "肌力分级说明",
-              "style": null,
-              "elementStyle": "margin-left: 8px;",
-              "class": "help-image",
-              "labelStyle": "",
-              "labelClass": "select-label",
-              "readOnly": null,
-              "dialog": {
-                "title": "肌力分级说明",
-                "default": "肌力分级说明",
-                "okText": "好的，知道了",
-                "hasCancel": false,
-                "type": "dependent"
-              },
-              "tips": "<p style='color:green'>肌力分级说明:</p><p><span style='color:blue'>0级</span>    肌肉无任何收缩现象</sp><p><span style='color:blue'>1级</span>    肌肉仅能轻微收缩</p><p><span style='color:blue'>2级</span>    肢体能在床上平行移动，但不能对抗阻力</p><p><span style='color:blue'>3级</span>    肢体能抬高床面，但不能对抗阻力</p><p><span style='color:blue'>4级</span>    能对抗阻力活动</p><p><span style='color:blue'>5级</span>    肌力正常</p>"
-            }
-          ]
-        },
-        {
-          "name": "I100030",
-          "type": "select",
-          "title": "肌力(右上肢)",
-          "style": null,
-          "inputWidth": "212px",
-          "leftTdStyle": "min-width:78px!important",
-          "class": null,
-          "tips": "肌力分级说明",
-          "readOnly": null,
-          "children": [
-            {
-              "name": "I100030",
-              "type": "select",
-              "title": "肌力(右上肢)",
-              "style": null,
-              "inputWidth": "212px",
-              "leftTdStyle": "min-width:78px!important",
-              "class": null,
-              "tips": "肌力分级说明",
-              "readOnly": null
-            },
-            {
-              "name": "I100030",
-              "type": "help",
-              "title": "肌力分级说明",
-              "style": null,
-              "elementStyle": "margin-left: 8px;",
-              "class": "help-image",
-              "labelStyle": "",
-              "labelClass": "select-label",
-              "readOnly": null,
-              "dialog": {
-                "title": "肌力分级说明",
-                "default": "肌力分级说明",
-                "okText": "好的，知道了",
-                "hasCancel": false,
-                "type": "dependent"
-              },
-              "tips": "<p style='color:green'>肌力分级说明:</p><p><span style='color:blue'>0级</span>    肌肉无任何收缩现象</sp><p><span style='color:blue'>1级</span>    肌肉仅能轻微收缩</p><p><span style='color:blue'>2级</span>    肢体能在床上平行移动，但不能对抗阻力</p><p><span style='color:blue'>3级</span>    肢体能抬高床面，但不能对抗阻力</p><p><span style='color:blue'>4级</span>    能对抗阻力活动</p><p><span style='color:blue'>5级</span>    肌力正常</p>"
-            }
-          ]
-        },
-        {
-          "name": "I100031",
-          "type": "select",
-          "title": "肌力(左下肢)",
-          "style": null,
-          "inputWidth": "212px",
-          "leftTdStyle": "min-width:78px!important",
-          "class": null,
-          "tips": "肌力分级说明",
-          "readOnly": null,
-          "children": [
-            {
-              "name": "I100031",
-              "type": "select",
-              "title": "肌力(左下肢)",
-              "style": null,
-              "inputWidth": "212px",
-              "leftTdStyle": "min-width:78px!important",
-              "class": null,
-              "tips": "肌力分级说明",
-              "readOnly": null
-            },
-            {
-              "name": "I100031",
-              "type": "help",
-              "title": "肌力分级说明",
-              "style": null,
-              "elementStyle": "margin-left: 8px;",
-              "class": "help-image",
-              "labelStyle": "",
-              "labelClass": "select-label",
-              "readOnly": null,
-              "dialog": {
-                "title": "肌力分级说明",
-                "default": "肌力分级说明",
-                "okText": "好的，知道了",
-                "hasCancel": false,
-                "type": "dependent"
-              },
-              "tips": "<p style='color:green'>肌力分级说明:</p><p><span style='color:blue'>0级</span>    肌肉无任何收缩现象</sp><p><span style='color:blue'>1级</span>    肌肉仅能轻微收缩</p><p><span style='color:blue'>2级</span>    肢体能在床上平行移动，但不能对抗阻力</p><p><span style='color:blue'>3级</span>    肢体能抬高床面，但不能对抗阻力</p><p><span style='color:blue'>4级</span>    能对抗阻力活动</p><p><span style='color:blue'>5级</span>    肌力正常</p>"
-            }
-          ]
-        },
-        {
-          "name": "I100032",
-          "type": "select",
-          "title": "肌力(右下肢)",
-          "style": null,
-          "inputWidth": "212px",
-          "leftTdStyle": "min-width:78px!important",
-          "class": null,
-          "tips": "肌力分级说明",
-          "readOnly": null,
-          "children": [
-            {
-              "name": "I100032",
-              "type": "select",
-              "title": "肌力(右下肢)",
-              "style": null,
-              "inputWidth": "212px",
-              "leftTdStyle": "min-width:78px!important",
-              "class": null,
-              "tips": "肌力分级说明",
-              "readOnly": null
-            },
-            {
-              "name": "I100031",
-              "type": "help",
-              "title": "肌力分级说明",
-              "style": null,
-              "elementStyle": "margin-left: 8px;",
-              "class": "help-image",
-              "labelStyle": "",
-              "labelClass": "select-label",
-              "readOnly": null,
-              "dialog": {
-                "title": "肌力分级说明",
-                "default": "肌力分级说明",
-                "okText": "好的，知道了",
-                "hasCancel": false,
-                "type": "dependent"
-              },
-              "tips": "<p style='color:green'>肌力分级说明:</p><p><span style='color:blue'>0级</span>    肌肉无任何收缩现象</sp><p><span style='color:blue'>1级</span>    肌肉仅能轻微收缩</p><p><span style='color:blue'>2级</span>    肢体能在床上平行移动，但不能对抗阻力</p><p><span style='color:blue'>3级</span>    肢体能抬高床面，但不能对抗阻力</p><p><span style='color:blue'>4级</span>    能对抗阻力活动</p><p><span style='color:blue'>5级</span>    肌力正常</p>"
-            }
-          ]
         }
       ]
     },
