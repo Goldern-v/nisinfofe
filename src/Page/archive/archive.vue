@@ -112,25 +112,29 @@
         <el-table-column header-align="center" align="center" label="操作" min-width="150px">
           <template slot-scope="scope">
             <div class="justify">
-                  <!-- 打印生成pdf文件 -->
-                  <el-button type="text"
-                    @click="generateArchive(scope.row)"
-                    v-if="scope.row.printStatus==0 && scope.row.resultStatus!=1"
-                  >转pdf</el-button>
-                  <el-button type="text"
-                    @click="generateArchive(scope.row)"
-                    v-if="scope.row.printStatus!=0 && scope.row.printStatus!=1 && scope.row.uploadStatus!=1 && scope.row.uploadStatus!=2"
-                  >重转pdf</el-button>
-                  <el-button type="text"
-                    class="viewFile"
-                    @click="previewArchive(scope.row)"
-                    v-if="scope.row.resultStatus==1"
-                  >预览</el-button>
-                  <!-- 上传 -->
-                  <el-button type="text"
-                    @click="uploadFileArchive(scope.row)"
-                    v-if="scope.row.resultStatus==1 && scope.row.uploadStatus!=1 && scope.row.uploadStatus!=2"
-                  >归档</el-button>
+              <!-- 打印生成pdf文件 -->
+              <el-button
+                type="text"
+                @click="generateArchive(scope.row)"
+                v-if="scope.row.printStatus==0 && scope.row.resultStatus!=1"
+              >转pdf</el-button>
+              <el-button
+                type="text"
+                @click="generateArchive(scope.row)"
+                v-if="scope.row.printStatus!=0 && scope.row.printStatus!=1 && scope.row.uploadStatus!=1 && scope.row.uploadStatus!=2"
+              >重转pdf</el-button>
+              <el-button
+                type="text"
+                class="viewFile"
+                @click="previewArchive(scope.row)"
+                v-if="scope.row.resultStatus==1"
+              >预览</el-button>
+              <!-- 上传 -->
+              <el-button
+                type="text"
+                @click="uploadFileArchive(scope.row)"
+                v-if="scope.row.resultStatus==1 && scope.row.uploadStatus!=1 && scope.row.uploadStatus!=2"
+              >归档</el-button>
             </div>
           </template>
         </el-table-column>
@@ -273,9 +277,9 @@ export default {
       this.query.pageIndex = newPage;
       this.getArchiveList();
     },
-    search(){
+    search() {
       this.query.pageIndex = 1;
-      this.query.pageSize= 20;
+      this.query.pageSize = 20;
       this.getArchiveList();
     },
     //科室患者归档列表
@@ -405,17 +409,22 @@ export default {
         this.previewFile();
       }
       this.modalObj.infull = infull;
+    },
+    // 获取当前时间前后N天日期
+    getDateStr(addDayCount) {
+      var dd = new Date();
+      dd.setDate(dd.getDate() + addDayCount); //获取AddDayCount天后的日期
+      var y = dd.getFullYear();
+      var m =
+        dd.getMonth() + 1 < 10 ? "0" + (dd.getMonth() + 1) : dd.getMonth() + 1; //获取当前月份的日期，不足10补0
+      var d = dd.getDate() < 10 ? "0" + dd.getDate() : dd.getDate(); //获取当前几号，不足10补0
+      return y + "-" + m + "-" + d;
     }
   },
   mounted() {
     this.tablesHeight();
     if (!this.query.dischargeDateBegin) {
-      let month = parseInt(new Date().getMonth()) + 1;
-      month = month < 10 ? "-0" + month : "-" + month;
-      let day = parseInt(new Date().getDate()) - 2;
-      day = day < 10 ? "-0" + day : "-" + day;
-      this.query.dischargeDateBegin =
-        parseInt(new Date().getFullYear()) + month + day;
+      this.query.dischargeDateBegin = this.getDateStr(-2);
     }
     this.query.dischargeDateEnd = this.query.dischargeDateEnd
       ? this.query.dischargeDateEnd
@@ -504,6 +513,7 @@ export default {
     right: -150px;
   }
 }
+
 .content-center {
   width: 99%;
   margin: auto auto;
@@ -524,10 +534,11 @@ export default {
 
   >>>.el-table {
     border: 0 !important;
+
     .el-button {
       font-size: 13px;
       padding: 0px;
-     }
+    }
 
     td, th, tr {
       height: 40px;
@@ -559,7 +570,6 @@ export default {
     background: rgb(255, 251, 186);
   }
 }
-
 </style>
 <style lang="stylus">
 .archive-preview-modal {
