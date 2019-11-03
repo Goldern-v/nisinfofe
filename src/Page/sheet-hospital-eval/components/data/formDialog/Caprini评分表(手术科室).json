@@ -5,13 +5,13 @@
     "margin": "0",
     "width": "750px",
     "height": "auto",
-    "mode": "development_",
+    "mode": "de√elopment_",
     "style": ""
   },
   "formSetting": {
     "formTitle": {
       "hospitalName": "东莞市厚街医院",
-      "formName": "Padua评分表(非手术室)"
+      "formName": "Caprini评分表(手术科室)"
     },
     "formHeads": [
       {
@@ -77,9 +77,9 @@
       "showAudit": true
     },
     "formInfo": {
-      "formCode": "E0045_2",
-      "formApiCode": "E0045_2",
-      "formName": "Padua评分表(非手术室)",
+      "formCode": "E0045",
+      "formApiCode": "E0045",
+      "formName": "Caprini评分表(非手术科室)",
       "status": "0",
       "formType": "eval"
     }
@@ -89,7 +89,7 @@
   "model": {},
   "body": [
     {
-      "name": "",
+      "name": "evalDate",
       "type": "formGroupColBox",
       "col": 3,
       "title": "",
@@ -97,7 +97,7 @@
       "require": "false",
       "prefixDesc": "",
       "suffixDesc": "",
-      "keys": "",
+      "keys": "evalDate",
       "style": null,
       "classes": null,
       "readOnly": null,
@@ -109,8 +109,7 @@
           "code": "",
           "placeholder": "评估时间",
           "style": "width:145px",
-          "titleStyle": "width:90px!important;margin:7px 0 0 0;",
-          "hiddenTips": true,
+          "inputWidth":"145px",
           "class": null,
           "readOnly": null
         },
@@ -118,10 +117,10 @@
           "name": "signerName",
           "type": "input",
           "title": "评估人",
-          "titleStyle": "width:90px!important;margin:7px 0 0 0;",
           "code": "0",
           "placeholder": "评估人",
           "style": "width:80px",
+          "inputWidth":"80px",
           "class": null,
           "readOnly": true
         },
@@ -129,10 +128,10 @@
           "name": "status",
           "type": "input",
           "title": "状态",
-          "titleStyle": "width:90px!important;margin:7px 0 0 0;",
           "code": "0",
           "placeholder": "状态",
           "style": "width:80px",
+          "inputWidth":"80px",
           "class": null,
           "readOnly": true,
           "rule": [
@@ -190,7 +189,335 @@
     },
     {
       "type": "formGroupVerticalBox",
-      "title": "1. 清醒程度/精神状态",
+      "title": "5分项",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I045001",
+          "type": "checkbox",
+          "title": "脑卒中（1个月内）",
+          "code": "1",
+          "score": 5,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I045001",
+          "type": "checkbox",
+          "title": "急性脊髓损伤（1个月内）",
+          "code": "2",
+          "score": 5,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I045001",
+          "type": "checkbox",
+          "title": "择期下肢关节置换术",
+          "code": "3",
+          "score": 5,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I045001",
+          "type": "checkbox",
+          "title": "髋关节、骨盆或下肢骨折",
+          "code": "4",
+          "score": 5,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I045001",
+          "type": "checkbox",
+          "title": "多发创伤（1个月内）",
+          "code": "5",
+          "score": 5,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "type": "formGroupVerticalBox",
+      "title": "3分项",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I045002",
+          "type": "checkbox",
+          "title": "年龄≥75岁",
+          "code": "1",
+          "score": 3,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I045002",
+          "type": "checkbox",
+          "title": "VTE病史",
+          "code": "2",
+          "score": 3,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I045002",
+          "type": "checkbox",
+          "title": "VTE家族史",
+          "code": "3",
+          "score": 3,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I045002",
+          "type": "checkbox",
+          "title": "肝素诱导的血小板减少症",
+          "code": "4",
+          "score": 3,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I045002",
+          "type": "checkbox",
+          "title": "其他先天性获得性血栓症",
+          "code": "5",
+          "score": 3,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I045002",
+          "type": "checkbox",
+          "title": "抗心磷脂抗体阳性",
+          "code": "6",
+          "score": 3,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I045002",
+          "type": "checkbox",
+          "title": "凝血酶原20210A阳性",
+          "code": "7",
+          "score": 3,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I045002",
+          "type": "checkbox",
+          "title": "因子V Leiden 阳性",
+          "code": "8",
+          "score": 3,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I045002",
+          "type": "checkbox",
+          "title": "狼疮抗凝物阳性",
+          "code": "9",
+          "score": 3,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I045002",
+          "type": "checkbox",
+          "title": "血清同型半胱氨酸升高",
+          "code": "10",
+          "score": 3,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "type": "formGroupVerticalBox",
+      "title": "2分项",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I045003",
+          "type": "checkbox",
+          "title": "年龄61-74岁",
+          "code": "1",
+          "score": 2,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I045003",
+          "type": "checkbox",
+          "title": "石膏固定（1个月内）",
+          "code": "2",
+          "score": 2,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I045003",
+          "type": "checkbox",
+          "title": "卧床（＞72h）",
+          "code": "3",
+          "score": 2,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I045003",
+          "type": "checkbox",
+          "title": "恶性肿瘤（既往或现患）",
+          "code": "4",
+          "score": 2,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I045003",
+          "type": "checkbox",
+          "title": "中央静脉置管",
+          "code": "5",
+          "score": 2,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I045003",
+          "type": "checkbox",
+          "title": "腹腔镜手术（＞45min）",
+          "code": "5",
+          "score": 2,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I045003",
+          "type": "checkbox",
+          "title": "大手术（＞45min）",
+          "code": "6",
+          "score": 2,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I045003",
+          "type": "checkbox",
+          "title": "关节镜手术",
+          "code": "7",
+          "score": 2,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "type": "formGroupVerticalBox",
+      "title": "1分项",
       "message": "",
       "require": "false",
       "prefixDesc": "",
@@ -202,7 +529,7 @@
         {
           "name": "I045004",
           "type": "checkbox",
-          "title": "正在进行激素治疗（1分）",
+          "title": "年龄41-60岁",
           "code": "1",
           "score": 1,
           "style": null,
@@ -213,7 +540,7 @@
         {
           "name": "I045004",
           "type": "checkbox",
-          "title": "肥胖（体重指数≥30kg/m2）（1分）",
+          "title": "计划小手术",
           "code": "2",
           "score": 1,
           "style": null,
@@ -224,7 +551,7 @@
         {
           "name": "I045004",
           "type": "checkbox",
-          "title": "急性感染和（或）风湿性疾病（1分）",
+          "title": "肥胖（BMI＞25kg/m2）",
           "code": "3",
           "score": 1,
           "style": null,
@@ -235,7 +562,7 @@
         {
           "name": "I045004",
           "type": "checkbox",
-          "title": "急性心肌梗死和（或）缺血性脑卒中（1分）",
+          "title": "异常妊娠",
           "code": "4",
           "score": 1,
           "style": null,
@@ -246,7 +573,7 @@
         {
           "name": "I045004",
           "type": "checkbox",
-          "title": "心脏和（或）呼吸衰竭（1分）",
+          "title": "妊娠期或产后（1个月）",
           "code": "5",
           "score": 1,
           "style": null,
@@ -257,7 +584,7 @@
         {
           "name": "I045004",
           "type": "checkbox",
-          "title": "年龄≥70岁（1分）",
+          "title": "口服避孕药或激素替代治疗",
           "code": "6",
           "score": 1,
           "style": null,
@@ -266,55 +593,121 @@
           "readOnly": null
         },
         {
-          "name": "I045003",
+          "name": "I045004",
           "type": "checkbox",
-          "title": "近期（≤1个月）创伤或外科手术（2分）",
-          "code": "1",
-          "score": 2,
+          "title": "需要卧床休息的患者",
+          "code": "7",
+          "score": 1,
           "style": null,
           "class": null,
           "html": null,
           "readOnly": null
         },
         {
-          "name": "I045002",
+          "name": "I045004",
           "type": "checkbox",
-          "title": "有血栓形成倾向，抗凝血酶缺陷症，蛋白C或S缺乏，Leidenv因子、凝血酶原G20210A突变，抗磷脂抗体综合征（3分）",
-          "code": "1",
-          "score": 3,
+          "title": "肠炎病史",
+          "code": "8",
+          "score": 1,
           "style": null,
           "class": null,
           "html": null,
           "readOnly": null
         },
         {
-          "name": "I045002",
+          "name": "I045004",
           "type": "checkbox",
-          "title": "制动，患者身体原因获遵医嘱需卧床至少3天（3分）",
-          "code": "2",
-          "score": 3,
+          "title": "下肢水肿",
+          "code": "9",
+          "score": 1,
           "style": null,
           "class": null,
           "html": null,
           "readOnly": null
         },
         {
-          "name": "I045002",
+          "name": "I045004",
           "type": "checkbox",
-          "title": "既往静脉血栓栓塞症（3分）",
-          "code": "3",
-          "score": 3,
+          "title": "静脉曲张",
+          "code": "10",
+          "score": 1,
           "style": null,
           "class": null,
           "html": null,
           "readOnly": null
         },
         {
-          "name": "I045002",
+          "name": "I045004",
           "type": "checkbox",
-          "title": "活动性恶性性肿瘤，患者先前有局部或远端转移（或）6个月内接受过化疗和放疗（3分）",
-          "code": "4",
-          "score": 3,
+          "title": "严重肺部疾病，包括肺炎（1个月内）",
+          "code": "11",
+          "score": 1,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I045004",
+          "type": "checkbox",
+          "title": "肺部功能异常，COPD",
+          "code": "12",
+          "score": 1,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I045004",
+          "type": "checkbox",
+          "title": "急性心肌梗塞",
+          "code": "13",
+          "score": 1,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I045004",
+          "type": "checkbox",
+          "title": "充血性心力衰竭（1个月内）",
+          "code": "14",
+          "score": 1,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I045004",
+          "type": "checkbox",
+          "title": "败血症（1个月内）",
+          "code": "15",
+          "score": 1,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I045004",
+          "type": "checkbox",
+          "title": "大手术（1个月内）",
+          "code": "16",
+          "score": 1,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I045004",
+          "type": "checkbox",
+          "title": "其他高危因素",
+          "code": "17",
+          "score": 1,
           "style": null,
           "class": null,
           "html": null,
@@ -344,9 +737,7 @@
           "name": "evalScore",
           "type": "input",
           "title": "评估得分",
-          "titleStyle": "width:90px!important;margin:7px 0 0 0;",
-          "hiddenTips": true,
-          "value": "",
+          "inputWidth":"80px",
           "class": null,
           "readOnly": null
         },
@@ -354,30 +745,28 @@
           "name": "evalDesc",
           "type": "input",
           "title": "结果程度",
-          "titleStyle": "width:90px!important;margin:7px 0 0 0;",
-          "hiddenTips": true,
-          "code": "",
-          "value": "",
+          "inputWidth":"180px",
+          "style": "width:180px",
           "class": null,
           "readOnly": null,
           "rule": [
             {
-              "min": "0",
-              "max": "1",
-              "equal": "无风险",
-              "style": "color:blue",
-              "display": "无风险"
-            },
-            {
               "min": "1",
-              "max": "4",
+              "max": "2",
               "equal": "低风险",
               "style": "color:blue",
               "display": "低风险"
             },
             {
-              "min": "4",
-              "max": "999",
+              "min": "3",
+              "max": "4",
+              "equal": "中风险",
+              "style": "color:blue",
+              "display": "中风险"
+            },
+            {
+              "min": "5",
+              "max": "Infinity",
               "equal": "高风险",
               "style": "color:red",
               "display": "高风险"
@@ -402,7 +791,7 @@
       "name": "",
       "type": "formGroupTitle",
       "level": "1",
-      "title": "二、护理措施",
+      "title": "二、护理措施：",
       "prefixDesc": "",
       "suffixDesc": "",
       "keys": "",
@@ -413,7 +802,7 @@
     {
       "name": "",
       "type": "formGroupVerticalBox",
-      "title": "1. 基本措施",
+      "title": "1. 基本措施：",
       "message": "",
       "require": "false",
       "prefixDesc": "",
@@ -501,9 +890,9 @@
       "readOnly": ""
     },
     {
-      "name": "2 物理措施",
+      "name": "2 物理措施：",
       "type": "formGroupVerticalBox",
-      "title": "2 物理措施",
+      "title": "2 物理措施：",
       "message": "",
       "require": "false",
       "prefixDesc": "",
@@ -516,7 +905,7 @@
         {
           "name": "M045008",
           "type": "checkbox",
-          "title": "下床使用足底静脉泵",
+          "title": "使用足底静脉泵",
           "code": "√",
           "style": null,
           "class": null,
@@ -525,7 +914,7 @@
         {
           "name": "M045009",
           "type": "checkbox",
-          "title": "下床间歇充气加压装置",
+          "title": "间歇充气加压装置",
           "code": "√",
           "style": null,
           "class": null,
@@ -534,7 +923,7 @@
         {
           "name": "M045010",
           "type": "checkbox",
-          "title": "下床穿弹力袜",
+          "title": "穿弹力袜",
           "code": "√",
           "style": null,
           "class": null,
@@ -578,7 +967,7 @@
           "readOnly": null
         },
         {
-          "name": "I004007",
+          "name": "M045012",
           "type": "checkbox",
           "title": "利伐沙班口服",
           "code": "√",
@@ -596,20 +985,20 @@
           "readOnly": null
         },
         {
-          "name": "M045014",
+          "name": "",
           "type": "",
           "title": "",
           "code": "√",
-          "style": null,
+          "style": "align-items: center;",
           "class": null,
           "readOnly": null,
           "children": [
             {
               "name": "",
               "type": "checkbox",
-              "title": "其它抗凝药",
+              "title": "其它抗凝药：",
               "code": "√",
-              "style": null,
+              "style": "",
               "class": null,
               "readOnly": null
             },
@@ -618,7 +1007,7 @@
               "type": "input",
               "title": "",
               "code": "√",
-              "style": "position:relative;top:-5px;",
+              "style": "position:relati√e;top:-5px;",
               "class": null,
               "readOnly": null
             }
@@ -640,7 +1029,7 @@
       "readOnly": null,
       "children": [
         {
-          "name": "",
+          "name": "I100029",
           "type": "select",
           "title": "",
           "style": "",
@@ -650,9 +1039,9 @@
             {
               "name": "M045015",
               "type": "input",
-              "label": "Homan's 左",
+              "label": "Homan's： 左",
               "labelWidth": "100px",
-              "inputWidth": "130px",
+              "inputWidth": "auto",
               "elementStyle": "margin:0px",
               "labelStyle": "",
               "labelClass": "select-label",
@@ -660,7 +1049,8 @@
               "readOnly": null,
               "options": [
                 "+",
-                "-"
+                "-",
+                "±"
               ]
             },
             {
@@ -668,7 +1058,7 @@
               "type": "input",
               "label": "右",
               "labelWidth": "50px",
-              "inputWidth": "130px",
+              "inputWidth": "auto",
               "elementStyle": "margin-left:10px",
               "labelStyle": "",
               "labelClass": "select-label",
@@ -676,13 +1066,14 @@
               "readOnly": null,
               "options": [
                 "+",
-                "-"
+                "-",
+                "±"
               ]
             }
           ]
         },
         {
-          "name": "",
+          "name": "I100029",
           "type": "select",
           "title": "",
           "style": "",
@@ -692,15 +1083,16 @@
             {
               "name": "M045017",
               "type": "input",
-              "label": "下肢肿胀左",
+              "label": "下肢肿胀：左",
               "labelWidth": "100px",
-              "inputWidth": "130px",
+              "inputWidth": "auto",
               "elementStyle": "margin:0px",
               "labelStyle": "",
               "labelClass": "select-label",
               "class": "select-box-small",
               "readOnly": null,
               "options": [
+                "无",
                 "I度",
                 "II度",
                 "III度"
@@ -711,13 +1103,14 @@
               "type": "input",
               "label": "右",
               "labelWidth": "50px",
-              "inputWidth": "130px",
+              "inputWidth": "auto",
               "elementStyle": "margin-left:10px",
               "labelStyle": "",
               "labelClass": "select-label",
               "class": "select-box-small",
               "readOnly": null,
               "options": [
+                "无",
                 "I度",
                 "II度",
                 "III度"
@@ -726,7 +1119,7 @@
           ]
         },
         {
-          "name": "",
+          "name": "I100029",
           "type": "select",
           "title": "",
           "style": "",
@@ -736,9 +1129,9 @@
             {
               "name": "M045019",
               "type": "input",
-              "label": "主观麻痹左",
+              "label": "主观麻痹：左",
               "labelWidth": "100px",
-              "inputWidth": "130px",
+              "inputWidth": "auto",
               "elementStyle": "margin:0px",
               "labelStyle": "",
               "labelClass": "select-label",
@@ -754,7 +1147,7 @@
               "type": "input",
               "label": "右",
               "labelWidth": "50px",
-              "inputWidth": "130px",
+              "inputWidth": "auto",
               "style": "width: 130px;",
               "elementStyle": "margin-left:10px",
               "labelStyle": "",
@@ -769,7 +1162,7 @@
           ]
         },
         {
-          "name": "",
+          "name": "I100029",
           "type": "select",
           "title": "",
           "style": "",
@@ -779,9 +1172,9 @@
             {
               "name": "M045021",
               "type": "input",
-              "label": "大腿周径左",
+              "label": "大腿周径：左",
               "labelWidth": "100px",
-              "inputWidth": "130px",
+              "inputWidth": "auto",
               "elementStyle": "margin:0px",
               "labelStyle": "",
               "labelClass": "select-label",
@@ -793,7 +1186,7 @@
               "type": "input",
               "label": "右",
               "labelWidth": "50px",
-              "inputWidth": "130px",
+              "inputWidth": "auto",
               "elementStyle": "margin-left:10px",
               "labelStyle": "",
               "labelClass": "select-label",
@@ -803,7 +1196,7 @@
           ]
         },
         {
-          "name": "",
+          "name": "I100029",
           "type": "select",
           "title": "",
           "style": "",
@@ -813,9 +1206,9 @@
             {
               "name": "M045023",
               "type": "input",
-              "label": "小腿周径左",
+              "label": "小腿周径：左",
               "labelWidth": "100px",
-              "inputWidth": "130px",
+              "inputWidth": "auto",
               "elementStyle": "margin:0px",
               "labelStyle": "",
               "labelClass": "select-label",
@@ -827,7 +1220,7 @@
               "type": "input",
               "label": "右",
               "labelWidth": "50px",
-              "inputWidth": "130px",
+              "inputWidth": "auto",
               "elementStyle": "margin-left:10px",
               "labelStyle": "",
               "labelClass": "select-label",
@@ -837,7 +1230,7 @@
           ]
         },
         {
-          "name": "",
+          "name": "I100029",
           "type": "select",
           "title": "",
           "style": "",
@@ -847,9 +1240,9 @@
             {
               "name": "M045025",
               "type": "input",
-              "label": "皮肤颜色左",
+              "label": "皮肤颜色：左",
               "labelWidth": "100px",
-              "inputWidth": "130px",
+              "inputWidth": "auto",
               "elementStyle": "margin:0px",
               "labelStyle": "",
               "labelClass": "select-label",
@@ -866,7 +1259,7 @@
               "type": "input",
               "label": "右",
               "labelWidth": "50px",
-              "inputWidth": "130px",
+              "inputWidth": "auto",
               "elementStyle": "margin-left:10px",
               "labelStyle": "",
               "labelClass": "select-label",
@@ -881,7 +1274,7 @@
           ]
         },
         {
-          "name": "",
+          "name": "I100029",
           "type": "select",
           "title": "肌力",
           "style": "",
@@ -891,9 +1284,9 @@
             {
               "name": "M045027",
               "type": "input",
-              "label": "足背动脉左",
+              "label": "足背动脉：左",
               "labelWidth": "100px",
-              "inputWidth": "130px",
+              "inputWidth": "auto",
               "elementStyle": "margin:0px",
               "labelStyle": "",
               "labelClass": "select-label",
@@ -910,7 +1303,7 @@
               "type": "input",
               "label": "右",
               "labelWidth": "50px",
-              "inputWidth": "130px",
+              "inputWidth": "auto",
               "elementStyle": "margin-left:10px",
               "labelStyle": "",
               "labelClass": "select-label",

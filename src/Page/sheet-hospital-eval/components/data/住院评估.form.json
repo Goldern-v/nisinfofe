@@ -1643,16 +1643,16 @@
                 "cleanKey": "正常",
                 "dialogList": [
                   {
-                    "title": "Caprini评分表(非手术室)",
-                    "default": "Caprini评分表(非手术室)",
+                    "title": "Caprini评分表(非手术科室)",
+                    "default": "Caprini评分表(非手术科室)",
                     "name": "I100136",
                     "parentName": "I100136",
                     "type": "independent",
                     "showHead": "true"
                   },
                   {
-                    "title": "Caprini评分表(手术室)",
-                    "default": "Caprini评分表(手术室)",
+                    "title": "Caprini评分表(手术科室)",
+                    "default": "Caprini评分表(手术科室)",
                     "name": "I100136",
                     "parentName": "I100136",
                     "type": "independent",
@@ -1689,16 +1689,16 @@
                 "cleanKey": "正常",
                 "dialogList": [
                   {
-                    "title": "Caprini评分表(非手术室)",
-                    "default": "Caprini评分表(非手术室)",
+                    "title": "Caprini评分表(非手术科室)",
+                    "default": "Caprini评分表(非手术科室)",
                     "name": "I100136",
                     "parentName": "I100136",
                     "type": "independent",
                     "showHead": "true"
                   },
                   {
-                    "title": "Caprini评分表(手术室)",
-                    "default": "Caprini评分表(手术室)",
+                    "title": "Caprini评分表(手术科室)",
+                    "default": "Caprini评分表(手术科室)",
                     "name": "I100136",
                     "parentName": "I100136",
                     "type": "independent",
@@ -4093,16 +4093,16 @@
           "readOnly": true,
           "dialog": [
             {
-              "title": "Caprini评分表(非手术室)",
-              "default": "Caprini评分表(非手术室)",
+              "title": "Caprini评分表(非手术科室)",
+              "default": "Caprini评分表(非手术科室)",
               "name": "I100136",
               "parentName": "I100136",
               "type": "independent",
               "showHead": "true"
             },
             {
-              "title": "Caprini评分表(手术室)",
-              "default": "Caprini评分表(手术室)",
+              "title": "Caprini评分表(手术科室)",
+              "default": "Caprini评分表(手术科室)",
               "name": "I100136",
               "parentName": "I100136",
               "type": "independent",

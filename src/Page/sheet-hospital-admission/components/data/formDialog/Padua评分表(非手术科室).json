@@ -11,7 +11,7 @@
   "formSetting": {
     "formTitle": {
       "hospitalName": "东莞市厚街医院",
-      "formName": "Caprini评分表(非手术室)"
+      "formName": "Padua评分表(非手术科室)"
     },
     "formHeads": [
       {
@@ -79,7 +79,7 @@
     "formInfo": {
       "formCode": "E0045_2",
       "formApiCode": "E0045_2",
-      "formName": "Caprini评分表(非手术室)",
+      "formName": "Padua评分表(非手术科室)",
       "status": "0",
       "formType": "eval"
     }
@@ -109,7 +109,8 @@
           "code": "",
           "placeholder": "评估时间",
           "style": "width:145px",
-          "inputWidth":"145px",
+          "titleStyle": "width:90px!important;margin:7px 0 0 0;",
+          "hiddenTips": true,
           "class": null,
           "readOnly": null
         },
@@ -117,10 +118,10 @@
           "name": "signerName",
           "type": "input",
           "title": "评估人",
+          "titleStyle": "width:90px!important;margin:7px 0 0 0;",
           "code": "0",
           "placeholder": "评估人",
           "style": "width:80px",
-          "inputWidth":"80px",
           "class": null,
           "readOnly": true
         },
@@ -128,10 +129,10 @@
           "name": "status",
           "type": "input",
           "title": "状态",
+          "titleStyle": "width:90px!important;margin:7px 0 0 0;",
           "code": "0",
           "placeholder": "状态",
           "style": "width:80px",
-          "inputWidth":"80px",
           "class": null,
           "readOnly": true,
           "rule": [
@@ -343,7 +344,9 @@
           "name": "evalScore",
           "type": "input",
           "title": "评估得分",
-          "inputWidth":"80px",
+          "titleStyle": "width:90px!important;margin:7px 0 0 0;",
+          "hiddenTips": true,
+          "value": "",
           "class": null,
           "readOnly": null
         },
@@ -351,11 +354,20 @@
           "name": "evalDesc",
           "type": "input",
           "title": "结果程度",
-          "inputWidth":"180px",
-          "style": "width:180px",
+          "titleStyle": "width:90px!important;margin:7px 0 0 0;",
+          "hiddenTips": true,
+          "code": "",
+          "value": "",
           "class": null,
           "readOnly": null,
           "rule": [
+            {
+              "min": "0",
+              "max": "1",
+              "equal": "无风险",
+              "style": "color:blue",
+              "display": "无风险"
+            },
             {
               "min": "1",
               "max": "4",
@@ -365,7 +377,7 @@
             },
             {
               "min": "4",
-              "max": "Infinity",
+              "max": "999",
               "equal": "高风险",
               "style": "color:red",
               "display": "高风险"
@@ -390,7 +402,7 @@
       "name": "",
       "type": "formGroupTitle",
       "level": "1",
-      "title": "二、护理措施：",
+      "title": "二、护理措施",
       "prefixDesc": "",
       "suffixDesc": "",
       "keys": "",
@@ -401,7 +413,7 @@
     {
       "name": "",
       "type": "formGroupVerticalBox",
-      "title": "1. 基本措施：",
+      "title": "1. 基本措施",
       "message": "",
       "require": "false",
       "prefixDesc": "",
@@ -489,9 +501,9 @@
       "readOnly": ""
     },
     {
-      "name": "2 物理措施：",
+      "name": "2 物理措施",
       "type": "formGroupVerticalBox",
-      "title": "2 物理措施：",
+      "title": "2 物理措施",
       "message": "",
       "require": "false",
       "prefixDesc": "",
@@ -504,7 +516,7 @@
         {
           "name": "M045008",
           "type": "checkbox",
-          "title": "下床使用足底静脉泵",
+          "title": "使用足底静脉泵",
           "code": "√",
           "style": null,
           "class": null,
@@ -513,7 +525,7 @@
         {
           "name": "M045009",
           "type": "checkbox",
-          "title": "下床间歇充气加压装置",
+          "title": "间歇充气加压装置",
           "code": "√",
           "style": null,
           "class": null,
@@ -522,7 +534,7 @@
         {
           "name": "M045010",
           "type": "checkbox",
-          "title": "下床穿弹力袜",
+          "title": "穿弹力袜",
           "code": "√",
           "style": null,
           "class": null,
@@ -588,14 +600,14 @@
           "type": "",
           "title": "",
           "code": "√",
-          "style": "align-items: center;",
+          "style": null,
           "class": null,
           "readOnly": null,
           "children": [
             {
               "name": "",
               "type": "checkbox",
-              "title": "其它抗凝药：",
+              "title": "其它抗凝药",
               "code": "√",
               "style": null,
               "class": null,
@@ -638,9 +650,9 @@
             {
               "name": "M045015",
               "type": "input",
-              "label": "Homan's： 左",
+              "label": "Homan's 左",
               "labelWidth": "100px",
-              "inputWidth": "auto",
+              "inputWidth": "130px",
               "elementStyle": "margin:0px",
               "labelStyle": "",
               "labelClass": "select-label",
@@ -657,7 +669,7 @@
               "type": "input",
               "label": "右",
               "labelWidth": "50px",
-              "inputWidth": "auto",
+              "inputWidth": "130px",
               "elementStyle": "margin-left:10px",
               "labelStyle": "",
               "labelClass": "select-label",
@@ -682,15 +694,16 @@
             {
               "name": "M045017",
               "type": "input",
-              "label": "下肢肿胀：左",
+              "label": "下肢肿胀左",
               "labelWidth": "100px",
-              "inputWidth": "auto",
+              "inputWidth": "130px",
               "elementStyle": "margin:0px",
               "labelStyle": "",
               "labelClass": "select-label",
               "class": "select-box-small",
               "readOnly": null,
               "options": [
+                "无",
                 "I度",
                 "II度",
                 "III度"
@@ -701,13 +714,14 @@
               "type": "input",
               "label": "右",
               "labelWidth": "50px",
-              "inputWidth": "auto",
+              "inputWidth": "130px",
               "elementStyle": "margin-left:10px",
               "labelStyle": "",
               "labelClass": "select-label",
               "class": "select-box-small",
               "readOnly": null,
               "options": [
+                "无",
                 "I度",
                 "II度",
                 "III度"
@@ -726,9 +740,9 @@
             {
               "name": "M045019",
               "type": "input",
-              "label": "主观麻痹：左",
+              "label": "主观麻痹左",
               "labelWidth": "100px",
-              "inputWidth": "auto",
+              "inputWidth": "130px",
               "elementStyle": "margin:0px",
               "labelStyle": "",
               "labelClass": "select-label",
@@ -744,8 +758,8 @@
               "type": "input",
               "label": "右",
               "labelWidth": "50px",
-              "inputWidth": "auto",
-              "style": "width: auto;",
+              "inputWidth": "130px",
+              "style": "width: 130px;",
               "elementStyle": "margin-left:10px",
               "labelStyle": "",
               "labelClass": "select-label",
@@ -769,9 +783,9 @@
             {
               "name": "M045021",
               "type": "input",
-              "label": "大腿周径：左",
+              "label": "大腿周径左",
               "labelWidth": "100px",
-              "inputWidth": "auto",
+              "inputWidth": "130px",
               "elementStyle": "margin:0px",
               "labelStyle": "",
               "labelClass": "select-label",
@@ -783,7 +797,7 @@
               "type": "input",
               "label": "右",
               "labelWidth": "50px",
-              "inputWidth": "auto",
+              "inputWidth": "130px",
               "elementStyle": "margin-left:10px",
               "labelStyle": "",
               "labelClass": "select-label",
@@ -803,9 +817,9 @@
             {
               "name": "M045023",
               "type": "input",
-              "label": "小腿周径：左",
+              "label": "小腿周径左",
               "labelWidth": "100px",
-              "inputWidth": "auto",
+              "inputWidth": "130px",
               "elementStyle": "margin:0px",
               "labelStyle": "",
               "labelClass": "select-label",
@@ -817,7 +831,7 @@
               "type": "input",
               "label": "右",
               "labelWidth": "50px",
-              "inputWidth": "auto",
+              "inputWidth": "130px",
               "elementStyle": "margin-left:10px",
               "labelStyle": "",
               "labelClass": "select-label",
@@ -837,9 +851,9 @@
             {
               "name": "M045025",
               "type": "input",
-              "label": "皮肤颜色：左",
+              "label": "皮肤颜色左",
               "labelWidth": "100px",
-              "inputWidth": "auto",
+              "inputWidth": "130px",
               "elementStyle": "margin:0px",
               "labelStyle": "",
               "labelClass": "select-label",
@@ -856,7 +870,7 @@
               "type": "input",
               "label": "右",
               "labelWidth": "50px",
-              "inputWidth": "auto",
+              "inputWidth": "130px",
               "elementStyle": "margin-left:10px",
               "labelStyle": "",
               "labelClass": "select-label",
@@ -881,9 +895,9 @@
             {
               "name": "M045027",
               "type": "input",
-              "label": "足背动脉：左",
+              "label": "足背动脉左",
               "labelWidth": "100px",
-              "inputWidth": "auto",
+              "inputWidth": "130px",
               "elementStyle": "margin:0px",
               "labelStyle": "",
               "labelClass": "select-label",
@@ -900,7 +914,7 @@
               "type": "input",
               "label": "右",
               "labelWidth": "50px",
-              "inputWidth": "auto",
+              "inputWidth": "130px",
               "elementStyle": "margin-left:10px",
               "labelStyle": "",
               "labelClass": "select-label",
