@@ -116,7 +116,8 @@ export default {
       readOnly: false,
       isClone: false,
       alertMessage: "",
-      alertActived:false
+      alertActived:false,
+      currentRule:{}
     };
   },
   computed: {},
@@ -192,6 +193,8 @@ export default {
       let textResult = valueNew+"";
       this.obj.style = "";
       this.alertMessage = "";
+      let agelevel = ""
+      //
       if (
         this.obj.hasOwnProperty("rule") !== -1 &&
         this.obj.rule &&
@@ -199,6 +202,8 @@ export default {
       ) {
         this.alertActived = false
         // console.log("rule:", this.obj.rule);
+        //
+        agelevel = this.$store.getters.getAgeLevel()
         // 遍历规则
         this.obj.rule.map(r => {
           let [min, max] = [Number(r.min), Number(r.max)];
@@ -207,12 +212,21 @@ export default {
           max = max === NaN ? 0 : max;
           value = value === NaN ? 0 : value;
           // 判断规则
-          if (valueNew && r.min && r.max && (value >= min && value < max)) {
+          if (valueNew && r.min && r.max
+          && (value >= min && value <= max)
+          && ((r.agelevel
+                && (r.agelevel.constructor == String && r.agelevel == agelevel
+                    || r.agelevel.constructor == Array && r.agelevel.indexOf(agelevel)>-1
+                )
+                )||!r.agelevel)
+          && ((r.equal && r.constructor == Object && this.formObj.model[r.equal.key]==r.equal.value)||!r.equal)
+          ) {
             this.obj.style = r.style;
             if (r.message) {
               console.log("rule:message", r.message,[r.min,r.max]);
               this.alertMessage = r.message + "";
               this.alertActived = true;
+              this.currentRule = {...r};
             }
             // this.obj.style = Object.assign({}, this.obj.style, r.style);
           } else if (r.equal && r.equal === valueNew) {
@@ -231,6 +245,7 @@ export default {
               console.log("rule:message", r.message);
               this.alertMessage = r.message + "";
               this.alertActived = true;
+              this.currentRule = {...r};
             }
             // this.obj.style = Object.assign({}, this.obj.style, r.style);
           } else if (r.scoreMin || r.scoreMax) {
@@ -246,6 +261,7 @@ export default {
               (score >= scoreMin && score <= scoreMax)
             ) {
               this.obj.style = r.style;
+              this.currentRule = {...r};
             }
             // this.obj.style = Object.assign({}, this.obj.style, r.style);
           } else if (r.dialog && isClick) {
@@ -283,13 +299,19 @@ export default {
             // console.log('规则预警结果：SELECT:getAlertMessageItems:',this.alertActived,this.$root.$refs.tableOfContent.getAlertMessageItems())
             let hasAlertMessage = false
             let title = (this.obj.title||this.obj.label||"")
+            let frequency = this.currentRule.frequency||''
             let tips = `<span><span style="color:green">${title}</span>:${valueNew||""}<span style="color:chocolate">${this.obj.suffixDesc||""}</span></span><br><span style="color:red">预警:${this.alertMessage}</span>`
+            console.log('this.currentRule',this.currentRule)
+            if(frequency){
+              tips+=`<br><span style="color:black">评估频率:${frequency}</span>`
+            }
             //
             for (let iterator of alertMessageItems) {
               if(iterator.name && iterator.name == this.obj.name){
                 iterator.message = this.alertMessage
                 iterator["value"] = valueNew
                 iterator["tips"] = tips
+                iterator["frequency"] = frequency
                 hasAlertMessage = true
                 break;
               }

@@ -236,14 +236,113 @@
             {
               "min": "-Infinity",
               "max": "35",
-              "equal": "",
-              "style": "color:blue"
+              "message": "体温过低",
+              "agelevel":"成人",
+              "frequency":"成人每4小时评估",
+              "style": "color: red;border-color: red;"
             },
             {
               "min": "38.6",
               "max": "Infinity",
-              "equal": "",
+              "agelevel":"成人",
               "message": "体温过高",
+              "frequency":"成人每4小时评估",
+              "style": "color: red;border-color: red;"
+            },
+            {
+              "min": "-Infinity",
+              "max": "36",
+              "message": "体温过低",
+              "agelevel":["幼儿","学龄前","学龄期","儿童"],
+              "frequency":"儿童腋下每半小时评估",
+              "equal":{
+                "key":"I100000",
+                "value":"腋下"
+              },
+              "style": "color: red;border-color: red;"
+            },
+            {
+              "min": "37.5",
+              "max": "Infinity",
+              "agelevel":["幼儿","学龄前","学龄期","儿童"],
+              "message": "体温过高",
+              "frequency":"儿童腋下每半小时评估",
+              "equal":{
+                "key":"I100000",
+                "value":"腋下"
+              },
+              "style": "color: red;border-color: red;"
+            },
+            {
+              "min": "-Infinity",
+              "max": "36.2",
+              "message": "体温过低",
+              "agelevel":["幼儿","学龄前","学龄期","儿童"],
+              "frequency":"儿童肛温每4小时评估",
+              "equal":{
+                "key":"I100000",
+                "value":"肛温"
+              },
+              "style": "color: red;border-color: red;"
+            },
+            {
+              "min": "37.8",
+              "max": "Infinity",
+              "agelevel":["幼儿","学龄前","学龄期","儿童"],
+              "message": "体温过高",
+              "frequency":"儿童肛温每半小时评估",
+              "equal":{
+                "key":"I100000",
+                "value":"肛温"
+              },
+              "style": "color: red;border-color: red;"
+            },
+            {
+              "min": "-Infinity",
+              "max": "36",
+              "message": "体温过低",
+              "agelevel":"新生儿",
+              "frequency":"新生儿腋下每半小时评估",
+              "equal":{
+                "key":"I100000",
+                "value":"腋下"
+              },
+              "style": "color: red;border-color: red;"
+            },
+            {
+              "min": "37.5",
+              "max": "Infinity",
+              "agelevel":"新生儿",
+              "message": "体温过高",
+              "frequency":"新生儿腋下每半小时评估",
+              "equal":{
+                "key":"I100000",
+                "value":"腋下"
+              },
+              "style": "color: red;border-color: red;"
+            },
+            {
+              "min": "-Infinity",
+              "max": "36.2",
+              "message": "体温过低",
+              "agelevel":"新生儿",
+              "frequency":"新生儿肛温每4小时评估",
+              "equal":{
+                "key":"I100000",
+                "value":"肛温"
+              },
+              "style": "color: red;border-color: red;"
+            },
+            {
+              "min": "37.8",
+              "max": "Infinity",
+              "agelevel":"新生儿",
+              "message": "体温过高",
+              "frequency":"新生儿肛温每半小时评估",
+              "equal":{
+                "key":"I100000",
+                "value":"肛温"
+              },
               "style": "color: red;border-color: red;"
             },
             {
@@ -267,15 +366,81 @@
             {
               "min": "-Infinity",
               "max": "51",
-              "equal": "",
-              "message": "心率脉率异常过缓",
+              "agelevel":"成人",
+              "message": "成人心率脉率异常过缓",
+              "frequency":"成人每1小时评估",
               "style": "color: red;border-color: red;"
             },
             {
               "min": "110",
               "max": "Infinity",
-              "equal": "",
+              "agelevel":"成人",
+              "message": "成人心率脉率异常过速",
+              "frequency":"成人每1小时评估",
+              "style": "color: red;border-color: red;"
+            },
+            {
+              "min": "-Infinity",
+              "max": "80",
+              "message": "幼儿心率脉率异常过缓",
+              "agelevel":"幼儿",
+              "frequency":"幼儿每1小时评估",
+              "style": "color: red;border-color: red;"
+            },
+            {
+              "min": "160",
+              "max": "Infinity",
+              "agelevel":"幼儿",
+              "message": "幼儿心率脉率异常过速",
+              "frequency":"幼儿每1小时评估",
+              "style": "color: red;border-color: red;"
+            },
+            {
+              "min": "-Infinity",
+              "max": "60",
+              "message": "心率脉率异常过缓",
+              "agelevel":"学龄前",
+              "frequency":"每1小时评估",
+              "style": "color: red;border-color: red;"
+            },
+            {
+              "min": "140",
+              "max": "Infinity",
+              "agelevel":"学龄前",
               "message": "心率脉率异常过速",
+              "frequency":"每1小时评估",
+              "style": "color: red;border-color: red;"
+            },
+            {
+              "min": "-Infinity",
+              "max": "60",
+              "message": "心率脉率异常过缓",
+              "agelevel":"学龄期",
+              "frequency":"每1小时评估",
+              "style": "color: red;border-color: red;"
+            },
+            {
+              "min": "130",
+              "max": "Infinity",
+              "agelevel":"学龄期",
+              "message": "心率脉率异常过速",
+              "frequency":"每1小时评估",
+              "style": "color: red;border-color: red;"
+            },
+            {
+              "min": "-Infinity",
+              "max": "90",
+              "message": "婴儿心率脉率异常过缓",
+              "agelevel":["婴儿","新生儿"],
+              "frequency":"婴儿每1小时评估",
+              "style": "color: red;border-color: red;"
+            },
+            {
+              "min": "180",
+              "max": "Infinity",
+              "agelevel":["婴儿","新生儿"],
+              "message": "婴儿心率脉率异常过速",
+              "frequency":"婴儿每1小时评估",
               "style": "color: red;border-color: red;"
             }
           ]

@@ -240,11 +240,17 @@ export default {
       console.log("updateFunc!!", value);
     },
     setPatientInfo(json, patient) {
+      //
+      // console.log('setPatientInfo',patient,this.$store.getters.getAgeLevel())
       // 设置 formHeads
       try {
         json.formSetting.formHeads.map(h => {
           if (patient[h.name]) {
-            h.value = patient[h.name];
+            if(h.name=="age"){
+              h.value = `${patient[h.name]}(${this.$store.getters.getAgeLevel()})`;
+            }else{
+              h.value = patient[h.name];
+            }
           }
         });
       } catch (error) {
