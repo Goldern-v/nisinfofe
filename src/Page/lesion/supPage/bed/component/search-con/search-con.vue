@@ -266,14 +266,14 @@ export default {
 
     sek() {
       return this.bedList.filter(
-        item => item.bedLabel.includes("_") && item.patientId && item.newBornOut
+        item =>
+          item.bedLabel.includes("_") && item.patientId && !item.newBornOut
       );
     },
 
     ye() {
       return this.bedList.filter(
-        item =>
-          item.bedLabel.includes("_") && item.patientId && !item.newBornOut
+        item => item.bedLabel.includes("_") && item.patientId && item.newBornOut
       );
     },
     list() {
