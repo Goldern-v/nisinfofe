@@ -6,7 +6,7 @@
         <i class="iconfont icon-search"></i>
       </div>
     </div>
-    <div v-for="(item, index) in list" :key="index">
+    <div v-for="(item, index) in list" :key="index" v-show="!item.hide">
       <div
         class="s-item"
         flex="cross:center"
@@ -174,6 +174,9 @@ export default {
     };
   },
   computed: {
+    isChangeke() {
+      return this.deptCode.includes("051102");
+    },
     deptCode() {
       return this.$store.state.lesion.deptCode;
     },
@@ -251,6 +254,28 @@ export default {
     MEWS() {
       return this.bedList.filter(item => item.dangerInMews);
     },
+
+    scf() {
+      return this.bedList.filter(item => item.bornFlag == 1);
+      // return this.bedList.filter(item => item.bornStatus == "送产房");
+    },
+
+    crb() {
+      return this.bedList.filter(item => item.infectFlag == 1);
+    },
+
+    sek() {
+      return this.bedList.filter(
+        item => item.bedLabel.includes("_") && item.patientId && item.newBornOut
+      );
+    },
+
+    ye() {
+      return this.bedList.filter(
+        item =>
+          item.bedLabel.includes("_") && item.patientId && !item.newBornOut
+      );
+    },
     list() {
       return [
         {
@@ -325,6 +350,40 @@ export default {
           name: "过敏",
           num: this.gm.length,
           type: "state"
+        },
+        {
+          name: "",
+          num: "",
+          type: "line",
+          hide: !this.isChangeke
+        },
+        {
+          name: "送产房",
+          num: this.scf.length,
+          type: "level",
+          color: "#d1edd6",
+          hide: !this.isChangeke
+        },
+        {
+          name: "传染病",
+          num: this.crb.length,
+          type: "level",
+          color: "#e6d8f9",
+          hide: !this.isChangeke
+        },
+        {
+          name: "婴儿",
+          num: this.sek.length,
+          type: "level",
+          color: "rgb(217, 244, 254)",
+          hide: !this.isChangeke
+        },
+        {
+          name: "送儿科",
+          num: this.ye.length,
+          type: "level",
+          color: "rgba(255, 207, 219, 0.5)",
+          hide: !this.isChangeke
         }
       ];
     }
@@ -466,6 +525,26 @@ export default {
         case "MEWS预警":
           {
             this.$parent.bedList = this.MEWS;
+          }
+          break;
+        case "送产房":
+          {
+            this.$parent.bedList = this.scf;
+          }
+          break;
+        case "传染病":
+          {
+            this.$parent.bedList = this.crb;
+          }
+          break;
+        case "送儿科":
+          {
+            this.$parent.bedList = this.sek;
+          }
+          break;
+        case "婴儿":
+          {
+            this.$parent.bedList = this.ye;
           }
           break;
         default: {
