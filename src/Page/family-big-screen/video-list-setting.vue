@@ -6,7 +6,7 @@
         <h3>产科宣教视频设置</h3>
       </div>
       <div class="float-right">
-        <el-button @click="openUploadVideoModal">添加</el-button>
+        <el-button @click="openUploadVideoModal()">添加</el-button>
         <el-button @click="goBack">返回</el-button>
       </div>
     </div>
