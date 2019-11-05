@@ -118,16 +118,38 @@ export default {
     //   //
     //   console.log("==fromMainJSON==", fromMainJSON,fromMainJSON.data);
     // },
-    initial(patient = null) {
+    clearAll(){
+      if(this.$root.$refs){
+        Object.keys(this.$root.$refs).map(rkey=>{
+          if(this.$root.$refs[rkey] && this.$root.$refs[rkey].constructor == Array){
+            // this.$root.$refs[rkey]=[]
+            Object.keys(this.$root.$refs[rkey]).map(ekey=>{
+              try {
+                this.$root.$refs[rkey][ekey].setCurrentValue("")
+                //
+                this.$root.$refs[rkey][ekey].checkValueRule("")
+                //
+                // this.$root.$refs[rkey][ekey].childObject.style = ""
+              } catch (error) {}
+            })
+          }
+        })
+      }
+    },
+    initial(patient = null, formObj=window.formObj||{}) {
       this.loading = true;
       // 清空
       // this.$root.$refs = {}
-      // Object.keys(this.$root.$refs).map(rkey=>{
-      //   if(this.$root.$refs[rkey] && this.$root.$refs[rkey].constructor == Array){
-      //     // this.$root.$refs[rkey]=[]
-      //   }
-      // })
+      this.clearAll()
       // this.loadingJSON();
+      // if(window.formObj && window.formObj.model){
+      //   Object.keys(window.formObj.model).map(k=>{
+      //     if(!window.formObj.model[k]){
+      //       window.formObj.model[k] = ""
+      //     }
+      //   })
+      // }
+
       //
       // 主表结构
       let file = JSON.parse(
@@ -196,9 +218,9 @@ export default {
         // model
         file.model["id"] = patient.id + "" || "";
         this.setPatientInfo(file, patient);
-        this.setPatientInfo(window.formObj, patient);
+        this.setPatientInfo(formObj, patient);
       }
-      console.log("file", file, window.formObj);
+      console.log("file", file, formObj);
       //
       this.fileJSON = file; //JSON.stringify(file,null,4)
       console.log(this.fileJSON, "fileJSON");
@@ -209,7 +231,8 @@ export default {
     },
     closeForm() {
       this.isShow = false;
-      this.initial();
+      // this.initial();
+      this.clearAll();
       this.loading = false;
     },
     openForm(config) {
@@ -217,9 +240,10 @@ export default {
       let formObj = config.formObj;
       this.status = config.patient.status;
       // alert(status);
+      window.formObj.model = JSON.parse(JSON.stringify(formObj))
       //
       this.isShow = true;
-      console.log("openForm!!", patient);
+      console.log("openForm!!",config, patient,formObj);
 
       this.initial(patient);
 
@@ -230,10 +254,14 @@ export default {
       document.querySelector(".sheetTable-contain").style.background =
         "#DFDFDF";
 
-      setTimeout(() => {
+      this.$nextTick(()=>{
+        // console.log("fillForm", formObj);
+        // setTimeout(() => {
         //数据回填表单
-        this.fillForm(formObj.model);
-      }, 100);
+        this.fillForm(formObj);
+        // }, 500);
+      })
+      //
       console.log("数据回填表单", this.$root.$refs);
     },
     updateFunc(value) {
@@ -257,11 +285,13 @@ export default {
         //
       }
     },
-    fillForm(formObj = window.formObj.model) {
+    fillForm(formObj = window.formObj.model||null) {
+      // this.clearAll()
       if (formObj) {
+        console.log('fillForm',formObj)
         for (const key in formObj) {
           if (formObj.hasOwnProperty(key)) {
-            let element = formObj[key];
+            let element = formObj[key]||"";
             // let refObj = this.$root.$refs[key];
             // console.log('!!!!!!',key,element,this.$root.$refs[key])
             //
@@ -274,12 +304,11 @@ export default {
               Object.keys(this.$root.$refs[key]).map(elKey => {
                 //
                 let el = this.$root.$refs[key][elKey];
-
-                // console.log('!!!el!!!',el,el.type,el.value)
-
-                // this.$root.$refs[key].map(el=>{
                 //
-                if (el && (el.type === "text" || el.type === "textarea")) {
+                if (el &&
+                    (el.type === "text"
+                    || el.type === "textarea")
+                ) {
                   // el.setCurrentValue(textResult);
                   if (key === "status") {
                     let textResult = el.checkValueRule(element + "");
@@ -293,15 +322,16 @@ export default {
                     el.checkValueRule(textResult + "");
                   } else {
                     el.setCurrentValue(element);
+                    // if(element){
                     el.checkValueRule(element);
-                    // if (this.$root.$refs[key + "_clone"]) {
-                    //   this.$root.$refs[key + "_clone"].setCurrentValue(element);
-                    //   this.$root.$refs[key + "_clone"].checkValueRule(element);
+                    // }else{
+                    //   el.checkValueRule("")
                     // }
+                    // el.checkValueRule(formObj[key]||"");
                   }
                 }
                 if (el && el.type === "datetime") {
-                  el.currentValue = element;
+                  el.currentValue = formObj[key]||"";
                   console.log("datetime", el, key, element);
                 }
               });

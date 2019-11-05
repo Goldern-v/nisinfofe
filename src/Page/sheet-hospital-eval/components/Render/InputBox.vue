@@ -124,13 +124,14 @@ export default {
   computed: {},
   watch: {
     inputValue(valueNew, oldvaule) {
-      console.log("inputValue:", valueNew, oldvaule);
-      if (this.model === "normal") {
+      // console.log("inputValue:", valueNew, oldvaule);
+      if (this.model === "normal" && valueNew) {
         this.formObj.model[this.obj.name] = valueNew;
         this.checkValueRule(valueNew);
-        this.obj.value = valueNew;
+        this.obj.value = valueNew+"";
         console.log("obj:", this.obj);
       }
+      //
       /** 如果存在clone ref */
       // setTimeout(() => {
       //   if (this.isClone) {
@@ -144,14 +145,15 @@ export default {
       //   }
       // }, 100);
 
-      return valueNew;
+      return valueNew?valueNew:"";
     },
     obj: {
       handler(curVal, oldVal) {
         // console.log("handler", curVal, oldVal);
         if (
           this.obj &&
-          this.obj.hasOwnProperty("value") > -1 &&
+          this.obj.hasOwnProperty("value") > -1
+          && curVal &&
           curVal.value != undefined
         ) {
           this.inputValue = curVal.value + "";
