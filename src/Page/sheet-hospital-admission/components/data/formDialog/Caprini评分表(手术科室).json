@@ -11,7 +11,7 @@
   "formSetting": {
     "formTitle": {
       "hospitalName": "东莞市厚街医院",
-      "formName": "Caprini评分表(手术室)"
+      "formName": "Caprini评分表(手术科室)"
     },
     "formHeads": [
       {
@@ -79,7 +79,7 @@
     "formInfo": {
       "formCode": "E0045",
       "formApiCode": "E0045",
-      "formName": "Caprini评分表(非手术室)",
+      "formName": "Caprini评分表(非手术科室)",
       "status": "0",
       "formType": "eval"
     }
@@ -918,7 +918,7 @@
         {
           "name": "M045008",
           "type": "checkbox",
-          "title": "下床使用足底静脉泵",
+          "title": "使用足底静脉泵",
           "code": "√",
           "style": null,
           "class": null,
@@ -927,7 +927,7 @@
         {
           "name": "M045009",
           "type": "checkbox",
-          "title": "下床间歇充气加压装置",
+          "title": "间歇充气加压装置",
           "code": "√",
           "style": null,
           "class": null,
@@ -936,7 +936,7 @@
         {
           "name": "M045010",
           "type": "checkbox",
-          "title": "下床穿弹力袜",
+          "title": "穿弹力袜",
           "code": "√",
           "style": null,
           "class": null,
@@ -1062,7 +1062,8 @@
               "readOnly": null,
               "options": [
                 "+",
-                "-"
+                "-",
+                "±"
               ]
             },
             {
@@ -1078,7 +1079,8 @@
               "readOnly": null,
               "options": [
                 "+",
-                "-"
+                "-",
+                "±"
               ]
             }
           ]
@@ -1103,6 +1105,7 @@
               "class": "select-box-small",
               "readOnly": null,
               "options": [
+                "无",
                 "I度",
                 "II度",
                 "III度"
@@ -1120,6 +1123,7 @@
               "class": "select-box-small",
               "readOnly": null,
               "options": [
+                "无",
                 "I度",
                 "II度",
                 "III度"

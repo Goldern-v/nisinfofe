@@ -20,6 +20,48 @@ export default {
     },
     getPatientList:(state)=>()=>{
       return state.patientList
-    }
+    },
+    getAgeLevel:(state)=>()=>{
+      let age = (state.currentPatient.age||"0")+""
+      // 新生儿 儿童 成人
+      let cond = [
+        {min:1,max:12,key:"月",value:"婴儿"},
+        {min:1,max:28,key:"天",value:"新生儿"},
+        {min:1,max:3,value:"幼儿"},
+        {min:3,max:6,value:"学龄前"},
+        {min:6,max:12,value:"学龄期"},
+        {min:1,max:13,value:"儿童"},
+        {min:13,max:18,value:"儿童"},
+        {min:18,max:Infinity,value:"成人"}
+      ]
+      // "新生儿","婴儿","幼儿","学龄前","学龄期","儿童","成人"
+      let ageLevel = ""
+      // let months = age.includes("月")?"":""
+      // let days = age.includes("天")?"":""
+      let ageStr = (~~(age).replace(/[^0-9]/g,''))
+      let pattern = new RegExp('\\w+');
+      let findIndex = cond.find(ret=>{
+        if(ret.key && age.indexOf(ret.key)>-1){
+          // ageLevel = ret.value
+          // return ret
+          pattern = new RegExp('\\d*'+ret.key,'g'); // /\d*月/g
+          ageStr = ~~(age.replace(age.replace(pattern,''),'').replace(/[^0-9]/g,''))
+        }
+        // console.log('ageStr',ageStr,ret.key,pattern,age,age.replace(pattern,''))
+        if(
+          ret.min
+          && ret.max
+          && ageStr>=ret.min
+          && ageStr<=ret.max
+          && ((ret.key && age.includes(ret.key)) || !ret.key)
+        ){
+          // console.log('key:',(ret.key && age.includes(ret.key)),age,ret)
+          ageLevel = ret.value
+          return ret
+        }
+      })
+      // console.log('ageLevel',ageLevel,age,findIndex)
+      return ageLevel
+    },
   }
 }

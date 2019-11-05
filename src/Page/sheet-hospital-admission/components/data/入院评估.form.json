@@ -1948,16 +1948,16 @@
           "class": null,
           "options": [
             "无",
-            "有,Padua评分表(非手术室)",
-            "有,Caprini评分表(手术室)"
+            "有,Padua评分表(非手术科室)",
+            "有,Caprini评分表(手术科室)"
           ],
           "rule": [
             {
               "dialog": {
-                "openKey": "有,Padua评分表(非手术室)",
+                "openKey": "有,Padua评分表(非手术科室)",
                 "cleanKey": "无",
-                "title": "Padua评分表(非手术室)",
-                "default": "Padua评分表(非手术室)",
+                "title": "Padua评分表(非手术科室)",
+                "default": "Padua评分表(非手术科室)",
                 "name": "I100136",
                 "type": "independent",
                 "parentName": "I100136",
@@ -1966,10 +1966,10 @@
             },
             {
               "dialog": {
-                "openKey": "有,Caprini评分表(手术室)",
+                "openKey": "有,Caprini评分表(手术科室)",
                 "cleanKey": "无",
-                "title": "Caprini评分表(手术室)",
-                "default": "Caprini评分表(手术室)",
+                "title": "Caprini评分表(手术科室)",
+                "default": "Caprini评分表(手术科室)",
                 "name": "I100136",
                 "type": "independent",
                 "parentName": "I100136",

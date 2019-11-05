@@ -1,8 +1,8 @@
 {
   "formDialog": [
       "Barden压疮风险评估表.json",
-      "Caprini评分表(手术室).json",
-      "Caprini评分表(非手术室).json",
+      "Caprini评分表(手术科室).json",
+      "Caprini评分表(非手术科室).json",
       "GCS格拉斯哥昏迷评估.json",
       "other.dialog.json",
       "吞咽评估单.json",
@@ -19,8 +19,8 @@
   ],
   "formSchemes": [
       "Barden压疮风险评估表.txt.json",
-      "Caprini评分表(手术室).txt.json",
-      "Caprini评分表(非手术室).txt.json",
+      "Caprini评分表(手术科室).txt.json",
+      "Caprini评分表(非手术科室).txt.json",
       "GCS格拉斯哥昏迷评估.txt.json",
       "VTE风险评估量表-手术科室.txt.json",
       "VTE风险评估量表-非手术科室.txt.json",
