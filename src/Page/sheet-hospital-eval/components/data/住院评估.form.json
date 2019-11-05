@@ -457,14 +457,81 @@
             {
               "min": "-Infinity",
               "max": "8",
-              "equal": "",
-              "style": "color:blue"
+              "agelevel":"成人",
+              "message": "成人呼吸频率过慢",
+              "frequency":"成人每1小时评估",
+              "style": "color: red;border-color: red;"
             },
             {
               "min": "25",
               "max": "Infinity",
-              "equal": "",
-              "message": "低效性呼吸形态",
+              "agelevel":"成人",
+              "message": "成人呼吸频率过快",
+              "frequency":"成人每1小时评估",
+              "style": "color: red;border-color: red;"
+            },
+            {
+              "min": "-Infinity",
+              "max": "20",
+              "message": "幼儿呼吸频率过慢",
+              "agelevel":"幼儿",
+              "frequency":"幼儿每1小时评估",
+              "style": "color: red;border-color: red;"
+            },
+            {
+              "min": "50",
+              "max": "Infinity",
+              "agelevel":"幼儿",
+              "message": "幼儿呼吸频率过快",
+              "frequency":"幼儿每1小时评估",
+              "style": "color: red;border-color: red;"
+            },
+            {
+              "min": "-Infinity",
+              "max": "16",
+              "message": "呼吸频率过慢",
+              "agelevel":"学龄前",
+              "frequency":"每1小时评估",
+              "style": "color: red;border-color: red;"
+            },
+            {
+              "min": "40",
+              "max": "Infinity",
+              "agelevel":"学龄前",
+              "message": "呼吸频率过快",
+              "frequency":"每1小时评估",
+              "style": "color: red;border-color: red;"
+            },
+            {
+              "min": "-Infinity",
+              "max": "16",
+              "message": "呼吸频率过慢",
+              "agelevel":"学龄期",
+              "frequency":"每1小时评估",
+              "style": "color: red;border-color: red;"
+            },
+            {
+              "min": "40",
+              "max": "Infinity",
+              "agelevel":"学龄期",
+              "message": "呼吸频率过快",
+              "frequency":"每1小时评估",
+              "style": "color: red;border-color: red;"
+            },
+            {
+              "min": "-Infinity",
+              "max": "30",
+              "message": "婴儿呼吸频率过慢",
+              "agelevel":["婴儿","新生儿"],
+              "frequency":"婴儿每1小时评估",
+              "style": "color: red;border-color: red;"
+            },
+            {
+              "min": "60",
+              "max": "Infinity",
+              "agelevel":["婴儿","新生儿"],
+              "message": "婴儿呼吸频率过快",
+              "frequency":"婴儿每1小时评估",
               "style": "color: red;border-color: red;"
             }
           ]
@@ -482,15 +549,18 @@
             {
               "min": "-Infinity",
               "max": "90",
-              "equal": "",
-              "message": "SPO2异常",
+              "agelevel":["成人","儿童","幼儿"],
+              "message": "血氧饱和度SPO2异常",
+              "frequency":"每1小时评估",
               "style": "color: red;border-color: red;"
             },
             {
-              "min": "90",
-              "max": "Infinity",
-              "equal": "",
-              "style": "color:black"
+              "min": "-Infinity",
+              "max": "80",
+              "agelevel":["新生儿","婴儿"],
+              "message": "血氧饱和度SPO2异常",
+              "frequency":"新生儿每1小时评估",
+              "style": "color: red;border-color: red;"
             }
           ]
         },
@@ -507,18 +577,44 @@
             {
               "split": "/",
               "maxs": [
-                200,
+                180,
                 100
               ],
-              "message": "血压异常",
+              "agelevel":["成人","儿童","幼儿"],
+              "message": "血压过高",
+              "frequency":"每4小时评估",
               "style": "color: red;border-color: red;"
             },
             {
               "split": "/",
-              "message": "血压异常",
+              "message": "血压过低",
+              "frequency":"每4小时评估",
+              "agelevel":["成人","儿童","幼儿"],
               "mins": [
-                80,
+                90,
                 60
+              ],
+              "style": "color: red;border-color: red;"
+            },
+            {
+              "split": "/",
+              "maxs": [
+                50,
+                30
+              ],
+              "agelevel":["新生儿","婴儿"],
+              "message": "婴儿血压过高",
+              "frequency":"婴儿每1小时评估",
+              "style": "color: red;border-color: red;"
+            },
+            {
+              "split": "/",
+              "agelevel":["新生儿","婴儿"],
+              "message": "婴儿血压过低",
+              "frequency":"婴儿每1小时评估",
+              "mins": [
+                50,
+                30
               ],
               "style": "color: red;border-color: red;"
             }
@@ -538,15 +634,50 @@
           "readOnly": null,
           "rule": [
             {
-              "min": 7.8,
-              "max": "Infinity",
-              "message": "血糖异常",
+              "min": "-Infinity",
+              "max": 3.9,
+              "agelevel":["成人","儿童","幼儿","婴儿"],
+              "message": "空腹血糖过低",
+              "frequency":"每1小时评估",
               "style": "color: red;border-color: red;"
             },
             {
-              "min": -1,
+              "min": 6.1,
+              "max": "Infinity",
+              "agelevel":["成人","儿童","幼儿","婴儿"],
+              "message": "血糖过高",
+              "frequency":"每1小时评估",
+              "style": "color: red;border-color: red;"
+            },
+            {
+              "min": "-Infinity",
               "max": 2.2,
-              "style": "color: blue"
+              "agelevel":["新生儿"],
+              "message": "空腹血糖过低",
+              "frequency":"每1小时评估",
+              "style": "color: red;border-color: red;"
+            },
+            {
+              "min": 8,
+              "max": "Infinity",
+              "agelevel":["新生儿"],
+              "message": "空腹血糖过高",
+              "frequency":"每1小时评估",
+              "style": "color: red;border-color: red;"
+            },
+            {
+              "name":"输入字符自动转换",
+              "source":"I100006",
+              "target":"I100006",
+              "string":"LO",
+              "replacement":"<1.1"
+            },
+            {
+              "name":"输入字符自动转换",
+              "source":"I100006",
+              "target":"I100006",
+              "string":"HI",
+              "replacement":">27.8"
             }
           ]
         },
@@ -563,14 +694,15 @@
             {
               "min": "-Infinity",
               "max": "5",
-              "equal": "",
-              "style": "color:blue"
+              "message": "中心静脉压CVP异常",
+              "frequency":"每1小时评估",
+              "style": "color: red;border-color: red;"
             },
             {
               "min": "12",
               "max": "Infinity",
-              "equal": "",
-              "message": "CVP异常",
+              "message": "中心静脉压CVP异常",
+              "frequency":"每1小时评估",
               "style": "color: red;border-color: red;"
             }
           ]
@@ -654,34 +786,29 @@
             {
               "min": "-Infinity",
               "max": "18.49",
-              "equal": "",
               "style": "color:blue"
             },
             {
               "min": "24",
               "max": "26.9",
-              "equal": "",
               "message": "偏胖",
               "style": "color: red;border-color: red;"
             },
             {
               "min": "27",
               "max": "29.9",
-              "equal": "",
               "message": "肥胖",
               "style": "color: red;border-color: red;"
             },
             {
               "min": "30",
               "max": "39.9",
-              "equal": "",
               "message": "重度肥胖",
               "style": "color: red;border-color: red;"
             },
             {
               "min": "40",
               "max": "Infinity",
-              "equal": "",
               "message": "极重度肥胖",
               "style": "color: red;border-color: red;"
             },
@@ -750,6 +877,8 @@
                 "早醒",
                 "多梦"
               ],
+              "message": "睡眠形态紊乱",
+              "frequency":"每天评估",
               "style": "color: red;border-color: red;"
             }
           ]
@@ -869,6 +998,14 @@
             "疲倦",
             "萎靡",
             "亢"
+          ],
+          "rule": [
+            {
+              "diff": "正常",
+              "message": "精神状态不佳",
+              "frequency":"每天评估",
+              "style": "color: red;border-color: red;"
+            }
           ]
         },
         {

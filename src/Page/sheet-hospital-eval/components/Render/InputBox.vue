@@ -288,7 +288,7 @@ export default {
         this.obj.rule.map(r => {
           try {
             let [min, max] = [Number(r.min), Number(r.max)];
-            let value = Number(valueNew);
+            let value = Number(valueNew?valueNew.replace(/[^0-9.]/g,''):'');
             min = isNaN(min) ? 0 : min;
             max = isNaN(max) ? 0 : max;
             value = value === NaN ? -1 : value;
@@ -300,14 +300,6 @@ export default {
                 this.$root.$refs[r.weight] &&
                 this.$root.$refs[r.result]
               ) {
-                // let height =
-                //   ~~this.$root.$refs[r.height][0].currentValue ||
-                //   this.formObj.model[r.height] ||
-                //   0;
-                // let weight =
-                //   ~~this.$root.$refs[r.weight][0].currentValue ||
-                //   this.formObj.model[r.weight] ||
-                //   0;
                 let height =
                   ~~this.getElementValue(r.height)||
                   this.formObj.model[r.height] ||
@@ -318,18 +310,39 @@ export default {
                   0;
                 let result = weight / Math.pow(height / 100, 2).toFixed(2);
                 result = isNaN(Number(result)) || !isFinite(result) ? 0 : result;
-                // if(this.obj.name==='I100011'){
-                //   console.log('!!!!计算BMI',this.obj.title,this.obj,r,height,weight,result)
-                // }
+                //
                 this.setElementValue(r.result,result ? result.toFixed(2) : "")
-                // this.$root.$refs[r.result][0].setCurrentValue(
-                //   result ? result.toFixed(2) : ""
-                // );
+                //
                 this.formObj.model[r.result] = result ? result.toFixed(2) : "";
                 //
                 if(repeat==null){
                   this.getValueRule(r.result,result ? result.toFixed(2) : "",false)
                 }
+              }
+            }
+
+            // 输入字符自动转换
+            // source target string replace
+            if (r.name === "输入字符自动转换") {
+              if (
+                this.$root.$refs[r.source] &&
+                this.$root.$refs[r.target] &&
+                r.string && valueNew && valueNew.toUpperCase().includes(r.string.toUpperCase())
+              ) {
+                let regexp = new RegExp(r.string,'g')
+                let ret = r.string.replace(regexp,(r.replacement||''))||""
+                //
+                console.log('输入字符自动转换',r,r.source,r.target,r.string,r.replacement,[ret],this.getElementValue(r.target))
+                //
+                this.$nextTick(()=>{
+                  this.formObj.model[r.target] = ret
+                  this.setElementValue(r.target,ret)
+                  if(repeat==null){
+                    this.getValueRule(r.target,ret ? ret : "",false)
+                    this.updateAlertBox(ret)
+                  }
+                })
+                //
               }
             }
 
@@ -418,10 +431,18 @@ export default {
               if ((valueNew + "").indexOf(r.indexOf) > -1) {
                 this.obj.style = r.style;
               }
-            } else if (r.split && valueNew && valueNew.indexOf(r.split) > -1) {
+            } else if (
+              r.split && valueNew
+              && valueNew.indexOf(r.split) > -1
+              && ((r.agelevel
+                && (r.agelevel.constructor == String && r.agelevel == agelevel
+                    || r.agelevel.constructor == Array && r.agelevel.indexOf(agelevel)>-1
+                )
+                )||!r.agelevel)
+              ) {
               if (r.maxs) {
                 let arr = valueNew.split(r.split) || [];
-                console.log(arr, "arr", r.split, "split", valueNew, "valueNew");
+                console.log("maxs:",arr, "arr", r.split, "split", valueNew, "valueNew");
                 if (r.maxs.length === arr.length) {
                   for (let i = 0; i < arr.length; i++) {
                     if (arr[i] && arr[i] > r.maxs[i]) {
@@ -440,8 +461,8 @@ export default {
               if (r.mins) {
                 let arr = valueNew.split(r.split) || [];
                 if (r.mins.length === arr.length) {
-                  for (let i = 0; i < arr.length; i++) {
-                    if (arr[i] && arr[i] <= r.mins[i]) {
+                  for (let i = 0; i <= arr.length; i++) {
+                    if (arr[i] && arr[i] < r.mins[i]) {
                       this.obj.style = r.style;
                       if (r.message) {
                         console.log("rule:message", r.message);
@@ -460,7 +481,20 @@ export default {
           }
         });
 
-        //
+        this.updateAlertBox(valueNew)
+
+      }
+      // if (this.$refs && this.$refs[this.obj.name]) {
+      try {
+        this.$refs[this.obj.name].$refs.input.style = this.obj.style;
+      } catch (error) {}
+
+      // this.$root.$refs[this.obj.name].$refs.input.style = this.obj.style;
+      // }
+      return textResult;
+    },
+    updateAlertBox(value){
+      //
         let alertMessageItems = [...this.$root.$refs.tableOfContent.getAlertMessageItems()]
 
         // if(this.$root.$refs['tableOfContent']){
@@ -471,7 +505,7 @@ export default {
             let hasAlertMessage = false
             let title = (this.obj.title||this.obj.label||"")
             let frequency = this.currentRule.frequency||''
-            let tips = `<span><span style="color:green">${title}</span>:${valueNew||""}<span style="color:chocolate">${this.obj.suffixDesc||""}</span></span><br><span style="color:red">预警:${this.alertMessage}</span>`
+            let tips = `<span><span style="color:green">${title}</span>:${value||""}<span style="color:chocolate">${this.obj.suffixDesc||""}</span></span><br><span style="color:red">预警:${this.alertMessage}</span>`
             console.log('this.currentRule',this.currentRule)
             if(frequency){
               tips+=`<br><span style="color:black">评估频率:${frequency}</span>`
@@ -480,7 +514,7 @@ export default {
             for (let iterator of alertMessageItems) {
               if(iterator.name && iterator.name == this.obj.name){
                 iterator.message = this.alertMessage
-                iterator["value"] = valueNew
+                iterator["value"] = value
                 iterator["tips"] = tips
                 iterator["frequency"] = frequency
                 hasAlertMessage = true
@@ -495,7 +529,7 @@ export default {
                   name:this.obj.name,
                   title:title,
                   obj:this.obj,
-                  value:valueNew,
+                  value:value,
                   tips: tips
                 }
               ]
@@ -511,17 +545,6 @@ export default {
             this.$root.$refs.tableOfContent.updateAlertMessageItems(alertMessageItems)
             // }
           }
-        // }
-        //
-      }
-      // if (this.$refs && this.$refs[this.obj.name]) {
-      try {
-        this.$refs[this.obj.name].$refs.input.style = this.obj.style;
-      } catch (error) {}
-
-      // this.$root.$refs[this.obj.name].$refs.input.style = this.obj.style;
-      // }
-      return textResult;
     },
     inputBlur(e) {
       console.log("inputBlur", e);

@@ -121,7 +121,7 @@
               <span style="color:green">{{formatAlertTitle(item.title||'预警')}}：</span><br>{{item.itemValue||item.matchDiagNames}}<br>
               <span style="color:green">定义：</span><br>{{item.remark||item.definition||item.matchDiagNames}}<br>
               <span style="color:green">复评时间段：</span><br>
-              <span>开始时间：{{item.beginTime}}</span><br><span>结束时间：{{item.expectedEndTime}}</span>
+              <span>开始时间：{{item.beginTime||'无'}}</span><br><span>结束时间：{{item.expectedEndTime||'无'}}</span>
             </div>
               <span style="display:flex">
                 <i style="align-items:center;display:inline-flex;margin-right:3px"><img
