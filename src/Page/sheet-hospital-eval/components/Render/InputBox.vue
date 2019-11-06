@@ -88,6 +88,7 @@ import vue from "vue";
 import uuid from "node-uuid";
 import { setTimeout } from "timers";
 // import autoComplete from "./autoComplete.vue"
+import { checkRule } from "./js/ruleHandler";
 
 export default {
   name: "InputBox",
@@ -123,47 +124,47 @@ export default {
   },
   computed: {},
   watch: {
-    inputValue(valueNew, oldvaule) {
-      // console.log("inputValue:", valueNew, oldvaule);
-      if (this.model === "normal" && valueNew) {
-        this.formObj.model[this.obj.name] = valueNew;
-        this.checkValueRule(valueNew);
-        this.obj.value = valueNew+"";
-        console.log("obj:", this.obj);
-      }
-      //
-      /** 如果存在clone ref */
-      // setTimeout(() => {
-      //   if (this.isClone) {
-      //     this.$root.$refs[this.obj.name].setCurrentValue(valueNew);
-      //     this.$root.$refs[this.obj.name].$parent.checkValueRule(valueNew);
-      //   } else if (this.$root.$refs[this.obj.name + "_clone"]) {
-      //     this.$root.$refs[this.obj.name + "_clone"].setCurrentValue(valueNew);
-      //     this.$root.$refs[this.obj.name + "_clone"].$parent.checkValueRule(
-      //       valueNew
-      //     );
-      //   }
-      // }, 100);
+    // inputValue(valueNew, oldvaule) {
+    //   console.log("watch:inputValue:", [valueNew], [oldvaule]);
+    //   if (this.model === "normal") {
+    //     this.formObj.model[this.obj.name] = valueNew+"";
+    //     this.checkValueRule(valueNew+"");
+    //     this.obj.value = valueNew+"";
+    //     console.log("obj:", this.obj);
+    //   }
+    //   //
+    //   /** 如果存在clone ref */
+    //   // setTimeout(() => {
+    //   //   if (this.isClone) {
+    //   //     this.$root.$refs[this.obj.name].setCurrentValue(valueNew);
+    //   //     this.$root.$refs[this.obj.name].$parent.checkValueRule(valueNew);
+    //   //   } else if (this.$root.$refs[this.obj.name + "_clone"]) {
+    //   //     this.$root.$refs[this.obj.name + "_clone"].setCurrentValue(valueNew);
+    //   //     this.$root.$refs[this.obj.name + "_clone"].$parent.checkValueRule(
+    //   //       valueNew
+    //   //     );
+    //   //   }
+    //   // }, 100);
 
-      return valueNew?valueNew:"";
-    },
-    obj: {
-      handler(curVal, oldVal) {
-        // console.log("handler", curVal, oldVal);
-        if (
-          this.obj &&
-          this.obj.hasOwnProperty("value") > -1
-          && curVal &&
-          curVal.value != undefined
-        ) {
-          this.inputValue = curVal.value + "";
-        }
-        // if(this.obj && this.obj.hasOwnProperty('value')>-1 && curVal.value!=undefined &&curVal.value.constructor === Array){
-        //   this.inputValue = curVal.value + ''
-        // }
-      },
-      deep: true
-    }
+    //   return valueNew?valueNew:"";
+    // },
+    // obj: {
+    //   handler(curVal, oldVal) {
+    //     // console.log("handler", curVal, oldVal);
+    //     if (
+    //       this.obj &&
+    //       this.obj.hasOwnProperty("value") > -1
+    //       && curVal &&
+    //       curVal.value != undefined
+    //     ) {
+    //       this.inputValue = curVal.value + "";
+    //     }
+    //     // if(this.obj && this.obj.hasOwnProperty('value')>-1 && curVal.value!=undefined &&curVal.value.constructor === Array){
+    //     //   this.inputValue = curVal.value + ''
+    //     // }
+    //   },
+    //   deep: true
+    // }
   },
   mounted() {
     let refName = this.obj.name + ""; //+this.obj.type.toUpperCase()+(this.obj.title||this.obj.label)
@@ -197,7 +198,7 @@ export default {
       this.obj.value &&
       this.obj.value.constructor === Array
     ) {
-      this.inputValue = this.obj.value.toString();
+      this.inputValue = this.obj.value+"";
     }
     if (this.model === "development") {
       this.obj.class = "development-model";
@@ -270,8 +271,20 @@ export default {
   methods: {
     checkValueRule(valueNew,repeat=null) {
       // let ageLevel = this.$store.getters.getAgeLevel()
+      console.log('checkValueRule',[valueNew,repeat])
+      valueNew = valueNew=="undefined"?"":valueNew
+      // let textResult = checkRule({
+      //   rule:this.obj.rule,
+      //   value:valueNew+"",
+      //   obj:this.obj,
+      //   formObj:this.formObj,
+      //   repeat
+      // })
+
+      // return textResult
       // if(!repeat){return}
       let textResult = valueNew+"";
+      // textResult = valueNew+"";
       this.obj.style = "";
       this.alertMessage = "";
       this.currentRule={};
@@ -294,6 +307,13 @@ export default {
             min = isNaN(min) ? 0 : min;
             max = isNaN(max) ? 0 : max;
             value = value === NaN ? -1 : value;
+
+            // 空
+            if(!valueNew){
+              // console.log('[空]检查事件规则',[valueNew, r, value])
+              this.setElementStyle(this.obj.name, "")
+              return
+            }
 
             // 计算BMI
             if (r.name === "计算BMI") {
@@ -695,7 +715,8 @@ export default {
       }
     },
     inputChange(e, child) {
-      console.log("inputChange", e, child, this.formObj.model, this.inputValue);
+      console.log("inputChange", [e], [child], [this.formObj.model, this.inputValue]);
+      let valueNew = this.inputValue
       // this.$store.commit("upFormObj", JSON.parse(JSON.stringify(this.formObj)));
       // property
       // model  development-model this.model === "development"
@@ -707,6 +728,15 @@ export default {
       ) {
         this.property[this.obj.title] = this.inputValue;
       }
+
+      if (this.model === "normal") {
+        this.formObj.model[this.obj.name] = valueNew+"";
+        window.formObj.model[this.obj.name] = valueNew+"";
+        this.checkValueRule(valueNew+"");
+        this.obj.value = valueNew+"";
+        console.log("obj:", this.obj);
+      }
+
       // if (e.target.tagName !== "INPUT") {
       //   e.target.innerText = data.name;
       // }
@@ -850,6 +880,13 @@ export default {
     setElementValue(key,value){
       Object.keys(this.$root.$refs[key]).map(elkey=>{
         this.$root.$refs[key][elkey].setCurrentValue(value);
+      })
+    },
+    setElementStyle(key, value) {
+      Object.keys(this.$root.$refs[key]).map(elkey => {
+          Object.keys(this.$root.$refs[key][elkey].$refs).map(ikey => {
+            this.$root.$refs[key][elkey].$refs[ikey].style = value;
+          })
       })
     },
     getElementValue(key){

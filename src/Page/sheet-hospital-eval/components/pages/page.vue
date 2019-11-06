@@ -90,11 +90,15 @@ export default {
     });
 
     this.initial();
+    this.clearAll();
     this.loading = false;
   },
   mounted() {
     //
-    window.formTool = { ...window.formTool, fillForm: this.fillForm };
+    window.formTool = {
+      ...window.formTool,
+      fillForm: this.fillForm
+    };
   },
   methods: {
     // async loadingJSON() {
@@ -123,6 +127,7 @@ export default {
         Object.keys(this.$root.$refs).map(rkey=>{
           if(this.$root.$refs[rkey] && this.$root.$refs[rkey].constructor == Array){
             // this.$root.$refs[rkey]=[]
+            // delete this.$root.$refs[rkey]
             Object.keys(this.$root.$refs[rkey]).map(ekey=>{
               try {
                 this.$root.$refs[rkey][ekey].setCurrentValue("")
@@ -141,6 +146,7 @@ export default {
       // 清空
       // this.$root.$refs = {}
       this.clearAll()
+      //
       // this.loadingJSON();
       // if(window.formObj && window.formObj.model){
       //   Object.keys(window.formObj.model).map(k=>{
@@ -311,7 +317,7 @@ export default {
                 ) {
                   // el.setCurrentValue(textResult);
                   if (key === "status") {
-                    let textResult = el.checkValueRule(element + "");
+                    let textResult = el.checkValueRule(formObj[key]+"");
                     // console.log(
                     //   "----el",
                     //   el,
@@ -323,7 +329,7 @@ export default {
                   } else {
                     el.setCurrentValue(element);
                     // if(element){
-                    el.checkValueRule(element);
+                    el.checkValueRule(element+"");
                     // }else{
                     //   el.checkValueRule("")
                     // }
@@ -332,6 +338,7 @@ export default {
                 }
                 if (el && el.type === "datetime") {
                   el.currentValue = formObj[key]||"";
+                  // el.setCurrentValue(formObj[key]+"");
                   console.log("datetime", el, key, element);
                 }
               });
