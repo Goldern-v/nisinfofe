@@ -1914,7 +1914,8 @@
         "style": null,
         "class": null,
         "html": null,
-        "readOnly": null
+        "readOnly": null,
+        "options":["面部","躯干","上肢","下肢","臀部"]
       },
       {
         "name": "I100069",

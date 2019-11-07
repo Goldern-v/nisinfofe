@@ -272,11 +272,6 @@
   ],
   "I100075": [
     {
-      "code": "I度水肿",
-      "name": "I度水肿",
-      "pinyin": "Idsz"
-    },
-    {
       "code": "无",
       "name": "无",
       "pinyin": "w"
@@ -295,21 +290,6 @@
       "code": "重度",
       "name": "重度",
       "pinyin": "zd"
-    },
-    {
-      "code": "II度水肿",
-      "name": "II度水肿",
-      "pinyin": "IIdsz"
-    },
-    {
-      "code": "III度水肿",
-      "name": "III度水肿",
-      "pinyin": "IIIdsz"
-    },
-    {
-      "code": "IV度水肿",
-      "name": "IV度水肿",
-      "pinyin": "IVdsz"
     }
   ],
   "I100014": [
@@ -898,11 +878,6 @@
   ],
   "I100064": [
     {
-      "code": "速脉",
-      "name": "速脉",
-      "pinyin": "sm"
-    },
-    {
       "code": "阴性",
       "name": "阴性",
       "pinyin": "yx"
@@ -937,11 +912,6 @@
   ],
   "I100068": [
     {
-      "code": "洪脉",
-      "name": "洪脉",
-      "pinyin": "hm"
-    },
-    {
       "code": "无",
       "name": "无",
       "pinyin": "w"
@@ -950,13 +920,6 @@
       "code": "有",
       "name": "有",
       "pinyin": "y"
-    }
-  ],
-  "I100069": [
-    {
-      "code": "细脉",
-      "name": "细脉",
-      "pinyin": "xm"
     }
   ],
   "I100070": [
@@ -1002,18 +965,18 @@
       "pinyin": "w"
     },
     {
-      "code": "Ⅰ°",
-      "name": "Ⅰ°",
+      "code": "Ⅰ°度水肿",
+      "name": "Ⅰ°度水肿",
       "pinyin": ""
     },
     {
-      "code": "Ⅱ°",
-      "name": "Ⅱ°",
+      "code": "Ⅱ°度水肿",
+      "name": "Ⅱ°度水肿",
       "pinyin": ""
     },
     {
-      "code": "Ⅲ°",
-      "name": "Ⅲ°",
+      "code": "Ⅲ°度水肿",
+      "name": "Ⅲ°度水肿",
       "pinyin": ""
     }
   ],
