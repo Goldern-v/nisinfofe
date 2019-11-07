@@ -266,14 +266,14 @@ export default {
 
     sek() {
       return this.bedList.filter(
-        item =>
-          item.bedLabel.includes("_") && item.patientId && !item.newBornOut
+        item => item.bedLabel.includes("_") && item.patientId && item.newBornOut
       );
     },
 
     ye() {
       return this.bedList.filter(
-        item => item.bedLabel.includes("_") && item.patientId && item.newBornOut
+        item =>
+          item.bedLabel.includes("_") && item.patientId && !item.newBornOut
       );
     },
     list() {
@@ -373,14 +373,14 @@ export default {
         },
         {
           name: "婴儿",
-          num: this.sek.length,
+          num: this.ye.length,
           type: "level",
           color: "rgb(217, 244, 254)",
           hide: !this.isChangeke
         },
         {
           name: "送儿科",
-          num: this.ye.length,
+          num: this.sek.length,
           type: "level",
           color: "rgba(255, 207, 219, 0.5)",
           hide: !this.isChangeke
