@@ -464,6 +464,11 @@ export default {
         }
       });
     },
+    setElementValue(key,value){
+      Object.keys(this.$root.$refs[key]).map(elkey=>{
+        this.$root.$refs[key][elkey].setCurrentValue(value);
+      })
+    },
     changeSelectBlock(item) {
       if (!this.selectBlock.id) return;
 
@@ -472,11 +477,19 @@ export default {
         this.$root.$refs.tableOfContent.updateEvalTaskItems([])
         this.$root.$refs.tableOfContent.updateAlertMessageItems([])
       // this.$root.$refs.tableOfContent.updateMissingItems([])
+        //
+        Object.keys(this.formObj.model).map(k=>{
+          window.formObj.model[k]=""
+          this.formObj.model[k]=""
+          this.setElementValue(k,"")
+        })
       } catch (error) {}
       //
-      window.performance.mark("mark_blocklist_start_xhr");
+      // window.performance.mark("mark_blocklist_start_xhr");
       console.log("changeSelectBlock", item);
+      //
       this.bus.$emit("setHosptialEvalLoading", true);
+      //
       if (typeof item === "object" && item.hasOwnProperty("wardName")) {
         if (
           item.hasOwnProperty("patientName") &&
@@ -485,20 +498,24 @@ export default {
           item["name"] = item.patientName;
         }
         this.formId = item.id + "";
+        //
+        //
         get(item.id).then(res => {
           let {
             data: {
               data: { itemData: itemData, master: master }
             }
           } = res;
-          window.performance.mark("mark_blocklist_end_xhr");
-          window.performance.measure(
-            "measure_xhr_blocklist" + new Date().toISOString(),
-            "mark_blocklist_start_xhr",
-            "mark_blocklist_end_xhr"
-          );
-          var items = window.performance.getEntriesByType("measure");
-          console.log("measure", items);
+          // window.performance.mark("mark_blocklist_end_xhr");
+          // window.performance.measure(
+          //   "measure_xhr_blocklist" + new Date().toISOString(),
+          //   "mark_blocklist_start_xhr",
+          //   "mark_blocklist_end_xhr"
+          // );
+          // var items = window.performance.getEntriesByType("measure");
+          // console.log("measure", items);
+          //
+          //
           // try {
           //   window.formObj.header[0].children.map(h => {
           //     h.value = master[h.name];
@@ -510,8 +527,16 @@ export default {
 
           let formObj = { ...itemData, ...master };
 
-          window.formObj.model = formObj;
+          // Object.keys(formObj).map(k=>{
+          //   if(!formObj[k]){
+          //     formObj[k] = ""
+          //   }
+          // })
+
+          window.formObj.model = JSON.parse(JSON.stringify(formObj));
           window.formObj.model["formId"] = master.id || "";
+
+          // this.formObj.model = { ...this.formObj.model,...window.formObj.model}
 
           try {
             window.formObj.formSetting.formInfo.status=master.status || ''

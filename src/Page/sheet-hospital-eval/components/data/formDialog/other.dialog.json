@@ -123,8 +123,8 @@
       {
         "name": "I100000",
         "type": "radio",
-        "title": "腔门",
-        "value": "腔门",
+        "title": "肛温",
+        "value": "肛温",
         "style": "min-width: 50px;",
         "class": null,
         "readOnly": null

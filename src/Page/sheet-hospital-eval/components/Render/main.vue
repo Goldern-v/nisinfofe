@@ -192,7 +192,7 @@ export default {
         if (this.source) {
           this.formObj = JSON.parse(this.source);
         } else if (this.sourceObj) {
-          this.formObj = this.sourceObj;
+          this.formObj = this.sourceObj;//JSON.parse(JSON.stringify(this.sourceObj))//this.sourceObj;
         }
         console.log("渲染this.formObj", this.formObj);
         this.test = "JSON格式正常"; //JSON.stringify(this.formObj)

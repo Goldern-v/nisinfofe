@@ -1,3 +1,3 @@
-export const 住院默认值 = {
-  I100000: "耳温"
+export default {
+  I100000: "腋下"
 };

@@ -88,6 +88,7 @@ import vue from "vue";
 import uuid from "node-uuid";
 import { setTimeout } from "timers";
 // import autoComplete from "./autoComplete.vue"
+import { checkRule } from "./js/ruleHandler";
 
 export default {
   name: "InputBox",
@@ -117,50 +118,53 @@ export default {
       isClone: false,
       alertMessage: "",
       alertImg: require("./image/预警@2x.png"),
-      alertActived:false
+      alertActived:false,
+      currentRule:{},
     };
   },
   computed: {},
   watch: {
-    inputValue(valueNew, oldvaule) {
-      console.log("inputValue:", valueNew, oldvaule);
-      if (this.model === "normal") {
-        this.formObj.model[this.obj.name] = valueNew;
-        this.checkValueRule(valueNew);
-        this.obj.value = valueNew;
-        console.log("obj:", this.obj);
-      }
-      /** 如果存在clone ref */
-      // setTimeout(() => {
-      //   if (this.isClone) {
-      //     this.$root.$refs[this.obj.name].setCurrentValue(valueNew);
-      //     this.$root.$refs[this.obj.name].$parent.checkValueRule(valueNew);
-      //   } else if (this.$root.$refs[this.obj.name + "_clone"]) {
-      //     this.$root.$refs[this.obj.name + "_clone"].setCurrentValue(valueNew);
-      //     this.$root.$refs[this.obj.name + "_clone"].$parent.checkValueRule(
-      //       valueNew
-      //     );
-      //   }
-      // }, 100);
+    // inputValue(valueNew, oldvaule) {
+    //   console.log("watch:inputValue:", [valueNew], [oldvaule]);
+    //   if (this.model === "normal") {
+    //     this.formObj.model[this.obj.name] = valueNew+"";
+    //     this.checkValueRule(valueNew+"");
+    //     this.obj.value = valueNew+"";
+    //     console.log("obj:", this.obj);
+    //   }
+    //   //
+    //   /** 如果存在clone ref */
+    //   // setTimeout(() => {
+    //   //   if (this.isClone) {
+    //   //     this.$root.$refs[this.obj.name].setCurrentValue(valueNew);
+    //   //     this.$root.$refs[this.obj.name].$parent.checkValueRule(valueNew);
+    //   //   } else if (this.$root.$refs[this.obj.name + "_clone"]) {
+    //   //     this.$root.$refs[this.obj.name + "_clone"].setCurrentValue(valueNew);
+    //   //     this.$root.$refs[this.obj.name + "_clone"].$parent.checkValueRule(
+    //   //       valueNew
+    //   //     );
+    //   //   }
+    //   // }, 100);
 
-      return valueNew;
-    },
-    obj: {
-      handler(curVal, oldVal) {
-        // console.log("handler", curVal, oldVal);
-        if (
-          this.obj &&
-          this.obj.hasOwnProperty("value") > -1 &&
-          curVal.value != undefined
-        ) {
-          this.inputValue = curVal.value + "";
-        }
-        // if(this.obj && this.obj.hasOwnProperty('value')>-1 && curVal.value!=undefined &&curVal.value.constructor === Array){
-        //   this.inputValue = curVal.value + ''
-        // }
-      },
-      deep: true
-    }
+    //   return valueNew?valueNew:"";
+    // },
+    // obj: {
+    //   handler(curVal, oldVal) {
+    //     // console.log("handler", curVal, oldVal);
+    //     if (
+    //       this.obj &&
+    //       this.obj.hasOwnProperty("value") > -1
+    //       && curVal &&
+    //       curVal.value != undefined
+    //     ) {
+    //       this.inputValue = curVal.value + "";
+    //     }
+    //     // if(this.obj && this.obj.hasOwnProperty('value')>-1 && curVal.value!=undefined &&curVal.value.constructor === Array){
+    //     //   this.inputValue = curVal.value + ''
+    //     // }
+    //   },
+    //   deep: true
+    // }
   },
   mounted() {
     let refName = this.obj.name + ""; //+this.obj.type.toUpperCase()+(this.obj.title||this.obj.label)
@@ -194,7 +198,7 @@ export default {
       this.obj.value &&
       this.obj.value.constructor === Array
     ) {
-      this.inputValue = this.obj.value.toString();
+      this.inputValue = this.obj.value+"";
     }
     if (this.model === "development") {
       this.obj.class = "development-model";
@@ -266,10 +270,26 @@ export default {
   },
   methods: {
     checkValueRule(valueNew,repeat=null) {
+      // let ageLevel = this.$store.getters.getAgeLevel()
+      console.log('checkValueRule',[valueNew,repeat])
+      valueNew = valueNew=="undefined"?"":valueNew
+      // let textResult = checkRule({
+      //   rule:this.obj.rule,
+      //   value:valueNew+"",
+      //   obj:this.obj,
+      //   formObj:this.formObj,
+      //   repeat
+      // })
+
+      // return textResult
       // if(!repeat){return}
       let textResult = valueNew+"";
+      // textResult = valueNew+"";
       this.obj.style = "";
       this.alertMessage = "";
+      this.currentRule={};
+      let agelevel = ""
+      //
       if (
         this.obj.hasOwnProperty("rule") !== -1 &&
         this.obj.rule &&
@@ -277,14 +297,23 @@ export default {
       ) {
         // console.log("rule:", this.obj.rule);
         this.alertActived = false
+        //
+        agelevel = this.$store.getters.getAgeLevel()
         // 遍历规则
         this.obj.rule.map(r => {
           try {
             let [min, max] = [Number(r.min), Number(r.max)];
-            let value = Number(valueNew);
+            let value = Number(valueNew?valueNew.replace(/[^0-9.]/g,''):'');
             min = isNaN(min) ? 0 : min;
             max = isNaN(max) ? 0 : max;
             value = value === NaN ? -1 : value;
+
+            // 空
+            if(!valueNew){
+              // console.log('[空]检查事件规则',[valueNew, r, value])
+              this.setElementStyle(this.obj.name, "")
+              return
+            }
 
             // 计算BMI
             if (r.name === "计算BMI") {
@@ -293,14 +322,6 @@ export default {
                 this.$root.$refs[r.weight] &&
                 this.$root.$refs[r.result]
               ) {
-                // let height =
-                //   ~~this.$root.$refs[r.height][0].currentValue ||
-                //   this.formObj.model[r.height] ||
-                //   0;
-                // let weight =
-                //   ~~this.$root.$refs[r.weight][0].currentValue ||
-                //   this.formObj.model[r.weight] ||
-                //   0;
                 let height =
                   ~~this.getElementValue(r.height)||
                   this.formObj.model[r.height] ||
@@ -311,13 +332,9 @@ export default {
                   0;
                 let result = weight / Math.pow(height / 100, 2).toFixed(2);
                 result = isNaN(Number(result)) || !isFinite(result) ? 0 : result;
-                // if(this.obj.name==='I100011'){
-                //   console.log('!!!!计算BMI',this.obj.title,this.obj,r,height,weight,result)
-                // }
+                //
                 this.setElementValue(r.result,result ? result.toFixed(2) : "")
-                // this.$root.$refs[r.result][0].setCurrentValue(
-                //   result ? result.toFixed(2) : ""
-                // );
+                //
                 this.formObj.model[r.result] = result ? result.toFixed(2) : "";
                 //
                 if(repeat==null){
@@ -326,13 +343,46 @@ export default {
               }
             }
 
+            // 输入字符自动转换
+            // source target string replace
+            if (r.name === "输入字符自动转换") {
+              if (
+                this.$root.$refs[r.source] &&
+                this.$root.$refs[r.target] &&
+                r.string && valueNew && valueNew.toUpperCase().includes(r.string.toUpperCase())
+              ) {
+                let regexp = new RegExp(r.string,'g')
+                let ret = r.string.replace(regexp,(r.replacement||''))||""
+                //
+                console.log('输入字符自动转换',r,r.source,r.target,r.string,r.replacement,[ret],this.getElementValue(r.target))
+                //
+                this.$nextTick(()=>{
+                  this.formObj.model[r.target] = ret
+                  this.setElementValue(r.target,ret)
+                  if(repeat==null){
+                    this.getValueRule(r.target,ret ? ret : "",false)
+                    this.updateAlertBox(ret)
+                  }
+                })
+                //
+              }
+            }
+
             // 判断规则
-            if (valueNew && r.min && r.max && (value >= min && value < max)) {
+            if (valueNew && r.min && r.max && (value >= min && value <= max)
+            && ((r.agelevel
+                && (r.agelevel.constructor == String && r.agelevel == agelevel
+                    || r.agelevel.constructor == Array && r.agelevel.indexOf(agelevel)>-1
+                )
+                )||!r.agelevel)
+            && ((r.equal && r.constructor == Object && this.formObj.model[r.equal.key]==r.equal.value)||!r.equal)
+            ) {
               this.obj.style = r.style;
               if (r.message) {
                 console.log("rule:message", r.message,[r.min,r.max,value],[min,max,value]);
                 this.alertMessage = r.message + "";
                 this.alertActived = true;
+                this.currentRule = {...r};
                 // return;
               }
               // 替换显示 r.display
@@ -354,6 +404,7 @@ export default {
                 console.log("rule:message", r.message);
                 this.alertMessage = r.message + "";
                 this.alertActived = true;
+                this.currentRule = {...r};
                 // return;
               }
               // this.$refs[this.obj.name].$refs.input.style = this.obj.style;
@@ -402,10 +453,18 @@ export default {
               if ((valueNew + "").indexOf(r.indexOf) > -1) {
                 this.obj.style = r.style;
               }
-            } else if (r.split && valueNew && valueNew.indexOf(r.split) > -1) {
+            } else if (
+              r.split && valueNew
+              && valueNew.indexOf(r.split) > -1
+              && ((r.agelevel
+                && (r.agelevel.constructor == String && r.agelevel == agelevel
+                    || r.agelevel.constructor == Array && r.agelevel.indexOf(agelevel)>-1
+                )
+                )||!r.agelevel)
+              ) {
               if (r.maxs) {
                 let arr = valueNew.split(r.split) || [];
-                console.log(arr, "arr", r.split, "split", valueNew, "valueNew");
+                console.log("maxs:",arr, "arr", r.split, "split", valueNew, "valueNew");
                 if (r.maxs.length === arr.length) {
                   for (let i = 0; i < arr.length; i++) {
                     if (arr[i] && arr[i] > r.maxs[i]) {
@@ -414,6 +473,7 @@ export default {
                         console.log("rule:message", r.message);
                         this.alertMessage = r.message + "";
                         this.alertActived = true;
+                        this.currentRule = {...r};
                         // return;
                       }
                     }
@@ -423,13 +483,14 @@ export default {
               if (r.mins) {
                 let arr = valueNew.split(r.split) || [];
                 if (r.mins.length === arr.length) {
-                  for (let i = 0; i < arr.length; i++) {
-                    if (arr[i] && arr[i] <= r.mins[i]) {
+                  for (let i = 0; i <= arr.length; i++) {
+                    if (arr[i] && arr[i] < r.mins[i]) {
                       this.obj.style = r.style;
                       if (r.message) {
                         console.log("rule:message", r.message);
                         this.alertMessage = r.message + "";
                         this.alertActived = true;
+                        this.currentRule = {...r};
                         // return;
                       }
                     }
@@ -442,22 +503,42 @@ export default {
           }
         });
 
-        //
+        this.updateAlertBox(valueNew)
+
+      }
+      // if (this.$refs && this.$refs[this.obj.name]) {
+      try {
+        this.$refs[this.obj.name].$refs.input.style = this.obj.style;
+      } catch (error) {}
+
+      // this.$root.$refs[this.obj.name].$refs.input.style = this.obj.style;
+      // }
+      return textResult;
+    },
+    updateAlertBox(value){
+      //
         let alertMessageItems = [...this.$root.$refs.tableOfContent.getAlertMessageItems()]
 
         // if(this.$root.$refs['tableOfContent']){
           // 未有预警
           if(this.alertActived){
             // console.log('规则预警结果：SELECT:getAlertMessageItems:',this.alertActived,this.$root.$refs.tableOfContent.getAlertMessageItems())
+            // this.currentRule = {...r};
             let hasAlertMessage = false
             let title = (this.obj.title||this.obj.label||"")
-            let tips = `<span><span style="color:green">${title}</span>:${valueNew||""}<span style="color:chocolate">${this.obj.suffixDesc||""}</span></span><br><span style="color:red">预警:${this.alertMessage}</span>`
+            let frequency = this.currentRule.frequency||''
+            let tips = `<span><span style="color:green">${title}</span>:${value||""}<span style="color:chocolate">${this.obj.suffixDesc||""}</span></span><br><span style="color:red">预警:${this.alertMessage}</span>`
+            console.log('this.currentRule',this.currentRule)
+            if(frequency){
+              tips+=`<br><span style="color:black">评估频率:${frequency}</span>`
+            }
             //
             for (let iterator of alertMessageItems) {
               if(iterator.name && iterator.name == this.obj.name){
                 iterator.message = this.alertMessage
-                iterator["value"] = valueNew
+                iterator["value"] = value
                 iterator["tips"] = tips
+                iterator["frequency"] = frequency
                 hasAlertMessage = true
                 break;
               }
@@ -470,7 +551,7 @@ export default {
                   name:this.obj.name,
                   title:title,
                   obj:this.obj,
-                  value:valueNew,
+                  value:value,
                   tips: tips
                 }
               ]
@@ -486,17 +567,6 @@ export default {
             this.$root.$refs.tableOfContent.updateAlertMessageItems(alertMessageItems)
             // }
           }
-        // }
-        //
-      }
-      // if (this.$refs && this.$refs[this.obj.name]) {
-      try {
-        this.$refs[this.obj.name].$refs.input.style = this.obj.style;
-      } catch (error) {}
-
-      // this.$root.$refs[this.obj.name].$refs.input.style = this.obj.style;
-      // }
-      return textResult;
     },
     inputBlur(e) {
       console.log("inputBlur", e);
@@ -645,7 +715,8 @@ export default {
       }
     },
     inputChange(e, child) {
-      console.log("inputChange", e, child, this.formObj.model, this.inputValue);
+      console.log("inputChange", [e], [child], [this.formObj.model, this.inputValue]);
+      let valueNew = this.inputValue
       // this.$store.commit("upFormObj", JSON.parse(JSON.stringify(this.formObj)));
       // property
       // model  development-model this.model === "development"
@@ -657,6 +728,15 @@ export default {
       ) {
         this.property[this.obj.title] = this.inputValue;
       }
+
+      if (this.model === "normal") {
+        this.formObj.model[this.obj.name] = valueNew+"";
+        window.formObj.model[this.obj.name] = valueNew+"";
+        this.checkValueRule(valueNew+"");
+        this.obj.value = valueNew+"";
+        console.log("obj:", this.obj);
+      }
+
       // if (e.target.tagName !== "INPUT") {
       //   e.target.innerText = data.name;
       // }
@@ -800,6 +880,13 @@ export default {
     setElementValue(key,value){
       Object.keys(this.$root.$refs[key]).map(elkey=>{
         this.$root.$refs[key][elkey].setCurrentValue(value);
+      })
+    },
+    setElementStyle(key, value) {
+      Object.keys(this.$root.$refs[key]).map(elkey => {
+          Object.keys(this.$root.$refs[key][elkey].$refs).map(ikey => {
+            this.$root.$refs[key][elkey].$refs[ikey].style = value;
+          })
       })
     },
     getElementValue(key){
