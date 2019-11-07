@@ -1875,15 +1875,6 @@
           "readOnly": null,
           "rule": [
             {
-              "dialog": {
-                "openKey": "有",
-                "cleanKey": "无",
-                "title": "机械通气",
-                "parentName": "I100154",
-                "type": "dependent"
-              }
-            },
-            {
               "diff": "无",
               "message": "",
               "style": "color: red;border-color: red;"
