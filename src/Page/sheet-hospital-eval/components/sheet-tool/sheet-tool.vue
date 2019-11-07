@@ -373,13 +373,15 @@ export default {
           label: "查看护理记录",
           style: "width: auto;padding: 0px 10px;",
           onClick: e => {
-            // this.formSave({
-            //   showMeasure:false,
-            //   showLoading:false,
-            //   message:'评估预警检查',
-            //   callback:this.formCheckEvalTask
-            // })
-            console.log("查看护理记录单");
+            console.log("查看护理记录单",this.$store.getters.getCurrentPatient());
+            const {href} = this.$router.resolve({
+              path:"sheet",
+              query:{
+                patientId: this.patientInfo.patientId,
+                visitId: this.patientInfo.visitId
+              }
+            })
+            window.open(href, '_blank')
           },
           getDisabled(selectBlock) {
             if (!selectBlock.id) return true;
