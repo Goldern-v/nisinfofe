@@ -101,27 +101,195 @@ export default {
     };
   },
   methods: {
-    // async loadingJSON() {
-    //   // remote
-    //   let fileName = "住院评估.index.json";
-    //   let path = "sheet-hospital-eval";
-    //   let urldevForm = `${devFormUrl}/${path}/${fileName}`;
-    //   let urlForm = `${formUrl}/${path}/${fileName}`;
-    //   let url = urlForm;
-    //   if (this.isDev) {
-    //     url = urldevForm;
-    //   }
-    //   //
-    //   console.log("==loadingJSON==", this.isDev, url);
-    //   //
-    //   let fromMainJSON = await getJSON(url)
-    //       .catch(err => {
-    //       console.log("getJSON:err", err);
-    //     });
-    //   //
-    //   //
-    //   console.log("==fromMainJSON==", fromMainJSON,fromMainJSON.data);
-    // },
+    getFilePath(fileName,path){
+      let urldevForm = `${devFormUrl}/${path}/${fileName}`;
+      let urlForm = `${formUrl}/${path}/${fileName}`;
+      let url = urlForm;
+      if (this.isDev) {
+        url = urldevForm;
+      }
+      return url
+    },
+    async initialFormServer(patient = null, formObj=window.formObj||{}) {
+      this.loading = true;
+      // 清空
+      // this.$root.$refs = {}
+      this.clearAll()
+      //
+      let rootDir = "sheet-hospital-eval"
+      // remote
+      let url = this.getFilePath(
+        "住院评估.index.json",
+        rootDir
+        )
+      //
+      console.log("==loadingJSON==", this.isDev, url);
+      //
+      let jsonIndex = await getJSON(url)
+          .catch(err => {
+          console.log("getJSON:err", err);
+        });
+      //
+      //
+      console.log("==jsonIndex==",[url], jsonIndex,jsonIndex.data,patient);
+      //
+      // main json file
+      url = this.getFilePath("住院评估.form.json",`${rootDir}/main`)
+      let jdata = await getJSON(url)
+        .catch(err => {
+        console.log("getJSON:err", err);
+      });
+      // console.log('file',file,jdata)
+      // 主表结构
+      let file = JSON.parse(JSON.stringify(jdata.data));
+      try {
+        file.formSetting.formTitle.hospitalName = this.HOSPITAL_NAME;
+      } catch (error) {}
+      //
+
+
+      // 主表字段对照表
+      url = this.getFilePath("住院评估.schemes.json",`${rootDir}/main`)
+      jdata = await getJSON(url)
+        .catch(err => {
+        console.log("getJSON:err", err);
+      });
+      // let schemes = JSON.parse(JSON.stringify(jdata));
+      console.log('schemes',jdata)
+      file.schemes = JSON.parse(JSON.stringify(jdata.data))
+      file.schemesObj = {};
+      file.schemes.map(key => {
+        file.schemesObj[key.name] = key.title;
+      });
+
+      //
+      // file.dialogs = new Array()
+      file.dialogs = new Object()
+
+      Object.keys(jsonIndex.data).map(async (key)=>{
+        // console.log('key',key,'value',jsonIndex.data[key])
+        if(key && ['other','main','formSchemes'].indexOf(key)>-1){return}
+        let path = `${rootDir}/${key}`
+        let files = [...jsonIndex.data[key]]
+
+        //
+        // console.log('files',files,'path',path,files)
+        files.map(async (fname)=>{
+          // console.log('--fname',fname,key)
+          url = `${rootDir}/${key}`
+          url = this.getFilePath(fname,url)
+          // console.log('--url',url)
+          jdata = new Object()
+          let djson = new Object()
+          let title = ""
+
+          jdata = await getJSON(url)
+            .catch(err => {
+            console.log("getJSON:err", err);
+          });
+
+          if(jdata){
+            djson = JSON.parse(JSON.stringify(jdata.data));
+            // console.log('fname',fname,jdata)
+          }
+          //
+          if(key=="formDictionary"){
+            // 下拉框选项字典表
+            // let dictionary = djson;
+            //
+            file.dictionary = { ...file.dictionary, ...djson };
+            return
+          }
+          //
+          // formDialog
+          if(key=="formDialog"){
+            console.log('formDialog:fname',fname,jdata,djson,djson.constructor, [typeof(djson)])
+            // let djson = jdata;
+            //
+
+            if (djson.constructor == Array) {
+              // console.log('!!Array!!formDialog:fname',fname,jdata,djson)
+              djson.map(d=>{
+                  title = d.title
+                  if(title){
+                    file.dialogs[title] = {...d}
+                  }
+              })
+              return
+            }
+
+             if (djson.constructor == Object && djson.formSetting && djson.formSetting.formTitle){
+              // console.log('!!!formDialog:fname',fname,jdata,djson)
+
+
+              try {
+                djson.formSetting.formTitle.hospitalName = this.HOSPITAL_NAME;
+                //
+                title = djson.formSetting.formTitle.formName
+
+              //
+
+              // if (!djson.schemes){
+              //   djson.schemes=[]
+              // }
+              // if (djson.schemes) {
+                let fromName = fname.replace("./", "").replace(".json", "")+'.txt.json';
+                console.log('----fromName',fromName)
+
+                let surl = this.getFilePath(fromName,`${rootDir}/formSchemes`)
+                console.log('----surl',surl)
+                //
+                let dschemes = await getJSON(surl)
+                  .catch(err => {
+                  console.log("getJSON:err", err);
+                });
+                console.log('----dschemes',dschemes,[surl])
+                //JSON.parse(
+                //   JSON.stringify(require(`../data/formSchemes/${fromName}.txt.json`))
+                // );
+                //
+                if(dschemes && dschemes.data){
+                  djson.schemes = JSON.parse(JSON.stringify(dschemes.data));
+                  djson.schemesObj = {};
+                  djson.schemes.map(key => {
+                    djson.schemesObj[key.name] = key.title;
+                  });
+                }
+
+                // } catch (error) {}
+
+                // try {
+                  // if(!file.dialogs[title+""]){
+                    file.dialogs[title+""] = JSON.parse(JSON.stringify(djson))
+                  //   console.error('~~~~file.dialogs',title,file.dialogs[title])
+                  // }
+                  // file.dialogs.push(JSON.parse(JSON.stringify(djson)))
+
+                  //
+                } catch (error) {
+                  console.error('~~~~error',error,djson)
+                  // file.dialogs[djson.title] = {...djson}
+                }
+
+              // }
+
+              //
+
+              if (patient) {
+                // console.log(patient, "patientpatientpatientpatient");
+                this.setPatientInfo(djson, patient);
+              }
+            }
+            //
+          }
+          // formDialog
+        })
+
+      })
+      //
+      console.log('====initialFormServer:file',file)
+      //
+    },
     clearAll(){
       if(this.$root.$refs){
         Object.keys(this.$root.$refs).map(rkey=>{
@@ -155,7 +323,6 @@ export default {
       //     }
       //   })
       // }
-
       //
       // 主表结构
       let file = JSON.parse(
@@ -232,6 +399,7 @@ export default {
       console.log(this.fileJSON, "fileJSON");
       // window.file = this.fileJSON;
     },
+    //
     setMessage(msg) {
       this.message = msg; // "请选择左侧患者~"
     },
@@ -252,6 +420,7 @@ export default {
       console.log("openForm!!",config, patient,formObj);
 
       this.initial(patient);
+      this.initialFormServer(patient);
 
       // this.loading = false;
 
