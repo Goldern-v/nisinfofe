@@ -2,13 +2,16 @@
 <template>
   <span style class="date-picker-box">
     <span>{{obj.prefixDesc}}</span>
+    <span v-if="obj.label" :style="{width: obj.labelWidth, textAlign: 'right', paddingRight: '10px'}">
+      <span style="font-size: 13px;" :style="obj.labelStyle" :class="obj.labelClass">{{obj.label}}</span>
+    </span>
     <!-- last-version +obj.type.toUpperCase()+obj.title||obj.label-->
     <el-date-picker
       :ref="obj.name"
       v-model="datePickerValue"
       :label="obj.title"
       :class="obj.class"
-      :style="obj.style"
+      :style="obj.inputStyle||obj.style"
       :size="obj.size||'small'"
       type="datetime"
       format="yyyy-MM-dd HH:mm"

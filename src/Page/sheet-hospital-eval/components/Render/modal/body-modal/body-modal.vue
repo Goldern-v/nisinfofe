@@ -677,7 +677,8 @@ export default {
       mode: "0", //'0' 单选， 1 多选
       bodyList: [],
       fun: "",
-      callback: null
+      callback: null,
+      config:null,
     };
   },
   filters: {
@@ -693,6 +694,7 @@ export default {
       this.$refs.modal.close();
     },
     openBox(config) {
+      this.config = config
       if (config.hasOwnProperty("mode")) {
         this.mode = config.mode;
       }
@@ -741,6 +743,7 @@ export default {
     },
     save() {
       // this.fun()
+      console.log("保存人体图选中部位:", this.bodyList,this.config);
       if (this.callback) {
         console.log("this.bodyList", this.bodyList);
         this.bodyList = this.bodyList.filter(item => bodyData[item]);

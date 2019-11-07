@@ -690,20 +690,31 @@ export default {
         } else {
           this.bodyList.push(item);
         }
+        //
+        let value = this.bodyList.map(item => bodyData[item]).join("，")
+        //
+        if(this.formObj && this.formObj.model ){
+          this.formObj.model[this.obj.name] = value
+        }
         /** 赋值 */
         console.log(
-          this.bodyList.map(item => bodyData[item]).join("，"),
-          "aaa"
+          value,
+          this.bodyList,
+          this.formObj,
+          this.obj,
+          "人体图赋值"
         );
         // this.$root.$refs[this.obj.name].$parent.inputValue = this.bodyList
         //   .map(item => bodyData[item])
         //   .join("，");
 
-        Object.keys(this.$root.$refs[this.obj.name]).map(elkey=>{
-          this.$root.$refs[this.obj.name][elkey].$parent.inputValue = this.bodyList
-          .map(item => bodyData[item])
-          .join("，");
-        })
+        // Object.keys(this.$root.$refs[this.obj.name]).map(elkey=>{
+        //   this.$root.$refs[this.obj.name][elkey].$parent.inputValue = this.bodyList
+        //   .map(item => bodyData[item])
+        //   .join("，");
+        // })
+        //
+        this.setElementValue(this.obj.name,value)
       }
     },
     hasSelect(item) {

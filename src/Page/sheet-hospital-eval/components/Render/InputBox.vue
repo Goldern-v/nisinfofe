@@ -271,7 +271,7 @@ export default {
   methods: {
     checkValueRule(valueNew,repeat=null) {
       // let ageLevel = this.$store.getters.getAgeLevel()
-      console.log('checkValueRule',[valueNew,repeat])
+      // console.log('checkValueRule',[valueNew,repeat])
       valueNew = valueNew=="undefined"?"":valueNew
       // let textResult = checkRule({
       //   rule:this.obj.rule,
@@ -303,7 +303,7 @@ export default {
         this.obj.rule.map(r => {
           try {
             let [min, max] = [Number(r.min), Number(r.max)];
-            let value = Number(valueNew?valueNew.replace(/[^0-9.]/g,''):'');
+            let value = Number(valueNew?(valueNew+"").replace(/[^0-9.]/g,''):'');
             min = isNaN(min) ? 0 : min;
             max = isNaN(max) ? 0 : max;
             value = value === NaN ? -1 : value;
@@ -666,7 +666,7 @@ export default {
               width: `${xy.width}px`,
               "min-width": "max-content"
             },
-            selectedList: obj[key] ? obj[key].split(",") : [],
+            selectedList: obj[key] ? (obj[key]+"").split(",") : [],
             data: dataList,
             callback: function(data) {
               // console.log('callback',obj,data,e)
