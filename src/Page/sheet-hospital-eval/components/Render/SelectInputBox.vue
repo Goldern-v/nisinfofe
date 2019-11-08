@@ -285,9 +285,10 @@ export default {
               r.dialog.cleanKey.indexOf(valueNew) > -1
             ) {
               /** 清空 */
-              let obj = this.formObj.dialogs.find(
-                f => f.title == r.dialog.title
-              );
+              let obj = this.formObj.dialogs[r.dialog.title]
+              // .find(
+              //   f => f.title == r.dialog.title
+              // );
               if (obj && obj.children) {
                 obj.children.forEach(item => {
                   this.formObj.model[item.name] = "";

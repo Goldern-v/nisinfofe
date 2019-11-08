@@ -885,7 +885,9 @@ export default {
     setElementStyle(key, value) {
       Object.keys(this.$root.$refs[key]).map(elkey => {
           Object.keys(this.$root.$refs[key][elkey].$refs).map(ikey => {
-            this.$root.$refs[key][elkey].$refs[ikey].style = value;
+            if(this.$root.$refs[key][elkey].$refs[ikey]){
+              this.$root.$refs[key][elkey].$refs[ikey].style = value;
+            }
           })
       })
     },

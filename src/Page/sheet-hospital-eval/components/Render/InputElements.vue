@@ -410,10 +410,12 @@ export default {
           if (d) {
             let title = d.title || d.dialog.title || "";
             // console.log("!!!==!!!", title, d, d.parentName, child);
-            let obj = this.formObj.dialogs.find(
-              item =>
-                (item.title || item.formSetting.formTitle.formName) === title
-            );
+            let obj = this.formObj.dialogs[title]
+
+            // .find(
+            //   item =>
+            //     (item.title || item.formSetting.formTitle.formName) === title
+            // );
             if (obj) {
               if (obj.formSetting) {
                 title = obj.formSetting.formTitle.formName;

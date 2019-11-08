@@ -120,9 +120,10 @@ export default {
       }
 
       try {
-          this.formBox = this.formObj.dialogs.find(f=>  f.formSetting.formTitle.formName === config.title)
+          // this.formBox = this.formObj.dialogs.find(f=>  f.formSetting.formTitle.formName === config.title)
+          this.formBox = this.formObj.dialogs[config.title]
         } catch (error) {
-          this.formBox = this.formObj.dialogs.find(f=> (f.title == config.title))
+          // this.formBox = this.formObj.dialogs.find(f=> (f.title == config.title))
         }
 
       this.dialogFormVisible = true

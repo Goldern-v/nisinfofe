@@ -41,7 +41,7 @@ export default {
   data() {
     return {
       bus: BusFactory(this),
-      fileJSON: "",
+      fileJSON: new Object(),
       loadingText: "数据载入中...",
       loading: false,
       isShow: false,
@@ -56,7 +56,7 @@ export default {
       this.isShowLoadingLayout = newVal;
     }
   },
-  created() {
+  async created() {
     this.bus.$on("openHosptialEvalForm", this.openForm);
     this.bus.$on("closeHosptialEvalForm", this.closeForm);
     this.bus.$on("setHosptialEvalPageMessage", this.setMessage);
@@ -91,6 +91,33 @@ export default {
 
     this.initial();
     this.clearAll();
+    //
+    let fileInitialFormServer = await this.initialFormServer().catch(err=>{
+      console.log('!!!!fileInitialFormServer:err',err)
+    })
+
+    if(!fileInitialFormServer){
+      this.loading = false;
+      return
+    }
+        // .then(res=>{
+    console.log('openForm:initialFormServer',fileInitialFormServer)
+    this.fileJSON = JSON.parse(JSON.stringify(fileInitialFormServer));
+    // this.fileJSON.formSetting.updateInfo = window.formObj.formSetting.updateInfo
+    // //
+    // window.formObj = JSON.parse(JSON.stringify(this.fileJSON))
+    //
+    // this.fileJSON.model = JSON.parse(JSON.stringify(formObj));
+    // window.formObj = {...window.formObj,...this.fileJSON}
+    //
+    window.formObj.body = this.fileJSON.body
+    window.formObj.dialogs = this.fileJSON.dialogs
+    window.formObj.dictionary = this.fileJSON.dictionary
+    // window.formObj.formSetting = this.fileJSON.formSetting
+    window.formObj.header = this.fileJSON.header
+    window.formObj.model = {...window.formObj.model,...this.fileJSON.model}
+    window.formObj.pageSetting =  this.fileJSON.pageSetting
+    //
     this.loading = false;
   },
   mounted() {
@@ -131,13 +158,18 @@ export default {
         });
       //
       //
+      if(!jsonIndex){
+        return jsonIndex
+      }
       console.log("==jsonIndex==",[url], jsonIndex,jsonIndex.data,patient);
+
       //
       // main json file
       url = this.getFilePath("住院评估.form.json",`${rootDir}/main`)
       let jdata = await getJSON(url)
         .catch(err => {
         console.log("getJSON:err", err);
+        return
       });
       // console.log('file',file,jdata)
       // 主表结构
@@ -153,6 +185,7 @@ export default {
       jdata = await getJSON(url)
         .catch(err => {
         console.log("getJSON:err", err);
+        return
       });
       // let schemes = JSON.parse(JSON.stringify(jdata));
       console.log('schemes',jdata)
@@ -166,7 +199,9 @@ export default {
       // file.dialogs = new Array()
       file.dialogs = new Object()
 
-      Object.keys(jsonIndex.data).map(async (key)=>{
+      // await (async()=>{
+
+      const promises = await Object.keys(jsonIndex.data).map( async (key)=>{
         // console.log('key',key,'value',jsonIndex.data[key])
         if(key && ['other','main','formSchemes'].indexOf(key)>-1){return}
         let path = `${rootDir}/${key}`
@@ -174,23 +209,24 @@ export default {
 
         //
         // console.log('files',files,'path',path,files)
-        files.map(async (fname)=>{
+        const filesPromises = await files.map( async (fname)=>{
           // console.log('--fname',fname,key)
           url = `${rootDir}/${key}`
           url = this.getFilePath(fname,url)
           // console.log('--url',url)
-          jdata = new Object()
+          // jdata = new Object()
           let djson = new Object()
           let title = ""
 
-          jdata = await getJSON(url)
+          const JSONdata = await getJSON(url)
             .catch(err => {
             console.log("getJSON:err", err);
+            return
           });
 
-          if(jdata){
-            djson = JSON.parse(JSON.stringify(jdata.data));
-            // console.log('fname',fname,jdata)
+          if(JSONdata){
+            djson = JSON.parse(JSON.stringify(JSONdata.data));
+            // console.log('fname',fname,JSONdata)
           }
           //
           if(key=="formDictionary"){
@@ -198,28 +234,30 @@ export default {
             // let dictionary = djson;
             //
             file.dictionary = { ...file.dictionary, ...djson };
-            return
+            return JSONdata
           }
           //
           // formDialog
           if(key=="formDialog"){
-            console.log('formDialog:fname',fname,jdata,djson,djson.constructor, [typeof(djson)])
-            // let djson = jdata;
+            console.log('formDialog:fname',fname,JSONdata,djson,djson.constructor, [typeof(djson)])
+            // let djson = JSONdata;
             //
 
             if (djson.constructor == Array) {
-              // console.log('!!Array!!formDialog:fname',fname,jdata,djson)
+              // console.log('!!Array!!formDialog:fname',fname,JSONdata,djson)
               djson.map(d=>{
                   title = d.title
                   if(title){
                     file.dialogs[title] = {...d}
                   }
               })
-              return
+              return JSONdata
             }
 
-             if (djson.constructor == Object && djson.formSetting && djson.formSetting.formTitle){
-              // console.log('!!!formDialog:fname',fname,jdata,djson)
+            if (djson.constructor == Object
+                && djson.formSetting
+                && djson.formSetting.formTitle){
+            // console.log('!!!formDialog:fname',fname,JSONdata,djson)
 
 
               try {
@@ -242,6 +280,7 @@ export default {
                 let dschemes = await getJSON(surl)
                   .catch(err => {
                   console.log("getJSON:err", err);
+                  return
                 });
                 console.log('----dschemes',dschemes,[surl])
                 //JSON.parse(
@@ -283,12 +322,33 @@ export default {
             //
           }
           // formDialog
+          return JSONdata
         })
-
+        const numPromise = await Promise.all(filesPromises)
+        return numPromise
       })
-      //
+      // files loop
+        const numFiles = await Promise.all(promises)
+        console.log(numFiles)
+        console.log('初始化结果loop',file,promises)
+
       console.log('====initialFormServer:file',file)
       //
+      if (patient) {
+        // model
+        file.model["id"] = patient.id + "" || "";
+        this.setPatientInfo(file, patient);
+        this.setPatientInfo(formObj, patient);
+      }
+      // file.model = formObj
+      console.log("file", file, formObj);
+      //
+      // return file
+      return new Promise((res,rej)=>{
+        res(file);
+      })
+      // this.fileJSON = file; //JSON.stringify(file,null,4)
+      // console.log(this.fileJSON, "fileJSON");
     },
     clearAll(){
       if(this.$root.$refs){
@@ -396,7 +456,10 @@ export default {
       console.log("file", file, formObj);
       //
       this.fileJSON = file; //JSON.stringify(file,null,4)
-      console.log(this.fileJSON, "fileJSON");
+      // console.log(this.fileJSON, "fileJSON");
+      return new Promise((res,rej)=>{
+        res(file);
+      })
       // window.file = this.fileJSON;
     },
     //
@@ -416,26 +479,48 @@ export default {
       // alert(status);
       window.formObj.model = JSON.parse(JSON.stringify(formObj))
       //
+      //
       this.isShow = true;
       console.log("openForm!!",config, patient,formObj);
-
-      this.initial(patient);
-      this.initialFormServer(patient);
-
-      // this.loading = false;
-
+      //
       // 滚动到顶端
       document.querySelector(".sheetTable-contain").scrollTop = 0;
       document.querySelector(".sheetTable-contain").style.background =
         "#DFDFDF";
 
-      this.$nextTick(()=>{
-        // console.log("fillForm", formObj);
-        // setTimeout(() => {
-        //数据回填表单
-        this.fillForm(formObj);
-        // }, 500);
-      })
+      //
+      // ( async ()=>{
+        // let fileInitial = await this.initial(patient)
+        // .then(res=>{
+        // console.log('openForm:initial',res)
+        // });
+        // console.log('openForm:initial',fileInitial)
+        //
+
+
+        // });
+        this.$nextTick(()=>{
+             this.fillForm(formObj);
+             this.loading = false;
+        })
+        //
+      // })()
+
+
+
+      // this.fileJSON = file;
+
+      // this.loading = false;
+
+
+
+      // this.$nextTick(()=>{
+      //   // console.log("fillForm", formObj);
+      //   // setTimeout(() => {
+      //   //数据回填表单
+      //   this.fillForm(formObj);
+      //   // }, 500);
+      // })
       //
       console.log("数据回填表单", this.$root.$refs);
     },

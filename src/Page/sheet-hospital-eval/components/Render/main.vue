@@ -57,6 +57,7 @@
 
 <script>
 import vue from "vue";
+import bus from "vue-happy-bus";
 
 // import './directives/common.directive.js'
 
@@ -111,6 +112,7 @@ export default {
   },
   data() {
     return {
+      bus: bus(this),
       formObj: {},
       // sourceObj: {},
       test: "",
@@ -197,6 +199,10 @@ export default {
         console.log("渲染this.formObj", this.formObj);
         this.test = "JSON格式正常"; //JSON.stringify(this.formObj)
         this.showMessage = false;
+        if(!this.formObj){
+          this.bus.$emit("setHosptialEvalLoading", false);
+          return
+        }
         //
         // 初始化绑定UI字段
         this.modelBindUI(this.formObj.body, this.formObj);

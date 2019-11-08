@@ -3,10 +3,10 @@
   <div>
     <TipsBox :obj="obj" :formObj="formObj">
       <div class="title-box">
-       <h1 class="hospital-title">{{obj.formTitle.hospitalName}}</h1>
-        <span class="form-title">{{obj.formTitle.formName}}</span>
+       <h1 class="hospital-title">{{hospitalName}}</h1>
+        <span class="form-title">{{formName}}</span>
         <div class="header-box">
-          <span v-for="(item, index) in obj.formHeads " :key="index">{{item.title}}:{{item.value}}</span>
+          <span v-for="(item, index) in formHeads " :key="index">{{item.title}}:{{item.value}}</span>
         </div>
       </div>
     </TipsBox>
@@ -29,7 +29,60 @@ export default {
   data() {
     return {};
   },
-  computed: {},
+  computed: {
+    hospitalName(){
+      return this.obj.formTitle.hospitalName
+    },
+    formName(){
+      return this.obj.formTitle.formName
+    },
+    formHeads(){
+    let patient = this.$store.getters.getCurrentPatient()
+    let ret = [
+      {
+        "name": "name",
+        "value": "",
+        "title": "姓名"
+      },
+      {
+        "name": "sex",
+        "value": "",
+        "title": "性别"
+      },
+      {
+        "name": "age",
+        "value": "",
+        "title": "年龄"
+      },
+      {
+        "name": "wardName",
+        "value": "",
+        "title": "病区"
+      },
+      {
+        "name": "bedLabel",
+        "value": "",
+        "title": "床号"
+      },
+      {
+        "name": "inpNo",
+        "value": "",
+        "title": "住院号"
+      },
+      {
+        "name": "admissionDate",
+        "value": "",
+        "title": "入院日期"
+      }
+    ]
+    ret.map(r=>{
+      try {
+        r.value=patient[r.name]
+      } catch (error) {}
+    })
+    return ret
+    },
+  },
   watch: {},
   mounted() {},
   created() {},

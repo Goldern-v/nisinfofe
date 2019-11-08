@@ -535,7 +535,8 @@ export default {
           //   }
           // })
 
-          window.formObj.model = JSON.parse(JSON.stringify(formObj));
+          window.formObj['model'] = JSON.parse(JSON.stringify(formObj));
+          //
           window.formObj.model["formId"] = master.id || "";
 
           // this.formObj.model = { ...this.formObj.model,...window.formObj.model}
@@ -572,7 +573,7 @@ export default {
             patient: item,
             formObj: formObj
           });
-          this.bus.$emit("setHosptialEvalLoading", false);
+          // this.bus.$emit("setHosptialEvalLoading", false);
 
           // window.formObj.model
         });

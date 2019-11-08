@@ -770,13 +770,15 @@ export default {
         // config.title = this.formObj.model[config.parentName] || config.title;
       }
 
-      this.formBox = JSON.parse(
-        JSON.stringify(
-          this.formObj.dialogs.find(
-            f => (f.title || f.formSetting.formTitle.formName) == config.title
-          )
-        )
-      );
+      // this.formBox = JSON.parse(
+      //   JSON.stringify(
+      //     this.formObj.dialogs.find(
+      //       f => (f.title || f.formSetting.formTitle.formName) == config.title
+      //     )
+      //   )
+      // );
+
+      this.formBox = JSON.parse(JSON.stringify(this.formObj.dialogs[config.title]));
 
       // try {
       //   this.formBox = JSON.parse(JSON.stringify(formBoxModal));
