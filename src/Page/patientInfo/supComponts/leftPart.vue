@@ -34,7 +34,7 @@
         <div class="list2-li">医生：{{info.doctorInCharge}}</div>
         <div class="list2-li over-text" :title="info.diagnosis">诊断：{{info.diagnosis}}</div>
         <div class="print-btn" flex="cross:center main:center" @click="openBedPrint">打印床头卡</div>
-        <div class="print-btn" flex="cross:center main:center" @click="openPrintModal">
+        <div class="print-btn" flex="cross:center main:center" @click="openPrintModal" v-if="HOSPITAL_ID == 'weixian'">
           <span>归档打印</span>
           <span v-if="printArchiveMaster.statusDesc">{{'（'+ printArchiveMaster.statusDesc +'）'}}</span>
         </div>
