@@ -235,6 +235,13 @@ export default {
           } else if (r.equals && r.equals.indexOf(valueNew) !== -1) {
             this.obj.style = r.style;
             // this.obj.style = Object.assign({}, this.obj.style, r.style);
+            if (r.message) {
+                console.log("rule:message", r.message);
+                this.alertMessage = r.message + "";
+                this.alertActived = true;
+                this.currentRule = {...r};
+                // return;
+              }
           } else if (
             valueNew &&
             r.diff &&

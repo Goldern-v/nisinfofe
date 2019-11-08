@@ -5,13 +5,19 @@
         :to="{path:'/home', query: {patientId:query.patientId, visitId: query.visitId}}"
         tag="span"
       >
-        <div class="nav-item">护理首页</div>
+        <div class="nav-item">首页</div>
       </router-link>
       <router-link
         :to="{path:'/record',  query: {patientId:query.patientId, visitId: query.visitId}}"
         tag="span"
       >
         <div class="nav-item">护理文书</div>
+      </router-link>
+      <router-link
+        :to="{path:'/doctorEmr',  query: {patientId:query.patientId, visitId: query.visitId}}"
+        tag="span"
+      >
+        <div class="nav-item">病历</div>
       </router-link>
       <router-link
         :to="{path:'/sheetNursingOrder', query: {patientId:query.patientId, visitId: query.visitId}}"

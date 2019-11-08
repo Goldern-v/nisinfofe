@@ -129,6 +129,8 @@ import vaccineManagement from "@/Page/vaccine-management/vaccine-management.vue"
 
 import deliveryRoomWhiteboard from "@/Page/delivery-room-whiteboard/delivery-room-whiteboard.vue";
 
+/** 病历 */
+import doctorEmr from "@/Page/patientInfo/supPage/doctorEmr/doctorEmr";
 /** demo */
 import demo from "@/demo/demo";
 Vue.use(Router);
@@ -326,6 +328,10 @@ const router = new Router({
             {
               path: "/record",
               component: record
+            },
+            {
+              path: "/doctorEmr",
+              component: doctorEmr
             },
             {
               path: "/cost",

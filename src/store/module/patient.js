@@ -31,8 +31,8 @@ export default {
         {min:3,max:6,value:"学龄前"},
         {min:6,max:12,value:"学龄期"},
         {min:1,max:13,value:"儿童"},
-        {min:13,max:18,value:"儿童"},
-        {min:18,max:Infinity,value:"成人"}
+        {min:13,max:17,value:"儿童"},
+        {min:17,max:Infinity,value:"成人"}
       ]
       // "新生儿","婴儿","幼儿","学龄前","学龄期","儿童","成人"
       let ageLevel = ""

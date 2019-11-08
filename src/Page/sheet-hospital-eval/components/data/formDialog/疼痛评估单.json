@@ -111,7 +111,7 @@
           "value": "",
           "placeholder": "评估时间",
           "style": "width:145px",
-          "inputWidth":"145px",
+          "inputWidth": "145px",
           "class": null,
           "readOnly": null
         },
@@ -122,7 +122,7 @@
           "value": "",
           "placeholder": "评估人",
           "style": "width:80px",
-          "inputWidth":"80px",
+          "inputWidth": "80px",
           "class": null,
           "readOnly": true
         },
@@ -133,22 +133,31 @@
           "value": "",
           "placeholder": "状态",
           "style": "width:80px",
-          "inputWidth":"80px",
+          "inputWidth": "80px",
           "class": null,
           "readOnly": true,
           "rule": [
             {
-              "equals": ["-1", "未保存"],
+              "equals": [
+                "-1",
+                "未保存"
+              ],
               "style": "color:gray",
               "display": "未签名"
             },
             {
-              "equals": ["0", "已保存 "],
+              "equals": [
+                "0",
+                "已保存 "
+              ],
               "style": "color:blue",
               "display": "已保存"
             },
             {
-              "equals": ["1", "已签名"],
+              "equals": [
+                "1",
+                "已签名"
+              ],
               "style": "color:red",
               "display": "已签名"
             }
@@ -196,44 +205,23 @@
       "children": [
         {
           "name": "I003003",
-          "type": "select",
-          "title": "评分工具",
-          "inputWidth":"140px",
+          "type": "input",
+          "label": "评分工具",
+          "inputWidth": "196px",
           "style": null,
           "class": null,
           "readOnly": null,
-          "options": ["面部表情表", "数字评定量表", "词语描述量表"],
+          "options": [
+            "面部表情表",
+            "数字评定量表",
+            "词语描述量表"
+          ],
           "selectOnly": true
-        },
-        {
-          "name": "evalScore",
-          "type": "input",
-          "title": "疼痛评分",
-          "inputWidth":"140px",
-          "suffixDesc": "",
-          "style": null,
-          "class": null,
-          "readOnly": false,
-          "options": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-        },
-        {
-          "name": "I003004",
-          "type": "select",
-          "title": "活动时疼痛评分",
-          "titleStyle": "width:90px!important;margin:7px 0 0 0;",
-          "inputStyle": "width:270px!important",
-          "inputWidth": "104px",
-          "hiddenTips": true,"titleSpanStyle":"margin-left:-25px!important",
-          "suffixDesc": "",
-          "style": null,
-          "class": null,
-          "readOnly": false,
-          "options": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
         },
         {
           "name": "I003001",
           "type": "select",
-          "title": "疼痛部位",
+          "label": "疼痛部位",
           "suffixDesc": "",
           "style": null,
           "class": null,
@@ -242,8 +230,8 @@
             {
               "name": "I003001",
               "type": "input",
-              "title": "疼痛部位",
-              "inputWidth":"140px",
+              "label": "",
+              "inputWidth": "189px",
               "style": null,
               "class": null,
               "readOnly": null
@@ -257,11 +245,48 @@
           ]
         },
         {
+          "name": "evalScore",
+          "type": "input",
+          "label": "疼痛评分",
+          "inputWidth": "196px",
+          "suffixDesc": "",
+          "style": null,
+          "class": null,
+          "readOnly": false,
+          "options": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ]
+        },
+        {
+          "name": "I003006",
+          "type": "input",
+          "label": "疼痛规律性",
+          "suffixDesc": "",
+          "inputWidth": "183px",
+          "style": null,
+          "class": null,
+          "readOnly": false,
+          "options": [
+            "间歇性",
+            "持续性"
+          ]
+        },
+        {
           "name": "I003005",
           "type": "input",
-          "title": "疼痛性质",
+          "label": "疼痛性质",
           "suffixDesc": "",
-          "inputWidth":"140px",
+          "inputWidth": "196px",
           "style": null,
           "class": null,
           "readOnly": false,
@@ -277,41 +302,61 @@
           ]
         },
         {
-          "name": "I003006",
+          "name": "I003004",
           "type": "input",
-          "title": "疼痛规律性",
+          "label": "活动时疼痛评分",
+          "inputWidth": "160px",
+          "hiddenTips": true,
           "suffixDesc": "",
-          "inputWidth":"128px",
           "style": null,
           "class": null,
           "readOnly": false,
-          "options": ["间歇性", "持续性"]
+          "options": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ]
         },
         {
           "name": "I003007",
           "type": "input",
-          "title": "疼痛控制",
+          "label": "疼痛控制",
           "suffixDesc": "",
-          "inputWidth":"140px",
+          "inputWidth": "196px",
           "style": null,
           "class": null,
           "readOnly": false,
-          "options": ["无", "静脉镇痛", "硬膜外镇痛"]
+          "options": [
+            "无",
+            "静脉镇痛",
+            "硬膜外镇痛"
+          ]
         },
         {
           "name": "I003008",
-          "type": "select",
-          "title": "活动情况",
+          "type": "input",
+          "label": "活动情况",
           "suffixDesc": "",
-          "inputWidth":"140px",
+          "inputWidth": "196px",
           "style": null,
           "class": null,
           "readOnly": false,
-          "options": ["主动体位", "被动体位", "强迫体位"]
+          "options": [
+            "主动体位",
+            "被动体位",
+            "强迫体位"
+          ]
         }
       ]
     },
-
     {
       "name": "",
       "type": "formGroupHR",
@@ -339,7 +384,10 @@
     {
       "name": " ",
       "type": "formGroupVerticalBox",
-      "colWidth": ["0%", "100%"],
+      "colWidth": [
+        "0%",
+        "100%"
+      ],
       "title": " ",
       "message": "",
       "require": "false",
@@ -465,7 +513,10 @@
     {
       "name": "",
       "type": "formGroupColBox",
-      "colWidth": ["0%", "100%"],
+      "colWidth": [
+        "0%",
+        "100%"
+      ],
       "col": 1,
       "title": "",
       "message": "",
@@ -481,10 +532,10 @@
           "name": "M003012",
           "type": "datePicker",
           "title": "时间",
-          "noLabelSpace":true,
-          "inputWidth":"145px",
-          "leftTdStyle":"text-align: right;",
-          "style": "width: 145px;",
+          "noLabelSpace": true,
+          "inputWidth": "200px",
+          "leftTdStyle": "text-align: right;",
+          "style": "width: 200px;",
           "class": null,
           "readOnly": null
         },
@@ -492,30 +543,44 @@
           "name": "M003013",
           "type": "input",
           "title": "药品",
-          "noLabelSpace":true,
-          "inputWidth":"145px",
-          "leftTdStyle":"text-align: right;",
+          "noLabelSpace": true,
+          "inputWidth": "200px",
+          "leftTdStyle": "text-align: right;",
           "style": "",
           "class": null,
-          "readOnly": null
+          "readOnly": null,
+          "options": [
+            "曲马多100mg",
+            "洛芬待因缓释片2片",
+            "5%GS250ml+异丙嗪25mg+氯丙嗪25mg",
+            "复方双氯芬酸钠2ml"
+          ]
         },
         {
           "name": "M003014",
           "type": "input",
           "title": "途径",
-          "noLabelSpace":true,
-          "inputWidth":"145px",
-          "leftTdStyle":"text-align: right;",
+          "noLabelSpace": true,
+          "inputWidth": "200px",
+          "leftTdStyle": "text-align: right;",
           "style": "",
           "class": null,
-          "readOnly": null
+          "readOnly": null,
+          "options": [
+            "肌肉注射",
+            "口服",
+            "静滴"
+          ]
         }
       ]
     },
     {
       "name": " ",
       "type": "formGroupVerticalBox",
-      "colWidth": ["0%", "100%"],
+      "colWidth": [
+        "0%",
+        "100%"
+      ],
       "title": " ",
       "message": "",
       "require": "false",

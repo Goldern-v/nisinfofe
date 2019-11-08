@@ -149,7 +149,8 @@ export default {
         })
         return
       }
-
+      
+      // return console.log(params)
       this.saveLoading = true;
       changeOrSaveForm(params)
       .then(res=>{
@@ -192,12 +193,30 @@ export default {
         getFormChildbirth({patientId})
       ])
       .then(res=>{
+        let finallParams = {
+          ...this.params,
+          hadOxytocin: '否',
+          perineumSituation1: '/',
+          perineumSituation2: '/',
+          perineumSituation3: '/',
+          perineumSituation: '/',
+          perineumSituationFull: '/',
+          earlyContact: '/',
+          earlySucking: '/',
+          deadBirth: '/',
+          deadProduce: '/',
+          deformity: '/',
+          newBornDead: '/',
+          deadReason: '/',
+          surgicalIndication: '/'
+        }
+
         if(res[0].data.data){
           let re = res[0].data.data;
           let age = parseInt(re.age);
           if(isNaN(age))age=''
-          this.params = {
-            ...this.params,
+          finallParams = {
+            ...finallParams,
             femaleId: re.idNo||'',
             femaleAge: age,
             femaleBrithPlace: re.nativePlace||'',
@@ -208,8 +227,8 @@ export default {
         }
         if(res[1].data.data&&res[1].data.data[0]){
           let re1 = res[1].data.data[0]
-          this.params = {
-            ...this.params,
+          finallParams = {
+            ...finallParams,
             man: re1.contactName||'',
             manBirthAddress: re1.contactAddr||'',
             femaleEdu: re1.whcd||'',
@@ -223,7 +242,7 @@ export default {
 
           if(re2.pageMap){
             let re2From = re2.pageMap
-            let newParams = {...this.params}
+            let newParams = {...finallParams}
             let formCode = 'form_childbirth'
 
             //破膜时间
@@ -259,8 +278,8 @@ export default {
             //会阴
             let hy_option = re2From[`${formCode}_hy_option`]
             //切开
-            let hy_qk_option = ''
-            if(hy_option=='切开')hy_qk_option = re2From[`${formCode}_hy_qk_option`]||''
+            let hy_qk_option = '/'
+            if(hy_option=='切开')hy_qk_option = re2From[`${formCode}_hy_qk_option`]||'/'
 
             //2h出血总量
             let ssss_ydfm_explain = re2From[`${formCode}_ssss_ydfm_explain`]||''
@@ -286,7 +305,6 @@ export default {
             let deliver2 = re2From[`${formCode}_deliver2`]||''
             let deliver2_empno = re2From[`${formCode}_deliver2_empno`]||''
 
-
             newParams = {
               ...newParams,
               pregnancyWeek: gnyz_explain,
@@ -310,9 +328,11 @@ export default {
               birthAttendantId2: deliver2_empno,
             }
 
-            this.params = newParams
+            finallParams = newParams
           }
         }
+
+        this.params = finallParams
 
       },err=>{
 
