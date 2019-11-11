@@ -8,11 +8,13 @@
     </div>
     <div class="body-con" id="sheet_body_con" :style="{height: containHeight}">
       <div class="left-part">
-        <patientList
+        <!-- <patientList
           :data="data.bedList"
           :isSelectPatient="isSelectPatient"
           v-loading="patientListLoading"
-        ></patientList>
+        ></patientList>-->
+
+        <patientList toName="sheetPage" :callFunction="isSelectPatient" />
       </div>
       <div class="right-part" :style="{marginLeft: openLeft?'200px':'0'}" v-loading="tableLoading">
         <div class="sheetTable-contain" ref="scrollCon" @scroll="(e) => onScroll(e)">
@@ -164,7 +166,8 @@
 
 <script>
 import sheetTool from "./components/sheet-tool/sheet-tool.vue";
-import patientList from "@/components/patient-list/patient-list.vue";
+// import patientList from "@/components/patient-list/patient-list.vue";
+import patientList from "@/components/patient-list/patient-list-router-link.vue";
 import sheetTable from "./components/sheetTable/sheetTable.vue";
 import sheetTableNeonatology from "./components/sheetTable-neonatology/sheetTable";
 import sheeTableBurn_plastic from "./components/sheeTable-burn_plastic/sheetTable";

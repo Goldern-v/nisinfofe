@@ -208,15 +208,36 @@ const router = new Router({
         },
         {
           path: "/healthEdu",
-          component: healthEdu
+          component: healthEdu,
+          children: [
+            {
+              name: "healthEdu",
+              path: "/healthEdu/:patientId?/:visitId?/:formId?",
+              component: healthEdu
+            }
+          ]
         },
         {
           path: "/handlingPage",
-          component: handlingPage
+          component: handlingPage,
+          children: [
+            {
+              name: "handlingPage",
+              path: "/handlingPage/:patientId?/:visitId?/:formId?",
+              component: handlingPage
+            }
+          ]
         },
         {
           path: "/oxygenPage",
-          component: oxygenPage
+          component: oxygenPage,
+          children: [
+            {
+              name: "oxygenPage",
+              path: "/oxygenPage/:patientId?/:visitId?/:formId?",
+              component: oxygenPage
+            }
+          ]
         },
         {
           path: "/wardReport",
@@ -455,9 +476,27 @@ const router = new Router({
             }
           ]
         },
-        { path: "/sheetPage", component: sheetPage },
+        {
+          path: "/sheetPage", component: sheetPage,
+          children: [
+            {
+              name: "sheetPage",
+              path: "/sheetPage/:patientId?/:visitId?/:formId?",
+              component: sheetPage
+            }
+          ]
+        },
         { path: "/MEWS", component: MEWS },
-        { path: "/formPage", component: formPage },
+        {
+          path: "/formPage", component: formPage,
+          children: [
+            {
+              name: "formPage",
+              path: "/formPage/:patientId?/:visitId?/:formId?",
+              component: formPage
+            }
+          ]
+        },
         { path: "/evalFormPage", component: evalFormPage },
         { path: "/catheterPage", component: catheterPage },
         { path: "/sugarPage", component: sugarPage },

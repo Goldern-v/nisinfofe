@@ -260,6 +260,8 @@ export default {
         this.$route.query.visitId = patient.visitId;
         patient.formId = this.$route.params.formId || "";
         //
+        this.$store.commit("upCurrentPatientObj", patient);
+        //
         this.callFunction(patient);
         //
       }
@@ -278,14 +280,22 @@ export default {
       });
     },
     fetchData() {
+      let currentPatient = this.$store.getters.getCurrentPatient();
+      let patientId = this.$route.params.patientId || currentPatient.patientId;
+      let visitId = this.$route.params.visitId || currentPatient.visitId;
       let p = this.findCurrentPatient({
-        patientId: this.$route.params.patientId,
-        visitId: this.$route.params.visitId
+        patientId,
+        visitId
       });
       if (p) {
         this.selectPatient(p);
       }
-      console.log("路由拦截:$route.params", [p], [this.$route.params]);
+      console.log(
+        "路由拦截:$route.params",
+        [currentPatient],
+        [p],
+        [this.$route.params]
+      );
     }
   },
   computed: {
