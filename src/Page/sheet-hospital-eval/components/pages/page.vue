@@ -7,7 +7,9 @@
       :element-loading-text="loadingText"
     ></div>
     <div :style="isShow?'display:block':'display:none'">
-      <RenderForm :sourceObj="fileJSON" :updateFunc="updateFunc" :lock="status == 1" />
+      <keep-alive exclude="page,RenderForm">
+        <RenderForm :sourceObj="fileJSON" :updateFunc="updateFunc" :lock="status == 1" />
+      </keep-alive>
     </div>
     <div :style="isShow?'display:none':'display:block;backgroud:white;'">
       <div class="null-img" @click="bus.$emit('createHEvalForm')">

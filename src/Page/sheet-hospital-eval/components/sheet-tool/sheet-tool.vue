@@ -1,25 +1,7 @@
 <template>
   <div>
     <div class="tool-contain" flex="cross:center">
-      <!-- <div class="item-box" flex="cross:center main:center" @click="emit('addSheetPage')">
-        <div class="text-con">添加新页</div>
-      </div>-->
-      <!-- <div class="item-box" flex="cross:center main:center" flex-box="1" @click="emit('delSheetPage')">
-                    <div class="icon-box">
-                      <i class="icon-shanchu1 iconfont" style="font-size: 14px;color:#E55E01;"></i>
-                    </div>
-                    <div class="text-con">
-                      删除记录单
-                    </div>
-                    新建评估
-                    保存
-                    删除
-                    签名
-                    取消签名
-                    检查
-      </div>-->
 
-      <!-- buttonsLeft -->
       <div
         v-for="(button,i) in buttonsLeft"
         :key="button.label+i"
@@ -31,30 +13,6 @@
       >
         <div class="text-con">{{button.label}}</div>
       </div>
-
-      <!-- <div class="item-box" flex="cross:center main:center" @click.stop style="width: 100px">
-        <div class="text-con">新建评估</div>
-      </div>
-
-      <div class="item-box" flex="cross:center main:center" @click>
-        <div class="text-con" flex="cross:center">保存</div>
-      </div>
-
-      <div class="item-box" flex="cross:center main:center" @click>
-        <div class="text-con" flex="cross:center">删除</div>
-      </div>
-
-      <div class="item-box" flex="cross:center main:center" @click>
-        <div class="text-con" flex="cross:center">签名</div>
-      </div>
-
-      <div class="item-box" flex="cross:center main:center" @click>
-        <div class="text-con" flex="cross:center">取消签名</div>
-      </div>
-
-      <div class="item-box" flex="cross:center main:center" @click>
-        <div class="text-con" flex="cross:center">检查</div>
-      </div>-->
 
       <div flex-box="1"></div>
       <span class="label">评估记录：</span>
@@ -211,6 +169,7 @@ export default {
       selectBlock: {},
       sheetBlockList: [],
       buttonsLeft: [
+        // 新建评估
         {
           label: "新建评估",
           onClick: e => {
@@ -223,6 +182,7 @@ export default {
             console.log("新建评估", this.patientInfo);
           }
         },
+        // 提交
         {
           label: "提交",
           onClick: e => {
@@ -234,6 +194,7 @@ export default {
             if (selectBlock.status != "0") return true;
           }
         },
+        // 删除
         {
           label: "删除",
           onClick: e => {
@@ -261,77 +222,7 @@ export default {
             if (!selectBlock.id) return true;
           }
         },
-        // {
-        //   label: "签名",
-        //   onClick: e => {
-        //     if (
-        //       this.patientInfo &&
-        //       this.patientInfo.hasOwnProperty("patientId")
-        //     ) {
-        //       window.openSignModal((password, empNo) => {
-        //         let post = {
-        //           id: this.formId || "",
-        //           patientId: this.patientInfo.patientId,
-        //           visitId: this.patientInfo.visitId,
-        //           formType: "eval",
-        //           formCode: this.formCode,
-        //           sign: true,
-        //           empNo,
-        //           password
-        //         };
-        //         this.formObj.model.formCode = this.formCode;
-
-        //         post = Object.assign({}, this.formObj.model, post);
-        //         //
-        //         let postData = new Object();
-        //         for (const key in post) {
-        //           if (post.hasOwnProperty(key)) {
-        //             if (!key) {
-        //               continue;
-        //             }
-        //             if (post[key] === null || post[key] === "null") {
-        //               postData[key] = "";
-        //               continue;
-        //             }
-        //             postData[key] = post[key] + "";
-        //           }
-        //         }
-        //         console.log("签名post", post, postData);
-        //         //
-        //         save(postData)
-        //           .then(res => {
-        //             this.$message.success("签名成功");
-        //             this.selectBlock.status = "1";
-        //             this.changeSelectBlock(this.selectBlock);
-        //             //
-        //             let {
-        //               data: {
-        //                 data: {
-        //                   master,
-        //                 }
-        //               }
-        //             } = res;
-        //             //
-        //             if(master.updaterName && master.updateTime){
-        //               this.formObj.formSetting.updateInfo = `由${master.updaterName}创建，最后编辑于${master.updateTime}`
-        //             }
-        //             //
-        //           })
-        //           .catch(err => {
-        //             console.log("签名评估err", err);
-        //             this.bus.$emit("setHosptialEvalLoading", {
-        //               status: false
-        //             });
-        //           });
-        //         console.log("表单填写结果", post);
-        //       });
-        //     }
-        //   },
-        //   getDisabled(selectBlock) {
-        //     if (!selectBlock.id) return true;
-        //     if (selectBlock.status != "0") return true;
-        //   }
-        // },
+        // 取消签名
         {
           label: "取消签名",
           onClick: e => {
@@ -354,6 +245,7 @@ export default {
             if (selectBlock.status != "1") return true;
           }
         },
+        // 复评检查
         {
           label: "复评检查",
           onClick: e => {
@@ -369,6 +261,7 @@ export default {
             if (!selectBlock.id) return true;
           }
         },
+        // 查看护理记录
         {
           label: "查看护理记录",
           style: "width: auto;padding: 0px 10px;",
@@ -437,10 +330,7 @@ export default {
 
         if (res && res.data && res.data.data.list) {
           let listData = res.data.data.list;
-          // listData.sort((a, b) => {
-          //   return b.id - a.id;
-          // });
-          // sort
+
           this.sheetBlockList = listData;
           //
           let len = this.sheetBlockList.length;
@@ -448,13 +338,7 @@ export default {
             this.changeSelectBlock(this.sheetBlockList[len - 1]);
             this.selectBlock = this.sheetBlockList[len - 1];
           }
-          // if (this.sheetBlockList && this.sheetBlockList.length > 0) {
-          //   this.changeSelectBlock(this.sheetBlockList[0]);
-          //   this.selectBlock = this.sheetBlockList[
-          //     this.sheetBlockList.length - 1
-          //   ];
-          // }
-          // blockLabel(item)
+
         }
         console.log("---获取表单列表:sheetBlockList", this.sheetBlockList);
         if (this.sheetBlockList.length === 0) {
@@ -548,9 +432,7 @@ export default {
 
           // 增加默认值
           mergeDefaultValue(formObj);
-          // window.formObj.model.I100000 = "耳温";
-          // window.formObj.model = Object.assign(window.formObj.model, itemData);
-          // window.formObj.model = Object.assign(window.formObj.model, master);
+
           console.log(
             "---获取页面数据",
             res,
@@ -567,8 +449,6 @@ export default {
             this.formObj.formSetting.updateInfo = `由${master.updaterName}创建，最后编辑于${master.updateTime}`
           }
 
-          // window.formObj.header.children
-          // master
           this.bus.$emit("openHosptialEvalForm", {
             patient: item,
             formObj: formObj
@@ -595,40 +475,7 @@ export default {
       let diagsArray = (diags || []).map(d => {
         return d;
       });
-      // let dialog = {
-      //   title: "住院评估内容确认",
-      //   type: "formGroupVerticalBox",
-      //   name: "",
-      //   showTitle: false,
-      //   modalWidth: 720,
-      //   message: "",
-      //   require: "false",
-      //   prefixDesc: "",
-      //   suffixDesc: "",
-      //   style: null,
-      //   classes: null,
-      //   readOnly: null,
-      //   children: [
-      //     {
-      //       type: "html",
-      //       title: "",
-      //       style: "width:100%;text-indent: 0em;",
-      //       class: null,
-      //       html: `根据本次评估内容分析，患者可能有以下${
-      //         diagsArray.length
-      //       }个护理问题，请您确认：`
-      //     },
-      //     ...diagsArray
-      //   ]
-      // };
-      //
-      // let dArray = window.formObj.dialogs.filter(d => d.title === dialog.title);
-      // if (dArray && dArray.length > 0) {
-      //   dArray[0] = dialog;
-      // } else {
-      //   window.formObj.dialogs.push(dialog);
-      // }
-      //
+
       this.$root.$refs.diagnosisModal.open(diagsArray);
     },
     formCheckEvalTask(diags=null){
@@ -755,13 +602,7 @@ export default {
               this.$root.$refs.tableOfContent.updateEvalTaskItems([...diags]);
               console.log('评估任务：',[...diags])
             }
-            //
-            // if(diags){
-            //   this.$root.$refs.tableOfContent.updateEvalTaskItems([...diags])
-            //   //
-            //   console.log('评估任务：',[...diags])
-            // }
-            //
+
           })
           .catch(err => {
             console.log("保存评估err", err);

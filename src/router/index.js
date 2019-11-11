@@ -74,6 +74,7 @@ import white from "@/Page/white/white.vue";
 import sheetPage from "@/Page/sheet-page/sheet-page.vue";
 // 住院评估页面
 import sheetHospitalEval from "@/Page/sheet-hospital-eval/sheet-hospital-eval.vue";
+import sheetHospitalEvalPage from "@/Page/sheet-hospital-eval/components/pages/page.vue";
 // 入院评估
 import sheetHospitalAdmission from "@/Page/sheet-hospital-admission/sheet-hospital-admission.vue";
 
@@ -433,7 +434,16 @@ const router = new Router({
         //   }
         // }
         { path: "/sheetHospitalAdmission", component: sheetHospitalAdmission },
-        { path: "/sheetHospitalEval", component: sheetHospitalEval },
+        {
+          path: "/sheetHospitalEval", component: sheetHospitalEval,
+          children: [
+            {
+              name: "sheetHospitalEvalPage",
+              path: "/sheetHospitalEval/:patientId?/:visitId?/:formId?",
+              component: sheetHospitalEvalPage
+            }
+          ]
+        },
         { path: "/sheetPage", component: sheetPage },
         { path: "/MEWS", component: MEWS },
         { path: "/formPage", component: formPage },

@@ -16,12 +16,18 @@
       :style="{height: containHeight,'min-height': containHeight}"
     >
       <div class="left-part">
-        <patientList :data="data.bedList" :isSelectPatient="isSelectPatient" v-loading="patientListLoading"></patientList>
+        <!-- <patientList
+          :data="data.bedList"
+          :isSelectPatient="isSelectPatient"
+          v-loading="patientListLoading"
+        ></patientList>-->
+        <patientList />
       </div>
       <div class="right-part" :style="{marginLeft: openLeft?'200px':'0'}">
         <!-- <record></record> -->
         <div class="sheetTable-contain">
-          <pages />
+          <!-- <pages /> -->
+          <router-view />
         </div>
       </div>
     </div>
@@ -107,7 +113,7 @@
 </style>
 
 <script>
-import patientList from "@/components/patient-list/patient-list.vue";
+import patientList from "@/components/patient-list/patient-list-router-link.vue";
 import sheetTool from "./components/sheet-tool/sheet-tool.vue";
 import pages from "./components/pages/page.vue";
 import common from "@/common/mixin/common.mixin.js";
@@ -170,7 +176,7 @@ export default {
         });
       }
     },
-    isSelectPatient(item){
+    isSelectPatient(item) {
       this.bus.$emit("setHosptialEvalLoading", true);
 
       this.bus.$emit("getHEvalBlockList", item);
