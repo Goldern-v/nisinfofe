@@ -53,7 +53,14 @@ export default {
       selectValue: ""
     };
   },
-  computed: {},
+  computed: {
+    formCode() {
+      try {
+        return this.formObj.formSetting.formInfo.formCode;
+      } catch (error) {}
+      return "E0100";
+    }
+  },
   watch: {
     selectValue(valueNew, oldvaule) {
       console.log("watch:selectValue:", valueNew, oldvaule);
@@ -91,10 +98,13 @@ export default {
     }
   },
   mounted() {
-    this.alertMessage = ""
+    this.alertMessage = "";
     let refName = this.obj.name; //+this.obj.type.toUpperCase()+(this.obj.title||this.obj.label)
+    if (!this.$root.$refs[this.formCode]) {
+      this.$root.$refs[this.formCode] = new Object();
+    }
     if (this.$refs[refName]) {
-      this.$root.$refs[refName] = this.$refs[refName];
+      this.$root.$refs[this.formCode][refName] = this.$refs[refName];
     }
     // console.log('inputMounted',this.$refs,this.$root.$refs)
   },
@@ -135,7 +145,7 @@ export default {
         child,
         e.target.tagName,
         e.keyCode,
-        e.key,
+        e.key
         // e.target.selectionStart,
         // e.target.selectionEnd
       );

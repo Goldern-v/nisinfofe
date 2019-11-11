@@ -1,74 +1,73 @@
 
 <template>
-
   <span>
-
     <!-- 警报icon -->
-    <div v-if="['select','selectInput'].indexOf(obj.type)>-1 && alertMessage" :class="obj.suffixDesc?'alert-message-post':'alert-message'">
-      <el-tooltip
-        class="item"
-        effect="light"
-        :enterable="false"
-        placement="top"
-      >
+    <div
+      v-if="['select','selectInput'].indexOf(obj.type)>-1 && alertMessage"
+      :class="obj.suffixDesc?'alert-message-post':'alert-message'"
+    >
+      <el-tooltip class="item" effect="light" :enterable="false" placement="top">
         <div class="el-tooltip-content" slot="content">
           <div v-html="alertMessage"></div>
         </div>
-      <img
+        <img
           :src="alertImg"
           :alt="obj.title"
           :style="obj.tips?'margin-left:20px!important':''"
           :name="`${obj.name}_${obj.title}_${obj.label}_img`"
           @click="alertClick($event,obj)"
           width="14"
-        >
-        </el-tooltip>
-      </div>
+        />
+      </el-tooltip>
+    </div>
 
+    <span style="margin: 0 0px 0 0;" class="input-box" :class="obj.suffixDesc?'postText':''">
+      <!-- <autoComplete v-if="isShow" ref="autoInput" /> -->
+      <!-- <el-input v-if="obj.type==='input'" v-model="checkboxValue" border size="small" :label="obj.title" :class="obj.class" :style="obj.style">{{obj.title}}</el-input> -->
+      <span v-if="obj.label">
+        <span
+          style="font-size: 12px;"
+          :style="obj.labelStyle"
+          :class="obj.labelClass"
+        >{{obj.label}}:</span>
+      </span>
 
-  <span style="margin: 0 0px 0 0;" class="input-box" :class="obj.suffixDesc?'postText':''">
-    <!-- <autoComplete v-if="isShow" ref="autoInput" /> -->
-    <!-- <el-input v-if="obj.type==='input'" v-model="checkboxValue" border size="small" :label="obj.title" :class="obj.class" :style="obj.style">{{obj.title}}</el-input> -->
-    <span v-if="obj.label">
-      <span style="font-size: 12px;" :style="obj.labelStyle" :class="obj.labelClass">{{obj.label}}:</span>
-    </span>
-
-    <!-- v-autoComplete="{dataList: obj.options, obj:formObj.model, key: obj.name}" -->
-    <!-- :placeholder="obj.options && obj.options.length>0 ? (obj.options[0].name + '') : (obj.placeholder||'')" -->
-    <el-input
-      v-model="inputValue"
-      :id="getUUID()"
-      :ref="obj.name"
-      v-if="['select','selectInput'].indexOf(obj.type)>-1 && !obj.children"
-      placeholder="空"
-      :class="obj.class||''"
-      :style="[obj.style, obj.inputWidth && {width: obj.inputWidth}]"
-      :size="obj.size||''"
-      :type="obj.inputType||'text'"
-      :disabled="obj.readOnly?true:false"
-      @change="inputChange($event, obj)"
-      @dblclick.native.stop="inputdbClick($event, obj)"
-      @click.native.stop="inputClick($event, obj)"
-      @focus="inputFocus($event, obj)"
-      @keydown.native="inputKeyDown($event, obj)"
-      :readonly="obj.selectOnly"
-    >
-      <span class="pre-text" v-if="obj.prefixDesc" slot="prepend">{{obj.prefixDesc}}</span>
-      <!-- <span slot="append"> -->
-      <!-- <i
+      <!-- v-autoComplete="{dataList: obj.options, obj:formObj.model, key: obj.name}" -->
+      <!-- :placeholder="obj.options && obj.options.length>0 ? (obj.options[0].name + '') : (obj.placeholder||'')" -->
+      <el-input
+        v-model="inputValue"
+        :id="getUUID()"
+        :ref="obj.name"
+        v-if="['select','selectInput'].indexOf(obj.type)>-1 && !obj.children"
+        placeholder="空"
+        :class="obj.class||''"
+        :style="[obj.style, obj.inputWidth && {width: obj.inputWidth}]"
+        :size="obj.size||''"
+        :type="obj.inputType||'text'"
+        :disabled="obj.readOnly?true:false"
+        @change="inputChange($event, obj)"
+        @dblclick.native.stop="inputdbClick($event, obj)"
+        @click.native.stop="inputClick($event, obj)"
+        @focus="inputFocus($event, obj)"
+        @keydown.native="inputKeyDown($event, obj)"
+        :readonly="obj.selectOnly"
+      >
+        <span class="pre-text" v-if="obj.prefixDesc" slot="prepend">{{obj.prefixDesc}}</span>
+        <!-- <span slot="append"> -->
+        <!-- <i
         slot="append"
         v-if="obj.options&&!obj.suffixDesc"
         @click.prevent.stop="iconClick"
         class="el-input__icon el-icon-caret-top"
         :style="isShowDownList?'transform: translateY(-50%)!important;':''"
-      ></i> -->
-      <!-- <span slot="append" class="post-text" v-if="obj.suffixDesc">{{obj.suffixDesc}}</span> -->
-      <!-- </span> -->
-      <!-- <template slot="append" v-if="obj.options"> -->
-      <!-- </template> -->
-    </el-input>
-    <!-- <span>{{obj.suffixDesc}}</span> -->
-    <!-- <span class="post-text" v-if="obj.suffixDesc">{{obj.suffixDesc}}</span> -->
+        ></i>-->
+        <!-- <span slot="append" class="post-text" v-if="obj.suffixDesc">{{obj.suffixDesc}}</span> -->
+        <!-- </span> -->
+        <!-- <template slot="append" v-if="obj.options"> -->
+        <!-- </template> -->
+      </el-input>
+      <!-- <span>{{obj.suffixDesc}}</span> -->
+      <!-- <span class="post-text" v-if="obj.suffixDesc">{{obj.suffixDesc}}</span> -->
     </span>
   </span>
 </template>
@@ -104,16 +103,23 @@ export default {
   data() {
     return {
       inputValue: "",
-      alertImg:"",
+      alertImg: "",
       isShow: true,
       isFirstClick: true,
       isShowDownList: false,
       readOnly: false,
       isClone: false,
-      alertMessage:""
+      alertMessage: ""
     };
   },
-  computed: {},
+  computed: {
+    formCode() {
+      try {
+        return this.formObj.formSetting.formInfo.formCode;
+      } catch (error) {}
+      return "E0100";
+    }
+  },
   watch: {
     inputValue(valueNew, oldvaule) {
       // console.log("inputValue:", valueNew, oldvaule);
@@ -127,7 +133,10 @@ export default {
         if (this.isClone && this.$root.$refs[this.obj.name].setCurrentValue) {
           this.$root.$refs[this.obj.name].setCurrentValue(valueNew);
           this.$root.$refs[this.obj.name].$parent.checkValueRule(valueNew);
-        } else if (this.$root.$refs[this.obj.name + "_clone"] && this.$root.$refs[this.obj.name + "_clone"].setCurrentValue) {
+        } else if (
+          this.$root.$refs[this.obj.name + "_clone"] &&
+          this.$root.$refs[this.obj.name + "_clone"].setCurrentValue
+        ) {
           this.$root.$refs[this.obj.name + "_clone"].setCurrentValue(valueNew);
           this.$root.$refs[this.obj.name + "_clone"].$parent.checkValueRule(
             valueNew
@@ -139,12 +148,16 @@ export default {
     }
   },
   mounted() {
-    this.alertMessage = ""
+    this.alertMessage = "";
     try {
       this.inputValue = this.formObj.model[this.obj.name];
     } catch (error) {}
     let refName = this.obj.name; //+this.obj.type.toUpperCase()+(this.obj.title||this.obj.label)
     this.readOnly = this.obj.readOnly ? this.obj.readOnly : false;
+    if (!this.$root.$refs[formCode]) {
+      this.$root.$refs[formCode] = new Object();
+    }
+
     if (this.$refs[refName]) {
       this.$refs[refName]["childObject"] = this.obj;
       this.$refs[refName]["checkValueRule"] = this.checkValueRule;
@@ -152,7 +165,7 @@ export default {
         this.$root.$refs[refName + "_clone"] = this.$refs[refName];
         this.isClone = true;
       } else {
-        this.$root.$refs[refName] = this.$refs[refName];
+        this.$root.$refs[formCode][refName] = this.$refs[refName];
       }
     }
 
@@ -212,9 +225,9 @@ export default {
           // 判断规则
           if (r.min && r.max && (value >= min && value < max)) {
             this.obj.style = r.style;
-            if(r.message){
-              console.log('rule:message',r.message)
-              this.alertMessage = r.message+"";
+            if (r.message) {
+              console.log("rule:message", r.message);
+              this.alertMessage = r.message + "";
             }
             // this.obj.style = Object.assign({}, this.obj.style, r.style);
           } else if (r.equal && r.equal === valueNew) {
@@ -229,9 +242,9 @@ export default {
             (r.diff != valueNew || r.diff.indexOf(valueNew) == -1)
           ) {
             this.obj.style = r.style;
-            if(r.message && valueNew){
-              console.log('rule:message',r.message)
-              this.alertMessage = r.message+"";
+            if (r.message && valueNew) {
+              console.log("rule:message", r.message);
+              this.alertMessage = r.message + "";
             }
             // this.obj.style = Object.assign({}, this.obj.style, r.style);
           } else if (r.scoreMin || r.scoreMax) {
@@ -263,7 +276,7 @@ export default {
               r.dialog.cleanKey.indexOf(valueNew) > -1
             ) {
               /** 清空 */
-              let obj = this.formObj.dialogs[r.dialog.title]
+              let obj = this.formObj.dialogs[r.dialog.title];
               // .find(
               //   f => f.title == r.dialog.title
               // );
@@ -461,7 +474,7 @@ export default {
         child,
         e.target.tagName,
         e.keyCode,
-        e.key,
+        e.key
         // e.target.selectionStart,
         // e.target.selectionEnd
       );
@@ -471,7 +484,7 @@ export default {
           (e.target.selectionStart == null && e.target.selectionEnd == null))
       ) {
         // ArrowLeft
-        if( e.target.$leftNode){
+        if (e.target.$leftNode) {
           e.target.$leftNode.focus();
         }
 
@@ -480,14 +493,15 @@ export default {
           "ArrowLeft",
           e,
           e.target,
-          e.target.$leftNode,
+          e.target.$leftNode
           // e.target.$leftNode.disabled
         );
       } else if (
-            e.keyCode == 39 &&
-            (e.target.selectionEnd === e.target.value.length || (e.target.selectionStart == null && e.target.selectionEnd == null))
-          ) {
-        if( e.target.$rightNode){
+        e.keyCode == 39 &&
+        (e.target.selectionEnd === e.target.value.length ||
+          (e.target.selectionStart == null && e.target.selectionEnd == null))
+      ) {
+        if (e.target.$rightNode) {
           e.target.$leftNode.focus();
         }
         // ArrowRight
@@ -497,7 +511,7 @@ export default {
           "ArrowRight",
           e,
           e.target,
-          e.target.$rightNode,
+          e.target.$rightNode
           // e.target.$rightNode.disabled
         );
       } else if (e.keyCode === 13) {
@@ -521,8 +535,8 @@ export default {
       let uuid_ = uuid.v1();
       return uuid_;
     },
-    alertClick(event){
-      console.log('alertClick',event, this.obj)
+    alertClick(event) {
+      console.log("alertClick", event, this.obj);
     }
   }
 };

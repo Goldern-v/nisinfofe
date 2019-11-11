@@ -38,7 +38,14 @@ export default {
       checkboxValue: []
     };
   },
-  computed: {},
+  computed: {
+    formCode() {
+      try {
+        return this.formObj.formSetting.formInfo.formCode;
+      } catch (error) {}
+      return "E0100";
+    }
+  },
   watch: {
     checkboxValue(valueNew, oldvaule) {
       // this.formObj.model[this.obj.name] = valueNew;
@@ -62,13 +69,19 @@ export default {
   },
   mounted() {
     let refName = this.obj.title || this.obj.label; //this.obj.name +this.obj.type.toUpperCase() +(this.obj.title || this.obj.label);
-    if (!this.$root.$refs[this.obj.name]) {
-      this.$root.$refs[this.obj.name] = new Array();
+    // let formCode = this.formObj.formSetting.formInfo.formCode;
+    if (!this.$root.$refs[this.formCode]) {
+      this.$root.$refs[this.formCode] = new Object();
+    }
+    if (!this.$root.$refs[this.formCode][this.obj.name]) {
+      this.$root.$refs[this.formCode][this.obj.name] = new Array();
     }
 
     if (this.$refs[refName]) {
       this.$refs[refName]["childObject"] = this.obj;
-      this.$root.$refs[this.obj.name][refName] = this.$refs[refName];
+      this.$root.$refs[this.formCode][this.obj.name][refName] = this.$refs[
+        refName
+      ];
     }
   },
   created() {},
@@ -82,7 +95,7 @@ export default {
         return;
       }
 
-      let rootRefs = this.$root.$refs[this.obj.name];
+      let rootRefs = this.$root.$refs[this.formCode][this.obj.name];
       console.log("--obj.name:", this.obj.name, rootRefs, this.$root.$refs);
       // if (!rootRefs || !this.obj || !this.obj.name) {
       //   return;
@@ -101,13 +114,13 @@ export default {
           if (item.childObject && item.childObject.title !== this.obj.title) {
             // console.log('---++',item.childObject.title ,item)
             item.model = [];
-            // this.$root.$refs[this.obj.name][key].model = [];
+            // this.$root.$refs[this.formCode][this.obj.name][key].model = [];
           }
         }
       }
 
-      // if(this.$root.$refs[this.obj.name]){
-      // this.$root.$refs[this.obj.name].map(item=>{
+      // if(this.$root.$refs[this.formCode][this.obj.name]){
+      // this.$root.$refs[this.formCode][this.obj.name].map(item=>{
       //   console.log('-----',item.childObject.title ,item)
       //   if(item.childObject.title !== this.obj.title){
       //     console.log('---++',item.childObject.title ,item)
@@ -145,21 +158,21 @@ export default {
       });
       //
       this.formObj.model["evalScore"] = score;
-      if (this.$root.$refs["evalScore"]) {
+      if (this.$root.$refs[this.formCode]["evalScore"]) {
         this.formObj.model["evalScore"] = score;
         //
-        // this.$root.$refs["evalScore"][0].setCurrentValue(score);
-        this.setElementValue("evalScore",score)
-        let textResult = this.getValueRule("evalDesc",score)//this.$root.$refs["evalDesc"][0].checkValueRule(score);
+        // this.$root.$refs[this.formCode]["evalScore"][0].setCurrentValue(score);
+        this.setElementValue("evalScore", score);
+        let textResult = this.getValueRule("evalDesc", score); //this.$root.$refs["evalDesc"][0].checkValueRule(score);
         //
         console.log("evalDesc-textResult", textResult);
         //
         this.formObj.model["evalDesc"] = textResult + "";
         //
         // this.$root.$refs["evalDesc"][0].setCurrentValue(textResult);
-        this.setElementValue("evalDesc",textResult)
+        this.setElementValue("evalDesc", textResult);
         // this.$root.$refs["evalDesc"][0].checkValueRule(textResult);
-        this.getValueRule("evalDesc",textResult)
+        this.getValueRule("evalDesc", textResult);
       }
       //
       // 评估得分：0-20分完全依赖；20-40分严重依赖；40-60分明显依赖；＞60分基本自理
@@ -182,17 +195,19 @@ export default {
         score
       );
     },
-    setElementValue(key,value){
-      Object.keys(this.$root.$refs[key]).map(elkey=>{
-        this.$root.$refs[key][elkey].setCurrentValue(value);
-      })
+    setElementValue(key, value) {
+      Object.keys(this.$root.$refs[this.formCode][key]).map(elkey => {
+        this.$root.$refs[this.formCode][key][elkey].setCurrentValue(value);
+      });
     },
-    getValueRule(key,value){
-      let textResult = ""
-      Object.keys(this.$root.$refs[key]).map(elkey=>{
-        textResult = this.$root.$refs[key][elkey].checkValueRule(value);
-      })
-      return textResult
+    getValueRule(key, value) {
+      let textResult = "";
+      Object.keys(this.$root.$refs[this.formCode][key]).map(elkey => {
+        textResult = this.$root.$refs[this.formCode][key][elkey].checkValueRule(
+          value
+        );
+      });
+      return textResult;
     }
   }
 };
@@ -217,7 +232,7 @@ export default {
   display: inline-block;
 }
 
-.el-checkbox>>>.el-checkbox__label{
+.el-checkbox >>> .el-checkbox__label {
   padding-top: 2px;
 }
 </style>

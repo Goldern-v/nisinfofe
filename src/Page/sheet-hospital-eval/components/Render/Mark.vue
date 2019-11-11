@@ -79,7 +79,14 @@ export default {
       isClone: false
     };
   },
-  computed: {},
+  computed: {
+    formCode() {
+      try {
+        return this.formObj.formSetting.formInfo.formCode;
+      } catch (error) {}
+      return "E0100";
+    }
+  },
   watch: {
     inputValue(valueNew, oldvaule) {
       console.log("inputValue:", valueNew, oldvaule);
@@ -92,8 +99,8 @@ export default {
       /** 如果存在clone ref */
       // setTimeout(() => {
       //   if (this.isClone) {
-      //     this.$root.$refs[this.obj.name].setCurrentValue(valueNew);
-      //     this.$root.$refs[this.obj.name].$parent.checkValueRule(valueNew);
+      //     this.$root.$refs[this.formCode][this.obj.name].setCurrentValue(valueNew);
+      //     this.$root.$refs[this.formCode][this.obj.name].$parent.checkValueRule(valueNew);
       //   } else if (this.$root.$refs[this.obj.name + "_clone"]) {
       //     this.$root.$refs[this.obj.name + "_clone"].setCurrentValue(valueNew);
       //     this.$root.$refs[this.obj.name + "_clone"].$parent.checkValueRule(
@@ -135,8 +142,12 @@ export default {
     // } catch (error) {}
     let refName = this.obj.name; //+this.obj.type.toUpperCase()+(this.obj.title||this.obj.label)
     let refNameTitle = this.obj.title || this.obj.label;
-    if (!this.$root.$refs[refName]) {
-      this.$root.$refs[refName] = []
+    let formCode = this.formObj.formSetting.formInfo.formCode;
+    if (!this.$root.$refs[formCode]) {
+      this.$root.$refs[formCode] = new Object();
+    }
+    if (!this.$root.$refs[formCode][refName]) {
+      this.$root.$refs[formCode][refName] = [];
     }
     //
     if (this.$refs[refName]) {
@@ -152,9 +163,9 @@ export default {
       // this.$root.$refs[refName] = [...this.$root.$refs[refName],this.$refs[refName]];
       //
       //
-      this.$root.$refs[refName][refNameTitle] = this.$refs[refName];
-    }else{
-      console.log('!!!!!Mark',this.obj.name,this.$refs,this.$root.$refs)
+      this.$root.$refs[formCode][refName][refNameTitle] = this.$refs[refName];
+    } else {
+      console.log("!!!!!Mark", this.obj.name, this.$refs, this.$root.$refs);
     }
     // if (
     //   this.obj &&
@@ -270,11 +281,11 @@ export default {
               this.$refs[this.obj.name].type === "text"
             ) {
               this.$refs[this.obj.name].setCurrentValue(r.display);
-              // this.$root.$refs[this.obj.name].setCurrentValue(r.display);
+              // this.$root.$refs[this.formCode][this.obj.name].setCurrentValue(r.display);
               try {
-                this.$root.$refs[this.obj.name].map(el=>{
+                this.$root.$refs[this.formCode][this.obj.name].map(el => {
                   el.setCurrentValue(r.display);
-                })
+                });
               } catch (error) {}
             }
             textResult = r.display ? r.display : "";
@@ -290,11 +301,11 @@ export default {
               this.$refs[this.obj.name].type === "text"
             ) {
               this.$refs[this.obj.name].setCurrentValue(r.display);
-              // this.$root.$refs[this.obj.name].setCurrentValue(r.display);
+              // this.$root.$refs[this.formCode][this.obj.name].setCurrentValue(r.display);
               try {
-                this.$root.$refs[this.obj.name].map(el=>{
+                this.$root.$refs[this.formCode][this.obj.name].map(el => {
                   el.setCurrentValue(r.display);
-                })
+                });
               } catch (error) {}
             }
             textResult = r.display ? r.display : "";
@@ -309,11 +320,11 @@ export default {
               this.$refs[this.obj.name].type === "text"
             ) {
               this.$refs[this.obj.name].setCurrentValue(r.display);
-              // this.$root.$refs[this.obj.name].setCurrentValue(r.display);
+              // this.$root.$refs[this.formCode][this.obj.name].setCurrentValue(r.display);
               try {
-                this.$root.$refs[this.obj.name].map(el=>{
+                this.$root.$refs[this.formCode][this.obj.name].map(el => {
                   el.setCurrentValue(r.display);
-                })
+                });
               } catch (error) {}
             }
             textResult = r.display ? r.display : "";
@@ -365,7 +376,7 @@ export default {
         this.$refs[this.obj.name].$refs.input.style = this.obj.style;
       } catch (error) {}
 
-      // this.$root.$refs[this.obj.name].$refs.input.style = this.obj.style;
+      // this.$root.$refs[this.formCode][this.obj.name].$refs.input.style = this.obj.style;
       // }
       return textResult;
     },

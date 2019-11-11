@@ -139,7 +139,19 @@ export default {
       show: true
     };
   },
-  computed: {},
+  computed: {
+    formCode() {
+      try {
+        return (
+          this.dialogFormCode ||
+          this.parentFormCode ||
+          this.formObj.formSetting.formInfo.formCode ||
+          "E0100"
+        );
+      } catch (error) {}
+      return "";
+    }
+  },
   watch: {},
   mounted() {},
   // beforeMount(){
@@ -168,11 +180,11 @@ export default {
       // delete this.$root.$refs['evalDate']
       // delete this.$root.$refs['evalScore']
       // delete this.$root.$refs['evalDesc']
-      // if(this.$root.$refs[key]){
-      //   console.log('---this.$root.$refs[key]:',this.$root.$refs[key])
-      //   if(this.$root.$refs[key].type === 'text'){
-      //     this.$root.$refs[key].setCurrentValue(value)
-      //     this.$root.$refs[key].checkValueRule(value)
+      // if(this.$root.$refs[this.formCode][key]){
+      //   console.log('---this.$root.$refs[this.formCode][key]:',this.$root.$refs[this.formCode][key])
+      //   if(this.$root.$refs[this.formCode][key].type === 'text'){
+      //     this.$root.$refs[this.formCode][key].setCurrentValue(value)
+      //     this.$root.$refs[this.formCode][key].checkValueRule(value)
       //   }
       // }
     },
@@ -197,22 +209,22 @@ export default {
 
       this.formBox["selectedItems"] = [];
 
-      let diagModel = {}
-      let handleChildren = (c)=>{
-        if(c.constructor == Array) {
-          [...c].map((n,i)=>{
-            if(n.name){
-              diagModel[n.name]=this.formObj.model[n.name]||""
+      let diagModel = {};
+      let handleChildren = c => {
+        if (c.constructor == Array) {
+          [...c].map((n, i) => {
+            if (n.name) {
+              diagModel[n.name] = this.formObj.model[n.name] || "";
               // console.log("handleChildren",i,n,c,n.name,diagModel[n.name],diagModel)
-              this.formBox.model[n.name] = diagModel[n.name]||""
+              this.formBox.model[n.name] = diagModel[n.name] || "";
             }
-            if(n.children){
-              return handleChildren([...n.children])
+            if (n.children) {
+              return handleChildren([...n.children]);
             }
-          })
+          });
         }
-        return diagModel
-      }
+        return diagModel;
+      };
 
       // todo
       if (this.type === "dependent") {
@@ -230,7 +242,7 @@ export default {
         ) {
           this.formBox.model = {};
           //
-          handleChildren([...this.formBox.children])
+          handleChildren([...this.formBox.children]);
           //
           // this.formBox.children.map(child => {
           //   if (child.name) {
@@ -281,8 +293,8 @@ export default {
           // for (let key in itemData) {
           //   if (itemData.hasOwnProperty(key)) {
           //     if (
-          //       this.$root.$refs[key] &&
-          //       this.$root.$refs[key].constructor === Array
+          //       this.$root.$refs[this.formCode][key] &&
+          //       this.$root.$refs[this.formCode][key].constructor === Array
           //     ) {
           //       if (itemData[key]) {
           //         itemData[key] = itemData[key].split(",");
@@ -323,47 +335,56 @@ export default {
           //   "===fillFormData:value",
           //   [value],
           //   [key],
-          //   [this.$root.$refs[key]],
-          //   // this.$root.$refs[key].type||''
+          //   [this.$root.$refs[this.formCode][key]],
+          //   // this.$root.$refs[this.formCode][key].type||''
           // );
           //
-          if(key == "evalDesc" && model["evalScore"]){
-              // checkValueRule
-              value = this.getValueRule(key,model["evalScore"])
-              model[key] = value
-              this.setElementValue("evalDesc",value)
-            console.log('!!!结果程度',key,model,model[key],model["evalScore"])
+          if (key == "evalDesc" && model["evalScore"]) {
+            // checkValueRule
+            value = this.getValueRule(key, model["evalScore"]);
+            model[key] = value;
+            this.setElementValue("evalDesc", value);
+            console.log(
+              "!!!结果程度",
+              key,
+              model,
+              model[key],
+              model["evalScore"]
+            );
           }
 
-          if (!value || !this.$root.$refs[key]) {
+          if (!value || !this.$root.$refs[this.formCode][key]) {
             continue;
           }
 
           // if (
           //   this.$root.$refs.hasOwnProperty(key) > -1 &&
-          //   this.$root.$refs[key].hasOwnProperty("constructor") > -1
+          //   this.$root.$refs[this.formCode][key].hasOwnProperty("constructor") > -1
           // ) {
           //   console.log(
           //     "===constructor",
-          //     this.$root.$refs[key].constructor === Array
+          //     this.$root.$refs[this.formCode][key].constructor === Array
           //   );
           // }
 
-          // this.$root.$refs[key].hasOwnProperty('constructor)
+          // this.$root.$refs[this.formCode][key].hasOwnProperty('constructor)
 
-          // if(!this.$root.$refs[key]){return}
-          // if (value && this.$root.$refs[key]) {
-          if (value && this.$root.$refs[key].constructor === Array) {
-            let items = this.$root.$refs[key];
-            // console.log('--items-this.$root.$refs[key]:',this.$root.$refs[key])
+          // if(!this.$root.$refs[this.formCode][key]){return}
+          // if (value && this.$root.$refs[this.formCode][key]) {
+          if (
+            value &&
+            this.$root.$refs[this.formCode][key].constructor === Array
+          ) {
+            let items = this.$root.$refs[this.formCode][key];
+            // console.log('--items-this.$root.$refs[this.formCode][key]:',this.$root.$refs[this.formCode][key])
 
             // items = [...items]
 
             // items.map(itemObj=>{
 
-            Object.keys(items).map(iKey=>{
-              let itemObj = items[iKey]
-                // text
+            Object.keys(items).map(iKey => {
+              let itemObj = items[iKey];
+              // text
               try {
                 if (itemObj) {
                   // console.log(
@@ -407,25 +428,28 @@ export default {
                 console.log("error", error);
               }
 
-            // let rootRefs = this.$root.$refs[this.obj.name]
-            // console.log(
-            //   "--obj.name:",
-            //   this.obj,
-            //   items,
-            //   items.length,
-            //   this.$root.$refs[key],
-            //   value
-            // );
-            })
+              // let rootRefs = this.$root.$refs[this.obj.name]
+              // console.log(
+              //   "--obj.name:",
+              //   this.obj,
+              //   items,
+              //   items.length,
+              //   this.$root.$refs[this.formCode][key],
+              //   value
+              // );
+            });
             let name = key;
             for (let k in items) {
-              if (items.hasOwnProperty(k)>-1) {
+              if (items.hasOwnProperty(k) > -1) {
                 let item = items[k];
                 //
-                if(!item || typeof(item)!='object'){continue}
+                if (!item || typeof item != "object") {
+                  continue;
+                }
                 // console.log('####item',item)
                 //
-                let title = item.childObject.label||item.childObject.title||"";
+                let title =
+                  item.childObject.label || item.childObject.title || "";
                 let code = item.childObject.code || title;
                 // console.log('-----',item.childObject.title ,item,item.childObject.code,value,item.childObject.code == value,item.childObject.title == value,code)
                 // || item.childObject.title == value
@@ -442,10 +466,14 @@ export default {
                   // item.model = []
                   // if (item.model.length == 0) {
                   //   item.model.push(value);
-                  //   this.$root.$refs[key][k].model.push(value);
+                  //   this.$root.$refs[this.formCode][key][k].model.push(value);
                   // }
-                  if (this.$root.$refs[key][k] && this.$root.$refs[key][k].model && this.$root.$refs[key][k].model.length == 0) {
-                    this.$root.$refs[key][k].model.push(value);
+                  if (
+                    this.$root.$refs[this.formCode][key][k] &&
+                    this.$root.$refs[this.formCode][key][k].model &&
+                    this.$root.$refs[this.formCode][key][k].model.length == 0
+                  ) {
+                    this.$root.$refs[this.formCode][key][k].model.push(value);
                   }
                   //
                   console.log("selectedItems", this.formBox["selectedItems"]);
@@ -482,16 +510,16 @@ export default {
 
             // text
             // try {
-            //   if (this.$root.$refs[key]) {
+            //   if (this.$root.$refs[this.formCode][key]) {
             //     console.log(
-            //       "---this.$root.$refs[key]:",
+            //       "---this.$root.$refs[this.formCode][key]:",
             //       key,
             //       this.formBox.model[key],
-            //       this.$root.$refs[key]
+            //       this.$root.$refs[this.formCode][key]
             //     );
-            //     if (this.$root.$refs[key].type === "text") {
-            //       this.$root.$refs[key].setCurrentValue(value + "");
-            //       this.$root.$refs[key].checkValueRule(value + "");
+            //     if (this.$root.$refs[this.formCode][key].type === "text") {
+            //       this.$root.$refs[this.formCode][key].setCurrentValue(value + "");
+            //       this.$root.$refs[this.formCode][key].checkValueRule(value + "");
             //     }
             //   }
             // } catch (error) {
@@ -510,28 +538,31 @@ export default {
     clearUIFormData(model = this.formBox.model) {
       console.log("clearUIFormData", model, this.formBox);
       this.formBox["selectedItems"] = [];
-      return
+      return;
       for (const key in model) {
         if (model.hasOwnProperty(key)) {
           let value = model[key];
-          if (value && this.$root.$refs[key]) {
-            if (this.$root.$refs[key].constructor === Array) {
-              this.$root.$refs[key].map(item => {
+          if (value && this.$root.$refs[this.formCode][key]) {
+            if (this.$root.$refs[this.formCode][key].constructor === Array) {
+              this.$root.$refs[this.formCode][key].map(item => {
                 item.model = [];
                 // item.value = "";
               });
             }
           }
-          if (this.$root.$refs[key] && this.$root.$refs[key].constructor != Array) {
+          if (
+            this.$root.$refs[this.formCode][key] &&
+            this.$root.$refs[this.formCode][key].constructor != Array
+          ) {
             // console.log(
-            //   "---this.$root.$refs[key]:",
+            //   "---this.$root.$refs[this.formCode][key]:",
             //   key,
             //   this.formBox.model[key],
-            //   this.$root.$refs[key]
+            //   this.$root.$refs[this.formCode][key]
             // );
-            if (this.$root.$refs[key].type === "text") {
-              this.$root.$refs[key].setCurrentValue(value + "");
-              this.$root.$refs[key].checkValueRule(value + "");
+            if (this.$root.$refs[this.formCode][key].type === "text") {
+              this.$root.$refs[this.formCode][key].setCurrentValue(value + "");
+              this.$root.$refs[this.formCode][key].checkValueRule(value + "");
             }
           }
           // try {
@@ -552,7 +583,9 @@ export default {
       console.log("sweetModalOpen", this.$refs, this.$root.$refs);
       this.$refs.sweetModal.open();
       //
-      try {window.app.$refs.autoBox.closeAutoBox()} catch (error) {}
+      try {
+        window.app.$refs.autoBox.closeAutoBox();
+      } catch (error) {}
       // this.dialogLoading = true;
       this.show = false;
       this.$nextTick(() => {
@@ -632,9 +665,9 @@ export default {
         //   ...window.formObj.model,
         //   ...this.formBox.model
         // };
-        Object.keys(this.formBox.model).map(bKeys=>{
-          this.formObj.model[bKeys] = this.formBox.model[bKeys]+""
-        })
+        Object.keys(this.formBox.model).map(bKeys => {
+          this.formObj.model[bKeys] = this.formBox.model[bKeys] + "";
+        });
         //
         console.log(this.formBox.model, " this.formBox.model");
         console.log(this.formObj.model, " this.formObj.model");
@@ -667,27 +700,31 @@ export default {
         // updaterNo: "admin"
         //
         window.openSignModal((password, empNo) => {
-
           // this.$nextTick(()=>{
-            this.formBox.model = { ...this.formBox.model,
-              sign: true,
-              empNo,
-              password
-            }
+          this.formBox.model = {
+            ...this.formBox.model,
+            sign: true,
+            empNo,
+            password
+          };
           // })
           saveForm({ ...this.formBox }, res => {
-
-            console.log('弹框内容保存res',this.formBox,res)
+            console.log("弹框内容保存res", this.formBox, res);
 
             let {
               data: {
                 data: {
-                  master: { id: id, evalDesc:evalDesc, evalScore:evalScore,syncToRecordDesc:syncToRecordDesc }
+                  master: {
+                    id: id,
+                    evalDesc: evalDesc,
+                    evalScore: evalScore,
+                    syncToRecordDesc: syncToRecordDesc
+                  }
                 }
               }
             } = res;
             // 弹框内容保存
-            console.log('弹框内容保存',res,evalDesc,evalScore)
+            console.log("弹框内容保存", res, evalDesc, evalScore);
             this.formObj.model[this.dialogFormCode] = id;
             // parentName
             if (this.parentName) {
@@ -700,27 +737,27 @@ export default {
                 if (this.formBox.model.I047024) {
                   result += "吞糊：" + this.formBox.model.I047024 + " " + ";";
                 }
-                this.setElementValue(this.parentName,result)
-                this.getValueRule(this.parentName,result)
+                this.setElementValue(this.parentName, result);
+                this.getValueRule(this.parentName, result);
                 this.formObj.model.I100028 = result;
               } else {
                 //
-                let score = evalScore || this.formBox.model.evalScore || "" ;
+                let score = evalScore || this.formBox.model.evalScore || "";
                 //
                 let desc = evalDesc || this.formBox.model.evalDesc || "";
                 //
-                let result = syncToRecordDesc || (score + "分 " + desc)||"";
-                result = result.replace(/null/g,'');
-                result = result.replace(/undefined/g,'');
-                this.setElementValue(this.parentName,result+"")
-                this.formObj.model[this.parentName] = result||"";
-                this.getValueRule(this.parentName,result)
+                let result = syncToRecordDesc || score + "分 " + desc || "";
+                result = result.replace(/null/g, "");
+                result = result.replace(/undefined/g, "");
+                this.setElementValue(this.parentName, result + "");
+                this.formObj.model[this.parentName] = result || "";
+                this.getValueRule(this.parentName, result);
                 // console.log('评估结果：',result,this.parentName,this.formObj.model[this.parentName])
               }
             }
 
             // 更新住院单
-            window.formTool.fillForm()
+            window.formTool.fillForm();
 
             console.log(
               "===saveForm:res",
@@ -757,7 +794,7 @@ export default {
       this.type = config.type || "dependent";
       this.callback = config.callback || null;
       //
-      if(config.type === "independent"){
+      if (config.type === "independent") {
         this.okText = "签名";
       }
 
@@ -778,7 +815,9 @@ export default {
       //   )
       // );
 
-      this.formBox = JSON.parse(JSON.stringify(this.formObj.dialogs[config.title]));
+      this.formBox = JSON.parse(
+        JSON.stringify(this.formObj.dialogs[config.title])
+      );
 
       // try {
       //   this.formBox = JSON.parse(JSON.stringify(formBoxModal));
@@ -835,10 +874,10 @@ export default {
     openBox(config, value = null) {
       console.log(config, "openBox");
       //
-      this.$root.$refs["evalScore"] = null
-      this.$root.$refs["evalDesc"] = null
-      this.$root.$refs["status"] = null
-      this.$root.$refs["signerName"] = null
+      this.$root.$refs["evalScore"] = null;
+      this.$root.$refs["evalDesc"] = null;
+      this.$root.$refs["status"] = null;
+      this.$root.$refs["signerName"] = null;
       //
 
       //
@@ -849,7 +888,7 @@ export default {
           this.formList = config;
           this.selectedForm = this.autoSelectForm();
           //
-          console.log("!!==多表切换",this.selectedForm,this.formList)
+          console.log("!!==多表切换", this.selectedForm, this.formList);
           //
           this.initForm(this.formList[this.selectedForm]);
         } else {
@@ -859,24 +898,29 @@ export default {
         this.initForm(config);
       }
     },
-    autoSelectForm(formList=[]){
+    autoSelectForm(formList = []) {
       // window.app.$store.getters.getCurrentPatient()
-      let result = 0
-      let age = 0, manAge = 16
-      let formNames = ["跌倒评估单(成人)"]
+      let result = 0;
+      let age = 0,
+        manAge = 16;
+      let formNames = ["跌倒评估单(成人)"];
       try {
-        age = ~~(window.app.$store.getters.getCurrentPatient().age||0).replace(/[^0-9]/g,'')
+        age = ~~(
+          window.app.$store.getters.getCurrentPatient().age || 0
+        ).replace(/[^0-9]/g, "");
         //
-        console.log('autoSelectForm:patient',age)
-        if(this.formList && this.formList.length>0){
-          result = this.formList.findIndex(ret=>{return formNames.indexOf(ret.title)>-1 && age>manAge})
+        console.log("autoSelectForm:patient", age);
+        if (this.formList && this.formList.length > 0) {
+          result = this.formList.findIndex(ret => {
+            return formNames.indexOf(ret.title) > -1 && age > manAge;
+          });
         }
-        result == -1 ?result=0:result=result
-        return result
+        result == -1 ? (result = 0) : (result = result);
+        return result;
       } catch (error) {
-        console.log('autoSelectForm:error',error)
+        console.log("autoSelectForm:error", error);
       }
-      return result
+      return result;
     },
     changeSelectForm() {
       console.log(
@@ -893,26 +937,28 @@ export default {
       let uuid_ = uuid.v1();
       return uuid_;
     },
-    setElementValue(key,value){
+    setElementValue(key, value) {
       try {
-        Object.keys(this.$root.$refs[key]).map(elkey=>{
-          this.$root.$refs[key][elkey].setCurrentValue(value);
-        })
+        Object.keys(this.$root.$refs[this.formCode][key]).map(elkey => {
+          this.$root.$refs[this.formCode][key][elkey].setCurrentValue(value);
+        });
       } catch (error) {}
     },
-    getValueRule(key,value){
-      let textResult = ""
+    getValueRule(key, value) {
+      let textResult = "";
       try {
-        Object.keys(this.$root.$refs[key]).map(elkey=>{
-          textResult = this.$root.$refs[key][elkey].checkValueRule(value);
-        })
+        Object.keys(this.$root.$refs[this.formCode][key]).map(elkey => {
+          textResult = this.$root.$refs[this.formCode][key][
+            elkey
+          ].checkValueRule(value);
+        });
       } catch (error) {}
-      return textResult
+      return textResult;
     },
-    saveEvalForm(){
+    saveEvalForm() {
       // this.parentFormCode
       // window.formTool.formSave({showMeasure:false,showLoading:false,message:""})
-      window.formTool.formSave({showMeasure:false})
+      window.formTool.formSave({ showMeasure: false });
     }
   }
 };

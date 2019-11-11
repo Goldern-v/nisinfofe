@@ -39,7 +39,14 @@ export default {
       refName: this.obj.title || this.obj.label
     };
   },
-  computed: {},
+  computed: {
+    formCode() {
+      try {
+        return this.formObj.formSetting.formInfo.formCode;
+      } catch (error) {}
+      return "E0100";
+    }
+  },
   watch: {
     checkboxValue(valueNew, oldvaule) {
       // this.formObj.model[this.obj.name] = valueNew;
@@ -69,13 +76,19 @@ export default {
 
     // let refName = this.obj.title || this.obj.label;
 
-    if (!this.$root.$refs[this.obj.name]) {
-      this.$root.$refs[this.obj.name] = new Array();
+    // let formCode = this.formObj.formSetting.formInfo.formCode;
+    if (!this.$root.$refs[this.formCode]) {
+      this.$root.$refs[this.formCode] = new Object();
+    }
+    if (!this.$root.$refs[this.formCode][this.obj.name]) {
+      this.$root.$refs[this.formCode][this.obj.name] = new Array();
     }
 
     if (this.$refs[this.refName]) {
       this.$refs[this.refName]["childObject"] = this.obj;
-      this.$root.$refs[this.obj.name][this.refName] = this.$refs[this.refName];
+      this.$root.$refs[this.formCode][this.obj.name][this.refName] = this.$refs[
+        this.refName
+      ];
     }
   },
   created() {},
@@ -89,7 +102,9 @@ export default {
         return;
       }
 
-      let rootRefs = this.$root.$refs[this.obj.name];
+      // let formCode = this.formObj.formSetting.formInfo.formCode;
+
+      let rootRefs = this.$root.$refs[this.formCode][this.obj.name];
 
       console.log("--obj.name:", this.obj.name, rootRefs, this.$root.$refs);
 
@@ -134,7 +149,7 @@ export default {
           e.target.checked,
           e,
           this.obj,
-          this.$root.$refs[this.obj.name][this.refName],
+          this.$root.$refs[this.formCode][this.obj.name][this.refName],
           this.formObj
         );
       }
@@ -163,17 +178,17 @@ export default {
       //
       if (this.obj.score != undefined) {
         this.formObj.model["evalScore"] = score;
-        if (this.$root.$refs["evalScore"]) {
+        if (this.$root.$refs[this.formCode]["evalScore"]) {
           this.formObj.model["evalScore"] = score;
-          // this.$root.$refs["evalScore"][0].setCurrentValue(score);
-          this.setElementValue("evalScore",score)
+          // this.$root.$refs[this.formCode]["evalScore"][0].setCurrentValue(score);
+          this.setElementValue("evalScore", score);
 
-          let textResult = this.getValueRule("evalDesc",score)//this.$root.$refs["evalDesc"][0].checkValueRule(score);
+          let textResult = this.getValueRule("evalDesc", score); //this.$root.$refs["evalDesc"][0].checkValueRule(score);
           console.log("evalDesc-textResult", textResult);
           this.formObj.model["evalDesc"] = textResult + "";
-          this.setElementValue("evalDesc",textResult)
+          this.setElementValue("evalDesc", textResult);
           // this.$root.$refs["evalDesc"][0].setCurrentValue(textResult);
-          this.getValueRule("evalDesc",textResult)
+          this.getValueRule("evalDesc", textResult);
           // this.$root.$refs["evalDesc"][0].checkValueRule(textResult);
         }
       }
@@ -195,9 +210,10 @@ export default {
         this.obj.name === "I047011"
       ) {
         // this.$root.$refs["I047012"].$parent.inputValue = "+";
-        Object.keys(this.$root.$refs["I047012"]).map(elkey=>{
-          this.$root.$refs["I047012"][elkey].$parent.inputValue = "+";
-        })
+        Object.keys(this.$root.$refs[this.formCode]["I047012"]).map(elkey => {
+          this.$root.$refs[this.formCode]["I047012"][elkey].$parent.inputValue =
+            "+";
+        });
       }
 
       if (
@@ -212,22 +228,24 @@ export default {
         this.obj.name === "I047023"
       ) {
         // this.$root.$refs["I047024"].$parent.inputValue = "+";
-        Object.keys(this.$root.$refs["I047024"]).map(elkey=>{
+        Object.keys(this.$root.$refs["I047024"]).map(elkey => {
           this.$root.$refs["I047024"][elkey].$parent.inputValue = "+";
-        })
+        });
       }
     },
-    setElementValue(key,value){
-      Object.keys(this.$root.$refs[key]).map(elkey=>{
-        this.$root.$refs[key][elkey].setCurrentValue(value);
-      })
+    setElementValue(key, value) {
+      Object.keys(this.$root.$refs[this.formCode][key]).map(elkey => {
+        this.$root.$refs[this.formCode][key][elkey].setCurrentValue(value);
+      });
     },
-    getValueRule(key,value){
-      let textResult = ""
-      Object.keys(this.$root.$refs[key]).map(elkey=>{
-        textResult = this.$root.$refs[key][elkey].checkValueRule(value);
-      })
-      return textResult
+    getValueRule(key, value) {
+      let textResult = "";
+      Object.keys(this.$root.$refs[this.formCode][key]).map(elkey => {
+        textResult = this.$root.$refs[this.formCode][key][elkey].checkValueRule(
+          value
+        );
+      });
+      return textResult;
     }
   }
 };
@@ -235,7 +253,6 @@ export default {
 
 
 <style scoped>
-
 .el-checkbox,
 .is-bordered,
 .el-checkbox--small,
@@ -245,8 +262,6 @@ export default {
 .el-input-group--prepend {
   margin: 2px 0px;
 }
-
-
 
 .el-checkbox,
 .el-checkbox__input {

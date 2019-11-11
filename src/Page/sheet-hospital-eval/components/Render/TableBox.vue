@@ -81,7 +81,14 @@ export default {
       addNewValue: ""
     };
   },
-  computed: {},
+  computed: {
+    formCode() {
+      try {
+        return this.formObj.formSetting.formInfo.formCode;
+      } catch (error) {}
+      return "E0100";
+    }
+  },
   watch: {
     selectValue(valueNew, oldvaule) {
       console.log("watch:selectValue:", valueNew, oldvaule);
@@ -131,8 +138,12 @@ export default {
   },
   mounted() {
     let refName = this.obj.name; //+this.obj.type.toUpperCase()+(this.obj.title||this.obj.label)
+    //
+    if (!this.$root.$refs[formCode]) {
+      this.$root.$refs[formCode] = new Object();
+    }
     if (this.$refs[refName]) {
-      this.$root.$refs[refName] = this.$refs[refName];
+      this.$root.$refs[formCode][refName] = this.$refs[refName];
     }
     // tableData
 

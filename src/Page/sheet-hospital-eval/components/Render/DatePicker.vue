@@ -2,7 +2,10 @@
 <template>
   <span style class="date-picker-box">
     <span>{{obj.prefixDesc}}</span>
-    <span v-if="obj.label" :style="{width: obj.labelWidth, textAlign: 'right', paddingRight: '10px'}">
+    <span
+      v-if="obj.label"
+      :style="{width: obj.labelWidth, textAlign: 'right', paddingRight: '10px'}"
+    >
       <span style="font-size: 13px;" :style="obj.labelStyle" :class="obj.labelClass">{{obj.label}}</span>
     </span>
     <!-- last-version +obj.type.toUpperCase()+obj.title||obj.label-->
@@ -43,7 +46,14 @@ export default {
       datePickerValue: ""
     };
   },
-  computed: {},
+  computed: {
+    formCode() {
+      try {
+        return this.formObj.formSetting.formInfo.formCode;
+      } catch (error) {}
+      return "E0100";
+    }
+  },
   watch: {
     datePickerValue(valueNew, oldvaule) {
       // let value = valueNew.toString();
@@ -90,8 +100,12 @@ export default {
     let refNameTitle = this.obj.title || this.obj.label;
 
     //
-    if (!this.$root.$refs[refName]) {
-      this.$root.$refs[refName] = []
+    // let formCode = this.formObj.formSetting.formInfo.formCode;
+    if (!this.$root.$refs[this.formCode]) {
+      this.$root.$refs[this.formCode] = new Object();
+    }
+    if (!this.$root.$refs[this.formCode][refName]) {
+      this.$root.$refs[this.formCode][refName] = [];
     }
 
     if (this.$refs[refName]) {
@@ -99,7 +113,9 @@ export default {
       // this.$root.$refs[refName] = this.$refs[refName];
       this.$refs[refName]["childObject"] = this.obj;
       //
-      this.$root.$refs[refName][refNameTitle] = this.$refs[refName];
+      this.$root.$refs[this.formCode][refName][refNameTitle] = this.$refs[
+        refName
+      ];
     }
     // console.log('datePickerMounted',this.$refs,this.$root.$refs)
   },

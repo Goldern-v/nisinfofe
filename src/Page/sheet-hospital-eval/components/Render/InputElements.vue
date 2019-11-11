@@ -3,8 +3,6 @@
   <span :style="obj.elementsStyle" :class="obj.class" class="input-elements">
     <!-- 页面正文 -->
 
-
-
     <!-- display: inline-grid;vertical-align: top; -->
     <span
       v-for="(child,cindex) in obj"
@@ -13,7 +11,6 @@
       :style="child.elementStyle ? child.elementStyle : 'margin: 0 0px 0 0;'"
       class="input-element"
     >
-
       <span :style="child.preTextStyle" :class="child.class" v-if="child.preText">{{child.preText}}</span>
       <!-- html -->
       <!-- <FormGroupTitle :obj="child" :formObj="formObj"/> -->
@@ -267,7 +264,14 @@ export default {
       otherDialog
     };
   },
-  computed: {},
+  computed: {
+    formCode() {
+      try {
+        return this.formObj.formSetting.formInfo.formCode;
+      } catch (error) {}
+      return "E0100";
+    }
+  },
   watch: {
     radioValue(valueNew, oldvaule) {
       let value = valueNew.toString();
@@ -303,17 +307,21 @@ export default {
     let refName = this.element.name; //this.element.type + this.element.name + this.element.title+this.childIndex;
     let refNameTitle = this.obj.title || this.obj.label;
     //
-    if (!this.$root.$refs[refName]) {
-      this.$root.$refs[refName] = []
+    if (!this.$root.$refs[this.formCode]) {
+      this.$root.$refs[this.formCode] = new Object();
+    }
+    if (!this.$root.$refs[this.formCode][refName]) {
+      this.$root.$refs[this.formCode][refName] = [];
     }
 
     if (this.$refs[refName]) {
       this.$refs[refName]["childObject"] = this.obj;
       this.$refs[refName]["checkValueRule"] = this.checkValueRule;
-        // this.$root.$refs[refName] = [...this.$root.$refs[refName],this.$refs[refName]];
+      // this.$root.$refs[refName] = [...this.$root.$refs[refName],this.$refs[refName]];
       //
-      this.$root.$refs[refName][refNameTitle] = this.$refs[refName];
-
+      this.$root.$refs[this.formCode][refName][refNameTitle] = this.$refs[
+        refName
+      ];
     }
 
     // console.log(this.childIndex,'this.$refs:',this.$refs)
@@ -410,7 +418,7 @@ export default {
           if (d) {
             let title = d.title || d.dialog.title || "";
             // console.log("!!!==!!!", title, d, d.parentName, child);
-            let obj = this.formObj.dialogs[title]
+            let obj = this.formObj.dialogs[title];
 
             // .find(
             //   item =>
@@ -565,7 +573,9 @@ export default {
                           ""}<span style='color:chocolate'>${child.postText ||
                           child.suffixDesc ||
                           ""}</span></span></span>`;
-                        hasNewLine ? (html += newLine) : html+=((children.length!=(cindex+1))?',':'');
+                        hasNewLine
+                          ? (html += newLine)
+                          : (html += children.length != cindex + 1 ? "," : "");
                       }
                       return handleChild(mychild.children);
                     }
@@ -584,7 +594,9 @@ export default {
                           ""}<span style='color:chocolate'>${mychild.postText ||
                           mychild.suffixDesc ||
                           ""}</span>`;
-                        hasNewLine ? (html += newLine) : html+=((children.length!=(cindex+1))?',':'');
+                        hasNewLine
+                          ? (html += newLine)
+                          : (html += children.length != cindex + 1 ? "," : "");
 
                         //((cindex!=children.length)?html : html);
                       }
@@ -685,10 +697,10 @@ export default {
       });
       //
       this.formObj.model["evalScore"] = score;
-      if (this.$root.$refs["evalScore"]) {
-        this.$root.$refs["evalScore"].setCurrentValue(score);
-        this.$root.$refs["evalDesc"].setCurrentValue(score);
-        this.$root.$refs["evalDesc"].checkValueRule(score);
+      if (this.$root.$refs[this.formCode]["evalScore"]) {
+        this.$root.$refs[this.formCode]["evalScore"].setCurrentValue(score);
+        this.$root.$refs[this.formCode]["evalDesc"].setCurrentValue(score);
+        this.$root.$refs[this.formCode]["evalDesc"].checkValueRule(score);
       }
       //
       // 评估得分：0-20分完全依赖；20-40分严重依赖；40-60分明显依赖；＞60分基本自理
@@ -728,15 +740,15 @@ export default {
     },
     openBodyModal(e, child) {
       let config = {
-        list: this.$root.$refs[child.name].currentValue || "",
+        list: this.$root.$refs[this.formCode][child.name].currentValue || "",
         mode: 1,
         callback: res => {
           console.log("人体图结果:", res);
-          // this.$root.$refs[child.name].$refs.input.value = res;
-          // this.$root.$refs[child.name].setCurrentValue(res);
-          this.setElementValue(child.name,res)
+          // this.$root.$refs[this.formCode][child.name].$refs.input.value = res;
+          // this.$root.$refs[this.formCode][child.name].setCurrentValue(res);
+          this.setElementValue(child.name, res);
           this.formObj.model[child.name] = res;
-          // this.$root.$refs[child.name].value = res;
+          // this.$root.$refs[this.formCode][child.name].value = res;
         }
       };
       this.$root.$refs.bodyModal.openBox(config);
@@ -763,23 +775,23 @@ export default {
       return uuid_;
     },
     openTip(child) {
-      console.log(child, "childchild",this.formObj.model,this.formObj);
+      console.log(child, "childchild", this.formObj.model, this.formObj);
       try {
         //
         //
-        // this.$root.$refs[child.name].map(el=>{
+        // this.$root.$refs[this.formCode][child.name].map(el=>{
         //
-        Object.keys(this.$root.$refs[child.name]).map(elKey=>{
-          let el = this.$root.$refs[child.name][elKey]
-          console.log('el',el)
-        //
-          el.$parent.checkValueRule(el.$parent.inputValue,true);
-        })
+        Object.keys(this.$root.$refs[this.formCode][child.name]).map(elKey => {
+          let el = this.$root.$refs[this.formCode][child.name][elKey];
+          console.log("el", el);
+          //
+          el.$parent.checkValueRule(el.$parent.inputValue, true);
+        });
       } catch (error) {
-        console.log('openTip',error)
+        console.log("openTip", error);
       }
-      // this.$root.$refs[child.name].$parent.checkValueRule(
-      //   this.$root.$refs[child.name].$parent.inputValue,
+      // this.$root.$refs[this.formCode][child.name].$parent.checkValueRule(
+      //   this.$root.$refs[this.formCode][child.name].$parent.inputValue,
       //   true
       // );
       if (child.dialog) {
@@ -793,24 +805,26 @@ export default {
       var reg = /[\u4E00-\u9FA5\uF900-\uFA2D]/;
       return reg.test(str);
     },
-    setElementValue(key,value){
-      Object.keys(this.$root.$refs[key]).map(elkey=>{
-        this.$root.$refs[key][elkey].setCurrentValue(value);
-      })
+    setElementValue(key, value) {
+      Object.keys(this.$root.$refs[this.formCode][key]).map(elkey => {
+        this.$root.$refs[this.formCode][key][elkey].setCurrentValue(value);
+      });
     },
-    getElementValue(key){
-      let result = ""
-      Object.keys(this.$root.$refs[key]).map(elkey=>{
-        result = this.$root.$refs[key][elkey].currentValue;
-      })
-      return result
+    getElementValue(key) {
+      let result = "";
+      Object.keys(this.$root.$refs[this.formCode][key]).map(elkey => {
+        result = this.$root.$refs[this.formCode][key][elkey].currentValue;
+      });
+      return result;
     },
-    getValueRule(key,value){
-      let textResult = ""
-      Object.keys(this.$root.$refs[key]).map(elkey=>{
-        textResult = this.$root.$refs[key][elkey].checkValueRule(value);
-      })
-      return textResult
+    getValueRule(key, value) {
+      let textResult = "";
+      Object.keys(this.$root.$refs[this.formCode][key]).map(elkey => {
+        textResult = this.$root.$refs[this.formCode][key][elkey].checkValueRule(
+          value
+        );
+      });
+      return textResult;
     }
   }
 };
