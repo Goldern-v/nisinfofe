@@ -14,6 +14,7 @@
         <div class="nav-item">护理文书</div>
       </router-link>
       <router-link
+        v-if="HOSPITAL_ID == 'hj'"
         :to="{path:'/doctorEmr',  query: {patientId:query.patientId, visitId: query.visitId}}"
         tag="span"
       >
