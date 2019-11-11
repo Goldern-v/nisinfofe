@@ -507,6 +507,7 @@ export default {
     },
     getHEvalBlockList(patientInfo = this.patientInfo) {
       this.selectBlock = "";
+      console.log("getHEvalBlockList:patientInfo", patientInfo);
       let postData = {
         patientId: patientInfo.patientId,
         visitId: patientInfo.visitId,
@@ -623,8 +624,8 @@ export default {
           );
 
           //
-          if(master.updaterName && master.updateTime){
-            this.formObj.formSetting.updateInfo = `由${master.updaterName}创建，最后编辑于${master.updateTime}`
+          if (master.updaterName && master.updateTime) {
+            this.formObj.formSetting.updateInfo = `由${master.updaterName}创建，最后编辑于${master.updateTime}`;
           }
 
           this.currentFormConfig = {
@@ -665,7 +666,7 @@ export default {
       this.bus.$emit("setHosptialAdmissionLoading", false);
     },
     blockLabel(item) {
-      return `${dayjs(item.evalDate).format('MM-DD')}`;
+      return `${dayjs(item.evalDate).format("MM-DD")}`;
       // return `${item.wardName} ${dayjs(item.createTime).format('MM-DD')} 至 ${item.completeTime ? dayjs(item.completeTime).format('MM-DD') : '至今'}`
     },
     showMeasureDetialBox(res) {
@@ -734,7 +735,10 @@ export default {
             try {
               element[keys[0]].$parent.$parent.$parent.$el.style.outline =
                 "none";
-              element[keys[0]].$parent.$parent.$parent.$el.style.backgroundColor = "transparent"
+              element[
+                keys[0]
+              ].$parent.$parent.$parent.$el.style.backgroundColor =
+                "transparent";
             } catch (error) {
               console.log("----error", error, key, element);
             }
@@ -822,7 +826,10 @@ export default {
                   missItems += 1;
                   element[keys[0]].$parent.$parent.$parent.$el.style.outline =
                     "1px solid red";
-                  element[keys[0]].$parent.$parent.$parent.$el.style.backgroundColor = "yellow;";
+                  element[
+                    keys[0]
+                  ].$parent.$parent.$parent.$el.style.backgroundColor =
+                    "yellow;";
                   console.log("!!!!", title, element, missingObj);
 
                   let itemTitle =
@@ -841,7 +848,10 @@ export default {
                     console.log("===多选单选组件:title", title, skipItems);
                     element[keys[0]].$parent.$parent.$parent.$el.style.outline =
                       "none";
-                    element[keys[0]].$parent.$parent.$parent.$el.style.backgroundColor = "transparent"
+                    element[
+                      keys[0]
+                    ].$parent.$parent.$parent.$el.style.backgroundColor =
+                      "transparent";
                     continue;
                   }
 
@@ -883,8 +893,10 @@ export default {
               } else {
                 element[keys[0]].$parent.$parent.$parent.$el.style.outline =
                   "none";
-                element[keys[0]].$parent.$parent.$parent.$el.style.backgroundColor =
-                    "transparent"
+                element[
+                  keys[0]
+                ].$parent.$parent.$parent.$el.style.backgroundColor =
+                  "transparent";
                 // element[keys[0]].$parent.$parent.$el.style.outline = "none";
               }
             } catch (error) {
@@ -1177,14 +1189,12 @@ export default {
                 //
                 let {
                   data: {
-                    data: {
-                      master,
-                    }
+                    data: { master }
                   }
                 } = res;
                 //
-                if(master.updaterName && master.updateTime){
-                  this.formObj.formSetting.updateInfo = `由${master.updaterName}创建，最后编辑于${master.updateTime}`
+                if (master.updaterName && master.updateTime) {
+                  this.formObj.formSetting.updateInfo = `由${master.updaterName}创建，最后编辑于${master.updateTime}`;
                 }
                 this.checkFormMissingItems();
               })
@@ -1285,14 +1295,12 @@ export default {
             //
             let {
               data: {
-                data: {
-                  master,
-                }
+                data: { master }
               }
             } = res;
             //
-            if(master.updaterName && master.updateTime){
-              this.formObj.formSetting.updateInfo = `由${master.updaterName}创建，最后编辑于${master.updateTime}`
+            if (master.updaterName && master.updateTime) {
+              this.formObj.formSetting.updateInfo = `由${master.updaterName}创建，最后编辑于${master.updateTime}`;
             }
             this.checkFormMissingItems();
           })

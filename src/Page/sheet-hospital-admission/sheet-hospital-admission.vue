@@ -12,7 +12,8 @@
     </div>
     <div class="body-con" id="sheet_body_con" :style="{height: containHeight}">
       <div class="left-part">
-        <patientList :data="data.bedList" :isSelectPatient="isSelectPatient" v-loading="patientListLoading"></patientList>
+        <!-- <patientList :data="data.bedList" :isSelectPatient="isSelectPatient" v-loading="patientListLoading"></patientList> -->
+        <patientList toName="sheetHospitalAdmissionPage" :callFunction="isSelectPatient" />
       </div>
       <div class="right-part" :style="{marginLeft: openLeft?'200px':'0'}">
         <!-- <record></record> -->
@@ -103,7 +104,7 @@
 </style>
 
 <script>
-import patientList from "@/components/patient-list/patient-list.vue";
+import patientList from "@/components/patient-list/patient-list-router-link.vue";
 import sheetTool from "./components/sheet-tool/sheet-tool.vue";
 import pages from "./components/pages/page.vue";
 import common from "@/common/mixin/common.mixin.js";
@@ -142,73 +143,18 @@ export default {
     }
   },
   methods: {
-    getDate() {
-      console.log("deptCode:patientList", this.deptCode);
-      if (this.isDev && !this.deptCode) {
-        // 030502
-        this.deptCode = "030502";
-      }
-      if (this.deptCode) {
-        this.patientListLoading = true;
-        // if (this.isDev && localStorage["patientList" + this.deptCode]) {
-        //   this.data.bedList =
-        //     JSON.parse(localStorage["patientList" + this.deptCode]) || [];
-        //   this.patientListLoading = false;
-        //   return;
-        // }
-        patients(this.deptCode, {})
-          .then(res => {
-            // if (res && res.data.data) {
-            //   // 缓存病人列表数据
-            //   this.isDev &&
-            //     (localStorage["patientList" + this.deptCode] = JSON.stringify(
-            //       res.data.data
-            //     ));
-            // }
-            this.data.bedList = res.data.data.filter(item => {
-              return item.patientId;
-            });
-            this.patientListLoading = false;
-          })
-          .catch(error => {
-            console.log("error:patientList", error);
-          });
-      }
-    },
-    isSelectPatient(item){
+    isSelectPatient(item) {
       this.bus.$emit("setHosptialAdmissionLoading", true);
-
       this.bus.$emit("setIsNewForm", false);
-
       this.bus.$emit("getHEvalBlockList", item);
       this.selectPatientId = item.patientId;
-
       this.$store.commit("upPatientInfo", item);
     }
   },
   created() {
     this.$store.commit("upPatientInfo", {});
-    // 初始化
-    if (this.deptCode) {
-      this.getDate();
-    }
-
-    this.bus.$on("refreshFormPagePatientList", this.getDate);
   },
-  watch: {
-    deptCode(val, oldValue) {
-      console.log(oldValue, val, "oldValue");
-      if (oldValue && val) {
-        this.$router.replace({
-          path: "/sheetHospitalAdmission",
-          query: {}
-        });
-        this.bus.$emit("refreshTree", true);
-        this.bus.$emit("closeAssessment");
-      }
-      this.getDate();
-    }
-  },
+  watch: {},
   components: {
     patientList,
     // record,

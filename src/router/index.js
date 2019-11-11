@@ -77,6 +77,8 @@ import sheetHospitalEval from "@/Page/sheet-hospital-eval/sheet-hospital-eval.vu
 import sheetHospitalEvalPage from "@/Page/sheet-hospital-eval/components/pages/page.vue";
 // 入院评估
 import sheetHospitalAdmission from "@/Page/sheet-hospital-admission/sheet-hospital-admission.vue";
+import sheetHospitalAdmissionPage from "@/Page/sheet-hospital-admission/components/pages/page.vue";
+
 
 import hospitalEval from "@/Page/patientInfo/supPage/hospital-eval/hospital-eval";
 //  护理文书
@@ -433,7 +435,16 @@ const router = new Router({
         //     next(!nursingStaff)
         //   }
         // }
-        { path: "/sheetHospitalAdmission", component: sheetHospitalAdmission },
+        {
+          path: "/sheetHospitalAdmission", component: sheetHospitalAdmission,
+          children: [
+            {
+              name: "sheetHospitalAdmissionPage",
+              path: "/sheetHospitalAdmission/:patientId?/:visitId?/:formId?",
+              component: sheetHospitalAdmissionPage
+            }
+          ]
+        },
         {
           path: "/sheetHospitalEval", component: sheetHospitalEval,
           children: [

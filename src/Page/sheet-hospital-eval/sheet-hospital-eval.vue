@@ -21,7 +21,7 @@
           :isSelectPatient="isSelectPatient"
           v-loading="patientListLoading"
         ></patientList>-->
-        <patientList />
+        <patientList toName="sheetHospitalEvalPage" :callFunction="isSelectPatient" />
       </div>
       <div class="right-part" :style="{marginLeft: openLeft?'200px':'0'}">
         <!-- <record></record> -->
@@ -176,13 +176,12 @@ export default {
         });
       }
     },
-    isSelectPatient(item) {
+    isSelectPatient(patient) {
       this.bus.$emit("setHosptialEvalLoading", true);
-
-      this.bus.$emit("getHEvalBlockList", item);
-      this.selectPatientId = item.patientId;
-
-      this.$store.commit("upPatientInfo", item);
+      this.bus.$emit("getHEvalBlockList", patient);
+      this.selectPatientId = patient.patientId;
+      this.$store.commit("upPatientInfo", patient);
+      this.$store.commit("upCurrentPatientObj", patient);
     }
   },
   created() {

@@ -15,7 +15,7 @@
           flex="cross:center"
           v-for="(item,index) in sortList"
           :key="item.patientId+item.visitId+item.bedLabel+item.inpNo+index"
-          :to="{name: 'sheetHospitalEvalPage', params: {patientId: item.patientId, visitId: item.visitId, formId: item.id}}"
+          :to="{name: toName, params: {patientId: item.patientId, visitId: item.visitId, formId: item.id}}"
           :class="{active: isActive(item)}"
         >
           <img
@@ -210,7 +210,8 @@ import bus from "vue-happy-bus";
 export default {
   props: {
     data: Array,
-    isSelectPatient: Function
+    toName: String,
+    callFunction: Function
   },
   mixins: [common],
   data() {
@@ -242,42 +243,26 @@ export default {
         });
       }
     },
-    selectPatient(item) {
-      this.selectPatientId = item.patientId;
+    selectPatient(patient) {
+      this.selectPatientId = patient.patientId;
       //
       console.log(
         "selectPatient",
-        item,
-        item.patientId,
-        item.visitId,
+        patient,
+        patient.patientId,
+        patient.visitId,
+        patient.formId,
         this.$route.path,
         this.$route
       );
-      //
-      //
-      // if (this.isSelectPatient) {
-      // this.isSelectPatient(item);
-      this.$route.query.patientId = item.patientId;
-      this.$route.query.visitId = item.visitId;
-      //
-      this.$store.commit(
-        "upCurrentPatientObj",
-        JSON.parse(JSON.stringify(item))
-      );
-      //
-      this.$store.commit("upPatientInfo", item);
-      //
-      this.bus.$emit("setHosptialEvalLoading", true);
-      this.bus.$emit("getHEvalBlockList", item);
-      // this.$router.push({
-      //   name: "sheetHospitalEvalPage",
-      //   params: {
-      //     patientId: item.patientId,
-      //     visitId: item.visitId,
-      //     formId: item.id
-      //   }
-      // });
-      // }
+      if (this.callFunction) {
+        this.$route.query.patientId = patient.patientId;
+        this.$route.query.visitId = patient.visitId;
+        patient.formId = this.$route.params.formId || "";
+        //
+        this.callFunction(patient);
+        //
+      }
     },
     isActive(item) {
       return (

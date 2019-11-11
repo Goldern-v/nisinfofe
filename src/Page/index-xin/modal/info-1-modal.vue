@@ -81,7 +81,10 @@ export default {
     return {
       data: {},
       details: {},
-      iconLoading: false
+      iconLoading: false,
+      activatedDeptCodeList: ["030502"],
+      activatedFormTaskList: ["入院评估表(内科)（未审核）"],
+      activatedFormCodeList: ["E0001"] // expand: "form_internal_first"
     };
   },
   methods: {
@@ -106,6 +109,33 @@ export default {
           obj[i] = item[i];
         }
       }
+      console.log(
+        "患者详情details:",
+        this.deptCode,
+        // this.details,
+        // obj,
+        this.data,
+        this.data.expand
+      );
+      // 新入院表路由跳转  formCode: "E0001"
+      if (
+        this.activatedDeptCodeList.indexOf(this.deptCode) > -1 &&
+        this.activatedFormTaskList.indexOf(this.data.task) > -1 &&
+        this.activatedFormCodeList.indexOf(this.data.expand) > -1
+      ) {
+        let { href } = this.$router.resolve({
+          name: "sheetHospitalAdmissionPage",
+          params: {
+            patientId: this.data.patientId,
+            visitId: this.data.visitId,
+            formId: this.data.formId
+          }
+        });
+        console.log("window.open", href);
+        window.open(href, "_blank");
+        return;
+      }
+      //
       window.open(
         `/crNursing/home?${qs.stringify({
           patientId: obj.patientId,
