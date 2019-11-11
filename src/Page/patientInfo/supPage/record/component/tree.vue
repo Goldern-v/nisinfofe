@@ -269,7 +269,7 @@ export default {
       if (hasSave) {
         box = fileboxRed;
       } else if (hasSign) {
-        box = filebox;
+        box = fileboxGreen;
       } else {
         box = filebox;
       }

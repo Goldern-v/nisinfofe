@@ -97,8 +97,7 @@ export default {
       res => {
         this.tableData = res.data.data;
         this.pageLoading = false;
-        //
-        console.log("this.tableData", this.tableData, this.$route.query);
+
         if (this.$route.query.formId || this.$route.query.formCode) {
           let formData = this.tableData.find(f => {
             return (
@@ -107,7 +106,6 @@ export default {
             );
           });
           if (formData) {
-            console.log("this.tableData:formData", formData);
             this.toDetails(formData);
           }
         }

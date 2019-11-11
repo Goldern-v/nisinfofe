@@ -102,21 +102,7 @@ export default {
       this.$refs.modal.close();
     },
     post() {
-      let obj = {};
-      let item = this.details;
-      for (let i in item) {
-        if (item[i]) {
-          obj[i] = item[i];
-        }
-      }
-      console.log(
-        "患者详情details:",
-        this.deptCode,
-        // this.details,
-        // obj,
-        this.data,
-        this.data.expand
-      );
+      let url = "";
       // 新入院表路由跳转  formCode: "E0001"
       if (
         this.activatedDeptCodeList.indexOf(this.deptCode) > -1 &&
@@ -131,19 +117,16 @@ export default {
             formId: this.data.formId
           }
         });
-        console.log("window.open", href);
-        window.open(href, "_blank");
-        return;
-      }
-      //
-      window.open(
-        `/crNursing/home?${qs.stringify({
-          patientId: obj.patientId,
-          visitId: obj.visitId,
+        url = href + "";
+      } else {
+        url = `/crNursing/home?${qs.stringify({
+          patientId: this.data.patientId,
+          visitId: this.data.visitId,
           formId: this.data.formId,
           formCode: this.data.expand
-        })}`
-      );
+        })}`;
+      }
+      window.open(url, "_blank");
       this.close();
     }
   },
