@@ -82,7 +82,7 @@ export default {
       data: {},
       details: {},
       iconLoading: false,
-      activatedDeptCodeList: ["030502"],
+      activatedDeptCodeList: ["030502", "041102"],
       activatedFormTaskList: ["入院评估表(内科)（未审核）"],
       activatedFormCodeList: ["E0001"] // expand: "form_internal_first"
     };
@@ -139,7 +139,9 @@ export default {
       window.open(
         `/crNursing/home?${qs.stringify({
           patientId: obj.patientId,
-          visitId: obj.visitId
+          visitId: obj.visitId,
+          formId: this.data.formId,
+          formCode: this.data.expand
         })}`
       );
       this.close();

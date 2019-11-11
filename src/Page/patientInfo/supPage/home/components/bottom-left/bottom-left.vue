@@ -97,6 +97,21 @@ export default {
       res => {
         this.tableData = res.data.data;
         this.pageLoading = false;
+        //
+        console.log("this.tableData", this.tableData, this.$route.query);
+        if (this.$route.query.formId || this.$route.query.formCode) {
+          let formData = this.tableData.find(f => {
+            return (
+              f.dataId == this.$route.query.formId ||
+              f.formCode == this.$route.query.formCode
+            );
+          });
+          if (formData) {
+            console.log("this.tableData:formData", formData);
+            this.toDetails(formData);
+          }
+        }
+        //
       }
     );
   },
@@ -129,6 +144,7 @@ export default {
       }
     },
     toDetails(row) {
+      console.log("toDetails:", row);
       if (row.nooForm == "3") {
         if (row.formCode == "patSugar") {
           this.$router.push({
