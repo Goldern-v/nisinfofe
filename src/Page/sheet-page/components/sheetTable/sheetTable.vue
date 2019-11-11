@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="contant sheet-page-container" :style="data.titleModel.style" :class="{readOnly}">
-      <img src="../../images/仅供查阅.jpg" class="readOnly-img no-print" v-if="readOnly" alt>
+      <img src="../../images/仅供查阅.jpg" class="readOnly-img no-print" v-if="readOnly" alt />
       <component v-bind:is="tableHead" :patientInfo="patientInfo" :index="index"></component>
       <excel
         :data="data"
@@ -78,29 +78,33 @@
     text-overflow: ellipsis;
     white-space: nowrap;
   }
-   &.readOnly {
-    pointer-events none
+
+  &.readOnly {
+    pointer-events: none;
   }
+
   .readOnly-img {
-    position absolute;
-    right 5px;
-    top 5px
+    position: absolute;
+    right: 5px;
+    top: 5px;
   }
+
   .bottom-line {
-    display inline-block
-    border-bottom 1px solid #000
-    padding 2px 0 2px 2px
+    display: inline-block;
+    border-bottom: 1px solid #000;
+    padding: 2px 0 2px 2px;
   }
-  .bottom-line-input{
-    display inline-block
-    border 0
-    width 30px
-    border-bottom 1px solid #000
-    padding 2px 0 2px 2px
-    height 12px
-    position relative
-    outline none
-    text-align center
+
+  .bottom-line-input {
+    display: inline-block;
+    border: 0;
+    width: 30px;
+    border-bottom: 1px solid #000;
+    padding: 2px 0 2px 2px;
+    height: 12px;
+    position: relative;
+    outline: none;
+    text-align: center;
     // top -2px
   }
 }
@@ -144,9 +148,9 @@ export default {
       /** 产科 */
       if (sheetInfo.sheetType === "prenatal") {
         return tableHeadPrenata;
-      } else if(process.env.HOSPITAL_ID == "weixian"){
+      } else if (process.env.HOSPITAL_ID == "weixian") {
         return tableHead2;
-      }else {
+      } else {
         return tableHead;
       }
     }
