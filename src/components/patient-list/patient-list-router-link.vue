@@ -231,8 +231,8 @@ export default {
   },
   methods: {
     getDate() {
-      console.log("获取病人列表", this.deptCode);
       if (this.deptCode) {
+        // console.log("获取病人列表", this.deptCode);
         this.patientListLoading = true;
         patients(this.deptCode, {}).then(res => {
           this.bedList = res.data.data.filter(item => {
@@ -281,8 +281,9 @@ export default {
     },
     fetchData() {
       let currentPatient = this.$store.getters.getCurrentPatient();
-      let patientId = this.$route.params.patientId || currentPatient.patientId;
-      let visitId = this.$route.params.visitId || currentPatient.visitId;
+      let patientId =
+        this.$route.params.patientId || currentPatient.patientId || "";
+      let visitId = this.$route.params.visitId || currentPatient.visitId || "";
       let p = this.findCurrentPatient({
         patientId,
         visitId
@@ -293,7 +294,7 @@ export default {
       console.log(
         "路由拦截:$route.params",
         [currentPatient],
-        [p],
+        [p, this.sortList],
         [this.$route.params]
       );
     }
@@ -372,6 +373,9 @@ export default {
   },
   watch: {
     deptCode(ndata, odata) {
+      // 清空当前选中病人
+      this.$store.commit("upCurrentPatientObj", new Object());
+
       if (ndata == "051102") {
         this.img1Show = false;
         this.img2Show = true;
@@ -380,10 +384,6 @@ export default {
         this.img2Show = false;
       }
       this.getDate();
-      // this.fetchData();
-      // this.$nextTick(() => {
-      //   this.fetchData();
-      // });
     },
     "$route.params.patientId": "fetchData"
   },

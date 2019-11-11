@@ -155,20 +155,7 @@ export default {
     getDate() {
       if (this.deptCode) {
         this.patientListLoading = true;
-        // if (this.isDev && localStorage["patientList" + this.deptCode]) {
-        //   this.data.bedList =
-        //     JSON.parse(localStorage["patientList" + this.deptCode]) || [];
-        //   this.patientListLoading = false;
-        //   return;
-        // }
         patients(this.deptCode, {}).then(res => {
-          // if (res && res.data.data) {
-          //   // 缓存病人列表数据
-          //   this.isDev &&
-          //     (localStorage["patientList" + this.deptCode] = JSON.stringify(
-          //       res.data.data
-          //     ));
-          // }
           this.data.bedList = res.data.data.filter(item => {
             return item.patientId;
           });

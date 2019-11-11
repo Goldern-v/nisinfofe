@@ -3,7 +3,8 @@
   <div class="containter">
     <div class="body-con" id="sheet_body_con" :style="{height: containHeight}">
       <div class="left-part">
-        <patientList :data="data.bedList" :isSelectPatient="isSelectPatient" v-loading="patientListLoading"></patientList>
+        <!-- <patientList :data="data.bedList" :isSelectPatient="isSelectPatient" v-loading="patientListLoading"></patientList> -->
+        <patientList toName="sugarPage" :callFunction="isSelectPatient" />
       </div>
       <div class="right-part" :style="{marginLeft: openLeft?'200px':'0'}">
         <!-- <bloodSugar ref="bloodSugar"></bloodSugar> -->
@@ -44,7 +45,8 @@
 </style>
 
 <script>
-import patientList from "@/components/patient-list/patient-list.vue";
+// import patientList from "@/components/patient-list/patient-list.vue";
+import patientList from "@/components/patient-list/patient-list-router-link.vue";
 import common from "@/common/mixin/common.mixin.js";
 import { patients } from "@/api/lesion";
 import bus from "vue-happy-bus";
@@ -92,7 +94,7 @@ export default {
       };
       return hisList[HisName] || "bloodSugar";
     },
-    isSelectPatient(item){
+    isSelectPatient(item) {
       this.$router.replace(
         {
           path: "/sugarPage",

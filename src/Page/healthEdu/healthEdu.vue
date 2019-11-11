@@ -3,7 +3,8 @@
   <div class="contain">
     <div class="body-con" id="sheet_body_con" :style="{height: containHeight}">
       <div class="left-part">
-        <patientList :data="data.bedList" :isSelectPatient="isSelectPatient" v-loading="patientListLoading"></patientList>
+        <!-- <patientList :data="data.bedList" :isSelectPatient="isSelectPatient" v-loading="patientListLoading"></patientList> -->
+        <patientList toName="healthEdu" :callFunction="isSelectPatient" />
       </div>
       <div class="right-part" :style="{marginLeft: openLeft?'200px':'0'}">
         <healthEducation ref="healthEducation"></healthEducation>
@@ -43,7 +44,8 @@
 </style>
 
 <script>
-import patientList from "@/components/patient-list/patient-list.vue";
+// import patientList from "@/components/patient-list/patient-list.vue";
+import patientList from "@/components/patient-list/patient-list-router-link.vue";
 import common from "@/common/mixin/common.mixin.js";
 import { patients } from "@/api/lesion";
 import bus from "vue-happy-bus";
@@ -82,14 +84,14 @@ export default {
         });
       }
     },
-    isSelectPatient(item){
+    isSelectPatient(item) {
       this.$router.replace(
         {
           path: "/healthEdu",
           query: item
         },
         () => {
-          this.$refs.healthEducation.init()
+          this.$refs.healthEducation.init();
         }
       );
     }
@@ -107,13 +109,15 @@ export default {
     deptCode(val, oldValue) {
       console.log(oldValue, val, "oldValue");
       if (oldValue && val) {
-        this.$router.replace({
-          path: "/healthEdu",
-          query: {}
-        },
-        () => {
-          this.$refs.healthEducation.init()
-        });
+        this.$router.replace(
+          {
+            path: "/healthEdu",
+            query: {}
+          },
+          () => {
+            this.$refs.healthEducation.init();
+          }
+        );
       }
       this.getDate();
     }

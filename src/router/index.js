@@ -499,7 +499,16 @@ const router = new Router({
         },
         { path: "/evalFormPage", component: evalFormPage },
         { path: "/catheterPage", component: catheterPage },
-        { path: "/sugarPage", component: sugarPage },
+        {
+          path: "/sugarPage", component: sugarPage,
+          children: [
+            {
+              name: "sugarPage",
+              path: "/sugarPage/:patientId?/:visitId?/:formId?",
+              component: sugarPage
+            }
+          ]
+        },
         { path: "/scheduling", component: scheduling },
         { path: "/nursingRules", component: nursingRules },
         { path: "/noCheckTest", component: noCheckTest },
