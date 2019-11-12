@@ -16,7 +16,12 @@
 
         <patientList toName="sheetPage" :callFunction="isSelectPatient" />
       </div>
-      <div class="right-part" :style="{marginLeft: openLeft?'200px':'0'}" v-loading="tableLoading">
+      <div
+        class="right-part"
+        :style="{marginLeft: openLeft?'200px':'0'}"
+        :class="{wxHighLightBg: HOSPITAL_ID=='weixian'}"
+        v-loading="tableLoading"
+      >
         <div class="sheetTable-contain" ref="scrollCon" @scroll="(e) => onScroll(e)">
           <div ref="sheetTableContain">
             <component
@@ -160,6 +165,26 @@
 
   i {
     margin-right: 4px;
+  }
+}
+</style>
+<style lang="stylus">
+#sheet_body_con {
+  .wxHighLightBg {
+    .sheet-excel-container {
+      .description {
+         input, textarea {
+          &:focus {
+            background-color: transparent;
+          }
+        }
+      }
+      input, textarea {
+        &:focus {
+          background-color: #FEF8B1;
+        }
+      }
+    }
   }
 }
 </style>
