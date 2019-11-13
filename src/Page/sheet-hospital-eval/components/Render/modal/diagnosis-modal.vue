@@ -106,23 +106,31 @@ export default {
             empNo,
             diagList: objList
           };
-          promistList.push(nursingDiagsSaveList(obj));
+          promistList.push(() => nursingDiagsSaveList(obj));
         }
         if (this.signEval) {
-          promistList.push(this.sign(password, empNo));
+          promistList.push(() => this.sign(password, empNo));
         }
 
         this.tongbuzhi.forEach(item => {
           if (item == "护理记录单")
-            promistList.push(syncToRecord(this.formObj.model.id));
+            promistList.push(() => syncToRecord(this.formObj.model.id));
           if (item == "三测单")
-            promistList.push(syncVitalSign(this.formObj.model.id));
+            promistList.push(() => syncVitalSign(this.formObj.model.id));
         });
-        Promise.all(promistList).then(res => {
+        (async () => {
+          for (let i = 0; i < promistList.length; i++) {
+            await promistList[i]();
+          }
           this.$message.success("保存成功");
           this.$root.$refs.diagnosisSlide.close();
           this.close();
-        });
+        })();
+        // Promise.all(promistList).then(res => {
+        //   this.$message.success("保存成功");
+        //   this.$root.$refs.diagnosisSlide.close();
+        //   this.close();
+        // });
       });
     },
     sign(password, empNo) {

@@ -18,6 +18,7 @@
     "analyz": "npm run build --analyz",
     "buildNew": "node build-new/build.js",
     "buildNew:": "npm run buildNew",
+    "buildNew:weixian": "npm run buildNew: weixian",
     "deploy": "npm run buildNew",
     "lint": "eslint --ext .js,.vue src",
     "toSvn": "svn commit -m 前端代码更新svn"
