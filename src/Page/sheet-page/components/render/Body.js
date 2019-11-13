@@ -65,13 +65,13 @@ function switechSheetType(type) {
     case "neurosurgery":
       {
         // 神经外科
-        schema = require("../config/neurology/tr.js").default;
+        schema = require("../config/neurosurgery/tr.js").default;
       }
       break;
     case "burn_plastic":
       {
         // 烧伤整形科护理
-        schema = require("../config/default/tr.js").default;
+        schema = require("../config/burn_plastic/tr.js").default;
       }
       break;
     case "general_surgery":

@@ -172,16 +172,11 @@
 #sheet_body_con {
   .wxHighLightBg {
     .sheet-excel-container {
-      .description {
-         input, textarea {
-          &:focus {
-            background-color: transparent;
+      .sheet-table {
+        .body-con {
+          &:focus, &:hover {
+            background: #FEF8B1;
           }
-        }
-      }
-      input, textarea {
-        &:focus {
-          background-color: #FEF8B1;
         }
       }
     }
