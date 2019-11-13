@@ -23,7 +23,7 @@ export default function Title(data = [], autoData = [], index) {
       {
         // 神经外科
         Th = JSON.parse(
-          JSON.stringify(require("../config/neurology/th").default)
+          JSON.stringify(require("../config/neurosurgery/th").default)
         );
       }
       break;
@@ -31,7 +31,7 @@ export default function Title(data = [], autoData = [], index) {
       {
         // 烧伤整形科护理
         Th = JSON.parse(
-          JSON.stringify(require("../config/default/th").default)
+          JSON.stringify(require("../config/burn_plastic/th").default)
         );
       }
       break;
