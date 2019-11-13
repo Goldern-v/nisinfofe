@@ -3,6 +3,9 @@ import { multiDictInfo } from "../../../api/index";
 import { keyf1 } from "../keyEvent/f1.js";
 import { event_date, event_time, click_date } from "../keyEvent/date";
 import info from "../sheetInfo";
+// let info = {
+//   sheetType: "neurology"
+// };
 let ysList = [];
 let chuList = [];
 let ruList = [];
@@ -255,7 +258,7 @@ export default [
   }
 ];
 
-export function getListData() {
+export function getListData4() {
   listItem("入量名称", info.sheetType).then(res => {
     ruList.splice(0, ruList.length);
     for (let item of res.data.data) {
@@ -267,6 +270,7 @@ export function getListData() {
     for (let item of res.data.data) {
       chuList.push(item.name);
     }
+    chuList.push("阴道出血")
   });
   let list = ["意识"];
   multiDictInfo(list).then(res => {
@@ -275,7 +279,7 @@ export function getListData() {
   });
 }
 
-getListData();
+getListData4();
 /**
  *
  * @param {*} list 原数组

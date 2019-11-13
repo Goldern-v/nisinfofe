@@ -42,12 +42,9 @@ export default {
       let pattern = new RegExp('\\w+');
       let findIndex = cond.find(ret => {
         if (ret.key && age.indexOf(ret.key) > -1) {
-          // ageLevel = ret.value
-          // return ret
           pattern = new RegExp('\\d*' + ret.key, 'g'); // /\d*月/g
           ageStr = ~~(age.replace(age.replace(pattern, ''), '').replace(/[^0-9]/g, ''))
         }
-        // console.log('ageStr',ageStr,ret.key,pattern,age,age.replace(pattern,''))
         if (
           ret.min
           && ret.max
@@ -55,12 +52,10 @@ export default {
           && ageStr <= ret.max
           && ((ret.key && age.includes(ret.key)) || !ret.key)
         ) {
-          // console.log('key:',(ret.key && age.includes(ret.key)),age,ret)
           ageLevel = ret.value
           return ret
         }
       })
-      // console.log('ageLevel',ageLevel,age,findIndex)
       return ageLevel
     },
   }
