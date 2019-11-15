@@ -215,10 +215,10 @@ export default {
       this.deptENName = keyNameMap[this.deptName] || "neurology";
       console.log("template-deptENName", this.deptENName);
       //
-      typeList(this.deptENName).then(res => {
+      typeList(this.deptCode||this.deptENName).then(res => {
         this.typeList = res.data.data.list;
         if (this.selectedType) {
-          list(this.selectedType, this.deptENName).then(res => {
+          list(this.selectedType, this.deptCode||this.deptENName).then(res => {
             this.listMap = res.data.data.list;
           });
         } else {
@@ -243,7 +243,7 @@ export default {
     selectedType() {
       if (this.selectedType) {
         this.deptENName = keyNameMap[this.deptName] || "neurology";
-        list(this.selectedType, this.deptENName).then(res => {
+        list(this.selectedType, this.deptCode||this.deptENName).then(res => {
           this.listMap = res.data.data.list;
         });
       }

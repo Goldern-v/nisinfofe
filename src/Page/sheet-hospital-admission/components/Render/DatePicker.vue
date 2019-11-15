@@ -12,7 +12,7 @@
       v-model="datePickerValue"
       :label="obj.title"
       :class="obj.class"
-      :style="obj.style"
+      :style="[obj.style, obj.inputWidth && {width: obj.inputWidth}]"
       :size="obj.size||'small'"
       type="datetime"
       format="yyyy-MM-dd HH:mm"

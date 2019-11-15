@@ -3,7 +3,6 @@
     "title": "词语描述量表",
     "type": "formGroupHorizontalBox",
     "name": "C003007",
-    "type": "dependent",
     "children": [
       {
         "name": "C003007",
@@ -2206,6 +2205,7 @@
         "labelWidth": "100px",
         "placeholder": "空",
         "style": "width:136px!important",
+        "inputWidth":"135px!important",
         "class": null,
         "readOnly": null
       },
@@ -2216,6 +2216,7 @@
         "labelWidth": "100px",
         "placeholder": "空",
         "style": "width:136px!important",
+        "inputWidth":"135px!important",
         "class": null,
         "readOnly": null
       }
@@ -2379,7 +2380,7 @@
         "name": "I001353",
         "type": "datePicker",
         "label": "末次月经日期",
-        "labelWidth": "100px",
+        "labelWidth": "120px",
         "value": "",
         "suffixDesc": "",
         "style": "width: 200px",

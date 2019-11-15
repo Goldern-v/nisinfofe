@@ -31,6 +31,817 @@
             "pinyin": "syfzyw"
         }
     ],
+    "I001352": [
+        {
+            "code": "末次月经",
+            "name": "末次月经",
+            "pinyin": "mcyj"
+        },
+        {
+            "code": "绝经",
+            "name": "绝经",
+            "pinyin": "jj"
+        },
+        {
+            "code": "哺乳期",
+            "name": "哺乳期",
+            "pinyin": "brq"
+        },
+        {
+            "code": "其他",
+            "name": "其他",
+            "pinyin": "qt"
+        },
+        {
+            "code": "无",
+            "name": "无",
+            "pinyin": "w"
+        }
+    ],
+    "I001355": [
+        {
+            "code": "痛经",
+            "name": "痛经",
+            "pinyin": "tj"
+        },
+        {
+            "code": "未来潮",
+            "name": "未来潮",
+            "pinyin": "wlc"
+        },
+        {
+            "code": "闭经",
+            "name": "闭经",
+            "pinyin": "bj"
+        },
+        {
+            "code": "其他",
+            "name": "其他",
+            "pinyin": "qt"
+        }
+    ],
+    "I001357": [
+        {
+            "code": "无",
+            "name": "无",
+            "pinyin": "w"
+        },
+        {
+            "code": "药物",
+            "name": "药物",
+            "pinyin": "yw"
+        },
+        {
+            "code": "上环",
+            "name": "上环",
+            "pinyin": "sh"
+        },
+        {
+            "code": "结扎",
+            "name": "结扎",
+            "pinyin": "jz"
+        },
+        {
+            "code": "避孕套",
+            "name": "避孕套",
+            "pinyin": "byt"
+        },
+        {
+            "code": "安全期",
+            "name": "安全期",
+            "pinyin": "aqq"
+        },
+        {
+            "code": "其他",
+            "name": "其他",
+            "pinyin": "qt"
+        }
+    ],
+    "I001366": [
+        {
+            "code": "是",
+            "name": "是",
+            "pinyin": "s"
+        },
+        {
+            "code": "否",
+            "name": "否",
+            "pinyin": "f"
+        }
+    ],
+    "I001367": [
+        {
+            "code": "正常",
+            "name": "正常",
+            "pinyin": "zc"
+        },
+        {
+            "code": "方颅",
+            "name": "方颅",
+            "pinyin": "fl"
+        },
+        {
+            "code": "枕秃",
+            "name": "枕秃",
+            "pinyin": "zt"
+        },
+        {
+            "code": "其他",
+            "name": "其他",
+            "pinyin": "qt"
+        }
+    ],
+    "I001369": [
+        {
+            "code": "已闭",
+            "name": "已闭",
+            "pinyin": "yb"
+        },
+        {
+            "code": "未闭",
+            "name": "未闭",
+            "pinyin": "wb"
+        }
+    ],
+    "I001370": [
+        {
+            "code": "平软",
+            "name": "平软",
+            "pinyin": "pr"
+        },
+        {
+            "code": "饱满",
+            "name": "饱满",
+            "pinyin": "bm"
+        }
+    ],
+    "I001372": [
+        {
+            "code": "正常",
+            "name": "正常",
+            "pinyin": "zc"
+        },
+        {
+            "code": "肋骨串珠",
+            "name": "肋骨串珠",
+            "pinyin": "lgcz"
+        },
+        {
+            "code": "肋膈沟",
+            "name": "肋膈沟",
+            "pinyin": "lgg"
+        },
+        {
+            "code": "漏斗胸",
+            "name": "漏斗胸",
+            "pinyin": "ldx"
+        },
+        {
+            "code": "其他",
+            "name": "其他",
+            "pinyin": "qt"
+        }
+    ],
+    "I001373": [
+        {
+            "code": "平顺",
+            "name": "平顺",
+            "pinyin": "ps"
+        },
+        {
+            "code": "急促",
+            "name": "急促",
+            "pinyin": "jc"
+        },
+        {
+            "code": "浅促",
+            "name": "浅促",
+            "pinyin": "qc"
+        },
+        {
+            "code": "暂停",
+            "name": "暂停",
+            "pinyin": "zt"
+        },
+        {
+            "code": "三凹征",
+            "name": "三凹征",
+            "pinyin": "saz"
+        },
+        {
+            "code": "鼻翼煽动",
+            "name": "鼻翼煽动",
+            "pinyin": "bysd"
+        },
+        {
+            "code": "呻吟",
+            "name": "呻吟",
+            "pinyin": "sy"
+        },
+        {
+            "code": "呼吸受限",
+            "name": "呼吸受限",
+            "pinyin": "hxsx"
+        },
+        {
+            "code": "其他",
+            "name": "其他",
+            "pinyin": "qt"
+        }
+    ],
+    "I001374": [
+        {
+            "code": "左",
+            "name": "左",
+            "pinyin": "z"
+        },
+        {
+            "code": "右",
+            "name": "右",
+            "pinyin": "y"
+        }
+    ],
+    "I001375": [
+        {
+            "code": "流涕",
+            "name": "流涕",
+            "pinyin": "lt"
+        },
+        {
+            "code": "气喘",
+            "name": "气喘",
+            "pinyin": "qc"
+        },
+        {
+            "code": "吐沫",
+            "name": "吐沫",
+            "pinyin": "tm"
+        },
+        {
+            "code": "咳嗽",
+            "name": "咳嗽",
+            "pinyin": "ks"
+        },
+        {
+            "code": "咳痰",
+            "name": "咳痰",
+            "pinyin": "kt"
+        },
+        {
+            "code": "其他",
+            "name": "其他",
+            "pinyin": "qt"
+        }
+    ],
+    "I001377": [
+        {
+            "code": "平软",
+            "name": "平软",
+            "pinyin": "pr"
+        },
+        {
+            "code": "膨隆",
+            "name": "膨隆",
+            "pinyin": "pl"
+        },
+        {
+            "code": "肌紧张",
+            "name": "肌紧张",
+            "pinyin": "jjz"
+        },
+        {
+            "code": "腹痛",
+            "name": "腹痛",
+            "pinyin": "ft"
+        },
+        {
+            "code": "疝气",
+            "name": "疝气",
+            "pinyin": "sq"
+        },
+        {
+            "code": "其他",
+            "name": "其他",
+            "pinyin": "qt"
+        }
+    ],
+    "I001451": [
+        {
+            "code": "已完成",
+            "name": "已完成",
+            "pinyin": "ywc"
+        },
+        {
+            "code": "未完成",
+            "name": "未完成",
+            "pinyin": "wwc"
+        }
+    ],
+    "I001452": [
+        {
+            "code": "女儿",
+            "name": "女儿",
+            "pinyin": "ne"
+        },
+        {
+            "code": "儿子",
+            "name": "儿子",
+            "pinyin": "ez"
+        },
+        {
+            "code": "父亲",
+            "name": "父亲",
+            "pinyin": "fq"
+        },
+        {
+            "code": "母亲",
+            "name": "母亲",
+            "pinyin": "mq"
+        },
+        {
+            "code": "爷爷",
+            "name": "爷爷",
+            "pinyin": "yy"
+        },
+        {
+            "code": "奶奶",
+            "name": "奶奶",
+            "pinyin": "nn"
+        },
+        {
+            "code": "配偶",
+            "name": "配偶",
+            "pinyin": "po"
+        },
+        {
+            "code": "亲戚",
+            "name": "亲戚",
+            "pinyin": "qq"
+        },
+        {
+            "code": "朋友?",
+            "name": "朋友?",
+            "pinyin": "py"
+        },
+        {
+            "code": "患者",
+            "name": "患者",
+            "pinyin": "hz"
+        }
+    ],
+    "I001453": [
+        {
+            "code": "讲解",
+            "name": "讲解",
+            "pinyin": "jj"
+        },
+        {
+            "code": "示范",
+            "name": "示范",
+            "pinyin": "sf"
+        },
+        {
+            "code": "视频",
+            "name": "视频",
+            "pinyin": "sp"
+        },
+        {
+            "code": "免费资料",
+            "name": "免费资料",
+            "pinyin": "mfzl"
+        },
+        {
+            "code": "讨论",
+            "name": "讨论",
+            "pinyin": "tl"
+        }
+    ],
+    "I001454": [
+        {
+            "code": "能接受",
+            "name": "能接受",
+            "pinyin": "njs"
+        },
+        {
+            "code": "不能接受",
+            "name": "不能接受",
+            "pinyin": "bnjs"
+        },
+        {
+            "code": "语言障碍",
+            "name": "语言障碍",
+            "pinyin": "yyza"
+        },
+        {
+            "code": "文化差异",
+            "name": "文化差异",
+            "pinyin": "whcy"
+        },
+        {
+            "code": "教育水平低",
+            "name": "教育水平低",
+            "pinyin": "jyspd"
+        },
+        {
+            "code": "听力障碍",
+            "name": "听力障碍",
+            "pinyin": "tlza"
+        }
+    ],
+    "I001501": [
+        {
+            "code": "住院须知",
+            "name": "住院须知",
+            "pinyin": "zyxz"
+        },
+        {
+            "code": "物品管理",
+            "name": "物品管理",
+            "pinyin": "wpgl"
+        },
+        {
+            "code": "作息",
+            "name": "作息",
+            "pinyin": "zx"
+        },
+        {
+            "code": "探陪",
+            "name": "探陪",
+            "pinyin": "tp"
+        },
+        {
+            "code": "订餐",
+            "name": "订餐",
+            "pinyin": "dc"
+        },
+        {
+            "code": "介绍主管医生",
+            "name": "介绍主管医生",
+            "pinyin": "jszgys"
+        },
+        {
+            "code": "介绍主管护士",
+            "name": "介绍主管护士",
+            "pinyin": "jszghs"
+        },
+        {
+            "code": "住院押金管理",
+            "name": "住院押金管理",
+            "pinyin": "zyyjgl"
+        },
+        {
+            "code": "体温计管理",
+            "name": "体温计管理",
+            "pinyin": "twjgl"
+        },
+        {
+            "code": "社保管理",
+            "name": "社保管理",
+            "pinyin": "sbgl"
+        },
+        {
+            "code": "其他",
+            "name": "其他",
+            "pinyin": "qt"
+        }
+    ],
+    "I001551": [
+        {
+            "code": "协助漱口",
+            "name": "协助漱口",
+            "pinyin": "xzsk"
+        },
+        {
+            "code": "指导∕协助刷牙",
+            "name": "指导∕协助刷牙",
+            "pinyin": "zd∕xzsy"
+        },
+        {
+            "code": "口腔护理",
+            "name": "口腔护理",
+            "pinyin": "kqhl"
+        },
+        {
+            "code": "面部清洁",
+            "name": "面部清洁",
+            "pinyin": "mbqj"
+        },
+        {
+            "code": "协助沐浴",
+            "name": "协助沐浴",
+            "pinyin": "xzmy"
+        },
+        {
+            "code": "床上擦浴",
+            "name": "床上擦浴",
+            "pinyin": "cscy"
+        },
+        {
+            "code": "床上洗头",
+            "name": "床上洗头",
+            "pinyin": "csxt"
+        },
+        {
+            "code": "梳头",
+            "name": "梳头",
+            "pinyin": "st"
+        },
+        {
+            "code": "会阴清洁/消毒",
+            "name": "会阴清洁/消毒",
+            "pinyin": "hyqj/xd"
+        },
+        {
+            "code": "足部清洁",
+            "name": "足部清洁",
+            "pinyin": "zbqj"
+        },
+        {
+            "code": "协助更衣",
+            "name": "协助更衣",
+            "pinyin": "xzgy"
+        },
+        {
+            "code": "协助进食/水",
+            "name": "协助进食/水",
+            "pinyin": "xzjs/s"
+        },
+        {
+            "code": "协助翻身/有效咳嗽",
+            "name": "协助翻身/有效咳嗽",
+            "pinyin": "xzfs/yxks"
+        },
+        {
+            "code": "协助床上移动",
+            "name": "协助床上移动",
+            "pinyin": "xzcsyd"
+        },
+        {
+            "code": "帮助/协助使用便器",
+            "name": "帮助/协助使用便器",
+            "pinyin": "bz/xzsybq"
+        },
+        {
+            "code": "留置尿管护理",
+            "name": "留置尿管护理",
+            "pinyin": "lznghl"
+        },
+        {
+            "code": "指/趾甲护理",
+            "name": "指/趾甲护理",
+            "pinyin": "z/zjhl"
+        },
+        {
+            "code": "臀部护理",
+            "name": "臀部护理",
+            "pinyin": "tbhl"
+        },
+        {
+            "code": "其他",
+            "name": "其他",
+            "pinyin": "qt"
+        }
+    ],
+    "I001553": [
+        {
+            "code": "排痰护理",
+            "name": "排痰护理",
+            "pinyin": "pthl"
+        },
+        {
+            "code": "高热护理",
+            "name": "高热护理",
+            "pinyin": "grhl"
+        },
+        {
+            "code": "留置针护理",
+            "name": "留置针护理",
+            "pinyin": "lzzhl"
+        },
+        {
+            "code": "惊厥护理",
+            "name": "惊厥护理",
+            "pinyin": "jjhl"
+        },
+        {
+            "code": "尿管护理",
+            "name": "尿管护理",
+            "pinyin": "nghl"
+        },
+        {
+            "code": "其他",
+            "name": "其他",
+            "pinyin": "qt"
+        }
+    ],
+    "I001555": [
+        {
+            "code": "安全转运护理",
+            "name": "安全转运护理",
+            "pinyin": "aqzyhl"
+        },
+        {
+            "code": "防跌倒/坠床护理",
+            "name": "防跌倒/坠床护理",
+            "pinyin": "fdd/zchl"
+        },
+        {
+            "code": "防烫伤护理",
+            "name": "防烫伤护理",
+            "pinyin": "ftshl"
+        },
+        {
+            "code": "防走失护理",
+            "name": "防走失护理",
+            "pinyin": "fzshl"
+        },
+        {
+            "code": "安全约束护理",
+            "name": "安全约束护理",
+            "pinyin": "aqyshl"
+        },
+        {
+            "code": "入院护理",
+            "name": "入院护理",
+            "pinyin": "ryhl"
+        },
+        {
+            "code": "出院护理",
+            "name": "出院护理",
+            "pinyin": "cyhl"
+        },
+        {
+            "code": "防呛噎护理",
+            "name": "防呛噎护理",
+            "pinyin": "fqyhl"
+        },
+        {
+            "code": "其他",
+            "name": "其他",
+            "pinyin": "qt"
+        }
+    ],
+    "I001260": [
+        {
+            "code": "无",
+            "name": "无",
+            "pinyin": "w"
+        },
+        {
+            "code": "有",
+            "name": "有",
+            "pinyin": "y"
+        }
+    ],
+    "I001309": [
+        {
+            "code": "有",
+            "name": "有",
+            "pinyin": "y"
+        },
+        {
+            "code": "无",
+            "name": "无",
+            "pinyin": "w"
+        }
+    ],
+    "I001308": [
+        {
+            "code": "有",
+            "name": "有",
+            "pinyin": "y"
+        },
+        {
+            "code": "无",
+            "name": "无",
+            "pinyin": "w"
+        }
+    ],
+    "I001141": [
+        {
+            "code": "正常",
+            "name": "正常",
+            "pinyin": "zc"
+        },
+        {
+            "code": "异常",
+            "name": "异常",
+            "pinyin": "yc"
+        }
+    ],
+    "I001155": [
+        {
+            "code": "清楚",
+            "name": "清楚",
+            "pinyin": "qc"
+        },
+        {
+            "code": "含糊",
+            "name": "含糊",
+            "pinyin": "hh"
+        },
+        {
+            "code": "言语困难",
+            "name": "言语困难",
+            "pinyin": "yykn"
+        },
+        {
+            "code": "失语",
+            "name": "失语",
+            "pinyin": "sy"
+        },
+        {
+            "code": "其他",
+            "name": "其他",
+            "pinyin": "qt"
+        }
+    ],
+    "I001013": [
+        {
+            "code": "患者",
+            "name": "患者",
+            "pinyin": "hz"
+        },
+        {
+            "code": "家属",
+            "name": "家属",
+            "pinyin": "js"
+        },
+        {
+            "code": "朋友",
+            "name": "朋友",
+            "pinyin": "py"
+        },
+        {
+            "code": "其他",
+            "name": "其他",
+            "pinyin": "qt"
+        }
+    ],
+    "I001014": [
+        {
+            "code": "自费",
+            "name": "自费",
+            "pinyin": "zf"
+        },
+        {
+            "code": "公费医疗",
+            "name": "公费医疗",
+            "pinyin": "gfyl"
+        },
+        {
+            "code": "医保",
+            "name": "医保",
+            "pinyin": "yb"
+        },
+        {
+            "code": "社保",
+            "name": "社保",
+            "pinyin": "sb"
+        },
+        {
+            "code": "商业保险",
+            "name": "商业保险",
+            "pinyin": "sybx"
+        },
+        {
+            "code": "记账单位",
+            "name": "记账单位",
+            "pinyin": "jzdw"
+        },
+        {
+            "code": "他人赔付",
+            "name": "他人赔付",
+            "pinyin": "trpf"
+        },
+        {
+            "code": "其他",
+            "name": "其他",
+            "pinyin": "qt"
+        }
+    ],
+    "I100075": [
+        {
+            "code": "无",
+            "name": "无",
+            "pinyin": "w"
+        },
+        {
+            "code": "轻度",
+            "name": "轻度",
+            "pinyin": "qd"
+        },
+        {
+            "code": "中度",
+            "name": "中度",
+            "pinyin": "zd"
+        },
+        {
+            "code": "重度",
+            "name": "重度",
+            "pinyin": "zd"
+        }
+    ],
     "I100022": [
         {
             "code": "灵敏",
@@ -232,28 +1043,6 @@
             "pinyin": "bl"
         }
     ],
-    "I100075": [
-        {
-            "code": "无",
-            "name": "无",
-            "pinyin": "w"
-        },
-        {
-            "code": "轻度",
-            "name": "轻度",
-            "pinyin": "qd"
-        },
-        {
-            "code": "中度",
-            "name": "中度",
-            "pinyin": "zd"
-        },
-        {
-            "code": "重度",
-            "name": "重度",
-            "pinyin": "zd"
-        }
-    ],
     "I100079": [
         {
             "code": "无",
@@ -347,19 +1136,9 @@
             "pinyin": "jbwg"
         },
         {
-            "code": "经胃肠造瘘管",
-            "name": "经胃肠造瘘管",
-            "pinyin": "jwczlg"
-        },
-        {
             "code": "经鼻肠管",
             "name": "经鼻肠管",
             "pinyin": "jbcg"
-        },
-        {
-            "code": "多选样式",
-            "name": "多选样式",
-            "pinyin": "dxys"
         },
         {
             "code": "胃肠造瘘管",
@@ -369,7 +1148,7 @@
         {
             "code": "普食",
             "name": "普食",
-            "pinyin": "ss"
+            "pinyin": "ps"
         },
         {
             "code": "半流",
@@ -384,7 +1163,7 @@
         {
             "code": "禁食",
             "name": "禁食",
-            "pinyin": "jj"
+            "pinyin": "js"
         },
         {
             "code": "母乳喂养",
@@ -1110,70 +1889,6 @@
             "pinyin": "dzys"
         }
     ],
-    "I001013": [
-        {
-            "code": "患者",
-            "name": "患者",
-            "pinyin": "hz"
-        },
-        {
-            "code": "家属",
-            "name": "家属",
-            "pinyin": "js"
-        },
-        {
-            "code": "朋友",
-            "name": "朋友",
-            "pinyin": "py"
-        },
-        {
-            "code": "其他",
-            "name": "其他",
-            "pinyin": "qt"
-        }
-    ],
-    "I001014": [
-        {
-            "code": "自费",
-            "name": "自费",
-            "pinyin": "zf"
-        },
-        {
-            "code": "公费医疗",
-            "name": "公费医疗",
-            "pinyin": "gfyl"
-        },
-        {
-            "code": "医保",
-            "name": "医保",
-            "pinyin": "yb"
-        },
-        {
-            "code": "社保",
-            "name": "社保",
-            "pinyin": "sb"
-        },
-        {
-            "code": "商业保险",
-            "name": "商业保险",
-            "pinyin": "sybx"
-        },
-        {
-            "code": "记账单位",
-            "name": "记账单位",
-            "pinyin": "jzdw"
-        },
-        {
-            "code": "他人赔付",
-            "name": "他人赔付",
-            "pinyin": "trpf"
-        },
-        {
-            "code": "其他",
-            "name": "其他",
-            "pinyin": "qt"
-        }
-    ],
     "I001010": [
         {
             "code": "无",
@@ -1628,18 +2343,6 @@
             "pinyin": "yc"
         }
     ],
-    "I001141": [
-        {
-            "code": "正常",
-            "name": "正常",
-            "pinyin": "zc"
-        },
-        {
-            "code": "异常",
-            "name": "异常",
-            "pinyin": "yc"
-        }
-    ],
     "I001142": [
         {
             "code": "能应",
@@ -1767,33 +2470,6 @@
             "code": "其他语言",
             "name": "其他语言",
             "pinyin": "qtyy"
-        }
-    ],
-    "I001155": [
-        {
-            "code": "清楚",
-            "name": "清楚",
-            "pinyin": "qc"
-        },
-        {
-            "code": "含糊",
-            "name": "含糊",
-            "pinyin": "hh"
-        },
-        {
-            "code": "言语困难",
-            "name": "言语困难",
-            "pinyin": "yykn"
-        },
-        {
-            "code": "失语",
-            "name": "失语",
-            "pinyin": "sy"
-        },
-        {
-            "code": "其他",
-            "name": "其他",
-            "pinyin": "qt"
         }
     ],
     "I001156": [
@@ -2004,73 +2680,6 @@
             "pinyin": "hs"
         }
     ],
-    "I100094": [
-        {
-            "code": "自行进食",
-            "name": "自行进食",
-            "pinyin": "zxjs"
-        },
-        {
-            "code": "协助进食",
-            "name": "协助进食",
-            "pinyin": "xzjs"
-        },
-        {
-            "code": "经鼻胃管",
-            "name": "经鼻胃管",
-            "pinyin": "jbwg"
-        },
-        {
-            "code": "经鼻肠管",
-            "name": "经鼻肠管",
-            "pinyin": "jbcg"
-        },
-        {
-            "code": "胃肠造瘘管",
-            "name": "胃肠造瘘管",
-            "pinyin": "wczlg"
-        },
-        {
-            "code": "普食",
-            "name": "普食",
-            "pinyin": "ps"
-        },
-        {
-            "code": "半流",
-            "name": "半流",
-            "pinyin": "bl"
-        },
-        {
-            "code": "全流",
-            "name": "全流",
-            "pinyin": "ql"
-        },
-        {
-            "code": "禁食",
-            "name": "禁食",
-            "pinyin": "js"
-        },
-        {
-            "code": "母乳喂养",
-            "name": "母乳喂养",
-            "pinyin": "mrwy"
-        },
-        {
-            "code": "混合喂养",
-            "name": "混合喂养",
-            "pinyin": "hhwy"
-        },
-        {
-            "code": "人工喂养",
-            "name": "人工喂养",
-            "pinyin": "rgwy"
-        },
-        {
-            "code": "治疗饮食",
-            "name": "治疗饮食",
-            "pinyin": "zlys"
-        }
-    ],
     "I001216": [
         {
             "code": "无",
@@ -2218,85 +2827,26 @@
             "pinyin": "ek"
         }
     ],
-    "I001352": [
-        {
-            "code": "末次月经",
-            "name": "末次月经",
-            "pinyin": "mcyj"
-        },
-        {
-            "code": "绝经",
-            "name": "绝经",
-            "pinyin": "jj"
-        },
-        {
-            "code": "哺乳期",
-            "name": "哺乳期",
-            "pinyin": "brq"
-        },
-        {
-            "code": "其他",
-            "name": "其他",
-            "pinyin": "qt"
-        },
-        {
-            "code": "无",
-            "name": "无",
-            "pinyin": "w"
-        }
-    ],
-    "I001355": [
-        {
-            "code": "痛经",
-            "name": "痛经",
-            "pinyin": "tj"
-        },
-        {
-            "code": "未来潮",
-            "name": "未来潮",
-            "pinyin": "wlc"
-        },
-        {
-            "code": "闭经",
-            "name": "闭经",
-            "pinyin": "bj"
-        },
-        {
-            "code": "其他",
-            "name": "其他",
-            "pinyin": "qt"
-        }
-    ],
-    "I001357": [
+    "I001821": [
         {
             "code": "无",
             "name": "无",
             "pinyin": "w"
         },
         {
-            "code": "药物",
-            "name": "药物",
-            "pinyin": "yw"
+            "code": "顺产",
+            "name": "顺产",
+            "pinyin": "sc"
         },
         {
-            "code": "上环",
-            "name": "上环",
-            "pinyin": "sh"
+            "code": "剖宫产",
+            "name": "剖宫产",
+            "pinyin": "pgc"
         },
         {
-            "code": "结扎",
-            "name": "结扎",
-            "pinyin": "jz"
-        },
-        {
-            "code": "避孕套",
-            "name": "避孕套",
-            "pinyin": "byt"
-        },
-        {
-            "code": "安全期",
-            "name": "安全期",
-            "pinyin": "aqq"
+            "code": "阴道助产",
+            "name": "阴道助产",
+            "pinyin": "ydzc"
         },
         {
             "code": "其他",
@@ -2304,33 +2854,171 @@
             "pinyin": "qt"
         }
     ],
-    "I001366": [
+    "I001836": [
         {
-            "code": "是",
-            "name": "是",
-            "pinyin": "s"
+            "code": "未开",
+            "name": "未开",
+            "pinyin": "wk"
         },
         {
-            "code": "否",
-            "name": "否",
-            "pinyin": "f"
+            "code": "开大",
+            "name": "开大",
+            "pinyin": "kd"
         }
     ],
-    "I001367": [
+    "I001839": [
+        {
+            "code": "无",
+            "name": "无",
+            "pinyin": "w"
+        },
+        {
+            "code": "有",
+            "name": "有",
+            "pinyin": "y"
+        }
+    ],
+    "I001840": [
+        {
+            "code": "不规则",
+            "name": "不规则",
+            "pinyin": "bgz"
+        },
+        {
+            "code": "规则",
+            "name": "规则",
+            "pinyin": "gz"
+        }
+    ],
+    "I001841": [
+        {
+            "code": "无",
+            "name": "无",
+            "pinyin": "w"
+        },
+        {
+            "code": "有",
+            "name": "有",
+            "pinyin": "y"
+        }
+    ],
+    "I001844": [
+        {
+            "code": "未破",
+            "name": "未破",
+            "pinyin": "wp"
+        },
+        {
+            "code": "已破",
+            "name": "已破",
+            "pinyin": "yp"
+        }
+    ],
+    "I001846": [
+        {
+            "code": "清",
+            "name": "清",
+            "pinyin": "q"
+        },
+        {
+            "code": "未见",
+            "name": "未见",
+            "pinyin": "wj"
+        },
+        {
+            "code": "不详",
+            "name": "不详",
+            "pinyin": "bx"
+        },
+        {
+            "code": "混浊",
+            "name": "混浊",
+            "pinyin": "hz"
+        },
+        {
+            "code": "Ⅰ",
+            "name": "Ⅰ",
+            "pinyin": ""
+        },
+        {
+            "code": "Ⅱ",
+            "name": "Ⅱ",
+            "pinyin": ""
+        },
+        {
+            "code": "Ⅲ",
+            "name": "Ⅲ",
+            "pinyin": ""
+        }
+    ],
+    "I001847": [
+        {
+            "code": "无",
+            "name": "无",
+            "pinyin": "w"
+        },
+        {
+            "code": "有",
+            "name": "有",
+            "pinyin": "y"
+        }
+    ],
+    "I001848": [
+        {
+            "code": "少许",
+            "name": "少许",
+            "pinyin": "sx"
+        },
+        {
+            "code": "月经量",
+            "name": "月经量",
+            "pinyin": "yjl"
+        },
+        {
+            "code": "多于月经量",
+            "name": "多于月经量",
+            "pinyin": "dyyjl"
+        }
+    ],
+    "I001855": [
         {
             "code": "正常",
             "name": "正常",
             "pinyin": "zc"
         },
         {
-            "code": "方颅",
-            "name": "方颅",
-            "pinyin": "fl"
+            "code": "异常",
+            "name": "异常",
+            "pinyin": "yc"
+        }
+    ],
+    "I001856": [
+        {
+            "code": "无",
+            "name": "无",
+            "pinyin": "w"
         },
         {
-            "code": "枕秃",
-            "name": "枕秃",
-            "pinyin": "zt"
+            "code": "有",
+            "name": "有",
+            "pinyin": "y"
+        }
+    ],
+    "I001857": [
+        {
+            "code": "掌握",
+            "name": "掌握",
+            "pinyin": "zw"
+        },
+        {
+            "code": "部分掌握",
+            "name": "部分掌握",
+            "pinyin": "bfzw"
+        },
+        {
+            "code": "未掌握",
+            "name": "未掌握",
+            "pinyin": "wzw"
         },
         {
             "code": "其他",
@@ -2338,33 +3026,119 @@
             "pinyin": "qt"
         }
     ],
-    "I001369": [
-        {
-            "code": "已闭",
-            "name": "已闭",
-            "pinyin": "yb"
-        },
-        {
-            "code": "未闭",
-            "name": "未闭",
-            "pinyin": "wb"
-        }
-    ],
-    "I001372": [
+    "I001860": [
         {
             "code": "正常",
             "name": "正常",
             "pinyin": "zc"
         },
         {
-            "code": "肋骨串珠",
-            "name": "肋骨串珠",
-            "pinyin": "lgcz"
+            "code": "产瘤",
+            "name": "产瘤",
+            "pinyin": "cl"
         },
         {
-            "code": "肋膈沟",
-            "name": "肋膈沟",
-            "pinyin": "lgg"
+            "code": "血肿",
+            "name": "血肿",
+            "pinyin": "xz"
+        },
+        {
+            "code": "包块",
+            "name": "包块",
+            "pinyin": "bk"
+        },
+        {
+            "code": "部位",
+            "name": "部位",
+            "pinyin": "bw"
+        }
+    ],
+    "I001865": [
+        {
+            "code": "平软",
+            "name": "平软",
+            "pinyin": "pr"
+        },
+        {
+            "code": "饱满",
+            "name": "饱满",
+            "pinyin": "bm"
+        },
+        {
+            "code": "凹陷",
+            "name": "凹陷",
+            "pinyin": "ax"
+        }
+    ],
+    "I001866": [
+        {
+            "code": "正常",
+            "name": "正常",
+            "pinyin": "zc"
+        },
+        {
+            "code": "眼结膜充血",
+            "name": "眼结膜充血",
+            "pinyin": "yjmcx"
+        },
+        {
+            "code": "眼部分泌物",
+            "name": "眼部分泌物",
+            "pinyin": "ybfmw"
+        },
+        {
+            "code": "眼缺如",
+            "name": "眼缺如",
+            "pinyin": "yqr"
+        }
+    ],
+    "I001867": [
+        {
+            "code": "正常",
+            "name": "正常",
+            "pinyin": "zc"
+        },
+        {
+            "code": "唇裂",
+            "name": "唇裂",
+            "pinyin": "cl"
+        },
+        {
+            "code": "唇腭裂",
+            "name": "唇腭裂",
+            "pinyin": "cel"
+        },
+        {
+            "code": "溃疡",
+            "name": "溃疡",
+            "pinyin": "ky"
+        },
+        {
+            "code": "疱症",
+            "name": "疱症",
+            "pinyin": "pz"
+        },
+        {
+            "code": "出血点",
+            "name": "出血点",
+            "pinyin": "cxd"
+        },
+        {
+            "code": "鹅口疮",
+            "name": "鹅口疮",
+            "pinyin": "ekc"
+        },
+        {
+            "code": "其他",
+            "name": "其他",
+            "pinyin": "qt"
+        }
+    ],
+    "I001869": [
+        {
+            "code": "正常",
+            "name": "正常",
+            "pinyin": "zc"
         },
         {
             "code": "漏斗胸",
@@ -2372,12 +3146,22 @@
             "pinyin": "ldx"
         },
         {
+            "code": "隆起",
+            "name": "隆起",
+            "pinyin": "lq"
+        },
+        {
+            "code": "不对称",
+            "name": "不对称",
+            "pinyin": "bdc"
+        },
+        {
             "code": "其他",
             "name": "其他",
             "pinyin": "qt"
         }
     ],
-    "I001373": [
+    "I001871": [
         {
             "code": "平顺",
             "name": "平顺",
@@ -2389,9 +3173,9 @@
             "pinyin": "jc"
         },
         {
-            "code": "浅促",
-            "name": "浅促",
-            "pinyin": "qc"
+            "code": "浅弱",
+            "name": "浅弱",
+            "pinyin": "qr"
         },
         {
             "code": "暂停",
@@ -2404,8 +3188,8 @@
             "pinyin": "saz"
         },
         {
-            "code": "鼻翼煽动",
-            "name": "鼻翼煽动",
+            "code": "鼻翼扇动",
+            "name": "鼻翼扇动",
             "pinyin": "bysd"
         },
         {
@@ -2414,43 +3198,21 @@
             "pinyin": "sy"
         },
         {
-            "code": "呼吸受限",
-            "name": "呼吸受限",
-            "pinyin": "hxsx"
-        },
-        {
-            "code": "其他",
-            "name": "其他",
-            "pinyin": "qt"
+            "code": "无",
+            "name": "无",
+            "pinyin": "w"
         }
     ],
-    "I001374": [
+    "I001872": [
         {
-            "code": "左",
-            "name": "左",
-            "pinyin": "z"
+            "code": "无",
+            "name": "无",
+            "pinyin": "w"
         },
-        {
-            "code": "右",
-            "name": "右",
-            "pinyin": "y"
-        }
-    ],
-    "I001375": [
         {
             "code": "流涕",
             "name": "流涕",
             "pinyin": "lt"
-        },
-        {
-            "code": "气喘",
-            "name": "气喘",
-            "pinyin": "qc"
-        },
-        {
-            "code": "吐沫",
-            "name": "吐沫",
-            "pinyin": "tm"
         },
         {
             "code": "咳嗽",
@@ -2468,11 +3230,28 @@
             "pinyin": "qt"
         }
     ],
-    "I001377": [
+    "I001875": [
+        {
+            "code": "齐",
+            "name": "齐",
+            "pinyin": "q"
+        },
+        {
+            "code": "不齐",
+            "name": "不齐",
+            "pinyin": "bq"
+        }
+    ],
+    "I001876": [
         {
             "code": "平软",
             "name": "平软",
             "pinyin": "pr"
+        },
+        {
+            "code": "凹陷",
+            "name": "凹陷",
+            "pinyin": "ax"
         },
         {
             "code": "膨隆",
@@ -2480,380 +3259,114 @@
             "pinyin": "pl"
         },
         {
-            "code": "肌紧张",
-            "name": "肌紧张",
-            "pinyin": "jjz"
+            "code": "肠型",
+            "name": "肠型",
+            "pinyin": "cx"
         },
         {
-            "code": "腹痛",
-            "name": "腹痛",
-            "pinyin": "ft"
+            "code": "静脉怒张、潮红",
+            "name": "静脉怒张、潮红",
+            "pinyin": "jmnz、ch"
         },
         {
-            "code": "疝气",
-            "name": "疝气",
-            "pinyin": "sq"
+            "code": "糜烂",
+            "name": "糜烂",
+            "pinyin": "ml"
         },
         {
-            "code": "其他",
-            "name": "其他",
-            "pinyin": "qt"
+            "code": "破损",
+            "name": "破损",
+            "pinyin": "ps"
         }
     ],
-    "I001451": [
+    "I001877": [
         {
-            "code": "已完成",
-            "name": "已完成",
-            "pinyin": "ywc"
+            "code": "干燥",
+            "name": "干燥",
+            "pinyin": "gz"
         },
         {
-            "code": "未完成",
-            "name": "未完成",
-            "pinyin": "wwc"
-        }
-    ],
-    "I001452": [
-        {
-            "code": "女儿",
-            "name": "女儿",
-            "pinyin": "ne"
+            "code": "渗血",
+            "name": "渗血",
+            "pinyin": "sx"
         },
         {
-            "code": "儿子",
-            "name": "儿子",
-            "pinyin": "ez"
+            "code": "渗液",
+            "name": "渗液",
+            "pinyin": "sy"
         },
         {
-            "code": "父亲",
-            "name": "父亲",
-            "pinyin": "fq"
-        },
-        {
-            "code": "母亲",
-            "name": "母亲",
-            "pinyin": "mq"
-        },
-        {
-            "code": "爷爷",
-            "name": "爷爷",
-            "pinyin": "yy"
-        },
-        {
-            "code": "奶奶",
-            "name": "奶奶",
-            "pinyin": "nn"
-        },
-        {
-            "code": "配偶",
-            "name": "配偶",
-            "pinyin": "po"
-        },
-        {
-            "code": "亲戚",
-            "name": "亲戚",
-            "pinyin": "qq"
-        },
-        {
-            "code": "朋友?",
-            "name": "朋友?",
-            "pinyin": "py"
-        },
-        {
-            "code": "患者",
-            "name": "患者",
+            "code": "红肿",
+            "name": "红肿",
             "pinyin": "hz"
+        },
+        {
+            "code": "脐疝",
+            "name": "脐疝",
+            "pinyin": "qs"
+        },
+        {
+            "code": "脐膨出",
+            "name": "脐膨出",
+            "pinyin": "qpc"
         }
     ],
-    "I001453": [
+    "I001878": [
         {
-            "code": "讲解",
-            "name": "讲解",
-            "pinyin": "jj"
+            "code": "已脱",
+            "name": "已脱",
+            "pinyin": "yt"
         },
         {
-            "code": "示范",
-            "name": "示范",
-            "pinyin": "sf"
-        },
-        {
-            "code": "视频",
-            "name": "视频",
-            "pinyin": "sp"
-        },
-        {
-            "code": "免费资料",
-            "name": "免费资料",
-            "pinyin": "mfzl"
-        },
-        {
-            "code": "讨论",
-            "name": "讨论",
-            "pinyin": "tl"
+            "code": "未脱",
+            "name": "未脱",
+            "pinyin": "wt"
         }
     ],
-    "I001454": [
+    "I001879": [
         {
-            "code": "能接受",
-            "name": "能接受",
-            "pinyin": "njs"
+            "code": "正常",
+            "name": "正常",
+            "pinyin": "zc"
         },
         {
-            "code": "不能接受",
-            "name": "不能接受",
-            "pinyin": "bnjs"
-        },
-        {
-            "code": "语言障碍",
-            "name": "语言障碍",
-            "pinyin": "yyza"
-        },
-        {
-            "code": "文化差异",
-            "name": "文化差异",
-            "pinyin": "whcy"
-        },
-        {
-            "code": "教育水平低",
-            "name": "教育水平低",
-            "pinyin": "jyspd"
-        },
-        {
-            "code": "听力障碍",
-            "name": "听力障碍",
-            "pinyin": "tlza"
+            "code": "闭锁",
+            "name": "闭锁",
+            "pinyin": "bs"
         }
     ],
-    "I001501": [
+    "I001880": [
         {
-            "code": "住院须知",
-            "name": "住院须知",
-            "pinyin": "zyxz"
+            "code": "正常",
+            "name": "正常",
+            "pinyin": "zc"
         },
         {
-            "code": "物品管理",
-            "name": "物品管理",
-            "pinyin": "wpgl"
+            "code": "潮红",
+            "name": "潮红",
+            "pinyin": "ch"
         },
         {
-            "code": "作息",
-            "name": "作息",
-            "pinyin": "zx"
+            "code": "糜烂",
+            "name": "糜烂",
+            "pinyin": "ml"
         },
         {
-            "code": "探陪",
-            "name": "探陪",
-            "pinyin": "tp"
-        },
-        {
-            "code": "订餐",
-            "name": "订餐",
-            "pinyin": "dc"
-        },
-        {
-            "code": "介绍主管医生",
-            "name": "介绍主管医生",
-            "pinyin": "jszgys"
-        },
-        {
-            "code": "介绍主管护士",
-            "name": "介绍主管护士",
-            "pinyin": "jszghs"
-        },
-        {
-            "code": "住院押金管理",
-            "name": "住院押金管理",
-            "pinyin": "zyyjgl"
-        },
-        {
-            "code": "体温计管理",
-            "name": "体温计管理",
-            "pinyin": "twjgl"
-        },
-        {
-            "code": "社保管理",
-            "name": "社保管理",
-            "pinyin": "sbgl"
-        },
-        {
-            "code": "其他",
-            "name": "其他",
-            "pinyin": "qt"
+            "code": "破损",
+            "name": "破损",
+            "pinyin": "ps"
         }
     ],
-    "I001551": [
+    "I001881": [
         {
-            "code": "协助漱口",
-            "name": "协助漱口",
-            "pinyin": "xzsk"
+            "code": "无",
+            "name": "无",
+            "pinyin": "w"
         },
         {
-            "code": "指导∕协助刷牙",
-            "name": "指导∕协助刷牙",
-            "pinyin": "zd∕xzsy"
-        },
-        {
-            "code": "口腔护理",
-            "name": "口腔护理",
-            "pinyin": "kqhl"
-        },
-        {
-            "code": "面部清洁",
-            "name": "面部清洁",
-            "pinyin": "mbqj"
-        },
-        {
-            "code": "协助沐浴",
-            "name": "协助沐浴",
-            "pinyin": "xzmy"
-        },
-        {
-            "code": "床上擦浴",
-            "name": "床上擦浴",
-            "pinyin": "cscy"
-        },
-        {
-            "code": "床上洗头",
-            "name": "床上洗头",
-            "pinyin": "csxt"
-        },
-        {
-            "code": "梳头",
-            "name": "梳头",
-            "pinyin": "st"
-        },
-        {
-            "code": "会阴清洁/消毒",
-            "name": "会阴清洁/消毒",
-            "pinyin": "hyqj/xd"
-        },
-        {
-            "code": "足部清洁",
-            "name": "足部清洁",
-            "pinyin": "zbqj"
-        },
-        {
-            "code": "协助更衣",
-            "name": "协助更衣",
-            "pinyin": "xzgy"
-        },
-        {
-            "code": "协助进食/水",
-            "name": "协助进食/水",
-            "pinyin": "xzjs/s"
-        },
-        {
-            "code": "协助翻身/有效咳嗽",
-            "name": "协助翻身/有效咳嗽",
-            "pinyin": "xzfs/yxks"
-        },
-        {
-            "code": "协助床上移动",
-            "name": "协助床上移动",
-            "pinyin": "xzcsyd"
-        },
-        {
-            "code": "帮助/协助使用便器",
-            "name": "帮助/协助使用便器",
-            "pinyin": "bz/xzsybq"
-        },
-        {
-            "code": "留置尿管护理",
-            "name": "留置尿管护理",
-            "pinyin": "lznghl"
-        },
-        {
-            "code": "指/趾甲护理",
-            "name": "指/趾甲护理",
-            "pinyin": "z/zjhl"
-        },
-        {
-            "code": "臀部护理",
-            "name": "臀部护理",
-            "pinyin": "tbhl"
-        },
-        {
-            "code": "其他",
-            "name": "其他",
-            "pinyin": "qt"
-        }
-    ],
-    "I001553": [
-        {
-            "code": "排痰护理",
-            "name": "排痰护理",
-            "pinyin": "pthl"
-        },
-        {
-            "code": "高热护理",
-            "name": "高热护理",
-            "pinyin": "grhl"
-        },
-        {
-            "code": "留置针护理",
-            "name": "留置针护理",
-            "pinyin": "lzzhl"
-        },
-        {
-            "code": "惊厥护理",
-            "name": "惊厥护理",
-            "pinyin": "jjhl"
-        },
-        {
-            "code": "尿管护理",
-            "name": "尿管护理",
-            "pinyin": "nghl"
-        },
-        {
-            "code": "其他",
-            "name": "其他",
-            "pinyin": "qt"
-        }
-    ],
-    "I001555": [
-        {
-            "code": "安全转运护理",
-            "name": "安全转运护理",
-            "pinyin": "aqzyhl"
-        },
-        {
-            "code": "防跌倒/坠床护理",
-            "name": "防跌倒/坠床护理",
-            "pinyin": "fdd/zchl"
-        },
-        {
-            "code": "防烫伤护理",
-            "name": "防烫伤护理",
-            "pinyin": "ftshl"
-        },
-        {
-            "code": "防走失护理",
-            "name": "防走失护理",
-            "pinyin": "fzshl"
-        },
-        {
-            "code": "安全约束护理",
-            "name": "安全约束护理",
-            "pinyin": "aqyshl"
-        },
-        {
-            "code": "入院护理",
-            "name": "入院护理",
-            "pinyin": "ryhl"
-        },
-        {
-            "code": "出院护理",
-            "name": "出院护理",
-            "pinyin": "cyhl"
-        },
-        {
-            "code": "防呛噎护理",
-            "name": "防呛噎护理",
-            "pinyin": "fqyhl"
-        },
-        {
-            "code": "其他",
-            "name": "其他",
-            "pinyin": "qt"
+            "code": "有",
+            "name": "有",
+            "pinyin": "y"
         }
     ],
     "I001002": [
@@ -3173,5 +3686,37 @@
             "code": "学生离退休等无职业人员",
             "name": "学生离退休等无职业人员"
         }
-    ]
+    ],
+    "I001835":[
+        {
+          "code": "LOA",
+          "name": "LOA",
+          "pinyin": ""
+        },
+        {
+          "code": "ROA",
+          "name": "ROA",
+          "pinyin": ""
+        },
+        {
+          "code": "LSA",
+          "name": "LSA",
+          "pinyin": ""
+        },
+        {
+          "code": "RSA",
+          "name": "RSA",
+          "pinyin": ""
+        },
+        {
+          "code": "LSCA",
+          "name": "LSCA",
+          "pinyin": ""
+        },
+        {
+          "code": "RSCA",
+          "name": "RSCA",
+          "pinyin": ""
+        }
+      ]
 }

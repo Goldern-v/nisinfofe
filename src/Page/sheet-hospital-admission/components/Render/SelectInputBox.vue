@@ -206,9 +206,11 @@ export default {
                 r.dialog.cleanKeyDiff !== valueNew)
             ) {
               /** 清空 */
-              let obj = this.formObj.dialogs.find(
-                f => f.title == r.dialog.title
-              );
+              // let obj = this.formObj.dialogs.find(
+              //   f => f.title == r.dialog.title
+              // );
+              let obj = this.formObj.dialogs[r.dialog.title]||null;
+
               if (obj && obj.children) {
                 obj.children.forEach(item => {
                   this.formObj.model[item.name] = "";

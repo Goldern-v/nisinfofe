@@ -13,7 +13,7 @@
     >
       <!-- html -->
       <!-- <FormGroupTitle :obj="child" :formObj="formObj"/> -->
-      <!-- <FormGroupHR :obj="child" :formObj="formObj"/> -->
+      <FormGroupHR :obj="child" :formObj="formObj"/>
       <FormGroupHTML :obj="child" :formObj="formObj"/>
       <!-- <FormGroupVerticalBox :obj="child" :formObj="formObj"/> -->
       <!-- <FormGroupHorizontalBox :obj="child" :formObj="formObj"/> -->
@@ -135,7 +135,7 @@
       <!-- <el-input v-if="child.type==='input'"  placeholder="" v-model="formObj.model[child.name]" :class="child.class||''" :style="child.style||''" size="small" @click.native.stop="inputClick($event, child)" ><template v-if="child.title" slot="prepend">{{child.title}}</template></el-input>{{child.name}} -->
 
       <!-- 日期 -->
-      <DatePicker v-if="child.type==='datePicker'" :obj="child" :formObj="formObj"/>
+      <DatePicker v-if="['datePicker','dateTime'].indexOf(child.type)>-1" :obj="child" :formObj="formObj"/>
 
       <!-- 备注 -->
       <Mark v-if="child.type==='mark'" :obj="child" :formObj="formObj" :col="col"/>
@@ -149,6 +149,7 @@
           :class="child.class"
           :col="col"
         />
+
       </span>
       <!-- <span>{{child.dialog && child.dialog.title}}</span> -->
       <!-- <span class="tip" v-if="getOtherText(child)">{{ getOtherText(child)}}</span> -->
@@ -170,6 +171,9 @@
       </el-tooltip>
       <!-- <span>{{dialogResult(child).isShow}}</span> -->
     </span>
+
+
+
   </span>
 </template>
 
@@ -179,7 +183,7 @@ import uuid from "node-uuid";
 
 import FormGroupHTML from "./FormGroupHTML";
 // import FormGroupTitle from "./FormGroupTitle";
-// import FormGroupHR from "./FormGroupHR";
+import FormGroupHR from "./FormGroupHR";
 // import FormGroupHorizontalBox from "./FormGroupHorizontalBox";
 // import FormGroupVerticalBox from "./FormGroupVerticalBox";
 // import FormGroupColBox from "./FormGroupColBox";
@@ -210,7 +214,7 @@ export default {
   components: {
     FormGroupHTML,
     // FormGroupTitle,
-    // FormGroupHR,
+    FormGroupHR,
     // FormGroupHorizontalBox,
     // FormGroupVerticalBox,
     // FormGroupColBox,
@@ -358,10 +362,13 @@ export default {
           if (d) {
             let title = d.title || d.dialog.title || "";
             // console.log("!!!==!!!", title, d, d.parentName, child);
-            let obj = this.formObj.dialogs.find(
-              item =>
-                (item.title || item.formSetting.formTitle.formName) === title
-            );
+            // let obj = this.formObj.dialogs.find(
+            //   item =>
+            //     (item.title || item.formSetting.formTitle.formName) === title
+            // );
+
+            let obj = this.formObj.dialogs[title];
+
             if (obj) {
               if (obj.formSetting) {
                 title = obj.formSetting.formTitle.formName;

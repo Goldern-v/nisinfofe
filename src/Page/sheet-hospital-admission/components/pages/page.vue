@@ -106,6 +106,7 @@ export default {
       let file = JSON.parse(
         JSON.stringify(require("../data/入院评估.form.json"))
       );
+      let title = "";
       try {
         file.formSetting.formTitle.hospitalName = this.HOSPITAL_NAME;
       } catch (error) {}
@@ -155,9 +156,16 @@ export default {
           this.setPatientInfo(djson, patient);
         }
         if (djson.constructor === Array) {
-          file.dialogs.push(...djson);
+          // file.dialogs.push(...djson);
+          djson.map(d => {
+                title = d.title;
+                if (title) {
+                  file.dialogs[title] = { ...d };
+                }
+              });
         } else {
-          file.dialogs.push(djson);
+          // file.dialogs.push(djson);
+          file.dialogs[title + ""] = JSON.parse(JSON.stringify(djson));
         }
       });
 

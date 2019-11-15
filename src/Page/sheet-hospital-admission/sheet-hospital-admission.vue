@@ -131,6 +131,16 @@ export default {
       // } else {
       //   return this.wih + 0 + "px";
       // }
+      let c=[]
+      for (const key in a) {
+        if (a.hasOwnProperty(key)) {
+          // console.log(a[key],key)
+          if(a[key] && b[key] && a[key].length!=b[key].length){
+            console.log(key)
+            c=[...c,key]
+          }
+        }
+      }
     },
     patientInfo() {
       return this.$store.state.sheet.patientInfo;

@@ -120,9 +120,10 @@ export default {
         this.showConToolBar = data.showConToolBar;
       }
       this.formVersion = 0;
+      let newFormList = ['form_in_patients','inPatients']
       if (
         (data.hasOwnProperty("formVersion") && data.formVersion == 2) ||
-        data.nooForm == 2
+        data.nooForm == 2 || newFormList.indexOf(data.fromCode)>-1
       ) {
         this.formVersion = data.formVersion;
         this.showConToolBar = false;
