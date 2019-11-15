@@ -93,7 +93,7 @@ export default {
         this.title,
         this.content,
         this.id,
-        this.deptCode||this.deptENName
+        this.deptENName
       ).then(res => {
         if (this.id) {
           this.$message.success("更新常用语模版成功");
