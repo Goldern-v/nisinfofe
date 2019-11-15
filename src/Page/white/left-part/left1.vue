@@ -9,14 +9,21 @@
         >
           <lineBox :dataKey="`${item.name}`" :keyStyle="keyStyle" v-if="item.customItem">
             <span slot="value-con">
-              <el-input
-                type="textarea"
-                class="customItem-input"
-                autosize
-                placeholder="请输入内容"
-                v-model="item.configureValue"
-                @blur="updateBoardConfigure(item.name,item.configureValue, item)"
-              ></el-input>
+              <div class="save-con">
+                <el-input
+                  type="textarea"
+                  class="customItem-input"
+                  autosize
+                  placeholder="请输入内容"
+                  v-model="item.configureValue"
+                ></el-input>
+                <el-button
+                  @click="updateBoardConfigure(item.name,item.configureValue, item)"
+                  size="mini"
+                  type="primary"
+                  :disabled="_whiteBoardDtos[key].configureValue == item.configureValue"
+                >保存</el-button>
+              </div>
             </span>
           </lineBox>
           <lineBox
@@ -78,6 +85,20 @@
     resize: none;
   }
 }
+
+.save-con {
+  padding-right: 80px;
+  position: relative;
+
+  button {
+    position: absolute;
+    right: 10px;
+    top: 0;
+    bottom: 0;
+    margin: auto 0;
+    height: 30px;
+  }
+}
 </style>
 <script>
 import boxBase from "../base/box-base.vue";
@@ -99,6 +120,7 @@ export default {
       bus: bus(this),
       pageLoading: false,
       whiteBoardDtos: [],
+      _whiteBoardDtos: [],
       boardConfigures: [],
       keyStyle: {
         textAlign: "left",
@@ -116,6 +138,9 @@ export default {
       this.pageLoading = true;
       getWardLog(this.deptCode).then(res => {
         this.whiteBoardDtos = res.data.data[0].whiteBoardDtos;
+        this._whiteBoardDtos = JSON.parse(
+          JSON.stringify(res.data.data[0].whiteBoardDtos)
+        );
         this.boardConfigures = res.data.data[0].boardConfigures;
         this.pageLoading = false;
       });
@@ -157,8 +182,9 @@ export default {
         deptCode: this.deptCode
       };
       updateBoardConfigure(data).then(res => {
-        // this.$message.success('保存成功')
-        td.configureValue = res.data.data[0].configureValue;
+        this.$message.success("保存成功");
+        this.getData();
+        // td.configureValue = res.data.data[0].configureValue;
       });
     },
     showOrderType(option, item) {
