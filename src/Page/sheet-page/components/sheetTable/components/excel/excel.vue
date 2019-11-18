@@ -242,19 +242,23 @@ export default {
       onBlurToAutoComplete(e, bind);
     },
     setTitle(item) {
-      this.$parent.$parent.$refs.sheetTool.$refs.setTitleModal.open(title => {
-        let data = {
-          patientId: this.patientInfo.patientId,
-          visitId: this.patientInfo.visitId,
-          pageIndex: this.index,
-          fieldEn: item.key,
-          fieldCn: title,
-          recordCode: sheetInfo.sheetType
-        };
-        saveTitle(data).then(res => {
-          item.name = title;
-        });
-      }, item.name);
+      this.$parent.$parent.$refs.sheetTool.$refs.setTitleModal.open(
+        title => {
+          let data = {
+            patientId: this.patientInfo.patientId,
+            visitId: this.patientInfo.visitId,
+            pageIndex: this.index,
+            fieldEn: item.key,
+            fieldCn: title,
+            recordCode: sheetInfo.sheetType
+          };
+          saveTitle(data).then(res => {
+            item.name = title;
+          });
+        },
+        item.name,
+        item
+      );
     },
     addNullRow(index, row) {
       let newRow = nullRow();

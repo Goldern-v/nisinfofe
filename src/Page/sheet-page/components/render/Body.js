@@ -244,7 +244,7 @@ function switechSheetType(type) {
       break;
     case "intensive_care_wx":
       {
-        // 威县-脑外科重症监护单 
+        // 威县-脑外科重症监护单
         schema = require("../config/intensive_care_wx/tr.js").default;
       }
       break;
@@ -252,6 +252,12 @@ function switechSheetType(type) {
       {
         // 威县-CCU监护单（心血管内科）
         schema = require("../config/ccu_wx/tr.js").default;
+      }
+      break;
+    case "cpr":
+      {
+        // cpr心肺复苏单（心血管内科）
+        schema = require("../config/cpr/tr.js").default;
       }
       break;
     default: {
