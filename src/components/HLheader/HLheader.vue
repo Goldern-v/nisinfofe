@@ -662,11 +662,11 @@ export default {
   },
   computed: {
     deptCode() {
-       if (
+      if (
         this.$route.path.includes("/deliveryRoomWhiteboard") ||
         this.$route.path.includes("/familyBigScreen")
       ) {
-        if(this.$store.state.lesion.deptCode != "051102_01"){
+        if (this.$store.state.lesion.deptCode != "051102_01") {
           this.$router.push("/index");
         }
       }
@@ -782,6 +782,8 @@ export default {
             this.mewsMd5 = frameData.md5;
             if (
               !WebSocketService.isInMd5List(frameData.md5) &&
+              frameData.dangerMewsPatientList &&
+              frameData.dangerMewsPatientList.length &&
               this.$route.path != "/MEWS"
             ) {
               this.isTip = true;
