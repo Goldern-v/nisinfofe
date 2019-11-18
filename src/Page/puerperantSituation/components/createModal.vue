@@ -245,6 +245,9 @@ export default {
             let newParams = {...finallParams}
             let formCode = 'form_childbirth'
 
+            //高危情况
+            let bfzhhbz_explain = re2From[`${formCode}_bfzhhbz_explain`]
+
             //破膜时间
             let tmpl_explain = re2From[`${formCode}_tmpl_explain`]
             //胎膜破裂
@@ -326,6 +329,7 @@ export default {
               birthAttendantId1: deliver_empno,
               birthAttendantName2: deliver2,
               birthAttendantId2: deliver2_empno,
+              dangerousSituation: bfzhhbz_explain
             }
 
             finallParams = newParams
