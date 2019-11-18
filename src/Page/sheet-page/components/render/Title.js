@@ -265,6 +265,14 @@ export default function Title(data = [], autoData = [], index) {
         );
       }
       break;
+    case "cpr":
+      {
+        // cpr心肺复苏单（心血管内科）
+        Th = JSON.parse(
+          JSON.stringify(require("../config/cpr/th").default)
+        );
+      }
+      break;
     default: {
       Th = JSON.parse(JSON.stringify(require("../config/default/th").default));
     }

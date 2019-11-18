@@ -2,7 +2,7 @@ export default {
   // 科室的名称
   deptType: '',
   th: {
-    top: [
+    top0: [
       {
         name: '日期',
         style: {
@@ -10,7 +10,7 @@ export default {
           maxWidth: '36px',
         },
         colspan: '1',
-        rowspan: '3'
+        rowspan: '4'
       },
       {
         name: '时间',
@@ -19,8 +19,53 @@ export default {
           maxWidth: '36px',
         },
         colspan: '1',
-        rowspan: '3'
+        rowspan: '4'
       },
+      {
+        name: `
+        生命体征项目
+        `,
+        style: {},
+        colspan: '10',
+        rowspan: '1',
+      },
+      {
+        name: `
+        抢救措施
+        `,
+        style: {},
+        colspan: '7',
+        rowspan: '1',
+      },
+      {
+        name: `
+        特殊情况记录
+        `,
+        style: {
+          minWidth: '153px',
+          maxWidth: '153px',
+        },
+        colspan: '1',
+        rowspan: '4'
+      },
+      {
+        name: `
+        护士签名
+        `,
+        style: {},
+        colspan: '1',
+        rowspan: '4'
+      },
+      // {
+      //   name: `
+      //   审核签名
+      //   `,
+      //   style: {},
+      //   colspan: '1',
+      //   rowspan: '3'
+      // },
+    ],
+    top: [
       {
         name: `
         T<br/>(℃)
@@ -28,10 +73,6 @@ export default {
         style: {},
         colspan: '1',
         rowspan: '3',
-        style: {
-          whiteSpace: 'nowrap',
-          minWidth: '34px',
-        }
       },
       {
         name: `
@@ -82,39 +123,55 @@ export default {
       },
       {
         name: `
+        SPO<sub>2</sub><br>(%)
+        `,
+        style: {
+          minWidth: '50px',
+          maxWidth: '50px'
+        },
+        colspan: '1',
+        rowspan: '3'
+      },
+      {
+        name: `
         瞳孔
         `,
         style: {},
         colspan: '4',
         rowspan: '1'
       },
+
       {
-        name: `
-        入
-        `,
-        colspan: '2',
-        rowspan: '1',
-        canSet: false,
+        name: `CPR`,
+        style: {},
+        colspan: '1',
+        rowspan: '3',
+        key: 'fieldOne',
       },
       {
-        name: `
-        出
-        `,
-        colspan: '2',
-        rowspan: '1',
-        canSet: false,
+        name: `肾上腺素/iv(mg)`,
+        style: {},
+        colspan: '1',
+        rowspan: '3',
+        key: 'fieldOne',
       },
+      {
+        name: `阿托品/iv(mg)`,
+        style: {},
+        colspan: '1',
+        rowspan: '3',
+        key: 'fieldOne',
+      },
+
       {
         name: `标题1`,
         style: {},
         colspan: '1',
         rowspan: '3',
         canSet: true,
-        key: 'fieldOne',
-        style: {
-          minWidth: '50px',
-          maxWidth: '50px',
-        }
+        key: 'field4',
+
+        titleList: ['心律', '胸闷/心悸', '头晕', '气喘']
       },
       {
         name: `标题2`,
@@ -122,11 +179,9 @@ export default {
         colspan: '1',
         rowspan: '3',
         canSet: true,
-        key: 'fieldTwo',
-        style: {
-          minWidth: '50px',
-          maxWidth: '50px',
-        }
+        key: 'field5',
+
+        titleList: ['心律', '胸闷/心悸', '头晕', '气喘']
       },
       {
         name: `标题3`,
@@ -134,11 +189,9 @@ export default {
         colspan: '1',
         rowspan: '3',
         canSet: true,
-        key: 'fieldThree',
-        style: {
-          minWidth: '37px',
-          maxWidth: '37px',
-        }
+        key: 'field6',
+
+        titleList: ['心律', '胸闷/心悸', '头晕', '气喘']
       },
       {
         name: `标题4`,
@@ -146,63 +199,11 @@ export default {
         colspan: '1',
         rowspan: '3',
         canSet: true,
-        key: 'fieldFour',
-        style: {
-          minWidth: '37px',
-          maxWidth: '37px',
-        }
+        key: 'field7',
+
+        titleList: ['心律', '胸闷/心悸', '头晕', '气喘']
       },
-      {
-        name: `标题5`,
-        style: {},
-        colspan: '1',
-        rowspan: '3',
-        canSet: true,
-        key: 'fieldFive',
-        style: {
-          minWidth: '37px',
-          maxWidth: '37px',
-        }
-      },
-      {
-        name: `标题6`,
-        style: {},
-        colspan: '1',
-        rowspan: '3',
-        canSet: true,
-        key: 'fieldSix',
-        style: {
-          minWidth: '37px',
-          maxWidth: '37px',
-        }
-      },
-      {
-        name: `
-        特殊情况记录
-        `,
-        style: {
-          minWidth: '153px',
-          maxWidth: '153px',
-        },
-        colspan: '1',
-        rowspan: '3'
-      },
-      {
-        name: `
-        护士签名
-        `,
-        style: {},
-        colspan: '1',
-        rowspan: '3'
-      },
-      {
-        name: `
-        审核签名
-        `,
-        style: {},
-        colspan: '1',
-        rowspan: '3'
-      },
+
     ],
     mid: [
       {
@@ -222,51 +223,7 @@ export default {
         colspan: '2',
         rowspan: '1'
       },
-      {
-        name: `
-        名称
-        `,
-        style: {
-          minWidth: '68px',
-          maxWidth: '68px'
-        },
-        colspan: '1',
-        rowspan: '2'
-      },
-      {
-        name: `
-        量<br/>(ml)
-        `,
-        colspan: '1',
-        rowspan: '2',
-        style: {
-          minWidth: '28px',
-          maxWidth: '28px',
-        },
-      },
-      {
-        name: `
-        名称
-        `,
-        style: {
-          minWidth: '40px',
-          maxWidth: '40px'
-        },
-        colspan: '1',
-        rowspan: '2'
-      },
-      {
-        name: `
-        量<br/>(ml)
-        `,
-        colspan: '1',
-        rowspan: '2',
-        style: {
-          minWidth: '28px',
-          maxWidth: '28px',
-          whiteSpace: 'nowrap'
-        },
-      },
+
     ],
     bottom: [
       {
