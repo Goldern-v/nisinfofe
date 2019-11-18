@@ -14,6 +14,7 @@
       v-model="inputValue"
       :id="getUUID()"
       :ref="obj.name"
+      :name="obj.name"
       v-if="['select','selectInput'].indexOf(obj.type)>-1 && !obj.children"
       placeholder="空"
       :class="obj.class||'select-cursor'"
@@ -218,9 +219,11 @@ export default {
               }
               if (obj && obj.body) {
                 obj.body.forEach(b => {
-                  b.children.forEach(item => {
-                    this.formObj.model[item.name] = "";
-                  });
+                  if (b && b.children) {
+                    b.children.forEach(item => {
+                      this.formObj.model[item.name] = "";
+                    });
+                  }
                 });
               }
             }

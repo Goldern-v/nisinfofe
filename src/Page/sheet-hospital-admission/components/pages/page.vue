@@ -165,7 +165,13 @@ export default {
               });
         } else {
           // file.dialogs.push(djson);
-          file.dialogs[title + ""] = JSON.parse(JSON.stringify(djson));
+          // file.dialogs[title + ""] = JSON.parse(JSON.stringify(djson));
+          try {
+            title = djson.formSetting.formTitle.formName;
+            this.setPatientInfo(djson, patient);
+            // file.dialogs.push(djson);
+            file.dialogs[title + ""] = JSON.parse(JSON.stringify(djson));
+          } catch (error) {}
         }
       });
 

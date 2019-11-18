@@ -9,6 +9,7 @@
     <!-- last-version +obj.type.toUpperCase()+obj.title||obj.label-->
     <el-date-picker
       :ref="obj.name"
+      :name="obj.name"
       v-model="datePickerValue"
       :label="obj.title"
       :class="obj.class"

@@ -6,6 +6,7 @@
     <!-- :ref="obj.name+obj.type.toUpperCase()+obj.title||obj.label" -->
     <el-checkbox
       :ref="obj.title||obj.label"
+      :name="obj.name||obj.code"
       v-model="checkboxValue"
       border
       @click.native.stop="checkboxClick"
