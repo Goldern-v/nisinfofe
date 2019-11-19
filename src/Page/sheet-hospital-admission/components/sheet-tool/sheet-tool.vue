@@ -1049,6 +1049,21 @@ export default {
         }
       }
       //
+      // 七、专科护理评估
+      if(missingObj){
+        let keys = Object.keys(missingObj)
+        let deptList = ["妇科",'儿科','产科','新生儿科']
+        let key = '七、专科护理评估'
+        deptList.map(d=>{
+          if(keys.indexOf(d)>-1){
+            if(!missingObj[key]){missingObj[key]=[]}
+            missingObj[key]=[...missingObj[key],...missingObj[d]]
+          }
+        })
+      }
+
+
+      //
       if (
         this.$root.$refs.tableOfContent &&
         this.$root.$refs.tableOfContent.updateMissingItems
@@ -1057,6 +1072,7 @@ export default {
           JSON.parse(JSON.stringify(missingObj))
         );
       }
+      //
       //
       window.formObj.missingItems = JSON.parse(JSON.stringify(missingObj));
       console.log("漏项统计", missingObj);
