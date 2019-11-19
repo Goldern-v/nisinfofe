@@ -119,7 +119,7 @@
           <span
             :class="type(scope.row.orderStatusName)"
             v-show="Number(scope.row.orderSubNo) <= 1"
-          >{{scope.row.startDate}}</span>
+          >{{scope.row.stopDate}}</span>
         </template>
       </el-table-column>
       <el-table-column label="停止医生" min-width="120px" prop="stopDoctor">
