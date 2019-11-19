@@ -10,7 +10,10 @@
     <span class="block" :style="{background: frameData.iconTextRgb}"></span>
     <div class="name" flex-box="1">
       {{item.name}}
-      <span class="red-tip" v-if="isTip && (frameData.iconText != '正常')"></span>
+      <span
+        class="red-tip"
+        v-if="isTip && (frameData.iconText != '正常' && frameData.iconText != '没有评分')"
+      ></span>
     </div>
     <div class="bed">{{item.bedLabel}} 床</div>
   </div>
@@ -21,7 +24,7 @@
   font-size: 13px;
   border-radius: 3px;
   margin: 1px 0;
-  white-space nowrap
+  white-space: nowrap;
 
   .img {
     height: 30px;
