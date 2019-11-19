@@ -10,7 +10,7 @@
       <RenderForm ref="renderForm" :sourceObj="fileJSON" :updateFunc="updateFunc" :lock="locker" />
     </div>
     <div :style="isShow?'display:none':'display:block;backgroud:white;'">
-      <div class="null-img" @click="bus.$emit('createHEvalForm')">
+      <div class="null-img" @click="message=='新建评估单'&&bus.$emit('createHEvalForm')">
         <img src="./image/分组.png" alt />
         <aside>{{message}}</aside>
       </div>
@@ -84,6 +84,9 @@ export default {
       if (typeof config === "object") {
         if (config.hasOwnProperty("status")) {
           this.loading = config.status;
+        }
+        if (config.hasOwnProperty("isShow")) {
+          this.isShow = config.isShow;
         }
         if (config.hasOwnProperty("msg")) {
           this.loadingText = config.msg;

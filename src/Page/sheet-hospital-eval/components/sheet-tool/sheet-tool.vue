@@ -698,7 +698,17 @@ export default {
     this.hotkeyForm();
     //
   },
-  watch: {},
+  watch: {
+    deptCode(){
+      this.selectBlock = {}
+      this.sheetBlockList = []
+      this.$store.commit('upCurrentPatientObj',{})
+      this.bus.$emit("closeHosptialEvalForm");
+      this.bus.$emit("setHosptialEvalLoading", false);
+      this.bus.$emit("setHosptialEvalPageMessage", "请选择左侧患者~");
+      this.$router.push({name:"sheetHospitalEvalPage"})
+    }
+  },
   components: {}
 };
 </script>

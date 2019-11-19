@@ -1397,7 +1397,17 @@ export default {
     // this.$root.$refs.mainPage['formSignOrAudit'] = this.formSignOrAudit
     //
   },
-  watch: {},
+  watch: {
+    deptCode(){
+      this.selectBlock = {}
+      this.sheetBlockList = []
+      this.$store.commit('upCurrentPatientObj',{})
+      this.bus.$emit("closeHosptialAdmissionForm");
+      this.bus.$emit("setHosptialAdmissionLoading", false);
+      this.bus.$emit("setHosptialAdmissionPageMessage", "请选择左侧患者~");
+      this.$router.push({name:"sheetHospitalAdmissionPage"})
+    }
+  },
   components: {}
 };
 </script>

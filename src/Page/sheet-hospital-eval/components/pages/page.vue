@@ -12,7 +12,7 @@
       </keep-alive>
     </div>
     <div :style="isShow?'display:none':'display:block;backgroud:white;'">
-      <div class="null-img" @click="bus.$emit('createHEvalForm')">
+      <div class="null-img" @click="message=='新建评估单'&&bus.$emit('createHEvalForm')">
         <img src="./image/分组.png" alt />
         <aside>{{message}}</aside>
       </div>
