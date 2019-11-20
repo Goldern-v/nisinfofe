@@ -1026,14 +1026,13 @@ export default {
                 //
                 console.log(
                   "漏项",
-                  element,
-                  element.$el,
-                  parent,
-                  parent.obj.title ? parent.obj.title : "",
-                  parent.obj.name,
+                  [element,parent],
+                  [element.$el],
+                  [parent.obj.title ? parent.obj.title : ""],
+                  [parent.obj.name,
                   parent.obj.parentKey,
                   parent.obj,
-                  window.formObj.model[parent.obj.name || parent.obj.parentKey]
+                  window.formObj.model[parent.obj.name || parent.obj.parentKey]]
                 );
 
                 //
