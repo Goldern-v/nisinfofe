@@ -65,12 +65,10 @@ export default {
   mounted() {
     let refName = this.obj.title || this.obj.label; //this.obj.name +this.obj.type.toUpperCase() +(this.obj.title || this.obj.label);
     if (!this.$root.$refs[this.obj.name]) {
-      this.$root.$refs[this.obj.name] = []//new Array();
+      this.$root.$refs[this.obj.name] = []; //new Array();
     }
 
-
     if (this.$refs[refName]) {
-
       // if(this.obj.defaultValue !== undefined && this.obj.defaultValue===true){
       //   // model
       //   this.formObj.model[this.obj.name] = refName
@@ -78,17 +76,13 @@ export default {
       //   this.$refs[refName].model.push(refName)
       //   console.log('this.obj.defaultValue',this.obj.defaultValue,this.obj,this.$refs[refName])
       // }
-      if(this.obj.defaultValue){
-        this.checkboxValue = this.obj.defaultValue
+      if (this.obj.defaultValue) {
+        this.checkboxValue = this.obj.defaultValue;
       }
-      this.$refs[refName]["runTasks"] =this.runTasks
+      this.$refs[refName]["runTasks"] = this.runTasks;
       this.$refs[refName]["childObject"] = this.obj;
       this.$root.$refs[this.obj.name][refName] = this.$refs[refName];
     }
-
-
-
-
   },
   created() {},
   methods: {
@@ -101,10 +95,12 @@ export default {
         return;
       }
 
-
       if (this.$refs[this.refName]) {
-        this.$refs[this.refName].$parent.$parent.$parent.$el.style.outline = "none";
-        this.$refs[this.refName].$parent.$parent.$parent.$el.style.backgroundColor = "transparent";
+        this.$refs[this.refName].$parent.$parent.$parent.$el.style.outline =
+          "none";
+        this.$refs[
+          this.refName
+        ].$parent.$parent.$parent.$el.style.backgroundColor = "transparent";
         // if(this.$root.$refs.mainPage.checkFormMissingItems){
         //   this.$root.$refs.mainPage.checkFormMissingItems()
         // }
@@ -116,11 +112,18 @@ export default {
       //   return;
       // }
       for (const key in rootRefs) {
-        if (rootRefs.hasOwnProperty(key)>-1) {
+        if (rootRefs.hasOwnProperty(key) > -1) {
           let item = rootRefs[key];
-          if(item && typeof(item)=='object'){
+          if (item && typeof item == "object") {
             // , item && item.childObject && item.childObject.title
-            console.log("-----typeof:", typeof(item), item, key, rootRefs,rootRefs[key]);
+            console.log(
+              "-----typeof:",
+              typeof item,
+              item,
+              key,
+              rootRefs,
+              rootRefs[key]
+            );
             // if(item && typeof item.constructor !== 'object'){
             //   continue
             // }
@@ -155,9 +158,9 @@ export default {
       //   this.formObj.selectedItems=[]
       // }
 
-      let index = -1
+      let index = -1;
 
-      if(this.formObj.selectedItems){
+      if (this.formObj.selectedItems) {
         index = this.formObj.selectedItems.findIndex(c => {
           return c.name === this.obj.name && c.title === this.obj.title;
         });
@@ -166,13 +169,13 @@ export default {
           this.formObj.selectedItems = this.formObj.selectedItems.filter(c => {
             return c.name !== this.obj.name;
           });
-          if(this.formObj.selectedItems){
+          if (this.formObj.selectedItems) {
             this.formObj.selectedItems.push(this.obj);
           }
         }
       }
       if (this.$refs[this.obj.title].isChecked) {
-        if(this.formObj.selectedItems){
+        if (this.formObj.selectedItems) {
           this.formObj.selectedItems = this.formObj.selectedItems.filter(c => {
             return c.name !== this.obj.name;
           });
@@ -187,7 +190,7 @@ export default {
       //
       let score = 0;
       // 计算总分
-      if(this.formObj.selectedItems){
+      if (this.formObj.selectedItems) {
         this.formObj.selectedItems.map(item => {
           score += ~~item.score;
         });
@@ -205,12 +208,12 @@ export default {
           this.$root.$refs["evalDesc"].setCurrentValue(textResult);
           this.$root.$refs["evalDesc"].checkValueRule(textResult);
         } catch (error) {
-          console.log(error)
+          console.log(error);
         }
       }
       //
 
-      this.runTasks()
+      this.runTasks();
       //
       // this.$forceUpdate();
       // this.$root.$forceUpdate();
@@ -240,42 +243,55 @@ export default {
       // if(this.$root.$refs.mainPage.checkFormMissingItems){
       //   this.$root.$refs.mainPage.checkFormMissingItems()
       // }
-
     },
-    runTasks(){
+    runTasks() {
       //
-      if(this.obj.tasks){
-        if(!this.$root.$refs[this.obj.name][this.obj.title].isChecked){
+      if (this.obj.tasks) {
+        if (!this.$root.$refs[this.obj.name][this.obj.title].isChecked) {
           // this.obj.tasks.checked.clean
           try {
-            this.obj.tasks.map(task=>{
+            this.obj.tasks.map(task => {
               // let clean = task.clean
               // clean.map(c=>{
               //   this.$root.$refs['formGroupColBox'+c].hidden = true
               // })
-              if(task.clean){
-                task.clean.map(c=>{
-                  this.$root.$refs['formGroupColBox'+c].hidden = true
-                })
+              if (task.clean) {
+                if (task.clean.constructor == Array) {
+                  task.clean.map(c => {
+                    this.$root.$refs["formGroupColBox" + c].hidden = true;
+                  });
+                } else {
+                  this.$root.$refs[
+                    "formGroupColBox" + task.clean
+                  ].hidden = true;
+                }
               }
 
-              if(task.show){
-                this.$root.$refs['formGroupColBox'+task.show].hidden = false
+              if (task.show) {
+                if (task.show.constructor == Array) {
+                  task.show.map(c => {
+                    this.$root.$refs["formGroupColBox" + c].hidden = false;
+                  });
+                } else {
+                  this.$root.$refs[
+                    "formGroupColBox" + task.show
+                  ].hidden = false;
+                }
               }
-            })
+            });
             // console.log('tasks:',this.obj.tasks)
           } catch (error) {
-            console.log('tasks:error',error,this.obj)
+            console.log("tasks:error", error, this.obj);
           }
         }
       }
       // 隐藏切换
 
-      if(this.$root.$refs['formGroupColBox'+this.obj.title]){
-        if(this.formObj.model[this.obj.name] === this.obj.title){
-          this.$root.$refs['formGroupColBox'+this.obj.title].hidden = false
-        }else{
-          this.$root.$refs['formGroupColBox'+this.obj.title].hidden = true
+      if (this.$root.$refs["formGroupColBox" + this.obj.title]) {
+        if (this.formObj.model[this.obj.name] === this.obj.title) {
+          this.$root.$refs["formGroupColBox" + this.obj.title].hidden = false;
+        } else {
+          this.$root.$refs["formGroupColBox" + this.obj.title].hidden = true;
         }
       }
     }
@@ -302,7 +318,7 @@ export default {
   display: inline-block;
 }
 
-.el-checkbox>>>.el-checkbox__label{
+.el-checkbox >>> .el-checkbox__label {
   padding-top: 2px;
 }
 </style>

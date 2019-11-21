@@ -337,6 +337,30 @@
             "pinyin": "wwc"
         }
     ],
+    "I001884": [
+        {
+            "code": "已完成",
+            "name": "已完成",
+            "pinyin": "ywc"
+        },
+        {
+            "code": "未完成",
+            "name": "未完成",
+            "pinyin": "wwc"
+        }
+    ],
+    "I001885": [
+        {
+            "code": "已完成",
+            "name": "已完成",
+            "pinyin": "ywc"
+        },
+        {
+            "code": "未完成",
+            "name": "未完成",
+            "pinyin": "wwc"
+        }
+    ],
     "I001452": [
         {
             "code": "女儿",
@@ -3675,36 +3699,36 @@
             "name": "学生离退休等无职业人员"
         }
     ],
-    "I001835":[
+    "I001835": [
         {
-          "code": "LOA",
-          "name": "LOA",
-          "pinyin": ""
+            "code": "LOA",
+            "name": "LOA",
+            "pinyin": ""
         },
         {
-          "code": "ROA",
-          "name": "ROA",
-          "pinyin": ""
+            "code": "ROA",
+            "name": "ROA",
+            "pinyin": ""
         },
         {
-          "code": "LSA",
-          "name": "LSA",
-          "pinyin": ""
+            "code": "LSA",
+            "name": "LSA",
+            "pinyin": ""
         },
         {
-          "code": "RSA",
-          "name": "RSA",
-          "pinyin": ""
+            "code": "RSA",
+            "name": "RSA",
+            "pinyin": ""
         },
         {
-          "code": "LSCA",
-          "name": "LSCA",
-          "pinyin": ""
+            "code": "LSCA",
+            "name": "LSCA",
+            "pinyin": ""
         },
         {
-          "code": "RSCA",
-          "name": "RSCA",
-          "pinyin": ""
+            "code": "RSCA",
+            "name": "RSCA",
+            "pinyin": ""
         }
-      ]
+    ]
 }

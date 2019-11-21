@@ -945,7 +945,7 @@
         "options": [
           "少许",
           "月经量",
-          "多余月经量"
+          "多于月经量"
         ]
       },
       {
@@ -1563,7 +1563,7 @@
       {
         "name": "I001113",
         "type": "input",
-        "inputType":"textarea",
+        "inputType": "textarea",
         "title": "家族史",
         "style": "width:100%",
         "tdStyle": "width:100%",
@@ -1598,7 +1598,7 @@
       {
         "name": "I001115",
         "type": "input",
-        "inputType":"textarea",
+        "inputType": "textarea",
         "title": "健康史",
         "style": "width:100%",
         "tdStyle": "width:100%",
@@ -2066,7 +2066,8 @@
         "name": "I001209",
         "type": "input",
         "label": "造瘘口周围皮肤状况",
-        "labelWidth": "100px","labelStyle":"margin-left:-25px!important",
+        "labelWidth": "100px",
+        "labelStyle": "margin-left:-25px!important",
         "value": "",
         "options": [],
         "style": null,
@@ -2205,7 +2206,7 @@
         "labelWidth": "100px",
         "placeholder": "空",
         "style": "width:136px!important",
-        "inputWidth":"135px!important",
+        "inputWidth": "135px!important",
         "class": null,
         "readOnly": null
       },
@@ -2216,7 +2217,7 @@
         "labelWidth": "100px",
         "placeholder": "空",
         "style": "width:136px!important",
-        "inputWidth":"135px!important",
+        "inputWidth": "135px!important",
         "class": null,
         "readOnly": null
       }
@@ -2530,7 +2531,7 @@
         "options": [
           "少许",
           "月经量",
-          "多余月经量"
+          "多于月经量"
         ],
         "suffixDesc": "",
         "style": null,

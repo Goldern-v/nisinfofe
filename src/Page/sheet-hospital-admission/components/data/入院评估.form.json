@@ -9,7 +9,7 @@
     "style": ""
   },
   "formSetting": {
-    "updateInfo":"由{{updaterName}}创建，最后编辑于{{updateTime}}",
+    "updateInfo": "由{{updaterName}}创建，最后编辑于{{updateTime}}",
     "formTitle": {
       "hospitalName": "东 莞 市 厚 街 医 院",
       "formName": "入 院 评 估"
@@ -192,7 +192,11 @@
       "name": "",
       "type": "formGroupColBox",
       "col": 3,
-      "colWidth":["32%","35%","33%"],
+      "colWidth": [
+        "32%",
+        "35%",
+        "33%"
+      ],
       "title": "一、一般资料",
       "message": "",
       "require": "false",
@@ -256,6 +260,7 @@
               "name": "计算BMI",
               "height": "I100009",
               "weight": "I100010",
+              "weight2": "I1001883",
               "result": "I100011"
             }
           ]
@@ -277,6 +282,29 @@
               "name": "计算BMI",
               "height": "I100009",
               "weight": "I100010",
+              "weight2": "I1001883",
+              "result": "I100011"
+            }
+          ]
+        },
+        {
+          "name": "I1001883",
+          "type": "input",
+          "title": "孕前体重(产科)",
+          "titleStyle": "width:140px!important",
+          "inputStyle": "width:100%!important",
+          "inputWidth": "60px",
+          "suffixDesc": "kg",
+          "style": null,
+          "class": null,
+          "hiddenTips": true,
+          "readOnly": null,
+          "rule": [
+            {
+              "name": "计算BMI",
+              "height": "I100009",
+              "weight": "I100010",
+              "weight2": "I1001883",
               "result": "I100011"
             }
           ]
@@ -298,6 +326,7 @@
               "name": "计算BMI",
               "height": "I100009",
               "weight": "I100010",
+              "weight2": "I1001883",
               "result": "I100011"
             }
           ]
@@ -308,7 +337,11 @@
       "name": "",
       "type": "formGroupColBox",
       "col": 3,
-      "colWidth":["32%","35%","33%"],
+      "colWidth": [
+        "32%",
+        "35%",
+        "33%"
+      ],
       "title": "一、一般资料",
       "message": "",
       "require": "false",
@@ -480,7 +513,7 @@
       "name": "",
       "type": "formGroupColBox",
       "col": 5,
-      "colWidth":[
+      "colWidth": [
         "15%",
         "23%",
         "22%",
@@ -591,7 +624,10 @@
       "name": "",
       "type": "formGroupColBox",
       "col": 2,
-      "colWidth":["50%","50%"],
+      "colWidth": [
+        "50%",
+        "50%"
+      ],
       "title": "三、健康史/饮食/认知/语言沟通",
       "message": "",
       "require": "false",
@@ -1580,7 +1616,7 @@
           "titleStyle": "width:81px!important",
           "inputStyle": "width:266px!important",
           "inputWidth": "160px",
-          "elementsStyle":"width: 266px;",
+          "elementsStyle": "width: 266px;",
           "class": null,
           "rule": [
             {
@@ -2044,7 +2080,8 @@
                     "妇科",
                     "儿科",
                     "产科",
-                    "新生儿科"
+                    "新生儿科",
+                    "母乳宣教"
                   ]
                 }
               ]
@@ -2063,7 +2100,8 @@
                     "妇科",
                     "儿科",
                     "产科",
-                    "新生儿科"
+                    "新生儿科",
+                    "母乳宣教"
                   ]
                 },
                 {
@@ -2085,7 +2123,8 @@
                     "妇科",
                     "儿科",
                     "产科",
-                    "新生儿科"
+                    "新生儿科",
+                    "母乳宣教"
                   ]
                 },
                 {
@@ -2111,7 +2150,10 @@
                   ]
                 },
                 {
-                  "show": "产科"
+                  "show": [
+                    "产科",
+                    "母乳宣教"
+                  ]
                 }
               ]
             },
@@ -2129,7 +2171,8 @@
                     "妇科",
                     "儿科",
                     "产科",
-                    "新生儿科"
+                    "新生儿科",
+                    "母乳宣教"
                   ]
                 },
                 {
@@ -2346,6 +2389,7 @@
           "name": "I001821",
           "type": "select",
           "title": "既往分娩方式",
+          "multiplechoice": true,
           "style": null,
           "titleStyle": "width:92px!important",
           "inputStyle": "width:270px!important",
@@ -2793,7 +2837,12 @@
           "rule": [
             {
               "dialog": {
-                "openKey": ["包块","血肿","产瘤","部位"],
+                "openKey": [
+                  "包块",
+                  "血肿",
+                  "产瘤",
+                  "部位"
+                ],
                 "cleanKey": [
                   "正常"
                 ],
@@ -3260,6 +3309,60 @@
     },
     {
       "name": "",
+      "type": "formGroupColBox",
+      "col": 2,
+      "title": "母乳宣教",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I001884",
+          "type": "",
+          "title": "母乳宣教",
+          "titleStyle": "width:102px!important",
+          "class": null,
+          "children": [
+            {
+              "name": "I001884",
+              "type": "select",
+              "title": "母乳宣教",
+              "titleStyle": "width:81px!important",
+              "inputStyle": "width:270px!important",
+              "inputWidth": "160px",
+              "style": null,
+              "class": null
+            }
+          ]
+        },
+        {
+          "name": "I001885",
+          "type": "",
+          "title": "术前宣教",
+          "titleStyle": "width:95px!important",
+          "class": null,
+          "children": [
+            {
+              "name": "I001885",
+              "type": "select",
+              "title": "术前宣教",
+              "titleStyle": "width:81px!important",
+              "inputStyle": "width:270px!important",
+              "inputWidth": "160px",
+              "style": null,
+              "class": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "",
       "type": "formGroupHR",
       "title": "---hr---",
       "line": "dashed",
@@ -3290,8 +3393,8 @@
           "type": "",
           "title": "宣教对象",
           "titleStyle": "width:95px!important",
-          "boxStyle":"height:auto!important",
-          "elementsStyle":"margin-top:8px",
+          "boxStyle": "height:auto!important",
+          "elementsStyle": "margin-top:8px",
           "class": null,
           "children": [
             {
@@ -3412,7 +3515,7 @@
       "keys": "",
       "style": null,
       "titleStyle": "margin-top: 7px;",
-      "boxStyle":"height:auto!important",
+      "boxStyle": "height:auto!important",
       "classes": null,
       "readOnly": null,
       "children": [
@@ -3422,8 +3525,8 @@
           "title": "方法",
           "titleStyle": "width:95px!important",
           "class": null,
-          "boxStyle":"height:auto!important",
-          "elementsStyle":"margin-top:8px",
+          "boxStyle": "height:auto!important",
+          "elementsStyle": "margin-top:8px",
           "children": [
             {
               "name": "I001453",
@@ -3507,7 +3610,7 @@
           "title": "接受能力",
           "titleStyle": "width:95px!important",
           "class": null,
-          "boxStyle":"height:auto!important",
+          "boxStyle": "height:auto!important",
           "children": [
             {
               "name": "I001454",
@@ -3611,8 +3714,8 @@
           "title": "住院告知",
           "titleStyle": "width:95px!important",
           "class": null,
-          "boxStyle":"height:auto!important",
-          "inputStyle":"margin-top:8px",
+          "boxStyle": "height:auto!important",
+          "inputStyle": "margin-top:8px",
           "children": [
             {
               "name": "I001501",
@@ -3759,8 +3862,8 @@
           "title": "基础护理",
           "titleStyle": "width:95px!important",
           "class": null,
-          "boxStyle":"height:auto!important",
-          "inputStyle":"margin-top:8px",
+          "boxStyle": "height:auto!important",
+          "inputStyle": "margin-top:8px",
           "children": [
             {
               "name": "I001551",
@@ -3961,8 +4064,8 @@
           "title": "专科护理",
           "titleStyle": "width:95px!important",
           "class": null,
-          "boxStyle":"height:auto!important",
-          "inputStyle":"margin-top:8px",
+          "boxStyle": "height:auto!important",
+          "inputStyle": "margin-top:8px",
           "children": [
             {
               "name": "I001553",
@@ -4059,8 +4162,8 @@
           "title": "患者安全",
           "titleStyle": "width:95px!important",
           "class": null,
-          "boxStyle":"height:auto!important",
-          "inputStyle":"margin-top:8px",
+          "boxStyle": "height:auto!important",
+          "inputStyle": "margin-top:8px",
           "children": [
             {
               "name": "I001555",
@@ -4185,7 +4288,7 @@
           "style": "width:100%",
           "tdStyle": "width:100%",
           "elementStyle": "width:100%",
-          "boxStyle":"height:auto!important",
+          "boxStyle": "height:auto!important",
           "class": null,
           "hiddenTips": true,
           "children": [
@@ -4223,7 +4326,7 @@
           "titleStyle": "width:130px!important",
           "style": "width:100%",
           "tdStyle": "width:100%",
-          "boxStyle":"height:auto!important",
+          "boxStyle": "height:auto!important",
           "elementStyle": "",
           "class": null,
           "hiddenTips": true,
@@ -4264,7 +4367,7 @@
           "style": "width:100%",
           "tdStyle": "width:100%",
           "elementStyle": "width:100%",
-          "boxStyle":"height:auto!important",
+          "boxStyle": "height:auto!important",
           "class": null,
           "hiddenTips": true,
           "children": [
@@ -4306,7 +4409,7 @@
           "style": "width:100%",
           "tdStyle": "width:100%",
           "elementStyle": "width:100%",
-          "boxStyle":"height:auto!important",
+          "boxStyle": "height:auto!important",
           "class": null,
           "hiddenTips": true,
           "children": [
