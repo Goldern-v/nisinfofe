@@ -7,7 +7,7 @@
     >
       <!-- <img class="his-logo"
       src="../../../../common/images/his-logo/厚街医徽.png" />-->
-      <img src="../../images/仅供查阅.jpg" class="readOnly-img no-print" v-if="readOnly" alt>
+      <img src="../../images/仅供查阅.jpg" class="readOnly-img no-print" v-if="readOnly" alt />
       <div class="header-con">
         <div class="his-name">{{HOSPITAL_NAME_SPACE}}</div>
         <div class="title">{{patientInfo.recordName}}</div>
@@ -30,7 +30,7 @@
           </span>
           <span @click="updateBirthDay">
             出生日期：
-            {{patientInfo.birthday | toymd}}
+            {{sheetInfo.relObj.birthday || patientInfo.birthday | toymd}}
           </span>
           <span>
             住院号：
@@ -114,18 +114,21 @@
     text-overflow: ellipsis;
     white-space: nowrap;
   }
-   &.readOnly {
-    pointer-events none
+
+  &.readOnly {
+    pointer-events: none;
   }
+
   .readOnly-img {
-    position absolute;
-    right 5px;
-    top 5px
+    position: absolute;
+    right: 5px;
+    top: 5px;
   }
+
   .bottom-line {
-    display inline-block
+    display: inline-block;
     // border-bottom 1px solid #000
-    padding 2px 0 2px 2px
+    padding: 2px 0 2px 2px;
   }
 }
 </style>
@@ -177,10 +180,12 @@ export default {
         date => {
           updateSheetHeadInfo({ birthday: date }).then(res => {
             this.patientInfo.birthday = res.data.data.birthday;
+            this.sheetInfo.relObj.birthday = res.data.data.birthday;
+            this.sheetInfo.relObj = { ...this.sheetInfo.relObj };
             this.$message.success("修改出生日期成功");
           });
         },
-        this.patientInfo.birthday,
+        this.sheetInfo.relObj.birthday || this.patientInfo.birthday,
         "修改出生日期"
       );
     },
