@@ -10,7 +10,7 @@
       <RenderForm ref="renderForm" :sourceObj="fileJSON" :updateFunc="updateFunc" :lock="locker" />
     </div>
     <div :style="isShow?'display:none':'display:block;backgroud:white;'">
-      <div class="null-img" @click="bus.$emit('createHEvalForm')">
+      <div class="null-img" @click="message=='新建评估单'&&bus.$emit('createHEvalForm')">
         <img src="./image/分组.png" alt />
         <aside>{{message}}</aside>
       </div>
@@ -85,6 +85,9 @@ export default {
         if (config.hasOwnProperty("status")) {
           this.loading = config.status;
         }
+        if (config.hasOwnProperty("isShow")) {
+          this.isShow = config.isShow;
+        }
         if (config.hasOwnProperty("msg")) {
           this.loadingText = config.msg;
         } else {
@@ -106,6 +109,7 @@ export default {
       let file = JSON.parse(
         JSON.stringify(require("../data/入院评估.form.json"))
       );
+      let title = "";
       try {
         file.formSetting.formTitle.hospitalName = this.HOSPITAL_NAME;
       } catch (error) {}
@@ -155,9 +159,22 @@ export default {
           this.setPatientInfo(djson, patient);
         }
         if (djson.constructor === Array) {
-          file.dialogs.push(...djson);
+          // file.dialogs.push(...djson);
+          djson.map(d => {
+                title = d.title;
+                if (title) {
+                  file.dialogs[title] = { ...d };
+                }
+              });
         } else {
-          file.dialogs.push(djson);
+          // file.dialogs.push(djson);
+          // file.dialogs[title + ""] = JSON.parse(JSON.stringify(djson));
+          try {
+            title = djson.formSetting.formTitle.formName;
+            this.setPatientInfo(djson, patient);
+            // file.dialogs.push(djson);
+            file.dialogs[title + ""] = JSON.parse(JSON.stringify(djson));
+          } catch (error) {}
         }
       });
 

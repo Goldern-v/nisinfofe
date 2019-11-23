@@ -6,26 +6,23 @@
       <!-- <h2 class="sub-title">病 房 工 作 日 报</h2> -->
       <div class="details">
         <!-- <div @click="qqqq">fdfdfd</div> -->
-        <div class="left">
-          病房：{{name}}
-        </div>
+        <div class="left">病房：{{name}}</div>
         <div class="right">
           <!-- {{moment().format('YYYY-MM-DD')}}{{twoDayPaper}} -->
-         {{topRightDate}}
-         <!-- {{date}}{{twoDayPaper}} -->
-
+          {{topRightDate}}
+          <!-- {{date}}{{twoDayPaper}} -->
         </div>
       </div>
     </div>
     <table class="table-wrapper">
       <tr v-if="true">
         <td>
-          <HeadTable class="table-top" :paperHeaderData="paperData"/>
+          <HeadTable class="table-top" :paperHeaderData="paperData" />
         </td>
       </tr>
       <!-- <tr v-if="digits">
         <td>&nbsp;</td>
-      </tr> -->
+      </tr>-->
       <!-- <tr>
         <td data-print-style="height: 0;">
           <table class="table-bottom" data-print-style="height: 100%;">
@@ -40,8 +37,7 @@
             </tr>
           </table>
         </td>
-      </tr> -->
-
+      </tr>-->
     </table>
     <div class="foot">
       <div class="sign">
@@ -57,177 +53,198 @@
         </span>
       </div>
       <div style="clear: both;"></div>
-      <div class="page">
-        {{total === 1 ? '' : `第 ${page + 1} / ${total} 页`}}
-      </div>
+      <div class="page">{{total === 1 ? '' : `第 ${page + 1} / ${total} 页`}}</div>
     </div>
   </div>
 </template>
 
 <script>
-  import common from '@/common/mixin/common.mixin.js'
-  import FallibleImage from '@/components/FallibleImage/FallibleImage.vue'
-  import HeadTable from './head-table.vue'
-  import InTable from './in-table.vue'
-  import OutTable from './out-table.vue'
-  import moment from 'moment'
+import common from "@/common/mixin/common.mixin.js";
+import FallibleImage from "@/components/FallibleImage/FallibleImage.vue";
+import HeadTable from "./head-table.vue";
+import InTable from "./in-table.vue";
+import OutTable from "./out-table.vue";
+import moment from "moment";
 
-  export default {
-    mixins: [common],
-    props: {
-      name: String,
-      signNo: String,
-      signName: String,
-      date: String,
-      digits: Object,
-      inList: Array,
-      outList: Array,
+export default {
+  mixins: [common],
+  props: {
+    name: String,
+    signNo: String,
+    signName: String,
+    date: String,
+    digits: Object,
+    inList: Array,
+    outList: Array,
 
-      paperData: Array,
-      index: Number,
-      page: Number,
-      total: Number,
-      twoDayPaper:String
-    },
-    data () {
-      return {}
-    },
-    computed: {
-      topRightDate () {
-        // return (this.date.format('YYYY-MM-DD') + this.twoDayPaper)
-        //then change
-        // let cacheDate = this.twoDayPaper.substring(0,4)+'年'+ this.twoDayPaper.substring(5,7)+'月'+this.twoDayPaper.substring(8)+'日'
-        return this.date
-        // + this.twoDayPaper
-      }
-    },
-    methods: {
-      // qqqq(){
-      //   console.log(this.date + this.twoDayPaper)
-      // }
-    },
-    components: {
-      FallibleImage,
-      HeadTable,
-      InTable,
-      OutTable,
+    paperData: Array,
+    index: Number,
+    page: Number,
+    total: Number,
+    twoDayPaper: String
+  },
+  data() {
+    return {};
+  },
+  computed: {
+    topRightDate() {
+      // return (this.date.format('YYYY-MM-DD') + this.twoDayPaper)
+      //then change
+      // let cacheDate = this.twoDayPaper.substring(0,4)+'年'+ this.twoDayPaper.substring(5,7)+'月'+this.twoDayPaper.substring(8)+'日'
+      return this.date;
+      // + this.twoDayPaper
     }
+  },
+  methods: {
+    // qqqq(){
+    //   console.log(this.date + this.twoDayPaper)
+    // }
+  },
+  components: {
+    FallibleImage,
+    HeadTable,
+    InTable,
+    OutTable
   }
+};
 </script>
 
 <style lang="stylus" scoped>
-  .paper
-    >>>table
-      width 100%
+.paper {
+  >>>table {
+    width: 100%;
 
-      td, th
-        border 1px solid black
-        text-align center
-        vertical-align middle
-        height 30px
-        font-size 13px
-        line-height 24px
-      th {
-        height 35px
-      }
+    td {
+      border: 1px solid black;
+      text-align: center;
+      vertical-align: middle;
+      height: 28px;
+      font-size: 13px;
+      line-height: 24px;
+    }
 
-      thead
-        background #f4f2f5
+    .thead td {
+      height: 35px;
+    }
 
-    >>>.table-top,
-    >>>.table-bottom
-      td:first-child,
-      th:first-child
-        border-left none
+    .thead {
+      background: #f4f2f5;
+    }
+  }
 
-      td:last-child,
-      th:last-child
-        border-right none
+  >>>.table-top, >>>.table-bottom {
+    td:first-child, th:first-child {
+      border-left: none;
+    }
 
-      tr:first-child > td,
-      tr:first-child > th
-        border-top none
+    td:last-child, th:last-child {
+      border-right: none;
+    }
 
-      tr:last-child > td
-        border-bottom none
+    tr:first-child > td, tr:first-child > th {
+      border-top: none;
+    }
 
-  .paper
-    position relative
-    margin 0 auto 20px
-    padding 12px 20px
-    width 1080px
-    border-radius 2px
-    background #fff
-    box-shadow 0 5px 10px 0 rgba(0, 0, 0, 0.5)
-    box-sizing border-box
+    tr:last-child > td {
+      border-bottom: none;
+    }
+  }
+}
 
-    &.printing
-      margin 0
-      padding 0
-      box-shadow none
+.paper {
+  position: relative;
+  margin: 0 auto 20px;
+  padding: 12px 20px;
+  width: 1080px;
+  border-radius: 2px;
+  background: #fff;
+  box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.5);
+  box-sizing: border-box;
 
-  .head
-    position: relative
+  &.printing {
+    margin: 0;
+    padding: 0;
+    box-shadow: none;
+  }
+}
 
-    .logo
-      position absolute
-      left 0
-      top 0
-      height 44px
+.head {
+  position: relative;
 
-    .title
-      padding-top 15px
-      font-size 22px
-      text-align center
+  .logo {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 44px;
+  }
 
-    .sub-title
-      margin-top 10px
-      text-align center
+  .title {
+    padding-top: 15px;
+    font-size: 22px;
+    text-align: center;
+  }
 
-    .details
-      margin-top 10px
-      font-size 13px
-      overflow hidden
+  .sub-title {
+    margin-top: 10px;
+    text-align: center;
+  }
 
-      .left
-        float left
+  .details {
+    margin-top: 10px;
+    font-size: 13px;
+    overflow: hidden;
 
-      .right
-        float right
+    .left {
+      float: left;
+    }
 
-  .table-wrapper
-    margin-top 8px
+    .right {
+      float: right;
+    }
+  }
+}
 
-  .foot
-    position relative
-    margin-top 15px
+.table-wrapper {
+  margin-top: 8px;
+}
 
-    .sign
-      float right
-      font-size 13px
+.foot {
+  position: relative;
+  margin-top: 15px;
 
-      span
-        display inline-block
+  .sign {
+    float: right;
+    font-size: 13px;
 
-      .title
-        vertical-align middle
+    span {
+      display: inline-block;
+    }
 
-      .content
-        min-width 60px
-        vertical-align middle
+    .title {
+      vertical-align: middle;
+    }
 
-      .sign-img
-        display none
-        width 52px
-        vertical-align middle
-        max-height 25px
+    .content {
+      min-width: 60px;
+      vertical-align: middle;
+    }
 
-    .page
-      position absolute
-      top 0
-      left 0
-      width 100%
-      text-align center
-      font-size 12px
-      font-family SimSun
+    .sign-img {
+      display: none;
+      width: 52px;
+      vertical-align: middle;
+      max-height: 25px;
+    }
+  }
+
+  .page {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 12px;
+    font-family: SimSun;
+  }
+}
 </style>

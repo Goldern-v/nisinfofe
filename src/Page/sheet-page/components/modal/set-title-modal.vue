@@ -28,10 +28,11 @@
 </template>
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
-.name-title
-  font-size 14px;
-  margin 5px 0 10px
-  font-weight bold
+.name-title {
+  font-size: 14px;
+  margin: 5px 0 10px;
+  font-weight: bold;
+}
 </style>
 
 <script>
@@ -44,12 +45,14 @@ export default {
     return {
       bus: bus(this),
       title: "",
-      callback: ""
+      callback: "",
+      cellObj: null
     };
   },
   methods: {
-    open(callback, title) {
+    open(callback, title, item) {
       this.callback = callback;
+      this.cellObj = item;
       this.title = title.indexOf("标题") > -1 ? "" : title;
       this.$refs.modalName.open();
       this.$nextTick(() => {
@@ -69,27 +72,37 @@ export default {
       this.$refs.titleTemplateSlide.close();
     },
     async querySearch(queryString, cb) {
-      let {
-        data: { data }
-      } = await listItem("自定义标题", sheetInfo.sheetType);
-      // 调用 callback 返回建议列表的数据
-      let autoList = [];
-      if (!queryString) {
-        autoList = data.map(item => {
-          return {
-            value: item.name
-          };
-        });
+      if (this.cellObj && this.cellObj.titleList) {
+        cb(
+          this.cellObj.titleList.map(item => {
+            return {
+              value: item
+            };
+          })
+        );
       } else {
-        autoList = data
-          .filter(item => item.name.indexOf(queryString) > -1)
-          .map(item => {
+        let {
+          data: { data }
+        } = await listItem("自定义标题", sheetInfo.sheetType);
+        // 调用 callback 返回建议列表的数据
+        let autoList = [];
+        if (!queryString) {
+          autoList = data.map(item => {
             return {
               value: item.name
             };
           });
+        } else {
+          autoList = data
+            .filter(item => item.name.indexOf(queryString) > -1)
+            .map(item => {
+              return {
+                value: item.name
+              };
+            });
+        }
+        cb(autoList);
       }
-      cb(autoList);
     },
     openTitleTemplateSilde() {
       this.$refs.titleTemplateSlide.open();

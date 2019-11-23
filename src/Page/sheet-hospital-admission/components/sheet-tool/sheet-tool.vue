@@ -1026,14 +1026,13 @@ export default {
                 //
                 console.log(
                   "漏项",
-                  element,
-                  element.$el,
-                  parent,
-                  parent.obj.title ? parent.obj.title : "",
-                  parent.obj.name,
+                  [element,parent],
+                  [element.$el],
+                  [parent.obj.title ? parent.obj.title : ""],
+                  [parent.obj.name,
                   parent.obj.parentKey,
                   parent.obj,
-                  window.formObj.model[parent.obj.name || parent.obj.parentKey]
+                  window.formObj.model[parent.obj.name || parent.obj.parentKey]]
                 );
 
                 //
@@ -1049,6 +1048,21 @@ export default {
         }
       }
       //
+      // 七、专科护理评估
+      if(missingObj){
+        let keys = Object.keys(missingObj)
+        let deptList = ["妇科",'儿科','产科','新生儿科']
+        let key = '七、专科护理评估'
+        deptList.map(d=>{
+          if(keys.indexOf(d)>-1){
+            if(!missingObj[key]){missingObj[key]=[]}
+            missingObj[key]=[...missingObj[key],...missingObj[d]]
+          }
+        })
+      }
+
+
+      //
       if (
         this.$root.$refs.tableOfContent &&
         this.$root.$refs.tableOfContent.updateMissingItems
@@ -1057,6 +1071,7 @@ export default {
           JSON.parse(JSON.stringify(missingObj))
         );
       }
+      //
       //
       window.formObj.missingItems = JSON.parse(JSON.stringify(missingObj));
       console.log("漏项统计", missingObj);
@@ -1311,6 +1326,37 @@ export default {
             });
           });
       }
+    },
+    hotkeyForm() {
+      window.document.onkeydown = e => {
+        var currKey = 0;
+        e = e || event || window.event;
+        currKey = e.keyCode || e.which || e.charCode;
+        var currKeyStr = String.fromCharCode(currKey);
+        // console.log('currKeyStr',currKeyStr)
+        // Ctrl / Command +
+        if (e.ctrlKey || e.metaKey) {
+          let text = window.getSelection().toString();
+          switch (currKeyStr.toUpperCase()) {
+            case "S": //Ctrl+S
+              e.preventDefault();
+              e.returnvalue = false;
+              this.formSave({ showMeasure: false });
+              e.stopPropagation();
+              break;
+            case "G": //Ctrl+N
+              this.formSave({ showMeasure: false, showLoading: false });
+              console.log("新建页面");
+              // createForm()
+              break;
+            case "C": //Ctrl+C
+              console.log("复制", text);
+              break;
+            default:
+              break;
+          }
+        }
+      };
     }
   },
   computed: {
@@ -1355,6 +1401,7 @@ export default {
     };
     window.formTool = tool;
     //
+    this.hotkeyForm();
     // if (window.formObj && !window.formObj.hasOwnProperty("tool")) {
     //   window.formObj["tool"] = {};
     //   window.formObj["tool"] = tool;
@@ -1365,7 +1412,17 @@ export default {
     // this.$root.$refs.mainPage['formSignOrAudit'] = this.formSignOrAudit
     //
   },
-  watch: {},
+  watch: {
+    deptCode(){
+      this.selectBlock = {}
+      this.sheetBlockList = []
+      this.$store.commit('upCurrentPatientObj',{})
+      this.bus.$emit("closeHosptialAdmissionForm");
+      this.bus.$emit("setHosptialAdmissionLoading", false);
+      this.bus.$emit("setHosptialAdmissionPageMessage", "请选择左侧患者~");
+      this.$router.push({name:"sheetHospitalAdmissionPage"})
+    }
+  },
   components: {}
 };
 </script>

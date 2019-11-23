@@ -817,13 +817,19 @@ export default {
         // config.title = this.formObj.model[config.parentName] || config.title;
       }
 
+      // this.formBox = JSON.parse(
+      //   JSON.stringify(
+      //     this.formObj.dialogs.find(
+      //       f => (f.title || f.formSetting.formTitle.formName) == config.title
+      //     )||null
+      //   )
+      // );
+
       this.formBox = JSON.parse(
-        JSON.stringify(
-          this.formObj.dialogs.find(
-            f => (f.title || f.formSetting.formTitle.formName) == config.title
-          )
-        )
+        JSON.stringify(this.formObj.dialogs[config.title]||{})
       );
+
+      if(!this.formBox){return}
 
       //
       if (config.otherDialog) {

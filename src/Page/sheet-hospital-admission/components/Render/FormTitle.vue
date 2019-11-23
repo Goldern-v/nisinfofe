@@ -3,10 +3,13 @@
   <div>
     <TipsBox :obj="obj" :formObj="formObj">
       <div class="title-box">
-        <h1 class="hospital-title">{{obj.formTitle.hospitalName}}</h1>
-        <span class="form-title">{{obj.formTitle.formName}}</span>
-        <div class="header-box" v-if="obj.formHeads && obj.formHeads.length>0">
-          <span v-for="(item, index) in obj.formHeads " :key="index">{{item.title}}:{{item.value}}</span>
+        <h1 class="hospital-title">{{hospitalName}}</h1>
+        <span class="form-title">{{formName}}</span>
+        <div class="header-box">
+          <span
+            v-for="(item, index) in formHeads "
+            :key="index"
+          >{{item.title}}:{{item.value}}{{item.postText?`(${item.postText})`:''}}</span>
         </div>
       </div>
     </TipsBox>
@@ -29,7 +32,64 @@ export default {
   data() {
     return {};
   },
-  computed: {},
+  computed: {
+    hospitalName() {
+      return this.obj.formTitle.hospitalName;
+    },
+    formName() {
+      return this.obj.formTitle.formName;
+    },
+    ageLevel() {
+      return this.$store.getters.getAgeLevel();
+    },
+    formHeads() {
+      let patient = this.$store.getters.getCurrentPatient();
+      let ret = [
+        {
+          name: "name",
+          value: "",
+          title: "姓名"
+        },
+        {
+          name: "sex",
+          value: "",
+          title: "性别"
+        },
+        {
+          name: "age",
+          value: "",
+          title: "年龄",
+          postText: this.ageLevel
+        },
+        {
+          name: "wardName",
+          value: "",
+          title: "病区"
+        },
+        {
+          name: "bedLabel",
+          value: "",
+          title: "床号"
+        },
+        {
+          name: "inpNo",
+          value: "",
+          title: "住院号"
+        },
+        {
+          name: "admissionDate",
+          value: "",
+          title: "入院日期"
+        }
+      ];
+      ret.map(r => {
+        try {
+          r.value = patient[r.name];
+        } catch (error) {}
+      });
+      return ret;
+    }
+  },
   watch: {},
   mounted() {},
   created() {},
@@ -38,7 +98,7 @@ export default {
 </script>
 
 
-<style lang="stylus" scoped>
+<style scoped>
 div {
   font-family: sim;
 }
@@ -50,7 +110,7 @@ h4 {
   font-family: sim;
 }
 h1 {
-  font-size: 17px;
+  font-size: 18px;
 }
 .el-checkbox,
 .is-bordered,
@@ -59,8 +119,8 @@ h1 {
 }
 .title-box {
   border-bottom: 1px dashed #eee;
-  padding: 25px 0px 2px 0px;
-  line-height: 1.5em;
+  margin: 15px 60px 2px 0px;
+  line-height: 2em;
 }
 
 .hospital-title {
@@ -79,10 +139,5 @@ h1 {
   display: inline-flex;
   width: 100%;
   justify-content: space-around;
-  &:hover{
-    cursor: pointer;
-    background: #eef5f5;
-    // outline: 1px dashed green;
-  }
 }
 </style>

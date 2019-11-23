@@ -16,6 +16,7 @@
       :id="getUUID()"
       :style="[obj.style, obj.inputWidth && {width: obj.inputWidth}]"
       :ref="obj.name"
+      :name="obj.name"
       v-if="obj.type==='input'"
       :placeholder="obj.dialog ? '点击评估' : (obj.placeholder?obj.placeholder:'空')"
       :class="model === 'development' ? 'development-model' : (obj.class||'')"
@@ -259,6 +260,11 @@ export default {
                 ~~this.$root.$refs[r.weight].currentValue ||
                 this.formObj.model[r.weight] ||
                 0;
+              if(r.weight2 && this.$root.$refs[r.weight2]){
+                weight =
+                ~~this.$root.$refs[r.weight2].currentValue ||
+                this.formObj.model[r.weight2] || ~~this.$root.$refs[r.weight].currentValue || this.formObj.model[r.weight] || 0;
+              }
               let result = weight / Math.pow(height / 100, 2).toFixed(2);
               result = isNaN(Number(result)) || !isFinite(result) ? 0 : result;
               // if(this.obj.name==='I100011'){

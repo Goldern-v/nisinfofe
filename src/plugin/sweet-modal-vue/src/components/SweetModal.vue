@@ -1035,6 +1035,7 @@ export default {
     }
   }
   .sweet-content {
+    min-height: 60px;
     // display: flex; // align-items: center;
     padding: {
       left: 20px;
@@ -1159,6 +1160,7 @@ export default {
   .sweet-buttons {
     /* transform: translateY(16px); */
   }
+
   &.is-visible {
     transform: translate(-50%, -50%);
     opacity: 1;

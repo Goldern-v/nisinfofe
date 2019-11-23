@@ -529,7 +529,9 @@ export default {
               身长: pageMap.form_childbirth_sc_explain,
               头围: pageMap.form_childbirth_tw_explain
             };
+            sheetInfo.relObj.birthday = pageMap.form_childbirth_temcsj_explain;
           }
+
           Object.assign(this.formModel, lastEvalData);
           Object.assign(this.formModel, sheetInfo.relObj);
           sheetInfo.relObj = this.formModel;

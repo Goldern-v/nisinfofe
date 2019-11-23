@@ -12,7 +12,7 @@
       </keep-alive>
     </div>
     <div :style="isShow?'display:none':'display:block;backgroud:white;'">
-      <div class="null-img" @click="bus.$emit('createHEvalForm')">
+      <div class="null-img" @click="message=='新建评估单'&&bus.$emit('createHEvalForm')">
         <img src="./image/分组.png" alt />
         <aside>{{message}}</aside>
       </div>
@@ -435,6 +435,7 @@ export default {
       const contexts = require.context("../data/formDialog", true, /\.json$/);
       contexts.keys().forEach((context, b, c, d) => {
         let djson = contexts(context);
+        let title = "";
         try {
           djson.formSetting.formTitle.hospitalName = this.HOSPITAL_NAME;
         } catch (error) {}
@@ -457,9 +458,20 @@ export default {
           this.setPatientInfo(djson, patient);
         }
         if (djson.constructor === Array) {
-          file.dialogs.push(...djson);
+          // file.dialogs.push(...djson);
+          djson.map(d => {
+                title = d.title;
+                if (title) {
+                  file.dialogs[title] = { ...d };
+                }
+              });
         } else {
-          file.dialogs.push(djson);
+
+          try {
+            title = djson.formSetting.formTitle.formName;
+            // file.dialogs.push(djson);
+            file.dialogs[title + ""] = JSON.parse(JSON.stringify(djson));
+          } catch (error) {}
         }
       });
 

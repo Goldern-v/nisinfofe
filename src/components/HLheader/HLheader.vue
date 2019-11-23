@@ -797,6 +797,8 @@ export default {
             this.mewsMd5 = frameData.md5;
             if (
               !WebSocketService.isInMd5List(frameData.md5) &&
+              frameData.dangerMewsPatientList &&
+              frameData.dangerMewsPatientList.length &&
               this.$route.path != "/MEWS"
             ) {
               this.isTip = true;
