@@ -300,6 +300,16 @@
                     </el-row>
                   </router-link>
                 </el-dropdown-item>
+                <!-- <el-dropdown-item
+                  :class="{active: $route.path == '/birthCertificate'}"
+                  v-if="deptName.includes('产科')"
+                >
+                  <router-link to="/birthCertificate" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="birthCertificate"></i>出生医学证明
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item>-->
               </el-dropdown-menu>
             </el-dropdown>
           </el-row>
@@ -527,6 +537,10 @@
     &.vaccineManagement {
       background-image: url('../../common/images/index/疫苗管理.png');
     }
+
+    &.birthCertificate {
+      background-image: url('../../common/images/index/出生医学证明.png');
+    }
   }
 }
 
@@ -662,11 +676,11 @@ export default {
   },
   computed: {
     deptCode() {
-       if (
+      if (
         this.$route.path.includes("/deliveryRoomWhiteboard") ||
         this.$route.path.includes("/familyBigScreen")
       ) {
-        if(this.$store.state.lesion.deptCode != "051102_01"){
+        if (this.$store.state.lesion.deptCode != "051102_01") {
           this.$router.push("/index");
         }
       }
@@ -711,6 +725,7 @@ export default {
       if (this.$route.path == "/departmentSharedFile") return true;
       if (this.$route.path == "/flatManagement") return true;
       if (this.$route.path == "/vaccineManagement") return true;
+      if (this.$route.path == "/birthCertificate") return true;
     },
     isActiveFormPage() {
       if (this.$route.path == "/sheetPage") return true;

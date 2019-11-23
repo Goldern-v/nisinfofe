@@ -1,0 +1,18 @@
+<div>
+  <sweet-modal ref="modal" size="small" v-model="dialogVisible" :modalWidth="400" title="新建出生医学证明" @close="handleClose"
+    class="birth-certificate-create-modal">
+    <div class="model-content">
+      <div class="search">
+        产妇ID：<input type="text" placeholder="请输入住院产妇ID"><button>查询</button>
+      </div>
+      <div class="searchResult" :class="{matchSuc: isMatch === true,matchErr: isMatch===false}">
+        {{searchResult}}
+      </div>
+    </div>
+
+    <div slot="button">
+      <el-button @click="handleSave" type="primary" :disabled="saveLoading">创建</el-button>
+      <el-button @click="handleClose" :disabled="saveLoading">取消</el-button>
+    </div>
+  </sweet-modal>
+</div>

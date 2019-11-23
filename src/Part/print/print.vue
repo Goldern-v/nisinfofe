@@ -66,85 +66,112 @@
         <sugar v-if="$route.params.type == 'sugar'"></sugar>
         <health v-if="$route.params.type == 'health'"></health>
         <growthPrintPage v-if="$route.params.type == 'growth'"></growthPrintPage>
+        <birthCertificatePrint v-if="$route.params.type == 'birthCertificate'"></birthCertificatePrint>
       </div>
     </div>
   </div>
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
-.tool-bar
-  position fixed
-  right 0
-  top 0
-  bottom 0
-  width 60px
+.tool-bar {
+  position: fixed;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 60px;
   background: #F1F1F1;
-  box-shadow: -2px 0 5px 0 rgba(0,0,0,0.20)
-  padding 0 10px
-  box-sizing border-box
-  z-index 100
-  .item-box
-     margin-bottom 10px
-     &.disabled
-       .icon i, .text
-         color #ccc
-  .icon
+  box-shadow: -2px 0 5px 0 rgba(0, 0, 0, 0.2);
+  padding: 0 10px;
+  box-sizing: border-box;
+  z-index: 100;
+
+  .item-box {
+    margin-bottom: 10px;
+
+    &.disabled {
+      .icon i, .text {
+        color: #ccc;
+      }
+    }
+  }
+
+  .icon {
     background: #FFFFFF;
-    box-shadow: 0 0 1px 0 rgba(0,0,0,0.50);
+    box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.5);
     border-radius: 2px;
-    width 40px
-    height 40px
-    cursor pointer
-    box-sizing border-box
-    &:hover, &.selected
-      border #ddd 1px solid
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    box-sizing: border-box;
+
+    &:hover, &.selected {
+      border: #ddd 1px solid;
       border-radius: 2px;
-    i
-      color: #7C8793
-      font-size 18px
-  .text
+    }
+
+    i {
+      color: #7C8793;
+      font-size: 18px;
+    }
+  }
+
+  .text {
     font-size: 12px;
     color: #333333;
-    text-align center
-    line-height 20px
-    margin-top 4px
-  .qo-text
-    font-size 18px
-    color rgba(124,135,147,.5);
-    &.selected
-      color rgba(124,135,147,1);
-.print-con
-  background #fff
-  box-shadow: 0 5px 9px 0 rgba(0,0,0,0.50);
-  overflow auto
-  margin-bottom 10px
-.print-box
+    text-align: center;
+    line-height: 20px;
+    margin-top: 4px;
+  }
+
+  .qo-text {
+    font-size: 18px;
+    color: rgba(124, 135, 147, 0.5);
+
+    &.selected {
+      color: rgba(124, 135, 147, 1);
+    }
+  }
+}
+
+.print-con {
+  background: #fff;
+  box-shadow: 0 5px 9px 0 rgba(0, 0, 0, 0.5);
+  overflow: auto;
+  margin-bottom: 10px;
+}
+
+.print-box {
   // display table
   // min-height 100vh
   // padding-left: 60px
-  margin-top 26px
-  margin-right : 60px
+  margin-top: 26px;
+  margin-right: 60px;
+}
 </style>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus">
 @media print {
-.tool-bar {
-  display none !important
-  width 0 !important
-}
- body{
-   background #fff !important
- }
-body #app {
-   min-width 0
-   margin 0 auto !important
- }
-.print-con{
-   box-shadow 0 0 0 0 #fff !important
-   margin 0 auto !important
-   padding 0 !important
- }
-.print-box{
-  margin: 0px !important
-  padding 0 !important
+  .tool-bar {
+    display: none !important;
+    width: 0 !important;
+  }
+
+  body {
+    background: #fff !important;
+  }
+
+  body #app {
+    min-width: 0;
+    margin: 0 auto !important;
+  }
+
+  .print-con {
+    box-shadow: 0 0 0 0 #fff !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+  }
+
+  .print-box {
+    margin: 0px !important;
+    padding: 0 !important;
   }
 }
 </style>
@@ -161,8 +188,9 @@ import notice from "./component/notice";
 import sheetPrintPage from "./component/sheet-print-page";
 import sheetPrintNursingOrder from "./component/sheet-print-nursing-order";
 import sugar from "./component/sugar-print-page.vue";
-import health from "./component/health-print-page"
+import health from "./component/health-print-page";
 import growthPrintPage from "./component/growth-print-page.vue";
+import birthCertificatePrint from "./component/birth-certificate-print.vue";
 import bus from "vue-happy-bus";
 import { setTimeout } from "timers";
 export default {
@@ -220,7 +248,8 @@ export default {
     notice,
     sugar,
     growthPrintPage,
-    health
+    health,
+    birthCertificatePrint
   }
 };
 </script>
