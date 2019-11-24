@@ -3,7 +3,8 @@
     class="birth-certificate-create-modal">
     <div class="model-content">
       <div class="search">
-        产妇ID：<input type="text" placeholder="请输入住院产妇ID"><button>查询</button>
+        产妇ID：<input type="text" placeholder="请输入姓名或住院号" v-model="searchingContent"><button
+          @click="searchPuerpera">查询</button>
       </div>
       <div class="searchResult" :class="{matchSuc: isMatch === true,matchErr: isMatch===false}">
         {{searchResult}}

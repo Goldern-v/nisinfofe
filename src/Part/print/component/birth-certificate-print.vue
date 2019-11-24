@@ -13,6 +13,15 @@
     margin: 0 auto;
     page-break-after: always;
     min-height: 1000px;
+
+    .sign-img {
+      display: inline-block;
+      vertical-align: middle;
+
+      & + span {
+        display: none;
+      }
+    }
   }
 
   .noPrint {
@@ -68,6 +77,8 @@ export default {
   computed: {
     sheetModel() {
       let html = window.localStorage.previewBirthCertificate;
+      var reg = /data-value/g;
+      return html.replace(reg, "value");
       return html;
     }
   },

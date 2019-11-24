@@ -17,12 +17,13 @@
             <span class="sign-img" v-if="formData[col.setKey]">
               <img :src="`/crNursing/api/file/signImage/${formData[col.setKey]}?${token}`" alt />
             </span>
-            <span>{{col.value}}</span>
+            <span>{{formData[col.setKey2] || col.value}}</span>
           </span>
           <input
             type="text"
             :style="col.eleStyle"
             v-model="formData[col.setKey]"
+            :data-value="formData[col.setKey]"
             v-if="col.type=='input'"
           />
           <span v-if="col.next">{{col.next}}</span>
@@ -40,14 +41,19 @@
                 type="text"
                 :style="child.style"
                 v-model="otherFormData[child.setKey]"
+                :data-value="otherFormData[child.setKey]"
                 v-if="child.type=='input'"
-                @keyup="updateFormData(col.children)"
+                @keyup="updateFormData(col)"
               />
               <span v-if="child.next">{{child.next}}</span>
             </span>
           </div>
           <div class="containTable" v-if="col.type=='table'">
-            <Excel :dataModel="[col.table.tbody]" :formData="formData"></Excel>
+            <Excel
+              :dataModel="[col.table.tbody]"
+              :formData.sync="formData"
+              :otherFormData.sync="otherFormData"
+            ></Excel>
           </div>
         </td>
       </tr>
@@ -74,9 +80,7 @@ export default {
     return {};
   },
   mixins: [common],
-  mounted() {
-    console.log(this.otherFormData);
-  },
+  mounted() {},
   methods: {
     // 签名
     openSignModal(item) {
@@ -106,8 +110,13 @@ export default {
       } else if (item.format == "YYYY-MM-DD HH:mm") {
         let val4 = this.otherFormData[arr[3].setKey];
         let val5 = this.otherFormData[arr[4].setKey];
+        val4 = val4 < 10 ? "0" + val4 : val4;
+        val5 = val4 < 10 ? "0" + val5 : val5;
         str = val1 + "-" + val2 + "-" + val3 + " " + val4 + ":" + val5;
       } else {
+        this.formData[arr[0].setKey] = val1;
+        this.formData[arr[1].setKey] = val2;
+        this.formData[arr[2].setKey] = val3;
         str = val1 + "省（区、市）" + val2 + "市" + val3 + "县（区）";
       }
       this.formData[key] = str;
@@ -135,7 +144,6 @@ export default {
         padding-left: 15px;
       }
       > div {
-        padding-top: 11px;
         span {
           span,
           input {
@@ -195,6 +203,11 @@ export default {
       &:last-of-type {
         border-right: none !important;
       }
+    }
+  }
+  .fillDate {
+    > div {
+      padding-top: 11px;
     }
   }
 }

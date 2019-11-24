@@ -70,3 +70,7 @@ export function getUser(password, empNo) {
 export function saveBirthCertInfo(data) {
     return axios.post(`${apiPath}birthMedicalCertifi/saveOrUpdate`, data);
 }
+//获取记录单
+export function getPuerperaInfo(query) {
+    return axios.post(`${apiPath}obstetricBirthFormControl/getFrom`, query);
+}

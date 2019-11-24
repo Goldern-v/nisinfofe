@@ -95,24 +95,25 @@
           <ecrm-table-column label="出生身长" prop="cssc" width="80" align="center">
             <template slot-scope="scope">
               <span v-if="scope.$index%2==0">
-                <el-select class="align-center" v-model="scope.row.cssc"
-                  @change="()=>handleEditDone(scope.$index,'cssc')" placeholder=" ">
-                  <el-option v-for="(item,idx) in perineumSituationOptions" :key="idx" :value="item" :label="item">
-                  </el-option>
-                </el-select>
+                <el-input resize="none" type="textarea" @blur="handleEditDone(scope.$index,'cssc')"
+                  :autosize="{ minRows: 1}" v-model="scope.row.cssc" />
               </span>
 
 
             </template>
           </ecrm-table-column>
-          <ecrm-table-column label="出生地点" prop="csdd" width="100" align="center">
+          <ecrm-table-column label="出生地点" width="400" align="center">
             <template slot-scope="scope">
               <span v-if="scope.$index%2==0">
-                <el-select class="align-center" v-model="scope.row.csdd"
-                  @change="()=>handleEditDone(scope.$index,'csdd')" placeholder=" ">
-                  <el-option v-for="(item,idx) in perineumSituationOptions" :key="idx" :value="item" :label="item">
-                  </el-option>
-                </el-select>
+                <el-input resize="none" type="textarea" @blur="handleEditDone(scope.$index,'csddOne')"
+                  :autosize="{ minRows: 1}" v-model="scope.row.csddOne" style="width: 70px;" /> <span
+                  style="line-height: 33px;">省（区、市）</span>
+                <el-input resize="none" type="textarea" @blur="handleEditDone(scope.$index,'csddTwo')"
+                  :autosize="{ minRows: 1}" v-model="scope.row.csddTwo" style="width: 70px;" /><span
+                  style="line-height: 33px;">市</span>
+                <el-input resize="none" type="textarea" @blur="handleEditDone(scope.$index,'csddThree')"
+                  :autosize="{ minRows: 1}" v-model="scope.row.csddThree" style="width: 70px;" /><span
+                  style="line-height: 33px;">县（区）</span>
               </span>
 
             </template>
@@ -132,9 +133,9 @@
           <ecrm-table-column label="姓名" width="150" fixed="left">
             <template slot-scope="scope">
               <span style="margin-left:6px;display: block;" v-if="scope.$index%2==0">母亲：
-                <el-input resize="none" type="textarea" @blur="handleEditDone(scope.$index,'yljgmc')"
+                <el-input resize="none" type="textarea" @blur="handleEditDone(scope.$index,'mqxxXm')"
                   style="display: inline-block;vertical-align: middle;width:74px;" :autosize="{ minRows: 1}"
-                  v-model="scope.row.yljgmc" /></span>
+                  v-model="scope.row.mqxxXm" /></span>
 
               <span style="margin-left:6px;display: block;" v-else>父亲：
                 <el-input resize="none" type="textarea" @blur="handleEditDone(scope.$index,'fqxxXm')"
@@ -237,6 +238,6 @@
   </div>
   <editModal :value.sync="editCfg.value" :title="editCfg.title" :name="editCfg.name" :type="editCfg.type"
     :options="editCfg.options" :visible.sync="editCfg.visible" @onOk="handleEditOk" />
-  <createModal :visible.sync="createVisible" @onOk="handleCreateOk" />
+  <createModal :visible.sync="createVisible" :query.sync="query" @onOk="handleCreateOk" />
   <!-- <vue-context-menu :contextMenuData="contextMenuData" @savedata="saveData" @deleteRow="deleteRow" /> -->
 </div>

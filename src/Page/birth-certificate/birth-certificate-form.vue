@@ -54,12 +54,29 @@ dataModel.map(table => {
       if (col["setKey2"]) {
         formData[col["setKey2"]] = "";
       }
-      if (col.children && col.type == "inputGroup") {
+      if (col.type == "inputGroup" && col.children) {
         col.children.map(child => {
-          if (child["setKey"]) {
-            otherFormData[child["setKey"]] = "";
-            formData[child["setKey"]] = "";
-          }
+          otherFormData[child["setKey"]] = "";
+        });
+      }
+
+      if (col.type == "table") {
+        col.table.tbody.map(child => {
+          child.map(chil => {
+            if (chil["setKey"]) {
+              formData[chil["setKey"]] = "";
+            }
+            if (chil.children) {
+              chil.children.map(chi => {
+                if (chi["setKey"]) {
+                  otherFormData[chi["setKey"]] = "";
+                }
+                if (chil["setKey"] == "csdd") {
+                  formData[chi["setKey"]] = "";
+                }
+              });
+            }
+          });
         });
       }
     });
@@ -75,29 +92,35 @@ export default {
     };
   },
   mounted() {
-    // let data = {};
-    // this.dataModel.map(table => {
-    //   table.map(row => {
-    //     row.map(col => {
-    //       if (col["setKey"]) {
-    //         this.formData[col["setKey"]] = data[col["getKey"]] || "";
-    //       }
-    //       if (col["setKey2"]) {
-    //         this.formData[col["setKey2"]] = data[col["setKey2"]] || "";
-    //       }
-    //     });
-    //   });
-    // });
-    // console.log(this.formData);
-    // this.getBirthCertInfo();
-    // let data;
-    // if (
-    //   this.$route.query.type == "view" &&
-    //   localStorage.getItem("birthCertificateFormView")
-    // ) {
-    //   data = JSON.parse(localStorage.getItem("birthCertificateFormView"));
-    //   this.init(data);
-    // }
+    if (
+      this.$route.query.type == "view" &&
+      localStorage.getItem("birthCertificateFormView")
+    ) {
+      data = JSON.parse(localStorage.getItem("birthCertificateFormView"));
+      for (let key in this.formData) {
+        this.formData[key] = data[key];
+      }
+      // 出生地点
+      this.otherFormData["csddOne"] = this.formData["csddOne"];
+      this.otherFormData["csddTwo"] = this.formData["csddTwo"];
+      this.otherFormData["csddThree"] = this.formData["csddThree"];
+      // 出生时间
+      let birthTime = this.formData["cssj"].replace(/[-:]/g, " ").split(" ");
+      this.otherFormData["cssj1"] = birthTime[0];
+      this.otherFormData["cssj2"] = birthTime[1];
+      this.otherFormData["cssj3"] = birthTime[2];
+      this.otherFormData["cssj4"] = birthTime[3];
+      this.otherFormData["cssj5"] = birthTime[4];
+      // 填表日期
+      let fillTime = this.formData["jsryqzTbrq"]
+        .replace(/[-:]/g, " ")
+        .split(" ");
+      this.otherFormData["jsryqzTbrq1"] = fillTime[0];
+      this.otherFormData["jsryqzTbrq2"] = fillTime[1];
+      this.otherFormData["jsryqzTbrq3"] = fillTime[2];
+    } else {
+      this.getBirthCertInfo();
+    }
   },
   methods: {
     goBack() {
@@ -135,14 +158,13 @@ export default {
       let data = {
         list: [
           {
-            patientId: "7674131" || this.$route.query.patientId,
-            visitId: "1" || this.$route.query.visitId
+            patientId: this.$route.query.patientId,
+            visitId: this.$route.query.visitId
           }
         ]
       };
-
       getBirthCertInfo(data).then(res => {
-        let data = {};
+        let data = res.data.data[0];
         this.dataModel.map(table => {
           table.map(row => {
             row.map(col => {
@@ -152,40 +174,80 @@ export default {
               if (col["setKey2"]) {
                 this.formData[col["setKey2"]] = data[col["setKey2"]] || "";
               }
-              if (col.children && col.type == "inputGroup") {
-                let key = col["setKey"],
-                  key1 = key + "1",
-                  key2 = key + "2",
-                  key3 = key + "3",
-                  key4 = key + "4",
-                  key5 = key + "5";
-                if (col.format == "YYYY-MM-DD") {
-                  let str = this.formData[key].replace(/[-:]/g, " ").split(" ");
-                  this.otherFormData[key1] = str[0];
-                  this.otherFormData[key2] = str[1];
-                  this.otherFormData[key3] = str[2];
-                } else if (col.format == "YYYY-MM-DD HH:mm") {
-                  let str = this.formData[key].replace(/[-:]/g, " ").split(" ");
-                  this.otherFormData[key1] = str[0];
-                  this.otherFormData[key2] = str[1];
-                  this.otherFormData[key3] = str[2];
-                  this.otherFormData[key4] = str[3];
-                  this.otherFormData[key5] = str[4];
-                } else {
-                  this.otherFormData[key1] = this.formData[key1];
-                  this.otherFormData[key2] = this.formData[key2];
-                  this.otherFormData[key3] = this.formData[key3];
-                }
+              if (col.type == "inputGroup" && col.children) {
+                col.children.map(child => {
+                  this.otherFormData[child["setKey"]] =
+                    data[col["getKey"]] || "";
+                });
+              }
+
+              if (col.type == "table") {
+                col.table.tbody.map(child => {
+                  child.map(chil => {
+                    if (chil["setKey"]) {
+                      this.formData[chil["setKey"]] = data[col["getKey"]] || "";
+                    }
+                    if (chil.children) {
+                      chil.children.map(chi => {
+                        if (chi["setKey"]) {
+                          this.otherFormData[chi["setKey"]] =
+                            data[col["getKey"]] || "";
+                        }
+                        if (chil["setKey"] == "csdd") {
+                          this.formData[chi["setKey"]] =
+                            data[col["getKey"]] || "";
+                        }
+                      });
+                    }
+                  });
+                });
               }
             });
           });
         });
+        // this.dataModel.map(table => {
+        //   table.map(row => {
+        //     row.map(col => {
+        //       if (col["setKey"]) {
+        //         this.formData[col["setKey"]] = data[col["getKey"]] || "";
+        //       }
+        //       if (col["setKey2"]) {
+        //         this.formData[col["setKey2"]] = data[col["setKey2"]] || "";
+        //       }
+        //       if (col.children && col.type == "inputGroup") {
+        //         let key = col["setKey"],
+        //           key1 = key + "1",
+        //           key2 = key + "2",
+        //           key3 = key + "3",
+        //           key4 = key + "4",
+        //           key5 = key + "5";
+        //         if (col.format == "YYYY-MM-DD") {
+        //           let str = this.formData[key].replace(/[-:]/g, " ").split(" ");
+        //           this.otherFormData[key1] = str[0];
+        //           this.otherFormData[key2] = str[1];
+        //           this.otherFormData[key3] = str[2];
+        //         } else if (col.format == "YYYY-MM-DD HH:mm") {
+        //           let str = this.formData[key].replace(/[-:]/g, " ").split(" ");
+        //           this.otherFormData[key1] = str[0];
+        //           this.otherFormData[key2] = str[1];
+        //           this.otherFormData[key3] = str[2];
+        //           this.otherFormData[key4] = str[3];
+        //           this.otherFormData[key5] = str[4];
+        //         } else {
+        //           this.otherFormData[key1] = this.formData[key1];
+        //           this.otherFormData[key2] = this.formData[key2];
+        //           this.otherFormData[key3] = this.formData[key3];
+        //         }
+        //       }
+        //     });
+        //   });
+        // });
       });
     },
     saveForm() {
-      this.formData["patientId"] = this.$route.query.patientId || "7674131";
-      this.formData["visitId"] = this.$route.query.visitId || "1";
-      this.formData["id"] = this.$route.query.id || "";
+      this.formData["patientId"] = this.$route.query.patientId;
+      this.formData["visitId"] = this.$route.query.visitId;
+      this.formData["id"] = this.$route.query.id;
       saveBirthCertInfo(this.formData).then(res => {
         this.$message.success({ message: "保存成功" });
       });

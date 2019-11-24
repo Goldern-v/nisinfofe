@@ -36,12 +36,12 @@ export default {
       addDay = 7 - nowtDay;
     }
 
-    let beginTime = moment(new Date(nowTime - reduceDay * 86400000)).format(
-      "YYYY-MM-DD"
-    );
-    let endTime = moment(new Date(nowTime + addDay * 86400000)).format(
-      "YYYY-MM-DD"
-    );
+    let beginTime =
+      moment(new Date(nowTime - reduceDay * 86400000)).format("YYYY-MM-DD") +
+      " 00:00";
+    let endTime =
+      moment(new Date(nowTime + addDay * 86400000)).format("YYYY-MM-DD") +
+      " 23:59";
 
     return {
       query: {
@@ -103,7 +103,8 @@ export default {
         ],
         row: null,
         column: null
-      }
+      },
+      puerperaInfo: {}
     };
   },
   mounted() {
@@ -127,12 +128,13 @@ export default {
 
       let startDateType = Object.prototype.toString.call(query.beginTime);
       if (startDateType == "[object Date]")
-        query.beginTime = moment(query.beginTime).format("YYYY-MM-DD");
+        query.beginTime =
+          moment(query.beginTime).format("YYYY-MM-DD") + " 00:00";
       else if (!query.beginTime) query.beginTime = "";
 
       let endDateType = Object.prototype.toString.call(query.endTime);
       if (endDateType == "[object Date]")
-        query.endTime = moment(query.endTime).format("YYYY-MM-DD");
+        query.endTime = moment(query.endTime).format("YYYY-MM-DD") + " 23:59";
       else if (!query.endTime) query.endTime = "";
 
       getList(query).then(
@@ -323,9 +325,9 @@ export default {
       this.$router.push(
         "/birthCertificateForm?patientId=" +
           item.patientId +
-          "&visitId=" +
           "&id=" +
           item.id +
+          "&visitId=" +
           item.visitId +
           "&type=view"
       );

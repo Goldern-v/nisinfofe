@@ -2,16 +2,10 @@
 
 <script>
 import commonMixin from "./../../../common/mixin/common.mixin";
-import {
-  getPatientList,
-  changeOrSaveForm,
-  getPatientListNew,
-  getFormChildbirth
-} from "./../api/api";
 import moment from "moment";
 import { setTimeout } from "timers";
 import { getPatientInfo } from "@/api/common.js";
-import { getCommonInfo } from "./../api/api";
+import { getPuerperaInfo } from "../api/api";
 
 export default {
   mixins: [commonMixin],
@@ -19,6 +13,12 @@ export default {
     visible: {
       type: Boolean,
       default: false
+    },
+    query: {
+      type: Object,
+      default: () => {
+        return {};
+      }
     }
   },
   data() {
@@ -26,7 +26,8 @@ export default {
       searchResult: "点击查询匹配产妇姓名",
       dialogVisible: false,
       saveLoading: false,
-      isMatch: null //是否匹配到
+      isMatch: null, //是否匹配到
+      searchingContent: ""
     };
   },
   mounted() {},
@@ -35,34 +36,66 @@ export default {
       this.$emit("update:visible", false);
       this.$emit("onCancel", false);
     },
-    handleSave() {
-      let errMsg = "";
+    // handleSave() {
+    //   let errMsg = "";
 
-      if (!params.hospitalizationNumber) errMsg = "未选择产妇";
+    //   if (!params.hospitalizationNumber) errMsg = "未选择产妇";
 
-      // if (errMsg) {
-      //   this.$message({
-      //     message: errMsg,
-      //     type: "warning"
-      //   });
-      //   return;
-      // }
+    //   // if (errMsg) {
+    //   //   this.$message({
+    //   //     message: errMsg,
+    //   //     type: "warning"
+    //   //   });
+    //   //   return;
+    //   // }
 
-      // return console.log(params)
+    //   // return console.log(params)
+    //   this.saveLoading = true;
+    //   // changeOrSaveForm(params).then(
+    //   //   res => {
+    //   //     this.$message({
+    //   //       message: "创建成功",
+    //   //       type: "success"
+    //   //     });
+    //   //     this.saveLoading = false;
+    //   //     this.$emit("onOk");
+    //   //   },
+    //   //   res => {
+    //   //     this.saveLoading = false;
+    //   //   }
+    //   // );
+    // },
+    getPuerperaInfo() {
       this.saveLoading = true;
-      // changeOrSaveForm(params).then(
-      //   res => {
-      //     this.$message({
-      //       message: "创建成功",
-      //       type: "success"
-      //     });
-      //     this.saveLoading = false;
-      //     this.$emit("onOk");
-      //   },
-      //   res => {
-      //     this.saveLoading = false;
-      //   }
-      // );
+      let data = {
+        startDate: "",
+        endDate: "",
+        pageIndex: this.query.pageIndex,
+        pageSize: this.query.pageSize,
+        searchingContent: this.searchingContent
+      };
+      getPuerperaInfo(data).then(res => {
+        this.saveLoading = false;
+        if (res.data.data && res.data.data.list) {
+          let data = res.data.data.list;
+          if (data.length) {
+            this.isMatch = true;
+            this.puerperaInfo = data[0];
+            this.searchResult = data[0].female;
+          } else {
+            this.isMatch = false;
+            this.searchResult = "匹配失败，请校对ID";
+          }
+        }
+      });
+    },
+    searchPuerpera() {
+      this.getPuerperaInfo();
+    },
+    handleSave() {
+      this.$router.push(
+        "/birthCertificateForm?patientId=" + this.puerperaInfo.patientId
+      );
     }
   },
   watch: {
