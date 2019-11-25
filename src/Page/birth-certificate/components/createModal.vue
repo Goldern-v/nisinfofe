@@ -93,9 +93,12 @@ export default {
       this.getPuerperaInfo();
     },
     handleSave() {
-      this.$router.push(
-        "/birthCertificateForm?patientId=" + this.puerperaInfo.patientId
-      );
+      this.handleClose();
+      setTimeout(() => {
+        this.$router.push(
+          "/birthCertificateForm?patientId=" + this.puerperaInfo.patientId
+        );
+      }, 1000);
     }
   },
   watch: {
@@ -108,6 +111,9 @@ export default {
         //   this.params[x]=''
         // }
       } else {
+        this.isMatch = null;
+        this.searchingContent = "";
+        this.searchResult = "点击查询匹配产妇姓名";
         this.$refs.modal.open();
       }
     },

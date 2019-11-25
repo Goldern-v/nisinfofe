@@ -260,7 +260,8 @@ export default {
                 ~~this.$root.$refs[r.weight].currentValue ||
                 this.formObj.model[r.weight] ||
                 0;
-              if(r.weight2 && this.$root.$refs[r.weight2]){
+              if(r.weight2 && this.$root.$refs[r.weight2] 
+              && ['NaN','0'].indexOf(Number(this.$root.$refs[r.weight2].currentValue)+'')==-1 ){
                 weight =
                 ~~this.$root.$refs[r.weight2].currentValue ||
                 this.formObj.model[r.weight2] || ~~this.$root.$refs[r.weight].currentValue || this.formObj.model[r.weight] || 0;
