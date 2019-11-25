@@ -93,9 +93,12 @@ export default {
       this.getPuerperaInfo();
     },
     handleSave() {
-      this.$router.push(
-        "/birthCertificateForm?patientId=" + this.puerperaInfo.patientId
-      );
+      this.handleClose();
+      setTimeout(() => {
+        this.$router.push(
+          "/birthCertificateForm?patientId=" + this.puerperaInfo.patientId
+        );
+      }, 1000);
     }
   },
   watch: {

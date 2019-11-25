@@ -105,7 +105,9 @@ export default {
       this.otherFormData["csddTwo"] = this.formData["csddTwo"];
       this.otherFormData["csddThree"] = this.formData["csddThree"];
       // 出生时间
-      let birthTime = this.formData["cssj"].replace(/[-:]/g, " ").split(" ");
+      let birthTime = this.formData["cssj"]
+        ? this.formData["cssj"].replace(/[-:]/g, " ").split(" ")
+        : "";
       this.otherFormData["cssj1"] = birthTime[0];
       this.otherFormData["cssj2"] = birthTime[1];
       this.otherFormData["cssj3"] = birthTime[2];
@@ -113,8 +115,8 @@ export default {
       this.otherFormData["cssj5"] = birthTime[4];
       // 填表日期
       let fillTime = this.formData["jsryqzTbrq"]
-        .replace(/[-:]/g, " ")
-        .split(" ");
+        ? this.formData["jsryqzTbrq"].replace(/[-:]/g, " ").split(" ")
+        : "";
       this.otherFormData["jsryqzTbrq1"] = fillTime[0];
       this.otherFormData["jsryqzTbrq2"] = fillTime[1];
       this.otherFormData["jsryqzTbrq3"] = fillTime[2];
