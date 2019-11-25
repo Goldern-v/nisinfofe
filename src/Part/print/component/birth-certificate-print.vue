@@ -17,10 +17,10 @@
     .sign-img {
       display: inline-block;
       vertical-align: middle;
+    }
 
-      & + span {
-        display: none;
-      }
+    .sign-text {
+      display: none;
     }
   }
 

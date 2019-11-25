@@ -27,7 +27,6 @@ export default {
     };
   },
   mounted() {
-    console.log(2);
     getPatientListNew().then(res => {
       if (res.data.data) {
         this.patientList = this.formatPatientList(res.data.data);
@@ -62,10 +61,8 @@ export default {
       return newList;
     },
     handlePatinentChange(patientOptionVal) {
-      console.log(55);
       let searchingContent = patientOptionVal.split(" ")[0];
       let patientId = patientOptionVal.split(" ")[1] || null;
-
       if (!patientId) return;
       let target = this.patientList.find(item => item.patientId == patientId);
       if (target) {

@@ -17,7 +17,7 @@
             <span class="sign-img" v-if="formData[col.setKey]">
               <img :src="`/crNursing/api/file/signImage/${formData[col.setKey]}?${token}`" alt />
             </span>
-            <span>{{formData[col.setKey2] || col.value}}</span>
+            <span class="sign-text">{{formData[col.setKey2] || col.value}}</span>
           </span>
           <input
             type="text"
