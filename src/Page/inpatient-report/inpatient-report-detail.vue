@@ -3,8 +3,9 @@
     <div class="toolbar">
       <div class="toolbar-left">
         <span>科室：</span>
+
         <ElSelect size="small" v-model="code" filterable>
-          <ElOption v-for="d of userDeptList" :key="d.code" :label="d.name" :value="d.code" />
+          <ElOption v-for="d of depts" :key="d.code" :label="d.name" :value="d.code" />
         </ElSelect>
       </div>
       <div class="toolbar-right">
@@ -83,7 +84,7 @@ export default {
     deptCode(value, oldValue) {
       this.code = this.deptCode;
       if (oldValue !== value) {
-        // this.loadDepts()
+        this.loadDepts();
       }
     },
     code(value, oldValue) {
@@ -100,7 +101,7 @@ export default {
   mounted() {
     if (this.deptCode) {
       this.code = this.deptCode;
-      // this.loadDepts()
+      this.loadDepts();
     }
   },
   methods: {
@@ -121,7 +122,7 @@ export default {
       if (!depts[0]) {
         depts[0] = {};
       }
-      this.code = depts[0].code;
+      this.code = this.depts[0] && this.depts[0].code;
     },
     async load(refresh) {
       const date = this.$route.params.date;
