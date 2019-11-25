@@ -135,7 +135,6 @@ import deliveryRoomWhiteboard from "@/Page/delivery-room-whiteboard/delivery-roo
 // 新出生医学证明
 import birthCertificate from "@/Page/birth-certificate/birth-certificate";
 import birthCertificateForm from "@/Page/birth-certificate/birth-certificate-form";
-import previewBirthCertificate from "@/Page/birth-certificate/preview-birth-certificate";
 
 /** 病历 */
 import doctorEmr from "@/Page/patientInfo/supPage/doctorEmr/doctorEmr";
@@ -523,8 +522,7 @@ const router = new Router({
         { path: "/vaccineManagement", component: vaccineManagement },
         { path: "/deliveryRoomWhiteboard", component: deliveryRoomWhiteboard },
         { path: "/birthCertificate", component: birthCertificate },
-        { path: "/birthCertificateForm", component: birthCertificateForm },
-        { path: "/previewBirthCertificate", component: previewBirthCertificate },
+        { path: "/birthCertificateForm", component: birthCertificateForm }
       ]
     },
     {

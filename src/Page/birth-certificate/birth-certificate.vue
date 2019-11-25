@@ -302,23 +302,18 @@ export default {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning"
-      })
-        .then(
-          () => {
-            return deleteForm(record.id);
-          },
-          err => {}
-        )
-        .then(
-          res => {
+      }).then(
+        () => {
+          deleteForm(record.id).then(res => {
             this.$message({
               message: "操作成功",
               type: "success"
             });
             this.getTableData();
-          },
-          err => {}
-        );
+          });
+        },
+        err => {}
+      );
     },
     seeRecord(item) {
       localStorage.setItem("birthCertificateFormView", JSON.stringify(item));

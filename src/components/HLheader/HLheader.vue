@@ -300,16 +300,16 @@
                     </el-row>
                   </router-link>
                 </el-dropdown-item>
-                <!-- <el-dropdown-item
+                <el-dropdown-item
                   :class="{active: $route.path == '/birthCertificate'}"
-                  v-if="deptName.includes('产科')"
+                  v-if="deptCode.match('051102')"
                 >
                   <router-link to="/birthCertificate" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
                       <i class="birthCertificate"></i>出生医学证明
                     </el-row>
                   </router-link>
-                </el-dropdown-item>-->
+                </el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
           </el-row>
