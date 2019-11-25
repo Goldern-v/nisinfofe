@@ -46,7 +46,7 @@
             </span>
           </template>
         </ecrm-table-column>
-        <ecrm-table-column prop="cssj" label="接生日期" width="134" fixed="left">
+        <ecrm-table-column prop="cssj" label="接生日期" width="140" fixed="left">
           <template slot-scope="scope">
             <span v-if="scope.$index%2==0">
               <el-input resize="none" type="textarea" @blur="handleEditDone(scope.$index,'cssj')"
@@ -66,7 +66,7 @@
 
             </template>
           </ecrm-table-column>
-          <ecrm-table-column label="出生时间" prop="cssj" width="100" align="center">
+          <ecrm-table-column label="出生时间" prop="cssj" width="150" align="center">
             <template slot-scope="scope">
               <span v-if="scope.$index%2==0">
                 <el-input resize="none" type="textarea" @blur="handleEditDone(scope.$index,'cssj')"
