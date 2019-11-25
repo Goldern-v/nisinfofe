@@ -53,6 +53,7 @@
               :dataModel="[col.table.tbody]"
               :formData.sync="formData"
               :otherFormData.sync="otherFormData"
+              :saveForm="saveForm"
             ></Excel>
           </div>
         </td>
@@ -74,7 +75,8 @@ export default {
       default: () => {
         return {};
       }
-    }
+    },
+    saveForm: Function
   },
   data() {
     return {};
@@ -93,6 +95,7 @@ export default {
             title: "提示",
             message: "签名成功"
           });
+          this.saveForm();
         });
       });
     },

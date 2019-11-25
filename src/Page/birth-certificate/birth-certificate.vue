@@ -176,9 +176,12 @@ export default {
       return newList;
     },
     handleCurrentChange(page) {
+      this.query.pageIndex = page;
       this.getTableData();
     },
     handleSizeChange(size) {
+      this.query.pageIndex = 1;
+      this.query.pageSize = size;
       this.getTableData();
     },
     handelResize() {

@@ -16,6 +16,7 @@
               :dataModel="dataModel"
               :formData.sync="formData"
               :otherFormData.sync="otherFormData"
+              :saveForm="saveForm"
             ></excel>
           </div>
         </div>
