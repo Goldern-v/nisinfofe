@@ -15,7 +15,7 @@
         姓名：
         <div class="bottom-line" style="min-width: 80px">{{patientInfo.patientName}}</div>
       </span>
-      <span>
+      <span @click="updateTetxInfo('sex', '性别', patientInfo.sex)">
         性别：
         <div class="bottom-line" style="min-width: 45px">{{patientInfo.sex}}</div>
       </span>

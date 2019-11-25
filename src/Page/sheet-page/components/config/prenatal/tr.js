@@ -11,6 +11,7 @@ let xlgdList = [];
 let gjgList = [];
 let ysxzList = [];
 let gjkzList = [];
+let gsqdList = [];
 
 export default [
   {
@@ -51,7 +52,7 @@ export default [
   {
     key: "bloodPressure", //血压
     value: "",
-    event: function(e, td) {
+    event: function (e, td) {
       if (e.keyCode == 32) {
         e.target.value += "/";
         e.preventDefault();
@@ -99,9 +100,9 @@ export default [
     value: "",
     event: keyf1,
     name: "宫缩强度",
-    // autoComplete: {
-    //   data: hzys
-    // },
+    autoComplete: {
+      data: gsqdList
+    },
     textarea: {
       width: 21
     }
@@ -241,7 +242,7 @@ export default [
       width: "180px",
       background: "transparent"
     },
-    event: function(e, td) {
+    event: function (e, td) {
       console.log(e.keyCode);
       if (e.keyCode == 9) {
         td.value = "    " + td.value;
@@ -346,7 +347,8 @@ export function getListData() {
     "先露高低",
     "宫颈管",
     "羊水性状",
-    "宫颈扩张"
+    "宫颈扩张",
+    "宫缩强度"
   ];
   multiDictInfo(list).then(res => {
     let data = res.data.data;
@@ -357,6 +359,7 @@ export function getListData() {
     setList(gjgList, list[4], data);
     setList(ysxzList, list[5], data);
     setList(gjkzList, list[6], data);
+    setList(gsqdList, list[7], data);
   });
 }
 
