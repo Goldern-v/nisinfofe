@@ -193,6 +193,10 @@
   color: #ACACAC;
 }
 
+.color-yszuofei {
+  color: #E72C2C;
+}
+
 .advice-table {
   .el-table__row td:first-child .cell {
     text-align: center;
@@ -243,6 +247,9 @@ export default {
       }
       if (state === "作废") {
         return "color-zuofei";
+      }
+      if (state === "医生作废") {
+        return "color-yszuofei";
       }
       return "1234566666";
     },
