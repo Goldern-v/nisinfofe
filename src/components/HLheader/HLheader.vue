@@ -302,7 +302,7 @@
                 </el-dropdown-item>
                 <el-dropdown-item
                   :class="{active: $route.path == '/birthCertificate'}"
-                  v-if="deptCode.match('051102') && isDev"
+                  v-if="deptCode.match('051102')"
                 >
                   <router-link to="/birthCertificate" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
