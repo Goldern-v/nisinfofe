@@ -5,7 +5,7 @@ import commonMixin from "./../../../common/mixin/common.mixin";
 import moment from "moment";
 import { setTimeout } from "timers";
 import { getPatientInfo } from "@/api/common.js";
-import { getPuerperaInfo } from "../api/api";
+import { getPuerperaInfo, getPatientListNew } from "../api/api";
 
 export default {
   mixins: [commonMixin],
@@ -23,6 +23,9 @@ export default {
   },
   data() {
     return {
+      searchingContent: "",
+      patientList: [],
+      patientListFiltered: [],
       searchResult: "点击查询匹配产妇姓名",
       dialogVisible: false,
       saveLoading: false,
@@ -30,8 +33,61 @@ export default {
       searchingContent: ""
     };
   },
-  mounted() {},
+  mounted() {
+    console.log(2);
+    getPatientListNew().then(res => {
+      if (res.data.data) {
+        this.patientList = this.formatPatientList(res.data.data);
+        this.patientListFiltered = this.patientList.concat();
+      }
+    });
+  },
   methods: {
+    patientsFilterMethod(search) {
+      this.searchingContent = search;
+      this.params.female = search;
+
+      this.filterSearch = search;
+    },
+    patientOptionVisible(item, search) {
+      if (!search) return true;
+      if (new RegExp(search).test(item.patientId)) return true;
+
+      if (new RegExp(search).test(item.bedLabel)) return true;
+
+      if (new RegExp(search).test(item.name)) return true;
+      return false;
+    },
+    formatPatientList(list) {
+      let newList = [];
+      newList = list.filter(item => {
+        if (!item.name || item.name == "") return false;
+        if (!item.patientId) return false;
+        if (item.bedLabel.includes("_") || item.patientId.includes("_"))
+          return false;
+        return true;
+      });
+
+      return newList;
+    },
+    handlePatinentChange(patientOptionVal) {
+      let searchingContent = patientOptionVal.split(" ")[0];
+      let patientId = patientOptionVal.split(" ")[1] || null;
+
+      if (!patientId) return;
+      let target = this.patientList.find(item => item.patientId == patientId);
+      if (target) {
+        //清除数据
+        for (let x in this.params) {
+          if (x !== "searchingContent" && x !== "patientId")
+            this.params[x] = "";
+        }
+
+        this.params.female = target.name;
+        this.params.hospitalizationNumber = target.inpNo;
+        this.params.patientId = target.patientId;
+      }
+    },
     handleClose() {
       this.$emit("update:visible", false);
       this.$emit("onCancel", false);
@@ -106,7 +162,7 @@ export default {
       this.dialogVisible = val;
       if (!val) {
         if (this.$refs.modal.is_open) this.$refs.modal.close();
-        // this.patientName=''
+        // this.searchingContent=''
         // for(let x in this.params){
         //   this.params[x]=''
         // }
@@ -142,11 +198,17 @@ export default {
   }
   .model-content {
     padding: 0 !important;
+    .content {
+      display: inline-block;
+    }
     .search {
       font-size: 12px;
       color: #333;
       line-height: 37px;
       padding-bottom: 15px;
+      .el-select {
+        width: 218px;
+      }
       input {
         width: 218px;
         height: 37px;

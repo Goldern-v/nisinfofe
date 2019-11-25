@@ -1,6 +1,8 @@
 import axios from "@/api/axios";
 import qs from "qs";
 import { apiPath } from "@/api/apiConfig";
+import moment from 'moment';
+
 //获取记录单
 export function getList(query) {
     return axios.post(`${apiPath}birthMedicalCertifi/getListByPatInfo`, query);
@@ -24,4 +26,22 @@ export function saveBirthCertInfo(data) {
 //获取孕妇信息
 export function getPuerperaInfo(query) {
     return axios.post(`${apiPath}obstetricBirthFormControl/getFrom`, query);
+}
+
+//获取产妇列表
+export function getPatientListNew() {
+    let endDate = moment().format('YYYY-MM-DD')
+    let startDate = new Date(endDate.replace(/-/g, '/'))
+    startDate = startDate.getTime() - 30 * 86400000
+    startDate = moment(new Date(startDate)).format('YYYY-MM-DD')
+
+    return axios.post(`${apiPath}bed/patListCK`, {
+        wardCode: '051102',
+        admissionDateEnd: '',
+        admissionDateBegin: '',
+        dischargeDateBegin: startDate,
+        dischargeDateEnd: endDate,
+        pageNum: 1000,
+        pageIndex: 1,
+    });
 }
