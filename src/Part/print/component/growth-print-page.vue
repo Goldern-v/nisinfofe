@@ -228,8 +228,9 @@ export default {
         let weeks = 0;
         if (item.gestationalAge.indexOf("+") != -1) {
           weeks =
-            Number(item.gestationalAge) +
+            Number(item.gestationalAge.split("+")[0]) +
             Number(item.gestationalAge.split("+")[1]) / 7;
+          console.log(weeks, "weeks1");
         } else {
           weeks = Number(item.gestationalAge);
         }
