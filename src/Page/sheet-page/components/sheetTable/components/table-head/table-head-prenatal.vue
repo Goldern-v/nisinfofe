@@ -7,7 +7,7 @@
         病人姓名：
         <div class="bottom-line" style="min-width: 80px">{{patientInfo.patientName}}</div>
       </span>
-      <span>
+      <span @click="updateTetxInfo('sex', '性别', patientInfo.sex)">
         性别：
         <div class="bottom-line" style="min-width: 50px">{{patientInfo.sex}}</div>
       </span>
@@ -21,7 +21,7 @@
           class="bottom-line-input"
           :data-value="sheetInfo.relObj['yyc_' + index]"
           v-model="sheetInfo.relObj['yyc_' + index]"
-        >
+        />
       </span>
       <span>
         孕周：
@@ -29,7 +29,7 @@
           class="bottom-line-input"
           :data-value="sheetInfo.relObj['yz_' + index]"
           v-model="sheetInfo.relObj['yz_' + index]"
-        >
+        />
         周
       </span>
       <span @click="updateTetxInfo('bedLabel', '床号', patientInfo.bedLabel)">
