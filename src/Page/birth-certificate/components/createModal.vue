@@ -111,6 +111,9 @@ export default {
         //   this.params[x]=''
         // }
       } else {
+        this.isMatch = null;
+        this.searchingContent = "";
+        this.searchResult = "点击查询匹配产妇姓名";
         this.$refs.modal.open();
       }
     },
