@@ -348,7 +348,7 @@ export function getListData() {
     "宫颈管",
     "羊水性状",
     "宫颈扩张",
-    "宫颈强度"
+    "宫缩强度"
   ];
   multiDictInfo(list).then(res => {
     let data = res.data.data;
