@@ -5,7 +5,7 @@ import commonMixin from "./../../../common/mixin/common.mixin";
 import moment from "moment";
 import { setTimeout } from "timers";
 import { getPatientInfo } from "@/api/common.js";
-import { getPuerperaInfo, getPatientListNew } from "../api/api";
+import { getPatientListNew } from "../api/api";
 
 export default {
   mixins: [commonMixin],
@@ -13,24 +13,17 @@ export default {
     visible: {
       type: Boolean,
       default: false
-    },
-    query: {
-      type: Object,
-      default: () => {
-        return {};
-      }
     }
   },
   data() {
     return {
-      searchingContent: "",
       patientList: [],
       patientListFiltered: [],
-      searchResult: "点击查询匹配产妇姓名",
       dialogVisible: false,
       saveLoading: false,
-      isMatch: null, //是否匹配到
-      searchingContent: ""
+      searchingContent: "",
+      puerperaInfo: {},
+      filterSearch: ""
     };
   },
   mounted() {
@@ -44,10 +37,8 @@ export default {
   },
   methods: {
     patientsFilterMethod(search) {
-      this.searchingContent = search;
-      this.params.female = search;
-
       this.filterSearch = search;
+      this.searchingContent = search;
     },
     patientOptionVisible(item, search) {
       if (!search) return true;
@@ -71,6 +62,7 @@ export default {
       return newList;
     },
     handlePatinentChange(patientOptionVal) {
+      console.log(55);
       let searchingContent = patientOptionVal.split(" ")[0];
       let patientId = patientOptionVal.split(" ")[1] || null;
 
@@ -78,77 +70,22 @@ export default {
       let target = this.patientList.find(item => item.patientId == patientId);
       if (target) {
         //清除数据
-        for (let x in this.params) {
-          if (x !== "searchingContent" && x !== "patientId")
-            this.params[x] = "";
+        for (let x in this.puerperaInfo) {
+          if (x !== "patientName" && x !== "patientId")
+            this.puerperaInfo[x] = "";
         }
-
-        this.params.female = target.name;
-        this.params.hospitalizationNumber = target.inpNo;
-        this.params.patientId = target.patientId;
+        this.puerperaInfo = target;
       }
     },
     handleClose() {
       this.$emit("update:visible", false);
       this.$emit("onCancel", false);
     },
-    // handleSave() {
-    //   let errMsg = "";
-
-    //   if (!params.hospitalizationNumber) errMsg = "未选择产妇";
-
-    //   // if (errMsg) {
-    //   //   this.$message({
-    //   //     message: errMsg,
-    //   //     type: "warning"
-    //   //   });
-    //   //   return;
-    //   // }
-
-    //   // return console.log(params)
-    //   this.saveLoading = true;
-    //   // changeOrSaveForm(params).then(
-    //   //   res => {
-    //   //     this.$message({
-    //   //       message: "创建成功",
-    //   //       type: "success"
-    //   //     });
-    //   //     this.saveLoading = false;
-    //   //     this.$emit("onOk");
-    //   //   },
-    //   //   res => {
-    //   //     this.saveLoading = false;
-    //   //   }
-    //   // );
-    // },
-    getPuerperaInfo() {
-      this.saveLoading = true;
-      let data = {
-        startDate: "",
-        endDate: "",
-        pageIndex: this.query.pageIndex,
-        pageSize: this.query.pageSize,
-        searchingContent: this.searchingContent
-      };
-      getPuerperaInfo(data).then(res => {
-        this.saveLoading = false;
-        if (res.data.data && res.data.data.list) {
-          let data = res.data.data.list;
-          if (data.length) {
-            this.isMatch = true;
-            this.puerperaInfo = data[0];
-            this.searchResult = data[0].female;
-          } else {
-            this.isMatch = false;
-            this.searchResult = "匹配失败，请校对ID";
-          }
-        }
-      });
-    },
-    searchPuerpera() {
-      this.getPuerperaInfo();
-    },
     handleSave() {
+      if (!this.puerperaInfo.patientId) {
+        this.$message.warning({ message: "请选中产妇" });
+        return;
+      }
       this.handleClose();
       setTimeout(() => {
         this.$router.push(
@@ -167,9 +104,8 @@ export default {
         //   this.params[x]=''
         // }
       } else {
-        this.isMatch = null;
         this.searchingContent = "";
-        this.searchResult = "点击查询匹配产妇姓名";
+        this.puerperaInfo = {};
         this.$refs.modal.open();
       }
     },
@@ -207,10 +143,10 @@ export default {
       line-height: 37px;
       padding-bottom: 15px;
       .el-select {
-        width: 218px;
+        width: 280px;
       }
       input {
-        width: 218px;
+        width: 280px;
         height: 37px;
         padding-left: 14px;
         -webkit-box-sizing: border-box;
@@ -233,6 +169,7 @@ export default {
     }
     .searchResult {
       width: 350px;
+      height: 125px;
       background: rgba(246, 246, 246, 1);
       border-radius: 9px;
       font-size: 26px;
@@ -241,12 +178,8 @@ export default {
       line-height: 37px;
       padding-top: 44px;
       padding-bottom: 44px;
-    }
-    .matchSuc {
-      color: #333;
-    }
-    .matchErr {
-      color: #fd4639;
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
     }
   }
 }

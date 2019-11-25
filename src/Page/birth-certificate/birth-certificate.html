@@ -238,6 +238,6 @@
   </div>
   <editModal :value.sync="editCfg.value" :title="editCfg.title" :name="editCfg.name" :type="editCfg.type"
     :options="editCfg.options" :visible.sync="editCfg.visible" @onOk="handleEditOk" />
-  <createModal :visible.sync="createVisible" :query.sync="query" @onOk="handleCreateOk" />
+  <createModal :visible.sync="createVisible" @onOk="handleCreateOk" />
   <!-- <vue-context-menu :contextMenuData="contextMenuData" @savedata="saveData" @deleteRow="deleteRow" /> -->
 </div>

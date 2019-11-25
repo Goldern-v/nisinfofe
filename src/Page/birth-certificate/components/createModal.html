@@ -3,9 +3,7 @@
     class="birth-certificate-create-modal">
     <div class="model-content">
       <div class="search">
-        <!-- 产妇ID：<input type="text" placeholder="请输入姓名或住院号" v-model="searchingContent"><button
-          @click="searchPuerpera">查询</button> -->
-        产妇ID：
+        姓名：
         <div class="content">
           <el-select v-model="searchingContent" placeholder="产妇姓名/床号/住院号" filterable
             :filter-method="patientsFilterMethod" @change="handlePatinentChange">
@@ -21,8 +19,9 @@
           </el-select>
         </div>
       </div>
-      <div class="searchResult" :class="{matchSuc: isMatch === true,matchErr: isMatch===false}">
-        {{searchResult}}
+      <div class="searchResult">
+        <div v-if="puerperaInfo.name"> <span
+            style="margin-right: 50px;">{{puerperaInfo.name}}</span><span>{{puerperaInfo.bedLabel}}床</span></div>
       </div>
     </div>
 

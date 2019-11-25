@@ -104,7 +104,7 @@ export default {
       this.otherFormData["csddOne"] = this.formData["csddOne"];
       this.otherFormData["csddTwo"] = this.formData["csddTwo"];
       this.otherFormData["csddThree"] = this.formData["csddThree"];
-     // 出生时间
+      // 出生时间
       let birthTime = this.formData["cssj"]
         ? this.formData["cssj"].replace(/[-:]/g, " ").split(" ")
         : "";
@@ -115,7 +115,7 @@ export default {
       this.otherFormData["cssj4"] = birthTime[3];
       this.otherFormData["cssj5"] = birthTime[4];
       // 填表日期
-   let fillTime = this.formData["jsryqzTbrq"]
+      let fillTime = this.formData["jsryqzTbrq"]
         ? this.formData["jsryqzTbrq"].replace(/[-:]/g, " ").split(" ")
         : "";
 
@@ -168,45 +168,61 @@ export default {
         ]
       };
       getBirthCertInfo(data).then(res => {
-        let data = res.data.data[0];
-        this.dataModel.map(table => {
-          table.map(row => {
-            row.map(col => {
-              if (col["setKey"]) {
-                this.formData[col["setKey"]] = data[col["getKey"]] || "";
-              }
-              if (col["setKey2"]) {
-                this.formData[col["setKey2"]] = data[col["setKey2"]] || "";
-              }
-              if (col.type == "inputGroup" && col.children) {
-                col.children.map(child => {
-                  this.otherFormData[child["setKey"]] =
-                    data[col["getKey"]] || "";
-                });
-              }
+        if (res.data.data && res.data.data.length) {
+          let data = res.data.data[0];
+          this.handelData(data);
+        }
+      });
+    },
+    handelData(data) {
+      // 出生时间
+      let birthTime = data["childBirthTime"]
+        ? data["childBirthTime"].replace(/[-:]/g, " ").split(" ")
+        : "";
+      this.otherFormData["cssj1"] = birthTime[0];
+      this.otherFormData["cssj2"] = birthTime[1];
+      this.otherFormData["cssj3"] = birthTime[2];
+      this.otherFormData["cssj4"] = birthTime[3];
+      this.otherFormData["cssj5"] = birthTime[4];
+      this.dataModel.map(table => {
+        table.map(row => {
+          row.map(col => {
+            if (col["setKey"]) {
+              this.formData[col["setKey"]] = data[col["getKey"]] || "";
+            }
+            if (col["setKey2"]) {
+              this.formData[col["setKey2"]] = data[col["setKey2"]] || "";
+            }
+            if (col.type == "inputGroup" && col.children) {
+              col.children.map(child => {
+                this.otherFormData[child["setKey"]] =
+                  this.otherFormData[child["setKey"]] ||
+                  data[col["getKey"]] ||
+                  "";
+              });
+            }
 
-              if (col.type == "table") {
-                col.table.tbody.map(child => {
-                  child.map(chil => {
-                    if (chil["setKey"]) {
-                      this.formData[chil["setKey"]] = data[col["getKey"]] || "";
-                    }
-                    if (chil.children) {
-                      chil.children.map(chi => {
-                        if (chi["setKey"]) {
-                          this.otherFormData[chi["setKey"]] =
-                            data[col["getKey"]] || "";
-                        }
-                        if (chil["setKey"] == "csdd") {
-                          this.formData[chi["setKey"]] =
-                            data[col["getKey"]] || "";
-                        }
-                      });
-                    }
-                  });
+            if (col.type == "table") {
+              col.table.tbody.map(child => {
+                child.map(chil => {
+                  if (chil["setKey"]) {
+                    this.formData[chil["setKey"]] = data[chil["getKey"]] || "";
+                  }
+                  // if (chil.children) {
+                  //   chil.children.map(chi => {
+                  //     if (chi["setKey"]) {
+                  //       this.otherFormData[chi["setKey"]] =
+                  //         data[chil["getKey"]] || "";
+                  //     }
+                  //     if (chil["setKey"] == "csdd") {
+                  //       this.formData[chi["setKey"]] =
+                  //         data[col["getKey"]] || "";
+                  //     }
+                  //   });
+                  // }
                 });
-              }
-            });
+              });
+            }
           });
         });
       });
