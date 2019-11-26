@@ -668,7 +668,8 @@ export default {
       mode: "1", //'0' 单选， 1 多选
       bodyList: [],
       fun: "",
-      callback: null
+      callback: null,
+      formCode:"E0100"
     };
   },
   filters: {
