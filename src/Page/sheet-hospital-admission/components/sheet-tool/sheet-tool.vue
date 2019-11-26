@@ -775,6 +775,8 @@ export default {
       let skipItems = window.formObj.model.K0001
         ? window.formObj.model.K0001.split(",")
         : [];
+      // 孕前体重(产科)
+      skipItems = [...skipItems, '孕前体重(产科)']
       skipItems = skipItems.filter(s => {
         return s !== "";
       });
