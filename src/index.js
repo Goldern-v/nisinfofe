@@ -126,6 +126,15 @@ Vue.component("cr-date-picker", crDatePicker);
 import { Table as EcrmTable, TableColumn as EcrmTableColumn} from 'ecrm-element-ui';
 Vue.component('EcrmTable',EcrmTable)
 Vue.component('EcrmTableColumn',EcrmTableColumn)
+//添加iview-4.0.2表格组件
+import { 
+  Table as IviewTable, 
+  // Select as IviewSelect 
+} from 'view-design';
+Vue.component('IviewTable', IviewTable);
+// Vue.component('IviewSelect', IviewSelect);
+import './common/css/iview-table.css';
+// import './common/css/iview-select.css';
 //组件
 import VueContextMenu from 'vue-contextmenu'
 Vue.use(VueContextMenu)

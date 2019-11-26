@@ -130,7 +130,7 @@ let tableModel = {
               type: 'input',
               next: '周',
               style: 'width: 100px;',
-              eleStyle: 'width: 60px;',
+              eleStyle: 'width: 60px;text-align:right;',
             },
             {
               value: '出生体重',
@@ -146,7 +146,7 @@ let tableModel = {
               type: 'input',
               next: '克',
               style: 'width: 120px;',
-              eleStyle: 'width: 70px;',
+              eleStyle: 'width: 70px;text-align:right;',
             },
             {
               value: '出生身长',
@@ -162,7 +162,7 @@ let tableModel = {
               type: 'input',
               next: '厘米',
               style: 'width: 119px;',
-              eleStyle: 'width: 60px;',
+              eleStyle: 'width: 60px;text-align:right;',
             },
             ]
           ]
@@ -194,6 +194,7 @@ let tableModel = {
               children: [{
                 setKey: 'csddOne',
                 value: '',
+                defaultVal: '广东',
                 type: 'input',
                 next: '省（区、市）',
                 style: 'width: 50px;',
@@ -201,6 +202,7 @@ let tableModel = {
               {
                 setKey: 'csddTwo',
                 value: '',
+                defaultVal: '东莞',
                 type: 'input',
                 next: '市',
                 style: 'width: 50px;',
@@ -208,6 +210,7 @@ let tableModel = {
               {
                 setKey: 'csddThree',
                 value: '',
+                defaultVal: '厚街镇',
                 type: 'input',
                 next: '县（区）',
                 style: 'width: 70px;',
@@ -226,6 +229,7 @@ let tableModel = {
               getKey: '',
               setKey: 'yljgmc',
               value: '',
+              defaultVal: '厚街医院',
               type: 'input',
               style: 'width: 119px;',
             },
@@ -243,15 +247,15 @@ let tableModel = {
       }],
       [{
         colspan: 6,
-        getKey: '',
-        setKey: 'jsryqzEmpNo',
-        setKey2: 'jsryqzName',
-        value: '点击签字',
+        getKey: 'birthAttendantName1',
+        getKey2: 'birthAttendantName2',
+        setKey: 'jsryqzName',
+        value: '',
         type: 'sign',
         class: '',
         prev: '接生人员签字：',
         style: 'border-top: none;border-right: none;padding-left: 13px;',
-        eleStyle: 'color: #1284FF;cursor:pointer;',
+        eleStyle: 'width: 140px;',
         sign: true,
       },
       {
@@ -268,7 +272,7 @@ let tableModel = {
           type: 'input',
           prev: '填表日期：',
           next: '年',
-          style: 'width: 35px;',
+          style: 'width: 45px;',
         },
         {
           setKey: 'jsryqzTbrq2',
@@ -404,6 +408,7 @@ let tableModel = {
         getKey: '',
         setKey: 'mqxxYxsfzjlb',
         value: '',
+        defaultVal: '二代身份证',
         type: 'input',
         style: 'width: 520px;',
       }
@@ -517,6 +522,7 @@ let tableModel = {
         getKey: '',
         setKey: 'fqxxYxsfzjlb',
         value: '',
+        defaultVal: '二代身份证',
         type: 'input',
         style: 'width: 520px;',
       }

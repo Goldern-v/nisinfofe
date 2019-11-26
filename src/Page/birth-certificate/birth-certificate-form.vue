@@ -50,14 +50,14 @@ dataModel.map(table => {
   table.map(row => {
     row.map(col => {
       if (col["setKey"]) {
-        formData[col["setKey"]] = "";
+        formData[col["setKey"]] = col["defaultVal"] || "";
       }
-      if (col["setKey2"]) {
-        formData[col["setKey2"]] = "";
+      if (col.type=='sign') {
+        formData[col["setKey"]] = "";
       }
       if (col.type == "inputGroup" && col.children) {
         col.children.map(child => {
-          otherFormData[child["setKey"]] = "";
+          otherFormData[child["setKey"]] = child["defaultVal"] || "";
         });
       }
 
@@ -65,15 +65,15 @@ dataModel.map(table => {
         col.table.tbody.map(child => {
           child.map(chil => {
             if (chil["setKey"]) {
-              formData[chil["setKey"]] = "";
+              formData[chil["setKey"]] = chil["defaultVal"] || "";
             }
             if (chil.children) {
               chil.children.map(chi => {
                 if (chi["setKey"]) {
-                  otherFormData[chi["setKey"]] = "";
+                  otherFormData[chi["setKey"]] = chi["defaultVal"] || "";
                 }
                 if (chil["setKey"] == "csdd") {
-                  formData[chi["setKey"]] = "";
+                  formData[chi["setKey"]] = chi["defaultVal"] || "";
                 }
               });
             }
@@ -83,6 +83,7 @@ dataModel.map(table => {
     });
   });
 });
+console.log(formData);
 export default {
   props: {},
   data() {
@@ -131,21 +132,6 @@ export default {
     goBack() {
       this.$router.back(-1);
     },
-    init(data = {}) {
-      this.dataModel.map(table => {
-        table.map(row => {
-          row.map(col => {
-            if (col["setKey"]) {
-              this.formData[col["setKey"]] =
-                data[col["setKey"]] || data[col["getKey"]] || "";
-            }
-            if (col["setKey2"]) {
-              this.formData[col["setKey2"]] = data[col["setKey2"]] || "";
-            }
-          });
-        });
-      });
-    },
     printPreview() {
       if (this.$refs.birthCertificateForm) {
         // let html = this.$refs.birthCertificateForm.innerHTML;
@@ -189,16 +175,22 @@ export default {
         table.map(row => {
           row.map(col => {
             if (col["setKey"]) {
-              this.formData[col["setKey"]] = data[col["getKey"]] || "";
+              this.formData[col["setKey"]] =
+                data[col["getKey"]] || col["defaultVal"] || "";
             }
-            if (col["setKey2"]) {
-              this.formData[col["setKey2"]] = data[col["setKey2"]] || "";
+            if (col.type=='sign') {
+              if( data[col["getKey"]] &&  data[col["getKey2"]]){
+                formData[col["setKey"]]  = data[col["getKey"]] +'/'+ data[col["getKey2"]];
+              }else {
+                formData[col["setKey"]]  = data[col["getKey"]] ||  data[col["getKey2"]] || '';
+              }
             }
             if (col.type == "inputGroup" && col.children) {
               col.children.map(child => {
                 this.otherFormData[child["setKey"]] =
                   this.otherFormData[child["setKey"]] ||
                   data[col["getKey"]] ||
+                  child["defaultVal"] ||
                   "";
               });
             }
@@ -207,7 +199,8 @@ export default {
               col.table.tbody.map(child => {
                 child.map(chil => {
                   if (chil["setKey"]) {
-                    this.formData[chil["setKey"]] = data[chil["getKey"]] || "";
+                    this.formData[chil["setKey"]] =
+                      data[chil["getKey"]] || chil["defaultVal"] || "";
                   }
                   // if (chil.children) {
                   //   chil.children.map(chi => {
@@ -275,7 +268,7 @@ export default {
     button {
       font-size: 12px;
       text-align: center;
-      line-height: 30px;
+      line-height: 28px;
       border: 1px solid #cbd5dd;
       border-radius: 2px;
       height: 30px;

@@ -170,7 +170,7 @@ export default {
       background: rgba(246, 246, 246, 1);
       border-radius: 9px;
       font-size: 26px;
-      color: #ccc;
+      color: #333;
       text-align: center;
       line-height: 37px;
       padding-top: 44px;
