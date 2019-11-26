@@ -13,15 +13,6 @@
     margin: 0 auto;
     page-break-after: always;
     min-height: 1000px;
-
-    .sign-img {
-      display: inline-block;
-      vertical-align: middle;
-    }
-
-    .sign-text {
-      display: none;
-    }
   }
 
   .noPrint {

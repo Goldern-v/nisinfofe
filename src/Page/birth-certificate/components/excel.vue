@@ -13,12 +13,20 @@
           <span v-if="col.prev">{{col.prev}}</span>
           <span v-if="col.type=='text'" :style="col.eleStyle">{{col.value}}</span>
           <span v-if="col.type=='html'" :style="col.eleStyle" v-html="col.value"></span>
-          <span v-if="col.type=='sign'" :style="col.eleStyle" @click="openSignModal(col)">
+          <!-- <span v-if="col.type=='sign'" :style="col.eleStyle" @click="openSignModal(col)">
             <span class="sign-img" v-if="formData[col.setKey]">
               <img :src="`/crNursing/api/file/signImage/${formData[col.setKey]}?${token}`" alt />
+              <img :src="`/crNursing/api/file/signImage/${formData[col.setKey]}?${token}`" alt />
             </span>
-            <span class="sign-text">{{formData[col.setKey2] || col.value}}</span>
-          </span>
+          </span>-->
+          <input
+            type="text"
+            :style="col.eleStyle"
+            v-model="formData[col.setKey]"
+            :data-value="formData[col.setKey]"
+            v-if="col.type=='sign'"
+            class="sign-text"
+          />
           <input
             type="text"
             :style="col.eleStyle"
@@ -164,6 +172,7 @@ export default {
       }
       input {
         padding-left: 5px;
+        padding-right: 5px;
       }
     }
     tr {
