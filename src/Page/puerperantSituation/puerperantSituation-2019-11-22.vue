@@ -7,8 +7,6 @@ import editModal from "./components/editModal";
 import createModal from "./components/createModal";
 import moment from "moment";
 import {getList,changeOrSaveForm,deleteForm,getPatEmrList} from './api/api'
-import {columns} from './data/columns'
-import {eduOptions,filterOptions,cbwOptions,sexOptions,hoOptions,bcnOptions,otherOptions} from './data/options'
 
 export default {
   components: {
@@ -40,20 +38,19 @@ export default {
         startDate: startDate,
         endDate: endDate,
         searchingContent:'',
-        selectContent: '',
         pageIndex: 1,
-        pageSize: 10
+        pageSize: 6
       },
+      activeCell: { row: "", name: "" },
       fileTotal: 0,
       tableHeight: 0,
       tableData: [],
-      eduOptions: eduOptions,
-      cbwOptions: cbwOptions,
-      sexOptions: sexOptions,
-      bcnOptions: bcnOptions,
-      hoOptions: hoOptions,
-      otherOptions: otherOptions,
-      filterOptions: filterOptions,
+      eduOptions:['文盲','小学','中学','大专','大专以上'],
+      childBirthWayOptions:['顺产','吸引产','钳产','剖宫产','臀助产','臀牵引','院外分娩'],
+      sexOptions:['男','女'],
+      birthCertificateNumOptions:['有','无'],
+      hadOxytocinOptions: ['是','否'],
+      perineumSituationOptions: ['/','√'],
       tableLoading: false,
       editCfg: {
         idx: "",
@@ -85,10 +82,8 @@ export default {
         }],
         row: null,
         column: null
-      },
-      columns: columns(this),
+      }
     }
-    
   },
   mounted() {
     this.handelResize = this.handelResize.bind(this);
@@ -125,11 +120,12 @@ export default {
         this.tableLoading= false;
         if(res.data.data){
           let data = res.data.data;
-
           this.tableData = this.formatList(data.list);
           this.fileTotal = data.totalCount
         }
-      },err=>this.tableLoading= false)
+      },err=>{
+        this.tableLoading= false;
+      })
     },
     objectSpanMethod({ row, column, rowIndex, columnIndex }) {
       if (columnIndex >= 9) {
@@ -159,7 +155,6 @@ export default {
       this.getTableData();
     },
     handleSizeChange(size) {
-      if(this.query.pageSize!==size)this.query.pageSize = size
       this.getTableData();
     },
     handelResize() {
@@ -172,10 +167,8 @@ export default {
       this.getTableData();
     },
     handleSearch(){
-      if(this.query.pageIndex==1)
-      this.getTableData();
-      else
       this.query.pageIndex=1;
+      this.getTableData();
     },
     formatDate(date, format) {
       if (!date) return "";
@@ -185,11 +178,41 @@ export default {
 
       return moment(date).format(format);
     },
-    rowClassName(row,idx){
-      let rowIdx = idx + 1;
-      if (rowIdx % 4 == 0 || rowIdx % 4 == 3) return "ivu-table-row-hover";
+    rowClassName(payload) {
+      let rowIdx = payload.rowIndex + 1;
+      if (rowIdx % 4 == 0 || rowIdx % 4 == 3) return "el-table__row--striped";
 
       return "";
+    },
+    cellClassName(payload) {
+      return ''
+      if (this.tableData.indexOf(payload.row) != this.activeCell.row) return "";
+      if (payload.column.property != this.activeCell.name) return "";
+
+      return "active-cell";
+    },
+    handleCellEnter(row, column, cell, event) {
+      this.activeCell = {
+        row: this.tableData.indexOf(row),
+        name: column.property
+      };
+    },
+    handleCellLeave(row, column, cell, event) {
+      this.activeCell = {
+        row: "",
+        name: ""
+      };
+    },
+    handleRowContextmenu(row, column, event) {
+      return null
+
+      event.preventDefault();
+      // console.log(row, column, event);
+      var x = event.clientX
+      var y = event.clientY
+      this.contextMenuData.axis = {x, y}
+      this.contextMenuData.row = row
+      this.contextMenuData.column = column
     },
     saveData(params,success,error){
       changeOrSaveForm(params)
@@ -198,6 +221,54 @@ export default {
       },err=>{
         error&&error(err)
       })
+    },
+    handleEditDone(idx,name){
+      let otherIdx;
+      if(idx%2==1){
+        otherIdx=idx-1;
+      }else{
+        otherIdx=idx+1;
+      }
+      
+      //同时修改产妇及丈夫两列信息并保存 不重新请求列表接口
+      if(this.tableData[idx][name]!==this.tableData[otherIdx][name]){
+        this.tableData[otherIdx][name]=this.tableData[idx][name];
+
+        this.saveData(this.tableData[idx],()=>{
+          this.$message.success({message:'修改成功'})
+        })
+      }
+    },
+    handleNumInput(val,idx,name){
+      if(!val){
+        val = '';
+        this.tableData[idx][name]='';
+        return
+      };
+
+      let newVal = parseInt(val).toString();
+      let valChange = false;
+      if(isNaN(Number(newVal))){
+        newVal=this.tableData[idx][name]
+        valChange = true;
+      }
+
+      if(newVal.length!==val.length)valChange = true
+
+      this.tableData[idx][name] = newVal;
+
+      if(valChange)setTimeout(()=>{
+        let el = document.querySelector(`.${name+idx} textarea`)
+        if(el)el.value=newVal
+      })
+    },
+    deleteRow(){
+      // let idx= this.tableData.indexOf(this.contextMenuData.row);
+      // if(idx%2!==0)idx = idx-1;
+      // this.tableData.splice(idx,1)
+      // this.tableData.splice(idx,1)
+      // console.log('deleteRow')
+      this.deleteRecord(this.contextMenuData.row);
     },
     deleteRecord(record){
       this.$confirm('是否删除该记录?', '提示', {
@@ -218,16 +289,16 @@ export default {
         this.getTableData();
       },err=>{})
     },
-    handleCellClick(record) {
-      let row = record.row;
-      let column = record.column
-      let editName = column.key;
-      let title = column.title;
+    handleCellClick(row, column, cell, event) {
+      let rowIdx = this.tableData.indexOf(row);
+      let editName = column.property;
+      let title = column.label;
       let editType = "input";
       let options = [];
       let editValue = null;
       let modalVisible = true;
-      switch (column.key) {
+      
+      switch (column.property) {
         case "分娩时间-年":
         case "分娩时间-月":
         case "分娩时间-日":
@@ -251,8 +322,8 @@ export default {
       if(modalVisible){
         if(editValue===null)editValue = (row[editName]||'').toString();
 
-        if(column.key)this.openEditModal({
-          idx: record.index,
+        if(column.property)this.openEditModal({
+          idx: this.tableData.indexOf(row),
           name: editName,
           value: editValue,
           type: editType,
@@ -326,129 +397,7 @@ export default {
     handleCreateOk(){
       this.createVisible = false;
       this.getTableData();
-    },
-    handleChange(record,key,val,forceRender){
-      let row = record.row
-      let idx = record.index
-      row = {...row,...this.tableData[idx]}
-      row[key] = val
-      let otherIdx;
-      if(idx%2==1){
-        otherIdx=idx-1;
-      }else{
-        otherIdx=idx+1;
-      }
-
-      if(val!==this.tableData[otherIdx][key]){
-        this.tableData[idx]={...row}
-        this.tableData[otherIdx]={...row}
-        if(forceRender)this.tableData=this.tableData.concat()
-
-        this.saveData(this.tableData[idx],()=>{
-          this.$message.success({message:'修改成功'})
-        })
-      }
-    },
-    defaultRender(h,record){
-      let row = record.row
-      let key = record.column.key
-      if(record.index%2==0)return h('span',record.row[key])
-    },
-    defaultEditRender(h,record,_key){
-      let row = record.row
-      let key = _key||record.column.key
-      return h('el-input', {
-        props: {
-          value: row[key],
-          type: 'textarea',
-          autosize: {minRows: 1},
-          resize: 'none'
-        },
-        on: {
-          blur: (e) => this.handleChange(record, key, e.target.value)
-        }
-      })
-    },
-    defaultSelectRender(h,record,options,_key){
-      let row = record.row
-      let key = _key||record.column.key
-
-      return h('el-select', {
-        props: {
-          value: row[key]||'',
-          placeholder: '',
-        }
-      }, [
-        h('el-option', { 
-            props: {
-              value: '',
-              label: ''
-            },
-            attrs: { dataValue: ''},
-            nativeOn:{
-              click:(e)=>this.handleChange(record, key, '', true)
-            }
-          }, 
-          ''
-        ),
-        options.map((item) =>
-          h('el-option', {
-            props: {
-              value: item.code,
-              label: item.name
-            },
-            attrs:{
-              dataValue: item.code
-            },
-            nativeOn:{
-              click:(e)=>{
-                let val = e.target.getAttribute('dataValue')||e.target.innerHTML
-                this.handleChange(record, key, val, true)
-              }
-            }
-          }))
-      ])
-    },
-    defaultModalRender(h,record,_key,_text){
-      let row = record.row
-      let key = _key||record.column.key
-      let text= _text||row[key]
-      if(!row[key]){
-        return h('div',{
-          class: 'temp',
-          on:{
-            click:()=>this.handleCellClick(record)
-          }
-        })
-      }else{
-        return h('span',{
-          class: 'temp',
-          on:{
-            click:()=>this.handleCellClick(record)
-          }
-        },text)
-      }
-    },
-    handleSpan({ row, column, rowIndex, columnIndex }) {
-      if (columnIndex >= 9) {
-        if (rowIndex % 2 == 0) {
-          return {
-            rowspan: 2,
-            colspan: 1
-          };
-        } else {
-          return {
-            rowspan: 0,
-            colspan: 0
-          };
-        }
-      } else {
-        return {
-          rowspan: 1,
-          colspan: 1
-        };
-      }
-    },
+    }
   }
 };
 </script>
