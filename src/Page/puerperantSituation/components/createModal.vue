@@ -4,9 +4,9 @@
 import commonMixin from "./../../../common/mixin/common.mixin";
 import {getPatientList,changeOrSaveForm,getPatientListNew,getFormChildbirth } from './../api/api'
 import moment from 'moment';
-import { setTimeout } from 'timers';
 import { getPatientInfo } from "@/api/common.js";
 import { getCommonInfo } from './../api/api'
+import {eduOptions,cbwOptions,sexOptions,hoOptions,bcnOptions,otherOptions} from './../data/options'
 
 export default {
   mixins: [commonMixin],
@@ -81,12 +81,12 @@ export default {
       patientList:[],
       patientListFiltered:[],
       filterSearch: '',
-      eduOptions:['文盲','小学','中学','大专','大专以上'],
-      childBirthWayOptions:['顺产','吸引产','钳产','剖宫产','臀助产','臀牵引','院外分娩'],
-      sexOptions:['男','女'],
-      birthCertificateNumOptions:['有','无'],
-      hadOxytocinOptions: ['是','否'],
-      perineumSituationOptions: ['/','√']
+      eduOptions: eduOptions,
+      childBirthWayOptions: cbwOptions,
+      sexOptions: sexOptions,
+      birthCertificateNumOptions:bcnOptions,
+      hadOxytocinOptions: hoOptions,
+      perineumSituationOptions: otherOptions
     };
   },
   mounted() {
@@ -141,6 +141,10 @@ export default {
       }
 
       if(!params.hospitalizationNumber)errMsg = '未选择产妇'
+
+      if(!params.childBirthTime)errMsg = '分娩时间 不能为空'
+
+      if(params.birthBloodVolume&&isNaN(Number(params.birthBloodVolume)))errMsg = '产后2h出血量 必须为数字'
 
       if(errMsg){
         this.$message({

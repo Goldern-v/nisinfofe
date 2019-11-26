@@ -58,48 +58,4 @@
         z-index: 1;
       }
     }
-  
-    .el-table {
-      th > .cell,
-      th > div {
-        padding: 0px;
-        text-align: center;
-      }
-      td{
-        &.rule-name{
-          position: relative;
-          .rule-name-content {
-            position: absolute;
-            line-height: 34px;
-            left: 15px;
-            right: 15px;
-            top: 0;
-            text-align: left;
-            bottom: 0;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-          }
-        }
-        &.align-left div {
-          text-align: left;
-        }
-        .sign-name{
-          vertical-align: middle;
-          display: inline-block;
-          min-width: 52px;
-          border-bottom: 1px solid #000;
-          min-height: 15px;
-          line-height: 15px;
-          cursor: pointer;
-        }
-        .operate-span{
-          color: #4bb08d;
-          cursor: pointer;
-          &:hover{
-            font-weight: bold;
-          }
-        }
-      }
-    }
   }

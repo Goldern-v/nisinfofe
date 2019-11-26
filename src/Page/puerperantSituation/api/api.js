@@ -35,7 +35,7 @@ export function getCommonInfo(params) {
 export function getPatientListNew() {
     let endDate = moment().format('YYYY-MM-DD')
     let startDate = new Date(endDate.replace(/-/g, '/'))
-    startDate = startDate.getTime() - 30 * 86400000
+    startDate = startDate.getTime() - 90 * 86400000
     startDate = moment(new Date(startDate)).format('YYYY-MM-DD')
 
     return axios.post(`${apiPath}bed/patListCK`, {
@@ -44,7 +44,7 @@ export function getPatientListNew() {
         admissionDateBegin: '',
         dischargeDateBegin: startDate,
         dischargeDateEnd: endDate,
-        pageNum: 1000,
+        pageNum: 2000,
         pageIndex: 1,
     });
 }

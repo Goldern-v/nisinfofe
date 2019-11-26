@@ -37,7 +37,7 @@
           <div class="content">
             <el-select
               v-model="patientName"
-              placeholder="产妇姓名/床号/住院号" 
+              placeholder="产妇姓名/产妇ID/床号" 
               filterable
               :filter-method="patientsFilterMethod"
               @change="handlePatinentChange">
@@ -101,7 +101,7 @@
           <div class="label">文化程度:</div>
           <div class="content">
             <el-select size="small" v-model="params.femaleEdu">
-              <el-option v-for="(item,idx) in eduOptions" :key="idx" :value="item" :label="item"></el-option>
+              <el-option value=""></el-option><el-option v-for="(item,idx) in eduOptions" :key="idx" :value="item.code" :label="item.name"></el-option>
             </el-select>
           </div>
         </el-col>
@@ -156,7 +156,7 @@
           <div class="label">丈夫文化程度:</div>
           <div class="content">
             <el-select size="small" v-model="params.manEdu">
-              <el-option v-for="(item,idx) in eduOptions" :key="idx" :value="item" :label="item"></el-option>
+              <el-option value=""></el-option><el-option v-for="(item,idx) in eduOptions" :key="idx" :value="item.code" :label="item.name"></el-option>
             </el-select>
           </div>
         </el-col>
@@ -291,7 +291,7 @@
           <div class="label">产前是否点滴催产素:</div>
           <div class="content">
             <el-select size="small" v-model="params.hadOxytocin">
-              <el-option v-for="(item,idx) in hadOxytocinOptions" :key="idx" :value="item" :label="item"></el-option>
+              <el-option value=""></el-option><el-option v-for="(item,idx) in hadOxytocinOptions" :key="idx" :value="item.code" :label="item.name"></el-option>
             </el-select>
           </div>
         </el-col>
@@ -305,7 +305,7 @@
           <div class="label">分娩方式:</div>
           <div class="content">
             <el-select size="small" v-model="params.childBirthWay">
-              <el-option v-for="(item,idx) in childBirthWayOptions" :key="idx" :value="item" :label="item"></el-option>
+              <el-option value=""></el-option><el-option v-for="(item,idx) in childBirthWayOptions" :key="idx" :value="item.code" :label="item.name"></el-option>
             </el-select>
           </div>
         </el-col>
@@ -327,7 +327,7 @@
           </div>
           <div class="content">
             <el-select size="small" v-model="params.perineumSituation1">
-              <el-option v-for="(item,idx) in perineumSituationOptions" :key="idx" :value="item" :label="item"></el-option>
+              <el-option value=""></el-option><el-option v-for="(item,idx) in perineumSituationOptions" :key="idx" :value="item.code" :label="item.name"></el-option>
             </el-select>
           </div>
         </el-col>
@@ -338,7 +338,7 @@
           </div>
           <div class="content">
             <el-select size="small" v-model="params.perineumSituation2">
-              <el-option v-for="(item,idx) in perineumSituationOptions" :key="idx" :value="item" :label="item"></el-option>
+              <el-option value=""></el-option><el-option v-for="(item,idx) in perineumSituationOptions" :key="idx" :value="item.code" :label="item.name"></el-option>
             </el-select>
           </div>
         </el-col>
@@ -349,7 +349,7 @@
           </div>
           <div class="content">
             <el-select size="small" v-model="params.perineumSituation3">
-              <el-option v-for="(item,idx) in perineumSituationOptions" :key="idx" :value="item" :label="item"></el-option>
+              <el-option value=""></el-option><el-option v-for="(item,idx) in perineumSituationOptions" :key="idx" :value="item.code" :label="item.name"></el-option>
             </el-select>
           </div>
         </el-col>
@@ -362,7 +362,7 @@
           </div>
           <div class="content">
             <el-select size="small" v-model="params.perineumSituation">
-              <el-option v-for="(item,idx) in perineumSituationOptions" :key="idx" :value="item" :label="item"></el-option>
+              <el-option value=""></el-option><el-option v-for="(item,idx) in perineumSituationOptions" :key="idx" :value="item.code" :label="item.name"></el-option>
             </el-select>
           </div>
         </el-col>
@@ -373,7 +373,7 @@
           </div>
           <div class="content">
             <el-select size="small" v-model="params.perineumSituationFull">
-              <el-option v-for="(item,idx) in perineumSituationOptions" :key="idx" :value="item" :label="item"></el-option>
+              <el-option value=""></el-option><el-option v-for="(item,idx) in perineumSituationOptions" :key="idx" :value="item.code" :label="item.name"></el-option>
             </el-select>
           </div>
         </el-col>
@@ -396,7 +396,7 @@
           </div>
           <div class="content">
             <el-select size="small" v-model="params.newBornSex">
-              <el-option v-for="(item,idx) in sexOptions" :key="idx" :value="item" :label="item"></el-option>
+              <el-option value=""></el-option><el-option v-for="(item,idx) in sexOptions" :key="idx" :value="item.code" :label="item.name"></el-option>
             </el-select>
           </div>
         </el-col>
@@ -446,7 +446,7 @@
           </div>
           <div class="content">
             <el-select size="small" v-model="params.earlyContact">
-              <el-option v-for="(item,idx) in perineumSituationOptions" :key="idx" :value="item" :label="item"></el-option>
+              <el-option value=""></el-option><el-option v-for="(item,idx) in perineumSituationOptions" :key="idx" :value="item.code" :label="item.name"></el-option>
             </el-select>
           </div>
         </el-col>
@@ -458,7 +458,7 @@
           </div>
           <div class="content">
             <el-select size="small" v-model="params.earlySucking">
-              <el-option v-for="(item,idx) in perineumSituationOptions" :key="idx" :value="item" :label="item"></el-option>
+              <el-option value=""></el-option><el-option v-for="(item,idx) in perineumSituationOptions" :key="idx" :value="item.code" :label="item.name"></el-option>
             </el-select>
           </div>
         </el-col>
@@ -515,7 +515,7 @@
           <div class="label">生育证号码:</div>
           <div class="content">
             <el-select size="small" v-model="params.birthCertificateNum">
-              <el-option v-for="(item,idx) in birthCertificateNumOptions" :key="idx" :value="item" :label="item"></el-option>
+              <el-option value=""></el-option><el-option v-for="(item,idx) in birthCertificateNumOptions" :key="idx" :value="item.code" :label="item.name"></el-option>
             </el-select>
           </div>
         </el-col>

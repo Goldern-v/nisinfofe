@@ -30,69 +30,76 @@
           }
         }
       }
-      .el-table {
-        border: 1px solid #cbd5dd;
-        border-bottom: 0;
-        td {
-          height: 34px;
-          &.active-cell {
-            background: yellow;
-          }
-          .cell {
-            padding: 5px;
-            line-height: 16px;
-          }
-          textarea.el-textarea__inner {
-            border-color: rgba(0,0,0,0);
-            background: rgba(0,0,0,0);
-            &:hover,&:focus{
-              border-color:#c2cbd2;
-              background: #fff;
-            }
-          }
-          .el-select{
-            .el-input__icon{
-              display: none;
-            }
-            
-            input{
-              padding-right: 10px;
-              border-color: rgba(0,0,0,0);
-              background: rgba(0,0,0,0);
-            }
-            &:hover,&:focus{
-              input{
-                border-color:#c2cbd2;
-                background: #fff;
-              }
-            }
-            &.align-center{
-              input{
-                text-align: center;
-              }
-            }
-          }
-
-        }
-        th {
-          .cell {
-            padding: 5px;
-            line-height: 16px;
-          }
-        }
-      }
       .el-button + .el-button {
         margin-left: 0;
       }
-    }
-    .el-table .cell,
-    .el-table th div,
-    .el-table--border td:first-child .cell,
-    .el-table--border th:first-child .cell {
-      padding-left: 5px;
-    }
-    .el-table__row--striped td {
-      background-color: #fafafa;
+      tr{
+        td{
+          position: relative;
+          .ivu-table-cell{
+            line-height: 34px;
+          }
+        }
+        .sign-name{
+          vertical-align: middle;
+          display: inline-block;
+          min-width: 52px;
+          border-bottom: 1px solid #000;
+          min-height: 15px;
+          line-height: 15px;
+          cursor: pointer;
+        }
+        .operate-span{
+          color: #4bb08d;
+          cursor: pointer;
+          &:hover{
+            font-weight: bold;
+          }
+        }
+      }
+      .ivu-table-cell{
+        padding: 0 5px;
+        .temp{
+          cursor: pointer;
+        }
+        div.temp{
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          left: 0;
+          right: 0;
+        }
+      }
+      textarea.el-textarea__inner {
+        border-color: rgba(0,0,0,0);
+        background: rgba(0,0,0,0);
+        &:hover,&:focus{
+          border-color:#c2cbd2;
+          background: #fff;
+        }
+      }
+      .el-select{
+        .el-input__icon{
+          display: none;
+        }
+        
+        input{
+          padding-right: 10px;
+          border-color: rgba(0,0,0,0);
+          background: rgba(0,0,0,0);
+        }
+        &:hover,&:focus{
+          input{
+            border-color:#c2cbd2;
+            background: #fff;
+          }
+        }
+        &.align-center{
+          input{
+            text-align: center;
+          }
+        }
+      }
     }
     .context-menu-list:hover{
       background: #4bb08d!important;
