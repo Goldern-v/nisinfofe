@@ -46,6 +46,7 @@ export default {
       if (new RegExp(search).test(item.bedLabel)) return true;
 
       if (new RegExp(search).test(item.name)) return true;
+      if (new RegExp(search).test(item.inpNo)) return true;
       return false;
     },
     formatPatientList(list) {

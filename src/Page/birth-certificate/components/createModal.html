@@ -5,7 +5,7 @@
       <div class="search">
         姓名：
         <div class="content">
-          <el-select v-model="searchingContent" placeholder="产妇姓名/床号/病人ID" filterable
+          <el-select v-model="searchingContent" placeholder="产妇姓名/床号/病人ID/住院号" filterable
             :filter-method="patientsFilterMethod" @change="handlePatinentChange">
             <template v-for="(item,idx) in patientListFiltered">
               <el-option :key="idx" v-if="patientOptionVisible(item,filterSearch)" :label="item.name"
