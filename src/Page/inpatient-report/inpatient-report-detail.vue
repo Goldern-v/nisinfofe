@@ -89,7 +89,7 @@ export default {
     },
     code(value, oldValue) {
       if (oldValue !== value) {
-        const dept = this.userDeptList.find(d => d.code === value);
+        const dept = this.depts.find(d => d.code === value);
         this.name = dept ? dept.name : "";
         this.load();
       }
