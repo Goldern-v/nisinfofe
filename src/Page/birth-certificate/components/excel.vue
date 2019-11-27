@@ -119,10 +119,12 @@ export default {
       if (item.format == "YYYY-MM-DD") {
         str = val1 + "-" + val2 + "-" + val3;
       } else if (item.format == "YYYY-MM-DD HH:mm") {
+        val2 = val2 < 10 ? "0" + val2 : val2;
+        val3 = val3 < 10 ? "0" + val3 : val3;
         let val4 = this.otherFormData[arr[3].setKey];
         let val5 = this.otherFormData[arr[4].setKey];
         val4 = val4 < 10 ? "0" + val4 : val4;
-        val5 = val4 < 10 ? "0" + val5 : val5;
+        val5 = val5 < 10 ? "0" + val5 : val5;
         str = val1 + "-" + val2 + "-" + val3 + " " + val4 + ":" + val5;
       } else {
         this.formData[arr[0].setKey] = val1;

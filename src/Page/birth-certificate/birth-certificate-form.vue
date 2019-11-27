@@ -44,46 +44,60 @@ import excel from "./components/excel";
 import tableModel from "./data/dataModel";
 import { getBirthCertInfo, saveBirthCertInfo } from "./api/api";
 let dataModel = [tableModel.table.tbody, tableModel.table2.tbody];
-let formData = {};
 let otherFormData = {};
-dataModel.map(table => {
-  table.map(row => {
-    row.map(col => {
-      if (col["setKey"]) {
-        formData[col["setKey"]] = col["defaultVal"] || "";
-      }
-      if (col.type=='sign') {
-        formData[col["setKey"]] = "";
-      }
-      if (col.type == "inputGroup" && col.children) {
-        col.children.map(child => {
-          otherFormData[child["setKey"]] = child["defaultVal"] || "";
-        });
-      }
+let formData = {};
 
-      if (col.type == "table") {
-        col.table.tbody.map(child => {
-          child.map(chil => {
-            if (chil["setKey"]) {
-              formData[chil["setKey"]] = chil["defaultVal"] || "";
-            }
-            if (chil.children) {
-              chil.children.map(chi => {
-                if (chi["setKey"]) {
-                  otherFormData[chi["setKey"]] = chi["defaultVal"] || "";
-                }
-                if (chil["setKey"] == "csdd") {
-                  formData[chi["setKey"]] = chi["defaultVal"] || "";
-                }
-              });
-            }
+let init = (formData, data = {}) => {
+  dataModel.map(table => {
+    table.map(row => {
+      row.map(col => {
+        if (col["setKey"]) {
+          formData[col["setKey"]] =
+            data[col["getKey"]] || col["defaultVal"] || "";
+        }
+        if (col.type == "sign") {
+          if (data[col["getKey"]] && data[col["getKey2"]]) {
+            formData[col["setKey"]] =
+              data[col["getKey"]] + "/" + data[col["getKey2"]];
+          } else {
+            formData[col["setKey"]] =
+              data[col["getKey"]] || data[col["getKey2"]] || "";
+          }
+        }
+        if (col.type == "inputGroup" && col.children) {
+          col.children.map(child => {
+            otherFormData[child["setKey"]] =
+              data[child["getKey"]] || child["defaultVal"] || "";
           });
-        });
-      }
+        }
+
+        if (col.type == "table") {
+          col.table.tbody.map(child => {
+            child.map(chil => {
+              if (chil["setKey"]) {
+                formData[chil["setKey"]] =
+                  data[chil["getKey"]] || chil["defaultVal"] || "";
+              }
+              if (chil.children) {
+                chil.children.map(chi => {
+                  if (chi["setKey"]) {
+                    otherFormData[chi["setKey"]] =
+                      data[chi["getKey"]] || chi["defaultVal"] || "";
+                  }
+                  if (chil["setKey"] == "csdd") {
+                    formData[chi["setKey"]] =
+                      data[chi["getKey"]] || chi["defaultVal"] || "";
+                  }
+                });
+              }
+            });
+          });
+        }
+      });
     });
   });
-});
-console.log(formData);
+};
+init(formData);
 export default {
   props: {},
   data() {
@@ -94,36 +108,16 @@ export default {
     };
   },
   mounted() {
+    init(this.formData);
     if (
       this.$route.query.id &&
       localStorage.getItem("birthCertificateFormView")
     ) {
-      data = JSON.parse(localStorage.getItem("birthCertificateFormView"));
+      let data = JSON.parse(localStorage.getItem("birthCertificateFormView"));
       for (let key in this.formData) {
         this.formData[key] = data[key];
       }
-      // 出生地点
-      this.otherFormData["csddOne"] = this.formData["csddOne"];
-      this.otherFormData["csddTwo"] = this.formData["csddTwo"];
-      this.otherFormData["csddThree"] = this.formData["csddThree"];
-      // 出生时间
-      let birthTime = this.formData["cssj"]
-        ? this.formData["cssj"].replace(/[-:]/g, " ").split(" ")
-        : "";
-
-      this.otherFormData["cssj1"] = birthTime[0];
-      this.otherFormData["cssj2"] = birthTime[1];
-      this.otherFormData["cssj3"] = birthTime[2];
-      this.otherFormData["cssj4"] = birthTime[3];
-      this.otherFormData["cssj5"] = birthTime[4];
-      // 填表日期
-      let fillTime = this.formData["jsryqzTbrq"]
-        ? this.formData["jsryqzTbrq"].replace(/[-:]/g, " ").split(" ")
-        : "";
-
-      this.otherFormData["jsryqzTbrq1"] = fillTime[0];
-      this.otherFormData["jsryqzTbrq2"] = fillTime[1];
-      this.otherFormData["jsryqzTbrq3"] = fillTime[2];
+      this.handelData(data);
     } else {
       this.getBirthCertInfo();
     }
@@ -132,9 +126,47 @@ export default {
     goBack() {
       this.$router.back(-1);
     },
+    handelData(data) {
+      // 出生地点
+      this.otherFormData["csddOne"] = this.formData["csddOne"] || "";
+      this.otherFormData["csddTwo"] = this.formData["csddTwo"] || "";
+      this.otherFormData["csddThree"] = this.formData["csddThree"] || "";
+      // 出生时间
+      let birthTime = this.formData["cssj"]
+        ? this.formData["cssj"].replace(/[-:]/g, " ").split(" ")
+        : [];
+      if (birthTime && birthTime.length) {
+        this.otherFormData["cssj1"] = birthTime[0];
+        this.otherFormData["cssj2"] = birthTime[1];
+        this.otherFormData["cssj3"] = birthTime[2];
+        this.otherFormData["cssj4"] = birthTime[3];
+        this.otherFormData["cssj5"] = birthTime[4];
+        this.otherFormData["cssj"] =
+          birthTime[0] +
+          "-" +
+          birthTime[1] +
+          "-" +
+          birthTime[2] +
+          " " +
+          birthTime[3] +
+          ":" +
+          birthTime[4];
+      }
+
+      // 填表日期
+      let fillTime = this.formData["jsryqzTbrq"]
+        ? this.formData["jsryqzTbrq"].replace(/[-:]/g, " ").split(" ")
+        : birthTime;
+      if (fillTime && fillTime.length) {
+        this.otherFormData["jsryqzTbrq1"] = fillTime[0];
+        this.otherFormData["jsryqzTbrq2"] = fillTime[1];
+        this.otherFormData["jsryqzTbrq3"] = fillTime[2];
+        this.otherFormData["jsryqzTbrq"] =
+          fillTime[0] + "-" + fillTime[1] + "-" + fillTime[2];
+      }
+    },
     printPreview() {
       if (this.$refs.birthCertificateForm) {
-        // let html = this.$refs.birthCertificateForm.innerHTML;
         let html = $(this.$refs.birthCertificateForm).html();
         localStorage.setItem("previewBirthCertificate", html);
         if (process.env.NODE_ENV === "production") {
@@ -157,68 +189,9 @@ export default {
       getBirthCertInfo(data).then(res => {
         if (res.data.data && res.data.data.length) {
           let data = res.data.data[0];
+          init(this.formData, data);
           this.handelData(data);
         }
-      });
-    },
-    handelData(data) {
-      // 出生时间
-      let birthTime = data["childBirthTime"]
-        ? data["childBirthTime"].replace(/[-:]/g, " ").split(" ")
-        : "";
-      this.otherFormData["cssj1"] = birthTime[0];
-      this.otherFormData["cssj2"] = birthTime[1];
-      this.otherFormData["cssj3"] = birthTime[2];
-      this.otherFormData["cssj4"] = birthTime[3];
-      this.otherFormData["cssj5"] = birthTime[4];
-      this.dataModel.map(table => {
-        table.map(row => {
-          row.map(col => {
-            if (col["setKey"]) {
-              this.formData[col["setKey"]] =
-                data[col["getKey"]] || col["defaultVal"] || "";
-            }
-            if (col.type=='sign') {
-              if( data[col["getKey"]] &&  data[col["getKey2"]]){
-                formData[col["setKey"]]  = data[col["getKey"]] +'/'+ data[col["getKey2"]];
-              }else {
-                formData[col["setKey"]]  = data[col["getKey"]] ||  data[col["getKey2"]] || '';
-              }
-            }
-            if (col.type == "inputGroup" && col.children) {
-              col.children.map(child => {
-                this.otherFormData[child["setKey"]] =
-                  this.otherFormData[child["setKey"]] ||
-                  data[col["getKey"]] ||
-                  child["defaultVal"] ||
-                  "";
-              });
-            }
-
-            if (col.type == "table") {
-              col.table.tbody.map(child => {
-                child.map(chil => {
-                  if (chil["setKey"]) {
-                    this.formData[chil["setKey"]] =
-                      data[chil["getKey"]] || chil["defaultVal"] || "";
-                  }
-                  // if (chil.children) {
-                  //   chil.children.map(chi => {
-                  //     if (chi["setKey"]) {
-                  //       this.otherFormData[chi["setKey"]] =
-                  //         data[chil["getKey"]] || "";
-                  //     }
-                  //     if (chil["setKey"] == "csdd") {
-                  //       this.formData[chi["setKey"]] =
-                  //         data[col["getKey"]] || "";
-                  //     }
-                  //   });
-                  // }
-                });
-              });
-            }
-          });
-        });
       });
     },
     saveForm() {
