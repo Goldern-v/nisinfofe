@@ -75,8 +75,17 @@ let init = (formData, data = {}) => {
           col.table.tbody.map(child => {
             child.map(chil => {
               if (chil["setKey"]) {
-                formData[chil["setKey"]] =
-                  data[chil["getKey"]] || chil["defaultVal"] || "";
+                if (
+                  chil["getKey"] == "newBornWeight" &&
+                  data[chil["getKey"]] &&
+                  Number(data[chil["getKey"]])
+                ) {
+                  formData[chil["setKey"]] =
+                    Number(data[chil["getKey"]]) * 1000;
+                } else {
+                  formData[chil["setKey"]] =
+                    data[chil["getKey"]] || chil["defaultVal"] || "";
+                }
               }
               if (chil.children) {
                 chil.children.map(chi => {
