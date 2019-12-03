@@ -18,7 +18,7 @@
         </div>
         <nullText v-if="list.length == 0" style="margin: 70px 0"></nullText>
       </div>
-      <!-- <span slot="head-tool" @click="openPrintModal" style="margin-right: 10px;">打印</span> -->
+      <span slot="head-tool" @click="openPrintModal" style="margin-right: 10px;">打印</span>
       <span slot="head-tool" @click="openConfigModal">显示配置项</span>
     </boxBase>
     <config2Modal ref="config2Modal"></config2Modal>
@@ -153,7 +153,8 @@ export default {
       this.$refs.config2Modal.open();
     },
     openPrintModal() {
-      this.$refs.left2PrintModal.open();
+      this.$router.push("/noCheckTest");
+      // this.$refs.left2PrintModal.open();
     }
   },
   components: {
