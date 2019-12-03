@@ -27,11 +27,27 @@ axios.interceptors.response.use((res) => {
     var data = res.data
     // 如果token没有通过
     if (data.code === '300') {
-        window.app && window.app.$message({
-            showClose: true,
-            message: data.desc || '服务器开小差了',
-            type: 'error'
-        })
+
+        /** 评估单页面特殊处理，突出提示效果 */
+        if (window.app && window.app.$message) {
+            let path = app.$route.path
+            let name = app.$route.name
+            if (path == '/formPage' || name == 'sheetHospitalAdmissionPage' || path == '/sheetHospitalEval' || path == '/record') {
+                window.app.$alert(data.desc || '服务器开小差了', '警告', {
+                    confirmButtonText: '确定',
+                    type: 'error',
+                });
+            }
+            else {
+                window.app.$message({
+                    showClose: true,
+                    message: data.desc || '服务器开小差了',
+                    type: 'error'
+                })
+            }
+
+        }
+
         return Promise.reject()
     } else if (data.code === '301') {
         window.app && window.app.$message({
