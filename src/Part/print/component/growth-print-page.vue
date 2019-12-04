@@ -111,7 +111,7 @@
 }
 @media print {
   #grouthPagePrint {
-    padding: 40px 0 0;
+    padding: 15px 0 0;
   }
 }
 </style>
@@ -138,7 +138,7 @@
 
 .title {
   font-size: 21px; // 三号
-  padding: 10px 0 20px;
+  padding: 10px 0 10px;
   text-align: center;
   font-weight: bold;
   font-family: simsun;
@@ -149,7 +149,7 @@
   display: flex;
   justify-content: space-between;
   font-size: 14px; // 小四
-  margin-bottom: 5px;
+  // margin-bottom: 5px;
   padding: 0 40px;
 }
 
