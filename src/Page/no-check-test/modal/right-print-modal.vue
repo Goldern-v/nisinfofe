@@ -162,7 +162,7 @@ export default {
        }
 
        @media print{
-          table {color: black !important;}
+          * {color: black !important;}
           table,th,td {border-color:black !important;}
         }
         @page {
