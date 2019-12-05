@@ -55,7 +55,15 @@
         class="body-con"
         @dblclick="openEditModal(tr, data, $event)"
         v-for="(tr, y) in data.bodyModel"
-        :class="[{'noSignRow':tr.find((item) => item.key == 'status').value === '0','multiSign': tr.find((item) => item.key == 'multiSign').value, selectedTr:sheetInfo.selectRow.includes(tr),redText: tr.find((item) => {return item.key == 'recordSource'}).value == '5'}, tr.find((item) => {return item.key == 'markObj'}).value && `mark-mark-mark mark-cell-status-${tr.find((item) => {return item.key == 'markObj'}).value.status}`]"
+        :class="[
+        {
+        'inPreview':(!tr.find((item) => item.key == 'id').value) && (tr.find((item) => item.key == 'recordDate').value),
+        'noSignRow':tr.find((item) => item.key == 'status').value === '0',
+        'multiSign': tr.find((item) => item.key == 'multiSign').value,
+         selectedTr:sheetInfo.selectRow.includes(tr),
+         redText: tr.find((item) => {return item.key == 'recordSource'}).value == '5'},
+         tr.find((item) => {return item.key == 'markObj'}).value && `mark-mark-mark mark-cell-status-${tr.find((item) => {return item.key == 'markObj'}).value.status}`
+        ]"
         :key="y"
         @click="selectRow(tr, $event)"
         @mouseover="markTip($event, tr)"

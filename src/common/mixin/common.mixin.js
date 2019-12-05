@@ -16,7 +16,7 @@ function number_format(number, decimals, dec_point, thousands_sep) {
     sep = typeof thousands_sep === "undefined" ? "," : thousands_sep,
     dec = typeof dec_point === "undefined" ? "." : dec_point,
     s = "",
-    toFixedFix = function(n, prec) {
+    toFixedFix = function (n, prec) {
       var k = Math.pow(10, prec);
       return "" + Math.ceil(n * k) / k;
     };
@@ -73,20 +73,33 @@ export default {
       }
       return `App-Token-Nursing=51e827c9-d80e-40a1-a95a-1edc257596e7&Auth-Token-Nursing=${token}`;
     },
+    authToken() {
+      let token;
+      try {
+        if ($params.token) {
+          token = $params.token;
+        } else {
+          token = Cookies.get("NURSING_USER").split("##")[1];
+        }
+      } catch (error) {
+        token = $params.token;
+      }
+      return token;
+    },
     empNo() {
       try {
         return JSON.parse(localStorage.user).empNo;
-      } catch (error) {}
+      } catch (error) { }
     },
     empName() {
       try {
         return JSON.parse(localStorage.user).empName;
-      } catch (error) {}
+      } catch (error) { }
     },
     userInfo() {
       try {
         return JSON.parse(localStorage.user);
-      } catch (error) {}
+      } catch (error) { }
     },
     isDev() {
       return process.env.NODE_ENV === "development";

@@ -38,3 +38,10 @@ export const getHomePage = () => {
 export const getBlock = (id) => {
     return axios.get(`${apiPath}record/block/get/${id}`)
 }
+
+// 住院评估单预览
+export const syncToRecord = (id) => {
+    return axios.post(`${apiPath}form/design/syncToRecord/${id}`, {
+        sign: false,
+    })
+}

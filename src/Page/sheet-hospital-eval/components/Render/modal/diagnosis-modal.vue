@@ -4,6 +4,7 @@
       <div>
         <div class="title" style="margin-bottom: 5px">本次评估内容同步至：</div>
         <el-checkbox label="护理记录单" v-model="tongbuzhi"></el-checkbox>
+        <span class="preview-aside" @click="onPreview">预览护记</span>
         <el-checkbox label="三测单" v-model="tongbuzhi"></el-checkbox>
         <el-checkbox label="ISBAR交班志" disabled v-model="tongbuzhi"></el-checkbox>
 
@@ -26,6 +27,7 @@
         <el-button class="modal-btn" type="primary" @click="post">确定</el-button>
       </div>
     </sweet-modal>
+    <previewSheetModal ref="previewSheetModal"></previewSheetModal>
   </div>
 </template>
 <style lang='scss' scoped>
@@ -53,6 +55,12 @@
     font-weight: bold;
   }
 }
+.preview-aside {
+  text-decoration: underline;
+  cursor: pointer;
+  color: blue;
+  margin-right: 10px;
+}
 </style>
 <script>
 import {
@@ -61,6 +69,7 @@ import {
   nursingDiagsSaveList
 } from "../../../api/index";
 import { save } from "@/Page/sheet-hospital-eval/api/index.js";
+import previewSheetModal from "./previewSheetModal";
 export default {
   props: {
     formObj: Object
@@ -177,6 +186,13 @@ export default {
       // } else {
       this.$root.$refs.diagnosisSlide.open(item, item.obj);
       // }
+    },
+    onPreview() {
+      this.$refs.previewSheetModal.open(this.formObj.model.id, () => {
+        if (!this.tongbuzhi.includes("护理记录单")) {
+          this.tongbuzhi.push("护理记录单");
+        }
+      });
     }
   },
   computed: {
@@ -184,6 +200,8 @@ export default {
       return this.$store.state.sheet.patientInfo;
     }
   },
-  components: {}
+  components: {
+    previewSheetModal
+  }
 };
 </script>

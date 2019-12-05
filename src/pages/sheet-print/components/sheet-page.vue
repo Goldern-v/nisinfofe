@@ -34,7 +34,8 @@ import {
   showTitle,
   markList,
   getHomePage,
-  getBlock
+  getBlock,
+  syncToRecord
 } from "../api/api.js";
 import sheetInfo from "@/Page/sheet-page/components/config/sheetInfo/index.js";
 import bus from "vue-happy-bus";
@@ -66,6 +67,11 @@ export default {
         return obj;
       });
 
+      if ($params.previewId) {
+        /** 预览模式只显示最后两页 */
+        return mapSheetModel.slice(-2);
+      }
+
       let resultModel = mapSheetModel.filter(item => {
         let pageIndex = this.sheetInfo.sheetStartPage + item.index;
         if ($params.endPageIndex && $params.startPageIndex) {
@@ -80,12 +86,38 @@ export default {
         }
         return true;
       });
+
       return resultModel;
     }
   },
   methods: {
     getSheetData() {
       cleanData();
+
+      if ($params.previewId) {
+        /** 住院评估单预览 */
+        syncToRecord($params.previewId).then(res => {
+          this.sheetInfo.selectBlock = res.data.data.block;
+          this.sheetInfo.sheetType = this.sheetInfo.selectBlock.recordCode;
+
+          let titleData = { list: res.data.data.fieldSettingList };
+          let bodyData = { list: res.data.data.recordList };
+          let markData = [];
+          let pageData = res.data.data.homePage;
+
+          this.$nextTick(() => {
+            initSheetPage(titleData, bodyData, markData);
+            this.sheetInfo.sheetStartPage = (pageData && pageData.indexNo) || 1;
+            this.sheetInfo.sheetMaxPage =
+              (pageData && pageData.maxIndexNo) || 1;
+            this.$nextTick(() => {
+              window.scrollTo(0, 10000);
+            });
+          });
+        });
+        return;
+      }
+
       getBlock($params.id).then(res_b => {
         this.sheetInfo.selectBlock = res_b.data.data;
         this.sheetInfo.sheetType = this.sheetInfo.selectBlock.recordCode;
@@ -94,6 +126,7 @@ export default {
           let bodyData = res[1].data.data;
           let markData = [];
           let pageData = res[2].data.data;
+
           this.$nextTick(() => {
             initSheetPage(titleData, bodyData, markData);
             this.sheetInfo.sheetStartPage = (pageData && pageData.indexNo) || 1;
