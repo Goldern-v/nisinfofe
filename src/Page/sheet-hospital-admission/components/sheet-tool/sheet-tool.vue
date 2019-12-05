@@ -319,7 +319,7 @@ export default {
         },
         {
           label: "预览评估单",
-          style: "min-width:125px",
+          style: "min-width:100px",
           onClick: e => {
             this.$refs.previewEvalModal.open(window.formObj.model);
           }
