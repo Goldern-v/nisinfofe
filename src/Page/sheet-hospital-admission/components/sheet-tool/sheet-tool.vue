@@ -56,85 +56,118 @@
       </div>
       <div style="width: 5px;"></div>
     </div>
+    <previewEvalModal ref="previewEvalModal"></previewEvalModal>
   </div>
 </template>
 
-<style lang="stylus" rel="stylesheet/stylus" type="text/stylus" src="./tool.styl" scoped>
-</style>
+<style lang="stylus" rel="stylesheet/stylus" type="text/stylus" src="./tool.styl" scoped></style>
 
 <style lang="stylus" scoped>
-.pegeSelect
-  >>>.el-input__inner
-    border 0 !important
-    font-size 12px
-    color #333333
-.label
-  font-size 12px;
-  color #333
+.pegeSelect {
+  >>>.el-input__inner {
+    border: 0 !important;
+    font-size: 12px;
+    color: #333333;
+  }
+}
+
+.label {
+  font-size: 12px;
+  color: #333;
+}
 </style>
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
-.sheetSelect-con-sheet
+.sheetSelect-con-sheet {
   background: #FFFFFF;
-  box-shadow: 0 2px 6px 0 rgba(0,0,0,0.50);
+  box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.5);
   border-radius: 4px;
-  width 400px !important
-  left auto !important
-  right 5px
-  .el-select-dropdown__list, .el-select-dropdown__item
-    padding 0
-    height auto
-  .el-select-dropdown__wrap
-    max-height 500px
-  .head-con
-    height 37px
+  width: 400px !important;
+  left: auto !important;
+  right: 5px;
+
+  .el-select-dropdown__list, .el-select-dropdown__item {
+    padding: 0;
+    height: auto;
+  }
+
+  .el-select-dropdown__wrap {
+    max-height: 500px;
+  }
+
+  .head-con {
+    height: 37px;
     background: #F7FAFA;
     border-bottom: 1px solid #EAEEF1;
     font-size: 13px;
     color: #333333;
-    font-weight bold
-    text-align center
-  .col-1,.col-2,.col-3,.col-4
-    display flex
-    align-items center
-    text-align center
-  .col-1
-    width 40px
-    padding 0 24px
+    font-weight: bold;
+    text-align: center;
+  }
+
+  .col-1, .col-2, .col-3, .col-4 {
+    display: flex;
+    align-items: center;
+    text-align: center;
+  }
+
+  .col-1 {
+    width: 40px;
+    padding: 0 24px;
     border-right: 1px solid #EAEEF1;
-  .col-2
-    width 150px
-    padding 0 16px
+  }
+
+  .col-2 {
+    width: 150px;
+    padding: 0 16px;
     border-right: 1px solid #EAEEF1;
-  .col-3
-    width 120px
-    padding 0 14px
+  }
+
+  .col-3 {
+    width: 120px;
+    padding: 0 14px;
     border-right: 1px solid #EAEEF1;
-  .col-4
-    width 80px
-    padding 0 14px
-  .list-con
+  }
+
+  .col-4 {
+    width: 80px;
+    padding: 0 14px;
+  }
+
+  .list-con {
     font-size: 13px;
     color: #333333;
-    height 37px
-    border-bottom: 1px solid #EAEEF1
-  .el-select-dropdown__item.selected
-    background #f1f2f6
-    position relative
-    &:after
-      content ''
-      position absolute
-      left 0
-      top 9px
-      height 20px
-      width 4px
-      background #4bb08d
-  .el-select-dropdown__item.hover
-    background #f1f2f6;
-  .el-select-dropdown__item:hover
-    background #E5F1F0;
-.red-border
-  border 2px solid red !important
+    height: 37px;
+    border-bottom: 1px solid #EAEEF1;
+  }
+
+  .el-select-dropdown__item.selected {
+    background: #f1f2f6;
+    position: relative;
+
+    &:after {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 9px;
+      height: 20px;
+      width: 4px;
+      background: #4bb08d;
+    }
+  }
+
+  .el-select-dropdown__item.hover {
+    background: #f1f2f6;
+  }
+
+  .el-select-dropdown__item:hover {
+    background: #E5F1F0;
+  }
+}
+
+.red-border {
+  border: 2px solid red !important;
+}
 </style>
 
 <script>
@@ -163,6 +196,7 @@ import { notifyBox } from "./notifyBox.js";
 
 import mergeDefaultValue, { setDefaultValue } from "../data/defalutValue/utils";
 import { getReEvaTask, loadPatient } from "../../api/index";
+import previewEvalModal from "../Render/modal/previewEvalModal";
 export default {
   mixins: [commom],
   data() {
@@ -281,6 +315,13 @@ export default {
           },
           getDisabled(selectBlock) {
             if (!selectBlock.id) return true;
+          }
+        },
+        {
+          label: "预览评估单",
+          style: "min-width:125px",
+          onClick: e => {
+            this.$refs.previewEvalModal.open(window.formObj.model);
           }
         }
       ]
@@ -776,7 +817,7 @@ export default {
         ? window.formObj.model.K0001.split(",")
         : [];
       // 孕前体重(产科)
-      skipItems = [...skipItems, '孕前体重(产科)']
+      skipItems = [...skipItems, "孕前体重(产科)"];
       skipItems = skipItems.filter(s => {
         return s !== "";
       });
@@ -1028,13 +1069,17 @@ export default {
                 //
                 console.log(
                   "漏项",
-                  [element,parent],
+                  [element, parent],
                   [element.$el],
                   [parent.obj.title ? parent.obj.title : ""],
-                  [parent.obj.name,
-                  parent.obj.parentKey,
-                  parent.obj,
-                  window.formObj.model[parent.obj.name || parent.obj.parentKey]]
+                  [
+                    parent.obj.name,
+                    parent.obj.parentKey,
+                    parent.obj,
+                    window.formObj.model[
+                      parent.obj.name || parent.obj.parentKey
+                    ]
+                  ]
                 );
 
                 //
@@ -1051,18 +1096,19 @@ export default {
       }
       //
       // 七、专科护理评估
-      if(missingObj){
-        let keys = Object.keys(missingObj)
-        let deptList = ["妇科",'儿科','产科','新生儿科']
-        let key = '七、专科护理评估'
-        deptList.map(d=>{
-          if(keys.indexOf(d)>-1){
-            if(!missingObj[key]){missingObj[key]=[]}
-            missingObj[key]=[...missingObj[key],...missingObj[d]]
+      if (missingObj) {
+        let keys = Object.keys(missingObj);
+        let deptList = ["妇科", "儿科", "产科", "新生儿科"];
+        let key = "七、专科护理评估";
+        deptList.map(d => {
+          if (keys.indexOf(d) > -1) {
+            if (!missingObj[key]) {
+              missingObj[key] = [];
+            }
+            missingObj[key] = [...missingObj[key], ...missingObj[d]];
           }
-        })
+        });
       }
-
 
       //
       if (
@@ -1415,16 +1461,18 @@ export default {
     //
   },
   watch: {
-    deptCode(){
-      this.selectBlock = {}
-      this.sheetBlockList = []
-      this.$store.commit('upCurrentPatientObj',{})
+    deptCode() {
+      this.selectBlock = {};
+      this.sheetBlockList = [];
+      this.$store.commit("upCurrentPatientObj", {});
       this.bus.$emit("closeHosptialAdmissionForm");
       this.bus.$emit("setHosptialAdmissionLoading", false);
       this.bus.$emit("setHosptialAdmissionPageMessage", "请选择左侧患者~");
-      this.$router.push({name:"sheetHospitalAdmissionPage"})
+      this.$router.push({ name: "sheetHospitalAdmissionPage" });
     }
   },
-  components: {}
+  components: {
+    previewEvalModal
+  }
 };
 </script>

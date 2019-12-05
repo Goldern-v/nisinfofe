@@ -48,91 +48,123 @@
   </div>
 </template>
 
-<style lang="stylus" rel="stylesheet/stylus" type="text/stylus" src="./tool.styl" scoped>
-</style>
+<style lang="stylus" rel="stylesheet/stylus" type="text/stylus" src="./tool.styl" scoped></style>
 
 <style lang="stylus" scoped>
-.pegeSelect
-  >>>.el-input__inner
-    border 0 !important
-    font-size 12px
-    color #333333
-.label
-  font-size 12px;
-  color #333
+.pegeSelect {
+  >>>.el-input__inner {
+    border: 0 !important;
+    font-size: 12px;
+    color: #333333;
+  }
+}
+
+.label {
+  font-size: 12px;
+  color: #333;
+}
 </style>
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
+>>>.item-box {
+  width: auto;
+  // padding: 0px 10px;
+}
 
->>>.item-box
-    width: auto;
-    // padding: 0px 10px;
-
-.sheetSelect-con-sheet
+.sheetSelect-con-sheet {
   background: #FFFFFF;
-  box-shadow: 0 2px 6px 0 rgba(0,0,0,0.50);
+  box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.5);
   border-radius: 4px;
-  width 400px !important
-  left auto !important
-  right 5px
-  >>>.el-select-dropdown__list, .el-select-dropdown__item
-    padding 0px!important
-    height auto
-  .el-select-dropdown__wrap
-    max-height 500px
-  .head-con
-    height 37px
+  width: 400px !important;
+  left: auto !important;
+  right: 5px;
+
+  >>>.el-select-dropdown__list, .el-select-dropdown__item {
+    padding: 0px !important;
+    height: auto;
+  }
+
+  .el-select-dropdown__wrap {
+    max-height: 500px;
+  }
+
+  .head-con {
+    height: 37px;
     background: #F7FAFA;
     border-bottom: 1px solid #EAEEF1;
     font-size: 13px;
     color: #333333;
-    font-weight bold
-    text-align center
-  .col-1,.col-2,.col-3,.col-4
-    display flex
-    align-items center
-    text-align center
-  .col-1
-    width 40px
-    padding 0 24px
+    font-weight: bold;
+    text-align: center;
+  }
+
+  .col-1, .col-2, .col-3, .col-4 {
+    display: flex;
+    align-items: center;
+    text-align: center;
+  }
+
+  .col-1 {
+    width: 40px;
+    padding: 0 24px;
     border-right: 1px solid #EAEEF1;
-  .col-2
-    width 150px
-    padding 0 16px
+  }
+
+  .col-2 {
+    width: 150px;
+    padding: 0 16px;
     border-right: 1px solid #EAEEF1;
-  .col-3
-    width 120px
-    padding 0 14px
+  }
+
+  .col-3 {
+    width: 120px;
+    padding: 0 14px;
     border-right: 1px solid #EAEEF1;
-  .col-4
-    width 80px
-    padding 0 14px
-  .list-con
+  }
+
+  .col-4 {
+    width: 80px;
+    padding: 0 14px;
+  }
+
+  .list-con {
     font-size: 13px;
     color: #333333;
-    height 37px
-    border-bottom: 1px solid #EAEEF1
-  .el-select-dropdown__item.selected
-    background #f1f2f6
-    position relative
-    &:after
-      content ''
-      position absolute
-      left 0
-      top 9px
-      height 20px
-      width 4px
-      background #4bb08d
-  .el-select-dropdown__item.hover
-    background #f1f2f6;
-  .el-select-dropdown__item:hover
-    background #E5F1F0;
-.red-border
-  border 2px solid red !important
+    height: 37px;
+    border-bottom: 1px solid #EAEEF1;
+  }
 
->>>.el-select-dropdown__list
-    padding 0px!important
+  .el-select-dropdown__item.selected {
+    background: #f1f2f6;
+    position: relative;
 
+    &:after {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 9px;
+      height: 20px;
+      width: 4px;
+      background: #4bb08d;
+    }
+  }
+
+  .el-select-dropdown__item.hover {
+    background: #f1f2f6;
+  }
+
+  .el-select-dropdown__item:hover {
+    background: #E5F1F0;
+  }
+}
+
+.red-border {
+  border: 2px solid red !important;
+}
+
+>>>.el-select-dropdown__list {
+  padding: 0px !important;
+}
 </style>
 
 <script>
@@ -272,12 +304,13 @@ export default {
               this.$store.getters.getCurrentPatient()
             );
             const { href } = this.$router.resolve({
-              path: "sheet",
+              path: "/sheet",
               query: {
                 patientId: this.patientInfo.patientId,
                 visitId: this.patientInfo.visitId
               }
             });
+            console.log(href, "href");
             window.open(href, "_blank");
           },
           getDisabled(selectBlock) {
@@ -699,14 +732,14 @@ export default {
     //
   },
   watch: {
-    deptCode(){
-      this.selectBlock = {}
-      this.sheetBlockList = []
-      this.$store.commit('upCurrentPatientObj',{})
+    deptCode() {
+      this.selectBlock = {};
+      this.sheetBlockList = [];
+      this.$store.commit("upCurrentPatientObj", {});
       this.bus.$emit("closeHosptialEvalForm");
       this.bus.$emit("setHosptialEvalLoading", false);
       this.bus.$emit("setHosptialEvalPageMessage", "请选择左侧患者~");
-      this.$router.push({name:"sheetHospitalEvalPage"})
+      this.$router.push({ name: "sheetHospitalEvalPage" });
     }
   },
   components: {}
