@@ -42,7 +42,7 @@
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
 .content {
-  margin: 20px 20px 0;
+  margin: 10px 15px 0;
 }
 </style>
 
@@ -87,7 +87,7 @@
 
 .select-nav {
   height: 34px;
-  margin-bottom: 18px;
+  margin-bottom: 10px;
   display: flex;
   align-items: center;
 

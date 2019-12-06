@@ -96,20 +96,20 @@
                     </el-row>
                   </router-link>
                 </el-dropdown-item>
-                <el-dropdown-item :class="{active: $route.path == '/formPage'}">
+                <!-- <el-dropdown-item :class="{active: $route.path == '/formPage'}">
                   <router-link to="/formPage" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
                       <i class="nursingAssessment"></i> 护理评估单
                     </el-row>
                   </router-link>
-                </el-dropdown-item>
-                <el-dropdown-item :class="{active: $route.path == '/sheetPage'}">
+                </!-->
+                <!-- <el-dropdown-item :class="{active: $route.path == '/sheetPage'}">
                   <router-link to="/sheetPage" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
                       <i class="nursingAssessment"></i> 护理记录单
                     </el-row>
                   </router-link>
-                </el-dropdown-item>
+                </el-dropdown-item>-->
                 <el-dropdown-item :class="{active: $route.path == '/sugarPage'}">
                   <router-link to="/sugarPage" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
@@ -171,9 +171,27 @@
                 <i class="iconfont icon-huliwenshu"></i> 患者查询
               </el-row>
             </router-link>-->
+
+            <router-link to="/formPage" tag="span">
+              <el-row class="nav-item" type="flex" align="middle">
+                <i class="nursingAssessment"></i> 护理评估单
+              </el-row>
+            </router-link>
+
+            <router-link to="/sheetPage" tag="span">
+              <el-row class="nav-item" type="flex" align="middle">
+                <i class="nursingAssessment"></i> 护理记录单
+              </el-row>
+            </router-link>
+
             <router-link to="/shiftWork" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-jiaobanzhi"></i> 交班志
+              </el-row>
+            </router-link>
+            <router-link to="/implementationList" tag="span">
+              <el-row class="nav-item" type="flex" align="middle">
+                <i class="iconfont icon-jiaobanzhi"></i> 执行单
               </el-row>
             </router-link>
 
@@ -414,7 +432,7 @@
 
 .nav-item {
   height: 60px;
-  padding: 0 15px;
+  padding: 0 10px;
   font-size: 14px;
   color: #687179;
   letter-spacing: 0;
@@ -728,10 +746,10 @@ export default {
       if (this.$route.path == "/birthCertificate") return true;
     },
     isActiveFormPage() {
-      if (this.$route.path == "/sheetPage") return true;
+      // if (this.$route.path == "/sheetPage") return true;
       if (this.$route.path == "/sheetHospitalAdmission") return true;
       if (this.$route.path == "/sheetHospitalEval") return true;
-      if (this.$route.path == "/formPage") return true;
+      // if (this.$route.path == "/formPage") return true;
       if (this.$route.path == "/sugarPage") return true;
       if (this.$route.path == "/oxygenPage") return true;
       if (this.$route.path == "/healthEdu") return true;

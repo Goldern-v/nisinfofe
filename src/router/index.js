@@ -138,6 +138,8 @@ import birthCertificateForm from "@/Page/birth-certificate/birth-certificate-for
 
 /** 病历 */
 import doctorEmr from "@/Page/patientInfo/supPage/doctorEmr/doctorEmr";
+/** 执行单 */
+import implementationList from "@/Page/implementation-list/implementation-list.vue";
 /** demo */
 import demo from "@/demo/demo";
 Vue.use(Router);
@@ -437,6 +439,11 @@ const router = new Router({
         {
           path: "/nursingDocumentation",
           component: nursingDocumentation
+        },
+        {
+          path: "/implementationList",
+          component: implementationList,
+          name: '执行单'
         },
         // {
         //   path: '/nursingConsultation',

@@ -24,7 +24,7 @@
           >{{scope.row.orderNo}}</span>
         </template>
       </el-table-column>
-      <el-table-column fixed label=" " min-width="50px" prop="orderNo" v-else>
+      <el-table-column label=" " min-width="45px" prop="orderNo" v-else>
         <template slot-scope="scope">
           <span
             :class="type(scope.row.orderStatusName)"
@@ -32,7 +32,7 @@
           >{{scope.row.orderNo}}</span>
         </template>
       </el-table-column>
-      <el-table-column fixed label="开始时间" min-width="160px">
+      <el-table-column label="开始时间" min-width="135px">
         <template slot-scope="scope">
           <span
             :class="type(scope.row.orderStatusName)"
@@ -40,19 +40,19 @@
           >{{scope.row.startDate}}</span>
         </template>
       </el-table-column>
-      <el-table-column fixed label="医嘱内容" min-width="197px" prop="orderText">
+      <el-table-column label="医嘱内容" min-width="150px" prop="orderText">
         <template slot-scope="scope">
           <span :class="type(scope.row.orderStatusName)">{{scope.row.orderText}}</span>
         </template>
       </el-table-column>
-      <el-table-column label="计量" min-width="80px" prop="dosage">
+      <el-table-column label="计量" min-width="70px" prop="dosage" align="center">
         <template slot-scope="scope">
           <span
             :class="type(scope.row.orderStatusName)"
           >{{scope.row.dosage}}{{scope.row.dosageUnits}}</span>
         </template>
       </el-table-column>
-      <el-table-column label="途径" min-width="120px" prop="administration">
+      <el-table-column label="途径" min-width="90px" prop="administration" align="center">
         <template slot-scope="scope">
           <span
             :class="type(scope.row.orderStatusName)"
@@ -60,7 +60,7 @@
           >{{scope.row.administration}}</span>
         </template>
       </el-table-column>
-      <el-table-column label="频次" min-width="60px" prop="frequency">
+      <el-table-column label="频次" min-width="60px" prop="frequency" align="center">
         <template slot-scope="scope">
           <span
             :class="type(scope.row.orderStatusName)"
@@ -74,7 +74,7 @@
         prop="performSchedule"
         v-if="HOSPITAL_ID == 'gy'"
       ></el-table-column>
-      <el-table-column label="执行时间" min-width="80px" prop="performSchedule" v-else>
+      <el-table-column label="执行时间" min-width="80px" prop="performSchedule" v-else align="center">
         <template slot-scope="scope">
           <span
             :class="type(scope.row.orderStatusName)"
@@ -82,7 +82,7 @@
           >{{scope.row.performSchedule}}</span>
         </template>
       </el-table-column>
-      <el-table-column label="医嘱说明" min-width="120px" prop="freqDetail">
+      <el-table-column label="医嘱说明" min-width="100px" prop="freqDetail">
         <template slot-scope="scope">
           <span
             :class="type(scope.row.orderStatusName)"
@@ -90,7 +90,7 @@
           >{{scope.row.freqDetail}}</span>
         </template>
       </el-table-column>
-      <el-table-column label="开始医生" min-width="80px" prop="doctor">
+      <el-table-column label="开始医生" min-width="80px" prop="doctor" align="center">
         <template slot-scope="scope">
           <span
             :class="type(scope.row.orderStatusName)"
@@ -98,7 +98,7 @@
           >{{scope.row.doctor}}</span>
         </template>
       </el-table-column>
-      <el-table-column label="校对护士" min-width="80px" prop="nurse">
+      <el-table-column label="校对护士" min-width="80px" prop="nurse" align="center">
         <template slot-scope="scope">
           <span
             :class="type(scope.row.orderStatusName)"
@@ -106,7 +106,7 @@
           >{{scope.row.nurse}}</span>
         </template>
       </el-table-column>
-      <el-table-column label="医嘱状态" min-width="80px" prop="orderStatusName">
+      <el-table-column label="医嘱状态" min-width="80px" prop="orderStatusName" align="center">
         <template slot-scope="scope">
           <span
             :class="type(scope.row.orderStatusName)"
@@ -114,7 +114,7 @@
           >{{scope.row.orderStatusName}}</span>
         </template>
       </el-table-column>
-      <el-table-column label="停止日期" min-width="160px" prop="stopDate">
+      <el-table-column label="停止日期" min-width="135px" prop="stopDate" align="center">
         <template slot-scope="scope">
           <span
             :class="type(scope.row.orderStatusName)"
@@ -166,7 +166,11 @@
   </div>
 </template>
 
-<style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped></style>
+<style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
+>>>.el-table__header .cell {
+  text-align: center;
+}
+</style>
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus">
 .table-text-value {
@@ -206,6 +210,12 @@
   .cell {
     padding: 0 8px;
   }
+
+  ::-webkit-scrollbar {
+    width: 7px;
+    height: 14px;
+    background-color: #EAEAEA;
+  }
 }
 
 .in-hidden {
@@ -229,7 +239,7 @@ export default {
   },
   methods: {
     height() {
-      let height = this.wih - 200;
+      let height = this.wih - 175;
       return height.toString();
     },
     type(state) {

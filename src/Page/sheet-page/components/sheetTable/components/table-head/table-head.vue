@@ -12,10 +12,15 @@
         性别：
         <div class="bottom-line" style="min-width: 50px">{{patientInfo.sex}}</div>
       </span>
-      <span @click="updateTetxInfo('age', '年龄', patientInfo.age)">
+      <span @click="updateNeonatology2Age" v-if="sheetInfo.sheetType == 'neonatology2'">
+        年龄：
+        <div class="bottom-line" style="min-width: 50px">{{neonatology2Age}}</div>
+      </span>
+      <span @click="updateTetxInfo('age', '年龄', patientInfo.age)" v-else>
         年龄：
         <div class="bottom-line" style="min-width: 50px">{{patientInfo.age}}</div>
       </span>
+
       <span>
         科室：
         <div class="bottom-line" style="min-width: 120px">{{patientInfo.deptName}}</div>
@@ -53,9 +58,11 @@ import moment from "moment";
 import { updateSheetHeadInfo } from "../../../../api/index";
 import sheetInfo from "../../../config/sheetInfo";
 import { listItem } from "@/api/common.js";
+import sheetData from "../../../../sheet.js";
 export default {
   props: {
-    patientInfo: Object
+    patientInfo: Object,
+    index: Number
   },
   data() {
     return {
@@ -64,6 +71,47 @@ export default {
       //   wxNo: ""
       // }
     };
+  },
+  computed: {
+    neonatology2Age() {
+      if (this.index == 0) {
+        return sheetInfo.relObj.age || this.patientInfo.age;
+      } else {
+        let real_birthday;
+        let now_time = moment(
+          sheetData[this.index].bodyModel[0].find(
+            item => item.key == "recordDate"
+          ).value
+        );
+        if (!now_time.valueOf())
+          return sheetInfo.relObj.age || this.patientInfo.age;
+        /** 推导实际出生日期 */
+        if (sheetInfo.relObj.age.indexOf("小时") > -1) {
+          let h = Number(sheetInfo.relObj.age.replace("小时", ""));
+          real_birthday = moment(
+            sheetData[0].bodyModel[0].find(item => item.key == "recordDate")
+              .value
+          ).subtract(h, "h");
+
+          let diff = now_time.diff(real_birthday, "d");
+          if (diff == 0) {
+            return now_time.diff(real_birthday, "h") + "小时";
+          } else {
+            return diff + "天";
+          }
+        } else if (sheetInfo.relObj.age.indexOf("天") > -1) {
+          let d = Number(sheetInfo.relObj.age.replace("天", ""));
+          real_birthday = moment(
+            sheetData[0].bodyModel[0].find(item => item.key == "recordDate")
+              .value
+          ).subtract(d, "d");
+          let diff = now_time.diff(real_birthday, "d");
+          return diff + "天";
+        } else {
+          return sheetInfo.relObj.age || this.patientInfo.age;
+        }
+      }
+    }
   },
   methods: {
     updateBirthDay() {
@@ -132,6 +180,21 @@ export default {
       setTimeout(() => {
         window.closeAutoComplete(`bedModal`);
       }, 400);
+    },
+    updateNeonatology2Age() {
+      if (this.index !== 0) {
+        this.$message.warning("请修改第一页护记的年龄，后续页的年龄会动态计算");
+      } else {
+        window.openSetTextModal(
+          text => {
+            sheetInfo.relObj.age = text;
+            sheetInfo.relObj = { ...sheetInfo.relObj };
+            this.$message.success(`修改年龄成功`);
+          },
+          sheetInfo.relObj.age,
+          `修改年龄`
+        );
+      }
     }
   },
   filters: {
@@ -144,9 +207,9 @@ export default {
     }
   },
   created() {
-    // if (sheetInfo.relObj && Object.keys(sheetInfo.relObj).length > 0) {
-    //   this.relObj = sheetInfo.relObj;
-    // }
+    if (!sheetInfo.relObj.age) {
+      sheetInfo.relObj.age = this.patientInfo.age;
+    }
   },
   watch: {
     // relObj: {

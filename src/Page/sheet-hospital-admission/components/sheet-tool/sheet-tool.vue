@@ -322,6 +322,10 @@ export default {
           style: "min-width:100px",
           onClick: e => {
             this.$refs.previewEvalModal.open(window.formObj.model);
+          },
+          getDisabled(selectBlock) {
+            if (!selectBlock.id) return true;
+            if (selectBlock.status != "1") return true;
           }
         }
       ]

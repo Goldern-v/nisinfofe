@@ -226,7 +226,7 @@ export default {
   },
   methods: {
     height() {
-      let height = this.wih - 200;
+      let height = this.wih - 175;
       return height.toString();
     },
     type(state) {
