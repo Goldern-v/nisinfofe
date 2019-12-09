@@ -3,40 +3,52 @@
     <div class="main-contain">
       <div class="head-con">
         <span class="label" style="margin-left: 0">执行日期:</span>
-        <el-date-picker type="date" format="yyyy-MM-dd" placeholder="选择入院起始时间" size="small"></el-date-picker>
+        <el-date-picker
+          type="date"
+          format="yyyy-MM-dd"
+          placeholder="选择入院起始时间"
+          size="small"
+          v-model="startDate"
+          style="width:150px"
+        ></el-date-picker>
         <span class="label">长/临:</span>
         <el-row class="select-btn-list" type="flex" align="middle">
-          <el-radio-group v-model="radio">
-            <el-radio class="radio" label="全部">全部</el-radio>
-            <el-radio class="radio" label="全部">长期</el-radio>
-            <el-radio class="radio" label="全部">临时</el-radio>
+          <el-radio-group v-model="repeatIndicator">
+            <el-radio class="radio" label>全部</el-radio>
+            <el-radio class="radio" label="1">长期</el-radio>
+            <el-radio class="radio" label="0">临时</el-radio>
           </el-radio-group>
         </el-row>
         <span class="label">状态:</span>
         <el-row class="select-btn-list" type="flex" align="middle">
-          <el-radio-group v-model="radio">
-            <el-radio class="radio" label="全部">全部</el-radio>
-            <el-radio class="radio" label="全部">已执行</el-radio>
-            <el-radio class="radio" label="新开">执行中</el-radio>
-            <el-radio class="radio" label="提交">未执行</el-radio>
+          <el-radio-group v-model="status">
+            <el-radio class="radio" label>全部</el-radio>
+            <el-radio class="radio" label="已执行">已执行</el-radio>
+            <el-radio class="radio" label="执行中">执行中</el-radio>
+            <el-radio class="radio" label="未执行">未执行</el-radio>
           </el-radio-group>
         </el-row>
         <span class="label">类型:</span>
-        <el-select v-model="value" placeholder="请选择" size="small">
-          <el-option label="全部" value="全部"></el-option>
-          <el-option label="输液" value="全部"></el-option>
-          <el-option label="注射" value="全部"></el-option>
-          <el-option label="口服" value="全部"></el-option>
-          <el-option label="雾化" value="全部"></el-option>
-          <el-option label="皮试" value="全部"></el-option>
-          <el-option label="治疗" value="全部"></el-option>
-          <el-option label="理疗" value="全部"></el-option>
-          <el-option label="护理" value="全部"></el-option>
-          <el-option label="其他" value="全部"></el-option>
+        <el-select v-model="type" placeholder="请选择" size="small" style="width:150px">
+          <el-option label="全部" value></el-option>
+          <el-option label="输液" value="输液"></el-option>
+          <el-option label="注射" value="注射"></el-option>
+          <el-option label="口服" value="口服"></el-option>
+          <el-option label="雾化" value="雾化"></el-option>
+          <el-option label="皮试" value="皮试"></el-option>
+          <el-option label="治疗" value="治疗"></el-option>
+          <el-option label="理疗" value="理疗"></el-option>
+          <el-option label="护理" value="护理"></el-option>
+          <el-option label="其他" value="其他"></el-option>
         </el-select>
         <div style="flex: 1"></div>
-        <el-input size="small" style="width: 150px;margin-right: 15px;" placeholder="输入床号进行搜索"></el-input>
-        <el-button size="small" type="primary">查询</el-button>
+        <el-input
+          size="small"
+          style="width: 150px;margin-right: 15px;"
+          placeholder="输入床号进行搜索"
+          v-model="bedLabel"
+        ></el-input>
+        <el-button size="small" type="primary" @click="search">查询</el-button>
       </div>
       <dTable :tableData="tableData" :pageLoadng="pageLoadng"></dTable>
       <div class="pagination-con" flex="main:justify cross:center">
@@ -138,7 +150,11 @@
 import dTable from "./components/table/d-table";
 import pagination from "./components/common/pagination";
 import { patEmrList } from "@/api/document";
+import { getExecuteWithWardcode } from "./api/index";
+import common from "@/common/mixin/common.mixin.js";
+import moment from "moment";
 export default {
+  mixins: [common],
   data() {
     return {
       pageInput: "",
@@ -148,7 +164,12 @@ export default {
         pageIndex: 1,
         pageNum: 20,
         total: 0
-      }
+      },
+      startDate: moment().format("YYYY-MM-DD"),
+      repeatIndicator: "",
+      type: "",
+      status: "",
+      bedLabel: ""
     };
   },
   methods: {
@@ -157,21 +178,84 @@ export default {
     },
     handleCurrentChange(newPage) {
       this.page.pageIndex = newPage;
-      this.getData();
+      this.onLoad();
     },
-    getData() {
-      let obj = {};
 
-      obj.pageIndex = this.page.pageIndex;
-      obj.pageNum = this.page.pageNum;
+    onLoad() {
+      if (!this.deptCode) return;
       this.pageLoadng = true;
-      patEmrList(obj).then(res => {
-        this.tableData = res.data.data.list;
-        this.page.total = res.data.data.page
-          ? parseInt(res.data.data.page) * this.page.pageNum
-          : 0;
+      let obj = {
+        wardCode: this.deptCode,
+        startDate: moment(this.startDate).format("YYYY-MM-DD"),
+        endDate: moment(this.startDate).format("YYYY-MM-DD"),
+        repeatIndicator: this.repeatIndicator,
+        type: this.type,
+        status: this.status,
+        bedLabel: this.bedLabel,
+        pageIndex: this.page.pageIndex,
+        pageSize: this.page.pageNum
+      };
+      getExecuteWithWardcode(obj).then(res => {
+        this.tableData = res.data.data.list.map((item, index, array) => {
+          let prevRowId =
+            array[index - 1] &&
+            array[index - 1].orderNo +
+              array[index - 1].patientId +
+              array[index - 1].visitId;
+          let nextRowId =
+            array[index + 1] &&
+            array[index + 1].orderNo +
+              array[index + 1].patientId +
+              array[index + 1].visitId;
+
+          let currentRowId =
+            array[index] &&
+            array[index].orderNo +
+              array[index].patientId +
+              array[index].visitId;
+
+          /** 判断是此记录是多条记录 */
+          if (currentRowId == prevRowId || currentRowId == nextRowId) {
+            if (currentRowId != prevRowId) {
+              /** 第一条 */
+              item.rowType = 1;
+            } else if (currentRowId != nextRowId) {
+              /** 最后条 */
+              item.rowType = 3;
+            } else {
+              /** 中间条 */
+              item.rowType = 2;
+            }
+          }
+          return item;
+        });
+        this.page.total = Number(res.data.data.pageCount);
         this.pageLoadng = false;
       });
+    },
+    search() {
+      this.page.pageIndex = 1;
+      this.onLoad();
+    }
+  },
+  created() {
+    this.onLoad();
+  },
+  watch: {
+    deptCode() {
+      this.search();
+    },
+    startDate() {
+      this.search();
+    },
+    repeatIndicator() {
+      this.search();
+    },
+    type() {
+      this.search();
+    },
+    status() {
+      this.search();
     }
   },
   components: {

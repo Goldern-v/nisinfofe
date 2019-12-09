@@ -122,7 +122,7 @@
           >{{scope.row.stopDate}}</span>
         </template>
       </el-table-column>
-      <el-table-column label="停止医生" min-width="80px" prop="stopDoctor">
+      <el-table-column label="停止医生" min-width="80px" prop="stopDoctor" align="center">
         <template slot-scope="scope">
           <span
             :class="type(scope.row.orderStatusName)"
@@ -130,7 +130,7 @@
           >{{scope.row.stopDoctor}}</span>
         </template>
       </el-table-column>
-      <el-table-column label="停止护士" min-width="80px" prop="stopNurse">
+      <el-table-column label="停止护士" min-width="80px" prop="stopNurse" align="center">
         <template slot-scope="scope">
           <span
             :class="type(scope.row.orderStatusName)"
