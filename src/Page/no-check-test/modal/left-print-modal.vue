@@ -21,7 +21,7 @@
           </tbody>
         </table>
       </div>
-      <div class="printable" ref="printable" style="display: none;">
+      <div class="printable" ref="printable">
         <table v-for="(item,index) in printData" :key="index">
           <thead>
             <tr>
@@ -49,6 +49,64 @@
   </div>
 </template>
 <style lang='stylus' scoped>
+.left-print-modal {
+  .showTableContent {
+    background-color: #fff;
+  }
+
+  >>>.sweet-content-content {
+    position: relative;
+  }
+
+  .printable {
+    width: 540px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: -1;
+    padding: 50px 30px 0;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+}
+
+table {
+  width: 100%;
+  margin-bottom: 20px;
+  border-top: 1px solid #E3E7EA;
+  border-left: 1px solid #E3E7EA;
+  font-size: 13px;
+  color: #333333;
+
+  th, td {
+    min-height: 16px;
+    box-sizing: border-box;
+    padding: 8px 10px;
+    line-height: 16px;
+    border-right: 1px solid #E3E7EA;
+    border-bottom: 1px solid #E3E7EA;
+    text-align: center;
+
+    &:nth-of-type(1), &:nth-of-type(2) {
+      width: 60px;
+    }
+
+    &:nth-of-type(3) {
+      width: 80px;
+    }
+
+    &:nth-of-type(4) {
+      width: 150px;
+    }
+  }
+
+  td {
+    &:last-of-type {
+      text-align: left;
+    }
+  }
+}
+
 table {
   width: 100%;
   margin-bottom: 20px;
@@ -134,7 +192,8 @@ export default {
         scanStyles: false,
         css: `
        .printable {
-         display: block !important;
+         position: static !important;
+         z-index: 1 !important;
        }
        body {
         background: #fff !important;
