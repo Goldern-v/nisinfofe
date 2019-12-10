@@ -2,146 +2,92 @@ import Vue from "vue";
 import Router from "vue-router";
 import main from "@/Part/main";
 
-import lesion from "@/Page/lesion/lesion";
-
-import patientInfo from "@/Page/patientInfo/patientInfo";
-import nursingHome from "@/Page/patientInfo/supPage/nursingHome/nursingHome";
-import information from "@/Page/patientInfo/supPage/information/information";
-import advice from "@/Page/patientInfo/supPage/advice/advice";
-import inspect from "@/Page/patientInfo/supPage/inspect/inspect";
-import test from "@/Page/patientInfo/supPage/test/test";
-import record from "@/Page/patientInfo/supPage/record/record";
-import cost from "@/Page/patientInfo/supPage/cost/cost";
-import home from "@/Page/patientInfo/supPage/home/home";
-import consultation from "@/Page/patientInfo/supPage/consultation/consultation";
-import temperature from "@/Page/patientInfo/supPage/temperature/temperature";
-import diagnosis from "@/Page/patientInfo/supPage/diagnosis/diagnosis";
-import diganosisDetails from "@/Page/patientInfo/supPage/diagnosis/diganosis-details/diganosisDetails";
-import bloodSugar from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar.vue"; // 厚街
-import bloodSugarWeiXian from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_weixian.vue"; // 威县
-import healthEducation from "@/Page/patientInfo/supPage/healthEducation/healthEducation.vue"; // 厚街
-
-import task from "@/Page/lesion/supPage/task/task";
-import bed from "@/Page/lesion/supPage/bed/bed";
-import shift from "@/Page/lesion/supPage/shift/shift";
-import implementation from "@/Page/lesion/supPage/implementation/implementation";
-import login from "@/Page/login/login";
-import sheet from "@/Page/patientInfo/supPage/sheet/sheet.vue";
-import catheter from "@/Page/patientInfo/supPage/catheter/catheter.vue";
-import sheetNursingOrder from "@/Page/patientInfo/supPage/sheetNursingOrder/sheetNursingOrder.vue"; // 护嘱记录单页面
-import indexXin from "@/Page/index-xin/Nurse.vue";
-
-import imageView from "@/Part/imageView/imageView";
-
+// import lesion from "@/Page/lesion/lesion";
+// import consultation from "@/Page/patientInfo/supPage/consultation/consultation";
+// import diganosisDetails from "@/Page/patientInfo/supPage/diagnosis/diganosis-details/diganosisDetails";
+// import task from "@/Page/lesion/supPage/task/task";
+// import shift from "@/Page/lesion/supPage/shift/shift";
+// import implementation from "@/Page/lesion/supPage/implementation/implementation";
+// import login from "@/Page/login/login";
 // 护理会诊
 // import nursingConsultation from '@/Page/nursingConsultation/nursingConsultation'
 // import nursingConsultationStaff from '@/Page/nursingConsultationStaff/nursingConsultationStaff'
 
-import infuse from "../Page/lesion/supPage/infuse/infuse.vue";
-import log from "../Page/lesion/supPage/log/log.vue";
+// import infuse from "../Page/lesion/supPage/infuse/infuse.vue";
+// import log from "../Page/lesion/supPage/log/log.vue";
 // 收件箱
-import inBox from "../Page/inBox/inBox.vue";
-import mailDetails from "../Page/mail-details/mail-details.vue";
-
-// 护理文书
-import nursingDocumentation from "../Page/nursing-documentation/nursing-documentation.vue";
-//异常路径
-import NotFoundComponent from "../components/NotFound/NotFoundComponent.vue";
-
+// import inBox from "../Page/inBox/inBox.vue";
+// import mailDetails from "../Page/mail-details/mail-details.vue";
 //自动登录
-import autoLogin from "../Part/auto-login";
-
+// import autoLogin from "../Part/auto-login";
 // import whiteBoard from '@/Part/whiteBoard/whiteBoard'
-
-import print from "@/Part/print/print.vue";
-
-import wardReport from "@/Page/ward-report/ward-report.vue";
-import wardReportDetail from "@/Page/ward-report/ward-report-detail.vue";
-
-import inpatientReport from "@/Page/inpatient-report/inpatient-report.vue";
-import inpatientReportDetail from "@/Page/inpatient-report/inpatient-report-detail.vue";
-
-import shiftWork from "@/Page/shift-work/shift-work.vue";
-
-import shiftWorkDetail from "@/Page/shift-work/shift-work-detail.vue";
-
-import badEvent from "@/Page/badEvent/badEvent.vue";
-import badEventViewPage from "@/Page/badEvent/badEventViewPage.vue";
-import badEventEditPage from "@/Page/badEvent/badEventEditPage.vue";
-
-import white from "@/Page/white/white.vue";
-// 护理记录单页面
-import sheetPage from "@/Page/sheet-page/sheet-page.vue";
-// 住院评估页面
-import sheetHospitalEval from "@/Page/sheet-hospital-eval/sheet-hospital-eval.vue";
-import sheetHospitalEvalPage from "@/Page/sheet-hospital-eval/components/pages/page.vue";
-// 入院评估
-import sheetHospitalAdmission from "@/Page/sheet-hospital-admission/sheet-hospital-admission.vue";
-import sheetHospitalAdmissionPage from "@/Page/sheet-hospital-admission/components/pages/page.vue";
-
-
-import hospitalEval from "@/Page/patientInfo/supPage/hospital-eval/hospital-eval";
-//  护理文书
-import formPage from "@/Page/form-page/form-page";
-import evalFormPage from "@/Page/eval-form-page/form-page";
-import MEWS from "@/Page/MEWS/MEWS.vue";
-//导管
-import catheterPage from "@/Page/catheter-page/catheter-page";
-//血糖
-import sugarPage from "@/Page/sugar-page/sugar-page";
-//护理制度
-import nursingRules from "@/Page/nursing-rules/nursing-rules";
-// 未做检查/检验菜单
-import noCheckTest from "@/Page/no-check-test/no-check-test";
-
-import home1 from "@/Page/catheter-page/home1/home";
-
-/** 护记pdf打印 */
-import toPdfPrint from "@/Page/sheet-page/pdfPrintPage/toPdfPrint";
-
-/** 血透患者排班 */
-import scheduling from "@/Page/scheduling/scheduling";
-
-// 健康宣教
-import healthEdu from "@/Page/healthEdu/healthEdu.vue";
-
-// 住院病人处理单
-import handlingPage from "@/Page/handling-page/handling-page";
-
-// 血氧单
-import oxygenPage from "@/Page/oxygen-page/oxygen-page";
-
-// 共享文件
-import departmentSharedFile from "@/Page/department-shared-file/department-shared-file";
-
-// 扁平管理
-import flatManagement from "@/Page/flat-management/flat-management";
-
-//产科分娩登记表
-import puerperantSituation from "@/Page/puerperantSituation/puerperantSituation";
-
-// 归档
-import archive from "@/Page/archive/archive.vue";
-
-// 家属大屏
-import familyBigScreen from "@/Page/family-big-screen/family-big-screen.vue";
-import videoListSetting from "@/Page/family-big-screen/video-list-setting.vue";
-
-import vaccineManagement from "@/Page/vaccine-management/vaccine-management.vue";
-
-
-import deliveryRoomWhiteboard from "@/Page/delivery-room-whiteboard/delivery-room-whiteboard.vue";
-
-// 新出生医学证明
-import birthCertificate from "@/Page/birth-certificate/birth-certificate";
-import birthCertificateForm from "@/Page/birth-certificate/birth-certificate-form";
-
-/** 病历 */
-import doctorEmr from "@/Page/patientInfo/supPage/doctorEmr/doctorEmr";
-/** 执行单 */
-import implementationList from "@/Page/implementation-list/implementation-list.vue";
-/** demo */
-import demo from "@/demo/demo";
+// import home1 from "@/Page/catheter-page/home1/home";
+const patientInfo = () => import("@/Page/patientInfo/patientInfo");
+const nursingHome = () => import("@/Page/patientInfo/supPage/nursingHome/nursingHome");
+const information = () => import("@/Page/patientInfo/supPage/information/information");
+const advice = () => import("@/Page/patientInfo/supPage/advice/advice");
+const inspect = () => import("@/Page/patientInfo/supPage/inspect/inspect");
+const test = () => import("@/Page/patientInfo/supPage/test/test");
+const record = () => import("@/Page/patientInfo/supPage/record/record");
+const cost = () => import("@/Page/patientInfo/supPage/cost/cost");
+const home = () => import("@/Page/patientInfo/supPage/home/home");
+const temperature = () => import("@/Page/patientInfo/supPage/temperature/temperature");
+const diagnosis = () => import("@/Page/patientInfo/supPage/diagnosis/diagnosis");
+const bloodSugar = () => import("@/Page/patientInfo/supPage/blood-sugar/blood-sugar.vue");// 厚街
+const bloodSugarWeiXian = () => import("@/Page/patientInfo/supPage/blood-sugar/blood-sugar_weixian.vue");// 威县
+const healthEducation = () => import("@/Page/patientInfo/supPage/healthEducation/healthEducation.vue");// 厚街
+const bed = () => import("@/Page/lesion/supPage/bed/bed");// 厚街
+const login = () => import("@/Page/login/login");
+const sheet = () => import("@/Page/patientInfo/supPage/sheet/sheet.vue");
+const catheter = () => import("@/Page/patientInfo/supPage/catheter/catheter.vue");
+const indexXin = () => import("@/Page/index-xin/Nurse.vue");
+const imageView = () => import("@/Part/imageView/imageView");
+const nursingDocumentation = () => import("../Page/nursing-documentation/nursing-documentation.vue");// 护理文书
+const NotFoundComponent = () => import("../components/NotFound/NotFoundComponent.vue");// 异常路径
+const print = () => import("@/Part/print/print.vue");
+const wardReport = () => import("@/Page/ward-report/ward-report.vue");
+const wardReportDetail = () => import("@/Page/ward-report/ward-report-detail.vue");
+const inpatientReport = () => import("@/Page/inpatient-report/inpatient-report.vue");
+const inpatientReportDetail = () => import("@/Page/inpatient-report/inpatient-report-detail.vue");
+const shiftWork = () => import("@/Page/shift-work/shift-work.vue");
+const shiftWorkDetail = () => import("@/Page/shift-work/shift-work-detail.vue");
+const badEvent = () => import("@/Page/badEvent/badEvent.vue");
+const badEventViewPage = () => import("@/Page/badEvent/badEventViewPage.vue");
+const badEventEditPage = () => import("@/Page/badEvent/badEventEditPage.vue");
+const white = () => import("@/Page/white/white.vue");
+const sheetHospitalEval = () => import("@/Page/sheet-hospital-eval/sheet-hospital-eval.vue");// 住院评估页面
+const sheetHospitalEvalPage = () => import("@/Page/sheet-hospital-eval/components/pages/page.vue");
+const sheetHospitalAdmission = () => import("@/Page/sheet-hospital-admission/sheet-hospital-admission.vue");// 入院评估
+const sheetHospitalAdmissionPage = () => import("@/Page/sheet-hospital-admission/components/pages/page.vue");// 入院评估
+const hospitalEval = () => import("@/Page/patientInfo/supPage/hospital-eval/hospital-eval");
+const formPage = () => import("@/Page/form-page/form-page");//  护理文书
+const evalFormPage = () => import("@/Page/eval-form-page/form-page");
+const MEWS = () => import("@/Page/MEWS/MEWS.vue");
+const catheterPage = () => import("@/Page/catheter-page/catheter-page");//导管
+const sugarPage = () => import("@/Page/sugar-page/sugar-page");//血糖
+const nursingRules = () => import("@/Page/nursing-rules/nursing-rules");//护理制度
+const noCheckTest = () => import("@/Page/no-check-test/no-check-test");//未做检查/检验菜单
+const toPdfPrint = () => import("@/Page/sheet-page/pdfPrintPage/toPdfPrint");//护记pdf打印
+const scheduling = () => import("@/Page/scheduling/scheduling");//血透患者排班
+const healthEdu = () => import("@/Page/healthEdu/healthEdu.vue");//健康宣教
+const handlingPage = () => import("@/Page/handling-page/handling-page");//住院病人处理单
+const oxygenPage = () => import("@/Page/oxygen-page/oxygen-page");//血氧单
+const departmentSharedFile = () => import("@/Page/department-shared-file/department-shared-file");//共享文件
+const flatManagement = () => import("@/Page/flat-management/flat-management");//扁平管理
+const puerperantSituation = () => import("@/Page/puerperantSituation/puerperantSituation");//产科分娩登记表
+const archive = () => import("@/Page/archive/archive.vue");//归档
+const familyBigScreen = () => import("@/Page/family-big-screen/family-big-screen.vue");//家属大屏
+const videoListSetting = () => import("@/Page/family-big-screen/video-list-setting.vue");
+const vaccineManagement = () => import("@/Page/vaccine-management/vaccine-management.vue");
+const deliveryRoomWhiteboard = () => import("@/Page/delivery-room-whiteboard/delivery-room-whiteboard.vue");
+const birthCertificate = () => import("@/Page/birth-certificate/birth-certificate");// 新出生医学证明
+const birthCertificateForm = () => import("@/Page/birth-certificate/birth-certificate-form");
+const doctorEmr = () => import("@/Page/patientInfo/supPage/doctorEmr/doctorEmr");//病历
+const implementationList = () => import("@/Page/implementation-list/implementation-list.vue");//执行单
+const demo = () => import("@/demo/demo");//demo
+/** 包含全局样式的页面不可代码切割 */
+import sheetPage from "@/Page/sheet-page/sheet-page.vue" // 护理记录单页面
+import sheetNursingOrder from "@/Page/patientInfo/supPage/sheetNursingOrder/sheetNursingOrder.vue"// 护嘱记录单页面
 Vue.use(Router);
 const router = new Router({
   mode: "history",
@@ -196,22 +142,22 @@ const router = new Router({
             }
           ]
         },
-        {
-          path: "/inBox",
-          component: inBox
-        },
+        // {
+        //   path: "/inBox",
+        //   component: inBox
+        // },
         {
           path: "/bed",
           component: bed
         },
-        {
-          path: "/infuse",
-          component: infuse
-        },
-        {
-          path: "/log",
-          component: log
-        },
+        // {
+        //   path: "/infuse",
+        //   component: infuse
+        // },
+        // {
+        //   path: "/log",
+        //   component: log
+        // },
         {
           path: "/healthEdu",
           component: healthEdu,
@@ -299,37 +245,37 @@ const router = new Router({
             }
           ]
         },
-        {
-          path: "/mailDetails/:id",
-          component: mailDetails
-        },
-        {
-          path: "/lesion",
-          component: lesion,
-          redirect: "/lesion/bed",
-          children: [
-            {
-              path: "task",
-              component: task,
-              name: "今日任务",
-              alias: "今日任务"
-            },
-            {
-              path: "shift",
-              component: shift
-            },
-            {
-              path: "implementation",
-              component: implementation
-            },
-            {
-              path: "/wait-bed",
-              component: resolve => {
-                require(["../Page/lesion/supPage/log/wait-bed.vue"], resolve);
-              }
-            }
-          ]
-        },
+        // {
+        //   path: "/mailDetails/:id",
+        //   component: mailDetails
+        // },
+        // {
+        //   path: "/lesion",
+        //   component: lesion,
+        //   redirect: "/lesion/bed",
+        //   children: [
+        //     {
+        //       path: "task",
+        //       component: task,
+        //       name: "今日任务",
+        //       alias: "今日任务"
+        //     },
+        //     {
+        //       path: "shift",
+        //       component: shift
+        //     },
+        //     {
+        //       path: "implementation",
+        //       component: implementation
+        //     },
+        //     {
+        //       path: "/wait-bed",
+        //       component: resolve => {
+        //         require(["../Page/lesion/supPage/log/wait-bed.vue"], resolve);
+        //       }
+        //     }
+        //   ]
+        // },
         {
           path: "/patientInfo",
           component: patientInfo,
@@ -371,24 +317,24 @@ const router = new Router({
               path: "/home",
               component: home
             },
-            {
-              path: "/home1",
-              component: home1
-            },
+            // {
+            //   path: "/home1",
+            //   component: home1
+            // },
             {
               path: "/diagnosis",
               component: diagnosis
             },
-            {
-              path: "/diganosisDetails/:id",
-              component: diganosisDetails
-            },
-            {
-              path: "/consultation",
-              component: consultation,
-              name: "会诊",
-              alias: "会诊"
-            },
+            // {
+            //   path: "/diganosisDetails/:id",
+            //   component: diganosisDetails
+            // },
+            // {
+            //   path: "/consultation",
+            //   component: consultation,
+            //   name: "会诊",
+            //   alias: "会诊"
+            // },
             {
               path: "/temperature",
               component: temperature,
@@ -546,10 +492,10 @@ const router = new Router({
       path: "/imageView",
       component: imageView
     },
-    {
-      path: "/autoLogin",
-      component: autoLogin
-    },
+    // {
+    //   path: "/autoLogin",
+    //   component: autoLogin
+    // },
     {
       path: "/print/:type",
       component: print
