@@ -140,15 +140,17 @@ export default {
         background: #fff !important;
        }
        .pageBox {
-         width: 740px;
+         width: 540px;
          padding: 50px 30px 0;
          position: relative;
          -webkit-box-sizing: border-box;
          box-sizing: border-box;
-         margin: 0 auto 20px;
+         margin-bottom: 20px;
+         margin-top: 0;
        }
        .endPageBox {
-         margin: 0 auto;
+         margin-bottom: 0;
+         margin-top: 0;
        }
        .pageNum {
          position: absolute;
