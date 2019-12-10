@@ -1,14 +1,14 @@
 export default function (win) {
   const A4_hegiht_width_rate = 297 / 210; // 打印区域长宽比
-  const page_width = 740;// 页面宽度
-  const page_height = Math.ceil(A4_hegiht_width_rate * page_width);// 页面高度
+  const page_width = 740; // 页面宽度
+  const page_height = Math.ceil(A4_hegiht_width_rate * page_width); // 页面高度
 
   // 当前页的打印内容用pageBox包裹
   let pageBox = document.createElement('div');
   pageBox.className = "pageBox";
   pageBox.style = 'height:' + page_height + 'px';
 
-  let rowsArr = document.querySelectorAll('.right-print-modal .showTableContent tr');
+  let rowsArr = document.querySelectorAll('.right-print-modal .printable tr');
 
   // 获取打印元素
   const root = win.document.body.children[0];
@@ -20,7 +20,9 @@ export default function (win) {
 
   // 判断是否要分页，页码输出
   let tbodys = root.querySelector('.printable tbody');
-  let theadH = 33, rowH = 33, gapH = 20;
+  let theadH = 33,
+    rowH = 33,
+    gapH = 20;
   let theads = root.querySelector('.printable thead');
   let rows = root.querySelectorAll('.printable tbody tr');
   rows = Array.from(rows);
