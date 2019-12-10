@@ -40,7 +40,6 @@ const bed = () => import("@/Page/lesion/supPage/bed/bed");// 厚街
 const login = () => import("@/Page/login/login");
 const sheet = () => import("@/Page/patientInfo/supPage/sheet/sheet.vue");
 const catheter = () => import("@/Page/patientInfo/supPage/catheter/catheter.vue");
-const sheetNursingOrder = () => import("@/Page/patientInfo/supPage/sheetNursingOrder/sheetNursingOrder.vue");// 护嘱记录单页面
 const indexXin = () => import("@/Page/index-xin/Nurse.vue");
 const imageView = () => import("@/Part/imageView/imageView");
 const nursingDocumentation = () => import("../Page/nursing-documentation/nursing-documentation.vue");// 护理文书
@@ -56,7 +55,6 @@ const badEvent = () => import("@/Page/badEvent/badEvent.vue");
 const badEventViewPage = () => import("@/Page/badEvent/badEventViewPage.vue");
 const badEventEditPage = () => import("@/Page/badEvent/badEventEditPage.vue");
 const white = () => import("@/Page/white/white.vue");
-const sheetPage = () => import("@/Page/sheet-page/sheet-page.vue");// 护理记录单页面
 const sheetHospitalEval = () => import("@/Page/sheet-hospital-eval/sheet-hospital-eval.vue");// 住院评估页面
 const sheetHospitalEvalPage = () => import("@/Page/sheet-hospital-eval/components/pages/page.vue");
 const sheetHospitalAdmission = () => import("@/Page/sheet-hospital-admission/sheet-hospital-admission.vue");// 入院评估
@@ -87,6 +85,9 @@ const birthCertificateForm = () => import("@/Page/birth-certificate/birth-certif
 const doctorEmr = () => import("@/Page/patientInfo/supPage/doctorEmr/doctorEmr");//病历
 const implementationList = () => import("@/Page/implementation-list/implementation-list.vue");//执行单
 const demo = () => import("@/demo/demo");//demo
+/** 包含全局样式的页面不可代码切割 */
+import sheetPage from "@/Page/sheet-page/sheet-page.vue" // 护理记录单页面
+import sheetNursingOrder from "@/Page/patientInfo/supPage/sheetNursingOrder/sheetNursingOrder.vue"// 护嘱记录单页面
 Vue.use(Router);
 const router = new Router({
   mode: "history",
