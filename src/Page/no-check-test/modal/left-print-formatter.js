@@ -1,7 +1,7 @@
 export default function (win) {
     const A4_hegiht_width_rate = 297 / 210; // 打印区域长宽比
-    const page_width = 740;// 页面宽度
-    const page_height = Math.ceil(A4_hegiht_width_rate * page_width);// 页面高度
+    const page_width = 740; // 页面宽度
+    const page_height = Math.ceil(A4_hegiht_width_rate * page_width); // 页面高度
 
     // 当前页的打印内容用pageBox包裹
     let pageBox = document.createElement('div');
@@ -23,7 +23,8 @@ export default function (win) {
     });
 
     let tables = root.querySelectorAll('.printable table');
-    let pageBoxH = 0, sumPage = 1;
+    let pageBoxH = 0,
+        sumPage = 1;
 
     // 另起一页
     let divider = document.createElement('div');
@@ -42,7 +43,9 @@ export default function (win) {
     tables = Array.from(tables);
     let tbodys = root.querySelectorAll('.printable tbody');
     tbodys = Array.from(tbodys);
-    let theadH = 33, rowH = 33, gapH = 20;
+    let theadH = 33,
+        rowH = 33,
+        gapH = 20;
     let theads = root.querySelector('.printable thead').cloneNode(true);
     let tableNode = root.querySelector('.printable table').cloneNode();
     tbodys.forEach(function (tb, index) {

@@ -22,24 +22,10 @@ import main from "@/Part/main";
 // import autoLogin from "../Part/auto-login";
 // import whiteBoard from '@/Part/whiteBoard/whiteBoard'
 // import home1 from "@/Page/catheter-page/home1/home";
-const patientInfo = () => import("@/Page/patientInfo/patientInfo");
-const nursingHome = () => import("@/Page/patientInfo/supPage/nursingHome/nursingHome");
-const information = () => import("@/Page/patientInfo/supPage/information/information");
-const advice = () => import("@/Page/patientInfo/supPage/advice/advice");
-const inspect = () => import("@/Page/patientInfo/supPage/inspect/inspect");
-const test = () => import("@/Page/patientInfo/supPage/test/test");
-const record = () => import("@/Page/patientInfo/supPage/record/record");
-const cost = () => import("@/Page/patientInfo/supPage/cost/cost");
-const home = () => import("@/Page/patientInfo/supPage/home/home");
-const temperature = () => import("@/Page/patientInfo/supPage/temperature/temperature");
-const diagnosis = () => import("@/Page/patientInfo/supPage/diagnosis/diagnosis");
-const bloodSugar = () => import("@/Page/patientInfo/supPage/blood-sugar/blood-sugar.vue");// 厚街
-const bloodSugarWeiXian = () => import("@/Page/patientInfo/supPage/blood-sugar/blood-sugar_weixian.vue");// 威县
-const healthEducation = () => import("@/Page/patientInfo/supPage/healthEducation/healthEducation.vue");// 厚街
+
+
 const bed = () => import("@/Page/lesion/supPage/bed/bed");// 厚街
 const login = () => import("@/Page/login/login");
-const sheet = () => import("@/Page/patientInfo/supPage/sheet/sheet.vue");
-const catheter = () => import("@/Page/patientInfo/supPage/catheter/catheter.vue");
 const indexXin = () => import("@/Page/index-xin/Nurse.vue");
 const imageView = () => import("@/Part/imageView/imageView");
 const nursingDocumentation = () => import("../Page/nursing-documentation/nursing-documentation.vue");// 护理文书
@@ -59,7 +45,7 @@ const sheetHospitalEval = () => import("@/Page/sheet-hospital-eval/sheet-hospita
 const sheetHospitalEvalPage = () => import("@/Page/sheet-hospital-eval/components/pages/page.vue");
 const sheetHospitalAdmission = () => import("@/Page/sheet-hospital-admission/sheet-hospital-admission.vue");// 入院评估
 const sheetHospitalAdmissionPage = () => import("@/Page/sheet-hospital-admission/components/pages/page.vue");// 入院评估
-const hospitalEval = () => import("@/Page/patientInfo/supPage/hospital-eval/hospital-eval");
+
 const formPage = () => import("@/Page/form-page/form-page");//  护理文书
 const evalFormPage = () => import("@/Page/eval-form-page/form-page");
 const MEWS = () => import("@/Page/MEWS/MEWS.vue");
@@ -82,12 +68,29 @@ const vaccineManagement = () => import("@/Page/vaccine-management/vaccine-manage
 const deliveryRoomWhiteboard = () => import("@/Page/delivery-room-whiteboard/delivery-room-whiteboard.vue");
 const birthCertificate = () => import("@/Page/birth-certificate/birth-certificate");// 新出生医学证明
 const birthCertificateForm = () => import("@/Page/birth-certificate/birth-certificate-form");
-const doctorEmr = () => import("@/Page/patientInfo/supPage/doctorEmr/doctorEmr");//病历
+
 const implementationList = () => import("@/Page/implementation-list/implementation-list.vue");//执行单
 const demo = () => import("@/demo/demo");//demo
-/** 包含全局样式的页面不可代码切割 */
+/** 包含全局样式的页面，患者详情子页面不可代码切割 */
 import sheetPage from "@/Page/sheet-page/sheet-page.vue" // 护理记录单页面
 import sheetNursingOrder from "@/Page/patientInfo/supPage/sheetNursingOrder/sheetNursingOrder.vue"// 护嘱记录单页面
+import record from "@/Page/patientInfo/supPage/record/record"; // 评估单
+import home from "@/Page/patientInfo/supPage/home/home";
+import patientInfo from "@/Page/patientInfo/patientInfo";//患者首页
+import information from "@/Page/patientInfo/supPage/information/information"
+import advice from "@/Page/patientInfo/supPage/advice/advice"
+import inspect from "@/Page/patientInfo/supPage/inspect/inspect"
+import test from "@/Page/patientInfo/supPage/test/test"
+import doctorEmr from "@/Page/patientInfo/supPage/doctorEmr/doctorEmr" //病历
+import cost from "@/Page/patientInfo/supPage/cost/cost"
+import temperature from "@/Page/patientInfo/supPage/temperature/temperature"
+import diagnosis from "@/Page/patientInfo/supPage/diagnosis/diagnosis"
+import bloodSugar from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar.vue"// 厚街
+import bloodSugarWeiXian from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_weixian.vue"// 威县
+import sheet from "@/Page/patientInfo/supPage/sheet/sheet.vue"
+import catheter from "@/Page/patientInfo/supPage/catheter/catheter.vue"
+import healthEducation from "@/Page/patientInfo/supPage/healthEducation/healthEducation.vue"// 厚街
+import hospitalEval from "@/Page/patientInfo/supPage/hospital-eval/hospital-eval"
 Vue.use(Router);
 const router = new Router({
   mode: "history",
@@ -281,10 +284,6 @@ const router = new Router({
           component: patientInfo,
           alias: "病人信息",
           children: [
-            {
-              path: "/nursingHome",
-              component: nursingHome
-            },
             {
               path: "/information",
               component: information

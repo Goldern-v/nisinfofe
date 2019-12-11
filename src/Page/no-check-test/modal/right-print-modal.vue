@@ -24,7 +24,7 @@
           </tbody>
         </table>
       </div>
-      <div class="printable" ref="printable" style="display: none;">
+      <div class="printable" ref="printable">
         <table>
           <thead>
             <tr>
@@ -54,6 +54,27 @@
   </div>
 </template>
 <style lang='stylus' scoped>
+.right-print-modal {
+  .showTableContent {
+    background-color: #fff;
+  }
+
+  >>>.sweet-content-content {
+    position: relative;
+  }
+
+  .printable {
+    width: 540px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: -1;
+    padding: 50px 30px 0;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+}
+
 table {
   width: 100%;
   margin-bottom: 20px;
@@ -137,18 +158,21 @@ export default {
         background: #fff !important;
        }
        .printable {
-         display: block !important;
+         position: static !important;
+         z-index: 1 !important;
        }
        .pageBox {
-         width: 740px;
+         width: 540px;
          padding: 50px 30px 0;
          position: relative;
          -webkit-box-sizing: border-box;
          box-sizing: border-box;
-         margin: 0 auto 20px;
+         margin-bottom: 20px;
+         margin-top: 0;
        }
        .endPageBox {
-         margin: 0 auto;
+          margin-bottom: 0;
+         margin-top: 0;
        }
        .pageNum {
          position: absolute;

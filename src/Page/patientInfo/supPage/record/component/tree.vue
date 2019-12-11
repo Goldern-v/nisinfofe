@@ -1,7 +1,12 @@
 <template>
   <div>
     <el-row class="header" type="flex" justify="space-between" align="middle">
-      <span class="title" style="cursor:pointer" @click="refreshTree()" @dblclick="refreshTree(true)" >护理文书</span>
+      <span
+        class="title"
+        style="cursor:pointer"
+        @click="refreshTree()"
+        @dblclick="refreshTree(true)"
+      >护理文书</span>
       <el-button type="text" class="new-btn" @click="newRecordOpen">
         <i class="el-icon-plus"></i>创建
       </el-button>
@@ -166,7 +171,7 @@ export default {
       expandList: [],
       expandListCopy: [],
       ifTree: true,
-      formTransfusionSafety: [],
+      formTransfusionSafety: []
     };
   },
   computed: {
@@ -299,26 +304,29 @@ export default {
         );
       }
     },
-    getBlockByPV(){
+    getBlockByPV() {
       console.log(this.HOSPITAL_ID);
-      if(this.HOSPITAL_ID == "hj" || this.HOSPITAL_ID == "houjie"){
-        getBlockByPV(this.$route.query.patientId,this.$route.query.visitId).then(res=>{
+      if (this.HOSPITAL_ID == "hj" || this.HOSPITAL_ID == "houjie") {
+        getBlockByPV(
+          this.$route.query.patientId,
+          this.$route.query.visitId
+        ).then(res => {
           this.formTransfusionSafety = res.data.data || [];
-        })
+        });
       }
     },
     getTreeData() {
       this.treeLoading = true;
       Promise.all([
         groupList(this.$route.query.patientId, this.$route.query.visitId),
-        getInstanceByPatientInfo(
-          this.$route.query.patientId,
-          this.$route.query.visitId
-        ),
+        // getInstanceByPatientInfo(
+        //   this.$route.query.patientId,
+        //   this.$route.query.visitId
+        // ),
         this.getBlockByPV()
       ])
         .then(res => {
-          console.log("Promise.all", res, res[1].data.data);
+          console.log("Promise.all", res);
           let index = 0;
           //
           window.app.$store.commit("cleanFormLastId");
@@ -340,14 +348,14 @@ export default {
                 // this.$store.state.form.upFormLastId
                 // window.app.$store.commit('upFormLastId', data)
                 if (item.formInstanceDtoList.length - 1 == i) {
-                  window.app.$store.commit('upFormLastId', {
-                    formName:item.formName,
-                    formCode:item.formCode,
-                    id:option.id,
-                    patientId:this.$route.query.patientId,
-                    visitId:this.$route.query.visitId,
-                    evalDate:option.evalDate
-                  })
+                  window.app.$store.commit("upFormLastId", {
+                    formName: item.formName,
+                    formCode: item.formCode,
+                    id: option.id,
+                    patientId: this.$route.query.patientId,
+                    visitId: this.$route.query.visitId,
+                    evalDate: option.evalDate
+                  });
                 }
                 // formName: "疼痛护理单"
                 // 查找第一张填写的疼痛评估单
@@ -363,7 +371,7 @@ export default {
                 }
                 return {
                   status: option.status,
-                  evalScore: option.evalScore||"",
+                  evalScore: option.evalScore || "",
                   label: `${option.evalDate}
                   ${option.countSize ? option.countSize + "条" : ""}
                   ${option.evalScore ? option.evalScore + "分" : ""}
@@ -377,8 +385,8 @@ export default {
           });
           //
           // upFormTree
-          if(list_1){
-            window.app.$store.commit('upFormTree', [...list_1])
+          if (list_1) {
+            window.app.$store.commit("upFormTree", [...list_1]);
           }
           //
           let list_2 = info => {
@@ -414,15 +422,14 @@ export default {
             };
           };
 
-
           // console.log(res[1].data.data.length,"res[1].data.data")
-          if (res[1].data.data.length > 0) {
-            list_1.push(list_2(res[1].data.data));
-          }
+          // if (res[1].data.data.length > 0) {
+          //   list_1.push(list_2(res[1].data.data));
+          // }
 
           let list_3 = {
             label: "输血安全护理记录单",
-            index: index+1,
+            index: index + 1,
             formCode: "form_transfusion_safety",
             nooForm: 2,
             pageUrl: "输血安全护理记录单.html",
@@ -433,16 +440,20 @@ export default {
                   ${option.wardAlias}
                   ${option.countSize ? option.countSize + "条" : ""}
                   ${option.evalScore ? option.evalScore + "分" : ""}
-                  ${option.pusherName ? option.pusherName : option.creatorName}`,
-                  // ${option.status == 0 ? "T" : option.status}`,
+                  ${
+                    option.pusherName ? option.pusherName : option.creatorName
+                  }`,
+                // ${option.status == 0 ? "T" : option.status}`,
                 form_id: option.id,
                 formName: "输血安全护理记录单"
               };
             })
           };
 
-          list_1 = list_1.filter(item => item.formCode != "form_transfusion_safety");
-          if(this.formTransfusionSafety.length){
+          list_1 = list_1.filter(
+            item => item.formCode != "form_transfusion_safety"
+          );
+          if (this.formTransfusionSafety.length) {
             list_1.push(list_3);
           }
 
