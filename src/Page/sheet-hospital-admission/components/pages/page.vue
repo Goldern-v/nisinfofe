@@ -43,6 +43,10 @@ export default {
     };
   },
   mounted() {
+    if (!this.$root.$refs[this.formCode]) {
+      this.$root.$refs[this.formCode] = [];
+    }
+
     if (this.$refs["sheetPage"]) {
       this.$refs["sheetPage"]["fillForm"] = this.fillForm;
       this.$root.$refs["sheetPage"] = this.$refs["sheetPage"];
@@ -57,6 +61,12 @@ export default {
   computed: {
     locker() {
       return this.lock;
+    },
+    formCode() {
+      try {
+        return this.formObj.formSetting.formInfo.formCode;
+      } catch (error) {}
+      return "E0100";
     }
   },
   created() {
@@ -161,11 +171,11 @@ export default {
         if (djson.constructor === Array) {
           // file.dialogs.push(...djson);
           djson.map(d => {
-                title = d.title;
-                if (title) {
-                  file.dialogs[title] = { ...d };
-                }
-              });
+            title = d.title;
+            if (title) {
+              file.dialogs[title] = { ...d };
+            }
+          });
         } else {
           // file.dialogs.push(djson);
           // file.dialogs[title + ""] = JSON.parse(JSON.stringify(djson));
@@ -261,37 +271,47 @@ export default {
           if (formObj.hasOwnProperty(key)) {
             let element = formObj[key];
             let textResult = "";
-            // let refObj = this.$root.$refs[key];
+            // let refObj = this.$root.$refs[this.formCode][key];
             // 文本回填
             if (
-              this.$root.$refs[key] &&
-              ["text", "textarea"].indexOf(this.$root.$refs[key].type) > -1
+              this.$root.$refs[this.formCode][key] &&
+              ["text", "textarea"].indexOf(
+                this.$root.$refs[this.formCode][key].type
+              ) > -1
             ) {
-              // this.$root.$refs[key].setCurrentValue(textResult);
+              // this.$root.$refs[this.formCode][key].setCurrentValue(textResult);
               // 状态框回显数据
               if (key === "status") {
-                textResult = this.$root.$refs[key].checkValueRule(element + "");
+                textResult = this.$root.$refs[this.formCode][
+                  key
+                ].checkValueRule(element + "");
                 // console.log(
-                //   "----this.$root.$refs[key]",
-                //   this.$root.$refs[key],
+                //   "----this.$root.$refs[this.formCode][key]",
+                //   this.$root.$refs[this.formCode][key],
                 //   key,
                 //   textResult
                 // );
-                this.$root.$refs[key].setCurrentValue(textResult + "");
-                this.$root.$refs[key].checkValueRule(textResult + "");
+                this.$root.$refs[this.formCode][key].setCurrentValue(
+                  textResult + ""
+                );
+                this.$root.$refs[this.formCode][key].checkValueRule(
+                  textResult + ""
+                );
               } else {
                 // 输入框回显数据
                 // if(element){
-                textResult = this.$root.$refs[key].checkValueRule(element);
-                this.$root.$refs[key].setCurrentValue(element);
+                textResult = this.$root.$refs[this.formCode][
+                  key
+                ].checkValueRule(element);
+                this.$root.$refs[this.formCode][key].setCurrentValue(element);
                 // }
 
                 // if(key==='signerName'){
                 //   console.log(
-                //     "-!!-this.$root.$refs[key]",
-                //     this.$root.$refs[key],
+                //     "-!!-this.$root.$refs[this.formCode][key]",
+                //     this.$root.$refs[this.formCode][key],
                 //     key,
-                //     this.$root.$refs[key].type,
+                //     this.$root.$refs[this.formCode][key].type,
                 //     textResult,
                 //     element,
                 //     formObj[key],
@@ -307,70 +327,86 @@ export default {
             }
             // 日期回填
             if (
-              this.$root.$refs[key] &&
-              this.$root.$refs[key].type === "datetime"
+              this.$root.$refs[this.formCode][key] &&
+              this.$root.$refs[this.formCode][key].type === "datetime"
             ) {
-              this.$root.$refs[key].currentValue = element||"";
-              console.log("datetime", this.$root.$refs[key], key, element);
+              this.$root.$refs[this.formCode][key].currentValue = element || "";
+              console.log(
+                "datetime",
+                this.$root.$refs[this.formCode][key],
+                key,
+                element
+              );
             }
             // 选项回填
             if (
-              this.$root.$refs[key] &&
-              this.$root.$refs[key].constructor === Array
+              this.$root.$refs[this.formCode][key] &&
+              this.$root.$refs[this.formCode][key].constructor === Array
             ) {
               // if(!element){
               // 初始化清空选卡
-              for (const subkey in this.$root.$refs[key]) {
-                if (this.$root.$refs[key].hasOwnProperty(subkey)) {
-                  this.$root.$refs[key][subkey].model = [];
+              for (const subkey in this.$root.$refs[this.formCode][key]) {
+                if (
+                  this.$root.$refs[this.formCode][key].hasOwnProperty(subkey)
+                ) {
+                  this.$root.$refs[this.formCode][key][subkey].model = [];
                   if (
-                    this.$root.$refs[key][subkey].$parent &&
-                    this.$root.$refs[key][subkey].$parent.hasOwnProperty(
-                      "checkboxValue"
-                    ) > -1
+                    this.$root.$refs[this.formCode][key][subkey].$parent &&
+                    this.$root.$refs[this.formCode][key][
+                      subkey
+                    ].$parent.hasOwnProperty("checkboxValue") > -1
                   ) {
-                    this.$root.$refs[key][subkey].$parent.checkboxValue = [];
+                    this.$root.$refs[this.formCode][key][
+                      subkey
+                    ].$parent.checkboxValue = [];
                   }
-                  if (this.$root.$refs["formGroupColBox" + subkey]) {
-                    this.$root.$refs["formGroupColBox" + subkey].hidden = true;
+                  if (
+                    this.$root.$refs[this.formCode]["formGroupColBox" + subkey]
+                  ) {
+                    this.$root.$refs[this.formCode][
+                      "formGroupColBox" + subkey
+                    ].hidden = true;
                   }
                 }
               }
               //   continue
               // }
-              // this.$root.$refs[key] = element.split(',');
+              // this.$root.$refs[this.formCode][key] = element.split(',');
               if (element) {
                 // console.log('~~~~~!!',key,formObj,element)
                 let value = element + "";
                 let arr = value.split(",");
                 if (arr) {
-                  // for (const subkey in this.$root.$refs[key]) {
-                  //   if (this.$root.$refs[key].hasOwnProperty(subkey) && arr.indexOf(subkey)>-1 && this.$root.$refs[key][subkey].hasOwnProperty('type')===-1) {
-                  //     this.$root.$refs[key][subkey].model=[]
-                  //     this.$root.$refs[key][subkey].push(subkey)
-                  //     console.log("--选项回填subkey", subkey, key,this.$root.$refs[key][subkey]);
+                  // for (const subkey in this.$root.$refs[this.formCode][key]) {
+                  //   if (this.$root.$refs[this.formCode][key].hasOwnProperty(subkey) && arr.indexOf(subkey)>-1 && this.$root.$refs[this.formCode][key][subkey].hasOwnProperty('type')===-1) {
+                  //     this.$root.$refs[this.formCode][key][subkey].model=[]
+                  //     this.$root.$refs[this.formCode][key][subkey].push(subkey)
+                  //     console.log("--选项回填subkey", subkey, key,this.$root.$refs[this.formCode][key][subkey]);
                   //   }
                   // }
                   arr.map(c => {
                     try {
                       if (
-                        this.$root.$refs[key][c] &&
+                        this.$root.$refs[this.formCode][key][c] &&
                         ["radio", "checkbox"].indexOf(
-                          this.$root.$refs[key][c].$parent.obj.type
+                          this.$root.$refs[this.formCode][key][c].$parent.obj
+                            .type
                         ) > -1
                       ) {
-                        this.$root.$refs[key][c].model = [];
-                        this.$root.$refs[key][c].model = [c];
-                        this.$root.$refs[key][c].$parent.checkboxValue = [c];
+                        this.$root.$refs[this.formCode][key][c].model = [];
+                        this.$root.$refs[this.formCode][key][c].model = [c];
+                        this.$root.$refs[this.formCode][key][
+                          c
+                        ].$parent.checkboxValue = [c];
                         //
                         if (value === c) {
                           // if(this.$root.$refs['formGroupColBox'+this.obj.title]){
                           //  this.$root.$refs['formGroupColBox'+this.obj.title].hidden = true
                           // }
-                          this.$root.$refs[key][c].runTasks();
+                          this.$root.$refs[this.formCode][key][c].runTasks();
                         }
                         //
-                        // console.log("--选项回填subkey", c, key,this.$root.$refs[key][c]);
+                        // console.log("--选项回填subkey", c, key,this.$root.$refs[this.formCode][key][c]);
                       }
                     } catch (error) {
                       console.log(
@@ -379,7 +415,7 @@ export default {
                         c,
                         key,
                         value,
-                        this.$root.$refs[key][c]
+                        this.$root.$refs[this.formCode][key][c]
                       );
 
                       // key 红叉辅助单选框组件
@@ -388,25 +424,33 @@ export default {
                         key === window.formObj.design.XRadiobox.name &&
                         value.indexOf(c) > -1
                       ) {
-                        this.$root.$refs[key][c].checked = true;
+                        this.$root.$refs[this.formCode][key][c].checked = true;
                       }
                       // else{
-                      //   this.$root.$refs[key][c].checked = false;
+                      //   this.$root.$refs[this.formCode][key][c].checked = false;
                       // }
                       //
                       //
                       if (
-                        this.$root.$refs[key][c].$parent &&
-                        this.$root.$refs[key][c].$parent.hasOwnProperty(
-                          "checkboxValue"
-                        ) > -1
+                        this.$root.$refs[this.formCode][key][c].$parent &&
+                        this.$root.$refs[this.formCode][key][
+                          c
+                        ].$parent.hasOwnProperty("checkboxValue") > -1
                       ) {
-                        this.$root.$refs[key][c].$parent.checkboxValue = [];
+                        this.$root.$refs[this.formCode][key][
+                          c
+                        ].$parent.checkboxValue = [];
                       }
                     }
                   });
                 }
-                console.log("选项回填", this.$root.$refs[key], key, value, arr);
+                console.log(
+                  "选项回填",
+                  this.$root.$refs[this.formCode][key],
+                  key,
+                  value,
+                  arr
+                );
               }
             }
           }

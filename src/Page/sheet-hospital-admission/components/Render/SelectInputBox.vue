@@ -3,8 +3,10 @@
   <span style="margin: 0;" class="input-box">
     <!-- <autoComplete v-if="isShow" ref="autoInput" /> -->
     <!-- <el-input v-if="obj.type==='input'" v-model="checkboxValue" border size="small" :label="obj.title" :class="obj.class" :style="obj.style">{{obj.title}}</el-input> -->
-    <span v-if="obj.label"
-      :style="{width: obj.labelWidth, textAlign: 'right', paddingRight: '10px'}">
+    <span
+      v-if="obj.label"
+      :style="{width: obj.labelWidth, textAlign: 'right', paddingRight: '10px'}"
+    >
       <span style="font-size: 12px;" :style="obj.labelStyle" :class="obj.labelClass">{{obj.label}}</span>
     </span>
 
@@ -85,7 +87,14 @@ export default {
       readOnly: false
     };
   },
-  computed: {},
+  computed: {
+    formCode() {
+      try {
+        return this.formObj.formSetting.formInfo.formCode;
+      } catch (error) {}
+      return "E0100";
+    }
+  },
   watch: {
     inputValue(valueNew, oldvaule) {
       // console.log("inputValue:", valueNew, oldvaule);
@@ -105,7 +114,7 @@ export default {
     if (this.$refs[refName]) {
       this.$refs[refName]["childObject"] = this.obj;
       this.$refs[refName]["checkValueRule"] = this.checkValueRule;
-      this.$root.$refs[refName] = this.$refs[refName];
+      this.$root.$refs[this.formCode][refName] = this.$refs[refName];
     }
 
     // if(this.obj && this.obj.hasOwnProperty('value')>-1 && this.obj.value &&this.obj.value.constructor === Array){
@@ -193,7 +202,8 @@ export default {
           } else if (r.dialog && isClick) {
             if (
               valueNew == r.dialog.openKey ||
-              r.dialog.openKey.indexOf(valueNew) > -1
+              r.dialog.openKey.indexOf(valueNew) > -1 ||
+              (r.dialog.openDiffKey && r.dialog.openDiffKey.indexOf(valueNew) == -1)
             ) {
               this.$root.$refs.dialogBox.openBox(
                 r.dialog.dialogList || r.dialog
@@ -210,7 +220,7 @@ export default {
               // let obj = this.formObj.dialogs.find(
               //   f => f.title == r.dialog.title
               // );
-              let obj = this.formObj.dialogs[r.dialog.title]||null;
+              let obj = this.formObj.dialogs[r.dialog.title] || null;
 
               if (obj && obj.children) {
                 obj.children.forEach(item => {
@@ -229,8 +239,8 @@ export default {
             }
           }
         });
-      }else{
-        return
+      } else {
+        return;
       }
       try {
         this.$refs[this.obj.name].$refs.input.style = this.obj.style;

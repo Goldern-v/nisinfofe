@@ -308,8 +308,8 @@ export default {
           }
         },
         {
-          label: "填入默认值+同步HIS",
-          style: "min-width:125px",
+          label: "同步HIS+默认值",
+          style: "min-width:100px",
           onClick: e => {
             this.fillDefaultValue();
           },
@@ -318,8 +318,8 @@ export default {
           }
         },
         {
-          label: "预览评估单",
-          style: "min-width:100px",
+          label: "打印预览",
+          // style: "min-width:100px",
           onClick: e => {
             this.$refs.previewEvalModal.open(window.formObj.model);
           },

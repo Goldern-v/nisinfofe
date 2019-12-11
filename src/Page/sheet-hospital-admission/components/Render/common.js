@@ -3,7 +3,8 @@ import {
   save,
   del,
   get,
-  list
+  list,
+  cancelSignOrAduit
 } from "@/Page/sheet-hospital-eval/api/index.js";
 
 import bus from "vue-happy-bus";
@@ -16,6 +17,16 @@ export const getFormDetail = (id, callback = null) => {
   let result = null;
   get(id).then(res => {
     console.log("getFormDetail", res);
+    if (callback) {
+      callback(res);
+    }
+  });
+};
+
+export let cancelSignForm = function(postData, callback = null) {
+  // console.log('cancelSignForm',[postData, callback])
+  cancelSignOrAduit(postData).then(res => {
+    console.log("cancelSignOrAduit", res);
     if (callback) {
       callback(res);
     }
@@ -114,4 +125,8 @@ export const saveForm = (formObj, callback = null) => {
   console.log("保存", user, formObj);
 };
 
-export default {};
+export default {
+  saveForm,
+  getFormDetail,
+  cancelSignForm
+};

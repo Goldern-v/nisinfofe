@@ -36,7 +36,11 @@
             v-bind="obj.children[n+(col-1)].tdProps"
           >
             <TipsBox :obj="obj.children[n+(col-1)]" :formObj="formObj">
-              <div class="box-td" :class="c.boxClass" :style="c.boxStyle||obj.boxStyle||obj.children[n+(col-1)].boxStyle">
+              <div
+                class="box-td"
+                :class="c.boxClass"
+                :style="c.boxStyle||obj.boxStyle||obj.children[n+(col-1)].boxStyle"
+              >
                 <div
                   class="left-td"
                   :style="obj.children[n+(col-1)].titleStyle"
@@ -49,14 +53,22 @@
                     :style="obj.children[n+(col-1)].titleSpanStyle"
                     :class="obj.children[n+(col-1)].titleSpanClass"
                   >
-                    <XRadiobox :obj="obj.children[n+(col-1)]" :formObj="formObj" /><span v-html="titleFeedSpace(obj.children[n+(col-1)].title)"></span>{{obj.children[n+(col-1)].labelTitle?obj.children[n+(col-1)].labelTitle+':':''}}</span>
+                    <XRadiobox :obj="obj.children[n+(col-1)]" :formObj="formObj" />
+                    <span v-html="titleFeedSpace(obj.children[n+(col-1)].title)"></span>
+                    {{obj.children[n+(col-1)].labelTitle?obj.children[n+(col-1)].labelTitle+':':''}}
+                  </span>
                   <span
                     v-if="obj.children[n+(col-1)].dialog"
                     style="cursor:pointer;color:blue"
                     @click="titleClick($event,obj.children[n+(col-1)])"
-                  ><span v-html="titleFeedSpace(obj.children[n+(col-1)].title)"></span>{{obj.children[n+(col-1)].labelTitle}}<span
+                  >
+                    <span v-html="titleFeedSpace(obj.children[n+(col-1)].title)"></span>
+                    {{obj.children[n+(col-1)].labelTitle}}
+                    <span
                       v-if="obj.children[n+(col-1)].name === 'I100001'"
-                    >(<span style="color: transparent">空白</span>）
+                    >
+                      (
+                      <span style="color: transparent">空白</span>）
                     </span>
                   </span>
                 </div>
@@ -107,6 +119,12 @@ export default {
   computed: {
     uui() {
       return uuid.v1();
+    },
+    formCode() {
+      try {
+        return this.formObj.formSetting.formInfo.formCode;
+      } catch (error) {}
+      return "E0100";
     }
   },
   watch: {
@@ -119,9 +137,13 @@ export default {
     // }
   },
   mounted() {
-    this.$root.$refs["formGroupColBox" + this.obj.title] = this.$refs[
+    if (!this.$root.$refs[this.formCode]) {
+      this.$root.$refs[this.formCode] = []; //new Array();
+    }
+
+    this.$root.$refs[this.formCode][
       "formGroupColBox" + this.obj.title
-    ];
+    ] = this.$refs["formGroupColBox" + this.obj.title];
 
     this.checkHidden();
   },
@@ -129,21 +151,35 @@ export default {
   methods: {
     checkHidden() {
       if (this.obj.hidden) {
-        this.$root.$refs["formGroupColBox" + this.obj.title].hidden = true;
+        this.$root.$refs[this.formCode][
+          "formGroupColBox" + this.obj.title
+        ].hidden = true;
       }
     },
-    titleFeedSpace(str){
+    titleFeedSpace(str) {
       //
-      if(!str){return ""}
-      if(str.length == 2) {
-        // for(i of str){ console.log(i)}
-        return `${str[0]}<span style='text-indent: 2em;display: inline-block;'>${str[1]}</span>:`
+      if (!str) {
+        return "";
       }
-      if(str.length == 3) {
+      if (str.length == 2) {
         // for(i of str){ console.log(i)}
-        return `<span>${str[0]}</span><span style='text-indent: 0.5em;display: inline-block;'>${str[1]}</span><span style='text-indent: 0.5em;display: inline-block;'>${str[2]}</span>:`
+        return `${
+          str[0]
+        }<span style='text-indent: 2em;display: inline-block;'>${
+          str[1]
+        }</span>:`;
       }
-      return str+':'// + str.length
+      if (str.length == 3) {
+        // for(i of str){ console.log(i)}
+        return `<span>${
+          str[0]
+        }</span><span style='text-indent: 0.5em;display: inline-block;'>${
+          str[1]
+        }</span><span style='text-indent: 0.5em;display: inline-block;'>${
+          str[2]
+        }</span>:`;
+      }
+      return str + ":"; // + str.length
     },
     titleClick(e, child) {
       console.log("titleClick", e, child, this.formObj.model, e.target.tagName);
@@ -193,7 +229,7 @@ export default {
     width: 100%
     // max-width: 100px
     // margin: 10px 0px 0 4px
-    text-align: left
+    text-align: right
     font-size: 12px;
   .right-td
     width: 100%

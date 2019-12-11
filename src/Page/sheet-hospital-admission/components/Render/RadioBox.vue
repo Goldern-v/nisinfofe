@@ -40,7 +40,14 @@ export default {
       refName: this.obj.title || this.obj.label
     };
   },
-  computed: {},
+  computed: {
+    formCode() {
+      try {
+        return this.formObj.formSetting.formInfo.formCode;
+      } catch (error) {}
+      return "E0100";
+    }
+  },
   watch: {
     checkboxValue(valueNew, oldvaule) {
       // this.formObj.model[this.obj.name] = valueNew +'';
@@ -64,8 +71,12 @@ export default {
   },
   mounted() {
     let refName = this.obj.title || this.obj.label; //this.obj.name +this.obj.type.toUpperCase() +(this.obj.title || this.obj.label);
-    if (!this.$root.$refs[this.obj.name]) {
-      this.$root.$refs[this.obj.name] = []; //new Array();
+    if (!this.$root.$refs[this.formCode]) {
+      this.$root.$refs[this.formCode] = []; //new Array();
+    }
+
+    if (!this.$root.$refs[this.formCode][this.obj.name]) {
+      this.$root.$refs[this.formCode][this.obj.name] = []; //new Array();
     }
 
     if (this.$refs[refName]) {
@@ -81,7 +92,9 @@ export default {
       }
       this.$refs[refName]["runTasks"] = this.runTasks;
       this.$refs[refName]["childObject"] = this.obj;
-      this.$root.$refs[this.obj.name][refName] = this.$refs[refName];
+      this.$root.$refs[this.formCode][this.obj.name][refName] = this.$refs[
+        refName
+      ];
     }
   },
   created() {},
@@ -106,7 +119,7 @@ export default {
         // }
       }
 
-      let rootRefs = this.$root.$refs[this.obj.name];
+      let rootRefs = this.$root.$refs[this.formCode][this.obj.name];
       console.log("--obj.name:", this.obj.name, rootRefs, this.$root.$refs);
       // if (!rootRefs || !this.obj || !this.obj.name) {
       //   return;
@@ -134,14 +147,14 @@ export default {
             if (item.childObject && item.childObject.title !== this.obj.title) {
               // console.log('---++',item.childObject.title ,item)
               item.model = [];
-              // this.$root.$refs[this.obj.name][key].model = [];
+              // this.$root.$refs[this.formCode][this.obj.name][key].model = [];
             }
           }
         }
       }
 
-      // if(this.$root.$refs[this.obj.name]){
-      // this.$root.$refs[this.obj.name].map(item=>{
+      // if(this.$root.$refs[this.formCode][this.obj.name]){
+      // this.$root.$refs[this.formCode][this.obj.name].map(item=>{
       //   console.log('-----',item.childObject.title ,item)
       //   if(item.childObject.title !== this.obj.title){
       //     console.log('---++',item.childObject.title ,item)
@@ -198,15 +211,21 @@ export default {
       //
       this.formObj.model["evalScore"] = score;
       //
-      if (this.$root.$refs["evalScore"]) {
+      if (this.$root.$refs[this.formCode]["evalScore"]) {
         try {
           this.formObj.model["evalScore"] = score;
-          this.$root.$refs["evalScore"].setCurrentValue(score);
-          let textResult = this.$root.$refs["evalDesc"].checkValueRule(score);
+          this.$root.$refs[this.formCode]["evalScore"].setCurrentValue(score);
+          let textResult = this.$root.$refs[this.formCode][
+            "evalDesc"
+          ].checkValueRule(score);
           console.log("evalDesc-textResult", textResult);
           this.formObj.model["evalDesc"] = textResult + "";
-          this.$root.$refs["evalDesc"].setCurrentValue(textResult);
-          this.$root.$refs["evalDesc"].checkValueRule(textResult);
+          this.$root.$refs[this.formCode]["evalDesc"].setCurrentValue(
+            textResult
+          );
+          this.$root.$refs[this.formCode]["evalDesc"].checkValueRule(
+            textResult
+          );
         } catch (error) {
           console.log(error);
         }
@@ -247,21 +266,26 @@ export default {
     runTasks() {
       //
       if (this.obj.tasks) {
-        if (!this.$root.$refs[this.obj.name][this.obj.title].isChecked) {
+        if (
+          !this.$root.$refs[this.formCode][this.obj.name][this.obj.title]
+            .isChecked
+        ) {
           // this.obj.tasks.checked.clean
           try {
             this.obj.tasks.map(task => {
               // let clean = task.clean
               // clean.map(c=>{
-              //   this.$root.$refs['formGroupColBox'+c].hidden = true
+              //   this.$root.$refs[this.formCode]['formGroupColBox'+c].hidden = true
               // })
               if (task.clean) {
                 if (task.clean.constructor == Array) {
                   task.clean.map(c => {
-                    this.$root.$refs["formGroupColBox" + c].hidden = true;
+                    this.$root.$refs[this.formCode][
+                      "formGroupColBox" + c
+                    ].hidden = true;
                   });
                 } else {
-                  this.$root.$refs[
+                  this.$root.$refs[this.formCode][
                     "formGroupColBox" + task.clean
                   ].hidden = true;
                 }
@@ -270,10 +294,12 @@ export default {
               if (task.show) {
                 if (task.show.constructor == Array) {
                   task.show.map(c => {
-                    this.$root.$refs["formGroupColBox" + c].hidden = false;
+                    this.$root.$refs[this.formCode][
+                      "formGroupColBox" + c
+                    ].hidden = false;
                   });
                 } else {
-                  this.$root.$refs[
+                  this.$root.$refs[this.formCode][
                     "formGroupColBox" + task.show
                   ].hidden = false;
                 }
@@ -287,11 +313,15 @@ export default {
       }
       // 隐藏切换
 
-      if (this.$root.$refs["formGroupColBox" + this.obj.title]) {
+      if (this.$root.$refs[this.formCode]["formGroupColBox" + this.obj.title]) {
         if (this.formObj.model[this.obj.name] === this.obj.title) {
-          this.$root.$refs["formGroupColBox" + this.obj.title].hidden = false;
+          this.$root.$refs[this.formCode][
+            "formGroupColBox" + this.obj.title
+          ].hidden = false;
         } else {
-          this.$root.$refs["formGroupColBox" + this.obj.title].hidden = true;
+          this.$root.$refs[this.formCode][
+            "formGroupColBox" + this.obj.title
+          ].hidden = true;
         }
       }
     }

@@ -3,7 +3,10 @@
   <span style class="date-picker-box">
     <span>{{obj.prefixDesc}}</span>
 
-    <span v-if="obj.label" :style="{width: obj.labelWidth, textAlign: 'right', paddingRight: '10px'}">
+    <span
+      v-if="obj.label"
+      :style="{width: obj.labelWidth, textAlign: 'right', paddingRight: '10px'}"
+    >
       <span style="font-size: 13px;" :style="obj.labelStyle" :class="obj.labelClass">{{obj.label}}</span>
     </span>
     <!-- last-version +obj.type.toUpperCase()+obj.title||obj.label-->
@@ -45,7 +48,14 @@ export default {
       datePickerValue: ""
     };
   },
-  computed: {},
+  computed: {
+    formCode() {
+      try {
+        return this.formObj.formSetting.formInfo.formCode;
+      } catch (error) {}
+      return "E0100";
+    }
+  },
   watch: {
     datePickerValue(valueNew, oldvaule) {
       console.log("datePickerValue:", valueNew, oldvaule);
@@ -65,9 +75,9 @@ export default {
       //   console.log("datePickerValue:", valueNew, oldvaule);
       // }
       // console.log("datePickerValue-model:", this.formObj.model);
-      if(!valueNew){
-        this.formObj.model[this.obj.name] = ""
-        return
+      if (!valueNew) {
+        this.formObj.model[this.obj.name] = "";
+        return;
       }
       if (this.obj.name) {
         this.formObj.model[this.obj.name] = moment(valueNew).format(
@@ -93,11 +103,20 @@ export default {
     //   (this.obj.title || this.obj.label);
 
     let refName = this.obj.name;
+
+    if (!this.$root.$refs[this.formCode]) {
+      this.$root.$refs[this.formCode] = new Array();
+    }
+
+    if (!this.$root.$refs[this.formCode][this.obj.name]) {
+      this.$root.$refs[this.formCode][this.obj.name] = new Array();
+    }
+
     if (this.$refs[refName]) {
       // this.$refs[refName].currentValue = moment().format("YYYY-MM-DD HH:mm");
       // this.$refs[refName].placeholder = moment().format("YYYY-MM-DD HH:mm");
       // console.log('mounted:DatePicker',this.obj.name,this.formObj.model[this.obj.name])
-      this.$root.$refs[refName] = this.$refs[refName];
+      this.$root.$refs[this.formCode][refName] = this.$refs[refName];
     }
     // console.log('datePickerMounted',this.$refs,this.$root.$refs)
   },

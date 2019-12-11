@@ -1,6 +1,6 @@
 
 <template>
-  <span style="" :style="(obj.label||obj.suffixDesc)  && {display: 'flex', alignItems: 'center' }">
+  <span style :style="(obj.label||obj.suffixDesc)  && {display: 'flex', alignItems: 'center' }">
     <!-- <autoComplete v-if="isShow" ref="autoInput" /> -->
     <!-- <el-input v-if="obj.type==='input'" v-model="checkboxValue" border size="small" :label="obj.title" :class="obj.class" :style="obj.style">{{obj.title}}</el-input> -->
     <span
@@ -46,7 +46,11 @@
       <!-- </template> -->
     </el-input>
     <!-- <span>{{obj.suffixDesc}}</span> -->
-    <span class="post-text" v-if="obj.postText||obj.suffixDesc" v-html="obj.postText||obj.suffixDesc"></span>
+    <span
+      class="post-text"
+      v-if="obj.postText||obj.suffixDesc"
+      v-html="obj.postText||obj.suffixDesc"
+    ></span>
   </span>
 </template>
 
@@ -84,7 +88,14 @@ export default {
       isClone: false
     };
   },
-  computed: {},
+  computed: {
+    formCode() {
+      try {
+        return this.formObj.formSetting.formInfo.formCode;
+      } catch (error) {}
+      return "E0100";
+    }
+  },
   watch: {
     inputValue(valueNew, oldvaule) {
       console.log("inputValue:", valueNew, oldvaule);
@@ -97,11 +108,11 @@ export default {
       /** 如果存在clone ref */
       // setTimeout(() => {
       //   if (this.isClone) {
-      //     this.$root.$refs[this.obj.name].setCurrentValue(valueNew);
-      //     this.$root.$refs[this.obj.name].$parent.checkValueRule(valueNew);
-      //   } else if (this.$root.$refs[this.obj.name + "_clone"]) {
-      //     this.$root.$refs[this.obj.name + "_clone"].setCurrentValue(valueNew);
-      //     this.$root.$refs[this.obj.name + "_clone"].$parent.checkValueRule(
+      //     this.$root.$refs[this.formCode][this.obj.name].setCurrentValue(valueNew);
+      //     this.$root.$refs[this.formCode][this.obj.name].$parent.checkValueRule(valueNew);
+      //   } else if (this.$root.$refs[this.formCode][this.obj.name + "_clone"]) {
+      //     this.$root.$refs[this.formCode][this.obj.name + "_clone"].setCurrentValue(valueNew);
+      //     this.$root.$refs[this.formCode][this.obj.name + "_clone"].$parent.checkValueRule(
       //       valueNew
       //     );
       //   }
@@ -128,15 +139,25 @@ export default {
   },
   mounted() {
     let refName = this.obj.name; //+this.obj.type.toUpperCase()+(this.obj.title||this.obj.label)
+    if (!this.$root.$refs[this.formCode]) {
+      this.$root.$refs[this.formCode] = new Array();
+    }
+
+    if (!this.$root.$refs[this.formCode][this.obj.name]) {
+      this.$root.$refs[this.formCode][this.obj.name] = new Array();
+    }
+
     if (this.$refs[refName]) {
       // this.formObj.model[this.obj.name] = this.$refs[refName].currentValue;
       this.$refs[refName]["childObject"] = this.obj;
       this.$refs[refName]["checkValueRule"] = this.checkValueRule;
       if (this.obj.isClone) {
-        this.$root.$refs[refName + "_clone"] = this.$refs[refName];
+        this.$root.$refs[this.formCode][refName + "_clone"] = this.$refs[
+          refName
+        ];
         this.isClone = true;
       } else {
-        this.$root.$refs[refName] = this.$refs[refName];
+        this.$root.$refs[this.formCode][refName] = this.$refs[refName];
       }
     }
     if (
@@ -248,30 +269,40 @@ export default {
           // 计算BMI
           if (r.name === "计算BMI") {
             if (
-              this.$root.$refs[r.height] &&
-              this.$root.$refs[r.weight] &&
-              this.$root.$refs[r.result]
+              this.$root.$refs[this.formCode][r.height] &&
+              this.$root.$refs[this.formCode][r.weight] &&
+              this.$root.$refs[this.formCode][r.result]
             ) {
               let height =
-                ~~this.$root.$refs[r.height].currentValue ||
+                ~~this.$root.$refs[this.formCode][r.height].currentValue ||
                 this.formObj.model[r.height] ||
                 0;
               let weight =
-                ~~this.$root.$refs[r.weight].currentValue ||
+                ~~this.$root.$refs[this.formCode][r.weight].currentValue ||
                 this.formObj.model[r.weight] ||
                 0;
-              if(r.weight2 && this.$root.$refs[r.weight2] 
-              && ['NaN','0'].indexOf(Number(this.$root.$refs[r.weight2].currentValue)+'')==-1 ){
+              if (
+                r.weight2 &&
+                this.$root.$refs[this.formCode][r.weight2] &&
+                ["NaN", "0"].indexOf(
+                  Number(
+                    this.$root.$refs[this.formCode][r.weight2].currentValue
+                  ) + ""
+                ) == -1
+              ) {
                 weight =
-                ~~this.$root.$refs[r.weight2].currentValue ||
-                this.formObj.model[r.weight2] || ~~this.$root.$refs[r.weight].currentValue || this.formObj.model[r.weight] || 0;
+                  ~~this.$root.$refs[this.formCode][r.weight2].currentValue ||
+                  this.formObj.model[r.weight2] ||
+                  ~~this.$root.$refs[this.formCode][r.weight].currentValue ||
+                  this.formObj.model[r.weight] ||
+                  0;
               }
               let result = weight / Math.pow(height / 100, 2).toFixed(2);
               result = isNaN(Number(result)) || !isFinite(result) ? 0 : result;
               // if(this.obj.name==='I100011'){
               //   console.log('!!!!计算BMI',this.obj.title,this.obj,r,height,weight,result)
               // }
-              this.$root.$refs[r.result].setCurrentValue(
+              this.$root.$refs[this.formCode][r.result].setCurrentValue(
                 result ? result.toFixed(2) : ""
               );
               this.formObj.model[r.result] = result ? result.toFixed(2) : "";
@@ -289,7 +320,9 @@ export default {
               this.$refs[this.obj.name].type === "text"
             ) {
               this.$refs[this.obj.name].setCurrentValue(r.display);
-              this.$root.$refs[this.obj.name].setCurrentValue(r.display);
+              this.$root.$refs[this.formCode][this.obj.name].setCurrentValue(
+                r.display
+              );
             }
             textResult = r.display ? r.display : "";
             // return textResult;
@@ -304,7 +337,9 @@ export default {
               this.$refs[this.obj.name].type === "text"
             ) {
               this.$refs[this.obj.name].setCurrentValue(r.display);
-              this.$root.$refs[this.obj.name].setCurrentValue(r.display);
+              this.$root.$refs[this.formCode][this.obj.name].setCurrentValue(
+                r.display
+              );
             }
             textResult = r.display ? r.display : "";
             // return textResult;
@@ -318,7 +353,9 @@ export default {
               this.$refs[this.obj.name].type === "text"
             ) {
               this.$refs[this.obj.name].setCurrentValue(r.display);
-              this.$root.$refs[this.obj.name].setCurrentValue(r.display);
+              this.$root.$refs[this.formCode][this.obj.name].setCurrentValue(
+                r.display
+              );
             }
             textResult = r.display ? r.display : "";
           } else if (r.scoreMin && r.scoreMax && valueNew) {
@@ -369,7 +406,7 @@ export default {
         this.$refs[this.obj.name].$refs.input.style = this.obj.style;
       } catch (error) {}
 
-      // this.$root.$refs[this.obj.name].$refs.input.style = this.obj.style;
+      // this.$root.$refs[this.formCode][this.obj.name].$refs.input.style = this.obj.style;
       // }
       return textResult;
     },

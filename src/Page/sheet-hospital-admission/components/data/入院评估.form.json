@@ -1918,25 +1918,33 @@
         },
         {
           "name": "I100126",
-          "type": "input",
+          "type": "select",
           "title": "自理能力评估",
           "style": null,
-          "titleStyle": "width:82px!important",
+          "titleStyle": "width:80px!important",
           "inputStyle": "width:270px!important",
           "inputWidth": "160px",
           "class": null,
-          "readOnly": true,
-          "dialog": {
-            "title": "自理能力评估表",
-            "default": "自理能力评估表",
-            "name": "I100126",
-            "parentName": "I100126",
-            "showHead": "true"
-          },
+          "options": [
+            "无",
+            "有"
+          ],
           "rule": [
             {
-              "scoreMin": -1,
-              "scoreMax": 60,
+              "dialog": {
+                "openKey": "有",
+                "cleanKey": "无",
+                "openDiffKey":"无",
+                "title": "自理能力评估表",
+                "default": "自理能力评估表",
+                "name": "I100126",
+                "type": "independent",
+                "parentName": "I100126",
+                "showHead": "true"
+              }
+            },
+            {
+              "equal": "有",
               "style": "color:red"
             }
           ]
