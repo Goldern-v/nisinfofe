@@ -27,76 +27,104 @@
 </template>
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
- .header
-      height 37px
-      background: #F7FAFA;
-      padding 0 13px
-      border-bottom 1px solid #EAEEF1;
-      .title
-        font-size: 13px;
-        color: #333333;
-        font-weight bold
-      .new-btn
-        color #687179
-        font-size 12px
-        i
-          margin-right 2px
-    .body
-      overflow auto
+.header {
+  height: 37px;
+  background: #F7FAFA;
+  padding: 0 13px;
+  border-bottom: 1px solid #EAEEF1;
+
+  .title {
+    font-size: 13px;
+    color: #333333;
+    font-weight: bold;
+  }
+
+  .new-btn {
+    color: #687179;
+    font-size: 12px;
+
+    i {
+      margin-right: 2px;
+    }
+  }
+}
+
+.body {
+  overflow: auto;
+}
 </style>
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus">
-.el-tree-node__content
-  white-space nowrap
-  text-overflow ellipsis
-  overflow hidden
+.el-tree-node__content {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
   // &:hover
-  //   .tree-node
-  //     background rgb(228, 241, 240)
-.tree-node
-  margin-left -16px
-  position relative
+  // .tree-node
+  // background rgb(228, 241, 240)
+}
+
+.tree-node {
+  margin-left: -16px;
+  position: relative;
   font-size: 12px;
   color: #687179;
-  top 3px
-  white-space nowrap
-  text-overflow ellipsis
-  overflow hidden
-  width 92%
-  display inline-block
-  img
-    width 20px
-    position relative
-    top 3px
-    margin-right 2px
-.el-tree--highlight-current .el-tree-node.is-current > .el-tree-node__content
-  background rgb(228, 241, 240)
-.tree-box-node
-  white-space nowrap
-  text-overflow ellipsis
-  overflow hidden
-  font-size: 13px
-  color: #687179
-  position relative
-  top 3px
-  img
-    width 20px
-    position relative
-    top 3px
-    margin-right 2px
-.el-tree
-  border 0 !important
-.modal-record
-  .record-con
-    background #ffffff
-    overflow auto
-    margin 20px 0 20px
-    width 100%
-    box-sizing border-box
-    padding 0 10px
-.record-tree
-  .el-tree
-    border 0 !important
+  top: 3px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  width: 92%;
+  display: inline-block;
+
+  img {
+    width: 20px;
+    position: relative;
+    top: 3px;
+    margin-right: 2px;
+  }
+}
+
+.el-tree--highlight-current .el-tree-node.is-current > .el-tree-node__content {
+  background: rgb(228, 241, 240);
+}
+
+.tree-box-node {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  font-size: 13px;
+  color: #687179;
+  position: relative;
+  top: 3px;
+
+  img {
+    width: 20px;
+    position: relative;
+    top: 3px;
+    margin-right: 2px;
+  }
+}
+
+.el-tree {
+  border: 0 !important;
+}
+
+.modal-record {
+  .record-con {
+    background: #ffffff;
+    overflow: auto;
+    margin: 20px 0 20px;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0 10px;
+  }
+}
+
+.record-tree {
+  .el-tree {
+    border: 0 !important;
+  }
+}
 </style>
 
 <script>
@@ -244,7 +272,7 @@ export default {
           let list_1 = res[0].data.data.map(item => {
             index += 1;
             return {
-              label: item.formName||item.name||'',
+              label: item.formName || item.name || "",
               index: index,
               formCode: item.formCode,
               showCurve: item.showCurve,
@@ -254,7 +282,7 @@ export default {
               pageUrl: item.pageUrl,
               children: item.formInstanceDtoList.map((option, i) => {
                 // formName: "疼痛护理单"
-                let fName = item.formName||item.name||''
+                let fName = item.formName || item.name || "";
                 // 查找第一张填写的疼痛评估单
                 if (fName && fName === "疼痛护理单") {
                   // console.log("===疼痛护理单",i,option,item.formInstanceDtoList.length)
@@ -274,7 +302,7 @@ export default {
                   ${option.pusherName ? option.pusherName : option.creatorName}
                   ${option.status == 0 ? "T" : option.status}`,
                   form_id: option.id,
-                  formName: item.formName||item.name||''
+                  formName: item.formName || item.name || ""
                 };
               })
             };
