@@ -52,6 +52,18 @@ function switechSheetType(type) {
   switch (type) {
     case "neurology":
       {
+        // 外科重症医学科
+        schema = require("../config/wkzzyxk_lc/tr.js").default;
+      }
+      break;
+    case "neurology":
+      {
+        // 内科重症医学科
+        schema = require("../config/nkzzyxk_lc/tr.js").default;
+      }
+      break;
+    case "neurology":
+      {
         // 神经内科
         schema = require("../config/neurology/tr.js").default;
       }
