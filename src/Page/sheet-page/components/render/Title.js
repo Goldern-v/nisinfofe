@@ -3,7 +3,23 @@ import sheetInfo from "../config/sheetInfo/index";
 export default function Title(data = [], autoData = [], index) {
   let Th;
   switch (sheetInfo.sheetType) {
-    case "neurology":
+    // case "neurology":
+    //   {
+    //     // 外科重症医学科
+    //     Th = JSON.parse(
+    //       JSON.stringify(require("../config/wkzzyxk_lc/th").default)
+    //     );
+    //   }
+    //   break;
+    // case "neurology":
+    //   {
+    //     // 内科重症医学科
+    //     Th = JSON.parse(
+    //       JSON.stringify(require("../config/nkzzyxk_lc/th").default)
+    //     );
+    //   }
+    //   break;
+      case "neurology":
       {
         // 神经内科
         Th = JSON.parse(
