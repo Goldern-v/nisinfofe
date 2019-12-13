@@ -88,8 +88,10 @@ import FormFooter from "./FormFooter";
 import comm,{
   saveForm,
   getFormDetail,
-  cancelSignForm
+  cancelSignForm,
+  getOldFormCode
 } from "@/Page/sheet-hospital-admission/components/Render/common.js";
+//
 import { debug } from "util";
 // src/Page/sheet-hospital-admission/components/Render/common.js
 import common from "@/common/mixin/common.mixin.js";
@@ -132,7 +134,7 @@ export default {
       formBox: null /** 弹窗的数据 */,
       callback: null,
       formDialogObj: {},
-      formCode: "E0100",
+      formCode: "E0001",
       form: {
         name: "",
         region: "",
@@ -199,7 +201,7 @@ export default {
 
       // todo
       if (this.type === "dependent") {
-        this.formCode = "E0100";
+        this.formCode = "E0001";
         console.log(
           "根据ID表单dependent",
           id,
@@ -901,11 +903,11 @@ export default {
           : this.formObj.formSetting.formInfo.formCode;
         this.dialogFormCode = this.formBox.formSetting.formInfo.formCode;
         //
-        this.formCode = this.dialogFormCode || "E0100";
+        this.formCode = this.dialogFormCode || "E0001";
       } catch (error) {
         //
         this.dialogFormCode = "";
-        this.formCode = "E0100";
+        this.formCode = "E0001";
       }
       // modalWidth
       this.modalWidth = this.formBox.hasOwnProperty("modalWidth")

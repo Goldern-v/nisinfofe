@@ -1156,6 +1156,7 @@ export default {
   }
   .sweet-content {
     /* transform: translateY(-8px); */
+    min-height: 150px;
   }
   .sweet-buttons {
     /* transform: translateY(16px); */

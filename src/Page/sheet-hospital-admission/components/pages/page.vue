@@ -24,22 +24,27 @@ import RenderForm from "@/Page/sheet-hospital-admission/components/Render/main.v
 
 import BusFactory from "vue-happy-bus";
 
+import { getOldFormCode } from "@/Page/sheet-hospital-admission/components/Render/common.js";
+
+import common from "@/common/mixin/common.mixin.js";
 export default {
   name: "page",
+  mixins: [common],
   components: {
     RenderForm
   },
   data() {
     return {
       bus: BusFactory(this),
-      fileJSON: "",
+      fileJSON: {},
       loadingText: "数据载入中...",
       loading: false,
       isShow: false,
       isShowLoadingLayout: true,
       message: "请选择左侧患者~",
       status: 0,
-      lock: false
+      lock: false,
+      oldFormInfo: {}
     };
   },
   mounted() {
@@ -50,12 +55,31 @@ export default {
     if (this.$refs["sheetPage"]) {
       this.$refs["sheetPage"]["fillForm"] = this.fillForm;
       this.$root.$refs["sheetPage"] = this.$refs["sheetPage"];
-    }
+    } //
+
+    //
+    this.getOldFormInfo();
   },
   watch: {
     loading(newVal, oldVal) {
       console.log("loading", newVal, oldVal, this.isShowLoadingLayout);
       this.isShowLoadingLayout = newVal;
+    },
+    deptCode(newVal, oldVal) {
+      this.clearAll();
+      this.initial();
+      this.getOldFormInfo(() => {
+        this.$refs.renderForm.initial();
+        this.loading = false;
+      });
+    },
+    wardCode(newVal, oldVal) {
+      this.clearAll();
+      this.initial();
+      this.getOldFormInfo(() => {
+        this.$refs.renderForm.initial();
+        this.loading = false;
+      });
     }
   },
   computed: {
@@ -66,7 +90,7 @@ export default {
       try {
         return this.formObj.formSetting.formInfo.formCode;
       } catch (error) {}
-      return "E0100";
+      return "E0001";
     }
   },
   created() {
@@ -108,13 +132,58 @@ export default {
         this.loadingText = "数据载入中...";
       }
     });
-
+    //
     this.initial();
+    this.clearAll();
     this.loading = false;
+    //
   },
   methods: {
+    clearAll() {
+      if (this.$root.$refs && this.$root.$refs[this.formCode]) {
+        Object.keys(this.$root.$refs[this.formCode]).map(rkey => {
+          if (
+            this.$root.$refs[this.formCode][rkey] &&
+            this.$root.$refs[this.formCode][rkey].constructor == Array
+          ) {
+            // this.$root.$refs[this.formCode][rkey]=[]
+            // delete this.$root.$refs[this.formCode][rkey]
+            Object.keys(this.$root.$refs[this.formCode][rkey]).map(ekey => {
+              try {
+                if (
+                  !this.$root.$refs[this.formCode][rkey][ekey].setCurrentValue
+                ) {
+                  return;
+                }
+                this.$root.$refs[this.formCode][rkey][ekey].setCurrentValue("");
+                //
+                this.$root.$refs[this.formCode][rkey][ekey].checkValueRule("");
+                //
+                // this.$root.$refs[this.formCode][rkey][ekey].childObject.style = ""
+              } catch (error) {
+                console.error("clearAll:array", [rkey, ekey], error);
+              }
+            });
+          } else if (
+            this.$root.$refs[this.formCode][rkey] &&
+            this.$root.$refs[this.formCode][rkey].constructor != Array &&
+            this.$root.$refs[this.formCode][rkey].type == "text"
+          ) {
+            try {
+              this.$root.$refs[this.formCode][rkey].setCurrentValue("");
+              this.$root.$refs[this.formCode][rkey].checkValueRule("");
+            } catch (error) {
+              console.error("clearAll:!array", [rkey, ekey], error);
+            }
+          }
+        });
+      }
+    },
     initial(patient = null, isDevMode = false) {
       this.loading = true;
+      //
+      this.clearAll();
+      //
       // 主表结构
       let file = JSON.parse(
         JSON.stringify(require("../data/入院评估.form.json"))
@@ -122,7 +191,9 @@ export default {
       let title = "";
       try {
         file.formSetting.formTitle.hospitalName = this.HOSPITAL_NAME;
-      } catch (error) {}
+      } catch (error) {
+        console.error(error);
+      }
       // 主表字段对照表
       let schemes = JSON.parse(
         JSON.stringify(require("../data/formSchemes/入院评估.schemes.json"))
@@ -210,7 +281,8 @@ export default {
     },
     closeForm() {
       this.isShow = false;
-      this.initial();
+      this.clearAll();
+      // this.initial();
     },
     openForm(config) {
       let isDevMode = config.isDevMode || false;
@@ -243,15 +315,61 @@ export default {
       document.querySelector(".sheetTable-contain").style.background =
         "#DFDFDF";
 
-      setTimeout(() => {
+      // setTimeout(() => {
+      this.$nextTick(() => {
         //数据回填表单
         this.fillForm(formObj.model);
         this.bus.$emit("setHosptialAdmissionLoading", false);
-      }, 100);
+        // }, 100);
+      });
       console.log("数据回填表单", this.$root.$refs);
     },
     updateFunc(value) {
       console.log("updateFunc!!", value);
+    },
+    getOldFormInfo(callback = null) {
+      console.log("formCode,deptCode", [
+        this.formCode,
+        this.deptCode,
+        this.wardCode
+      ]);
+      // getOldFormCode
+      if (this.formCode && this.deptCode) {
+        // let res = await
+        getOldFormCode(this.formCode, this.deptCode).then(res => {
+          if (!res) {
+            return {};
+          }
+          let {
+            data: { data: oldFormInfo }
+          } = res;
+          this.oldFormInfo = oldFormInfo;
+          // this.$store.commit("upOldFormInfo", oldFormInfo);
+          this.$store.commit(
+            "upOldFormInfo",
+            JSON.parse(JSON.stringify(oldFormInfo))
+          );
+          // try {
+          //   //
+          //   if (this.oldFormInfo && this.oldFormInfo.name) {
+          //     this.formObj.formSetting.formTitle.formName = this.oldFormInfo.name;
+          //   } else {
+          //     this.formObj.formSetting.formTitle.formName = "入 院 评 估 表";
+          //   }
+          // } catch (error) {}
+          console.log("getOldFormCode", [
+            res,
+            oldFormInfo,
+            this.formCode,
+            this.deptCode,
+            this.wardCode
+          ]);
+          //
+          if (callback) {
+            callback();
+          }
+        });
+      }
     },
     setPatientInfo(json, patient) {
       // 设置 formHeads
@@ -284,7 +402,7 @@ export default {
               if (key === "status") {
                 textResult = this.$root.$refs[this.formCode][
                   key
-                ].checkValueRule(element + "");
+                ].checkValueRule(element || "");
                 // console.log(
                 //   "----this.$root.$refs[this.formCode][key]",
                 //   this.$root.$refs[this.formCode][key],
@@ -299,30 +417,14 @@ export default {
                 );
               } else {
                 // 输入框回显数据
-                // if(element){
+                //
+                this.$root.$refs[this.formCode][key].setCurrentValue(
+                  element || ""
+                );
+
                 textResult = this.$root.$refs[this.formCode][
                   key
-                ].checkValueRule(element);
-                this.$root.$refs[this.formCode][key].setCurrentValue(element);
-                // }
-
-                // if(key==='signerName'){
-                //   console.log(
-                //     "-!!-this.$root.$refs[this.formCode][key]",
-                //     this.$root.$refs[this.formCode][key],
-                //     key,
-                //     this.$root.$refs[this.formCode][key].type,
-                //     textResult,
-                //     element,
-                //     formObj[key],
-                //     formObj
-                //   );
-                //  }
-
-                // if (this.$root.$refs[key + "_clone"]) {
-                //   this.$root.$refs[key + "_clone"].setCurrentValue(element);
-                //   this.$root.$refs[key + "_clone"].checkValueRule(element);
-                // }
+                ].checkValueRule(element || "");
               }
             }
             // 日期回填

@@ -127,17 +127,26 @@
           "readOnly": true,
           "rule": [
             {
-              "equals": ["-1", "未保存"],
+              "equals": [
+                "-1",
+                "未保存"
+              ],
               "style": "color:gray",
               "display": "未签名"
             },
             {
-              "equals": ["0", "已保存 "],
+              "equals": [
+                "0",
+                "已保存 "
+              ],
               "style": "color:blue",
               "display": "已保存"
             },
             {
-              "equals": ["1", "已签名"],
+              "equals": [
+                "1",
+                "已签名"
+              ],
               "style": "color:red",
               "display": "已签名"
             }
@@ -199,6 +208,7 @@
           "hiddenTips": true,
           "value": "",
           "placeholder": "评估时间",
+          "inputWidth": "136px",
           "class": null,
           "readOnly": null
         }
@@ -207,7 +217,10 @@
     {
       "name": "",
       "type": "formGroupVerticalBox",
-      "colWidth": ["30px", ""],
+      "colWidth": [
+        "30px",
+        ""
+      ],
       "title": "",
       "message": "",
       "require": "false",
@@ -314,6 +327,7 @@
           "label": "其他",
           "title": "其他",
           "code": "on,",
+          "inputWidth": "136px",
           "style": null,
           "class": null,
           "html": null,
@@ -325,7 +339,10 @@
       "name": "",
       "type": "formGroupColBox",
       "col": 2,
-      "colWidth": ["40%", "60%"],
+      "colWidth": [
+        "40%",
+        "60%"
+      ],
       "title": "",
       "message": "",
       "require": "false",
@@ -342,8 +359,12 @@
           "title": "评估结果",
           "titleStyle": "width:90px!important;margin:0;",
           "hiddenTips": true,
+          "inputWidth": "136px",
           "value": "",
-          "options": ["-", "+"],
+          "options": [
+            "-",
+            "+"
+          ],
           "rule": [
             {
               "equal": "+",
@@ -415,6 +436,7 @@
           "titleStyle": "width:90px!important;margin:0;",
           "hiddenTips": true,
           "value": "",
+          "inputWidth": "136px",
           "placeholder": "评估时间",
           "class": null,
           "readOnly": null
@@ -424,7 +446,10 @@
     {
       "name": "",
       "type": "formGroupVerticalBox",
-      "colWidth": ["30px", ""],
+      "colWidth": [
+        "30px",
+        ""
+      ],
       "title": "",
       "message": "",
       "require": "false",
@@ -531,6 +556,7 @@
           "label": "其他",
           "title": "其他",
           "code": "on,",
+          "inputWidth": "136px",
           "style": null,
           "class": null,
           "html": null,
@@ -542,7 +568,10 @@
       "name": "",
       "type": "formGroupColBox",
       "col": 2,
-      "colWidth": ["40%", "60%"],
+      "colWidth": [
+        "40%",
+        "60%"
+      ],
       "title": "",
       "message": "",
       "require": "false",
@@ -559,8 +588,12 @@
           "title": "评估结果",
           "titleStyle": "width:90px!important;margin:0;",
           "hiddenTips": true,
+          "inputWidth": "136px",
           "value": "",
-          "options": ["-", "+"],
+          "options": [
+            "-",
+            "+"
+          ],
           "rule": [
             {
               "equal": "+",
@@ -594,7 +627,10 @@
       "name": "",
       "type": "formGroupVerticalBox",
       "col": 1,
-      "colWidth": ["190px", ""],
+      "colWidth": [
+        "190px",
+        ""
+      ],
       "title": "建议的进食种类或进食方法",
       "message": "",
       "require": "false",
