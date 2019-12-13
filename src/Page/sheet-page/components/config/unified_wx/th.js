@@ -259,54 +259,54 @@ export default {
           maxWidth: "40px"
         }
       },
-      // {
-      //   name: `标题12`,
-      //   style: {},
-      //   colspan: "1",
-      //   rowspan: "3",
-      //   canSet: true,
-      //   key: "field24",
-      //   style: {
-      //     minWidth: "40px",
-      //     maxWidth: "40px"
-      //   }
-      // },
-      // {
-      //   name: `标题13`,
-      //   style: {},
-      //   colspan: "1",
-      //   rowspan: "3",
-      //   canSet: true,
-      //   key: "field25",
-      //   style: {
-      //     minWidth: "40px",
-      //     maxWidth: "40px"
-      //   }
-      // },
-      // {
-      //   name: `标题14`,
-      //   style: {},
-      //   colspan: "1",
-      //   rowspan: "3",
-      //   canSet: true,
-      //   key: "field26",
-      //   style: {
-      //     minWidth: "40px",
-      //     maxWidth: "40px"
-      //   }
-      // },
-      // {
-      //   name: `标题15`,
-      //   style: {},
-      //   colspan: "1",
-      //   rowspan: "3",
-      //   canSet: true,
-      //   key: "field27",
-      //   style: {
-      //     minWidth: "40px",
-      //     maxWidth: "40px"
-      //   }
-      // },
+      {
+        name: `标题12`,
+        style: {},
+        colspan: "1",
+        rowspan: "3",
+        canSet: true,
+        key: "field24",
+        style: {
+          minWidth: "40px",
+          maxWidth: "40px"
+        }
+      },
+      {
+        name: `标题13`,
+        style: {},
+        colspan: "1",
+        rowspan: "3",
+        canSet: true,
+        key: "field25",
+        style: {
+          minWidth: "40px",
+          maxWidth: "40px"
+        }
+      },
+      {
+        name: `标题14`,
+        style: {},
+        colspan: "1",
+        rowspan: "3",
+        canSet: true,
+        key: "field26",
+        style: {
+          minWidth: "40px",
+          maxWidth: "40px"
+        }
+      },
+      {
+        name: `标题15`,
+        style: {},
+        colspan: "1",
+        rowspan: "3",
+        canSet: true,
+        key: "field27",
+        style: {
+          minWidth: "40px",
+          maxWidth: "40px"
+        }
+      },
       {
         name: `
         病情观察及治疗

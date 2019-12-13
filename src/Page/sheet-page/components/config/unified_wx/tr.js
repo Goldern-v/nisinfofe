@@ -258,38 +258,38 @@ export default [
       width: 36
     }
   },
-  // {
-  //   key: "field24", //标题12
-  //   value: "",
-  //   event: keyf1,
-  //   textarea: {
-  //     width: 36
-  //   }
-  // },
-  // {
-  //   key: "field25", //标题13
-  //   value: "",
-  //   event: keyf1,
-  //   textarea: {
-  //     width: 36
-  //   }
-  // },
-  // {
-  //   key: "field26", //标题14
-  //   value: "",
-  //   event: keyf1,
-  //   textarea: {
-  //     width: 36
-  //   }
-  // },
-  // {
-  //   key: "field27", //标题15
-  //   value: "",
-  //   event: keyf1,
-  //   textarea: {
-  //     width: 36
-  //   }
-  // },
+  {
+    key: "field24", //标题12
+    value: "",
+    event: keyf1,
+    textarea: {
+      width: 36
+    }
+  },
+  {
+    key: "field25", //标题13
+    value: "",
+    event: keyf1,
+    textarea: {
+      width: 36
+    }
+  },
+  {
+    key: "field26", //标题14
+    value: "",
+    event: keyf1,
+    textarea: {
+      width: 36
+    }
+  },
+  {
+    key: "field27", //标题15
+    value: "",
+    event: keyf1,
+    textarea: {
+      width: 36
+    }
+  },
   {
     key: "description", //特殊情况记录
     value: "",
