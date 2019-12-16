@@ -186,7 +186,7 @@ export default {
                 }
                 object[key] = "";
                 // setCurrentValue
-                let refObj = this.$root.$refs[key];
+                let refObj = this.$root.$refs[this.formCode][key];
                 if (refObj && refObj.type === "text") {
                   refObj.setCurrentValue("");
                   refObj.checkValueRule("");
@@ -202,6 +202,12 @@ export default {
   computed: {
     modelData() {
       return window.formObj.model;
+    },
+    formCode() {
+      try {
+        return this.formObj.formSetting.formInfo.formCode;
+      } catch (error) {}
+      return "E0001";
     }
   },
   watch: {

@@ -40,7 +40,14 @@ export default {
       refName: this.obj.title || this.obj.label
     };
   },
-  computed: {},
+  computed: {
+    formCode() {
+      try {
+        return this.formObj.formSetting.formInfo.formCode;
+      } catch (error) {}
+      return "E0001";
+    }
+  },
   watch: {
     checkboxValue(valueNew, oldvaule) {
       // this.formObj.model[this.obj.name] = valueNew;
@@ -70,8 +77,12 @@ export default {
 
     // let refName = this.obj.title || this.obj.label;
 
-    if (!this.$root.$refs[this.obj.name]) {
-      this.$root.$refs[this.obj.name] = new Array();
+    if (!this.$root.$refs[this.formCode]) {
+      this.$root.$refs[this.formCode] = new Array();
+    }
+
+    if (!this.$root.$refs[this.formCode][this.obj.name]) {
+      this.$root.$refs[this.formCode][this.obj.name] = new Array();
     }
 
     if (this.$refs[this.refName]) {
@@ -85,7 +96,9 @@ export default {
       // if(this.obj.defaultValue){
       //   this.checkboxValue = this.obj.defaultValue
       // }
-      this.$root.$refs[this.obj.name][this.refName] = this.$refs[this.refName];
+      this.$root.$refs[this.formCode][this.obj.name][this.refName] = this.$refs[
+        this.refName
+      ];
     }
   },
   created() {},
@@ -101,14 +114,17 @@ export default {
       }
 
       if (this.$refs[this.refName]) {
-        this.$refs[this.refName].$parent.$parent.$parent.$el.style.outline =
-          "none";
+        try {
+          this.$refs[this.refName].$parent.$parent.$parent.$el.style.outline =
+            "none";
+        } catch (error) {}
+
         // if(this.$root.$refs.mainPage.checkFormMissingItems){
         //   this.$root.$refs.mainPage.checkFormMissingItems()
         // }
       }
 
-      let rootRefs = this.$root.$refs[this.obj.name];
+      let rootRefs = this.$root.$refs[this.formCode][this.obj.name];
 
       console.log(
         "--obj.name:",
@@ -163,7 +179,7 @@ export default {
           e.target.checked,
           e,
           this.obj,
-          this.$root.$refs[this.obj.name][this.refName],
+          this.$root.$refs[this.formCode][this.obj.name][this.refName],
           this.formObj
         );
       }
@@ -196,15 +212,21 @@ export default {
       //
       if (this.obj.score != undefined) {
         this.formObj.model["evalScore"] = score;
-        if (this.$root.$refs["evalScore"]) {
+        if (this.$root.$refs[this.formCode]["evalScore"]) {
           this.formObj.model["evalScore"] = score;
-          this.$root.$refs["evalScore"].setCurrentValue(score);
+          this.$root.$refs[this.formCode]["evalScore"].setCurrentValue(score);
 
-          let textResult = this.$root.$refs["evalDesc"].checkValueRule(score);
+          let textResult = this.$root.$refs[this.formCode][
+            "evalDesc"
+          ].checkValueRule(score);
           console.log("evalDesc-textResult", score, textResult);
           this.formObj.model["evalDesc"] = textResult + "";
-          this.$root.$refs["evalDesc"].setCurrentValue(textResult);
-          this.$root.$refs["evalDesc"].checkValueRule(textResult);
+          this.$root.$refs[this.formCode]["evalDesc"].setCurrentValue(
+            textResult
+          );
+          this.$root.$refs[this.formCode]["evalDesc"].checkValueRule(
+            textResult
+          );
         }
       }
 
@@ -229,7 +251,7 @@ export default {
         this.obj.name === "I047010" ||
         this.obj.name === "I047011"
       ) {
-        this.$root.$refs["I047012"].$parent.inputValue = "+";
+        this.$root.$refs[this.formCode]["I047012"].$parent.inputValue = "+";
       }
 
       if (
@@ -243,7 +265,7 @@ export default {
         this.obj.name === "I047022" ||
         this.obj.name === "I047023"
       ) {
-        this.$root.$refs["I047024"].$parent.inputValue = "+";
+        this.$root.$refs[this.formCode]["I047024"].$parent.inputValue = "+";
       }
     }
   }
@@ -251,7 +273,6 @@ export default {
 </script>
 
 <style scoped>
-
 .el-checkbox,
 .is-bordered,
 .el-checkbox--small,
@@ -261,8 +282,6 @@ export default {
 .el-input-group--prepend {
   margin: 2px 0px;
 }
-
-
 
 .el-checkbox,
 .el-checkbox__input {

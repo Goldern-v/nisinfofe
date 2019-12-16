@@ -3,8 +3,10 @@
   <span style="margin: 0 0px 0 0;">
     <!-- <el-input v-if="obj.type==='input'" v-model="checkboxValue" border size="small" :label="obj.title" :class="obj.class" :style="obj.style">{{obj.title}}</el-input> -->
     <!-- obj.options && obj.options.length>0 ? obj.options[0]+'' : (obj.placeholder+''||'') -->
-    <span v-if="obj.label"
-      :style="{width: obj.labelWidth, textAlign: 'right', paddingRight: '10px'}">
+    <span
+      v-if="obj.label"
+      :style="{width: obj.labelWidth, textAlign: 'right', paddingRight: '10px'}"
+    >
       <span style="font-size: 12px;" :style="obj.labelStyle" :class="obj.labelClass">{{obj.label}}</span>
     </span>
     <!-- 单选下拉框 -->
@@ -55,7 +57,14 @@ export default {
       selectValue: ""
     };
   },
-  computed: {},
+  computed: {
+    formCode() {
+      try {
+        return this.formObj.formSetting.formInfo.formCode;
+      } catch (error) {}
+      return "E0001";
+    }
+  },
   watch: {
     selectValue(valueNew, oldvaule) {
       console.log("watch:selectValue:", valueNew, oldvaule);
@@ -95,7 +104,7 @@ export default {
   mounted() {
     let refName = this.obj.name; //+this.obj.type.toUpperCase()+(this.obj.title||this.obj.label)
     if (this.$refs[refName]) {
-      this.$root.$refs[refName] = this.$refs[refName];
+      this.$root.$refs[this.formCode][refName] = this.$refs[refName];
     }
     // console.log('inputMounted',this.$refs,this.$root.$refs)
   },

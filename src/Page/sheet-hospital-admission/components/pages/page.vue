@@ -24,39 +24,73 @@ import RenderForm from "@/Page/sheet-hospital-admission/components/Render/main.v
 
 import BusFactory from "vue-happy-bus";
 
+import { getOldFormCode } from "@/Page/sheet-hospital-admission/components/Render/common.js";
+
+import common from "@/common/mixin/common.mixin.js";
 export default {
   name: "page",
+  mixins: [common],
   components: {
     RenderForm
   },
   data() {
     return {
       bus: BusFactory(this),
-      fileJSON: "",
+      fileJSON: {},
       loadingText: "数据载入中...",
       loading: false,
       isShow: false,
       isShowLoadingLayout: true,
       message: "请选择左侧患者~",
       status: 0,
-      lock: false
+      lock: false,
+      oldFormInfo: {}
     };
   },
   mounted() {
+    if (!this.$root.$refs[this.formCode]) {
+      this.$root.$refs[this.formCode] = [];
+    }
+
     if (this.$refs["sheetPage"]) {
       this.$refs["sheetPage"]["fillForm"] = this.fillForm;
       this.$root.$refs["sheetPage"] = this.$refs["sheetPage"];
-    }
+    } //
+
+    //
+    this.getOldFormInfo();
   },
   watch: {
     loading(newVal, oldVal) {
       console.log("loading", newVal, oldVal, this.isShowLoadingLayout);
       this.isShowLoadingLayout = newVal;
+    },
+    deptCode(newVal, oldVal) {
+      this.clearAll();
+      this.initial();
+      this.getOldFormInfo(() => {
+        this.$refs.renderForm.initial();
+        this.loading = false;
+      });
+    },
+    wardCode(newVal, oldVal) {
+      this.clearAll();
+      this.initial();
+      this.getOldFormInfo(() => {
+        this.$refs.renderForm.initial();
+        this.loading = false;
+      });
     }
   },
   computed: {
     locker() {
       return this.lock;
+    },
+    formCode() {
+      try {
+        return this.formObj.formSetting.formInfo.formCode;
+      } catch (error) {}
+      return "E0001";
     }
   },
   created() {
@@ -98,13 +132,58 @@ export default {
         this.loadingText = "数据载入中...";
       }
     });
-
+    //
     this.initial();
+    this.clearAll();
     this.loading = false;
+    //
   },
   methods: {
+    clearAll() {
+      if (this.$root.$refs && this.$root.$refs[this.formCode]) {
+        Object.keys(this.$root.$refs[this.formCode]).map(rkey => {
+          if (
+            this.$root.$refs[this.formCode][rkey] &&
+            this.$root.$refs[this.formCode][rkey].constructor == Array
+          ) {
+            // this.$root.$refs[this.formCode][rkey]=[]
+            // delete this.$root.$refs[this.formCode][rkey]
+            Object.keys(this.$root.$refs[this.formCode][rkey]).map(ekey => {
+              try {
+                if (
+                  !this.$root.$refs[this.formCode][rkey][ekey].setCurrentValue
+                ) {
+                  return;
+                }
+                this.$root.$refs[this.formCode][rkey][ekey].setCurrentValue("");
+                //
+                this.$root.$refs[this.formCode][rkey][ekey].checkValueRule("");
+                //
+                // this.$root.$refs[this.formCode][rkey][ekey].childObject.style = ""
+              } catch (error) {
+                console.error("clearAll:array", [rkey, ekey], error);
+              }
+            });
+          } else if (
+            this.$root.$refs[this.formCode][rkey] &&
+            this.$root.$refs[this.formCode][rkey].constructor != Array &&
+            this.$root.$refs[this.formCode][rkey].type == "text"
+          ) {
+            try {
+              this.$root.$refs[this.formCode][rkey].setCurrentValue("");
+              this.$root.$refs[this.formCode][rkey].checkValueRule("");
+            } catch (error) {
+              console.error("clearAll:!array", [rkey, ekey], error);
+            }
+          }
+        });
+      }
+    },
     initial(patient = null, isDevMode = false) {
       this.loading = true;
+      //
+      this.clearAll();
+      //
       // 主表结构
       let file = JSON.parse(
         JSON.stringify(require("../data/入院评估.form.json"))
@@ -112,7 +191,9 @@ export default {
       let title = "";
       try {
         file.formSetting.formTitle.hospitalName = this.HOSPITAL_NAME;
-      } catch (error) {}
+      } catch (error) {
+        console.error(error);
+      }
       // 主表字段对照表
       let schemes = JSON.parse(
         JSON.stringify(require("../data/formSchemes/入院评估.schemes.json"))
@@ -161,11 +242,11 @@ export default {
         if (djson.constructor === Array) {
           // file.dialogs.push(...djson);
           djson.map(d => {
-                title = d.title;
-                if (title) {
-                  file.dialogs[title] = { ...d };
-                }
-              });
+            title = d.title;
+            if (title) {
+              file.dialogs[title] = { ...d };
+            }
+          });
         } else {
           // file.dialogs.push(djson);
           // file.dialogs[title + ""] = JSON.parse(JSON.stringify(djson));
@@ -200,7 +281,8 @@ export default {
     },
     closeForm() {
       this.isShow = false;
-      this.initial();
+      this.clearAll();
+      // this.initial();
     },
     openForm(config) {
       let isDevMode = config.isDevMode || false;
@@ -233,15 +315,61 @@ export default {
       document.querySelector(".sheetTable-contain").style.background =
         "#DFDFDF";
 
-      setTimeout(() => {
+      // setTimeout(() => {
+      this.$nextTick(() => {
         //数据回填表单
         this.fillForm(formObj.model);
         this.bus.$emit("setHosptialAdmissionLoading", false);
-      }, 100);
+        // }, 100);
+      });
       console.log("数据回填表单", this.$root.$refs);
     },
     updateFunc(value) {
       console.log("updateFunc!!", value);
+    },
+    getOldFormInfo(callback = null) {
+      console.log("formCode,deptCode", [
+        this.formCode,
+        this.deptCode,
+        this.wardCode
+      ]);
+      // getOldFormCode
+      if (this.formCode && this.deptCode) {
+        // let res = await
+        getOldFormCode(this.formCode, this.deptCode).then(res => {
+          if (!res) {
+            return {};
+          }
+          let {
+            data: { data: oldFormInfo }
+          } = res;
+          this.oldFormInfo = oldFormInfo;
+          // this.$store.commit("upOldFormInfo", oldFormInfo);
+          this.$store.commit(
+            "upOldFormInfo",
+            JSON.parse(JSON.stringify(oldFormInfo))
+          );
+          // try {
+          //   //
+          //   if (this.oldFormInfo && this.oldFormInfo.name) {
+          //     this.formObj.formSetting.formTitle.formName = this.oldFormInfo.name;
+          //   } else {
+          //     this.formObj.formSetting.formTitle.formName = "入 院 评 估 表";
+          //   }
+          // } catch (error) {}
+          console.log("getOldFormCode", [
+            res,
+            oldFormInfo,
+            this.formCode,
+            this.deptCode,
+            this.wardCode
+          ]);
+          //
+          if (callback) {
+            callback();
+          }
+        });
+      }
     },
     setPatientInfo(json, patient) {
       // 设置 formHeads
@@ -261,116 +389,126 @@ export default {
           if (formObj.hasOwnProperty(key)) {
             let element = formObj[key];
             let textResult = "";
-            // let refObj = this.$root.$refs[key];
+            // let refObj = this.$root.$refs[this.formCode][key];
             // 文本回填
             if (
-              this.$root.$refs[key] &&
-              ["text", "textarea"].indexOf(this.$root.$refs[key].type) > -1
+              this.$root.$refs[this.formCode][key] &&
+              ["text", "textarea"].indexOf(
+                this.$root.$refs[this.formCode][key].type
+              ) > -1
             ) {
-              // this.$root.$refs[key].setCurrentValue(textResult);
+              // this.$root.$refs[this.formCode][key].setCurrentValue(textResult);
               // 状态框回显数据
               if (key === "status") {
-                textResult = this.$root.$refs[key].checkValueRule(element + "");
+                textResult = this.$root.$refs[this.formCode][
+                  key
+                ].checkValueRule(element || "");
                 // console.log(
-                //   "----this.$root.$refs[key]",
-                //   this.$root.$refs[key],
+                //   "----this.$root.$refs[this.formCode][key]",
+                //   this.$root.$refs[this.formCode][key],
                 //   key,
                 //   textResult
                 // );
-                this.$root.$refs[key].setCurrentValue(textResult + "");
-                this.$root.$refs[key].checkValueRule(textResult + "");
+                this.$root.$refs[this.formCode][key].setCurrentValue(
+                  textResult + ""
+                );
+                this.$root.$refs[this.formCode][key].checkValueRule(
+                  textResult + ""
+                );
               } else {
                 // 输入框回显数据
-                // if(element){
-                textResult = this.$root.$refs[key].checkValueRule(element);
-                this.$root.$refs[key].setCurrentValue(element);
-                // }
+                //
+                this.$root.$refs[this.formCode][key].setCurrentValue(
+                  element || ""
+                );
 
-                // if(key==='signerName'){
-                //   console.log(
-                //     "-!!-this.$root.$refs[key]",
-                //     this.$root.$refs[key],
-                //     key,
-                //     this.$root.$refs[key].type,
-                //     textResult,
-                //     element,
-                //     formObj[key],
-                //     formObj
-                //   );
-                //  }
-
-                // if (this.$root.$refs[key + "_clone"]) {
-                //   this.$root.$refs[key + "_clone"].setCurrentValue(element);
-                //   this.$root.$refs[key + "_clone"].checkValueRule(element);
-                // }
+                textResult = this.$root.$refs[this.formCode][
+                  key
+                ].checkValueRule(element || "");
               }
             }
             // 日期回填
             if (
-              this.$root.$refs[key] &&
-              this.$root.$refs[key].type === "datetime"
+              this.$root.$refs[this.formCode][key] &&
+              this.$root.$refs[this.formCode][key].type === "datetime"
             ) {
-              this.$root.$refs[key].currentValue = element||"";
-              console.log("datetime", this.$root.$refs[key], key, element);
+              this.$root.$refs[this.formCode][key].currentValue = element || "";
+              console.log(
+                "datetime",
+                this.$root.$refs[this.formCode][key],
+                key,
+                element
+              );
             }
             // 选项回填
             if (
-              this.$root.$refs[key] &&
-              this.$root.$refs[key].constructor === Array
+              this.$root.$refs[this.formCode][key] &&
+              this.$root.$refs[this.formCode][key].constructor === Array
             ) {
               // if(!element){
               // 初始化清空选卡
-              for (const subkey in this.$root.$refs[key]) {
-                if (this.$root.$refs[key].hasOwnProperty(subkey)) {
-                  this.$root.$refs[key][subkey].model = [];
+              for (const subkey in this.$root.$refs[this.formCode][key]) {
+                if (
+                  this.$root.$refs[this.formCode][key].hasOwnProperty(subkey)
+                ) {
+                  this.$root.$refs[this.formCode][key][subkey].model = [];
                   if (
-                    this.$root.$refs[key][subkey].$parent &&
-                    this.$root.$refs[key][subkey].$parent.hasOwnProperty(
-                      "checkboxValue"
-                    ) > -1
+                    this.$root.$refs[this.formCode][key][subkey].$parent &&
+                    this.$root.$refs[this.formCode][key][
+                      subkey
+                    ].$parent.hasOwnProperty("checkboxValue") > -1
                   ) {
-                    this.$root.$refs[key][subkey].$parent.checkboxValue = [];
+                    this.$root.$refs[this.formCode][key][
+                      subkey
+                    ].$parent.checkboxValue = [];
                   }
-                  if (this.$root.$refs["formGroupColBox" + subkey]) {
-                    this.$root.$refs["formGroupColBox" + subkey].hidden = true;
+                  if (
+                    this.$root.$refs[this.formCode]["formGroupColBox" + subkey]
+                  ) {
+                    this.$root.$refs[this.formCode][
+                      "formGroupColBox" + subkey
+                    ].hidden = true;
                   }
                 }
               }
               //   continue
               // }
-              // this.$root.$refs[key] = element.split(',');
+              // this.$root.$refs[this.formCode][key] = element.split(',');
               if (element) {
                 // console.log('~~~~~!!',key,formObj,element)
                 let value = element + "";
                 let arr = value.split(",");
                 if (arr) {
-                  // for (const subkey in this.$root.$refs[key]) {
-                  //   if (this.$root.$refs[key].hasOwnProperty(subkey) && arr.indexOf(subkey)>-1 && this.$root.$refs[key][subkey].hasOwnProperty('type')===-1) {
-                  //     this.$root.$refs[key][subkey].model=[]
-                  //     this.$root.$refs[key][subkey].push(subkey)
-                  //     console.log("--选项回填subkey", subkey, key,this.$root.$refs[key][subkey]);
+                  // for (const subkey in this.$root.$refs[this.formCode][key]) {
+                  //   if (this.$root.$refs[this.formCode][key].hasOwnProperty(subkey) && arr.indexOf(subkey)>-1 && this.$root.$refs[this.formCode][key][subkey].hasOwnProperty('type')===-1) {
+                  //     this.$root.$refs[this.formCode][key][subkey].model=[]
+                  //     this.$root.$refs[this.formCode][key][subkey].push(subkey)
+                  //     console.log("--选项回填subkey", subkey, key,this.$root.$refs[this.formCode][key][subkey]);
                   //   }
                   // }
                   arr.map(c => {
                     try {
                       if (
-                        this.$root.$refs[key][c] &&
+                        this.$root.$refs[this.formCode][key][c] &&
                         ["radio", "checkbox"].indexOf(
-                          this.$root.$refs[key][c].$parent.obj.type
+                          this.$root.$refs[this.formCode][key][c].$parent.obj
+                            .type
                         ) > -1
                       ) {
-                        this.$root.$refs[key][c].model = [];
-                        this.$root.$refs[key][c].model = [c];
-                        this.$root.$refs[key][c].$parent.checkboxValue = [c];
+                        this.$root.$refs[this.formCode][key][c].model = [];
+                        this.$root.$refs[this.formCode][key][c].model = [c];
+                        this.$root.$refs[this.formCode][key][
+                          c
+                        ].$parent.checkboxValue = [c];
                         //
                         if (value === c) {
                           // if(this.$root.$refs['formGroupColBox'+this.obj.title]){
                           //  this.$root.$refs['formGroupColBox'+this.obj.title].hidden = true
                           // }
-                          this.$root.$refs[key][c].runTasks();
+                          this.$root.$refs[this.formCode][key][c].runTasks();
                         }
                         //
-                        // console.log("--选项回填subkey", c, key,this.$root.$refs[key][c]);
+                        // console.log("--选项回填subkey", c, key,this.$root.$refs[this.formCode][key][c]);
                       }
                     } catch (error) {
                       console.log(
@@ -379,7 +517,7 @@ export default {
                         c,
                         key,
                         value,
-                        this.$root.$refs[key][c]
+                        this.$root.$refs[this.formCode][key][c]
                       );
 
                       // key 红叉辅助单选框组件
@@ -388,25 +526,33 @@ export default {
                         key === window.formObj.design.XRadiobox.name &&
                         value.indexOf(c) > -1
                       ) {
-                        this.$root.$refs[key][c].checked = true;
+                        this.$root.$refs[this.formCode][key][c].checked = true;
                       }
                       // else{
-                      //   this.$root.$refs[key][c].checked = false;
+                      //   this.$root.$refs[this.formCode][key][c].checked = false;
                       // }
                       //
                       //
                       if (
-                        this.$root.$refs[key][c].$parent &&
-                        this.$root.$refs[key][c].$parent.hasOwnProperty(
-                          "checkboxValue"
-                        ) > -1
+                        this.$root.$refs[this.formCode][key][c].$parent &&
+                        this.$root.$refs[this.formCode][key][
+                          c
+                        ].$parent.hasOwnProperty("checkboxValue") > -1
                       ) {
-                        this.$root.$refs[key][c].$parent.checkboxValue = [];
+                        this.$root.$refs[this.formCode][key][
+                          c
+                        ].$parent.checkboxValue = [];
                       }
                     }
                   });
                 }
-                console.log("选项回填", this.$root.$refs[key], key, value, arr);
+                console.log(
+                  "选项回填",
+                  this.$root.$refs[this.formCode][key],
+                  key,
+                  value,
+                  arr
+                );
               }
             }
           }

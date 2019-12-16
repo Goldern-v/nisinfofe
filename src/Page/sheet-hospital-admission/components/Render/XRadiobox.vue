@@ -16,7 +16,8 @@
     <el-tooltip class="item" effect="light" placement="top">
       <div slot="content">
         <span>
-          <span>标记:未能获取</span><span style="color:red">{{obj.title}}</span>信息
+          <span>标记:未能获取</span>
+          <span style="color:red">{{obj.title}}</span>信息
         </span>
       </div>
       <input
@@ -54,7 +55,14 @@ export default {
       Xname: this.getXRadioboxName() //"K0001","unclear_option",
     };
   },
-  computed: {},
+  computed: {
+    formCode() {
+      try {
+        return this.formObj.formSetting.formInfo.formCode;
+      } catch (error) {}
+      return "E0001";
+    }
+  },
   watch: {
     checkboxValue(valueNew, oldvaule) {
       // let value = valueNew.toString();
@@ -79,12 +87,17 @@ export default {
     let refName = this.obj.title; //this.obj.name //+
     // this.obj.type.toUpperCase() +
     // (this.obj.title || this.obj.label);
-    if (!this.$root.$refs[this.Xname]) {
-      this.$root.$refs[this.Xname] = [];
+    if (!this.$root.$refs[this.formCode]) {
+      this.$root.$refs[this.formCode] = [];
+    }
+    if (!this.$root.$refs[this.formCode][this.Xname]) {
+      this.$root.$refs[this.formCode][this.Xname] = [];
     }
     if (this.$refs[refName]) {
       this.$refs[refName]["childObject"] = this.obj;
-      this.$root.$refs[this.Xname][refName] = this.$refs[refName];
+      this.$root.$refs[this.formCode][this.Xname][refName] = this.$refs[
+        refName
+      ];
     }
     // console.log("RadioboxMounted", this.$refs, this.$root.$refs);
   },
@@ -115,21 +128,28 @@ export default {
       );
 
       if (e.target.tagName === "INPUT") {
-        if (this.$root.$refs[this.obj.name]) {
+        if (this.$root.$refs[this.formCode][this.obj.name]) {
           console.log("!!!!!", this.obj.title, this.obj.name, this.obj);
           try {
-            this.$root.$refs[this.obj.name].$el.style.outline = "none";
+            this.$root.$refs[this.formCode][this.obj.name].$el.style.outline =
+              "none";
             this.$refs[this.obj.name].$el.style.backgroundColor = "transparent";
           } catch (error) {
-            console.log(error, this.$root.$refs[this.obj.name]);
-            if (this.$root.$refs[this.obj.name].constructor === Array) {
-              let keys = Object.keys(this.$root.$refs[this.obj.name]);
-              this.$root.$refs[this.obj.name][
+            console.log(error, this.$root.$refs[this.formCode][this.obj.name]);
+            if (
+              this.$root.$refs[this.formCode][this.obj.name].constructor ===
+              Array
+            ) {
+              let keys = Object.keys(
+                this.$root.$refs[this.formCode][this.obj.name]
+              );
+              this.$root.$refs[this.formCode][this.obj.name][
                 keys[0]
               ].$parent.$parent.$parent.$el.style.outline = "none";
-              this.$root.$refs[this.obj.name][
+              this.$root.$refs[this.formCode][this.obj.name][
                 keys[0]
-              ].$parent.$parent.$parent.$el.style.backgroundColor = "transparent";
+              ].$parent.$parent.$parent.$el.style.backgroundColor =
+                "transparent";
             }
           }
         }

@@ -147,17 +147,26 @@
           "readOnly": true,
           "rule": [
             {
-              "equals": ["-1", "未保存"],
+              "equals": [
+                "-1",
+                "未保存"
+              ],
               "style": "color:gray",
               "display": "未签名"
             },
             {
-              "equals": ["0", "已保存 "],
+              "equals": [
+                "0",
+                "已保存 "
+              ],
               "style": "color:blue",
               "display": "已保存"
             },
             {
-              "equals": ["1", "已签名"],
+              "equals": [
+                "1",
+                "已签名"
+              ],
               "style": "color:red",
               "display": "已签名"
             }
@@ -214,7 +223,11 @@
           "style": null,
           "class": null,
           "readOnly": null,
-          "options": ["面部表情表", "数字评定量表", "词语描述量表"],
+          "options": [
+            "面部表情表",
+            "数字评定量表",
+            "词语描述量表"
+          ],
           "selectOnly": true
         },
         {
@@ -235,8 +248,9 @@
               "type": "input",
               "title": "疼痛部位",
               "titleStyle": "width:90px!important;text-align: right;",
-          "inputStyle": "width:270px!important",
-          "inputWidth": "136px",
+              "inputStyle": "width:270px!important",
+              "inputWidth": "136px",
+              "elementStyle": "width:auto",
               "hiddenTips": true,
               "style": null,
               "class": null,
@@ -262,7 +276,19 @@
           "style": null,
           "class": null,
           "readOnly": false,
-          "options": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+          "options": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ]
         },
         {
           "name": "I003006",
@@ -276,7 +302,10 @@
           "style": null,
           "class": null,
           "readOnly": false,
-          "options": ["间歇性", "持续性"]
+          "options": [
+            "间歇性",
+            "持续性"
+          ]
         },
         {
           "name": "I003005",
@@ -308,12 +337,25 @@
           "titleStyle": "width:90px!important;text-align: right;",
           "inputStyle": "width:270px!important",
           "inputWidth": "136px",
-          "hiddenTips": true,"titleSpanStyle":"margin-left:-25px!important",
+          "hiddenTips": true,
+          "titleSpanStyle": "margin-left:-25px!important",
           "suffixDesc": "",
           "style": null,
           "class": null,
           "readOnly": false,
-          "options": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+          "options": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ]
         },
         {
           "name": "I003007",
@@ -327,7 +369,11 @@
           "style": null,
           "class": null,
           "readOnly": false,
-          "options": ["无", "静脉镇痛", "硬膜外镇痛"]
+          "options": [
+            "无",
+            "静脉镇痛",
+            "硬膜外镇痛"
+          ]
         },
         {
           "name": "I003008",
@@ -341,11 +387,14 @@
           "style": null,
           "class": null,
           "readOnly": false,
-          "options": ["主动体位", "被动体位", "强迫体位"]
+          "options": [
+            "主动体位",
+            "被动体位",
+            "强迫体位"
+          ]
         }
       ]
     },
-
     {
       "name": "",
       "type": "formGroupHR",
@@ -373,7 +422,10 @@
     {
       "name": " ",
       "type": "formGroupVerticalBox",
-      "colWidth": ["0%", "100%"],
+      "colWidth": [
+        "0%",
+        "100%"
+      ],
       "title": " ",
       "message": "",
       "require": "false",
@@ -499,7 +551,10 @@
     {
       "name": "",
       "type": "formGroupColBox",
-      "colWidth": ["0%", "100%"],
+      "colWidth": [
+        "0%",
+        "100%"
+      ],
       "col": 1,
       "title": "",
       "message": "",
@@ -516,7 +571,7 @@
           "name": "M003012",
           "type": "datePicker",
           "title": "时间",
-          "boxStyle":"width: auto!important;",
+          "boxStyle": "width: auto!important;",
           "titleStyle": "width:70px!important;text-align: right;",
           "inputStyle": "width:270px!important",
           "inputWidth": "136px",
@@ -529,7 +584,7 @@
           "name": "M003013",
           "type": "input",
           "title": "药品",
-          "boxStyle":"width: auto!important;",
+          "boxStyle": "width: auto!important;",
           "titleStyle": "width:70px!important;text-align: right;",
           "inputStyle": "width:270px!important",
           "inputWidth": "136px",
@@ -548,7 +603,7 @@
           "name": "M003014",
           "type": "input",
           "title": "途径",
-          "boxStyle":"width: auto!important;",
+          "boxStyle": "width: auto!important;",
           "titleStyle": "width:70px!important;text-align: right;",
           "inputStyle": "width:270px!important",
           "inputWidth": "136px",
@@ -567,7 +622,10 @@
     {
       "name": " ",
       "type": "formGroupVerticalBox",
-      "colWidth": ["0%", "100%"],
+      "colWidth": [
+        "0%",
+        "100%"
+      ],
       "title": " ",
       "message": "",
       "require": "false",

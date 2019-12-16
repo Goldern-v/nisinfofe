@@ -261,6 +261,8 @@ export default {
         patient.formId = this.$route.params.formId || "";
         //
         this.$store.commit("upCurrentPatientObj", patient);
+        this.$store.commit("upWardCode", patient.wardCode || "");
+        this.$store.commit("upWardName", patient.wardName || "");
         //
         this.callFunction(patient);
         //
@@ -384,6 +386,7 @@ export default {
         this.img2Show = false;
       }
       this.getDate();
+      //
     },
     "$route.params.patientId": "fetchData"
   },

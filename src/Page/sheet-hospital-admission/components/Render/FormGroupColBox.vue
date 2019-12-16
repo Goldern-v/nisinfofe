@@ -10,7 +10,7 @@
       :style="obj.style||obj.boxStyle"
       :class="obj.class"
       class="group-col-box"
-      :ref="'formGroupColBox'+obj.title"
+      :ref="'formGroupColBox'+(obj.title||'')"
     >
       <table class="Form-Group-Col-Box">
         <colgroup v-if="obj.col">
@@ -28,19 +28,23 @@
           />
         </colgroup>
 
-        <tr v-if="obj.children" v-for="(c,n) in obj.children" :key="c.title+c.name+n">
+        <tr v-if="obj.children && c" v-for="(c,n) in obj.children" :key="c.title+c.name+n">
           <td
             v-for="col in obj.col"
             :key="'td'+c.title+c.name+col"
-            v-if="((n+(col-1))%obj.col)===col-1 && (n+(col-1))<obj.children.length"
+            v-if="((n+(col-1))%obj.col)===col-1 && (n+(col-1))<obj.children.length && showElement(obj.children[n+(col-1)],n+(col-1))"
             v-bind="obj.children[n+(col-1)].tdProps"
           >
             <TipsBox :obj="obj.children[n+(col-1)]" :formObj="formObj">
-              <div class="box-td" :class="c.boxClass" :style="c.boxStyle||obj.boxStyle||obj.children[n+(col-1)].boxStyle">
+              <div
+                class="box-td"
+                :class="c.boxClass"
+                :style="c.boxStyle||obj.boxStyle||obj.children[n+(col-1)].boxStyle"
+              >
                 <div
                   class="left-td"
                   :style="obj.children[n+(col-1)].titleStyle"
-                  :class="obj.children[n+(col-1)].titleClass"
+                  :class="[obj.children[n+(col-1)].titleClass,{'right':obj.children[n+(col-1)].hiddenTips}]"
                   v-if="obj.children[n+(col-1)].title || obj.children[n+(col-1)].labelTitle"
                 >
                   <!-- {{n+(col-1)}} -->
@@ -49,15 +53,23 @@
                     :style="obj.children[n+(col-1)].titleSpanStyle"
                     :class="obj.children[n+(col-1)].titleSpanClass"
                   >
-                    <XRadiobox :obj="obj.children[n+(col-1)]" :formObj="formObj" /><span v-html="titleFeedSpace(obj.children[n+(col-1)].title)"></span>{{obj.children[n+(col-1)].labelTitle?obj.children[n+(col-1)].labelTitle+':':''}}</span>
+                    <XRadiobox :obj="obj.children[n+(col-1)]" :formObj="formObj" />
+                    <span v-html="titleFeedSpace(obj.children[n+(col-1)].title)"></span>
+                    {{obj.children[n+(col-1)].labelTitle?obj.children[n+(col-1)].labelTitle+':':''}}
+                  </span>
                   <span
                     v-if="obj.children[n+(col-1)].dialog"
                     style="cursor:pointer;color:blue"
                     @click="titleClick($event,obj.children[n+(col-1)])"
-                  ><span v-html="titleFeedSpace(obj.children[n+(col-1)].title)"></span>{{obj.children[n+(col-1)].labelTitle}}<span
+                  >
+                    <span v-html="titleFeedSpace(obj.children[n+(col-1)].title)"></span>
+                    {{obj.children[n+(col-1)].labelTitle}}
+                    <!-- <span
                       v-if="obj.children[n+(col-1)].name === 'I100001'"
-                    >(<span style="color: transparent">空白</span>）
-                    </span>
+                    >
+                      (
+                      <span style="color: transparent">空白</span>）
+                    </span>-->
                   </span>
                 </div>
                 <div class="right-td" :style="obj.children[n+(col-1)].inputStyle">
@@ -107,6 +119,12 @@ export default {
   computed: {
     uui() {
       return uuid.v1();
+    },
+    formCode() {
+      try {
+        return this.formObj.formSetting.formInfo.formCode;
+      } catch (error) {}
+      return "E0001";
     }
   },
   watch: {
@@ -119,9 +137,13 @@ export default {
     // }
   },
   mounted() {
-    this.$root.$refs["formGroupColBox" + this.obj.title] = this.$refs[
+    if (!this.$root.$refs[this.formCode]) {
+      this.$root.$refs[this.formCode] = []; //new Array();
+    }
+
+    this.$root.$refs[this.formCode][
       "formGroupColBox" + this.obj.title
-    ];
+    ] = this.$refs["formGroupColBox" + this.obj.title];
 
     this.checkHidden();
   },
@@ -129,21 +151,35 @@ export default {
   methods: {
     checkHidden() {
       if (this.obj.hidden) {
-        this.$root.$refs["formGroupColBox" + this.obj.title].hidden = true;
+        this.$root.$refs[this.formCode][
+          "formGroupColBox" + this.obj.title
+        ].hidden = true;
       }
     },
-    titleFeedSpace(str){
+    titleFeedSpace(str) {
       //
-      if(!str){return ""}
-      if(str.length == 2) {
-        // for(i of str){ console.log(i)}
-        return `${str[0]}<span style='text-indent: 2em;display: inline-block;'>${str[1]}</span>:`
+      if (!str) {
+        return "";
       }
-      if(str.length == 3) {
+      if (str.length == 2) {
         // for(i of str){ console.log(i)}
-        return `<span>${str[0]}</span><span style='text-indent: 0.5em;display: inline-block;'>${str[1]}</span><span style='text-indent: 0.5em;display: inline-block;'>${str[2]}</span>:`
+        return `${
+          str[0]
+        }<span style='text-indent: 2em;display: inline-block;'>${
+          str[1]
+        }</span>:`;
       }
-      return str+':'// + str.length
+      if (str.length == 3) {
+        // for(i of str){ console.log(i)}
+        return `<span>${
+          str[0]
+        }</span><span style='text-indent: 0.5em;display: inline-block;'>${
+          str[1]
+        }</span><span style='text-indent: 0.5em;display: inline-block;'>${
+          str[2]
+        }</span>:`;
+      }
+      return str + ":"; // + str.length
     },
     titleClick(e, child) {
       console.log("titleClick", e, child, this.formObj.model, e.target.tagName);
@@ -159,6 +195,44 @@ export default {
           console.log("error", error);
         }
       }
+    },
+    showElement(obj, index) {
+      //
+      // v-if="showElement()"
+      let oldFormInfo = window.app.$store.getters.getOldFormInfo() || {};
+      // showDeptName
+      if (
+        obj &&
+        obj.hasOwnProperty("showDeptName") > -1 &&
+        obj.showDeptName &&
+        obj.showDeptName.length > 0
+      ) {
+        let deptName = "";
+        if (oldFormInfo && oldFormInfo.name) {
+          deptName = oldFormInfo.name.replace(/[()入院评估表]/g, "");
+          if (deptName && obj.showDeptName.indexOf(deptName) > -1) {
+            return true;
+          } else {
+            try {
+              console.log("!!!showElement!!!", [obj, index, this.obj.children]);
+              this.obj.children.splice(index, 1);
+            } catch (error) {}
+            return false;
+          }
+        } else {
+          try {
+            console.log("!!!showElement!!!", [obj, index, this.obj.children]);
+            this.obj.children.splice(index, 1);
+          } catch (error) {}
+          return false;
+        }
+        // try {
+        //   console.log("!!!showElement!!!", [obj, index, this.obj.children]);
+        //   this.obj.children.splice(index, 1);
+        // } catch (error) {}
+        //
+      }
+      return true;
     },
     getUUID() {
       let uuid_ = uuid.v1();
@@ -195,8 +269,20 @@ export default {
     // margin: 10px 0px 0 4px
     text-align: left
     font-size: 12px;
+    &.left
+      text-align: left
+    &.right
+      text-align: right
   .right-td
     width: 100%
+
+  .left-span
+    text-align: left
+    display: flex
+
+  .right-span
+    text-align: right
+    display: flex
 
   .Form-Group-Col-Box
     // border 1px dashed red

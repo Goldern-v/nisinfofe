@@ -57,6 +57,12 @@ export default {
     deptName() {
       return this.$store.state.lesion.deptName || this.$route.query.wardName;
     },
+    wardCode() {
+      return this.$store.state.lesion.wardCode || this.$route.query.wardCode;
+    },
+    wardName() {
+      return this.$store.state.lesion.wardName || this.$route.query.wardName;
+    },
     wih() {
       return this.$store.state.common.wih;
     },

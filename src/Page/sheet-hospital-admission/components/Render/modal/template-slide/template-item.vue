@@ -69,10 +69,19 @@ export default {
       msg: "hello vue"
     };
   },
-  computed: {},
+  computed: {
+    formCode() {
+      try {
+        return this.formObj.formSetting.formInfo.formCode;
+      } catch (error) {}
+      return "E0001";
+    }
+  },
   methods: {
     addTemplateAtDoc() {
-      this.$root.$refs[this.refName].$parent.inputValue += this.data.content;
+      this.$root.$refs[this.formCode][
+        this.refName
+      ].$parent.inputValue += this.data.content;
     },
     toEdit() {
       this.bus.$emit("openAddTemplateModal", this.data);

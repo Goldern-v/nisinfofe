@@ -38,7 +38,7 @@ export default {
   data() {
     return {
       TipsBoxValue: [],
-      refName: "",
+      refName: ""
       // mode: this.getMode()
     };
   },
@@ -47,7 +47,13 @@ export default {
       return window.formObj;
     },
     mode() {
-      return this.getMode()
+      return this.getMode();
+    },
+    formCode() {
+      try {
+        return this.formObj.formSetting.formInfo.formCode;
+      } catch (error) {}
+      return "E0001";
     }
   },
   watch: {
@@ -61,7 +67,7 @@ export default {
     this.refName =
       this.obj.name + type.toUpperCase() + (this.obj.title || this.obj.label);
     if (this.$refs[this.refName]) {
-      this.$root.$refs[this.refName] = this.$refs[this.refName];
+      this.$root.$refs[this.formCode][this.refName] = this.$refs[this.refName];
     }
     // console.log('TipsBoxMounted',this.$refs,this.$root.$refs)
   },
@@ -85,7 +91,7 @@ export default {
         this.obj,
         this.formObj,
         this.refName,
-        this.$root.$refs[this.obj.name],
+        this.$root.$refs[this.formCode][this.obj.name],
         this.$root.$refs
       );
       // this.$root.$refs.uiEditor

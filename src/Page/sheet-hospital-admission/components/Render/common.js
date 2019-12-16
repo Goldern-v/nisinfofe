@@ -3,8 +3,13 @@ import {
   save,
   del,
   get,
-  list
-} from "@/Page/sheet-hospital-eval/api/index.js";
+  list,
+  cancelSignOrAduit,
+  getOldFormCodeByWardCode,
+  getEvalInfo
+} from "@/Page/sheet-hospital-admission/api/index.js";
+//
+// @/Page/sheet-hospital-admission/components/Render/api/index.js
 
 import bus from "vue-happy-bus";
 import commom from "@/common/mixin/common.mixin.js";
@@ -16,6 +21,23 @@ export const getFormDetail = (id, callback = null) => {
   let result = null;
   get(id).then(res => {
     console.log("getFormDetail", res);
+    if (callback) {
+      callback(res);
+    }
+  });
+};
+
+export const getOldFormCode = (formCode, wardCode) => {
+  return getOldFormCodeByWardCode(formCode, wardCode)
+  // .then(res=>{
+  //   console.log('getOldFormCodeByWardCode:',res)
+  // })
+}
+
+export let cancelSignForm = function (postData, callback = null) {
+  // console.log('cancelSignForm',[postData, callback])
+  cancelSignOrAduit(postData).then(res => {
+    console.log("cancelSignOrAduit", res);
     if (callback) {
       callback(res);
     }
@@ -54,7 +76,7 @@ export const saveForm = (formObj, callback = null) => {
       // password: "123456"
     };
 
-    post = Object.assign({}, post, formObj.model);
+    post = { ...post, ...formObj.model } //Object.assign({}, post, formObj.model);
 
     if (!post.evalDate) {
       post.evalDate = dayjs().format("YYYY-MM-DD HH:mm")
@@ -86,14 +108,14 @@ export const saveForm = (formObj, callback = null) => {
           data: {
             data: {
               formResult: { id: id },
-              master:master,
+              master: master,
             }
           }
         } = res;
         console.log("保存评估id", id);
         formObj.model["id"] = id;
         //
-        if(master.updaterName && master.updateTime){
+        if (master.updaterName && master.updateTime) {
           formObj.formSetting.updateInfo = `由${master.updaterName}创建，最后编辑于${master.updateTime}`
         }
         if (callback) {
@@ -114,4 +136,8 @@ export const saveForm = (formObj, callback = null) => {
   console.log("保存", user, formObj);
 };
 
-export default {};
+export default {
+  saveForm,
+  getFormDetail,
+  cancelSignForm
+};

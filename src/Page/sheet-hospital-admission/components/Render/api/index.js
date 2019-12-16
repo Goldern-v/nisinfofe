@@ -59,6 +59,11 @@ export function del(postData) {
   return axios.post(`${apiPath}form/design/delete`, postData)
 }
 
+
+export function cancelSignOrAduit(postData) {
+  return axios.post(`${apiPath}form/design/cancelSignOrAduit `, postData);
+}
+
 // formDesign - 新表单：获取数据
 /**
 {
@@ -92,3 +97,5 @@ export function templates(postData) {
 export function list(postData) {
   return axios.post(`${apiPath}form/design/list`, postData)
 }
+
+

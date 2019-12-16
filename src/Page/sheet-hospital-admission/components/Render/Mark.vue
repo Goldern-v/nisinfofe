@@ -80,7 +80,14 @@ export default {
       isClone: false
     };
   },
-  computed: {},
+  computed: {
+    formCode() {
+      try {
+        return this.formObj.formSetting.formInfo.formCode;
+      } catch (error) {}
+      return "E0001";
+    }
+  },
   watch: {
     inputValue(valueNew, oldvaule) {
       console.log("inputValue:", valueNew, oldvaule);
@@ -93,11 +100,11 @@ export default {
       /** 如果存在clone ref */
       setTimeout(() => {
         if (this.isClone) {
-          this.$root.$refs[this.obj.name].setCurrentValue(valueNew);
-          this.$root.$refs[this.obj.name].$parent.checkValueRule(valueNew);
-        } else if (this.$root.$refs[this.obj.name + "_clone"]) {
-          this.$root.$refs[this.obj.name + "_clone"].setCurrentValue(valueNew);
-          this.$root.$refs[this.obj.name + "_clone"].$parent.checkValueRule(
+          this.$root.$refs[this.formCode][this.obj.name].setCurrentValue(valueNew);
+          this.$root.$refs[this.formCode][this.obj.name].$parent.checkValueRule(valueNew);
+        } else if (this.$root.$refs[this.formCode][this.obj.name + "_clone"]) {
+          this.$root.$refs[this.formCode][this.obj.name + "_clone"].setCurrentValue(valueNew);
+          this.$root.$refs[this.formCode][this.obj.name + "_clone"].$parent.checkValueRule(
             valueNew
           );
         }
@@ -140,10 +147,10 @@ export default {
       this.$refs[refName]["childObject"] = this.obj;
       this.$refs[refName]["checkValueRule"] = this.checkValueRule;
       if (this.obj.isClone) {
-        this.$root.$refs[refName + "_clone"] = this.$refs[refName];
+        this.$root.$refs[this.formCode][refName + "_clone"] = this.$refs[refName];
         this.isClone = true;
       } else {
-        this.$root.$refs[refName] = this.$refs[refName];
+        this.$root.$refs[this.formCode][refName] = this.$refs[refName];
       }
     }
     if (
@@ -260,7 +267,7 @@ export default {
               this.$refs[this.obj.name].type === "text"
             ) {
               this.$refs[this.obj.name].setCurrentValue(r.display);
-              this.$root.$refs[this.obj.name].setCurrentValue(r.display);
+              this.$root.$refs[this.formCode][this.obj.name].setCurrentValue(r.display);
             }
             textResult = r.display ? r.display : "";
             // return textResult;
@@ -275,7 +282,7 @@ export default {
               this.$refs[this.obj.name].type === "text"
             ) {
               this.$refs[this.obj.name].setCurrentValue(r.display);
-              this.$root.$refs[this.obj.name].setCurrentValue(r.display);
+              this.$root.$refs[this.formCode][this.obj.name].setCurrentValue(r.display);
             }
             textResult = r.display ? r.display : "";
             // return textResult;
@@ -289,7 +296,7 @@ export default {
               this.$refs[this.obj.name].type === "text"
             ) {
               this.$refs[this.obj.name].setCurrentValue(r.display);
-              this.$root.$refs[this.obj.name].setCurrentValue(r.display);
+              this.$root.$refs[this.formCode][this.obj.name].setCurrentValue(r.display);
             }
             textResult = r.display ? r.display : "";
           } else if (r.scoreMin && r.scoreMax && valueNew) {
@@ -340,7 +347,7 @@ export default {
         this.$refs[this.obj.name].$refs.input.style = this.obj.style;
       } catch (error) {}
 
-      // this.$root.$refs[this.obj.name].$refs.input.style = this.obj.style;
+      // this.$root.$refs[this.formCode][this.obj.name].$refs.input.style = this.obj.style;
       // }
       return textResult;
     },
