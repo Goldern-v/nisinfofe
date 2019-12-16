@@ -1,6 +1,8 @@
 
 <template>
-  <span style :style="(obj.label||obj.suffixDesc)  && {display: 'flex', alignItems: 'center' }">
+  <span
+    :style="(obj.label||obj.suffixDesc)  && {display: 'flex', alignItems: 'center', margin:'5px 0' }"
+  >
     <!-- <autoComplete v-if="isShow" ref="autoInput" /> -->
     <!-- <el-input v-if="obj.type==='input'" v-model="checkboxValue" border size="small" :label="obj.title" :class="obj.class" :style="obj.style">{{obj.title}}</el-input> -->
     <span
@@ -93,49 +95,49 @@ export default {
       try {
         return this.formObj.formSetting.formInfo.formCode;
       } catch (error) {}
-      return "E0100";
+      return "E0001";
     }
   },
   watch: {
-    inputValue(valueNew, oldvaule) {
-      console.log("inputValue:", valueNew, oldvaule);
-      if (this.model === "normal") {
-        this.formObj.model[this.obj.name] = valueNew;
-        this.checkValueRule(valueNew);
-        this.obj.value = valueNew;
-        console.log("obj:", this.obj);
-      }
-      /** 如果存在clone ref */
-      // setTimeout(() => {
-      //   if (this.isClone) {
-      //     this.$root.$refs[this.formCode][this.obj.name].setCurrentValue(valueNew);
-      //     this.$root.$refs[this.formCode][this.obj.name].$parent.checkValueRule(valueNew);
-      //   } else if (this.$root.$refs[this.formCode][this.obj.name + "_clone"]) {
-      //     this.$root.$refs[this.formCode][this.obj.name + "_clone"].setCurrentValue(valueNew);
-      //     this.$root.$refs[this.formCode][this.obj.name + "_clone"].$parent.checkValueRule(
-      //       valueNew
-      //     );
-      //   }
-      // }, 100);
-
-      return valueNew;
-    },
-    obj: {
-      handler(curVal, oldVal) {
-        // console.log("handler", curVal, oldVal);
-        if (
-          this.obj &&
-          this.obj.hasOwnProperty("value") > -1 &&
-          curVal.value != undefined
-        ) {
-          this.inputValue = curVal.value + "";
-        }
-        // if(this.obj && this.obj.hasOwnProperty('value')>-1 && curVal.value!=undefined &&curVal.value.constructor === Array){
-        //   this.inputValue = curVal.value + ''
-        // }
-      },
-      deep: true
-    }
+    // inputValue(valueNew, oldvaule) {
+    //   console.log("inputValue:", valueNew, oldvaule);
+    //   if (this.model === "normal") {
+    //     this.formObj.model[this.obj.name] = valueNew;
+    //     window.formObj.model[this.obj.name] = valueNew;
+    //     this.checkValueRule(valueNew);
+    //     this.obj.value = valueNew;
+    //     console.log("obj:", this.obj);
+    //   }
+    //   /** 如果存在clone ref */
+    //   // setTimeout(() => {
+    //   //   if (this.isClone) {
+    //   //     this.$root.$refs[this.formCode][this.obj.name].setCurrentValue(valueNew);
+    //   //     this.$root.$refs[this.formCode][this.obj.name].$parent.checkValueRule(valueNew);
+    //   //   } else if (this.$root.$refs[this.formCode][this.obj.name + "_clone"]) {
+    //   //     this.$root.$refs[this.formCode][this.obj.name + "_clone"].setCurrentValue(valueNew);
+    //   //     this.$root.$refs[this.formCode][this.obj.name + "_clone"].$parent.checkValueRule(
+    //   //       valueNew
+    //   //     );
+    //   //   }
+    //   // }, 100);
+    //   return valueNew;
+    // },
+    // obj: {
+    //   handler(curVal, oldVal) {
+    //     // console.log("handler", curVal, oldVal);
+    //     if (
+    //       this.obj &&
+    //       this.obj.hasOwnProperty("value") > -1 &&
+    //       curVal.value != undefined
+    //     ) {
+    //       this.inputValue = curVal.value + "";
+    //     }
+    //     // if(this.obj && this.obj.hasOwnProperty('value')>-1 && curVal.value!=undefined &&curVal.value.constructor === Array){
+    //     //   this.inputValue = curVal.value + ''
+    //     // }
+    //   },
+    //   deep: true
+    // }
   },
   mounted() {
     let refName = this.obj.name; //+this.obj.type.toUpperCase()+(this.obj.title||this.obj.label)
@@ -151,14 +153,14 @@ export default {
       // this.formObj.model[this.obj.name] = this.$refs[refName].currentValue;
       this.$refs[refName]["childObject"] = this.obj;
       this.$refs[refName]["checkValueRule"] = this.checkValueRule;
-      if (this.obj.isClone) {
-        this.$root.$refs[this.formCode][refName + "_clone"] = this.$refs[
-          refName
-        ];
-        this.isClone = true;
-      } else {
-        this.$root.$refs[this.formCode][refName] = this.$refs[refName];
-      }
+      // if (this.obj.isClone) {
+      //   this.$root.$refs[this.formCode][refName + "_clone"] = this.$refs[
+      //     refName
+      //   ];
+      //   this.isClone = true;
+      // } else {
+      this.$root.$refs[this.formCode][refName] = this.$refs[refName];
+      // }
     }
     if (
       this.obj &&
@@ -251,8 +253,12 @@ export default {
   methods: {
     checkValueRule(valueNew) {
       let textResult = valueNew;
-      this.obj.style = "";
+      try {
+        this.obj.style = "";
+      } catch (error) {}
+
       if (
+        this.obj &&
         this.obj.hasOwnProperty("rule") !== -1 &&
         this.obj.rule &&
         this.obj.rule.constructor === Array
@@ -530,6 +536,7 @@ export default {
     },
     inputChange(e, child) {
       console.log("inputChange", e, child, this.formObj.model, this.inputValue);
+      let valueNew = this.inputValue;
       // this.$store.commit("upFormObj", JSON.parse(JSON.stringify(this.formObj)));
       // property
       // model  development-model this.model === "development"
@@ -540,6 +547,14 @@ export default {
         typeof this.property[this.obj.title] === "string"
       ) {
         this.property[this.obj.title] = this.inputValue;
+      }
+      //
+      if (this.model === "normal") {
+        this.formObj.model[this.obj.name] = valueNew;
+        window.formObj.model[this.obj.name] = valueNew;
+        this.checkValueRule(valueNew);
+        this.obj.value = valueNew;
+        console.log("obj:", this.obj);
       }
     },
     inputClick(e, child) {
@@ -672,8 +687,8 @@ export default {
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
 .el-checkbox, .el-select, .is-bordered, .el-checkbox--small, .el-input, .el-input--small, .el-input-group, .el-textarea__inner {
-  margin: 5px 0px;
-  vertical-align: bottom;
+  // margin: 0 0 0px 0px;
+  vertical-align: middle;
   // width: 100%;
 
   &:hover {

@@ -111,6 +111,7 @@
           "value": "",
           "placeholder": "评估时间",
           "style": "width:145px",
+          "inputWidth": "136px",
           "class": null,
           "readOnly": null
         },
@@ -123,6 +124,7 @@
           "value": "",
           "placeholder": "评估人",
           "style": "width:80px",
+          "inputWidth": "136px",
           "class": null,
           "readOnly": true
         },
@@ -135,21 +137,31 @@
           "value": "0",
           "placeholder": "状态",
           "style": "width:80px",
+          "inputWidth": "136px",
           "class": null,
           "readOnly": true,
           "rule": [
             {
-              "equals": ["-1", "未保存"],
+              "equals": [
+                "-1",
+                "未保存"
+              ],
               "style": "color:gray",
               "display": "未签名"
             },
             {
-              "equals": ["0", "已保存 "],
+              "equals": [
+                "0",
+                "已保存 "
+              ],
               "style": "color:blue",
               "display": "未签名"
             },
             {
-              "equals": ["1", "已签名"],
+              "equals": [
+                "1",
+                "已签名"
+              ],
               "style": "color:red",
               "display": "已签名"
             }
@@ -184,7 +196,7 @@
     {
       "name": "1. 感觉",
       "type": "formGroupHorizontalBox",
-      "titleStyle":"text-align:left",
+      "titleStyle": "text-align:left",
       "title": "1. 感觉",
       "message": "",
       "require": "false",
@@ -241,7 +253,7 @@
     {
       "name": "2. 潮湿",
       "type": "formGroupHorizontalBox",
-      "titleStyle":"text-align:left",
+      "titleStyle": "text-align:left",
       "title": "2. 潮湿",
       "message": "",
       "require": "false",
@@ -298,7 +310,7 @@
     {
       "name": "3. 活动",
       "type": "formGroupHorizontalBox",
-      "titleStyle":"text-align:left",
+      "titleStyle": "text-align:left",
       "title": "3. 活动",
       "message": "",
       "require": "false",
@@ -355,7 +367,7 @@
     {
       "name": "4. 移动",
       "type": "formGroupHorizontalBox",
-      "titleStyle":"text-align:left",
+      "titleStyle": "text-align:left",
       "title": "4. 移动",
       "message": "",
       "require": "false",
@@ -412,7 +424,7 @@
     {
       "name": "5. 营养",
       "type": "formGroupHorizontalBox",
-      "titleStyle":"text-align:left",
+      "titleStyle": "text-align:left",
       "title": "5. 营养",
       "message": "",
       "require": "false",
@@ -469,7 +481,7 @@
     {
       "name": "6. 摩擦力和剪切力",
       "type": "formGroupHorizontalBox",
-      "titleStyle":"text-align:left",
+      "titleStyle": "text-align:left",
       "title": "6. 摩擦力和剪切力",
       "message": "",
       "require": "false",
@@ -531,6 +543,7 @@
           "name": "evalScore",
           "type": "input",
           "title": "评估得分",
+          "hiddenTips": true,
           "code": "evalScore",
           "value": 0,
           "placeholder": "评估得分",
@@ -544,6 +557,7 @@
           "title": "结果程度",
           "value": "",
           "placeholder": "结果程度",
+          "hiddenTips": true,
           "style": "width:80px",
           "class": null,
           "readOnly": true,

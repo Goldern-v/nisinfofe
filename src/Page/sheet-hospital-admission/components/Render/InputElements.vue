@@ -7,8 +7,8 @@
     <span
       v-for="(child,cindex) in obj"
       :key="child.name+cindex+getUUID(child,cindex)"
-      :class="[child.elementClass,(child.type=='select'?'result-text-display':'')]"
-      :style="child.elementStyle ? child.elementStyle : 'margin: 0 0px 0 0;'"
+      :class="[child.elementClass,{'result-text-display':child.type=='select'},{'full-text-width':['input','datePicker'].indexOf(child.type)>-1}]"
+      :style="child.elementStyle ? child.elementStyle : 'margin: 0;'"
       class="input-element"
     >
       <!-- html -->
@@ -240,7 +240,7 @@ export default {
       try {
         return this.formObj.formSetting.formInfo.formCode;
       } catch (error) {}
-      return "E0100";
+      return "E0001";
     }
   },
   watch: {
@@ -831,12 +831,15 @@ export default {
   bottom: 8px;
 
 .result-text-display
-    text-overflow: ellipsis;
-    overflow: hidden;
-    width: 100%;
-    white-space: nowrap;
-    display: inline;
-    color: blue;
-    font-size: 12px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  width: 100%;
+  white-space: nowrap;
+  display: inline;
+  color: blue;
+  font-size: 12px;
+
+.full-text-width
+  width:100%;
 
 </style>
