@@ -62,6 +62,16 @@ function switechSheetType(type) {
     //     schema = require("../config/nkzzyxk_lc/tr.js").default;
     //   }
     //   break;
+     // case "neonatology2": {
+    //   // 陵城区-新生儿科 里的 新生儿监护
+    //   schema = require("../config/neonatology_lc/tr.js").default;
+    // }
+    // break;
+    // case "neurology_wx": {
+    //   // 陵城区-床头记录单
+    //   schema = require("../config/bedside_lc/tr.js").default;
+    // }
+    // break;
     case "neurology":
       {
         // 神经内科
