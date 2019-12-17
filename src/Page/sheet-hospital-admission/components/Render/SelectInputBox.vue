@@ -99,6 +99,7 @@ export default {
     inputValue(valueNew, oldvaule) {
       // console.log("inputValue:", valueNew, oldvaule);
       this.formObj.model[this.obj.name] = valueNew;
+      window.formObj.model[this.obj.name] = valueNew;
       this.checkValueRule(valueNew);
       // console.log("obj:", this.obj, this.$refs);
       this.isShowDownList = false;

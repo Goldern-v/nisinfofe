@@ -5,7 +5,7 @@
     <!-- <TipsBox :obj='obj'  :formObj="formObj"> obj.name+obj.type.toUpperCase()+obj.title||obj.label-->
     <el-checkbox
       :ref="refName"
-      :name="obj.code || obj.title"
+      :name="obj.code || obj.name || obj.title"
       v-if="obj.type==='checkbox'"
       v-model="checkboxValue"
       border
