@@ -68,23 +68,23 @@ export function removeShiftRecordRow(rowId) {
 
 // 删除交班志
 export function removeShiftRecord(id, empNo, password) {
-  return axios.get(
-    `${apiPath}changeShiftTime/delById/${id}/${empNo}/${password}`
+  return axios.post(
+    `${apiPath}changeShiftTime/delById/${id}/${empNo}/${password}`, { id, empNo, password }
   );
 }
 
 // 更新交班签名
 export function signShiftRecord(id, AutographNameType, empNo, password) {
-  return axios.get(
-    `${apiPath}changeShiftTime/updateAutographName/${id}/${AutographNameType}/${empNo}/${password}`
+  return axios.post(
+    `${apiPath}changeShiftTime/updateAutographName`, { id, AutographNameType, empNo, password }
   );
 }
 
 // 取消交班签名
 export function delSignShiftRecord(id, empNo, password, type, sourceEmpNo) {
-  return axios.get(
-    `${apiPath}changeShiftTime/updateAutographName/${id}/${empNo}/${password}/${type}/${sourceEmpNo}
-    `
+  return axios.post(
+    `${apiPath}changeShiftTime/updateAutographNamePost
+    `, { id, empNo, password, type, sourceEmpNo }
   );
 }
 
