@@ -553,6 +553,10 @@ export default {
         html: html
       };
 
+      if (isShow) {
+        console.log("----result", [child.title, result, child.name, child]);
+      }
+
       return result;
     },
     // getOtherText(child) {
