@@ -92,14 +92,13 @@ export default {
       try {
         return this.formObj.formSetting.formInfo.formCode;
       } catch (error) {}
-      return "E0001";
+      return "E0100";
     }
   },
   watch: {
     inputValue(valueNew, oldvaule) {
       // console.log("inputValue:", valueNew, oldvaule);
       this.formObj.model[this.obj.name] = valueNew;
-      window.formObj.model[this.obj.name] = valueNew;
       this.checkValueRule(valueNew);
       // console.log("obj:", this.obj, this.$refs);
       this.isShowDownList = false;

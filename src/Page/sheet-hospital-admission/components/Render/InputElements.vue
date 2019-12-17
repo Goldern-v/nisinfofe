@@ -7,8 +7,8 @@
     <span
       v-for="(child,cindex) in obj"
       :key="child.name+cindex+getUUID(child,cindex)"
-      :class="[child.elementClass,{'result-text-display':child.type=='select'},{'full-text-width':['input','datePicker'].indexOf(child.type)>-1}]"
-      :style="child.elementStyle ? child.elementStyle : 'margin: 0;'"
+      :class="[child.elementClass,(child.type=='select'?'result-text-display':'')]"
+      :style="child.elementStyle ? child.elementStyle : 'margin: 0 0px 0 0;'"
       class="input-element"
     >
       <!-- html -->
@@ -240,7 +240,7 @@ export default {
       try {
         return this.formObj.formSetting.formInfo.formCode;
       } catch (error) {}
-      return "E0001";
+      return "E0100";
     }
   },
   watch: {
@@ -491,7 +491,7 @@ export default {
                     //
                     if (child.children) {
                       if (this.formObj.model[child.name]) {
-                        html += `<span style='margin-right:5px'><span style='color:green'>!!!${title}</span>:<span>${this
+                        html += `<span style='margin-right:5px'><span style='color:green'>${title}</span>:<span>${this
                           .formObj.model[child.name] || ""}${child.suffixDesc ||
                           ""}</span></span>`;
                         // hasNewLine?html+=newLine:html=html;
@@ -552,10 +552,6 @@ export default {
         isShow: isShow,
         html: html
       };
-
-      if (isShow) {
-        console.log("----result", [child.title, result, child.name, child]);
-      }
 
       return result;
     },
@@ -835,15 +831,12 @@ export default {
   bottom: 8px;
 
 .result-text-display
-  text-overflow: ellipsis;
-  overflow: hidden;
-  width: 100%;
-  white-space: nowrap;
-  display: inline;
-  color: blue;
-  font-size: 12px;
-
-.full-text-width
-  width:100%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 100%;
+    white-space: nowrap;
+    display: inline;
+    color: blue;
+    font-size: 12px;
 
 </style>

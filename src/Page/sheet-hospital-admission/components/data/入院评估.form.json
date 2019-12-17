@@ -21,8 +21,8 @@
       "showAudit": true
     },
     "formInfo": {
-      "formCode": "E0001",
-      "formApiCode": "E0001",
+      "formCode": "E0100",
+      "formApiCode": "E0100",
       "formName": "入院评估",
       "status": "0",
       "formType": "eval"
@@ -225,7 +225,7 @@
           "title": "民族",
           "titleStyle": "width:80px!important",
           "inputStyle": "width:100%!important",
-          "inputWidth": "90px",
+          "inputWidth": "80px",
           "style": null,
           "class": null,
           "hiddenTips": true,
@@ -260,7 +260,7 @@
               "name": "计算BMI",
               "height": "I100009",
               "weight": "I100010",
-              "weight2": "I001883",
+              "weight2": "I1001883",
               "result": "I100011"
             }
           ]
@@ -271,7 +271,7 @@
           "title": "体重",
           "titleStyle": "width:80px!important",
           "inputStyle": "width:100%!important",
-          "inputWidth": "90px",
+          "inputWidth": "80px",
           "suffixDesc": "kg",
           "style": null,
           "class": null,
@@ -282,22 +282,19 @@
               "name": "计算BMI",
               "height": "I100009",
               "weight": "I100010",
-              "weight2": "I001883",
+              "weight2": "I1001883",
               "result": "I100011"
             }
           ]
         },
         {
-          "name": "I001883",
+          "name": "I1001883",
           "type": "input",
           "title": "孕前体重(产科)",
           "titleStyle": "width:140px!important",
           "inputStyle": "width:100%!important",
           "inputWidth": "60px",
           "suffixDesc": "kg",
-          "showDeptName": [
-            "产科"
-          ],
           "style": null,
           "class": null,
           "hiddenTips": true,
@@ -307,7 +304,7 @@
               "name": "计算BMI",
               "height": "I100009",
               "weight": "I100010",
-              "weight2": "I001883",
+              "weight2": "I1001883",
               "result": "I100011"
             }
           ]
@@ -329,42 +326,10 @@
               "name": "计算BMI",
               "height": "I100009",
               "weight": "I100010",
-              "weight2": "I001883",
+              "weight2": "I1001883",
               "result": "I100011"
             }
           ]
-        },
-        {
-          "name": "I001972",
-          "type": "input",
-          "title": "头围",
-          "titleStyle": "width:80px!important",
-          "inputStyle": "width:100%!important",
-          "inputWidth": "90px",
-          "suffixDesc": "cm",
-          "showDeptName": [
-            "新生儿科"
-          ],
-          "style": null,
-          "class": null,
-          "hiddenTips": true,
-          "readOnly": null
-        },
-        {
-          "name": "I001923",
-          "type": "input",
-          "title": "腹围",
-          "titleStyle": "width:80px!important",
-          "inputStyle": "width:100%!important",
-          "inputWidth": "90px",
-          "suffixDesc": "cm",
-          "showDeptName": [
-            "新生儿科"
-          ],
-          "style": null,
-          "class": null,
-          "hiddenTips": true,
-          "readOnly": null
         }
       ]
     },
@@ -399,29 +364,13 @@
           "readOnly": null
         },
         {
-          "name": "I001924",
-          "type": "input",
-          "title": "转出医院",
-          "titleStyle": "width:80px!important",
-          "inputStyle": "width:100%!important",
-          "inputWidth": "90px",
-          "suffixDesc": "",
-          "showDeptName": [
-            "新生儿科"
-          ],
-          "style": null,
-          "class": null,
-          "hiddenTips": true,
-          "readOnly": null
-        },
-        {
           "name": "I001009",
           "type": "select",
           "title": "入院方式",
           "style": null,
           "titleStyle": "width:60px!important",
           "inputStyle": "width:175px!important",
-          "inputWidth": "90px",
+          "inputWidth": "80px",
           "class": null,
           "readOnly": null,
           "rule": [
@@ -442,148 +391,6 @@
               "style": "color:red"
             }
           ]
-        },
-        {
-          "name": "I001925",
-          "type": "select",
-          "title": "陪同者",
-          "style": null,
-          "titleStyle": "width:60px!important",
-          "inputStyle": "width:175px!important",
-          "inputWidth": "90px",
-          "class": null,
-          "showDeptName": [
-            "新生儿科"
-          ],
-          "readOnly": null,
-          "rule": [
-            {
-              "dialog": {
-                "openKey": "其他",
-                "cleanKey": [
-                  "无"
-                ],
-                "title": "其他陪同者",
-                "cleanKeyDiff": "其他",
-                "parentName": "I001925",
-                "type": "dependent"
-              }
-            },
-            {
-              "equal": "有",
-              "style": "color:red"
-            }
-          ]
-        },
-        {
-          "name": "I001927",
-          "type": "select",
-          "title": "居住状态",
-          "style": null,
-          "titleStyle": "width:60px!important",
-          "inputStyle": "width:175px!important",
-          "inputWidth": "90px",
-          "class": null,
-          "showDeptName": [
-            "新生儿科"
-          ],
-          "readOnly": null,
-          "rule": [
-            {
-              "dialog": {
-                "openKey": "其他",
-                "cleanKey": [
-                  "无"
-                ],
-                "title": "其他居住状态",
-                "cleanKeyDiff": "其他",
-                "parentName": "I001927",
-                "type": "dependent"
-              }
-            },
-            {
-              "equal": "有",
-              "style": "color:red"
-            }
-          ]
-        },
-        {
-          "name": "I001929",
-          "type": "select",
-          "title": "监护人",
-          "style": null,
-          "titleStyle": "width:60px!important",
-          "inputStyle": "width:175px!important",
-          "inputWidth": "90px",
-          "class": null,
-          "showDeptName": [
-            "新生儿科"
-          ],
-          "readOnly": null,
-          "rule": [
-            {
-              "dialog": {
-                "openKey": "其他",
-                "cleanKey": [
-                  "无"
-                ],
-                "title": "其他监护人",
-                "cleanKeyDiff": "其他",
-                "parentName": "I001929",
-                "type": "dependent"
-              }
-            },
-            {
-              "equal": "有",
-              "style": "color:red"
-            }
-          ]
-        },
-        {
-          "name": "I001931",
-          "type": "select",
-          "title": "陪护人",
-          "style": null,
-          "titleStyle": "width:60px!important",
-          "inputStyle": "width:175px!important",
-          "inputWidth": "90px",
-          "class": null,
-          "showDeptName": [
-            "新生儿科"
-          ],
-          "readOnly": null,
-          "rule": [
-            {
-              "dialog": {
-                "openKey": "其他",
-                "cleanKey": [
-                  "无"
-                ],
-                "title": "其他陪护人",
-                "cleanKeyDiff": "其他",
-                "parentName": "I001931",
-                "type": "dependent"
-              }
-            },
-            {
-              "equal": "有",
-              "style": "color:red"
-            }
-          ]
-        },
-        {
-          "name": "I001933",
-          "type": "select",
-          "title": "监护人文化程度",
-          "style": null,
-          "titleStyle": "width:138px!important",
-          "inputStyle": "width:100%!important",
-          "inputWidth": "58px",
-          "class": null,
-          "showDeptName": [
-            "新生儿科"
-          ],
-          "readOnly": null
         },
         {
           "name": "I001010",
@@ -614,7 +421,7 @@
           "style": null,
           "titleStyle": "width:60px!important",
           "inputStyle": "width:175px!important",
-          "inputWidth": "90px",
+          "inputWidth": "80px",
           "class": null,
           "readOnly": null
         },
@@ -769,7 +576,7 @@
           "suffixDesc": "mmHG",
           "titleStyle": "width:30px!important",
           "inputStyle": "width:100%!important",
-          "inputWidth": "65px",
+          "inputWidth": "55px",
           "style": null,
           "class": null,
           "readOnly": null,
@@ -2127,7 +1934,7 @@
               "dialog": {
                 "openKey": "有",
                 "cleanKey": "无",
-                "openDiffKey": "无",
+                "openDiffKey":"无",
                 "title": "自理能力评估表",
                 "default": "自理能力评估表",
                 "name": "I100126",
@@ -4699,8 +4506,7 @@
   "design": {
     "XRadiobox": {
       "name": "K0001",
-      "title": "红叉辅助单选框组件",
-      "titleClass": "left"
+      "title": "红叉辅助单选框组件"
     }
   }
 }

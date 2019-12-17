@@ -97,5 +97,3 @@ export function templates(postData) {
 export function list(postData) {
   return axios.post(`${apiPath}form/design/list`, postData)
 }
-
-
