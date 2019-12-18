@@ -2,7 +2,8 @@
   <div>
     <!-- <button @click="getCertAndRandomSign">测试签名</button> -->
     <!-- <mewsChart></mewsChart> -->
-    <baseTree :configList="configList"></baseTree>
+    <!-- <baseTree :configList="configList"></baseTree> -->
+    <iframe @load="onload"></iframe>
   </div>
 </template>
 
@@ -54,6 +55,17 @@ export default {
   methods: {
     getCertAndRandomSign() {
       verifyCaSign();
+    },
+    onload() {
+      let wid = document.querySelector("iframe").contentWindow;
+      let n = document.createElement("div");
+      let h = document.createElement("meta");
+
+      h["http-equiv"] = "Content-Type";
+      h["content"] = "text/html; charset=gbk";
+      n.innerHTML = `<iframe src="/hcres/emr_pdf/6508682_1/A.1.html" frameborder="0" class="emr-pdf" />`;
+      wid.document.body.appendChild(n);
+      wid.document.head.appendChild(h);
     }
   },
   components: {

@@ -76,10 +76,10 @@ module.exports = {
         // target: "http://120.197.141.41:9091", //厚街正式
         // target: "http://58.42.249.209:17953", //贵州医科大正式
         // target: "http://120.197.141.41:9094", //东莞正式库的测试
-        // target: "http://60.6.218.17:9093", //威县
+        target: "http://60.6.218.17:9093", //威县
 
         // target: "http://120.25.105.45:9864", //厚街测试
-        target: "http://120.25.105.45:9866", //厚街测试
+        // target: "http://120.25.105.45:9866", //厚街测试
 
         // target: "http://120.25.105.45:9865", //威县测试
         // target: "http://192.168.1.20:8964", // 内网测试cno
@@ -119,14 +119,14 @@ module.exports = {
         // target: "http://120.197.141.41:9091", //东莞
         // target: "http://120.197.141.41:9094", //东莞正式库的测试
 
-        // target: "http://120.25.105.45:9865", //测试
+        target: "http://120.25.105.45:9865", //测试
         // target: "http://192.168.1.20:8964", // 内网测试cno
         // target: "http://dev.cr-health.com:4453", // 外网测试
         // target: 'http://192.168.1.88:8062', // 内网兆彬IP测试
         // target: 'http://10.35.9.115:8085', // 厚街内网俊涛ip测试
         // target: "http://192.168.2.229:8084", // 厚街内网俊涛ip测试
         // target: "http://120.197.141.41:9094", //东莞正式库的测试
-        target: "http://192.168.2.144:8062",
+        // target: "http://192.168.2.144:8062",
 
         changeOrigin: true,
         pathRewrite: {
@@ -149,6 +149,23 @@ module.exports = {
         pathRewrite: {
           // crNursing 东莞厚街护理系统 路径
           "^/crNursing/sheet-print": "/crNursing/sheet-print" //这里理解成用‘/api’代替target里面的地址，后面组件中我们掉接口时直接用api代替 比如我要调用'http://40.00.100.100:3002/user/add'，直接写‘/api/user/add’即可
+        }
+      },
+      "/stylesheets": {
+        target: "http://localhost:3002", //东莞
+        // target: "http://120.197.141.41:9094", //东莞正式库的测试
+
+        // target: "http://120.25.105.45:9864", //测试
+        // target: "http://192.168.1.20:8964", // 内网测试cno
+        // target: "http://dev.cr-health.com:4453", // 外网测试
+        // target: 'http://192.168.1.88:8062', // 内网兆彬IP测试
+        // target: 'http://10.35.9.115:8085', // 厚街内网俊涛ip测试
+        // target: "http://192.168.2.229:8084", // 厚街内网俊涛ip测试
+
+        changeOrigin: true,
+        pathRewrite: {
+          // crNursing 东莞厚街护理系统 路径
+          "^/stylesheets": "/stylesheets" //这里理解成用‘/api’代替target里面的地址，后面组件中我们掉接口时直接用api代替 比如我要调用'http://40.00.100.100:3002/user/add'，直接写‘/api/user/add’即可
         }
       }
       // "/crNursing/printServer": {
