@@ -193,7 +193,7 @@ export default {
         getCommonInfo({
           list:[{patientId:patientId,visitId:visitId||'1'}]
         }),
-        getFormChildbirth({patientId})
+        getFormChildbirth({patientId,visitId})
       ])
       .then(res=>{
         let finallParams = {
