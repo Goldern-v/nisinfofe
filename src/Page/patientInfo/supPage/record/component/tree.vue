@@ -271,17 +271,17 @@ export default {
       let icon;
       let box;
 
-      if (hasSave) {
+      if (hasSave && this.HOSPITAL_ID !== "weixian") {
         box = fileboxRed;
-      } else if (hasSign) {
+      } else if (hasSign && this.HOSPITAL_ID !== "weixian") {
         box = fileboxGreen;
       } else {
         box = filebox;
       }
 
-      if (fileHasSave) {
+      if (fileHasSave && this.HOSPITAL_ID !== "weixian") {
         icon = fileiconRed;
-      } else if (fileHasSign) {
+      } else if (fileHasSign && this.HOSPITAL_ID !== "weixian") {
         icon = fileiconGreen;
       } else {
         icon = fileicon;

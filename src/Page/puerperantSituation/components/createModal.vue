@@ -106,11 +106,11 @@ export default {
     },
     patientOptionVisible(item,search){
         if(!search)return true
-        if(new RegExp(search).test(item.patientId))return true
+        if(item.patientId.indexOf(search)>=0)return true
 
-        if(new RegExp(search).test(item.bedLabel))return true
+        if(item.bedLabel.indexOf(search)>=0)return true
 
-        if(new RegExp(search).test(item.name))return true
+        if(item.name.indexOf(search)>=0)return true
 
         return false
     },
@@ -183,18 +183,17 @@ export default {
         this.params.female=target.name
         this.params.hospitalizationNumber = target.inpNo
         this.params.patientId = target.patientId
-
         //获取数据并填充
-        this.setPatientInfo(target.patientId)
+        this.setPatientInfo(target.patientId,target.visitId)
       }
     },
-    setPatientInfo(patientId){
+    setPatientInfo(patientId,visitId){
       Promise.all([
-        getPatientInfo(patientId,'1'),
+        getPatientInfo(patientId,visitId||'1'),
         getCommonInfo({
-          list:[{patientId:patientId,visitId:'1'}]
+          list:[{patientId:patientId,visitId:visitId||'1'}]
         }),
-        getFormChildbirth({patientId})
+        getFormChildbirth({patientId,visitId})
       ])
       .then(res=>{
         let finallParams = {

@@ -62,7 +62,7 @@ function switechSheetType(type) {
     //     schema = require("../config/nkzzyxk_lc/tr.js").default;
     //   }
     //   break;
-     // case "neonatology2": {
+    // case "neonatology2": {
     //   // 陵城区-新生儿科 里的 新生儿监护
     //   schema = require("../config/neonatology_lc/tr.js").default;
     // }
@@ -70,6 +70,11 @@ function switechSheetType(type) {
     // case "neurology_wx": {
     //   // 陵城区-床头记录单
     //   schema = require("../config/bedside_lc/tr.js").default;
+    // }
+    // break;
+    // case "cpr": {
+    //   // 陵城区-病重（病危）
+    //   schema = require("../config/picu_lc/tr.js").default;
     // }
     // break;
     case "neurology":

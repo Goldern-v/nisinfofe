@@ -48,87 +48,84 @@ export default [
     }
   },
   {
-    key: "consciousness", //意识
-    value: "",
-    event: keyf1,
-    autoComplete: {
-      data: ysList
-    }
-  },
-  {
-    key: "spo2", //意识
-    value: "",
-    event: keyf1,
-  },
-  {
-    key: "pupilSizeLeft", // 大小左
+    key: "pulse1", //氧饱和度
     value: "",
     event: keyf1
   },
   {
-    key: "pupilSizeRight", // 大小右
+    key: "breath2", //神志
     value: "",
     event: keyf1
   },
   {
-    key: "pupilReflexLeft", // 反射左
+    key: "consciousness", //尿量
     value: "",
-    event: keyf1,
-    autoComplete: {
-      data: ["+", "-", "±"]
-    }
+    event: keyf1
   },
   {
-    key: "pupilReflexRight", // 反射右
-    value: "",
-    event: keyf1,
-    autoComplete: {
-      data: ["+", "-", "±"]
-    }
-  },
-
-  {
-    key: "field1", //标题1
-    value: "",
-    event: keyf1,
-    name: 'CPR'
-  },
-  {
-    key: "field2", //标题2
-    value: "",
-    event: keyf1,
-    name: "肾上腺素/iv(mg)"
-  },
-  {
-    key: "field3", //标题3
-    value: "",
-    event: keyf1,
-    name: "阿托品/iv(mg)",
-    textarea: {
-      width: 36
-    }
-  },
-  {
-    key: "field4", //标题4
-    value: "",
-    event: keyf1,
-
-  },
-  {
-    key: "field5", //标题5
+    key: "spo2", //呕吐
     value: "",
     event: keyf1,
   },
   {
-    key: "field6", //标题6
+    key: "pupilSizeLeft", // 大便
     value: "",
-    event: keyf1,
-
+    event: keyf1
   },
   {
-    key: "field7", //标题6
+    key: "pupilSizeRight", // 其他引流量
     value: "",
-    event: keyf1,
+    event: keyf1
+  },
+  {
+    key: "pupilSizeRight88", // 其他
+    value: "",
+    event: keyf1
+  },
+  {
+    key: "pupilSizeRight1", // 口服
+    value: "",
+    event: keyf1
+  },
+  {
+    key: "pupilSizeRight2", // 静脉
+    value: "",
+    event: keyf1
+  },
+  {
+    key: "pupilSizeRight3", // 肌肉注释
+    value: "",
+    event: keyf1
+  },
+  {
+    key: "pupilSizeRight31", // 灌肠
+    value: "",
+    event: keyf1
+  },
+  {
+    key: "pupilSizeRight4", // 皮肤情况
+    value: "",
+    event: keyf1
+  },
+  {
+    key: "pupilSizeRight5", // 管道护理
+    value: "",
+    event: keyf1
+  },
+  {
+    key: "pupilSizeRight6", // 气道护理
+    value: "",
+    event: keyf1
+  },
+  {
+    key: "pupilSizeRight7", // 痰液性状
+    value: "",
+    event: keyf1
+  },
+  {
+    key: "pupilSizeRight8", // 其他
+    value: "",
+    event: keyf1
   },
   {
     key: "description", //特殊情况记录
