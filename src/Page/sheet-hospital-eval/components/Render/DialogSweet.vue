@@ -371,6 +371,7 @@ export default {
         if (model.hasOwnProperty(key)) {
           let value = model[key];
           //
+          //
           // console.log(
           //   "===fillFormData:value",
           //   [value],
@@ -434,7 +435,8 @@ export default {
                   //   this.formBox.model[key],
                   //   itemObj
                   // );
-                  if (itemObj.type === "text") {
+                  // if (itemObj.type === "text") {
+                  if (["text", "textarea"].indexOf(itemObj.type) > -1) {
                     let refObj = itemObj;
                     // let resultText = refObj.checkValueRule(value);
                     // refObj.setCurrentValue(resultText);
