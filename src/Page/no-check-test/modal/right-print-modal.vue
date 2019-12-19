@@ -59,8 +59,14 @@
     background-color: #fff;
   }
 
+  >>>.sweet-content {
+     background-color: #fff;
+  }
+
   >>>.sweet-content-content {
     position: relative;
+    background-color: #fff;
+    overflow: hidden;
   }
 
   .printable {
