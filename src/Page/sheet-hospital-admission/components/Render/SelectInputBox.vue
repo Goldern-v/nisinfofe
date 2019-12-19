@@ -92,13 +92,14 @@ export default {
       try {
         return this.formObj.formSetting.formInfo.formCode;
       } catch (error) {}
-      return "E0100";
+      return "E0001";
     }
   },
   watch: {
     inputValue(valueNew, oldvaule) {
       // console.log("inputValue:", valueNew, oldvaule);
       this.formObj.model[this.obj.name] = valueNew;
+      window.formObj.model[this.obj.name] = valueNew;
       this.checkValueRule(valueNew);
       // console.log("obj:", this.obj, this.$refs);
       this.isShowDownList = false;
@@ -152,7 +153,7 @@ export default {
     }
   },
   methods: {
-    checkValueRule(valueNew, isClick) {
+    checkValueRule(valueNew, isClick, itemClick = null) {
       let textResult = valueNew;
       this.obj.style = "";
       if (
@@ -203,11 +204,20 @@ export default {
             if (
               valueNew == r.dialog.openKey ||
               r.dialog.openKey.indexOf(valueNew) > -1 ||
-              (r.dialog.openDiffKey && r.dialog.openDiffKey.indexOf(valueNew) == -1)
+              (r.dialog.openDiffKey &&
+                r.dialog.openDiffKey.indexOf(valueNew) == -1) ||
+              (itemClick &&
+                (r.dialog.openKey + "").includes(itemClick) &&
+                (valueNew + "").includes(r.dialog.openKey + "")) ||
+              (itemClick && (itemClick + "").includes(r.dialog.openKey + ""))
             ) {
               this.$root.$refs.dialogBox.openBox(
                 r.dialog.dialogList || r.dialog
               );
+              //
+              if (this.$root.$refs.autoInput) {
+                this.$root.$refs.autoInput.closeBox();
+              }
             }
             // || r.dialog.cleanKeyDiff !== valueNew
             else if (
@@ -389,7 +399,7 @@ export default {
             selectedList: obj[key] ? obj[key].split(",") : [],
             data: dataList,
             callback: data => {
-              console.log("===callback", obj, key, target);
+              console.log("===callback", [data, obj, key, target]);
               if (obj && data) {
                 // 单选
                 if (!multiplechoice || multiplechoice == false) {
@@ -417,7 +427,7 @@ export default {
                   }
                   obj[key] = values + "";
                   this.inputValue = obj[key] + "";
-                  // this.checkValueRule(obj[key], true);
+                  this.checkValueRule(obj[key], true, data.code);
                   target.focus();
                 }
               }

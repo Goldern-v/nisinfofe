@@ -909,7 +909,8 @@ export default {
     margin-right: 5px;
 .el-input
   width 228px;
-
+.result-text-noeffect
+  max-width: initial;
 // .post-text
 //   color: #486a62;
 //   background: white;

@@ -214,7 +214,7 @@
         "label": "胎膜破时间",
         "style": "width:135px!important",
         "labelWidth": "100px",
-        "inputWidth":"135px!important",
+        "inputWidth": "135px!important",
         "class": null,
         "html": null,
         "readOnly": null
@@ -234,7 +234,10 @@
   {
     "title": "母乳喂养知识其他",
     "type": "formGroupHorizontalBox",
-    "colWidth":["40%","60%"],
+    "colWidth": [
+      "20%",
+      "80%"
+    ],
     "name": "I001858",
     "message": "",
     "require": "false",
@@ -261,11 +264,14 @@
   {
     "title": "头颅其他说明",
     "type": "formGroupHorizontalBox",
-    "colWidth":["40%","60%"],
+    "colWidth": [
+      "20%",
+      "80%"
+    ],
     "name": "I001368",
     "message": "",
     "require": "false",
-    "aliasTitle": "其他说明",
+    "aliasTitle": "其他",
     "showTitle": true,
     "suffixDesc": "",
     "keys": "",
@@ -288,7 +294,10 @@
   {
     "title": "其他费用支付方式",
     "type": "formGroupHorizontalBox",
-    "colWidth":["40%","60%"],
+    "colWidth": [
+      "20%",
+      "80%"
+    ],
     "name": "I001016",
     "message": "",
     "require": "false",
@@ -315,7 +324,10 @@
   {
     "title": "其他入院方式",
     "type": "formGroupHorizontalBox",
-    "colWidth":["40%","60%"],
+    "colWidth": [
+      "20%",
+      "80%"
+    ],
     "name": "I001018",
     "message": "",
     "require": "false",
@@ -342,7 +354,10 @@
   {
     "title": "其他资料来源",
     "type": "formGroupHorizontalBox",
-    "colWidth":["40%","60%"],
+    "colWidth": [
+      "20%",
+      "80%"
+    ],
     "name": "I001015",
     "message": "",
     "require": "false",
@@ -369,7 +384,10 @@
   {
     "title": "其他语言表达",
     "type": "formGroupHorizontalBox",
-    "colWidth":["40%","60%"],
+    "colWidth": [
+      "20%",
+      "80%"
+    ],
     "name": "I001159",
     "message": "",
     "require": "false",
@@ -396,7 +414,10 @@
   {
     "title": "其他口腔黏膜",
     "type": "formGroupHorizontalBox",
-    "colWidth":["40%","60%"],
+    "colWidth": [
+      "20%",
+      "80%"
+    ],
     "name": "I001157",
     "message": "",
     "require": "false",
@@ -423,7 +444,10 @@
   {
     "title": "其他活动辅助装置",
     "type": "formGroupHorizontalBox",
-    "colWidth":["40%","60%"],
+    "colWidth": [
+      "20%",
+      "80%"
+    ],
     "name": "I001307",
     "message": "",
     "require": "false",
@@ -450,7 +474,10 @@
   {
     "title": "呼吸道症状其他情况",
     "type": "formGroupHorizontalBox",
-    "colWidth":["40%","60%"],
+    "colWidth": [
+      "20%",
+      "80%"
+    ],
     "name": "I001307",
     "message": "",
     "require": "false",
@@ -475,9 +502,132 @@
     ]
   },
   {
+    "title": "其他陪同者",
+    "type": "formGroupHorizontalBox",
+    "colWidth": [
+      "20%",
+      "80%"
+    ],
+    "name": "I001926",
+    "message": "",
+    "require": "false",
+    "aliasTitle": "其他",
+    "showTitle": true,
+    "suffixDesc": "",
+    "keys": "",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 400,
+    "children": [
+      {
+        "name": "I001926",
+        "type": "input",
+        "title": "其他",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
+    "title": "其他居住状态",
+    "type": "formGroupHorizontalBox",
+    "colWidth": [
+      "20%",
+      "80%"
+    ],
+    "name": "I001928",
+    "message": "",
+    "require": "false",
+    "aliasTitle": "其他",
+    "showTitle": true,
+    "suffixDesc": "",
+    "keys": "",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 400,
+    "children": [
+      {
+        "name": "I001928",
+        "type": "input",
+        "title": "其他",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
+    "title": "其他监护人",
+    "type": "formGroupHorizontalBox",
+    "colWidth": [
+      "20%",
+      "80%"
+    ],
+    "name": "I001930",
+    "message": "",
+    "require": "false",
+    "aliasTitle": "其他",
+    "showTitle": true,
+    "suffixDesc": "",
+    "keys": "",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 400,
+    "children": [
+      {
+        "name": "I001930",
+        "type": "input",
+        "title": "其他",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
+    "title": "其他陪护人",
+    "type": "formGroupHorizontalBox",
+    "colWidth": [
+      "20%",
+      "80%"
+    ],
+    "name": "I001932",
+    "message": "",
+    "require": "false",
+    "aliasTitle": "其他",
+    "showTitle": true,
+    "suffixDesc": "",
+    "keys": "",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 400,
+    "children": [
+      {
+        "name": "I001932",
+        "type": "input",
+        "title": "其他",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
     "title": "胸部外观其他情况",
     "type": "formGroupHorizontalBox",
-    "colWidth":["40%","60%"],
+    "colWidth": [
+      "20%",
+      "80%"
+    ],
     "name": "I001869",
     "message": "",
     "require": "false",
@@ -504,7 +654,10 @@
   {
     "title": "口腔及粘膜其他情况",
     "type": "formGroupHorizontalBox",
-    "colWidth":["40%","60%"],
+    "colWidth": [
+      "20%",
+      "80%"
+    ],
     "name": "I001868",
     "message": "",
     "require": "false",
@@ -531,7 +684,10 @@
   {
     "title": "既往分娩方式其他情况",
     "type": "formGroupHorizontalBox",
-    "colWidth":["40%","60%"],
+    "colWidth": [
+      "20%",
+      "80%"
+    ],
     "name": "I001822",
     "message": "",
     "require": "false",
@@ -548,6 +704,302 @@
         "name": "I001822",
         "type": "input",
         "title": "其他",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
+    "title": "羊水混浊程度",
+    "type": "formGroupHorizontalBox",
+    "colWidth": [
+      "20%",
+      "80%"
+    ],
+    "name": "I001945",
+    "message": "",
+    "require": "false",
+    "aliasTitle": "混浊度",
+    "showTitle": true,
+    "suffixDesc": "",
+    "keys": "",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 400,
+    "children": [
+      {
+        "name": "I001945",
+        "type": "input",
+        "title": "混浊度",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
+    "title": "传染病史",
+    "type": "formGroupVerticalBox",
+    "colWidth": [
+      "20%",
+      "80%"
+    ],
+    "name": "I001953",
+    "showTitle": false,
+    "message": "",
+    "require": "false",
+    "prefixDesc": "",
+    "suffixDesc": "",
+    "keys": "I003003",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 400,
+    "children": [
+      {
+        "name": "I001953",
+        "type": "input",
+        "label": "传染病史",
+        "labelWidth": "100px",
+        "inputWidth": "100%",
+        "multiplechoice": true,
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      },
+      {
+        "name": "I001954",
+        "type": "input",
+        "label": "其他",
+        "labelWidth": "100px",
+        "inputWidth": "100%",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
+    "title": "其他饮食",
+    "type": "formGroupHorizontalBox",
+    "colWidth": [
+      "20%",
+      "80%"
+    ],
+    "name": "I100094",
+    "message": "",
+    "require": "false",
+    "aliasTitle": "其他",
+    "showTitle": true,
+    "suffixDesc": "",
+    "keys": "",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 400,
+    "children": [
+      {
+        "name": "I100094",
+        "type": "input",
+        "title": "其他",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
+    "title": "肢体活动上肢",
+    "type": "formGroupHorizontalBox",
+    "colWidth": [
+      "20%",
+      "80%"
+    ],
+    "name": "I001957",
+    "message": "",
+    "require": "false",
+    "aliasTitle": "持续/间隔",
+    "showTitle": false,
+    "suffixDesc": "",
+    "keys": "",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 400,
+    "children": [
+      {
+        "name": "I001957",
+        "type": "input",
+        "label": "持续/间隔",
+        "labelWidth": "100px",
+        "inputWidth": "100%",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
+    "title": "肢体活动下肢",
+    "type": "formGroupHorizontalBox",
+    "colWidth": [
+      "20%",
+      "80%"
+    ],
+    "name": "I001959",
+    "message": "",
+    "require": "false",
+    "aliasTitle": "持续/间隔",
+    "showTitle": true,
+    "suffixDesc": "",
+    "keys": "",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 400,
+    "children": [
+      {
+        "name": "I001959",
+        "type": "input",
+        "title": "持续/间隔",
+        "labelWidth": "100px",
+        "inputWidth": "100%",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
+    "title": "其他皮疹",
+    "type": "formGroupHorizontalBox",
+    "colWidth": [
+      "20%",
+      "80%"
+    ],
+    "name": "I001965",
+    "message": "",
+    "require": "false",
+    "aliasTitle": "部位",
+    "showTitle": true,
+    "suffixDesc": "",
+    "keys": "",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 400,
+    "children": [
+      {
+        "name": "I001965",
+        "type": "input",
+        "title": "部位",
+        "labelWidth": "100px",
+        "inputWidth": "100%",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
+    "title": "水肿部位",
+    "type": "formGroupHorizontalBox",
+    "colWidth": [
+      "20%",
+      "80%"
+    ],
+    "name": "I001966",
+    "message": "",
+    "require": "false",
+    "aliasTitle": "部位",
+    "showTitle": true,
+    "suffixDesc": "",
+    "keys": "",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 400,
+    "children": [
+      {
+        "name": "I001966",
+        "type": "input",
+        "title": "部位",
+        "labelWidth": "100px",
+        "inputWidth": "100%",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
+    "title": "硬肿部位",
+    "type": "formGroupHorizontalBox",
+    "colWidth": [
+      "20%",
+      "80%"
+    ],
+    "name": "I001968",
+    "message": "",
+    "require": "false",
+    "aliasTitle": "部位",
+    "showTitle": true,
+    "suffixDesc": "",
+    "keys": "",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 400,
+    "children": [
+      {
+        "name": "I001968",
+        "type": "input",
+        "title": "部位",
+        "labelWidth": "100px",
+        "inputWidth": "100%",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
+    "title": "其他皮肤弹性",
+    "type": "formGroupHorizontalBox",
+    "colWidth": [
+      "20%",
+      "80%"
+    ],
+    "name": "I001970",
+    "message": "",
+    "require": "false",
+    "aliasTitle": "其他",
+    "showTitle": true,
+    "suffixDesc": "",
+    "keys": "",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 400,
+    "children": [
+      {
+        "name": "I001970",
+        "type": "input",
+        "title": "其他",
+        "labelWidth": "100px",
+        "inputWidth": "100%",
         "style": null,
         "class": null,
         "html": null,

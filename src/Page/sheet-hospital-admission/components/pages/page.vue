@@ -21,11 +21,12 @@
 
 <script>
 import RenderForm from "@/Page/sheet-hospital-admission/components/Render/main.vue";
-
+import { getOldFormCode } from "@/Page/sheet-hospital-admission/components/Render/common.js";
 import BusFactory from "vue-happy-bus";
-
+import common from "@/common/mixin/common.mixin.js";
 export default {
   name: "page",
+  mixins: [common],
   components: {
     RenderForm
   },
@@ -51,11 +52,34 @@ export default {
       this.$refs["sheetPage"]["fillForm"] = this.fillForm;
       this.$root.$refs["sheetPage"] = this.$refs["sheetPage"];
     }
+    //
+    this.getOldFormInfo(() => {
+      this.$refs.renderForm.updateSheet();
+      this.loading = false;
+    });
   },
   watch: {
     loading(newVal, oldVal) {
       console.log("loading", newVal, oldVal, this.isShowLoadingLayout);
       this.isShowLoadingLayout = newVal;
+    },
+    deptCode(newVal, oldVal) {
+      console.log("watch:deptCode", [newVal, oldVal]);
+      // this.clearAll();
+      this.initial();
+      this.getOldFormInfo(() => {
+        this.$refs.renderForm.updateSheet();
+        this.loading = false;
+      });
+    },
+    wardCode(newVal, oldVal) {
+      console.log("watch:wardCode", [newVal, oldVal]);
+      // this.clearAll();
+      this.initial();
+      this.getOldFormInfo(() => {
+        this.$refs.renderForm.updateSheet();
+        this.loading = false;
+      });
     }
   },
   computed: {
@@ -66,7 +90,7 @@ export default {
       try {
         return this.formObj.formSetting.formInfo.formCode;
       } catch (error) {}
-      return "E0100";
+      return "E0001";
     }
   },
   created() {
@@ -252,6 +276,50 @@ export default {
     },
     updateFunc(value) {
       console.log("updateFunc!!", value);
+    },
+    getOldFormInfo(callback = null) {
+      console.log("formCode,deptCode", [
+        this.formCode,
+        this.deptCode,
+        this.wardCode
+      ]);
+      // getOldFormCode
+      if (this.formCode && this.wardCode) {
+        // let res = await
+        getOldFormCode(this.formCode, this.wardCode).then(res => {
+          if (!res) {
+            return {};
+          }
+          let {
+            data: { data: oldFormInfo }
+          } = res;
+          this.oldFormInfo = oldFormInfo;
+          // this.$store.commit("upOldFormInfo", oldFormInfo);
+          this.$store.commit(
+            "upOldFormInfo",
+            JSON.parse(JSON.stringify(oldFormInfo))
+          );
+          // try {
+          //   //
+          //   if (this.oldFormInfo && this.oldFormInfo.name) {
+          //     this.formObj.formSetting.formTitle.formName = this.oldFormInfo.name;
+          //   } else {
+          //     this.formObj.formSetting.formTitle.formName = "入 院 评 估 表";
+          //   }
+          // } catch (error) {}
+          console.log("getOldFormCode", [
+            res,
+            oldFormInfo,
+            this.formCode,
+            this.deptCode,
+            this.wardCode
+          ]);
+          //
+          if (callback) {
+            callback();
+          }
+        });
+      }
     },
     setPatientInfo(json, patient) {
       // 设置 formHeads

@@ -84,12 +84,16 @@ import FormFooter from "./FormFooter";
 // import FormGroupHorizontalBox from './FormGroupHorizontalBox'
 // import FormGroupColBox from './FormGroupColBox'
 // import draggable from 'vuedraggable'
+import dayjs from "dayjs";
 
-import comm,{
+import comm, {
   saveForm,
   getFormDetail,
-  cancelSignForm
+  cancelSignForm,
+  getOldFormCode,
+  getVTEInfo
 } from "@/Page/sheet-hospital-admission/components/Render/common.js";
+
 import { debug } from "util";
 // src/Page/sheet-hospital-admission/components/Render/common.js
 import common from "@/common/mixin/common.mixin.js";
@@ -132,7 +136,7 @@ export default {
       formBox: null /** 弹窗的数据 */,
       callback: null,
       formDialogObj: {},
-      formCode: "E0100",
+      formCode: "E0001",
       form: {
         name: "",
         region: "",
@@ -176,11 +180,10 @@ export default {
       this.dialogFormCode = "";
     },
     inital() {
-      this.lock = false
+      this.lock = false;
       // this.formBox = {};
       this.formDialogObj = JSON.parse(JSON.stringify(this.formObj));
       this.formDialogObj.model = {};
-      //
 
       // 初始化清空数据
       let object = this.formBox.schemesObj;
@@ -199,7 +202,7 @@ export default {
 
       // todo
       if (this.type === "dependent") {
-        this.formCode = "E0100";
+        this.formCode = "E0001";
         console.log(
           "根据ID表单dependent",
           id,
@@ -258,7 +261,18 @@ export default {
       }
 
       if (this.type !== "dependent") {
+        console.log("根据ID表单independent", [
+          id,
+          this.formBox,
+          this.formObj,
+          this.$root.$refs
+        ]);
         this.clearUIFormData(this.formBox.model);
+        // 初始化 评估时间 评估人 状态
+        // const initialKeys = ['evalDate','signerName','status']
+        if (!this.formBox.model["evalDate"]) {
+          this.formBox.model["evalDate"] = dayjs().format("YYYY-MM-DD HH:mm");
+        }
       }
       // this.$forceUpdate();
 
@@ -283,10 +297,11 @@ export default {
           };
           //
           if (this.formBox.model.status) {
-            this.okText = this.formBox.model.status!="0"?"取消签名":"签名";
+            this.okText =
+              this.formBox.model.status != "0" ? "取消签名" : "签名";
             //
-            if(this.okText == '取消签名'){
-              this.lock = true
+            if (this.okText == "取消签名") {
+              this.lock = true;
             }
           }
 
@@ -556,6 +571,19 @@ export default {
               this.$root.$refs[this.formCode][key].setCurrentValue(value + "");
               this.$root.$refs[this.formCode][key].checkValueRule(value + "");
             }
+            //
+            // "datetime"
+            if (
+              ["datetime"].indexOf(this.$root.$refs[this.formCode][key].type) >
+                -1 &&
+              this.$root.$refs[this.formCode] &&
+              this.$root.$refs[this.formCode][key].setCurrentValue
+            ) {
+              this.$root.$refs[this.formCode][key].setCurrentValue(
+                dayjs().format("YYYY-MM-DD HH:mm")
+              );
+              // this.$root.$refs[this.formCode][key].checkValueRule(dayjs().format("YYYY-MM-DD HH:mm"));
+            }
           }
           // try {
 
@@ -576,6 +604,7 @@ export default {
       if (this.$refs.sweetModal) {
         this.$refs.sweetModal.open();
       }
+
       // this.dialogLoading = true;
       this.show = false;
       this.$nextTick(() => {
@@ -679,23 +708,23 @@ export default {
           window.formObj.model.formId || window.formObj.model.id;
         // this.formBox.model.status = window.formObj.model.status
 
-        let signBoxTitle = this.okText+"确认"
+        let signBoxTitle = this.okText + "确认";
 
         window.openSignModal((password, empNo) => {
           let postData = {
-              "id": this.formBox.model.id,
-              "empNo": empNo,
-              "sign": true,
-              // "audit": true,
-              "password": password
-          }
+            id: this.formBox.model.id || "",
+            empNo: empNo,
+            sign: true,
+            // "audit": true,
+            password: password
+          };
           // cancelSignForm
-          if(this.okText == "取消签名"){
-            cancelSignForm(postData,(res)=>{
-              console.log('取消签名',[postData,cancelSignForm,comm])
-              this.inital()
-            })
-          }else{
+          if (this.okText == "取消签名") {
+            cancelSignForm(postData, res => {
+              console.log("取消签名", [postData, cancelSignForm, comm]);
+              this.inital();
+            });
+          } else {
             //
             this.formBox.model = {
               ...this.formBox.model,
@@ -740,7 +769,9 @@ export default {
                     this.formObj.model.I100028 = result;
 
                     if (
-                      this.$root.$refs[this.formCode][this.parentName + "_clone"]
+                      this.$root.$refs[this.formCode][
+                        this.parentName + "_clone"
+                      ]
                     ) {
                       this.$root.$refs[this.formCode][
                         this.parentName + "_clone"
@@ -758,10 +789,9 @@ export default {
                       ].checkValueRule(result);
                       this.formObj.model[this.parentName] = result;
                       this.formBox.model[this.parentName] = result;
-                      consoleo.log("parentName:", this.parentName, result);
+                      console.log("parentName:", this.parentName, result);
                     }
-                    consoleo.log("--parentName:", this.parentName, result);
-                    debugger;
+                    console.log("--parentName:", this.parentName, result);
                   } else {
                     let score = this.formBox.model.evalScore;
                     let desc = this.formBox.model.evalDesc || "";
@@ -781,9 +811,9 @@ export default {
                     /** GCS评估特殊处理 */
                     if (this.parentName == "I100020") {
                       let result = this.formBox.model.evalDesc;
-                      this.$root.$refs[this.formCode]["I100019"].setCurrentValue(
-                        result
-                      );
+                      this.$root.$refs[this.formCode][
+                        "I100019"
+                      ].setCurrentValue(result);
                       this.$root.$refs[this.formCode]["I100019"].checkValueRule(
                         result
                       );
@@ -816,7 +846,7 @@ export default {
               }
             });
           }
-        },signBoxTitle);
+        }, signBoxTitle);
       }
       // console.log(this.callback, "aaaaaaaaa");
       if (this.callback) {
@@ -901,11 +931,11 @@ export default {
           : this.formObj.formSetting.formInfo.formCode;
         this.dialogFormCode = this.formBox.formSetting.formInfo.formCode;
         //
-        this.formCode = this.dialogFormCode || "E0100";
+        this.formCode = this.dialogFormCode || "E0001";
       } catch (error) {
         //
         this.dialogFormCode = "";
-        this.formCode = "E0100";
+        this.formCode = "E0001";
       }
       // modalWidth
       this.modalWidth = this.formBox.hasOwnProperty("modalWidth")

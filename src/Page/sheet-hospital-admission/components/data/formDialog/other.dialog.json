@@ -84,7 +84,7 @@
     "require": "false",
     "prefixDesc": "",
     "suffixDesc": "",
-    "formCode": "E0100",
+    "formCode": "E0001",
     "keys": "I100000",
     "style": null,
     "classes": null,
@@ -1570,7 +1570,13 @@
         "elementStyle": "width:100%",
         "class": null,
         "html": null,
-        "readOnly": null
+        "readOnly": null,
+        "options": [
+          "糖尿病",
+          "高血压",
+          "哮喘",
+          "消化性溃疡"
+        ]
       }
     ]
   },
@@ -2320,6 +2326,87 @@
         "type": "radio",
         "title": "Ⅳ°",
         "value": "Ⅳ°",
+        "style": null,
+        "class": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
+    "title": "紫绀情况",
+    "type": "formGroupHorizontalBox",
+    "name": "I001962",
+    "message": "",
+    "require": "false",
+    "aliasTitle": "紫绀",
+    "showTitle": true,
+    "suffixDesc": "",
+    "keys": "I001962",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 400,
+    "children": [
+      {
+        "name": "I001962",
+        "type": "radio",
+        "title": "四肢末端",
+        "value": "四肢末端",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      },
+      {
+        "name": "I001962",
+        "type": "radio",
+        "title": "全身",
+        "value": "全身",
+        "style": null,
+        "class": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
+    "title": "黄染情况",
+    "type": "formGroupHorizontalBox",
+    "name": "I001963",
+    "message": "",
+    "require": "false",
+    "aliasTitle": "黄染",
+    "showTitle": true,
+    "suffixDesc": "",
+    "keys": "I001963",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 400,
+    "children": [
+      {
+        "name": "I001963",
+        "type": "radio",
+        "title": "轻",
+        "value": "轻",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      },
+      {
+        "name": "I001963",
+        "type": "radio",
+        "title": "中",
+        "value": "中",
+        "style": null,
+        "class": null,
+        "readOnly": null
+      },
+      {
+        "name": "I001963",
+        "type": "radio",
+        "title": "重",
+        "value": "重",
         "style": null,
         "class": null,
         "readOnly": null

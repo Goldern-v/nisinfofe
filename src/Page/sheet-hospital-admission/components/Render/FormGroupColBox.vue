@@ -27,12 +27,12 @@
             :key="obj.title+wi"
           />
         </colgroup>
-
-        <tr v-if="obj.children" v-for="(c,n) in obj.children" :key="c.title+c.name+n">
+        <!-- v-if="((n+(col-1))%obj.col)===col-1 && (n+(col-1))<obj.children.length" -->
+        <tr v-if="obj.children" v-for="(c,n) in obj.children" :key="(c?c.title+c.name:'')+n">
           <td
-            v-for="col in obj.col"
-            :key="'td'+c.title+c.name+col"
-            v-if="((n+(col-1))%obj.col)===col-1 && (n+(col-1))<obj.children.length"
+            v-for="(col,cindex) in obj.col"
+            :key="'td'+cindex+col"
+            v-if="((n+(col-1))%obj.col)===col-1 && (n+(col-1))<obj.children.length && showElement(obj.children[n+(col-1)],n+(col-1))"
             v-bind="obj.children[n+(col-1)].tdProps"
           >
             <TipsBox :obj="obj.children[n+(col-1)]" :formObj="formObj">
@@ -44,12 +44,13 @@
                 <div
                   class="left-td"
                   :style="obj.children[n+(col-1)].titleStyle"
-                  :class="obj.children[n+(col-1)].titleClass"
+                  :class="[obj.children[n+(col-1)].titleClass,{'right':(obj.children[n+(col-1)].hiddenTips&&!obj.children[n+(col-1)].labelLeft)}]"
                   v-if="obj.children[n+(col-1)].title || obj.children[n+(col-1)].labelTitle"
                 >
                   <!-- {{n+(col-1)}} -->
                   <span
                     v-if="!obj.children[n+(col-1)].dialog"
+                    class="XRadiobox-items"
                     :style="obj.children[n+(col-1)].titleSpanStyle"
                     :class="obj.children[n+(col-1)].titleSpanClass"
                   >
@@ -124,7 +125,7 @@ export default {
       try {
         return this.formObj.formSetting.formInfo.formCode;
       } catch (error) {}
-      return "E0100";
+      return "E0001";
     }
   },
   watch: {
@@ -196,6 +197,44 @@ export default {
         }
       }
     },
+    showElement(obj, index) {
+      //
+      // v-if="showElement()"
+      let oldFormInfo = window.app.$store.getters.getOldFormInfo() || {};
+      // showDeptName
+      if (
+        obj &&
+        obj.hasOwnProperty("showDeptName") > -1 &&
+        obj.showDeptName &&
+        obj.showDeptName.length > 0
+      ) {
+        let deptName = "";
+        if (oldFormInfo && oldFormInfo.name) {
+          deptName = oldFormInfo.name.replace(/[()入院评估表]/g, "");
+          if (deptName && obj.showDeptName.indexOf(deptName) > -1) {
+            return true;
+          } else {
+            try {
+              console.log("!!!showElement!!!", [obj, index, this.obj.children]);
+              this.obj.children.splice(index, 1);
+            } catch (error) {}
+            return false;
+          }
+        } else {
+          try {
+            // console.log("!!!showElement!!!", [obj, index, this.obj.children]);
+            this.obj.children.splice(index, 1);
+          } catch (error) {}
+          return false;
+        }
+        // try {
+        //   console.log("!!!showElement!!!", [obj, index, this.obj.children]);
+        //   this.obj.children.splice(index, 1);
+        // } catch (error) {}
+        //
+      }
+      return true;
+    },
     getUUID() {
       let uuid_ = uuid.v1();
       // console.log(uuid_)
@@ -229,10 +268,24 @@ export default {
     width: 100%
     // max-width: 100px
     // margin: 10px 0px 0 4px
-    text-align: right
+    text-align: left
     font-size: 12px;
+    .XRadiobox-items
+      display: inline-flex
+    &.left
+      text-align: left
+    &.right
+      text-align: right
   .right-td
     width: 100%
+
+  .left-span
+    text-align: left
+    display: flex
+
+  .right-span
+    text-align: right
+    display: flex
 
   .Form-Group-Col-Box
     // border 1px dashed red

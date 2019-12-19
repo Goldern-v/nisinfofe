@@ -1,6 +1,9 @@
 
 <template>
-  <span style :style="(obj.label||obj.suffixDesc)  && {display: 'flex', alignItems: 'center' }">
+  <span
+    style
+    :style="(obj.label||obj.suffixDesc)  && {display: 'flex', alignItems: 'center', margin:'5px 0' }"
+  >
     <!-- <autoComplete v-if="isShow" ref="autoInput" /> -->
     <!-- <el-input v-if="obj.type==='input'" v-model="checkboxValue" border size="small" :label="obj.title" :class="obj.class" :style="obj.style">{{obj.title}}</el-input> -->
     <span
@@ -93,7 +96,7 @@ export default {
       try {
         return this.formObj.formSetting.formInfo.formCode;
       } catch (error) {}
-      return "E0100";
+      return "E0001";
     }
   },
   watch: {
@@ -493,10 +496,13 @@ export default {
         let dataList = this.obj.options;
         let key = this.obj.name;
         let obj = this.formObj.model;
+        let multiplechoice = this.obj.multiplechoice
+          ? this.obj.multiplechoice
+          : false;
         if (this.$root.$refs.autoInput) {
           this.$root.$refs.autoInput.open({
             obj: obj,
-            multiplechoice: this.obj.multiplechoice,
+            multiplechoice: multiplechoice,
             parentEl: e.target,
             currentValue: this.inputValue,
             style: {
@@ -510,9 +516,33 @@ export default {
               // console.log('callback',obj,data,e)
               if (data) {
                 // console.log('==callback',obj,data)
-                obj[key] = data.code;
-                self.inputValue = data.name;
-                self.checkValueRule(data.name);
+                // 单选
+                if (!multiplechoice || multiplechoice == false) {
+                  obj[key] = data.code;
+                  self.inputValue = data.name;
+                  self.checkValueRule(data.name);
+                }
+                //
+                // 多选
+                if (multiplechoice === true) {
+                  let values = obj[key] ? obj[key].split(",") : [];
+                  console.log("==多选=callback", values, obj, key, e.target);
+                  // 新增选项
+                  if (!obj[key] || obj[key].indexOf(data.code) === -1) {
+                    // values.push(data.code);
+                    values = [...values, data.code];
+                  } else if (obj[key] && obj[key].indexOf(data.code) > -1) {
+                    // 反选选项
+                    values = values.filter(v => {
+                      return v != data.code;
+                    });
+                  }
+                  obj[key] = values + "";
+                  self.inputValue = obj[key] + "";
+                  // self.checkValueRule(obj[key], true);
+                  e.target.focus();
+                }
+                //
                 if (e.target.tagName !== "INPUT") {
                   e.target.innerText = data.name;
                 }
@@ -672,8 +702,8 @@ export default {
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
 .el-checkbox, .el-select, .is-bordered, .el-checkbox--small, .el-input, .el-input--small, .el-input-group, .el-textarea__inner {
-  margin: 5px 0px;
-  vertical-align: bottom;
+  // margin: 5px 0px;
+  vertical-align: middle;
   // width: 100%;
 
   &:hover {
