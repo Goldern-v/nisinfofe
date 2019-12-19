@@ -13,10 +13,9 @@
             class="ye"
             v-show="data.bedLabel.includes('_')"
           />
-          {{ data.bedLabel
-          }}<span
+          {{ data.bedLabel }}<span
             class="point-box"
-            v-show="data.formLowestStatus != '2'"
+            v-show="data.formLowestStatus != '2' && HOSPITAL_ID !== 'weixian'"
             :class="{red: data.formLowestStatus == 0, green: data.formLowestStatus == 1}"
           ></span>
         </div>
@@ -50,11 +49,10 @@
           <div class="label-box" :style="{background: item.iconTextRgb}">
             <span v-if="item.showContent">{{ item.showContent }}</span>
             <span v-else>
-              <span>{{
-                item.iconText[item.iconText.length - 1] == "离"
-                  ? "隔"
-                  : item.iconText[item.iconText.length - 1]
-              }}</span>
+              <span
+                >{{ item.iconText[item.iconText.length - 1] == "离" ? "隔" :
+                item.iconText[item.iconText.length - 1] }}</span
+              >
             </span>
           </div>
           <!-- </el-tooltip> -->

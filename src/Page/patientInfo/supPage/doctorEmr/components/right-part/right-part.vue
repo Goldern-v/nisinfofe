@@ -57,8 +57,9 @@ export default {
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
-.emr-pdf
-  width 100%
-  box-shadow 0px 5px 10px 0 rgba(0,0,0,0.5)
+.emr-pdf {
+  width: 100%;
+  box-shadow: 0px 5px 10px 0 rgba(0, 0, 0, 0.5);
+}
 </style>
 

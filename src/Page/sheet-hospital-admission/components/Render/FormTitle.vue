@@ -121,7 +121,6 @@ h1 {
   border-bottom: 1px dashed #eee;
   margin: 15px 60px 2px 0px;
   line-height: 2em;
-  width: 100%;
 }
 
 .hospital-title {

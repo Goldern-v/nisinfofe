@@ -77,8 +77,8 @@
       "showAudit": true
     },
     "formInfo": {
-      "formCode": "E0001",
-      "formApiCode": "E0001",
+      "formCode": "E0100",
+      "formApiCode": "E0100",
       "formName": "入院评估",
       "status": "0",
       "formType": "eval"

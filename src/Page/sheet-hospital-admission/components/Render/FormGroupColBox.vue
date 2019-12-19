@@ -10,7 +10,7 @@
       :style="obj.style||obj.boxStyle"
       :class="obj.class"
       class="group-col-box"
-      :ref="'formGroupColBox'+(obj.title||'')"
+      :ref="'formGroupColBox'+obj.title"
     >
       <table class="Form-Group-Col-Box">
         <colgroup v-if="obj.col">
@@ -28,11 +28,11 @@
           />
         </colgroup>
 
-        <tr v-if="obj.children && c" v-for="(c,n) in obj.children" :key="c.title+c.name+n">
+        <tr v-if="obj.children" v-for="(c,n) in obj.children" :key="c.title+c.name+n">
           <td
             v-for="col in obj.col"
             :key="'td'+c.title+c.name+col"
-            v-if="((n+(col-1))%obj.col)===col-1 && (n+(col-1))<obj.children.length && showElement(obj.children[n+(col-1)],n+(col-1))"
+            v-if="((n+(col-1))%obj.col)===col-1 && (n+(col-1))<obj.children.length"
             v-bind="obj.children[n+(col-1)].tdProps"
           >
             <TipsBox :obj="obj.children[n+(col-1)]" :formObj="formObj">
@@ -44,7 +44,7 @@
                 <div
                   class="left-td"
                   :style="obj.children[n+(col-1)].titleStyle"
-                  :class="[obj.children[n+(col-1)].titleClass,{'right':obj.children[n+(col-1)].hiddenTips}]"
+                  :class="obj.children[n+(col-1)].titleClass"
                   v-if="obj.children[n+(col-1)].title || obj.children[n+(col-1)].labelTitle"
                 >
                   <!-- {{n+(col-1)}} -->
@@ -64,12 +64,12 @@
                   >
                     <span v-html="titleFeedSpace(obj.children[n+(col-1)].title)"></span>
                     {{obj.children[n+(col-1)].labelTitle}}
-                    <!-- <span
+                    <span
                       v-if="obj.children[n+(col-1)].name === 'I100001'"
                     >
                       (
                       <span style="color: transparent">空白</span>）
-                    </span>-->
+                    </span>
                   </span>
                 </div>
                 <div class="right-td" :style="obj.children[n+(col-1)].inputStyle">
@@ -124,7 +124,7 @@ export default {
       try {
         return this.formObj.formSetting.formInfo.formCode;
       } catch (error) {}
-      return "E0001";
+      return "E0100";
     }
   },
   watch: {
@@ -196,44 +196,6 @@ export default {
         }
       }
     },
-    showElement(obj, index) {
-      //
-      // v-if="showElement()"
-      let oldFormInfo = window.app.$store.getters.getOldFormInfo() || {};
-      // showDeptName
-      if (
-        obj &&
-        obj.hasOwnProperty("showDeptName") > -1 &&
-        obj.showDeptName &&
-        obj.showDeptName.length > 0
-      ) {
-        let deptName = "";
-        if (oldFormInfo && oldFormInfo.name) {
-          deptName = oldFormInfo.name.replace(/[()入院评估表]/g, "");
-          if (deptName && obj.showDeptName.indexOf(deptName) > -1) {
-            return true;
-          } else {
-            try {
-              console.log("!!!showElement!!!", [obj, index, this.obj.children]);
-              this.obj.children.splice(index, 1);
-            } catch (error) {}
-            return false;
-          }
-        } else {
-          try {
-            console.log("!!!showElement!!!", [obj, index, this.obj.children]);
-            this.obj.children.splice(index, 1);
-          } catch (error) {}
-          return false;
-        }
-        // try {
-        //   console.log("!!!showElement!!!", [obj, index, this.obj.children]);
-        //   this.obj.children.splice(index, 1);
-        // } catch (error) {}
-        //
-      }
-      return true;
-    },
     getUUID() {
       let uuid_ = uuid.v1();
       // console.log(uuid_)
@@ -267,22 +229,10 @@ export default {
     width: 100%
     // max-width: 100px
     // margin: 10px 0px 0 4px
-    text-align: left
+    text-align: right
     font-size: 12px;
-    &.left
-      text-align: left
-    &.right
-      text-align: right
   .right-td
     width: 100%
-
-  .left-span
-    text-align: left
-    display: flex
-
-  .right-span
-    text-align: right
-    display: flex
 
   .Form-Group-Col-Box
     // border 1px dashed red

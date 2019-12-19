@@ -941,6 +941,11 @@
         .then(res => {
           authToken = res.data.data.authToken;
           userInfo = res.data.data.user;
+          let obj = {
+            ...userInfo,
+            token: authToken
+          };
+          localStorage.user = JSON.stringify(obj);
         })
         .then(res => {
           /** 获取评估单列表 **/

@@ -29,11 +29,7 @@
     <!-- 页面信息 -->
     <div v-if="formObj && formObj.model" ref="mainPage" class="cover-page">
       <div :style="formObj.pageSetting.style || '' " class="main-page" :class="{lock: lock}">
-        <span
-          class="update-message-page"
-          v-if="formObj.formSetting.updateInfo"
-          v-html="formObj.formSetting.updateInfo"
-        ></span>
+        <span class="update-message-page" v-if="formObj.formSetting.updateInfo" v-html="formObj.formSetting.updateInfo"></span>
         <img src="../../images/责任护士已签.png" alt v-if=" formObj.model.status==1" class="lock-img" />
         <img src="../../images/审核护士已签.png" alt v-if=" formObj.model.status==2" class="lock-img" />
         <!-- 页面标题 -->
@@ -116,8 +112,8 @@ export default {
       test: "",
       showMessage: false,
       showUIEditor: false,
-      updaterName: "",
-      updateTime: ""
+      updaterName:"",
+      updateTime:""
     };
   },
   computed: {},
@@ -216,18 +212,6 @@ export default {
         } catch (error) {
           //
         }
-        try {
-          let oldFormInfo = this.$store.getters.getOldFormInfo();
-          //
-          if (oldFormInfo && oldFormInfo.name) {
-            this.formObj.formSetting.formTitle.formName = oldFormInfo.name;
-            // I001351 专科评估
-            let deptName = oldFormInfo.name.replace(/[入院评估表()]/g, "");
-            this.formObj.model["I001351"] = deptName + "";
-          } else {
-            this.formObj.formSetting.formTitle.formName = "入 院 评 估 表";
-          }
-        } catch (error) {}
         //
         // window.formObj = this.formObj;
       } catch (error) {
@@ -326,13 +310,14 @@ export default {
 }
 
 .update-message-page {
-  font-size: 12px;
-  font-family: STSongti-SC;
-  font-weight: 400;
-  color: #c1c1c1;
-  line-height: 17px;
+  font-size:12px;
+  font-family:STSongti-SC;
+  font-weight:400;
+  color:#c1c1c1;
+  line-height:17px;
   top: 10px;
   left: 50px;
   position: absolute;
 }
+
 </style>

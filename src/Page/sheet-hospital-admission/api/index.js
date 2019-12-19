@@ -119,14 +119,3 @@ export function nursingDiagsSaveList(objList) {
 export function loadPatient(patientId,visitId) {
   return axios.get(`${apiPath}commonData/loadPatient/${patientId}/${visitId}`)
 }
-
-// FORM.2.07、根据科室获取新版入院对应旧版入院表
-export function getOldFormCodeByWardCode(newFormCode,wardCode) {
-  return axios.get(`${apiPath}form/design/getOldFormCodeByWardCode/${newFormCode}/${wardCode}`)
-}
-
-
-// FORM.2.06、获取患者评估体征信息
-export function getEvalInfo(patientId,visitId) {
-  return axios.get(`${apiPath}form/design/getEvalInfo/${patientId}/${visitId}`)
-}

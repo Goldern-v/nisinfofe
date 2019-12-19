@@ -645,18 +645,6 @@ export default {
 
           window.formObj.model = formObj;
           window.formObj.model["formId"] = master.id || "";
-          //
-          try {
-            let oldFormInfo = this.$store.getters.getOldFormInfo();
-            if (oldFormInfo && oldFormInfo.name) {
-              // I001351 专科评估
-              let deptName = oldFormInfo.name.replace(/[入院评估表()]/g, "");
-              window.formObj.model["I001351"] = deptName + "";
-              formObj["I001351"] = deptName + "";
-            }
-          } catch (error) {}
-
-          //
 
           if (this.isNewForm) {
             // 增加默认值
@@ -833,7 +821,7 @@ export default {
         ? window.formObj.model.K0001.split(",")
         : [];
       // 孕前体重(产科)
-      // skipItems = [...skipItems, "孕前体重(产科)"];
+      skipItems = [...skipItems, "孕前体重(产科)"];
       skipItems = skipItems.filter(s => {
         return s !== "";
       });
@@ -1336,7 +1324,7 @@ export default {
 
         this.formObj.model.formCode = this.formCode;
 
-        console.log("save!!!", [this.formObj.model, post]);
+        console.log("save!!!", this.formObj.model);
 
         post = Object.assign({}, this.formObj.model, post);
 

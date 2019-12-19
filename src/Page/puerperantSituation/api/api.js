@@ -54,6 +54,6 @@ export function getFormChildbirth(query) {
     return axios.post(`${apiPath}form/getLastDetail`, {
         formCode: 'form_childbirth',
         patientId: query.patientId || '',
-        visitId: '1'
+        visitId: query.visitId || '1'
     });
 }

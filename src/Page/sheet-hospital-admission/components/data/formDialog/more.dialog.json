@@ -214,7 +214,7 @@
         "label": "胎膜破时间",
         "style": "width:135px!important",
         "labelWidth": "100px",
-        "inputWidth": "135px!important",
+        "inputWidth":"135px!important",
         "class": null,
         "html": null,
         "readOnly": null
@@ -234,10 +234,7 @@
   {
     "title": "母乳喂养知识其他",
     "type": "formGroupHorizontalBox",
-    "colWidth": [
-      "20%",
-      "80%"
-    ],
+    "colWidth":["40%","60%"],
     "name": "I001858",
     "message": "",
     "require": "false",
@@ -264,14 +261,11 @@
   {
     "title": "头颅其他说明",
     "type": "formGroupHorizontalBox",
-    "colWidth": [
-      "20%",
-      "80%"
-    ],
+    "colWidth":["40%","60%"],
     "name": "I001368",
     "message": "",
     "require": "false",
-    "aliasTitle": "其他",
+    "aliasTitle": "其他说明",
     "showTitle": true,
     "suffixDesc": "",
     "keys": "",
@@ -294,10 +288,7 @@
   {
     "title": "其他费用支付方式",
     "type": "formGroupHorizontalBox",
-    "colWidth": [
-      "20%",
-      "80%"
-    ],
+    "colWidth":["40%","60%"],
     "name": "I001016",
     "message": "",
     "require": "false",
@@ -324,10 +315,7 @@
   {
     "title": "其他入院方式",
     "type": "formGroupHorizontalBox",
-    "colWidth": [
-      "20%",
-      "80%"
-    ],
+    "colWidth":["40%","60%"],
     "name": "I001018",
     "message": "",
     "require": "false",
@@ -354,10 +342,7 @@
   {
     "title": "其他资料来源",
     "type": "formGroupHorizontalBox",
-    "colWidth": [
-      "20%",
-      "80%"
-    ],
+    "colWidth":["40%","60%"],
     "name": "I001015",
     "message": "",
     "require": "false",
@@ -384,10 +369,7 @@
   {
     "title": "其他语言表达",
     "type": "formGroupHorizontalBox",
-    "colWidth": [
-      "20%",
-      "80%"
-    ],
+    "colWidth":["40%","60%"],
     "name": "I001159",
     "message": "",
     "require": "false",
@@ -414,10 +396,7 @@
   {
     "title": "其他口腔黏膜",
     "type": "formGroupHorizontalBox",
-    "colWidth": [
-      "20%",
-      "80%"
-    ],
+    "colWidth":["40%","60%"],
     "name": "I001157",
     "message": "",
     "require": "false",
@@ -444,10 +423,7 @@
   {
     "title": "其他活动辅助装置",
     "type": "formGroupHorizontalBox",
-    "colWidth": [
-      "20%",
-      "80%"
-    ],
+    "colWidth":["40%","60%"],
     "name": "I001307",
     "message": "",
     "require": "false",
@@ -474,10 +450,7 @@
   {
     "title": "呼吸道症状其他情况",
     "type": "formGroupHorizontalBox",
-    "colWidth": [
-      "20%",
-      "80%"
-    ],
+    "colWidth":["40%","60%"],
     "name": "I001307",
     "message": "",
     "require": "false",
@@ -502,132 +475,9 @@
     ]
   },
   {
-    "title": "其他陪同者",
-    "type": "formGroupHorizontalBox",
-    "colWidth": [
-      "20%",
-      "80%"
-    ],
-    "name": "I001926",
-    "message": "",
-    "require": "false",
-    "aliasTitle": "其他",
-    "showTitle": true,
-    "suffixDesc": "",
-    "keys": "",
-    "style": null,
-    "classes": null,
-    "readOnly": null,
-    "modalWidth": 400,
-    "children": [
-      {
-        "name": "I001926",
-        "type": "input",
-        "title": "其他",
-        "style": null,
-        "class": null,
-        "html": null,
-        "readOnly": null
-      }
-    ]
-  },
-  {
-    "title": "其他居住状态",
-    "type": "formGroupHorizontalBox",
-    "colWidth": [
-      "20%",
-      "80%"
-    ],
-    "name": "I001928",
-    "message": "",
-    "require": "false",
-    "aliasTitle": "其他",
-    "showTitle": true,
-    "suffixDesc": "",
-    "keys": "",
-    "style": null,
-    "classes": null,
-    "readOnly": null,
-    "modalWidth": 400,
-    "children": [
-      {
-        "name": "I001928",
-        "type": "input",
-        "title": "其他",
-        "style": null,
-        "class": null,
-        "html": null,
-        "readOnly": null
-      }
-    ]
-  },
-  {
-    "title": "其他监护人",
-    "type": "formGroupHorizontalBox",
-    "colWidth": [
-      "20%",
-      "80%"
-    ],
-    "name": "I001930",
-    "message": "",
-    "require": "false",
-    "aliasTitle": "其他",
-    "showTitle": true,
-    "suffixDesc": "",
-    "keys": "",
-    "style": null,
-    "classes": null,
-    "readOnly": null,
-    "modalWidth": 400,
-    "children": [
-      {
-        "name": "I001930",
-        "type": "input",
-        "title": "其他",
-        "style": null,
-        "class": null,
-        "html": null,
-        "readOnly": null
-      }
-    ]
-  },
-  {
-    "title": "其他陪护人",
-    "type": "formGroupHorizontalBox",
-    "colWidth": [
-      "20%",
-      "80%"
-    ],
-    "name": "I001932",
-    "message": "",
-    "require": "false",
-    "aliasTitle": "其他",
-    "showTitle": true,
-    "suffixDesc": "",
-    "keys": "",
-    "style": null,
-    "classes": null,
-    "readOnly": null,
-    "modalWidth": 400,
-    "children": [
-      {
-        "name": "I001932",
-        "type": "input",
-        "title": "其他",
-        "style": null,
-        "class": null,
-        "html": null,
-        "readOnly": null
-      }
-    ]
-  },
-  {
     "title": "胸部外观其他情况",
     "type": "formGroupHorizontalBox",
-    "colWidth": [
-      "20%",
-      "80%"
-    ],
+    "colWidth":["40%","60%"],
     "name": "I001869",
     "message": "",
     "require": "false",
@@ -654,10 +504,7 @@
   {
     "title": "口腔及粘膜其他情况",
     "type": "formGroupHorizontalBox",
-    "colWidth": [
-      "20%",
-      "80%"
-    ],
+    "colWidth":["40%","60%"],
     "name": "I001868",
     "message": "",
     "require": "false",
@@ -684,10 +531,7 @@
   {
     "title": "既往分娩方式其他情况",
     "type": "formGroupHorizontalBox",
-    "colWidth": [
-      "20%",
-      "80%"
-    ],
+    "colWidth":["40%","60%"],
     "name": "I001822",
     "message": "",
     "require": "false",
