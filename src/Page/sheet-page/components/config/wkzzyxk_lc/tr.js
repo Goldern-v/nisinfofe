@@ -3,27 +3,36 @@ import { multiDictInfo } from "../../../api/index";
 import { keyf1 } from "../keyEvent/f1.js";
 import { event_date, event_time, click_date } from "../keyEvent/date";
 import info from "../sheetInfo";
-let ysList = [];
-let chuList = [];
-let ruList = [];
+let 神志 = [];
+let 出量项目 = [];
+let 入量项目 = [];
 export default [
   {
-    key: "recordHour", //日期时间
+    key: "recordMonth", //日期
+    value: "",
+    event: event_date,
+    click: click_date
+  },
+  {
+    key: "recordHour", //时间
     value: "",
     event: event_time
   },
   {
     key: "consciousness", //神志
     value: "",
-    event: keyf1
+    event: keyf1,
+    autoComplete: {
+      data: 神志
+    }
   },
   {
-    key: "pupilSizeLeft", // 直径左
+    key: "pupilSizeLeft", // 瞳孔大小（mm）左
     value: "",
     event: keyf1
   },
   {
-    key: "pupilSizeRight", // 光反应左（灵敏 迟钝 消失 无法观察）
+    key: "pupilSizeRight", // 瞳孔大小（mm）右
     value: "",
     event: keyf1,
     autoComplete: {
@@ -31,12 +40,12 @@ export default [
     }
   },
   {
-    key: "pupilReflexLeft", // 直径右
+    key: "pupilReflexLeft", // 瞳孔反射左
     value: "",
     event: keyf1
   },
   {
-    key: "pupilReflexRight", // 光反应右（灵敏 迟钝 消失 无法观察）
+    key: "pupilReflexRight", // 瞳孔反射右
     value: "",
     event: keyf1,
     autoComplete: {
@@ -70,7 +79,7 @@ export default [
     event: keyf1
   },
   {
-    key: "temperature", //SpO2
+    key: "spo2", //SpO2
     value: "",
     event: keyf1
   },
@@ -79,7 +88,7 @@ export default [
     value: "",
     event: keyf1,
     autoComplete: {
-      data: ruList
+      data: 入量项目
     },
     textarea: {
       width: 68
@@ -95,10 +104,10 @@ export default [
     value: "",
     event: keyf1,
     autoComplete: {
-      data: chuList
+      data: 出量项目
     },
     textarea: {
-      width: 40
+      width: 68
     }
   },
   {
@@ -199,24 +208,14 @@ export default [
 ];
 
 export function getListData4() {
-  listItem("入量名称", info.sheetType).then(res => {
-    ruList.splice(0, ruList.length);
-    for (let item of res.data.data) {
-      ruList.push(item.name);
-    }
-  });
-  listItem("出量名称", info.sheetType).then(res => {
-    chuList.splice(0, chuList.length);
-    for (let item of res.data.data) {
-      chuList.push(item.name);
-    }
-    chuList.push("阴道出血")
-  });
-  let list = ["意识"];
-  multiDictInfo(list).then(res => {
+  let list = ["陵城神志","陵城出量",'陵城入量'];
+  multiDictInfo(list,info.sheetType).then(res => {
     let data = res.data.data;
-    setList(ysList, "意识", data);
+    setList(神志, "陵城神志", data);
+    setList(出量项目, "陵城出量", data);
+    setList(入量项目, '陵城入量', data);
   });
+
 }
 
 getListData4();

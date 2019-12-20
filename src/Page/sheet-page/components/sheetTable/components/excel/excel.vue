@@ -872,7 +872,7 @@ export default {
       if (
         sheetInfo.sheetType == "unified_wx" ||
         sheetInfo.sheetType === "ccu_wx" ||
-        sheetInfo.sheetType == "intensive_care_wx"
+        sheetInfo.sheetType == "intensive_care_wx" || sheetInfo.sheetType.includes('_lc')
       ) {
         window.openSpecialModal2(config);
       } else {

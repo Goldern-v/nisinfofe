@@ -3,43 +3,36 @@ import sheetInfo from "../config/sheetInfo/index";
 export default function Title(data = [], autoData = [], index) {
   let Th;
   switch (sheetInfo.sheetType) {
-    // case "neurology":
-    //   {
-    //     // 外科重症医学科
-    //     Th = JSON.parse(
-    //       JSON.stringify(require("../config/wkzzyxk_lc/th").default)
-    //     );
-    //   }
-    //   break;
-    // case "neurology":
-    //   {
-    //     // 内科重症医学科
-    //     Th = JSON.parse(
-    //       JSON.stringify(require("../config/nkzzyxk_lc/th").default)
-    //     );
-    //   }
-    //   break;
-   // case "neonatology2": {
-    //   //  陵城区新生儿科 里的 新生儿监护
-    //   Th = JSON.parse(
-    //     JSON.stringify(require("../config/neonatology_lc/th").default)
-    //   );
-    // }
-    // break;
-    // case "neurology_wx": {
-    //   // 陵城区-床头记录单
-    //   Th = JSON.parse(
-    //     JSON.stringify(require("../config/bedside_lc/th.js").default)
-    //   );
-    // }
-    // break;
-    // case "cpr": {
-    //   // 陵城区-病重（病危）
-    //      Th = JSON.parse(
-    //     JSON.stringify(require("../config/picu_lc/th.js").default)
-    //   );
-    // }
-    // break;
+  //   case "icu_lc":
+  //     {
+  //       // 内科重症医学科
+  //       Th = JSON.parse(
+  //         JSON.stringify(require("../config/nkzzyxk_lc/th").default)
+  //       );
+  //     }
+  //     break;
+  //   case "com_lc":
+  //     {
+  //       // 外科重症医学科
+  //       Th = JSON.parse(
+  //         JSON.stringify(require("../config/wkzzyxk_lc/th").default)
+  //       );
+  //     }
+  //     break;
+  //  case "newborn_lc": {
+  //     //  陵城区新生儿科 里的 新生儿监护
+  //     Th = JSON.parse(
+  //       JSON.stringify(require("../config/neonatology_lc/th").default)
+  //     );
+  //   }
+  //   break;
+  //   case "Record_Children_Serious_Lc": {
+  //     // 陵城区-病重（病危）
+  //        Th = JSON.parse(
+  //       JSON.stringify(require("../config/picu_lc/th.js").default)
+  //     );
+  //   }
+  //   break;
       case "neurology":
       {
         // 神经内科
