@@ -3,7 +3,8 @@ import {
   save,
   del,
   get,
-  list
+  list,
+  getEvalInfo
 } from "@/Page/sheet-hospital-eval/api/index.js";
 
 import bus from "vue-happy-bus";
@@ -21,6 +22,14 @@ export const getFormDetail = (id, callback = null) => {
     }
   });
 };
+
+// getEvalInfo(patientId, visitId)
+export const getVTEInfo = (patientId, visitId) => {
+  return getEvalInfo(patientId, visitId)
+  // .then(res=>{
+  //   console.log('getVTEInfo:',res)
+  // })
+}
 
 export const saveForm = (formObj, callback = null) => {
   let patientInfo = window.app.$store.state.sheet.patientInfo;

@@ -127,17 +127,26 @@
           "readOnly": true,
           "rule": [
             {
-              "equals": ["-1", "未保存"],
+              "equals": [
+                "-1",
+                "未保存"
+              ],
               "style": "color:gray",
               "display": "未签名"
             },
             {
-              "equals": ["0", "已保存 "],
+              "equals": [
+                "0",
+                "已保存 "
+              ],
               "style": "color:blue",
               "display": "已保存"
             },
             {
-              "equals": ["1", "已签名"],
+              "equals": [
+                "1",
+                "已签名"
+              ],
               "style": "color:red",
               "display": "已签名"
             }
@@ -171,7 +180,6 @@
     },
     {
       "type": "html",
-      "name": "C003007",
       "style": "margin-top: -15px; text-indent: 0; padding-left: 2em;margin-bottom: 5px",
       "html": "<div>给患者喂50ml水:前25ml(每匙5ml，共5匙)由护士喂；如5匙均通过，可将剩余25ml水也可如前，或可能的话由病人以正常喝水速度自己喝。</div>"
     },
@@ -199,6 +207,7 @@
           "hiddenTips": true,
           "value": "",
           "placeholder": "评估时间",
+          "inputWidth": "136px",
           "class": null,
           "readOnly": null
         }
@@ -207,7 +216,10 @@
     {
       "name": "",
       "type": "formGroupVerticalBox",
-      "colWidth": ["30px", ""],
+      "colWidth": [
+        "30px",
+        ""
+      ],
       "title": "",
       "message": "",
       "require": "false",
@@ -222,7 +234,7 @@
           "name": "I047003",
           "type": "checkbox",
           "title": "无吞咽",
-          "code": "on,",
+          "code": "true",
           "style": null,
           "class": null,
           "html": null,
@@ -232,7 +244,7 @@
           "name": "I047004",
           "type": "checkbox",
           "title": "诉咽下困难",
-          "code": "on,",
+          "code": "true",
           "style": null,
           "class": null,
           "html": null,
@@ -242,7 +254,7 @@
           "name": "I047005",
           "type": "checkbox",
           "title": "呛咳",
-          "code": "on,",
+          "code": "true",
           "style": null,
           "class": null,
           "html": null,
@@ -252,7 +264,7 @@
           "name": "I047006",
           "type": "checkbox",
           "title": "口角漏水",
-          "code": "on,",
+          "code": "true",
           "style": null,
           "class": null,
           "html": null,
@@ -262,7 +274,7 @@
           "name": "I047007",
           "type": "checkbox",
           "title": "清喉咙",
-          "code": "on,",
+          "code": "true",
           "style": null,
           "class": null,
           "html": null,
@@ -272,7 +284,7 @@
           "name": "I047008",
           "type": "checkbox",
           "title": "声音混浊",
-          "code": "on,",
+          "code": "true",
           "style": null,
           "class": null,
           "html": null,
@@ -282,7 +294,7 @@
           "name": "I047009",
           "type": "checkbox",
           "title": "噎噻",
-          "code": "on,",
+          "code": "true",
           "style": null,
           "class": null,
           "html": null,
@@ -292,7 +304,7 @@
           "name": "I047010",
           "type": "checkbox",
           "title": "呼吸困难",
-          "code": "on,",
+          "code": "true",
           "style": null,
           "class": null,
           "html": null,
@@ -302,7 +314,7 @@
           "name": "I047011",
           "type": "checkbox",
           "title": "SpO2从基础水平下降≥2%（2分钟内）",
-          "code": "on,",
+          "code": "true",
           "style": null,
           "class": null,
           "html": null,
@@ -313,7 +325,8 @@
           "type": "input",
           "label": "其他",
           "title": "其他",
-          "code": "on,",
+          "code": "true",
+          "inputWidth": "136px",
           "style": null,
           "class": null,
           "html": null,
@@ -325,7 +338,10 @@
       "name": "",
       "type": "formGroupColBox",
       "col": 2,
-      "colWidth": ["40%", "60%"],
+      "colWidth": [
+        "40%",
+        "60%"
+      ],
       "title": "",
       "message": "",
       "require": "false",
@@ -342,8 +358,12 @@
           "title": "评估结果",
           "titleStyle": "width:90px!important;margin:0;",
           "hiddenTips": true,
+          "inputWidth": "136px",
           "value": "",
-          "options": ["-", "+"],
+          "options": [
+            "-",
+            "+"
+          ],
           "rule": [
             {
               "equal": "+",
@@ -415,6 +435,7 @@
           "titleStyle": "width:90px!important;margin:0;",
           "hiddenTips": true,
           "value": "",
+          "inputWidth": "136px",
           "placeholder": "评估时间",
           "class": null,
           "readOnly": null
@@ -424,7 +445,10 @@
     {
       "name": "",
       "type": "formGroupVerticalBox",
-      "colWidth": ["30px", ""],
+      "colWidth": [
+        "30px",
+        ""
+      ],
       "title": "",
       "message": "",
       "require": "false",
@@ -439,7 +463,7 @@
           "name": "I047015",
           "type": "checkbox",
           "title": "无吞咽",
-          "code": "on,",
+          "code": "true",
           "style": null,
           "class": null,
           "html": null,
@@ -449,7 +473,7 @@
           "name": "I047016",
           "type": "checkbox",
           "title": "诉咽下困难",
-          "code": "on,",
+          "code": "true",
           "style": null,
           "class": null,
           "html": null,
@@ -459,7 +483,7 @@
           "name": "I047017",
           "type": "checkbox",
           "title": "呛咳",
-          "code": "on,",
+          "code": "true",
           "style": null,
           "class": null,
           "html": null,
@@ -469,7 +493,7 @@
           "name": "I047018",
           "type": "checkbox",
           "title": "口角漏水",
-          "code": "on,",
+          "code": "true",
           "style": null,
           "class": null,
           "html": null,
@@ -479,7 +503,7 @@
           "name": "I047019",
           "type": "checkbox",
           "title": "清喉咙",
-          "code": "on,",
+          "code": "true",
           "style": null,
           "class": null,
           "html": null,
@@ -489,7 +513,7 @@
           "name": "I047020",
           "type": "checkbox",
           "title": "声音混浊",
-          "code": "on,",
+          "code": "true",
           "style": null,
           "class": null,
           "html": null,
@@ -499,7 +523,7 @@
           "name": "I047021",
           "type": "checkbox",
           "title": "噎噻",
-          "code": "on,",
+          "code": "true",
           "style": null,
           "class": null,
           "html": null,
@@ -509,7 +533,7 @@
           "name": "I047022",
           "type": "checkbox",
           "title": "呼吸困难",
-          "code": "on,",
+          "code": "true",
           "style": null,
           "class": null,
           "html": null,
@@ -519,7 +543,7 @@
           "name": "I047023",
           "type": "checkbox",
           "title": "SpO2从基础水平下降≥2%（2分钟内）",
-          "code": "on,",
+          "code": "true",
           "style": null,
           "class": null,
           "html": null,
@@ -530,7 +554,8 @@
           "type": "input",
           "label": "其他",
           "title": "其他",
-          "code": "on,",
+          "code": "true",
+          "inputWidth": "136px",
           "style": null,
           "class": null,
           "html": null,
@@ -542,7 +567,10 @@
       "name": "",
       "type": "formGroupColBox",
       "col": 2,
-      "colWidth": ["40%", "60%"],
+      "colWidth": [
+        "40%",
+        "60%"
+      ],
       "title": "",
       "message": "",
       "require": "false",
@@ -559,8 +587,12 @@
           "title": "评估结果",
           "titleStyle": "width:90px!important;margin:0;",
           "hiddenTips": true,
+          "inputWidth": "136px",
           "value": "",
-          "options": ["-", "+"],
+          "options": [
+            "-",
+            "+"
+          ],
           "rule": [
             {
               "equal": "+",
@@ -572,7 +604,6 @@
         },
         {
           "type": "html",
-          "name": "C003007",
           "style": "margin-top: -15px; text-indent: 0; padding-left: 2em;margin-bottom: 5px;color: #666;font-size: 12px;display: inline-block;",
           "html": "<div>注1. 默认 - （阴性）</div> <div><span style=\"color: #fff\">注</span>2. 若结果为“+”（阳性），此符号请用红笔填写</div> "
         }
@@ -594,7 +625,10 @@
       "name": "",
       "type": "formGroupVerticalBox",
       "col": 1,
-      "colWidth": ["190px", ""],
+      "colWidth": [
+        "190px",
+        ""
+      ],
       "title": "建议的进食种类或进食方法",
       "message": "",
       "require": "false",
@@ -619,7 +653,6 @@
     },
     {
       "type": "html",
-      "name": "",
       "style": " text-indent: 0; padding-left: 2em;margin-bottom: 5px;font-size:13px",
       "html": "<div>结果饮水测试通过（-）→由口进食 不通过（+）→吞糊测试<p>注1.请于适当的□内打“√”。</p><p>2.如病人无作测试应在“其他”格内记录原因。</p><p>3.有吞咽困难者，至少每周评估一次。遇病情变化则随时评估。</p><p>4.当吞水测试不通过但有呛咳反应者，作吞糊测试。</p><p>备注</p><p>1.若结果为“+”，此符号请用红笔填写。</p><p>2.建议的食物种类或进食方法请一定要填写，并将结果告知医生。</p></div>"
     }

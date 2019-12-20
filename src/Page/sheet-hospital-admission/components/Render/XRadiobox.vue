@@ -60,28 +60,28 @@ export default {
       try {
         return this.formObj.formSetting.formInfo.formCode;
       } catch (error) {}
-      return "E0100";
+      return "E0001";
     }
   },
   watch: {
-    checkboxValue(valueNew, oldvaule) {
-      // let value = valueNew.toString();
-      // let index = -1;
-      // if (!this.formObj.model[this.obj.name]) {
-      //   this.formObj.model[this.obj.name] = [];
-      // }
-      // index = this.formObj.model[this.obj.name].indexOf(this.obj.title);
-      // if (value && index === -1) {
-      //   // console.log("checkboxValue-1:",value, oldvaule, index)
-      //   if (this.formObj.model[this.obj.name]) {
-      //     this.formObj.model[this.obj.name].push(value);
-      //   }
-      // } else if (!value && index > -1 && this.formObj.model[this.obj.name]) {
-      //   this.formObj.model[this.obj.name].splice(index, 1);
-      //   // console.log("checkboxValue:",valueNew, oldvaule)
-      // }
-      // console.log("checkboxValue-model:",this.formObj.model)
-    }
+    // checkboxValue(valueNew, oldvaule) {
+    // let value = valueNew.toString();
+    // let index = -1;
+    // if (!this.formObj.model[this.obj.name]) {
+    //   this.formObj.model[this.obj.name] = [];
+    // }
+    // index = this.formObj.model[this.obj.name].indexOf(this.obj.title);
+    // if (value && index === -1) {
+    //   // console.log("checkboxValue-1:",value, oldvaule, index)
+    //   if (this.formObj.model[this.obj.name]) {
+    //     this.formObj.model[this.obj.name].push(value);
+    //   }
+    // } else if (!value && index > -1 && this.formObj.model[this.obj.name]) {
+    //   this.formObj.model[this.obj.name].splice(index, 1);
+    //   // console.log("checkboxValue:",valueNew, oldvaule)
+    // }
+    // console.log("checkboxValue-model:",this.formObj.model)
+    // }
   },
   mounted() {
     let refName = this.obj.title; //this.obj.name //+
@@ -113,11 +113,11 @@ export default {
     radioClicked(e, child) {
       let name = this.Xname;
       let arr = [];
-      console.log(
-        "radioClicked",
+      console.log("radioClicked", [
         e,
         name,
         this.obj,
+        this.obj.name,
         e.target.checked,
         child.title,
         child,
@@ -125,15 +125,22 @@ export default {
         e.target.tagName,
         this.formObj.model[name],
         this.$root.$refs
-      );
+      ]);
 
-      if (e.target.tagName === "INPUT") {
+      if (e.target.tagName === "INPUT" && this.formCode) {
         if (this.$root.$refs[this.formCode][this.obj.name]) {
           console.log("!!!!!", this.obj.title, this.obj.name, this.obj);
           try {
             this.$root.$refs[this.formCode][this.obj.name].$el.style.outline =
               "none";
-            this.$refs[this.obj.name].$el.style.backgroundColor = "transparent";
+            this.$root.$refs[this.formCode][
+              this.obj.name
+            ].$el.style.backgroundColor = "transparent";
+            //
+            if (this.$refs[this.obj.name] && this.$refs[this.obj.name].$el) {
+              this.$refs[this.obj.name].$el.style.backgroundColor =
+                "transparent";
+            }
           } catch (error) {
             console.log(error, this.$root.$refs[this.formCode][this.obj.name]);
             if (

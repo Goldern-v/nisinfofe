@@ -5,7 +5,7 @@
     <!-- <TipsBox :obj='obj'  :formObj="formObj"> obj.name+obj.type.toUpperCase()+obj.title||obj.label-->
     <el-checkbox
       :ref="refName"
-      :name="obj.code || obj.title"
+      :name="obj.code || obj.name || obj.title"
       v-if="obj.type==='checkbox'"
       v-model="checkboxValue"
       border
@@ -45,7 +45,7 @@ export default {
       try {
         return this.formObj.formSetting.formInfo.formCode;
       } catch (error) {}
-      return "E0100";
+      return "E0001";
     }
   },
   watch: {

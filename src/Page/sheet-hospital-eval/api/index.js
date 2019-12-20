@@ -113,3 +113,9 @@ export function getReEvaTask(obj) {
 export function nursingDiagsSaveList(objList) {
   return axios.post(`${apiPath}nursingDiags/saveList`, objList);
 }
+
+
+// FORM.2.06、获取患者评估体征信息
+export function getEvalInfo(patientId, visitId) {
+  return axios.get(`${apiPath}form/design/getEvalInfo/${patientId}/${visitId}`)
+}

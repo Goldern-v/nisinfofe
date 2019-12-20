@@ -831,7 +831,8 @@ export default {
         return skipItems.indexOf(name) === -1;
       };
       //
-      let object = this.$root.$refs;
+      let object = this.$root.$refs[this.formCode];
+      if(!object){return}
       for (const key in object) {
         if (object.hasOwnProperty(key)) {
           let element = object[key];

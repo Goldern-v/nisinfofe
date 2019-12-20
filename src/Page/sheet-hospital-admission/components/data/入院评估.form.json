@@ -21,8 +21,8 @@
       "showAudit": true
     },
     "formInfo": {
-      "formCode": "E0100",
-      "formApiCode": "E0100",
+      "formCode": "E0001",
+      "formApiCode": "E0001",
       "formName": "入院评估",
       "status": "0",
       "formType": "eval"
@@ -75,6 +75,7 @@
           "titleStyle": "width:90px!important",
           "inputStyle": "width:90%!important",
           "style": null,
+          "elementStyle": "width:99%;",
           "class": null,
           "readOnly": true,
           "disabled": true
@@ -88,6 +89,7 @@
           "titleStyle": "width:40px!important",
           "inputStyle": "width:60px!important",
           "style": null,
+          "elementStyle": "width:95%;",
           "class": null,
           "readOnly": true,
           "disabled": true
@@ -116,7 +118,7 @@
           "placeholder": "",
           "titleStyle": "width:40px!important",
           "inputStyle": "width:90%!important",
-          "elementStyle": "width:100%;",
+          "elementStyle": "width:99%;",
           "style": "color:red!important",
           "class": null,
           "readOnly": true,
@@ -159,11 +161,12 @@
           "placeholder": "",
           "titleStyle": "width:80px!important",
           "inputStyle": "width:100%!important",
-          "style": "width:100%",
-          "elementStyle": "width:100%",
+          "style": "width:99%",
+          "elementStyle": "width:192px",
           "class": null,
           "readOnly": false,
           "disabled": false,
+          "labelLeft": true,
           "hiddenTips": true,
           "tdProps": {
             "colspan": "2"
@@ -181,6 +184,7 @@
           "elementStyle": "width:100%",
           "inputWidth": "100%",
           "class": null,
+          "labelLeft": true,
           "hiddenTips": true,
           "tdProps": {
             "colspan": "4"
@@ -216,6 +220,7 @@
           "inputWidth": "90px",
           "style": null,
           "class": null,
+          "labelLeft": true,
           "hiddenTips": true,
           "readOnly": null
         },
@@ -225,9 +230,10 @@
           "title": "民族",
           "titleStyle": "width:80px!important",
           "inputStyle": "width:100%!important",
-          "inputWidth": "80px",
+          "inputWidth": "90px",
           "style": null,
           "class": null,
+          "labelLeft": true,
           "hiddenTips": true,
           "readOnly": null
         },
@@ -240,6 +246,7 @@
           "inputWidth": "90px",
           "style": null,
           "class": null,
+          "labelLeft": true,
           "hiddenTips": true,
           "readOnly": null
         },
@@ -253,6 +260,7 @@
           "suffixDesc": "cm",
           "style": null,
           "class": null,
+          "labelLeft": true,
           "hiddenTips": true,
           "readOnly": null,
           "rule": [
@@ -271,10 +279,11 @@
           "title": "体重",
           "titleStyle": "width:80px!important",
           "inputStyle": "width:100%!important",
-          "inputWidth": "80px",
+          "inputWidth": "90px",
           "suffixDesc": "kg",
           "style": null,
           "class": null,
+          "labelLeft": true,
           "hiddenTips": true,
           "readOnly": null,
           "rule": [
@@ -288,15 +297,19 @@
           ]
         },
         {
-          "name": "I1001883",
+          "name": "I001883",
           "type": "input",
           "title": "孕前体重(产科)",
           "titleStyle": "width:140px!important",
           "inputStyle": "width:100%!important",
           "inputWidth": "60px",
           "suffixDesc": "kg",
+          "showDeptName": [
+            "产科"
+          ],
           "style": null,
           "class": null,
+          "labelLeft": true,
           "hiddenTips": true,
           "readOnly": null,
           "rule": [
@@ -304,7 +317,7 @@
               "name": "计算BMI",
               "height": "I100009",
               "weight": "I100010",
-              "weight2": "I1001883",
+              "weight2": "I001883",
               "result": "I100011"
             }
           ]
@@ -319,6 +332,7 @@
           "inputWidth": "90px",
           "style": null,
           "class": null,
+          "labelLeft": true,
           "hiddenTips": true,
           "readOnly": null,
           "rule": [
@@ -326,10 +340,44 @@
               "name": "计算BMI",
               "height": "I100009",
               "weight": "I100010",
-              "weight2": "I1001883",
+              "weight2": "I001883",
               "result": "I100011"
             }
           ]
+        },
+        {
+          "name": "I001972",
+          "type": "input",
+          "title": "头围",
+          "titleStyle": "width:80px!important",
+          "inputStyle": "width:100%!important",
+          "inputWidth": "90px",
+          "suffixDesc": "cm",
+          "showDeptName": [
+            "新生儿科"
+          ],
+          "style": null,
+          "class": null,
+          "labelLeft": true,
+          "hiddenTips": true,
+          "readOnly": null
+        },
+        {
+          "name": "I001923",
+          "type": "input",
+          "title": "腹围",
+          "titleStyle": "width:80px!important",
+          "inputStyle": "width:100%!important",
+          "inputWidth": "90px",
+          "suffixDesc": "cm",
+          "showDeptName": [
+            "新生儿科"
+          ],
+          "style": null,
+          "class": null,
+          "labelLeft": true,
+          "hiddenTips": true,
+          "readOnly": null
         }
       ]
     },
@@ -364,13 +412,30 @@
           "readOnly": null
         },
         {
+          "name": "I001924",
+          "type": "input",
+          "title": "转出医院",
+          "titleStyle": "width:80px!important",
+          "inputStyle": "width:100%!important",
+          "inputWidth": "90px",
+          "suffixDesc": "",
+          "showDeptName": [
+            "新生儿科"
+          ],
+          "style": null,
+          "class": null,
+          "labelLeft": true,
+          "hiddenTips": true,
+          "readOnly": null
+        },
+        {
           "name": "I001009",
           "type": "select",
           "title": "入院方式",
           "style": null,
           "titleStyle": "width:60px!important",
           "inputStyle": "width:175px!important",
-          "inputWidth": "80px",
+          "inputWidth": "90px",
           "class": null,
           "readOnly": null,
           "rule": [
@@ -391,6 +456,148 @@
               "style": "color:red"
             }
           ]
+        },
+        {
+          "name": "I001925",
+          "type": "select",
+          "title": "陪同者",
+          "style": null,
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:175px!important",
+          "inputWidth": "90px",
+          "class": null,
+          "showDeptName": [
+            "新生儿科"
+          ],
+          "readOnly": null,
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "其他",
+                "cleanKey": [
+                  "无"
+                ],
+                "title": "其他陪同者",
+                "cleanKeyDiff": "其他",
+                "parentName": "I001925",
+                "type": "dependent"
+              }
+            },
+            {
+              "equal": "有",
+              "style": "color:red"
+            }
+          ]
+        },
+        {
+          "name": "I001927",
+          "type": "select",
+          "title": "居住状态",
+          "style": null,
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:175px!important",
+          "inputWidth": "90px",
+          "class": null,
+          "showDeptName": [
+            "新生儿科"
+          ],
+          "readOnly": null,
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "其他",
+                "cleanKey": [
+                  "无"
+                ],
+                "title": "其他居住状态",
+                "cleanKeyDiff": "其他",
+                "parentName": "I001927",
+                "type": "dependent"
+              }
+            },
+            {
+              "equal": "有",
+              "style": "color:red"
+            }
+          ]
+        },
+        {
+          "name": "I001929",
+          "type": "select",
+          "title": "监护人",
+          "style": null,
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:175px!important",
+          "inputWidth": "90px",
+          "class": null,
+          "showDeptName": [
+            "新生儿科"
+          ],
+          "readOnly": null,
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "其他",
+                "cleanKey": [
+                  "无"
+                ],
+                "title": "其他监护人",
+                "cleanKeyDiff": "其他",
+                "parentName": "I001929",
+                "type": "dependent"
+              }
+            },
+            {
+              "equal": "有",
+              "style": "color:red"
+            }
+          ]
+        },
+        {
+          "name": "I001931",
+          "type": "select",
+          "title": "陪护人",
+          "style": null,
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:175px!important",
+          "inputWidth": "90px",
+          "class": null,
+          "showDeptName": [
+            "新生儿科"
+          ],
+          "readOnly": null,
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "其他",
+                "cleanKey": [
+                  "无"
+                ],
+                "title": "其他陪护人",
+                "cleanKeyDiff": "其他",
+                "parentName": "I001931",
+                "type": "dependent"
+              }
+            },
+            {
+              "equal": "有",
+              "style": "color:red"
+            }
+          ]
+        },
+        {
+          "name": "I001933",
+          "type": "select",
+          "title": "监护人文化程度",
+          "style": null,
+          "titleStyle": "width:138px!important",
+          "inputStyle": "width:100%!important",
+          "inputWidth": "58px",
+          "class": null,
+          "showDeptName": [
+            "新生儿科"
+          ],
+          "readOnly": null
         },
         {
           "name": "I001010",
@@ -421,7 +628,7 @@
           "style": null,
           "titleStyle": "width:60px!important",
           "inputStyle": "width:175px!important",
-          "inputWidth": "80px",
+          "inputWidth": "90px",
           "class": null,
           "readOnly": null
         },
@@ -576,7 +783,7 @@
           "suffixDesc": "mmHG",
           "titleStyle": "width:30px!important",
           "inputStyle": "width:100%!important",
-          "inputWidth": "55px",
+          "inputWidth": "65px",
           "style": null,
           "class": null,
           "readOnly": null,
@@ -638,6 +845,278 @@
       "classes": null,
       "readOnly": null,
       "children": [
+        {
+          "name": "I001934",
+          "type": "input",
+          "title": "个人史:第",
+          "suffixDesc": "胎",
+          "style": null,
+          "titleStyle": "width:82px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "160px",
+          "class": null,
+          "showDeptName": [
+            "新生儿科"
+          ]
+        },
+        {
+          "name": "I001935",
+          "type": "input",
+          "title": "个人史:第",
+          "suffixDesc": "产",
+          "style": null,
+          "titleStyle": "width:82px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "160px",
+          "class": null,
+          "showDeptName": [
+            "新生儿科"
+          ]
+        },
+        {
+          "name": "I001937",
+          "type": "input",
+          "title": "胎龄",
+          "suffixDesc": "周",
+          "style": null,
+          "titleStyle": "width:82px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "160px",
+          "class": null,
+          "showDeptName": [
+            "新生儿科"
+          ]
+        },
+        {
+          "name": "I001938",
+          "type": "input",
+          "title": "出生体重",
+          "suffixDesc": "kg",
+          "style": null,
+          "titleStyle": "width:82px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "160px",
+          "class": null,
+          "showDeptName": [
+            "新生儿科"
+          ]
+        },
+        {
+          "name": "I001939",
+          "type": "select",
+          "title": "出生方式",
+          "suffixDesc": "",
+          "style": null,
+          "titleStyle": "width:82px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "160px",
+          "class": null,
+          "showDeptName": [
+            "新生儿科"
+          ]
+        },
+        {
+          "name": "I001943",
+          "type": "select",
+          "title": "阿氏评分:不详",
+          "suffixDesc": "",
+          "style": null,
+          "titleStyle": "width:102px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "140px",
+          "class": null,
+          "showDeptName": [
+            "新生儿科"
+          ]
+        },
+        {
+          "name": "I001940",
+          "type": "input",
+          "title": "阿氏评分:1分钟",
+          "suffixDesc": "分",
+          "style": null,
+          "titleStyle": "width:102px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "140px",
+          "class": null,
+          "showDeptName": [
+            "新生儿科"
+          ]
+        },
+        {
+          "name": "I001941",
+          "type": "input",
+          "title": "阿氏评分:5分钟",
+          "suffixDesc": "分",
+          "style": null,
+          "titleStyle": "width:102px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "140px",
+          "class": null,
+          "showDeptName": [
+            "新生儿科"
+          ]
+        },
+        {
+          "name": "I001942",
+          "type": "input",
+          "title": "阿氏评分:10分钟",
+          "suffixDesc": "分",
+          "style": null,
+          "titleStyle": "width:102px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "140px",
+          "class": null,
+          "showDeptName": [
+            "新生儿科"
+          ]
+        },
+        {
+          "name": "I001944",
+          "type": "select",
+          "title": "羊水",
+          "style": null,
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:300px!important",
+          "inputWidth": "180px",
+          "class": null,
+          "showDeptName": [
+            "新生儿科"
+          ],
+          "readOnly": null,
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "混浊",
+                "cleanKey": [
+                  "无"
+                ],
+                "title": "羊水混浊程度",
+                "cleanKeyDiff": "混浊",
+                "parentName": "I001944",
+                "type": "dependent"
+              }
+            },
+            {
+              "equal": "有",
+              "style": "color:red"
+            }
+          ]
+        },
+        {
+          "name": "I001946",
+          "type": "select",
+          "title": "抢救史",
+          "suffixDesc": "",
+          "style": null,
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:300px!important",
+          "inputWidth": "180px",
+          "class": null,
+          "showDeptName": [
+            "新生儿科"
+          ]
+        },
+        {
+          "name": "I001947",
+          "type": "select",
+          "title": "喂养史",
+          "suffixDesc": "",
+          "style": null,
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:300px!important",
+          "inputWidth": "180px",
+          "class": null,
+          "showDeptName": [
+            "新生儿科"
+          ]
+        },
+        {
+          "name": "I001948",
+          "type": "select",
+          "title": "妊娠合并症",
+          "suffixDesc": "",
+          "style": null,
+          "titleStyle": "width:75px!important",
+          "inputStyle": "width:300px!important",
+          "inputWidth": "165px",
+          "class": null,
+          "showDeptName": [
+            "新生儿科"
+          ]
+        },
+        {
+          "name": "I001902",
+          "type": "select",
+          "title": "预防接种史",
+          "suffixDesc": "",
+          "style": null,
+          "titleStyle": "width:75px!important",
+          "inputStyle": "width:300px!important",
+          "inputWidth": "165px",
+          "class": null,
+          "showDeptName": [
+            "新生儿科"
+          ]
+        },
+        {
+          "name": "I001950",
+          "type": "select",
+          "title": "接种疫苗类型",
+          "suffixDesc": "",
+          "style": null,
+          "titleStyle": "width:92px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "148px",
+          "multiplechoice": true,
+          "class": null,
+          "showDeptName": [
+            "新生儿科"
+          ]
+        },
+        {
+          "name": "I001951",
+          "type": "select",
+          "title": "新生儿疾病筛查",
+          "suffixDesc": "",
+          "style": null,
+          "titleStyle": "width:92px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "148px",
+          "class": null,
+          "showDeptName": [
+            "新生儿科"
+          ]
+        },
+        {
+          "name": "I001952",
+          "type": "select",
+          "title": "传染病史",
+          "suffixDesc": "",
+          "style": null,
+          "titleStyle": "width:75px!important",
+          "inputStyle": "width:300px!important",
+          "inputWidth": "165px",
+          "class": null,
+          "showDeptName": [
+            "新生儿科"
+          ],
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "有",
+                "cleanKey": "无",
+                "title": "传染病史",
+                "parentName": "I001952",
+                "type": "dependent"
+              }
+            },
+            {
+              "equal": "有",
+              "style": "color:red"
+            }
+          ]
+        },
         {
           "name": "I001101",
           "type": "select",
@@ -966,6 +1445,36 @@
           "class": null
         },
         {
+          "name": "I001920",
+          "type": "select",
+          "title": "营养状况",
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:300px!important",
+          "inputWidth": "180px",
+          "style": null,
+          "class": null
+        },
+        {
+          "name": "I001129",
+          "type": "select",
+          "title": "吸吮力",
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:300px!important",
+          "inputWidth": "180px",
+          "style": null,
+          "class": null
+        },
+        {
+          "name": "I001955",
+          "type": "select",
+          "title": "营养异常风险",
+          "titleStyle": "width:92px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "148px",
+          "style": null,
+          "class": null
+        },
+        {
           "name": "I001128",
           "type": "select",
           "title": "咀嚼困难",
@@ -1143,8 +1652,8 @@
               "dialog": {
                 "openKey": "有",
                 "cleanKey": "无",
-                "title": "吞咽评估单",
-                "default": "吞咽评估单",
+                "title": "吞咽进食护理单",
+                "default": "吞咽进食护理单",
                 "name": "I100028",
                 "parentName": "I100028",
                 "type": "independent",
@@ -1277,6 +1786,103 @@
               "style": "color:red"
             }
           ]
+        },
+        {
+          "name": "I001150",
+          "type": "select",
+          "title": "哭声",
+          "style": null,
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "180px",
+          "class": null,
+          "showDeptName": [
+            "新生儿科"
+          ]
+        },
+        {
+          "name": "I001956",
+          "type": "select",
+          "title": "肢体活动:上肢",
+          "suffixDesc": "",
+          "style": null,
+          "titleStyle": "width:92px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "148px",
+          "class": null,
+          "showDeptName": [
+            "新生儿科"
+          ],
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "抽搐",
+                "cleanKey": "无",
+                "title": "肢体活动上肢",
+                "parentName": "I001956",
+                "type": "dependent"
+              }
+            },
+            {
+              "equal": "抽搐",
+              "style": "color:red"
+            }
+          ]
+        },
+        {
+          "name": "I001958",
+          "type": "select",
+          "title": "肢体活动:下肢",
+          "suffixDesc": "",
+          "style": null,
+          "titleStyle": "width:92px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "148px",
+          "class": null,
+          "showDeptName": [
+            "新生儿科"
+          ],
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "抽搐",
+                "cleanKey": "无",
+                "title": "肢体活动下肢",
+                "parentName": "I001958",
+                "type": "dependent"
+              }
+            },
+            {
+              "equal": "抽搐",
+              "style": "color:red"
+            }
+          ]
+        },
+        {
+          "name": "I001960",
+          "type": "select",
+          "title": "关节活动",
+          "style": null,
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "180px",
+          "class": null,
+          "showDeptName": [
+            "新生儿科"
+          ]
+        },
+        {
+          "name": "I001961",
+          "type": "select",
+          "title": "肌张力",
+          "style": null,
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "180px",
+          "class": null,
+          "showDeptName": [
+            "新生儿科"
+          ]
         }
       ]
     },
@@ -1390,7 +1996,7 @@
     {
       "name": "I100132",
       "type": "formGroupColBox",
-      "col": 1,
+      "col": 2,
       "title": "三、健康史/饮食/认知/语言沟通",
       "message": "",
       "require": "false",
@@ -1432,6 +2038,33 @@
               "equal": "有",
               "style": "color:red"
             }
+          ]
+        },
+        {
+          "name": "I001973",
+          "type": "select",
+          "title": "监护人对疾病认识",
+          "style": null,
+          "titleStyle": "width:110px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "130px",
+          "class": null,
+          "showDeptName": [
+            "新生儿科"
+          ]
+        },
+        {
+          "name": "I001910",
+          "type": "select",
+          "title": "患儿心理反应",
+          "style": null,
+          "titleStyle": "width:92px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "148px",
+          "class": null,
+          "showDeptName": [
+            "新生儿科",
+            "儿科"
           ]
         }
       ]
@@ -1716,10 +2349,26 @@
             {
               "dialog": {
                 "openKey": "水肿",
-                "cleanKey": [
-                  "无"
-                ],
+                "cleanKey": [],
                 "title": "水肿程度情况",
+                "parentName": "I001254",
+                "type": "dependent"
+              }
+            },
+            {
+              "dialog": {
+                "openKey": "紫绀",
+                "cleanKey": [],
+                "title": "紫绀情况",
+                "parentName": "I001254",
+                "type": "dependent"
+              }
+            },
+            {
+              "dialog": {
+                "openKey": "黄染",
+                "cleanKey": [],
+                "title": "黄染情况",
                 "parentName": "I001254",
                 "type": "dependent"
               }
@@ -1739,6 +2388,107 @@
           "inputStyle": "width:270px!important",
           "inputWidth": "180px",
           "class": null
+        },
+        {
+          "name": "I001964",
+          "type": "select",
+          "title": "皮疹",
+          "multiplechoice": true,
+          "style": null,
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "180px",
+          "class": null,
+          "showDeptName": [
+            "新生儿科"
+          ],
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "其他",
+                "cleanKey": [
+                  "无"
+                ],
+                "title": "其他皮疹",
+                "parentName": "I001254",
+                "type": "dependent"
+              }
+            },
+            {
+              "equal": "有",
+              "style": "color:red"
+            }
+          ]
+        },
+        {
+          "name": "I001967",
+          "type": "select",
+          "title": "硬肿",
+          "style": null,
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "180px",
+          "class": null,
+          "showDeptName": [
+            "新生儿科"
+          ],
+          "options": [
+            "无",
+            "有"
+          ],
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "有",
+                "cleanKey": [
+                  "无"
+                ],
+                "title": "硬肿部位",
+                "parentName": "I001967",
+                "type": "dependent"
+              }
+            },
+            {
+              "equal": "有",
+              "style": "color:red"
+            }
+          ]
+        },
+        {
+          "name": "I001969",
+          "type": "select",
+          "title": "皮肤弹性",
+          "style": null,
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "180px",
+          "class": null,
+          "showDeptName": [
+            "新生儿科"
+          ],
+          "options": [
+            "良好",
+            "中等",
+            "松弛",
+            "其他"
+          ],
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "其他",
+                "cleanKey": [
+                  "无"
+                ],
+                "title": "其他皮肤弹性",
+                "parentName": "I001969",
+                "type": "dependent"
+              }
+            },
+            {
+              "equal": "有",
+              "style": "color:red"
+            }
+          ]
         },
         {
           "name": "I001258",
@@ -1934,7 +2684,7 @@
               "dialog": {
                 "openKey": "有",
                 "cleanKey": "无",
-                "openDiffKey":"无",
+                "openDiffKey": "无",
                 "title": "自理能力评估表",
                 "default": "自理能力评估表",
                 "name": "I100126",
@@ -3022,6 +3772,18 @@
           "readOnly": null
         },
         {
+          "name": "I001971",
+          "type": "select",
+          "title": "脐部脐带情况",
+          "multiplechoice": true,
+          "style": null,
+          "titleStyle": "width:81px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "160px",
+          "class": null,
+          "readOnly": null
+        },
+        {
           "name": "I001879",
           "type": "select",
           "title": "肛门",
@@ -3182,6 +3944,7 @@
           "name": "I001377",
           "type": "select",
           "title": "腹部",
+          "multiplechoice": true,
           "style": null,
           "titleStyle": "width:81px!important",
           "inputStyle": "width:270px!important",
@@ -4462,7 +5225,9 @@
           "name": "evalDate",
           "type": "input",
           "title": "记录时间",
-          "titleStyle": "width:90px!important",
+          "titleStyle": "width:70px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "160px",
           "suffixDesc": "",
           "style": null,
           "class": null,
@@ -4472,7 +5237,9 @@
           "name": "signerName",
           "type": "input",
           "title": "责任护士签名",
-          "titleStyle": "width:110px!important",
+          "titleStyle": "width:80px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "160px",
           "suffixDesc": "",
           "style": "cursor: pointer!important",
           "class": null,
@@ -4482,7 +5249,9 @@
           "name": "auditTime",
           "type": "input",
           "title": "审核时间",
-          "titleStyle": "width:90px!important",
+          "titleStyle": "width:70px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "160px",
           "suffixDesc": "",
           "style": null,
           "class": null,
@@ -4492,7 +5261,9 @@
           "name": "auditorName",
           "type": "input",
           "title": "审核人签名",
-          "titleStyle": "width:110px!important",
+          "titleStyle": "width:80px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "160px",
           "suffixDesc": "",
           "style": "cursor: pointer!important",
           "class": null,
@@ -4506,7 +5277,8 @@
   "design": {
     "XRadiobox": {
       "name": "K0001",
-      "title": "红叉辅助单选框组件"
+      "title": "红叉辅助单选框组件",
+      "titleClass": "left"
     }
   }
 }

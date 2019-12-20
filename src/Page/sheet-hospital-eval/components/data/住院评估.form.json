@@ -4360,8 +4360,8 @@
           "style": null,
           "readOnly": true,
           "dialog": {
-            "title": "吞咽评估单",
-            "default": "吞咽评估单",
+            "title": "吞咽进食护理单",
+            "default": "吞咽进食护理单",
             "name": "I100028",
             "parentName": "I100028",
             "type": "independent",

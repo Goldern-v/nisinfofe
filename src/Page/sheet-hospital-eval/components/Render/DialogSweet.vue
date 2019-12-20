@@ -8,7 +8,7 @@
     class="custom-sweet-modal"
   >
     <!-- dialog-loading -->
-    <div v-loading="dialogLoading">
+    <div v-loading="dialogLoading" :class="{lock: lock}">
       <!-- <div class="dialog-loading-text">{{dialogLoadingText}}</div> -->
 
       <div class="form-select-con" v-show="formList.length > 1">
@@ -76,11 +76,18 @@ import FormFooter from "./FormFooter";
 // import FormGroupHorizontalBox from './FormGroupHorizontalBox'
 // import FormGroupColBox from './FormGroupColBox'
 // import draggable from 'vuedraggable'
+import dayjs from "dayjs";
 
 import {
   saveForm,
   getFormDetail
 } from "@/Page/sheet-hospital-eval/components/Render/common.js";
+//
+import comm, {
+  cancelSignForm,
+  getVTEInfo
+} from "@/Page/sheet-hospital-admission/components/Render/common.js";
+//
 import { debug } from "util";
 import common from "@/common/mixin/common.mixin.js";
 import mergeDefaultValue from "../data/defalutValue/utils";
@@ -105,6 +112,7 @@ export default {
   },
   data() {
     return {
+      lock: false,
       dialogFormVisible: false,
       formLabelWidth: "220px",
       modalWidth: 780,
@@ -189,6 +197,7 @@ export default {
       // }
     },
     inital() {
+      this.lock = false;
       // this.formBox = {};
       this.formDialogObj = JSON.parse(JSON.stringify(this.formObj));
       this.formDialogObj.model = {};
@@ -272,7 +281,19 @@ export default {
       }
 
       if (this.type !== "dependent") {
+        // this.clearUIFormData(this.formBox.model);
+        console.log("根据ID表单independent", [
+          id,
+          this.formBox,
+          this.formObj,
+          this.$root.$refs
+        ]);
         this.clearUIFormData(this.formBox.model);
+        // 初始化 评估时间 评估人 状态
+        // const initialKeys = ['evalDate','signerName','status']
+        // if (!this.formBox.model["evalDate"]) {
+        //   this.formBox.model["evalDate"] = dayjs().format("YYYY-MM-DD HH:mm");
+        // }
       }
       // this.$forceUpdate();
 
@@ -308,6 +329,25 @@ export default {
             ...itemData,
             ...master
           };
+
+          //
+          if (this.formBox.model.status) {
+            this.okText =
+              this.formBox.model.status != "0" ? "取消签名" : "签名";
+            //
+            if (this.okText == "取消签名") {
+              this.lock = true;
+            }
+          }
+
+          // signerName = this.empName()
+          // if (!this.formBox.model.signerName) {
+          //   this.formBox.model.signerName = this.empName || "";
+          //   this.$root.$refs[this.formCode]["signerName"].setCurrentValue(
+          //     this.empName
+          //   );
+          // }
+
           console.log(
             "根据ID获取表单数据formBox",
             this.formBox,
@@ -330,6 +370,7 @@ export default {
       for (const key in model) {
         if (model.hasOwnProperty(key)) {
           let value = model[key];
+          //
           //
           // console.log(
           //   "===fillFormData:value",
@@ -394,7 +435,8 @@ export default {
                   //   this.formBox.model[key],
                   //   itemObj
                   // );
-                  if (itemObj.type === "text") {
+                  // if (itemObj.type === "text") {
+                  if (["text", "textarea"].indexOf(itemObj.type) > -1) {
                     let refObj = itemObj;
                     // let resultText = refObj.checkValueRule(value);
                     // refObj.setCurrentValue(resultText);
@@ -701,78 +743,104 @@ export default {
         //
         window.openSignModal((password, empNo) => {
           // this.$nextTick(()=>{
-          this.formBox.model = {
-            ...this.formBox.model,
-            sign: true,
-            empNo,
-            password
-          };
+          // this.formBox.model = {
+          //   ...this.formBox.model,
+          //   sign: true,
+          //   empNo,
+          //   password
+          // };
           // })
-          saveForm({ ...this.formBox }, res => {
-            console.log("弹框内容保存res", this.formBox, res);
+          //
+          let postData = {
+            id: this.formBox.model.id || "",
+            empNo: empNo,
+            sign: true,
+            // "audit": true,
+            password: password
+          };
+          // cancelSignForm
+          if (this.okText == "取消签名") {
+            cancelSignForm(postData, res => {
+              console.log("取消签名", [postData, cancelSignForm, comm]);
+              this.inital();
+            });
+          } else {
+            //
+            this.formBox.model = {
+              ...this.formBox.model,
+              ...postData
+              // sign: true,
+              // empNo,
+              // password
+            };
 
-            let {
-              data: {
+            //
+            saveForm({ ...this.formBox }, res => {
+              console.log("弹框内容保存res", this.formBox, res);
+
+              let {
                 data: {
-                  master: {
-                    id: id,
-                    evalDesc: evalDesc,
-                    evalScore: evalScore,
-                    syncToRecordDesc: syncToRecordDesc
+                  data: {
+                    master: {
+                      id: id,
+                      evalDesc: evalDesc,
+                      evalScore: evalScore,
+                      syncToRecordDesc: syncToRecordDesc
+                    }
                   }
                 }
-              }
-            } = res;
-            // 弹框内容保存
-            console.log("弹框内容保存", res, evalDesc, evalScore);
-            this.formObj.model[this.dialogFormCode] = id;
-            // parentName
-            if (this.parentName) {
-              if (this.parentName == "I100028") {
-                // 吞咽评估特殊处理
-                let result = "";
-                if (this.formBox.model.I047012) {
-                  result += "吞水：" + this.formBox.model.I047012 + " " + ";";
+              } = res;
+              // 弹框内容保存
+              console.log("弹框内容保存", res, evalDesc, evalScore);
+              this.formObj.model[this.dialogFormCode] = id || "";
+              // parentName
+              if (this.parentName) {
+                if (this.parentName == "I100028") {
+                  // 吞咽评估特殊处理
+                  let result = "";
+                  if (this.formBox.model.I047012) {
+                    result += "吞水：" + this.formBox.model.I047012 + " " + ";";
+                  }
+                  if (this.formBox.model.I047024) {
+                    result += "吞糊：" + this.formBox.model.I047024 + " " + ";";
+                  }
+                  this.setElementValue(this.parentName, result);
+                  this.getValueRule(this.parentName, result);
+                  this.formObj.model.I100028 = result;
+                } else {
+                  //
+                  let score = evalScore || this.formBox.model.evalScore || "";
+                  //
+                  let desc = evalDesc || this.formBox.model.evalDesc || "";
+                  //
+                  let result = syncToRecordDesc || score + "分 " + desc || "";
+                  result = result.replace(/null/g, "");
+                  result = result.replace(/undefined/g, "");
+                  this.setElementValue(this.parentName, result + "");
+                  this.formObj.model[this.parentName] = result || "";
+                  this.getValueRule(this.parentName, result);
+                  // console.log('评估结果：',result,this.parentName,this.formObj.model[this.parentName])
                 }
-                if (this.formBox.model.I047024) {
-                  result += "吞糊：" + this.formBox.model.I047024 + " " + ";";
-                }
-                this.setElementValue(this.parentName, result);
-                this.getValueRule(this.parentName, result);
-                this.formObj.model.I100028 = result;
-              } else {
-                //
-                let score = evalScore || this.formBox.model.evalScore || "";
-                //
-                let desc = evalDesc || this.formBox.model.evalDesc || "";
-                //
-                let result = syncToRecordDesc || score + "分 " + desc || "";
-                result = result.replace(/null/g, "");
-                result = result.replace(/undefined/g, "");
-                this.setElementValue(this.parentName, result + "");
-                this.formObj.model[this.parentName] = result || "";
-                this.getValueRule(this.parentName, result);
-                // console.log('评估结果：',result,this.parentName,this.formObj.model[this.parentName])
               }
-            }
 
-            // 更新住院单
-            window.formTool.fillForm();
+              // 更新住院单
+              window.formTool.fillForm();
 
-            console.log(
-              "===saveForm:res",
-              res,
-              isDev,
-              this.formBox,
-              this.formObj,
-              this.parentName,
-              this.$root.$refs[this.parentName]
-            );
-            if (!isDev) {
-              this.saveEvalForm();
-              this.close();
-            }
-          });
+              console.log(
+                "===saveForm:res",
+                res,
+                isDev,
+                this.formBox,
+                this.formObj,
+                this.parentName,
+                this.$root.$refs[this.parentName]
+              );
+              if (!isDev) {
+                this.saveEvalForm();
+                this.close();
+              }
+            });
+          }
         });
       }
 
@@ -1020,10 +1088,25 @@ export default {
   >>>.input-elements, .vertical-box{
     justify-content: center;
   }
+  >>>&.lock {
+    cursor: not-allowed!important;
+  }
 }
 
 >>>.el-radio-button__inner {
   border-radius: 0px!important
 }
+
+.lock {
+    pointer-events: none;
+    /deep/ input,
+    /deep/ .el-checkbox__inner {
+      background: #f5f7faff !important;
+    }
+
+    /deep/ .el-checkbox__inner::after {
+      border-color: black !important;
+    }
+  }
 
 </style>

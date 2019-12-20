@@ -7,7 +7,7 @@
     <span
       v-for="(child,cindex) in obj"
       :key="child.name+cindex+getUUID(child,cindex)"
-      :class="[child.elementClass,(child.type=='select'?'result-text-display':'')]"
+      :class="[child.elementClass,{'result-text-display':child.type=='select'},{'full-text-width':['input','datePicker'].indexOf(child.type)>-1}]"
       :style="child.elementStyle ? child.elementStyle : 'margin: 0 0px 0 0;'"
       class="input-element"
     >
@@ -240,7 +240,7 @@ export default {
       try {
         return this.formObj.formSetting.formInfo.formCode;
       } catch (error) {}
-      return "E0100";
+      return "E0001";
     }
   },
   watch: {
@@ -491,7 +491,7 @@ export default {
                     //
                     if (child.children) {
                       if (this.formObj.model[child.name]) {
-                        html += `<span style='margin-right:5px'><span style='color:green'>${title}</span>:<span>${this
+                        html += `<span style='margin-right:5px'><span style='color:green'>!!!${title}</span>:<span>${this
                           .formObj.model[child.name] || ""}${child.suffixDesc ||
                           ""}</span></span>`;
                         // hasNewLine?html+=newLine:html=html;
@@ -750,16 +750,32 @@ export default {
       return uuid_;
     },
     openTip(child) {
-      console.log(child, "childchild");
+      let multiplechoice = child.multiplechoice ? child.multiplechoice : false;
+      //
+      let itemClick = null;
+      let inputValue = this.$root.$refs[this.formCode][child.name].$parent
+        .inputValue;
+      // 多选
+      if (multiplechoice === true) {
+        itemClick = inputValue + "";
+      }
+      //
+      console.log([multiplechoice,itemClick, child], "openTip");
+      //
       this.$root.$refs[this.formCode][child.name].$parent.checkValueRule(
-        this.$root.$refs[this.formCode][child.name].$parent.inputValue,
-        true
+        inputValue,
+        true,
+        itemClick
       );
+      //
       if (child.dialog) {
         this.$root.$refs.dialogBox.openBox(
           child.dialog,
           this.formObj.model[child.name]
         );
+        if (this.$root.$refs.autoInput) {
+          this.$root.$refs.autoInput.closeBox();
+        }
       }
     }
   }
@@ -838,5 +854,9 @@ export default {
     display: inline;
     color: blue;
     font-size: 12px;
+
+.full-text-width
+  width:100%;
+
 
 </style>
