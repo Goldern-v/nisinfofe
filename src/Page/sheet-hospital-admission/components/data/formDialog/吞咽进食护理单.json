@@ -485,7 +485,7 @@
           "readOnly": null
         },
         {
-          "name": "I047054",
+          "name": "I047018",
           "type": "checkbox",
           "title": "食物从嘴角流出",
           "code": "true",
@@ -681,13 +681,13 @@
       "require": "false",
       "prefixDesc": "",
       "suffixDesc": "",
-      "keys": "M045001",
+      "keys": "M047001",
       "style": null,
       "classes": null,
       "readOnly": null,
       "children": [
         {
-          "name": "M045001",
+          "name": "M047001",
           "type": "checkbox",
           "title": "1.与营养师和患者商量制订患者的食谱",
           "code": "true",
@@ -697,7 +697,7 @@
           "readOnly": null
         },
         {
-          "name": "M045002",
+          "name": "M047002",
           "type": "checkbox",
           "title": "2.经口糊状饮食",
           "code": "true",
@@ -707,7 +707,7 @@
           "readOnly": null
         },
         {
-          "name": "M045003",
+          "name": "M047003",
           "type": "checkbox",
           "title": "3.经口普通低盐低脂饮食",
           "code": "true",
@@ -717,7 +717,7 @@
           "readOnly": null
         },
         {
-          "name": "M045004",
+          "name": "M047004",
           "type": "checkbox",
           "title": "4.留置胃管，进行鼻饲",
           "code": "true",
@@ -727,7 +727,7 @@
           "readOnly": null
         },
         {
-          "name": "M045005",
+          "name": "M047005",
           "type": "checkbox",
           "title": "5.提供舒适的进食环境",
           "code": "true",
@@ -737,7 +737,7 @@
           "readOnly": null
         },
         {
-          "name": "M045006",
+          "name": "M047006",
           "type": "checkbox",
           "title": "6.对患者及主要照顾者进行饮食健康教育",
           "code": "true",
@@ -747,7 +747,7 @@
           "readOnly": null
         },
         {
-          "name": "M045007",
+          "name": "M047007",
           "type": "checkbox",
           "title": "7.进食时摇高床头至少30度以上，进食后至少坐30-60分钟",
           "code": "true",
@@ -757,7 +757,7 @@
           "readOnly": null
         },
         {
-          "name": "M045008",
+          "name": "M047008",
           "type": "checkbox",
           "title": "8.鼓励并协助患者进食",
           "code": "true",
@@ -767,7 +767,7 @@
           "readOnly": null
         },
         {
-          "name": "M045009",
+          "name": "M047009",
           "type": "checkbox",
           "title": "9.进食后，协助漱口或实施口腔护理",
           "code": "true",
@@ -777,7 +777,7 @@
           "readOnly": null
         },
         {
-          "name": "M045010",
+          "name": "M047010",
           "type": "checkbox",
           "title": "10.进行吞咽—-进食功能训练",
           "code": "true",
@@ -787,7 +787,7 @@
           "readOnly": null
         },
         {
-          "name": "M045011",
+          "name": "M047011",
           "type": "checkbox",
           "title": "11.口腔冰刺激，训练吞咽功能",
           "code": "true",
@@ -797,7 +797,7 @@
           "readOnly": null
         },
         {
-          "name": "M045012",
+          "name": "M047012",
           "type": "checkbox",
           "title": "12.舌肌训练",
           "code": "true",
@@ -807,7 +807,7 @@
           "readOnly": null
         },
         {
-          "name": "M045013",
+          "name": "M047013",
           "type": "checkbox",
           "title": "13.老年专科护士会诊",
           "code": "true",
@@ -817,7 +817,7 @@
           "readOnly": null
         },
         {
-          "name": "M045014",
+          "name": "M047014",
           "type": "checkbox",
           "title": "14.拔出胃管，经口进食",
           "code": "true",
@@ -827,7 +827,7 @@
           "readOnly": null
         },
         {
-          "name": "M045015",
+          "name": "M047015",
           "type": "checkbox",
           "title": "15.言语治疗师训练",
           "code": "true",
