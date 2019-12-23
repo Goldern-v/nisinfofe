@@ -6,29 +6,30 @@ export default {
     measure: [],
     select: [],
     //
-    formFilledData:[],
+    formFilledData: [],
     // 表单最早ID  { keyName:valueId }
-    formLastId:[],
-    formTree:[],
+    formLastId: [],
+    formTree: [],
   },
-  getters:{
-    getFormLastId:(state)=>({patientId,visitId,formCode,formName})=>{
-      return state.formLastId.find(form=> form.patientId == patientId && form.visitId == visitId && (form.formCode == formCode||form.formName == formName))
+  getters: {
+    getFormLastId: (state) => ({ patientId, visitId, formCode, formName }) => {
+      return state.formLastId.find(form => form.patientId == patientId && form.visitId == visitId && (form.formCode == formCode || form.formName == formName))
     },
-    getFormList:(state)=>(formCode)=>{
-      return state.formTree.find(form=>(form.formCode == formCode))
+    getFormList: (state) => (formCode) => {
+      return state.formTree.find(form => (form.formCode == formCode))
     },
-    getPreFormId:(state)=>(formCode,formId)=>{
-      let formList = state.formTree.find(form=>(form.formCode == formCode))
-      if(formId && formList && formList.children && formList.children.length>0){
-        formList = formList.children.filter(form=>{return form.form_id !=formId && form.evalScore })
-         if(formList && formList.length>0){
+    getPreFormId: (state) => (formCode, formId) => {
+      let formList = state.formTree.find(form => (form.formCode == formCode))
+      if (formId && formList && formList.children && formList.children.length > 0) {
+        // formList = formList.children.filter(form => { return form.form_id != formId && form.evalScore })
+        formList = formList.children.filter(form => { return form.form_id != formId })
+        if (formList && formList.length > 0) {
           return formList[0]
-         }
+        }
       }
       return null
     },
-    getFormTree:(state)=>()=>{
+    getFormTree: (state) => () => {
       return state.formTree
     }
   },
