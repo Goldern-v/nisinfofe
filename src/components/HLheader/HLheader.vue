@@ -328,6 +328,13 @@
                     </el-row>
                   </router-link>
                 </el-dropdown-item>
+                <el-dropdown-item v-if="isDev">
+                  <router-link to="/healthEducationList" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="birthCertificate"></i>健康宣教查询
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
           </el-row>
@@ -744,6 +751,7 @@ export default {
       if (this.$route.path == "/flatManagement") return true;
       if (this.$route.path == "/vaccineManagement") return true;
       if (this.$route.path == "/birthCertificate") return true;
+      if (this.$route.path == "/healthEducationList") return true;
     },
     isActiveFormPage() {
       // if (this.$route.path == "/sheetPage") return true;

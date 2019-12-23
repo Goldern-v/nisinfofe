@@ -530,6 +530,7 @@ export default {
               头围: pageMap.form_childbirth_tw_explain
             };
             sheetInfo.relObj.birthday = pageMap.form_childbirth_temcsj_explain;
+            sheetInfo.relObj = { ...relObj };
           }
 
           Object.assign(this.formModel, lastEvalData);
