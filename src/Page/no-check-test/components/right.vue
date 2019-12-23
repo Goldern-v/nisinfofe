@@ -268,6 +268,9 @@ export default {
     testFilterMethod(search) {
       this.filterSearch = search;
       this.searchingContent = search;
+      if (!search) {
+        this.list = this.allTestList.concat();
+      }
     },
     filterTestList(val) {
       let arr = this.allTestList.filter(item => {
