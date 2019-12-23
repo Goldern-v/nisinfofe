@@ -24,17 +24,23 @@ export default [
   {
     key: "temperature", //体温
     value: "",
-    event: keyf1
+    event: keyf1,
+    name: '体温',
+    next:'℃'
   },
   {
     key: "pulse", //脉搏
     value: "",
-    event: keyf1
+    event: keyf1,
+    name: '脉搏',
+    next:'次/分'
   },
   {
     key: "breath", //呼吸
     value: "",
-    event: keyf1
+    event: keyf1,
+    name: '呼吸',
+    next:'次/分'
   },
   {
     key: "bloodPressure", //血压
@@ -45,87 +51,114 @@ export default [
         e.preventDefault();
       }
       keyf1(e, td);
-    }
+    },
+    name: '血压',
+    next:'mmHg'
   },
   {
-    key: "pulse1", //氧饱和度
-    value: "",
-    event: keyf1
-  },
-  {
-    key: "breath2", //神志
-    value: "",
-    event: keyf1
-  },
-  {
-    key: "consciousness", //尿量
-    value: "",
-    event: keyf1
-  },
-  {
-    key: "spo2", //呕吐
+    key: "pulse1", //氧饱和度%
     value: "",
     event: keyf1,
+    name: '氧饱和度',
+    next:'%'
   },
   {
-    key: "pupilSizeLeft", // 大便
+    key: "consciousness", //神志
     value: "",
-    event: keyf1
+    event: keyf1,
+    name: '神志'
   },
   {
-    key: "pupilSizeRight", // 其他引流量
+    key: "field5", //出量:尿量ml
     value: "",
-    event: keyf1
+    event: keyf1,
+    name: '尿量',
+    next:'ml'
   },
   {
-    key: "pupilSizeRight88", // 其他
+    key: "field6", //出量:呕吐ml
     value: "",
-    event: keyf1
+    event: keyf1,
+    name: '呕吐',
+    next:'ml'
   },
   {
-    key: "pupilSizeRight1", // 口服
+    key: "field7", // 出量:大便ml
     value: "",
-    event: keyf1
+    event: keyf1,
+    name: '大便',
+    next:'ml'
   },
   {
-    key: "pupilSizeRight2", // 静脉
+    key: "field8", // 出量:其他引流量ml
     value: "",
-    event: keyf1
+    event: keyf1,
+    name: '其他引流量',
+    next:'ml'
   },
   {
-    key: "pupilSizeRight3", // 肌肉注释
+    key: "field9", // 出量:其他
     value: "",
-    event: keyf1
+    event: keyf1,
+    name: '其他'
   },
   {
-    key: "pupilSizeRight31", // 灌肠
+    key: "field1", // 入量:口服ml
     value: "",
-    event: keyf1
+    event: keyf1,
+    name: '口服',
+    next:'ml'
   },
   {
-    key: "pupilSizeRight4", // 皮肤情况
+    key: "field2", // 入量:静脉
     value: "",
-    event: keyf1
+    event: keyf1,
+    name: '静脉',
+    next:'ml'
   },
   {
-    key: "pupilSizeRight5", // 管道护理
+    key: "field3", // 入量:肌肉注释
     value: "",
-    event: keyf1
+    event: keyf1,
+    name: '肌肉注释',
+    next:'ml'
   },
   {
-    key: "pupilSizeRight6", // 气道护理
+    key: "field4", // 入量:灌肠
     value: "",
-    event: keyf1
+    event: keyf1,
+    name: '灌肠',
+    next:'ml'
   },
   {
-    key: "pupilSizeRight7", // 痰液性状
+    key: "field10", // 皮肤情况
     value: "",
-    event: keyf1
+    event: keyf1,
+    name: '皮肤情况'
   },
   {
-    key: "pupilSizeRight8", // 其他
+    key: "field11", // 管道护理
     value: "",
-    event: keyf1
+    event: keyf1,
+    name: '管道护理'
+  },
+  {
+    key: "field12", // 气道护理
+    value: "",
+    event: keyf1,
+    name: '气道护理'
+  },
+  {
+    key: "field13", // 痰液性状
+    value: "",
+    event: keyf1,
+    name: '痰液性状'
+  },
+  {
+    key: "field14", // 其他
+    value: "",
+    event: keyf1,
+    name: '其他'
   },
   {
     key: "description", //特殊情况记录

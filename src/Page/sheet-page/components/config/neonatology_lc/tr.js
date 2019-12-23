@@ -43,7 +43,9 @@ export default [{
     event: keyf1,
     textarea: {
       width: 36
-    }
+    },
+    name: "体温",
+    next: '℃'
   },
   {
     key: "breath", //呼吸
@@ -51,18 +53,22 @@ export default [{
     event: keyf1,
     textarea: {
       width: 36
-    }
+    },
+    name: "呼吸",
+    next: '次/分'
   },
   {
-    key: "breath2", //心率
+    key: "pulse", //心率
     value: "",
     event: keyf1,
     textarea: {
       width: 36
-    }
+    },
+    name: "心率",
+    next: '次/分'
   },
   {
-    key: "breath3", //血压
+    key: "bloodPressure", //血压
     value: "",
     event: function (e, td) {
       if (e.keyCode == 32) {
@@ -70,7 +76,9 @@ export default [{
         e.preventDefault();
       }
       keyf1(e, td);
-    }
+    },
+    name: "血压",
+    next: 'mmHg'
   },
   {
     key: "spo2", //SPO₂(%)
@@ -78,10 +86,12 @@ export default [{
     event: keyf1,
     textarea: {
       width: 36
-    }
+    },
+    name: "SPO₂",
+    next: '%'
   },
   {
-    key: "fieldOne", //反应
+    key: "repercussion", //反应
     value: "",
     name: "反应",
     event: keyf1,
@@ -93,7 +103,7 @@ export default [{
     }
   },
   {
-    key: "fieldTwo", //哭声
+    key: "cry", //哭声
     value: "",
     name: "哭声",
     event: keyf1,
@@ -105,7 +115,7 @@ export default [{
     }
   },
   {
-    key: "fieldFour5", //肌张力
+    key: "muscularTension", //肌张力
     value: "",
     name: "肌张力",
     event: keyf1,
@@ -117,7 +127,7 @@ export default [{
     }
   },
   {
-    key: "fieldFour", //吸吮力
+    key: "suckingForce", //吸吮力
     value: "",
     name: "吸吮力",
     event: keyf1,
@@ -129,7 +139,7 @@ export default [{
     }
   },
   {
-    key: "fieldSeven", //入量：项目
+    key: "food", //入量：项目
     value: "",
     name: "入量：项目",
     event: keyf1,
@@ -138,7 +148,7 @@ export default [{
     }
   },
   {
-    key: "fieldEight", //入量：量
+    key: "foodSize", //入量：量
     value: "",
     name: "入量：量",
     event: keyf1,
@@ -147,7 +157,7 @@ export default [{
     }
   },
   {
-    key: "fieldTen", //出量：项目
+    key: "discharge", //出量：项目
     value: "",
     name: "出量：项目",
     event: keyf1,
@@ -156,7 +166,7 @@ export default [{
     }
   },
   {
-    key: "fieldEleven", //出量：量
+    key: "dischargeSize", //出量：量
     value: "",
     name: "出量：量",
     event: keyf1,

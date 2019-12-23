@@ -2057,6 +2057,7 @@
           "name": "I001910",
           "type": "select",
           "title": "患儿心理反应",
+          "multiplechoice": true,
           "style": null,
           "titleStyle": "width:92px!important",
           "inputStyle": "width:270px!important",

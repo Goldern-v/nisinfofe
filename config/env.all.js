@@ -31,4 +31,10 @@ module.exports = {
     HOSPITAL_NAME_SPACE: '"威 县 人 民 医 院"',
     ENABLE_BLUETOOTH_SIGN: 'true',
   },
+  lingcheng: {
+    HOSPITAL_ID: '"lingcheng"',
+    HOSPITAL_NAME: '"陵城区人民医院"',
+    HOSPITAL_NAME_SPACE: '"陵 城 区 人 民 医 院"',
+    ENABLE_BLUETOOTH_SIGN: 'true',
+  }
 };

@@ -1,11 +1,22 @@
 export default {
   // 科室的名称
   deptType: '',
+  style: {
+    width: "1150px"
+  },
   th: {
     top: [
-      //日期时间
       {
-        name: `日期<br/>时间`,
+        name: '日期',
+        style: {
+          minWidth: '36px',
+          maxWidth: '36px',
+        },
+        colspan: '1',
+        rowspan: '3'
+      },
+      {
+        name: '时间',
         style: {
           minWidth: '36px',
           maxWidth: '36px',
@@ -17,8 +28,8 @@ export default {
       {
         name: '神志',
         style: {
-          minWidth: '36px',
-          maxWidth: '36px',
+          minWidth: '140px',
+          maxWidth: '140px',
         },
         colspan: '1',
         rowspan: '3'
@@ -42,7 +53,7 @@ export default {
         rowspan: '3',
         style: {
           whiteSpace: 'nowrap',
-          minWidth: '34px',
+          minWidth: '38px',
         }
       },
       //心率
@@ -172,8 +183,8 @@ export default {
         colspan: '1',
         rowspan: '2',
         style: {
-          minWidth: '28px',
-          maxWidth: '28px',
+          minWidth: '50px',
+          maxWidth: '50px',
         },
       },
       {
@@ -194,8 +205,8 @@ export default {
         colspan: '1',
         rowspan: '2',
         style: {
-          minWidth: '28px',
-          maxWidth: '28px',
+          minWidth: '50px',
+          maxWidth: '50px',
           whiteSpace: 'nowrap'
         },
       },
