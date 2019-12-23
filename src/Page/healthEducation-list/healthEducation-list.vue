@@ -1,46 +1,17 @@
 <template>
   <div>
     <div class="main-contain">
-      <div class="head-con" v-if="false">
-        <span class="label" style="margin-left: 0">执行日期:</span>
+      <div class="head-con">
+        <span class="label" style="margin-left: 0">创建时间:</span>
         <el-date-picker
-          type="date"
+          type="daterange"
           format="yyyy-MM-dd"
           placeholder="选择入院起始时间"
           size="small"
-          v-model="startDate"
-          style="width:150px"
+          v-model="date"
+          style="width:210px"
         ></el-date-picker>
-        <span class="label">长/临:</span>
-        <el-row class="select-btn-list" type="flex" align="middle">
-          <el-radio-group v-model="repeatIndicator">
-            <el-radio class="radio" label>全部</el-radio>
-            <el-radio class="radio" label="1">长期</el-radio>
-            <el-radio class="radio" label="0">临时</el-radio>
-          </el-radio-group>
-        </el-row>
-        <span class="label">状态:</span>
-        <el-row class="select-btn-list" type="flex" align="middle">
-          <el-radio-group v-model="status">
-            <el-radio class="radio" label>全部</el-radio>
-            <el-radio class="radio" label="已执行">已执行</el-radio>
-            <el-radio class="radio" label="执行中">执行中</el-radio>
-            <el-radio class="radio" label="未执行">未执行</el-radio>
-          </el-radio-group>
-        </el-row>
-        <span class="label">类型:</span>
-        <el-select v-model="type" placeholder="请选择" size="small" style="width:150px">
-          <el-option label="全部" value></el-option>
-          <el-option label="输液" value="输液"></el-option>
-          <el-option label="注射" value="注射"></el-option>
-          <el-option label="口服" value="口服"></el-option>
-          <el-option label="雾化" value="雾化"></el-option>
-          <el-option label="皮试" value="皮试"></el-option>
-          <el-option label="治疗" value="治疗"></el-option>
-          <el-option label="理疗" value="理疗"></el-option>
-          <el-option label="护理" value="护理"></el-option>
-          <el-option label="其他" value="其他"></el-option>
-        </el-select>
+
         <div style="flex: 1"></div>
         <el-input
           size="small"
@@ -165,7 +136,14 @@ export default {
         pageNum: 20,
         total: 0
       },
-      startDate: moment().format("YYYY-MM-DD"),
+      date: [
+        moment()
+          .startOf("month")
+          .format("YYYY-MM-DD"),
+        moment()
+          .endOf("month")
+          .format("YYYY-MM-DD")
+      ],
       repeatIndicator: "",
       type: "",
       status: "",
@@ -197,7 +175,7 @@ export default {
       };
       getListByParam(obj).then(res => {
         this.tableData = res.data.data.list;
-        this.page.total = Number(res.data.data.pageCount);
+        this.page.total = Number(res.data.data.totalCount);
         this.pageLoadng = false;
       });
     },

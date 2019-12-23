@@ -7,63 +7,18 @@
       :height="wih - 165"
       v-loading="pageLoadng"
     >
-      <el-table-column prop="bedLabel" label="床号" min-width="50px" align="center">
+      <el-table-column prop="name" label="患者姓名" min-width="50px" align="center"></el-table-column>
+      <el-table-column prop="patientId" label="患者Id" min-width="50px" align="center"></el-table-column>
+      <el-table-column prop="visitId" label="就诊次数" min-width="50px" align="center"></el-table-column>
+      <el-table-column prop="wardName" label="护理单元" min-width="50px" align="center"></el-table-column>
+      <el-table-column prop="creatorName" label="创建人" min-width="50px" align="center"></el-table-column>
+      <el-table-column prop="createDate" label="创建时间" min-width="50px" align="center"></el-table-column>
+
+      <el-table-column label="操作" min-width="80px" align="center">
         <template slot-scope="scope">
-          <div>{{(scope.row.rowType == 1 || !scope.row.rowType) ? (scope.row.bedLabel) : ''}}</div>
+          <span class="btn-text">查看</span>
         </template>
       </el-table-column>
-
-      <el-table-column prop="executeDateTime" label="执行时间" min-width="80px" align="center">
-        <template slot-scope="scope">
-          <span>{{(scope.row.rowType == 1 || !scope.row.rowType) ? (scope.row.executeDateTime) : '' | ymdhm}}</span>
-        </template>
-      </el-table-column>
-
-      <el-table-column label="姓名" prop="patientName" min-width="70px" align="center">
-        <template slot-scope="scope">
-          <div>{{(scope.row.rowType == 1 || !scope.row.rowType) ? (scope.row.patientName) : ''}}</div>
-        </template>
-      </el-table-column>
-
-      <el-table-column label="医嘱内容" prop="orderText" min-width="250px">
-        <template slot-scope="scope">
-          <div :class="scope.row.rowType && `rowType-${scope.row.rowType}`">{{scope.row.orderText }}</div>
-        </template>
-      </el-table-column>
-
-      <el-table-column prop="dosage" label="剂量" min-width="50px" align="right">
-        <template slot-scope="scope">
-          <span style="position: relative;right: -10px;">{{scope.row.dosage }}</span>
-        </template>
-      </el-table-column>
-
-      <el-table-column prop="dosageUnits" label="单位" min-width="50px">
-        <template slot-scope="scope">
-          <span style="position: relative;left: -10px;">{{scope.row.dosageUnits }}</span>
-        </template>
-      </el-table-column>
-
-      <el-table-column label="频次" prop="frequency" min-width="50px" align="center"></el-table-column>
-
-      <el-table-column prop="administration" label="途径" min-width="100px" align="center"></el-table-column>
-
-      <el-table-column prop="executeFlag" label="执行状态" min-width="80px" align="center">
-        <template slot-scope="scope">
-          <span
-            :class="{
-              yzx: scope.row.executeFlag == '已执行',
-              zxz: scope.row.executeFlag == '执行中',
-              }"
-          >{{ scope.row.executeFlag }}</span>
-        </template>
-      </el-table-column>
-
-      <el-table-column prop="executeNurseName" label="执行人" min-width="80px" align="center"></el-table-column>
-
-      <el-table-column prop="realExecuteDateTime" label="实际执行时间" min-width="150px" align="center"></el-table-column>
-      <el-table-column prop="performSchedule" label="开医嘱时间" min-width="90px" align="center"></el-table-column>
-      <el-table-column prop="repeatIndicator" label="长/临" min-width="70px" align="center"></el-table-column>
-      <el-table-column prop="startNurse" label="校对护士" min-width="80px" align="center"></el-table-column>
     </el-table>
   </div>
 </template>
@@ -177,6 +132,15 @@
 
   >>>.el-table__body-wrapper {
     // overflow-x hidden
+  }
+
+  .btn-text {
+    color: #4bb08d;
+    cursor: pointer;
+
+    &:hover {
+      font-weight: bold;
+    }
   }
 }
 </style>
