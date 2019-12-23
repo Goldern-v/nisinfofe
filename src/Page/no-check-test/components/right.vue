@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="rightWrap">
     <boxBase title="未做化验" :icon="require('../images/检查预约.png')">
       <div class="body-con" v-loading="pageLoading" slot="body-con">
         <div class="list-box head" flex="cross:stretch">
@@ -26,6 +26,28 @@
       </div>
       <span slot="head-tool" @click="openPrintModal" style="margin-right: 10px;">打印</span>
     </boxBase>
+    <div class="filterTest">
+      <el-select
+        v-model="searchingContent"
+        placeholder="请输入检索内容"
+        filterable
+        :filter-method="testFilterMethod"
+      >
+        <template v-for="(item,idx) in testList">
+          <el-option
+            :key="idx"
+            v-if="testOptionVisible(item,filterSearch)"
+            :label="item"
+            :value="item"
+          >
+            <div
+              style="width: 194px;overflow: hidden;text-overflow: ellipsis;white-space:nowrap;"
+              @click="filterTestList(item)"
+            >{{item}}</div>
+          </el-option>
+        </template>
+      </el-select>
+    </div>
     <rightPrintModal ref="rightPrintModal" :list="list"></rightPrintModal>
   </div>
 </template>
@@ -46,7 +68,7 @@
   color: #333333;
 
   &:last-of-type {
-    border-bottom: none;
+    // border-bottom: none;
   }
 
   .col-1, .col-2, .col-3, .col-4, .col-5 {
@@ -102,6 +124,21 @@
     }
   }
 }
+
+.rightWrap {
+  position: relative;
+
+  .filterTest {
+    position: absolute;
+    top: 5px;
+    right: 90px;
+
+    >>> input {
+      width: 214px;
+      height: 34px;
+    }
+  }
+}
 </style>
 
 <script>
@@ -121,7 +158,11 @@ export default {
       bus: bus(this),
       pageLoading: false,
       list: [],
-      allPrint: false
+      allPrint: false,
+      testList: [],
+      searchingContent: "",
+      filterSearch: "",
+      allTestList: []
     };
   },
   props: {
@@ -151,8 +192,16 @@ export default {
       this.pageLoading = true;
       getHistGetTestWithWardcode(this.deptCode)
         .then(res => {
-          this.list = this.goundBy(res.data.data || []);
+          this.allTestList = this.goundBy(res.data.data || []);
+          this.list = this.allTestList.concat();
           this.pageLoading = false;
+          let arr = [];
+          this.list.map(item => {
+            if (!arr.includes(item.testItem)) {
+              arr.push(item.testItem);
+            }
+          });
+          this.testList = arr.concat();
         })
         .catch(err => {
           this.pageLoading = false;
@@ -211,6 +260,22 @@ export default {
       this.list.forEach(item => {
         item.isPrint = this.allPrint;
       });
+    },
+    testOptionVisible(item, search) {
+      if (!search) return true;
+      return item.indexOf(search) != -1 ? true : false;
+    },
+    testFilterMethod(search) {
+      this.filterSearch = search;
+      this.searchingContent = search;
+    },
+    filterTestList(val) {
+      let arr = this.allTestList.filter(item => {
+        if (item && item.testItem) {
+          return item.testItem.includes(val);
+        }
+      });
+      this.list = [...arr];
     }
   },
   components: {
