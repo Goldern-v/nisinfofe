@@ -314,10 +314,10 @@ export default {
             newParams = {
               ...newParams,
               pregnancyWeek: gnyz_explain,
-              productionProcess1: ccsj_dycc,
-              productionProcess2: ccsj_decc,
-              productionProcess3: ccsj_dscc,
-              productionProcessCount: ccsj_zcc,
+              productionProcess1: this.formatProductionProcess(ccsj_dycc),
+              productionProcess2: this.formatProductionProcess(ccsj_decc),
+              productionProcess3: this.formatProductionProcess(ccsj_dscc),
+              productionProcessCount: this.formatProductionProcess(ccsj_zcc),
               childBirthTime: temcsj_explain,
               childBirthWay: temcfs_option,
               perineumSituation: hy_qk_option,
@@ -344,6 +344,20 @@ export default {
       },err=>{
 
       })
+    },
+    formatProductionProcess(str){
+      if(/^\d{1,2}时\d{1,2}分$/.test(str)){
+        let str1 = str.split('时')[0]
+        let str2 = str.split('时')[1]
+        str2 = str2.replace('分','')
+
+        if(str1.length==1)str1=`0${str1}`
+        if(str2.length==1)str2=`0${str2}`
+
+        return `${str1}:${str2}`
+      }
+
+      return str
     },
     handleProductionProcessBlur(name,$event){
       let iptVal = $event.target.value
