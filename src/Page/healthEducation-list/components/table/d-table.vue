@@ -7,19 +7,23 @@
       :height="wih - 165"
       v-loading="pageLoadng"
     >
+      <el-table-column label=" " min-width="50px" type="index"></el-table-column>
+
       <el-table-column prop="name" label="患者姓名" min-width="50px" align="center"></el-table-column>
       <el-table-column prop="patientId" label="患者Id" min-width="50px" align="center"></el-table-column>
       <el-table-column prop="visitId" label="就诊次数" min-width="50px" align="center"></el-table-column>
       <el-table-column prop="wardName" label="护理单元" min-width="50px" align="center"></el-table-column>
       <el-table-column prop="creatorName" label="创建人" min-width="50px" align="center"></el-table-column>
-      <el-table-column prop="createDate" label="创建时间" min-width="50px" align="center"></el-table-column>
+      <el-table-column prop="createDate" label="创建时间" min-width="120px" align="center"></el-table-column>
+      <el-table-column prop="evalScore" label="总分" min-width="50px" align="center"></el-table-column>
 
-      <el-table-column label="操作" min-width="80px" align="center">
+      <el-table-column label="操作" min-width="50px" align="center">
         <template slot-scope="scope">
-          <span class="btn-text">查看</span>
+          <span class="btn-text" @click="openViewModal(scope.row.id)">查看</span>
         </template>
       </el-table-column>
     </el-table>
+    <viewHealthEducationModal ref="viewHealthEducationModal"></viewHealthEducationModal>
   </div>
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
@@ -149,6 +153,7 @@ import { info } from "@/api/task";
 import commonMixin from "../../../../common/mixin/common.mixin";
 import qs from "qs";
 import moment from "moment";
+import viewHealthEducationModal from "../modal/viewHealthEducationModal";
 export default {
   props: {
     tableData: Array,
@@ -165,6 +170,13 @@ export default {
       return val ? moment(val).format("HH:mm") : "";
     }
   },
-  components: {}
+  methods: {
+    openViewModal(id) {
+      this.$refs.viewHealthEducationModal.open(id);
+    }
+  },
+  components: {
+    viewHealthEducationModal
+  }
 };
 </script>

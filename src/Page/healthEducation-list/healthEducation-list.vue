@@ -16,8 +16,8 @@
         <el-input
           size="small"
           style="width: 150px;margin-right: 15px;"
-          placeholder="输入床号进行搜索"
-          v-model="bedLabel"
+          placeholder="输入患者Id进行搜索"
+          v-model="patientId"
         ></el-input>
         <el-button size="small" type="primary" @click="search">查询</el-button>
       </div>
@@ -131,6 +131,7 @@ export default {
       pageInput: "",
       tableData: [],
       pageLoadng: false,
+      patientId: "",
       page: {
         pageIndex: 1,
         pageNum: 20,
@@ -163,7 +164,8 @@ export default {
         beginTime: moment(this.date[0]).format("YYYY-MM-DD"),
         endTime: moment(this.date[1]).format("YYYY-MM-DD"),
         pageIndex: this.page.pageIndex,
-        pageSize: this.page.pageNum
+        pageSize: this.page.pageNum,
+        patientId: this.patientId
       };
       getListByParam(obj).then(res => {
         this.tableData = res.data.data.list;
