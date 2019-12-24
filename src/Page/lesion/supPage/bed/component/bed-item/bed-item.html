@@ -83,6 +83,10 @@
           <div class="key">入院时间：</div>
           <div class="value">{{ data.admissionDate }}</div>
         </div>
+        <div flex="" class="table-line" v-if="data.operationDay">
+          <div class="key">术后天数：</div>
+          <div class="value">{{ data.operationDay }}天</div>
+        </div>
         <div flex="" class="table-line">
           <div class="key">诊&nbsp;&nbsp;断：</div>
           <div class="value" flex-box="1" style="width: 0">
