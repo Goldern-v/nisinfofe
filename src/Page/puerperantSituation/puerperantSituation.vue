@@ -327,7 +327,7 @@ export default {
       this.createVisible = false;
       this.getTableData();
     },
-    handleChange(record,key,val,forceRender){
+    handleChange(record,key,val,options={}){
       let row = record.row
       let idx = record.index
       row = {...row,...this.tableData[idx]}
@@ -338,11 +338,20 @@ export default {
       }else{
         otherIdx=idx+1;
       }
+      //重新计算总产程
+      if(options.reSumProductionProcess){
+        let newSum = this.productionProcessSumUp(row)
+
+        if(newSum!==row.productionProcessCount){
+          row.productionProcessCount=newSum
+          options.forceRender=true
+        }
+      }
 
       if(val!==this.tableData[otherIdx][key]){
         this.tableData[idx]={...row}
         this.tableData[otherIdx]={...row}
-        if(forceRender)this.tableData=this.tableData.concat()
+        if(options.forceRender)this.tableData=this.tableData.concat()
 
         this.saveData(this.tableData[idx],()=>{
           this.$message.success({message:'修改成功'})
@@ -368,6 +377,71 @@ export default {
           blur: (e) => this.handleChange(record, key, e.target.value)
         }
       })
+    },
+    productEditRender(h,record,_key){
+      let row = record.row
+      let key = _key||record.column.key
+      let idx = record.index
+      return h('el-input', {
+        props: {
+          value: row[key],
+          type: 'textarea',
+          autosize: {minRows: 1},
+          resize: 'none'
+        },
+        on: {
+          blur: (e) => {
+            let iptVal = e.target.value
+            let newVal = iptVal
+            if(/^\d\d\d\d$/.test(iptVal)){
+              iptVal = iptVal.split('')
+              newVal = `${iptVal[0]}${iptVal[1]}:${iptVal[2]}${iptVal[3]}`
+              e.target.value = newVal
+            }
+
+            this.handleChange(record, key, newVal,{reSumProductionProcess:true})
+          }
+        }
+      })
+    },
+    productionProcessSumUp(row){
+      let p1 = row.productionProcess1;
+      let p2 = row.productionProcess2;
+      let p3 = row.productionProcess3;
+      let reg = /^\d\d:\d\d$/
+
+      function getMin(str){
+        let hour = str.split(':')[0]
+        let min = str.split(':')[1]
+        return hour*60+Number(min)
+      }
+
+      if(reg.test(p1)){
+        p1 = getMin(p1)
+      }else{
+        p1=0
+      }
+
+      if(reg.test(p2)){
+        p2 = getMin(p2)
+      }else{
+        p2=0
+      }
+
+      if(reg.test(p3)){
+        p3 = getMin(p3)
+      }else{
+        p3=0
+      }
+
+      let sum = p1+p2+p3
+
+      let hour = parseInt(sum/60)
+      if(hour<10)hour = `0${hour}`
+      let min = sum%60
+      if(min<10)min = `0${min}`
+
+      return `${hour}:${min}`
     },
     defaultSelectRender(h,record,options,_key){
       let row = record.row

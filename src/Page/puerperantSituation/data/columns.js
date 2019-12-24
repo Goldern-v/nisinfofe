@@ -180,21 +180,21 @@ export const columns = (vm) => {
               key: "productionProcess1",
               align: 'center',
               width: 100,
-              render:(h, record)=>vm.defaultEditRender(h, record)
+              render:(h, record)=>vm.productEditRender(h, record)
             },
             {
               title: "二",
               key: "productionProcess2",
               align: 'center',
               width: 100,
-              render:(h, record)=>vm.defaultEditRender(h, record)
+              render:(h, record)=>vm.productEditRender(h, record)
             },
             {
               title: "三",
               key: "productionProcess3",
               align: 'center',
               width: 100,
-              render:(h, record)=>vm.defaultEditRender(h, record)
+              render:(h, record)=>vm.productEditRender(h, record)
             },
             {
               title: "总产程",
