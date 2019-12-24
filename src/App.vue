@@ -75,6 +75,19 @@ export default {
     window.openTestFormDiagnosisModal = this.$refs.testFormDiagnosis.open;
     window.openSubFormDialogModal = this.$refs.subFormDiagnosis.open;
     window.openSetAuditDateModal = this.$refs.setAuditDateModal.open;
+    //
+    this.$root.$refs = {
+      ...this.$root.$refs,
+      sign: this.$refs.signModal,
+      setTextModal: this.$refs.setTextModal,
+      newFormBox: this.$refs.newFormBox,
+      caSignModal: this.$refs.caSignModal,
+      selectDiagnosis: this.$refs.selectDiagnosis,
+      formBox: this.$refs.moadl,
+      formBoxEdu: this.$refs.formBoxEdu,
+      slideRight: this.$refs.slideRight
+    };
+    //
     window.openSubFormDialogModal = params => {
       this.$refs.subFormDiagnosis.open(params);
     };

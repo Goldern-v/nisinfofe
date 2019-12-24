@@ -62,7 +62,7 @@
     </span>
     <div style="height: 20px"></div>
     <div slot="button">
-      <el-button class="modal-btn" @click.stop="$refs.modalName.close()">取消</el-button>
+      <el-button class="modal-btn" @click.stop="close">取消</el-button>
       <el-button class="modal-btn" type="primary" @dblclick.stop="post" @click.stop="post">确认</el-button>
     </div>
   </sweet-modal>
@@ -202,7 +202,15 @@ export default {
 
       return null;
     },
+    close() {
+      this.$refs.modalName.close();
+    },
+    setCloseCallback(closeCallback) {
+      console.log("----setCloseCallback");
+      this.$refs.modalName.setCloseCallback(closeCallback);
+    },
     post() {
+      this.setCloseCallback(null);
       if (this.HOSPITAL_ID == "weixian") {
         if (this.pw) {
           if (this.password == "") {
@@ -256,6 +264,9 @@ export default {
       window.openCaSignModal();
       this.$refs.modalName.close();
     }
+  },
+  beforeDestroy() {
+    console.log("====beforeDestroy");
   },
   components: {}
 };
