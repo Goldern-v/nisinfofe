@@ -233,7 +233,7 @@ export default {
           finallParams = {
             ...finallParams,
             man: re1.contactName||'',
-            manBirthAddress: re1.contactAddr||'',
+            nowAddress: re1.contactAddr||'',
             femaleEdu: re1.whcd||'',
             pregnancyTimes:  re1.yy||'',
             birthTimes:  re1.cy||''
@@ -332,7 +332,7 @@ export default {
               birthAttendantId1: deliver_empno,
               birthAttendantName2: deliver2,
               birthAttendantId2: deliver2_empno,
-              dangerousSituation: bfzhhbz_explain
+              dangerousSituation: bfzhhbz_explain.replace(/\?/g,'')
             }
 
             finallParams = newParams
@@ -344,6 +344,57 @@ export default {
       },err=>{
 
       })
+    },
+    handleProductionProcessBlur(name,$event){
+      let iptVal = $event.target.value
+
+      if(/^\d\d\d\d$/.test(iptVal)){
+        iptVal = iptVal.split('')
+        let newVal = `${iptVal[0]}${iptVal[1]}:${iptVal[2]}${iptVal[3]}`
+
+        this.params[name] = newVal
+      }
+
+      this.productionProcessSumUp()
+    },
+    productionProcessSumUp(){
+      let p1 = this.params.productionProcess1;
+      let p2 = this.params.productionProcess2;
+      let p3 = this.params.productionProcess3;
+      let reg = /^\d\d:\d\d$/
+
+      function getMin(str){
+        let hour = str.split(':')[0]
+        let min = str.split(':')[1]
+        return hour*60+Number(min)
+      }
+
+      if(reg.test(p1)){
+        p1 = getMin(p1)
+      }else{
+        p1=0
+      }
+
+      if(reg.test(p2)){
+        p2 = getMin(p2)
+      }else{
+        p2=0
+      }
+
+      if(reg.test(p3)){
+        p3 = getMin(p3)
+      }else{
+        p3=0
+      }
+
+      let sum = p1+p2+p3
+
+      let hour = parseInt(sum/60)
+      if(hour<10)hour = `0${hour}`
+      let min = sum%60
+      if(min<10)min = `0${min}`
+
+      this.params.productionProcessCount = `${hour}:${min}`
     },
     handleNumberChange(val,name){
       if(!val){

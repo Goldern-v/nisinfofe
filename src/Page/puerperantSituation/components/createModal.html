@@ -251,7 +251,11 @@
             <span>:</span>
           </div>
           <div class="content">
-            <el-input size="small" v-model="params.productionProcess1"/>
+            <el-input 
+              size="small" 
+              v-model="params.productionProcess1" 
+              placeholder="请输入四位数字"
+              @blur="($event)=>handleProductionProcessBlur('productionProcess1',$event)"/>
           </div>
         </el-col>
         <el-col :span="8">
@@ -260,7 +264,11 @@
             <span>:</span>
           </div>
           <div class="content">
-            <el-input size="small" v-model="params.productionProcess2"/>
+            <el-input 
+              size="small" 
+              v-model="params.productionProcess2" 
+              placeholder="请输入四位数字"
+              @blur="($event)=>handleProductionProcessBlur('productionProcess2',$event)"/>
           </div>
         </el-col>
         <el-col :span="8">
@@ -269,7 +277,11 @@
             <span>:</span>
           </div>
           <div class="content">
-            <el-input size="small" v-model="params.productionProcess3"/>
+            <el-input 
+              size="small" 
+              v-model="params.productionProcess3" 
+              placeholder="请输入四位数字"
+              @blur="($event)=>handleProductionProcessBlur('productionProcess3',$event)"/>
           </div>
         </el-col>
       </el-row>
