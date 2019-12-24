@@ -50,28 +50,28 @@ export { Tr };
 function switechSheetType(type) {
   let schema;
   switch (type) {
-    // case "icu_lc":
-    //   {
-    //     // 内科重症医学科
-    //     schema = require("../config/nkzzyxk_lc/tr.js").default;
-    //   }
-    //   break;
-    // case "com_lc":
-    //   {
-    //     // 外科重症医学科
-    //     schema = require("../config/wkzzyxk_lc/tr.js").default;
-    //   }
-    //   break;
-    // case "newborn_lc": {
-    //   // 陵城区-新生儿科 里的 新生儿监护
-    //   schema = require("../config/neonatology_lc/tr.js").default;
-    // }
-    // break;
-    // case "Record_Children_Serious_Lc": {
-    //   // 陵城区-病重（病危）
-    //   schema = require("../config/picu_lc/tr.js").default;
-    // }
-    // break;
+    case "icu_lc":
+      {
+        // 内科重症医学科
+        schema = require("../config/nkzzyxk_lc/tr.js").default;
+      }
+      break;
+    case "com_lc":
+      {
+        // 外科重症医学科（全院通用护理记录单）
+        schema = require("../config/wkzzyxk_lc/tr.js").default;
+      }
+      break;
+    case "newborn_lc": {
+      // 陵城区-新生儿科 里的 新生儿监护
+      schema = require("../config/neonatology_lc/tr.js").default;
+    }
+    break;
+    case "Record_Children_Serious_Lc": {
+      // 陵城区-病重（病危）
+      schema = require("../config/picu_lc/tr.js").default;
+    }
+    break;
     case "neurology":
       {
         // 神经内科

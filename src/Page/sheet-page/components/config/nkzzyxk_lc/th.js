@@ -86,10 +86,10 @@ export default {
           minWidth: '38px',
         }
       },
-      //SpO2
+      //SPO2
       {
         name: `
-        SpO2
+        SPO2
         `,
         style: {
           minWidth: '50px',
@@ -131,7 +131,7 @@ export default {
       //签名
       {
         name: `
-        签名
+        护士签名
         `,
         style: {},
         colspan: '1',
