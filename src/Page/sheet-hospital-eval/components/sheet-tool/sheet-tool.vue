@@ -45,6 +45,7 @@
 
       <div style="width: 5px;"></div>
     </div>
+    <viewSheetModal ref="viewSheetModal"></viewSheetModal>
   </div>
 </template>
 
@@ -182,6 +183,7 @@ import {
 } from "@/Page/sheet-hospital-eval/api/index.js";
 import mergeDefaultValue from "../data/defalutValue/utils";
 import { getReEvaTask } from "../../api/index";
+import viewSheetModal from "../Render/modal/viewSheetModal";
 export default {
   mixins: [commom],
   data() {
@@ -299,19 +301,22 @@ export default {
           label: "查看护理记录",
           style: "width: auto;padding: 0px 10px;",
           onClick: e => {
-            console.log(
-              "查看护理记录单",
+            this.$refs.viewSheetModal.open(
               this.$store.getters.getCurrentPatient()
             );
-            const { href } = this.$router.resolve({
-              path: "/sheet",
-              query: {
-                patientId: this.patientInfo.patientId,
-                visitId: this.patientInfo.visitId
-              }
-            });
-            console.log(href, "href");
-            window.open(href, "_blank");
+            // console.log(
+            //   "查看护理记录单",
+            //   this.$store.getters.getCurrentPatient()
+            // );
+            // const { href } = this.$router.resolve({
+            //   path: "/sheet",
+            //   query: {
+            //     patientId: this.patientInfo.patientId,
+            //     visitId: this.patientInfo.visitId
+            //   }
+            // });
+            // console.log(href, "href");
+            // window.open(href, "_blank");
           },
           getDisabled(selectBlock) {
             if (!selectBlock.id) return true;
@@ -742,6 +747,8 @@ export default {
       this.$router.push({ name: "sheetHospitalEvalPage" });
     }
   },
-  components: {}
+  components: {
+    viewSheetModal
+  }
 };
 </script>

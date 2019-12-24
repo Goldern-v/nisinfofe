@@ -67,7 +67,7 @@ export default {
         return obj;
       });
 
-      if ($params.previewId) {
+      if ($params.previewId || $params.showType == "lastTowPage") {
         /** 预览模式只显示最后两页 */
         return mapSheetModel.slice(-2);
       }

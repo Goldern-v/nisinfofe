@@ -143,11 +143,7 @@ export default {
         moment()
           .endOf("month")
           .format("YYYY-MM-DD")
-      ],
-      repeatIndicator: "",
-      type: "",
-      status: "",
-      bedLabel: ""
+      ]
     };
   },
   methods: {
@@ -164,12 +160,8 @@ export default {
       this.pageLoadng = true;
       let obj = {
         wardCode: this.deptCode,
-        startDate: moment(this.startDate).format("YYYY-MM-DD"),
-        endDate: moment(this.startDate).format("YYYY-MM-DD"),
-        repeatIndicator: this.repeatIndicator,
-        type: this.type,
-        status: this.status,
-        bedLabel: this.bedLabel,
+        beginTime: moment(this.date[0]).format("YYYY-MM-DD"),
+        endTime: moment(this.date[1]).format("YYYY-MM-DD"),
         pageIndex: this.page.pageIndex,
         pageSize: this.page.pageNum
       };
@@ -191,16 +183,7 @@ export default {
     deptCode() {
       this.search();
     },
-    startDate() {
-      this.search();
-    },
-    repeatIndicator() {
-      this.search();
-    },
-    type() {
-      this.search();
-    },
-    status() {
+    date() {
       this.search();
     }
   },
