@@ -69,6 +69,8 @@ const deliveryRoomWhiteboard = () => import("@/Page/delivery-room-whiteboard/del
 const birthCertificate = () => import("@/Page/birth-certificate/birth-certificate");// 新出生医学证明
 const birthCertificateForm = () => import("@/Page/birth-certificate/birth-certificate-form");
 
+const healthEducationList = () => import("@/Page/healthEducation-list/healthEducation-list.vue");
+
 const implementationList = () => import("@/Page/implementation-list/implementation-list.vue");//执行单
 const demo = () => import("@/demo/demo");//demo
 /** 包含全局样式的页面，患者详情子页面不可代码切割 */
@@ -389,6 +391,11 @@ const router = new Router({
           path: "/implementationList",
           component: implementationList,
           name: '执行单'
+        },
+        {
+          path: "/healthEducationList",
+          component: healthEducationList,
+          name: '健康宣教'
         },
         // {
         //   path: '/nursingConsultation',

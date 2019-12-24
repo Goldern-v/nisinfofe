@@ -233,7 +233,7 @@ export default {
           finallParams = {
             ...finallParams,
             man: re1.contactName||'',
-            manBirthAddress: re1.contactAddr||'',
+            nowAddress: re1.contactAddr||'',
             femaleEdu: re1.whcd||'',
             pregnancyTimes:  re1.yy||'',
             birthTimes:  re1.cy||''
@@ -314,10 +314,10 @@ export default {
             newParams = {
               ...newParams,
               pregnancyWeek: gnyz_explain,
-              productionProcess1: ccsj_dycc,
-              productionProcess2: ccsj_decc,
-              productionProcess3: ccsj_dscc,
-              productionProcessCount: ccsj_zcc,
+              productionProcess1: this.formatProductionProcess(ccsj_dycc),
+              productionProcess2: this.formatProductionProcess(ccsj_decc),
+              productionProcess3: this.formatProductionProcess(ccsj_dscc),
+              productionProcessCount: this.formatProductionProcess(ccsj_zcc),
               childBirthTime: temcsj_explain,
               childBirthWay: temcfs_option,
               perineumSituation: hy_qk_option,
@@ -332,7 +332,7 @@ export default {
               birthAttendantId1: deliver_empno,
               birthAttendantName2: deliver2,
               birthAttendantId2: deliver2_empno,
-              dangerousSituation: bfzhhbz_explain
+              dangerousSituation: bfzhhbz_explain.replace(/\?/g,'')
             }
 
             finallParams = newParams
@@ -344,6 +344,71 @@ export default {
       },err=>{
 
       })
+    },
+    formatProductionProcess(str){
+      if(/^\d{1,2}时\d{1,2}分$/.test(str)){
+        let str1 = str.split('时')[0]
+        let str2 = str.split('时')[1]
+        str2 = str2.replace('分','')
+
+        if(str1.length==1)str1=`0${str1}`
+        if(str2.length==1)str2=`0${str2}`
+
+        return `${str1}:${str2}`
+      }
+
+      return str
+    },
+    handleProductionProcessBlur(name,$event){
+      let iptVal = $event.target.value
+
+      if(/^\d\d\d\d$/.test(iptVal)){
+        iptVal = iptVal.split('')
+        let newVal = `${iptVal[0]}${iptVal[1]}:${iptVal[2]}${iptVal[3]}`
+
+        this.params[name] = newVal
+      }
+
+      this.productionProcessSumUp()
+    },
+    productionProcessSumUp(){
+      let p1 = this.params.productionProcess1;
+      let p2 = this.params.productionProcess2;
+      let p3 = this.params.productionProcess3;
+      let reg = /^\d\d:\d\d$/
+
+      function getMin(str){
+        let hour = str.split(':')[0]
+        let min = str.split(':')[1]
+        return hour*60+Number(min)
+      }
+
+      if(reg.test(p1)){
+        p1 = getMin(p1)
+      }else{
+        p1=0
+      }
+
+      if(reg.test(p2)){
+        p2 = getMin(p2)
+      }else{
+        p2=0
+      }
+
+      if(reg.test(p3)){
+        p3 = getMin(p3)
+      }else{
+        p3=0
+      }
+
+      let sum = p1+p2+p3
+
+      let hour = parseInt(sum/60)
+      if(hour<10)hour = `0${hour}`
+      let min = sum%60
+      if(min<10)min = `0${min}`
+
+      this.params.productionProcessCount = `${hour}:${min}`
     },
     handleNumberChange(val,name){
       if(!val){
