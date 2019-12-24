@@ -135,7 +135,7 @@ export default [{
       width: 36
     },
     autoComplete: {
-      data: jzlList
+      data: xslList
     }
   },
   {
@@ -287,27 +287,17 @@ export function getListData() {
   //   chuList.push("阴道出血");
   // });
   let list = [
-    "反应",
-    "哭声",
-    "吸吮力",
-    "肌张力",
-    "肤色",
-    "体位",
-    "喂养方式",
-    "喂养种类",
-    "温箱编号"
+    "陵城反应",
+    "陵城哭声",
+    "陵城肌张力",
+    "陵城吸吮力",
   ];
   multiDictInfo(list).then(res => {
     let data = res.data.data;
     setList(fyList, list[0], data);
     setList(ksList, list[1], data);
-    setList(xslList, list[2], data);
-    setList(jzlList, list[3], data);
-    setList(fsList, list[4], data);
-    setList(twList, list[5], data);
-    setList(wyfsList, list[6], data);
-    setList(wyzlList, list[7], data);
-    setList(wxbhList, list[8], data);
+    setList(jzlList, list[2], data);
+    setList(xslList, list[3], data);
   });
 }
 

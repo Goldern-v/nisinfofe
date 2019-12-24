@@ -56,7 +56,7 @@ export default [
     next:'mmHg'
   },
   {
-    key: "pulse1", //氧饱和度%
+    key: "oxygen", //氧饱和度%
     value: "",
     event: keyf1,
     name: '氧饱和度',
@@ -66,7 +66,10 @@ export default [
     key: "consciousness", //神志
     value: "",
     event: keyf1,
-    name: '神志'
+    name: '神志',
+    autoComplete: {
+      data: ysList
+    }
   },
   {
     key: "field5", //出量:尿量ml
@@ -186,10 +189,10 @@ export default [
     key: "sign",
     value: ""
   },
-  // {
-  //   key: "audit",
-  //   value: ""
-  // },
+  {
+    key: "audit",
+    value: ""
+  },
   {
     hidden: true,
     key: "id",
@@ -271,10 +274,10 @@ export function getListData4() {
     }
     chuList.push("阴道出血")
   });
-  let list = ["意识"];
+  let list = ["陵城神志"];
   multiDictInfo(list).then(res => {
     let data = res.data.data;
-    setList(ysList, "意识", data);
+    setList(ysList, list[0], data);
   });
 }
 

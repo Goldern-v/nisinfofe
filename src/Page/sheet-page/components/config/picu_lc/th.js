@@ -28,10 +28,7 @@ export default {
         name: `
         生命体征项目
         `,
-        style: {
-          minWidth: '60px',
-          maxWidth: '60px',
-        },
+        style: {},
         colspan: '6',
         rowspan: '1',
       },
@@ -56,8 +53,8 @@ export default {
         基础护理
         `,
         style: {
-          minWidth: '60px',
-          maxWidth: '60px',
+          minWidth: '55px',
+          maxWidth: '55px',
         },
         colspan: '5',
         rowspan: '1',
@@ -78,9 +75,17 @@ export default {
         护士签名
         `,
         style: {
-          minWidth: '60px',
-          maxWidth: '60px',
+          minWidth: '55px',
+          maxWidth: '55px',
         },
+        colspan: '1',
+        rowspan: '3'
+      },
+      {
+        name: `
+        审核签名
+        `,
+        style: {},
         colspan: '1',
         rowspan: '3'
       }
@@ -91,8 +96,8 @@ export default {
         体温℃
         `,
         style: {
-          minWidth: '60px',
-          maxWidth: '60px',
+          minWidth: '45px',
+          maxWidth: '45px',
         },
         colspan: '1',
         rowspan: '2',
@@ -102,15 +107,15 @@ export default {
         脉搏<br/>次/分
         `,
         style: {
-          minWidth: '60px',
-          maxWidth: '60px',
+          minWidth: '55px',
+          maxWidth: '55px',
         },
         colspan: '1',
         rowspan: '2',
         style: {
           whiteSpace: 'nowrap',
-          minWidth: '60px',
-          maxWidth: '60px',
+          minWidth: '55px',
+          maxWidth: '55px',
         }
       },
       {
@@ -144,8 +149,8 @@ export default {
         氧饱和度%
         `,
         style: {
-          minWidth: '60px',
-          maxWidth: '60px'
+          minWidth: '55px',
+          maxWidth: '55px'
         },
         colspan: '1',
         rowspan: '2'
@@ -155,8 +160,8 @@ export default {
         神志
         `,
         style: {
-          minWidth: '60px',
-          maxWidth: '60px',
+          minWidth: '140px',
+          maxWidth: '140px',
         },
         colspan: '1',
         rowspan: '2'
@@ -165,8 +170,8 @@ export default {
       {
         name: `尿量ml`,
         style: {
-          minWidth: '60px',
-          maxWidth: '60px',
+          minWidth: '45px',
+          maxWidth: '45px',
         },
         colspan: '1',
         rowspan: '2'
@@ -174,8 +179,8 @@ export default {
       {
         name: `呕吐ml`,
         style: {
-          minWidth: '60px',
-          maxWidth: '60px',
+          minWidth: '45px',
+          maxWidth: '45px',
         },
         colspan: '1',
         rowspan: '2'
@@ -183,8 +188,8 @@ export default {
       {
         name: `大便ml`,
         style: {
-          minWidth: '60px',
-          maxWidth: '60px',
+          minWidth: '45px',
+          maxWidth: '45px',
         },
         colspan: '1',
         rowspan: '2'
@@ -201,8 +206,8 @@ export default {
       {
         name: `其他`,
         style: {
-          minWidth: '60px',
-          maxWidth: '60px',
+          minWidth: '45px',
+          maxWidth: '45px',
         },
         colspan: '1',
         rowspan: '2'
@@ -210,8 +215,8 @@ export default {
       {
         name: `口服ml`,
         style: {
-          minWidth: '60px',
-          maxWidth: '60px',
+          minWidth: '45px',
+          maxWidth: '45px',
         },
         colspan: '1',
         rowspan: '2'
@@ -219,8 +224,8 @@ export default {
       {
         name: `静脉ml`,
         style: {
-          minWidth: '60px',
-          maxWidth: '60px',
+          minWidth: '45px',
+          maxWidth: '45px',
         },
         colspan: '1',
         rowspan: '2'
@@ -228,8 +233,8 @@ export default {
       {
         name: `肌肉注释ml`,
         style: {
-          minWidth: '50px',
-          maxWidth: '50px',
+          minWidth: '55px',
+          maxWidth: '55px',
         },
         colspan: '1',
         rowspan: '2'
@@ -237,8 +242,8 @@ export default {
       {
         name: `灌肠ml`,
         style: {
-          minWidth: '60px',
-          maxWidth: '60px',
+          minWidth: '45px',
+          maxWidth: '45px',
         },
         colspan: '1',
         rowspan: '2'
@@ -246,8 +251,8 @@ export default {
       {
         name: `皮肤情况`,
         style: {
-          minWidth: '60px',
-          maxWidth: '60px',
+          minWidth: '55px',
+          maxWidth: '55px',
         },
         colspan: '1',
         rowspan: '2'
@@ -255,8 +260,8 @@ export default {
       {
         name: `管道护理`,
         style: {
-          minWidth: '60px',
-          maxWidth: '60px',
+          minWidth: '55px',
+          maxWidth: '55px',
         },
         colspan: '1',
         rowspan: '2'
@@ -264,8 +269,8 @@ export default {
       {
         name: `气道护理`,
         style: {
-          minWidth: '60px',
-          maxWidth: '60px',
+          minWidth: '55px',
+          maxWidth: '55px',
         },
         colspan: '1',
         rowspan: '2'
@@ -273,8 +278,8 @@ export default {
       {
         name: `痰液性状`,
         style: {
-          minWidth: '60px',
-          maxWidth: '60px',
+          minWidth: '55px',
+          maxWidth: '55px',
         },
         colspan: '1',
         rowspan: '2'
@@ -282,8 +287,8 @@ export default {
       {
         name: `其他`,
         style: {
-          minWidth: '60px',
-          maxWidth: '60px',
+          minWidth: '55px',
+          maxWidth: '55px',
         },
         colspan: '1',
         rowspan: '2'
