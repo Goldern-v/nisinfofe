@@ -91,7 +91,7 @@ module.exports = {
         // target: "http://192.168.2.144:8080", //广豪
         // target: "http://192.168.1.116:8964", //兆斌
         // target: "http://192.168.2.75:8084", //厚街内网俊涛ip测试
-        // target: "http://192.168.2.144:8062",
+        // target: "http://120.25.105.45:9867", //陵城测试
 
         changeOrigin: true,
         pathRewrite: {
@@ -119,7 +119,7 @@ module.exports = {
         // target: "http://120.197.141.41:9091", //东莞
         // target: "http://120.197.141.41:9094", //东莞正式库的测试
 
-        target: "http://120.25.105.45:9865", //测试
+        // target: "http://120.25.105.45:9865", //测试
         // target: "http://192.168.1.20:8964", // 内网测试cno
         // target: "http://dev.cr-health.com:4453", // 外网测试
         // target: 'http://192.168.1.88:8062', // 内网兆彬IP测试
@@ -127,6 +127,7 @@ module.exports = {
         // target: "http://192.168.2.229:8084", // 厚街内网俊涛ip测试
         // target: "http://120.197.141.41:9094", //东莞正式库的测试
         // target: "http://192.168.2.144:8062",
+        target: "http://localhost:8088", //测试
 
         changeOrigin: true,
         pathRewrite: {
