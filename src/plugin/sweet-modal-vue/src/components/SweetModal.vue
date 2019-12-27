@@ -270,6 +270,7 @@ export default {
       visible: false,
       is_open: false,
       is_bouncing: false,
+      closeCallback: null,
       tabs: [],
       backups: {
         body: {
@@ -363,10 +364,19 @@ export default {
      * Emits an event 'close'
      */
     close() {
+      if (this.closeCallback) {
+        this.closeCallback();
+      }
       this.visible = false;
       this._unlockBody();
       setTimeout(() => (this.is_open = false), 300);
       this.$emit("close");
+    },
+    /**
+     * Close the dialog width callback func.
+     */
+    setCloseCallback(closeCallback) {
+      this.closeCallback = closeCallback;
     },
     /**
      * Bounce the modal.

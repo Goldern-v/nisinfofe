@@ -24,17 +24,22 @@ export default [
     event: keyf1,
     autoComplete: {
       data: 神志
-    }
+    },
+    name: '神志'
   },
   {
     key: "temperature", //体温
     value: "",
-    event: keyf1
+    event: keyf1,
+    name: '体温',
+    next:'℃'
   },
   {
     key: "pulse", //心率
     value: "",
-    event: keyf1
+    event: keyf1,
+    name: '心率',
+    next:'次/分'
   },
   {
     key: "bloodPressure", //血压
@@ -45,17 +50,22 @@ export default [
         e.preventDefault();
       }
       keyf1(e, td);
-    }
+    },
+    name: '血压',
+    next:'mmHg'
   },
   {
     key: "breath", //呼吸
     value: "",
-    event: keyf1
+    event: keyf1,
+    name: '呼吸',
+    next:'次/分'
   },
   {
-    key: "spo2", //SpO2
+    key: "spo2", //SPO2
     value: "",
-    event: keyf1
+    event: keyf1,
+    name: 'SPO2'
   },
   {
     key: "food", //项目（入）
@@ -66,12 +76,14 @@ export default [
     },
     textarea: {
       width: 68
-    }
+    },
+    name: '入量:项目'
   },
   {
     key: "foodSize", //入量
     value: "",
-    event: keyf1
+    event: keyf1,
+    name: '入量:入量'
   },
   {
     key: "discharge", //项目（出）
@@ -82,12 +94,14 @@ export default [
     },
     textarea: {
       width: 68
-    }
+    },
+    name: '出量:项目'
   },
   {
     key: "dischargeSize", //出量
     value: "",
-    event: keyf1
+    event: keyf1,
+    name: '出量:出量'
   },
   {
     key: "description", //护理记录

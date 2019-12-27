@@ -32,7 +32,11 @@ axios.interceptors.response.use((res) => {
         if (window.app && window.app.$message) {
             let path = app.$route.path
             let name = app.$route.name
-            if (path == '/formPage' || name == 'sheetHospitalAdmissionPage' || path == '/sheetHospitalEval' || path == '/record') {
+            if (path == '/formPage' ||
+                name == 'sheetHospitalAdmissionPage' ||
+                path == '/sheetHospitalEval' ||
+                path == '/record'
+            ) {
                 window.app.$alert(data.desc || '服务器开小差了', '警告', {
                     confirmButtonText: '确定',
                     type: 'error',

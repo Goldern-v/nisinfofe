@@ -2,6 +2,8 @@
   <div>
     <div class="main-contain">
       <div class="head-con">
+        <span style="font-size: 18px;line-height: 31px;font-weight:bold;">健康宣教查询</span>
+        <div style="flex: 1"></div>
         <span class="label" style="margin-left: 0">创建时间:</span>
         <el-date-picker
           type="daterange"
@@ -9,10 +11,9 @@
           placeholder="选择入院起始时间"
           size="small"
           v-model="date"
-          style="width:210px"
+          style="width:210px;margin-right:10px;"
         ></el-date-picker>
 
-        <div style="flex: 1"></div>
         <el-input
           size="small"
           style="width: 150px;margin-right: 15px;"
