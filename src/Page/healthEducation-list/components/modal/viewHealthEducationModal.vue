@@ -1,5 +1,5 @@
 <template>
-  <sweet-modal ref="modalName" title="标题" @close="onClose" :modalWidth="415">
+  <sweet-modal ref="modalName" class="satisfy-modal-1577412732265" title="满意度调查表" @close="onClose" :modalWidth="415">
     <iframe v-if="id" :src="url" frameborder="0"></iframe>
     <div slot="button">
       <el-button class="modal-btn" @click="$refs.modalName.close()">取消</el-button>
@@ -11,6 +11,12 @@
 iframe {
   width: 100%;
   height: calc(100vh - 260px);
+  margin-bottom: -6px;
+}
+</style>
+<style lang='scss'>
+.satisfy-modal-1577412732265 .sweet-content{
+  padding: 0;
 }
 </style>
 <script>
