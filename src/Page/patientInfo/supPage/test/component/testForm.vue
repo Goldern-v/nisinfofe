@@ -204,7 +204,7 @@ export default {
   filters: {
     dataForm(value) {
       let result = new Date(value).Format("yyyy-MM-dd");
-      return result;
+      return !(result + "").includes("NaN") ? result : value || "没出报告";
     }
   },
   components: {
