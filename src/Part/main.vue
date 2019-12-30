@@ -10,6 +10,7 @@
 <script>
 import HLheader from "@/components/HLheader/HLheader"; // 东莞市厚街医院
 import WeiXianHeader from "@/components/HLheader/WeiXianHeader"; // 威县人民医院
+import LingChengHeader from "@/components/HLheader/LingChengHeader"; // 威县人民医院
 export default {
   data() {
     return {
@@ -22,7 +23,8 @@ export default {
     switchCompt(HisName = process.env.HOSPITAL_NAME) {
       let hisList = {
         威县人民医院: "WeiXianHeader",
-        东莞市厚街医院: "HLheader"
+        东莞市厚街医院: "HLheader",
+        陵城区人民医院: 'LingChengHeader'
       };
       return hisList[HisName] || "HLheader";
     }
