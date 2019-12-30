@@ -31,7 +31,8 @@ export default {
   },
   components: {
     HLheader,
-    WeiXianHeader
+    WeiXianHeader,
+    LingChengHeader
   }
 };
 </script>
