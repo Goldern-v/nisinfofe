@@ -42,9 +42,24 @@ import setAuditDateModal from "@/components/modal/set-audit-date.vue";
 import setTextModal from "@/components/modal/set-text-modal.vue";
 import caSignModal from "@/components/modal/ca-sign";
 import common from "@/common/mixin/common.mixin";
+import detectZoom from "@/plugin/tool/detectZoom.js";
 export default {
   mixins: [common],
   name: "app",
+  data() {
+    return {
+      showScaleMsg: false, //是否出现缩放窗口提示
+      scaleRate: "" //当前页面缩放比例
+    };
+  },
+  watch: {
+    $route(to, from) {
+      if (from.path == "/") {
+        return;
+      }
+      this.isScale();
+    }
+  },
   created() {
     window.onresize = () => {
       this.$store.commit("upWih");
@@ -172,6 +187,100 @@ export default {
         console.log(event, "eventevent");
         return confirm("");
       });
+    // 禁止通过键盘按钮缩放
+    this.preventBtnScale();
+    this.isScale();
+    window.addEventListener("resize", () => {
+      if (this.showScaleMsg || this.scaleRate == detectZoom()) {
+        this.scaleRate = detectZoom();
+        if (
+          document.getElementsByClassName("el-message-box__message") &&
+          document.getElementsByClassName("el-message-box__message")[0] &&
+          document.getElementsByClassName("el-message-box__message")[0]
+            .innerText &&
+          document
+            .getElementsByClassName("el-message-box__message")[0]
+            .innerText.includes("可以通过 cltr + '0'")
+        ) {
+          document.getElementsByClassName(
+            "el-message-box__message"
+          )[0].innerTex = `当前浏览器缩放 ${this.scaleRate}%，可能会影响页面正常显示，可以通过 cltr + '0' 恢复 100%`;
+        }
+        return;
+      }
+      this.isScale();
+    });
+  },
+  methods: {
+    // 禁止通过键盘按钮缩放
+    preventBtnScale() {
+      if (this.isDev) {
+        return;
+      }
+      // 阻止pc端浏览器缩放js代码
+      // 由于浏览器菜单栏属于系统软件权限，没发控制，我们着手解决ctrl/cammond + +/- 或 Windows下ctrl + 滚轮 缩放页面的情况，只能通过js来控制了
+      document.addEventListener(
+        "DOMContentLoaded",
+        function(event) {
+          // chrome 浏览器直接加上下面这个样式就行了，但是ff不识别
+          document.body.style.zoom = "reset";
+          document.addEventListener(
+            "keydown",
+            function(event) {
+              if (
+                (event.ctrlKey === true || event.metaKey === true) &&
+                (event.which === 61 ||
+                  event.which === 107 ||
+                  event.which === 173 ||
+                  event.which === 109 ||
+                  event.which === 187 ||
+                  event.which === 189)
+              ) {
+                event.preventDefault();
+              }
+            },
+            false
+          );
+          let scrollFunc = function(event) {
+            event = event || window.event;
+            if (event.wheelDelta) {
+              //判断浏览器IE，谷歌滑轮事件
+              if (event.ctrlKey === true || event.metaKey) {
+                event.preventDefault();
+              }
+            }
+          };
+          //给页面绑定滑轮滚动事件
+          if (document.addEventListener) {
+            document.addEventListener("DOMMouseScroll", scrollFunc, false);
+          }
+          //滚动滑轮触发scrollFunc方法
+          window.onmousewheel = document.onmousewheel = scrollFunc;
+        },
+        false
+      );
+    },
+    // 判断页面是否缩放
+    isScale() {
+      this.showScaleMsg = true;
+      this.scaleRate = detectZoom();
+      if (this.scaleRate != 100 && !this.isDev) {
+        // 如果浏览器缩放比不是100的时候弹出提示
+        try {
+          !this.isDev &&
+            this.$alert(
+              `当前浏览器缩放 ${this.scaleRate}%，可能会影响页面正常显示，可以通过 cltr + '0' 恢复 100%`,
+              "提示",
+              {
+                confirmButtonText: "确定",
+                callback: () => {
+                  this.showScaleMsg = false;
+                }
+              }
+            );
+        } catch (e) {}
+      }
+    }
   },
   components: {
     autoComplete,

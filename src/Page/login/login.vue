@@ -270,7 +270,6 @@ a {
 import { login } from "@/api/login";
 import Cookies from "js-cookie";
 import EnterToTab from "@/plugin/tool/EnterToTab.js";
-import detectZoom from "@/plugin/tool/detectZoom.js";
 export default {
   data() {
     return {
@@ -363,20 +362,6 @@ export default {
       },
       this.login
     );
-
-    if (detectZoom() != 100 && !this.isDev) {
-      // 如果浏览器缩放比不是100的时候弹出提示
-      try {
-        !this.isDev &&
-          this.$alert(
-            `当前浏览器缩放 ${detectZoom()}%，可能会影响页面正常显示，可以通过 cltr + '0' 恢复 100%`,
-            "提示",
-            {
-              confirmButtonText: "确定"
-            }
-          );
-      } catch (e) {}
-    }
   },
   components: {}
 };
