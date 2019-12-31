@@ -87,7 +87,10 @@ export default {
       this.handleClose();
       setTimeout(() => {
         this.$router.push(
-          "/birthCertificateForm?patientId=" + this.puerperaInfo.patientId
+          "/birthCertificateForm?patientId=" +
+            this.puerperaInfo.patientId +
+            "&patientName=" +
+            this.puerperaInfo.name
         );
       }, 1000);
     }
