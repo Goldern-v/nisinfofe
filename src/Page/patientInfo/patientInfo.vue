@@ -88,6 +88,7 @@ export default {
   components: {
     topPart,
     topPartWeiXian,
+    topPartLingCheng,
     leftPart
   }
 };
