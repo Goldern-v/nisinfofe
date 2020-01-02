@@ -579,11 +579,32 @@ export default {
       }
 
       window.localStorage.sheetModel = $(this.$refs.sheetTableContain).html();
+
+      let printUrl = "";
       if (process.env.NODE_ENV === "production") {
-        newWid.location.href = "/crNursing/print/sheetPage";
+        this.$message.info("正在准备打印，请勿重复操作");
+        printUrl = "/crNursing/print/sheetPage?toPrint=true";
+        /** 打印 */
+        const iframe = document.createElement("iframe");
+        iframe.style.display = "block";
+        iframe.style.height = "0";
+        iframe.style.width = "0";
+        iframe.style.overflow = "hidden";
+        iframe.src = printUrl;
+        document.body.appendChild(iframe);
+        const iframeWindow = iframe.contentWindow;
+        setTimeout(() => {
+          document.body.removeChild(iframe);
+        }, 20000);
       } else {
         this.$router.push(`/print/sheetPage`);
       }
+
+      // if (process.env.NODE_ENV === "production") {
+      //   newWid.location.href = "/crNursing/print/sheetPage";
+      // } else {
+      //   this.$router.push(`/print/sheetPage`);
+      // }
     });
     this.bus.$on("openHJModal", () => {
       this.$refs.HjModal.open();

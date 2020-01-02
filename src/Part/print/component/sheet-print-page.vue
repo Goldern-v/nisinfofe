@@ -308,8 +308,28 @@ export default {
     $("textarea").each((index, el) => {
       $(el).html($(el).attr("value"));
     });
+
+    if (this.$route.query.toPrint == "true") {
+      setTimeout(() => {
+        this.print();
+      }, 1000);
+    }
   },
-  methods: {},
+  methods: {
+    print() {
+      if (
+        Array.from(window.document.querySelectorAll("img")).every(
+          img => img.complete
+        )
+      ) {
+        window.print();
+      } else {
+        setTimeout(() => {
+          this.print();
+        }, 1000);
+      }
+    }
+  },
   computed: {
     sheetModel() {
       let html = window.localStorage.sheetModel;
