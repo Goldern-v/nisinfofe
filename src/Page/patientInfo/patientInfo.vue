@@ -16,6 +16,7 @@
 <script>
 import topPart from "@/Page/patientInfo/supComponts/topPart"; // 东莞市厚街医院
 import topPartWeiXian from "@/Page/patientInfo/supComponts/topPart_WeiXian"; // 威县人民医院
+import topPartLingCheng from "@/Page/patientInfo/supComponts/topPart_LingCheng"; // 陵城区人民医院
 import leftPart from "@/Page/patientInfo/supComponts/leftPart";
 import { getPatientInfo } from "@/api/common.js";
 export default {
@@ -58,6 +59,7 @@ export default {
     // 依据医院名字，标题组件切换
     switchCompt(HisName = process.env.HOSPITAL_NAME) {
       let hisList = {
+        陵城区人民医院: 'topPartLingCheng',
         威县人民医院: "topPartWeiXian",
         东莞市厚街医院: "topPart"
       };
@@ -86,6 +88,7 @@ export default {
   components: {
     topPart,
     topPartWeiXian,
+    topPartLingCheng,
     leftPart
   }
 };

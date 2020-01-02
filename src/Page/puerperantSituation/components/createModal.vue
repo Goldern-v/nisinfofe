@@ -253,6 +253,10 @@ export default {
 
             //破膜时间
             let tmpl_explain = re2From[`${formCode}_tmpl_explain`]
+            let format_tmpl_explain = moment(tmpl_explain,'YYYY年MM月DD日HH时mm分',true).format('YYYY-MM-DD HH:mm:ss')
+            
+            if(format_tmpl_explain!=='Invalid date')tmpl_explain = format_tmpl_explain
+
             //胎膜破裂
             let tmp_option = re2From[`${formCode}_tmpl_option`]
             if(tmp_option=='人工'){
@@ -272,6 +276,10 @@ export default {
 
             //分娩时间
             let temcsj_explain = re2From[`${formCode}_temcsj_explain`]
+            let format_temcsj_explain = moment(temcsj_explain,'YYYY年MM月DD日HH时mm分',true).format('YYYY-MM-DD HH:mm:ss')
+
+            if(format_temcsj_explain!=='Invalid date')temcsj_explain = format_temcsj_explain
+
             if(new Date(temcsj_explain)=='Invalid Date'){
               temcsj_explain = ''
             }else{
@@ -310,6 +318,8 @@ export default {
             let deliver_empno = re2From[`${formCode}_deliver_empno`]||''
             let deliver2 = re2From[`${formCode}_deliver2`]||''
             let deliver2_empno = re2From[`${formCode}_deliver2_empno`]||''
+            if(deliver_empno=='未签名')deliver_empno=''
+            if(deliver2_empno=='未签名')deliver2_empno=''
 
             newParams = {
               ...newParams,

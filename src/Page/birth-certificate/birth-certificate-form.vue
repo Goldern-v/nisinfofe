@@ -130,6 +130,9 @@ export default {
     } else {
       this.getBirthCertInfo();
     }
+    if (!this.formData["cfxm"]) {
+      this.formData["cfxm"] = this.$route.query.patientName;
+    }
   },
   methods: {
     goBack() {
@@ -204,6 +207,10 @@ export default {
       });
     },
     saveForm() {
+      if (!this.formData["cssj"]) {
+        this.$message.warning({ message: "请填写出生时间" });
+        return;
+      }
       this.formData["patientId"] = this.$route.query.patientId;
       this.formData["visitId"] = this.$route.query.visitId;
       this.formData["id"] = this.$route.query.id;
