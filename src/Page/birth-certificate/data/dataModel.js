@@ -364,6 +364,7 @@ let tableModel = {
           setKey: 'mqxxGj',
           value: '',
           type: 'input',
+          defaultVal: '中国'
         },
         {
           value: '民族',
@@ -378,6 +379,7 @@ let tableModel = {
           value: '',
           type: 'input',
           style: 'width: 250px;',
+          defaultVal: '汉族'
         },
       ],
       [{
@@ -478,6 +480,7 @@ let tableModel = {
           value: '',
           type: 'input',
           style: 'width: 250px;',
+          defaultVal: '中国'
         },
         {
           value: '民族',
@@ -492,6 +495,7 @@ let tableModel = {
           value: '',
           type: 'input',
           style: 'width: 250px;',
+          defaultVal: '汉族'
         },
       ],
       [{
