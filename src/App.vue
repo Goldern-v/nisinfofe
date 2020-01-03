@@ -53,12 +53,12 @@ export default {
     };
   },
   watch: {
-    $route(to, from) {
-      if (from.path == "/") {
-        return;
-      }
-      this.isScale();
-    }
+    // $route(to, from) {
+    //   if (from.path == "/") {
+    //     return;
+    //   }
+    //   this.isScale();
+    // }
   },
   created() {
     window.onresize = () => {
@@ -188,28 +188,28 @@ export default {
         return confirm("");
       });
     // 禁止通过键盘按钮缩放
-    this.preventBtnScale();
-    this.isScale();
-    window.addEventListener("resize", () => {
-      if (this.showScaleMsg || this.scaleRate == detectZoom()) {
-        this.scaleRate = detectZoom();
-        if (
-          document.getElementsByClassName("el-message-box__message") &&
-          document.getElementsByClassName("el-message-box__message")[0] &&
-          document.getElementsByClassName("el-message-box__message")[0]
-            .innerText &&
-          document
-            .getElementsByClassName("el-message-box__message")[0]
-            .innerText.includes("可以通过 cltr + '0'")
-        ) {
-          document.getElementsByClassName(
-            "el-message-box__message"
-          )[0].innerTex = `当前浏览器缩放 ${this.scaleRate}%，可能会影响页面正常显示，可以通过 cltr + '0' 恢复 100%`;
-        }
-        return;
-      }
-      this.isScale();
-    });
+    // this.preventBtnScale();
+    // this.isScale();
+    // window.addEventListener("resize", () => {
+    //   if (this.showScaleMsg || this.scaleRate == detectZoom()) {
+    //     this.scaleRate = detectZoom();
+    //     if (
+    //       document.getElementsByClassName("el-message-box__message") &&
+    //       document.getElementsByClassName("el-message-box__message")[0] &&
+    //       document.getElementsByClassName("el-message-box__message")[0]
+    //         .innerText &&
+    //       document
+    //         .getElementsByClassName("el-message-box__message")[0]
+    //         .innerText.includes("可以通过 cltr + '0'")
+    //     ) {
+    //       document.getElementsByClassName(
+    //         "el-message-box__message"
+    //       )[0].innerTex = `当前浏览器缩放 ${this.scaleRate}%，可能会影响页面正常显示，可以通过 cltr + '0' 恢复 100%`;
+    //     }
+    //     return;
+    //   }
+    //   this.isScale();
+    // });
   },
   methods: {
     // 禁止通过键盘按钮缩放
