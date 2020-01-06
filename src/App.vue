@@ -53,35 +53,30 @@ export default {
     };
   },
   watch: {
-    // $route(to, from) {
-    //   if (from.path == "/") {
-    //     return;
-    //   }
-    //   this.isScale();
-    // }
+    $route(to, from) {
+      if (
+        from.path != "/" &&
+        !this.HOSPITAL_ID.includes("yanshi") &&
+        !this.isDev
+      ) {
+        this.isScale();
+      }
+    }
   },
   created() {
     window.onresize = () => {
       this.$store.commit("upWih");
     };
-    // 禁止 鼠标滚轮 缩放网页比例
-    var scrollFunc = function(e) {
-      e = e || window.event;
-      if (e.wheelDelta && event.ctrlKey) {
-        //IE/Opera/Chrome
-        console.log("禁止 鼠标滚轮 缩放网页比例");
-        event.returnValue = false;
-      } else if (e.detail) {
-        //Firefox
-        event.returnValue = false;
-      }
-    };
-
-    /*注册事件*/
-    if (document.addEventListener) {
-      document.addEventListener("DOMMouseScroll", scrollFunc, false);
-    } //W3C
-    window.onmousewheel = document.onmousewheel = scrollFunc; //IE/Opera/Chrome/Safari
+    // 禁止缩放
+    if (!this.isDev && !this.HOSPITAL_ID.includes("yanshi")) {
+      // 禁止 鼠标滚轮 缩放网页比例
+      this.preventMouseScale();
+      // 禁止通过键盘按钮缩放
+      this.preventBtnScale();
+      // 缩放提示（无法禁掉缩放的情况下出现）
+      this.isScale();
+      this.isResize();
+    }
   },
   mounted() {
     window.openSignModal = this.$refs.signModal.open;
@@ -187,29 +182,6 @@ export default {
         console.log(event, "eventevent");
         return confirm("");
       });
-    // 禁止通过键盘按钮缩放
-    // this.preventBtnScale();
-    // this.isScale();
-    // window.addEventListener("resize", () => {
-    //   if (this.showScaleMsg || this.scaleRate == detectZoom()) {
-    //     this.scaleRate = detectZoom();
-    //     if (
-    //       document.getElementsByClassName("el-message-box__message") &&
-    //       document.getElementsByClassName("el-message-box__message")[0] &&
-    //       document.getElementsByClassName("el-message-box__message")[0]
-    //         .innerText &&
-    //       document
-    //         .getElementsByClassName("el-message-box__message")[0]
-    //         .innerText.includes("可以通过 cltr + '0'")
-    //     ) {
-    //       document.getElementsByClassName(
-    //         "el-message-box__message"
-    //       )[0].innerTex = `当前浏览器缩放 ${this.scaleRate}%，可能会影响页面正常显示，可以通过 cltr + '0' 恢复 100%`;
-    //     }
-    //     return;
-    //   }
-    //   this.isScale();
-    // });
   },
   methods: {
     // 禁止通过键盘按钮缩放
@@ -280,6 +252,48 @@ export default {
             );
         } catch (e) {}
       }
+    },
+    isResize() {
+      window.addEventListener("resize", () => {
+        if (this.showScaleMsg || this.scaleRate == detectZoom()) {
+          this.scaleRate = detectZoom();
+          if (
+            document.getElementsByClassName("el-message-box__message") &&
+            document.getElementsByClassName("el-message-box__message")[0] &&
+            document.getElementsByClassName("el-message-box__message")[0]
+              .innerText &&
+            document
+              .getElementsByClassName("el-message-box__message")[0]
+              .innerText.includes("可以通过 cltr + '0'")
+          ) {
+            document.getElementsByClassName(
+              "el-message-box__message"
+            )[0].innerTex = `当前浏览器缩放 ${this.scaleRate}%，可能会影响页面正常显示，可以通过 cltr + '0' 恢复 100%`;
+          }
+          return;
+        }
+        this.isScale();
+      });
+    },
+    // 禁止 鼠标滚轮 缩放网页比例
+    preventMouseScale() {
+      var scrollFunc = function(e) {
+        e = e || window.event;
+        if (e.wheelDelta && event.ctrlKey) {
+          //IE/Opera/Chrome
+          console.log("禁止 鼠标滚轮 缩放网页比例");
+          event.returnValue = false;
+        } else if (e.detail) {
+          //Firefox
+          event.returnValue = false;
+        }
+      };
+
+      /*注册事件*/
+      if (document.addEventListener) {
+        document.addEventListener("DOMMouseScroll", scrollFunc, false);
+      } //W3C
+      window.onmousewheel = document.onmousewheel = scrollFunc; //IE/Opera/Chrome/Safari
     }
   },
   components: {
