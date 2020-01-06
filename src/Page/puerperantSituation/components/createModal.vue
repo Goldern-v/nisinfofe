@@ -21,6 +21,7 @@ export default {
       dialogVisible:false,
       saveLoading: false,
       params:{
+        visitId: '',
         patientId: '',
         hospitalizationNumber: '',
         female: '',
@@ -183,6 +184,7 @@ export default {
         this.params.female=target.name
         this.params.hospitalizationNumber = target.inpNo
         this.params.patientId = target.patientId
+        this.params.visitId = target.visitId
         //获取数据并填充
         this.setPatientInfo(target.patientId,target.visitId)
       }
