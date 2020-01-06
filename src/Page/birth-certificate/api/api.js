@@ -1,6 +1,8 @@
 import axios from "@/api/axios";
 import qs from "qs";
-import { apiPath } from "@/api/apiConfig";
+import {
+    apiPath
+} from "@/api/apiConfig";
 import moment from 'moment';
 
 //获取记录单
@@ -17,7 +19,10 @@ export function getBirthCertInfo(params) {
 }
 // 签名
 export function getUser(password, empNo) {
-    return axios.post(`${apiPath}user/getUser`, { password, empNo });
+    return axios.post(`${apiPath}user/getUser`, {
+        password,
+        empNo
+    });
 }
 // 保存出生医学证明表单
 export function saveBirthCertInfo(data) {
@@ -32,7 +37,7 @@ export function getPuerperaInfo(query) {
 export function getPatientListNew() {
     let endDate = moment().format('YYYY-MM-DD')
     let startDate = new Date(endDate.replace(/-/g, '/'))
-    startDate = startDate.getTime() - 30 * 86400000
+    startDate = startDate.getTime() - 90 * 86400000
     startDate = moment(new Date(startDate)).format('YYYY-MM-DD')
 
     return axios.post(`${apiPath}bed/patListCK`, {
@@ -41,7 +46,7 @@ export function getPatientListNew() {
         admissionDateBegin: '',
         dischargeDateBegin: startDate,
         dischargeDateEnd: endDate,
-        pageNum: 1000,
+        pageNum: 2000,
         pageIndex: 1,
     });
 }
