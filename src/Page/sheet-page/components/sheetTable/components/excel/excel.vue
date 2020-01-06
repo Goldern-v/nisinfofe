@@ -61,6 +61,7 @@
         'noSignRow':tr.find((item) => item.key == 'status').value === '0',
         'multiSign': tr.find((item) => item.key == 'multiSign').value,
          selectedTr:sheetInfo.selectRow.includes(tr),
+         clickRow:sheetInfo.clickRow === tr,
          redText: tr.find((item) => {return item.key == 'recordSource'}).value == '5'},
          tr.find((item) => {return item.key == 'markObj'}).value && `mark-mark-mark mark-cell-status-${tr.find((item) => {return item.key == 'markObj'}).value.status}`
         ]"
@@ -872,7 +873,8 @@ export default {
       if (
         sheetInfo.sheetType == "unified_wx" ||
         sheetInfo.sheetType === "ccu_wx" ||
-        sheetInfo.sheetType == "intensive_care_wx" || sheetInfo.sheetType.includes('_lc')
+        sheetInfo.sheetType == "intensive_care_wx" ||
+        sheetInfo.sheetType.includes("_lc")
       ) {
         window.openSpecialModal2(config);
       } else {
@@ -931,6 +933,10 @@ export default {
     // 按下commmand多选
     selectRow(tr, e) {
       if (sheetInfo.model == "print") return;
+      if (this.HOSPITAL_ID == "weixian") {
+        this.sheetInfo.clickRow = tr;
+      }
+      this.sheetInfo.clickRow = tr;
       if (this.sheetInfo.downControl) {
         this.sheetInfo.downControl = e.ctrlKey;
         let index = this.sheetInfo.selectRow.indexOf(tr);

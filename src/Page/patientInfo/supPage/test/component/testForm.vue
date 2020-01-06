@@ -85,54 +85,80 @@
 </template>
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
-.form
-  padding 26px 20px 10px
-  box-sizing border-box
-  width 100%
-  .title
+.form {
+  padding: 26px 20px 10px;
+  box-sizing: border-box;
+  width: 100%;
+
+  .title {
     font-size: 18px;
     color: #333333;
-    font-weight bold
-    text-align center
-  .name
+    font-weight: bold;
+    text-align: center;
+  }
+
+  .name {
     font-size: 15px;
     color: #333333;
-    margin-top 10px
-    text-align center
-    margin-bottom 16px
-.info-class
+    margin-top: 10px;
+    text-align: center;
+    margin-bottom: 16px;
+  }
+}
+
+.info-class {
   font-size: 13px;
   color: #333333;
-  margin-bottom 10px
-.null-con
-  img
-    display block
-    margin 20% auto 20px
-    width 120px
-  p
-    text-align center
+  margin-bottom: 10px;
+}
+
+.null-con {
+  img {
+    display: block;
+    margin: 20% auto 20px;
+    width: 120px;
+  }
+
+  p {
+    text-align: center;
     font-size: 13px;
-		color: #666;
-.redText
-  color #E62C2C
+  }
+
+  color: #666;
+}
+
+.redText {
+  color: #E62C2C;
+}
 </style>
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus">
-.test-table
-   .el-table__row td, th
-    height 34px
+.test-table {
+  .el-table__row td, th {
+    height: 34px;
     font-size: 13px;
-    color: #333333
-    cursor pointer
-  th
-    font-weight bold
-.in-moadl
-  .el-dialog__wrapper, .v-modal
-    position absolute
-  .el-dialog--tiny
-    width 60%
-  .el-dialog__body
-    padding 0 10px
+    color: #333333;
+    cursor: pointer;
+  }
+}
+
+th {
+  font-weight: bold;
+}
+
+.in-moadl {
+  .el-dialog__wrapper, .v-modal {
+    position: absolute;
+  }
+
+  .el-dialog--tiny {
+    width: 60%;
+  }
+
+  .el-dialog__body {
+    padding: 0 10px;
+  }
+}
 </style>
 
 <script>
@@ -162,9 +188,12 @@ export default {
   methods: {
     compare(row) {
       try {
-        if (row.abnormalIndicator == "H") return "top";
-        if (row.abnormalIndicator == "L") return "down";
-        if (row.abnormalIndicator != "N") return true;
+        if (row.abnormalIndicator == "H" || row.abnormalIndicator == "高")
+          return "top";
+        if (row.abnormalIndicator == "L" || row.abnormalIndicator == "低")
+          return "down";
+        if (!(row.abnormalIndicator == "N" || row.abnormalIndicator == "正常"))
+          return true;
         return false;
       } catch (e) {
       } finally {
