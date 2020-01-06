@@ -23,18 +23,19 @@
         年龄：
         <div class="bottom-line" style="min-width: 45px">{{patientInfo.age}}</div>
       </span>
-      <span @click="updateTetxInfo('diagnosis', '诊断', patientInfo.diagnosis)">
+      <span @click="updateDiagnosis('diagnosis', '诊断', patientInfo.diagnosis)">
         诊断：
         <div
           class="bottom-line"
           style="min-width: 150px;max-width: 620px;min-height:13px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;"
-        >{{patientInfo.diagnosis}}</div>
+        >{{diagnosis}}</div>
       </span>
       <span>
         住院号：
         <div class="bottom-line" style="min-width: 80px">{{patientInfo.inpNo}}</div>
       </span>
       <span>入院时间：{{patientInfo.admissionDate | toymd}}</span>
+      <!-- {{index}} {{relObj}} -->
     </div>
     <!-- <span class="diagnosis-con" :title="patientInfo.diagnosis">诊断：{{patientInfo.diagnosis}}</span> -->
     <!-- <span>入院日期：{{$route.query.admissionDate}}</span> -->
@@ -44,13 +45,40 @@
 <script>
 import moment from "moment";
 import { updateSheetHeadInfo } from "../../../../api/index";
+import sheetInfo from "../../../config/sheetInfo";
+import bus from "vue-happy-bus";
 export default {
   props: {
     patientInfo: Object,
     index: Number
   },
   data() {
-    return {};
+    return {
+      bus: bus(this),
+      sheetInfo,
+      relObj: sheetInfo.relObj
+    };
+  },
+  computed: {
+    diagnosis() {
+      /** 最接近的index */
+      let realIndex = 0;
+      let keys = Object.keys(this.relObj);
+      for (let i = 0; i < keys.length; i++) {
+        let [base, keyIndex] = keys[i].split("PageIndex_diagnosis_");
+        if (keyIndex !== undefined) {
+          if (this.index >= keyIndex) {
+            if (this.index - keyIndex <= this.index - realIndex) {
+              realIndex = keyIndex;
+            }
+          }
+        }
+      }
+      return (
+        this.relObj[`PageIndex_diagnosis_${realIndex}`] ||
+        this.patientInfo.diagnosis
+      );
+    }
   },
   methods: {
     updateBirthDay() {
@@ -74,6 +102,18 @@ export default {
         },
         autoText,
         `修改${label}`
+      );
+    },
+    updateDiagnosis(key, label, autoText) {
+      window.openSetTextModal(
+        text => {
+          this.relObj[`PageIndex_diagnosis_${this.index}`] = text;
+          this.sheetInfo.relObj = { ...this.relObj };
+          this.$message.success(`修改诊断成功`);
+          this.bus.$emit("saveSheetPage", false);
+        },
+        this.diagnosis,
+        `修改诊断`
       );
     }
   },
