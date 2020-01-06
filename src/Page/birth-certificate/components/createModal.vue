@@ -41,12 +41,13 @@ export default {
     },
     patientOptionVisible(item, search) {
       if (!search) return true;
-      if (new RegExp(search).test(item.patientId)) return true;
+      if (item.patientId.indexOf(search) >= 0) return true;
 
-      if (new RegExp(search).test(item.bedLabel)) return true;
+      if (item.bedLabel.indexOf(search) >= 0) return true;
 
-      if (new RegExp(search).test(item.name)) return true;
-      if (new RegExp(search).test(item.inpNo)) return true;
+      if (item.name.indexOf(search) >= 0) return true;
+      if (item.inpNo.indexOf(search) >= 0) return true;
+
       return false;
     },
     formatPatientList(list) {
