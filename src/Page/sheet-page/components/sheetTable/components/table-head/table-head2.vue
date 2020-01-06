@@ -46,7 +46,8 @@ import moment from "moment";
 import { updateSheetHeadInfo } from "../../../../api/index";
 export default {
   props: {
-    patientInfo: Object
+    patientInfo: Object,
+    index: Number
   },
   data() {
     return {};
