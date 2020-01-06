@@ -30,5 +30,10 @@ module.exports = {
         HOSPITAL_NAME: '"陵城区人民医院"',
         HOSPITAL_NAME_SPACE: '"陵 城 区 人 民 医 院"',
         ENABLE_BLUETOOTH_SIGN: 'true',
-    }
+    },
+    "yanshi": {
+        HOSPITAL_ID: '"yanshi"',
+        HOSPITAL_NAME: '"东莞市厚街医院"',
+        HOSPITAL_NAME_SPACE: '"东 莞 市 厚 街 医 院"'
+    },
 }
