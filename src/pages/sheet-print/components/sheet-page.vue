@@ -290,6 +290,7 @@ export default {
     //   visitId: "1",
     //   token: ''
     // };
+    // http://60.6.218.17:9093/crNursing/sheet-print?startPageIndex=1&id=552&endPageIndex=5&Auth-Token-Nursing=4fabc967-a5b6-464c-b5b2-631a652f6f0d&App-Token-Nursing=51e827c9-d80e-40a1-a95a-1edc257596e7&appToken=51e827c9-d80e-40a1-a95a-1edc257596e7&token=4fabc967-a5b6-464c-b5b2-631a652f6f0d
     this.sheetInfo.model = "print";
     this.getSheetData();
   },
