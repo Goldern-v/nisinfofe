@@ -44,6 +44,7 @@ import { $params } from "../tool/tool";
 import { printDir } from "@/Part/print/control/common-print.js";
 import { addCSS } from "@/utils/css";
 import { formatSub } from "@/utils/sup";
+import { decodeRelObj } from "@/Page/sheet-page/components/utils/relObj";
 export default {
   data() {
     return {
@@ -129,6 +130,7 @@ export default {
 
           this.$nextTick(() => {
             initSheetPage(titleData, bodyData, markData);
+            sheetInfo.relObj = decodeRelObj(bodyData.relObj) || {};
             this.sheetInfo.sheetStartPage = (pageData && pageData.indexNo) || 1;
             this.sheetInfo.sheetMaxPage =
               (pageData && pageData.maxIndexNo) || 1;

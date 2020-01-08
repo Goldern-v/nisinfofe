@@ -73,3 +73,12 @@ export function getLastDetail(formCode, patientId, visitId) {
     visitId,
   });
 }
+
+
+// 签名
+export function getUser(password, empNo) {
+  return axios.post(`${apiPath}user/getUser`, {
+    password,
+    empNo
+  });
+}
