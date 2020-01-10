@@ -57,7 +57,8 @@ export default {
       if (
         from.path != "/" &&
         !this.HOSPITAL_ID.includes("yanshi") &&
-        !this.isDev
+        !this.isDev &&
+        this.empNo != "admin"
       ) {
         this.isScale();
       }
@@ -68,7 +69,11 @@ export default {
       this.$store.commit("upWih");
     };
     // 禁止缩放
-    if (!this.isDev && !this.HOSPITAL_ID.includes("yanshi")) {
+    if (
+      !this.isDev &&
+      !this.HOSPITAL_ID.includes("yanshi") &&
+      this.empNo != "admin"
+    ) {
       // 禁止 鼠标滚轮 缩放网页比例
       this.preventMouseScale();
       // 禁止通过键盘按钮缩放
