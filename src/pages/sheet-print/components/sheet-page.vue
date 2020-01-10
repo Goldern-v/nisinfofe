@@ -44,6 +44,7 @@ import { $params } from "../tool/tool";
 import { printDir } from "@/Part/print/control/common-print.js";
 import { addCSS } from "@/utils/css";
 import { formatSub } from "@/utils/sup";
+import { decodeRelObj } from "@/Page/sheet-page/components/utils/relObj";
 export default {
   data() {
     return {
@@ -129,6 +130,7 @@ export default {
 
           this.$nextTick(() => {
             initSheetPage(titleData, bodyData, markData);
+            sheetInfo.relObj = decodeRelObj(bodyData.relObj) || {};
             this.sheetInfo.sheetStartPage = (pageData && pageData.indexNo) || 1;
             this.sheetInfo.sheetMaxPage =
               (pageData && pageData.maxIndexNo) || 1;
@@ -290,6 +292,7 @@ export default {
     //   visitId: "1",
     //   token: ''
     // };
+    // http://60.6.218.17:9093/crNursing/sheet-print?startPageIndex=1&id=552&endPageIndex=5&Auth-Token-Nursing=4fabc967-a5b6-464c-b5b2-631a652f6f0d&App-Token-Nursing=51e827c9-d80e-40a1-a95a-1edc257596e7&appToken=51e827c9-d80e-40a1-a95a-1edc257596e7&token=4fabc967-a5b6-464c-b5b2-631a652f6f0d
     this.sheetInfo.model = "print";
     this.getSheetData();
   },

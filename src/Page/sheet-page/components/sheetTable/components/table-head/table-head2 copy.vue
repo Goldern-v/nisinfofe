@@ -122,7 +122,6 @@ export default {
       return moment(val).format("YYYY-MM-DD");
     }
   },
-  destroyed() {},
   components: {}
 };
 </script>
