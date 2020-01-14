@@ -98,7 +98,7 @@
     position: absolute;
     /* background: red; */
     /* border: 1px solid #000; */
-    top: 35px;
+    top: 25px;
     left: 81px;
     right: 73px;
     bottom: 81px;
