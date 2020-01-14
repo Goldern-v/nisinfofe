@@ -44,7 +44,7 @@
                 <i class="iconfont icon-hulirenwu"></i> MEWS
                 <span class="red-tip" v-if="isTip"></span>
               </el-row>
-            </router-link> -->
+            </router-link>-->
 
             <router-link to="/bed" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
@@ -554,11 +554,11 @@
   right: 0px;
 }
 </style>
-<style>
+<style scoped>
 @media screen and (max-width: 1400px) {
-  .iconfont {
+  /* .iconfont {
     display: none;
-  }
+  } */
 }
 @media screen and (max-width: 930px) {
   .small-1250-con {
