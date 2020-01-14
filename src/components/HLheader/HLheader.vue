@@ -649,11 +649,8 @@
   right: 0px;
 }
 </style>
-<style>
+<style scoped>
 @media screen and (max-width: 1400px) {
-  .iconfont {
-    display: none;
-  }
 }
 @media screen and (max-width: 930px) {
   .small-1250-con {
