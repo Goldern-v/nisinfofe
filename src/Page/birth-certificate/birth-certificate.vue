@@ -2,6 +2,7 @@
 </template>
 
 <script>
+import {columns} from './data/columns'
 import commonMixin from "./../../common/mixin/common.mixin";
 import customPagenation from "./components/pagination";
 import editModal from "./components/editModal";
@@ -65,7 +66,8 @@ export default {
         "臀牵引",
         "院外分娩"
       ],
-      sexOptions: ["男", "女"],
+      sexOptions: [{code: '男',name:'男'},
+  {code: '女',name:'女'},],
       birthCertificateNumOptions: ["有", "无"],
       hadOxytocinOptions: ["是", "否"],
       perineumSituationOptions: ["/", "√"],
@@ -104,7 +106,8 @@ export default {
         row: null,
         column: null
       },
-      puerperaInfo: {}
+      puerperaInfo: {},
+      columns: columns(this)
     };
   },
   mounted() {
@@ -151,7 +154,7 @@ export default {
         }
       );
     },
-    objectSpanMethod({ row, column, rowIndex, columnIndex }) {
+    handleSpan({ row, column, rowIndex, columnIndex }) {
       if (columnIndex == 18 || columnIndex == 19) {
         if (rowIndex % 2 === 0) {
           return {
@@ -205,9 +208,9 @@ export default {
 
       return moment(date).format(format);
     },
-    rowClassName(payload) {
-      let rowIdx = payload.rowIndex + 1;
-      if (rowIdx % 4 == 0 || rowIdx % 4 == 3) return "el-table__row--striped";
+    rowClassName(row,idx) {
+      let rowIdx = idx + 1;
+      if (rowIdx % 4 == 0 || rowIdx % 4 == 3) return "ivu-table-row-hover";
 
       return "";
     },
@@ -251,21 +254,26 @@ export default {
         }
       );
     },
-    handleEditDone(idx, name) {
+    handleEditDone(record,key,val,options={}) {
+      let row = record.row
+      let idx = record.index
+      row = {...row,...this.tableData[idx]}
+      row[key] = val
       let otherIdx;
-      if (idx % 2 == 1) {
-        otherIdx = idx - 1;
-      } else {
-        otherIdx = idx + 1;
+      if(idx%2==1){
+        otherIdx=idx-1;
+      }else{
+        otherIdx=idx+1;
       }
 
-      //同时修改产妇及丈夫两列信息并保存 不重新请求列表接口
-      if (this.tableData[idx][name] !== this.tableData[otherIdx][name]) {
-        this.tableData[otherIdx][name] = this.tableData[idx][name];
+      if(val!==this.tableData[otherIdx][key]){
+        this.tableData[idx]={...row}
+        this.tableData[otherIdx]={...row}
+        if(options.forceRender)this.tableData=this.tableData.concat()
 
-        this.saveData(this.tableData[idx], () => {
-          this.$message.success({ message: "修改成功" });
-        });
+        this.saveData(this.tableData[idx],()=>{
+          this.$message.success({message:'修改成功'})
+        })
       }
     },
     handleNumInput(val, idx, name) {
@@ -448,6 +456,74 @@ export default {
     handleCreateOk() {
       this.createVisible = false;
       this.getTableData();
+    },
+    defaultRender(h,record){
+      let row = record.row
+      let key = record.column.key
+      if(record.index%2==0)return h('span',record.row[key])
+    },
+    defaultEditRender(h,record,_key){
+      let row = record.row
+      let key = _key||record.column.key
+      return h('el-input', {
+        props: {
+          value: row[key],
+          type: 'textarea',
+          autosize: {minRows: 1},
+          resize: 'none'
+        },
+        on: {
+          blur: (e) => this.handleEditDone(record, key, e.target.value)
+        }
+      })
+    },
+    signleRowEditRender(h,record,_key){
+      if(record.index%2==0) return this.defaultEditRender(h,record,_key)
+      else return ''
+    },
+    defaultSelectRender(h,record,options,_key){
+      let row = record.row
+      let key = _key||record.column.key
+
+      return h('el-select', {
+        props: {
+          value: row[key]||'',
+          placeholder: '',
+        }
+      }, [
+        h('el-option', { 
+            props: {
+              value: '',
+              label: ''
+            },
+            attrs: { dataValue: ''},
+            nativeOn:{
+              click:(e)=>this.handleEditDone(record, key, '', true)
+            }
+          }, 
+          ''
+        ),
+        options.map((item) =>
+          h('el-option', {
+            props: {
+              value: item.code,
+              label: item.name
+            },
+            attrs:{
+              dataValue: item.code
+            },
+            nativeOn:{
+              click:(e)=>{
+                let val = e.target.getAttribute('dataValue')||e.target.innerHTML
+                this.handleEditDone(record, key, val, true)
+              }
+            }
+          }))
+      ])
+    },
+    signleSelectEditRender(h,record,options,_key){
+      if(record.index%2==0) return this.defaultSelectRender(h,record,options,_key)
+      else return ''
     }
   }
 };
