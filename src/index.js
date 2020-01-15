@@ -123,9 +123,9 @@ import "./common/directives/common.directive";
 import crDatePicker from "@/components/cr-date-picker/cr-date-picker";
 Vue.component("cr-date-picker", crDatePicker);
 //添加element-ui2.0表格组件
-import { Table as EcrmTable, TableColumn as EcrmTableColumn } from 'ecrm-element-ui';
-Vue.component('EcrmTable', EcrmTable)
-Vue.component('EcrmTableColumn', EcrmTableColumn)
+// import { Table as EcrmTable, TableColumn as EcrmTableColumn } from 'ecrm-element-ui';
+// Vue.component('EcrmTable', EcrmTable)
+// Vue.component('EcrmTableColumn', EcrmTableColumn)
 //添加iview-4.0.2表格组件
 import {
   Table as IviewTable,

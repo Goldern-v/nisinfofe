@@ -20,13 +20,13 @@
     "transform-runtime",
     "transform-vue-jsx",
     "transform-class-properties",
-    [
-      "component",
-      {
-        "libraryName": "ecrm-element-ui",
-        "styleLibraryName": "theme-chalk"
-      }
-    ],
+    // [
+    //   "component",
+    //   {
+    //     "libraryName": "ecrm-element-ui",
+    //     "styleLibraryName": "theme-chalk"
+    //   }
+    // ],
     ["import", {
       "libraryName": "view-design",
       "libraryDirectory": "src/components"
