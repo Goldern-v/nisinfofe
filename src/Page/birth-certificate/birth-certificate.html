@@ -1,4 +1,4 @@
-<div class="puerperant-situation">
+<div class="birth-certificate">
   <div class="search-topbar">
     <div class="float-left">
       <h3>出生医学证明</h3>
@@ -17,15 +17,9 @@
       <el-button @click="handleCreate">新建记录</el-button>
     </div>
   </div>
-  <div class="main-contain"
-    v-loading="tableLoading">
+  <div class="main-contain" v-loading="tableLoading">
     <div class="table-contain">
-      <IviewTable 
-        :row-class-name="rowClassName"
-        :columns="columns"
-        border 
-        :data="tableData" 
-        :span-method="handleSpan" 
+      <IviewTable :row-class-name="rowClassName" :columns="columns" border :data="tableData" :span-method="handleSpan"
         :height="tableHeight" />
     </div>
     <customPagenation :page.sync="query.pageIndex" :size.sync="query.pageSize" :total="fileTotal"
