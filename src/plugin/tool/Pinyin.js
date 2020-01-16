@@ -56,7 +56,14 @@ function mkRslt(arr) {
 //两端去空格函数
 String.prototype.trim = function () { return this.replace(/(^\s*)|(\s*$)/g, ""); }
 
-String.prototype.getPinyin = getPinyin
+String.prototype.getPinyin = function () {
+    // console.log('getPinyin:', arguments, this)
+    if (arguments.length == 0) {
+        return getPinyin(this)
+    } else {
+        return getPinyin(arguments[0])
+    }
+}
 
 //查看拼音首字母缩写
 // function query() {

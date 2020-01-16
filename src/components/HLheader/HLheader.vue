@@ -353,6 +353,7 @@
                   size="small"
                   class="dept-select"
                   autocomplete="off"
+                  :remote-method="remoteMethod"
                   @change="changeDept(deptValue)"
                 >
                   <el-option
@@ -800,7 +801,6 @@ export default {
     setPassword() {
       this.$refs.setPassword.open();
     },
-
     remoteMethod(query) {
       if (query !== "") {
         let upperCaseQuery = query.toUpperCase();
