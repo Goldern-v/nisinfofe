@@ -166,9 +166,12 @@ export default {
       }
 
       // 填表日期
+      this.formData["jsryqzTbrq"] =
+        this.formData["jsryqzTbrq"] || this.formData["cssj"];
       let fillTime = this.formData["jsryqzTbrq"]
         ? this.formData["jsryqzTbrq"].replace(/[-:]/g, " ").split(" ")
         : birthTime;
+
       if (fillTime && fillTime.length) {
         this.otherFormData["jsryqzTbrq1"] = fillTime[0];
         this.otherFormData["jsryqzTbrq2"] = fillTime[1];
