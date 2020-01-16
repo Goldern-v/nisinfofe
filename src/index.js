@@ -76,6 +76,8 @@ import vImageError from "@/common/directives/v-image-error";
 Vue.directive("image-error", vImageError);
 
 import axios from "./api/axios";
+// 字符串拼音首字获取
+import "./plugin/tool/Pinyin";
 // 数组方法
 import "./plugin/tool/Array";
 /* eslint-disable no-new */
