@@ -348,14 +348,16 @@
                 <el-select
                   v-model="deptValue"
                   filterable
+                  remote
                   placeholder="请选择"
                   size="small"
                   class="dept-select"
                   autocomplete="off"
+                  :remote-method="remoteMethod"
                   @change="changeDept(deptValue)"
                 >
                   <el-option
-                    v-for="item in deptList"
+                    v-for="item in deptOptionList"
                     :key="item.code"
                     :label="item.name"
                     :value="item.code"
@@ -686,6 +688,7 @@ export default {
       user: JSON.parse(localStorage.user),
       deptValue: "",
       deptList: [],
+      deptOptionList: [],
       isTip: false, //是否mews高亮
       mewsMd5: "",
       mewsId: ""
@@ -798,6 +801,21 @@ export default {
     setPassword() {
       this.$refs.setPassword.open();
     },
+    remoteMethod(query) {
+      if (query !== "") {
+        let upperCaseQuery = query.toUpperCase();
+        this.deptOptionList = this.deptList.filter(item => {
+          return (
+            item.code == query ||
+            item.pinyin.indexOf(upperCaseQuery) != -1 ||
+            (item.pinyin + "").includes(upperCaseQuery)
+          );
+        });
+      }
+      if (!query || this.deptOptionList.length == 0) {
+        this.deptOptionList = JSON.parse(JSON.stringify(this.deptList));
+      }
+    },
     changeDept(value) {
       let deptName = this.deptList.filter(item => {
         return item.code == value;
@@ -837,6 +855,11 @@ export default {
     // this.$store.dispatch("getMailUnread");
     nursingUnit().then(res => {
       this.deptList = res.data.data.deptList;
+      this.deptList = this.deptList.map(dept => {
+        dept["pinyin"] = dept.name.getPinyin() || "";
+        return dept;
+      });
+      this.deptOptionList = JSON.parse(JSON.stringify(this.deptList));
       this.deptValue =
         localStorage.selectDeptValue ||
         this.$store.state.lesion.deptCode ||
