@@ -813,7 +813,11 @@ export default {
           );
         });
       }
-      if (!query || this.deptOptionList.length < 2) {
+      if (
+        !query ||
+        this.deptOptionList.length == 0 ||
+        this.deptName == query
+      ) {
         this.deptOptionList = JSON.parse(JSON.stringify(this.deptList));
       }
     },
