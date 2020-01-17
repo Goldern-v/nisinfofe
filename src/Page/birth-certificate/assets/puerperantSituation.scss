@@ -1,17 +1,21 @@
-.puerperant-situation {
+.birth-certificate {
   .search-topbar {
     .float-right {
       float: right;
+
       .type-label {
         font-size: 13px;
         vertical-align: middle;
       }
+
       .type-content {
         margin-right: 15px;
+
         input {
           height: 31px;
         }
       }
+
       .search-el {
         input {
           height: 31px;
@@ -19,28 +23,35 @@
       }
     }
   }
+
   .main-contain {
     div {
       cursor: default;
+
       .operation-text {
         cursor: pointer;
         color: #4bb08d;
+
         &:hover {
           font-weight: bold;
         }
       }
     }
-    .el-button + .el-button {
+
+    .el-button+.el-button {
       margin-left: 0;
     }
-    tr{
-      td{
+
+    tr {
+      td {
         position: relative;
-        .ivu-table-cell{
+
+        .ivu-table-cell {
           line-height: 34px;
         }
       }
-      .sign-name{
+
+      .sign-name {
         vertical-align: middle;
         display: inline-block;
         min-width: 52px;
@@ -49,20 +60,25 @@
         line-height: 15px;
         cursor: pointer;
       }
-      .operate-span{
+
+      .operate-span {
         color: #4bb08d;
         cursor: pointer;
-        &:hover{
+
+        &:hover {
           font-weight: bold;
         }
       }
     }
-    .ivu-table-cell{
+
+    .ivu-table-cell {
       padding: 0 5px;
-      .temp{
+
+      .temp {
         cursor: pointer;
       }
-      div.temp{
+
+      div.temp {
         position: absolute;
         top: 0;
         bottom: 0;
@@ -70,39 +86,81 @@
         right: 0;
       }
     }
+
     textarea.el-textarea__inner {
-      border-color: rgba(0,0,0,0);
-      background: rgba(0,0,0,0);
-      &:hover,&:focus{
-        border-color:#c2cbd2;
+      border-color: rgba(0, 0, 0, 0);
+      background: rgba(0, 0, 0, 0);
+
+      &:hover,
+      &:focus {
+        border-color: #c2cbd2;
         background: #fff;
       }
     }
-    .el-select{
-      .el-input__icon{
+
+    .el-select {
+      .el-input__icon {
         display: none;
       }
-      
-      input{
+
+      input {
         padding-right: 10px;
-        border-color: rgba(0,0,0,0);
-        background: rgba(0,0,0,0);
+        border-color: rgba(0, 0, 0, 0);
+        background: rgba(0, 0, 0, 0);
       }
-      &:hover,&:focus{
-        input{
-          border-color:#c2cbd2;
+
+      &:hover,
+      &:focus {
+        input {
+          border-color: #c2cbd2;
           background: #fff;
         }
       }
-      &.align-center{
-        input{
+
+      &.align-center {
+        input {
           text-align: center;
         }
       }
     }
   }
-  .context-menu-list:hover{
-    background: #4bb08d!important;
+
+  .context-menu-list:hover {
+    background: #4bb08d !important;
     color: #fff;
+  }
+
+  .ivu-table-fixed-right {
+    .ivu-table-fixed-body {
+      table {
+
+        .ivu-table-row {
+
+          &:nth-of-type(odd) {
+            display: table-row;
+            height: 96px;
+            overflow: hidden;
+
+            td {
+              &:first-of-type {
+                display: block;
+                height: 96px;
+                max-height: 96px;
+
+                .ivu-table-cell {
+                  height: 96px;
+                  line-height: 96px;
+                }
+              }
+
+            }
+          }
+
+          &:nth-of-type(even) {
+            display: none;
+          }
+        }
+      }
+    }
   }
 }

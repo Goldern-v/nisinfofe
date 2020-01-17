@@ -806,6 +806,7 @@ export default {
         let upperCaseQuery = query.toUpperCase();
         this.deptOptionList = this.deptList.filter(item => {
           return (
+            item.name.includes(query) ||
             item.code == query ||
             item.pinyin.indexOf(upperCaseQuery) != -1 ||
             (item.pinyin + "").includes(upperCaseQuery)

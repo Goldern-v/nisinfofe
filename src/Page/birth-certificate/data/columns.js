@@ -1,6 +1,5 @@
 export const columns = (vm) => {
-  return [
-    {
+  return [{
       title: "住院号",
       key: "zyblh",
       width: 80,
@@ -31,8 +30,7 @@ export const columns = (vm) => {
     {
       title: "新生儿情况",
       align: "center",
-      children: [
-        {
+      children: [{
           title: "新生儿性别",
           key: "xsexb",
           width: 100,
@@ -55,12 +53,14 @@ export const columns = (vm) => {
             let row = record.row
             let key = record.column.key
             if (record.index % 2 == 0)
-              return h('span',{},[
+              return h('span', {}, [
                 h('el-input', {
                   props: {
                     value: row[key],
                     type: 'textarea',
-                    autosize: {minRows: 1},
+                    autosize: {
+                      minRows: 1
+                    },
                     resize: 'none'
                   },
                   style: 'width:55px;margin-right:5px;',
@@ -68,7 +68,7 @@ export const columns = (vm) => {
                     blur: (e) => vm.handleEditDone(record, key, e.target.value)
                   }
                 }),
-                h('span',{},'周')
+                h('span', {}, '周')
               ])
             else
               return ''
@@ -83,12 +83,14 @@ export const columns = (vm) => {
             let row = record.row
             let key = record.column.key
             if (record.index % 2 == 0)
-              return h('span',{},[
+              return h('span', {}, [
                 h('el-input', {
                   props: {
                     value: row[key],
                     type: 'textarea',
-                    autosize: {minRows: 1},
+                    autosize: {
+                      minRows: 1
+                    },
                     resize: 'none'
                   },
                   style: 'width:55px;margin-right:5px;',
@@ -96,7 +98,7 @@ export const columns = (vm) => {
                     blur: (e) => vm.handleEditDone(record, key, e.target.value)
                   }
                 }),
-                h('span',{},'克')
+                h('span', {}, '克')
               ])
             else
               return ''
@@ -111,12 +113,14 @@ export const columns = (vm) => {
             let row = record.row
             let key = record.column.key
             if (record.index % 2 == 0)
-              return h('span',{},[
+              return h('span', {}, [
                 h('el-input', {
                   props: {
                     value: row[key],
                     type: 'textarea',
-                    autosize: {minRows: 1},
+                    autosize: {
+                      minRows: 1
+                    },
                     resize: 'none'
                   },
                   style: 'width:75px;margin-right:5px;',
@@ -124,7 +128,7 @@ export const columns = (vm) => {
                     blur: (e) => vm.handleEditDone(record, key, e.target.value)
                   }
                 }),
-                h('span',{},'厘米')
+                h('span', {}, '厘米')
               ])
             else
               return ''
@@ -138,12 +142,14 @@ export const columns = (vm) => {
           render: (h, record) => {
             let row = record.row
             if (record.index % 2 == 0)
-              return h('span',{},[
+              return h('span', {}, [
                 h('el-input', {
                   props: {
                     value: row['csddOne'],
                     type: 'textarea',
-                    autosize: {minRows: 1},
+                    autosize: {
+                      minRows: 1
+                    },
                     resize: 'none'
                   },
                   style: 'width:75px;margin-right:5px;',
@@ -151,12 +157,14 @@ export const columns = (vm) => {
                     blur: (e) => vm.handleEditDone(record, 'csddOne', e.target.value)
                   }
                 }),
-                h('span',{},'省（区、市）'),
+                h('span', {}, '省（区、市）'),
                 h('el-input', {
                   props: {
                     value: row['csddTwo'],
                     type: 'textarea',
-                    autosize: {minRows: 1},
+                    autosize: {
+                      minRows: 1
+                    },
                     resize: 'none'
                   },
                   style: 'width:80px;margin-right:5px;',
@@ -164,12 +172,14 @@ export const columns = (vm) => {
                     blur: (e) => vm.handleEditDone(record, 'csddTwo', e.target.value)
                   }
                 }),
-                h('span',{},'市'),
+                h('span', {}, '市'),
                 h('el-input', {
                   props: {
                     value: row['csddThree'],
                     type: 'textarea',
-                    autosize: {minRows: 1},
+                    autosize: {
+                      minRows: 1
+                    },
                     resize: 'none'
                   },
                   style: 'width:100px;margin-right:5px;margin-left:5px;',
@@ -177,7 +187,7 @@ export const columns = (vm) => {
                     blur: (e) => vm.handleEditDone(record, 'csddThree', e.target.value)
                   }
                 }),
-                h('span',{},'县（区）'),
+                h('span', {}, '县（区）'),
               ])
             else
               return ''
@@ -195,8 +205,7 @@ export const columns = (vm) => {
     {
       title: "父母相关信息",
       align: "center",
-      children: [
-        {
+      children: [{
           title: "姓名",
           key: "femaleAge",
           width: 150,
@@ -208,13 +217,15 @@ export const columns = (vm) => {
               key = 'fqxxXm';
               title = '父亲：'
             }
-            return h('span',{},[
-              h('span',{},title),
+            return h('span', {}, [
+              h('span', {}, title),
               h('el-input', {
                 props: {
                   value: row[key],
                   type: 'textarea',
-                  autosize: {minRows: 1},
+                  autosize: {
+                    minRows: 1
+                  },
                   resize: 'none'
                 },
                 style: 'width:74px;',
@@ -232,7 +243,7 @@ export const columns = (vm) => {
           render: (h, record) => {
             let key = 'mqxxNl'
             if (record.index % 2 !== 0) key = 'fqxxNl';
-            return vm.defaultEditRender(h, record,key)
+            return vm.defaultEditRender(h, record, key)
           }
         },
         {
@@ -242,7 +253,7 @@ export const columns = (vm) => {
           render: (h, record) => {
             let key = 'mqxxGj'
             if (record.index % 2 !== 0) key = 'fqxxGj';
-            return vm.defaultEditRender(h, record,key)
+            return vm.defaultEditRender(h, record, key)
           }
         },
         {
@@ -252,7 +263,7 @@ export const columns = (vm) => {
           render: (h, record) => {
             let key = 'mqxxMz'
             if (record.index % 2 !== 0) key = 'fqxxMz';
-            return vm.defaultEditRender(h, record,key)
+            return vm.defaultEditRender(h, record, key)
           }
         },
         {
@@ -262,7 +273,7 @@ export const columns = (vm) => {
           render: (h, record) => {
             let key = 'mqxxYxsfzjlb'
             if (record.index % 2 !== 0) key = 'fqxxYxsfzjlb';
-            return vm.defaultEditRender(h, record,key)
+            return vm.defaultEditRender(h, record, key)
           }
         },
         {
@@ -272,7 +283,7 @@ export const columns = (vm) => {
           render: (h, record) => {
             let key = 'mqxxYxsfzjhm'
             if (record.index % 2 !== 0) key = 'fqxxYxsfzjhm';
-            return vm.defaultEditRender(h, record,key)
+            return vm.defaultEditRender(h, record, key)
           }
         },
         {
@@ -282,7 +293,7 @@ export const columns = (vm) => {
           render: (h, record) => {
             let key = 'mqxxHjdz'
             if (record.index % 2 !== 0) key = 'fqxxHjdz';
-            return vm.defaultEditRender(h, record,key)
+            return vm.defaultEditRender(h, record, key)
           }
         },
       ]
@@ -302,22 +313,23 @@ export const columns = (vm) => {
       key: "operate",
       align: 'center',
       width: 100,
+      fixed: 'right',
       render: (h, record) => {
-        if (record.index % 2 == 0) return h('span',{},[
-          h('span',{
-            class:'operate-span',
-            style:"margin-left:10px;margin-right:5px;",
-            on:{
-              click:()=>vm.seeRecord(record.row)
+        if (record.index % 2 == 0) return h('span', {}, [
+          h('span', {
+            class: 'operate-span',
+            style: "margin-left:10px;margin-right:5px;",
+            on: {
+              click: () => vm.seeRecord(record.row)
             }
-          },'查看'),
-          h('span',{
-            class:'operate-span',
-            style:"margin-left:10px;margin-right:5px;",
-            on:{
-              click:()=>vm.deleteRecord(record.row)
+          }, '查看'),
+          h('span', {
+            class: 'operate-span',
+            style: "margin-left:10px;margin-right:5px;",
+            on: {
+              click: () => vm.deleteRecord(record.row)
             }
-          },'删除'),
+          }, '删除'),
         ])
         return ''
       }
