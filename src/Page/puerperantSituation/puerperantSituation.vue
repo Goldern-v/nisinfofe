@@ -272,13 +272,19 @@ export default {
     },
     handleEditOk(payload) {
       let target = this.tableData[this.editCfg.idx];
+      let otherIdx = this.editCfg.idx+1
+      if(this.editCfg.idx%2!==0)otherIdx = this.editCfg.idx-1
+      let otherTarget = this.tableData[otherIdx]
 
       target[this.editCfg.name] = this.editCfg.value;
+      otherTarget[this.editCfg.name] = this.editCfg.value;
 
       payload.modal.saveLoading=true;
 
       this.saveData(target,()=>{
-        this.getTableData()
+        // this.getTableData()
+        this.tableData = this.tableData.concat()
+
         this.$message({
           message: '操作成功',
           type: 'success'

@@ -82,7 +82,7 @@ export const columns = (vm) => {
           render: (h, record) => {
             let key = 'femaleBrithPlace'
 
-            if (record.index % 2 !== 0) key = 'manAge';
+            if (record.index % 2 !== 0) key = 'manBrithPlace';
 
             return vm.defaultEditRender(h, record,key)
           }
