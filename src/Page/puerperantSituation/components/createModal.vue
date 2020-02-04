@@ -6,7 +6,7 @@ import {getPatientList,changeOrSaveForm,getPatientListNew,getFormChildbirth } fr
 import moment from 'moment';
 import { getPatientInfo } from "@/api/common.js";
 import { getCommonInfo } from './../api/api'
-import {eduOptions,cbwOptions,sexOptions,hoOptions,bcnOptions,otherOptions} from './../data/options'
+import {eduOptions,cbwOptions,sexOptions,hoOptions,bcnOptions,otherOptions,hyqkqkOptions} from './../data/options'
 
 export default {
   mixins: [commonMixin],
@@ -87,7 +87,8 @@ export default {
       sexOptions: sexOptions,
       birthCertificateNumOptions:bcnOptions,
       hadOxytocinOptions: hoOptions,
-      perineumSituationOptions: otherOptions
+      perineumSituationOptions: otherOptions,
+      hyqkqkOptions:hyqkqkOptions,
     };
   },
   mounted() {

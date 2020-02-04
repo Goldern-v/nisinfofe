@@ -8,7 +8,7 @@ import createModal from "./components/createModal";
 import moment from "moment";
 import {getList,changeOrSaveForm,deleteForm,getPatEmrList} from './api/api'
 import {columns} from './data/columns'
-import {eduOptions,filterOptions,cbwOptions,sexOptions,hoOptions,bcnOptions,otherOptions} from './data/options'
+import {eduOptions,filterOptions,cbwOptions,sexOptions,hoOptions,bcnOptions,otherOptions,hyqkqkOptions} from './data/options'
 
 export default {
   components: {
@@ -52,6 +52,7 @@ export default {
       sexOptions: sexOptions,
       bcnOptions: bcnOptions,
       hoOptions: hoOptions,
+      hyqkqkOptions:hyqkqkOptions,
       otherOptions: otherOptions,
       filterOptions: filterOptions,
       tableLoading: false,
@@ -466,7 +467,7 @@ export default {
             },
             attrs: { dataValue: ''},
             nativeOn:{
-              click:(e)=>this.handleChange(record, key, '', true)
+              click:(e)=>this.handleChange(record, key, '', {forceRender:true})
             }
           }, 
           ''
@@ -483,7 +484,7 @@ export default {
             nativeOn:{
               click:(e)=>{
                 let val = e.target.getAttribute('dataValue')||e.target.innerHTML
-                this.handleChange(record, key, val, true)
+                this.handleChange(record, key, val, {forceRender:true})
               }
             }
           }))

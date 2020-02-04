@@ -326,7 +326,7 @@ export const columns = (vm) => {
               key: 'perineumSituation',
               align: "center",
               width: 60,
-              render: (h,record)=>vm.defaultSelectRender(h,record,vm.otherOptions)
+              render: (h,record)=>vm.defaultSelectRender(h,record,vm.hyqkqkOptions)
             },
             {
               title: '完整',
@@ -356,7 +356,7 @@ export const columns = (vm) => {
                   if(e.target.value&&!isNaN(Number(e.target.value))){
                     vm.handleChange(record, key, e.target.value)
                   }else{
-                    vm.$message({
+                    if(e.target.value)vm.$message({
                       message: '产后2h出血量 必须为数字',
                       type: 'error'
                     })

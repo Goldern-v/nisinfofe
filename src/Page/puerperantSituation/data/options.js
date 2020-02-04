@@ -39,6 +39,12 @@ export const otherOptions = [
   {code: '/',name:'/'},
   {code: '√',name:'√'},
 ]
+//会阴情况切开
+export const hyqkqkOptions = [
+  {code: '/',name:'/'},
+  {code: '√',name:'√'},
+  {code: '侧切',name:'侧切'},
+]
 
 //列表接口筛选条件
 export const filterOptions = [
