@@ -65,14 +65,24 @@
         :isInPatientDetails="isInPatientDetails"
       ></excel>
       <div class="bottomCon">
-        <div>
+        <div class="showModal showModal2">
           催产素使用总量：
           <input
             type="text"
             class="bottomInput bottom-line"
             :data-value="sheetInfo.relObj.totalOxytocin"
             v-model="sheetInfo.relObj.totalOxytocin"
+            @focus="onFocus($event,'totalOxytocin')"
+            @blur="onBlur($event,'totalOxytocin')"
           />
+          <ul v-if="showModal2 && totalOxytocin && totalOxytocin.length">
+            <li
+              v-for="item in totalOxytocin"
+              :key="item"
+              :class="{active: sheetInfo.relObj.totalOxytocin == item}"
+              @click="selectedItem(item,'totalOxytocin')"
+            >{{item}}</li>
+          </ul>
         </div>
         <div class="showModal">
           分娩方式：
@@ -82,7 +92,7 @@
             :data-value="sheetInfo.relObj.deliveryWay"
             v-model="sheetInfo.relObj.deliveryWay"
             @focus="onFocus($event)"
-            @blur="onBlur()"
+            @blur="onBlur($event)"
           />
           <ul v-if="showModal && deliveryWay && deliveryWay.length">
             <li
@@ -216,6 +226,7 @@
 
   .showModal {
     position: relative;
+
     .bottomInput {
       width: 230px;
     }
@@ -254,6 +265,12 @@
 
     ::-webkit-scrollbar {
       display: none;
+    }
+  }
+
+  .showModal2 {
+    ul {
+      left: 120px;
     }
   }
 }
@@ -297,7 +314,9 @@ export default {
       bus: bus(this),
       sheetInfo,
       deliveryWay: [], //分娩方式
-      showModal: false
+      showModal: false,
+      totalOxytocin: [], //催产素总量
+      showModal2: false
     };
   },
   methods: {
@@ -314,26 +333,45 @@ export default {
       );
     },
     getData() {
-      let list = ["分娩方式"];
+      let list = ["分娩方式", "催产素总量"];
       multiDictInfo(list).then(res => {
         let data = res.data.data;
         setList(this.deliveryWay, "分娩方式", data);
+        setList(this.totalOxytocin, "催产素总量", data);
       });
     },
-    onFocus(e, bind) {
+    onFocus(e, type) {
       if (sheetInfo.model == "print") return;
-      this.showModal = true;
+      if (type == "totalOxytocin") {
+        this.showModal2 = true;
+      } else {
+        this.showModal = true;
+      }
     },
-    onBlur(e, bind) {
+    onBlur(e, type) {
       if (sheetInfo.model == "print") return;
-      let timeId = setTimeout(() => {
-        clearTimeout(timeId);
-        this.showModal = false;
-      }, 400);
+
+      if (type == "totalOxytocin") {
+        let timeId = setTimeout(() => {
+          clearTimeout(timeId);
+          this.showModal2 = false;
+        }, 400);
+      } else {
+        let timeId = setTimeout(() => {
+          clearTimeout(timeId);
+          this.showModal = false;
+        }, 400);
+      }
     },
-    selectedItem(val) {
-      sheetInfo.relObj.deliveryWay = val;
-      this.showModal = false;
+    selectedItem(val,type) {
+      if(type=='totalOxytocin'){
+         sheetInfo.relObj.totalOxytocin = val;
+          this.showModal2 = false;
+      }else {
+         sheetInfo.relObj.deliveryWay = val;
+          this.showModal = false;
+      }
+
     }
   },
   computed: {
