@@ -8,18 +8,21 @@
       v-loading="pageLoadng"
     >
       <el-table-column label="序号" min-width="50px" type="index"></el-table-column>
-
       <el-table-column prop="name" label="患者姓名" min-width="50px" align="center"></el-table-column>
       <el-table-column prop="patientId" label="患者Id" min-width="50px" align="center"></el-table-column>
       <el-table-column prop="visitId" label="就诊次数" width="66px" align="center"></el-table-column>
       <el-table-column prop="wardName" label="护理单元" align="center" width="300px"></el-table-column>
       <el-table-column prop="creatorName" label="创建人" min-width="50px" align="center"></el-table-column>
       <el-table-column prop="createDate" label="创建时间" min-width="120px" align="center"></el-table-column>
+      <el-table-column prop="status" label="状态" min-width="60px" align="center">
+        <template slot-scope="{row}">
+          <span :class="['isWrite',{'noWrite': row.status == '0'}]">{{ row.status === '0' ? "未填写" : "已填写" }}</span>
+        </template>
+      </el-table-column>
       <el-table-column prop="evalScore" label="总分" min-width="50px" align="center"></el-table-column>
-
       <el-table-column label="操作" min-width="50px" align="center">
         <template slot-scope="scope">
-          <span class="btn-text" @click="openViewModal(scope.row.id)">查看</span>
+          <span class="btn-text" @click="openViewModal(scope.row.formId)">查看</span>
         </template>
       </el-table-column>
     </el-table>
@@ -147,6 +150,12 @@
     }
   }
 }
+.isWrite {
+  color: #284FC2 !important;
+}
+.noWrite {
+  color: #ED5566 !important;
+}
 </style>
 <script>
 import { info } from "@/api/task";
@@ -177,6 +186,6 @@ export default {
   },
   components: {
     viewHealthEducationModal
-  }
+  },
 };
 </script>

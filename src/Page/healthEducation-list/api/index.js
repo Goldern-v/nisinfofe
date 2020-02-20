@@ -10,5 +10,11 @@ export function getListByParam(obj) {
     );
 }
 
+//根据患者ID获取健康宣教内容
+export function getDataById(id) {
+    return axios.get(`${apiPath}form/design/get/${id}`);
+}
+
+
 
 

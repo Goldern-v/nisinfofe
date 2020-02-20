@@ -4,6 +4,12 @@
       <div class="head-con">
         <span style="font-size: 18px;line-height: 31px;font-weight:bold;">健康宣教查询</span>
         <div style="flex: 1"></div>
+        <span class="label" style="margin-left: 0">状态:</span>
+        <ElSelect style="width: 150px;margin-right: 15px;" size="small" v-model="status">
+          <ElOption label="全部" value=""/>
+          <ElOption label="已填写" value="1"/>
+          <ElOption label="未填写" value="0"/>
+        </ElSelect>
         <span class="label" style="margin-left: 0">创建时间:</span>
         <el-date-picker
           type="daterange"
@@ -133,6 +139,7 @@ export default {
       tableData: [],
       pageLoadng: false,
       patientId: "",
+      status: "",
       page: {
         pageIndex: 1,
         pageNum: 20,
@@ -166,7 +173,8 @@ export default {
         endTime: moment(this.date[1]).format("YYYY-MM-DD"),
         pageIndex: this.page.pageIndex,
         pageSize: this.page.pageNum,
-        patientId: this.patientId
+        patientId: this.patientId, 
+        status: this.status
       };
       getListByParam(obj).then(res => {
         this.tableData = res.data.data.list;
