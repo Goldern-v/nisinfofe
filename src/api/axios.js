@@ -23,7 +23,6 @@ axios.interceptors.request.use((config) => {
 // 拦截请求访问失败
 axios.interceptors.response.use((res) => {
     // if (typeof res.data === 'string') res.data = JSON.parse(res.data)
-
     var data = res.data
     // 如果token没有通过
     if (data.code === '300') {

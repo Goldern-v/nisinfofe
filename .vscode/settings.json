@@ -3,5 +3,6 @@
     "@": "${workspaceRoot}/src"
   },
   "stylelint.enable": false,
-  "git.ignoreLimitWarning": true
+  "git.ignoreLimitWarning": true,
+  "editor.formatOnSave": true
 }

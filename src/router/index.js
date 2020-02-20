@@ -72,6 +72,7 @@ const birthCertificateForm = () => import("@/Page/birth-certificate/birth-certif
 const healthEducationList = () => import("@/Page/healthEducation-list/healthEducation-list.vue");
 
 const implementationList = () => import("@/Page/implementation-list/implementation-list.vue");//执行单
+const dcList = () => import("@/Page/dc-list/dc-list.vue");//执行单
 const demo = () => import("@/demo/demo");//demo
 /** 包含全局样式的页面，患者详情子页面不可代码切割 */
 import sheetPage from "@/Page/sheet-page/sheet-page.vue" // 护理记录单页面
@@ -481,7 +482,8 @@ const router = new Router({
         { path: "/vaccineManagement", component: vaccineManagement },
         { path: "/deliveryRoomWhiteboard", component: deliveryRoomWhiteboard },
         { path: "/birthCertificate", component: birthCertificate },
-        { path: "/birthCertificateForm", component: birthCertificateForm }
+        { path: "/birthCertificateForm", component: birthCertificateForm },
+        { path: "/dcList", component: dcList }
       ]
     },
     {

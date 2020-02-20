@@ -97,7 +97,7 @@ import CRMessageBox from "@/plugin/vue-elementUI-message/index.js";
 Vue.prototype.$CRMessageBox = CRMessageBox;
 
 // 模拟后台接口工具
-import "@/mock/mock.js";
+// import "@/mock/mock.js";
 
 // 格式化格子
 import MaskedInput from "./plugin/vue-text-mask/src/vueTextMask";
