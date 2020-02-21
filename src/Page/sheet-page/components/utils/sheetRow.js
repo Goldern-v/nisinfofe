@@ -16,6 +16,12 @@ export function getRowNum(index) {
     }
   } else if (sheetInfo.sheetType == "blood_purification") {
     return 11;
+  } else if (sheetInfo.sheetType == "oxytocin") {
+    if (index === 0) {
+      return 17;
+    } else {
+      return 28;
+    }
   } else {
     return 17;
   }
