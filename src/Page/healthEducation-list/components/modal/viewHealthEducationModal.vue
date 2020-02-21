@@ -1,24 +1,32 @@
 <template>
-  <sweet-modal ref="modalName" class="satisfy-modal-1577412732265" title="满意度调查表" @close="onClose" :modalWidth="850">
+  <sweet-modal
+    ref="modalName"
+    class="satisfy-modal-1577412732265"
+    title="满意度调查表"
+    @close="onClose"
+    :modalWidth="850"
+  >
     <iframe v-if="id" :src="url" frameborder="0"></iframe>
     <div class="content">
-      <p class='title'>患者问卷填写<span style="color: #999999; font-weight: normal">（最高分75分）</span>：</p>
-      <p class="grade">得分：
-        <span :class="{'noGrade': data.F001018 === '0'}">
-          {{data.F001018 === '0' ? "未填写" : evalScore}}
-        </span>
+      <p class="title">
+        患者问卷填写
+        <span style="color: #999999; font-weight: normal">（最高分75分）</span>：
+      </p>
+      <p class="grade">
+        得分：
+        <span
+          :class="{'noGrade': data.F001018 !== '1'}"
+        >{{data.F001018 === '1' ? evalScore : "未填写"}}</span>
       </p>
       <ul v-if="data.F001018 === '1'">
-          <li v-for="(o, h) in listData" :key="h" :class="{'special': o.block}">
-            <el-tooltip :content="o.text" placement="top">
-              <div>
+        <li v-for="(o, h) in listData" :key="h" :class="{'special': o.block}">
+          <el-tooltip :content="o.text" placement="top">
+            <div>
               <span>{{`${h+1}.`}}</span>
-              <span :style="color(o.value)">
-                {{o.block ? o.value : `（${o.value}）`}}
-              </span>
-              </div>
-            </el-tooltip>
-          </li>
+              <span :style="color(o.value)">{{o.block ? o.value : `（${o.value}）`}}</span>
+            </div>
+          </el-tooltip>
+        </li>
       </ul>
     </div>
     <div slot="button">
@@ -29,7 +37,7 @@
 </template>
 <style lang='scss' scoped>
 iframe {
-  background: #F0F0F0;
+  background: #f0f0f0;
   padding: 12px 25px;
   box-sizing: border-box;
   width: 52%;
@@ -42,10 +50,10 @@ iframe {
   width: 48%;
   height: calc(100vh - 260px);
   .title {
-    color: #333333; 
-    font-size: 13px; 
+    color: #333333;
+    font-size: 13px;
     font-weight: bold;
-    border-left: 3px solid #54B393;
+    border-left: 3px solid #54b393;
     padding-left: 10px;
     margin-left: 15px;
     margin-top: 10px;
@@ -56,7 +64,7 @@ iframe {
     color: #333333;
     font-size: 13px;
     .noGrade {
-      color: #E73030;
+      color: #e73030;
     }
   }
 }
@@ -68,7 +76,7 @@ ul {
     margin-bottom: 12px;
   }
   li:hover {
-   cursor: pointer;
+    cursor: pointer;
   }
   .special {
     display: block !important;
@@ -77,7 +85,7 @@ ul {
 }
 </style>
 <style lang='scss'>
-.satisfy-modal-1577412732265 .sweet-content{
+.satisfy-modal-1577412732265 .sweet-content {
   padding: 0;
 }
 </style>
@@ -105,7 +113,8 @@ export default {
           value: ""
         },
         {
-          text: "3 科室护士向您做健康宣教的全面性和及时性（用药及饮食指导、术前术后宣教、功能锻炼、预防跌倒等）。",
+          text:
+            "3 科室护士向您做健康宣教的全面性和及时性（用药及饮食指导、术前术后宣教、功能锻炼、预防跌倒等）。",
           name: "F001003",
           value: ""
         },
@@ -120,7 +129,8 @@ export default {
           value: ""
         },
         {
-          text: "6 主管医生与您的沟通全面性和及时性（告知病情、预后、手术、检查治疗情况等）。",
+          text:
+            "6 主管医生与您的沟通全面性和及时性（告知病情、预后、手术、检查治疗情况等）。",
           name: "F001006",
           value: ""
         },
@@ -170,19 +180,20 @@ export default {
           value: ""
         },
         {
-          text: "16 【必填】您最满意的医生、护士和事",
+          text: "16 您最满意的医生、护士和事",
           name: "F001016",
           value: "",
           block: true
         },
         {
-          text: "17 【必填】如您有任何的意见或建议，恳请您提出，以便我们更好地改进工作。",
+          text:
+            "17 如您有任何的意见或建议，恳请您提出，以便我们更好地改进工作。",
           name: "F001017",
           value: "",
           block: true
         }
-      ],// 弹窗右边数据
-      evalScore: ''// 总分
+      ], // 弹窗右边数据
+      evalScore: "" // 总分
     };
   },
   computed: {
@@ -192,13 +203,14 @@ export default {
   },
   methods: {
     open(id, onOkCallBack) {
+      // 获取右边问卷详情数据
       getDataById(id).then(res => {
         this.data = res.data.data.itemData;
-        this.evalScore =  res.data.data.master.evalScore
+        this.evalScore = res.data.data.master.evalScore;
         this.listData.map(item => {
           item.value = res.data.data.itemData[item.name];
         });
-      })
+      });
       this.id = id;
       this.$refs.modalName.open();
     },
@@ -209,6 +221,7 @@ export default {
     onClose() {
       this.id = "";
     },
+    // 12红色 34蓝色
     color(data) {
       switch (data) {
         case "1分" || "2分":
