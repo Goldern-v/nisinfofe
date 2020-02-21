@@ -33,7 +33,7 @@
                        min-width="90px"
                        align="center"></el-table-column>
       <el-table-column prop="sourcePlace"
-                       label="来源地"
+                       label="来自哪里"
                        min-width="90px"
                        align="center"></el-table-column>
       <el-table-column prop="passEpidemicAreas"
@@ -42,7 +42,7 @@
                        align="center"></el-table-column>
       <el-table-column prop="phone"
                        label="联系电话"
-                       min-width="100px"
+                       min-width="90px"
                        align="center"></el-table-column>
       <el-table-column prop="temperature"
                        label="体温"
@@ -59,15 +59,19 @@
         </template>
 
       </el-table-column>
+      <el-table-column prop="isolateType"
+                       label="隔离方式"
+                       min-width="60px"
+                       align="center"></el-table-column>
       <el-table-column prop="checkTime"
                        label="检查时间"
                        min-width="120px"
                        align="center"></el-table-column>
       <el-table-column prop="checkLocation"
                        label="检查地点"
-                       min-width="120px"
+                       min-width="100px"
                        align="center"></el-table-column>
-      <el-table-column prop="empName"
+      <el-table-column prop="auditorName"
                        label="登记人员"
                        min-width="80px"
                        align="center"></el-table-column>

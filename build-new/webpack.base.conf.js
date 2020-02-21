@@ -62,10 +62,13 @@ module.exports = {
           resolve("node_modules/vue-particles"),
           resolve("node_modules/v-viewer"),
           resolve("node_modules/_v-viewer@0.2.3@v-viewer"),
+          resolve("node_modules/.0.2.3@v-viewer"),
+          resolve("node_modules/.1.0.9@vue-particles"),
           resolve("node_modules/_vue-particles@1.0.9@vue-particles"),
           // resolve("node_modules/_ecrm-element-ui@2.9.7@ecrm-element-ui"),
           // resolve("node_modules/ecrm-element-ui"),
           resolve("node_modules/view-design"),
+          resolve("node_modules/.4.1.2@view-design"),
           resolve("node_modules/_view-design@4.0.2@view-design")
         ]
       },

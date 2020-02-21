@@ -5,13 +5,22 @@
         <!-- <span style="font-size: 18px;line-height: 31px;font-weight:bold;">健康宣教查询</span>
         <div style="flex: 1"></div> -->
         <span class="label"
-              style="margin-left: 0">检查日期:</span>
-        <el-date-picker type="daterange"
-                        format="yyyy-MM-dd"
-                        placeholder="选择检查时间"
+              style="margin-left: 0">起始时间:</span>
+        <el-date-picker type="datetime"
+                        :clearable="false"
+                        format="yyyy-MM-dd HH:mm:ss"
+                        placeholder="选择开始时间"
                         size="small"
-                        v-model="date"
-                        style="width:210px;margin-right:10px;"></el-date-picker>
+                        v-model="startDate"
+                        style="width:160px;margin-right:10px;"></el-date-picker>
+        <span class="label">结束时间:</span>
+        <el-date-picker type="datetime"
+                        :clearable="false"
+                        format="yyyy-MM-dd HH:mm:ss"
+                        placeholder="选择结束时间"
+                        size="small"
+                        v-model="endDate"
+                        style="width:160px;margin-right:10px;"></el-date-picker>
 
         <span class="label">性别:</span>
         <el-select v-model="sex"
@@ -34,7 +43,6 @@
                      :value="item.code"
                      :key="item.name"></el-option>
         </el-select>
-
         <span class="label">检查地点:</span>
         <el-select v-model="checkLocation"
                    placeholder="请选择"
@@ -45,7 +53,11 @@
                      :value="item.code"
                      :key="item.name"></el-option>
         </el-select>
-        <span class="label">途经疫区:</span>
+      </div>
+      <div class="head-con">
+
+        <span class="label"
+              style="margin-left: 0"> 途经疫区:</span>
         <el-select v-model="passEpidemicAreas"
                    placeholder="请选择"
                    size="small"
@@ -55,9 +67,6 @@
                      :value="item.code"
                      :key="item.name"></el-option>
         </el-select>
-
-      </div>
-      <div class="head-con">
         <span class="label">姓名:</span>
         <el-input size="small"
                   style="width: 150px;margin-right: 15px;"
@@ -177,14 +186,14 @@ export default {
         pageNum: 20,
         total: 0
       },
-      date: [
-        moment()
-          .startOf("month")
-          .format("YYYY-MM-DD"),
-        moment()
-          .endOf("month")
-          .format("YYYY-MM-DD")
-      ],
+      startDate: moment()
+        .startOf("month")
+        .format("YYYY-MM-DD HH:mm:ss"),
+
+      endDate: moment()
+        .endOf("month")
+        .format("YYYY-MM-DD HH:mm:ss"),
+
       checkLocation: '',
       passEpidemicAreas: '',
       name: '',
@@ -254,8 +263,8 @@ export default {
 
 
       let obj = {
-        startDate: moment(this.date[0]).format("YYYY-MM-DD"),
-        endDate: moment(this.date[1]).format("YYYY-MM-DD"),
+        startDate: moment(this.startDate).format("YYYY-MM-DD HH:mm:ss"),
+        endDate: moment(this.endDate).format("YYYY-MM-DD HH:mm:ss"),
         pageIndex: this.page.pageIndex,
         pageSize: this.page.pageNum,
         checkLocation: this.checkLocation,
@@ -279,8 +288,8 @@ export default {
     },
     exportExcel() {
       let obj = {
-        startDate: moment(this.date[0]).format("YYYY-MM-DD"),
-        endDate: moment(this.date[1]).format("YYYY-MM-DD"),
+        startDate: moment(this.startDate).format("YYYY-MM-DD HH:mm:ss"),
+        endDate: moment(this.endDate).format("YYYY-MM-DD HH:mm:ss"),
         pageIndex: this.page.pageIndex,
         pageSize: this.page.pageNum,
         checkLocation: this.checkLocation,
@@ -331,9 +340,12 @@ export default {
     isolate() {
       this.search();
     },
-    date() {
+    startDate() {
       this.search();
-    }
+    },
+    endDate() {
+      this.search();
+    },
   },
   components: {
     dTable,
