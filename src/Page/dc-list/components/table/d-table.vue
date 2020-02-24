@@ -10,11 +10,11 @@
                        type="index"></el-table-column>
       <el-table-column prop="name"
                        label="姓名"
-                       min-width="80px"
+                       min-width="70px"
                        align="center"></el-table-column>
       <el-table-column prop="idCard"
                        label="身份证号"
-                       min-width="150px"
+                       min-width="130px"
                        align="center"></el-table-column>
       <el-table-column prop="sex"
                        label="性别"
@@ -26,11 +26,15 @@
                        width="50px"></el-table-column>
       <el-table-column prop="place"
                        label="籍贯"
-                       min-width="90px"
+                       min-width="70px"
                        align="center"></el-table-column>
       <el-table-column prop="address"
                        label="现住址"
-                       min-width="90px"
+                       min-width="80px"
+                       align="center"></el-table-column>
+      <el-table-column prop="addressDetail"
+                       label="现住址详细地址"
+                       min-width="120px"
                        align="center"></el-table-column>
       <el-table-column prop="sourcePlace"
                        label="来自哪里"
@@ -44,10 +48,20 @@
                        label="联系电话"
                        min-width="90px"
                        align="center"></el-table-column>
-      <el-table-column prop="temperature"
+      <el-table-column prop="temperatureNormal"
                        label="体温"
                        min-width="50px"
-                       align="center"></el-table-column>
+                       align="center">
+        <template slot-scope="scope">
+          <span>
+            {{scope.row.temperatureNormal ? '正常' : '不正常'}}
+          </span>
+        </template></el-table-column>
+      <el-table-column prop="temperature"
+                       label="体温值"
+                       min-width="50px"
+                       align="center">
+      </el-table-column>
       <el-table-column prop="isolate"
                        label="是否隔离"
                        min-width="60px"
