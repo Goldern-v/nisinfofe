@@ -36,7 +36,7 @@ export default {
   },
   methods: {
     patientsFilterMethod(search) {
-      if (search) {
+      if (search && search.trim) {
         search = search.trim();
       }
       this.filterSearch = search;
@@ -65,21 +65,18 @@ export default {
 
       return newList;
     },
-    handlePatinentChange(patientOptionVal) {
-      if (patientOptionVal) {
-        patientOptionVal = patientOptionVal.trim();
-      }
-      let patientName = patientOptionVal.split("####")[0];
-      let patientId = patientOptionVal.split("####")[1] || null;
-      if (!patientId) return;
-      let target = this.patientList.find(item => item.patientId == patientId);
-      if (target) {
-        //清除数据
-        for (let x in this.puerperaInfo) {
-          if (x !== "patientName" && x !== "patientId")
-            this.puerperaInfo[x] = "";
+    handlePatinentChange(index) {
+      if (index != undefined) {
+        index = Number(index);
+        let data = this.patientListFiltered[index];
+        if (data) {
+          //清除数据
+          for (let x in this.puerperaInfo) {
+            if (x !== "patientName" && x !== "patientId")
+              this.puerperaInfo[x] = "";
+          }
+          this.puerperaInfo = { ...data };
         }
-        this.puerperaInfo = target;
       }
     },
     handleClose() {
