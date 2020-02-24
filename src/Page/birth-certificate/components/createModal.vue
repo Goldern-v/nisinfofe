@@ -69,8 +69,8 @@ export default {
       if (patientOptionVal) {
         patientOptionVal = patientOptionVal.trim();
       }
-      let searchingContent = patientOptionVal.split(" ")[0];
-      let patientId = patientOptionVal.split(" ")[1] || null;
+      let patientName = patientOptionVal.split("####")[0];
+      let patientId = patientOptionVal.split("####")[1] || null;
       if (!patientId) return;
       let target = this.patientList.find(item => item.patientId == patientId);
       if (target) {
