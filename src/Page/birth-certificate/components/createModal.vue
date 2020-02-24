@@ -36,6 +36,9 @@ export default {
   },
   methods: {
     patientsFilterMethod(search) {
+      if (search) {
+        search = search.trim();
+      }
       this.filterSearch = search;
       this.searchingContent = search;
     },
@@ -63,8 +66,11 @@ export default {
       return newList;
     },
     handlePatinentChange(patientOptionVal) {
-      let searchingContent = patientOptionVal.split(" ")[0];
-      let patientId = patientOptionVal.split(" ")[1] || null;
+      if (patientOptionVal) {
+        patientOptionVal = patientOptionVal.trim();
+      }
+      let patientName = patientOptionVal.split("####")[0];
+      let patientId = patientOptionVal.split("####")[1] || null;
       if (!patientId) return;
       let target = this.patientList.find(item => item.patientId == patientId);
       if (target) {
