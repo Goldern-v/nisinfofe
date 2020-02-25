@@ -3,11 +3,6 @@
     <div class="sum">
       <div class="group">
         BiShop宫颈成熟度评分：
-        <input
-          type="text"
-          :data-value="sheetInfo.relObj.cervicalMaturityScore"
-          v-model="sheetInfo.relObj.cervicalMaturityScore"
-        />
       </div>
       <div class="group">
         累计评分共计：
@@ -25,30 +20,36 @@
             :colspan="item.colspan || 1"
             v-for="item in tableData.thead"
             :key="item.value"
-          >{{item.value}}</th>
+          >
+            {{ item.value }}
+          </th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(tr,trIndex) in tableData.tbody" :key="trIndex">
+        <tr v-for="(tr, trIndex) in tableData.tbody" :key="trIndex">
           <td
-            v-for="(td,tdIndex) in tr"
+            v-for="(td, tdIndex) in tr"
             :key="tdIndex"
             :colspan="td.colspan"
             :class="td.class"
-            :style="[td.style,td.isChecked && {cursor: 'pointer'}]"
-            @click="td.isChecked && isChecked(tr,td,tdIndex)"
+            :style="[td.style, td.isChecked && { cursor: 'pointer' }]"
+            @click="td.isChecked && isChecked(tr, td, tdIndex)"
           >
-            <label v-if="td.prev">{{td.prev}}</label>
+            <label v-if="td.prev">{{ td.prev }}</label>
             <div class="sign-img-con" @click="sign2" v-if="td.sign">
-              <span v-if="!isPrint" class="head-sign-text">{{sheetInfo.relObj.signerName2}}</span>
+              <span v-if="!isPrint" class="head-sign-text">{{
+                sheetInfo.relObj.signerName2
+              }}</span>
               <img
                 class="head-sign-img"
                 v-if="sheetInfo.relObj.signerNo2"
-                :src="`/crNursing/api/file/signImage/${sheetInfo.relObj.signerNo2}?${token}`"
+                :src="
+                  `/crNursing/api/file/signImage/${sheetInfo.relObj.signerNo2}?${token}`
+                "
                 alt
               />
             </div>
-            <span v-else>{{td.value}}</span>
+            <span v-else>{{ td.value }}</span>
           </td>
         </tr>
       </tbody>
@@ -56,11 +57,6 @@
     <div class="info">
       <div class="group">
         催产素静脉点滴情况：
-        <input
-          type="text"
-          :data-value="sheetInfo.relObj.oxytocinIntravenousDrip"
-          v-model="sheetInfo.relObj.oxytocinIntravenousDrip"
-        />
       </div>
       <div class="group">
         静滴催产素指症：
@@ -159,7 +155,7 @@ export default {
 };
 </script>
 
-<style lang='scss' scoped>
+<style lang="scss" scoped>
 .tableCon {
   width: 700px;
   font-family: simsun, "Times New Roman", Georgia, Serif;
@@ -183,10 +179,10 @@ export default {
   }
   .sum {
     div {
-        input {
-          width: 80px;
-          text-align: center;
-        }
+      input {
+        width: 80px;
+        text-align: center;
+      }
     }
   }
   .info {

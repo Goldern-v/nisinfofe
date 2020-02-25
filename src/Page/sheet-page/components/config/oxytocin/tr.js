@@ -1,7 +1,17 @@
-import { listItem } from "../../../api/recordDesc";
-import { multiDictInfo } from "../../../api/index";
-import { keyf1 } from "../keyEvent/f1.js";
-import { event_date, event_time, click_date } from "../keyEvent/date";
+import {
+  listItem
+} from "../../../api/recordDesc";
+import {
+  multiDictInfo
+} from "../../../api/index";
+import {
+  keyf1
+} from "../keyEvent/f1.js";
+import {
+  event_date,
+  event_time,
+  click_date
+} from "../keyEvent/date";
 import info from "../sheetInfo";
 // let info = {
 //   sheetType: "neurology"
@@ -10,11 +20,11 @@ let ysList = [];
 let chuList = [];
 let ruList = [];
 let 宫缩 = [];
+let 宫缩强度 = [];
 let 胎心 = [];
 let 宫口扩张 = [];
 let 先露高低 = [];
-export default [
-  {
+export default [{
     key: "recordMonth", //日期
     value: "",
     event: event_date,
@@ -41,6 +51,14 @@ export default [
     name: "宫缩",
     autoComplete: {
       data: 宫缩
+    }
+  }, {
+    key: "fieldSeven", //宫缩强度
+    value: "",
+    event: keyf1,
+    name: "宫缩强度",
+    autoComplete: {
+      data: 宫缩强度
     }
   }, {
     key: "fieldFour", //胎心
@@ -177,6 +195,7 @@ export default [
 export function getListData4() {
   let list = [
     "宫缩",
+    "宫缩强度",
     "胎心",
     "宫口扩张",
     "先露高低"
@@ -184,6 +203,7 @@ export function getListData4() {
   multiDictInfo(list).then(res => {
     let data = res.data.data;
     setList(宫缩, "宫缩", data);
+    setList(宫缩强度, "宫缩强度", data);
     setList(胎心, "胎心", data);
     setList(宫口扩张, "宫口扩张", data);
     setList(先露高低, "先露高低", data);
