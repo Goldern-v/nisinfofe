@@ -452,6 +452,14 @@
       <el-row class="content-row" :gutter="8">
         <el-col :span="8">
           <div class="label">
+            血气分析PH值:
+          </div>
+          <div class="content">
+            <el-input size="small" v-model="params.xsefzExplain" />
+          </div>
+        </el-col>
+        <el-col :span="8">
+          <div class="label">
             <span class="lc3">早</span>
             <span class="lc3">接</span>
             <span>触:</span>
@@ -474,6 +482,9 @@
             </el-select>
           </div>
         </el-col>
+        
+      </el-row>
+      <el-row class="content-row" :gutter="8">
         <el-col :span="8">
           <div class="label">
             <span class="lc2">死</span>
@@ -483,8 +494,6 @@
             <el-input size="small" v-model="params.deadBirth"/>
           </div>
         </el-col>
-      </el-row>
-      <el-row class="content-row" :gutter="8">
         <el-col :span="8">
           <div class="label">
             <span class="lc2">死</span>
@@ -503,14 +512,15 @@
             <el-input size="small" v-model="params.deformity"/>
           </div>
         </el-col>
+        
+      </el-row>
+      <el-row class="content-row" :gutter="8">
         <el-col :span="8">
           <div class="label">新生儿死亡:</div>
           <div class="content">
             <el-input size="small" v-model="params.newBornDead"/>
           </div>
         </el-col>
-      </el-row>
-      <el-row class="content-row" :gutter="8">
         <el-col :span="8">
           <div class="label">
             <span class="lc2">死</span>
