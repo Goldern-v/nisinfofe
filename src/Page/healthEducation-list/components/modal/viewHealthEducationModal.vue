@@ -101,6 +101,7 @@ export default {
       id: "",
       data: {},
       onOkCallBack: null,
+      // 弹窗右边数据
       listData: [
         {
           text: "1 科室护士服务态度",
@@ -192,7 +193,7 @@ export default {
           value: "",
           block: true
         }
-      ], // 弹窗右边数据
+      ],
       evalScore: "" // 总分
     };
   },
