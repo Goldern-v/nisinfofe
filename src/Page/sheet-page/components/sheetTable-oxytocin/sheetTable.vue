@@ -389,7 +389,11 @@ export default {
           let ycs_c = data.form_borndept_first_ycs_c || "";
           // 孕/产
           if (ycs_y || ycs_c) {
-            this.sheetInfo.relObj["yyc_" + this.index] = ycs_y + "/" + ycs_c;
+            this.$set(
+              this.sheetInfo.relObj,
+              "yyc_" + this.index,
+              ycs_y + "/" + ycs_c
+            );
           }
         }
       });
@@ -410,6 +414,7 @@ export default {
   created() {},
   update() {},
   mounted() {
+    console.dir(this.sheetInfo);
     // 获取分娩方式
     this.getData();
     this.getDetail();
