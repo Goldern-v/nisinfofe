@@ -417,7 +417,9 @@ export default {
     console.dir(this.sheetInfo);
     // 获取分娩方式
     this.getData();
-    this.getDetail();
+    if (this.sheetInfo.relObj && !this.sheetInfo.relObj["yyc_" + this.index]) {
+      this.getDetail();
+    }
   },
   destroyed() {} /* fix vue-happy-bus bug */,
   components: {
