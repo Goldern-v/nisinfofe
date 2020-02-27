@@ -286,6 +286,7 @@ import common from "@/common/mixin/common.mixin";
 import headCon from "./components/headCon/headCon";
 import { updateSheetHeadInfo } from "../../api/index";
 import { multiDictInfo } from "../../api/index";
+import { getLastDetail } from "./api/index";
 /**
  *
  * @param {*} list 原数组
@@ -363,15 +364,35 @@ export default {
         }, 400);
       }
     },
-    selectedItem(val,type) {
-      if(type=='totalOxytocin'){
-         sheetInfo.relObj.totalOxytocin = val;
-          this.showModal2 = false;
-      }else {
-         sheetInfo.relObj.deliveryWay = val;
-          this.showModal = false;
+    selectedItem(val, type) {
+      if (type == "totalOxytocin") {
+        sheetInfo.relObj.totalOxytocin = val;
+        this.showModal2 = false;
+      } else {
+        sheetInfo.relObj.deliveryWay = val;
+        this.showModal = false;
       }
-
+    },
+    // 获取最新一次评估单信息
+    getDetail() {
+      let data = {
+        formCode: "form_borndept_first",
+        patientId: this.$route.params.patientId,
+        visitId: this.$route.params.visitId
+      };
+      getLastDetail(data).then(res => {
+        if (res.data.data && res.data.data.pageMap) {
+          let data = res.data.data.pageMap;
+          // 孕
+          let ycs_y = data.form_borndept_first_ycs_y || "";
+          // 产
+          let ycs_c = data.form_borndept_first_ycs_c || "";
+          // 孕/产
+          if (ycs_y || ycs_c) {
+            this.sheetInfo.relObj["yyc_" + this.index] = ycs_y + "/" + ycs_c;
+          }
+        }
+      });
     }
   },
   computed: {
@@ -391,6 +412,7 @@ export default {
   mounted() {
     // 获取分娩方式
     this.getData();
+    this.getDetail();
   },
   destroyed() {} /* fix vue-happy-bus bug */,
   components: {
