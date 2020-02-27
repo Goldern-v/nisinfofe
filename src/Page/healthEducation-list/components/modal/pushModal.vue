@@ -18,7 +18,10 @@
         ></el-input>
       </div>
       <div class="clum">
-        <span class="label">科 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;室：</span>
+        <span class="label">
+          科
+          <span class="distance"></span>室：
+        </span>
         <el-select
           style="width: 300px;margin-right: 15px;"
           v-model="deptValue"
@@ -38,7 +41,10 @@
         </el-select>
       </div>
       <div class="clum">
-        <span class="label">患 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;者：</span>
+        <span class="label">
+          患
+          <span class="distance"></span>者：
+        </span>
         <el-select
           style="width: 300px;margin-right: 15px;"
           placeholder="请选择患者"
@@ -75,12 +81,19 @@
   .clum {
     margin-top: 10px;
   }
+  .label {
+    font-size: 14px;
+  }
+  .distance {
+    display: inline-block;
+    width: 26px;
+  }
 }
 
 .satisfy-modal-1577412732265 {
-  /deep/ .sweet-modal {
-    height: 300px;
-  }
+  // /deep/ .sweet-modal {
+  //   height: 300px;
+  // }
   /deep/ .sweet-modal .sweet-content {
     height: 200px;
   }
