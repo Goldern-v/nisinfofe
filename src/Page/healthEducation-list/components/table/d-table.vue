@@ -16,7 +16,9 @@
       <el-table-column prop="createDate" label="创建时间" min-width="120px" align="center"></el-table-column>
       <el-table-column prop="status" label="状态" min-width="60px" align="center">
         <template slot-scope="{row}">
-          <span :class="['isWrite',{'noWrite': row.status == '0'}]">{{ row.status === '0' ? "未填写" : "已填写" }}</span>
+          <span
+            :class="['isWrite',{'noWrite': row.status == '0'}]"
+          >{{ row.status === '0' ? "未填写" : "已填写" }}</span>
         </template>
       </el-table-column>
       <el-table-column prop="evalScore" label="总分" min-width="50px" align="center"></el-table-column>
@@ -150,9 +152,11 @@
     }
   }
 }
+
 .isWrite {
   color: #284FC2 !important;
 }
+
 .noWrite {
   color: #ED5566 !important;
 }
@@ -186,6 +190,6 @@ export default {
   },
   components: {
     viewHealthEducationModal
-  },
+  }
 };
 </script>

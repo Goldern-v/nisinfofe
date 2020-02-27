@@ -6,9 +6,9 @@
         <div style="flex: 1"></div>
         <span class="label" style="margin-left: 0">状态:</span>
         <ElSelect style="width: 150px;margin-right: 15px;" size="small" v-model="status">
-          <ElOption label="全部" value=""/>
-          <ElOption label="已填写" value="1"/>
-          <ElOption label="未填写" value="0"/>
+          <ElOption label="全部" value />
+          <ElOption label="已填写" value="1" />
+          <ElOption label="未填写" value="0" />
         </ElSelect>
         <span class="label" style="margin-left: 0">创建时间:</span>
         <el-date-picker
@@ -27,6 +27,7 @@
           v-model="patientId"
         ></el-input>
         <el-button size="small" type="primary" @click="search">查询</el-button>
+        <el-button size="small" @click="openViewModal">推送</el-button>
       </div>
       <dTable :tableData="tableData" :pageLoadng="pageLoadng"></dTable>
       <div class="pagination-con" flex="main:justify cross:center">
@@ -38,6 +39,7 @@
           @currentChange="handleCurrentChange"
         ></pagination>
       </div>
+      <pushModal ref="pushModal"></pushModal>
     </div>
   </div>
 </template>
@@ -127,6 +129,7 @@
 <script>
 import dTable from "./components/table/d-table";
 import pagination from "./components/common/pagination";
+import pushModal from "./components/modal/pushModal";
 import { patEmrList } from "@/api/document";
 import { getListByParam } from "./api/index";
 import common from "@/common/mixin/common.mixin.js";
@@ -139,7 +142,7 @@ export default {
       tableData: [],
       pageLoadng: false,
       patientId: "",
-      status: "",
+      status: "", //状态
       page: {
         pageIndex: 1,
         pageNum: 20,
@@ -163,7 +166,6 @@ export default {
       this.page.pageIndex = newPage;
       this.onLoad();
     },
-
     onLoad() {
       if (!this.deptCode) return;
       this.pageLoadng = true;
@@ -173,7 +175,7 @@ export default {
         endTime: moment(this.date[1]).format("YYYY-MM-DD"),
         pageIndex: this.page.pageIndex,
         pageSize: this.page.pageNum,
-        patientId: this.patientId, 
+        patientId: this.patientId,
         status: this.status
       };
       getListByParam(obj).then(res => {
@@ -185,6 +187,9 @@ export default {
     search() {
       this.page.pageIndex = 1;
       this.onLoad();
+    },
+    openViewModal() {
+      this.$refs.pushModal.open();
     }
   },
   created() {
@@ -200,7 +205,8 @@ export default {
   },
   components: {
     dTable,
-    pagination
+    pagination,
+    pushModal
   }
 };
 </script>
