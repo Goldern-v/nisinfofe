@@ -34,7 +34,6 @@
             :key="item.code"
             :label="item.name"
             :value="item.code"
-            :disabled="item.push ? true : false"
           ></el-option>
         </el-select>
       </div>
@@ -44,17 +43,17 @@
           style="width: 300px;margin-right: 15px;"
           placeholder="请选择患者"
           size="medium"
-          v-model="patientId"
-          @change="changePatient(patientId)"
+          v-model="patientIdList"
+          @change="changePatient"
           multiple
         >
-          <el-option :value="allPatients" :label="`全部（未推送患者共${allNoPush}人）`"></el-option>
+          <el-option value="allPatients" :label="`全部（未推送患者共${allNoPush}人）`"></el-option>
           <el-option
             v-for="item in patientList"
             :key="item.patientId"
             :label="`${item.bedNo}床 ${item.name}`"
             :value="item.patientId"
-            :disabled="item.push ? true : false"
+            :disabled="allCheck || item.push"
           >
             <span style="float: left">{{ `${item.bedNo}床 ${item.name}` }}</span>
             <span style="float: right" v-if="item.push">（已推送）</span>
@@ -73,20 +72,21 @@
   width: 100%;
   padding: 15px 40px;
   box-sizing: border-box;
-  height: calc(100vh - 260px);
   .clum {
     margin-top: 10px;
   }
 }
-.sweet-modal {
-  max-height: 50vh !important;
+
+.satisfy-modal-1577412732265 {
+  /deep/ .sweet-modal {
+    height: 300px;
+  }
+  /deep/ .sweet-modal .sweet-content {
+    height: 200px;
+  }
 }
 </style>
-<style lang='scss'>
-.satisfy-modal-1577412732265 .sweet-content {
-  padding: 0;
-}
-</style>
+
 <script>
 import common from "@/common/mixin/common.mixin.js";
 import { blockList } from "@/Page/sheet-page/api/index.js";
@@ -102,18 +102,35 @@ export default {
       deptValue: "",
       deptList: [],
       patientList: [], // 患者列表
-      patientId: [], // 患者id
+      patientIdList: [], // 患者id
       allPatients: [], // 患者patientId visitId
-      allNoPush: 0 // 未推送患者人数
+      allNoPush: 0, // 未推送患者人数
+      allCheck: false // 是否选择全部未推送患者 --true为是
     };
   },
   methods: {
-    open(onOkCallBack) {
-      // 获取患者
+    async open(onOkCallBack) {
+      await this.getPatientData();
+      this.$refs.modalName.open();
+    },
+    // 获取所有患者数据
+    getPatientData() {
       getByDeptCode(this.deptValue, "F0001").then(res => {
         this.allNoPush = res.data.data.size;
         this.patientList = res.data.data.patList;
-        let ids = [];
+      });
+    },
+    // 弹窗确认处理入参数据
+    async post() {
+      let params = [];
+      if (this.patientIdList.length === 0) {
+        this.$message.warning("请至少选中一个患者");
+        return;
+      }
+      if (
+        this.patientIdList.length === 1 &&
+        this.patientIdList[0] === "allPatients"
+      ) {
         let arr = this.patientList.filter(a => !a.push);
         let obj = {};
         arr.map(item => {
@@ -121,44 +138,53 @@ export default {
             patientId: item.patientId,
             visitId: item.visitId
           };
-          ids.push(obj);
+          params.push(obj);
         });
-        this.allPatients = ids;
-      });
-      this.$refs.modalName.open();
-    },
-    async post() {
-      await push(this.allPatients).then(res => {
+      } else {
+        this.patientIdList.map(item => {
+          let obj1 = this.patientList.filter(a => a.patientId == item)[0];
+          let obj2 = {
+            patientId: obj1.patientId,
+            visitId: obj1.visitId
+          };
+          params.push(obj2);
+        });
+      }
+      await push(params).then(res => {
         if (res.data.code == "200") {
           this.$message.success("批量推送成功！");
         }
       });
       // this.onOkCallBack();
       this.$refs.modalName.close();
-      this.patientId = [];
+      this.patientIdList = [];
       this.$parent.onLoad();
     },
-    onClose() {},
+    // 取消关闭弹窗
+    onClose() {
+      this.patientIdList = [];
+    },
+    // 科室选择变化
     changeDept(value) {
       let deptName = this.deptList.filter(item => {
         return item.code == value;
       })[0].name;
+      this.getPatientData();
     },
+    // 患者选择变化
     changePatient(value) {
-      let arr = [];
-      value.map(item => {
-        let obj1 = this.patientList.filter(a => a.patientId == item)[0];
-        let obj2 = {
-          patientId: obj1.patientId,
-          visitId: obj1.visitId
-        };
-        arr.push(obj2);
-      });
-      this.allPatients = arr;
+      let isHave = value.find(item => item === "allPatients");
+      if (isHave) {
+        this.allCheck = true;
+        if (value.length === 1 && isHave) return;
+        this.patientIdList = ["allPatients"];
+      } else {
+        this.allCheck = false;
+      }
     }
   },
   created() {
-    // 获取科室
+    // 获取所有科室
     nursingUnit().then(res => {
       this.deptList = res.data.data.deptList;
       this.deptList = this.deptList.map(dept => {
