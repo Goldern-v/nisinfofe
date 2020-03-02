@@ -13,7 +13,7 @@ function typeList() {
 // 一览卡
 function patients(deptCode, config, HisName = process.env.HOSPITAL_NAME) {
   let hisList = {
-    威县人民医院:  `patListWithNewForm/${deptCode}`,
+    威县人民医院: `patListWithNewForm/${deptCode}`,
     东莞市厚街医院: `patList/${deptCode}`
   };
   let url = hisList[HisName] || `patList/${deptCode}`
@@ -33,4 +33,9 @@ function unfollow(bedLabel) {
   return axios.get(`${apiPath}bed/unfollowBed/${bedLabel}`)
 }
 
-export { nursingUnit, patients, follow, unfollow, typeList }
+// 威县 --更新床位一览卡信息
+function syncGetNurseBedRec() {
+  return axios.get(`${apiPath}hisDispenseExecute/syncGetNurseBedRec/4140001`)
+}
+
+export { nursingUnit, patients, follow, unfollow, typeList, syncGetNurseBedRec }
