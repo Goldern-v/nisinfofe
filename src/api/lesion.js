@@ -34,8 +34,8 @@ function unfollow(bedLabel) {
 }
 
 // 威县 --更新床位一览卡信息
-function syncGetNurseBedRec() {
-  return axios.get(`${apiPath}hisDispenseExecute/syncGetNurseBedRec/4140001`)
+function syncGetNurseBedRec(deptCode) {
+  return axios.get(`${apiPath}hisDispenseExecute/syncGetNurseBedRec/${deptCode}`)
 }
 
 export { nursingUnit, patients, follow, unfollow, typeList, syncGetNurseBedRec }

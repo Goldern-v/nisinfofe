@@ -454,7 +454,7 @@ export default {
     },
     syncGetNurseBedRec() {
       this.$message.info("正在更新");
-      syncGetNurseBedRec().then(res => {
+      syncGetNurseBedRec(this.deptCode).then(res => {
         this.$message.success("更新成功");
         this.getDate();
       });
