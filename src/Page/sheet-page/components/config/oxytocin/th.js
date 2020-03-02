@@ -22,8 +22,8 @@ export default {
       }, {
         name: `催产<br/>素浓<br/>度<br/>（u/500ml）`,
         style: {
-          minWidth: '25px',
-          maxWidth: '25px'
+          minWidth: '50px',
+          maxWidth: '50px'
         },
         colspan: '1',
         rowspan: '3'
@@ -31,56 +31,56 @@ export default {
         name: `滴数<br/>
         （滴/分）`,
         style: {
-          minWidth: '30px',
-          maxWidth: '30px'
+          minWidth: '50px',
+          maxWidth: '50px'
         },
         colspan: '1',
         rowspan: '3'
       }, {
         name: `宫<br/>缩`,
         style: {
-          minWidth: '25px',
-          maxWidth: '25px'
+          minWidth: '50px',
+          maxWidth: '50px'
         },
         colspan: '1',
         rowspan: '3'
       }, {
         name: `宫缩<br/>强度`,
         style: {
-          minWidth: '25px',
-          maxWidth: '25px'
+          minWidth: '50px',
+          maxWidth: '50px'
         },
         colspan: '1',
         rowspan: '3'
       }, {
         name: `胎方位/胎心`,
         style: {
-          minWidth: '25px',
-          maxWidth: '25px'
+          minWidth: '50px',
+          maxWidth: '50px'
         },
         colspan: '1',
         rowspan: '3'
       }, {
         name: `宫口<br/>扩张`,
         style: {
-          minWidth: '25px',
-          maxWidth: '25px'
+          minWidth: '50px',
+          maxWidth: '50px'
         },
         colspan: '1',
         rowspan: '3'
       }, {
         name: `先露<br/>高低`,
         style: {
-          minWidth: '25px',
-          maxWidth: '25px'
+          minWidth: '50px',
+          maxWidth: '50px'
         },
         colspan: '1',
         rowspan: '3'
       }, {
         name: `血压<br/>mmHg`,
         style: {
-          minWidth: '36px',
-          maxWidth: '36px'
+          minWidth: '50px',
+          maxWidth: '50px'
         },
         colspan: '1',
         rowspan: '3'

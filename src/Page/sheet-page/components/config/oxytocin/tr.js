@@ -38,12 +38,18 @@ export default [{
     key: "fieldOne", //催产素浓度
     value: "",
     event: keyf1,
-    name: "催产素浓度"
+    name: "催产素浓度",
+    textarea: {
+      width: 50
+    }
   }, {
     key: "fieldTwo", //滴数（滴/分）
     value: "",
     event: keyf1,
-    name: "滴数（滴/分）"
+    name: "滴数（滴/分）",
+    textarea: {
+      width: 50
+    }
   }, {
     key: "fieldThree", //宫缩
     value: "",
@@ -51,6 +57,9 @@ export default [{
     name: "宫缩",
     autoComplete: {
       data: 宫缩
+    },
+    textarea: {
+      width: 50
     }
   }, {
     key: "fieldSeven", //宫缩强度
@@ -59,6 +68,9 @@ export default [{
     name: "宫缩强度",
     autoComplete: {
       data: 宫缩强度
+    },
+    textarea: {
+      width: 50
     }
   }, {
     key: "fieldFour", //胎心
@@ -67,6 +79,9 @@ export default [{
     name: "胎心",
     autoComplete: {
       data: 胎心
+    },
+    textarea: {
+      width: 50
     }
   }, {
     key: "fieldFive", //宫口扩张
@@ -75,6 +90,9 @@ export default [{
     name: "宫口扩张",
     autoComplete: {
       data: 宫口扩张
+    },
+    textarea: {
+      width: 50
     }
   }, {
     key: "fieldSix", //先露高低
@@ -83,6 +101,9 @@ export default [{
     name: "先露高低",
     autoComplete: {
       data: 先露高低
+    },
+    textarea: {
+      width: 50
     }
   }, {
     key: "bloodPressure", //血压mmHg
@@ -94,6 +115,9 @@ export default [{
         e.preventDefault();
       }
       keyf1(e, td);
+    },
+    textarea: {
+      width: 50
     }
   }, {
     key: "description", //特殊情况记录
