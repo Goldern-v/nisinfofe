@@ -1,7 +1,13 @@
 <template>
   <div class="search-con">
     <div class="input-con" flex="cross:stretch">
-      <input type="text" class="search-input" flex-box="1" placeholder="床号/姓名" v-model="searchText" />
+      <input
+        type="text"
+        class="search-input"
+        flex-box="1"
+        placeholder="床号/姓名"
+        v-model="searchText"
+      />
       <div class="search-btn" flex="cross:center main:center">
         <i class="iconfont icon-search"></i>
       </div>
@@ -11,11 +17,11 @@
         class="s-item"
         flex="cross:center"
         v-if="item.type == 'bed'"
-        :class="{active: selectName == item.name}"
+        :class="{ active: selectName == item.name }"
         @click="selectType(item.name)"
       >
         <i class="icon-chuangwei iconfont"></i>
-        <span>{{item.name}}（{{item.num}}）</span>
+        <span>{{ item.name }}（{{ item.num }}）</span>
       </div>
 
       <div style="height:20px" v-if="item.type == 'block'"></div>
@@ -24,11 +30,11 @@
         class="s-item"
         flex="cross:center"
         v-if="item.type == 'level'"
-        :class="{active: selectName == item.name}"
+        :class="{ active: selectName == item.name }"
         @click="selectType(item.name)"
       >
-        <aside class="sq" :style="{background: item.color}"></aside>
-        <span>{{item.name}}（{{item.num}}）</span>
+        <aside class="sq" :style="{ background: item.color }"></aside>
+        <span>{{ item.name }}（{{ item.num }}）</span>
       </div>
 
       <div class="line" v-if="item.type == 'line'"></div>
@@ -37,24 +43,33 @@
         class="s-item"
         flex="cross:center"
         v-if="item.type == 'state'"
-        :class="{active: selectName == item.name}"
+        :class="{ active: selectName == item.name }"
         @click="selectType(item.name)"
       >
         <i class="icon-bingwei iconfont"></i>
-        <span>{{item.name}}（{{item.num}}）</span>
+        <span>{{ item.name }}（{{ item.num }}）</span>
       </div>
 
       <div
         class="s-item"
         flex="cross:center"
         v-if="item.type == 'heart'"
-        :class="{active: selectName == item.name}"
+        :class="{ active: selectName == item.name }"
         @click="selectType(item.name)"
       >
         <i class="icon-shoucang iconfont"></i>
-        <span>{{item.name}}（{{item.num}}）</span>
+        <span>{{ item.name }}（{{ item.num }}）</span>
       </div>
     </div>
+
+    <button
+      class="login-btn"
+      @click="syncGetNurseBedRec"
+      v-if="HOSPITAL_ID == 'weixian'"
+    >
+      同步床位数据
+    </button>
+
     <footerBar
       :selectName="selectName"
       :isTodayDischarg="isTodayDischarge"
@@ -159,9 +174,27 @@
     margin: 10px 0;
   }
 }
+.login-btn {
+  margin-top: 20px;
+  width: 100%;
+  height: 37px;
+  display: block;
+  background: #4BB08D;
+  border-radius: 2px;
+  border: 0;
+  color: #fff;
+  font-size: 13px;
+  font-weight: lighter;
+  outline: none;
+  cursor: pointer;
+
+  &:hover {
+    background: #5CC6A1;
+  }
+}
 </style>
 <script>
-import { patients } from "@/api/lesion";
+import { patients, syncGetNurseBedRec } from "@/api/lesion";
 import footerBar from "../footer-bar/footer-bar.vue";
 import { listItem } from "@/api/common.js";
 export default {
@@ -418,6 +451,13 @@ export default {
     },
     getLevelList(level) {
       return this.bedList.filter(item => item.nursingClass == level);
+    },
+    syncGetNurseBedRec() {
+      this.$message.info("正在更新");
+      syncGetNurseBedRec().then(res => {
+        this.$message.success("更新成功");
+        this.getDate();
+      });
     }
   },
   watch: {
