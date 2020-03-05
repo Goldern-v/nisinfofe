@@ -309,6 +309,10 @@ export default {
           item.bedLabel.includes("_") && item.patientId && !item.newBornOut
       );
     },
+    // 欠费患者
+    qfhz() {
+      return this.bedList.filter(item => item.totalCosts > item.prepayments);
+    },
     list() {
       return [
         {
@@ -417,6 +421,11 @@ export default {
           type: "level",
           color: "rgba(255, 207, 219, 0.5)",
           hide: !this.isChangeke
+        },
+        {
+          name: "欠费患者",
+          num: this.qfhz.length,
+          type: "state"
         }
       ];
     }
@@ -585,6 +594,11 @@ export default {
         case "婴儿":
           {
             this.$parent.bedList = this.ye;
+          }
+          break;
+        case "欠费患者":
+          {
+            this.$parent.bedList = this.qfhz;
           }
           break;
         default: {
