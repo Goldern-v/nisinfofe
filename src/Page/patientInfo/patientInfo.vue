@@ -1,7 +1,7 @@
 <template>
   <div>
     <leftPart v-if="inited"></leftPart>
-    <div class="right-part" :style="{marginLeft: openLeft?'200px':'0'}">
+    <div class="right-part" :style="{ marginLeft: openLeft ? '200px' : '0' }">
       <!-- <topPart></topPart> -->
       <component :is="switchCompt()" v-if="inited" />
       <router-view v-if="inited"></router-view>
@@ -46,9 +46,17 @@ export default {
         this.inited = true;
         this.query = res.data.data;
         Object.assign(this.$route.query, this.query);
-        console.log('getPatientInfo',res)
+        console.log("getPatientInfo", res);
         // getPatientInfo
-        window.app.$store.commit('upCurrentPatientObj', JSON.parse(JSON.stringify(this.query)))
+        window.app.$store.commit(
+          "upCurrentPatientObj",
+          JSON.parse(JSON.stringify(this.query))
+        );
+        if (this.query.deptCode && this.query.deptName) {
+          this.$store.commit("upDeptCode", this.query.deptCode);
+          localStorage.selectDeptValue = value;
+          this.$store.commit("upDeptName", this.query.deptName);
+        }
       }
     );
   },
@@ -59,7 +67,7 @@ export default {
     // 依据医院名字，标题组件切换
     switchCompt(HisName = process.env.HOSPITAL_NAME) {
       let hisList = {
-        陵城区人民医院: 'topPartLingCheng',
+        陵城区人民医院: "topPartLingCheng",
         威县人民医院: "topPartWeiXian",
         东莞市厚街医院: "topPart"
       };
