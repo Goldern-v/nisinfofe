@@ -3,7 +3,12 @@
     <sweet-modal ref="modal" size="small" :title="title" @close="handleClose">
       <div class="model-content" v-loading="saveLoading" @keyup.enter="handleSave">
         <!-- 输入框 -->
-        <el-input :value="editValue" class="pueperant-editmodal-input" v-if="type=='input'||type=='int'" @change="handleInputChange"></el-input>
+        <el-input
+          :value="editValue"
+          class="pueperant-editmodal-input"
+          v-if="type=='input'||type=='int'"
+          @change="handleInputChange"
+        ></el-input>
         <!-- 日期选择 -->
         <el-date-picker
           v-if="type=='dateTime'"
@@ -28,9 +33,9 @@
 
 <script>
 import commonMixin from "./../../../common/mixin/common.mixin";
-import {getPatientList} from './../api/api'
+import { getPatientList } from "./../api/api";
 export default {
-  mixins:[commonMixin],
+  mixins: [commonMixin],
   props: {
     type: {
       type: String,
@@ -62,12 +67,10 @@ export default {
   data() {
     return {
       editValue: "",
-      saveLoading: false,
+      saveLoading: false
     };
   },
-  mounted() {
-    
-  },
+  mounted() {},
   methods: {
     handleClose() {
       this.$emit("update:visible", false);
@@ -77,44 +80,49 @@ export default {
       this.$emit("update:value", val);
       this.$emit("onValueChange", val);
     },
-    handleInputChange(val){
-      if(this.type!=='int'){
-        this.handleValueChange(val)
-      }else{
-        if(!val){
-          this.editValue = '';
-          this.handleValueChange('')
-          return
-        };
+    handleInputChange(val) {
+      if (this.type !== "int") {
+        this.handleValueChange(val);
+      } else {
+        if (!val) {
+          this.editValue = "";
+          this.handleValueChange("");
+          return;
+        }
 
         let newVal = parseInt(val).toString();
         let targetChange = false;
-        if(isNaN(Number(newVal))){
-          newVal=this.editValue
+        if (isNaN(Number(newVal))) {
+          newVal = this.editValue;
           targetChange = true;
         }
 
-        if(newVal.length!==val.length)targetChange = true
+        if (newVal.length !== val.length) targetChange = true;
 
-        this.editValue = newVal
-        this.handleValueChange(newVal)
+        this.editValue = newVal;
+        this.handleValueChange(newVal);
 
-        if(targetChange){
-          setTimeout(_=>document.querySelector(`.pueperant-editmodal-input input`).value=newVal)
+        if (targetChange) {
+          setTimeout(
+            _ =>
+              (document.querySelector(
+                `.pueperant-editmodal-input input`
+              ).value = newVal)
+          );
         }
       }
     },
     handleSave() {
       // console.log(this.value);
-      this.$emit("onOk", {modal:this,value: this.editValue});
+      this.$emit("onOk", { modal: this, value: this.editValue });
     }
   },
   watch: {
     visible(val) {
       if (val) {
         this.$refs.modal.open();
-      }else{
-        if(this.$refs.modal.is_open)this.$refs.modal.close();
+      } else {
+        if (this.$refs.modal.is_open) this.$refs.modal.close();
       }
     },
     value(val) {
@@ -128,10 +136,10 @@ export default {
 .model-content {
   margin: 15px auto;
   text-align: center;
-  .nurse-select{
+  .nurse-select {
     width: 100%;
   }
-  .pueperant-editmodal-input{
+  .pueperant-editmodal-input {
     width: 100%;
   }
 }
