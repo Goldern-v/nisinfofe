@@ -10,9 +10,9 @@ export function getRowNum(index) {
     }
   } else if (sheetInfo.sheetType == "post_partum" || sheetInfo.sheetType == "dressing_count") {
     if (index === 0) {
-      return 16;
+      return 21;
     } else {
-      return 28;
+      return 33;
     }
   } else if (sheetInfo.sheetType == "blood_purification") {
     return 11;
