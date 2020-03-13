@@ -40,7 +40,7 @@ export const columns = (vm) => {
                 width: '80px'
               },
               on: {
-                change: (e) => vm.handleChange(record, key, e.target.value)
+                blur: (e) => vm.handleChange(record, key, e.target.value)
               }
             })
           ])
