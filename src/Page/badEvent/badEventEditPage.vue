@@ -157,7 +157,6 @@ export default {
     this.load();
     this.bus.$on("loadPatientData", this.loadPatientData);
     this.bus.$on("loadError", this.loadError);
-    // this.bus.$on("updatePatientsList", this.getDate);
 
     function MessageBox() {
       var mesg = null;

@@ -1,114 +1,100 @@
 
 <template>
+  <!-- 不良事件 -->
 
-    <!-- 不良事件 -->
-
-    <div class='bad-event' :style="'height:'+(wih-60)+'px!important;overflow: hidden;'">
-        <Search v-if="!params.id"></Search>
-        <router-view v-if="params.id"></router-view>
-    </div>
-
+  <div class="bad-event" :style="'height:'+(wih-60)+'px!important;overflow: hidden;'">
+    <Search v-if="!params.id"></Search>
+    <router-view v-if="params.id"></router-view>
+  </div>
 </template>
 
 <style lang="stylus"   rel="stylesheet/stylus" type="text/stylus" scoped>
-  .bad-event
-    display flex
-    flex-direction column
+.bad-event {
+  display: flex;
+  flex-direction: column;
 
-    .toolbar
-      display flex
-      flex-wrap wrap
-      align-items center
-      height 41px
-      padding 0 18px
-      background-image linear-gradient(-180deg, #F8F8FA 0%, #EBECF0 100%)
-      border 1px solid #CBD5DD
-      overflow hidden
-      font-size 14px
+  .toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    height: 41px;
+    padding: 0 18px;
+    background-image: linear-gradient(-180deg, #F8F8FA 0%, #EBECF0 100%);
+    border: 1px solid #CBD5DD;
+    overflow: hidden;
+    font-size: 14px;
 
-      &-left
-        flex 1
-      &-left,.el-input,.el-input__inner
-        width: 150px!important
-        display inline-block!important
-      &-left .date-picker .el-input .el-input__inner
-        width: 150px!important
+    &-left {
+      flex: 1;
+    }
 
-    >>>.el-input__inner
-      height: 30px!important
-    .bad-event-container
-      padding 0
-      flex 1
-      overflow auto
+    &-left, .el-input, .el-input__inner {
+      width: 150px !important;
+      display: inline-block !important;
+    }
 
-    // .actions
-    //   position fixed
-    //   top 70px
-    //   right 10px
-    //   z-index 1
+    &-left .date-picker .el-input .el-input__inner {
+      width: 150px !important;
+    }
+  }
 
-      // &:hover
-      //   background #fafafa
+  >>>.el-input__inner {
+    height: 30px !important;
+  }
+
+  .bad-event-container {
+    padding: 0;
+    flex: 1;
+    overflow: auto;
+  }
+}
 </style>
 
 <script>
-import common from '@/common/mixin/common.mixin.js'
-import editpage from './badEventEditPage.vue'
-import viewpage from './badEventViewPage.vue'
-import dayjs from 'dayjs'
-import apis from './apis/index.js'
-import {mockGetUnitlist} from './apis/mock_test_api.js'
+import common from "@/common/mixin/common.mixin.js";
+import editpage from "./badEventEditPage.vue";
+import viewpage from "./badEventViewPage.vue";
+import dayjs from "dayjs";
+import apis from "./apis/index.js";
 
-import NewForm from './components/modal/new-form.vue'
-import EventTable from './components/table/eventTable'
-import Button from './components/button'
+import EventTable from "./components/table/eventTable";
+import Button from "./components/button";
 
-import Search from './components/toolbar/search'
+import Search from "./components/toolbar/search";
 
-
-import BusFactory from 'vue-happy-bus'
+import BusFactory from "vue-happy-bus";
 
 export default {
   mixins: [common],
   components: {
-      Button,
-      EventTable,
-      NewForm,
-      Search,
-    },
-  props:{
+    Button,
+    EventTable,
+    Search
   },
+  props: {},
   data() {
     return {
-       bus: BusFactory(this),
-       params:{},
-    }
+      bus: BusFactory(this),
+      params: {}
+    };
   },
-  watch:{
-    '$route.params' () {
-        this.params = this.$route.params
-      },
+  watch: {
+    "$route.params"() {
+      this.params = this.$route.params;
+    }
   },
   created() {
-    this.bus.$on('gotoHomePage', this.gotoHomePage)
-    localStorage['showBadEvent']='true'
+    this.bus.$on("gotoHomePage", this.gotoHomePage);
+    localStorage["showBadEvent"] = "true";
   },
   mounted() {
-    this.params = this.$route.params
-    console.log('routeParams',this.deptCode,this.params.length,this.params,this.$route.params)
-    if(!this.params){
-    }
-    // 模拟mock请求后台端口 mock.getUnitlist
-    mockGetUnitlist().then(res=>{
-      console.log('!!!!mock.getUnitlist',res);
-    })
-
+    this.params = this.$route.params;
   },
 
   methods: {
-      gotoHomePage(){
-        this.$router.push({name: 'badEvents'})
-      }
-  },
-}
+    gotoHomePage() {
+      this.$router.push({ name: "badEvents" });
+    }
+  }
+};
 </script>

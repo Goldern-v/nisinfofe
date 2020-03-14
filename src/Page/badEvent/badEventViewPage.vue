@@ -23,7 +23,6 @@
               v-loading="badEventPageLoading"
               :element-loading-text="pageLoadingText"
             >
-              <!-- <div class="mask"></div> -->
               <iframe
                 frameborder="0"
                 class="badEvent-iframe"
@@ -33,21 +32,14 @@
                 ref="iframe"
               ></iframe>
             </div>
-            <!-- <div class="bad-event-paper" >
-                            <span contenteditable="true">{{this.wih}}不良事件_报告单{{wih}}</span>
-            </div>-->
           </div>
         </div>
       </div>
       <div class="viewbar-right" :style="'height: '+(wih-60)+'px'">
         <div class="viewbar-right-top">
-          <Button class="btn" :disabled="status==0 || status==1?false:true" @click="saveEdit">编辑</Button>
-          <Button class="btn" :disabled="status==0 || status==1?false:true" @click="deleteEdit">删除</Button>
-          <Button
-            class="green-btn btn"
-            :disabled="status==0 || status==1?false:true"
-            @click="uploadEdit"
-          >上报</Button>
+          <Button class="btn" :disabled="isDisabled" @click="saveEdit">编辑</Button>
+          <Button class="btn" :disabled="isDisabled" @click="deleteEdit">删除</Button>
+          <Button class="green-btn btn" :disabled="isDisabled" @click="uploadEdit">上报</Button>
         </div>
         <div class="viewbar-right-title">事件轨迹：</div>
         <el-steps
@@ -275,6 +267,7 @@ import EditToolbar from "./components/toolbar/editToolbar";
 
 import { formUrl, devFormUrl } from "@/common/pathConfig/index.js";
 import { getStreamByInstanceId } from "./apis/index.js";
+import { multiDictInfo } from "@/api/common";
 
 import qs from "qs";
 
@@ -291,70 +284,43 @@ export default {
   data() {
     return {
       bus: BusFactory(this),
-      status: parseInt(this.$route.params.status) || 0,
       steps: [], // wait/process/finish/error/success
-      list: [
-        { value: [0], label: "保存", date: "", name: "" },
-        { value: [1], label: "上报", date: "", name: "" },
-        { value: [2, -2], label: "质控科审核", date: "", name: "" },
-        { value: [3], label: "责任科室处理", date: "", name: "" },
-        { value: [4], label: "质控科总结", date: "", name: "" },
-        {
-          value: [5],
-          label: "医院质量与安全管理委员会处理",
-          date: "",
-          name: ""
-        }
-      ],
       url: "",
       iframeHeight: this.whi + 50,
       pageLoading: true,
       pageLoadingText: "表单加载中...",
       params: {},
       wid: Object,
-      // stateText: '',
-      stepStatus: 0 //步骤条状态
+      stepStatus: 0, //步骤条状态
+      eventStatusOptions: [], //所有事件状态
+      status: "", //状态
+      stateText: "" //状态名称
     };
   },
   computed: {
     badEventPageLoading() {
       return window.pageLoading || this.pageLoading;
     },
-    stateText() {
-      switch (this.status) {
-        case -1:
-          return "禁用";
-        case 0:
-          return "保存";
-        case 1:
-          return "护士上报";
-        case 2:
-          return "质管科审核通过";
-        case -2:
-          "质管科审核不通过";
-        case 3:
-          return "责任科室已处理";
-        case 4:
-          return "质控科已总结";
-        case 5:
-          return "质量委员会已处理";
-      }
+    isDisabled() {
+      return (
+        (this.eventStatusOptions[1] &&
+          this.status == this.eventStatusOptions[1].code) ||
+        (this.eventStatusOptions[2] &&
+          this.status == this.eventStatusOptions[2].code)
+      );
     }
   },
   created() {
     this.load();
-    this.bus.$on("loadStatusData", this.loadStatusData);
     this.bus.$on("badEventViewPageUpdateUI", this.updateUI);
   },
   mounted() {
     this.getBadEventStream();
-    //
     window.updateBadEventViewPage = this.onloadPage;
-    if (this.status == -2) {
-      this.stepStatus = 3;
-    } else {
-      this.stepStatus = this.status + 1;
-    }
+    // 获取所有事件状态
+    this.getEventStatus();
+    this.stateText = this.$route.query.statusName;
+    this.status = this.$route.params.status;
   },
   watch: {
     "$route.params.operation"() {
@@ -367,8 +333,6 @@ export default {
   },
   methods: {
     async load() {
-      console.log("载入报告单查看页面", this.status, this.$route);
-      // this.getStatusText();
       if (this.$route.params.name) {
         let queryObj = {
           id: this.$route.params.id || "",
@@ -393,7 +357,6 @@ export default {
           )}`;
         }
         this.pageLoadingText = formHTMLName + ",正在加载中...";
-        console.log("载入url", this.url);
       }
       Array.prototype.max = function() {
         return Math.max.apply({}, this);
@@ -403,8 +366,6 @@ export default {
       };
     },
     onloadPage() {
-      console.log("onloadPage", this.url, this.$route.params);
-
       this.iframeHeight = "auto";
       if (this.$refs.iframe) {
         let wid = this.$refs.iframe.contentWindow;
@@ -412,15 +373,7 @@ export default {
         this.wid = wid;
         this.iframeHeight = wid.document.body.scrollHeight * 1.05;
       }
-
       this.pageLoading = false;
-
-      // setTimeout(() => {
-      //   this.iframeHeight = "auto";
-      //   this.iframeHeight = wid.document.body.scrollHeight * 1.05;
-      // }, 1000);
-
-      // console.log("onloadPageWid", wid.rawData, wid.getFormData());
     },
     gotoEditPage() {
       this.$router.push({
@@ -433,111 +386,74 @@ export default {
         }
       });
     },
-    loadStatusData(data) {
-      //
-    },
     updateUI(stream) {
-      this.list = [
+      let list = [
         {
-          value: [0],
-          label: "保存：" + this.$route.params.name,
-          date: "",
-          name: ""
+          label: "保存：" + this.$route.params.name
         },
         {
-          value: [1],
-          label: "上报",
-          date: "",
-          name: ""
+          label: "上报"
         },
         {
-          value: [2, -2],
-          label: "质控科审核",
-          date: "",
-          name: ""
+          label: "质控科审核"
         },
         {
-          value: [3],
-          label: "责任科室",
-          date: "",
-          name: ""
+          label: "责任科室"
         },
         {
-          value: [4],
-          label: "质控科总结",
-          date: "",
-          name: ""
+          label: "质控科总结"
         },
         {
-          value: [5],
-          label: "医院质量与安全管理委员会处理",
-          date: "",
-          name: ""
+          label: "医院质量与安全管理委员会处理"
         }
       ];
 
-      if (stream.constructor == Array) {
-        this.list = this.list.map((item, index) => {
-          if (stream[index]) {
-            let operatorName;
-            if (
-              stream[index].operatorStatus == 0 ||
-              stream[index].operatorStatus == 1
-            ) {
-              operatorName = "***" + stream[index].operatorWardName || "";
-            } else {
-              operatorName = stream[index].operatorName || "";
-            }
-            let operateDate = stream[index].operateDate
-              ? moment(stream[index].operateDate).format("YYYY-MM-DD HH:mm")
-              : "";
-            return {
-              value: item.value, //[stream[index].operatorStatus] ||
-              label: item.label,
-              date: operateDate || "",
-              name: operatorName
-            };
-          } else {
-            return item;
-          }
-        });
-      }
-
-      this.steps = [];
-      for (const key in this.list) {
-        if (this.list.hasOwnProperty(key)) {
-          const item = this.list[key];
-          let status = "finish";
-          if (item.value.indexOf(this.status) > -1 && this.status == -2) {
-            status = "error";
-          } else if (item.value == this.status && this.status == 5) {
-            status = "finish";
-          } else if (
-            item.value.max() <= this.status ||
-            item.value < Math.abs(this.status)
+      this.steps = list.map((item, index) => {
+        let operatorName = "",
+          operateDate = "",
+          status = "";
+        if (index < stream.length) {
+          if (
+            stream[index].operatorStatus == "quality_controller_allow" &&
+            !stream[index].allow
           ) {
-            status = "success";
+            status = "error";
           } else {
-            status = "wait";
+            status = "success";
           }
-
-          this.steps.push({
-            title: item.label,
-            description: `${item.name}<br>${item.date}`,
-            status: status
-          });
+        } else if (index == list.length - 1) {
+          status = "finish";
+        } else {
+          status = "wait";
         }
-      }
+        if (stream[index]) {
+          if (
+            stream[index].operatorStatus == "save" ||
+            stream[index].operatorStatus == "nurse_submit"
+          ) {
+            operatorName = "***" + stream[index].operatorWardName || "";
+          } else {
+            operatorName =
+              stream[index].operatorName +
+                " (" +
+                stream[index].operatorWardName +
+                ")" || "";
+          }
+          operateDate = stream[index].operateDate
+            ? moment(stream[index].operateDate).format("YYYY-MM-DD HH:mm")
+            : "";
+        } else {
+          operatorName = "未完成";
+        }
+
+        return {
+          title: item.label,
+          description: `${operatorName}<br>${operateDate}`,
+          status
+        };
+      });
     },
     saveEdit() {
-      console.log("saveEdit");
-      console.log(
-        "routeParams",
-        this.deptCode,
-        this.params.length,
-        this.params,
-        this.$route.params
-      );
       this.$route.params.operation = "edit";
       this.$router.push({
         name: "badEventEdit",
@@ -545,7 +461,6 @@ export default {
       });
     },
     deleteEdit() {
-      console.log("deleteEdit");
       if (this.wid) {
         this.wid.CRForm.controller.deleteForm(
           this.$route.params.id,
@@ -554,7 +469,6 @@ export default {
       }
     },
     uploadEdit() {
-      console.log("uploadEdit");
       if (this.wid) {
         this.wid.CRForm.controller.aduitForm(
           this.$route.params.status,
@@ -562,44 +476,23 @@ export default {
         );
       }
     },
+    // 获取所有事件状态
+    getEventStatus() {
+      let list = ["badEvent_status"];
+      multiDictInfo(list).then(res => {
+        let arr = res.data.data.badEvent_status;
+        this.eventStatusOptions = [{ code: "", name: "全部" }, ...arr];
+      });
+    },
     // 不良事件轨迹
     getBadEventStream() {
       getStreamByInstanceId(this.$route.params.id).then(res => {
         if (res.data && res.data.code == 200) {
           this.updateUI(res.data.data);
+          this.stepStatus = res.data.data.length;
+          let index = res.data.data.length - 1 || 0;
         }
       });
-    },
-    // 获取表单状态
-    getStatusText() {
-      switch (this.status) {
-        case -1:
-          this.stateText = "禁用";
-          break;
-        case 0:
-          this.stateText = "保存";
-          break;
-        case 1:
-          this.stateText = "护士上报";
-          break;
-        case 2:
-          this.stateText = "质管科审核通过";
-          break;
-        case -2:
-          this.stateText = "质管科审核不通过";
-          break;
-        case 3:
-          this.stateText = "责任科室已处理";
-          break;
-        case 4:
-          this.stateText = "质控科已总结";
-          break;
-        case 5:
-          this.stateText = "质量委员会已处理";
-          break;
-        default:
-          this.stateText = "保存";
-      }
     }
   }
 };

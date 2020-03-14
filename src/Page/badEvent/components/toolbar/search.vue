@@ -25,10 +25,6 @@
           clearable
         />
       </div>
-      <!-- <div class="filterItem">
-        <span>患者:</span>
-        <ElInput placeholder="患者姓名" v-model="patientName"></ElInput>
-      </div>-->
       <div class="filterItem">
         <span>科室:</span>
         <ElSelect
@@ -62,9 +58,9 @@
         <ElSelect size="small" v-model="eventStatus" style="width:140px" clearable>
           <ElOption
             v-for="type of eventStatusOptions"
-            :key="type.key"
-            :label="type.label"
-            :value="type.value"
+            :key="type.name"
+            :label="type.name"
+            :value="type.code"
           />
         </ElSelect>
       </div>
@@ -73,13 +69,15 @@
         <Button @click.stop="newFormOpen">新建</Button>
       </div>
     </div>
-    <!-- <div class="container">
-          <router-view></router-view>
-    </div>-->
     <div class="bad-event-list">
       <!-- <NullBg v-if="!tableData||tableData.length==0" text="暂时没有不良事件数据～"/> -->
       <div class="block">
-        <EventTable :tableData="tableData" :pageLoadng="pageLoadng" :updateTable="updateTable"></EventTable>
+        <EventTable
+          :tableData="tableData"
+          :pageLoadng="pageLoadng"
+          :updateTable="updateTable"
+          :eventStatusOptions="eventStatusOptions"
+        ></EventTable>
         <pagination
           :page.sync="page.pageIndex"
           :size.sync="page.pageSize"
@@ -90,7 +88,7 @@
       </div>
     </div>
     <div class="bad-event-create-event">
-      <NewForm ref="newBadEventForm"></NewForm>
+      <NewForm ref="newBadEventForm" :templates.sync="templates"></NewForm>
     </div>
   </div>
 </template>
@@ -205,22 +203,18 @@
 import common from "@/common/mixin/common.mixin.js";
 import dayjs from "dayjs";
 import apis from "../../apis/index.js";
-
-// import NullBg from "@/components/null/null-bg.vue";
 import NewForm from "../modal/new-form.vue";
 import EventTable from "../table/eventTable";
 import Button from "../button";
 import pagination from "../pagination.vue";
-
-import { patients, nursingUnit, typeList } from "@/api/lesion.js";
-
+import { multiDictInfo } from "@/api/common";
+import { getEventTemplate } from "@/Page/badEvent/apis/index.js";
 import BusFactory from "vue-happy-bus";
 
 export default {
   mixins: [common],
   components: {
     Button,
-    // NullBg,
     EventTable,
     NewForm,
     pagination
@@ -229,43 +223,12 @@ export default {
   data() {
     return {
       bus: BusFactory(this),
-      pageLoadng: true,
       dateBegin: "",
       dateEnd: "",
       patientName: "",
       eventType: "",
       eventStatus: "",
-      eventStatusOptions: [
-        { value: "", label: "全部" },
-        { value: 0, label: "保存" },
-        { value: 1, label: "上报" },
-        { value: 2, label: "质控科审核通过" },
-        { value: -2, label: "质控科审核不通过" },
-        { value: 3, label: "责任科室已处理" },
-        { value: 4, label: "质控科已总结" },
-        { value: 5, label: "质量委员会已处理" }
-      ],
-      eventTypeOptions: [
-        { value: "", label: "全部" },
-        { value: "药物事件", label: "药物事件" },
-        { value: "跌倒事件", label: "跌倒事件" },
-        { value: "手术事件", label: "手术事件" },
-        { value: "输血事件", label: "输血事件" },
-        { value: "医疗处置事件", label: "医疗处置事件" },
-        { value: "公共意外事件", label: "公共意外事件" },
-        { value: "治安事件", label: "治安事件" },
-        { value: "伤害事件", label: "伤害事件" },
-        { value: "管路事件", label: "管路事件" },
-        {
-          value: "院内不预期心跳呼吸停止事件",
-          label: "院内不预期心跳呼吸停止事件"
-        },
-        { value: "麻醉事件", label: "麻醉事件" },
-        { value: "检查/检验/病理标本事件", label: "检查/检验/病理标本事件" },
-        { value: "其他事件", label: "其他事件" }
-      ],
-      tableData: [],
-      arr: [],
+      tableData: [], //列表数据
       pageLoadng: false,
       page: {
         pageIndex: 1,
@@ -273,9 +236,10 @@ export default {
         totalPage: 1
       },
       total: 0, //列表总条数
-      patientList: localStorage["patientList" + this.deptCode] || [],
       allDepartmentsList: [], //所有护理单元科室列表（不良事件）
-      selectedDeptValue: "" //选中的科室
+      selectedDeptValue: "", //选中的科室
+      eventStatusOptions: [], //所有事件状态
+      templates: [] //事件模板
     };
   },
   mounted() {
@@ -309,12 +273,13 @@ export default {
     this.dateEnd = this.dateEnd
       ? this.dateEnd
       : dayjs(new Date()).format("YYYY-MM-DD");
+
+    // 获取所有事件
+    this.getEventTemplateData();
+    // 获取所有事件状态
+    this.getEventStatus();
   },
   created() {
-    this.bus.$on("loadPatientsData", this.loadPatientsData);
-    if (this.deptCode) {
-      this.loadPatientsData(this.deptCode);
-    }
     // 获取所有护理单元
     if (this.allDepartmentsList && !this.allDepartmentsList.length) {
       this.getDepartmentsList();
@@ -322,9 +287,15 @@ export default {
       this.loadEventData();
     }
   },
-  watch: {
-    deptCode() {
-      this.loadPatientsData(this.deptCode);
+  computed: {
+    eventTypeOptions() {
+      let arr = this.templates.map(item => {
+        return {
+          label: item.badEventType,
+          value: item.badEventType
+        };
+      });
+      return [{ value: "", label: "全部" }, ...arr];
     }
   },
   methods: {
@@ -372,40 +343,10 @@ export default {
           console.log(err);
         });
     },
-    async loadPatientsData(deptCode) {
-      if (!deptCode) {
-        deptCode = this.deptCode;
-      }
-      // 更新病人列表缓存
-      if (!localStorage["patientList" + deptCode]) {
-        const patRes = await patients(deptCode);
-        // this.patientList = patRes.data.data
-        localStorage["patientList" + deptCode] = JSON.stringify(
-          patRes.data.data
-        );
-        console.log("病人列表p", patRes, localStorage);
-      }
-      this.patientList =
-        JSON.parse(localStorage["patientList" + deptCode]) || [];
-      console.log("病人列表", this.patientList);
-      this.bus.$emit("updatePatientsList");
-    },
-
     newFormOpen() {
       this.$refs.newBadEventForm.open();
     },
     search(e) {
-      // const loading = this.$loading({
-      //   lock: true,
-      //   text: "Loading",
-      //   spinner: "el-icon-close",
-      //   background: "rgba(0, 0, 0, 0.7)",
-      //   target: e.target
-      // });
-      // setTimeout(() => {
-      //   loading.close();
-      // }, 2000);
-      console.log("tableData", this.tableData);
       this.loadEventData();
     },
     // 获取所有护理单元
@@ -433,6 +374,22 @@ export default {
     handleCurrentChange(newPage) {
       this.page.pageIndex = newPage;
       this.loadEventData();
+    },
+    // 获取所有事件
+    getEventTemplateData() {
+      if (this.deptCode) {
+        getEventTemplate(this.deptCode).then(res => {
+          this.templates = res.data.data;
+        });
+      }
+    },
+    // 获取所有事件状态
+    getEventStatus() {
+      let list = ["badEvent_status"];
+      multiDictInfo(list).then(res => {
+        let arr = res.data.data.badEvent_status;
+        this.eventStatusOptions = [{ code: "", name: "全部" }, ...arr];
+      });
     }
   }
 };

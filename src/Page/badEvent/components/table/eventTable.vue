@@ -109,7 +109,7 @@
         <template slot-scope="scope">
           <!-- {{scope.row.status}} -->
           <div :class="{'nopass-row':scope.row.status==-2}">
-            <span>{{getStatus(scope.row.status)}}</span>
+            <span>{{getStatus(scope.row)}}</span>
           </div>
         </template>
       </el-table-column>
@@ -180,10 +180,6 @@
     background: rgb(255, 251, 186);
   }
 }
-
-.nopass-row {
-  color: red;
-}
 </style>
 <script>
 import { info } from "@/api/task";
@@ -195,7 +191,8 @@ export default {
   props: {
     tableData: Array,
     pageLoadng: Boolean,
-    updateTable: Function
+    updateTable: Function,
+    eventStatusOptions: Array
   },
   mixins: [commonMixin],
   data() {
@@ -242,7 +239,8 @@ export default {
           operation: "view"
         },
         query: {
-          badEventOrderNo: row.badEventOrderNo
+          badEventOrderNo: row.badEventOrderNo,
+          statusName: this.getStatus(row)
         }
       });
     },
@@ -283,18 +281,17 @@ export default {
           console.log("删除取消");
         });
     },
-    getStatus(i) {
-      i = i == -2 ? 6 : i;
-      const status = [
-        "保存",
-        "护士上报",
-        "质管科审核通过",
-        "责任科室已处理",
-        "质管科已总结",
-        "质量委员会已处理",
-        "质管科审核不通过"
-      ];
-      return status[i];
+    getStatus(item) {
+      for (let i = 0; i < this.eventStatusOptions.length; i++) {
+        if (
+          this.eventStatusOptions[i].code == "quality_controller_allow" &&
+          !item.allow
+        ) {
+          return "质管科审核不通过";
+        } else if (this.eventStatusOptions[i].code == item.status) {
+          return this.eventStatusOptions[i].name;
+        }
+      }
     }
   },
   components: {}
