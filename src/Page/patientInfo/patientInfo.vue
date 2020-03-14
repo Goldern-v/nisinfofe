@@ -53,9 +53,9 @@ export default {
           JSON.parse(JSON.stringify(this.query))
         );
         if (this.query.deptCode && this.query.deptName) {
-          this.$store.commit("upDeptCode", this.query.deptCode);
+          this.$store.commit("upDeptCode", this.query.wardCode);
           localStorage.selectDeptValue = value;
-          this.$store.commit("upDeptName", this.query.deptName);
+          this.$store.commit("upDeptName", this.query.wardName);
         }
       }
     );
