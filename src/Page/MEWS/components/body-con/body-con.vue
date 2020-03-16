@@ -3,8 +3,17 @@
     <span v-if="currDataObj.iconTextRgb">
       <div class="head-con" flex="cross:center">
         <span>当前评分：</span>
-        <div class="status-btn" :style="{background: currDataObj.iconTextRgb}">{{currDataObj.score}}分-{{currDataObj.iconText}}</div>
-        <span style="margin-left: 10px" v-if="scoreList">( {{scoreList}} )</span>
+        <div
+          class="status-btn"
+          :style="{ background: currDataObj.iconTextRgb }"
+        >
+          {{ currDataObj.score }}分-{{ currDataObj.iconText }}
+        </div>
+        <span style="margin-left: 10px" v-if="scoreList"
+          >( {{ scoreList }} )</span
+        >
+        <div flex-box="1"></div>
+        <el-button @click="openChartModal">MEWS评分曲线</el-button>
       </div>
       <div class="body-con" flex="main:justify cross:stretch">
         <baseBox flex-box="3" title="程序化监护方案">
@@ -18,10 +27,11 @@
     </span>
     <span v-else>
       <div class="null-img">
-        <img src="../../images/分组.png" alt="">
+        <img src="../../images/分组.png" alt="" />
         <aside>请选择左侧预警患者~</aside>
       </div>
     </span>
+    <chartModal ref="chartModal"></chartModal>
   </div>
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
@@ -52,7 +62,7 @@
   width 200px;
   height 240px;
   aside
-    color: #ccc; 
+    color: #ccc;
     font-size 16px
     margin-top 10px
     text-align center
@@ -63,6 +73,7 @@ import baseBox from "./base/base-box.vue";
 import leftBoxItem from "./left-box-item.vue";
 import rightBoxItem from "./right-box-item.vue";
 import currDataObj from "../store/index";
+import chartModal from "../../modal/chart-modal";
 export default {
   data() {
     return {
@@ -80,10 +91,16 @@ export default {
       return false;
     }
   },
+  methods: {
+    openChartModal() {
+      this.$refs.chartModal.open();
+    }
+  },
   components: {
     baseBox,
     leftBoxItem,
-    rightBoxItem
+    rightBoxItem,
+    chartModal
   }
 };
 </script>
