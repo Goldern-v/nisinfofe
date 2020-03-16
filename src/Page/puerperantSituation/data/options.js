@@ -43,7 +43,6 @@ export const otherOptions = [
 export const hyqkqkOptions = [
   { code: '/', name: '/' },
   { code: '√', name: '√' },
-  { code: '侧切', name: '侧切' },
 ]
 
 //列表接口筛选条件
@@ -53,5 +52,5 @@ export const filterOptions = [
   { code: '钳产', name: '钳产' },
   { code: '臀助产', name: '臀助产' },
   { code: '急产', name: '急产' },
-  { code: '侧切', name: '侧切' },
+  { code: '切开', name: '切开' },
 ]
