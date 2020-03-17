@@ -37,9 +37,13 @@
       </div>
       <div class="viewbar-right" :style="'height: '+(wih-60)+'px'">
         <div class="viewbar-right-top">
-          <Button class="btn" :disabled="isDisabled" @click="saveEdit">编辑</Button>
-          <Button class="btn" :disabled="isDisabled" @click="deleteEdit">删除</Button>
-          <Button class="green-btn btn" :disabled="isDisabled" @click="uploadEdit">上报</Button>
+          <Button class="btn" :disabled="badEventLoad || isDisabled" @click="saveEdit">编辑</Button>
+          <Button class="btn" :disabled="badEventLoad || isDisabled" @click="deleteEdit">删除</Button>
+          <Button
+            class="green-btn btn"
+            :disabled="badEventLoad || isDisabled"
+            @click="uploadEdit"
+          >上报</Button>
         </div>
         <div class="viewbar-right-title">事件轨迹：</div>
         <div class="trackEvents">
@@ -302,7 +306,8 @@ export default {
       stepStatus: 0, //步骤条状态
       eventStatusOptions: [], //所有事件状态
       status: "", //状态
-      stateText: "" //状态名称
+      stateText: "", //状态名称
+      badEventLoad: true // 编辑按钮置灰
     };
   },
   computed: {
@@ -310,7 +315,7 @@ export default {
       return window.pageLoading || this.pageLoading;
     },
     isDisabled() {
-      return (
+      return !(
         (this.eventStatusOptions[1] &&
           this.status == this.eventStatusOptions[1].code) ||
         (this.eventStatusOptions[2] &&
@@ -325,6 +330,7 @@ export default {
   mounted() {
     this.getBadEventStream();
     window.updateBadEventViewPage = this.onloadPage;
+    window.badEventLoad = this.showBtn;
     // 获取所有事件状态
     this.getEventStatus();
     this.stateText = this.$route.query.statusName;
@@ -340,6 +346,9 @@ export default {
     }
   },
   methods: {
+    showBtn() {
+      this.badEventLoad = false;
+    },
     async load() {
       if (this.$route.params.name) {
         let queryObj = {
@@ -422,7 +431,7 @@ export default {
           status = "";
         if (index < stream.length) {
           if (
-            stream[index].operatorStatus == "quality_controller_allow" &&
+            stream[index].operatorStatus == "quality_controller" &&
             !stream[index].allow
           ) {
             status = "error";
@@ -498,7 +507,22 @@ export default {
         if (res.data && res.data.code == 200) {
           this.updateUI(res.data.data);
           this.stepStatus = res.data.data.length;
-          let index = res.data.data.length - 1 || 0;
+          if (!res.data.data.length) {
+            return;
+          }
+          let index = res.data.data.length - 1;
+          this.status = res.data.data[index].operatorStatus;
+
+          for (let i = 0; i < this.eventStatusOptions.length; i++) {
+            if (
+              this.eventStatusOptions[i].code == "quality_controller" &&
+              !res.data.data[index].allow
+            ) {
+              this.stateText = "质管科审核不通过";
+            } else if (this.eventStatusOptions[i].code == this.status) {
+              this.stateText = this.eventStatusOptions[i].name;
+            }
+          }
         }
       });
     }
