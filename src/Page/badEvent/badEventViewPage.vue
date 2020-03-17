@@ -42,28 +42,30 @@
           <Button class="green-btn btn" :disabled="isDisabled" @click="uploadEdit">上报</Button>
         </div>
         <div class="viewbar-right-title">事件轨迹：</div>
-        <el-steps
-          class="viewbar-right-steps"
-          :active="stepStatus"
-          finish-status="success"
-          direction="vertical"
-        >
-          <el-step
-            v-for="(step,index) in steps"
-            :key="'step'+index"
-            :title="step.title"
-            :description="step.description"
-            :status="step.status"
+        <div class="trackEvents">
+          <el-steps
+            class="viewbar-right-steps"
+            :active="stepStatus"
+            finish-status="success"
+            direction="vertical"
           >
-            <span slot="title" style="color:#333">{{step.title}}</span>
-            <br />
-            <span
-              slot="description"
-              style="color:#333;line-height: 1.5em;"
-              v-html="step.description"
-            ></span>
-          </el-step>
-        </el-steps>
+            <el-step
+              v-for="(step,index) in steps"
+              :key="'step'+index"
+              :title="step.title"
+              :description="step.description"
+              :status="step.status"
+            >
+              <span slot="title" style="color:#333">{{step.title}}</span>
+              <br />
+              <span
+                slot="description"
+                style="color:#333;line-height: 1.5em;"
+                v-html="step.description"
+              ></span>
+            </el-step>
+          </el-steps>
+        </div>
       </div>
     </div>
   </div>
@@ -126,6 +128,12 @@
       height: 100%;
       background: #4BB08D;
     }
+  }
+
+  .trackEvents {
+    height: 100%;
+    height: calc(100% - 163px);
+    overflow: auto;
   }
 
   .viewbar-right-steps {
@@ -421,7 +429,7 @@ export default {
           } else {
             status = "success";
           }
-        } else if (index == list.length - 1) {
+        } else if (index == stream.length - 1) {
           status = "finish";
         } else {
           status = "wait";
