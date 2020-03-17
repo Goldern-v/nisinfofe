@@ -16,6 +16,8 @@ class WebSocketService {
   md5List = JSON.parse(sessionStorage.mewsMd5List || null) || []
 
   socket = new SockJS("/crNursing/message")
+  //本地开发测试
+  // socket = new SockJS("http://120.197.141.41:9091/crNursing/message")
   stompClient = Stomp.over(this.socket)
   headers = {
     login: "mylogin",
