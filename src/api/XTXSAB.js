@@ -23,58 +23,54 @@ var $_$GetPicObj = null;    // GetKeyPic class Object
 // const var
 var CERT_TYPE_HARD = 1;
 var CERT_TYPE_SOFT = 2;
-var CERT_TYPE_ALL  = 3;
+var CERT_TYPE_ALL = 3;
 
 // const var
-var CERT_OID_VERSION     = 1;
-var CERT_OID_SERIAL      = 2;
+var CERT_OID_VERSION = 1;
+var CERT_OID_SERIAL = 2;
 var CERT_OID_SIGN_METHOD = 3;
-var CERT_OID_ISSUER_C    = 4;
-var CERT_OID_ISSUER_O    = 5;
-var CERT_OID_ISSUER_OU   = 6;
-var CERT_OID_ISSUER_ST   = 7;
-var CERT_OID_ISSUER_CN   = 8;
-var CERT_OID_ISSUER_L    = 9;
-var CERT_OID_ISSUER_E    = 10;
-var CERT_OID_NOT_BEFORE  = 11;
-var CERT_OID_NOT_AFTER   = 12;
-var CERT_OID_SUBJECT_C   = 13;
-var CERT_OID_SUBJECT_O   = 14;
-var CERT_OID_SUBJECT_OU  = 15;
-var CERT_OID_SUBJECT_ST  = 16;
-var CERT_OID_SUBJECT_CN  = 17;
-var CERT_OID_SUBJECT_L   = 18;
-var CERT_OID_SUBJECT_E   = 19;
-var CERT_OID_PUBKEY      = 20;
-var CERT_OID_SUBJECT_DN  = 33;
-var CERT_OID_ISSUER_DN   = 34;
+var CERT_OID_ISSUER_C = 4;
+var CERT_OID_ISSUER_O = 5;
+var CERT_OID_ISSUER_OU = 6;
+var CERT_OID_ISSUER_ST = 7;
+var CERT_OID_ISSUER_CN = 8;
+var CERT_OID_ISSUER_L = 9;
+var CERT_OID_ISSUER_E = 10;
+var CERT_OID_NOT_BEFORE = 11;
+var CERT_OID_NOT_AFTER = 12;
+var CERT_OID_SUBJECT_C = 13;
+var CERT_OID_SUBJECT_O = 14;
+var CERT_OID_SUBJECT_OU = 15;
+var CERT_OID_SUBJECT_ST = 16;
+var CERT_OID_SUBJECT_CN = 17;
+var CERT_OID_SUBJECT_L = 18;
+var CERT_OID_SUBJECT_E = 19;
+var CERT_OID_PUBKEY = 20;
+var CERT_OID_SUBJECT_DN = 33;
+var CERT_OID_ISSUER_DN = 34;
 
 //
 var HOSPITAL_ENABLE_LIST = ["威县人民医院"]
 
 
 // set auto logout parameters
-function SetAutoLogoutParameter(strCertID, logoutFunc)
-{
+function SetAutoLogoutParameter(strCertID, logoutFunc) {
     $_$loginCertID = strCertID;
     $_$logoutFunc = logoutFunc;
     return;
 }
 
-function SetLoginCertID(strCertID)
-{
+function SetLoginCertID(strCertID) {
     $_$loginCertID = strCertID;
     return;
 }
 
-function SetLogoutFunction(logoutFunc)
-{
+function SetLogoutFunction(logoutFunc) {
     $_$logoutFunc = logoutFunc;
 }
 
 // set user cert list id
-function SetUserCertList(strListID, certType)
-{
+function SetUserCertList(strListID, certType) {
     if (arguments.length == 1) {
         $_$hardCertListID = strListID;
     } else {
@@ -94,38 +90,33 @@ function SetUserCertList(strListID, certType)
 }
 
 // set custom usbkeychange callback
-function SetOnUsbKeyChangeCallBack(callback)
-{
+function SetOnUsbKeyChangeCallBack(callback) {
     $_$onUsbKeyChangeCallBackFunc = callback;
 }
 
 // set custom alert function
-function SetAlertFunction(custom_alert)
-{
+function SetAlertFunction(custom_alert) {
     $_$XTXAlert = custom_alert;
 }
 
-function $checkBrowserISIE()
-{
+function $checkBrowserISIE() {
     return (!!window.ActiveXObject || 'ActiveXObject' in window) ? true : false;
 }
 
-function $popDropListBoxAll(strListID)
-{
+function $popDropListBoxAll(strListID) {
     var objListID = eval(strListID);
     if (objListID == undefined) {
         return;
     }
     var i, n = objListID.length;
-    for(i = 0; i < n; i++) {
+    for (i = 0; i < n; i++) {
         objListID.remove(0);
     }
 
     objListID = null;
 }
 
-function $pushOneDropListBox(userListArray, strListID)
-{
+function $pushOneDropListBox(userListArray, strListID) {
     var objListID = eval(strListID);
     if (objListID == undefined) {
         return;
@@ -143,8 +134,7 @@ function $pushOneDropListBox(userListArray, strListID)
     return;
 }
 
-function $pushAllDropListBox(certUserListObj)
-{
+function $pushAllDropListBox(certUserListObj) {
     if ($_$hardCertListID != "") {
         $popDropListBoxAll($_$hardCertListID);
     }
@@ -160,31 +150,31 @@ function $pushAllDropListBox(certUserListObj)
     var allListArray = []
     while (true) {
         var i = strUserList.indexOf("&&&");
-        if (i <= 0 ) {
+        if (i <= 0) {
             break;
         }
         var strOneUser = strUserList.substring(0, i);
         var strName = strOneUser.substring(0, strOneUser.indexOf("||"));
         var strCertID = strOneUser.substring(strOneUser.indexOf("||") + 2, strOneUser.length);
-        allListArray.push({certName:strName, certID:strCertID});
+        allListArray.push({ certName: strName, certID: strCertID });
 
         if ($_$hardCertListID != "") {
-            GetDeviceType(strCertID, function(retObj) {
+            GetDeviceType(strCertID, function (retObj) {
                 if (retObj.retVal == "HARD") {
                     $pushOneDropListBox([retObj.ctx], $_$hardCertListID);
                 }
-            }, {certName:strName, certID:strCertID});
+            }, { certName: strName, certID: strCertID });
         }
 
         if ($_$softCertListID != "") {
-            GetDeviceType(strCertID, function(retObj) {
+            GetDeviceType(strCertID, function (retObj) {
                 if (retObj.retVal == "SOFT") {
                     $pushOneDropListBox([retObj.ctx], $_$softCertListID);
                 }
-            }, {certName:strName, certID:strCertID});
+            }, { certName: strName, certID: strCertID });
         }
         var len = strUserList.length;
-        strUserList = strUserList.substring(i + 3,len);
+        strUserList = strUserList.substring(i + 3, len);
     }
 
     if ($_$allCertListID != "") {
@@ -192,16 +182,14 @@ function $pushAllDropListBox(certUserListObj)
     }
 }
 
-function $myAutoLogoutCallBack(retObj)
-{
+function $myAutoLogoutCallBack(retObj) {
     if (retObj.retVal.indexOf($_$loginCertID) <= 0) {
         $_$logoutFunc();
     }
 }
 
 //usbkey change default callback function
-function $OnUsbKeyChange()
-{
+function $OnUsbKeyChange() {
     GetUserList($pushAllDropListBox);
     if (typeof $_$onUsbKeyChangeCallBackFunc == 'function') {
         $_$onUsbKeyChangeCallBackFunc();
@@ -212,8 +200,7 @@ function $OnUsbKeyChange()
 }
 
 // IE11 attach event
-function $AttachIE11OnUSBKeychangeEvent(strObjName)
-{
+function $AttachIE11OnUSBKeychangeEvent(strObjName) {
     var handler = document.createElement("script");
     handler.setAttribute("for", strObjName);
     handler.setAttribute("event", "OnUsbKeyChange");
@@ -222,8 +209,7 @@ function $AttachIE11OnUSBKeychangeEvent(strObjName)
 }
 
 //load a control
-function $LoadControl(CLSID, ctlName, testFuncName, addEvent)
-{
+function $LoadControl(CLSID, ctlName, testFuncName, addEvent) {
     var pluginDiv = document.getElementById("pluginDiv" + ctlName);
     if (pluginDiv) {
         return true;
@@ -255,9 +241,9 @@ function $LoadControl(CLSID, ctlName, testFuncName, addEvent)
             }
 
             if (addEvent) {
-                pluginDiv.innerHTML = '<embed id=' + ctlName + ' type=application/x-xtx-axhost clsid={' + CLSID + '} event_OnUsbkeyChange=$OnUsbKeyChange width=0 height=0 />' ;
+                pluginDiv.innerHTML = '<embed id=' + ctlName + ' type=application/x-xtx-axhost clsid={' + CLSID + '} event_OnUsbkeyChange=$OnUsbKeyChange width=0 height=0 />';
             } else {
-                pluginDiv.innerHTML = '<embed id=' + ctlName + ' type=application/x-xtx-axhost clsid={' + CLSID + '} width=0 height=0 />' ;
+                pluginDiv.innerHTML = '<embed id=' + ctlName + ' type=application/x-xtx-axhost clsid={' + CLSID + '} width=0 height=0 />';
             }
         }
 
@@ -284,10 +270,9 @@ function $XTXAlert(strMsg) {
     }
 }
 
-function $myOKRtnFunc(retVal, cb, ctx)
-{
+function $myOKRtnFunc(retVal, cb, ctx) {
     if (typeof cb == 'function') {
-        var retObj = {retVal:retVal, ctx:ctx};
+        var retObj = { retVal: retVal, ctx: ctx };
         cb(retObj);
     }
     return retVal;
@@ -302,17 +287,17 @@ function CreateXTXAppObject() {
 
     var o = new Object();
 
-    o.GetUserList = function(cb, ctx) {
+    o.GetUserList = function (cb, ctx) {
         var ret = XTXAPP.SOF_GetUserList();
         return $myOKRtnFunc(ret, cb, ctx);
     };
 
-    o._GetUserListByType = function(strType, cb, ctx) {
+    o._GetUserListByType = function (strType, cb, ctx) {
         var strUserList = XTXAPP.SOF_GetUserList();
         var ret = "";
         while (true) {
             var i = strUserList.indexOf("&&&");
-            if (i <= 0 ) {
+            if (i <= 0) {
                 break;
             }
             var strOneUser = strUserList.substring(0, i);
@@ -327,14 +312,14 @@ function CreateXTXAppObject() {
 
         return $myOKRtnFunc(ret, cb, ctx);
     }
-    o.GetUserList_USBKey = function(cb, ctx) {
+    o.GetUserList_USBKey = function (cb, ctx) {
         return o._GetUserListByType("HARD", cb, ctx);
     };
-    o.GetUserList_Soft = function(cb, ctx) {
+    o.GetUserList_Soft = function (cb, ctx) {
         return o._GetUserListByType("SOFT", cb, ctx);
     };
 
-    o.ExportUserSignCert = function(strCertID, cb, ctx) {
+    o.ExportUserSignCert = function (strCertID, cb, ctx) {
         var ret;
         var strUserCert = XTXAPP.SOF_ExportUserCert(strCertID);
         var strUserExchCert = XTXAPP.SOF_ExportExChangeUserCert(strCertID);
@@ -346,67 +331,67 @@ function CreateXTXAppObject() {
         return $myOKRtnFunc(ret, cb, ctx);
     };
 
-    o.ExportUserExchangeCert = function(strCertID, cb, ctx) {
+    o.ExportUserExchangeCert = function (strCertID, cb, ctx) {
         var ret = XTXAPP.SOF_ExportExChangeUserCert(strCertID)
         return $myOKRtnFunc(ret, cb, ctx);
     };
 
-    o.VerifyUserPIN = function(strCertID, strUserPIN, cb, ctx) {
+    o.VerifyUserPIN = function (strCertID, strUserPIN, cb, ctx) {
         var ret = XTXAPP.SOF_Login(strCertID, strUserPIN);
         return $myOKRtnFunc(ret, cb, ctx);
     };
 
-    o.ChangeUserPIN = function(strCertID, oldPwd, newPwd, cb, ctx) {
-        var ret =  XTXAPP.SOF_ChangePassWd(strCertID, oldPwd, newPwd);
+    o.ChangeUserPIN = function (strCertID, oldPwd, newPwd, cb, ctx) {
+        var ret = XTXAPP.SOF_ChangePassWd(strCertID, oldPwd, newPwd);
         return $myOKRtnFunc(ret, cb, ctx);
     };
 
-    o.GetUserPINRetryCount = function(strCertID, cb, ctx) {
+    o.GetUserPINRetryCount = function (strCertID, cb, ctx) {
         var ret = XTXAPP.SOF_GetPinRetryCount(strCertID);
         return $myOKRtnFunc(ret, cb, ctx);
     };
 
-    o.GetCertInfo = function(strCert, Type, cb, ctx) {
+    o.GetCertInfo = function (strCert, Type, cb, ctx) {
         var ret = XTXAPP.SOF_GetCertInfo(strCert, Type);
         return $myOKRtnFunc(ret, cb, ctx);
     };
 
-    o.GetCertInfoByOID = function(strCert, strOID, cb, ctx) {
+    o.GetCertInfoByOID = function (strCert, strOID, cb, ctx) {
         var ret = XTXAPP.SOF_GetCertInfoByOid(strCert, strOID);
         return $myOKRtnFunc(ret, cb, ctx);
     };
 
-    o.GetCertEntity = function(strCert, cb, ctx) {
+    o.GetCertEntity = function (strCert, cb, ctx) {
         var ret = XTXAPP.SOF_GetCertEntity(strCert);
         return $myOKRtnFunc(ret, cb, ctx);
     };
 
-    o.GenRandom = function(RandomLen, cb, ctx) {
+    o.GenRandom = function (RandomLen, cb, ctx) {
         var ret = XTXAPP.SOF_GenRandom(RandomLen);
         return $myOKRtnFunc(ret, cb, ctx);
     };
 
-    o.SignData = function(strCertID, strInData, cb, ctx) {
+    o.SignData = function (strCertID, strInData, cb, ctx) {
         var ret = XTXAPP.SOF_SignData(strCertID, strInData);
         return $myOKRtnFunc(ret, cb, ctx);
     };
 
-    o.VerifySignedData = function(strCert, strInData, strSignValue, cb, ctx) {
+    o.VerifySignedData = function (strCert, strInData, strSignValue, cb, ctx) {
         var ret = XTXAPP.SOF_VerifySignedData(strCert, strInData, strSignValue);
         return $myOKRtnFunc(ret, cb, ctx);
     };
 
-    o.PubKeyEncrypt = function(strCert, strInData, cb, ctx) {
+    o.PubKeyEncrypt = function (strCert, strInData, cb, ctx) {
         var ret = XTXAPP.SOF_PubKeyEncrypt(strCert, strInData);
         return $myOKRtnFunc(ret, cb, ctx);
     };
 
-    o.PriKeyDecrypt = function(strCertID, strInData, cb, ctx) {
+    o.PriKeyDecrypt = function (strCertID, strInData, cb, ctx) {
         var ret = XTXAPP.SOF_PriKeyDecrypt(strCertID, strInData);
         return $myOKRtnFunc(ret, cb, ctx);
     };
 
-    o.SignDataByP7 = function(strCertID, strInData, bDetach, cb, ctx) {
+    o.SignDataByP7 = function (strCertID, strInData, bDetach, cb, ctx) {
         var bFlag = 0;
         if (bDetach) {
             bFlag = 1;
@@ -415,57 +400,57 @@ function CreateXTXAppObject() {
         return $myOKRtnFunc(ret, cb, ctx);
     };
 
-    o.VerifyDataByP7 = function(strP7Data, strPlainMsg, cb, ctx) {
+    o.VerifyDataByP7 = function (strP7Data, strPlainMsg, cb, ctx) {
         var ret = XTXAPP.SOF_VerifySignedMessage(strP7Data, strPlainMsg);
         return $myOKRtnFunc(ret, cb, ctx);
     };
 
-    o.EncyptMessage = function(strCert, strInData, cb, ctx) {
+    o.EncyptMessage = function (strCert, strInData, cb, ctx) {
         var ret = XTXAPP.SOF_EncryptDataEx(strCert, strInData);
         return $myOKRtnFunc(ret, cb, ctx);
     };
 
-    o.DecryptMessage = function(strCertID, strP7Envlope, cb, ctx) {
+    o.DecryptMessage = function (strCertID, strP7Envlope, cb, ctx) {
         var ret = XTXAPP.SOF_DecryptData(strCertID, strP7Envlope);
         return $myOKRtnFunc(ret, cb, ctx);
     };
 
-    o.SignFile = function(strCertID, strFilePath, cb, ctx) {
+    o.SignFile = function (strCertID, strFilePath, cb, ctx) {
         var ret = XTXAPP.SOF_SignFile(strCertID, strFilePath);
         return $myOKRtnFunc(ret, cb, ctx);
     };
 
-    o.VerifySignFile = function(strCert, strFilePath, strSignValue, cb, ctx) {
+    o.VerifySignFile = function (strCert, strFilePath, strSignValue, cb, ctx) {
         var ret = XTXAPP.SOF_VerifySignedFile(strCert, strFilePath, strSignValue);
         return $myOKRtnFunc(ret, cb, ctx);
     };
 
-    o.GetSymKeyLength = function(cb, ctx) {
+    o.GetSymKeyLength = function (cb, ctx) {
         var ret = 24;
         return $myOKRtnFunc(ret, cb, ctx);
     };
 
-    o.SymEncryptData = function(strKey, strInData, cb, ctx) {
+    o.SymEncryptData = function (strKey, strInData, cb, ctx) {
         var ret = XTXAPP.SOF_SymEncryptData(strKey, strInData);
         return $myOKRtnFunc(ret, cb, ctx);
     };
 
-    o.SymDecryptData = function(strKey, strInData, cb, ctx) {
+    o.SymDecryptData = function (strKey, strInData, cb, ctx) {
         var ret = XTXAPP.SOF_SymDecryptData(strKey, strInData);
         return $myOKRtnFunc(ret, cb, ctx);
     };
 
-    o.SymEncryptFile = function(strKey, strInFilePath, strOutFilePath, cb, ctx) {
+    o.SymEncryptFile = function (strKey, strInFilePath, strOutFilePath, cb, ctx) {
         var ret = XTXAPP.SOF_SymEncryptFile(strKey, strInFilePath, strOutFilePath);
         return $myOKRtnFunc(ret, cb, ctx);
     };
 
-    o.SymDecryptFile = function(strKey, strInFilePath, strOutFilePath, cb, ctx) {
+    o.SymDecryptFile = function (strKey, strInFilePath, strOutFilePath, cb, ctx) {
         var ret = XTXAPP.SOF_SymDecryptFile(strKey, strInFilePath, strOutFilePath);
         return $myOKRtnFunc(ret, cb, ctx);
     };
 
-    o.ValidateCert = function(strCert, cb, ctx) {
+    o.ValidateCert = function (strCert, cb, ctx) {
         var r = XTXAPP.SOF_ValidateCert(strCert);
         var ret;
         if (ret == 0) {
@@ -476,20 +461,20 @@ function CreateXTXAppObject() {
         return $myOKRtnFunc(ret, cb, ctx);
     };
 
-    o.HashFile = function(strFilePath, cb, ctx) {
+    o.HashFile = function (strFilePath, cb, ctx) {
         var ret = XTXAPP.SOF_HashFile(2, strFilePath); //sha1 alg
         return $myOKRtnFunc(ret, cb, ctx);
     };
 
-    o.GetDateNotBefore = function(strCertValid) {
+    o.GetDateNotBefore = function (strCertValid) {
         return o._GetDateFormate(strCertValid);
     };
 
-    o.GetDateNotAfter = function(strCertValid) {
+    o.GetDateNotAfter = function (strCertValid) {
         return o._GetDateFormate(strCertValid);
     };
 
-    o._GetDateFormate = function(strCertValid) {
+    o._GetDateFormate = function (strCertValid) {
         var strYear = strCertValid.substring(0, 4);
         var strMonth = strCertValid.substring(4, 6);
         var strDay = strCertValid.substring(6, 8);
@@ -504,17 +489,17 @@ function CreateXTXAppObject() {
         return RtnDate;
     };
 
-    o.GetDeviceType = function(strCertID, cb, ctx) {
+    o.GetDeviceType = function (strCertID, cb, ctx) {
         var ret = XTXAPP.GetDeviceInfo(strCertID, 7);
         return $myOKRtnFunc(ret, cb, ctx);
     }
 
-    o.SignHashData = function(strCertID, strHashData, ulHashAlg, cb, ctx) {
+    o.SignHashData = function (strCertID, strHashData, ulHashAlg, cb, ctx) {
         var ret = XTXAPP.SOF_SignHashData(strCertID, strHashData, ulHashAlg);
         return $myOKRtnFunc(ret, cb, ctx);
     }
 
-    o.VerifySignedHashData = function(strCert, strHashData, ulHashAlg, strSignValue, cb, ctx) {
+    o.VerifySignedHashData = function (strCert, strHashData, ulHashAlg, strSignValue, cb, ctx) {
         var ret = XTXAPP.SOF_VerifySignedHashData(strCert, strHashData, strSignValue, ulHashAlg);
         return $myOKRtnFunc(ret, cb, ctx);
     }
@@ -531,19 +516,19 @@ function CreateSecXV2Object() {
 
     var o = new Object();
 
-    o.GetUserList = function(cb, ctx) {
+    o.GetUserList = function (cb, ctx) {
         var ret = SecXV2.GetUserList();
         return $myOKRtnFunc(ret, cb, ctx);
     };
 
-    o.GetUserList_USBKey = function(cb, ctx) {
+    o.GetUserList_USBKey = function (cb, ctx) {
         return o.GetUserList(cb, ctx);
     };
-    o.GetUserList_Soft = function(cb, ctx) {
+    o.GetUserList_Soft = function (cb, ctx) {
         return o.GetUserList(cb, ctx);
     };
 
-    o.ExportUserSignCert = function(strCertID, cb, ctx) {
+    o.ExportUserSignCert = function (strCertID, cb, ctx) {
         var ret;
         var strUserCert = SecXV2.ExportUserCert(strCertID);
         var strUserExchCert = SecXV2.ExportExChangeUserCert(strCertID);
@@ -555,132 +540,132 @@ function CreateSecXV2Object() {
         return $myOKRtnFunc(ret, cb, ctx);
     };
 
-    o.ExportUserExchangeCert = function(strCertID, cb, ctx) {
+    o.ExportUserExchangeCert = function (strCertID, cb, ctx) {
         var ret = SecXV2.ExportExChangeUserCert(strCertID);
         if (typeof cb == 'function') {
-            var retObj = {retVal:ret, ctx:ctx};
+            var retObj = { retVal: ret, ctx: ctx };
             cb(retObj);
         }
         return ret;
     };
 
-    o.VerifyUserPIN = function(strCertID, strUserPIN, cb, ctx) {
+    o.VerifyUserPIN = function (strCertID, strUserPIN, cb, ctx) {
         var ret = SecXV2.UserLogin(strCertID, strUserPIN);
         return $myOKRtnFunc(ret, cb, ctx);
     };
 
-    o.ChangeUserPIN = function(strCertID, oldPwd, newPwd, cb, ctx) {
+    o.ChangeUserPIN = function (strCertID, oldPwd, newPwd, cb, ctx) {
         var ret = SecXV2.ChangePasswd(strCertID, oldPwd, newPwd);
         return $myOKRtnFunc(ret, cb, ctx);
     };
 
-    o.GetUserPINRetryCount = function(strCertID, cb, ctx) {
+    o.GetUserPINRetryCount = function (strCertID, cb, ctx) {
         var strExtLib = SecXV2.GetUserInfo(strCertID, 15);
         var ret = SecXV2.GetBjcaKeyParam(strExtLib, 8);
         return $myOKRtnFunc(ret, cb, ctx);
     };
 
-    o.GetCertInfo = function(strCert, Type, cb, ctx) {
+    o.GetCertInfo = function (strCert, Type, cb, ctx) {
         var ret = SecXV2.GetCertInfo(strCert, Type);
         return $myOKRtnFunc(ret, cb, ctx);
     };
 
-    o.GetCertInfoByOID = function(strCert, strOID, cb, ctx) {
+    o.GetCertInfoByOID = function (strCert, strOID, cb, ctx) {
         var ret = SecXV2.GetCertInfoByOid(strCert, strOID);
         return $myOKRtnFunc(ret, cb, ctx);
     };
 
-    o.GetCertEntity = function(strCert, cb, ctx) {
+    o.GetCertEntity = function (strCert, cb, ctx) {
         var ret = SecXV2.GetCertInfoByOid(strCert, "2.16.840.1.113732.2");
         return $myOKRtnFunc(ret, cb, ctx);
     };
 
-    o.GenRandom = function(RandomLen, cb, ctx) {
+    o.GenRandom = function (RandomLen, cb, ctx) {
         var ret = SecXV2.GenRandom(RandomLen);
         return $myOKRtnFunc(ret, cb, ctx);
     };
 
-    o.SignData = function(strCertID, strInData, cb, ctx) {
+    o.SignData = function (strCertID, strInData, cb, ctx) {
         var ret = SecXV2.SignData(strCertID, strInData);
         return $myOKRtnFunc(ret, cb, ctx);
     };
 
-    o.VerifySignedData = function(strCert, strInData, strSignValue, cb, ctx) {
+    o.VerifySignedData = function (strCert, strInData, strSignValue, cb, ctx) {
         var ret = SecXV2.VerifySignedData(strCert, strInData, strSignValue);
         return $myOKRtnFunc(ret, cb, ctx);
     };
 
-    o.PubKeyEncrypt = function(strCert, strInData, cb, ctx) {
+    o.PubKeyEncrypt = function (strCert, strInData, cb, ctx) {
         var ret = SecXV2.PubKeyEncrypt(strCert, strInData);
         return $myOKRtnFunc(ret, cb, ctx);
     };
 
-    o.PriKeyDecrypt = function(strCertID, strInData, cb, ctx) {
+    o.PriKeyDecrypt = function (strCertID, strInData, cb, ctx) {
         var ret = SecXV2.PriKeyDecrypt(strCertID, strInData);
         return $myOKRtnFunc(ret, cb, ctx);
     };
 
-    o.SignDataByP7 = function(strCertID, strInData, bDetach, cb, ctx) {
+    o.SignDataByP7 = function (strCertID, strInData, bDetach, cb, ctx) {
         var ret = SecXV2.SignDataByP7(strCertID, strInData);
         return $myOKRtnFunc(ret, cb, ctx);
     };
 
-    o.VerifyDataByP7 = function(strP7Data, strPlainMsg, cb, ctx) {
+    o.VerifyDataByP7 = function (strP7Data, strPlainMsg, cb, ctx) {
         var ret = SecXV2.VerifySignedDatabyP7(strP7Data);
         return $myOKRtnFunc(ret, cb, ctx);
     };
 
-    o.EncyptMessage = function(strCert, strInData, cb, ctx) {
+    o.EncyptMessage = function (strCert, strInData, cb, ctx) {
         var ret = SecXV2.EncodeP7EnvelopedData(strCert, strInData);
         return $myOKRtnFunc(ret, cb, ctx);
     };
 
-    o.DecryptMessage = function(strCertID, strP7Envlope, cb, ctx) {
+    o.DecryptMessage = function (strCertID, strP7Envlope, cb, ctx) {
         var ret = SecXV2.DecodeP7EnvelopedData(strCertID, strP7Envlope);
         return $myOKRtnFunc(ret, cb, ctx);
     };
 
-    o.SignFile = function(strCertID, strFilePath, cb, ctx) {
+    o.SignFile = function (strCertID, strFilePath, cb, ctx) {
         var ret = SecXV2.SignFile(strCertID, strFilePath);
         return $myOKRtnFunc(ret, cb, ctx);
     };
 
-    o.VerifySignFile = function(strCert, strFilePath, strSignValue, cb, ctx) {
+    o.VerifySignFile = function (strCert, strFilePath, strSignValue, cb, ctx) {
         var ret = SecXV2.VerifySignedFile(strCert, strFilePath, strSignValue);
         return $myOKRtnFunc(ret, cb, ctx);
     };
 
-    o.GetSymKeyLength = function(cb, ctx) {
+    o.GetSymKeyLength = function (cb, ctx) {
         var ret = 24;
         return $myOKRtnFunc(ret, cb, ctx);
     };
 
-    o.SymEncryptData = function(strKey, strInData, cb, ctx) {
+    o.SymEncryptData = function (strKey, strInData, cb, ctx) {
         var ret = SecXV2.EncryptData(strKey, strInData);
         return $myOKRtnFunc(ret, cb, ctx);
     };
 
-    o.SymDecryptData = function(strKey, strInData, cb, ctx) {
+    o.SymDecryptData = function (strKey, strInData, cb, ctx) {
         var ret = SecXV2.DecryptData(strKey, strInData);
         return $myOKRtnFunc(ret, cb, ctx);
     };
 
-    o.SymEncryptFile = function(strKey, strInFilePath, strOutFilePath, cb, ctx) {
+    o.SymEncryptFile = function (strKey, strInFilePath, strOutFilePath, cb, ctx) {
         var ret = SecXV2.EncryptFile(strKey, strInFilePath, strOutFilePath);
         return $myOKRtnFunc(ret, cb, ctx);
     };
 
-    o.SymDecryptFile = function(strKey, strInFilePath, strOutFilePath, cb, ctx) {
+    o.SymDecryptFile = function (strKey, strInFilePath, strOutFilePath, cb, ctx) {
         var ret = SecXV2.DecryptFile(strKey, strInFilePath, strOutFilePath);
         return $myOKRtnFunc(ret, cb, ctx);
     };
 
-    o.ValidateCert = function(strCert, cb, ctx) {
+    o.ValidateCert = function (strCert, cb, ctx) {
         var ret = SecXV2.ValidateCert(strCert);
         return $myOKRtnFunc(ret, cb, ctx);
     };
 
-    o.GetDateNotBefore = function(strCertValid) {
+    o.GetDateNotBefore = function (strCertValid) {
         var strYear = strCertValid.substring(0, 4);
         var strMonth = strCertValid.substring(5, 7);
         var strDay = strCertValid.substring(8, 10);
@@ -692,7 +677,7 @@ function CreateSecXV2Object() {
         return RtnDate;
     };
 
-    o.GetDateNotAfter = function(strCertValid) {
+    o.GetDateNotAfter = function (strCertValid) {
         var strYear = strCertValid.substring(0, 4);
         var strMonth = strCertValid.substring(5, 7);
         var strDay = strCertValid.substring(8, 10);
@@ -723,67 +708,67 @@ function CreateSecXObject() {
 
     var o = new Object();
 
-	o.CERT_SRC_BASE64 =			1;		//证书来自Base64字符串
-	o.CERT_SRC_UNIQUEID =		2;		//证书来自唯一表示
-	o.CERT_SRC_FILE =			3;		//证书来自der文件
-	o.CERT_SRC_CONTAINER_UCA = 	4;		//证书来自UCA类型证书容器
-	o.CERT_SRC_CONTAINER_SIGN =	5;		//证书来自容器下签名证书
-	o.CERT_SRC_CONTAINER_ENC =	6;		//证书来自容器下加密证书
-	o.CERT_SRC_CONTAINER_BOTH =	7;		//证书来自容器下签名加密证书
-	o.CERT_SRC_PKCS12 =			8;		//证书来自PKCS12文件
+    o.CERT_SRC_BASE64 = 1;		//证书来自Base64字符串
+    o.CERT_SRC_UNIQUEID = 2;		//证书来自唯一表示
+    o.CERT_SRC_FILE = 3;		//证书来自der文件
+    o.CERT_SRC_CONTAINER_UCA = 4;		//证书来自UCA类型证书容器
+    o.CERT_SRC_CONTAINER_SIGN = 5;		//证书来自容器下签名证书
+    o.CERT_SRC_CONTAINER_ENC = 6;		//证书来自容器下加密证书
+    o.CERT_SRC_CONTAINER_BOTH = 7;		//证书来自容器下签名加密证书
+    o.CERT_SRC_PKCS12 = 8;		//证书来自PKCS12文件
 
-	o.CERT_DST_BASE64 =			1;		//导出证书为Base64字符串
-	o.CERT_DST_DERFILE =		2;		//导出证书为der文件
-	o.CERT_DST_P12 =			3;		//到出证书为PKCS12文件
+    o.CERT_DST_BASE64 = 1;		//导出证书为Base64字符串
+    o.CERT_DST_DERFILE = 2;		//导出证书为der文件
+    o.CERT_DST_P12 = 3;		//到出证书为PKCS12文件
 
-	o.CERT_XML_SUBJECT =		1;		//从XML配置文件取用户名
-	o.CERT_XML_UNIQUEID =		2;		//从XML配置文件取用户唯一表识
-	o.CERT_XML_DEPT =			3;		//从XML配置文件取用户所有者部门
-	o.CERT_XML_ISSUE =			4;		//从XML配置文件取用户证书颁发者
-	o.CERT_XML_STATE =			5;		//从XML配置文件取用户证书使用状态
-	o.CERT_XML_TRADETYPE =		6;		//从XML配置文件取用户证书应用类型
-	o.CERT_XML_PASSWORD =		7;		//从XML配置文件取用户证书私钥保护口令
-	o.CERT_XML_DEVICETYPE =		8;		//从XML配置文件取用户证书介质类型
-	o.CERT_XML_CATYPE =			9;		//从XML配置文件取用户证书CA类型
-	o.CERT_XML_KEYTYPE =		10;		//从XML配置文件取用户证书密钥类型
-	o.CERT_XML_SIGNSN =			11;		//从XML配置文件取用户签名证书序列号
-	o.CERT_XML_EXCHSN =			12;		//从XML配置文件取用户加密证书序列号
-	o.CERT_XML_DEVICENAME =		13;		//从XML配置文件取用户证书介质名称
-	o.CERT_XML_DEVICEPROVIDER =	14;		//从XML配置文件取用户证书介质提供者
-	o.CERT_XML_DEVICEAFFIX =	15;		//从XML配置文件取用户证书介质附加库
-	o.CERT_XML_SIGNPATH =		16;		//从XML配置文件取用户签名证书路径
-	o.CERT_XML_EXCHPATH =		17;		//从XML配置文件取用户加密证书路径
-	o.CERT_XML_SIGNPFXPATH =	18;		//从XML配置文件取用户签名P12证书路径
-	o.CERT_XML_EXCHPFXPATH =	19;		//从XML配置文件取用户加密P12证书路径
-	o.CERT_XML_CHAINPATH =		20;		//从XML配置文件取用户证书链路径
-	o.CERT_XML_CRLPATH =		21;		//从XML配置文件取用户证书作废列表路径
-	o.CERT_XML_UNIQUEIDOID =	22;		//从XML配置文件取用户证书UniqueID的OID
-	o.CERT_XML_VERIFYTYPE =		23;		//从XML配置文件取用户证书验证类型
-	o.CERT_XML_CACOUNTS =		24;		//从XML配置文件取用户证书根证书个数
-	o.CERT_XML_CANUMTYPE =		25;		//从XML配置文件取用户证书跟证书类型
+    o.CERT_XML_SUBJECT = 1;		//从XML配置文件取用户名
+    o.CERT_XML_UNIQUEID = 2;		//从XML配置文件取用户唯一表识
+    o.CERT_XML_DEPT = 3;		//从XML配置文件取用户所有者部门
+    o.CERT_XML_ISSUE = 4;		//从XML配置文件取用户证书颁发者
+    o.CERT_XML_STATE = 5;		//从XML配置文件取用户证书使用状态
+    o.CERT_XML_TRADETYPE = 6;		//从XML配置文件取用户证书应用类型
+    o.CERT_XML_PASSWORD = 7;		//从XML配置文件取用户证书私钥保护口令
+    o.CERT_XML_DEVICETYPE = 8;		//从XML配置文件取用户证书介质类型
+    o.CERT_XML_CATYPE = 9;		//从XML配置文件取用户证书CA类型
+    o.CERT_XML_KEYTYPE = 10;		//从XML配置文件取用户证书密钥类型
+    o.CERT_XML_SIGNSN = 11;		//从XML配置文件取用户签名证书序列号
+    o.CERT_XML_EXCHSN = 12;		//从XML配置文件取用户加密证书序列号
+    o.CERT_XML_DEVICENAME = 13;		//从XML配置文件取用户证书介质名称
+    o.CERT_XML_DEVICEPROVIDER = 14;		//从XML配置文件取用户证书介质提供者
+    o.CERT_XML_DEVICEAFFIX = 15;		//从XML配置文件取用户证书介质附加库
+    o.CERT_XML_SIGNPATH = 16;		//从XML配置文件取用户签名证书路径
+    o.CERT_XML_EXCHPATH = 17;		//从XML配置文件取用户加密证书路径
+    o.CERT_XML_SIGNPFXPATH = 18;		//从XML配置文件取用户签名P12证书路径
+    o.CERT_XML_EXCHPFXPATH = 19;		//从XML配置文件取用户加密P12证书路径
+    o.CERT_XML_CHAINPATH = 20;		//从XML配置文件取用户证书链路径
+    o.CERT_XML_CRLPATH = 21;		//从XML配置文件取用户证书作废列表路径
+    o.CERT_XML_UNIQUEIDOID = 22;		//从XML配置文件取用户证书UniqueID的OID
+    o.CERT_XML_VERIFYTYPE = 23;		//从XML配置文件取用户证书验证类型
+    o.CERT_XML_CACOUNTS = 24;		//从XML配置文件取用户证书根证书个数
+    o.CERT_XML_CANUMTYPE = 25;		//从XML配置文件取用户证书跟证书类型
 
-	o.CRYPT_CFGTYPE_UNSET =	0;		//用户应用类型未定义
-	o.CRYPT_CFGTYPE_CSP =	1;		//用户应用类型CSP
-	o.CRYPT_CFGTYPE_P11 =	2;		//用户应用类型P11
-	o.CRYPT_CFGTYPE_P12 =	3;		//用户应用类型软算法
+    o.CRYPT_CFGTYPE_UNSET = 0;		//用户应用类型未定义
+    o.CRYPT_CFGTYPE_CSP = 1;		//用户应用类型CSP
+    o.CRYPT_CFGTYPE_P11 = 2;		//用户应用类型P11
+    o.CRYPT_CFGTYPE_P12 = 3;		//用户应用类型软算法
 
-	o.ENVELOP_ENC = 1;		//加密P7数字信封
-	o.ENVELOP_DEC = 0;		//解密P7数字信封
+    o.ENVELOP_ENC = 1;		//加密P7数字信封
+    o.ENVELOP_DEC = 0;		//解密P7数字信封
 
 
-    o.GetUserList = function(cb, ctx) {
+    o.GetUserList = function (cb, ctx) {
         var ret = USBKEY.getUserList();
         return $myOKRtnFunc(ret, cb, ctx);
     };
 
-    o.GetUserList_USBKey = function(cb, ctx) {
+    o.GetUserList_USBKey = function (cb, ctx) {
         return o.GetUserList(cb, ctx);
     };
-    o.GetUserList_Soft = function(cb, ctx) {
+    o.GetUserList_Soft = function (cb, ctx) {
         return o.GetUserList(cb, ctx);
     };
 
-    o.ExportUserSignCert = function(strCertID, cb, ctx) {
+    o.ExportUserSignCert = function (strCertID, cb, ctx) {
         var ret;
         var strCSPName = USBKEY.getUserInfoByContainer(strCertID, o.CERT_XML_DEVICEPROVIDER);
         var KeyType = USBKEY.getUserInfoByContainer(strCertID, o.CERT_XML_KEYTYPE);
@@ -799,14 +784,14 @@ function CreateSecXObject() {
         return $myOKRtnFunc(ret, cb, ctx);
     };
 
-    o.ExportUserExchangeCert = function(strCertID, cb, ctx) {
+    o.ExportUserExchangeCert = function (strCertID, cb, ctx) {
         var strCSPName = USBKEY.getUserInfoByContainer(strCertID, o.CERT_XML_DEVICEPROVIDER);
         oCert.importCert(strCertID, o.CERT_SRC_CONTAINER_ENC, strCSPName);
         var ret = oCert.exportCert(o.CERT_DST_BASE64);
         return $myOKRtnFunc(ret, cb, ctx);
     };
 
-    o.VerifyUserPIN = function(strCertID, strUserPIN, cb, ctx) {
+    o.VerifyUserPIN = function (strCertID, strUserPIN, cb, ctx) {
         var ret;
         var strCSPName = USBKEY.getUserInfoByContainer(strCertID, o.CERT_XML_DEVICEPROVIDER);
         var strExtLib = USBKEY.getUserInfoByContainer(strCertID, o.CERT_XML_DEVICEAFFIX);
@@ -821,7 +806,7 @@ function CreateSecXObject() {
         return $myOKRtnFunc(ret, cb, ctx);
     };
 
-    o.ChangeUserPIN = function(strCertID, oldPwd, newPwd, cb, ctx) {
+    o.ChangeUserPIN = function (strCertID, oldPwd, newPwd, cb, ctx) {
         var ret;
         var strCSPName = USBKEY.getUserInfoByContainer(strCertID, o.CERT_XML_DEVICEPROVIDER);
         var strExtLib = USBKEY.getUserInfoByContainer(strCertID, o.CERT_XML_DEVICEAFFIX);
@@ -836,13 +821,13 @@ function CreateSecXObject() {
         return $myOKRtnFunc(ret, cb, ctx);
     };
 
-    o.GetUserPINRetryCount = function(strCertID, cb, ctx) {
+    o.GetUserPINRetryCount = function (strCertID, cb, ctx) {
         var strExtLib = USBKEY.getUserInfoByContainer(strCertID, o.CERT_XML_DEVICEAFFIX);
         var ret = oDevice.getKeyRetrys(strExtLib);
         return $myOKRtnFunc(ret, cb, ctx);
     };
 
-    o.GetCertInfo = function(strCert, Type, cb, ctx) {
+    o.GetCertInfo = function (strCert, Type, cb, ctx) {
         oCert.importCert(strCert, o.CERT_SRC_BASE64);
         var SecXType;
         switch (Type) {
@@ -884,29 +869,29 @@ function CreateSecXObject() {
         return $myOKRtnFunc(ret, cb, ctx);
     };
 
-    o.GetCertInfoByOID = function(strCert, strOID, cb, ctx) {
+    o.GetCertInfoByOID = function (strCert, strOID, cb, ctx) {
         oCert.importCert(strCert, o.CERT_SRC_BASE64);
         var ret = oCert.getExtCertInfoByOID(strOID);
         return $myOKRtnFunc(ret, cb, ctx);
     };
 
-    o.GetCertEntity = function(strCert, cb, ctx) {
+    o.GetCertEntity = function (strCert, cb, ctx) {
         oCert.importCert(strCert, o.CERT_SRC_BASE64);
         var ret = oCert.getExtCertInfoByOID("2.16.840.1.113732.2");
         return $myOKRtnFunc(ret, cb, ctx);
     };
 
-    o.GenRandom = function(RandomLen, cb, ctx) {
+    o.GenRandom = function (RandomLen, cb, ctx) {
         var ret = oCrypto.generateRandom(RandomLen);
         return $myOKRtnFunc(ret, cb, ctx);
     };
 
-    o.SignData = function(strCertID, strInData, cb, ctx) {
+    o.SignData = function (strCertID, strInData, cb, ctx) {
         var ret = oCrypto.signedData(strInData, strCertID);
         return $myOKRtnFunc(ret, cb, ctx);
     };
 
-    o.VerifySignedData = function(strCert, strInData, strSignValue, cb, ctx) {
+    o.VerifySignedData = function (strCert, strInData, strSignValue, cb, ctx) {
         var ret;
         var r = oCrypto.verifySignedData(strSignValue, strCert, strInData);
         if (r == 0) {
@@ -918,22 +903,22 @@ function CreateSecXObject() {
         return $myOKRtnFunc(ret, cb, ctx);
     };
 
-    o.PubKeyEncrypt = function(strCert, strInData, cb, ctx) {
+    o.PubKeyEncrypt = function (strCert, strInData, cb, ctx) {
         var ret = oCrypto.EncDataByCert(strCert, strInData);
         return $myOKRtnFunc(ret, cb, ctx);
     };
 
-    o.PriKeyDecrypt = function(strCertID, strInData, cb, ctx) {
+    o.PriKeyDecrypt = function (strCertID, strInData, cb, ctx) {
         var ret = oCrypto.DecDataByRSA(strCertID, strInData);
         return $myOKRtnFunc(ret, cb, ctx);
     };
 
-    o.SignDataByP7 = function(strCertID, strInData, bDetach, cb, ctx) {
+    o.SignDataByP7 = function (strCertID, strInData, bDetach, cb, ctx) {
         var ret = oCrypto.signedDataByP7(strInData, strCertID);
         return $myOKRtnFunc(ret, cb, ctx);
     };
 
-    o.VerifyDataByP7 = function(strP7Data, strPlainMsg, cb, ctx) {
+    o.VerifyDataByP7 = function (strP7Data, strPlainMsg, cb, ctx) {
         var ret;
         var r = oCrypto.verifySignedDataByP7(strP7Data);
         if (r == 0) {
@@ -945,22 +930,22 @@ function CreateSecXObject() {
         return $myOKRtnFunc(ret, cb, ctx);
     };
 
-    o.EncyptMessage = function(strCert, strInData, cb, ctx) {
+    o.EncyptMessage = function (strCert, strInData, cb, ctx) {
         var ret = oCrypto.envelopedData(strInData, o.ENVELOP_ENC, strCert);
         return $myOKRtnFunc(ret, cb, ctx);
     };
 
-    o.DecryptMessage = function(strCertID, strP7Envlope, cb, ctx) {
+    o.DecryptMessage = function (strCertID, strP7Envlope, cb, ctx) {
         var ret = oCrypto.envelopedData(strP7Envlope, o.ENVELOP_DEC, strCertID);
         return $myOKRtnFunc(ret, cb, ctx);
     };
 
-    o.SignFile = function(strCertID, strFilePath, cb, ctx) {
+    o.SignFile = function (strCertID, strFilePath, cb, ctx) {
         var ret = oCrypto.signFile(strFilePath, strCertID);
         return $myOKRtnFunc(ret, cb, ctx);
     };
 
-    o.VerifySignFile = function(strCert, strFilePath, strSignValue, cb, ctx) {
+    o.VerifySignFile = function (strCert, strFilePath, strSignValue, cb, ctx) {
         var ret;
         var r = oCrypto.verifySignFile(strFilePath, strCert, strSignValue);
         if (r == 0) {
@@ -971,22 +956,22 @@ function CreateSecXObject() {
         return $myOKRtnFunc(ret, cb, ctx);
     };
 
-    o.GetSymKeyLength = function(cb, ctx) {
+    o.GetSymKeyLength = function (cb, ctx) {
         var ret = 24;
         return $myOKRtnFunc(ret, cb, ctx);
     };
 
-    o.SymEncryptData = function(strKey, strInData, cb, ctx) {
+    o.SymEncryptData = function (strKey, strInData, cb, ctx) {
         var ret = oCrypto.encryptData(strKey, strInData);
         return $myOKRtnFunc(ret, cb, ctx);
     };
 
-    o.SymDecryptData = function(strKey, strInData, cb, ctx) {
+    o.SymDecryptData = function (strKey, strInData, cb, ctx) {
         var ret = oCrypto.decryptData(strKey, strInData);
         return $myOKRtnFunc(ret, cb, ctx);
     };
 
-    o.SymEncryptFile = function(strKey, strInFilePath, strOutFilePath, cb, ctx) {
+    o.SymEncryptFile = function (strKey, strInFilePath, strOutFilePath, cb, ctx) {
         var ret;
         var r = oCrypto.encryptFile(strInFilePath, strOutFilePath, strKey);
         if (r == 0) {
@@ -997,7 +982,7 @@ function CreateSecXObject() {
         return $myOKRtnFunc(ret, cb, ctx);
     };
 
-    o.SymDecryptFile = function(strKey, strInFilePath, strOutFilePath, cb, ctx) {
+    o.SymDecryptFile = function (strKey, strInFilePath, strOutFilePath, cb, ctx) {
         var ret;
         var r = oCrypto.decryptFile(strInFilePath, strOutFilePath, strKey);
         if (r == 0) {
@@ -1009,7 +994,7 @@ function CreateSecXObject() {
         return $myOKRtnFunc(ret, cb, ctx);
     };
 
-    o.ValidateCert = function(strCert, cb, ctx) {
+    o.ValidateCert = function (strCert, cb, ctx) {
         var ret;
         var r = oCert.validateCert("", "");
         if (r == 0) {
@@ -1020,12 +1005,12 @@ function CreateSecXObject() {
         return $myOKRtnFunc(ret, cb, ctx);
     };
 
-    o.HashFile = function(strFilePath, cb, ctx) {
+    o.HashFile = function (strFilePath, cb, ctx) {
         var ret = oCrypto.HashFile(strFilePath);
         return $myOKRtnFunc(ret, cb, ctx);
     };
 
-    o.GetDateNotBefore = function(strCertValid) {
+    o.GetDateNotBefore = function (strCertValid) {
         var strYear = strCertValid.substring(0, 4);
         var strMonth = strCertValid.substring(5, 7);
         var strDay = strCertValid.substring(8, 10);
@@ -1037,7 +1022,7 @@ function CreateSecXObject() {
         return RtnDate;
     };
 
-    o.GetDateNotAfter = function(strCertValid) {
+    o.GetDateNotAfter = function (strCertValid) {
         var strYear = strCertValid.substring(0, 4);
         var strMonth = strCertValid.substring(5, 7);
         var strDay = strCertValid.substring(8, 10);
@@ -1063,7 +1048,7 @@ function CreateWebSocketObject() {
     o.ws_queue_ctx = {};
     o.xtx_version = "";
 
-    o.load_websocket = function() {
+    o.load_websocket = function () {
 
         //说明，是否用TLS/SSL，根据url给的ws/wss及端口号来定，端口号固定(21051/21061)
         var ws_url;
@@ -1078,58 +1063,55 @@ function CreateWebSocketObject() {
 
         o.ws_queue_list["onUsbkeyChange"] = $OnUsbKeyChange;
 
-        o.ws_obj.onopen = function(evt) {
+        o.ws_obj.onopen = function (evt) {
             clearInterval(o.ws_heartbeat_id);
-            o.callMethod("SOF_GetVersion", function(str){o.xtx_version = str.retVal;});
+            o.callMethod("SOF_GetVersion", function (str) { o.xtx_version = str.retVal; });
             o.ws_heartbeat_id = setInterval(function () {
-             //   o.callMethod("SOF_GetVersion", function(str){});
+                //   o.callMethod("SOF_GetVersion", function(str){});
             }, 10 * 1000);
             GetUserList($pushAllDropListBox);
         };
 
-        o.ws_obj.onclose = function(evt) {
+        o.ws_obj.onclose = function (evt) {
             // console.log("WebSocket is closed now.",evt);
         };
 
-        o.ws_obj.onmessage = function(evt) {
+        o.ws_obj.onmessage = function (evt) {
 
             var res = JSON.parse(evt.data);
-            if(res['set-cookie']){
+            if (res['set-cookie']) {
                 document.cookie = res['set-cookie'];
             }
 
             //登录失败
-            if(res['loginError'])
-            {
+            if (res['loginError']) {
                 alert(res['loginError']);
             }
 
             var call_cmd_id = res['call_cmd_id'];
-            if(!call_cmd_id)
-            {
+            if (!call_cmd_id) {
                 return;
             }
 
             var execFunc = o.ws_queue_list[call_cmd_id];
-            if(typeof(execFunc) != 'function')
-            {
+            if (typeof (execFunc) != 'function') {
                 return;
             }
 
             var ctx = o.ws_queue_ctx[res['call_cmd_id']];
-            ctx = ctx || {returnType:"string"};
+            ctx = ctx || { returnType: "string" };
 
             var ret;
-            if (ctx.returnType == "bool"){
+            if (ctx.returnType == "bool") {
                 ret = res.retVal == "true" ? true : false;
             }
-            else if (ctx.returnType == "number"){
+            else if (ctx.returnType == "number") {
                 ret = Number(res.retVal);
             }
-            else{
+            else {
                 ret = res.retVal;
             }
-            var retObj = {retVal:ret, ctx:ctx};
+            var retObj = { retVal: ret, ctx: ctx };
 
             execFunc(retObj);
 
@@ -1140,7 +1122,7 @@ function CreateWebSocketObject() {
 
         };
 
-        o.ws_obj.onerror = function(evt) {
+        o.ws_obj.onerror = function (evt) {
             // console.log('evt',evt,process.env.HOSPITAL_NAME,process.env.ENABLE_BLUETOOTH_SIGN, typeof(process.env.ENABLE_BLUETOOTH_SIGN))
             o.load_websocket();
             // if(process.env.ENABLE_BLUETOOTH_SIGN){
@@ -1155,7 +1137,7 @@ function CreateWebSocketObject() {
         return true;
     };
 
-    o.sendMessage = function(sendMsg) {
+    o.sendMessage = function (sendMsg) {
         if (o.ws_obj.readyState == WebSocket.OPEN) {
             o.ws_obj.send(JSON.stringify(sendMsg));
         } else {
@@ -1163,9 +1145,9 @@ function CreateWebSocketObject() {
         }
     };
 
-    o.callMethod = function(strMethodName, cb, ctx, returnType, argsArray) {
+    o.callMethod = function (strMethodName, cb, ctx, returnType, argsArray) {
         o.ws_queue_id++;
-        if (typeof(cb) == 'function'){
+        if (typeof (cb) == 'function') {
             o.ws_queue_list['i_' + o.ws_queue_id] = cb;
             ctx = ctx || {};
             ctx.returnType = returnType;
@@ -1177,7 +1159,7 @@ function CreateWebSocketObject() {
         sendArray['xtx_func_name'] = strMethodName;
         //get sessionid
 
-        sendArray['call_cmd_id'] = 'i_' + o.ws_queue_id ;
+        sendArray['call_cmd_id'] = 'i_' + o.ws_queue_id;
         if (o.xtx_version >= "3.0") {
             sendArray['URL'] = window.location.href;
         }
@@ -1194,184 +1176,184 @@ function CreateWebSocketObject() {
         }
     };
 
-    o.GetUserList = function(cb, ctx) {
+    o.GetUserList = function (cb, ctx) {
         o.callMethod('SOF_GetUserList', cb, ctx, "string");
     };
 
-    o._GetUserListByType = function(strType, cb, ctx) {
-        o.GetUserList(function(retObj) {
+    o._GetUserListByType = function (strType, cb, ctx) {
+        o.GetUserList(function (retObj) {
             var strUserList = retObj.retVal;
             while (true) {
-            var i = strUserList.indexOf("&&&");
-                if (i <= 0 ) {
+                var i = strUserList.indexOf("&&&");
+                if (i <= 0) {
                     break;
                 }
                 var strOneUser = strUserList.substring(0, i);
                 var strName = strOneUser.substring(0, strOneUser.indexOf("||"));
                 var strCertID = strOneUser.substring(strOneUser.indexOf("||") + 2, strOneUser.length);
-                o.GetDeviceType(strCertID, function(retObj) {
+                o.GetDeviceType(strCertID, function (retObj) {
                     if (retObj.retVal == retObj.ctx.ctx.type) {
                         if (typeof retObj.ctx.ctx.cb == 'function') {
-                            retObj.ctx.ctx.cb({retVal:retObj.ctx.userList, ctx:retObj.ctx.ctx.ctx})
+                            retObj.ctx.ctx.cb({ retVal: retObj.ctx.userList, ctx: retObj.ctx.ctx.ctx })
                         }
                     }
-                }, {userList:strOneUser, ctx:retObj.ctx});
+                }, { userList: strOneUser, ctx: retObj.ctx });
                 var len = strUserList.length;
                 strUserList = strUserList.substring(i + 3, len);
             }
-        }, {type:strType, cb:cb, ctx:ctx});
+        }, { type: strType, cb: cb, ctx: ctx });
     }
-    o.GetUserList_USBKey = function(cb, ctx) {
+    o.GetUserList_USBKey = function (cb, ctx) {
         return o._GetUserListByType("HARD", cb, ctx);
     };
-    o.GetUserList_Soft = function(cb, ctx) {
+    o.GetUserList_Soft = function (cb, ctx) {
         return o._GetUserListByType("SOFT", cb, ctx);
     };
 
-    o.ExportUserSignCert = function(strCertID, cb, ctx) {
+    o.ExportUserSignCert = function (strCertID, cb, ctx) {
         var paramArray = [strCertID];
         o.callMethod('SOF_ExportUserCert', cb, ctx, "string", paramArray);
     };
 
-    o.ExportUserExchangeCert = function(strCertID, cb, ctx) {
+    o.ExportUserExchangeCert = function (strCertID, cb, ctx) {
         var paramArray = [strCertID];
         o.callMethod('SOF_ExportExChangeUserCert', cb, ctx, "string", paramArray);
     };
 
-    o.VerifyUserPIN = function(strCertID, strUserPIN, cb, ctx) {
+    o.VerifyUserPIN = function (strCertID, strUserPIN, cb, ctx) {
         var paramArray = [strCertID, strUserPIN];
         o.callMethod('SOF_Login', cb, ctx, "bool", paramArray);
     };
 
-    o.Logout = function(strCertID, cb, ctx) {
+    o.Logout = function (strCertID, cb, ctx) {
         var paramArray = [strCertID];
         o.callMethod('SOF_Logout', cb, ctx, "bool", paramArray);
     };
 
-    o.ChangeUserPIN = function(strCertID, oldPwd, newPwd, cb, ctx) {
+    o.ChangeUserPIN = function (strCertID, oldPwd, newPwd, cb, ctx) {
         var paramArray = [strCertID, oldPwd, newPwd];
         o.callMethod('SOF_ChangePassWd', cb, ctx, "bool", paramArray);
     };
 
-    o.GetUserPINRetryCount = function(strCertID, cb, ctx) {
+    o.GetUserPINRetryCount = function (strCertID, cb, ctx) {
         var paramArray = [strCertID];
         o.callMethod('SOF_GetPinRetryCount', cb, ctx, "number", paramArray);
     };
 
-    o.GetCertInfo = function(strCert, Type, cb, ctx) {
+    o.GetCertInfo = function (strCert, Type, cb, ctx) {
         var paramArray = [strCert, Type];
         o.callMethod('SOF_GetCertInfo', cb, ctx, "string", paramArray);
     };
 
-    o.GetCertInfoByOID = function(strCert, strOID, cb, ctx) {
+    o.GetCertInfoByOID = function (strCert, strOID, cb, ctx) {
         var paramArray = [strCert, strOID];
         o.callMethod('SOF_GetCertInfoByOid', cb, ctx, "string", paramArray);
     };
 
-    o.GetCertEntity = function(strCert, cb, ctx) {
+    o.GetCertEntity = function (strCert, cb, ctx) {
         var paramArray = [strCert];
         o.callMethod('SOF_GetCertEntity', cb, ctx, "string", paramArray);
     };
 
-    o.GenRandom = function(RandomLen, cb, ctx) {
+    o.GenRandom = function (RandomLen, cb, ctx) {
         var paramArray = [RandomLen];
         o.callMethod('SOF_GenRandom', cb, ctx, "string", paramArray);
     };
 
-    o.SignData = function(strCertID, strInData, cb, ctx) {
+    o.SignData = function (strCertID, strInData, cb, ctx) {
         var paramArray = [strCertID, strInData];
         o.callMethod('SOF_SignData', cb, ctx, "string", paramArray);
     };
 
-    o.VerifySignedData = function(strCert, strInData, strSignValue, cb, ctx) {
+    o.VerifySignedData = function (strCert, strInData, strSignValue, cb, ctx) {
         var paramArray = [strCert, strInData, strSignValue];
         o.callMethod('SOF_VerifySignedData', cb, ctx, "bool", paramArray);
     };
 
-    o.PubKeyEncrypt = function(strCert, strInData, cb, ctx) {
+    o.PubKeyEncrypt = function (strCert, strInData, cb, ctx) {
         var paramArray = [strCert, strInData];
         o.callMethod('SOF_PubKeyEncrypt', cb, ctx, "string", paramArray);
     };
 
-    o.PriKeyDecrypt = function(strCertID, strInData, cb, ctx) {
+    o.PriKeyDecrypt = function (strCertID, strInData, cb, ctx) {
         var paramArray = [strCertID, strInData];
         o.callMethod('SOF_PriKeyDecrypt', cb, ctx, "string", paramArray);
     };
 
-    o.SignDataByP7 = function(strCertID, strInData, bDetach, cb, ctx) {
+    o.SignDataByP7 = function (strCertID, strInData, bDetach, cb, ctx) {
         var paramArray = [strCertID, strInData];
         o.callMethod('SOF_SignMessage', cb, ctx, "string", paramArray);
     };
 
-    o.VerifyDataByP7 = function(strP7Data, strPlainMsg, cb, ctx) {
+    o.VerifyDataByP7 = function (strP7Data, strPlainMsg, cb, ctx) {
         var paramArray = [strP7Data, strPlainMsg];
         o.callMethod('SOF_VerifySignedMessage', cb, ctx, "bool", paramArray);
     };
 
-    o.EncyptMessage = function(strCert, strInData, cb, ctx) {
+    o.EncyptMessage = function (strCert, strInData, cb, ctx) {
         var paramArray = [strCert, strInData];
         o.callMethod('SOF_EncryptData', cb, ctx, "string", paramArray);
     };
 
-    o.DecryptMessage = function(strCertID, strP7Envlope, cb, ctx) {
+    o.DecryptMessage = function (strCertID, strP7Envlope, cb, ctx) {
         var paramArray = [strCertID, strP7Envlope];
         o.callMethod('SOF_DecryptData', cb, ctx, "string", paramArray);
     };
 
-    o.SignFile = function(strCertID, strFilePath, cb, ctx) {
+    o.SignFile = function (strCertID, strFilePath, cb, ctx) {
         var paramArray = [strCertID, strFilePath];
         o.callMethod('SOF_SignFile', cb, ctx, "string", paramArray);
     };
 
-    o.VerifySignFile = function(strCert, strFilePath, strSignValue, cb, ctx) {
+    o.VerifySignFile = function (strCert, strFilePath, strSignValue, cb, ctx) {
         var paramArray = [strCert, strFilePath, strSignValue];
         o.callMethod('SOF_VerifySignedFile', cb, ctx, "bool", paramArray);
     };
 
-    o.GetSymKeyLength = function(cb, ctx) {
+    o.GetSymKeyLength = function (cb, ctx) {
         var ret = 24;
         return $myOKRtnFunc(ret, cb, ctx);
     };
 
-    o.SymEncryptData = function(strKey, strInData, cb, ctx) {
+    o.SymEncryptData = function (strKey, strInData, cb, ctx) {
         var paramArray = [strKey, strInData];
         o.callMethod('SOF_SymEncryptData', cb, ctx, "string", paramArray);
     };
 
-    o.SymDecryptData = function(strKey, strInData, cb, ctx) {
+    o.SymDecryptData = function (strKey, strInData, cb, ctx) {
         var paramArray = [strKey, strInData];
         o.callMethod('SOF_SymDecryptData', cb, ctx, "string", paramArray);
     };
 
-    o.SymEncryptFile = function(strKey, strInFilePath, strOutFilePath, cb, ctx) {
+    o.SymEncryptFile = function (strKey, strInFilePath, strOutFilePath, cb, ctx) {
         var paramArray = [strKey, strInFilePath, strOutFilePath];
         o.callMethod('SOF_SymEncryptFile', cb, ctx, "bool", paramArray);
     };
 
-    o.SymDecryptFile = function(strKey, strInFilePath, strOutFilePath, cb, ctx) {
+    o.SymDecryptFile = function (strKey, strInFilePath, strOutFilePath, cb, ctx) {
         var paramArray = [strKey, strInFilePath, strOutFilePath];
         o.callMethod('SOF_SymDecryptFile', cb, ctx, "bool", paramArray);
     };
 
-    o.ValidateCert = function(strCert, cb, ctx) {
+    o.ValidateCert = function (strCert, cb, ctx) {
         var paramArray = [strCert];
         o.callMethod('SOF_ValidateCert', cb, ctx, "bool", paramArray);
     };
 
-    o.HashFile = function(strFilePath, cb, ctx) {
+    o.HashFile = function (strFilePath, cb, ctx) {
         var paramArray = [2, strFilePath];
         o.callMethod('SOF_HashFile', cb, ctx, "string", paramArray);
     };
 
-    o.GetDateNotBefore = function(strCertValid) {
+    o.GetDateNotBefore = function (strCertValid) {
         return o._GetDateFormate(strCertValid);
     };
 
-    o.GetDateNotAfter = function(strCertValid) {
+    o.GetDateNotAfter = function (strCertValid) {
         return o._GetDateFormate(strCertValid);
     };
 
-    o._GetDateFormate = function(strCertValid) {
+    o._GetDateFormate = function (strCertValid) {
         var strYear = strCertValid.substring(0, 4);
         var strMonth = strCertValid.substring(4, 6);
         var strDay = strCertValid.substring(6, 8);
@@ -1386,47 +1368,47 @@ function CreateWebSocketObject() {
         return RtnDate;
     };
 
-    o.GetDeviceType = function(strCertID, cb, ctx) {
+    o.GetDeviceType = function (strCertID, cb, ctx) {
         var paramArray = [strCertID, 7];
         o.callMethod('GetDeviceInfo', cb, ctx, "string", paramArray);
     }
 
-    o.SignHashData = function(strCertID, strHashData, ulHashAlg, cb, ctx) {
+    o.SignHashData = function (strCertID, strHashData, ulHashAlg, cb, ctx) {
         var paramArray = [strCertID, strHashData, ulHashAlg];
         o.callMethod('SOF_SignHashData', cb, ctx, "string", paramArray);
     }
 
-    o.VerifySignedHashData = function(strCert, strHashData, ulHashAlg, strSignValue, cb, ctx) {
+    o.VerifySignedHashData = function (strCert, strHashData, ulHashAlg, strSignValue, cb, ctx) {
         var paramArray = [strCert, strHashData, ulHashAlg, strSignValue];
         o.callMethod('SOF_VerifySignedHashData', cb, ctx, "bool", paramArray);
     }
 
-	// getpic begin
-	o.GetPic = function(strContainerName, cb, ctx) {
-		var paramArray = [strContainerName];
+    // getpic begin
+    o.GetPic = function (strContainerName, cb, ctx) {
+        var paramArray = [strContainerName];
         o.callMethod('GetPic', cb, ctx, "string", paramArray);
-	};
+    };
 
-    o.Hash = function(strInData, cb, ctx) {
+    o.Hash = function (strInData, cb, ctx) {
         var paramArray = [strInData];
         o.callMethod('Hash', cb, ctx, "string", paramArray);
     };
 
-    o.ConvertPicFormat = function(strInData, type, cb, ctx) {
+    o.ConvertPicFormat = function (strInData, type, cb, ctx) {
         var paramArray = [strInData, type];
         o.callMethod('ConvertPicFormat', cb, ctx, "string", paramArray);
     };
 
-	o.ConvertGif2Jpg = function(strInData, cb, ctx) {
+    o.ConvertGif2Jpg = function (strInData, cb, ctx) {
         var paramArray = [strInData];
         o.callMethod('ConvertGif2Jpg', cb, ctx, "string", paramArray);
     };
 
-	o.ConvertPicSize = function(strInData, w, h, cb, ctx) {
+    o.ConvertPicSize = function (strInData, w, h, cb, ctx) {
         var paramArray = [strInData, w, h];
         o.callMethod('ConvertPicSize', cb, ctx, "string", paramArray);
     };
-	// getpic end
+    // getpic end
 
     if (!o.load_websocket()) {
         return null;
@@ -1438,10 +1420,9 @@ function CreateWebSocketObject() {
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////// 对外提供的接口
 
-function $myErrorRtnFunc(retVal, cb, ctx)
-{
+function $myErrorRtnFunc(retVal, cb, ctx) {
     if (typeof cb == 'function') {
-        var retObj = {retVal:retVal, ctx:ctx};
+        var retObj = { retVal: retVal, ctx: ctx };
         cb(retObj);
     }
 
@@ -1747,8 +1728,7 @@ function GetDateNotAfter(strCertValid) {
     return "";
 }
 
-function $loginSignRandomCallBack(retObj)
-{
+function $loginSignRandomCallBack(retObj) {
     if (retObj.retVal == "") {
         $XTXAlert("客户端签名失败!");
         return;
@@ -1760,8 +1740,7 @@ function $loginSignRandomCallBack(retObj)
     objForm.submit();
 }
 
-function $loginVerifyServerSignatureCallBack(retObj)
-{
+function $loginVerifyServerSignatureCallBack(retObj) {
     if (!retObj.retVal) {
         $XTXAlert("验证服务器端信息失败!");
         return;
@@ -1770,42 +1749,40 @@ function $loginVerifyServerSignatureCallBack(retObj)
     var strCertID = retObj.ctx.certID;
     SignedData(strCertID, strServerRan, $loginSignRandomCallBack, retObj.ctx);
 }
-function $loginCheckCertValidNotAfter(retObj)
-{
+function $loginCheckCertValidNotAfter(retObj) {
 
     var notAfterDate = GetDateNotAfter(retObj.retVal);
-	var milliseconds = notAfterDate.getTime() - new Date().getTime();
-	if (milliseconds < 0) {
-		$XTXAlert("您的证书已过期，请尽快到北京数字证书认证中心办理证书更新手续！");
-	    return;
-	}
+    var milliseconds = notAfterDate.getTime() - new Date().getTime();
+    if (milliseconds < 0) {
+        $XTXAlert("您的证书已过期，请尽快到北京数字证书认证中心办理证书更新手续！");
+        return;
+    }
 
-	days = parseInt(milliseconds / (1000*60*60*24));
-	if (days > 0 && days <= 60) {
-		$XTXAlert("您的证书还有" + days + "天过期\n请您尽快到北京数字证书认证中心办理证书更新手续！");
-	} else if (days == 0) { // 证书有效期天数小于1天
-		var hours = parseInt(milliseconds / (1000*60*60));
-		if (hours > 0) {
-			$XTXAlert("您的证书还有" + hours + "小时过期\n您尽快到北京数字证书认证中心办理证书更新手续！");
-		}
-		// 证书有效期小于1小时
-		var minutes = parseInt(milliseconds / (1000*60));
-		if (minutes > 1) {
-			$XTXAlert("您的证书还有" + minutes + "分钟过期\n您尽快到北京数字证书认证中心办理证书更新手续！");
-		} else {
-			$XTXAlert("您的证书已过期，请尽快到北京数字证书认证中心办理证书更新手续！");
+    days = parseInt(milliseconds / (1000 * 60 * 60 * 24));
+    if (days > 0 && days <= 60) {
+        $XTXAlert("您的证书还有" + days + "天过期\n请您尽快到北京数字证书认证中心办理证书更新手续！");
+    } else if (days == 0) { // 证书有效期天数小于1天
+        var hours = parseInt(milliseconds / (1000 * 60 * 60));
+        if (hours > 0) {
+            $XTXAlert("您的证书还有" + hours + "小时过期\n您尽快到北京数字证书认证中心办理证书更新手续！");
+        }
+        // 证书有效期小于1小时
+        var minutes = parseInt(milliseconds / (1000 * 60));
+        if (minutes > 1) {
+            $XTXAlert("您的证书还有" + minutes + "分钟过期\n您尽快到北京数字证书认证中心办理证书更新手续！");
+        } else {
+            $XTXAlert("您的证书已过期，请尽快到北京数字证书认证中心办理证书更新手续！");
             return;
-		}
-	}
+        }
+    }
 
     VerifySignedData(strServerCert, strServerRan, strServerSignedData,
         $loginVerifyServerSignatureCallBack, retObj.ctx);
 }
 
-function $loginCheckCertValidNotBefore(retObj)
-{
+function $loginCheckCertValidNotBefore(retObj) {
     var notBeforeDate = GetDateNotBefore(retObj.retVal);
-    var days = parseInt((notBeforeDate.getTime() - new Date().getTime()) / (1000*60*60*24));
+    var days = parseInt((notBeforeDate.getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24));
     if (days > 0) {
         $XTXAlert("您的证书尚未生效!距离生效日期还剩" + days + "天!");
         return;
@@ -1816,20 +1793,18 @@ function $loginCheckCertValidNotBefore(retObj)
 
 }
 
-function $loginGetSignCertCallBack(retObj)
-{
+function $loginGetSignCertCallBack(retObj) {
     var strUserCert = retObj.retVal;
     if (strUserCert == "") {
         $XTXAlert("导出用户证书失败!");
         return;
     }
-    retObj.ctx.objForm.UserCert.value =  strUserCert;
+    retObj.ctx.objForm.UserCert.value = strUserCert;
 
     GetCertBasicinfo(strUserCert, CERT_OID_NOT_BEFORE, $loginCheckCertValidNotBefore, retObj.ctx);
 }
 
-function $loginGetPINRetryCallBack(retObj)
-{
+function $loginGetPINRetryCallBack(retObj) {
     var retryCount = Number(retObj.retVal);
     if (retryCount > 0) {
         $XTXAlert("校验证书密码失败!您还有" + retryCount + "次机会重试!");
@@ -1843,8 +1818,7 @@ function $loginGetPINRetryCallBack(retObj)
     }
 }
 
-function $loginVerifyPINCallBack(retObj)
-{
+function $loginVerifyPINCallBack(retObj) {
     var strCertID = retObj.ctx.certID;
     var objForm = retObj.ctx.objForm;
     if (!retObj.retVal) {
@@ -1865,19 +1839,19 @@ function Logout(certid, cb, ctx) {
 
 //Form login
 function Login(formName, strCertID, strPin, strAction) {
-	var objForm = eval(formName);
-	if (objForm == null) {
-		$XTXAlert("表单错误！");
-		return;
-	}
+    var objForm = eval(formName);
+    if (objForm == null) {
+        $XTXAlert("表单错误！");
+        return;
+    }
     if (strCertID == null || strCertID == "") {
         $XTXAlert("请输入证书密码！");
-		return;
+        return;
     }
-	if (strPin == null || strPin == "") {
-		$XTXAlert("请输入证书密码！");
-		return;
-	}
+    if (strPin == null || strPin == "") {
+        $XTXAlert("请输入证书密码！");
+        return;
+    }
 
     //Add a hidden item ...
     var strSignItem = "<input type=\"hidden\" name=\"UserSignedData\" value=\"\">";
@@ -1893,7 +1867,7 @@ function Login(formName, strCertID, strPin, strAction) {
         objForm.insertAdjacentHTML("BeforeEnd", strContainerItem);
     }
 
-    var ctx = {certID:strCertID, objForm:objForm, action:strAction};
+    var ctx = { certID: strCertID, objForm: objForm, action: strAction };
 
     VerifyUserPIN(strCertID, strPin, $loginVerifyPINCallBack, ctx);
 
@@ -1914,27 +1888,27 @@ function CreateGetPicObject() {
 
     var o = new Object();
 
-    o.GetPic = function(strContainerName, cb, ctx) {
+    o.GetPic = function (strContainerName, cb, ctx) {
         var ret = OGetPic.GetPic(strContainerName);
         return $myOKRtnFunc(ret, cb, ctx);
     };
 
-    o.Hash = function(strInData, cb, ctx) {
+    o.Hash = function (strInData, cb, ctx) {
         var ret = OGetPic.Hash(strInData)
         return $myOKRtnFunc(ret, cb, ctx);
     };
 
-    o.ConvertPicFormat = function(strInData, type, cb, ctx) {
+    o.ConvertPicFormat = function (strInData, type, cb, ctx) {
         var ret = OGetPic.ConvertPicFormat(strInData, type);
         return $myOKRtnFunc(ret, cb, ctx);
     };
 
-    o.ConvertGif2Jpg = function(strInData, cb, ctx) {
+    o.ConvertGif2Jpg = function (strInData, cb, ctx) {
         var ret = OGetPic.ConvertGif2Jpg(strInData);
         return $myOKRtnFunc(ret, cb, ctx);
     };
 
-    o.ConvertPicSize = function(strInData, w, h, cb, ctx) {
+    o.ConvertPicSize = function (strInData, w, h, cb, ctx) {
         var ret = OGetPic.ConvertPicSize(strInData, w, h);
         return $myOKRtnFunc(ret, cb, ctx);
     };
@@ -1984,7 +1958,7 @@ function ConvertGif2Jpg(strInData, cb, ctx) {
 function ConvertPicSize(strInData, w, h, cb, ctx) {
     if ($_$WebSocketObj != null && $_$WebSocketObj.ConvertPicSize != undefined) {
         return $_$WebSocketObj.ConvertPicSize(strInData, w, h, cb, ctx);
-    } else  if ($_$GetPicObj != null && $_$GetPicObj.ConvertPicSize != undefined) {
+    } else if ($_$GetPicObj != null && $_$GetPicObj.ConvertPicSize != undefined) {
         return $_$GetPicObj.ConvertPicSize(strInData, w, h, cb, ctx);
     } else {
         return $myErrorRtnFunc("", cb, ctx);
@@ -1994,9 +1968,10 @@ function ConvertPicSize(strInData, w, h, cb, ctx) {
 
 
 
-(function() {
-
-    if(!process.env.ENABLE_BLUETOOTH_SIGN){return}
+(function () {
+    console.log(window.ENABLE_BLUETOOTH_SIGN, 'window.ENABLE_BLUETOOTH_SIGN ')
+    if (window.ENABLE_BLUETOOTH_SIGN === false) { return }
+    if (!process.env.ENABLE_BLUETOOTH_SIGN) { return }
 
     //GetPic实例obj
     $_$GetPicObj = CreateGetPicObject();
@@ -2027,10 +2002,10 @@ function ConvertPicSize(strInData, w, h, cb, ctx) {
 
     $_$CurrentObj = null;
 
-   $XTXAlert("检查证书应用环境出错!");
+    $XTXAlert("检查证书应用环境出错!");
     return;
 })();
 
 
 
-export {$_$WebSocketObj, GetSignCert, SignedData, $loginVerifyPINCallBack, VerifyUserPIN, Logout, DecryptData}
+export { $_$WebSocketObj, GetSignCert, SignedData, $loginVerifyPINCallBack, VerifyUserPIN, Logout, DecryptData }
