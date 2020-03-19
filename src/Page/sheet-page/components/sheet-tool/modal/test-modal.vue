@@ -19,7 +19,7 @@
   >>>.sweet-content
     background #F0f0f0
   >>>.body
-    padding: 20px 20px 40px
+    padding: 20px 20px 40px !important
 </style>
 <script>
 import test from "@/Page/patientInfo/supPage/test/test";
