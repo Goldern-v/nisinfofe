@@ -6,31 +6,43 @@
       <div class="info-con" flex="main:justify">
         <span>
           姓名：
-          <div class="bottom-line" style="min-width: 80px">{{patientInfo.name}}</div>
+          <div class="bottom-line" style="min-width: 60px">
+            {{ patientInfo.name }}
+          </div>
         </span>
         <span>
           性别：
-          <div class="bottom-line" style="min-width: 50px">{{patientInfo.sex}}</div>
+          <div class="bottom-line" style="min-width: 40px">
+            {{ patientInfo.sex }}
+          </div>
         </span>
         <span>
           年龄：
-          <div class="bottom-line" style="min-width: 50px">{{patientInfo.age}}</div>
+          <div class="bottom-line" style="min-width: 40px">
+            {{ patientInfo.age }}
+          </div>
         </span>
         <span>
           病区：
-          <div class="bottom-line" style="min-width: 120px">{{patientInfo.deptName}}</div>
+          <div class="bottom-line" style="min-width: 120px">
+            {{ patientInfo.deptName }}
+          </div>
         </span>
         <span>
           床号：
-          <div class="bottom-line" style="min-width: 50px">{{patientInfo.bedLabel}}</div>
+          <div class="bottom-line" style="min-width: 50px">
+            {{ patientInfo.bedLabel }}
+          </div>
         </span>
         <span>
           住院号/ID号：
-          <div class="bottom-line" style="min-width: 80px">{{patientInfo.inpNo}}</div>
+          <div class="bottom-line" style="min-width: 60px">
+            {{ patientInfo.inpNo }}
+          </div>
         </span>
         <span>
           入院日期：
-          {{patientInfo.admissionDate}}
+          {{ patientInfo.admissionDate }}
         </span>
       </div>
     </div>
@@ -79,7 +91,7 @@ export default {
 };
 </script>
 
-<style lang='scss' scoped>
+<style lang="scss" scoped>
 .containter {
   background: rgba(255, 255, 255, 1);
   box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5);
