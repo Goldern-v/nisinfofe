@@ -149,7 +149,7 @@
       </div>
       <div style="width: 5px;"></div>
     </div>
-    <patientInfo></patientInfo>
+    <patientInfo v-if="patientInfo.patientId"></patientInfo>
     <newFormModal ref="newFormModal"></newFormModal>
     <setTitleModal ref="setTitleModal"></setTitleModal>
     <tztbModal ref="tztbModal"></tztbModal>
