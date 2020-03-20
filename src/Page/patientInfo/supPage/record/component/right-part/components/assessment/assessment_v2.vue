@@ -377,7 +377,7 @@ export default {
           });
         }
       } catch (error) {
-        console.log("onload:formInfo", error);
+        console.error("onload:formInfo:error", { error });
         this.setLoadingStatus(true);
         this.setLoadingText(
           `网络异常,${this.info.name},页面无法获取,请尝试刷新.`
@@ -830,7 +830,7 @@ export default {
       postData["diags"] = all.join(",");
       postData["empNo"] = username;
 
-      console.log("this.info", this.info);
+      // console.log("this.info", this.info);
       if (password && (this.info.status == 0 || this.info.status == 1)) {
         postData["id"] = this.info.id;
         postData["createSign"] = password;
@@ -855,11 +855,11 @@ export default {
       // var selectString = `input[name*='${formCode}']`;
       var selectString = `input[name*='${formCode}']:checked,[name*='${formCode}'][type="text"],input[type*='date'],input[type*='time']`;
       var splitMark = ",";
-      console.log("FormBoxwid.document", formCode, wid, wid.document);
-      console.log(
-        "-jQuery_formCode)",
-        jQuery(`input[name*='formCode']`, wid.document)
-      );
+      // console.log("FormBoxwid.document", formCode, wid, wid.document);
+      // console.log(
+      //   "-jQuery_formCode)",
+      //   jQuery(`input[name*='formCode']`, wid.document)
+      // );
 
       // alert("formCode:"+formCode);
 
@@ -869,7 +869,7 @@ export default {
         // let formCode = formCode; //this.formListData.smartForm.formCode;
         tabs.forEach((tab, index) => {
           tab.items.forEach((item, index) => {
-            console.log("----getDataToPost", formCode, item.result, item);
+            // console.log("----getDataToPost", formCode, item.result, item);
             if (item.group != undefined && item.name.indexOf(formCode) > -1) {
               if (item.result.length > 0) {
                 postData[item.name] = item.result;
@@ -880,14 +880,14 @@ export default {
               item.child.forEach((kid, index) => {
                 if (kid.name.indexOf(formCode) > -1) {
                   if (kid.type === "datetime") {
-                    console.log(
-                      "----datetime",
-                      formCode,
-                      kid.name,
-                      typeof kid.result,
-                      moment(kid.result),
-                      kid
-                    );
+                    // console.log(
+                    //   "----datetime",
+                    //   formCode,
+                    //   kid.name,
+                    //   typeof kid.result,
+                    //   moment(kid.result),
+                    //   kid
+                    // );
                     postData[kid.name] = moment(kid.result).format(
                       "YYYY/MM/DD HH:mm"
                     );
@@ -899,7 +899,7 @@ export default {
             }
           });
         });
-        console.log("++++++++getDataToPost", postData);
+        // console.log("++++++++getDataToPost", postData);
       } catch (e) {
         //
         console.log("++++Error++++getDataToPost", postData);
@@ -908,7 +908,7 @@ export default {
       if (this.url.indexOf("editMode") > -1) {
         var formId = this.$store.state.form.formFilledData.id;
         postData["id"] = formId;
-        console.log("----id", formId, "url", this.url, postData);
+        // console.log("----id", formId, "url", this.url, postData);
       }
 
       // $(`input[id*='CR']`,wid.document)
@@ -972,7 +972,7 @@ export default {
       }
 
       if (formCode.indexOf("form_swallowing") > -1) {
-        console.log("=====window.sign", window.sign);
+        // console.log("=====window.sign", window.sign);
         if (this.info.status < 2) {
           postData["createSign"] = password;
           postData["auditSign"] = password;
@@ -1009,13 +1009,13 @@ export default {
       if (window.app.$route.query.formStatus) {
         this.formStatus = window.app.$route.query.formStatus;
       }
-      console.log(
-        "=======formStatus",
-        this.formStatus,
-        this.info.status,
-        JSON.parse(localStorage.user),
-        JSON.parse(localStorage.user).title
-      );
+      // console.log(
+      //   "=======formStatus",
+      //   this.formStatus,
+      //   this.info.status,
+      //   JSON.parse(localStorage.user),
+      //   JSON.parse(localStorage.user).title
+      // );
 
       if (this.formStatus === "2" || this.info.status === "2") {
         // this.$refs.signModal.open(this.saveFormbyPw);
@@ -1037,7 +1037,7 @@ export default {
         this.$refs.signModal.open((password, empNo) => {
           console.log("openEditAssessment:", this.$refs, password, empNo);
           checkUser(empNo, password).then(res => {
-            console.log("-----checkUser:", res);
+            // console.log("-----checkUser:", res);
             if (
               res &&
               res.data &&
@@ -1156,7 +1156,7 @@ export default {
         input = null;
       sinput = window.document.querySelector("#spin-button");
       if (isShow) {
-        console.log("spinners", spinners, sinput);
+        // console.log("spinners", spinners, sinput);
         if (spinners && spinners.length > 0) {
           spin = spinners.find(res => {
             let className = "";
@@ -1165,11 +1165,11 @@ export default {
             } catch (error) {
               //
             }
-            console.log(className, res.innerText);
+            // console.log(className, res.innerText);
             return className == "contantV2";
             // return res.innerText.indexOf(key) > -1;
           });
-          console.log("spin", spin);
+          // console.log("spin", spin);
           if (spin) {
             if (!sinput) {
               input = document.createElement("input");
@@ -1186,7 +1186,7 @@ export default {
               };
               spin.appendChild(input);
             } else {
-              console.log("sinput", sinput);
+              // console.log("sinput", sinput);
               sinput.value = text;
               if (callback) {
                 sinput.onclick = callback;
