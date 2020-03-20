@@ -8,6 +8,7 @@ import "./style/print.styl";
 Vue.prototype.HOSPITAL_ID = process.env.HOSPITAL_ID;
 Vue.prototype.HOSPITAL_NAME = process.env.HOSPITAL_NAME;
 Vue.prototype.HOSPITAL_NAME_SPACE = process.env.HOSPITAL_NAME_SPACE;
+
 /* eslint-disable no-new */
 new Vue({
   el: "#app",

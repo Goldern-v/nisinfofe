@@ -1,0 +1,69 @@
+<template>
+  <div>
+    <el-tooltip class="item" effect="dark" content="患者资料" placement="left">
+      <div class="fixed-icon" :class="{ open: open }" @click="onToggle">
+        <img src="./images/患者资料@2x.png" alt="" />
+      </div>
+    </el-tooltip>
+
+    <patientInfoSlide
+      ref="patientInfoSlide"
+      @onClose="onClose"
+    ></patientInfoSlide>
+  </div>
+</template>
+<style lang="scss" scoped>
+.fixed-icon {
+  position: fixed;
+  right: 0;
+  top: 140px;
+  background: #ffffff;
+  width: 50px;
+  height: 42px;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: -3px 3px 5px 0px rgba(0, 0, 0, 0.05);
+  border-radius: 100px 0px 0px 100px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1) 0.1s;
+  &.open {
+    right: 230px;
+  }
+  img {
+    width: 18px;
+    height: 18px;
+  }
+}
+</style>
+<script>
+import patientInfoSlide from "./modal/patient-info-slide";
+export default {
+  props: {},
+  data() {
+    return {
+      open: false
+    };
+  },
+  methods: {
+    onToggle() {
+      this.open = !this.open;
+      if (this.open) {
+        this.$route.query.patientId;
+        this.$route.query.visitId;
+
+        this.$refs.patientInfoSlide.open();
+      } else {
+        this.$refs.patientInfoSlide.close();
+      }
+    },
+    onClose() {
+      this.open = false;
+    }
+  },
+  components: {
+    patientInfoSlide
+  }
+};
+</script>

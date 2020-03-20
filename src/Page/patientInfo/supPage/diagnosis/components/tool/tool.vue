@@ -6,12 +6,12 @@
         flex="cross:center main:center"
         style="width: 90px"
         @click="openNewDiagnosis"
-        :class="{disabled: !model.selectedBlockId}"
+        :class="{ disabled: !model.selectedBlockId }"
       >
         <div class="text-con" flex="cross:center">添加新诊断</div>
       </div>
 
-      <div
+      <!-- <div
         class="item-box"
         flex="cross:center main:center"
         @click="del"
@@ -36,7 +36,7 @@
         :class="{disabled: !model.selectedRow}"
       >
         <div class="text-con" flex="cross:center">停止</div>
-      </div>
+      </div> -->
 
       <div flex-box="1"></div>
 
@@ -44,9 +44,13 @@
         class="item-box"
         flex="cross:center main:center"
         style="width: 160px; margin-right: 10px"
-        :class="{disabled: !!model.blockList.find(item => item.wardCode == deptCode)}"
+        :class="{
+          disabled: !!model.blockList.find(item => item.wardCode == deptCode)
+        }"
       >
-        <div class="text-con" flex="cross:center" @click="savePlanForm">创建新的护理计划单</div>
+        <div class="text-con" flex="cross:center" @click="savePlanForm">
+          创建新的护理计划单
+        </div>
       </div>
 
       <el-select
@@ -69,8 +73,13 @@
   </div>
 </template>
 
-<style lang="stylus" rel="stylesheet/stylus" type="text/stylus" src="./tool.styl" scoped>
-</style>
+<style
+  lang="stylus"
+  rel="stylesheet/stylus"
+  type="text/stylus"
+  src="./tool.styl"
+  scoped
+></style>
 
 <style lang="stylus">
 .diagnosis-con-select

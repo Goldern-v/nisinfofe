@@ -29,7 +29,12 @@
           </el-radio-group>
         </el-row>
         <span class="label">类型:</span>
-        <el-select v-model="type" placeholder="请选择" size="small" style="width:150px">
+        <el-select
+          v-model="type"
+          placeholder="请选择"
+          size="small"
+          style="width:150px"
+        >
           <el-option label="全部" value></el-option>
           <el-option label="输液" value="输液"></el-option>
           <el-option label="注射" value="注射"></el-option>
@@ -201,18 +206,21 @@ export default {
             array[index - 1] &&
             array[index - 1].orderNo +
               array[index - 1].patientId +
-              array[index - 1].visitId;
+              array[index - 1].visitId +
+              array[index - 1].executeDateTime;
           let nextRowId =
             array[index + 1] &&
             array[index + 1].orderNo +
               array[index + 1].patientId +
-              array[index + 1].visitId;
+              array[index + 1].visitId +
+              array[index + 1].executeDateTime;
 
           let currentRowId =
             array[index] &&
             array[index].orderNo +
               array[index].patientId +
-              array[index].visitId;
+              array[index].visitId +
+              array[index].executeDateTime;
 
           /** 判断是此记录是多条记录 */
           if (currentRowId == prevRowId || currentRowId == nextRowId) {

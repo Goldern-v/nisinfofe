@@ -8,7 +8,9 @@
         <span class="key">护理目标</span>
         <div class="value" flex="cross:stretch" flex-box="1">
           <div class="select-item" flex="cross:center main:center" flex-box="1">
-            <el-radio class="radio" v-model="radio" label="达到" size="small">达到</el-radio>
+            <el-radio class="radio" v-model="radio" label="达到" size="small"
+              >达到</el-radio
+            >
           </div>
           <div
             class="select-item"
@@ -16,27 +18,41 @@
             flex-box="1"
             style="border-left:1px solid #C2CBD2;border-right: 1px solid #C2CBD2"
           >
-            <el-radio class="radio" v-model="radio" label="部分达到" size="small">部分达到</el-radio>
+            <el-radio
+              class="radio"
+              v-model="radio"
+              label="部分达到"
+              size="small"
+              >部分达到</el-radio
+            >
           </div>
           <div class="select-item" flex="cross:center main:center" flex-box="1">
-            <el-radio class="radio" v-model="radio" label="未达到" size="small">未达到</el-radio>
+            <el-radio class="radio" v-model="radio" label="未达到" size="small"
+              >未达到</el-radio
+            >
           </div>
         </div>
       </div>
 
       <div class="select-box" flex>
         <span class="key" style="margin-top: 5px">
-          备
-          <span style="opacity: 0">空格</span>注
+          说
+          <span style="opacity: 0">空格</span>明
         </span>
         <div class="text-con" flex="cross:stretch" flex-box="1">
-          <el-input type="textarea" placeholder="请输入内容" v-model="evalContent"></el-input>
+          <el-input
+            type="textarea"
+            placeholder="请输入内容"
+            v-model="evalContent"
+          ></el-input>
         </div>
       </div>
 
       <div slot="button" style="text-align: center">
         <el-button class="modal-btn" @click="close">取消</el-button>
-        <el-button class="modal-btn" type="primary" @click="post">停止护理计划</el-button>
+        <el-button class="modal-btn" type="primary" @click="post"
+          >停止护理计划</el-button
+        >
       </div>
     </sweet-modal>
     <signModal ref="signModal"></signModal>

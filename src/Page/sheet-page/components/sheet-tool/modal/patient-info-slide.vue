@@ -1,0 +1,152 @@
+<template>
+  <div>
+    <div class="no-do-bg" v-show="show" @click="close"></div>
+    <transition name="el-zoom-in-left">
+      <div class="slide-con" v-show="show">
+        <div class="head-con" flex="cross:center main:justify">
+          <span class="title">患者资料</span>
+          <!-- <span class="close-btn" @click="close">
+            <i class="el-icon-close"></i>
+          </span> -->
+        </div>
+
+        <div class="list-con">
+          <div class="item-box">
+            <img src="../images/检查报告@2x.png" alt="" class="label-icon" />
+            <div class="label">检查报告</div>
+            <el-button @click="openModal('inspectModal')">查看</el-button>
+          </div>
+          <div class="item-box">
+            <img src="../images/检验报告@2x.png" alt="" class="label-icon" />
+            <div class="label">检验报告</div>
+            <el-button @click="openModal('testModal')">查看</el-button>
+          </div>
+          <div class="item-box">
+            <img src="../images/医嘱@2x.png" alt="" class="label-icon" />
+            <div class="label">患者医嘱</div>
+            <el-button @click="openModal('adviceModal')">查看</el-button>
+          </div>
+        </div>
+        <inspectModal ref="inspectModal" v-if="show"></inspectModal>
+        <testModal ref="testModal" v-if="show"></testModal>
+        <adviceModal ref="adviceModal" v-if="show"></adviceModal>
+      </div>
+    </transition>
+  </div>
+</template>
+
+<style lang="stylus" rel="stylesheet/stylus" type="text/stylus">
+.do-box
+  .el-checkbox__label
+    font-size: 12px;
+    color: #687179;
+    white-space normal
+  textarea
+    font-size: 12px;
+    color: #687179;
+</style>
+
+<style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
+.no-do-bg
+  position fixed;
+  top:0;
+  bottom:0;
+  left: 0;
+  right: 0;
+  z-index 1
+.slide-con
+  width 230px
+  height 100%
+  box-sizing border-box
+  position fixed
+  top 101px
+  bottom 0
+  right 0
+  background #fff
+  box-shadow:-3px 2px 5px 0px rgba(0,0,0,0.08);
+  z-index 1
+  background: #fff;
+.head-con
+  height 38px
+  background: #F7FAFA
+  border-bottom: 1px solid #EAEEF1;
+  padding 0 10px 0 20px
+  .title
+    font-size: 15px;
+    color: #333333;
+    font-weight bold
+  .close-btn
+    font-size 12px
+    padding 10px 10px
+    cursor pointer
+.list-con
+  padding 12px;
+  .item-box
+    height 45px
+    background:rgba(248,248,248,1);
+    border-radius:3px;
+    display flex;
+    align-items center
+    margin-bottom 8px
+    .label-icon
+      width 16px
+      height 16px
+      margin-left 12px
+      margin-right 11px
+    .label
+      flex 1
+      color #6E767E
+      font-size 13px
+    >>>.el-button
+      border-radius 3px
+      padding 6px 12px
+      margin-right 6px
+      font-size 12px
+      &:hover
+        color #fff;
+        border-color #4CB08D
+        background #4CB08D
+    &:hover
+      .label
+        color #333333
+        font-weight bold
+</style>
+
+<script>
+import bus from "vue-happy-bus";
+import inspectModal from "./inspect-modal";
+import testModal from "./test-modal";
+import adviceModal from "./advice-modal";
+export default {
+  data() {
+    return {
+      bus: bus(this),
+      show: false
+    };
+  },
+  computed: {},
+  methods: {
+    open() {
+      this.show = true;
+    },
+    close() {
+      this.show = false;
+      this.$emit("onClose");
+    },
+    toggle() {
+      this.show = !this.show;
+    },
+    openModal(name) {
+      this.$refs[name].open();
+    }
+  },
+  created() {},
+  mounted() {},
+  watch: {},
+  components: {
+    inspectModal,
+    testModal,
+    adviceModal
+  }
+};
+</script>

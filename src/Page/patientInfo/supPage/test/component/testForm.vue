@@ -1,21 +1,21 @@
 <template>
   <div style="position:relative">
     <div v-if="data1">
-      <el-row v-loading="loading" class="form" :style="{minHeight: height}">
-        <div class="title">{{HOSPITAL_NAME}}</div>
-        <div class="name">{{data.subject}}报告单</div>
+      <el-row v-loading="loading" class="form" :style="{ minHeight: height }">
+        <div class="title">{{ HOSPITAL_NAME }}</div>
+        <div class="name">{{ data.subject }}报告单</div>
         <el-row class="info-class" type="flex" justify="space-between">
-          <span>申请单号：{{data.testNo}}</span>
-          <span>姓名：{{$route.query.name}}</span>
-          <span>性别：{{$route.query.sex}}</span>
-          <span>年龄：{{$route.query.age}}</span>
-          <span>病人ID：{{data.patientId}}</span>
+          <span>申请单号：{{ data.testNo }}</span>
+          <span>姓名：{{ $route.query.name }}</span>
+          <span>性别：{{ $route.query.sex }}</span>
+          <span>年龄：{{ $route.query.age }}</span>
+          <span>病人ID：{{ data.patientId }}</span>
         </el-row>
         <el-row class="info-class" type="flex" justify="space-between">
-          <span>标本：{{data.specimen}}</span>
-          <span>申请日期：{{data.reqDate | dataForm}}</span>
-          <span>申请医生：{{data.reqDoctor}}</span>
-          <span>报告日期：{{data.resultDate | dataForm}}</span>
+          <span>标本：{{ data.specimen }}</span>
+          <span>申请日期：{{ data.reqDate | dataForm }}</span>
+          <span>申请医生：{{ data.reqDoctor }}</span>
+          <span>报告日期：{{ data.resultDate | dataForm }}</span>
         </el-row>
         <el-table
           :data="data1"
@@ -24,15 +24,21 @@
           class="test-table"
           @row-click="openChart"
         >
-          <el-table-column prop="itemNo" label="序号" min-width="60px"></el-table-column>
+          <el-table-column
+            prop="itemNo"
+            label="序号"
+            min-width="60px"
+          ></el-table-column>
           <el-table-column label="项目" min-width="180px">
             <template slot-scope="scope">
-              <span :class="{redText: compare(scope.row)}">{{scope.row.itemName}}</span>
+              <span :class="{ redText: compare(scope.row) }">{{
+                scope.row.itemName
+              }}</span>
             </template>
           </el-table-column>
           <el-table-column label="结果" min-width="100px">
             <template slot-scope="scope">
-              <span :class="{redText: compare(scope.row)}">
+              <span :class="{ redText: compare(scope.row) }">
                 {{ scope.row.result }}
                 <img
                   src="./images/上升@2x.png"
@@ -55,25 +61,34 @@
           </el-table-column>
           <el-table-column label="单位" min-width="82px">
             <template slot-scope="scope">
-              <span :class="{redText: compare(scope.row)}">{{scope.row.units}}</span>
+              <span :class="{ redText: compare(scope.row) }">{{
+                scope.row.units
+              }}</span>
             </template>
           </el-table-column>
           <el-table-column label="参考值" min-width="82px">
             <template slot-scope="scope">
-              <span :class="{redText: compare(scope.row)}">{{scope.row.printContext}}</span>
+              <span :class="{ redText: compare(scope.row) }">{{
+                scope.row.printContext
+              }}</span>
             </template>
           </el-table-column>
         </el-table>
       </el-row>
     </div>
-    <div v-if="!data1" class="form" :style="{minHeight: height}">
+    <div v-if="!data1" class="form" :style="{ minHeight: height }">
       <div class="null-con">
         <img src="../../../../../common/images/task/nondata.png" alt />
         <p>数据为空</p>
       </div>
     </div>
     <span class="in-moadl">
-      <el-dialog title="提示" :visible.sync="dialogVisible" size="tiny" :modal-append-to-body="false">
+      <el-dialog
+        title="提示"
+        :visible.sync="dialogVisible"
+        size="tiny"
+        :modal-append-to-body="false"
+      >
         <line-chart ref="lineChart"></line-chart>
         <span slot="footer" class="dialog-footer">
           <el-button @click="closeChart">取 消</el-button>
@@ -192,6 +207,7 @@ export default {
           return "top";
         if (row.abnormalIndicator == "L" || row.abnormalIndicator == "低")
           return "down";
+        if (row.abnormalIndicator == "") return false;
         if (!(row.abnormalIndicator == "N" || row.abnormalIndicator == "正常"))
           return true;
         return false;

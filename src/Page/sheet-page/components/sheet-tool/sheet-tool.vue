@@ -1,7 +1,11 @@
 <template>
   <div>
     <div class="tool-contain" flex="cross:center">
-      <div class="item-box" flex="cross:center main:center" @click="emit('addSheetPage')">
+      <div
+        class="item-box"
+        flex="cross:center main:center"
+        @click="emit('addSheetPage')"
+      >
         <div class="text-con">添加新页</div>
       </div>
       <!-- <div class="item-box" flex="cross:center main:center" flex-box="1" @click="emit('delSheetPage')">
@@ -12,7 +16,11 @@
                       删除记录单
                     </div>
       </div>-->
-      <div class="item-box" flex="cross:center main:center" @click="emit('saveSheetPage', false)">
+      <div
+        class="item-box"
+        flex="cross:center main:center"
+        @click="emit('saveSheetPage', false)"
+      >
         <div class="text-con" flex="cross:center">保存</div>
       </div>
       <div
@@ -23,8 +31,13 @@
       >
         <div class="text-con">出入量统计</div>
       </div>
-      <div class="item-box" flex="cross:center main:center" @click="setPage" style="width: 90px">
-        <div class="text-con">设置起始页({{sheetInfo.sheetStartPage}})</div>
+      <div
+        class="item-box"
+        flex="cross:center main:center"
+        @click="setPage"
+        style="width: 90px"
+      >
+        <div class="text-con">设置起始页({{ sheetInfo.sheetStartPage }})</div>
       </div>
       <div class="item-box" flex="cross:center main:center" @click="toPrint">
         <div class="text-con">打印预览</div>
@@ -32,13 +45,26 @@
       <!-- <div class="item-box" flex="cross:center main:center" @click="toAllPrint">
         <div class="text-con">批量打印</div>
       </div>-->
-      <div class="item-box" flex="cross:center main:center" @click.stop="toPdfPrint" v-show="isDev">
+      <div
+        class="item-box"
+        flex="cross:center main:center"
+        @click.stop="toPdfPrint"
+        v-show="isDev"
+      >
         <div class="text-con">批量打印</div>
       </div>
-      <div class="item-box" flex="cross:center main:center" @click.stop="delSheet">
+      <div
+        class="item-box"
+        flex="cross:center main:center"
+        @click.stop="delSheet"
+      >
         <div class="text-con">删除整单</div>
       </div>
-      <div class="item-box" flex="cross:center main:center" @click.stop="createSheet">
+      <div
+        class="item-box"
+        flex="cross:center main:center"
+        @click.stop="createSheet"
+      >
         <div class="text-con">新建记录单</div>
       </div>
       <div flex-box="1"></div>
@@ -65,13 +91,18 @@
             :value="item"
           >
             <div class="list-con" flex="cross:stretch">
-              <div class="col-1" :title="item.recordName">{{item.recordName}}</div>
-              <div class="col-2" :title="item.deptName">{{item.deptName}}</div>
-              <div class="col-3" :title="item.createTime">{{item.createTime}}</div>
-              <div
-                class="col-4"
-                :title="item.completeName"
-              >{{item.pageIndex}} - {{item.endPageIndex}}</div>
+              <div class="col-1" :title="item.recordName">
+                {{ item.recordName }}
+              </div>
+              <div class="col-2" :title="item.deptName">
+                {{ item.deptName }}
+              </div>
+              <div class="col-3" :title="item.createTime">
+                {{ item.createTime }}
+              </div>
+              <div class="col-4" :title="item.completeName">
+                {{ item.pageIndex }} - {{ item.endPageIndex }}
+              </div>
               <!-- <div class="col-3" :title="item.completeName">{{item.completeName}}</div> -->
             </div>
           </el-option>
@@ -106,7 +137,11 @@
         </div>
       </div>
       <div class="line"></div>
-      <div class="right-btn" flex="cross:center main:center" @click.stop="openTztbModal">
+      <div
+        class="right-btn"
+        flex="cross:center main:center"
+        @click.stop="openTztbModal"
+      >
         <div class="text-con">
           <img src="./images/体征.png" alt />
           体征同步
@@ -114,13 +149,20 @@
       </div>
       <div style="width: 5px;"></div>
     </div>
+    <patientInfo v-if="patientInfo.patientId"></patientInfo>
     <newFormModal ref="newFormModal"></newFormModal>
     <setTitleModal ref="setTitleModal"></setTitleModal>
     <tztbModal ref="tztbModal"></tztbModal>
   </div>
 </template>
 
-<style lang="stylus" rel="stylesheet/stylus" type="text/stylus" src="./tool.styl" scoped></style>
+<style
+  lang="stylus"
+  rel="stylesheet/stylus"
+  type="text/stylus"
+  src="./tool.styl"
+  scoped
+></style>
 
 <style lang="stylus" scoped>
 .pegeSelect {
@@ -243,6 +285,7 @@ import setTitleModal from "../modal/set-title-modal.vue";
 import tztbModal from "../modal/tztb-modal.vue";
 import dayjs from "dayjs";
 // import lodopPrint from "./lodop/lodopPrint";
+import patientInfo from "./patient-info";
 export default {
   mixins: [commom],
   data() {
@@ -799,7 +842,8 @@ export default {
     setPageModal,
     newFormModal,
     setTitleModal,
-    tztbModal
+    tztbModal,
+    patientInfo
   }
 };
 </script>

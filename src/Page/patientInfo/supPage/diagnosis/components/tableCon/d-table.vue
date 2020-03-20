@@ -8,40 +8,109 @@
       @row-click="selectedRow"
       :row-class-name="tableRowClassName"
     >
-      <el-table-column label="序号" width="60" type="index" align="center"></el-table-column>
-      <el-table-column prop="beginTime" label="开始时间" width="150" align="center"></el-table-column>
-      <el-table-column prop="creatorName" label="护士" width="100" align="center"></el-table-column>
-      <el-table-column prop="diagName" label="护理诊断" width="200" align="center"></el-table-column>
-      <el-table-column label="护理措施" width="400" header-align="center">
+      <!-- <el-table-column label="序号" width="60" type="index" align="center"></el-table-column> -->
+
+      <el-table-column
+        prop="diagName"
+        label="护理问题"
+        min-width="100px"
+      ></el-table-column>
+      <el-table-column
+        label="护理措施计划"
+        min-width="150px"
+        header-align="center"
+      >
         <template slot-scope="scope">
-          <span
-            v-for="(item, index) in scope.row.measuresName"
-            :key="index"
-          >{{item && item.measureDetail}}</span>
+          <span v-for="(item, index) in scope.row.measuresName" :key="index">{{
+            item && item.measureDetail
+          }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="护理目标" width="300" header-align="center">
+      <el-table-column label="护理目标" min-width="150px" header-align="center">
         <template slot-scope="scope">
-          <span
-            v-for="(item, index) in scope.row.targetsName"
-            :key="index"
-          >{{item && item.parameter}}</span>
+          <span v-for="(item, index) in scope.row.targetsName" :key="index">{{
+            item && item.parameter
+          }}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="evalType" label="评价" width="150" header-align="center"></el-table-column>
-      <el-table-column prop="endTime" label="停止时间" width="150" align="center"></el-table-column>
-      <el-table-column prop="operatorName" label="结束护士签名" width="120" align="center"></el-table-column>
+      <el-table-column
+        prop="beginTime"
+        label="开始时间"
+        width="95"
+        align="center"
+      ></el-table-column>
+      <el-table-column
+        prop="endTime"
+        label="停止时间"
+        width="95"
+        align="center"
+      ></el-table-column>
+      <el-table-column
+        prop="evalType"
+        label="护理评价"
+        min-width="80px"
+        header-align="center"
+        align="center"
+      ></el-table-column>
+      <el-table-column
+        prop="evalContent"
+        label="评价说明"
+        min-width="100px"
+        header-align="center"
+      ></el-table-column>
+
+      <el-table-column label="操作" width="95" header-align="center">
+        <template slot-scope="scope">
+          <div class="tool-con">
+            <div
+              v-if="scope.row.status == 1"
+              class="tool-btn"
+              style="color: blue"
+              @click="stop(scope.row)"
+            >
+              停止
+            </div>
+            <div
+              v-if="scope.row.status == 1"
+              class="tool-btn"
+              style="color: red"
+              @click="del(scope.row)"
+            >
+              删除
+            </div>
+            <div class="tool-btn" @click="edit(scope.row)">查看详情</div>
+          </div>
+        </template>
+      </el-table-column>
+      <!--
+      <el-table-column
+        prop="creatorName"
+        label="护士"
+        width="100"
+        align="center"
+      ></el-table-column>
+
+      <el-table-column
+        prop="operatorName"
+        label="结束护士签名"
+        width="120"
+        align="center"
+      ></el-table-column> -->
     </el-table>
+    <stopDiagnosisModal ref="stopDiagnosisModal"></stopDiagnosisModal>
   </div>
 </template>
 
-  <script>
+<script>
 import common from "@/common/mixin/common.mixin";
 import { nursingDiagsPatient } from "../../api/index";
 import { model } from "../../diagnosisViewModel";
+import { nursingDiagsDel, savePlanForm } from "../../api/index";
+import stopDiagnosisModal from "../../modal/stopDiagnosisModal";
 export default {
   mixins: [common],
   props: ["tableData"],
+  inject: ["openSlideCon"],
   data() {
     return {
       model
@@ -49,15 +118,44 @@ export default {
   },
   methods: {
     selectedRow(row) {
-      model.selectedRow = row;
+      // model.selectedRow = row;
     },
     tableRowClassName(row) {
-      if (row.id == (this.model.selectedRow && this.model.selectedRow.id)) {
-        return "selected-row";
-      }
+      // if (row.id == (this.model.selectedRow && this.model.selectedRow.id)) {
+      //   return "selected-row";
+      // }
+    },
+    edit(row) {
+      // if (!this.verify()) return;
+      model.selectedRow = row;
+      this.openSlideCon({
+        id: model.selectedRow.id,
+        code: model.selectedRow.diagCode,
+        name: model.selectedRow.diagName,
+        definition: model.selectedRow.definition
+      });
+    },
+    del(row) {
+      // if (!this.verify()) return;
+      model.selectedRow = row;
+      window.openSignModal((password, empNo) => {
+        nursingDiagsDel(password, empNo, model.selectedRow.id).then(res => {
+          this.$message.success("删除成功");
+          model.refreshTable();
+          model.selectedRow = null;
+        });
+      }, "你确定要删除诊断？");
+    },
+    stop(row) {
+      // if (!this.verify()) return;
+      model.selectedRow = row;
+      this.$refs.stopDiagnosisModal.open();
     }
   },
-  created() {}
+  created() {},
+  components: {
+    stopDiagnosisModal
+  }
 };
 </script>
 
@@ -72,7 +170,7 @@ export default {
       background: #f4f2f4;
     }
   }
-  /deep/ *::-webkit-scrollbar {
+  /* /deep/ *::-webkit-scrollbar {
     width: 12px;
     height: 12px;
     background-color: #eaeaea;
@@ -85,7 +183,7 @@ export default {
   /deep/ *::-webkit-scrollbar-thumb {
     border-radius: 50px; // -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
     background-color: #c2c2c2;
-  }
+  } */
   /deep/ .el-table {
     border: 1px solid #000 !important;
     th {
@@ -105,6 +203,17 @@ export default {
     .el-table__body-wrapper {
       margin-top: -1px;
     }
+  }
+}
+
+.tool-con {
+  padding: 5px;
+}
+.tool-btn {
+  text-align: center;
+  cursor: pointer;
+  &:hover {
+    font-weight: bold;
   }
 }
 </style>
