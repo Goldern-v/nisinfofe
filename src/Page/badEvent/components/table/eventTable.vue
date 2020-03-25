@@ -155,9 +155,16 @@
       height: 40px;
       font-size: 14px;
 
-      div {
-        padding-left: 0px;
-        padding-right: 0px;
+      > div {
+        padding-left: 5px;
+        padding-right: 5px;
+      }
+    }
+
+    td {
+      &.is-left {
+        padding-left: 0;
+        padding-right: 0;
       }
     }
   }
@@ -168,7 +175,7 @@
   }
 
   >>>.el-table__row td:first-child .cell, >>>.el-table__row td:last-child .cell {
-    padding: 0 5px;
+    padding: 0 3px;
     text-align: center;
   }
 
@@ -208,8 +215,8 @@ export default {
     this.bus.$on("setTableData", this.setTableData);
   },
   methods: {
-    sliceString(str, limit = 14) {
-      let result = str + "";
+    sliceString(str, limit = 18) {
+      let result = str ? str + "" : "";
       if (result && result.length > limit) {
         result = result.slice(0, limit) + "..";
       }

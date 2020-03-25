@@ -38,7 +38,8 @@
       <div class="viewbar-right" :style="'height: '+(wih-60)+'px'">
         <div class="viewbar-right-top">
           <Button class="btn" :disabled="badEventLoad || isDisabled" @click="saveEdit">编辑</Button>
-          <Button class="btn" :disabled="badEventLoad || isDisabled" @click="deleteEdit">删除</Button>
+          <Button class="btn" :disabled="badEventLoad || isDisabled2" @click="deleteEdit">删除</Button>
+          <Button class="btn" :disabled="badEventLoad || isDisabled3" @click="revoke">撤销</Button>
           <Button
             class="green-btn btn"
             :disabled="badEventLoad || isDisabled"
@@ -99,10 +100,10 @@
     background: linear-gradient(180deg, rgba(248, 248, 252, 1) 0%, rgba(235, 236, 240, 1) 100%);
     border-bottom: 1px solid #CBD5DD;
     overflow: hidden;
-    padding: 42px 0 41px 42px;
+    padding: 42px 0 41px 20px;
+    display: flex;
 
     .btn {
-      width: 78px;
       margin-right: 8px;
       margin-left: 0;
       height: 30px;
@@ -142,18 +143,44 @@
 
   .viewbar-right-steps {
     margin-left: 28px;
-
-    >>>.el-step__icon {
-      font-size: 12px;
-    }
   }
 }
 
 >>>.el-step__head {
-  // width 20px
-  // height 20px
+  width: 18px;
+  height: 18px;
+  line-height: 18px;
+  font-size: 18px;
+
   &.is-text {
     font-size: 9px;
+
+    &.is-success {
+      background-color: #4BB08D;
+      border-color: #4BB08D;
+    }
+  }
+
+  .el-step__icon {
+    line-height: 18px;
+  }
+
+  .el-step__line.is-vertical {
+    top: 22px;
+    left: 10px;
+  }
+}
+
+>>>.el-step {
+  &.is-vertical {
+    .el-step__main {
+      padding-left: 10px;
+      padding-bottom: 26px;
+    }
+
+    .el-step__title {
+      line-height: 24px;
+    }
   }
 }
 
@@ -306,7 +333,7 @@ export default {
       stepStatus: 0, //步骤条状态
       eventStatusOptions: [], //所有事件状态
       status: "", //状态
-      stateText: "", //状态名称
+      stateText: "保存", //状态名称
       badEventLoad: true // 编辑按钮置灰
     };
   },
@@ -314,12 +341,27 @@ export default {
     badEventPageLoading() {
       return window.pageLoading || this.pageLoading;
     },
+    //保存
     isDisabled() {
-      return !(
-        (this.eventStatusOptions[1] &&
-          this.status == this.eventStatusOptions[1].code) ||
-        (this.eventStatusOptions[2] &&
-          this.status == this.eventStatusOptions[2].code)
+      return (
+        this.eventStatusOptions[1] &&
+        this.status != this.eventStatusOptions[1].code
+      );
+    },
+    // 保存/上报
+    isDisabled2() {
+      return (
+        this.eventStatusOptions[1] &&
+        this.status != this.eventStatusOptions[1].code &&
+        this.eventStatusOptions[2] &&
+        this.status != this.eventStatusOptions[2].code
+      );
+    },
+    // 上报
+    isDisabled3() {
+      return (
+        this.eventStatusOptions[2] &&
+        this.status != this.eventStatusOptions[2].code
       );
     }
   },
@@ -331,9 +373,8 @@ export default {
     this.getBadEventStream();
     window.updateBadEventViewPage = this.onloadPage;
     window.badEventLoad = this.showBtn;
-    // 获取所有事件状态
-    this.getEventStatus();
-    this.stateText = this.$route.query.statusName;
+
+    this.stateText = this.$route.query.statusName || this.stateText;
     this.status = this.$route.params.status;
   },
   watch: {
@@ -346,8 +387,12 @@ export default {
     }
   },
   methods: {
-    showBtn() {
+    showBtn(instance) {
       this.badEventLoad = false;
+      let status = instance.status;
+      this.status = status;
+      // 获取所有事件状态
+      this.getEventStatus(status);
     },
     async load() {
       if (this.$route.params.name) {
@@ -389,6 +434,7 @@ export default {
         window.wid = wid;
         this.wid = wid;
         this.iframeHeight = wid.document.body.scrollHeight * 1.05;
+        console.log(wid.formObj.model);
       }
       this.pageLoading = false;
     },
@@ -404,46 +450,12 @@ export default {
       });
     },
     updateUI(stream) {
-      let list = [
-        {
-          label: "保存：" + this.$route.params.name
-        },
-        {
-          label: "上报"
-        },
-        {
-          label: "质控科审核"
-        },
-        {
-          label: "责任科室"
-        },
-        {
-          label: "质控科总结"
-        },
-        {
-          label: "医院质量与安全管理委员会处理"
-        }
-      ];
-
-      this.steps = list.map((item, index) => {
+      let isFlag = false;
+      this.steps = stream.map((item, index) => {
         let operatorName = "",
           operateDate = "",
           status = "";
-        if (index < stream.length) {
-          if (
-            stream[index].operatorStatus == "quality_controller" &&
-            !stream[index].allow
-          ) {
-            status = "error";
-          } else {
-            status = "success";
-          }
-        } else if (index == stream.length - 1) {
-          status = "finish";
-        } else {
-          status = "wait";
-        }
-        if (stream[index]) {
+        if (stream[index].instanceId) {
           if (
             stream[index].operatorStatus == "save" ||
             stream[index].operatorStatus == "nurse_submit"
@@ -459,12 +471,24 @@ export default {
           operateDate = stream[index].operateDate
             ? moment(stream[index].operateDate).format("YYYY-MM-DD HH:mm")
             : "";
+          if (stream[index].allow) {
+            status = "success";
+          } else if (index == stream.length) {
+            status = "finish";
+          } else {
+            status = "error";
+          }
         } else {
+          if (!isFlag) {
+            isFlag = true;
+            this.stepStatus = index;
+          }
           operatorName = "未完成";
+          status = "wait";
         }
 
         return {
-          title: item.label,
+          title: item.operateName || item.operatorName,
           description: `${operatorName}<br>${operateDate}`,
           status
         };
@@ -493,12 +517,23 @@ export default {
         );
       }
     },
+    // 撤销上报
+    revoke() {
+      if (this.wid) {
+        this.wid.CRForm.controller.revoke(this.$route.params.id, this.$router);
+      }
+    },
     // 获取所有事件状态
-    getEventStatus() {
+    getEventStatus(status) {
       let list = ["badEvent_status"];
       multiDictInfo(list).then(res => {
         let arr = res.data.data.badEvent_status;
         this.eventStatusOptions = [{ code: "", name: "全部" }, ...arr];
+        for (let i = 0; i < this.eventStatusOptions.length; i++) {
+          if (this.eventStatusOptions[i].code == status) {
+            this.stateText = this.eventStatusOptions[i].name;
+          }
+        }
       });
     },
     // 不良事件轨迹
@@ -506,23 +541,6 @@ export default {
       getStreamByInstanceId(this.$route.params.id).then(res => {
         if (res.data && res.data.code == 200) {
           this.updateUI(res.data.data);
-          this.stepStatus = res.data.data.length;
-          if (!res.data.data.length) {
-            return;
-          }
-          let index = res.data.data.length - 1;
-          this.status = res.data.data[index].operatorStatus;
-
-          for (let i = 0; i < this.eventStatusOptions.length; i++) {
-            if (
-              this.eventStatusOptions[i].code == "quality_controller" &&
-              !res.data.data[index].allow
-            ) {
-              this.stateText = "质管科审核不通过";
-            } else if (this.eventStatusOptions[i].code == this.status) {
-              this.stateText = this.eventStatusOptions[i].name;
-            }
-          }
         }
       });
     }

@@ -298,6 +298,13 @@ export default {
       return [{ value: "", label: "全部" }, ...arr];
     }
   },
+  watch: {
+    deptCode() {
+      // 获取所有事件
+      this.getEventTemplateData();
+      this.loadEventData();
+    }
+  },
   methods: {
     updateTable() {
       this.loadEventData();
