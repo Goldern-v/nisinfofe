@@ -10,7 +10,7 @@
     <div class="content">
       <p class="title">
         患者问卷填写
-        <span style="color: #999999; font-weight: normal">（最高分75分）</span>：
+        <span style="color: #999999; font-weight: normal">（最高分150分）</span>：
       </p>
       <p class="grade">
         得分：
