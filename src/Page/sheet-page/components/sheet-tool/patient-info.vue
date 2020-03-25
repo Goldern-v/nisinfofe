@@ -50,9 +50,8 @@ export default {
     onToggle() {
       this.open = !this.open;
       if (this.open) {
-        this.$route.query.patientId;
-        this.$route.query.visitId;
-
+        this.$route.query.patientId = this.patientInfo.patientId;
+        this.$route.query.visitId = this.patientInfo.visitId;
         this.$refs.patientInfoSlide.open();
       } else {
         this.$refs.patientInfoSlide.close();
@@ -60,6 +59,11 @@ export default {
     },
     onClose() {
       this.open = false;
+    }
+  },
+  computed: {
+    patientInfo() {
+      return this.$store.state.sheet.patientInfo;
     }
   },
   components: {
