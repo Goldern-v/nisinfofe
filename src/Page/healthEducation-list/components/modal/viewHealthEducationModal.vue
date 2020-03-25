@@ -4,7 +4,7 @@
     class="satisfy-modal-1577412732265"
     title="满意度调查表"
     @close="onClose"
-    :modalWidth="850"
+    :modalWidth="900"
   >
     <iframe v-if="id" :src="url" frameborder="0"></iframe>
     <div class="content">
@@ -40,14 +40,14 @@ iframe {
   background: #f0f0f0;
   padding: 12px 25px;
   box-sizing: border-box;
-  width: 52%;
+  width: 50%;
   height: calc(100vh - 260px);
   margin-bottom: -6px;
   float: left;
 }
 .content {
   float: right;
-  width: 48%;
+  width: 50%;
   height: calc(100vh - 260px);
   .title {
     color: #333333;
@@ -72,7 +72,7 @@ ul {
   margin-left: 30px;
   li {
     display: inline-block;
-    width: 75px;
+    width: 100px;
     margin-bottom: 12px;
   }
   li:hover {
