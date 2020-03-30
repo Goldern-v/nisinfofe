@@ -46,7 +46,7 @@
           </ElSelect>
         </ElFormItem>
         <ElFormItem prop="method" label="教育方法：">
-          <ElSelect v-model="form.method">
+          <ElSelect v-model="form.method" :disabled="isOk">
             <ElOption
               v-for="item in educationMethod"
               :key="item.value"
@@ -120,14 +120,15 @@ export default {
       options: [], // 宣教内容下拉框数据
       itemData: {}, // 修改时暂存参数
       date: "", // 修改时的宣教时间
+      isOk: true, // 教育对象是否禁用（根据状态判断 -1:删除，0:未推送，1:未读，1R:已读，2:已明白，3:有疑问， 后面三个可以）
       rules: {
         state: [{ required: true, message: "请输入宣教内容", trigger: "blur" }],
         object: [
           { required: true, message: "请选择教育对象", trigger: "blur" }
         ],
-        method: [
-          { required: true, message: "请选择教育方法", trigger: "blur" }
-        ],
+        // method: [
+        //   { required: true, message: "请选择教育方法", trigger: "blur" }
+        // ],
         assessment: [
           { required: true, message: "请选择教育评估", trigger: "blur" }
         ],
@@ -148,6 +149,10 @@ export default {
       this.disabled = !!form;
       if (form) {
         let statusText = this.setStatus(form["item"].status); // 推送状态
+        let status = form["item"].status;
+        if (status && (status === "1R" || status === "2" || status === "3")) {
+          this.isOk = false;
+        }
         this.title =
           title +
           `<span style="margin-left:10px;color:${
@@ -172,6 +177,7 @@ export default {
         this.form.signature = form["签名"] || "";
       } else {
         this.title = title;
+        this.isOk = true;
         // 添加时清空表单
         this.form = {
           state: "",
@@ -263,9 +269,10 @@ export default {
       let object = educationObiect.filter(
         item => item.value === this.form.object
       )[0].text; // 教育对象
-      let method = educationMethod.filter(
+      let haveValue = educationMethod.filter(
         item => item.value === this.form.method
-      )[0].text; // 教育方法
+      );
+      let method = (haveValue > 0 && haveValue[0].text) || ""; // 教育方法
       let assessment = educationAssessment.filter(
         item => item.value === this.form.assessment
       )[0].text; // 教育评估
