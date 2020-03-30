@@ -2,7 +2,7 @@
  * @author: weijun.lai
  * @date: 2019-06-10 16:48:57
  * @lastEditors: weijun.lai
- * @lastEditTime: 2019-07-19 14:46:00
+ * @lastEditTime: 2020-03-30 14:49:21
  * @version: cr-nursing-0.1
  * @description: 反复只使用同一个消息盒子开启关闭，不而外重叠显示其他消息盒子
  */
@@ -26,6 +26,14 @@ export const notifyBox = () => {
             title = Ntitle;
             type = Ntype;
             this.showBox(Nduration);
+        },
+        // 显示消息
+        showMsg: function (config) {
+            if (mesg) {
+                this.close();
+            }
+            mesg = parent.window.app.$notify(config);
+            this.status = "show";
         },
         showMessage: function (msgObj) {
             messageVNode = wid.app.$createElement("p", { style: "max-height: 100px;height:auto;overflow: auto;" }, msgObj.message);

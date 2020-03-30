@@ -140,6 +140,9 @@ export default {
   },
   created() {
     this.pageLoading = true;
+    this.bus.$on("closeAssessmentV1", () => {
+      this.url = "";
+    });
     this.bus.$on("openAssessment", this.openUrl);
     this.bus.$on("openNewFormBox", this.openNewFormBox);
     this.bus.$on("openMessageBox", this.openMessageBox);
@@ -186,6 +189,7 @@ export default {
       this.info = Object.assign({}, this.info, info);
       this.info = Object.assign(this.info, info);
       let url = "";
+      this.url = "";
 
       if (!this.info.nooForm) {
         this.info.nooForm = "0";
@@ -794,7 +798,11 @@ export default {
       });
       console.log(allSigned, curForm, treeData, this.info, "info");
       // curForm.label
-      if (!allSigned) {
+      if (
+        !allSigned &&
+        this.info.title &&
+        !this.info.title.includes("入院评估表")
+      ) {
         this.$message.warning(`不允许打印,请查看提示详情.`);
         this.$notify({
           title: "提示",
@@ -1875,6 +1883,7 @@ export default {
       this.pageLoading = true;
       this.iframeHeight = "auto";
       this.iframeHeight = 100;
+      this.bus.$emit("closeAssessmentV2");
     }
   },
   components: {

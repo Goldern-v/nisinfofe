@@ -217,15 +217,27 @@ export default {
     nodeClick(data, node) {
       console.log(
         "nodeClick",
-        data,
-        node,
+        { data, node },
         node.parent,
         node.data.formName,
         data.pageTitle
       );
       // window.app.$store.commit('upFormFilledData', data)
       // wid.setTitle(data.pageTitle+"健康教育单")
-      this.bus.$emit("activeAllButons");
+      // this.bus.$emit("disableAllButons");
+
+      try {
+        window.app.$CRMessageBox.notifyBox.close();
+        if (data.formName && data.formName.includes("入院评估表")) {
+          this.bus.$emit("disableAllButons");
+        } else {
+          this.bus.$emit("activeAllButons");
+          this.bus.$emit("visibleButtons", { name: "", bool: false });
+        }
+      } catch (error) {
+        console.error("nodeClickError", error);
+      }
+      //
       // console.log("555555555555")
       // rgb(228, 241, 240)
       if (node.level === 2) {

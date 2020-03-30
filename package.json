@@ -24,8 +24,10 @@
     "toSvn": "svn commit -m 前端代码更新svn"
   },
   "dependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
     "async-validator": "1.6.9",
     "axios": "^0.18.0",
+    "babel-preset-es2015": "^6.24.1",
     "bulma": "^0.7.1",
     "cheerio": "^1.0.0-rc.2",
     "dayjs": "^1.7.4",
@@ -72,6 +74,7 @@
     "websocket": "^1.0.28"
   },
   "devDependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
     "autoprefixer": "^7.1.2",
     "babel-core": "^6.26.3",
     "babel-eslint": "^7.1.1",

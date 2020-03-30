@@ -5,21 +5,17 @@
       {
         "modules": false,
         "targets": {
-          "browsers": [
-            "> 1%",
-            "last 2 versions",
-            "not ie <= 8"
-          ]
+          "browsers": ["> 1%", "last 2 versions", "not ie <= 8"]
         }
       }
     ],
-    "stage-2",
-    "es2015"
+    "es2015",
+    "stage-2"
   ],
   "plugins": [
     "transform-runtime",
     "transform-vue-jsx",
-    "transform-class-properties",
+    "transform-class-properties"
     // [
     //   "component",
     //   {
@@ -27,20 +23,18 @@
     //     "styleLibraryName": "theme-chalk"
     //   }
     // ],
-    ["import", {
-      "libraryName": "view-design",
-      "libraryDirectory": "src/components"
-    }]
+    // [
+    //   "import",
+    //   {
+    //     "libraryName": "view-design",
+    //     "libraryDirectory": "src/components"
+    //   }
+    // ]
   ],
   "env": {
     "test": {
-      "presets": [
-        "env",
-        "stage-2"
-      ],
-      "plugins": [
-        "istanbul"
-      ]
+      "presets": ["env", "stage-2"],
+      "plugins": ["istanbul"]
     }
   }
 }

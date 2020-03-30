@@ -67,7 +67,11 @@ module.exports = {
           // resolve("node_modules/ecrm-element-ui"),
           resolve("node_modules/view-design"),
           resolve("node_modules/_view-design@4.0.2@view-design")
-        ]
+        ],
+        options: { plugins: ['transform-class-properties'] }
+        // options: {
+        //   presets: ['es2015']
+        // }
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,

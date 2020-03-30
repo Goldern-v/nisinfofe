@@ -128,6 +128,9 @@ export default {
   },
   created() {
     this.pageLoading = true;
+    this.bus.$on("closeAssessmentV2", () => {
+      this.url = "";
+    });
     this.bus.$on("openAssessmentV2", this.openUrl);
     this.bus.$on("openNewFormBoxV2", this.openNewFormBox);
     this.bus.$on("openMessageBoxV2", this.openMessageBox);
@@ -156,6 +159,8 @@ export default {
     window.cleanAllMark = this.cleanAllMark;
     window.onFormLoaded = this.onFormLoaded;
     //
+    // this.bus.$emit("disableAllButons");
+    //
     this.$refs["iframeLoadingV2"]["$methods"] = () => {
       return {
         busEmit: this.bus.$emit,
@@ -169,7 +174,20 @@ export default {
         activeAllButons: () => {
           this.bus.$emit("activeAllButons");
         },
+        disableAllButons: () => {
+          this.bus.$emit("disableAllButons");
+        },
+        visibleButtons: e => {
+          this.bus.$emit("visibleButtons", e);
+        },
+        activeButton: e => {
+          this.bus.$emit("activeButton", e);
+        },
+        disableButton: e => {
+          this.bus.$emit("disableButton", e);
+        },
         closeAssessment: () => {
+          this.url = "";
           this.bus.$emit("closeAssessment");
         },
         setLoadingText: this.setLoadingText,
@@ -564,7 +582,11 @@ export default {
       });
       console.log(allSigned, curForm, treeData, this.info, "info");
       // curForm.label
-      if (!allSigned) {
+      if (
+        !allSigned &&
+        this.info.title &&
+        !this.info.title.includes("入院评估表")
+      ) {
         this.$message.warning(`不允许打印,请查看提示详情.`);
         this.$notify({
           title: "提示",
@@ -1661,6 +1683,7 @@ export default {
   watch: {
     url() {
       this.pageLoading = true;
+      this.bus.$emit("closeAssessmentV1");
       // this.iframeHeight = "auto";
       // this.iframeHeight = this.wih - this.offsetHeight; //100;
     }
