@@ -8,7 +8,11 @@
       @row-click="selectedRow"
       :row-class-name="tableRowClassName"
     >
-      <!-- <el-table-column label="序号" width="60" type="index" align="center"></el-table-column> -->
+      <el-table-column label="序号" width="60" align="center"
+        ><template slot-scope="scope">{{
+          scope.row.index
+        }}</template></el-table-column
+      >
 
       <el-table-column
         prop="diagName"

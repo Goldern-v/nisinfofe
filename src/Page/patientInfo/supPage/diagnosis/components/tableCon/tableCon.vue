@@ -77,6 +77,9 @@ export default {
       this.tableLoading = true;
       nursingDiagsPatient(obj).then(res => {
         this.tableData = res.data.data.page.list;
+        this.tableData.map((item, index) => {
+          item.index = `P${index + 1}`;
+        });
         this.tableLoading = false;
       });
     }
