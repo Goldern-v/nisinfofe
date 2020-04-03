@@ -204,22 +204,18 @@ export default {
         this.tableData = res.data.data.list.map((item, index, array) => {
           let prevRowId =
             array[index - 1] &&
-            array[index - 1].orderNo +
-              array[index - 1].patientId +
-              array[index - 1].visitId +
+            array[index - 1].patientId +
+              array[index - 1].barCode +
               array[index - 1].executeDateTime;
           let nextRowId =
             array[index + 1] &&
-            array[index + 1].orderNo +
-              array[index + 1].patientId +
-              array[index + 1].visitId +
+            array[index + 1].patientId +
+              array[index + 1].barCode +
               array[index + 1].executeDateTime;
-
           let currentRowId =
             array[index] &&
-            array[index].orderNo +
-              array[index].patientId +
-              array[index].visitId +
+            array[index].patientId +
+              array[index].barCode +
               array[index].executeDateTime;
 
           /** 判断是此记录是多条记录 */
