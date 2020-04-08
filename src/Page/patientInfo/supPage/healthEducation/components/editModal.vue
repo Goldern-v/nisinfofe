@@ -172,7 +172,12 @@ export default {
           item => item.text === form["教育评估"]
         )[0];
         this.form.object = object ? object.value : "";
-        this.form.method = method ? method.value : "3";
+        // this.form.method = method ? method.value || "3" : "1";
+        this.form.method = method
+          ? method.value
+          : form["教育方法"] === "在线"
+          ? "3"
+          : "1";
         this.form.assessment = assessment ? assessment.value : "";
         this.form.remarks = form["备注"] || "";
         this.form.signature = form["签名"] || "";
@@ -183,7 +188,7 @@ export default {
         this.form = {
           state: "",
           object: "",
-          method: "",
+          method: "1",
           assessment: "",
           remarks: "",
           signature: ""
