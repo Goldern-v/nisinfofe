@@ -109,7 +109,7 @@ export default {
     this.bus.$on("openAssessmentBoxWidthVersion", data => {
       this.bus.$emit("openAssessmentBox", {
         ...this.nodeData,
-        data
+        ...data
       });
     });
     this.bus.$on("openAssessmentBox", data => {
