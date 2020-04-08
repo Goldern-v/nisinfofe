@@ -10,6 +10,7 @@
     "dev:wuhang": "npm run dev --wuhang",
     "dev:guiyi": "npm run dev --guiyi",
     "dev:weixian": "npm run dev --weixian",
+    "dev:lingcheng": "npm run dev --lingcheng",
     "start": "node build/dev-server.js",
     "build": "node build/build.js",
     "build:": "npm run build",
