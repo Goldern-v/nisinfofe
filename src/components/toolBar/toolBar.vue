@@ -3,8 +3,7 @@
     <div class="tool-contain" flex="cross:center" :style="config.style">
       <div
         flex="cross:center main:center"
-        v-if="config.left && item.
-        visible == true"
+        v-if="config.left && item.visible == true"
         v-for="(item) in config.left"
         :key="item.name"
         @click.stop="item.click"
@@ -55,39 +54,49 @@ export default {
     };
   },
   mounted() {
-    this.activeAllButons();
     // this.disableAllButons();
     this.bus.$on("activeAllButons", this.activeAllButons);
     this.bus.$on("activeButton", this.activeButton);
     this.bus.$on("disableButton", this.disableButton);
     this.bus.$on("disableAllButons", this.disableAllButons);
     this.bus.$on("visibleButtons", this.visibleButtons);
+    //
+    this.activeAllButons();
+    this.visibleButtons({ name: "", bool: false });
   },
   methods: {
     emit(todo) {
       this.bus.$emit(todo);
     },
     visibleButtons(e = { name: "", bool: true }) {
-      [...this.config.left, ...this.config.right].map((element, key) => {
-        try {
-          // console.log("!!!v!!", e.name, e, {
-          //   el: object[key],
-          //   key,
-          //   object,
-          //   val: e.bool && true
-          // });
-          if (
-            (object[key].name === e.name && typeof e.name == "string") ||
-            (typeof e.name == "object" && e.name.indexOf(object[key].name) > -1)
-          ) {
-            object[key].visible = e.bool;
-          } else if (e && !e.name) {
-            object[key].visible = e.bool;
+      let object = [...this.config.left, ...this.config.right];
+      // object.map((element, key) => {
+      for (const key in object) {
+        if (object.hasOwnProperty(key) > -1) {
+          const element = object[key];
+          try {
+            // console.log("!!!v!!", e.name, e, {
+            //   el: object[key],
+            //   key,
+            //   object,
+            //   val: e.bool && true
+            // });
+            // if (object) {
+            // if (
+            //   (element.name === e.name && typeof e.name == "string") ||
+            //   (typeof e.name == "object" && e.name.indexOf(element.name) > -1)
+            // ) {
+            //   element.visible = e.bool;
+            // } else if (e && !e.name) {
+            //   element.visible = e.bool;
+            // }
+            // }
+          } catch (error) {
+            console.error("error", error);
           }
-        } catch (error) {
-          console.error("error", error);
         }
-      });
+      }
+      // });
     },
     activeAllButons() {
       let object = [...this.config.left, ...this.config.right];

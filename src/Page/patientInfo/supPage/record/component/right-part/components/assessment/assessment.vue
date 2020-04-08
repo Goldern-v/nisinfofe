@@ -1883,7 +1883,7 @@ export default {
       this.pageLoading = true;
       this.iframeHeight = "auto";
       this.iframeHeight = 100;
-      this.bus.$emit("closeAssessmentV2");
+      // this.bus.$emit("closeAssessmentV2");
     }
   },
   components: {

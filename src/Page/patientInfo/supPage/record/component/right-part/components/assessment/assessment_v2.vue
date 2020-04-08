@@ -1683,7 +1683,7 @@ export default {
   watch: {
     url() {
       this.pageLoading = true;
-      this.bus.$emit("closeAssessmentV1");
+      // this.bus.$emit("closeAssessmentV1");
       // this.iframeHeight = "auto";
       // this.iframeHeight = this.wih - this.offsetHeight; //100;
     }

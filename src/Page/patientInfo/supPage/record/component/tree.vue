@@ -227,13 +227,14 @@ export default {
       // this.bus.$emit("disableAllButons");
 
       try {
+        // if (data.formName && data.formName.includes("入院评估表")) {
+        //   this.bus.$emit("disableAllButons");
+        //   // this.bus.$emit("visibleButtons", { name: "", bool: false });
+        // } else {
+        this.bus.$emit("activeAllButons");
+        // this.bus.$emit("visibleButtons", { name: "", bool: false });
+        // }
         window.app.$CRMessageBox.notifyBox.close();
-        if (data.formName && data.formName.includes("入院评估表")) {
-          this.bus.$emit("disableAllButons");
-        } else {
-          this.bus.$emit("activeAllButons");
-          this.bus.$emit("visibleButtons", { name: "", bool: false });
-        }
       } catch (error) {
         console.error("nodeClickError", error);
       }

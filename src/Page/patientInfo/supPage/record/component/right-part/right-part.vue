@@ -103,9 +103,14 @@ export default {
       isPushForward: false
     };
   },
-  created() {
+  created() {},
+  mounted() {
     this.bus.$on("openAssessmentBox", data => {
       console.log("openAssessmentBox", data);
+      // 关闭已经打开的页面
+      this.bus.$emit("closeAssessmentV1");
+      this.bus.$emit("closeAssessmentV2");
+      //
       // 外置按钮配置
       if (data.hasOwnProperty("isOutSign")) {
         this.isOutSign = data.isOutSign;
@@ -120,10 +125,12 @@ export default {
         this.showConToolBar = data.showConToolBar;
       }
       this.formVersion = 0;
-      let newFormList = ['form_in_patients','inPatients']
+      let newFormList = ["form_in_patients", "inPatients"];
+
       if (
         (data.hasOwnProperty("formVersion") && data.formVersion == 2) ||
-        data.nooForm == 2 || newFormList.indexOf(data.fromCode)>-1
+        data.nooForm == 2 ||
+        newFormList.indexOf(data.fromCode) > -1
       ) {
         this.formVersion = data.formVersion;
         this.showConToolBar = false;

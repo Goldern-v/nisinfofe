@@ -105,19 +105,19 @@ export function toolBarConfig(
           // window.openTestDiagnosisModal(params)
         }
       },
-      {
-        name: "开发测试按钮",
-        visible: isDev || false,
-        disabled: false,
-        click: () => {
-          // let wid = document.querySelector('.assessment-iframe').contentWindow
-          // getWid().toCheckForm()
-          let params = {
-            title: "测试开发弹框页面"
-          }
-          window.openTestDiagnosisModal(params)
-        }
-      },
+      // {
+      //   name: "开发测试按钮",
+      //   visible: isDev || false,
+      //   disabled: false,
+      //   click: () => {
+      //     // let wid = document.querySelector('.assessment-iframe').contentWindow
+      //     // getWid().toCheckForm()
+      //     let params = {
+      //       title: "测试开发弹框页面"
+      //     }
+      //     window.openTestDiagnosisModal(params)
+      //   }
+      // },
       {
         name: "推送",
         visible: isPushForward || false,
