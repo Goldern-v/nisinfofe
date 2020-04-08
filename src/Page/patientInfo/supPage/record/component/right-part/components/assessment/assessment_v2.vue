@@ -190,6 +190,12 @@ export default {
           this.url = "";
           this.bus.$emit("closeAssessment");
         },
+        openAssessmentBoxWidthVersion: e => {
+          this.bus.$emit("openAssessmentBoxWidthVersion", e);
+        },
+        openAssessmentBox: e => {
+          this.bus.$emit("openAssessmentBox", e);
+        },
         setLoadingText: this.setLoadingText,
         setLoadingStatus: this.setLoadingStatus,
         setLoadingButton: this.setLoadingButton,

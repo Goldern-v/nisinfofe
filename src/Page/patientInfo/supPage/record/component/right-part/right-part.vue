@@ -100,13 +100,21 @@ export default {
       isAddNewPage: true,
       hasMeasure: true,
       hasCheck: true,
-      isPushForward: false
+      isPushForward: false,
+      nodeData: {}
     };
   },
   created() {},
   mounted() {
+    this.bus.$on("openAssessmentBoxWidthVersion", data => {
+      this.bus.$emit("openAssessmentBox", {
+        ...this.nodeData,
+        data
+      });
+    });
     this.bus.$on("openAssessmentBox", data => {
       console.log("openAssessmentBox", data);
+      this.nodeData = { ...data };
       // 关闭已经打开的页面
       this.bus.$emit("closeAssessmentV1");
       this.bus.$emit("closeAssessmentV2");
@@ -128,8 +136,8 @@ export default {
       let newFormList = ["form_in_patients", "inPatients"];
 
       if (
+        data.nooForm == "2" ||
         (data.hasOwnProperty("formVersion") && data.formVersion == 2) ||
-        data.nooForm == 2 ||
         newFormList.indexOf(data.fromCode) > -1
       ) {
         this.formVersion = data.formVersion;
