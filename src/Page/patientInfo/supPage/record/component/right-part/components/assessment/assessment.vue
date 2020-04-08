@@ -29,6 +29,15 @@
 </template>
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
+
+.contantV2 {
+  position: relative;
+  background: transparent;
+  margin: 0 auto;
+  height: 100%;
+  width: 100%;
+}
+
 .contant {
   border-radius: 2px;
   position: relative;
@@ -194,6 +203,10 @@ export default {
     },
     // 点击左边栏目录里已经记录好的模版,通过改变iframe URL属性,刷新iframe内容
     openUrl(info) {
+      try {
+        window.app.$refs.iframeLoadingBox.$methods().setLoadingStatus(true);
+      } catch (error) {}
+
       // console.log(info, "mmmmtttttttttt");
       this.pageLoading = true;
       this.iframeHeight = 0;
@@ -290,6 +303,9 @@ export default {
     onPageLoaded(type = "") {
       this.pageLoading = false;
       // 如果是新表单
+      try {
+        window.app.$refs.iframeLoadingBox.$methods().setLoadingStatus(false);
+      } catch (error) {}
 
       // 前方高能，此处有锅！
 

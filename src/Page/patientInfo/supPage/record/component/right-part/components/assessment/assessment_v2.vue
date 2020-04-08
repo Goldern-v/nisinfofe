@@ -161,6 +161,10 @@ export default {
     //
     // this.bus.$emit("disableAllButons");
     //
+    try {
+      window.app.$refs.iframeLoadingBox.$methods().setLoadingStatus(false);
+    } catch (error) {}
+    //
     this.$refs["iframeLoadingV2"]["$methods"] = () => {
       return {
         busEmit: this.bus.$emit,
@@ -223,6 +227,9 @@ export default {
     },
     // 点击左边栏目录里已经记录好的模版,通过改变iframe URL属性,刷新iframe内容
     openUrl(info) {
+      try {
+        window.app.$refs.iframeLoadingBox.$methods().setLoadingStatus(false);
+      } catch (error) {}
       // console.log(info, "openUrlV2");
       this.pageLoading = true;
       this.pageLoadingText = "数据加载中";
