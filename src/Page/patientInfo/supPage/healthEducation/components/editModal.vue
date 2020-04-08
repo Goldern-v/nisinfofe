@@ -272,7 +272,7 @@ export default {
       let haveValue = educationMethod.filter(
         item => item.value === this.form.method
       );
-      let method = (haveValue > 0 && haveValue[0].text) || ""; // 教育方法
+      let method = (haveValue.length > 0 && haveValue[0].text) || ""; // 教育方法
       let assessment = educationAssessment.filter(
         item => item.value === this.form.assessment
       )[0].text; // 教育评估
