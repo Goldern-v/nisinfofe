@@ -307,6 +307,12 @@ export default {
       //
       console.log("表单名", [type], this.info, this.info.title);
       try {
+        try {
+          if (wid.formInfo.nooForm == "2") {
+            this.bus.$emit("openAssessmentBoxWidthVersion", { nooForm: "2" });
+            return;
+          }
+        } catch (error) {}
         // 健康教育单
         if (this.info.pageItem) {
           wid.formInfo.getItem(this.info.pageItem);

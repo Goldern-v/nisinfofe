@@ -334,10 +334,10 @@ export default {
       this.wid.onmessage = this.onmessage;
       //
       try {
-        if (wid.formInfo.nooForm == "1") {
-          this.bus.$emit("openAssessmentBoxWidthVersion", { nooForm: "1" });
-          return;
-        }
+        // if (wid.formInfo.nooForm == "1") {
+        //   this.bus.$emit("openAssessmentBoxWidthVersion", { nooForm: "1" });
+        //   return;
+        // }
         // window.wid.document.querySelector(
         //   ".hospital"
         // ).innerText = this.hospitalNameSpace;
@@ -446,6 +446,16 @@ export default {
           }, 100);
         });
       }
+
+      //
+      // try {
+      //   if (wid.formInfo.nooForm == "1") {
+      //     this.bus.$emit("openAssessmentBoxWidthVersion", { nooForm: "1" });
+      //     return;
+      //   }
+      // } catch (error) {}
+
+      //
     },
     cleanAllMark(str = "") {
       try {
