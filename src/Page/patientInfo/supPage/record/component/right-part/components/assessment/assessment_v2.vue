@@ -1,5 +1,5 @@
 <template>
-  <div :style="{height: '100%'}">
+  <div :style="{ height: '100%' }">
     <div
       class="contantV2"
       v-loading="pageLoading"
@@ -7,7 +7,7 @@
       ref="iframeLoadingV2"
     >
       <iframe
-        :style="{height: iframeHeight + 'px'}"
+        :style="{ height: iframeHeight + 'px' }"
         frameborder="0"
         class="assessmentv2-iframe"
         v-if="url"
@@ -334,6 +334,10 @@ export default {
       this.wid.onmessage = this.onmessage;
       //
       try {
+        if (wid.formInfo.nooForm == "1") {
+          this.bus.$emit("openAssessmentBoxWidthVersion", { nooForm: "1" });
+          return;
+        }
         // window.wid.document.querySelector(
         //   ".hospital"
         // ).innerText = this.hospitalNameSpace;

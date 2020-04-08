@@ -1,13 +1,13 @@
 <template>
   <div>
     <div
-      :class="isLandscape?'contant-landscape':'contant'"
+      :class="isLandscape ? 'contant-landscape' : 'contant'"
       v-loading="pageLoading"
       :element-loading-text="pageLoadingText"
       ref="iframeLoading"
     >
       <iframe
-        :style="{height: iframeHeight + 'px'}"
+        :style="{ height: iframeHeight + 'px' }"
         frameborder="0"
         class="assessment-iframe"
         v-if="url"
@@ -452,6 +452,10 @@ export default {
 
       // 如果是新表单 跳出
       try {
+        if (wid.formInfo.nooForm == "2") {
+          this.bus.$emit("openAssessmentBoxWidthVersion", { nooForm: "2" });
+          return;
+        }
         // console.log("!!!!!!info",this.info)
         if (
           this.info &&
