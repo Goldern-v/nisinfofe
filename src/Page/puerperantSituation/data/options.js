@@ -16,6 +16,7 @@ export const cbwOptions = [
   { code: '臀助产', name: '臀助产' },
   { code: '臀牵引', name: '臀牵引' },
   { code: '院外分娩', name: '院外分娩' },
+  { code: '产房紧急剖宫产', name: '产房紧急剖宫产' },
 ]
 
 //性别

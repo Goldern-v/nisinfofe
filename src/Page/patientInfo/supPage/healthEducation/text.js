@@ -7,7 +7,7 @@ export const educationObiect = [
     value: "2",
     text: "家属"
   }
-]
+];
 
 export const educationMethod = [
   {
@@ -18,15 +18,15 @@ export const educationMethod = [
     value: "2",
     text: "书面"
   },
-  {
-    value: "3",
-    text: "在线"
-  },
+  // {
+  //   value: "3",
+  //   text: "在线"
+  // },
   {
     value: "4",
     text: "示范"
   }
-]
+];
 
 export const educationAssessment = [
   {
@@ -41,4 +41,4 @@ export const educationAssessment = [
     value: "3",
     text: "需强化"
   }
-]
+];

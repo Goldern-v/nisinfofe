@@ -46,7 +46,8 @@
           </ElSelect>
         </ElFormItem>
         <ElFormItem prop="method" label="教育方法：">
-          <ElSelect v-model="form.method" :disabled="isOk">
+          <ElSelect v-model="form.method">
+            <ElOption value="3" key="3" label="在线" v-if="isOk">在线</ElOption>
             <ElOption
               v-for="item in educationMethod"
               :key="item.value"
@@ -120,15 +121,15 @@ export default {
       options: [], // 宣教内容下拉框数据
       itemData: {}, // 修改时暂存参数
       date: "", // 修改时的宣教时间
-      isOk: true, // 教育对象是否禁用（根据状态判断 -1:删除，0:未推送，1:未读，1R:已读，2:已明白，3:有疑问， 后面三个可以）
+      isOk: false, // 教育对象是否禁用（根据状态判断 -1:删除，0:未推送，1:未读，1R:已读，2:已明白，3:有疑问， 后面三个可以）
       rules: {
         state: [{ required: true, message: "请输入宣教内容", trigger: "blur" }],
         object: [
           { required: true, message: "请选择教育对象", trigger: "blur" }
         ],
-        // method: [
-        //   { required: true, message: "请选择教育方法", trigger: "blur" }
-        // ],
+        method: [
+          { required: true, message: "请选择教育方法", trigger: "blur" }
+        ],
         assessment: [
           { required: true, message: "请选择教育评估", trigger: "blur" }
         ],
@@ -151,7 +152,7 @@ export default {
         let statusText = this.setStatus(form["item"].status); // 推送状态
         let status = form["item"].status;
         if (status && (status === "1R" || status === "2" || status === "3")) {
-          this.isOk = false;
+          this.isOk = true;
         }
         this.title =
           title +
@@ -171,18 +172,23 @@ export default {
           item => item.text === form["教育评估"]
         )[0];
         this.form.object = object ? object.value : "";
-        this.form.method = method ? method.value : "";
+        // this.form.method = method ? method.value || "3" : "1";
+        this.form.method = method
+          ? method.value
+          : form["教育方法"] === "在线"
+          ? "3"
+          : "1";
         this.form.assessment = assessment ? assessment.value : "";
         this.form.remarks = form["备注"] || "";
         this.form.signature = form["签名"] || "";
       } else {
         this.title = title;
-        this.isOk = true;
+        this.isOk = false;
         // 添加时清空表单
         this.form = {
           state: "",
           object: "",
-          method: "",
+          method: "1",
           assessment: "",
           remarks: "",
           signature: ""
@@ -272,7 +278,7 @@ export default {
       let haveValue = educationMethod.filter(
         item => item.value === this.form.method
       );
-      let method = (haveValue > 0 && haveValue[0].text) || ""; // 教育方法
+      let method = (haveValue.length > 0 && haveValue[0].text) || "在线"; // 教育方法
       let assessment = educationAssessment.filter(
         item => item.value === this.form.assessment
       )[0].text; // 教育评估

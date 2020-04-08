@@ -287,7 +287,7 @@ export const columns = (vm) => {
         {
           title: '分娩方式',
           key: 'childBirthWay',
-          width: 90,
+          width: 130,
           render: (h, record) => vm.defaultSelectRender(h, record, vm.cbwOptions)
         },
         {

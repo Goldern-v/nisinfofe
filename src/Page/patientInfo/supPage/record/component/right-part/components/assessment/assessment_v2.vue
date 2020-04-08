@@ -190,6 +190,12 @@ export default {
           this.url = "";
           this.bus.$emit("closeAssessment");
         },
+        openAssessmentBoxWidthVersion: e => {
+          this.bus.$emit("openAssessmentBoxWidthVersion", e);
+        },
+        openAssessmentBox: e => {
+          this.bus.$emit("openAssessmentBox", e);
+        },
         setLoadingText: this.setLoadingText,
         setLoadingStatus: this.setLoadingStatus,
         setLoadingButton: this.setLoadingButton,
@@ -1683,7 +1689,7 @@ export default {
   watch: {
     url() {
       this.pageLoading = true;
-      this.bus.$emit("closeAssessmentV1");
+      // this.bus.$emit("closeAssessmentV1");
       // this.iframeHeight = "auto";
       // this.iframeHeight = this.wih - this.offsetHeight; //100;
     }

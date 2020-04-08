@@ -166,6 +166,22 @@ export default {
   },
   mounted() {
     window.cleanAllMark = this.cleanAllMark;
+
+    this.$refs["iframeLoading"]["$methods"] = () => {
+      return {
+        closeAssessment: () => {
+          this.url = "";
+          this.bus.$emit("closeAssessment");
+        },
+        openAssessmentBoxWidthVersion: e => {
+          this.bus.$emit("openAssessmentBoxWidthVersion", e);
+        },
+        openAssessmentBox: e => {
+          this.bus.$emit("openAssessmentBox", e);
+        }
+      };
+    };
+    this.$root.$refs["iframeLoadingV1"] = this.$refs["iframeLoading"];
   },
   methods: {
     openNewFormBox(box) {
@@ -1883,7 +1899,7 @@ export default {
       this.pageLoading = true;
       this.iframeHeight = "auto";
       this.iframeHeight = 100;
-      this.bus.$emit("closeAssessmentV2");
+      // this.bus.$emit("closeAssessmentV2");
     }
   },
   components: {
