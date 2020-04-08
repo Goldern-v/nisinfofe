@@ -1,6 +1,10 @@
 <template>
   <SweetModal ref="modal" :title="title" :modal-width="450">
-    <ElForm class="edit-modal-form" style="margin-bottom: 20px" label-width="100px">
+    <ElForm
+      class="edit-modal-form"
+      style="margin-bottom: 20px"
+      label-width="100px"
+    >
       <ElFormItem label="日期：" required>
         <ElDatePicker v-model="form.recordDate" :clearable="false" />
       </ElFormItem>
@@ -31,7 +35,7 @@
         <span class="unit">(ü)</span>
       </ElFormItem>
       <ElFormItem label="执行人：" required>
-        <span>{{curEmpName}}</span>
+        <span>{{ curEmpName }}</span>
         <span class="btn" @click="openSignModal">切换</span>
       </ElFormItem>
     </ElForm>
@@ -90,7 +94,51 @@ export default {
       {
         vitalSign: "随机"
       }
-    ]
+    ],
+    typeList2: [
+      {
+        vitalSign: "凌晨"
+      },
+      {
+        vitalSign: "早餐前"
+      },
+      {
+        vitalSign: "早餐后"
+      },
+      {
+        vitalSign: "午餐前"
+      },
+      {
+        vitalSign: "午餐后"
+      },
+      {
+        vitalSign: "晚餐前"
+      },
+      {
+        vitalSign: "晚餐后"
+      },
+      {
+        vitalSign: "睡前"
+      },
+      {
+        vitalSign: "其他1"
+      },
+      {
+        vitalSign: "其他2"
+      },
+      {
+        vitalSign: "其他3"
+      },
+      {
+        vitalSign: "其他21"
+      },
+      {
+        vitalSign: "其他31"
+      },
+      {
+        vitalSign: "备注"
+      }
+    ] //陵城项目列表
   }),
   methods: {
     open(title, form) {
@@ -99,11 +147,15 @@ export default {
       this.curEmpNo = this.userInfo.empNo;
       this.$refs.modal.open();
 
+      let defaultSugarItem = "微机血糖";
+      if (this.HOSPITAL_ID == "lingcheng") {
+        defaultSugarItem = "凌晨";
+      }
       if (form) {
         this.form = {
           recordDate: new Date(form.recordDate || new Date()),
           recordTime: new Date(form.recordDate || new Date()),
-          sugarItem: form.sugarItem || "微机血糖",
+          sugarItem: form.sugarItem || defaultSugarItem,
           sugarValue: form.sugarValue || 0,
           riValue: form.riValue || 0,
           recordId: form.recordId || ""
@@ -113,7 +165,7 @@ export default {
         this.form = {
           recordDate: new Date(),
           recordTime: new Date(),
-          sugarItem: "微机血糖",
+          sugarItem: defaultSugarItem,
           sugarValue: 0,
           riValue: 0,
           recordId: ""
@@ -152,6 +204,8 @@ export default {
       apis.getTypeList(this.deptCode).then(res => {
         this.typeList = res.data.data;
       });
+    } else if (this.HOSPITAL_ID == "lingcheng") {
+      this.typeList = [...this.typeList2];
     }
   }
 };
