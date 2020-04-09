@@ -37,12 +37,12 @@
       </div>
       <div class="viewbar-right" :style="'height: ' + (wih - 60) + 'px'">
         <div class="viewbar-right-top">
-          <Button class="btn" :disabled="badEventLoad && isDisabled" @click="saveEdit">编辑</Button>
-          <Button class="btn" :disabled="badEventLoad && isDisabled" @click="deleteEdit">删除</Button>
-          <Button class="btn" :disabled="badEventLoad && isDisabled3" @click="revoke">撤销</Button>
+          <Button class="btn" :disabled="badEventLoad || isDisabled" @click="saveEdit">编辑</Button>
+          <Button class="btn" :disabled="badEventLoad || isDisabled" @click="deleteEdit">删除</Button>
+          <Button class="btn" :disabled="badEventLoad || isDisabled3" @click="revoke">撤销</Button>
           <Button
             class="green-btn btn"
-            :disabled="badEventLoad && isDisabled2"
+            :disabled="badEventLoad || isDisabled2"
             @click="uploadEdit"
           >上报</Button>
         </div>
@@ -334,35 +334,15 @@ export default {
       eventStatusOptions: [], //所有事件状态
       status: "", //状态
       stateText: "保存", //状态名称
-      badEventLoad: true // 编辑按钮置灰
+      badEventLoad: true, // 编辑按钮置灰
+      isDisabled: true, //编辑/删除
+      isDisabled2: true, // 上报
+      isDisabled3: true // 撤销
     };
   },
   computed: {
     badEventPageLoading() {
       return window.pageLoading || this.pageLoading;
-    },
-    //编辑/删除
-    isDisabled() {
-      return (
-        this.eventStatusOptions[1] &&
-        this.status != this.eventStatusOptions[1].code &&
-        this.eventStatusOptions[2] &&
-        this.status != this.eventStatusOptions[2].code
-      );
-    },
-    // 上报
-    isDisabled2() {
-      return (
-        this.eventStatusOptions[1] &&
-        this.status != this.eventStatusOptions[1].code
-      );
-    },
-    // 撤销
-    isDisabled3() {
-      return (
-        this.eventStatusOptions[2] &&
-        this.status != this.eventStatusOptions[2].code
-      );
     }
   },
   created() {
@@ -389,10 +369,12 @@ export default {
   methods: {
     showBtn(instance) {
       this.badEventLoad = false;
-      let status = instance.status;
-      this.status = status;
+      if (instance) {
+        let status = instance.status;
+        this.status = status;
+      }
       // 获取所有事件状态
-      this.getEventStatus(status);
+      this.getEventStatus(this.status);
     },
     async load() {
       if (this.$route.params.name) {
@@ -434,7 +416,6 @@ export default {
         window.wid = wid;
         this.wid = wid;
         this.iframeHeight = wid.document.body.scrollHeight * 1.05;
-        console.log(wid.formObj.model);
       }
       this.pageLoading = false;
     },
@@ -524,16 +505,32 @@ export default {
       }
     },
     // 获取所有事件状态
-    getEventStatus(status) {
+    getEventStatus(status = "save") {
       let list = ["badEvent_status"];
       multiDictInfo(list).then(res => {
         let arr = res.data.data.badEvent_status;
-        this.eventStatusOptions = [{ code: "", name: "全部" }, ...arr];
+        this.eventStatusOptions = this.eventStatusOptions.concat([
+          { code: "", name: "全部" },
+          ...arr
+        ]);
         for (let i = 0; i < this.eventStatusOptions.length; i++) {
           if (this.eventStatusOptions[i].code == status) {
             this.stateText = this.eventStatusOptions[i].name;
           }
         }
+
+        this.isDisabled =
+          this.status != this.eventStatusOptions[1].code &&
+          this.eventStatusOptions[2] &&
+          this.status != this.eventStatusOptions[2].code;
+        console.log(this.isDisabled);
+        console.log(this.status);
+        this.isDisabled2 =
+          this.eventStatusOptions[1] &&
+          this.status != this.eventStatusOptions[1].code;
+        this.isDisabled3 =
+          this.eventStatusOptions[2] &&
+          this.status != this.eventStatusOptions[2].code;
       });
     },
     // 不良事件轨迹
