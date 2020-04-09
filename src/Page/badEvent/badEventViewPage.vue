@@ -1,4 +1,3 @@
-
 <template>
   <div>
     <!-- 不良事件 -->
@@ -8,15 +7,16 @@
           <div class="bad-event-nav">
             <router-link to="/badEvent">不良事件</router-link>> 事件详情
           </div>
-          <div
-            class="bad-event-title"
-          >{{$route.query.badEventOrderNo || ''}} {{$route.params.name || ''}}</div>
+          <div class="bad-event-title">
+            {{ $route.query.badEventOrderNo || "" }}
+            {{ $route.params.name || "" }}
+          </div>
           <div class="state-text">
             <span>状态：</span>
-            <span class="state">{{stateText}}</span>
+            <span class="state">{{ stateText }}</span>
           </div>
         </div>
-        <div class="bad-event-container" :style="'height:'+(wih-100)+'px!important;'">
+        <div class="bad-event-container" :style="'height:' + (wih - 100) + 'px!important;'">
           <div class="bad-event-edit">
             <div
               class="bad-event-paper"
@@ -27,7 +27,7 @@
                 frameborder="0"
                 class="badEvent-iframe"
                 :src="url"
-                :style="`min-height:${wih-176}px`"
+                :style="`min-height:${wih - 176}px`"
                 @load="onloadPage"
                 ref="iframe"
               ></iframe>
@@ -35,14 +35,14 @@
           </div>
         </div>
       </div>
-      <div class="viewbar-right" :style="'height: '+(wih-60)+'px'">
+      <div class="viewbar-right" :style="'height: ' + (wih - 60) + 'px'">
         <div class="viewbar-right-top">
-          <Button class="btn" :disabled="badEventLoad || isDisabled" @click="saveEdit">编辑</Button>
-          <Button class="btn" :disabled="badEventLoad || isDisabled2" @click="deleteEdit">删除</Button>
-          <Button class="btn" :disabled="badEventLoad || isDisabled3" @click="revoke">撤销</Button>
+          <Button class="btn" :disabled="badEventLoad && isDisabled" @click="saveEdit">编辑</Button>
+          <Button class="btn" :disabled="badEventLoad && isDisabled" @click="deleteEdit">删除</Button>
+          <Button class="btn" :disabled="badEventLoad && isDisabled3" @click="revoke">撤销</Button>
           <Button
             class="green-btn btn"
-            :disabled="badEventLoad || isDisabled"
+            :disabled="badEventLoad && isDisabled2"
             @click="uploadEdit"
           >上报</Button>
         </div>
@@ -55,13 +55,13 @@
             direction="vertical"
           >
             <el-step
-              v-for="(step,index) in steps"
-              :key="'step'+index"
+              v-for="(step, index) in steps"
+              :key="'step' + index"
               :title="step.title"
               :description="step.description"
               :status="step.status"
             >
-              <span slot="title" style="color:#333">{{step.title}}</span>
+              <span slot="title" style="color:#333">{{ step.title }}</span>
               <br />
               <span
                 slot="description"
@@ -76,7 +76,7 @@
   </div>
 </template>
 
-<style lang="stylus"  rel="stylesheet/stylus" type="text/stylus" scoped>
+<style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
 .viewbar {
   margin-right: 0px;
   font-size: 13px;
@@ -341,15 +341,8 @@ export default {
     badEventPageLoading() {
       return window.pageLoading || this.pageLoading;
     },
-    //保存
+    //编辑/删除
     isDisabled() {
-      return (
-        this.eventStatusOptions[1] &&
-        this.status != this.eventStatusOptions[1].code
-      );
-    },
-    // 保存/上报
-    isDisabled2() {
       return (
         this.eventStatusOptions[1] &&
         this.status != this.eventStatusOptions[1].code &&
@@ -358,6 +351,13 @@ export default {
       );
     },
     // 上报
+    isDisabled2() {
+      return (
+        this.eventStatusOptions[1] &&
+        this.status != this.eventStatusOptions[1].code
+      );
+    },
+    // 撤销
     isDisabled3() {
       return (
         this.eventStatusOptions[2] &&
