@@ -1,31 +1,45 @@
 <template>
-  <div :class="{fullPageRecord}">
-    <div class="null-tool" v-show="showTpye == ''"></div>
-    <!-- 护理记录单 -->
-    <div v-if="showConToolBar" class="tool-bar">
-      <toolBar v-if="!hasMeasure" v-show="showTpye" :config="toolBarConfig"></toolBar>
-      <toolCon v-else v-show="showTpye"></toolCon>
-    </div>
-    <!-- 护理评估表 -->
+  <div :class="{ fullPageRecord }">
     <div
-      class="form-contain"
-      :class="{nopadding:!showConToolBar}"
-      ref="formContain"
-      :style="{height: height}"
+      class="form-loading-box"
+      v-loading="formBoxLoading"
+      :element-loading-text="formBoxLoadingText"
+      ref="iframeLoadingBox"
     >
-      <!-- <component :is="componentSwitch" v-show="showTpye"></component> -->
-      <!-- <div v-show="showTpye"> -->
-      <assessment v-show="showConToolBar&&showTpye" ref="assessment" />
-      <assessment_v2 v-show="!showConToolBar&&showTpye" ref="assessmentV2" />
-      <!-- </div> -->
+      <div class="null-tool" v-show="showTpye == ''"></div>
+      <!-- 护理记录单 -->
+      <div v-if="showConToolBar" class="tool-bar">
+        <toolBar
+          v-if="!hasMeasure"
+          v-show="showTpye"
+          :config="toolBarConfig"
+        ></toolBar>
+        <toolCon v-else v-show="showTpye"></toolCon>
+      </div>
+      <!-- 护理评估表 -->
       <div
-        v-show="showTpye == ''"
-        class="null-btn"
-        flex="cross:center main:center"
-        @click="newRecordOpen"
+        class="form-contain"
+        :class="{ nopadding: !showConToolBar }"
+        ref="formContain"
+        :style="{ height: height }"
       >
-        <i class="el-icon-plus"></i>
-        创建护理文书
+        <!-- <component :is="componentSwitch" v-show="showTpye"></component> -->
+        <!-- <div v-show="showTpye"> -->
+        <assessment v-show="showConToolBar && showTpye" ref="assessment" />
+        <assessment_v2
+          v-show="!showConToolBar && showTpye"
+          ref="assessmentV2"
+        />
+        <!-- </div> -->
+        <div
+          v-show="showTpye == ''"
+          class="null-btn"
+          flex="cross:center main:center"
+          @click="newRecordOpen"
+        >
+          <i class="el-icon-plus"></i>
+          <span>创建护理文书</span>
+        </div>
       </div>
     </div>
   </div>
@@ -75,6 +89,26 @@
 .tool-bar
   // background red
   // outline 1px dashed red
+/deep/ .hidden-loading {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+/deep/ .el-loading-mask {
+  // background: white !important;
+  background-color: rgba(255, 255, 255, 1);
+}
+
+/deep/ .mask-loading-button {
+  font-size: 13px;
+  padding: 8px 20px;
+  margin-top: 20px;
+  color: #55b391;
+  outline: 0;
+  cursor: pointer;
+  border: 1px solid #55b391;
+  background: transparent;
+}
 </style>
 <script>
 import toolCon from "./components/tool-con/tool-con";
@@ -101,15 +135,34 @@ export default {
       hasMeasure: true,
       hasCheck: true,
       isPushForward: false,
+      formBoxLoading: false,
+      formBoxLoadingText: "载入中..",
       nodeData: {}
     };
   },
   created() {},
   mounted() {
+    this.$refs["iframeLoadingBox"]["$methods"] = () => {
+      return {
+        setLoadingText: this.setLoadingText,
+        setLoadingStatus: this.setLoadingStatus,
+        setLoadingButton: this.setLoadingButton,
+        setloadingSVGHidden: this.setloadingSVGHidden
+      };
+    };
+    // iframeLoadingBox
+    this.$refs["iframeLoadingBox"]["setLoadingText"] = this.setLoadingText;
+    this.$refs["iframeLoadingBox"]["setLoadingStatus"] = this.setLoadingStatus;
+    // this.$refs["iframeLoadingBox"]["setLoadingButton"] = this.setLoadingButton;
+    // this.$refs["iframeLoadingBox"][
+    //   "setloadingSVGHidden"
+    // ] = this.setloadingSVGHidden;
+    this.$root.$refs["iframeLoadingBox"] = this.$refs["iframeLoadingBox"];
+    //
     this.bus.$on("openAssessmentBoxWidthVersion", data => {
       this.bus.$emit("openAssessmentBox", {
         ...this.nodeData,
-        data
+        ...data
       });
     });
     this.bus.$on("openAssessmentBox", data => {
@@ -166,6 +219,15 @@ export default {
   methods: {
     newRecordOpen() {
       this.$parent.$refs.tree.$refs.newForm.open();
+    },
+    setLoadingStatus(bool) {
+      this.formBoxLoading = bool;
+    },
+    setLoadingText(text, callback = null) {
+      this.formBoxLoadingText = text;
+      if (callback) {
+        callback();
+      }
     }
   },
   computed: {

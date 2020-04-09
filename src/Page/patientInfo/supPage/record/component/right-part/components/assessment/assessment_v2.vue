@@ -1,5 +1,5 @@
 <template>
-  <div :style="{height: '100%'}">
+  <div :style="{ height: '100%' }">
     <div
       class="contantV2"
       v-loading="pageLoading"
@@ -7,7 +7,7 @@
       ref="iframeLoadingV2"
     >
       <iframe
-        :style="{height: iframeHeight + 'px'}"
+        :style="{ height: iframeHeight + 'px' }"
         frameborder="0"
         class="assessmentv2-iframe"
         v-if="url"
@@ -161,6 +161,10 @@ export default {
     //
     // this.bus.$emit("disableAllButons");
     //
+    try {
+      window.app.$refs.iframeLoadingBox.$methods().setLoadingStatus(false);
+    } catch (error) {}
+    //
     this.$refs["iframeLoadingV2"]["$methods"] = () => {
       return {
         busEmit: this.bus.$emit,
@@ -223,6 +227,9 @@ export default {
     },
     // 点击左边栏目录里已经记录好的模版,通过改变iframe URL属性,刷新iframe内容
     openUrl(info) {
+      try {
+        window.app.$refs.iframeLoadingBox.$methods().setLoadingStatus(false);
+      } catch (error) {}
       // console.log(info, "openUrlV2");
       this.pageLoading = true;
       this.pageLoadingText = "数据加载中";
@@ -334,6 +341,10 @@ export default {
       this.wid.onmessage = this.onmessage;
       //
       try {
+        // if (wid.formInfo.nooForm == "1") {
+        //   this.bus.$emit("openAssessmentBoxWidthVersion", { nooForm: "1" });
+        //   return;
+        // }
         // window.wid.document.querySelector(
         //   ".hospital"
         // ).innerText = this.hospitalNameSpace;
@@ -442,6 +453,16 @@ export default {
           }, 100);
         });
       }
+
+      //
+      // try {
+      //   if (wid.formInfo.nooForm == "1") {
+      //     this.bus.$emit("openAssessmentBoxWidthVersion", { nooForm: "1" });
+      //     return;
+      //   }
+      // } catch (error) {}
+
+      //
     },
     cleanAllMark(str = "") {
       try {

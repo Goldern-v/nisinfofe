@@ -1,13 +1,13 @@
 <template>
   <div>
     <div
-      :class="isLandscape?'contant-landscape':'contant'"
+      :class="isLandscape ? 'contant-landscape' : 'contant'"
       v-loading="pageLoading"
       :element-loading-text="pageLoadingText"
       ref="iframeLoading"
     >
       <iframe
-        :style="{height: iframeHeight + 'px'}"
+        :style="{ height: iframeHeight + 'px' }"
         frameborder="0"
         class="assessment-iframe"
         v-if="url"
@@ -29,6 +29,15 @@
 </template>
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
+
+.contantV2 {
+  position: relative;
+  background: transparent;
+  margin: 0 auto;
+  height: 100%;
+  width: 100%;
+}
+
 .contant {
   border-radius: 2px;
   position: relative;
@@ -194,6 +203,10 @@ export default {
     },
     // 点击左边栏目录里已经记录好的模版,通过改变iframe URL属性,刷新iframe内容
     openUrl(info) {
+      try {
+        window.app.$refs.iframeLoadingBox.$methods().setLoadingStatus(true);
+      } catch (error) {}
+
       // console.log(info, "mmmmtttttttttt");
       this.pageLoading = true;
       this.iframeHeight = 0;
@@ -290,6 +303,9 @@ export default {
     onPageLoaded(type = "") {
       this.pageLoading = false;
       // 如果是新表单
+      try {
+        window.app.$refs.iframeLoadingBox.$methods().setLoadingStatus(false);
+      } catch (error) {}
 
       // 前方高能，此处有锅！
 
@@ -307,6 +323,12 @@ export default {
       //
       console.log("表单名", [type], this.info, this.info.title);
       try {
+        try {
+          if (wid.formInfo.nooForm == "2") {
+            this.bus.$emit("openAssessmentBoxWidthVersion", { nooForm: "2" });
+            return;
+          }
+        } catch (error) {}
         // 健康教育单
         if (this.info.pageItem) {
           wid.formInfo.getItem(this.info.pageItem);
@@ -452,6 +474,10 @@ export default {
 
       // 如果是新表单 跳出
       try {
+        if (wid.formInfo.nooForm == "2") {
+          this.bus.$emit("openAssessmentBoxWidthVersion", { nooForm: "2" });
+          return;
+        }
         // console.log("!!!!!!info",this.info)
         if (
           this.info &&
