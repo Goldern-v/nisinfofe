@@ -6,7 +6,7 @@ import { apiPath } from './apiConfig'
 export const getNote = (patientId, visitId, HisName = process.env.HOSPITAL_NAME) => {
     let hisList = {
         威县人民医院: `eval/nursingWithNewForm/${patientId}/${visitId}/all`,
-        陵城区人民医院: `eval/nursingWithNewForm/${patientId}/${visitId}/all`,
+        德州市陵城区人民医院: `eval/nursingWithNewForm/${patientId}/${visitId}/all`,
         东莞市厚街医院: `eval/nursing/${patientId}/${visitId}/all`
     };
     let url = hisList[HisName] || `eval/nursing/${patientId}/${visitId}/all`

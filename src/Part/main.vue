@@ -5,8 +5,7 @@
     <router-view></router-view>
   </div>
 </template>
-<style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
-</style>
+<style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped></style>
 <script>
 import HLheader from "@/components/HLheader/HLheader"; // 东莞市厚街医院
 import WeiXianHeader from "@/components/HLheader/WeiXianHeader"; // 威县人民医院
@@ -24,7 +23,7 @@ export default {
       let hisList = {
         威县人民医院: "WeiXianHeader",
         东莞市厚街医院: "HLheader",
-        陵城区人民医院: 'LingChengHeader'
+        德州市陵城区人民医院: "LingChengHeader"
       };
       return hisList[HisName] || "HLheader";
     }

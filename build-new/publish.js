@@ -13,7 +13,7 @@ let sshUpload = (hospitalName = "东莞市厚街医院", localSrc = './dist', fo
   let hospitalList = {
     "东莞市厚街医院": "dongguanhoujie",
     "威县人民医院": "weixian",
-    "陵城区人民医院": "lingcheng"
+    "德州市陵城区人民医院": "lingcheng"
   }
   let hospitalEN = "dongguanhoujie"
   if (hospitalList[hospitalName]) {
