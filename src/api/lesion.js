@@ -1,6 +1,8 @@
 // 登录模块api
 import axios from './axios'
-import { apiPath } from './apiConfig'
+import {
+  apiPath
+} from './apiConfig'
 
 // 护理单元
 function nursingUnit() {
@@ -14,7 +16,8 @@ function typeList() {
 function patients(deptCode, config, HisName = process.env.HOSPITAL_NAME) {
   let hisList = {
     威县人民医院: `patListWithNewForm/${deptCode}`,
-    东莞市厚街医院: `patList/${deptCode}`
+    东莞市厚街医院: `patList/${deptCode}`,
+    德州市陵城区人民医院: `patListWithNewForm/${deptCode}`
   };
   let url = hisList[HisName] || `patList/${deptCode}`
   if (config) {
@@ -38,4 +41,11 @@ function syncGetNurseBedRec(deptCode) {
   return axios.get(`${apiPath}hisDispenseExecute/syncGetNurseBedRec/${deptCode}`)
 }
 
-export { nursingUnit, patients, follow, unfollow, typeList, syncGetNurseBedRec }
+export {
+  nursingUnit,
+  patients,
+  follow,
+  unfollow,
+  typeList,
+  syncGetNurseBedRec
+}
