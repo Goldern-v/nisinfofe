@@ -29,12 +29,7 @@
           </el-radio-group>
         </el-row>
         <span class="label">类型:</span>
-        <el-select
-          v-model="type"
-          placeholder="请选择"
-          size="small"
-          style="width:150px"
-        >
+        <el-select v-model="type" placeholder="请选择" size="small" style="width:150px">
           <el-option label="全部" value></el-option>
           <el-option label="输液" value="输液"></el-option>
           <el-option label="注射" value="注射"></el-option>
@@ -44,6 +39,7 @@
           <el-option label="治疗" value="治疗"></el-option>
           <el-option label="理疗" value="理疗"></el-option>
           <el-option label="护理" value="护理"></el-option>
+          <el-option label="外用" value="外用"></el-option>
           <el-option label="其他" value="其他"></el-option>
         </el-select>
         <div style="flex: 1"></div>
@@ -233,7 +229,7 @@ export default {
           }
           return item;
         });
-        this.page.total = Number(res.data.data.pageCount);
+        this.page.total = Number(res.data.data.pageCount) * this.page.pageNum;
         this.pageLoadng = false;
       });
     },
