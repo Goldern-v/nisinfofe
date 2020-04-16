@@ -310,14 +310,17 @@ export default {
     onPageLoaded(type = "") {
       this.pageLoading = false;
       // 如果是新表单
+      let wid = null;
       try {
         window.app.$refs.iframeLoadingBox.$methods().setLoadingStatus(false);
-      } catch (error) {}
+        wid = this.$refs.iframe.contentWindow;
+        this.wid = this.$refs.iframe.contentWindow;
+      } catch (error) {
+        console.error("onPageLoaded:", error);
+      }
 
       // 前方高能，此处有锅！
 
-      let wid = this.$refs.iframe.contentWindow;
-      this.wid = this.$refs.iframe.contentWindow;
       //
       try {
         window.wid.document.querySelector(
