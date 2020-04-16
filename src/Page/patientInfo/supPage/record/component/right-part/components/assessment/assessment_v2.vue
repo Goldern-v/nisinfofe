@@ -321,18 +321,18 @@ export default {
         console.log("....打开表单", formUrl, url);
       }
 
-      // this.url = url;
-      // if (this.$refs.iframeV2) {
-      //   this.$refs.iframeV2.contentWindow.location.href = url;
-      // }
+      this.url = url;
+      if (this.$refs.iframeV2) {
+        this.$refs.iframeV2.contentWindow.location.href = url;
+      }
 
-      this.url = "";
-      setTimeout(() => {
-        this.url = url;
-        if (this.$refs.iframeV2) {
-          this.$refs.iframeV2.contentWindow.location.href = url;
-        }
-      }, 100);
+      // this.url = "";
+      // setTimeout(() => {
+      //   this.url = url;
+      //   if (this.$refs.iframeV2) {
+      //     this.$refs.iframeV2.contentWindow.location.href = url;
+      //   }
+      // }, 100);
 
       // wid.location.href
       // if (url == this.url) {
