@@ -205,7 +205,9 @@ export default {
     openUrl(info) {
       try {
         window.app.$refs.iframeLoadingBox.$methods().setLoadingStatus(true);
-      } catch (error) {}
+      } catch (error) {
+        console.error("~~openUrl", error);
+      }
 
       // console.log(info, "mmmmtttttttttt");
       this.pageLoading = true;
@@ -234,7 +236,9 @@ export default {
       this.marklist = [];
       this.handleMarklist = [];
       // 获取批注列表
-      this.getMarkList();
+      // this.getMarkList();
+
+      console.log("~~~openUrl");
 
       // 如果是新版表单
       // let query = this.$route.query
@@ -293,12 +297,15 @@ export default {
         console.log(formUrl, "....打开表单", url);
       }
 
-      if (url == this.url) {
-        this.refresh();
-      } else {
+      this.url = "";
+      setTimeout(() => {
         this.url = url;
-        console.log(url, "---", this.url, "1111");
-      }
+      }, 100);
+      // if (url == this.url) {
+      // this.refresh();
+      // } else {
+      // console.log(url, "---", this.url, "1111");
+      // }
     },
     onPageLoaded(type = "") {
       this.pageLoading = false;
@@ -1268,12 +1275,16 @@ export default {
       this.refresh();
       wid.formApp.postForm(password, postData);
     },
-    refresh() {
+    refresh(url = null) {
       try {
+        console.log("~~~refresh", { url, old: this.url });
+        // this.url
         this.$refs.iframe.contentWindow.location.reload();
-
+        // this.wid.location.reload();
         // console.log("innerHTML",this.$refs.iframe.contentWindow.document.innerHTML);
-      } catch (e) {}
+      } catch (e) {
+        console.error(e);
+      }
     },
     openScoreChart() {
       let query = this.$route.query;

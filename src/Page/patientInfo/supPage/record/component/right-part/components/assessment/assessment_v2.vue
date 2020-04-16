@@ -229,7 +229,9 @@ export default {
     openUrl(info) {
       try {
         window.app.$refs.iframeLoadingBox.$methods().setLoadingStatus(false);
-      } catch (error) {}
+      } catch (error) {
+        console.error("~~~openUrl2", error);
+      }
       // console.log(info, "openUrlV2");
       this.pageLoading = true;
       this.pageLoadingText = "数据加载中";
@@ -319,10 +321,18 @@ export default {
         console.log("....打开表单", formUrl, url);
       }
 
-      this.url = url;
-      if (this.$refs.iframeV2) {
-        this.$refs.iframeV2.contentWindow.location.href = url;
-      }
+      // this.url = url;
+      // if (this.$refs.iframeV2) {
+      //   this.$refs.iframeV2.contentWindow.location.href = url;
+      // }
+
+      this.url = "";
+      setTimeout(() => {
+        this.url = url;
+        if (this.$refs.iframeV2) {
+          this.$refs.iframeV2.contentWindow.location.href = url;
+        }
+      }, 100);
 
       // wid.location.href
       // if (url == this.url) {

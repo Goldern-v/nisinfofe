@@ -9,11 +9,7 @@
       <div class="null-tool" v-show="showTpye == ''"></div>
       <!-- 护理记录单 -->
       <div v-if="showConToolBar" class="tool-bar">
-        <toolBar
-          v-if="!hasMeasure"
-          v-show="showTpye"
-          :config="toolBarConfig"
-        ></toolBar>
+        <toolBar v-if="!hasMeasure" v-show="showTpye" :config="toolBarConfig"></toolBar>
         <toolCon v-else v-show="showTpye"></toolCon>
       </div>
       <!-- 护理评估表 -->
@@ -26,10 +22,7 @@
         <!-- <component :is="componentSwitch" v-show="showTpye"></component> -->
         <!-- <div v-show="showTpye"> -->
         <assessment v-show="showConToolBar && showTpye" ref="assessment" />
-        <assessment_v2
-          v-show="!showConToolBar && showTpye"
-          ref="assessmentV2"
-        />
+        <assessment_v2 v-show="!showConToolBar && showTpye" ref="assessmentV2" />
         <!-- </div> -->
         <div
           v-show="showTpye == ''"
@@ -195,16 +188,22 @@ export default {
       ) {
         this.formVersion = data.formVersion;
         this.showConToolBar = false;
+        console.log("~~~~openAssessmentV2");
         this.bus.$emit("openAssessmentV2", data);
+      } else if (data.nooForm == 1 || data.formVersion == 0) {
+        console.log("~~~~openAssessment");
+        this.bus.$emit("openAssessment", data);
       } else {
+        console.log("~~~~openAssessment..");
         this.bus.$emit("openAssessment", data);
       }
       this.showTpye = "assessment";
-      console.log(
-        "this.componentSwitch",
-        this.componentSwitch,
-        this.formVersion
-      );
+      console.log("on:", {
+        componentSwitch: this.componentSwitch,
+        formVersion: this.formVersion,
+        nooForm: data.nooForm,
+        data
+      });
       // this.$forceUpdate();
     });
 
