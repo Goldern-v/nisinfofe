@@ -40,6 +40,7 @@
           <el-option label="理疗" value="理疗"></el-option>
           <el-option label="护理" value="护理"></el-option>
           <el-option label="外用" value="外用"></el-option>
+          <el-option label="化验" value="化验"></el-option>
           <el-option label="其他" value="其他"></el-option>
         </el-select>
         <div style="flex: 1"></div>
