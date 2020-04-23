@@ -116,7 +116,7 @@
     box-shadow: 0px 5px 10px 0 rgba(0, 0, 0, 0.5);
     padding: 20px 20px;
     box-sizing: border-box;
-    width: 700px; // 关键
+    width: 750px; // 关键
     margin: 0 auto 20px;
     box-sizing: content-box;
     position: relative;
@@ -192,7 +192,7 @@
 
   .bottomCon {
     position: relative;
-    bottom: 40px;
+    bottom: 55px;
     display: flex;
     justify-content: space-between;
     // transform translateY(-30px)
@@ -209,7 +209,7 @@
   }
 
   .table-footer {
-    margin-top: 40px !important;
+    margin-top: 60px !important;
   }
 
   .bottom-line-input {
@@ -228,7 +228,7 @@
     position: relative;
 
     .bottomInput {
-      width: 230px;
+      width: 200px;
     }
 
     ul {

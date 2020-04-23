@@ -150,6 +150,10 @@ export default [{
     value: ""
   },
   {
+    key: "audit",
+    value: ""
+  },
+  {
     hidden: true,
     key: "id",
     value: ""

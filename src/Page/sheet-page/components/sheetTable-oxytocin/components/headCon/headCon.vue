@@ -1,9 +1,7 @@
 <template>
   <div class="tableCon">
     <div class="sum">
-      <div class="group">
-        BiShop宫颈成熟度评分：
-      </div>
+      <div class="group">BiShop宫颈成熟度评分：</div>
       <div class="group">
         累计评分共计：
         <input
@@ -20,9 +18,7 @@
             :colspan="item.colspan || 1"
             v-for="item in tableData.thead"
             :key="item.value"
-          >
-            {{ item.value }}
-          </th>
+          >{{ item.value }}</th>
         </tr>
       </thead>
       <tbody>
@@ -37,9 +33,11 @@
           >
             <label v-if="td.prev">{{ td.prev }}</label>
             <div class="sign-img-con" @click="sign2" v-if="td.sign">
-              <span v-if="!isPrint" class="head-sign-text">{{
+              <span v-if="!isPrint" class="head-sign-text">
+                {{
                 sheetInfo.relObj.signerName2
-              }}</span>
+                }}
+              </span>
               <img
                 class="head-sign-img"
                 v-if="sheetInfo.relObj.signerNo2"
@@ -55,9 +53,7 @@
       </tbody>
     </table>
     <div class="info">
-      <div class="group">
-        催产素静脉点滴情况：
-      </div>
+      <div class="group">催产素静脉点滴情况：</div>
       <div class="group">
         静滴催产素指症：
         <input
@@ -157,7 +153,7 @@ export default {
 
 <style lang="scss" scoped>
 .tableCon {
-  width: 700px;
+  width: 750px;
   font-family: simsun, "Times New Roman", Georgia, Serif;
   font-size: 12px;
   .sum,
@@ -218,7 +214,7 @@ export default {
 }
 .sign-img-con {
   display: inline-block;
-  width: 70px;
+  width: 100px;
   height: 30px;
   font-size: 12px;
   margin-right: 14px;

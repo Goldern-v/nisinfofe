@@ -96,12 +96,20 @@ export default {
         rowspan: "1"
       }, {
         name: `
-        签名
+        护士签名
         `,
         style: {
           minWidth: '46px',
           // maxWidth: '72px',
         },
+        colspan: '1',
+        rowspan: '3'
+      },
+      {
+        name: `
+        审核签名
+        `,
+        style: {},
         colspan: '1',
         rowspan: '3'
       },
