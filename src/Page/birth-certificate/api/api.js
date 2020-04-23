@@ -36,9 +36,13 @@ export function getPuerperaInfo(query) {
 //获取产妇列表
 export function getPatientListNew() {
     let endDate = moment().format('YYYY-MM-DD')
-    let startDate = new Date(endDate.replace(/-/g, '/'))
-    startDate = startDate.getTime() - 90 * 86400000
-    startDate = moment(new Date(startDate)).format('YYYY-MM-DD')
+    // let startDate = new Date(endDate.replace(/-/g, '/'))
+    // startDate = startDate.getTime() - 6 * 30 * 86400000
+    var dt = new Date();
+    dt.setMonth(dt.getMonth() - 6);
+    let startDate = moment(dt).format('YYYY-MM-DD')
+
+    // startDate = moment(new Date(startDate)).format('YYYY-MM-DD')
 
     return axios.post(`${apiPath}bed/patListCK`, {
         wardCode: '051102',
