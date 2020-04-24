@@ -3,7 +3,7 @@
     <boxBase title="值班医生" :icon="require('../images/值班医生.png')">
       <div class="body-con" v-loading="pageLoading" slot="body-con" flex="dir:top main:top">
         <div flex="cross:center">
-          <div class="label">主班医生：</div>
+          <div class="label">{{deptCode == '041002' && HOSPITAL_ID=='hj'?'门诊医生':'主班医生'}}：</div>
           <input flex-box="1" v-model="data.mainClassDoctor" @blur="update" />
         </div>
         <div style="height: 15px"></div>
