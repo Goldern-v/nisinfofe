@@ -532,15 +532,33 @@ export default {
             sheetInfo.relObj.birthday = pageMap.form_childbirth_temcsj_explain;
           }
 
-          Object.assign(this.formModel, lastEvalData);
-          Object.assign(this.formModel, sheetInfo.relObj);
-          sheetInfo.relObj = this.formModel;
-          sheetInfo.relObj = { ...sheetInfo.relObj };
+          // Object.assign(this.formModel, lastEvalData);
+          // Object.assign(this.formModel, sheetInfo.relObj);
+          // sheetInfo.relObj = this.formModel;
+          // sheetInfo.relObj = { ...sheetInfo.relObj };
+          for (let key in this.formatData.data.formData) {
+            this.formatData.data.formData[key] = "";
+          }
+          let obj = Object.assign(
+            {},
+            this.formatData.data.formData,
+            lastEvalData
+          );
+          this.formatData.data.formData = obj;
+          sheetInfo.relObj = obj;
         }
       );
     } else {
-      Object.assign(this.formModel, sheetInfo.relObj);
-      sheetInfo.relObj = this.formModel;
+      // Object.assign(this.formModel, sheetInfo.relObj);
+      // sheetInfo.relObj = this.formModel;
+      // console.dir(this.formModel);
+      let obj = Object.assign(
+        {},
+        this.formatData.data.formData,
+        sheetInfo.relObj
+      );
+      this.formatData.data.formData = obj;
+      sheetInfo.relObj = obj;
     }
   },
   watch: {
