@@ -1,20 +1,11 @@
 <template>
-  <div
-    class="contain"
-    :class="{ fullpage }"
-    v-loading="pageloading"
-    element-loading-text="正在保存"
-  >
+  <div class="contain" :class="{ fullpage }" v-loading="pageloading" element-loading-text="正在保存">
     <div class="head-con" flex>
       <div class="tool-con" flex-box="1">
         <sheetTool ref="sheetTool"></sheetTool>
       </div>
     </div>
-    <div
-      class="body-con"
-      id="sheet_body_con"
-      :style="{ height: containHeight }"
-    >
+    <div class="body-con" id="sheet_body_con" :style="{ height: containHeight }">
       <div class="right-part" v-loading="tableLoading">
         <div class="sheetTable-contain" ref="scrollCon" @scroll="onScroll">
           <div ref="sheetTableContain">
@@ -143,13 +134,15 @@
   }
 }
 
-
-/** 特殊样式 */
+/* * 特殊样式 */
 >>>.fixed-icon {
-  top 130px !important
+  top: 130px !important;
 }
->>>.slide-con {
-  top 91px !important
+
+>>>.patient-info-slide {
+  .slide-con {
+    top: 91px !important;
+  }
 }
 </style>
 
