@@ -118,6 +118,7 @@ import common from "@/common/mixin/common.mixin";
 import tableHead from "./components/table-head/table-head";
 import tableHeadPrenata from "./components/table-head/table-head-prenatal";
 import tableHead2 from "./components/table-head/table-head2";
+import tableHeadLc from "./components/table-head/table-head-lc";
 export default {
   props: {
     data: Object,
@@ -150,7 +151,9 @@ export default {
         return tableHeadPrenata;
       } else if (process.env.HOSPITAL_ID == "weixian") {
         return tableHead2;
-      } else {
+      } else if(process.env.HOSPITAL_ID == "lingcheng"){
+        return tableHeadLc;
+      }else {
         return tableHead;
       }
     }
