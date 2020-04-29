@@ -2,11 +2,10 @@ export default {
   // 科室的名称
   deptType: '',
   style: {
-    width: "1100px"
+    width: "1300px"
   },
   th: {
-    top: [
-      {
+    top: [{
         name: '日期',
         style: {
           minWidth: '36px',
@@ -28,8 +27,8 @@ export default {
       {
         name: '神志',
         style: {
-          minWidth: '140px',
-          maxWidth: '140px',
+          minWidth: '36px',
+          maxWidth: '36px',
         },
         colspan: '1',
         rowspan: '3'
@@ -145,10 +144,17 @@ export default {
         style: {},
         colspan: '1',
         rowspan: '3'
+      },
+      {
+        name: `
+        审核签名
+        `,
+        style: {},
+        colspan: "1",
+        rowspan: "3"
       }
     ],
-    mid: [
-      {
+    mid: [{
         name: `
         左
         `,
@@ -170,8 +176,8 @@ export default {
         项目
         `,
         style: {
-          minWidth: '40px',
-          maxWidth: '40px'
+          minWidth: '60px',
+          maxWidth: '60px'
         },
         colspan: '1',
         rowspan: '2'
@@ -192,8 +198,8 @@ export default {
         项目
         `,
         style: {
-          minWidth: '40px',
-          maxWidth: '40px'
+          minWidth: '60px',
+          maxWidth: '60px'
         },
         colspan: '1',
         rowspan: '2'
@@ -211,8 +217,7 @@ export default {
         },
       },
     ],
-    bottom: [
-      {
+    bottom: [{
         name: `
         直径(mm)
         `,

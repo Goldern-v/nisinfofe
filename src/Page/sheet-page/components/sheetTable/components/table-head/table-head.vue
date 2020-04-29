@@ -43,10 +43,27 @@
           v-model="relObj.wxNo"
         />
       </span>-->
-      <span>
-        入院日期：
-        {{patientInfo.admissionDate | toymd}}
+      <span
+        @click="updateDiagnosis('diagnosis', '诊断', patientInfo.diagnosis)"
+        v-if="sheetInfo.sheetType == 'com_lc'"
+      >
+        诊断：
+        <div
+          class="bottom-line"
+          style="min-width: 120px;max-width: 620px;min-height:13px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;"
+        >{{diagnosis}}</div>
       </span>
+      <span
+        @click="updateOperation('operation', '手术', patientInfo.operation)"
+        v-if="sheetInfo.sheetType == 'com_lc'"
+      >
+        手术：
+        <div
+          class="bottom-line"
+          style="min-width: 80px;max-width: 620px;min-height:13px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;"
+        >{{operation}}</div>
+      </span>
+      <span>入院日期： {{patientInfo.admissionDate | toymd}}</span>
     </div>
     <!-- <span class="diagnosis-con" :title="patientInfo.diagnosis">诊断：{{patientInfo.diagnosis}}</span> -->
     <!-- <span>入院日期：{{$route.query.admissionDate}}</span> -->
@@ -59,6 +76,7 @@ import { updateSheetHeadInfo } from "../../../../api/index";
 import sheetInfo from "../../../config/sheetInfo";
 import { listItem } from "@/api/common.js";
 import sheetData from "../../../../sheet.js";
+import bus from "vue-happy-bus";
 export default {
   props: {
     patientInfo: Object,
@@ -66,10 +84,9 @@ export default {
   },
   data() {
     return {
-      sheetInfo
-      // relObj: {
-      //   wxNo: ""
-      // }
+      bus: bus(this),
+      sheetInfo,
+      relObj: sheetInfo.relObj
     };
   },
   computed: {
@@ -111,6 +128,44 @@ export default {
           return sheetInfo.relObj.age || this.patientInfo.age;
         }
       }
+    },
+    diagnosis() {
+      /** 最接近的index */
+      let realIndex = 0;
+      let keys = Object.keys(this.relObj || {});
+      for (let i = 0; i < keys.length; i++) {
+        let [base, keyIndex] = keys[i].split("PageIndex_diagnosis_");
+        if (keyIndex !== undefined) {
+          if (this.index >= keyIndex) {
+            if (this.index - keyIndex <= this.index - realIndex) {
+              realIndex = keyIndex;
+            }
+          }
+        }
+      }
+      return (
+        (this.relObj || {})[`PageIndex_diagnosis_${realIndex}`] ||
+        this.patientInfo.diagnosis
+      );
+    },
+    operation() {
+      /** 最接近的index */
+      let realIndex = 0;
+      let keys = Object.keys(this.relObj || {});
+      for (let i = 0; i < keys.length; i++) {
+        let [base, keyIndex] = keys[i].split("PageIndex_operation_");
+        if (keyIndex !== undefined) {
+          if (this.index >= keyIndex) {
+            if (this.index - keyIndex <= this.index - realIndex) {
+              realIndex = keyIndex;
+            }
+          }
+        }
+      }
+      return (
+        (this.relObj || {})[`PageIndex_operation_${realIndex}`] ||
+        this.patientInfo.operation
+      );
     }
   },
   methods: {
@@ -195,12 +250,38 @@ export default {
           `修改年龄`
         );
       }
+    },
+    updateDiagnosis(key, label, autoText) {
+      window.openSetTextModal(
+        text => {
+          this.relObj[`PageIndex_diagnosis_${this.index}`] = text;
+          this.sheetInfo.relObj = { ...this.relObj };
+          this.$message.success(`修改诊断成功`);
+          this.bus.$emit("saveSheetPage", false);
+        },
+        this.diagnosis,
+        `修改诊断`
+      );
+    },
+    updateOperation(key, label, autoText) {
+      window.openSetTextModal(
+        text => {
+          this.relObj[`PageIndex_operation_${this.index}`] = text;
+          this.sheetInfo.relObj = { ...this.relObj };
+          this.$message.success(`修改手术成功`);
+          this.bus.$emit("saveSheetPage", false);
+        },
+        this.operation,
+        `修改手术`
+      );
     }
   },
   filters: {
     toymd(val) {
       if (process.env.HOSPITAL_ID == "weixian") {
         return moment(val).format("YYYY-MM-DD");
+      } else if (process.env.HOSPITAL_ID == "lingcheng") {
+        return moment(val).format("YYYY年MM月DD日");
       } else {
         return moment(val).format("YYYY年MM月");
       }

@@ -239,6 +239,21 @@ export default {
       );
     }
 
+    // 陵城打印
+    if (this.HOSPITAL_ID == "lingcheng") {
+      addCSS(
+        window,
+        `
+       #sheetPagePrint#sheetPagePrint th[dataname='护士签名'] {
+         width: 130px !important;
+       }
+       .sign-img img {
+         margin: 0  !important;
+       }
+        `
+      );
+    }
+
     if (!this.isDev) $('[style="display: none;"]').remove();
     if (!this.isDev) $(".no-print").remove();
 

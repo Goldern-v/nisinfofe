@@ -2,11 +2,10 @@ export default {
   // 科室的名称
   deptType: '',
   style: {
-    width: "950px"
+    width: "1002px"
   },
   th: {
-    top: [
-      {
+    top: [{
         name: '日期',
         style: {
           minWidth: '36px',
@@ -28,8 +27,8 @@ export default {
       {
         name: '神志',
         style: {
-          minWidth: '140px',
-          maxWidth: '140px',
+          minWidth: '36px',
+          maxWidth: '36px',
         },
         colspan: '1',
         rowspan: '3'
@@ -138,8 +137,7 @@ export default {
         rowspan: '3'
       }
     ],
-    mid: [
-      {
+    mid: [{
         name: `
         项目
         `,
@@ -185,7 +183,6 @@ export default {
         },
       },
     ],
-    bottom: [
-    ]
+    bottom: []
   }
 }

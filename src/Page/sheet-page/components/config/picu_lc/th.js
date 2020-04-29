@@ -5,8 +5,7 @@ export default {
     width: "1500px"
   },
   th: {
-    top: [
-      {
+    top: [{
         name: '日期',
         style: {
           minWidth: '36px',
@@ -90,8 +89,7 @@ export default {
         rowspan: '3'
       }
     ],
-    mid: [
-      {
+    mid: [{
         name: `
         体温℃
         `,
@@ -160,8 +158,8 @@ export default {
         神志
         `,
         style: {
-          minWidth: '140px',
-          maxWidth: '140px',
+          minWidth: '36px',
+          maxWidth: '36px',
         },
         colspan: '1',
         rowspan: '2'
@@ -294,7 +292,6 @@ export default {
         rowspan: '2'
       }
     ],
-    bottom: [
-    ]
+    bottom: []
   }
 }
