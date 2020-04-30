@@ -38,7 +38,7 @@
           <div class="cell">{{item.riValue && item.riValue !== '0' ? (item.riValue + ' ü') : ''}}</div>
         </td>
         <td>
-          <div class="cell noPrint">{{item.nurse}}</div>
+          <div class="cell" :class="{noPrint:HOSPITAL_ID!='lingcheng'}">{{item.nurse}}</div>
           <div class="cell inPrint">
             <!-- {{item.nurseEmpNo}} -->
             <img
