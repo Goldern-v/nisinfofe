@@ -43,65 +43,86 @@
 </template>
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
-.contain
-  margin 20px 20px 0
-  position relative
-  .tem-con
-    margin 0 auto
-    width 640px
-    padding 10px
-    min-height 700px
-    background #fff
-    iframe, img
-      width 100%
-      height 100%
-  .date-select-box
-    position absolute
-    top 0
-    left 0
-    font-size 12px
-    white-space nowrap
-    color #687179
-    width 220px
-    >>>.el-input
+.contain {
+  margin: 20px 20px 0;
+  position: relative;
+
+  .tem-con {
+    margin: 0 auto;
+    width: 640px;
+    padding: 10px;
+    min-height: 700px;
+    background: #fff;
+
+    iframe, img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .date-select-box {
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-size: 12px;
+    white-space: nowrap;
+    color: #687179;
+    width: 220px;
+
+    >>>.el-input {
       // width 135px
-      position relative
-    >>>.el-input__inner
-      height 30px
-      width 100px
-      width 135px
-      border 1px solid #C2CBD2
-      border-radius 4px
-      margin-left 5px
-.tool-btn
-  width 82px
-  height 32px
-  background #FFFFFF
-  border 1px solid #C2CBD2
-  border-radius 4px
-  display flex
-  align-items center
-  justify-content center
-  font-size 14px
-  color rgba(0, 0, 0, 0.65)
-  margin 0 5px
-  &:hover
-    color #4BB08D
-    border-color #4BB08D
-    cursor pointer
-  &.disable
-    color #b5b5b5
-    border-color #b5b5b5
-    cursor not-allowed
-.page-num
-  font-size 17px
-  color rgba(0, 0, 0, 0.65)
-  line-height 34px
-  margin 0 10px
-.print-btn
-  position fixed
-  right 20px
-  top 70px
+      position: relative;
+    }
+
+    >>>.el-input__inner {
+      height: 30px;
+      width: 100px;
+      width: 135px;
+      border: 1px solid #C2CBD2;
+      border-radius: 4px;
+      margin-left: 5px;
+    }
+  }
+}
+
+.tool-btn {
+  width: 82px;
+  height: 32px;
+  background: #FFFFFF;
+  border: 1px solid #C2CBD2;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.65);
+  margin: 0 5px;
+
+  &:hover {
+    color: #4BB08D;
+    border-color: #4BB08D;
+    cursor: pointer;
+  }
+
+  &.disable {
+    color: #b5b5b5;
+    border-color: #b5b5b5;
+    cursor: not-allowed;
+  }
+}
+
+.page-num {
+  font-size: 17px;
+  color: rgba(0, 0, 0, 0.65);
+  line-height: 34px;
+  margin: 0 10px;
+}
+
+.print-btn {
+  position: fixed;
+  right: 20px;
+  top: 70px;
+}
 </style>
 
 <script>
@@ -128,7 +149,10 @@ export default {
         this.$route.query.visitId,
         date
       ).then(res => {
-        this.filePath = res.data.data.filePath;
+        this.filePath =
+          this.HOSPITAL_ID == "lingcheng"
+            ? res.data.data.expand
+            : res.data.data.filePath;
       });
     },
     onload() {

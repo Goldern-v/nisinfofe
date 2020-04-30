@@ -142,8 +142,8 @@ export default {
         项目
         `,
         style: {
-          minWidth: '50px',
-          maxWidth: '50px'
+          minWidth: '90px',
+          maxWidth: '90px'
         },
         colspan: '1',
         rowspan: '2'
@@ -164,8 +164,8 @@ export default {
         项目
         `,
         style: {
-          minWidth: '50px',
-          maxWidth: '50px'
+          minWidth: '90px',
+          maxWidth: '90px'
         },
         colspan: '1',
         rowspan: '2'
