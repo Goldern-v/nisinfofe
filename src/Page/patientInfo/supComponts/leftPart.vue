@@ -34,7 +34,12 @@
         <div class="list2-li">医生：{{info.doctorInCharge}}</div>
         <div class="list2-li over-text" :title="info.diagnosis">诊断：{{info.diagnosis}}</div>
         <div class="print-btn" flex="cross:center main:center" @click="openBedPrint">打印床头卡</div>
-        <div class="print-btn" flex="cross:center main:center" @click="openPrintModal" v-if="HOSPITAL_ID == 'weixian'">
+        <div
+          class="print-btn"
+          flex="cross:center main:center"
+          @click="openPrintModal"
+          v-if="HOSPITAL_ID == 'weixian'"
+        >
           <span>归档打印</span>
           <span v-if="printArchiveMaster.statusDesc">{{'（'+ printArchiveMaster.statusDesc +'）'}}</span>
         </div>
@@ -51,6 +56,7 @@
     </div>
     <bedModal ref="bedModal"></bedModal>
     <bedModalWx ref="bedModalWx"></bedModalWx>
+    <bedModalLc ref="bedModalLc"></bedModalLc>
     <printModal ref="printModal"></printModal>
     <archiveModal
       ref="archiveModal"
@@ -187,6 +193,7 @@
 <script>
 import bedModal from "./modal/bed-modal.vue";
 import bedModalWx from "./modal/bed-modal_wx.vue";
+import bedModalLc from "./modal/bed-modal_lc.vue";
 import printModal from "./print-modal/print-modal";
 import archiveModal from "./modal/archive-modal";
 import { previewArchive } from "./modal/api/index";
@@ -220,6 +227,8 @@ export default {
     openBedPrint() {
       if (this.HOSPITAL_ID == "weixian") {
         this.$refs.bedModalWx.open();
+      } else if (this.HOSPITAL_ID == "lingcheng") {
+        this.$refs.bedModalLc.open();
       } else {
         this.$refs.bedModal.open();
       }
@@ -268,6 +277,7 @@ export default {
     bedModal,
     printModal,
     bedModalWx,
+    bedModalLc,
     archiveModal
   }
 };
