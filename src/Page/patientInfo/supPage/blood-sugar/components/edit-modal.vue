@@ -92,6 +92,9 @@ export default {
       }
     ]
   }),
+  props: {
+    sugarItem: Array
+  },
   methods: {
     open(title, form) {
       this.title = title;
@@ -156,15 +159,16 @@ export default {
       apis.getTypeList(this.deptCode).then(res => {
         this.typeList = res.data.data;
       });
-    } else if (this.HOSPITAL_ID == "lingcheng") {
-      apis.getSugarItemDict().then(res => {
-        let data = res.data.data;
-        this.typeList = data.map(item => {
-          return {
-            vitalSign: item.itemName
-          };
-        });
-      });
+    }
+    if (this.HOSPITAL_ID == "lingcheng") {
+      this.typeList = this.sugarItem;
+    }
+  },
+  watch: {
+    sugarItem(newVal, oldVal) {
+      if (newVal && this.HOSPITAL_ID == "lingcheng") {
+        this.typeList = this.sugarItem;
+      }
     }
   }
 };

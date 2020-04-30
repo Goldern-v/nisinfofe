@@ -1,6 +1,10 @@
 <template>
   <div>
-    <div class="chart-con" :style="{height: wih - 110 + 'px'}">
+    <div
+      class="chart-con"
+      :style="{height: wih - 110 + 'px'}"
+      :class="{lc:HOSPITAL_ID == 'lingcheng'}"
+    >
       <chart
         v-if="visible"
         :options="options"
@@ -12,8 +16,13 @@
 </template>
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
-  .chart-con
-    background #fff
+.chart-con {
+  background: #fff;
+
+  &.lc {
+    padding-right: 134px;
+  }
+}
 </style>
 
 <script>
@@ -22,7 +31,8 @@ import common from "@/common/mixin/common.mixin.js";
 export default {
   mixins: [common],
   props: {
-    lineData: Array
+    lineData: Array,
+    sugarItem: Array
   },
   data() {
     return {
@@ -58,6 +68,12 @@ export default {
     setTimeout(() => {
       this.visible = true;
     }, 300);
+
+    if (this.HOSPITAL_ID == "lingcheng") {
+      this.types = this.sugarItem.map(item => {
+        return item.vitalSign;
+      });
+    }
   },
   computed: {
     options() {
@@ -76,7 +92,7 @@ export default {
         grid: {
           left: "3%",
           right: "120px",
-          bottom: "8%",
+          bottom: this.HOSPITAL_ID == "lingcheng" ? "12%" : "8%",
           containLabel: true
         },
         xAxis: {

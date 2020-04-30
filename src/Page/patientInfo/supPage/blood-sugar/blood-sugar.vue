@@ -33,7 +33,7 @@
       </div>
     </div>
     <div class="chart-con" v-if="isChart">
-      <sugarChart ref="sugarChartModal" :lineData="hisPatSugarList"></sugarChart>
+      <sugarChart ref="sugarChartModal" :lineData="hisPatSugarList" :sugarItem.sync="typeList"></sugarChart>
     </div>
     <div class="tool-con" v-show="listMap.length">
       <div class="tool-fix" flex="dir:top">
@@ -45,7 +45,7 @@
         <whiteButton :text="!isChart?'查看曲线':'查看表格'" @click="openChart" v-if="HOSPITAL_ID != 'gy'"></whiteButton>
       </div>
     </div>
-    <editModal ref="editModal" @confirm="onSave" />
+    <editModal ref="editModal" :sugarItem.sync="typeList" @confirm="onSave" />
     <setPageModal ref="setPageModal" />
   </div>
 </template>
@@ -140,7 +140,8 @@ import {
   getSugarListWithPatientId,
   saveSugarList,
   removeSugar,
-  getPvHomePage
+  getPvHomePage,
+  getSugarItemDict
 } from "./api/index.js";
 import whiteButton from "@/components/button/white-button.vue";
 import sugarChart from "./components/sugar-chart.vue";
@@ -160,7 +161,8 @@ export default {
       hisPatSugarList: [],
       isChart: false,
       selected: null,
-      startPage: 1
+      startPage: 1,
+      typeList: []
     };
   },
   computed: {
@@ -272,11 +274,24 @@ export default {
     },
     openSetPageModal() {
       this.$refs.setPageModal.open();
+    },
+    getSugarItemDict() {
+      getSugarItemDict().then(res => {
+        let data = res.data.data;
+        this.typeList = data.map(item => {
+          return {
+            vitalSign: item.itemName
+          };
+        });
+      });
     }
   },
   created() {
     if (this.$route.query.patientId) {
       this.load();
+    }
+    if (this.HOSPITAL_ID == "lingcheng") {
+      this.getSugarItemDict();
     }
   },
   components: {

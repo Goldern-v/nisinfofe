@@ -8,7 +8,7 @@
           血糖值
           <br />(mmol/L)
         </th>
-        <th style="width: 16%" v-if="HOSPITAL_ID != 'gy'">RI剂量</th>
+        <th style="width: 16%" v-if="HOSPITAL_ID != 'gy' && HOSPITAL_ID != 'lingcheng'">RI剂量</th>
         <th style="width: 16%">执行人</th>
       </tr>
       <tr
@@ -34,7 +34,7 @@
         <td>
           <div class="cell">{{item.sugarValue && item.sugarValue !== '0' ? item.sugarValue : ''}}</div>
         </td>
-        <td v-if="HOSPITAL_ID != 'gy'">
+        <td v-if="HOSPITAL_ID != 'gy' && HOSPITAL_ID != 'lingcheng'">
           <div class="cell">{{item.riValue && item.riValue !== '0' ? (item.riValue + ' ü') : ''}}</div>
         </td>
         <td>
