@@ -106,7 +106,13 @@ export default {
               .value
           ).subtract(d, "d");
           let diff = now_time.diff(real_birthday, "d");
-          return diff + "天";
+          if (sheetInfo.relObj.age.indexOf("月") > -1) {
+            let arr = sheetInfo.relObj.age.split("月");
+            let d = parseInt(arr[1]);
+            return arr[0] + "月" + (d + diff) + "天";
+          } else {
+            return diff + "天";
+          }
         } else {
           return sheetInfo.relObj.age || this.patientInfo.age;
         }

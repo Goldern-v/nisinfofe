@@ -73,7 +73,7 @@ module.exports = {
     cssSourceMap: false,
     proxyTable: {
       "/crNursing/api": {
-        // target: "http://120.197.141.41:9091", //厚街正式
+        target: "http://120.197.141.41:9091", //厚街正式
         // target: "http://58.42.249.209:17953", //贵州医科大正式
         // target: "http://120.197.141.41:9094", //东莞正式库的测试
         // target: "http://60.6.218.17:9093", //威县
@@ -92,7 +92,7 @@ module.exports = {
         // target: "http://192.168.1.116:8964", //兆斌
         // target: "http://192.168.2.75:8084", //厚街内网俊涛ip测试
         // target: "http://120.25.105.45:9867", //陵城测试
-        target: "http://120.224.184.10:9094", //陵城正式
+        // target: "http://120.224.184.10:9094", //陵城正式
 
         changeOrigin: true,
         pathRewrite: {
