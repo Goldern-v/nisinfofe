@@ -10,12 +10,7 @@
       v-if="hasFiexHeader"
     >
       <tr class="body-con">
-        <td
-          v-for="(td, i) in data.bodyModel[0]"
-          :key="i"
-          v-if="!td.hidden"
-          :dataKey="td.key"
-        >
+        <td v-for="(td, i) in data.bodyModel[0]" :key="i" v-if="!td.hidden" :dataKey="td.key">
           <div v-if="td.key == 'sign'" class="sign-text"></div>
           <div v-else-if="td.key == 'audit'" class="sign-text"></div>
           <div v-else-if="td.key == 'signerNo'" class="sign-img"></div>
@@ -31,11 +26,7 @@
           <input type="text" :style="[td.style]" v-else />
         </td>
       </tr>
-      <tr
-        class="head-con"
-        v-for="(th, index) in data.titleModel.th"
-        :key="index"
-      >
+      <tr class="head-con" v-for="(th, index) in data.titleModel.th" :key="index">
         <th
           v-for="(item, i) in th"
           :key="i"
@@ -52,11 +43,7 @@
     </table>
 
     <table class="sheet-table" ref="table">
-      <tr
-        class="head-con"
-        v-for="(th, index) in data.titleModel.th"
-        :key="index"
-      >
+      <tr class="head-con" v-for="(th, index) in data.titleModel.th" :key="index">
         <th
           v-for="(item, i) in th"
           :key="i"
@@ -112,7 +99,7 @@
           @mouseover="markTip($event, td)"
           @mouseout="closeMarkTip"
           :class="[
-            td.markObj && `mark-mark-mark mark-cell-status-${td.markObj.status}`
+            td.markObj && `mark-mark-mark mark-cell-status-${td.markObj.status}`,HOSPITAL_ID=='lingcheng' && td.value && td.statBottomLine && `stat-bottom-line`
           ]"
           @contextmenu.stop="openContextMenu($event, y, tr, td)"
           @click="selectedItem(td)"
@@ -232,10 +219,7 @@
 
     <!-- <div @click="addNullRow"
     class="add-row">+ 添加新行</div>-->
-    <div
-      v-if="sheetInfo.sheetType == 'neonatology2'"
-      style="font-size: 13px; margin-top: -5px"
-    >
+    <div v-if="sheetInfo.sheetType == 'neonatology2'" style="font-size: 13px; margin-top: -5px">
       备注 1.肌张力:M(正常) H(高) L(低) 2.肤色:P1(红润) J(黄染) F(潮红) C(紫绀)
       P2(苍白) M(花斑) 3.体位:S(平卧) L(左侧) R(右侧) P(俯卧)
     </div>

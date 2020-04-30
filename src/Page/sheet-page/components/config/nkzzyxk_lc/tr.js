@@ -1,13 +1,22 @@
-import { listItem } from "../../../api/recordDesc";
-import { multiDictInfo } from "../../../api/index";
-import { keyf1 } from "../keyEvent/f1.js";
-import { event_date, event_time, click_date } from "../keyEvent/date";
+import {
+  listItem
+} from "../../../api/recordDesc";
+import {
+  multiDictInfo
+} from "../../../api/index";
+import {
+  keyf1
+} from "../keyEvent/f1.js";
+import {
+  event_date,
+  event_time,
+  click_date
+} from "../keyEvent/date";
 import info from "../sheetInfo";
 let 神志 = [];
 let 出量项目 = [];
 let 入量项目 = [];
-export default [
-  {
+export default [{
     key: "recordMonth", //日期
     value: "",
     event: event_date,
@@ -32,19 +41,19 @@ export default [
     value: "",
     event: keyf1,
     name: '体温',
-    next:'℃'
+    next: '℃'
   },
   {
     key: "pulse", //心率
     value: "",
     event: keyf1,
     name: '心率',
-    next:'次/分'
+    next: '次/分'
   },
   {
     key: "bloodPressure", //血压
     value: "",
-    event: function(e, td) {
+    event: function (e, td) {
       if (e.keyCode == 32) {
         e.target.value += "/";
         e.preventDefault();
@@ -52,14 +61,14 @@ export default [
       keyf1(e, td);
     },
     name: '血压',
-    next:'mmHg'
+    next: 'mmHg'
   },
   {
     key: "breath", //呼吸
     value: "",
     event: keyf1,
     name: '呼吸',
-    next:'次/分'
+    next: '次/分'
   },
   {
     key: "spo2", //SPO2
@@ -72,7 +81,7 @@ export default [
     value: "",
     event: keyf1,
     autoComplete: {
-      data:入量项目
+      data: 入量项目
     },
     textarea: {
       width: 68
@@ -83,7 +92,8 @@ export default [
     key: "foodSize", //入量
     value: "",
     event: keyf1,
-    name: '入量:入量'
+    name: '入量:入量',
+    statBottomLine: true
   },
   {
     key: "discharge", //项目（出）
@@ -101,7 +111,8 @@ export default [
     key: "dischargeSize", //出量
     value: "",
     event: keyf1,
-    name: '出量:出量'
+    name: '出量:出量',
+    statBottomLine: true
   },
   {
     key: "description", //护理记录
@@ -115,7 +126,7 @@ export default [
       width: "180px",
       background: "transparent"
     },
-    event: function(e, td) {
+    event: function (e, td) {
       console.log(e.keyCode);
       if (e.keyCode == 9) {
         td.value = "    " + td.value;
@@ -125,7 +136,7 @@ export default [
     }
   },
   {
-    key: "sign",//签名
+    key: "sign", //签名
     value: ""
   },
   {
@@ -196,8 +207,8 @@ export default [
 ];
 
 export function getListData4() {
-  let list = ["陵城神志","陵城出量",'陵城入量'];
-  multiDictInfo(list,info.sheetType).then(res => {
+  let list = ["陵城神志", "陵城出量", '陵城入量'];
+  multiDictInfo(list, info.sheetType).then(res => {
     let data = res.data.data;
     setList(神志, "陵城神志", data);
     setList(出量项目, "陵城出量", data);

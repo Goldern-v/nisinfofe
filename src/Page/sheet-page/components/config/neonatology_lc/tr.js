@@ -154,7 +154,8 @@ export default [{
     event: keyf1,
     textarea: {
       minWidth: "50px",
-    }
+    },
+    statBottomLine: true
   },
   {
     key: "discharge", //出量：项目
@@ -172,7 +173,8 @@ export default [{
     event: keyf1,
     textarea: {
       minWidth: "50px",
-    }
+    },
+    statBottomLine: true
   },
   {
     key: "description", //护理记录

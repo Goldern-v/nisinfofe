@@ -124,6 +124,78 @@ export default {
         rowspan: '1',
         canSet: false,
       },
+      {
+        name: `标题1`,
+        style: {},
+        colspan: "1",
+        rowspan: "3",
+        canSet: true,
+        key: "field22",
+        style: {
+          minWidth: "37px",
+          maxWidth: "37px"
+        }
+      },
+      {
+        name: `标题2`,
+        style: {},
+        colspan: "1",
+        rowspan: "3",
+        canSet: true,
+        key: "field23",
+        style: {
+          minWidth: "37px",
+          maxWidth: "37px"
+        }
+      },
+      {
+        name: `标题3`,
+        style: {},
+        colspan: "1",
+        rowspan: "3",
+        canSet: true,
+        key: "field24",
+        style: {
+          minWidth: "37px",
+          maxWidth: "37px"
+        }
+      },
+      {
+        name: `标题4`,
+        style: {},
+        colspan: "1",
+        rowspan: "3",
+        canSet: true,
+        key: "field25",
+        style: {
+          minWidth: "37px",
+          maxWidth: "37px"
+        }
+      },
+      {
+        name: `标题5`,
+        style: {},
+        colspan: "1",
+        rowspan: "3",
+        canSet: true,
+        key: "field26",
+        style: {
+          minWidth: "37px",
+          maxWidth: "37px"
+        }
+      },
+      {
+        name: `标题6`,
+        style: {},
+        colspan: "1",
+        rowspan: "3",
+        canSet: true,
+        key: "field27",
+        style: {
+          minWidth: "37px",
+          maxWidth: "37px"
+        }
+      },
       //护理记录
       {
         name: `

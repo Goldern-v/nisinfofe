@@ -122,7 +122,8 @@ export default [{
     key: "foodSize", //入量
     value: "",
     event: keyf1,
-    name: '入量:入量'
+    name: '入量:入量',
+    statBottomLine: true
   },
   {
     key: "discharge", //项目（出）
@@ -140,7 +141,56 @@ export default [{
     key: "dischargeSize", //出量
     value: "",
     event: keyf1,
-    name: '出量:出量'
+    name: '出量:出量',
+    statBottomLine: true
+  },
+  {
+    key: "field22", //标题1
+    value: "",
+    event: keyf1,
+    textarea: {
+      width: 36
+    }
+  },
+  {
+    key: "field23", //标题2
+    value: "",
+    event: keyf1,
+    textarea: {
+      width: 36
+    }
+  },
+  {
+    key: "field24", //标题3
+    value: "",
+    event: keyf1,
+    textarea: {
+      width: 36
+    }
+  },
+  {
+    key: "field25", //标题4
+    value: "",
+    event: keyf1,
+    textarea: {
+      width: 36
+    }
+  },
+  {
+    key: "field26", //标题5
+    value: "",
+    event: keyf1,
+    textarea: {
+      width: 36
+    }
+  },
+  {
+    key: "field27", //标题6
+    value: "",
+    event: keyf1,
+    textarea: {
+      width: 36
+    }
   },
   {
     key: "description", //护理记录

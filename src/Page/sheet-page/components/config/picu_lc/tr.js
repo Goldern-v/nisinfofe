@@ -1,7 +1,17 @@
-import { listItem } from "../../../api/recordDesc";
-import { multiDictInfo } from "../../../api/index";
-import { keyf1 } from "../keyEvent/f1.js";
-import { event_date, event_time, click_date } from "../keyEvent/date";
+import {
+  listItem
+} from "../../../api/recordDesc";
+import {
+  multiDictInfo
+} from "../../../api/index";
+import {
+  keyf1
+} from "../keyEvent/f1.js";
+import {
+  event_date,
+  event_time,
+  click_date
+} from "../keyEvent/date";
 import info from "../sheetInfo";
 // let info = {
 //   sheetType: "neurology"
@@ -9,8 +19,7 @@ import info from "../sheetInfo";
 let ysList = [];
 let chuList = [];
 let ruList = [];
-export default [
-  {
+export default [{
     key: "recordMonth", //日期
     value: "",
     event: event_date,
@@ -26,21 +35,21 @@ export default [
     value: "",
     event: keyf1,
     name: '体温',
-    next:'℃'
+    next: '℃'
   },
   {
     key: "pulse", //脉搏
     value: "",
     event: keyf1,
     name: '脉搏',
-    next:'次/分'
+    next: '次/分'
   },
   {
     key: "breath", //呼吸
     value: "",
     event: keyf1,
     name: '呼吸',
-    next:'次/分'
+    next: '次/分'
   },
   {
     key: "bloodPressure", //血压
@@ -53,14 +62,14 @@ export default [
       keyf1(e, td);
     },
     name: '血压',
-    next:'mmHg'
+    next: 'mmHg'
   },
   {
     key: "oxygen", //氧饱和度%
     value: "",
     event: keyf1,
     name: '氧饱和度',
-    next:'%'
+    next: '%'
   },
   {
     key: "consciousness", //神志
@@ -76,62 +85,71 @@ export default [
     value: "",
     event: keyf1,
     name: '尿量',
-    next:'ml'
+    next: 'ml',
+    statBottomLine: true
   },
   {
     key: "field6", //出量:呕吐ml
     value: "",
     event: keyf1,
     name: '呕吐',
-    next:'ml'
+    next: 'ml',
+    statBottomLine: true
   },
   {
     key: "field7", // 出量:大便ml
     value: "",
     event: keyf1,
     name: '大便',
-    next:'ml'
+    next: 'ml',
+    statBottomLine: true
   },
   {
     key: "field8", // 出量:其他引流量ml
     value: "",
     event: keyf1,
     name: '其他引流量',
-    next:'ml'
+    next: 'ml',
+    statBottomLine: true
   },
   {
     key: "field9", // 出量:其他
     value: "",
     event: keyf1,
-    name: '其他'
+    name: '其他',
+    statBottomLine: true
   },
   {
     key: "field1", // 入量:口服ml
     value: "",
     event: keyf1,
     name: '口服',
-    next:'ml'
+    next: 'ml',
+    statBottomLine: true
   },
   {
     key: "field2", // 入量:静脉
     value: "",
     event: keyf1,
     name: '静脉',
-    next:'ml'
+    next: 'ml',
+    statBottomLine: true
   },
   {
     key: "field3", // 入量:肌肉注释
     value: "",
     event: keyf1,
     name: '肌肉注释',
-    next:'ml'
+    next: 'ml',
+    statBottomLine: true
   },
   {
     key: "field4", // 入量:灌肠
     value: "",
     event: keyf1,
     name: '灌肠',
-    next:'ml'
+    next: 'ml',
+    statBottomLine: true
   },
   {
     key: "field10", // 皮肤情况
