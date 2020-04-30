@@ -22,6 +22,10 @@ export function getRowNum(index) {
     } else {
       return 28;
     }
+  } else if (sheetInfo.sheetType == "com_lc") {
+    return 22
+  } else if (sheetInfo.sheetType == 'Record_Children_Serious_Lc') {
+    return 28
   } else {
     return 17;
   }
