@@ -1,10 +1,6 @@
 <template>
   <SweetModal ref="modal" :title="title" :modal-width="450">
-    <ElForm
-      class="edit-modal-form"
-      style="margin-bottom: 20px"
-      label-width="100px"
-    >
+    <ElForm class="edit-modal-form" style="margin-bottom: 20px" label-width="100px">
       <ElFormItem label="日期：" required>
         <ElDatePicker v-model="form.recordDate" :clearable="false" />
       </ElFormItem>
@@ -94,51 +90,7 @@ export default {
       {
         vitalSign: "随机"
       }
-    ],
-    typeList2: [
-      {
-        vitalSign: "凌晨"
-      },
-      {
-        vitalSign: "早餐前"
-      },
-      {
-        vitalSign: "早餐后"
-      },
-      {
-        vitalSign: "午餐前"
-      },
-      {
-        vitalSign: "午餐后"
-      },
-      {
-        vitalSign: "晚餐前"
-      },
-      {
-        vitalSign: "晚餐后"
-      },
-      {
-        vitalSign: "睡前"
-      },
-      {
-        vitalSign: "其他1"
-      },
-      {
-        vitalSign: "其他2"
-      },
-      {
-        vitalSign: "其他3"
-      },
-      {
-        vitalSign: "其他21"
-      },
-      {
-        vitalSign: "其他31"
-      },
-      {
-        vitalSign: "备注"
-      }
-    ] //陵城项目列表
+    ]
   }),
   methods: {
     open(title, form) {
@@ -149,7 +101,7 @@ export default {
 
       let defaultSugarItem = "微机血糖";
       if (this.HOSPITAL_ID == "lingcheng") {
-        defaultSugarItem = "凌晨";
+        defaultSugarItem = this.typeList ? this.typeList[0].vitalSign : "凌晨";
       }
       if (form) {
         this.form = {
@@ -205,7 +157,14 @@ export default {
         this.typeList = res.data.data;
       });
     } else if (this.HOSPITAL_ID == "lingcheng") {
-      this.typeList = [...this.typeList2];
+      apis.getSugarItemDict().then(res => {
+        let data = res.data.data;
+        this.typeList = data.map(item => {
+          return {
+            vitalSign: item.itemName
+          };
+        });
+      });
     }
   }
 };
