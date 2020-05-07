@@ -37,34 +37,34 @@ export default [{
     name: '神志'
   },
   {
-    key: "pupilSizeLeft", // 瞳孔大小（mm）左
+    key: "pupilSizeLeft", // 瞳孔左直径
     value: "",
     event: keyf1,
-    name: '瞳孔大小（mm）左'
+    name: '瞳孔左直径'
   },
   {
-    key: "pupilSizeRight", // 瞳孔大小（mm）右
+    key: "pupilReflexLeft", // 瞳孔左光反应
     value: "",
     event: keyf1,
     autoComplete: {
       data: ["+", "S", "-", "X"]
     },
-    name: '瞳孔大小（mm）右'
+    name: '瞳孔左光反应'
   },
   {
-    key: "pupilReflexLeft", // 瞳孔反射左
+    key: "pupilSizeRight", // 瞳孔右直径
     value: "",
     event: keyf1,
-    name: '瞳孔反射左'
+    name: '瞳孔右直径'
   },
   {
-    key: "pupilReflexRight", // 瞳孔反射右
+    key: "pupilReflexRight", // 瞳孔右光反应
     value: "",
     event: keyf1,
     autoComplete: {
       data: ["+", "S", "-", "X"]
     },
-    name: '瞳孔反射右'
+    name: '瞳孔右光反应'
   },
   {
     key: "temperature", //体温
