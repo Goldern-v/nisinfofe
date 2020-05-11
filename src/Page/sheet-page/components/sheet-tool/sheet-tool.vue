@@ -19,7 +19,7 @@
       <div
         class="item-box"
         flex="cross:center main:center"
-        @click="emit('saveSheetPage', false)"
+        @click="emit('saveSheetPage', 'noSaveSign')"
       >
         <div class="text-con" flex="cross:center">保存</div>
       </div>

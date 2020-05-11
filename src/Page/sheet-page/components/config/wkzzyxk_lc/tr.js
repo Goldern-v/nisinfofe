@@ -169,30 +169,6 @@ export default [{
     }
   },
   {
-    key: "field25", //标题4
-    value: "",
-    event: keyf1,
-    textarea: {
-      width: 36
-    }
-  },
-  {
-    key: "field26", //标题5
-    value: "",
-    event: keyf1,
-    textarea: {
-      width: 36
-    }
-  },
-  {
-    key: "field27", //标题6
-    value: "",
-    event: keyf1,
-    textarea: {
-      width: 36
-    }
-  },
-  {
     key: "description", //护理记录
     value: "",
     style: {
@@ -215,10 +191,6 @@ export default [{
   },
   {
     key: "sign", //签名
-    value: ""
-  },
-  {
-    key: "audit",
     value: ""
   },
   {

@@ -11,7 +11,8 @@ export default {
   copyRow: "",
   clickRow: null, //威县点击后行持续高亮
   model: "", //填写模型  print  edit
-  relObj: {}, /** 护记额外信息 */
-  bedList: [] //病人列表
+  relObj: {},
+  /** 护记额外信息 */
+  bedList: [], //病人列表
+  auditorMap: {} //审核人签名
 };
-

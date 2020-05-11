@@ -468,6 +468,14 @@ export default {
     });
     this.bus.$on("saveSheetPage", (isInitSheetPageSize = true) => {
       let save = () => {
+        isInitSheetPageSize =
+          isInitSheetPageSize == "noSaveSign" ? false : isInitSheetPageSize;
+        if (
+          isInitSheetPageSize == "noSaveSign" &&
+          sheetInfo.sheetType == "com_lc"
+        ) {
+          sheetInfo.auditorMap = {};
+        }
         this.pageLoading = true;
         this.scrollTop = this.$refs.scrollCon.scrollTop;
         saveBody(this.patientInfo.patientId, this.patientInfo.visitId, decode())

@@ -225,6 +225,21 @@
     </div>
     <div class="table-footer">
       第 {{ index + sheetStartPage }} 页
+      <span class="sh-name" v-if="sheetInfo.sheetType=='com_lc'">
+        审核人：
+        <span class="sh-name-box">
+          <div class="sign-null-box" @click="openAduitModal" v-if="!auditorNo"></div>
+          <div class="sign-in-box" v-else @click="cancelAduitModal">
+            <div class="audit-text no-print">{{auditorName}}</div>
+            <img
+              class="audit-img in-print"
+              :src="`/crNursing/api/file/signImage/${auditorNo}?${token}`"
+              alt
+            />
+          </div>
+        </span>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      </span>
       <!-- / {{Math.max(sheetMaxPage,(length + sheetStartPage - 1))}}  -->
       <!-- <span class="sh-name">审核人：
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -269,6 +284,8 @@ import common from "@/common/mixin/common.mixin.js";
 import { handlepz, delpz, auditpz } from "../../../../api/index.js";
 import decode from "../../../../components/render/decode.js";
 import moment from "moment";
+import { getUser } from "@/api/common.js";
+console.dir(sheetInfo);
 export default {
   props: {
     data: Object,
@@ -298,6 +315,18 @@ export default {
     },
     sheetMaxPage() {
       return this.sheetInfo.sheetMaxPage;
+    },
+    auditorNo() {
+      return (
+        sheetInfo.auditorMap &&
+        sheetInfo.auditorMap[`PageIndex_${this.index}_auditorNo`]
+      );
+    },
+    auditorName() {
+      return (
+        sheetInfo.auditorMap &&
+        sheetInfo.auditorMap[`PageIndex_${this.index}_auditorName`]
+      );
     }
   },
   methods: {
@@ -1018,6 +1047,44 @@ export default {
       if (td.isSelected) {
         td.value = "✓";
       }
+    },
+    /** 审核整页 */
+    openAduitModal() {
+      window.openSignModal((password, empNo) => {
+        getUser(password, empNo).then(res => {
+          let { empNo, empName } = res.data.data;
+          sheetInfo.auditorMap[`PageIndex_${this.index}_auditorNo`] = empNo;
+          sheetInfo.auditorMap[`PageIndex_${this.index}_auditorName`] = empName;
+          sheetInfo.auditorMap = { ...sheetInfo.auditorMap };
+          this.$notify.success({
+            title: "提示",
+            message: "审核成功",
+            duration: 2000
+          });
+          this.bus.$emit("saveSheetPage", false);
+        });
+      }, "审核签名确认");
+    },
+    /** 取消审核整页 */
+    cancelAduitModal() {
+      window.openSignModal((password, empNo) => {
+        getUser(password, empNo).then(res => {
+          let { empNo, empName } = res.data.data;
+          if (this.auditorNo == empNo) {
+            sheetInfo.auditorMap[`PageIndex_${this.index}_auditorNo`] = "";
+            sheetInfo.auditorMap[`PageIndex_${this.index}_auditorName`] = "";
+            sheetInfo.auditorMap = { ...sheetInfo.auditorMap };
+            this.$notify.success({
+              title: "提示",
+              message: "取消审核成功",
+              duration: 2000
+            });
+            this.bus.$emit("saveSheetPage", false);
+          } else {
+            this.$message.warning("非审核本人不可取消");
+          }
+        });
+      }, "取消签名确认");
     }
   },
   watch: {

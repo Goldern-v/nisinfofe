@@ -1,10 +1,11 @@
 import Title from "./components/render/Title";
 import Body from "./components/render/Body";
 import Mark from "./components/render/Mark.js";
+import sheetInfo from "./components/config/sheetInfo";
 
 // 自定义标题数据缓存数据
 let autoTitleDataDisk = [];
-let Page = function(titleData, autoTitleData, bodyData, index) {
+let Page = function (titleData, autoTitleData, bodyData, index) {
   return {
     titleModel: Title(titleData, autoTitleData, index),
     bodyModel: Body(bodyData, index)
@@ -66,6 +67,15 @@ export function initSheetPage(titleData, bodyData, markData) {
   for (let i = 0; i < markData.length; i++) {
     Mark.push(markData[i]);
   }
+
+
+  for (let key in sheetInfo.auditorMap) {
+    if (sheetInfo.auditorMap.hasOwnProperty(key)) {
+      sheetInfo.auditorMap[key] = "";
+    }
+  }
+  sheetInfo.auditorMap = Object.assign({}, bodyData.auditorMap);
+
   for (let i = 0; i <= realSize; i++) {
     data.push(
       Page(

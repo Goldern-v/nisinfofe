@@ -1,11 +1,16 @@
 import axios from "./axios";
 import qs from "qs";
-import { apiPath } from "./apiConfig";
+import {
+  apiPath
+} from "./apiConfig";
 import sheetInfo from "../Page/sheet-page/components/config/sheetInfo/";
 export const saveBody = (patientId, visitId, data) => {
   data.patientId = patientId;
   data.visitId = visitId;
   data.blockId = sheetInfo.selectBlock.id;
+  if (sheetInfo.sheetType == 'com_lc') {
+    data.auditorMap = sheetInfo.auditorMap;
+  }
   return axios.post(`${apiPath}record/${sheetInfo.sheetType}/saveAll`, data);
 };
 export const showBody = (patientId, visitId) => {
@@ -47,7 +52,11 @@ export const delPage = (patientId, visitId, index) => {
 export const delRow = (id, password, empNo) => {
   return axios.post(
     `${apiPath}record/${sheetInfo.sheetType}/delete`,
-    qs.stringify({ id, password, empNo })
+    qs.stringify({
+      id,
+      password,
+      empNo
+    })
   );
 };
 // 设置标记
