@@ -280,11 +280,11 @@ function autoComplete(el, bind) {
           },
           data: dataList,
           callback: function(data) {
-            if(process.env.HOSPITAL_ID == 'weixian'){
+            if (process.env.HOSPITAL_ID == "weixian") {
               if (td.value && td.value != data && td.childKey) {
                 tr.map(item => {
                   if (item.parentKey && item.parentKey == td.name) {
-                    item.value = '';
+                    item.value = "";
                   }
                 });
               }
@@ -308,7 +308,7 @@ function autoComplete(el, bind) {
         window.closeAutoComplete(key);
       }, 400);
     };
-  }else {
+  } else {
     el.onfocus = null;
   }
 }
@@ -477,12 +477,14 @@ export default {
       this.$refs.modal.close();
     },
     post() {
+      // 计算字节长度
       var GetLength = function(str) {
         var realLength = 0,
           len = str.length,
           charCode = -1;
         for (var i = 0; i < len; i++) {
           charCode = str.charCodeAt(i);
+          // 字符串^(String.fromCharCode([Unicode Value,]);可还原原字符.例如String.fromCharCode(94))
           if (charCode == 94) realLength += 0;
           else if (charCode >= 0 && charCode <= 128) realLength += 1;
           else realLength += 2;
@@ -492,11 +494,15 @@ export default {
       let result = [];
       let text = "";
       let allDoc = this.doc;
-      if (this.sheetInfo.sheetType && this.sheetInfo.sheetType.indexOf("_wx") == -1) {
+      if (
+        this.sheetInfo.sheetType &&
+        this.sheetInfo.sheetType.indexOf("_wx") == -1
+      ) {
         allDoc = "    " + this.doc;
       }
       for (let i = 0; i < allDoc.length; i++) {
         let charCode = allDoc.charCodeAt(i);
+        // 字符为 ，。；,.：:
         if (
           charCode == "65292" ||
           charCode == "12290" ||
@@ -508,11 +514,20 @@ export default {
         ) {
           text += allDoc[i];
         } else {
-          if (GetLength(text) > 23) {
-            result.push(text);
-            text = allDoc[i];
+          if (this.HOSPITAL_ID == "lingcheng") {
+            if (GetLength(text) > 46) {
+              result.push(text);
+              text = allDoc[i];
+            } else {
+              text += allDoc[i];
+            }
           } else {
-            text += allDoc[i];
+            if (GetLength(text) > 23) {
+              result.push(text);
+              text = allDoc[i];
+            } else {
+              text += allDoc[i];
+            }
           }
         }
       }

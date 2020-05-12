@@ -63,8 +63,8 @@ export default {
         特殊情况记录
         `,
         style: {
-          minWidth: '153px',
-          maxWidth: '153px',
+          minWidth: '306px',
+          maxWidth: '306px',
         },
         colspan: '1',
         rowspan: '3'

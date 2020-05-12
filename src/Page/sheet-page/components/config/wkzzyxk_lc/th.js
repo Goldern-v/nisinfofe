@@ -166,8 +166,8 @@ export default {
         护理记录
         `,
         style: {
-          minWidth: '153px',
-          maxWidth: '153px',
+          minWidth: '306px',
+          maxWidth: '306px',
         },
         colspan: '1',
         rowspan: '3'
