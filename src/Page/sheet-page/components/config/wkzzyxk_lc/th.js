@@ -2,7 +2,7 @@ export default {
   // 科室的名称
   deptType: '',
   style: {
-    width: "1100px"
+    width: "1300px"
   },
   th: {
     top: [{
@@ -132,8 +132,8 @@ export default {
         canSet: true,
         key: "field22",
         style: {
-          minWidth: "37px",
-          maxWidth: "37px"
+          minWidth: "57px",
+          maxWidth: "57px"
         }
       },
       {
@@ -144,8 +144,8 @@ export default {
         canSet: true,
         key: "field23",
         style: {
-          minWidth: "37px",
-          maxWidth: "37px"
+          minWidth: "57px",
+          maxWidth: "57px"
         }
       },
       {
@@ -156,8 +156,8 @@ export default {
         canSet: true,
         key: "field24",
         style: {
-          minWidth: "37px",
-          maxWidth: "37px"
+          minWidth: "57px",
+          maxWidth: "57px"
         }
       },
       //护理记录

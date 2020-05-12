@@ -232,7 +232,7 @@
           <div class="sign-in-box" v-else @click="cancelAduitModal">
             <div class="audit-text no-print">{{auditorName}}</div>
             <img
-              class="audit-img in-print"
+              class="audit-img in-print sign-img"
               :src="`/crNursing/api/file/signImage/${auditorNo}?${token}`"
               alt
             />
