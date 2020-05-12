@@ -223,6 +223,10 @@
       备注 1.肌张力:M(正常) H(高) L(低) 2.肤色:P1(红润) J(黄染) F(潮红) C(紫绀)
       P2(苍白) M(花斑) 3.体位:S(平卧) L(左侧) R(右侧) P(俯卧)
     </div>
+    <div v-if="sheetInfo.sheetType == 'icu_lc'" style="font-size: 13px; margin-top: -5px">
+      <p style="padding-bottom: 10px;">备注：神志：A、清醒 B、嗜睡 C、意识模糊 D、昏睡 E、昏迷（E1、浅昏迷E2、深昏迷）F、全麻未醒 G、药物镇静</p>
+      <p>入量：静脉、肌注（iM）、皮下（iH）、药物、水、粥  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;出量：痰、尿、大便、吐、胸液、腹液、胃出量等</p>
+    </div>
     <div class="table-footer">
       第 {{ index + sheetStartPage }} 页
       <span class="sh-name" v-if="sheetInfo.sheetType=='com_lc'">

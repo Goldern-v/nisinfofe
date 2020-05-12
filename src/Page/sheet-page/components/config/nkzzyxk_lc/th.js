@@ -2,7 +2,7 @@ export default {
   // 科室的名称
   deptType: '',
   style: {
-    width: "1070px"
+    width: "1270px"
   },
   th: {
     top: [{
@@ -142,8 +142,8 @@ export default {
         项目
         `,
         style: {
-          minWidth: '90px',
-          maxWidth: '90px'
+          minWidth: '130px',
+          maxWidth: '130px'
         },
         colspan: '1',
         rowspan: '2'
@@ -155,8 +155,8 @@ export default {
         colspan: '1',
         rowspan: '2',
         style: {
-          minWidth: '50px',
-          maxWidth: '50px',
+          minWidth: '66px',
+          maxWidth: '66px',
         },
       },
       {
@@ -164,8 +164,8 @@ export default {
         项目
         `,
         style: {
-          minWidth: '90px',
-          maxWidth: '90px'
+          minWidth: '130px',
+          maxWidth: '130px'
         },
         colspan: '1',
         rowspan: '2'
@@ -177,8 +177,8 @@ export default {
         colspan: '1',
         rowspan: '2',
         style: {
-          minWidth: '50px',
-          maxWidth: '50px',
+          minWidth: '66px',
+          maxWidth: '66px',
           whiteSpace: 'nowrap'
         },
       },

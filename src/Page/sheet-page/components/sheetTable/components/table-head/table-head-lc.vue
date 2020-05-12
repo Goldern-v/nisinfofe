@@ -63,9 +63,19 @@
           style="min-width: 80px;max-width: 620px;min-height:13px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;"
         >{{operation}}</div>
       </span>
-      <span>入院日期： {{patientInfo.admissionDate | toymd}}</span>
+      <span
+        @click="updateDiagnosis('diagnosis', '诊断', patientInfo.diagnosis)"
+        v-if="sheetInfo.sheetType == 'icu_lc'"
+      >
+        诊断：
+        <div
+          class="bottom-line"
+          style="min-width: 400px;max-width: 1000px;min-height:13px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;"
+        >{{diagnosis}}</div>
+      </span>
+      <!-- <span>入院日期： {{patientInfo.admissionDate | toymd}}</span> -->
     </div>
-    <div class="info-con" flex="main:justify" v-if="sheetInfo.sheetType == 'icu_lc'">
+    <!-- <div class="info-con" flex="main:justify" v-if="sheetInfo.sheetType == 'icu_lc'">
       <span @click="updateDiagnosis('diagnosis', '诊断', patientInfo.diagnosis)">
         诊断：
         <div
@@ -73,7 +83,7 @@
           style="min-width: 400px;max-width: 1000px;min-height:13px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;"
         >{{diagnosis}}</div>
       </span>
-    </div>
+    </div>-->
     <!-- <span class="diagnosis-con" :title="patientInfo.diagnosis">诊断：{{patientInfo.diagnosis}}</span> -->
     <!-- <span>入院日期：{{$route.query.admissionDate}}</span> -->
   </div>
