@@ -50,7 +50,7 @@
         诊断：
         <div
           class="bottom-line"
-          style="min-width: 120px;max-width: 620px;min-height:13px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;"
+          style="min-width: 200px;max-width: 620px;min-height:13px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;"
         >{{diagnosis}}</div>
       </span>
       <span
