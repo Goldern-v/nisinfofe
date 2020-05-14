@@ -53,7 +53,15 @@ export default {
         colspan: '1',
         rowspan: '3'
       }, {
-        name: `胎方位/胎心`,
+        name: `胎方位`,
+        style: {
+          minWidth: '50px',
+          maxWidth: '50px'
+        },
+        colspan: '1',
+        rowspan: '3'
+      }, {
+        name: `胎心`,
         style: {
           minWidth: '50px',
           maxWidth: '50px'

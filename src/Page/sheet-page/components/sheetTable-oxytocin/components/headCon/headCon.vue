@@ -153,7 +153,7 @@ export default {
 
 <style lang="scss" scoped>
 .tableCon {
-  width: 750px;
+  width: 800px;
   font-family: simsun, "Times New Roman", Georgia, Serif;
   font-size: 12px;
   .sum,

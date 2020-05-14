@@ -542,7 +542,8 @@ export default {
           let obj = Object.assign(
             {},
             this.formatData.data.formData,
-            lastEvalData
+            lastEvalData,
+            sheetInfo.relObj
           );
           this.formatData.data.formData = obj;
           sheetInfo.relObj = obj;

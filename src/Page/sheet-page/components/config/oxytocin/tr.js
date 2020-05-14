@@ -21,6 +21,7 @@ let chuList = [];
 let ruList = [];
 let 宫缩 = [];
 let 宫缩强度 = [];
+let 胎方位 = [];
 let 胎心 = [];
 let 宫口扩张 = [];
 let 先露高低 = [];
@@ -68,6 +69,17 @@ export default [{
     name: "宫缩强度",
     autoComplete: {
       data: 宫缩强度
+    },
+    textarea: {
+      width: 50
+    }
+  }, {
+    key: "fieldEight", //胎方位
+    value: "",
+    event: keyf1,
+    name: "胎方位",
+    autoComplete: {
+      data: 胎方位
     },
     textarea: {
       width: 50
@@ -224,6 +236,7 @@ export function getListData4() {
   let list = [
     "宫缩",
     "宫缩强度",
+    "胎方位",
     "胎心",
     "宫口扩张",
     "先露高低"
@@ -232,6 +245,7 @@ export function getListData4() {
     let data = res.data.data;
     setList(宫缩, "宫缩", data);
     setList(宫缩强度, "宫缩强度", data);
+    setList(胎方位, "胎方位", data);
     setList(胎心, "胎心", data);
     setList(宫口扩张, "宫口扩张", data);
     setList(先露高低, "先露高低", data);
