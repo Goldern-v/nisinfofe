@@ -172,7 +172,8 @@ export default {
         项目
         `,
         style: {
-          whiteSpace: "nowrap"
+          minWidth: "80px",
+          maxWidth: "80px"
         },
         colspan: "1",
         rowspan: "2"
@@ -182,7 +183,8 @@ export default {
         量
         `,
         style: {
-          whiteSpace: "nowrap"
+          minWidth: "45px",
+          maxWidth: "45px"
         },
         colspan: "1",
         rowspan: "2"
@@ -192,8 +194,8 @@ export default {
         项目
         `,
         style: {
-          minWidth: "30px",
-          maxWidth: "30px"
+          minWidth: "80px",
+          maxWidth: "80px"
         },
         colspan: "1",
         rowspan: "2"
@@ -203,8 +205,8 @@ export default {
         量
         `,
         style: {
-          minWidth: "30px",
-          maxWidth: "30px"
+          minWidth: "45px",
+          maxWidth: "45px"
         },
         colspan: "1",
         rowspan: "2"

@@ -174,6 +174,10 @@ export default {
     if (document.querySelector('th[dataname="审核签名"]')) {
       $(".contant").width(Math.max($(".contant").width()));
     }
+    if (this.HOSPITAL_ID == "lingcheng") {
+      let pageW = document.querySelector("div.contant").offsetWidth;
+      document.querySelector("div.contant").style.width = pageW + 40 + "px";
+    }
     let sheetTableWidth = document.querySelector("div.contant").offsetWidth;
     $("#app").css({
       minWidth: sheetTableWidth + "px"
