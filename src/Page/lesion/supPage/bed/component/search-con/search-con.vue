@@ -1,92 +1,106 @@
 <template>
   <div class="search-con">
-    <div class="input-con" flex="cross:stretch">
-      <input
-        type="text"
-        class="search-input"
-        flex-box="1"
-        placeholder="床号/姓名"
-        v-model="searchText"
-      />
-      <div class="search-btn" flex="cross:center main:center">
-        <i class="iconfont icon-search"></i>
+    <div class="search-content">
+      <div class="input-con" flex="cross:stretch">
+        <input
+          type="text"
+          class="search-input"
+          flex-box="1"
+          placeholder="床号/姓名"
+          v-model="searchText"
+        />
+        <div class="search-btn" flex="cross:center main:center">
+          <i class="iconfont icon-search"></i>
+        </div>
       </div>
+      <div v-for="(item, index) in list" :key="index" v-show="!item.hide">
+        <div
+          class="s-item"
+          flex="cross:center"
+          v-if="item.type == 'bed'"
+          :class="{ active: selectName == item.name }"
+          @click="selectType(item.name)"
+        >
+          <i class="icon-chuangwei iconfont"></i>
+          <span>{{ item.name }}（{{ item.num }}）</span>
+        </div>
+
+        <div style="height:20px" v-if="item.type == 'block'"></div>
+
+        <div
+          class="s-item"
+          flex="cross:center"
+          v-if="item.type == 'level'"
+          :class="{ active: selectName == item.name }"
+          @click="selectType(item.name)"
+        >
+          <aside class="sq" :style="{ background: item.color }"></aside>
+          <span>{{ item.name }}（{{ item.num }}）</span>
+        </div>
+
+        <div class="line" v-if="item.type == 'line'"></div>
+
+        <div
+          class="s-item"
+          flex="cross:center"
+          v-if="item.type == 'state'"
+          :class="{ active: selectName == item.name }"
+          @click="selectType(item.name)"
+        >
+          <i class="icon-bingwei iconfont"></i>
+          <span>{{ item.name }}（{{ item.num }}）</span>
+        </div>
+
+        <div
+          class="s-item"
+          flex="cross:center"
+          v-if="item.type == 'heart'"
+          :class="{ active: selectName == item.name }"
+          @click="selectType(item.name)"
+        >
+          <i class="icon-shoucang iconfont"></i>
+          <span>{{ item.name }}（{{ item.num }}）</span>
+        </div>
+      </div>
+
+      <button class="login-btn" @click="syncGetNurseBedRec" v-if="HOSPITAL_ID == 'weixian'">同步床位数据</button>
+      <button
+        class="login-btn"
+        @click="syncGetMedicalAdvice"
+        v-if="HOSPITAL_ID == 'weixian'"
+        :disabled="progressNum!=0"
+      >同步医嘱</button>
+      <!-- <a
+        :href="`crprintorder://${infoData.patientId}/${infoData.visitId}`"
+        v-if="HOSPITAL_ID == 'weixian'"
+        style="margin-left: 10px"
+      >
+        <el-button class="select-btn" type="primary">打印执行单</el-button>
+      </a>-->
+      <div class="progress" v-if="showProgress">
+        <el-progress :percentage="progressNum" color="#4bb08d" :format="format"></el-progress>
+      </div>
+      <footerBar
+        :selectName="selectName"
+        :isTodayDischarg="isTodayDischarge"
+        :isTodayOperation="isTodayOperation"
+        :isTommorowDischarge="isTommorowDischarge"
+        :isTommorowOperation="isTommorowOperation"
+        :dangerInMorse="dangerInMorse"
+        :dangerInYachuang="dangerInYachuang"
+        :isToadyHosipital="isToadyHosipital"
+        :hasYachuang="hasYachuang"
+        :MEWS="MEWS"
+      ></footerBar>
     </div>
-    <div v-for="(item, index) in list" :key="index" v-show="!item.hide">
-      <div
-        class="s-item"
-        flex="cross:center"
-        v-if="item.type == 'bed'"
-        :class="{ active: selectName == item.name }"
-        @click="selectType(item.name)"
-      >
-        <i class="icon-chuangwei iconfont"></i>
-        <span>{{ item.name }}（{{ item.num }}）</span>
-      </div>
-
-      <div style="height:20px" v-if="item.type == 'block'"></div>
-
-      <div
-        class="s-item"
-        flex="cross:center"
-        v-if="item.type == 'level'"
-        :class="{ active: selectName == item.name }"
-        @click="selectType(item.name)"
-      >
-        <aside class="sq" :style="{ background: item.color }"></aside>
-        <span>{{ item.name }}（{{ item.num }}）</span>
-      </div>
-
-      <div class="line" v-if="item.type == 'line'"></div>
-
-      <div
-        class="s-item"
-        flex="cross:center"
-        v-if="item.type == 'state'"
-        :class="{ active: selectName == item.name }"
-        @click="selectType(item.name)"
-      >
-        <i class="icon-bingwei iconfont"></i>
-        <span>{{ item.name }}（{{ item.num }}）</span>
-      </div>
-
-      <div
-        class="s-item"
-        flex="cross:center"
-        v-if="item.type == 'heart'"
-        :class="{ active: selectName == item.name }"
-        @click="selectType(item.name)"
-      >
-        <i class="icon-shoucang iconfont"></i>
-        <span>{{ item.name }}（{{ item.num }}）</span>
-      </div>
-    </div>
-
-    <button
-      class="login-btn"
-      @click="syncGetNurseBedRec"
-      v-if="HOSPITAL_ID == 'weixian'"
-    >
-      同步床位数据
-    </button>
-
-    <footerBar
-      :selectName="selectName"
-      :isTodayDischarg="isTodayDischarge"
-      :isTodayOperation="isTodayOperation"
-      :isTommorowDischarge="isTommorowDischarge"
-      :isTommorowOperation="isTommorowOperation"
-      :dangerInMorse="dangerInMorse"
-      :dangerInYachuang="dangerInYachuang"
-      :isToadyHosipital="isToadyHosipital"
-      :hasYachuang="hasYachuang"
-      :MEWS="MEWS"
-    ></footerBar>
   </div>
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
 .search-con {
   padding: 16px 10px;
+  overflow: auto;
+  height: 100%;
+  box-sizing: border-box;
 
   .input-con {
     background: #FFFFFF;
@@ -173,7 +187,46 @@
     height: 1px;
     margin: 10px 0;
   }
+
+  .progress {
+    position: fixed;
+    left: 50%;
+    top: 100px;
+    margin-left: -100px;
+    width: 200px;
+    height: 120px;
+    border-radius: 12px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.6);
+
+    >>>.el-progress {
+      flex: 1;
+      display: flex;
+      flex-direction: column-reverse;
+      justify-content: center;
+
+      .el-progress-bar {
+        width: 80%;
+        margin: 0 auto;
+        padding-right: 0;
+
+        .el-progress-bar__outer {
+          height: 8px !important;
+        }
+      }
+
+      .el-progress__text {
+        font-size: 25px;
+        color: #fff;
+        padding-bottom: 10px;
+      }
+    }
+  }
 }
+
 .login-btn {
   margin-top: 20px;
   width: 100%;
@@ -194,7 +247,11 @@
 }
 </style>
 <script>
-import { patients, syncGetNurseBedRec } from "@/api/lesion";
+import {
+  patients,
+  syncGetNurseBedRec,
+  syncGetMedicalAdvice
+} from "@/api/lesion";
 import footerBar from "../footer-bar/footer-bar.vue";
 import { listItem } from "@/api/common.js";
 export default {
@@ -203,7 +260,11 @@ export default {
       selectName: "全部床位",
       searchText: "",
       bedList: [],
-      levelColor: []
+      levelColor: [],
+      progressNum: 0, //进度
+      startTimer: "",
+      endTimer: "",
+      showProgress: false
     };
   },
   computed: {
@@ -467,6 +528,36 @@ export default {
         this.$message.success("更新成功");
         this.getDate();
       });
+    },
+    syncGetMedicalAdvice() {
+      this.showProgress = true;
+      this.$message.info("正在同步医嘱");
+      this.startProgress();
+      syncGetMedicalAdvice(this.deptCode).then(res => {
+        this.$message.success("同步医嘱成功");
+        this.endProgress();
+      });
+    },
+    format(percentage) {
+      return `已同步${percentage}%`;
+    },
+    startProgress() {
+      this.startTimer = setInterval(() => {
+        this.progressNum++;
+        if (this.progressNum > 85) {
+          clearInterval(this.startTimer);
+        }
+      }, 10);
+    },
+    endProgress() {
+      this.endTimer = setInterval(() => {
+        this.progressNum++;
+        if (this.progressNum > 99) {
+          clearInterval(this.endTimer);
+          this.showProgress = false;
+          this.progressNum = 0;
+        }
+      }, 10);
     }
   },
   watch: {

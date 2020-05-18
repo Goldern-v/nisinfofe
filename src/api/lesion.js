@@ -40,6 +40,10 @@ function unfollow(bedLabel) {
 function syncGetNurseBedRec(deptCode) {
   return axios.get(`${apiPath}hisDispenseExecute/syncGetNurseBedRec/${deptCode}`)
 }
+// 威县 --同步医嘱
+function syncGetMedicalAdvice(deptCode) {
+  return axios.get(`${apiPath}hisDispenseExecute/syncGetPatientOrdersWithWardCode/${deptCode}`)
+}
 
 export {
   nursingUnit,
@@ -47,5 +51,6 @@ export {
   follow,
   unfollow,
   typeList,
-  syncGetNurseBedRec
+  syncGetNurseBedRec,
+  syncGetMedicalAdvice
 }
