@@ -10,7 +10,14 @@
       >
         <div class="text-con" flex="cross:center">添加新诊断</div>
       </div>
-
+      <div
+        class="item-box"
+        flex="cross:center main:center"
+        @click="onPrint"
+        :class="{disabled: !model.selectedBlockId}"
+      >
+        <div class="text-con" flex="cross:center">打印</div>
+      </div>
       <!-- <div
         class="item-box"
         flex="cross:center main:center"
@@ -36,7 +43,7 @@
         :class="{disabled: !model.selectedRow}"
       >
         <div class="text-con" flex="cross:center">停止</div>
-      </div> -->
+      </div>-->
 
       <div flex-box="1"></div>
 
@@ -48,9 +55,7 @@
           disabled: !!model.blockList.find(item => item.wardCode == deptCode)
         }"
       >
-        <div class="text-con" flex="cross:center" @click="savePlanForm">
-          创建新的护理计划单
-        </div>
+        <div class="text-con" flex="cross:center" @click="savePlanForm">创建新的护理计划单</div>
       </div>
 
       <el-select
@@ -82,65 +87,94 @@
 ></style>
 
 <style lang="stylus">
-.diagnosis-con-select
+.diagnosis-con-select {
   background: #FFFFFF;
-  box-shadow: 0 2px 6px 0 rgba(0,0,0,0.50);
+  box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.5);
   border-radius: 4px;
-  width 562px !important
-  left auto !important
-  right 120px
-  .el-select-dropdown__list, .el-select-dropdown__item
-    padding 0
-    height auto
-  .el-select-dropdown__wrap
-    max-height 500px
-  .head-con
-    height 37px
+  width: 562px !important;
+  left: auto !important;
+  right: 120px;
+
+  .el-select-dropdown__list, .el-select-dropdown__item {
+    padding: 0;
+    height: auto;
+  }
+
+  .el-select-dropdown__wrap {
+    max-height: 500px;
+  }
+
+  .head-con {
+    height: 37px;
     background: #F7FAFA;
     border-bottom: 1px solid #EAEEF1;
     font-size: 13px;
     color: #333333;
-    font-weight bold
-  .col-1,.col-2,.col-3,.col-4
-    display flex
-    align-items center
-  .col-1
-    width 192px
-    padding 0 24px
+    font-weight: bold;
+  }
+
+  .col-1, .col-2, .col-3, .col-4 {
+    display: flex;
+    align-items: center;
+  }
+
+  .col-1 {
+    width: 192px;
+    padding: 0 24px;
     border-right: 1px solid #EAEEF1;
-  .col-2
-    width 126px
-    padding 0 16px
+  }
+
+  .col-2 {
+    width: 126px;
+    padding: 0 16px;
     border-right: 1px solid #EAEEF1;
-  .col-3
-    width 133px
-    padding 0 14px
+  }
+
+  .col-3 {
+    width: 133px;
+    padding: 0 14px;
     border-right: 1px solid #EAEEF1;
-  .col-4
-    width 80px
-    padding 0 14px
-  .list-con
+  }
+
+  .col-4 {
+    width: 80px;
+    padding: 0 14px;
+  }
+
+  .list-con {
     font-size: 13px;
     color: #333333;
-    height 37px
-    border-bottom: 1px solid #EAEEF1
-  .el-select-dropdown__item.selected
-    background #fff
-    position relative
-    &:after
-      content ''
-      position absolute
-      left 0
-      top 9px
-      height 20px
-      width 4px
-      background #4bb08d
-  .el-select-dropdown__item.hover
-    background #fff;
-  .el-select-dropdown__item:hover
-    background #E5F1F0;
-.red-border
-  border 2px solid red !important
+    height: 37px;
+    border-bottom: 1px solid #EAEEF1;
+  }
+
+  .el-select-dropdown__item.selected {
+    background: #fff;
+    position: relative;
+
+    &:after {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 9px;
+      height: 20px;
+      width: 4px;
+      background: #4bb08d;
+    }
+  }
+
+  .el-select-dropdown__item.hover {
+    background: #fff;
+  }
+
+  .el-select-dropdown__item:hover {
+    background: #E5F1F0;
+  }
+}
+
+.red-border {
+  border: 2px solid red !important;
+}
 </style>
 
 <script>
@@ -215,6 +249,9 @@ export default {
           item => item.id === this.model.selectedBlockId
         ) || {};
       this.model.refreshTable();
+    },
+    onPrint() {
+      this.bus.$emit("printDiagnosis");
     }
   },
   mounted() {

@@ -67,6 +67,7 @@
         <health v-if="$route.params.type == 'health'"></health>
         <growthPrintPage v-if="$route.params.type == 'growth'"></growthPrintPage>
         <birthCertificatePrint v-if="$route.params.type == 'birthCertificate'"></birthCertificatePrint>
+        <diagnosisPrintPage v-if="$route.params.type == 'diagnosis'"></diagnosisPrintPage>
       </div>
     </div>
   </div>
@@ -191,6 +192,7 @@ import sugar from "./component/sugar-print-page.vue";
 import health from "./component/health-print-page";
 import growthPrintPage from "./component/growth-print-page.vue";
 import birthCertificatePrint from "./component/birth-certificate-print.vue";
+import diagnosisPrintPage from "./component/diagnosis-print-page.vue";
 import bus from "vue-happy-bus";
 import { setTimeout } from "timers";
 export default {
@@ -249,7 +251,8 @@ export default {
     sugar,
     growthPrintPage,
     health,
-    birthCertificatePrint
+    birthCertificatePrint,
+    diagnosisPrintPage
   }
 };
 </script>
