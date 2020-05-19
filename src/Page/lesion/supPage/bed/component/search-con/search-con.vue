@@ -66,9 +66,9 @@
       <button class="login-btn" @click="syncGetNurseBedRec" v-if="HOSPITAL_ID == 'weixian'">同步床位数据</button>
       <button
         class="login-btn"
+        :class="{noactive:showProgress}"
         @click="syncGetMedicalAdvice"
         v-if="HOSPITAL_ID == 'weixian'"
-        :disabled="progressNum!=0"
       >同步医嘱</button>
       <!-- <a
         :href="`crprintorder://${infoData.patientId}/${infoData.visitId}`"
@@ -243,6 +243,11 @@
 
   &:hover {
     background: #5CC6A1;
+  }
+
+  &.noactive {
+    cursor: not-allowed;
+    background: rgba(75, 176, 141, 0.6);
   }
 }
 </style>
@@ -530,6 +535,9 @@ export default {
       });
     },
     syncGetMedicalAdvice() {
+      if (this.showProgress || !this.deptCode) {
+        return;
+      }
       this.showProgress = true;
       this.$message.info("正在同步医嘱");
       this.startProgress();
