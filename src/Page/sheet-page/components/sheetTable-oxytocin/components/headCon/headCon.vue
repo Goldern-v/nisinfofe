@@ -137,6 +137,8 @@ export default {
       tr.map((td, tdIndex) => {
         if (td.name && this.sheetInfo.relObj[td.name] == allGrade[tdIndex]) {
           td.value = "√";
+        } else if (td.isChecked) {
+          td.value = "";
         }
       });
     });
