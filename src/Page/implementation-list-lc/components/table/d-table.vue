@@ -47,7 +47,7 @@
 
       <el-table-column prop="administration" label="途径" min-width="100px" align="center"></el-table-column>
 
-      <el-table-column prop="executeFlag" label="执行状态" min-width="80px" align="center">
+      <el-table-column prop="executeFlag" label="执行状态" min-width="90px" align="center">
         <template slot-scope="scope">
           <span
             :class="{

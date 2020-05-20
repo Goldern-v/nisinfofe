@@ -225,7 +225,7 @@
     </div>
     <div v-if="sheetInfo.sheetType == 'icu_lc'" style="font-size: 13px; margin-top: -5px">
       <p style="padding-bottom: 10px;">备注：神志：A、清醒 B、嗜睡 C、意识模糊 D、昏睡 E、昏迷（E1、浅昏迷E2、深昏迷）F、全麻未醒 G、药物镇静</p>
-      <p>入量：静脉、肌注（iM）、皮下（iH）、药物、水、粥  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;出量：痰、尿、大便、吐、胸液、腹液、胃出量等</p>
+      <p>入量：静脉、肌注（iM）、皮下（iH）、药物、水、粥 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;出量：痰、尿、大便、吐、胸液、腹液、胃出量等</p>
     </div>
     <div class="table-footer">
       第 {{ index + sheetStartPage }} 页
@@ -235,11 +235,13 @@
           <div class="sign-null-box" @click="openAduitModal" v-if="!auditorNo"></div>
           <div class="sign-in-box" v-else @click="cancelAduitModal">
             <div class="audit-text no-print">{{auditorName}}</div>
-            <img
-              class="audit-img in-print sign-img"
-              :src="`/crNursing/api/file/signImage/${auditorNo}?${token}`"
-              alt
-            />
+            <div class="audit-img sign-img">
+              <img
+                class="in-print"
+                :src="`/crNursing/api/file/signImage/${auditorNo}?${token}`"
+                alt
+              />
+            </div>
           </div>
         </span>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
