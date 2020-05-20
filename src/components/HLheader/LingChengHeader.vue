@@ -27,7 +27,7 @@
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-guidang"></i> 归档
               </el-row>
-            </router-link> -->
+            </router-link>-->
             <!-- <router-link to="/scheduling" tag="span" v-show="deptCode == '031202'">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-jiaobanzhi"></i> 血透排班
@@ -44,7 +44,7 @@
                 <i class="iconfont icon-hulirenwu"></i> MEWS
                 <span class="red-tip" v-if="isTip"></span>
               </el-row>
-            </router-link> -->
+            </router-link>-->
 
             <router-link to="/bed" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
@@ -164,6 +164,15 @@
             <router-link to="/shiftWork" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-jiaobanzhi"></i> 交班志
+              </el-row>
+            </router-link>
+            <router-link to="/nursingRounds" tag="span">
+              <el-row class="nav-item" type="flex" align="middle">护理巡视</el-row>
+            </router-link>
+
+            <router-link to="/implementationList" tag="span">
+              <el-row class="nav-item" type="flex" align="middle">
+                <i class="iconfont icon-jiaobanzhi"></i> 执行单
               </el-row>
             </router-link>
 
