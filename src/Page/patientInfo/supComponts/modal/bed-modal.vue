@@ -18,10 +18,20 @@
               <input
                 type="text"
                 nowidth
+                style="font-size: 35px;padding-left: 0px;"
+                flex-box="1"
+                class="bottom-line"
+                :value="query.name + ' ' + query.sex + ' ' + query.age"
+                v-if="HOSPITAL_ID == 'hj'"
+              />
+              <input
+                type="text"
+                nowidth
                 style="font-size: 32px;padding-left: 5px;"
                 flex-box="1"
                 class="bottom-line"
                 :value="query.name + ' ' + query.sex + ' ' + query.age"
+                v-else
               />
             </div>
             <div flex="cross:center" class="input-item">
