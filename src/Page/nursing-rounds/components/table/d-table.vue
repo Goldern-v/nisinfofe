@@ -39,7 +39,7 @@
       </el-table-column>
       <el-table-column prop="operateDate" label="巡视时间" min-width="120px" align="center">
         <template slot-scope="scope">
-          <div v-if="scope.row.rowType == 1 || !scope.row.rowType">{{scope.row.operateDate | ymdhm}}</div>
+          <div>{{scope.row.operateDate | ymdhm}}</div>
         </template>
       </el-table-column>
       <el-table-column prop="visitContent" label="巡视内容" min-width="300px"></el-table-column>

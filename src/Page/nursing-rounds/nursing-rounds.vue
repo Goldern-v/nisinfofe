@@ -163,7 +163,7 @@ export default {
     onLoad() {
       if (!this.deptCode) return;
       this.pageLoadng = true;
-      this.query.deptCode = "0257" || this.deptCode;
+      this.query.deptCode = this.deptCode;
       (this.query.operateDate = moment(this.startDate).format("YYYY-MM-DD")), //操作日期
         getNursingVisitLc(this.query).then(res => {
           this.tableData = res.data.data.list.map((item, index, array) => {
