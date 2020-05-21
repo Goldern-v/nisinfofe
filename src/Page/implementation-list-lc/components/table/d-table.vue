@@ -7,13 +7,20 @@
       :height="wih - 124"
       v-loading="pageLoadng"
     >
+      <el-table-column
+        label="序号"
+        header-align="center"
+        type="index"
+        min-width="60px"
+        align="center"
+      ></el-table-column>
       <el-table-column prop="bedLabel" label="床号" min-width="50px" align="center">
         <template slot-scope="scope">
           <div>{{(scope.row.rowType == 1 || !scope.row.rowType) ? (scope.row.bedLabel) : ''}}</div>
         </template>
       </el-table-column>
 
-      <el-table-column prop="executeDateTime" label="执行时间" min-width="80px" align="center">
+      <el-table-column prop="executeDateTime" label="执行时间" min-width="70px" align="center">
         <template slot-scope="scope">
           <span>{{(scope.row.rowType == 1 || !scope.row.rowType) ? (scope.row.executeDateTime) : '' | ymdhm}}</span>
         </template>
@@ -45,7 +52,7 @@
 
       <el-table-column label="频次" prop="frequency" min-width="50px" align="center"></el-table-column>
 
-      <el-table-column prop="administration" label="途径" min-width="100px" align="center"></el-table-column>
+      <el-table-column prop="administration" label="途径" min-width="80px"></el-table-column>
 
       <el-table-column prop="executeFlag" label="执行状态" min-width="90px" align="center">
         <template slot-scope="scope">
@@ -58,12 +65,25 @@
         </template>
       </el-table-column>
 
-      <el-table-column prop="executeNurseName" label="执行人" min-width="80px" align="center"></el-table-column>
+      <el-table-column prop="startNurse" label="执行人" min-width="80px" align="center"></el-table-column>
 
       <el-table-column prop="realExecuteDateTime" label="实际执行时间" min-width="150px" align="center"></el-table-column>
-      <el-table-column prop="performSchedule" label="开医嘱时间" min-width="90px" align="center"></el-table-column>
+
       <el-table-column prop="repeatIndicator" label="长/临" min-width="70px" align="center"></el-table-column>
-      <el-table-column prop="startNurse" label="校对护士" min-width="80px" align="center"></el-table-column>
+
+      <!-- <el-table-column prop="startDateTime" label="开始输液时间" min-width="80px" align="center"></el-table-column> -->
+
+      <el-table-column prop="endDateTime" label="结束输液时间/结束输液护士" min-width="150px">
+        <template slot-scope="scope">
+          <span>{{ scope.row.endDateTime}} {{ scope.row.endNurse}}</span>
+        </template>
+      </el-table-column>
+
+      <el-table-column prop="stopDateTime" label="暂停输液时间/暂停输液护士/暂停输液原因" min-width="200px">
+        <template slot-scope="scope">
+          <span>{{ scope.row.stopDateTime}} {{ scope.row.stopNurse}} {{ scope.row.stopReason}}</span>
+        </template>
+      </el-table-column>
     </el-table>
   </div>
 </template>

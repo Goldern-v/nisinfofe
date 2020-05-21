@@ -27,7 +27,7 @@
           <div>{{(scope.row.rowType == 1 || !scope.row.rowType) ? (scope.row.frequency) : ''}}</div>
         </template>
       </el-table-column>
-      <el-table-column prop="nextDate" label="下次巡视日期" min-width="100px" align="center">
+      <el-table-column prop="nextDate" label="下次巡视日期" min-width="120px" align="center">
         <template slot-scope="scope">
           <div v-if="scope.row.rowType == 1 || !scope.row.rowType">{{scope.row.nextDate | ymdhm}}</div>
         </template>
@@ -37,7 +37,11 @@
           <div>{{(scope.row.rowType == 1 || !scope.row.rowType) ? (scope.row.num+'次') : ''}}</div>
         </template>
       </el-table-column>
-      <el-table-column prop="operateDate" label="巡视时间" min-width="150px" align="center"></el-table-column>
+      <el-table-column prop="operateDate" label="巡视时间" min-width="120px" align="center">
+        <template slot-scope="scope">
+          <div>{{scope.row.operateDate | ymdhm}}</div>
+        </template>
+      </el-table-column>
       <el-table-column prop="visitContent" label="巡视内容" min-width="300px"></el-table-column>
       <el-table-column prop="operator" label="巡视护士" min-width="80px" align="center"></el-table-column>
     </el-table>
@@ -116,7 +120,7 @@ export default {
   },
   filters: {
     ymdhm(val) {
-      return moment(val).format("YYYY-MM-DD");
+      return moment(val).format("YYYY-MM-DD HH:mm:ss");
     }
   },
   components: {}
