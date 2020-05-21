@@ -15,7 +15,7 @@
             <div
               flex="cross:center"
               class="input-item"
-              style="height: auto"
+              style="height: 51px"
               v-if="HOSPITAL_ID == 'hj'"
             >
               <!-- <span class="label">患者姓名:</span> -->
