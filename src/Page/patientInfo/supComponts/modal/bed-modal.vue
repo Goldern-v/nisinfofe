@@ -12,18 +12,33 @@
           <img class="qr-code" :class="{hasRemark: hasRemark}" :src="qrCode" />
           <div class="qr-code-num" :class="{hasRemark: hasRemark}">{{qrCodeNum}}</div>
           <div style="width: 0" flex-box="1" flex="dir:top main:justify">
-            <div flex="cross:center" class="input-item" style="height: 43px">
+            <div
+              flex="cross:center"
+              class="input-item"
+              style="height: auto"
+              v-if="HOSPITAL_ID == 'hj'"
+            >
               <!-- <span class="label">患者姓名:</span> -->
               <span :style="`width: ${hasRemark? 85: 100}px`"></span>
               <input
                 type="text"
                 nowidth
-                style="font-size: 35px;padding-left: 0px;"
+                style="font-size: 42px;padding-left: 0px;font-weight: 900;"
                 flex-box="1"
                 class="bottom-line"
-                :value="query.name + ' ' + query.sex + ' ' + query.age"
-                v-if="HOSPITAL_ID == 'hj'"
+                :value="query.name"
               />
+              <input
+                type="text"
+                nowidth
+                style="font-size: 30px;padding-left: 0px;width:31%;height: 100%;box-sizing: border-box;"
+                class="bottom-line"
+                :value="query.sex + ' ' + query.age"
+              />
+            </div>
+            <div flex="cross:center" class="input-item" style="height: 43px" v-else>
+              <!-- <span class="label">患者姓名:</span> -->
+              <span :style="`width: ${hasRemark? 85: 100}px`"></span>
               <input
                 type="text"
                 nowidth
@@ -31,7 +46,6 @@
                 flex-box="1"
                 class="bottom-line"
                 :value="query.name + ' ' + query.sex + ' ' + query.age"
-                v-else
               />
             </div>
             <div flex="cross:center" class="input-item">
