@@ -120,7 +120,7 @@ export default {
   },
   filters: {
     ymdhm(val) {
-      return moment(val).format("YYYY-MM-DD HH:mm:ss");
+      return val ? moment(val).format("YYYY-MM-DD HH:mm:ss") : val;
     }
   },
   components: {}

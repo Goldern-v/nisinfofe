@@ -30,13 +30,12 @@
             <h1 class="title">{{HOSPITAL_NAME_SPACE}}</h1>
             <h2 class="sub-title">护理日夜交接班报告汇总单</h2>
             <div class="details">
-              病区：{{deptName}}
-              <span>
+              <span>病区：{{deptName}}</span>
+              <span v-if="record.changeShiftDate">
                 日期：
-                <input type="text" /> 年
-                <input type="text" />月
-                <input type="text" />日
+                {{record.changeShiftDate | ymdhm}}
               </span>
+              <span v-else>&nbsp;&nbsp;年&nbsp;&nbsp;月&nbsp;&nbsp;日</span>
             </div>
           </div>
           <ExcelTable
@@ -54,7 +53,7 @@
             @input-keydown="onTableInputKeydown"
           >
             <tr class="empty-row" v-if="!patients.length">
-              <td colspan="5" style="padding: 0">
+              <td colspan="7" style="padding: 0">
                 <Placeholder
                   black
                   size="small"
@@ -66,42 +65,11 @@
                 </Placeholder>
               </td>
             </tr>
-            <!-- <tr class="normal-row">
-              <td colspan="7" class="special-case-title" data-print-style="border-bottom: none;">
-                <span class="row-title">特殊情况交接：（包括特殊复查的各种结果：如MR、CT、检验异常值等以及当班未完成治疗护理、病房安全等）</span>
-                <span
-                  class="row-action"
-                  v-if="!allSigned"
-                  @click="onSpecialCasePanelOpen"
-                  data-print-style="display: none;"
-                >特殊情况模板</span>
-              </td>
-            </tr>-->
-            <!-- <tr class="normal-row">
-              <td
-                colspan="7"
-                style="padding: 0;"
-                data-print-style="border-top: none;"
-                @contextmenu.stop.prevent="onContextMenu($event, record.specialSituation)"
-              >
-                <label>
-                  <el-input
-                    autosize
-                    type="textarea"
-                    class="special-case"
-                    :disabled="allSigned"
-                    v-model="record.specialSituation"
-                    @input="modified = true"
-                  />
-                </label>
-              </td>
-            </tr>-->
           </ExcelTable>
           <div class="foot" v-if="record" data-print-style="padding-bottom: 25px">
             <div data-print-style="width: auto">
               <span>组长签名：</span>
               <span data-print-style="display: none">
-                <!-- <template v-if="record.autographNameA">{{record.autographNameA}}</template> -->
                 <button
                   v-if="record.autographNameA"
                   @click="onDelSignModalOpen('A', record.autographEmpNoA)"
@@ -139,6 +107,28 @@
               />
               <span v-else style="display: none;" data-print-style="display: inline-block;">未签名</span>
             </div>
+            <div class="nurseLonger" data-print-style="width: auto">
+              <span>护长签名：</span>
+              <span data-print-style="display: none">
+                <button
+                  v-if="record.checkNurseName"
+                  @click="onDelSignModalOpen('check', record.checkNurseNo)"
+                >{{record.checkNurseName}}</button>
+                <button
+                  v-else
+                  :disabled="isEmpty"
+                  @click="onSignModalOpen('check', record.checkNurseNo)"
+                >点击签名</button>
+              </span>
+              <FallibleImage
+                class="img"
+                v-if="record.autographNameN"
+                :src="`/crNursing/api/file/signImage/${record.autographEmpNoN}?${token}`"
+                :alt="record.autographNameN"
+                data-print-style="display: inline-block; width: 52px; height: auto;"
+              />
+              <span v-else style="display: none;" data-print-style="display: inline-block;">未签名</span>
+            </div>
           </div>
         </div>
       </div>
@@ -148,16 +138,7 @@
       ref="patientModal"
       :date="record ? record.changeShiftDate : ''"
       @confirm="onPatientModalConfirm"
-      @panel-open="onPatientPanelOpen"
-      @panel-close="onPatientPanelClose"
-      @tab-change="onPatientModalTabChange"
     />
-    <PatientPanel
-      ref="patientPanel"
-      @tab-change="onPatientPanelTabChange"
-      @apply-template="onPatientPanelApply"
-    />
-    <SpecialCasePanel ref="specialCasePanel" @apply-template="onSpecialCasePanelApply" />
     <SignModal ref="signModal" />
   </div>
 </template>
@@ -167,7 +148,6 @@ import common from "@/common/mixin/common.mixin";
 import FallibleImage from "@/components/FallibleImage/FallibleImage.vue";
 import { pick } from "lodash";
 import print from "printing";
-
 import * as apis from "./apis";
 import formatter from "./print-formatter";
 import Button from "./components/button";
@@ -175,21 +155,16 @@ import ExcelTable from "./components/table";
 import Placeholder from "./components/placeholder";
 import PatientModal from "./components/patient-modal";
 import PatientsModal from "./components/patients-modal";
-import PatientPanel from "./components/patient-panel";
-import SpecialCaseModal from "./components/special-case-modal";
-import SpecialCasePanel from "./components/special-case-panel";
 import SignModal from "./components/sign-modal";
 import $ from "jquery";
+import moment from "moment";
 const defaultPatient = {
   name: "",
   bedLabel: "",
-  age: "",
   patientStatus: "",
   diagnosis: "",
-  mainComplaint: "",
-  background: "",
-  assessmentSituation: "",
-  proposal: ""
+  remark1: "",
+  remark2: ""
 };
 
 const arrowKeyValues = {
@@ -216,7 +191,6 @@ export default {
         type: "warning"
       });
     }
-    this.$refs.specialCasePanel.close();
     next();
   },
   async beforeRouteUpdate(to, from, next) {
@@ -242,16 +216,24 @@ export default {
       copiedRow: null,
       columns: [
         {
-          label: "床号 姓名 诊断",
+          label: "床号",
+          prop: "bedLabel",
+          editable: true,
+          align: "center",
+          width: "35"
+        },
+        {
+          label: "姓名",
           prop: "name",
-          width: "53",
-          rowspan: 6,
-          render: row => {
-            const status = row.patientStatus ? `(${row.patientStatus})` : "";
-            return [row.name + status, row.sex, row.age]
-              .filter(Boolean)
-              .join("，<br>");
-          }
+          align: "center",
+          width: "35"
+        },
+        {
+          label: "诊断",
+          prop: "diagnosis",
+          editable: true,
+          align: "center",
+          width: "35"
         },
         {
           label: "备注1",
@@ -383,13 +365,10 @@ export default {
             pick(selectedRow, [
               "bedLabel",
               "name",
-              "age",
               "patientStatus",
               "diagnosis",
-              "mainComplaint",
-              "background",
-              "assessmentSituation",
-              "proposal"
+              "remark1",
+              "remark2"
             ])
           )
         : "";
@@ -458,18 +437,14 @@ export default {
               }
 
               data["name"] = remoteDate["name"];
-              data["age"] = remoteDate["age"];
               data["patientStatus"] = remoteDate["patientStatus"];
 
               selectedRow["bedLabel"] = data["bedLabel"];
               selectedRow["name"] = data["name"];
-              selectedRow["age"] = data["age"];
               selectedRow["patientStatus"] = data["patientStatus"];
               selectedRow["diagnosis"] = data["diagnosis"];
-              selectedRow["mainComplaint"] = data["mainComplaint"];
-              selectedRow["background"] = data["background"];
-              selectedRow["assessmentSituation"] = data["assessmentSituation"];
-              selectedRow["proposal"] = data["proposal"];
+              selectedRow["remark1"] = data["remark1"];
+              selectedRow["remark2"] = data["remark2"];
 
               await this.onSave();
             }
@@ -595,9 +570,7 @@ export default {
       // }
 
       const tabMap = {
-        background: "2",
-        assessmentSituation: "3",
-        proposal: "4"
+        remark2: "2"
       };
       const tab = tabMap[col.prop] || "1";
       this.$refs.patientModal.open(
@@ -648,34 +621,6 @@ export default {
       this.onSave(true);
       this.$refs.patientModal.close();
       // this.modified = true
-    },
-    onPatientModalTabChange(tab) {
-      if (this.$refs.patientPanel) {
-        this.$refs.patientPanel.changeTab(tab);
-      }
-    },
-    onPatientPanelOpen() {
-      this.$refs.patientPanel.open();
-    },
-    onPatientPanelClose() {
-      this.$refs.patientPanel.close();
-    },
-    onPatientPanelTabChange(tab) {
-      this.$refs.patientModal.changeTab(tab);
-    },
-    onPatientPanelApply({ tab, item }) {
-      this.$refs.patientModal.applyTemplate(tab, item);
-    },
-    onSpecialCasePanelOpen() {
-      this.$refs.specialCasePanel.open();
-    },
-    onSpecialCasePanelClose() {
-      this.$refs.specialCasePanel.close();
-    },
-    onSpecialCasePanelApply(item) {
-      this.record.specialSituation =
-        (this.record.specialSituation || "") + item.content;
-      this.modified = true;
     },
     async onSave(tip) {
       const deptCode = this.deptCode;
@@ -824,8 +769,6 @@ export default {
 
       if (prop == "bedLabel") {
         this.patients[row].name = "";
-        this.patients[row].age = "";
-        this.patients[row].sex = "";
         this.patients[row].diagnosis = "";
         this.patients[row].patientStatus = "";
       }
@@ -851,19 +794,12 @@ export default {
             if (isExisted) return this.$message.error("已存在该患者");
 
             this.patients[row].name = data.name;
-            this.patients[row].age = data.age;
-            this.patients[row].sex = data.sex;
             this.patients[row].diagnosis = data.diagnosis;
-            this.patients[row].mainComplaint = data.complaint || "";
+            this.patients[row].remark1 = data.remark1 || "";
+            this.patients[row].remark2 = data.remark2 || "";
             this.patients[row].patientStatus = data.patientStatus;
             this.patients[row].patientId = data.patientId || "";
             this.patients[row].visitId = data.visitId || "";
-            this.patients[row].proposal = data.advice || "";
-            this.patients[row].assessmentSituation = data.evaluate || "";
-
-            if (data.background !== "," && data.background !== "，") {
-              this.patients[row].background += data.background;
-            }
           } else {
             return this.$message.error("找不到该患者");
           }
@@ -889,6 +825,11 @@ export default {
       }
     }
   },
+  filters: {
+    ymdhm(val) {
+      return val ? moment(val).format("YYYY年MM月DD日") : val;
+    }
+  },
   components: {
     FallibleImage,
     Button,
@@ -896,9 +837,6 @@ export default {
     Placeholder,
     PatientModal,
     PatientsModal,
-    PatientPanel,
-    SpecialCaseModal,
-    SpecialCasePanel,
     SignModal
   }
 };
@@ -948,6 +886,7 @@ export default {
   background: #fff;
   box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.5);
   box-sizing: border-box;
+  position: relative;
 }
 
 .head {
@@ -978,18 +917,6 @@ export default {
   display: flex;
   justify-content: space-between;
   font-size: 13px;
-
-  >span {
-    flex: 1;
-    white-space: nowrap;
-    text-align: right;
-
-    input {
-      border: none;
-      width: 40px;
-      outline: none;
-    }
-  }
 }
 
 .table {
@@ -1064,6 +991,12 @@ export default {
     background: none;
     color: rgb(40, 79, 194);
     cursor: pointer;
+  }
+
+  .nurseLonger {
+    position: absolute;
+    right: 20px;
+    top: 20px;
   }
 }
 </style>

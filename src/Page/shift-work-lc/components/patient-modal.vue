@@ -24,20 +24,11 @@
           :disabled="!isSignedN"
         />
       </label>
-      <!-- <label>
-        <span>年龄：</span>
-        <ElInput type="text" style="width:50px;" v-model="form.age" :disabled="!isSignedN"/>
-      </label>-->
-      <!-- <label>
-        <span>事件：</span>
-        <ElInput type="text" style="width:100px;" v-model="form.patientStatus" :disabled="!isSignedN"/>
-      </label>-->
-      <!-- <a v-if="!isSignedN" class="action" @click="onPanelOpen">+ 模板</a> -->
     </div>
     <div class="content">
       <ElTabs class="tabs" v-model="tab" type="card" @input="onTabChange">
-        <ElTabPane label="A班" name="1">
-          <div class="label">主要症状</div>
+        <ElTabPane label="日班" name="1">
+          <div class="label">诊断</div>
           <ElInput
             type="textarea"
             ref="diagnosis"
@@ -45,17 +36,17 @@
             v-model="form.diagnosis"
             :disabled="isSignedN"
           />
-          <div class="label">主诉及现存主要问题</div>
+          <div class="label">交班内容</div>
           <ElInput
             type="textarea"
-            ref="mainComplaint"
+            ref="remark1"
             :rows="4"
-            v-model="form.mainComplaint"
+            v-model="form.remark1"
             :disabled="isSignedN"
           />
         </ElTabPane>
-        <ElTabPane label="N班" name="2">
-          <div class="label">主要症状</div>
+        <ElTabPane label="夜班" name="2">
+          <div class="label">诊断</div>
           <ElInput
             type="textarea"
             ref="diagnosis"
@@ -63,12 +54,12 @@
             v-model="form.diagnosis"
             :disabled="isSignedN"
           />
-          <div class="label">主诉及现存主要问题</div>
+          <div class="label">交班内容</div>
           <ElInput
             type="textarea"
-            ref="mainComplaint"
+            ref="remark2"
             :rows="4"
-            v-model="form.mainComplaint"
+            v-model="form.remark2"
             :disabled="isSignedN"
           />
         </ElTabPane>
@@ -88,13 +79,10 @@ import Button from "./button";
 const defaultForm = {
   name: "",
   bedLabel: "",
-  age: "",
   patientStatus: "",
   diagnosis: "",
-  mainComplaint: "",
-  background: "",
-  assessmentSituation: "",
-  proposal: ""
+  remark1: "",
+  remark2: ""
 };
 
 export default {
@@ -133,15 +121,9 @@ export default {
     },
     applyTemplate(tab, item) {
       if (tab === "1") {
-        this.form.mainComplaint =
-          (this.form.mainComplaint || "") + item.content;
+        this.form.remark1 = (this.form.remark1 || "") + item.content;
       } else if (tab === "2") {
-        this.form.background = (this.form.background || "") + item.content;
-      } else if (tab === "3") {
-        this.form.assessmentSituation =
-          (this.form.assessmentSituation || "") + item.content;
-      } else if (tab === "4") {
-        this.form.proposal = (this.form.proposal || "") + item.content;
+        this.form.remark2 = (this.form.remark2 || "") + item.content;
       }
     },
     onClose() {
@@ -150,9 +132,6 @@ export default {
     onConfirm() {
       this.$emit("confirm", this.form);
     },
-    onPanelOpen() {
-      this.$emit("panel-open");
-    },
     onPanelClose() {
       this.$emit("panel-close");
     },
@@ -160,7 +139,7 @@ export default {
       this.$emit("tab-change", tab);
     },
     onBedLabelChange() {
-      this.form = { ...this.form, name: "", age: "", patientStatus: "" };
+      this.form = { ...this.form, name: "", patientStatus: "" };
     },
     async onLoadPatient() {
       const bedLabel = this.form.bedLabel;
@@ -173,8 +152,8 @@ export default {
 
       if (data) {
         const { testResult, examResult } = data;
-        data.background = [testResult, examResult].filter(Boolean).join("\n");
-        data.mainComplaint = data.complaint || "";
+        data.remark1 = data.remark1 || "";
+        data.remark2 = data.remark2 || "";
 
         this.form = { ...this.form, ...data };
       } else {

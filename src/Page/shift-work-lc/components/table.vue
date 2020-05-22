@@ -3,7 +3,9 @@
     <table class="table fixed-th" v-if="fixedTh">
       <colgroup>
         <!-- <col v-for="col of realColumns" :key="col.label" :width="col.width" /> -->
-        <col width="250" />
+        <col width="50" />
+        <col width="80" />
+        <col width="150" />
         <col width="200" />
         <col width="200" />
         <col width="200" />
@@ -24,7 +26,9 @@
     <table class="table" ref="table">
       <colgroup>
         <!-- <col v-for="col of realColumns" :key="col.label" :width="col.width" /> -->
-        <col width="250" />
+        <col width="50" />
+        <col width="80" />
+        <col width="150" />
         <col width="200" />
         <col width="200" />
         <col width="200" />
@@ -33,11 +37,13 @@
       <thead>
         <tr>
           <th class="name" rowspan="6">
-            <div class="cell">
-              <span>床号</span>
-              <span>姓名</span>
-              <span>诊断</span>
-            </div>
+            <div class="cell">床号</div>
+          </th>
+          <th class="name" rowspan="6">
+            <div class="cell">姓名</div>
+          </th>
+          <th class="name" rowspan="6">
+            <div class="cell">诊断</div>
           </th>
           <th>
             <div class="cell">
@@ -60,7 +66,7 @@
           <th>
             <div class="cell">
               病危
-              <span>{{record.patientBwA || 0}}</span> 人
+              <span>{{record.patientBwN || 0}}</span> 人
             </div>
           </th>
         </tr>
@@ -80,7 +86,7 @@
           <th>
             <div class="cell">
               转出
-              <span>{{record.patientTransferOutA || 0}}</span> 人
+              <span>{{record.patientTransferOutN || 0}}</span> 人
             </div>
           </th>
           <th>
@@ -164,7 +170,7 @@
           <th>
             <div class="cell">
               一级
-              <span>{{record.patientFirstA || 0}}</span> 人
+              <span>{{record.patientFirstN || 0}}</span> 人
             </div>
           </th>
         </tr>
@@ -194,40 +200,8 @@
             </div>
           </th>
         </tr>
-        <!-- <tr>
-          <th v-for="(col,index) of columns" :key="col.label" :rowspan="col.rowspan || 1">
-            <div v-if="index==0">{{col.label}}</div>
-            <div v-else>
-              <span>{{col.label}}人</span>
-              <span>{{col.label}}人</span>
-              <span>{{col.label}}人</span>
-            </div>
-          </th>
-        </tr>-->
-        <!-- <tr>
-          <th v-for="col of columns" :key="col.label" :colspan="getColSpan(col)">{{col.label}}人</th>
-        </tr>
-        <tr v-if="isMultiCol">
-          <th v-for="col of realColumns" :key="col.label">{{col.label}}</th>
-        </tr>-->
       </thead>
       <tbody>
-        <!-- <tr
-          v-for="(row, rowIndex) of data"
-          :class="[{selected: row === selectedRow}]"
-          :key="row.id + '' + rowIndex"
-          @click="onClick(rowIndex)"
-        >
-          <td >
-            <div class="cell">{{row.bedLabel}} {{row.name}} {{row.diagnosis}}</div>
-          </td>
-          <td colspan="2">
-            <div class="cell">{{row.remark1}}</div>
-          </td>
-          <td colspan="2">
-            <div class="cell">{{row.remark2}}</div>
-          </td>
-        </tr>-->
         <tr
           v-for="(row, rowIndex) of data"
           :class="[{selected: row === selectedRow}]"
@@ -238,9 +212,9 @@
             v-for="(col, colIndex) of realColumns"
             :key="col.label"
             :style="{'text-align': col.align || 'left'}"
+            :colspan="colIndex>2?2:1"
             @dblclick="onDblClick({row, rowIndex, col, colIndex})"
             @contextmenu.stop.prevent="onContextMenu($event, rowIndex, col)"
-            :colspan="colIndex==0?1:2"
           >
             <div class="cell" v-if="col.render" v-html="col.render(row)" />
             <label v-else-if="col.editable">
@@ -434,10 +408,6 @@ export default {
 
   thead {
     border: 1px solid #444444;
-
-    .name {
-      border-right: 1px solid #444444;
-    }
   }
 
   td, th {
@@ -453,19 +423,20 @@ export default {
   }
 
   th {
-    padding: 8px 4px;
+    padding: 2px;
     background: #f4f2f5;
     font-weight: 700;
     text-align: center;
     word-break: keep-all;
     white-space: nowrap;
+    height: 24px;
+
+    &.name, &:last-of-type {
+      border-right: 1px solid #444444;
+    }
 
     &:nth-last-of-type(2) {
       border-left: 1px solid #444444;
-    }
-
-    &:last-of-type {
-      border-right: 1px solid #444444;
     }
 
     span {

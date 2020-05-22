@@ -37,6 +37,8 @@ const inpatientReport = () => import("@/Page/inpatient-report/inpatient-report.v
 const inpatientReportDetail = () => import("@/Page/inpatient-report/inpatient-report-detail.vue");
 const shiftWork = () => import("@/Page/shift-work/shift-work.vue");
 const shiftWorkDetail = () => import("@/Page/shift-work/shift-work-detail.vue");
+const shiftWorkLc = () => import("@/Page/shift-work-lc/shift-work.vue");
+const shiftWorkDetailLc = () => import("@/Page/shift-work-lc/shift-work-detail.vue");
 const badEvent = () => import("@/Page/badEvent/badEvent.vue");
 const badEventViewPage = () => import("@/Page/badEvent/badEventViewPage.vue");
 const badEventEditPage = () => import("@/Page/badEvent/badEventEditPage.vue");
@@ -213,11 +215,11 @@ const router = new Router({
         {
           path: "/shiftWork",
           name: "shiftWorks",
-          component: shiftWork,
+          component: process.env.HOSPITAL_ID == 'lingcheng' ? shiftWorkLc : shiftWork,
           children: [{
             name: "shiftWork",
             path: "/shiftWork/:code?/:id?",
-            component: shiftWorkDetail
+            component: process.env.HOSPITAL_ID == 'lingcheng' ? shiftWorkDetailLc : shiftWorkDetail,
           }]
         },
         {
