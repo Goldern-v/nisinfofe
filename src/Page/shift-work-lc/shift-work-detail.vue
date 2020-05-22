@@ -122,9 +122,9 @@
               </span>
               <FallibleImage
                 class="img"
-                v-if="record.autographNameN"
-                :src="`/crNursing/api/file/signImage/${record.autographEmpNoN}?${token}`"
-                :alt="record.autographNameN"
+                v-if="record.checkNurseName"
+                :src="`/crNursing/api/file/signImage/${record.checkNurseNo}?${token}`"
+                :alt="record.checkNurseName"
                 data-print-style="display: inline-block; width: 52px; height: auto;"
               />
               <span v-else style="display: none;" data-print-style="display: inline-block;">未签名</span>
@@ -269,8 +269,8 @@ export default {
       return !!(
         record &&
         record.autographNameA &&
-        record.autographNameP &&
-        record.autographNameN
+        record.autographNameN &&
+        record.checkNurseName
       );
     }
   },
@@ -577,7 +577,7 @@ export default {
         tab,
         { ...row },
         col.prop,
-        !!this.record.autographNameN
+        !!this.record.checkNurseName
       );
     },
     onPatientsModalShow(d) {
