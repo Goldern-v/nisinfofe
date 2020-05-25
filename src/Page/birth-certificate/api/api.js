@@ -50,7 +50,7 @@ export function getPatientListNew() {
         admissionDateBegin: '',
         dischargeDateBegin: startDate,
         dischargeDateEnd: endDate,
-        pageNum: 2000,
+        pageNum: 4000,
         pageIndex: 1,
     });
 }

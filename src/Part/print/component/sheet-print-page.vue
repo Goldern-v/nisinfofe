@@ -175,8 +175,11 @@ export default {
       $(".contant").width(Math.max($(".contant").width()));
     }
     if (this.HOSPITAL_ID == "lingcheng") {
-      let pageW = document.querySelector("div.contant").offsetWidth;
-      document.querySelector("div.contant").style.width = pageW + 40 + "px";
+      let pageEle = document.querySelectorAll("div.contant");
+      let arr = Array.from(pageEle);
+      arr.map(child => {
+        child.style.width = child.offsetWidth + 40 + "px";
+      });
     }
     let sheetTableWidth = document.querySelector("div.contant").offsetWidth;
     $("#app").css({
