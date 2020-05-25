@@ -48,25 +48,25 @@
           <th>
             <div class="cell">
               出院
-              <span>{{record.patientOutA || 0}}</span> 人
+              <input type="text" v-model="record.patientOutA" />人
             </div>
           </th>
           <th>
             <div class="cell">
               病危
-              <span>{{record.patientBwA || 0}}</span> 人
+              <input type="text" v-model="record.patientBwA" />人
             </div>
           </th>
           <th>
             <div class="cell">
               出院
-              <span>{{record.patientOutN || 0}}</span> 人
+              <input type="text" v-model="record.patientOutN" />人
             </div>
           </th>
           <th>
             <div class="cell">
               病危
-              <span>{{record.patientBwN || 0}}</span> 人
+              <input type="text" v-model="record.patientBwN" />人
             </div>
           </th>
         </tr>
@@ -74,25 +74,25 @@
           <th>
             <div class="cell">
               转出
-              <span>{{record.patientTransferOutA || 0}}</span> 人
+              <input type="text" v-model="record.patientTransferOutA" />人
             </div>
           </th>
           <th>
             <div class="cell">
               手术
-              <span>{{record.patientOprationA || 0}}</span> 人
+              <input type="text" v-model="record.patientOprationA" />人
             </div>
           </th>
           <th>
             <div class="cell">
               转出
-              <span>{{record.patientTransferOutN || 0}}</span> 人
+              <input type="text" v-model="record.patientTransferOutN" />人
             </div>
           </th>
           <th>
             <div class="cell">
               手术
-              <span>{{record.patientOprationN || 0}}</span> 人
+              <input type="text" v-model="record.patientOprationN" />人
             </div>
           </th>
         </tr>
@@ -100,25 +100,25 @@
           <th>
             <div class="cell">
               死亡
-              <span>{{record.patientDeathA || 0}}</span> 人
+              <input type="text" v-model="record.patientDeathA" />人
             </div>
           </th>
           <th>
             <div class="cell">
               备术
-              <span>{{record.patientRemarkA || 0}}</span> 人
+              <input type="text" v-model="record.patientRemarkA" />人
             </div>
           </th>
           <th>
             <div class="cell">
               死亡
-              <span>{{record.patientDeathN || 0}}</span> 人
+              <input type="text" v-model="record.patientDeathN" />人
             </div>
           </th>
           <th>
             <div class="cell">
               备术
-              <span>{{record.patientRemarkN || 0}}</span> 人
+              <input type="text" v-model="record.patientRemarkN" />人
             </div>
           </th>
         </tr>
@@ -126,25 +126,25 @@
           <th>
             <div class="cell">
               新入
-              <span>{{record.patientNewA || 0}}</span> 人
+              <input type="text" v-model="record.patientNewA" />人
             </div>
           </th>
           <th>
             <div class="cell">
               特护
-              <span>{{record.patientSpecialA || 0}}</span> 人
+              <input type="text" v-model="record.patientSpecialA" />人
             </div>
           </th>
           <th>
             <div class="cell">
               新入
-              <span>{{record.patientNewN || 0}}</span> 人
+              <input type="text" v-model="record.patientNewN" />人
             </div>
           </th>
           <th>
             <div class="cell">
               特护
-              <span>{{record.patientSpecialN || 0}}</span> 人
+              <input type="text" v-model="record.patientSpecialN" />人
             </div>
           </th>
         </tr>
@@ -152,25 +152,25 @@
           <th>
             <div class="cell">
               转入
-              <span>{{record.patientTransferInA || 0}}</span> 人
+              <input type="text" v-model="record.patientTransferInA" />人
             </div>
           </th>
           <th>
             <div class="cell">
               一级
-              <span>{{record.patientFirstA || 0}}</span> 人
+              <input type="text" v-model="record.patientFirstA" />人
             </div>
           </th>
           <th>
             <div class="cell">
               转入
-              <span>{{record.patientTransferInN || 0}}</span> 人
+              <input type="text" v-model="record.patientTransferInN" />人
             </div>
           </th>
           <th>
             <div class="cell">
               一级
-              <span>{{record.patientFirstN || 0}}</span> 人
+              <input type="text" v-model="record.patientFirstN" />人
             </div>
           </th>
         </tr>
@@ -178,25 +178,25 @@
           <th>
             <div class="cell">
               病重
-              <span>{{record.patientBzA || 0}}</span> 人
+              <input type="text" v-model="record.patientBzA" />人
             </div>
           </th>
           <th>
             <div class="cell">
               总数
-              <span>{{record.patientTotalA || 0}}</span> 人
+              <input type="text" v-model="record.patientTotalA" />人
             </div>
           </th>
           <th>
             <div class="cell">
               病重
-              <span>{{record.patientBzN || 0}}</span> 人
+              <input type="text" v-model="record.patientBzN" />人
             </div>
           </th>
           <th>
             <div class="cell">
               总数
-              <span>{{record.patientTotalN || 0}}</span> 人
+              <input type="text" v-model="record.patientTotalN" />人
             </div>
           </th>
         </tr>
@@ -439,8 +439,12 @@ export default {
       border-left: 1px solid #444444;
     }
 
-    span {
-      padding: 0 10px;
+    input {
+      width: 45px;
+      border: none;
+      background-color: transparent;
+      text-align: center;
+      outline: none;
     }
   }
 

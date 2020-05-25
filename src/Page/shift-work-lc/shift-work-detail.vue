@@ -11,7 +11,7 @@
         :disabled="isEmpty || allSigned || !$refs.table || !$refs.table.selectedRow"
         @click="onRowRemove"
       >删除行</Button>
-      <Button :disabled="isEmpty || allSigned || !modified" @click="onSave(true)">保存</Button>
+      <Button :disabled="isEmpty || allSigned" @click="onSave(true)">保存</Button>
       <Button :disabled="isEmpty" @click="onPrint">打印预览</Button>
       <div class="empty"></div>
       <Button :disabled="isEmpty || !!record.autographNameA" @click="onRemove">删除交班志</Button>
