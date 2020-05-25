@@ -26,10 +26,16 @@
             <div class="label">患者医嘱</div>
             <el-button @click="openModal('adviceModal')">查看</el-button>
           </div>
+          <div class="item-box" v-if="HOSPITAL_ID == 'lingcheng'">
+            <img src="../images/检验报告@2x.png" alt class="label-icon" />
+            <div class="label">病历</div>
+            <el-button @click="openModal('doctorEmrModal')">查看</el-button>
+          </div>
         </div>
         <inspectModal ref="inspectModal" v-if="show"></inspectModal>
         <testModal ref="testModal" v-if="show"></testModal>
         <adviceModal ref="adviceModal" v-if="show"></adviceModal>
+        <doctorEmrModal ref="doctorEmrModal" v-if="show"></doctorEmrModal>
       </div>
     </transition>
   </div>
@@ -145,6 +151,7 @@ import bus from "vue-happy-bus";
 import inspectModal from "./inspect-modal";
 import testModal from "./test-modal";
 import adviceModal from "./advice-modal";
+import doctorEmrModal from "./doctor-emr-modal";
 export default {
   data() {
     return {
@@ -174,7 +181,8 @@ export default {
   components: {
     inspectModal,
     testModal,
-    adviceModal
+    adviceModal,
+    doctorEmrModal
   }
 };
 </script>

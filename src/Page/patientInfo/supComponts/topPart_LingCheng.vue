@@ -17,6 +17,12 @@
         <div class="nav-item">护嘱单</div>
       </router-link>-->
       <router-link
+        :to="{path:'/doctorEmr',  query: {patientId:query.patientId, visitId: query.visitId}}"
+        tag="span"
+      >
+        <div class="nav-item">病历</div>
+      </router-link>
+      <router-link
         :to="{path:'/sheet', query: {patientId:query.patientId, visitId: query.visitId}}"
         tag="span"
       >
@@ -33,7 +39,7 @@
         tag="span"
       >
         <div class="nav-item">护理诊断计划</div>
-      </router-link> -->
+      </router-link>-->
       <router-link
         :to="{path:'/bloodSugar', query: {patientId:query.patientId, visitId: query.visitId}}"
         tag="span"

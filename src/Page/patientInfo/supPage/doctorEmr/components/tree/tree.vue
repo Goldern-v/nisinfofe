@@ -4,8 +4,19 @@
       <span class="title">病历</span>
     </el-row>
     <div class="body" :style="{height: height}" v-loading="treeLoading">
-      <el-tree v-if="ifTree" :regions="regions" class="record-tree" :data="regions" highlight-current :render-content="renderContent" @node-click="nodeClick" node-key="index" :default-expanded-keys="expandList" @node-expand="node_expand" @node-collapse="node_collapse">
-      </el-tree>
+      <el-tree
+        v-if="ifTree"
+        :regions="regions"
+        class="record-tree"
+        :data="regions"
+        highlight-current
+        :render-content="renderContent"
+        @node-click="nodeClick"
+        node-key="index"
+        :default-expanded-keys="expandList"
+        @node-expand="node_expand"
+        @node-collapse="node_collapse"
+      ></el-tree>
     </div>
   </div>
 </template>
@@ -58,17 +69,32 @@ export default {
           let resDataArr = res[0].data.data;
           let keys = Object.keys(resDataArr);
           let regions = [];
-          for (let i = 0; i < keys.length; i++) {
-            regions.push({
-              label: keys[i],
-              children: resDataArr[keys[i]].map(item => {
-                return {
-                  label: item.topic,
-                  fileUrl: item.fileUrl
-                };
-              })
-            });
+          if (this.HOSPITAL_ID == "lingcheng") {
+            for (let i = 0; i < keys.length; i++) {
+              regions.push({
+                label: keys[i],
+                children: resDataArr[keys[i]].map(item => {
+                  return {
+                    label: item.topic,
+                    fileUrl: item.expand1
+                  };
+                })
+              });
+            }
+          } else {
+            for (let i = 0; i < keys.length; i++) {
+              regions.push({
+                label: keys[i],
+                children: resDataArr[keys[i]].map(item => {
+                  return {
+                    label: item.topic,
+                    fileUrl: item.fileUrl
+                  };
+                })
+              });
+            }
           }
+
           // debugger;
 
           this.regions = regions;
@@ -187,56 +213,75 @@ export default {
 }
 </style>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus">
-.el-tree-node__content
-  white-space nowrap
-  text-overflow ellipsis
-  overflow hidden
+.el-tree-node__content {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
   // &:hover
-  //   .tree-node
-  //     background rgb(228, 241, 240)
-.tree-node
-  margin-left -16px
-  position relative
+  // .tree-node
+  // background rgb(228, 241, 240)
+}
+
+.tree-node {
+  margin-left: -16px;
+  position: relative;
   font-size: 12px;
   color: #687179;
-  top 3px
-  white-space nowrap
-  text-overflow ellipsis
-  overflow hidden
-  width 92%
-  display inline-block
-  img
-    width 20px
-    position relative
-    top 3px
-    margin-right 2px
-.el-tree--highlight-current .el-tree-node.is-current > .el-tree-node__content
-  background rgb(228, 241, 240)
-.tree-box-node
-  white-space nowrap
-  text-overflow ellipsis
-  overflow hidden
-  font-size: 13px
-  color: #687179
-  position relative
-  top 3px
-  img
-    width 20px
-    position relative
-    top 3px
-    margin-right 2px
-.el-tree
-  border 0 !important
-.modal-record
-  .record-con
-    background #ffffff
-    overflow auto
-    margin 20px 0 20px
-    width 100%
-    box-sizing border-box
-    padding 0 10px
-.record-tree
-  .el-tree
-    border 0 !important
+  top: 3px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  width: 92%;
+  display: inline-block;
+
+  img {
+    width: 20px;
+    position: relative;
+    top: 3px;
+    margin-right: 2px;
+  }
+}
+
+.el-tree--highlight-current .el-tree-node.is-current > .el-tree-node__content {
+  background: rgb(228, 241, 240);
+}
+
+.tree-box-node {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  font-size: 13px;
+  color: #687179;
+  position: relative;
+  top: 3px;
+
+  img {
+    width: 20px;
+    position: relative;
+    top: 3px;
+    margin-right: 2px;
+  }
+}
+
+.el-tree {
+  border: 0 !important;
+}
+
+.modal-record {
+  .record-con {
+    background: #ffffff;
+    overflow: auto;
+    margin: 20px 0 20px;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0 10px;
+  }
+}
+
+.record-tree {
+  .el-tree {
+    border: 0 !important;
+  }
+}
 </style>
 </style>
