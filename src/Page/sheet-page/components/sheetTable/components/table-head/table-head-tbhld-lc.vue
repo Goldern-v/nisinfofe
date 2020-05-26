@@ -24,8 +24,8 @@
         床号：
         <div class="bottom-line" style="min-width: 50px">{{patientInfo.bedLabel}}</div>
       </span>
-      <span @click="updateTetxInfo('patientName', '病人姓名', patientInfo.patientName)">
-        病人姓名：
+      <span @click="updateTetxInfo('patientName', '姓名', patientInfo.patientName)">
+        姓名：
         <div class="bottom-line" style="min-width: 70px">{{patientInfo.patientName}}</div>
       </span>
       <!-- <span>
