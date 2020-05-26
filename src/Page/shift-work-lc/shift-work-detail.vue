@@ -53,7 +53,7 @@
             @input-keydown="onTableInputKeydown"
           >
             <tr class="empty-row" v-if="!patients.length">
-              <td colspan="7" style="padding: 0">
+              <td colspan="11" style="padding: 0">
                 <Placeholder
                   black
                   size="small"
@@ -756,8 +756,17 @@ export default {
         .fixedTh {
           display: none !important;
         }
-        pre {
-          white-space: pre-wrap;
+        tbody pre {
+           white-space: pre-wrap;
+        }
+        th pre {
+          display:inline-block !important;
+          width: 30px!important;
+          text-align: center;
+          font-weight:normal;
+          min-height: auto !important;
+          line-height: normal !important;
+          padding: 1px 0 !important;
         }
         `
         });

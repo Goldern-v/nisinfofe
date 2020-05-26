@@ -6,10 +6,14 @@
         <col width="50" />
         <col width="80" />
         <col width="150" />
-        <col width="200" />
-        <col width="200" />
-        <col width="200" />
-        <col width="200" />
+        <col width="100" />
+        <col width="100" />
+        <col width="100" />
+        <col width="100" />
+        <col width="100" />
+        <col width="100" />
+        <col width="100" />
+        <col width="100" />
       </colgroup>
       <thead>
         <!-- <tr>
@@ -29,10 +33,14 @@
         <col width="50" />
         <col width="80" />
         <col width="150" />
-        <col width="200" />
-        <col width="200" />
-        <col width="200" />
-        <col width="200" />
+        <col width="100" />
+        <col width="100" />
+        <col width="100" />
+        <col width="100" />
+        <col width="100" />
+        <col width="100" />
+        <col width="100" />
+        <col width="100" />
       </colgroup>
       <thead>
         <tr>
@@ -59,20 +67,6 @@
           </th>
           <th>
             <div class="cell">
-              出院
-              <input type="text" v-model="record.patientOutN" />人
-            </div>
-          </th>
-          <th>
-            <div class="cell">
-              病危
-              <input type="text" v-model="record.patientBwN" />人
-            </div>
-          </th>
-        </tr>
-        <tr>
-          <th>
-            <div class="cell">
               转出
               <input type="text" v-model="record.patientTransferOutA" />人
             </div>
@@ -81,6 +75,18 @@
             <div class="cell">
               手术
               <input type="text" v-model="record.patientOprationA" />人
+            </div>
+          </th>
+          <th>
+            <div class="cell">
+              出院
+              <input type="text" v-model="record.patientOutN" />人
+            </div>
+          </th>
+          <th>
+            <div class="cell">
+              病危
+              <input type="text" v-model="record.patientBwN" />人
             </div>
           </th>
           <th>
@@ -111,20 +117,6 @@
           </th>
           <th>
             <div class="cell">
-              死亡
-              <input type="text" v-model="record.patientDeathN" />人
-            </div>
-          </th>
-          <th>
-            <div class="cell">
-              备术
-              <input type="text" v-model="record.patientRemarkN" />人
-            </div>
-          </th>
-        </tr>
-        <tr>
-          <th>
-            <div class="cell">
               新入
               <input type="text" v-model="record.patientNewA" />人
             </div>
@@ -133,6 +125,18 @@
             <div class="cell">
               特护
               <input type="text" v-model="record.patientSpecialA" />人
+            </div>
+          </th>
+          <th>
+            <div class="cell">
+              死亡
+              <input type="text" v-model="record.patientDeathN" />人
+            </div>
+          </th>
+          <th>
+            <div class="cell">
+              备术
+              <input type="text" v-model="record.patientRemarkN" />人
             </div>
           </th>
           <th>
@@ -148,6 +152,7 @@
             </div>
           </th>
         </tr>
+
         <tr>
           <th>
             <div class="cell">
@@ -163,20 +168,6 @@
           </th>
           <th>
             <div class="cell">
-              转入
-              <input type="text" v-model="record.patientTransferInN" />人
-            </div>
-          </th>
-          <th>
-            <div class="cell">
-              一级
-              <input type="text" v-model="record.patientFirstN" />人
-            </div>
-          </th>
-        </tr>
-        <tr>
-          <th>
-            <div class="cell">
               病重
               <input type="text" v-model="record.patientBzA" />人
             </div>
@@ -185,6 +176,18 @@
             <div class="cell">
               总数
               <input type="text" v-model="record.patientTotalA" />人
+            </div>
+          </th>
+          <th>
+            <div class="cell">
+              转入
+              <input type="text" v-model="record.patientTransferInN" />人
+            </div>
+          </th>
+          <th>
+            <div class="cell">
+              一级
+              <input type="text" v-model="record.patientFirstN" />人
             </div>
           </th>
           <th>
@@ -212,7 +215,7 @@
             v-for="(col, colIndex) of realColumns"
             :key="col.label"
             :style="{'text-align': col.align || 'left'}"
-            :colspan="colIndex>2?2:1"
+            :colspan="colIndex>2?4:1"
             @dblclick="onDblClick({row, rowIndex, col, colIndex})"
             @contextmenu.stop.prevent="onContextMenu($event, rowIndex, col)"
           >
@@ -435,12 +438,12 @@ export default {
       border-right: 1px solid #444444;
     }
 
-    &:nth-last-of-type(2) {
+    &:nth-last-of-type(4) {
       border-left: 1px solid #444444;
     }
 
     input {
-      width: 45px;
+      width: 30px;
       border: none;
       background-color: transparent;
       text-align: center;
@@ -460,6 +463,12 @@ export default {
     &.selected {
       background: #FFF8B1;
     }
+  }
+
+  .cell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   td {
