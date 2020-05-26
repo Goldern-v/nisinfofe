@@ -119,6 +119,7 @@ import tableHead from "./components/table-head/table-head";
 import tableHeadPrenata from "./components/table-head/table-head-prenatal";
 import tableHead2 from "./components/table-head/table-head2";
 import tableHeadLc from "./components/table-head/table-head-lc";
+import tableHeadTbhldLc from "./components/table-head/table-head-tbhld-lc";
 export default {
   props: {
     data: Object,
@@ -149,11 +150,13 @@ export default {
       /** 产科 */
       if (sheetInfo.sheetType === "prenatal") {
         return tableHeadPrenata;
+      } else if (sheetInfo.sheetType === "special") {
+        return tableHeadTbhldLc;
       } else if (process.env.HOSPITAL_ID == "weixian") {
         return tableHead2;
-      } else if(process.env.HOSPITAL_ID == "lingcheng"){
+      } else if (process.env.HOSPITAL_ID == "lingcheng") {
         return tableHeadLc;
-      }else {
+      } else {
         return tableHead;
       }
     }
