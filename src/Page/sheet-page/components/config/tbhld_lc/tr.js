@@ -12,76 +12,76 @@ export default [
     key: "recordMonth", //日期
     value: "",
     style: tdStyle,
-    event: keyf1,
+    //event: keyf1,
     click: click_date,
   },
   {
     key: "recordHour", //时间
     value: "",
     style: tdStyle,
-    event: keyf1,
+    event: event_time,
   },
   {
     key: "temperature", //体温
     value: "",
     style: tdStyle,
-    event: keyf1,
+    //event: keyf1,
   },
   {
     key: "pulse", //脉搏
     value: "",
     style: tdStyle,
-    event: keyf1,
+    //event: keyf1,
   },
   {
     key: "breath", //呼吸
     value: "",
     style: tdStyle,
-    event: keyf1,
+    //event: keyf1,
   },
   {
     key: "bloodPressure", //血压
     value: "",
     style: tdStyle,
-    event: keyf1,
+    //event: keyf1,
   },
   {
     key: "pupil", //瞳孔
     value: "",
     name: "瞳孔",
     style: tdStyle,
-    event: keyf1,
+    //event: keyf1,
   },
   {
     key: "food", //入量 项目
     value: "",
     style: tdStyle,
-    event: keyf1,
+    //event: keyf1,
   },
   {
     key: "foodSize", //入量 实入量
     value: "",
     style: tdStyle,
-    event: keyf1,
+    //event: keyf1,
   },
   {
     key: "discharge", //出量 项目
     value: "",
     style: tdStyle,
-    event: keyf1,
+    //event: keyf1,
   },
   {
     key: "dischargeSize", //出量 实出量
     value: "",
     style: tdStyle,
-    event: keyf1,
+    //event: keyf1,
   },
   {
     key: "description", //病情处理
     value: "",
     name: "病情及处理",
     style: tdStyle,
-    event: keyf1,
+    //event: keyf1,
     textarea: {
       width: 200,
       height: '48px!important'
@@ -91,7 +91,7 @@ export default [
     key: "sign", //签名
     value: "",
     style: tdStyle,
-    event: keyf1,
+    //event: keyf1,
   },
   {
     hidden: true,
