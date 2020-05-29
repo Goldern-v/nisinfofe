@@ -50,6 +50,12 @@ export { Tr };
 function switechSheetType(type) {
   let schema;
   switch (type) {
+    case "special":
+      {
+        // 陵城外一科 特别护理单
+        schema = require("../config/tbhld_lc/tr.js").default;
+      }
+      break;
     case "icu_lc":
       {
         // 内科重症医学科
@@ -66,12 +72,12 @@ function switechSheetType(type) {
       // 陵城区-新生儿科 里的 新生儿监护
       schema = require("../config/neonatology_lc/tr.js").default;
     }
-    break;
+      break;
     case "Record_Children_Serious_Lc": {
       // 陵城区-病重（病危）
       schema = require("../config/picu_lc/tr.js").default;
     }
-    break;
+      break;
     case "neurology":
       {
         // 神经内科

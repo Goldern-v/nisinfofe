@@ -3,6 +3,14 @@ import sheetInfo from "../config/sheetInfo/index";
 export default function Title(data = [], autoData = [], index) {
   let Th;
   switch (sheetInfo.sheetType) {
+    case "special":
+      {
+        // 陵城外一科 特别护理单
+        Th = JSON.parse(
+          JSON.stringify(require("../config/tbhld_lc/th").default)
+        )
+      }
+      break;
     case "icu_lc":
       {
         // 内科重症医学科
@@ -19,21 +27,21 @@ export default function Title(data = [], autoData = [], index) {
         );
       }
       break;
-   case "newborn_lc": {
+    case "newborn_lc": {
       //  陵城区新生儿科 里的 新生儿监护
       Th = JSON.parse(
         JSON.stringify(require("../config/neonatology_lc/th").default)
       );
     }
-    break;
+      break;
     case "Record_Children_Serious_Lc": {
       // 陵城区-病重（病危）
-         Th = JSON.parse(
+      Th = JSON.parse(
         JSON.stringify(require("../config/picu_lc/th.js").default)
       );
     }
-    break;
-      case "neurology":
+      break;
+    case "neurology":
       {
         // 神经内科
         Th = JSON.parse(
