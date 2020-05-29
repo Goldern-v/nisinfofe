@@ -12,11 +12,7 @@
         性别：
         <div class="bottom-line" style="min-width: 50px">{{patientInfo.sex}}</div>
       </span>
-      <span @click="updateNeonatology2Age" v-if="sheetInfo.sheetType == 'neonatology2'">
-        年龄：
-        <div class="bottom-line" style="min-width: 50px">{{neonatology2Age}}</div>
-      </span>
-      <span @click="updateTetxInfo('age', '年龄', patientInfo.age)" v-else>
+      <span @click="updateTetxInfo('age', '年龄', patientInfo.age)">
         年龄：
         <div class="bottom-line" style="min-width: 50px">{{patientInfo.age}}</div>
       </span>
@@ -104,8 +100,7 @@ export default {
   data() {
     return {
       bus: bus(this),
-      sheetInfo,
-      relObj: sheetInfo.relObj
+      sheetInfo
     };
   },
   computed: {
@@ -151,7 +146,7 @@ export default {
     diagnosis() {
       /** 最接近的index */
       let realIndex = 0;
-      let keys = Object.keys(this.relObj || {});
+      let keys = Object.keys(sheetInfo.relObj || {});
       for (let i = 0; i < keys.length; i++) {
         let [base, keyIndex] = keys[i].split("PageIndex_diagnosis_");
         if (keyIndex !== undefined) {
@@ -163,14 +158,14 @@ export default {
         }
       }
       return (
-        (this.relObj || {})[`PageIndex_diagnosis_${realIndex}`] ||
+        (sheetInfo.relObj || {})[`PageIndex_diagnosis_${realIndex}`] ||
         this.patientInfo.diagnosis
       );
     },
     operation() {
       /** 最接近的index */
       let realIndex = 0;
-      let keys = Object.keys(this.relObj || {});
+      let keys = Object.keys(sheetInfo.relObj || {});
       for (let i = 0; i < keys.length; i++) {
         let [base, keyIndex] = keys[i].split("PageIndex_operation_");
         if (keyIndex !== undefined) {
@@ -182,7 +177,7 @@ export default {
         }
       }
       return (
-        (this.relObj || {})[`PageIndex_operation_${realIndex}`] ||
+        (sheetInfo.relObj || {})[`PageIndex_operation_${realIndex}`] ||
         this.patientInfo.operation
       );
     }
@@ -221,7 +216,7 @@ export default {
         };
       }
 
-      let obj = this.relObj;
+      let obj = sheetInfo.relObj;
       let key = "wxNo";
       let res = await listItem("温箱编号");
       let autoComplete = res.data.data.map(item => item.name);
@@ -262,7 +257,6 @@ export default {
         window.openSetTextModal(
           text => {
             sheetInfo.relObj.age = text;
-            sheetInfo.relObj = { ...sheetInfo.relObj };
             this.$message.success(`修改年龄成功`);
           },
           sheetInfo.relObj.age,
@@ -273,8 +267,7 @@ export default {
     updateDiagnosis(key, label, autoText) {
       window.openSetTextModal(
         text => {
-          this.relObj[`PageIndex_diagnosis_${this.index}`] = text;
-          this.sheetInfo.relObj = { ...this.relObj };
+          sheetInfo.relObj[`PageIndex_diagnosis_${this.index}`] = text;
           this.$message.success(`修改诊断成功`);
           this.bus.$emit("saveSheetPage", false);
         },
@@ -285,8 +278,7 @@ export default {
     updateOperation(key, label, autoText) {
       window.openSetTextModal(
         text => {
-          this.relObj[`PageIndex_operation_${this.index}`] = text;
-          this.sheetInfo.relObj = { ...this.relObj };
+          sheetInfo.relObj[`PageIndex_operation_${this.index}`] = text;
           this.$message.success(`修改手术成功`);
           this.bus.$emit("saveSheetPage", false);
         },
@@ -315,7 +307,7 @@ export default {
     // relObj: {
     //   deep: true,
     //   handler() {
-    //     sheetInfo.relObj = this.relObj;
+    //     sheetInfo.relObj = sheetInfo.relObj;
     //   }
     // }
   },
