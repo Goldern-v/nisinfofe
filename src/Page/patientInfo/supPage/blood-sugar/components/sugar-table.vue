@@ -39,7 +39,7 @@
         </td>
         <td>
           <div class="cell noPrint">{{item.nurse}}</div>
-          <div class="cell inPrint" v-if="HOSPITAL_ID == 'lingcheng'">
+          <div class="cell inPrint lc" v-if="HOSPITAL_ID == 'lingcheng'">
             <!-- {{item.nurseEmpNo}} -->
             <img
               :src="`/crNursing/api/file/signImage/${item.expand1}?${token}`"
@@ -110,6 +110,10 @@
 
   .inPrint {
     display: none;
+
+    &.lc {
+      height: 29px;
+    }
 
     img {
       width: 100%;
