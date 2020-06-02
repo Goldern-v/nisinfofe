@@ -4,8 +4,7 @@ export default {
     width: "720px"
   },
   th: {
-    top: [
-      {
+    top: [{
         name: '日期',
         style: {
           minWidth: '36px',
@@ -24,7 +23,7 @@ export default {
         rowspan: '2'
       },
       {
-        name: '体<br/>温<br/>°C',
+        name: '体<br/>温<br/>℃',
         style: {
           minWidth: '36px',
           maxWidth: '36px',
@@ -88,7 +87,7 @@ export default {
         },
       },
       {
-        name: '签名',
+        name: '护士签名',
         style: {
           minWidth: '52px',
           maxWidth: '52px',
@@ -97,8 +96,7 @@ export default {
         rowspan: '2'
       },
     ],
-    mid: [
-      {
+    mid: [{
         name: '项目',
         style: {
           minWidth: '36px',

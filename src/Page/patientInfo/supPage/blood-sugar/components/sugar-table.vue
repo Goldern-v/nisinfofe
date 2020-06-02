@@ -38,8 +38,16 @@
           <div class="cell">{{item.riValue && item.riValue !== '0' ? (item.riValue + ' ü') : ''}}</div>
         </td>
         <td>
-          <div class="cell" :class="{noPrint:HOSPITAL_ID!='lingcheng'}">{{item.nurse}}</div>
-          <div class="cell inPrint">
+          <div class="cell noPrint">{{item.nurse}}</div>
+          <div class="cell inPrint" v-if="HOSPITAL_ID == 'lingcheng'">
+            <!-- {{item.nurseEmpNo}} -->
+            <img
+              :src="`/crNursing/api/file/signImage/${item.expand1}?${token}`"
+              :alt="item.nurse"
+              v-if="item.expand1"
+            />
+          </div>
+          <div class="cell inPrint" v-else>
             <!-- {{item.nurseEmpNo}} -->
             <img
               :src="`/crNursing/api/file/signImage/${item.nurseEmpNo}?${token}`"
@@ -98,10 +106,6 @@
       font-weight: bold;
       background: #f4f2f5;
     }
-  }
-
-  .noPrint {
-    display: block;
   }
 
   .inPrint {
