@@ -88,18 +88,21 @@
                   @click="selectRegistCare('重')"
                   :class="{active: formData.registCare.includes('重')}"
                   :src="formData.registCare.includes('重')?require('./images/重选.png'): require('./images/重.png')"
+                  :data-print-style="[!formData.registCare.includes('重') && 'display: none;']"
                 />
                 <img
                   class="dj-box"
                   @click="selectRegistCare('危')"
                   :class="{active: formData.registCare.includes('危')}"
                   :src="formData.registCare.includes('危')?require('./images/危选.png'): require('./images/危.png')"
+                  :data-print-style="[!formData.registCare.includes('危') && 'display: none;']"
                 />
                 <img
                   class="dj-box"
                   @click="selectRegistCare('普')"
                   :class="{active: formData.registCare.includes('普')}"
                   :src="formData.registCare.includes('普')?require('./images/普选.png'): require('./images/普.png')"
+                  :data-print-style="[!formData.registCare.includes('普') && 'display: none;']"
                 />
               </div>
             </div>
@@ -111,24 +114,28 @@
                   @click="selectRegistCare('特')"
                   :class="{active: formData.registCare.includes('特')}"
                   :src="formData.registCare.includes('特')?require('./images/特选.png'): require('./images/特.png')"
+                  :data-print-style="[!formData.registCare.includes('特') && 'display: none;']"
                 />
                 <img
                   class="dj-box"
                   @click="selectRegistCare('一')"
                   :class="{active: formData.registCare.includes('一')}"
                   :src="formData.registCare.includes('一')?require('./images/一选.png'): require('./images/一.png')"
+                  :data-print-style="[!formData.registCare.includes('一') && 'display: none;']"
                 />
                 <img
                   class="dj-box"
                   @click="selectRegistCare('二')"
                   :class="{active: formData.registCare.includes('二')}"
                   :src="formData.registCare.includes('二')?require('./images/二选.png'): require('./images/二.png')"
+                  :data-print-style="[!formData.registCare.includes('二') && 'display: none;']"
                 />
                 <img
                   class="dj-box"
                   @click="selectRegistCare('三')"
                   :class="{active: formData.registCare.includes('三')}"
                   :src="formData.registCare.includes('三')?require('./images/三选.png'): require('./images/三.png')"
+                  :data-print-style="[!formData.registCare.includes('三') && 'display: none;']"
                 />
               </div>
             </div>
