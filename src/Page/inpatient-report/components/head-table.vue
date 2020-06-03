@@ -102,7 +102,7 @@ export default {
       return val ? moment(val).format("YYYY-MM-DD") : val;
     },
     sf(val) {
-      return val ? moment(val).format("h:mm") : val;
+      return val ? moment(val).format("HH:mm") : val;
     }
   }
 };
