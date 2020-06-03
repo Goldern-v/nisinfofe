@@ -162,24 +162,6 @@ export default {
         endData
       );
       let getDataList = resData.data.data;
-      for (let i = 0; i < getDataList.length; i++) {
-        let sumDate = getDataList[i].admissionDateTime;
-        // if (sumDate.length){
-        let firstDate = sumDate.substring(0, 11);
-        let secondDate = sumDate.substring(12);
-        // }
-        // Object.assign(getDataList[i],
-        // {
-        //   firstDate:firstDate,
-        //   secondDate:secondDate
-        // })
-
-        getDataList[i].firstDate = firstDate;
-        getDataList[i].secondDate = secondDate;
-
-        // this.$set(getDataList[i],'firstDate',firstDate)
-        // this.$set(getDataList[i],'secondDate',secondDate)
-      }
       let pageSize = 18;
       const papers = [];
       let pageNumber =

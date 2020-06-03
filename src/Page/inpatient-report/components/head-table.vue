@@ -54,8 +54,8 @@
         >{{headItem.name}}</td>
         <td>{{headItem.sex}}</td>
         <td>{{headItem.age}}</td>
-        <td>{{headItem.firstDate}}</td>
-        <td>{{headItem.secondDate}}</td>
+        <td>{{headItem.admissionDateTime | nyr}}</td>
+        <td>{{headItem.admissionDateTime | sf}}</td>
         <td>
           {{
           headItem.outpDoctor
@@ -87,6 +87,7 @@
 </template>
 
 <script>
+import moment from "moment";
 export default {
   props: {
     data: Object,
@@ -95,7 +96,15 @@ export default {
   data() {
     return {};
   },
-  methods: {}
+  methods: {},
+  filters: {
+    nyr(val) {
+      return val ? moment(val).format("YYYY-MM-DD") : val;
+    },
+    sf(val) {
+      return val ? moment(val).format("h:mm") : val;
+    }
+  }
 };
 </script>
 
