@@ -81,3 +81,16 @@ export const markList = (patientId, visitId) => {
     `${apiPath}record/${sheetInfo.sheetType}/sign/list/${sheetInfo.selectBlock.id}`
   );
 };
+
+
+// 新建护理（切割护理记录单）
+export const splitRecordBlock = (empNo, password = "", recordDate) => {
+  return axios.post(
+    `${apiPath}record/block/splitRecordBlock`, {
+      empNo,
+      password,
+      blockId: sheetInfo.selectBlock.id,
+      recordDate
+    }
+  );
+};

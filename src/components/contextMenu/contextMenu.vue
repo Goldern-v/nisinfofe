@@ -57,7 +57,7 @@
               @mousedown="$event.preventDefault()"
               :class="{disable: item.disable}"
             >
-              <i :class="`iconfont icon-${item.icon}`"></i>
+              <i :class="[item.icon?`iconfont icon-${item.icon}`:'',item.iconClass]"></i>
               {{item.name}}
             </li>
           </span>
@@ -68,103 +68,142 @@
 </template>
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
-li.disable
-  color #999 !important
-  cursor not-allowed !important
-.row-con
-  i
-    margin-right 5px
-  &:hover
-    background #f4f4f4
-.mark-con
-  border-top 1px solid #EEF6F5
-  padding 10px 15px 0
-  margin-top 5px
-  margin-bottom 0px
-  .mark-title
-    font-size 13px
-    color #333333
-.color-con
-  padding 10px 4px
-  overflow visible
-  .color-box
-    background #B959FF
-    width 11px
-    height 11px
-    border-radius 50%
-    margin-right 9px
-    cursor pointer
-    position relative
-    overflow visible
-    &.active:after, &:hover:after
-      top -4px
-      left -4px
-      width 17px
-      height 17px
-      content ''
-      border 1px solid #AAAAAA
-      position absolute
-      border-radius 50%
-.color-desc
-  text-align center
-  font-size 12px
-  color #687179
-  margin-top 2px
-  margin-bottom 0px
-  font-weight lighter
-  display none
+li.disable {
+  color: #999 !important;
+  cursor: not-allowed !important;
+}
+
+.row-con {
+  i {
+    margin-right: 5px;
+  }
+
+  &:hover {
+    background: #f4f4f4;
+  }
+}
+
+.mark-con {
+  border-top: 1px solid #EEF6F5;
+  padding: 10px 15px 0;
+  margin-top: 5px;
+  margin-bottom: 0px;
+
+  .mark-title {
+    font-size: 13px;
+    color: #333333;
+  }
+}
+
+.color-con {
+  padding: 10px 4px;
+  overflow: visible;
+
+  .color-box {
+    background: #B959FF;
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    margin-right: 9px;
+    cursor: pointer;
+    position: relative;
+    overflow: visible;
+
+    &.active:after, &:hover:after {
+      top: -4px;
+      left: -4px;
+      width: 17px;
+      height: 17px;
+      content: '';
+      border: 1px solid #AAAAAA;
+      position: absolute;
+      border-radius: 50%;
+    }
+  }
+}
+
+.color-desc {
+  text-align: center;
+  font-size: 12px;
+  color: #687179;
+  margin-top: 2px;
+  margin-bottom: 0px;
+  font-weight: lighter;
+  display: none;
+}
 </style>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
-li.disable
-  color #999 !important
-  cursor not-allowed !important
-.row-con
-  line-height 30px
-  i
-    margin-right 5px
-  &:hover
-    background #f4f4f4
-.mark-con
-  border-top 1px solid #EEF6F5
-  padding 10px 15px
-  margin-top 5px
-  margin-bottom 5px
-  .mark-title
-    font-size 13px
-    color #333333
-.color-con
-  padding 10px 4px
-  overflow visible
-  .color-box
-    background #B959FF
-    width 11px
-    height 11px
-    border-radius 50%
-    margin-right 9px
-    cursor pointer
-    position relative
-    overflow visible
-    &.active:after, &:hover:after
-      top -4px
-      left -4px
-      width 17px
-      height 17px
-      content ''
-      border 1px solid #AAAAAA
-      position absolute
-      border-radius 50%
-.color-desc
-  text-align center
-  font-size 12px
-  color #687179
-  margin-top 10px
-  font-weight lighter
+li.disable {
+  color: #999 !important;
+  cursor: not-allowed !important;
+}
+
+.row-con {
+  line-height: 30px;
+
+  i {
+    margin-right: 5px;
+  }
+
+  &:hover {
+    background: #f4f4f4;
+  }
+}
+
+.mark-con {
+  border-top: 1px solid #EEF6F5;
+  padding: 10px 15px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+
+  .mark-title {
+    font-size: 13px;
+    color: #333333;
+  }
+}
+
+.color-con {
+  padding: 10px 4px;
+  overflow: visible;
+
+  .color-box {
+    background: #B959FF;
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    margin-right: 9px;
+    cursor: pointer;
+    position: relative;
+    overflow: visible;
+
+    &.active:after, &:hover:after {
+      top: -4px;
+      left: -4px;
+      width: 17px;
+      height: 17px;
+      content: '';
+      border: 1px solid #AAAAAA;
+      position: absolute;
+      border-radius: 50%;
+    }
+  }
+}
+
+.color-desc {
+  text-align: center;
+  font-size: 12px;
+  color: #687179;
+  margin-top: 10px;
+  font-weight: lighter;
+}
 </style>
 
 <style lang="stylus" scoped>
-#CrContextMenu
-  >>>.el-autocomplete-suggestion__wrap
-    max-height 500px
+#CrContextMenu {
+  >>>.el-autocomplete-suggestion__wrap {
+    max-height: 500px;
+  }
+}
 </style>
 
 <script>

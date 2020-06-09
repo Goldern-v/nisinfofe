@@ -839,6 +839,13 @@ export default {
           click: () => {
             this.bus.$emit("openPizhuModal", row, "all");
           }
+        },
+        {
+          name: "新建护理单",
+          iconClass: "el-icon-document",
+          click: () => {
+            this.bus.$emit("splitSheet", row, cell);
+          }
         }
         // {
         //   name: "文字标红",

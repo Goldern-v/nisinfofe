@@ -48,7 +48,8 @@
     font-size: 14px;
     line-height: 20px;
     padding: 8px;
-    ">监测记录</td>
+    "
+        >监测记录</td>
       </tr>
       <tr class="head-con" v-for="(th, index) in data.titleModel.th" :key="index">
         <th
@@ -678,6 +679,13 @@ export default {
           click: () => {
             this.bus.$emit("openPizhuModal", row, "all");
           }
+        },
+        {
+          name: "新建护理单",
+          iconClass: "el-icon-document",
+          click: () => {
+            this.bus.$emit("splitSheet", row, cell);
+          }
         }
         // {
         //   name: "文字标红",
@@ -814,12 +822,12 @@ export default {
       let recordHour = tr.find(td => td.key == "recordHour").value;
       let recordMonth = this.sheetInfo.relObj.recordMonth;
       let recordDate = tr.find(td => td.key == "recordDate").value;
-      if(!recordHour && recordDate){
-        recordHour = recordDate.split(' ')[1];
+      if (!recordHour && recordDate) {
+        recordHour = recordDate.split(" ")[1];
       }
-      if(recordMonth && recordHour){
-        config.recordDate = recordMonth + ' ' + recordHour;
-      }else {
+      if (recordMonth && recordHour) {
+        config.recordDate = recordMonth + " " + recordHour;
+      } else {
         config.recordDate = recordHour;
       }
       window.openSpecialModal2(config);

@@ -36,6 +36,7 @@
     <delPageModal ref="delPageModal" :index="sheetModel.length"></delPageModal>
     <HjModal ref="HjModal"></HjModal>
     <signModal ref="signModal" title="需要该行签名着确认"></signModal>
+    <signModal ref="signModal2" title="签名者确认"></signModal>
     <setPageModal ref="setPageModal"></setPageModal>
     <specialModal ref="specialModal"></specialModal>
     <specialModal2 ref="specialModal2"></specialModal2>
@@ -170,7 +171,8 @@ import {
   showBody,
   showTitle,
   delPage,
-  markList
+  markList,
+  splitRecordBlock
 } from "@/api/sheet.js";
 import sheetInfo from "@/Page/sheet-page/components/config/sheetInfo/index.js";
 import bus from "vue-happy-bus";
@@ -634,6 +636,19 @@ export default {
     });
     this.bus.$on("setSheetTableLoading", (state = false) => {
       this.tableLoading = state;
+    });
+    this.bus.$on("splitSheet", (tr, td) => {
+      this.$refs.signModal2.open((password, empNo) => {
+        let recordDate = tr.find(item => item.key == "recordDate").value;
+        recordDate = recordDate
+          ? moment(recordDate).format("YYYY-MM-DD HH:mm")
+          : recordDate;
+        splitRecordBlock(empNo, password, recordDate).then(res => {
+          this.bus.$emit("getBlockList");
+          this.$message.success("创建成功");
+          this.bus.$emit("setSheetTableLoading", true);
+        });
+      });
     });
   },
   watch: {
