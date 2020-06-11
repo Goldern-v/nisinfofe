@@ -1,6 +1,8 @@
 // 登录模块api
 import axios from "./axios";
-import { apiPath } from "./apiConfig";
+import {
+  apiPath
+} from "./apiConfig";
 import qs from "qs";
 
 //  设置头像
@@ -20,7 +22,10 @@ export function userDictInfo(deptCode) {
 export const listItem = (code, recordCode) => {
   return axios.post(
     `${apiPath}dept/dictInfo`,
-    qs.stringify({ code, recordCode })
+    qs.stringify({
+      code,
+      recordCode
+    })
   );
 };
 // 通过列表获取字典列表
@@ -81,4 +86,10 @@ export function getUser(password, empNo) {
     password,
     empNo
   });
+}
+
+
+// 获取所有护理单元（没有权限）
+export function nursingUnitAll() {
+  return axios.get(`${apiPath}user/nursingUnit/all`)
 }
