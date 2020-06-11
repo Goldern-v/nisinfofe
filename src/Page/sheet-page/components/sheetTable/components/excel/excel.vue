@@ -1,5 +1,5 @@
 <template>
-  <div class="sheet-excel-container">
+  <div class="sheet-excel-container" :class="{icu_lc:sheetInfo.sheetType=='icu_lc'}">
     <!-- <div>
       <img :src="dataURL" alt :style="{width: fiexHeaderWidth}">
     </div>-->

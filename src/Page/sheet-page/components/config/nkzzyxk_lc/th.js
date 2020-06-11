@@ -91,8 +91,8 @@ export default {
         SPO2
         `,
         style: {
-          minWidth: '50px',
-          maxWidth: '50px'
+          minWidth: '40px',
+          maxWidth: '40px'
         },
         colspan: '1',
         rowspan: '3'
@@ -121,8 +121,8 @@ export default {
         护理记录
         `,
         style: {
-          minWidth: '306px',
-          maxWidth: '306px',
+          minWidth: '346px',
+          maxWidth: '346px',
         },
         colspan: '1',
         rowspan: '3'
@@ -142,8 +142,8 @@ export default {
         项目
         `,
         style: {
-          minWidth: '130px',
-          maxWidth: '130px'
+          minWidth: '110px',
+          maxWidth: '110px'
         },
         colspan: '1',
         rowspan: '2'
@@ -164,8 +164,8 @@ export default {
         项目
         `,
         style: {
-          minWidth: '130px',
-          maxWidth: '130px'
+          minWidth: '110px',
+          maxWidth: '110px'
         },
         colspan: '1',
         rowspan: '2'
