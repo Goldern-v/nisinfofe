@@ -25,7 +25,7 @@
             />
             <whiteButton text icon="icon-search"></whiteButton>
           </div>
-          <div class="list-con" v-if="HOSPITAL_ID == 'lingcheng' && selectedType=='特殊符号'">
+          <div class="list-con" v-if="selectedType=='特殊符号'">
             <ul class="specific_symbol">
               <li
                 v-for="item in specificSymbol"
@@ -382,11 +382,9 @@ export default {
     getData() {
       typeList().then(res => {
         this.typeList = res.data.data.list;
-        if (this.HOSPITAL_ID == "lingcheng") {
-          this.typeList.push("特殊符号");
-          if (this.selectedType == "特殊符号") {
-            return;
-          }
+        this.typeList.push("特殊符号");
+        if (this.selectedType == "特殊符号") {
+          return;
         }
 
         if (this.selectedType) {
@@ -413,7 +411,7 @@ export default {
   },
   watch: {
     selectedType() {
-      if (this.HOSPITAL_ID == "lingcheng" && this.selectedType == "特殊符号") {
+      if (this.selectedType == "特殊符号") {
         return;
       }
       if (this.selectedType) {
