@@ -24,7 +24,7 @@ yarn dev: 医院名
 
 # build for production with minification 打包项目
 npm run build
-npm run build: houjie # 打包东莞厚街医院
+y # 打包东莞厚街医院
 npn run build: weixian # 打包威县人民医院
 npm run build: wuhang # 打包武汉市第一医院
 npm run build: guiyi # 启动开发模式-贵州医科大学附属医院
