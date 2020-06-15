@@ -4070,7 +4070,7 @@
         },
 
         {
-            "name": "E0012",
+            "name": "E0090",
             "type": "formGroupColBox",
             "col": 2,
             "title": "简易智力状态检查",
@@ -4078,12 +4078,12 @@
             "require": "false",
             "prefixDesc": "",
             "suffixDesc": "",
-            "keys": "E0012",
+            "keys": "E0090",
             "style": null,
             "classes": null,
             "readOnly": null,
             "children": [{
-                    "name": "E0012",
+                    "name": "E0090",
                     "type": "input",
                     "title": "简易智力状态检查",
                     "inputWidth": "193px",
@@ -4095,14 +4095,14 @@
                     "dialog": {
                         "title": "简易智力状态检查",
                         "default": "简易智力状态检查",
-                        "name": "E0012",
-                        "parentName": "E0012",
+                        "name": "E0090",
+                        "parentName": "E0090",
                         "type": "independent",
                         "showHead": "true"
                     }
                 },
                 {
-                    "name": "E0009",
+                    "name": "E0086",
                     "type": "input",
                     "title": "营养风险筛查护理单",
                     "inputWidth": "183px",
@@ -4114,8 +4114,8 @@
                     "dialog": {
                         "title": "营养风险筛查护理单",
                         "default": "营养风险筛查护理单",
-                        "name": "E0009",
-                        "parentName": "E0009",
+                        "name": "E0086",
+                        "parentName": "E0086",
                         "type": "independent",
                         "showHead": "true"
                     },
@@ -4143,88 +4143,6 @@
             "type": "formGroupTitle",
             "level": "2",
             "title": "3.12 营养风险筛查护理单",
-            "prefixDesc": "",
-            "suffixDesc": "",
-            "keys": "",
-            "style": "color:transparent;height:0px;margin:0",
-            "classes": "",
-            "readOnly": ""
-        },
-
-        {
-            "name": "I100020",
-            "type": "formGroupColBox",
-            "col": 2,
-            "title": "GCS格拉斯哥昏迷评估",
-            "message": "",
-            "require": "false",
-            "prefixDesc": "",
-            "suffixDesc": "",
-            "keys": "I100020",
-            "style": null,
-            "classes": null,
-            "readOnly": null,
-            "children": [{
-                    "name": "I100020",
-                    "type": "input",
-                    "title": "GCS格拉斯哥昏迷评估",
-                    "inputWidth": "173px",
-                    "leftTdStyle": "min-width:125px!important",
-                    "elementStyle": "width: 270px;",
-                    "style": null,
-                    "class": null,
-                    "readOnly": true,
-                    "dialog": {
-                        "title": "GCS格拉斯哥昏迷评估",
-                        "default": "GCS格拉斯哥昏迷评估",
-                        "name": "I100020",
-                        "parentName": "I100020",
-                        "type": "independent",
-                        "showHead": "true"
-                    }
-                },
-                {
-                    "name": "I100342",
-                    "type": "input",
-                    "title": "自杀风险评估",
-                    "inputWidth": "213px",
-                    "leftTdStyle": "min-width:85px!important",
-                    "elementStyle": "width: 270px;",
-                    "style": null,
-                    "class": null,
-                    "readOnly": true,
-                    "dialog": {
-                        "title": "住院患者自杀风险评估",
-                        "default": "住院患者自杀风险评估",
-                        "name": "I100342",
-                        "parentName": "I100342",
-                        "type": "independent",
-                        "showHead": "true"
-                    },
-                    "rule": [{
-                        "indexOf": "自杀风险",
-                        "style": "color: red;border-color: red;"
-                    }]
-                }
-            ]
-        },
-        {
-            "name": "",
-            "type": "formGroupTitle",
-            "level": "2",
-            "title": "3.9 GCS格拉斯哥昏迷评估",
-            "prefixDesc": "",
-            "suffixDesc": "",
-            "keys": "",
-            "style": "color:transparent;height:0px;margin:0",
-            "classes": "",
-            "readOnly": ""
-        },
-        {
-            "name": "",
-            "type": "formGroupTitle",
-            "level": "2",
-            "title": "3.10 住院患者自杀风险评估",
             "prefixDesc": "",
             "suffixDesc": "",
             "keys": "",

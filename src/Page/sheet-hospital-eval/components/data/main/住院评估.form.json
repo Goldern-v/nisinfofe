@@ -3882,6 +3882,7 @@
                 }
             ]
         },
+
         {
             "name": "",
             "type": "formGroupTitle",
@@ -4068,7 +4069,6 @@
             "classes": "",
             "readOnly": ""
         },
-
         {
             "name": "E0090",
             "type": "formGroupColBox",
@@ -4120,7 +4120,7 @@
                         "showHead": "true"
                     },
                     "rule": [{
-                        "indexOf": "营养风险筛查护理单",
+                        "indexOf": "自杀风险",
                         "style": "color: red;border-color: red;"
                     }]
                 }
