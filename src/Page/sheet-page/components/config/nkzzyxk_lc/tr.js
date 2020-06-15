@@ -17,193 +17,193 @@ let 神志 = [];
 let 出量项目 = [];
 let 入量项目 = [];
 export default [{
-    key: "recordMonth", //日期
-    value: "",
-    event: event_date,
-    click: click_date
+  key: "recordMonth", //日期
+  value: "",
+  event: event_date,
+  click: click_date
+},
+{
+  key: "recordHour", //时间
+  value: "",
+  event: event_time
+},
+{
+  key: "consciousness", //神志
+  value: "",
+  event: keyf1,
+  autoComplete: {
+    data: 神志
   },
-  {
-    key: "recordHour", //时间
-    value: "",
-    event: event_time
-  },
-  {
-    key: "consciousness", //神志
-    value: "",
-    event: keyf1,
-    autoComplete: {
-      data: 神志
-    },
-    name: '神志'
-  },
-  {
-    key: "temperature", //体温
-    value: "",
-    event: keyf1,
-    name: '体温',
-    next: '℃'
-  },
-  {
-    key: "pulse", //心率
-    value: "",
-    event: keyf1,
-    name: '心率',
-    next: '次/分'
-  },
-  {
-    key: "bloodPressure", //血压
-    value: "",
-    event: function (e, td) {
-      if (e.keyCode == 32) {
-        e.target.value += "/";
-        e.preventDefault();
-      }
-      keyf1(e, td);
-    },
-    name: '血压',
-    next: 'mmHg'
-  },
-  {
-    key: "breath", //呼吸
-    value: "",
-    event: keyf1,
-    name: '呼吸',
-    next: '次/分'
-  },
-  {
-    key: "spo2", //SPO2
-    value: "",
-    event: keyf1,
-    name: 'SPO2'
-  },
-  {
-    key: "food", //项目（入）
-    value: "",
-    event: keyf1,
-    autoComplete: {
-      data: 入量项目
-    },
-    textarea: {
-      width: 68
-    },
-    name: '入量:项目'
-  },
-  {
-    key: "foodSize", //入量
-    value: "",
-    event: keyf1,
-    name: '入量:入量',
-    statBottomLine: true
-  },
-  {
-    key: "discharge", //项目（出）
-    value: "",
-    event: keyf1,
-    autoComplete: {
-      data: 出量项目
-    },
-    textarea: {
-      width: 68
-    },
-    name: '出量:项目'
-  },
-  {
-    key: "dischargeSize", //出量
-    value: "",
-    event: keyf1,
-    name: '出量:出量',
-    statBottomLine: true
-  },
-  {
-    key: "description", //护理记录
-    value: "",
-    style: {
-      textAlign: "left",
-      position: "absolute",
-      top: "1px",
-      bottom: "1px",
-      left: "1px",
-      width: "400px",
-      background: "transparent"
-    },
-    event: function (e, td) {
-      console.log(e.keyCode);
-      if (e.keyCode == 9) {
-        td.value = "    " + td.value;
-        e.preventDefault();
-      }
-      keyf1(e, td);
+  name: '神志'
+},
+{
+  key: "temperature", //体温
+  value: "",
+  event: keyf1,
+  name: '体温',
+  next: '℃'
+},
+{
+  key: "pulse", //心率
+  value: "",
+  event: keyf1,
+  name: '心率',
+  next: '次/分'
+},
+{
+  key: "bloodPressure", //血压
+  value: "",
+  event: function (e, td) {
+    if (e.keyCode == 32) {
+      e.target.value += "/";
+      e.preventDefault();
     }
+    keyf1(e, td);
   },
-  {
-    key: "sign", //签名
-    value: ""
+  name: '血压',
+  next: 'mmHg'
+},
+{
+  key: "breath", //呼吸
+  value: "",
+  event: keyf1,
+  name: '呼吸',
+  next: '次/分'
+},
+{
+  key: "spo2", //SPO2
+  value: "",
+  event: keyf1,
+  name: 'SPO2'
+},
+{
+  key: "food", //项目（入）
+  value: "",
+  event: keyf1,
+  autoComplete: {
+    data: 入量项目
   },
-  {
-    hidden: true,
-    key: "id",
-    value: ""
+  textarea: {
+    width: 110
   },
-  {
-    hidden: true,
-    key: "signerName",
-    value: ""
+  name: '入量:项目'
+},
+{
+  key: "foodSize", //入量
+  value: "",
+  event: keyf1,
+  name: '入量:入量',
+  statBottomLine: true
+},
+{
+  key: "discharge", //项目（出）
+  value: "",
+  event: keyf1,
+  autoComplete: {
+    data: 出量项目
   },
-  {
-    hidden: true,
-    key: "status",
-    value: ""
+  textarea: {
+    width: 110
   },
-  {
-    hidden: true,
-    key: "recordSource",
-    value: ""
+  name: '出量:项目'
+},
+{
+  key: "dischargeSize", //出量
+  value: "",
+  event: keyf1,
+  name: '出量:出量',
+  statBottomLine: true
+},
+{
+  key: "description", //护理记录
+  value: "",
+  style: {
+    textAlign: "left",
+    position: "absolute",
+    top: "1px",
+    bottom: "1px",
+    left: "1px",
+    width: "400px",
+    background: "transparent"
   },
-  {
-    hidden: true,
-    key: "recordYear",
-    value: ""
-  },
-  {
-    hidden: true,
-    key: "dataHash",
-    value: ""
-  },
-  {
-    hidden: true,
-    key: "recordDate",
-    value: ""
-  },
-  {
-    hidden: true,
-    key: "monthHour",
-    value: ""
-  },
-  {
-    hidden: false,
-    key: "signerNo",
-    value: ""
-  },
-  {
-    hidden: false,
-    key: "auditorNo",
-    value: ""
-  },
-  {
-    hidden: true,
-    key: "auditorName",
-    value: ""
-  },
-  {
-    hidden: true,
-    key: "empNo",
-    value: ""
-  },
-  {
-    hidden: true,
-    key: "multiSign",
-    value: false
+  event: function (e, td) {
+    console.log(e.keyCode);
+    if (e.keyCode == 9) {
+      td.value = "    " + td.value;
+      e.preventDefault();
+    }
+    keyf1(e, td);
   }
+},
+{
+  key: "sign", //签名
+  value: ""
+},
+{
+  hidden: true,
+  key: "id",
+  value: ""
+},
+{
+  hidden: true,
+  key: "signerName",
+  value: ""
+},
+{
+  hidden: true,
+  key: "status",
+  value: ""
+},
+{
+  hidden: true,
+  key: "recordSource",
+  value: ""
+},
+{
+  hidden: true,
+  key: "recordYear",
+  value: ""
+},
+{
+  hidden: true,
+  key: "dataHash",
+  value: ""
+},
+{
+  hidden: true,
+  key: "recordDate",
+  value: ""
+},
+{
+  hidden: true,
+  key: "monthHour",
+  value: ""
+},
+{
+  hidden: false,
+  key: "signerNo",
+  value: ""
+},
+{
+  hidden: false,
+  key: "auditorNo",
+  value: ""
+},
+{
+  hidden: true,
+  key: "auditorName",
+  value: ""
+},
+{
+  hidden: true,
+  key: "empNo",
+  value: ""
+},
+{
+  hidden: true,
+  key: "multiSign",
+  value: false
+}
 ];
 
 export function getListData4() {
