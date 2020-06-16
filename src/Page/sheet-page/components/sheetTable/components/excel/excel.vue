@@ -153,14 +153,15 @@
             v-else-if="td.textarea"
             :class="{ towLine: isOverText(td) }"
             :readonly="isRead(tr)"
+            :disabled="isDisabed(tr)"
             v-model="td.value"
             :data-value="td.value"
             :position="`${x},${y},${index}`"
             :style="
               Object.assign({}, td.style, {
                 minWidth: td.textarea.width + 'px',
-                maxWidth: td.textarea.width + 'px'
-              })
+                maxWidth: td.textarea.width + 'px',
+              },isDisabed(tr) && {cursor:'not-allowed'})
             "
             @keydown="
               td.event($event, td);
@@ -183,6 +184,7 @@
           <input
             type="text"
             :readonly="isRead(tr)"
+            :disabled="isDisabed(tr,td)"
             v-model="td.value"
             :data-value="td.value"
             :position="`${x},${y},${index}`"
@@ -191,7 +193,8 @@
               td.key === 'recordMonth' &&
                 tr.find(item => item.key == 'yearBreak').value && {
                   height: '12px'
-                }
+                },
+                isDisabed(tr,td) && {cursor:'not-allowed'}
             ]"
             @keydown="
               td.event($event, td);
@@ -677,6 +680,21 @@ export default {
         return "";
       }
     },
+    isDisabed(tr, td) {
+      if (td && td.key == "description") {
+        return false;
+      }
+      if (
+        this.HOSPITAL_ID == "weixian" &&
+        tr.find(item => item.key == "description").value &&
+        !tr.find(item => item.key == "recordHour").value &&
+        !tr.find(item => item.key == "recordMonth").value
+      ) {
+        return true;
+      } else {
+        return false;
+      }
+    },
     isRead(tr) {
       let status = tr.find(item => item.key == "status").value;
       let empNo = tr.find(item => item.key == "empNo").value;
@@ -935,6 +953,12 @@ export default {
       } else {
         tab = "2";
       }
+
+      // 双击打开编辑框,（除第1条外）默认显示特殊记录tab栏
+      if (this.isDisabed(tr)) {
+        tab = "3";
+      }
+
       let thead = data.titleModel;
       let table = data.bodyModel;
       // 数组重组
@@ -979,12 +1003,7 @@ export default {
         tab,
         isLast
       };
-      if (
-        sheetInfo.sheetType == "unified_wx" ||
-        sheetInfo.sheetType === "ccu_wx" ||
-        sheetInfo.sheetType == "intensive_care_wx" ||
-        this.HOSPITAL_ID == "lingcheng"
-      ) {
+      if (this.HOSPITAL_ID == "weixian" || this.HOSPITAL_ID == "lingcheng") {
         window.openSpecialModal2(config);
       } else {
         window.openSpecialModal(config);

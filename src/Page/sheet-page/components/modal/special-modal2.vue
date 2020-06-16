@@ -30,7 +30,7 @@
           </div>
         </div>
         <el-tabs v-model="activeTab" class="tab-content" type="card">
-          <el-tab-pane label="固定项目" name="1">
+          <el-tab-pane label="固定项目" name="1" :disabled="isDisabed">
             <div flex="wrap:wrap">
               <div
                 v-for="(item, key) in fixedList"
@@ -61,7 +61,12 @@
               </div>
             </div>
           </el-tab-pane>
-          <el-tab-pane label="自定义项目" name="2" v-if="customTitle && customTitle.length">
+          <el-tab-pane
+            label="自定义项目"
+            name="2"
+            v-if="customTitle && customTitle.length"
+            :disabled="isDisabed"
+          >
             <div class="custom-cell" v-for="(item, index) in customTitle" :key="item.key">
               <div class="custom-box" flex="cross:center">
                 <div class="label">{{item.name}}</div>
@@ -372,6 +377,18 @@ export default {
     // 神经内科
     isNeurology() {
       return this.sheetInfo.sheetType == "neurology";
+    },
+    isDisabed() {
+      if (
+        this.HOSPITAL_ID == "weixian" &&
+        this.tr.find(item => item.key == "description").value &&
+        !this.tr.find(item => item.key == "recordHour").value &&
+        !this.tr.find(item => item.key == "recordMonth").value
+      ) {
+        return true;
+      } else {
+        return false;
+      }
     }
   },
   methods: {

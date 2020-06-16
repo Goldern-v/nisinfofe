@@ -117,7 +117,7 @@ import $ from "jquery";
 import common from "@/common/mixin/common.mixin";
 import tableHead from "./components/table-head/table-head";
 import tableHeadPrenata from "./components/table-head/table-head-prenatal";
-import tableHead2 from "./components/table-head/table-head2";
+import tableHeadWx from "./components/table-head/table-head-wx";
 import tableHeadLc from "./components/table-head/table-head-lc";
 import tableHeadTbhldLc from "./components/table-head/table-head-tbhld-lc";
 export default {
@@ -152,9 +152,9 @@ export default {
         return tableHeadPrenata;
       } else if (sheetInfo.sheetType === "special") {
         return tableHeadTbhldLc;
-      } else if (process.env.HOSPITAL_ID == "weixian") {
-        return tableHead2;
-      } else if (process.env.HOSPITAL_ID == "lingcheng") {
+      } else if (this.HOSPITAL_ID == "weixian") {
+        return tableHeadWx;
+      } else if (this.HOSPITAL_ID == "lingcheng") {
         return tableHeadLc;
       } else {
         return tableHead;
