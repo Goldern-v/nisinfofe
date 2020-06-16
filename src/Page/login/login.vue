@@ -17,11 +17,16 @@
       <div class="login-warpper">
         <div class="login-img">
           <img src="../../common/images/login-img.png" alt />
-          <span class="his-name">{{HOSPITAL_NAME_SPACE}}</span>
-          <span class="sys-version">「 v {{$system.版本号}} 」</span>
+          <span class="his-name">{{ HOSPITAL_NAME_SPACE }}</span>
+          <span class="sys-version">「 v {{ $system.版本号 }} 」</span>
           <span class="sys-name">护理管理系统</span>
         </div>
-        <img src="../../common/images/shaw.png" height="234" width="526" class="login-shaw" />
+        <img
+          src="../../common/images/shaw.png"
+          height="234"
+          width="526"
+          class="login-shaw"
+        />
         <div class="login-con">
           <div class="logo-con">
             <img src="../../common/images/logo.png" height="63" width="63" />
@@ -32,22 +37,38 @@
             <img src="../../common/images/account.png" height="14" width="14" />
           </div>
           <div class="input-con">
-            <input type="password" style="border-top: 0" placeholder="密码" v-model="password" />
-            <img src="../../common/images/password.png" height="14" width="14" />
+            <input
+              type="password"
+              style="border-top: 0"
+              placeholder="密码"
+              v-model="password"
+            />
+            <img
+              src="../../common/images/password.png"
+              height="14"
+              width="14"
+            />
           </div>
           <div class="remember-con">
             <el-checkbox v-model="remember">
               <span style="font-size: 13px;color: #687179;">记住账号</span>
             </el-checkbox>
           </div>
-          <button v-touch-ripple class="login-btn" @click="login">{{!ajax?'登录系统':'登录中...'}}</button>
+          <button v-touch-ripple class="login-btn" @click="login">
+            {{ !ajax ? "登录系统" : "登录中..." }}
+          </button>
         </div>
       </div>
       <p class="footer-text">
         <span>
-          <a href="http://www.cr-health.com" target="_blank">广州宸瑞软件科技有限公司</a>
+          <a href="http://www.cr-health.com" target="_blank"
+            >广州宸瑞软件科技有限公司</a
+          >
         </span>
-        <span>版权所有 &copy; {{new Date().getFullYear()}} All rights reseved.</span>
+        <span
+          >版权所有 &copy; {{ new Date().getFullYear() }} All rights
+          reseved.</span
+        >
         <span>关于宸瑞</span>
         <span>|</span>
         <span>关于智慧护理</span>
@@ -270,6 +291,7 @@ a {
 import { login } from "@/api/login";
 import Cookies from "js-cookie";
 import EnterToTab from "@/plugin/tool/EnterToTab.js";
+import md5 from "md5";
 export default {
   data() {
     return {
@@ -281,6 +303,8 @@ export default {
   },
   methods: {
     login() {
+      // console.log(md5(this.account, "this.account"));
+      // return;
       if (!(this.account && this.password)) {
         //          如果空
         this.$message({

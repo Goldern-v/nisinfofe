@@ -11,12 +11,11 @@
         "自杀风险评分表.json",
         "自理能力评估表.json",
         "跌倒评估单(儿童).json",
-        "跌倒评估单(成人).json"
+        "跌倒评估单(成人).json",
+        "简易智力状态检查.json",
+        "营养风险筛查护理单.json"
     ],
-    "formDictionary": [
-        "other.dictionary.json",
-        "住院评估.dictionary.json"
-    ],
+    "formDictionary": ["other.dictionary.json", "住院评估.dictionary.json"],
     "formSchemes": [
         "Barden压疮风险评估表.txt.json",
         "Caprini评分表(手术科室).txt.json",
@@ -31,7 +30,9 @@
         "自杀风险评分表.txt.json",
         "自理能力评估表.txt.json",
         "跌倒评估单(儿童).txt.json",
-        "跌倒评估单(成人).txt.json"
+        "跌倒评估单(成人).txt.json",
+        "简易智力状态检查.txt.json",
+        "营养风险筛查护理单.txt.json"
     ],
     "other": [
         "Barden压疮风险评估表.dialog.json",
@@ -39,8 +40,5 @@
         "模版.json",
         "表单编码表.json"
     ],
-    "main": [
-        "住院评估.form.json",
-        "住院评估.schemes.json"
-    ]
+    "main": ["住院评估.form.json", "住院评估.schemes.json"]
 }
