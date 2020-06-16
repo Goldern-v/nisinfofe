@@ -81,21 +81,6 @@ module.exports = {
                 // target: "http://120.25.105.45:9864", //厚街测试
                 target: "http://120.25.105.45:9866", //厚街测试
 
-<<<<<<< HEAD
-        // target: "http://120.25.105.45:9865", //威县测试
-        // target: "http://192.168.1.20:8964", // 内网测试cno
-        // target: "http://dev.cr-health.com:4453", // 外网测试
-        // target: "http://192.168.2.91:8062", // 内网兆彬IP测试
-        // target: 'http://10.35.9.115:8085', // 厚街内网俊涛ip测试
-        // target: "http://192.168.2.229:8084", // 厚街内网俊涛ip测试
-        // target: "http://192.168.2.91:8062", //东莞兆彬ip测试
-        // target: "http://192.168.2.144:8080", //广豪
-        // target: "http://192.168.1.116:8964", //兆斌
-        // target: "http://192.168.2.75:8084", //厚街内网俊涛ip测试
-        // target: "http://120.25.105.45:9867", //陵城测试
-        // target: "http://120.224.184.10:9094", //陵城正式
-        // target: "http://192.168.20.133:8080", //广豪
-=======
                 // target: "http://120.25.105.45:9865", //威县测试
                 // target: "http://192.168.1.20:8964", // 内网测试cno
                 // target: "http://dev.cr-health.com:4453", // 外网测试
@@ -107,7 +92,6 @@ module.exports = {
                 // target: "http://192.168.1.116:8964", //兆斌
                 // target: "http://192.168.2.75:8084", //厚街内网俊涛ip测试
                 // target: "http://120.25.105.45:9867", //陵城测试
->>>>>>> safe
 
                 changeOrigin: true,
                 pathRewrite: {
@@ -197,22 +181,26 @@ module.exports = {
             //   changeOrigin: true,
             //   secure: false
             // }
-        }
-<<<<<<< HEAD
-      }
-      // "/crNursing/printServer": {
-      //   target: "http://10.35.9.115:8085",
-      //   ws: true,
-      //   changeOrigin: true,
-      //   secure: false
-      // },
-      // "/crNursing/message": {
-      //   target: "http://120.197.141.41:9091",
-      //   ws: true,
-      //   changeOrigin: true,
-      //   secure: true
-      // }
-=======
->>>>>>> safe
+        } <<
+        <<
+        << < HEAD
     }
+    // "/crNursing/printServer": {
+    //   target: "http://10.35.9.115:8085",
+    //   ws: true,
+    //   changeOrigin: true,
+    //   secure: false
+    // },
+    // "/crNursing/message": {
+    //   target: "http://120.197.141.41:9091",
+    //   ws: true,
+    //   changeOrigin: true,
+    //   secure: true
+    // }
+    ===
+    ===
+    = >>>
+    >>>
+    > safe
+}
 };
