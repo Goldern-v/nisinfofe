@@ -34,7 +34,7 @@
         住院号：
         <div class="bottom-line" style="min-width: 80px">{{patientInfo.inpNo}}</div>
       </span>
-      <span>入院时间：{{patientInfo.admissionDate | toymd}}</span>
+      <span>入科时间：{{patientInfo.admissionDate | toymd}}</span>
       <!-- {{index}} {{relObj}} -->
     </div>
     <!-- <span class="diagnosis-con" :title="patientInfo.diagnosis">诊断：{{patientInfo.diagnosis}}</span> -->
@@ -55,15 +55,14 @@ export default {
   data() {
     return {
       bus: bus(this),
-      sheetInfo,
-      relObj: sheetInfo.relObj
+      sheetInfo
     };
   },
   computed: {
     diagnosis() {
       /** 最接近的index */
       let realIndex = 0;
-      let keys = Object.keys(this.relObj || {});
+      let keys = Object.keys(sheetInfo.relObj || {});
       for (let i = 0; i < keys.length; i++) {
         let [base, keyIndex] = keys[i].split("PageIndex_diagnosis_");
         if (keyIndex !== undefined) {
@@ -75,7 +74,7 @@ export default {
         }
       }
       return (
-        (this.relObj || {})[`PageIndex_diagnosis_${realIndex}`] ||
+        (sheetInfo.relObj || {})[`PageIndex_diagnosis_${realIndex}`] ||
         this.patientInfo.diagnosis
       );
     }
@@ -107,8 +106,7 @@ export default {
     updateDiagnosis(key, label, autoText) {
       window.openSetTextModal(
         text => {
-          this.relObj[`PageIndex_diagnosis_${this.index}`] = text;
-          this.sheetInfo.relObj = { ...this.relObj };
+          sheetInfo.relObj[`PageIndex_diagnosis_${this.index}`] = text;
           this.$message.success(`修改诊断成功`);
           this.bus.$emit("saveSheetPage", false);
         },
