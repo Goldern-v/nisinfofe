@@ -168,11 +168,15 @@ export default {
         {
           value: "report",
           label: "报告类"
-        }
+        },
         // {
         //   value: "4",
         //   label: "健康宣教"
         // }
+        {
+          value: "sens",
+          label: "敏感指标类"
+        }
       ],
       formType: "1",
       pageLoading: true,
@@ -230,7 +234,11 @@ export default {
       console.log("新建页面HTML代码", item, this, this.formType);
       window.app.currentForm = item;
 
-      if (this.formType == "1" || this.formType == "monitor") {
+      if (
+        this.formType == "1" ||
+        this.formType == "monitor" ||
+        this.formType == "sens"
+      ) {
         let token = window.app.$getCookie("NURSING_USER").split("##")[1];
         let query = this.$route.query;
 
