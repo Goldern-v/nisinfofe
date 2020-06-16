@@ -225,6 +225,7 @@ export default {
         {
           label: "姓名",
           prop: "name",
+          editable: true,
           align: "center",
           width: "35"
         },
