@@ -4,6 +4,7 @@
       <div class="title-bar" flex="cross:center">
         <span class="type-text">护理文书类型</span>
         <el-select
+          v-if="HOSPITAL_ID != 'hj'"
           v-model="formType"
           placeholder="选择类型"
           class="type-select"
@@ -17,8 +18,30 @@
           ></el-option>
         </el-select>
         <el-input
+          v-if="HOSPITAL_ID != 'hj'"
           class="text-con"
           :placeholder="'搜索' + options.find((item) => item.value == formType).label"
+          icon="search"
+          v-model="searchWord"
+        ></el-input>
+        <el-select
+          v-if="HOSPITAL_ID == 'hj'"
+          v-model="formType"
+          placeholder="选择类型"
+          class="type-select"
+          :disabled="formTypeReadOnly"
+        >
+          <el-option
+            v-for="item in hjOptions"
+            :key="item.value||item.label"
+            :label="item.label"
+            :value="item.value"
+          ></el-option>
+        </el-select>
+        <el-input
+          v-if="HOSPITAL_ID == 'hj'"
+          class="text-con"
+          :placeholder="'搜索' + hjOptions.find((item) => item.value == formType).label"
           icon="search"
           v-model="searchWord"
         ></el-input>
@@ -168,11 +191,25 @@ export default {
         {
           value: "report",
           label: "报告类"
-        },
+        }
         // {
         //   value: "4",
         //   label: "健康宣教"
         // }
+      ],
+      hjOptions: [
+        {
+          value: "1",
+          label: "护理评估"
+        },
+        {
+          value: "monitor",
+          label: "监测记录"
+        },
+        {
+          value: "report",
+          label: "报告类"
+        },
         {
           value: "sens",
           label: "敏感指标类"
