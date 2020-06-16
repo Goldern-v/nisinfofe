@@ -1,0 +1,1095 @@
+{
+    "pageSetting": {
+        "size": "4A",
+        "rotation": "portrait",
+        "margin": "0",
+        "width": "750px",
+        "height": "auto",
+        "mode": "development_",
+        "style": ""
+    },
+    "formSetting": {
+        "formTitle": {
+            "hospitalName": "东莞市厚街医院",
+            "formName": "简易智力状态检查"
+        },
+        "formHeads": [{
+                "name": "name",
+                "code": null,
+                "title": "姓名",
+                "class": "",
+                "style": "",
+                "show": true
+            },
+            {
+                "name": "sex",
+                "code": null,
+                "title": "性别",
+                "class": "",
+                "style": "",
+                "show": true
+            },
+            {
+                "name": "age",
+                "code": null,
+                "title": "年龄",
+                "class": "",
+                "style": "",
+                "show": true
+            },
+            {
+                "name": "wardName",
+                "code": null,
+                "title": "病区",
+                "class": "",
+                "style": "",
+                "show": true
+            },
+            {
+                "name": "bedLabel",
+                "code": null,
+                "title": "床号",
+                "class": "",
+                "style": "",
+                "show": true
+            },
+            {
+                "name": "inpNo",
+                "code": null,
+                "title": "住院号",
+                "class": "",
+                "style": "",
+                "show": true
+            },
+            {
+                "name": "admissionDate",
+                "code": null,
+                "title": "入院日期",
+                "class": "",
+                "style": "",
+                "show": true
+            }
+        ],
+        "formTail": {
+            "showEvalScore": false,
+            "showSign": true,
+            "showAudit": true
+        },
+        "formInfo": {
+            "formCode": "E0090",
+            "formApiCode": "E0090",
+            "formName": "简易智力状态检查",
+            "status": "0",
+            "formType": "eval"
+        }
+    },
+    "dictionary": {},
+    "schemes": {},
+    "model": {},
+    "body": [{
+            "name": "评估",
+            "type": "formGroupColBox",
+            "col": 3,
+            "title": "",
+            "message": "",
+            "require": "false",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "评估",
+            "style": null,
+            "classes": null,
+            "readOnly": null,
+            "children": [{
+                    "name": "evalDate",
+                    "type": "datePicker",
+                    "title": "评估时间",
+                    "code": "",
+                    "placeholder": "评估时间",
+                    "style": "width:145px",
+                    "class": null,
+                    "readOnly": null
+                },
+                {
+                    "name": "signerName",
+                    "type": "input",
+                    "title": "评估人",
+                    "inputWidth": "120px",
+                    "code": "0",
+                    "placeholder": "评估人",
+                    "style": "width:80px",
+                    "class": null,
+                    "readOnly": true
+                },
+                {
+                    "name": "status",
+                    "type": "input",
+                    "title": "状态",
+                    "inputWidth": "120px",
+                    "code": "0",
+                    "placeholder": "状态",
+                    "style": "width:80px",
+                    "class": null,
+                    "readOnly": true,
+                    "rule": [{
+                            "equals": ["-1", "未保存"],
+                            "style": "color:gray",
+                            "display": "未签名"
+                        },
+                        {
+                            "equals": ["0", "已保存 "],
+                            "style": "color:blue",
+                            "display": "已保存"
+                        },
+                        {
+                            "equals": ["1", "已签名"],
+                            "style": "color:red",
+                            "display": "已签名"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "",
+            "type": "formGroupHR",
+            "title": "---hr---",
+            "line": "",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "",
+            "style": "",
+            "classes": "",
+            "readOnly": ""
+        },
+        {
+            "name": "",
+            "type": "formGroupTitle",
+            "level": "1",
+            "title": "一、评估内容",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "",
+            "style": "",
+            "classes": "",
+            "readOnly": ""
+        },
+        {
+            "name": "1. 定向力第一项：",
+            "type": "formGroupVerticalBox",
+            "title": "1. 定向力第一项：",
+            "message": "",
+            "require": "false",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "I090001",
+            "style": null,
+            "classes": null,
+            "readOnly": null,
+            "children": [{
+                    "name": "I090001",
+                    "type": "radio",
+                    "title": "星期几（5分）",
+                    "code": "1",
+                    "score": 5,
+                    "style": null,
+                    "class": null,
+                    "html": null,
+                    "readOnly": null
+                },
+                {
+                    "name": "I090001",
+                    "type": "radio",
+                    "title": "几号（4分）",
+                    "code": "2",
+                    "score": 4,
+                    "style": null,
+                    "class": null,
+                    "readOnly": null
+                },
+                {
+                    "name": "I090001",
+                    "type": "radio",
+                    "title": "几月（3分）",
+                    "code": "3",
+                    "score": 3,
+                    "style": null,
+                    "class": null,
+                    "readOnly": null
+                },
+                {
+                    "name": "I090001",
+                    "type": "radio",
+                    "title": "什么季节（2分）",
+                    "code": "4",
+                    "score": 2,
+                    "style": null,
+                    "class": null,
+                    "readOnly": null
+                },
+                {
+                    "name": "I090001",
+                    "type": "radio",
+                    "title": "哪一年（1分）",
+                    "code": "5",
+                    "score": 1,
+                    "style": null,
+                    "class": null,
+                    "readOnly": null
+                }
+            ]
+        },
+        {
+            "name": "",
+            "type": "formGroupHR",
+            "title": "---hr---",
+            "line": "dashed",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "",
+            "style": "",
+            "classes": "",
+            "readOnly": ""
+        },
+        {
+            "name": "2. 定向力第二项：",
+            "type": "formGroupVerticalBox",
+            "title": "2. 定向力第二项：",
+            "message": "",
+            "require": "false",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "I090002",
+            "style": null,
+            "classes": null,
+            "readOnly": null,
+            "children": [{
+                    "name": "I090002",
+                    "type": "radio",
+                    "title": "省市（5分）",
+                    "code": "1",
+                    "score": 5,
+                    "style": null,
+                    "class": null,
+                    "readOnly": null
+                },
+                {
+                    "name": "I013002",
+                    "type": "radio",
+                    "title": "区域县（4分）",
+                    "code": "2",
+                    "score": 4,
+                    "style": null,
+                    "class": null,
+                    "readOnly": null
+                },
+                {
+                    "name": "I013002",
+                    "type": "radio",
+                    "title": "街道或乡（3分）",
+                    "code": "3",
+                    "score": 3,
+                    "style": null,
+                    "class": null,
+                    "readOnly": null
+                },
+                {
+                    "name": "I013002",
+                    "type": "radio",
+                    "title": "什么地方（2分）",
+                    "code": "4",
+                    "score": 2,
+                    "style": null,
+                    "class": null,
+                    "readOnly": null
+                },
+                {
+                    "name": "I013002",
+                    "type": "radio",
+                    "title": "第几楼层（1分）",
+                    "code": "5",
+                    "score": 1,
+                    "style": null,
+                    "class": null,
+                    "readOnly": null
+                }
+            ]
+        },
+        {
+            "name": "",
+            "type": "formGroupHR",
+            "title": "---hr---",
+            "line": "dashed",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "",
+            "style": "",
+            "classes": "",
+            "readOnly": ""
+        },
+        {
+            "name": "3. 即刻记忆力：",
+            "type": "formGroupVerticalBox",
+            "title": "3. 即刻记忆力：",
+            "message": "",
+            "require": "false",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "I090004",
+            "style": null,
+            "classes": null,
+            "readOnly": null,
+            "children": [{
+                    "name": "I090004",
+                    "type": "radio",
+                    "title": "皮球（3分）",
+                    "code": "1",
+                    "score": 3,
+                    "style": null,
+                    "class": null,
+                    "readOnly": null
+                },
+                {
+                    "name": "I090004",
+                    "type": "radio",
+                    "title": "国旗（2分）",
+                    "code": "2",
+                    "score": 2,
+                    "style": null,
+                    "class": null,
+                    "readOnly": null
+                },
+                {
+                    "name": "I090004",
+                    "type": "radio",
+                    "title": "树木（1分）",
+                    "code": "3",
+                    "score": 1,
+                    "style": null,
+                    "class": null,
+                    "readOnly": null
+                }
+            ]
+        },
+        {
+            "name": "",
+            "type": "formGroupHR",
+            "title": "---hr---",
+            "line": "dashed",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "",
+            "style": "",
+            "classes": "",
+            "readOnly": ""
+        },
+        {
+            "name": "4. 注意力及计算力：",
+            "type": "formGroupVerticalBox",
+            "title": "4. 注意力及计算力：",
+            "message": "",
+            "require": "false",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "I090006",
+            "style": null,
+            "classes": null,
+            "readOnly": null,
+            "children": [{
+                    "name": "I090006",
+                    "type": "radio",
+                    "title": "93（5分）",
+                    "code": "1",
+                    "score": 5,
+                    "style": null,
+                    "class": null,
+                    "readOnly": null
+                },
+                {
+                    "name": "I090006",
+                    "type": "radio",
+                    "title": "86（4分）",
+                    "code": "2",
+                    "score": 4,
+                    "style": null,
+                    "class": null,
+                    "readOnly": null
+                },
+                {
+                    "name": "I090006",
+                    "type": "radio",
+                    "title": "79（3分）",
+                    "code": "3",
+                    "score": 3,
+                    "style": null,
+                    "class": null,
+                    "readOnly": null
+                },
+                {
+                    "name": "I090006",
+                    "type": "radio",
+                    "title": "72（2分）",
+                    "code": "4",
+                    "score": 2,
+                    "style": null,
+                    "class": null,
+                    "readOnly": null
+                },
+                {
+                    "name": "I090006",
+                    "type": "radio",
+                    "title": "65（1分）",
+                    "code": "5",
+                    "score": 1,
+                    "style": null,
+                    "class": null,
+                    "readOnly": null
+                }
+            ]
+        },
+        {
+            "name": "",
+            "type": "formGroupHR",
+            "title": "---hr---",
+            "line": "dashed",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "",
+            "style": "",
+            "classes": "",
+            "readOnly": ""
+        },
+        {
+            "name": "5. 延迟记忆力：",
+            "type": "formGroupVerticalBox",
+            "title": "5. 延迟记忆力：",
+            "message": "",
+            "require": "false",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "I090008",
+            "style": null,
+            "classes": null,
+            "readOnly": null,
+            "children": [{
+                    "name": "I090008",
+                    "type": "radio",
+                    "title": "皮球（3分）",
+                    "code": "1",
+                    "score": 3,
+                    "style": null,
+                    "class": null,
+                    "readOnly": null
+                },
+                {
+                    "name": "I090008",
+                    "type": "radio",
+                    "title": "国旗（2分）",
+                    "code": "2",
+                    "score": 2,
+                    "style": null,
+                    "class": null,
+                    "readOnly": null
+                },
+                {
+                    "name": "I090008",
+                    "type": "radio",
+                    "title": "树木（1分）",
+                    "code": "3",
+                    "score": 1,
+                    "style": null,
+                    "class": null,
+                    "readOnly": null
+                }
+            ]
+        },
+        {
+            "name": "",
+            "type": "formGroupHR",
+            "title": "---hr---",
+            "line": "dashed",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "",
+            "style": "",
+            "classes": "",
+            "readOnly": ""
+        },
+        {
+            "name": "6. 语言能力第一项：",
+            "type": "formGroupVerticalBox",
+            "title": "6. 语言能力第一项：",
+            "message": "",
+            "require": "false",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "I090010",
+            "style": null,
+            "classes": null,
+            "readOnly": null,
+            "children": [{
+                "name": "I090010",
+                "type": "radio",
+                "title": "手表（1分）",
+                "code": "1",
+                "score": 1,
+                "style": null,
+                "class": null,
+                "readOnly": null
+            }]
+        },
+        {
+            "name": "",
+            "type": "formGroupHR",
+            "title": "---hr---",
+            "line": "dashed",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "",
+            "style": "",
+            "classes": "",
+            "readOnly": ""
+        },
+        {
+            "name": "7. 语言能力第二项：",
+            "type": "formGroupVerticalBox",
+            "title": "7. 语言能力第二项：",
+            "message": "",
+            "require": "false",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "I090011",
+            "style": null,
+            "classes": null,
+            "readOnly": null,
+            "children": [{
+                "name": "I090011",
+                "type": "radio",
+                "title": "铅笔（1分）",
+                "code": "1",
+                "score": 1,
+                "style": null,
+                "class": null,
+                "readOnly": null
+            }]
+        },
+        {
+            "name": "",
+            "type": "formGroupHR",
+            "title": "---hr---",
+            "line": "dashed",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "",
+            "style": "",
+            "classes": "",
+            "readOnly": ""
+        },
+        {
+            "name": "8. 语言能力第三项：",
+            "type": "formGroupVerticalBox",
+            "title": "8. 语言能力第三项：",
+            "message": "",
+            "require": "false",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "I090011",
+            "style": null,
+            "classes": null,
+            "readOnly": null,
+            "children": [{
+                "name": "I090012",
+                "type": "radio",
+                "title": "四十四只石狮子（1分）",
+                "code": "1",
+                "score": 1,
+                "style": null,
+                "class": null,
+                "readOnly": null
+            }]
+        },
+        {
+            "name": "",
+            "type": "formGroupHR",
+            "title": "---hr---",
+            "line": "dashed",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "",
+            "style": "",
+            "classes": "",
+            "readOnly": ""
+        },
+        {
+            "name": "9. 语言能力第四项：",
+            "type": "formGroupVerticalBox",
+            "title": "9. 语言能力第四项：",
+            "message": "",
+            "require": "false",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "I090013",
+            "style": null,
+            "classes": null,
+            "readOnly": null,
+            "children": [{
+                    "name": "I090013",
+                    "type": "radio",
+                    "title": "右手拿纸（3分）",
+                    "code": "1",
+                    "score": 3,
+                    "style": null,
+                    "class": null,
+                    "readOnly": null
+                },
+                {
+                    "name": "I090013",
+                    "type": "radio",
+                    "title": "把纸对折（2分）",
+                    "code": "2",
+                    "score": 2,
+                    "style": null,
+                    "class": null,
+                    "readOnly": null
+                },
+                {
+                    "name": "I090013",
+                    "type": "radio",
+                    "title": "放在大腿上（1分）",
+                    "code": "3",
+                    "score": 1,
+                    "style": null,
+                    "class": null,
+                    "readOnly": null
+                }
+            ]
+        },
+        {
+            "name": "",
+            "type": "formGroupHR",
+            "title": "---hr---",
+            "line": "dashed",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "",
+            "style": "",
+            "classes": "",
+            "readOnly": ""
+        },
+        {
+            "name": "10. 语言能力第五项：",
+            "type": "formGroupVerticalBox",
+            "title": "10. 语言能力第五项：",
+            "message": "",
+            "require": "false",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "I090014",
+            "style": null,
+            "classes": null,
+            "readOnly": null,
+            "children": [{
+                "name": "I090014",
+                "type": "radio",
+                "title": "闭上眼睛（1分）",
+                "code": "1",
+                "score": 1,
+                "style": null,
+                "class": null,
+                "readOnly": null
+            }]
+        },
+        {
+            "name": "",
+            "type": "formGroupHR",
+            "title": "---hr---",
+            "line": "dashed",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "",
+            "style": "",
+            "classes": "",
+            "readOnly": ""
+        },
+        {
+            "name": "11. 语言能力第六项：",
+            "type": "formGroupVerticalBox",
+            "title": "11. 语言能力第六项：",
+            "message": "",
+            "require": "false",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "I090015",
+            "style": null,
+            "classes": null,
+            "readOnly": null,
+            "children": [{
+                "name": "I090015",
+                "type": "radio",
+                "title": "完整的句子（1分）",
+                "code": "1",
+                "score": 1,
+                "style": null,
+                "class": null,
+                "readOnly": null
+            }]
+        },
+        {
+            "name": "",
+            "type": "formGroupHR",
+            "title": "---hr---",
+            "line": "dashed",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "",
+            "style": "",
+            "classes": "",
+            "readOnly": ""
+        },
+        {
+            "name": "12. 视空间：",
+            "type": "formGroupVerticalBox",
+            "title": "12. 视空间：",
+            "message": "",
+            "require": "false",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "I090019",
+            "style": null,
+            "classes": null,
+            "readOnly": null,
+            "children": [{
+                "name": "I090017",
+                "type": "radio",
+                "title": "患者画图正确（1分）",
+                "code": "1",
+                "score": 1,
+                "style": null,
+                "class": null,
+                "readOnly": null
+            }]
+        },
+        {
+            "name": "",
+            "type": "formGroupHR",
+            "title": "---hr---",
+            "line": "dashed",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "",
+            "style": "",
+            "classes": "",
+            "readOnly": ""
+        },
+        {
+            "name": "",
+            "type": "formGroupColBox",
+            "col": 2,
+            "colWidth": ["40%", "60%"],
+            "title": "",
+            "message": "",
+            "require": "false",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "",
+            "style": null,
+            "classes": null,
+            "readOnly": null,
+            "children": [{
+                    "name": "evalScore",
+                    "type": "input",
+                    "title": "评估得分",
+                    "placeholder": "评估得分",
+                    "style": "width:80px",
+                    "inputWidth": "80px",
+                    "class": null,
+                    "readOnly": true
+                },
+                {
+                    "name": "evalDesc",
+                    "type": "input",
+                    "title": "结果程度",
+                    "code": "",
+                    "placeholder": "结果程度",
+                    "inputWidth": "180px",
+                    "style": "width:180px",
+                    "class": null,
+                    "readOnly": true,
+                    "rule": [{
+                            "min": "0",
+                            "max": "16",
+                            "equal": "文盲",
+                            "code": "1",
+                            "style": "color:red",
+                            "display": "文盲<17分：有认知功能障碍"
+                        },
+                        {
+                            "min": "17",
+                            "max": "19",
+                            "equal": "小学程度<20分：有认知功能障碍",
+                            "code": "2",
+                            "style": "color:red",
+                            "display": "小学程度<20分：有认知功能障碍"
+                        },
+                        {
+                            "min": "20",
+                            "max": "23",
+                            "equal": "中学程度（包括中专)：有认知功能障碍",
+                            "code": "3",
+                            "style": "color:red",
+                            "display": "中学程度（包括中专)：有认知功能障碍"
+                        },
+                        {
+                            "min": "24",
+                            "max": "infinite",
+                            "equal": "中学程度（包括中专)：无认知功能障碍",
+                            "code": "3",
+                            "style": "color:blue",
+                            "display": "中学程度（包括中专)：无认知功能障碍"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "",
+            "type": "formGroupHR",
+            "title": "---hr---",
+            "line": "",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "",
+            "style": "",
+            "classes": "",
+            "readOnly": ""
+        },
+        {
+            "name": "13. 文化程度：",
+            "type": "formGroupVerticalBox",
+            "title": "13. 文化程度：",
+            "message": "",
+            "require": "false",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "I090019",
+            "style": null,
+            "classes": null,
+            "readOnly": null,
+            "children": [{
+                    "name": "I090019",
+                    "type": "radio",
+                    "title": "文盲<17分",
+                    "code": "1",
+                    "score": 0,
+                    "style": null,
+                    "class": null,
+                    "readOnly": null
+                },
+                {
+                    "name": "I090019",
+                    "type": "radio",
+                    "title": "小学程度<20分",
+                    "code": "2",
+                    "score": 0,
+                    "style": null,
+                    "class": null,
+                    "readOnly": null
+                },
+                {
+                    "name": "I090019",
+                    "type": "radio",
+                    "title": "中学程度(包括中专)以上<24分",
+                    "code": "3",
+                    "score": 0,
+                    "style": null,
+                    "class": null,
+                    "readOnly": null
+                }
+            ]
+        },
+        {
+            "name": "",
+            "type": "formGroupHR",
+            "title": "---hr---",
+            "line": "dashed",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "",
+            "style": "",
+            "classes": "",
+            "readOnly": ""
+        },
+        {
+            "name": "14. 结论：",
+            "type": "formGroupVerticalBox",
+            "title": "14. 结论：",
+            "message": "",
+            "require": "false",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "I090020",
+            "style": null,
+            "classes": null,
+            "readOnly": null,
+            "children": [{
+                    "name": "I090020",
+                    "type": "radio",
+                    "title": "有认知功能障碍",
+                    "code": "1",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null
+                },
+                {
+                    "name": "I090020",
+                    "type": "radio",
+                    "title": "无认知功能障碍",
+                    "code": "2",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null
+                }
+            ]
+        },
+        {
+            "name": "",
+            "type": "formGroupHR",
+            "title": "---hr---",
+            "line": "dashed",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "",
+            "style": "",
+            "classes": "",
+            "readOnly": ""
+        },
+        {
+            "name": "",
+            "type": "formGroupTitle",
+            "level": "1",
+            "title": "二、护理措施",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "",
+            "style": "",
+            "classes": "",
+            "readOnly": ""
+        },
+        {
+            "name": " ",
+            "type": "formGroupVerticalBox",
+            "colWidth": ["0%", "100%"],
+            "title": " ",
+            "message": "",
+            "require": "false",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "M090001",
+            "style": null,
+            "classes": null,
+            "readOnly": null,
+            "children": [{
+                    "name": "M090001",
+                    "type": "checkbox",
+                    "title": "1.床旁悬挂防走失警示标识，给患者使用特殊标记",
+                    "code": "true",
+                    "style": null,
+                    "class": null,
+                    "html": null,
+                    "readOnly": null
+                },
+                {
+                    "name": "M090002",
+                    "type": "checkbox",
+                    "title": "2.佩戴手腕带，并在手腕带上标记科室的电话号码",
+                    "code": "true",
+                    "style": null,
+                    "class": null,
+                    "html": null,
+                    "readOnly": null
+                },
+                {
+                    "name": "M090003",
+                    "type": "checkbox",
+                    "title": "3.防止走失，告知家属/陪人每天24h应有人陪护",
+                    "code": "true",
+                    "style": null,
+                    "class": null,
+                    "html": null,
+                    "readOnly": null
+                },
+                {
+                    "name": "M090004",
+                    "type": "checkbox",
+                    "title": "4.每次患者外出，应随身携带写有详细联系方法的卡片，有家属陪伴照料",
+                    "code": "true",
+                    "style": null,
+                    "class": null,
+                    "html": null,
+                    "readOnly": null
+                },
+                {
+                    "name": "M090005",
+                    "type": "checkbox",
+                    "title": "5.避免伤害，将锐器置于患者不能拿到的地方，将电源插口处贴上胶布",
+                    "code": "true",
+                    "style": null,
+                    "class": null,
+                    "html": null,
+                    "readOnly": null
+                },
+                {
+                    "type": "M090006",
+                    "title": "6.使用热疗法时，水温需≤50°C",
+                    "code": "true",
+                    "style": null,
+                    "class": null,
+                    "html": null,
+                    "readOnly": null
+                },
+                {
+                    "name": "M090007",
+                    "type": "checkbox",
+                    "title": "7.需服药者，看着患者服药到口",
+                    "code": "true",
+                    "style": null,
+                    "class": null,
+                    "html": null,
+                    "readOnly": null
+                },
+                {
+                    "name": "M090008",
+                    "type": "checkbox",
+                    "title": "8.照顾患者吃饭，防误吸，护理牙齿",
+                    "code": "true",
+                    "style": null,
+                    "class": null,
+                    "html": null,
+                    "readOnly": null
+                },
+                {
+                    "name": "M090009",
+                    "type": "checkbox",
+                    "title": "9.照顾患者洗澡，在患者洗浴前调好水温，尤其应注意应用防滑设备，防止跌倒",
+                    "code": "true",
+                    "style": null,
+                    "class": null,
+                    "html": null,
+                    "readOnly": null
+                },
+                {
+                    "name": "M090010",
+                    "type": "checkbox",
+                    "title": "10.减少应激和刺激，防止患者发生激越行为和误伤他人",
+                    "code": "true",
+                    "style": null,
+                    "class": null,
+                    "html": null,
+                    "readOnly": null
+                }
+            ]
+        }
+    ],
+    "dialogs": [],
+    "header": [],
+    "footer": []
+}
