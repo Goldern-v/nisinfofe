@@ -181,9 +181,7 @@ module.exports = {
             //   changeOrigin: true,
             //   secure: false
             // }
-        } <<
-        <<
-        << < HEAD
+        }
     }
     // "/crNursing/printServer": {
     //   target: "http://10.35.9.115:8085",
@@ -197,10 +195,4 @@ module.exports = {
     //   changeOrigin: true,
     //   secure: true
     // }
-    ===
-    ===
-    = >>>
-    >>>
-    > safe
-}
 };
