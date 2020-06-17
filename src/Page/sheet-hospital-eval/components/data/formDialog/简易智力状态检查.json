@@ -592,7 +592,7 @@
             "require": "false",
             "prefixDesc": "",
             "suffixDesc": "",
-            "keys": "I090011",
+            "keys": "I090012",
             "style": null,
             "classes": null,
             "readOnly": null,
@@ -753,7 +753,7 @@
             "require": "false",
             "prefixDesc": "",
             "suffixDesc": "",
-            "keys": "I090019",
+            "keys": "I090017",
             "style": null,
             "classes": null,
             "readOnly": null,
@@ -833,18 +833,18 @@
                         {
                             "min": "20",
                             "max": "23",
-                            "equal": "中学程度（包括中专)：有认知功能障碍",
+                            "equal": "中学程度：有认知功能障碍",
                             "code": "3",
                             "style": "color:red",
-                            "display": "中学程度（包括中专)：有认知功能障碍"
+                            "display": "中学程度：有认知功能障碍"
                         },
                         {
                             "min": "24",
-                            "max": "infinite",
-                            "equal": "中学程度（包括中专)：无认知功能障碍",
-                            "code": "3",
+                            "max": "100",
+                            "equal": "中学程度：无认知功能障碍",
+                            "code": "4",
                             "style": "color:blue",
-                            "display": "中学程度（包括中专)：无认知功能障碍"
+                            "display": "中学程度：无认知功能障碍"
                         }
                     ]
                 }
@@ -983,7 +983,7 @@
             "require": "false",
             "prefixDesc": "",
             "suffixDesc": "",
-            "keys": "M090001",
+            "keys": "",
             "style": null,
             "classes": null,
             "readOnly": null,
