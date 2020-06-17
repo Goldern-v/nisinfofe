@@ -4070,7 +4070,7 @@
         },
 
         {
-            "name": "E0090",
+            "name": "I100355",
             "type": "formGroupColBox",
             "col": 2,
             "title": "简易智力状态检查",
@@ -4078,12 +4078,12 @@
             "require": "false",
             "prefixDesc": "",
             "suffixDesc": "",
-            "keys": "E0090",
+            "keys": "I100355",
             "style": null,
             "classes": null,
             "readOnly": null,
             "children": [{
-                    "name": "E0090",
+                    "name": "I100355",
                     "type": "input",
                     "title": "简易智力状态检查",
                     "inputWidth": "193px",
@@ -4095,14 +4095,14 @@
                     "dialog": {
                         "title": "简易智力状态检查",
                         "default": "简易智力状态检查",
-                        "name": "E0090",
-                        "parentName": "E0090",
+                        "name": "I100355",
+                        "parentName": "I100355",
                         "type": "independent",
                         "showHead": "true"
                     }
                 },
                 {
-                    "name": "E0086",
+                    "name": "I100356",
                     "type": "input",
                     "title": "营养风险筛查护理单",
                     "inputWidth": "183px",
@@ -4114,8 +4114,8 @@
                     "dialog": {
                         "title": "营养风险筛查护理单",
                         "default": "营养风险筛查护理单",
-                        "name": "E0086",
-                        "parentName": "E0086",
+                        "name": "I100356",
+                        "parentName": "I100356",
                         "type": "independent",
                         "showHead": "true"
                     },
