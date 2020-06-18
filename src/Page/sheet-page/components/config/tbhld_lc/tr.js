@@ -43,14 +43,23 @@ export default [
     key: "bloodPressure", //血压
     value: "",
     style: tdStyle,
-    //event: keyf1,
+    event: function (e, td) {
+      if (e.keyCode == 32) {
+        e.target.value += "/";
+        e.preventDefault();
+      }
+      keyf1(e, td);
+    }
   },
   {
     key: "pupil", //瞳孔
     value: "",
     name: "瞳孔",
     style: tdStyle,
-    //event: keyf1,
+    event: keyf1,
+    textarea: {
+      width: 36
+    }
   },
   {
     key: "food", //入量 项目
