@@ -680,12 +680,16 @@ export default {
         return "";
       }
     },
+    // 除第一行以外到结束行之内其他单元格不能录入内容（威县），出入量统计行除外
     isDisabed(tr, td) {
-      if (td && td.key == "description") {
+      if (
+        this.HOSPITAL_ID != "weixian" ||
+        (td && td.key == "description") ||
+        tr.find(item => item.key == "recordSource").value == 5
+      ) {
         return false;
       }
       if (
-        this.HOSPITAL_ID == "weixian" &&
         tr.find(item => item.key == "description").value &&
         !tr.find(item => item.key == "recordHour").value &&
         !tr.find(item => item.key == "recordMonth").value
