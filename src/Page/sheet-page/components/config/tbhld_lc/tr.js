@@ -12,7 +12,7 @@ export default [
     key: "recordMonth", //日期
     value: "",
     style: tdStyle,
-    //event: keyf1,
+    event: event_date,
     click: click_date,
   },
   {
@@ -25,19 +25,19 @@ export default [
     key: "temperature", //体温
     value: "",
     style: tdStyle,
-    //event: keyf1,
+    event: keyf1
   },
   {
     key: "pulse", //脉搏
     value: "",
     style: tdStyle,
-    //event: keyf1,
+    event: keyf1
   },
   {
     key: "breath", //呼吸
     value: "",
     style: tdStyle,
-    //event: keyf1,
+    event: keyf1
   },
   {
     key: "bloodPressure", //血压
@@ -65,42 +65,53 @@ export default [
     key: "food", //入量 项目
     value: "",
     style: tdStyle,
-    //event: keyf1,
+    event: keyf1
   },
   {
     key: "foodSize", //入量 实入量
     value: "",
     style: tdStyle,
-    //event: keyf1,
+    event: keyf1
   },
   {
     key: "discharge", //出量 项目
     value: "",
     style: tdStyle,
-    //event: keyf1,
+    event: keyf1
   },
   {
     key: "dischargeSize", //出量 实出量
     value: "",
     style: tdStyle,
-    //event: keyf1,
+    event: keyf1
   },
   {
     key: "description", //病情处理
     value: "",
     name: "病情及处理",
-    style: tdStyle,
-    //event: keyf1,
-    textarea: {
-      width: 200,
-      height: '48px!important'
+    style: {
+      textAlign: "left",
+      position: "absolute",
+      top: "1px",
+      bottom: "1px",
+      left: "1px",
+      width: "340px",
+      background: "transparent"
+    },
+    event: function (e, td) {
+      console.log(e.keyCode);
+      if (e.keyCode == 9) {
+        td.value = "    " + td.value;
+        e.preventDefault();
+      }
+      keyf1(e, td);
     }
   },
   {
     key: "sign", //签名
     value: "",
     style: tdStyle,
-    //event: keyf1,
+    event: keyf1
   },
   {
     hidden: true,

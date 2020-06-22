@@ -512,8 +512,8 @@ export default {
       let text = "";
       let allDoc = this.doc;
       if (
-        this.sheetInfo.sheetType &&
-        this.sheetInfo.sheetType.indexOf("_wx") == -1
+        this.HOSPITAL_ID != "weixian" &&
+        this.sheetInfo.sheetType != "special"
       ) {
         allDoc = "    " + this.doc;
       }

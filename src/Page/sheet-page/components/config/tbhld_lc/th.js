@@ -1,7 +1,7 @@
 export default {
   deptType: '',
   style: {
-    width: "720px"
+    width: "770px"
   },
   th: {
     top: [{
@@ -84,9 +84,9 @@ export default {
       colspan: '1',
       rowspan: '2',
       style: {
-        minWidth: '150px',
-        maxWidth: '150px',
-      },
+        minWidth: '295px',
+        maxWidth: '295px',
+      }
     },
     {
       name: '护士签名',
