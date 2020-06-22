@@ -24,6 +24,16 @@
         />
       </div>
       <div class="filterItem">
+        <!-- <span class="type-label">状态:</span>
+        <el-select
+          v-model="isSelectedStatus"
+          size="small"
+          placeholder="全部"
+          @change="selectedStatus"
+        >
+          <el-option value>全部</el-option>
+          <el-option :key="item.id" v-for="item in statusList" :value="item.name">{{item.name}}</el-option>
+        </el-select>-->
         <button @click.stop="search">查询</button>
       </div>
     </div>
@@ -103,7 +113,10 @@
           min-width="150px"
         >
           <template slot-scope="scope">
-            <div style="text-align: left;" :style="scope.row.printStatus ==1 && {color: 'red'}">
+            <div
+              style="text-align: left;"
+              :style="(scope.row.printStatus ==1 || scope.row.resultStatus ==-1) && {color: 'red'}"
+            >
               <span>{{scope.row.statusDesc}}</span>
             </div>
           </template>
@@ -216,9 +229,10 @@ export default {
       query: {
         pageSize: 20,
         pageIndex: 1,
-        dischargeDateBegin: "",
-        dischargeDateEnd: "",
-        wardCode: ""
+        dischargeDateBegin: "", //出院开始时间
+        dischargeDateEnd: "", //出院结束时间
+        wardCode: "", //科室代码
+        showStatus: "" //状态查找：-2=归档失败,-1=生成pdf失败,0=待生成pdf,1=待归档,2=已归档
       },
       total: 1,
       patientArchiveList: [], //科室患者归档列表
@@ -226,7 +240,15 @@ export default {
       printDetailList: "", //归档详情
       modalObj: {}, //modal对象
       isFlag: false,
-      timeId: ""
+      timeId: "",
+      statusList: [
+        { id: -2, name: "归档失败" },
+        { id: -1, name: "生成pdf失败" },
+        { id: 0, name: "待生成pdf" },
+        { id: 1, name: "待归档" },
+        { id: 2, name: "已归档" }
+      ],
+      isSelectedStatus: "" //选择状态
     };
   },
   methods: {
@@ -419,6 +441,15 @@ export default {
         dd.getMonth() + 1 < 10 ? "0" + (dd.getMonth() + 1) : dd.getMonth() + 1; //获取当前月份的日期，不足10补0
       var d = dd.getDate() < 10 ? "0" + dd.getDate() : dd.getDate(); //获取当前几号，不足10补0
       return y + "-" + m + "-" + d;
+    },
+    selectedStatus(val) {
+      this.query.showStatus = "";
+      for (let i = 0; i < this.statusList.length; i++) {
+        if (this.statusList[i].name == val) {
+          this.query.showStatus = this.statusList[i].id;
+          return;
+        }
+      }
     }
   },
   mounted() {
