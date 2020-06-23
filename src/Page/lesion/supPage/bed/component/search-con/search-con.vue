@@ -63,7 +63,11 @@
         </div>
       </div>
 
-      <button class="login-btn" @click="syncGetNurseBedRec" v-if="HOSPITAL_ID == 'weixian'">同步床位数据</button>
+      <button
+        class="login-btn"
+        @click="syncGetNurseBedRecData"
+        v-if="HOSPITAL_ID == 'weixian' || HOSPITAL_ID == 'lingcheng'"
+      >同步床位数据</button>
       <button
         class="login-btn"
         :class="{noactive:showProgress}"
@@ -255,7 +259,8 @@
 import {
   patients,
   syncGetNurseBedRec,
-  syncGetMedicalAdvice
+  syncGetMedicalAdvice,
+  syncGetNurseBedRecLc
 } from "@/api/lesion";
 import footerBar from "../footer-bar/footer-bar.vue";
 import { listItem } from "@/api/common.js";
@@ -527,9 +532,13 @@ export default {
     getLevelList(level) {
       return this.bedList.filter(item => item.nursingClass == level);
     },
-    syncGetNurseBedRec() {
+    syncGetNurseBedRecData() {
       this.$message.info("正在更新");
-      syncGetNurseBedRec(this.deptCode).then(res => {
+      let syncData =
+        this.HOSPITAL_ID == "lingcheng"
+          ? syncGetNurseBedRecLc
+          : syncGetNurseBedRec;
+      syncData(this.deptCode).then(res => {
         this.$message.success("更新成功");
         this.getDate();
       });

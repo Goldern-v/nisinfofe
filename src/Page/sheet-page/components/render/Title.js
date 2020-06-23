@@ -319,6 +319,14 @@ export default function Title(data = [], autoData = [], index) {
         );
       }
       break;
+    case "maternal_newborn_lc":
+      {
+        // 陵城-孕产妇、新生儿护理观察记录单
+        Th = JSON.parse(
+          JSON.stringify(require("../config/maternal_newborn_lc/th").default)
+        );
+      }
+      break;
     default: {
       Th = JSON.parse(JSON.stringify(require("../config/default/th").default));
     }

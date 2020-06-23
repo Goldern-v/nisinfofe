@@ -156,6 +156,7 @@ import sheetTablePost_partum from "@/Page/sheet-page/components/sheetTable-post_
 import sheetTablePost_hemodialysis from "@/Page/sheet-page/components/sheetTable-hemodialysis/sheetTable";
 import sheetTable_oxytocin from "@/Page/sheet-page/components/sheetTable-oxytocin/sheetTable";
 import sheetTableDressing_count from "@/Page/sheet-page/components/sheetTable-dressing_count/sheetTable";
+import sheetTableMaternal_newborn_lc from "@/Page/sheet-page/components/sheetTable-maternal_newborn_lc/sheetTable";
 import common from "@/common/mixin/common.mixin.js";
 import { nursingUnit } from "@/api/lesion";
 import sheetModel, {
@@ -264,6 +265,8 @@ export default {
         return sheetTable_oxytocin;
       } else if (sheetInfo.sheetType == "dressing_count") {
         return sheetTableDressing_count;
+      } else if (sheetInfo.sheetType == "maternal_newborn_lc") {
+        return sheetTableMaternal_newborn_lc;
       } else {
         return sheetTable;
       }
@@ -697,7 +700,8 @@ export default {
     sheetTablePost_partum,
     sheetTablePost_hemodialysis,
     sheetTable_oxytocin,
-    sheetTableDressing_count
+    sheetTableDressing_count,
+    sheetTableMaternal_newborn_lc
   }
 };
 </script>

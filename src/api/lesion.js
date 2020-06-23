@@ -36,6 +36,10 @@ function unfollow(bedLabel) {
   return axios.get(`${apiPath}bed/unfollowBed/${bedLabel}`)
 }
 
+// 陵城 --更新床位一览卡信息
+function syncGetNurseBedRecLc(deptCode) {
+  return axios.get(`${apiPath}hisLingChengExecute/syncGetNurseBedRec/${deptCode}`)
+}
 // 威县 --更新床位一览卡信息
 function syncGetNurseBedRec(deptCode) {
   return axios.get(`${apiPath}hisDispenseExecute/syncGetNurseBedRec/${deptCode}`)
@@ -52,5 +56,6 @@ export {
   unfollow,
   typeList,
   syncGetNurseBedRec,
-  syncGetMedicalAdvice
+  syncGetMedicalAdvice,
+  syncGetNurseBedRecLc
 }

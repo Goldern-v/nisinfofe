@@ -294,6 +294,12 @@ function switechSheetType(type) {
         schema = require("../config/cpr/tr.js").default;
       }
       break;
+    case "maternal_newborn_lc":
+      {
+        // 陵城-孕产妇、新生儿护理观察记录单
+        schema = require("../config/maternal_newborn_lc/tr.js").default;
+      }
+      break;
     default: {
       schema = require("../config/default/tr.js").default;
     }
