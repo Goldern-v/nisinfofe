@@ -174,6 +174,12 @@ function switechSheetType(type) {
         schema = require("../config/default/tr.js").default;
       }
       break;
+    case "reha_medicin":
+      {
+        // 康复医学科
+        schema = require("../config/default/tr.js").default;
+      }
+      break;
     case "medicine_cardiovascular":
       {
         // 心血管内科

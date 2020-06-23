@@ -1,5 +1,9 @@
 <template>
   <div>
+    <el-row class="logo-con" type="flex" justify="center" align="middle" v-if="HOSPITAL_ID=='hj'">
+      <img src="../../../common/images/logo_hj.png" height="63" width="63" />
+      <span>宸瑞智慧护理信息系统</span>
+    </el-row>
     <div class="nav-con">
       <router-link
         :to="{path:'/home', query: {patientId:query.patientId, visitId: query.visitId}}"
@@ -112,6 +116,28 @@
   </div>
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
+.logo-con {
+  width: 200px;
+  min-width: 200px;
+  height: 50px;
+  background: #4bb08d;
+  position: fixed;
+  left: 0;
+  top: 0;
+
+  img {
+    width: 30px;
+    height: 30px;
+  }
+
+  span {
+    margin-left: 6px;
+    font-size: 14px;
+    color: #EFF2F9;
+    letter-spacing: 0;
+  }
+}
+
 .nav-con {
   height: 50px;
   min-width: 1030px;

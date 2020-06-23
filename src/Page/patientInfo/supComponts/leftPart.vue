@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="left-part">
     <div class="content" :style="{left: openLeft?'0':'-201px'}">
       <div
         style="height: 1px;background:#4BB08D;box-shadow: 0px 1px 5px rgba(0,0,0,.2);position: relative;z-index: 0"

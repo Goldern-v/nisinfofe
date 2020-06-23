@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :class="{ hj: HOSPITAL_ID=='hj' }">
     <leftPart v-if="inited"></leftPart>
     <div class="right-part" :style="{ marginLeft: openLeft ? '200px' : '0' }">
       <!-- <topPart></topPart> -->
@@ -9,6 +9,26 @@
   </div>
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
+.hj {
+  >>>.left-part {
+    .content {
+      top: 50px;
+    }
+  }
+
+  >>>.right-part {
+    padding-top: 50px;
+
+    .nav-con {
+      top: 0;
+    }
+
+    .nav-con + div {
+      display: none;
+    }
+  }
+}
+
 .right-part {
   transition: all 0.4s cubic-bezier(0.55, 0, 0.1, 1);
 }
