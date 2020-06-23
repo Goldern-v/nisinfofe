@@ -28,7 +28,10 @@
             住院号：
             <div class="bottom-line" style="min-width: 50px">{{patientInfo.inpNo}}</div>
           </span>
-          <span>入院日期： {{patientInfo.admissionDate | toymd}}</span>
+          <span>
+            入院日期：
+            <div class="bottom-line" style="min-width: 165px">{{patientInfo.admissionDate | toymd}}</div>
+          </span>
           <div class="group-input">
             分娩方式：
             <label for="deliveryMode1">
