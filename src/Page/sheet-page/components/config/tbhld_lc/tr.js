@@ -9,6 +9,10 @@ const tdStyle = {
 
 export default [
   {
+    key: "recordYear", //年份
+    value: ""
+  },
+  {
     key: "recordMonth", //日期
     value: "",
     style: tdStyle,
@@ -131,11 +135,6 @@ export default [
   {
     hidden: true,
     key: "recordSource",
-    value: ""
-  },
-  {
-    hidden: true,
-    key: "recordYear",
     value: ""
   },
   {
