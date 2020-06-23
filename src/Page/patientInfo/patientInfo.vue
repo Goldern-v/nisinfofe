@@ -16,15 +16,17 @@
     }
   }
 
-  >>>.right-part {
-    padding-top: 50px;
+  >.right-part {
+    >>>.patient-info-head {
+      height: 50px;
 
-    .nav-con {
-      top: 0;
-    }
+      .nav-con {
+        top: 0;
 
-    .nav-con + div {
-      display: none;
+        + div {
+          display: none;
+        }
+      }
     }
   }
 }
