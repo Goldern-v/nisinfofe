@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="patient-info-head">
     <el-row class="logo-con" type="flex" justify="center" align="middle" v-if="HOSPITAL_ID=='hj'">
       <img src="../../../common/images/logo_hj.png" height="63" width="63" />
       <span>宸瑞智慧护理信息系统</span>
