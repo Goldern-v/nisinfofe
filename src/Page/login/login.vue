@@ -23,16 +23,18 @@
         </div>
         <img src="../../common/images/shaw.png" height="234" width="526" class="login-shaw" />
         <div class="login-con">
-          <div class="logo-con">
-            <img
-              src="../../common/images/login_logo_hj.png"
-              height="63"
-              width="63"
-              v-if="HOSPITAL_ID=='hj'"
-            />
-            <img src="../../common/images/logo.png" height="63" width="63" v-else />
+          <div v-if="HOSPITAL_ID=='hj'">
+            <div class="logo-con">
+              <img src="../../common/images/login_logo_hj.png" height="63" width="63" />
+            </div>
+            <h1 class="name" style="font-size: 16px;">东莞市厚街医院智慧护理信息系统</h1>
           </div>
-          <h1 class="name">宸瑞智慧护理信息系统</h1>
+          <div v-else>
+            <div class="logo-con">
+              <img src="../../common/images/logo.png" height="63" width="63" />
+            </div>
+            <h1 class="name">宸瑞智慧护理信息系统</h1>
+          </div>
           <div class="input-con">
             <input type="text" placeholder="用户名" v-model="account" />
             <img src="../../common/images/account.png" height="14" width="14" />

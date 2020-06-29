@@ -1,8 +1,11 @@
 <template>
   <div class="patient-info-head">
-    <el-row class="logo-con" type="flex" justify="center" align="middle" v-if="HOSPITAL_ID=='hj'">
+    <el-row class="logo-con" type="flex" align="middle" v-if="HOSPITAL_ID=='hj'">
       <img src="../../../common/images/logo_hj.png" height="63" width="63" />
-      <span>宸瑞智慧护理信息系统</span>
+      <span>
+        东莞市厚街医院
+        <br />智慧护理信息系统
+      </span>
     </el-row>
     <div class="nav-con">
       <router-link
@@ -124,10 +127,11 @@
   position: fixed;
   left: 0;
   top: 0;
+  padding-left: 10px;
 
   img {
-    width: 30px;
-    height: 30px;
+    width: 36px;
+    height: 36px;
   }
 
   span {
@@ -135,6 +139,7 @@
     font-size: 14px;
     color: #EFF2F9;
     letter-spacing: 0;
+    line-height: 16px;
   }
 }
 
