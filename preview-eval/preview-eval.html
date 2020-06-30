@@ -941,10 +941,7 @@
         .then(res => {
           authToken = res.data.data.authToken;
           userInfo = res.data.data.user;
-          let obj = {
-            ...userInfo,
-            token: authToken
-          };
+          let obj = Object.assign({}, userInfo, { token: authToken });
           localStorage.user = JSON.stringify(obj);
         })
         .then(res => {

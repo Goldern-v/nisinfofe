@@ -57,7 +57,7 @@
     </div>
     <div v-if="!data1" class="form" :style="{height: height}">
       <div class="null-con">
-        <img src="../../../../../common/images/task/nondata.png" alt>
+        <img src="../../../../../common/images/task/nondata.png" alt />
         <p>数据为空</p>
       </div>
     </div>
@@ -66,55 +66,72 @@
 </template>
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
-.form
-  padding 26px 20px
-  box-sizing border-box
-  width 100%
-  overflow auto
-  .title
+.form {
+  padding: 26px 20px;
+  box-sizing: border-box;
+  width: 100%;
+  overflow: auto;
+
+  .title {
     font-size: 18px;
     color: #333333;
-    font-weight bold
-    text-align center
-  .name
+    font-weight: bold;
+    text-align: center;
+  }
+
+  .name {
     font-size: 15px;
     color: #333333;
-    margin-top 10px
-    text-align center
-    margin-bottom 16px
-  table,table tr th, table tr td {
-    border:1px solid #979797;
+    margin-top: 10px;
+    text-align: center;
+    margin-bottom: 16px;
   }
+
+  table, table tr th, table tr td {
+    border: 1px solid #979797;
+  }
+
   table {
-    width 100%;
-    background #fff
+    width: 100%;
+    background: #fff;
     text-align: left;
     border-collapse: collapse;
-    }
-  td {
-    height 26px
-    padding 4px 13px
-    vertical-align middle
-    font-size: 13px;
-    line-height 18px
-    word-break break-all
   }
-  .key
-    width 14%
-    color: #687179;
-  .value
-    width 19%
-    color: #333333;
-.null-con
-  img
-    display block
-    margin 20% auto 20px
-    width 120px
-  p
-    text-align center
-    font-size: 13px;
-		color: #666;
+}
 
+td {
+  height: 26px;
+  padding: 4px 13px;
+  vertical-align: middle;
+  font-size: 13px;
+  line-height: 18px;
+  word-break: break-all;
+}
+
+.key {
+  width: 14%;
+  color: #687179;
+}
+
+.value {
+  width: 19%;
+  color: #333333;
+}
+
+.null-con {
+  img {
+    display: block;
+    margin: 20% auto 20px;
+    width: 120px;
+  }
+
+  p {
+    text-align: center;
+    font-size: 13px;
+  }
+
+  color: #666;
+}
 </style>
 
 <script>
@@ -140,7 +157,7 @@ export default {
   },
   filters: {
     dataForm(value) {
-      let result = new Date(value).Format("yyyy-MM-dd hh:mm");
+      let result = value ? new Date(value).Format("yyyy-MM-dd hh:mm") : "";
       return result;
     }
   },
