@@ -152,6 +152,15 @@ export default {
       delete data.recordTime;
 
       this.$emit("confirm", data);
+    },
+    updateTetxInfo(label, autoText) {
+      window.openSetTextModal(
+        text => {
+          this.form.sugarItem = text;
+        },
+        autoText,
+        `添加${label}`
+      );
     }
   },
   created() {
@@ -168,6 +177,11 @@ export default {
     sugarItem(newVal, oldVal) {
       if (newVal && this.HOSPITAL_ID == "lingcheng") {
         this.typeList = this.sugarItem;
+      }
+    },
+    "form.sugarItem"(newVal, oldVal) {
+      if (this.HOSPITAL_ID == "lingcheng" && newVal == "自定义") {
+        this.updateTetxInfo("自定义项目");
       }
     }
   }

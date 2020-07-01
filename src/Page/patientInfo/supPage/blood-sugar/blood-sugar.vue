@@ -38,7 +38,12 @@
     <div class="tool-con" v-show="listMap.length">
       <div class="tool-fix" flex="dir:top">
         <whiteButton text="添加" @click="onAdd"></whiteButton>
-        <whiteButton text="修改" @click="onEdit" :disabled="!selected || !selected.recordDate"></whiteButton>
+        <whiteButton
+          text="修改"
+          @click="onEdit"
+          :disabled="!selected || !selected.recordDate"
+          v-if="HOSPITAL_ID != 'lingcheng'"
+        ></whiteButton>
         <whiteButton text="删除" @click="onRemove" :disabled="!selected || !selected.recordDate"></whiteButton>
         <whiteButton :text="`设置起始页(${startPage})`" @click="openSetPageModal"></whiteButton>
         <whiteButton text="打印预览" @click="toPrint"></whiteButton>
