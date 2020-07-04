@@ -24,6 +24,9 @@ axios.interceptors.request.use((config) => {
 axios.interceptors.response.use((res) => {
     // if (typeof res.data === 'string') res.data = JSON.parse(res.data)
     var data = res.data
+    if (window.location.href.includes('nursingDoc')) {
+        return res;
+    }
     // 如果token没有通过
     if (data.code === '300') {
 

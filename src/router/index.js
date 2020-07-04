@@ -77,6 +77,9 @@ const implementationList = () => import("@/Page/implementation-list/implementati
 const implementationListLc = () => import("@/Page/implementation-list-lc/implementation-list.vue"); //陵城执行单
 const dcList = () => import("@/Page/dc-list/dc-list.vue"); //执行单
 const nursingRounds = () => import("@/Page/nursing-rounds/nursing-rounds.vue"); //护理巡视
+const showPatientDetails = () => import("@/Page/showPatientDetails/showPatientDetails.vue");
+const nursingDoc = () => import("@/Page/nursingDoc/nursingDoc.vue");
+
 const demo = () => import("@/demo/demo"); //demo
 /** 包含全局样式的页面，患者详情子页面不可代码切割 */
 import sheetPage from "@/Page/sheet-page/sheet-page.vue" // 护理记录单页面
@@ -103,451 +106,470 @@ const router = new Router({
   mode: "history",
   base: "/crNursing/",
   routes: [{
-      path: "/",
-      redirect: "/index",
-      alias: "主页"
+    path: "/",
+    redirect: "/index",
+    alias: "主页"
+  },
+  {
+    path: "/demo",
+    component: demo,
+    alias: "测试"
+  },
+  {
+    path: "/login",
+    component: login,
+    alias: "登陆"
+  },
+  // 医生查看患者表单详情
+  {
+    path: "/showPatientDetails",
+    component: showPatientDetails,
+    children: [{
+      path: "record",
+      component: record
     },
     {
-      path: "/demo",
-      component: demo,
-      alias: "测试"
-    },
-    {
-      path: "/login",
-      component: login,
-      alias: "登陆"
-    },
-    {
-      path: "/main",
-      component: main,
-      children: [
-        // {
-        //   path: "/index-xin",
-        //   component: indexXin
-        // },
-        {
-          path: "/index",
-          component: indexXin
-        },
-        {
-          path: "/archive",
-          component: archive,
-          alias: "归档"
-        },
-        {
-          path: "/board",
-          component: white,
-          alias: "白板"
-        },
-        {
-          path: "/familyBigScreen",
-          component: familyBigScreen,
-          alias: "家属大屏",
-          children: [{
-            name: "videoListSetting",
-            path: "/familyBigScreen/:name?",
-            component: videoListSetting
-          }]
-        },
-        // {
-        //   path: "/inBox",
-        //   component: inBox
-        // },
-        {
-          path: "/bed",
-          component: bed
-        },
-        // {
-        //   path: "/infuse",
-        //   component: infuse
-        // },
-        // {
-        //   path: "/log",
-        //   component: log
-        // },
-        {
-          path: "/healthEdu",
-          component: healthEdu,
-          children: [{
-            name: "healthEdu",
-            path: "/healthEdu/:patientId?/:visitId?/:formId?",
-            component: healthEdu
-          }]
-        },
-        {
-          path: "/handlingPage",
-          component: handlingPage,
-          children: [{
-            name: "handlingPage",
-            path: "/handlingPage/:patientId?/:visitId?/:formId?",
-            component: handlingPage
-          }]
-        },
-        {
-          path: "/oxygenPage",
-          component: oxygenPage,
-          children: [{
-            name: "oxygenPage",
-            path: "/oxygenPage/:patientId?/:visitId?/:formId?",
-            component: oxygenPage
-          }]
-        },
-        {
-          path: "/wardReport",
-          name: "wardReports",
-          component: wardReport,
-          children: [{
-            name: "wardReport",
-            path: "/wardReport/:date?",
-            component: wardReportDetail
-          }]
-        },
-        {
-          path: "/inpatientReport",
-          name: "inpatientReports",
-          component: inpatientReport,
-          children: [{
-            name: "inpatientReport",
-            path: "/inpatientReport/:date?",
-            component: inpatientReportDetail
-          }]
-        },
-        {
-          path: "/shiftWork",
-          name: "shiftWorks",
-          component: process.env.HOSPITAL_ID == 'lingcheng' ? shiftWorkLc : shiftWork,
-          children: [{
-            name: "shiftWork",
-            path: "/shiftWork/:code?/:id?",
-            component: process.env.HOSPITAL_ID == 'lingcheng' ? shiftWorkDetailLc : shiftWorkDetail,
-          }]
-        },
-        {
-          path: "/badEvent",
-          name: "badEvents",
-          alias: "不良事件",
-          component: badEvent,
-          children: [{
-              name: "badEventEdit",
-              path: "/badEvent/:code?/:operation?/:id?/:type?/:name?",
-              component: badEventEditPage
-            },
-            {
-              name: "badEventView",
-              path: "/badEvent/:code?/:operation?/:id?/:status?/:type?/:name?",
-              component: badEventViewPage
-            }
-          ]
-        },
-        // {
-        //   path: "/mailDetails/:id",
-        //   component: mailDetails
-        // },
-        // {
-        //   path: "/lesion",
-        //   component: lesion,
-        //   redirect: "/lesion/bed",
-        //   children: [
-        //     {
-        //       path: "task",
-        //       component: task,
-        //       name: "今日任务",
-        //       alias: "今日任务"
-        //     },
-        //     {
-        //       path: "shift",
-        //       component: shift
-        //     },
-        //     {
-        //       path: "implementation",
-        //       component: implementation
-        //     },
-        //     {
-        //       path: "/wait-bed",
-        //       component: resolve => {
-        //         require(["../Page/lesion/supPage/log/wait-bed.vue"], resolve);
-        //       }
-        //     }
-        //   ]
-        // },
-        {
-          path: "/patientInfo",
-          component: patientInfo,
-          alias: "病人信息",
-          children: [{
-              path: "/information",
-              component: information
-            },
-            {
-              path: "/advice",
-              component: advice
-            },
-            {
-              path: "/inspect",
-              component: inspect
-            },
-            {
-              path: "/test",
-              component: test
-            },
-            {
-              path: "/record",
-              component: record
-            },
-            {
-              path: "/doctorEmr",
-              component: doctorEmr
-            },
-            {
-              path: "/cost",
-              component: cost
-            },
-            {
-              path: "/home",
-              component: home
-            },
-            // {
-            //   path: "/home1",
-            //   component: home1
-            // },
-            {
-              path: "/diagnosis",
-              component: diagnosis
-            },
-            // {
-            //   path: "/diganosisDetails/:id",
-            //   component: diganosisDetails
-            // },
-            // {
-            //   path: "/consultation",
-            //   component: consultation,
-            //   name: "会诊",
-            //   alias: "会诊"
-            // },
-            {
-              path: "/temperature",
-              component: temperature,
-              name: "体温单",
-              alias: "体温单"
-            },
-            {
-              path: "/sheet",
-              component: sheet,
-              name: "护理记录单",
-              alias: "护理记录单"
-            },
-            {
-              path: "/catheter",
-              component: catheter,
-              name: "导管",
-              alias: "导管"
-            },
-            {
-              path: "/sheetNursingOrder",
-              component: sheetNursingOrder,
-              name: "护嘱单",
-              alias: "护嘱单"
-            },
-            {
-              path: "/bloodSugar",
-              component: process.env.HOSPITAL_NAME == "威县人民医院" ?
-                bloodSugarWeiXian : bloodSugar,
-              name: "血糖",
-              alias: "血糖"
-            },
-            {
-              path: "/healthEducation",
-              component: healthEducation,
-              name: "健康教育单",
-              alias: "健康教育单"
-            },
-            {
-              path: "/hospitalEval",
-              component: hospitalEval,
-              name: "住院表",
-              alias: "住院表"
-            }
-          ]
-        },
-        {
-          path: "/nursingDocumentation",
-          component: nursingDocumentation
-        },
-        {
-          path: "/implementationList",
-          component: process.env.HOSPITAL_ID == 'lingcheng' ? implementationListLc : implementationList,
-          name: '执行单'
-        },
-        {
-          path: "/healthEducationList",
-          component: healthEducationList,
-          name: '健康宣教'
-        },
-        // {
-        //   path: '/nursingConsultation',
-        //   component: nursingConsultation,
-        //   beforeEnter: (to, from, next) => {
-        //     let nursingStaff = false
-        //     try {
-        //       nursingStaff = JSON.parse(localStorage.user).nursingStaff
-        //     } catch (e) { console.log(e) }
-        //     next(nursingStaff)
-        //   }
-        // },
-        // {
-        //   path: '/nursingConsultationStaff',
-        //   component: nursingConsultationStaff,
-        //   beforeEnter: (to, from, next) => {
-        //     let nursingStaff = false
-        //     try {
-        //       nursingStaff = JSON.parse(localStorage.user).nursingStaff
-        //     } catch (e) { console.log(e) }
-        //     next(!nursingStaff)
-        //   }
-        // }
-        {
-          path: "/sheetHospitalAdmission",
-          component: sheetHospitalAdmission,
-          children: [{
-            name: "sheetHospitalAdmissionPage",
-            path: "/sheetHospitalAdmission/:patientId?/:visitId?/:formId?",
-            component: sheetHospitalAdmissionPage
-          }]
-        },
-        {
-          path: "/sheetHospitalEval",
-          component: sheetHospitalEval,
-          children: [{
-            name: "sheetHospitalEvalPage",
-            path: "/sheetHospitalEval/:patientId?/:visitId?/:formId?",
-            component: sheetHospitalEvalPage
-          }]
-        },
-        {
-          path: "/sheetPage",
-          component: sheetPage,
-          children: [{
-            name: "sheetPage",
-            path: "/sheetPage/:patientId?/:visitId?/:formId?",
-            component: sheetPage
-          }]
-        },
-        {
-          path: "/MEWS",
-          component: MEWS
-        },
-        {
-          path: "/formPage",
-          component: formPage,
-          children: [{
-            name: "formPage",
-            path: "/formPage/:patientId?/:visitId?/:formId?",
-            component: formPage
-          }]
-        },
-        {
-          path: "/evalFormPage",
-          component: evalFormPage
-        },
-        {
-          path: "/catheterPage",
-          component: catheterPage
-        },
-        {
-          path: "/sugarPage",
-          component: sugarPage,
-          children: [{
-            name: "sugarPage",
-            path: "/sugarPage/:patientId?/:visitId?/:formId?",
-            component: sugarPage
-          }]
-        },
-        {
-          path: "/scheduling",
-          component: scheduling
-        },
-        {
-          path: "/nursingRules",
-          component: nursingRules
-        },
-        {
-          path: "/noCheckTest",
-          component: noCheckTest
-        },
-        {
-          path: "/departmentSharedFile",
-          component: departmentSharedFile
-        },
-        {
-          path: "/flatManagement",
-          component: flatManagement
-        },
-        {
-          path: "/puerperantSituation",
-          component: puerperantSituation
-        },
-        {
-          path: "/vaccineManagement",
-          component: vaccineManagement
-        },
-        {
-          path: "/deliveryRoomWhiteboard",
-          component: deliveryRoomWhiteboard
-        },
-        {
-          path: "/birthCertificate",
-          component: birthCertificate
-        },
-        {
-          path: "/birthCertificateForm",
-          component: birthCertificateForm
-        },
-        {
-          path: "/dcList",
-          component: dcList
-        },
-        {
-          path: "/nursingRounds",
-          component: nursingRounds,
-          name: '护理巡视'
-        }
-      ]
-    },
-    {
-      path: "/dev",
-      beforeEnter: (to, from, next) => {
-        window.app.$notify.info({
-          title: "提示",
-          message: "正在开发，敬请期待"
-        });
-        next(false);
-      }
-    },
-    {
-      path: "/imageView",
-      component: imageView
-    },
-    // {
-    //   path: "/autoLogin",
-    //   component: autoLogin
-    // },
-    {
-      path: "/print/:type",
-      component: print
-    },
-    {
-      path: "/indexXin",
-      component: indexXin
-    },
-    {
-      path: "/toPdfPrint",
-      component: toPdfPrint
-    },
-
-    {
-      path: "*",
-      component: NotFoundComponent
+      path: "sheet",
+      component: sheet,
+      name: "护理记录单"
     }
+    ]
+  },
+  {
+    path: "/nursingDoc",
+    component: nursingDoc
+  },
+  {
+    path: "/main",
+    component: main,
+    children: [
+      // {
+      //   path: "/index-xin",
+      //   component: indexXin
+      // },
+      {
+        path: "/index",
+        component: indexXin
+      },
+      {
+        path: "/archive",
+        component: archive,
+        alias: "归档"
+      },
+      {
+        path: "/board",
+        component: white,
+        alias: "白板"
+      },
+      {
+        path: "/familyBigScreen",
+        component: familyBigScreen,
+        alias: "家属大屏",
+        children: [{
+          name: "videoListSetting",
+          path: "/familyBigScreen/:name?",
+          component: videoListSetting
+        }]
+      },
+      // {
+      //   path: "/inBox",
+      //   component: inBox
+      // },
+      {
+        path: "/bed",
+        component: bed
+      },
+      // {
+      //   path: "/infuse",
+      //   component: infuse
+      // },
+      // {
+      //   path: "/log",
+      //   component: log
+      // },
+      {
+        path: "/healthEdu",
+        component: healthEdu,
+        children: [{
+          name: "healthEdu",
+          path: "/healthEdu/:patientId?/:visitId?/:formId?",
+          component: healthEdu
+        }]
+      },
+      {
+        path: "/handlingPage",
+        component: handlingPage,
+        children: [{
+          name: "handlingPage",
+          path: "/handlingPage/:patientId?/:visitId?/:formId?",
+          component: handlingPage
+        }]
+      },
+      {
+        path: "/oxygenPage",
+        component: oxygenPage,
+        children: [{
+          name: "oxygenPage",
+          path: "/oxygenPage/:patientId?/:visitId?/:formId?",
+          component: oxygenPage
+        }]
+      },
+      {
+        path: "/wardReport",
+        name: "wardReports",
+        component: wardReport,
+        children: [{
+          name: "wardReport",
+          path: "/wardReport/:date?",
+          component: wardReportDetail
+        }]
+      },
+      {
+        path: "/inpatientReport",
+        name: "inpatientReports",
+        component: inpatientReport,
+        children: [{
+          name: "inpatientReport",
+          path: "/inpatientReport/:date?",
+          component: inpatientReportDetail
+        }]
+      },
+      {
+        path: "/shiftWork",
+        name: "shiftWorks",
+        component: process.env.HOSPITAL_ID == 'lingcheng' ? shiftWorkLc : shiftWork,
+        children: [{
+          name: "shiftWork",
+          path: "/shiftWork/:code?/:id?",
+          component: process.env.HOSPITAL_ID == 'lingcheng' ? shiftWorkDetailLc : shiftWorkDetail,
+        }]
+      },
+      {
+        path: "/badEvent",
+        name: "badEvents",
+        alias: "不良事件",
+        component: badEvent,
+        children: [{
+          name: "badEventEdit",
+          path: "/badEvent/:code?/:operation?/:id?/:type?/:name?",
+          component: badEventEditPage
+        },
+        {
+          name: "badEventView",
+          path: "/badEvent/:code?/:operation?/:id?/:status?/:type?/:name?",
+          component: badEventViewPage
+        }
+        ]
+      },
+      // {
+      //   path: "/mailDetails/:id",
+      //   component: mailDetails
+      // },
+      // {
+      //   path: "/lesion",
+      //   component: lesion,
+      //   redirect: "/lesion/bed",
+      //   children: [
+      //     {
+      //       path: "task",
+      //       component: task,
+      //       name: "今日任务",
+      //       alias: "今日任务"
+      //     },
+      //     {
+      //       path: "shift",
+      //       component: shift
+      //     },
+      //     {
+      //       path: "implementation",
+      //       component: implementation
+      //     },
+      //     {
+      //       path: "/wait-bed",
+      //       component: resolve => {
+      //         require(["../Page/lesion/supPage/log/wait-bed.vue"], resolve);
+      //       }
+      //     }
+      //   ]
+      // },
+      {
+        path: "/patientInfo",
+        component: patientInfo,
+        alias: "病人信息",
+        children: [{
+          path: "/information",
+          component: information
+        },
+        {
+          path: "/advice",
+          component: advice
+        },
+        {
+          path: "/inspect",
+          component: inspect
+        },
+        {
+          path: "/test",
+          component: test
+        },
+        {
+          path: "/record",
+          component: record
+        },
+        {
+          path: "/doctorEmr",
+          component: doctorEmr
+        },
+        {
+          path: "/cost",
+          component: cost
+        },
+        {
+          path: "/home",
+          component: home
+        },
+        // {
+        //   path: "/home1",
+        //   component: home1
+        // },
+        {
+          path: "/diagnosis",
+          component: diagnosis
+        },
+        // {
+        //   path: "/diganosisDetails/:id",
+        //   component: diganosisDetails
+        // },
+        // {
+        //   path: "/consultation",
+        //   component: consultation,
+        //   name: "会诊",
+        //   alias: "会诊"
+        // },
+        {
+          path: "/temperature",
+          component: temperature,
+          name: "体温单",
+          alias: "体温单"
+        },
+        {
+          path: "/sheet",
+          component: sheet,
+          name: "护理记录单",
+          alias: "护理记录单"
+        },
+        {
+          path: "/catheter",
+          component: catheter,
+          name: "导管",
+          alias: "导管"
+        },
+        {
+          path: "/sheetNursingOrder",
+          component: sheetNursingOrder,
+          name: "护嘱单",
+          alias: "护嘱单"
+        },
+        {
+          path: "/bloodSugar",
+          component: process.env.HOSPITAL_NAME == "威县人民医院" ?
+            bloodSugarWeiXian : bloodSugar,
+          name: "血糖",
+          alias: "血糖"
+        },
+        {
+          path: "/healthEducation",
+          component: healthEducation,
+          name: "健康教育单",
+          alias: "健康教育单"
+        },
+        {
+          path: "/hospitalEval",
+          component: hospitalEval,
+          name: "住院表",
+          alias: "住院表"
+        }
+        ]
+      },
+      {
+        path: "/nursingDocumentation",
+        component: nursingDocumentation
+      },
+      {
+        path: "/implementationList",
+        component: process.env.HOSPITAL_ID == 'lingcheng' ? implementationListLc : implementationList,
+        name: '执行单'
+      },
+      {
+        path: "/healthEducationList",
+        component: healthEducationList,
+        name: '健康宣教'
+      },
+      // {
+      //   path: '/nursingConsultation',
+      //   component: nursingConsultation,
+      //   beforeEnter: (to, from, next) => {
+      //     let nursingStaff = false
+      //     try {
+      //       nursingStaff = JSON.parse(localStorage.user).nursingStaff
+      //     } catch (e) { console.log(e) }
+      //     next(nursingStaff)
+      //   }
+      // },
+      // {
+      //   path: '/nursingConsultationStaff',
+      //   component: nursingConsultationStaff,
+      //   beforeEnter: (to, from, next) => {
+      //     let nursingStaff = false
+      //     try {
+      //       nursingStaff = JSON.parse(localStorage.user).nursingStaff
+      //     } catch (e) { console.log(e) }
+      //     next(!nursingStaff)
+      //   }
+      // }
+      {
+        path: "/sheetHospitalAdmission",
+        component: sheetHospitalAdmission,
+        children: [{
+          name: "sheetHospitalAdmissionPage",
+          path: "/sheetHospitalAdmission/:patientId?/:visitId?/:formId?",
+          component: sheetHospitalAdmissionPage
+        }]
+      },
+      {
+        path: "/sheetHospitalEval",
+        component: sheetHospitalEval,
+        children: [{
+          name: "sheetHospitalEvalPage",
+          path: "/sheetHospitalEval/:patientId?/:visitId?/:formId?",
+          component: sheetHospitalEvalPage
+        }]
+      },
+      {
+        path: "/sheetPage",
+        component: sheetPage,
+        children: [{
+          name: "sheetPage",
+          path: "/sheetPage/:patientId?/:visitId?/:formId?",
+          component: sheetPage
+        }]
+      },
+      {
+        path: "/MEWS",
+        component: MEWS
+      },
+      {
+        path: "/formPage",
+        component: formPage,
+        children: [{
+          name: "formPage",
+          path: "/formPage/:patientId?/:visitId?/:formId?",
+          component: formPage
+        }]
+      },
+      {
+        path: "/evalFormPage",
+        component: evalFormPage
+      },
+      {
+        path: "/catheterPage",
+        component: catheterPage
+      },
+      {
+        path: "/sugarPage",
+        component: sugarPage,
+        children: [{
+          name: "sugarPage",
+          path: "/sugarPage/:patientId?/:visitId?/:formId?",
+          component: sugarPage
+        }]
+      },
+      {
+        path: "/scheduling",
+        component: scheduling
+      },
+      {
+        path: "/nursingRules",
+        component: nursingRules
+      },
+      {
+        path: "/noCheckTest",
+        component: noCheckTest
+      },
+      {
+        path: "/departmentSharedFile",
+        component: departmentSharedFile
+      },
+      {
+        path: "/flatManagement",
+        component: flatManagement
+      },
+      {
+        path: "/puerperantSituation",
+        component: puerperantSituation
+      },
+      {
+        path: "/vaccineManagement",
+        component: vaccineManagement
+      },
+      {
+        path: "/deliveryRoomWhiteboard",
+        component: deliveryRoomWhiteboard
+      },
+      {
+        path: "/birthCertificate",
+        component: birthCertificate
+      },
+      {
+        path: "/birthCertificateForm",
+        component: birthCertificateForm
+      },
+      {
+        path: "/dcList",
+        component: dcList
+      },
+      {
+        path: "/nursingRounds",
+        component: nursingRounds,
+        name: '护理巡视'
+      }
+    ]
+  },
+  {
+    path: "/dev",
+    beforeEnter: (to, from, next) => {
+      window.app.$notify.info({
+        title: "提示",
+        message: "正在开发，敬请期待"
+      });
+      next(false);
+    }
+  },
+  {
+    path: "/imageView",
+    component: imageView
+  },
+  // {
+  //   path: "/autoLogin",
+  //   component: autoLogin
+  // },
+  {
+    path: "/print/:type",
+    component: print
+  },
+  {
+    path: "/indexXin",
+    component: indexXin
+  },
+  {
+    path: "/toPdfPrint",
+    component: toPdfPrint
+  },
+
+  {
+    path: "*",
+    component: NotFoundComponent
+  }
   ]
 });
 
