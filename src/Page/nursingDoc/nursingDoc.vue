@@ -36,7 +36,10 @@ export default {
     toLogin() {
       console.log(this.isDev);
       let account = "admin",
-        password = this.isDev ? "123456" : "ad123456";
+        password =
+          this.isDev || window.location.host == "120.25.105.45:9867"
+            ? "123456"
+            : "ad123456";
       login(account, password)
         .then(res => {
           // 存下token 和用户信息 Auth-Token-Nursing
