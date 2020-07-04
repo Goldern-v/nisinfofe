@@ -288,6 +288,12 @@ function switechSheetType(type) {
         schema = require("../config/ccu_wx/tr.js").default;
       }
       break;
+    case "newborn_wx":
+      {
+        // 威县-产科新生儿
+        schema = require("../config/newborn_wx/tr.js").default;
+      }
+      break;
     case "cpr":
       {
         // cpr心肺复苏单（心血管内科）

@@ -24,7 +24,7 @@
         />
       </div>
       <div class="filterItem">
-        <!-- <span class="type-label">状态:</span>
+        <span class="type-label">状态:</span>
         <el-select
           v-model="isSelectedStatus"
           size="small"
@@ -33,7 +33,7 @@
         >
           <el-option value>全部</el-option>
           <el-option :key="item.id" v-for="item in statusList" :value="item.name">{{item.name}}</el-option>
-        </el-select>-->
+        </el-select>
         <button @click.stop="search">查询</button>
       </div>
     </div>

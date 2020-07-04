@@ -311,6 +311,14 @@ export default function Title(data = [], autoData = [], index) {
         );
       }
       break;
+    case "newborn_wx":
+      {
+        // 威县-产科新生儿
+        Th = JSON.parse(
+          JSON.stringify(require("../config/newborn_wx/th").default)
+        );
+      }
+      break;
     case "cpr":
       {
         // cpr心肺复苏单（心血管内科）
