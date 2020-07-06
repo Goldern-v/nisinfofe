@@ -61,14 +61,15 @@ export default {
     dangerInYachuang: Array,
     hasYachuang: Array,
     isToadyHosipital: Array,
-    MEWS: Array
+    MEWS: Array,
+    isFever: Array
   },
   data() {
     return {};
   },
   computed: {
     list() {
-      return [
+      let arr = [
         {
           key: "跌倒高风险",
           length: this.dangerInMorse.length
@@ -107,6 +108,13 @@ export default {
           length: this.MEWS.length
         }
       ];
+      if (this.HOSPITAL_ID == "lingcheng") {
+        arr.push({
+          key: "发热",
+          length: this.isFever.length
+        });
+      }
+      return arr;
     }
   },
   methods: {

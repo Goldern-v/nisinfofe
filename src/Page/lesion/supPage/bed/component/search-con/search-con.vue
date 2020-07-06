@@ -95,6 +95,7 @@
         :isToadyHosipital="isToadyHosipital"
         :hasYachuang="hasYachuang"
         :MEWS="MEWS"
+        :isFever="isFever"
       ></footerBar>
     </div>
   </div>
@@ -357,6 +358,10 @@ export default {
     // MEWS预警
     MEWS() {
       return this.bedList.filter(item => item.dangerInMews);
+    },
+    // 发热
+    isFever() {
+      return this.bedList.filter(item => item.isFever == "1");
     },
 
     scf() {
@@ -707,6 +712,11 @@ export default {
         case "欠费患者":
           {
             this.$parent.bedList = this.qfhz;
+          }
+          break;
+        case "发热":
+          {
+            this.$parent.bedList = this.isFever;
           }
           break;
         default: {
