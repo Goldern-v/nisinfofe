@@ -349,6 +349,16 @@ export default {
       let wid = this.$refs.iframeV2.contentWindow;
       this.wid = this.$refs.iframeV2.contentWindow;
       this.wid.onmessage = this.onmessage;
+
+      // 医生查看患者详情
+      if (
+        this.$route.path.includes("showPatientDetails") &&
+        wid.document.querySelector(".tool-contain")
+      ) {
+        wid.document.querySelector(".tool-contain").style = "display:none;";
+        wid.document.querySelector("#app .form").style = "padding-top:20px;";
+      }
+
       //
       try {
         // if (wid.formInfo.nooForm == "1") {
@@ -464,15 +474,24 @@ export default {
         });
       }
 
-      //
-      // try {
-      //   if (wid.formInfo.nooForm == "1") {
-      //     this.bus.$emit("openAssessmentBoxWidthVersion", { nooForm: "1" });
-      //     return;
-      //   }
-      // } catch (error) {}
-
-      //
+      // 医生查看患者详情
+      if (window.location.href.includes("showPatientDetails")) {
+        this.$nextTick(() => {
+          let css = `#app input,#app label{
+              pointer-events: none !important;
+          }`;
+          var style = document.createElement("style");
+          style.type = "text/css";
+          try {
+            style.appendChild(document.createTextNode(css));
+          } catch (ex) {
+            style.styleSheet.cssText = css; //针对IE
+          }
+          var head = wid.document.querySelector("head");
+          head.appendChild(style);
+          this.onFormLoaded();
+        });
+      }
     },
     cleanAllMark(str = "") {
       try {
