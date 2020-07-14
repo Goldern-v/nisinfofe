@@ -954,6 +954,7 @@ export default {
           css: `
         .fixedTh {
           display: none !important;
+          height: auto;
         }
         pre {
           white-space: pre-wrap;
