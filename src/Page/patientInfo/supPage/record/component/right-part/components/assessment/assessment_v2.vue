@@ -370,6 +370,12 @@ export default {
         // ).innerText = this.hospitalNameSpace;
         this.wid.formInfo.hospital = this.hospitalNameSpace;
         console.info("onFormLoaded:hospital", this.wid.formInfo);
+        if (
+          this.HOSPITAL_ID == "hj" &&
+          this.$route.path.includes("showPatientDetails")
+        ) {
+          this.wid.formInfo.hospital = "";
+        }
       } catch (error) {
         console.info("onFormLoaded", error);
       }

@@ -40,6 +40,13 @@ export default {
           this.isDev || window.location.host == "120.25.105.45:9867"
             ? "123456"
             : "ad123456";
+
+      if (this.HOSPITAL_ID == "hj") {
+        password =
+          this.isDev || window.location.host == "120.25.105.45:9866"
+            ? "ad123456"
+            : "Chenrui2019";
+      }
       login(account, password)
         .then(res => {
           // 存下token 和用户信息 Auth-Token-Nursing

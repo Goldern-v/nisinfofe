@@ -479,6 +479,16 @@ export default {
           }
           console.log(this.regions);
 
+          if (
+            this.HOSPITAL_ID == "hj" &&
+            window.location.href.includes("showPatientDetails")
+          ) {
+            let obj = this.regions.find(item => {
+              return item.formCode == "E0064";
+            });
+            this.regions = [obj];
+          }
+
           // console.log(list_1, "list_1list_1list_1");
         })
         .then(res => {
