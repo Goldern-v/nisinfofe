@@ -23,25 +23,27 @@
         @mouseover="overflow='auto'"
         @mouseout="overflow='hidden'"
       >
-        <div class="list2-li">护理单元：{{info.wardName}}</div>
-        <div class="list2-li">床号：{{info.bedLabel}}</div>
-        <div class="list2-li">病情：{{info.patientCondition}}</div>
-        <div class="list2-li">护理：{{info.nursingClass}}</div>
-        <div class="list2-li">费别：{{info.chargeType || '--'}}</div>
-        <div class="line-boder"></div>
-        <div class="list2-li">科室：{{info.deptName}}</div>
-        <div class="list2-li">入院：{{info.admissionDate}}(第{{info.inpDay}}天)</div>
-        <div class="list2-li">医生：{{info.doctorInCharge}}</div>
-        <div class="list2-li over-text" :title="info.diagnosis">诊断：{{info.diagnosis}}</div>
-        <div class="print-btn" flex="cross:center main:center" @click="openBedPrint">打印床头卡</div>
-        <div
-          class="print-btn"
-          flex="cross:center main:center"
-          @click="openPrintModal"
-          v-if="HOSPITAL_ID == 'weixian'"
-        >
-          <span>归档打印</span>
-          <span v-if="printArchiveMaster.statusDesc">{{'（'+ printArchiveMaster.statusDesc +'）'}}</span>
+        <div class="box-content">
+          <div class="list2-li">护理单元：{{info.wardName}}</div>
+          <div class="list2-li">床号：{{info.bedLabel}}</div>
+          <div class="list2-li">病情：{{info.patientCondition}}</div>
+          <div class="list2-li">护理：{{info.nursingClass}}</div>
+          <div class="list2-li">费别：{{info.chargeType || '--'}}</div>
+          <div class="line-boder"></div>
+          <div class="list2-li">科室：{{info.deptName}}</div>
+          <div class="list2-li">入院：{{info.admissionDate}}(第{{info.inpDay}}天)</div>
+          <div class="list2-li">医生：{{info.doctorInCharge}}</div>
+          <div class="list2-li over-text" :title="info.diagnosis">诊断：{{info.diagnosis}}</div>
+          <div class="print-btn" flex="cross:center main:center" @click="openBedPrint">打印床头卡</div>
+          <div
+            class="print-btn"
+            flex="cross:center main:center"
+            @click="openPrintModal"
+            v-if="HOSPITAL_ID == 'weixian'"
+          >
+            <span>归档打印</span>
+            <span v-if="printArchiveMaster.statusDesc">{{'（'+ printArchiveMaster.statusDesc +'）'}}</span>
+          </div>
         </div>
       </div>
       <div
@@ -149,6 +151,10 @@
 
 .list2-box {
   margin: 14px 10px 14px 20px;
+
+  .box-content {
+    padding-bottom: 40px;
+  }
 
   .list2-li {
     margin-bottom: 7px;
