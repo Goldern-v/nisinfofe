@@ -1,16 +1,11 @@
 import axios from "./axios";
 import qs from "qs";
-import {
-  apiPath
-} from "./apiConfig";
+import { apiPath } from "./apiConfig";
 import sheetInfo from "../Page/sheet-page/components/config/sheetInfo/";
 export const saveBody = (patientId, visitId, data) => {
   data.patientId = patientId;
   data.visitId = visitId;
   data.blockId = sheetInfo.selectBlock.id;
-  if (sheetInfo.sheetType == 'com_lc') {
-    data.auditorMap = sheetInfo.auditorMap;
-  }
   return axios.post(`${apiPath}record/${sheetInfo.sheetType}/saveAll`, data);
 };
 export const showBody = (patientId, visitId) => {
@@ -82,15 +77,12 @@ export const markList = (patientId, visitId) => {
   );
 };
 
-
 // 新建护理（切割护理记录单）
 export const splitRecordBlock = (empNo, password = "", recordDate) => {
-  return axios.post(
-    `${apiPath}record/block/splitRecordBlock`, {
-      empNo,
-      password,
-      blockId: sheetInfo.selectBlock.id,
-      recordDate
-    }
-  );
+  return axios.post(`${apiPath}record/block/splitRecordBlock`, {
+    empNo,
+    password,
+    blockId: sheetInfo.selectBlock.id,
+    recordDate
+  });
 };

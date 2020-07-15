@@ -18,15 +18,29 @@ function decode() {
     }
     allData = [...allData, ...result];
   }
-  
+
   // 血液净化护理单
-  if (sheetInfo.sheetType == "blood_purification" && window.getRelObj && window.getRelObj.constructor == Function) {
+  if (
+    sheetInfo.sheetType == "blood_purification" &&
+    window.getRelObj &&
+    window.getRelObj.constructor == Function
+  ) {
     sheetInfo.relObj = window.getRelObj() || sheetInfo.relObj;
+  }
+
+  // 审核签名数据
+  let auditorMapData = {};
+  if (
+    process.env.HOSPITAL_ID == "lingcheng" ||
+    process.env.HOSPITAL_ID == "huadu"
+  ) {
+    auditorMapData.auditorMap = sheetInfo.auditorMap;
   }
 
   return {
     list: allData,
-    relObj: renderRelObj(sheetInfo.relObj)
+    relObj: renderRelObj(sheetInfo.relObj),
+    ...auditorMapData
   };
 }
 

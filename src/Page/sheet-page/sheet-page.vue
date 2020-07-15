@@ -473,14 +473,13 @@ export default {
     });
     this.bus.$on("saveSheetPage", (isInitSheetPageSize = true) => {
       let save = () => {
-        isInitSheetPageSize =
-          isInitSheetPageSize == "noSaveSign" ? false : isInitSheetPageSize;
-        if (
-          isInitSheetPageSize == "noSaveSign" &&
-          sheetInfo.sheetType == "com_lc"
-        ) {
+        // 审核签名（头部保存按钮auditorMap传空对象，不去修改审核签名数据，避免跨窗口审核签名丢失）
+        if (isInitSheetPageSize == "noSaveSign") {
           sheetInfo.auditorMap = {};
         }
+        isInitSheetPageSize =
+          isInitSheetPageSize == "noSaveSign" ? false : isInitSheetPageSize;
+
         this.pageLoading = true;
         this.scrollTop = this.$refs.scrollCon.scrollTop;
         saveBody(this.patientInfo.patientId, this.patientInfo.visitId, decode())

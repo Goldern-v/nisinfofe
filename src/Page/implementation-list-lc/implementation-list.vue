@@ -198,7 +198,7 @@ export default {
         },
         {
           id: 4,
-          name: "结束输液（已完成）"
+          name: "已完成"
         }
       ],
       allStatus: [
@@ -212,7 +212,7 @@ export default {
         },
         {
           id: 4,
-          name: "结束输液（已完成）"
+          name: "已完成"
         }
       ],
       allType: [

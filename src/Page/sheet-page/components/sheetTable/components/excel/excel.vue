@@ -1012,7 +1012,11 @@ export default {
         tab,
         isLast
       };
-      if (this.HOSPITAL_ID == "weixian" || this.HOSPITAL_ID == "lingcheng") {
+      if (
+        this.HOSPITAL_ID == "weixian" ||
+        this.HOSPITAL_ID == "lingcheng" ||
+        this.HOSPITAL_ID == "huadu"
+      ) {
         window.openSpecialModal2(config);
       } else {
         window.openSpecialModal(config);
