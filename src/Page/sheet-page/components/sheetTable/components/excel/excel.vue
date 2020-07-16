@@ -226,13 +226,25 @@
       备注 1.肌张力:M(正常) H(高) L(低) 2.肤色:P1(红润) J(黄染) F(潮红) C(紫绀)
       P2(苍白) M(花斑) 3.体位:S(平卧) L(左侧) R(右侧) P(俯卧)
     </div>
+    <div v-if="sheetInfo.sheetType == 'stress_injury_hd'" style="font-size: 13px; margin-top: -5px">
+      备注:
+      <span>(1)分期请用对应的数字进行记录:1(1期);2(2期);3(3期);4(4期);5(深部组织损伤期);6(不可分期)。</span>
+      <p style="margin:5px 0 0 42px;">(2)评估时机:1、2期压力性损伤每周评估记录;3期以上至少三天评估记录;伤口渗液多或有特殊变化随时评估记录。</p>
+    </div>
+    <div v-if="sheetInfo.sheetType == 'common_hd'" style="font-size: 13px; margin-top: -5px">
+      备注:(1)、健康教育：1.入院及相关疾病知识宣教、2.探视、陪护制度宣教、3.安全告知、4.检查宣教、5.饮食宣教、6.用药宣教、7.特殊治疗护理操作前宣教、
+      8.术前宣教、9.术后宣教、10.禁食、11.卧床休息、12.床上活动、13.离床活动、14.出院指导
+    </div>
     <div class="table-footer">
       第 {{ index + sheetStartPage }} 页
       <span
         class="sh-name"
-        v-if="sheetInfo.sheetType=='com_lc' || sheetInfo.sheetType=='icu_lc'"
+        v-if="sheetInfo.sheetType=='com_lc' || sheetInfo.sheetType=='icu_lc' || sheetInfo.sheetType=='common_hd' || sheetInfo.sheetType=='stress_injury_hd'"
       >
-        审核人：
+        <span v-if="sheetInfo.sheetType=='com_lc' || sheetInfo.sheetType=='icu_lc' ">审核人：</span>
+        <span
+          v-else-if=" sheetInfo.sheetType=='common_hd' || sheetInfo.sheetType=='stress_injury_hd' "
+        >上级护士签名：</span>
         <span class="sh-name-box">
           <div class="sign-null-box" @click="openAduitModal" v-if="!auditorNo"></div>
           <div class="sign-in-box" v-else @click="cancelAduitModal">
