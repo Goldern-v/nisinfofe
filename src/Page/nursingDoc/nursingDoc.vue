@@ -14,6 +14,7 @@ export default {
     };
   },
   mounted() {
+    // 医生查看病人评估单&记录单（陵城） 查看病人病历、检查、检验（厚街合理用药）
     let url = this.$route.query;
     var token =
       (window.app && window.app.$getCookie("NURSING_USER").split("##")[1]) ||
@@ -21,9 +22,42 @@ export default {
     if (!token) {
       this.toLogin();
     } else {
-      let type = url.viewType == "doc" ? "record" : "sheet",
+      let type,
         patientId = url.patientId,
         visitId = url.visitId || "all";
+      switch (url.viewType) {
+        case "doc":
+          {
+            type = "record";
+          }
+          break;
+        case "record":
+          {
+            type = "sheet";
+          }
+          break;
+        case "doctorEmr":
+          {
+            type = "doctorEmr";
+          }
+          break;
+        case "inspect":
+          {
+            type = "inspect";
+          }
+          break;
+        case "test":
+          {
+            type = "test";
+          }
+          break;
+        default: {
+          type = "record";
+        }
+      }
+      if (this.HOSPITAL_ID == "hj" && (type == "record" || type == "sheet")) {
+        return;
+      }
       this.$router.push(
         `/showPatientDetails/${type}?patientId=` +
           patientId +
@@ -33,6 +67,7 @@ export default {
     }
   },
   methods: {
+    // 医生查看病人评估单&记录单（陵城） 查看病人病历、检查、检验（厚街合理用药）
     toLogin() {
       console.log(this.isDev);
       let account = "admin",
@@ -63,9 +98,45 @@ export default {
             }
           );
           let url = this.$route.query;
-          let type = url.viewType == "doc" ? "record" : "sheet",
+          let type,
             patientId = url.patientId,
             visitId = url.visitId || "all";
+          switch (url.viewType) {
+            case "doc":
+              {
+                type = "record";
+              }
+              break;
+            case "record":
+              {
+                type = "sheet";
+              }
+              break;
+            case "doctorEmr":
+              {
+                type = "doctorEmr";
+              }
+              break;
+            case "inspect":
+              {
+                type = "inspect";
+              }
+              break;
+            case "test":
+              {
+                type = "test";
+              }
+              break;
+            default: {
+              type = "record";
+            }
+          }
+          if (
+            this.HOSPITAL_ID == "hj" &&
+            (type == "record" || type == "sheet")
+          ) {
+            return;
+          }
           let timeId = setTimeout(() => {
             clearTimeout(timeId);
             this.$router.push(
