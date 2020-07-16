@@ -44,12 +44,12 @@
       </el-table-column>
       <el-table-column prop="visitContent" label="巡视内容" min-width="300px"></el-table-column>
       <el-table-column prop="operator" label="巡视护士" min-width="80px" align="center"></el-table-column>
-      <el-table-column prop="操作" label="操作" align="center" min-width="80px" v-if="isAuditor">
+      <!-- <el-table-column prop="操作" label="操作" align="center" min-width="80px" v-if="isAuditor">
         <template slot-scope="scope">
           <span class="btn-text" @click="openViewModal(scope.row)">修改</span>
           <span class="btn-text" @click="deleteData(scope.row.serialNo)">删除</span>
         </template>
-      </el-table-column>
+      </el-table-column>-->
     </el-table>
     <nursingRoundsModal ref="nursingRoundsModal" :getData="getData"></nursingRoundsModal>
   </div>
