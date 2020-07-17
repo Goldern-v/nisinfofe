@@ -244,7 +244,7 @@ export default {
         },
         {
           id: 4,
-          name: "结束输液"
+          name: "已完成"
         }
       ];
       let status = parseInt(val);
