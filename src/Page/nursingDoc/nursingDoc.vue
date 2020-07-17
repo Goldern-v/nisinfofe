@@ -55,7 +55,7 @@ export default {
           type = "record";
         }
       }
-      if (this.HOSPITAL_ID == "hj" && (type == "record" || type == "sheet")) {
+      if (this.HOSPITAL_ID == "hj" && type == "sheet") {
         return;
       }
       this.$router.push(
@@ -131,10 +131,7 @@ export default {
               type = "record";
             }
           }
-          if (
-            this.HOSPITAL_ID == "hj" &&
-            (type == "record" || type == "sheet")
-          ) {
+          if (this.HOSPITAL_ID == "hj" && type == "sheet") {
             return;
           }
           let timeId = setTimeout(() => {
