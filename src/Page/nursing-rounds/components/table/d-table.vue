@@ -44,7 +44,14 @@
       </el-table-column>
       <el-table-column prop="visitContent" label="巡视内容" min-width="300px"></el-table-column>
       <el-table-column prop="operator" label="巡视护士" min-width="80px" align="center"></el-table-column>
+      <!-- <el-table-column prop="操作" label="操作" align="center" min-width="80px" v-if="isAuditor">
+        <template slot-scope="scope">
+          <span class="btn-text" @click="openViewModal(scope.row)">修改</span>
+          <span class="btn-text" @click="deleteData(scope.row.serialNo)">删除</span>
+        </template>
+      </el-table-column>-->
     </el-table>
+    <nursingRoundsModal ref="nursingRoundsModal" :getData="getData"></nursingRoundsModal>
   </div>
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
@@ -100,6 +107,15 @@
   >>>.el-table__body-wrapper {
     // overflow-x hidden
   }
+
+  .btn-text {
+    color: #4bb08d;
+    cursor: pointer;
+
+    &:hover {
+      font-weight: bold;
+    }
+  }
 }
 </style>
 <script>
@@ -107,10 +123,13 @@ import { info } from "@/api/task";
 import commonMixin from "../../../../common/mixin/common.mixin";
 import qs from "qs";
 import moment from "moment";
+import nursingRoundsModal from "../modal/nursingRoundsModal";
+import { deleteOperateDateLingChen } from "../../api/index";
 export default {
   props: {
     tableData: Array,
-    pageLoadng: Boolean
+    pageLoadng: Boolean,
+    getData: Function
   },
   mixins: [commonMixin],
   data() {
@@ -123,6 +142,39 @@ export default {
       return val ? moment(val).format("YYYY-MM-DD HH:mm:ss") : val;
     }
   },
-  components: {}
+  methods: {
+    openViewModal(data) {
+      this.$refs.nursingRoundsModal.open(data);
+    },
+    deleteData(serialNo) {
+      this.$confirm(`确定要删除该条数据吗`, "提示", {
+        confirmButtonText: "确认",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
+        .then(async () => {
+          await deleteOperateDateLingChen({ serialNo })
+            .then(res => {
+              this.$message({
+                type: "success",
+                message: "删除成功"
+              });
+            })
+            .catch(() => {
+              this.$message({
+                type: "info",
+                message: "删除失败"
+              });
+            });
+          this.getData();
+        })
+        .catch(() => {
+          console.log("删除取消");
+        });
+    }
+  },
+  components: {
+    nursingRoundsModal
+  }
 };
 </script>

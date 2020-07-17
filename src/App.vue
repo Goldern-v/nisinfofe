@@ -180,9 +180,10 @@ export default {
     window.closeCaSignModal = () => {
       this.$refs.caSignModal.close();
     };
-
     /** 关闭前提示 */
     !this.isDev &&
+      !window.location.href.includes("nursingDoc") &&
+      !window.location.href.includes("showPatientDetails") &&
       (window.onbeforeunload = function(event) {
         console.log(event, "eventevent");
         return confirm("");

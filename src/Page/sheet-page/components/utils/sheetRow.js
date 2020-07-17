@@ -8,7 +8,10 @@ export function getRowNum(index) {
     } else {
       return 27;
     }
-  } else if (sheetInfo.sheetType == "post_partum" || sheetInfo.sheetType == "dressing_count") {
+  } else if (
+    sheetInfo.sheetType == "post_partum" ||
+    sheetInfo.sheetType == "dressing_count"
+  ) {
     if (index === 0) {
       return 21;
     } else {
@@ -24,10 +27,12 @@ export function getRowNum(index) {
     }
   } else if (sheetInfo.sheetType == "com_lc") {
     return 22;
-  } else if (sheetInfo.sheetType == 'Record_Children_Serious_Lc') {
+  } else if (sheetInfo.sheetType == "Record_Children_Serious_Lc") {
     return 28;
-  } else if (sheetInfo.sheetType == 'icu_lc') {
+  } else if (sheetInfo.sheetType == "icu_lc") {
     return 22;
+  } else if (sheetInfo.sheetType == "special") {
+    return 23;
   } else {
     return 17;
   }

@@ -29,7 +29,7 @@
         ></el-input>
         <el-button size="small" type="primary" @click="search">查询</el-button>
       </div>
-      <dTable :tableData="tableData" :pageLoadng="pageLoadng"></dTable>
+      <dTable :tableData="tableData" :pageLoadng="pageLoadng" :getData="onLoad"></dTable>
       <div class="pagination-con" flex="main:justify cross:center">
         <pagination
           :pageIndex="query.pageIndex"
