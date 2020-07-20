@@ -23,7 +23,7 @@
         <div style="flex: 1"></div>
         <el-button
           size="small"
-          v-if="isAuditor"
+          v-if="isAdminOrNursingDepartment"
           @click="openViewModal"
           style="margin-right: 15px;"
         >权限分配</el-button>

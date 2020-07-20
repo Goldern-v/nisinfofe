@@ -105,6 +105,7 @@ export default {
             });
           })
           .catch(() => {
+            this.loading = false;
             this.$message({
               type: "info",
               message: "修改失败"
