@@ -105,9 +105,10 @@ export default {
             });
           })
           .catch(() => {
+            this.loading = false;
             this.$message({
               type: "info",
-              message: "删除失败"
+              message: "修改失败"
             });
           });
         this.$refs.sweetModal.close();

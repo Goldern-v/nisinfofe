@@ -16,7 +16,7 @@ function number_format(number, decimals, dec_point, thousands_sep) {
     sep = typeof thousands_sep === "undefined" ? "," : thousands_sep,
     dec = typeof dec_point === "undefined" ? "." : dec_point,
     s = "",
-    toFixedFix = function (n, prec) {
+    toFixedFix = function(n, prec) {
       var k = Math.pow(10, prec);
       return "" + Math.ceil(n * k) / k;
     };
@@ -95,17 +95,17 @@ export default {
     empNo() {
       try {
         return JSON.parse(localStorage.user).empNo;
-      } catch (error) { }
+      } catch (error) {}
     },
     empName() {
       try {
         return JSON.parse(localStorage.user).empName;
-      } catch (error) { }
+      } catch (error) {}
     },
     userInfo() {
       try {
         return JSON.parse(localStorage.user);
-      } catch (error) { }
+      } catch (error) {}
     },
     isDev() {
       return process.env.NODE_ENV === "development";
@@ -114,6 +114,28 @@ export default {
     isAuditor() {
       try {
         return JSON.parse(localStorage.user).nursingStaff;
+      } catch (error) {
+        return false;
+      }
+    },
+    // 管理员 护理部
+    isAdminOrNursingDepartment() {
+      try {
+        let isOk = JSON.parse(localStorage.user).post.indexOf("护理部") != -1;
+        return isOk;
+      } catch (error) {
+        return false;
+      }
+    },
+    // 护理巡视操作权限
+    isNursingRoundsAuthority() {
+      try {
+        let isOk = JSON.parse(localStorage.user).roleManageCodeList
+          ? JSON.parse(localStorage.user).roleManageCodeList.filter(
+              item => item == "LC_XS_001"
+            )
+          : [];
+        return isOk.length > 0 ? true : false;
       } catch (error) {
         return false;
       }
