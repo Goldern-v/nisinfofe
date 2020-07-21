@@ -46,8 +46,14 @@
       <el-table-column prop="operator" label="巡视护士" min-width="80px" align="center"></el-table-column>
       <el-table-column prop="操作" label="操作" align="center" min-width="80px">
         <template slot-scope="scope">
-          <span class="btn-text" @click="openViewModal(scope.row)">修改</span>
-          <span class="btn-text" @click="deleteData(scope.row.serialNo)">删除</span>
+          <span
+            :class="scope.row.num == '0' ? 'no-special' : 'btn-text'"
+            @click="scope.row.num == '0' ? () => {} : openViewModal(scope.row)"
+          >修改</span>
+          <span
+            :class="scope.row.num == '0' ? 'no-special' : 'btn-text'"
+            @click="scope.row.num == '0' ? () => {} : deleteData(scope.row.serialNo)"
+          >删除</span>
         </template>
       </el-table-column>
     </el-table>
@@ -114,8 +120,11 @@
 
     &:hover {
       font-weight: bold;
-      // v-if="isNursingRoundsAuthority"
     }
+  }
+
+  .no-special {
+    color: #ccc;
   }
 }
 </style>
