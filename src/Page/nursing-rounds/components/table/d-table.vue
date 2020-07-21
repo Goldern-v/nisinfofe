@@ -44,7 +44,13 @@
       </el-table-column>
       <el-table-column prop="visitContent" label="巡视内容" min-width="300px"></el-table-column>
       <el-table-column prop="operator" label="巡视护士" min-width="80px" align="center"></el-table-column>
-      <el-table-column prop="操作" label="操作" align="center" min-width="80px">
+      <el-table-column
+        prop="操作"
+        label="操作"
+        align="center"
+        min-width="80px"
+        v-if="isNursingRoundsAuthority"
+      >
         <template slot-scope="scope">
           <span
             :class="scope.row.num == '0' ? 'no-special' : 'btn-text'"
