@@ -34,12 +34,12 @@
       <!-- <router-link :to="{path:'/catheter', query: {patientId:query.patientId, visitId: query.visitId}}" tag="span">
         <div class="nav-item">导管</div>
       </router-link>-->
-      <!-- <router-link
+      <router-link
         :to="{path:'/diagnosis', query: {patientId:query.patientId, visitId: query.visitId}}"
         tag="span"
       >
         <div class="nav-item">护理诊断计划</div>
-      </router-link>-->
+      </router-link>
       <router-link
         :to="{path:'/bloodSugar', query: {patientId:query.patientId, visitId: query.visitId}}"
         tag="span"
