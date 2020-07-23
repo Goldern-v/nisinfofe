@@ -3,29 +3,26 @@ import sheetInfo from "../config/sheetInfo/index";
 export default function Title(data = [], autoData = [], index) {
   let Th;
   switch (sheetInfo.sheetType) {
-    case "special":
-      {
-        // 陵城外一科 特别护理单
-        Th = JSON.parse(
-          JSON.stringify(require("../config/tbhld_lc/th").default)
-        )
-      }
+    case "special": {
+      // 陵城外一科 特别护理单
+      Th = JSON.parse(
+        JSON.stringify(require("../config/tbhld_lc/th").default)
+      )
+    }
       break;
-    case "icu_lc":
-      {
-        // 内科重症医学科
-        Th = JSON.parse(
-          JSON.stringify(require("../config/nkzzyxk_lc/th").default)
-        );
-      }
+    case "icu_lc": {
+      // 内科重症医学科
+      Th = JSON.parse(
+        JSON.stringify(require("../config/nkzzyxk_lc/th").default)
+      );
+    }
       break;
-    case "com_lc":
-      {
-        // 外科重症医学科
-        Th = JSON.parse(
-          JSON.stringify(require("../config/wkzzyxk_lc/th").default)
-        );
-      }
+    case "com_lc": {
+      // 外科重症医学科
+      Th = JSON.parse(
+        JSON.stringify(require("../config/wkzzyxk_lc/th").default)
+      );
+    }
       break;
     case "newborn_lc": {
       //  陵城区新生儿科 里的 新生儿监护
@@ -41,165 +38,145 @@ export default function Title(data = [], autoData = [], index) {
       );
     }
       break;
-    case "neurology":
-      {
-        // 神经内科
-        Th = JSON.parse(
-          JSON.stringify(require("../config/neurology/th").default)
-        );
-      }
+    case "neurology": {
+      // 神经内科
+      Th = JSON.parse(
+        JSON.stringify(require("../config/neurology/th").default)
+      );
+    }
       break;
-    case "obstetrics":
-      {
-        // 产科
-        Th = JSON.parse(
-          JSON.stringify(require("../config/obstetrics/th").default)
-        );
-      }
+    case "obstetrics": {
+      // 产科
+      Th = JSON.parse(
+        JSON.stringify(require("../config/obstetrics/th").default)
+      );
+    }
       break;
-    case "neurosurgery":
-      {
-        // 神经外科
-        Th = JSON.parse(
-          JSON.stringify(require("../config/neurosurgery/th").default)
-        );
-      }
+    case "neurosurgery": {
+      // 神经外科
+      Th = JSON.parse(
+        JSON.stringify(require("../config/neurosurgery/th").default)
+      );
+    }
       break;
-    case "burn_plastic":
-      {
-        // 烧伤整形科护理
-        Th = JSON.parse(
-          JSON.stringify(require("../config/burn_plastic/th").default)
-        );
-      }
+    case "burn_plastic": {
+      // 烧伤整形科护理
+      Th = JSON.parse(
+        JSON.stringify(require("../config/burn_plastic/th").default)
+      );
+    }
       break;
-    case "general_surgery":
-      {
-        // 普外科
-        Th = JSON.parse(
-          JSON.stringify(require("../config/general_surgery/th").default)
-        );
-      }
+    case "general_surgery": {
+      // 普外科
+      Th = JSON.parse(
+        JSON.stringify(require("../config/general_surgery/th").default)
+      );
+    }
       break;
-    case "gynecology":
-      {
-        // 妇科
-        Th = JSON.parse(
-          JSON.stringify(require("../config/default/th").default)
-        );
-      }
+    case "gynecology": {
+      // 妇科
+      Th = JSON.parse(
+        JSON.stringify(require("../config/default/th").default)
+      );
+    }
       break;
-    case "infectious_diseases":
-      {
-        // 感染科
-        Th = JSON.parse(
-          JSON.stringify(require("../config/default/th").default)
-        );
-      }
+    case "infectious_diseases": {
+      // 感染科
+      Th = JSON.parse(
+        JSON.stringify(require("../config/default/th").default)
+      );
+    }
       break;
-    case "orthopedics":
-      {
-        // 骨科
-        Th = JSON.parse(
-          JSON.stringify(require("../config/orthopedics/th").default)
-        );
-      }
+    case "orthopedics": {
+      // 骨科
+      Th = JSON.parse(
+        JSON.stringify(require("../config/orthopedics/th").default)
+      );
+    }
       break;
-    case "micro_surgery":
-      {
-        // 显微手足科
-        Th = JSON.parse(
-          JSON.stringify(require("../config/orthopedics/th").default)
-        );
-      }
+    case "micro_surgery": {
+      // 显微手足科
+      Th = JSON.parse(
+        JSON.stringify(require("../config/orthopedics/th").default)
+      );
+    }
       break;
-    case "respiration":
-      {
-        // 呼吸科
-        Th = JSON.parse(
-          JSON.stringify(require("../config/default/th").default)
-        );
-      }
+    case "respiration": {
+      // 呼吸科
+      Th = JSON.parse(
+        JSON.stringify(require("../config/default/th").default)
+      );
+    }
       break;
-    case "emergency":
-      {
-        // 急诊科
-        Th = JSON.parse(
-          JSON.stringify(require("../config/default/th").default)
-        );
-      }
+    case "emergency": {
+      // 急诊科
+      Th = JSON.parse(
+        JSON.stringify(require("../config/default/th").default)
+      );
+    }
       break;
-    case "urology":
-      {
-        // 泌尿科
-        Th = JSON.parse(
-          JSON.stringify(require("../config/urology/th").default)
-        );
-      }
+    case "urology": {
+      // 泌尿科
+      Th = JSON.parse(
+        JSON.stringify(require("../config/urology/th").default)
+      );
+    }
       break;
-    case "endocrinology":
-      {
-        // 内分泌科
-        Th = JSON.parse(
-          JSON.stringify(require("../config/default/th").default)
-        );
-      }
+    case "endocrinology": {
+      // 内分泌科
+      Th = JSON.parse(
+        JSON.stringify(require("../config/default/th").default)
+      );
+    }
       break;
-    case "burn":
-      {
-        // 烧伤科
-        Th = JSON.parse(JSON.stringify(require("../config/burn/th").default));
-      }
+    case "burn": {
+      // 烧伤科
+      Th = JSON.parse(JSON.stringify(require("../config/burn/th").default));
+    }
       break;
-    case "ear_nose_throat":
-      {
-        // 耳喉鼻科
-        Th = JSON.parse(
-          JSON.stringify(require("../config/default/th").default)
-        );
-      }
+    case "ear_nose_throat": {
+      // 耳喉鼻科
+      Th = JSON.parse(
+        JSON.stringify(require("../config/default/th").default)
+      );
+    }
       break;
-    case "reha_medicin":
-      {
-        // 康复医学科
-        Th = JSON.parse(
-          JSON.stringify(require("../config/default/th").default)
-        );
-      }
+    case "reha_medicin": {
+      // 康复医学科
+      Th = JSON.parse(
+        JSON.stringify(require("../config/default/th").default)
+      );
+    }
       break;
-    case "medicine_cardiovascular":
-      {
-        // 心血管内科
-        Th = JSON.parse(
-          JSON.stringify(
-            require("../config/medicine_cardiovascular/th").default
-          )
-        );
-      }
+    case "medicine_cardiovascular": {
+      // 心血管内科
+      Th = JSON.parse(
+        JSON.stringify(
+          require("../config/medicine_cardiovascular/th").default
+        )
+      );
+    }
       break;
-    case "neonatology":
-      {
-        // 产科 里的 新生儿科
-        Th = JSON.parse(
-          JSON.stringify(require("../config/neonatology/th").default)
-        );
-      }
+    case "neonatology": {
+      // 产科 里的 新生儿科
+      Th = JSON.parse(
+        JSON.stringify(require("../config/neonatology/th").default)
+      );
+    }
       break;
-    case "neonatology2":
-      {
-        // 新生儿科 里的 新生儿科
-        Th = JSON.parse(
-          JSON.stringify(require("../config/neonatology2/th").default)
-        );
-      }
+    case "neonatology2": {
+      // 新生儿科 里的 新生儿科
+      Th = JSON.parse(
+        JSON.stringify(require("../config/neonatology2/th").default)
+      );
+    }
       break;
-    case "hemodialysis":
-      {
-        // 血透室
-        Th = JSON.parse(
-          JSON.stringify(require("../config/default/th").default)
-        );
-      }
+    case "hemodialysis": {
+      // 血透室
+      Th = JSON.parse(
+        JSON.stringify(require("../config/default/th").default)
+      );
+    }
       break;
     // case "tumor_hemodialysis":
     //   {
@@ -209,131 +186,143 @@ export default function Title(data = [], autoData = [], index) {
     //     );
     //   }
     //   break;
-    case "trauma_orthopedics":
-      {
-        // 创骨科
-        Th = JSON.parse(
-          JSON.stringify(require("../config/trauma_orthopedics/th").default)
-        );
-      }
+    case "trauma_orthopedics": {
+      // 创骨科
+      Th = JSON.parse(
+        JSON.stringify(require("../config/trauma_orthopedics/th").default)
+      );
+    }
       break;
-    case "joint":
-      {
-        // 关节骨科
-        Th = JSON.parse(JSON.stringify(require("../config/joint/th").default));
-      }
+    case "joint": {
+      // 关节骨科
+      Th = JSON.parse(JSON.stringify(require("../config/joint/th").default));
+    }
       break;
-    case "spinal_orthopedics":
-      {
-        // 脊柱骨科
-        Th = JSON.parse(
-          JSON.stringify(require("../config/spinal_orthopedics/th").default)
-        );
-      }
+    case "spinal_orthopedics": {
+      // 脊柱骨科
+      Th = JSON.parse(
+        JSON.stringify(require("../config/spinal_orthopedics/th").default)
+      );
+    }
       break;
-    case "gastroenterology":
-      {
-        // 消化内科
-        Th = JSON.parse(
-          JSON.stringify(require("../config/gastroenterology/th").default)
-        );
-      }
+    case "gastroenterology": {
+      // 消化内科
+      Th = JSON.parse(
+        JSON.stringify(require("../config/gastroenterology/th").default)
+      );
+    }
       break;
-    case "prenatal":
-      {
-        // 产前
-        Th = JSON.parse(
-          JSON.stringify(require("../config/prenatal/th").default)
-        );
-      }
+    case "prenatal": {
+      // 产前
+      Th = JSON.parse(
+        JSON.stringify(require("../config/prenatal/th").default)
+      );
+    }
       break;
-    case "post_partum":
-      {
-        // 产后观察
-        Th = JSON.parse(
-          JSON.stringify(require("../config/post_partum/th").default)
-        );
-      }
+    case "post_partum": {
+      // 产后观察
+      Th = JSON.parse(
+        JSON.stringify(require("../config/post_partum/th").default)
+      );
+    }
       break;
-    case "blood_purification":
-      {
-        // 血透
-        Th = JSON.parse(
-          JSON.stringify(require("../config/blood_purification/th").default)
-        );
-      }
+    case "blood_purification": {
+      // 血透
+      Th = JSON.parse(
+        JSON.stringify(require("../config/blood_purification/th").default)
+      );
+    }
       break;
-    case "oxytocin":
-      {
-        // 催产素静脉点滴观察
-        Th = JSON.parse(
-          JSON.stringify(require("../config/oxytocin/th").default)
-        );
-      }
+    case "oxytocin": {
+      // 催产素静脉点滴观察
+      Th = JSON.parse(
+        JSON.stringify(require("../config/oxytocin/th").default)
+      );
+    }
       break;
-    case "dressing_count":
-      {
-        // 经阴道接生器械敷料清点
-        Th = JSON.parse(
-          JSON.stringify(require("../config/dressing_count/th").default)
-        );
-      }
+    case "dressing_count": {
+      // 经阴道接生器械敷料清点
+      Th = JSON.parse(
+        JSON.stringify(require("../config/dressing_count/th").default)
+      );
+    }
       break;
-    case "neurology_wx":
-      {
-        // 威县-神经内科
-        Th = JSON.parse(
-          JSON.stringify(require("../config/neurology_wx/th").default)
-        );
-      }
+    case "neurology_wx": {
+      // 威县-神经内科
+      Th = JSON.parse(
+        JSON.stringify(require("../config/neurology_wx/th").default)
+      );
+    }
       break;
-    case "unified_wx":
-      {
-        // 威县-统一护理记录单
-        Th = JSON.parse(
-          JSON.stringify(require("../config/unified_wx/th").default)
-        );
-      }
+    case "unified_wx": {
+      // 威县-统一护理记录单
+      Th = JSON.parse(
+        JSON.stringify(require("../config/unified_wx/th").default)
+      );
+    }
       break;
-    case "intensive_care_wx":
-      {
-        // 威县-脑外科重症监护单
-        Th = JSON.parse(
-          JSON.stringify(require("../config/intensive_care_wx/th").default)
-        );
-      }
+    case "intensive_care_wx": {
+      // 威县-脑外科重症监护单
+      Th = JSON.parse(
+        JSON.stringify(require("../config/intensive_care_wx/th").default)
+      );
+    }
       break;
-    case "ccu_wx":
-      {
-        // 威县-CCU监护单（心血管内科）
-        Th = JSON.parse(
-          JSON.stringify(require("../config/ccu_wx/th").default)
-        );
-      }
+    case "ccu_wx": {
+      // 威县-CCU监护单（心血管内科）
+      Th = JSON.parse(
+        JSON.stringify(require("../config/ccu_wx/th").default)
+      );
+    }
       break;
-    case "newborn_wx":
-      {
-        // 威县-产科新生儿
-        Th = JSON.parse(
-          JSON.stringify(require("../config/newborn_wx/th").default)
-        );
-      }
+    case "newborn_wx": {
+      // 威县-产科新生儿
+      Th = JSON.parse(
+        JSON.stringify(require("../config/newborn_wx/th").default)
+      );
+    }
       break;
-    case "cpr":
-      {
-        // cpr心肺复苏单（心血管内科）
-        Th = JSON.parse(
-          JSON.stringify(require("../config/cpr/th").default)
-        );
-      }
+    case "cpr": {
+      // cpr心肺复苏单（心血管内科）
+      Th = JSON.parse(
+        JSON.stringify(require("../config/cpr/th").default)
+      );
+    }
       break;
-    case "maternal_newborn_lc":
-      {
-        // 陵城-孕产妇、新生儿护理观察记录单
-        Th = JSON.parse(
-          JSON.stringify(require("../config/maternal_newborn_lc/th").default)
-        );
-      }
+    case "maternal_newborn_lc": {
+      // 陵城-孕产妇、新生儿护理观察记录单
+      Th = JSON.parse(
+        JSON.stringify(require("../config/maternal_newborn_lc/th").default)
+      );
+    }
+      break;
+    case "stress_injury_hd": {
+      // 花都-压力性损伤护理记录单
+      Th = JSON.parse(
+        JSON.stringify(require("../config/stress_injury_hd/th").default)
+      );
+    }
+      break;
+    case "common_hd": {
+      // 花都-护理记录单
+      Th = JSON.parse(
+        JSON.stringify(require("../config/common_hd/th").default)
+      );
+    }
+      break;
+    // case "picc_maintenance_hd": {
+    //   // 花都-PICC维护记录单
+    //   Th = JSON.parse(
+    //     JSON.stringify(require("../config/picc_maintenance_hd/th").default)
+    //   );
+    // }
+    //   break;
+    case "body_temperature_Hd": {
+      // 花都-体温记录单
+      Th = JSON.parse(
+        JSON.stringify(require("../config/body_temperature_Hd/th").default)
+      );
+    }
       break;
     default: {
       Th = JSON.parse(JSON.stringify(require("../config/default/th").default));
