@@ -21,6 +21,12 @@
           ></el-option>
         </el-select>
         <div style="flex: 1"></div>
+        <el-button
+          size="small"
+          v-if="isAdminOrNursingDepartment"
+          @click="openViewModal"
+          style="margin-right: 15px;"
+        >权限分配</el-button>
         <el-input
           size="small"
           style="width: 150px;margin-right: 15px;"
@@ -40,6 +46,7 @@
         ></pagination>
       </div>
     </div>
+    <authorityModal ref="authorityModal"></authorityModal>
   </div>
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
@@ -133,6 +140,8 @@ import { getNursingVisitLc } from "./api/index";
 import { multiDictInfo } from "@/api/common";
 import common from "@/common/mixin/common.mixin.js";
 import moment from "moment";
+import authorityModal from "./components/modal/authorityModal";
+
 export default {
   mixins: [common],
   data() {
@@ -195,6 +204,9 @@ export default {
       multiDictInfo(list).then(res => {
         this.allNursingClass = res.data.data.nurse_nursing_class;
       });
+    },
+    openViewModal() {
+      this.$refs.authorityModal.open(this.deptCode);
     }
   },
   created() {
@@ -214,7 +226,8 @@ export default {
   },
   components: {
     dTable,
-    pagination
+    pagination,
+    authorityModal
   }
 };
 </script>
