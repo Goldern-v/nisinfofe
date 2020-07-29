@@ -235,13 +235,13 @@
       备注:(1)、健康教育：1.入院及相关疾病知识宣教、2.探视、陪护制度宣教、3.安全告知、4.检查宣教、5.饮食宣教、6.用药宣教、7.特殊治疗护理操作前宣教、
       8.术前宣教、9.术后宣教、10.禁食、11.卧床休息、12.床上活动、13.离床活动、14.出院指导
     </div>
-    <!-- <div
+    <div
       v-if="sheetInfo.sheetType == 'picc_maintenance_hd'"
       style="font-size: 13px; margin-top: -5px"
     >
       备注:1、在执行维护后，要在该项目打✔
       <p style="margin:5px 0 0 32px;">2、当管道出现问题时请注意描述，例如描述其出血、渗血、穿刺点情况</p>
-    </div>-->
+    </div>
     <div class="table-footer">
       第 {{ index + sheetStartPage }} 页
       <span

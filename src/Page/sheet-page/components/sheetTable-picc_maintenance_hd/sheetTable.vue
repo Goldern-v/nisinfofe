@@ -36,7 +36,7 @@
         <div class="info-con">
           <span>
             科室：
-            <div class="bottom-line" style="min-width: 30px">{{patientInfo.departName}}</div>
+            <div class="bottom-line" style="min-width: 30px">{{patientInfo.deptName}}</div>
           </span>
           <span>
             床号：
@@ -68,9 +68,19 @@
             PICC置管日期：
             <input
               class="bottom-line-input"
-              :data-value="sheetInfo.relObj['picczgrq_' + index]"
-              v-model="sheetInfo.relObj['picczgrq_' + index]"
-            />
+              :data-value="sheetInfo.relObj['picczgrq_year' + index]"
+              v-model="sheetInfo.relObj['picczgrq_year' + index]"
+            />年
+            <input
+              class="bottom-line-input"
+              :data-value="sheetInfo.relObj['picczgrq_month' + index]"
+              v-model="sheetInfo.relObj['picczgrq_month' + index]"
+            />月
+            <input
+              class="bottom-line-input"
+              :data-value="sheetInfo.relObj['picczgrq_day' + index]"
+              v-model="sheetInfo.relObj['picczgrq_day' + index]"
+            />日
           </span>
         </div>
         <div class="info-con">
@@ -336,7 +346,7 @@ export default {
         autoText,
         `修改${label}`
       );
-    },
+    }
     // getData() {
     //   let list = ["分娩方式", "催产素总量"];
     //   multiDictInfo(list).then(res => {
@@ -346,30 +356,24 @@ export default {
     //   });
     // },
     // 获取最新一次评估单信息
-    getDetail() {
-      let data = {
-        formCode: "form_borndept_first",
-        patientId: this.$route.params.patientId,
-        visitId: this.$route.params.visitId
-      };
-      getLastDetail(data).then(res => {
-        if (res.data.data && res.data.data.pageMap) {
-          let data = res.data.data.pageMap;
-          // 孕
-          let ycs_y = data.form_borndept_first_ycs_y || "";
-          // 产
-          let ycs_c = data.form_borndept_first_ycs_c || "";
-          // 孕/产
-          if (ycs_y || ycs_c) {
-            this.$set(
-              this.sheetInfo.relObj,
-              "yyc_" + this.index,
-              ycs_y + "/" + ycs_c
-            );
-          }
-        }
-      });
-    }
+    // getDetail() {
+    //   let data = {
+    //     formCode: "form_borndept_first",
+    //     patientId: this.$route.params.patientId,
+    //     visitId: this.$route.params.visitId
+    //   };
+    //   getLastDetail(data).then(res => {
+    //     if (res.data.data && res.data.data.pageMap) {
+    //       let data = res.data.data.pageMap;
+    //       console.log("test", data);
+    //       // 导管型号
+    //       let dgxh_ = data.form_borndept_first_dgxh_ || "";
+    //       if (dgxh_) {
+    //         this.$set(this.sheetInfo.relObj, "dgxh_" + this.index, dgxh_);
+    //       }
+    //     }
+    //   });
+    // }
   },
   computed: {
     patientInfo() {
@@ -389,9 +393,9 @@ export default {
     console.dir(this.sheetInfo);
     // 获取分娩方式
     // this.getData();
-    if (this.sheetInfo.relObj && !this.sheetInfo.relObj["yyc_" + this.index]) {
-      this.getDetail();
-    }
+    // if (this.sheetInfo.relObj && !this.sheetInfo.relObj["dgxh_" + this.index]) {
+    //   this.getDetail();
+    // }
   },
   destroyed() {} /* fix vue-happy-bus bug */,
   components: {

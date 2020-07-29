@@ -6,6 +6,11 @@ import {
   event_time,
   click_date
 } from "../keyEvent/date";
+import { multiDictInfo } from "../../../api/index.js";
+let 换敷贴 = [];
+let 冲管 = [];
+let 换肝素冒 = [];
+
 export default [{
   key: "dateStr", //日期
   value: "",
@@ -32,24 +37,24 @@ export default [{
   value: "",
   event: keyf1,
   name: "换敷贴",
-  textarea: {
-    width: 50
+  autoComplete: {
+    data: 换敷贴
   }
 }, {
   key: "fieldFour", //冲管
   value: "",
   event: keyf1,
   name: "冲管",
-  textarea: {
-    width: 50
+  autoComplete: {
+    data: 冲管
   }
 }, {
   key: "fieldFive", //换肝素冒
   value: "",
   event: keyf1,
   name: "换肝素冒",
-  textarea: {
-    width: 50
+  autoComplete: {
+    data: 换肝素冒
   }
 }, {
   key: "description", //特殊情况记录
@@ -147,11 +152,59 @@ export default [{
   value: false
 }
 ];
+let filterKey = '花都' + ':';
+let filterKey2 = '经外周插管的中心静脉导管（PICC）维护记录单' + ':';
+let filterKey2Arr = ["换散贴", "冲管", "换肝素冒"]
 
+export function getListData4() {
+  let list = [
+    "换散贴",
+    "冲管",
+    "换肝素冒"
+  ];
+  list = list.map(key => {
+    return filterKey2Arr.includes(key) ? filterKey + filterKey2 + key : filterKey + key;
+  })
+  multiDictInfo(list).then(res => {
+    let data = res.data.data;
+    console.log("换散贴", data);
+  })
+}
 
+getListData4();
 /**
  *
  * @param {*} list 原数组
  * @param {*} key 对应的key
  * @param {*} data 数据源
  */
+function setList(list, key, data, isChildOptions) {
+  key = filterKey2Arr.includes(key) ? filterKey + filterKey2 + key : filterKey + key;
+  if (isChildOptions) {
+    let arr = [], obj = {};
+    let childKeys = ['肺功能锻炼', '静脉管路'];
+    for (let item of data[key]) {
+      let childArr = '';
+      if (childKeys.includes(item.name)) {
+        childArr = data[filterKey + item.name];
+        if (childArr && childArr.constructor == Array) {
+          childArr = childArr.map(child => {
+            return child.name;
+          });
+        }
+      }
+      obj = {
+        key: item.name,
+        children: childArr
+      }
+      arr.push(obj);
+    }
+    list['childOptions'] = true;
+    list['option'] = arr;
+  } else {
+    list.splice(0, list.length);
+    for (let item of data[key]) {
+      list.push(item.name);
+    }
+  }
+}

@@ -310,13 +310,13 @@ export default function Title(data = [], autoData = [], index) {
       );
     }
       break;
-    // case "picc_maintenance_hd": {
-    //   // 花都-PICC维护记录单
-    //   Th = JSON.parse(
-    //     JSON.stringify(require("../config/picc_maintenance_hd/th").default)
-    //   );
-    // }
-    //   break;
+    case "picc_maintenance_hd": {
+      // 花都-PICC维护记录单
+      Th = JSON.parse(
+        JSON.stringify(require("../config/picc_maintenance_hd/th").default)
+      );
+    }
+      break;
     case "body_temperature_Hd": {
       // 花都-体温记录单
       Th = JSON.parse(

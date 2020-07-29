@@ -282,11 +282,11 @@ function switechSheetType(type) {
       schema = require("../config/common_hd/tr.js").default;
     }
       break;
-    // case "picc_maintenance_hd": {
-    //   // 花都-PICC维护记录单
-    //   schema = require("../config/picc_maintenance_hd/tr.js").default;
-    // }
-    //   break;
+    case "picc_maintenance_hd": {
+      // 花都-PICC维护记录单
+      schema = require("../config/picc_maintenance_hd/tr.js").default;
+    }
+      break;
     case "body_temperature_Hd": {
       // 花都-体温记录单
       schema = require("../config/body_temperature_Hd/tr.js").default;
