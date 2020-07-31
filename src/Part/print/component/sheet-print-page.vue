@@ -150,6 +150,7 @@ import { printDir } from "../control/common-print.js";
 import common from "@/common/mixin/common.mixin.js";
 import { addCSS } from "@/utils/css";
 import { formatSub } from "@/utils/sup";
+import sheetInfo from "@/Page/sheet-page/components/config/sheetInfo/index.js";
 export default {
   props: ["qoSelect"],
   mixins: [common],
@@ -159,6 +160,7 @@ export default {
       iframeHeight: 0,
       pageLoading: true,
       bus: bus(this),
+      sheetInfo,
     };
   },
   created() {
@@ -260,17 +262,24 @@ export default {
        .sign-img img {
          margin: 0  !important;
        }
-
-        @media print {
-         #sheetPagePrint td[datakey="description"] input{
-          font-size: 14px !important;
-         }
-        #sheetPagePrint th[dataname="特殊情况记录"] {
-          min-width: 350px !important;
-          max-width: 350px !important;
-         }
         `
       );
+      if (sheetInfo.sheetType == "Record_Children_Serious_Lc") {
+        addCSS(
+          window,
+          `
+          @media print {
+            #sheetPagePrint td[datakey="description"] input{
+              font-size: 14px !important;
+            }
+            #sheetPagePrint th[dataname="特殊情况记录"] {
+              min-width: 350px !important;
+              max-width: 350px !important;
+            }
+          }
+          `
+        );
+      }
     }
 
     if (!this.isDev) $('[style="display: none;"]').remove();
