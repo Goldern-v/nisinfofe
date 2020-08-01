@@ -36,27 +36,37 @@
                 v-for="(item, key) in fixedList"
                 :key="sheetInfo.sheetType + item.key"
                 style="min-width: 33%;margin-bottom: 12px;overflow: hidden;"
-                :style="item.isWrap && {'min-width':'50%' }"
+                :style="item.isWrap && { 'min-width': '50%' }"
               >
                 <div class="input-cell" flex="cross:center">
-                  <div class="label" style="min-width: 70px;">{{ item.name || key}}：</div>
+                  <div class="label" style="min-width: 70px;">
+                    {{ item.name || key }}：
+                  </div>
                   <input
                     type="text"
                     :readonly="isRead"
                     v-model="fixedList[key].value"
-                    @keydown="spaceToKey($event,fixedList[key], 'bloodPressure')"
+                    @keydown="
+                      spaceToKey($event, fixedList[key], 'bloodPressure')
+                    "
                     v-if="key == 'bloodPressure'"
-                    :style="item.maxWidth && {width: item.maxWidth+'px'}"
+                    :style="item.maxWidth && { width: item.maxWidth + 'px' }"
                   />
                   <input
                     type="text"
                     :readonly="isRead"
                     v-model="fixedList[key].value"
-                    v-autoComplete="{dataList: dictionary[item.key], obj:fixedList, key: key,tr,td:item}"
-                    :style="item.maxWidth && {width: item.maxWidth+'px'}"
+                    v-autoComplete="{
+                      dataList: dictionary[item.key],
+                      obj: fixedList,
+                      key: key,
+                      tr,
+                      td: item
+                    }"
+                    :style="item.maxWidth && { width: item.maxWidth + 'px' }"
                     v-else
                   />
-                  <div class="uniq">{{item.next}}</div>
+                  <div class="uniq">{{ item.next }}</div>
                 </div>
               </div>
             </div>
@@ -67,18 +77,29 @@
             v-if="customTitle && customTitle.length"
             :disabled="isDisabed"
           >
-            <div class="custom-cell" v-for="(item, index) in customTitle" :key="item.key">
+            <div
+              class="custom-cell"
+              v-for="(item, index) in customTitle"
+              :key="item.key"
+            >
               <div class="custom-box" flex="cross:center">
-                <div class="label">{{item.name}}</div>
+                <div class="label">{{ item.name }}</div>
                 <input
                   type="text"
-                  @keydown="f1Key($event,staticObj, item.key)"
+                  @keydown="f1Key($event, staticObj, item.key)"
                   v-model="staticObj[item.key]"
                   :readonly="check[index] || isRead"
-                  v-autoComplete="{dataList: dictionary[item.key], obj:staticObj, key: item.key}"
+                  v-autoComplete="{
+                    dataList: dictionary[item.key],
+                    obj: staticObj,
+                    key: item.key
+                  }"
                 />
                 <div class="button">
-                  <el-checkbox v-model="check[index]" :disabled="isRead"></el-checkbox>
+                  <el-checkbox
+                    v-model="check[index]"
+                    :disabled="isRead"
+                  ></el-checkbox>
                 </div>
               </div>
             </div>
@@ -86,15 +107,30 @@
           <el-tab-pane label="特殊情况记录" name="3">
             <div class="title" flex="cross:center main:justify">
               <span>病情、药物治疗、护理措施、效果</span>
-              <span style="color: #284FC2;cursor: pointer" @click="openTemplateSlider">+模板</span>
+              <span
+                style="color: #284FC2;cursor: pointer"
+                @click="openTemplateSlider"
+                >+模板</span
+              >
             </div>
-            <el-input type="textarea" class="text-con" :readonly="isRead" v-model="doc"></el-input>
+            <el-input
+              type="textarea"
+              class="text-con"
+              :readonly="isRead"
+              v-model="doc"
+            ></el-input>
           </el-tab-pane>
         </el-tabs>
       </div>
       <div slot="button">
         <el-button class="modal-btn" @click="close">取消</el-button>
-        <el-button class="modal-btn" type="primary" @click="post" v-show="!isRead">保存</el-button>
+        <el-button
+          class="modal-btn"
+          type="primary"
+          @click="post"
+          v-show="!isRead"
+          >保存</el-button
+        >
       </div>
     </sweet-modal>
     <templateSlide ref="templateSlide"></templateSlide>
@@ -567,7 +603,7 @@ export default {
             result[i];
         } else {
           let currRow = JSON.parse(JSON.stringify(this.record[0]));
-          let nullRowArr = nullRow();
+          let nullRowArr = nullRow(currRow);
 
           nullRowArr.find(
             item => item.key == "recordSource"
