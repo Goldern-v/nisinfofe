@@ -1,4 +1,4 @@
-export default function (win) {
+export default function(win) {
   const root = win.document.body.children[0];
   console.log(root);
 
@@ -15,7 +15,9 @@ export default function (win) {
   let rest = Array.prototype.slice.call(trs, -2); // 特殊情况（两行）
 
   const emptyRow = document.createElement("tr");
-  emptyRow.innerHTML = '<td style="border: 1px solid black;"></td>'.repeat(3) + '<td colspan="4" style="border: 1px solid black;"></td>'.repeat(2);
+  emptyRow.innerHTML =
+    '<td style="border: 1px solid black;"></td>'.repeat(3) +
+    '<td colspan="3" style="border: 1px solid black;"></td>'.repeat(3);
   emptyRow.style.height = "30px";
 
   // 移除空行
@@ -31,9 +33,9 @@ export default function (win) {
 
   while ((row = patients.shift() || rest)) {
     const h =
-      row === rest ?
-      row[0].offsetHeight + row[1].offsetHeight :
-      row.offsetHeight;
+      row === rest
+        ? row[0].offsetHeight + row[1].offsetHeight
+        : row.offsetHeight;
 
     if (!page || page.offsetHeight + h > 700) {
       if (page && row === rest) {
