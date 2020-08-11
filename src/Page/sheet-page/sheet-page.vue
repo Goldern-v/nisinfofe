@@ -1,12 +1,21 @@
 <template>
-  <div class="contain" :class="{fullpage}" v-loading="pageLoading" element-loading-text="正在保存">
+  <div
+    class="contain"
+    :class="{ fullpage }"
+    v-loading="pageLoading"
+    element-loading-text="正在保存"
+  >
     <div class="head-con" flex>
       <div class="dept-select-con"></div>
       <div class="tool-con" flex-box="1">
         <sheetTool ref="sheetTool"></sheetTool>
       </div>
     </div>
-    <div class="body-con" id="sheet_body_con" :style="{height: containHeight}">
+    <div
+      class="body-con"
+      id="sheet_body_con"
+      :style="{ height: containHeight }"
+    >
       <div class="left-part">
         <!-- <patientList
           :data="data.bedList"
@@ -18,11 +27,15 @@
       </div>
       <div
         class="right-part"
-        :style="{marginLeft: openLeft?'200px':'0'}"
-        :class="{wxHighLightBg: HOSPITAL_ID=='weixian'}"
+        :style="{ marginLeft: openLeft ? '200px' : '0' }"
+        :class="{ wxHighLightBg: HOSPITAL_ID == 'weixian' }"
         v-loading="tableLoading"
       >
-        <div class="sheetTable-contain" ref="scrollCon" @scroll="(e) => onScroll(e)">
+        <div
+          class="sheetTable-contain"
+          ref="scrollCon"
+          @scroll="e => onScroll(e)"
+        >
           <div ref="sheetTableContain">
             <component
               v-bind:is="sheetTable"
@@ -198,6 +211,7 @@ import sheetTable_oxytocin from "./components/sheetTable-oxytocin/sheetTable";
 import sheetTableDressing_count from "./components/sheetTable-dressing_count/sheetTable";
 import sheetTableMaternal_newborn_lc from "./components/sheetTable-maternal_newborn_lc/sheetTable";
 import sheetTable_picc_maintenance_hd from "./components/sheetTable-picc_maintenance_hd/sheetTable";
+import sheetTablePeritoneal_dialysis_hd from "./components/sheetTable-peritoneal_dialysis_hd/sheetTable";
 import common from "@/common/mixin/common.mixin.js";
 import evalModel from "./components/modal/eval-model/eval-model.vue";
 import { typeList } from "@/api/lesion";
@@ -312,6 +326,8 @@ export default {
         return sheetTableMaternal_newborn_lc;
       } else if (sheetInfo.sheetType == "picc_maintenance_hd") {
         return sheetTable_picc_maintenance_hd;
+      } else if (sheetInfo.sheetType == "peritoneal_dialysis_hd") {
+        return sheetTablePeritoneal_dialysis_hd;
       } else {
         return sheetTable;
       }
@@ -752,7 +768,9 @@ export default {
     sheetTablePost_hemodialysis,
     sheetTable_oxytocin,
     sheetTableDressing_count,
-    sheetTableMaternal_newborn_lc
+    sheetTableMaternal_newborn_lc,
+    sheetTable_picc_maintenance_hd,
+    sheetTablePeritoneal_dialysis_hd
   }
 };
 </script>
