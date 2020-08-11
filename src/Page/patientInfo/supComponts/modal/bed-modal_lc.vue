@@ -480,7 +480,7 @@ import {
   saveOrUpdate,
   findByKeyword,
   findByKeywordNur,
-  saveBed
+  saveBed,
 } from "./api/index.js";
 import print from "./tool/print";
 var qr = require("qr-image");
@@ -496,20 +496,20 @@ export default {
       tipList: [
         {
           label: "小心跌倒",
-          img: require("./images/Group 6.png")
+          img: require("./images/Group 6.png"),
         },
         {
           label: "小心烫伤",
-          img: require("./images/Group 7.png")
+          img: require("./images/Group 7.png"),
         },
         {
           label: "防止压疮",
-          img: require("./images/Group 9.png")
+          img: require("./images/Group 9.png"),
         },
         {
           label: "防止偷盗",
-          img: require("./images/Group 10.png")
-        }
+          img: require("./images/Group 10.png"),
+        },
       ],
       modalLoading: false,
       formData: {
@@ -518,9 +518,9 @@ export default {
         mainDoctors: "",
         dutyNurses: "",
         remark: "",
-        remarkPrint: true
+        remarkPrint: true,
       },
-      ysList: []
+      ysList: [],
     };
   },
   computed: {
@@ -529,7 +529,7 @@ export default {
     },
     hasRemark() {
       return this.formData.remarkPrint;
-    }
+    },
   },
   methods: {
     init() {
@@ -538,9 +538,9 @@ export default {
         registCare: [],
         mainDoctors: "",
         dutyNurses: "",
-        remark: ""
+        remark: "",
       };
-      getEntity(this.query.patientId, this.query.visitId).then(res => {
+      getEntity(this.query.patientId, this.query.visitId).then((res) => {
         let resData = res.data.data;
         let diagnosis = textOver(this.query.diagnosis, 52);
         this.formData = {
@@ -551,12 +551,26 @@ export default {
           mainDoctors: resData.mainDoctors || "",
           dutyNurses: resData.dutyNurses || "",
           remark: diagnosis,
-          remarkPrint: resData.remarkPrint
+          remarkPrint: resData.remarkPrint,
         };
         this.modalLoading = false;
+        if (
+          JSON.parse(localStorage.user) &&
+          JSON.parse(localStorage.user).post != "护长"
+        ) {
+          if (resData.isPrint == 1) {
+            this.$message({
+              type: "warning",
+              message: "该患者已打印床头卡",
+            });
+            return;
+          } else {
+            this.isOpen();
+          }
+        }
       });
-      multiDictInfo(["床头卡饮食"]).then(res => {
-        this.ysList = res.data.data.床头卡饮食.map(item => item.name);
+      multiDictInfo(["床头卡饮食"]).then((res) => {
+        this.ysList = res.data.data.床头卡饮食.map((item) => item.name);
       });
     },
     getRegistCare() {
@@ -586,6 +600,14 @@ export default {
     },
     open() {
       this.init();
+      if (
+        JSON.parse(localStorage.user) &&
+        JSON.parse(localStorage.user).post == "护长"
+      ) {
+        this.isOpen();
+      }
+    },
+    isOpen() {
       this.$refs.modal.open();
       var qr_png = qr.imageSync(this.query.patientId, { type: "png" });
       function arrayBufferToBase64(buffer) {
@@ -608,12 +630,12 @@ export default {
       let illnessLevel = ["重", "危", "普"],
         nursingLevel = ["特", "一", "二", "三"];
       if (illnessLevel.includes(item)) {
-        illnessLevel.map(illItem => {
+        illnessLevel.map((illItem) => {
           this.formData.registCare.remove(illItem);
         });
       }
       if (nursingLevel.includes(item)) {
-        nursingLevel.map(nurseItem => {
+        nursingLevel.map((nurseItem) => {
           this.formData.registCare.remove(nurseItem);
         });
       }
@@ -637,7 +659,7 @@ export default {
       data.remarkPrint = this.formData.remarkPrint;
       data.remark = this.formData.remark.slice(0, 24);
 
-      saveBed(data).then(res => {
+      saveBed(data).then((res) => {
         this.$message.success("保存成功");
         this.close();
       });
@@ -676,7 +698,7 @@ export default {
         let { top, left } = ele.getBoundingClientRect();
         return {
           left: left,
-          top: top
+          top: top,
         };
       }
       let { autoComplete, obj, key } = bind;
@@ -688,10 +710,10 @@ export default {
         window.openAutoComplete({
           style: {
             top: `${xy.top + 40}px`,
-            left: `${xy.left}px`
+            left: `${xy.left}px`,
           },
           data: autoComplete,
-          callback: function(data) {
+          callback: function (data) {
             console.log(data, "data");
             if (data) {
               if (obj[key]) {
@@ -701,7 +723,7 @@ export default {
               }
             }
           },
-          id: `bedModal`
+          id: `bedModal`,
         });
       });
     },
@@ -709,9 +731,9 @@ export default {
       setTimeout(() => {
         window.closeAutoComplete(`bedModal`);
       }, 400);
-    }
+    },
   },
   mounted() {},
-  components: {}
+  components: {},
 };
 </script>

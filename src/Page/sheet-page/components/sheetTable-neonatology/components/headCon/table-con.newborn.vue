@@ -328,11 +328,11 @@ export default {
   // mixins: [common],
   props: {
     formatData: Object,
-    tableName: String
+    tableName: String,
   },
   data() {
     return {
-      sheetInfo
+      sheetInfo,
     };
   },
   methods: {
@@ -464,7 +464,7 @@ export default {
       console.log("toSign", empNumber, empName);
       parent.openSignModal((password, empNo) => {
         //
-        checkUser(empNo, password).then(res => {
+        checkUser(empNo, password).then((res) => {
           console.log("checkUser", res);
 
           this.formatData.data.formData["empNo"] = res.data.data.empNo;
@@ -474,16 +474,16 @@ export default {
           this.$nextTick(() => {
             window
               .saveForm()
-              .then(res => {
+              .then((res) => {
                 parent.app.$message.success("签名成功");
               })
-              .catch(err => {
+              .catch((err) => {
                 parent.app.$message.success("签名失败");
               });
           });
         });
       }, "签名校验");
-    }
+    },
   },
   computed: {
     isPrint() {
@@ -495,7 +495,7 @@ export default {
     patientInfo() {
       // return this.sheet.patientInfo
       return this.sheetInfo.selectBlock || {};
-    }
+    },
   },
   created() {
     data.initFormData(tables, {});
@@ -504,10 +504,10 @@ export default {
     /** 如果没有数据 */
     /** 找到父母的id */
     let p_id = this.patientInfo.patientId.split("_")[0];
-    let p_obj = sheetInfo.bedList.find(item => item.patientId == p_id);
+    let p_obj = sheetInfo.bedList.find((item) => item.patientId == p_id);
     if (Object.keys(sheetInfo.relObj).length == 0 && p_obj) {
       getLastDetail("form_childbirth", p_obj.patientId, p_obj.visitId).then(
-        res => {
+        (res) => {
           var lastEvalData = {};
           if (res.data.data && res.data.data.pageMap) {
             let pageMap = res.data.data.pageMap;
@@ -527,7 +527,7 @@ export default {
               "10分钟Apgar评分": pageMap.form_childbirth_zf_10min,
               体重: pageMap.form_childbirth_tz_explain,
               身长: pageMap.form_childbirth_sc_explain,
-              头围: pageMap.form_childbirth_tw_explain
+              头围: pageMap.form_childbirth_tw_explain,
             };
             sheetInfo.relObj.birthday = pageMap.form_childbirth_temcsj_explain;
           }
@@ -537,7 +537,11 @@ export default {
           // sheetInfo.relObj = this.formModel;
           // sheetInfo.relObj = { ...sheetInfo.relObj };
           for (let key in this.formatData.data.formData) {
-            this.formatData.data.formData[key] = "";
+            if (this.formatData.data.formData[key].constructor == Array) {
+              this.formatData.data.formData[key] = [];
+            } else {
+              this.formatData.data.formData[key] = "";
+            }
           }
           let obj = Object.assign(
             {},
@@ -567,9 +571,9 @@ export default {
       deep: true,
       handler() {
         sheetInfo.relObj = this.formModel;
-      }
-    }
+      },
+    },
   },
-  components: {}
+  components: {},
 };
 </script>
