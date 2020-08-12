@@ -37,6 +37,7 @@
           </tr>
           <tr>
             <td colspan="4" style="height: 850px">
+              <div class="content_title">宣教内容：</div>
               <div v-html="content" class="content"></div>
             </td>
           </tr>
@@ -100,8 +101,14 @@
 }
 .content {
   width: 620px;
-  padding: 10px 20px;
+  padding: 0 20px 10px 20px;
   box-sizing: border-box;
+}
+.content_title {
+  font-size: 18px;
+  text-align: left;
+  font-weight: 900;
+  margin: 10px 0 0 10px;
 }
 </style>
 
