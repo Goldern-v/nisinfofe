@@ -65,6 +65,7 @@
         <sheetPrintNursingOrder v-if="$route.params.type == 'sheetNursingOrder'"></sheetPrintNursingOrder>
         <sugar v-if="$route.params.type == 'sugar'"></sugar>
         <health v-if="$route.params.type == 'health'"></health>
+        <lcHealth v-if="$route.params.type == 'lcHealth'"></lcHealth>
         <growthPrintPage v-if="$route.params.type == 'growth'"></growthPrintPage>
         <birthCertificatePrint v-if="$route.params.type == 'birthCertificate'"></birthCertificatePrint>
         <diagnosisPrintPage v-if="$route.params.type == 'diagnosis'"></diagnosisPrintPage>
@@ -190,6 +191,7 @@ import sheetPrintPage from "./component/sheet-print-page";
 import sheetPrintNursingOrder from "./component/sheet-print-nursing-order";
 import sugar from "./component/sugar-print-page.vue";
 import health from "./component/health-print-page";
+import lcHealth from "./component/lcHealth-print-page";
 import growthPrintPage from "./component/growth-print-page.vue";
 import birthCertificatePrint from "./component/birth-certificate-print.vue";
 import diagnosisPrintPage from "./component/diagnosis-print-page.vue";
@@ -251,6 +253,7 @@ export default {
     sugar,
     growthPrintPage,
     health,
+    lcHealth,
     birthCertificatePrint,
     diagnosisPrintPage
   }
