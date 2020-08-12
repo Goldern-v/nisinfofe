@@ -107,6 +107,14 @@
                     </el-row>
                   </router-link>
                 </el-dropdown-item>
+                <el-dropdown-item :class="{active: $route.path == '/healthEdu'}">
+                  <router-link to="/healthEdu" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="healthEducation"></i>健康教育单
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item>
+
                 <!-- <el-dropdown-item :class="{active: $route.path == '/oxygenPage'}">
                   <router-link to="/oxygenPage" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
