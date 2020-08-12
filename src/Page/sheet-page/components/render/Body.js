@@ -357,6 +357,24 @@ function switechSheetType(type) {
         schema = require("../config/peritoneal_dialysis_hd/tr.js").default;
       }
       break;
+    case "prenatal_hd":
+      {
+        // 花都-护理记录单（产前护理记录单）
+        schema = require("../config/prenatal_hd/tr.js").default;
+      }
+      break;
+    case "postpartum_hd":
+      {
+        // 花都-护理记录单（产后护理记录单）
+        schema = require("../config/postpartum_hd/tr.js").default;
+      }
+      break;
+    case "wait_delivery_hd":
+      {
+        // 花都-护理记录单（候产记录单）
+        schema = require("../config/wait_delivery_hd/tr.js").default;
+      }
+      break;
     default:
       {
         schema = require("../config/default/tr.js").default;
