@@ -4,44 +4,63 @@
   </div>
 </template>
 <style lang="scss" rel="stylesheet/stylus" type="text/stylus">
-#lcHealthContentPrintPage {
-  padding: 0 20px;
-  margin: 0;
-  overflow: hidden;
-  .health-page {
-    margin: 0;
-    page-break-after: always;
-    min-height: 1000px;
-  }
-  .noPrint {
-    display: none;
-  }
-  .inPrint {
-    display: block;
-  }
-}
-@media print {
-  @page {
-    margin: 0 10mm;
-  }
-  #lcHealthContentPrintPage {
-    .lcHealthContentPrintPage {
-      /* border: 0px!important; */
-      margin: 50px 0 0 0 !important;
-      /* margin-top: 0 !important; */
-      padding: 0 !important;
-      box-shadow: 0 0 0 0;
-      .page-con {
-        bottom: 0;
-      }
-      .his-logo {
-        top: 0;
-        left: 0;
-      }
-      /* width: 660px !important;
-      page-break-after: always */
+.iframe {
+  // min-height: 1000px;
+  width: 700px;
+  padding: 10px 30px 20px 30px;
+  box-sizing: border-box;
+  background: #ffffff;
+  .health-education-head {
+    padding: 10px;
+    .hospital {
+      font-size: 18px;
+      text-align: center;
+      font-weight: bold;
+    }
+    .title {
+      font-size: 21px;
+      padding: 5px 0 0px;
+      text-align: center;
+      font-weight: bold;
+      margin-top: 5px;
+    }
+    .info {
+      margin-top: 15px;
+      margin-bottom: 5px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px; // 小四
     }
   }
+  table {
+    width: 100%;
+  }
+  th,
+  td {
+    border: 1px solid #000;
+    padding: 6px 10px;
+    box-sizing: border-box;
+    text-align: center;
+    word-break: break-all;
+    word-wrap: break-word;
+  }
+  .health-table-page {
+    font-size: 13px;
+    text-align: center;
+    height: 50px;
+    line-height: 50px;
+  }
+}
+.content {
+  width: 620px;
+  padding: 0 20px 10px 20px;
+  box-sizing: border-box;
+}
+.content_title {
+  font-size: 18px;
+  text-align: left;
+  font-weight: 900;
+  margin: 10px 0 0 10px;
 }
 </style>
 <script>
