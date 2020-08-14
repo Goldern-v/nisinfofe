@@ -24,6 +24,7 @@
           :disabled="!isSignedN"
         />
       </label>
+      <a v-if="!isSignedN" class="action" @click="onPanelOpen">+ 模板</a>
     </div>
     <div class="content">
       <ElTabs class="tabs" v-model="tab" type="card" @input="onTabChange">
@@ -152,6 +153,9 @@ export default {
     },
     onConfirm() {
       this.$emit("confirm", this.form);
+    },
+    onPanelOpen() {
+      this.$emit("panel-open");
     },
     onPanelClose() {
       this.$emit("panel-close");
