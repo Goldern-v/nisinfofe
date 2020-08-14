@@ -1,6 +1,6 @@
 <template>
   <SidePanel ref="panel">
-    <div slot="title">护理日夜模版</div>
+    <div slot="title">护理日夜模板</div>
     <div class="container">
       <ElTabs class="tabs" v-model="tab" type="card">
         <ElTabPane label="白班" name="1"></ElTabPane>
