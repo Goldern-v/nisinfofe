@@ -375,6 +375,24 @@ function switechSheetType(type) {
         schema = require("../config/wait_delivery_hd/tr.js").default;
       }
       break;
+    case "neurosurgery_hd":
+      {
+        // 花都-护理记录单（神经外科）
+        schema = require("../config/neurosurgery_hd/tr.js").default;
+      }
+      break;
+    case "neonatology_hd":
+      {
+        // 花都-护理记录单（新生儿科）
+        schema = require("../config/neonatology_hd/tr.js").default;
+      }
+      break;
+    case "neonatology2_hd":
+      {
+        // 花都-护理记录单（新生儿）
+        schema = require("../config/neonatology2_hd/tr.js").default;
+      }
+      break;
     default:
       {
         schema = require("../config/default/tr.js").default;

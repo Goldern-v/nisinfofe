@@ -5,14 +5,20 @@ export default {
     width: "1300px"
   },
   th: {
-    top: [{
-        name: "2020年",
-        style: {
-          minWidth: "40px",
-          maxWidth: "40px"
-        },
-        colspan: "2",
-        rowspan: "1"
+    top: [
+      {
+        name: `
+        日期
+        `,
+        colspan: "1",
+        rowspan: "3"
+      },
+      {
+        name: `
+        时间
+        `,
+        colspan: "1",
+        rowspan: "3"
       },
       {
         name: "体温<br/>℃",
@@ -221,20 +227,7 @@ export default {
       //   rowspan: "3"
       // }
     ],
-    mid: [{
-        name: `
-        日期
-        `,
-        colspan: "1",
-        rowspan: "2"
-      },
-      {
-        name: `
-        时间
-        `,
-        colspan: "1",
-        rowspan: "2"
-      },
+    mid: [
       {
         name: `
         名称

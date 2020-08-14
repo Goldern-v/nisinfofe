@@ -239,10 +239,24 @@
       备注:(1)、健康教育：1.入院及相关疾病知识宣教2.探视、陪护制度宣教3.安全告知4.检查宣教5.饮食宣教6.产后/术后宣教7.母乳喂养宣教
       8.母婴用药、安全宣教9.新生儿护理知识宣教10.出院指导
     </div>
-    <div v-if="sheetInfo.sheetType == 'prenatal_hd'" style="font-size: 13px; margin-top: -5px">
+    <div
+      v-if="sheetInfo.sheetType == 'prenatal_hd'|| sheetInfo.sheetType =='neonatology2_hd'"
+      style="font-size: 13px; margin-top: -5px"
+    >
       备注:(1)、健康教育：1.入院及相关疾病知识宣教2.探视、陪护制度宣教3.安全告知4.检查宣教5.母乳喂养知识宣教6.胎动知识宣教7.分娩知识宣教8.饮食宣教
       9.特殊治疗护理操作前宣教10.术前宣教11.用药宣教12.卧位宣教13.术后宣教14.出院指导
     </div>
+    <div v-if="sheetInfo.sheetType == 'neurosurgery_hd'" style="font-size: 13px; margin-top: -5px">
+      备注:一.意识：清✔，昏迷++。二.瞳孔对光反射判断：灵敏+，迟钝±，消失-。三.人工气道途径：鼻腔气管插管A1，口腔气管插管A2，气管切开B.
+      <p style="margin-top:2px;">
+        四。健康教育：1.入院及相关疾病知识宣教2.探视、陪护制度宣教3.安全告知4.检查宣教5.母乳喂养知识宣教6.胎动知识宣教7.分娩知识宣教8.饮食宣教
+        9.特殊治疗护理操作前宣教10.术前宣教11.用药宣教12.卧位宣教13.术后宣教14.出院指导
+      </p>
+    </div>
+    <div
+      v-if="sheetInfo.sheetType == 'neonatology_hd'"
+      style="font-size: 13px; margin-top: -5px"
+    >备注:吸痰性质用符号表示：白色吸痰(WL),黄白稠痰(YWT),黄色稠痰(YT),血性痰(B);痰量：小量(+),中量(++),大量(+++)。</div>
     <div
       v-if="sheetInfo.sheetType == 'picc_maintenance_hd'"
       style="font-size: 13px; margin-top: -5px"
@@ -254,12 +268,12 @@
       第 {{ index + sheetStartPage }} 页
       <span
         class="sh-name"
-        v-if="sheetInfo.sheetType=='com_lc' || 'icu_lc' ||'common_hd'||'stress_injury_hd'||'wait_delivery_hd'"
+        v-if="sheetInfo.sheetType=='com_lc' || 'icu_lc' ||'common_hd'||'stress_injury_hd'||'wait_delivery_hd'||'neurosurgery_hd'||'neonatology_hd'||'neonatology2_hd'"
       >
         <span v-if="sheetInfo.sheetType=='com_lc' || sheetInfo.sheetType=='icu_lc' ">审核人：</span>
         <span
           v-else-if=" sheetInfo.sheetType=='common_hd' || sheetInfo.sheetType=='stress_injury_hd'|| sheetInfo.sheetType=='prenatal_hd' 
-          || sheetInfo.sheetType=='postpartum_hd'|| sheetInfo.sheetType=='wait_delivery_hd'"
+          || sheetInfo.sheetType=='postpartum_hd'|| sheetInfo.sheetType=='wait_delivery_hd'|| sheetInfo.sheetType=='neurosurgery_hd' ||sheetInfo.sheetType=='neonatology_hd'||sheetInfo.sheetType=='neonatology2_hd'"
         >上级护士签名：</span>
         <span class="sh-name-box">
           <div class="sign-null-box" @click="openAduitModal" v-if="!auditorNo"></div>

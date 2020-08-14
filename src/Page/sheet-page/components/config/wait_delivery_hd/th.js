@@ -7,13 +7,22 @@ export default {
   th: {
     top: [
       {
-        name: "2020年",
+        name: "日期",
         style: {
           minWidth: "36px",
           maxWidth: "36px"
         },
-        colspan: "2",
-        rowspan: "1"
+        colspan: "1",
+        rowspan: "3"
+      },
+      {
+        name: "时间",
+        style: {
+          minWidth: "36px",
+          maxWidth: "36px"
+        },
+        colspan: "1",
+        rowspan: "3"
       },
       {
         name: `
@@ -178,24 +187,6 @@ export default {
       }
     ],
     mid: [
-      {
-        name: "日期",
-        style: {
-          minWidth: "36px",
-          maxWidth: "36px"
-        },
-        colspan: "1",
-        rowspan: "2"
-      },
-      {
-        name: "时间",
-        style: {
-          minWidth: "36px",
-          maxWidth: "36px"
-        },
-        colspan: "1",
-        rowspan: "2"
-      },
       {
         name: "部位",
         style: {

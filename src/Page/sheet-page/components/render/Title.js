@@ -403,6 +403,30 @@ export default function Title(
         );
       }
       break;
+    case "neurosurgery_hd":
+      {
+        // 花都-护理记录单（神经外科）
+        Th = JSON.parse(
+          JSON.stringify(require("../config/neurosurgery_hd/th").default)
+        );
+      }
+      break;
+    case "neonatology_hd":
+      {
+        // 花都-护理记录单（新生儿科）
+        Th = JSON.parse(
+          JSON.stringify(require("../config/neonatology_hd/th").default)
+        );
+      }
+      break;
+    case "neonatology2_hd":
+      {
+        // 花都-护理记录单（新生儿）
+        Th = JSON.parse(
+          JSON.stringify(require("../config/neonatology2_hd/th").default)
+        );
+      }
+      break;
     default:
       {
         Th = JSON.parse(
