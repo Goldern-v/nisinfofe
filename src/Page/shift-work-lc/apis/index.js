@@ -1,7 +1,5 @@
 import axios from "@/api/axios";
-import {
-  apiPath
-} from "@/api/apiConfig";
+import { apiPath } from "@/api/apiConfig";
 import qs from "qs";
 
 // 查询病区科室
@@ -88,8 +86,6 @@ export function createShiftRecord(
   });
 }
 
-
-
 // 更新交班志
 export function updateShiftRecord(data) {
   return axios.post(`${apiPath}changeShiftLcPatientList/saveOrUpdate`, data);
@@ -102,32 +98,29 @@ export function removeShiftRecordRow(rowId) {
 
 // 删除交班志
 export function removeShiftRecord(id, empNo, password) {
-  return axios.post(
-    `${apiPath}changeShiftLcTime/delById`, {
-      id,
-      empNo,
-      password
-    }
-  );
+  return axios.post(`${apiPath}changeShiftLcTime/delById`, {
+    id,
+    empNo,
+    password
+  });
 }
 
 // 更新交班签名 autographNameType 类型 A\N\check
 export function signShiftRecord(id, autographNameType, empNo, password) {
-  return axios.post(
-    `${apiPath}changeShiftLcTime/updateAutographName`, {
-      id,
-      autographNameType,
-      empNo,
-      password
-    }
-  );
+  return axios.post(`${apiPath}changeShiftLcTime/updateAutographName`, {
+    id,
+    autographNameType,
+    empNo,
+    password
+  });
 }
 
 // 取消交班签名 sign 类型 A\N\check
 export function delSignShiftRecord(id, empNo, password, sign, sourceEmpNo) {
   return axios.post(
     `${apiPath}changeShiftLcTime/deleteAutographName
-    `, {
+    `,
+    {
       id,
       empNo,
       password,
@@ -142,6 +135,36 @@ export function getPatient(deptCode, bedLabel, date) {
   return axios.get(
     `${apiPath}changeShiftLcPatientList/findByBedLabel/${deptCode}/${bedLabel}/${date}`
   );
+}
+
+// 查询模板列表
+export function listTemplate(deptCode, type, templateType, title) {
+  return axios.post(`${apiPath}changeShiftTemplate/list`, {
+    deptCode,
+    type,
+    templateType,
+    title
+  });
+}
+
+// 删除模板
+export function removeTemplate(id) {
+  return axios.get(`${apiPath}changeShiftTemplate/delById/${id}`);
+}
+
+// 新建、编辑模板
+// deptCode 部门编号
+// type 类型（指入院、出院这些大类型）
+// templateType 模板类型（1代表现状，2代表背景，3代表评估，4代表建议）
+// title 标题
+// content 内容
+export function updateTemplate(data) {
+  return axios.post(`${apiPath}changeShiftTemplate/saveOrUpdate`, data);
+}
+
+// 获取模板类型列表
+export function listType(deptCode) {
+  return axios.get(`${apiPath}changeShiftTemplate/findtype/${deptCode}`);
 }
 
 // 获取患者列表
