@@ -35,7 +35,8 @@
         <div v-for="(item, index) in printTableData" :key="index + 'print'">
         <!-- 表单头部信息 -->
           <div class="health-education-head">
-          <div class="hospital">东 莞 市 厚 街 医 院</div>
+          <div class="hospital" v-if='HOSPITAL_ID == "lingcheng"'>德 州 市 陵 城 区 人 民 医 院</div>
+          <div class="hospital" v-else>东 莞 市 厚 街 医 院</div>
           <div class="title">住院患者健康教育评估及实施记录单</div>
           <div class="info">
                 <span>病人姓名：{{patientInfo.name}}</span>
@@ -70,8 +71,10 @@ import { setTimeout } from 'timers';
 import { homedir } from 'os';
 import formatter from "./right-print-formatter";
 import baseTree from "@/components/baseTree/baseTree";
+import common from "@/common/mixin/common.mixin.js";
 
 export default {
+  mixins: [common],
   name: "healthEducation",
   components: {
     Table,

@@ -53,7 +53,7 @@
             @input-keydown="onTableInputKeydown"
           >
             <tr class="empty-row" v-if="!patients.length">
-              <td colspan="11" style="padding: 0">
+              <td colspan="12" style="padding: 0">
                 <Placeholder
                   black
                   size="small"
@@ -81,6 +81,28 @@
                 v-if="record.autographNameA"
                 :src="`/crNursing/api/file/signImage/${record.autographEmpNoA}?${token}`"
                 :alt="record.autographNameA"
+                data-print-style="display: inline-block; width: 52px; height: auto;"
+              />
+              <span v-else style="display: none;" data-print-style="display: inline-block;">未签名</span>
+            </div>
+            <div data-print-style="width: auto">
+              <span>组长签名：</span>
+              <span data-print-style="display: none">
+                <button
+                  v-if="record.autographNameP"
+                  @click="onDelSignModalOpen('P', record.autographEmpNoP)"
+                >{{record.autographNameP}}</button>
+                <button
+                  v-else
+                  :disabled="isEmpty"
+                  @click="onSignModalOpen('P', record.autographEmpNoP)"
+                >点击签名</button>
+              </span>
+              <FallibleImage
+                class="img"
+                v-if="record.autographNameP"
+                :src="`/crNursing/api/file/signImage/${record.autographEmpNoP}?${token}`"
+                :alt="record.autographNameP"
                 data-print-style="display: inline-block; width: 52px; height: auto;"
               />
               <span v-else style="display: none;" data-print-style="display: inline-block;">未签名</span>
@@ -138,6 +160,14 @@
       ref="patientModal"
       :date="record ? record.changeShiftDate : ''"
       @confirm="onPatientModalConfirm"
+      @panel-open="onPatientPanelOpen"
+      @panel-close="onPatientPanelClose"
+      @tab-change="onPatientModalTabChange"
+    />
+    <PatientPanel
+      ref="patientPanel"
+      @tab-change="onPatientPanelTabChange"
+      @apply-template="onPatientPanelApply"
     />
     <SignModal ref="signModal" />
   </div>
@@ -155,6 +185,7 @@ import ExcelTable from "./components/table";
 import Placeholder from "./components/placeholder";
 import PatientModal from "./components/patient-modal";
 import PatientsModal from "./components/patients-modal";
+import PatientPanel from "./components/patient-panel";
 import SignModal from "./components/sign-modal";
 import $ from "jquery";
 import moment from "moment";
@@ -164,7 +195,8 @@ const defaultPatient = {
   patientStatus: "",
   diagnosis: "",
   remark1: "",
-  remark2: ""
+  remark2: "",
+  remark3: "",
 };
 
 const arrowKeyValues = {
@@ -172,7 +204,7 @@ const arrowKeyValues = {
   37: -1, // ←
   38: -6, // ↑
   39: 1, // →
-  40: 6 // ↓
+  40: 6, // ↓
 };
 
 export default {
@@ -181,14 +213,14 @@ export default {
     "getFullPage",
     "reloadSideList",
     "onCreateModalOpen",
-    "onToggleFullPage"
+    "onToggleFullPage",
   ],
   async beforeRouteLeave(to, from, next) {
     if (this.modified) {
       await this.$confirm("交班志还未保存，离开将会丢失数据", "提示", {
         confirmButtonText: "离开",
         cancelButtonText: "取消",
-        type: "warning"
+        type: "warning",
       });
     }
     next();
@@ -198,7 +230,7 @@ export default {
       await this.$confirm("交班志还未保存，离开将会丢失数据", "提示", {
         confirmButtonText: "离开",
         cancelButtonText: "取消",
-        type: "warning"
+        type: "warning",
       });
 
       this.$refs.table.selectRow(-1);
@@ -220,45 +252,52 @@ export default {
           prop: "bedLabel",
           editable: true,
           align: "center",
-          width: "35"
+          width: "35",
         },
         {
           label: "姓名",
           prop: "name",
           editable: true,
           align: "center",
-          width: "35"
+          width: "35",
         },
         {
           label: "诊断",
           prop: "diagnosis",
           editable: true,
           align: "center",
-          width: "35"
+          width: "35",
         },
         {
           label: "备注1",
           prop: "remark1",
           editable: true,
           align: "center",
-          width: "35"
+          width: "35",
         },
         {
           label: "备注2",
+          prop: "remark3",
+          editable: true,
+          align: "center",
+          width: "35",
+        },
+        {
+          label: "备注3",
           prop: "remark2",
           editable: true,
           align: "center",
-          width: "35"
-        }
+          width: "35",
+        },
       ],
       fixedTh: false,
-      headerData: []
+      headerData: [],
     };
   },
   computed: {
     deptName() {
       const code = this.$route.params.code;
-      const dept = this.depts.find(d => d.deptCode === code);
+      const dept = this.depts.find((d) => d.deptCode === code);
 
       return (dept && dept.deptName) || "";
     },
@@ -273,7 +312,7 @@ export default {
         record.autographNameN &&
         record.checkNurseName
       );
-    }
+    },
   },
   watch: {
     deptCode(value, oldValue) {
@@ -288,14 +327,14 @@ export default {
       if (value !== oldValue) {
         window.onbeforeunload = value ? () => true : null;
       }
-    }
+    },
   },
   mounted() {
     if (this.deptCode) {
       this.loadDepts();
     }
     let dom = this.$refs.container;
-    $(dom).scroll(e => {
+    $(dom).scroll((e) => {
       if ($(dom).scrollTop() >= 117) {
         this.fixedTh = true;
       } else {
@@ -308,7 +347,7 @@ export default {
       const parentCode = this.deptCode;
       const res1 = await apis.listDepartment(parentCode);
       const {
-        data: { data: depts }
+        data: { data: depts },
       } = res1;
 
       this.depts = depts;
@@ -331,7 +370,7 @@ export default {
       this.loading = true;
       try {
         const {
-          data: { data }
+          data: { data },
         } = await apis.getShiftRecord(id);
         const { changeShiftTime: record, changeShiftPatients: patients } = data;
         record.specialCase = record.specialCase || "";
@@ -342,7 +381,7 @@ export default {
         if (patients.length < 11) {
           this.patients = this.patients.concat(
             Array.from({ length: 11 - patients.length }).map(() => ({
-              ...defaultPatient
+              ...defaultPatient,
             }))
           );
         }
@@ -369,7 +408,8 @@ export default {
               "patientStatus",
               "diagnosis",
               "remark1",
-              "remark2"
+              "remark2",
+              "remark3",
             ])
           )
         : "";
@@ -382,7 +422,7 @@ export default {
           disable: !copyContent,
           click: () => {
             sessionStorage.setItem("shift-work-copy-content", copyContent);
-          }
+          },
         },
         {
           name: "复制行",
@@ -390,8 +430,8 @@ export default {
           disable: !copyRow,
           click: () => {
             sessionStorage.setItem("shift-work-copy-row", copyRow);
-          }
-        }
+          },
+        },
       ];
 
       if (!this.allSigned) {
@@ -408,7 +448,7 @@ export default {
 
               selectedRow[selectedCol.prop] = prefix + pasteContent + suffix;
               this.onSave();
-            }
+            },
           },
           {
             name: "粘贴行",
@@ -417,7 +457,7 @@ export default {
             click: async () => {
               const data = JSON.parse(pasteRow);
               const isExisted = this.patients.find(
-                p =>
+                (p) =>
                   p.name &&
                   p.patientId === data.patientId &&
                   p.visitId === data.visitId
@@ -430,7 +470,7 @@ export default {
               const date = this.record.changeShiftDate;
               const params = this.$route.params;
               const {
-                data: { data: remoteDate }
+                data: { data: remoteDate },
               } = await apis.getPatient(params.code, data.bedLabel, date);
 
               if (!remoteDate) {
@@ -446,9 +486,10 @@ export default {
               selectedRow["diagnosis"] = data["diagnosis"];
               selectedRow["remark1"] = data["remark1"];
               selectedRow["remark2"] = data["remark2"];
+              selectedRow["remark3"] = data["remark3"];
 
               await this.onSave();
-            }
+            },
           },
           {
             name: "向上移动行",
@@ -457,7 +498,7 @@ export default {
               // this.modified = true
               this.$refs.table.moveRowUp();
               await this.onSave();
-            }
+            },
           },
           {
             name: "向下移动行",
@@ -466,7 +507,7 @@ export default {
               // this.modified = true
               this.$refs.table.moveRowDown();
               await this.onSave();
-            }
+            },
           },
           {
             name: "向上插入新行",
@@ -474,7 +515,7 @@ export default {
             click: () => {
               this.modified = true;
               this.$refs.table.addRowBefore({ ...defaultPatient });
-            }
+            },
           },
           {
             name: "向下插入新行",
@@ -482,7 +523,7 @@ export default {
             click: () => {
               this.modified = true;
               this.$refs.table.addRowAfter({ ...defaultPatient });
-            }
+            },
           },
           {
             name: "删除行",
@@ -491,7 +532,7 @@ export default {
               await this.$confirm("你确定删除该行？", "提示", {
                 confirmButtonText: "删除",
                 cancelButtonText: "取消",
-                type: "warning"
+                type: "warning",
               });
               // this.modified = true
               const selectedRow = this.$refs.table.selectedRow;
@@ -499,8 +540,8 @@ export default {
                 await apis.removeShiftRecordRow(selectedRow.id);
               }
               this.$refs.table.removeRow();
-            }
-          }
+            },
+          },
         ];
 
         menus = menus.concat(others);
@@ -519,8 +560,8 @@ export default {
           disable: !copyContent,
           click: () => {
             sessionStorage.setItem("shift-work-copy-content", copyContent);
-          }
-        }
+          },
+        },
       ];
 
       if (!this.allSigned) {
@@ -535,7 +576,7 @@ export default {
 
             this.record.specialSituation = prefix + pasteContent + suffix;
             this.onSave();
-          }
+          },
         });
       }
 
@@ -544,7 +585,7 @@ export default {
           e.clientY - 15,
           window.innerHeight - data.length * 36 - 12
         )}px`,
-        left: `${Math.min(e.clientX + 15, window.innerWidth - 180)}px`
+        left: `${Math.min(e.clientX + 15, window.innerWidth - 180)}px`,
       };
 
       window.openContextMenu({ data, style });
@@ -556,7 +597,7 @@ export default {
       await this.$confirm("你确定删除该行？", "提示", {
         confirmButtonText: "删除",
         cancelButtonText: "取消",
-        type: "warning"
+        type: "warning",
       });
       // this.modified = true
       const selectedRow = this.$refs.table.selectedRow;
@@ -571,7 +612,8 @@ export default {
       // }
 
       const tabMap = {
-        remark2: "2"
+        remark3: "2",
+        remark2: "3",
       };
       const tab = tabMap[col.prop] || "1";
       this.$refs.patientModal.open(
@@ -587,8 +629,8 @@ export default {
       const date = d || this.record.changeShiftDate;
 
       const selectedKeys = this.patients
-        .filter(p => p.patientId && p.visitId)
-        .map(p => p.patientId + "//" + p.visitId);
+        .filter((p) => p.patientId && p.visitId)
+        .map((p) => p.patientId + "//" + p.visitId);
 
       this.$refs.patientsModal.open({ deptCode, date, id, selectedKeys });
     },
@@ -606,7 +648,7 @@ export default {
     onPatientModalConfirm(data) {
       const selectedRow = this.$refs.table.selectedRow;
       const isExisted = this.patients.find(
-        p =>
+        (p) =>
           p.name && p.patientId === data.patientId && p.visitId === data.visitId
       );
 
@@ -623,17 +665,34 @@ export default {
       this.$refs.patientModal.close();
       // this.modified = true
     },
+    onPatientModalTabChange(tab) {
+      if (this.$refs.patientPanel) {
+        this.$refs.patientPanel.changeTab(tab);
+      }
+    },
+    onPatientPanelOpen() {
+      this.$refs.patientPanel.open();
+    },
+    onPatientPanelClose() {
+      this.$refs.patientPanel.close();
+    },
+    onPatientPanelTabChange(tab) {
+      this.$refs.patientModal.changeTab(tab);
+    },
+    onPatientPanelApply({ tab, item }) {
+      this.$refs.patientModal.applyTemplate(tab, item);
+    },
     async onSave(tip) {
       const deptCode = this.deptCode;
       const changeShiftTime = this.record;
       const changeShiftPatients = this.patients
-        .filter(p => p.name || p.id)
+        .filter((p) => p.name || p.id)
         .map((p, i) => ({ ...p, sortValue: i + 1 }));
 
       await apis.updateShiftRecord({
         changeShiftTime,
         changeShiftPatients,
-        deptCode
+        deptCode,
       });
 
       this.load();
@@ -769,7 +828,7 @@ export default {
           line-height: normal !important;
           padding: 1px 0 !important;
         }
-        `
+        `,
         });
       });
       this.loading = false;
@@ -791,12 +850,12 @@ export default {
           const date = this.record.changeShiftDate;
           const params = this.$route.params;
           const {
-            data: { data }
+            data: { data },
           } = await apis.getPatient(params.code, value, date);
 
           if (data) {
             const isExisted = this.patients.find(
-              p =>
+              (p) =>
                 p.name &&
                 p.patientId === data.patientId &&
                 p.visitId === data.visitId
@@ -807,6 +866,7 @@ export default {
             this.patients[row].diagnosis = data.diagnosis;
             this.patients[row].remark1 = data.remark1 || "";
             this.patients[row].remark2 = data.remark2 || "";
+            this.patients[row].remark3 = data.remark3 || "";
             this.patients[row].patientStatus = data.patientStatus;
             this.patients[row].patientId = data.patientId || "";
             this.patients[row].visitId = data.visitId || "";
@@ -833,12 +893,12 @@ export default {
 
         textareas[toIndex].focus();
       }
-    }
+    },
   },
   filters: {
     ymdhm(val) {
       return val ? moment(val).format("YYYY年MM月DD日") : val;
-    }
+    },
   },
   components: {
     FallibleImage,
@@ -847,8 +907,9 @@ export default {
     Placeholder,
     PatientModal,
     PatientsModal,
-    SignModal
-  }
+    PatientPanel,
+    SignModal,
+  },
 };
 </script>
 
@@ -974,7 +1035,6 @@ export default {
   display: flex;
   justify-content: space-between;
   line-height: 25px;
-  padding-left: 250px;
 
   div {
     font-size: 0;

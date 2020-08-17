@@ -5,14 +5,24 @@ export default {
     width: "1100px"
   },
   th: {
-    top: [{
-        name: "2020年",
+    top: [
+      {
+        name: "日期",
         style: {
-          minWidth: "40px",
-          maxWidth: "40px"
+          minWidth: "36px",
+          maxWidth: "36px"
         },
-        colspan: "2",
-        rowspan: "1"
+        colspan: "1",
+        rowspan: "3"
+      },
+      {
+        name: "时间",
+        style: {
+          minWidth: "36px",
+          maxWidth: "36px"
+        },
+        colspan: "1",
+        rowspan: "3"
       },
       {
         name: "部位",
@@ -133,30 +143,7 @@ export default {
         },
       }
     ],
-    mid: [{
-        name: `
-        日期
-        `,
-        colspan: "1",
-        rowspan: "2",
-        style: {
-          minWidth: "20px",
-          maxWidth: "20px",
-          whiteSpace: "nowrap"
-        },
-      },
-      {
-        name: `
-        时间
-        `,
-        colspan: "1",
-        rowspan: "2",
-        style: {
-          minWidth: "20px",
-          maxWidth: "20px",
-          whiteSpace: "nowrap"
-        },
-      },
+    mid: [
       {
         name: `
         长×宽×高

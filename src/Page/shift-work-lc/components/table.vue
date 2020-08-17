@@ -73,8 +73,20 @@
           </th>
           <th>
             <div class="cell">
-              手术
-              <input type="text" v-model="record.patientOprationA" />人
+              出院
+              <input type="text" v-model="record.patientOutP" />人
+            </div>
+          </th>
+          <th>
+            <div class="cell">
+              病危
+              <input type="text" v-model="record.patientBwP" />人
+            </div>
+          </th>
+          <th>
+            <div class="cell">
+              转出
+              <input type="text" v-model="record.patientTransferOutP" />人
             </div>
           </th>
           <th>
@@ -95,14 +107,14 @@
               <input type="text" v-model="record.patientTransferOutN" />人
             </div>
           </th>
+        </tr>
+        <tr>
           <th>
             <div class="cell">
               手术
-              <input type="text" v-model="record.patientOprationN" />人
+              <input type="text" v-model="record.patientOprationA" />人
             </div>
           </th>
-        </tr>
-        <tr>
           <th>
             <div class="cell">
               死亡
@@ -117,14 +129,26 @@
           </th>
           <th>
             <div class="cell">
-              新入
-              <input type="text" v-model="record.patientNewA" />人
+              手术
+              <input type="text" v-model="record.patientOprationP" />人
             </div>
           </th>
           <th>
             <div class="cell">
-              特护
-              <input type="text" v-model="record.patientSpecialA" />人
+              死亡
+              <input type="text" v-model="record.patientDeathP" />人
+            </div>
+          </th>
+          <th>
+            <div class="cell">
+              备术
+              <input type="text" v-model="record.patientRemarkP" />人
+            </div>
+          </th>
+          <th>
+            <div class="cell">
+              手术
+              <input type="text" v-model="record.patientOprationN" />人
             </div>
           </th>
           <th>
@@ -139,6 +163,44 @@
               <input type="text" v-model="record.patientRemarkN" />人
             </div>
           </th>
+        </tr>
+        <tr>
+          <th>
+            <div class="cell">
+              新入
+              <input type="text" v-model="record.patientNewA" />人
+            </div>
+          </th>
+          <th>
+            <div class="cell">
+              特护
+              <input type="text" v-model="record.patientSpecialA" />人
+            </div>
+          </th>
+          <th>
+            <div class="cell">
+              转入
+              <input type="text" v-model="record.patientTransferInA" />人
+            </div>
+          </th>
+          <th>
+            <div class="cell">
+              新入
+              <input type="text" v-model="record.patientNewP" />人
+            </div>
+          </th>
+          <th>
+            <div class="cell">
+              特护
+              <input type="text" v-model="record.patientSpecialP" />人
+            </div>
+          </th>
+          <th>
+            <div class="cell">
+              转入
+              <input type="text" v-model="record.patientTransferInP" />人
+            </div>
+          </th>
           <th>
             <div class="cell">
               新入
@@ -151,15 +213,14 @@
               <input type="text" v-model="record.patientSpecialN" />人
             </div>
           </th>
-        </tr>
-
-        <tr>
           <th>
             <div class="cell">
               转入
-              <input type="text" v-model="record.patientTransferInA" />人
+              <input type="text" v-model="record.patientTransferInN" />人
             </div>
           </th>
+        </tr>
+        <tr>
           <th>
             <div class="cell">
               一级
@@ -180,8 +241,20 @@
           </th>
           <th>
             <div class="cell">
-              转入
-              <input type="text" v-model="record.patientTransferInN" />人
+              一级
+              <input type="text" v-model="record.patientFirstP" />人
+            </div>
+          </th>
+          <th>
+            <div class="cell">
+              病重
+              <input type="text" v-model="record.patientBzP" />人
+            </div>
+          </th>
+          <th>
+            <div class="cell">
+              总数
+              <input type="text" v-model="record.patientTotalP" />人
             </div>
           </th>
           <th>
@@ -215,7 +288,7 @@
             v-for="(col, colIndex) of realColumns"
             :key="col.label"
             :style="{'text-align': col.align || 'left'}"
-            :colspan="colIndex>2?4:1"
+            :colspan="colIndex>2?3:1"
             @dblclick="onDblClick({row, rowIndex, col, colIndex})"
             @contextmenu.stop.prevent="onContextMenu($event, rowIndex, col)"
           >
@@ -245,7 +318,7 @@
 export default {
   model: {
     prop: "data",
-    event: "input"
+    event: "input",
   },
   props: {
     fixedTh: Boolean,
@@ -265,27 +338,27 @@ export default {
      */
     columns: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
     data: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
     record: {
       type: Object,
-      default: () => {}
+      default: () => {},
     },
     getContextMenu: {
-      type: Function
+      type: Function,
     },
     editable: {
-      type: Boolean
-    }
+      type: Boolean,
+    },
   },
   data: () => ({
     selectedRow: null,
     selectedRowIndex: -1,
-    selectedCol: null
+    selectedCol: null,
   }),
   computed: {
     isMultiCol() {
@@ -308,7 +381,7 @@ export default {
       }
 
       return columns;
-    }
+    },
   },
   methods: {
     getColSpan(col) {
@@ -334,14 +407,14 @@ export default {
           e.clientY - 15,
           window.innerHeight - data.length * 36 - 12
         )}px`,
-        left: `${Math.min(e.clientX + 15, window.innerWidth - 180)}px`
+        left: `${Math.min(e.clientX + 15, window.innerWidth - 180)}px`,
       };
 
       window.openContextMenu({ data, style });
     },
     select(rowIndex, col) {
       if (typeof rowIndex !== "number") {
-        rowIndex = this.data.findIndex(r => r === rowIndex);
+        rowIndex = this.data.findIndex((r) => r === rowIndex);
       }
 
       this.selectedRow = this.data[rowIndex];
@@ -358,7 +431,7 @@ export default {
       this.select(rowIndex, null);
     },
     addRow(row = {}) {
-      const index = this.data.findIndex(i => !i.bedLabel);
+      const index = this.data.findIndex((i) => !i.bedLabel);
       this.addRowBefore(row, index >= 0 ? index : 0);
     },
     addRowBefore(row = {}, rowIndex = this.selectedRowIndex) {
@@ -399,8 +472,8 @@ export default {
     },
     onInputKeydown(event, value, prop, row, col) {
       this.$emit("input-keydown", { event, value, prop, row, col });
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -425,6 +498,14 @@ export default {
     border: 1px solid #444444;
   }
 
+  tr {
+    th {
+      &:nth-of-type(3), &:nth-of-type(6), &:nth-of-type(9) {
+        border-right: 1px solid #444444;
+      }
+    }
+  }
+
   th {
     padding: 2px;
     background: #f4f2f5;
@@ -436,10 +517,6 @@ export default {
 
     &.name, &:last-of-type {
       border-right: 1px solid #444444;
-    }
-
-    &:nth-last-of-type(4) {
-      border-left: 1px solid #444444;
     }
 
     input {

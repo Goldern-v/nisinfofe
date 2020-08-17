@@ -379,6 +379,54 @@ export default function Title(
         );
       }
       break;
+    case "prenatal_hd":
+      {
+        // 花都-护理记录单（产前护理记录单）
+        Th = JSON.parse(
+          JSON.stringify(require("../config/prenatal_hd/th").default)
+        );
+      }
+      break;
+    case "postpartum_hd":
+      {
+        // 花都-护理记录单（产后护理记录单）
+        Th = JSON.parse(
+          JSON.stringify(require("../config/postpartum_hd/th").default)
+        );
+      }
+      break;
+    case "wait_delivery_hd":
+      {
+        // 花都-护理记录单（候产记录单）
+        Th = JSON.parse(
+          JSON.stringify(require("../config/wait_delivery_hd/th").default)
+        );
+      }
+      break;
+    case "neurosurgery_hd":
+      {
+        // 花都-护理记录单（神经外科）
+        Th = JSON.parse(
+          JSON.stringify(require("../config/neurosurgery_hd/th").default)
+        );
+      }
+      break;
+    case "neonatology_hd":
+      {
+        // 花都-护理记录单（新生儿科）
+        Th = JSON.parse(
+          JSON.stringify(require("../config/neonatology_hd/th").default)
+        );
+      }
+      break;
+    case "neonatology2_hd":
+      {
+        // 花都-护理记录单（新生儿）
+        Th = JSON.parse(
+          JSON.stringify(require("../config/neonatology2_hd/th").default)
+        );
+      }
+      break;
     default:
       {
         Th = JSON.parse(
@@ -409,7 +457,7 @@ export default function Title(
                 item.fieldEn == Th.th.title[i].key && item.pageIndex === index
               );
             }).fieldCn;
-          } catch (e) {}
+          } catch (e) { }
         }
       }
     }
@@ -430,7 +478,7 @@ export default function Title(
           Th.th.top[i].name = reverseArr.find(item => {
             return item.fieldEn == Th.th.top[i].key && item.pageIndex === index;
           }).fieldCn;
-        } catch (e) {}
+        } catch (e) { }
       }
     }
   }
@@ -449,7 +497,7 @@ export default function Title(
           Th.th.mid[i].name = reverseArr.find(item => {
             return item.fieldEn == Th.th.mid[i].key && item.pageIndex === index;
           }).fieldCn;
-        } catch (e) {}
+        } catch (e) { }
       }
     }
   }
@@ -471,7 +519,7 @@ export default function Title(
                 item.fieldEn == Th.th.bottom[i].key && item.pageIndex === index
               );
             }).fieldCn;
-          } catch (e) {}
+          } catch (e) { }
         }
       }
     }

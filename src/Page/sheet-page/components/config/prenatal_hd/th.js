@@ -1,27 +1,22 @@
 export default {
-  // 科室的名称
+  // 科室的名称 关节骨科
   deptType: "",
   style: {
-    width: "1300px"
+    width: "1180px"
   },
   th: {
     top: [
       {
-        name: `
-        日期
-        `,
+        name: "日期",
+        style: {
+          minWidth: "36px",
+          maxWidth: "36px"
+        },
         colspan: "1",
         rowspan: "3"
       },
       {
-        name: `
-        时间
-        `,
-        colspan: "1",
-        rowspan: "3"
-      },
-      {
-        name: "体温<br/>℃",
+        name: "时间",
         style: {
           minWidth: "36px",
           maxWidth: "36px"
@@ -31,35 +26,38 @@ export default {
       },
       {
         name: `
-        脉<br/>搏<br/>次/<br/>分
+        体温<br/>℃
         `,
         style: {},
         colspan: "1",
         rowspan: "3",
         style: {
-          minWidth: "20px"
+          whiteSpace: "nowrap",
+          minWidth: "34px"
         }
       },
       {
         name: `
-        心<br/>率<br/>次/<br/>分
+        脉搏<br/>次/分
         `,
         style: {},
         colspan: "1",
         rowspan: "3",
         style: {
-          minWidth: "20px"
+          whiteSpace: "nowrap",
+          minWidth: "38px"
         }
       },
       {
         name: `
-        呼<br/>吸<br/>次/<br/>分
+        呼吸<br/>次/分
         `,
         style: {},
         colspan: "1",
         rowspan: "3",
         style: {
-          minWidth: "20px"
+          whiteSpace: "nowrap",
+          minWidth: "38px"
         }
       },
       {
@@ -67,8 +65,8 @@ export default {
         血压<br/>mmHg
         `,
         style: {
-          minWidth: "52px",
-          maxWidth: "52px",
+          minWidth: "40px",
+          maxWidth: "40px",
           whiteSpace: "nowrap"
         },
         colspan: "1",
@@ -88,14 +86,36 @@ export default {
       },
       {
         name: `
-        SPO<sub>2</sub><br>(%)
+        血氧饱和度(%)
         `,
         style: {
-          minWidth: "31px",
-          maxWidth: "31px"
+          minWidth: "20px",
+          maxWidth: "20px",
         },
         colspan: "1",
         rowspan: "3"
+      },
+      {
+        name: `
+        指尖血糖<br/>mmol/L
+        `,
+        style: {
+          minWidth: "20px",
+          maxWidth: "20px",
+        },
+        colspan: "1",
+        rowspan: "3"
+      },
+      {
+        name: `
+        阴道出血<br/>(ml)
+        `,
+        colspan: "1",
+        rowspan: "3",
+        style: {
+          minWidth: "40px",
+          maxWidth: "40px"
+        }
       },
       {
         name: `
@@ -109,90 +129,93 @@ export default {
         name: `
         出量
         `,
+        style: {},
         colspan: "3",
         rowspan: "1"
       },
       {
-        name: `
-        健康<br/>教育
-        `,
-        colspan: "1",
-        rowspan: "3",
-        style: {
-          minWidth: "40px",
-          maxWidth: "40px"
-        }
-      },
-      {
-        name: `标题1`,
-        style: {},
-        colspan: "1",
-        rowspan: "3",
-        canSet: true,
-        key: "fieldOne",
-        style: {
-          minWidth: "40px",
-          maxWidth: "40px"
-        }
-      },
-      {
-        name: `标题2`,
-        style: {},
-        colspan: "1",
-        rowspan: "3",
-        canSet: true,
-        key: "fieldTwo",
-        style: {
-          minWidth: "40px",
-          maxWidth: "40px"
-        }
-      },
-      {
-        name: `标题3`,
-        style: {},
-        colspan: "1",
-        rowspan: "3",
-        canSet: true,
-        key: "fieldThree",
-        style: {
-          minWidth: "40px",
-          maxWidth: "40px"
-        }
-      },
-      {
-        name: `标题4`,
-        style: {},
-        colspan: "1",
-        rowspan: "3",
-        canSet: true,
-        key: "fieldFour",
-        style: {
-          minWidth: "40px",
-          maxWidth: "40px"
-        }
-      },
-      {
-        name: `标题5`,
+        name: `健康宣教`,
         style: {},
         colspan: "1",
         rowspan: "3",
         canSet: true,
         key: "fieldFive",
         style: {
-          minWidth: "40px",
-          maxWidth: "40px"
+          minWidth: "60px",
+          maxWidth: "60px",
+          whiteSpace: "nowrap"
         }
       },
       {
-        name: `标题6`,
+        name: ``,
         style: {},
         colspan: "1",
         rowspan: "3",
         canSet: true,
         key: "fieldSix",
         style: {
-          minWidth: "40px",
-          maxWidth: "40px"
+          minWidth: "32px",
+          maxWidth: "32px"
+        }
+      },
+      {
+        name: ``,
+        style: {},
+        colspan: "1",
+        rowspan: "3",
+        canSet: true,
+        key: "fieldSeven",
+        style: {
+          minWidth: "32px",
+          maxWidth: "32px"
+        }
+      },
+      {
+        name: ``,
+        style: {},
+        colspan: "1",
+        rowspan: "3",
+        canSet: true,
+        key: "fieldEight",
+        style: {
+          minWidth: "32px",
+          maxWidth: "32px"
+        }
+      },
+      {
+        name: ``,
+        style: {},
+        colspan: "1",
+        rowspan: "3",
+        canSet: true,
+        key: "fieldNine",
+        style: {
+          minWidth: "32px",
+          maxWidth: "32px"
+        }
+      },
+      {
+        name: ``,
+        style: {},
+        colspan: "1",
+        rowspan: "3",
+        canSet: true,
+        key: "fieldTen",
+        style: {
+          minWidth: "32px",
+          maxWidth: "32px"
+        }
+      },
+      {
+        name: ``,
+        style: {},
+        colspan: "1",
+        rowspan: "3",
+        canSet: true,
+        key: "fieldEleven",
+        style: {
+          minWidth: "32px",
+          maxWidth: "32px"
         }
       },
       {
@@ -208,61 +231,59 @@ export default {
       },
       {
         name: `
-       签名
+        护士签名
         `,
         style: {},
         colspan: "1",
-        rowspan: "3",
-        style: {
-          minWidth: "50px",
-          maxWidth: "50px"
-        },
+        rowspan: "3"
       }
-      // {
-      //   name: `
-      //   审核签名
-      //   `,
-      //   style: {},
-      //   colspan: "1",
-      //   rowspan: "3"
-      // }
     ],
     mid: [
       {
-        name: `
-        名称
-        `,
+        name: "内容",
+        style: {
+          minWidth: "36px",
+          maxWidth: "36px"
+        },
         colspan: "1",
         rowspan: "2"
       },
       {
-        name: `
-        量<br/>ml
-        `,
+        name: "量<br/>(ml)",
+        style: {
+          minWidth: "36px",
+          maxWidth: "36px"
+        },
         colspan: "1",
         rowspan: "2"
       },
       {
-        name: `
-        名称
-        `,
+        name: "内容",
+        style: {
+          minWidth: "36px",
+          maxWidth: "36px"
+        },
         colspan: "1",
         rowspan: "2"
       },
       {
-        name: `
-        量<br/>ml
-        `,
+        name: "量<br/>(ml)",
+        style: {
+          minWidth: "36px",
+          maxWidth: "36px"
+        },
         colspan: "1",
         rowspan: "2"
       },
       {
-        name: `
-        颜色
-        `,
+        name: "颜色",
+        style: {
+          minWidth: "36px",
+          maxWidth: "36px"
+        },
         colspan: "1",
         rowspan: "2"
-      }
+      },
     ],
     bottom: [
 

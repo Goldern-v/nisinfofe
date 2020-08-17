@@ -1,18 +1,15 @@
 <template>
   <div class="health-education">
-    <table class="education-table" border="1px solid #000"  border-collapse="collapse">
+    <table class="education-table" border="1px solid #000" border-collapse="collapse">
       <thead>
-        <tr
-          v-for="(item, i) in theadData"
-          :key="i">
+        <tr v-for="(item, i) in theadData" :key="i">
           <th
             v-for="(v, j) in item"
-            :key="j" :rowspan="v.rowspan || 1"
+            :key="j"
+            :rowspan="v.rowspan || 1"
             :style="v.width ? `width:${v.width}px;` : ''"
             :colspan="v.colspan || 1"
-          >
-            {{v.text}}
-          </th>
+          >{{v.text}}</th>
         </tr>
       </thead>
       <tbody>
@@ -47,11 +44,7 @@
           </td>
           <!-- 备注 -->
           <td class="remark contentLeft">
-            <span
-              class="remark-span"
-            >
-              {{data['备注']}}
-            </span>
+            <span class="remark-span">{{data['备注']}}</span>
           </td>
           <!-- 签名 -->
           <td>
@@ -63,59 +56,64 @@
     <!-- 页码 -->
     <div class="health-table-page">{{`第${index + 1}/${page}页`}}</div>
     <!-- 宣教内容弹窗 -->
-    <healthContentModal ref="healthContentModal" :content="content" :name="name"/>
+    <healthContentModal ref="healthContentModal" :content="content" :name="name" />
+    <lcHealthContentModal ref="lcHealthContentModal" :data="data" :content="content" :name="name" />
   </div>
 </template>
 
 <script>
-import { getContentByMissionId } from '../api/healthApi'
+import { getContentByMissionId } from "../api/healthApi";
 import healthContentModal from "./healthContentModal"; // 添加修改弹窗
+import lcHealthContentModal from "./lcHealthContentModal"; // 添加修改弹窗
+import common from "@/common/mixin/common.mixin.js";
 
 export default {
+  mixins: [common],
   props: {
     selected: Object,
-    pageParam: { // 未处理的表格数据
+    pageParam: {
+      // 未处理的表格数据
       type: Array,
       default: () => []
     },
-    index: { // 未处理的表格数据
+    index: {
+      // 未处理的表格数据
       type: Number,
       default: 1
     },
-    page: { // 未处理的表格数据
+    page: {
+      // 未处理的表格数据
       type: Number,
       default: 1
     }
   },
-  components: {
-    healthContentModal
-  },
-  data () {
+  data() {
     return {
-      content: '',
-      name: '',
+      content: "",
+      name: "",
+      contentData: "",
       isContent: false,
       isPrint: false,
       theadData: [
         [
-          { rowspan: 2, text: '教育时间', width: 80 },
-          { rowspan: 2, text: '宣教内容', width: 160 },
-          { colspan: 2, text: '教育对象'},
-          { colspan: 4, text: '教育方法'},
-          { colspan: 3, text: '教育评估'},
-          { rowspan: 2, text: '备注', width: 90 },
-          { rowspan: 2, text: '签名', width: 60 },
+          { rowspan: 2, text: "教育时间", width: 80 },
+          { rowspan: 2, text: "宣教内容", width: 160 },
+          { colspan: 2, text: "教育对象" },
+          { colspan: 4, text: "教育方法" },
+          { colspan: 3, text: "教育评估" },
+          { rowspan: 2, text: "备注", width: 90 },
+          { rowspan: 2, text: "签名", width: 60 }
         ],
         [
-          { text: '患者', width: 30 },
-          { text: '家属', width: 30 },
-          { text: '口述', width: 30 },
-          { text: '书面', width: 30 },
-          { text: '在线', width: 30 },
-          { text: '示范', width: 30 },
-          { text: '能理解', width: 30 },
-          { text: '会演示', width: 30 },
-          { text: '需强化', width: 30 }
+          { text: "患者", width: 30 },
+          { text: "家属", width: 30 },
+          { text: "口述", width: 30 },
+          { text: "书面", width: 30 },
+          { text: "在线", width: 30 },
+          { text: "示范", width: 30 },
+          { text: "能理解", width: 30 },
+          { text: "会演示", width: 30 },
+          { text: "需强化", width: 30 }
         ]
       ],
       object: ["患者", "家属"],
@@ -123,91 +121,103 @@ export default {
       assessment: ["能理解", "会演示", "需强化"],
       tableData: [],
       resData: [],
-      patientId: ''
-    }
+      patientId: ""
+    };
   },
   watch: {
     pageParam: {
-      handler (val) {
-        this.setTableData(val)
+      handler(val) {
+        this.setTableData(val);
       },
       immediate: true,
       deep: true
     }
   },
-  created () {
-    this.init()
+  created() {
+    this.init();
   },
 
   methods: {
-    init () {
-      this.patientId = this.$route.query.patientId
+    init() {
+      this.patientId = this.$route.query.patientId;
     },
 
     // 打印
-    print () {
-      this.isPrint = true
+    print() {
+      this.isPrint = true;
     },
 
     // 初始化默认值
-    setData (total) {
-      let array = []
+    setData(total) {
+      let array = [];
       for (let i = 0; i < total; i++) {
-        array.push(
-          {
-            '教育时间': '',
-            '宣教内容': '',
-            '教育对象': '',
-            '教育方法': '',
-            '教育评估': '',
-            '备注': '',
-            '签名': ''
-          }
-        )
+        array.push({
+          教育时间: "",
+          宣教内容: "",
+          教育对象: "",
+          教育方法: "",
+          教育评估: "",
+          备注: "",
+          签名: ""
+        });
       }
-      this.tableData = array
+      this.tableData = array;
     },
     // 处理表格数据
-    setTableData (val) {
-      this.setData(val.length > 30 ? val.length : 30) // 重置表格
-      val.map((item, index)=> {
+    setTableData(val) {
+      this.setData(val.length > 30 ? val.length : 30); // 重置表格
+      val.map((item, index) => {
         let creatDateStr = item.instance.creatDateStr.substring(5);
-        let pageParam = item.pageParam == null ? {} : (item.pageParam.pageParam ? JSON.parse(item.pageParam.pageParam) : {})
-        this.$set(this.tableData, index, pageParam)
-        this.$set(this.tableData[index], "宣教内容", item.instance.title)
-        this.$set(this.tableData[index], "教育时间", creatDateStr)
-        this.$set(this.tableData[index], "item", item.instance)
-      })
+        let pageParam =
+          item.pageParam == null
+            ? {}
+            : item.pageParam.pageParam
+            ? JSON.parse(item.pageParam.pageParam)
+            : {};
+        this.$set(this.tableData, index, pageParam);
+        this.$set(this.tableData[index], "宣教内容", item.instance.title);
+        this.$set(this.tableData[index], "教育时间", creatDateStr);
+        this.$set(this.tableData[index], "item", item.instance);
+      });
     },
     //点击宣教内容
     healthContent(e, data) {
-      if (!data['宣教内容']) return
+      console.log(e, "e", data);
+      if (!data["宣教内容"]) return;
       e.stopPropagation();
-      let ids = data.item ? data.item.missionId : ''
-      getContentByMissionId(ids).then(res => {
-        this.content =  res.data.data[0].content
-        this.name = res.data.data[0].name
-        this.isContent = true
-        this.$refs.healthContentModal.open("打开健康宣教内容");
-      }).catch(e => {
-      })
+      let ids = data.item ? data.item.missionId : "";
+      this.data = data;
+      getContentByMissionId(ids)
+        .then(res => {
+          this.content = res.data.data[0].content;
+          this.name = res.data.data[0].name;
+          this.isContent = true;
+          this.HOSPITAL_ID == "lingcheng"
+            ? this.$refs.lcHealthContentModal.open("打开陵城健康宣教")
+            : this.$refs.healthContentModal.open("打开健康宣教内容");
+        })
+        .catch(e => {});
     },
     // 点击行
     onSelect(data) {
-      if (!data['宣教内容']) return
+      if (!data["宣教内容"]) return;
       if (data === this.selected) {
         this.$emit("update:selected", null);
-        return
+        return;
       }
       this.$emit("update:selected", data);
     },
     // 双击行修改
     onDblClick(data) {
-      if (!data['宣教内容']) return
+      if (!data["宣教内容"]) return;
       this.$emit("dblclick", data);
     }
+  },
+  components: {
+    healthContentModal,
+    lcHealthContentModal
   }
-}
+};
 </script>
 
 <style scoped lang='scss'>
@@ -216,7 +226,7 @@ export default {
   position: relative;
   * {
     box-sizing: border-box;
-  };
+  }
 
   .health-table-page {
     font-size: 13px;
@@ -228,8 +238,8 @@ export default {
     width: 660px;
     color: #000;
     border-collapse: collapse;
-    thead{
-      background: #f4f2f5
+    thead {
+      background: #f4f2f5;
     }
     .isPrint {
       color: blue;
@@ -237,7 +247,8 @@ export default {
     .isPrint:hover {
       text-decoration: underline;
     }
-    th, td {
+    th,
+    td {
       position: relative;
       padding: 5px;
       text-align: center;
@@ -263,16 +274,16 @@ export default {
       height: 20px;
       opacity: 0;
     }
-    .point{
+    .point {
       &:hover {
         cursor: pointer;
         background: #e6e6e6;
-       }
+      }
       &.selected {
-        background: #FFF8B1;
+        background: #fff8b1;
       }
     }
-    .contentLeft{
+    .contentLeft {
       text-align: left;
       padding-left: 10px;
     }
@@ -289,7 +300,7 @@ export default {
     }
   }
 
-  .health-content{
+  .health-content {
     position: absolute;
     left: 0;
     top: 0;

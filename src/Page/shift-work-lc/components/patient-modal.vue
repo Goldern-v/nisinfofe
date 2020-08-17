@@ -1,5 +1,5 @@
 <template>
-  <SweetModal ref="modal" title="患者ISBAR交班内容" :modal-width="760" @close="onPanelClose">
+  <SweetModal ref="modal" title="护理日夜交班" :modal-width="760" @close="onPanelClose">
     <div class="head">
       <label>
         <span>床号：</span>
@@ -24,10 +24,11 @@
           :disabled="!isSignedN"
         />
       </label>
+      <a v-if="!isSignedN" class="action" @click="onPanelOpen">+ 模板</a>
     </div>
     <div class="content">
       <ElTabs class="tabs" v-model="tab" type="card" @input="onTabChange">
-        <ElTabPane label="日班" name="1">
+        <ElTabPane label="白班" name="1">
           <div class="label">诊断</div>
           <ElInput
             type="textarea"
@@ -45,7 +46,25 @@
             :disabled="isSignedN"
           />
         </ElTabPane>
-        <ElTabPane label="夜班" name="2">
+        <ElTabPane label="小夜" name="2">
+          <div class="label">诊断</div>
+          <ElInput
+            type="textarea"
+            ref="diagnosis"
+            :rows="4"
+            v-model="form.diagnosis"
+            :disabled="isSignedN"
+          />
+          <div class="label">交班内容</div>
+          <ElInput
+            type="textarea"
+            ref="remark3"
+            :rows="4"
+            v-model="form.remark3"
+            :disabled="isSignedN"
+          />
+        </ElTabPane>
+        <ElTabPane label="大夜" name="3">
           <div class="label">诊断</div>
           <ElInput
             type="textarea"
@@ -82,19 +101,20 @@ const defaultForm = {
   patientStatus: "",
   diagnosis: "",
   remark1: "",
-  remark2: ""
+  remark2: "",
+  remark3: "",
 };
 
 export default {
   mixins: [common],
   props: {
-    date: String
+    date: String,
   },
   data: () => ({
     tab: "",
     bedLabelDisabled: false,
     isSignedN: false,
-    form: { ...defaultForm }
+    form: { ...defaultForm },
   }),
   methods: {
     open(tab, form, autoFocus, isSignedN) {
@@ -123,6 +143,8 @@ export default {
       if (tab === "1") {
         this.form.remark1 = (this.form.remark1 || "") + item.content;
       } else if (tab === "2") {
+        this.form.remark3 = (this.form.remark3 || "") + item.content;
+      } else if (tab === "3") {
         this.form.remark2 = (this.form.remark2 || "") + item.content;
       }
     },
@@ -131,6 +153,9 @@ export default {
     },
     onConfirm() {
       this.$emit("confirm", this.form);
+    },
+    onPanelOpen() {
+      this.$emit("panel-open");
     },
     onPanelClose() {
       this.$emit("panel-close");
@@ -147,23 +172,24 @@ export default {
 
       const params = this.$route.params;
       const {
-        data: { data }
+        data: { data },
       } = await apis.getPatient(params.code, bedLabel, this.date);
 
       if (data) {
         const { testResult, examResult } = data;
         data.remark1 = data.remark1 || "";
         data.remark2 = data.remark2 || "";
+        data.remark3 = data.remark3 || "";
 
         this.form = { ...this.form, ...data };
       } else {
         this.$message.error("找不到该患者");
       }
-    }
+    },
   },
   components: {
-    Button
-  }
+    Button,
+  },
 };
 </script>
 
