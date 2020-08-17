@@ -47,7 +47,10 @@
             <span class="remark-span">{{data['备注']}}</span>
           </td>
           <!-- 签名 -->
-          <td>
+          <td v-if="HOSPITAL_ID == 'lingcheng'" class="specialTd">
+            <img class="img" :src="`/crNursing/api/file/signImage/${data['lc签名']}?${token}`" alt />
+          </td>
+          <td v-else>
             <span>{{data['签名']}}</span>
           </td>
         </tr>
@@ -308,6 +311,13 @@ export default {
     height: 600px;
     overflow: auto;
     background: #ccc;
+  }
+  .img {
+    height: 25px;
+    width: 100%;
+  }
+  .specialTd {
+    padding: 0 !important;
   }
 }
 </style>
