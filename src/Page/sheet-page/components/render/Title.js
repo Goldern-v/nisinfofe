@@ -371,14 +371,6 @@ export default function Title(
         );
       }
       break;
-    case "peritoneal_dialysis_hd":
-      {
-        // 花都-腹膜透析记录单
-        Th = JSON.parse(
-          JSON.stringify(require("../config/peritoneal_dialysis_hd/th").default)
-        );
-      }
-      break;
     case "prenatal_hd":
       {
         // 花都-护理记录单（产前护理记录单）

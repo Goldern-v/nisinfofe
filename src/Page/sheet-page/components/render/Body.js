@@ -351,12 +351,6 @@ function switechSheetType(type) {
         schema = require("../config/body_temperature_Hd/tr.js").default;
       }
       break;
-    case "peritoneal_dialysis_hd":
-      {
-        // 花都-腹膜透析记录单
-        schema = require("../config/peritoneal_dialysis_hd/tr.js").default;
-      }
-      break;
     case "prenatal_hd":
       {
         // 花都-护理记录单（产前护理记录单）
