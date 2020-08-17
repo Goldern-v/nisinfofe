@@ -229,6 +229,13 @@
                     </el-row>
                   </router-link>
                 </el-dropdown-item>
+                <el-dropdown-item :class="{active: $route.path == '/workloadSatistics'}">
+                  <router-link to="/workloadSatistics" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="workloadSatistics"></i>工作量统计
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item>
                 <!-- <el-dropdown-item :class="{active: $route.path == '/catheterPage'}">
                   <router-link to="/catheterPage" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
@@ -461,6 +468,10 @@
       background-image: url('../../common/images/index/患者查询.png');
     }
 
+    &.workloadSatistics {
+      background-image: url('../../common/images/index/工作量统计.png');
+    }
+
     &.catheterPage {
       background-image: url('../../common/images/index/导管.png');
     }
@@ -645,6 +656,7 @@ export default {
     isActivePage() {
       if (this.$route.path.indexOf("/wardReport") > -1) return true;
       if (this.$route.path == "/nursingDocumentation") return true;
+      if (this.$route.path == "/workloadSatistics") return true;
       if (this.$route.path == "/badEvent") return true;
       if (this.$route.path == "/inpatientReport") return true;
       if (this.$route.path == "/catheterPage") return true;
