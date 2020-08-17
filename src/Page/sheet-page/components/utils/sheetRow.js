@@ -33,6 +33,8 @@ export function getRowNum(index) {
     return 22;
   } else if (sheetInfo.sheetType == "special") {
     return 23;
+  } else if (sheetInfo.sheetType == "peritoneal_dialysis_hd") {
+    return 19;
   } else {
     return 17;
   }

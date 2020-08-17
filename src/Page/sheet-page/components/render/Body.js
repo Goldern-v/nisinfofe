@@ -1,17 +1,22 @@
 import sheetInfo from "../config/sheetInfo/index";
 import { matchMark } from "./Mark.js";
 import { getRowNum } from "../utils/sheetRow";
-export default function Body(data = [], index) {
+export default function Body(data = [], index, type) {
   let rowNum = getRowNum(index);
   let bodyModel = [];
   for (let i = 0; i < Math.max(data.length, rowNum); i++) {
-    bodyModel[i] = Tr(data[i]);
+    bodyModel[i] = Tr(data[i], type);
   }
   return bodyModel;
 }
 
-function Tr(data = {}) {
-  let schema = switechSheetType(sheetInfo.sheetType);
+function Tr(data = {}, type) {
+  if (!type && data["isLeft"] != undefined) {
+    type = data["isLeft"] ? "left" : "right";
+  }
+  let schema = type
+    ? switechSheetType(sheetInfo.sheetType)(type)
+    : switechSheetType(sheetInfo.sheetType);
   let mergetTr = [];
   for (let index = 0; index < schema.length; index++) {
     let keys = Object.keys(schema[index]);
@@ -21,7 +26,11 @@ function Tr(data = {}) {
         obj[item] = schema[index][item];
       }
     }
-    obj.value = data[schema[index].key] || "";
+    if (schema[index].key == "isLeft") {
+      obj.value = data[schema[index].key] || schema[index].value;
+    } else {
+      obj.value = data[schema[index].key] || "";
+    }
     obj.markObj = matchMark(data.id, schema[index].key);
     mergetTr.push(obj);
   }
@@ -39,9 +48,19 @@ function Tr(data = {}) {
   return mergetTr;
 }
 
-export const nullRow = () => {
-  let schema = switechSheetType(sheetInfo.sheetType);
-  return Tr(schema);
+export const nullRow = currRow => {
+  let type;
+  if (currRow) {
+    currRow.map(item => {
+      if (item.key == "isLeft") {
+        type = item.value ? "left" : "right";
+      }
+    });
+  }
+  let schema = type
+    ? switechSheetType(sheetInfo.sheetType)(type)
+    : switechSheetType(sheetInfo.sheetType);
+  return Tr(schema, type);
 };
 
 export { Tr };
@@ -68,15 +87,17 @@ function switechSheetType(type) {
         schema = require("../config/wkzzyxk_lc/tr.js").default;
       }
       break;
-    case "newborn_lc": {
-      // 陵城区-新生儿科 里的 新生儿监护
-      schema = require("../config/neonatology_lc/tr.js").default;
-    }
+    case "newborn_lc":
+      {
+        // 陵城区-新生儿科 里的 新生儿监护
+        schema = require("../config/neonatology_lc/tr.js").default;
+      }
       break;
-    case "Record_Children_Serious_Lc": {
-      // 陵城区-病重（病危）
-      schema = require("../config/picu_lc/tr.js").default;
-    }
+    case "Record_Children_Serious_Lc":
+      {
+        // 陵城区-病重（病危）
+        schema = require("../config/picu_lc/tr.js").default;
+      }
       break;
     case "neurology":
       {
@@ -306,9 +327,77 @@ function switechSheetType(type) {
         schema = require("../config/maternal_newborn_lc/tr.js").default;
       }
       break;
-    default: {
-      schema = require("../config/default/tr.js").default;
-    }
+    case "stress_injury_hd":
+      {
+        // 花都-压力性损伤护理记录单
+        schema = require("../config/stress_injury_hd/tr.js").default;
+      }
+      break;
+    case "common_hd":
+      {
+        // 花都-护理记录单
+        schema = require("../config/common_hd/tr.js").default;
+      }
+      break;
+    case "picc_maintenance_hd":
+      {
+        // 花都-PICC维护记录单
+        schema = require("../config/picc_maintenance_hd/tr.js").default;
+      }
+      break;
+    case "body_temperature_Hd":
+      {
+        // 花都-体温记录单
+        schema = require("../config/body_temperature_Hd/tr.js").default;
+      }
+      break;
+    case "peritoneal_dialysis_hd":
+      {
+        // 花都-腹膜透析记录单
+        schema = require("../config/peritoneal_dialysis_hd/tr.js").default;
+      }
+      break;
+    case "prenatal_hd":
+      {
+        // 花都-护理记录单（产前护理记录单）
+        schema = require("../config/prenatal_hd/tr.js").default;
+      }
+      break;
+    case "postpartum_hd":
+      {
+        // 花都-护理记录单（产后护理记录单）
+        schema = require("../config/postpartum_hd/tr.js").default;
+      }
+      break;
+    case "wait_delivery_hd":
+      {
+        // 花都-护理记录单（候产记录单）
+        schema = require("../config/wait_delivery_hd/tr.js").default;
+      }
+      break;
+    case "neurosurgery_hd":
+      {
+        // 花都-护理记录单（神经外科）
+        schema = require("../config/neurosurgery_hd/tr.js").default;
+      }
+      break;
+    case "neonatology_hd":
+      {
+        // 花都-护理记录单（新生儿科）
+        schema = require("../config/neonatology_hd/tr.js").default;
+      }
+      break;
+    case "neonatology2_hd":
+      {
+        // 花都-护理记录单（新生儿）
+        schema = require("../config/neonatology2_hd/tr.js").default;
+      }
+      break;
+    default:
+      {
+        schema = require("../config/default/tr.js").default;
+      }
+      break;
   }
   return schema;
 }

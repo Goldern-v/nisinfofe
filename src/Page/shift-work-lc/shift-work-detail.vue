@@ -160,6 +160,14 @@
       ref="patientModal"
       :date="record ? record.changeShiftDate : ''"
       @confirm="onPatientModalConfirm"
+      @panel-open="onPatientPanelOpen"
+      @panel-close="onPatientPanelClose"
+      @tab-change="onPatientModalTabChange"
+    />
+    <PatientPanel
+      ref="patientPanel"
+      @tab-change="onPatientPanelTabChange"
+      @apply-template="onPatientPanelApply"
     />
     <SignModal ref="signModal" />
   </div>
@@ -177,6 +185,7 @@ import ExcelTable from "./components/table";
 import Placeholder from "./components/placeholder";
 import PatientModal from "./components/patient-modal";
 import PatientsModal from "./components/patients-modal";
+import PatientPanel from "./components/patient-panel";
 import SignModal from "./components/sign-modal";
 import $ from "jquery";
 import moment from "moment";
@@ -656,6 +665,23 @@ export default {
       this.$refs.patientModal.close();
       // this.modified = true
     },
+    onPatientModalTabChange(tab) {
+      if (this.$refs.patientPanel) {
+        this.$refs.patientPanel.changeTab(tab);
+      }
+    },
+    onPatientPanelOpen() {
+      this.$refs.patientPanel.open();
+    },
+    onPatientPanelClose() {
+      this.$refs.patientPanel.close();
+    },
+    onPatientPanelTabChange(tab) {
+      this.$refs.patientModal.changeTab(tab);
+    },
+    onPatientPanelApply({ tab, item }) {
+      this.$refs.patientModal.applyTemplate(tab, item);
+    },
     async onSave(tip) {
       const deptCode = this.deptCode;
       const changeShiftTime = this.record;
@@ -881,6 +907,7 @@ export default {
     Placeholder,
     PatientModal,
     PatientsModal,
+    PatientPanel,
     SignModal,
   },
 };

@@ -1,0 +1,346 @@
+import { listItem } from "../../../api/recordDesc";
+import { multiDictInfo } from "../../../api/index";
+import { keyf1 } from "../keyEvent/f1.js";
+import { event_date, event_time, click_date } from "../keyEvent/date";
+import info from "../sheetInfo";
+
+let tmList = [];
+let twList = [];
+let gscxjxList = [];
+let xlgdList = [];
+let gjgList = [];
+let ysxzList = [];
+let gjkzList = [];
+let gsqdList = [];
+
+export default [
+  {
+    key: "recordMonth", //日期
+    value: "",
+    event: event_date,
+    click: click_date
+  },
+  {
+    key: "recordHour", //时间
+    value: "",
+    event: event_time
+  },
+  {
+    key: "temperature", //体温
+    value: "",
+    event: keyf1,
+    name: "体温",
+    next: "℃"
+  },
+  {
+    key: "pulse", //脉搏
+    value: "",
+    event: keyf1,
+    name: "脉搏",
+    next: "次/分"
+  },
+  {
+    key: "breath", //呼吸
+    value: "",
+    event: keyf1,
+    name: "呼吸",
+    next: "次/分"
+  },
+  {
+    key: "bloodPressure", //血压
+    value: "",
+    event: function (e, td) {
+      if (e.keyCode == 32) {
+        e.target.value += "/";
+        e.preventDefault();
+      }
+      keyf1(e, td);
+    },
+    name: "血压",
+    next: "mmHg"
+  },
+  {
+    key: "consciousness", //意识
+    value: "",
+    event: keyf1,
+    name: "意识",
+  },
+  {
+    key: "fieldOne", //血氧饱和度%
+    value: "",
+    event: keyf1,
+    name: "血氧饱和度",
+    next: "%",
+    // autoComplete: {
+    //   data: twList
+    // },
+  },
+  {
+    key: "fieldTwo", //指尖血糖mmol/L
+    value: "",
+    event: keyf1,
+    name: "指尖血糖",
+    next: "mmol/L",
+    // autoComplete: {
+    //   data: hzpw
+    // },
+    textarea: {
+      width: 43
+    }
+  },
+  {
+    key: "fieldThree", //阴道出血mL
+    value: "",
+    event: keyf1,
+    name: "阴道出血",
+    next: "mL",
+    // autoComplete: {
+    //   data: gsqdList
+    // },
+    textarea: {
+      width: 21
+    }
+  },
+  {
+    key: "food", // 入量内容
+    value: "",
+    event: keyf1,
+    name: "入量内容"
+  },
+  {
+    key: "foodSize", // 入量（单位ml）
+    value: "",
+    event: keyf1,
+    name: "入量大小",
+    next: "ml"
+  },
+  {
+    key: "discharge", //出量内容
+    value: "",
+    event: keyf1,
+    name: "出量内容",
+  },
+  {
+    key: "dischargeSize", //出量（单位ml）
+    value: "",
+    event: keyf1,
+    name: "出量大小",
+    next: "ml"
+  },
+  {
+    key: "fieldFour", //出量颜色
+    value: "",
+    event: keyf1,
+    name: "出量颜色"
+  },
+  {
+    key: "fieldFive", //健康宣教
+    value: "",
+    event: keyf1,
+    name: "健康宣教",
+    textarea: {
+      width: 38
+    }
+  },
+  {
+    key: "fieldSix", //子宫收缩
+    value: "",
+    event: keyf1,
+    textarea: {
+      width: 32
+    }
+  },
+  {
+    key: "fieldSeven", //宫底高度
+    value: "",
+    event: keyf1,
+    textarea: {
+      width: 32
+    }
+  },
+  {
+    key: "fieldEight", //乳房情况
+    value: "",
+    event: keyf1,
+    textarea: {
+      width: 32
+    }
+  },
+  {
+    key: "fieldNine", //泌乳情况
+    value: "",
+    event: keyf1,
+    textarea: {
+      width: 32
+    }
+  },
+  {
+    key: "fieldTen", //伤口情况
+    value: "",
+    event: keyf1,
+    textarea: {
+      width: 32
+    }
+  },
+  {
+    key: "fieldEleven", //指导挤奶
+    value: "",
+    event: keyf1,
+    textarea: {
+      width: 32
+    }
+  },
+  {
+    key: "fieldTwelve", //标题1
+    value: "",
+    event: keyf1,
+    textarea: {
+      width: 32
+    }
+  },
+  {
+    key: "description", //特殊情况记录
+    value: "",
+    style: {
+      textAlign: "left",
+      position: "absolute",
+      top: "1px",
+      bottom: "1px",
+      left: "1px",
+      width: "180px",
+      background: "transparent"
+    },
+    event: function (e, td) {
+      console.log(e.keyCode);
+      if (e.keyCode == 9) {
+        td.value = "    " + td.value;
+        e.preventDefault();
+      }
+      keyf1(e, td);
+    }
+    // oninput: next
+  },
+  {
+    key: "sign",
+    value: ""
+  },
+  // {
+  //   key: "audit",
+  //   value: ""
+  // },
+  {
+    hidden: true,
+    key: "id",
+    value: ""
+  },
+  {
+    hidden: true,
+    key: "signerName",
+    value: ""
+  },
+  {
+    hidden: true,
+    key: "status",
+    value: ""
+  },
+  {
+    hidden: true,
+    key: "recordSource",
+    value: ""
+  },
+  {
+    hidden: true,
+    key: "recordYear",
+    value: ""
+  },
+  {
+    hidden: true,
+    key: "dataHash",
+    value: ""
+  },
+  {
+    hidden: true,
+    key: "recordDate",
+    value: ""
+  },
+  {
+    hidden: true,
+    key: "monthHour",
+    value: ""
+  },
+  {
+    hidden: false,
+    key: "signerNo",
+    value: ""
+  },
+  {
+    hidden: false,
+    key: "auditorNo",
+    value: ""
+  },
+  {
+    hidden: true,
+    key: "auditorName",
+    value: ""
+  },
+  {
+    hidden: true,
+    key: "empNo",
+    value: ""
+  },
+  {
+    hidden: true,
+    key: "multiSign",
+    value: false
+  }
+];
+
+export function getListData() {
+  // listItem("入量名称", info.sheetType).then(res => {
+  //   ruList.splice(0, ruList.length);
+  //   for (let item of res.data.data) {
+  //     ruList.push(item.name);
+  //   }
+  // });
+  // listItem("出量名称", info.sheetType).then(res => {
+  //   chuList.splice(0, chuList.length);
+  //   for (let item of res.data.data) {
+  //     chuList.push(item.name);
+  //   }
+  // });
+  let list = [
+    "胎膜",
+    "胎位",
+    "宫缩持续/间歇",
+    "先露高低",
+    "宫颈管",
+    "羊水性状",
+    "宫颈扩张",
+    "宫缩强度"
+  ];
+  multiDictInfo(list).then(res => {
+    let data = res.data.data;
+    setList(tmList, list[0], data);
+    setList(twList, list[1], data);
+    setList(gscxjxList, list[2], data);
+    setList(xlgdList, list[3], data);
+    setList(gjgList, list[4], data);
+    setList(ysxzList, list[5], data);
+    setList(gjkzList, list[6], data);
+    setList(gsqdList, list[7], data);
+  });
+}
+
+getListData();
+/**
+ *
+ * @param {*} list 原数组
+ * @param {*} key 对应的key
+ * @param {*} data 数据源
+ */
+function setList(list, key, data) {
+  list.splice(0, list.length);
+  for (let item of data[key]) {
+    list.push(item.name);
+  }
+}

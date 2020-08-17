@@ -29,6 +29,8 @@ const indexXin = () => import("@/Page/index-xin/Nurse.vue");
 const imageView = () => import("@/Part/imageView/imageView");
 const nursingDocumentation = () =>
   import("../Page/nursing-documentation/nursing-documentation.vue"); // 护理文书
+const workloadSatisticsLc = () =>
+  import("../Page/workloadSatisticsLc/workloadSatistics.vue"); // 陵城工作量统计
 const NotFoundComponent = () =>
   import("../components/NotFound/NotFoundComponent.vue"); // 异常路径
 const print = () => import("@/Part/print/print.vue");
@@ -453,7 +455,13 @@ const router = new Router({
         },
         {
           path: "/nursingDocumentation",
-          component: nursingDocumentation
+          component: nursingDocumentation,
+          name: "患者查询"
+        },
+        {
+          path: "/workloadSatistics",
+          component: workloadSatisticsLc,
+          name: "工作量统计"
         },
         {
           path: "/implementationList",
