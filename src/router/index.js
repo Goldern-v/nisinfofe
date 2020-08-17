@@ -99,6 +99,8 @@ const implementationListLc = () =>
   import("@/Page/implementation-list-lc/implementation-list.vue"); //陵城执行单
 const dcList = () => import("@/Page/dc-list/dc-list.vue"); //执行单
 const nursingRounds = () => import("@/Page/nursing-rounds/nursing-rounds.vue"); //护理巡视
+const allTemperatureChart = () =>
+  import("@/Page/temperature-chart/all-temperature-chart.vue"); //批量录入体温单
 const showPatientDetails = () =>
   import("@/Page/showPatientDetails/showPatientDetails.vue");
 const nursingDoc = () => import("@/Page/nursingDoc/nursingDoc.vue");
@@ -613,6 +615,22 @@ const router = new Router({
           path: "/nursingRounds",
           component: nursingRounds,
           name: "护理巡视"
+        },
+        {
+          path: "/singleTemperatureChart",
+          component: sheetPage,
+          children: [
+            {
+              name: "singleTemperatureChart",
+              path: "/singleTemperatureChart/:patientId?/:visitId?/:formId?",
+              component: sheetPage
+            }
+          ]
+        },
+        {
+          path: "/allTemperatureChart",
+          component: allTemperatureChart,
+          name: "批量录入体温单"
         }
       ]
     },

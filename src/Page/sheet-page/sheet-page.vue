@@ -211,7 +211,6 @@ import sheetTable_oxytocin from "./components/sheetTable-oxytocin/sheetTable";
 import sheetTableDressing_count from "./components/sheetTable-dressing_count/sheetTable";
 import sheetTableMaternal_newborn_lc from "./components/sheetTable-maternal_newborn_lc/sheetTable";
 import sheetTable_picc_maintenance_hd from "./components/sheetTable-picc_maintenance_hd/sheetTable";
-import sheetTablePeritoneal_dialysis_hd from "./components/sheetTable-peritoneal_dialysis_hd/sheetTable";
 import common from "@/common/mixin/common.mixin.js";
 import evalModel from "./components/modal/eval-model/eval-model.vue";
 import { typeList } from "@/api/lesion";
@@ -326,8 +325,6 @@ export default {
         return sheetTableMaternal_newborn_lc;
       } else if (sheetInfo.sheetType == "picc_maintenance_hd") {
         return sheetTable_picc_maintenance_hd;
-      } else if (sheetInfo.sheetType == "peritoneal_dialysis_hd") {
-        return sheetTablePeritoneal_dialysis_hd;
       } else {
         return sheetTable;
       }
@@ -769,8 +766,7 @@ export default {
     sheetTable_oxytocin,
     sheetTableDressing_count,
     sheetTableMaternal_newborn_lc,
-    sheetTable_picc_maintenance_hd,
-    sheetTablePeritoneal_dialysis_hd
+    sheetTable_picc_maintenance_hd
   }
 };
 </script>

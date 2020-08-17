@@ -40,5 +40,10 @@ module.exports = {
 		HOSPITAL_ID: '"hengxian"',
 		HOSPITAL_NAME: '"横县人民医院"',
 		HOSPITAL_NAME_SPACE: '"横 县 人 民 医 院"'
-	}
+	},
+	"huadu": {
+        HOSPITAL_ID: '"huadu"',
+        HOSPITAL_NAME: '"广州市花都区人民医院"',
+        HOSPITAL_NAME_SPACE: '"广 州 市 花 都 区 人 民 医 院"'
+    }
 }

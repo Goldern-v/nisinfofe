@@ -44,8 +44,8 @@ module.exports = {
   },
   huadu: {
     HOSPITAL_ID: '"huadu"',
-    HOSPITAL_NAME: '"花都武警医院"',
-    HOSPITAL_NAME_SPACE: '"花 都 武 警 医 院"'
+    HOSPITAL_NAME: '"广州市花都区人民医院"',
+    HOSPITAL_NAME_SPACE: '"广 州 市 花 都 区 人 民 医 院"'
   },
   hengxian: {
     HOSPITAL_ID: '"hengxian"',

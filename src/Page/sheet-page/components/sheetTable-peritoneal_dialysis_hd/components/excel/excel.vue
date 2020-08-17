@@ -302,8 +302,7 @@
           sheetInfo.sheetType == 'com_lc' ||
             sheetInfo.sheetType == 'icu_lc' ||
             sheetInfo.sheetType == 'common_hd' ||
-            sheetInfo.sheetType == 'stress_injury_hd' ||
-            sheetInfo.sheetType == 'peritoneal_dialysis_hd'
+            sheetInfo.sheetType == 'stress_injury_hd'
         "
       >
         <span
@@ -315,8 +314,7 @@
         <span
           v-else-if="
             sheetInfo.sheetType == 'common_hd' ||
-              sheetInfo.sheetType == 'stress_injury_hd' ||
-              sheetInfo.sheetType == 'peritoneal_dialysis_hd'
+              sheetInfo.sheetType == 'stress_injury_hd'
           "
           >上级护士签名：</span
         >
