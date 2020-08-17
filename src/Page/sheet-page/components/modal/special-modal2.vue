@@ -603,7 +603,7 @@ export default {
             result[i];
         } else {
           let currRow = JSON.parse(JSON.stringify(this.record[0]));
-          let nullRowArr = nullRow(currRow);
+          let nullRowArr = nullRow();
 
           nullRowArr.find(
             item => item.key == "recordSource"

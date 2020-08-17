@@ -427,10 +427,6 @@ export default function Title(
       }
       break;
   }
-  if (type) {
-    Th = Th[type];
-    Th["bodyIndex"] = bodyIndex;
-  }
   if (Th.th.title && Th.th.title.length) {
     for (let i = 0; i < Th.th.title.length; i++) {
       if (Th.th.title[i].canSet) {

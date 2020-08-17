@@ -1,22 +1,17 @@
 import sheetInfo from "../config/sheetInfo/index";
 import { matchMark } from "./Mark.js";
 import { getRowNum } from "../utils/sheetRow";
-export default function Body(data = [], index, type) {
+export default function Body(data = [], index) {
   let rowNum = getRowNum(index);
   let bodyModel = [];
   for (let i = 0; i < Math.max(data.length, rowNum); i++) {
-    bodyModel[i] = Tr(data[i], type);
+    bodyModel[i] = Tr(data[i]);
   }
   return bodyModel;
 }
 
-function Tr(data = {}, type) {
-  if (!type && data["isLeft"] != undefined) {
-    type = data["isLeft"] ? "left" : "right";
-  }
-  let schema = type
-    ? switechSheetType(sheetInfo.sheetType)(type)
-    : switechSheetType(sheetInfo.sheetType);
+function Tr(data = {}) {
+  let schema = switechSheetType(sheetInfo.sheetType);
   let mergetTr = [];
   for (let index = 0; index < schema.length; index++) {
     let keys = Object.keys(schema[index]);
@@ -26,11 +21,7 @@ function Tr(data = {}, type) {
         obj[item] = schema[index][item];
       }
     }
-    if (schema[index].key == "isLeft") {
-      obj.value = data[schema[index].key] || schema[index].value;
-    } else {
-      obj.value = data[schema[index].key] || "";
-    }
+    obj.value = data[schema[index].key] || "";
     obj.markObj = matchMark(data.id, schema[index].key);
     mergetTr.push(obj);
   }
@@ -48,19 +39,9 @@ function Tr(data = {}, type) {
   return mergetTr;
 }
 
-export const nullRow = currRow => {
-  let type;
-  if (currRow) {
-    currRow.map(item => {
-      if (item.key == "isLeft") {
-        type = item.value ? "left" : "right";
-      }
-    });
-  }
-  let schema = type
-    ? switechSheetType(sheetInfo.sheetType)(type)
-    : switechSheetType(sheetInfo.sheetType);
-  return Tr(schema, type);
+export const nullRow = () => {
+  let schema = switechSheetType(sheetInfo.sheetType);
+  return Tr(schema);
 };
 
 export { Tr };
