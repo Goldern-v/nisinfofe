@@ -34,54 +34,73 @@
           <span>创建护理文书</span>
         </div>
       </div>
+      <!-- 关联表单弹窗 -->
+      <RelationFormModal />
     </div>
   </div>
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
-.form-contain
-  padding 20px
-  overflow auto
-  box-sizing border-box
-  background #dfdfdf
-  position relative
-  &.nopadding
-    padding 0px
+.form-contain {
+  padding: 20px;
+  overflow: auto;
+  box-sizing: border-box;
+  background: #dfdfdf;
+  position: relative;
 
-.null-tool
-  height 40px
-  background #dfdfdf
-.null-btn
-  position absolute
-  top 0px
-  bottom 150px
-  left 0
-  right 0
-  margin auto
-  font-size 14px
+  &.nopadding {
+    padding: 0px;
+  }
+}
+
+.null-tool {
+  height: 40px;
+  background: #dfdfdf;
+}
+
+.null-btn {
+  position: absolute;
+  top: 0px;
+  bottom: 150px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  font-size: 14px;
   color: #687179;
-  width 135px
-  height 40px
+  width: 135px;
+  height: 40px;
   background: #FFFFFF;
   border: 1px solid #ADB4BA;
-  box-shadow: 0 1px 2px 0 rgba(200,200,200,0.50);
+  box-shadow: 0 1px 2px 0 rgba(200, 200, 200, 0.5);
   border-radius: 2px;
-  cursor pointer
-  &:hover
-    background #fafafa
-  i
-    margin-right 4px
-.fullPageRecord
-  position fixed
-  left 0
-  right 0
-  bottom 0
-  top 0
-  z-index 10000
-  .form-contain
-    height 100% !important
-.tool-bar
+  cursor: pointer;
+
+  &:hover {
+    background: #fafafa;
+  }
+
+  i {
+    margin-right: 4px;
+  }
+}
+
+.fullPageRecord {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  z-index: 10000;
+
+  .form-contain {
+    height: 100% !important;
+  }
+}
+
+.tool-bar {
   // background red
   // outline 1px dashed red
+}
+
 /deep/ .hidden-loading {
   display: none !important;
   visibility: hidden !important;
@@ -108,12 +127,13 @@ import toolCon from "./components/tool-con/tool-con";
 import comomMixin from "../../../../../../common/mixin/common.mixin";
 import assessment from "./components/assessment/assessment";
 import assessment_v2 from "./components/assessment/assessment_v2";
+import RelationFormModal from "./components/relationFormModal/RelationFormModal";
 import toolBar from "@/components/toolBar/toolBar.vue";
 import { toolBarConfig } from "./config.js";
 import bus from "vue-happy-bus";
 export default {
   props: {
-    filterObj: Object
+    filterObj: Object,
   },
   mixins: [comomMixin],
   data() {
@@ -130,7 +150,7 @@ export default {
       isPushForward: false,
       formBoxLoading: false,
       formBoxLoadingText: "载入中..",
-      nodeData: {}
+      nodeData: {},
     };
   },
   created() {},
@@ -140,7 +160,7 @@ export default {
         setLoadingText: this.setLoadingText,
         setLoadingStatus: this.setLoadingStatus,
         setLoadingButton: this.setLoadingButton,
-        setloadingSVGHidden: this.setloadingSVGHidden
+        setloadingSVGHidden: this.setloadingSVGHidden,
       };
     };
     // iframeLoadingBox
@@ -152,13 +172,13 @@ export default {
     // ] = this.setloadingSVGHidden;
     this.$root.$refs["iframeLoadingBox"] = this.$refs["iframeLoadingBox"];
     //
-    this.bus.$on("openAssessmentBoxWidthVersion", data => {
+    this.bus.$on("openAssessmentBoxWidthVersion", (data) => {
       this.bus.$emit("openAssessmentBox", {
         ...this.nodeData,
-        ...data
+        ...data,
       });
     });
-    this.bus.$on("openAssessmentBox", data => {
+    this.bus.$on("openAssessmentBox", (data) => {
       console.log("openAssessmentBox", data);
       this.nodeData = { ...data };
       // 关闭已经打开的页面
@@ -202,7 +222,7 @@ export default {
         componentSwitch: this.componentSwitch,
         formVersion: this.formVersion,
         nooForm: data.nooForm,
-        data
+        data,
       });
       // this.$forceUpdate();
     });
@@ -227,7 +247,7 @@ export default {
       if (callback) {
         callback();
       }
-    }
+    },
   },
   computed: {
     fullPageRecord() {
@@ -254,13 +274,14 @@ export default {
     },
     componentSwitch() {
       return this.formVersion == 2 ? "assessment_v2" : "assessment";
-    }
+    },
   },
   components: {
     toolCon,
     assessment,
     assessment_v2,
-    toolBar
-  }
+    toolBar,
+    RelationFormModal,
+  },
 };
 </script>
