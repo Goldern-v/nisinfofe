@@ -1,8 +1,12 @@
 <template>
-  <div class="sheet-excel-container" :class="{icu_lc:sheetInfo.sheetType=='icu_lc'}">
+  <div
+    class="sheet-excel-container"
+    :class="{ icu_lc: sheetInfo.sheetType == 'icu_lc' }"
+  >
     <!-- <div>
       <img :src="dataURL" alt :style="{width: fiexHeaderWidth}">
     </div>-->
+    {{ data.bodyModel.length }}
     <table
       class="sheet-table table-fixed-th no-print"
       :style="{ width: fiexHeaderWidth }"
@@ -10,7 +14,12 @@
       v-if="hasFiexHeader"
     >
       <tr class="body-con">
-        <td v-for="(td, i) in data.bodyModel[0]" :key="i" v-if="!td.hidden" :dataKey="td.key">
+        <td
+          v-for="(td, i) in data.bodyModel[0]"
+          :key="i"
+          v-if="!td.hidden"
+          :dataKey="td.key"
+        >
           <div v-if="td.key == 'sign'" class="sign-text"></div>
           <div v-else-if="td.key == 'audit'" class="sign-text"></div>
           <div v-else-if="td.key == 'signerNo'" class="sign-img"></div>
@@ -26,7 +35,11 @@
           <input type="text" :style="[td.style]" v-else />
         </td>
       </tr>
-      <tr class="head-con" v-for="(th, index) in data.titleModel.th" :key="index">
+      <tr
+        class="head-con"
+        v-for="(th, index) in data.titleModel.th"
+        :key="index"
+      >
         <th
           v-for="(item, i) in th"
           :key="i"
@@ -43,7 +56,11 @@
     </table>
 
     <table class="sheet-table" ref="table">
-      <tr class="head-con" v-for="(th, index) in data.titleModel.th" :key="index">
+      <tr
+        class="head-con"
+        v-for="(th, index) in data.titleModel.th"
+        :key="index"
+      >
         <th
           v-for="(item, i) in th"
           :key="i"
@@ -99,7 +116,12 @@
           @mouseover="markTip($event, td)"
           @mouseout="closeMarkTip"
           :class="[
-            td.markObj && `mark-mark-mark mark-cell-status-${td.markObj.status}`,HOSPITAL_ID=='lingcheng' && td.value && td.statBottomLine && `stat-bottom-line`
+            td.markObj &&
+              `mark-mark-mark mark-cell-status-${td.markObj.status}`,
+            HOSPITAL_ID == 'lingcheng' &&
+              td.value &&
+              td.statBottomLine &&
+              `stat-bottom-line`
           ]"
           @contextmenu.stop="openContextMenu($event, y, tr, td)"
           @click="selectedItem(td)"
@@ -156,12 +178,22 @@
             :disabled="isDisabed(tr)"
             v-model="td.value"
             :data-value="td.value"
-            :position="`${x},${y},${index}`"
+            :position="
+              tr.find(item => item.key == 'isLeft') &&
+              tr.find(item => item.key == 'isLeft').value
+                ? `${x},${y},${index}`
+                : `${x + 6},${y},${index}`
+            "
             :style="
-              Object.assign({}, td.style, {
-                minWidth: td.textarea.width + 'px',
-                maxWidth: td.textarea.width + 'px',
-              },isDisabed(tr) && {cursor:'not-allowed'})
+              Object.assign(
+                {},
+                td.style,
+                {
+                  minWidth: td.textarea.width + 'px',
+                  maxWidth: td.textarea.width + 'px'
+                },
+                isDisabed(tr) && { cursor: 'not-allowed' }
+              )
             "
             @keydown="
               td.event($event, td);
@@ -184,17 +216,22 @@
           <input
             type="text"
             :readonly="isRead(tr)"
-            :disabled="isDisabed(tr,td)"
+            :disabled="isDisabed(tr, td)"
             v-model="td.value"
             :data-value="td.value"
-            :position="`${x},${y},${index}`"
+            :position="
+              tr.find(item => item.key == 'isLeft') &&
+              tr.find(item => item.key == 'isLeft').value
+                ? `${x},${y},${index}`
+                : `${x + 6},${y},${index}`
+            "
             :style="[
               td.style,
               td.key === 'recordMonth' &&
                 tr.find(item => item.key == 'yearBreak').value && {
                   height: '12px'
                 },
-                isDisabed(tr,td) && {cursor:'not-allowed'}
+              isDisabed(tr, td) && { cursor: 'not-allowed' }
             ]"
             @keydown="
               td.event($event, td);
@@ -222,63 +259,75 @@
 
     <!-- <div @click="addNullRow"
     class="add-row">+ 添加新行</div>-->
-    <div v-if="sheetInfo.sheetType == 'neonatology2'" style="font-size: 13px; margin-top: -5px">
+    <div
+      v-if="sheetInfo.sheetType == 'neonatology2'"
+      style="font-size: 13px; margin-top: -5px"
+    >
       备注 1.肌张力:M(正常) H(高) L(低) 2.肤色:P1(红润) J(黄染) F(潮红) C(紫绀)
       P2(苍白) M(花斑) 3.体位:S(平卧) L(左侧) R(右侧) P(俯卧)
     </div>
-    <div v-if="sheetInfo.sheetType == 'stress_injury_hd'" style="font-size: 13px; margin-top: -5px">
-      备注:
-      <span>(1)分期请用对应的数字进行记录:1(1期);2(2期);3(3期);4(4期);5(深部组织损伤期);6(不可分期)。</span>
-      <p style="margin:5px 0 0 42px;">(2)评估时机:1、2期压力性损伤每周评估记录;3期以上至少三天评估记录;伤口渗液多或有特殊变化随时评估记录。</p>
-    </div>
-    <div v-if="sheetInfo.sheetType == 'common_hd'" style="font-size: 13px; margin-top: -5px">
-      备注:(1)、健康教育：1.入院及相关疾病知识宣教、2.探视、陪护制度宣教、3.安全告知、4.检查宣教、5.饮食宣教、6.用药宣教、7.特殊治疗护理操作前宣教、
-      8.术前宣教、9.术后宣教、10.禁食、11.卧床休息、12.床上活动、13.离床活动、14.出院指导
-    </div>
-    <div v-if="sheetInfo.sheetType == 'postpartum_hd'" style="font-size: 13px; margin-top: -5px">
-      备注:(1)、健康教育：1.入院及相关疾病知识宣教2.探视、陪护制度宣教3.安全告知4.检查宣教5.饮食宣教6.产后/术后宣教7.母乳喂养宣教
-      8.母婴用药、安全宣教9.新生儿护理知识宣教10.出院指导
-    </div>
     <div
-      v-if="sheetInfo.sheetType == 'prenatal_hd'|| sheetInfo.sheetType =='neonatology2_hd'"
+      v-if="sheetInfo.sheetType == 'stress_injury_hd'"
       style="font-size: 13px; margin-top: -5px"
     >
-      备注:(1)、健康教育：1.入院及相关疾病知识宣教2.探视、陪护制度宣教3.安全告知4.检查宣教5.母乳喂养知识宣教6.胎动知识宣教7.分娩知识宣教8.饮食宣教
-      9.特殊治疗护理操作前宣教10.术前宣教11.用药宣教12.卧位宣教13.术后宣教14.出院指导
-    </div>
-    <div v-if="sheetInfo.sheetType == 'neurosurgery_hd'" style="font-size: 13px; margin-top: -5px">
-      备注:一.意识：清✔，昏迷++。二.瞳孔对光反射判断：灵敏+，迟钝±，消失-。三.人工气道途径：鼻腔气管插管A1，口腔气管插管A2，气管切开B.
-      <p style="margin-top:2px;">
-        四。健康教育：1.入院及相关疾病知识宣教2.探视、陪护制度宣教3.安全告知4.检查宣教5.母乳喂养知识宣教6.胎动知识宣教7.分娩知识宣教8.饮食宣教
-        9.特殊治疗护理操作前宣教10.术前宣教11.用药宣教12.卧位宣教13.术后宣教14.出院指导
+      备注:
+      <span
+        >(1)分期请用对应的数字进行记录:1(1期);2(2期);3(3期);4(4期);5(深部组织损伤期);6(不可分期)。</span
+      >
+      <p style="margin:5px 0 0 42px;">
+        (2)评估时机:1、2期压力性损伤每周评估记录;3期以上至少三天评估记录;伤口渗液多或有特殊变化随时评估记录。
       </p>
     </div>
     <div
-      v-if="sheetInfo.sheetType == 'neonatology_hd'"
+      v-if="sheetInfo.sheetType == 'common_hd'"
       style="font-size: 13px; margin-top: -5px"
-    >备注:吸痰性质用符号表示：白色吸痰(WL),黄白稠痰(YWT),黄色稠痰(YT),血性痰(B);痰量：小量(+),中量(++),大量(+++)。</div>
+    >
+      备注:(1)、健康教育：1.入院及相关疾病知识宣教、2.探视、陪护制度宣教、3.安全告知、4.检查宣教、5.饮食宣教、6.用药宣教、7.特殊治疗护理操作前宣教、
+      8.术前宣教、9.术后宣教、10.禁食、11.卧床休息、12.床上活动、13.离床活动、14.出院指导
+    </div>
     <div
       v-if="sheetInfo.sheetType == 'picc_maintenance_hd'"
       style="font-size: 13px; margin-top: -5px"
     >
       备注:1、在执行维护后，要在该项目打✔
-      <p style="margin:5px 0 0 32px;">2、当管道出现问题时请注意描述，例如描述其出血、渗血、穿刺点情况</p>
+      <p style="margin:5px 0 0 32px;">
+        2、当管道出现问题时请注意描述，例如描述其出血、渗血、穿刺点情况
+      </p>
     </div>
     <div class="table-footer">
       第 {{ index + sheetStartPage }} 页
       <span
         class="sh-name"
-        v-if="sheetInfo.sheetType=='com_lc' || 'icu_lc' ||'common_hd'||'stress_injury_hd'||'wait_delivery_hd'||'neurosurgery_hd'||'neonatology_hd'||'neonatology2_hd'"
+        v-if="
+          sheetInfo.sheetType == 'com_lc' ||
+            sheetInfo.sheetType == 'icu_lc' ||
+            sheetInfo.sheetType == 'common_hd' ||
+            sheetInfo.sheetType == 'stress_injury_hd' ||
+            sheetInfo.sheetType == 'peritoneal_dialysis_hd'
+        "
       >
-        <span v-if="sheetInfo.sheetType=='com_lc' || sheetInfo.sheetType=='icu_lc' ">审核人：</span>
         <span
-          v-else-if=" sheetInfo.sheetType=='common_hd' || sheetInfo.sheetType=='stress_injury_hd'|| sheetInfo.sheetType=='prenatal_hd' 
-          || sheetInfo.sheetType=='postpartum_hd'|| sheetInfo.sheetType=='wait_delivery_hd'|| sheetInfo.sheetType=='neurosurgery_hd' ||sheetInfo.sheetType=='neonatology_hd'||sheetInfo.sheetType=='neonatology2_hd'"
-        >上级护士签名：</span>
+          v-if="
+            sheetInfo.sheetType == 'com_lc' || sheetInfo.sheetType == 'icu_lc'
+          "
+          >审核人：</span
+        >
+        <span
+          v-else-if="
+            sheetInfo.sheetType == 'common_hd' ||
+              sheetInfo.sheetType == 'stress_injury_hd' ||
+              sheetInfo.sheetType == 'peritoneal_dialysis_hd'
+          "
+          >上级护士签名：</span
+        >
         <span class="sh-name-box">
-          <div class="sign-null-box" @click="openAduitModal" v-if="!auditorNo"></div>
+          <div
+            class="sign-null-box"
+            @click="openAduitModal"
+            v-if="!auditorNo"
+          ></div>
           <div class="sign-in-box" v-else @click="cancelAduitModal">
-            <div class="audit-text no-print">{{auditorName}}</div>
+            <div class="audit-text no-print">{{ auditorName }}</div>
             <div class="audit-img sign-img">
               <img
                 class="in-print"
@@ -288,7 +337,8 @@
             </div>
           </div>
         </span>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       </span>
       <!-- / {{Math.max(sheetMaxPage,(length + sheetStartPage - 1))}}  -->
       <!-- <span class="sh-name">审核人：
@@ -336,6 +386,7 @@ import decode from "../../../../components/render/decode.js";
 import moment from "moment";
 import { getUser } from "@/api/common.js";
 console.dir(sheetInfo);
+console.log(sheetModel);
 export default {
   props: {
     data: Object,
@@ -343,7 +394,8 @@ export default {
     length: Number,
     scrollY: Number,
     hasFiexHeader: Boolean,
-    isInPatientDetails: Boolean
+    isInPatientDetails: Boolean,
+    parentData: Object
   },
   mixins: [common],
   data() {
@@ -416,7 +468,8 @@ export default {
       );
     },
     addNullRow(index, row) {
-      let newRow = nullRow();
+      let newRow = nullRow(row);
+      let direction = "left";
       if (row) {
         let recordSource = row.find(item => {
           return item.key == "recordSource";
@@ -424,8 +477,22 @@ export default {
         newRow.find(item => {
           return item.key == "recordSource";
         }).value = recordSource;
+        direction =
+          newRow.find(item => {
+            return item.key == "isLeft";
+          }).valu == "true"
+            ? "left"
+            : "right";
       }
       this.data.bodyModel.splice(index + 1, 0, newRow);
+      let newRow2 = nullRow(
+        this.parentData[`${direction}Data`].bodyModel[index]
+      );
+      this.parentData[`${direction}Data`].bodyModel.splice(
+        index + 1,
+        0,
+        newRow2
+      );
     },
     toCopyRow(index) {
       this.data.bodyModel.splice(index, 1, this.sheetInfo.copyRow);
@@ -476,10 +543,17 @@ export default {
     getAllListAndCurrIndex(trArr) {
       let allList = [];
       let currIndex = 0;
+      let isLeft = trArr.find(item => item.key == "isLeft").value;
       for (let i = 0; i < sheetModel.length; i++) {
-        allList = allList.concat(sheetModel[i].bodyModel);
+        let index = sheetModel[i]["titleModel"][0]["bodyIndex"];
+        let bodyModel = isLeft
+          ? sheetModel[i].bodyModel.slice(0, index)
+          : sheetModel[i].bodyModel.slice(index);
+        allList = allList.concat(bodyModel);
       }
       currIndex = allList.indexOf(trArr);
+      console.log(isLeft);
+      console.log(sheetModel);
       return [allList, currIndex];
     },
     toSign(trArr, index, bodyModel, showSign, e) {
@@ -500,6 +574,8 @@ export default {
               trObj[trArr[i].key] = trArr[i].value;
             }
             let [allList, currIndex] = this.getAllListAndCurrIndex(trArr);
+            console.log(allList);
+            console.log(currIndex);
             let data = {
               empNo,
               password,
@@ -1024,8 +1100,14 @@ export default {
       let curr_recordSource = tr.find(item => item.key == "recordSource").value;
       let curr_recordDate = tr.find(item => item.key == "recordDate").value;
       if (curr_recordDate) {
+        let isLeft = tr.find(item => item.key == "isLeft").value;
         for (let i = 0; i < sheetModel.length; i++) {
-          allList = allList.concat(sheetModel[i].bodyModel);
+          let index = sheetModel[i]["titleModel"][0]["bodyIndex"];
+          let bodyModel =
+            isLeft == "true"
+              ? sheetModel[i].bodyModel.slice(0, index)
+              : sheetModel[i].bodyModel.slice(index);
+          allList = allList.concat(bodyModel);
         }
         for (let i = 0; i < allList.length; i++) {
           maxId = Math.max(

@@ -1,0 +1,286 @@
+import {
+  multiDictInfo
+} from "../../../api/index";
+import {
+  keyf1
+} from "../keyEvent/f1.js";
+import {
+  event_date,
+  event_time,
+  click_date
+} from "../keyEvent/date";
+export default [{
+  key: "recordMonth", //日期
+  value: "",
+  event: event_date,
+  click: click_date
+},
+{
+  key: "recordHour", //时间
+  value: "",
+  event: event_time
+},
+{
+  key: "temperature", //体温
+  value: "",
+  event: keyf1,
+  name: "体温",
+  next: "℃"
+},
+{
+  key: "pulse", //脉搏
+  value: "",
+  event: keyf1,
+  name: "脉搏",
+  next: "次/分"
+}, {
+  key: "breath", //呼吸
+  value: "",
+  event: keyf1,
+  name: "呼吸",
+},
+{
+  key: "bloodPressure", //血压
+  value: "",
+  event: function (e, td) {
+    if (e.keyCode == 32) {
+      e.target.value += "/";
+      e.preventDefault();
+    }
+    keyf1(e, td);
+  },
+  name: "血压",
+  next: "mmHg"
+},
+{
+  key: "heartRate", //心率
+  value: "",
+  event: keyf1,
+  name: "心率",
+  next: "次/分"
+},
+{
+  key: "physicalCooling", //物理降温
+  value: "",
+  event: keyf1,
+  name: "物理降温",
+},
+{
+  key: "weight", //体重
+  value: "",
+  event: keyf1,
+  name: "体重",
+},
+{
+  key: "fieldOne", //肛表
+  value: "",
+  event: keyf1,
+  name: "肛表"
+},
+{
+  key: "fieldTwo", //口表
+  value: "",
+  event: keyf1,
+  name: "口表"
+},
+{
+  key: "deptName", //科室
+  value: "",
+  event: keyf1,
+  name: "科室",
+},
+{
+  key: "bedNo", //床号
+  value: "",
+  event: keyf1,
+  name: "床号"
+},
+{
+  key: "feverTemperature", //发热体温
+  value: "",
+  event: keyf1,
+  name: "发热体温"
+},
+{
+  key: "onlineCooling", //线上降温
+  value: "",
+  event: keyf1,
+  name: "线上降温",
+},
+{
+  key: "ventilatorR", //呼吸机R
+  value: "",
+  event: keyf1,
+  name: "呼吸机R",
+},
+{
+  key: "nursingEvent", //护理事件
+  value: "",
+  event: keyf1,
+  name: "护理事件",
+},
+{
+  key: "bottomComment", //表底注释
+  value: "",
+  event: keyf1,
+  name: "表底注释",
+},
+{
+  key: "stoolNum", //大便次数
+  value: "",
+  event: keyf1,
+  name: "大便次数",
+},
+{
+  key: "fieldThree", //尿量
+  value: "",
+  event: keyf1,
+  name: "尿量",
+},
+{
+  key: "dischargeSize", //出量
+  value: "",
+  event: keyf1,
+  name: "出量",
+},
+{
+  key: "foodSize", //入量
+  value: "",
+  event: keyf1,
+  name: "入量",
+},
+{
+  key: "fieldFour", //自1
+  value: "",
+  event: keyf1,
+  textarea: {
+    width: 36
+  },
+},
+{
+  key: "fieldFive", //自2
+  value: "",
+  event: keyf1,
+  textarea: {
+    width: 36
+  }
+},
+{
+  key: "fieldSix", //自3
+  value: "",
+  event: keyf1,
+  textarea: {
+    width: 36
+  }
+},
+{
+  key: "fieldSeven", //自4
+  value: "",
+  event: keyf1,
+  textarea: {
+    width: 36
+  }
+},
+{
+  key: "description", //特殊情况记录
+  value: "",
+  hidden: "true",
+  style: {
+    textAlign: "left",
+    position: "absolute",
+    top: "1px",
+    bottom: "1px",
+    left: "1px",
+    width: "180px",
+    background: "transparent"
+  },
+  event: function (e, td) {
+    console.log(e.keyCode);
+    if (e.keyCode == 9) {
+      td.value = "    " + td.value;
+      e.preventDefault();
+    }
+    keyf1(e, td);
+  }
+  // oninput: next
+},
+{
+  key: "sign",
+  value: ""
+},
+{
+  hidden: true,
+  key: "id",
+  value: ""
+},
+{
+  hidden: true,
+  key: "signerName",
+  value: ""
+},
+{
+  hidden: true,
+  key: "status",
+  value: ""
+},
+{
+  hidden: true,
+  key: "recordSource",
+  value: ""
+},
+{
+  hidden: true,
+  key: "recordYear",
+  value: ""
+},
+{
+  hidden: true,
+  key: "dataHash",
+  value: ""
+},
+{
+  hidden: true,
+  key: "recordDate",
+  value: ""
+},
+{
+  hidden: true,
+  key: "monthHour",
+  value: ""
+},
+{
+  hidden: false,
+  key: "signerNo",
+  value: ""
+},
+{
+  hidden: false,
+  key: "auditorNo",
+  value: ""
+},
+{
+  hidden: true,
+  key: "auditorName",
+  value: ""
+},
+{
+  hidden: true,
+  key: "empNo",
+  value: ""
+},
+{
+  hidden: true,
+  key: "multiSign",
+  value: false
+}
+];
+
+
+
+
+/**
+ *
+ * @param {*} list 原数组
+ * @param {*} key 对应的key
+ * @param {*} data 数据源
+ */

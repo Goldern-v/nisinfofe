@@ -1,6 +1,12 @@
 import sheetInfo from "../config/sheetInfo/index";
 
-export default function Title(data = [], autoData = [], index) {
+export default function Title(
+  data = [],
+  autoData = [],
+  index,
+  type,
+  bodyIndex
+) {
   let Th;
   switch (sheetInfo.sheetType) {
     case "special":
@@ -8,7 +14,7 @@ export default function Title(data = [], autoData = [], index) {
         // 陵城外一科 特别护理单
         Th = JSON.parse(
           JSON.stringify(require("../config/tbhld_lc/th").default)
-        )
+        );
       }
       break;
     case "icu_lc":
@@ -27,19 +33,21 @@ export default function Title(data = [], autoData = [], index) {
         );
       }
       break;
-    case "newborn_lc": {
-      //  陵城区新生儿科 里的 新生儿监护
-      Th = JSON.parse(
-        JSON.stringify(require("../config/neonatology_lc/th").default)
-      );
-    }
+    case "newborn_lc":
+      {
+        //  陵城区新生儿科 里的 新生儿监护
+        Th = JSON.parse(
+          JSON.stringify(require("../config/neonatology_lc/th").default)
+        );
+      }
       break;
-    case "Record_Children_Serious_Lc": {
-      // 陵城区-病重（病危）
-      Th = JSON.parse(
-        JSON.stringify(require("../config/picu_lc/th.js").default)
-      );
-    }
+    case "Record_Children_Serious_Lc":
+      {
+        // 陵城区-病重（病危）
+        Th = JSON.parse(
+          JSON.stringify(require("../config/picu_lc/th.js").default)
+        );
+      }
       break;
     case "neurology":
       {
@@ -306,9 +314,7 @@ export default function Title(data = [], autoData = [], index) {
     case "ccu_wx":
       {
         // 威县-CCU监护单（心血管内科）
-        Th = JSON.parse(
-          JSON.stringify(require("../config/ccu_wx/th").default)
-        );
+        Th = JSON.parse(JSON.stringify(require("../config/ccu_wx/th").default));
       }
       break;
     case "newborn_wx":
@@ -322,9 +328,7 @@ export default function Title(data = [], autoData = [], index) {
     case "cpr":
       {
         // cpr心肺复苏单（心血管内科）
-        Th = JSON.parse(
-          JSON.stringify(require("../config/cpr/th").default)
-        );
+        Th = JSON.parse(JSON.stringify(require("../config/cpr/th").default));
       }
       break;
     case "maternal_newborn_lc":
@@ -335,9 +339,105 @@ export default function Title(data = [], autoData = [], index) {
         );
       }
       break;
-    default: {
-      Th = JSON.parse(JSON.stringify(require("../config/default/th").default));
-    }
+    case "stress_injury_hd":
+      {
+        // 花都-压力性损伤护理记录单
+        Th = JSON.parse(
+          JSON.stringify(require("../config/stress_injury_hd/th").default)
+        );
+      }
+      break;
+    case "common_hd":
+      {
+        // 花都-护理记录单
+        Th = JSON.parse(
+          JSON.stringify(require("../config/common_hd/th").default)
+        );
+      }
+      break;
+    case "picc_maintenance_hd":
+      {
+        // 花都-PICC维护记录单
+        Th = JSON.parse(
+          JSON.stringify(require("../config/picc_maintenance_hd/th").default)
+        );
+      }
+      break;
+    case "body_temperature_Hd":
+      {
+        // 花都-体温记录单
+        Th = JSON.parse(
+          JSON.stringify(require("../config/body_temperature_Hd/th").default)
+        );
+      }
+      break;
+    case "peritoneal_dialysis_hd":
+      {
+        // 花都-腹膜透析记录单
+        Th = JSON.parse(
+          JSON.stringify(require("../config/peritoneal_dialysis_hd/th").default)
+        );
+      }
+      break;
+    case "prenatal_hd":
+      {
+        // 花都-护理记录单（产前护理记录单）
+        Th = JSON.parse(
+          JSON.stringify(require("../config/prenatal_hd/th").default)
+        );
+      }
+      break;
+    case "postpartum_hd":
+      {
+        // 花都-护理记录单（产后护理记录单）
+        Th = JSON.parse(
+          JSON.stringify(require("../config/postpartum_hd/th").default)
+        );
+      }
+      break;
+    case "wait_delivery_hd":
+      {
+        // 花都-护理记录单（候产记录单）
+        Th = JSON.parse(
+          JSON.stringify(require("../config/wait_delivery_hd/th").default)
+        );
+      }
+      break;
+    case "neurosurgery_hd":
+      {
+        // 花都-护理记录单（神经外科）
+        Th = JSON.parse(
+          JSON.stringify(require("../config/neurosurgery_hd/th").default)
+        );
+      }
+      break;
+    case "neonatology_hd":
+      {
+        // 花都-护理记录单（新生儿科）
+        Th = JSON.parse(
+          JSON.stringify(require("../config/neonatology_hd/th").default)
+        );
+      }
+      break;
+    case "neonatology2_hd":
+      {
+        // 花都-护理记录单（新生儿）
+        Th = JSON.parse(
+          JSON.stringify(require("../config/neonatology2_hd/th").default)
+        );
+      }
+      break;
+    default:
+      {
+        Th = JSON.parse(
+          JSON.stringify(require("../config/default/th").default)
+        );
+      }
+      break;
+  }
+  if (type) {
+    Th = Th[type];
+    Th["bodyIndex"] = bodyIndex;
   }
   if (Th.th.title && Th.th.title.length) {
     for (let i = 0; i < Th.th.title.length; i++) {
@@ -353,7 +453,9 @@ export default function Title(data = [], autoData = [], index) {
               reverseArr = [...autoData];
             }
             Th.th.title[i].name = reverseArr.find(item => {
-              return item.fieldEn == Th.th.title[i].key && item.pageIndex === index;
+              return (
+                item.fieldEn == Th.th.title[i].key && item.pageIndex === index
+              );
             }).fieldCn;
           } catch (e) { }
         }

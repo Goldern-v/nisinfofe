@@ -5,11 +5,29 @@ import sheetInfo from "./components/config/sheetInfo";
 
 // 自定义标题数据缓存数据
 let autoTitleDataDisk = [];
-let Page = function (titleData, autoTitleData, bodyData, index) {
-  return {
-    titleModel: Title(titleData, autoTitleData, index),
-    bodyModel: Body(bodyData, index)
-  };
+let Page = function(titleData, autoTitleData, bodyData, index) {
+  // 腹膜透析记录单(两列不同数据的记录单)
+  if (sheetInfo.sheetType == "peritoneal_dialysis_hd") {
+    let leftData = [],
+      rightData = [];
+    bodyData.map(item => {
+      item.isLeft ? leftData.push(item) : rightData.push(item);
+    });
+    let leftBodyModel = Body(leftData, index, "left"),
+      rightBodyModel = Body(rightData, index, "right");
+    return {
+      titleModel: [
+        Title(titleData, autoTitleData, index, "left", leftBodyModel.length),
+        Title(titleData, autoTitleData, index, "right", rightBodyModel.length)
+      ],
+      bodyModel: [...leftBodyModel, ...rightBodyModel]
+    };
+  } else {
+    return {
+      titleModel: Title(titleData, autoTitleData, index),
+      bodyModel: Body(bodyData, index)
+    };
+  }
 };
 let data = [];
 export default data;
@@ -67,7 +85,6 @@ export function initSheetPage(titleData, bodyData, markData) {
   for (let i = 0; i < markData.length; i++) {
     Mark.push(markData[i]);
   }
-
 
   for (let key in sheetInfo.auditorMap) {
     if (sheetInfo.auditorMap.hasOwnProperty(key)) {
