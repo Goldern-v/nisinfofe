@@ -233,6 +233,32 @@
                 </el-dropdown-item>
             </el-dropdown-menu>-->
             <!-- </el-dropdown> -->
+            <el-dropdown
+              menu-align="start"
+              :class="{'router-link-active': isActiveTemperaturePage}"
+              v-if="HOSPITAL_ID=='huadu'"
+            >
+              <el-row class="nav-item" type="flex" align="middle">
+                <div class="before"></div>
+                <i class="iconfont icon-hulijiludan"></i>体温单
+              </el-row>
+              <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item :class="{active: $route.path.includes('singleTemperatureChart')}">
+                  <router-link to="/singleTemperatureChart" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="singleTemperatureChart"></i>单人录入体温单
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item>
+                <el-dropdown-item :class="{active: $route.path.includes('allTemperatureChart')}">
+                  <router-link to="/allTemperatureChart" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="allTemperatureChart"></i>批量录入体温单
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item>
+              </el-dropdown-menu>
+            </el-dropdown>
             <el-dropdown menu-align="start" :class="{'router-link-active': isActivePage}">
               <el-row class="nav-item" type="flex" align="middle">
                 <div class="before"></div>
@@ -600,6 +626,14 @@
     &.birthCertificate {
       background-image: url('../../common/images/index/出生医学证明.png');
     }
+
+    &.singleTemperatureChart {
+      background-image: url('../../common/images/index/单人录入体温单.png');
+    }
+
+    &.allTemperatureChart {
+      background-image: url('../../common/images/index/批量录入体温单.png');
+    }
   }
 }
 
@@ -723,7 +757,7 @@ export default {
       deptOptionList: [],
       isTip: false, //是否mews高亮
       mewsMd5: "",
-      mewsId: ""
+      mewsId: "",
       // showBadEvent:
       //   (localStorage["showBadEvent"] &&
       //     localStorage["showBadEvent"] === "true") ||
@@ -786,6 +820,13 @@ export default {
       if (this.$route.path == "/healthEducationList") return true;
       if (this.$route.path == "/dcList") return true;
     },
+    isActiveTemperaturePage() {
+      let path = this.$route.path;
+      return (
+        path.includes("singleTemperatureChart") ||
+        path.includes("allTemperatureChart")
+      );
+    },
     isActiveFormPage() {
       // if (this.$route.path == "/sheetPage") return true;
       if (this.$route.path == "/sheetHospitalAdmission") return true;
@@ -798,7 +839,7 @@ export default {
       return false;
       // if (this.$route.path == "/sugarPage") return true;
       // return false;
-    }
+    },
   },
   methods: {
     handleCommand(command) {
@@ -837,7 +878,7 @@ export default {
     remoteMethod(query) {
       if (query !== "") {
         let upperCaseQuery = query.toUpperCase();
-        this.deptOptionList = this.deptList.filter(item => {
+        this.deptOptionList = this.deptList.filter((item) => {
           return (
             item.name.includes(query) ||
             item.code == query ||
@@ -851,7 +892,7 @@ export default {
       }
     },
     changeDept(value) {
-      let deptName = this.deptList.filter(item => {
+      let deptName = this.deptList.filter((item) => {
         return item.code == value;
       })[0].name;
       this.$store.commit("upDeptCode", value);
@@ -866,7 +907,7 @@ export default {
       // mews 订阅科室
       this.mewsId = WebSocketService.subscribe(
         `/topic/mews/dept/${this.deptValue}`,
-        frame => {
+        (frame) => {
           let frameData = JSON.parse(frame.body).data;
           try {
             this.mewsMd5 = frameData.md5;
@@ -883,13 +924,13 @@ export default {
           } catch (error) {}
         }
       );
-    }
+    },
   },
   created() {
     // this.$store.dispatch("getMailUnread");
-    nursingUnit().then(res => {
+    nursingUnit().then((res) => {
       this.deptList = res.data.data.deptList;
-      this.deptList = this.deptList.map(dept => {
+      this.deptList = this.deptList.map((dept) => {
         dept["pinyin"] = dept.name.getPinyin() || "";
         return dept;
       });
@@ -912,11 +953,11 @@ export default {
         this.isTip = false;
         this.mewsMd5 && WebSocketService.addMd5List(this.mewsMd5);
       }
-    }
+    },
   },
   components: {
     setPassword,
-    userInfo
-  }
+    userInfo,
+  },
 };
 </script>

@@ -1,11 +1,7 @@
 <template>
   <div>
     <div class="tool-contain" flex="cross:center">
-      <div
-        class="item-box"
-        flex="cross:center main:center"
-        @click="emit('addSheetPage')"
-      >
+      <div class="item-box" flex="cross:center main:center" @click="emit('addSheetPage')">
         <div class="text-con">添加新页</div>
       </div>
       <!-- <div class="item-box" flex="cross:center main:center" flex-box="1" @click="emit('delSheetPage')">
@@ -31,12 +27,7 @@
       >
         <div class="text-con">出入量统计</div>
       </div>
-      <div
-        class="item-box"
-        flex="cross:center main:center"
-        @click="setPage"
-        style="width: 90px"
-      >
+      <div class="item-box" flex="cross:center main:center" @click="setPage" style="width: 90px">
         <div class="text-con">设置起始页({{ sheetInfo.sheetStartPage }})</div>
       </div>
       <div class="item-box" flex="cross:center main:center" @click="toPrint">
@@ -45,27 +36,22 @@
       <!-- <div class="item-box" flex="cross:center main:center" @click="toAllPrint">
         <div class="text-con">批量打印</div>
       </div>-->
-      <div
-        class="item-box"
-        flex="cross:center main:center"
-        @click.stop="toPdfPrint"
-        v-show="isDev"
-      >
+      <div class="item-box" flex="cross:center main:center" @click.stop="toPdfPrint" v-show="isDev">
         <div class="text-con">批量打印</div>
       </div>
-      <div
-        class="item-box"
-        flex="cross:center main:center"
-        @click.stop="delSheet"
-      >
+      <div class="item-box" flex="cross:center main:center" @click.stop="delSheet">
         <div class="text-con">删除整单</div>
       </div>
       <div
         class="item-box"
         flex="cross:center main:center"
         @click.stop="createSheet"
+        v-if="sheetInfo.sheetType!='body_temperature_Hd'"
       >
         <div class="text-con">新建记录单</div>
+      </div>
+      <div class="item-box" flex="cross:center main:center" @click.stop="createTemperature" v-else>
+        <div class="text-con">新建体温单</div>
       </div>
       <div flex-box="1"></div>
       <!-- <span class="label">护理记录：</span> -->
@@ -91,18 +77,13 @@
             :value="item"
           >
             <div class="list-con" flex="cross:stretch">
-              <div class="col-1" :title="item.recordName">
-                {{ item.recordName }}
-              </div>
-              <div class="col-2" :title="item.deptName">
-                {{ item.deptName }}
-              </div>
-              <div class="col-3" :title="item.createTime">
-                {{ item.createTime }}
-              </div>
-              <div class="col-4" :title="item.completeName">
-                {{ item.pageIndex }} - {{ item.endPageIndex }}
-              </div>
+              <div class="col-1" :title="item.recordName">{{ item.recordName }}</div>
+              <div class="col-2" :title="item.deptName">{{ item.deptName }}</div>
+              <div class="col-3" :title="item.createTime">{{ item.createTime }}</div>
+              <div
+                class="col-4"
+                :title="item.completeName"
+              >{{ item.pageIndex }} - {{ item.endPageIndex }}</div>
               <!-- <div class="col-3" :title="item.completeName">{{item.completeName}}</div> -->
             </div>
           </el-option>
@@ -137,11 +118,7 @@
         </div>
       </div>
       <div class="line"></div>
-      <div
-        class="right-btn"
-        flex="cross:center main:center"
-        @click.stop="openTztbModal"
-      >
+      <div class="right-btn" flex="cross:center main:center" @click.stop="openTztbModal">
         <div class="text-con">
           <img src="./images/体征.png" alt />
           体征同步
@@ -278,7 +255,12 @@ import sheetModel, { cleanData } from "../../sheet.js";
 import sheetInfo from "../config/sheetInfo/index.js";
 import { sign } from "@/api/sheet.js";
 import { Tr } from "../render/Body.js";
-import { blockList, blockDelete, toPdfPrint } from "../../api/index.js";
+import {
+  blockList,
+  blockDelete,
+  toPdfPrint,
+  blockSave,
+} from "../../api/index.js";
 import commom from "@/common/mixin/common.mixin.js";
 import newFormModal from "../modal/new-sheet-modal.vue";
 import setTitleModal from "../modal/set-title-modal.vue";
@@ -299,7 +281,7 @@ export default {
       pageArea: "",
       sheetModel,
       sheetInfo,
-      sheetBlockList: []
+      sheetBlockList: [],
     };
   },
   methods: {
@@ -387,11 +369,11 @@ export default {
         if (i == pagelist.length - 1) {
         } else if (i == pagelist.length - 2) {
           this.selectList.push({
-            value: `${pagelist[i]}-${pagelist[i + 1] - 1}`
+            value: `${pagelist[i]}-${pagelist[i + 1] - 1}`,
           });
         } else {
           this.selectList.push({
-            value: `${pagelist[i]}-${pagelist[i + 1] - 1}`
+            value: `${pagelist[i]}-${pagelist[i + 1] - 1}`,
           });
         }
       }
@@ -405,10 +387,10 @@ export default {
           this.patientInfo.patientId,
           this.patientInfo.visitId,
           this.deptCode
-        ).then(res => {
-          this.sheetBlockList.forEach(item => {
+        ).then((res) => {
+          this.sheetBlockList.forEach((item) => {
             try {
-              let currObj = res.data.data.list.find(obj => obj.id == item.id);
+              let currObj = res.data.data.list.find((obj) => obj.id == item.id);
               item.pageIndex = currObj.pageIndex;
               item.endPageIndex = currObj.endPageIndex;
             } catch (error) {}
@@ -423,7 +405,7 @@ export default {
     getPrev(index, bodyModel, val) {
       if (index < 0) return "";
       let tr = bodyModel[index];
-      let value = tr.find(item => {
+      let value = tr.find((item) => {
         return item.key == val;
       }).value;
       if (value) {
@@ -458,7 +440,7 @@ export default {
                 recordYear: this.getPrev(currIndex, allList, "recordYear"),
                 patientId: this.patientInfo.patientId,
                 visitId: this.patientInfo.visitId,
-                pageIndex: this.index
+                pageIndex: this.index,
               })
             );
           }
@@ -466,28 +448,28 @@ export default {
             empNo,
             password,
             list,
-            dsvsRandom
+            dsvsRandom,
           };
           sign(this.patientInfo.patientId, this.patientInfo.visitId, data).then(
-            res => {
+            (res) => {
               for (let i = 0; i < res.data.data.length; i++) {
                 let trArrClone = Tr(res.data.data[i]);
                 let trArr = sheetInfo.selectRow[i];
                 if (
-                  trArr.find(item => {
+                  trArr.find((item) => {
                     return item.key == "recordMonth";
                   }).value == ""
                 ) {
-                  trArrClone.find(item => {
+                  trArrClone.find((item) => {
                     return item.key == "recordMonth";
                   }).value = "";
                 }
                 if (
-                  trArr.find(item => {
+                  trArr.find((item) => {
                     return item.key == "recordHour";
                   }).value == ""
                 ) {
-                  trArrClone.find(item => {
+                  trArrClone.find((item) => {
                     return item.key == "recordHour";
                   }).value = "";
                 }
@@ -502,7 +484,7 @@ export default {
               );
               this.$notify.success({
                 title: "提示",
-                message: "批量签名成功"
+                message: "批量签名成功",
               });
               this.bus.$emit("saveSheetPage");
             }
@@ -511,7 +493,7 @@ export default {
       } else {
         this.$alert("请按下 ctrl 键并单击选择需要签名的行", "批量签名提示", {
           confirmButtonText: "确定",
-          callback: action => {}
+          callback: (action) => {},
         });
       }
     },
@@ -532,7 +514,7 @@ export default {
                 recordYear: this.getPrev(currIndex, allList, "recordYear"),
                 patientId: this.patientInfo.patientId,
                 visitId: this.patientInfo.visitId,
-                pageIndex: this.index
+                pageIndex: this.index,
               })
             );
           }
@@ -540,28 +522,28 @@ export default {
             empNo,
             password,
             list,
-            audit: true
+            audit: true,
           };
           sign(this.patientInfo.patientId, this.patientInfo.visitId, data).then(
-            res => {
+            (res) => {
               for (let i = 0; i < res.data.data.length; i++) {
                 let trArrClone = Tr(res.data.data[i]);
                 let trArr = sheetInfo.selectRow[i];
                 if (
-                  trArr.find(item => {
+                  trArr.find((item) => {
                     return item.key == "recordMonth";
                   }).value == ""
                 ) {
-                  trArrClone.find(item => {
+                  trArrClone.find((item) => {
                     return item.key == "recordMonth";
                   }).value = "";
                 }
                 if (
-                  trArr.find(item => {
+                  trArr.find((item) => {
                     return item.key == "recordHour";
                   }).value == ""
                 ) {
-                  trArrClone.find(item => {
+                  trArrClone.find((item) => {
                     return item.key == "recordHour";
                   }).value = "";
                 }
@@ -576,7 +558,7 @@ export default {
               );
               this.$notify.success({
                 title: "提示",
-                message: "批量审核成功"
+                message: "批量审核成功",
               });
               this.bus.$emit("saveSheetPage");
             }
@@ -585,7 +567,7 @@ export default {
       } else {
         this.$alert("请按下 ctrl 键并单击选择需要签名的行", "批量签名提示", {
           confirmButtonText: "确定",
-          callback: action => {}
+          callback: (action) => {},
         });
       }
     },
@@ -599,18 +581,27 @@ export default {
           this.patientInfo.patientId,
           this.patientInfo.visitId,
           this.deptCode
-        ).then(res => {
+        ).then((res) => {
           this.bus.$emit("setSheetTableLoading", false);
           this.selectList = [];
-          this.sheetBlockList = res.data.data.list;
+          let list = res.data.data.list;
+          if (this.$route.path.includes("singleTemperatureChart")) {
+            this.sheetBlockList = list.filter((item) => {
+              return item.recordCode == "body_temperature_Hd";
+            });
+          } else {
+            this.sheetBlockList = list.filter((item) => {
+              return item.recordCode != "body_temperature_Hd";
+            });
+          }
           this.sheetInfo.selectBlock =
-            res.data.data.list[res.data.data.list.length - 1] || {};
+            this.sheetBlockList[this.sheetBlockList.length - 1] || {};
           if (this.patientInfo.blockId) {
             try {
               let index = this.sheetBlockList.findIndex(
-                item => item.id == this.patientInfo.blockId
+                (item) => item.id == this.patientInfo.blockId
               );
-              this.sheetInfo.selectBlock = res.data.data.list[index];
+              this.sheetInfo.selectBlock = this.sheetBlockList[index];
             } catch (e) {
               console.log(e);
             }
@@ -626,18 +617,30 @@ export default {
       }
       this.$refs.newFormModal.open();
     },
+    createTemperature() {
+      blockSave(
+        this.patientInfo.patientId,
+        this.patientInfo.visitId,
+        this.deptCode,
+        this.sheetInfo.sheetType
+      ).then((res) => {
+        this.bus.$emit("getBlockList");
+        this.$message.success("创建成功");
+        this.bus.$emit("setSheetTableLoading", true);
+      });
+    },
     delSheet() {
       if (!this.sheetInfo.selectBlock.id)
         return this.$message.warning("还没有选择护理记录单");
       this.$confirm("此操作将永久删除该护理记录单, 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
-        type: "warning"
+        type: "warning",
       }).then(() => {
-        blockDelete(this.sheetInfo.selectBlock.id).then(res => {
+        blockDelete(this.sheetInfo.selectBlock.id).then((res) => {
           this.$message({
             type: "success",
-            message: "删除成功!"
+            message: "删除成功!",
           });
           // 刷新
           this.getBlockList();
@@ -676,7 +679,7 @@ export default {
         return this.$message.warning("你无权操作此护记，仅供查阅");
       }
       this.$refs.tztbModal.open();
-    }
+    },
   },
   computed: {
     fullpage() {
@@ -701,18 +704,18 @@ export default {
     readOnly() {
       try {
         return !this.userDeptList
-          .map(item => item.code)
+          .map((item) => item.code)
           .includes(this.sheetInfo.selectBlock.deptCode);
       } catch (error) {
         return false;
       }
-    }
+    },
   },
   created() {
     this.bus.$on("initSheetPageSize", () => {
       let old_list_length = this.selectList.length;
       let old_list_index = this.selectList.findIndex(
-        item => item.value == this.pageArea
+        (item) => item.value == this.pageArea
       );
       this.initSelectList();
       let new_list_length = this.selectList.length;
@@ -725,7 +728,7 @@ export default {
             for (let j = 0; j < this.sheetModel[i].bodyModel.length; j++) {
               if (
                 this.patientInfo.recordId ==
-                this.sheetModel[i].bodyModel[j].find(item => item.key == "id")
+                this.sheetModel[i].bodyModel[j].find((item) => item.key == "id")
                   .value
               ) {
                 index = i + this.sheetInfo.sheetStartPage;
@@ -745,7 +748,7 @@ export default {
                       .eq(0)
                       .offset().top +
                     this.$parent.$refs.scrollCon.scrollTop -
-                    250
+                    250,
                 });
                 $(`[recordId='${this.patientInfo.recordId}']`)
                   .eq(0)
@@ -791,12 +794,12 @@ export default {
     this.bus.$on("getBlockList", () => {
       this.getBlockList();
     });
-    document.onkeydown = e => {
+    document.onkeydown = (e) => {
       if (e.keyCode == 91 || e.keyCode == 17) {
         this.sheetInfo.downControl = true;
       }
     };
-    document.onkeyup = e => {
+    document.onkeyup = (e) => {
       if (e.keyCode == 91 || e.keyCode == 17) {
         this.sheetInfo.downControl = false;
       }
@@ -835,15 +838,20 @@ export default {
             this.selectList = [];
           });
         }
+      },
+    },
+    $route(to, from) {
+      if (to.name != from.name) {
+        this.getBlockList();
       }
-    }
+    },
   },
   components: {
     setPageModal,
     newFormModal,
     setTitleModal,
     tztbModal,
-    patientInfo
-  }
+    patientInfo,
+  },
 };
 </script>
