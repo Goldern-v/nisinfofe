@@ -36,4 +36,9 @@ module.exports = {
         HOSPITAL_NAME: '"东莞市厚街医院"',
         HOSPITAL_NAME_SPACE: '"东 莞 市 厚 街 医 院"'
     },
+	"hengxian": {
+		HOSPITAL_ID: '"hengxian"',
+		HOSPITAL_NAME: '"横县人民医院"',
+		HOSPITAL_NAME_SPACE: '"横 县 人 民 医 院"'
+	}
 }
