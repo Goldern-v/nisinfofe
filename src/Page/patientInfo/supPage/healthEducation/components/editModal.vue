@@ -303,8 +303,8 @@ export default {
         wardCode: queryInfo.wardCode, // 非必须，科室代码
         wardName: queryInfo.wardName, // 非必须，科室名称
         missionId: this.form.state ? this.form.state : this.itemData.missionId, // 非必须，宣教模版id
-        title: this.form.state ? this.itemData.name : this.itemData.title, // 非必须，宣教名称
-        type: this.form.state ? this.itemData.type : this.itemData.type, // 非必须，宣教类型
+        title: itemData ? itemData.name : this.itemData.name, // 非必须，宣教名称
+        type: itemData ? itemData.type : this.itemData.type, // 非必须，宣教类型
         pageParam: JSON.stringify(pageParam) // 非必须，页面参数
       };
       return data;
