@@ -268,13 +268,10 @@
       第 {{ index + sheetStartPage }} 页
       <span
         class="sh-name"
-        v-if="sheetInfo.sheetType=='com_lc' || 'icu_lc' ||'common_hd'||'stress_injury_hd'||'wait_delivery_hd'||'neurosurgery_hd'||'neonatology_hd'||'neonatology2_hd'"
+        v-if="auditArr.includes(sheetInfo.sheetType)"
       >
-        <span v-if="sheetInfo.sheetType=='com_lc' || sheetInfo.sheetType=='icu_lc' ">审核人：</span>
-        <span
-          v-else-if=" sheetInfo.sheetType=='common_hd' || sheetInfo.sheetType=='stress_injury_hd'|| sheetInfo.sheetType=='prenatal_hd' 
-          || sheetInfo.sheetType=='postpartum_hd'|| sheetInfo.sheetType=='wait_delivery_hd'|| sheetInfo.sheetType=='neurosurgery_hd' ||sheetInfo.sheetType=='neonatology_hd'||sheetInfo.sheetType=='neonatology2_hd'"
-        >上级护士签名：</span>
+        <span v-if="sheetInfo.sheetType=='com_lc' || sheetInfo.sheetType=='icu_lc' || sheetInfo.sheetType == 'Record_Children_Serious_Lc'">审核人：</span>
+        <span v-else>上级护士签名：</span>
         <span class="sh-name-box">
           <div class="sign-null-box" @click="openAduitModal" v-if="!auditorNo"></div>
           <div class="sign-in-box" v-else @click="cancelAduitModal">
@@ -353,7 +350,8 @@ export default {
       bus: bus(this),
       sheetInfo,
       fiexHeaderWidth: 0,
-      isFixed: false
+      isFixed: false,
+      auditArr: ['com_lc','icu_lc','common_hd','stress_injury_hd','wait_delivery_hd','neurosurgery_hd','neonatology_hd','neonatology2_hd','Record_Children_Serious_Lc']
     };
   },
   computed: {

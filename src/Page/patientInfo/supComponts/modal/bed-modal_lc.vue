@@ -194,6 +194,7 @@
             </div>
           </div>
           <div style="width: 131px">
+            <span class="label">住院号:{{info.inpNo}}</span>
             <div class="tip">温馨提示</div>
             <div style="height: 2px"></div>
             <div>
@@ -529,6 +530,9 @@ export default {
     },
     hasRemark() {
       return this.formData.remarkPrint;
+    },
+    info() {
+      return this.$route.query;
     },
   },
   methods: {

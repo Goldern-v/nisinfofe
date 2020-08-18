@@ -1,7 +1,7 @@
 export default {
   deptType: "",
   style: {
-    width: "800px"
+    width: "850px"
   },
   th: {
     top: [
@@ -64,6 +64,15 @@ export default {
         style: {
           minWidth: "52px",
           maxWidth: "52px"
+        },
+        colspan: "1",
+        rowspan: "2"
+      },
+      {
+        name: "血<br/>氧<br/>%",
+        style: {
+          minWidth: "36px",
+          maxWidth: "36px"
         },
         colspan: "1",
         rowspan: "2"

@@ -208,6 +208,7 @@ export default [{
     value: ""
   },
   {
+    hidden: true,
     key: "audit",
     value: ""
   },

@@ -84,6 +84,11 @@
           <span>{{ scope.row.stopDateTime}} {{ scope.row.stopNurse}} {{ scope.row.stopReason}}</span>
         </template>
       </el-table-column>
+      <el-table-column label="操作" min-width="100px" align="center">
+        <template slot-scope="scope">
+          <el-button type="text" @click="backTracking(scope.row)" v-if="scope.row.executeFlag==0">补录</el-button>
+        </template>
+      </el-table-column>
     </el-table>
   </div>
 </template>
@@ -205,15 +210,18 @@ import { info } from "@/api/task";
 import commonMixin from "../../../../common/mixin/common.mixin";
 import qs from "qs";
 import moment from "moment";
+import { addRecord } from "../../api/index";
+import bus from "vue-happy-bus";
 export default {
   props: {
     tableData: Array,
-    pageLoadng: Boolean
+    pageLoadng: Boolean,
   },
   mixins: [commonMixin],
   data() {
     return {
-      msg: "hello vue"
+      msg: "hello vue",
+      bus: bus(this),
     };
   },
   filters: {
@@ -224,33 +232,49 @@ export default {
       let allStatus = [
         {
           id: "",
-          name: "全部"
+          name: "全部",
         },
         {
           id: 0,
-          name: "未执行"
+          name: "未执行",
         },
         {
           id: 1,
-          name: "开始输液"
+          name: "开始输液",
         },
         {
           id: 2,
-          name: "暂停输液"
+          name: "暂停输液",
         },
         {
           id: 3,
-          name: "继续输液"
+          name: "继续输液",
         },
         {
           id: 4,
-          name: "已完成"
-        }
+          name: "已完成",
+        },
       ];
       let status = parseInt(val);
       return typeof status == "number" ? allStatus[status + 1].name : val;
-    }
+    },
   },
-  components: {}
+  components: {},
+  methods: {
+    // 补录
+    backTracking(item) {
+      let data = {
+        LabelId: item.barCode,
+        EmpNo: this.empNo,
+        Type: "1",
+        tradeCode: "OrderExecute",
+      };
+      let obj = { strJson: JSON.stringify(data) };
+      addRecord(obj).then((res) => {
+        this.$message.success("补录成功");
+        this.bus.$emit("loadImplementationList");
+      });
+    },
+  },
 };
 </script>

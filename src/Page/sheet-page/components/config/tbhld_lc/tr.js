@@ -56,6 +56,12 @@ export default [
     }
   },
   {
+    key: "spo2", //血氧
+    value: "",
+    style: tdStyle,
+    event: keyf1
+  },
+  {
     key: "pupil", //瞳孔
     value: "",
     name: "瞳孔",
