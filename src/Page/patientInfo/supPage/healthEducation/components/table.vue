@@ -185,7 +185,6 @@ export default {
     },
     //点击宣教内容
     healthContent(e, data) {
-      console.log(e, "e", data);
       if (!data["宣教内容"]) return;
       e.stopPropagation();
       let ids = data.item ? data.item.missionId : "";
@@ -203,7 +202,7 @@ export default {
     },
     // 点击行
     onSelect(data) {
-      if (!data["宣教内容"]) return;
+      if (!data["教育时间"]) return;
       if (data === this.selected) {
         this.$emit("update:selected", null);
         return;
@@ -212,7 +211,7 @@ export default {
     },
     // 双击行修改
     onDblClick(data) {
-      if (!data["宣教内容"]) return;
+      if (!data["教育时间"]) return;
       this.$emit("dblclick", data);
     }
   },
