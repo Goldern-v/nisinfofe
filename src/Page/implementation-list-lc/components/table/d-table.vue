@@ -62,6 +62,7 @@
               zxz: scope.row.executeFlag == 1 || scope.row.executeFlag == 3,
               }"
           >{{ scope.row.executeFlag | handleStatus }}</span>
+          <span v-if="scope.row.type==1">(补)</span>
         </template>
       </el-table-column>
 
