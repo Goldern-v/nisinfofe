@@ -88,9 +88,15 @@
       <el-table-column label="操作" min-width="100px" align="center">
         <template slot-scope="scope">
           <el-button type="text" @click="backTracking(scope.row)" v-if="scope.row.executeFlag==0">补录</el-button>
+          <el-button
+            type="text"
+            @click="editTime(scope.row)"
+            v-if="isEdit && scope.row.executeFlag==4"
+          >修改</el-button>
         </template>
       </el-table-column>
     </el-table>
+    <editModal ref="editModal"></editModal>
   </div>
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
@@ -212,6 +218,7 @@ import commonMixin from "../../../../common/mixin/common.mixin";
 import qs from "qs";
 import moment from "moment";
 import { addRecord } from "../../api/index";
+import editModal from "../common/edit-modal";
 import bus from "vue-happy-bus";
 export default {
   props: {
@@ -223,6 +230,7 @@ export default {
     return {
       msg: "hello vue",
       bus: bus(this),
+      isEdit: false,
     };
   },
   filters: {
@@ -260,7 +268,9 @@ export default {
       return typeof status == "number" ? allStatus[status + 1].name : val;
     },
   },
-  components: {},
+  components: {
+    editModal,
+  },
   methods: {
     // 补录
     backTracking(item) {
@@ -271,11 +281,28 @@ export default {
         tradeCode: "OrderExecute",
       };
       let obj = { strJson: JSON.stringify(data) };
-      addRecord(obj).then((res) => {
-        this.$message.success("补录成功");
-        this.bus.$emit("loadImplementationList");
+
+      this.$confirm("是否补录?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "info",
+      }).then(() => {
+        addRecord(obj).then((res) => {
+          this.$message.success("补录成功");
+          this.bus.$emit("loadImplementationList");
+        });
       });
     },
+    editTime(data) {
+      this.$refs.editModal.open(data);
+    },
+  },
+  mounted() {
+    this.isEdit =
+      JSON.parse(localStorage.user) &&
+      JSON.parse(localStorage.user).post == "护长"
+        ? true
+        : false;
   },
 };
 </script>
