@@ -497,7 +497,7 @@ export default {
             this.regions = [obj];
           }
 
-          if (this.deptCode == "610102") {
+          if (this.deptCode == "610102" && this.HOSPITAL_ID == "hj") {
             index += 1;
             let obj = {
               label: "ICU护理记录单",
