@@ -262,6 +262,14 @@ export default {
           );
         } else {
         }
+      }else if(node.label == "ICU护理记录单" && !node.data.formCode){
+        this.bus.$emit(
+          "openAssessmentBox",
+          Object.assign({}, getFormConfig(node.data.formName), {
+            pageUrl: node.data.pageUrl,
+            nooForm: node.data.nooForm,
+          })
+        );
       }
     },
     renderContent(h, { node, data, store }) {
@@ -487,6 +495,17 @@ export default {
               return item.formCode == "E0064";
             });
             this.regions = [obj];
+          }
+
+          if (this.deptCode == "610102") {
+            index += 1;
+            let obj = {
+              label: "ICU护理记录单",
+              index,
+              pageUrl: `http://10.35.0.82/op.html?patientid=${this.$route.query.patientId}&visitId=${this.$route.query.visitId}`,
+              nooForm: 2,
+            };
+            this.regions.push(obj);
           }
 
           // console.log(list_1, "list_1list_1list_1");
