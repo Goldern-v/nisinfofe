@@ -6,7 +6,7 @@
       :element-loading-text="pageLoadingText"
       ref="iframeLoadingV2"
     >
-      <iframe
+       <iframe
         :style="{ height: iframeHeight + 'px' }"
         frameborder="0"
         class="assessmentv2-iframe"
@@ -227,6 +227,12 @@ export default {
     },
     // 点击左边栏目录里已经记录好的模版,通过改变iframe URL属性,刷新iframe内容
     openUrl(info) {
+      if (this.deptCode == "610102" && !info.formCode && this.HOSPITAL_ID == "hj") {
+        this.pageLoading = false;
+        this.url = info.pageUrl;
+        this.info = {...info};
+        return;
+      }
       try {
         window.app.$refs.iframeLoadingBox.$methods().setLoadingStatus(false);
       } catch (error) {
@@ -389,6 +395,9 @@ export default {
       }
     },
     onload() {
+      if (this.deptCode == "610102" && !this.info.formCode && this.HOSPITAL_ID == "hj") {
+        return;
+      }
       // this.pageLoading = true;
       // this.pageLoadingText = "数据加载中";
       // this.marklist = [];
@@ -1744,7 +1753,9 @@ export default {
   },
   watch: {
     url() {
-      this.pageLoading = true;
+     if (this.info.formCode) {
+        this.pageLoading = true;
+     }
       // this.bus.$emit("closeAssessmentV1");
       // this.iframeHeight = "auto";
       // this.iframeHeight = this.wih - this.offsetHeight; //100;

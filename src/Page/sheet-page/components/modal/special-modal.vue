@@ -31,29 +31,17 @@
             <div class="input-row" flex="main:justify">
               <div class="input-cell" flex="cross:center" flex-box="1">
                 <div class="label">体温：</div>
-                <input
-                  type="text"
-                  :readonly="isRead"
-                  v-model="staticObj.temperature"
-                />
+                <input type="text" :readonly="isRead" v-model="staticObj.temperature" />
                 <div class="uniq">℃</div>
               </div>
               <div class="input-cell" flex="cross:center" flex-box="1">
                 <div class="label">脉搏：</div>
-                <input
-                  type="text"
-                  :readonly="isRead"
-                  v-model="staticObj.pulse"
-                />
+                <input type="text" :readonly="isRead" v-model="staticObj.pulse" />
                 <div class="uniq">次/分</div>
               </div>
               <div class="input-cell" flex="cross:center" flex-box="1">
                 <div class="label">呼吸：</div>
-                <input
-                  type="text"
-                  :readonly="isRead"
-                  v-model="staticObj.breath"
-                />
+                <input type="text" :readonly="isRead" v-model="staticObj.breath" />
                 <div class="uniq">次/分</div>
               </div>
             </div>
@@ -97,43 +85,24 @@
                   SOP
                   <sub>2</sub>：
                 </div>
-                <input
-                  type="text"
-                  :readonly="isRead"
-                  v-model="staticObj.spo2"
-                />
+                <input type="text" :readonly="isRead" v-model="staticObj.spo2" />
                 <div class="uniq">%</div>
               </div>
-              <div
-                flex-box="1"
-                v-if="staticObj.consciousness === undefined"
-              ></div>
+              <div flex-box="1" v-if="staticObj.consciousness === undefined"></div>
               <div flex-box="1" v-if="staticObj.spo2 === undefined"></div>
             </div>
-            <div
-              class="input-row"
-              v-if="staticObj.pupilSizeLeft !== undefined"
-              flex="main:justify"
-            >
+            <div class="input-row" v-if="staticObj.pupilSizeLeft !== undefined" flex="main:justify">
               <div class="input-cell" flex="cross:center" flex-box="1">
                 <div class="label">瞳孔(大小)</div>
               </div>
               <div class="input-cell" flex="cross:center" flex-box="2">
                 <div class="label">左：</div>
-                <input
-                  type="text"
-                  :readonly="isRead"
-                  v-model="staticObj.pupilSizeLeft"
-                />
+                <input type="text" :readonly="isRead" v-model="staticObj.pupilSizeLeft" />
                 <div class="uniq"></div>
               </div>
               <div class="input-cell" flex="cross:center" flex-box="2">
                 <div class="label">右：</div>
-                <input
-                  type="text"
-                  :readonly="isRead"
-                  v-model="staticObj.pupilSizeRight"
-                />
+                <input type="text" :readonly="isRead" v-model="staticObj.pupilSizeRight" />
                 <div class="uniq"></div>
               </div>
               <div flex-box="2"></div>
@@ -176,11 +145,7 @@
               </div>
               <div flex-box="2"></div>
             </div>
-            <div
-              class="input-row"
-              v-if="staticObj.food !== undefined"
-              flex="main:left"
-            >
+            <div class="input-row" v-if="staticObj.food !== undefined" flex="main:left">
               <div class="input-cell" flex="cross:center">
                 <div class="label">入量名称：</div>
                 <input
@@ -196,26 +161,14 @@
                 />
                 <div class="uniq"></div>
               </div>
-              <div
-                class="input-cell"
-                flex="cross:center"
-                style="margin-left: 4px"
-              >
+              <div class="input-cell" flex="cross:center" style="margin-left: 4px">
                 <div class="label">量：</div>
-                <input
-                  type="text"
-                  :readonly="isRead"
-                  v-model="staticObj.foodSize"
-                />
+                <input type="text" :readonly="isRead" v-model="staticObj.foodSize" />
                 <div class="uniq">ml</div>
               </div>
               <div flex-box="1"></div>
             </div>
-            <div
-              class="input-row"
-              v-if="staticObj.discharge !== undefined"
-              flex="main:left"
-            >
+            <div class="input-row" v-if="staticObj.discharge !== undefined" flex="main:left">
               <div class="input-cell" flex="cross:center">
                 <div class="label">出量名称：</div>
                 <input
@@ -231,17 +184,9 @@
                 />
                 <div class="uniq"></div>
               </div>
-              <div
-                class="input-cell"
-                flex="cross:center"
-                style="margin-left: 4px"
-              >
+              <div class="input-cell" flex="cross:center" style="margin-left: 4px">
                 <div class="label">量：</div>
-                <input
-                  type="text"
-                  :readonly="isRead"
-                  v-model="staticObj.dischargeSize"
-                />
+                <input type="text" :readonly="isRead" v-model="staticObj.dischargeSize" />
                 <div class="uniq">ml</div>
               </div>
               <div flex-box="1"></div>
@@ -253,9 +198,7 @@
                 style="width: 33%;margin-bottom: 12px;overflow: hidden;"
               >
                 <div class="input-cell" flex="cross:center">
-                  <div class="label" style="width: 70px;">
-                    {{ item.name || key }}：
-                  </div>
+                  <div class="label" style="width: 70px;">{{ item.name || key }}：</div>
                   <input
                     type="text"
                     :readonly="isRead"
@@ -272,11 +215,7 @@
             </div>
           </el-tab-pane>
           <el-tab-pane label="自定义项目" name="2">
-            <div
-              class="custom-cell"
-              v-for="(item, index) in customTitle"
-              :key="item.key"
-            >
+            <div class="custom-cell" v-for="(item, index) in customTitle" :key="item.key">
               <div class="custom-box" flex="cross:center">
                 <div class="label">{{ item.name }}</div>
                 <input
@@ -291,10 +230,7 @@
                   }"
                 />
                 <div class="button">
-                  <el-checkbox
-                    v-model="check[index]"
-                    :disabled="isRead"
-                  ></el-checkbox>
+                  <el-checkbox v-model="check[index]" :disabled="isRead"></el-checkbox>
                 </div>
               </div>
             </div>
@@ -302,53 +238,33 @@
           <el-tab-pane label="特殊情况记录" name="3">
             <div class="title" flex="cross:center main:justify">
               <span>病情、药物治疗、护理措施、效果</span>
-              <span
-                style="color: #284FC2;cursor: pointer"
-                @click="openTemplateSlider"
-                >+模板</span
-              >
+              <span style="color: #284FC2;cursor: pointer" @click="openTemplateSlider">+模板</span>
             </div>
-            <!-- <el-input
-              type="textarea"
-              class="text-con"
-              :readonly="isRead"
-              v-model="doc"
-            ></el-input> -->
+            <el-input type="textarea" class="text-con" :readonly="isRead" v-model="doc"></el-input>
             <!--  特殊富文本 -->
-            <div class="edit_container">
-              <quill-editor
-                v-model="doc"
-                ref="myQuillEditor"
-                :options="editorOption"
-              >
-              </quill-editor>
-            </div>
+            <!-- <div class="edit_container">
+              <quill-editor v-model="doc" ref="myQuillEditor" :options="editorOption"></quill-editor>
+            </div>-->
           </el-tab-pane>
         </el-tabs>
       </div>
       <div slot="button">
         <el-button class="modal-btn" @click="close">取消</el-button>
-        <el-button
-          class="modal-btn"
-          type="primary"
-          @click="post"
-          v-show="!isRead"
-          >保存</el-button
-        >
+        <el-button class="modal-btn" type="primary" @click="post" v-show="!isRead">保存</el-button>
       </div>
     </sweet-modal>
     <templateSlide ref="templateSlide"></templateSlide>
   </div>
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
-// 富文本样式
 .edit_container {
   margin-top: 10px;
 
-  >>>.ql-container  {
+  >>>.ql-container {
     height: 200px !important;
   }
 }
+
 .title {
   font-size: 14px;
   color: #333333;
@@ -505,10 +421,10 @@ import { dateKey, timeKey } from "../config/keyEvent/date.js";
 import { offset } from "../sheetTable/components/excel/tool.js";
 import { listItem } from "../../api/recordDesc.js";
 import { FormToEnter } from "@/plugin/tool/FormToTab.js";
-import { quillEditor } from "vue-quill-editor"; //调用富文本编辑器
-import "quill/dist/quill.core.css";
-import "quill/dist/quill.snow.css";
-import "quill/dist/quill.bubble.css";
+// import { quillEditor } from "vue-quill-editor"; //调用编辑器
+// import "quill/dist/quill.core.css";
+// import "quill/dist/quill.snow.css";
+// import "quill/dist/quill.bubble.css";
 import $ from "jquery";
 function autoComplete(el, bind) {
   if (bind.value.dataList) {
@@ -584,31 +500,17 @@ export default {
         false,
         false,
         false
-      ],
-      // 富文本配置项
-      editorOption: {
-        placeholder: "请编辑内容",
-        modules: {
-          toolbar: [
-            // ["bold", "italic", "underline", "strike"], //加粗，斜体，下划线，删除线
-            // ["blockquote", "code-block"], //引用，代码块
-            // [{ header: 1 }, { header: 2 }], // 标题，键值对的形式；1、2表示字体大小
-            // [{ list: "ordered" }, { list: "bullet" }], //列表
-            [{ script: "sub" }, { script: "super" }] // 上下标
-            // [{ indent: "-1" }, { indent: "+1" }], // 缩进
-            // [{ direction: "rtl" }], // 文本方向
-
-            // [{ size: ["small", false, "large", "huge"] }], // 字体大小
-            // [{ header: [1, 2, 3, 4, 5, 6, false] }], //几级标题
-
-            // [{ color: [] }, { background: [] }], // 字体颜色，字体背景颜色
-            // [{ font: [] }], //字体
-            // [{ align: [] }], //对齐方式
-            // ["clean"] //清除字体样式
-          ]
-        },
-        theme: "snow"
-      }
+      ]
+      // 富文本编辑器配置
+      // editorOption: {
+      //   placeholder: "请编辑内容",
+      //   modules: {
+      //     toolbar: [
+      //       [{ script: "sub" }, { script: "super" }] // 上下标
+      //     ]
+      //   },
+      //   theme: "snow"
+      // }
     };
   },
   computed: {
@@ -728,6 +630,155 @@ export default {
     close() {
       this.$refs.modal.close();
     },
+    // 处理特殊字符转换函数
+    // htmlEscape(str) {
+    //   return String(str)
+    //     .replace(/&amp;/g, "&")
+    //     .replace(/&quot;/g, '"')
+    //     .replace(/&#39;/g, "'")
+    //     .replace(/&lt;/g, "<")
+    //     .replace(/&gt;/g, ">");
+    // },
+    /**
+     * 处理标签函数(拆分上下标签 过略评标前)
+     * 例子：
+     *   const egStr = <p>你好吗<sup>11</sup><sub>22</sub>好的</p>;
+     *   setLabelData(egStr); // 你好吗<sup>1</sup>sup>1</sup><sub>2</sub><sub>2</sub>好的
+     */
+    // setLabelData(data) {
+    //   if (!data.trim().length) return "";
+    //   const regP = /(<\/?p.*?>)/gi;
+    //   let val = data.replace(regP, "");
+    //   const subArray = val.match(/<sub>(.*?)<\/sub>/g);
+    //   const supArray = val.match(/<sup>(.*?)<\/sup>/g);
+    //   if ((subArray && subArray.length) || (supArray && supArray.length)) {
+    //     var subReg = /(<\/?sub.*?>)/gi;
+    //     var supReg = /(<\/?sup.*?>)/gi;
+    //     subArray &&
+    //       subArray.map(item => {
+    //         const wipeLabel = item.replace(subReg, "");
+    //         const itemArray = wipeLabel.split("");
+    //         let str = "";
+    //         itemArray.map(item => (str += "<sub>" + item + "</sub>"));
+    //         val = val.replace(new RegExp(item, "g"), str);
+    //       });
+    //     supArray &&
+    //       supArray.map(item => {
+    //         const wipeLabel = item.replace(supReg, "");
+    //         const itemArray = wipeLabel.split("");
+    //         let str = "";
+    //         itemArray.map(item => (str += "<sup>" + item + "</sup>"));
+    //         val = val.replace(new RegExp(item, "g"), str);
+    //       });
+    //   }
+    //   return val;
+    // },
+    // 保存
+    // post() {
+    //   var GetLength = function(str) {
+    //     // 过略上下标签
+    //     const subReg = /(<\/?sub.*?>)/gi;
+    //     const supReg = /(<\/?sup.*?>)/gi;
+    //     let wipeSubStr = str.replace(subReg, "");
+    //     let wipeSupStr = wipeSubStr.replace(supReg, "");
+    //     // 计算文本内容真实长度
+    //     var realLength = 0,
+    //       len = wipeSupStr.length,
+    //       charCode = -1;
+    //     for (var i = 0; i < len; i++) {
+    //       charCode = wipeSupStr.charCodeAt(i);
+    //       if (charCode == 94) realLength += 0;
+    //       else if (charCode >= 0 && charCode <= 128) realLength += 1;
+    //       else realLength += 2;
+    //     }
+    //     return realLength;
+    //   };
+    //   let result = [];
+    //   let text = "";
+    //   const doc = this.htmlEscape(this.doc);
+    //   let allDoc = this.setLabelData(this.htmlEscape(this.doc));
+    //   if (
+    //     this.sheetInfo.sheetType &&
+    //     this.sheetInfo.sheetType.indexOf("_wx") == -1
+    //   ) {
+    //     allDoc = "    " + allDoc;
+    //   }
+    //   let isSpecialLabel = false;
+    //   let index = 0;
+    //   for (let i = 0; i < allDoc.length; i++) {
+    //     let charCode = allDoc.charCodeAt(i);
+    //     const isContinue = isSpecialLabel && i <= index + 11;
+    //     if (
+    //       charCode == "65292" ||
+    //       charCode == "12290" ||
+    //       charCode == "65307" ||
+    //       charCode == "44" ||
+    //       charCode == "46" ||
+    //       charCode == "65306" ||
+    //       charCode == "109" ||
+    //       charCode == "103" ||
+    //       charCode == "58" ||
+    //       isContinue
+    //     ) {
+    //       text += allDoc[i];
+    //     } else {
+    //       if (GetLength(text) > 23) {
+    //         result.push(text);
+    //         isSpecialLabel = false;
+    //         text = allDoc[i];
+    //       } else {
+    //         // 通过<s双重判断是否开始标签
+    //         if (allDoc[i] === "<" && allDoc[i + 1] === "s") {
+    //           isSpecialLabel = true;
+    //           index = i;
+    //         }
+    //         text += allDoc[i];
+    //       }
+    //     }
+    //   }
+    //   if (text) {
+    //     result.push(text);
+    //   }
+    //   if (result.length == 0) {
+    //     result.push("");
+    //   }
+    //   for (let i = 0; i < this.record.length; i++) {
+    //     this.record[i].find(item => item.key == "description").value = "";
+    //   }
+    //   for (let i = 0; i < result.length; i++) {
+    //     if (i == 0) {
+    //       // 合并数据
+    //       mergeTr(this.record[0], this.staticObj, this.fixedList);
+    //     }
+    //     if (this.record[i]) {
+    //       this.record[i].find(item => item.key == "description").value =
+    //         result[i];
+    //     } else {
+    //       let currRow = JSON.parse(JSON.stringify(this.record[0]));
+    //       let nullRowArr = nullRow();
+
+    //       nullRowArr.find(
+    //         item => item.key == "recordSource"
+    //       ).value = currRow.find(item => item.key == "recordSource").value;
+    //       nullRowArr.find(
+    //         item => item.key == "recordDate"
+    //       ).value = currRow.find(item => item.key == "recordDate").value;
+
+    //       sheetModel[this.lastZ].bodyModel.splice(
+    //         this.lastY + 1,
+    //         0,
+    //         nullRowArr
+    //       );
+    //       this.lastY++;
+    //       sheetModel[this.lastZ].bodyModel[this.lastY].find(
+    //         item => item.key == "description"
+    //       ).value = result[i];
+    //     }
+    //   }
+    //   this.bus.$emit("saveSheetPage", this.isLast);
+    //   this.close();
+    // },
+
     post() {
       var GetLength = function(str) {
         var realLength = 0,
@@ -861,8 +912,8 @@ export default {
     }
   },
   components: {
-    templateSlide,
-    quillEditor
+    templateSlide
+    // quillEditor
   }
 };
 </script>
