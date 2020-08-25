@@ -92,7 +92,7 @@ module.exports = {
 
                 // target: "http://120.25.105.45:9864", //厚街测试
                 // target: "http://120.25.105.45:9865", //厚街测试
-                target: "http://120.25.105.45:9866", //厚街测试
+                // target: "http://120.25.105.45:9866", //厚街测试
                 // target: "http://192.168.1.20:8964", // 内网测试cno
                 // target: "http://dev.cr-health.com:4453", // 外网测试
                 // target: "http://192.168.2.91:8062", // 内网兆彬IP测试
@@ -100,7 +100,8 @@ module.exports = {
                 // target: "http://192.168.2.229:8084", // 厚街内网俊涛ip测试
                 // target: "http://192.168.2.91:8062", //东莞兆彬ip测试
                 // target: "http://192.168.2.144:8080", //广豪
-
+                target: "http://120.25.105.45:9867",
+                // target: "http://192.168.3.115:8080",
                 changeOrigin: true,
                 pathRewrite: {
                     // crNursing 东莞厚街护理系统 路径
