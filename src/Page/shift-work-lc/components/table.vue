@@ -576,7 +576,7 @@ export default {
     resize: none;
     background: none !important;
     color: black !important;
-    overflow-y: hidden;
+    overflow: hidden;
     text-align: inherit;
     cursor: auto !important;
 
