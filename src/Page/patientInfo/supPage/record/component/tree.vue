@@ -363,7 +363,7 @@ export default {
               listPrint: item.listPrint,
               nooForm: item.nooForm,
               pageUrl: item.pageUrl,
-              children: item.formInstanceDtoList.map((option, i) => {
+              children: item.formInstanceDtoList && item.formInstanceDtoList.map((option, i) => {
                 //
                 // item.formCode
                 // this.$store.state.form.upFormLastId
