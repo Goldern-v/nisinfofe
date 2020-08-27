@@ -172,7 +172,7 @@
                 },
                 isDisabed(tr) && { cursor: 'not-allowed' }
               )
-            
+
             "
             @keydown="
               td.event($event, td);
@@ -1012,6 +1012,17 @@ export default {
         //   }
         // }
       ];
+
+      if(this.HOSPITAL_ID == "hj"){
+        let obj = {
+          name: "同步至交班志",
+          iconClass: "sync-decription",
+          click: () => {
+            this.bus.$emit("syncDecription", row, cell);
+          }
+        }
+        data.push(obj)
+      }
       e.preventDefault();
       window.openContextMenu({ style, data });
     },

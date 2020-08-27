@@ -86,3 +86,7 @@ export const splitRecordBlock = (empNo, password = "", recordDate) => {
     recordDate
   });
 };
+// 护记：特殊情况同步到交班志
+export const syncToIsbar = (obj) => {
+  return axios.post(`${apiPath}record/blood_purification/syncToIsbar`, obj);
+};
