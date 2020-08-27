@@ -78,6 +78,7 @@
     <setPageModal ref="setPageModal"></setPageModal>
     <pizhuModal ref="pizhuModal"></pizhuModal>
     <evalModel ref="evalModel"></evalModel>
+    <syncToIsbarModal ref="syncToIsbarModal"></syncToIsbarModal>
   </div>
 </template>
 
@@ -228,8 +229,7 @@ import {
   showTitle,
   delPage,
   markList,
-  splitRecordBlock,
-  syncToIsbar
+  splitRecordBlock
 } from "@/api/sheet.js";
 import sheetInfo from "./components/config/sheetInfo/index.js";
 import bus from "vue-happy-bus";
@@ -242,6 +242,7 @@ import specialModal from "@/Page/sheet-page/components/modal/special-modal.vue";
 import specialModal2 from "@/Page/sheet-page/components/modal/special-modal2.vue";
 import setPageModal from "@/Page/sheet-page/components/modal/setPage-modal.vue";
 import pizhuModal from "@/Page/sheet-page/components/modal/pizhu-modal.vue";
+import syncToIsbarModal from "@/Page/sheet-page/components/modal/sync-toIsbar-modal.vue";
 import { getHomePage } from "@/Page/sheet-page/api/index.js";
 import { decodeRelObj } from "./components/utils/relObj";
 import { sheetScrollBotton } from "./components/utils/scrollBottom";
@@ -439,7 +440,8 @@ export default {
     },
     isSelectPatient(item) {
       this.$store.commit("upPatientInfo", item);
-    }
+    },
+
   },
   created() {
     // 初始化
@@ -715,55 +717,7 @@ export default {
       });
     });
     this.bus.$on("syncDecription", (tr, td) => {
-      // 数组重组
-      let allList = [];
-      // 当前行的index
-      let currIndex = 0;
-      // 拼接的记录
-      let record = [];
-      // 最后行的id 即最大的id
-      let maxId = 0;
-      // 当前的类型做唯一标识
-      let curr_recordSource = tr.find(item => item.key == "recordSource").value;
-      let curr_recordDate = tr.find(item => item.key == "recordDate").value;
-      if (curr_recordDate) {
-        for (let i = 0; i < sheetModel.length; i++) {
-          allList = allList.concat(sheetModel[i].bodyModel);
-        }
-        for (let i = 0; i < allList.length; i++) {
-          maxId = Math.max(
-            maxId,
-            allList[i].find(item => item.key == "id").value
-          );
-          if (
-            allList[i].find(item => item.key == "recordDate").value ==
-              curr_recordDate &&
-            allList[i].find(item => item.key == "recordSource").value ==
-              curr_recordSource
-          ) {
-            record.push(allList[i]);
-          }
-        }
-      } else {
-        record.push(tr);
-      }
-      // 特殊记录组合
-      let doc = "";
-      for (let i = 0; i < record.length; i++) {
-        doc += record[i].find(item => item.key == "description").value || "";
-      }
-      let data = {
-        deptCode: this.deptCode,
-        visitId: this.patientInfo.visitId,
-        patientId: this.patientInfo.patientId,
-        recordDate: curr_recordDate,
-        bedLabel: this.patientInfo.bedLabel,
-        desc: doc
-      }
-      syncToIsbar(data).then(res => {
-        this.$message.success(res.data.desc);
-        this.bus.$emit("setSheetTableLoading", true);
-      });
+      this.$refs.syncToIsbarModal.open(tr, td,sheetModel);
     });
   },
   watch: {
@@ -811,6 +765,7 @@ export default {
     specialModal2,
     setPageModal,
     pizhuModal,
+    syncToIsbarModal,
     sheetTableNeonatology,
     sheetTablePost_partum,
     evalModel,

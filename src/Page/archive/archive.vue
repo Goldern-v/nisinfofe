@@ -185,7 +185,7 @@
           ></span>
         </div>
         <div v-if="preview.type=='pdf'" :style="{height: pdfHeight+'px'}">
-          <iframe width="100%" height="100%" :src="preview.url+'#toolbar=0'" />
+          <iframe width="100%" height="100%" :src="preview.url+'#toolbar=0'" ref="myIframe"/>
         </div>
       </div>
       <div slot="button" class="button">
@@ -257,7 +257,10 @@ export default {
       this.$refs["preview-modal"].close();
     },
     print() {
-      window.print();
+       console.dir(this.$refs.myIframe);
+      if (this.$refs.myIframe && this.$refs.myIframe.contentWindow) {
+        this.$refs.myIframe.contentWindow.print();
+      }
     },
     // 文件归档上传
     uploadFileArchive(item) {
