@@ -256,7 +256,7 @@ export default {
     close() {
       this.$refs["preview-modal"].close();
     },
-    close() {
+    print() {
       window.print();
     },
     // 文件归档上传
