@@ -192,7 +192,11 @@
             @blur="onBlur($event, { x, y, z: index })"
           ></textarea>
           <!-- 护理记录单特殊情况特殊记录单独处理 -->
-          <!-- <div v-else-if="td.key === 'description' && HOSPITAL_ID == 'lingcheng'" v-html="td.value"></div> -->
+          <div
+            v-else-if="td.key === 'description' && HOSPITAL_ID == 'lingcheng' && sheetInfo.selectBlock.openRichText"
+            v-html="td.value"
+            style="text-align: left; padding: 0 8px; box-sizing: border-box"
+          ></div>
           <input
             type="text"
             :readonly="isRead(tr)"
