@@ -64,3 +64,21 @@ export function getTypeList(wardCode) {
 export function getSugarItemDict() {
   return axios.get(`${apiPath}sugar/getSugarItemDict`);
 }
+// 修改患者年龄
+export function getEditAge(patientId, visitId, itemMap) {
+  return axios.post(`${apiPath}form/modifyFormHead`, {
+    patientId,
+    visitId,
+    formCode: "sugar",
+    itemMap,
+  });
+}
+// export function getEditAge(data) {
+//   return axios.post(`${apiPath}form/modifyFormHead`, {
+//     data
+//   });
+// }
+// 获取年龄
+export function getFormHeadData(patientId, visitId) {
+  return axios.get(`${apiPath}form/getFormHeadData/${patientId}/${visitId}/sugar`);
+}

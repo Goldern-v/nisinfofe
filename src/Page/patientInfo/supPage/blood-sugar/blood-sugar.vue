@@ -11,8 +11,12 @@
           <p flex="main:justify" class="info">
             <span>病人姓名：{{patientInfo.name}}</span>
             <span>性别：{{patientInfo.sex}}</span>
-            <span>年龄：{{patientInfo.age}}</span>
-            <span>科室：{{patientInfo.deptName}}</span>
+            <span
+              v-if="HOSPITAL_ID == 'lingcheng'"
+              @dblclick="onEditAge"
+            >年龄：{{formAge?formAge:patientInfo.age}}</span>
+            <span v-if="HOSPITAL_ID != 'lingcheng'">年龄：{{patientInfo.age}}</span>
+            <span>科室：{{patientInfo.wardName || patientInfo.deptName}}</span>
             <!-- <span>入院日期：{{patientInfo.admissionDate | toymd}}</span> -->
             <span>床号：{{patientInfo.bedLabel}}</span>
             <!-- <span class="diagnosis-con">诊断：{{patientInfo.diagnosis}}</span> -->
@@ -51,6 +55,7 @@
       </div>
     </div>
     <editModal ref="editModal" :sugarItem.sync="typeList" @confirm="onSave" />
+    <editAge ref="editAge" @confirm="onSaveAge" />
     <setPageModal ref="setPageModal" />
   </div>
 </template>
@@ -146,12 +151,15 @@ import {
   saveSugarList,
   removeSugar,
   getPvHomePage,
-  getSugarItemDict
+  getSugarItemDict,
+  getEditAge,
+  getFormHeadData,
 } from "./api/index.js";
 import whiteButton from "@/components/button/white-button.vue";
 import sugarChart from "./components/sugar-chart.vue";
 import nullBg from "@/components/null/null-bg.vue";
 import editModal from "./components/edit-modal.vue";
+import editAge from "./components/edit-age.vue";
 import setPageModal from "./components/setPage-modal.vue";
 import $ from "jquery";
 import moment from "moment";
@@ -167,7 +175,8 @@ export default {
       isChart: false,
       selected: null,
       startPage: 1,
-      typeList: []
+      typeList: [],
+      formAge: 0,
     };
   },
   computed: {
@@ -176,9 +185,22 @@ export default {
     },
     containHeight() {
       return this.wih - 130 + "px";
-    }
+    },
+  },
+  mounted() {
+    this.getFormHead();
   },
   methods: {
+    async getFormHead() {
+      console.log("判断医院名称=========", this.HOSPITAL_ID);
+      console.log(this.patientInfo.patientId, this.patientInfo.visitId);
+      const res = await getFormHeadData(
+        this.patientInfo.patientId,
+        this.patientInfo.visitId
+      );
+      console.log("getFormHeadData==========", res.data.data.itemMap.age);
+      this.formAge = res.data.data.itemMap.age;
+    },
     async load() {
       this.pageLoading = true;
       const res = await getSugarListWithPatientId(
@@ -206,7 +228,7 @@ export default {
       getPvHomePage(
         this.$route.query.patientId,
         this.$route.query.visitId
-      ).then(res => {
+      ).then((res) => {
         if (res.data.data) {
           this.startPage = res.data.data.indexNo;
         } else {
@@ -240,6 +262,9 @@ export default {
     onEdit() {
       this.$refs.editModal.open("编辑血糖记录", this.selected);
     },
+    onEditAge() {
+      this.$refs.editAge.open("编辑年龄");
+    },
     async onRemove() {
       await this.$confirm(
         "确定要删除该血糖记录吗？删除后将无法恢复！",
@@ -247,7 +272,7 @@ export default {
         {
           confirmButtonText: "确定删除",
           cancelButtonText: "点错了",
-          type: "warning"
+          type: "warning",
         }
       );
 
@@ -257,7 +282,7 @@ export default {
         recordDate: this.selected.recordDate,
         sugarItem: this.selected.sugarItem,
         sugarValue: this.selected.sugarValue,
-        recordId: this.selected.recordId || ""
+        recordId: this.selected.recordId || "",
       };
 
       await removeSugar(item);
@@ -277,19 +302,39 @@ export default {
       this.selected = null;
       this.$message.success("保存成功");
     },
+    async onSaveAge(item) {
+      item.patientId = this.patientInfo.patientId;
+      item.visitId = this.patientInfo.visitId;
+      console.log("item", item.age);
+      let itemValue = item.age;
+      let itemMap = [
+        {
+          itemCode: "age",
+          itemValue: itemValue,
+        },
+      ];
+      await getEditAge(item.patientId, item.visitId, itemMap).then((res) => {
+        console.log("年龄接口返回res===", res);
+      });
+      console.log("年龄接口返回item", item);
+      this.load();
+      this.$refs.editAge.close();
+      this.getFormHead();
+      this.$message.success("保存成功");
+    },
     openSetPageModal() {
       this.$refs.setPageModal.open();
     },
     getSugarItemDict() {
-      getSugarItemDict().then(res => {
+      getSugarItemDict().then((res) => {
         let data = res.data.data;
-        this.typeList = data.map(item => {
+        this.typeList = data.map((item) => {
           return {
-            vitalSign: item.itemName
+            vitalSign: item.itemName,
           };
         });
       });
-    }
+    },
   },
   created() {
     if (this.$route.query.patientId) {
@@ -298,6 +343,7 @@ export default {
     if (this.HOSPITAL_ID == "lingcheng") {
       this.getSugarItemDict();
     }
+    this.getFormHead();
   },
   components: {
     sugarTable,
@@ -305,7 +351,8 @@ export default {
     sugarChart,
     nullBg,
     editModal,
-    setPageModal
-  }
+    setPageModal,
+    editAge,
+  },
 };
 </script>

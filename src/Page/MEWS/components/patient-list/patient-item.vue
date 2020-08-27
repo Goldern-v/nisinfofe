@@ -88,13 +88,13 @@ export default {
       isTip: false,
       subscribeId: "",
       firstFlag: true,
-      isShow: true
+      isShow: true,
     };
   },
   created() {
     this.subscribeId = WebSocketService.subscribe(
       `/topic/mews/${this.item.patientId}/${this.item.visitId}`,
-      frame => {
+      (frame) => {
         this.frameData = JSON.parse(frame.body).data;
         if (!WebSocketService.isInMd5List(this.frameData.md5)) {
           if (this.frameData.mewsInstancePlanDto) {
@@ -124,7 +124,7 @@ export default {
   computed: {
     active() {
       return this.item.patientId === this.currDataObj.patientId;
-    }
+    },
   },
   methods: {
     selectPatient() {
@@ -133,8 +133,8 @@ export default {
       if (!WebSocketService.isInMd5List(this.frameData.md5)) {
         WebSocketService.addMd5List(this.frameData.md5);
       }
-    }
+    },
   },
-  components: {}
+  components: {},
 };
 </script>
