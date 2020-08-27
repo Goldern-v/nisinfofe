@@ -100,17 +100,25 @@
               <span>病情、药物治疗、护理措施、效果</span>
               <span style="color: #284FC2;cursor: pointer" @click="openTemplateSlider">+模板</span>
             </div>
-            <el-input type="textarea" class="text-con" :readonly="isRead" v-model="doc"></el-input>
-            <!-- 护理记录单特殊情况特殊记录富文本 -->
-            <!-- <div class="edit_container">
+            <!-- 陵城特殊情况特殊记录富文本 -->
+            <div
+              class="edit_container"
+              v-if="sheetInfo.selectBlock.openRichText && HOSPITAL_ID === 'lingcheng'"
+            >
               <quill-editor v-model="doc" ref="myQuillEditor" :options="editorOption"></quill-editor>
-            </div>-->
+            </div>
+            <el-input v-else type="textarea" class="text-con" :readonly="isRead" v-model="doc"></el-input>
           </el-tab-pane>
         </el-tabs>
       </div>
       <div slot="button">
         <el-button class="modal-btn" @click="close">取消</el-button>
-        <el-button class="modal-btn" type="primary" @click="post" v-show="!isRead">保存</el-button>
+        <el-button
+          class="modal-btn"
+          type="primary"
+          @click="sheetInfo.selectBlock.openRichText && HOSPITAL_ID == 'lingcheng'? postRichText() : post()"
+          v-show="!isRead"
+        >保存</el-button>
       </div>
     </sweet-modal>
     <templateSlide ref="templateSlide"></templateSlide>
@@ -289,10 +297,10 @@ import { listItem } from "../../api/recordDesc.js";
 import { FormToEnter } from "@/plugin/tool/FormToTab.js";
 import $ from "jquery";
 import { isNumber } from "util";
-// import { quillEditor } from "vue-quill-editor"; //调用编辑器
-// import "quill/dist/quill.core.css";
-// import "quill/dist/quill.snow.css";
-// import "quill/dist/quill.bubble.css";
+import { quillEditor } from "vue-quill-editor"; //调用编辑器
+import "quill/dist/quill.core.css";
+import "quill/dist/quill.snow.css";
+import "quill/dist/quill.bubble.css";
 
 function autoComplete(el, bind) {
   if (bind.value.dataList) {
@@ -381,17 +389,17 @@ export default {
         false,
         false
       ],
-      tr: []
+      tr: [],
       // 富文本编辑器配置
-      // editorOption: {
-      //   placeholder: "请编辑内容",
-      //   modules: {
-      //     toolbar: [
-      //       [{ script: "sub" }, { script: "super" }] // 上下标
-      //     ]
-      //   },
-      //   theme: "snow"
-      // }
+      editorOption: {
+        placeholder: "请编辑内容",
+        modules: {
+          toolbar: [
+            [{ script: "sub" }, { script: "super" }] // 上下标
+          ]
+        },
+        theme: "snow"
+      }
     };
   },
   computed: {
@@ -483,8 +491,8 @@ export default {
         var reg = new RegExp(" ", "g");
         doc = doc.replace(reg, "");
       }
-
-      this.doc = doc;
+      // 富文本处理（去除字符串开头空格）
+      this.doc = doc.replace(/&nbsp;/g, " ").replace(/^\s*/g, "");
       for (let j = 0; j < sheetModel.length; j++) {
         for (let k = 0; k < sheetModel[j].bodyModel.length; k++) {
           if (
@@ -533,155 +541,158 @@ export default {
       this.$refs.modal.close();
     },
     // 处理特殊字符转换函数
-    // htmlEscape(str) {
-    //   return String(str)
-    //     .replace(/&amp;/g, "&")
-    //     .replace(/&quot;/g, '"')
-    //     .replace(/&#39;/g, "'")
-    //     .replace(/&lt;/g, "<")
-    //     .replace(/&gt;/g, ">");
-    // },
+    htmlEscape(str) {
+      return String(str)
+        .replace(/&amp;/g, "&")
+        .replace(/&quot;/g, '"')
+        .replace(/&#39;/g, "'")
+        .replace(/&lt;/g, "<")
+        .replace(/&gt;/g, ">");
+    },
     /**
-     * 处理标签函数(拆分上下标签 过略评标前)
+     * 处理标签函数(拆分上下标签 过滤P标签)
      * 例子：
      *   const egStr = <p>你好吗<sup>11</sup><sub>22</sub>好的</p>;
      *   setLabelData(egStr); // 你好吗<sup>1</sup>sup>1</sup><sub>2</sub><sub>2</sub>好的
      */
-    // setLabelData(data) {
-    //   if (!data.trim().length) return "";
-    //   const regP = /(<\/?p.*?>)/gi;
-    //   let val = data.replace(regP, "");
-    //   const subArray = val.match(/<sub>(.*?)<\/sub>/g);
-    //   const supArray = val.match(/<sup>(.*?)<\/sup>/g);
-    //   if ((subArray && subArray.length) || (supArray && supArray.length)) {
-    //     var subReg = /(<\/?sub.*?>)/gi;
-    //     var supReg = /(<\/?sup.*?>)/gi;
-    //     subArray &&
-    //       subArray.map(item => {
-    //         const wipeLabel = item.replace(subReg, "");
-    //         const itemArray = wipeLabel.split("");
-    //         let str = "";
-    //         itemArray.map(item => (str += "<sub>" + item + "</sub>"));
-    //         val = val.replace(new RegExp(item, "g"), str);
-    //       });
-    //     supArray &&
-    //       supArray.map(item => {
-    //         const wipeLabel = item.replace(supReg, "");
-    //         const itemArray = wipeLabel.split("");
-    //         let str = "";
-    //         itemArray.map(item => (str += "<sup>" + item + "</sup>"));
-    //         val = val.replace(new RegExp(item, "g"), str);
-    //       });
-    //   }
-    //   return val;
-    // },
-    // 保存
-    // post() {
-    //   let okLength = this.HOSPITAL_ID === "lingcheng" ? 46 : 23;
-    //   var GetLength = function(str) {
-    //     // 过滤上下标签替换
-    //     const subReg = /(<\/?sub.*?>)/gi;
-    //     const supReg = /(<\/?sup.*?>)/gi;
-    //     let wipeSubStr = str.replace(subReg, "");
-    //     let wipeSupStr = wipeSubStr.replace(supReg, "");
-    //     // 计算文本内容真实长度
-    //     var realLength = 0,
-    //       len = wipeSupStr.length,
-    //       charCode = -1;
-    //     for (var i = 0; i < len; i++) {
-    //       charCode = wipeSupStr.charCodeAt(i);
-    //       if (charCode == 94) realLength += 0;
-    //       else if (charCode >= 0 && charCode <= 128) realLength += 1;
-    //       else realLength += 2;
-    //     }
-    //     return realLength;
-    //   };
-    //   let result = [];
-    //   let text = "";
-    //   // 处理特殊字符 标签
-    //   const doc = this.htmlEscape(this.doc);
-    //   let allDoc = this.setLabelData(this.htmlEscape(this.doc));
-    //   if (
-    //     this.HOSPITAL_ID != "weixian" &&
-    //     this.sheetInfo.sheetType != "special"
-    //   ) {
-    //     allDoc = "    " + allDoc;
-    //   }
-    //   // 开关控制
-    //   let isSpecialLabel = false;
-    //   let index = 0;
-    //   for (let i = 0; i < allDoc.length; i++) {
-    //     let charCode = allDoc.charCodeAt(i);
-    //     const isContinue = isSpecialLabel && i <= index + 11;
-    //     if (
-    //       charCode == "65292" ||
-    //       charCode == "12290" ||
-    //       charCode == "65307" ||
-    //       charCode == "44" ||
-    //       charCode == "46" ||
-    //       charCode == "65306" ||
-    //       charCode == "58" ||
-    //       isContinue
-    //     ) {
-    //       text += allDoc[i];
-    //     } else {
-    //       if (GetLength(text) > okLength) {
-    //         result.push(text);
-    //         isSpecialLabel = false;
-    //         text = allDoc[i];
-    //       } else {
-    //         // 通过<s双重判断是否开始标签
-    //         if (allDoc[i] === "<" && allDoc[i + 1] === "s") {
-    //           isSpecialLabel = true;
-    //           index = i;
-    //         }
-    //         text += allDoc[i];
-    //       }
-    //     }
-    //   }
-    //   if (text) {
-    //     result.push(text);
-    //   }
-    //   if (result.length == 0) {
-    //     result.push("");
-    //   }
-    //   for (let i = 0; i < this.record.length; i++) {
-    //     this.record[i].find(item => item.key == "description").value = "";
-    //   }
-    //   for (let i = 0; i < result.length; i++) {
-    //     if (i == 0) {
-    //       // 合并数据
-    //       mergeTr(this.record[0], this.staticObj, this.fixedList);
-    //     }
-    //     if (this.record[i]) {
-    //       this.record[i].find(item => item.key == "description").value =
-    //         result[i];
-    //     } else {
-    //       let currRow = JSON.parse(JSON.stringify(this.record[0]));
-    //       let nullRowArr = nullRow();
+    setLabelData(data) {
+      if (!data.trim().length) return "";
+      const regP = /(<\/?p.*?>)/gi;
+      let val = data.replace(regP, "");
+      const subArray = val.match(/<sub>(.*?)<\/sub>/g);
+      const supArray = val.match(/<sup>(.*?)<\/sup>/g);
+      if ((subArray && subArray.length) || (supArray && supArray.length)) {
+        var subReg = /(<\/?sub.*?>)/gi;
+        var supReg = /(<\/?sup.*?>)/gi;
+        subArray &&
+          subArray.map(item => {
+            const wipeLabel = item.replace(subReg, "");
+            const itemArray = wipeLabel.split("");
+            let str = "";
+            itemArray.map(item => (str += "<sub>" + item + "</sub>"));
+            val = val.replace(new RegExp(item, "g"), str);
+          });
+        supArray &&
+          supArray.map(item => {
+            const wipeLabel = item.replace(supReg, "");
+            const itemArray = wipeLabel.split("");
+            let str = "";
+            itemArray.map(item => (str += "<sup>" + item + "</sup>"));
+            val = val.replace(new RegExp(item, "g"), str);
+          });
+      }
+      return val;
+    },
+    // 保存（富文本）
+    postRichText() {
+      let okLength = this.HOSPITAL_ID === "lingcheng" ? 46 : 23;
+      var GetLength = function(str) {
+        // 过滤上下标签替换
+        const subReg = /(<\/?sub.*?>)/gi;
+        const supReg = /(<\/?sup.*?>)/gi;
+        let wipeSubStr = str.replace(subReg, "");
+        let wipeSupStr = wipeSubStr.replace(supReg, "");
+        // 计算文本内容真实长度
+        var realLength = 0,
+          len = wipeSupStr.length,
+          charCode = -1;
+        for (var i = 0; i < len; i++) {
+          charCode = wipeSupStr.charCodeAt(i);
+          if (charCode == 94) realLength += 0;
+          else if (charCode >= 0 && charCode <= 128) realLength += 1;
+          else realLength += 2;
+        }
+        return realLength;
+      };
+      // 存放切割数据
+      let result = [];
+      let text = "";
+      // 处理特殊字符 标签
+      const doc = this.htmlEscape(this.doc);
+      let allDoc = this.setLabelData(doc);
+      // 首行缩进效果
+      if (
+        this.HOSPITAL_ID != "weixian" &&
+        this.sheetInfo.sheetType != "special"
+      ) {
+        allDoc = "    " + allDoc;
+      }
+      // 开关 + 判断标签是否开始
+      let isSpecialLabel = false;
+      let index = 0;
+      for (let i = 0; i < allDoc.length; i++) {
+        let charCode = allDoc.charCodeAt(i);
+        const isContinue = isSpecialLabel && i <= index + 11;
+        if (
+          charCode == "65292" ||
+          charCode == "12290" ||
+          charCode == "65307" ||
+          charCode == "44" ||
+          charCode == "46" ||
+          charCode == "65306" ||
+          charCode == "58" ||
+          isContinue
+        ) {
+          text += allDoc[i];
+        } else {
+          if (GetLength(text) > okLength) {
+            text = text.replace(/ /g, "&nbsp;&nbsp;");
+            result.push(text);
+            isSpecialLabel = false;
+            text = allDoc[i];
+          } else {
+            // 通过<s双重判断是否开始标签
+            if (allDoc[i] === "<" && allDoc[i + 1] === "s") {
+              isSpecialLabel = true;
+              index = i;
+            }
+            text += allDoc[i];
+          }
+        }
+      }
+      if (text) {
+        result.push(text.replace(/ /g, "&nbsp;&nbsp;"));
+      }
+      if (result.length == 0) {
+        result.push("");
+      }
+      for (let i = 0; i < this.record.length; i++) {
+        this.record[i].find(item => item.key == "description").value = "";
+      }
+      for (let i = 0; i < result.length; i++) {
+        if (i == 0) {
+          // 合并数据
+          mergeTr(this.record[0], this.staticObj, this.fixedList);
+        }
+        if (this.record[i]) {
+          this.record[i].find(item => item.key == "description").value =
+            result[i];
+        } else {
+          let currRow = JSON.parse(JSON.stringify(this.record[0]));
+          let nullRowArr = nullRow();
 
-    //       nullRowArr.find(
-    //         item => item.key == "recordSource"
-    //       ).value = currRow.find(item => item.key == "recordSource").value;
-    //       nullRowArr.find(
-    //         item => item.key == "recordDate"
-    //       ).value = currRow.find(item => item.key == "recordDate").value;
+          nullRowArr.find(
+            item => item.key == "recordSource"
+          ).value = currRow.find(item => item.key == "recordSource").value;
+          nullRowArr.find(
+            item => item.key == "recordDate"
+          ).value = currRow.find(item => item.key == "recordDate").value;
 
-    //       sheetModel[this.lastZ].bodyModel.splice(
-    //         this.lastY + 1,
-    //         0,
-    //         nullRowArr
-    //       );
-    //       this.lastY++;
-    //       sheetModel[this.lastZ].bodyModel[this.lastY].find(
-    //         item => item.key == "description"
-    //       ).value = result[i];
-    //     }
-    //   }
-    //   this.bus.$emit("saveSheetPage", this.isLast);
-    //   this.close();
-    // },
-
+          sheetModel[this.lastZ].bodyModel.splice(
+            this.lastY + 1,
+            0,
+            nullRowArr
+          );
+          this.lastY++;
+          sheetModel[this.lastZ].bodyModel[this.lastY].find(
+            item => item.key == "description"
+          ).value = result[i];
+        }
+      }
+      this.bus.$emit("saveSheetPage", this.isLast);
+      this.close();
+    },
+    // 保存（普通文本）
     post() {
       // 计算字节长度
       var GetLength = function(str) {
@@ -813,7 +824,10 @@ export default {
   },
   created() {
     this.bus.$on("addTemplateAtDoc", val => {
-      this.doc = this.doc + val;
+      // 模板添加
+      const regP = /(<\/?p.*?>)/gi;
+      let doc = this.doc.replace(regP, "");
+      this.doc = doc + val;
     });
   },
   watch: {
@@ -829,8 +843,8 @@ export default {
     }
   },
   components: {
-    templateSlide
-    // quillEditor
+    templateSlide,
+    quillEditor
   }
 };
 </script>
