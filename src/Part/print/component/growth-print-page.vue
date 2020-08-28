@@ -193,7 +193,7 @@ export default {
       // lengthOpints: [[22, 14], [23, 12], [24, 24], [25, 30], [26, 12], [27, 55]]
       weightOpints: [],
       headOpints: [],
-      lengthOpints: []
+      lengthOpints: [],
     };
   },
   created() {
@@ -219,9 +219,11 @@ export default {
       this.queryInfo.formCode,
       this.queryInfo.id,
       this.queryInfo.formType
-    ).then(res => {
+    ).then((res) => {
       let birthday = this.queryInfo.birthday;
       let list = res.data.data.list;
+      console.log("res.data.data=========", res.data.data.age);
+      this.queryInfo.age = res.data.data.age;
       for (let i = 0; i < list.length; i++) {
         let item = list[i];
         let recordDate = item.recordDate;
@@ -250,32 +252,32 @@ export default {
       return this.$route.query;
     },
     realWeightOpints() {
-      return this.weightOpints.map(point => {
+      return this.weightOpints.map((point) => {
         let x = ((point[0] - 22) / 28) * 100 + "%";
         let y = (point[1] / 9) * 100 + "%";
         return [x, y];
       });
     },
     realHeadOpints() {
-      return this.headOpints.map(point => {
+      return this.headOpints.map((point) => {
         let x = ((point[0] - 22) / 28) * 100 + "%";
         let y = ((point[1] + 30) / 90) * 100 + "%";
         return [x, y];
       });
     },
     realLengthOpints() {
-      return this.lengthOpints.map(point => {
+      return this.lengthOpints.map((point) => {
         let x = ((point[0] - 22) / 28) * 100 + "%";
         let y = ((point[1] + 30) / 90) * 100 + "%";
         return [x, y];
       });
-    }
+    },
   },
   filters: {
     ymd(val) {
       return moment(val).format("YYYY-MM-DD");
-    }
+    },
   },
-  components: {}
+  components: {},
 };
 </script>
