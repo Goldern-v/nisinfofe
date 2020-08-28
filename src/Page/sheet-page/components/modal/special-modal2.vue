@@ -615,7 +615,7 @@ export default {
         this.HOSPITAL_ID != "weixian" &&
         this.sheetInfo.sheetType != "special"
       ) {
-        allDoc = "    " + allDoc;
+        allDoc = "  " + allDoc;
       }
       // 开关 + 判断标签是否开始
       let isSpecialLabel = false;
@@ -636,7 +636,7 @@ export default {
           text += allDoc[i];
         } else {
           if (GetLength(text) > okLength) {
-            text = text.replace(/ /g, "&nbsp;");
+            text = text.replace(/\s/g, "&nbsp;");
             result.push(text);
             isSpecialLabel = false;
             text = allDoc[i];
@@ -651,7 +651,7 @@ export default {
         }
       }
       if (text) {
-        result.push(text.replace(/ /g, "&nbsp;"));
+        result.push(text.replace(/\s/g, "&nbsp;"));
       }
       if (result.length == 0) {
         result.push("");
