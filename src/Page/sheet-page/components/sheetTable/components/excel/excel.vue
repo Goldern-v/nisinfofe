@@ -195,7 +195,7 @@
           <div
             v-else-if="td.key === 'description' && HOSPITAL_ID == 'lingcheng' && sheetInfo.selectBlock.openRichText"
             v-html="td.value"
-            style="text-align: left; padding: 0 8px; box-sizing: border-box"
+            style="text-align: left; box-sizing: border-box"
           ></div>
           <input
             type="text"
@@ -1017,15 +1017,15 @@ export default {
         // }
       ];
 
-      if(this.HOSPITAL_ID == "hj"){
+      if (this.HOSPITAL_ID == "hj") {
         let obj = {
           name: "同步至交班志",
           iconClass: "sync-decription",
           click: () => {
             this.bus.$emit("syncDecription", row, cell);
           }
-        }
-        data.push(obj)
+        };
+        data.push(obj);
       }
       e.preventDefault();
       window.openContextMenu({ style, data });
