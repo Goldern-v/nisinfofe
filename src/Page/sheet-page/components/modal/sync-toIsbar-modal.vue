@@ -22,7 +22,7 @@
           ></el-option>
         </el-select>
       </div>
-      <div flex="cross:center" class="group">
+      <div flex class="group">
         <span>特殊记录：</span>
         <p>{{doc}}</p>
       </div>
@@ -44,10 +44,18 @@
 
       &:last-of-type {
         padding-bottom: 0;
+
+        p {
+          text-indent: 2em;
+        }
       }
 
       > span {
         padding-right: 10px;
+      }
+
+      p {
+        flex: 1;
       }
     }
   }
@@ -60,6 +68,7 @@ import bus from "vue-happy-bus";
 import { listDepartment } from "@/Page/shift-work/apis/index.js";
 import th from "../config/joint/th.js";
 import { syncToIsbar } from "@/api/sheet.js";
+import moment from "moment";
 export default {
   mixins: [commonMixin],
   data() {
@@ -131,8 +140,13 @@ export default {
         return;
       }
       listDepartment(this.deptCode).then((res) => {
-        this.allDeptList = res.data.data;
-        // this.this_deptCode = this.allDeptList[0].deptCode;
+        this.allDeptList = res.data.data || [];
+        let hasDeptCode = this.allDeptList.find((item) => {
+          return item.deptCode == this.this_deptCode;
+        });
+        if (!hasDeptCode && this.allDeptList[0]) {
+          this.this_deptCode = this.allDeptList[0].deptCode;
+        }
       });
     },
     syncDecriptionData() {
@@ -140,7 +154,9 @@ export default {
         deptCode: this.this_deptCode,
         visitId: this.patientInfo.visitId,
         patientId: this.patientInfo.patientId,
-        recordDate: this.recordDate,
+        recordDate: this.recordDate
+          ? moment(this.recordDate).format("YYYY-MM-DD")
+          : "",
         bedLabel: this.patientInfo.bedLabel,
         desc: this.doc,
       };
