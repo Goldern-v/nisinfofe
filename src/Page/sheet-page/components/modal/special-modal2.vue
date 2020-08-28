@@ -599,7 +599,8 @@ export default {
         for (var i = 0; i < len; i++) {
           charCode = wipeSupStr.charCodeAt(i);
           if (charCode == 94) realLength += 0;
-          else if (charCode >= 0 && charCode <= 128) realLength += 1;
+          else if (charCode >= 0 && charCode <= 128 && charCode != 32)
+            realLength += 1;
           else realLength += 2;
         }
         return realLength;
