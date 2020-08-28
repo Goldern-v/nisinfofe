@@ -66,7 +66,7 @@ export default {
         this.form = {
           recordDate: new Date(),
           recordTime: new Date(),
-          age: this.form.age,
+          age: this.form.age || this.queryInfo.age,
           recordId: "",
         };
         this.oldRecordDate = "";
@@ -97,7 +97,7 @@ export default {
           itemValue: this.form.age + "",
         },
       ];
-      console.log("ageData", data.patientId);
+      console.log("ageData", data);
       // console.log(data.patientId, data.visitId, data.itemMap.itemValue);
       // apis
       //   .getEditAge(data.patientId, data.visitId, data.itemMap.itemValue)
