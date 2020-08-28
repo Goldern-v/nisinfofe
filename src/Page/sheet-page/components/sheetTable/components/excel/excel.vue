@@ -193,9 +193,10 @@
           ></textarea>
           <!-- 护理记录单特殊情况特殊记录单独处理 -->
           <div
-            v-else-if="td.key === 'description' && HOSPITAL_ID == 'lingcheng' && sheetInfo.selectBlock.openRichText"
+            v-else-if="td.key === 'description' && HOSPITAL_ID === 'lingcheng' && sheetInfo.selectBlock.openRichText"
             v-html="td.value"
-            style="text-align: left; box-sizing: border-box"
+            :class="patientInfo.recordName === '危重患者护理记录单' ? 'specialFontSize' : 'normal'"
+            style="text-align: left"
           ></div>
           <input
             type="text"
@@ -361,6 +362,7 @@ import { getUser } from "@/api/common.js";
 console.dir(sheetInfo);
 export default {
   props: {
+    patientInfo: Object,
     data: Object,
     index: Number,
     length: Number,
@@ -391,9 +393,6 @@ export default {
     };
   },
   computed: {
-    patientInfo() {
-      return this.$store.state.sheet.patientInfo;
-    },
     sheetStartPage() {
       return this.sheetInfo.sheetStartPage;
     },

@@ -4,6 +4,7 @@
       <img src="../../images/仅供查阅.jpg" class="readOnly-img no-print" v-if="readOnly" alt />
       <component v-bind:is="tableHead" :patientInfo="patientInfo" :index="index"></component>
       <excel
+        :patientInfo="patientInfo"
         :data="data"
         :index="index"
         :length="length"
