@@ -636,7 +636,7 @@ export default {
           text += allDoc[i];
         } else {
           if (GetLength(text) > okLength) {
-            text = text.replace(/ /g, "&nbsp;&nbsp;");
+            text = text.replace(/ /g, "&nbsp;");
             result.push(text);
             isSpecialLabel = false;
             text = allDoc[i];
@@ -651,7 +651,7 @@ export default {
         }
       }
       if (text) {
-        result.push(text.replace(/ /g, "&nbsp;&nbsp;"));
+        result.push(text.replace(/ /g, "&nbsp;"));
       }
       if (result.length == 0) {
         result.push("");
