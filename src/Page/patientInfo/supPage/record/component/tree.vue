@@ -158,6 +158,7 @@ import BusFactory from "vue-happy-bus";
 import newForm from "../modal/new-form.vue";
 import commonMixin from "@/common/mixin/common.mixin";
 import { getFormConfig } from "../config/form-config.js";
+import { hadTransferToWard } from "../api/index.js";
 export default {
   props: {
     filterObj: Object
@@ -262,12 +263,13 @@ export default {
           );
         } else {
         }
-      }else if(node.label == "ICU护理记录单" && !node.data.formCode){
+      }else if(node.data.islink && this.HOSPITAL_ID == "hj"){
         this.bus.$emit(
           "openAssessmentBox",
           Object.assign({}, getFormConfig(node.data.formName), {
             pageUrl: node.data.pageUrl,
             nooForm: node.data.nooForm,
+            islink: node.data.islink
           })
         );
       }
@@ -363,7 +365,7 @@ export default {
               listPrint: item.listPrint,
               nooForm: item.nooForm,
               pageUrl: item.pageUrl,
-              children: item.formInstanceDtoList.map((option, i) => {
+              children: item.formInstanceDtoList && item.formInstanceDtoList.map((option, i) => {
                 //
                 // item.formCode
                 // this.$store.state.form.upFormLastId
@@ -497,17 +499,9 @@ export default {
             this.regions = [obj];
           }
 
-          if (this.deptCode == "610102" && this.HOSPITAL_ID == "hj") {
-            index += 1;
-            let obj = {
-              label: "ICU护理记录单",
-              index,
-              pageUrl: `http://10.35.0.82/op.html?patientid=${this.$route.query.patientId}&visitId=${this.$route.query.visitId}`,
-              nooForm: 2,
-            };
-            this.regions.push(obj);
+          if(this.HOSPITAL_ID == "hj"){
+            this.isTransferToWard();
           }
-
           // console.log(list_1, "list_1list_1list_1");
         })
         .then(res => {
@@ -586,6 +580,24 @@ export default {
             callback(err);
           }
         });
+    },
+    // 患者：是否进入过重症医学科个护理单元
+    isTransferToWard(){
+      let patientId = this.$route.query.patientId;
+      let visitId = this.$route.query.visitId;
+      hadTransferToWard(patientId,visitId,'610102').then(res=>{
+          if (res.data.data) {
+            let index = this.regions.length?++this.regions[this.regions.length-1].index:1;
+            let obj = {
+              label: "ICU护理记录单",
+              index,
+              pageUrl: `http://10.35.0.82/op.html?patientid=${patientId}&visitId=${visitId}`,
+              nooForm: 2,
+              islink: true
+            };
+            this.regions.push(obj);
+          }
+      })
     }
   },
   created() {

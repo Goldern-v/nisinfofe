@@ -203,6 +203,16 @@ li.disable {
   >>>.el-autocomplete-suggestion__wrap {
     max-height: 500px;
   }
+  .sync-decription {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background: url('./images/同步.png') no-repeat;
+    background-size: 100%;
+    margin-right: 4px;
+    margin-top: -1px;
+    vertical-align: middle;
+  }
 }
 </style>
 

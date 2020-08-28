@@ -227,7 +227,7 @@ export default {
     },
     // 点击左边栏目录里已经记录好的模版,通过改变iframe URL属性,刷新iframe内容
     openUrl(info) {
-      if (this.deptCode == "610102" && !info.formCode && this.HOSPITAL_ID == "hj") {
+      if (info.islink && this.HOSPITAL_ID == "hj") {
         this.pageLoading = false;
         this.url = info.pageUrl;
         this.info = {...info};
@@ -395,7 +395,7 @@ export default {
       }
     },
     onload() {
-      if (this.deptCode == "610102" && !this.info.formCode && this.HOSPITAL_ID == "hj") {
+      if (this.info.islink && this.HOSPITAL_ID == "hj") {
         return;
       }
       // this.pageLoading = true;

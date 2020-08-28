@@ -146,7 +146,7 @@
               <el-button
                 type="text"
                 @click="uploadFileArchive(scope.row)"
-                v-if="scope.row.resultStatus==1 && scope.row.uploadStatus!=1 && scope.row.uploadStatus!=2"
+                v-if="HOSPITAL_ID == 'weixian' && scope.row.resultStatus==1 && scope.row.uploadStatus!=1 && scope.row.uploadStatus!=2"
               >归档</el-button>
             </div>
           </template>
@@ -185,11 +185,12 @@
           ></span>
         </div>
         <div v-if="preview.type=='pdf'" :style="{height: pdfHeight+'px'}">
-          <iframe width="100%" height="100%" :src="preview.url+'#toolbar=0'" />
+          <iframe width="100%" height="100%" :src="preview.url+'#toolbar=0'" ref="myIframe"/>
         </div>
       </div>
       <div slot="button" class="button">
         <el-button class="modal-btn" @click="close">取消</el-button>
+        <el-button class="modal-btn" @click="print">打印</el-button>
       </div>
     </sweet-modal>
   </div>
@@ -254,6 +255,12 @@ export default {
   methods: {
     close() {
       this.$refs["preview-modal"].close();
+    },
+    print() {
+       console.dir(this.$refs.myIframe);
+      if (this.$refs.myIframe && this.$refs.myIframe.contentWindow) {
+        this.$refs.myIframe.contentWindow.print();
+      }
     },
     // 文件归档上传
     uploadFileArchive(item) {

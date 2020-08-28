@@ -13,3 +13,8 @@ export function saveByJson(data) {
 export function templatesAll(type,deptCode) {
   return axios.get(`${apiPath}form/common/templates/${type}?deptCode=${deptCode}`,)
 }
+
+// 患者：是否进入过某个护理单元
+export function hadTransferToWard(patientId,visitId,wardCode) {
+  return axios.get(`${apiPath}patient/hadTransferToWard/${patientId}/${visitId}/${wardCode}`,)
+}

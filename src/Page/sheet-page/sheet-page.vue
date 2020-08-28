@@ -78,6 +78,7 @@
     <setPageModal ref="setPageModal"></setPageModal>
     <pizhuModal ref="pizhuModal"></pizhuModal>
     <evalModel ref="evalModel"></evalModel>
+    <syncToIsbarModal ref="syncToIsbarModal"></syncToIsbarModal>
   </div>
 </template>
 
@@ -241,6 +242,7 @@ import specialModal from "@/Page/sheet-page/components/modal/special-modal.vue";
 import specialModal2 from "@/Page/sheet-page/components/modal/special-modal2.vue";
 import setPageModal from "@/Page/sheet-page/components/modal/setPage-modal.vue";
 import pizhuModal from "@/Page/sheet-page/components/modal/pizhu-modal.vue";
+import syncToIsbarModal from "@/Page/sheet-page/components/modal/sync-toIsbar-modal.vue";
 import { getHomePage } from "@/Page/sheet-page/api/index.js";
 import { decodeRelObj } from "./components/utils/relObj";
 import { sheetScrollBotton } from "./components/utils/scrollBottom";
@@ -438,7 +440,8 @@ export default {
     },
     isSelectPatient(item) {
       this.$store.commit("upPatientInfo", item);
-    }
+    },
+
   },
   created() {
     // 初始化
@@ -713,6 +716,9 @@ export default {
         });
       });
     });
+    this.bus.$on("syncDecription", (tr, td) => {
+      this.$refs.syncToIsbarModal.open(tr, td,sheetModel);
+    });
   },
   watch: {
     deptCode(val) {
@@ -759,6 +765,7 @@ export default {
     specialModal2,
     setPageModal,
     pizhuModal,
+    syncToIsbarModal,
     sheetTableNeonatology,
     sheetTablePost_partum,
     evalModel,
