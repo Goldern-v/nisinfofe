@@ -195,7 +195,7 @@
           <div
             v-else-if="td.key === 'description' && HOSPITAL_ID === 'lingcheng' && sheetInfo.selectBlock.openRichText"
             v-html="td.value"
-            :class="patientInfo.recordName === '危重患者护理记录单' ? 'specialFontSize' : 'normal'"
+            :class="sheetInfo.sheetType == 'icu_lc'? 'specialFontSize' : 'normal'"
             style="text-align: left"
           ></div>
           <input
