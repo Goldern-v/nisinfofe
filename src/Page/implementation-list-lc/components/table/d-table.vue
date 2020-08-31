@@ -91,7 +91,7 @@
           <el-button
             type="text"
             @click="editTime(scope.row)"
-            v-if="isEdit && scope.row.executeFlag==4"
+            v-if="isEdit && scope.row.executeFlag > 0"
           >修改</el-button>
         </template>
       </el-table-column>
