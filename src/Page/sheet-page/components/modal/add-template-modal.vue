@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="modal-con">
     <sweet-modal
       ref="modal"
       :modalWidth="460"
@@ -21,7 +21,9 @@
       </div>
       <div flex="main:justify cross:top" style="margin-bottom: 10px">
         <p for class="title" style="margin-right: 10px">内容：</p>
-        <el-input type="textarea" v-model="content"></el-input>
+        <!-- 兼容富文本内容渲染 -->
+        <quill-editor v-model="content" :options="editorOption"></quill-editor>
+        <!-- <el-input type="textarea" v-model="content"></el-input> -->
       </div>
       <div slot="button">
         <el-button class="modal-btn" @click="close">取消</el-button>
@@ -32,11 +34,24 @@
 </template>
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
-.title
-  width 60px
-  font-weight bold
->>>textarea
-  height 100px  
+.modal-con {
+  >>>.sweet-modal {
+    .sweet-content {
+      height: 280px !important;
+    }
+  }
+
+  .title {
+    width: 60px;
+    font-weight: bold;
+  }
+
+  >>>.quill-editor {
+    height: 100px;
+    width: 100% !important;
+    overflow: visible !important;
+  }
+}
 </style>
 
 <script>
@@ -46,6 +61,11 @@ import {
   list
 } from "@/Page/sheet-page/api/recordDesc.js";
 import bus from "vue-happy-bus";
+import { quillEditor } from "vue-quill-editor"; //调用编辑器
+import "quill/dist/quill.core.css";
+import "quill/dist/quill.snow.css";
+import "quill/dist/quill.bubble.css";
+
 export default {
   data() {
     return {
@@ -54,7 +74,17 @@ export default {
       title: "",
       content: "",
       id: "",
-      typeList: ""
+      typeList: "",
+      // 富文本编辑器配置
+      editorOption: {
+        placeholder: "请输入内容",
+        modules: {
+          toolbar: [
+            [{ script: "sub" }, { script: "super" }] // 上下标
+          ]
+        },
+        theme: "snow"
+      }
     };
   },
   computed: {
@@ -118,6 +148,8 @@ export default {
       this.open(item);
     });
   },
-  components: {}
+  components: {
+    quillEditor
+  }
 };
 </script>
