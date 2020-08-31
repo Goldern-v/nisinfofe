@@ -126,6 +126,7 @@
         </div>
       </div>
       <excel
+        :patientInfo="patientInfo"
         :data="data"
         :index="index"
         :length="length"
