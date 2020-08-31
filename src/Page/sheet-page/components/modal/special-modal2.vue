@@ -828,7 +828,8 @@ export default {
       // 模板添加
       const regP = /(<\/?p.*?>)/gi;
       let doc = this.doc.replace(regP, "");
-      this.doc = doc + val;
+      let valRegP = val.replace(regP, "");
+      this.doc = doc + valRegP;
     });
   },
   watch: {
