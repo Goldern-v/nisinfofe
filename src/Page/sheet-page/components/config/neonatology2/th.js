@@ -34,7 +34,7 @@ export default {
       },
       {
         name: `
-        温度<br/>(℃)
+        箱温<br/>(℃)
         `,
         style: {},
         colspan: "1",
