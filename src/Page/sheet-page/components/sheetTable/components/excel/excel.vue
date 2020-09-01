@@ -393,6 +393,9 @@ export default {
     };
   },
   computed: {
+    patientInfo() {
+      return this.$store.state.sheet.patientInfo;
+    },
     sheetStartPage() {
       return this.sheetInfo.sheetStartPage;
     },
