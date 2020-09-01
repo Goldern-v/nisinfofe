@@ -13,7 +13,7 @@
           v-for="(item, index) in computedList"
           :key="index"
         >
-          <span style="width: 60px; text-align: center">A{{index}}：</span>
+          <span style="width: 60px; text-align: center">A{{deptCode == '041002' ?index+1:index}}：</span>
           <input
             flex-box="1"
             style="width: 0;margin-right: 20px"
