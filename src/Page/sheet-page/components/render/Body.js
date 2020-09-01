@@ -266,6 +266,12 @@ function switechSheetType(type) {
         schema = require("../config/dressing_count/tr.js").default;
       }
       break;
+    case "thyroid_gland":
+      {
+        // 甲状腺乳腺科
+        schema = require("../config/thyroid_gland/tr.js").default;
+      }
+      break;
     case "neurology_wx":
       {
         // 威县-神经内科

@@ -287,6 +287,14 @@ export default function Title(
         );
       }
       break;
+    case "thyroid_gland":
+      {
+        // 甲状腺乳腺科
+        Th = JSON.parse(
+          JSON.stringify(require("../config/thyroid_gland/th").default)
+        );
+      }
+      break;
     case "neurology_wx":
       {
         // 威县-神经内科
