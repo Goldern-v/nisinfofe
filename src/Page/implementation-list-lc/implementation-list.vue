@@ -50,6 +50,12 @@
         <el-input
           size="small"
           style="width: 150px;margin-right: 15px;"
+          placeholder="输入病人姓名进行搜索"
+          v-model="patientName"
+        ></el-input>
+        <el-input
+          size="small"
+          style="width: 150px;margin-right: 15px;"
           placeholder="输入床号进行搜索"
           v-model="bedLabel"
         ></el-input>
@@ -177,6 +183,7 @@ export default {
       type: "",
       status: "",
       bedLabel: "",
+      patientName: "",
       transfusionStatus: [
         {
           id: "",
@@ -274,6 +281,7 @@ export default {
             : this.type, //执行单类型:传空返回全部
         executeFlag: this.status, //执行状态:传空返回全部,传对应的状态就返回对应的状态【0-未执行、1-开始输液、2-暂停输液、3-继续输液、4-结束输液（已完成）】
         bedLabel: this.bedLabel, //床号:传空返回全部
+        patientName: this.patientName, //病人姓名
         // pageIndex: this.page.pageIndex,
         // pageSize: this.page.pageNum
       };
