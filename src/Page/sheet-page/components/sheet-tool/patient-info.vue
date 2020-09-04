@@ -2,14 +2,11 @@
   <div>
     <el-tooltip class="item" effect="dark" content="患者资料" placement="left">
       <div class="fixed-icon" :class="{ open: open }" @click="onToggle">
-        <img src="./images/患者资料@2x.png" alt="" />
+        <img src="./images/患者资料@2x.png" alt />
       </div>
     </el-tooltip>
 
-    <patientInfoSlide
-      ref="patientInfoSlide"
-      @onClose="onClose"
-    ></patientInfoSlide>
+    <patientInfoSlide ref="patientInfoSlide" @onClose="onClose"></patientInfoSlide>
   </div>
 </template>
 <style lang="scss" scoped>
@@ -43,7 +40,7 @@ export default {
   props: {},
   data() {
     return {
-      open: false
+      open: false,
     };
   },
   methods: {
@@ -59,15 +56,15 @@ export default {
     },
     onClose() {
       this.open = false;
-    }
+    },
   },
   computed: {
     patientInfo() {
       return this.$store.state.sheet.patientInfo;
-    }
+    },
   },
   components: {
-    patientInfoSlide
-  }
+    patientInfoSlide,
+  },
 };
 </script>

@@ -15,33 +15,44 @@
 </template>
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
-.contain
-  margin 0
-  border 1px solid #CBD5DD
-  border-radius 2px
-  &.fullpage
-    position fixed !important
-    z-index 10000
-    left 0
-    top 0
-    bottom 0
-    right 0
-    margin 0
-  .head-con
-    height 41px
-  .body-con
-    position relative
-    .left-part
-      width 199px
-      position absolute
-      left 0
-      top 0
-      bottom 0
-    .right-part
-      margin-left 199px
-      height 100%
-      overflow hidden
-      transition: all .4s cubic-bezier(.55, 0, .1, 1)
+.contain {
+  margin: 0;
+  border: 1px solid #CBD5DD;
+  border-radius: 2px;
+
+  &.fullpage {
+    position: fixed !important;
+    z-index: 10000;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    margin: 0;
+  }
+
+  .head-con {
+    height: 41px;
+  }
+
+  .body-con {
+    position: relative;
+
+    .left-part {
+      width: 199px;
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+    }
+
+    .right-part {
+      margin-left: 199px;
+      height: 100%;
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.55, 0, 0.1, 1);
+    }
+  }
+}
 </style>
 
 <script>
@@ -51,15 +62,16 @@ import common from "@/common/mixin/common.mixin.js";
 import { patients } from "@/api/lesion";
 import bus from "vue-happy-bus";
 import record from "@/Page/patientInfo/supPage/record/record";
+
 export default {
   mixins: [common],
   data() {
     return {
       data: {
-        bedList: []
+        bedList: [],
       },
       patientListLoading: false,
-      bus: bus(this)
+      bus: bus(this),
     };
   },
   computed: {
@@ -71,14 +83,14 @@ export default {
     },
     openLeft() {
       return this.$store.state.sheet.openSheetLeft;
-    }
+    },
   },
   methods: {
     getDate() {
       if (this.deptCode) {
         this.patientListLoading = true;
-        patients(this.deptCode).then(res => {
-          this.data.bedList = res.data.data.filter(item => {
+        patients(this.deptCode).then((res) => {
+          this.data.bedList = res.data.data.filter((item) => {
             return item.patientId;
           });
           this.patientListLoading = false;
@@ -89,14 +101,14 @@ export default {
       this.$router.replace(
         {
           path: "/formPage",
-          query: item
+          query: item,
         },
         () => {
           this.bus.$emit("refreshTree", true);
           this.bus.$emit("closeAssessment");
         }
       );
-    }
+    },
   },
   created() {
     this.$store.commit("upPatientInfo", {});
@@ -113,17 +125,17 @@ export default {
       if (oldValue && val) {
         this.$router.replace({
           path: "/formPage",
-          query: {}
+          query: {},
         });
         this.bus.$emit("refreshTree", true);
         this.bus.$emit("closeAssessment");
       }
       this.getDate();
-    }
+    },
   },
   components: {
     patientList,
-    record
-  }
+    record,
+  },
 };
 </script>
