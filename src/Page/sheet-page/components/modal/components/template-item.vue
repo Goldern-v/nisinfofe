@@ -2,7 +2,7 @@
   <div>
     <div class="item-con" @click="addTemplateAtDoc">
       <div class="title" v-if="data.title">{{data.title}}</div>
-      <div class="desc">{{data.content}}</div>
+      <div class="desc" v-html="data.content"></div>
       <div class="tool-box" flex="cross:center">
         <el-tooltip content="编辑" placement="bottom" effect="dark">
           <i class="iconfont icon-hulijiludan" @click.stop="toEdit"></i>
