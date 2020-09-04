@@ -33,6 +33,10 @@
           <i class="el-icon-plus"></i>
           <span>创建护理文书</span>
         </div>
+        <div>
+          <!-- 患者资料 -->
+          <patientInfo v-if="this.$route.query.patientId && HOSPITAL_ID == 'lingcheng'"></patientInfo>
+        </div>
       </div>
       <!-- 关联表单弹窗 -->
       <RelationFormModal />
@@ -131,6 +135,8 @@ import RelationFormModal from "./components/relationFormModal/RelationFormModal"
 import toolBar from "@/components/toolBar/toolBar.vue";
 import { toolBarConfig } from "./config.js";
 import bus from "vue-happy-bus";
+import patientInfo from "@/Page/sheet-page/components/sheet-tool/patient-info";
+
 export default {
   props: {
     filterObj: Object,
@@ -234,6 +240,7 @@ export default {
     this.bus.$on("swiperToBottomRecord", () => {
       this.$refs.formContain.scrollTop = this.$refs.formContain.scrollHeight;
     });
+    this.$store.commit("upPatientInfo", this.$route.query);
   },
   methods: {
     newRecordOpen() {
@@ -261,6 +268,7 @@ export default {
         return `${this.wih - 180 + offset}px`;
       }
     },
+
     toolBarConfig() {
       return toolBarConfig(
         this,
@@ -282,6 +290,7 @@ export default {
     assessment_v2,
     toolBar,
     RelationFormModal,
+    patientInfo,
   },
 };
 </script>
