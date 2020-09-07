@@ -46,6 +46,9 @@ export default {
   methods: {
     onToggle() {
       this.open = !this.open;
+      if (!this.patientInfo.patientId) {
+        this.$store.commit("upPatientInfo", this.$route.query);
+      }
       if (this.open) {
         this.$route.query.patientId = this.patientInfo.patientId;
         this.$route.query.visitId = this.patientInfo.visitId;
