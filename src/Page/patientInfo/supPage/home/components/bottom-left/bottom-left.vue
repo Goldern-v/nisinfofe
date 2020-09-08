@@ -15,8 +15,23 @@
           <span>{{status(scope.row)}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="evalScore" label="评分" min-width="80px"></el-table-column>
-      <el-table-column label="危重等级" min-width="160px">
+      <el-table-column prop="evalScore" label="评分" min-width="80px" v-if="HOSPITAL_ID = 'lingcheng'">
+         <template slot-scope="scope">
+          <div v-for="item in scope.row.hazardLevelList" :key="item.id">{{item.evalScore}}</div>
+        </template>
+      </el-table-column>
+      <el-table-column prop="evalScore" label="评分" min-width="80px" v-else></el-table-column>
+      <el-table-column label="危重等级" min-width="160px" v-if="HOSPITAL_ID = 'lingcheng'">
+        <template slot-scope="scope">
+          <div
+            class="label-con label-con-lc"
+            :style="{background: item.iconTextRgb}"
+            v-for="item in scope.row.hazardLevelList"
+            :key="item.id"
+          >{{item.description}}</div>
+        </template>
+      </el-table-column>
+      <el-table-column label="危重等级" min-width="160px" v-else>
         <template slot-scope="scope">
           <span
             class="label-con"
@@ -68,6 +83,11 @@
   font-size: 13px;
   color: #FFFFFF;
   padding: 2px 10px;
+}
+.label-con-lc {
+  padding: 0 10px;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 </style>
 <script>
