@@ -1,0 +1,100 @@
+<template>
+  <div class="header-con">
+    <div class="his-name">{{HOSPITAL_NAME_SPACE}}</div>
+    <div class="title">{{patientInfo.recordName}}</div>
+    <div class="info-con">
+      <span>
+        姓名：
+        <span
+          class="bottom-line"
+          style="min-width: 60px"
+          @click="updateTetxInfo('patientName', '病人姓名', patientInfo.patientName)"
+        >{{patientInfo.patientName}}</span>
+      </span>
+      <span>
+        性别：
+        <span
+          class="bottom-line"
+          style="min-width: 30px"
+          @click="updateTetxInfo('sex', '性别', patientInfo.sex)"
+        >{{patientInfo.sex}}</span>
+      </span>
+      <span>
+        年龄：
+        <span
+          class="bottom-line"
+          style="min-width: 50px"
+          @click="updateTetxInfo('age', '年龄', patientInfo.age)"
+        >{{patientInfo.age}}</span>
+      </span>
+      <span>
+        科室：
+        <span
+          class="bottom-line"
+          style="min-width: 50px"
+          @click="updateTetxInfo('deptName', '科室', patientInfo.deptName)"
+        >{{patientInfo.deptName}}</span>
+      </span>
+      <span @click="updateTetxInfo('bedLabel', '床号', patientInfo.bedLabel)">
+        床号：
+        <span class="bottom-line" style="min-width: 30px">{{patientInfo.bedLabel}}</span>
+      </span>
+      <span @click="updateTetxInfo('inpNo', '住院号', patientInfo.inpNo)">
+        住院号：
+        <span class="bottom-line" style="min-width: 30px">{{patientInfo.inpNo}}</span>
+      </span>
+    </div>
+  </div>
+</template>
+<script>
+import bus from "vue-happy-bus";
+import sheetInfo from "../../../config/sheetInfo";
+import commom from "@/common/mixin/common.mixin";
+import { updateSheetHeadInfo } from "../../api/index";
+export default {
+  data() {
+    return {
+      bus: bus(this),
+      sheetInfo
+    };
+  },
+  computed: {
+    patientInfo() {
+      return this.sheetInfo.selectBlock || {};
+    }
+  }
+};
+</script>
+<style lang="stylus" scoped>
+.header-con {
+  text-align: center;
+  border-bottom: 1px solid #000;
+
+  .his-name {
+    font-size: 18px;
+    padding: 0 0px;
+    text-align: center;
+    font-weight: bold;
+    font-family: simsun, 'Times New Roman', Georgia, Serif !important;
+  }
+
+  .title {
+    font-size: 21px;
+    padding: 5px 0 5px;
+    text-align: center;
+    font-weight: bold;
+    font-family: simsun, 'Times New Roman', Georgia, Serif !important;
+  }
+
+  span {
+    // margin-right: 4px;
+    font-size: 14px;
+    color: #000;
+  }
+
+  .info-con {
+    margin: 8px 0;
+    text-align: left;
+  }
+}
+</style>

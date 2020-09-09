@@ -95,7 +95,7 @@ module.exports = {
         target: "http://120.25.105.45:9867", //陵城测试
         // target: "http://120.224.184.10:9094", //陵城正式
 
-        // target: "http://120.25.105.45:9868", //花都测试
+        target: "http://120.25.105.45:9868", //花都测试
         // target: "http://192.168.3.115:8080",
         changeOrigin: true,
         pathRewrite: {
