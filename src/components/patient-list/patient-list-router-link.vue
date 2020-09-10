@@ -325,6 +325,9 @@ export default {
         if (cacheSign > -1) {
           cacheList[i].babyName = cacheList[i].name.substring(cacheSign);
           cacheList[i].name = cacheList[i].name.substring(0, cacheSign);
+          if(cacheList[i].bedLabel.split('_').length>1){
+            cacheList[i].bedLabel = cacheList[i].bedLabel.split('_')[0];
+          }
         }
         cacheList[i].cacheNum = i;
       }
@@ -339,7 +342,8 @@ export default {
         for (let j = 0; j < cacheList.length; j++) {
           if (
             !cacheList[i].babyName &&
-            cacheList[i].bedLabel !== cacheList[j].bedLabel &&
+            cacheList[i].patientId !== cacheList[j].patientId &&
+            cacheList[i].bedLabel == cacheList[j].bedLabel &&
             cacheList[i].name === cacheList[j].name &&
             cacheList[j].babyName == "婴"
           ) {
