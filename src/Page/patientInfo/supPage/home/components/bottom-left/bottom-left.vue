@@ -15,13 +15,13 @@
           <span>{{status(scope.row)}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="evalScore" label="评分" min-width="80px" v-if="HOSPITAL_ID = 'lingcheng'">
+      <el-table-column prop="evalScore" label="评分" min-width="80px" v-if="HOSPITAL_ID == 'lingcheng'">
          <template slot-scope="scope">
           <div v-for="item in scope.row.hazardLevelList" :key="item.id">{{item.evalScore}}</div>
         </template>
       </el-table-column>
       <el-table-column prop="evalScore" label="评分" min-width="80px" v-else></el-table-column>
-      <el-table-column label="危重等级" min-width="160px" v-if="HOSPITAL_ID = 'lingcheng'">
+      <el-table-column label="危重等级" min-width="160px" v-if="HOSPITAL_ID == 'lingcheng'">
         <template slot-scope="scope">
           <div
             class="label-con label-con-lc"
