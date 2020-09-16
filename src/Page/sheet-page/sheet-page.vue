@@ -201,6 +201,7 @@ import sheetTableMaternal_newborn_lc from "./components/sheetTable-maternal_newb
 import sheetTable_picc_maintenance_hd from "./components/sheetTable-picc_maintenance_hd/sheetTable";
 import sheetTable_intervention_cure_hd from "./components/sheetTable-intervention_cure_hd/sheetTable";
 import sheetTable_hemodialysis_CRRT_hd from "./components/sheetTable-hemodialysis_CRRT_hd/sheetTable";
+import sheetTable_intervention_cure from "./components/sheetTable-intervention_cure/sheetTable";
 import common from "@/common/mixin/common.mixin.js";
 import evalModel from "./components/modal/eval-model/eval-model.vue";
 import { typeList } from "@/api/lesion";
@@ -320,6 +321,8 @@ export default {
         return sheetTable_intervention_cure_hd;
       } else if (sheetInfo.sheetType == "hemodialysis_CRRT_hd") {
         return sheetTable_hemodialysis_CRRT_hd;
+      } else if (sheetInfo.sheetType == "intervention_cure") {
+        return sheetTable_intervention_cure;
       } else {
         return sheetTable;
       }
@@ -767,7 +770,8 @@ export default {
     sheetTableMaternal_newborn_lc,
     sheetTable_picc_maintenance_hd,
     sheetTable_intervention_cure_hd,
-    sheetTable_hemodialysis_CRRT_hd
+    sheetTable_hemodialysis_CRRT_hd,
+    sheetTable_intervention_cure
   }
 };
 </script>

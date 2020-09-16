@@ -347,6 +347,11 @@ function switechSheetType(type) {
     schema = require("../config/hemodialysis_CRRT_hd/tr.js").default;
   }
   break;
+  case "intervention_cure": {
+    // 厚街-介入治疗术护理记录单
+    schema = require("../config/intervention_cure/tr.js").default;
+  }
+  break;
   default: {
     schema = require("../config/default/tr.js").default;
   }

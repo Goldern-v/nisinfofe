@@ -58,6 +58,20 @@ export default {
       sheetInfo
     };
   },
+  methods: {
+    updateTetxInfo(key, label, autoText) {
+      window.openSetTextModal(
+        text => {
+          updateSheetHeadInfo({ [key]: text }).then(res => {
+            this.patientInfo[key] = res.data.data[key];
+            this.$message.success(`修改${label}成功`);
+          });
+        },
+        autoText,
+        `修改${label}`
+      );
+    }
+  },
   computed: {
     patientInfo() {
       return this.sheetInfo.selectBlock || {};

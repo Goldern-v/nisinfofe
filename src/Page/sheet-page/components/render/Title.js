@@ -403,6 +403,13 @@ export default function Title(
     );
   }
   break;
+  case "intervention_cure": {
+    // 厚街-介入治疗术护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/intervention_cure/th").default)
+    );
+  }
+  break;
   default: {
     Th = JSON.parse(
       JSON.stringify(require("../config/default/th").default)

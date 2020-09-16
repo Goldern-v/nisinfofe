@@ -5,43 +5,51 @@
     <div class="info-con">
       <span>
         姓名：
-        <span
+        <div
           class="bottom-line"
           style="min-width: 60px"
           @click="updateTetxInfo('patientName', '病人姓名', patientInfo.patientName)"
-        >{{patientInfo.patientName}}</span>
+        >{{patientInfo.patientName}}</div>
       </span>
       <span>
         性别：
-        <span
+        <div
           class="bottom-line"
           style="min-width: 30px"
           @click="updateTetxInfo('sex', '性别', patientInfo.sex)"
-        >{{patientInfo.sex}}</span>
+        >{{patientInfo.sex}}</div>
       </span>
       <span>
         年龄：
-        <span
+        <div
           class="bottom-line"
           style="min-width: 50px"
           @click="updateTetxInfo('age', '年龄', patientInfo.age)"
-        >{{patientInfo.age}}</span>
+        >{{patientInfo.age}}</div>
       </span>
       <span>
-        科室：
-        <span
+        科别：
+        <div
           class="bottom-line"
           style="min-width: 50px"
           @click="updateTetxInfo('deptName', '科室', patientInfo.deptName)"
-        >{{patientInfo.deptName}}</span>
+        >{{patientInfo.deptName}}</div>
       </span>
       <span @click="updateTetxInfo('bedLabel', '床号', patientInfo.bedLabel)">
         床号：
-        <span class="bottom-line" style="min-width: 30px">{{patientInfo.bedLabel}}</span>
+        <div class="bottom-line" style="min-width: 30px">{{patientInfo.bedLabel}}</div>
       </span>
-      <span @click="updateTetxInfo('inpNo', '住院号', patientInfo.inpNo)">
+      <span>
         住院号：
-        <span class="bottom-line" style="min-width: 30px">{{patientInfo.inpNo}}</span>
+        <div class="bottom-line" style="min-width: 30px">{{patientInfo.inpNo}}</div>
+      </span>
+      <span>
+        入院诊断：
+        <div class="bottom-line" style="min-width: 30px">{{patientInfo.inpNo}}</div>
+      </span>
+      <span>
+        时间：
+        <div class="bottom-line" style="min-width: 30px">{{patientInfo.createTime}}</div>
       </span>
     </div>
   </div>
@@ -101,7 +109,7 @@ export default {
   }
 
   span {
-    // margin-right: 4px;
+    margin-right: 4px;
     font-size: 14px;
     color: #000;
   }
