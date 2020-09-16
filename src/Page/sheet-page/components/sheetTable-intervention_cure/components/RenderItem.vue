@@ -68,7 +68,7 @@ export default {
   margin-right: 100px;
 }
 .txhtouxiqi {
-  margin-left: 46px;
+  margin-left: 10px;
 }
 .txhtouxiqi2 {
   margin-left: 64px;
