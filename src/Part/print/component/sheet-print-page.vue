@@ -135,6 +135,10 @@
     .iframe > div:nth-of-type(2n) {
       transform: rotate(180deg);
     }
+
+    .el-checkbox__inner::after {
+      border-color: #000;
+    }
   }
 }
 
@@ -160,7 +164,7 @@ export default {
       iframeHeight: 0,
       pageLoading: true,
       bus: bus(this),
-      sheetInfo,
+      sheetInfo
     };
   },
   created() {
@@ -179,13 +183,13 @@ export default {
     if (this.HOSPITAL_ID == "lingcheng") {
       let pageEle = document.querySelectorAll("div.contant");
       let arr = Array.from(pageEle);
-      arr.map((child) => {
+      arr.map(child => {
         child.style.width = child.offsetWidth + 40 + "px";
       });
     }
     let sheetTableWidth = document.querySelector("div.contant").offsetWidth;
     $("#app").css({
-      minWidth: sheetTableWidth + "px",
+      minWidth: sheetTableWidth + "px"
     });
     if (sheetTableWidth > 1000) {
       printDir("h");
@@ -293,15 +297,33 @@ export default {
             $(item).html("");
           }
           if (
-            $(item).html().indexOf("标题1") > -1 ||
-            $(item).html().indexOf("标题2") > -1 ||
-            $(item).html().indexOf("标题3") > -1 ||
-            $(item).html().indexOf("标题4") > -1 ||
-            $(item).html().indexOf("标题5") > -1 ||
-            $(item).html().indexOf("标题6") > -1 ||
-            $(item).html().indexOf("标题7") > -1 ||
-            $(item).html().indexOf("标题8") > -1 ||
-            $(item).html().indexOf("标题9") > -1
+            $(item)
+              .html()
+              .indexOf("标题1") > -1 ||
+            $(item)
+              .html()
+              .indexOf("标题2") > -1 ||
+            $(item)
+              .html()
+              .indexOf("标题3") > -1 ||
+            $(item)
+              .html()
+              .indexOf("标题4") > -1 ||
+            $(item)
+              .html()
+              .indexOf("标题5") > -1 ||
+            $(item)
+              .html()
+              .indexOf("标题6") > -1 ||
+            $(item)
+              .html()
+              .indexOf("标题7") > -1 ||
+            $(item)
+              .html()
+              .indexOf("标题8") > -1 ||
+            $(item)
+              .html()
+              .indexOf("标题9") > -1
           ) {
             $(item).html("");
           }
@@ -311,12 +333,16 @@ export default {
       });
       /** 添加上标下标 */
       $('[datakey="description"]').each((index, el) => {
-        let dataValue = $(el).find("input").val();
+        let dataValue = $(el)
+          .find("input")
+          .val();
         let resultValue = `<span>${formatSub(
           formatSub(formatSub(dataValue))
         )}</span>`;
         if (dataValue.indexOf("^") > -1) {
-          $(el).empty().append(resultValue);
+          $(el)
+            .empty()
+            .append(resultValue);
         }
       });
     });
@@ -340,7 +366,7 @@ export default {
     print() {
       if (
         Array.from(window.document.querySelectorAll("img")).every(
-          (img) => img.complete
+          img => img.complete
         )
       ) {
         window.print();
@@ -349,14 +375,14 @@ export default {
           this.print();
         }, 1000);
       }
-    },
+    }
   },
   computed: {
     sheetModel() {
       let html = window.localStorage.sheetModel;
       var reg = /data-value/g;
       return html.replace(reg, "value");
-    },
+    }
   },
   watch: {
     qoSelect() {
@@ -369,8 +395,8 @@ export default {
         $(".iframe>div").show();
         $(".iframe>div:nth-of-type(2n - 1)").hide();
       }
-    },
+    }
   },
-  components: {},
+  components: {}
 };
 </script>

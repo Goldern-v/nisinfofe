@@ -1,21 +1,12 @@
 <template>
-  <div
-    class="contain"
-    :class="{ fullpage }"
-    v-loading="pageLoading"
-    element-loading-text="正在保存"
-  >
+  <div class="contain" :class="{ fullpage }" v-loading="pageLoading" element-loading-text="正在保存">
     <div class="head-con" flex>
       <div class="dept-select-con"></div>
       <div class="tool-con" flex-box="1">
         <sheetTool ref="sheetTool"></sheetTool>
       </div>
     </div>
-    <div
-      class="body-con"
-      id="sheet_body_con"
-      :style="{ height: containHeight }"
-    >
+    <div class="body-con" id="sheet_body_con" :style="{ height: containHeight }">
       <div class="left-part">
         <!-- <patientList
           :data="data.bedList"
@@ -31,11 +22,7 @@
         :class="{ wxHighLightBg: HOSPITAL_ID == 'weixian' }"
         v-loading="tableLoading"
       >
-        <div
-          class="sheetTable-contain"
-          ref="scrollCon"
-          @scroll="e => onScroll(e)"
-        >
+        <div class="sheetTable-contain" ref="scrollCon" @scroll="e => onScroll(e)">
           <div ref="sheetTableContain">
             <component
               v-bind:is="sheetTable"
@@ -212,6 +199,9 @@ import sheetTable_oxytocin from "./components/sheetTable-oxytocin/sheetTable";
 import sheetTableDressing_count from "./components/sheetTable-dressing_count/sheetTable";
 import sheetTableMaternal_newborn_lc from "./components/sheetTable-maternal_newborn_lc/sheetTable";
 import sheetTable_picc_maintenance_hd from "./components/sheetTable-picc_maintenance_hd/sheetTable";
+import sheetTable_intervention_cure_hd from "./components/sheetTable-intervention_cure_hd/sheetTable";
+import sheetTable_hemodialysis_CRRT_hd from "./components/sheetTable-hemodialysis_CRRT_hd/sheetTable";
+import sheetTable_intervention_cure from "./components/sheetTable-intervention_cure/sheetTable";
 import common from "@/common/mixin/common.mixin.js";
 import evalModel from "./components/modal/eval-model/eval-model.vue";
 import { typeList } from "@/api/lesion";
@@ -327,6 +317,12 @@ export default {
         return sheetTableMaternal_newborn_lc;
       } else if (sheetInfo.sheetType == "picc_maintenance_hd") {
         return sheetTable_picc_maintenance_hd;
+      } else if (sheetInfo.sheetType == "intervention_cure_hd") {
+        return sheetTable_intervention_cure_hd;
+      } else if (sheetInfo.sheetType == "hemodialysis_CRRT_hd") {
+        return sheetTable_hemodialysis_CRRT_hd;
+      } else if (sheetInfo.sheetType == "intervention_cure") {
+        return sheetTable_intervention_cure;
       } else {
         return sheetTable;
       }
@@ -440,8 +436,7 @@ export default {
     },
     isSelectPatient(item) {
       this.$store.commit("upPatientInfo", item);
-    },
-
+    }
   },
   created() {
     // 初始化
@@ -717,7 +712,7 @@ export default {
       });
     });
     this.bus.$on("syncDecription", (tr, td) => {
-      this.$refs.syncToIsbarModal.open(tr, td,sheetModel);
+      this.$refs.syncToIsbarModal.open(tr, td, sheetModel);
     });
   },
   watch: {
@@ -773,7 +768,10 @@ export default {
     sheetTable_oxytocin,
     sheetTableDressing_count,
     sheetTableMaternal_newborn_lc,
-    sheetTable_picc_maintenance_hd
+    sheetTable_picc_maintenance_hd,
+    sheetTable_intervention_cure_hd,
+    sheetTable_hemodialysis_CRRT_hd,
+    sheetTable_intervention_cure
   }
 };
 </script>
