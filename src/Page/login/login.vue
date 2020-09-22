@@ -47,6 +47,7 @@
             <el-checkbox v-model="remember">
               <span style="font-size: 13px;color: #687179;">记住账号</span>
             </el-checkbox>
+            <button style="background-color:#fff;float:right;border:0;" @click="toReset()">重置密码</button>
           </div>
           <button v-touch-ripple class="login-btn" @click="login">{{ !ajax ? "登录系统" : "登录中..." }}</button>
         </div>
@@ -309,6 +310,7 @@ export default {
       this.ajax = true;
       login(this.account, this.password)
         .then(res => {
+          console.log(res);
           // 记住账号
           if (this.remember) {
             localStorage["rememberAccount"] = this.account;
@@ -349,7 +351,11 @@ export default {
         })
         .catch(res => {
           this.ajax = false;
-          if (res.data.desc == "员工号不存在") {
+          if (res.data.errorCode == 1000) {
+            setTimeout(() => {
+              this.$router.push("/resetPassword");
+            }, 1000);
+          } else if (res.data.desc == "员工号不存在") {
             let input = document.querySelectorAll(".input-con input")[0];
             input.focus();
             input.select();
@@ -359,6 +365,11 @@ export default {
             input.select();
           }
         });
+    },
+    toReset() {
+      setTimeout(() => {
+        this.$router.push("/resetPassword");
+      }, 1000);
     }
   },
   created() {

@@ -25,6 +25,7 @@ import main from "@/Part/main";
 
 const bed = () => import("@/Page/lesion/supPage/bed/bed"); // 厚街
 const login = () => import("@/Page/login/login");
+const resetPassword = () => import("@/Page/resetPassword/resetPassword");
 const indexXin = () => import("@/Page/index-xin/Nurse.vue");
 const imageView = () => import("@/Part/imageView/imageView");
 const nursingDocumentation = () =>
@@ -145,6 +146,11 @@ const router = new Router({
       path: "/login",
       component: login,
       alias: "登陆"
+    },
+    {
+      path: "/resetPassword",
+      component: resetPassword,
+      alias: "重置密码"
     },
     // 医生查看患者表单详情
     {
