@@ -97,6 +97,7 @@ module.exports = {
 
         // target: "http://120.25.105.45:9868", //花都测试
         // target: "http://192.168.3.115:8080",
+        // target: "http://119.145.71.86:9098",
         changeOrigin: true,
         pathRewrite: {
           // crNursing 东莞厚街护理系统 路径

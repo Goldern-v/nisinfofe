@@ -1,11 +1,11 @@
 
 // import {listItem} from '../../../api/recordDesc'
 import { listItem } from '@/Page/sheet-nursing-order/api/nursingOrder.js'
-import {keyf1} from '../keyEvent/f1.js'
+import { keyf1 } from '../keyEvent/f1.js'
 
 import { event_date, event_time, click_date, click_time } from "../keyEvent/date";
 
-import {next} from '../oninput/next'
+import { next } from '../oninput/next'
 import sheetInfo from '../sheetInfo/index'
 
 let info = {
@@ -21,16 +21,16 @@ let list5 = []
 let list6 = []
 
 
-function isNumber(n){
+function isNumber(n) {
   // charCodeAt
-  console.log('isNumber', typeof(n), n)
-  if (typeof(n)==='string'){
+  console.log('isNumber', typeof (n), n)
+  if (typeof (n) === 'string') {
     return n.charCodeAt(0) >= "0".charCodeAt(0) && n.charCodeAt(0) <= "9".charCodeAt(0);
   }
-  return n>47 && n<58;
+  return n > 47 && n < 58;
 }
 
-function isReturn(){
+function isReturn() {
 
 }
 
@@ -109,7 +109,7 @@ export default [
     key: "startTime", //时间
     value: "",
     click: click_time,
-    event: function(e, td) {
+    event: function (e, td) {
       // e.returnValue = isNumber(e.keyCode);
       // if (td.value.length > 4) {
       //   e.returnValue = false
@@ -128,17 +128,17 @@ export default [
       // if(e.target.selectionEnd === e.target.selectionStart){
 
       // }
-      console.log('time-input-onkeydown',e,k)
-      if( (k>=96 && k<=105) || (k>=48 && k<=57) || (k>=37 && k<=40) || k===8 || (e.target.selectionEnd !== e.target.selectionStart&&((k>=96 && k<=105) || (k>=48 && k<=57)) ) ){
+      console.log('time-input-onkeydown', e, k)
+      if ((k >= 96 && k <= 105) || (k >= 48 && k <= 57) || (k >= 37 && k <= 40) || k === 8 || (e.target.selectionEnd !== e.target.selectionStart && ((k >= 96 && k <= 105) || (k >= 48 && k <= 57)))) {
         e.returnValue = true
-      }else{
+      } else {
         e.returnValue = false
       }
-      if(e.target.value.length>=5&&(k!=8&&(k<37||k>40))&&e.target.selectionEnd===e.target.selectionStart ){e.returnValue = false}
-      if(e.target.value.length == '2' && e.target.value.indexOf('-') == -1 && k != 8) {
+      if (e.target.value.length >= 5 && (k != 8 && (k < 37 || k > 40)) && e.target.selectionEnd === e.target.selectionStart) { e.returnValue = false }
+      if (e.target.value.length == '2' && e.target.value.indexOf('-') == -1 && k != 8) {
         td.value += ":"
       }
-      console.log('returnValue',e.returnValue,e.target.selectionStart,e.target.selectionEnd)
+      console.log('returnValue', e.returnValue, e.target.selectionStart, e.target.selectionEnd)
     }
   },
   {
@@ -154,7 +154,7 @@ export default [
   {
     key: "orderContent", //护嘱内容
     value: "",
-    style:{
+    style: {
       textAlign: "left",
       // margin: "0px 8px",
     },
@@ -167,44 +167,25 @@ export default [
     key: "stopDate", //日期
     value: "",
     click: click_date,
-    event: function(e, td) {
-      console.log(e.keyCode, e.key, isNumber(e.keyCode),td,e);
-      e.returnValue = isNumber(e.keyCode);
-      if(td.value.length>4){
-        e.returnValue = false
-      }
-      if (e.keyCode === 8 || (e.keyCode <= 40 && e.keyCode >= 37)){
-        e.returnValue = true;
-      }
-      if (
-        e.target.value.length == "2" &&
-        e.target.value.indexOf("-") == -1 &&
-        e.keyCode != 8
-      ) {
-        td.value += "-";
-      }
-    }
+    event: event_date
   },
   {
     key: "stopTime", //时间
     value: "",
     click: click_time,
-    event: function(e, td) {
-      console.log("stopTime", String.fromCharCode(e.keyCode), e.keyCode, isNumber(e.keyCode));
-      e.returnValue = isNumber(e.keyCode);
-      if (td.value.length > 4) {
+    event: function (e, td) {
+      let k = e.keyCode
+      console.log('time-input-onkeydown', e, k)
+      if ((k >= 96 && k <= 105) || (k >= 48 && k <= 57) || (k >= 37 && k <= 40) || k === 8 || (e.target.selectionEnd !== e.target.selectionStart && ((k >= 96 && k <= 105) || (k >= 48 && k <= 57)))) {
+        e.returnValue = true
+      } else {
         e.returnValue = false
       }
-      if (e.keyCode === 8 || (e.keyCode <= 40 && e.keyCode >= 37)) {
-        e.returnValue = true;
+      if (e.target.value.length >= 5 && (k != 8 && (k < 37 || k > 40)) && e.target.selectionEnd === e.target.selectionStart) { e.returnValue = false }
+      if (e.target.value.length == '2' && e.target.value.indexOf('-') == -1 && k != 8) {
+        td.value += ":"
       }
-      if (
-        e.target.value.length == "2" &&
-        e.target.value.indexOf(":") == -1 &&
-        e.keyCode != 8
-      ) {
-        td.value += ":";
-      }
+      console.log('returnValue', e.returnValue, e.target.selectionStart, e.target.selectionEnd)
     }
   },
   // {
@@ -421,7 +402,7 @@ export function updateListData(data) {
     for (let item in res.data.data) {
       NOList.push(res.data.data[item].name);
     }
-    console.log('更新字典list',data, NOList)
+    console.log('更新字典list', data, NOList)
   });
 }
 
