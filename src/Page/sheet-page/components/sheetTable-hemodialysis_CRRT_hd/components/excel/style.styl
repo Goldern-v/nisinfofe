@@ -1,0 +1,256 @@
+.sheet-page-hemodialysis_CRRT_hd, .sheet-page-container-hemodialysis_CRRT_hd {
+  .sheet-table {
+    border-collapse: collapse;
+    margin: -1px 0px !important;
+    margin-bottom: -1px !important;
+    font-size: 12px;
+    color: #000;
+
+    &, tr, td, th {
+      border: 1px solid #444444;
+    }
+
+    .head-con {
+      background: #f4f2f5;
+    }
+
+    td, th {
+      height: 15px;
+      text-align: center;
+      vertical-align: middle;
+      line-height: 14px;
+      position: relative;
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+      overflow: hidden;
+    }
+
+    .th {
+      padding: 2px;
+    }
+
+    span {
+      font-size: 12px;
+    }
+
+    .body-con {
+      height: 29px;
+      text-align: center;
+      vertical-align: middle;
+      cursor: pointer;
+    }
+  }
+
+  .bottomCon {
+    border: 1px solid #000;
+    font-size: 12px;
+  }
+  .head-con {
+    th {
+      height: 26px;
+    }
+  }
+
+  .canSet {
+    color: #284FC2;
+    cursor: pointer;
+
+    &:hover {
+      background: #fafafa;
+    }
+  }
+
+  .sheet-table .body-con:nth-of-type(2n - 1) {
+    background: #f4f2f5;
+  }
+
+  .sheet-table .body-con {
+    textarea {
+      overflow: hidden;
+      line-height: 29px;
+      height: 100% !important;
+      width: 100% !important;
+      max-height: 27px;
+      resize: none;
+      position: relative;
+      top: 1px;
+    }
+
+    input, textarea {
+      width: calc(100% - 2px);
+      border: 0 !important;
+      padding: 0;
+      height: calc(100% - 2px);
+      box-sizing: border-box !important;
+      outline: none !important;
+      text-align: center;
+      background: transparent;
+      color: #000;
+      font-size: 12px;
+
+      &:focus {
+        // background: #EEF6F5
+        background: rgb(228, 241, 240);
+      }
+    }
+
+    &:hover, &.selectedRow {
+      background: #e6e6e6;
+    }
+
+    &.disable {
+      color: #999;
+      cursor: auto;
+    }
+
+    &.stripeRow {
+      td {
+        background: #FAFAFA;
+      }
+    }
+
+    &.selectRow {
+      td {
+        background: #e4f1f0;
+      }
+    }
+
+    .mark-cell-status-0 {
+      background: rgba(185, 89, 255, 0.6);
+    }
+
+    .mark-cell-status-1 {
+       background: rgba(208, 196, 79, 0.6);
+    }
+
+    &.mark-cell-status-0 {
+      background: rgba(185, 89, 255, 0.4);
+    }
+
+    &.mark-cell-status-1 {
+      background: rgba(208, 196, 79, 0.4);
+    }
+
+    .mark-cell-1 {
+      background: rgba(185, 89, 255, 0.6);
+    }
+
+    .mark-cell-2 {
+      background: rgba(48, 163, 255, 0.6);
+    }
+
+    .mark-cell-3 {
+      background: rgba(162, 131, 94, 0.6);
+    }
+
+    .mark-cell-4 {
+      background: rgba(208, 196, 79, 0.6);
+    }
+
+    .mark-cell-5 {
+      background: rgba(80, 208, 101, 0.6);
+    }
+
+    &.mark-row-1 {
+      background: rgba(185, 89, 255, 0.4);
+    }
+
+    &.mark-row-2 {
+      background: rgba(48, 163, 255, 0.4);
+    }
+
+    &.mark-row-3 {
+      background: rgba(162, 131, 94, 0.4);
+    }
+
+    &.mark-row-4 {
+      background: rgba(208, 196, 79, 0.4);
+    }
+
+    &.mark-row-5 {
+      background: rgba(80, 208, 101, 0.4);
+    }
+
+    &.redText {
+      input, textarea  {
+        color: red;
+        cursor: pointer;
+      }
+    }
+
+    &.selectedTr {
+      td {
+        background: #FFF8B1;
+      }
+    }
+  }
+
+  .no-wrap {
+    white-space: nowrap;
+  }
+
+  .table-footer {
+    font-size: 12px;
+    color: #000;
+    text-align: center;
+    margin: 10px 0 0;
+    position: relative;
+
+    .sh-name {
+      position: absolute;
+      right: 0;
+    }
+  }
+
+  .add-row {
+    color: blue;
+    float: right;
+    font-size: 12px;
+    cursor: pointer;
+
+    &:hover {
+      font-weight: bold;
+    }
+  }
+
+  .sign-text {
+    min-width: 52px;
+    max-width: 52px;
+    cursor: pointer;
+    height: 26px;
+    line-height: 26px;
+  }
+
+  td[datakey='signerNo'] {
+    display: none;
+  }
+
+  td[datakey='sign'] {
+    display: table-cell;
+  }
+
+  td[datakey='auditorNo'] {
+    display: none;
+  }
+
+  td[datakey='audit'] {
+    display: table-cell;
+  }
+
+  .towLine {
+    line-height: 14px !important;
+  }
+  .table-fixed-th {
+    display none
+    border:  0
+  }
+  table.isFixed {
+    display block
+    position: fixed
+    top 56px
+    z-index 1
+    &.isInPatientDetails {
+      top: 45px
+    }
+  }
+}

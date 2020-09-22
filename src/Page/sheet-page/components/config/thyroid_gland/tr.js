@@ -53,64 +53,6 @@ export default [
     }
   },
   {
-    key: "pupilSizeLeft", // 大小左
-    value: "",
-    event: keyf1
-  },
-  {
-    key: "pupilSizeRight", // 大小右
-    value: "",
-    event: keyf1
-  },
-  {
-    key: "pupilReflexLeft", // 反射左
-    value: "",
-    event: keyf1,
-    autoComplete: {
-      data: ["+", "-", "±"]
-    }
-  },
-  {
-    key: "pupilReflexRight", // 反射右
-    value: "",
-    event: keyf1,
-    autoComplete: {
-      data: ["+", "-", "±"]
-    }
-  },
-  {
-    key: "food", //入
-    value: "",
-    event: keyf1,
-    autoComplete: {
-      data: ruList
-    },
-    textarea: {
-      width: 62
-    }
-  },
-  {
-    key: "foodSize", //入量
-    value: "",
-    event: keyf1
-  },
-  {
-    key: "discharge", //出
-    value: "",
-    event: keyf1,
-    autoComplete: {
-      data: chuList
-    },
-    textarea: {
-      width: 38
-    }
-  },
-  {
-    key: "dischargeSize", //出量
-    value: "",
-    event: keyf1
-  },
-  {
     key: "fieldOne", //标题1
     value: "",
     event: keyf1,
@@ -152,6 +94,46 @@ export default [
   },
   {
     key: "fieldSix", //标题6
+    value: "",
+    event: keyf1,
+    textarea: {
+      width: 52
+    }
+  },
+  {
+    key: "fieldSeven", //标题7
+    value: "",
+    event: keyf1,
+    textarea: {
+      width: 52
+    }
+  },
+  {
+    key: "fieldEight", //标题8
+    value: "",
+    event: keyf1,
+    textarea: {
+      width: 52
+    }
+  },
+  {
+    key: "fieldNine", //标题9
+    value: "",
+    event: keyf1,
+    textarea: {
+      width: 52
+    }
+  },
+  {
+    key: "fieldTen", //标题10
+    value: "",
+    event: keyf1,
+    textarea: {
+      width: 52
+    }
+  },
+  {
+    key: "fieldEleven", //标题11
     value: "",
     event: keyf1,
     textarea: {

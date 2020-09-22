@@ -1,19 +1,18 @@
-import { listItem } from "../../../api/recordDesc";
-import { multiDictInfo } from "../../../api/index";
-import { keyf1 } from "../keyEvent/f1.js";
-import { event_date, event_time, click_date } from "../keyEvent/date";
-import info from "../sheetInfo";
-let ysList = [];
-let chuList = [];
-let ruList = [];
-let suctionquality = [
-  "WL", "YWT", "YT", "B",
-];
-let suctionSize = [
-  "+", "++", "+++"
-]
-export default [
-  {
+import {
+  listItem
+} from "../../../api/recordDesc";
+import {
+  multiDictInfo
+} from "../../../api/index";
+import {
+  keyf1
+} from "../keyEvent/f1.js";
+import {
+  event_date,
+  event_time,
+  click_date
+} from "../keyEvent/date";
+export default [{
     key: "recordMonth", //日期
     value: "",
     event: event_date,
@@ -25,6 +24,13 @@ export default [
     event: event_time
   },
   {
+    key: "fieldOne", //箱温/床温
+    value: "",
+    event: keyf1,
+    name: "箱温/床温",
+    next: "℃"
+  },
+  {
     key: "temperature", //体温
     value: "",
     event: keyf1,
@@ -32,7 +38,7 @@ export default [
     next: "℃"
   },
   {
-    key: "pulse", //心率
+    key: "pulse", //脉搏/心率
     value: "",
     event: keyf1,
     name: "心率",
@@ -59,91 +65,181 @@ export default [
     next: "mmHg"
   },
   {
-    key: "fieldOne", //SPO₂(%)
+    key: "spo2", //血氧饱和度(%)
     value: "",
     event: keyf1,
-    name: "箱温/床温",
-    next: "℃"
-  },
-  {
-    key: "spo2", //SPO₂(%)
-    value: "",
-    event: keyf1,
-    name: "SPO₂",
+    name: "血氧饱和度",
     next: "%"
   },
   {
-    key: "food", // 入量
+    key: "fieldTwo", //体位
     value: "",
     event: keyf1,
-    name: "入量名称",
-    autoComplete: {
-      data: ruList
-    },
+    name: "体位"
   },
   {
-    key: "foodSize", //食物数量  入量（单位ml）
-    value: "",
-    event: keyf1,
-    name: "入量大小",
-    next: "ml"
-  },
-  {
-    key: "discharge", // 出量
-    value: "",
-    event: keyf1,
-    name: "出量名称",
-    autoComplete: {
-      data: chuList
-    }
-  },
-  {
-    key: "dischargeSize", //排出物数量（单位ml）
-    value: "",
-    event: keyf1,
-    name: "出量大小",
-    next: "ml"
-  },
-  {
-    key: "dischargeColor", // 出量颜色
-    value: "",
-    event: keyf1,
-    name: "出量颜色"
-  },
-  {
-    key: "fieldTwo", // 吸痰部位
-    value: "",
-    event: keyf1,
-    name: "吸痰部位",
-  },
-  {
-    key: "fieldThree", // 吸痰性质
-    value: "",
-    event: keyf1,
-    name: "吸痰性质",
-    autoComplete: {
-      data: suctionquality
-    },
-  },
-  {
-    key: "fieldFour", // 吸痰量
-    value: "",
-    event: keyf1,
-    name: "吸痰量",
-    autoComplete: {
-      data: suctionSize
-    },
-  },
-  {
-    key: "fieldFive", // 吸吮力
+    key: "fieldThree", //吸吮力
     value: "",
     event: keyf1,
     name: "吸吮力"
   },
   {
-    key: "fieldSix", //标题1
+    key: "fieldFour", //脐部
     value: "",
     event: keyf1,
+    name: "脐部"
+  },
+  {
+    key: "fieldFive", //经皮胆红素
+    value: "",
+    event: keyf1,
+    name: "经皮胆红素",
+    next: "Umol/L"
+  },
+  {
+    key: "fieldNine", //胃管深度
+    value: "",
+    event: keyf1,
+    name: "胃管深度",
+    next: "cm"
+  },
+  {
+    key: "oralType", // 口服种类
+    value: "",
+    event: keyf1,
+    name: "口服种类",
+  },
+  {
+    key: "oralWayAmount", //口服方式/量ml
+    value: "",
+    event: function (e, td) {
+      if (e.keyCode == 32) {
+        e.target.value += "/";
+        e.preventDefault();
+      }
+      keyf1(e, td);
+    },
+    textarea: {
+      width: 48
+    }
+  },
+  {
+    key: "fieldTen", // 静脉入液量
+    value: "",
+    event: keyf1,
+    name: "静脉入液量",
+    next: "ml"
+  },
+  {
+    key: "fieldEleven", //尿量
+    value: "",
+    event: keyf1,
+    name: "尿量",
+    next: "ml"
+  },
+  {
+    key: "fieldTwelve", //大便情况/量
+    value: "",
+    event: function (e, td) {
+      if (e.keyCode == 32) {
+        e.target.value += "/";
+        e.preventDefault();
+      }
+      keyf1(e, td);
+    },
+    textarea: {
+      width: 48
+    }
+  },
+  {
+    key: "fieldThirteen", // 呕吐物性质/量ml
+    value: "",
+    event: function (e, td) {
+      if (e.keyCode == 32) {
+        e.target.value += "/";
+        e.preventDefault();
+      }
+      keyf1(e, td);
+    },
+    textarea: {
+      width: 48
+    }
+  },
+  {
+    key: "fieldFourteen", // 氧疗方式
+    value: "",
+    event: keyf1,
+    name: "氧疗方式",
+  },
+  {
+    key: "fieldFiveteen", // 氧疗流量L/分
+    value: "",
+    event: keyf1,
+    name: "氧疗流量",
+    next: "L/分"
+  },
+  {
+    key: "fieldSixteen", // 氧疗浓度
+    value: "",
+    event: keyf1,
+    name: "氧疗浓度",
+    next: "%"
+  },
+  {
+    key: "fieldSeventeen", // 吸痰性状/量口腔
+    value: "",
+    name: "吸痰性状/量口腔",
+    event: function (e, td) {
+      if (e.keyCode == 32) {
+        e.target.value += "/";
+        e.preventDefault();
+      }
+      keyf1(e, td);
+    },
+    textarea: {
+      width: 48
+    }
+  },
+  {
+    key: "fieldEighteen", // 吸痰性状/量气管插管
+    value: "",
+    name: "吸痰性状/量气管插管",
+    event: function (e, td) {
+      if (e.keyCode == 32) {
+        e.target.value += "/";
+        e.preventDefault();
+      }
+      keyf1(e, td);
+    },
+    textarea: {
+      width: 48
+    }
+  },
+  {
+    key: "fieldNineteen", // 篮光治疗/呻吟
+    value: "",
+    event: function (e, td) {
+      if (e.keyCode == 32) {
+        e.target.value += "/";
+        e.preventDefault();
+      }
+      keyf1(e, td);
+    },
+    textarea: {
+      width: 48
+    },
+    name: "篮光治疗/呻吟"
+  },
+  {
+    key: "fieldSix", //标题1
+    value: "",
+    event: function (e, td) {
+      if (e.keyCode == 32) {
+        e.target.value += "/";
+        e.preventDefault();
+      }
+      keyf1(e, td);
+    },
     textarea: {
       width: 48
     }
@@ -151,7 +247,13 @@ export default [
   {
     key: "fieldSeven", //标题2
     value: "",
-    event: keyf1,
+    event: function (e, td) {
+      if (e.keyCode == 32) {
+        e.target.value += "/";
+        e.preventDefault();
+      }
+      keyf1(e, td);
+    },
     textarea: {
       width: 48
     }
@@ -159,15 +261,13 @@ export default [
   {
     key: "fieldEight", //标题3
     value: "",
-    event: keyf1,
-    textarea: {
-      width: 36
-    }
-  },
-  {
-    key: "fieldNine", //标题4
-    value: "",
-    event: keyf1,
+    event: function (e, td) {
+      if (e.keyCode == 32) {
+        e.target.value += "/";
+        e.preventDefault();
+      }
+      keyf1(e, td);
+    },
     textarea: {
       width: 36
     }
@@ -268,37 +368,3 @@ export default [
     value: false
   }
 ];
-
-export function getListData() {
-  listItem("入量名称", info.sheetType).then(res => {
-    ruList.splice(0, ruList.length);
-    for (let item of res.data.data) {
-      ruList.push(item.name);
-    }
-  });
-  listItem("出量名称", info.sheetType).then(res => {
-    chuList.splice(0, chuList.length);
-    for (let item of res.data.data) {
-      chuList.push(item.name);
-    }
-  });
-  let list = ["意识"];
-  multiDictInfo(list).then(res => {
-    let data = res.data.data;
-    setList(ysList, "意识", data);
-  });
-}
-
-getListData();
-/**
- *
- * @param {*} list 原数组
- * @param {*} key 对应的key
- * @param {*} data 数据源
- */
-function setList(list, key, data) {
-  list.splice(0, list.length);
-  for (let item of data[key]) {
-    list.push(item.name);
-  }
-}
