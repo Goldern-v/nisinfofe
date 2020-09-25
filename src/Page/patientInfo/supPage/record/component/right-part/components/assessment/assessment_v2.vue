@@ -285,7 +285,7 @@ export default {
         wardCode: query.wardCode,
         wardName: query.wardName,
         admissionDate: query.admissionDate,
-        token: this.token,
+        // token: this.token,
         todo: this.info.todo,
         title: this.info.title || ""
         // ...this.info
@@ -328,6 +328,7 @@ export default {
       }
 
       this.url = url;
+      // 这里导致的会请求两次表单，但不知道为啥要写这个，我也不敢删，放着没啥问题我就不动他了
       if (this.$refs.iframeV2) {
         this.$refs.iframeV2.contentWindow.location.href = url;
       }
@@ -789,7 +790,7 @@ export default {
         wardCode: query.wardCode,
         wardName: query.wardName,
         admissionDate: query.admissionDate,
-        token: this.token,
+        // token: this.token,
         todo: this.info.todo
         // title:this.info.title || ''
       };

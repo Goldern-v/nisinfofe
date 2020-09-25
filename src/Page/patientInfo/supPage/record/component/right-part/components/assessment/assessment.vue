@@ -258,7 +258,7 @@ export default {
         wardCode: query.wardCode,
         wardName: query.wardName,
         admissionDate: query.admissionDate,
-        token: this.token,
+        // token: this.token,
         todo: this.info.todo,
         title: this.info.title || ""
       };
@@ -986,7 +986,7 @@ export default {
         wardCode: query.wardCode,
         wardName: query.wardName,
         admissionDate: query.admissionDate,
-        token: this.token,
+        // token: this.token,
         todo: this.info.todo
         // title:this.info.title || ''
       };
