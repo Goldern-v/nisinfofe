@@ -1,15 +1,19 @@
 // axios 全局配置
 import axios from 'axios'
 import qs from 'qs'
-import { host } from './apiConfig'
+import {
+    host
+} from './apiConfig'
 import Cookies from 'js-cookie'
-import { $params } from '@/pages/sheet-print/tool/tool'
+import {
+    $params
+} from '@/pages/sheet-print/tool/tool'
 // 统一处理token发送
 axios.interceptors.request.use((config) => {
     // 判断如果是登录 则无需验证token
     config.headers.common['App-Token-Nursing'] = $params.appToken || '51e827c9-d80e-40a1-a95a-1edc257596e7'
-    if (config.url.indexOf('login') > -1 || config.url.indexOf('autoLogin') > -1 || config.url.indexOf('logout') > -1) return config
-
+    if (config.url.indexOf('login') > -1 || config.url.indexOf('autoLogin') > -1 || config.url.indexOf('logout') > -1 || config.url.indexOf('resetPassword') > -1) return config
+    console.log(config)
     var token = (window.app && window.app.$getCookie('NURSING_USER').split('##')[1]) || $params.token
     var user = localStorage['user']
     if (token) {
@@ -43,8 +47,7 @@ axios.interceptors.response.use((res) => {
                     confirmButtonText: '确定',
                     type: 'error',
                 });
-            }
-            else {
+            } else {
                 window.app.$message({
                     showClose: true,
                     message: data.desc || '服务器开小差了',
@@ -53,8 +56,8 @@ axios.interceptors.response.use((res) => {
             }
 
         }
-
-        return Promise.reject()
+        console.log('data.errorCode', data)
+        return data.errorCode == 1000 ? Promise.reject(res) : Promise.reject();
     } else if (data.code === '301') {
         window.app && window.app.$message({
             showClose: true,
@@ -63,7 +66,9 @@ axios.interceptors.response.use((res) => {
         })
         window.app && window.app.$store.commit('upRelogin', window.app.$route.fullPath)
         setTimeout(() => {
-            window.app.$router.push({ path: '/login' })
+            window.app.$router.push({
+                path: '/login'
+            })
         }, 100)
         return Promise.reject()
     } else {

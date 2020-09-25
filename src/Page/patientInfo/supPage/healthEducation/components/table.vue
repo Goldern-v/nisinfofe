@@ -48,7 +48,12 @@
           </td>
           <!-- 签名 -->
           <td v-if="HOSPITAL_ID == 'lingcheng'" class="specialTd">
-            <img class="img" :src="`/crNursing/api/file/signImage/${data['lc签名']}?${token}`" alt />
+            <img
+              v-show="data['lc签名']"
+              class="img"
+              :src="`/crNursing/api/file/signImage/${data['lc签名']}?${token}`"
+              alt
+            />
           </td>
           <td v-else>
             <span>{{data['签名']}}</span>

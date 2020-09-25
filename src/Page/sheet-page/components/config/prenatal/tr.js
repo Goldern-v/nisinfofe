@@ -52,7 +52,7 @@ export default [
   {
     key: "bloodPressure", //血压
     value: "",
-    event: function (e, td) {
+    event: function(e, td) {
       if (e.keyCode == 32) {
         e.target.value += "/";
         e.preventDefault();
@@ -203,7 +203,7 @@ export default [
     value: "",
     event: keyf1,
     textarea: {
-      width: 32
+      width: 50
     }
   },
   {
@@ -211,7 +211,7 @@ export default [
     value: "",
     event: keyf1,
     textarea: {
-      width: 32
+      width: 50
     }
   },
   {
@@ -219,7 +219,7 @@ export default [
     value: "",
     event: keyf1,
     textarea: {
-      width: 32
+      width: 50
     }
   },
   {
@@ -227,7 +227,7 @@ export default [
     value: "",
     event: keyf1,
     textarea: {
-      width: 32
+      width: 50
     }
   },
   {
@@ -242,7 +242,7 @@ export default [
       width: "180px",
       background: "transparent"
     },
-    event: function (e, td) {
+    event: function(e, td) {
       console.log(e.keyCode);
       if (e.keyCode == 9) {
         td.value = "    " + td.value;

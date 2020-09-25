@@ -13,7 +13,9 @@
           v-for="(item, index) in computedList"
           :key="index"
         >
-          <span style="width: 60px; text-align: center">A{{deptCode == '041002' ?index+1:index}}：</span>
+          <span style="width: 60px; text-align: center" v-if="deptCode == '042302' && index==2 && HOSPITAL_ID=='hj'">A：</span>
+          <span style="width: 60px; text-align: center" v-else-if="deptCode == '042302' && index==3 && HOSPITAL_ID=='hj'">A2：</span>
+          <span style="width: 60px; text-align: center" v-else>A{{deptCode == '041002' && HOSPITAL_ID=='hj' ? index+1 : index}}：</span>
           <input
             flex-box="1"
             style="width: 0;margin-right: 20px"
