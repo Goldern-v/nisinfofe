@@ -95,7 +95,10 @@ export default {
         name: `
         血压
         `,
-        style: {},
+        style: {
+          minWidth: "60px",
+          maxWidth: "60px"
+        },
         colspan: "1",
         rowspan: "2",
       },
