@@ -12,6 +12,15 @@ export default {
       rowspan: '3'
     },
     {
+      name: '时间',
+      style: {
+        minWidth: '36px',
+        maxWidth: '36px',
+      },
+      colspan: '1',
+      rowspan: '3'
+    },
+    {
       name: '外露/置管长度cm',
       style: {
         minWidth: '150px',

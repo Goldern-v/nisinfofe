@@ -3,9 +3,10 @@ import { multiDictInfo } from "../../../api/index";
 import { keyf1 } from "../keyEvent/f1.js";
 import { event_date, event_time, click_date } from "../keyEvent/date";
 import info from "../sheetInfo";
-let ysList = [];
-let chuList = [];
-let ruList = [];
+
+let 吸痰 = [];
+let 气垫 = [];
+let 雾化吸入 = [];
 export default [
   {
     key: "recordMonth", //日期
@@ -74,19 +75,28 @@ export default [
     key: "fieldSix", // 喂养自吮
     value: "",
     event: keyf1,
-    name: "喂养自吮"
+    autoComplete: {
+      data: 雾化吸入
+    },
+    name: "雾化吸入"
   },
   {
     key: "fieldSeven", //喂养母乳
     value: "",
     event: keyf1,
-    name: "喂养母乳"
+    autoComplete: {
+      data: 吸痰
+    },
+    name: "吸痰"
   },
   {
     key: "fieldEight", // 喂养人工
     value: "",
     event: keyf1,
-    name: "喂养人工"
+    autoComplete: {
+      data: 气垫
+    },
+    name: "气垫"
   },
   {
     key: "fieldNine", // 喂养奶量ml
@@ -241,36 +251,64 @@ export default [
   }
 ];
 
-export function getListData() {
-  listItem("入量名称", info.sheetType).then(res => {
-    ruList.splice(0, ruList.length);
-    for (let item of res.data.data) {
-      ruList.push(item.name);
-    }
+let filterKey = '威县' + ':';
+let filterKey2 = '脑外科重症监护单' + ':';
+let filterKey2Arr = [ "吸痰", "气垫", "雾化吸入"]
+
+export function getListData4() {
+  let list = [
+    "吸痰",
+    "气垫",
+    "雾化吸入"
+  ];
+
+  list = list.map(key => {
+    return filterKey2Arr.includes(key) ? filterKey + filterKey2 + key : filterKey + key;
   });
-  listItem("出量名称", info.sheetType).then(res => {
-    chuList.splice(0, chuList.length);
-    for (let item of res.data.data) {
-      chuList.push(item.name);
-    }
-  });
-  let list = ["意识"];
   multiDictInfo(list).then(res => {
     let data = res.data.data;
-    setList(ysList, "意识", data);
+    setList(吸痰, "吸痰", data);
+    setList(气垫, "气垫", data);
+    setList(雾化吸入, "雾化吸入", data);
   });
 }
 
-getListData();
+getListData4();
 /**
  *
  * @param {*} list 原数组
  * @param {*} key 对应的key
  * @param {*} data 数据源
+ * @param {*} isChildOptions 当前选项是否有下拉子选项
  */
-function setList(list, key, data) {
-  list.splice(0, list.length);
-  for (let item of data[key]) {
-    list.push(item.name);
+function setList(list, key, data, isChildOptions) {
+  key = filterKey2Arr.includes(key) ? filterKey + filterKey2 + key : filterKey + key;
+  if (isChildOptions) {
+    let arr = [], obj = {};
+    let childKeys = ['肺功能锻炼', '静脉管路'];
+    for (let item of data[key]) {
+      let childArr = '';
+      if (childKeys.includes(item.name)) {
+        childArr = data[filterKey + item.name];
+        if (childArr && childArr.constructor == Array) {
+          childArr = childArr.map(child => {
+            return child.name;
+          });
+        }
+      }
+      obj = {
+        key: item.name,
+        children: childArr
+      }
+      arr.push(obj);
+    }
+    list['childOptions'] = true;
+    list['option'] = arr;
+  } else {
+    list.splice(0, list.length);
+    for (let item of data[key]) {
+      list.push(item.name);
+    }
   }
 }
+

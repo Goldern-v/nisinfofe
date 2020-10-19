@@ -19,7 +19,8 @@ let sshUpload = (
     威县人民医院: "weixian",
     德州市陵城区人民医院: "lingcheng",
     花都武警医院: "huaduwujing",
-    广州市花都区人民医院: "huadu"
+    广州市花都区人民医院: "huadu",
+    武警广东总队医院: "wujing"
   };
   let hospitalEN = "dongguanhoujie";
   if (hospitalList[hospitalName]) {
