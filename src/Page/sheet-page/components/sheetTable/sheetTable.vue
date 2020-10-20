@@ -1,8 +1,21 @@
 <template>
   <div>
-    <div class="contant sheet-page-container" :style="data.titleModel.style" :class="{readOnly}">
-      <img src="../../images/仅供查阅.jpg" class="readOnly-img no-print" v-if="readOnly" alt />
-      <component v-bind:is="tableHead" :patientInfo="patientInfo" :index="index"></component>
+    <div
+      class="contant sheet-page-container"
+      :style="data.titleModel.style"
+      :class="{ readOnly }"
+    >
+      <img
+        src="../../images/仅供查阅.jpg"
+        class="readOnly-img no-print"
+        v-if="readOnly"
+        alt
+      />
+      <component
+        v-bind:is="tableHead"
+        :patientInfo="patientInfo"
+        :index="index"
+      ></component>
       <excel
         :patientInfo="patientInfo"
         :data="data"
@@ -121,6 +134,7 @@ import tableHeadPrenata from "./components/table-head/table-head-prenatal";
 import tableHeadWx from "./components/table-head/table-head-wx";
 import tableHeadLc from "./components/table-head/table-head-lc";
 import tableHeadTbhldLc from "./components/table-head/table-head-tbhld-lc";
+import tableHeadWj from "./components/table-head/table-head-wj";
 export default {
   props: {
     data: Object,
@@ -157,6 +171,8 @@ export default {
         return tableHeadWx;
       } else if (this.HOSPITAL_ID == "lingcheng") {
         return tableHeadLc;
+      } else if (this.HOSPITAL_ID == "wujing") {
+        return tableHeadWj;
       } else {
         return tableHead;
       }

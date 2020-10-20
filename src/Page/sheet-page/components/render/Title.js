@@ -410,6 +410,13 @@ export default function Title(
     );
   }
   break;
+  case "common_wj": {
+    // 武警广东总队医院-护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/common_wj/th").default)
+    );
+  }
+  break;
   default: {
     Th = JSON.parse(
       JSON.stringify(require("../config/default/th").default)

@@ -352,6 +352,11 @@ function switechSheetType(type) {
     schema = require("../config/intervention_cure/tr.js").default;
   }
   break;
+  case "common_wj": {
+    // 武警广东总队医院-护理记录单
+    schema = require("../config/common_wj/tr.js").default;
+  }
+  break;
   default: {
     schema = require("../config/default/tr.js").default;
   }

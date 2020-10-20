@@ -12,17 +12,22 @@ let 冲管 = [];
 let 换肝素冒 = [];
 
 export default [{
-  key: "dateStr", //日期
+  key: "recordMonth", //日期
   value: "",
   event: event_date,
   click: click_date
+}, 
+{
+  key: "recordHour", //时间
+  value: "",
+  event: event_time
 }, {
   key: "fieldOne", //外露/置管长度
   value: "",
   event: keyf1,
   name: "外露/置管长度",
   textarea: {
-    width: 50
+    width: 100
   }
 }, {
   key: "fieldTwo", //手臂周长
@@ -30,7 +35,7 @@ export default [{
   event: keyf1,
   name: "手臂周长",
   textarea: {
-    width: 50
+    width: 100
   }
 }, {
   key: "fieldThree", //换敷贴
