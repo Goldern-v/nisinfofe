@@ -228,7 +228,7 @@
         </div>
       </div>
       <div slot="button">
-        <span style="position: absolute; left: 10px; padding-top: 4px">
+        <span style="position: absolute; left: 10px; padding-top: 4px" v-if="HOSPITAL_ID != 'hj'">
           <span>显示诊断</span>
           <el-switch on-text="是" off-text="否" v-model="formData.remarkPrint"></el-switch>
         </span>
