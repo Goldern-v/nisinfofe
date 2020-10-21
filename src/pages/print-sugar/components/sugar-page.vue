@@ -30,126 +30,125 @@
 </template>
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus">
-.blood-sugar-con {
-  .sugr-page {
-    margin: 20px auto;
-    background: #ffffff;
-    width: 700px;
-    padding: 20px;
-    min-height: 1000px;
-    box-shadow: 0 5px 9px 0 rgba(0, 0, 0, 0.5);
-    position: relative;
-  }
+  .blood-sugar-con {
+    .sugr-page {
+      margin: 20px auto;
+      background: #ffffff;
+      width: 700px;
+      padding: 20px;
+      min-height: 1000px;
+      box-shadow: 0 5px 9px 0 rgba(0, 0, 0, 0.5);
+      position: relative;
+    }
 
-  .title {
-    font-size: 18px;
-    text-align: center;
-    font-weight: bold;
-  }
+    .title {
+      font-size: 18px;
+      text-align: center;
+      font-weight: bold;
+    }
 
-  .sup-title {
-    font-size: 21px;
-    padding: 10px 0 0px;
-    text-align: center;
-    font-weight: bold;
-  }
+    .sup-title {
+      font-size: 21px;
+      padding: 10px 0 0px;
+      text-align: center;
+      font-weight: bold;
+    }
 
-  .info {
-    margin-top: 30px;
-    margin-bottom: 5px;
+    .info {
+      margin-top: 30px;
+      margin-bottom: 5px;
 
-    span {
-      margin-right: 4px;
+      span {
+        margin-right: 4px;
+        font-size: 13px;
+        color: #000;
+      }
+    }
+
+    .his-logo {
+      position: absolute;
+      left: 21px;
+      top: 21px;
+      height: 44px;
+    }
+
+    .page-con {
       font-size: 13px;
-      color: #000;
+      text-align: center;
+      bottom: 20px;
+      position: absolute;
+      // width 100%
+      left: 0;
+      right: 0;
     }
   }
-
-  .his-logo {
-    position: absolute;
-    left: 21px;
-    top: 21px;
-    height: 44px;
-  }
-
-  .page-con {
-    font-size: 13px;
-    text-align: center;
-    bottom: 20px;
-    position: absolute;
-    // width 100%
-    left: 0;
-    right: 0;
-  }
-}
 </style>
 
 
-
-
 <script>
-import sugarTable from "@/Page/patientInfo/supPage/blood-sugar/components/sugar-table.vue";
-import { getSugarListWithPatientId, getPvHomePage } from "../api/api.js";
+  import sugarTable from "@/Page/patientInfo/supPage/blood-sugar/components/sugar-table.vue";
+  import {getSugarListWithPatientId, getPvHomePage} from "../api/api.js";
 
-import $ from "jquery";
-import moment from "moment";
-import { $params } from "@/pages/sheet-print/tool/tool";
-console.log($params, "$params");
-export default {
-  data() {
-    return {
-      listMap: [],
-      hisPatSugarList: [],
-      startPage: 1,
-      patientInfo: {},
-      query: $params
-    };
-  },
-  computed: {
-    containHeight() {
-      return this.wih - 130 + "px";
-    }
-  },
-  methods: {
-    async load() {
-      try {
-        const res = await getSugarListWithPatientId(
-          this.query.patientId,
-          this.query.visitId
-        );
+  import $ from "jquery";
+  import moment from "moment";
+  import {$params} from "@/pages/sheet-print/tool/tool";
 
-        console.log(res, "res");
-        this.hisPatSugarList = res.data.data.hisPatSugarList;
-        let list = res.data.data.hisPatSugarList;
-        let listMap = [];
-
-        for (let i = 0; i < list.length; i += 54) {
-          let obj = {};
-          obj.left = list.slice(i, i + 27);
-          obj.right = list.slice(i + 27, i + 54);
-          listMap.push(obj);
-        }
-        this.listMap = listMap;
-        this.patientInfo = res.data.data;
-        getPvHomePage(this.query.patientId, this.query.visitId).then(res => {
-          if (res.data.data) {
-            this.startPage = res.data.data.indexNo;
-          } else {
-            this.startPage = 1;
-          }
-        });
-      } catch (e) {
-        console.log(e, "eee");
+  console.log($params, "$params");
+  export default {
+    data() {
+      return {
+        listMap: [],
+        hisPatSugarList: [],
+        startPage: 1,
+        patientInfo: {},
+        query: $params
+      };
+    },
+    computed: {
+      containHeight() {
+        return this.wih - 130 + "px";
       }
+    },
+    methods: {
+      async load() {
+        try {
+          const res = await getSugarListWithPatientId(
+            this.query.patientId,
+            this.query.visitId
+          );
+
+          console.log(res, "res");
+          this.hisPatSugarList = res.data.data.hisPatSugarList;
+          let list = res.data.data.hisPatSugarList;
+          let listMap = [];
+
+          for (let i = 0; i < list.length; i += 54) {
+            let obj = {};
+            obj.left = list.slice(i, i + 27);
+            obj.right = list.slice(i + 27, i + 54);
+            listMap.push(obj);
+          }
+          this.listMap = listMap;
+          this.patientInfo = res.data.data;
+          getPvHomePage(this.query.patientId, this.query.visitId).then(res => {
+            if (res.data.data) {
+              this.startPage = res.data.data.indexNo;
+            } else {
+              this.startPage = 1;
+            }
+          });
+        } catch (e) {
+          console.log(e, "eee");
+        }
+      }
+    },
+    created() {
+      if (this.query.patientId) {
+        this.load();
+      }
+    },
+    components: {
+      sugarTable
     }
-  },
-  created() {
-    if (this.query.patientId) {
-      this.load();
-    }
-  },
-  components: {
-    sugarTable
-  }
-};
+  };
 </script>

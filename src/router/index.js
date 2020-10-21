@@ -45,8 +45,11 @@ const inpatientReportDetail = () =>
 const shiftWork = () => import("@/Page/shift-work/shift-work.vue");
 const shiftWorkDetail = () => import("@/Page/shift-work/shift-work-detail.vue");
 const shiftWorkLc = () => import("@/Page/shift-work-lc/shift-work.vue");
-const shiftWorkDetailLc = () =>
-  import("@/Page/shift-work-lc/shift-work-detail.vue");
+const shiftWorkDetailLc = () => import("@/Page/shift-work-lc/shift-work-detail.vue");
+
+const singleRounds = () => import("@/Page/single-rounds/single-rounds.vue");
+const singleRoundsDetail = () => import("@/Page/single-rounds/single-rounds-detail.vue");
+
 const badEvent = () => import("@/Page/badEvent/badEvent.vue");
 const badEventViewPage = () => import("@/Page/badEvent/badEventViewPage.vue");
 const badEventEditPage = () => import("@/Page/badEvent/badEventEditPage.vue");
@@ -127,6 +130,7 @@ import sheet from "@/Page/patientInfo/supPage/sheet/sheet.vue";
 import catheter from "@/Page/patientInfo/supPage/catheter/catheter.vue";
 import healthEducation from "@/Page/patientInfo/supPage/healthEducation/healthEducation.vue"; // 厚街
 import hospitalEval from "@/Page/patientInfo/supPage/hospital-eval/hospital-eval";
+
 Vue.use(Router);
 const router = new Router({
   mode: "history",
@@ -307,6 +311,19 @@ const router = new Router({
                 process.env.HOSPITAL_ID == "lingcheng"
                   ? shiftWorkDetailLc
                   : shiftWorkDetail
+            }
+          ]
+        },
+        {
+          path: "/singleRound",
+          name: "singleRounds",
+          component: singleRounds,
+          children: [
+            {
+              name: "singleRound",
+              path: "/singleRound/:code?/:id?",
+              component: singleRoundsDetail
+
             }
           ]
         },

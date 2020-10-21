@@ -8,6 +8,8 @@
     "dev": "node build/dev-server.js",
     "dev:": "npm run dev",
     "dev:wuhang": "npm run dev --wuhang",
+    "dev:huadu": "npm run dev --huadu",
+    "dev:wujing": "npm run dev --wujing",
     "dev:guiyi": "npm run dev --guiyi",
     "dev:weixian": "npm run dev --weixian",
     "dev:lingcheng": "npm run dev --lingcheng",
