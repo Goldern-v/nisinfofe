@@ -147,6 +147,13 @@ export default function Title(
     );
   }
   break;
+  case "chinese_medicine": {
+    // 中医科
+    Th = JSON.parse(
+      JSON.stringify(require("../config/default/th").default)
+    );
+  }
+  break;
   case "reha_medicin": {
     // 康复医学科
     Th = JSON.parse(

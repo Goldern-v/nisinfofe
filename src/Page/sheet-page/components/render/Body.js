@@ -161,6 +161,11 @@ function switechSheetType(type) {
     schema = require("../config/default/tr.js").default;
   }
   break;
+  case "chinese_medicine": {
+    // 中医科
+    schema = require("../config/default/tr.js").default;
+  }
+  break;
   case "reha_medicin": {
     // 康复医学科
     schema = require("../config/default/tr.js").default;
