@@ -472,7 +472,7 @@ export let 告知 = [
       },
       { html: "<br>" },
       {
-        label: "婴儿取平卧位、头偏一侧、抬高床位、沐浴前1小时不宜进食。",
+        label: "婴儿取平卧位、头偏一侧、抬高床头、沐浴前1小时不宜进食。",
         name: "告知",
         type: "checkbox",
         multiplechoice: true,
