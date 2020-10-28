@@ -14,7 +14,7 @@
           v-loading="patientListLoading"
         ></patientList>-->
 
-        <patientList toName="sheetPage" :callFunction="isSelectPatient" />
+        <patientList :toName="HOSPITAL_ID=='huadu' && $route.path.includes('singleTemperatureChart') ? 'singleTemperatureChart' : 'sheetPage'" :callFunction="isSelectPatient" />
       </div>
       <div
         class="right-part"
