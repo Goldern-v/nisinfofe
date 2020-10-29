@@ -190,7 +190,7 @@
                 v-model="formData.dutyNurses"
               />
             </div>
-            <div
+            <!-- <div
               flex="cross:top"
               class="input-item"
               style="height: 58px;margin-top: 4px"
@@ -208,7 +208,7 @@
                 :value="formData.remark"
                 :maxlength="35"
               ></textarea>
-            </div>
+            </div> -->
           </div>
           <div style="width: 131px">
             <div class="tip">温馨提示</div>
