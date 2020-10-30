@@ -1518,7 +1518,6 @@ export default {
 .print-table {
   position: absolute;
   z-index: -1;
-  background: red;
   width: 1040px;
 }
 </style>
