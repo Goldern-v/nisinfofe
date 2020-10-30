@@ -38,10 +38,10 @@ export default {
   },
   computed: {
     shiftWorkDetail() {
-      if (this.deptCode != "0256H") {
-        return shiftWorkContent;
-      } else {
+      if (this.deptCode == "0256H" || this.deptCode == "0257H") {
         return shiftWorkContentICU;
+      } else {
+        return shiftWorkContent;
       }
     },
   },
