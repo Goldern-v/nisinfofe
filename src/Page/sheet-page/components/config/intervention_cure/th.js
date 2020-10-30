@@ -25,14 +25,12 @@ export default {
       },
       {
         name: `生命体征项目`,
-        style: {},
         colspan: '10',
         rowspan: '1',
         style: {}
       },
       {
         name: ``,
-        style: {},
         colspan: '10',
         rowspan: '1',
         style: {}
@@ -64,7 +62,6 @@ export default {
         name: `
         T<br/>(℃)
         `,
-        style: {},
         colspan: '1',
         rowspan: '3',
         style: {
@@ -76,7 +73,6 @@ export default {
         name: `
         P/HR<br/>(次/min)
         `,
-        style: {},
         colspan: '1',
         rowspan: '3',
         style: {
@@ -88,7 +84,6 @@ export default {
         name: `
         R<br/>(次/min)
         `,
-        style: {},
         colspan: '1',
         rowspan: '3',
         style: {
