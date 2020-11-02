@@ -19,6 +19,18 @@ export default [
     event: event_time
   },
   {
+    key: "fieldTen", //呼吸
+    value: "",
+    name: "呼吸",
+    event: keyf1,
+    autoComplete: {
+      data: ["平顺", "稍促"]
+    },
+    textarea: {
+      width: 44
+    }
+  },
+  {
     key: "fieldOne", //面色
     value: "",
     name: "面色",

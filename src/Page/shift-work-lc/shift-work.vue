@@ -117,7 +117,7 @@ export default {
       const code = this.$route.params.code;
       if (code) {
         const res2 =
-          this.deptCode == "0256H"
+          this.deptCode == "0256H" || this.deptCode == "0257H"
             ? await apis.getMulShiftRecordICU(code, startDate, endDate)
             : await apis.listShiftRecord(code, startDate, endDate);
         this.records = res2.data.data;
@@ -153,7 +153,7 @@ export default {
       let res;
       try {
         res =
-          this.deptCode == "0256H"
+          this.deptCode == "0256H" || this.deptCode == "0257H"
             ? await apis.createShiftRecordICU(code, d, copy)
             : await apis.createShiftRecord(code, d, copy);
       } catch (error) {
