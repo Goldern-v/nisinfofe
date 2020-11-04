@@ -35,6 +35,7 @@
         v-if="HOSPITAL_ID == 'weixian'"
         :tableLoading="tableLoading"
       ></adviceTableWx>
+      <adviceTableHd :tableData="tableDataSelect" :tableLoading="tableLoading" v-else-if="HOSPITAL_ID == 'huadu'"></adviceTableHd>
       <adviceTable :tableData="tableDataSelect" :tableLoading="tableLoading" v-else></adviceTable>
     </div>
   </div>
@@ -138,6 +139,7 @@
 <script>
 import adviceTable from "./component/adviceTable";
 import adviceTableWx from "./component/adviceTable_wx";
+import adviceTableHd from "./component/adviceTable_hd";
 import { orders } from "@/api/patientInfo";
 import { syncGetPatientOrders } from "./api/index";
 export default {
@@ -204,7 +206,8 @@ export default {
   },
   components: {
     adviceTable,
-    adviceTableWx
+    adviceTableWx,
+    adviceTableHd
   }
 };
 </script>

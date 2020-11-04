@@ -2,7 +2,7 @@ export default {
   // 科室的名称
   deptType: "",
   style: {
-    width: "720px"
+    width: "770px"
   },
   th: {
     top: [
@@ -22,6 +22,14 @@ export default {
           minWidth: "36px",
           maxWidth: "36px"
         },
+        colspan: "1",
+        rowspan: "1"
+      },
+      {
+        name: `
+        呼吸
+        `,
+        style: {},
         colspan: "1",
         rowspan: "1"
       },

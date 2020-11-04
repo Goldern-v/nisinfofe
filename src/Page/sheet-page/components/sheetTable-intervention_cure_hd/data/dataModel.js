@@ -184,6 +184,7 @@ let tableModel = {
 								type: "radio",
 								prev: "左侧：",
 								name: "left",
+								elementClass: 'mr10',
 								children: [{
 										type: "radio",
 										value: "有",
@@ -434,7 +435,16 @@ let tableModel = {
 							},
 							{
 								type: "input",
-								prev: "术中输血总量：红细胞：",
+								prev: "术中出血总量：",
+								next: "ml",
+								value: "",
+								name: "szcxzl",
+								style: "width:30px;text-align:center;",
+								elementClass: 'mr10',
+							},
+							{
+								type: "input",
+								prev: "红细胞：",
 								next: "u",
 								value: "",
 								name: "szsxzlhxb",

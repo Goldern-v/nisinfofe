@@ -39,6 +39,7 @@
 import topPart from "@/Page/patientInfo/supComponts/topPart"; // 东莞市厚街医院
 import topPartWeiXian from "@/Page/patientInfo/supComponts/topPart_WeiXian"; // 威县人民医院
 import topPartLingCheng from "@/Page/patientInfo/supComponts/topPart_LingCheng"; // 德州市陵城区人民医院
+import topPartHuaDu from "@/Page/patientInfo/supComponts/topPart_HuaDu"; // 广州市花都区人民医院
 import leftPart from "@/Page/patientInfo/supComponts/leftPart";
 import { getPatientInfo } from "@/api/common.js";
 export default {
@@ -91,7 +92,8 @@ export default {
       let hisList = {
         德州市陵城区人民医院: "topPartLingCheng",
         威县人民医院: "topPartWeiXian",
-        东莞市厚街医院: "topPart"
+        东莞市厚街医院: "topPart",
+        广州市花都区人民医院: "topPartHuaDu",
       };
       return hisList[HisName] || "topPart";
     }
@@ -119,6 +121,7 @@ export default {
     topPart,
     topPartWeiXian,
     topPartLingCheng,
+    topPartHuaDu,
     leftPart
   }
 };

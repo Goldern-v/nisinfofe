@@ -285,11 +285,14 @@ export default {
         wardCode: query.wardCode,
         wardName: query.wardName,
         admissionDate: query.admissionDate,
-        // token: this.token,
+        token: this.token,
         todo: this.info.todo,
         title: this.info.title || ""
         // ...this.info
       };
+      if( this.HOSPITAL_NAME === '东莞市厚街医院'){
+        delete queryObj.token
+      }
 
       this.info["pagePrintUrl"] = this.info.pageUrl
         ? this.info.pageUrl.replace(".html", "-打印.html")

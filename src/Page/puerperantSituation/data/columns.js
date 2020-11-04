@@ -438,7 +438,7 @@ export const columns = (vm) => {
           title: '死胎',
           key: 'deadBirth',
           width: 100,
-          render: (h, record) => vm.defaultEditRender(h, record)
+          render: (h, record) => vm.defaultSelectRender(h, record, vm.otherOptions)
         },
         {
           title: '死产',

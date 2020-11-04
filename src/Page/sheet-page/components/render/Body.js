@@ -161,6 +161,11 @@ function switechSheetType(type) {
     schema = require("../config/default/tr.js").default;
   }
   break;
+  case "chinese_medicine": {
+    // 中医科
+    schema = require("../config/default/tr.js").default;
+  }
+  break;
   case "reha_medicin": {
     // 康复医学科
     schema = require("../config/default/tr.js").default;
@@ -350,6 +355,11 @@ function switechSheetType(type) {
   case "intervention_cure": {
     // 厚街-介入治疗术护理记录单
     schema = require("../config/intervention_cure/tr.js").default;
+  }
+  break;
+  case "common_wj": {
+    // 武警广东总队医院-护理记录单
+    schema = require("../config/common_wj/tr.js").default;
   }
   break;
   default: {

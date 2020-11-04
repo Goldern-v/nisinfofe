@@ -1,5 +1,5 @@
 <template>
-  <div class="nursing-rules">
+  <div class="workload-satistics">
     <div class="search-topbar">
       <div class="float-left">
         <span class="filterItem date">
@@ -31,6 +31,7 @@
           v-model="query.empNo"
         ></el-input>
         <el-button @click="handleSearch">搜索</el-button>
+        <el-button @click="onPrint" :disabled="pageLoadng">打印</el-button>
       </div>
     </div>
     <div class="main-contain">
@@ -60,6 +61,41 @@
           <el-table-column prop="missionSum" label="宣教" min-width="120" align="center"></el-table-column>
         </el-table>
       </div>
+      <div class="printable"  ref="printable">
+        <div class="header-con">
+          <h2>工作量统计表</h2>
+           <div class="filterItem date">
+            <span class="type-label">日期:</span>
+            <span>{{query.operateStartDate}} ~ {{query.operateEndDate}}</span>
+          </div>
+        </div>
+        <div class="table-contain">
+          <el-table
+            :data="data"
+            border
+            v-loading="pageLoadng"
+            stripe
+            show-summary
+            :summary-method="getSummaries"
+          >
+            <el-table-column prop="index" label="序号" width="80" align="center">
+              <template slot-scope="scope">
+                <span>{{scope.$index+1}}</span>
+              </template>
+            </el-table-column>
+            <el-table-column prop="empNo" label="工号" width="80" align="center"></el-table-column>
+            <el-table-column prop="empName" label="护士姓名" min-width="80" align="center"></el-table-column>
+            <el-table-column prop="sySum" label="输液" min-width="60" align="center"></el-table-column>
+            <el-table-column prop="zsSum" label="注射" min-width="60" align="center"></el-table-column>
+            <el-table-column prop="kfSum" label="口服" min-width="60" align="center"></el-table-column>
+            <el-table-column prop="zlSum" label="治疗" min-width="60" align="center"></el-table-column>
+            <el-table-column prop="bbSum" label="标本" min-width="60" align="center"></el-table-column>
+            <el-table-column prop="visitSum" label="巡视" min-width="60" align="center"></el-table-column>
+            <el-table-column prop="missionSum" label="宣教" min-width="60" align="center"></el-table-column>
+          </el-table>
+        </div>
+      </div>
+
       <!-- <pagination
         :pageIndex="query.pageIndex"
         :size="query.pageSize"
@@ -68,7 +104,7 @@
         @currentChange="handleCurrentChange"
       ></pagination>-->
     </div>
-    <!-- <sweet-modal ref="preview-modal" class="nursing-rules-preview-modal" :title="preview.title">
+    <!-- <sweet-modal ref="preview-modal" class="workload-satistics-preview-modal" :title="preview.title">
       <div class="modal-content">
         <div>
           <span>检查日期：</span>
@@ -108,6 +144,8 @@ import commonMixin from "./../../common/mixin/common.mixin";
 // import pagination from "./components/pagination.vue";
 import { getList, getTypeByDeptCode } from "./api/api";
 import dayjs from "dayjs";
+import print from "printing";
+import formatter from "./print-formatter";
 export default {
   // components: {
   //   pagination
@@ -269,12 +307,36 @@ export default {
       this.query.operateEndDate = dayjs(this.query.operateEndDate).format(
         "YYYY-MM-DD"
       );
-    }
+    },
+   async onPrint() {
+      this.pageLoadng = true;
+      this.$nextTick(async () => {
+        await print(this.$refs.printable, {
+          beforePrint: formatter,
+          direction: "vertical",
+          injectGlobalCss: true,
+          scanStyles: false,
+          css: `
+        .fixedTh {
+          display: none !important;
+          height: auto;
+        }
+        pre {
+          white-space: pre-wrap;
+        }
+        table {
+          width: 100% !important;
+        }
+        `,
+        });
+      });
+      this.pageLoadng = false;
+    },
   }
 };
 </script>
 <style lang="scss">
-.nursing-rules {
+.workload-satistics {
   .search-topbar {
     .float-right {
       float: right;
@@ -319,7 +381,7 @@ export default {
     }
   }
 }
-.nursing-rules-preview-modal {
+.workload-satistics-preview-modal {
   .sweet-modal {
     width: 500px !important;
   }
@@ -340,10 +402,82 @@ export default {
   }
 }
 </style>
+<style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
+@media print {
+  .printable {
+    >>>.page-box {
+      padding-top: 80px !important;
+      box-sizing: border-box;
+      .header-con {
+        h2 {
+          font-size: 24px;
+          text-align: center;
+          padding-bottom: 20px;
+        }
+        padding-bottom: 20px;
+      }
+      .el-table th {
+      height: 30px;
 
+      .cell {
+        font-size: 12px;
+        font-weight: 400;
+        color: #000;
+        background: #fff;
+      }
+    }
+
+    .el-table {
+      border: none !important;
+
+      &::before, &::after {
+        height: 0;
+      }
+
+      table {
+        width: 100% !important;
+      }
+
+      th {
+        border: 1px solid #000 !important;
+      }
+
+      td {
+        height: 34px;
+        border-right: 1px solid #000 !important;
+        border-bottom: 1px solid #000 !important;
+        border-left: 1px solid #000 !important;
+      }
+
+      .el-input__inner {
+        height: 24px;
+        border-color: #000;
+      }
+
+      .cell {
+        padding: 0 5px;
+      }
+
+      .el-table__header-wrapper, .el-table__body-wrapper,.el-table__footer-wrapper {
+        // margin-top: -1px;
+        margin-left: 0;
+      }
+
+      .el-table__body-wrapper {
+        height: auto !important;
+      }
+    }
+    }
+  }
+}
+
+@page {
+  margin: 0 10mm;
+}
+</style>
 
 <style lang="scss" scoped>
-.nursing-rules {
+.workload-satistics {
   position: absolute;
   width: 100%;
   top: 60px;
@@ -410,5 +544,24 @@ export default {
       text-align: left;
     }
   }
+  .printable {
+    position: absolute;
+    left: 0;
+    top: 1000px;
+    z-index: -1;
+    width: 850px;
+    .header-con {
+      h2 {
+        font-size: 24px;
+        text-align: center;
+        padding-bottom: 20px;
+      }
+      padding-bottom: 20px;
+    }
+    .table-contain {
+      position: static !important;
+    }
+  }
 }
+
 </style>

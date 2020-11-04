@@ -190,7 +190,7 @@
                 v-model="formData.dutyNurses"
               />
             </div>
-            <div
+            <!-- <div
               flex="cross:top"
               class="input-item"
               style="height: 58px;margin-top: 4px"
@@ -208,7 +208,7 @@
                 :value="formData.remark"
                 :maxlength="35"
               ></textarea>
-            </div>
+            </div> -->
           </div>
           <div style="width: 131px">
             <div class="tip">温馨提示</div>
@@ -228,7 +228,7 @@
         </div>
       </div>
       <div slot="button">
-        <span style="position: absolute; left: 10px; padding-top: 4px">
+        <span style="position: absolute; left: 10px; padding-top: 4px" v-if="HOSPITAL_ID != 'hj'">
           <span>显示诊断</span>
           <el-switch on-text="是" off-text="否" v-model="formData.remarkPrint"></el-switch>
         </span>
