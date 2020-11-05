@@ -9,7 +9,11 @@
       <div class="null-tool" v-show="showTpye == ''"></div>
       <!-- 护理记录单 -->
       <div v-if="showConToolBar" class="tool-bar">
-        <toolBar v-if="!hasMeasure" v-show="showTpye" :config="toolBarConfig"></toolBar>
+        <toolBar
+          v-if="!hasMeasure"
+          v-show="showTpye"
+          :config="toolBarConfig"
+        ></toolBar>
         <toolCon v-else v-show="showTpye"></toolCon>
       </div>
       <!-- 护理评估表 -->
@@ -22,7 +26,10 @@
         <!-- <component :is="componentSwitch" v-show="showTpye"></component> -->
         <!-- <div v-show="showTpye"> -->
         <assessment v-show="showConToolBar && showTpye" ref="assessment" />
-        <assessment_v2 v-show="!showConToolBar && showTpye" ref="assessmentV2" />
+        <assessment_v2
+          v-show="!showConToolBar && showTpye"
+          ref="assessmentV2"
+        />
         <!-- </div> -->
         <div
           v-show="showTpye == ''"
@@ -35,7 +42,9 @@
         </div>
         <div>
           <!-- 患者资料 -->
-          <patientInfo v-if="this.$route.query.patientId && HOSPITAL_ID == 'lingcheng'"></patientInfo>
+          <patientInfo
+            v-if="this.$route.query.patientId && HOSPITAL_ID == 'lingcheng'"
+          ></patientInfo>
         </div>
       </div>
       <!-- 关联表单弹窗 -->
@@ -206,11 +215,11 @@ export default {
       }
       this.formVersion = 0;
       let newFormList = ["form_in_patients", "inPatients"];
-
       if (
         data.nooForm == "2" ||
         (data.hasOwnProperty("formVersion") && data.formVersion == 2) ||
-        newFormList.indexOf(data.fromCode) > -1
+        newFormList.includes(data.formCode) ||
+        newFormList.includes(data.fromCode)
       ) {
         this.formVersion = data.formVersion;
         this.showConToolBar = false;
