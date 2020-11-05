@@ -46,6 +46,8 @@ const shiftWork = () => import("@/Page/shift-work/shift-work.vue");
 const shiftWorkDetail = () => import("@/Page/shift-work/shift-work-detail.vue");
 const shiftWorkLc = () => import("@/Page/shift-work-lc/shift-work.vue");
 const shiftWorkDetailLc = () => import("@/Page/shift-work-lc/shift-work-detail.vue");
+const shiftWorkHd = () => import("@/Page/shift-work-hd/shift-work.vue");
+const shiftWorkDetailHd = () => import("@/Page/shift-work-hd/shift-work-detail.vue");
 
 const singleRounds = () => import("@/Page/single-rounds/single-rounds.vue");
 const singleRoundsDetail = () => import("@/Page/single-rounds/single-rounds-detail.vue");
@@ -302,7 +304,7 @@ const router = new Router({
           path: "/shiftWork",
           name: "shiftWorks",
           component:
-            process.env.HOSPITAL_ID == "lingcheng" ? shiftWorkLc : shiftWork,
+          process.env.HOSPITAL_ID == "lingcheng" ? shiftWorkLc : process.env.HOSPITAL_ID == "huadu" ? shiftWorkHd : shiftWork,
           children: [
             {
               name: "shiftWork",
@@ -310,7 +312,7 @@ const router = new Router({
               component:
                 process.env.HOSPITAL_ID == "lingcheng"
                   ? shiftWorkDetailLc
-                  : shiftWorkDetail
+                  :  process.env.HOSPITAL_ID == "huadu" ? shiftWorkDetailHd : shiftWorkDetail
             }
           ]
         },
