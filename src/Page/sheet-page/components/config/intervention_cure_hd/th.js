@@ -16,7 +16,8 @@ export default {
       }, {
         name: '时间',
         style: {
-          maxWidth: '36px'
+          minWidth: '36px',
+          maxWidth: '36px',
         },
         colspan: '1',
         rowspan: '3'

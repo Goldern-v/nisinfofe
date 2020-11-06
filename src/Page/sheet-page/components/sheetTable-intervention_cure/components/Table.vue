@@ -1,22 +1,22 @@
 <template>
   <div>
-    <div class="table" v-for="(tbody,index) in table" :key="index">
+    <div class="table" v-for="(tbody, index) in table" :key="index">
       <table border="1px solid #ccc" cellspacing="0">
         <colgroup>
-          <col v-for="(col,idx) in cols" :key="idx" :width="col" />
+          <col v-for="(col, idx) in cols" :key="idx" :width="col" />
         </colgroup>
         <tbody>
-          <tr v-for="(tr,trIndex) in tbody" :key="trIndex">
+          <tr v-for="(tr, trIndex) in tbody" :key="trIndex">
             <td
               :class="td.class"
               :rowspan="td.rowspan"
               :colspan="td.colspan"
               :key="tdIdx"
               :style="td.style"
-              v-for="(td,tdIdx) in tr"
+              v-for="(td, tdIdx) in tr"
             >
               <RenderItem
-                v-for="(item,itemIdx) in td.children"
+                v-for="(item, itemIdx) in td.children"
                 :key="itemIdx"
                 :item="item"
                 :model.sync="model"
@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import RenderItem from "./RenderItem";
+import RenderItem from "../../sheetTable/components/table-components/RenderItem";
 import tableModel from "../data/dataModel";
 import sheetInfo from "../../config/sheetInfo";
 export default {

@@ -2,23 +2,37 @@
   <div class="sheet-excel-container">
     <table
       class="sheet-table table-fixed-th no-print"
-      :style="{width: fiexHeaderWidth}"
-      :class="{isFixed, isInPatientDetails}"
+      :style="{ width: fiexHeaderWidth }"
+      :class="{ isFixed, isInPatientDetails }"
       v-if="hasFiexHeader"
     >
       <tr class="body-con">
-        <td v-for="(td, i) in data.bodyModel[0]" :key="i" v-if="!td.hidden" :dataKey="td.key">
+        <td
+          v-for="(td, i) in data.bodyModel[0]"
+          :key="i"
+          v-if="!td.hidden"
+          :dataKey="td.key"
+        >
           <div v-if="td.key == 'sign'" class="sign-text"></div>
           <div v-else-if="td.key == 'audit'" class="sign-text"></div>
           <div v-else-if="td.key == 'signerNo'" class="sign-img"></div>
           <textarea
             v-else-if="td.textarea"
-            :style="Object.assign({}, td.style, {minWidth: td.textarea.width + 'px', maxWidth: td.textarea.width + 'px'})"
+            :style="
+              Object.assign({}, td.style, {
+                minWidth: td.textarea.width + 'px',
+                maxWidth: td.textarea.width + 'px'
+              })
+            "
           ></textarea>
           <input type="text" :style="[td.style]" v-else />
         </td>
       </tr>
-      <tr class="head-con" v-for="(th, index) in data.titleModel.th" :key="index">
+      <tr
+        class="head-con"
+        v-for="(th, index) in data.titleModel.th"
+        :key="index"
+      >
         <th
           v-for="(item, i) in th"
           :key="i"
@@ -26,15 +40,20 @@
           :colspan="item.colspan"
           :rowspan="item.rowspan"
           :style="item.style"
-          :class="{canSet: item.canSet}"
+          :class="{ canSet: item.canSet }"
           @click="item.canSet && setTitle(item)"
         >
           <span v-html="item.name"></span>
         </th>
       </tr>
     </table>
+
     <table class="sheet-table" ref="table">
-      <tr class="head-con" v-for="(th, index) in data.titleModel.th" :key="index">
+      <tr
+        class="head-con"
+        v-for="(th, index) in data.titleModel.th"
+        :key="index"
+      >
         <th
           v-for="(item, i) in th"
           :key="i"
@@ -42,7 +61,7 @@
           :colspan="item.colspan"
           :rowspan="item.rowspan"
           :style="item.style"
-          :class="{canSet: item.canSet}"
+          :class="{ canSet: item.canSet }"
           @click="item.canSet && setTitle(item)"
         >
           <span v-html="item.name"></span>
@@ -52,12 +71,30 @@
         class="body-con"
         @dblclick="openEditModal(tr, data, $event)"
         v-for="(tr, y) in data.bodyModel"
-        :class="[{'noSignRow':tr.find((item) => item.key == 'status').value === '0','multiSign': tr.find((item) => item.key == 'multiSign').value, selectedTr:sheetInfo.selectRow.includes(tr),redText: tr.find((item) => {return item.key == 'recordSource'}).value == '5'}, tr.find((item) => {return item.key == 'markObj'}).value && `mark-mark-mark mark-cell-status-${tr.find((item) => {return item.key == 'markObj'}).value.status}`]"
+        :class="[
+          {
+            noSignRow: tr.find(item => item.key == 'status').value === '0',
+            multiSign: tr.find(item => item.key == 'multiSign').value,
+            selectedTr: sheetInfo.selectRow.includes(tr),
+            redText:
+              tr.find(item => {
+                return item.key == 'recordSource';
+              }).value == '5'
+          },
+          tr.find(item => {
+            return item.key == 'markObj';
+          }).value &&
+            `mark-mark-mark mark-cell-status-${
+              tr.find(item => {
+                return item.key == 'markObj';
+              }).value.status
+            }`
+        ]"
         :key="y"
         @click="selectRow(tr, $event)"
         @mouseover="markTip($event, tr)"
         @mouseout="closeMarkTip"
-        :recordId="tr.find((item) => item.key == 'id').value"
+        :recordId="tr.find(item => item.key == 'id').value"
       >
         <td
           v-for="(td, x) in tr"
@@ -67,7 +104,9 @@
           v-if="!td.hidden"
           @mouseover="markTip($event, td)"
           @mouseout="closeMarkTip"
-          :class="[td.markObj && `mark-mark-mark mark-cell-status-${td.markObj.status}`]"
+          :class="[
+            td.markObj && `mark-mark-mark mark-cell-status-${td.markObj.status}`
+          ]"
           @contextmenu.stop="openContextMenu($event, y, tr, td)"
           @click="selectedItem(td)"
         >
@@ -75,10 +114,13 @@
           <input
             type="text"
             :readonly="true"
-            :value="tr.find((item) => item.key == 'yearBreak').value"
-            :data-value="tr.find((item) => item.key == 'yearBreak').value"
-            :style="[td.style, {height: '12px'}]"
-            v-if="td.key === 'recordMonth' && tr.find((item) => item.key == 'yearBreak').value"
+            :value="tr.find(item => item.key == 'yearBreak').value"
+            :data-value="tr.find(item => item.key == 'yearBreak').value"
+            :style="[td.style, { height: '12px' }]"
+            v-if="
+              td.key === 'recordMonth' &&
+                tr.find(item => item.key == 'yearBreak').value
+            "
           />
           <div
             v-if="td.key == 'sign'"
@@ -94,13 +136,17 @@
           ></div>
           <div v-else-if="td.key == 'signerNo'" class="sign-img">
             <img
-              v-if="tr.find((item) => item.key == 'auditorNo').value"
-              :src="`/crNursing/api/file/signImage/${tr.find((item) => item.key == 'auditorNo').value}?${token}`"
+              v-if="tr.find(item => item.key == 'auditorNo').value"
+              :src="
+                `/crNursing/api/file/signImage/${
+                  tr.find(item => item.key == 'auditorNo').value
+                }?${token}`
+              "
               alt
             />
-            <span v-if="tr.find((item) => item.key == 'auditorNo').value">/</span>
+            <span v-if="tr.find(item => item.key == 'auditorNo').value">/</span>
             <img
-              :style="!td.value && {opacity: 0}"
+              :style="!td.value && { opacity: 0 }"
               :src="`/crNursing/api/file/signImage/${td.value}?${token}`"
               alt
             />
@@ -110,15 +156,33 @@
           </div>-->
           <textarea
             v-else-if="td.textarea"
-            :class="{towLine: isOverText(td)}"
+            :class="{ towLine: isOverText(td) }"
             :readonly="isRead(tr)"
             v-model="td.value"
             :data-value="td.value"
             :position="`${x},${y},${index}`"
-            :style="Object.assign({}, td.style, {minWidth: td.textarea.width + 'px', maxWidth: td.textarea.width + 'px'})"
-            @keydown="td.event($event, td); onKeyDown($event, {x, y, z:index, td})"
-            @focus="td.autoComplete && onFocus($event, {autoComplete: td.autoComplete,x, y, z: index, td, tr})"
-            @blur="onBlur($event, {x,y,z:index})"
+            :style="
+              Object.assign({}, td.style, {
+                minWidth: td.textarea.width + 'px',
+                maxWidth: td.textarea.width + 'px'
+              })
+            "
+            @keydown="
+              td.event($event, td);
+              onKeyDown($event, { x, y, z: index, td });
+            "
+            @focus="
+              td.autoComplete &&
+                onFocus($event, {
+                  autoComplete: td.autoComplete,
+                  x,
+                  y,
+                  z: index,
+                  td,
+                  tr
+                })
+            "
+            @blur="onBlur($event, { x, y, z: index })"
           ></textarea>
 
           <input
@@ -127,34 +191,54 @@
             v-model.trim="td.value"
             :data-value="td.value"
             :position="`${x},${y},${index}`"
-            :style="[td.style, td.key === 'recordMonth' && tr.find((item) => item.key == 'yearBreak').value && {height: '12px'}]"
-            @keydown="td.event($event, td); onKeyDown($event, {x, y, z:index, td})"
-            @focus="td.autoComplete && onFocus($event, {autoComplete: td.autoComplete,x, y, z: index, td, tr})"
-            @blur="onBlur($event, {x,y,z:index})"
+            :style="[
+              td.style,
+              td.key === 'recordMonth' &&
+                tr.find(item => item.key == 'yearBreak').value && {
+                  height: '12px'
+                }
+            ]"
+            @keydown="
+              td.event($event, td);
+              onKeyDown($event, { x, y, z: index, td });
+            "
+            @focus="
+              td.autoComplete &&
+                onFocus($event, {
+                  autoComplete: td.autoComplete,
+                  x,
+                  y,
+                  z: index,
+                  td,
+                  tr
+                })
+            "
+            @blur="onBlur($event, { x, y, z: index })"
             @click="!isRead(tr) && td.click && td.click($event, td)"
             v-else
           />
         </td>
-        <span v-show="false" v-else>{{td.key}}: {{td.value}}</span>
+        <span v-show="false" v-else>{{ td.key }}: {{ td.value }}</span>
       </tr>
     </table>
-    <div class="bottomCon" v-for="(tbody,index) in table" :key="index">
+
+    <div class="bottomCon" v-for="(tbody, index) in table" :key="index">
       <table border="1px solid #ccc" cellspacing="0">
         <colgroup>
-          <col v-for="(col,idx) in cols" :key="idx" :width="col" />
+          <col v-for="(col, idx) in cols" :key="idx" :width="col" />
         </colgroup>
         <tbody>
-          <tr v-for="(tr,trIndex) in tbody" :key="trIndex">
+          <tr v-for="(tr, trIndex) in tbody" :key="trIndex">
             <td
               :class="td.class"
               :rowspan="td.rowspan"
               :colspan="td.colspan"
               :key="tdIdx"
               :style="td.style"
-              v-for="(td,tdIdx) in tr"
+              v-for="(td, tdIdx) in tr"
             >
               <RenderItem
-                v-for="(item,itemIdx) in td.children"
+                v-for="(item, itemIdx) in td.children"
                 :key="itemIdx"
                 :item="item"
                 :model.sync="model"
@@ -198,7 +282,7 @@ import sheetModel from "../../../../sheet.js";
 import common from "@/common/mixin/common.mixin.js";
 import { handlepz, delpz, auditpz } from "../../../../api/index.js";
 import tableModel from "../../data/dataModelBottom";
-import RenderItem from "../RenderItem";
+import RenderItem from "../../../sheetTable/components/table-components/RenderItem";
 
 export default {
   props: {

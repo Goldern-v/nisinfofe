@@ -20,14 +20,14 @@
                 :key="itemIdx"
                 :item="item"
                 :model.sync="model"
-              />
+              >
+              </RenderItem>
             </td>
           </tr>
         </tbody>
       </table>
-      <slot></slot>
-      <!-- <div class="operatorSign" v-if="index==1"></div> -->
-      <!-- <div class="table-footer" v-if="index != 0">第 {{index}} 页</div> -->
+      <slot name="table"></slot>
+      <slot name="bottomCon"></slot>
     </div>
   </div>
 </template>
@@ -37,19 +37,25 @@ import RenderItem from "../../sheetTable/components/table-components/RenderItem"
 import tableModel from "../data/dataModel";
 import sheetInfo from "../../config/sheetInfo";
 import moment from "moment";
+import getUser from "../../../api/index";
 export default {
   data() {
     return {
       cols: tableModel.table.cols,
-      table: tableModel.table.tbody,
-      model: {}
+      table: tableModel.table.tbody1,
+      model: {},
+      sheetInfo
     };
   },
   props: [],
   components: {
     RenderItem
   },
-  computed: {},
+  computed: {
+    isPrint() {
+      return window.location.href.indexOf("print") > -1;
+    }
+  },
   methods: {
     save() {
       console.log(this.model);
@@ -80,19 +86,21 @@ export default {
 
 <style lang="scss" scoped>
 .table {
-  padding: 5px 1px;
+  // padding: 5px 1px;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
+  margin-top: 15px;
+  // margin-bottom: -10px;
+}
+/deep/ .iswrap {
+  height: 0px !important;
 }
 table {
   border-collapse: collapse;
   width: 100%;
   background: #fff;
   td {
-    // padding-top: 10px;
-    // padding-bottom: 10px;
     position: relative;
-    // line-height: 20px;
     &.red-border {
       border: 1px solid #000 !important;
       &::after {
@@ -117,7 +125,6 @@ table {
 td,
 th {
   border: 1px solid #000;
-  // line-height: 20px;
   padding: 2px;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
@@ -136,34 +143,6 @@ th {
 }
 .table {
   page-break-after: always;
-  /*  &:first-child {
-    padding-bottom: 120px;
-  } */
-  // &:nth-child(2) {
-  //   padding-top: 50px;
-  // }
-}
-.operatorSign {
-  padding-top: 10px;
-  position: relative;
-  // .rightTime {
-  //   position: absolute;
-  //   right: 15px;
-  // }
-  .timeInput {
-    width: 15px;
-    border: 0;
-    outline: none;
-    text-align: center;
-    &:first-child {
-      width: 30px !important;
-    }
-  }
-}
-.table-footer {
-  text-align: center;
-  padding-top: 5px;
-  margin-top: 10px;
 }
 </style>
 

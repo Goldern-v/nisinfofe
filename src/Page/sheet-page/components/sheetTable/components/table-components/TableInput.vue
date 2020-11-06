@@ -1,11 +1,11 @@
 <template>
   <span
-    :class="[item.class,{showModal:showModal && item.autoComplete.data}]"
-    v-if="item.type=='input'"
+    :class="[item.class, { showModal: showModal && item.autoComplete.data }]"
+    v-if="item.type == 'input'"
   >
     <input
       type="text"
-      :style="item.style||''"
+      :style="item.style || ''"
       v-model="inputVal"
       :data-value="inputVal"
       @focus="onFocus($event)"
@@ -15,16 +15,18 @@
       <li
         v-for="child in item.autoComplete.data"
         :key="child.sortNo"
-        :class="{active: inputVal == child.equiName}"
+        :class="{ active: inputVal == child.equiName }"
         @click="selectedItem(child.equiName)"
-      >{{child.equiName}}</li>
+      >
+        {{ child.equiName }}
+      </li>
     </ul>
   </span>
 </template>
 
 <script>
 import bus from "vue-happy-bus";
-import sheetInfo from "../../config/sheetInfo";
+import sheetInfo from "../../../config/sheetInfo";
 // import { getEquiDict } from "../api/index";
 export default {
   data() {
