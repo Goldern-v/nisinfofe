@@ -32,7 +32,8 @@ function decode() {
   let auditorMapData = {};
   if (
     process.env.HOSPITAL_ID == "lingcheng" ||
-    process.env.HOSPITAL_ID == "huadu"
+    process.env.HOSPITAL_ID == "huadu" ||
+    process.env.HOSPITAL_ID == "wujing" 
   ) {
     auditorMapData.auditorMap = sheetInfo.auditorMap;
   }

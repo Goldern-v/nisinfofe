@@ -410,6 +410,13 @@ export default function Title(
     );
   }
   break;
+  case "mild_hypothermia_hd": {
+    // 花都-新生儿亚低温治疗护理记录表
+    Th = JSON.parse(
+      JSON.stringify(require("../config/mild_hypothermia_hd/th").default)
+    );
+  }
+  break;
   case "intervention_cure": {
     // 厚街-介入治疗术护理记录单
     Th = JSON.parse(
@@ -421,6 +428,13 @@ export default function Title(
     // 武警广东总队医院-护理记录单
     Th = JSON.parse(
       JSON.stringify(require("../config/common_wj/th").default)
+    );
+  }
+  break;
+  case "neonatology_picc": {
+    // 新生儿科PICC导管维护护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/neonatology_picc/th").default)
     );
   }
   break;

@@ -43,6 +43,15 @@ export function getRowNum(index) {
     return 22;
   } else if (sheetInfo.sheetType == "special") {
     return 23;
+  } else if (sheetInfo.sheetType == "neonatology_picc") {
+    return 9;
+    // if((sheetInfo.sheetStartPage+index).toString() != sheetInfo.endPage){
+    //   // console.log('111',sheetInfo.sheetStartPage +index,sheetInfo.endPage)
+    //   return 15
+    // }else{
+    //   // console.log("222",sheetInfo.sheetStartPage +index,sheetInfo.endPage)
+    //   return 9;
+    // }
   } else {
     return 17;
   }
