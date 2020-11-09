@@ -9,7 +9,7 @@ let tableModel = {
 					children: [{
 						type: "input",
 						prev: "介入手术或造影名称",
-						elementClass: "txhtouxiqi",
+						// elementClass: "txhtouxiqi",
 						class: "bottom-line",
 						value: "",
 						name: "jrsshzymc",
@@ -22,7 +22,7 @@ let tableModel = {
 					children: [{
 						type: "input",
 						prev: "药物试验结果",
-						elementClass: "txhtouxiqi",
+						// elementClass: "txhtouxiqi",
 						class: "bottom-line",
 						value: "",
 						name: "ywsyjg",
@@ -38,7 +38,7 @@ let tableModel = {
 						value: "",
 						name: "chuancixueguan",
 						style: "width:100px;text-align:left;",
-						elementClass: "mr11 txhtouxiqi",
+						// elementClass: "mr11 txhtouxiqi",
 						children: [{
 								type: "radio",
 								value: "动脉",

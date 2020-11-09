@@ -1,15 +1,20 @@
 <template>
   <span
     class="renderItem"
-    :class="[{iswrap:item.value=='<br/>'},item.elementClass]"
+    :class="[{ iswrap: item.value == '<br/>' }, item.elementClass]"
     :style="item.eleStyle"
   >
     <span class="prev" v-if="item.prev" v-html="item.prev" />
     <component :is="ChildComponent(item)" :item="item" :model.sync="model">
       <!-- <template v-if="item.children">
-        <renderItem v-for="(child,idx) in " :key="idx" :item="item.children" />
-      </template>-->
+        <renderItem
+          v-for="(child, idx) in item.children"
+          :key="idx"
+          :item="item.children"
+        />
+      </template> -->
     </component>
+    <slot name="sign"></slot>
     <span class="next" v-if="item.next" v-html="item.next" />
   </span>
 </template>
@@ -60,18 +65,18 @@ export default {
 .iswrap {
   display: block;
   height: 5px;
-  border-bottom: 1px solid #000;
-  margin-left: -2.5px;
-  margin-right: -2px;
 }
 .mr10 {
-  margin-right: 8px;
+  margin-right: 10px;
 }
 .mr11 {
   margin-right: 100px;
 }
 .txhtouxiqi {
-  margin-left: 156px;
+  margin-left: 46px;
+}
+.txhtouxiqi2 {
+  margin-left: 64px;
 }
 .rightStyle {
   width: 350px !important;

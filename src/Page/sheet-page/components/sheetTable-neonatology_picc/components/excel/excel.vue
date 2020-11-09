@@ -1,11 +1,6 @@
 <template>
-  <div
-    class="sheet-excel-container"
-    :class="{ icu_lc: sheetInfo.sheetType == 'icu_lc' }"
-  >
-    <!-- <div>
-      <img :src="dataURL" alt :style="{width: fiexHeaderWidth}">
-    </div>-->
+  <div class="sheet-excel-container">
+    <slot name="topCon"></slot>
     <table
       class="sheet-table table-fixed-th no-print"
       :style="{ width: fiexHeaderWidth }"
@@ -22,6 +17,7 @@
           <div v-if="td.key == 'sign'" class="sign-text"></div>
           <div v-else-if="td.key == 'audit'" class="sign-text"></div>
           <div v-else-if="td.key == 'signerNo'" class="sign-img"></div>
+          <div v-else-if="td.key == 'auditorNo'" class="sign-img"></div>
           <textarea
             v-else-if="td.textarea"
             :style="
@@ -50,6 +46,22 @@
           @click="item.canSet && setTitle(item)"
         >
           <span v-html="item.name"></span>
+
+          <span v-if="item.key == 'fieldThree1_2' && HOSPITAL_ID === 'hj'">
+            <el-checkbox-group
+              v-model="checkedItem"
+              @change="handleCheckedChange($event, item)"
+              style="position:relative;top:0px"
+            >
+              <el-checkbox
+                style="display:inline;margin-left:0;"
+                v-for="i in provItem"
+                :label="i"
+                :key="i"
+                >{{ i }}</el-checkbox
+              >
+            </el-checkbox-group>
+          </span>
         </th>
       </tr>
     </table>
@@ -71,6 +83,22 @@
           @click="item.canSet && setTitle(item)"
         >
           <span v-html="item.name"></span>
+          <span v-if="item.key == 'fieldThree1_2' && HOSPITAL_ID === 'hj'">
+            <el-checkbox-group
+              v-model="checkedItem"
+              @change="handleCheckedChange($event, item)"
+              v-if="!isFixed"
+            >
+              <el-checkbox
+                style="display:inline;margin-left:0;"
+                v-for="i in provItem"
+                :label="i"
+                :key="i"
+                >{{ i }}</el-checkbox
+              >
+            </el-checkbox-group>
+            <span v-html="item.name2"></span>
+          </span>
         </th>
       </tr>
       <tr
@@ -79,13 +107,9 @@
         v-for="(tr, y) in data.bodyModel"
         :class="[
           {
-            inPreview:
-              !tr.find(item => item.key == 'id').value &&
-              tr.find(item => item.key == 'recordDate').value,
             noSignRow: tr.find(item => item.key == 'status').value === '0',
             multiSign: tr.find(item => item.key == 'multiSign').value,
             selectedTr: sheetInfo.selectRow.includes(tr),
-            clickRow: sheetInfo.clickRow === tr,
             redText:
               tr.find(item => {
                 return item.key == 'recordSource';
@@ -115,12 +139,7 @@
           @mouseover="markTip($event, td)"
           @mouseout="closeMarkTip"
           :class="[
-            td.markObj &&
-              `mark-mark-mark mark-cell-status-${td.markObj.status}`,
-            HOSPITAL_ID == 'lingcheng' &&
-              td.value &&
-              td.statBottomLine &&
-              `stat-bottom-line`
+            td.markObj && `mark-mark-mark mark-cell-status-${td.markObj.status}`
           ]"
           @contextmenu.stop="openContextMenu($event, y, tr, td)"
           @click="selectedItem(td)"
@@ -151,6 +170,23 @@
           ></div>
           <div v-else-if="td.key == 'signerNo'" class="sign-img">
             <img
+              v-if="tr.find(item => item.key == 'signerNo').value"
+              :src="
+                `/crNursing/api/file/signImage/${
+                  tr.find(item => item.key == 'signerNo').value
+                }?${token}`
+              "
+              alt
+            />
+            <!-- <span v-if="tr.find(item => item.key == 'auditorNo').value">/</span>
+            <img
+              :style="!td.value && { opacity: 0 }"
+              :src="`/crNursing/api/file/signImage/${td.value}?${token}`"
+              alt
+            /> -->
+          </div>
+          <div v-else-if="td.key == 'auditorNo'" class="sign-img">
+            <img
               v-if="tr.find(item => item.key == 'auditorNo').value"
               :src="
                 `/crNursing/api/file/signImage/${
@@ -159,35 +195,19 @@
               "
               alt
             />
-            <span v-if="tr.find(item => item.key == 'auditorNo').value">/</span>
-            <img
-              v-if="td.value"
-              :style="!td.value && { opacity: 0 }"
-              :src="`/crNursing/api/file/signImage/${td.value}?${token}`"
-              alt
-            />
           </div>
-          <!-- <div v-else-if="td.key == 'auditorNo'" class="sign-img">
-            <img v-if="td.value" :src="`/crNursing/api/file/signImage/${td.value}?${token}`" alt>
-          </div>-->
           <textarea
             v-else-if="td.textarea"
             :class="{ towLine: isOverText(td) }"
             :readonly="isRead(tr)"
-            :disabled="isDisabed(tr)"
             v-model="td.value"
             :data-value="td.value"
             :position="`${x},${y},${index}`"
             :style="
-              Object.assign(
-                {},
-                td.style,
-                {
-                  minWidth: td.textarea.width + 'px',
-                  maxWidth: td.textarea.width + 'px'
-                },
-                isDisabed(tr) && { cursor: 'not-allowed' }
-              )
+              Object.assign({}, td.style, {
+                minWidth: td.textarea.width + 'px',
+                maxWidth: td.textarea.width + 'px'
+              })
             "
             @keydown="
               td.event($event, td);
@@ -206,24 +226,11 @@
             "
             @blur="onBlur($event, { x, y, z: index })"
           ></textarea>
-          <!-- 护理记录单特殊情况特殊记录单独处理 -->
-          <div
-            v-else-if="
-              td.key === 'description' &&
-                HOSPITAL_ID === 'lingcheng' &&
-                sheetInfo.selectBlock.openRichText
-            "
-            v-html="td.value"
-            :class="
-              sheetInfo.sheetType == 'icu_lc' ? 'specialFontSize' : 'normal'
-            "
-            style="text-align: left"
-          ></div>
+
           <input
             type="text"
             :readonly="isRead(tr)"
-            :disabled="isDisabed(tr, td)"
-            v-model="td.value"
+            v-model.trim="td.value"
             :data-value="td.value"
             :position="`${x},${y},${index}`"
             :style="[
@@ -231,8 +238,7 @@
               td.key === 'recordMonth' &&
                 tr.find(item => item.key == 'yearBreak').value && {
                   height: '12px'
-                },
-              isDisabed(tr, td) && { cursor: 'not-allowed' }
+                }
             ]"
             @keydown="
               td.event($event, td);
@@ -258,130 +264,6 @@
       </tr>
     </table>
 
-    <!-- <div @click="addNullRow"
-    class="add-row">+ 添加新行</div>-->
-    <div
-      v-if="sheetInfo.sheetType == 'neonatology2'"
-      style="font-size: 13px; margin-top: -5px"
-    >
-      备注 1.肌张力:M(正常) H(高) L(低) 2.肤色:P1(红润) J(黄染) F(潮红) C(紫绀)
-      P2(苍白) M(花斑) 3.体位:S(平卧) L(左侧) R(右侧) P(俯卧)
-    </div>
-    <div
-      v-if="sheetInfo.sheetType == 'stress_injury_hd'"
-      style="font-size: 13px; margin-top: -5px"
-    >
-      备注:
-      <span
-        >(1)分期请用对应的数字进行记录:1(1期);2(2期);3(3期);4(4期);5(深部组织损伤期);6(不可分期)。</span
-      >
-      <p style="margin:5px 0 0 42px;">
-        (2)评估时机:1、2期压力性损伤每周评估记录;3期以上至少三天评估记录;伤口渗液多或有特殊变化随时评估记录。
-      </p>
-    </div>
-    <div
-      v-if="sheetInfo.sheetType == 'common_hd'"
-      style="font-size: 13px; margin-top: -5px"
-    >
-      备注:(1)、健康教育：1.入院及相关疾病知识宣教、2.探视、陪护制度宣教、3.安全告知、4.检查宣教、5.饮食宣教、6.用药宣教、7.特殊治疗护理操作前宣教、
-      8.术前宣教、9.术后宣教、10.禁食、11.卧床休息、12.床上活动、13.离床活动、14.出院指导
-    </div>
-    <div
-      v-if="sheetInfo.sheetType == 'postpartum_hd'"
-      style="font-size: 13px; margin-top: -5px"
-    >
-      备注:(1)、健康教育：1.入院及相关疾病知识宣教2.探视、陪护制度宣教3.安全告知4.检查宣教5.饮食宣教6.产后/术后宣教7.母乳喂养宣教
-      8.母婴用药、安全宣教9.新生儿护理知识宣教10.出院指导
-    </div>
-    <div
-      v-if="
-        sheetInfo.sheetType == 'prenatal_hd' ||
-          sheetInfo.sheetType == 'neonatology2_hd'
-      "
-      style="font-size: 13px; margin-top: -5px"
-    >
-      备注:(1)、健康教育：1.入院及相关疾病知识宣教2.探视、陪护制度宣教3.安全告知4.检查宣教5.母乳喂养知识宣教6.胎动知识宣教7.分娩知识宣教8.饮食宣教
-      9.特殊治疗护理操作前宣教10.术前宣教11.用药宣教12.卧位宣教13.术后宣教14.出院指导
-    </div>
-    <div
-      v-if="sheetInfo.sheetType == 'neurosurgery_hd'"
-      style="font-size: 13px; margin-top: -5px"
-    >
-      备注:一.意识：清✔，昏迷++。二.瞳孔对光反射判断：灵敏+，迟钝±，消失-。三.人工气道途径：鼻腔气管插管A1，口腔气管插管A2，气管切开B.
-      <p style="margin-top:2px;">
-        四。健康教育：1.入院及相关疾病知识宣教2.探视、陪护制度宣教3.安全告知4.检查宣教5.母乳喂养知识宣教6.胎动知识宣教7.分娩知识宣教8.饮食宣教
-        9.特殊治疗护理操作前宣教10.术前宣教11.用药宣教12.卧位宣教13.术后宣教14.出院指导
-      </p>
-    </div>
-    <div
-      v-if="sheetInfo.sheetType == 'common_wj'"
-      style="font-size: 13px; margin-top: -5px"
-    >
-      备注:①意识：清✔、嗜睡、朦胧++、浅昏迷+++、深昏迷++++、麻醉未醒△、药眠○、谵妄⊙。②.瞳孔对光的反应：灵敏+，迟钝±，消失-(左/右);
-    </div>
-    <div
-      v-if="sheetInfo.sheetType == 'neonatology_hd'"
-      style="font-size: 13px; margin-top: -5px"
-    >
-      备注:吸痰性质用符号表示：白色吸痰(WL),黄白稠痰(YWT),黄色稠痰(YT),血性痰(B);痰量：小量(+),中量(++),大量(+++)。
-    </div>
-    <div
-      v-if="sheetInfo.sheetType == 'picc_maintenance_hd'"
-      style="font-size: 13px; margin-top: -5px"
-    >
-      备注:1、在执行维护后，要在该项目打✔
-      <p style="margin:5px 0 0 32px;">
-        2、当管道出现问题时请注意描述，例如描述其出血、渗血、穿刺点情况
-      </p>
-    </div>
-    <div v-if="sheetInfo.sheetType == 'mild_hypothermia_hd'">
-      备注：记录要求与说明。（1）所处治疗阶段与治疗模式，直接勾选当前选项;(2)亚低温治疗开始为“降温”阶段，每15min记录1次，直至达到目标温度（33.5~33.5-34℃,约1-2h）后1h,
-      进入“维持治疗'阶段，然后每2h记录1次，时间约72h：之后开始“复温”，复温期间每小时记录肛温1次，一般肛温为2h升高0.5℃。
-      <br />（3）按医嘱要求的间隔时间，进行脑科观察，并按以下相应的符号记录，意识状态：清醒（√）、嗜睡（+）、朦胧（++）、浅昏迷（+++）、深昏迷（++++）、麻醉未醒（△）；肢体活动反应：灵敏（+）、迟钝（±）、消失（-）；
-      瞳孔对光反应：灵敏（+）、迟钝（±）、消失（）；瞳孔直径（mm)： 1 2 3 4 5 6
-      （以上瞳孔直径图形仅为参考，以实际使用记录单内的图形直径为准。）
-      <br />（4)其它如血压、脉搏、呼吸等生命体征记录在NICU护理记录单中。
-      <br />（5）维持治疗中每2h变动1次体位，每4h检查新生儿皮肤1次，并在相对应的表格标√。
-    </div>
-    <div class="table-footer">
-      第 {{ index + sheetStartPage }} 页
-      <span class="sh-name" v-if="auditArr.includes(sheetInfo.sheetType)">
-        <span
-          v-if="
-            sheetInfo.sheetType == 'com_lc' ||
-              sheetInfo.sheetType == 'icu_lc' ||
-              sheetInfo.sheetType == 'Record_Children_Serious_Lc'
-          "
-          >审核人：</span
-        >
-        <span v-else-if="sheetInfo.sheetType == 'common_wj'">护士长签名：</span>
-        <span v-else>上级护士签名：</span>
-        <span class="sh-name-box">
-          <div
-            class="sign-null-box"
-            @click="openAduitModal"
-            v-if="!auditorNo"
-          ></div>
-          <div class="sign-in-box" v-else @click="cancelAduitModal">
-            <div class="audit-text no-print">{{ auditorName }}</div>
-            <div class="audit-img sign-img">
-              <img
-                class="in-print"
-                :src="`/crNursing/api/file/signImage/${auditorNo}?${token}`"
-                alt
-              />
-            </div>
-          </div>
-        </span>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      </span>
-      <!-- / {{Math.max(sheetMaxPage,(length + sheetStartPage - 1))}}  -->
-      <!-- <span class="sh-name">审核人：
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      </span>-->
-    </div>
     <span v-if="sheetInfo.model != 'print'">
       <signModal ref="signModal"></signModal>
       <signModal ref="delsignModal" title="删除签名需签名者确认"></signModal>
@@ -390,11 +272,16 @@
 </template>
 
 <style lang="stylus" src="./style.styl"></style>
-
+<style lang="stylus" scoped>
+#sheetPagePrint .sheet-table td[datakey='auditorNo'] {
+  display: table-cell !important;
+}
+</style>
 <script>
 import { nullRow } from "../../../../components/render/Body.js";
 import {
   saveTitle,
+  showTitle,
   sign,
   cancelSign,
   delRow,
@@ -418,10 +305,7 @@ import bus from "vue-happy-bus";
 import sheetModel from "../../../../sheet.js";
 import common from "@/common/mixin/common.mixin.js";
 import { handlepz, delpz, auditpz } from "../../../../api/index.js";
-import decode from "../../../../components/render/decode.js";
-import moment from "moment";
-import { getUser } from "@/api/common.js";
-console.dir(sheetInfo);
+
 export default {
   props: {
     data: Object,
@@ -440,20 +324,9 @@ export default {
       sheetInfo,
       fiexHeaderWidth: 0,
       isFixed: false,
-      auditArr: [
-        "com_lc",
-        "icu_lc",
-        "common_hd",
-        "stress_injury_hd",
-        "wait_delivery_hd",
-        "neurosurgery_hd",
-        "neonatology_hd",
-        "neonatology2_hd",
-        "Record_Children_Serious_Lc",
-        "contraction_inhibitor_hd",
-        "magnesium_sulphate_hd",
-        "common_wj"
-      ]
+      checkedItem: [],
+      checkedFile: "",
+      provItem: ["臂围", "臀围"]
     };
   },
   computed: {
@@ -465,21 +338,30 @@ export default {
     },
     sheetMaxPage() {
       return this.sheetInfo.sheetMaxPage;
-    },
-    auditorNo() {
-      return (
-        sheetInfo.auditorMap &&
-        sheetInfo.auditorMap[`PageIndex_${this.index}_auditorNo`]
-      );
-    },
-    auditorName() {
-      return (
-        sheetInfo.auditorMap &&
-        sheetInfo.auditorMap[`PageIndex_${this.index}_auditorName`]
-      );
     }
   },
   methods: {
+    // 臀围/臂围
+    handleCheckedChange(value, item) {
+      let index = this.checkedItem.indexOf(value);
+      if (!value) {
+        this.checkedItem = [];
+      } else if (index >= 0) {
+        this.checkedItem = value;
+      } else {
+        this.checkedItem.splice(index + 1, 1);
+      }
+      this.checkedFile = Array.from(this.checkedItem)[0];
+      let data = {
+        patientId: this.patientInfo.patientId,
+        visitId: this.patientInfo.visitId,
+        pageIndex: this.index,
+        fieldEn: item.key,
+        fieldCn: this.checkedFile,
+        recordCode: sheetInfo.sheetType
+      };
+      saveTitle(data).then(res => {});
+    },
     // 键盘事件
     onKeyDown(e, bind) {
       if (sheetInfo.model == "print") return;
@@ -497,7 +379,7 @@ export default {
       onBlurToAutoComplete(e, bind);
     },
     setTitle(item) {
-      this.$parent.$parent.$refs.sheetTool.$refs.setTitleModal.open(
+      this.$parent.$parent.$parent.$refs.sheetTool.$refs.setTitleModal.open(
         title => {
           let data = {
             patientId: this.patientInfo.patientId,
@@ -511,8 +393,7 @@ export default {
             item.name = title;
           });
         },
-        item.name,
-        item
+        item.name
       );
     },
     addNullRow(index, row) {
@@ -593,32 +474,28 @@ export default {
           return item.key == "status";
         }).value;
         // if (status == 1) return this.$message.warning('该记录已经签名了')
-        let save = () => {
-          this.$refs.signModal.open((password, empNo) => {
-            let trObj = {};
-            for (let i = 0; i < trArr.length; i++) {
-              trObj[trArr[i].key] = trArr[i].value;
-            }
-            let [allList, currIndex] = this.getAllListAndCurrIndex(trArr);
-            let data = {
-              empNo,
-              password,
-              list: [
-                Object.assign({}, trObj, {
-                  recordMonth: this.getPrev(currIndex, allList, "recordMonth"),
-                  recordHour: this.getPrev(currIndex, allList, "recordHour"),
-                  recordYear: this.getPrev(currIndex, allList, "recordYear"),
-                  patientId: this.patientInfo.patientId,
-                  visitId: this.patientInfo.visitId,
-                  pageIndex: this.index
-                })
-              ]
-            };
-            sign(
-              this.patientInfo.patientId,
-              this.patientInfo.visitId,
-              data
-            ).then(res => {
+        this.$refs.signModal.open((password, empNo) => {
+          let trObj = {};
+          for (let i = 0; i < trArr.length; i++) {
+            trObj[trArr[i].key] = trArr[i].value;
+          }
+          let [allList, currIndex] = this.getAllListAndCurrIndex(trArr);
+          let data = {
+            empNo,
+            password,
+            list: [
+              Object.assign({}, trObj, {
+                recordMonth: this.getPrev(currIndex, allList, "recordMonth"),
+                recordHour: this.getPrev(currIndex, allList, "recordHour"),
+                recordYear: this.getPrev(currIndex, allList, "recordYear"),
+                patientId: this.patientInfo.patientId,
+                visitId: this.patientInfo.visitId,
+                pageIndex: this.index
+              })
+            ]
+          };
+          sign(this.patientInfo.patientId, this.patientInfo.visitId, data).then(
+            res => {
               let trArrClone = Tr(res.data.data[0]);
               if (
                 trArr.find(item => {
@@ -647,41 +524,9 @@ export default {
                 message: "签名成功"
               });
               this.bus.$emit("saveSheetPage", true);
-            });
-          });
-        };
-        let reverseList = [...decode().list].reverse();
-        /** 最后的时间 */
-        let lastRecordHour = (
-          reverseList.find(item => item.recordDate && item.recordHour) || {}
-        ).recordHour;
-        /** 所有新增的时间 */
-        let newRecordHours = reverseList
-          .filter(
-            item => item.recordHour && !item.recordMonth && !item.recordDate
-          )
-          .map(item => item.recordHour);
-        /** 新增记录是否存在比原有记录更前 */
-        let isBefore = newRecordHours.some(
-          item =>
-            moment("2019-9-20 " + item).unix() <
-            moment("2019-9-20 " + lastRecordHour).unix()
-        );
-        if (isBefore) {
-          this.$confirm(
-            "新增记录比原有记录时间更前, 请确定日期, 是否确认保存?",
-            "提示",
-            {
-              confirmButtonText: "确认",
-              cancelButtonText: "取消",
-              type: "warning"
             }
-          ).then(res => {
-            save();
-          });
-        } else {
-          save();
-        }
+          );
+        });
       } else {
         // 删除签名
         this.$refs.delsignModal.open((password, empNo) => {
@@ -788,21 +633,7 @@ export default {
         return item.key == "signerName";
       }).value;
       if (status == "1" || status == "2") {
-        if (this.HOSPITAL_ID == "weixian") {
-          return trArr.find(item => item.key == "signerNo").value
-            ? `<img
-              width="50"
-              height="100%"
-              style="object-fit: contain"
-              src="/crNursing/api/file/signImage/${
-                trArr.find(item => item.key == "signerNo").value
-              }?${this.token}"
-              alt
-            /> `
-            : "";
-        } else {
-          return signerName;
-        }
+        return signerName;
       } else {
         return "";
       }
@@ -819,31 +650,6 @@ export default {
         return auditorName;
       } else {
         return "";
-      }
-    },
-    // 除第一行以外到结束行之内其他单元格不能录入内容（威县），出入量统计行除外
-    isDisabed(tr, td) {
-      if (td && td.key == "recordYear") {
-        if (!tr.find(item => item.key == "recordMonth").value) {
-          td.value = "";
-        }
-        return true;
-      }
-      if (
-        this.HOSPITAL_ID != "weixian" ||
-        (td && td.key == "description") ||
-        tr.find(item => item.key == "recordSource").value == 5
-      ) {
-        return false;
-      }
-      if (
-        tr.find(item => item.key == "description").value &&
-        !tr.find(item => item.key == "recordHour").value &&
-        !tr.find(item => item.key == "recordMonth").value
-      ) {
-        return true;
-      } else {
-        return false;
       }
     },
     isRead(tr) {
@@ -1016,73 +822,7 @@ export default {
             this.bus.$emit("splitSheet", row, cell);
           }
         }
-        // {
-        //   name: "文字标红",
-        //   icon: "charuxinhang",
-        //   click: () => {
-        //     row.find(item => {
-        //       return item.key == "recordSource";
-        //     }).value = "5";
-        //   }
-        // },
-        // {
-        //   name: "取消标红",
-        //   icon: "charuxinhang",
-        //   click: () => {
-        //     row.find(item => {
-        //       return item.key == "recordSource";
-        //     }).value = "1";
-        //   }
-        // }
-        // {
-        //   type: 'mark',
-        //   initValue: {
-        //     rowValue: row.find((item) => { return item.key == 'markType' }).value,
-        //     cellValue: cell.markType
-        //   },
-        //   click: (color, type) => {
-        //     let id = row.find((item) => {
-        //       return item.key == 'id'
-        //     }).value
-        //     let status = row.find((item) => {
-        //       return item.key == 'status'
-        //     }).value
-        //     if (!id) {
-        //       return this.$notify.warning({ title: '提示', message: '只能标记已签名的行' })
-        //     }
-        //     if (type == 'cell' && !cell.key) {
-        //       return this.$notify.warning({ title: '提示', message: '请选中需要标记的单元格' })
-        //     }
-        //     let data = {
-        //       recordId: id,
-        //       fieldEn: type == 'cell' ? cell.key : 'all',
-        //       signType: color.key
-        //     }
-        //     if (color.key == 0) {
-        //       return this.$parent.$parent.$refs.signModal.open((password, empNo) => {
-        //         Object.assign(data, { password, empNo })
-        //         markDelete(data).then(res => {
-        //           if (type == 'cell') {
-        //             cell.markType = ''
-        //           } else if (type == 'row') {
-        //             row.find((item) => { return item.key == 'markType' }).value = ''
-        //           }
-        //         })
-        //       })
-        //     } else {
-        //       markSave(data).then(res => {
-        //         if (type == 'cell') {
-        //           cell.markType = color.key
-        //         } else if (type == 'row') {
-        //           row.find((item) => { return item.key == 'markType' }).value = color.key
-        //         }
-        //       })
-        //     }
-        //     console.log(color, type)
-        //   }
-        // }
       ];
-
       if (this.HOSPITAL_ID == "hj") {
         let obj = {
           name: "同步至交班志",
@@ -1115,12 +855,6 @@ export default {
       } else {
         tab = "2";
       }
-
-      // 双击打开编辑框,（除第1条外）默认显示特殊记录tab栏
-      if (this.isDisabed(tr)) {
-        tab = "3";
-      }
-
       let thead = data.titleModel;
       let table = data.bodyModel;
       // 数组重组
@@ -1165,15 +899,18 @@ export default {
         tab,
         isLast
       };
-      if (
-        this.HOSPITAL_ID == "weixian" ||
-        this.HOSPITAL_ID == "lingcheng" ||
-        this.HOSPITAL_ID == "huadu"
-      ) {
-        window.openSpecialModal2(config);
-      } else {
-        window.openSpecialModal(config);
+      let recordHour = tr.find(td => td.key == "recordHour").value;
+      let recordMonth = this.sheetInfo.relObj.recordMonth;
+      let recordDate = tr.find(td => td.key == "recordDate").value;
+      if (!recordHour && recordDate) {
+        recordHour = recordDate.split(" ")[1];
       }
+      if (recordMonth && recordHour) {
+        config.recordDate = recordMonth + " " + recordHour;
+      } else {
+        config.recordDate = recordHour;
+      }
+      window.openSpecialModal2(config);
     },
     markTip(e, td) {
       if (sheetInfo.model == "print") return;
@@ -1227,10 +964,6 @@ export default {
     // 按下commmand多选
     selectRow(tr, e) {
       if (sheetInfo.model == "print") return;
-      if (this.HOSPITAL_ID == "weixian") {
-        this.sheetInfo.clickRow = tr;
-      }
-      this.sheetInfo.clickRow = tr;
       if (this.sheetInfo.downControl) {
         this.sheetInfo.downControl = e.ctrlKey;
         let index = this.sheetInfo.selectRow.indexOf(tr);
@@ -1245,47 +978,6 @@ export default {
       if (td.isSelected) {
         td.value = "✓";
       }
-    },
-    /** 审核整页 */
-    openAduitModal() {
-      window.openSignModal((password, empNo) => {
-        getUser(password, empNo).then(res => {
-          let { empNo, empName } = res.data.data;
-          sheetInfo.auditorMap[`PageIndex_${this.index}_auditorNo`] = empNo;
-          sheetInfo.auditorMap[`PageIndex_${this.index}_auditorName`] = empName;
-          sheetInfo.auditorMap = { ...sheetInfo.auditorMap };
-          console.log("empNo", empNo);
-          console.log("empName", empName);
-          console.log({ ...sheetInfo.auditorMap });
-          this.$notify.success({
-            title: "提示",
-            message: "审核成功",
-            duration: 2000
-          });
-          this.bus.$emit("saveSheetPage", false);
-        });
-      }, "审核签名确认");
-    },
-    /** 取消审核整页 */
-    cancelAduitModal() {
-      window.openSignModal((password, empNo) => {
-        getUser(password, empNo).then(res => {
-          let { empNo, empName } = res.data.data;
-          if (this.auditorNo == empNo) {
-            sheetInfo.auditorMap[`PageIndex_${this.index}_auditorNo`] = "";
-            sheetInfo.auditorMap[`PageIndex_${this.index}_auditorName`] = "";
-            sheetInfo.auditorMap = { ...sheetInfo.auditorMap };
-            this.$notify.success({
-              title: "提示",
-              message: "取消审核成功",
-              duration: 2000
-            });
-            this.bus.$emit("saveSheetPage", false);
-          } else {
-            this.$message.warning("非审核本人不可取消");
-          }
-        });
-      }, "取消签名确认");
     }
   },
   watch: {
@@ -1305,9 +997,13 @@ export default {
   },
   destroyed() {} /* fix vue-happy-bus bug */,
   mounted() {
-    this.fiexHeaderWidth =
-      this.$refs.table && this.$refs.table.offsetWidth + "px";
-    console.log("mounted");
+    this.fiexHeaderWidth = this.$refs.table.clientWidth + "px";
+    showTitle().then(res => {
+      let temp = res.data.data.list.find(value => {
+        return value.fieldEn == "fieldThree1_2";
+      });
+      this.checkedItem = [temp.fieldCn];
+    });
   },
   components: {
     signModal

@@ -4,30 +4,44 @@
       class="contant sheet-page-container-intervention_cure"
       :class="{ readOnly }"
     >
-      <!-- <img class="his-logo"
-      src="../../../../common/images/his-logo/厚街医徽.png" />-->
+      <div class="his-name">{{ HOSPITAL_NAME_SPACE }}</div>
       <img
         src="../../images/仅供查阅.jpg"
         class="readOnly-img no-print"
         v-if="readOnly"
         alt
       />
+      <div class="title">{{ patientInfo.recordName }}</div>
 
-      <headCon></headCon>
-      <Table>
-        <excel
+      <div
+        class="container"
+        style="border:1px solid #000;margin-bottom: -16px;"
+      >
+        <headCon></headCon>
+      </div>
+      <topCon
+        ><excel
           :data="data"
           :index="index"
           :length="length"
           :scrollY="scrollY"
           :hasFiexHeader="true"
           :isInPatientDetails="isInPatientDetails"
-        ></excel>
-      </Table>
+          slot="table"
+        ></excel
+        ><bottomCon slot="bottomCon" v-if="index == length - 1 ? true : false">
+          <div class="table-footer">
+            第 {{ index + sheetStartPage }} 页
+          </div></bottomCon
+        >
+        <div class="table-footer" slot="bottomCon" v-else>
+          第 {{ index + sheetStartPage }} 页
+        </div></topCon
+      >
     </div>
   </div>
 </template>
-<style lang="stylus" rel="stylesheet/stylus" type="text/stylus">
+<style lang="stylus" rel="stylesheet/stylus" type="text/stylus" >
 .sheet-page-container-intervention_cure {
   & {
     border-radius: 2px;
@@ -41,24 +55,20 @@
     box-sizing: content-box;
   }
 
-  .add-btn {
-    position: absolute;
-    top: 60px;
-    right: 20px;
+  .his-name {
+    font-size: 18px;
+    padding: 0 0px;
+    text-align: center;
+    font-weight: bold;
+    font-family: simsun, 'Times New Roman', Georgia, Serif !important;
   }
 
-  .his-logo {
-    position: absolute;
-    left: 21px;
-    top: 21px;
-    height: 44px;
-  }
-
-  .diagnosis-con {
-    max-width: 340px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+  .title {
+    font-size: 21px;
+    padding: 5px 0 5px;
+    text-align: center;
+    font-weight: bold;
+    font-family: simsun, 'Times New Roman', Georgia, Serif !important;
   }
 
   &.readOnly {
@@ -71,21 +81,20 @@
     top: 5px;
   }
 
-  .bottom-line {
-    display: inline-block;
-    // border-bottom 1px solid #000
-    // padding: 2px 0 2px 2px;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    vertical-align: bottom;
-  }
+  .info-con {
+    margin-bottom: 5px;
 
-  .bottom-line {
-    // margin: 0 4px;
-    input {
-      border-bottom: 1px solid #000 !important;
-      text-align: center;
+    span {
+      font-size: 12px;
+    }
+
+    .bottom-line-input {
+      border: none;
+      border-bottom: 1px solid #000;
+      outline: none;
+      padding-left: 5px;
+      box-sizing: border-box;
+      display: inline-block;
     }
   }
 
@@ -98,15 +107,6 @@
       font-size: 14px;
     }
   }
-
-  .prev {
-    vertical-align: middle;
-  }
-
-  .next {
-    vertical-align: middle;
-    margin-right: 5px;
-  }
 }
 </style>
 <script>
@@ -117,8 +117,9 @@ import $ from "jquery";
 import moment from "moment";
 import common from "@/common/mixin/common.mixin";
 import { updateSheetHeadInfo } from "../../api/index";
-import Table from "./components/Table";
-import headCon from "./components/headCon/headCon";
+import headCon from "./components/headCon";
+import bottomCon from "./components/bottomCon";
+import topCon from "./components/topCon";
 export default {
   props: {
     data: Object,
@@ -132,13 +133,20 @@ export default {
   data() {
     return {
       bus: bus(this),
-      sheetInfo
+      sheetInfo,
+      fhgd: ["无", "有"]
     };
   },
   computed: {
     patientInfo() {
       // return this.sheet.patientInfo
       return this.sheetInfo.selectBlock || {};
+    },
+    sheetStartPage() {
+      return this.sheetInfo.sheetStartPage;
+    },
+    sheetMaxPage() {
+      return this.sheetInfo.sheetMaxPage;
     },
     /** 只读模式 */
     readOnly() {
@@ -147,11 +155,17 @@ export default {
         .includes(this.sheetInfo.selectBlock.deptCode);
     }
   },
+  // watch:{
+  //   isLast(){
+  //     return this.
+  //   }
+  // },
   filters: {
     toymd(val) {
       return val ? moment(val).format("YYYY年MM月DD日 HH时mm分") : "";
     }
   },
+  watch: {},
   methods: {
     updateBirthDay() {
       window.openSetAuditDateModal(
@@ -180,12 +194,15 @@ export default {
   },
   created() {},
   update() {},
-  mounted() {},
+  mounted() {
+    console.log("length", this.sheetInfo.selectBlock);
+  },
   destroyed() {} /* fix vue-happy-bus bug */,
   components: {
     excel,
     headCon,
-    Table
+    bottomCon,
+    topCon
   }
 };
 </script>

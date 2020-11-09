@@ -352,6 +352,11 @@ function switechSheetType(type) {
     schema = require("../config/hemodialysis_CRRT_hd/tr.js").default;
   }
   break;
+  case "mild_hypothermia_hd": {
+    // 花都-新生儿亚低温治疗护理记录表
+    schema = require("../config/mild_hypothermia_hd/tr.js").default;
+  }
+  break;
   case "intervention_cure": {
     // 厚街-介入治疗术护理记录单
     schema = require("../config/intervention_cure/tr.js").default;
@@ -360,6 +365,11 @@ function switechSheetType(type) {
   case "common_wj": {
     // 武警广东总队医院-护理记录单
     schema = require("../config/common_wj/tr.js").default;
+  }
+  break;
+  case "neonatology_picc": {
+    // 新生儿科PICC导管维护护理记录单
+    schema = require("../config/neonatology_picc/tr.js").default;
   }
   break;
   default: {

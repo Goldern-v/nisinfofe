@@ -1,12 +1,21 @@
 <template>
-  <div class="contain" :class="{ fullpage }" v-loading="pageLoading" element-loading-text="正在保存">
+  <div
+    class="contain"
+    :class="{ fullpage }"
+    v-loading="pageLoading"
+    element-loading-text="正在保存"
+  >
     <div class="head-con" flex>
       <div class="dept-select-con"></div>
       <div class="tool-con" flex-box="1">
         <sheetTool ref="sheetTool"></sheetTool>
       </div>
     </div>
-    <div class="body-con" id="sheet_body_con" :style="{ height: containHeight }">
+    <div
+      class="body-con"
+      id="sheet_body_con"
+      :style="{ height: containHeight }"
+    >
       <div class="left-part">
         <!-- <patientList
           :data="data.bedList"
@@ -14,7 +23,15 @@
           v-loading="patientListLoading"
         ></patientList>-->
 
-        <patientList :toName="HOSPITAL_ID=='huadu' && $route.path.includes('singleTemperatureChart') ? 'singleTemperatureChart' : 'sheetPage'" :callFunction="isSelectPatient" />
+        <patientList
+          :toName="
+            HOSPITAL_ID == 'huadu' &&
+            $route.path.includes('singleTemperatureChart')
+              ? 'singleTemperatureChart'
+              : 'sheetPage'
+          "
+          :callFunction="isSelectPatient"
+        />
       </div>
       <div
         class="right-part"
@@ -22,7 +39,11 @@
         :class="{ wxHighLightBg: HOSPITAL_ID == 'weixian' }"
         v-loading="tableLoading"
       >
-        <div class="sheetTable-contain" ref="scrollCon" @scroll="e => onScroll(e)">
+        <div
+          class="sheetTable-contain"
+          ref="scrollCon"
+          @scroll="e => onScroll(e)"
+        >
           <div ref="sheetTableContain">
             <component
               v-bind:is="sheetTable"
@@ -202,6 +223,8 @@ import sheetTable_picc_maintenance_hd from "./components/sheetTable-picc_mainten
 import sheetTable_intervention_cure_hd from "./components/sheetTable-intervention_cure_hd/sheetTable";
 import sheetTable_hemodialysis_CRRT_hd from "./components/sheetTable-hemodialysis_CRRT_hd/sheetTable";
 import sheetTable_intervention_cure from "./components/sheetTable-intervention_cure/sheetTable";
+import sheetTable_mild_hypothermia_hd from "./components/sheetTable-mild_hypothermia_hd/sheetTable";
+import sheetTable_neonatology_picc from "./components/sheetTable-neonatology_picc/sheetTable";
 import common from "@/common/mixin/common.mixin.js";
 import evalModel from "./components/modal/eval-model/eval-model.vue";
 import { typeList } from "@/api/lesion";
@@ -323,6 +346,10 @@ export default {
         return sheetTable_hemodialysis_CRRT_hd;
       } else if (sheetInfo.sheetType == "intervention_cure") {
         return sheetTable_intervention_cure;
+      } else if (sheetInfo.sheetType == "mild_hypothermia_hd") {
+        return sheetTable_mild_hypothermia_hd;
+      } else if (sheetInfo.sheetType == "neonatology_picc") {
+        return sheetTable_neonatology_picc;
       } else {
         return sheetTable;
       }
@@ -771,7 +798,9 @@ export default {
     sheetTable_picc_maintenance_hd,
     sheetTable_intervention_cure_hd,
     sheetTable_hemodialysis_CRRT_hd,
-    sheetTable_intervention_cure
+    sheetTable_intervention_cure,
+    sheetTable_mild_hypothermia_hd,
+    sheetTable_neonatology_picc
   }
 };
 </script>

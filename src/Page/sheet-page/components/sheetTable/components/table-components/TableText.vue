@@ -1,24 +1,36 @@
 <template>
-  <span :class="item.class||''" :style="item.style">
+  <span
+    :class="item.class || ''"
+    :style="item.style"
+    v-if="!(item.class != 'sign1' || item.class != 'sign2')"
+  >
     <span
       v-html="item.value"
       @click="openSignModal"
       :style="item.style"
       class="printSign"
-      :class="{'isNoSign': item.sign && isNoSign}"
+      :class="{ isNoSign: item.sign && isNoSign }"
     ></span>
     <div class="sign-img">
-      <img :src="`/crNursing/api/file/signImage/${signerNo}?${token}`" alt v-if="signerNo" />
+      <img
+        :src="`/crNursing/api/file/signImage/${signerNo}?${token}`"
+        alt
+        v-if="signerNo"
+      />
       <!-- <span v-if="signerNo">/</span> -->
-      <img :src="`/crNursing/api/file/signImage/${auditorNo}?${token}`" alt v-if="auditorNo" />
+      <img
+        :src="`/crNursing/api/file/signImage/${auditorNo}?${token}`"
+        alt
+        v-if="auditorNo"
+      />
     </div>
   </span>
 </template>
 
 <script>
 import bus from "vue-happy-bus";
-import sheetInfo from "../../config/sheetInfo/index.js";
-import { getUser } from "../api";
+import sheetInfo from "../../../config/sheetInfo/index";
+import { getUser } from "../../api";
 import common from "@/common/mixin/common.mixin.js";
 import moment from "moment";
 export default {
@@ -126,7 +138,7 @@ export default {
   text-align: center;
 }
 .sign-img {
-  display: none;
+  display: inline;
 }
 .auditorName .sign-img {
   padding-right: 8px;
