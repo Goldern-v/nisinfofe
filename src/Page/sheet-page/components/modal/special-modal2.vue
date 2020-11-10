@@ -614,6 +614,7 @@ export default {
       // 首行缩进效果
       if (
         this.HOSPITAL_ID != "weixian" &&
+        this.HOSPITAL_ID != "huadu" &&
         this.sheetInfo.sheetType != "special"
       ) {
         allDoc = "  " + allDoc;
@@ -714,7 +715,8 @@ export default {
       let allDoc = this.doc;
       if (
         this.HOSPITAL_ID != "weixian" &&
-        this.sheetInfo.sheetType != "special"
+        this.sheetInfo.sheetType != "special" &&
+        this.HOSPITAL_ID != "huadu"
       ) {
         allDoc = "    " + this.doc;
       }

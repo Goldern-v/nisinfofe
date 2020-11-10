@@ -96,11 +96,12 @@ module.exports = {
         // target: "http://120.224.184.10:9094", //陵城正式
 
         target: "http://120.25.105.45:9868", //花都测试
+        // target: "http://120.238.239.27:9094", //花都正式
         // target: "http://120.25.105.45:9869", //武警总队
         // target: "http://192.168.3.115:8080",
         // target: "http://119.145.71.86:9098",
         // target: "http://192.168.3.115:8080",//大双
-        
+
         changeOrigin: true,
         pathRewrite: {
           // crNursing 东莞厚街护理系统 路径
