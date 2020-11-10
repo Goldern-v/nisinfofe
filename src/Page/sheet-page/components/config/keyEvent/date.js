@@ -46,3 +46,8 @@ export function click_date(e, td) {
     td.value = moment().format("MM-DD");
   }
 }
+export function click_time(e, td) {
+  if (td.value == "") {
+    td.value = moment().format("HH:mm");
+  }
+}
