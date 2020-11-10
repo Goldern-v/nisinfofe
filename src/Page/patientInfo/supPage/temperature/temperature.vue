@@ -150,7 +150,7 @@ export default {
         date
       ).then(res => {
         this.filePath =
-          this.HOSPITAL_ID == "lingcheng"
+          this.HOSPITAL_ID == "lingcheng" || this.HOSPITAL_ID == "huadu"
             ? res.data.data.expand
             : res.data.data.filePath;
       });

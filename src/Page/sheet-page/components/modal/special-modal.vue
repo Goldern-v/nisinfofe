@@ -797,7 +797,8 @@ export default {
       let allDoc = this.doc;
       if (
         this.sheetInfo.sheetType &&
-        this.sheetInfo.sheetType.indexOf("_wx") == -1
+        this.sheetInfo.sheetType.indexOf("_wx") == -1 &&
+        this.HOSPITAL_ID != "huadu"
       ) {
         allDoc = "    " + this.doc;
       }

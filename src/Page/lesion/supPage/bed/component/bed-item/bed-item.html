@@ -60,7 +60,13 @@
       </div>
 
       <div class="bed-modal">
-        <div flex="" class="table-line">
+        <div flex="" class="table-line" v-if="HOSPITAL_ID == 'huadu'">
+          <div class="key">床号：</div>
+          <div class="value" style="width: 70px;">{{ data.bedLabel }}</div>
+          <div class="key">住院号：</div>
+          <div class="value">{{ data.inpNo }}</div>
+        </div>
+        <div flex="" class="table-line" v-else>
           <div class="key">床号：</div>
           <div class="value" style="width: 70px;">{{ data.bedLabel }}</div>
           <div class="key">病案号：</div>
@@ -72,7 +78,13 @@
           <div class="key">性&nbsp;别：</div>
           <div class="value">{{ data.sex }}</div>
         </div>
-        <div flex="" class="table-line">
+        <div flex="" class="table-line" v-if="HOSPITAL_ID == 'huadu'">
+          <div class="key">年龄：</div>
+          <div class="value" style="width: 70px;">{{ data.age }}</div>
+          <div class="key">ID  号：</div>
+          <div class="value">{{ data.patientId }}</div>
+        </div>
+        <div flex="" class="table-line" v-else>
           <div class="key">年龄：</div>
           <div class="value" style="width: 70px;">{{ data.age }}</div>
           <div class="key">住院号：</div>
