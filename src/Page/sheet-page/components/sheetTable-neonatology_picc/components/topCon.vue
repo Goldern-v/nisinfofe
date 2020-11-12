@@ -27,7 +27,6 @@
         </tbody>
       </table>
       <slot name="table"></slot>
-      <slot name="bottomCon"></slot>
     </div>
   </div>
 </template>

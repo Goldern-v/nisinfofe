@@ -368,7 +368,7 @@ function switechSheetType(type) {
   }
   break;
   case "neonatology_picc": {
-    // 新生儿科PICC导管维护护理记录单
+    // 花都-新生儿科PICC导管维护护理记录单
     schema = require("../config/neonatology_picc/tr.js").default;
   }
   break;

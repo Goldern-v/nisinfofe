@@ -1,9 +1,17 @@
 <template>
   <div>
-    <div class="contant sheet-page-container-intervention_cure_hd" :class="{readOnly}">
+    <div
+      class="contant sheet-page-container-intervention_cure_hd"
+      :class="{ readOnly }"
+    >
       <!-- <img class="his-logo"
       src="../../../../common/images/his-logo/厚街医徽.png" />-->
-      <img src="../../images/仅供查阅.jpg" class="readOnly-img no-print" v-if="readOnly" alt />
+      <img
+        src="../../images/仅供查阅.jpg"
+        class="readOnly-img no-print"
+        v-if="readOnly"
+        alt
+      />
 
       <headCon></headCon>
       <Table>
@@ -66,8 +74,6 @@
 
   .bottom-line {
     display: inline-block;
-    // border-bottom 1px solid #000
-    // padding: 2px 0 2px 2px;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -75,7 +81,6 @@
   }
 
   .bottom-line {
-    // margin: 0 4px;
     input {
       border-bottom: 1px solid #000 !important;
       text-align: center;
@@ -100,10 +105,14 @@
     vertical-align: middle;
     margin-right: 5px;
   }
+
+  .sheet-table {
+    margin: -1px 0;
+  }
 }
 </style>
 <script>
-import excel from "./components/excel/excel";
+import excel from "../../components/sheetTable/components/excel/excel";
 import bus from "vue-happy-bus";
 import sheetInfo from "../config/sheetInfo/index.js";
 import $ from "jquery";
@@ -111,7 +120,7 @@ import moment from "moment";
 import common from "@/common/mixin/common.mixin";
 import { updateSheetHeadInfo } from "../../api/index";
 import Table from "./components/Table";
-import headCon from "./components/headCon/headCon";
+import headCon from "./components/headCon";
 export default {
   props: {
     data: Object,

@@ -46,7 +46,7 @@
           <span>
             住院号：
             <div class="bottom-line" style="min-width: 50px">
-              {{ patientInfo.inpNo }}
+              {{ patientInfo.patientId }}
             </div>
           </span>
           <span>
@@ -86,17 +86,16 @@
             {{ patientInfo.birthday | toymd }}
           </span>
         </div>
+        <excel
+          :data="data"
+          :index="index"
+          :length="length"
+          :scrollY="scrollY"
+          :hasFiexHeader="true"
+          :isInPatientDetails="isInPatientDetails"
+        >
+        </excel>
       </div>
-      <!-- <headCon v-if="isFirst"></headCon> -->
-      <excel
-        :data="data"
-        :index="index"
-        :length="length"
-        :scrollY="scrollY"
-        :hasFiexHeader="true"
-        :isInPatientDetails="isInPatientDetails"
-      >
-      </excel>
     </div>
   </div>
 </template>
@@ -252,14 +251,12 @@
 }
 </style>
 <script>
-// import excel from "./components/excel/excel.vue";
 import excel from "../../components/sheetTable/components/excel/excel.vue";
 import bus from "vue-happy-bus";
 import sheetInfo from "../config/sheetInfo/index.js";
 import $ from "jquery";
 import moment from "moment";
 import common from "@/common/mixin/common.mixin";
-// import headCon from "./components/headCon/headCon";
 import { updateSheetHeadInfo } from "../../api/index";
 export default {
   props: {
@@ -319,7 +316,6 @@ export default {
   },
   computed: {
     patientInfo() {
-      // return this.sheet.patientInfo
       return this.sheetInfo.selectBlock || {};
     },
     /** 只读模式 */
@@ -340,7 +336,6 @@ export default {
   destroyed() {} /* fix vue-happy-bus bug */,
   components: {
     excel
-    // headCon
   }
 };
 </script>

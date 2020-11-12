@@ -24,6 +24,7 @@
     "buildNew:": "npm run buildNew",
     "buildNew:weixian": "npm run buildNew: weixian",
     "buildNew:lingcheng": "npm run buildNew: lingcheng",
+    "buildNew:huadu": "npm run buildNew: huadu",
     "deploy": "npm run buildNew",
     "lint": "eslint --ext .js,.vue src",
     "toSvn": "svn commit -m 前端代码更新svn"
