@@ -28,16 +28,13 @@
           :hasFiexHeader="true"
           :isInPatientDetails="isInPatientDetails"
           slot="table"
-        ></excel
-        ><bottomCon slot="bottomCon" v-if="index == length - 1 ? true : false">
-          <div class="table-footer">
-            第 {{ index + sheetStartPage }} 页
-          </div></bottomCon
-        >
-        <div class="table-footer" slot="bottomCon" v-else>
-          第 {{ index + sheetStartPage }} 页
-        </div></topCon
-      >
+          ><bottomCon
+            slot="bottomCon"
+            v-if="index == length - 1 ? true : false"
+          >
+          </bottomCon
+        ></excel>
+      </topCon>
     </div>
   </div>
 </template>
@@ -107,10 +104,15 @@
       font-size: 14px;
     }
   }
+
+  .sheet-table {
+    margin: -1px 0;
+  }
 }
 </style>
 <script>
-import excel from "./components/excel/excel";
+import excel from "../../components/sheetTable/components/excel/excel";
+// import excel from "./components/excel/excel";
 import bus from "vue-happy-bus";
 import sheetInfo from "../config/sheetInfo/index.js";
 import $ from "jquery";

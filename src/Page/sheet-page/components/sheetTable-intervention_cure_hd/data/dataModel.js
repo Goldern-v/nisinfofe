@@ -18,7 +18,7 @@ let tableModel = {
 							type: "input",
 							prev: "手术日期：",
 							class: "",
-							name: "inpNo",
+							name: "shousuriqi",
 							value: "",
 							style: "width:100px;text-align:left;"
 						}

@@ -110,7 +110,7 @@
 }
 </style>
 <script>
-import excel from "./components/excel/excel";
+import excel from "../../components/sheetTable/components/excel/excel";
 import bus from "vue-happy-bus";
 import sheetInfo from "../config/sheetInfo/index.js";
 import $ from "jquery";
@@ -118,7 +118,7 @@ import moment from "moment";
 import common from "@/common/mixin/common.mixin";
 import { updateSheetHeadInfo } from "../../api/index";
 import Table from "./components/Table";
-import headCon from "./components/headCon/headCon";
+import headCon from "./components/headCon";
 export default {
   props: {
     data: Object,

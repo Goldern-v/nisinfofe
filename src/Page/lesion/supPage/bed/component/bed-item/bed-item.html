@@ -1,23 +1,12 @@
 <div class="bed-box">
-  <div
-    class="bed-box-inner"
-    :class="{infectFlag: data.infectFlag == 1,bornFlag: data.bornFlag == 1}"
-    :style="[data.bedLabel.includes('_') && data.patientId && (data.newBornOut ? {background: 'rgba(255, 207, 219, .5)'} : {background: '#D9F4FE'}), data.bornStatus === '送产房' && {background: '#FFBCBC'}]"
-  >
+  <div class="bed-box-inner" :class="{infectFlag: data.infectFlag == 1,bornFlag: data.bornFlag == 1}"
+    :style="[data.bedLabel.includes('_') && data.patientId && (data.newBornOut ? {background: 'rgba(255, 207, 219, .5)'} : {background: '#D9F4FE'}), data.bornStatus === '送产房' && {background: '#FFBCBC'}]">
     <span @click="toInfo(data)" v-if="data.patientId">
       <div class="part-1">
         <div class="bed-label">
-          <img
-            src="../../images/婴儿2.png"
-            alt=""
-            class="ye"
-            v-show="data.bedLabel.includes('_')"
-          />
-          {{ data.bedLabel }}<span
-            class="point-box"
-            v-show="data.formLowestStatus != '2' && HOSPITAL_ID !== 'weixian'"
-            :class="{red: data.formLowestStatus == 0, green: data.formLowestStatus == 1}"
-          ></span>
+          <img src="../../images/婴儿2.png" alt="" class="ye" v-show="data.bedLabel.includes('_')" />
+          {{ data.bedLabel }}<span class="point-box" v-show="data.formLowestStatus != '2' && HOSPITAL_ID !== 'weixian'"
+            :class="{red: data.formLowestStatus == 0, green: data.formLowestStatus == 1}"></span>
         </div>
       </div>
       <div class="part-2">
@@ -27,14 +16,8 @@
       </div>
       <div class="part-3">{{ data.sex }} | {{ data.chargeType || "--" }}</div>
       <div class="part-4">
-        <div
-          class="table-name"
-          v-for="item in (data.evalIcons &&  data.evalIcons.slice(0,6))"
-          :key="item.formName"
-          :title="item.description"
-          :style="{background: item.iconTextRgb}"
-          @click.stop="toFormPage(data, item)"
-        >
+        <div class="table-name" v-for="item in (data.evalIcons &&  data.evalIcons.slice(0,6))" :key="item.formName"
+          :title="item.description" :style="{background: item.iconTextRgb}" @click.stop="toFormPage(data, item)">
           <span>{{ item.iconText }}</span>
         </div>
       </div>
@@ -49,10 +32,8 @@
           <div class="label-box" :style="{background: item.iconTextRgb}">
             <span v-if="item.showContent">{{ item.showContent }}</span>
             <span v-else>
-              <span
-                >{{ item.iconText[item.iconText.length - 1] == "离" ? "隔" :
-                item.iconText[item.iconText.length - 1] }}</span
-              >
+              <span>{{ item.iconText[item.iconText.length - 1] == "离" ? "隔" :
+                item.iconText[item.iconText.length - 1] }}</span>
             </span>
           </div>
           <!-- </el-tooltip> -->
@@ -64,7 +45,7 @@
           <div class="key">床号：</div>
           <div class="value" style="width: 70px;">{{ data.bedLabel }}</div>
           <div class="key">住院号：</div>
-          <div class="value">{{ data.inpNo }}</div>
+          <div class="value">{{ data.patientId }}</div>
         </div>
         <div flex="" class="table-line" v-else>
           <div class="key">床号：</div>
@@ -81,8 +62,8 @@
         <div flex="" class="table-line" v-if="HOSPITAL_ID == 'huadu'">
           <div class="key">年龄：</div>
           <div class="value" style="width: 70px;">{{ data.age }}</div>
-          <div class="key">ID  号：</div>
-          <div class="value">{{ data.patientId }}</div>
+          <div class="key">ID 号：</div>
+          <div class="value">{{ data.inpNo }}</div>
         </div>
         <div flex="" class="table-line" v-else>
           <div class="key">年龄：</div>
@@ -173,10 +154,7 @@
         'type-3': data.nursingClass == '三级护理',
         'type-4': data.nursingClass == '特级护理'
       }" -->
-      <div
-        class="xinru"
-        :style="{borderColor: `${data.nursingClassColor} transparent`}"
-      ></div>
+      <div class="xinru" :style="{borderColor: `${data.nursingClassColor} transparent`}"></div>
       <!-- <div class="gl" v-if="data.glFlag">隔离</div> -->
       <div class="deptLend" v-if="data.deptLend">借</div>
     </span>
