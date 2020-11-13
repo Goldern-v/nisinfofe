@@ -83,41 +83,13 @@
               </td>
             </tr> -->
           </TableICU>
-          <PrintTableICU
-            ref="table"
-            class="table print-table"
-            :fixedTh="fixedTh"
-            data-print-style="height: auto;"
-            :columns="printColumns"
-            :editable="!allSigned"
-            :record="record"
-            :get-context-menu="getContextMenu"
-            v-model="patients"
-            @dblclick="onDblClickRow"
-            @input-change="onTableInputChange"
-            @input-keydown="onTableInputKeydown"
-          >
-            <tr class="empty-row" v-if="!patients.length">
-              <td colspan="12" style="padding: 0">
-                <Placeholder
-                  black
-                  size="small"
-                  data-print-style="display: none;"
-                  :show-add="!allSigned"
-                  @click="onPatientModalShow()"
-                >
-                  <i class="el-icon-plus"></i> 添加患者记录
-                </Placeholder>
-              </td>
-            </tr>
-          </PrintTableICU>
           <div
             class="foot"
             v-if="record"
             data-print-style="padding-bottom: 25px"
           >
             <div data-print-style="width: auto">
-              <span>组长签名：</span>
+              <span>A班组长签名：</span>
               <span data-print-style="display: none">
                 <button
                   v-if="record.autographNameA"
@@ -148,7 +120,7 @@
               >
             </div>
             <div data-print-style="width: auto">
-              <span>组长签名：</span>
+              <span>P班组长签名：</span>
               <span data-print-style="display: none">
                 <button
                   v-if="record.autographNameP"
@@ -179,7 +151,7 @@
               >
             </div>
             <div data-print-style="width: auto">
-              <span>组长签名：</span>
+              <span>N班组长签名：</span>
               <span data-print-style="display: none">
                 <button
                   v-if="record.autographNameN"
@@ -240,6 +212,150 @@
                 >未签名</span
               >
             </div> -->
+          </div>
+        </div>
+        <div class="print-table" ref="printable">
+          <div
+            data-print-style="height: auto;"
+            v-for="item in patients"
+            :key="item.id"
+          >
+            <div class="head shift-paper">
+              <!-- <img :src="hospitalLogo" alt="logo" class="logo"> -->
+              <h1 class="title">{{ HOSPITAL_NAME_SPACE }}</h1>
+              <h2 class="sub-title">护理交接班报告汇总单</h2>
+              <div class="details">
+                <span>病区：{{ deptName }}</span>
+                <span v-if="item.changeShiftDate">
+                  日期：
+                  {{ item.changeShiftDate | ymdhm }}
+                </span>
+                <span v-else>&nbsp;&nbsp;年&nbsp;&nbsp;月&nbsp;&nbsp;日</span>
+              </div>
+            </div>
+            <PrintTableICU
+              ref="table"
+              class="table"
+              :fixedTh="fixedTh"
+              data-print-style="height: auto;"
+              :columns="printColumns"
+              :editable="!allSigned"
+              :record="record"
+              :get-context-menu="getContextMenu"
+              :data="item"
+              @dblclick="onDblClickRow"
+              @input-change="onTableInputChange"
+              @input-keydown="onTableInputKeydown"
+            >
+            </PrintTableICU>
+            <div class="foot" data-print-style="padding-bottom: 25px">
+              <div data-print-style="width: auto">
+                <span>A班组长签名：</span>
+                <span data-print-style="display: none">
+                  <button
+                    v-if="item.autographNameA"
+                    @click="onDelSignModalOpen('A', item.autographEmpNoA)"
+                  >
+                    {{ item.autographNameA }}
+                  </button>
+                  <button
+                    v-else
+                    :disabled="isEmpty"
+                    @click="onSignModalOpen('A')"
+                  >
+                    点击签名
+                  </button>
+                </span>
+                <FallibleImage
+                  class="img"
+                  v-if="item.autographNameA"
+                  :src="`/crNursing/api/file/signImage/${item.autographEmpNoA}?${token}`"
+                  :alt="item.autographNameA"
+                  data-print-style="display: inline-block; width: 52px; height: auto;"
+                />
+              </div>
+              <div data-print-style="width: auto">
+                <span>P班组长签名：</span>
+                <span data-print-style="display: none">
+                  <button
+                    v-if="item.autographNameP"
+                    @click="onDelSignModalOpen('P', item.autographEmpNoP)"
+                  >
+                    {{ item.autographNameP }}
+                  </button>
+                  <button
+                    v-else
+                    :disabled="isEmpty"
+                    @click="onSignModalOpen('P', item.autographEmpNoP)"
+                  >
+                    点击签名
+                  </button>
+                </span>
+                <FallibleImage
+                  class="img"
+                  v-if="item.autographNameP"
+                  :src="`/crNursing/api/file/signImage/${item.autographEmpNoP}?${token}`"
+                  :alt="item.autographNameP"
+                  data-print-style="display: inline-block; width: 52px; height: auto;"
+                />
+              </div>
+              <div data-print-style="width: auto">
+                <span>N班组长签名：</span>
+                <span data-print-style="display: none">
+                  <button
+                    v-if="item.autographNameN"
+                    @click="onDelSignModalOpen('N', item.autographEmpNoN)"
+                  >
+                    {{ item.autographNameN }}
+                  </button>
+                  <button
+                    v-else
+                    :disabled="isEmpty"
+                    @click="onSignModalOpen('N', item.autographEmpNoN)"
+                  >
+                    点击签名
+                  </button>
+                </span>
+                <FallibleImage
+                  class="img"
+                  v-if="item.autographNameN"
+                  :src="`/crNursing/api/file/signImage/${item.autographEmpNoN}?${token}`"
+                  :alt="item.autographNameN"
+                  data-print-style="display: inline-block; width: 52px; height: auto;"
+                />
+              </div>
+              <!-- <div class="nurseLonger" data-print-style="width: auto">
+              <span>护长签名：</span>
+              <span data-print-style="display: none">
+                <button
+                  v-if="record.checkNurseName"
+                  @click="onDelSignModalOpen('check', record.checkNurseNo)"
+                >
+                  {{ record.checkNurseName }}
+                </button>
+                <button
+                  v-else
+                  :disabled="isEmpty"
+                  @click="onSignModalOpen('check', record.checkNurseNo)"
+                >
+                  点击签名
+                </button>
+              </span>
+              <FallibleImage
+                class="img"
+                v-if="record.checkNurseName"
+                :src="`/crNursing/api/file/signImage/${record.checkNurseNo}?${token}`"
+                :alt="record.checkNurseName"
+                data-print-style="display: inline-block; width: 52px; height: auto;"
+              />
+              <span
+                v-else
+                style="display: none"
+                data-print-style="display: inline-block;"
+                >未签名</span
+              >
+            </div> -->
+            </div>
           </div>
         </div>
       </div>
@@ -342,14 +458,6 @@ export default {
       columns: [
         [
           {
-            label: "日<br>期",
-            prop: "changeShiftDate",
-            editable: true,
-            align: "center",
-            width: "80",
-            rowspan: 2,
-          },
-          {
             label: "班<br>次",
             prop: "class",
             editable: false,
@@ -369,71 +477,72 @@ export default {
           },
           {
             label: "入院",
-            showColumns: true,
-            class: "bottom-line",
-            width: "228",
+            prop: "patientNewA",
+            editable: true,
+            width: "160",
+            rowspan: 2,
+          },
+          {
+            label: "零点",
+            prop: "patientZeroA",
+            editable: true,
+            width: "60",
+            rowspan: 2,
+          },
+          {
+            label: "出    院",
+            prop: "patientOutA",
+            editable: true,
+            width: "160",
+            rowspan: 2,
+          },
+          {
+            label: "死亡",
+            prop: "patientDeathA",
+            editable: true,
+            width: "60",
+            rowspan: 2,
+          },
+          {
+            label: "抢救",
+            prop: "patienTrescuetA",
+            editable: true,
+            width: "60",
+            rowspan: 2,
+          },
+          {
+            label: "手术",
+            prop: "patientOprationA",
+            editable: true,
+            width: "60",
+            rowspan: 2,
+          },
+          {
+            label: "病    危",
+            showColumns: false,
+            editable: true,
+            width: "160",
+            rowspan: 2,
             columns: [
               {
-                label: "新<br>入",
-                prop: "patientNewA",
+                label: "病危1",
+                prop: "patientBwA",
                 editable: true,
-                width: "110",
+                width: "80",
               },
               {
-                label: "转<br>入",
-                prop: "patientTransferInA",
+                label: "病危2",
+                prop: "patientBwA2",
                 editable: true,
-                width: "110",
+                width: "80",
               },
             ],
           },
           {
-            label: "零<br>点",
-            prop: "patientZeroA",
-            editable: true,
-            width: "40",
-            rowspan: 2,
-          },
-          {
-            label: "出<br>院",
-            prop: "patientOutA",
-            editable: true,
-            width: "80",
-            rowspan: 2,
-          },
-          {
-            label: "死<br>亡",
-            prop: "patientDeathA",
-            editable: true,
-            width: "40",
-            rowspan: 2,
-          },
-          {
-            label: "抢<br>救",
-            prop: "patienTrescuetA",
-            editable: true,
-            width: "40",
-            rowspan: 2,
-          },
-          {
-            label: "病<br>危",
-            prop: "patientBwA",
-            editable: true,
-            width: "40",
-            rowspan: 2,
-          },
-          {
-            label: "手<br>术",
-            prop: "patientOprationA",
-            editable: true,
-            width: "40",
-            rowspan: 2,
-          },
-          {
-            label: "病重",
+            label: "病   重",
             showColumns: false,
             rowspan: 2,
-            width: "400",
+            width: "240",
             columns: [
               {
                 label: "病重1",
@@ -453,18 +562,12 @@ export default {
                 editable: true,
                 width: "80",
               },
-              {
-                label: "病重4",
-                prop: "patientBzA4",
-                editable: true,
-                width: "80",
-              },
             ],
           },
         ],
         [
           {
-            label: "班次",
+            label: "班<br>次",
             prop: "class",
             editable: false,
             align: "center",
@@ -475,7 +578,7 @@ export default {
             },
           },
           {
-            label: "总数",
+            label: "总<br>数",
             prop: "patientTotalP",
             editable: true,
             width: "40",
@@ -483,101 +586,97 @@ export default {
           },
           {
             label: "入院",
-            showColumns: true,
+            prop: "patientNewP",
+            editable: true,
             width: "160",
-            columns: [
-              {
-                label: "新入",
-                prop: "patientNewP",
-                editable: true,
-                width: "80",
-              },
-              {
-                label: "转入",
-                prop: "patientTransferInP",
-                editable: true,
-                width: "80",
-              },
-            ],
+            rowspan: 2,
           },
           {
             label: "零点",
             prop: "patientZeroP",
             editable: true,
-            width: "40",
+            width: "60",
             rowspan: 2,
           },
           {
-            label: "出院",
+            label: "出    院",
             prop: "patientOutP",
             editable: true,
-            width: "80",
+            width: "160",
             rowspan: 2,
           },
           {
             label: "死亡",
             prop: "patientDeathP",
             editable: true,
-            width: "40",
+            width: "60",
             rowspan: 2,
           },
           {
             label: "抢救",
             prop: "patienTrescuetP",
             editable: true,
-            width: "40",
-            rowspan: 2,
-          },
-          {
-            label: "病危",
-            prop: "patientBwP",
-            editable: true,
-            width: "40",
+            width: "60",
             rowspan: 2,
           },
           {
             label: "手术",
             prop: "patientOprationP",
             editable: true,
-            width: "40",
+            width: "60",
             rowspan: 2,
           },
           {
-            label: "病重",
+            label: "病    危",
+            showColumns: false,
+            editable: true,
+            width: "160",
+            rowspan: 2,
+            columns: [
+              {
+                label: "病危1",
+                prop: "patientBwP",
+                editable: true,
+                width: "80",
+              },
+              {
+                label: "病危2",
+                prop: "patientBwP2",
+                editable: true,
+                width: "80",
+              },
+            ],
+          },
+          {
+            label: "病   重",
             showColumns: false,
             rowspan: 2,
-            width: "400",
+            width: "240",
             columns: [
               {
                 label: "病重1",
                 prop: "patientBzP1",
                 editable: true,
-                width: "100",
+                width: "80",
               },
               {
                 label: "病重2",
                 prop: "patientBzP2",
                 editable: true,
-                width: "100",
+                width: "80",
               },
               {
                 label: "病重3",
                 prop: "patientBzP3",
                 editable: true,
-                width: "100",
-              },
-              {
-                label: "病重4",
-                prop: "patientBzP4",
-                editable: true,
-                width: "100",
+                width: "80",
               },
             ],
           },
         ],
         [
           {
-            label: "班次",
+            label: "班<br>次",
             prop: "class",
             editable: false,
             align: "center",
@@ -588,7 +687,7 @@ export default {
             },
           },
           {
-            label: "总数",
+            label: "总<br>数",
             prop: "patientTotalN",
             editable: true,
             width: "40",
@@ -596,94 +695,90 @@ export default {
           },
           {
             label: "入院",
-            showColumns: true,
+            prop: "patientNewN",
+            editable: true,
             width: "160",
-            columns: [
-              {
-                label: "新入",
-                prop: "patientNewN",
-                editable: true,
-                width: "80",
-              },
-              {
-                label: "转入",
-                prop: "patientTransferInN",
-                editable: true,
-                width: "80",
-              },
-            ],
+            rowspan: 2,
           },
           {
             label: "零点",
             prop: "patientZeroN",
             editable: true,
-            width: "40",
+            width: "60",
             rowspan: 2,
           },
           {
-            label: "出院",
+            label: "出    院",
             prop: "patientOutN",
             editable: true,
-            width: "80",
+            width: "160",
             rowspan: 2,
           },
           {
             label: "死亡",
             prop: "patientDeathN",
             editable: true,
-            width: "40",
+            width: "60",
             rowspan: 2,
           },
           {
             label: "抢救",
             prop: "patienTrescuetN",
             editable: true,
-            width: "40",
-            rowspan: 2,
-          },
-          {
-            label: "病危",
-            prop: "patientBwN",
-            editable: true,
-            width: "40",
+            width: "60",
             rowspan: 2,
           },
           {
             label: "手术",
             prop: "patientOprationN",
             editable: true,
-            width: "40",
+            width: "60",
             rowspan: 2,
           },
           {
-            label: "病重",
+            label: "病    危",
+            showColumns: false,
+            editable: true,
+            width: "160",
+            rowspan: 2,
+            columns: [
+              {
+                label: "病危1",
+                prop: "patientBwN",
+                editable: true,
+                width: "80",
+              },
+              {
+                label: "病危2",
+                prop: "patientBwN2",
+                editable: true,
+                width: "80",
+              },
+            ],
+          },
+          {
+            label: "病   重",
             showColumns: false,
             rowspan: 2,
-            width: "400",
+            width: "240",
             columns: [
               {
                 label: "病重1",
                 prop: "patientBzN1",
                 editable: true,
-                width: "100",
+                width: "80",
               },
               {
                 label: "病重2",
                 prop: "patientBzN2",
                 editable: true,
-                width: "100",
+                width: "80",
               },
               {
                 label: "病重3",
                 prop: "patientBzN3",
                 editable: true,
-                width: "100",
-              },
-              {
-                label: "病重4",
-                prop: "patientBzN4",
-                editable: true,
-                width: "100",
+                width: "80",
               },
             ],
           },
@@ -775,7 +870,7 @@ export default {
     });
     let arr = [];
     this.columns.map((item, index) => {
-      arr.push([...item, this.signCol[index]]);
+      arr.push([...item]);
     });
     this.printColumns = [...arr];
   },
@@ -1396,7 +1491,7 @@ export default {
 .paper {
   margin: 0 auto 20px;
   padding: 20px;
-  width: 1110px;
+  width: 1080px;
   min-height: 700px;
   border-radius: 2px;
   background: #fff;
@@ -1518,13 +1613,23 @@ export default {
 .print-table {
   position: absolute;
   z-index: -1;
-  width: 1040px;
+  // width: 1130px !important;
 }
 </style>
 <style lang="stylus">
 @media print {
-  .shift-paper {
-    padding-top: 40px !important;
+  .print-table {
+    .shift-paper {
+      padding-top: 40px !important;
+    }
+
+    >div {
+      margin-bottom: 40px;
+
+      &:last-of-type {
+        margin-bottom: 0;
+      }
+    }
   }
 }
 

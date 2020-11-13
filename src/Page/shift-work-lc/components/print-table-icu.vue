@@ -1,6 +1,6 @@
 <template>
   <div>
-    <table class="table fixed-th" v-if="fixedTh">
+    <table class="table dept-shift-table" ref="table">
       <colgroup>
         <col v-for="col of allColumns" :key="col.label" :width="col.width" />
       </colgroup>
@@ -22,108 +22,61 @@
           </th>
         </tr>
       </thead>
-    </table>
-    <table class="table" ref="table">
       <tbody class="print-tbody">
-        <tr v-for="(maxRow, maxRowIndex) in data" :key="maxRow.id">
-          <td :colspan="allColumns.length">
-            <table class="table dept-shift-table">
-              <colgroup>
-                <col
-                  v-for="col of allColumns"
-                  :key="col.label"
-                  :width="col.width"
-                />
-              </colgroup>
-              <thead v-if="maxRowIndex == 0">
-                <tr>
-                  <th
-                    v-for="col of realColumns"
-                    :key="col.label"
-                    :colspan="getColSpan(col)"
-                    :rowspan="col.rowspan"
-                    :class="col.class"
-                  >
-                    <div class="cell" v-html="col.label" />
-                  </th>
-                </tr>
-                <tr>
-                  <th
-                    v-for="col of realColumns2"
-                    :key="col.label"
-                    :class="col.class"
-                  >
-                    <div class="cell" v-html="col.label" />
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr
-                  v-for="(row, rowIndex) in columns"
-                  :class="[{ selected: row === selectedRow }]"
-                  :key="rowIndex"
-                  @click="onClick(rowIndex)"
-                >
-                  <td
-                    v-for="(col, colIndex) of getData(rowIndex)"
-                    :key="col.label"
-                    :style="{ 'text-align': col.align || 'left' }"
-                    :rowspan="rowIndex % 3 == 0 && colIndex == 0 ? 3 : 1"
-                    @contextmenu.stop.prevent="
-                      onContextMenu($event, rowIndex, col)
-                    "
-                  >
-                    <div
-                      class="cell"
-                      v-if="col.render"
-                      v-html="col.render(maxRow)"
-                    />
-                    <label v-else-if="col.editable">
-                      <el-input
-                        autosize
-                        class="textarea"
-                        type="textarea"
-                        v-model="maxRow[col.prop]"
-                        :disabled="!editable"
-                        @change="
-                          onInputChange(
-                            $event,
-                            maxRow[col.prop],
-                            col.prop,
-                            rowIndex,
-                            colIndex
-                          )
-                        "
-                        @keydown.native="
-                          onInputKeydown(
-                            $event,
-                            maxRow[col.prop],
-                            col.prop,
-                            rowIndex,
-                            colIndex
-                          )
-                        "
-                      />
-                    </label>
-                    <div v-else-if="col.showSign">
-                      <FallibleImage
-                        class="img"
-                        v-if="maxRow[col.prop]"
-                        :src="`/crNursing/api/file/signImage/${
-                          maxRow[col.prop]
-                        }?${token}`"
-                        :alt="maxRow[col.prop]"
-                        data-print-style="display: inline-block; width: 52px; height: auto;"
-                      />
-                    </div>
-                    <div class="cell" v-else>{{ maxRow[col.prop] }}</div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+        <tr
+          v-for="(row, rowIndex) in columns"
+          :class="[{ selected: row === selectedRow }]"
+          :key="rowIndex"
+          @click="onClick(rowIndex)"
+        >
+          <td
+            v-for="(col, colIndex) of getData(rowIndex)"
+            :key="col.label"
+            :style="{ 'text-align': col.align || 'left' }"
+            @contextmenu.stop.prevent="onContextMenu($event, rowIndex, col)"
+          >
+            <div class="cell" v-if="col.render" v-html="col.render(data)" />
+            <label v-else-if="col.editable">
+              <el-input
+                autosize
+                class="textarea"
+                type="textarea"
+                v-model="data[col.prop]"
+                :disabled="!editable"
+                @change="
+                  onInputChange(
+                    $event,
+                    data[col.prop],
+                    col.prop,
+                    rowIndex,
+                    colIndex
+                  )
+                "
+                @keydown.native="
+                  onInputKeydown(
+                    $event,
+                    data[col.prop],
+                    col.prop,
+                    rowIndex,
+                    colIndex
+                  )
+                "
+              />
+            </label>
+            <div v-else-if="col.showSign">
+              <FallibleImage
+                class="img"
+                v-if="data[col.prop]"
+                :src="`/crNursing/api/file/signImage/${
+                  data[col.prop]
+                }?${token}`"
+                :alt="data[col.prop]"
+                data-print-style="display: inline-block; width: 52px; height: auto;"
+              />
+            </div>
+            <div class="cell" v-else>{{ data[col.prop] }}</div>
           </td>
         </tr>
-        <slot></slot>
       </tbody>
     </table>
   </div>
@@ -160,8 +113,8 @@ export default {
       default: () => [],
     },
     data: {
-      type: Array,
-      default: () => [],
+      type: Object,
+      default: () => {},
     },
     record: {
       type: Object,

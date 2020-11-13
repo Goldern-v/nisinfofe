@@ -55,7 +55,6 @@
             v-for="(col, colIndex) of getData(rowIndex)"
             :key="col.label"
             :style="{ 'text-align': col.align || 'left' }"
-            :rowspan="rowIndex == 0 && colIndex == 0 ? 3 : 1"
           >
             <div class="cell" v-if="col.render" v-html="col.render(record)" />
             <label v-else-if="col.editable">
