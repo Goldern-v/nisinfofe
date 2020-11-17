@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :class="{'bed-hd': this.HOSPITAL_ID == 'huadu'}">
     <div class="right-part">
       <search-con ref="searchCon"></search-con>
     </div>
@@ -15,15 +15,14 @@
           <img src="../../../../common/images/card/默认图.png" height="220" width="220" />
           <p>暂时没有护理单元～</p>
         </div>
-        <bed-item
-          v-for="(item, index) in bedList"
+        <component :is="currentBedItem" v-for="(item, index) in bedList"
           :key="index"
           :data="item"
           :toLike="toLike"
           :toInfo="toInfo"
           :prevent="prevent"
-          v-show="filterSearch(item)"
-        ></bed-item>
+          v-show="filterSearch(item)">
+        </component>
       </el-row>
     </div>
   </div>
@@ -68,6 +67,17 @@
     margin-top: 32px;
   }
 }
+.bed-hd {
+  .card-con {
+    padding: 15px 15px 50px;
+  }
+  .left-part {
+    margin-right: 240px;
+  }
+  .right-part {
+    width: 240px;
+  }
+}
 </style>
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus">
@@ -93,11 +103,17 @@
     line-height: 20px;
   }
 }
+.bed-hd {
+  .footer-con {
+    right: 240px !important;
+  }
+}
 </style>
 
 <script>
 import { follow, unfollow } from "@/api/lesion";
 import bedItem from "./component/bed-item/bed-item.vue";
+import bedItemHd from "./component/bed-item-hd/bed-item.vue";
 import searchCon from "./component/search-con/search-con.vue";
 import common from "@/common/mixin/common.mixin.js";
 import qs from "qs";
@@ -121,6 +137,13 @@ export default {
     },
     bedHeight() {
       return this.wih - 93 + "px";
+    },
+    currentBedItem(){
+      if(this.HOSPITAL_ID == 'huadu'){
+        return bedItemHd;
+      }else {
+        return bedItem;
+      }
     }
   },
   filters: {
@@ -222,7 +245,8 @@ export default {
   },
   components: {
     bedItem,
-    searchCon
+    searchCon,
+    bedItemHd
   }
 };
 </script>
