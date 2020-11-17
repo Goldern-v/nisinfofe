@@ -227,7 +227,7 @@
           </div>
         </div>
       </div>
-      <div class="bed-card-warpper bed-card-vertical" ref="printCon" v-show="printMode == 'v'">
+      <div class="bed-card-warpper bed-card-vertical" ref="printCon2" v-else>
         <div class="bed-card-vert-con">
           <span>床号：</span>
           <p>{{query.bedLabel + '床'}}</p>
@@ -703,7 +703,8 @@ export default {
     onPrint() {
       this.$nextTick(() => {
         this.post();
-        print(this.$refs.printCon);
+        let printEle = this.printMode == 'h' ? this.$refs.printCon : this.$refs.printCon2;
+        print(printEle);
       });
     },
     querySearchAsyncDoc(queryString, cb) {
