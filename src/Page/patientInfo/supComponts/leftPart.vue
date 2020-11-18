@@ -35,7 +35,7 @@
           <div class="list2-li">医生：{{info.doctorInCharge}}</div>
           <div class="list2-li over-text" :title="info.diagnosis">诊断：{{info.diagnosis}}</div>
           <div class="print-btn" flex="cross:center main:center" @click="openBedPrint">打印床头卡</div>
-          <!-- <div class="print-btn" flex="cross:center main:center" @click="openBedPrint('v')" v-if="HOSPITAL_ID == 'huadu'">打印床头卡2</div> -->
+          <div class="print-btn" flex="cross:center main:center" @click="openBedPrint('v')" v-if="HOSPITAL_ID == 'huadu'">打印床头卡2</div>
           <div
             class="print-btn"
             flex="cross:center main:center"

@@ -3,7 +3,7 @@
     <sweet-modal
       ref="modal"
       :modalWidth="600"
-      title="编辑床头卡"
+      :title="title"
       :enable-mobile-fullscreen="false"
       class="modal"
     >
@@ -227,7 +227,7 @@
           </div>
         </div>
       </div>
-      <div class="bed-card-warpper bed-card-vertical" ref="printCon2" v-else>
+      <div class="bed-card-warpper bed-card-vertical" ref="printCon2" v-show = "printMode == 'v'">
         <div class="bed-card-vert-con">
           <span>床号：</span>
           <p>{{query.bedLabel + '床'}}</p>
@@ -281,25 +281,28 @@
   // display: none;
   .bed-card-vert-con {
     margin: 20px;
-    width: 100px;
-    height: 200px;
-    padding: 5px 8px;
+    width: 119px;
+    height: 498px;
+    padding: 35px 8px 5px !important;;
     box-sizing: border-box;
-    border-right: 5px solid #fff;
     position: relative;
-    border: 1px solid #000;
-    height: 370px;
+    border: 3px solid #000;
     text-align: left;
-    p {
+    span {
       font-size: 18px;
-      padding-bottom: 10px;
+      line-height: 24px;
+    }
+    p {
+      font-size: 22px;
+      line-height: 28px;
+      padding-bottom: 20px;
       &:last-of-type {
-        padding-bottom: 0;
+        padding-bottom: 15px;
       }
     }
     svg {
       width: 100%;
-      height: 70px;
+      height: 70px !important;
     }
   }
 }
@@ -582,6 +585,7 @@ export default {
       },
       ysList: [],
       printMode: 'h',//打印模式
+      title: '编辑床头卡'
     };
   },
   computed: {
@@ -650,6 +654,7 @@ export default {
       this.$refs.modal.open();
       this.printMode = printMode;
       if(this.printMode == 'h'){
+        this.title = '编辑床头卡';
         var qr_png = qr.imageSync(this.query.patientId, { type: "png" });
         function arrayBufferToBase64(buffer) {
           var binary = "";
@@ -664,6 +669,7 @@ export default {
         this.qrCode = base64;
         this.qrCodeNum = this.query.patientId;
       }else {
+        this.title = '打印床头卡';
         JsBarcode("#barcode", this.query.inpNo, {
 　　 　　   lineColor: "#000",
 　　 　　   width: 4,
