@@ -1,5 +1,5 @@
 <template>
-  <div class="content">
+  <div class="content" v-loading="pageLoading">
     <null-bg v-if="show"></null-bg>
     <!-- <iframe id="iframeId" src="http://119.145.71.86:9801/hcres/emr_pdf/1342087_1/A.17.pdf" frameborder="0" class="emr-pdf" :style="{height:height}" v-if="!show"></iframe> -->
     <iframe
@@ -17,12 +17,14 @@
 <script>
 import bus from "vue-happy-bus";
 import nullBg from "@/components/null/null-bg";
+import { getDoctorEmr } from "../../api/index";
 export default {
   data() {
     return {
       fileUrl: null,
       bus: bus(this),
-      show: true
+      show: true,
+      pageLoading: false
     };
   },
   props: {
@@ -36,6 +38,11 @@ export default {
       this.fileUrl = fileUrl;
       this.show = false;
     });
+
+    if(this.HOSPITAL_ID == 'huadu'){
+      this.show = false;
+      this.getTreeData();
+    }
   },
   computed: {
     wih() {
@@ -51,6 +58,21 @@ export default {
       setTimeout(() => {
         wid.document.getElementById("toolbar").style.display = "none";
       }, 2000);
+    },
+     getTreeData() {
+      this.pageLoading = true;
+      Promise.all([
+        getDoctorEmr(this.$route.query.patientId, this.$route.query.visitId)
+      ])
+        .then(res => {
+          let data = res[0].data.data;
+          if(data['其他记录'] && data['其他记录'][0]){
+            this.fileUrl = data['其他记录'][0]['expand1'];
+          }
+          this.pageLoading = false;
+        })
+        .then(res => {
+        });
     }
   }
 };
