@@ -35,6 +35,16 @@
             </el-option>
           </el-select>
         </ElFormItem>
+        <ElFormItem prop="date" label="教育时间：" v-if="modalStatus && HOSPITAL_ID=='hj'">
+          <el-date-picker
+            popper-class="picker-dropdown"
+            v-model="date"
+            type="datetime"
+            align="center"
+            format="MM-dd HH:mm"
+            placeholder="选择教育时间"
+          ></el-date-picker>
+        </ElFormItem>
         <ElFormItem prop="object" label="教育对象：">
           <ElSelect v-model="form.object">
             <ElOption
@@ -103,6 +113,7 @@ export default {
   data() {
     return {
       title: "",
+      modalStatus: false, // 判断当前状态是编辑还是添加
       form: {
         state: "",
         object: "",
@@ -149,6 +160,7 @@ export default {
       this.type = form ? 2 : 1;
       this.disabled = !!form;
       if (form) {
+        this.modalStatus = true;
         let statusText = this.setStatus(form["item"].status); // 推送状态
         let status = form["item"].status;
         if (status && (status === "1R" || status === "2" || status === "3")) {
@@ -182,6 +194,7 @@ export default {
         this.form.remarks = form["备注"] || "";
         this.form.signature = form["签名"] || "";
       } else {
+        this.modalStatus = false;
         this.title = title;
         this.isOk = false;
         // 添加时清空表单
@@ -283,7 +296,7 @@ export default {
         item => item.value === this.form.assessment
       )[0].text; // 教育评估
       let pageParam = {
-        教育时间: this.date || date,
+        教育时间: this.date ? dayjs(this.date).format("MM-DD HH:mm") : date,
         教育对象: object,
         教育方法: method,
         教育评估: assessment,
