@@ -4,9 +4,7 @@ import qs from "qs";
 
 // 查询病区科室
 export function listDepartment(parentCode) {
-  return axios.get(
-    `${apiPath}changeShiftHdTime/getDeptWithWardcode/${parentCode}`
-  );
+  return axios.get(`${apiPath}wardDaily/getDeptWithWardcode/${parentCode}`);
 }
 
 // 查询交班志列表

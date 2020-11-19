@@ -31,9 +31,9 @@
       >
         <div class="nav-item">护理评估单</div>
       </router-link>
-      <!-- <router-link :to="{path:'/sheetNursingOrder', query: {patientId:query.patientId, visitId: query.visitId}}" tag="span">
+      <router-link :to="{path:'/sheetNursingOrder', query: {patientId:query.patientId, visitId: query.visitId}}" tag="span">
         <div class="nav-item">护嘱单</div>
-      </router-link>-->
+      </router-link>
 
       <router-link
         :to="{path:'/sheet', query: {patientId:query.patientId, visitId: query.visitId}}"
