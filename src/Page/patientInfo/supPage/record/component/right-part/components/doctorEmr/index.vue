@@ -101,18 +101,19 @@ export default {
       await this.getTreeData()
     },
     async getTreeData() {
-      if ((this.patientId === this.routeQuery.patientId) && (this.visitId === this.routeQuery.visitId)) return
-      this.pageLoading = true
-      this.patientId = this.routeQuery.patientId
-      this.visitId = this.routeQuery.visitId
-      const res = await getDoctorEmr(this.patientId, this.visitId)
-      const data = res.data.data
-      const obj = data['其他记录'] && data['其他记录'][0]
-      if (obj) {
-        this.fileUrl = obj.expand1
-        // this.fileUrl = obj.fileUrl
-      }
-      this.pageLoading = false
+      this.fileUrl = `http://172.16.4.53/EmrView/Index.aspx?hospital_no=45539427X44011411A1001&patient_id=${this.$route.query.inpNo}`
+      // if ((this.patientId === this.routeQuery.patientId) && (this.visitId === this.routeQuery.visitId)) return
+      // this.pageLoading = true
+      // this.patientId = this.routeQuery.patientId
+      // this.visitId = this.routeQuery.visitId
+      // const res = await getDoctorEmr(this.patientId, this.visitId)
+      // const data = res.data.data
+      // const obj = data['其他记录'] && data['其他记录'][0]
+      // if (obj) {
+      //   this.fileUrl = obj.expand1
+      //   // this.fileUrl = obj.fileUrl
+      // }
+      // this.pageLoading = false
     }
   }
 }
