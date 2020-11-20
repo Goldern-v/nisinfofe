@@ -20,7 +20,7 @@ let sshUpload = (
     德州市陵城区人民医院: "lingcheng",
     花都武警医院: "huaduwujing",
     广州市花都区人民医院: "huadu",
-    武警广东总队医院: "wujing",
+    武警广东总队医院: "wujing"
   };
   let hospitalEN = "dongguanhoujie";
   if (hospitalList[hospitalName]) {
@@ -34,7 +34,7 @@ let sshUpload = (
 
   let serverInfo = {
     host: "120.25.105.45",
-    port: "50022",
+    port: "50289",
     username: "root",
     privateKey: path.resolve(__dirname, "./keys/cr_web_rsa") //fs.readFileSync('keys/cr_web_rsa')
   };
