@@ -194,7 +194,6 @@ import { nursingUnit } from "@/api/lesion";
 import { nursingUnitAll } from "@/api/common";
 import { exportExcel } from "../../api/patientStatistics";
 import { fileDownload } from "@/utils/fileExport.js";
-import print from "printing";
 import moment from "moment";
 export default {
   props: {

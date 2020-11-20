@@ -1,7 +1,8 @@
 <template lang="pug">
   div
-    .paper(data-print-class="printing")
+    .main-contain
       dTable(:tableData="tableData" :pageLoadng="pageLoadng" ref="area")
+      dTable(:tableData="tableData" :pageLoadng="pageLoadng" ref="area" class="all-cognitive-statistic-print")
       .head-con(flex="main:justify cross:center")
         pagination(:pageIndex="page.pageIndex" :size="page.pageNum" :total="page.total" @sizeChange="handleSizeChange"
         @currentChange="handleCurrentChange")
@@ -10,14 +11,8 @@
       searchCon(ref="searchCon" :tableData="tableData" @print="onPrint")
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
-.paper {
+.main-contain {
   margin: 10px 250px 0px 10px;
-
-  &.printing {
-    margin: 0;
-    padding: 0;
-    box-shadow: none;
-  }
 
   .head-con {
     height: 41px;
@@ -77,11 +72,79 @@
   z-index: 10;
 }
 </style>
+<style lang="stylus">
+@media print {
+  .all-cognitive-statistic-print {
+    .page-box {
+      padding-top: 40px !important;
+      box-sizing: border-box;
+    }
+
+    .el-table th {
+      height: 30px;
+
+      .cell {
+        font-size: 12px;
+        font-weight: 400;
+        color: #000;
+        background: #fff;
+      }
+    }
+
+    .el-table {
+      border: none !important;
+
+      &::before, &::after {
+        height: 0;
+      }
+
+      table {
+        width: 100% !important;
+      }
+
+      th {
+        border: 1px solid #000 !important;
+      }
+
+      td {
+        height: 34px;
+        border-right: 1px solid #000 !important;
+        border-bottom: 1px solid #000 !important;
+        border-left: 1px solid #000 !important;
+      }
+
+      .el-input__inner {
+        height: 24px;
+        border-color: #000;
+      }
+
+      .cell {
+        padding: 0 5px;
+      }
+
+      .el-table__header-wrapper, .el-table__body-wrapper {
+        // margin-top: -1px;
+        margin-left: 0;
+      }
+
+      .el-table__body-wrapper {
+        height: auto !important;
+      }
+    }
+  }
+}
+
+@page {
+  margin: 0 10mm;
+}
+</style>
 <script>
 import searchCon from "./components/search-con/search-con";
 import dTable from "./components/table/d-table";
 import pagination from "./components/common/pagination";
 import { getList } from "./api/patientStatistics";
+import print from "printing";
+import formatter from "./print-formatter";
 export default {
   data() {
     return {
@@ -152,12 +215,24 @@ export default {
       await this.$nextTick();
       const area = this.$refs.area;
       console.log("area", area.$el.querySelectorAll(".el-table"));
-      const els = Array.from(area);
-      debugger;
-      await print([area], {
-        direction: "horizontal",
+      const els = Array.from(area.$el.querySelectorAll(".el-table"));
+      await print(els, {
+        beforePrint: formatter,
+        direction: "vertical",
         injectGlobalCss: true,
-        scanStyles: false
+        scanStyles: false,
+        css: `
+        .fixedTh {
+          display: none !important;
+          height: auto;
+        }
+        pre {
+          white-space: pre-wrap;
+        }
+        table {
+          width: 100% !important;
+        }
+          `
       });
 
       this.printing = val;

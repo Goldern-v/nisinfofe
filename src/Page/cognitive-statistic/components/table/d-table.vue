@@ -7,6 +7,7 @@
       :height="wih - 125"
       v-loading="pageLoadng"
       @row-dblclick="openDetail"
+      class="tablePrint"
     >
       <el-table-column
         label="序号"
@@ -181,6 +182,14 @@
 
   >>>.el-table__body-wrapper {
     // overflow-x hidden
+  }
+
+  @media screen and (max-width: 1100px) {
+    >>>.el-table {
+      th {
+        width: 10px;
+      }
+    }
   }
 }
 </style>
