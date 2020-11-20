@@ -1,8 +1,7 @@
 <template lang="pug">
   div
     .main-contain
-      dTable(:tableData="tableData" :pageLoadng="pageLoadng" ref="area")
-      dTable(:tableData="tableData" :pageLoadng="pageLoadng" ref="area" class="all-cognitive-statistic-print")
+      dTable(:tableData="tableData" :pageLoadng="pageLoadng" ref="area" class="area")
       .head-con(flex="main:justify cross:center")
         pagination(:pageIndex="page.pageIndex" :size="page.pageNum" :total="page.total" @sizeChange="handleSizeChange"
         @currentChange="handleCurrentChange")
@@ -59,6 +58,13 @@
       }
     }
   }
+
+  .area {
+    /deep/ .el-table__header, /deep/ .el-table__body {
+      transform-origin: top left !important;
+      transform: scale(0.59, 1);
+    }
+  }
 }
 
 .search-con {
@@ -72,79 +78,12 @@
   z-index: 10;
 }
 </style>
-<style lang="stylus">
-@media print {
-  .all-cognitive-statistic-print {
-    .page-box {
-      padding-top: 40px !important;
-      box-sizing: border-box;
-    }
-
-    .el-table th {
-      height: 30px;
-
-      .cell {
-        font-size: 12px;
-        font-weight: 400;
-        color: #000;
-        background: #fff;
-      }
-    }
-
-    .el-table {
-      border: none !important;
-
-      &::before, &::after {
-        height: 0;
-      }
-
-      table {
-        width: 100% !important;
-      }
-
-      th {
-        border: 1px solid #000 !important;
-      }
-
-      td {
-        height: 34px;
-        border-right: 1px solid #000 !important;
-        border-bottom: 1px solid #000 !important;
-        border-left: 1px solid #000 !important;
-      }
-
-      .el-input__inner {
-        height: 24px;
-        border-color: #000;
-      }
-
-      .cell {
-        padding: 0 5px;
-      }
-
-      .el-table__header-wrapper, .el-table__body-wrapper {
-        // margin-top: -1px;
-        margin-left: 0;
-      }
-
-      .el-table__body-wrapper {
-        height: auto !important;
-      }
-    }
-  }
-}
-
-@page {
-  margin: 0 10mm;
-}
-</style>
 <script>
 import searchCon from "./components/search-con/search-con";
 import dTable from "./components/table/d-table";
 import pagination from "./components/common/pagination";
 import { getList } from "./api/patientStatistics";
 import print from "printing";
-import formatter from "./print-formatter";
 export default {
   data() {
     return {
@@ -214,24 +153,19 @@ export default {
 
       await this.$nextTick();
       const area = this.$refs.area;
-      console.log("area", area.$el.querySelectorAll(".el-table"));
-      const els = Array.from(area.$el.querySelectorAll(".el-table"));
-      await print(els, {
-        beforePrint: formatter,
+      debugger;
+      // console.log("area", area.$el.querySelectorAll(".el-table"));
+      // const els = Array.from(area.$el.querySelectorAll(".el-table"));
+      await print([area.$el], {
         direction: "vertical",
         injectGlobalCss: true,
         scanStyles: false,
-        css: `
-        .fixedTh {
-          display: none !important;
-          height: auto;
-        }
-        pre {
-          white-space: pre-wrap;
-        }
-        table {
-          width: 100% !important;
-        }
+        css: `.area {
+            /deep/ .el-table__header,
+            /deep/ .el-table__body {
+              transform-origin: top left !important;
+              transform: scale(0.59, 1);
+            }}
           `
       });
 

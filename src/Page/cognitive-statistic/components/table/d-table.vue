@@ -183,14 +183,6 @@
   >>>.el-table__body-wrapper {
     // overflow-x hidden
   }
-
-  @media screen and (max-width: 1100px) {
-    >>>.el-table {
-      th {
-        width: 10px;
-      }
-    }
-  }
 }
 </style>
 <script>
