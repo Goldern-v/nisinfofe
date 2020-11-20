@@ -41,7 +41,8 @@ export default {
 
     if(this.HOSPITAL_ID == 'huadu'){
       this.show = false;
-      this.getTreeData();
+      this.fileUrl = `http://172.16.4.53/EmrView/Index.aspx?hospital_no=45539427X44011411A1001&patient_id=${this.$route.query.inpNo}`;
+      // this.getTreeData();
     }
   },
   computed: {
