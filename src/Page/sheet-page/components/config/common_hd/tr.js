@@ -12,7 +12,7 @@ import {
 } from "../keyEvent/date";
 let 入量名称 = [];
 let 出量名称 = [];
-let 意识 = [];
+let 意识 = ['清醒','浅昏迷','深昏迷','模糊','嗜睡','昏睡','谵望'];
 export default [{
     key: "recordMonth", //日期
     value: "",
@@ -71,9 +71,9 @@ export default [{
     value: "",
     event: keyf1,
     name: "意识",
-    // autoComplete: {
-    //   data: 意识
-    // }
+    autoComplete: {
+      data: 意识
+    }
   },
   {
     key: "spo2", //SPO₂(%)
@@ -182,14 +182,21 @@ export default [{
       top: "1px",
       bottom: "1px",
       left: "1px",
-      width: "180px",
-      background: "transparent"
+      width: "150px",
+      background: "transparent",
+      'word-wrap':'wrap'
     },
     event: function (e, td) {
       console.log(e.keyCode);
+      // console.log(e);
       if (e.keyCode == 9) {
         td.value = "    " + td.value;
         e.preventDefault();
+      }
+      // console.log('eqe',e)
+      console.log('eqe',e.path[0].dataset.value.length)
+      if(e.path[0].dataset.value.length > 12){
+        console.log('eqe')
       }
       keyf1(e, td);
     }
@@ -197,6 +204,10 @@ export default [{
   },
   {
     key: "sign",
+    value: ""
+  },
+  {
+    key: "audit",
     value: ""
   },
   {
@@ -271,7 +282,6 @@ let filterKey2 = '统一护理记录单' + ':';
 
 export function getListData4() {
   let list = [
-    "意识",
     "入量名称",
     "出量名称",
   ];
@@ -280,7 +290,6 @@ export function getListData4() {
   });
   multiDictInfo(list).then(res => {
     let data = res.data.data;
-    setList(意识, "意识", data);
     setList(入量名称, "入量名称", data);
     setList(出量名称, "出量名称", data);
   });

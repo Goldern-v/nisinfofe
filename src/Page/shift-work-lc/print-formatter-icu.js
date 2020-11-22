@@ -4,48 +4,66 @@ export default function(win) {
 
   root.setAttribute("style", "width: 1080px;");
 
-  const header = root.querySelector(".head");
+  // const header = root.querySelector(".head");
   // const footer = root.querySelector(".foot");
 
-  const table = root.querySelector(".print-table");
-  const tbody = table.children[0];
-  const trs = tbody.querySelectorAll(".print-tbody>tr");
+  const trs = root.children;
 
-  let patients = Array.prototype.slice.call(trs, 0); // 病人列表
-
+  let patients = Array.prototype.slice.call(trs, 0);
   // 移除空行
   patients = patients.filter(row => {
     return row.innerText.trim() !== "";
   });
 
-  let page, newTable, newTableBody, row;
+  let page, row;
 
   while ((row = patients.shift())) {
-    const h = row.offsetHeight;
-    if (!page || page.offsetHeight + h > 700) {
-      newTable = table.cloneNode(true);
-      newTableBody = newTable.children[0];
-      newTableBody.innerHTML = "";
+    if (row && row.offsetHeight > 700) {
+      let wrap = row.cloneNode(true);
 
+      let childPage,
+        newTable,
+        newTableBody,
+        header,
+        footer,
+        childRow,
+        table,
+        trs;
+      header = wrap.querySelector(".head");
+      footer = wrap.querySelector(".foot");
+      table = wrap.querySelector("table");
+      trs = row.querySelectorAll("tbody tr");
+      trs = Array.from(trs);
+      while ((childRow = trs.shift())) {
+        const h = childRow.offsetHeight;
+        if (!childPage || page.offsetHeight + h > 700) {
+          newTable = table.cloneNode(true);
+          newTableBody = newTable.children[2];
+          newTableBody.innerHTML = "";
+
+          childPage = document.createElement("div");
+          childPage.className = "table";
+          childPage.appendChild(newTable);
+
+          page = document.createElement("div");
+          page.appendChild(header.cloneNode(true));
+          page.appendChild(childPage);
+          page.appendChild(footer.cloneNode(true));
+          // page.appendChild(footer.cloneNode(true));
+
+          root.appendChild(page);
+        }
+
+        newTableBody.appendChild(childRow);
+      }
+      root.removeChild(root.children[0]);
+    } else {
       page = document.createElement("div");
-      page.appendChild(header.cloneNode(true));
-      page.appendChild(newTable);
-      // page.appendChild(footer.cloneNode(true));
-
+      page.appendChild(row);
       root.appendChild(page);
     }
-
-    // 病人信息
-    try {
-      tbody.removeChild(row);
-    } catch (error) {}
-    newTableBody.appendChild(row);
   }
-
-  root.removeChild(root.children[0]);
-  root.removeChild(root.children[0]);
-  root.removeChild(root.children[0]);
-  root.removeChild(root.children[0]);
+  console.log(root);
 
   if (root.children.length > 0) {
     const children = Array.from(root.children);

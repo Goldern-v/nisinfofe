@@ -218,7 +218,9 @@
               sheetInfo.sheetType == 'icu_lc' ? 'specialFontSize' : 'normal'
             "
             style="text-align: left"
-          ></div>
+          >
+            dffd
+          </div>
           <input
             type="text"
             :readonly="isRead(tr)"
@@ -258,6 +260,10 @@
       </tr>
     </table>
 
+    <slot
+      name="bottomCon"
+      v-if="sheetInfo.sheetType == 'neonatology_picc'"
+    ></slot>
     <!-- <div @click="addNullRow"
     class="add-row">+ 添加新行</div>-->
     <div
@@ -343,7 +349,10 @@
       <br />（4)其它如血压、脉搏、呼吸等生命体征记录在NICU护理记录单中。
       <br />（5）维持治疗中每2h变动1次体位，每4h检查新生儿皮肤1次，并在相对应的表格标√。
     </div>
-    <div class="table-footer">
+    <div
+      class="table-footer"
+      v-if="sheetInfo.sheetType != 'intervention_cure_hd'"
+    >
       第 {{ index + sheetStartPage }} 页
       <span class="sh-name" v-if="auditArr.includes(sheetInfo.sheetType)">
         <span

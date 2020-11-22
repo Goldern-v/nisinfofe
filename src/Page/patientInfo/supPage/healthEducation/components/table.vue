@@ -182,9 +182,10 @@ export default {
             : item.pageParam.pageParam
             ? JSON.parse(item.pageParam.pageParam)
             : {};
+        let studyTime = pageParam.教育时间 ? pageParam.教育时间 : creatDateStr;
         this.$set(this.tableData, index, pageParam);
         this.$set(this.tableData[index], "宣教内容", item.instance.title);
-        this.$set(this.tableData[index], "教育时间", creatDateStr);
+        this.$set(this.tableData[index], "教育时间", studyTime);
         this.$set(this.tableData[index], "item", item.instance);
       });
     },
@@ -207,7 +208,7 @@ export default {
     },
     // 点击行
     onSelect(data) {
-      if (!data["教育时间"]) return;
+      if (!data["宣教内容"]) return;
       if (data === this.selected) {
         this.$emit("update:selected", null);
         return;

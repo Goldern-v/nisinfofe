@@ -208,7 +208,7 @@ export default {
       },
       {
         name: `
-       签名
+        护士签名
         `,
         style: {},
         colspan: "1",
@@ -217,15 +217,15 @@ export default {
           minWidth: "50px",
           maxWidth: "50px"
         },
+      },
+      {
+        name: `
+        审核签名
+        `,
+        style: {},
+        colspan: "1",
+        rowspan: "3"
       }
-      // {
-      //   name: `
-      //   审核签名
-      //   `,
-      //   style: {},
-      //   colspan: "1",
-      //   rowspan: "3"
-      // }
     ],
     mid: [
       {

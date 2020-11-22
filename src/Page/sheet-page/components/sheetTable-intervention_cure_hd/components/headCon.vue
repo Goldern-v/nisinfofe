@@ -1,15 +1,19 @@
 <template>
   <div class="header-con">
-    <div class="his-name">{{HOSPITAL_NAME_SPACE}}</div>
-    <div class="title">{{patientInfo.recordName}}</div>
+    <div class="his-name">{{ HOSPITAL_NAME_SPACE }}</div>
+    <div class="title">{{ patientInfo.recordName }}</div>
     <div class="info-con">
       <span>
         姓名：
         <div
           class="bottom-line"
           style="min-width: 60px"
-          @click="updateTetxInfo('patientName', '病人姓名', patientInfo.patientName)"
-        >{{patientInfo.patientName}}</div>
+          @click="
+            updateTetxInfo('patientName', '病人姓名', patientInfo.patientName)
+          "
+        >
+          {{ patientInfo.patientName }}
+        </div>
       </span>
       <span>
         性别：
@@ -17,7 +21,9 @@
           class="bottom-line"
           style="min-width: 30px"
           @click="updateTetxInfo('sex', '性别', patientInfo.sex)"
-        >{{patientInfo.sex}}</div>
+        >
+          {{ patientInfo.sex }}
+        </div>
       </span>
       <span>
         年龄：
@@ -25,7 +31,9 @@
           class="bottom-line"
           style="min-width: 50px"
           @click="updateTetxInfo('age', '年龄', patientInfo.age)"
-        >{{patientInfo.age}}</div>
+        >
+          {{ patientInfo.age }}
+        </div>
       </span>
       <span>
         科室：
@@ -33,24 +41,32 @@
           class="bottom-line"
           style="min-width: 50px"
           @click="updateTetxInfo('deptName', '科室', patientInfo.deptName)"
-        >{{patientInfo.deptName}}</div>
+        >
+          {{ patientInfo.deptName }}
+        </div>
       </span>
       <span @click="updateTetxInfo('bedLabel', '床号', patientInfo.bedLabel)">
         床号：
-        <div class="bottom-line" style="min-width: 30px">{{patientInfo.bedLabel}}</div>
+        <div class="bottom-line" style="min-width: 30px">
+          {{ patientInfo.bedLabel }}
+        </div>
       </span>
-      <span @click="updateTetxInfo('inpNo', '住院号', patientInfo.inpNo)">
+      <span
+        @click="updateTetxInfo('patientId', '住院号', patientInfo.patientId)"
+      >
         住院号：
-        <div class="bottom-line" style="min-width: 30px">{{patientInfo.inpNo}}</div>
+        <div class="bottom-line" style="min-width: 30px">
+          {{ patientInfo.patientId }}
+        </div>
       </span>
     </div>
   </div>
 </template>
 <script>
 import bus from "vue-happy-bus";
-import sheetInfo from "../../../config/sheetInfo";
+import sheetInfo from "../../config/sheetInfo";
 import commom from "@/common/mixin/common.mixin";
-import { updateSheetHeadInfo } from "../../api/index";
+import { updateSheetHeadInfo } from "../api/index";
 export default {
   data() {
     return {
@@ -101,7 +117,7 @@ export default {
   }
 
   span {
-    margin-right: 4px;
+    margin-right: 0px;
     font-size: 14px;
     color: #000;
   }

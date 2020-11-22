@@ -13,7 +13,6 @@
     "dev:guiyi": "npm run dev --guiyi",
     "dev:weixian": "npm run dev --weixian",
     "dev:lingcheng": "npm run dev --lingcheng",
-    "dev:huadu": "npm run dev --huadu",
     "start": "node build/dev-server.js",
     "build": "node build/build.js",
     "build:": "npm run build",
@@ -24,6 +23,7 @@
     "buildNew:": "npm run buildNew",
     "buildNew:weixian": "npm run buildNew: weixian",
     "buildNew:lingcheng": "npm run buildNew: lingcheng",
+    "buildNew:huadu": "npm run buildNew: huadu",
     "deploy": "npm run buildNew",
     "lint": "eslint --ext .js,.vue src",
     "toSvn": "svn commit -m 前端代码更新svn"
@@ -44,6 +44,7 @@
     "jquery": "^3.3.1",
     "js-cookie": "^2.2.0",
     "js-model": "^1.5.1",
+    "jsbarcode": "^3.11.3",
     "lodash": "^4.17.10",
     "md5": "^2.2.1",
     "mem": "^5.1.1",

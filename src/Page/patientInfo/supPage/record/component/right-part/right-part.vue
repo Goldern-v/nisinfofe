@@ -1,41 +1,41 @@
 <template>
   <div :class="{ fullPageRecord }">
     <div
-      class="form-loading-box"
-      v-loading="formBoxLoading"
-      :element-loading-text="formBoxLoadingText"
-      ref="iframeLoadingBox"
+        class="form-loading-box"
+        v-loading="formBoxLoading"
+        :element-loading-text="formBoxLoadingText"
+        ref="iframeLoadingBox"
     >
       <div class="null-tool" v-show="showTpye == ''"></div>
       <!-- 护理记录单 -->
       <div v-if="showConToolBar" class="tool-bar">
         <toolBar
-          v-if="!hasMeasure"
-          v-show="showTpye"
-          :config="toolBarConfig"
+            v-if="!hasMeasure"
+            v-show="showTpye"
+            :config="toolBarConfig"
         ></toolBar>
         <toolCon v-else v-show="showTpye"></toolCon>
       </div>
       <!-- 护理评估表 -->
       <div
-        class="form-contain"
-        :class="{ nopadding: !showConToolBar }"
-        ref="formContain"
-        :style="{ height: height }"
+          class="form-contain"
+          :class="{ nopadding: !showConToolBar }"
+          ref="formContain"
+          :style="{ height: height }"
       >
         <!-- <component :is="componentSwitch" v-show="showTpye"></component> -->
         <!-- <div v-show="showTpye"> -->
-        <assessment v-show="showConToolBar && showTpye" ref="assessment" />
+        <assessment v-show="showConToolBar && showTpye" ref="assessment"/>
         <assessment_v2
-          v-show="!showConToolBar && showTpye"
-          ref="assessmentV2"
+            v-show="!showConToolBar && showTpye"
+            ref="assessmentV2"
         />
         <!-- </div> -->
         <div
-          v-show="showTpye == ''"
-          class="null-btn"
-          flex="cross:center main:center"
-          @click="newRecordOpen"
+            v-show="showTpye == ''"
+            class="null-btn"
+            flex="cross:center main:center"
+            @click="newRecordOpen"
         >
           <i class="el-icon-plus"></i>
           <span>创建护理文书</span>
@@ -43,12 +43,15 @@
         <div>
           <!-- 患者资料 -->
           <patientInfo
-            v-if="this.$route.query.patientId && HOSPITAL_ID == 'lingcheng'"
+              v-if="this.$route.query.patientId && HOSPITAL_ID == 'lingcheng'"
           ></patientInfo>
         </div>
       </div>
       <!-- 关联表单弹窗 -->
-      <RelationFormModal />
+      <RelationFormModal/>
+      <!-- 电子病例弹窗 -->
+      <doctorEmr v-if="HOSPITAL_ID === 'huadu'"/>
+
     </div>
   </div>
 </template>
@@ -142,9 +145,10 @@ import assessment from "./components/assessment/assessment";
 import assessment_v2 from "./components/assessment/assessment_v2";
 import RelationFormModal from "./components/relationFormModal/RelationFormModal";
 import toolBar from "@/components/toolBar/toolBar.vue";
-import { toolBarConfig } from "./config.js";
+import {toolBarConfig} from "./config.js";
 import bus from "vue-happy-bus";
 import patientInfo from "@/Page/sheet-page/components/sheet-tool/patient-info";
+import doctorEmr from "./components/doctorEmr";
 
 export default {
   props: {
@@ -168,7 +172,8 @@ export default {
       nodeData: {},
     };
   },
-  created() {},
+  created() {
+  },
   mounted() {
     this.$refs["iframeLoadingBox"]["$methods"] = () => {
       return {
@@ -195,7 +200,7 @@ export default {
     });
     this.bus.$on("openAssessmentBox", (data) => {
       console.log("openAssessmentBox", data);
-      this.nodeData = { ...data };
+      this.nodeData = {...data};
       // 关闭已经打开的页面
       this.bus.$emit("closeAssessmentV1");
       this.bus.$emit("closeAssessmentV2");
@@ -216,10 +221,10 @@ export default {
       this.formVersion = 0;
       let newFormList = ["form_in_patients", "inPatients"];
       if (
-        data.nooForm == "2" ||
-        (data.hasOwnProperty("formVersion") && data.formVersion == 2) ||
-        newFormList.includes(data.formCode) ||
-        newFormList.includes(data.fromCode)
+          data.nooForm == "2" ||
+          (data.hasOwnProperty("formVersion") && data.formVersion == 2) ||
+          newFormList.includes(data.formCode) ||
+          newFormList.includes(data.fromCode)
       ) {
         this.formVersion = data.formVersion;
         this.showConToolBar = false;
@@ -280,13 +285,13 @@ export default {
 
     toolBarConfig() {
       return toolBarConfig(
-        this,
-        this.isOutSign,
-        this.isOutAudit,
-        this.hasCheck,
-        this.isAddNewPage,
-        this.isDev,
-        this.isPushForward
+          this,
+          this.isOutSign,
+          this.isOutAudit,
+          this.hasCheck,
+          this.isAddNewPage,
+          this.isDev,
+          this.isPushForward
       );
     },
     componentSwitch() {
@@ -300,6 +305,7 @@ export default {
     toolBar,
     RelationFormModal,
     patientInfo,
+    doctorEmr,
   },
 };
 </script>

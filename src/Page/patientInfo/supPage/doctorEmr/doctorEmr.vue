@@ -1,6 +1,6 @@
 <template>
-  <div class="content">
-    <div class="left-part">
+  <div class="content" :class="{'doctor-emr-hd':HOSPITAL_ID == 'huadu'}">
+    <div class="left-part" v-if="HOSPITAL_ID != 'huadu'">
       <doctor-emr-tree></doctor-emr-tree>
     </div>
     <div class="right-part">
@@ -38,6 +38,11 @@ export default {
 
   .right-part {
     margin-left: 260px;
+  }
+}
+.doctor-emr-hd {
+   .right-part {
+    margin-left: 0;
   }
 }
 </style>
