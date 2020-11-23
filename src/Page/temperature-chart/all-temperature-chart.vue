@@ -22,11 +22,15 @@
             :id="`time${item.id}`"
             :value="item.value"
           />
-          {{item.value}}
+          {{ item.value }}
         </label>
       </div>
       <div class="search-box">
-        <el-input placeholder="床号/姓名" icon="search" v-model="searchWord"></el-input>
+        <el-input
+          placeholder="床号/姓名"
+          icon="search"
+          v-model="searchWord"
+        ></el-input>
       </div>
 
       <el-button @click="saveAllTemperture">保存</el-button>
@@ -34,57 +38,133 @@
     </div>
     <div class="table-content">
       <div class="edit-table">
-        <el-table :data="tableData" :height="wih-112" border v-loading="pageLoadng" stripe>
-          <el-table-column prop="bedLabel" label="床号" min-width="60" align="center"></el-table-column>
-          <el-table-column prop="name" label="姓名" min-width="100" align="center"></el-table-column>
-          <el-table-column prop="age" label="年龄" min-width="60" align="center"></el-table-column>
-          <el-table-column prop="admissionDate" label="入院日期" min-width="180" align="center">
+        <el-table
+          :data="tableData"
+          :height="wih - 112"
+          border
+          v-loading="pageLoadng"
+          stripe
+        >
+          <el-table-column
+            prop="bedLabel"
+            label="床号"
+            min-width="60"
+            align="center"
+          ></el-table-column>
+          <el-table-column
+            prop="name"
+            label="姓名"
+            min-width="100"
+            align="center"
+          ></el-table-column>
+          <el-table-column
+            prop="age"
+            label="年龄"
+            min-width="60"
+            align="center"
+          ></el-table-column>
+          <el-table-column
+            prop="admissionDate"
+            label="入院日期"
+            min-width="180"
+            align="center"
+          >
             <template slot-scope="scope">
-              <div>{{scope.row.admissionDate.slice(0,-3)}}</div>
+              <div>{{ scope.row.admissionDate.slice(0, -3) }}</div>
             </template>
           </el-table-column>
-          <el-table-column prop="entryDay" label="周/日" min-width="60" align="center"></el-table-column>
-          <el-table-column prop="temperature" label="体温" min-width="60" align="center">
+          <el-table-column
+            prop="entryDay"
+            label="周/日"
+            min-width="60"
+            align="center"
+          ></el-table-column>
+          <el-table-column
+            prop="temperature"
+            label="体温"
+            min-width="60"
+            align="center"
+          >
             <template slot-scope="scope">
               <el-input v-model="scope.row.temperature"></el-input>
             </template>
           </el-table-column>
-          <el-table-column prop="pulse" label="脉搏" align="center" min-width="60">
+          <el-table-column
+            prop="pulse"
+            label="脉搏"
+            align="center"
+            min-width="60"
+          >
             <template slot-scope="scope">
               <el-input v-model="scope.row.pulse"></el-input>
             </template>
           </el-table-column>
-          <el-table-column prop="breath" label="呼吸" min-width="60" align="center">
+          <el-table-column
+            prop="breath"
+            label="呼吸"
+            min-width="60"
+            align="center"
+          >
             <template slot-scope="scope">
               <el-input v-model="scope.row.breath"></el-input>
             </template>
           </el-table-column>
-          <el-table-column prop="bloodPressure" label="血压" min-width="100" align="center">
+          <el-table-column
+            prop="bloodPressure"
+            label="血压"
+            min-width="100"
+            align="center"
+          >
             <template slot-scope="scope">
               <el-input v-model="scope.row.bloodPressure"></el-input>
             </template>
           </el-table-column>
-          <el-table-column prop="heartRate" label="心率" min-width="60" align="center">
+          <el-table-column
+            prop="heartRate"
+            label="心率"
+            min-width="60"
+            align="center"
+          >
             <template slot-scope="scope">
               <el-input v-model="scope.row.heartRate"></el-input>
             </template>
           </el-table-column>
-          <el-table-column prop="fieldThree" label="尿量" min-width="60" align="center">
+          <el-table-column
+            prop="fieldThree"
+            label="尿量"
+            min-width="60"
+            align="center"
+          >
             <template slot-scope="scope">
               <el-input v-model="scope.row.fieldThree"></el-input>
             </template>
           </el-table-column>
-          <el-table-column prop="foodSize" label="入量" min-width="60" align="center">
+          <el-table-column
+            prop="foodSize"
+            label="入量"
+            min-width="60"
+            align="center"
+          >
             <template slot-scope="scope">
               <el-input v-model="scope.row.foodSize"></el-input>
             </template>
           </el-table-column>
-          <el-table-column prop="dischargeSize" label="出量" min-width="60" align="center">
+          <el-table-column
+            prop="dischargeSize"
+            label="出量"
+            min-width="60"
+            align="center"
+          >
             <template slot-scope="scope">
               <el-input v-model="scope.row.dischargeSize"></el-input>
             </template>
           </el-table-column>
-          <el-table-column prop="curWeight" label="体重" min-width="60" align="center">
+          <el-table-column
+            prop="curWeight"
+            label="体重"
+            min-width="60"
+            align="center"
+          >
             <template slot-scope="scope">
               <el-input v-model="scope.row.curWeight"></el-input>
             </template>
@@ -93,56 +173,126 @@
       </div>
       <div class="all-temperature-chart-print" ref="printable">
         <el-table :data="tableData" border v-loading="pageLoadng" stripe>
-          <el-table-column prop="bedLabel" label="床号" min-width="60" align="center"></el-table-column>
-          <el-table-column prop="name" label="姓名" min-width="100" align="center"></el-table-column>
-          <el-table-column prop="age" label="年龄" min-width="60" align="center"></el-table-column>
-          <el-table-column prop="admissionDate" label="入院日期" min-width="180" align="center">
+          <el-table-column
+            prop="bedLabel"
+            label="床号"
+            min-width="60"
+            align="center"
+          ></el-table-column>
+          <el-table-column
+            prop="name"
+            label="姓名"
+            min-width="100"
+            align="center"
+          ></el-table-column>
+          <el-table-column
+            prop="age"
+            label="年龄"
+            min-width="60"
+            align="center"
+          ></el-table-column>
+          <el-table-column
+            prop="admissionDate"
+            label="入院日期"
+            min-width="180"
+            align="center"
+          >
             <template slot-scope="scope">
-              <div>{{scope.row.admissionDate.slice(0,-3)}}</div>
+              <div>{{ scope.row.admissionDate.slice(0, -3) }}</div>
             </template>
           </el-table-column>
-          <el-table-column prop="entryDay" label="周/日" min-width="60" align="center"></el-table-column>
-          <el-table-column prop="temperature" label="体温" min-width="60" align="center">
+          <el-table-column
+            prop="entryDay"
+            label="周/日"
+            min-width="60"
+            align="center"
+          ></el-table-column>
+          <el-table-column
+            prop="temperature"
+            label="体温"
+            min-width="60"
+            align="center"
+          >
             <template slot-scope="scope">
               <el-input v-model="scope.row.temperature"></el-input>
             </template>
           </el-table-column>
-          <el-table-column prop="pulse" label="脉搏" align="center" min-width="60">
+          <el-table-column
+            prop="pulse"
+            label="脉搏"
+            align="center"
+            min-width="60"
+          >
             <template slot-scope="scope">
               <el-input v-model="scope.row.pulse"></el-input>
             </template>
           </el-table-column>
-          <el-table-column prop="breath" label="呼吸" min-width="60" align="center">
+          <el-table-column
+            prop="breath"
+            label="呼吸"
+            min-width="60"
+            align="center"
+          >
             <template slot-scope="scope">
               <el-input v-model="scope.row.breath"></el-input>
             </template>
           </el-table-column>
-          <el-table-column prop="bloodPressure" label="血压" min-width="100" align="center">
+          <el-table-column
+            prop="bloodPressure"
+            label="血压"
+            min-width="100"
+            align="center"
+          >
             <template slot-scope="scope">
               <el-input v-model="scope.row.bloodPressure"></el-input>
             </template>
           </el-table-column>
-          <el-table-column prop="heartRate" label="心率" min-width="60" align="center">
+          <el-table-column
+            prop="heartRate"
+            label="心率"
+            min-width="60"
+            align="center"
+          >
             <template slot-scope="scope">
               <el-input v-model="scope.row.heartRate"></el-input>
             </template>
           </el-table-column>
-          <el-table-column prop="fieldThree" label="尿量" min-width="60" align="center">
+          <el-table-column
+            prop="fieldThree"
+            label="尿量"
+            min-width="60"
+            align="center"
+          >
             <template slot-scope="scope">
               <el-input v-model="scope.row.fieldThree"></el-input>
             </template>
           </el-table-column>
-          <el-table-column prop="foodSize" label="入量" min-width="60" align="center">
+          <el-table-column
+            prop="foodSize"
+            label="入量"
+            min-width="60"
+            align="center"
+          >
             <template slot-scope="scope">
               <el-input v-model="scope.row.foodSize"></el-input>
             </template>
           </el-table-column>
-          <el-table-column prop="dischargeSize" label="出量" min-width="60" align="center">
+          <el-table-column
+            prop="dischargeSize"
+            label="出量"
+            min-width="60"
+            align="center"
+          >
             <template slot-scope="scope">
               <el-input v-model="scope.row.dischargeSize"></el-input>
             </template>
           </el-table-column>
-          <el-table-column prop="curWeight" label="体重" min-width="60" align="center">
+          <el-table-column
+            prop="curWeight"
+            label="体重"
+            min-width="60"
+            align="center"
+          >
             <template slot-scope="scope">
               <el-input v-model="scope.row.curWeight"></el-input>
             </template>
@@ -330,49 +480,49 @@ export default {
       query: {
         wardCode: "", //科室编码
         entryDate: moment(new Date()).format("YYYY-MM-DD"), //录入日期
-        entryTime: "04", //录入时间
+        entryTime: "04" //录入时间
       },
       times: [
         {
           id: 0,
-          value: "04",
+          value: "04"
         },
         {
           id: 1,
-          value: "08",
+          value: "08"
         },
         {
           id: 2,
-          value: "12",
+          value: "12"
         },
         {
           id: 3,
-          value: "16",
+          value: "16"
         },
         {
           id: 4,
-          value: "20",
+          value: "20"
         },
         {
           id: 5,
-          value: "23",
-        },
+          value: "23"
+        }
       ],
       patientsInfoData: [],
       searchWord: "",
-      pageLoadng: true,
+      pageLoadng: true
     };
   },
   computed: {
     tableData() {
-      return this.patientsInfoData.filter((item) => {
+      return this.patientsInfoData.filter(item => {
         return (
           (item.bedLabel.indexOf(this.searchWord) > -1 ||
             item.name.indexOf(this.searchWord) > -1) &&
           item.patientId
         );
       });
-    },
+    }
   },
   mounted() {
     this.query.wardCode = this.deptCode;
@@ -389,7 +539,7 @@ export default {
         ? moment(data.entryDate).format("YYYY/MM/DD")
         : moment(new Date()).format("YYYY/MM/DD");
       this.pageLoadng = true;
-      getPatientsInfo(data).then((res) => {
+      getPatientsInfo(data).then(res => {
         this.patientsInfoData = res.data.data;
         this.pageLoadng = false;
       });
@@ -437,10 +587,10 @@ export default {
         temperature: "",
         curWeight: "",
         recordSource: 2,
-        heartRate: "",
+        heartRate: ""
       };
 
-      let list = this.tableData.map((item) => {
+      let list = this.tableData.map(item => {
         let obj = {};
         for (let key in data) {
           obj[key] = item[key] || data[key];
@@ -451,10 +601,10 @@ export default {
 
       let tempertureData = {
         ...this.query,
-        list,
+        list
       };
 
-      saveOverAllTemperture(tempertureData).then((res) => {
+      saveOverAllTemperture(tempertureData).then(res => {
         this.getData();
       });
     },
@@ -477,11 +627,11 @@ export default {
         table {
           width: 100% !important;
         }
-        `,
+        `
         });
       });
       this.pageLoadng = false;
-    },
+    }
   },
   components: {},
   watch: {
@@ -494,8 +644,8 @@ export default {
       handler(newName, oldName) {
         this.getData();
       },
-      deep: true,
-    },
-  },
+      deep: true
+    }
+  }
 };
 </script>
