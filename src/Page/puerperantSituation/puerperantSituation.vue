@@ -47,11 +47,9 @@ export default {
     }
 
     let startDate =
-      moment(new Date(nowTime - reduceDay * 86400000)).format("YYYY-MM-DD") +
-      " 00:00:00";
+      moment(new Date(nowTime - reduceDay * 86400000)).format("YYYY-MM-DD HH:mm:ss");
     let endDate =
-      moment(new Date(nowTime + addDay * 86400000)).format("YYYY-MM-DD") +
-      " 23:59:59";
+      moment(new Date(nowTime + addDay * 86400000)).format("YYYY-MM-DD HH:mm:ss");
 
     return {
       query: {
@@ -134,13 +132,13 @@ export default {
       let startDateType = Object.prototype.toString.call(query.startDate);
       if (startDateType == "[object Date]")
         query.startDate =
-          moment(query.startDate).format("YYYY-MM-DD") + " 00:00:00";
+          moment(query.startDate).format("YYYY-MM-DD HH:mm:ss");
       else if (!query.startDate) query.startDate = "";
 
       let endDateType = Object.prototype.toString.call(query.endDate);
       if (endDateType == "[object Date]")
         query.endDate =
-          moment(query.endDate).format("YYYY-MM-DD") + " 23:59:59";
+          moment(query.endDate).format("YYYY-MM-DD HH:mm:ss");
       else if (!query.endDate) query.endDate = "";
 
       getList(query).then(
@@ -277,7 +275,7 @@ export default {
         case "natureBrokenMenbraneTime":
         case "artiBrokenMembraneTime":
           if (
-            moment(row[editName]).format("YYYY-MM-DD HH:mm") == "Invalid Date"
+            moment(row[editName]).format("YYYY-MM-DD HH:mm:ss") == "Invalid Date"
           )
             editValue = "";
           editType = "dateTime";
