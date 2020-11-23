@@ -427,7 +427,7 @@
             >
               <el-row class="nav-item" type="flex" align="middle">
                 <div class="before"></div>
-                <i class="iconfont icon-chuangweiyilanqia"></i>文书统计表
+                <i class="iconfont icon-chuangweiyilanqia"></i>统计查询
               </el-row>
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item
