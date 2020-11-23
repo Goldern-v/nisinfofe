@@ -423,7 +423,7 @@
             </el-dropdown>
             <el-dropdown
               menu-align="start"
-              :class="{ 'router-link-active': isActivePage }"
+              :class="{ 'router-link-active': isActiveStatisticPage }"
             >
               <el-row class="nav-item" type="flex" align="middle">
                 <div class="before"></div>
@@ -886,6 +886,8 @@ export default {
       if (this.$route.path == "/birthCertificate") return true;
       if (this.$route.path == "/healthEducationList") return true;
       if (this.$route.path == "/dcList") return true;
+    },
+    isActiveStatisticPage() {
       if (this.$route.path == "/cognitiveStatistic") return true;
     },
     isActiveRounds() {

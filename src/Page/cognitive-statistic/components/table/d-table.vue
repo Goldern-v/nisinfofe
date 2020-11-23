@@ -28,13 +28,13 @@
       ></el-table-column>
 
       <el-table-column
-        prop="visitId"
+        prop=""
         label="病人ID"
         min-width="80px"
       ></el-table-column>
 
       <el-table-column
-        prop="visitId"
+        prop=""
         label="住院号"
         min-width="90px"
       ></el-table-column>
@@ -85,7 +85,7 @@
       ></el-table-column>
 
       <el-table-column
-        prop="doctor"
+        prop=""
         label="手术名称"
         min-width="120px"
         align="center"
@@ -106,7 +106,7 @@
       ></el-table-column>
 
       <el-table-column
-        prop="phone"
+        prop=""
         label="随诊期限"
         min-width="90px"
       ></el-table-column>

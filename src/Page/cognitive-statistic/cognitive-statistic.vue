@@ -1,7 +1,8 @@
 <template lang="pug">
   div
+    p(class="title") 住院病人认知情况统计表
     .main-contain
-      dTable(:tableData="tableData" :pageLoadng="pageLoadng" ref="area" class="area")
+      dTable(:tableData="tableData" :pageLoadng="pageLoadng" ref="area" )
       .head-con(flex="main:justify cross:center")
         pagination(:pageIndex="page.pageIndex" :size="page.pageNum" :total="page.total" @sizeChange="handleSizeChange"
         @currentChange="handleCurrentChange")
@@ -10,6 +11,13 @@
       searchCon(ref="searchCon" :tableData="tableData" @print="onPrint")
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
+.title {
+  font-size: 18px;
+  line-height: 31px;
+  font-weight: bold;
+  padding: 5px 0 0 10px;
+}
+
 .main-contain {
   margin: 10px 250px 0px 10px;
 
@@ -56,13 +64,6 @@
           color: #333;
         }
       }
-    }
-  }
-
-  .area {
-    /deep/ .el-table__header, /deep/ .el-table__body {
-      transform-origin: top left !important;
-      transform: scale(0.59, 1);
     }
   }
 }
@@ -153,19 +154,16 @@ export default {
 
       await this.$nextTick();
       const area = this.$refs.area;
-      debugger;
-      // console.log("area", area.$el.querySelectorAll(".el-table"));
-      // const els = Array.from(area.$el.querySelectorAll(".el-table"));
       await print([area.$el], {
         direction: "vertical",
         injectGlobalCss: true,
         scanStyles: false,
-        css: `.area {
-            /deep/ .el-table__header,
-            /deep/ .el-table__body {
+        css: `
+            .el-table__header,
+            .el-table__body {
               transform-origin: top left !important;
-              transform: scale(0.59, 1);
-            }}
+              transform: scale(0.5, 0.5);
+            }
           `
       });
 

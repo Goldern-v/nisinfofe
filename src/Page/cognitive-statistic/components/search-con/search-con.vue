@@ -251,24 +251,19 @@ export default {
       this.$emit("print", this.printing);
     },
     exportExcel() {
-      // let
-      // let obj = {
-      //   index:this.tableData.index,
-      //   admissionDeptName
-      //   startDate: moment(this.startDate).format("YYYY-MM-DD HH:mm:ss"),
-      //   endDate: moment(this.endDate).format("YYYY-MM-DD HH:mm:ss")
-      //   // pageIndex: this.page.pageIndex,
-      //   // pageSize: this.page.pageNum,
-      //   // checkLocation: this.checkLocation,
-      //   // passEpidemicAreas: this.passEpidemicAreas,
-      //   // name: this.name,
-      //   // sex: this.sex,
-      //   // idCard: this.idCard,
-      //   // phone: this.phone,
-      //   // status: this.status,
-      //   // isolate: this.isolate
-      // };
-      exportExcel(this.tableData).then(res => {
+      let obj = {
+        deptCode: this.data.deptValue,
+        type: this.data.status == 1 ? "入院" : "出院",
+        startDate:
+          status == "1"
+            ? moment(this.data.admissionDate[0]).format("YYYY-MM-DD HH:mm:ss")
+            : moment(this.aaa).format("YYYY-MM-DD HH:mm:ss"),
+        endDate:
+          status == "1"
+            ? moment(this.data.admissionDate[1]).format("YYYY-MM-DD HH:mm:ss")
+            : moment(this.data.dischargeDate[1]).format("YYYY-MM-DD HH:mm:ss")
+      };
+      exportExcel(obj).then(res => {
         fileDownload(res);
       });
     }
