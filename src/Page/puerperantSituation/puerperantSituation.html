@@ -6,9 +6,9 @@
     <div class="float-right">
       <span class="type-label">分娩时间:</span>
       <span class="type-content">
-        <el-date-picker @change="handleDateChange" v-model="query.startDate" :clearable="false" style="width:120px;" />
+        <el-date-picker type="datetime" format="yyyy-MM-dd HH:mm:ss" @change="handleDateChange" v-model="query.startDate" :clearable="false" style="width:180px;" />
         <span> - </span>
-        <el-date-picker @change="handleDateChange" v-model="query.endDate" :clearable="false" style="width:120px;" />
+        <el-date-picker type="datetime" format="yyyy-MM-dd HH:mm:ss" @change="handleDateChange" v-model="query.endDate" :clearable="false" style="width:180px;" />
       </span>
       <span class="type-label">筛选条件:</span>
       <span class="type-content">
@@ -24,15 +24,15 @@
       <el-button @click="handleCreate">新建记录</el-button>
     </div>
   </div>
-  <div class="main-contain" 
+  <div class="main-contain"
     v-loading="tableLoading">
     <div class="table-contain">
-      <IviewTable 
+      <IviewTable
         :row-class-name="rowClassName"
         :columns="columns"
-        border 
-        :data="tableData" 
-        :span-method="handleSpan" 
+        border
+        :data="tableData"
+        :span-method="handleSpan"
         :height="tableHeight" />
     </div>
     <customPagenation :page.sync="query.pageIndex" :size.sync="query.pageSize" :total="fileTotal"
