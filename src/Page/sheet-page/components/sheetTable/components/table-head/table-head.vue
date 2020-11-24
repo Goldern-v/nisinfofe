@@ -53,7 +53,7 @@
         <div
           class="bottom-line"
           style="min-width: 80px"
-          v-if="(HOSPITAL_NAME_SPACE = 'huadu')"
+          v-if="(HOSPITAL_NAME_SPACE == 'huadu')"
         >
           {{ patientInfo.patientId }}/{{ patientInfo.inpNo }}
         </div>
