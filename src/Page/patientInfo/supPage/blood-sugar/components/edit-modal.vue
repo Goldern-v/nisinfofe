@@ -1,6 +1,10 @@
 <template>
   <SweetModal ref="modal" :title="title" :modal-width="450">
-    <ElForm class="edit-modal-form" style="margin-bottom: 20px" label-width="100px">
+    <ElForm
+      class="edit-modal-form"
+      style="margin-bottom: 20px"
+      label-width="100px"
+    >
       <ElFormItem label="日期：" required>
         <ElDatePicker v-model="form.recordDate" :clearable="false" />
       </ElFormItem>
@@ -13,9 +17,23 @@
         />
       </ElFormItem>
       <ElFormItem label="项目：" required>
-        <ElSelect v-model="form.sugarItem">
+        <ElSelect v-if="HOSPITAL_ID != 'huadu'" v-model="form.sugarItem">
           <ElOption
             v-for="item in typeList"
+            :key="item.vitalSign"
+            :label="item.vitalSign"
+            :value="item.vitalSign"
+          />
+        </ElSelect>
+        <ElSelect
+          v-if="HOSPITAL_ID === 'huadu'"
+          v-model="form.sugarItem"
+          filterable
+          allow-create
+          @change="setNewItem($event)"
+        >
+          <ElOption
+            v-for="item in huaduTypeList"
             :key="item.vitalSign"
             :label="item.vitalSign"
             :value="item.vitalSign"
@@ -26,7 +44,11 @@
         <ElInput v-model="form.sugarValue" />
         <span class="unit">(mmol/L)</span>
       </ElFormItem>
-      <ElFormItem label="RI剂量：" required v-if="HOSPITAL_ID != 'gy'">
+      <ElFormItem
+        label="RI剂量："
+        required
+        v-if="HOSPITAL_ID != 'gy' && HOSPITAL_ID != 'huadu'"
+      >
         <ElInput v-model="form.riValue" />
         <span class="unit">(ü)</span>
       </ElFormItem>
@@ -43,6 +65,7 @@
 <script>
 import common from "@/common/mixin/common.mixin.js";
 import * as apis from "../api";
+import patientInfoVue from "../../../patientInfo.vue";
 const defaultForm = {};
 
 export default {
@@ -55,45 +78,82 @@ export default {
       recordTime: new Date(),
       sugarItem: "微机血糖",
       sugarValue: 0,
-      riValue: 0
+      riValue: 0,
     },
     curEmpName: "",
     curEmpNo: "",
     typeList: [
       {
-        vitalSign: "空腹"
+        vitalSign: "空腹",
       },
       {
-        vitalSign: "早餐后2H"
+        vitalSign: "早餐后2H",
       },
       {
-        vitalSign: "午餐前"
+        vitalSign: "午餐前",
       },
       {
-        vitalSign: "午餐后2H"
+        vitalSign: "午餐后2H",
       },
       {
-        vitalSign: "晚餐前"
+        vitalSign: "晚餐前",
       },
       {
-        vitalSign: "晚餐后2H"
+        vitalSign: "晚餐后2H",
       },
       {
-        vitalSign: "睡前"
+        vitalSign: "睡前",
       },
       {
-        vitalSign: "复测"
+        vitalSign: "复测",
       },
       {
-        vitalSign: "微机血糖"
+        vitalSign: "微机血糖",
       },
       {
-        vitalSign: "随机"
-      }
-    ]
+        vitalSign: "随机",
+      },
+    ],
+    huaduTypeList: [
+      {
+        vitalSign: "指尖血糖",
+      },
+      {
+        vitalSign: "空腹",
+      },
+      {
+        vitalSign: "早餐后2H",
+      },
+      {
+        vitalSign: "午餐前",
+      },
+      {
+        vitalSign: "午餐后2H",
+      },
+      {
+        vitalSign: "晚餐前",
+      },
+      {
+        vitalSign: "晚餐后2H",
+      },
+      {
+        vitalSign: "睡前",
+      },
+      {
+        vitalSign: "复测",
+      },
+      {
+        vitalSign: "随机",
+      },
+    ],
   }),
   props: {
-    sugarItem: Array
+    sugarItem: Array,
+  },
+  computed: {
+    patientInfo() {
+      return this.$route.query;
+    },
   },
   methods: {
     open(title, form) {
@@ -106,6 +166,11 @@ export default {
       if (this.HOSPITAL_ID == "lingcheng") {
         defaultSugarItem = this.typeList ? this.typeList[0].vitalSign : "凌晨";
       }
+      if (this.HOSPITAL_ID == "huadu") {
+        defaultSugarItem = this.huaduTypeList
+          ? this.huaduTypeList[0].vitalSign
+          : "指尖血糖";
+      }
       if (form) {
         this.form = {
           recordDate: new Date(form.recordDate || new Date()),
@@ -113,7 +178,7 @@ export default {
           sugarItem: form.sugarItem || defaultSugarItem,
           sugarValue: form.sugarValue || 0,
           riValue: form.riValue || 0,
-          recordId: form.recordId || ""
+          recordId: form.recordId || "",
         };
         this.oldRecordDate = form.recordDate;
       } else {
@@ -123,7 +188,7 @@ export default {
           sugarItem: defaultSugarItem,
           sugarValue: 0,
           riValue: 0,
-          recordId: ""
+          recordId: "",
         };
         this.oldRecordDate = "";
       }
@@ -133,7 +198,7 @@ export default {
     },
     openSignModal() {
       window.openSignModal((password, empNo) => {
-        apis.getUser(password, empNo).then(res => {
+        apis.getUser(password, empNo).then((res) => {
           this.curEmpName = res.data.data.empName;
           this.curEmpNo = res.data.data.empNo;
         });
@@ -150,27 +215,67 @@ export default {
       data.recordDate.setSeconds(data.recordTime.getSeconds());
       data.nurse = this.curEmpNo;
       delete data.recordTime;
-
+      // 针对花都血糖项目进行保存
+      if (this.HOSPITAL_ID == "huadu") {
+        let list = this.huaduTypeList.map((item) => {
+          return { name: item.vitalSign, code: item.vitalSign };
+        });
+        let data = {
+          code: this.patientInfo.wardCode + ":指尖血糖测定项目",
+          itemList: list,
+        };
+        apis.saveDictItems(data).then((res) => {
+          console.log("调用保存字典的接口", res.data);
+          return;
+        });
+      }
       this.$emit("confirm", data);
     },
     updateTetxInfo(label, autoText) {
       window.openSetTextModal(
-        text => {
+        (text) => {
           this.form.sugarItem = text;
         },
         autoText,
         `添加${label}`
       );
-    }
+    },
+    /**把新增项加入下拉列表的数组 */
+    setNewItem(event) {
+      let newItem = { vitalSign: event };
+      let hasItem = this.huaduTypeList.map((item, index) => {
+        if (item.vitalSign == newItem.vitalSign) {
+          return true;
+        }
+      });
+      if (!hasItem.some((el) => el)) {
+        this.huaduTypeList.push(newItem);
+      }
+      console.log(this.huaduTypeList, "============");
+    },
   },
   created() {
     if (this.HOSPITAL_ID == "gy") {
-      apis.getTypeList(this.deptCode).then(res => {
+      apis.getTypeList(this.deptCode).then((res) => {
         this.typeList = res.data.data;
       });
     }
     if (this.HOSPITAL_ID == "lingcheng") {
       this.typeList = this.sugarItem;
+    }
+    // 花都项目可编辑
+    if (this.HOSPITAL_ID == "huadu") {
+      let patientCode = this.patientInfo.wardCode + ":指尖血糖测定项目";
+      apis.getDictItems(patientCode).then((res) => {
+        if (res.data.data.length) {
+          // 做格式转换
+          let list = res.data.data;
+          this.huaduTypeList = list.map((o) => {
+            return { vitalSign: o.name };
+          });
+        }
+        //
+      });
     }
   },
   watch: {
@@ -179,12 +284,18 @@ export default {
         this.typeList = this.sugarItem;
       }
     },
+    huaduTypeList(newVal, oldVal) {
+      if (newVal && this.HOSPITAL_ID == "huadu") {
+        this.huaduTypeList = newVal;
+        console.log("this.huaduTypeList", newVal);
+      }
+    },
     "form.sugarItem"(newVal, oldVal) {
       if (this.HOSPITAL_ID == "lingcheng" && newVal == "自定义") {
         this.updateTetxInfo("自定义项目");
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

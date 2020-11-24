@@ -2,43 +2,66 @@
   <div flex-box="1" class="table-box blood-sugar-table">
     <table>
       <tr>
-        <th style="width: 22%; min-width: 75px;">时间</th>
+        <th style="width: 22%; min-width: 75px">时间</th>
         <th style="width: 24%">项目</th>
         <th style="width: 22%">
           血糖值
           <br />(mmol/L)
         </th>
-        <th style="width: 16%" v-if="HOSPITAL_ID != 'gy' && HOSPITAL_ID != 'lingcheng'">RI剂量</th>
+        <th
+          style="width: 16%"
+          v-if="
+            HOSPITAL_ID != 'gy' &&
+            HOSPITAL_ID != 'lingcheng' &&
+            HOSPITAL_ID != 'huadu'
+          "
+        >
+          RI剂量
+        </th>
         <th style="width: 16%">执行人</th>
       </tr>
       <tr
         v-for="item in renderData"
-        :class="{selected: selected === item}"
+        :class="{ selected: selected === item }"
         :key="item.recordDate"
         @click="onSelect(item)"
         @dblclick="onDblClick(item)"
       >
         <td style="padding: 0 4px">
-          <div flex="main:justify" style="white-space: nowrap;">
+          <div flex="main:justify" style="white-space: nowrap">
             <span>
-              <span>{{item.date}}</span>
+              <span>{{ item.date }}</span>
             </span>
             <span>
-              <span>{{item.time}}</span>
+              <span>{{ item.time }}</span>
             </span>
           </div>
         </td>
         <td>
-          <div class="cell" :title="item.sugarItem">{{item.sugarItem}}</div>
+          <div class="cell" :title="item.sugarItem">{{ item.sugarItem }}</div>
         </td>
         <td>
-          <div class="cell">{{item.sugarValue && item.sugarValue !== '0' ? item.sugarValue : ''}}</div>
+          <div class="cell">
+            {{
+              item.sugarValue && item.sugarValue !== "0" ? item.sugarValue : ""
+            }}
+          </div>
         </td>
-        <td v-if="HOSPITAL_ID != 'gy' && HOSPITAL_ID != 'lingcheng'">
-          <div class="cell">{{item.riValue && item.riValue !== '0' ? (item.riValue + ' ü') : ''}}</div>
+        <td
+          v-if="
+            HOSPITAL_ID != 'gy' &&
+            HOSPITAL_ID != 'lingcheng' &&
+            HOSPITAL_ID != 'huadu'
+          "
+        >
+          <div class="cell">
+            {{
+              item.riValue && item.riValue !== "0" ? item.riValue + " ü" : ""
+            }}
+          </div>
         </td>
         <td>
-          <div class="cell noPrint">{{item.nurse}}</div>
+          <div class="cell noPrint">{{ item.nurse }}</div>
           <div class="cell inPrint lc" v-if="HOSPITAL_ID == 'lingcheng'">
             <!-- {{item.nurseEmpNo}} -->
             <img
@@ -96,7 +119,7 @@
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
-        max-width: 74px;
+        // max-width: 74px;
       }
     }
 
@@ -129,12 +152,12 @@ import common from "@/common/mixin/common.mixin.js";
 export default {
   props: {
     data: Array,
-    selected: Object
+    selected: Object,
   },
   mixins: [common],
   data() {
     return {
-      msg: "hello vue"
+      msg: "hello vue",
     };
   },
   computed: {
@@ -162,7 +185,7 @@ export default {
         renderData.push({});
       }
       return renderData;
-    }
+    },
   },
   filters: {
     formatDate(val) {
@@ -170,7 +193,7 @@ export default {
     },
     formatTime(val) {
       return new Date(val).Format("hh:mm");
-    }
+    },
   },
   methods: {
     onSelect(item) {
@@ -178,8 +201,8 @@ export default {
     },
     onDblClick(item) {
       this.$emit("dblclick", item);
-    }
+    },
   },
-  components: {}
+  components: {},
 };
 </script>
