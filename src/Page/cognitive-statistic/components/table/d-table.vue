@@ -4,7 +4,7 @@
       :data="tableData"
       style="width: 100%"
       border
-      :height="wih - 125"
+      :height="wih - 150"
       v-loading="pageLoadng"
       @row-dblclick="openDetail"
       class="tablePrint"
@@ -28,15 +28,17 @@
       ></el-table-column>
 
       <el-table-column
-        prop=""
+        prop="patientId"
         label="病人ID"
-        min-width="80px"
+        min-width="100px"
+        align="center"
       ></el-table-column>
 
       <el-table-column
-        prop=""
+        prop="inpNo"
         label="住院号"
-        min-width="90px"
+        min-width="80px"
+        align="center"
       ></el-table-column>
 
       <el-table-column
@@ -57,6 +59,7 @@
         prop="educationLevel"
         label="受教育程度"
         min-width="120px"
+        align="center"
       ></el-table-column>
 
       <el-table-column
@@ -85,7 +88,7 @@
       ></el-table-column>
 
       <el-table-column
-        prop=""
+        prop="operName"
         label="手术名称"
         min-width="120px"
         align="center"

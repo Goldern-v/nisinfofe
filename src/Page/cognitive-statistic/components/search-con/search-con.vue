@@ -253,7 +253,7 @@ export default {
     exportExcel() {
       let obj = {
         deptCode: this.data.deptValue,
-        type: this.data.status == 1 ? "入院" : "出院",
+        type: this.data.status == 1 ? "在院" : "出院",
         startDate:
           status == "1"
             ? moment(this.data.admissionDate[0]).format("YYYY-MM-DD HH:mm:ss")
