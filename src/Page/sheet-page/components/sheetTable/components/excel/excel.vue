@@ -218,9 +218,7 @@
               sheetInfo.sheetType == 'icu_lc' ? 'specialFontSize' : 'normal'
             "
             style="text-align: left"
-          >
-            dffd
-          </div>
+          ></div>
           <input
             type="text"
             :readonly="isRead(tr)"
