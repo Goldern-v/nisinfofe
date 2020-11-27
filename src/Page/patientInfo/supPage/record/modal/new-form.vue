@@ -1,10 +1,15 @@
 <template>
   <div class="modal-con">
-    <sweet-modal ref="newRecord" size="big" title="创建新护理文书" class="modal-record padding-0">
+    <sweet-modal
+      ref="newRecord"
+      size="big"
+      title="创建新护理文书"
+      class="modal-record padding-0"
+    >
       <div class="title-bar" flex="cross:center">
         <span class="type-text">护理文书类型</span>
         <el-select
-          v-if="HOSPITAL_ID != 'hj'"
+          v-if="HOSPITAL_ID != 'hj' && HOSPITAL_ID != 'huadu'"
           v-model="formType"
           placeholder="选择类型"
           class="type-select"
@@ -12,15 +17,17 @@
         >
           <el-option
             v-for="item in options"
-            :key="item.value||item.label"
+            :key="item.value || item.label"
             :label="item.label"
             :value="item.value"
           ></el-option>
         </el-select>
         <el-input
-          v-if="HOSPITAL_ID != 'hj'"
+          v-if="HOSPITAL_ID != 'hj' && HOSPITAL_ID != 'huadu'"
           class="text-con"
-          :placeholder="'搜索' + options.find((item) => item.value == formType).label"
+          :placeholder="
+            '搜索' + options.find((item) => item.value == formType).label
+          "
           icon="search"
           v-model="searchWord"
         ></el-input>
@@ -33,7 +40,7 @@
         >
           <el-option
             v-for="item in hjOptions"
-            :key="item.value||item.label"
+            :key="item.value || item.label"
             :label="item.label"
             :value="item.value"
           ></el-option>
@@ -41,30 +48,71 @@
         <el-input
           v-if="HOSPITAL_ID == 'hj'"
           class="text-con"
-          :placeholder="'搜索' + hjOptions.find((item) => item.value == formType).label"
+          :placeholder="
+            '搜索' + hjOptions.find((item) => item.value == formType).label
+          "
+          icon="search"
+          v-model="searchWord"
+        ></el-input>
+        <el-select
+          v-if="HOSPITAL_ID == 'huadu'"
+          v-model="formType"
+          placeholder="选择类型"
+          class="type-select"
+          :disabled="formTypeReadOnly"
+        >
+          <el-option
+            v-for="item in huaduOptions"
+            :key="item.value || item.label"
+            :label="item.label"
+            :value="item.value"
+          ></el-option>
+        </el-select>
+        <el-input
+          v-if="HOSPITAL_ID == 'huadu'"
+          class="text-con"
+          :placeholder="
+            '搜索' + huaduOptions.find((item) => item.value == formType).label
+          "
           icon="search"
           v-model="searchWord"
         ></el-input>
       </div>
-      <div class="record-con" v-loading="pageLoading" :element-loading-text="pageLoadingText">
+      <div
+        class="record-con"
+        v-loading="pageLoading"
+        :element-loading-text="pageLoadingText"
+      >
         <div
           @click="openUrl(item)"
           @dblclick="create(item)"
           class="record-box"
-          :class="{active: selectData == item}"
+          :class="{ active: selectData == item }"
           v-for="item of filterData"
-          :key="item.id||item.label"
+          :key="item.id || item.label"
         >
           <el-row type="flex" align="middle">
-            <img src="../../../../../common/images/record/文件创建.png" alt height="35" />
-            <span class="name" v-if="item.name">{{item.name}}</span>
-            <span class="name" v-if="item.recordName">{{item.recordName}}</span>
+            <img
+              src="../../../../../common/images/record/文件创建.png"
+              alt
+              height="35"
+            />
+            <span class="name" v-if="item.name">{{ item.name }}</span>
+            <span class="name" v-if="item.recordName">{{
+              item.recordName
+            }}</span>
           </el-row>
         </div>
       </div>
       <div slot="button" @click="newRecordClose">
         <el-button class="modal-btn">关闭</el-button>
-        <el-button class="modal-btn" type="primary" @click="create" :disabled="!selectData">创建</el-button>
+        <el-button
+          class="modal-btn"
+          type="primary"
+          @click="create"
+          :disabled="!selectData"
+          >创建</el-button
+        >
       </div>
     </sweet-modal>
   </div>
@@ -165,7 +213,7 @@ import {
   getContentByMissionIds,
   listRecord,
   inform,
-  healthEdu
+  healthEdu,
 } from "@/api/patientInfo";
 import commonMixin from "@/common/mixin/common.mixin";
 import { host } from "@/api/apiConfig";
@@ -182,16 +230,16 @@ export default {
       options: [
         {
           value: "1",
-          label: "护理评估"
+          label: "护理评估",
         },
         {
           value: "monitor",
-          label: "监测记录"
+          label: "监测记录",
         },
         {
           value: "report",
-          label: "报告类"
-        }
+          label: "报告类",
+        },
         // {
         //   value: "4",
         //   label: "健康宣教"
@@ -200,20 +248,30 @@ export default {
       hjOptions: [
         {
           value: "1",
-          label: "护理评估"
+          label: "护理评估",
         },
         {
           value: "monitor",
-          label: "监测记录"
+          label: "监测记录",
         },
         {
           value: "report",
-          label: "报告类"
+          label: "报告类",
         },
         {
           value: "sens",
-          label: "敏感指标类"
-        }
+          label: "敏感指标类",
+        },
+      ],
+      huaduOptions: [
+        {
+          value: "1",
+          label: "护理评估",
+        },
+        {
+          value: "firstRecord",
+          label: "首次记录",
+        },
       ],
       formType: "1",
       pageLoading: true,
@@ -224,7 +282,7 @@ export default {
       tmpitem: "",
       pageItem: "",
       formTypeReadOnly: false,
-      filterObj: null
+      filterObj: null,
     };
   },
   methods: {
@@ -246,7 +304,7 @@ export default {
         this.$message({
           showClose: true,
           duration: 3000,
-          message: "请选中一位病人"
+          message: "请选中一位病人",
         });
       }
     },
@@ -274,7 +332,8 @@ export default {
       if (
         this.formType == "1" ||
         this.formType == "monitor" ||
-        this.formType == "sens"
+        this.formType == "sens" ||
+        this.formType == "firstRecord"
       ) {
         let token = window.app.$getCookie("NURSING_USER").split("##")[1];
         let query = this.$route.query;
@@ -295,7 +354,7 @@ export default {
                 id: "",
                 formCode: item.formCode,
                 nooForm: item.nooForm,
-                pageUrl: item.pageUrl
+                pageUrl: item.pageUrl,
               })
             );
           }
@@ -315,7 +374,7 @@ export default {
               wardCode: query.wardCode,
               wardName: query.wardName,
               admissionDate: query.admissionDate,
-              token: this.token
+              token: this.token,
             };
             if (this.isDev) {
               // url = `${devFormUrl}/${item.pageUrl + '.html'}?${qs.stringify(queryObj)}`
@@ -342,7 +401,7 @@ export default {
               "openAssessmentBox",
               Object.assign(item, {
                 id: "",
-                showConToolBar: false
+                showConToolBar: false,
               })
             );
             this.newRecordClose();
@@ -366,7 +425,7 @@ export default {
             pageItem: item.name,
             missionId: item.missionId,
             publicUse: item.publicUse,
-            deptCode: item.deptCode
+            deptCode: item.deptCode,
           })
         );
         this.pageItem = item.name;
@@ -384,10 +443,10 @@ export default {
     getData() {
       this.pageLoading = true;
       if (this.formType == "1") {
-        templates(this.deptCode).then(res => {
+        templates(this.deptCode).then((res) => {
           if (this.filterObj && this.filterObj.formName) {
             this.templates = res.data.data.filter(
-              item => item.name === this.filterObj.formName
+              (item) => item.name === this.filterObj.formName
             );
           } else {
             this.templates = res.data.data;
@@ -396,7 +455,7 @@ export default {
           this.pageLoading = false;
         });
       } else if (this.formType == "4") {
-        briefMission(this.deptCode).then(res => {
+        briefMission(this.deptCode).then((res) => {
           // console.log("res")
           console.log(res);
           this.templates = res.data.data.missionList;
@@ -404,10 +463,10 @@ export default {
           this.pageLoading = false;
         });
       } else {
-        templatesAll(this.formType, this.deptCode).then(res => {
+        templatesAll(this.formType, this.deptCode).then((res) => {
           if (this.filterObj && this.filterObj.formName) {
             this.templates = res.data.data.list.filter(
-              item => item.name === this.filterObj.formName
+              (item) => item.name === this.filterObj.formName
             );
           } else {
             this.templates = res.data.data.list;
@@ -416,28 +475,32 @@ export default {
           this.pageLoading = false;
         });
       }
-    }
+    },
   },
   computed: {
     filterData() {
       if (this.searchWord) {
         this.selectData = "";
-        return this.templates.filter(item => {
-          if (this.formType == "1" || this.formType == "4") {
+        return this.templates.filter((item) => {
+          if (
+            this.formType == "1" ||
+            this.formType == "4" ||
+            this.formType == "firstRecord"
+          ) {
             return item.name.indexOf(this.searchWord) > -1;
           }
         });
       } else {
         return this.templates;
       }
-    }
+    },
   },
   watch: {
     formType() {
       this.getData();
       this.selectData = "";
-    }
+    },
   },
-  components: {}
+  components: {},
 };
 </script>

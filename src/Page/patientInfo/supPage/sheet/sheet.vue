@@ -1,11 +1,20 @@
 <template>
-  <div class="contain" :class="{ fullpage }" v-loading="pageloading" element-loading-text="正在保存">
+  <div
+    class="contain"
+    :class="{ fullpage }"
+    v-loading="pageloading"
+    element-loading-text="正在保存"
+  >
     <div class="head-con" flex>
       <div class="tool-con" flex-box="1">
         <sheetTool ref="sheetTool"></sheetTool>
       </div>
     </div>
-    <div class="body-con" id="sheet_body_con" :style="{ height: containHeight }">
+    <div
+      class="body-con"
+      id="sheet_body_con"
+      :style="{ height: containHeight }"
+    >
       <div class="right-part" v-loading="tableLoading">
         <div class="sheetTable-contain" ref="scrollCon" @scroll="onScroll">
           <div ref="sheetTableContain">
@@ -157,6 +166,12 @@ import sheetTablePost_hemodialysis from "@/Page/sheet-page/components/sheetTable
 import sheetTable_oxytocin from "@/Page/sheet-page/components/sheetTable-oxytocin/sheetTable";
 import sheetTableDressing_count from "@/Page/sheet-page/components/sheetTable-dressing_count/sheetTable";
 import sheetTableMaternal_newborn_lc from "@/Page/sheet-page/components/sheetTable-maternal_newborn_lc/sheetTable";
+import sheetTable_picc_maintenance_hd from "@/Page/sheet-page/components/sheetTable-picc_maintenance_hd/sheetTable";
+import sheetTable_intervention_cure_hd from "@/Page/sheet-page/components/sheetTable-intervention_cure_hd/sheetTable";
+import sheetTable_hemodialysis_CRRT_hd from "@/Page/sheet-page/components/sheetTable-hemodialysis_CRRT_hd/sheetTable";
+import sheetTable_intervention_cure from "@/Page/sheet-page/components/sheetTable-intervention_cure/sheetTable";
+import sheetTable_mild_hypothermia_hd from "@/Page/sheet-page/components/sheetTable-mild_hypothermia_hd/sheetTable";
+import sheetTable_neonatology_picc from "@/Page/sheet-page/components/sheetTable-neonatology_picc/sheetTable";
 import common from "@/common/mixin/common.mixin.js";
 import { nursingUnit } from "@/api/lesion";
 import sheetModel, {
@@ -267,6 +282,18 @@ export default {
         return sheetTableDressing_count;
       } else if (sheetInfo.sheetType == "maternal_newborn_lc") {
         return sheetTableMaternal_newborn_lc;
+      } else if (sheetInfo.sheetType == "picc_maintenance_hd") {
+        return sheetTable_picc_maintenance_hd;
+      } else if (sheetInfo.sheetType == "intervention_cure_hd") {
+        return sheetTable_intervention_cure_hd;
+      } else if (sheetInfo.sheetType == "hemodialysis_CRRT_hd") {
+        return sheetTable_hemodialysis_CRRT_hd;
+      } else if (sheetInfo.sheetType == "intervention_cure") {
+        return sheetTable_intervention_cure;
+      } else if (sheetInfo.sheetType == "mild_hypothermia_hd") {
+        return sheetTable_mild_hypothermia_hd;
+      } else if (sheetInfo.sheetType == "neonatology_picc") {
+        return sheetTable_neonatology_picc;
       } else {
         return sheetTable;
       }
@@ -701,7 +728,13 @@ export default {
     sheetTablePost_hemodialysis,
     sheetTable_oxytocin,
     sheetTableDressing_count,
-    sheetTableMaternal_newborn_lc
+    sheetTableMaternal_newborn_lc,
+    sheetTable_picc_maintenance_hd,
+    sheetTable_intervention_cure_hd,
+    sheetTable_hemodialysis_CRRT_hd,
+    sheetTable_intervention_cure,
+    sheetTable_mild_hypothermia_hd,
+    sheetTable_neonatology_picc
   }
 };
 </script>

@@ -4,7 +4,12 @@
       <div class="toolbar-left">
         <span>科室：</span>
         <ElSelect size="small" v-model="code">
-          <ElOption v-for="d of depts" :key="d.deptCode" :label="d.deptName" :value="d.deptCode"/>
+          <ElOption
+            v-for="d of depts"
+            :key="d.deptCode"
+            :label="d.deptName"
+            :value="d.deptCode"
+          />
           <!-- <ElOption
             v-for="d of depts"
             :key="d.code"
@@ -18,7 +23,7 @@
       </div>
     </div>
     <div class="container">
-      <NullBg v-if="!digits" text="暂时没有病房日报数据～"/>
+      <NullBg v-if="!digits" text="暂时没有病房日报数据～" />
       <div class="print-area" v-else ref="area">
         <Paper
           v-for="(paper, i) of papers"
@@ -181,7 +186,7 @@ export default {
 
       const area = this.$refs.area;
       const els = Array.from(area.querySelectorAll(".paper"));
-
+      debugger;
       await print(els, {
         direction: "horizontal",
         injectGlobalCss: true,
@@ -195,45 +200,52 @@ export default {
 </script>
 
 <style lang="stylus">
-  .ward-report-detail
-    display flex
-    flex-direction column
-    height 100%
+.ward-report-detail {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 
-    .toolbar
-      display flex
-      align-items center
-      height 41px
-      padding 0 18px
-      background-image linear-gradient(-180deg, #F8F8FA 0%, #EBECF0 100%)
-      border 1px solid #CBD5DD
-      overflow hidden
-      font-size 14px
+  .toolbar {
+    display: flex;
+    align-items: center;
+    height: 41px;
+    padding: 0 18px;
+    background-image: linear-gradient(-180deg, #F8F8FA 0%, #EBECF0 100%);
+    border: 1px solid #CBD5DD;
+    overflow: hidden;
+    font-size: 14px;
 
-      &-left
-        flex 1
+    &-left {
+      flex: 1;
+    }
+  }
 
-    .container
-      padding 15px 0
-      flex 1
-      overflow auto
+  .container {
+    padding: 15px 0;
+    flex: 1;
+    overflow: auto;
+  }
 
-    .actions
-      position fixed
-      top 70px
-      right 10px
-      z-index 1
+  .actions {
+    position: fixed;
+    top: 70px;
+    right: 10px;
+    z-index: 1;
+  }
 
-    .print-btn
-      padding 10px 12px
-      color #687179
-      background #fff
-      border 1px solid #adb4ba
-      text-align center
-      font-size 13px
-      cursor pointer
-      border-radius 2px
+  .print-btn {
+    padding: 10px 12px;
+    color: #687179;
+    background: #fff;
+    border: 1px solid #adb4ba;
+    text-align: center;
+    font-size: 13px;
+    cursor: pointer;
+    border-radius: 2px;
 
-      &:hover
-        background #fafafa
+    &:hover {
+      background: #fafafa;
+    }
+  }
+}
 </style>

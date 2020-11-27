@@ -60,6 +60,14 @@ export function savePvHomePage(patientId, visitId, indexNo) {
 export function getTypeList(wardCode) {
   return axios.get(`${apiPath}threeTest/type/${wardCode}`);
 }
+// 获取血糖字典项(花都)
+export const getDictItems = (code) => {
+  return axios.post(`${apiPath}dept/dictInfo`, qs.stringify({ code }))
+}
+//  保存血糖字典项(花都)
+export function saveDictItems(data) {
+  return axios.post(`${apiPath}dept/saveDictInfo`, data);
+}
 // 血糖字典项(陵城)
 export function getSugarItemDict() {
   return axios.get(`${apiPath}sugar/getSugarItemDict`);
