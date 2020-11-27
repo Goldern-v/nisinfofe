@@ -37,17 +37,17 @@ export default {
       },
       {
         name: `
-        责任护士签名
+        护士签名
         `,
         style: {
-          minWidth: "40px",
-          maxWidth: "40px"},
+          minWidth: "50px",
+          maxWidth: "50px"},
         colspan: "1",
         rowspan: "3"
       },
       {
         name: `
-        审核者签名
+        审核签名
         `,
         style: {
           minWidth: "40px",
