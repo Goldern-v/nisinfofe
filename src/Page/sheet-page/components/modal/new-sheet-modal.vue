@@ -1,6 +1,11 @@
 <template>
   <div class="modal-con">
-    <sweet-modal ref="newRecord" size="big" title="创建新护理文书" class="modal-record padding-0">
+    <sweet-modal
+      ref="newRecord"
+      size="big"
+      title="创建新护理文书"
+      class="modal-record padding-0"
+    >
       <div class="title-bar" flex="cross:center">
         <span class="type-text">选择科室</span>
         <el-select
@@ -17,27 +22,44 @@
             :value="item.code"
           ></el-option>
         </el-select>
-        <el-input class="text-con" :placeholder="'搜索记录单'" icon="search" v-model="searchWord"></el-input>
+        <el-input
+          class="text-con"
+          :placeholder="'搜索记录单'"
+          icon="search"
+          v-model="searchWord"
+        ></el-input>
       </div>
       <div class="record-con" v-loading="pageLoading">
         <div
           @click="openUrl(item)"
           @dblclick="create(item)"
           class="record-box"
-          :class="{active: selectData == item}"
+          :class="{ active: selectData == item }"
           v-for="item of filterData"
           :key="item.id"
         >
           <el-row type="flex" align="middle">
-            <img src="../../../../common/images/record/文件创建.png" alt height="35" />
-            <span class="name" v-if="item.name">{{item.name}}</span>
-            <span class="name" v-if="item.recordName">{{item.recordName}}</span>
+            <img
+              src="../../../../common/images/record/文件创建.png"
+              alt
+              height="35"
+            />
+            <span class="name" v-if="item.name">{{ item.name }}</span>
+            <span class="name" v-if="item.recordName">{{
+              item.recordName
+            }}</span>
           </el-row>
         </div>
       </div>
       <div slot="button" @click="newRecordClose">
         <el-button class="modal-btn">关闭</el-button>
-        <el-button class="modal-btn" type="primary" @click="create" :disabled="!selectData">创建</el-button>
+        <el-button
+          class="modal-btn"
+          type="primary"
+          @click="create"
+          :disabled="!selectData"
+          >创建</el-button
+        >
       </div>
     </sweet-modal>
   </div>
@@ -90,7 +112,7 @@
     float: left;
     box-sizing: border-box;
     padding: 10px 10px 10px;
-    width: 33%;
+    width: 100%;
     height: 60px;
 
     &.active {
@@ -200,6 +222,11 @@ export default {
   },
   computed: {
     filterData() {
+      if (this.$route.name == "singleTemperatureChart") {
+        return this.templates.filter(item => {
+          return item.recordCode.indexOf("body_temperature_Hd") == 0;
+        });
+      }
       if (this.searchWord) {
         this.selectData = "";
         return this.templates.filter(item => {

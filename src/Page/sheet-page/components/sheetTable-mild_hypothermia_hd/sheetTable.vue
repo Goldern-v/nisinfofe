@@ -77,10 +77,10 @@
               />周
             </div>
           </span>
-          <span @click="changeDate" style="cursor: pointer;">
+          <!-- <span @click="changeDate" style="cursor: pointer;">
             入院时间：
             {{ patientInfo.admissionDate | toymd }}
-          </span>
+          </span> -->
           <span @click="changeDate" style="cursor: pointer;">
             出生日期：
             {{ patientInfo.birthday | toymd }}

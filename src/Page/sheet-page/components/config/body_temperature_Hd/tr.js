@@ -18,7 +18,10 @@ export default [{
 {
   key: "recordHour", //时间
   value: "",
-  event: event_time
+  event: event_time,
+  autoComplete: {
+    data: ["04:00", "08:00", "12:00","16:00", "20:00", "23:00"]
+  }
 },
 {
   key: "temperature", //体温
@@ -66,7 +69,7 @@ export default [{
   name: "物理降温",
 },
 {
-  key: "weight", //体重
+  key: "curWeight", //体重
   value: "",
   event: keyf1,
   name: "体重",
@@ -83,18 +86,18 @@ export default [{
   event: keyf1,
   name: "口表"
 },
-{
-  key: "deptName", //科室
-  value: "",
-  event: keyf1,
-  name: "科室",
-},
-{
-  key: "bedNo", //床号
-  value: "",
-  event: keyf1,
-  name: "床号"
-},
+// {
+//   key: "deptName", //科室
+//   value: "",
+//   event: keyf1,
+//   name: "科室",
+// },
+// {
+//   key: "bedNo", //床号
+//   value: "",
+//   event: keyf1,
+//   name: "床号"
+// },
 {
   key: "feverTemperature", //发热体温
   value: "",

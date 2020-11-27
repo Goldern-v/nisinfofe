@@ -53,7 +53,7 @@
         <div
           class="bottom-line"
           style="min-width: 80px"
-          v-if="(HOSPITAL_NAME_SPACE == 'huadu')"
+          v-if="HOSPITAL_NAME_SPACE == 'huadu'"
         >
           {{ patientInfo.patientId }}/{{ patientInfo.inpNo }}
         </div>
@@ -71,7 +71,7 @@
           v-model="relObj.wxNo"
         />
       </span>-->
-      <span>
+      <span v-if="!(HOSPITAL_NAME_SPACE == 'huadu')">
         入院日期：
         {{ patientInfo.admissionDate | toymd }}
       </span>
