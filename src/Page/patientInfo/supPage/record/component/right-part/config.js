@@ -1,4 +1,5 @@
-import { getFormConfig } from '../../config/form-config.js'
+import {getFormConfig} from '../../config/form-config.js'
+
 /**
  *
  * @param {Vue实例} _this
@@ -14,6 +15,7 @@ export function toolBarConfig(
   // 全局变量
   // iframe window
   let getWid = () => _this.$refs.assessment.$refs.iframe.contentWindow
+  const pageUrl = _this.nodeData.pageUrl
   var switchBtn = true
   // console.log("保存错误", switchBtn);
 
@@ -52,7 +54,10 @@ export function toolBarConfig(
             getWid().delForm(password, empNo).then(res => {
               console.log('删除', res)
               let message = '删除成功'
-              if (res) { message = res.data.desc; _this.$message.success(message) }
+              if (res) {
+                message = res.data.desc;
+                _this.$message.success(message)
+              }
               _this.bus.$emit('closeAssessment')
               _this.bus.$emit('refreshTree')
               window.app.bus.$emit('refreshTree')
@@ -89,6 +94,15 @@ export function toolBarConfig(
         click: () => {
           // let wid = document.querySelector('.assessment-iframe').contentWindow
           getWid().toCheckForm()
+        }
+      },
+      {
+        name: "复制上一张",
+        visible: (pageUrl.includes('入院评估表(外科)') && _this.hospitalName === '东莞市厚街医院') || false,
+        disabled: false,
+        click: () => {
+          // let wid = document.querySelector('.assessment-iframe').contentWindow
+          getWid().copyPre()
         }
       },
       {
