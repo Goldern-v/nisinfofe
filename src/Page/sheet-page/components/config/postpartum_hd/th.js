@@ -243,9 +243,23 @@ export default {
       },
       {
         name: `
-        护士签名
+        审核签名
         `,
-        style: {},
+        style: {
+          minWidth: "50px",
+          maxWidth: "50px"
+        },
+        colspan: "1",
+        rowspan: "3"
+      },
+      {
+        name: `
+        记录人签名
+        `,
+        style: {
+          minWidth: "80px",
+          maxWidth: "80px"
+        },
         colspan: "1",
         rowspan: "3"
       }

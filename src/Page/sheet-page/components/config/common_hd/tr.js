@@ -12,7 +12,7 @@ import {
 } from "../keyEvent/date";
 let 入量名称 = [];
 let 出量名称 = [];
-let 意识 = ['清醒','浅昏迷','深昏迷','模糊','嗜睡','昏睡','谵望'];
+let 意识 = ['清醒','浅昏迷','深昏迷','模糊','嗜睡','昏睡','谵妄'];
 export default [{
     key: "recordMonth", //日期
     value: "",
@@ -184,19 +184,12 @@ export default [{
       left: "1px",
       width: "150px",
       background: "transparent",
-      'word-wrap':'wrap'
     },
     event: function (e, td) {
       console.log(e.keyCode);
-      // console.log(e);
       if (e.keyCode == 9) {
         td.value = "    " + td.value;
         e.preventDefault();
-      }
-      // console.log('eqe',e)
-      console.log('eqe',e.path[0].dataset.value.length)
-      if(e.path[0].dataset.value.length > 12){
-        console.log('eqe')
       }
       keyf1(e, td);
     }
