@@ -21,7 +21,6 @@
       >{{ HOSPITAL_NAME_SPACE }}
       </div>
       <div class="header-con">
-        {{ patientInfo }}
         <h1>{{ sheetInfo.formTitle || "护嘱单" }}</h1>
         <p flex="main:justify">
           <span>姓名：{{ patientInfo.name }}</span>
