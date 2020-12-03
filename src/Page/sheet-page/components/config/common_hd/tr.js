@@ -12,7 +12,7 @@ import {
 } from "../keyEvent/date";
 let 入量名称 = [];
 let 出量名称 = [];
-let 意识 = ['清醒','浅昏迷','深昏迷','模糊','嗜睡','昏睡','谵妄'];
+let 意识 = ['清醒', '浅昏迷', '深昏迷', '模糊', '嗜睡', '昏睡', '谵妄'];
 export default [{
     key: "recordMonth", //日期
     value: "",

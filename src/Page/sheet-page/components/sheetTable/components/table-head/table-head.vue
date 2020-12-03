@@ -48,16 +48,19 @@
           {{ patientInfo.bedLabel }}
         </div>
       </span>
-      <span>
+      <span
+          v-if="!(HOSPITAL_ID == 'huadu')">
         住院号/ID号：
         <div
           class="bottom-line"
           style="min-width: 80px"
-          v-if="HOSPITAL_NAME_SPACE == 'huadu'"
         >
           {{ patientInfo.patientId }}/{{ patientInfo.inpNo }}
         </div>
-        <div class="bottom-line" style="min-width: 80px" v-else>
+      </span>
+      <span v-else>
+        住院号
+        <div class="bottom-line" style="min-width: 80px" >
           {{ patientInfo.inpNo }}
         </div>
       </span>
@@ -71,7 +74,7 @@
           v-model="relObj.wxNo"
         />
       </span>-->
-      <span v-if="!(HOSPITAL_NAME_SPACE == 'huadu')">
+      <span v-if="!(HOSPITAL_ID == 'huadu')">
         入院日期：
         {{ patientInfo.admissionDate | toymd }}
       </span>
