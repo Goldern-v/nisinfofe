@@ -31,7 +31,7 @@ export default {
       },
       {
         name: `
-        脉<br/>搏<br/>次/<br/>分
+        脉搏<br/>次/分
         `,
         style: {},
         colspan: "1",
@@ -42,7 +42,7 @@ export default {
       },
       {
         name: `
-        心<br/>率<br/>次/<br/>分
+        心率<br/>次/分
         `,
         style: {},
         colspan: "1",
@@ -53,7 +53,7 @@ export default {
       },
       {
         name: `
-        呼<br/>吸<br/>次/<br/>分
+        呼吸<br/>次/分
         `,
         style: {},
         colspan: "1",

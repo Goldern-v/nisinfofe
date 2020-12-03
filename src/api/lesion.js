@@ -36,6 +36,10 @@ function follow(deptCode, bedLabel, bedNo) {
 function unfollow(bedLabel) {
   return axios.get(`${apiPath}bed/unfollowBed/${bedLabel}`)
 }
+// 取消关注(花都)
+function unfollowHd(deptCode,bedNo) {
+  return axios.get(`${apiPath}bed/unfollowBed/${deptCode}/${bedNo}`)
+}
 
 // 陵城 --更新床位一览卡信息
 function syncGetNurseBedRecLc(deptCode) {
@@ -55,6 +59,7 @@ export {
   patients,
   follow,
   unfollow,
+  unfollowHd,
   typeList,
   syncGetNurseBedRec,
   syncGetMedicalAdvice,

@@ -21,9 +21,9 @@
       </div>
       <div flex="main:justify cross:top" style="margin-bottom: 10px">
         <p for class="title" style="margin-right: 10px">内容：</p>
-        <!-- 兼容富文本内容渲染 -->
-        <quill-editor v-model="content" :options="editorOption"></quill-editor>
-        <!-- <el-input type="textarea" v-model="content"></el-input> -->
+        <!-- 厚街——兼容富文本内容渲染 -->
+        <quill-editor v-model="content" :options="editorOption" v-if="HOSPITAL_ID === 'lingcheng'"></quill-editor>
+        <el-input type="textarea" v-model="content" v-else></el-input>
       </div>
       <div slot="button">
         <el-button class="modal-btn" @click="close">取消</el-button>

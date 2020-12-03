@@ -279,6 +279,7 @@
             </router-link>
             <el-dropdown
               menu-align="start"
+              :hide-on-click="false"
               :class="{ 'router-link-active': isActivePage }"
             >
               <el-row class="nav-item" type="flex" align="middle">
@@ -419,25 +420,35 @@
                     </el-row>
                   </router-link>
                 </el-dropdown-item>
-              </el-dropdown-menu>
-            </el-dropdown>
-            <el-dropdown
-              menu-align="start"
-              :class="{ 'router-link-active': isActiveStatisticPage }"
-            >
-              <el-row class="nav-item" type="flex" align="middle">
-                <div class="before"></div>
-                <i class="iconfont icon-chuangweiyilanqia"></i>统计查询
-              </el-row>
-              <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item
-                  :class="{ active: $route.path == '/cognitiveStatistic' }"
-                >
-                  <router-link to="/cognitiveStatistic" tag="span">
+                <el-dropdown-item>
+                  <el-dropdown
+                    class="menuSecond-item"
+                    :class="{ 'router-link-active': isActiveStatisticPage }"
+                  >
                     <el-row class="menu-item" type="flex" align="middle">
-                      <i class="cognitiveStatistic"></i>住院病人认知情况统计表
+                      <i class="birthCertificate"></i>统计查询
                     </el-row>
-                  </router-link>
+                    <el-dropdown-menu slot="dropdown">
+                      <template>
+                        <el-dropdown-item
+                          :class="{
+                            active: $route.path == '/cognitiveStatistic'
+                          }"
+                        >
+                          <router-link to="/cognitiveStatistic" tag="span">
+                            <el-row
+                              class="menu-item"
+                              type="flex"
+                              align="middle"
+                            >
+                              <i class="cognitiveStatistic"></i
+                              >住院病人认知情况统计表
+                            </el-row>
+                          </router-link>
+                        </el-dropdown-item>
+                      </template>
+                    </el-dropdown-menu>
+                  </el-dropdown>
                 </el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
@@ -584,6 +595,10 @@
   }
 }
 
+.menuSecond-item {
+  width: 100%;
+}
+
 .router-link-active {
   .nav-item {
     background: #F8F8FA;
@@ -591,6 +606,12 @@
     border-right: 1px solid #EAEEF1;
     border-top: 4px solid #4BB08D;
     border-bottom: 4px solid transparent;
+  }
+
+  .menu-item {
+    color: #333;
+    font-weight: bold;
+    background-color: #F8F8FA;
   }
 }
 
@@ -886,6 +907,7 @@ export default {
       if (this.$route.path == "/birthCertificate") return true;
       if (this.$route.path == "/healthEducationList") return true;
       if (this.$route.path == "/dcList") return true;
+      if (this.$route.path == "/cognitiveStatistic") return true;
     },
     isActiveStatisticPage() {
       if (this.$route.path == "/cognitiveStatistic") return true;

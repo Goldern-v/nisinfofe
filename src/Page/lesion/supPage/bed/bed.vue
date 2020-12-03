@@ -111,7 +111,7 @@
 </style>
 
 <script>
-import { follow, unfollow } from "@/api/lesion";
+import { follow, unfollow, unfollowHd } from "@/api/lesion";
 import bedItem from "./component/bed-item/bed-item.vue";
 import bedItemHd from "./component/bed-item-hd/bed-item.vue";
 import searchCon from "./component/search-con/search-con.vue";
@@ -181,7 +181,11 @@ export default {
           });
         });
       }
-      if (item.isFollow === "1") {
+      if (item.isFollow === "1" && this.HOSPITAL_ID == 'huadu') {
+        unfollowHd(this.deptCode,item.bedNo).then(res => {
+          item.isFollow = "0";
+        });
+      }else if (item.isFollow === "1") {
         unfollow(item.bedLabel).then(res => {
           item.isFollow = "0";
         });

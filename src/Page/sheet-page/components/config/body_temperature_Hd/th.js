@@ -21,6 +21,10 @@ export default {
         name: `
         时间
         `,
+        style: {
+          minWidth: "20px",
+          maxWidth: "20px"
+        },
         colspan: "1",
         rowspan: "3"
       },
@@ -29,7 +33,7 @@ export default {
         生命体征
         `,
         style: {},
-        colspan: "16",
+        colspan: "14",
         rowspan: "1",
       },
       {
@@ -131,32 +135,32 @@ export default {
       },
       {
         name: `
-        肛表
+        肛温
         `,
         colspan: "1",
         rowspan: "2"
       },
       {
         name: `
-        口表
+        口温
         `,
         colspan: "1",
         rowspan: "2"
       },
-      {
-        name: `
-        科室
-        `,
-        colspan: "1",
-        rowspan: "2"
-      },
-      {
-        name: `
-        床号
-        `,
-        colspan: "1",
-        rowspan: "2"
-      },
+      // {
+      //   name: `
+      //   科室
+      //   `,
+      //   colspan: "1",
+      //   rowspan: "2"
+      // },
+      // {
+      //   name: `
+      //   床号
+      //   `,
+      //   colspan: "1",
+      //   rowspan: "2"
+      // },
       {
         name: `
         发热体温
@@ -246,7 +250,7 @@ export default {
         colspan: "1",
         rowspan: "2",
         canSet: true,
-        key: "fieldOne",
+        key: "fieldFour",
         style: {
           minWidth: "40px",
           maxWidth: "40px"
@@ -258,7 +262,7 @@ export default {
         colspan: "1",
         rowspan: "2",
         canSet: true,
-        key: "fieldTwo",
+        key: "fieldFive",
         style: {
           minWidth: "40px",
           maxWidth: "40px"
@@ -270,7 +274,7 @@ export default {
         colspan: "1",
         rowspan: "2",
         canSet: true,
-        key: "fieldThree",
+        key: "fieldSix",
         style: {
           minWidth: "40px",
           maxWidth: "40px"
@@ -282,7 +286,7 @@ export default {
         colspan: "1",
         rowspan: "2",
         canSet: true,
-        key: "fieldFour",
+        key: "fieldSeven",
         style: {
           minWidth: "40px",
           maxWidth: "40px"
