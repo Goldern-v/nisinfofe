@@ -1,3 +1,9 @@
+import {
+  event_date,
+  event_time,
+  click_date,
+  click_time
+} from "../keyEvent/date";
 export default {
   // 科室的名称
   deptType: "",
@@ -5,26 +11,17 @@ export default {
     width: "1300px"
   },
   th: {
-    top: [
-      {
-        name: `
-        日期
-        `,
-        colspan: "1",
-        rowspan: "3"
-      },
-      {
-        name: `
-        时间
-        `,
-        colspan: "1",
-        rowspan: "3"
+    top: [{
+        name: `年份`,
+        colspan: "2",
+        rowspan: "1",
+        canSet: true,
+        key: "recordYear",
       },
       {
         name: "体温<br/>℃",
         style: {
-          minWidth: "36px",
-          maxWidth: "36px"
+          width: "20px"
         },
         colspan: "1",
         rowspan: "3"
@@ -33,33 +30,30 @@ export default {
         name: `
         脉搏<br/>次/分
         `,
-        style: {},
         colspan: "1",
         rowspan: "3",
         style: {
-          minWidth: "20px"
+          width: "20px"
         }
       },
       {
         name: `
         心率<br/>次/分
         `,
-        style: {},
         colspan: "1",
         rowspan: "3",
         style: {
-          minWidth: "20px"
+          width: "20px"
         }
       },
       {
         name: `
         呼吸<br/>次/分
         `,
-        style: {},
         colspan: "1",
         rowspan: "3",
         style: {
-          minWidth: "20px"
+          width: "20px"
         }
       },
       {
@@ -67,9 +61,7 @@ export default {
         血压<br/>mmHg
         `,
         style: {
-          minWidth: "52px",
-          maxWidth: "52px",
-          whiteSpace: "nowrap"
+          width: "48px"
         },
         colspan: "1",
         rowspan: "3"
@@ -91,8 +83,7 @@ export default {
         SPO<sub>2</sub><br>(%)
         `,
         style: {
-          minWidth: "31px",
-          maxWidth: "31px"
+          width: "30px"
         },
         colspan: "1",
         rowspan: "3"
@@ -227,7 +218,20 @@ export default {
         rowspan: "3"
       }
     ],
-    mid: [
+    mid: [{
+        name: `
+        日期
+        `,
+        colspan: "1",
+        rowspan: "2"
+      },
+      {
+        name: `
+        时间
+        `,
+        colspan: "1",
+        rowspan: "2"
+      },
       {
         name: `
         名称
