@@ -1,7 +1,28 @@
 <template>
   <div>
     <boxBase title="值班医生" :icon="require('../images/值班医生.png')">
-      <div class="body-con" v-loading="pageLoading" slot="body-con" flex="dir:top main:top">
+      <div class="body-con" v-loading="pageLoading" slot="body-con" flex="dir:top main:top" :class="{'body-con-hd':HOSPITAL_ID=='huadu'}" v-if="HOSPITAL_ID=='huadu'">
+        <div flex="cross:center">
+          <div class="label">值班医生：</div>
+          <input flex-box="1" v-model="data.mainClassDoctor" @blur="update" />
+        </div>
+        <div style="height: 15px"></div>
+        <div flex="cross:center">
+          <div class="label">副班医生：</div>
+          <input flex-box="1" v-model="data.onDutyDoctor" @blur="update" />
+        </div>
+        <div style="height: 15px"></div>
+        <div flex="cross:center">
+          <div class="label">住院总医生：</div>
+          <input flex-box="1" v-model="data.secondTierDoctor" @blur="update" />
+        </div>
+        <div style="height: 15px"></div>
+        <div flex="cross:center">
+          <div class="label">二线医生：</div>
+          <input flex-box="1" v-model="data.workClass" @blur="update" />
+        </div>
+      </div>
+      <div class="body-con" v-loading="pageLoading" slot="body-con" flex="dir:top main:top" v-else>
         <div flex="cross:center">
           <div class="label">{{deptCode == '041002' && HOSPITAL_ID=='hj'?'门诊医生':'主班医生'}}：</div>
           <input flex-box="1" v-model="data.mainClassDoctor" @blur="update" />
@@ -54,6 +75,12 @@ input {
   outline: none;
   padding-left: 10px;
 }
+.body-con-hd {
+  .label {
+    width: 85px;
+  }
+}
+
 </style>
 <script>
 import boxBase from "../base/box-base.vue";
