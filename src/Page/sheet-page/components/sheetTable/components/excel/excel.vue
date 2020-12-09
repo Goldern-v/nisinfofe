@@ -209,6 +209,15 @@
           <!-- 护理记录单特殊情况特殊记录单独处理 -->
           <div
             v-else-if="
+              td.key === 'food' &&
+                HOSPITAL_ID === 'huadu'
+            "
+            v-html="td.value"
+            style="word-wrap:break-word;word-break:break-all;"
+          ></div>
+          <!-- 护理记录单特殊情况特殊记录单独处理 -->
+          <div
+            v-else-if="
               td.key === 'description' &&
                 HOSPITAL_ID === 'lingcheng' &&
                 sheetInfo.selectBlock.openRichText

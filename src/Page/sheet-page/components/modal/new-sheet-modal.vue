@@ -34,7 +34,7 @@
           @click="openUrl(item)"
           @dblclick="create(item)"
           class="record-box"
-          :class="{ active: selectData == item }"
+          :class="{ active: selectData == item ,isvertical:HOSPITAL_ID == 'huadu'}"
           v-for="item of filterData"
           :key="item.id"
         >
@@ -112,13 +112,17 @@
     float: left;
     box-sizing: border-box;
     padding: 10px 10px 10px;
-    width: 100%;
+    width: 33%;
     height: 60px;
 
     &.active {
       background: #F0F5F3;
       border: 1px solid #C0D4CD;
       border-radius: 4px;
+    }
+
+    &.isvertical{
+      width:100% !important;
     }
 
     img {
