@@ -1,23 +1,23 @@
 <template>
   <div :class="{ hj: HOSPITAL_ID=='hj' }">
-    <leftPart v-if="inited"></leftPart>
+    <leftPart v-if="inited" @handleInpatientSave="handleInpatientSave"></leftPart>
     <div class="right-part" :style="{ marginLeft: openLeft ? '200px' : '0' }">
       <!-- <topPart></topPart> -->
-      <component :is="switchCompt()" v-if="inited" />
+      <component :is="switchCompt()" v-if="inited"/>
       <router-view v-if="inited"></router-view>
     </div>
   </div>
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
 .hj {
-  >>>.left-part {
+  >>> .left-part {
     .content {
       top: 50px;
     }
   }
 
-  >.right-part {
-    >>>.patient-info-head {
+  > .right-part {
+    >>> .patient-info-head {
       height: 50px;
 
       .nav-con {
@@ -41,7 +41,8 @@ import topPartWeiXian from "@/Page/patientInfo/supComponts/topPart_WeiXian"; // 
 import topPartLingCheng from "@/Page/patientInfo/supComponts/topPart_LingCheng"; // 德州市陵城区人民医院
 import topPartHuaDu from "@/Page/patientInfo/supComponts/topPart_HuaDu"; // 广州市花都区人民医院
 import leftPart from "@/Page/patientInfo/supComponts/leftPart";
-import { getPatientInfo } from "@/api/common.js";
+import {getPatientInfo} from "@/api/common.js";
+
 export default {
   data() {
     return {
@@ -63,30 +64,33 @@ export default {
     window.onresize = () => {
       this.$store.commit("upWihInPatient");
     };
-    this.inited = false;
-    getPatientInfo(this.$route.query.patientId, this.$route.query.visitId).then(
-      res => {
-        this.inited = true;
-        this.query = res.data.data;
-        Object.assign(this.$route.query, this.query);
-        console.log("getPatientInfo", res);
-        // getPatientInfo
-        window.app.$store.commit(
-          "upCurrentPatientObj",
-          JSON.parse(JSON.stringify(this.query))
-        );
-        if (this.query.deptCode && this.query.deptName) {
-          this.$store.commit("upDeptCode", this.query.wardCode);
-          localStorage.selectDeptValue = value;
-          this.$store.commit("upDeptName", this.query.wardName);
-        }
-      }
-    );
+    this.getPatientData()
   },
   methods: {
     // openNewFormBoxClean(box){
     //   this.$refs.openNewFormModal.open(box)
     // },
+    getPatientData() {
+      this.inited = false;
+      getPatientInfo(this.$route.query.patientId, this.$route.query.visitId).then(
+          res => {
+            this.inited = true;
+            this.query = res.data.data;
+            Object.assign(this.$route.query, this.query);
+            console.log("getPatientInfo", res);
+            // getPatientInfo
+            window.app.$store.commit(
+                "upCurrentPatientObj",
+                JSON.parse(JSON.stringify(this.query))
+            );
+            if (this.query.deptCode && this.query.deptName) {
+              this.$store.commit("upDeptCode", this.query.wardCode);
+              localStorage.selectDeptValue = value;
+              this.$store.commit("upDeptName", this.query.wardName);
+            }
+          }
+      );
+    },
     // 依据医院名字，标题组件切换
     switchCompt(HisName = process.env.HOSPITAL_NAME) {
       let hisList = {
@@ -96,18 +100,24 @@ export default {
         广州市花都区人民医院: "topPartHuaDu",
       };
       return hisList[HisName] || "topPart";
-    }
+    },
+    handleInpatientSave() {
+      console.log('handleInpatientSave')
+      this.getPatientData()
+    },
   },
   mounted() {
     try {
       document.getElementById("hl-nav-con").style.display = "none";
-    } catch (e) {}
+    } catch (e) {
+    }
     // this.bus.$on('openNewFormBoxClean', this.openNewFormBoxClean)
   },
   beforeDestroy() {
     try {
       document.getElementById("hl-nav-con").style.display = "block";
-    } catch (e) {}
+    } catch (e) {
+    }
   },
   beforeRouteUpdate(to, from, next) {
     next(true);

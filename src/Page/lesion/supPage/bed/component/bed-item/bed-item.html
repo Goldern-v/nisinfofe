@@ -1,12 +1,12 @@
 <div class="bed-box">
   <div class="bed-box-inner" :class="{infectFlag: data.infectFlag == 1,bornFlag: data.bornFlag == 1}"
-    :style="[data.bedLabel.includes('_') && data.patientId && (data.newBornOut ? {background: 'rgba(255, 207, 219, .5)'} : {background: '#D9F4FE'}), data.bornStatus === '送产房' && {background: '#FFBCBC'}]">
+       :style="[data.bedLabel.includes('_') && data.patientId && (data.newBornOut ? {background: 'rgba(255, 207, 219, .5)'} : {background: '#D9F4FE'}), data.bornStatus === '送产房' && {background: '#FFBCBC'}]">
     <span @click="toInfo(data)" v-if="data.patientId">
       <div class="part-1">
         <div class="bed-label">
-          <img src="../../images/婴儿2.png" alt="" class="ye" v-show="data.bedLabel.includes('_')" />
+          <img src="../../images/婴儿2.png" alt="" class="ye" v-show="data.bedLabel.includes('_')"/>
           {{ data.bedLabel }}<span class="point-box" v-show="data.formLowestStatus != '2' && HOSPITAL_ID !== 'weixian'"
-            :class="{red: data.formLowestStatus == 0, green: data.formLowestStatus == 1}"></span>
+                                   :class="{red: data.formLowestStatus == 0, green: data.formLowestStatus == 1}"></span>
         </div>
       </div>
       <div class="part-2">
@@ -17,7 +17,7 @@
       <div class="part-3">{{ data.sex }} | {{ data.chargeType || "--" }}</div>
       <div class="part-4">
         <div class="table-name" v-for="item in (data.evalIcons &&  data.evalIcons.slice(0,6))" :key="item.formName"
-          :title="item.description" :style="{background: item.iconTextRgb}" @click.stop="toFormPage(data, item)">
+             :title="item.description" :style="{background: item.iconTextRgb}" @click.stop="toFormPage(data, item)">
           <span>{{ item.iconText }}</span>
         </div>
       </div>
@@ -32,12 +32,18 @@
           <div class="label-box" :style="{background: item.iconTextRgb}">
             <span v-if="item.showContent">{{ item.showContent }}</span>
             <span v-else>
-              <span>{{ item.iconText[item.iconText.length - 1] == "离" ? "隔" :
-                item.iconText[item.iconText.length - 1] }}</span>
+              <span>{{
+                  item.iconText[item.iconText.length - 1] == "离" ? "隔" :
+                    item.iconText[item.iconText.length - 1]
+                }}</span>
             </span>
           </div>
           <!-- </el-tooltip> -->
         </span>
+      </div>
+
+      <div class="patient-icon" v-if="HOSPITAL_ID === 'hj' &&  +data.registFlag === 1">
+        <img src="./img.png" alt="">
       </div>
 
       <div class="bed-modal">
@@ -163,7 +169,7 @@
       <div class="null-bedLabel">{{ data.bedLabel }}</div>
     </div>
     <div v-else class="null-bed">
-      <img src="../../../../../../common/images/card/空床.png" />
+      <img src="../../../../../../common/images/card/空床.png"/>
       <div class="null-bedLabel">{{ data.bedLabel }}</div>
     </div>
   </div>

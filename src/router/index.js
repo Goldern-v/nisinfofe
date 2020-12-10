@@ -104,6 +104,7 @@ const implementationList = () =>
 const implementationListLc = () =>
   import("@/Page/implementation-list-lc/implementation-list.vue"); //陵城执行单
 const dcList = () => import("@/Page/dc-list/dc-list.vue"); //执行单
+const patientList = () => import("@/Page/patientList/index"); //执行单
 const nursingRounds = () => import("@/Page/nursing-rounds/nursing-rounds.vue"); //护理巡视
 const allTemperatureChart = () =>
   import("@/Page/temperature-chart/all-temperature-chart.vue"); //批量录入体温单
@@ -112,7 +113,7 @@ const showPatientDetails = () =>
 const nursingDoc = () => import("@/Page/nursingDoc/nursingDoc.vue");
 const cognitiveStatistic = () =>
   import("@/Page/cognitive-statistic/cognitive-statistic.vue"); //住院病人认知情况统计表
-  
+
 const demo = () => import("@/demo/demo"); //demo
 /** 包含全局样式的页面，患者详情子页面不可代码切割 */
 import sheetPage from "@/Page/sheet-page/sheet-page.vue"; // 护理记录单页面
@@ -306,7 +307,7 @@ const router = new Router({
           path: "/shiftWork",
           name: "shiftWorks",
           component:
-          process.env.HOSPITAL_ID == "lingcheng" ? shiftWorkLc : process.env.HOSPITAL_ID == "huadu" ? shiftWorkHd : shiftWork,
+            process.env.HOSPITAL_ID == "lingcheng" ? shiftWorkLc : process.env.HOSPITAL_ID == "huadu" ? shiftWorkHd : shiftWork,
           children: [
             {
               name: "shiftWork",
@@ -314,7 +315,7 @@ const router = new Router({
               component:
                 process.env.HOSPITAL_ID == "lingcheng"
                   ? shiftWorkDetailLc
-                  :  process.env.HOSPITAL_ID == "huadu" ? shiftWorkDetailHd : shiftWorkDetail
+                  : process.env.HOSPITAL_ID == "huadu" ? shiftWorkDetailHd : shiftWorkDetail
             }
           ]
         },
@@ -637,6 +638,10 @@ const router = new Router({
         {
           path: "/dcList",
           component: dcList
+        },
+        {
+          path: "/patientList",
+          component: patientList
         },
         {
           path: "/nursingRounds",
