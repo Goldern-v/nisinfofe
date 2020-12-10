@@ -137,10 +137,28 @@ export default {
     getData() {
       this.pageLoading = true;
       getWardLog(this.deptCode).then(res => {
-        this.whiteBoardDtos = res.data.data[0].whiteBoardDtos;
-        this._whiteBoardDtos = JSON.parse(
-          JSON.stringify(res.data.data[0].whiteBoardDtos)
-        );
+        if(this.HOSPITAL_ID=='huadu'){
+          let arr = res.data.data[0].whiteBoardDtos;
+          arr.map(item=>{
+            let boardConfigures = [],newBoardConfigures = [];
+            newBoardConfigures = item.boardConfigures.filter(child=>{
+              if(!boardConfigures.includes(child.patientId)){
+                boardConfigures.push(child.patientId);
+                return child;
+              }
+            })
+            item.boardConfigures = newBoardConfigures;
+          })
+          this.whiteBoardDtos = arr;
+          this._whiteBoardDtos = JSON.parse(
+            JSON.stringify(arr)
+          );
+        }else {
+          this.whiteBoardDtos = res.data.data[0].whiteBoardDtos;
+          this._whiteBoardDtos = JSON.parse(
+            JSON.stringify(res.data.data[0].whiteBoardDtos)
+          );
+        }
         this.boardConfigures = res.data.data[0].boardConfigures;
         this.pageLoading = false;
       });
