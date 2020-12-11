@@ -1,6 +1,10 @@
 <template>
   <SweetModal ref="modal" :title="title" :modal-width="450">
-    <ElForm class="edit-modal-form" style="margin-bottom: 20px" label-width="100px">
+    <ElForm
+      class="edit-modal-form"
+      style="margin-bottom: 20px"
+      label-width="100px"
+    >
       <ElFormItem label="年龄：" required>
         <ElInput v-model="form.age" />
       </ElFormItem>
@@ -40,12 +44,10 @@ export default {
   },
   methods: {
     getFormHead() {
-      console.log("this.form", this.form);
       apis
         .getFormHeadData(this.queryInfo.patientId, this.queryInfo.visitId)
         .then((res) => {
-          console.log("getFormHeadData==========", res.data.data.itemMap.age);
-          this.form.age = res.data.data.itemMap.age;
+          this.form.age = res.data.data.itemMap.age || this.form.age;
           console.log("this.form.age", this.form.age);
         });
     },
@@ -58,18 +60,14 @@ export default {
         this.form = {
           recordDate: new Date(form.recordDate || new Date()),
           recordTime: new Date(form.recordDate || new Date()),
-          age: this.form.age || this.queryInfo.age,
-          recordId: form.recordId || "",
+          age: form.age || this.form.age || this.queryInfo.age,
         };
-        this.oldRecordDate = form.recordDate;
       } else {
         this.form = {
           recordDate: new Date(),
           recordTime: new Date(),
           age: this.form.age || this.queryInfo.age,
-          recordId: "",
         };
-        this.oldRecordDate = "";
       }
     },
     close() {
@@ -98,12 +96,6 @@ export default {
         },
       ];
       console.log("ageData", data);
-      // console.log(data.patientId, data.visitId, data.itemMap.itemValue);
-      // apis
-      //   .getEditAge(data.patientId, data.visitId, data.itemMap.itemValue)
-      //   .then((res) => {
-      //     console.log("年龄接口返回res", res);
-      //   });
       this.$emit("confirm", data);
       this.onClose();
     },
