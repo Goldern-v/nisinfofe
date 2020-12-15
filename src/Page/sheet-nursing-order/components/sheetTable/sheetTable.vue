@@ -27,9 +27,7 @@
           <span>性别：{{ patientInfo.sex }}</span>
           <span>年龄：{{ patientInfo.age }}</span>
           <span>科室：{{ patientInfo.deptName }}</span>
-          <template v-show="!(HOSPITAL_NAME === '广州市花都区人民医院')">
-            <span>入院日期：{{ patientInfo.admissionDate | toymd }}</span>
-          </template>
+          <span v-if="HOSPITAL_NAME !== '广州市花都区人民医院'">入院日期：{{ patientInfo.admissionDate | toymd }}</span>
           <span>床号：{{ patientInfo.bedLabel }}</span>
           <!-- <span class="diagnosis-con" :title="patientInfo.diagnosis">诊断：{{patientInfo.diagnosis}}</span> -->
           <span v-if="HOSPITAL_NAME === '广州市花都区人民医院'">住院号：{{ patientInfo.patientId }}</span>
