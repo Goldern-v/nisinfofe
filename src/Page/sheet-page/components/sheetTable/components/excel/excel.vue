@@ -100,7 +100,7 @@
               }).value.status
             }`,
           {
-            redTop:sheetInfo.sheetType =='common_hd'&&tr.find(item => {return item.key == 'recordSource'}).value == '5'
+            redTop:getBorderClass(y)
           }
         ]"
         :key="y"
@@ -490,6 +490,13 @@ export default {
     }
   },
   methods: {
+    getBorderClass(index){
+      if (sheetInfo.sheetType !== 'common_hd') return
+      const temp = this.data.bodyModel.findIndex((tr=>{
+        return tr.find(i=>i.key==='recordSource').value ==='5'
+      }))
+      return temp===index
+    },
     // 键盘事件
     onKeyDown(e, bind) {
       if (sheetInfo.model == "print") return;
