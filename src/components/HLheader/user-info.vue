@@ -320,6 +320,11 @@ export default {
       this.$refs.uploadImgModal.open("signImg");
     },
     clear() {
+      for(let key in localStorage){
+        if(key.includes('firtPainFormID') || key.includes('patientInfo')){
+          localStorage.removeItem(key);
+        }
+      }
       location.reload(true);
     },
     openCaSignModal() {

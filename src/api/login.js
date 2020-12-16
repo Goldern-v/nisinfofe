@@ -6,6 +6,8 @@ function login(empNo, password) {
   return axios.post(`${apiPath}login`, qs.stringify({empNo, password}))
 }
 function logout(authToken) {
+  localStorage.clear();
+  sessionStorage.clear();
   return axios.get(`${apiPath}logout`, {params: {
     authToken
   }})
