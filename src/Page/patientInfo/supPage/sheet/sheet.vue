@@ -44,6 +44,7 @@
     </div>
     <delPageModal ref="delPageModal" :index="sheetModel.length"></delPageModal>
     <HjModal ref="HjModal"></HjModal>
+    <HdModal ref="HdModal"></HdModal>
     <signModal ref="signModal" title="需要该行签名着确认"></signModal>
     <signModal ref="signModal2" title="签名者确认"></signModal>
     <setPageModal ref="setPageModal"></setPageModal>
@@ -196,6 +197,7 @@ import delPageModal from "@/Page/sheet-page/components/modal/del-page.vue";
 import $ from "jquery";
 import moment from "moment";
 import HjModal from "@/Page/sheet-page/components/modal/hj-modal.vue";
+import HdModal from "@/Page/sheet-page/components/modal/hd-modal.vue";
 import signModal from "@/components/modal/sign.vue";
 import specialModal from "@/Page/sheet-page/components/modal/special-modal.vue";
 import specialModal2 from "@/Page/sheet-page/components/modal/special-modal2.vue";
@@ -652,6 +654,9 @@ export default {
     this.bus.$on("openHJModal", () => {
       this.$refs.HjModal.open();
     });
+    this.bus.$on("openHDModal", () => {
+      this.$refs.HdModal.open();
+    });
     this.bus.$on("openSetPageModal", () => {
       this.$refs.setPageModal.open();
     });
@@ -717,6 +722,7 @@ export default {
     sheetTable,
     delPageModal,
     HjModal,
+    HdModal,
     signModal,
     specialModal,
     specialModal2,

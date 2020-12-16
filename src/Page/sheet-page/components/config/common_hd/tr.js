@@ -89,7 +89,13 @@ export default [{
     // autoComplete: {
     //   data: 入量名称
     // },
-    name: "入量名称"
+    name: "入量名称",
+    textarea: {
+      width: 62,
+    },
+    style: {
+      textAlign: "left",
+    }
   },
   {
     key: "foodSize", //食物数量  入量（单位ml）
@@ -106,6 +112,12 @@ export default [{
     //   data: 出量名称
     // },
     name: "出量名称",
+    textarea: {
+      width: 62,
+    },
+    style: {
+      textAlign: "left",
+    }
   },
   {
     key: "dischargeSize", //排出物数量（单位ml）
@@ -182,7 +194,7 @@ export default [{
       top: "1px",
       bottom: "1px",
       left: "1px",
-      width: "150px",
+      // width: "180px",
       background: "transparent",
     },
     event: function (e, td) {
