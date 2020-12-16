@@ -19,6 +19,8 @@ axios.interceptors.request.use((config) => {
         config.headers.common['Auth-Token-Nursing'] = token
         return config
     } else {
+        localStorage.clear();
+        sessionStorage.clear();
         // 跳转到登录页
         window.app.$router.push('/login')
     }
@@ -65,6 +67,8 @@ axios.interceptors.response.use((res) => {
         })
         window.app && window.app.$store.commit('upRelogin', window.app.$route.fullPath)
         setTimeout(() => {
+            localStorage.clear();
+            sessionStorage.clear();
             window.app.$router.push({
                 path: '/login'
             })
