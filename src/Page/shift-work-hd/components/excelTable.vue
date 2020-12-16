@@ -159,7 +159,7 @@ function initFormData(data = {}) {
       ["原有", data.aOrigin, data.pOrigin, data.nOrigin],
       ["出院", data.aDischarge, data.pDischarge, data.nDischarge],
       ["转出", data.aTransOut, data.pTransOut, data.nTransOut],
-      // ["死亡", data.aDead, data.pDead, data.nDead],
+      ["死亡", data.aDead, data.pDead, data.nDead],
       ["入院", data.aAdmission, data.pAdmission, data.nAdmission],
       ["转入", data.aTransIn, data.pTransIn, data.nTransIn],
       ["手术", data.aOperation, data.pOperation, data.nOperation],
@@ -185,6 +185,7 @@ function initFormData(data = {}) {
       病重: data.typeSerious || "",
       出院: data.typeDischarge || "",
       转出: data.typeTransOut || "",
+      死亡: data.typeDead || "",
       入院: data.typeAdmission || "",
       转入: data.typeTransIn || "",
       手术: data.typeOperation || "",
@@ -201,6 +202,10 @@ function initFormList(list) {
       format: "inline",
     },
     转出: {
+      list: [],
+      format: "inline",
+    },
+    死亡: {
       list: [],
       format: "inline",
     },
