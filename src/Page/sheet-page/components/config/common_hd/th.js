@@ -110,10 +110,16 @@ export default {
         `,
         colspan: "1",
         rowspan: "3",
+        style: {
+          width: '50px'
+        },
       },
       {
         name: `标题1`,
-        style: {},
+        style: {
+          minWidth: '48px',
+          maxWidth: '48px'
+        },
         colspan: "1",
         rowspan: "3",
         canSet: true,
@@ -121,7 +127,10 @@ export default {
       },
       {
         name: `标题2`,
-        style: {},
+        style: {
+          minWidth: '48px',
+          maxWidth: '48px'
+        },
         colspan: "1",
         rowspan: "3",
         canSet: true,
@@ -129,7 +138,10 @@ export default {
       },
       {
         name: `标题3`,
-        style: {},
+        style: {
+          minWidth: '48px',
+          maxWidth: '48px'
+        },
         colspan: "1",
         rowspan: "3",
         canSet: true,
@@ -137,7 +149,10 @@ export default {
       },
       {
         name: `标题4`,
-        style: {},
+        style: {
+          minWidth: '48px',
+          maxWidth: '48px'
+        },
         colspan: "1",
         rowspan: "3",
         canSet: true,
@@ -145,7 +160,10 @@ export default {
       },
       {
         name: `标题5`,
-        style: {},
+        style: {
+          minWidth: '48px',
+          maxWidth: '48px'
+        },
         colspan: "1",
         rowspan: "3",
         canSet: true,
@@ -153,7 +171,10 @@ export default {
       },
       {
         name: `标题6`,
-        style: {},
+        style: {
+          minWidth: '48px',
+          maxWidth: '48px'
+        },
         colspan: "1",
         rowspan: "3",
         canSet: true,
@@ -164,8 +185,7 @@ export default {
         特殊情况记录
         `,
         style: {
-          minWidth: "130px",
-          maxWidth: "130px"
+          width: "160px"
         },
         colspan: "1",
         rowspan: "3"

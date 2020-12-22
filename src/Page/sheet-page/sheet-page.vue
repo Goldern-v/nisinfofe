@@ -72,7 +72,7 @@
             @click="addSheetPage"
           >
             <i class="el-icon-plus"></i>
-            创建护理记录单
+            {{HOSPITAL_ID == 'huadu' && $route.path.includes('singleTemperatureChart') ? '创建体温单':'创建护理记录单'}}
           </div>
         </div>
       </div>
@@ -261,6 +261,7 @@ import syncToIsbarModal from "@/Page/sheet-page/components/modal/sync-toIsbar-mo
 import { getHomePage } from "@/Page/sheet-page/api/index.js";
 import { decodeRelObj } from "./components/utils/relObj";
 import { sheetScrollBotton } from "./components/utils/scrollBottom";
+import {blockSave} from './api/index'
 export default {
   mixins: [common],
   data() {
@@ -372,7 +373,15 @@ export default {
       }
     },
     addSheetPage() {
-      this.bus.$emit("openNewSheetModal");
+      if(this.HOSPITAL_ID == 'huadu' && this.$route.path.includes('singleTemperatureChart')){
+        let recordCode = 'body_temperature_Hd'
+        blockSave(this.patientInfo.patientId, this.patientInfo.visitId, this.deptCode, recordCode).then(res => {
+          this.bus.$emit('getBlockList')
+          this.$message.success('创建成功')
+        })
+      }else{
+        this.bus.$emit("openNewSheetModal");
+      }
     },
     getSheetData(isBottom) {
       if (!(this.sheetInfo.selectBlock && this.sheetInfo.selectBlock.id)) {

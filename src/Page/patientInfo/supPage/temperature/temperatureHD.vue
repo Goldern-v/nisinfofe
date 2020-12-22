@@ -1,33 +1,6 @@
 <template>
   <div>
     <div class="contain">
-      <div flex="corss:center main:center" style="margin: 20px 0 18px">
-        <div class="tool-btn" @click="pageIndex = 0">第一页</div>
-        <div class="tool-btn" :class="{disable: pageIndex == 0}" @click="sub">上一页</div>
-        <div class="page-num">{{pageIndex + 1}}/{{pageList.length }}</div>
-        <div class="tool-btn" :class="{disable: pageIndex == pageList.length - 1}" @click="add">下一页</div>
-        <div class="tool-btn" @click="pageIndex = pageList.length - 1">最后一页</div>
-      </div>
-      <div class="tem-con" v-loading="pageList.length > 0 && !filePath">
-        <null-bg v-show="!filePath"></null-bg>
-        <img v-if="filePath && HOSPITAL_ID == 'gy'" :src="filePath" alt />
-        <iframe
-          v-if="filePath && HOSPITAL_ID != 'gy'"
-          :src="filePath"
-          frameborder="0"
-          @load="onload"
-          ref="pdfCon"
-          :style="{height: pdfHeight + 'px'}"
-          v-loading="true"
-        ></iframe>
-      </div>
-      <div flex="corss:center main:center" style="margin: 20px 0 18px">
-        <div class="tool-btn" @click="pageIndex = 0">第一页</div>
-        <div class="tool-btn" :class="{disable: pageIndex == 0}" @click="sub">上一页</div>
-        <div class="page-num">{{pageIndex + 1}}/{{pageList.length }}</div>
-        <div class="tool-btn" :class="{disable: pageIndex == pageList.length - 1}" @click="add">下一页</div>
-        <div class="tool-btn" @click="pageIndex = pageList.length - 1">最后一页</div>
-      </div>
       <div class="date-select-box" flex="cross:center">
         <span style="width: 100px">体温单日期：</span>
         <el-date-picker
@@ -37,6 +10,19 @@
           :picker-options="pickerOptions"
         ></el-date-picker>
       </div>
+      <div class="tem-con" v-loading="pageList.length > 0 && !filePath" :style="contentHeight">
+        <null-bg v-show="!filePath"></null-bg>
+        <iframe
+          id = "ifrID"
+          v-if="filePath"
+          :src="filePath"
+          frameborder="0"
+          @load="onload"
+          ref="pdfCon"
+          :class="HOSPITAL_ID === 'huadu'?'hdIframe':''"
+          v-loading="false"
+        ></iframe>
+      </div>
       <!-- <div class="print-btn tool-btn">打印</div> -->
     </div>
   </div>
@@ -44,30 +30,29 @@
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
 .contain {
-  margin: 20px 20px 0;
-  position: relative;
+  margin: 15px 20px 0;
 
   .tem-con {
-    margin: 0 auto;
-    width: 640px;
-    padding: 10px;
-    min-height: 700px;
+    margin: 0px auto;
+    width: 90%;
+    height: 100%;
     background: #fff;
-
-    iframe, img {
+    .hdIframe{
+      transform:scale(0.9);
       width: 100%;
       height: 100%;
     }
   }
 
   .date-select-box {
-    position: absolute;
-    top: 0;
+    position: relative;
+    top : 0px;
     left: 0;
     font-size: 12px;
     white-space: nowrap;
     color: #687179;
     width: 220px;
+    margin-bottom :10px;
 
     >>>.el-input {
       // width 135px
@@ -111,13 +96,6 @@
   }
 }
 
-.page-num {
-  font-size: 17px;
-  color: rgba(0, 0, 0, 0.65);
-  line-height: 34px;
-  margin: 0 10px;
-}
-
 .print-btn {
   position: fixed;
   right: 20px;
@@ -126,7 +104,7 @@
 </style>
 
 <script>
-import { getTemperatue } from "@/api/temperature";
+// import { getTemperatue } from "@/api/temperature";
 import nullBg from "../../../../components/null/null-bg";
 import moment from "moment";
 export default {
@@ -138,36 +116,29 @@ export default {
       filePath: "",
       pdfHeight: 1000,
       pageList: [],
-      pageIndex: null
+      pageIndex: null,
+      contentHeight:{height:''}
     };
   },
   methods: {
     getImg() {
       let date = new Date(this.date).Format("yyyy-MM-dd");
-      getTemperatue(
-        this.$route.query.patientId,
-        this.$route.query.visitId,
-        date
-      ).then(res => {
-        this.filePath =
-          this.HOSPITAL_ID == "lingcheng"
-            ? res.data.data.expand
-            : res.data.data.filePath;
-      });
+      let patientId = this.$route.query.patientId;
+      let visitId = this.$route.query.visitId;
+      // const tempUrl = `http://120.238.239.27:9091/temperature/#/?PatientId=72081255&VisitId=1&StartTime=2020-12-01`
+      const tempUrl = `http://120.238.239.27:9091/temperature/#/?PatientId=${patientId}&VisitId=${visitId}&StartTime=${date}`
+      this.filePath = ''
+      setTimeout(()=>{
+        this.filePath = tempUrl
+      },0)
+
     },
     onload() {
       // let wid = this.$refs.pdfCon.contentWindow
       // this.pdfHeight = wid.body.scrollHeight
     },
-    add() {
-      if (this.pageIndex < this.pageList.length - 1) {
-        this.pageIndex++;
-      }
-    },
-    sub() {
-      if (this.pageIndex > 0) {
-        this.pageIndex--;
-      }
+    getHeight(){
+      this.contentHeight.height = window.innerHeight -130+'px'
     }
   },
   watch: {
@@ -178,7 +149,7 @@ export default {
       this.date = this.pageList[this.pageIndex];
     }
   },
-  mounted() {
+  mounted(){
     let admissionDate = this.$route.query.admissionDate;
     let currDate = moment(admissionDate).add(0, "d");
     while (currDate.isBefore(moment(), "d") || currDate.isSame(moment(), "d")) {
@@ -186,6 +157,10 @@ export default {
       currDate = moment(currDate).add(7, "d");
     }
     this.pageIndex = 0;
+  },
+  created(){
+    window.addEventListener('resize',this.getHeight)
+    this.getHeight()
   },
   components: {
     nullBg

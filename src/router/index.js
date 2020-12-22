@@ -128,6 +128,7 @@ import test from "@/Page/patientInfo/supPage/test/test";
 import doctorEmr from "@/Page/patientInfo/supPage/doctorEmr/doctorEmr"; //病历
 import cost from "@/Page/patientInfo/supPage/cost/cost";
 import temperature from "@/Page/patientInfo/supPage/temperature/temperature";
+import temperatureHD from "@/Page/patientInfo/supPage/temperature/temperatureHD";
 import diagnosis from "@/Page/patientInfo/supPage/diagnosis/diagnosis";
 import bloodSugar from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar.vue"; // 厚街
 import bloodSugarWeiXian from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_weixian.vue"; // 威县
@@ -140,8 +141,7 @@ Vue.use(Router);
 const router = new Router({
   mode: "history",
   base: "/crNursing/",
-  routes: [
-    {
+  routes: [{
       path: "/",
       redirect: "/index",
       alias: "主页"
@@ -165,8 +165,7 @@ const router = new Router({
     {
       path: "/showPatientDetails",
       component: showPatientDetails,
-      children: [
-        {
+      children: [{
           path: "record",
           component: record
         },
@@ -222,13 +221,11 @@ const router = new Router({
           path: "/familyBigScreen",
           component: familyBigScreen,
           alias: "家属大屏",
-          children: [
-            {
-              name: "videoListSetting",
-              path: "/familyBigScreen/:name?",
-              component: videoListSetting
-            }
-          ]
+          children: [{
+            name: "videoListSetting",
+            path: "/familyBigScreen/:name?",
+            component: videoListSetting
+          }]
         },
         // {
         //   path: "/inBox",
@@ -249,96 +246,79 @@ const router = new Router({
         {
           path: "/healthEdu",
           component: healthEdu,
-          children: [
-            {
-              name: "healthEdu",
-              path: "/healthEdu/:patientId?/:visitId?/:formId?",
-              component: healthEdu
-            }
-          ]
+          children: [{
+            name: "healthEdu",
+            path: "/healthEdu/:patientId?/:visitId?/:formId?",
+            component: healthEdu
+          }]
         },
         {
           path: "/handlingPage",
           component: handlingPage,
-          children: [
-            {
-              name: "handlingPage",
-              path: "/handlingPage/:patientId?/:visitId?/:formId?",
-              component: handlingPage
-            }
-          ]
+          children: [{
+            name: "handlingPage",
+            path: "/handlingPage/:patientId?/:visitId?/:formId?",
+            component: handlingPage
+          }]
         },
         {
           path: "/oxygenPage",
           component: oxygenPage,
-          children: [
-            {
-              name: "oxygenPage",
-              path: "/oxygenPage/:patientId?/:visitId?/:formId?",
-              component: oxygenPage
-            }
-          ]
+          children: [{
+            name: "oxygenPage",
+            path: "/oxygenPage/:patientId?/:visitId?/:formId?",
+            component: oxygenPage
+          }]
         },
         {
           path: "/wardReport",
           name: "wardReports",
           component: wardReport,
-          children: [
-            {
-              name: "wardReport",
-              path: "/wardReport/:date?",
-              component: wardReportDetail
-            }
-          ]
+          children: [{
+            name: "wardReport",
+            path: "/wardReport/:date?",
+            component: wardReportDetail
+          }]
         },
         {
           path: "/inpatientReport",
           name: "inpatientReports",
           component: inpatientReport,
-          children: [
-            {
-              name: "inpatientReport",
-              path: "/inpatientReport/:date?",
-              component: inpatientReportDetail
-            }
-          ]
+          children: [{
+            name: "inpatientReport",
+            path: "/inpatientReport/:date?",
+            component: inpatientReportDetail
+          }]
         },
         {
           path: "/shiftWork",
           name: "shiftWorks",
-          component:
-            process.env.HOSPITAL_ID == "lingcheng" ? shiftWorkLc : process.env.HOSPITAL_ID == "huadu" ? shiftWorkHd : shiftWork,
-          children: [
-            {
-              name: "shiftWork",
-              path: "/shiftWork/:code?/:id?",
-              component:
-                process.env.HOSPITAL_ID == "lingcheng"
-                  ? shiftWorkDetailLc
-                  : process.env.HOSPITAL_ID == "huadu" ? shiftWorkDetailHd : shiftWorkDetail
-            }
-          ]
+          component: process.env.HOSPITAL_ID == "lingcheng" ? shiftWorkLc : process.env.HOSPITAL_ID == "huadu" ? shiftWorkHd : shiftWork,
+          children: [{
+            name: "shiftWork",
+            path: "/shiftWork/:code?/:id?",
+            component: process.env.HOSPITAL_ID == "lingcheng" ?
+              shiftWorkDetailLc :
+              process.env.HOSPITAL_ID == "huadu" ? shiftWorkDetailHd : shiftWorkDetail
+          }]
         },
         {
           path: "/singleRound",
           name: "singleRounds",
           component: singleRounds,
-          children: [
-            {
-              name: "singleRound",
-              path: "/singleRound/:code?/:id?",
-              component: singleRoundsDetail
+          children: [{
+            name: "singleRound",
+            path: "/singleRound/:code?/:id?",
+            component: singleRoundsDetail
 
-            }
-          ]
+          }]
         },
         {
           path: "/badEvent",
           name: "badEvents",
           alias: "不良事件",
           component: badEvent,
-          children: [
-            {
+          children: [{
               name: "badEventEdit",
               path: "/badEvent/:code?/:operation?/:id?/:type?/:name?",
               component: badEventEditPage
@@ -385,8 +365,7 @@ const router = new Router({
           path: "/patientInfo",
           component: patientInfo,
           alias: "病人信息",
-          children: [
-            {
+          children: [{
               path: "/information",
               component: information
             },
@@ -438,7 +417,7 @@ const router = new Router({
             // },
             {
               path: "/temperature",
-              component: temperature,
+              component: process.env.HOSPITAL_ID != "huadu" ? temperature : temperatureHD,
               name: "体温单",
               alias: "体温单"
             },
@@ -462,10 +441,9 @@ const router = new Router({
             },
             {
               path: "/bloodSugar",
-              component:
-                process.env.HOSPITAL_NAME == "威县人民医院"
-                  ? bloodSugarWeiXian
-                  : bloodSugar,
+              component: process.env.HOSPITAL_NAME == "威县人民医院" ?
+                bloodSugarWeiXian :
+                bloodSugar,
               name: "血糖",
               alias: "血糖"
             },
@@ -495,10 +473,9 @@ const router = new Router({
         },
         {
           path: "/implementationList",
-          component:
-            process.env.HOSPITAL_ID == "lingcheng"
-              ? implementationListLc
-              : implementationList,
+          component: process.env.HOSPITAL_ID == "lingcheng" ?
+            implementationListLc :
+            implementationList,
           name: "执行单"
         },
         {
@@ -531,35 +508,29 @@ const router = new Router({
         {
           path: "/sheetHospitalAdmission",
           component: sheetHospitalAdmission,
-          children: [
-            {
-              name: "sheetHospitalAdmissionPage",
-              path: "/sheetHospitalAdmission/:patientId?/:visitId?/:formId?",
-              component: sheetHospitalAdmissionPage
-            }
-          ]
+          children: [{
+            name: "sheetHospitalAdmissionPage",
+            path: "/sheetHospitalAdmission/:patientId?/:visitId?/:formId?",
+            component: sheetHospitalAdmissionPage
+          }]
         },
         {
           path: "/sheetHospitalEval",
           component: sheetHospitalEval,
-          children: [
-            {
-              name: "sheetHospitalEvalPage",
-              path: "/sheetHospitalEval/:patientId?/:visitId?/:formId?",
-              component: sheetHospitalEvalPage
-            }
-          ]
+          children: [{
+            name: "sheetHospitalEvalPage",
+            path: "/sheetHospitalEval/:patientId?/:visitId?/:formId?",
+            component: sheetHospitalEvalPage
+          }]
         },
         {
           path: "/sheetPage",
           component: sheetPage,
-          children: [
-            {
-              name: "sheetPage",
-              path: "/sheetPage/:patientId?/:visitId?/:formId?",
-              component: sheetPage
-            }
-          ]
+          children: [{
+            name: "sheetPage",
+            path: "/sheetPage/:patientId?/:visitId?/:formId?",
+            component: sheetPage
+          }]
         },
         {
           path: "/MEWS",
@@ -568,13 +539,11 @@ const router = new Router({
         {
           path: "/formPage",
           component: formPage,
-          children: [
-            {
-              name: "formPage",
-              path: "/formPage/:patientId?/:visitId?/:formId?",
-              component: formPage
-            }
-          ]
+          children: [{
+            name: "formPage",
+            path: "/formPage/:patientId?/:visitId?/:formId?",
+            component: formPage
+          }]
         },
         {
           path: "/evalFormPage",
@@ -587,13 +556,11 @@ const router = new Router({
         {
           path: "/sugarPage",
           component: sugarPage,
-          children: [
-            {
-              name: "sugarPage",
-              path: "/sugarPage/:patientId?/:visitId?/:formId?",
-              component: sugarPage
-            }
-          ]
+          children: [{
+            name: "sugarPage",
+            path: "/sugarPage/:patientId?/:visitId?/:formId?",
+            component: sugarPage
+          }]
         },
         {
           path: "/scheduling",
@@ -651,13 +618,11 @@ const router = new Router({
         {
           path: "/singleTemperatureChart",
           component: sheetPage,
-          children: [
-            {
-              name: "singleTemperatureChart",
-              path: "/singleTemperatureChart/:patientId?/:visitId?/:formId?",
-              component: sheetPage
-            }
-          ]
+          children: [{
+            name: "singleTemperatureChart",
+            path: "/singleTemperatureChart/:patientId?/:visitId?/:formId?",
+            component: sheetPage
+          }]
         },
         {
           path: "/allTemperatureChart",

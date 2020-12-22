@@ -131,8 +131,8 @@ export default {
     },
     putGroupCount() {
       let date = this.date;
-      let startTime = this.date[0];
-      let endTime = this.date[1];
+      let startTime = this.dateFormat(this.date[0]);
+      let endTime = this.dateFormat(this.date[1]);
       putGroupCount(
         this.$parent.patientInfo.patientId,
         this.$parent.patientInfo.visitId,
