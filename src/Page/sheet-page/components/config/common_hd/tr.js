@@ -143,7 +143,7 @@ export default [{
     value: "",
     event: keyf1,
     textarea: {
-      width: 36
+      width: 48
     },
   },
   {
@@ -151,7 +151,7 @@ export default [{
     value: "",
     event: keyf1,
     textarea: {
-      width: 36
+      width: 48
     }
   },
   {
@@ -159,7 +159,7 @@ export default [{
     value: "",
     event: keyf1,
     textarea: {
-      width: 36
+      width: 48
     }
   },
   {
@@ -167,7 +167,7 @@ export default [{
     value: "",
     event: keyf1,
     textarea: {
-      width: 36
+      width: 48
     }
   },
   {
@@ -175,7 +175,7 @@ export default [{
     value: "",
     event: keyf1,
     textarea: {
-      width: 36
+      width: 48
     }
   },
   {
@@ -183,7 +183,7 @@ export default [{
     value: "",
     event: keyf1,
     textarea: {
-      width: 36
+      width: 48
     }
   }, {
     key: "description", //特殊情况记录

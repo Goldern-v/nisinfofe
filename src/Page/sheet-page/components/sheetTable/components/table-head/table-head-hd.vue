@@ -48,20 +48,13 @@
           {{ patientInfo.bedLabel }}
         </div>
       </span>
-      <span
-          v-if="HOSPITAL_ID == 'huadu'">
-        住院号/ID号：
+      <span>
+        住院号：
         <div
           class="bottom-line"
           style="min-width: 80px"
         >
-          {{ patientInfo.patientId }}/{{ patientInfo.inpNo }}
-        </div>
-      </span>
-      <span v-else>
-        住院号
-        <div class="bottom-line" style="min-width: 80px" >
-          {{ patientInfo.inpNo }}
+          {{ patientInfo.patientId }}
         </div>
       </span>
       <!-- <span v-if="sheetInfo.sheetType == 'neonatology2'">
