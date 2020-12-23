@@ -2,11 +2,10 @@ export default {
   // 科室的名称
   deptType: "",
   style: {
-    width: "1300px"
+    width: "1500px"
   },
   th: {
-    top: [
-      {
+    top: [{
         name: "日期",
         style: {
           minWidth: "36px",
@@ -114,8 +113,8 @@ export default {
         rowspan: "1",
         canSet: false,
         style: {
-          minWidth: "40px",
-          maxWidth: "40px"
+          minWidth: "80px",
+          maxWidth: "80px"
         }
       },
       {
@@ -126,17 +125,17 @@ export default {
         rowspan: "1",
         canSet: false,
         style: {
-          minWidth: "40px",
-          maxWidth: "40px"
+          minWidth: "80px",
+          maxWidth: "80px"
         }
       },
       {
-        name: `健<br/>康<br/>教<br/>育`,
+        name: `健康教育`,
         colspan: "1",
         rowspan: "3",
         style: {
-          minWidth: "20px",
-          maxWidth: "20px"
+          minWidth: "50px",
+          maxWidth: "50px"
         }
       },
       {
@@ -174,10 +173,6 @@ export default {
         style: {},
         colspan: "1",
         rowspan: "3",
-        style: {
-          // minWidth: "37px",
-          // maxWidth: "37px"
-        }
       },
       {
         name: `指尖<br/>血糖<br/>mmol/L`,
@@ -283,14 +278,13 @@ export default {
         rowspan: "3"
       }
     ],
-    mid: [
-      {
+    mid: [{
         name: `
         名<br/>称
         `,
         style: {
-          minWidth: "20px",
-          maxWidth: "20px"
+          minWidth: "40px",
+          maxWidth: "40px"
         },
         colspan: "1",
         rowspan: "2"
@@ -302,8 +296,8 @@ export default {
         colspan: "1",
         rowspan: "2",
         style: {
-          minWidth: "28px",
-          maxWidth: "28px"
+          minWidth: "40px",
+          maxWidth: "40px"
         }
       },
       {
@@ -313,8 +307,8 @@ export default {
         colspan: "1",
         rowspan: "2",
         style: {
-          minWidth: "20px",
-          maxWidth: "20px"
+          minWidth: "40px",
+          maxWidth: "40px"
         }
       },
       {
@@ -324,9 +318,8 @@ export default {
         colspan: "1",
         rowspan: "2",
         style: {
-          minWidth: "28px",
-          maxWidth: "28px",
-          whiteSpace: "nowrap"
+          minWidth: "40px",
+          maxWidth: "40px"
         }
       },
       {
@@ -335,11 +328,6 @@ export default {
         `,
         colspan: "2",
         rowspan: "1",
-        style: {
-          minWidth: "28px",
-          maxWidth: "28px",
-          whiteSpace: "nowrap"
-        }
       },
       {
         name: `
@@ -347,23 +335,17 @@ export default {
         `,
         colspan: "2",
         rowspan: "1",
-        style: {
-          minWidth: "28px",
-          maxWidth: "28px",
-          whiteSpace: "nowrap"
-        }
       },
     ],
-    bottom: [
-      {
+    bottom: [{
         name: `
         左
         `,
         colspan: "1",
         rowspan: "1",
         style: {
-          minWidth: "20px",
-          maxWidth: "20px"
+          minWidth: "28px",
+          maxWidth: "28px"
         }
       },
       {
@@ -373,8 +355,8 @@ export default {
         colspan: "1",
         rowspan: "1",
         style: {
-          minWidth: "20px",
-          maxWidth: "20px"
+          minWidth: "28px",
+          maxWidth: "28px"
         }
       },
       {
@@ -384,8 +366,8 @@ export default {
         colspan: "1",
         rowspan: "1",
         style: {
-          minWidth: "20px",
-          maxWidth: "20px"
+          minWidth: "28px",
+          maxWidth: "28px"
         }
       },
       {
@@ -395,8 +377,8 @@ export default {
         colspan: "1",
         rowspan: "1",
         style: {
-          minWidth: "20px",
-          maxWidth: "20px"
+          minWidth: "28px",
+          maxWidth: "28px"
         }
       }
     ]

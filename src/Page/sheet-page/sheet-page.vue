@@ -72,13 +72,14 @@
             @click="addSheetPage"
           >
             <i class="el-icon-plus"></i>
-            创建护理记录单
+            {{HOSPITAL_ID == 'huadu' && $route.path.includes('singleTemperatureChart') ? '创建体温单':'创建护理记录单'}}
           </div>
         </div>
       </div>
     </div>
     <delPageModal ref="delPageModal" :index="sheetModel.length"></delPageModal>
     <HjModal ref="HjModal"></HjModal>
+    <HdModal ref="HdModal"></HdModal>
     <signModal ref="signModal" title="需要该行签名者确认"></signModal>
     <signModal ref="signModal2" title="签名者确认"></signModal>
     <specialModal ref="specialModal"></specialModal>
@@ -250,6 +251,7 @@ import delPageModal from "./components/modal/del-page.vue";
 import $ from "jquery";
 import moment from "moment";
 import HjModal from "./components/modal/hj-modal.vue";
+import HdModal from "./components/modal/hd-modal.vue";
 import signModal from "@/components/modal/sign.vue";
 import specialModal from "@/Page/sheet-page/components/modal/special-modal.vue";
 import specialModal2 from "@/Page/sheet-page/components/modal/special-modal2.vue";
@@ -259,6 +261,7 @@ import syncToIsbarModal from "@/Page/sheet-page/components/modal/sync-toIsbar-mo
 import { getHomePage } from "@/Page/sheet-page/api/index.js";
 import { decodeRelObj } from "./components/utils/relObj";
 import { sheetScrollBotton } from "./components/utils/scrollBottom";
+import {blockSave} from './api/index'
 export default {
   mixins: [common],
   data() {
@@ -370,7 +373,15 @@ export default {
       }
     },
     addSheetPage() {
-      this.bus.$emit("openNewSheetModal");
+      if(this.HOSPITAL_ID == 'huadu' && this.$route.path.includes('singleTemperatureChart')){
+        let recordCode = 'body_temperature_Hd'
+        blockSave(this.patientInfo.patientId, this.patientInfo.visitId, this.deptCode, recordCode).then(res => {
+          this.bus.$emit('getBlockList')
+          this.$message.success('创建成功')
+        })
+      }else{
+        this.bus.$emit("openNewSheetModal");
+      }
     },
     getSheetData(isBottom) {
       if (!(this.sheetInfo.selectBlock && this.sheetInfo.selectBlock.id)) {
@@ -710,6 +721,9 @@ export default {
     this.bus.$on("openHJModal", () => {
       this.$refs.HjModal.open();
     });
+    this.bus.$on("openHDModal", () => {
+      this.$refs.HdModal.open();
+    });
     this.bus.$on("openSetPageModal", () => {
       this.$refs.setPageModal.open();
     });
@@ -782,6 +796,7 @@ export default {
     sheetTable,
     delPageModal,
     HjModal,
+    HdModal,
     signModal,
     specialModal,
     specialModal2,

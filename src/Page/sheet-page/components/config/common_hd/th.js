@@ -1,9 +1,8 @@
-import {
-  event_date,
-  event_time,
-  click_date,
-  click_time
-} from "../keyEvent/date";
+import moment from "moment";
+
+function currYear() {
+  return moment().format('YYYY')
+}
 export default {
   // 科室的名称
   deptType: "",
@@ -12,16 +11,19 @@ export default {
   },
   th: {
     top: [{
-        name: `年份`,
+        name: currYear(),
         colspan: "2",
         rowspan: "1",
+        style: {
+          width: "40px"
+        },
         canSet: true,
         key: "recordYear",
       },
       {
         name: "体温<br/>℃",
         style: {
-          width: "20px"
+          width: "30px"
         },
         colspan: "1",
         rowspan: "3"
@@ -33,7 +35,7 @@ export default {
         colspan: "1",
         rowspan: "3",
         style: {
-          width: "20px"
+          width: "30px"
         }
       },
       {
@@ -43,7 +45,7 @@ export default {
         colspan: "1",
         rowspan: "3",
         style: {
-          width: "20px"
+          width: "30px"
         }
       },
       {
@@ -53,7 +55,7 @@ export default {
         colspan: "1",
         rowspan: "3",
         style: {
-          width: "20px"
+          width: "30px"
         }
       },
       {
@@ -71,8 +73,7 @@ export default {
         意识
         `,
         style: {
-          minWidth: "52px",
-          maxWidth: "52px",
+          width: "52px",
           whiteSpace: "nowrap"
         },
         colspan: "1",
@@ -105,94 +106,86 @@ export default {
       },
       {
         name: `
-        健康<br/>教育
+        健康教育
         `,
         colspan: "1",
         rowspan: "3",
         style: {
-          minWidth: "40px",
-          maxWidth: "40px"
-        }
+          width: '50px'
+        },
       },
       {
         name: `标题1`,
-        style: {},
+        style: {
+          minWidth: '48px',
+          maxWidth: '48px'
+        },
         colspan: "1",
         rowspan: "3",
         canSet: true,
         key: "fieldOne",
-        style: {
-          minWidth: "40px",
-          maxWidth: "40px"
-        }
       },
       {
         name: `标题2`,
-        style: {},
+        style: {
+          minWidth: '48px',
+          maxWidth: '48px'
+        },
         colspan: "1",
         rowspan: "3",
         canSet: true,
         key: "fieldTwo",
-        style: {
-          minWidth: "40px",
-          maxWidth: "40px"
-        }
       },
       {
         name: `标题3`,
-        style: {},
+        style: {
+          minWidth: '48px',
+          maxWidth: '48px'
+        },
         colspan: "1",
         rowspan: "3",
         canSet: true,
         key: "fieldThree",
-        style: {
-          minWidth: "40px",
-          maxWidth: "40px"
-        }
       },
       {
         name: `标题4`,
-        style: {},
+        style: {
+          minWidth: '48px',
+          maxWidth: '48px'
+        },
         colspan: "1",
         rowspan: "3",
         canSet: true,
         key: "fieldFour",
-        style: {
-          minWidth: "40px",
-          maxWidth: "40px"
-        }
       },
       {
         name: `标题5`,
-        style: {},
+        style: {
+          minWidth: '48px',
+          maxWidth: '48px'
+        },
         colspan: "1",
         rowspan: "3",
         canSet: true,
         key: "fieldFive",
-        style: {
-          minWidth: "40px",
-          maxWidth: "40px"
-        }
       },
       {
         name: `标题6`,
-        style: {},
+        style: {
+          minWidth: '48px',
+          maxWidth: '48px'
+        },
         colspan: "1",
         rowspan: "3",
         canSet: true,
         key: "fieldSix",
-        style: {
-          minWidth: "40px",
-          maxWidth: "40px"
-        }
       },
       {
         name: `
         特殊情况记录
         `,
         style: {
-          minWidth: "153px",
-          maxWidth: "153px"
+          width: "160px"
         },
         colspan: "1",
         rowspan: "3"
@@ -223,49 +216,70 @@ export default {
         日期
         `,
         colspan: "1",
-        rowspan: "2"
+        rowspan: "2",
+        style: {
+          width: "40px"
+        },
       },
       {
         name: `
         时间
         `,
         colspan: "1",
-        rowspan: "2"
+        rowspan: "2",
+        style: {
+          width: "40px"
+        },
       },
       {
         name: `
         名称
         `,
         colspan: "1",
-        rowspan: "2"
+        rowspan: "2",
+        style: {
+          width: "62px"
+        },
       },
       {
         name: `
         量<br/>ml
         `,
         colspan: "1",
-        rowspan: "2"
+        rowspan: "2",
+        style: {
+          width: "30px"
+        },
       },
       {
         name: `
         名称
         `,
         colspan: "1",
-        rowspan: "2"
+        rowspan: "2",
+        style: {
+          width: "62px"
+        },
       },
       {
         name: `
         量<br/>ml
         `,
         colspan: "1",
-        rowspan: "2"
+        rowspan: "2",
+        style: {
+          width: "30px"
+        },
       },
       {
         name: `
         颜色
         `,
         colspan: "1",
-        rowspan: "2"
+        rowspan: "2",
+        style: {
+          width: "40px"
+        },
       }
     ],
     bottom: [

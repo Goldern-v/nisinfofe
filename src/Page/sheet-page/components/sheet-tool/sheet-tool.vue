@@ -26,7 +26,7 @@
       <div
         class="item-box"
         flex="cross:center main:center"
-        @click="emit('openHJModal')"
+        @click="openStaticModal"
         v-if="showCrl"
       >
         <div class="text-con">出入量统计</div>
@@ -317,6 +317,14 @@ export default {
     };
   },
   methods: {
+    /* 出入量统计弹框--花都区分 */
+    openStaticModal(){
+      if(process.env.HOSPITAL_ID !='huadu'){
+        this.bus.$emit('openHJModal')
+      }else{
+        this.bus.$emit('openHDModal')
+      }
+    },
     emit(todo, value) {
       if (!this.patientInfo.patientId) {
         return this.$message.warning("请选择一名患者");
