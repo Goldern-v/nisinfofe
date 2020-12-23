@@ -282,8 +282,8 @@
   .bed-card-vert-con {
     margin: 20px;
     width: 119px;
-    height: 498px;
-    padding: 35px 8px 5px !important;;
+    // height: 498px;
+    padding: 15px 8px 5px !important;;
     box-sizing: border-box;
     position: relative;
     border: 3px solid #000;
@@ -545,6 +545,7 @@ import {
   saveBed
 } from "./api/index.js";
 import print from "./tool/print";
+import printing from "printing";
 var qr = require("qr-image");
 var JsBarcode = require('jsbarcode')
 import moment from "moment";
@@ -709,8 +710,25 @@ export default {
     onPrint() {
       this.$nextTick(() => {
         this.post();
-        let printEle = this.printMode == 'h' ? this.$refs.printCon : this.$refs.printCon2;
-        print(printEle);
+        if(this.printMode == 'v'){
+          printing(this.$refs.printCon2,{
+          injectGlobalCss: true,
+          scanStyles: false,
+          css: `
+          .bed-card-vertical {
+            box-shadow: none !important;
+          }
+          .bed-card-vert-con {
+            margin: 10px 18px 20px 22px!important;
+          }
+          @page {
+            margin: 0;
+          }
+          `,
+        })
+        }else {
+          print(this.$refs.printCon);
+        }
       });
     },
     querySearchAsyncDoc(queryString, cb) {
