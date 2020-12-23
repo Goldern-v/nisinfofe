@@ -253,7 +253,7 @@ export default {
             let re1 = res[1].data.data[0];
             finallParams = {
               ...finallParams,
-              man: re1.contactName || "",
+              // man: re1.contactName || "",
               nowAddress: re1.contactAddr || "",
               femaleEdu: re1.whcd || "",
               pregnancyTimes: re1.yy || "",
