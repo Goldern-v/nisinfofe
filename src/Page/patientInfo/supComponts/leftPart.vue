@@ -34,9 +34,12 @@
           <div class="list2-li">入院：{{ info.admissionDate }}(第{{ info.inpDay }}天)</div>
           <div class="list2-li">医生：{{ info.doctorInCharge }}</div>
           <div class="list2-li over-text" :title="info.diagnosis">诊断：{{ info.diagnosis }}</div>
-          <div class="print-btn" flex="cross:center main:center" @click="openBedPrint">打印床头卡</div>
+          <div class="print-btn" flex="cross:center main:center" @click="openBedPrint()">打印床头卡</div>
           <div class="print-btn" flex="cross:center main:center" @click="openBedPrint('v')"
                v-if="HOSPITAL_ID == 'huadu'">打印床头卡2
+          </div>
+          <div class="print-btn" flex="cross:center main:center" @click="openBedPrint('wrist')"
+               v-if="HOSPITAL_ID == 'huadu'">腕带打印
           </div>
           <div
               class="print-btn"
@@ -249,7 +252,6 @@ export default {
       } else if (this.HOSPITAL_ID == "lingcheng") {
         this.$refs.bedModalLc.open();
       } else if (this.HOSPITAL_ID == "huadu") {
-        printMode = printMode == 'v' ? printMode : 'h';
         this.$refs.bedModalHd.open(printMode);
       } else {
         this.$refs.bedModal.open();

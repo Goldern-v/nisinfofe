@@ -242,6 +242,28 @@
           <svg id="barcode"></svg>
         </div>
       </div>
+      <div class="bed-card-warpper wrist-strap-print" ref="printCon3" v-show = "printMode == 'wrist'">
+        <div class="bed-card-vert-con">
+            <div class="top">
+              <span>{{query.name}}</span>
+              <span>{{query.sex}}</span>
+              <span>{{query.age}}</span>
+            </div>
+            <div>
+              <div>
+              <span>科室：{{query.deptName}}</span>
+              <span>床位：{{query.bedLabel}}</span>
+            </div>
+            <div>
+              <span>入院日期：{{query.admissionDate | ymdhm}}</span>
+            </div>
+            <svg id="barcode"></svg>
+          </div>
+           <img class="qr-code" :class="{hasRemark: hasRemark}" :src="qrCode" />
+
+
+        </div>
+      </div>
       <div slot="button">
         <span style="position: absolute; left: 10px; padding-top: 4px" v-if="HOSPITAL_ID != 'hj' && printMode == 'h'">
           <span>显示诊断</span>
@@ -282,8 +304,8 @@
   .bed-card-vert-con {
     margin: 20px;
     width: 119px;
-    // height: 498px;
-    padding: 15px 8px 5px !important;;
+    height: 498px;
+    padding: 35px 8px 5px !important;
     box-sizing: border-box;
     position: relative;
     border: 3px solid #000;
@@ -305,6 +327,53 @@
       height: 70px !important;
     }
   }
+}
+
+.wrist-strap-print {
+   .bed-card-vert-con {
+      margin: 20px;
+      width: 119px;
+      height: 498px;
+      padding: 35px 8px 5px !important;
+      box-sizing: border-box;
+      position: relative;
+      border: 3px solid #000;
+      text-align: left;
+      width: 500px;
+      height: auto;
+      padding: 5px 0 0 0 !important;
+      border: none;
+     .top {
+        span {
+          margin-left: 75px;
+          &:first-of-type {
+            margin-left: 95px;
+          }
+        }
+     }
+     span {
+        font-size: 20px;
+        line-height: 24px;
+        margin-left: 45px;
+     }
+    .qr-code {
+      position: absolute;
+      right: 0;
+      top: 50%;
+      margin-top: -56px;
+      height: 112px;
+      width: 112px;
+
+      &.hasRemark {
+        width: 96px;
+        height: 96px;
+      }
+    }
+     svg {
+      height: 60px !important;
+      margin-left: 15px;
+    }
+   }
 }
 
 .bed-card-con {
@@ -654,22 +723,15 @@ export default {
       this.init();
       this.$refs.modal.open();
       this.printMode = printMode;
-      if(this.printMode == 'h'){
-        this.title = '编辑床头卡';
-        var qr_png = qr.imageSync(this.query.patientId, { type: "png" });
-        function arrayBufferToBase64(buffer) {
-          var binary = "";
-          var bytes = new Uint8Array(buffer);
-          var len = bytes.byteLength;
-          for (var i = 0; i < len; i++) {
-            binary += String.fromCharCode(bytes[i]);
-          }
-          return "data:image/png;base64," + window.btoa(binary);
-        }
-        let base64 = arrayBufferToBase64(qr_png);
-        this.qrCode = base64;
-        this.qrCodeNum = this.query.patientId;
-      }else {
+      if(this.printMode == 'wrist'){
+        this.title = '腕带打印';
+        JsBarcode("#barcode", this.query.patientId, {
+　　 　　   lineColor: "#000",
+　　 　　   width: 4,
+　　 　　   height: 50,
+           fontSize: 50
+　　　　});
+      }else if(this.printMode == 'v'){
         this.title = '打印床头卡';
         JsBarcode("#barcode", this.query.inpNo, {
 　　 　　   lineColor: "#000",
@@ -677,7 +739,22 @@ export default {
 　　 　　   height: 90,
            fontSize: 60
 　　　　});
+      }else {
+        this.title = '编辑床头卡';
       }
+      var qr_png = qr.imageSync(this.query.patientId, { type: "png" });
+      function arrayBufferToBase64(buffer) {
+        var binary = "";
+        var bytes = new Uint8Array(buffer);
+        var len = bytes.byteLength;
+        for (var i = 0; i < len; i++) {
+          binary += String.fromCharCode(bytes[i]);
+        }
+        return "data:image/png;base64," + window.btoa(binary);
+      }
+      let base64 = arrayBufferToBase64(qr_png);
+      this.qrCode = base64;
+      this.qrCodeNum = this.query.patientId;
     },
     close() {
       this.$refs.modal.close();
@@ -710,24 +787,25 @@ export default {
     onPrint() {
       this.$nextTick(() => {
         this.post();
-        if(this.printMode == 'v'){
-          printing(this.$refs.printCon2,{
+        if(this.printMode == 'wrist'){
+          printing(this.$refs.printCon3,{
           injectGlobalCss: true,
           scanStyles: false,
           css: `
-          .bed-card-vertical {
+          .bed-card-warpper {
             box-shadow: none !important;
           }
           .bed-card-vert-con {
-            margin: 10px 18px 20px 22px!important;
+            margin: 10px 20px 10px 10px!important;
           }
           @page {
             margin: 0;
           }
           `,
-        })
+          })
         }else {
-          print(this.$refs.printCon);
+          let printEle = this.printMode == 'h' ? this.$refs.printCon : this.$refs.printCon2;
+          print(printEle);
         }
       });
     },
@@ -792,6 +870,11 @@ export default {
       setTimeout(() => {
         window.closeAutoComplete(`bedModal`);
       }, 400);
+    }
+  },
+   filters: {
+    ymdhm(val) {
+      return val ? moment(val).format("YYYY MM DD") : "";
     }
   },
   mounted() {},
