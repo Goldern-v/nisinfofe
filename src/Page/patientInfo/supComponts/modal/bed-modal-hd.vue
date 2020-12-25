@@ -789,14 +789,19 @@ export default {
         this.post();
         if(this.printMode == 'wrist'){
           printing(this.$refs.printCon3,{
+          direction: "vertical",
           injectGlobalCss: true,
           scanStyles: false,
           css: `
           .bed-card-warpper {
             box-shadow: none !important;
+            transform: rotate(90deg) translateY(-100%);
+            transform-origin: 0 0;
           }
           .bed-card-vert-con {
             margin: 10px 20px 10px 10px!important;
+
+
           }
           @page {
             margin: 0;
