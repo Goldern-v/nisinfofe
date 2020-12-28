@@ -203,9 +203,12 @@ export default {
       };
       getBirthCertInfo(data).then(res => {
         if (res.data.data && res.data.data.length) {
-          let data = res.data.data[0];
-          init(this.formData, data);
-          this.handelData(data);
+          let data = res.data.data || [];
+          let obj = data.find(item=>{
+            return item.patientId == this.$route.query.patientId && item.visitId == this.$route.query.visitId
+          }) || {};
+          init(this.formData, obj);
+          this.handelData(obj);
         }
       });
     },

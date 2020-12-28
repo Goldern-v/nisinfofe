@@ -90,12 +90,7 @@ export default {
       }
       this.handleClose();
       setTimeout(() => {
-        this.$router.push(
-          "/birthCertificateForm?patientId=" +
-            this.puerperaInfo.patientId +
-            "&patientName=" +
-            this.puerperaInfo.name
-        );
+        this.$router.push(`/birthCertificateForm?patientId=${this.puerperaInfo.patientId}&patientName=${this.puerperaInfo.name}&visitId=${this.puerperaInfo.visitId}`);
       }, 1000);
     }
   },
