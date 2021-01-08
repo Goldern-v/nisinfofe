@@ -169,6 +169,16 @@
               <el-input v-model="scope.row.curWeight"></el-input>
             </template>
           </el-table-column>
+          <el-table-column
+            prop="height"
+            label="身高"
+            min-width="60"
+            align="center"
+          >
+            <template slot-scope="scope">
+              <el-input v-model="scope.row.height"></el-input>
+            </template>
+          </el-table-column>
         </el-table>
       </div>
       <div class="all-temperature-chart-print" ref="printable">
@@ -295,6 +305,16 @@
           >
             <template slot-scope="scope">
               <el-input v-model="scope.row.curWeight"></el-input>
+            </template>
+          </el-table-column>
+          <el-table-column
+            prop="height"
+            label="身高"
+            min-width="60"
+            align="center"
+          >
+            <template slot-scope="scope">
+              <el-input v-model="scope.row.height"></el-input>
             </template>
           </el-table-column>
         </el-table>
@@ -586,6 +606,7 @@ export default {
         status: "0",
         temperature: "",
         curWeight: "",
+        height:"",
         recordSource: 2,
         heartRate: ""
       };
