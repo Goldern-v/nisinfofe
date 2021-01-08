@@ -1,29 +1,23 @@
 <template>
   <div>
     <div class="contain">
-      <div class="date-select-box" flex="cross:center">
-        <span style="width: 100px">体温单日期：</span>
-        <el-date-picker
-          v-model="date"
-          type="date"
-          placeholder="选择日期"
-          :picker-options="pickerOptions"
-        ></el-date-picker>
+      <div class="print-btn tool-btn" @click="onPrint()">打印</div>
+      <div class="pagination">
+        <button :disabled="currentPage === 1" @click="currentPage--">上一页</button>
+        <span class="page">第{{currentPage}}页/共{{pageTotal}}页</span>
+        <button :disabled="currentPage === pageTotal" @click="currentPage++">下一页</button>
       </div>
-      <div class="tem-con" v-loading="pageList.length > 0 && !filePath" :style="contentHeight">
+      <div class="tem-con" :style="contentHeight">
         <null-bg v-show="!filePath"></null-bg>
         <iframe
-          id = "ifrID"
+          id = "printID"
           v-if="filePath"
           :src="filePath"
           frameborder="0"
-          @load="onload"
           ref="pdfCon"
           :class="HOSPITAL_ID === 'huadu'?'hdIframe':''"
-          v-loading="false"
         ></iframe>
       </div>
-      <!-- <div class="print-btn tool-btn">打印</div> -->
     </div>
   </div>
 </template>
@@ -33,7 +27,7 @@
   margin: 15px 20px 0;
 
   .tem-con {
-    margin: 0px auto;
+    margin: 10px auto;
     width: 90%;
     height: 100%;
     background: #fff;
@@ -44,39 +38,29 @@
     }
   }
 
-  .date-select-box {
-    position: relative;
-    top : 0px;
-    left: 0;
-    font-size: 12px;
-    white-space: nowrap;
-    color: #687179;
-    width: 220px;
-    margin-bottom :10px;
-
-    >>>.el-input {
-      // width 135px
-      position: relative;
-    }
-
-    >>>.el-input__inner {
-      height: 30px;
-      width: 100px;
-      width: 135px;
-      border: 1px solid #C2CBD2;
-      border-radius: 4px;
-      margin-left: 5px;
-    }
-  }
 }
-
+.pagination {
+    display: inline;
+    position: relative;
+    left: 35%;
+    font-weight: normal;
+  }
+  .page {
+    margin: 0 10px;
+  }
+  button {
+    cursor: pointer;
+  }
+  button[disabled=disabled] {
+    cursor: not-allowed;
+  }
 .tool-btn {
   width: 82px;
   height: 32px;
   background: #FFFFFF;
   border: 1px solid #C2CBD2;
   border-radius: 4px;
-  display: flex;
+  // display: flex;
   align-items: center;
   justify-content: center;
   font-size: 14px;
@@ -97,35 +81,37 @@
 }
 
 .print-btn {
-  position: fixed;
-  right: 20px;
-  top: 70px;
+  position: relative;
+  left : 5%;
+  top: 0;
+  display: inline-flex !important ;
 }
 </style>
 
 <script>
-// import { getTemperatue } from "@/api/temperature";
 import nullBg from "../../../../components/null/null-bg";
 import moment from "moment";
+import bus from 'vue-happy-bus'
 export default {
   data() {
     return {
+      bus: bus(this),
       date: "",
-      pageLoading: false,
-      pickerOptions: {},
       filePath: "",
-      pdfHeight: 1000,
-      pageList: [],
-      pageIndex: null,
-      contentHeight:{height:''}
+      contentHeight:{height:''},
+      currentPage:1,
+      pageTotal:1
     };
   },
   methods: {
+    onPrint(){
+      this.$refs.pdfCon.contentWindow.postMessage({ type: 'printing' }, 'http://120.238.239.27:9091/temperature/#/')
+    },
     getImg() {
-      let date = new Date(this.date).Format("yyyy-MM-dd");
+      let date = new Date(this.$route.query.admissionDate).Format("yyyy-MM-dd");
       let patientId = this.$route.query.patientId;
       let visitId = this.$route.query.visitId;
-      // const tempUrl = `http://120.238.239.27:9091/temperature/#/?PatientId=72081255&VisitId=1&StartTime=2020-12-01`
+      /* 单独处理体温单，嵌套iframe */
       const tempUrl = `http://120.238.239.27:9091/temperature/#/?PatientId=${patientId}&VisitId=${visitId}&StartTime=${date}`
       this.filePath = ''
       setTimeout(()=>{
@@ -133,34 +119,33 @@ export default {
       },0)
 
     },
-    onload() {
-      // let wid = this.$refs.pdfCon.contentWindow
-      // this.pdfHeight = wid.body.scrollHeight
-    },
     getHeight(){
       this.contentHeight.height = window.innerHeight -130+'px'
+    },
+    messageHandle(e) {
+      if (e && e.data && e.data.type === 'pageTotal') {
+        this.pageTotal = e.data.value
+      }
     }
   },
   watch: {
     date() {
       this.getImg();
     },
-    pageIndex() {
-      this.date = this.pageList[this.pageIndex];
+    currentPage(value) {
+      this.$refs.pdfCon.contentWindow.postMessage({ type: 'currentPage', value }, 'http://120.238.239.27:9091/temperature/#/')
     }
   },
   mounted(){
-    let admissionDate = this.$route.query.admissionDate;
-    let currDate = moment(admissionDate).add(0, "d");
-    while (currDate.isBefore(moment(), "d") || currDate.isSame(moment(), "d")) {
-      this.pageList.push(moment(currDate).format("YYYY-MM-DD"));
-      currDate = moment(currDate).add(7, "d");
-    }
-    this.pageIndex = 0;
   },
   created(){
+    this.getImg();
     window.addEventListener('resize',this.getHeight)
+    window.addEventListener('message', this.messageHandle, false)
     this.getHeight()
+  },
+  beforeDestroy() {
+    window.removeEventListener('message', this.messageHandle, false)
   },
   components: {
     nullBg
