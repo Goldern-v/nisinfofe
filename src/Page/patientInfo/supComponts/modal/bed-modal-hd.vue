@@ -800,8 +800,19 @@ export default {
           }
           .bed-card-vert-con {
             margin: 10px 20px 10px 10px!important;
-
-
+          }
+          @page {
+            margin: 0;
+          }
+          `,
+          })
+        }else if(this.printMode == 'v'){
+          printing(this.$refs.printCon2,{
+          injectGlobalCss: true,
+          scanStyles: false,
+          css: `
+          .bed-card-warpper {
+            box-shadow: none !important;
           }
           @page {
             margin: 0;
@@ -809,8 +820,7 @@ export default {
           `,
           })
         }else {
-          let printEle = this.printMode == 'h' ? this.$refs.printCon : this.$refs.printCon2;
-          print(printEle);
+          print(this.$refs.printCon);
         }
       });
     },
@@ -879,7 +889,7 @@ export default {
   },
    filters: {
     ymdhm(val) {
-      return val ? moment(val).format("YYYY MM DD") : "";
+      return val ? moment(val).format("YYYY-MM-DD") : "";
     }
   },
   mounted() {},
