@@ -58,7 +58,7 @@
           >修改</span>
           <span
             :class="scope.row.num == '0' ? 'no-special' : 'btn-text'"
-            @click="scope.row.num == '0' ? () => {} : deleteData(scope.row.serialNo)"
+            @click="scope.row.num == '0' ? () => {} : deleteData(scope.row)"
           >删除</span>
         </template>
       </el-table-column>
@@ -141,7 +141,9 @@ import qs from "qs";
 import moment from "moment";
 import nursingRoundsModal from "../modal/nursingRoundsModal";
 import { deleteOperateDateLingChen } from "../../api/index";
+import common from "@/common/mixin/common.mixin";
 export default {
+  mixins: [common],
   props: {
     tableData: Array,
     pageLoadng: Boolean,
@@ -162,14 +164,23 @@ export default {
     openViewModal(data) {
       this.$refs.nursingRoundsModal.open(data);
     },
-    deleteData(serialNo) {
+    deleteData(data) {
+      this.form = {
+        empNo:this.empNo, // --工号
+        empName:this.empName, //--护士姓名
+        serialNo: data.serialNo,
+        operateDate:data.operateDate ? moment(data.operateDate).format("YYYY-MM-DD HH:mm:ss"): '',//  --巡视日期
+        operateDateNew: data.operateDateNew ? moment(data.operateDateNew).format("YYYY-MM-DD HH:mm:ss"): '',//  --巡视新日期
+        visitContent:data.visitContent, //--巡视内容
+        visitContentNew: data.visitContentNew,// --巡视新内容
+      };
       this.$confirm(`确定要删除该条数据吗`, "提示", {
         confirmButtonText: "确认",
         cancelButtonText: "取消",
         type: "warning"
       })
         .then(async () => {
-          await deleteOperateDateLingChen({ serialNo })
+          await deleteOperateDateLingChen(this.form)
             .then(res => {
               this.$message({
                 type: "success",
