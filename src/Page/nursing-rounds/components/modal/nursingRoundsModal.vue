@@ -58,7 +58,9 @@
 <script>
 import moment from "moment";
 import { updateOperateDateLingChen } from "../../api/index";
+import common from "@/common/mixin/common.mixin";
 export default {
+  mixins: [common],
   props: {
     getData: Function
   },
@@ -82,10 +84,13 @@ export default {
     open(data) {
       // 获取回显数据
       this.form = {
+        empNo:this.empNo, // --工号
+        empName:this.empName, //--护士姓名
         serialNo: data.serialNo,
-        operateDateNew:
-          moment(data.operateDate).format("YYYY-MM-DD HH:mm:ss") || new Date(),
-        visitContentNew: data.visitContent
+        operateDate:moment(data.operateDate).format("YYYY-MM-DD HH:mm:ss") || new Date(),//  --巡视日期
+        operateDateNew: moment(data.operateDate).format("YYYY-MM-DD HH:mm:ss") || new Date(),//  --巡视新日期
+        visitContent:data.visitContent, //--巡视内容
+        visitContentNew: data.visitContent,// --巡视新内容
       };
       this.$refs.sweetModal.open();
     },
