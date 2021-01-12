@@ -238,7 +238,7 @@
           <span>年龄：</span>
           <p>{{query.age}}</p>
           <span>住院号：</span>
-          <p>{{query.inpNo}}</p>
+          <p>{{query.patientId}}</p>
           <svg id="barcode"></svg>
         </div>
       </div>
@@ -733,7 +733,7 @@ export default {
 　　　　});
       }else if(this.printMode == 'v'){
         this.title = '打印床头卡';
-        JsBarcode("#barcode", this.query.inpNo, {
+        JsBarcode("#barcode", this.query.patientId, {
 　　 　　   lineColor: "#000",
 　　 　　   width: 4,
 　　 　　   height: 90,
