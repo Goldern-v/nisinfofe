@@ -691,7 +691,21 @@ export default {
         return this.$message.warning("存在未签名的记录，请全部签名后再打印");
       }
 
-      window.localStorage.sheetModel = $(this.$refs.sheetTableContain).html();
+      // window.localStorage.sheetModel = $(this.$refs.sheetTableContain).html();
+
+      // 对存储空间不够做处理
+      try {
+        window.localStorage.sheetModel = $(this.$refs.sheetTableContain).html();
+      }catch(err){
+        // 可能要预留下来的 暂时不移除
+        let keys = ['selectDeptValue','rememberAccount','ppp','user','adminNurse']
+        for(let key in localStorage){
+          if(!keys.includes(key)){
+            localStorage.removeItem(key);
+          }
+        }
+        window.localStorage.sheetModel = $(this.$refs.sheetTableContain).html();
+      }
 
       // let printUrl = "";
       // if (process.env.NODE_ENV === "production") {

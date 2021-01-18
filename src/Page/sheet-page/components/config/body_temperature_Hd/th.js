@@ -5,8 +5,7 @@ export default {
     width: "1000px"
   },
   th: {
-    top: [
-      {
+    top: [{
         name: `
         日期
         `,
@@ -33,7 +32,7 @@ export default {
         生命体征
         `,
         style: {},
-        colspan: "14",
+        colspan: "16",
         rowspan: "1",
       },
       {
@@ -76,8 +75,7 @@ export default {
         },
       }
     ],
-    mid: [
-      {
+    mid: [{
         name: "体温",
         colspan: "1",
         rowspan: "2"
@@ -211,7 +209,30 @@ export default {
           minWidth: "20px",
           maxWidth: "20px"
         },
-      }, {
+      },
+      {
+        name: `
+        表顶注释
+        `,
+        colspan: "1",
+        rowspan: "2",
+        style: {
+          minWidth: "20px",
+          maxWidth: "20px"
+        },
+      },
+      {
+        name: `
+        身高
+        `,
+        colspan: "1",
+        rowspan: "2",
+        style: {
+          minWidth: "20px",
+          maxWidth: "20px"
+        },
+      },
+      {
         name: `
         大便次数
         `,

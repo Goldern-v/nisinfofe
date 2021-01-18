@@ -1,5 +1,5 @@
 <template>
-  <div :class="{'bed-hd': this.HOSPITAL_ID == 'huadu'}">
+  <div :class="{'bed-hd': HOSPITAL_ID == 'huadu'}">
     <div class="right-part">
       <search-con ref="searchCon"></search-con>
     </div>

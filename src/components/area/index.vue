@@ -52,37 +52,37 @@ export default {
     }
   },
   created() {
-    let areaList = localStorage.getItem('areaList')
-    let streetObj = localStorage.getItem('streetObj')
-    if (!areaList || !streetObj) {
-      areaList = []
-      streetObj = {}
-      this.allArea.forEach(item => {
-        const area = item.areaCode.slice(0, 6)
-        const street = item.areaCode.slice(6, 9)
-        if (street === '000') {
-          item.label = item.areaName.split('@')[0]
-          item.streetLabel = ''
-          areaList.push(item)
-          streetObj[area] = [item]
-        }
-      })
-      this.allArea.forEach(item => {
-        const area = item.areaCode.slice(0, 6)
-        const street = item.areaCode.slice(6, 9)
-        if (streetObj[area] && street !== '000') {
-          let [, streetLabel] = item.areaName.split(streetObj[area][0].label || '')
-          streetLabel = streetLabel.split('@')[0]
-          item.streetLabel = streetLabel
-          streetObj[area].push(item)
-        }
-      })
-      localStorage.setItem('areaList', JSON.stringify(areaList))
-      localStorage.setItem('streetObj', JSON.stringify(streetObj))
-    } else {
-      areaList = JSON.parse(areaList)
-      streetObj = JSON.parse(streetObj)
-    }
+    // let areaList = localStorage.getItem('areaList')
+    // let streetObj = localStorage.getItem('streetObj')
+    // if (!areaList || !streetObj) {
+    let areaList = []
+    let streetObj = {}
+    this.allArea.forEach(item => {
+      const area = item.areaCode.slice(0, 6)
+      const street = item.areaCode.slice(6, 9)
+      if (street === '000') {
+        item.label = item.areaName.split('@')[0]
+        item.streetLabel = ''
+        areaList.push(item)
+        streetObj[area] = [item]
+      }
+    })
+    this.allArea.forEach(item => {
+      const area = item.areaCode.slice(0, 6)
+      const street = item.areaCode.slice(6, 9)
+      if (streetObj[area] && street !== '000') {
+        let [, streetLabel] = item.areaName.split(streetObj[area][0].label || '')
+        streetLabel = streetLabel.split('@')[0]
+        item.streetLabel = streetLabel
+        streetObj[area].push(item)
+      }
+    })
+    // localStorage.setItem('areaList', JSON.stringify(areaList))
+    // localStorage.setItem('streetObj', JSON.stringify(streetObj))
+    // } else {
+    // areaList = JSON.parse(areaList)
+    // streetObj = JSON.parse(streetObj)
+    // }
     this.areaList = areaList
     this.streetObj = streetObj
     this.currentArea = this.areaList.slice(0, 50) // 只渲染50条数据 渲染多了页面会卡

@@ -2,14 +2,14 @@
   <div class="doctor-emr-wrapper" v-if="routeQuery.patientId">
     <div v-if="show"
          v-loading="pageLoading"
-         class="doctor-emr-content"
+         class="doctor-emr-content dragNode2"
     >
-      <div class="content_title">
+      <div class="content_title" v-drag="{ target: 'dragNode2'}">
         <div class="close-button" @click="close">
           <i class="el-icon-close"></i>
         </div>
       </div>
-      <div>
+      <div style="height: 100%">
         <iframe :src="fileUrl"></iframe>
       </div>
     </div>
@@ -38,7 +38,7 @@ export default {
     drag: {
       // 指令的定义
       inserted: (el, binding) => {
-        el.style.cursor = 'move'
+        el.style.cursor = 'n-resize'
         // 防止选中文字
         el.onselectstart = () => {
           return false
@@ -53,18 +53,27 @@ export default {
           return
         }
         oDiv.onmousedown = (ev) => {
-          const disX = ev.clientX - dragNode.offsetLeft
-          const disY = ev.clientY - dragNode.offsetTop
-          // 非“全屏”下才能拖动
-          document.onmousemove = (ev) => {
-            const l = ev.clientX - disX
-            const t = ev.clientY - disY
-            dragNode.style.left = l + 'px'
-            dragNode.style.top = t + 'px'
-          }
-          document.onmouseup = (ev) => {
+          const height = dragNode.offsetHeight
+          const disY = ev.clientY
+
+          function clean() {
             document.onmousemove = null
             document.onmouseup = null
+            document.onmouseout = null
+          }
+
+          document.onmousemove = (ev) => {
+            const t = disY - ev.clientY
+            let currentHeight = +t + +height
+            currentHeight = currentHeight > 600 ? (clean(), 600) : currentHeight
+            currentHeight = currentHeight < 150 ? (clean(), 150) : currentHeight
+            dragNode.style.height = currentHeight + 'px'
+          }
+          document.onmouseup = (ev) => {
+            clean()
+          }
+          document.onmouseout = () => {
+            clean()
           }
         }
       }
@@ -121,15 +130,16 @@ export default {
 
 <style lang="stylus" scoped>
 .doctor-emr-wrapper {
+
   .doctor-emr-content {
     position fixed
     bottom 0
     left 0
     z-index 999
     width 100%
-    height 200px
+    height 400px;
     background #ffffff
-    box-shadow 5px 5px 10px rgba(0, 0, 0, 0.5);
+    box-shadow 5px 5px 10px rgba(0, 0, 0, 0.5)
 
     .content_title {
       height 20px

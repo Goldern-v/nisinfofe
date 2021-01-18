@@ -438,6 +438,20 @@ export default function Title(
     );
   }
   break;
+  case "pediatrics_jm": {
+    // 江门妇幼 - 儿科护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/pediatrics_jm/th").default)
+    );
+  }
+  break;
+  case "tcm_pediatrics_jm": {
+    // 江门妇幼 - 中医儿科护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/tcm_pediatrics_jm/th").default)
+    );
+  }
+  break;
   default: {
     Th = JSON.parse(
       JSON.stringify(require("../config/default/th").default)
