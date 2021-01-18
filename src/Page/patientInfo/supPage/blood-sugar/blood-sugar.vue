@@ -16,6 +16,12 @@
           >
             指尖血糖测定登记表
           </div>
+          <div
+            class="sup-title"
+            v-else-if="HOSPITAL_NAME === '德州市陵城区人民医院'"
+          >
+            血糖测量记录单
+          </div>
           <div class="sup-title" v-else>微量血糖测定登记表</div>
           <p flex="main:justify" class="info">
             <span>病人姓名：{{ patientInfo.name }}</span>
@@ -235,7 +241,7 @@ export default {
   },
   methods: {
     async getFormHead() {
-      console.log("判断医院名称=========", this.HOSPITAL_ID);
+      console.log("判断医院名称=========", this.HOSPITAL_NAME);
       console.log(this.patientInfo.patientId, this.patientInfo.visitId);
       const res = await getFormHeadData(
         this.patientInfo.patientId,

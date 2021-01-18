@@ -2,8 +2,15 @@
   <div flex-box="1" class="table-box blood-sugar-table">
     <table>
       <tr>
-        <th style="width: 22%; min-width: 75px">时间</th>
-        <th style="width: 24%">项目</th>
+        <th
+          v-if="HOSPITAL_ID != 'lingcheng'"
+          style="width: 22%; min-width: 75px"
+        >
+          时间
+        </th>
+        <th v-else style="width: 22%; min-width: 75px">日期</th>
+        <th v-if="HOSPITAL_ID != 'lingcheng'" style="width: 24%">项目</th>
+        <th v-else style="width: 24%">测量时间</th>
         <th style="width: 22%">
           血糖值
           <br />(mmol/L)
@@ -27,7 +34,7 @@
         @click="onSelect(item)"
         @dblclick="onDblClick(item)"
       >
-        <td style="padding: 0 4px">
+        <td v-if="HOSPITAL_ID != 'lingcheng'" style="padding: 0 4px">
           <div flex="main:justify" style="white-space: nowrap">
             <span>
               <span>{{ item.date }}</span>
@@ -37,8 +44,14 @@
             </span>
           </div>
         </td>
-        <td>
+        <td v-else>
+          <div class="cell">{{ item.date }}</div>
+        </td>
+        <td v-if="HOSPITAL_ID != 'lingcheng'">
           <div class="cell" :title="item.sugarItem">{{ item.sugarItem }}</div>
+        </td>
+        <td v-else>
+          <div class="cell" :title="item.sugarItem">{{ item.time }}</div>
         </td>
         <td>
           <div class="cell">
