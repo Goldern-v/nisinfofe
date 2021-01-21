@@ -372,6 +372,16 @@ function switechSheetType(type) {
     schema = require("../config/neonatology_picc/tr.js").default;
   }
   break;
+  case "pediatrics_jm": {
+    // 江门妇幼 - 儿科护理记录单
+    schema = require("../config/pediatrics_jm/tr.js").default;
+  }
+  break;
+  case "tcm_pediatrics_jm": {
+    // 江门妇幼 - 中医儿科护理记录单
+    schema = require("../config/tcm_pediatrics_jm/tr.js").default;
+  }
+  break;
   default: {
     schema = require("../config/default/tr.js").default;
   }
