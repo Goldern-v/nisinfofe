@@ -25,6 +25,7 @@ import main from "@/Part/main";
 
 const bed = () => import("@/Page/lesion/supPage/bed/bed"); // 厚街
 const login = () => import("@/Page/login/login");
+const templateShow = () => import("@/Page/templateShow/templateShow"); //文书模板展示
 const resetPassword = () => import("@/Page/resetPassword/resetPassword");
 const indexXin = () => import("@/Page/index-xin/Nurse.vue");
 const imageView = () => import("@/Part/imageView/imageView");
@@ -150,6 +151,11 @@ const router = new Router({
       path: "/demo",
       component: demo,
       alias: "测试"
+    },
+    {
+      path: "/templateShow",
+      component: templateShow,
+      alias: "文书模板展示"
     },
     {
       path: "/login",
@@ -310,7 +316,6 @@ const router = new Router({
             name: "singleRound",
             path: "/singleRound/:code?/:id?",
             component: singleRoundsDetail
-
           }]
         },
         {
