@@ -148,7 +148,7 @@ import toolBar from "@/components/toolBar/toolBar.vue";
 import {toolBarConfig} from "./config.js";
 import bus from "vue-happy-bus";
 import patientInfo from "@/Page/sheet-page/components/sheet-tool/patient-info";
-import doctorEmr from "./components/doctorEmr";
+import doctorEmr from "@/components/doctorEmr";
 
 export default {
   props: {

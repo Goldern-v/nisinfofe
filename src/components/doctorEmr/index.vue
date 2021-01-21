@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import {getDoctorEmr} from "../../../../../doctorEmr/api";
+// import {getDoctorEmr} from "../../../../../doctorEmr/api";
 
 export default {
   directives: {
@@ -163,7 +163,7 @@ export default {
 
   .doctor-emr-icon {
     position: fixed;
-    top: 140px;
+    top: 200px;
     right: 0;
     width: 50px;
     height: 42px;
