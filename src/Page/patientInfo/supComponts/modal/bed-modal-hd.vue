@@ -303,23 +303,23 @@
   // display: none;
   .bed-card-vert-con {
     margin: 20px;
-    width: 119px;
-    height: 498px;
-    padding: 35px 8px 5px !important;
+    width: 96px;
+    height: 399px;
+    padding: 15px 3px 0 3px !important;
     box-sizing: border-box;
     position: relative;
     border: 3px solid #000;
     text-align: left;
     span {
-      font-size: 18px;
+      font-size: 16px;
       line-height: 24px;
     }
     p {
-      font-size: 22px;
+      font-size: 20px;
       line-height: 28px;
-      padding-bottom: 20px;
+      padding-bottom: 10px;
       &:last-of-type {
-        padding-bottom: 15px;
+        padding-bottom: 5px;
       }
     }
     svg {
@@ -736,8 +736,8 @@ export default {
         JsBarcode("#barcode", this.query.patientId, {
 　　 　　   lineColor: "#000",
 　　 　　   width: 4,
-　　 　　   height: 90,
-           fontSize: 60
+　　 　　   height: 80,
+           fontSize: 55
 　　　　});
       }else {
         this.title = '编辑床头卡';
