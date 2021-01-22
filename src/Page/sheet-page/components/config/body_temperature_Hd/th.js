@@ -32,7 +32,7 @@ export default {
         生命体征
         `,
         style: {},
-        colspan: "16",
+        colspan: "15",
         rowspan: "1",
       },
       {
@@ -220,17 +220,17 @@ export default {
           maxWidth: "20px"
         },
       },
-      {
-        name: `
-        身高
-        `,
-        colspan: "1",
-        rowspan: "2",
-        style: {
-          minWidth: "20px",
-          maxWidth: "20px"
-        },
-      },
+      // {
+      //   name: `
+      //   身高
+      //   `,
+      //   colspan: "1",
+      //   rowspan: "2",
+      //   style: {
+      //     minWidth: "20px",
+      //     maxWidth: "20px"
+      //   },
+      // },
       {
         name: `
         大便次数

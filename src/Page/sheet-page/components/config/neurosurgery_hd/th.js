@@ -1,27 +1,24 @@
+import moment from "moment";
+
+function currYear() {
+  return moment().format('YYYY')
+}
 export default {
   // 科室的名称
   deptType: "",
   style: {
-    width: "1500px"
+    width: "1440px"
   },
   th: {
     top: [{
-        name: "日期",
+        name: currYear(),
+        colspan: "2",
+        rowspan: "1",
         style: {
-          minWidth: "36px",
-          maxWidth: "36px"
+          width: "40px"
         },
-        colspan: "1",
-        rowspan: "3"
-      },
-      {
-        name: "时间",
-        style: {
-          minWidth: "36px",
-          maxWidth: "36px"
-        },
-        colspan: "1",
-        rowspan: "3"
+        canSet: true,
+        key: "recordYear",
       },
       {
         name: `
@@ -31,8 +28,7 @@ export default {
         colspan: "1",
         rowspan: "3",
         style: {
-          whiteSpace: "nowrap",
-          minWidth: "34px"
+          minWidth: "30px"
         }
       },
       {
@@ -43,8 +39,7 @@ export default {
         colspan: "1",
         rowspan: "3",
         style: {
-          whiteSpace: "nowrap",
-          minWidth: "38px"
+          minWidth: "30px"
         }
       },
       {
@@ -55,8 +50,7 @@ export default {
         colspan: "1",
         rowspan: "3",
         style: {
-          whiteSpace: "nowrap",
-          minWidth: "38px"
+          minWidth: "30px"
         }
       },
       {
@@ -64,9 +58,7 @@ export default {
         呼吸<br/>次/分
         `,
         style: {
-          minWidth: "52px",
-          maxWidth: "52px",
-          whiteSpace: "nowrap"
+          minWidth: "30px",
         },
         colspan: "1",
         rowspan: "3"
@@ -76,9 +68,7 @@ export default {
         血压
         `,
         style: {
-          minWidth: "52px",
-          maxWidth: "52px",
-          whiteSpace: "nowrap"
+          minWidth: "48px",
         },
         colspan: "1",
         rowspan: "3"
@@ -88,8 +78,7 @@ export default {
         意识
         `,
         style: {
-          minWidth: "50px",
-          maxWidth: "50px"
+          minWidth: "30px"
         },
         colspan: "1",
         rowspan: "3"
@@ -99,8 +88,7 @@ export default {
         SPO₂<br/>(%)
         `,
         style: {
-          minWidth: "40px",
-          maxWidth: "40px"
+          minWidth: "30px"
         },
         colspan: "1",
         rowspan: "3"
@@ -111,11 +99,6 @@ export default {
         `,
         colspan: "2",
         rowspan: "1",
-        canSet: false,
-        style: {
-          minWidth: "80px",
-          maxWidth: "80px"
-        }
       },
       {
         name: `
@@ -123,11 +106,6 @@ export default {
         `,
         colspan: "2",
         rowspan: "1",
-        canSet: false,
-        style: {
-          minWidth: "80px",
-          maxWidth: "80px"
-        }
       },
       {
         name: `健康教育`,
@@ -143,10 +121,10 @@ export default {
         style: {},
         colspan: "4",
         rowspan: "1",
-        style: {
-          minWidth: "40px",
-          maxWidth: "40px"
-        }
+        // style: {
+        //   minWidth: "40px",
+        //   maxWidth: "40px"
+        // }
       },
       {
         name: `吸氧<br/>升/分`,
@@ -169,7 +147,7 @@ export default {
         }
       },
       {
-        name: `头<br/>痛`,
+        name: `头痛`,
         style: {},
         colspan: "1",
         rowspan: "3",
@@ -257,7 +235,7 @@ export default {
       },
       {
         name: `
-        审核签名
+        记录人签名
         `,
         style: {
           minWidth: "40px",
@@ -271,16 +249,33 @@ export default {
         记录人签名
         `,
         style: {
-          minWidth: "80px",
-          maxWidth: "80px"
+          minWidth: "40px",
+          maxWidth: "40px"
         },
         colspan: "1",
         rowspan: "3"
       }
     ],
     mid: [{
+        name: "日期",
+        style: {
+          minWidth: "36px",
+          maxWidth: "36px"
+        },
+        colspan: "1",
+        rowspan: "2"
+      },
+      {
+        name: "时间",
+        style: {
+          minWidth: "36px",
+          maxWidth: "36px"
+        },
+        colspan: "1",
+        rowspan: "2"
+      }, {
         name: `
-        名<br/>称
+        名称
         `,
         style: {
           minWidth: "40px",
@@ -302,7 +297,7 @@ export default {
       },
       {
         name: `
-        名<br/>称
+        名称
         `,
         colspan: "1",
         rowspan: "2",
@@ -344,8 +339,8 @@ export default {
         colspan: "1",
         rowspan: "1",
         style: {
-          minWidth: "28px",
-          maxWidth: "28px"
+          minWidth: "20px",
+          maxWidth: "20px"
         }
       },
       {
@@ -355,8 +350,8 @@ export default {
         colspan: "1",
         rowspan: "1",
         style: {
-          minWidth: "28px",
-          maxWidth: "28px"
+          minWidth: "20px",
+          maxWidth: "20px"
         }
       },
       {
@@ -366,8 +361,8 @@ export default {
         colspan: "1",
         rowspan: "1",
         style: {
-          minWidth: "28px",
-          maxWidth: "28px"
+          minWidth: "20px",
+          maxWidth: "20px"
         }
       },
       {
@@ -377,8 +372,8 @@ export default {
         colspan: "1",
         rowspan: "1",
         style: {
-          minWidth: "28px",
-          maxWidth: "28px"
+          minWidth: "20px",
+          maxWidth: "20px"
         }
       }
     ]

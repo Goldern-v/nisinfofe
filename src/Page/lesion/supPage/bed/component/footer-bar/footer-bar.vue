@@ -108,7 +108,7 @@ export default {
           length: this.MEWS.length
         }
       ];
-      if (this.HOSPITAL_ID == "lingcheng") {
+      if ( this.HOSPITAL_ID == "lingcheng" || this.HOSPITAL_ID == "huadu") {
         arr.push({
           key: "发热",
           length: this.isFever.length
