@@ -105,6 +105,12 @@ export const blockSave = (patientId, visitId, deptCode, recordCode) => {
   });
 };
 
+// 主护记和补充护记相互切换
+export const switchAdditionalBlock = (prevBlockId) => {
+  return axios.get(`${apiPath}record/block/switchAdditionalBlock/${prevBlockId}`);
+};
+
+
 // 护记块；删除
 export const blockDelete = id => {
   return axios.get(`${apiPath}record/block/delete/${id}`);

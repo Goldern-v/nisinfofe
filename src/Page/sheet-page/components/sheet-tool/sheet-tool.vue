@@ -27,11 +27,12 @@
           class="item-box"
           flex="cross:center main:center"
           @click="openStaticModal"
-          v-if="showCrl"
+          v-if="showCrl && !isDeputy"
       >
         <div class="text-con">出入量统计</div>
       </div>
       <div
+          v-if="!isDeputy"
           class="item-box"
           flex="cross:center main:center"
           @click="setPage"
@@ -39,13 +40,14 @@
       >
         <div class="text-con">设置起始页({{ sheetInfo.sheetStartPage }})</div>
       </div>
-      <div class="item-box" flex="cross:center main:center" @click="toPrint">
+      <div class="item-box" flex="cross:center main:center" @click="toPrint" v-if="!isDeputy">
         <div class="text-con">打印预览</div>
       </div>
       <!-- <div class="item-box" flex="cross:center main:center" @click="toAllPrint">
         <div class="text-con">批量打印</div>
       </div>-->
       <div
+          v-if="!isDeputy"
           class="item-box"
           flex="cross:center main:center"
           @click.stop="toPdfPrint"
@@ -54,6 +56,7 @@
         <div class="text-con">批量打印</div>
       </div>
       <div
+          v-if="!isDeputy"
           class="item-box"
           flex="cross:center main:center"
           @click.stop="delSheet"
@@ -64,7 +67,7 @@
           class="item-box"
           flex="cross:center main:center"
           @click.stop="createSheet"
-          v-if="!isSingleTem"
+          v-if="!isSingleTem && !isDeputy"
       >
         <div class="text-con">新建记录单</div>
       </div>
@@ -73,7 +76,7 @@
           style="background: antiquewhite"
           flex="cross:center main:center"
           @click.stop="backMainForm"
-          v-if="sheetInfo.selectBlock && sheetInfo.selectBlock.additionalBlock"
+          v-if="isDeputy"
       >
         <div class="text-con">切换主页</div>
       </div>
@@ -97,6 +100,7 @@
       <div flex-box="1"></div>
       <!-- <span class="label">护理记录：</span> -->
       <el-select
+          v-if="!isDeputy"
           v-model="sheetInfo.selectBlock"
           @change="changeSelectBlock"
           value-key="id"
@@ -136,7 +140,7 @@
         </div>
       </el-select>
       <!-- <span class="label">页码范围:</span> -->
-      <div class="item-box" style="width: 85px" flex="cross:center main:center">
+      <div class="item-box" style="width: 85px" flex="cross:center main:center" v-if="!isDeputy">
         <el-autocomplete
             class="pegeSelect"
             icon="caret-bottom"
@@ -195,7 +199,8 @@ import {
   blockList,
   blockDelete,
   toPdfPrint,
-  blockSave
+  blockSave,
+  switchAdditionalBlock
 } from "../../api/index.js";
 import commom from "@/common/mixin/common.mixin.js";
 import newFormModal from "../modal/new-sheet-modal.vue";
@@ -632,13 +637,18 @@ export default {
       this.$refs.tztbModal.open();
     },
     /* 切换主页 */
-    backMainForm() {
-
+    async backMainForm() {
+      const id = this.sheetInfo.selectBlock.id
+      const {data} = await switchAdditionalBlock(id)
+      this.sheetInfo.selectBlock = data.data
+      this.changeSelectBlock()
     },
     /* 切换副页 */
-    addDeputyForm() {
-      const recordCode = this.sheetInfo.selectBlock.additionalCode
-      this.$refs.newFormModal.create({recordCode});
+    async addDeputyForm() {
+      const id = this.sheetInfo.selectBlock.id
+      const {data} = await switchAdditionalBlock(id)
+      this.sheetInfo.selectBlock = data.data
+      this.changeSelectBlock()
     },
   },
   computed: {
@@ -673,6 +683,10 @@ export default {
     /* 监听路由是否是单个体温单 */
     isSingleTem() {
       return this.$route.path.includes("singleTemperatureChart");
+    },
+    /* 是否是副页 */
+    isDeputy() {
+      return this.sheetInfo.selectBlock && this.sheetInfo.selectBlock.additionalBlock
     }
   },
   created() {
