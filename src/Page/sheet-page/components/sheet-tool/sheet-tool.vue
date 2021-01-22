@@ -86,6 +86,14 @@
       >
         <div class="text-con">切换副页</div>
       </div>
+      <div
+        class="item-box"
+        flex="cross:center main:center"
+        @click.stop="openChart"
+        v-if="HOSPITAL_ID == 'huadu'&& sheetInfo.sheetType=='body_temperature_Hd'"
+      >
+        <div class="text-con">体温曲线</div>
+      </div>
       <!-- <div
         class="item-box"
         flex="cross:center main:center"
@@ -229,6 +237,11 @@ export default {
       } else {
         this.bus.$emit('openHDModal')
       }
+    },
+    /* 打开体温曲线页面 */
+    openChart(){
+      const {patientId,visitId}=this.$route.query
+      this.$router.push(`/temperature?patientId=${patientId}&visitId=${visitId}`)
     },
     emit(todo, value) {
       if (!this.patientInfo.patientId) {

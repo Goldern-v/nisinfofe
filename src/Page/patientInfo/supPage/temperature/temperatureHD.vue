@@ -2,6 +2,7 @@
   <div>
     <div class="contain">
       <div class="print-btn tool-btn" @click="onPrint()">打印</div>
+      <div class="print-btn tool-btn" @click="typeIn()">录入</div>
       <div class="pagination">
         <button :disabled="currentPage === 1" @click="currentPage--">上一页</button>
         <span class="page">第{{currentPage}}页/共{{pageTotal}}页</span>
@@ -42,7 +43,7 @@
 .pagination {
     display: inline;
     position: relative;
-    left: 35%;
+    left: 25%;
     font-weight: normal;
   }
   .page {
@@ -118,6 +119,10 @@ export default {
         this.filePath = tempUrl
       },0)
 
+    },
+    typeIn(){
+      const {patientId,visitId}=this.$route.query
+      this.$router.push(`/singleTemperatureChart/${this.$route.query.patientId}/${this.$route.query.visitId}`)
     },
     getHeight(){
       this.contentHeight.height = window.innerHeight -130+'px'

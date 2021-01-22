@@ -140,7 +140,7 @@ export default [{
     },
   },
   {
-    key: "topComment", //表底注释
+    key: "topComment", //表顶注释
     value: "",
     event: keyf1,
     name: "表顶注释",
@@ -153,12 +153,12 @@ export default [{
       width: 36
     },
   },
-  {
-    key: "height", //身高
-    value: "",
-    event: keyf1,
-    name: "身高"
-  },
+  // {
+  //   key: "height", //身高
+  //   value: "",
+  //   event: keyf1,
+  //   name: "身高"
+  // },
   {
     key: "stoolNum", //大便次数
     value: "",

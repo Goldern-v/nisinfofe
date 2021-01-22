@@ -12,9 +12,16 @@
           <div class="date" v-if="tr && tr.length && isShowItem()">
             <label class="label">日期：</label>
             <input
+              v-if ="HOSPITAL_ID === 'huadu'"
               type="text"
               :placeholder="autoDate"
-              :disabled="recordDate != ''"
+              v-model="staticObj.recordMonth"
+              @keyup="dateKey($event, staticObj, 'recordMonth')"
+            />
+            <input
+              v-else
+              type="text"
+              :placeholder="autoDate"
               v-model="staticObj.recordMonth"
               @keyup="dateKey($event, staticObj, 'recordMonth')"
             />
@@ -22,6 +29,13 @@
           <div class="time">
             <label class="label">时间：</label>
             <input
+              v-if ="HOSPITAL_ID === 'huadu'"
+              type="text"
+              v-model="staticObj.recordHour"
+              @keyup="timeKey($event, staticObj, 'recordHour')"
+            />
+            <input
+              v-else
               type="text"
               :disabled="recordDate != ''"
               v-model="staticObj.recordHour"
@@ -404,11 +418,12 @@ export default {
   },
   computed: {
     title() {
+      const recordDate = this.HOSPITAL_ID === "huadu" ? '&nbsp' : this.recordDate;
       if (this.recordDate) {
         if (this.isRead) {
-          return "已签名，不可以编辑&nbsp;&nbsp;&nbsp;&nbsp;" + this.recordDate;
+          return "已签名，不可以编辑&nbsp;&nbsp;&nbsp;&nbsp;" + recordDate;
         } else {
-          return "编辑护理记录&nbsp;&nbsp;&nbsp;&nbsp;" + this.recordDate;
+          return "编辑护理记录&nbsp;&nbsp;&nbsp;&nbsp;" + recordDate;
         }
       } else {
         return "新建护理记录";
