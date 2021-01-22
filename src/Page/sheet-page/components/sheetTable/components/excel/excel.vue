@@ -204,7 +204,8 @@
                   y,
                   z: index,
                   td,
-                  tr
+                  tr,
+                  splice: !!td.splice
                 })
             "
             @blur="onBlur($event, { x, y, z: index })"

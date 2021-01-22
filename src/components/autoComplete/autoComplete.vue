@@ -122,7 +122,7 @@ export default {
       }else {
         this.show = false;
       }
-      
+
       (this.selectIndex = this.data.length), (this.id = config.id);
       this.$nextTick(() => {
         let offset = this.$refs.autoBox.getBoundingClientRect();
