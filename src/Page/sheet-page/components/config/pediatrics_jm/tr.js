@@ -1,19 +1,11 @@
 import {
-  listItem
-} from "../../../api/recordDesc";
-import {
-  multiDictInfo
-} from "../../../api/index";
-import {
   keyf1
 } from "../keyEvent/f1.js";
 import {
   event_date,
   event_time,
-  click_date,
-  click_time
+  click_date
 } from "../keyEvent/date";
-import info from "../sheetInfo";
 export default [{
     key: "recordMonth", //日期
     value: "",
@@ -23,138 +15,136 @@ export default [{
   {
     key: "recordHour", //时间
     value: "",
-    event: event_time,
-    click: click_time
+    event: event_time
   },
   {
-    key: "fieldPart", //部位
+    key: "temperature", //体温
     value: "",
-    event: keyf1,
-    name: "部位",
+    event: keyf1
   },
   {
-    key: "installment", //分期
+    key: "pulse", //心率
     value: "",
-    event: keyf1,
-    name: "分期",
+    event: keyf1
   },
   {
-    key: "fieldSize", //大小/长*宽*深
+    key: "breath", //呼吸
     value: "",
-    event: keyf1,
-    name: "大小",
+    event: keyf1
   },
   {
-    key: "baseColorRed", //基底颜色红色%
+    key: "bloodPressure", //血压
+    value: "",
+    event: function (e, td) {
+      if (e.keyCode == 32) {
+        e.target.value += "/";
+        e.preventDefault();
+      }
+      keyf1(e, td);
+    }
+  },
+  {
+    key: "spo2 ", //SPO2
+    value: "",
+    event: keyf1
+  },
+  {
+    key: "diet ", //饮食
+    value: "",
+    event: keyf1
+  },
+  {
+    key: "veinSize", // 入量静脉（ml）
+    value: "",
+    event: keyf1
+  },
+  {
+    key: "foodSize", // 进食（ml）
+    value: "",
+    event: keyf1
+  },
+  {
+    key: "otherFood", // 入量自定义
+    value: "",
+    event: keyf1
+  },
+  {
+    key: "dischargeSize", // 小便（ml）
     value: "",
     event: keyf1,
-    name: "红色",
-    next: "%",
+  },
+  {
+    key: "dischargeColor", // 小便颜色
+    value: "",
+    event: keyf1
+  },
+  {
+    key: "stoolTimes", //大便（g/次）
+    value: "",
+    event: keyf1
+  },
+  {
+    key: "stoolNature", //大便性质
+    value: "",
+    event: keyf1,
+  },
+  {
+    key: "vomit", //呕吐（ml）
+    value: "",
+    event: keyf1
+  },
+  {
+    key: "otherDischarge", //出量自定义
+    value: "",
+    event: keyf1
+  },
+  {
+    key: "fieldOne", //标题1
+    value: "",
+    event: keyf1,
     textarea: {
-      width: 62
-    },
-    props: {
-      maxLength: 8
-    },
+      width: 48
+    }
   },
   {
-    key: "baseColorYellow", // 基底颜色黄色%
+    key: "fieldTwo", //标题2
     value: "",
     event: keyf1,
-    name: "黄色",
-    next: "%",
     textarea: {
-      width: 62
-    },
-    props: {
-      maxLength: 8
-    },
+      width: 48
+    }
   },
   {
-    key: "baseColorBlack", // 基底颜色黑色%
+    key: "fieldThree", //标题3
     value: "",
     event: keyf1,
-    name: "黑色",
-    next: "%",
     textarea: {
-      width: 62
-    },
-    props: {
-      maxLength: 8
-    },
+      width: 36
+    }
   },
   {
-    key: "baseColorOther", // 基底颜色其他%
+    key: "fieldFour", //标题4
     value: "",
     event: keyf1,
-    name: "其他",
-    next: "%",
     textarea: {
-      width: 62
-    },
-    props: {
-      maxLength: 8
-    },
+      width: 36
+    }
   },
   {
-    key: "fieldOne", // 渗出液（量、性状、颜色）
+    key: "fieldFive", //标题5
     value: "",
     event: keyf1,
-    name: "渗出液（量、性状、颜色）",
     textarea: {
-      width: 62
-    },
-    props: {
-      maxLength: 8
-    },
+      width: 36
+    }
   },
   {
-    key: "fieldTwo", //渗液与敷料的关系
+    key: "fieldSix", //标题6
     value: "",
     event: keyf1,
-    name: "渗液与敷料的关系",
     textarea: {
-      width: 62
-    },
-    props: {
-      maxLength: 8
-    },
-  },
-  {
-    key: "odor", //气味
-    value: "",
-    event: keyf1,
-    name: "气味",
-    textarea: {
-      width: 62
-    },
-    props: {
-      maxLength: 8
-    },
-  },
-  {
-    key: "fieldThree", //潜行/窦道
-    value: "",
-    event: keyf1,
-    name: "潜行/窦道",
-    textarea: {
-      width: 62
-    },
-    props: {
-      maxLength: 8
-    },
-  },
-  {
-    key: "fieldFour", //周围皮肤
-    value: "",
-    event: keyf1,
-    name: "周围皮肤",
-    textarea: {
-      width: 62
-    },
-    props: {
-      maxLength: 8
-    },
+      width: 36
+    }
   },
   {
     key: "description", //特殊情况记录
@@ -182,11 +172,10 @@ export default [{
     key: "sign",
     value: ""
   },
-  {
-    hidden: true,
-    key: "audit",
-    value: ""
-  },
+  // {
+  //   key: "audit",
+  //   value: ""
+  // },
   {
     hidden: true,
     key: "id",
@@ -253,15 +242,3 @@ export default [{
     value: false
   }
 ];
-
-export function getListData() {
-
-}
-
-getListData();
-/**
- *
- * @param {*} list 原数组
- * @param {*} key 对应的key
- * @param {*} data 数据源
- */

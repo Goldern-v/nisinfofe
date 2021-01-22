@@ -30,28 +30,40 @@ export default [{
     value: "",
     event: keyf1,
     name: "体温",
-    next: "℃"
+    next: "℃",
+    textarea: {
+      width: 48
+    },
   },
   {
     key: "pulse", //脉搏
     value: "",
     event: keyf1,
     name: "脉搏",
-    next: "次/分"
+    next: "次/分",
+    textarea: {
+      width: 48
+    },
   },
   {
     key: "heartRate", //心率
     value: "",
     event: keyf1,
     name: "心率",
-    next: "次/分"
+    next: "次/分",
+    textarea: {
+      width: 48
+    },
   },
   {
     key: "breath", //呼吸
     value: "",
     event: keyf1,
     name: "呼吸",
-    next: "次/分"
+    next: "次/分",
+    textarea: {
+      width: 48
+    },
   },
   {
     key: "bloodPressure", //血压
@@ -64,7 +76,10 @@ export default [{
       keyf1(e, td);
     },
     name: "血压",
-    next: "mmHg"
+    next: "mmHg",
+    textarea: {
+      width: 48
+    },
   },
   {
     key: "consciousness", //意识
@@ -73,22 +88,25 @@ export default [{
     name: "意识",
     autoComplete: {
       data: 意识
-    }
+    },
+    textarea: {
+      width: 48
+    },
   },
   {
     key: "spo2", //SPO₂(%)
     value: "",
     event: keyf1,
     name: "血氧饱和度",
-    next: "%"
+    next: "%",
+    textarea: {
+      width: 48
+    },
   },
   {
     key: "food", //食物, 入量
     value: "",
     event: keyf1,
-    // autoComplete: {
-    //   data: 入量名称
-    // },
     name: "入量名称",
     textarea: {
       width: 62,
@@ -102,41 +120,53 @@ export default [{
     value: "",
     event: keyf1,
     name: "入量大小",
-    next: "ml"
+    next: "ml",
+    textarea: {
+      width: 48
+    },
   },
   {
     key: "discharge", //排出物
     value: "",
     event: keyf1,
-    // autoComplete: {
-    //   data: 出量名称
-    // },
     name: "出量名称",
     textarea: {
       width: 62,
     },
     style: {
       textAlign: "left",
-    }
+    },
   },
   {
     key: "dischargeSize", //排出物数量（单位ml）
     value: "",
     event: keyf1,
     name: "出量大小",
-    next: "ml"
+    next: "ml",
+    textarea: {
+      width: 48
+    },
   },
   {
     key: "dischargeColor", //排出物颜色
     value: "",
     event: keyf1,
-    name: "出量颜色"
+    name: "出量颜色",
+    textarea: {
+      width: 48
+    },
   },
   {
     key: "healthEducation", //健康教育
     value: "",
     event: keyf1,
     name: "健康教育",
+    textarea: {
+      width: 48
+    },
+    props: {
+      maxLength: 8
+    },
   },
   {
     key: "fieldOne", //标题1
@@ -145,6 +175,9 @@ export default [{
     textarea: {
       width: 48
     },
+    props: {
+      maxLength: 8
+    },
   },
   {
     key: "fieldTwo", //标题2
@@ -152,7 +185,10 @@ export default [{
     event: keyf1,
     textarea: {
       width: 48
-    }
+    },
+    props: {
+      maxLength: 8
+    },
   },
   {
     key: "fieldThree", //标题3
@@ -160,7 +196,10 @@ export default [{
     event: keyf1,
     textarea: {
       width: 48
-    }
+    },
+    props: {
+      maxLength: 8
+    },
   },
   {
     key: "fieldFour", //标题4
@@ -168,7 +207,10 @@ export default [{
     event: keyf1,
     textarea: {
       width: 48
-    }
+    },
+    props: {
+      maxLength: 8
+    },
   },
   {
     key: "fieldFive", //标题5
@@ -176,7 +218,10 @@ export default [{
     event: keyf1,
     textarea: {
       width: 48
-    }
+    },
+    props: {
+      maxLength: 8
+    },
   },
   {
     key: "fieldSix", //标题6
@@ -184,7 +229,10 @@ export default [{
     event: keyf1,
     textarea: {
       width: 48
-    }
+    },
+    props: {
+      maxLength: 8
+    },
   }, {
     key: "description", //特殊情况记录
     value: "",
@@ -282,7 +330,7 @@ export default [{
   }
 ];
 
-let filterKey = '威县' + ':';
+let filterKey = '花都' + ':';
 let filterKey2 = '统一护理记录单' + ':';
 
 export function getListData4() {

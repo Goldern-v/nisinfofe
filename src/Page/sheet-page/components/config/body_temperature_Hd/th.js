@@ -6,16 +6,16 @@ export default {
   },
   th: {
     top: [{
-        name: `
+      name: `
         日期
         `,
-        style: {
-          minWidth: "20px",
-          maxWidth: "20px"
-        },
-        colspan: "1",
-        rowspan: "3"
+      style: {
+        minWidth: "20px",
+        maxWidth: "20px"
       },
+      colspan: "1",
+      rowspan: "3"
+    },
       {
         name: `
         时间
@@ -32,7 +32,7 @@ export default {
         生命体征
         `,
         style: {},
-        colspan: "16",
+        colspan: "15",
         rowspan: "1",
       },
       {
@@ -66,7 +66,6 @@ export default {
         name: `
        签名
         `,
-        style: {},
         colspan: "1",
         rowspan: "3",
         style: {
@@ -76,10 +75,10 @@ export default {
       }
     ],
     mid: [{
-        name: "体温",
-        colspan: "1",
-        rowspan: "2"
-      },
+      name: "体温",
+      colspan: "1",
+      rowspan: "2"
+    },
       {
         name: `
         脉搏
@@ -221,17 +220,17 @@ export default {
           maxWidth: "20px"
         },
       },
-      {
-        name: `
-        身高
-        `,
-        colspan: "1",
-        rowspan: "2",
-        style: {
-          minWidth: "20px",
-          maxWidth: "20px"
-        },
-      },
+      // {
+      //   name: `
+      //   身高
+      //   `,
+      //   colspan: "1",
+      //   rowspan: "2",
+      //   style: {
+      //     minWidth: "20px",
+      //     maxWidth: "20px"
+      //   },
+      // },
       {
         name: `
         大便次数
@@ -267,7 +266,6 @@ export default {
       },
       {
         name: `自1`,
-        style: {},
         colspan: "1",
         rowspan: "2",
         canSet: true,
@@ -279,7 +277,6 @@ export default {
       },
       {
         name: `自2`,
-        style: {},
         colspan: "1",
         rowspan: "2",
         canSet: true,
@@ -291,7 +288,6 @@ export default {
       },
       {
         name: `自3`,
-        style: {},
         colspan: "1",
         rowspan: "2",
         canSet: true,
@@ -303,7 +299,6 @@ export default {
       },
       {
         name: `自4`,
-        style: {},
         colspan: "1",
         rowspan: "2",
         canSet: true,
@@ -314,8 +309,6 @@ export default {
         }
       }
     ],
-    bottom: [
-
-    ]
+    bottom: []
   }
 };

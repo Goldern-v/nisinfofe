@@ -181,6 +181,7 @@
             v-model="td.value"
             :data-value="td.value"
             :position="`${x},${y},${index}`"
+            v-bind="td.props"
             :style="
               Object.assign(
                 {},
@@ -204,7 +205,8 @@
                   y,
                   z: index,
                   td,
-                  tr
+                  tr,
+                  splice: !!td.splice
                 })
             "
             @blur="onBlur($event, { x, y, z: index })"
@@ -360,7 +362,10 @@
           v-if="
             sheetInfo.sheetType == 'com_lc' ||
               sheetInfo.sheetType == 'icu_lc' ||
-              sheetInfo.sheetType == 'Record_Children_Serious_Lc'
+              sheetInfo.sheetType == 'Record_Children_Serious_Lc' ||
+              sheetInfo.sheetType == 'common_hd' ||
+              sheetInfo.sheetType == 'neurosurgery_hd' ||
+              sheetInfo.sheetType == 'stress_injury_hd'
           "
           >审核人：</span
         >
@@ -462,7 +467,7 @@ export default {
         "Record_Children_Serious_Lc",
         "contraction_inhibitor_hd",
         "magnesium_sulphate_hd",
-        "common_wj"
+        "common_wj",
       ]
     };
   },

@@ -1,4 +1,5 @@
 import sheetInfo from "../../../config/sheetInfo/index";
+
 function offset(ele) {
   var top = ele.offsetTop;
   var left = ele.offsetLeft;
@@ -27,6 +28,7 @@ function focusElement(x, y, z) {
     return false;
   }
 }
+
 function getCursortPosition(textDom) {
   var cursorPos = 0;
   if (document.selection) {
@@ -43,7 +45,7 @@ function getCursortPosition(textDom) {
 }
 
 function leftTopBottomRight(e, bind) {
-  let { x, y, z, td } = bind;
+  let {x, y, z, td} = bind;
   if (e.keyCode == 13) {
     if (window.isShowAutoComplete()) {
       e.preventDefault();
@@ -73,7 +75,7 @@ function leftTopBottomRight(e, bind) {
     let input = e.target;
     let maxX = document
       .querySelectorAll('[dataKey="description"] input')[document
-        .querySelectorAll('[dataKey="description"] input').length - 1]
+      .querySelectorAll('[dataKey="description"] input').length - 1]
       .getAttribute("position")
       .split(",")[0];
     if (getCursortPosition(input) <= 0) {
@@ -90,7 +92,7 @@ function leftTopBottomRight(e, bind) {
 }
 
 function onFocusToAutoComplete(e, bind) {
-  let { autoComplete, x, y, z, td, tr } = bind;
+  let {autoComplete, x, y, z, td, tr, splice} = bind;
   let scrollTop = document.querySelector(".sheetTable-contain").scrollTop;
   let scrollLeft = document.querySelector(".sheetTable-contain").scrollLeft;
   let xy = offset(e.target);
@@ -131,24 +133,33 @@ function onFocusToAutoComplete(e, bind) {
               }
             });
           }
-          if (data) { td.value = data.trim() };
+          if (data) {
+            td.value = data.trim()
+          }
+          ;
           return;
         }
 
-        if (data) { td.value = data };
+        if (data) {
+          const preText = td.value ? (td.value + ',') : ''
+          td.value = (splice ? preText : '') + data
+        }
+        ;
       },
       id: `${x}${y}${z}`,
       td,
-      tr
+      tr,
     });
   });
 }
+
 function onBlurToAutoComplete(e, bind) {
-  let { x, y, z } = bind;
+  let {x, y, z} = bind;
   setTimeout(() => {
     window.closeAutoComplete(`${x}${y}${z}`);
   }, 400);
 }
+
 export {
   offset,
   focusElement,

@@ -88,6 +88,8 @@
     <pizhuModal ref="pizhuModal"></pizhuModal>
     <evalModel ref="evalModel"></evalModel>
     <syncToIsbarModal ref="syncToIsbarModal"></syncToIsbarModal>
+    <!-- 电子病例弹窗 -->
+    <doctorEmr v-if="HOSPITAL_ID === 'huadu'"/>
   </div>
 </template>
 
@@ -210,6 +212,7 @@
 
 <script>
 import sheetTool from "./components/sheet-tool/sheet-tool.vue";
+import doctorEmr from "@/components/doctorEmr";
 // import patientList from "@/components/patient-list/patient-list.vue";
 import patientList from "@/components/patient-list/patient-list-router-link.vue";
 import sheetTable from "./components/sheetTable/sheetTable.vue";
@@ -829,7 +832,8 @@ export default {
     sheetTable_hemodialysis_CRRT_hd,
     sheetTable_intervention_cure,
     sheetTable_mild_hypothermia_hd,
-    sheetTable_neonatology_picc
+    sheetTable_neonatology_picc,
+    doctorEmr,
   }
 };
 </script>
