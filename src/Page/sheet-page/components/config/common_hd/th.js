@@ -192,7 +192,7 @@ export default {
       },
       {
         name: `
-        护士签名
+        记录人签名
         `,
         style: {},
         colspan: "1",
@@ -204,7 +204,7 @@ export default {
       },
       {
         name: `
-        审核签名
+        记录人签名
         `,
         style: {},
         colspan: "1",
