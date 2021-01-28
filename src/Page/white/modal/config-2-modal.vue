@@ -2,7 +2,7 @@
   <div>
     <sweet-modal
       ref="modal"
-      :modalWidth="820"
+      :modalWidth="HOSPITAL_ID == 'hj' ? 1070 : 820"
       title="检查预约项目配置"
       :fullBtn="true"
       :enable-mobile-fullscreen="false"
@@ -22,6 +22,7 @@
             <col width="100" />
             <col width="350" />
             <col width="220" />
+            <col width="250" v-if="HOSPITAL_ID == 'hj'"/>
           </colgroup>
           <tr>
             <th center p1>是否显示</th>
@@ -29,6 +30,7 @@
             <th center p3>姓名</th>
             <th left p4>检查项目</th>
             <th center p5>预约时间</th>
+            <th center p5 v-if="HOSPITAL_ID == 'hj'">检查特殊交代</th>
           </tr>
           <tr v-for="item of list" :key="item.id">
             <td center p1>
@@ -55,6 +57,16 @@
                 :guide="true"
                 placeholderChar="O"
               ></masked-input>
+            </td>
+             <td left p5 v-if="HOSPITAL_ID == 'hj'">
+               <el-select v-model="item.description" multiple placeholder="请选择">
+                <el-option
+                  v-for="option in options"
+                  :key="option.name"
+                  :label="option.name"
+                  :value="option.name">
+                </el-option>
+              </el-select>
             </td>
           </tr>
         </table>
@@ -117,6 +129,14 @@
   *[p5] {
     padding: 0 13px;
   }
+  >>>.el-select {
+    input {
+      border: none;
+    }
+    .el-input__icon {
+      display: none;
+    }
+  }
 }
 
 .auto-input, .mask-input {
@@ -131,11 +151,13 @@
 import { GetAllExamAppoint, saveExamAppointList } from "../api/index.js";
 import common from "@/common/mixin/common.mixin.js";
 import moment from "moment";
+import { multiDictInfo,setList } from '@/api/common.js'
 export default {
   mixins: [common],
   data() {
     return {
-      list: []
+      list: [],
+      options: []
     };
   },
   computed: {
@@ -146,6 +168,11 @@ export default {
       );
     }
   },
+  mounted(){
+    if(this.HOSPITAL_ID == 'hj'){
+      this.getMulOptions();
+    }
+  },
   methods: {
     open() {
       GetAllExamAppoint(this.deptCode).then(res => {
@@ -154,6 +181,9 @@ export default {
             item.showFlag = false;
           } else {
             item.showFlag = true;
+          }
+          if(this.HOSPITAL_ID == 'hj'){
+            item.description = item.description ? item.description.split(',') : [];
           }
           return item;
         });
@@ -171,6 +201,9 @@ export default {
           item.showFlag = "1";
         }
         item.scheduleDate = item.scheduleDate.replace(/\O/g, 0);
+        if(this.HOSPITAL_ID == 'hj'){
+          item.description = item.description.join(',');
+        }
         return item;
       });
       saveExamAppointList({ list: data }).then(res => {
@@ -192,6 +225,12 @@ export default {
           .add(1, "d")
           .format("YYYY-MM-DD HH:mm");
       }
+    },
+    getMulOptions(){
+       multiDictInfo(['检查特殊交代']).then(res => {
+        let data = res.data.data;
+        setList(this.options, "检查特殊交代", data);
+      })
     }
   },
   components: {}
