@@ -357,6 +357,11 @@ function switechSheetType(type) {
     schema = require("../config/mild_hypothermia_hd/tr.js").default;
   }
   break;
+  case "additional_count_hd": {
+    // 花都-通用护理记录单副单
+    schema = require("../config/additional_count_hd/tr.js").default;
+  }
+  break;
   case "intervention_cure": {
     // 厚街-介入治疗术护理记录单
     schema = require("../config/intervention_cure/tr.js").default;

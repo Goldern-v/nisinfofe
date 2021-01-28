@@ -417,6 +417,13 @@ export default function Title(
     );
   }
   break;
+  case "additional_count_hd": {
+    // 花都-通用护理记录单副单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/additional_count_hd/th").default)
+    );
+  }
+  break;
   case "intervention_cure": {
     // 厚街-介入治疗术护理记录单
     Th = JSON.parse(
