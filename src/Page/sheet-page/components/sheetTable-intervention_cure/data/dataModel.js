@@ -8,22 +8,22 @@ let tableModel = {
 					rowspan: '',
 					children: [{
 						type: "input",
-						prev: "介入手术或造影名称",
-						// elementClass: "txhtouxiqi",
-						class: "bottom-line",
-						value: "",
-						name: "jrsshzymc",
-						style: "width:200px;text-align:left;margin-right: 60px;"
-					},
-					{
-						type: "input",
 						prev: "药物试验结果",
 						// elementClass: "txhtouxiqi",
 						class: "bottom-line",
 						value: "",
 						name: "ywsyjg",
-						style: "width:200px;text-align:left;"
-					}]
+						style: "width:200px;text-align:left;margin-right: 60px;"
+					},{
+						type: "input",
+						prev: "介入手术或造影名称",
+						// elementClass: "txhtouxiqi",
+						class: "bottom-line",
+						value: "",
+						name: "jrsshzymc",
+						style: "width:600px;text-align:left;"
+					}
+					]
 				}],
 				[{
 					colspan: '3',
@@ -81,6 +81,7 @@ let tableModel = {
 								value: " ",
 								name: "youVal",
 								addClass: "",
+								style: 'text-align:left;',
 								tasks: [{
 									active: {
 										tineiliuzhiwu: "有"
