@@ -42,6 +42,12 @@ export const outputSum = (patientId, visitId, recordCode, startTime, endTime, de
         startTime,endTime,description,blockId: sheetInfo.selectBlock.id
     })
 }
+// 出入量统计（花都）
+export const outputSumHd = (patientId, visitId, recordCode, startTime, endTime, description,inCheckedList,outCheckedList) => {
+    return axios.post(`${apiPath}record/${recordCode}/outputSum`, {
+        startTime,endTime,description,blockId: sheetInfo.selectBlock.id,inCheckedList,outCheckedList
+    })
+}
 // 删除评估单
 export const evalDel = (id, operator, empNo) => {
     return axios.post(`${apiPath}eval/delete`,{id, operator, empNo})

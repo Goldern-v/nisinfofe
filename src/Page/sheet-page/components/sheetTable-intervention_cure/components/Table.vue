@@ -121,15 +121,6 @@ th {
     }
   }
 }
-.table {
-  page-break-after: always;
-  /*  &:first-child {
-    padding-bottom: 120px;
-  } */
-  // &:nth-child(2) {
-  //   padding-top: 50px;
-  // }
-}
 .table-footer {
   text-align: center;
   padding-top: 5px;

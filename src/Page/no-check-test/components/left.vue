@@ -10,6 +10,7 @@
           <span class="col-3">姓名</span>
           <span class="col-4">检查时间</span>
           <span class="col-5" flex-box="1">检查项目</span>
+          <span class="col-6">检查特殊交代</span>
         </div>
         <div class="list-content" :style="{height: listContentH +'px'}" v-if="list && list.length">
           <div class="list-box" flex="cross:stretch" v-for="(item,index) in list" :key="index">
@@ -20,6 +21,7 @@
             <span class="col-3">{{item.nameOrigin || item.name}}</span>
             <span class="col-4">{{item.scheduleDate}}</span>
             <span class="col-5" flex-box="1">{{item.examItem}}</span>
+            <span class="col-6">{{item.description}}</span>
           </div>
         </div>
         <nullText v-if="list.length == 0" :style="{height: listContentH +'px'}"></nullText>
@@ -45,7 +47,7 @@
   font-size: 13px;
   color: #333333;
 
-  .col-1, .col-2, .col-3, .col-4, .col-5 {
+  .col-1, .col-2, .col-3, .col-4, .col-5, .col-6 {
     width: 0;
     min-height: 16px;
     -webkit-box-sizing: border-box;
@@ -54,7 +56,7 @@
     line-height: 16px;
   }
 
-  .col-2, .col-3, .col-4, .col-5 {
+  .col-2, .col-3, .col-4, .col-5, .col-6 {
     border-left: 1px solid #E3E7EA;
   }
 
@@ -79,6 +81,10 @@
 
   .col-4 {
     width: 150px;
+  }
+
+  .col-6 {
+    width: 200px;
   }
 
   .col-1, .col-2 {
