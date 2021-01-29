@@ -13,13 +13,9 @@ let tableModel = {
 						class: "bottom-line",
 						value: "",
 						name: "jrsshzymc",
-						style: "width:200px;text-align:left;"
-					}]
-				}],
-				[{
-					colspan: '3',
-					rowspan: '',
-					children: [{
+						style: "width:200px;text-align:left;margin-right: 60px;"
+					},
+					{
 						type: "input",
 						prev: "药物试验结果",
 						// elementClass: "txhtouxiqi",
