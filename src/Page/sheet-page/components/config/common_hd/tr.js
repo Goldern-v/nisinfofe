@@ -2,7 +2,8 @@ import {
   multiDictInfo
 } from "../../../api/index";
 import {
-  keyf1
+  keyf1,
+  calValueChange
 } from "../keyEvent/f1.js";
 import {
   event_date,
@@ -160,78 +161,64 @@ export default [{
     key: "healthEducation", //健康教育
     value: "",
     event: keyf1,
+    change: calValueChange,
     name: "健康教育",
     textarea: {
-      width: 48
-    },
-    props: {
-      maxLength: 8
+      width: 50,
     },
   },
   {
     key: "fieldOne", //标题1
     value: "",
     event: keyf1,
+    change: calValueChange,
     textarea: {
-      width: 48
-    },
-    props: {
-      maxLength: 8
+      width: 50
     },
   },
   {
     key: "fieldTwo", //标题2
     value: "",
     event: keyf1,
+    change: calValueChange,
     textarea: {
-      width: 48
-    },
-    props: {
-      maxLength: 8
+      width: 50
     },
   },
   {
     key: "fieldThree", //标题3
     value: "",
     event: keyf1,
+    change: calValueChange,
     textarea: {
-      width: 48
-    },
-    props: {
-      maxLength: 8
+      width: 50
     },
   },
   {
     key: "fieldFour", //标题4
     value: "",
     event: keyf1,
+    change: calValueChange,
     textarea: {
-      width: 48
-    },
-    props: {
-      maxLength: 8
+      width: 50
     },
   },
   {
     key: "fieldFive", //标题5
     value: "",
     event: keyf1,
+    change: calValueChange,
     textarea: {
-      width: 48
-    },
-    props: {
-      maxLength: 8
+      width: 50
     },
   },
   {
     key: "fieldSix", //标题6
     value: "",
     event: keyf1,
+    change: calValueChange,
     textarea: {
-      width: 48
-    },
-    props: {
-      maxLength: 8
+      width: 50
     },
   }, {
     key: "description", //特殊情况记录
@@ -260,7 +247,7 @@ export default [{
     value: ""
   },
   {
-    key: "audit",
+    key: "sign2",
     value: ""
   },
   {
@@ -271,6 +258,11 @@ export default [{
   {
     hidden: true,
     key: "signerName",
+    value: ""
+  },
+  {
+    hidden: true,
+    key: "signerName2",
     value: ""
   },
   {
@@ -304,12 +296,17 @@ export default [{
     value: ""
   },
   {
-    hidden: false,
+    hidden: true,
     key: "signerNo",
     value: ""
   },
   {
-    hidden: false,
+    hidden: true,
+    key: "signerNo2",
+    value: ""
+  },
+  {
+    hidden: true,
     key: "auditorNo",
     value: ""
   },

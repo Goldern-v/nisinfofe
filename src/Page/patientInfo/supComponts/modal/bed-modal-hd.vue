@@ -248,6 +248,7 @@
               <span>{{query.name}}</span>
               <span>{{query.sex}}</span>
               <span>{{query.age}}</span>
+              <span>住院号：{{query.patientId}}</span>
             </div>
             <div>
               <div>
@@ -257,7 +258,10 @@
             <div>
               <span>入院日期：{{query.admissionDate | ymdhm}}</span>
             </div>
-            <svg id="barcode"></svg>
+            <div>
+              <span>过敏史：{{drugGms}}</span>
+            </div>
+            <!-- <svg id="barcode"></svg> -->
           </div>
            <img class="qr-code" :class="{hasRemark: hasRemark}" :src="qrCode" />
 
@@ -345,9 +349,9 @@
       border: none;
      .top {
         span {
-          margin-left: 75px;
+          margin-left: 10px;
           &:first-of-type {
-            margin-left: 95px;
+            margin-left: 45px;
           }
         }
      }
@@ -655,7 +659,10 @@ export default {
       },
       ysList: [],
       printMode: 'h',//打印模式
-      title: '编辑床头卡'
+      title: '编辑床头卡',
+      allergy1:"",
+      allergy2:"",
+      drugGms:"",
     };
   },
   computed: {
@@ -688,6 +695,9 @@ export default {
           remark: diagnosis,
           remarkPrint: resData.remarkPrint
         };
+        this.allergy1 = resData.allergy1;
+        this.allergy2 = resData.allergy2;
+        this.drugGms = resData.drugGms;
         this.modalLoading = false;
       });
       multiDictInfo(["床头卡饮食"]).then(res => {

@@ -209,7 +209,7 @@ export default {
         colspan: "1",
         rowspan: "3",
         canSet: true,
-        key: "fieldTwelve",
+        key: "fieldSix", //标题1
         style: {
           minWidth: "32px",
           maxWidth: "32px"
@@ -221,7 +221,7 @@ export default {
         colspan: "1",
         rowspan: "3",
         canSet: true,
-        key: "fieldTwelve",
+        key: "fieldSeven", //标题2
         style: {
           minWidth: "32px",
           maxWidth: "32px"
@@ -233,7 +233,7 @@ export default {
         colspan: "1",
         rowspan: "3",
         canSet: true,
-        key: "fieldTwelve",
+        key: "fieldEight", //标题3
         style: {
           minWidth: "32px",
           maxWidth: "32px"

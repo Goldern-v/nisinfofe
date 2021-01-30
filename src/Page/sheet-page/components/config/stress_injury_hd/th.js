@@ -1,3 +1,8 @@
+import moment from "moment";
+
+function currYear() {
+  return moment().format('YYYY')
+}
 export default {
   // 科室的名称
   deptType: "",
@@ -6,14 +11,14 @@ export default {
   },
   th: {
     top: [{
-        name: "日期",
-        colspan: "1",
-        rowspan: "3",
-      },
-      {
-        name: "时间",
-        colspan: "1",
-        rowspan: "3",
+        name: currYear(),
+        colspan: "2",
+        rowspan: "1",
+        style: {
+          width: "40px"
+        },
+        canSet: true,
+        key: "recordYear",
       },
       {
         name: "部位",
@@ -59,8 +64,8 @@ export default {
         渗出液</br>(量、性状、颜色)
         `,
         style: {
-          minWidth: "62px",
-          maxWidth: "62px",
+          minWidth: "50px",
+          maxWidth: "50px"
         },
         colspan: "1",
         rowspan: "3"
@@ -70,8 +75,8 @@ export default {
         渗液与敷料的关系
         `,
         style: {
-          minWidth: "62px",
-          maxWidth: "62px"
+          minWidth: "50px",
+          maxWidth: "50px"
         },
         colspan: "1",
         rowspan: "3"
@@ -81,8 +86,8 @@ export default {
         气<br/>味
         `,
         style: {
-          minWidth: "62px",
-          maxWidth: "62px",
+          minWidth: "50px",
+          maxWidth: "50px"
         },
         colspan: "1",
         rowspan: "3"
@@ -94,9 +99,8 @@ export default {
         colspan: "1",
         rowspan: "3",
         style: {
-          whiteSpace: "nowrap",
-          minWidth: "62px",
-          maxWidth: "62px"
+          minWidth: "50px",
+          maxWidth: "50px"
         }
       },
       {
@@ -106,9 +110,8 @@ export default {
         colspan: "1",
         rowspan: "3",
         style: {
-          whiteSpace: "nowrap",
-          minWidth: "62px",
-          maxWidth: "62px"
+          minWidth: "50px",
+          maxWidth: "50px"
         }
       },
       {
@@ -116,8 +119,7 @@ export default {
         特殊情况记录
         `,
         style: {
-          minWidth: "153px",
-          maxWidth: "153px"
+          width: "150px"
         },
         colspan: "1",
         rowspan: "3"
@@ -137,6 +139,21 @@ export default {
       }
     ],
     mid: [{
+        name: "日期",
+        style: {
+          width: "40px"
+        },
+        colspan: "1",
+        rowspan: "2",
+      },
+      {
+        name: "时间",
+        style: {
+          width: "40px"
+        },
+        colspan: "1",
+        rowspan: "2",
+      }, {
         name: `
         长×宽×高
         `,
@@ -154,8 +171,8 @@ export default {
         colspan: "1",
         rowspan: "2",
         style: {
-          minWidth: "62px",
-          maxWidth: "62px"
+          minWidth: "50px",
+          maxWidth: "50px"
         }
       },
       {
@@ -163,8 +180,8 @@ export default {
         黄色%
         `,
         style: {
-          minWidth: "62px",
-          maxWidth: "62px"
+          minWidth: "50px",
+          maxWidth: "50px"
         },
         colspan: "1",
         rowspan: "2"
@@ -176,8 +193,8 @@ export default {
         colspan: "1",
         rowspan: "2",
         style: {
-          minWidth: "62px",
-          maxWidth: "62px",
+          minWidth: "50px",
+          maxWidth: "50px",
         }
       },
       {
@@ -187,8 +204,8 @@ export default {
         colspan: "1",
         rowspan: "2",
         style: {
-          minWidth: "62px",
-          maxWidth: "62px",
+          minWidth: "50px",
+          maxWidth: "50px",
         }
       }
     ],
