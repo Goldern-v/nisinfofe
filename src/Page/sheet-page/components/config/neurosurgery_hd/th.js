@@ -7,7 +7,7 @@ export default {
   // 科室的名称
   deptType: "",
   style: {
-    width: "1440px"
+    width: "1500px"
   },
   th: {
     top: [{
@@ -132,8 +132,8 @@ export default {
         colspan: "1",
         rowspan: "3",
         style: {
-          minWidth: "37px",
-          maxWidth: "37px"
+          minWidth: "50px",
+          maxWidth: "50px"
         }
       },
       {
@@ -142,8 +142,8 @@ export default {
         colspan: "1",
         rowspan: "3",
         style: {
-          minWidth: "37px",
-          maxWidth: "37px"
+          minWidth: "50px",
+          maxWidth: "50px"
         }
       },
       {
@@ -158,8 +158,8 @@ export default {
         colspan: "1",
         rowspan: "3",
         style: {
-          minWidth: "37px",
-          maxWidth: "37px"
+          minWidth: "50px",
+          maxWidth: "50px"
         }
       },
       {
@@ -168,10 +168,10 @@ export default {
         colspan: "1",
         rowspan: "3",
         canSet: true,
-        key: "fieldTwelve",
+        key: "fieldFive", //标题1
         style: {
-          minWidth: "32px",
-          maxWidth: "32px"
+          minWidth: "50px",
+          maxWidth: "50px"
         }
       },
       {
@@ -180,10 +180,10 @@ export default {
         colspan: "1",
         rowspan: "3",
         canSet: true,
-        key: "fieldTwelve",
+        key: "fieldSix", //标题2
         style: {
-          minWidth: "32px",
-          maxWidth: "32px"
+          minWidth: "50px",
+          maxWidth: "50px"
         }
       },
       {
@@ -192,10 +192,10 @@ export default {
         colspan: "1",
         rowspan: "3",
         canSet: true,
-        key: "fieldTwelve",
+        key: "fieldEight", //标题3
         style: {
-          minWidth: "32px",
-          maxWidth: "32px"
+          minWidth: "50px",
+          maxWidth: "50px"
         }
       },
       {
@@ -204,10 +204,10 @@ export default {
         colspan: "1",
         rowspan: "3",
         canSet: true,
-        key: "fieldTwelve",
+        key: "fieldNine", //标题4
         style: {
-          minWidth: "32px",
-          maxWidth: "32px"
+          minWidth: "50px",
+          maxWidth: "50px"
         }
       },
       {
@@ -216,10 +216,10 @@ export default {
         colspan: "1",
         rowspan: "3",
         canSet: true,
-        key: "fieldTwelve",
+        key: "fieldTen", //标题5
         style: {
-          minWidth: "32px",
-          maxWidth: "32px"
+          minWidth: "50px",
+          maxWidth: "50px"
         }
       },
       {
@@ -246,7 +246,7 @@ export default {
       },
       {
         name: `
-        记录人签名
+        上级护士签名
         `,
         style: {
           minWidth: "40px",
@@ -278,8 +278,8 @@ export default {
         名称
         `,
         style: {
-          minWidth: "40px",
-          maxWidth: "40px"
+          minWidth: "50px",
+          maxWidth: "50px"
         },
         colspan: "1",
         rowspan: "2"
@@ -291,8 +291,8 @@ export default {
         colspan: "1",
         rowspan: "2",
         style: {
-          minWidth: "40px",
-          maxWidth: "40px"
+          minWidth: "50px",
+          maxWidth: "50px"
         }
       },
       {
@@ -302,8 +302,8 @@ export default {
         colspan: "1",
         rowspan: "2",
         style: {
-          minWidth: "40px",
-          maxWidth: "40px"
+          minWidth: "50px",
+          maxWidth: "50px"
         }
       },
       {
@@ -313,8 +313,8 @@ export default {
         colspan: "1",
         rowspan: "2",
         style: {
-          minWidth: "40px",
-          maxWidth: "40px"
+          minWidth: "50px",
+          maxWidth: "50px"
         }
       },
       {

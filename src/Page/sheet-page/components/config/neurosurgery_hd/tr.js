@@ -5,7 +5,8 @@ import {
   multiDictInfo
 } from "../../../api/index";
 import {
-  keyf1
+  keyf1,
+  calValueChange
 } from "../keyEvent/f1.js";
 import {
   event_date,
@@ -111,106 +112,90 @@ export default [{
     key: "food", // 入量
     value: "",
     event: keyf1,
+    change: calValueChange,
     name: "入量名称",
     autoComplete: {
       data: ruList
     },
     textarea: {
-      width: 48,
-    },
-    props: {
-      maxLength: 8
+      width: 50,
     },
   },
   {
     key: "foodSize", //食物数量  入量（单位ml）
     value: "",
     event: keyf1,
+    change: calValueChange,
     name: "入量大小",
     next: "ml",
     textarea: {
-      width: 48
-    },
-    props: {
-      maxLength: 8
+      width: 50
     },
   },
   {
     key: "discharge", // 出量
     value: "",
     event: keyf1,
+    change: calValueChange,
     name: "出量名称",
     autoComplete: {
       data: chuList
     },
     textarea: {
-      width: 48,
-    },
-    props: {
-      maxLength: 8
+      width: 50,
     },
   },
   {
     key: "dischargeSize", //排出物数量（单位ml）
     value: "",
     event: keyf1,
+    change: calValueChange,
     name: "出量大小",
     next: "ml",
     textarea: {
-      width: 48
-    },
-    props: {
-      maxLength: 8
+      width: 50
     },
   },
   {
     key: "healthEducation", // 健康教育
     value: "",
     event: keyf1,
+    change: calValueChange,
     name: "健康教育",
     textarea: {
-      width: 48
-    },
-    props: {
-      maxLength: 8
+      width: 50,
     },
   },
   {
     key: "pupilSizeLeft", // 瞳孔直径（mm）左
     value: "",
     event: keyf1,
+    change: calValueChange,
     name: "瞳孔直径左",
     next: "mm",
     textarea: {
-      width: 48
-    },
-    props: {
-      maxLength: 8
+      width: 50
     },
   },
   {
     key: "pupilSizeRight", // 瞳孔直径（mm）右
     value: "",
     event: keyf1,
+    change: calValueChange,
     name: "瞳孔直径右",
     next: "mm",
     textarea: {
-      width: 48
-    },
-    props: {
-      maxLength: 8
+      width: 50
     },
   },
   {
     key: "pupilReflexLeft", // 瞳孔对光反应左
     value: "",
     event: keyf1,
+    change: calValueChange,
     name: "瞳孔对光反应左",
     textarea: {
-      width: 48
-    },
-    props: {
-      maxLength: 8
+      width: 50
     },
     // autoComplete: {
     //   data: ["+", "-", "±"]
@@ -220,12 +205,10 @@ export default [{
     key: "pupilReflexRight", // 瞳孔对光反应右
     value: "",
     event: keyf1,
+    change: calValueChange,
     name: "瞳孔对光反应右",
     textarea: {
-      width: 48
-    },
-    props: {
-      maxLength: 8
+      width: 50
     },
     // autoComplete: {
     //   data: ["+", "-", "±"]
@@ -235,102 +218,87 @@ export default [{
     key: "fieldOne", //吸氧（升/分）
     value: "",
     event: keyf1,
+    change: calValueChange,
     textarea: {
-      width: 48
+      width: 50
     },
     name: "吸氧",
     next: "升/分",
-    props: {
-      maxLength: 8
-    },
   },
   {
     key: "fieldTwo", //人工气道途径
     value: "",
     event: keyf1,
+    change: calValueChange,
     name: "人工气道途径",
     textarea: {
-      width: 48
-    },
-    props: {
-      maxLength: 8
+      width: 50
     },
   },
   {
     key: "fieldThree", //头痛
     value: "",
     event: keyf1,
+    change: calValueChange,
     textarea: {
-      width: 40
+      width: 50
     },
     name: "头痛",
-    props: {
-      maxLength: 8
-    },
   },
   {
     key: "fieldFour", //指尖血糖mmol/L
     value: "",
     event: keyf1,
+    change: calValueChange,
     name: "指尖血糖",
     next: "mmol/L",
     textarea: {
-      width: 48
-    },
-    props: {
-      maxLength: 8
+      width: 50
     },
   },
   {
     key: "fieldFive", //标题1
     value: "",
     event: keyf1,
+    change: calValueChange,
     textarea: {
-      width: 48
-    },
-    props: {
-      maxLength: 8
+      width: 50
     },
   },
   {
     key: "fieldSix", //标题2
     value: "",
     event: keyf1,
+    change: calValueChange,
     textarea: {
-      width: 48
-    },
-    props: {
-      maxLength: 8
+      width: 50
     },
   },
   {
     key: "fieldEight", //标题3
     value: "",
     event: keyf1,
+    change: calValueChange,
     textarea: {
-      width: 48
-    },
-    props: {
-      maxLength: 8
+      width: 50
     },
   },
   {
     key: "fieldNine", //标题4
     value: "",
     event: keyf1,
+    change: calValueChange,
     textarea: {
-      width: 48
+      width: 50
     }
   },
   {
     key: "fieldTen", //标题5
     value: "",
     event: keyf1,
+    change: calValueChange,
     textarea: {
-      width: 48
-    },
-    props: {
-      maxLength: 8
+      width: 50
     },
   },
   {
@@ -360,9 +328,13 @@ export default [{
     value: ""
   },
   {
-    key: "audit",
+    key: "sign2",
     value: ""
   },
+  // {
+  //   key: "audit",
+  //   value: ""
+  // },
   {
     hidden: true,
     key: "id",
@@ -371,6 +343,11 @@ export default [{
   {
     hidden: true,
     key: "signerName",
+    value: ""
+  },
+  {
+    hidden: true,
+    key: "signerName2",
     value: ""
   },
   {
@@ -404,12 +381,17 @@ export default [{
     value: ""
   },
   {
-    hidden: false,
+    hidden: true,
     key: "signerNo",
     value: ""
   },
   {
-    hidden: false,
+    hidden: true,
+    key: "signerNo2",
+    value: ""
+  },
+  {
+    hidden: true,
     key: "auditorNo",
     value: ""
   },

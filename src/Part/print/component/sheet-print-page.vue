@@ -63,6 +63,14 @@
     display: none !important;
   }
 
+  th[dataname='记录人签名'] {
+    width: 90px !important;
+  }
+
+  th[dataname='上级护士签名'] {
+    display: none !important;
+  }
+
   .sign-img {
     width: 100%;
     text-align: center;

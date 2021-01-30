@@ -12,15 +12,8 @@
           <div class="date" v-if="tr && tr.length && isShowItem()">
             <label class="label">日期：</label>
             <input
-              v-if ="HOSPITAL_ID === 'huadu'"
               type="text"
-              :placeholder="autoDate"
-              v-model="staticObj.recordMonth"
-              @keyup="dateKey($event, staticObj, 'recordMonth')"
-            />
-            <input
-              v-else
-              type="text"
+              :disabled="recordDate != '' && HOSPITAL_ID != 'huadu'"
               :placeholder="autoDate"
               v-model="staticObj.recordMonth"
               @keyup="dateKey($event, staticObj, 'recordMonth')"
@@ -29,18 +22,14 @@
           <div class="time">
             <label class="label">时间：</label>
             <input
-              v-if ="HOSPITAL_ID === 'huadu'"
               type="text"
+              :disabled="recordDate != '' && HOSPITAL_ID != 'huadu'"
               v-model="staticObj.recordHour"
               @keyup="timeKey($event, staticObj, 'recordHour')"
             />
-            <input
-              v-else
-              type="text"
-              :disabled="recordDate != ''"
-              v-model="staticObj.recordHour"
-              @keyup="timeKey($event, staticObj, 'recordHour')"
-            />
+          </div>
+          <div style="margin-left:10px;">
+            <el-checkbox v-model="isSyncTemp">是否同步</el-checkbox>
           </div>
         </div>
         <el-tabs v-model="activeTab" class="tab-content" type="card">
@@ -53,7 +42,9 @@
                 :style="item.isWrap && { 'min-width': '50%' }"
               >
                 <div class="input-cell" flex="cross:center">
-                  <div class="label" style="min-width: 70px;">{{ item.name || key }}：</div>
+                  <div class="label" style="min-width: 70px;">
+                    {{ item.name || key }}：
+                  </div>
                   <input
                     type="text"
                     :readonly="isRead"
@@ -89,7 +80,11 @@
             v-if="customTitle && customTitle.length"
             :disabled="isDisabed"
           >
-            <div class="custom-cell" v-for="(item, index) in customTitle" :key="item.key">
+            <div
+              class="custom-cell"
+              v-for="(item, index) in customTitle"
+              :key="item.key"
+            >
               <div class="custom-box" flex="cross:center">
                 <div class="label">{{ item.name }}</div>
                 <input
@@ -104,7 +99,10 @@
                   }"
                 />
                 <div class="button">
-                  <el-checkbox v-model="check[index]" :disabled="isRead"></el-checkbox>
+                  <el-checkbox
+                    v-model="check[index]"
+                    :disabled="isRead"
+                  ></el-checkbox>
                 </div>
               </div>
             </div>
@@ -112,16 +110,33 @@
           <el-tab-pane label="特殊情况记录" name="3">
             <div class="title" flex="cross:center main:justify">
               <span>病情、药物治疗、护理措施、效果</span>
-              <span style="color: #284FC2;cursor: pointer" @click="openTemplateSlider">+模板</span>
+              <span
+                style="color: #284FC2;cursor: pointer"
+                @click="openTemplateSlider"
+                >+模板</span
+              >
             </div>
             <!-- 陵城特殊情况特殊记录富文本 -->
             <div
               class="edit_container"
-              v-if="sheetInfo.selectBlock.openRichText && HOSPITAL_ID === 'lingcheng'"
+              v-if="
+                sheetInfo.selectBlock.openRichText &&
+                  HOSPITAL_ID === 'lingcheng'
+              "
             >
-              <quill-editor v-model="doc" ref="myQuillEditor" :options="editorOption"></quill-editor>
+              <quill-editor
+                v-model="doc"
+                ref="myQuillEditor"
+                :options="editorOption"
+              ></quill-editor>
             </div>
-            <el-input v-else type="textarea" class="text-con" :readonly="isRead" v-model="doc"></el-input>
+            <el-input
+              v-else
+              type="textarea"
+              class="text-con"
+              :readonly="isRead"
+              v-model="doc"
+            ></el-input>
           </el-tab-pane>
         </el-tabs>
       </div>
@@ -130,9 +145,14 @@
         <el-button
           class="modal-btn"
           type="primary"
-          @click="sheetInfo.selectBlock.openRichText && HOSPITAL_ID == 'lingcheng'? postRichText() : post()"
+          @click="
+            sheetInfo.selectBlock.openRichText && HOSPITAL_ID == 'lingcheng'
+              ? postRichText()
+              : post()
+          "
           v-show="!isRead"
-        >保存</el-button>
+          >保存</el-button
+        >
       </div>
     </sweet-modal>
     <templateSlide ref="templateSlide"></templateSlide>
@@ -315,6 +335,7 @@ import { quillEditor } from "vue-quill-editor"; //调用编辑器
 import "quill/dist/quill.core.css";
 import "quill/dist/quill.snow.css";
 import "quill/dist/quill.bubble.css";
+import { saveBatch, getmultiDict } from "../../api/index";
 
 function autoComplete(el, bind) {
   if (bind.value.dataList) {
@@ -413,12 +434,19 @@ export default {
           ]
         },
         theme: "snow"
+      },
+      isSyncTemp: false,
+      vitalSignKeys: ["体温", "脉搏", "心率", "呼吸", "血压"],
+      // vitalSignKeys:['temperature','pulse','heartRate','breath','bloodPressure'],
+      vitalSignList: {
+        list: []
       }
     };
   },
   computed: {
     title() {
-      const recordDate = this.HOSPITAL_ID === "huadu" ? '&nbsp' : this.recordDate;
+      const recordDate =
+        this.HOSPITAL_ID === "huadu" ? "&nbsp" : this.recordDate;
       if (this.recordDate) {
         if (this.isRead) {
           return "已签名，不可以编辑&nbsp;&nbsp;&nbsp;&nbsp;" + recordDate;
@@ -454,6 +482,53 @@ export default {
     }
   },
   methods: {
+    /* 获取字典表，整理某一行的同步信息 */
+    getVitalList() {
+      let patientInfo = this.$store.state.sheet.patientInfo; //获取患者基本信息
+      let staticObj = this.staticObj; //该行的数据
+      let vitalSignKeys = this.vitalSignKeys; // 存储体征键的数组
+      let list = []; // 存储体征同步的列表
+      getmultiDict(patientInfo.wardCode).then(res => {
+        res.data.data.map(multiObj => {
+          if (vitalSignKeys.includes(multiObj.vitalSign)) {
+            console.log("multiObj", multiObj);
+            let vitalSignsValue = "";
+            switch (multiObj.vitalSign) {
+              case "体温":
+                vitalSignsValue = staticObj.temperature;
+                break;
+              case "心率":
+                vitalSignsValue = staticObj.heartRate;
+                break;
+              case "脉搏":
+                vitalSignsValue = staticObj.pulse;
+                break;
+              case "血压":
+                vitalSignsValue = staticObj.bloodPressure;
+                break;
+              case "呼吸":
+                vitalSignsValue = staticObj.breath;
+                break;
+              default:
+                break;
+            }
+            list.push({
+              patientId: patientInfo.patientId,
+              visitId: patientInfo.visitId,
+              timePoint: staticObj.recordDate + ":00",
+              vitalSigns: multiObj.vitalSign,
+              vitalSignsValue: vitalSignsValue,
+              classCode: multiObj.classCode,
+              vitalCode: multiObj.vitalCode,
+              units: multiObj.unit,
+              wardCode: patientInfo.wardCode,
+              bedLabel: patientInfo.bedLabel
+            });
+          }
+        });
+      });
+      this.vitalSignList.list = list;
+    },
     open(config) {
       setTimeout(() => {
         window.closeAutoCompleteNoId();
@@ -805,6 +880,15 @@ export default {
           ).value = result[i];
         }
       }
+      if (this.isSyncTemp) {
+        saveBatch(this.vitalSignList)
+          .then(res => {
+            console.log("res.data", res);
+          })
+          .catch(err => {
+            console.log("err", err);
+          });
+      }
       this.bus.$emit("saveSheetPage", this.isLast);
       this.close();
     },
@@ -838,6 +922,7 @@ export default {
     // 打开特殊情况
     window.openSpecialModal2 = config => {
       this.open(config);
+      this.getVitalList();
     };
   },
   created() {

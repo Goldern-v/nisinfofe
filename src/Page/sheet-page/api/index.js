@@ -1,7 +1,19 @@
 import axios from "@/api/axios";
-import { apiPath } from "@/api/apiConfig";
+import {
+  apiPath
+} from "@/api/apiConfig";
 import sheetInfo from "../components/config/sheetInfo";
 import qs from "qs";
+
+// 护记体征信息同步到体温单
+export const saveBatch = (data) => {
+  return axios.post(`${apiPath}threeTest/saveBatch`, data);
+};
+
+// 通过护理单元获取体征字典表
+export const getmultiDict = (wardcode) => {
+  return axios.get(`${apiPath}threeTest/type/${wardcode}`);
+};
 
 // 分类合计
 export const putGroupCount = (patientId, visitId, startTime, endTime) => {
@@ -204,5 +216,8 @@ export const saveVitalSign = data => {
 };
 // 获取用户信息
 export function getUser(password, empNo) {
-  return axios.post(`${apiPath}user/getUser`, { password, empNo });
+  return axios.post(`${apiPath}user/getUser`, {
+    password,
+    empNo
+  });
 }
