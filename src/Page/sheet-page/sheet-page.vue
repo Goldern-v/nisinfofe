@@ -55,6 +55,7 @@
               :isFirst="index === 0"
               :scrollY="scrollY"
               :isInPatientDetails="false"
+              :bedAndDeptChange="bedAndDeptChange"
             ></component>
             <!-- <sheetTable
               v-else
@@ -72,7 +73,12 @@
             @click="addSheetPage"
           >
             <i class="el-icon-plus"></i>
-            {{HOSPITAL_ID == 'huadu' && $route.path.includes('singleTemperatureChart') ? '创建体温单':'创建护理记录单'}}
+            {{
+              HOSPITAL_ID == "huadu" &&
+              $route.path.includes("singleTemperatureChart")
+                ? "创建体温单"
+                : "创建护理记录单"
+            }}
           </div>
         </div>
       </div>
@@ -89,7 +95,7 @@
     <evalModel ref="evalModel"></evalModel>
     <syncToIsbarModal ref="syncToIsbarModal"></syncToIsbarModal>
     <!-- 电子病例弹窗 -->
-    <doctorEmr v-if="HOSPITAL_ID === 'huadu'"/>
+    <doctorEmr v-if="HOSPITAL_ID === 'huadu'" />
   </div>
 </template>
 
@@ -264,7 +270,7 @@ import syncToIsbarModal from "@/Page/sheet-page/components/modal/sync-toIsbar-mo
 import { getHomePage } from "@/Page/sheet-page/api/index.js";
 import { decodeRelObj } from "./components/utils/relObj";
 import { sheetScrollBotton } from "./components/utils/scrollBottom";
-import {blockSave} from './api/index'
+import { blockSave, getNurseExchageInfo } from "./api/index";
 export default {
   mixins: [common],
   data() {
@@ -280,7 +286,8 @@ export default {
       sheetInfo,
       scrollTop: 0,
       typeList: [], // 科室类型
-      scrollY: 0
+      scrollY: 0,
+      bedAndDeptChange: {}
     };
   },
   computed: {
@@ -376,13 +383,21 @@ export default {
       }
     },
     addSheetPage() {
-      if(this.HOSPITAL_ID == 'huadu' && this.$route.path.includes('singleTemperatureChart')){
-        let recordCode = 'body_temperature_Hd'
-        blockSave(this.patientInfo.patientId, this.patientInfo.visitId, this.deptCode, recordCode).then(res => {
-          this.bus.$emit('getBlockList')
-          this.$message.success('创建成功')
-        })
-      }else{
+      if (
+        this.HOSPITAL_ID == "huadu" &&
+        this.$route.path.includes("singleTemperatureChart")
+      ) {
+        let recordCode = "body_temperature_Hd";
+        blockSave(
+          this.patientInfo.patientId,
+          this.patientInfo.visitId,
+          this.deptCode,
+          recordCode
+        ).then(res => {
+          this.bus.$emit("getBlockList");
+          this.$message.success("创建成功");
+        });
+      } else {
         this.bus.$emit("openNewSheetModal");
       }
     },
@@ -405,6 +420,29 @@ export default {
         let titleData = res[0].data.data;
         let bodyData = res[1].data.data;
         let markData = res[2].data.data.list || [];
+        /* 显示转科转床的信息 */
+        if (this.HOSPITAL_ID === "huadu") {
+          let changeData = {
+            patientId: this.patientInfo.patientId,
+            visitId: this.patientInfo.visitId,
+            startLogDateTime: bodyData.createTime,
+            endLogDateTime: bodyData.createTime
+          };
+          if (bodyData.list && bodyData.list.length > 0) {
+            changeData = {
+              ...changeData,
+              startLogDateTime: bodyData.list[0].recordDate,
+              endLogDateTime: bodyData.list[bodyData.list.length - 1].recordDate
+            };
+          }
+          getNurseExchageInfo(changeData).then(res => {
+            let data = res.data.data;
+            this.bedAndDeptChange = {
+              bedLabelChange: data.bedExchangeLog,
+              deptNameChange: data.adtLog
+            };
+          });
+        }
         // this.sheetModel = []
         this.$nextTick(() => {
           // this.sheetModel = sheetModel
@@ -699,11 +737,17 @@ export default {
       // 对存储空间不够做处理
       try {
         window.localStorage.sheetModel = $(this.$refs.sheetTableContain).html();
-      }catch(err){
+      } catch (err) {
         // 可能要预留下来的 暂时不移除
-        let keys = ['selectDeptValue','rememberAccount','ppp','user','adminNurse']
-        for(let key in localStorage){
-          if(!keys.includes(key)){
+        let keys = [
+          "selectDeptValue",
+          "rememberAccount",
+          "ppp",
+          "user",
+          "adminNurse"
+        ];
+        for (let key in localStorage) {
+          if (!keys.includes(key)) {
             localStorage.removeItem(key);
           }
         }
@@ -833,7 +877,7 @@ export default {
     sheetTable_intervention_cure,
     sheetTable_mild_hypothermia_hd,
     sheetTable_neonatology_picc,
-    doctorEmr,
+    doctorEmr
   }
 };
 </script>

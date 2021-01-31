@@ -5,6 +5,11 @@ import {
 import sheetInfo from "../components/config/sheetInfo";
 import qs from "qs";
 
+// 患者：按时间获取转科转床记录---花都
+export const getNurseExchageInfo = (data) => {
+  return axios.post(`${apiPath}nurseLog/getNurseExchageInfo`, data);
+};
+
 // 护记体征信息同步到体温单
 export const saveBatch = (data) => {
   return axios.post(`${apiPath}threeTest/saveBatch`, data);
