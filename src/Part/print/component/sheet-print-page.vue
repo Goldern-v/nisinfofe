@@ -43,6 +43,10 @@
   td[datakey='sign'] {
     display: none !important;
   }
+/* 打印时隐藏第二列签名---td */
+  td[datakey='sign2'] {
+    display: none !important;
+  }
 
   // td[datakey="auditorNo"] {
   // display: table-cell !important
@@ -67,6 +71,7 @@
     width: 90px !important;
   }
 
+/* 打印时隐藏第二列签名表头---th */
   th[dataname='上级护士签名'] {
     display: none !important;
   }

@@ -7,10 +7,25 @@
       :enable-mobile-fullscreen="false"
       class="modal"
     >
-      <div class="bed-card-warpper" v-loading="modalLoading" ref="printCon" v-if="printMode == 'h'">
-        <div class="bed-card-con" flex :class="{remarkCon: formData.remarkPrint}">
-          <img class="qr-code" :class="{hasRemark: hasRemark}" :src="qrCode" />
-          <div class="qr-code-num" :class="{hasRemark: hasRemark}">{{qrCodeNum}}</div>
+      <div
+        class="bed-card-warpper"
+        v-loading="modalLoading"
+        ref="printCon"
+        v-if="printMode == 'h'"
+      >
+        <div
+          class="bed-card-con"
+          flex
+          :class="{ remarkCon: formData.remarkPrint }"
+        >
+          <img
+            class="qr-code"
+            :class="{ hasRemark: hasRemark }"
+            :src="qrCode"
+          />
+          <div class="qr-code-num" :class="{ hasRemark: hasRemark }">
+            {{ qrCodeNum }}
+          </div>
           <div style="width: 0" flex-box="1" flex="dir:top main:justify">
             <div
               flex="cross:center"
@@ -19,7 +34,7 @@
               v-if="HOSPITAL_ID == 'hj'"
             >
               <!-- <span class="label">患者姓名:</span> -->
-              <span :style="`width: ${hasRemark? 85: 100}px`"></span>
+              <span :style="`width: ${hasRemark ? 85 : 100}px`"></span>
               <input
                 type="text"
                 nowidth
@@ -36,9 +51,14 @@
                 :value="query.sex + ' ' + query.age"
               />
             </div>
-            <div flex="cross:center" class="input-item" style="height: 43px" v-else>
+            <div
+              flex="cross:center"
+              class="input-item"
+              style="height: 43px"
+              v-else
+            >
               <!-- <span class="label">患者姓名:</span> -->
-              <span :style="`width: ${hasRemark? 85: 100}px`"></span>
+              <span :style="`width: ${hasRemark ? 85 : 100}px`"></span>
               <input
                 type="text"
                 nowidth
@@ -50,7 +70,7 @@
             </div>
             <div flex="cross:center" class="input-item">
               <!-- <span class="label">住院号:</span> -->
-              <span :style="`width: ${hasRemark? 85: 100}px`"></span>
+              <span :style="`width: ${hasRemark ? 85 : 100}px`"></span>
               <input
                 type="text"
                 style="width: 75px;font-size: 30px; padding-left: 5px;"
@@ -91,7 +111,12 @@
             </div>-->
             <div flex="cross:center" class="input-item">
               <span class="label">饮食:</span>
-              <div nowidth class="check-con" flex-box="1" flex="main:justify cross:center">
+              <div
+                nowidth
+                class="check-con"
+                flex-box="1"
+                flex="main:justify cross:center"
+              >
                 <input
                   type="text"
                   nowidth
@@ -99,7 +124,13 @@
                   class="bottom-line"
                   style="font-size: 26px"
                   v-model="formData.diet"
-                  @focus="onFocusToAutoComplete($event, {autoComplete: ysList, obj: formData, key: 'diet'})"
+                  @focus="
+                    onFocusToAutoComplete($event, {
+                      autoComplete: ysList,
+                      obj: formData,
+                      key: 'diet'
+                    })
+                  "
                   @blur="onBlurToAutoComplete"
                 />
               </div>
@@ -110,20 +141,32 @@
                 <img
                   class="dj-box"
                   @click="selectRegistCare('重')"
-                  :class="{active: formData.registCare.includes('重')}"
-                  :src="formData.registCare.includes('重')?require('./images/重选.png'): require('./images/重.png')"
+                  :class="{ active: formData.registCare.includes('重') }"
+                  :src="
+                    formData.registCare.includes('重')
+                      ? require('./images/重选.png')
+                      : require('./images/重.png')
+                  "
                 />
                 <img
                   class="dj-box"
                   @click="selectRegistCare('危')"
-                  :class="{active: formData.registCare.includes('危')}"
-                  :src="formData.registCare.includes('危')?require('./images/危选.png'): require('./images/危.png')"
+                  :class="{ active: formData.registCare.includes('危') }"
+                  :src="
+                    formData.registCare.includes('危')
+                      ? require('./images/危选.png')
+                      : require('./images/危.png')
+                  "
                 />
                 <img
                   class="dj-box"
                   @click="selectRegistCare('普')"
-                  :class="{active: formData.registCare.includes('普')}"
-                  :src="formData.registCare.includes('普')?require('./images/普选.png'): require('./images/普.png')"
+                  :class="{ active: formData.registCare.includes('普') }"
+                  :src="
+                    formData.registCare.includes('普')
+                      ? require('./images/普选.png')
+                      : require('./images/普.png')
+                  "
                 />
               </div>
             </div>
@@ -133,26 +176,42 @@
                 <img
                   class="dj-box"
                   @click="selectRegistCare('特')"
-                  :class="{active: formData.registCare.includes('特')}"
-                  :src="formData.registCare.includes('特')?require('./images/特选.png'): require('./images/特.png')"
+                  :class="{ active: formData.registCare.includes('特') }"
+                  :src="
+                    formData.registCare.includes('特')
+                      ? require('./images/特选.png')
+                      : require('./images/特.png')
+                  "
                 />
                 <img
                   class="dj-box"
                   @click="selectRegistCare('一')"
-                  :class="{active: formData.registCare.includes('一')}"
-                  :src="formData.registCare.includes('一')?require('./images/一选.png'): require('./images/一.png')"
+                  :class="{ active: formData.registCare.includes('一') }"
+                  :src="
+                    formData.registCare.includes('一')
+                      ? require('./images/一选.png')
+                      : require('./images/一.png')
+                  "
                 />
                 <img
                   class="dj-box"
                   @click="selectRegistCare('二')"
-                  :class="{active: formData.registCare.includes('二')}"
-                  :src="formData.registCare.includes('二')?require('./images/二选.png'): require('./images/二.png')"
+                  :class="{ active: formData.registCare.includes('二') }"
+                  :src="
+                    formData.registCare.includes('二')
+                      ? require('./images/二选.png')
+                      : require('./images/二.png')
+                  "
                 />
                 <img
                   class="dj-box"
                   @click="selectRegistCare('三')"
-                  :class="{active: formData.registCare.includes('三')}"
-                  :src="formData.registCare.includes('三')?require('./images/三选.png'): require('./images/三.png')"
+                  :class="{ active: formData.registCare.includes('三') }"
+                  :src="
+                    formData.registCare.includes('三')
+                      ? require('./images/三选.png')
+                      : require('./images/三.png')
+                  "
                 />
               </div>
             </div>
@@ -221,62 +280,89 @@
                 :key="item.label"
               >
                 <img :src="item.img" alt />
-                <span>{{item.label}}</span>
+                <span>{{ item.label }}</span>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="bed-card-warpper bed-card-vertical" ref="printCon2" v-show = "printMode == 'v'">
+      <div
+        class="bed-card-warpper bed-card-vertical"
+        ref="printCon2"
+        v-show="printMode == 'v'"
+      >
         <div class="bed-card-vert-con">
           <span>床号：</span>
-          <p>{{query.bedLabel + '床'}}</p>
+          <p>{{ query.bedLabel + "床" }}</p>
           <span>姓名：</span>
-          <p>{{query.name}}</p>
+          <p>{{ query.name }}</p>
           <span>性别：</span>
-          <p>{{query.sex}}</p>
+          <p>{{ query.sex }}</p>
           <span>年龄：</span>
-          <p>{{query.age}}</p>
+          <p>{{ query.age }}</p>
           <span>住院号：</span>
-          <p>{{query.patientId}}</p>
+          <p>{{ query.patientId }}</p>
           <svg id="barcode"></svg>
         </div>
       </div>
-      <div class="bed-card-warpper wrist-strap-print" ref="printCon3" v-show = "printMode == 'wrist'">
+      <div
+        class="bed-card-warpper wrist-strap-print"
+        ref="printCon3"
+        v-show="printMode == 'wrist'"
+      >
         <div class="bed-card-vert-con">
-            <div class="top">
-              <span>{{query.name}}</span>
-              <span>{{query.sex}}</span>
-              <span>{{query.age}}</span>
-              <span>住院号：{{query.patientId}}</span>
+          <div class="top">
+            <span>{{ query.name }}</span>
+            <span>{{ query.sex }}</span>
+            <span>{{ query.age }}</span>
+            <span>住院号：{{ query.patientId }}</span>
+          </div>
+          <div>
+            <div>
+              <span>科室：{{ query.deptName }}</span>
+              <span>床位：{{ query.bedLabel }}</span>
             </div>
             <div>
-              <div>
-              <span>科室：{{query.deptName}}</span>
-              <span>床位：{{query.bedLabel}}</span>
+              <span>入院日期：{{ query.admissionDate | ymdhm }}</span>
             </div>
             <div>
-              <span>入院日期：{{query.admissionDate | ymdhm}}</span>
-            </div>
-            <div>
-              <span>过敏史：{{drugGms}}</span>
+              <span>过敏史：{{ allergy1 }}</span>
+              <span>{{ allergy2 }}</span>
+              <span>{{ drugGms }}</span>
             </div>
             <!-- <svg id="barcode"></svg> -->
           </div>
-           <img class="qr-code" :class="{hasRemark: hasRemark}" :src="qrCode" />
-
-
+          <img
+            class="qr-code"
+            :class="{ hasRemark: hasRemark }"
+            :src="qrCode"
+          />
         </div>
       </div>
       <div slot="button">
-        <span style="position: absolute; left: 10px; padding-top: 4px" v-if="HOSPITAL_ID != 'hj' && printMode == 'h'">
+        <span
+          style="position: absolute; left: 10px; padding-top: 4px"
+          v-if="HOSPITAL_ID != 'hj' && printMode == 'h'"
+        >
           <span>显示诊断</span>
-          <el-switch on-text="是" off-text="否" v-model="formData.remarkPrint"></el-switch>
+          <el-switch
+            on-text="是"
+            off-text="否"
+            v-model="formData.remarkPrint"
+          ></el-switch>
         </span>
 
         <el-button class="modal-btn" @click="close">取消</el-button>
-        <el-button class="modal-btn" type="primary" @click="post" v-if="printMode == 'h'">保存</el-button>
-        <el-button class="modal-btn" type="info" @click="onPrint">打印</el-button>
+        <el-button
+          class="modal-btn"
+          type="primary"
+          @click="post"
+          v-if="printMode == 'h'"
+          >保存</el-button
+        >
+        <el-button class="modal-btn" type="info" @click="onPrint"
+          >打印</el-button
+        >
       </div>
     </sweet-modal>
   </div>
@@ -620,7 +706,7 @@ import {
 import print from "./tool/print";
 import printing from "printing";
 var qr = require("qr-image");
-var JsBarcode = require('jsbarcode')
+var JsBarcode = require("jsbarcode");
 import moment from "moment";
 import { textOver } from "@/utils/text-over";
 import { multiDictInfo } from "@/api/common";
@@ -658,11 +744,11 @@ export default {
         remarkPrint: true
       },
       ysList: [],
-      printMode: 'h',//打印模式
-      title: '编辑床头卡',
-      allergy1:"",
-      allergy2:"",
-      drugGms:"",
+      printMode: "h", //打印模式
+      title: "编辑床头卡",
+      allergy1: "",
+      allergy2: "",
+      drugGms: ""
     };
   },
   computed: {
@@ -729,28 +815,28 @@ export default {
       }
       return data;
     },
-    open(printMode = 'h') {
+    open(printMode = "h") {
       this.init();
       this.$refs.modal.open();
       this.printMode = printMode;
-      if(this.printMode == 'wrist'){
-        this.title = '腕带打印';
+      if (this.printMode == "wrist") {
+        this.title = "腕带打印";
         JsBarcode("#barcode", this.query.patientId, {
-　　 　　   lineColor: "#000",
-　　 　　   width: 4,
-　　 　　   height: 50,
-           fontSize: 50
-　　　　});
-      }else if(this.printMode == 'v'){
-        this.title = '打印床头卡';
+          lineColor: "#000",
+          width: 4,
+          height: 50,
+          fontSize: 50
+        });
+      } else if (this.printMode == "v") {
+        this.title = "打印床头卡";
         JsBarcode("#barcode", this.query.patientId, {
-　　 　　   lineColor: "#000",
-　　 　　   width: 4,
-　　 　　   height: 80,
-           fontSize: 55
-　　　　});
-      }else {
-        this.title = '编辑床头卡';
+          lineColor: "#000",
+          width: 4,
+          height: 80,
+          fontSize: 55
+        });
+      } else {
+        this.title = "编辑床头卡";
       }
       var qr_png = qr.imageSync(this.query.patientId, { type: "png" });
       function arrayBufferToBase64(buffer) {
@@ -797,12 +883,12 @@ export default {
     onPrint() {
       this.$nextTick(() => {
         this.post();
-        if(this.printMode == 'wrist'){
-          printing(this.$refs.printCon3,{
-          direction: "vertical",
-          injectGlobalCss: true,
-          scanStyles: false,
-          css: `
+        if (this.printMode == "wrist") {
+          printing(this.$refs.printCon3, {
+            direction: "vertical",
+            injectGlobalCss: true,
+            scanStyles: false,
+            css: `
           .bed-card-warpper {
             box-shadow: none !important;
             transform: rotate(90deg) translateY(-100%);
@@ -814,22 +900,22 @@ export default {
           @page {
             margin: 0;
           }
-          `,
-          })
-        }else if(this.printMode == 'v'){
-          printing(this.$refs.printCon2,{
-          injectGlobalCss: true,
-          scanStyles: false,
-          css: `
+          `
+          });
+        } else if (this.printMode == "v") {
+          printing(this.$refs.printCon2, {
+            injectGlobalCss: true,
+            scanStyles: false,
+            css: `
           .bed-card-warpper {
             box-shadow: none !important;
           }
           @page {
             margin: 0;
           }
-          `,
-          })
-        }else {
+          `
+          });
+        } else {
           print(this.$refs.printCon);
         }
       });
@@ -897,7 +983,7 @@ export default {
       }, 400);
     }
   },
-   filters: {
+  filters: {
     ymdhm(val) {
       return val ? moment(val).format("YYYY-MM-DD") : "";
     }

@@ -296,7 +296,7 @@ export default [{
     value: ""
   },
   {
-    hidden: true,
+    hidden: false,
     key: "signerNo",
     value: ""
   },
