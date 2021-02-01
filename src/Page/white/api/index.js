@@ -128,3 +128,7 @@ export const getCatheterBlock = (
 export const updateBlock = block => {
   return axios.post(`${apiPath}catheter/block/old/update`, block);
 };
+// //p班护士，p全班，N班护士
+export const getDeptSetting = deptCode => {
+  return axios.get(`${apiPath}whiteboard/deptSetting/${deptCode}`);
+};

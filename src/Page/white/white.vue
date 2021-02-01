@@ -62,7 +62,7 @@ import right5 from "./right-part/right5.vue";
 import right6 from "./right-part/right6.vue";
 import bus from "vue-happy-bus";
 import common from "@/common/mixin/common.mixin.js";
-import { queryByDeptCode, updateByDeptCode } from "./api";
+import { queryByDeptCode, updateByDeptCode, getDeptSetting } from "./api";
 export default {
   mixins: [common],
   provide() {
@@ -104,6 +104,9 @@ export default {
             this.$refs.right6.isSave = true;
           } catch (error) {}
         }, 300);
+        if(this.HOSPITAL_ID == 'hj'){
+          this.getRange();
+        }
       });
     },
     update() {
@@ -114,6 +117,31 @@ export default {
         // this.$message.success('更新数据成功')
         this.getData();
       });
+    },
+     getRange(){
+      getDeptSetting(this.deptCode).then((rep) => {
+          let data = rep.data.data;
+          data.map(item=>{
+            switch(item.rangeName){
+              case'P班':
+                {
+                  this.deptInfo.classP = item.name || "";
+                }
+                 break;
+              case'P全':
+                {
+                  this.deptInfo.classAllP = item.name || "";
+                }
+                 break;
+              case 'N班':
+                {
+                  this.deptInfo.classN = item.name || "";
+                }
+                 break;
+            }
+          })
+
+        })
     }
   },
   watch: {
