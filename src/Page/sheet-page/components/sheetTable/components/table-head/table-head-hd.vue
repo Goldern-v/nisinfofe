@@ -88,9 +88,7 @@ export default {
   },
   data() {
     return {
-      sheetInfo,
-      bedLabelChange: "",
-      deptNameChange: ""
+      sheetInfo
       // relObj: {
       //   wxNo: ""
       // }
