@@ -91,7 +91,7 @@ export default {
     this.bus.$on("indexGetAllData", this.getData);
   },
   methods: {
-    getData() {
+    getData(type) {
       this.pageLoading = true;
       queryByDeptCode(this.deptCode).then(res => {
         this.deptInfo = res.data.data;
@@ -104,18 +104,24 @@ export default {
             this.$refs.right6.isSave = true;
           } catch (error) {}
         }, 300);
+
         if(this.HOSPITAL_ID == 'hj'){
+          this.deptInfo.classPEdit = this.deptInfo.classP ? true : false;
+          this.deptInfo.classAllPEdit = this.deptInfo.classAllP ? true : false;
+          this.deptInfo.classNEdit = this.deptInfo.classN ? true : false;
+        }
+        if(this.HOSPITAL_ID == 'hj' && type != 'notGet'){
           this.getRange();
         }
       });
     },
-    update() {
+    update(type) {
       let data = Object.assign(this.deptInfo, {
         deptCode: this.deptCode
       });
       return updateByDeptCode(data).then(res => {
         // this.$message.success('更新数据成功')
-        this.getData();
+        this.getData(type);
       });
     },
      getRange(){
@@ -125,22 +131,24 @@ export default {
             switch(item.rangeName){
               case'P班':
                 {
-                  this.deptInfo.classP = item.name || "";
+                  this.deptInfo.classP = this.deptInfo.classP || item.name || "";
                 }
                  break;
               case'P全':
                 {
-                  this.deptInfo.classAllP = item.name || "";
+                  this.deptInfo.classAllP = this.deptInfo.classAllP || item.name || "";
                 }
                  break;
               case 'N班':
                 {
-                  this.deptInfo.classN = item.name || "";
+                  this.deptInfo.classN = this.deptInfo.classN || item.name || "";
                 }
                  break;
             }
           })
-
+          if(data.length>0){
+            this.update('notGet');
+          }
         })
     }
   },
