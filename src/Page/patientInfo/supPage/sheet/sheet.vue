@@ -1,9 +1,9 @@
 <template>
   <div
-      class="contain"
-      :class="{ fullpage }"
-      v-loading="pageloading"
-      element-loading-text="正在保存"
+    class="contain"
+    :class="{ fullpage }"
+    v-loading="pageloading"
+    element-loading-text="正在保存"
   >
     <div class="head-con" flex>
       <div class="tool-con" flex-box="1">
@@ -11,30 +11,31 @@
       </div>
     </div>
     <div
-        class="body-con"
-        id="sheet_body_con"
-        :style="{ height: containHeight }"
+      class="body-con"
+      id="sheet_body_con"
+      :style="{ height: containHeight }"
     >
       <div class="right-part" v-loading="tableLoading">
         <div class="sheetTable-contain" ref="scrollCon" @scroll="onScroll">
           <div ref="sheetTableContain">
             <component
-                v-bind:is="sheetTable"
-                v-for="(item, index) in filterSheetModel"
-                :key="index"
-                :data="item.data"
-                :index="item.index"
-                :length="item.length"
-                :isFirst="index === 0"
-                :scrollY="scrollY"
-                :isInPatientDetails="true"
+              v-bind:is="sheetTable"
+              v-for="(item, index) in filterSheetModel"
+              :key="index"
+              :data="item.data"
+              :index="item.index"
+              :length="item.length"
+              :isFirst="index === 0"
+              :scrollY="scrollY"
+              :isInPatientDetails="true"
+              :bedAndDeptChange="bedAndDeptChange"
             ></component>
           </div>
           <div
-              v-show="sheetModel.length == 0"
-              class="null-btn"
-              flex="cross:center main:center"
-              @click="addSheetPage"
+            v-show="sheetModel.length == 0"
+            class="null-btn"
+            flex="cross:center main:center"
+            @click="addSheetPage"
           >
             <i class="el-icon-plus"></i>
             创建护理文书
@@ -53,7 +54,7 @@
     <pizhuModal ref="pizhuModal"></pizhuModal>
     <evalModel ref="evalModel"></evalModel>
     <!-- 电子病例弹窗 -->
-    <doctorEmr v-if="HOSPITAL_ID === 'huadu'"/>
+    <doctorEmr v-if="HOSPITAL_ID === 'huadu'" />
   </div>
 </template>
 
@@ -177,14 +178,14 @@ import sheetTable_intervention_cure from "@/Page/sheet-page/components/sheetTabl
 import sheetTable_mild_hypothermia_hd from "@/Page/sheet-page/components/sheetTable-mild_hypothermia_hd/sheetTable";
 import sheetTable_neonatology_picc from "@/Page/sheet-page/components/sheetTable-neonatology_picc/sheetTable";
 import common from "@/common/mixin/common.mixin.js";
-import {nursingUnit} from "@/api/lesion";
+import { nursingUnit } from "@/api/lesion";
 import sheetModel, {
   addSheetPage,
   delSheetPage,
   initSheetPage,
   cleanData
 } from "@/Page/sheet-page/sheet.js";
-import {typeList} from "@/api/lesion";
+import { typeList } from "@/api/lesion";
 import decode from "@/Page/sheet-page/components/render/decode.js";
 import {
   saveBody,
@@ -207,10 +208,10 @@ import specialModal2 from "@/Page/sheet-page/components/modal/special-modal2.vue
 import setPageModal from "@/Page/sheet-page/components/modal/setPage-modal.vue";
 import pizhuModal from "@/Page/sheet-page/components/modal/pizhu-modal.vue";
 import evalModel from "@/Page/sheet-page/components/modal/eval-model/eval-model.vue";
-import {getHomePage} from "@/Page/sheet-page/api/index.js";
-import {decodeRelObj} from "@/Page/sheet-page/components/utils/relObj";
-import {sheetScrollBotton} from "@/Page/sheet-page/components/utils/scrollBottom";
-import {patients} from "@/api/lesion";
+import { getHomePage } from "@/Page/sheet-page/api/index.js";
+import { decodeRelObj } from "@/Page/sheet-page/components/utils/relObj";
+import { sheetScrollBotton } from "@/Page/sheet-page/components/utils/scrollBottom";
+import { patients } from "@/api/lesion";
 
 export default {
   mixins: [common],
@@ -335,6 +336,13 @@ export default {
         let titleData = res[0].data.data;
         let bodyData = res[1].data.data;
         let markData = res[2].data.data.list || [];
+
+        if (this.HOSPITAL_ID === "huadu") {
+          this.bedAndDeptChange = {
+            bedLabelChange: bodyData.bedLabel,
+            deptNameChange: bodyData.deptName
+          };
+        }
         // this.sheetModel = []
         this.$nextTick(() => {
           this.sheetModel = sheetModel;
@@ -351,8 +359,8 @@ export default {
             setTimeout(() => {
               this.sheetInfo.isSave = true;
               if (
-                  isBottom &&
-                  this.$refs.scrollCon.scrollHeight >
+                isBottom &&
+                this.$refs.scrollCon.scrollHeight >
                   this.$refs.scrollCon.offsetHeight
               ) {
                 // this.$refs.scrollCon.scrollTop =
@@ -376,27 +384,27 @@ export default {
     breforeQuit(next) {
       if (!sheetInfo.isSave) {
         window.app
-            .$confirm("评估单还未保存，离开将会丢失数据", "提示", {
-              confirmButtonText: "离开",
-              cancelButtonText: "取消",
-              type: "warning"
-            })
-            .then(res => {
-              next();
-            });
+          .$confirm("评估单还未保存，离开将会丢失数据", "提示", {
+            confirmButtonText: "离开",
+            cancelButtonText: "取消",
+            type: "warning"
+          })
+          .then(res => {
+            next();
+          });
       } else {
         next();
       }
     },
     getHomePage(isFirst) {
       getHomePage(this.patientInfo.patientId, this.patientInfo.visitId).then(
-          res => {
-            this.sheetInfo.sheetStartPage =
-                (res.data.data && res.data.data.indexNo) || 1;
-            this.sheetInfo.sheetMaxPage =
-                (res.data.data && res.data.data.maxIndexNo) || 1;
-            isFirst && this.bus.$emit("initSheetPageSize");
-          }
+        res => {
+          this.sheetInfo.sheetStartPage =
+            (res.data.data && res.data.data.indexNo) || 1;
+          this.sheetInfo.sheetMaxPage =
+            (res.data.data && res.data.data.maxIndexNo) || 1;
+          isFirst && this.bus.$emit("initSheetPageSize");
+        }
       );
     },
     onScroll(e) {
@@ -451,9 +459,9 @@ export default {
           return b - a;
         })) {
           await delPage(
-              this.patientInfo.patientId,
-              this.patientInfo.visitId,
-              item - 1
+            this.patientInfo.patientId,
+            this.patientInfo.visitId,
+            item - 1
           );
           delSheetPage(item - 1);
         }
@@ -468,96 +476,96 @@ export default {
         this.pageLoading = true;
         this.scrollTop = this.$refs.scrollCon.scrollTop;
         saveBody(this.patientInfo.patientId, this.patientInfo.visitId, decode())
-            .then(res => {
-              this.$notify.success({
-                title: "提示",
-                message: "保存成功"
-              });
-              this.getSheetData().then(res => {
-                isInitSheetPageSize &&
+          .then(res => {
+            this.$notify.success({
+              title: "提示",
+              message: "保存成功"
+            });
+            this.getSheetData().then(res => {
+              isInitSheetPageSize &&
                 setTimeout(() => {
                   this.bus.$emit("initSheetPageSize");
                 }, 100);
-                this.$nextTick(() => {
-                  this.$refs.scrollCon.scrollTop = this.scrollTop;
-                  $(".red-border").removeClass("red-border");
-                });
-                setTimeout(() => {
-                  if (this.$refs.scrollCon.scrollTop == 0) {
-                    this.$refs.scrollCon.scrollTop = this.scrollTop;
-                  }
-                  $(".red-border").removeClass("red-border");
-                }, 100);
-                setTimeout(() => {
-                  if (this.$refs.scrollCon.scrollTop == 0) {
-                    this.$refs.scrollCon.scrollTop = this.scrollTop;
-                  }
-                  $(".red-border").removeClass("red-border");
-                }, 200);
-                setTimeout(() => {
-                  if (this.$refs.scrollCon.scrollTop == 0) {
-                    this.$refs.scrollCon.scrollTop = this.scrollTop;
-                  }
-                  $(".red-border").removeClass("red-border");
-                }, 300);
-                setTimeout(() => {
-                  if (this.$refs.scrollCon.scrollTop == 0) {
-                    this.$refs.scrollCon.scrollTop = this.scrollTop;
-                  }
-                  $(".red-border").removeClass("red-border");
-                }, 400);
-                setTimeout(() => {
-                  if (this.$refs.scrollCon.scrollTop == 0) {
-                    this.$refs.scrollCon.scrollTop = this.scrollTop;
-                  }
-                }, 500);
+              this.$nextTick(() => {
+                this.$refs.scrollCon.scrollTop = this.scrollTop;
                 $(".red-border").removeClass("red-border");
-                setTimeout(() => {
-                  if (this.$refs.scrollCon.scrollTop == 0) {
-                    this.$refs.scrollCon.scrollTop = this.scrollTop;
-                  }
-                  $(".red-border").removeClass("red-border");
-                }, 600);
-                setTimeout(() => {
-                  if (this.$refs.scrollCon.scrollTop == 0) {
-                    this.$refs.scrollCon.scrollTop = this.scrollTop;
-                  }
-                  $(".red-border").removeClass("red-border");
-                }, 1000);
               });
-              this.pageLoading = false;
-            })
-            .catch(() => {
-              this.pageLoading = false;
+              setTimeout(() => {
+                if (this.$refs.scrollCon.scrollTop == 0) {
+                  this.$refs.scrollCon.scrollTop = this.scrollTop;
+                }
+                $(".red-border").removeClass("red-border");
+              }, 100);
+              setTimeout(() => {
+                if (this.$refs.scrollCon.scrollTop == 0) {
+                  this.$refs.scrollCon.scrollTop = this.scrollTop;
+                }
+                $(".red-border").removeClass("red-border");
+              }, 200);
+              setTimeout(() => {
+                if (this.$refs.scrollCon.scrollTop == 0) {
+                  this.$refs.scrollCon.scrollTop = this.scrollTop;
+                }
+                $(".red-border").removeClass("red-border");
+              }, 300);
+              setTimeout(() => {
+                if (this.$refs.scrollCon.scrollTop == 0) {
+                  this.$refs.scrollCon.scrollTop = this.scrollTop;
+                }
+                $(".red-border").removeClass("red-border");
+              }, 400);
+              setTimeout(() => {
+                if (this.$refs.scrollCon.scrollTop == 0) {
+                  this.$refs.scrollCon.scrollTop = this.scrollTop;
+                }
+              }, 500);
+              $(".red-border").removeClass("red-border");
+              setTimeout(() => {
+                if (this.$refs.scrollCon.scrollTop == 0) {
+                  this.$refs.scrollCon.scrollTop = this.scrollTop;
+                }
+                $(".red-border").removeClass("red-border");
+              }, 600);
+              setTimeout(() => {
+                if (this.$refs.scrollCon.scrollTop == 0) {
+                  this.$refs.scrollCon.scrollTop = this.scrollTop;
+                }
+                $(".red-border").removeClass("red-border");
+              }, 1000);
             });
+            this.pageLoading = false;
+          })
+          .catch(() => {
+            this.pageLoading = false;
+          });
       };
 
       let reverseList = [...decode().list].reverse();
       /** 最后的时间 */
       let lastRecordHour = (
-          reverseList.find(item => item.recordDate && item.recordHour) || {}
+        reverseList.find(item => item.recordDate && item.recordHour) || {}
       ).recordHour;
       /** 所有新增的时间 */
       let newRecordHours = reverseList
-          .filter(
-              item => item.recordHour && !item.recordMonth && !item.recordDate
-          )
-          .map(item => item.recordHour);
+        .filter(
+          item => item.recordHour && !item.recordMonth && !item.recordDate
+        )
+        .map(item => item.recordHour);
       /** 新增记录是否存在比原有记录更前 */
       let isBefore = newRecordHours.some(
-          item =>
-              moment("2019-9-20 " + item).unix() <
-              moment("2019-9-20 " + lastRecordHour).unix()
+        item =>
+          moment("2019-9-20 " + item).unix() <
+          moment("2019-9-20 " + lastRecordHour).unix()
       );
       if (isBefore) {
         this.$confirm(
-            "新增记录比原有记录时间更前, 请确定日期, 是否确认保存?",
-            "提示",
-            {
-              confirmButtonText: "确认",
-              cancelButtonText: "取消",
-              type: "warning"
-            }
+          "新增记录比原有记录时间更前, 请确定日期, 是否确认保存?",
+          "提示",
+          {
+            confirmButtonText: "确认",
+            cancelButtonText: "取消",
+            type: "warning"
+          }
         ).then(res => {
           save();
         });
@@ -574,12 +582,12 @@ export default {
         if ($(".mark-mark-mark").length) {
           $(this.$refs.scrollCon).animate({
             scrollTop:
-                $(".mark-mark-mark")
-                    .eq(0)
-                    .addClass("red-border")
-                    .offset().top +
-                this.$refs.scrollCon.scrollTop -
-                150
+              $(".mark-mark-mark")
+                .eq(0)
+                .addClass("red-border")
+                .offset().top +
+              this.$refs.scrollCon.scrollTop -
+              150
           });
           return this.$message.warning("打印前必须去除所有标记");
         }
@@ -587,12 +595,12 @@ export default {
         if ($(".noSignRow").length) {
           $(this.$refs.scrollCon).animate({
             scrollTop:
-                $(".noSignRow")
-                    .eq(0)
-                    .addClass("red-border")
-                    .offset().top +
-                this.$refs.scrollCon.scrollTop -
-                150
+              $(".noSignRow")
+                .eq(0)
+                .addClass("red-border")
+                .offset().top +
+              this.$refs.scrollCon.scrollTop -
+              150
           });
           return this.$message.warning("存在未签名的记录，请全部签名后再打印");
         }
@@ -600,31 +608,31 @@ export default {
         if ($(".multiSign").length) {
           $(this.$refs.scrollCon).animate({
             scrollTop:
-                $(".multiSign")
-                    .eq(0)
-                    .addClass("red-border")
-                    .offset().top +
-                this.$refs.scrollCon.scrollTop -
-                150
+              $(".multiSign")
+                .eq(0)
+                .addClass("red-border")
+                .offset().top +
+              this.$refs.scrollCon.scrollTop -
+              150
           });
           return this.$message.warning("记录存在多个签名，或者忘记填写时间");
         }
       }
 
       if (
-          $(".sheet-page-container-hemodialysis .isNoSign") &&
-          $(".sheet-page-container-hemodialysis .isNoSign").length
+        $(".sheet-page-container-hemodialysis .isNoSign") &&
+        $(".sheet-page-container-hemodialysis .isNoSign").length
       ) {
         $(".signTd")
-            .eq(0)
-            .addClass("red-border");
+          .eq(0)
+          .addClass("red-border");
         $(this.$refs.scrollCon).animate({
           scrollTop:
-              $(".sheet-page-container-hemodialysis .isNoSign")
-                  .eq(0)
-                  .offset().top +
-              this.$refs.scrollCon.scrollTop -
-              150
+            $(".sheet-page-container-hemodialysis .isNoSign")
+              .eq(0)
+              .offset().top +
+            this.$refs.scrollCon.scrollTop -
+            150
         });
         return this.$message.warning("存在未签名的记录，请全部签名后再打印");
       }
@@ -635,7 +643,13 @@ export default {
         window.localStorage.sheetModel = $(this.$refs.sheetTableContain).html();
       } catch (err) {
         // 可能要预留下来的 暂时不移除
-        let keys = ['selectDeptValue', 'rememberAccount', 'ppp', 'user', 'adminNurse']
+        let keys = [
+          "selectDeptValue",
+          "rememberAccount",
+          "ppp",
+          "user",
+          "adminNurse"
+        ];
         for (let key in localStorage) {
           if (!keys.includes(key)) {
             localStorage.removeItem(key);
@@ -695,8 +709,8 @@ export default {
       this.$refs.signModal2.open((password, empNo) => {
         let recordDate = tr.find(item => item.key == "recordDate").value;
         recordDate = recordDate
-            ? moment(recordDate).format("YYYY-MM-DD HH:mm")
-            : recordDate;
+          ? moment(recordDate).format("YYYY-MM-DD HH:mm")
+          : recordDate;
         splitRecordBlock(empNo, password, recordDate).then(res => {
           this.bus.$emit("getBlockList");
           this.$message.success("创建成功");
@@ -723,14 +737,14 @@ export default {
   beforeRouteLeave: (to, from, next) => {
     if (!sheetInfo.isSave) {
       window.app
-          .$confirm("评估单还未保存，离开将会丢失数据", "提示", {
-            confirmButtonText: "离开",
-            cancelButtonText: "取消",
-            type: "warning"
-          })
-          .then(res => {
-            next();
-          });
+        .$confirm("评估单还未保存，离开将会丢失数据", "提示", {
+          confirmButtonText: "离开",
+          cancelButtonText: "取消",
+          type: "warning"
+        })
+        .then(res => {
+          next();
+        });
     } else {
       next();
     }

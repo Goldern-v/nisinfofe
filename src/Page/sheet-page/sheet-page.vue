@@ -421,27 +421,12 @@ export default {
         let bodyData = res[1].data.data;
         let markData = res[2].data.data.list || [];
         /* 显示转科转床的信息 */
+
         if (this.HOSPITAL_ID === "huadu") {
-          let changeData = {
-            patientId: this.patientInfo.patientId,
-            visitId: this.patientInfo.visitId,
-            startLogDateTime: bodyData.createTime,
-            endLogDateTime: bodyData.createTime
+          this.bedAndDeptChange = {
+            bedLabelChange: bodyData.bedLabel,
+            deptNameChange: bodyData.deptName
           };
-          if (bodyData.list && bodyData.list.length > 0) {
-            changeData = {
-              ...changeData,
-              startLogDateTime: bodyData.list[0].recordDate,
-              endLogDateTime: bodyData.list[bodyData.list.length - 1].recordDate
-            };
-          }
-          getNurseExchageInfo(changeData).then(res => {
-            let data = res.data.data;
-            this.bedAndDeptChange = {
-              bedLabelChange: data.bedExchangeLog,
-              deptNameChange: data.adtLog
-            };
-          });
         }
         // this.sheetModel = []
         this.$nextTick(() => {
