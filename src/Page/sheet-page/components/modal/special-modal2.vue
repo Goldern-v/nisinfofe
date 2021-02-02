@@ -28,8 +28,9 @@
               @keyup="timeKey($event, staticObj, 'recordHour')"
             />
           </div>
-          <div style="margin-left:10px;">
-            <el-checkbox v-model="isSyncTemp">是否同步</el-checkbox>
+          <div style="margin-left:10px;" v-if="HOSPITAL_ID === 'huadu'">
+            <el-switch v-model="isSyncTemp"></el-switch>
+            <span>是否同步</span>
           </div>
         </div>
         <el-tabs v-model="activeTab" class="tab-content" type="card">
@@ -42,6 +43,14 @@
                 :style="item.isWrap && { 'min-width': '50%' }"
               >
                 <div class="input-cell" flex="cross:center">
+                  <el-checkbox
+                    v-model="vitalSignKeys[item.name]"
+                    v-if="
+                      HOSPITAL_ID === 'huadu' &&
+                        Object.keys(vitalSignKeys).includes(item.name)
+                    "
+                    @change="selectVitalSign(item)"
+                  ></el-checkbox>
                   <div class="label" style="min-width: 70px;">
                     {{ item.name || key }}：
                   </div>
@@ -436,11 +445,17 @@ export default {
         theme: "snow"
       },
       isSyncTemp: false,
-      vitalSignKeys: ["体温", "脉搏", "心率", "呼吸", "血压"],
-      // vitalSignKeys:['temperature','pulse','heartRate','breath','bloodPressure'],
+      vitalSignKeys: {
+        体温: false,
+        脉搏: false,
+        心率: false,
+        呼吸: false,
+        血压: false
+      },
       vitalSignList: {
         list: []
-      }
+      },
+      multiDictList: []
     };
   },
   computed: {
@@ -482,6 +497,74 @@ export default {
     }
   },
   methods: {
+    /* 是否同步体征信息 */
+    sycnTempChange() {
+      if (this.vitalSignList.list.length === 0) {
+        this.isSyncTemp = false;
+        this.$message({
+          type: "info",
+          message: `未选择体征选项，请选择后再同步。`
+        });
+      }
+      if (this.isSyncTemp && this.vitalSignList.list.length > 0) {
+        this.isSyncTemp = true;
+        saveBatch(this.vitalSignList)
+          .then(res => {
+            this.$message({
+              type: "success",
+              message: "同步成功"
+            });
+          })
+          .catch(err => {
+            this.isSyncTemp = false;
+            let errobj = this.vitalSignList.list.find(item => {
+              return item.vitalSignsValue === "";
+            });
+            this.$message({
+              type: "info",
+              message: `${errobj.vitalSigns}未填写信息，请补充后再同步。`
+            });
+          });
+      }
+    },
+    /* 勾选体征信息 */
+    selectVitalSign(item) {
+      if (this.vitalSignKeys[item.name]) {
+        this.vitalSignList.list = this.vitalSignList.list.filter(obj => {
+          return obj.vitalSigns !== item.name;
+        });
+        let patientInfo = this.$store.state.sheet.patientInfo; //获取患者基本信息
+        let staticObj = this.staticObj; //该行的数据
+        let list = []; // 存储体征同步的列表
+        let vitalSignObj = {
+          patientId: patientInfo.patientId,
+          visitId: patientInfo.visitId,
+          timePoint: staticObj.recordDate + ":00",
+          vitalSigns: item.name,
+          vitalSignsValue: item.value,
+          classCode: "",
+          vitalCode: "",
+          units: item.next,
+          wardCode: patientInfo.wardCode,
+          bedLabel: patientInfo.bedLabel
+        };
+        this.multiDictList.map(multiObj => {
+          if (multiObj.vitalSign === item.name) {
+            vitalSignObj = {
+              ...vitalSignObj,
+              classCode: multiObj.classCode,
+              vitalCode: multiObj.vitalCode
+            };
+          }
+        });
+        this.vitalSignList.list.push(vitalSignObj);
+      } else {
+        let listIdx = this.vitalSignList.list.findIndex(obj => {
+          return obj.vitalSigns === item.name;
+        });
+        this.vitalSignList.list.splice(listIdx, 1);
+      }
+    },
     /* 获取字典表，整理某一行的同步信息 */
     getVitalList() {
       let patientInfo = this.$store.state.sheet.patientInfo; //获取患者基本信息
@@ -489,45 +572,8 @@ export default {
       let vitalSignKeys = this.vitalSignKeys; // 存储体征键的数组
       let list = []; // 存储体征同步的列表
       getmultiDict(patientInfo.wardCode).then(res => {
-        res.data.data.map(multiObj => {
-          if (vitalSignKeys.includes(multiObj.vitalSign)) {
-            console.log("multiObj", multiObj);
-            let vitalSignsValue = "";
-            switch (multiObj.vitalSign) {
-              case "体温":
-                vitalSignsValue = staticObj.temperature;
-                break;
-              case "心率":
-                vitalSignsValue = staticObj.heartRate;
-                break;
-              case "脉搏":
-                vitalSignsValue = staticObj.pulse;
-                break;
-              case "血压":
-                vitalSignsValue = staticObj.bloodPressure;
-                break;
-              case "呼吸":
-                vitalSignsValue = staticObj.breath;
-                break;
-              default:
-                break;
-            }
-            list.push({
-              patientId: patientInfo.patientId,
-              visitId: patientInfo.visitId,
-              timePoint: staticObj.recordDate + ":00",
-              vitalSigns: multiObj.vitalSign,
-              vitalSignsValue: vitalSignsValue,
-              classCode: multiObj.classCode,
-              vitalCode: multiObj.vitalCode,
-              units: multiObj.unit,
-              wardCode: patientInfo.wardCode,
-              bedLabel: patientInfo.bedLabel
-            });
-          }
-        });
+        this.multiDictList = res.data.data;
       });
-      this.vitalSignList.list = list;
     },
     open(config) {
       setTimeout(() => {
@@ -880,15 +926,7 @@ export default {
           ).value = result[i];
         }
       }
-      if (this.isSyncTemp) {
-        saveBatch(this.vitalSignList)
-          .then(res => {
-            console.log("res.data", res);
-          })
-          .catch(err => {
-            console.log("err", err);
-          });
-      }
+      this.sycnTempChange();
       this.bus.$emit("saveSheetPage", this.isLast);
       this.close();
     },
@@ -922,6 +960,15 @@ export default {
     // 打开特殊情况
     window.openSpecialModal2 = config => {
       this.open(config);
+      this.isSyncTemp = false;
+      this.vitalSignKeys = {
+        体温: false,
+        脉搏: false,
+        心率: false,
+        呼吸: false,
+        血压: false
+      };
+      this.vitalSignList.list = [];
       this.getVitalList();
     };
   },
