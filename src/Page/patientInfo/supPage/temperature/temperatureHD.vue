@@ -4,19 +4,23 @@
       <div class="print-btn tool-btn" @click="onPrint()">打印</div>
       <div class="print-btn tool-btn" @click="typeIn()">录入</div>
       <div class="pagination">
-        <button :disabled="currentPage === 1" @click="currentPage--">上一页</button>
-        <span class="page">第{{currentPage}}页/共{{pageTotal}}页</span>
-        <button :disabled="currentPage === pageTotal" @click="currentPage++">下一页</button>
+        <button :disabled="currentPage === 1" @click="currentPage--">
+          上一页
+        </button>
+        <span class="page">第{{ currentPage }}页/共{{ pageTotal }}页</span>
+        <button :disabled="currentPage === pageTotal" @click="currentPage++">
+          下一页
+        </button>
       </div>
       <div class="tem-con" :style="contentHeight">
         <null-bg v-show="!filePath"></null-bg>
         <iframe
-          id = "printID"
+          id="printID"
           v-if="filePath"
           :src="filePath"
           frameborder="0"
           ref="pdfCon"
-          :class="HOSPITAL_ID === 'huadu'?'hdIframe':''"
+          :class="HOSPITAL_ID === 'huadu' ? 'hdIframe' : ''"
         ></iframe>
       </div>
     </div>
@@ -91,45 +95,92 @@
 
 <script>
 import nullBg from "../../../../components/null/null-bg";
+import {
+  getNurseExchangeInfo,
+  getNurseExchangeInfoByTime
+} from "../../../sheet-page/api/index";
 import moment from "moment";
-import bus from 'vue-happy-bus'
+import bus from "vue-happy-bus";
 export default {
   data() {
     return {
       bus: bus(this),
       date: "",
       filePath: "",
-      contentHeight:{height:''},
-      currentPage:1,
-      pageTotal:1
+      contentHeight: { height: "" },
+      currentPage: 1,
+      pageTotal: 1
     };
   },
   methods: {
-    onPrint(){
-      this.$refs.pdfCon.contentWindow.postMessage({ type: 'printing' }, 'http://120.238.239.27:9091/temperature/#/')
+    onPrint() {
+      this.$refs.pdfCon.contentWindow.postMessage(
+        { type: "printing" },
+        "http://120.238.239.27:9091/temperature/#/"
+      );
     },
     getImg() {
       let date = new Date(this.$route.query.admissionDate).Format("yyyy-MM-dd");
       let patientId = this.$route.query.patientId;
       let visitId = this.$route.query.visitId;
       /* 单独处理体温单，嵌套iframe */
-      const tempUrl = `http://120.238.239.27:9091/temperature/#/?PatientId=${patientId}&VisitId=${visitId}&StartTime=${date}`
-      this.filePath = ''
-      setTimeout(()=>{
-        this.filePath = tempUrl
-      },0)
-
+      const tempUrl = `http://120.238.239.27:9091/temperature/#/?PatientId=${patientId}&VisitId=${visitId}&StartTime=${date}`;
+      this.filePath = "";
+      setTimeout(() => {
+        this.filePath = tempUrl;
+      }, 0);
     },
-    typeIn(){
-      const {patientId,visitId}=this.$route.query
-      this.$router.push(`/singleTemperatureChart/${this.$route.query.patientId}/${this.$route.query.visitId}`)
+    typeIn() {
+      const { patientId, visitId } = this.$route.query;
+      this.$router.push(
+        `/singleTemperatureChart/${this.$route.query.patientId}/${this.$route.query.visitId}`
+      );
     },
-    getHeight(){
-      this.contentHeight.height = window.innerHeight -130+'px'
+    getHeight() {
+      this.contentHeight.height = window.innerHeight - 130 + "px";
     },
     messageHandle(e) {
-      if (e && e.data && e.data.type === 'pageTotal') {
-        this.pageTotal = e.data.value
+      if (e && e.data) {
+        switch (e.data.type) {
+          case "pageTotal":
+            this.pageTotal = e.data.value;
+            break;
+          case "getNurseExchangeInfo":
+            // const params = {
+            //   patientId: this.$route.query.patientId,
+            //   visitId: this.$route.query.visitId
+            // };
+            // // 发请求
+            // getNurseExchangeInfo(params.patientId, params.visitId).then(res => {
+            //   const value = {
+            //     adtLog: res.data.data.adtLog,
+            //     bedExchangeLog: res.data.data.bedExchangeLog
+            //   };
+            //   this.$refs.pdfCon.contentWindow.postMessage(
+            //     { type: "nurseExchangeInfo", value },
+            //     "*"
+            //   );
+            // });
+            const params = {
+              patientId: this.$route.query.patientId,
+              startLogDateTime: e.data.value.startLogDateTime,
+              endLogDateTime: e.data.value.endLogDateTime,
+              visitId: this.$route.query.visitId
+            };
+            getNurseExchangeInfoByTime(params).then(res => {
+              const value = {
+                adtLog: res.data.data.adtLog,
+                bedExchangeLog: res.data.data.bedExchangeLog
+              };
+              this.$refs.pdfCon.contentWindow.postMessage(
+                { type: "nurseExchangeInfo", value },
+                "*"
+              );
+            });
+            break;
+          default:
+            break;
+        }
       }
     }
   },
@@ -138,19 +189,21 @@ export default {
       this.getImg();
     },
     currentPage(value) {
-      this.$refs.pdfCon.contentWindow.postMessage({ type: 'currentPage', value }, 'http://120.238.239.27:9091/temperature/#/')
+      this.$refs.pdfCon.contentWindow.postMessage(
+        { type: "currentPage", value },
+        "http://120.238.239.27:9091/temperature/#/"
+      );
     }
   },
-  mounted(){
-  },
-  created(){
+  mounted() {},
+  created() {
     this.getImg();
-    window.addEventListener('resize',this.getHeight)
-    window.addEventListener('message', this.messageHandle, false)
-    this.getHeight()
+    window.addEventListener("resize", this.getHeight);
+    window.addEventListener("message", this.messageHandle, false);
+    this.getHeight();
   },
   beforeDestroy() {
-    window.removeEventListener('message', this.messageHandle, false)
+    window.removeEventListener("message", this.messageHandle, false);
   },
   components: {
     nullBg
