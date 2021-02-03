@@ -13,7 +13,7 @@ let tableModel = {
 						class: "bottom-line",
 						value: "",
 						name: "ywsyjg",
-						style: "width:200px;text-align:left;margin-right: 60px;"
+						style: "width:200px;text-align:left;margin-right: 160px;"
 					},{
 						type: "input",
 						prev: "介入手术或造影名称",
@@ -54,7 +54,7 @@ let tableModel = {
 						class: "bottom-line",
 						value: "",
 						name: "buweimingcheng",
-						style: "width:50px;text-align:left;",
+						style: "width:250px;text-align:left;",
 						elementClass: "mr11"
 					}, {
 						type: "radio",
@@ -81,7 +81,7 @@ let tableModel = {
 								value: " ",
 								name: "youVal",
 								addClass: "",
-								style: 'text-align:left;',
+								style: 'width:250px;text-align:left;',
 								tasks: [{
 									active: {
 										tineiliuzhiwu: "有"
