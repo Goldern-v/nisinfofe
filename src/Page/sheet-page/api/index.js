@@ -5,9 +5,14 @@ import {
 import sheetInfo from "../components/config/sheetInfo";
 import qs from "qs";
 
+// 患者：转科转床记录---花都
+export const getNurseExchangeInfo = (patientId, visitId) => {
+  return axios.get(`${apiPath}nurseLog/getNurseExchangeInfo/${patientId}/${visitId}`);
+};
+
 // 患者：按时间获取转科转床记录---花都
-export const getNurseExchageInfo = (data) => {
-  return axios.post(`${apiPath}nurseLog/getNurseExchageInfo`, data);
+export const getNurseExchangeInfoByTime = (data) => {
+  return axios.post(`${apiPath}nurseLog/getNurseExchangeInfo`, data);
 };
 
 // 护记体征信息同步到体温单
