@@ -154,6 +154,7 @@ export default {
       setTimeout(() => {
         this.pageLoading = false;
       }, 1000);
+      this.hideHospital();
     },
     // 获取表单列表
     getAllForms() {
@@ -172,6 +173,12 @@ export default {
         .then((res) => {
           this.treeLoading = false;
         });
+    },
+    //
+    hideHospital() {
+      let iframe = document.querySelector(".assessmentv2-iframe");
+      console.log(iframe.document);
+      iframe.document.querySelector(".hospital").style.display = "none";
     },
   },
   watch: {

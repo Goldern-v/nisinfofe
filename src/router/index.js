@@ -155,7 +155,10 @@ const router = new Router({
     {
       path: "/templateShow",
       component: templateShow,
-      alias: "文书模板展示"
+      alias: "文书模板展示",
+      meta: {
+        title: '智慧护理表单库'
+      }
     },
     {
       path: "/login",
@@ -712,6 +715,9 @@ router.beforeEach((to, from, next) => {
   //   // 跳转到登录页
   //   router.push('/login')
   // }
+  if (to.meta.title) {
+    document.title = to.meta.title
+  }
   next();
 });
 
