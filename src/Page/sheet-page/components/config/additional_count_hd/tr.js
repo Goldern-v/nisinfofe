@@ -2,8 +2,7 @@ import {
   multiDictInfo
 } from "../../../api/index";
 import {
-  keyf1,
-  calValueChange
+  keyf1
 } from "../keyEvent/f1.js";
 import {
   event_date,
@@ -11,9 +10,16 @@ import {
   click_date,
   click_time
 } from "../keyEvent/date";
-let 入量名称 = [];
-let 出量名称 = [];
-let 意识 = ['清醒', '浅昏迷', '深昏迷', '模糊', '嗜睡', '昏睡', '谵妄'];
+let 护理操作项目 = [];
+let 护理操作结果 = [];
+let 护理问题 = [];
+let 护理类型 = [];
+let 安全护理 = [];
+let 导管护理 = [];
+let 气管护理 = [];
+let 心理护理 = [];
+let 饮食情况 = [];
+let wether = ['是', '否'];
 export default [{
     key: "recordMonth", //日期
     value: "",
@@ -27,200 +33,175 @@ export default [{
     click: click_time
   },
   {
-    key: "temperature", //体温
+    key: "nursingOperationItem", //护理操作项目
     value: "",
     event: keyf1,
-    name: "体温",
-    next: "℃",
+    name: "护理操作项目",
     textarea: {
       width: 48
     },
-  },
-  {
-    key: "pulse", //脉搏
-    value: "",
-    event: keyf1,
-    name: "脉搏",
-    next: "次/分",
-    textarea: {
-      width: 48
-    },
-  },
-  {
-    key: "heartRate", //心率
-    value: "",
-    event: keyf1,
-    name: "心率",
-    next: "次/分",
-    textarea: {
-      width: 48
-    },
-  },
-  {
-    key: "breath", //呼吸
-    value: "",
-    event: keyf1,
-    name: "呼吸",
-    next: "次/分",
-    textarea: {
-      width: 48
-    },
-  },
-  {
-    key: "bloodPressure", //血压
-    value: "",
-    event: function (e, td) {
-      if (e.keyCode == 32) {
-        e.target.value += "/";
-        e.preventDefault();
-      }
-      keyf1(e, td);
-    },
-    name: "血压",
-    next: "mmHg",
-    textarea: {
-      width: 48
-    },
-  },
-  {
-    key: "consciousness", //意识
-    value: "",
-    event: keyf1,
-    name: "意识",
     autoComplete: {
-      data: 意识
-    },
-    textarea: {
-      width: 48
+      data: 护理操作项目
     },
   },
   {
-    key: "spo2", //SPO₂(%)
+    key: "nursingOperationResult", //护理操作结果
     value: "",
     event: keyf1,
-    name: "血氧饱和度",
-    next: "%",
+    name: "护理操作结果",
     textarea: {
       width: 48
     },
+    autoComplete: {
+      data: 护理操作结果
+    },
   },
   {
-    key: "food", //食物, 入量
+    key: "nursingProblem", //护理问题
     value: "",
     event: keyf1,
-    name: "入量名称",
+    name: "护理问题",
+    textarea: {
+      width: 48
+    },
+    autoComplete: {
+      data: 护理问题
+    },
+  },
+  {
+    key: "nursingType", //护理类型
+    value: "",
+    event: keyf1,
+    name: "护理类型",
+    textarea: {
+      width: 48
+    },
+    autoComplete: {
+      data: 护理类型
+    },
+  },
+  {
+    key: "safeCare", //安全护理
+    value: "",
+    event: keyf1,
+    name: "安全护理",
+    textarea: {
+      width: 48
+    },
+    autoComplete: {
+      data: 安全护理
+    },
+  },
+  {
+    key: "catheterCare", //导管护理
+    value: "",
+    event: keyf1,
+    name: "导管护理",
+    textarea: {
+      width: 48
+    },
+    autoComplete: {
+      data: 导管护理
+    },
+  },
+  {
+    key: "skinCare", //皮肤护理
+    value: "",
+    event: keyf1,
+    name: "皮肤护理",
+    textarea: {
+      width: 48
+    },
+    autoComplete: {
+      data: wether
+    },
+  },
+  {
+    key: "trachealCare", //气管护理
+    value: "",
+    event: keyf1,
+    name: "气管护理",
     textarea: {
       width: 62,
     },
-    style: {
-      textAlign: "left",
-    }
+    autoComplete: {
+      data: 气管护理
+    },
   },
   {
-    key: "foodSize", //食物数量  入量（单位ml）
+    key: "bodyCare", //体位护理
     value: "",
     event: keyf1,
-    name: "入量大小",
-    next: "ml",
+    name: "体位护理",
     textarea: {
       width: 48
     },
+    autoComplete: {
+      data: wether
+    },
   },
   {
-    key: "discharge", //排出物
+    key: "nutritionCare", //营养护理
     value: "",
     event: keyf1,
-    name: "出量名称",
+    name: "营养护理",
     textarea: {
-      width: 62,
+      width: 48,
     },
-    style: {
-      textAlign: "left",
-    },
-  },
-  {
-    key: "dischargeSize", //排出物数量（单位ml）
-    value: "",
-    event: keyf1,
-    name: "出量大小",
-    next: "ml",
-    textarea: {
-      width: 48
+    autoComplete: {
+      data: wether
     },
   },
   {
-    key: "dischargeColor", //排出物颜色
+    key: "psychologyCare", //心理护理
     value: "",
     event: keyf1,
-    name: "出量颜色",
+    name: "心理护理",
     textarea: {
       width: 48
     },
-  },
-  {
-    key: "healthEducation", //健康教育
-    value: "",
-    event: keyf1,
-    change: calValueChange,
-    name: "健康教育",
-    textarea: {
-      width: 50,
+    autoComplete: {
+      data: 心理护理
     },
   },
   {
-    key: "fieldOne", //标题1
+    key: "diet", //饮食情况
     value: "",
     event: keyf1,
-    change: calValueChange,
+    name: "饮食情况",
     textarea: {
-      width: 50
+      width: 48
+    },
+    autoComplete: {
+      data: 饮食情况
     },
   },
   {
-    key: "fieldTwo", //标题2
+    key: "urinationTrouble", //排尿困难
     value: "",
     event: keyf1,
-    change: calValueChange,
+    name: "排尿困难",
     textarea: {
-      width: 50
+      width: 48
+    },
+    autoComplete: {
+      data: wether
     },
   },
   {
-    key: "fieldThree", //标题3
+    key: "isolation", //隔离
     value: "",
     event: keyf1,
-    change: calValueChange,
+    name: "隔离",
     textarea: {
-      width: 50
+      width: 48
+    },
+    autoComplete: {
+      data: wether
     },
   },
   {
-    key: "fieldFour", //标题4
-    value: "",
-    event: keyf1,
-    change: calValueChange,
-    textarea: {
-      width: 50
-    },
-  },
-  {
-    key: "fieldFive", //标题5
-    value: "",
-    event: keyf1,
-    change: calValueChange,
-    textarea: {
-      width: 50
-    },
-  },
-  {
-    key: "fieldSix", //标题6
-    value: "",
-    event: keyf1,
-    change: calValueChange,
-    textarea: {
-      width: 50
-    },
-  }, {
+    hidden: true,
     key: "description", //特殊情况记录
     value: "",
     style: {
@@ -246,10 +227,10 @@ export default [{
     key: "sign",
     value: ""
   },
-  {
-    key: "sign2",
-    value: ""
-  },
+  // {
+  //   key: "audit",
+  //   value: ""
+  // },
   {
     hidden: true,
     key: "id",
@@ -258,11 +239,6 @@ export default [{
   {
     hidden: true,
     key: "signerName",
-    value: ""
-  },
-  {
-    hidden: true,
-    key: "signerName2",
     value: ""
   },
   {
@@ -296,13 +272,8 @@ export default [{
     value: ""
   },
   {
-    hidden: false,
-    key: "signerNo",
-    value: ""
-  },
-  {
     hidden: true,
-    key: "signerNo2",
+    key: "signerNo",
     value: ""
   },
   {
@@ -328,20 +299,34 @@ export default [{
 ];
 
 let filterKey = '花都' + ':';
-let filterKey2 = '统一护理记录单' + ':';
+let filterKey2 = '通用护记副单' + ':';
 
 export function getListData4() {
   let list = [
-    "入量名称",
-    "出量名称",
+    "护理操作项目",
+    "护理操作结果",
+    "护理问题",
+    "护理类型",
+    "安全护理",
+    "导管护理",
+    "气管护理",
+    "心理护理",
+    "饮食情况"
   ];
   list = list.map(key => {
-    return key.includes('出量名称') ? filterKey + filterKey2 + key : filterKey + key;
+    return filterKey + filterKey2 + key;
   });
   multiDictInfo(list).then(res => {
     let data = res.data.data;
-    setList(入量名称, "入量名称", data);
-    setList(出量名称, "出量名称", data);
+    setList(护理操作项目, "护理操作项目", data);
+    setList(护理操作结果, "护理操作结果", data);
+    setList(护理问题, "护理问题", data);
+    setList(护理类型, "护理类型", data);
+    setList(安全护理, "安全护理", data);
+    setList(导管护理, "导管护理", data);
+    setList(气管护理, "气管护理", data);
+    setList(心理护理, "心理护理", data);
+    setList(饮食情况, "饮食情况", data);
   });
 }
 
@@ -353,7 +338,7 @@ getListData4();
  * @param {*} data 数据源
  */
 function setList(list, key, data) {
-  key = key.includes('出量名称') ? filterKey + filterKey2 + key : filterKey + key;
+  key = filterKey + filterKey2 + key;
   list.splice(0, list.length);
   for (let item of data[key]) {
     list.push(item.name);

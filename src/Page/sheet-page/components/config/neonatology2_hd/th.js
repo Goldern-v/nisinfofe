@@ -5,8 +5,7 @@ export default {
     width: "1300px"
   },
   th: {
-    top: [
-      {
+    top: [{
         name: "日期",
         style: {
           minWidth: "36px",
@@ -169,7 +168,7 @@ export default {
         colspan: "1",
         rowspan: "3",
         canSet: true,
-        key: "fieldTwelve",
+        key: "fieldFifteen", //标题1
         style: {
           minWidth: "32px",
           maxWidth: "32px"
@@ -181,7 +180,7 @@ export default {
         colspan: "1",
         rowspan: "3",
         canSet: true,
-        key: "fieldTwelve",
+        key: "fieldSixteen",
         style: {
           minWidth: "32px",
           maxWidth: "32px"
@@ -210,8 +209,7 @@ export default {
         rowspan: "3"
       }
     ],
-    mid: [
-      {
+    mid: [{
         name: `
         自<br/>吮
         `,
@@ -292,7 +290,6 @@ export default {
         }
       },
     ],
-    bottom: [
-    ]
+    bottom: []
   }
 };

@@ -28,6 +28,7 @@
               :isFirst="index === 0"
               :scrollY="scrollY"
               :isInPatientDetails="true"
+              :bedAndDeptChange="bedAndDeptChange"
             ></component>
           </div>
           <div
@@ -52,6 +53,8 @@
     <specialModal2 ref="specialModal2"></specialModal2>
     <pizhuModal ref="pizhuModal"></pizhuModal>
     <evalModel ref="evalModel"></evalModel>
+    <!-- 电子病例弹窗 -->
+    <doctorEmr v-if="HOSPITAL_ID === 'huadu'" />
   </div>
 </template>
 
@@ -100,7 +103,7 @@
   justify-content: center;
   align-items: center;
 
-  >>>.el-input__inner {
+  >>> .el-input__inner {
     width: 152px;
     height: 28px;
     border: 1px solid #C2CBD2;
@@ -146,11 +149,11 @@
 }
 
 /* * 特殊样式 */
->>>.fixed-icon {
+>>> .fixed-icon {
   top: 130px !important;
 }
 
->>>.patient-info-slide {
+>>> .patient-info-slide {
   .slide-con {
     top: 91px !important;
   }
@@ -158,6 +161,7 @@
 </style>
 
 <script>
+import doctorEmr from "@/components/doctorEmr";
 import sheetTool from "@/Page/sheet-page/components/sheet-tool/sheet-tool.vue";
 import patientList from "@/components/patient-list/patient-list.vue";
 import sheetTable from "@/Page/sheet-page/components/sheetTable/sheetTable.vue";
@@ -208,6 +212,7 @@ import { getHomePage } from "@/Page/sheet-page/api/index.js";
 import { decodeRelObj } from "@/Page/sheet-page/components/utils/relObj";
 import { sheetScrollBotton } from "@/Page/sheet-page/components/utils/scrollBottom";
 import { patients } from "@/api/lesion";
+
 export default {
   mixins: [common],
   data() {
@@ -331,6 +336,13 @@ export default {
         let titleData = res[0].data.data;
         let bodyData = res[1].data.data;
         let markData = res[2].data.data.list || [];
+
+        if (this.HOSPITAL_ID === "huadu") {
+          this.bedAndDeptChange = {
+            bedLabelChange: bodyData.bedLabel,
+            deptNameChange: bodyData.deptName
+          };
+        }
         // this.sheetModel = []
         this.$nextTick(() => {
           this.sheetModel = sheetModel;
@@ -341,6 +353,7 @@ export default {
           this.tableLoading = false;
 
           let timeNum = 5;
+
           function toBottom() {
             timeNum--;
             setTimeout(() => {
@@ -361,6 +374,7 @@ export default {
               }
             }, 200);
           }
+
           this.$nextTick(() => {
             toBottom.call(this);
           });
@@ -627,11 +641,17 @@ export default {
       // 对存储空间不够做处理
       try {
         window.localStorage.sheetModel = $(this.$refs.sheetTableContain).html();
-      }catch(err){
+      } catch (err) {
         // 可能要预留下来的 暂时不移除
-        let keys = ['selectDeptValue','rememberAccount','ppp','user','adminNurse']
-        for(let key in localStorage){
-          if(!keys.includes(key)){
+        let keys = [
+          "selectDeptValue",
+          "rememberAccount",
+          "ppp",
+          "user",
+          "adminNurse"
+        ];
+        for (let key in localStorage) {
+          if (!keys.includes(key)) {
             localStorage.removeItem(key);
           }
         }
@@ -730,6 +750,7 @@ export default {
     }
   },
   components: {
+    doctorEmr,
     sheetTool,
     patientList,
     sheetTable,

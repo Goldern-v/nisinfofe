@@ -2,9 +2,9 @@
   <div>
     <div class="tool-contain" flex="cross:center">
       <div
-        class="item-box"
-        flex="cross:center main:center"
-        @click="emit('addSheetPage')"
+          class="item-box"
+          flex="cross:center main:center"
+          @click="emit('addSheetPage')"
       >
         <div class="text-con">添加新页</div>
       </div>
@@ -17,56 +17,85 @@
                     </div>
       </div>-->
       <div
-        class="item-box"
-        flex="cross:center main:center"
-        @click="emit('saveSheetPage', 'noSaveSign')"
+          class="item-box"
+          flex="cross:center main:center"
+          @click="emit('saveSheetPage', 'noSaveSign')"
       >
         <div class="text-con" flex="cross:center">保存</div>
       </div>
       <div
-        class="item-box"
-        flex="cross:center main:center"
-        @click="openStaticModal"
-        v-if="showCrl"
+          class="item-box"
+          flex="cross:center main:center"
+          @click="openStaticModal"
+          v-if="showCrl && !isDeputy"
       >
         <div class="text-con">出入量统计</div>
       </div>
       <div
-        class="item-box"
-        flex="cross:center main:center"
-        @click="setPage"
-        style="width: 90px"
+          v-if="!isDeputy"
+          class="item-box"
+          flex="cross:center main:center"
+          @click="setPage"
+          style="width: 90px"
       >
         <div class="text-con">设置起始页({{ sheetInfo.sheetStartPage }})</div>
       </div>
-      <div class="item-box" flex="cross:center main:center" @click="toPrint">
+      <div class="item-box" flex="cross:center main:center" @click="toPrint" v-if="!isDeputy">
         <div class="text-con">打印预览</div>
       </div>
       <!-- <div class="item-box" flex="cross:center main:center" @click="toAllPrint">
         <div class="text-con">批量打印</div>
       </div>-->
       <div
-        class="item-box"
-        flex="cross:center main:center"
-        @click.stop="toPdfPrint"
-        v-show="isDev"
+          v-if="!isDeputy"
+          class="item-box"
+          flex="cross:center main:center"
+          @click.stop="toPdfPrint"
+          v-show="isDev"
       >
         <div class="text-con">批量打印</div>
       </div>
       <div
-        class="item-box"
-        flex="cross:center main:center"
-        @click.stop="delSheet"
+          v-if="!isDeputy"
+          class="item-box"
+          flex="cross:center main:center"
+          @click.stop="delSheet"
       >
         <div class="text-con">删除整单</div>
       </div>
       <div
-        class="item-box"
-        flex="cross:center main:center"
-        @click.stop="createSheet"
-        v-if="!isSingleTem"
+          class="item-box"
+          flex="cross:center main:center"
+          @click.stop="createSheet"
+          v-if="!isSingleTem && !isDeputy"
       >
         <div class="text-con">新建记录单</div>
+      </div>
+      <div
+          class="item-box"
+          style="background: antiquewhite"
+          flex="cross:center main:center"
+          @click.stop="backMainForm"
+          v-if="isDeputy"
+      >
+        <div class="text-con">切换主页</div>
+      </div>
+      <div
+          class="item-box"
+          style="background: antiquewhite"
+          flex="cross:center main:center"
+          @click.stop="addDeputyForm"
+          v-if="sheetInfo.selectBlock && sheetInfo.selectBlock.additionalCode"
+      >
+        <div class="text-con">切换副页</div>
+      </div>
+      <div
+        class="item-box"
+        flex="cross:center main:center"
+        @click.stop="openChart"
+        v-if="HOSPITAL_ID == 'huadu'&& sheetInfo.sheetType=='body_temperature_Hd'"
+      >
+        <div class="text-con">体温曲线</div>
       </div>
       <!-- <div
         class="item-box"
@@ -79,11 +108,12 @@
       <div flex-box="1"></div>
       <!-- <span class="label">护理记录：</span> -->
       <el-select
-        v-model="sheetInfo.selectBlock"
-        @change="changeSelectBlock"
-        value-key="id"
-        placeholder="请选择护理记录单"
-        class="select-con"
+          v-if="!isDeputy"
+          v-model="sheetInfo.selectBlock"
+          @change="changeSelectBlock"
+          value-key="id"
+          placeholder="请选择护理记录单"
+          class="select-con"
       >
         <div class="sheetSelect-con-sheet">
           <div class="head-con" flex="cross:stretch">
@@ -94,10 +124,10 @@
             <!-- <div class="col-3">结束时间</div> -->
           </div>
           <el-option
-            v-for="item in sheetBlockList"
-            :key="item.id"
-            :label="blockLabel(item, sheetBlockList.length)"
-            :value="item"
+              v-for="item in sheetBlockList"
+              :key="item.id"
+              :label="blockLabel(item, sheetBlockList.length)"
+              :value="item"
           >
             <div class="list-con" flex="cross:stretch">
               <div class="col-1" :title="item.recordName">
@@ -118,13 +148,13 @@
         </div>
       </el-select>
       <!-- <span class="label">页码范围:</span> -->
-      <div class="item-box" style="width: 85px" flex="cross:center main:center">
+      <div class="item-box" style="width: 85px" flex="cross:center main:center" v-if="!isDeputy">
         <el-autocomplete
-          class="pegeSelect"
-          icon="caret-bottom"
-          placeholder="请输入页码"
-          v-model="pageArea"
-          :fetch-suggestions="querySearch"
+            class="pegeSelect"
+            icon="caret-bottom"
+            placeholder="请输入页码"
+            v-model="pageArea"
+            :fetch-suggestions="querySearch"
         ></el-autocomplete>
       </div>
       <!-- <div class="item-box" flex="cross:center main:center" @click="tofull">
@@ -135,24 +165,24 @@
       </div>-->
       <div style="width: 5px"></div>
       <div
-        class="right-btn"
-        flex="cross:center main:center"
-        @click="emit('openEvalModel')"
-        v-if="showCrl"
+          class="right-btn"
+          flex="cross:center main:center"
+          @click="emit('openEvalModel')"
+          v-if="showCrl"
       >
         <div class="text-con">
-          <img src="./images/评估.png" alt />
+          <img src="./images/评估.png" alt/>
           评估同步
         </div>
       </div>
       <div class="line"></div>
       <div
-        class="right-btn"
-        flex="cross:center main:center"
-        @click.stop="openTztbModal"
+          class="right-btn"
+          flex="cross:center main:center"
+          @click.stop="openTztbModal"
       >
         <div class="text-con">
-          <img src="./images/体征.png" alt />
+          <img src="./images/体征.png" alt/>
           体征同步
         </div>
       </div>
@@ -165,17 +195,670 @@
   </div>
 </template>
 
+<script>
+import bus from "vue-happy-bus";
+import $ from "jquery";
+import setPageModal from "../modal/setPage-modal.vue";
+import sheetModel, {cleanData} from "../../sheet.js";
+import sheetInfo from "../config/sheetInfo/index.js";
+import {sign} from "@/api/sheet.js";
+import {Tr} from "../render/Body.js";
+import {
+  blockList,
+  blockDelete,
+  toPdfPrint,
+  blockSave,
+  switchAdditionalBlock
+} from "../../api/index.js";
+import commom from "@/common/mixin/common.mixin.js";
+import newFormModal from "../modal/new-sheet-modal.vue";
+import setTitleModal from "../modal/set-title-modal.vue";
+import tztbModal from "../modal/tztb-modal.vue";
+import dayjs from "dayjs";
+// import lodopPrint from "./lodop/lodopPrint";
+import patientInfo from "./patient-info";
+
+export default {
+  mixins: [commom],
+  data() {
+    return {
+      bus: bus(this),
+      tool: "",
+      showCurve: false,
+      creator: "",
+      user: JSON.parse(localStorage.user),
+      selectList: [],
+      pageArea: "",
+      sheetModel,
+      sheetInfo,
+      sheetBlockList: []
+    };
+  },
+  methods: {
+    /* 出入量统计弹框--花都区分 */
+    openStaticModal() {
+      if (process.env.HOSPITAL_ID != 'huadu') {
+        this.bus.$emit('openHJModal')
+      } else {
+        this.bus.$emit('openHDModal')
+      }
+    },
+    /* 打开体温曲线页面 */
+    openChart(){
+      const {patientId,visitId}=this.$route.query
+      this.$router.push(`/temperature?patientId=${patientId}&visitId=${visitId}`)
+    },
+    emit(todo, value) {
+      if (!this.patientInfo.patientId) {
+        return this.$message.warning("请选择一名患者");
+      }
+      if (this.readOnly) {
+        return this.$message.warning("你无权操作此护记，仅供查阅");
+      }
+      this.bus.$emit(todo, value);
+    },
+    tofull() {
+      this.$store.commit("upSheetPageFullpage", !this.fullpage);
+    },
+    toPrint() {
+      if (!this.sheetInfo.selectBlock.id)
+        return this.$message.warning("还没有选择护理记录单");
+      if (process.env.NODE_ENV == "production") {
+        let newWid;
+        if (!$(".sign-text").length) {
+          newWid = window.open();
+          return this.bus.$emit("toSheetPrintPage", newWid);
+        }
+        if (
+            $(".mark-mark-mark").length == 0 &&
+            $(".noSignRow").length == 0 &&
+            $(".multiSign").length == 0
+        ) {
+          newWid = window.open();
+        }
+        this.bus.$emit("toSheetPrintPage", newWid);
+      } else {
+        this.bus.$emit("toSheetPrintPage");
+      }
+    },
+    toAllPrint() {
+      let pageIndex = 0;
+      let pageLength = this.selectList.length;
+      let htmlArr = [];
+
+      function getHtml() {
+        this.pageArea = this.selectList[pageIndex].value;
+        this.$nextTick(() => {
+          $(".sheet-page-container").each((index, el) => {
+            let htmlText = el.outerHTML;
+            htmlArr.push(htmlText);
+          });
+          pageIndex++;
+          if (pageIndex < pageLength) {
+            getHtml.call(this);
+          } else {
+            lodopPrint(htmlArr);
+          }
+        });
+      }
+
+      getHtml.call(this);
+    },
+    setPage() {
+      if (!this.patientInfo.patientId) {
+        return this.$message.warning("请选择一名患者");
+      }
+      if (!this.sheetInfo.selectBlock.id) {
+        return this.$message.warning("还没有选择护理记录单");
+      }
+      this.bus.$emit("openSetPageModal");
+    },
+    initSelectList() {
+      let length = this.sheetModel.length + this.sheetInfo.sheetStartPage;
+      let pagelist = [];
+      let rest_num = this.sheetInfo.sheetStartPage % 10;
+      let num = Math.ceil(Math.max(length / 10, 1));
+      for (let i = 0; i <= num; i++) {
+        if (i * 10 + rest_num >= length) {
+          pagelist.push(length);
+          break;
+        }
+        if ((i + 1) * 10 >= this.sheetInfo.sheetStartPage) {
+          pagelist.push(i * 10 + rest_num);
+        }
+      }
+      pagelist[0] = this.sheetInfo.sheetStartPage;
+      pagelist[pagelist.length - 1] = length;
+      this.selectList = [];
+      for (let i = 0; i < pagelist.length; i++) {
+        if (i == pagelist.length - 1) {
+        } else if (i == pagelist.length - 2) {
+          this.selectList.push({
+            value: `${pagelist[i]}-${pagelist[i + 1] - 1}`
+          });
+        } else {
+          this.selectList.push({
+            value: `${pagelist[i]}-${pagelist[i + 1] - 1}`
+          });
+        }
+      }
+      /* 刷新block分页信息 */
+      if (
+          this.patientInfo.patientId &&
+          this.patientInfo.visitId &&
+          this.deptCode
+      ) {
+        blockList(
+            this.patientInfo.patientId,
+            this.patientInfo.visitId,
+            this.deptCode
+        ).then(res => {
+          this.sheetBlockList.forEach(item => {
+            try {
+              let currObj = res.data.data.list.find(obj => obj.id == item.id);
+              item.pageIndex = currObj.pageIndex;
+              item.endPageIndex = currObj.endPageIndex;
+            } catch (error) {
+            }
+          });
+        });
+      }
+    },
+    querySearch(queryString, cb) {
+      this.initSelectList();
+      cb(this.selectList);
+    },
+    getPrev(index, bodyModel, val) {
+      if (index < 0) return "";
+      let tr = bodyModel[index];
+      let value = tr.find(item => {
+        return item.key == val;
+      }).value;
+      if (value) {
+        return value;
+      } else {
+        return this.getPrev(index - 1, bodyModel, val);
+      }
+    },
+    getAllListAndCurrIndex(trArr) {
+      let allList = [];
+      let currIndex = 0;
+      for (let i = 0; i < sheetModel.length; i++) {
+        allList = allList.concat(sheetModel[i].bodyModel);
+      }
+      currIndex = allList.indexOf(trArr);
+      return [allList, currIndex];
+    },
+    toMoreSign() {
+      if (this.sheetInfo.selectRow.length) {
+        window.openSignModal((password, empNo, signDate, dsvsRandom) => {
+          let list = [];
+          for (let trArr of this.sheetInfo.selectRow) {
+            let trObj = {};
+            for (let i = 0; i < trArr.length; i++) {
+              trObj[trArr[i].key] = trArr[i].value;
+            }
+            let [allList, currIndex] = this.getAllListAndCurrIndex(trArr);
+            list.push(
+                Object.assign({}, trObj, {
+                  recordMonth: this.getPrev(currIndex, allList, "recordMonth"),
+                  recordHour: this.getPrev(currIndex, allList, "recordHour"),
+                  recordYear: this.getPrev(currIndex, allList, "recordYear"),
+                  patientId: this.patientInfo.patientId,
+                  visitId: this.patientInfo.visitId,
+                  pageIndex: this.index
+                })
+            );
+          }
+          let data = {
+            empNo,
+            password,
+            list,
+            dsvsRandom
+          };
+          sign(this.patientInfo.patientId, this.patientInfo.visitId, data).then(
+              res => {
+                for (let i = 0; i < res.data.data.length; i++) {
+                  let trArrClone = Tr(res.data.data[i]);
+                  let trArr = sheetInfo.selectRow[i];
+                  if (
+                      trArr.find(item => {
+                        return item.key == "recordMonth";
+                      }).value == ""
+                  ) {
+                    trArrClone.find(item => {
+                      return item.key == "recordMonth";
+                    }).value = "";
+                  }
+                  if (
+                      trArr.find(item => {
+                        return item.key == "recordHour";
+                      }).value == ""
+                  ) {
+                    trArrClone.find(item => {
+                      return item.key == "recordHour";
+                    }).value = "";
+                  }
+                  trArr.splice(0, trArr.length);
+                  for (let i = 0; i < trArrClone.length; i++) {
+                    trArr.push(trArrClone[i]);
+                  }
+                }
+                this.sheetInfo.selectRow.splice(
+                    0,
+                    this.sheetInfo.selectRow.length
+                );
+                this.$notify.success({
+                  title: "提示",
+                  message: "批量签名成功"
+                });
+                this.bus.$emit("saveSheetPage");
+              }
+          );
+        });
+      } else {
+        this.$alert("请按下 ctrl 键并单击选择需要签名的行", "批量签名提示", {
+          confirmButtonText: "确定",
+          callback: action => {
+          }
+        });
+      }
+    },
+    toMoreAduit() {
+      if (this.sheetInfo.selectRow.length) {
+        window.openSignModal((password, empNo) => {
+          let list = [];
+          for (let trArr of this.sheetInfo.selectRow) {
+            let trObj = {};
+            for (let i = 0; i < trArr.length; i++) {
+              trObj[trArr[i].key] = trArr[i].value;
+            }
+            let [allList, currIndex] = this.getAllListAndCurrIndex(trArr);
+            list.push(
+                Object.assign({}, trObj, {
+                  recordMonth: this.getPrev(currIndex, allList, "recordMonth"),
+                  recordHour: this.getPrev(currIndex, allList, "recordHour"),
+                  recordYear: this.getPrev(currIndex, allList, "recordYear"),
+                  patientId: this.patientInfo.patientId,
+                  visitId: this.patientInfo.visitId,
+                  pageIndex: this.index
+                })
+            );
+          }
+          let data = {
+            empNo,
+            password,
+            list,
+            audit: true
+          };
+          sign(this.patientInfo.patientId, this.patientInfo.visitId, data).then(
+              res => {
+                for (let i = 0; i < res.data.data.length; i++) {
+                  let trArrClone = Tr(res.data.data[i]);
+                  let trArr = sheetInfo.selectRow[i];
+                  if (
+                      trArr.find(item => {
+                        return item.key == "recordMonth";
+                      }).value == ""
+                  ) {
+                    trArrClone.find(item => {
+                      return item.key == "recordMonth";
+                    }).value = "";
+                  }
+                  if (
+                      trArr.find(item => {
+                        return item.key == "recordHour";
+                      }).value == ""
+                  ) {
+                    trArrClone.find(item => {
+                      return item.key == "recordHour";
+                    }).value = "";
+                  }
+                  trArr.splice(0, trArr.length);
+                  for (let i = 0; i < trArrClone.length; i++) {
+                    trArr.push(trArrClone[i]);
+                  }
+                }
+                this.sheetInfo.selectRow.splice(
+                    0,
+                    this.sheetInfo.selectRow.length
+                );
+                this.$notify.success({
+                  title: "提示",
+                  message: "批量审核成功"
+                });
+                this.bus.$emit("saveSheetPage");
+              }
+          );
+        });
+      } else {
+        this.$alert("请按下 ctrl 键并单击选择需要签名的行", "批量签名提示", {
+          confirmButtonText: "确定",
+          callback: action => {
+          }
+        });
+      }
+    },
+    getBlockList() {
+      if (
+          this.patientInfo.patientId &&
+          this.patientInfo.visitId &&
+          this.deptCode
+      ) {
+        blockList(
+            this.patientInfo.patientId,
+            this.patientInfo.visitId,
+            this.deptCode
+        ).then(res => {
+          this.bus.$emit("setSheetTableLoading", false);
+          this.selectList = [];
+          let list = res.data.data.list;
+          if (this.$route.path.includes("singleTemperatureChart")) {
+            this.sheetBlockList = list.filter(item => {
+              return item.recordCode == "body_temperature_Hd";
+            });
+          } else {
+            this.sheetBlockList = list.filter(item => {
+              return item.recordCode != "body_temperature_Hd";
+            });
+          }
+          this.sheetInfo.selectBlock =
+              this.sheetBlockList[this.sheetBlockList.length - 1] || {};
+          if (this.patientInfo.blockId) {
+            try {
+              let index = this.sheetBlockList.findIndex(
+                  item => item.id == this.patientInfo.blockId
+              );
+              this.sheetInfo.selectBlock = this.sheetBlockList[index];
+            } catch (e) {
+              console.log(e);
+            }
+          }
+          this.sheetInfo.sheetType = this.sheetInfo.selectBlock.recordCode;
+          // this.bus.$emit('refreshSheetPage', true)
+        });
+      }
+    },
+    createSheet() {
+      if (!this.patientInfo.patientId) {
+        return this.$message.warning("请选择一名患者");
+      }
+      this.$refs.newFormModal.open();
+    },
+    createTemperature() {
+      this.$refs.newFormModal.open();
+      // blockSave(
+      //   this.patientInfo.patientId,
+      //   this.patientInfo.visitId,
+      //   this.deptCode,
+      //   this.sheetInfo.sheetType
+      // ).then((res) => {
+      //   this.bus.$emit("getBlockList");
+      //   this.$message.success("创建成功");
+      //   this.bus.$emit("setSheetTableLoading", true);
+      // });
+    },
+    delSheet() {
+      if (!this.sheetInfo.selectBlock.id)
+        return this.$message.warning("还没有选择护理记录单");
+      this.$confirm("此操作将永久删除该护理记录单, 是否继续?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      }).then(() => {
+        blockDelete(this.sheetInfo.selectBlock.id).then(res => {
+          this.$message({
+            type: "success",
+            message: "删除成功!"
+          });
+          // 刷新
+          this.getBlockList();
+        });
+      });
+    },
+    blockLabel(item, length) {
+      // return `${item.recordName} ${dayjs(item.createTime).format("MM-DD")}`;
+      return `${item.deptName} ${dayjs(item.createTime).format(
+          "MM-DD"
+      )}建 共${length}张
+      `;
+    },
+    changeSelectBlock() {
+      this.sheetInfo.sheetType = this.sheetInfo.selectBlock.recordCode;
+      cleanData();
+      this.bus.$emit("refreshSheetPage", true);
+    },
+    /** pdf打印 */
+    toPdfPrint() {
+      if (sheetInfo.selectBlock.id) {
+        window.open(
+            `/crNursing/toPdfPrint?blockId=${sheetInfo.selectBlock.id}`
+        );
+      } else {
+        this.$message.warning("没有可以打印的护理记录单");
+      }
+
+      // toPdfPrint(false).then(res => {
+
+      //   // console.log(res, "res");
+      // });
+    },
+    openTztbModal() {
+      if (this.readOnly) {
+        return this.$message.warning("你无权操作此护记，仅供查阅");
+      }
+      this.$refs.tztbModal.open();
+    },
+    /* 切换主页 */
+    async backMainForm() {
+      const id = this.sheetInfo.selectBlock.id
+      const {data} = await switchAdditionalBlock(id)
+      this.sheetInfo.selectBlock = data.data
+      this.changeSelectBlock()
+    },
+    /* 切换副页 */
+    async addDeputyForm() {
+      const id = this.sheetInfo.selectBlock.id
+      const {data} = await switchAdditionalBlock(id)
+      this.sheetInfo.selectBlock = data.data
+      this.changeSelectBlock()
+    },
+  },
+  computed: {
+    fullpage() {
+      return this.$store.state.sheet.fullpage;
+    },
+    patientInfo() {
+      return this.$store.state.sheet.patientInfo;
+    },
+    patientId() {
+      return this.$store.state.sheet.patientInfo.id;
+    },
+    showCrl() {
+      switch (this.sheetInfo.sheetType) {
+          // case "trauma_orthopedics":
+          // case "orthopedics":
+          //   return false;
+        default:
+          return true;
+      }
+    },
+    /** 只读模式 */
+    readOnly() {
+      try {
+        return !this.userDeptList
+            .map(item => item.code)
+            .includes(this.sheetInfo.selectBlock.deptCode);
+      } catch (error) {
+        return false;
+      }
+    },
+    /* 监听路由是否是单个体温单 */
+    isSingleTem() {
+      return this.$route.path.includes("singleTemperatureChart");
+    },
+    /* 是否是副页 */
+    isDeputy() {
+      return this.sheetInfo.selectBlock && this.sheetInfo.selectBlock.additionalBlock
+    }
+  },
+  created() {
+    this.bus.$on("initSheetPageSize", () => {
+      let old_list_length = this.selectList.length;
+      let old_list_index = this.selectList.findIndex(
+          item => item.value == this.pageArea
+      );
+      this.initSelectList();
+      let new_list_length = this.selectList.length;
+      // 判断是否存在recodeId
+      // 获取被标记的页数
+      try {
+        let index;
+        if (this.patientInfo.recordId) {
+          for (let i = 0; i < this.sheetModel.length; i++) {
+            for (let j = 0; j < this.sheetModel[i].bodyModel.length; j++) {
+              if (
+                  this.patientInfo.recordId ==
+                  this.sheetModel[i].bodyModel[j].find(item => item.key == "id")
+                      .value
+              ) {
+                index = i + this.sheetInfo.sheetStartPage;
+              }
+            }
+          }
+          for (let i = 0; i < this.selectList.length; i++) {
+            let page = this.selectList[i].value.split("-");
+            let startPage = Number(page[0]);
+            let endPage = Number(page[1]);
+            if (index >= startPage && index <= endPage) {
+              this.pageArea = this.selectList[i].value || "";
+              let todo = () => {
+                $(this.$parent.$refs.scrollCon).animate({
+                  scrollTop:
+                      $(`[recordId='${this.patientInfo.recordId}']`)
+                          .eq(0)
+                          .offset().top +
+                      this.$parent.$refs.scrollCon.scrollTop -
+                      250
+                });
+                $(`[recordId='${this.patientInfo.recordId}']`)
+                    .eq(0)
+                    .addClass("red-border");
+              };
+              this.$nextTick(() => {
+                setTimeout(() => {
+                  todo();
+                }, 0);
+                setTimeout(() => {
+                  todo();
+                }, 100);
+                setTimeout(() => {
+                  todo();
+                  this.patientInfo.blockId = "";
+                  this.patientInfo.recordId = "";
+                }, 300);
+              });
+            }
+          }
+        } else {
+          // 页码定位
+          if (new_list_length != old_list_length) {
+            this.pageArea =
+                this.selectList[this.selectList.length - 1].value || "";
+          } else {
+            if (old_list_index != undefined) {
+              this.pageArea = this.selectList[old_list_index].value || "";
+            } else {
+              this.pageArea =
+                  this.selectList[this.selectList.length - 1].value || "";
+            }
+          }
+        }
+      } catch (error) {
+      }
+    });
+    this.bus.$on("toSheetMoreSign", () => {
+      this.toMoreSign();
+    });
+    this.bus.$on("toSheetMoreAudit", () => {
+      this.toMoreAduit();
+    });
+    this.bus.$on("getBlockList", () => {
+      this.getBlockList();
+    });
+    document.onkeydown = e => {
+      if (e.keyCode == 91 || e.keyCode == 17) {
+        this.sheetInfo.downControl = true;
+      }
+    };
+    document.onkeyup = e => {
+      if (e.keyCode == 91 || e.keyCode == 17) {
+        this.sheetInfo.downControl = false;
+      }
+    };
+  },
+  mounted() {
+    document.querySelector("#sheet_body_con").addEventListener("click", () => {
+      if (!this.sheetInfo.downControl) {
+        this.sheetInfo.selectRow.splice(0, this.sheetInfo.selectRow.length);
+      }
+    });
+  },
+  watch: {
+    pageArea() {
+      let page = this.pageArea.split("-");
+      let startPage = page[0];
+      let endPage = page[1];
+      if (startPage && endPage) {
+        if (
+            Number(endPage) - Number(startPage) >= 0 &&
+            Number(endPage) - Number(startPage) <= 20
+        ) {
+          this.sheetInfo.startPage = startPage;
+          this.sheetInfo.endPage = endPage;
+        }
+      }
+    },
+    patientId: {
+      deep: true,
+      handler() {
+        if (this.patientInfo.patientId) {
+          this.$parent.breforeQuit(() => {
+            this.getBlockList();
+            this.bus.$emit("setSheetTableLoading", true);
+            // 初始化页面区间列表
+            this.selectList = [];
+          });
+        }
+      }
+    },
+    $route(to, from) {
+      if (to.name != from.name) {
+        this.getBlockList();
+      }
+    }
+  },
+  components: {
+    setPageModal,
+    newFormModal,
+    setTitleModal,
+    tztbModal,
+    patientInfo
+  }
+};
+</script>
+
 <style
-  lang="stylus"
-  rel="stylesheet/stylus"
-  type="text/stylus"
-  src="./tool.styl"
-  scoped
+    lang="stylus"
+    rel="stylesheet/stylus"
+    type="text/stylus"
+    src="./tool.styl"
+    scoped
 ></style>
 
 <style lang="stylus" scoped>
 .pegeSelect {
-  >>>.el-input__inner {
+  >>> .el-input__inner {
     border: 0 !important;
     font-size: 12px;
     color: #333333;
@@ -278,625 +961,3 @@
   border: 2px solid red !important;
 }
 </style>
-
-<script>
-import bus from "vue-happy-bus";
-import $ from "jquery";
-import setPageModal from "../modal/setPage-modal.vue";
-import sheetModel, { cleanData } from "../../sheet.js";
-import sheetInfo from "../config/sheetInfo/index.js";
-import { sign } from "@/api/sheet.js";
-import { Tr } from "../render/Body.js";
-import {
-  blockList,
-  blockDelete,
-  toPdfPrint,
-  blockSave
-} from "../../api/index.js";
-import commom from "@/common/mixin/common.mixin.js";
-import newFormModal from "../modal/new-sheet-modal.vue";
-import setTitleModal from "../modal/set-title-modal.vue";
-import tztbModal from "../modal/tztb-modal.vue";
-import dayjs from "dayjs";
-// import lodopPrint from "./lodop/lodopPrint";
-import patientInfo from "./patient-info";
-export default {
-  mixins: [commom],
-  data() {
-    return {
-      bus: bus(this),
-      tool: "",
-      showCurve: false,
-      creator: "",
-      user: JSON.parse(localStorage.user),
-      selectList: [],
-      pageArea: "",
-      sheetModel,
-      sheetInfo,
-      sheetBlockList: []
-    };
-  },
-  methods: {
-    /* 出入量统计弹框--花都区分 */
-    openStaticModal(){
-      if(process.env.HOSPITAL_ID !='huadu'){
-        this.bus.$emit('openHJModal')
-      }else{
-        this.bus.$emit('openHDModal')
-      }
-    },
-    emit(todo, value) {
-      if (!this.patientInfo.patientId) {
-        return this.$message.warning("请选择一名患者");
-      }
-      if (this.readOnly) {
-        return this.$message.warning("你无权操作此护记，仅供查阅");
-      }
-      this.bus.$emit(todo, value);
-    },
-    tofull() {
-      this.$store.commit("upSheetPageFullpage", !this.fullpage);
-    },
-    toPrint() {
-      if (!this.sheetInfo.selectBlock.id)
-        return this.$message.warning("还没有选择护理记录单");
-      if (process.env.NODE_ENV == "production") {
-        let newWid;
-        if (!$(".sign-text").length) {
-          newWid = window.open();
-          return this.bus.$emit("toSheetPrintPage", newWid);
-        }
-        if (
-          $(".mark-mark-mark").length == 0 &&
-          $(".noSignRow").length == 0 &&
-          $(".multiSign").length == 0
-        ) {
-          newWid = window.open();
-        }
-        this.bus.$emit("toSheetPrintPage", newWid);
-      } else {
-        this.bus.$emit("toSheetPrintPage");
-      }
-    },
-    toAllPrint() {
-      let pageIndex = 0;
-      let pageLength = this.selectList.length;
-      let htmlArr = [];
-      function getHtml() {
-        this.pageArea = this.selectList[pageIndex].value;
-        this.$nextTick(() => {
-          $(".sheet-page-container").each((index, el) => {
-            let htmlText = el.outerHTML;
-            htmlArr.push(htmlText);
-          });
-          pageIndex++;
-          if (pageIndex < pageLength) {
-            getHtml.call(this);
-          } else {
-            lodopPrint(htmlArr);
-          }
-        });
-      }
-      getHtml.call(this);
-    },
-    setPage() {
-      if (!this.patientInfo.patientId) {
-        return this.$message.warning("请选择一名患者");
-      }
-      if (!this.sheetInfo.selectBlock.id) {
-        return this.$message.warning("还没有选择护理记录单");
-      }
-      this.bus.$emit("openSetPageModal");
-    },
-    initSelectList() {
-      let length = this.sheetModel.length + this.sheetInfo.sheetStartPage;
-      let pagelist = [];
-      let rest_num = this.sheetInfo.sheetStartPage % 10;
-      let num = Math.ceil(Math.max(length / 10, 1));
-      for (let i = 0; i <= num; i++) {
-        if (i * 10 + rest_num >= length) {
-          pagelist.push(length);
-          break;
-        }
-        if ((i + 1) * 10 >= this.sheetInfo.sheetStartPage) {
-          pagelist.push(i * 10 + rest_num);
-        }
-      }
-      pagelist[0] = this.sheetInfo.sheetStartPage;
-      pagelist[pagelist.length - 1] = length;
-      this.selectList = [];
-      for (let i = 0; i < pagelist.length; i++) {
-        if (i == pagelist.length - 1) {
-        } else if (i == pagelist.length - 2) {
-          this.selectList.push({
-            value: `${pagelist[i]}-${pagelist[i + 1] - 1}`
-          });
-        } else {
-          this.selectList.push({
-            value: `${pagelist[i]}-${pagelist[i + 1] - 1}`
-          });
-        }
-      }
-      /* 刷新block分页信息 */
-      if (
-        this.patientInfo.patientId &&
-        this.patientInfo.visitId &&
-        this.deptCode
-      ) {
-        blockList(
-          this.patientInfo.patientId,
-          this.patientInfo.visitId,
-          this.deptCode
-        ).then(res => {
-          this.sheetBlockList.forEach(item => {
-            try {
-              let currObj = res.data.data.list.find(obj => obj.id == item.id);
-              item.pageIndex = currObj.pageIndex;
-              item.endPageIndex = currObj.endPageIndex;
-            } catch (error) {}
-          });
-        });
-      }
-    },
-    querySearch(queryString, cb) {
-      this.initSelectList();
-      cb(this.selectList);
-    },
-    getPrev(index, bodyModel, val) {
-      if (index < 0) return "";
-      let tr = bodyModel[index];
-      let value = tr.find(item => {
-        return item.key == val;
-      }).value;
-      if (value) {
-        return value;
-      } else {
-        return this.getPrev(index - 1, bodyModel, val);
-      }
-    },
-    getAllListAndCurrIndex(trArr) {
-      let allList = [];
-      let currIndex = 0;
-      for (let i = 0; i < sheetModel.length; i++) {
-        allList = allList.concat(sheetModel[i].bodyModel);
-      }
-      currIndex = allList.indexOf(trArr);
-      return [allList, currIndex];
-    },
-    toMoreSign() {
-      if (this.sheetInfo.selectRow.length) {
-        window.openSignModal((password, empNo, signDate, dsvsRandom) => {
-          let list = [];
-          for (let trArr of this.sheetInfo.selectRow) {
-            let trObj = {};
-            for (let i = 0; i < trArr.length; i++) {
-              trObj[trArr[i].key] = trArr[i].value;
-            }
-            let [allList, currIndex] = this.getAllListAndCurrIndex(trArr);
-            list.push(
-              Object.assign({}, trObj, {
-                recordMonth: this.getPrev(currIndex, allList, "recordMonth"),
-                recordHour: this.getPrev(currIndex, allList, "recordHour"),
-                recordYear: this.getPrev(currIndex, allList, "recordYear"),
-                patientId: this.patientInfo.patientId,
-                visitId: this.patientInfo.visitId,
-                pageIndex: this.index
-              })
-            );
-          }
-          let data = {
-            empNo,
-            password,
-            list,
-            dsvsRandom
-          };
-          sign(this.patientInfo.patientId, this.patientInfo.visitId, data).then(
-            res => {
-              for (let i = 0; i < res.data.data.length; i++) {
-                let trArrClone = Tr(res.data.data[i]);
-                let trArr = sheetInfo.selectRow[i];
-                if (
-                  trArr.find(item => {
-                    return item.key == "recordMonth";
-                  }).value == ""
-                ) {
-                  trArrClone.find(item => {
-                    return item.key == "recordMonth";
-                  }).value = "";
-                }
-                if (
-                  trArr.find(item => {
-                    return item.key == "recordHour";
-                  }).value == ""
-                ) {
-                  trArrClone.find(item => {
-                    return item.key == "recordHour";
-                  }).value = "";
-                }
-                trArr.splice(0, trArr.length);
-                for (let i = 0; i < trArrClone.length; i++) {
-                  trArr.push(trArrClone[i]);
-                }
-              }
-              this.sheetInfo.selectRow.splice(
-                0,
-                this.sheetInfo.selectRow.length
-              );
-              this.$notify.success({
-                title: "提示",
-                message: "批量签名成功"
-              });
-              this.bus.$emit("saveSheetPage");
-            }
-          );
-        });
-      } else {
-        this.$alert("请按下 ctrl 键并单击选择需要签名的行", "批量签名提示", {
-          confirmButtonText: "确定",
-          callback: action => {}
-        });
-      }
-    },
-    toMoreAduit() {
-      if (this.sheetInfo.selectRow.length) {
-        window.openSignModal((password, empNo) => {
-          let list = [];
-          for (let trArr of this.sheetInfo.selectRow) {
-            let trObj = {};
-            for (let i = 0; i < trArr.length; i++) {
-              trObj[trArr[i].key] = trArr[i].value;
-            }
-            let [allList, currIndex] = this.getAllListAndCurrIndex(trArr);
-            list.push(
-              Object.assign({}, trObj, {
-                recordMonth: this.getPrev(currIndex, allList, "recordMonth"),
-                recordHour: this.getPrev(currIndex, allList, "recordHour"),
-                recordYear: this.getPrev(currIndex, allList, "recordYear"),
-                patientId: this.patientInfo.patientId,
-                visitId: this.patientInfo.visitId,
-                pageIndex: this.index
-              })
-            );
-          }
-          let data = {
-            empNo,
-            password,
-            list,
-            audit: true
-          };
-          sign(this.patientInfo.patientId, this.patientInfo.visitId, data).then(
-            res => {
-              for (let i = 0; i < res.data.data.length; i++) {
-                let trArrClone = Tr(res.data.data[i]);
-                let trArr = sheetInfo.selectRow[i];
-                if (
-                  trArr.find(item => {
-                    return item.key == "recordMonth";
-                  }).value == ""
-                ) {
-                  trArrClone.find(item => {
-                    return item.key == "recordMonth";
-                  }).value = "";
-                }
-                if (
-                  trArr.find(item => {
-                    return item.key == "recordHour";
-                  }).value == ""
-                ) {
-                  trArrClone.find(item => {
-                    return item.key == "recordHour";
-                  }).value = "";
-                }
-                trArr.splice(0, trArr.length);
-                for (let i = 0; i < trArrClone.length; i++) {
-                  trArr.push(trArrClone[i]);
-                }
-              }
-              this.sheetInfo.selectRow.splice(
-                0,
-                this.sheetInfo.selectRow.length
-              );
-              this.$notify.success({
-                title: "提示",
-                message: "批量审核成功"
-              });
-              this.bus.$emit("saveSheetPage");
-            }
-          );
-        });
-      } else {
-        this.$alert("请按下 ctrl 键并单击选择需要签名的行", "批量签名提示", {
-          confirmButtonText: "确定",
-          callback: action => {}
-        });
-      }
-    },
-    getBlockList() {
-      if (
-        this.patientInfo.patientId &&
-        this.patientInfo.visitId &&
-        this.deptCode
-      ) {
-        blockList(
-          this.patientInfo.patientId,
-          this.patientInfo.visitId,
-          this.deptCode
-        ).then(res => {
-          this.bus.$emit("setSheetTableLoading", false);
-          this.selectList = [];
-          let list = res.data.data.list;
-          if (this.$route.path.includes("singleTemperatureChart")) {
-            this.sheetBlockList = list.filter(item => {
-              return item.recordCode == "body_temperature_Hd";
-            });
-          } else {
-            this.sheetBlockList = list.filter(item => {
-              return item.recordCode != "body_temperature_Hd";
-            });
-          }
-          this.sheetInfo.selectBlock =
-            this.sheetBlockList[this.sheetBlockList.length - 1] || {};
-          if (this.patientInfo.blockId) {
-            try {
-              let index = this.sheetBlockList.findIndex(
-                item => item.id == this.patientInfo.blockId
-              );
-              this.sheetInfo.selectBlock = this.sheetBlockList[index];
-            } catch (e) {
-              console.log(e);
-            }
-          }
-          this.sheetInfo.sheetType = this.sheetInfo.selectBlock.recordCode;
-          // this.bus.$emit('refreshSheetPage', true)
-        });
-      }
-    },
-    createSheet() {
-      if (!this.patientInfo.patientId) {
-        return this.$message.warning("请选择一名患者");
-      }
-      this.$refs.newFormModal.open();
-    },
-    createTemperature() {
-      this.$refs.newFormModal.open();
-      // blockSave(
-      //   this.patientInfo.patientId,
-      //   this.patientInfo.visitId,
-      //   this.deptCode,
-      //   this.sheetInfo.sheetType
-      // ).then((res) => {
-      //   this.bus.$emit("getBlockList");
-      //   this.$message.success("创建成功");
-      //   this.bus.$emit("setSheetTableLoading", true);
-      // });
-    },
-    delSheet() {
-      if (!this.sheetInfo.selectBlock.id)
-        return this.$message.warning("还没有选择护理记录单");
-      this.$confirm("此操作将永久删除该护理记录单, 是否继续?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning"
-      }).then(() => {
-        blockDelete(this.sheetInfo.selectBlock.id).then(res => {
-          this.$message({
-            type: "success",
-            message: "删除成功!"
-          });
-          // 刷新
-          this.getBlockList();
-        });
-      });
-    },
-    blockLabel(item, length) {
-      // return `${item.recordName} ${dayjs(item.createTime).format("MM-DD")}`;
-      return `${item.deptName} ${dayjs(item.createTime).format(
-        "MM-DD"
-      )}建 共${length}张
-      `;
-    },
-    changeSelectBlock() {
-      this.sheetInfo.sheetType = this.sheetInfo.selectBlock.recordCode;
-      cleanData();
-      this.bus.$emit("refreshSheetPage", true);
-    },
-    /** pdf打印 */
-    toPdfPrint() {
-      if (sheetInfo.selectBlock.id) {
-        window.open(
-          `/crNursing/toPdfPrint?blockId=${sheetInfo.selectBlock.id}`
-        );
-      } else {
-        this.$message.warning("没有可以打印的护理记录单");
-      }
-
-      // toPdfPrint(false).then(res => {
-
-      //   // console.log(res, "res");
-      // });
-    },
-    openTztbModal() {
-      if (this.readOnly) {
-        return this.$message.warning("你无权操作此护记，仅供查阅");
-      }
-      this.$refs.tztbModal.open();
-    }
-  },
-  computed: {
-    fullpage() {
-      return this.$store.state.sheet.fullpage;
-    },
-    patientInfo() {
-      return this.$store.state.sheet.patientInfo;
-    },
-    patientId() {
-      return this.$store.state.sheet.patientInfo.id;
-    },
-    showCrl() {
-      switch (this.sheetInfo.sheetType) {
-        // case "trauma_orthopedics":
-        // case "orthopedics":
-        //   return false;
-        default:
-          return true;
-      }
-    },
-    /** 只读模式 */
-    readOnly() {
-      try {
-        return !this.userDeptList
-          .map(item => item.code)
-          .includes(this.sheetInfo.selectBlock.deptCode);
-      } catch (error) {
-        return false;
-      }
-    },
-    /* 监听路由是否是单个体温单 */
-    isSingleTem() {
-      return this.$route.path.includes("singleTemperatureChart");
-    }
-  },
-  created() {
-    this.bus.$on("initSheetPageSize", () => {
-      let old_list_length = this.selectList.length;
-      let old_list_index = this.selectList.findIndex(
-        item => item.value == this.pageArea
-      );
-      this.initSelectList();
-      let new_list_length = this.selectList.length;
-      // 判断是否存在recodeId
-      // 获取被标记的页数
-      try {
-        let index;
-        if (this.patientInfo.recordId) {
-          for (let i = 0; i < this.sheetModel.length; i++) {
-            for (let j = 0; j < this.sheetModel[i].bodyModel.length; j++) {
-              if (
-                this.patientInfo.recordId ==
-                this.sheetModel[i].bodyModel[j].find(item => item.key == "id")
-                  .value
-              ) {
-                index = i + this.sheetInfo.sheetStartPage;
-              }
-            }
-          }
-          for (let i = 0; i < this.selectList.length; i++) {
-            let page = this.selectList[i].value.split("-");
-            let startPage = Number(page[0]);
-            let endPage = Number(page[1]);
-            if (index >= startPage && index <= endPage) {
-              this.pageArea = this.selectList[i].value || "";
-              let todo = () => {
-                $(this.$parent.$refs.scrollCon).animate({
-                  scrollTop:
-                    $(`[recordId='${this.patientInfo.recordId}']`)
-                      .eq(0)
-                      .offset().top +
-                    this.$parent.$refs.scrollCon.scrollTop -
-                    250
-                });
-                $(`[recordId='${this.patientInfo.recordId}']`)
-                  .eq(0)
-                  .addClass("red-border");
-              };
-              this.$nextTick(() => {
-                setTimeout(() => {
-                  todo();
-                }, 0);
-                setTimeout(() => {
-                  todo();
-                }, 100);
-                setTimeout(() => {
-                  todo();
-                  this.patientInfo.blockId = "";
-                  this.patientInfo.recordId = "";
-                }, 300);
-              });
-            }
-          }
-        } else {
-          // 页码定位
-          if (new_list_length != old_list_length) {
-            this.pageArea =
-              this.selectList[this.selectList.length - 1].value || "";
-          } else {
-            if (old_list_index != undefined) {
-              this.pageArea = this.selectList[old_list_index].value || "";
-            } else {
-              this.pageArea =
-                this.selectList[this.selectList.length - 1].value || "";
-            }
-          }
-        }
-      } catch (error) {}
-    });
-    this.bus.$on("toSheetMoreSign", () => {
-      this.toMoreSign();
-    });
-    this.bus.$on("toSheetMoreAudit", () => {
-      this.toMoreAduit();
-    });
-    this.bus.$on("getBlockList", () => {
-      this.getBlockList();
-    });
-    document.onkeydown = e => {
-      if (e.keyCode == 91 || e.keyCode == 17) {
-        this.sheetInfo.downControl = true;
-      }
-    };
-    document.onkeyup = e => {
-      if (e.keyCode == 91 || e.keyCode == 17) {
-        this.sheetInfo.downControl = false;
-      }
-    };
-  },
-  mounted() {
-    document.querySelector("#sheet_body_con").addEventListener("click", () => {
-      if (!this.sheetInfo.downControl) {
-        this.sheetInfo.selectRow.splice(0, this.sheetInfo.selectRow.length);
-      }
-    });
-  },
-  watch: {
-    pageArea() {
-      let page = this.pageArea.split("-");
-      let startPage = page[0];
-      let endPage = page[1];
-      if (startPage && endPage) {
-        if (
-          Number(endPage) - Number(startPage) >= 0 &&
-          Number(endPage) - Number(startPage) <= 20
-        ) {
-          this.sheetInfo.startPage = startPage;
-          this.sheetInfo.endPage = endPage;
-        }
-      }
-    },
-    patientId: {
-      deep: true,
-      handler() {
-        if (this.patientInfo.patientId) {
-          this.$parent.breforeQuit(() => {
-            this.getBlockList();
-            this.bus.$emit("setSheetTableLoading", true);
-            // 初始化页面区间列表
-            this.selectList = [];
-          });
-        }
-      }
-    },
-    $route(to, from) {
-      if (to.name != from.name) {
-        this.getBlockList();
-      }
-    }
-  },
-  components: {
-    setPageModal,
-    newFormModal,
-    setTitleModal,
-    tztbModal,
-    patientInfo
-  }
-};
-</script>

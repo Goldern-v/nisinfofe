@@ -15,6 +15,7 @@
         v-bind:is="tableHead"
         :patientInfo="patientInfo"
         :index="index"
+        :bedAndDeptChange="bedAndDeptChange"
       ></component>
       <excel
         :patientInfo="patientInfo"
@@ -142,7 +143,8 @@ export default {
     index: Number,
     length: Number,
     scrollY: Number,
-    isInPatientDetails: Boolean
+    isInPatientDetails: Boolean,
+    bedAndDeptChange: Object
   },
   mixins: [common],
   data() {
@@ -174,9 +176,9 @@ export default {
         return tableHeadLc;
       } else if (this.HOSPITAL_ID == "wujing") {
         return tableHeadWj;
-      } else if(this.HOSPITAL_ID == "huadu"){
-        return tableHeadHd
-      }else {
+      } else if (this.HOSPITAL_ID == "huadu") {
+        return tableHeadHd;
+      } else {
         return tableHead;
       }
     }

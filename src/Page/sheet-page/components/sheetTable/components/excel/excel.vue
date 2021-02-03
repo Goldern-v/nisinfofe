@@ -13,25 +13,24 @@
       v-if="hasFiexHeader"
     >
       <tr class="body-con">
-        <td
-          v-for="(td, i) in data.bodyModel[0]"
-          :key="i"
-          v-if="!td.hidden"
-          :dataKey="td.key"
-        >
-          <div v-if="td.key == 'sign'" class="sign-text"></div>
-          <div v-else-if="td.key == 'audit'" class="sign-text"></div>
-          <div v-else-if="td.key == 'signerNo'" class="sign-img"></div>
-          <textarea
-            v-else-if="td.textarea"
-            :style="
-              Object.assign({}, td.style, {
-                minWidth: td.textarea.width + 'px',
-                maxWidth: td.textarea.width + 'px'
-              })
-            "
-          ></textarea>
-          <input type="text" :style="[td.style]" v-else />
+        <td v-for="(td, i) in data.bodyModel[0]" :key="i" :dataKey="td.key">
+          <template v-if="!td.hidden">
+            <div v-if="td.key == 'sign'" class="sign-text"></div>
+            <div v-else-if="td.key == 'sign2'" class="sign-text"></div>
+            <div v-else-if="td.key == 'audit'" class="sign-text"></div>
+            <div v-else-if="td.key == 'signerNo'" class="sign-img"></div>
+            <div v-else-if="td.key == 'signerNo2'" class="sign-img"></div>
+            <textarea
+              v-else-if="td.textarea"
+              :style="
+                Object.assign({}, td.style, {
+                  minWidth: td.textarea.width + 'px',
+                  maxWidth: td.textarea.width + 'px'
+                })
+              "
+            ></textarea>
+            <input type="text" :style="[td.style]" v-else />
+          </template>
         </td>
       </tr>
       <tr
@@ -88,8 +87,8 @@
             clickRow: sheetInfo.clickRow === tr,
             redText:
               tr.find(item => {
-                return item.key == 'recordSource'
-              }).value == '5',
+                return item.key == 'recordSource';
+              }).value == '5'
           },
           tr.find(item => {
             return item.key == 'markObj';
@@ -100,7 +99,7 @@
               }).value.status
             }`,
           {
-            redTop:getBorderClass(y)
+            redTop: getBorderClass(y)
           }
         ]"
         :key="y"
@@ -143,8 +142,18 @@
           <div
             v-if="td.key == 'sign'"
             class="sign-text"
-            @click.stop="toSign(tr, y, data.bodyModel, showSign(tr), $event)"
+            @click.stop="
+              toSign(tr, y, data.bodyModel, showSign(tr), $event, td)
+            "
             v-html="showSign(tr)"
+          ></div>
+          <div
+            v-else-if="HOSPITAL_ID === 'huadu' && td.key == 'sign2'"
+            class="sign-text"
+            @click.stop="
+              toSign(tr, y, data.bodyModel, showSign_hd(tr), $event, td)
+            "
+            v-html="showSign_hd(tr)"
           ></div>
           <div
             v-else-if="td.key == 'audit'"
@@ -162,7 +171,36 @@
               "
               alt
             />
+            <img
+              v-if="
+                (sheetInfo.sheetType === 'common_hd' ||
+                  sheetInfo.sheetType === 'neurosurgery_hd') &&
+                  tr.find(item => item.key == 'signerNo2').value
+              "
+              :src="
+                `/crNursing/api/file/signImage/${
+                  tr.find(item => item.key == 'signerNo2').value
+                }?${token}`
+              "
+              alt
+            />
             <span v-if="tr.find(item => item.key == 'auditorNo').value">/</span>
+            <span
+              v-if="
+                (sheetInfo.sheetType === 'common_hd' ||
+                  sheetInfo.sheetType === 'neurosurgery_hd') &&
+                  tr.find(item => item.key == 'signerNo2').value
+              "
+              >/</span
+            >
+            <span
+              v-else-if="
+                (sheetInfo.sheetType === 'common_hd' ||
+                  sheetInfo.sheetType === 'neurosurgery_hd') &&
+                  tr.find(item => item.key == 'signerNo2').value
+              "
+              >/
+            </span>
             <img
               v-if="td.value"
               :style="!td.value && { opacity: 0 }"
@@ -181,6 +219,7 @@
             v-model="td.value"
             :data-value="td.value"
             :position="`${x},${y},${index}`"
+            v-bind="td.props"
             :style="
               Object.assign(
                 {},
@@ -196,6 +235,7 @@
               td.event($event, td);
               onKeyDown($event, { x, y, z: index, td });
             "
+            @input="td.change && td.change($event, td)"
             @focus="
               td.autoComplete &&
                 onFocus($event, {
@@ -204,7 +244,8 @@
                   y,
                   z: index,
                   td,
-                  tr
+                  tr,
+                  splice: !!td.splice
                 })
             "
             @blur="onBlur($event, { x, y, z: index })"
@@ -360,7 +401,10 @@
           v-if="
             sheetInfo.sheetType == 'com_lc' ||
               sheetInfo.sheetType == 'icu_lc' ||
-              sheetInfo.sheetType == 'Record_Children_Serious_Lc'
+              sheetInfo.sheetType == 'Record_Children_Serious_Lc' ||
+              sheetInfo.sheetType == 'common_hd' ||
+              sheetInfo.sheetType == 'neurosurgery_hd' ||
+              sheetInfo.sheetType == 'stress_injury_hd'
           "
           >审核人：</span
         >
@@ -490,12 +534,12 @@ export default {
     }
   },
   methods: {
-    getBorderClass(index){
-      if (sheetInfo.sheetType !== 'common_hd') return
-      const temp = this.data.bodyModel.findIndex((tr=>{
-        return tr.find(i=>i.key==='recordSource').value ==='5'
-      }))
-      return temp===index
+    getBorderClass(index) {
+      if (sheetInfo.sheetType !== "common_hd") return;
+      const temp = this.data.bodyModel.findIndex(tr => {
+        return tr.find(i => i.key === "recordSource").value === "5";
+      });
+      return temp === index;
     },
     // 键盘事件
     onKeyDown(e, bind) {
@@ -599,11 +643,17 @@ export default {
       currIndex = allList.indexOf(trArr);
       return [allList, currIndex];
     },
-    toSign(trArr, index, bodyModel, showSign, e) {
+    toSign(trArr, index, bodyModel, showSign, e, td) {
       this.sheetInfo.downControl = e.ctrlKey;
       if (this.sheetInfo.downControl) return;
       if (this.sheetInfo.selectRow.length) {
         return this.bus.$emit("toSheetMoreSign");
+      }
+      if (td.key === "sign") {
+        this.signType = "1";
+      }
+      if (td.key === "sign2") {
+        this.signType = "2";
       }
       if (!showSign) {
         let status = trArr.find(item => {
@@ -629,7 +679,9 @@ export default {
                   visitId: this.patientInfo.visitId,
                   pageIndex: this.index
                 })
-              ]
+              ],
+              multiSign: this.HOSPITAL_ID === "huadu" ? true : false,
+              signType: this.HOSPITAL_ID === "huadu" ? this.signType : ""
             };
             sign(
               this.patientInfo.patientId,
@@ -708,7 +760,9 @@ export default {
           cancelSign({
             id,
             empNo,
-            password
+            password,
+            multiSign: this.HOSPITAL_ID === "huadu" ? true : false,
+            signType: this.HOSPITAL_ID === "huadu" ? this.signType : ""
           }).then(res => {
             this.bus.$emit("saveSheetPage", true);
           });
@@ -823,6 +877,13 @@ export default {
       } else {
         return "";
       }
+    },
+    // 展示签名状态
+    showSign_hd(trArr) {
+      let signerName2 = trArr.find(item => {
+        return item.key == "signerName2";
+      }).value;
+      return signerName2;
     },
     // 展示审核状态
     showAudit(trArr) {

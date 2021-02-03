@@ -36,7 +36,7 @@
           <el-table-column prop="temperature" label="腋下体温(°C)" min-width="110px" align="center"></el-table-column>
           <el-table-column prop="pulse" label="脉搏/心率(次/min)" min-width="150px" align="center"></el-table-column>
           <el-table-column prop="breath" label="呼吸(次/min)" min-width="110px" align="center"></el-table-column>
-          <el-table-column prop="bloodPressure" label="血压(次/min)" min-width="110px" align="center"></el-table-column>
+          <el-table-column prop="bloodPressure" label="血压(mmHg)" min-width="110px" align="center"></el-table-column>
         </el-table>
       </div>
       <div slot="button">

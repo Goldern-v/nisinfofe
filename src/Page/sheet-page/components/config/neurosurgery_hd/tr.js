@@ -5,12 +5,14 @@ import {
   multiDictInfo
 } from "../../../api/index";
 import {
-  keyf1
+  keyf1,
+  calValueChange
 } from "../keyEvent/f1.js";
 import {
   event_date,
   event_time,
-  click_date
+  click_date,
+  click_time
 } from "../keyEvent/date";
 import info from "../sheetInfo";
 let ysList = [];
@@ -20,40 +22,53 @@ export default [{
     key: "recordMonth", //日期
     value: "",
     event: event_date,
-    click: click_date
+    click: click_date,
   },
   {
     key: "recordHour", //时间
     value: "",
-    event: event_time
+    event: event_time,
+    click: click_time,
   },
   {
     key: "temperature", //体温
     value: "",
     event: keyf1,
     name: "体温",
-    next: "℃"
+    next: "℃",
+    textarea: {
+      width: 30
+    },
   },
   {
     key: "pulse", //脉搏
     value: "",
     event: keyf1,
     name: "脉搏",
-    next: "次/分"
+    next: "次/分",
+    textarea: {
+      width: 30
+    },
   },
   {
     key: "heartRate", //心率
     value: "",
     event: keyf1,
     name: "心率",
-    next: "次/分"
+    next: "次/分",
+    textarea: {
+      width: 30
+    },
   },
   {
     key: "breath", //呼吸
     value: "",
     event: keyf1,
     name: "呼吸",
-    next: "次/分"
+    next: "次/分",
+    textarea: {
+      width: 30
+    },
   },
   {
     key: "bloodPressure", //血压
@@ -66,7 +81,10 @@ export default [{
       keyf1(e, td);
     },
     name: "血压",
-    next: "mmHg"
+    next: "mmHg",
+    textarea: {
+      width: 48
+    },
   },
   {
     key: "consciousness", //意识
@@ -76,77 +94,109 @@ export default [{
       data: ysList
     },
     name: "意识",
+    textarea: {
+      width: 30
+    },
   },
   {
     key: "spo2", //SPO₂(%)
     value: "",
     event: keyf1,
     name: "血氧饱和度",
-    next: "%"
+    next: "%",
+    textarea: {
+      width: 30
+    },
   },
   {
     key: "food", // 入量
     value: "",
     event: keyf1,
+    change: calValueChange,
     name: "入量名称",
     autoComplete: {
       data: ruList
     },
     textarea: {
-      width: 62,
+      width: 50,
     },
   },
   {
     key: "foodSize", //食物数量  入量（单位ml）
     value: "",
     event: keyf1,
+    change: calValueChange,
     name: "入量大小",
-    next: "ml"
+    next: "ml",
+    textarea: {
+      width: 50
+    },
   },
   {
     key: "discharge", // 出量
     value: "",
     event: keyf1,
+    change: calValueChange,
     name: "出量名称",
     autoComplete: {
       data: chuList
     },
     textarea: {
-      width: 62,
+      width: 50,
     },
   },
   {
     key: "dischargeSize", //排出物数量（单位ml）
     value: "",
     event: keyf1,
+    change: calValueChange,
     name: "出量大小",
-    next: "ml"
+    next: "ml",
+    textarea: {
+      width: 50
+    },
   },
   {
     key: "healthEducation", // 健康教育
     value: "",
     event: keyf1,
-    name: "健康教育"
+    change: calValueChange,
+    name: "健康教育",
+    textarea: {
+      width: 50,
+    },
   },
   {
     key: "pupilSizeLeft", // 瞳孔直径（mm）左
     value: "",
     event: keyf1,
+    change: calValueChange,
     name: "瞳孔直径左",
-    next: "mm"
+    next: "mm",
+    textarea: {
+      width: 50
+    },
   },
   {
     key: "pupilSizeRight", // 瞳孔直径（mm）右
     value: "",
     event: keyf1,
+    change: calValueChange,
     name: "瞳孔直径右",
-    next: "mm"
+    next: "mm",
+    textarea: {
+      width: 50
+    },
   },
   {
     key: "pupilReflexLeft", // 瞳孔对光反应左
     value: "",
     event: keyf1,
-    name: "瞳孔对光反应左"
+    change: calValueChange,
+    name: "瞳孔对光反应左",
+    textarea: {
+      width: 50
+    },
     // autoComplete: {
     //   data: ["+", "-", "±"]
     // }
@@ -155,7 +205,11 @@ export default [{
     key: "pupilReflexRight", // 瞳孔对光反应右
     value: "",
     event: keyf1,
-    name: "瞳孔对光反应右"
+    change: calValueChange,
+    name: "瞳孔对光反应右",
+    textarea: {
+      width: 50
+    },
     // autoComplete: {
     //   data: ["+", "-", "±"]
     // }
@@ -164,73 +218,88 @@ export default [{
     key: "fieldOne", //吸氧（升/分）
     value: "",
     event: keyf1,
+    change: calValueChange,
     textarea: {
-      width: 68
+      width: 50
     },
     name: "吸氧",
-    next: "升/分"
+    next: "升/分",
   },
   {
     key: "fieldTwo", //人工气道途径
     value: "",
     event: keyf1,
-    name: "人工气道途径"
+    change: calValueChange,
+    name: "人工气道途径",
+    textarea: {
+      width: 50
+    },
   },
   {
     key: "fieldThree", //头痛
     value: "",
     event: keyf1,
+    change: calValueChange,
     textarea: {
-      width: 40
+      width: 50
     },
-    name: "头痛"
+    name: "头痛",
   },
   {
     key: "fieldFour", //指尖血糖mmol/L
     value: "",
     event: keyf1,
+    change: calValueChange,
     name: "指尖血糖",
-    next: "mmol/L"
+    next: "mmol/L",
+    textarea: {
+      width: 50
+    },
   },
   {
     key: "fieldFive", //标题1
     value: "",
     event: keyf1,
+    change: calValueChange,
     textarea: {
-      width: 48
-    }
+      width: 50
+    },
   },
   {
     key: "fieldSix", //标题2
     value: "",
     event: keyf1,
+    change: calValueChange,
     textarea: {
-      width: 48
-    }
+      width: 50
+    },
   },
   {
     key: "fieldEight", //标题3
     value: "",
     event: keyf1,
+    change: calValueChange,
     textarea: {
-      width: 36
-    }
+      width: 50
+    },
   },
   {
     key: "fieldNine", //标题4
     value: "",
     event: keyf1,
+    change: calValueChange,
     textarea: {
-      width: 36
+      width: 50
     }
   },
   {
     key: "fieldTen", //标题5
     value: "",
     event: keyf1,
+    change: calValueChange,
     textarea: {
-      width: 36
-    }
+      width: 50
+    },
   },
   {
     key: "description", //特殊情况记录
@@ -241,7 +310,7 @@ export default [{
       top: "1px",
       bottom: "1px",
       left: "1px",
-      width: "180px",
+      width: "150px",
       background: "transparent"
     },
     event: function (e, td) {
@@ -259,9 +328,13 @@ export default [{
     value: ""
   },
   {
-    key: "audit",
+    key: "sign2",
     value: ""
   },
+  // {
+  //   key: "audit",
+  //   value: ""
+  // },
   {
     hidden: true,
     key: "id",
@@ -270,6 +343,11 @@ export default [{
   {
     hidden: true,
     key: "signerName",
+    value: ""
+  },
+  {
+    hidden: true,
+    key: "signerName2",
     value: ""
   },
   {
@@ -308,7 +386,12 @@ export default [{
     value: ""
   },
   {
-    hidden: false,
+    hidden: true,
+    key: "signerNo2",
+    value: ""
+  },
+  {
+    hidden: true,
     key: "auditorNo",
     value: ""
   },
@@ -325,7 +408,7 @@ export default [{
   {
     hidden: true,
     key: "multiSign",
-    value: false
+    value: true
   }
 ];
 

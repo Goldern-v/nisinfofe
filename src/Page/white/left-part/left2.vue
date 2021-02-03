@@ -6,6 +6,7 @@
           <span class="col-1">床号/姓名</span>
           <span class="col-2" flex-box="1">检查预约项目</span>
           <span class="col-3">检查日期</span>
+          <span class="col-4" v-if="HOSPITAL_ID == 'hj'">检查特殊交代</span>
         </div>
         <div class="list-box" flex="cross:stretch" v-for="(item,index) in list" :key="index">
           <span class="col-1">{{item.bedLabel}}床 {{item.name}}</span>
@@ -14,6 +15,9 @@
           </span>
           <span class="col-3">
             <div v-for="(option, i) in item.data" :key="i">{{option.scheduleDate | beday}}</div>
+          </span>
+          <span class="col-4" v-if="HOSPITAL_ID == 'hj'">
+            <div v-for="(option, i) in item.data" :key="i">{{option.description}}</div>
           </span>
         </div>
         <nullText v-if="list.length == 0" style="margin: 70px 0"></nullText>
@@ -38,7 +42,7 @@
   font-size: 13px;
   color: #333333;
 
-  .col-1, .col-2, .col-3 {
+  .col-1, .col-2, .col-3, .col-4 {
     width: 0;
     min-height: 37px;
     box-sizing: border-box;
@@ -57,6 +61,11 @@
 
   .col-3 {
     width: 160px;
+  }
+
+  .col-4 {
+    width: 250px;
+     border-left: 1px solid #E3E7EA;
   }
 
   &.head {

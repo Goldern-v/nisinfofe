@@ -1,14 +1,22 @@
 <template>
   <div class="left-print-modal">
-    <sweet-modal ref="modal" :modalWidth="700" title="检查预约打印">
+    <sweet-modal ref="modal" :modalWidth="900" title="检查预约打印">
       <div class="showTableContent">
         <table v-for="(item,index) in printData" :key="index">
+          <colgroup>
+            <col width="60px" />
+            <col width="80px" />
+            <col width="150px" />
+            <col />
+            <col width="200px" />
+          </colgroup>
           <thead>
             <tr>
               <th>床号</th>
               <th>姓名</th>
               <th>检查时间</th>
               <th>检查项目</th>
+              <th>检查特殊交代</th>
             </tr>
           </thead>
           <tbody>
@@ -17,18 +25,27 @@
               <td>{{rows.nameOrigin || rows.name}}</td>
               <td>{{rows.scheduleDate}}</td>
               <td>{{rows.examItem}}</td>
+              <td>{{rows.description}}</td>
             </tr>
           </tbody>
         </table>
       </div>
       <div class="printable" ref="printable">
         <table v-for="(item,index) in printData" :key="index">
+          <colgroup>
+            <col width="60px" />
+            <col width="80px" />
+            <col width="150px" />
+            <col />
+            <col width="200px" />
+          </colgroup>
           <thead>
             <tr>
               <th>床号</th>
               <th>姓名</th>
               <th>检查时间</th>
               <th>检查项目</th>
+              <th>检查特殊交代</th>
             </tr>
           </thead>
           <tbody>
@@ -37,6 +54,7 @@
               <td>{{rows.nameOrigin || rows.name}}</td>
               <td>{{rows.scheduleDate}}</td>
               <td>{{rows.examItem}}</td>
+              <td>{{rows.description}}</td>
             </tr>
           </tbody>
         </table>
@@ -66,12 +84,11 @@
   }
 
   .printable {
-    width: 540px;
+    width: 100%;
     position: absolute;
     left: 0;
     top: 0;
     z-index: -1;
-    padding: 50px 30px 0;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
   }
@@ -81,7 +98,7 @@ table {
   width: 100%;
   margin-bottom: 20px;
   border-top: 1px solid #E3E7EA;
-  border-left: 1px solid #E3E7EA;
+  // border-left: 1px solid #E3E7EA;
   font-size: 13px;
   color: #333333;
 
@@ -93,22 +110,10 @@ table {
     border-right: 1px solid #E3E7EA;
     border-bottom: 1px solid #E3E7EA;
     text-align: center;
-
-    &:nth-of-type(1), &:nth-of-type(2) {
-      width: 60px;
-    }
-
-    &:nth-of-type(3) {
-      width: 80px;
-    }
-
-    &:nth-of-type(4) {
-      width: 150px;
-    }
   }
 
   td {
-    &:last-of-type {
+    &:last-of-type,&:nth-last-of-type(2) {
       text-align: left;
     }
   }
@@ -194,7 +199,7 @@ export default {
       // console.log(sumRows);
       print(this.$refs.printable, {
         beforePrint: formatter,
-        // direction: "horizontal",
+        direction: "vertical",
         injectGlobalCss: true,
         scanStyles: false,
         css: `
@@ -206,8 +211,6 @@ export default {
         background: #fff !important;
        }
        .pageBox {
-         width: 540px;
-         padding: 50px 30px 0;
          position: relative;
          -webkit-box-sizing: border-box;
          box-sizing: border-box;
@@ -234,7 +237,7 @@ export default {
           table,th,td {border-color:black !important;}
         }
         @page {
-           margin: 0;
+           margin: 20mm 10mm 0 10mm;
            position: relative;
         }
 

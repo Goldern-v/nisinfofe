@@ -3,7 +3,7 @@
     <div class="his-name">{{ HOSPITAL_NAME_SPACE }}</div>
     <div class="title">{{ patientInfo.recordName }}</div>
     <!-- {{sheetInfo.relObj}} -->
-    <div class="info-con" flex="main:justify">
+    <div class="info-con">
       <span
         @click="
           updateTetxInfo('patientName', '病人姓名', patientInfo.patientName)
@@ -39,21 +39,18 @@
       <span>
         科室：
         <div class="bottom-line" style="min-width: 120px">
-          {{ patientInfo.deptName }}
+          {{ bedAndDeptChange.deptNameChange }}
         </div>
       </span>
-      <span @click="updateTetxInfo('bedLabel', '床号', patientInfo.bedLabel)">
+      <span>
         床号：
         <div class="bottom-line" style="min-width: 50px">
-          {{ patientInfo.bedLabel }}
+          {{ bedAndDeptChange.bedLabelChange }}
         </div>
       </span>
       <span>
         住院号：
-        <div
-          class="bottom-line"
-          style="min-width: 80px"
-        >
+        <div class="bottom-line" style="min-width: 80px">
           {{ patientInfo.patientId }}
         </div>
       </span>
@@ -86,7 +83,8 @@ import sheetData from "../../../../sheet.js";
 export default {
   props: {
     patientInfo: Object,
-    index: Number
+    index: Number,
+    bedAndDeptChange: Object
   },
   data() {
     return {
@@ -96,6 +94,7 @@ export default {
       // }
     };
   },
+  mounted() {},
   computed: {
     neonatology2Age() {
       if (this.index == 0) {
@@ -253,7 +252,7 @@ export default {
 };
 </script>
 
-<style lang='scss' scoped>
+<style lang="scss" scoped>
 input.bottom-line {
   border-top: 0;
   border-left: 0;

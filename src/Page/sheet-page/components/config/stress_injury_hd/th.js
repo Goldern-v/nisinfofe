@@ -1,3 +1,8 @@
+import moment from "moment";
+
+function currYear() {
+  return moment().format('YYYY')
+}
 export default {
   // 科室的名称
   deptType: "",
@@ -5,24 +10,15 @@ export default {
     width: "1100px"
   },
   th: {
-    top: [
-      {
-        name: "日期",
+    top: [{
+        name: currYear(),
+        colspan: "2",
+        rowspan: "1",
         style: {
-          minWidth: "36px",
-          maxWidth: "36px"
+          width: "40px"
         },
-        colspan: "1",
-        rowspan: "3"
-      },
-      {
-        name: "时间",
-        style: {
-          minWidth: "36px",
-          maxWidth: "36px"
-        },
-        colspan: "1",
-        rowspan: "3"
+        canSet: true,
+        key: "recordYear",
       },
       {
         name: "部位",
@@ -38,7 +34,11 @@ export default {
         分<br/>期
         `,
         colspan: "1",
-        rowspan: "3"
+        rowspan: "3",
+        style: {
+          minWidth: "36px",
+          maxWidth: "36px"
+        },
       },
       {
         name: `
@@ -56,21 +56,16 @@ export default {
         name: `
         基底颜色
         `,
-        style: {},
         colspan: "4",
         rowspan: "1",
-        style: {
-          whiteSpace: "nowrap",
-          minWidth: "38px"
-        }
       },
       {
         name: `
         渗出液</br>(量、性状、颜色)
         `,
         style: {
-          minWidth: "52px",
-          maxWidth: "52px",
+          minWidth: "50px",
+          maxWidth: "50px"
         },
         colspan: "1",
         rowspan: "3"
@@ -80,8 +75,8 @@ export default {
         渗液与敷料的关系
         `,
         style: {
-          minWidth: "60px",
-          maxWidth: "60px"
+          minWidth: "50px",
+          maxWidth: "50px"
         },
         colspan: "1",
         rowspan: "3"
@@ -90,7 +85,10 @@ export default {
         name: `
         气<br/>味
         `,
-        style: {},
+        style: {
+          minWidth: "50px",
+          maxWidth: "50px"
+        },
         colspan: "1",
         rowspan: "3"
       },
@@ -101,9 +99,8 @@ export default {
         colspan: "1",
         rowspan: "3",
         style: {
-          whiteSpace: "nowrap",
-          minWidth: "68px",
-          maxWidth: "68px"
+          minWidth: "50px",
+          maxWidth: "50px"
         }
       },
       {
@@ -113,7 +110,6 @@ export default {
         colspan: "1",
         rowspan: "3",
         style: {
-          whiteSpace: "nowrap",
           minWidth: "50px",
           maxWidth: "50px"
         }
@@ -123,8 +119,7 @@ export default {
         特殊情况记录
         `,
         style: {
-          minWidth: "153px",
-          maxWidth: "153px"
+          width: "150px"
         },
         colspan: "1",
         rowspan: "3"
@@ -143,14 +138,28 @@ export default {
         },
       }
     ],
-    mid: [
+    mid: [{
+        name: "日期",
+        style: {
+          width: "40px"
+        },
+        colspan: "1",
+        rowspan: "2",
+      },
       {
+        name: "时间",
+        style: {
+          width: "40px"
+        },
+        colspan: "1",
+        rowspan: "2",
+      }, {
         name: `
         长×宽×高
         `,
         style: {
-          minWidth: "68px",
-          maxWidth: "68px"
+          minWidth: "48px",
+          maxWidth: "48px"
         },
         colspan: "1",
         rowspan: "2"
@@ -162,8 +171,8 @@ export default {
         colspan: "1",
         rowspan: "2",
         style: {
-          minWidth: "28px",
-          maxWidth: "28px"
+          minWidth: "50px",
+          maxWidth: "50px"
         }
       },
       {
@@ -171,8 +180,8 @@ export default {
         黄色%
         `,
         style: {
-          minWidth: "28px",
-          maxWidth: "28px"
+          minWidth: "50px",
+          maxWidth: "50px"
         },
         colspan: "1",
         rowspan: "2"
@@ -184,9 +193,8 @@ export default {
         colspan: "1",
         rowspan: "2",
         style: {
-          minWidth: "28px",
-          maxWidth: "28px",
-          whiteSpace: "nowrap"
+          minWidth: "50px",
+          maxWidth: "50px",
         }
       },
       {
@@ -196,9 +204,8 @@ export default {
         colspan: "1",
         rowspan: "2",
         style: {
-          minWidth: "28px",
-          maxWidth: "28px",
-          whiteSpace: "nowrap"
+          minWidth: "50px",
+          maxWidth: "50px",
         }
       }
     ],

@@ -13,11 +13,11 @@ import {
 let 表底注释 = [];
 let 表顶注释 = [];
 export default [{
-    key: "recordMonth", //日期
-    value: "",
-    event: event_date,
-    click: click_date
-  },
+  key: "recordMonth", //日期
+  value: "",
+  event: event_date,
+  click: click_date
+},
   {
     key: "recordHour", //时间
     value: "",
@@ -133,28 +133,32 @@ export default [{
     autoComplete: {
       data: 表底注释
     },
+    splice: true,
+    style:'overflow: hidden',
     textarea: {
       width: 36
     },
   },
   {
-    key: "topComment", //表底注释
+    key: "topComment", //表顶注释
     value: "",
     event: keyf1,
     name: "表顶注释",
     autoComplete: {
       data: 表顶注释
     },
+    splice: true,
+    style:'overflow: hidden',
     textarea: {
       width: 36
     },
   },
-  {
-    key: "height", //身高
-    value: "",
-    event: keyf1,
-    name: "身高"
-  },
+  // {
+  //   key: "height", //身高
+  //   value: "",
+  //   event: keyf1,
+  //   name: "身高"
+  // },
   {
     key: "stoolNum", //大便次数
     value: "",
@@ -306,7 +310,6 @@ export default [{
 ];
 
 
-
 let filterKey = '花都' + ':';
 let filterKey2 = '体温单' + ':';
 let filterKey2Arr = ["表底注释", "表顶注释"];
@@ -328,6 +331,7 @@ export function getListData4() {
 }
 
 getListData4();
+
 /**
  *
  * @param {*} list 原数组
@@ -335,7 +339,7 @@ getListData4();
  * @param {*} data 数据源
  * @param {*} isChildOptions 当前选项是否有下拉子选项
  */
-function setList(list, key, data, ) {
+function setList(list, key, data,) {
   key = filterKey2Arr.includes(key) ? filterKey + filterKey2 + key : filterKey + key;
 
   list.splice(0, list.length);

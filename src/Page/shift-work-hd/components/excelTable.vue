@@ -163,7 +163,7 @@ function initFormData(data = {}) {
       ["入院", data.aAdmission, data.pAdmission, data.nAdmission],
       ["转入", data.aTransIn, data.pTransIn, data.nTransIn],
       ["手术", data.aOperation, data.pOperation, data.nOperation],
-      // ["分娩", data.aBorn, data.pBorn, data.nBorn],
+      ["分娩", data.aBorn, data.pBorn, data.nBorn],
       // ["预手术", data.aPreOperation, data.pPreOperation, data.nPreOperation],
       ["病危", data.aDanger, data.pDanger, data.nDanger],
       ["病重", data.aSerious, data.pSerious, data.nSerious],
@@ -220,6 +220,10 @@ function initFormList(list) {
     手术: {
       list: [],
       format: "block",
+    },
+    分娩: {
+      list: [],
+      format: "inline-block",
     },
     // 预手术: {
     //   list: [],

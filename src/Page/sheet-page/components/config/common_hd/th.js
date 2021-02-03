@@ -7,7 +7,7 @@ export default {
   // 科室的名称
   deptType: "",
   style: {
-    width: "1300px"
+    width: "1400px"
   },
   th: {
     top: [{
@@ -111,14 +111,15 @@ export default {
         colspan: "1",
         rowspan: "3",
         style: {
-          width: '50px'
+          minWidth: '50px',
+          maxWidth: '50px'
         },
       },
       {
         name: `标题1`,
         style: {
-          minWidth: '48px',
-          maxWidth: '48px'
+          minWidth: '50px',
+          maxWidth: '50px'
         },
         colspan: "1",
         rowspan: "3",
@@ -128,8 +129,8 @@ export default {
       {
         name: `标题2`,
         style: {
-          minWidth: '48px',
-          maxWidth: '48px'
+          minWidth: '50px',
+          maxWidth: '50px'
         },
         colspan: "1",
         rowspan: "3",
@@ -139,8 +140,8 @@ export default {
       {
         name: `标题3`,
         style: {
-          minWidth: '48px',
-          maxWidth: '48px'
+          minWidth: '50px',
+          maxWidth: '50px'
         },
         colspan: "1",
         rowspan: "3",
@@ -150,8 +151,8 @@ export default {
       {
         name: `标题4`,
         style: {
-          minWidth: '48px',
-          maxWidth: '48px'
+          minWidth: '50px',
+          maxWidth: '50px'
         },
         colspan: "1",
         rowspan: "3",
@@ -161,8 +162,8 @@ export default {
       {
         name: `标题5`,
         style: {
-          minWidth: '48px',
-          maxWidth: '48px'
+          minWidth: '50px',
+          maxWidth: '50px'
         },
         colspan: "1",
         rowspan: "3",
@@ -172,8 +173,8 @@ export default {
       {
         name: `标题6`,
         style: {
-          minWidth: '48px',
-          maxWidth: '48px'
+          minWidth: '50px',
+          maxWidth: '50px'
         },
         colspan: "1",
         rowspan: "3",
@@ -192,7 +193,7 @@ export default {
       },
       {
         name: `
-        护士签名
+        记录人签名
         `,
         style: {},
         colspan: "1",
@@ -204,11 +205,15 @@ export default {
       },
       {
         name: `
-        审核签名
+        上级护士签名
         `,
         style: {},
         colspan: "1",
-        rowspan: "3"
+        rowspan: "3",
+        style: {
+          minWidth: "50px",
+          maxWidth: "50px"
+        },
       }
     ],
     mid: [{
