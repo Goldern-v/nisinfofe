@@ -320,15 +320,19 @@
           <div>
             <div>
               <span>科室：{{ query.deptName }}</span>
-              <span>床位：{{ query.bedLabel }}</span>
+              <span style="margin:4px;">床位：{{ query.bedLabel }}</span>
             </div>
             <div>
               <span>入院日期：{{ query.admissionDate | ymdhm }}</span>
             </div>
-            <div>
-              <span>过敏史：{{ allergy1 }}</span>
-              <span>{{ allergy2 }}</span>
-              <span>{{ drugGms }}</span>
+            <div class="allergy">
+              <p>
+                过敏信息：
+                <span v-if="allergy1">食物过敏:{{ allergy1 }};</span>
+                <span v-if="drugGms">药物过敏:{{ drugGms }};</span>
+                <span v-if="allergy2">其他过敏:{{ allergy2 }}</span>
+                <span v-else>无</span>
+              </p>
             </div>
             <!-- <svg id="barcode"></svg> -->
           </div>
@@ -441,6 +445,16 @@
           }
         }
      }
+      >>>.allergy{
+        width :80%;
+        p{
+          margin-left:45px;
+        }
+        span{
+          margin-left:0px;
+          font-size:15px !important;
+        }
+      }
      span {
         font-size: 20px;
         line-height: 24px;
