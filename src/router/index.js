@@ -143,14 +143,9 @@ const router = new Router({
   mode: "history",
   base: "/crNursing/",
   routes: [
-    // {
-    //   path: "/",
-    //   redirect: "/index",
-    //   alias: "主页"
-    // },
     {
       path: "/",
-      redirect: "/templateShow",
+      redirect: "/index",
       alias: "主页"
     },
     {

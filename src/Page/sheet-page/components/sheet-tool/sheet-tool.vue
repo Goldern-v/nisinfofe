@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="tool-contain" flex="cross:center" :class="isPreivew && 'is-preivew'">
+    <div class="tool-contain" flex="cross:center">
       <div
           class="item-box"
           flex="cross:center main:center"
@@ -40,21 +40,21 @@
       >
         <div class="text-con">设置起始页({{ sheetInfo.sheetStartPage }})</div>
       </div>
-      <div class="item-box is-click" flex="cross:center main:center" @click="toPrint" v-if="!isDeputy">
+      <div class="item-box" flex="cross:center main:center" @click="toPrint" v-if="!isDeputy">
         <div class="text-con">打印预览</div>
       </div>
       <!-- <div class="item-box" flex="cross:center main:center" @click="toAllPrint">
         <div class="text-con">批量打印</div>
       </div>-->
-      <!-- <div
+      <div
           v-if="!isDeputy"
-          class="item-box is-click"
+          class="item-box"
           flex="cross:center main:center"
           @click.stop="toPdfPrint"
           v-show="isDev"
       >
         <div class="text-con">批量打印</div>
-      </div> -->
+      </div>
       <div
           v-if="!isDeputy"
           class="item-box"
@@ -118,9 +118,9 @@
         <div class="sheetSelect-con-sheet">
           <div class="head-con" flex="cross:stretch">
             <div class="col-1">记录单标题</div>
-            <!-- <div class="col-2">科室</div>
+            <div class="col-2">科室</div>
             <div class="col-3">开始时间</div>
-            <div class="col-4">页码</div> -->
+            <div class="col-4">页码</div>
             <!-- <div class="col-3">结束时间</div> -->
           </div>
           <el-option
@@ -130,10 +130,10 @@
               :value="item"
           >
             <div class="list-con" flex="cross:stretch">
-              <div class="col-1" :title="item.recordName || item.typeName">
-                {{ item.recordName || item.typeName}}
+              <div class="col-1" :title="item.recordName">
+                {{ item.recordName }}
               </div>
-              <!-- <div class="col-2" :title="item.deptName">
+              <div class="col-2" :title="item.deptName">
                 {{ item.deptName }}
               </div>
               <div class="col-3" :title="item.createTime">
@@ -141,7 +141,7 @@
               </div>
               <div class="col-4" :title="item.completeName">
                 {{ item.pageIndex }} - {{ item.endPageIndex }}
-              </div> -->
+              </div>
               <!-- <div class="col-3" :title="item.completeName">{{item.completeName}}</div> -->
             </div>
           </el-option>
@@ -618,11 +618,9 @@ export default {
     },
     blockLabel(item, length) {
       // return `${item.recordName} ${dayjs(item.createTime).format("MM-DD")}`;
-      // return `${item.deptName} ${dayjs(item.createTime).format(
-      //     "MM-DD"
-      // )}建 共${length}张
-      // `;
-      return `${item.typeName} 共${length}张
+      return `${item.deptName} ${dayjs(item.createTime).format(
+          "MM-DD"
+      )}建 共${length}张
       `;
     },
     changeSelectBlock() {
@@ -702,9 +700,6 @@ export default {
     /* 是否是副页 */
     isDeputy() {
       return this.sheetInfo.selectBlock && this.sheetInfo.selectBlock.additionalBlock
-    },
-    isPreivew(){
-      return this.$route.path.includes('templateShow');
     }
   },
   created() {
@@ -808,7 +803,6 @@ export default {
         this.sheetInfo.selectRow.splice(0, this.sheetInfo.selectRow.length);
       }
     });
-    this.sheetBlockList = sessionStorage.getItem('blockList') ? JSON.parse(sessionStorage.getItem('blockList')) : '';
   },
   watch: {
     pageArea() {
@@ -882,8 +876,7 @@ export default {
   background: #FFFFFF;
   box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.5);
   border-radius: 4px;
-  // width: 562px !important;
-  width: 300px !important;
+  width: 562px !important;
   left: auto !important;
   right: 120px;
 
@@ -913,7 +906,7 @@ export default {
   .col-1 {
     width: 192px;
     padding: 0 24px;
-    // border-right: 1px solid #EAEEF1;
+    border-right: 1px solid #EAEEF1;
   }
 
   .col-2 {
@@ -966,20 +959,5 @@ export default {
 
 .red-border {
   border: 2px solid red !important;
-}
-.is-preivew {
-  .item-box,.right-btn {
-    cursor: not-allowed;
-    pointer-events: none;
-  }
-  .is-click {
-    cursor: pointer;
-    pointer-events: auto;
-  }
-  >>>.select-con {
-    .el-input__inner {
-     width: 320px;
-   }
-  }
 }
 </style>
