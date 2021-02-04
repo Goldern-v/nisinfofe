@@ -229,7 +229,8 @@ export default {
       sheetModel,
       sheetInfo,
       scrollTop: 0,
-      scrollY: 0
+      scrollY: 0,
+      bedAndDeptChange: {}
     };
   },
   computed: {
