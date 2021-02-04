@@ -3,168 +3,78 @@
   <span @click="toInfo(data)" class="nod">
     <div class="card-box" @click="prevent(data, $event)">
       <div class="like" @click.stop="toLike(data)">
-        <img
-          v-if="data.isFollow == '1'"
-          src="../../../../../../common/images/card/like.png"
-          height="18"
-          width="18"
-        />
-        <img
-          v-else
-          src="../../../../../../common/images/card/liked.png"
-          height="18"
-          width="18"
-        />
+        <img v-if="data.isFollow == '1'" src="../../../../../../common/images/card/like.png" height="18" width="18" />
+        <img v-else src="../../../../../../common/images/card/liked.png" height="18" width="18" />
       </div>
-      <img
-        src="./images/借.png"
-        class="deptLend"
-        v-if="data.deptLend"
-        alt=""
-        :title="data.deptLend"
-      />
-      <span v-if="!data.patientId" class="null-bedLabel"
-        >{{data.bedLabel}}</span
-      >
+      <img src="./images/借.png" class="deptLend" v-if="data.deptLend" alt="" :title="data.deptLend" />
+      <span v-if="!data.patientId" class="null-bedLabel">{{data.bedLabel}}</span>
       <div v-if="data.patientId">
         <div class="card-text">
           <div class="name" flex="main:justify">
             <span flex="cross:center">
               <span>{{data.name}}</span>
-              <span
-                class="point-box"
-                v-show="data.formLowestStatus != '2'"
-                :class="{red: data.formLowestStatus == 0, green: data.formLowestStatus == 1}"
-              ></span>
+              <span class="point-box" v-show="data.formLowestStatus != '2'"
+                :class="{red: data.formLowestStatus == 0, green: data.formLowestStatus == 1}"></span>
             </span>
-            <span
-              style="color:rgb(237, 85, 102)"
-              v-if="data.patientCondition == '病重'"
-              >病重</span
-            >
-            <span
-              style="color:rgb(237, 85, 102)"
-              v-if="data.patientCondition == '病危'"
-              >病危</span
-            >
+            <span style="color:rgb(237, 85, 102)" v-if="data.patientCondition == '病重'">病重</span>
+            <span style="color:rgb(237, 85, 102)" v-if="data.patientCondition == '病危'">病危</span>
           </div>
           <div class="info">
             {{data.sex}} | {{data.age}} | {{data.patientId}} | {{data.chargeType
             || '--'}}
           </div>
-          <div
-            style="border-bottom: 1px dashed #E4E8EB; margin-bottom: 10px"
-          ></div>
-          <div
-            class="aside"
-            :style="inToday(data.admissionDate) && {color:'red'}"
-          >
+          <div style="border-bottom: 1px dashed #E4E8EB; margin-bottom: 10px"></div>
+          <div class="aside" :style="inToday(data.admissionDate) && {color:'red'}">
             入院：{{`${FormatData(data.admissionDate)}（第${data.inpDay}天）`}}
           </div>
           <div class="aside">医生：{{data.doctorInCharge}}</div>
           <div class="aside">诊断：{{data.diagnosis}}</div>
         </div>
-        <el-row
-          class="card-footer"
-          type="flex"
-          justify="space-between"
-          align="middle"
-          flex="cross: center"
-        >
+        <el-row class="card-footer" type="flex" justify="space-between" align="middle" flex="cross: center">
           <div class="left-icon">
             <span v-if="data.isTodayOperation == '1'">
-              <img
-                src="../../../../../../common/images/card/今日手术.png"
-                height="18"
-                width="60"
-              />
+              <img src="../../../../../../common/images/card/今日手术.png" height="18" width="60" />
             </span>
             <span v-if="data.isTommorowOperation == '1'">
-              <img
-                src="../../../../../../common/images/card/明日手术.png"
-                height="18"
-                width="60"
-              />
+              <img src="../../../../../../common/images/card/明日手术.png" height="18" width="60" />
             </span>
             <span v-if="data.isTodayDischarge == '1'">
-              <img
-                src="../../../../../../common/images/card/今日出院.png"
-                height="18"
-                width="60"
-              />
+              <img src="../../../../../../common/images/card/今日出院.png" height="18" width="60" />
             </span>
             <span v-if="data.isTommorowDischarge == '1'">
-              <img
-                src="../../../../../../common/images/card/明日出院.png"
-                height="18"
-                width="60"
-              />
+              <img src="../../../../../../common/images/card/明日出院.png" height="18" width="60" />
             </span>
           </div>
           <div flex-box="1" flex="dir:right" style="width: 0">
-            <div
-              class="table-name"
-              v-for="item in (data.conditionIconDtos &&  data.conditionIconDtos.slice(0,6))"
-              :key="item.iconText"
-              :title="item.iconText"
-              :style="{background: item.iconTextRgb}"
-            >
+            <div class="table-name" v-for="item in (data.conditionIconDtos &&  data.conditionIconDtos.slice(0,6))"
+              :key="item.iconText" :title="item.iconText" :style="{background: item.iconTextRgb}">
               <span>{{item.showContent}}</span>
             </div>
-            <div
-              class="table-name"
-              v-for="item in (data.evalIcons &&  data.evalIcons.slice(0,6))"
-              :key="item.formName"
-              :title="item.description + ' 分数:' + item.score + '分'"
-              :style="{background: item.iconTextRgb}"
-              @click.stop="toFormPage(data, item)"
-            >
+            <div class="table-name" v-for="item in (data.evalIcons &&  data.evalIcons.slice(0,6))" :key="item.formName"
+              :title="item.description + ' 分数:' + item.score + '分'" :style="{background: item.iconTextRgb}"
+              @click.stop="toFormPage(data, item)">
               <span>{{item.iconText}}</span>
             </div>
           </div>
           <div class="right-icon"></div>
         </el-row>
-        <div
-          class="user-img"
-          :class="{
+        <div class="user-img" :class="{
                       'type-1': data.nursingClass == '一级护理',
                       'type-2': data.nursingClass == '二级护理',
                       'type-3': data.nursingClass == '三级护理',
                       'type-4': data.nursingClass == '特级护理'
-                      }"
-        >
-          <img
-            src="../../../../../../common/images/card/默认头像.png"
-            height="46"
-            width="46"
-          />
+                      }">
+          <img src="../../../../../../common/images/card/默认头像.png" height="46" width="46" />
           <p>
             <!-- {{data.nursingClass.substring(0, 2)}} -->
-            <span
-              style="font-size: 18px;font-weight: bold;"
-              :style="!data.nursingClass && {color: '#444'}"
-              >{{data.bedLabel}}</span
-            ><br />
-            <span
-              style="font-size: 12px"
-              :style="!data.nursingClass && {color: '#444'}"
-              >（床）</span
-            >
+            <span style="font-size: 18px;font-weight: bold;"
+              :style="!data.nursingClass && {color: '#444'}">{{data.bedLabel}}</span><br />
+            <span style="font-size: 12px" :style="!data.nursingClass && {color: '#444'}">（床）</span>
           </p>
         </div>
       </div>
-      <el-row
-        v-else
-        class="null-bed"
-        type="flex"
-        justify="center"
-        align="middle"
-      >
-        <img
-          src="../../../../../../common/images/card/空床.png"
-          height="100"
-          width="100"
-        />
+      <el-row v-else class="null-bed" type="flex" justify="center" align="middle">
+        <img src="../../../../../../common/images/card/空床.png" height="100" width="100" />
       </el-row>
     </div>
   </span>
@@ -250,7 +160,11 @@
     <div flex="" class="table-line">
       <div class="key">过敏史：</div>
       <div class="value" flex-box="1" style="width: 0; color: #FE0000">
-        {{ data.drugGms }}
+        <span v-if="data.allergy1">食物过敏:{{ data.allergy1 }};</span>
+        <span v-if="data.drugGms">药物过敏:{{ data.drugGms  }};</span>
+        <span v-if="data.allergy2">其他过敏:{{ data.allergy2}}</span>
+        <span v-else>无</span>
+
       </div>
     </div>
 
@@ -277,6 +191,3 @@
     </div> -->
   </div>
 </el-col>
-
-
-

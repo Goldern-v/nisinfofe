@@ -5,19 +5,24 @@
         <div class="title">住院天数</div>
       </div>
       <div class="body-con">
-        <div class="value">{{info.inpDay}}</div>
+        <div class="value">{{ info.inpDay }}</div>
         <div class="aside">days</div>
       </div>
     </div>
     <div class="top-box" flex-box="1">
       <div class="head-con">
         <div class="title">药比</div>
-        <div class="warning" v-show="Number(DrugFeePercent) > 30">超出质控值</div>
+        <div class="warning" v-show="Number(DrugFeePercent) > 30">
+          超出质控值
+        </div>
       </div>
       <div class="body-con">
-        <div class="value">{{DrugFeePercent || '--'}}%</div>
+        <div class="value">{{ DrugFeePercent || "--" }}%</div>
         <div class="aside">percent</div>
-        <i class="iconfont icon-chaochu" v-show="Number(DrugFeePercent) > 30"></i>
+        <i
+          class="iconfont icon-chaochu"
+          v-show="Number(DrugFeePercent) > 30"
+        ></i>
         <!-- <i class="iconfont icon-guodi"></i> -->
       </div>
     </div>
@@ -27,7 +32,7 @@
         <!-- <div class="warning">31,032.09</div> -->
       </div>
       <div class="body-con">
-        <div class="value">{{total | toMoney}}</div>
+        <div class="value">{{ total | toMoney }}</div>
         <div class="aside">RMB</div>
         <!-- <i class="iconfont icon-chaochu"></i> -->
         <!-- <i class="iconfont icon-guodi"></i> -->
@@ -36,32 +41,52 @@
     <div class="top-box" flex-box="1">
       <div class="head-con">
         <div class="title">预交金</div>
-        <div class="warning" v-show="(Number(prePay) - Number(total)) < 0">余额不足</div>
+        <div class="warning" v-show="Number(prePay) - Number(total) < 0">
+          余额不足
+        </div>
       </div>
       <div class="body-con">
-        <div class="value">{{prePay | toMoney}}</div>
+        <div class="value">{{ prePay | toMoney }}</div>
         <div class="aside">RMB</div>
-        <i class="iconfont icon-guodi" v-show="(Number(prePay) - Number(total)) < 0"></i>
+        <i
+          class="iconfont icon-guodi"
+          v-show="Number(prePay) - Number(total) < 0"
+        ></i>
       </div>
     </div>
 
     <div class="top-box" flex-box="1">
       <div class="head-con">
         <div class="title">过敏</div>
-        <img src="../images/分组.png" alt class="warning-img" v-if="info.drugGms" />
+        <img
+          src="../images/分组.png"
+          alt
+          class="warning-img"
+          v-if="info.drugGms || info.allergy1 || info.allergy2"
+        />
       </div>
       <div class="body-con">
-        <div class="text">{{info.drugGms || '--'}}</div>
+        <div class="text">
+          <span v-if="info.allergy1"> 食物过敏:{{ info.allergy1 }}; </span>
+          <span v-if="info.drugGms"> 药物过敏:{{ info.drugGms }}; </span>
+          <span v-if="info.allergy2"> 其他过敏:{{ info.allergy2 }} </span>
+          <span v-else>--</span>
+        </div>
       </div>
     </div>
 
     <div class="top-box" flex-box="1">
       <div class="head-con">
         <div class="title">隔离</div>
-        <img src="../images/分组.png" alt class="warning-img" v-if="info.glFlag" />
+        <img
+          src="../images/分组.png"
+          alt
+          class="warning-img"
+          v-if="info.glFlag"
+        />
       </div>
       <div class="body-con">
-        <div class="text">{{info.glFlag || '--'}}</div>
+        <div class="text">{{ info.glFlag || "--" }}</div>
       </div>
     </div>
   </div>
