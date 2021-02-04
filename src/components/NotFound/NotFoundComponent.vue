@@ -85,7 +85,8 @@
         },
         goHome () {
             this.$router.push({
-                path: '/index'
+                // path: '/index'
+                path: '/templateShow'
             });
         }
     },

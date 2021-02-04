@@ -142,9 +142,15 @@ Vue.use(Router);
 const router = new Router({
   mode: "history",
   base: "/crNursing/",
-  routes: [{
+  routes: [
+    // {
+    //   path: "/",
+    //   redirect: "/index",
+    //   alias: "主页"
+    // },
+    {
       path: "/",
-      redirect: "/index",
+      redirect: "/templateShow",
       alias: "主页"
     },
     {

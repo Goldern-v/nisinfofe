@@ -28,7 +28,7 @@
     </div>
     <!-- 右边iframe -->
     <div class="right-part">
-      <div class="contantV2" v-loading="pageLoading" ref="iframeLoadingV2">
+      <div class="contantV2" v-loading="pageLoading" ref="iframeLoadingV2" v-show="currentType == 'evals'">
         <iframe
           :style="{ height: iframeHeight + 'px' }"
           frameborder="0"
@@ -40,6 +40,9 @@
         ></iframe>
         <div v-else class="null-url">{{ defaultText }}</div>
       </div>
+      <div v-show="currentType == 'records'">
+        <sheet></sheet>
+      </div>
     </div>
   </div>
 </template>
@@ -50,6 +53,9 @@ import filebox from "@/common/images/record/文件夹.png";
 import { getFormLists } from "./api/index"; // 获取属性列表
 import { formTempUrl, devFormUrl } from "@/common/pathConfig/index.js"; // 表单路径前缀和开发模式前缀
 import common from "@/common/mixin/common.mixin.js";
+import sheetInfo from "@/Page/sheet-page/components/config/sheetInfo/index.js";
+import bus from "vue-happy-bus";
+import sheet from "@/Page/patientInfo/supPage/sheet/sheet.vue";
 /**
  * 目前旧版表单打印有问题
  * 新版表单多列类型的表单因为没有数据无法显示
@@ -71,6 +77,9 @@ export default {
       treeLoading: false,
       pageLoading: false,
       defaultText: "请选择表单",
+      sheetInfo,
+      bus: bus(this),
+      currentType: 'evals',//当前类型
     };
   },
   computed: {
@@ -81,7 +90,7 @@ export default {
     // 绑定可视区域高度
     height() {
       if (this.$route.path == "/templateShow") {
-        return `${this.wih - 50}px`;
+        return `${this.wih - 61}px`;
       } else {
         return `${this.wih - 50}px`;
       }
@@ -123,7 +132,17 @@ export default {
       return data.typeName.indexOf(value) !== -1;
     },
     // 点击节点
-    nodeClick(data, node) {
+    async nodeClick(data, node) {
+      this.currentType = data.formGroup;
+      let patientId = "9527",visitId ="1";
+      console.log(data);
+      console.log(node);
+      if(data.formType == 'record'){
+      //   this.$router.push(`/templateShow/sheet?patientId=${patientId}&visitId=${visitId}`);
+        this.sheetInfo.selectBlock = data;
+        return;
+      }
+
       // 选择表单名称节点
       if (node.level === 3 && data.pageUrl) {
         if (this.isDev) {
@@ -164,11 +183,17 @@ export default {
           let resData = res.data.data;
           // 把表单名称改成"typeName"才能显示在tree结构中
           const json = JSON.parse(
-            JSON.stringify(resData).replace(/formName/g, "typeName")
+            JSON.stringify(resData).replace(/formName/g, "typeName").replace(/indexNo/g, "id").replace(/formCode/g, "recordCode")
           );
           console.log("返回的数据", json);
 
-          this.templateList = json;
+          this.templateList = json.map(item=>{
+            if(item.typeCode == "records"){
+              sessionStorage.setItem('blockList',JSON.stringify(item.children[0].children));
+            }
+            return item;
+          })
+
         })
         .then((res) => {
           this.treeLoading = false;
@@ -186,7 +211,9 @@ export default {
       this.$refs.tree.filter(val);
     },
   },
-  components: {},
+  components: {
+    sheet
+  },
 };
 </script>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus">
@@ -327,7 +354,8 @@ export default {
   }
 
   .filter-input {
-    margin-top: 10px;
+    padding-top: 2px;
+    padding-bottom: 2px;
   }
 }
 

@@ -338,7 +338,8 @@ export default {
             this.$router.push(this.$store.state.common.relogin);
           } else {
             this.$store.commit("upRelogin", false);
-            this.$router.push("/index");
+            // this.$router.push("/index");
+            this.$router.push("/templateShow");
             if (this.HOSPITAL_ID == "weixian") {
               /** 验证证书 */
               window.openCaSignModal();

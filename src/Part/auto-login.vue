@@ -43,7 +43,8 @@
         Cookies.remove("NURSING_USER")
         Cookies.set('NURSING_USER', `${res.data.data.user.id}##${res.data.data.authToken}`, { path: '/' })
         // this.$setCookie('NURSING_USER', `${res.data.data.user.id}##${res.data.data.authToken}`)
-        this.$router.push('/index')
+        // this.$router.push('/index')
+        this.$router.push('/templateShow')
       })
       .catch((e) => {
         // window.app.$message({

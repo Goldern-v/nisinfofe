@@ -229,7 +229,8 @@ export default {
       sheetModel,
       sheetInfo,
       scrollTop: 0,
-      scrollY: 0
+      scrollY: 0,
+      bedAndDeptChange: {}
     };
   },
   computed: {
@@ -237,7 +238,7 @@ export default {
       if (this.fullpage) {
         return this.wih - 100 + "px";
       } else {
-        return this.wih - 154 + "px";
+        return this.wih - 61 + "px";
       }
     },
     patientInfo() {
