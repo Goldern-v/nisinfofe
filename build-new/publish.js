@@ -20,7 +20,7 @@ let sshUpload = (
     德州市陵城区人民医院: "lingcheng",
     花都武警医院: "huaduwujing",
     广州市花都区人民医院: "huadu",
-    武警广东总队医院: "wujing"
+    武警广东省总队医院: "wujing"
   };
   let hospitalEN = "dongguanhoujie";
   if (hospitalList[hospitalName]) {
@@ -58,7 +58,7 @@ let sshUpload = (
         //   // return baseName.substr(0, 1) !== '.' && // do not allow dot files
         //   //   baseName !== 'node_modules' // do not allow node_modules
         // },
-        tick: function(localPath, remotePath, error) {
+        tick: function (localPath, remotePath, error) {
           if (error) {
             failed.push(localPath);
           } else {
@@ -69,7 +69,7 @@ let sshUpload = (
           }
         }
       })
-      .then(function(status) {
+      .then(function (status) {
         spinner.stop();
         if (status) {
           log(
@@ -99,7 +99,7 @@ let sshUpload = (
       });
   };
 
-  ssh.connect(serverInfo).then(function() {
+  ssh.connect(serverInfo).then(function () {
     //
     ssh
       .execCommand(`rm -rfv "${folderSrc}"`, {
