@@ -48,7 +48,7 @@ module.exports = {
   },
   "wujing": {
     HOSPITAL_ID: '"wujing"',
-    HOSPITAL_NAME: '"武警广东总队医院"',
-    HOSPITAL_NAME_SPACE: '"武 警 广 东 总 队 医 院"'
+    HOSPITAL_NAME: '"武警广东省总队医院"',
+    HOSPITAL_NAME_SPACE: '"武 警 广 东 省 总 队 医 院"'
   }
 }
