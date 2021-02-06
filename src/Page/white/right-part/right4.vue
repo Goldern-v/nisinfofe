@@ -29,17 +29,17 @@
       <div class="body-con" v-loading="pageLoading" slot="body-con" flex="dir:top main:top" v-else>
         <div flex="cross:center">
           <div class="label">P班：</div>
-          <input flex-box="1" v-model="data.classP" @blur="update" :disabled="data.classPEdit">
+          <input flex-box="1" v-model="data.classP" @blur="update">
         </div>
         <div style="height: 15px"></div>
         <div flex="cross:center">
           <div class="label">P全班：</div>
-          <input flex-box="1" v-model="data.classAllP" @blur="update" :disabled="data.classAllPEdit">
+          <input flex-box="1" v-model="data.classAllP" @blur="update">
         </div>
         <div style="height: 15px"></div>
         <div flex="cross:center">
           <div class="label">N班：</div>
-          <input flex-box="1" v-model="data.classN" @blur="update" :disabled="data.classNEdit">
+          <input flex-box="1" v-model="data.classN" @blur="update">
         </div>
         <div style="height: 15px"></div>
         <!-- <div flex="cross:center">

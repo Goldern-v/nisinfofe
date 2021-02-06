@@ -57,12 +57,12 @@
           {{ patientInfo.inpNo }}
         </div>
       </span>
-      <span>
+      <!-- <span>
         入院诊断：
         <div class="bottom-line" style="min-width: 30px">
           {{ patientInfo.inpNo }}
         </div>
-      </span>
+      </span> -->
       <span>
         时间：
         <div class="bottom-line" style="min-width: 30px">
@@ -127,7 +127,6 @@ export default {
   }
 
   span {
-    margin-right: 4px;
     font-size: 14px;
     color: #000;
   }
@@ -135,6 +134,8 @@ export default {
   .info-con {
     margin: 8px 0;
     text-align: left;
+    display: flex;
+    justify-content: space-between;
   }
 }
 </style>

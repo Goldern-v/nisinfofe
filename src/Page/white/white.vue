@@ -105,14 +105,14 @@ export default {
           } catch (error) {}
         }, 300);
 
-        if(this.HOSPITAL_ID == 'hj'){
-          this.deptInfo.classPEdit = this.deptInfo.classP ? true : false;
-          this.deptInfo.classAllPEdit = this.deptInfo.classAllP ? true : false;
-          this.deptInfo.classNEdit = this.deptInfo.classN ? true : false;
-        }
-        if(this.HOSPITAL_ID == 'hj' && type != 'notGet'){
-          this.getRange();
-        }
+        // if(this.HOSPITAL_ID == 'hj'){
+        //   this.deptInfo.classPEdit = this.deptInfo.classP ? true : false;
+        //   this.deptInfo.classAllPEdit = this.deptInfo.classAllP ? true : false;
+        //   this.deptInfo.classNEdit = this.deptInfo.classN ? true : false;
+        // }
+        // if(this.HOSPITAL_ID == 'hj' && type != 'notGet'){
+        //   this.getRange();
+        // }
       });
     },
     update(type) {
