@@ -20,7 +20,7 @@
       <span class="search-el">
         <el-input placeholder="姓名/住院号" v-model="query.searchingContent" @blur="handleSearch" />
       </span>
-      <span class="search-el">
+      <span class="search-el" style="width: 90px;">
         <el-input placeholder="接生者工号" v-model="query.birthAttendantId1" @blur="handleSearch" />
       </span>
       <el-button @click="handleSearch">查询</el-button>
