@@ -56,6 +56,7 @@ export default {
         startDate: startDate,
         endDate: endDate,
         searchingContent: "",
+        birthAttendantId1: "",
         selectContent: "",
         pageIndex: 1,
         pageSize: 10
