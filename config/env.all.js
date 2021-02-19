@@ -56,5 +56,15 @@ module.exports = {
     HOSPITAL_ID: '"hengxian"',
     HOSPITAL_NAME: '"横县人民医院"',
     HOSPITAL_NAME_SPACE: '"横 县 人 民 医 院"'
+  },
+  fuyou: {
+    HOSPITAL_ID: '"fuyou"',
+    HOSPITAL_NAME: '"江门市妇幼保健院"',
+    HOSPITAL_NAME_SPACE: '"江 门 市 妇 幼 保 健 院"'
+  },
+  liaocheng: {
+    HOSPITAL_ID: '"liaocheng"',
+    HOSPITAL_NAME: '"聊城市第二人民医院"',
+    HOSPITAL_NAME_SPACE: '"聊 城 市 第 二 人 民 医 院"'
   }
 };
