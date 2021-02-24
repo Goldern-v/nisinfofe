@@ -9,6 +9,8 @@ import "./style/print.styl";
 Vue.prototype.HOSPITAL_ID = process.env.HOSPITAL_ID;
 Vue.prototype.HOSPITAL_NAME = process.env.HOSPITAL_NAME;
 Vue.prototype.HOSPITAL_NAME_SPACE = process.env.HOSPITAL_NAME_SPACE;
+Vue.prototype.COMPANY_NAME = process.env.COMPANY_NAME;
+Vue.prototype.ABOUT_INFO = process.env.ABOUT_INFO;
 import "@/plugin/tool/formDate";
 new Vue({
   el: "#app",

@@ -144,6 +144,8 @@ Vue.use(VueContextMenu)
 Vue.prototype.HOSPITAL_ID = process.env.HOSPITAL_ID;
 Vue.prototype.HOSPITAL_NAME = process.env.HOSPITAL_NAME;
 Vue.prototype.HOSPITAL_NAME_SPACE = process.env.HOSPITAL_NAME_SPACE;
+Vue.prototype.COMPANY_NAME = process.env.COMPANY_NAME;
+Vue.prototype.ABOUT_INFO = process.env.ABOUT_INFO;
 let versionInfo = require("./version.json");
 
 global.system = {
@@ -153,7 +155,7 @@ global.system = {
   最近打包人员: versionInfo["最近打包人员"],
   proxyTable: versionInfo["proxyTable"] || "",
   关于: {
-    研发单位: "广州宸瑞软件科技有限公司",
+    研发单位: process.env.COMPANY_NAME || "广州宸瑞软件科技有限公司",
     电话: "020-81192725  |  020-81192726",
     邮箱: "gzcr@cr-health.com",
     地址: "广州市海珠区江南大道中180号富力天域中心1301-1314室",

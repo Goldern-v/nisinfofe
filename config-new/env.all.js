@@ -59,6 +59,15 @@ module.exports = {
   "liaocheng": {
     HOSPITAL_ID: '"liaocheng"',
     HOSPITAL_NAME: '"聊城市第二人民医院"',
-    HOSPITAL_NAME_SPACE: '"聊 城 市 第 二 人 民 医 院"'
-  }
+    HOSPITAL_NAME_SPACE: '"聊 城 市 第 二 人 民 医 院"',
+    COMPANY_NAME: '"宸瑞普惠(广州)科技有限公司"',
+    ABOUT_INFO: '"关于宸瑞普惠"'
+  },
+  "guizhou": {
+    HOSPITAL_ID: '"guizhou"',
+    HOSPITAL_NAME: '"贵州省人民医院"',
+    HOSPITAL_NAME_SPACE: '"贵 州 省 人 民 医 院"',
+    COMPANY_NAME: '"百辰源(广州)科技有限公司"',
+    ABOUT_INFO: '"关于百辰源"'
+  },
 }

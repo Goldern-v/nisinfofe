@@ -82,6 +82,7 @@ export default {
       this.isScale();
       this.isResize();
     }
+    window.document.title = this.HOSPITAL_ID == 'guizhou' || this.HOSPITAL_ID == 'liaocheng' ? "智慧护理信息系统" : '宸瑞智慧护理信息系统';
   },
   mounted() {
     window.openSignModal = this.$refs.signModal.open;
