@@ -1385,6 +1385,10 @@ export default {
   mounted() {
     this.fiexHeaderWidth =
       this.$refs.table && this.$refs.table.offsetWidth + "px";
+    if (this.sheetInfo.sheetType === "intervention_cure") {
+      this.fiexHeaderWidth =
+        this.$refs.table && this.$refs.table.offsetWidth + 12 + "px";
+    }
     console.log("mounted");
   },
   components: {
