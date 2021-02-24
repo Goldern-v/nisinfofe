@@ -14,7 +14,7 @@ let tableModel = {
 						value: "",
 						name: "ywsyjg",
 						style: "width:200px;text-align:left;margin-right: 160px;"
-					},{
+					}, {
 						type: "input",
 						prev: "介入手术或造影名称",
 						// elementClass: "txhtouxiqi",
@@ -22,27 +22,26 @@ let tableModel = {
 						value: "",
 						name: "jrsshzymc",
 						style: "width:600px;text-align:left;"
-					}
-					]
+					}]
 				}],
 				[{
 					colspan: '3',
 					rowspan: '',
 					children: [{
-						type: "radio",
+						type: "checkbox",
 						prev: "穿刺血管:",
 						value: "",
 						name: "chuancixueguan",
 						style: "width:100px;text-align:left;",
 						// elementClass: "mr11 txhtouxiqi",
 						children: [{
-								type: "radio",
+								type: "checkbox",
 								value: "动脉",
 								name: "chuancixueguan",
 								addClass: "",
 							},
 							{
-								type: "radio",
+								type: "checkbox",
 								value: "静脉 ",
 								name: "chuancixueguan",
 								addClass: "",
