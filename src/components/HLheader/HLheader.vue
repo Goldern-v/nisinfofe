@@ -240,7 +240,7 @@
               </el-row>
             </router-link>
 
-            <router-link to="/badEvent" tag="span">
+            <router-link to="/badEvent" tag="span" v-if="HOSPITAL_ID == 'hj'">
               <el-row class="nav-item" type="flex" align="middle"
               >不良事件
               </el-row
