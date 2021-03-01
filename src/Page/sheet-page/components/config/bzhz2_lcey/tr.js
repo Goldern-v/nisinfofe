@@ -18,22 +18,85 @@ export default [{
     event: event_time
   },
   {
-    key: "temperature", //体温
+    key: "temperature", //入量-项目
     value: "",
     event: keyf1
   },
   {
-    key: "pulse", //心率
+    key: "pulse", //入量-实入量
+    value: "",
+    event: keyf1,
+  },
+  {
+    key: "temperature0", //出量-尿量
     value: "",
     event: keyf1
   },
   {
-    key: "breath", //呼吸
+    key: "pulse0", //出量-大便
+    value: "",
+    event: keyf1,
+  },
+  {
+    key: "temperature1", //出量-呕吐
     value: "",
     event: keyf1
   },
   {
-    key: "bloodPressure", //血压
+    key: "pulse1", //出量-引流
+    value: "",
+    event: keyf1,
+  },
+  {
+    key: "temperature2", //出量-其它
+    value: "",
+    event: keyf1
+  },
+  {
+    key: "pulse2", //出量-总出量
+    value: "",
+    event: keyf1,
+  },
+  {
+    key: "pulse3", //意识
+    value: "",
+    event: keyf1,
+    autoComplete: {
+      data: ['1', '2', '3', '4', '5', '6', '7', '8']
+    },
+  },
+  {
+    key: "breath5", //瞳孔-左
+    value: "",
+    event: keyf1
+  },
+  {
+    key: "breath6", //瞳孔-右
+    value: "",
+    event: keyf1
+  },
+  {
+    key: "breath7", //瞳孔-光反射
+    value: "",
+    event: keyf1
+  },
+  {
+    key: "breath", //体温
+    value: "",
+    event: keyf1
+  },
+  {
+    key: "breath1", //心率/脉搏
+    value: "",
+    event: keyf1
+  },
+  {
+    key: "bloodPressure", //呼吸 次/min
+    value: "",
+    event: keyf1
+  },
+  {
+    key: "bloodPressure1", //血压(mmHg)
     value: "",
     event: function (e, td) {
       if (e.keyCode == 32) {
@@ -41,121 +104,34 @@ export default [{
         e.preventDefault();
       }
       keyf1(e, td);
-    }
-  },
-  {
-    key: "spo2", //SPO2
-    value: "",
-    event: keyf1
-  },
-  {
-    key: "diet", //饮食
-    value: "",
-    event: keyf1
-  },
-  {
-    key: "veinSize", // 入量静脉（ml）
-    value: "",
-    event: keyf1
-  },
-  {
-    key: "foodSize", // 进食（ml）
-    value: "",
-    event: keyf1
-  },
-  {
-    key: "otherFood", // 入量自定义
-    value: "",
-    event: keyf1
-  },
-  {
-    key: "dischargeSize", // 小便（ml）
-    value: "",
-    event: keyf1,
-  },
-  {
-    key: "dischargeColor", // 小便颜色
-    value: "",
-    event: keyf1
-  },
-  {
-    key: "stoolTimes", //大便（g/次）
-    value: "",
-    event: keyf1
-  },
-  {
-    key: "stoolNature", //大便性质
-    value: "",
-    event: keyf1,
-  },
-  {
-    key: "vomit", //呕吐（ml）
-    value: "",
-    event: keyf1
-  },
-  {
-    key: "otherDischarge", //出量自定义
-    value: "",
-    event: keyf1
-  },
-  {
-    key: "fieldFive", //舌苔
-    value: "",
-    event: keyf1,
+    },
     textarea: {
-      width: 36
+      width: 30
+    },
+    style: {
+      'line-height': '14px'
     }
   },
   {
-    key: "fieldSix", //脉
+    key: "consciousness", //血氧饱和度%
     value: "",
     event: keyf1,
-    textarea: {
-      width: 36
-    }
   },
   {
-    key: "fieldSeven", //指纹
+    key: "pupilSizeRight", // 氧疗 升/分
     value: "",
     event: keyf1,
-    textarea: {
-      width: 36
-    }
+    autoComplete: {
+      data: ['①', '②', '③']
+    },
   },
   {
-    key: "fieldOne", //标题1
+    key: "puplie", // 疼痛
     value: "",
     event: keyf1,
-    textarea: {
-      width: 48
-    }
   },
   {
-    key: "fieldTwo", //标题2
-    value: "",
-    event: keyf1,
-    textarea: {
-      width: 48
-    }
-  },
-  {
-    key: "fieldThree", //标题3
-    value: "",
-    event: keyf1,
-    textarea: {
-      width: 36
-    }
-  },
-  {
-    key: "fieldFour", //标题4
-    value: "",
-    event: keyf1,
-    textarea: {
-      width: 36
-    }
-  },
-  {
-    key: "description", //特殊情况记录
+    key: "description", //特殊处理及病情观察
     value: "",
     style: {
       textAlign: "left",
@@ -174,7 +150,6 @@ export default [{
       }
       keyf1(e, td);
     }
-    // oninput: next
   },
   {
     key: "sign",

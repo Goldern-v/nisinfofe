@@ -1,0 +1,277 @@
+import {
+  wrap
+} from "lodash";
+
+export default {
+  // 科室的名称
+  deptType: '',
+  style: {
+    width: "1200px"
+  },
+  th: {
+    top: [{
+        name: '日期',
+        style: {
+          minWidth: '36px',
+          maxWidth: '36px',
+        },
+        colspan: '1',
+        rowspan: '3'
+      },
+      {
+        name: '时间',
+        style: {
+          minWidth: '36px',
+          maxWidth: '36px',
+        },
+        colspan: '1',
+        rowspan: '3'
+      },
+      {
+        name: `
+        台<br/>箱<br/>温<br/>℃
+        `,
+        style: {},
+        colspan: '1',
+        rowspan: '3',
+        style: {
+          whiteSpace: wrap,
+          minWidth: '34px',
+        }
+      },
+      {
+        name: `
+        台<br/>箱<br/>编<br/>号
+        `,
+        style: {},
+        colspan: '1',
+        rowspan: '3',
+        style: {
+          minWidth: '34px',
+        }
+      },
+      {
+        name: `
+        体温<br/>℃
+        `,
+        style: {},
+        colspan: '1',
+        rowspan: '3',
+        style: {
+          minWidth: '38px',
+        }
+      },
+      {
+        name: `
+        心率<br/>次/<br>min
+        `,
+        style: {},
+        colspan: '1',
+        rowspan: '3',
+        style: {
+          minWidth: '38px',
+        }
+      },
+      {
+        name: `
+        呼吸<br/>次/<br>min
+        `,
+        style: {},
+        colspan: '1',
+        rowspan: '3',
+        style: {
+          minWidth: '38px',
+        }
+      },
+      {
+        name: `
+        血压<br/>(mmHg)
+        `,
+        style: {
+          minWidth: '42px',
+          maxWidth: '42px',
+        },
+        colspan: '1',
+        rowspan: '3'
+      },
+      {
+        name: `
+        SPO<sub>2</sub><br>(%)
+        `,
+        style: {
+          minWidth: '38px',
+          maxWidth: '38px'
+        },
+        colspan: '1',
+        rowspan: '3'
+      },
+      {
+        name: `
+        反应
+        `,
+        style: {},
+        colspan: '1',
+        rowspan: '3',
+        style: {
+          width: '38px',
+        }
+      },
+      {
+        name: `
+        哭声
+        `,
+        colspan: '1',
+        rowspan: '3',
+        style: {
+          width: '38px',
+        }
+      },
+      {
+        name: `
+        肤色
+        `,
+        colspan: '1',
+        rowspan: '3',
+        style: {
+          width: '38px',
+        }
+      },
+      {
+        name: `
+        脐部情况
+        `,
+        colspan: '1',
+        rowspan: '3',
+        style: {
+          width: '38px',
+        }
+      },
+      {
+        name: `
+        体位
+        `,
+        colspan: '1',
+        rowspan: '3',
+        style: {
+          width: '38px',
+        }
+      },
+      {
+        name: `
+        皮测<br>umol<br>/L
+        `,
+        colspan: '1',
+        rowspan: '3',
+        style: {
+          minWidth: '38px',
+        }
+      },
+      {
+        name: `
+        蓝光治疗
+        `,
+        colspan: '1',
+        rowspan: '3',
+        style: {
+          width: '38px',
+        }
+      },
+      {
+        name: `入量`,
+        colspan: '2',
+        rowspan: '1',
+        style: {
+          width: '38px',
+        }
+      },
+      {
+        name: `出量`,
+        colspan: '2',
+        rowspan: '1',
+        style: {
+          width: '38px',
+        }
+      },
+      {
+        name: `用氧方式`,
+        colspan: '1',
+        rowspan: '3',
+        style: {
+          minWidth: '50px',
+          maxWidth: '50px',
+        }
+      },
+      {
+        name: `FiO2<br>(%)`,
+        colspan: '1',
+        rowspan: '3',
+        style: {
+          minWidth: '50px',
+          maxWidth: '50px',
+        }
+      },
+      {
+        name: `血糖<br>mmol/L`,
+        colspan: '1',
+        rowspan: '3',
+        style: {
+          minWidth: '50px',
+          maxWidth: '50px',
+        }
+      },
+      {
+        name: `
+        特殊情况记录
+        `,
+        style: {
+          minWidth: '153px',
+          maxWidth: '153px',
+        },
+        colspan: '1',
+        rowspan: '3'
+      },
+      {
+        name: `
+        护士签名
+        `,
+        style: {},
+        colspan: '1',
+        rowspan: '3'
+      }
+    ],
+    mid: [{
+        name: `静脉<br>（ml）`,
+        colspan: '1',
+        rowspan: '2',
+        style: {
+          minWidth: '20px',
+        },
+      },
+      {
+        name: `进食<br>（ml）`,
+        colspan: '1',
+        rowspan: '2',
+        style: {
+          minWidth: '40px',
+        },
+      },
+      {
+        name: `大便<br>（g/性状）`,
+        style: {
+          minWidth: '65px',
+        },
+        colspan: '1',
+        rowspan: '2'
+      },
+      {
+        name: `小便<br>（ml）`,
+        colspan: '1',
+        rowspan: '2',
+        style: {
+          minWidth: '40px',
+        },
+      },
+    ],
+    bottom: []
+  }
+}

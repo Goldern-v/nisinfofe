@@ -44,12 +44,12 @@ export default [{
     }
   },
   {
-    key: "spo2 ", //SPO2
+    key: "spo2", //SPO2
     value: "",
     event: keyf1
   },
   {
-    key: "diet ", //饮食
+    key: "diet", //饮食
     value: "",
     event: keyf1
   },

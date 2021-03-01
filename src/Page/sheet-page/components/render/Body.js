@@ -387,6 +387,41 @@ function switechSheetType(type) {
     schema = require("../config/tcm_pediatrics_jm/tr.js").default;
   }
   break;
+  case "neonatal_care_jm": {
+    // 江门妇幼 - 新生儿监护单
+    schema = require("../config/neonatal_care_jm/tr.js").default;
+  }
+  break;
+  case "neonatology_jm": {
+    // 江门妇幼 - 产科新生儿护理记录单
+    schema = require("../config/neonatology_jm/tr.js").default;
+  }
+  break;
+  // case "tcm_pediatrics_jm": {
+  //   // 聊城二院 - (内科)一般患者护理评估记录单
+  //   schema = require("../config/common_nk_lcey/tr.js").default;
+  // }
+  // break;
+  // case "tcm_pediatrics_jm": {
+  //   // 聊城二院 - (外科)一般患者护理评估记录单
+  //   schema = require("../config/common_wk_lcey/tr").default;
+  // }
+  // break;
+  // case "tcm_pediatrics_jm": {
+  //   // 聊城二院 - (胸心外科)一般患者护理评估记录单
+  //   schema = require("../config/common_xxwk_lcey/tr").default;
+  // }
+  // break;
+  // case "tcm_pediatrics_jm": {
+  //   // 聊城二院 - 病重（病危）患者护理记录单（不带瞳孔）
+  //   schema = require("../config/bzhz_lcey/tr").default;
+  // }
+  // break;
+  // case "tcm_pediatrics_jm": {
+  //   // 聊城二院 - 病重（病危）患者护理记录单（带瞳孔）
+  //   schema = require("../config/bzhz2_lcey/tr").default;
+  // }
+  // break;
   default: {
     schema = require("../config/default/tr.js").default;
   }

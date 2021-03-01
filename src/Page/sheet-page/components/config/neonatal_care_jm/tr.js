@@ -6,6 +6,7 @@ import {
   event_time,
   click_date
 } from "../keyEvent/date";
+let select = ['√'];
 export default [{
     key: "recordMonth", //日期
     value: "",
@@ -18,22 +19,32 @@ export default [{
     event: event_time
   },
   {
-    key: "temperature", //体温
+    key: "fieldOne", //台箱温℃
     value: "",
     event: keyf1
   },
   {
-    key: "pulse", //心率
+    key: "fieldTwo", //台箱编号
     value: "",
     event: keyf1
   },
   {
-    key: "breath", //呼吸
+    key: "temperature", //体温℃
     value: "",
     event: keyf1
   },
   {
-    key: "bloodPressure", //血压
+    key: "pulse", //心率 次/min
+    value: "",
+    event: keyf1,
+  },
+  {
+    key: "breath", //呼吸 次/min
+    value: "",
+    event: keyf1,
+  },
+  {
+    key: "bloodPressure", //血压(mmHg)
     value: "",
     event: function (e, td) {
       if (e.keyCode == 32) {
@@ -44,115 +55,100 @@ export default [{
     }
   },
   {
-    key: "spo2", //SPO2
+    key: "spo2", // spo2
     value: "",
     event: keyf1
   },
   {
-    key: "diet", //饮食
-    value: "",
-    event: keyf1
-  },
-  {
-    key: "veinSize", // 入量静脉（ml）
-    value: "",
-    event: keyf1
-  },
-  {
-    key: "foodSize", // 进食（ml）
-    value: "",
-    event: keyf1
-  },
-  {
-    key: "otherFood", // 入量自定义
-    value: "",
-    event: keyf1
-  },
-  {
-    key: "dischargeSize", // 小便（ml）
+    key: "fieldThree", // 反应
     value: "",
     event: keyf1,
-  },
-  {
-    key: "dischargeColor", // 小便颜色
-    value: "",
-    event: keyf1
-  },
-  {
-    key: "stoolTimes", //大便（g/次）
-    value: "",
-    event: keyf1
-  },
-  {
-    key: "stoolNature", //大便性质
-    value: "",
-    event: keyf1,
-  },
-  {
-    key: "vomit", //呕吐（ml）
-    value: "",
-    event: keyf1
-  },
-  {
-    key: "otherDischarge", //出量自定义
-    value: "",
-    event: keyf1
-  },
-  {
-    key: "fieldFive", //舌苔
-    value: "",
-    event: keyf1,
-    textarea: {
-      width: 36
+    autoComplete: {
+      data: select
     }
   },
   {
-    key: "fieldSix", //脉
+    key: "fieldFour", // 哭声
     value: "",
     event: keyf1,
-    textarea: {
-      width: 36
+    autoComplete: {
+      data: select
     }
   },
   {
-    key: "fieldSeven", //指纹
+    key: "fieldSix", // 肤色
     value: "",
     event: keyf1,
-    textarea: {
-      width: 36
+    autoComplete: {
+      data: select
     }
   },
   {
-    key: "fieldOne", //标题1
+    key: "fieldSeven", // 脐部情况
     value: "",
     event: keyf1,
-    textarea: {
-      width: 48
+    autoComplete: {
+      data: select
     }
   },
   {
-    key: "fieldTwo", //标题2
+    key: "fieldEight", // 体位
     value: "",
     event: keyf1,
-    textarea: {
-      width: 48
+    autoComplete: {
+      data: ['左', '平', '右']
     }
   },
   {
-    key: "fieldThree", //标题3
+    key: "fieldNine", // 皮测umol/L
     value: "",
     event: keyf1,
-    textarea: {
-      width: 36
+  },
+  {
+    key: "fieldTen", // 蓝光治疗
+    value: "",
+    event: keyf1,
+    autoComplete: {
+      data: select
     }
   },
   {
-    key: "fieldFour", //标题4
+    key: "fieldEleven", //入量--静脉（ml）
     value: "",
     event: keyf1,
     textarea: {
-      width: 36
+      width: 68
     }
+  },
+  {
+    key: "fieldTwelve", //入量--进食（ml）
+    value: "",
+    event: keyf1
+  },
+  {
+    key: "fieldThirteen", //出量--大便（g/性状）
+    value: "",
+    event: keyf1,
+  },
+  {
+    key: "fieldFourteen", //出量--小便（ml）
+    value: "",
+    event: keyf1
+  },
+  {
+    key: "fieldFifteen", //用氧方式
+    value: "",
+    event: keyf1,
+  },
+  {
+    key: "fio2", //FiO2(%)
+    value: "",
+    event: keyf1,
+  },
+  {
+    key: "fieldSixteen", //血糖mmol/L
+    value: "",
+    event: keyf1,
   },
   {
     key: "description", //特殊情况记录
@@ -174,7 +170,6 @@ export default [{
       }
       keyf1(e, td);
     }
-    // oninput: next
   },
   {
     key: "sign",
