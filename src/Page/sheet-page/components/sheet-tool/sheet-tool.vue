@@ -2,101 +2,108 @@
   <div>
     <div class="tool-contain" flex="cross:center">
       <div
-          class="item-box"
-          flex="cross:center main:center"
-          @click="emit('addSheetPage')"
+        class="item-box"
+        flex="cross:center main:center"
+        @click="emit('addSheetPage')"
       >
         <div class="text-con">添加新页</div>
       </div>
       <!-- <div class="item-box" flex="cross:center main:center" flex-box="1" @click="emit('delSheetPage')">
-                    <div class="icon-box">
-                      <i class="icon-shanchu1 iconfont" style="font-size: 14px;color:#E55E01;"></i>
-                    </div>
-                    <div class="text-con">
-                      删除记录单
-                    </div>
+            <div class="icon-box">
+              <i class="icon-shanchu1 iconfont" style="font-size: 14px;color:#E55E01;"></i>
+            </div>
+            <div class="text-con">
+              删除记录单
+            </div>
       </div>-->
       <div
-          class="item-box"
-          flex="cross:center main:center"
-          @click="emit('saveSheetPage', 'noSaveSign')"
+        class="item-box"
+        flex="cross:center main:center"
+        @click="emit('saveSheetPage', 'noSaveSign')"
       >
         <div class="text-con" flex="cross:center">保存</div>
       </div>
       <div
-          class="item-box"
-          flex="cross:center main:center"
-          @click="openStaticModal"
-          v-if="showCrl && !isDeputy"
+        class="item-box"
+        flex="cross:center main:center"
+        @click="openStaticModal"
+        v-if="showCrl && !isDeputy"
       >
         <div class="text-con">出入量统计</div>
       </div>
       <div
-          v-if="!isDeputy"
-          class="item-box"
-          flex="cross:center main:center"
-          @click="setPage"
-          style="width: 90px"
+        v-if="!isDeputy"
+        class="item-box"
+        flex="cross:center main:center"
+        @click="setPage"
+        style="width: 90px"
       >
         <div class="text-con">设置起始页({{ sheetInfo.sheetStartPage }})</div>
       </div>
-      <div class="item-box" flex="cross:center main:center" @click="toPrint" v-if="!isDeputy">
+      <div
+        class="item-box"
+        flex="cross:center main:center"
+        @click="toPrint"
+        v-if="!isDeputy"
+      >
         <div class="text-con">打印预览</div>
       </div>
       <!-- <div class="item-box" flex="cross:center main:center" @click="toAllPrint">
         <div class="text-con">批量打印</div>
       </div>-->
       <div
-          v-if="!isDeputy"
-          class="item-box"
-          flex="cross:center main:center"
-          @click.stop="toPdfPrint"
-          v-show="isDev"
+        v-if="!isDeputy"
+        class="item-box"
+        flex="cross:center main:center"
+        @click.stop="toPdfPrint"
+        v-show="isDev"
       >
         <div class="text-con">批量打印</div>
       </div>
       <div
-          v-if="!isDeputy"
-          class="item-box"
-          flex="cross:center main:center"
-          @click.stop="delSheet"
+        v-if="!isDeputy"
+        class="item-box"
+        flex="cross:center main:center"
+        @click.stop="delSheet"
       >
         <div class="text-con">删除整单</div>
       </div>
       <div
-          class="item-box"
-          flex="cross:center main:center"
-          @click.stop="createSheet"
-          v-if="!isSingleTem && !isDeputy"
+        class="item-box"
+        flex="cross:center main:center"
+        @click.stop="createSheet"
+        v-if="!isSingleTem && !isDeputy"
       >
         <div class="text-con">新建记录单</div>
       </div>
       <div
-          class="item-box"
-          style="background: antiquewhite"
-          flex="cross:center main:center"
-          @click.stop="backMainForm"
-          v-if="isDeputy"
+        class="item-box"
+        style="background: antiquewhite"
+        flex="cross:center main:center"
+        @click.stop="backMainForm"
+        v-if="isDeputy"
       >
         <div class="text-con">切换主页</div>
       </div>
       <div
-          class="item-box"
-          style="background: antiquewhite"
-          flex="cross:center main:center"
-          @click.stop="addDeputyForm"
-          v-if="sheetInfo.selectBlock && sheetInfo.selectBlock.additionalCode"
+        class="item-box"
+        style="background: antiquewhite"
+        flex="cross:center main:center"
+        @click.stop="addDeputyForm"
+        v-if="sheetInfo.selectBlock && sheetInfo.selectBlock.additionalCode"
       >
         <div class="text-con">切换副页</div>
       </div>
-      <div
+      <!-- <div
         class="item-box"
         flex="cross:center main:center"
         @click.stop="openChart"
-        v-if="HOSPITAL_ID == 'huadu'&& sheetInfo.sheetType=='body_temperature_Hd'"
+        v-if="
+          HOSPITAL_ID == 'huadu' && sheetInfo.sheetType == 'body_temperature_Hd'
+        "
       >
         <div class="text-con">体温曲线</div>
-      </div>
+      </div> -->
       <!-- <div
         class="item-box"
         flex="cross:center main:center"
@@ -108,12 +115,12 @@
       <div flex-box="1"></div>
       <!-- <span class="label">护理记录：</span> -->
       <el-select
-          v-if="!isDeputy"
-          v-model="sheetInfo.selectBlock"
-          @change="changeSelectBlock"
-          value-key="id"
-          placeholder="请选择护理记录单"
-          class="select-con"
+        v-if="!isDeputy"
+        v-model="sheetInfo.selectBlock"
+        @change="changeSelectBlock"
+        value-key="id"
+        placeholder="请选择护理记录单"
+        class="select-con"
       >
         <div class="sheetSelect-con-sheet">
           <div class="head-con" flex="cross:stretch">
@@ -124,10 +131,10 @@
             <!-- <div class="col-3">结束时间</div> -->
           </div>
           <el-option
-              v-for="item in sheetBlockList"
-              :key="item.id"
-              :label="blockLabel(item, sheetBlockList.length)"
-              :value="item"
+            v-for="item in sheetBlockList"
+            :key="item.id"
+            :label="blockLabel(item, sheetBlockList.length)"
+            :value="item"
           >
             <div class="list-con" flex="cross:stretch">
               <div class="col-1" :title="item.recordName">
@@ -148,13 +155,18 @@
         </div>
       </el-select>
       <!-- <span class="label">页码范围:</span> -->
-      <div class="item-box" style="width: 85px" flex="cross:center main:center" v-if="!isDeputy">
+      <div
+        class="item-box"
+        style="width: 85px"
+        flex="cross:center main:center"
+        v-if="!isDeputy"
+      >
         <el-autocomplete
-            class="pegeSelect"
-            icon="caret-bottom"
-            placeholder="请输入页码"
-            v-model="pageArea"
-            :fetch-suggestions="querySearch"
+          class="pegeSelect"
+          icon="caret-bottom"
+          placeholder="请输入页码"
+          v-model="pageArea"
+          :fetch-suggestions="querySearch"
         ></el-autocomplete>
       </div>
       <!-- <div class="item-box" flex="cross:center main:center" @click="tofull">
@@ -165,30 +177,32 @@
       </div>-->
       <div style="width: 5px"></div>
       <div
-          class="right-btn"
-          flex="cross:center main:center"
-          @click="emit('openEvalModel')"
-          v-if="showCrl"
+        class="right-btn"
+        flex="cross:center main:center"
+        @click="emit('openEvalModel')"
+        v-if="showCrl"
       >
         <div class="text-con">
-          <img src="./images/评估.png" alt/>
+          <img src="./images/评估.png" alt />
           评估同步
         </div>
       </div>
       <div class="line"></div>
       <div
-          class="right-btn"
-          flex="cross:center main:center"
-          @click.stop="openTztbModal"
+        class="right-btn"
+        flex="cross:center main:center"
+        @click.stop="openTztbModal"
       >
         <div class="text-con">
-          <img src="./images/体征.png" alt/>
+          <img src="./images/体征.png" alt />
           体征同步
         </div>
       </div>
       <div style="width: 5px;"></div>
     </div>
-    <patientInfo v-if="patientInfo.patientId"></patientInfo>
+    <patientInfo
+      v-if="patientInfo.patientId && !$route.path.includes('temperature')"
+    ></patientInfo>
     <newFormModal ref="newFormModal"></newFormModal>
     <setTitleModal ref="setTitleModal"></setTitleModal>
     <tztbModal ref="tztbModal"></tztbModal>
@@ -199,10 +213,10 @@
 import bus from "vue-happy-bus";
 import $ from "jquery";
 import setPageModal from "../modal/setPage-modal.vue";
-import sheetModel, {cleanData} from "../../sheet.js";
+import sheetModel, { cleanData } from "../../sheet.js";
 import sheetInfo from "../config/sheetInfo/index.js";
-import {sign} from "@/api/sheet.js";
-import {Tr} from "../render/Body.js";
+import { sign } from "@/api/sheet.js";
+import { Tr } from "../render/Body.js";
 import {
   blockList,
   blockDelete,
@@ -237,17 +251,19 @@ export default {
   methods: {
     /* 出入量统计弹框--花都区分 */
     openStaticModal() {
-      if (process.env.HOSPITAL_ID != 'huadu') {
-        this.bus.$emit('openHJModal')
+      if (process.env.HOSPITAL_ID != "huadu") {
+        this.bus.$emit("openHJModal");
       } else {
-        this.bus.$emit('openHDModal')
+        this.bus.$emit("openHDModal");
       }
     },
     /* 打开体温曲线页面 */
-    openChart(){
-      const {patientId,visitId}=this.$route.query
-      this.$router.push(`/temperature?patientId=${patientId}&visitId=${visitId}`)
-    },
+    // openChart() {
+    //   const { patientId, visitId } = this.$route.query;
+    //   this.$router.push(
+    //     `/temperature?patientId=${patientId}&visitId=${visitId}`
+    //   );
+    // },
     emit(todo, value) {
       if (!this.patientInfo.patientId) {
         return this.$message.warning("请选择一名患者");
@@ -270,9 +286,9 @@ export default {
           return this.bus.$emit("toSheetPrintPage", newWid);
         }
         if (
-            $(".mark-mark-mark").length == 0 &&
-            $(".noSignRow").length == 0 &&
-            $(".multiSign").length == 0
+          $(".mark-mark-mark").length == 0 &&
+          $(".noSignRow").length == 0 &&
+          $(".multiSign").length == 0
         ) {
           newWid = window.open();
         }
@@ -344,22 +360,21 @@ export default {
       }
       /* 刷新block分页信息 */
       if (
-          this.patientInfo.patientId &&
-          this.patientInfo.visitId &&
-          this.deptCode
+        this.patientInfo.patientId &&
+        this.patientInfo.visitId &&
+        this.deptCode
       ) {
         blockList(
-            this.patientInfo.patientId,
-            this.patientInfo.visitId,
-            this.deptCode
+          this.patientInfo.patientId,
+          this.patientInfo.visitId,
+          this.deptCode
         ).then(res => {
           this.sheetBlockList.forEach(item => {
             try {
               let currObj = res.data.data.list.find(obj => obj.id == item.id);
               item.pageIndex = currObj.pageIndex;
               item.endPageIndex = currObj.endPageIndex;
-            } catch (error) {
-            }
+            } catch (error) {}
           });
         });
       }
@@ -400,14 +415,14 @@ export default {
             }
             let [allList, currIndex] = this.getAllListAndCurrIndex(trArr);
             list.push(
-                Object.assign({}, trObj, {
-                  recordMonth: this.getPrev(currIndex, allList, "recordMonth"),
-                  recordHour: this.getPrev(currIndex, allList, "recordHour"),
-                  recordYear: this.getPrev(currIndex, allList, "recordYear"),
-                  patientId: this.patientInfo.patientId,
-                  visitId: this.patientInfo.visitId,
-                  pageIndex: this.index
-                })
+              Object.assign({}, trObj, {
+                recordMonth: this.getPrev(currIndex, allList, "recordMonth"),
+                recordHour: this.getPrev(currIndex, allList, "recordHour"),
+                recordYear: this.getPrev(currIndex, allList, "recordYear"),
+                patientId: this.patientInfo.patientId,
+                visitId: this.patientInfo.visitId,
+                pageIndex: this.index
+              })
             );
           }
           let data = {
@@ -417,50 +432,49 @@ export default {
             dsvsRandom
           };
           sign(this.patientInfo.patientId, this.patientInfo.visitId, data).then(
-              res => {
-                for (let i = 0; i < res.data.data.length; i++) {
-                  let trArrClone = Tr(res.data.data[i]);
-                  let trArr = sheetInfo.selectRow[i];
-                  if (
-                      trArr.find(item => {
-                        return item.key == "recordMonth";
-                      }).value == ""
-                  ) {
-                    trArrClone.find(item => {
-                      return item.key == "recordMonth";
-                    }).value = "";
-                  }
-                  if (
-                      trArr.find(item => {
-                        return item.key == "recordHour";
-                      }).value == ""
-                  ) {
-                    trArrClone.find(item => {
-                      return item.key == "recordHour";
-                    }).value = "";
-                  }
-                  trArr.splice(0, trArr.length);
-                  for (let i = 0; i < trArrClone.length; i++) {
-                    trArr.push(trArrClone[i]);
-                  }
+            res => {
+              for (let i = 0; i < res.data.data.length; i++) {
+                let trArrClone = Tr(res.data.data[i]);
+                let trArr = sheetInfo.selectRow[i];
+                if (
+                  trArr.find(item => {
+                    return item.key == "recordMonth";
+                  }).value == ""
+                ) {
+                  trArrClone.find(item => {
+                    return item.key == "recordMonth";
+                  }).value = "";
                 }
-                this.sheetInfo.selectRow.splice(
-                    0,
-                    this.sheetInfo.selectRow.length
-                );
-                this.$notify.success({
-                  title: "提示",
-                  message: "批量签名成功"
-                });
-                this.bus.$emit("saveSheetPage");
+                if (
+                  trArr.find(item => {
+                    return item.key == "recordHour";
+                  }).value == ""
+                ) {
+                  trArrClone.find(item => {
+                    return item.key == "recordHour";
+                  }).value = "";
+                }
+                trArr.splice(0, trArr.length);
+                for (let i = 0; i < trArrClone.length; i++) {
+                  trArr.push(trArrClone[i]);
+                }
               }
+              this.sheetInfo.selectRow.splice(
+                0,
+                this.sheetInfo.selectRow.length
+              );
+              this.$notify.success({
+                title: "提示",
+                message: "批量签名成功"
+              });
+              this.bus.$emit("saveSheetPage");
+            }
           );
         });
       } else {
         this.$alert("请按下 ctrl 键并单击选择需要签名的行", "批量签名提示", {
           confirmButtonText: "确定",
-          callback: action => {
-          }
+          callback: action => {}
         });
       }
     },
@@ -475,14 +489,14 @@ export default {
             }
             let [allList, currIndex] = this.getAllListAndCurrIndex(trArr);
             list.push(
-                Object.assign({}, trObj, {
-                  recordMonth: this.getPrev(currIndex, allList, "recordMonth"),
-                  recordHour: this.getPrev(currIndex, allList, "recordHour"),
-                  recordYear: this.getPrev(currIndex, allList, "recordYear"),
-                  patientId: this.patientInfo.patientId,
-                  visitId: this.patientInfo.visitId,
-                  pageIndex: this.index
-                })
+              Object.assign({}, trObj, {
+                recordMonth: this.getPrev(currIndex, allList, "recordMonth"),
+                recordHour: this.getPrev(currIndex, allList, "recordHour"),
+                recordYear: this.getPrev(currIndex, allList, "recordYear"),
+                patientId: this.patientInfo.patientId,
+                visitId: this.patientInfo.visitId,
+                pageIndex: this.index
+              })
             );
           }
           let data = {
@@ -492,68 +506,70 @@ export default {
             audit: true
           };
           sign(this.patientInfo.patientId, this.patientInfo.visitId, data).then(
-              res => {
-                for (let i = 0; i < res.data.data.length; i++) {
-                  let trArrClone = Tr(res.data.data[i]);
-                  let trArr = sheetInfo.selectRow[i];
-                  if (
-                      trArr.find(item => {
-                        return item.key == "recordMonth";
-                      }).value == ""
-                  ) {
-                    trArrClone.find(item => {
-                      return item.key == "recordMonth";
-                    }).value = "";
-                  }
-                  if (
-                      trArr.find(item => {
-                        return item.key == "recordHour";
-                      }).value == ""
-                  ) {
-                    trArrClone.find(item => {
-                      return item.key == "recordHour";
-                    }).value = "";
-                  }
-                  trArr.splice(0, trArr.length);
-                  for (let i = 0; i < trArrClone.length; i++) {
-                    trArr.push(trArrClone[i]);
-                  }
+            res => {
+              for (let i = 0; i < res.data.data.length; i++) {
+                let trArrClone = Tr(res.data.data[i]);
+                let trArr = sheetInfo.selectRow[i];
+                if (
+                  trArr.find(item => {
+                    return item.key == "recordMonth";
+                  }).value == ""
+                ) {
+                  trArrClone.find(item => {
+                    return item.key == "recordMonth";
+                  }).value = "";
                 }
-                this.sheetInfo.selectRow.splice(
-                    0,
-                    this.sheetInfo.selectRow.length
-                );
-                this.$notify.success({
-                  title: "提示",
-                  message: "批量审核成功"
-                });
-                this.bus.$emit("saveSheetPage");
+                if (
+                  trArr.find(item => {
+                    return item.key == "recordHour";
+                  }).value == ""
+                ) {
+                  trArrClone.find(item => {
+                    return item.key == "recordHour";
+                  }).value = "";
+                }
+                trArr.splice(0, trArr.length);
+                for (let i = 0; i < trArrClone.length; i++) {
+                  trArr.push(trArrClone[i]);
+                }
               }
+              this.sheetInfo.selectRow.splice(
+                0,
+                this.sheetInfo.selectRow.length
+              );
+              this.$notify.success({
+                title: "提示",
+                message: "批量审核成功"
+              });
+              this.bus.$emit("saveSheetPage");
+            }
           );
         });
       } else {
         this.$alert("请按下 ctrl 键并单击选择需要签名的行", "批量签名提示", {
           confirmButtonText: "确定",
-          callback: action => {
-          }
+          callback: action => {}
         });
       }
     },
     getBlockList() {
       if (
-          this.patientInfo.patientId &&
-          this.patientInfo.visitId &&
-          this.deptCode
+        this.patientInfo.patientId &&
+        this.patientInfo.visitId &&
+        this.deptCode
       ) {
         blockList(
-            this.patientInfo.patientId,
-            this.patientInfo.visitId,
-            this.deptCode
+          this.patientInfo.patientId,
+          this.patientInfo.visitId,
+          this.deptCode
         ).then(res => {
           this.bus.$emit("setSheetTableLoading", false);
           this.selectList = [];
           let list = res.data.data.list;
-          if (this.$route.path.includes("singleTemperatureChart")) {
+          if (
+            this.$route.path.includes("singleTemperatureChart") ||
+            this.$route.path.includes("temperature")
+          ) {
             this.sheetBlockList = list.filter(item => {
               return item.recordCode == "body_temperature_Hd";
             });
@@ -563,11 +579,11 @@ export default {
             });
           }
           this.sheetInfo.selectBlock =
-              this.sheetBlockList[this.sheetBlockList.length - 1] || {};
+            this.sheetBlockList[this.sheetBlockList.length - 1] || {};
           if (this.patientInfo.blockId) {
             try {
               let index = this.sheetBlockList.findIndex(
-                  item => item.id == this.patientInfo.blockId
+                item => item.id == this.patientInfo.blockId
               );
               this.sheetInfo.selectBlock = this.sheetBlockList[index];
             } catch (e) {
@@ -619,7 +635,7 @@ export default {
     blockLabel(item, length) {
       // return `${item.recordName} ${dayjs(item.createTime).format("MM-DD")}`;
       return `${item.deptName} ${dayjs(item.createTime).format(
-          "MM-DD"
+        "MM-DD"
       )}建 共${length}张
       `;
     },
@@ -632,7 +648,7 @@ export default {
     toPdfPrint() {
       if (sheetInfo.selectBlock.id) {
         window.open(
-            `/crNursing/toPdfPrint?blockId=${sheetInfo.selectBlock.id}`
+          `/crNursing/toPdfPrint?blockId=${sheetInfo.selectBlock.id}`
         );
       } else {
         this.$message.warning("没有可以打印的护理记录单");
@@ -651,18 +667,18 @@ export default {
     },
     /* 切换主页 */
     async backMainForm() {
-      const id = this.sheetInfo.selectBlock.id
-      const {data} = await switchAdditionalBlock(id)
-      this.sheetInfo.selectBlock = data.data
-      this.changeSelectBlock()
+      const id = this.sheetInfo.selectBlock.id;
+      const { data } = await switchAdditionalBlock(id);
+      this.sheetInfo.selectBlock = data.data;
+      this.changeSelectBlock();
     },
     /* 切换副页 */
     async addDeputyForm() {
-      const id = this.sheetInfo.selectBlock.id
-      const {data} = await switchAdditionalBlock(id)
-      this.sheetInfo.selectBlock = data.data
-      this.changeSelectBlock()
-    },
+      const id = this.sheetInfo.selectBlock.id;
+      const { data } = await switchAdditionalBlock(id);
+      this.sheetInfo.selectBlock = data.data;
+      this.changeSelectBlock();
+    }
   },
   computed: {
     fullpage() {
@@ -676,9 +692,9 @@ export default {
     },
     showCrl() {
       switch (this.sheetInfo.sheetType) {
-          // case "trauma_orthopedics":
-          // case "orthopedics":
-          //   return false;
+        // case "trauma_orthopedics":
+        // case "orthopedics":
+        //   return false;
         default:
           return true;
       }
@@ -687,8 +703,8 @@ export default {
     readOnly() {
       try {
         return !this.userDeptList
-            .map(item => item.code)
-            .includes(this.sheetInfo.selectBlock.deptCode);
+          .map(item => item.code)
+          .includes(this.sheetInfo.selectBlock.deptCode);
       } catch (error) {
         return false;
       }
@@ -699,14 +715,16 @@ export default {
     },
     /* 是否是副页 */
     isDeputy() {
-      return this.sheetInfo.selectBlock && this.sheetInfo.selectBlock.additionalBlock
+      return (
+        this.sheetInfo.selectBlock && this.sheetInfo.selectBlock.additionalBlock
+      );
     }
   },
   created() {
     this.bus.$on("initSheetPageSize", () => {
       let old_list_length = this.selectList.length;
       let old_list_index = this.selectList.findIndex(
-          item => item.value == this.pageArea
+        item => item.value == this.pageArea
       );
       this.initSelectList();
       let new_list_length = this.selectList.length;
@@ -718,9 +736,9 @@ export default {
           for (let i = 0; i < this.sheetModel.length; i++) {
             for (let j = 0; j < this.sheetModel[i].bodyModel.length; j++) {
               if (
-                  this.patientInfo.recordId ==
-                  this.sheetModel[i].bodyModel[j].find(item => item.key == "id")
-                      .value
+                this.patientInfo.recordId ==
+                this.sheetModel[i].bodyModel[j].find(item => item.key == "id")
+                  .value
               ) {
                 index = i + this.sheetInfo.sheetStartPage;
               }
@@ -735,15 +753,15 @@ export default {
               let todo = () => {
                 $(this.$parent.$refs.scrollCon).animate({
                   scrollTop:
-                      $(`[recordId='${this.patientInfo.recordId}']`)
-                          .eq(0)
-                          .offset().top +
-                      this.$parent.$refs.scrollCon.scrollTop -
-                      250
+                    $(`[recordId='${this.patientInfo.recordId}']`)
+                      .eq(0)
+                      .offset().top +
+                    this.$parent.$refs.scrollCon.scrollTop -
+                    250
                 });
                 $(`[recordId='${this.patientInfo.recordId}']`)
-                    .eq(0)
-                    .addClass("red-border");
+                  .eq(0)
+                  .addClass("red-border");
               };
               this.$nextTick(() => {
                 setTimeout(() => {
@@ -764,18 +782,17 @@ export default {
           // 页码定位
           if (new_list_length != old_list_length) {
             this.pageArea =
-                this.selectList[this.selectList.length - 1].value || "";
+              this.selectList[this.selectList.length - 1].value || "";
           } else {
             if (old_list_index != undefined) {
               this.pageArea = this.selectList[old_list_index].value || "";
             } else {
               this.pageArea =
-                  this.selectList[this.selectList.length - 1].value || "";
+                this.selectList[this.selectList.length - 1].value || "";
             }
           }
         }
-      } catch (error) {
-      }
+      } catch (error) {}
     });
     this.bus.$on("toSheetMoreSign", () => {
       this.toMoreSign();
@@ -811,8 +828,8 @@ export default {
       let endPage = page[1];
       if (startPage && endPage) {
         if (
-            Number(endPage) - Number(startPage) >= 0 &&
-            Number(endPage) - Number(startPage) <= 20
+          Number(endPage) - Number(startPage) >= 0 &&
+          Number(endPage) - Number(startPage) <= 20
         ) {
           this.sheetInfo.startPage = startPage;
           this.sheetInfo.endPage = endPage;
@@ -849,11 +866,11 @@ export default {
 </script>
 
 <style
-    lang="stylus"
-    rel="stylesheet/stylus"
-    type="text/stylus"
-    src="./tool.styl"
-    scoped
+  lang="stylus"
+  rel="stylesheet/stylus"
+  type="text/stylus"
+  src="./tool.styl"
+  scoped
 ></style>
 
 <style lang="stylus" scoped>
