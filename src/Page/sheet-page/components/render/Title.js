@@ -459,6 +459,54 @@ export default function Title(
     );
   }
   break;
+  case "neonatal_care_jm": {
+    // 江门妇幼 - 新生儿监护单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/neonatal_care_jm/th.js").default)
+    );
+  }
+  break;
+  case "neonatology_jm": {
+    // 江门妇幼 - 产科新生儿护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/neonatology_jm/th.js").default)
+    );
+  }
+  break;
+  // case "tcm_pediatrics_jm": {
+  //   // 聊城二院 - (内科)一般患者护理评估记录单
+  //   Th = JSON.parse(
+  //     JSON.stringify(require("../config/common_nk_lcey/th.js").default)
+  //   );
+  // }
+  // break;
+  // case "tcm_pediatrics_jm": {
+  //   // 聊城二院 - (外科)一般患者护理评估记录单
+  //   Th = JSON.parse(
+  //     JSON.stringify(require("../config/common_wk_lcey/th").default)
+  //   );
+  // }
+  // case "tcm_pediatrics_jm": {
+  //   // 聊城二院 - (胸心外科)一般患者护理评估记录单
+  //   Th = JSON.parse(
+  //     JSON.stringify(require("../config/common_xxwk_lcey/th").default)
+  //   );
+  // }
+  // break;
+  // case "tcm_pediatrics_jm": {
+  //   // 聊城二院 - 病重（病危）患者护理记录单（不带瞳孔）
+  //   Th = JSON.parse(
+  //     JSON.stringify(require("../config/bzhz_lcey/th").default)
+  //   );
+  // }
+  // break;
+  // case "tcm_pediatrics_jm": {
+  //   // 聊城二院 - 病重（病危）患者护理记录单（带瞳孔）
+  //   Th = JSON.parse(
+  //     JSON.stringify(require("../config/bzhz2_lcey/th").default)
+  //   );
+  // }
+  // break;
   default: {
     Th = JSON.parse(
       JSON.stringify(require("../config/default/th").default)

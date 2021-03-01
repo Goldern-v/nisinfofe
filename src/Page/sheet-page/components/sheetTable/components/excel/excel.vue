@@ -306,91 +306,9 @@
       name="bottomCon"
       v-if="sheetInfo.sheetType == 'neonatology_picc'"
     ></slot>
-    <!-- <div @click="addNullRow"
-    class="add-row">+ 添加新行</div>-->
-    <div
-      v-if="sheetInfo.sheetType == 'neonatology2'"
-      style="font-size: 13px; margin-top: -5px"
-    >
-      备注 1.肌张力:M(正常) H(高) L(低) 2.肤色:P1(红润) J(黄染) F(潮红) C(紫绀)
-      P2(苍白) M(花斑) 3.体位:S(平卧) L(左侧) R(右侧) P(俯卧)
-    </div>
-    <div
-      v-if="sheetInfo.sheetType == 'stress_injury_hd'"
-      style="font-size: 13px; margin-top: -5px"
-    >
-      备注:
-      <span
-        >(1)分期请用对应的数字进行记录:1(1期);2(2期);3(3期);4(4期);5(深部组织损伤期);6(不可分期)。</span
-      >
-      <p style="margin:5px 0 0 42px;">
-        (2)评估时机:1、2期压力性损伤每周评估记录;3期以上至少三天评估记录;伤口渗液多或有特殊变化随时评估记录。
-      </p>
-    </div>
-    <div
-      v-if="sheetInfo.sheetType == 'common_hd'"
-      style="font-size: 13px; margin-top: -5px"
-    >
-      备注:健康教育：1.入院及相关疾病知识宣教、2.探视、陪护制度宣教、3.安全告知、4.检查宣教、5.饮食宣教、6.用药宣教、7.特殊治疗护理操作前宣教、
-      8.术前宣教、9.术后宣教、10.禁食、11.卧床休息、12.床上活动、13.离床活动、14.出院指导
-    </div>
-    <div
-      v-if="sheetInfo.sheetType == 'postpartum_hd'"
-      style="font-size: 13px; margin-top: -5px"
-    >
-      备注:健康教育：1.入院及相关疾病知识宣教2.探视、陪护制度宣教3.安全告知4.检查宣教5.饮食宣教6.产后/术后宣教7.母乳喂养宣教
-      8.母婴用药、安全宣教9.新生儿护理知识宣教10.出院指导
-    </div>
-    <div
-      v-if="
-        sheetInfo.sheetType == 'prenatal_hd' ||
-          sheetInfo.sheetType == 'neonatology2_hd'
-      "
-      style="font-size: 13px; margin-top: -5px"
-    >
-      备注:健康教育：1.入院及相关疾病知识宣教2.探视、陪护制度宣教3.安全告知4.检查宣教5.母乳喂养知识宣教6.胎动知识宣教7.分娩知识宣教8.饮食宣教
-      9.特殊治疗护理操作前宣教10.术前宣教11.用药宣教12.卧位宣教13.术后宣教14.出院指导
-    </div>
-    <div
-      v-if="sheetInfo.sheetType == 'neurosurgery_hd'"
-      style="font-size: 13px; margin-top: -5px"
-    >
-      备注:一.意识：清✔，昏迷++。二.瞳孔对光反射判断：灵敏+，迟钝±，消失-。三.人工气道途径：鼻腔气管插管A1，口腔气管插管A2，气管切开B.
-      <p style="margin-top:2px;">
-        四。健康教育：1.入院及相关疾病知识宣教2.探视、陪护制度宣教3.安全告知4.检查宣教5.母乳喂养知识宣教6.胎动知识宣教7.分娩知识宣教8.饮食宣教
-        9.特殊治疗护理操作前宣教10.术前宣教11.用药宣教12.卧位宣教13.术后宣教14.出院指导
-      </p>
-    </div>
-    <div
-      v-if="sheetInfo.sheetType == 'common_wj'"
-      style="font-size: 13px; margin-top: -5px"
-    >
-      备注:①意识：清✔、嗜睡、朦胧++、浅昏迷+++、深昏迷++++、麻醉未醒△、药眠○、谵妄⊙。②.瞳孔对光的反应：灵敏+，迟钝±，消失-(左/右);
-    </div>
-    <div
-      v-if="sheetInfo.sheetType == 'neonatology_hd'"
-      style="font-size: 13px; margin-top: -5px"
-    >
-      备注:吸痰性质用符号表示：白色吸痰(WL),黄白稠痰(YWT),黄色稠痰(YT),血性痰(B);痰量：小量(+),中量(++),大量(+++)。
-    </div>
-    <div
-      v-if="sheetInfo.sheetType == 'picc_maintenance_hd'"
-      style="font-size: 13px; margin-top: -5px"
-    >
-      备注:1、在执行维护后，要在该项目打✔
-      <p style="margin:5px 0 0 32px;">
-        2、当管道出现问题时请注意描述，例如描述其出血、渗血、穿刺点情况
-      </p>
-    </div>
-    <div v-if="sheetInfo.sheetType == 'mild_hypothermia_hd'">
-      备注：记录要求与说明。（1）所处治疗阶段与治疗模式，直接勾选当前选项;(2)亚低温治疗开始为“降温”阶段，每15min记录1次，直至达到目标温度（33.5~33.5-34℃,约1-2h）后1h,
-      进入“维持治疗'阶段，然后每2h记录1次，时间约72h：之后开始“复温”，复温期间每小时记录肛温1次，一般肛温为2h升高0.5℃。
-      <br />（3）按医嘱要求的间隔时间，进行脑科观察，并按以下相应的符号记录，意识状态：清醒（√）、嗜睡（+）、朦胧（++）、浅昏迷（+++）、深昏迷（++++）、麻醉未醒（△）；肢体活动反应：灵敏（+）、迟钝（±）、消失（-）；
-      瞳孔对光反应：灵敏（+）、迟钝（±）、消失（）；瞳孔直径（mm)： 1 2 3 4 5 6
-      （以上瞳孔直径图形仅为参考，以实际使用记录单内的图形直径为准。）
-      <br />（4)其它如血压、脉搏、呼吸等生命体征记录在NICU护理记录单中。
-      <br />（5）维持治疗中每2h变动1次体位，每4h检查新生儿皮肤1次，并在相对应的表格标√。
-    </div>
+    <!-- 表格下方的备注组件 -->
+    <bottomRemark></bottomRemark>
+    <div><slot name="bottomCon" style></slot></div>
     <div
       class="table-footer"
       v-if="sheetInfo.sheetType != 'intervention_cure_hd'"
@@ -475,6 +393,7 @@ import { handlepz, delpz, auditpz } from "../../../../api/index.js";
 import decode from "../../../../components/render/decode.js";
 import moment from "moment";
 import { getUser } from "@/api/common.js";
+import bottomRemark from "./remark";
 console.dir(sheetInfo);
 export default {
   props: {
@@ -1349,7 +1268,7 @@ export default {
       window.openSignModal((password, empNo) => {
         getUser(password, empNo).then(res => {
           let { empNo, empName } = res.data.data;
-          if (this.auditorNo == empNo) {
+          if (this.auditorNo == empNo || this.HOSPITAL_ID === "huadu") {
             sheetInfo.auditorMap[`PageIndex_${this.index}_auditorNo`] = "";
             sheetInfo.auditorMap[`PageIndex_${this.index}_auditorName`] = "";
             sheetInfo.auditorMap = { ...sheetInfo.auditorMap };
@@ -1392,7 +1311,8 @@ export default {
     console.log("mounted");
   },
   components: {
-    signModal
+    signModal,
+    bottomRemark
   }
 };
 </script>

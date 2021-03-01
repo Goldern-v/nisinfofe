@@ -1,7 +1,7 @@
 <template>
   <div>
     <div
-      class="contant .sheet-page-container-neonatology_picc"
+      class="contant sheet-page-container-neonatology_picc"
       :class="{ readOnly }"
     >
       <div class="his-name">{{ HOSPITAL_NAME_SPACE }}</div>
@@ -38,7 +38,7 @@
     </div>
   </div>
 </template>
-<style lang="stylus" rel="stylesheet/stylus" type="text/stylus" >
+<style lang="stylus" rel="stylesheet/stylus" type="text/stylus">
 .sheet-page-container-neonatology_picc {
   & {
     border-radius: 2px;
