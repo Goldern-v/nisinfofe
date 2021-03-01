@@ -36,6 +36,7 @@
         :tableLoading="tableLoading"
       ></adviceTableWx>
       <adviceTableHd :tableData="tableDataSelect" :tableLoading="tableLoading" v-else-if="HOSPITAL_ID == 'huadu'"></adviceTableHd>
+      <adviceTableCommon :tableData="tableDataSelect" :tableLoading="tableLoading" v-else-if="HOSPITAL_ID == 'liaocheng' || HOSPITAL_ID == 'fuyou'"></adviceTableCommon>
       <adviceTable :tableData="tableDataSelect" :tableLoading="tableLoading" v-else></adviceTable>
     </div>
   </div>
@@ -140,6 +141,7 @@
 import adviceTable from "./component/adviceTable";
 import adviceTableWx from "./component/adviceTable_wx";
 import adviceTableHd from "./component/adviceTable_hd";
+import adviceTableCommon from "./component/adviceTable_common";
 import { orders } from "@/api/patientInfo";
 import { syncGetPatientOrders } from "./api/index";
 export default {
@@ -164,6 +166,26 @@ export default {
           this.radio === "全部";
         return selcet1 && select2;
       });
+      if(this.HOSPITAL_ID == 'liaocheng' || this.HOSPITAL_ID == 'fuyou'){
+        data.map((item, index, array)=>{
+          let prevRowId = array[index-1] && array[index-1].orderNo + array[index-1].patientId;
+          let currentRowId = array[index] && array[index].orderNo + array[index].patientId;
+          let nextRowId = array[index+1] && array[index+1].orderNo + array[index+1].patientId;
+          /** 判断是此记录是多条记录 */
+          if (currentRowId == prevRowId || currentRowId == nextRowId) {
+            if (currentRowId != prevRowId) {
+              /** 第一条 */
+              item.rowType = 1;
+            } else if (currentRowId != nextRowId) {
+              /** 最后条 */
+              item.rowType = 3;
+            } else {
+              /** 中间条 */
+              item.rowType = 2;
+            }
+          }
+        })
+      }
       return data;
     }
   },
@@ -207,7 +229,8 @@ export default {
   components: {
     adviceTable,
     adviceTableWx,
-    adviceTableHd
+    adviceTableHd,
+    adviceTableCommon
   }
 };
 </script>
