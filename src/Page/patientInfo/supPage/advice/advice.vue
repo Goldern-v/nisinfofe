@@ -184,6 +184,8 @@ export default {
               /** 中间条 */
               item.rowType = 2;
             }
+          }else {
+            item.rowType = 1;
           }
         })
       }
