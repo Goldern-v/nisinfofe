@@ -23,21 +23,6 @@
           :class="HOSPITAL_ID === 'huadu' ? 'hdIframe' : ''"
         ></iframe>
       </div>
-
-      <el-tooltip
-        class="item"
-        effect="dark"
-        content="患者资料"
-        placement="left"
-      >
-        <div class="fixed-icon" :class="{ open: open }" @click="onToggle">
-          <img
-            src="../../../../Page/sheet-page/components/sheet-tool/images/患者资料@2x.png"
-            alt
-          />
-        </div>
-      </el-tooltip>
-      <temEnterSlide ref="temEnterSlide" @onClose="onClose"></temEnterSlide>
     </div>
   </div>
 </template>
@@ -57,29 +42,6 @@
       height: 100%;
     }
   }
-.fixed-icon {
-  position: fixed;
-  right: 0;
-  top: 140px;
-  background: #ffffff;
-  width: 50px;
-  height: 42px;
-  background: rgba(255, 255, 255, 0.9);
-  box-shadow: -3px 3px 5px 0px rgba(0, 0, 0, 0.05);
-  border-radius: 100px 0px 0px 100px;
-  z-index: 2;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1) 0.1s;
-  &.open {
-    right: 230px;
-  }
-  img {
-    width: 18px;
-    height: 18px;
-  }
-}
 }
 .pagination {
     display: inline;
@@ -138,7 +100,6 @@ import {
 } from "../../../sheet-page/api/index";
 import moment from "moment";
 import bus from "vue-happy-bus";
-import temEnterSlide from "./temEnter-slide";
 export default {
   data() {
     return {
@@ -147,8 +108,7 @@ export default {
       filePath: "",
       contentHeight: { height: "" },
       currentPage: 1,
-      pageTotal: 1,
-      open: false
+      pageTotal: 1
     };
   },
   methods: {
@@ -163,18 +123,12 @@ export default {
       let patientId = this.$route.query.patientId;
       let visitId = this.$route.query.visitId;
       /* 单独处理体温单，嵌套iframe */
-      const tempUrl = `http://120.238.239.27:9091/temperature/#/?PatientId=${patientId}&VisitId=${visitId}&StartTime=${date}`;
+      const tempUrl = `http://120.224.211.7:9091/temperature/#/?PatientId=${patientId}&VisitId=${visitId}&StartTime=${date}`;
       this.filePath = "";
       setTimeout(() => {
         this.filePath = tempUrl;
       }, 0);
     },
-    // typeIn() {
-    //   const { patientId, visitId } = this.$route.query;
-    //   this.$router.push(
-    //     `/singleTemperatureChart/${this.$route.query.patientId}/${this.$route.query.visitId}`
-    //   );
-    // },
     getHeight() {
       this.contentHeight.height = window.innerHeight - 130 + "px";
     },
@@ -221,22 +175,6 @@ export default {
             break;
         }
       }
-    },
-    onToggle() {
-      this.open = !this.open;
-      if (!this.patientInfo.patientId) {
-        this.$store.commit("upPatientInfo", this.$route.query);
-      }
-      if (this.open) {
-        this.$route.query.patientId = this.patientInfo.patientId;
-        this.$route.query.visitId = this.patientInfo.visitId;
-        this.$refs.temEnterSlide.open();
-      } else {
-        this.$refs.temEnterSlide.close();
-      }
-    },
-    onClose() {
-      this.open = false;
     }
   },
   watch: {
@@ -266,8 +204,7 @@ export default {
     window.removeEventListener("message", this.messageHandle, false);
   },
   components: {
-    nullBg,
-    temEnterSlide
+    nullBg
   }
 };
 </script>
