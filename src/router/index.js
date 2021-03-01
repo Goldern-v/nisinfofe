@@ -130,6 +130,7 @@ import doctorEmr from "@/Page/patientInfo/supPage/doctorEmr/doctorEmr"; //病历
 import cost from "@/Page/patientInfo/supPage/cost/cost";
 import temperature from "@/Page/patientInfo/supPage/temperature/temperature";
 import temperatureHD from "@/Page/patientInfo/supPage/temperature/temperatureHD";
+import temperatureLCEY from "@/Page/patientInfo/supPage/temperature/temperatureLCEY";
 import diagnosis from "@/Page/patientInfo/supPage/diagnosis/diagnosis";
 import bloodSugar from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar.vue"; // 厚街
 import bloodSugarWeiXian from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_weixian.vue"; // 威县
@@ -142,8 +143,7 @@ Vue.use(Router);
 const router = new Router({
   mode: "history",
   base: "/crNursing/",
-  routes: [
-    {
+  routes: [{
       path: "/",
       redirect: "/index",
       alias: "主页"
@@ -308,8 +308,7 @@ const router = new Router({
             name: "shiftWork",
             path: "/shiftWork/:code?/:id?",
             component: process.env.HOSPITAL_ID == "lingcheng" ?
-              shiftWorkDetailLc :
-              process.env.HOSPITAL_ID == "huadu" ? shiftWorkDetailHd : shiftWorkDetail
+              shiftWorkDetailLc : process.env.HOSPITAL_ID == "huadu" ? shiftWorkDetailHd : shiftWorkDetail
           }]
         },
         {
@@ -426,7 +425,8 @@ const router = new Router({
             // },
             {
               path: "/temperature",
-              component: process.env.HOSPITAL_ID != "huadu" ? temperature : temperatureHD,
+              component: process.env.HOSPITAL_ID !== "huadu" ? temperature : temperatureLCEY,
+              // component: process.env.HOSPITAL_ID !== "huadu" ? temperature : (process.env.HOSPITAL_ID === "huadu" ? temperatureHD : temperatureLCEY),
               name: "体温单",
               alias: "体温单"
             },
@@ -451,8 +451,7 @@ const router = new Router({
             {
               path: "/bloodSugar",
               component: process.env.HOSPITAL_NAME == "威县人民医院" ?
-                bloodSugarWeiXian :
-                bloodSugar,
+                bloodSugarWeiXian : bloodSugar,
               name: "血糖",
               alias: "血糖"
             },
@@ -483,8 +482,7 @@ const router = new Router({
         {
           path: "/implementationList",
           component: process.env.HOSPITAL_ID == "lingcheng" ?
-            implementationListLc :
-            implementationList,
+            implementationListLc : implementationList,
           name: "执行单"
         },
         {

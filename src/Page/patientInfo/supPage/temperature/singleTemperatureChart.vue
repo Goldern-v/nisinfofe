@@ -18,8 +18,7 @@
       <div class="right-part" v-loading="tableLoading">
         <div class="sheetTable-contain" ref="scrollCon" @scroll="onScroll">
           <div ref="sheetTableContain">
-            <component
-              v-bind:is="sheetTable"
+            <sheetTable
               v-for="(item, index) in filterSheetModel"
               :key="index"
               :data="item.data"
@@ -29,7 +28,7 @@
               :scrollY="scrollY"
               :isInPatientDetails="true"
               :bedAndDeptChange="bedAndDeptChange"
-            ></component>
+            ></sheetTable>
           </div>
           <div
             v-show="sheetModel.length == 0"
@@ -38,7 +37,7 @@
             @click="addSheetPage"
           >
             <i class="el-icon-plus"></i>
-            创建护理文书
+            创建体温单
           </div>
         </div>
       </div>
@@ -53,10 +52,6 @@
     <specialModal2 ref="specialModal2"></specialModal2>
     <pizhuModal ref="pizhuModal"></pizhuModal>
     <evalModel ref="evalModel"></evalModel>
-    <!-- 电子病例弹窗 -->
-    <doctorEmr
-      v-if="HOSPITAL_ID === 'huadu' && !$route.path.includes('temperature')"
-    />
   </div>
 </template>
 
@@ -163,22 +158,9 @@
 </style>
 
 <script>
-import doctorEmr from "@/components/doctorEmr";
 import sheetTool from "@/Page/sheet-page/components/sheet-tool/sheet-tool.vue";
 import patientList from "@/components/patient-list/patient-list.vue";
 import sheetTable from "@/Page/sheet-page/components/sheetTable/sheetTable.vue";
-import sheetTableNeonatology from "@/Page/sheet-page/components/sheetTable-neonatology/sheetTable";
-import sheetTablePost_partum from "@/Page/sheet-page/components/sheetTable-post_partum/sheetTable";
-import sheetTablePost_hemodialysis from "@/Page/sheet-page/components/sheetTable-hemodialysis/sheetTable";
-import sheetTable_oxytocin from "@/Page/sheet-page/components/sheetTable-oxytocin/sheetTable";
-import sheetTableDressing_count from "@/Page/sheet-page/components/sheetTable-dressing_count/sheetTable";
-import sheetTableMaternal_newborn_lc from "@/Page/sheet-page/components/sheetTable-maternal_newborn_lc/sheetTable";
-import sheetTable_picc_maintenance_hd from "@/Page/sheet-page/components/sheetTable-picc_maintenance_hd/sheetTable";
-import sheetTable_intervention_cure_hd from "@/Page/sheet-page/components/sheetTable-intervention_cure_hd/sheetTable";
-import sheetTable_hemodialysis_CRRT_hd from "@/Page/sheet-page/components/sheetTable-hemodialysis_CRRT_hd/sheetTable";
-import sheetTable_intervention_cure from "@/Page/sheet-page/components/sheetTable-intervention_cure/sheetTable";
-import sheetTable_mild_hypothermia_hd from "@/Page/sheet-page/components/sheetTable-mild_hypothermia_hd/sheetTable";
-import sheetTable_neonatology_picc from "@/Page/sheet-page/components/sheetTable-neonatology_picc/sheetTable";
 import common from "@/common/mixin/common.mixin.js";
 import { nursingUnit } from "@/api/lesion";
 import sheetModel, {
@@ -214,7 +196,7 @@ import { getHomePage } from "@/Page/sheet-page/api/index.js";
 import { decodeRelObj } from "@/Page/sheet-page/components/utils/relObj";
 import { sheetScrollBotton } from "@/Page/sheet-page/components/utils/scrollBottom";
 import { patients } from "@/api/lesion";
-
+import { blockSave, getNurseExchageInfo } from "@/Page/sheet-page/api/index";
 export default {
   mixins: [common],
   data() {
@@ -278,48 +260,29 @@ export default {
         return showSheetPage(item.index);
       });
       return resultModel;
-    },
-    sheetTable() {
-      if (sheetInfo.sheetType == "neonatology") {
-        return sheetTableNeonatology;
-      } else if (sheetInfo.sheetType == "post_partum") {
-        return sheetTablePost_partum;
-      } else if (sheetInfo.sheetType == "blood_purification") {
-        return sheetTablePost_hemodialysis;
-      } else if (sheetInfo.sheetType == "oxytocin") {
-        return sheetTable_oxytocin;
-      } else if (sheetInfo.sheetType == "dressing_count") {
-        return sheetTableDressing_count;
-      } else if (sheetInfo.sheetType == "maternal_newborn_lc") {
-        return sheetTableMaternal_newborn_lc;
-      } else if (sheetInfo.sheetType == "picc_maintenance_hd") {
-        return sheetTable_picc_maintenance_hd;
-      } else if (sheetInfo.sheetType == "intervention_cure_hd") {
-        return sheetTable_intervention_cure_hd;
-      } else if (sheetInfo.sheetType == "hemodialysis_CRRT_hd") {
-        return sheetTable_hemodialysis_CRRT_hd;
-      } else if (sheetInfo.sheetType == "intervention_cure") {
-        return sheetTable_intervention_cure;
-      } else if (sheetInfo.sheetType == "mild_hypothermia_hd") {
-        return sheetTable_mild_hypothermia_hd;
-      } else if (sheetInfo.sheetType == "neonatology_picc") {
-        return sheetTable_neonatology_picc;
-      } else {
-        return sheetTable;
-      }
     }
   },
   methods: {
     addSheetPage() {
-      if (this.patientInfo.name) {
-        this.bus.$emit("openNewSheetModal");
-        // addSheetPage()
-      } else {
-        this.$notify.info({
-          title: "提示",
-          message: "请选择一名患者"
-        });
-      }
+      let recordCode = "body_temperature_Hd";
+      blockSave(
+        this.patientInfo.patientId,
+        this.patientInfo.visitId,
+        this.deptCode,
+        recordCode
+      ).then(res => {
+        this.bus.$emit("getBlockList");
+        this.$message.success("创建成功");
+      });
+      // if (this.patientInfo.name) {
+      //   this.bus.$emit("openNewSheetModal");
+      //   // addSheetPage()
+      // } else {
+      //   this.$notify.info({
+      //     title: "提示",
+      //     message: "请选择一名患者"
+      //   });
+      // }
     },
     getSheetData(isBottom) {
       if (!(this.sheetInfo.selectBlock && this.sheetInfo.selectBlock.id)) {
@@ -753,7 +716,6 @@ export default {
     }
   },
   components: {
-    doctorEmr,
     sheetTool,
     patientList,
     sheetTable,
@@ -765,19 +727,7 @@ export default {
     specialModal2,
     setPageModal,
     pizhuModal,
-    sheetTableNeonatology,
-    evalModel,
-    sheetTablePost_partum,
-    sheetTablePost_hemodialysis,
-    sheetTable_oxytocin,
-    sheetTableDressing_count,
-    sheetTableMaternal_newborn_lc,
-    sheetTable_picc_maintenance_hd,
-    sheetTable_intervention_cure_hd,
-    sheetTable_hemodialysis_CRRT_hd,
-    sheetTable_intervention_cure,
-    sheetTable_mild_hypothermia_hd,
-    sheetTable_neonatology_picc
+    evalModel
   }
 };
 </script>

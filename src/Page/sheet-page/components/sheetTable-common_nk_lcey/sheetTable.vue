@@ -1,7 +1,7 @@
 <template>
   <div>
     <div
-      class="contant sheetTable-dressing_count"
+      class="contant sheetTable-common_nk_lcey"
       :style="data.titleModel.style"
       :class="{ readOnly }"
     >
@@ -17,6 +17,22 @@
         <div class="his-name">{{ HOSPITAL_NAME_SPACE }}</div>
         <div class="title">{{ patientInfo.recordName }}</div>
         <div class="info-con" flex="main:justify">
+          <span>
+            科室：
+            <div class="bottom-line" style="min-width: 120px">
+              {{ patientInfo.deptName }}
+            </div>
+          </span>
+          <span>
+            床号：
+            <div
+              class="bottom-line"
+              style="min-width: 30px"
+              @click="updateTetxInfo('bedLabel', '床号', patientInfo.bedLabel)"
+            >
+              {{ patientInfo.bedLabel }}
+            </div>
+          </span>
           <span>
             姓名：
             <div
@@ -34,64 +50,27 @@
             </div>
           </span>
           <span>
-            年龄：
-            <div class="bottom-line" style="min-width: 60px">
-              {{ patientInfo.age }}
-            </div>
-          </span>
-          <!-- <span>性别：
-            <div class="bottom-line" style="min-width: 30px">{{patientInfo.sex}}</div>
-          </span>-->
-          <span>
-            床号：
-            <div
-              class="bottom-line"
-              style="min-width: 30px"
-              @click="updateTetxInfo('bedLabel', '床号', patientInfo.bedLabel)"
-            >
-              {{ patientInfo.bedLabel }}
-            </div>
-          </span>
-
-          <span>
             住院号：
             <div class="bottom-line" style="min-width: 50px">
-              {{ patientInfo.inpNo }}
+              {{ patientInfo.patientId }}
             </div>
           </span>
-          <span @click="changeDate" style="cursor: pointer;">
-            日期：
-            {{ createTime | toymd }}
-          </span>
         </div>
-      </div>
-      <headCon v-if="isFirst"></headCon>
-      <excel
-        :data="data"
-        :index="index"
-        :length="length"
-        :scrollY="scrollY"
-        :hasFiexHeader="true"
-        :isInPatientDetails="isInPatientDetails"
-      ></excel>
-      <div class="bottomCon">
-        <input
-          type="checkbox"
-          class="bottomCheck"
-          :class="{ isChecked: sheetInfo.relObj.totalBloodDelivery }"
-        />阴道分娩产后2h总出血量：
-        <input
-          type="text"
-          class="bottomInput"
-          v-model="sheetInfo.relObj.totalBloodDelivery"
-          :data-value="sheetInfo.relObj.totalBloodDelivery"
-        />ml
+        <excel
+          :data="data"
+          :index="index"
+          :length="length"
+          :scrollY="scrollY"
+          :hasFiexHeader="true"
+          :isInPatientDetails="isInPatientDetails"
+          ><bottomCon slot="bottomCon" />
+        </excel>
       </div>
     </div>
   </div>
 </template>
-<style lang="stylus" rel="stylesheet/stylus" type="text/stylus">
-.sheetTable-dressing_count{
+<style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
+.sheetTable-common_nk_lcey {
   & {
     border-radius: 2px;
     // position: relative;
@@ -99,7 +78,7 @@
     box-shadow: 0px 5px 10px 0 rgba(0, 0, 0, 0.5);
     padding: 20px 20px;
     box-sizing: border-box;
-    width: 700px; // 关键
+    width: 1100px; // 关键
     margin: 0 auto 20px;
     box-sizing: content-box;
     position: relative;
@@ -149,13 +128,6 @@
     height: 44px;
   }
 
-  .diagnosis-con {
-    max-width: 340px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-
   &.readOnly {
     pointer-events: none;
   }
@@ -168,65 +140,13 @@
 
   .bottom-line {
     display: inline-block;
-    // border-bottom 1px solid #000
-    padding: 2px 0 2px 2px;
-  }
-
-  .bottomCon {
-    position: relative;
-    bottom: 40px;
-    // transform translateY(-30px)
-    // margin-top:-80px;
-    width: 100%;
-    font-size: 14px;
-
-    input[type='checkbox'] {
-      position: relative;
-    }
-
-    input[type='checkbox'] {
-      -webkit-appearance: none;
-      vertical-align: text-top;
-      width: 14px;
-      height: 14px;
-      border: 1px solid #000;
-      border-radius: 0px;
-      outline: none;
-      margin: 1px 3px 0 0;
-    }
-
-    .isChecked {
-      font-size: 10;
-      position: relative;
-    }
-
-    .isChecked:before {
-      content: '';
-      width: 8px;
-      transform: rotate(45deg);
-      position: absolute;
-      top: 7px;
-      left: -2px;
-      border-top: 2px solid #000;
-    }
-
-    .isChecked:after {
-      content: '';
-      width: 14px;
-      transform: rotate(-50deg) translateY(-50%) translateX(50%);
-      position: absolute;
-      border-top: 1px solid #000;
-      top: 10px;
-      left: -2px;
-    }
+    padding: 0px 0 2px 2px;
 
     .bottomInput {
       border: none;
       outline: none;
-      border-bottom: 1px solid #000;
       font-size: 14px;
-      width: 80px;
-      text-align: center;
+      width: 30px;
     }
   }
 
@@ -236,15 +156,14 @@
 }
 </style>
 <script>
-// import excel from "./components/excel/excel.vue";
 import excel from "../../components/sheetTable/components/excel/excel.vue";
 import bus from "vue-happy-bus";
 import sheetInfo from "../config/sheetInfo/index.js";
 import $ from "jquery";
 import moment from "moment";
 import common from "@/common/mixin/common.mixin";
-import headCon from "./components/headCon/headCon";
 import { updateSheetHeadInfo } from "../../api/index";
+import bottomCon from "./bottomCon";
 export default {
   props: {
     data: Object,
@@ -303,7 +222,6 @@ export default {
   },
   computed: {
     patientInfo() {
-      // return this.sheet.patientInfo
       return this.sheetInfo.selectBlock || {};
     },
     /** 只读模式 */
@@ -324,7 +242,7 @@ export default {
   destroyed() {} /* fix vue-happy-bus bug */,
   components: {
     excel,
-    headCon
+    bottomCon
   }
 };
 </script>

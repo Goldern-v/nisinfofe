@@ -20,139 +20,130 @@ export default [{
   {
     key: "temperature", //体温
     value: "",
-    event: keyf1
+    event: keyf1,
+    name: "体温",
+    next: "℃"
   },
   {
-    key: "pulse", //心率
+    key: "breath", //HR
     value: "",
-    event: keyf1
+    event: keyf1,
+    name: "HR",
+    next: "次/分"
   },
   {
-    key: "breath", //呼吸
+    key: "pulse", //R
     value: "",
-    event: keyf1
+    event: keyf1,
+    name: "R",
+    next: "次/分"
   },
   {
-    key: "bloodPressure", //血压
+    key: "spo2", //SPO₂
     value: "",
-    event: function (e, td) {
-      if (e.keyCode == 32) {
-        e.target.value += "/";
-        e.preventDefault();
-      }
-      keyf1(e, td);
-    }
+    event: keyf1,
+    name: "SPO₂",
+    next: "%"
   },
   {
-    key: "spo2", //SPO2
+    key: "fieldOne", //肤色-红润
     value: "",
-    event: keyf1
+    event: keyf1,
+    name: "红润"
   },
   {
-    key: "diet", //饮食
+    key: "fieldTwo", // 肤色-发绀
     value: "",
-    event: keyf1
+    event: keyf1,
+    name: "发绀",
   },
   {
-    key: "veinSize", // 入量静脉（ml）
+    key: "fieldThree", //肤色-黄染
     value: "",
-    event: keyf1
+    event: keyf1,
+    name: "黄染"
   },
   {
-    key: "foodSize", // 进食（ml）
+    key: "fieldFour", // 皮测黄疸值
     value: "",
-    event: keyf1
+    event: keyf1,
+    name: "皮测黄疸值"
   },
   {
-    key: "otherFood", // 入量自定义
+    key: "fieldSix", //反应-良好
     value: "",
-    event: keyf1
+    event: keyf1,
+    name: "良好"
   },
   {
-    key: "dischargeSize", // 小便（ml）
+    key: "fieldSeven", // 反应-激惹
+    value: "",
+    event: keyf1,
+    name: "激惹"
+  },
+  {
+    key: "fieldEight", // 反应-迟钝
+    value: "",
+    event: keyf1,
+    name: "迟钝",
+  },
+  {
+    key: "fieldNine", // 吸吮力-强
+    value: "",
+    event: keyf1,
+    name: "强"
+  },
+  {
+    key: "fieldTen", // 吸吮力-弱
+    value: "",
+    event: keyf1,
+    name: "弱"
+  },
+  {
+    key: "fieldEleven", // 脐部-渗血
+    value: "",
+    event: keyf1,
+    name: "渗血"
+  },
+  {
+    key: "fieldTwelve", // 脐部-无渗血
+    value: "",
+    event: keyf1,
+    name: "无渗血"
+  },
+  {
+    key: "fieldThirteen", //大便
+    value: "",
+    event: keyf1,
+    name: "大便",
+  },
+  {
+    key: "fieldFourteen", //小便
+    value: "",
+    event: keyf1,
+    name: "小便"
+  },
+  {
+    key: "fieldFifteen", //血糖
+    value: "",
+    event: keyf1,
+    name: "血糖"
+  },
+  {
+    key: "fieldSixteen", //喂养方式
+    value: "",
+    event: keyf1,
+    name: "喂养方式"
+  },
+  {
+    key: "fieldSeventeen", //早开奶
     value: "",
     event: keyf1,
   },
   {
-    key: "dischargeColor", // 小便颜色
-    value: "",
-    event: keyf1
-  },
-  {
-    key: "stoolTimes", //大便（g/次）
-    value: "",
-    event: keyf1
-  },
-  {
-    key: "stoolNature", //大便性质
+    key: "fieldEighteen", //早开奶
     value: "",
     event: keyf1,
-  },
-  {
-    key: "vomit", //呕吐（ml）
-    value: "",
-    event: keyf1
-  },
-  {
-    key: "otherDischarge", //出量自定义
-    value: "",
-    event: keyf1
-  },
-  {
-    key: "fieldFive", //舌苔
-    value: "",
-    event: keyf1,
-    textarea: {
-      width: 36
-    }
-  },
-  {
-    key: "fieldSix", //脉
-    value: "",
-    event: keyf1,
-    textarea: {
-      width: 36
-    }
-  },
-  {
-    key: "fieldSeven", //指纹
-    value: "",
-    event: keyf1,
-    textarea: {
-      width: 36
-    }
-  },
-  {
-    key: "fieldOne", //标题1
-    value: "",
-    event: keyf1,
-    textarea: {
-      width: 48
-    }
-  },
-  {
-    key: "fieldTwo", //标题2
-    value: "",
-    event: keyf1,
-    textarea: {
-      width: 48
-    }
-  },
-  {
-    key: "fieldThree", //标题3
-    value: "",
-    event: keyf1,
-    textarea: {
-      width: 36
-    }
-  },
-  {
-    key: "fieldFour", //标题4
-    value: "",
-    event: keyf1,
-    textarea: {
-      width: 36
-    }
   },
   {
     key: "description", //特殊情况记录
