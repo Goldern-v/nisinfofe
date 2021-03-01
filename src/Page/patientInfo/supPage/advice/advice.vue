@@ -5,6 +5,7 @@
         <div class="select-btn-con">
           <el-button class="select-btn" :class="{active: btn=='1'}" @click="btn=1">长期医嘱</el-button>
           <el-button class="select-btn" :class="{active: btn=='0'}" @click="btn=0">临时医嘱</el-button>
+          <el-button class="select-btn" :class="{active: btn=='2'}" @click="btn=2" v-if="HOSPITAL_ID == 'liaocheng'">单方传药</el-button>
         </div>
         <el-row class="select-btn-list" type="flex" align="middle">
           <el-radio-group v-model="radio">
