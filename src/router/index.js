@@ -425,8 +425,8 @@ const router = new Router({
             // },
             {
               path: "/temperature",
-              component: process.env.HOSPITAL_ID !== "huadu" ? temperature : temperatureLCEY,
-              // component: process.env.HOSPITAL_ID !== "huadu" ? temperature : (process.env.HOSPITAL_ID === "huadu" ? temperatureHD : temperatureLCEY),
+              // component: process.env.HOSPITAL_ID !== "huadu" ? temperature : temperatureLCEY,
+              component: (process.env.HOSPITAL_ID !== "huadu" && process.env.HOSPITAL_ID !== "liaocheng") ? temperature : (process.env.HOSPITAL_ID === "huadu" ? temperatureHD : temperatureLCEY),
               name: "体温单",
               alias: "体温单"
             },
