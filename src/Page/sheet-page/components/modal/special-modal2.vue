@@ -336,6 +336,7 @@
 </style>
 <script>
 import bus from "vue-happy-bus";
+import moment from "moment";
 import { nullRow } from "@/Page/sheet-page/components/render/Body.js";
 import sheetModel from "@/Page/sheet-page/sheet.js";
 import templateSlide from "./template-slide.vue";
@@ -517,7 +518,10 @@ export default {
           message: `未选择体征选项，请选择后再同步。`
         });
       }
-      if (!this.staticObj.recordDate) {
+      if (
+        !this.staticObj.recordDate &&
+        (!this.staticObj.recordMonth || !this.staticObj.recordHour)
+      ) {
         this.isSyncTemp = false;
         this.$message({
           type: "info",
@@ -555,10 +559,18 @@ export default {
           .filter(item => this.vitalSignKeys[item].check)
           .includes(multiObj.vitalSign)
       );
+      const currentYear = moment().format("YYYY");
       let vitalSignObj = {
         patientId: patientInfo.patientId,
         visitId: patientInfo.visitId,
-        timePoint: staticObj.recordDate + ":00",
+        timePoint: staticObj.recordDate
+          ? staticObj.recordDate + ":00"
+          : currentYear +
+            "-" +
+            staticObj.recordMonth +
+            " " +
+            staticObj.recordHour +
+            ":00",
         vitalSigns: "",
         vitalSignsValue: "",
         classCode: "",
