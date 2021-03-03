@@ -10,7 +10,7 @@
       <div class="bed-card-warpper" v-loading="modalLoading" ref="printCon">
         <div class="bed-card-con" flex :class="{remarkCon: formData.remarkPrint}">
           <img class="qr-code" :class="{hasRemark: hasRemark}" :src="qrCode" />
-          <div class="qr-code-num" :class="{hasRemark: hasRemark}">{{qrCodeNum}}</div>
+          <div class="qr-code-num" :class="{hasRemark: hasRemark}" :style="HOSPITAL_ID == 'liaocheng' ? 'width: 110px' : ''">{{qrCodeNum}}</div>
           <div style="width: 0" flex-box="1" flex="dir:top main:justify">
             <div
               flex="cross:center"
@@ -604,7 +604,8 @@ export default {
     open() {
       this.init();
       this.$refs.modal.open();
-      var qr_png = qr.imageSync(this.query.patientId, { type: "png" });
+      let qr_png_value = this.HOSPITAL_ID == 'liaocheng' ? this.query.patientId + '/' + this.query.visitId : this.query.patientId;
+      var qr_png = qr.imageSync(qr_png_value, { type: "png" });
       function arrayBufferToBase64(buffer) {
         var binary = "";
         var bytes = new Uint8Array(buffer);
@@ -616,7 +617,7 @@ export default {
       }
       let base64 = arrayBufferToBase64(qr_png);
       this.qrCode = base64;
-      this.qrCodeNum = this.query.patientId;
+      this.qrCodeNum = qr_png_value;
     },
     close() {
       this.$refs.modal.close();
