@@ -35,11 +35,17 @@ let sshUpload = (
   }
   // localSrc = './build'
 
+  // let serverInfo = {
+  //   host: "120.25.105.45",
+  //   port: "50289",
+  //   username: "root",
+  //   privateKey: path.resolve(__dirname, "./keys/cr_web_rsa") //fs.readFileSync('keys/cr_web_rsa')
+  // };
   let serverInfo = {
-    host: "120.25.105.45",
-    port: "50289",
+    host: "192.168.1.54",
+    port: "22",
     username: "root",
-    privateKey: path.resolve(__dirname, "./keys/cr_web_rsa") //fs.readFileSync('keys/cr_web_rsa')
+    privateKey: path.resolve(__dirname, "./keys/id_rsa") //fs.readFileSync('keys/cr_web_rsa')
   };
 
   var spinner = ora(`正在同步上传至${serverInfo.host}服务器...`);

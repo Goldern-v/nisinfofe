@@ -328,9 +328,9 @@
             <div class="allergy">
               <p>
                 过敏信息：
-                <span v-if="allergy1">食物过敏:{{ allergy1 }};</span>
-                <span v-if="drugGms">药物过敏:{{ drugGms }};</span>
-                <span v-if="allergy2">其他过敏:{{ allergy2 }}</span>
+                <span v-if="allergy1">{{ allergy1 }};</span>
+                <span v-if="drugGms">{{ drugGms }};</span>
+                <span v-if="allergy2">{{ allergy2 }}</span>
                 <span v-else>无</span>
               </p>
             </div>

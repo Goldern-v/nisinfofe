@@ -9,7 +9,7 @@
           updateTetxInfo('patientName', '病人姓名', patientInfo.patientName)
         "
       >
-        病人姓名：
+        姓名：
         <div class="bottom-line" style="min-width: 70px">
           {{ patientInfo.patientName }}
         </div>

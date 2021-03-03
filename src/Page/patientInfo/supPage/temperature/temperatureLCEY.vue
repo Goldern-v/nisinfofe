@@ -20,7 +20,7 @@
           :src="filePath"
           frameborder="0"
           ref="pdfCon"
-          :class="HOSPITAL_ID === 'huadu' ? 'hdIframe' : ''"
+          :class="HOSPITAL_ID === 'liaocheng' ? 'hdIframe' : ''"
         ></iframe>
       </div>
     </div>
@@ -115,7 +115,7 @@ export default {
     onPrint() {
       this.$refs.pdfCon.contentWindow.postMessage(
         { type: "printing" },
-        "http://120.238.239.27:9091/temperature/#/"
+        "http://120.224.211.7:9091/temperature/#/"
       );
     },
     getImg() {
@@ -184,7 +184,7 @@ export default {
     currentPage(value) {
       this.$refs.pdfCon.contentWindow.postMessage(
         { type: "currentPage", value },
-        "http://120.238.239.27:9091/temperature/#/"
+        "http://120.224.211.7:9091/temperature/#/"
       );
     }
   },

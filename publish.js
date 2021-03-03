@@ -10,9 +10,15 @@ folderSrc = "/crdata/webProject/nursingInfoSystem/dongguanhoujie";
 //folderSrc = "/crdata/webProject/nursingInfoSystem/huaduwujing";
 
 ssh
+  // .connect({
+  //   host: "120.25.105.45",
+  //   port: "50289",
+  //   username: "root",
+  //   privateKey: "keys/cr_web_rsa" //fs.readFileSync('keys/cr_web_rsa')
+  // })
   .connect({
-    host: "120.25.105.45",
-    port: "50289",
+    host: "192.168.1.54",
+    port: "22",
     username: "root",
     privateKey: "keys/cr_web_rsa" //fs.readFileSync('keys/cr_web_rsa')
   })
@@ -31,7 +37,7 @@ ssh
  })
  if you want to use the raw string as private key
  */
-  .then(function() {
+  .then(function () {
     //   // Local, Remote
     //   ssh.putFile('/home/steel/Lab/localPath', '/home/steel/Lab/remotePath').then(function () {
     //     console.log("The File thing is done")
@@ -80,13 +86,13 @@ ssh
       .putDirectory("./build", folderSrc, {
         recursive: true,
         concurrency: 10,
-        validate: function(itemPath) {
+        validate: function (itemPath) {
           const baseName = path.basename(itemPath);
           return (
             baseName.substr(0, 1) !== "." && baseName !== "node_modules" // do not allow dot files
           ); // do not allow node_modules
         },
-        tick: function(localPath, remotePath, error) {
+        tick: function (localPath, remotePath, error) {
           if (error) {
             failed.push(localPath);
           } else {
@@ -94,7 +100,7 @@ ssh
           }
         }
       })
-      .then(function(status) {
+      .then(function (status) {
         console.log("目录传输状态", status ? "成功" : "未成功");
         console.log("传输失败", failed.join(", "));
         console.log("完成传输", successful.join(", "));

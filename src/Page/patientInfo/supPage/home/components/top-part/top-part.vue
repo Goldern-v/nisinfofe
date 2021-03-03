@@ -67,9 +67,9 @@
       </div>
       <div class="body-con">
         <div class="text">
-          <span v-if="info.allergy1"> 食物过敏:{{ info.allergy1 }}; </span>
-          <span v-if="info.drugGms"> 药物过敏:{{ info.drugGms }}; </span>
-          <span v-if="info.allergy2"> 其他过敏:{{ info.allergy2 }} </span>
+          <span v-if="info.allergy1"> {{ info.allergy1 }}; </span>
+          <span v-if="info.drugGms">{{ info.drugGms }}; </span>
+          <span v-if="info.allergy2">{{ info.allergy2 }} </span>
           <span v-else>--</span>
         </div>
       </div>
