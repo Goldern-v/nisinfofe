@@ -162,7 +162,8 @@
       }" -->
       <div class="xinru" :style="{borderColor: `${data.nursingClassColor} transparent`}"></div>
       <!-- <div class="gl" v-if="data.glFlag">隔离</div> -->
-      <div class="deptLend" v-if="data.deptLend">借</div>
+      <div class="deptLend" v-if="data.deptLend && HOSPITAL_ID == 'fuyou'">共</div>
+      <div class="deptLend" v-else-if="data.deptLend">借</div>
     </span>
     <div v-else-if="data.name" class="null-bed">
       <span class="bao-text">{{ data.name }}</span>
