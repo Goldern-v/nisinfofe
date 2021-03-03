@@ -81,6 +81,7 @@
                       tr,
                       td: item
                     }"
+                    maxlength="10"
                     :style="item.maxWidth && { width: item.maxWidth + 'px' }"
                     v-else
                   />
@@ -107,6 +108,7 @@
                   @keydown="f1Key($event, staticObj, item.key)"
                   v-model="staticObj[item.key]"
                   :readonly="check[index] || isRead"
+                  maxlength="22"
                   v-autoComplete="{
                     dataList: dictionary[item.key],
                     obj: staticObj,
