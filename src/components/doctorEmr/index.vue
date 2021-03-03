@@ -253,8 +253,8 @@ export default {
     top: 100px;
     left: 0;
     z-index: 999;
-    width: 800px;
-    height: 700px;
+    width: 1200px;
+    height: 800px;
     background: #ffffff;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
 
