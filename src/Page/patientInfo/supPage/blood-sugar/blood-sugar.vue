@@ -394,7 +394,7 @@ export default {
     if (this.$route.query.patientId) {
       this.load();
     }
-    if (this.HOSPITAL_ID == "lingcheng") {
+    if (this.HOSPITAL_ID == "lingcheng" || this.HOSPITAL_ID == "liaocheng") {
       this.getSugarItemDict();
     }
     this.getFormHead();

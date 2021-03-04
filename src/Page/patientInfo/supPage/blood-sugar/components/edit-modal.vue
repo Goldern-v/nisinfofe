@@ -163,7 +163,7 @@ export default {
       this.$refs.modal.open();
 
       let defaultSugarItem = "微机血糖";
-      if (this.HOSPITAL_ID == "lingcheng") {
+      if (this.HOSPITAL_ID == "lingcheng" || this.HOSPITAL_ID == "liaocheng") {
         defaultSugarItem = this.typeList ? this.typeList[0].vitalSign : "凌晨";
       }
       if (this.HOSPITAL_ID == "huadu") {
@@ -260,7 +260,7 @@ export default {
         this.typeList = res.data.data;
       });
     }
-    if (this.HOSPITAL_ID == "lingcheng") {
+    if (this.HOSPITAL_ID == "lingcheng" || this.HOSPITAL_ID == "liaocheng") {
       this.typeList = this.sugarItem;
     }
     // 花都项目可编辑
@@ -280,7 +280,7 @@ export default {
   },
   watch: {
     sugarItem(newVal, oldVal) {
-      if (newVal && this.HOSPITAL_ID == "lingcheng") {
+      if (newVal && this.HOSPITAL_ID == "lingcheng" || this.HOSPITAL_ID == "liaocheng") {
         this.typeList = this.sugarItem;
       }
     },

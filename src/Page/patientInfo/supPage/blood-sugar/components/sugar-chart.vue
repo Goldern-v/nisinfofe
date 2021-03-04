@@ -3,7 +3,7 @@
     <div
       class="chart-con"
       :style="{height: wih - 110 + 'px'}"
-      :class="{lc:HOSPITAL_ID == 'lingcheng'}"
+      :class="{lc:HOSPITAL_ID == 'lingcheng' || HOSPITAL_ID == 'liaocheng'}"
     >
       <chart
         v-if="visible"
@@ -69,7 +69,7 @@ export default {
       this.visible = true;
     }, 300);
 
-    if (this.HOSPITAL_ID == "lingcheng") {
+    if (this.HOSPITAL_ID == "lingcheng" || this.HOSPITAL_ID == "liaocheng") {
       this.types = this.sugarItem.map(item => {
         return item.vitalSign;
       });
@@ -129,7 +129,7 @@ export default {
             silent: false,
             data: [
               {
-                yAxis: 3.9,
+                yAxis: Math.min.apply(Math, this.lineData.map(item => item.sugarValue)),
                 label: {
                   normal: {
                     show: true,
@@ -145,7 +145,7 @@ export default {
                 }
               },
               {
-                yAxis: 9.4,
+                yAxis:  Math.max.apply(Math, this.lineData.map(item => item.sugarValue)),
                 label: {
                   normal: {
                     show: true,

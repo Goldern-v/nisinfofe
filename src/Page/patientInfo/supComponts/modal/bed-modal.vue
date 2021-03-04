@@ -604,7 +604,7 @@ export default {
     open() {
       this.init();
       this.$refs.modal.open();
-      let qr_png_value = this.HOSPITAL_ID == 'liaocheng' ? this.query.patientId + '/' + this.query.visitId : this.query.patientId;
+      let qr_png_value = this.HOSPITAL_ID == 'liaocheng' ? this.query.patientId + '|' + this.query.visitId : this.query.patientId;
       var qr_png = qr.imageSync(qr_png_value, { type: "png" });
       function arrayBufferToBase64(buffer) {
         var binary = "";
