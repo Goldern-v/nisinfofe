@@ -55,9 +55,6 @@ export default {
           type = "record";
         }
       }
-      if (this.HOSPITAL_ID == "hj" && type == "sheet") {
-        return;
-      }
       this.$router.push(
         `/showPatientDetails/${type}?patientId=` +
           patientId +
