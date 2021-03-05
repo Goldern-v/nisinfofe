@@ -23,7 +23,12 @@
           :class="HOSPITAL_ID === 'huadu' ? 'hdIframe' : ''"
         ></iframe>
       </div>
-      <sweet-modal ref="sheet" title="体温录入" class="modal-con">
+      <sweet-modal
+        ref="sheet"
+        title="体温录入"
+        class="modal-con"
+        @close="closeModal"
+      >
         <singleTemperatureChart class="sheet-con"></singleTemperatureChart>
       </sweet-modal>
     </div>
@@ -43,6 +48,27 @@
       transform:scale(0.9);
       width: 100%;
       height: 100%;
+    }
+  }
+  .modal-con{
+    /deep/ .isFixed{
+      top:90px !important;
+      .body-con{
+        display :none;
+      }
+    }
+    /deep/ .sweet-modal{
+      left:10% !important;
+      top:10% !important;
+      transform :scale(1) translate(calc(0%), 0) !important;
+    }
+    /deep/ .signModal{
+      width:100% !important;
+      .sweet-modal{
+        position: absolute;
+        left: 34% !important;
+        top: 10% !important;
+      }
     }
   }
 .fixed-icon {
@@ -136,7 +162,8 @@ export default {
       contentHeight: { height: "" },
       currentPage: 1,
       pageTotal: 1,
-      open: false
+      open: false,
+      isSave: false
     };
   },
   methods: {
@@ -215,6 +242,11 @@ export default {
     },
     onToggle() {
       this.$refs.sheet.open();
+    },
+    closeModal() {
+      if (this.isSave) {
+        setTimeout(this.getImg(), 1000);
+      }
     }
   },
   watch: {
@@ -228,7 +260,13 @@ export default {
       );
     }
   },
-  mounted() {},
+  mounted() {
+    this.bus.$on("saveSheetPage", data => {
+      if (data === "noSaveSign" || data === true) {
+        this.isSave = true;
+      }
+    });
+  },
   created() {
     this.getImg();
     window.addEventListener("resize", this.getHeight);
