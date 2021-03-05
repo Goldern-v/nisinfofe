@@ -2,7 +2,7 @@
   <div>
     <div class="contain">
       <div class="print-btn tool-btn" @click="onPrint()">打印</div>
-      <!-- <div class="print-btn tool-btn" @click="typeIn()">录入</div> -->
+      <!-- <div class="print-btn tool-btn" @click="onToggle()">录入</div> -->
       <div class="pagination">
         <button :disabled="currentPage === 1" @click="currentPage--">
           上一页
@@ -15,7 +15,7 @@
       <div class="tem-con" :style="contentHeight">
         <null-bg v-show="!filePath"></null-bg>
         <iframe
-          id="printID"
+          id="myIframe"
           v-if="filePath"
           :src="filePath"
           frameborder="0"
@@ -23,21 +23,9 @@
           :class="HOSPITAL_ID === 'huadu' ? 'hdIframe' : ''"
         ></iframe>
       </div>
-
-      <el-tooltip
-        class="item"
-        effect="dark"
-        content="患者资料"
-        placement="left"
-      >
-        <div class="fixed-icon" :class="{ open: open }" @click="onToggle">
-          <img
-            src="../../../../Page/sheet-page/components/sheet-tool/images/患者资料@2x.png"
-            alt
-          />
-        </div>
-      </el-tooltip>
-      <temEnterSlide ref="temEnterSlide" @onClose="onClose"></temEnterSlide>
+      <sweet-modal ref="sheet" title="体温录入" class="modal-con">
+        <singleTemperatureChart class="sheet-con"></singleTemperatureChart>
+      </sweet-modal>
     </div>
   </div>
 </template>
@@ -138,7 +126,7 @@ import {
 } from "../../../sheet-page/api/index";
 import moment from "moment";
 import bus from "vue-happy-bus";
-import temEnterSlide from "./temEnter-slide";
+import singleTemperatureChart from "./singleTemperatureChart";
 export default {
   data() {
     return {
@@ -181,6 +169,9 @@ export default {
     messageHandle(e) {
       if (e && e.data) {
         switch (e.data.type) {
+          case "dblclick":
+            this.onToggle();
+            break;
           case "pageTotal":
             this.pageTotal = e.data.value;
             break;
@@ -223,20 +214,7 @@ export default {
       }
     },
     onToggle() {
-      this.open = !this.open;
-      if (!this.patientInfo.patientId) {
-        this.$store.commit("upPatientInfo", this.$route.query);
-      }
-      if (this.open) {
-        this.$route.query.patientId = this.patientInfo.patientId;
-        this.$route.query.visitId = this.patientInfo.visitId;
-        this.$refs.temEnterSlide.open();
-      } else {
-        this.$refs.temEnterSlide.close();
-      }
-    },
-    onClose() {
-      this.open = false;
+      this.$refs.sheet.open();
     }
   },
   watch: {
@@ -267,7 +245,7 @@ export default {
   },
   components: {
     nullBg,
-    temEnterSlide
+    singleTemperatureChart
   }
 };
 </script>

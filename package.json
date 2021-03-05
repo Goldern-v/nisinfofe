@@ -14,6 +14,7 @@
     "dev:weixian": "npm run dev --weixian",
     "dev:lingcheng": "npm run dev --lingcheng",
     "dev:liaocheng": "npm run dev --liaocheng",
+    "dev:fuyou": "npm run dev --fuyou",
     "start": "node build/dev-server.js",
     "build": "node build/build.js",
     "build:": "npm run build",
@@ -25,8 +26,9 @@
     "buildNew:weixian": "npm run buildNew: weixian",
     "buildNew:lingcheng": "npm run buildNew: lingcheng",
     "buildNew:huadu": "npm run buildNew: huadu",
-    "buildNew:liaocheng": "npm run buildNew: liaocheng",
     "buildNew:wujing": "npm run buildNew: wujing",
+    "buildNew:liaocheng": "npm run buildNew: liaocheng",
+    "buildNew:fuyou": "npm run buildNew: fuyou",
     "deploy": "npm run buildNew",
     "lint": "eslint --ext .js,.vue src",
     "toSvn": "svn commit -m 前端代码更新svn"
