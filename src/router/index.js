@@ -49,6 +49,8 @@ const shiftWorkLc = () => import("@/Page/shift-work-lc/shift-work.vue");
 const shiftWorkDetailLc = () => import("@/Page/shift-work-lc/shift-work-detail.vue");
 const shiftWorkHd = () => import("@/Page/shift-work-hd/shift-work.vue");
 const shiftWorkDetailHd = () => import("@/Page/shift-work-hd/shift-work-detail.vue");
+const shiftWorkFy = () => import("@/Page/shift-work-fy/shift-work.vue");
+const shiftWorkDetailFy = () => import("@/Page/shift-work-fy/shift-work-detail.vue");
 
 const singleRounds = () => import("@/Page/single-rounds/single-rounds.vue");
 const singleRoundsDetail = () => import("@/Page/single-rounds/single-rounds-detail.vue");
@@ -303,12 +305,12 @@ const router = new Router({
         {
           path: "/shiftWork",
           name: "shiftWorks",
-          component: process.env.HOSPITAL_ID == "lingcheng" ? shiftWorkLc : process.env.HOSPITAL_ID == "huadu" ? shiftWorkHd : shiftWork,
+          component: process.env.HOSPITAL_ID == "lingcheng" ? shiftWorkLc : process.env.HOSPITAL_ID == "huadu" ? shiftWorkHd : process.env.HOSPITAL_ID == "fuyou" ? shiftWorkFy : shiftWork,
           children: [{
             name: "shiftWork",
             path: "/shiftWork/:code?/:id?",
             component: process.env.HOSPITAL_ID == "lingcheng" ?
-              shiftWorkDetailLc : process.env.HOSPITAL_ID == "huadu" ? shiftWorkDetailHd : shiftWorkDetail
+              shiftWorkDetailLc : process.env.HOSPITAL_ID == "huadu" ? shiftWorkDetailHd : process.env.HOSPITAL_ID == "fuyou" ? shiftWorkDetailFy : shiftWorkDetail
           }]
         },
         {
