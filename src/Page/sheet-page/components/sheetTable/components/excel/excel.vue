@@ -304,11 +304,19 @@
 
     <slot
       name="bottomCon"
-      v-if="sheetInfo.sheetType == 'neonatology_picc'"
+      v-if="
+        sheetInfo.sheetType == 'neonatology_picc' ||
+          sheetInfo.sheetType == 'internal_eval_lcey'
+      "
     ></slot>
     <!-- 表格下方的备注组件 -->
     <bottomRemark></bottomRemark>
-    <div><slot name="bottomCon" style></slot></div>
+    <div>
+      <slot
+        name="bottonInput"
+        v-if="sheetInfo.sheetType == 'surgical_eval2_lcey'"
+      ></slot>
+    </div>
     <div
       class="table-footer"
       v-if="sheetInfo.sheetType != 'intervention_cure_hd'"
@@ -1251,9 +1259,6 @@ export default {
           sheetInfo.auditorMap[`PageIndex_${this.index}_auditorNo`] = empNo;
           sheetInfo.auditorMap[`PageIndex_${this.index}_auditorName`] = empName;
           sheetInfo.auditorMap = { ...sheetInfo.auditorMap };
-          console.log("empNo", empNo);
-          console.log("empName", empName);
-          console.log({ ...sheetInfo.auditorMap });
           this.$notify.success({
             title: "提示",
             message: "审核成功",

@@ -179,6 +179,8 @@ import sheetTable_hemodialysis_CRRT_hd from "@/Page/sheet-page/components/sheetT
 import sheetTable_intervention_cure from "@/Page/sheet-page/components/sheetTable-intervention_cure/sheetTable";
 import sheetTable_mild_hypothermia_hd from "@/Page/sheet-page/components/sheetTable-mild_hypothermia_hd/sheetTable";
 import sheetTable_neonatology_picc from "@/Page/sheet-page/components/sheetTable-neonatology_picc/sheetTable";
+import sheetTable_internal_eval_lcey from "@/Page/sheet-page/components/sheetTable-internal_eval_lcey/sheetTable";
+import sheetTable_surgical_eval2_lcey from "@/Page/sheet-page/components/sheetTable-surgical_eval2_lcey/sheetTable";
 import common from "@/common/mixin/common.mixin.js";
 import { nursingUnit } from "@/api/lesion";
 import sheetModel, {
@@ -304,6 +306,10 @@ export default {
         return sheetTable_mild_hypothermia_hd;
       } else if (sheetInfo.sheetType == "neonatology_picc") {
         return sheetTable_neonatology_picc;
+      } else if (sheetInfo.sheetType == "internal_eval_lcey") {
+        return sheetTable_internal_eval_lcey;
+      } else if (sheetInfo.sheetType == "surgical_eval2_lcey") {
+        return sheetTable_surgical_eval2_lcey;
       } else {
         return sheetTable;
       }
@@ -777,7 +783,9 @@ export default {
     sheetTable_hemodialysis_CRRT_hd,
     sheetTable_intervention_cure,
     sheetTable_mild_hypothermia_hd,
-    sheetTable_neonatology_picc
+    sheetTable_neonatology_picc,
+    sheetTable_internal_eval_lcey,
+    sheetTable_surgical_eval2_lcey
   }
 };
 </script>

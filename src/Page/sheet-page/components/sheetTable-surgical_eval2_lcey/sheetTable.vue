@@ -1,12 +1,10 @@
 <template>
   <div>
     <div
-      class="contant sheetTable-common_nk_lcey"
+      class="contant sheetTable-internal_eval_lcey"
       :style="data.titleModel.style"
       :class="{ readOnly }"
     >
-      <!-- <img class="his-logo"
-      src="../../../../common/images/his-logo/厚街医徽.png" />-->
       <img
         src="../../images/仅供查阅.jpg"
         class="readOnly-img no-print"
@@ -18,41 +16,50 @@
         <div class="title">{{ patientInfo.recordName }}</div>
         <div class="info-con" flex="main:justify">
           <span>
-            科室：
+            科别：
             <div class="bottom-line" style="min-width: 120px">
               {{ patientInfo.deptName }}
             </div>
           </span>
           <span>
-            床号：
-            <div
-              class="bottom-line"
-              style="min-width: 30px"
-              @click="updateTetxInfo('bedLabel', '床号', patientInfo.bedLabel)"
-            >
-              {{ patientInfo.bedLabel }}
-            </div>
-          </span>
-          <span>
             姓名：
-            <div
-              class="bottom-line"
-              style="min-width: 60px"
-              @click="
-                updateTetxInfo(
-                  'patientName',
-                  '病人姓名',
-                  patientInfo.patientName
-                )
-              "
-            >
+            <div class="bottom-line" style="min-width: 60px">
               {{ patientInfo.patientName }}
             </div>
           </span>
           <span>
-            住院号：
+            性别：
+            <div class="bottom-line" style="min-width: 30px">
+              {{ patientInfo.sex }}
+            </div>
+          </span>
+          <span>
+            年龄：
+            <div class="bottom-line" style="min-width: 30px">
+              {{ patientInfo.age }}
+            </div>
+          </span>
+          <span>
+            床号：
+            <div class="bottom-line" style="min-width: 30px">
+              {{ patientInfo.bedLabel }}
+            </div>
+          </span>
+          <span>
+            病案号：
             <div class="bottom-line" style="min-width: 50px">
-              {{ patientInfo.patientId }}
+              {{ patientInfo.inpNo }}
+            </div>
+          </span>
+          <span>
+            诊断：
+            <div class="bottom-line" style="min-width: 150px">
+              {{ patientInfo.diagnosis }}
+            </div>
+          </span>
+          <span>
+            <div class="bottom-line" style="min-width: 50px">
+              {{ patientInfo.admissionDate | toymd }}
             </div>
           </span>
         </div>
@@ -63,14 +70,15 @@
           :scrollY="scrollY"
           :hasFiexHeader="true"
           :isInPatientDetails="isInPatientDetails"
-          ><bottomCon slot="bottomCon" />
+        >
+          <!-- <bottomCon slot="bottonInput" :index="index" /> -->
         </excel>
       </div>
     </div>
   </div>
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
-.sheetTable-common_nk_lcey {
+.sheetTable-internal_eval_lcey {
   & {
     border-radius: 2px;
     // position: relative;
@@ -115,19 +123,6 @@
     }
   }
 
-  .add-btn {
-    position: absolute;
-    top: 60px;
-    right: 20px;
-  }
-
-  .his-logo {
-    position: absolute;
-    left: 21px;
-    top: 21px;
-    height: 44px;
-  }
-
   &.readOnly {
     pointer-events: none;
   }
@@ -141,17 +136,6 @@
   .bottom-line {
     display: inline-block;
     padding: 0px 0 2px 2px;
-
-    .bottomInput {
-      border: none;
-      outline: none;
-      font-size: 14px;
-      width: 30px;
-    }
-  }
-
-  .table-footer {
-    margin-top: 40px !important;
   }
 }
 </style>
@@ -162,7 +146,6 @@ import sheetInfo from "../config/sheetInfo/index.js";
 import $ from "jquery";
 import moment from "moment";
 import common from "@/common/mixin/common.mixin";
-import { updateSheetHeadInfo } from "../../api/index";
 import bottomCon from "./bottomCon";
 export default {
   props: {
@@ -177,49 +160,10 @@ export default {
   data() {
     return {
       bus: bus(this),
-      sheetInfo,
-      createTime:
-        (sheetInfo.relObj && sheetInfo.relObj.createTime) ||
-        sheetInfo.selectBlock.createTime
+      sheetInfo
     };
   },
-  methods: {
-    updateBirthDay() {
-      window.openSetAuditDateModal(
-        date => {
-          updateSheetHeadInfo({ birthday: date }).then(res => {
-            this.patientInfo.birthday = res.data.data.birthday;
-            this.$message.success("修改日期成功");
-          });
-        },
-        this.patientInfo.birthday,
-        "修改日期"
-      );
-    },
-    updateTetxInfo(key, label, autoText) {
-      window.openSetTextModal(
-        text => {
-          updateSheetHeadInfo({ [key]: text }).then(res => {
-            this.patientInfo[key] = res.data.data[key];
-            this.$message.success(`修改${label}成功`);
-          });
-        },
-        autoText,
-        `修改${label}`
-      );
-    },
-    changeDate() {
-      window.openSetAuditDateModal(
-        date => {
-          this.createTime = date;
-          sheetInfo.relObj.createTime = date;
-          this.$message.success("修改日期成功，保存护记后生效");
-        },
-        this.createTime,
-        "修改日期"
-      );
-    }
-  },
+  methods: {},
   computed: {
     patientInfo() {
       return this.sheetInfo.selectBlock || {};

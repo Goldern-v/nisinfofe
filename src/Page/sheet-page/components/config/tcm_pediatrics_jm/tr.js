@@ -59,7 +59,7 @@ export default [{
     event: keyf1
   },
   {
-    key: "foodSize", // 进食（ml）
+    key: "eatSize", // 进食（ml）
     value: "",
     event: keyf1
   },
@@ -69,7 +69,7 @@ export default [{
     event: keyf1
   },
   {
-    key: "dischargeSize", // 小便（ml）
+    key: "urineVolume", // 小便（ml）
     value: "",
     event: keyf1,
   },

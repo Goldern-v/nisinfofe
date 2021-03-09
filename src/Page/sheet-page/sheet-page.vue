@@ -235,7 +235,8 @@ import sheetTable_hemodialysis_CRRT_hd from "./components/sheetTable-hemodialysi
 import sheetTable_intervention_cure from "./components/sheetTable-intervention_cure/sheetTable";
 import sheetTable_mild_hypothermia_hd from "./components/sheetTable-mild_hypothermia_hd/sheetTable";
 import sheetTable_neonatology_picc from "./components/sheetTable-neonatology_picc/sheetTable";
-import sheetTable_common_nk_lcey from "./components/sheetTable-common_nk_lcey/sheetTable";
+import sheetTable_internal_eval_lcey from "./components/sheetTable-internal_eval_lcey/sheetTable";
+import sheetTable_surgical_eval2_lcey from "./components/sheetTable-surgical_eval2_lcey/sheetTable";
 import common from "@/common/mixin/common.mixin.js";
 import evalModel from "./components/modal/eval-model/eval-model.vue";
 import { typeList } from "@/api/lesion";
@@ -364,11 +365,11 @@ export default {
         return sheetTable_mild_hypothermia_hd;
       } else if (sheetInfo.sheetType == "neonatology_picc") {
         return sheetTable_neonatology_picc;
-      }
-      // else if (sheetInfo.sheetType == "tcm_pediatrics_jm") {
-      //   return sheetTable_common_nk_lcey;
-      // }
-      else {
+      } else if (sheetInfo.sheetType == "internal_eval_lcey") {
+        return sheetTable_internal_eval_lcey;
+      } else if (sheetInfo.sheetType == "surgical_eval2_lcey") {
+        return sheetTable_surgical_eval2_lcey;
+      } else {
         return sheetTable;
       }
     }
@@ -867,7 +868,8 @@ export default {
     sheetTable_intervention_cure,
     sheetTable_mild_hypothermia_hd,
     sheetTable_neonatology_picc,
-    sheetTable_common_nk_lcey,
+    sheetTable_internal_eval_lcey,
+    sheetTable_surgical_eval2_lcey,
     doctorEmr
   }
 };

@@ -23,7 +23,7 @@ export default [{
     event: keyf1
   },
   {
-    key: "pulse", //体温-措施
+    key: "temperatureMeasure", //体温-措施
     value: "",
     event: keyf1,
     autoComplete: {
@@ -35,17 +35,17 @@ export default [{
     // },
   },
   {
-    key: "breath", //脉搏
+    key: "pulse", //脉搏
     value: "",
     event: keyf1
   },
   {
-    key: "bloodPressure", //呼吸 次/min
+    key: "breath", //呼吸 次/min
     value: "",
     event: keyf1
   },
   {
-    key: "bloodPressure1", //血压(mmHg)
+    key: "bloodPressure", //血压(mmHg)
     value: "",
     event: function (e, td) {
       if (e.keyCode == 32) {
@@ -55,26 +55,26 @@ export default [{
       keyf1(e, td);
     },
     textarea: {
-      width: 30
+      width: 48
     },
     style: {
-      'line-height': '14px'
+      'line-height': '30px'
     }
   },
   {
-    key: "consciousness", //血压 - 异常处理
+    key: "bloodPressureHandle", //血压 - 异常处理
     value: "",
     event: keyf1,
     autoComplete: {
       // data: ['观察做好宣教', '遵医嘱应用药物']
-      data: ['①', '②']
+      data: ['①', '②', '③']
     },
     // textarea: {
     //   width: 48
     // },
   },
   {
-    key: "pupilSizeRight", // 睡眠-状态
+    key: "sleepStatus", // 睡眠-状态
     value: "",
     event: keyf1,
     autoComplete: {
@@ -86,7 +86,7 @@ export default [{
     // },
   },
   {
-    key: "pupilReflexLeft", // 睡眠-措施
+    key: "sleepMeasure", // 睡眠-措施
     value: "",
     event: keyf1,
     autoComplete: {
@@ -98,7 +98,7 @@ export default [{
     // },
   },
   {
-    key: "pupilReflexRight", // 饮食
+    key: "diet", // 饮食
     value: "",
     event: keyf1,
     autoComplete: {
@@ -109,7 +109,7 @@ export default [{
     // },
   },
   {
-    key: "pupilReflexRight0", // 食欲
+    key: "appetite", // 食欲
     value: "",
     event: keyf1,
     autoComplete: {
@@ -120,7 +120,7 @@ export default [{
     // },
   },
   {
-    key: "pupilReflexRight1", // 临床表现-疼痛-部位
+    key: "fieldOne", // 临床表现-疼痛-部位
     value: "",
     event: keyf1,
     autoComplete: {
@@ -132,17 +132,17 @@ export default [{
     // },
   },
   {
-    key: "pupilReflexRight2", // 临床表现-疼痛-评分
+    key: "fieldTwo", // 临床表现-疼痛-评分
     value: "",
     event: keyf1,
   },
   {
-    key: "pupilReflexRight3", // 临床表现-疼痛-措施
+    key: "fieldThree", // 临床表现-疼痛-措施
     value: "",
     event: keyf1,
   },
   {
-    key: "pupilReflexRight4", // 临床表现-其他症状
+    key: "fieldFour", // 临床表现-其他症状
     value: "",
     event: keyf1,
     autoComplete: {
@@ -154,7 +154,7 @@ export default [{
     // },
   },
   {
-    key: "pupilReflexRight5", // 临床表现-措施
+    key: "fieldSix", // 临床表现-措施
     value: "",
     event: keyf1,
     autoComplete: {
@@ -166,7 +166,7 @@ export default [{
     // },
   },
   {
-    key: "food", //临床表现-效果
+    key: "fieldSeven", //临床表现-效果
     value: "",
     event: keyf1,
     autoComplete: {
@@ -178,17 +178,17 @@ export default [{
     // },
   },
   {
-    key: "foodSize", //临床表现-VTE-选项
+    key: "fieldEight", //临床表现-VTE-选项
     value: "",
     event: keyf1
   },
   {
-    key: "discharge", //临床表现-VTE-评分
+    key: "fieldNine", //临床表现-VTE-评分
     value: "",
     event: keyf1,
   },
   {
-    key: "dischargeSize", //临床表现-VTE-措施
+    key: "fieldTen", //临床表现-VTE-措施
     value: "",
     event: keyf1,
     autoComplete: {
@@ -200,12 +200,12 @@ export default [{
     // },
   },
   {
-    key: "fieldOne", //临床表现-压疮评分
+    key: "fieldEleven", //临床表现-压疮评分
     value: "",
     event: keyf1,
   },
   {
-    key: "fieldTwo", //临床表现-心理状态
+    key: "fieldTwelve", //临床表现-心理状态
     value: "",
     event: keyf1,
     autoComplete: {
@@ -217,7 +217,7 @@ export default [{
     // },
   },
   {
-    key: "fieldThree", //临床表现-营养状况
+    key: "fieldThirteen", //临床表现-营养状况
     value: "",
     event: keyf1,
     autoComplete: {
@@ -226,7 +226,7 @@ export default [{
     }
   },
   {
-    key: "fieldThree1", //临床表现-依从性
+    key: "fieldFourteen", //临床表现-依从性
     value: "",
     event: keyf1,
     autoComplete: {
@@ -235,7 +235,7 @@ export default [{
     }
   },
   {
-    key: "fieldThree2", //临床表现-教育需求
+    key: "fieldFifteen", //临床表现-教育需求
     value: "",
     event: keyf1,
     autoComplete: {
@@ -247,7 +247,7 @@ export default [{
     // },
   },
   {
-    key: "fieldThree3", //化验-主要阳性项目
+    key: "assayItem", //化验-主要阳性项目
     value: "",
     event: keyf1,
     autoComplete: {
@@ -259,24 +259,24 @@ export default [{
     // },
   },
   {
-    key: "fieldThree4", //化验-结果
+    key: "assayResult", //化验-结果
     value: "",
     event: keyf1,
   },
   {
-    key: "fieldThree5", //化验-措施
+    key: "assayMeasure", //化验-措施
     value: "",
     event: keyf1,
     autoComplete: {
       // data: ['遵医嘱用药', '观察做好宣教']
-      data: ['①', '②']
+      data: ['①', '②', '③']
     },
     // textarea: {
     //   width: 36
     // },
   },
   {
-    key: "fieldThree6", //检查/检验-项目
+    key: "examItem", //检查/检验-项目
     value: "",
     event: keyf1,
     autoComplete: {
@@ -288,7 +288,7 @@ export default [{
     // },
   },
   {
-    key: "fieldThree7", //检查/检验-措施
+    key: "examResult", //检查/检验-措施
     value: "",
     event: keyf1,
     autoComplete: {
@@ -300,7 +300,7 @@ export default [{
     // },
   },
   {
-    key: "fieldThree8", //检查/检验-效果
+    key: "examMeasure", //检查/检验-效果
     value: "",
     event: keyf1,
     autoComplete: {
@@ -312,7 +312,7 @@ export default [{
     // },
   },
   {
-    key: "fieldThree9", //出院/转科指导
+    key: "fieldSixteen", //出院/转科指导
     value: "",
     event: keyf1,
     autoComplete: {
@@ -332,7 +332,7 @@ export default [{
       top: "1px",
       bottom: "1px",
       left: "1px",
-      width: "180px",
+      width: "150px",
       background: "transparent"
     },
     event: function (e, td) {
@@ -346,7 +346,10 @@ export default [{
   },
   {
     key: "sign",
-    value: ""
+    value: "",
+    style: {
+      minWidth: '52px'
+    }
   },
   // {
   //   key: "audit",
@@ -398,7 +401,7 @@ export default [{
     value: ""
   },
   {
-    hidden: false,
+    hidden: true,
     key: "auditorNo",
     value: ""
   },
