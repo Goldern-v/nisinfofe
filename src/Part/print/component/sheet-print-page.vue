@@ -62,6 +62,9 @@
   th[dataname='护士签名'] {
     width: 90px !important;
   }
+  th[dataname='签名'] {
+    width: 60px !important;
+  }
 
   th[dataname='审核签名'] {
     display: none !important;

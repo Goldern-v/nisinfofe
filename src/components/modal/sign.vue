@@ -6,9 +6,10 @@
     :title="title1 || title"
     :overlay-theme="overlayTheme"
     style="z-index: 10002"
+    class="signModal"
   >
-    <div v-show="message && message.length>0" class="message-box">
-      <span>{{message}}</span>
+    <div v-show="message && message.length > 0" class="message-box">
+      <span>{{ message }}</span>
     </div>
     <span v-show="showUserName">
       <p for class="name-title">输入用户名或者工号</p>
@@ -24,24 +25,31 @@
     </span>
     <div style="height: 5px"></div>
     <span v-if="HOSPITAL_ID != 'weixian' || pw">
-      <p for class="name-title">{{label}}</p>
+      <p for class="name-title">{{ label }}</p>
       <div ref="passwordInput">
-        <el-input size="small" type="password" :placeholder="placeholder" v-model="password"></el-input>
+        <el-input
+          size="small"
+          type="password"
+          :placeholder="placeholder"
+          v-model="password"
+        ></el-input>
       </div>
     </span>
 
     <span v-else>
       <p for class="name-title">
         验证方式
-        <span :style="{color: ca_isLogin ? 'green': 'red'}">
-          {{ca_name || '无'}}证书
-          {{ca_isLogin ? '已登录' : '未登录'}}
+        <span :style="{ color: ca_isLogin ? 'green' : 'red' }">
+          {{ ca_name || "无" }}证书
+          {{ ca_isLogin ? "已登录" : "未登录" }}
         </span>
       </p>
     </span>
 
     <div v-if="HOSPITAL_ID == 'weixian'" style="margin-top: 5px">
-      <span @click="openCaSignModal" class="loginCa" v-if="!ca_isLogin">登录证书</span>
+      <span @click="openCaSignModal" class="loginCa" v-if="!ca_isLogin"
+        >登录证书</span
+      >
       <span class="loginCa" v-if="!pw" @click="pw = true">密码验证</span>
       <span class="loginCa" v-else @click="pw = false">证书验证</span>
     </div>
@@ -63,7 +71,13 @@
     <div style="height: 20px"></div>
     <div slot="button">
       <el-button class="modal-btn" @click.stop="close">取消</el-button>
-      <el-button class="modal-btn" type="primary" @dblclick.stop="post" @click.stop="post">确认</el-button>
+      <el-button
+        class="modal-btn"
+        type="primary"
+        @dblclick.stop="post"
+        @click.stop="post"
+        >确认</el-button
+      >
     </div>
   </sweet-modal>
 </template>

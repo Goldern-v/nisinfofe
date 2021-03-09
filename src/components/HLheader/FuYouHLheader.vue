@@ -1,32 +1,36 @@
 <template>
   <div>
     <!-- 解决password自动填充bug -->
-    <input type="password" style="display:none"/>
+    <input type="password" style="display:none" />
     <div id="hl-nav-con">
       <div class="header-con">
         <el-row type="flex" class="row-bg" justify="space-between">
           <el-row class="left-part" type="flex">
             <el-row
-                class="logo-con logo-con-hj"
-                type="flex"
-                align="middle"
-                v-if="HOSPITAL_ID == 'hj'"
+              class="logo-con logo-con-hj"
+              type="flex"
+              align="middle"
+              v-if="HOSPITAL_ID == 'hj'"
             >
-              <img src="../../common/images/logo_hj.png"/>
+              <img src="../../common/images/logo_hj.png" />
               <span>
                 东莞市厚街医院
-                <br/>智慧护理信息系统
+                <br />智慧护理信息系统
               </span>
             </el-row>
             <el-row
-                class="logo-con"
-                type="flex"
-                justify="center"
-                align="middle"
-                v-else
+              class="logo-con"
+              type="flex"
+              justify="center"
+              align="middle"
+              v-else
             >
-              <img src="../../common/images/logo-white-60.png"/>
-              <span>{{HOSPITAL_ID == 'hj'?'宸瑞智慧护理信息系统':'智慧护理信息系统'}}</span>
+              <img src="../../common/images/logo-white-60.png" />
+              <span>{{
+                HOSPITAL_ID == "hj"
+                  ? "宸瑞智慧护理信息系统"
+                  : "智慧护理信息系统"
+              }}</span>
             </el-row>
             <!-- <router-link to="/index"
                          tag="span">
@@ -42,9 +46,9 @@
               </el-row>
             </router-link>
             <router-link
-                to="/scheduling"
-                tag="span"
-                v-show="deptCode == '031202'"
+              to="/scheduling"
+              tag="span"
+              v-show="deptCode == '031202'"
             >
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-jiaobanzhi"></i> 血透排班
@@ -61,18 +65,18 @@
               </el-row>
             </router-link>
             <router-link
-                to="/deliveryRoomWhiteboard"
-                tag="span"
-                v-if="deptCode == '051102_01'"
+              to="/deliveryRoomWhiteboard"
+              tag="span"
+              v-if="deptCode == '051102_01'"
             >
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-whiteboard"></i> 产房白板
               </el-row>
             </router-link>
             <router-link
-                to="/familyBigScreen"
-                tag="span"
-                v-if="deptCode == '051102_01'"
+              to="/familyBigScreen"
+              tag="span"
+              v-if="deptCode == '051102_01'"
             >
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-family"></i> 家属大屏
@@ -107,15 +111,15 @@
               </el-row>
             </router-link>-->
             <el-dropdown
-                menu-align="start"
-                :class="{ 'router-link-active': isActiveFormPage }"
+              menu-align="start"
+              :class="{ 'router-link-active': isActiveFormPage }"
             >
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-hulijiludan"></i> 护理文书
               </el-row>
 
               <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item
+                <!-- <el-dropdown-item
                     :class="{ active: $route.path == '/sheetHospitalAdmission' }"
                 >
                   <router-link to="/sheetHospitalAdmission" tag="span">
@@ -132,7 +136,7 @@
                       <i class="sheetHospitalEval"></i> 住院评估
                     </el-row>
                   </router-link>
-                </el-dropdown-item>
+                </el-dropdown-item> -->
                 <!-- <el-dropdown-item :class="{active: $route.path == '/formPage'}">
                   <router-link to="/formPage" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
@@ -148,7 +152,7 @@
                   </router-link>
                 </el-dropdown-item>-->
                 <el-dropdown-item
-                    :class="{ active: $route.path == '/sugarPage' }"
+                  :class="{ active: $route.path == '/sugarPage' }"
                 >
                   <router-link to="/sugarPage" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
@@ -156,7 +160,7 @@
                     </el-row>
                   </router-link>
                 </el-dropdown-item>
-                <el-dropdown-item
+                <!-- <el-dropdown-item
                     :class="{ active: $route.path == '/oxygenPage' }"
                 >
                   <router-link to="/oxygenPage" tag="span">
@@ -164,9 +168,9 @@
                       <i class="healthEducation"></i> 血氧
                     </el-row>
                   </router-link>
-                </el-dropdown-item>
+                </el-dropdown-item> -->
                 <el-dropdown-item
-                    :class="{ active: $route.path == '/healthEdu' }"
+                  :class="{ active: $route.path == '/healthEdu' }"
                 >
                   <router-link to="/healthEdu" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
@@ -270,18 +274,18 @@
             </el-dropdown-menu>-->
             <!-- </el-dropdown> -->
             <router-link
-                to="/singleRound"
-                tag="span"
-                v-if="HOSPITAL_ID == 'wujing'"
+              to="/singleRound"
+              tag="span"
+              v-if="HOSPITAL_ID == 'wujing'"
             >
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-jiaobanzhi"></i> 查房登记表
               </el-row>
             </router-link>
             <el-dropdown
-                menu-align="start"
-                :hide-on-click="false"
-                :class="{ 'router-link-active': isActivePage }"
+              menu-align="start"
+              :hide-on-click="false"
+              :class="{ 'router-link-active': isActivePage }"
             >
               <el-row class="nav-item" type="flex" align="middle">
                 <div class="before"></div>
@@ -294,7 +298,7 @@
                   </router-link>
                 </el-dropdown-item>-->
                 <el-dropdown-item
-                    :class="{ active: $route.path == '/nursingDocumentation' }"
+                  :class="{ active: $route.path == '/nursingDocumentation' }"
                 >
                   <router-link to="/nursingDocumentation" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
@@ -303,7 +307,7 @@
                   </router-link>
                 </el-dropdown-item>
                 <el-dropdown-item
-                    :class="{ active: $route.path == '/catheterPage' }"
+                  :class="{ active: $route.path == '/catheterPage' }"
                 >
                   <router-link to="/catheterPage" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
@@ -313,7 +317,7 @@
                 </el-dropdown-item>
 
                 <el-dropdown-item
-                    :class="{ active: $route.path.indexOf('/wardReport') > -1 }"
+                  :class="{ active: $route.path.indexOf('/wardReport') > -1 }"
                 >
                   <router-link to="/wardReport" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
@@ -323,7 +327,7 @@
                 </el-dropdown-item>
 
                 <el-dropdown-item
-                    :class="{
+                  :class="{
                     active: $route.path.indexOf('/inpatientReport') > -1
                   }"
                 >
@@ -360,7 +364,7 @@
                   </router-link>
                 </el-dropdown-item> -->
                 <el-dropdown-item
-                    :class="{ active: $route.path == '/noCheckTest' }"
+                  :class="{ active: $route.path == '/noCheckTest' }"
                 >
                   <router-link to="/noCheckTest" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
@@ -378,8 +382,8 @@
                   </router-link>
                 </el-dropdown-item> -->
                 <el-dropdown-item
-                    v-if="deptCode.match('051102')"
-                    :class="{ active: $route.path == '/puerperantSituation' }"
+                  v-if="deptCode.match('051102')"
+                  :class="{ active: $route.path == '/puerperantSituation' }"
                 >
                   <router-link to="/puerperantSituation" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
@@ -388,8 +392,8 @@
                   </router-link>
                 </el-dropdown-item>
                 <el-dropdown-item
-                    :class="{ active: $route.path == '/vaccineManagement' }"
-                    v-if="deptName.includes('产科')"
+                  :class="{ active: $route.path == '/vaccineManagement' }"
+                  v-if="deptName.includes('产科')"
                 >
                   <router-link to="/vaccineManagement" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
@@ -398,8 +402,8 @@
                   </router-link>
                 </el-dropdown-item>
                 <el-dropdown-item
-                    :class="{ active: $route.path == '/birthCertificate' }"
-                    v-if="deptCode.match('051102')"
+                  :class="{ active: $route.path == '/birthCertificate' }"
+                  v-if="deptCode.match('051102')"
                 >
                   <router-link to="/birthCertificate" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
@@ -430,8 +434,8 @@
                 </el-dropdown-item> -->
                 <el-dropdown-item>
                   <el-dropdown
-                      class="menuSecond-item"
-                      :class="{ 'router-link-active': isActiveStatisticPage }"
+                    class="menuSecond-item"
+                    :class="{ 'router-link-active': isActiveStatisticPage }"
                   >
                     <el-row class="menu-item" type="flex" align="middle">
                       <i class="birthCertificate"></i>统计查询
@@ -439,15 +443,15 @@
                     <el-dropdown-menu slot="dropdown">
                       <template>
                         <el-dropdown-item
-                            :class="{
+                          :class="{
                             active: $route.path == '/cognitiveStatistic'
                           }"
                         >
                           <router-link to="/cognitiveStatistic" tag="span">
                             <el-row
-                                class="menu-item"
-                                type="flex"
-                                align="middle"
+                              class="menu-item"
+                              type="flex"
+                              align="middle"
                             >
                               <i class="cognitiveStatistic"></i
                               >住院病人认知情况统计表
@@ -465,36 +469,36 @@
           <el-row class="right-part" type="flex" align="middle">
             <span class="big-1250-con">
               <el-popover
-                  ref="popover1"
-                  placement="bottom-end"
-                  width="320"
-                  trigger="click"
+                ref="popover1"
+                placement="bottom-end"
+                width="320"
+                trigger="click"
               >
                 <userInfo @setPassword="setPassword" @quit="quit"></userInfo>
               </el-popover>
               <span>
                 <el-select
-                    v-model="deptValue"
-                    filterable
-                    remote
-                    placeholder="请选择"
-                    size="small"
-                    class="dept-select"
-                    autocomplete="off"
-                    :remote-method="remoteMethod"
-                    @change="changeDept(deptValue)"
+                  v-model="deptValue"
+                  filterable
+                  remote
+                  placeholder="请选择"
+                  size="small"
+                  class="dept-select"
+                  autocomplete="off"
+                  :remote-method="remoteMethod"
+                  @change="changeDept(deptValue)"
                 >
                   <el-option
-                      v-for="item in deptOptionList"
-                      :key="item.code"
-                      :label="item.name"
-                      :value="item.code"
+                    v-for="item in deptOptionList"
+                    :key="item.code"
+                    :label="item.name"
+                    :value="item.code"
                   ></el-option>
                 </el-select>
               </span>
               <span class="option-item" v-popover:popover1>{{
-                  user.empName
-                }}</span>
+                user.empName
+              }}</span>
             </span>
             <span class="small-1250-con">
               <el-dropdown @command="handleCommand">
@@ -835,10 +839,10 @@
 
 <script>
 import Cookies from "js-cookie";
-import {logout} from "@/api/login";
+import { logout } from "@/api/login";
 import setPassword from "../modal/setPassword.vue";
 import userInfo from "./user-info.vue";
-import {nursingUnit} from "@/api/lesion";
+import { nursingUnit } from "@/api/lesion";
 import common from "@/common/mixin/common.mixin";
 import WebSocketService from "@/plugin/webSocket/index";
 
@@ -864,8 +868,8 @@ export default {
   computed: {
     deptCode() {
       if (
-          this.$route.path.includes("/deliveryRoomWhiteboard") ||
-          this.$route.path.includes("/familyBigScreen")
+        this.$route.path.includes("/deliveryRoomWhiteboard") ||
+        this.$route.path.includes("/familyBigScreen")
       ) {
         if (this.$store.state.lesion.deptCode != "051102_01") {
           this.$router.push("/index");
@@ -876,8 +880,8 @@ export default {
     deptName() {
       if (this.$route.path.includes("/vaccineManagement")) {
         if (
-            this.$store.state.lesion.deptName &&
-            !this.$store.state.lesion.deptName.includes("产科")
+          this.$store.state.lesion.deptName &&
+          !this.$store.state.lesion.deptName.includes("产科")
         ) {
           this.$router.push("/index");
         }
@@ -896,8 +900,7 @@ export default {
     superAdmin() {
       try {
         return JSON.parse(localStorage.user).superuser;
-      } catch (e) {
-      }
+      } catch (e) {}
     },
     Unread() {
       return this.$store.state.common.mailUnread;
@@ -943,13 +946,15 @@ export default {
     handleCommand(command) {
       switch (command) {
         case "quit":
-        case "quit": {
-          this.quit();
-        }
+        case "quit":
+          {
+            this.quit();
+          }
           break;
-        case "setPassword": {
-          this.setPassword();
-        }
+        case "setPassword":
+          {
+            this.setPassword();
+          }
           break;
       }
     },
@@ -964,7 +969,7 @@ export default {
       Cookies.remove("hasGreet");
       Cookies.remove("token");
       Cookies.remove("user");
-      Cookies.remove("NURSING_USER", {path: "/"});
+      Cookies.remove("NURSING_USER", { path: "/" });
       this.$router.push("/login");
       this.$store.commit("upDeptCode", "");
     },
@@ -976,10 +981,10 @@ export default {
         let upperCaseQuery = query.toUpperCase();
         this.deptOptionList = this.deptList.filter(item => {
           return (
-              item.name.includes(query) ||
-              item.code == query ||
-              item.pinyin.indexOf(upperCaseQuery) != -1 ||
-              (item.pinyin + "").includes(upperCaseQuery)
+            item.name.includes(query) ||
+            item.code == query ||
+            item.pinyin.indexOf(upperCaseQuery) != -1 ||
+            (item.pinyin + "").includes(upperCaseQuery)
           );
         });
       }
@@ -996,31 +1001,29 @@ export default {
       this.$store.commit("upDeptName", deptName);
       try {
         this.mewsId && WebSocketService.unsubscribe(this.mewsId);
-      } catch (error) {
-      }
+      } catch (error) {}
       this.subscribe();
     },
     subscribe() {
       // mews 订阅科室
       this.mewsId = WebSocketService.subscribe(
-          `/topic/mews/dept/${this.deptValue}`,
-          frame => {
-            let frameData = JSON.parse(frame.body).data;
-            try {
-              this.mewsMd5 = frameData.md5;
-              if (
-                  !WebSocketService.isInMd5List(frameData.md5) &&
-                  frameData.dangerMewsPatientList &&
-                  frameData.dangerMewsPatientList.length &&
-                  this.$route.path != "/MEWS"
-              ) {
-                this.isTip = true;
-              } else {
-                this.isTip = false;
-              }
-            } catch (error) {
+        `/topic/mews/dept/${this.deptValue}`,
+        frame => {
+          let frameData = JSON.parse(frame.body).data;
+          try {
+            this.mewsMd5 = frameData.md5;
+            if (
+              !WebSocketService.isInMd5List(frameData.md5) &&
+              frameData.dangerMewsPatientList &&
+              frameData.dangerMewsPatientList.length &&
+              this.$route.path != "/MEWS"
+            ) {
+              this.isTip = true;
+            } else {
+              this.isTip = false;
             }
-          }
+          } catch (error) {}
+        }
       );
     }
   },
@@ -1034,10 +1037,10 @@ export default {
       });
       this.deptOptionList = JSON.parse(JSON.stringify(this.deptList));
       this.deptValue =
-          localStorage.selectDeptValue ||
-          this.$store.state.lesion.deptCode ||
-          res.data.data.defaultDept ||
-          res.data.data.deptList[0].code;
+        localStorage.selectDeptValue ||
+        this.$store.state.lesion.deptCode ||
+        res.data.data.defaultDept ||
+        res.data.data.deptList[0].code;
       this.$store.commit("upDeptList", this.deptList);
       this.$store.commit("upDeptCode", this.deptValue);
       localStorage.selectDeptValue = this.deptValue;

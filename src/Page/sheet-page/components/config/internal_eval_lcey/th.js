@@ -7,7 +7,7 @@ export default {
   // 科室的名称
   deptType: '',
   style: {
-    width: "1300px"
+    width: "1340px"
   },
   th: {
     top: [{
@@ -26,6 +26,9 @@ export default {
         `,
         colspan: '6',
         rowspan: '1',
+        style: {
+          minWidth: '242px'
+        }
       },
       {
         name: `
@@ -33,6 +36,9 @@ export default {
         `,
         colspan: '2',
         rowspan: '2',
+        style: {
+          minWidth: '60px'
+        }
       },
       {
         name: `
@@ -40,6 +46,9 @@ export default {
         `,
         colspan: '1',
         rowspan: '3',
+        style: {
+          minWidth: '30px'
+        }
       },
       {
         name: `
@@ -47,6 +56,9 @@ export default {
         `,
         colspan: '1',
         rowspan: '3',
+        style: {
+          minWidth: '30px'
+        }
       },
       {
         name: `
@@ -54,6 +66,9 @@ export default {
         `,
         colspan: '14',
         rowspan: '1',
+        style: {
+          minWidth: '460px'
+        }
       },
       {
         name: `
@@ -61,6 +76,9 @@ export default {
         `,
         colspan: '3',
         rowspan: '1',
+        style: {
+          minWidth: '87px'
+        }
       },
       {
         name: `
@@ -68,6 +86,9 @@ export default {
         `,
         colspan: '3',
         rowspan: '1',
+        style: {
+          minWidth: '84px'
+        }
       },
       {
         name: `
@@ -75,6 +96,9 @@ export default {
         `,
         colspan: '1',
         rowspan: '3',
+        style: {
+          minWidth: '32px'
+        }
       },
       {
         name: `
@@ -83,7 +107,7 @@ export default {
         colspan: '1',
         rowspan: '3',
         style: {
-          width: '150px'
+          minWidth: '150px'
         },
       },
       {
@@ -92,7 +116,10 @@ export default {
         `,
         style: {},
         colspan: '1',
-        rowspan: '3'
+        rowspan: '3',
+        // style: {
+        //   minWidth: '52px'
+        // }
       }
     ],
     mid: [{
@@ -119,6 +146,9 @@ export default {
         `,
         colspan: '2',
         rowspan: '1',
+        style: {
+          minWidth: '32px'
+        }
       },
       {
         name: `
@@ -160,6 +190,9 @@ export default {
         `,
         colspan: '1',
         rowspan: '2',
+        style: {
+          minWidth: '32px'
+        }
       },
       {
         name: `
@@ -167,6 +200,9 @@ export default {
         `,
         colspan: '1',
         rowspan: '2',
+        style: {
+          minWidth: '32px'
+        }
       },
       {
         name: `
@@ -174,6 +210,9 @@ export default {
         `,
         colspan: '1',
         rowspan: '2',
+        style: {
+          minWidth: '32px'
+        }
       },
       {
         name: `
@@ -189,7 +228,7 @@ export default {
         colspan: '1',
         rowspan: '2',
         style: {
-          minWidth: '30px'
+          minWidth: '32px'
         }
       },
       {
@@ -198,6 +237,9 @@ export default {
         `,
         colspan: '1',
         rowspan: '2',
+        style: {
+          minWidth: '32px'
+        }
       },
       {
         name: `
@@ -206,7 +248,7 @@ export default {
         colspan: '1',
         rowspan: '2',
         style: {
-          minWidth: '30px'
+          minWidth: '32px'
         }
       },
       {
@@ -216,7 +258,7 @@ export default {
         colspan: '1',
         rowspan: '2',
         style: {
-          minWidth: '30px'
+          minWidth: '32px'
         }
       },
       {
@@ -225,6 +267,9 @@ export default {
         `,
         colspan: '1',
         rowspan: '2',
+        style: {
+          minWidth: '32px'
+        }
       },
       {
         name: `
@@ -232,6 +277,9 @@ export default {
         `,
         colspan: '1',
         rowspan: '2',
+        style: {
+          minWidth: '32px'
+        }
       },
       {
         name: `
@@ -240,7 +288,7 @@ export default {
         colspan: '1',
         rowspan: '2',
         style: {
-          minWidth: '30px'
+          minWidth: '32px'
         }
       },
       {
@@ -249,6 +297,9 @@ export default {
         `,
         colspan: '1',
         rowspan: '2',
+        style: {
+          minWidth: '32px'
+        }
       },
       {
         name: `
@@ -256,6 +307,9 @@ export default {
         `,
         colspan: '1',
         rowspan: '2',
+        style: {
+          minWidth: '32px'
+        }
       },
       {
         name: `
@@ -263,6 +317,9 @@ export default {
         `,
         colspan: '1',
         rowspan: '2',
+        style: {
+          minWidth: '32px'
+        }
       },
       {
         name: `
@@ -270,6 +327,9 @@ export default {
         `,
         colspan: '1',
         rowspan: '2',
+        style: {
+          minWidth: '32px'
+        }
       },
     ],
     bottom: [{
@@ -279,7 +339,7 @@ export default {
         colspan: '1',
         rowspan: '1',
         style: {
-          width: '50px'
+          width: '32px'
         },
       },
       {
@@ -288,6 +348,9 @@ export default {
         `,
         colspan: '1',
         rowspan: '1',
+        style: {
+          minWidth: '32px'
+        }
       },
       {
         name: `
@@ -296,7 +359,7 @@ export default {
         colspan: '1',
         rowspan: '1',
         style: {
-          width: '50px'
+          width: '50px',
         },
       },
       {
@@ -305,6 +368,9 @@ export default {
         `,
         colspan: '1',
         rowspan: '1',
+        style: {
+          minWidth: '32px'
+        }
       },
       {
         name: `
@@ -312,29 +378,8 @@ export default {
         `,
         colspan: '1',
         rowspan: '1',
-      },
-      {
-        name: `
-        措施
-        `,
-        colspan: '1',
-        rowspan: '1',
-      },
-      {
-        name: `
-        部位
-        `,
-        colspan: '1',
-        rowspan: '1',
-      },
-      {
-        name: `
-        评分
-        `,
-        colspan: '1',
-        rowspan: '1',
         style: {
-          minWidth: '30px'
+          minWidth: '32px'
         }
       },
       {
@@ -344,7 +389,37 @@ export default {
         colspan: '1',
         rowspan: '1',
         style: {
-          minWidth: '30px'
+          minWidth: '32px'
+        }
+      },
+      {
+        name: `
+        部位
+        `,
+        colspan: '1',
+        rowspan: '1',
+        style: {
+          minWidth: '32px'
+        }
+      },
+      {
+        name: `
+        评分
+        `,
+        colspan: '1',
+        rowspan: '1',
+        style: {
+          minWidth: '32px'
+        }
+      },
+      {
+        name: `
+        措施
+        `,
+        colspan: '1',
+        rowspan: '1',
+        style: {
+          minWidth: '32px'
         }
       },
       {
@@ -354,7 +429,7 @@ export default {
         colspan: '1',
         rowspan: '1',
         style: {
-          minWidth: '30px'
+          minWidth: '32px'
         }
       },
       {
@@ -364,7 +439,7 @@ export default {
         colspan: '1',
         rowspan: '1',
         style: {
-          minWidth: '30px'
+          minWidth: '32px'
         }
       },
       {
@@ -373,6 +448,9 @@ export default {
         `,
         colspan: '1',
         rowspan: '1',
+        style: {
+          minWidth: '32px'
+        }
       },
     ]
   }
