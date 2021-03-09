@@ -398,6 +398,7 @@ export default {
   mounted() {
     this.getUserImg();
     this.getSignImg();
+    this.showScaleTip  = localStorage.getItem('noShowScaleTip') || false;
   },
   components: {
     whiteButton,
