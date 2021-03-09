@@ -26,6 +26,9 @@ export default {
         `,
         colspan: '6',
         rowspan: '1',
+        style: {
+          minWidth: '228px'
+        }
       },
       {
         name: `
@@ -33,6 +36,9 @@ export default {
         `,
         colspan: '1',
         rowspan: '3',
+        style: {
+          minWidth: '34px'
+        }
       },
       {
         name: `
@@ -40,6 +46,9 @@ export default {
         `,
         colspan: '1',
         rowspan: '3',
+        style: {
+          minWidth: '34px'
+        }
       },
       {
         name: `
@@ -47,6 +56,9 @@ export default {
         `,
         colspan: '8',
         rowspan: '1',
+        style: {
+          minWidth: '260px'
+        }
       },
       {
         name: `
@@ -54,6 +66,9 @@ export default {
         `,
         colspan: '1',
         rowspan: '3',
+        style: {
+          minWidth: '34px'
+        }
       },
       {
         name: `
@@ -61,6 +76,9 @@ export default {
         `,
         colspan: '3',
         rowspan: '1',
+        style: {
+          minWidth: '98px'
+        }
       },
       {
         name: `
@@ -68,6 +86,9 @@ export default {
         `,
         colspan: '4',
         rowspan: '1',
+        style: {
+          minWidth: '132px'
+        }
       },
       {
         name: `
@@ -75,6 +96,9 @@ export default {
         `,
         colspan: '1',
         rowspan: '3',
+        style: {
+          minWidth: '34px'
+        }
       },
       {
         name: `
@@ -82,6 +106,9 @@ export default {
         `,
         colspan: '1',
         rowspan: '3',
+        style: {
+          minWidth: '34px'
+        }
       },
       {
         name: `
@@ -89,6 +116,9 @@ export default {
         `,
         colspan: '4',
         rowspan: '1',
+        style: {
+          minWidth: '132px'
+        }
       },
       {
         name: `
@@ -97,7 +127,7 @@ export default {
         colspan: '1',
         rowspan: '3',
         style: {
-          width: '150px'
+          minWidth: '150px'
         },
       },
       {

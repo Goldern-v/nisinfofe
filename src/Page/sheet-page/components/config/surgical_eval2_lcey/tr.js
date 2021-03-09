@@ -23,7 +23,7 @@ export default [{
     event: keyf1
   },
   {
-    key: "pulse", //体温-措施
+    key: "temperatureMeasure", //体温-措施
     value: "",
     event: keyf1,
     autoComplete: {
@@ -31,17 +31,17 @@ export default [{
     },
   },
   {
-    key: "breath", //心率
+    key: "pulse", //心率
     value: "",
     event: keyf1
   },
   {
-    key: "bloodPressure", //呼吸 次/min
+    key: "breath", //呼吸 次/min
     value: "",
     event: keyf1
   },
   {
-    key: "bloodPressure1", //血压(mmHg)
+    key: "bloodPressure", //血压(mmHg)
     value: "",
     event: function (e, td) {
       if (e.keyCode == 32) {
@@ -51,14 +51,14 @@ export default [{
       keyf1(e, td);
     },
     textarea: {
-      width: 30
+      width: 48
     },
     style: {
-      'line-height': '14px'
+      'line-height': '30px'
     }
   },
   {
-    key: "consciousness", //血压 - 异常处理
+    key: "bloodPressureHandle", //血压 - 异常处理
     value: "",
     event: keyf1,
     autoComplete: {
@@ -66,7 +66,7 @@ export default [{
     },
   },
   {
-    key: "pupilSizeRight", // 氧疗 升/分
+    key: "fieldOne", // 氧疗 升/分
     value: "",
     event: keyf1,
     autoComplete: {
@@ -74,58 +74,72 @@ export default [{
     },
   },
   {
-    key: "pupilReflexLeft", // 血氧饱和度%
+    key: "spo2", // 血氧饱和度%
     value: "",
     event: keyf1,
   },
   {
-    key: "pupilReflexRight", // 手术术前-准备
-    value: "",
-    event: keyf1,
-    autoComplete: {
-      data: ['①', '②', '③', '④', '⑤', '⑥']
-    },
-  },
-  {
-    key: "pupilReflexRight0", // 手术术前-宣教
+    key: "fieldTwo", // 呼吸机型号/气管插管内置
     value: "",
     event: keyf1,
   },
   {
-    key: "pupilReflexRight1", // 手术-感染指标送检
+    key: "fieldThree", // 呼吸机-辅助方式
     value: "",
     event: keyf1,
   },
   {
-    key: "pupilReflexRight2", // 手术-麻醉方式
+    key: "fieldFour", // 呼吸机-潮气量
     value: "",
     event: keyf1,
   },
   {
-    key: "pupilReflexRight3", // 手术-离开病房
+    key: "fieldSix", // 呼吸机-呼吸频率
     value: "",
     event: keyf1,
   },
   {
-    key: "pupilReflexRight4", // 手术-返回病房
+    key: "fieldSeven", // 呼吸机-I:E
     value: "",
     event: keyf1,
   },
   {
-    key: "pupilReflexRight5", // 手术术后-护理
-    value: "",
-    event: keyf1,
-    autoComplete: {
-      data: ['①', '②', '③', '④', '⑤', '⑥', '⑦', '⑧']
-    },
-  },
-  {
-    key: "food", //手术术后-宣教
+    key: "oxygenDensity", // 呼吸机-氧浓度%
     value: "",
     event: keyf1,
   },
   {
-    key: "foodSize", //刀(伤)口敷料
+    key: "fieldEight", // 呼吸机-PS/PEEP
+    value: "",
+    event: keyf1,
+  },
+  {
+    key: "fieldNine", //呼吸机-气囊压力
+    value: "",
+    event: keyf1,
+  },
+  {
+    key: "fieldTen", //呼吸机-痰色/痰量
+    value: "",
+    event: keyf1,
+  },
+  {
+    key: "fieldNineteen", //呼吸机-拔除气管插管
+    value: "",
+    event: keyf1,
+  },
+  {
+    key: "fieldTwenty", //呼吸机-呼吸音
+    value: "",
+    event: keyf1,
+  },
+  {
+    key: "consciousness", //意识
+    value: "",
+    event: keyf1,
+  },
+  {
+    key: "fieldEleven", //刀(伤)口敷料
     value: "",
     event: keyf1,
     autoComplete: {
@@ -133,12 +147,12 @@ export default [{
     },
   },
   {
-    key: "discharge", //疼痛护理-评分
+    key: "painScore", //疼痛护理-评分
     value: "",
     event: keyf1,
   },
   {
-    key: "dischargeSize", //疼痛护理-措施
+    key: "painMessure", //疼痛护理-措施
     value: "",
     event: keyf1,
     autoComplete: {
@@ -146,22 +160,22 @@ export default [{
     },
   },
   {
-    key: "fieldOne", //疼痛护理-处理后评分
+    key: "painAfterScore", //疼痛护理-处理后评分
     value: "",
     event: keyf1,
   },
   {
-    key: "fieldTwo", //腹部症状-腹胀
+    key: "fieldTwelve", //腹部症状-腹胀
     value: "",
     event: keyf1,
   },
   {
-    key: "fieldThree", //腹部症状-便秘
+    key: "fieldThirteen", //腹部症状-便秘
     value: "",
     event: keyf1,
   },
   {
-    key: "fieldThree1", //腹部症状-措施
+    key: "fieldFourteen", //腹部症状-措施
     value: "",
     event: keyf1,
     autoComplete: {
@@ -169,7 +183,7 @@ export default [{
     }
   },
   {
-    key: "fieldThree2", //腹部症状-处理后效果
+    key: "fieldFifteen", //腹部症状-处理后效果
     value: "",
     event: keyf1,
     autoComplete: {
@@ -177,7 +191,7 @@ export default [{
     },
   },
   {
-    key: "fieldThree3", //呼吸道管理
+    key: "fieldSixteen", //呼吸道管理
     value: "",
     event: keyf1,
     autoComplete: {
@@ -185,7 +199,12 @@ export default [{
     },
   },
   {
-    key: "fieldThree4", //睡眠
+    key: "fieldFive", //活动-床上/下床
+    value: "",
+    event: keyf1,
+  },
+  {
+    key: "sleep", //睡眠
     value: "",
     event: keyf1,
     autoComplete: {
@@ -193,36 +212,17 @@ export default [{
     },
   },
   {
-    key: "fieldThree5", //其他评估-患者依从性
+    key: "fieldSeventeen", //泵入药物-药物名称
     value: "",
     event: keyf1,
     autoComplete: {
-      data: ['①', '②', '③']
+      data: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19']
     },
   },
   {
-    key: "fieldThree6", //其他评估-自理能力
+    key: "fieldEighteen", //泵入药物-泵速
     value: "",
     event: keyf1,
-    autoComplete: {
-      data: ['①', '②', '③']
-    },
-  },
-  {
-    key: "fieldThree7", //其他评估-教育需求
-    value: "",
-    event: keyf1,
-    autoComplete: {
-      data: ['①', '②', '③', '④', '⑤', '⑥']
-    },
-  },
-  {
-    key: "fieldThree8", //其他评估-心理状态
-    value: "",
-    event: keyf1,
-    autoComplete: {
-      data: ['1', '2', '3', '4', '5', '6']
-    },
   },
   {
     key: "description", //病情观察及处理

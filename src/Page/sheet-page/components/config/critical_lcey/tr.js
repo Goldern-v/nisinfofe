@@ -18,47 +18,47 @@ export default [{
     event: event_time
   },
   {
-    key: "temperature", //入量-项目
+    key: "food", //入量-项目
     value: "",
     event: keyf1
   },
   {
-    key: "pulse", //入量-实入量
+    key: "foodSize", //入量-实入量
     value: "",
     event: keyf1,
   },
   {
-    key: "temperature0", //出量-尿量
+    key: "fieldOne", //出量-尿量
     value: "",
     event: keyf1
   },
   {
-    key: "pulse0", //出量-大便
+    key: "fieldTwo", //出量-大便
     value: "",
     event: keyf1,
   },
   {
-    key: "temperature1", //出量-呕吐
+    key: "fieldThree", //出量-呕吐
     value: "",
     event: keyf1
   },
   {
-    key: "pulse1", //出量-引流
+    key: "fieldFour", //出量-引流
     value: "",
     event: keyf1,
   },
   {
-    key: "temperature2", //出量-其它
+    key: "dischargeSize", //出量-其它
     value: "",
     event: keyf1
   },
   {
-    key: "pulse2", //出量-总出量
+    key: "totalDischarge", //出量-总出量
     value: "",
     event: keyf1,
   },
   {
-    key: "pulse3", //意识
+    key: "consciousness", //意识
     value: "",
     event: keyf1,
     autoComplete: {
@@ -66,37 +66,37 @@ export default [{
     },
   },
   {
-    key: "breath5", //瞳孔-左
+    key: "pupilReflect", //瞳孔-左
     value: "",
     event: keyf1
   },
   {
-    key: "breath6", //瞳孔-右
+    key: "pupilLeft", //瞳孔-右
     value: "",
     event: keyf1
   },
   {
-    key: "breath7", //瞳孔-光反射
+    key: "pupilRight", //瞳孔-光反射
     value: "",
     event: keyf1
   },
   {
-    key: "breath", //体温
+    key: "temperature", //体温
     value: "",
     event: keyf1
   },
   {
-    key: "breath1", //心率/脉搏
+    key: "pulse", //心率/脉搏
     value: "",
     event: keyf1
   },
   {
-    key: "bloodPressure", //呼吸 次/min
+    key: "breath", //呼吸 次/min
     value: "",
     event: keyf1
   },
   {
-    key: "bloodPressure1", //血压(mmHg)
+    key: "bloodPressure", //血压(mmHg)
     value: "",
     event: function (e, td) {
       if (e.keyCode == 32) {
@@ -106,19 +106,19 @@ export default [{
       keyf1(e, td);
     },
     textarea: {
-      width: 30
+      width: 48
     },
     style: {
-      'line-height': '14px'
+      'line-height': '30px'
     }
   },
   {
-    key: "consciousness", //血氧饱和度%
+    key: "spo2", //血氧饱和度%
     value: "",
     event: keyf1,
   },
   {
-    key: "pupilSizeRight", // 氧疗 升/分
+    key: "fieldSix", // 氧疗 升/分
     value: "",
     event: keyf1,
     autoComplete: {
@@ -126,7 +126,7 @@ export default [{
     },
   },
   {
-    key: "puplie", // 疼痛
+    key: "pain", // 疼痛
     value: "",
     event: keyf1,
   },
@@ -205,7 +205,7 @@ export default [{
     value: ""
   },
   {
-    hidden: false,
+    hidden: true,
     key: "auditorNo",
     value: ""
   },
