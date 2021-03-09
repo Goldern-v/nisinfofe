@@ -128,9 +128,6 @@ export default {
               type = "record";
             }
           }
-          if (this.HOSPITAL_ID == "hj" && type == "sheet") {
-            return;
-          }
           let timeId = setTimeout(() => {
             clearTimeout(timeId);
             this.$router.push(
