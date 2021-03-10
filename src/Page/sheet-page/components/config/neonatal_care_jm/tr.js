@@ -1,10 +1,12 @@
 import {
-  keyf1
+  keyf1,
+  calValueChange
 } from "../keyEvent/f1.js";
 import {
   event_date,
   event_time,
-  click_date
+  click_date,
+  click_time
 } from "../keyEvent/date";
 let select = ['√'];
 export default [{
@@ -16,7 +18,8 @@ export default [{
   {
     key: "recordHour", //时间
     value: "",
-    event: event_time
+    event: event_time,
+    click: click_time
   },
   {
     key: "fieldOne", //台箱温℃
@@ -138,7 +141,11 @@ export default [{
   {
     key: "fieldFifteen", //用氧方式
     value: "",
+    change: calValueChange,
     event: keyf1,
+    textarea: {
+      width: 50,
+    },
   },
   {
     key: "fio2", //FiO2(%)
