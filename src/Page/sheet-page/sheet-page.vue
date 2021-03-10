@@ -25,7 +25,7 @@
 
         <patientList
           :toName="
-            HOSPITAL_ID == 'huadu' &&
+            (HOSPITAL_ID === 'huadu' || HOSPITAL_ID === 'liaocheng') &&
             $route.path.includes('singleTemperatureChart')
               ? 'singleTemperatureChart'
               : 'sheetPage'
@@ -74,7 +74,7 @@
           >
             <i class="el-icon-plus"></i>
             {{
-              HOSPITAL_ID == "huadu" &&
+              (HOSPITAL_ID === "huadu" || HOSPITAL_ID === "liaocheng") &&
               $route.path.includes("singleTemperatureChart")
                 ? "创建体温单"
                 : "创建护理记录单"
@@ -390,7 +390,7 @@ export default {
     },
     addSheetPage() {
       if (
-        this.HOSPITAL_ID == "huadu" &&
+        (this.HOSPITAL_ID === "huadu" || this.HOSPITAL_ID === "liaocheng") &&
         this.$route.path.includes("singleTemperatureChart")
       ) {
         let recordCode = "body_temperature_Hd";
