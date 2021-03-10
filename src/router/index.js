@@ -112,7 +112,7 @@ const nursingRounds = () => import("@/Page/nursing-rounds/nursing-rounds.vue"); 
 const allTemperatureChart = () =>
   import("@/Page/temperature-chart/all-temperature-chart.vue"); //批量录入体温单
 const showPatientDetails = () =>
-  import("@/Page/showPatientDetails/showPatientDetails.vue");
+  import("@/Page/show-patient-details/show-patient-details.vue");
 const nursingDoc = () => import("@/Page/nursingDoc/nursingDoc.vue");
 const cognitiveStatistic = () =>
   import("@/Page/cognitive-statistic/cognitive-statistic.vue"); //住院病人认知情况统计表
