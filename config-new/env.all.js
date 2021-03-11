@@ -70,4 +70,11 @@ module.exports = {
     COMPANY_NAME: '"百辰源(广州)科技有限公司"',
     ABOUT_INFO: '"关于百辰源"'
   },
+  "zhongshanqiyuan": {
+    HOSPITAL_ID: '"zhongshanqiyuan"',
+    HOSPITAL_NAME: '"中山七院"',
+    HOSPITAL_NAME_SPACE: '"中 山 七 院"',
+    COMPANY_NAME: '"百辰源(广州)科技有限公司"',
+    ABOUT_INFO: '"关于百辰源"'
+  },
 }
