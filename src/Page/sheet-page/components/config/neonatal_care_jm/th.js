@@ -12,8 +12,8 @@ export default {
     top: [{
         name: '日期',
         style: {
-          minWidth: '36px',
-          maxWidth: '36px',
+          minWidth: '38px',
+          maxWidth: '38px',
         },
         colspan: '1',
         rowspan: '3'
@@ -21,8 +21,8 @@ export default {
       {
         name: '时间',
         style: {
-          minWidth: '36px',
-          maxWidth: '36px',
+          minWidth: '38px',
+          maxWidth: '38px',
         },
         colspan: '1',
         rowspan: '3'
@@ -36,7 +36,7 @@ export default {
         rowspan: '3',
         style: {
           whiteSpace: wrap,
-          minWidth: '34px',
+          minWidth: '36px',
         }
       },
       {
@@ -47,7 +47,7 @@ export default {
         colspan: '1',
         rowspan: '3',
         style: {
-          minWidth: '34px',
+          minWidth: '36px',
         }
       },
       {
@@ -58,7 +58,7 @@ export default {
         colspan: '1',
         rowspan: '3',
         style: {
-          minWidth: '38px',
+          minWidth: '36px',
         }
       },
       {
@@ -69,7 +69,7 @@ export default {
         colspan: '1',
         rowspan: '3',
         style: {
-          minWidth: '38px',
+          minWidth: '36px',
         }
       },
       {
@@ -80,7 +80,7 @@ export default {
         colspan: '1',
         rowspan: '3',
         style: {
-          minWidth: '38px',
+          minWidth: '36px',
         }
       },
       {
@@ -88,8 +88,8 @@ export default {
         血压<br/>(mmHg)
         `,
         style: {
-          minWidth: '42px',
-          maxWidth: '42px',
+          minWidth: '45px',
+          maxWidth: '45px',
         },
         colspan: '1',
         rowspan: '3'
@@ -99,8 +99,8 @@ export default {
         SPO<sub>2</sub><br>(%)
         `,
         style: {
-          minWidth: '38px',
-          maxWidth: '38px'
+          minWidth: '36px',
+          maxWidth: '36px'
         },
         colspan: '1',
         rowspan: '3'
@@ -113,7 +113,7 @@ export default {
         colspan: '1',
         rowspan: '3',
         style: {
-          width: '38px',
+          width: '36px',
         }
       },
       {
@@ -123,7 +123,7 @@ export default {
         colspan: '1',
         rowspan: '3',
         style: {
-          width: '38px',
+          width: '36px',
         }
       },
       {
@@ -133,7 +133,7 @@ export default {
         colspan: '1',
         rowspan: '3',
         style: {
-          width: '38px',
+          width: '36px',
         }
       },
       {
@@ -143,7 +143,7 @@ export default {
         colspan: '1',
         rowspan: '3',
         style: {
-          width: '38px',
+          width: '36px',
         }
       },
       {
@@ -153,7 +153,7 @@ export default {
         colspan: '1',
         rowspan: '3',
         style: {
-          width: '38px',
+          width: '36px',
         }
       },
       {
@@ -163,7 +163,7 @@ export default {
         colspan: '1',
         rowspan: '3',
         style: {
-          minWidth: '38px',
+          minWidth: '36px',
         }
       },
       {
@@ -173,7 +173,7 @@ export default {
         colspan: '1',
         rowspan: '3',
         style: {
-          width: '38px',
+          width: '36px',
         }
       },
       {
@@ -181,7 +181,7 @@ export default {
         colspan: '2',
         rowspan: '1',
         style: {
-          width: '38px',
+          width: '112px',
         }
       },
       {
@@ -189,7 +189,7 @@ export default {
         colspan: '2',
         rowspan: '1',
         style: {
-          width: '38px',
+          width: '109px',
         }
       },
       {
@@ -197,8 +197,8 @@ export default {
         colspan: '1',
         rowspan: '3',
         style: {
-          minWidth: '50px',
-          maxWidth: '50px',
+          minWidth: '52px',
+          maxWidth: '52px',
         }
       },
       {
@@ -206,8 +206,8 @@ export default {
         colspan: '1',
         rowspan: '3',
         style: {
-          minWidth: '50px',
-          maxWidth: '50px',
+          minWidth: '51px',
+          maxWidth: '51px',
         }
       },
       {
@@ -215,8 +215,8 @@ export default {
         colspan: '1',
         rowspan: '3',
         style: {
-          minWidth: '50px',
-          maxWidth: '50px',
+          minWidth: '51px',
+          maxWidth: '51px',
         }
       },
       {
