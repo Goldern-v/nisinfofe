@@ -22,7 +22,7 @@
     <tbody>
       <tr v-for="(item, i) of data" :key="item.name">
         <td>{{index + i}}</td>
-        <td @click="toPatientHome(item.patientId, item.visitId)" style="cursor: pointer">{{item.name}}</td>
+        <td @click="item.patientId && toPatientHome(item.patientId, item.visitId)" style="cursor: pointer">{{item.name}}</td>
         <td>{{item.bedLabel}}</td>
         <td>{{item.deadFlag === '1' ? '√' : ''}}</td>
         <td>{{item.transferTo}}</td>
