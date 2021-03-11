@@ -68,7 +68,7 @@ export default {
       // },
       {
         name: `
-       签名
+       记录人
         `,
         colspan: "1",
         rowspan: "3",

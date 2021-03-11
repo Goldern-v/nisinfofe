@@ -239,9 +239,14 @@ export default [{
     // oninput: next
   },
   {
-    key: "sign",
-    value: ""
+    key: "recorderNo",
+    value: "",
+    event: keyf1,
   },
+  // {
+  //   key: "sign",
+  //   value: ""
+  // },
   {
     hidden: true,
     key: "id",

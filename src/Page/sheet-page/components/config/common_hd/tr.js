@@ -33,7 +33,7 @@ export default [{
     name: "体温",
     next: "℃",
     textarea: {
-      width: 48
+      width: 30
     },
   },
   {
@@ -43,7 +43,7 @@ export default [{
     name: "脉搏",
     next: "次/分",
     textarea: {
-      width: 48
+      width: 30
     },
   },
   {
@@ -53,7 +53,7 @@ export default [{
     name: "心率",
     next: "次/分",
     textarea: {
-      width: 48
+      width: 30
     },
   },
   {
@@ -63,7 +63,7 @@ export default [{
     name: "呼吸",
     next: "次/分",
     textarea: {
-      width: 48
+      width: 30
     },
   },
   {
@@ -101,7 +101,7 @@ export default [{
     name: "血氧饱和度",
     next: "%",
     textarea: {
-      width: 48
+      width: 30
     },
   },
   {
@@ -109,6 +109,7 @@ export default [{
     value: "",
     event: keyf1,
     name: "入量名称",
+    change: calValueChange,
     textarea: {
       width: 62,
     },
@@ -123,7 +124,7 @@ export default [{
     name: "入量大小",
     next: "ml",
     textarea: {
-      width: 48
+      width: 30
     },
   },
   {
@@ -131,6 +132,7 @@ export default [{
     value: "",
     event: keyf1,
     name: "出量名称",
+    change: calValueChange,
     textarea: {
       width: 62,
     },
@@ -145,7 +147,7 @@ export default [{
     name: "出量大小",
     next: "ml",
     textarea: {
-      width: 48
+      width: 30
     },
   },
   {
@@ -154,7 +156,7 @@ export default [{
     event: keyf1,
     name: "出量颜色",
     textarea: {
-      width: 48
+      width: 40
     },
   },
   {
