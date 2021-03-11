@@ -1,25 +1,46 @@
 <template>
   <div>
     <table class="sheet-table">
-      <tr class="head-con" v-for="(th, index) in data.titleModel.th" :key="index">
+      <tr
+        class="head-con"
+        v-for="(th, index) in data.titleModel.th"
+        :key="index"
+      >
         <th
           v-for="(item, i) in th"
           :key="i"
           :colspan="item.colspan"
           :rowspan="item.rowspan"
           :style="item.style"
-          :class="{canSet: item.canSet}"
+          :class="{ canSet: item.canSet }"
           @click="item.canSet && setTitle(item)"
         >
           <span v-html="item.name"></span>
         </th>
       </tr>
 
-        <!-- @dblclick="openEditModal(tr, data, $event)" -->
+      <!-- @dblclick="openEditModal(tr, data, $event)" -->
       <tr
         class="body-con"
         v-for="(tr, y) in data.bodyModel"
-        :class="[{'noSignRow':tr.find((item) => item.key == 'status').value === '0',selectedTr:sheetInfo.selectRow.includes(tr),redText: tr.find((item) => {return item.key == 'recordSource'}).value == '5'}, tr.find((item) => {return item.key == 'markObj'}).value && `mark-mark-mark mark-row-${tr.find((item) => {return item.key == 'markObj'}).value.signType}`]"
+        :class="[
+          {
+            noSignRow: tr.find((item) => item.key == 'status').value === '0',
+            selectedTr: sheetInfo.selectRow.includes(tr),
+            redText:
+              tr.find((item) => {
+                return item.key == 'recordSource';
+              }).value == '5',
+          },
+          tr.find((item) => {
+            return item.key == 'markObj';
+          }).value &&
+            `mark-mark-mark mark-row-${
+              tr.find((item) => {
+                return item.key == 'markObj';
+              }).value.signType
+            }`,
+        ]"
         :key="y"
         @click="selectRow(tr)"
         @mouseover="markTip($event, tr)"
@@ -32,29 +53,125 @@
           v-if="!td.hidden"
           @mouseover="markTip($event, td)"
           @mouseout="closeMarkTip"
-          @click='td.click||null'
-          :class="[td.markObj && `mark-mark-mark mark-cell-${td.markObj.signType}`]"
+          @click="td.click || null"
+          :class="[
+            td.markObj && `mark-mark-mark mark-cell-${td.markObj.signType}`,
+          ]"
           @contextmenu.stop="openContextMenu($event, y, tr, td)"
         >
           <div
             v-if="td.key == 'signerName'"
             class="sign-text"
-            @click.stop="toSign(tr, y, data.bodyModel, showSign(tr,td.key),1)"
-            v-html="showSign(tr,td.key)"
+            @click.stop="toSign(tr, y, data.bodyModel, showSign(tr, td.key), 1)"
+            v-html="showSign(tr, td.key)"
           ></div>
           <div
             v-else-if="td.key == 'signerName2'"
             class="sign-text"
-            @click="toSign(tr, y, data.bodyModel, showSign(tr,td.key),2)"
-            v-html="showSign(tr,td.key)"
+            @click="toSign(tr, y, data.bodyModel, showSign(tr, td.key), 2)"
+            v-html="showSign(tr, td.key)"
+          ></div>
+          <div
+            v-else-if="td.key == 'signerName3'"
+            class="sign-text"
+            @click="toSign(tr, y, data.bodyModel, showSign(tr, td.key), 3)"
+            v-html="showSign(tr, td.key)"
+          ></div>
+          <div
+            v-else-if="td.key == 'signerName4'"
+            class="sign-text"
+            @click="toSign(tr, y, data.bodyModel, showSign(tr, td.key), 4)"
+            v-html="showSign(tr, td.key)"
+          ></div>
+          <div
+            v-else-if="td.key == 'signerName5'"
+            class="sign-text"
+            @click="toSign(tr, y, data.bodyModel, showSign(tr, td.key), 5)"
+            v-html="showSign(tr, td.key)"
+          ></div>
+          <div
+            v-else-if="td.key == 'signerName6'"
+            class="sign-text"
+            @click="toSign(tr, y, data.bodyModel, showSign(tr, td.key), 6)"
+            v-html="showSign(tr, td.key)"
+          ></div>
+          <div
+            v-else-if="td.key == 'signerName7'"
+            class="sign-text"
+            @click="toSign(tr, y, data.bodyModel, showSign(tr, td.key), 7)"
+            v-html="showSign(tr, td.key)"
           ></div>
           <!-- @click="toSign(tr, y, data.bodyModel, showSign(tr,td.key),1)" -->
-          <div v-else-if="td.key == 'signerNo' " :class="td.value?'sign-img':'sign-text'">
-            <img v-if="td.value" :src="`/crNursing/api/file/signImage/${td.value}?${token}`" alt>
+          <div
+            v-else-if="td.key == 'signerNo'"
+            :class="td.value ? 'sign-img' : 'sign-text'"
+          >
+            <img
+              v-if="td.value"
+              :src="`/crNursing/api/file/signImage/${td.value}?${token}`"
+              alt
+            />
           </div>
           <!-- @click="toSign(tr, y, data.bodyModel, showSign(tr,td.key),2)" -->
-          <div v-else-if="td.key == 'signerNo2' " :class="td.value?'sign-img':'sign-text'">
-            <img v-if="td.value" :src="`/crNursing/api/file/signImage/${td.value}?${token}`" alt>
+          <div
+            v-else-if="td.key == 'signerNo2'"
+            :class="td.value ? 'sign-img' : 'sign-text'"
+          >
+            <img
+              v-if="td.value"
+              :src="`/crNursing/api/file/signImage/${td.value}?${token}`"
+              alt
+            />
+          </div>
+          <div
+            v-else-if="td.key == 'signerNo3'"
+            :class="td.value ? 'sign-img' : 'sign-text'"
+          >
+            <img
+              v-if="td.value"
+              :src="`/crNursing/api/file/signImage/${td.value}?${token}`"
+              alt
+            />
+          </div>
+          <div
+            v-else-if="td.key == 'signerNo4'"
+            :class="td.value ? 'sign-img' : 'sign-text'"
+          >
+            <img
+              v-if="td.value"
+              :src="`/crNursing/api/file/signImage/${td.value}?${token}`"
+              alt
+            />
+          </div>
+          <div
+            v-else-if="td.key == 'signerNo5'"
+            :class="td.value ? 'sign-img' : 'sign-text'"
+          >
+            <img
+              v-if="td.value"
+              :src="`/crNursing/api/file/signImage/${td.value}?${token}`"
+              alt
+            />
+          </div>
+          <div
+            v-else-if="td.key == 'signerNo6'"
+            :class="td.value ? 'sign-img' : 'sign-text'"
+          >
+            <img
+              v-if="td.value"
+              :src="`/crNursing/api/file/signImage/${td.value}?${token}`"
+              alt
+            />
+          </div>
+          <div
+            v-else-if="td.key == 'signerNo7'"
+            :class="td.value ? 'sign-img' : 'sign-text'"
+          >
+            <img
+              v-if="td.value"
+              :src="`/crNursing/api/file/signImage/${td.value}?${token}`"
+              alt
+            />
           </div>
           <input
             type="text"
@@ -63,18 +180,30 @@
             :data-value="td.value"
             :position="`${x},${y},${index}`"
             :style="td.style"
-            @click='td.click||null'
-            v-focus="{x, y, z: index, td, autoComplete: td.autoComplete, event: td.event, oninput: td.oninput, nextTr:data.bodyModel[y + 1], tr, table:data.bodyModel}"
+            @click="td.click || null"
+            v-focus="{
+              x,
+              y,
+              z: index,
+              td,
+              autoComplete: td.autoComplete,
+              event: td.event,
+              oninput: td.oninput,
+              nextTr: data.bodyModel[y + 1],
+              tr,
+              table: data.bodyModel,
+            }"
             v-else
-          >
+          />
         </td>
-        <span v-show="false" v-else>{{td.key}}: {{td.value}}</span>
+        <span v-show="false" v-else>{{ td.key }}: {{ td.value }}</span>
       </tr>
     </table>
     <!-- <div @click="addNullRow"
     class="add-row">+ 添加新行</div>-->
     <div class="table-footer">
-      第 {{index + sheetStartPage}} / {{Math.max(sheetMaxPage,(length + sheetStartPage - 1))}} 页
+      第 {{ index + sheetStartPage }} /
+      {{ Math.max(sheetMaxPage, length + sheetStartPage - 1) }} 页
       <!-- <span class="sh-name">审核人：
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -97,10 +226,11 @@ import {
   cancelSign,
   delRow,
   markSave,
-  markDelete
+  markDelete,
 } from "@/api/nursingOrderSheet.js";
 import signModal from "@/components/modal/sign.vue";
 import { Tr } from "../../../render/Body.js";
+import { TrHj } from "../../../render/Body_hj.js";
 import { offset, getCursortPosition, focusElement, bindFocus } from "./tool.js";
 import sheetInfo from "../../../config/sheetInfo";
 import Mark, { matchMark } from "../../../render/Mark.js";
@@ -112,13 +242,13 @@ export default {
   props: {
     data: Object,
     index: Number,
-    length: Number
+    length: Number,
   },
   directives: {
     focus: {
       bind: bindFocus,
-      update: bindFocus
-    }
+      update: bindFocus,
+    },
   },
   mixins: [common],
   data() {
@@ -126,7 +256,7 @@ export default {
       Mark,
       matchMark,
       bus: bus(this),
-      sheetInfo
+      sheetInfo,
     };
   },
   computed: {
@@ -138,20 +268,20 @@ export default {
     },
     sheetMaxPage() {
       return this.sheetInfo.sheetMaxPage;
-    }
+    },
   },
   methods: {
     setTitle(item) {
-      this.$refs.setTitleModal.open(title => {
+      this.$refs.setTitleModal.open((title) => {
         let data = {
           patientId: this.patientInfo.patientId,
           visitId: this.patientInfo.visitId,
           pageIndex: this.index,
           fieldEn: item.key,
           fieldCn: title,
-          recordCode: sheetInfo.sheetType
+          recordCode: sheetInfo.sheetType,
         };
-        saveTitle(data).then(res => {
+        saveTitle(data).then((res) => {
           item.name = title;
         });
       }, item.name);
@@ -159,10 +289,10 @@ export default {
     addNullRow(index, row) {
       let newRow = nullRow();
       if (row) {
-        let recordSource = row.find(item => {
+        let recordSource = row.find((item) => {
           return item.key == "recordSource";
         }).value;
-        newRow.find(item => {
+        newRow.find((item) => {
           return item.key == "recordSource";
         }).value = recordSource;
       }
@@ -206,7 +336,7 @@ export default {
       console.log("getPrev", index, bodyModel, val);
       let tr = bodyModel[index];
       try {
-        let value = tr.find(item => {
+        let value = tr.find((item) => {
           return item.key == val;
         }).value;
         if (value) {
@@ -234,7 +364,7 @@ export default {
       if (this.sheetInfo.downControl) return;
       if (this.sheetInfo.selectRow.length) {
         var selectRow = [];
-        this.sheetInfo.selectRow.map(item => {
+        this.sheetInfo.selectRow.map((item) => {
           selectRow.push(item);
         });
         console.log("toSign:selectRow", selectRow);
@@ -245,7 +375,7 @@ export default {
         );
       }
       if (!showSign) {
-        let status = trArr.find(item => {
+        let status = trArr.find((item) => {
           return item.key == "status";
         }).value;
         console.log("status", status);
@@ -267,20 +397,25 @@ export default {
                 // recordYear: this.getPrev(currIndex, allList, 'recordYear'),
                 patientId: this.patientInfo.patientId,
                 visitId: this.patientInfo.visitId,
-                pageIndex: this.index
-              })
+                pageIndex: this.index,
+              }),
             ],
-            signType: signType
+            signType: signType,
           };
           console.log("toSign_postData", data);
 
           sign(this.patientInfo.patientId, this.patientInfo.visitId, data).then(
-            res => {
+            (res) => {
               console.log("签名成功", res);
               if (!this.sheetInfo.selectBlock.id) {
                 this.sheetInfo.selectBlock.id = res.data.data[0].parentId;
               }
-              let trArrClone = Tr(res.data.data[0]);
+              let trArrClone;
+              if (this.HOSPITAL_ID === "hj") {
+                trArrClone = TrHj(res.data.data[0]);
+              } else {
+                trArrClone = Tr(res.data.data[0]);
+              }
               // if (trArr.find((item) => {
               //   return item.key == 'recordMonth'
               // }).value == '') {
@@ -302,7 +437,7 @@ export default {
               console.log("签名成功trArr", trArr);
               this.$notify.success({
                 title: "提示",
-                message: "签名成功"
+                message: "签名成功",
               });
               this.bus.$emit("saveNursingOrderSheetPage");
             }
@@ -311,7 +446,7 @@ export default {
       } else {
         // 删除签名
         this.$refs.delsignModal.open((password, empNo) => {
-          let id = trArr.find(item => {
+          let id = trArr.find((item) => {
             return item.key == "id";
           }).value;
           cancelSign({
@@ -319,8 +454,8 @@ export default {
             list: [{ id: id }],
             empNo: empNo,
             password: password,
-            signType: signType
-          }).then(res => {
+            signType: signType,
+          }).then((res) => {
             this.bus.$emit("saveNursingOrderSheetPage");
           });
         });
@@ -397,10 +532,10 @@ export default {
     // },
     // 展示签名状态
     showSign(trArr, keyname = "singerName") {
-      let status = trArr.find(item => {
+      let status = trArr.find((item) => {
         return item.key == "status";
       }).value;
-      let signerName = trArr.find(item => {
+      let signerName = trArr.find((item) => {
         return item.key.indexOf(keyname) > -1;
       }).value;
       // console.log('展示签名状态',status,signerName,trArr)
@@ -413,10 +548,10 @@ export default {
     },
     // 展示审核状态
     showAudit(trArr) {
-      let status = trArr.find(item => {
+      let status = trArr.find((item) => {
         return item.key == "status";
       }).value;
-      let auditorName = trArr.find(item => {
+      let auditorName = trArr.find((item) => {
         return item.key == "auditorName";
       }).value;
       if (status == "2") {
@@ -426,8 +561,8 @@ export default {
       }
     },
     isRead(tr) {
-      let status = tr.find(item => item.key == "status").value;
-      let empNo = tr.find(item => item.key == "empNo").value;
+      let status = tr.find((item) => item.key == "status").value;
+      let empNo = tr.find((item) => item.key == "empNo").value;
       if (status >= 1) {
         if (empNo == this.empNo) {
           return false;
@@ -440,12 +575,10 @@ export default {
     },
     // 右键菜单
     openContextMenu(e, index, row, cell) {
-      $(e.target)
-        .parents("tr")
-        .addClass("selectedRow");
+      $(e.target).parents("tr").addClass("selectedRow");
       let style = {
         top: `${Math.min(e.clientY - 15, window.innerHeight - 320)}px`,
-        left: `${Math.min(e.clientX + 15, window.innerWidth - 180)}px`
+        left: `${Math.min(e.clientX + 15, window.innerWidth - 180)}px`,
       };
       let data = [
         {
@@ -453,24 +586,24 @@ export default {
           icon: "charuxinhang",
           click: () => {
             this.addNullRow(index - 1, row);
-          }
+          },
         },
         {
           name: "向下插入新行",
           icon: "xiangxiacharuyihang",
           click: () => {
             this.addNullRow(index, row);
-          }
+          },
         },
         {
           name: "复制行",
           icon: "fuzhizhenghang",
           click: () => {
             this.sheetInfo.copyRow = row
-              .filter(item => {
+              .filter((item) => {
                 return true;
               })
-              .map(item => {
+              .map((item) => {
                 let obj = {};
                 if (
                   item.key == "id" ||
@@ -482,14 +615,14 @@ export default {
                 }
                 return Object.assign({}, item, obj);
               });
-          }
+          },
         },
         {
           name: "复制格",
           icon: "fuzhizhenghang",
           click: () => {
             this.sheetInfo.copyRow = cell.value;
-          }
+          },
         },
         {
           name: "粘贴内容",
@@ -501,13 +634,13 @@ export default {
             } else {
               this.toCopyRow(index);
             }
-          }
+          },
         },
         {
           name: "删除整行",
           icon: "shanchuzhenghang",
           click: () => {
-            let id = row.find(item => {
+            let id = row.find((item) => {
               return item.key == "id";
             }).value;
             let isRead = true; //this.isRead(row)
@@ -517,12 +650,12 @@ export default {
                   delRow({
                     list: [{ id: id }],
                     password: password,
-                    empNo: empNo
-                  }).then(res => {
+                    empNo: empNo,
+                  }).then((res) => {
                     this.delRow(index);
                     this.$notify.success({
                       title: "提示",
-                      message: "删除成功"
+                      message: "删除成功",
                     });
                     this.bus.$emit("saveNursingOrderSheetPage");
                   });
@@ -531,13 +664,13 @@ export default {
                 this.$confirm("你确定删除该行数据吗", "提示", {
                   confirmButtonText: "删除",
                   cancelButtonText: "取消",
-                  type: "warning"
-                }).then(res => {
-                  delRow(id, "", "").then(res => {
+                  type: "warning",
+                }).then((res) => {
+                  delRow(id, "", "").then((res) => {
                     this.delRow(index);
                     this.$notify.success({
                       title: "提示",
-                      message: "删除成功"
+                      message: "删除成功",
                     });
                     this.bus.$emit("saveNursingOrderSheetPage");
                   });
@@ -547,18 +680,18 @@ export default {
               this.$confirm("你确定删除该行数据吗", "提示", {
                 confirmButtonText: "删除",
                 cancelButtonText: "取消",
-                type: "warning"
-              }).then(res => {
+                type: "warning",
+              }).then((res) => {
                 this.delRow(index);
                 this.$notify.success({
                   title: "提示",
-                  message: "删除成功"
+                  message: "删除成功",
                 });
                 this.bus.$emit("saveNursingOrderSheetPage");
               });
             }
-          }
-        }
+          },
+        },
         //  {
         //   name: '添加格批注',
         //   icon: 'pizhu',
@@ -647,14 +780,11 @@ export default {
       // 双击的input key
       let key =
         $(e.target).attr("datakey") ||
-        $(e.target)
-          .parents("td")
-          .attr("datakey");
-      let name = $(e.target)
-        .parents("td")
-        .attr("dataName");
+        $(e.target).parents("td").attr("datakey");
+      let name = $(e.target).parents("td").attr("dataName");
       let tab = "1";
-      if (key == "orderContent") { //orderContent  description
+      if (key == "orderContent") {
+        //orderContent  description
         tab = "3";
       } else if (name || key.indexOf("field") == -1) {
         tab = "1";
@@ -672,8 +802,9 @@ export default {
       // 最后行的id 即最大的id
       let maxId = 0;
       // 当前的类型做唯一标识
-      let curr_recordSource = tr.find(item => item.key == "recordSource").value;
-      let curr_recordDate = tr.find(item => item.key == "recordDate").value;
+      let curr_recordSource = tr.find((item) => item.key == "recordSource")
+        .value;
+      let curr_recordDate = tr.find((item) => item.key == "recordDate").value;
       if (curr_recordDate) {
         for (let i = 0; i < sheetModel.length; i++) {
           allList = allList.concat(sheetModel[i].bodyModel);
@@ -681,12 +812,12 @@ export default {
         for (let i = 0; i < allList.length; i++) {
           maxId = Math.max(
             maxId,
-            allList[i].find(item => item.key == "id").value
+            allList[i].find((item) => item.key == "id").value
           );
           if (
-            allList[i].find(item => item.key == "recordDate").value ==
+            allList[i].find((item) => item.key == "recordDate").value ==
               curr_recordDate &&
-            allList[i].find(item => item.key == "recordSource").value ==
+            allList[i].find((item) => item.key == "recordSource").value ==
               curr_recordSource
           ) {
             record.push(allList[i]);
@@ -696,14 +827,15 @@ export default {
         record.push(tr);
       }
       let isLast =
-        !record[record.length - 1].find(item => item.key == "id").value ||
-        record[record.length - 1].find(item => item.key == "id").value == maxId;
+        !record[record.length - 1].find((item) => item.key == "id").value ||
+        record[record.length - 1].find((item) => item.key == "id").value ==
+          maxId;
       let config = {
         record,
         table,
         thead,
         tab,
-        isLast
+        isLast,
       };
       window.openSpecialModalOrder(config);
     },
@@ -719,7 +851,7 @@ export default {
       } else {
         // 行
         try {
-          obj = td.find(item => item.key == "markObj").value;
+          obj = td.find((item) => item.key == "markObj").value;
         } catch (e) {}
       }
       let left, top;
@@ -755,14 +887,14 @@ export default {
         }
         console.log("按下commmand多选==", this.sheetInfo, sheetInfo);
       }
-    }
+    },
   },
   created() {
     // sheetInfo.
   },
   components: {
     setTitleModal,
-    signModal
-  }
+    signModal,
+  },
 };
 </script>

@@ -7,7 +7,7 @@ export default {
   // 科室的名称
   deptType: "",
   style: {
-    width: "1400px"
+    width: "1200px"
   },
   th: {
     top: [{
@@ -93,7 +93,9 @@ export default {
         name: `
         入量
         `,
-        style: {},
+        style: {
+          minWidth: '95px',
+        },
         colspan: "2",
         rowspan: "1"
       },
@@ -101,6 +103,9 @@ export default {
         name: `
         出量
         `,
+        style: {
+          minWidth: '135px',
+        },
         colspan: "3",
         rowspan: "1"
       },
@@ -112,14 +117,12 @@ export default {
         rowspan: "3",
         style: {
           minWidth: '50px',
-          maxWidth: '50px'
         },
       },
       {
         name: `标题1`,
         style: {
           minWidth: '50px',
-          maxWidth: '50px'
         },
         colspan: "1",
         rowspan: "3",
@@ -130,7 +133,6 @@ export default {
         name: `标题2`,
         style: {
           minWidth: '50px',
-          maxWidth: '50px'
         },
         colspan: "1",
         rowspan: "3",
@@ -141,7 +143,6 @@ export default {
         name: `标题3`,
         style: {
           minWidth: '50px',
-          maxWidth: '50px'
         },
         colspan: "1",
         rowspan: "3",
@@ -152,7 +153,6 @@ export default {
         name: `标题4`,
         style: {
           minWidth: '50px',
-          maxWidth: '50px'
         },
         colspan: "1",
         rowspan: "3",
@@ -163,7 +163,6 @@ export default {
         name: `标题5`,
         style: {
           minWidth: '50px',
-          maxWidth: '50px'
         },
         colspan: "1",
         rowspan: "3",
@@ -174,7 +173,6 @@ export default {
         name: `标题6`,
         style: {
           minWidth: '50px',
-          maxWidth: '50px'
         },
         colspan: "1",
         rowspan: "3",
@@ -186,7 +184,7 @@ export default {
         特殊情况记录
         `,
         style: {
-          width: "160px"
+          minWidth: "150px"
         },
         colspan: "1",
         rowspan: "3"
@@ -200,19 +198,17 @@ export default {
         rowspan: "3",
         style: {
           minWidth: "50px",
-          maxWidth: "50px"
         },
       },
       {
         name: `
-        上级护士签名
+        记录人签名
         `,
         style: {},
         colspan: "1",
         rowspan: "3",
         style: {
           minWidth: "50px",
-          maxWidth: "50px"
         },
       }
     ],

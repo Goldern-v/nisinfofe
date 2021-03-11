@@ -7,15 +7,19 @@ export const keyf1 = function (e, td) {
     td.value = td.value.replace(/·/g, '✓').replace(/`/g, '✓')
   }, 10)
 }
-// 对值进行切割，这里的16是固定不变的，最多输入全中文8个字，全英文/数字16个
+// 对值进行切割，这里的maxLength是固定不变的，最多输入全中文8个字，全英文/数字maxLength个
 export const calValueChange = function (e, td) {
+  let maxLength = 16
+  if (td.key === 'food' || td.key === 'discharge') {
+    maxLength = 20
+  }
   const currentValue = td.value + (e.data || '')
   const length = GetLength(currentValue)
-  if (length > 16) {
+  if (length > maxLength) {
     const arr = currentValue.split('')
     const currentStr = arr.reduce((acc, cur) => {
-      if (GetLength(acc) < 16) {
-        if (GetLength(acc) === 15 && GetLength(cur) === 2) {
+      if (GetLength(acc) < maxLength) {
+        if (GetLength(acc) === (maxLength - 1) && GetLength(cur) === 2) {
           return acc
         }
         return acc + cur
