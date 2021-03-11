@@ -7,7 +7,7 @@
   >
     <div class="head-con" flex>
       <div class="tool-con" flex-box="1">
-        <sheetTool2 ref="sheetTool"></sheetTool2>
+        <sheetTool2 ref="sheetTool" v-if="sheetTool2Visible"></sheetTool2>
       </div>
     </div>
     <div
@@ -158,7 +158,7 @@
 </style>
 
 <script>
-import sheetTool2 from "@/Page/sheet-page/components/sheet-tool/sheet-tool.vue";
+// import sheetTool2 from "@/Page/sheet-page/components/sheet-tool/sheet-tool.vue";
 import patientList from "@/components/patient-list/patient-list.vue";
 import sheetTable from "@/Page/sheet-page/components/sheetTable/sheetTable.vue";
 import common from "@/common/mixin/common.mixin.js";
@@ -215,7 +215,8 @@ export default {
       sheetInfo,
       scrollTop: 0,
       scrollY: 0,
-      bedAndDeptChange: {}
+      bedAndDeptChange: {},
+      sheetTool2Visible: false
     };
   },
   computed: {
@@ -686,6 +687,11 @@ export default {
       });
     });
   },
+  mounted() {
+    setTimeout(() => {
+      this.sheetTool2Visible = true;
+    }, 100);
+  },
   watch: {
     deptCode(val) {
       if (val) {
@@ -717,7 +723,8 @@ export default {
     }
   },
   components: {
-    sheetTool2,
+    sheetTool2: () =>
+      import("@/Page/sheet-page/components/sheet-tool/sheet-tool.vue"),
     patientList,
     sheetTable,
     delPageModal,
