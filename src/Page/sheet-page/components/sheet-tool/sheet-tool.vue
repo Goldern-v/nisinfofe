@@ -94,16 +94,17 @@
       >
         <div class="text-con">切换副页</div>
       </div>
-      <!-- <div
+      <div
         class="item-box"
         flex="cross:center main:center"
         @click.stop="openChart"
         v-if="
-          HOSPITAL_ID == 'huadu' && sheetInfo.sheetType == 'body_temperature_Hd'
+          HOSPITAL_ID == 'huadu' &&
+            this.$route.path.includes('singleTemperatureChart')
         "
       >
         <div class="text-con">体温曲线</div>
-      </div> -->
+      </div>
       <!-- <div
         class="item-box"
         flex="cross:center main:center"
@@ -206,6 +207,14 @@
     <newFormModal ref="newFormModal"></newFormModal>
     <setTitleModal ref="setTitleModal"></setTitleModal>
     <tztbModal ref="tztbModal"></tztbModal>
+    <sweet-modal
+      ref="sheet"
+      title="体温曲线"
+      class="tempSweetModal"
+      @close="closeModal"
+    >
+      <temperature-HD v-if="visibled" class="sheet-con"></temperature-HD>
+    </sweet-modal>
   </div>
 </template>
 
@@ -231,9 +240,10 @@ import tztbModal from "../modal/tztb-modal.vue";
 import dayjs from "dayjs";
 // import lodopPrint from "./lodop/lodopPrint";
 import patientInfo from "./patient-info";
-
+import temperatureHD from "../../../patientInfo/supPage/temperature/temperatureHD";
 export default {
   mixins: [commom],
+  name: "sheetTool",
   data() {
     return {
       bus: bus(this),
@@ -245,10 +255,14 @@ export default {
       pageArea: "",
       sheetModel,
       sheetInfo,
-      sheetBlockList: []
+      sheetBlockList: [],
+      visibled: false
     };
   },
   methods: {
+    closeModal() {
+      this.visibled = false;
+    },
     /* 出入量统计弹框--花都区分 */
     openStaticModal() {
       if (
@@ -261,12 +275,12 @@ export default {
       }
     },
     /* 打开体温曲线页面 */
-    // openChart() {
-    //   const { patientId, visitId } = this.$route.query;
-    //   this.$router.push(
-    //     `/temperature?patientId=${patientId}&visitId=${visitId}`
-    //   );
-    // },
+    openChart() {
+      this.visibled = true;
+      this.$nextTick(() => {
+        this.$refs.sheet.open();
+      });
+    },
     emit(todo, value) {
       if (!this.patientInfo.patientId) {
         return this.$message.warning("请选择一名患者");
@@ -863,7 +877,8 @@ export default {
     newFormModal,
     setTitleModal,
     tztbModal,
-    patientInfo
+    patientInfo,
+    temperatureHD
   }
 };
 </script>
@@ -979,5 +994,15 @@ export default {
 
 .red-border {
   border: 2px solid red !important;
+}
+.tempSweetModal{
+  /deep/ .sweet-modal{
+    width:90% !important;
+    overflow: hidden !important;
+  }
+  /deep/ .sweet-content{
+    background:#dfdfdf;
+    max-height:105vh !important;
+  }
 }
 </style>

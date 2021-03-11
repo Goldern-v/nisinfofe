@@ -7,7 +7,7 @@
   >
     <div class="head-con" flex>
       <div class="tool-con" flex-box="1">
-        <sheetTool ref="sheetTool"></sheetTool>
+        <sheetTool2 ref="sheetTool"></sheetTool2>
       </div>
     </div>
     <div
@@ -158,7 +158,7 @@
 </style>
 
 <script>
-import sheetTool from "@/Page/sheet-page/components/sheet-tool/sheet-tool.vue";
+import sheetTool2 from "@/Page/sheet-page/components/sheet-tool/sheet-tool.vue";
 import patientList from "@/components/patient-list/patient-list.vue";
 import sheetTable from "@/Page/sheet-page/components/sheetTable/sheetTable.vue";
 import common from "@/common/mixin/common.mixin.js";
@@ -199,6 +199,7 @@ import { patients } from "@/api/lesion";
 import { blockSave, getNurseExchageInfo } from "@/Page/sheet-page/api/index";
 export default {
   mixins: [common],
+  name: "singleTemperatureChart",
   data() {
     return {
       data: {
@@ -716,7 +717,7 @@ export default {
     }
   },
   components: {
-    sheetTool,
+    sheetTool2,
     patientList,
     sheetTable,
     delPageModal,

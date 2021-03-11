@@ -29,7 +29,10 @@
         class="modal-con"
         @close="closeModal"
       >
-        <singleTemperatureChart class="sheet-con"></singleTemperatureChart>
+        <single-temperature-chart
+          v-if="visibled"
+          class="sheet-con"
+        ></single-temperature-chart>
       </sweet-modal>
     </div>
   </div>
@@ -163,7 +166,8 @@ export default {
       currentPage: 1,
       pageTotal: 1,
       open: false,
-      isSave: false
+      isSave: false,
+      visibled: false
     };
   },
   methods: {
@@ -241,9 +245,18 @@ export default {
       }
     },
     onToggle() {
-      this.$refs.sheet.open();
+      if (this.$route.path.includes("singleTemperatureChart")) {
+        return;
+      } else {
+        this.visibled = true;
+        this.$nextTick(() => {
+          this.$refs.sheet.open();
+        });
+      }
     },
     closeModal() {
+      /* 关闭弹窗时清除弹窗 */
+      this.visibled = false;
       if (this.isSave) {
         setTimeout(this.getImg(), 1000);
       }
