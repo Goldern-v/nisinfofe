@@ -1,56 +1,63 @@
 <template>
-
-  <div class="contain"
-       :class="{fullpage}"
-       v-loading="pageloading"
-       :element-loading-text="pageLoadingText"
-       >
-
-
-    <div class="head-con"
-         flex="">
-
-      <div class="tool-con"
-          v-bind:style="(!disableToolCon || sheetModel.length > 0) ? 'pointer-events: visible;':'pointer-events:none;'"
-           flex-box="1">
-           <!-- v-bind:style="disableToolCon === 0 ? 'pointer-events: none;':'pointer-events: visible;'" -->
+  <div
+    class="contain"
+    :class="{ fullpage }"
+    v-loading="pageloading"
+    :element-loading-text="pageLoadingText"
+  >
+    <div class="head-con" flex="">
+      <div
+        class="tool-con"
+        v-bind:style="
+          !disableToolCon || sheetModel.length > 0
+            ? 'pointer-events: visible;'
+            : 'pointer-events:none;'
+        "
+        flex-box="1"
+      >
+        <!-- v-bind:style="disableToolCon === 0 ? 'pointer-events: none;':'pointer-events: visible;'" -->
         <!-- 顶部表单控件工具 -->
         <sheetTool></sheetTool>
       </div>
     </div>
 
     <!-- 表单主体 -->
-    <div class="body-con"
-         id="sheet_body_con"
-         :style="{height: containHeight}">
-      <div class="right-part"
-           v-loading="tableLoading">
+    <div
+      class="body-con"
+      id="sheet_body_con"
+      :style="{ height: containHeight }"
+    >
+      <div class="right-part" v-loading="tableLoading">
         <div class="sheetTable-contain" ref="scrollCon">
           <div ref="sheetTableContain">
-
             <!-- 表单表格 -->
-            <sheetTable v-for="(item, index) in sheetModel"
-                        :key="index"
-                        :data="item"
-                        :index="index"
-                        :length="sheetModel.length"></sheetTable>
+            <sheetTable
+              v-for="(item, index) in sheetModel"
+              :key="index"
+              :data="item"
+              :index="index"
+              :length="sheetModel.length"
+            ></sheetTable>
           </div>
 
           <!-- @click="addNursingOrderSheetPage" -->
-          <div v-show="sheetModel.length == 0"
-               class="null-btn"
-               flex="cross:center main:center"
-               @click="disableToolCon=false;bus.$emit('createNursingOrderPage',true)"
-               >
-               <i  class="el-icon-plus"></i>
+          <div
+            v-show="sheetModel.length == 0"
+            class="null-btn"
+            flex="cross:center main:center"
+            @click="
+              disableToolCon = false;
+              bus.$emit('createNursingOrderPage', true);
+            "
+          >
+            <i class="el-icon-plus"></i>
             创建护嘱单记录
           </div>
         </div>
       </div>
     </div>
 
-    <delPageModal ref="delPageModal"
-                  :index="sheetModel.length"></delPageModal>
+    <delPageModal ref="delPageModal" :index="sheetModel.length"></delPageModal>
     <HjModal ref="HjModal"></HjModal>
     <signModal ref="signModal" title="需要该行签名着确认"></signModal>
     <setPageModal ref="setPageModal"></setPageModal>
@@ -64,9 +71,9 @@
   margin: 0;
   background: #fff;
   border: 1px solid #CBD5DD;
-  border-top 0
+  border-top: 0;
   border-radius: 2px;
-  overflow hidden
+  overflow: hidden;
 
   &.fullpage {
     position: fixed !important;
@@ -87,7 +94,7 @@
 
     .right-part {
       height: 100%;
-      overflow hidden
+      overflow: hidden;
     }
   }
 }
@@ -154,47 +161,60 @@
     margin-right: 4px;
   }
 }
-
 </style>
 
 <script>
-import sheetTool from '@/Page/sheet-nursing-order/components/sheet-tool/sheet-tool.vue'
+import sheetTool from "@/Page/sheet-nursing-order/components/sheet-tool/sheet-tool.vue";
 // import patientList from '@/Page/sheet-nursing-order/components/patient-list/patient-list.vue'
-import sheetTable from '@/Page/sheet-nursing-order/components/sheetTable/sheetTable.vue'
-import common from '@/common/mixin/common.mixin.js'
-import { nursingUnit } from '@/api/lesion'
-import sheetModel, { addNewNursingOrderSheetPage,addNursingOrderSheetPage, delNursingOrderSheetPage, initNursingOrderSheetPage, cleanData } from '@/Page/sheet-nursing-order/sheet.js'
-import { typeList } from '@/api/lesion'
+import sheetTable from "@/Page/sheet-nursing-order/components/sheetTable/sheetTable.vue";
+import common from "@/common/mixin/common.mixin.js";
+import { nursingUnit } from "@/api/lesion";
+import sheetModel, {
+  addNewNursingOrderSheetPage,
+  addNursingOrderSheetPage,
+  delNursingOrderSheetPage,
+  initNursingOrderSheetPage,
+  cleanData,
+} from "@/Page/sheet-nursing-order/sheet.js";
+import { typeList } from "@/api/lesion";
 // import {listItem} from '@/Page/sheet-nursing-order/api/nursingOrder.js'
-import decode from '@/Page/sheet-nursing-order/components/render/decode.js'
-import { saveBody, showBody, showTitle, delPage, markList} from '@/api/nursingOrderSheet.js'
-import sheetInfo from '@/Page/sheet-nursing-order/components/config/sheetInfo/index.js'
-import bus from 'vue-happy-bus'
-import delPageModal from '@/Page/sheet-nursing-order/components/modal/del-page.vue'
-import $ from 'jquery'
-import HjModal from '@/Page/sheet-nursing-order/components/modal/hj-modal.vue'
-import signModal from '@/components/modal/sign.vue'
+import decode from "@/Page/sheet-nursing-order/components/render/decode.js";
+import {
+  saveBody,
+  showBody,
+  showTitle,
+  delPage,
+  markList,
+} from "@/api/nursingOrderSheet.js";
+import sheetInfo from "@/Page/sheet-nursing-order/components/config/sheetInfo/index.js";
+import bus from "vue-happy-bus";
+import delPageModal from "@/Page/sheet-nursing-order/components/modal/del-page.vue";
+import $ from "jquery";
+import HjModal from "@/Page/sheet-nursing-order/components/modal/hj-modal.vue";
+import signModal from "@/components/modal/sign.vue";
 // import { getListData1 } from '@/Page/sheet-nursing-order/components/config/endocrinology/tr.js'
 // import { getListData2 } from '@/Page/sheet-nursing-order/components/config/gynecology/tr.js'
 // import { getListData3 } from '@/Page/sheet-nursing-order/components/config/joint/tr.js'
 // import { getListData4 } from '@/Page/sheet-nursing-order/components/config/neurology/tr.js'
-import { updateListData } from '@/Page/sheet-nursing-order/components/config/general/tr.js'
+import { updateListData } from "@/Page/sheet-nursing-order/components/config/general/tr.js";
+import { updateListDataHj } from "@/Page/sheet-nursing-order/components/config/general/tr_hj.js";
+
 // import specialModal from '@/Page/sheet-nursing-order/components/modal/special-modal.vue'
-import setPageModal from '@/Page/sheet-nursing-order/components/modal/setPage-modal.vue'
-import pizhuModal from '@/Page/sheet-nursing-order/components/modal/pizhu-modal.vue'
-import { getHomePage } from '@/Page/sheet-nursing-order/api/index.js'
+import setPageModal from "@/Page/sheet-nursing-order/components/modal/setPage-modal.vue";
+import pizhuModal from "@/Page/sheet-nursing-order/components/modal/pizhu-modal.vue";
+import { getHomePage } from "@/Page/sheet-nursing-order/api/index.js";
 
 export default {
   mixins: [common],
   data() {
     return {
       data: {
-        deptValue: '',
+        deptValue: "",
         deptList: [],
         bedList: [],
       },
       patientListLoading: false,
-      pageLoadingText:"正在载入中...",
+      pageLoadingText: "正在载入中...",
       disableToolCon: false,
       tableLoading: false,
       pageloading: false,
@@ -202,28 +222,27 @@ export default {
       sheetModel,
       sheetInfo,
       scrollTop: 0,
-    }
+    };
   },
   computed: {
     containHeight() {
       if (this.fullpage) {
-        return this.wih - 100 + 'px'
-      }
-      else {
-        return this.wih - 154 + 'px'
+        return this.wih - 100 + "px";
+      } else {
+        return this.wih - 154 + "px";
       }
     },
     patientInfo() {
-      return this.$route.query
+      return this.$route.query;
     },
     fullpage() {
-      return this.$store.state.sheet.fullpage
+      return this.$store.state.sheet.fullpage;
     },
   },
   methods: {
     emit(todo) {
-        this.bus.$emit(todo)
-      },
+      this.bus.$emit(todo);
+    },
     // switchDept() {
     //   let deptCode = this.deptCode
     //   typeList().then((res) => {
@@ -246,65 +265,81 @@ export default {
     //     }
     //   })
     // },
-     addNursingOrderSheetPage() {
-       console.log('addNursingOrderSheetPage',this.patientInfo)
+    addNursingOrderSheetPage() {
+      console.log("addNursingOrderSheetPage", this.patientInfo);
       if (this.patientInfo.name) {
-        this.bus.$emit('openNewNOrderSheetModal')
+        this.bus.$emit("openNewNOrderSheetModal");
         // addNursingOrderSheetPage()
       } else {
         this.$notify.info({
-          title: '提示',
-          message: '请选择一名患者'
+          title: "提示",
+          message: "请选择一名患者",
         });
       }
     },
-      getSheetData(isBottom,data={}) {
-      console.log('getSheetData',data,this.sheetInfo)
-      if(!(this.sheetInfo.selectBlock && this.sheetInfo.selectBlock.id))  {
-        cleanData()
+    getSheetData(isBottom, data = {}) {
+      console.log("getSheetData", data, this.sheetInfo);
+      if (!(this.sheetInfo.selectBlock && this.sheetInfo.selectBlock.id)) {
+        cleanData();
         setTimeout(() => {
-          sheetInfo.isSave = true
-        }, 100)
-        return
+          sheetInfo.isSave = true;
+        }, 100);
+        return;
       }
       // return null
-      this.tableLoading = true
+      this.tableLoading = true;
       return Promise.all([
         // showTitle(this.patientInfo.patientId, this.patientInfo.visitId),
         showBody(this.sheetInfo.selectBlock.id),
         // markList(this.patientInfo.patientId, this.patientInfo.visitId)
-      ]).then(res => {
-        console.log("服务器返回护嘱单数据：showTitle,showBody,markList",res)
-        let titleData = []//res[0].data.data
-        let bodyData = res[0].data.data
-        let markData = []//res[2].data.data.list || []
+      ]).then((res) => {
+        console.log("服务器返回护嘱单数据：showTitle,showBody,markList", res);
+        let titleData = []; //res[0].data.data
+        let bodyData = res[0].data.data;
+        let markData = []; //res[2].data.data.list || []
 
-        this.sheetModel = []
+        this.sheetModel = [];
         this.$nextTick(() => {
-          this.sheetModel = sheetModel
+          this.sheetModel = sheetModel;
           // sheetInfo.selectBlock.id = bodyData.id
-          console.log("titleData, bodyData, markData",titleData, bodyData, markData,sheetInfo)
-          initNursingOrderSheetPage(titleData, bodyData, markData)
-          this.getHomePage(isBottom)
+          console.log(
+            "titleData, bodyData, markData",
+            titleData,
+            bodyData,
+            markData,
+            sheetInfo
+          );
+          initNursingOrderSheetPage(titleData, bodyData, markData);
+          this.getHomePage(isBottom);
 
-          if(bodyData&&bodyData.list&&bodyData.list.length>0){
-            sheetInfo.formTitle = bodyData.list[0].formTitle
-            this.sheetInfo.formTitle = bodyData.list[0].formTitle
-            sheetInfo.orderContentCode = bodyData.list[0].orderContentCode||'orders:public:通用护嘱内容'
-            this.sheetInfo.orderContentCode = bodyData.list[0].orderContentCode||'orders:public:通用护嘱内容'
+          if (bodyData && bodyData.list && bodyData.list.length > 0) {
+            sheetInfo.formTitle = bodyData.list[0].formTitle;
+            this.sheetInfo.formTitle = bodyData.list[0].formTitle;
+            sheetInfo.orderContentCode =
+              bodyData.list[0].orderContentCode || "orders:public:通用护嘱内容";
+            this.sheetInfo.orderContentCode =
+              bodyData.list[0].orderContentCode || "orders:public:通用护嘱内容";
 
-            if(this.sheetInfo.orderContentCode){
-              let dictFormName = this.sheetInfo.orderContentCode.split(':')[2]||''
-              let dicData={type:'orders',code:'public',formName:dictFormName}
-              updateListData(dicData)
+            if (this.sheetInfo.orderContentCode) {
+              let dictFormName =
+                this.sheetInfo.orderContentCode.split(":")[2] || "";
+              let dicData = {
+                type: "orders",
+                code: "public",
+                formName: dictFormName,
+              };
+              if (this.HOSPITAL_ID === "hj") {
+                updateListDataHj(dicData);
+              } else {
+                updateListData(dicData);
+              }
             }
-
           }
 
-          this.sheetInfo.isSave = true
-          sheetInfo.isSave = true
+          this.sheetInfo.isSave = true;
+          sheetInfo.isSave = true;
 
-          this.tableLoading = false
+          this.tableLoading = false;
           // setTimeout(() => {
           //   sheetInfo.isSave = true
           //   if (isBottom) {
@@ -329,36 +364,45 @@ export default {
           //     this.$refs.scrollCon.scrollTop = this.$refs.scrollCon.scrollHeight - this.$refs.scrollCon.offsetHeight - 190
           //   }
           // }, 1000)
-        })
-      })
+        });
+      });
     },
     breforeQuit(next) {
       if (!sheetInfo.isSave) {
-        window.app.$confirm('护嘱单还未保存，离开将会丢失数据', '提示', {
-          confirmButtonText: '离开',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(res => {
-          next()
-        })
+        window.app
+          .$confirm("护嘱单还未保存，离开将会丢失数据", "提示", {
+            confirmButtonText: "离开",
+            cancelButtonText: "取消",
+            type: "warning",
+          })
+          .then((res) => {
+            next();
+          });
       } else {
-        next()
+        next();
       }
     },
-     getHomePage(isFirst) {
-      getHomePage(this.patientInfo.patientId, this.patientInfo.visitId).then(res => {
-        console.log("getHomePage",res);
-        this.sheetInfo.sheetStartPage = (res.data.data && res.data.data.indexNo) || 1
-        isFirst && this.bus.$emit('initNursingOrderSheetPageSize')
-      })
+    getHomePage(isFirst) {
+      getHomePage(this.patientInfo.patientId, this.patientInfo.visitId).then(
+        (res) => {
+          console.log("getHomePage", res);
+          this.sheetInfo.sheetStartPage =
+            (res.data.data && res.data.data.indexNo) || 1;
+          isFirst && this.bus.$emit("initNursingOrderSheetPageSize");
+        }
+      );
     },
-    getDict(){
-      console.log("this.patientInfo",this.patientInfo, this.patientInfo.wardCode);
+    getDict() {
+      console.log(
+        "this.patientInfo",
+        this.patientInfo,
+        this.patientInfo.wardCode
+      );
       // orderApi
-      listItem(this.patientInfo.wardCode).then(res=>{
-        console.log("获取字典",res)
-      })
-    }
+      listItem(this.patientInfo.wardCode).then((res) => {
+        console.log("获取字典", res);
+      });
+    },
   },
   created() {
     // getListData1()
@@ -368,209 +412,223 @@ export default {
     // this.getDict()
     // updateListData(this.patientInfo.wardCode)
 
-
-
     // let dicData={type:'orders',code:'public',formName:'神内护嘱单'}
     // updateListData(dicData)
 
-    sheetInfo.isSave = true
-    sheetInfo.selectBlock = {}
+    sheetInfo.isSave = true;
+    sheetInfo.selectBlock = {};
 
-    this.$store.commit('upPatientInfo', {})
+    this.$store.commit("upPatientInfo", {});
     setTimeout(() => {
-      this.$store.commit('upPatientInfo', this.$route.query)
-    }, 100)
-    this.bus.$on('addNewNursingOrderSheetPage',(message="新建护嘱单成功")=>{
-      //
-      console.log('!!初始化护嘱单页面...')
-      addNewNursingOrderSheetPage((() => {
-        this.$nextTick(() => {
-          // addNursingOrderSheetPage
-          this.bus.$emit('initNursingOrderSheetPageSize')
-          //  $(this.$refs.scrollCon).animate({
-          //   scrollTop: this.$refs.scrollCon.scrollHeight - this.$refs.scrollCon.offsetHeight - 190
-          // })
-          this.bus.$emit('refreshNursingOrderSheetPage', true)
+      this.$store.commit("upPatientInfo", this.$route.query);
+    }, 100);
+    this.bus.$on(
+      "addNewNursingOrderSheetPage",
+      (message = "新建护嘱单成功") => {
+        //
+        console.log("!!初始化护嘱单页面...");
+        addNewNursingOrderSheetPage(() => {
+          this.$nextTick(() => {
+            // addNursingOrderSheetPage
+            this.bus.$emit("initNursingOrderSheetPageSize");
+            //  $(this.$refs.scrollCon).animate({
+            //   scrollTop: this.$refs.scrollCon.scrollHeight - this.$refs.scrollCon.offsetHeight - 190
+            // })
+            this.bus.$emit("refreshNursingOrderSheetPage", true);
 
-          this.bus.$emit('addNursingOrderSheetPage')
-          if(message){
+            this.bus.$emit("addNursingOrderSheetPage");
+            if (message) {
               this.$notify.success({
-              title: '提示',
-              message: message
-            })
-          }
-
-        })
-      }))
-    })
-    this.bus.$on('addNursingOrderSheetPage', () => {
-      console.log('新建护嘱单页面')
-      addNursingOrderSheetPage((() => {
+                title: "提示",
+                message: message,
+              });
+            }
+          });
+        });
+      }
+    );
+    this.bus.$on("addNursingOrderSheetPage", () => {
+      console.log("新建护嘱单页面");
+      addNursingOrderSheetPage(() => {
         this.$nextTick(() => {
-          this.bus.$emit('initNursingOrderSheetPageSize')
+          this.bus.$emit("initNursingOrderSheetPageSize");
           //  $(this.$refs.scrollCon).animate({
           //   scrollTop: this.$refs.scrollCon.scrollHeight - this.$refs.scrollCon.offsetHeight - 190
           // })
-        })
-      }))
-    })
-    this.bus.$on('delNursingOrderSheetPage', () => {
+        });
+      });
+    });
+    this.bus.$on("delNursingOrderSheetPage", () => {
       this.$refs.delPageModal.open(async (checkList) => {
         //
-        console.log('删除护嘱单',checkList,sheetInfo.selectBlock.id)
+        console.log("删除护嘱单", checkList, sheetInfo.selectBlock.id);
         // for (let item of checkList.sort((a, b) => { return b - a })) {
         //   await delPage(this.patientInfo.patientId, this.patientInfo.visitId, item - 1)
         //   await delPage(id,empNo,password)
         //   delNursingOrderSheetPage(item - 1)
         // }
         this.$notify.success({
-          title: '提示',
-          message: '删除成功'
-        })
-      })
-    })
-    this.bus.$on('saveNursingOrderSheetPage', () => {
+          title: "提示",
+          message: "删除成功",
+        });
+      });
+    });
+    this.bus.$on("saveNursingOrderSheetPage", () => {
       // console.log("")
-      this.pageloading = true
-      this.scrollTop = this.$refs.scrollCon.scrollTop
-      saveBody(this.patientInfo.patientId, this.patientInfo.visitId, decode()).then(res => {
-        console.log('保存成功-saveBody',this.sheetModel.length,this.sheetModel,res);
-        this.$notify.success({
-          title: '提示',
-          message: '保存成功'
+      this.pageloading = true;
+      this.scrollTop = this.$refs.scrollCon.scrollTop;
+      saveBody(this.patientInfo.patientId, this.patientInfo.visitId, decode())
+        .then((res) => {
+          console.log(
+            "保存成功-saveBody",
+            this.sheetModel.length,
+            this.sheetModel,
+            res
+          );
+          this.$notify.success({
+            title: "提示",
+            message: "保存成功",
+          });
+          if (this.sheetModel.length > 0) {
+            this.bus.$emit("getNOBlockList");
+          }
+          this.pageloading = false;
+          this.sheetInfo.isSave = true;
+          sheetInfo.isSave = true;
+          // this.getSheetData().then(res => {
+          //   console.log('保存成功-获取数据',res);
+          //   this.$nextTick(() => {
+
+          //     this.$refs.scrollCon.scrollTop = this.scrollTop
+          //      setTimeout(() => {
+          //     if (this.$refs.scrollCon.scrollTop == 0) {
+          //       this.$refs.scrollCon.scrollTop = this.scrollTop
+          //     }
+          //   }, 100)
+          //   setTimeout(() => {
+          //     if (this.$refs.scrollCon.scrollTop == 0) {
+          //       this.$refs.scrollCon.scrollTop = this.scrollTop
+          //     }
+          //   }, 200)
+          //   setTimeout(() => {
+          //     if (this.$refs.scrollCon.scrollTop == 0) {
+          //       this.$refs.scrollCon.scrollTop = this.scrollTop
+          //     }
+          //   }, 300)
+          //   setTimeout(() => {
+          //     if (this.$refs.scrollCon.scrollTop == 0) {
+          //       this.$refs.scrollCon.scrollTop = this.scrollTop
+          //     }
+          //   }, 400)
+          //   setTimeout(() => {
+          //     if (this.$refs.scrollCon.scrollTop == 0) {
+          //       this.$refs.scrollCon.scrollTop = this.scrollTop
+          //     }
+          //   }, 500)
+          //   setTimeout(() => {
+          //     if (this.$refs.scrollCon.scrollTop == 0) {
+          //       this.$refs.scrollCon.scrollTop = this.scrollTop
+          //     }
+          //   }, 600)
+          //   setTimeout(() => {
+          //     if (this.$refs.scrollCon.scrollTop == 0) {
+          //       this.$refs.scrollCon.scrollTop = this.scrollTop
+          //     }
+          //   }, 1000)
+          //   })
+          // })
+          //
         })
-        if(this.sheetModel.length > 0){
-          this.bus.$emit('getNOBlockList')
-        }
-        this.pageloading = false
-        this.sheetInfo.isSave = true
-        sheetInfo.isSave = true
-
-
-
-        // this.getSheetData().then(res => {
-        //   console.log('保存成功-获取数据',res);
-        //   this.$nextTick(() => {
-
-        //     this.$refs.scrollCon.scrollTop = this.scrollTop
-        //      setTimeout(() => {
-        //     if (this.$refs.scrollCon.scrollTop == 0) {
-        //       this.$refs.scrollCon.scrollTop = this.scrollTop
-        //     }
-        //   }, 100)
-        //   setTimeout(() => {
-        //     if (this.$refs.scrollCon.scrollTop == 0) {
-        //       this.$refs.scrollCon.scrollTop = this.scrollTop
-        //     }
-        //   }, 200)
-        //   setTimeout(() => {
-        //     if (this.$refs.scrollCon.scrollTop == 0) {
-        //       this.$refs.scrollCon.scrollTop = this.scrollTop
-        //     }
-        //   }, 300)
-        //   setTimeout(() => {
-        //     if (this.$refs.scrollCon.scrollTop == 0) {
-        //       this.$refs.scrollCon.scrollTop = this.scrollTop
-        //     }
-        //   }, 400)
-        //   setTimeout(() => {
-        //     if (this.$refs.scrollCon.scrollTop == 0) {
-        //       this.$refs.scrollCon.scrollTop = this.scrollTop
-        //     }
-        //   }, 500)
-        //   setTimeout(() => {
-        //     if (this.$refs.scrollCon.scrollTop == 0) {
-        //       this.$refs.scrollCon.scrollTop = this.scrollTop
-        //     }
-        //   }, 600)
-        //   setTimeout(() => {
-        //     if (this.$refs.scrollCon.scrollTop == 0) {
-        //       this.$refs.scrollCon.scrollTop = this.scrollTop
-        //     }
-        //   }, 1000)
-        //   })
-        // })
-        //
-
-
-      })
-      .catch(() => {
-        this.pageloading = false
-      })
-    })
-    this.bus.$on('refreshNursingOrderSheetPage', (isFirst,data) => {
-      console.log('更新护嘱单页面',isFirst,data);
-      this.getSheetData(isFirst,data)
-    })
-     this.bus.$on('toNursingOrderSheetPrintPage', (newWid) => {
-       console.log('启动护嘱单打印页',newWid,this.$refs.sheetTableContain)
+        .catch(() => {
+          this.pageloading = false;
+        });
+    });
+    this.bus.$on("refreshNursingOrderSheetPage", (isFirst, data) => {
+      console.log("更新护嘱单页面", isFirst, data);
+      this.getSheetData(isFirst, data);
+    });
+    this.bus.$on("toNursingOrderSheetPrintPage", (newWid) => {
+      console.log("启动护嘱单打印页", newWid, this.$refs.sheetTableContain);
       // 判断是否存在标记
-      if($('.mark-mark-mark').length) {
+      if ($(".mark-mark-mark").length) {
         $(this.$refs.scrollCon).animate({
-        scrollTop: $('.mark-mark-mark').eq(0).offset().top + this.$refs.scrollCon.scrollTop - 150
-        })
-        return this.$message.warning('打印前必须去除所有标记')
+          scrollTop:
+            $(".mark-mark-mark").eq(0).offset().top +
+            this.$refs.scrollCon.scrollTop -
+            150,
+        });
+        return this.$message.warning("打印前必须去除所有标记");
       }
       // 判断是否存在未签名
-      if ($('.noSignRow').length) {
+      if ($(".noSignRow").length) {
         $(this.$refs.scrollCon).animate({
-          scrollTop: $('.noSignRow').eq(0).offset().top + this.$refs.scrollCon.scrollTop - 150
-        })
-        return this.$message.warning('存在未签名的记录，请全部签名后再打印')
+          scrollTop:
+            $(".noSignRow").eq(0).offset().top +
+            this.$refs.scrollCon.scrollTop -
+            150,
+        });
+        return this.$message.warning("存在未签名的记录，请全部签名后再打印");
       }
 
-      window.localStorage.sheetNursingOrderModel = $(this.$refs.sheetTableContain).html()
-      if (process.env.NODE_ENV === 'production') {
-        newWid.location.href = '/crNursing/print/sheetNursingOrder'
+      window.localStorage.sheetNursingOrderModel = $(
+        this.$refs.sheetTableContain
+      ).html();
+      if (process.env.NODE_ENV === "production") {
+        newWid.location.href = "/crNursing/print/sheetNursingOrder";
+      } else {
+        this.$router.push(`/print/sheetNursingOrder`);
       }
-      else {
-        this.$router.push(`/print/sheetNursingOrder`)
-      }
-
-    })
-    this.bus.$on('openNOHJModal', () => {
-      this.$refs.HjModal.open()
-    })
-    this.bus.$on('openNOSetPageModal', () => {
-      this.$refs.setPageModal.open()
-    })
-    this.bus.$on('refrehNursingOrderSheetStartPage', (isFirst) => {
-      this.getHomePage(isFirst)
-    })
-    this.bus.$on('openPizhuModal', (tr, td) => {
-      this.$refs.pizhuModal.open(tr, td)
-    })
+    });
+    this.bus.$on("openNOHJModal", () => {
+      this.$refs.HjModal.open();
+    });
+    this.bus.$on("openNOSetPageModal", () => {
+      this.$refs.setPageModal.open();
+    });
+    this.bus.$on("refrehNursingOrderSheetStartPage", (isFirst) => {
+      this.getHomePage(isFirst);
+    });
+    this.bus.$on("openPizhuModal", (tr, td) => {
+      this.$refs.pizhuModal.open(tr, td);
+    });
   },
   watch: {
     sheetModel: {
       deep: true,
-      handler: function(newVal, oldVal) {
-        console.dir()
+      handler: function (newVal, oldVal) {
+        console.dir();
         // console.log('患者姓名',this.patientInfo.name,this.patientInfo,sheetModel,sheetInfo.isSave,newVal, oldVal)
-        if (this.patientInfo.name && newVal!=oldVal) {
-          sheetInfo.isSave = false
+        if (this.patientInfo.name && newVal != oldVal) {
+          sheetInfo.isSave = false;
         }
-      }
+      },
     },
   },
   beforeRouteLeave: (to, from, next) => {
-    console.log('离开页面',sheetInfo.isSave)
+    console.log("离开页面", sheetInfo.isSave);
     if (!sheetInfo.isSave) {
-      window.app.$confirm('护嘱单还未保存，离开页面将会丢失数据', '提示', {
-        confirmButtonText: '离开',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(res => {
-        next()
-      })
+      window.app
+        .$confirm("护嘱单还未保存，离开页面将会丢失数据", "提示", {
+          confirmButtonText: "离开",
+          cancelButtonText: "取消",
+          type: "warning",
+        })
+        .then((res) => {
+          next();
+        });
     } else {
-      next()
+      next();
     }
   },
   components: {
-    sheetTool, sheetTable, delPageModal, HjModal, signModal
+    sheetTool,
+    sheetTable,
+    delPageModal,
+    HjModal,
+    signModal,
     // , specialModal
-    , setPageModal, pizhuModal
-  }
-}
+    setPageModal,
+    pizhuModal,
+  },
+};
 </script>
