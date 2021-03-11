@@ -45,6 +45,17 @@
         <el-button size="mini" @click="logoutCaSign">证书退出</el-button>
       </div>
     </div>
+    <div style="padding-bottom: 10px;">
+     <el-switch
+        v-model="showScaleTip"
+        active-color="#4BB08D"
+        inactive-color="#eee"
+        on-text
+        off-text
+        @change="toggleScaleTip"
+      ></el-switch>
+      <b>本次登录取消缩放提示</b>
+    </div>
     <div class="admin-system-info" v-if="empNo==='admin'">
       仅管理员可见:
       <p v-for="(info,i) in adminSystemInfo" :key="i">
@@ -213,7 +224,8 @@ export default {
       signature: "",
       ca_name: "",
       ca_isLogin: "",
-      strUserCertID: ""
+      strUserCertID: "",
+      showScaleTip: false
     };
   },
   computed: {
@@ -360,6 +372,10 @@ export default {
           }
         });
       });
+    },
+    // 本次登录取消页面缩放提示
+    toggleScaleTip(type) {
+      type ? localStorage.setItem('noShowScaleTip',true) : localStorage.removeItem('noShowScaleTip');
     }
   },
   created() {
@@ -382,6 +398,7 @@ export default {
   mounted() {
     this.getUserImg();
     this.getSignImg();
+    this.showScaleTip  = localStorage.getItem('noShowScaleTip') ? true : false;
   },
   components: {
     whiteButton,

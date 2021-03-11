@@ -2,7 +2,7 @@
   <div class="paper" data-print-class="printing">
     <div class="head">
       <!-- <img class="logo" :src="hospitalLogo" alt="logo"> -->
-      <h1 class="title">厚 街 医 院 住 院 病 人 登 记 表</h1>
+      <h1 class="title">{{HOSPITAL_NAME_SPACE}} 住 院 病 人 登 记 表</h1>
       <!-- <h2 class="sub-title">病 房 工 作 日 报</h2> -->
       <div class="details">
         <!-- <div @click="qqqq">fdfdfd</div> -->

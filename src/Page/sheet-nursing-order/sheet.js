@@ -1,12 +1,23 @@
 import Title from "./components/render/Title";
 import Body from "./components/render/Body";
+import Body_Hj from "./components/render/Body_hj";
+import Title_Hj from "./components/render/Title_hj";
 import Mark from './components/render/Mark.js'
 let Page = function(titleData, autoTitleData, bodyData, index) {
   console.log("当前页数据：Page:titleData, autoTitleData, bodyData, index:", titleData, autoTitleData, bodyData, index);
-  return {
-    titleModel: Title(titleData, autoTitleData, index),
-    bodyModel: Body(bodyData)
-  };
+  if(process.env.HOSPITAL_ID === 'hj') {
+    return {
+      titleModel: Title_Hj(titleData, autoTitleData, index),
+      bodyModel: Body_Hj(bodyData)
+    }
+  }
+  else {
+    return {
+      titleModel: Title(titleData, autoTitleData, index),
+      bodyModel: Body(bodyData)
+    };
+  }
+  
 };
 let data = [];
 export default data;

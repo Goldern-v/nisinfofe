@@ -36,7 +36,7 @@
             >
               <div class="m-10" v-for="(item, key) of inShows" :key="key">
                 <el-checkbox :label="key"></el-checkbox>:{{
-                  item ? `${item}ml` : " "
+                  item ? `${item}` : " "
                 }}
               </div>
             </el-checkbox-group>
@@ -50,7 +50,7 @@
             >
               <div class="m-10" v-for="(item, key) of outShows" :key="key">
                 <el-checkbox :label="key"></el-checkbox>:{{
-                  item ? `${item}ml` : " "
+                  item ? `${item}` : " "
                 }}
               </div>
             </el-checkbox-group>

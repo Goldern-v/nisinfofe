@@ -473,40 +473,41 @@ export default function Title(
     );
   }
   break;
-  // case "tcm_pediatrics_jm": {
-  //   // 聊城二院 - (内科)一般患者护理评估记录单
-  //   Th = JSON.parse(
-  //     JSON.stringify(require("../config/common_nk_lcey/th.js").default)
-  //   );
-  // }
-  // break;
-  // case "tcm_pediatrics_jm": {
-  //   // 聊城二院 - (外科)一般患者护理评估记录单
-  //   Th = JSON.parse(
-  //     JSON.stringify(require("../config/common_wk_lcey/th").default)
-  //   );
-  // }
-  // case "tcm_pediatrics_jm": {
-  //   // 聊城二院 - (胸心外科)一般患者护理评估记录单
-  //   Th = JSON.parse(
-  //     JSON.stringify(require("../config/common_xxwk_lcey/th").default)
-  //   );
-  // }
-  // break;
-  // case "tcm_pediatrics_jm": {
-  //   // 聊城二院 - 病重（病危）患者护理记录单（不带瞳孔）
-  //   Th = JSON.parse(
-  //     JSON.stringify(require("../config/bzhz_lcey/th").default)
-  //   );
-  // }
-  // break;
-  // case "tcm_pediatrics_jm": {
-  //   // 聊城二院 - 病重（病危）患者护理记录单（带瞳孔）
-  //   Th = JSON.parse(
-  //     JSON.stringify(require("../config/bzhz2_lcey/th").default)
-  //   );
-  // }
-  // break;
+  case "internal_eval_lcey": {
+    // 聊城二院 - (内科)一般患者护理评估记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/internal_eval_lcey/th.js").default)
+    );
+  }
+  break;
+  case "surgical_eval_lcey": {
+    // 聊城二院 - (外科)一般患者护理评估记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/surgical_eval_lcey/th").default)
+    );
+  }
+  break;
+  case "surgical_eval2_lcey": {
+    // 聊城二院 - (胸心外科)一般患者护理评估记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/surgical_eval2_lcey/th").default)
+    );
+  }
+  break;
+  case "critical2_lcey": {
+    // 聊城二院 - 病重（病危）患者护理记录单（不带瞳孔）
+    Th = JSON.parse(
+      JSON.stringify(require("../config/critical2_lcey/th").default)
+    );
+  }
+  break;
+  case "critical_lcey": {
+    // 聊城二院 - 病重（病危）患者护理记录单（带瞳孔）
+    Th = JSON.parse(
+      JSON.stringify(require("../config/critical_lcey/th").default)
+    );
+  }
+  break;
   default: {
     Th = JSON.parse(
       JSON.stringify(require("../config/default/th").default)

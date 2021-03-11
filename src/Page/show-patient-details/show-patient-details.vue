@@ -27,6 +27,9 @@
   .item-box {
     display: none !important;
   }
+  .select-con + .item-box {
+     display: flex !important;
+  }
 
   .item-box.page-select {
     display: flex !important;
@@ -38,37 +41,15 @@
     >>> #sheet_body_con {
       height: calc(100vh - 64px) !important;
     }
+    >>> .sheetTable-contain {
+        input {
+          pointer-events: none !important;
+        }
+      }
   }
 }
 
 /* * 样式优化 */
-</style>
-<style lang="stylus">
-.showPatientDetails, .test {
-  iframe {
-    // pointer-events: none !important;
-  }
-
-  .right-part {
-    input, td, label {
-      pointer-events: none !important;
-    }
-  }
-}
-
-.test {
-  input, td, label {
-    pointer-events: none !important;
-  }
-}
-
-.contain {
-  table {
-    input {
-      pointer-events: none !important;
-    }
-  }
-}
 </style>
 <script>
 import leftPart from "@/Page/patientInfo/supComponts/leftPart";

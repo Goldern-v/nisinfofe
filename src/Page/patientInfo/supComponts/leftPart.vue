@@ -44,7 +44,7 @@
                v-if="HOSPITAL_ID == 'huadu'">打印床头卡2
           </div>
           <div class="print-btn" flex="cross:center main:center" @click="openBedPrint('wrist')"
-               v-if="HOSPITAL_ID == 'huadu'">腕带打印
+               v-if="HOSPITAL_ID == 'huadu' || HOSPITAL_ID == 'zhongshanqi'">腕带打印
           </div>
           <div
               class="print-btn"
@@ -77,6 +77,7 @@
     <bedModalWx ref="bedModalWx"></bedModalWx>
     <bedModalLc ref="bedModalLc"></bedModalLc>
     <bedModalHd ref="bedModalHd"></bedModalHd>
+    <bedModalZsq ref="bedModalZsq"></bedModalZsq>
     <printModal ref="printModal"></printModal>
     <archiveModal
         ref="archiveModal"
@@ -219,6 +220,7 @@ import bedModal from "./modal/bed-modal.vue";
 import bedModalWx from "./modal/bed-modal_wx.vue";
 import bedModalLc from "./modal/bed-modal_lc.vue";
 import bedModalHd from "./modal/bed-modal-hd.vue";
+import bedModalZsq from "./modal/bed-modal-zsq.vue";
 import printModal from "./print-modal/print-modal";
 import archiveModal from "./modal/archive-modal";
 import {previewArchive} from "./modal/api/index";
@@ -258,7 +260,9 @@ export default {
         this.$refs.bedModalLc.open();
       } else if (this.HOSPITAL_ID == "huadu") {
         this.$refs.bedModalHd.open(printMode);
-      } else {
+      } else if(this.HOSPITAL_ID == "zhongshanqi"){
+        this.$refs.bedModalZsq.open(printMode);
+      }else {
         this.$refs.bedModal.open();
       }
     },
@@ -316,7 +320,8 @@ export default {
     bedModalLc,
     archiveModal,
     bedModalHd,
-    InpatientRegis
+    InpatientRegis,
+    bedModalZsq
   }
 };
 </script>

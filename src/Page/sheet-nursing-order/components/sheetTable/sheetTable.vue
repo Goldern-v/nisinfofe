@@ -1,10 +1,13 @@
 <template>
   <div>
     <div
-        class="contant"
-        v-if="showSheetPage"
-        @click="upSheetPageIndex(index)"
-        :class="{active: sheetPageIndex == index}"
+      class="contant"
+      v-if="showSheetPage"
+      @click="upSheetPageIndex(index)"
+      :class="{
+        active: sheetPageIndex == index,
+        landscape: HOSPITAL_ID === 'hj',
+      }"
     >
       <!-- <img class="his-logo"
       src="../../../../common/images/his-logo/南医三院骨研院骨科医院logo.png" />-->
@@ -12,13 +15,8 @@
       src="../../../../common/images/his-logo/厚街医徽.png" />-->
       <!-- <img class="his-logo"
       src="../../../../common/images/his-logo/山西孝义logo.png" />-->
-      <div
-          style="
-            text-align: center;
-            font-size: 18px;
-            font-weight: bold;
-        "
-      >{{ HOSPITAL_NAME_SPACE }}
+      <div style="text-align: center; font-size: 18px; font-weight: bold">
+        {{ HOSPITAL_NAME_SPACE }}
       </div>
       <div class="header-con">
         <h1>{{ sheetInfo.formTitle || "护嘱单" }}</h1>
@@ -27,10 +25,14 @@
           <span>性别：{{ patientInfo.sex }}</span>
           <span>年龄：{{ patientInfo.age }}</span>
           <span>科室：{{ patientInfo.deptName }}</span>
-          <span v-if="HOSPITAL_NAME !== '广州市花都区人民医院'">入院日期：{{ patientInfo.admissionDate | toymd }}</span>
+          <span v-if="HOSPITAL_NAME !== '广州市花都区人民医院'"
+            >入院日期：{{ patientInfo.admissionDate | toymd }}</span
+          >
           <span>床号：{{ patientInfo.bedLabel }}</span>
           <!-- <span class="diagnosis-con" :title="patientInfo.diagnosis">诊断：{{patientInfo.diagnosis}}</span> -->
-          <span v-if="HOSPITAL_NAME === '广州市花都区人民医院'">住院号：{{ patientInfo.patientId }}</span>
+          <span v-if="HOSPITAL_NAME === '广州市花都区人民医院'"
+            >住院号：{{ patientInfo.patientId }}</span
+          >
           <span v-else>住院号：{{ patientInfo.inpNo }}</span>
           <!-- <span>入院日期：{{$route.query.admissionDate}}</span> -->
         </p>
@@ -41,29 +43,34 @@
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
 .contant {
-  //border-radius: 2px;
+  // border-radius: 2px;
   position: relative;
   background: #FFFFFF;
   // box-shadow: 0px 5px 10px 0 rgba(0, 0, 0, 0.5);
   padding: 20px 20px;
   box-sizing: border-box;
-  width: 700px; //关键
+  width: 700px; // 关键
   margin: 0 auto 20px;
 
   &.active {
     // background red
   }
+
+  &.landscape {
+    width: 1100px;
+  }
 }
 
 .header-con {
   text-align: center;
-  width: 100%
+  width: 96%;
+  margin: 0 auto;
 
   h1 {
     font-size: 22px;
     color: #000;
     padding-top: 10px;
-    margin 0
+    margin: 0;
   }
 
   span {
@@ -91,15 +98,16 @@
   height: 44px;
 }
 
-.diagnosis-con
-  max-width 340px
-  overflow hidden
-  text-overflow ellipsis
-  white-space nowrap
+.diagnosis-con {
+  max-width: 340px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 </style>
 <script>
 import excel from "./components/excel/excel.vue";
-import {mapState, mapMutations} from "vuex";
+import { mapState, mapMutations } from "vuex";
 import bus from "vue-happy-bus";
 import sheetInfo from "../config/sheetInfo/index.js";
 
@@ -107,12 +115,12 @@ export default {
   props: {
     data: Object,
     index: Number,
-    length: Number
+    length: Number,
   },
   data() {
     return {
       bus: bus(this),
-      sheetInfo
+      sheetInfo,
     };
   },
   computed: {
@@ -125,21 +133,25 @@ export default {
     },
     title() {
       switch (sheetInfo.sheetType) {
-        case "jointnew": {
-          return "护嘱单（关节外科）";
-        }
+        case "jointnew":
+          {
+            return "护嘱单（关节外科）";
+          }
           break;
-        case "gynecologynew": {
-          return "护嘱单（妇科）";
-        }
+        case "gynecologynew":
+          {
+            return "护嘱单（妇科）";
+          }
           break;
-        case "endocrinologynew": {
-          return "护嘱单（内分泌科）";
-        }
+        case "endocrinologynew":
+          {
+            return "护嘱单（内分泌科）";
+          }
           break;
-        case "neurology": {
-          return "护嘱单（神经内科）";
-        }
+        case "neurology":
+          {
+            return "护嘱单（神经内科）";
+          }
           break;
         default:
           return "护嘱单-";
@@ -160,22 +172,20 @@ export default {
         return false;
       }
     },
-    ...mapState(["sheet"])
+    ...mapState(["sheet"]),
   },
   methods: {
-    ...mapMutations(["upSheetPageIndex"])
+    ...mapMutations(["upSheetPageIndex"]),
   },
   filters: {
     toymd(val) {
       return new Date(val).Format("yyyy-MM-dd");
-    }
+    },
   },
-  created() {
-  },
-  destroyed() {
-  } /* fix vue-happy-bus bug */,
+  created() {},
+  destroyed() {} /* fix vue-happy-bus bug */,
   components: {
-    excel
-  }
+    excel,
+  },
 };
 </script>

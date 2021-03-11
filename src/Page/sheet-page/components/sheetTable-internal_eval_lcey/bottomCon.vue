@@ -7,7 +7,9 @@
           type="text"
           class="bottom-line"
           v-model="sheetInfo.relObj.yzyy"
+          :data-value="sheetInfo.relObj.yzyy"
         />
+        <!-- :disabled="disabled" -->
       </p>
       <p>
         血压异常处理：①观察做好宣教 ②遵医嘱应用药物③
@@ -15,6 +17,7 @@
           type="text"
           class="bottom-line"
           v-model="sheetInfo.relObj.yzyyyw"
+          :data-value="sheetInfo.relObj.yzyyyw"
         />
       </p>
       <p>睡眠状态：①安静休息②间断入眠③入睡困难 措施：①暗化病室②用药</p>
@@ -24,6 +27,7 @@
           type="text"
           class="bottom-line"
           v-model="sheetInfo.relObj.ysqt"
+          :data-value="sheetInfo.relObj.ysqt"
         />
       </p>
       <p>
@@ -32,6 +36,7 @@
           type="text"
           class="bottom-line"
           v-model="sheetInfo.relObj.syqt"
+          :data-value="sheetInfo.relObj.syqt"
         />
       </p>
       <p>
@@ -40,6 +45,7 @@
           type="text"
           class="bottom-line"
           v-model="sheetInfo.relObj.lcbx_tt"
+          :data-value="sheetInfo.relObj.lcbx_tt"
         />
       </p>
       <p>
@@ -48,10 +54,12 @@
           type="text"
           class="bottom-line"
           v-model="sheetInfo.relObj.nsycs"
+          :data-value="sheetInfo.relObj.nsycs"
         />色⒃<input
           type="text"
           class="bottom-line"
           v-model="sheetInfo.relObj.lcbx_qtzz"
+          :data-valuel="sheetInfo.relObj.lcbx_qtzz"
         />
       </p>
       <p>
@@ -59,6 +67,7 @@
           type="text"
           class="bottom-line"
           v-model="sheetInfo.relObj.lcbx_cs"
+          :data-value="sheetInfo.relObj.lcbx_cs"
         />效果：①未再出现上述症状②减轻③差
       </p>
       <p>VTE措施A:健康宣教 B:基础预防 C:物理预防 D:药物预防 E:放警示标示。</p>
@@ -72,10 +81,12 @@
           type="text"
           class="bottom-line"
           v-model="sheetInfo.relObj.zyyxxm_ggn"
+          :data-value="sheetInfo.relObj.zyyxxm_ggn"
         />⑩<input
           type="text"
           class="bottom-line"
           v-model="sheetInfo.relObj.zyyxxm_qt"
+          :data-value="sheetInfo.relObj.zyyxxm_qt"
         />
       </p>
       <p>
@@ -83,6 +94,7 @@
           type="text"
           class="bottom-line"
           v-model="sheetInfo.relObj.hy_cs"
+          :data-value="sheetInfo.relObj.hy_cs"
         />
       </p>
       <p>
@@ -91,6 +103,7 @@
           type="text"
           class="bottom-line"
           v-model="sheetInfo.relObj.xm_qt"
+          :data-value="sheetInfo.relObj.xm_qt"
         />
       </p>
       <p>措施：①检查/治疗前指导②检查/治疗后指导</p>
@@ -101,6 +114,7 @@
           type="text"
           class="bottom-line"
           v-model="sheetInfo.relObj.zhidao"
+          :data-value="sheetInfo.relObj.zhidao"
         />病区
       </p>
     </td>
@@ -122,45 +136,25 @@ export default {
 
 <style lang="stylus" scoped>
 .bottomTable{
-  >td{
+  text-align :left;
+  font-size:12px;
+  td{
     border: 1px solid #000 !important;
     text-align :left;
-    >p{
+    p{
       line-height :20px;
-      .bottom-line {
-        display: inline-block;
-        border: 0;
-        width: 70px;
-        border-bottom: 1px solid #000;
-        padding: 2px 0 2px 0px;
-        height: 12px;
-        position: relative;
-        outline: none;
-        text-align: center;
-      }
     }
   }
-}
-@media print{
-  .bottomTable{
-    >td{
-        border: 1px solid #000 !important;
-        text-align :left;
-        >p{
-          line-height :20px;
-          .bottom-line {
-            display: inline-block;
-            border: 0;
-            width: 70px;
-            border-bottom: 1px solid #000;
-            padding: 2px 0 2px 0px;
-            height: 12px;
-            position: relative;
-            outline: none;
-            text-align: center;
-          }
-        }
-      }
+  /deep/ .bottom-line {
+    display: inline-block;
+    border: 0;
+    width: 70px;
+    border-bottom: 1px solid #000;
+    padding: 2px 0 2px 0px;
+    height: 12px;
+    position: relative;
+    outline: none;
+    text-align: center;
   }
 }
 </style>

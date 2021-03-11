@@ -62,18 +62,21 @@
   th[dataname='护士签名'] {
     width: 90px !important;
   }
+  th[dataname='签名'] {
+    width: 60px !important;
+  }
 
   th[dataname='审核签名'] {
     display: none !important;
   }
 
-  th[dataname='记录人签名'] {
+  th[dataname='记录人签名']:first-child{
     width: 90px !important;
   }
 
 /* 打印时隐藏第二列签名表头---th */
-  th[dataname='上级护士签名'] {
-    display: none !important;
+  th[dataname='记录人签名']:last-child{
+    display :none;
   }
 
   .sign-img {

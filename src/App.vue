@@ -241,6 +241,9 @@ export default {
     },
     // 判断页面是否缩放
     isScale() {
+      if(localStorage.getItem('noShowScaleTip')){
+        return;
+      }
       this.showScaleMsg = true;
       this.scaleRate = detectZoom();
       if (this.scaleRate != 100 && !this.isDev) {

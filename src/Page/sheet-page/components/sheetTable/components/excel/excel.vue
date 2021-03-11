@@ -304,11 +304,19 @@
 
     <slot
       name="bottomCon"
-      v-if="sheetInfo.sheetType == 'neonatology_picc'"
+      v-if="
+        sheetInfo.sheetType == 'neonatology_picc' ||
+          sheetInfo.sheetType == 'internal_eval_lcey'
+      "
     ></slot>
     <!-- 表格下方的备注组件 -->
     <bottomRemark></bottomRemark>
-    <div><slot name="bottomCon" style></slot></div>
+    <div>
+      <slot
+        name="bottonInput"
+        v-if="sheetInfo.sheetType == 'surgical_eval2_lcey'"
+      ></slot>
+    </div>
     <div
       class="table-footer"
       v-if="sheetInfo.sheetType != 'intervention_cure_hd'"
@@ -826,6 +834,10 @@ export default {
         }
         return true;
       }
+      // 护理记录单特殊情况记录输入多行,签名后,其他项目不能在编辑
+      if(this.HOSPITAL_ID == "huadu" && tr.find(item => item.key == 'status').value === '1'){
+        return tr.find(item => item.key == 'status').value === '1'
+      }
       if (
         this.HOSPITAL_ID != "weixian" ||
         (td && td.key == "description") ||
@@ -1094,6 +1106,9 @@ export default {
       window.openContextMenu({ style, data });
     },
     openEditModal(tr, data, e) {
+      // 护理记录单特殊情况记录输入多行,签名后,其他项目不能在编辑
+      if(this.HOSPITAL_ID == "huadu" && tr.find(item => item.key == 'status').value === '1') return tr.find(item => item.key == 'status').value === '1';
+
       if (sheetInfo.model == "print") return;
       // 双击的input key
       let key =
@@ -1251,9 +1266,6 @@ export default {
           sheetInfo.auditorMap[`PageIndex_${this.index}_auditorNo`] = empNo;
           sheetInfo.auditorMap[`PageIndex_${this.index}_auditorName`] = empName;
           sheetInfo.auditorMap = { ...sheetInfo.auditorMap };
-          console.log("empNo", empNo);
-          console.log("empName", empName);
-          console.log({ ...sheetInfo.auditorMap });
           this.$notify.success({
             title: "提示",
             message: "审核成功",

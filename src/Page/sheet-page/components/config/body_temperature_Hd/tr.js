@@ -13,11 +13,11 @@ import {
 let 表底注释 = [];
 let 表顶注释 = [];
 export default [{
-  key: "recordMonth", //日期
-  value: "",
-  event: event_date,
-  click: click_date
-},
+    key: "recordMonth", //日期
+    value: "",
+    event: event_date,
+    click: click_date
+  },
   {
     key: "recordHour", //时间
     value: "",
@@ -134,7 +134,7 @@ export default [{
       data: 表底注释
     },
     splice: true,
-    style:'overflow: hidden',
+    style: 'overflow: hidden',
     textarea: {
       width: 36
     },
@@ -148,7 +148,7 @@ export default [{
       data: 表顶注释
     },
     splice: true,
-    style:'overflow: hidden',
+    style: 'overflow: hidden',
     textarea: {
       width: 36
     },
@@ -218,7 +218,7 @@ export default [{
   {
     key: "description", //特殊情况记录
     value: "",
-    hidden: "true",
+    hidden: true,
     style: {
       textAlign: "left",
       position: "absolute",
@@ -239,9 +239,14 @@ export default [{
     // oninput: next
   },
   {
-    key: "sign",
-    value: ""
+    key: "recorderNo",
+    value: "",
+    event: keyf1,
   },
+  // {
+  //   key: "sign",
+  //   value: ""
+  // },
   {
     hidden: true,
     key: "id",
@@ -283,12 +288,12 @@ export default [{
     value: ""
   },
   {
-    hidden: false,
+    hidden: true,
     key: "signerNo",
     value: ""
   },
   {
-    hidden: false,
+    hidden: true,
     key: "auditorNo",
     value: ""
   },
@@ -339,7 +344,7 @@ getListData4();
  * @param {*} data 数据源
  * @param {*} isChildOptions 当前选项是否有下拉子选项
  */
-function setList(list, key, data,) {
+function setList(list, key, data, ) {
   key = filterKey2Arr.includes(key) ? filterKey + filterKey2 + key : filterKey + key;
 
   list.splice(0, list.length);

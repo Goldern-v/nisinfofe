@@ -2,27 +2,25 @@ export default {
   // 科室的名称
   deptType: "",
   style: {
-    width: "1000px"
+    width: "1100px"
   },
   th: {
     top: [{
-      name: `
+        name: `
         日期
         `,
-      style: {
-        minWidth: "20px",
-        maxWidth: "20px"
+        style: {
+          minWidth: "70px",
+        },
+        colspan: "1",
+        rowspan: "3"
       },
-      colspan: "1",
-      rowspan: "3"
-    },
       {
         name: `
         时间
         `,
         style: {
-          minWidth: "20px",
-          maxWidth: "20px"
+          minWidth: "48px",
         },
         colspan: "1",
         rowspan: "3"
@@ -31,7 +29,9 @@ export default {
         name: `
         生命体征
         `,
-        style: {},
+        style: {
+          minWidth: "620px",
+        },
         colspan: "15",
         rowspan: "1",
       },
@@ -39,7 +39,9 @@ export default {
         name: `
         出入量
         `,
-        style: {},
+        style: {
+          minWidth: "143px",
+        },
         colspan: "4",
         rowspan: "1",
       },
@@ -49,7 +51,9 @@ export default {
         `,
         colspan: "4",
         rowspan: "1",
-        style: {}
+        style: {
+          minWidth: "164px",
+        }
       },
       // {
       //   name: `
@@ -64,21 +68,20 @@ export default {
       // },
       {
         name: `
-       签名
+       记录人
         `,
         colspan: "1",
         rowspan: "3",
         style: {
-          minWidth: "50px",
-          maxWidth: "50px"
+          minWidth: "52px",
         },
       }
     ],
     mid: [{
-      name: "体温",
-      colspan: "1",
-      rowspan: "2"
-    },
+        name: "体温",
+        colspan: "1",
+        rowspan: "2"
+      },
       {
         name: `
         脉搏
@@ -115,7 +118,9 @@ export default {
         name: `
         物理降温
         `,
-        style: {},
+        style: {
+          minWidth: "36px"
+        },
         colspan: "1",
         rowspan: "2",
       },
@@ -165,8 +170,7 @@ export default {
         colspan: "1",
         rowspan: "2",
         style: {
-          minWidth: "20px",
-          maxWidth: "20px"
+          minWidth: "36px"
         },
       }, {
         name: `
@@ -175,8 +179,7 @@ export default {
         colspan: "1",
         rowspan: "2",
         style: {
-          minWidth: "20px",
-          maxWidth: "20px"
+          minWidth: "36px"
         },
       }, {
         name: `
@@ -185,8 +188,7 @@ export default {
         colspan: "1",
         rowspan: "2",
         style: {
-          minWidth: "20px",
-          maxWidth: "20px"
+          minWidth: "36px"
         },
       }, {
         name: `
@@ -195,8 +197,7 @@ export default {
         colspan: "1",
         rowspan: "2",
         style: {
-          minWidth: "20px",
-          maxWidth: "20px"
+          minWidth: "36px"
         },
       }, {
         name: `
@@ -205,8 +206,7 @@ export default {
         colspan: "1",
         rowspan: "2",
         style: {
-          minWidth: "20px",
-          maxWidth: "20px"
+          minWidth: "36px"
         },
       },
       {
@@ -216,8 +216,7 @@ export default {
         colspan: "1",
         rowspan: "2",
         style: {
-          minWidth: "20px",
-          maxWidth: "20px"
+          minWidth: "36px"
         },
       },
       // {
@@ -238,8 +237,8 @@ export default {
         colspan: "1",
         rowspan: "2",
         style: {
-          minWidth: "20px",
-          maxWidth: "20px"
+          // minWidth: "20px",
+          // maxWidth: "20px"
         },
       }, {
         name: `
@@ -260,8 +259,8 @@ export default {
         colspan: "1",
         rowspan: "2",
         style: {
-          minWidth: "40px",
-          maxWidth: "40px"
+          // minWidth: "40px",
+          // maxWidth: "40px"
         },
       },
       {
