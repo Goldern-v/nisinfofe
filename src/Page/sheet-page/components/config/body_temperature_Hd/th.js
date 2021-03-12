@@ -2,7 +2,7 @@ export default {
   // 科室的名称
   deptType: "",
   style: {
-    width: "1100px"
+    width: "1062px"
   },
   th: {
     top: [{
@@ -10,7 +10,7 @@ export default {
         日期
         `,
         style: {
-          minWidth: "70px",
+          minWidth: "40px",
         },
         colspan: "1",
         rowspan: "3"
@@ -20,7 +20,7 @@ export default {
         时间
         `,
         style: {
-          minWidth: "48px",
+          minWidth: "40px",
         },
         colspan: "1",
         rowspan: "3"
@@ -80,7 +80,10 @@ export default {
     mid: [{
         name: "体温",
         colspan: "1",
-        rowspan: "2"
+        rowspan: "2",
+        style: {
+          minWidth: "36px",
+        },
       },
       {
         name: `
@@ -88,6 +91,9 @@ export default {
         `,
         colspan: "1",
         rowspan: "2",
+        style: {
+          minWidth: "36px",
+        },
       }, {
         name: `
         呼吸
@@ -95,6 +101,9 @@ export default {
         style: {},
         colspan: "1",
         rowspan: "2",
+        style: {
+          minWidth: "36px",
+        },
       }, {
         name: `
         血压
@@ -110,16 +119,18 @@ export default {
         name: `
         心率
         `,
-        style: {},
+        style: {
+          minWidth: "44px",
+        },
         colspan: "1",
         rowspan: "2",
       },
       {
         name: `
-        物理降温
+        物理<br/>降温
         `,
         style: {
-          minWidth: "36px"
+          minWidth: "44px"
         },
         colspan: "1",
         rowspan: "2",
@@ -129,8 +140,7 @@ export default {
         体重
         `,
         style: {
-          minWidth: "20px",
-          maxWidth: "20px"
+          minWidth: "45px",
         },
         colspan: "1",
         rowspan: "2"
@@ -139,6 +149,9 @@ export default {
         name: `
         肛温
         `,
+        style: {
+          minWidth: "45px",
+        },
         colspan: "1",
         rowspan: "2"
       },
@@ -146,6 +159,9 @@ export default {
         name: `
         口温
         `,
+        style: {
+          minWidth: "45px",
+        },
         colspan: "1",
         rowspan: "2"
       },
@@ -165,7 +181,7 @@ export default {
       // },
       {
         name: `
-        发热体温
+        发热<br/>体温
         `,
         colspan: "1",
         rowspan: "2",
@@ -174,7 +190,7 @@ export default {
         },
       }, {
         name: `
-        线上降温
+        线上<br/>降温
         `,
         colspan: "1",
         rowspan: "2",
@@ -192,7 +208,7 @@ export default {
         },
       }, {
         name: `
-        护理事件
+        护理<br/>事件
         `,
         colspan: "1",
         rowspan: "2",
@@ -201,7 +217,7 @@ export default {
         },
       }, {
         name: `
-        表底注释
+        表底<br/>注释
         `,
         colspan: "1",
         rowspan: "2",
@@ -211,7 +227,7 @@ export default {
       },
       {
         name: `
-        表顶注释
+        表顶<br/>注释
         `,
         colspan: "1",
         rowspan: "2",
@@ -232,7 +248,7 @@ export default {
       // },
       {
         name: `
-        大便次数
+        大便<br/>次数
         `,
         colspan: "1",
         rowspan: "2",
@@ -270,8 +286,8 @@ export default {
         canSet: true,
         key: "fieldFour",
         style: {
-          minWidth: "40px",
-          maxWidth: "40px"
+          minWidth: "36px",
+          maxWidth: "36px"
         }
       },
       {
@@ -281,8 +297,8 @@ export default {
         canSet: true,
         key: "fieldFive",
         style: {
-          minWidth: "40px",
-          maxWidth: "40px"
+          minWidth: "36px",
+          maxWidth: "36px"
         }
       },
       {
@@ -292,8 +308,8 @@ export default {
         canSet: true,
         key: "fieldSix",
         style: {
-          minWidth: "40px",
-          maxWidth: "40px"
+          minWidth: "36px",
+          maxWidth: "36px"
         }
       },
       {
@@ -303,8 +319,8 @@ export default {
         canSet: true,
         key: "fieldSeven",
         style: {
-          minWidth: "40px",
-          maxWidth: "40px"
+          minWidth: "36px",
+          maxWidth: "36px"
         }
       }
     ],

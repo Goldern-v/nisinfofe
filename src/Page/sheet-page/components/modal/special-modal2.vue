@@ -82,6 +82,41 @@
                       td: item
                     }"
                     maxlength="10"
+                    style="width:140px"
+                    v-else-if="
+                      sheetInfo.sheetType === 'common_hd' &&
+                        (key === 'food' || key === 'discharge')
+                    "
+                  />
+                  <input
+                    type="text"
+                    :readonly="isRead"
+                    v-model="fixedList[key].value"
+                    v-autoComplete="{
+                      dataList: dictionary[item.key],
+                      obj: fixedList,
+                      key: key,
+                      tr,
+                      td: item
+                    }"
+                    maxlength="16"
+                    style="width:220px"
+                    v-else-if="
+                      sheetInfo.sheetType === 'common_hd' &&
+                        key === 'healthEducation'
+                    "
+                  />
+                  <input
+                    type="text"
+                    :readonly="isRead"
+                    v-model="fixedList[key].value"
+                    v-autoComplete="{
+                      dataList: dictionary[item.key],
+                      obj: fixedList,
+                      key: key,
+                      tr,
+                      td: item
+                    }"
                     :style="item.maxWidth && { width: item.maxWidth + 'px' }"
                     v-else
                   />
@@ -105,10 +140,22 @@
                 <div class="label">{{ item.name }}</div>
                 <input
                   type="text"
+                  v-if="sheetInfo.sheetType === 'common_hd'"
                   @keydown="f1Key($event, staticObj, item.key)"
                   v-model="staticObj[item.key]"
                   :readonly="check[index] || isRead"
-                  maxlength="22"
+                  maxlength="8"
+                  v-autoComplete="{
+                    dataList: dictionary[item.key],
+                    obj: staticObj,
+                    key: item.key
+                  }"
+                /><input
+                  type="text"
+                  v-else
+                  @keydown="f1Key($event, staticObj, item.key)"
+                  v-model="staticObj[item.key]"
+                  :readonly="check[index] || isRead"
                   v-autoComplete="{
                     dataList: dictionary[item.key],
                     obj: staticObj,

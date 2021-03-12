@@ -15,7 +15,7 @@ export default {
         colspan: "2",
         rowspan: "1",
         style: {
-          width: "40px"
+          minWidth: "82px"
         },
         canSet: true,
         key: "recordYear",
@@ -73,7 +73,7 @@ export default {
         意识
         `,
         style: {
-          width: "52px",
+          width: "53px",
           whiteSpace: "nowrap"
         },
         colspan: "1",
@@ -84,7 +84,7 @@ export default {
         SPO<sub>2</sub><br>(%)
         `,
         style: {
-          width: "30px"
+          width: "31px"
         },
         colspan: "1",
         rowspan: "3"
@@ -94,7 +94,7 @@ export default {
         入量
         `,
         style: {
-          minWidth: '95px',
+          minWidth: '96px',
         },
         colspan: "2",
         rowspan: "1"
@@ -104,7 +104,7 @@ export default {
         出量
         `,
         style: {
-          minWidth: '135px',
+          minWidth: '136px',
         },
         colspan: "3",
         rowspan: "1"
@@ -116,13 +116,13 @@ export default {
         colspan: "1",
         rowspan: "3",
         style: {
-          minWidth: '50px',
+          minWidth: '53px',
         },
       },
       {
         name: `标题1`,
         style: {
-          minWidth: '50px',
+          minWidth: '53px',
         },
         colspan: "1",
         rowspan: "3",
@@ -132,7 +132,7 @@ export default {
       {
         name: `标题2`,
         style: {
-          minWidth: '50px',
+          minWidth: '53px',
         },
         colspan: "1",
         rowspan: "3",
@@ -142,7 +142,7 @@ export default {
       {
         name: `标题3`,
         style: {
-          minWidth: '50px',
+          minWidth: '53px',
         },
         colspan: "1",
         rowspan: "3",
@@ -162,7 +162,7 @@ export default {
       {
         name: `标题5`,
         style: {
-          minWidth: '50px',
+          minWidth: '53px',
         },
         colspan: "1",
         rowspan: "3",
@@ -172,7 +172,7 @@ export default {
       {
         name: `标题6`,
         style: {
-          minWidth: '50px',
+          minWidth: '53px',
         },
         colspan: "1",
         rowspan: "3",

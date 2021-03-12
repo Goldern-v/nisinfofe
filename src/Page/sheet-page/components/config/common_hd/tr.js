@@ -114,8 +114,9 @@ export default [{
       width: 62,
     },
     style: {
+      maxWidth: '62px',
       textAlign: "left",
-    }
+    },
   },
   {
     key: "foodSize", //食物数量  入量（单位ml）
@@ -137,6 +138,7 @@ export default [{
       width: 62,
     },
     style: {
+      maxWidth: '62px',
       textAlign: "left",
     },
   },
@@ -166,7 +168,7 @@ export default [{
     change: calValueChange,
     name: "健康教育",
     textarea: {
-      width: 50,
+      width: 52,
     },
   },
   {
@@ -175,7 +177,7 @@ export default [{
     event: keyf1,
     change: calValueChange,
     textarea: {
-      width: 50
+      width: 52
     },
   },
   {
@@ -184,7 +186,7 @@ export default [{
     event: keyf1,
     change: calValueChange,
     textarea: {
-      width: 50
+      width: 52
     },
   },
   {
@@ -193,7 +195,7 @@ export default [{
     event: keyf1,
     change: calValueChange,
     textarea: {
-      width: 50
+      width: 52
     },
   },
   {
@@ -202,7 +204,7 @@ export default [{
     event: keyf1,
     change: calValueChange,
     textarea: {
-      width: 50
+      width: 52
     },
   },
   {
@@ -211,7 +213,7 @@ export default [{
     event: keyf1,
     change: calValueChange,
     textarea: {
-      width: 50
+      width: 52
     },
   },
   {
@@ -220,7 +222,7 @@ export default [{
     event: keyf1,
     change: calValueChange,
     textarea: {
-      width: 50
+      width: 52
     },
   }, {
     key: "description", //特殊情况记录
