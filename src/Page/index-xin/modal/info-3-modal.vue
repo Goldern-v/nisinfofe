@@ -16,8 +16,8 @@
         </div>
         <div class="list-con">
           <span class="key">批注内容：</span>
-          <span class="value">{{data.taskSource}}</span>
-        </div> 
+          <span class="value">{{data.content}}</span>
+        </div>
       </div>
       <div slot="button">
         <el-button class="modal-btn" @click="close">取消</el-button>
@@ -33,10 +33,10 @@
   .key
     color: #687179;
   .value
-    color: #333333;  
+    color: #333333;
 .icon-con
-  margin 0 38px 10px  
-  min-height 20px  
+  margin 0 38px 10px
+  min-height 20px
 .table-name
   background: #FF263C;
   border-radius: 2px;
@@ -46,9 +46,9 @@
   font-size: 12px;
   color: #FFFFFF;
   text-align: center
-  line-height 18px   
+  line-height 18px
 .modal-btn
-  overflow hidden   
+  overflow hidden
 </style>
 <script>
 import common from '@/common/mixin/common.mixin.js'
@@ -67,7 +67,7 @@ import qs from 'qs'
     methods: {
       open(data) {
         this.data = data
-        this.details = {} 
+        this.details = {}
         this.iconLoading = true
         info(data.patientId, data.visitId).then(res => {
           this.details = res.data.data
