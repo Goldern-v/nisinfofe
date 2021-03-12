@@ -116,6 +116,8 @@ const showPatientDetails = () =>
 const nursingDoc = () => import("@/Page/nursingDoc/nursingDoc.vue");
 const cognitiveStatistic = () =>
   import("@/Page/cognitive-statistic/cognitive-statistic.vue"); //住院病人认知情况统计表
+const implementationReport = () =>
+  import("@/Page/implementation-report/implementation-report.vue"); //执行单报表
 
 const demo = () => import("@/demo/demo"); //demo
 /** 包含全局样式的页面，患者详情子页面不可代码切割 */
@@ -643,6 +645,11 @@ const router = new Router({
           component: cognitiveStatistic,
           name: "住院病人认知情况统计表"
         },
+        {
+          path: "/implementationReport",
+          component: implementationReport,
+          name: "执行单报表"
+        }
       ]
     },
     {
