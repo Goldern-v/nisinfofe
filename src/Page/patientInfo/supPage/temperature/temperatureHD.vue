@@ -157,6 +157,9 @@ import moment from "moment";
 import bus from "vue-happy-bus";
 import singleTemperatureChart from "./singleTemperatureChart";
 export default {
+  props: {
+    admissionDate: String
+  },
   data() {
     return {
       bus: bus(this),
@@ -178,7 +181,9 @@ export default {
       );
     },
     getImg() {
-      let date = new Date(this.$route.query.admissionDate).Format("yyyy-MM-dd");
+      let date = this.$route.query.admissionDate
+        ? new Date(this.$route.query.admissionDate).Format("yyyy-MM-dd")
+        : this.admissionDate;
       let patientId = this.$route.query.patientId;
       let visitId = this.$route.query.visitId;
       /* 单独处理体温单，嵌套iframe */
@@ -258,14 +263,17 @@ export default {
       /* 关闭弹窗时清除弹窗 */
       this.visibled = false;
       if (this.isSave) {
-        setTimeout(this.getImg(), 1000);
+        setTimeout(() => {
+          this.currentPage = 1;
+          this.getImg();
+        }, 1000);
       }
     }
   },
   watch: {
-    date() {
-      this.getImg();
-    },
+    // date() {
+    //   this.getImg();
+    // },
     currentPage(value) {
       this.$refs.pdfCon.contentWindow.postMessage(
         { type: "currentPage", value },
@@ -278,6 +286,9 @@ export default {
       if (data === "noSaveSign" || data === true) {
         this.isSave = true;
       }
+    });
+    this.bus.$on("sheetToolLoaded", () => {
+      this.bus.$emit("getBlockList");
     });
   },
   created() {
