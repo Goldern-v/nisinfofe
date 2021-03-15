@@ -29,7 +29,13 @@ axios.interceptors.request.use((config) => {
 axios.interceptors.response.use((res) => {
     // if (typeof res.data === 'string') res.data = JSON.parse(res.data)
     var data = res.data
-    if (window.location.href.includes('nursingDoc')) {
+    if (window.location.href.includes('nursingDoc') || window.location.href.includes('showPatientDetails')) {
+        if(res.data.code == '301'){
+            localStorage.clear();
+            sessionStorage.clear();
+            Cookies.remove("NURSING_USER");
+            window.app.$router.go(-1);
+        }
         return res;
     }
     // 如果token没有通过
