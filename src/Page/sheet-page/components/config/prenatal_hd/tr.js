@@ -1,7 +1,17 @@
-import { listItem } from "../../../api/recordDesc";
-import { multiDictInfo } from "../../../api/index";
-import { keyf1 } from "../keyEvent/f1.js";
-import { event_date, event_time, click_date } from "../keyEvent/date";
+import {
+  listItem
+} from "../../../api/recordDesc";
+import {
+  multiDictInfo
+} from "../../../api/index";
+import {
+  keyf1
+} from "../keyEvent/f1.js";
+import {
+  event_date,
+  event_time,
+  click_date
+} from "../keyEvent/date";
 import info from "../sheetInfo";
 
 let tmList = [];
@@ -13,8 +23,7 @@ let ysxzList = [];
 let gjkzList = [];
 let gsqdList = [];
 
-export default [
-  {
+export default [{
     key: "recordMonth", //日期
     value: "",
     event: event_date,
