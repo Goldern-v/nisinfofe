@@ -270,10 +270,7 @@ export default {
     },
     /* 出入量统计弹框--花都区分 */
     openStaticModal() {
-      if (
-        process.env.HOSPITAL_ID != "huadu" &&
-        process.env.HOSPITAL_ID != "fuyou"
-      ) {
+      if (process.env.HOSPITAL_ID != "huadu") {
         this.bus.$emit("openHJModal");
       } else {
         this.bus.$emit("openHDModal");
