@@ -18,7 +18,8 @@ function patients(deptCode, config, HisName = process.env.HOSPITAL_NAME) {
     威县人民医院: `patListWithNewForm/${deptCode}`,
     东莞市厚街医院: `patList/${deptCode}`,
     德州市陵城区人民医院: `patListWithNewForm/${deptCode}`,
-    广州市花都区人民医院: `patListWithNewForm/${deptCode}`
+    广州市花都区人民医院: `patListWithNewForm/${deptCode}`,
+    江门市妇幼保健院: `patListWithNewForm/${deptCode}`
   };
   let url = hisList[HisName] || `patList/${deptCode}`
   if (config) {
@@ -37,7 +38,7 @@ function unfollow(bedLabel) {
   return axios.get(`${apiPath}bed/unfollowBed/${bedLabel}`)
 }
 // 取消关注(花都)
-function unfollowHd(deptCode,bedNo) {
+function unfollowHd(deptCode, bedNo) {
   return axios.get(`${apiPath}bed/unfollowBed/${deptCode}/${bedNo}`)
 }
 
