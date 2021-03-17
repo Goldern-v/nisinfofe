@@ -96,6 +96,7 @@
         :hasYachuang="hasYachuang"
         :MEWS="MEWS"
         :isFever="isFever"
+        :hasVteDanger="hasVteDanger"
       ></footerBar>
     </div>
   </div>
@@ -358,6 +359,10 @@ export default {
     // MEWS预警
     MEWS() {
       return this.bedList.filter(item => item.dangerInMews);
+    },
+    // VTE高风险
+    hasVteDanger() {
+      return this.bedList.filter(item => item.hasVteDanger);
     },
     // 发热
     isFever() {
@@ -719,6 +724,11 @@ export default {
             this.$parent.bedList = this.isFever;
           }
           break;
+        case "VTE高风险":
+          {
+            this.$parent.bedList = this.hasVteDanger;
+          }
+        break;
         default: {
           this.$parent.bedList = this.getLevelList(val);
         }

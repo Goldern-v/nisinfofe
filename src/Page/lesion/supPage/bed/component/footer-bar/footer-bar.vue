@@ -62,7 +62,8 @@ export default {
     hasYachuang: Array,
     isToadyHosipital: Array,
     MEWS: Array,
-    isFever: Array
+    isFever: Array,
+    hasVteDanger: Array
   },
   data() {
     return {};
@@ -112,6 +113,12 @@ export default {
         arr.push({
           key: "发热",
           length: this.isFever.length
+        });
+      }
+      if (this.HOSPITAL_ID == "liaocheng") {
+        arr.push({
+          key: "VTE高风险",
+          length: this.hasVteDanger.length
         });
       }
       return arr;
