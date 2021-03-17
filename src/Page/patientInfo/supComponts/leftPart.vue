@@ -311,7 +311,7 @@ export default {
     this.getArchiveStatus();
   },
   beforeDestroy() {
-    window.document.title = this.HOSPITAL_ID == 'guizhou' || this.HOSPITAL_ID == 'liaocheng' ? "智慧护理信息系统" : '宸瑞智慧护理信息系统';
+    window.document.title = this.HOSPITAL_ID == 'guizhou' || this.HOSPITAL_ID == 'liaocheng' ? "智慧护理信息系统" : '百辰源智慧护理信息系统';
   },
   components: {
     bedModal,

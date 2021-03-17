@@ -61,7 +61,7 @@ async function post(url,params) {
 // }
 
 function help(){
-  console.log('\n\n\n~~~欢迎使用-宸瑞护理系统-开发接口调试工具')
+  console.log('\n\n\n~~~欢迎使用-百辰源护理系统-开发接口调试工具')
   console.log('\n\n目前上线工具：')
   console.log('@ get(url,params) - get工具')
   console.log('@ post(url,params) - post工具')
@@ -141,7 +141,7 @@ export let getLastPackagedDate = (()=>{
           } catch (error) {
             //
           }
-          
+
         }
       }
     }
@@ -160,7 +160,7 @@ export let printStorage = (()=>{
       } catch (error) {
         //
       }
-      
+
     }
   }
 })

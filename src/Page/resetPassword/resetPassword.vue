@@ -33,7 +33,7 @@
             <div class="logo-con">
               <img src="../../common/images/logo.png" height="63" width="63" />
             </div>
-            <h1 class="name">{{HOSPITAL_ID == 'guizhou' || HOSPITAL_ID == 'liaocheng' ? '智慧护理信息系统': '宸瑞智慧护理信息系统'}}</h1>
+            <h1 class="name">{{HOSPITAL_ID == 'guizhou' || HOSPITAL_ID == 'liaocheng' ? '智慧护理信息系统': '百辰源智慧护理信息系统'}}</h1>
           </div>
           <el-form :rules="rules" ref="ruleFormRef" label-width="100px">
             <el-form-item label="账号">
@@ -66,13 +66,13 @@
       </div>
       <p class="footer-text">
         <span>
-          <a href="http://www.cr-health.com" target="_blank">{{COMPANY_NAME || '广州宸瑞软件科技有限公司'}}</a>
+          <a href="https://www.baichenyuan.cn" target="_blank">{{COMPANY_NAME || '百辰源(广州)科技有限公司'}}</a>
         </span>
         <span>
           版权所有 &copy; {{ new Date().getFullYear() }} All rights
           reseved.
         </span>
-        <span>{{ ABOUT_INFO || '关于宸瑞'}}</span>
+        <span>{{ ABOUT_INFO || '关于百辰源'}}</span>
         <span>|</span>
         <span>关于智慧护理</span>
         <span>|</span>
