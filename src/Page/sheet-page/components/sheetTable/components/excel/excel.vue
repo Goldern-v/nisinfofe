@@ -828,6 +828,14 @@ export default {
     },
     // 除第一行以外到结束行之内其他单元格不能录入内容（威县），出入量统计行除外
     isDisabed(tr, td) {
+      if (
+        this.HOSPITAL_ID == "huadu" &&
+        sheetInfo.sheetType === "body_temperature_Hd" &&
+        td &&
+        td.key === "empName"
+      ) {
+        return true;
+      }
       if (td && td.key == "recordYear") {
         if (!tr.find(item => item.key == "recordMonth").value) {
           td.value = "";
