@@ -239,14 +239,13 @@ export default [{
     // oninput: next
   },
   {
-    key: "recorderNo",
+    key: "empName",
     value: "",
-    event: keyf1,
   },
-  // {
-  //   key: "sign",
-  //   value: ""
-  // },
+  {
+    key: "sign",
+    value: ""
+  },
   {
     hidden: true,
     key: "id",
