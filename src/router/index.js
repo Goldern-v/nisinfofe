@@ -106,6 +106,8 @@ const implementationList = () =>
   import("@/Page/implementation-list/implementation-list.vue"); //执行单
 const implementationListLc = () =>
   import("@/Page/implementation-list-lc/implementation-list.vue"); //陵城执行单
+const implementationListLiaocheng = () =>
+  import("@/Page/implementation-list-lc/implementation-list-liaocheng.vue"); //聊城执行单
 const dcList = () => import("@/Page/dc-list/dc-list.vue"); //执行单
 const patientList = () => import("@/Page/patientList/index"); //执行单
 const nursingRounds = () => import("@/Page/nursing-rounds/nursing-rounds.vue"); //护理巡视
@@ -486,7 +488,7 @@ const router = new Router({
         {
           path: "/implementationList",
           component: process.env.HOSPITAL_ID == "lingcheng" ?
-            implementationListLc : implementationList,
+            implementationListLc : process.env.HOSPITAL_ID == "liaocheng" ? implementationListLiaocheng : implementationList,
           name: "执行单"
         },
         {
