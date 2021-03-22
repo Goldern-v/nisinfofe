@@ -83,12 +83,14 @@ axios.interceptors.response.use((res) => {
     } else {
         return res
     }
-}, () => {
-    window.app && window.app.$message({
-        showClose: true,
-        message: '网络错误，请检查你的网络',
-        type: 'warning'
-    })
+}, (err) => {
+    if(error && error.message == 'Network Error'){
+        window.app && window.app.$message({
+            showClose: true,
+            message: '网络错误，请检查你的网络',
+            type: 'warning'
+        })
+    }
     return Promise.reject()
 })
 
