@@ -2,7 +2,7 @@ export default {
   // 科室的名称
   deptType: "",
   style: {
-    width: "1062px"
+    width: "1114px"
   },
   th: {
     top: [{
@@ -69,6 +69,16 @@ export default {
       {
         name: `
        记录人
+        `,
+        colspan: "1",
+        rowspan: "3",
+        style: {
+          minWidth: "52px",
+        },
+      },
+      {
+        name: `
+       签名
         `,
         colspan: "1",
         rowspan: "3",
