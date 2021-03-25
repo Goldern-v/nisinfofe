@@ -243,22 +243,22 @@ export default {
       },
       {
         name: `
-        审核签名
+        护士签名
         `,
         style: {
-          minWidth: "50px",
-          maxWidth: "50px"
+          minWidth: "60px",
+          maxWidth: "60px"
         },
         colspan: "1",
         rowspan: "3"
       },
       {
         name: `
-        记录人签名
+        护士签名
         `,
         style: {
-          minWidth: "80px",
-          maxWidth: "80px"
+          minWidth: "60px",
+          maxWidth: "60px"
         },
         colspan: "1",
         rowspan: "3"

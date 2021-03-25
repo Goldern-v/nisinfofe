@@ -19,6 +19,7 @@ import info from "../sheetInfo";
 let ysList = [];
 let chuList = [];
 let ruList = [];
+let 持续 = ['无', '敏感', '不规则'];
 export default [{
     key: "recordMonth", //日期
     value: "",
@@ -59,7 +60,10 @@ export default [{
   {
     key: "fieldTwo", // 宫缩持续
     value: "",
-    event: keyf1
+    event: keyf1,
+    autoComplete: {
+      data: 持续
+    },
   },
   {
     key: "fieldThree", // 浓度
@@ -71,7 +75,7 @@ export default [{
     value: "",
     event: keyf1,
     textarea: {
-      width: 36
+      width: 46
     }
   },
   {
@@ -79,7 +83,7 @@ export default [{
     value: "",
     event: keyf1,
     textarea: {
-      width: 36
+      width: 46
     }
   },
   {
