@@ -13,11 +13,11 @@
               align="middle"
             >
               <img
-                src="../../common/images/logo-white-60.png"
+                src="../../common/images/logo_zhongshanqi.png"
                 height="63"
                 width="63"
               />
-              <span>百辰源智慧护理信息系统</span>
+              <span>{{HOSPITAL_NAME}}<br />智慧护理信息系统</span>
             </el-row>
             <!-- <router-link to="/index"
                          tag="span">
@@ -405,6 +405,7 @@
   span {
     margin-left: 6px;
     font-size: 14px;
+    line-height: 22px;
     color: #EFF2F9;
     letter-spacing: 0;
   }
