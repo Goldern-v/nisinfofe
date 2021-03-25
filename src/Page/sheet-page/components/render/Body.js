@@ -422,6 +422,11 @@ function switechSheetType(type) {
     schema = require("../config/critical_lcey/tr").default;
   }
   break;
+  case "common_zsqy": {
+    // 中山七院-护理记录单
+    schema = require("../config/common_zsqy/tr.js").default;
+  }
+  break;
   default: {
     schema = require("../config/default/tr.js").default;
   }
