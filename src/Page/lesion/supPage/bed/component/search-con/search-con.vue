@@ -395,7 +395,7 @@ export default {
       return this.bedList.filter(item => item.totalCosts > item.prepayments);
     },
     list() {
-      return [
+      let list = [
         {
           name: "全部床位",
           num: this.allBed.length,
@@ -509,6 +509,14 @@ export default {
           type: "state"
         }
       ];
+      if(this.HOSPITAL_ID == 'zhongshanqi'){
+        list.splice(3,0,{
+          name: "我的关注",
+          num: this.heart.length,
+          type: "heart"
+        })
+      }
+      return list;
     }
   },
   methods: {
