@@ -1,4 +1,4 @@
-import { host } from '@/api/apiConfig'
+import {host} from '@/api/apiConfig'
 import commonData from '@/api/commonData' //入院HIS数据等
 import {
   evalDetail
@@ -17,6 +17,7 @@ import qs from 'qs'
 import $ from 'jquery'
 import moment from 'moment'
 import bus from 'vue-happy-bus'
+
 // 护理系统表单api
 function getQueryString(name) {
   var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i')
@@ -43,7 +44,9 @@ function getFormCode(wid) {
 
 export function initNooForm(wid, pdata = window.app.$route.query) {
   // let $ = wid.jQuery
-  if (!wid || !wid.formInfo || !wid.formInfo.formCode) { return }
+  if (!wid || !wid.formInfo || !wid.formInfo.formCode) {
+    return
+  }
   var formCode = wid.formInfo.formCode;
 
   //  console.log("!!!!initNooForm",wid,pdata,formCode)
@@ -73,9 +76,6 @@ export function initNooForm(wid, pdata = window.app.$route.query) {
 }// initList()
 
 
-
-
-
 // 打开各类评估表
 function openAssessmentsBox(buttonItem, formCode, callback, wid) {
 
@@ -84,6 +84,7 @@ function openAssessmentsBox(buttonItem, formCode, callback, wid) {
   //  let formName = buttonItem.val();
   //  formName = formName.replace('启用', '')
   buttonItem.click(e => {
+    console.log("formCode111111111", formCode);
     console.log("打开各类评估表", buttonItem, e);
     let token = window.app
       .$getCookie("NURSING_USER")
@@ -160,7 +161,8 @@ function openAssessmentsBox(buttonItem, formCode, callback, wid) {
         wardCode: query.wardCode,
         wardName: query.wardName,
         admissionDate: query.admissionDate,
-        token: tokens
+        token: tokens,
+        relationFormModal: true,
       };
 
       let pageUrlMap = {
@@ -171,7 +173,8 @@ function openAssessmentsBox(buttonItem, formCode, callback, wid) {
         "form_pressure_risk": "Braden压疮风险护理单.html",
         "form_fall": "跌倒护理单.html",
         "form_swallowing": "吞咽护理单.html",
-        "form_swallowing_eat": "吞咽进食护理单.html"
+        "form_swallowing_eat": "吞咽进食护理单.html",
+        "E0103": "吞咽进食护理单(2020.07修).html"
       }
 
       let pageUrl = pageUrlMap[formCode]; //"VTE风险评估量表(手术科室).html";
@@ -207,7 +210,21 @@ function openAssessmentsBox(buttonItem, formCode, callback, wid) {
           //
           let box = {
             title: "VTE风险评估单",
-            templates: [{ name: "VTE风险评估单(非手术科室)", formCode: "form_padua", formType: 'eval', nooForm: '2', id, pageUrl: "VTE风险评估量表(非手术科室).html" }, { name: "VTE风险评估单(手术科室)", formCode: 'form_caprini', formType: 'eval', nooForm: '2', id, pageUrl: "VTE风险评估量表(手术科室).html" }],
+            templates: [{
+              name: "VTE风险评估单(非手术科室)",
+              formCode: "form_padua",
+              formType: 'eval',
+              nooForm: '2',
+              id,
+              pageUrl: "VTE风险评估量表(非手术科室).html"
+            }, {
+              name: "VTE风险评估单(手术科室)",
+              formCode: 'form_caprini',
+              formType: 'eval',
+              nooForm: '2',
+              id,
+              pageUrl: "VTE风险评估量表(手术科室).html"
+            }],
             callback: callback,
           };
 
@@ -251,11 +268,6 @@ function openAssessmentsBox(buttonItem, formCode, callback, wid) {
 } //
 
 
-
-
-
-
-
 export function openInsideBoxes(wid) {
 
   console.log("配置绑定启动按钮")
@@ -284,7 +296,8 @@ export function openInsideBoxes(wid) {
 
   // form_swallowing_eat
   // 启用新吞咽评估单 form_internal_first_tykn_option    form_swallowing
-  openAssessmentsBox(jQuery("[name$='swallowing_id']", wid.document), "form_swallowing_eat", callbackSwallowingEatAssessment, wid);
+  // openAssessmentsBox(jQuery("[name$='swallowing_id']", wid.document), "form_swallowing_eat", callbackSwallowingEatAssessment, wid);
+  openAssessmentsBox(jQuery("[name$='swallowing_id']", wid.document), "E0103", callbackSwallowingEatAssessment, wid);
 
   // 启用跌倒护理单 form_internal_first_ddfxpg_option  form_fall
   openAssessmentsBox(jQuery("[name$='fall_id']", wid.document), "form_fall", callbackFallAssessment, wid);
@@ -339,11 +352,10 @@ export function openInsideBoxes(wid) {
       // form_surgical_first_tt_option 有无
 
 
-
       // form_kiddept_first_ttpglbxz;
 
+    } catch (e) {
     }
-    catch (e) { }
 
     console.log('测试数据', data[formCode + '_eval_score'], data[formCode + '_bw'], data[formCode + '_ttpgb_option'], formCodeSource + '_ttpf')
     // console.log(assessmentData.formData.form_kiddept_first_ttpf, data.form_pain_assessment_eval_score,6666)
@@ -380,7 +392,11 @@ export function openInsideBoxes(wid) {
     jQuery("[name*='tt_option'][value*='无']", wid.document).prop("checked", "");
     // wid.jQuery(`[name$="_p2_ttxz"][value=${data['form_pain_assessment_xz_option']}]`).prop("checked", "checked")
     // wid.jQuery('[name$="_p2_ttxzqt"]').val(data['form_pain_assessment_xz_other'])
-    try { wid.saveForm() } catch (error) { console.log('saveForm:error', error) }
+    try {
+      wid.saveForm()
+    } catch (error) {
+      console.log('saveForm:error', error)
+    }
   }
 
   function callbackSelfcareAssessment(data, callbackData) {
@@ -431,7 +447,11 @@ export function openInsideBoxes(wid) {
       console.log("ERROR:callbackSelfcareAssessment", e);
     }
     console.log("callbackSelfcareAssessment", evalscore, data, callbackData);
-    try { wid.saveForm() } catch (error) { console.log('saveForm:error', error) }
+    try {
+      wid.saveForm()
+    } catch (error) {
+      console.log('saveForm:error', error)
+    }
   }
 
   // 压舱
@@ -505,18 +525,24 @@ export function openInsideBoxes(wid) {
 
     console.log("callbackPressureRiskAssessment", evalscore, data, callbackData, callbackData.data.id, wid.getRawData(), wid.getFormData());
 
-    try { wid.saveForm() } catch (error) { console.log('saveForm:error', error) }
+    try {
+      wid.saveForm()
+    } catch (error) {
+      console.log('saveForm:error', error)
+    }
 
 
   }
 
   // VTE
   // function callbackVTEAssessment(res) {
-  function callbackVTEAssessment(fdata, callbackData=null) {
+  function callbackVTEAssessment(fdata, callbackData = null) {
     console.log("===VTE表返回数据：fdata", fdata);
-    if(!callbackData){return}
+    if (!callbackData) {
+      return
+    }
     let data = callbackData.data
-    console.log("===VTE表返回数据：callbackData",callbackData,data);
+    console.log("===VTE表返回数据：callbackData", callbackData, data);
     let evalscore = 0;
     let formCode = data.formCode;
     // 入院表formCode
@@ -583,7 +609,11 @@ export function openInsideBoxes(wid) {
     }
     // console.log("callbackVTEAssessment", res);
 
-    try { wid.saveForm() } catch (error) { console.log('saveForm:error', error) }
+    try {
+      wid.saveForm()
+    } catch (error) {
+      console.log('saveForm:error', error)
+    }
 
 
   }
@@ -642,7 +672,11 @@ form_internal_first_dvt_or_pte_score form_internal_first_dvt_or_pte_option
       console.log("ERROR:callbackDVTAssessment", e);
     }
     console.log("callbackDVTAssessment", evalscore, data, callbackData);
-    try { wid.saveForm() } catch (error) { console.log('saveForm:error', error) }
+    try {
+      wid.saveForm()
+    } catch (error) {
+      console.log('saveForm:error', error)
+    }
   }
 
   // 跌倒
@@ -706,7 +740,11 @@ form_internal_first_dvt_or_pte_score form_internal_first_dvt_or_pte_option
       console.log("ERROR:callbackFallAssessment", e);
     }
     console.log("callbackFallAssessment", evalscore, data, callbackData);
-    try { wid.saveForm() } catch (error) { console.log('saveForm:error', error) }
+    try {
+      wid.saveForm()
+    } catch (error) {
+      console.log('saveForm:error', error)
+    }
   }
 
   // 新吞咽评估单
@@ -716,6 +754,7 @@ form_internal_first_dvt_or_pte_score form_internal_first_dvt_or_pte_option
 
   // 吞咽评估单
   function callbackSwallowingAssessment(data, callbackData) {
+    callbackData.data = {...callbackData.itemData, ...callbackData.master, ...callbackData.formResult}
     // let evalscore = 0;
     // let age=0;
     // console.log("回填数据",data);
@@ -753,34 +792,35 @@ form_internal_first_dvt_or_pte_score form_internal_first_dvt_or_pte_option
     //  wid.setFormData(formCodeSource + "_swallowing_id", callbackData.data.id, "object");
     wid.setFormData(formCodeSource + "_form_ids_callback", formCode + ':' + callbackData.data.id, "object", true);
 
+    return false
     // SWALLOW_WATER_RESULT   form_internal_first_tykn_ts_option
     // SWALLOW_PASTE_RESULT   form_internal_first_tykn_th_option
     // form_internal_first_tykn_option  data[formCode+'_eval_score']
     let has = false;
     jQuery("[name$='tykn_ts_option']", wid.document).prop("checked", "");
     jQuery("[name$='tykn_th_option']", wid.document).prop("checked", "");
-    if (data[formCode+"_swallow_water_result"].indexOf("+") > -1) {
+    if (data[formCode + "_swallow_water_result"].indexOf("+") > -1) {
       jQuery("[name$='tykn_ts_option'][value*='阳性']", wid.document).prop("checked", "checked");
       has = true;
       //
       wid.setFormData(formCodeSource + "_tssy_option", "阳性", 'object');
       wid.setFormData(formCodeSource + "_tykn_ts_option", "阳性", 'object');
     }
-    if (data[formCode+"_swallow_water_result"].indexOf("-") > -1) {
+    if (data[formCode + "_swallow_water_result"].indexOf("-") > -1) {
       jQuery("[name$='tykn_ts_option'][value*='阴性']", wid.document).prop("checked", "checked");
       // has = false;
       //
       wid.setFormData(formCodeSource + "_tssy_option", "阴性", "object");
       wid.setFormData(formCodeSource + "_tykn_ts_option", "阴性", "object");
     }
-    if (data[formCode+"_swallow_paste_result"].indexOf("+") > -1) {
+    if (data[formCode + "_swallow_paste_result"].indexOf("+") > -1) {
       jQuery("[name$='tykn_th_option'][value*='阳性']", wid.document).prop("checked", "checked");
       has = true;
       //
       wid.setFormData(formCodeSource + "_thsy_option", "阳性", "object");
       wid.setFormData(formCodeSource + "_tykn_th_option", "阳性", "object");
     }
-    if (data[formCode+"_swallow_paste_result"].indexOf("-") > -1) {
+    if (data[formCode + "_swallow_paste_result"].indexOf("-") > -1) {
       jQuery("[name$='tykn_th_option'][value*='阴性']", wid.document).prop("checked", "checked");
       // has = false;
       //
@@ -802,7 +842,11 @@ form_internal_first_dvt_or_pte_score form_internal_first_dvt_or_pte_option
       //
       wid.setFormData(formCodeSource + "_tykn_option", "无", "object");
     }
-    try { wid.saveForm() } catch (error) { console.log('saveForm:error', error) }
+    try {
+      wid.saveForm()
+    } catch (error) {
+      console.log('saveForm:error', error)
+    }
   }
 
 }
