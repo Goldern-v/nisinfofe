@@ -22,6 +22,7 @@ let gjgList = [];
 let ysxzList = [];
 let gjkzList = [];
 let gsqdList = [];
+let 意识 = ['清醒', '浅昏迷', '深昏迷', '模糊', '嗜睡', '昏睡', '谵妄'];
 
 export default [{
     key: "recordMonth", //日期
@@ -73,6 +74,12 @@ export default [{
     value: "",
     event: keyf1,
     name: "意识",
+    autoComplete: {
+      data: 意识
+    },
+    textarea: {
+      width: 44
+    }
   },
   {
     key: "fieldOne", //血氧饱和度%
@@ -107,14 +114,17 @@ export default [{
     //   data: gsqdList
     // },
     textarea: {
-      width: 21
+      width: 30
     }
   },
   {
     key: "food", // 入量内容
     value: "",
     event: keyf1,
-    name: "入量内容"
+    name: "入量内容",
+    textarea: {
+      width: 126
+    }
   },
   {
     key: "foodSize", // 入量（单位ml）
@@ -128,6 +138,9 @@ export default [{
     value: "",
     event: keyf1,
     name: "出量内容",
+    textarea: {
+      width: 126
+    }
   },
   {
     key: "dischargeSize", //出量（单位ml）
@@ -148,7 +161,7 @@ export default [{
     event: keyf1,
     name: "健康宣教",
     textarea: {
-      width: 38
+      width: 60
     }
   },
   {
@@ -225,6 +238,10 @@ export default [{
     key: "sign",
     value: ""
   },
+  {
+    key: "sign2",
+    value: ""
+  },
   // {
   //   key: "audit",
   //   value: ""
@@ -237,6 +254,11 @@ export default [{
   {
     hidden: true,
     key: "signerName",
+    value: ""
+  },
+  {
+    hidden: true,
+    key: "signerName2",
     value: ""
   },
   {
@@ -272,6 +294,11 @@ export default [{
   {
     hidden: false,
     key: "signerNo",
+    value: ""
+  },
+  {
+    hidden: true,
+    key: "signerNo2",
     value: ""
   },
   {

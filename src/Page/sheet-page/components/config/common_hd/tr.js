@@ -252,7 +252,10 @@ export default [{
   },
   {
     key: "sign2",
-    value: ""
+    value: "",
+    style: {
+      maxWidth: '80px',
+    },
   },
   {
     hidden: true,
@@ -327,8 +330,8 @@ export default [{
   {
     hidden: true,
     key: "multiSign",
-    value: true
-  }
+    value: true,
+  },
 ];
 
 let filterKey = '花都' + ':';

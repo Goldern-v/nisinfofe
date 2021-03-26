@@ -115,23 +115,24 @@ export default {
       }
     ],
     mid: [{
-      name: '日期',
-      style: {
-        minWidth: '32px',
-        maxWidth: '32px',
+        name: '日期',
+        style: {
+          minWidth: '32px',
+          maxWidth: '32px',
+        },
+        colspan: '1',
+        rowspan: '2'
       },
-      colspan: '1',
-      rowspan: '2'
-    },
-    {
-      name: '时间',
-      style: {
-        minWidth: '32px',
-        maxWidth: '32px',
+      {
+        name: '时间',
+        style: {
+          minWidth: '32px',
+          maxWidth: '32px',
+        },
+        colspan: '1',
+        rowspan: '2'
       },
-      colspan: '1',
-      rowspan: '2'
-    },{
+      {
         name: `
         间歇(min)
         `,
