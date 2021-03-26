@@ -8,7 +8,7 @@
           <el-row class="left-part" type="flex">
             <el-row class="logo-con" type="flex" justify="center" align="middle">
               <img src="../../common/images/logo-white-60.png" height="63" width="63" />
-              <span>宸瑞智慧护理信息系统</span>
+              <span>百辰源智慧护理信息系统</span>
             </el-row>
             <!-- <router-link to="/index"
                          tag="span">
@@ -164,6 +164,11 @@
             <router-link to="/shiftWork" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-jiaobanzhi"></i> 交班志
+              </el-row>
+            </router-link>
+            <router-link to="/implementationReport" tag="span">
+              <el-row class="nav-item" type="flex" align="middle">
+                <i class="iconfont icon-jiaobanzhi"></i> 执行单报表
               </el-row>
             </router-link>
 

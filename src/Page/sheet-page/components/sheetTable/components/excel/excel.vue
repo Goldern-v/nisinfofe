@@ -607,7 +607,7 @@ export default {
                   pageIndex: this.index
                 })
               ],
-              multiSign: this.HOSPITAL_ID === "huadu" ? true : false,
+              // multiSign: this.HOSPITAL_ID === "huadu" ? true : false,
               signType: this.HOSPITAL_ID === "huadu" ? this.signType : ""
             };
             sign(
@@ -688,7 +688,7 @@ export default {
             id,
             empNo,
             password,
-            multiSign: this.HOSPITAL_ID === "huadu" ? true : false,
+            // multiSign: this.HOSPITAL_ID === "huadu" ? true : false,
             signType: this.HOSPITAL_ID === "huadu" ? this.signType : ""
           }).then(res => {
             this.bus.$emit("saveSheetPage", true);
@@ -828,6 +828,14 @@ export default {
     },
     // 除第一行以外到结束行之内其他单元格不能录入内容（威县），出入量统计行除外
     isDisabed(tr, td) {
+      if (
+        this.HOSPITAL_ID == "huadu" &&
+        sheetInfo.sheetType === "body_temperature_Hd" &&
+        td &&
+        td.key === "empName"
+      ) {
+        return true;
+      }
       if (td && td.key == "recordYear") {
         if (!tr.find(item => item.key == "recordMonth").value) {
           td.value = "";
@@ -835,8 +843,11 @@ export default {
         return true;
       }
       // 护理记录单特殊情况记录输入多行,签名后,其他项目不能在编辑
-      if(this.HOSPITAL_ID == "huadu" && tr.find(item => item.key == 'status').value === '1'){
-        return tr.find(item => item.key == 'status').value === '1'
+      if (
+        this.HOSPITAL_ID == "huadu" &&
+        tr.find(item => item.key == "status").value === "1"
+      ) {
+        return tr.find(item => item.key == "status").value === "1";
       }
       if (
         this.HOSPITAL_ID != "weixian" ||
@@ -1107,7 +1118,11 @@ export default {
     },
     openEditModal(tr, data, e) {
       // 护理记录单特殊情况记录输入多行,签名后,其他项目不能在编辑
-      if(this.HOSPITAL_ID == "huadu" && tr.find(item => item.key == 'status').value === '1') return tr.find(item => item.key == 'status').value === '1';
+      if (
+        this.HOSPITAL_ID == "huadu" &&
+        tr.find(item => item.key == "status").value === "1"
+      )
+        return tr.find(item => item.key == "status").value === "1";
 
       if (sheetInfo.model == "print") return;
       // 双击的input key

@@ -68,21 +68,25 @@
 
       <el-table-column prop="startNurse" label="执行人" min-width="80px" align="center"></el-table-column>
 
-      <el-table-column prop="realExecuteDateTime" label="实际执行时间" min-width="150px" align="center"></el-table-column>
+      <el-table-column prop="realExecuteDateTime" label="实际执行时间" min-width="150px" align="center">
+        <template slot-scope="scope">
+          <span>{{ scope.row.realExecuteDateTime | ymdhm2}}</span>
+        </template>
+      </el-table-column>
 
       <el-table-column prop="repeatIndicator" label="长/临" min-width="70px" align="center"></el-table-column>
 
       <!-- <el-table-column prop="startDateTime" label="开始输液时间" min-width="80px" align="center"></el-table-column> -->
 
-      <el-table-column prop="endDateTime" label="结束输液时间/结束输液护士" min-width="150px">
+      <el-table-column prop="endDateTime" label="结束输液时间/结束输液护士" min-width="170px">
         <template slot-scope="scope">
-          <span>{{ scope.row.endDateTime}} {{ scope.row.endNurse}}</span>
+          <span>{{ scope.row.endDateTime | ymdhm2}} {{ scope.row.endNurse}}</span>
         </template>
       </el-table-column>
 
       <el-table-column prop="stopDateTime" label="暂停输液时间/暂停输液护士/暂停输液原因" min-width="200px">
         <template slot-scope="scope">
-          <span>{{ scope.row.stopDateTime}} {{ scope.row.stopNurse}} {{ scope.row.stopReason}}</span>
+          <span>{{ scope.row.stopDateTime | ymdhm2}} {{ scope.row.stopNurse}} {{ scope.row.stopReason}}</span>
         </template>
       </el-table-column>
       <el-table-column label="操作" min-width="100px" align="center">
@@ -217,7 +221,7 @@ import { info } from "@/api/task";
 import commonMixin from "../../../../common/mixin/common.mixin";
 import qs from "qs";
 import moment from "moment";
-import { addRecord } from "../../api/index";
+import { addRecord,addRecordLiaoc } from "../../api/index";
 import editModal from "../common/edit-modal";
 import bus from "vue-happy-bus";
 export default {
@@ -236,6 +240,9 @@ export default {
   filters: {
     ymdhm(val) {
       return val ? moment(val).format("HH:mm") : "";
+    },
+    ymdhm2(val) {
+      return val ? moment(val).format("YYYY-MM-DD HH:mm:ss") : "";
     },
     handleStatus(val) {
       let allStatus = [
@@ -274,20 +281,29 @@ export default {
   methods: {
     // 补录
     backTracking(item) {
-      let data = {
-        LabelId: item.barCode,
-        EmpNo: this.empNo,
-        Type: "1",
-        tradeCode: "OrderExecute",
-      };
-      let obj = { strJson: JSON.stringify(data) };
-
       this.$confirm("是否补录?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "info",
       }).then(() => {
-        addRecord(obj).then((res) => {
+        let data,addRecordApi;
+        if(this.HOSPITAL_ID == 'ligncheng'){
+          data = { strJson: JSON.stringify({
+            LabelId: item.barCode,
+            EmpNo: this.empNo,
+            Type: "1",
+            tradeCode: "OrderExecute",
+          })};
+          addRecordApi = addRecord;
+        }else {
+          data = {
+            barcode: item.barCode,  //条码号
+            empNO: this.empNo,  //执行人
+            type: 1  //是否补执行(pda默认传0正常执行  1补执行pc端)
+          }
+          addRecordApi = addRecordLiaoc;
+        }
+        addRecordApi(data).then((res) => {
           this.$message.success("补录成功");
           this.bus.$emit("loadImplementationList");
         });

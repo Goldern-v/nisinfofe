@@ -213,7 +213,11 @@
       class="tempSweetModal"
       @close="closeModal"
     >
-      <temperature-HD v-if="visibled" class="sheet-con"></temperature-HD>
+      <temperature-HD
+        v-if="visibled"
+        :admissionDate="admissionDate"
+        class="sheet-con"
+      ></temperature-HD>
     </sweet-modal>
   </div>
 </template>
@@ -256,7 +260,8 @@ export default {
       sheetModel,
       sheetInfo,
       sheetBlockList: [],
-      visibled: false
+      visibled: false,
+      admissionDate: ""
     };
   },
   methods: {
@@ -265,10 +270,7 @@ export default {
     },
     /* 出入量统计弹框--花都区分 */
     openStaticModal() {
-      if (
-        process.env.HOSPITAL_ID != "huadu" &&
-        process.env.HOSPITAL_ID != "fuyou"
-      ) {
+      if (process.env.HOSPITAL_ID != "huadu") {
         this.bus.$emit("openHJModal");
       } else {
         this.bus.$emit("openHDModal");
@@ -277,6 +279,7 @@ export default {
     /* 打开体温曲线页面 */
     openChart() {
       this.visibled = true;
+      this.admissionDate = this.sheetInfo.selectBlock.admissionDate;
       this.$nextTick(() => {
         this.$refs.sheet.open();
       });
@@ -837,6 +840,7 @@ export default {
         this.sheetInfo.selectRow.splice(0, this.sheetInfo.selectRow.length);
       }
     });
+    this.bus.$emit("sheetToolLoaded");
   },
   watch: {
     pageArea() {

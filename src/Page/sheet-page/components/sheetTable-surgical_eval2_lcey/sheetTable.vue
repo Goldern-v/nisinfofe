@@ -1,7 +1,7 @@
 <template>
   <div>
     <div
-      class="contant sheetTable-internal_eval_lcey"
+      class="contant sheetTable-internal_eval2_lcey"
       :style="data.titleModel.style"
       :class="{ readOnly }"
     >
@@ -71,14 +71,14 @@
           :hasFiexHeader="true"
           :isInPatientDetails="isInPatientDetails"
         >
-          <!-- <bottomCon slot="bottonInput" :index="index" /> -->
+          <bottomCon slot="bottonInput" :index="index" />
         </excel>
       </div>
     </div>
   </div>
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
-.sheetTable-internal_eval_lcey {
+.sheetTable-internal_eval2_lcey {
   & {
     border-radius: 2px;
     // position: relative;
@@ -86,7 +86,7 @@
     box-shadow: 0px 5px 10px 0 rgba(0, 0, 0, 0.5);
     padding: 20px 20px;
     box-sizing: border-box;
-    width: 1100px; // 关键
+    width: 1320px !important; // 关键
     margin: 0 auto 20px;
     box-sizing: content-box;
     position: relative;

@@ -571,6 +571,21 @@ export default {
           remarkPrint: resData.remarkPrint
         };
         this.modalLoading = false;
+        if (
+          this.HOSPITAL_ID == 'liaocheng' &&
+          JSON.parse(localStorage.user) &&
+          JSON.parse(localStorage.user).post != "护长"
+        ) {
+          if (resData.isPrint == 1) {
+            this.$message({
+              type: "warning",
+              message: "该患者已打印床头卡",
+            });
+            return;
+          } else {
+            this.isOpen();
+          }
+        }
       });
       multiDictInfo(["床头卡饮食"]).then(res => {
         this.ysList = res.data.data.床头卡饮食.map(item => item.name);
@@ -603,6 +618,16 @@ export default {
     },
     open() {
       this.init();
+      if (
+        (this.HOSPITAL_ID == 'liaocheng' &&
+        JSON.parse(localStorage.user) &&
+        JSON.parse(localStorage.user).post == "护长") ||
+        this.HOSPITAL_ID != 'liaocheng'
+      ) {
+        this.isOpen();
+      }
+    },
+    isOpen() {
       this.$refs.modal.open();
       let qr_png_value = this.HOSPITAL_ID == 'liaocheng' ? this.query.patientId + '|' + this.query.visitId : this.query.patientId;
       var qr_png = qr.imageSync(qr_png_value, { type: "png" });

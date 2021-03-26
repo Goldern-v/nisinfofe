@@ -28,7 +28,7 @@
               <img src="../../common/images/logo-white-60.png" />
               <span>{{
                 HOSPITAL_ID == "hj"
-                  ? "宸瑞智慧护理信息系统"
+                  ? "百辰源智慧护理信息系统"
                   : "智慧护理信息系统"
               }}</span>
             </el-row>

@@ -98,6 +98,7 @@ export default {
         威县人民医院: "topPartWeiXian",
         东莞市厚街医院: "topPart",
         广州市花都区人民医院: "topPartHuaDu",
+        中山大学附属第七医院: "topPartLingCheng",
       };
       return hisList[HisName] || "topPart";
     },

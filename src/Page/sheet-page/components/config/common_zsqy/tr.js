@@ -13,7 +13,7 @@ import {
 } from "../keyEvent/date";
 let 入量名称 = [];
 let 出量名称 = [];
-let 意识 = ['清醒', '浅昏迷', '深昏迷', '模糊', '嗜睡', '昏睡', '谵妄'];
+let 神志 = ['清醒', '浅昏迷', '深昏迷', '模糊', '嗜睡', '昏睡', '谵妄'];
 export default [{
     key: "recordMonth", //日期
     value: "",
@@ -83,19 +83,7 @@ export default [{
     },
   },
   {
-    key: "consciousness", //意识
-    value: "",
-    event: keyf1,
-    name: "意识",
-    autoComplete: {
-      data: 意识
-    },
-    textarea: {
-      width: 48
-    },
-  },
-  {
-    key: "spo2", //SPO₂(%)
+    key: "spo2", //血氧饱和度%
     value: "",
     event: keyf1,
     name: "血氧饱和度",
@@ -105,17 +93,199 @@ export default [{
     },
   },
   {
-    key: "food", //食物, 入量
+    key: "fieldOne", //微量血糖测量mmol/L
     value: "",
     event: keyf1,
-    name: "入量名称",
-    change: calValueChange,
+    name: "微量血糖测量",
+    next: "mmol/L",
     textarea: {
-      width: 62,
+      width: 42
     },
-    style: {
-      maxWidth: '62px',
-      textAlign: "left",
+  },
+  {
+    key: "fieldTwo", //氧疗
+    value: "",
+    event: keyf1,
+    name: "氧疗",
+    textarea: {
+      width: 30
+    },
+  },
+  {
+    key: "consciousness", //神志
+    value: "",
+    event: keyf1,
+    name: "神志",
+    autoComplete: {
+      data: 神志
+    },
+    textarea: {
+      width: 30
+    },
+  },
+  {
+    key: "fieldThree", //胃纳
+    value: "",
+    event: keyf1,
+    name: "胃纳",
+    textarea: {
+      width: 30
+    },
+  },
+  {
+    key: "fieldFour", //恶心
+    value: "",
+    event: keyf1,
+    name: "恶心",
+    textarea: {
+      width: 20
+    },
+  },
+  {
+    key: "fieldFive", //呕吐
+    value: "",
+    event: keyf1,
+    name: "呕吐",
+    textarea: {
+      width: 20
+    },
+  },
+  {
+    key: "fieldSix", //腹胀
+    value: "",
+    event: keyf1,
+    name: "腹胀",
+    textarea: {
+      width: 20
+    },
+  },
+  {
+    key: "fieldSeven", //头晕
+    value: "",
+    event: keyf1,
+    name: "头晕",
+    textarea: {
+      width: 20
+    },
+  },
+  {
+    key: "fieldEight", //胸闷
+    value: "",
+    event: keyf1,
+    name: "胸闷",
+    textarea: {
+      width: 20
+    },
+  },
+  // 痰start
+  {
+    key: "fieldEleven", //痰吸/咳
+    value: "",
+    event: keyf1,
+    name: "痰吸/咳",
+    textarea: {
+      width: 20
+    },
+  },
+  {
+    key: "fieldTwelve", //痰色
+    value: "",
+    event: keyf1,
+    name: "痰色",
+    textarea: {
+      width: 20
+    },
+  },
+  {
+    key: "fieldThirteen", //痰量
+    value: "",
+    event: keyf1,
+    name: "痰量",
+    textarea: {
+      width: 20
+    },
+  },
+  {
+    key: "fieldFourteen", //痰质
+    value: "",
+    event: keyf1,
+    name: "痰质",
+    textarea: {
+      width: 20
+    },
+  },
+  // 痰end
+  {
+    key: "pupilSizeLeft", //瞳孔大小（mm）左
+    value: "",
+    event: keyf1,
+    name: "瞳孔大小（mm）左",
+    textarea: {
+      width: 20
+    },
+  },
+  {
+    key: "pupilReflexLeft", //瞳孔反射左
+    value: "",
+    event: keyf1,
+    name: "瞳孔反射左",
+    textarea: {
+      width: 20
+    },
+  },
+  {
+    key: "pupilSizeRight", //瞳孔大小（mm）右
+    value: "",
+    event: keyf1,
+    name: "瞳孔大小（mm）右",
+    textarea: {
+      width: 20
+    },
+  },
+  {
+    key: "pupilReflexRight", //瞳孔反射右
+    value: "",
+    event: keyf1,
+    name: "瞳孔反射右",
+    textarea: {
+      width: 20
+    },
+  },
+  
+  {
+    key: "limbsLeftUpper", //四肢肌力左侧上肢
+    value: "",
+    event: keyf1,
+    name: "四肢肌力左侧上肢",
+    textarea: {
+      width: 20
+    },
+  },
+  {
+    key: "limbsLeftLower", //四肢肌力左侧下肢
+    value: "",
+    event: keyf1,
+    name: "四肢肌力左侧下肢",
+    textarea: {
+      width: 20
+    },
+  },
+  {
+    key: "limbsRightUpper", //四肢肌力右侧上肢
+    value: "",
+    event: keyf1,
+    name: "四肢肌力右侧上肢",
+    textarea: {
+      width: 20
+    },
+  },
+  {
+    key: "limbsRightLower", //四肢肌力右侧下肢
+    value: "",
+    event: keyf1,
+    name: "四肢肌力右侧下肢",
+    textarea: {
+      width: 20
     },
   },
   {
@@ -129,20 +299,6 @@ export default [{
     },
   },
   {
-    key: "discharge", //排出物
-    value: "",
-    event: keyf1,
-    name: "出量名称",
-    change: calValueChange,
-    textarea: {
-      width: 62,
-    },
-    style: {
-      maxWidth: '62px',
-      textAlign: "left",
-    },
-  },
-  {
     key: "dischargeSize", //排出物数量（单位ml）
     value: "",
     event: keyf1,
@@ -153,78 +309,34 @@ export default [{
     },
   },
   {
-    key: "dischargeColor", //排出物颜色
+    key: "totalSize", //统计量
     value: "",
     event: keyf1,
-    name: "出量颜色",
+    name: "统计量",
+    next: "ml",
     textarea: {
       width: 40
     },
   },
   {
-    key: "healthEducation", //健康教育
+    key: "fieldNine", //管道记录
     value: "",
     event: keyf1,
-    change: calValueChange,
-    name: "健康教育",
+    name: "管道记录",
     textarea: {
-      width: 52,
+      width: 70
     },
   },
   {
-    key: "fieldOne", //标题1
+    key: "fieldTen", //补充
     value: "",
     event: keyf1,
     change: calValueChange,
     textarea: {
-      width: 52
+      width: 50
     },
   },
-  {
-    key: "fieldTwo", //标题2
-    value: "",
-    event: keyf1,
-    change: calValueChange,
-    textarea: {
-      width: 52
-    },
-  },
-  {
-    key: "fieldThree", //标题3
-    value: "",
-    event: keyf1,
-    change: calValueChange,
-    textarea: {
-      width: 52
-    },
-  },
-  {
-    key: "fieldFour", //标题4
-    value: "",
-    event: keyf1,
-    change: calValueChange,
-    textarea: {
-      width: 52
-    },
-  },
-  {
-    key: "fieldFive", //标题5
-    value: "",
-    event: keyf1,
-    change: calValueChange,
-    textarea: {
-      width: 52
-    },
-  },
-  {
-    key: "fieldSix", //标题6
-    value: "",
-    event: keyf1,
-    change: calValueChange,
-    textarea: {
-      width: 52
-    },
-  }, {
+ {
     key: "description", //特殊情况记录
     value: "",
     style: {
@@ -248,10 +360,6 @@ export default [{
   },
   {
     key: "sign",
-    value: ""
-  },
-  {
-    key: "sign2",
     value: ""
   },
   {

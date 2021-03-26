@@ -1,6 +1,6 @@
 /**
 
-宸瑞软件公司logo
+百辰源软件公司logo
 
 oooooooo8 oooooooooo   oooooooo8               o888o  o8
 o888     88  888    888 888           ooooooo  o888oo o888oo oooo  o  oooo ooooooo   oo oooooo    ooooooooo8
@@ -41,7 +41,7 @@ import common from '@/common/mixin/common.mixin.js'
             //        \  \ '_.   \_ __\ /__ _/   .-' /  /
             //    ====='-.____'.___ \_____/___.-'____.-'=====
             //                      '=---='
-             
+
             //  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
             //            佛祖加持    iii    帮你找BUG
 // `};
@@ -72,7 +72,7 @@ export function fill(data, wid, isUpdate=true) {
   var formCode = data.formCode;
   var evalDate = "";
 
-  
+
 
   var evalDateInput = $(`[name='${formCode}_eval_date']`, wid.document);
 
@@ -121,7 +121,7 @@ export function fill(data, wid, isUpdate=true) {
     // 入院时间 格式化
     // admissionDate
 
-    
+
 
 
     $(`[name='${formCode}_record_date']`,wid.document).val(moment(evalDate).format('YYYY-MM-DD'));
@@ -247,7 +247,7 @@ export function fill(data, wid, isUpdate=true) {
               // this.innerHTML = value
             }
             console.log('group',this.tagName,group,variable,value,this,iframeClassName)
-            
+
             return
           }
 
@@ -293,7 +293,7 @@ export function fill(data, wid, isUpdate=true) {
             try{
               // 回填多选框数据，解析 逗号分隔符 内容
               var arr = (value).split(splitMark);
-              
+
               if (variable.toUpperCase().indexOf("_ID") > -1) {
                 let id = parseInt(value);
                 // console.log("回填多选框数据", this.name, variable, this.value, value, id);
@@ -412,10 +412,10 @@ export function fill(data, wid, isUpdate=true) {
 
     let edKey = `${formCode}_eval_date`;
     evalDate = pdata[edKey.toUpperCase()];
-    
+
 
     let dvtDate = '2018-09-28 00:00'
-    
+
     // moment 评估时间 在 DVTData之前 true
     let isOld = moment(evalDate).isBefore(dvtDate)
 

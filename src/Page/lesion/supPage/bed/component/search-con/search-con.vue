@@ -96,6 +96,7 @@
         :hasYachuang="hasYachuang"
         :MEWS="MEWS"
         :isFever="isFever"
+        :hasVteDanger="hasVteDanger"
       ></footerBar>
     </div>
   </div>
@@ -359,6 +360,10 @@ export default {
     MEWS() {
       return this.bedList.filter(item => item.dangerInMews);
     },
+    // VTE高风险
+    hasVteDanger() {
+      return this.bedList.filter(item => item.hasVteDanger);
+    },
     // 发热
     isFever() {
       return this.bedList.filter(item => item.isFever == "1");
@@ -390,7 +395,7 @@ export default {
       return this.bedList.filter(item => item.totalCosts > item.prepayments);
     },
     list() {
-      return [
+      let list = [
         {
           name: "全部床位",
           num: this.allBed.length,
@@ -504,6 +509,14 @@ export default {
           type: "state"
         }
       ];
+      if(this.HOSPITAL_ID == 'zhongshanqi'){
+        list.splice(3,0,{
+          name: "我的关注",
+          num: this.heart.length,
+          type: "heart"
+        })
+      }
+      return list;
     }
   },
   methods: {
@@ -719,6 +732,11 @@ export default {
             this.$parent.bedList = this.isFever;
           }
           break;
+        case "VTE高风险":
+          {
+            this.$parent.bedList = this.hasVteDanger;
+          }
+        break;
         default: {
           this.$parent.bedList = this.getLevelList(val);
         }

@@ -106,6 +106,8 @@ const implementationList = () =>
   import("@/Page/implementation-list/implementation-list.vue"); //执行单
 const implementationListLc = () =>
   import("@/Page/implementation-list-lc/implementation-list.vue"); //陵城执行单
+const implementationListLiaocheng = () =>
+  import("@/Page/implementation-list-lc/implementation-list-liaocheng.vue"); //聊城执行单
 const dcList = () => import("@/Page/dc-list/dc-list.vue"); //执行单
 const patientList = () => import("@/Page/patientList/index"); //执行单
 const nursingRounds = () => import("@/Page/nursing-rounds/nursing-rounds.vue"); //护理巡视
@@ -116,6 +118,8 @@ const showPatientDetails = () =>
 const nursingDoc = () => import("@/Page/nursingDoc/nursingDoc.vue");
 const cognitiveStatistic = () =>
   import("@/Page/cognitive-statistic/cognitive-statistic.vue"); //住院病人认知情况统计表
+const implementationReport = () =>
+  import("@/Page/implementation-report/implementation-report.vue"); //执行单报表
 
 const demo = () => import("@/demo/demo"); //demo
 /** 包含全局样式的页面，患者详情子页面不可代码切割 */
@@ -484,7 +488,7 @@ const router = new Router({
         {
           path: "/implementationList",
           component: process.env.HOSPITAL_ID == "lingcheng" ?
-            implementationListLc : implementationList,
+            implementationListLc : process.env.HOSPITAL_ID == "liaocheng" ? implementationListLiaocheng : implementationList,
           name: "执行单"
         },
         {
@@ -643,6 +647,11 @@ const router = new Router({
           component: cognitiveStatistic,
           name: "住院病人认知情况统计表"
         },
+        {
+          path: "/implementationReport",
+          component: implementationReport,
+          name: "执行单报表"
+        }
       ]
     },
     {

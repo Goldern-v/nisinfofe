@@ -6,9 +6,18 @@
       <div class="header-con">
         <el-row type="flex" class="row-bg" justify="space-between">
           <el-row class="left-part" type="flex">
-            <el-row class="logo-con" type="flex" justify="center" align="middle">
-              <img src="../../common/images/logo-white-60.png" height="63" width="63" />
-              <span>百辰源智慧护理信息系统</span>
+            <el-row
+              class="logo-con"
+              type="flex"
+              justify="center"
+              align="middle"
+            >
+              <img
+                src="../../common/images/logo_zhongshanqi.png"
+                height="63"
+                width="63"
+              />
+              <span>{{HOSPITAL_NAME}}<br />智慧护理信息系统</span>
             </el-row>
             <!-- <router-link to="/index"
                          tag="span">
@@ -66,7 +75,10 @@
                 <i class="iconfont icon-hulijiludan"></i> 护理记录
               </el-row>
             </router-link>-->
-            <el-dropdown menu-align="start" :class="{'router-link-active': isActiveFormPage}">
+            <el-dropdown
+              menu-align="start"
+              :class="{ 'router-link-active': isActiveFormPage }"
+            >
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-hulijiludan"></i> 护理文书
               </el-row>
@@ -86,28 +98,18 @@
                     </el-row>
                   </router-link>
                 </el-dropdown-item>-->
-                <el-dropdown-item :class="{active: $route.path == '/formPage'}">
-                  <router-link to="/formPage" tag="span">
-                    <el-row class="menu-item" type="flex" align="middle">
-                      <i class="nursingAssessment"></i> 护理评估单
-                    </el-row>
-                  </router-link>
-                </el-dropdown-item>
-                <el-dropdown-item :class="{active: $route.path == '/sheetPage'}">
-                  <router-link to="/sheetPage" tag="span">
-                    <el-row class="menu-item" type="flex" align="middle">
-                      <i class="nursingAssessment"></i> 护理记录单
-                    </el-row>
-                  </router-link>
-                </el-dropdown-item>
-                <el-dropdown-item :class="{active: $route.path == '/sugarPage'}">
+                <el-dropdown-item
+                  :class="{ active: $route.path == '/sugarPage' }"
+                >
                   <router-link to="/sugarPage" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
                       <i class="bloodSugar"></i> 血糖
                     </el-row>
                   </router-link>
                 </el-dropdown-item>
-                <el-dropdown-item :class="{active: $route.path == '/healthEdu'}">
+                <el-dropdown-item
+                  :class="{ active: $route.path == '/healthEdu' }"
+                >
                   <router-link to="/healthEdu" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
                       <i class="healthEducation"></i>健康教育单
@@ -169,13 +171,25 @@
                 <i class="iconfont icon-huliwenshu"></i> 患者查询
               </el-row>
             </router-link>-->
+            <router-link to="/formPage" tag="span">
+              <el-row class="nav-item" type="flex" align="middle">
+                <i class="nursingAssessment"></i> 护理评估单
+              </el-row>
+            </router-link>
+            <router-link to="/sheetPage" tag="span">
+              <el-row class="nav-item" type="flex" align="middle">
+                <i class="nursingAssessment"></i> 护理记录单
+              </el-row>
+            </router-link>
             <router-link to="/shiftWork" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-jiaobanzhi"></i> 交班志
               </el-row>
             </router-link>
             <router-link to="/nursingRounds" tag="span">
-              <el-row class="nav-item" type="flex" align="middle">护理巡视</el-row>
+              <el-row class="nav-item" type="flex" align="middle"
+                >护理巡视</el-row
+              >
             </router-link>
 
             <router-link to="/implementationList" tag="span">
@@ -211,7 +225,10 @@
                 </el-dropdown-item>
             </el-dropdown-menu>-->
             <!-- </el-dropdown> -->
-            <el-dropdown menu-align="start" :class="{'router-link-active': isActivePage}">
+            <el-dropdown
+              menu-align="start"
+              :class="{ 'router-link-active': isActivePage }"
+            >
               <el-row class="nav-item" type="flex" align="middle">
                 <div class="before"></div>
                 <i class="iconfont icon-hulijiludan"></i>其他
@@ -222,14 +239,18 @@
                     <el-row class="menu-item" type="flex" align="middle">不良事件</el-row>
                   </router-link>
                 </el-dropdown-item>-->
-                <el-dropdown-item :class="{active: $route.path == '/nursingDocumentation'}">
+                <el-dropdown-item
+                  :class="{ active: $route.path == '/nursingDocumentation' }"
+                >
                   <router-link to="/nursingDocumentation" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
                       <i class="nursingDocumentation"></i>患者查询
                     </el-row>
                   </router-link>
                 </el-dropdown-item>
-                <el-dropdown-item :class="{active: $route.path == '/workloadSatistics'}">
+                <el-dropdown-item
+                  :class="{ active: $route.path == '/workloadSatistics' }"
+                >
                   <router-link to="/workloadSatistics" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
                       <i class="workloadSatistics"></i>工作量统计
@@ -286,7 +307,12 @@
 
           <el-row class="right-part" type="flex" align="middle">
             <span class="big-1250-con">
-              <el-popover ref="popover1" placement="bottom-end" width="320" trigger="click">
+              <el-popover
+                ref="popover1"
+                placement="bottom-end"
+                width="320"
+                trigger="click"
+              >
                 <userInfo @setPassword="setPassword" @quit="quit"></userInfo>
               </el-popover>
               <span>
@@ -307,7 +333,9 @@
                   ></el-option>
                 </el-select>
               </span>
-              <span class="option-item" v-popover:popover1>{{user.empName}}</span>
+              <span class="option-item" v-popover:popover1>{{
+                user.empName
+              }}</span>
             </span>
             <span class="small-1250-con">
               <el-dropdown @command="handleCommand">
@@ -318,13 +346,13 @@
                   <el-dropdown-item>
                     <div class="dropdown-item">
                       <i class="iconfont icon-yonghu"></i>
-                      {{user.empName}}
+                      {{ user.empName }}
                     </div>
                   </el-dropdown-item>
                   <el-dropdown-item>
                     <div class="dropdown-item" @click="$router.push('/inBox')">
                       <i class="iconfont icon-xiaoxi1"></i>
-                      消息({{Unread}})
+                      消息({{ Unread }})
                     </div>
                   </el-dropdown-item>
                   <el-dropdown-item command="quit">
@@ -377,6 +405,7 @@
   span {
     margin-left: 6px;
     font-size: 14px;
+    line-height: 22px;
     color: #EFF2F9;
     letter-spacing: 0;
   }
@@ -662,10 +691,10 @@ export default {
       if (this.$route.path == "/catheterPage") return true;
     },
     isActiveFormPage() {
-      if (this.$route.path == "/sheetPage") return true;
+      // if (this.$route.path == "/sheetPage") return true;
       if (this.$route.path == "/sheetHospitalAdmission") return true;
       if (this.$route.path == "/sheetHospitalEval") return true;
-      if (this.$route.path == "/formPage") return true;
+      // if (this.$route.path == "/formPage") return true;
       if (this.$route.path == "/sugarPage") return true;
       if (this.$route.path == "/oxygenPage") return true;
       if (this.$route.path == "/healthEdu") return true;

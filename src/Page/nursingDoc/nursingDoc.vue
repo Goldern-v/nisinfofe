@@ -69,13 +69,13 @@ export default {
       console.log(this.isDev);
       let account = "admin",
         password =
-          this.isDev || window.location.host == "120.25.105.45:9867"
-            ? "123456"
-            : "Ad123456+";
+          this.isDev || window.location.host == "192.168.1.54:9867"
+            ? "Ad123456+"
+            : "ad123456";
 
       if (this.HOSPITAL_ID == "hj") {
         password =
-          this.isDev || window.location.host == "120.25.105.45:9866"
+          this.isDev || window.location.host == "192.168.1.54:9866"
             ? "Ad123456+"
             : "Chenrui2019";
       }

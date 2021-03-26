@@ -13,7 +13,8 @@ import LingChengHeader from "@/components/HLheader/LingChengHeader"; // 威县�
 import HuaDuHeader from "@/components/HLheader/HuaDuHeader"; // 广州市花都区人民医院
 import WuJingHeader from "@/components/HLheader/WuJingHeader"; // 广州市花都区人民医院
 import FuYouHLheader from "@/components/HLheader/FuYouHLheader"; // 江门市妇幼保健院
-import LiaoChengHeader from "@/components/HLheader/LiaoChengHeader"; // 江门市妇幼保健院
+import LiaoChengHeader from "@/components/HLheader/LiaoChengHeader"; // 聊城市第二人民医院
+import ZhongShanQiHeader from "@/components/HLheader/ZhongShanQiHeader"; // 中山大学附属第七医院
 export default {
   data() {
     return {
@@ -31,7 +32,8 @@ export default {
         广州市花都区人民医院: "HuaDuHeader",
         武警广东省总队医院: "WuJingHeader",
         江门市妇幼保健院: "FuYouHLheader",
-        聊城市第二人民医院: "LiaoChengHeader"
+        聊城市第二人民医院: "LiaoChengHeader",
+        中山大学附属第七医院: "ZhongShanQiHeader"
       };
       return hisList[HisName] || "HLheader";
     }
@@ -43,7 +45,8 @@ export default {
     HuaDuHeader,
     WuJingHeader,
     FuYouHLheader,
-    LiaoChengHeader
+    LiaoChengHeader,
+    ZhongShanQiHeader
   }
 };
 </script>

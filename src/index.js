@@ -130,16 +130,16 @@ Vue.component("cr-date-picker", crDatePicker);
 // Vue.component('EcrmTableColumn', EcrmTableColumn)
 //添加iview-4.0.2表格组件
 import {
-  Table as IviewTable,
+  Table as IviewTable
   // Select as IviewSelect
-} from 'view-design';
-Vue.component('IviewTable', IviewTable);
+} from "view-design";
+Vue.component("IviewTable", IviewTable);
 // Vue.component('IviewSelect', IviewSelect);
-import './common/css/iview-table.css';
+import "./common/css/iview-table.css";
 // import './common/css/iview-select.css';
 //组件
-import VueContextMenu from 'vue-contextmenu'
-Vue.use(VueContextMenu)
+import VueContextMenu from "vue-contextmenu";
+Vue.use(VueContextMenu);
 /** 环境变量 */
 Vue.prototype.HOSPITAL_ID = process.env.HOSPITAL_ID;
 Vue.prototype.HOSPITAL_NAME = process.env.HOSPITAL_NAME;
@@ -155,12 +155,12 @@ global.system = {
   最近打包人员: versionInfo["最近打包人员"],
   proxyTable: versionInfo["proxyTable"] || "",
   关于: {
-    研发单位: process.env.COMPANY_NAME || "广州宸瑞软件科技有限公司",
+    研发单位: process.env.COMPANY_NAME || "百辰源(广州)科技有限公司",
     电话: "020-81192725  |  020-81192726",
     邮箱: "gzcr@cr-health.com",
     地址: "广州市海珠区江南大道中180号富力天域中心1301-1314室",
-    官网: "http://www.cr-health.com/",
-    投递简历: "http://www.cr-health.com/jobs"
+    官网: "https://www.baichenyuan.cn/",
+    投递简历: "https://www.baichenyuan.cn/jobs"
   },
   process: process,
   dev: devTools,
@@ -168,8 +168,6 @@ global.system = {
 };
 
 Vue.prototype.$system = global.system;
-
-
 
 window.app = new Vue({
   el: "#app",
@@ -197,7 +195,7 @@ Vue.prototype.$setCookie = function setCookie(name, value, expiredays = 30) {
 };
 Vue.prototype.$_ = _;
 
-Vue.prototype.$getCookie = function (Name) {
+Vue.prototype.$getCookie = function(Name) {
   var search = Name + "=";
   var returnvalue = "";
   if (document.cookie.length > 0) {
@@ -217,5 +215,3 @@ Vue.prototype.$getCookie = function (Name) {
 window.ajaxRequest = config => {
   return axios(config);
 };
-
-

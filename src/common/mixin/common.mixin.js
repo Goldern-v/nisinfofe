@@ -77,7 +77,8 @@ export default {
       } catch (error) {
         token = $params.token;
       }
-      return `App-Token-Nursing=51e827c9-d80e-40a1-a95a-1edc257596e7&Auth-Token-Nursing=${token}`;
+      let appToken = $params.appToken || '51e827c9-d80e-40a1-a95a-1edc257596e7'
+      return `App-Token-Nursing=${appToken}&Auth-Token-Nursing=${token}`;
     },
     authToken() {
       let token;
