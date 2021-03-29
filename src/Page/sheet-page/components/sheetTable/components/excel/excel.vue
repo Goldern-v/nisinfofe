@@ -229,6 +229,7 @@
               td.event($event, td);
               onKeyDown($event, { x, y, z: index, td });
             "
+            :maxlength="td.textarea.maxLength || 1000"
             @input="td.change && td.change($event, td)"
             @focus="
               td.autoComplete &&
@@ -438,6 +439,8 @@ export default {
         "prenatal_hd", // 花都_产前记录单
         "neonatology2_hd", // 花都_新生儿护理记录单
         "postpartum_hd", // 花都_产后记录单
+        "wait_delivery_hd", // 花都_候产记录单
+        "neonatology_hd", // 花都_新生儿科护理记录单
       ]
     };
   },
