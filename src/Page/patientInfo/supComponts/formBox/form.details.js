@@ -1,4 +1,4 @@
-import { host } from '@/api/apiConfig'
+import {host} from '@/api/apiConfig'
 import commonData from '@/api/commonData' //入院HIS数据等
 import {
   evalDetail
@@ -6,7 +6,7 @@ import {
   // formInputPrint
 } from "@/api/form_hj"
 
-import { formUrl, devFormUrl } from "@/common/pathConfig/index.js";
+import {formUrl, devFormUrl} from "@/common/pathConfig/index.js";
 
 
 import formFill from "./form.fill"
@@ -15,6 +15,7 @@ import qs from 'qs'
 import $ from 'jquery'
 import moment from 'moment'
 import bus from 'vue-happy-bus'
+
 // 护理系统表单api
 function getQueryString(name) {
   var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i')
@@ -101,8 +102,6 @@ export function initList(wid, pdata = window.app.$route.query) {
   }
 
 
-
-
   // 初始化 填入表单已知数据  姓名：性别： 年龄： 病区： 床号： 住院号/ID号
   // window.app.$route.query
 
@@ -138,9 +137,6 @@ export function initList(wid, pdata = window.app.$route.query) {
       });
     }
   }
-
-
-
 
 
   // // 初始化时 自动填写当前时间和日期
@@ -208,7 +204,6 @@ export function initList(wid, pdata = window.app.$route.query) {
   }
 
 
-
   // 表单补丁
   // 插入人体图鼠标事件到疼痛评估表
   if (formCode === "form_pain_assessment") {
@@ -221,7 +216,6 @@ export function initList(wid, pdata = window.app.$route.query) {
   } // form_pain_assessment
 
 
-
   // form_swallowing_swallow_water_result
   // form_swallowing_swallow_paste_result
   // 吐咽评估表 结果颜色
@@ -232,31 +226,31 @@ export function initList(wid, pdata = window.app.$route.query) {
       // waterResult.prop('disabled','true');
       // pasteResult.prop('disabled','true');
       if (waterResult.val().indexOf('+') > -1) {
-        waterResult.css({ 'color': 'red' });
+        waterResult.css({'color': 'red'});
       }
       if (waterResult.val().indexOf('-') > -1) {
-        waterResult.css({ 'color': 'black' });
+        waterResult.css({'color': 'black'});
       }
       if (pasteResult.val().indexOf('+') > -1) {
-        pasteResult.css({ 'color': 'red' });
+        pasteResult.css({'color': 'red'});
       }
       if (pasteResult.val().indexOf('-') > -1) {
-        pasteResult.css({ 'color': 'black' });
+        pasteResult.css({'color': 'black'});
       }
       waterResult.keyup(function (e) {
         console.log("waterResult", e);
         if (e.target.value.indexOf('+') > -1) {
-          waterResult.css({ 'color': 'red' });
+          waterResult.css({'color': 'red'});
         } else {
-          waterResult.css({ 'color': 'black' });
+          waterResult.css({'color': 'black'});
         }
       })
       pasteResult.keyup(function (e) {
         console.log("pasteResult", e);
         if (e.target.value.indexOf('+') > -1) {
-          pasteResult.css({ 'color': 'red' });
+          pasteResult.css({'color': 'red'});
         } else {
-          pasteResult.css({ 'color': 'black' });
+          pasteResult.css({'color': 'black'});
         }
       })
       console.log("吐咽评估表fill", waterResult, pasteResult);
@@ -265,7 +259,6 @@ export function initList(wid, pdata = window.app.$route.query) {
     }
 
   } // form_swallowing
-
 
 
   //wid.document.querySelector("input[name$='eval_score']")
@@ -300,7 +293,6 @@ export function initList(wid, pdata = window.app.$route.query) {
   wid.formApp = new FormApp()
 
 
-
   // form app
   function FormApp() {
     var _this = this
@@ -326,8 +318,7 @@ export function initList(wid, pdata = window.app.$route.query) {
       var viewName = jQuery("input[name='viewName']").val();
       if (viewName == 'zb') {
         _this.agAdmin(password)
-      }
-      else {
+      } else {
         _this.agCharge(password)
       }
     }
@@ -346,6 +337,7 @@ export function initList(wid, pdata = window.app.$route.query) {
       // _this.isZbView(password)
       // data: jQuery("#smartform").serialize()+ postData,
       // window.closeModalName()
+
       window.openPostForm()
 
       // console.log("patientId",window.app.$route.query.patientId,window.app.$route.query);
@@ -387,7 +379,7 @@ export function initList(wid, pdata = window.app.$route.query) {
       //   }
       // }
 
-      formTableData = { ...formTableData, ...mappingKeys, ...postData }
+      formTableData = {...formTableData, ...mappingKeys, ...postData}
 
       // formTableData['formCode']=formCode;
       // formTableData['patientId']=pdata['patientId'];
@@ -411,44 +403,52 @@ export function initList(wid, pdata = window.app.$route.query) {
 
       // return;
 
-      jQuery.ajax({
-        // type: "post",
-        // url: "/crNursing/api/form/save" + wid.location.search,
-        // data: postData,
-        method: 'post',
-        url: '/crNursing/api/form/save?',
-        data: qs.stringify(formTableData),// + '&' + qs.stringify(postData),
-        success: function (data) {
-          bus.$emit('refreshTree');
-          if (data.code == 200) {
-            console.log("-----success:", data);
-            // window.closePostForm();
-            if (password && data.data.reminder && data.data.reminder.indexOf('评') == -1) {
-              data.data.reminder = "签名成功"
-              password = ""
-            }
-            // 除了吞咽表 新建时都需要签名
-            // if(formCode && formCode.indexOf('form_swallowing')==-1 && !postData['id']){
-            //   // window.saveAndSign(data.data.reminder, data.data)
-            //   postData['id'] = data.data.id;
-            //   // wid.formApp.postForm(password, postData, successCallBack)
-            // } else{
-            //   window.successPostForm(data.data.reminder, data.data)
-            // }
-            window.successPostForm(data.data.reminder, data.data)
-            if (successCallBack) {
-              successCallBack(data);
-            }
-          }
-          else if (data.code == 300) {
-            window.errosPostForm(data.desc)
-          }
-          else {
-            //todo 1.提示优化  2.错误码提示
-            window.errosPostForm(data.desc)
-          }
+      if (['E0103'].includes(formTableData.formCode)) {
+        let target = document.querySelector(".iframe-form-con");
+        if (target && target.contentWindow.todoSave) {
+          target.contentWindow.todoSave(undefined, undefined, undefined, undefined, (data)=>{
+            window.successPostForm('签名成功', {...data.itemData, ...data.master, ...data.formResult})
+            successCallBack(data)
+          });
         }
-      });// jquery post
+      } else {
+        jQuery.ajax({
+          // type: "post",
+          // url: "/crNursing/api/form/save" + wid.location.search,
+          // data: postData,
+          method: 'post',
+          url: '/crNursing/api/form/save?',
+          data: qs.stringify(formTableData),// + '&' + qs.stringify(postData),
+          success: function (data) {
+            bus.$emit('refreshTree');
+            if (data.code == 200) {
+              console.log("-----success:", data);
+              // window.closePostForm();
+              if (password && data.data.reminder && data.data.reminder.indexOf('评') == -1) {
+                data.data.reminder = "签名成功"
+                password = ""
+              }
+              // 除了吞咽表 新建时都需要签名
+              // if(formCode && formCode.indexOf('form_swallowing')==-1 && !postData['id']){
+              //   // window.saveAndSign(data.data.reminder, data.data)
+              //   postData['id'] = data.data.id;
+              //   // wid.formApp.postForm(password, postData, successCallBack)
+              // } else{
+              //   window.successPostForm(data.data.reminder, data.data)
+              // }
+              window.successPostForm(data.data.reminder, data.data)
+              if (successCallBack) {
+                successCallBack(data);
+              }
+            } else if (data.code == 300) {
+              window.errosPostForm(data.desc)
+            } else {
+              //todo 1.提示优化  2.错误码提示
+              window.errosPostForm(data.desc)
+            }
+          }
+        });// jquery post
+      }
     } // postForm
 
     //设置责任护士的签名
@@ -464,8 +464,7 @@ export function initList(wid, pdata = window.app.$route.query) {
       var status = jQuery("input[name='status']").val();
       if (status == '1') {
         _this.agAdmin(password)
-      }
-      else {
+      } else {
         _this.agCharge(password)
       }
     }
@@ -474,10 +473,6 @@ export function initList(wid, pdata = window.app.$route.query) {
       wid.print();
     }
   } // FormApp
-
-
-
-
 
 
   //
@@ -642,9 +637,6 @@ export function initList(wid, pdata = window.app.$route.query) {
       }
     }
   }
-
-
-
 
 
   //  _____________________________
@@ -1011,6 +1003,7 @@ export function initList(wid, pdata = window.app.$route.query) {
         jQuery('[name$="_p7_tzbmi"]').val(result.toFixed(2));
       }
     }
+
     jQuery('[name$="_p7_tzsg"]').change(getBmi);
     jQuery('[name$="_p7_tztz"]').change(getBmi);
     jQuery('[name$="_p7_tzsb"]').change(getBmi);
@@ -1018,9 +1011,9 @@ export function initList(wid, pdata = window.app.$route.query) {
 
     // 过敏控制
     jQuery("[name$='_p3_gmon'][value='有']").click(() => {
-      jQuery('[name$="_p3_gmysw"]').css({ color: "red" });
-      jQuery('[name$="_p3_gmyyw"]').css({ color: "red" });
-      jQuery('[name$="_p3_gmyqt"]').css({ color: "red" });
+      jQuery('[name$="_p3_gmysw"]').css({color: "red"});
+      jQuery('[name$="_p3_gmyyw"]').css({color: "red"});
+      jQuery('[name$="_p3_gmyqt"]').css({color: "red"});
       jQuery('[name$="_p3_gmyon"]').attr("disabled", false);
       jQuery('[name$="_p3_gmyon"]:checked')
         .click()
@@ -1028,25 +1021,21 @@ export function initList(wid, pdata = window.app.$route.query) {
     });
     jQuery("[name$='_p3_gmon'][value='无']").click(() => {
       jQuery('[name$="_p3_gmysw"]')
-        .css({ color: "#666" })
+        .css({color: "#666"})
         .attr("disabled", true);
       jQuery('[name$="_p3_gmyyw"]')
-        .css({ color: "#666" })
+        .css({color: "#666"})
         .attr("disabled", true);
       jQuery('[name$="_p3_gmyqt"]')
-        .css({ color: "#666" })
+        .css({color: "#666"})
         .attr("disabled", true);
       jQuery('[name$="_p3_gmyon"]').attr("disabled", true);
     });
   }
 
 
-
-
-
   // 打开各类评估表
   function openAssessmentsBox(buttonItem, formCode, callback) {
-
 
 
     //  let formName = buttonItem.val();
@@ -1138,14 +1127,27 @@ export function initList(wid, pdata = window.app.$route.query) {
         url = `${formUrl}/${pageUrl}?${qs.stringify(queryObj)}`
 
 
-
-        if (wid.formInfo && (["1","2"].indexOf(wid.formInfo.nooForm)>-1)) {
+        if (wid.formInfo && (["1", "2"].indexOf(wid.formInfo.nooForm) > -1)) {
           // 新表单
           if (pageUrl) {
             //
             let box = {
               title: "VTE风险评估单",
-              templates: [{ name: "VTE风险评估单(非手术科室)", formCode: "form_padua", formType: 'eval', nooForm: '2', id, pageUrl: "VTE风险评估量表(非手术科室).html" }, { name: "VTE风险评估单(手术科室)", formCode: 'form_caprini', formType: 'eval', nooForm: '2', id, pageUrl: "VTE风险评估量表(手术科室).html" }],
+              templates: [{
+                name: "VTE风险评估单(非手术科室)",
+                formCode: "form_padua",
+                formType: 'eval',
+                nooForm: '2',
+                id,
+                pageUrl: "VTE风险评估量表(非手术科室).html"
+              }, {
+                name: "VTE风险评估单(手术科室)",
+                formCode: 'form_caprini',
+                formType: 'eval',
+                nooForm: '2',
+                id,
+                pageUrl: "VTE风险评估量表(手术科室).html"
+              }],
               callback: callback,
             };
 
@@ -1154,8 +1156,7 @@ export function initList(wid, pdata = window.app.$route.query) {
               bus.$emit("openNewFormBoxModal", box);
               // window.openNewFormBoxModal(box)
               return
-            }
-            else {
+            } else {
               bus.$emit("openNewFormBox", box);
               // bus.$emit("openNewFormBoxModal",box);
               // window.openNewFormBoxModal(box)
@@ -1212,7 +1213,6 @@ export function initList(wid, pdata = window.app.$route.query) {
   } //
 
 
-
   // let codes = [
   //   "form_selfcare",  //自理能力评估单
   //   "form_pain_assessment",  //疼 痛 护 理 单
@@ -1227,7 +1227,9 @@ export function initList(wid, pdata = window.app.$route.query) {
     let formCode = 'form_pain_assessment';
     let evalscore = 0;
     console.log("回填数据", data, callbackData);
-    if (data[formCode + '_eval_score'] === undefined) { return; }
+    if (data[formCode + '_eval_score'] === undefined) {
+      return;
+    }
     console.log("eval_score", data);
 
     jQuery("[name$='pain_id']", wid.document).val(callbackData.data.id)
@@ -1249,10 +1251,13 @@ export function initList(wid, pdata = window.app.$route.query) {
     //
 
     //
-    try { wid.saveForm() } catch (error) { console.log(error) }
+    try {
+      wid.saveForm()
+    } catch (error) {
+      console.log(error)
+    }
 
   }
-
 
 
   function callbackSelfcareAssessment(data, callbackData) { //form_selfcare
@@ -1261,7 +1266,9 @@ export function initList(wid, pdata = window.app.$route.query) {
     let evalscore = 0;
     let formCode = 'form_selfcare';
     try {
-      if (data[formCode + '_eval_score'] === undefined) { return; }
+      if (data[formCode + '_eval_score'] === undefined) {
+        return;
+      }
 
       jQuery("[name$='selfcare_id']", wid.document).val(callbackData.data.id);
 
@@ -1285,7 +1292,11 @@ export function initList(wid, pdata = window.app.$route.query) {
     }
     console.log("callbackSelfcareAssessment", evalscore, data, callbackData);
 
-    try { wid.saveForm() } catch (error) { console.log(error) }
+    try {
+      wid.saveForm()
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   // 压舱
@@ -1299,7 +1310,9 @@ export function initList(wid, pdata = window.app.$route.query) {
     let evalscore = 0;
     let formCode = 'form_pressure_risk';
     try {
-      if (data[formCode + '_eval_score'] === undefined) { return; }
+      if (data[formCode + '_eval_score'] === undefined) {
+        return;
+      }
 
       jQuery("[name$='pressure_id']", wid.document).val(callbackData.data.id);
 
@@ -1324,7 +1337,11 @@ export function initList(wid, pdata = window.app.$route.query) {
     }
     console.log("callbackPressureRiskAssessment", evalscore, data, callbackData);
 
-    try { wid.saveForm() } catch (error) { console.log(error) }
+    try {
+      wid.saveForm()
+    } catch (error) {
+      console.log(error)
+    }
   }
 
 
@@ -1391,13 +1408,16 @@ export function initList(wid, pdata = window.app.$route.query) {
       }
 
 
-
     } catch (e) {
       console.log("ERROR:callbackVTEAssessment", e);
     }
     console.log("callbackVTEAssessment", res);
 
-    try { wid.saveForm() } catch (error) { console.log(error) }
+    try {
+      wid.saveForm()
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   // DVT
@@ -1409,7 +1429,9 @@ export function initList(wid, pdata = window.app.$route.query) {
     let evalscore = 0;
     let formCode = 'form_dvt_pte';
     try {
-      if (data[formCode + '_eval_score'] === undefined) { return; }
+      if (data[formCode + '_eval_score'] === undefined) {
+        return;
+      }
 
       jQuery("[name$='dvt_id']", wid.document).val(callbackData.data.id);
 
@@ -1432,7 +1454,11 @@ export function initList(wid, pdata = window.app.$route.query) {
     }
     console.log("callbackDVTAssessment", evalscore, data, callbackData);
 
-    try { wid.saveForm() } catch (error) { console.log(error) }
+    try {
+      wid.saveForm()
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   // 跌倒
@@ -1443,7 +1469,9 @@ export function initList(wid, pdata = window.app.$route.query) {
     let age = 0;
     let formCode = 'form_fall';
     try {
-      if (data[formCode + '_eval_score'] === undefined) { return; }
+      if (data[formCode + '_eval_score'] === undefined) {
+        return;
+      }
 
       jQuery("[name$='fall_id']", wid.document).val(callbackData.data.id);
 
@@ -1475,7 +1503,11 @@ export function initList(wid, pdata = window.app.$route.query) {
     }
     console.log("callbackFallAssessment", evalscore, data, callbackData);
 
-    try { wid.saveForm() } catch (error) { console.log(error) }
+    try {
+      wid.saveForm()
+    } catch (error) {
+      console.log(error)
+    }
 
   }
 
@@ -1529,14 +1561,13 @@ export function initList(wid, pdata = window.app.$route.query) {
       jQuery("[name$='tykn_option'][value*='无']", wid.document).prop("checked", "checked");
     }
 
-    try { wid.saveForm() } catch (error) { console.log(error) }
+    try {
+      wid.saveForm()
+    } catch (error) {
+      console.log(error)
+    }
 
   }
-
-
-
-
-
 
 
 }// initList()

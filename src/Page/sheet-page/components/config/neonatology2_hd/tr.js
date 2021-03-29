@@ -1,12 +1,15 @@
 import { listItem } from "../../../api/recordDesc";
 import { multiDictInfo } from "../../../api/index";
 import { keyf1 } from "../keyEvent/f1.js";
-import { event_date, event_time, click_date } from "../keyEvent/date";
+import { event_date, event_time, click_date, click_check } from "../keyEvent/date";
 import info from "../sheetInfo";
 
-let 吸痰 = [];
-let 气垫 = [];
-let 雾化吸入 = [];
+let 哭声 = [];
+let 皮肤颜色 = [];
+let 吸吮力 = [];
+let 大便 = [];
+let 小便 = [];
+
 export default [
   {
     key: "recordMonth", //日期
@@ -24,21 +27,30 @@ export default [
     value: "",
     event: keyf1,
     name: "体温",
-    next: "℃"
+    next: "℃",
+    textarea: {
+      width: 30
+    },
   },
   {
     key: "breath", //呼吸
     value: "",
     event: keyf1,
     name: "呼吸",
-    next: "次/分"
+    next: "次/分",
+    textarea: {
+      width: 30
+    },
   },
   {
     key: "bodyWeight", //体重
     value: "",
     event: keyf1,
     name: "体重",
-    next: "kg"
+    next: "kg",
+    textarea: {
+      width: 30
+    },
   },
   {
     key: "fieldOne", //指尖血糖mmol/L
@@ -52,12 +64,24 @@ export default [
     value: "",
     event: keyf1,
     name: "哭声",
+    autoComplete: {
+      data: 哭声
+    },
+    textarea: {
+      width: 36
+    },
   },
   {
     key: "fieldThree", //皮肤颜色
     value: "",
     event: keyf1,
-    name: "皮肤颜色"
+    name: "皮肤颜色",
+    autoComplete: {
+      data: 皮肤颜色
+    },
+    textarea: {
+      width: 36
+    },
   },
   {
     key: "fieldFour", // 呕吐
@@ -69,34 +93,28 @@ export default [
     key: "fieldFive", //吸吮力
     value: "",
     event: keyf1,
-    name: "吸吮力"
+    name: "吸吮力",
+    autoComplete: {
+      data: 吸吮力
+    },
   },
   {
     key: "fieldSix", // 喂养自吮
     value: "",
     event: keyf1,
-    autoComplete: {
-      data: 雾化吸入
-    },
-    name: "雾化吸入"
+    click: click_check
   },
   {
     key: "fieldSeven", //喂养母乳
     value: "",
     event: keyf1,
-    autoComplete: {
-      data: 吸痰
-    },
-    name: "吸痰"
+    click: click_check
   },
   {
     key: "fieldEight", // 喂养人工
     value: "",
     event: keyf1,
-    autoComplete: {
-      data: 气垫
-    },
-    name: "气垫"
+    click: click_check
   },
   {
     key: "fieldNine", // 喂养奶量ml
@@ -109,34 +127,46 @@ export default [
     key: "fieldTen", // 脐部情况干洁
     value: "",
     event: keyf1,
-    name: "脐部情况干洁"
+    name: "脐部情况干洁",
+    click: click_check
   },
   {
     key: "fieldEleven", // 脐部情况渗血
     value: "",
     event: keyf1,
-    name: "脐部情况渗血"
+    name: "脐部情况渗血",
+    click: click_check
   },
   {
     key: "fieldTwelve", // 脐部情况渗液
     value: "",
     event: keyf1,
-    name: "脐部情况渗液"
+    name: "脐部情况渗液",
+    click: click_check
   },
   {
     key: "fieldThirteen", //大便
     value: "",
     event: keyf1,
     textarea: {
-      width: 68
+      width: 36
     },
     name: "大便",
+    autoComplete: {
+      data: 大便
+    },
   },
   {
     key: "fieldFourteen", //小便
     value: "",
     event: keyf1,
-    name: "小便"
+    name: "小便",
+    autoComplete: {
+      data: 小便
+    },
+    textarea: {
+      width: 36
+    },
   },
   {
     key: "fieldFifteen", //标题1
@@ -180,6 +210,10 @@ export default [
     key: "sign",
     value: ""
   },
+  {
+    key: "sign2",
+    value: ""
+  },
   // {
   //   key: "audit",
   //   value: ""
@@ -192,6 +226,11 @@ export default [
   {
     hidden: true,
     key: "signerName",
+    value: ""
+  },
+  {
+    hidden: true,
+    key: "signerName2",
     value: ""
   },
   {
@@ -230,6 +269,11 @@ export default [
     value: ""
   },
   {
+    hidden: true,
+    key: "signerNo2",
+    value: ""
+  },
+  {
     hidden: false,
     key: "auditorNo",
     value: ""
@@ -251,15 +295,16 @@ export default [
   }
 ];
 
-let filterKey = '威县' + ':';
-let filterKey2 = '脑外科重症监护单' + ':';
-let filterKey2Arr = [ "吸痰", "气垫", "雾化吸入"]
-
+let filterKey = '花都' + ':';
+let filterKey2 = '新生儿护理记录单' + ':';
+let filterKey2Arr = [ "哭声", "皮肤颜色", "吸吮力", "大便", "小便"]
 export function getListData4() {
   let list = [
-    "吸痰",
-    "气垫",
-    "雾化吸入"
+    "哭声",
+    "皮肤颜色",
+    "吸吮力",
+    "大便",
+    "小便"
   ];
 
   list = list.map(key => {
@@ -267,9 +312,11 @@ export function getListData4() {
   });
   multiDictInfo(list).then(res => {
     let data = res.data.data;
-    setList(吸痰, "吸痰", data);
-    setList(气垫, "气垫", data);
-    setList(雾化吸入, "雾化吸入", data);
+    setList(哭声, "哭声", data);
+    setList(皮肤颜色, "皮肤颜色", data);
+    setList(吸吮力, "吸吮力", data);
+    setList(大便, "大便", data);
+    setList(小便, "小便", data);
   });
 }
 

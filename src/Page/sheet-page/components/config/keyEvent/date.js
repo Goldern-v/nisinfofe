@@ -51,3 +51,9 @@ export function click_time(e, td) {
     td.value = moment().format("HH:mm");
   }
 }
+// 点击自动打勾“√”
+export function click_check(e, td) {
+  if (td.value == "") {
+    td.value = '√';
+  }
+}

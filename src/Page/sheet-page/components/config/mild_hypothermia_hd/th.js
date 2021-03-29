@@ -85,7 +85,11 @@ export default {
         是否达到目标温度<br/>（33.5-34℃）
         `,
         colspan: '2',
-        rowspan: '2'
+        rowspan: '2',
+        style: {
+          minWidth: '40px',
+          maxWidth: '40px',
+        },
       },
       {
         name: `
@@ -93,7 +97,7 @@ export default {
         `,
         style: {
         },
-        colspan: '7',
+        colspan: '6',
         rowspan: '1'
       },
       {
@@ -174,14 +178,16 @@ export default {
         colspan: '1',
         rowspan: '3',
         style: {
+          minWidth: '53px',
+          maxWidth: '53px',
         },
       },
       {
         name: `
         肢体活动
         `,
-        colspan: '2',
-        rowspan: '1'
+        colspan: '1',
+        rowspan: '3'
       },
       {
         name: `
@@ -201,8 +207,8 @@ export default {
         colspan: '1',
         rowspan: '2',
         style: {
-          minWidth: '25px',
-          maxWidth: '25px'
+          minWidth: '20px',
+          maxWidth: '20px'
         },
       },
       {
@@ -210,33 +216,11 @@ export default {
         否
         `,
         style: {
-          minWidth: '25px',
-          maxWidth: '25px'
+          minWidth: '20px',
+          maxWidth: '20px'
         },
         colspan: '1',
         rowspan: '2'
-      },
-      {
-        name: `
-        左
-        `,
-        colspan: '1',
-        rowspan: '2',
-        style: {
-          minWidth: '25px',
-          maxWidth: '25px'
-        },
-      },
-      {
-        name: `
-        右
-        `,
-        colspan: '1',
-        rowspan: '2',
-        style: {
-          minWidth: '25px',
-          maxWidth: '25px'
-        },
       },
       {
         name: `

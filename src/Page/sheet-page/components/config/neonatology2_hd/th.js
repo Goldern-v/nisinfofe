@@ -1,3 +1,8 @@
+import moment from "moment";
+
+function currYear() {
+  return moment().format('YYYY')
+}
 export default {
   // 科室的名称
   deptType: "",
@@ -6,22 +11,14 @@ export default {
   },
   th: {
     top: [{
-        name: "日期",
+        name: currYear(),
+        colspan: "2",
+        rowspan: "1",
         style: {
-          minWidth: "36px",
-          maxWidth: "36px"
+          minWidth: "62px"
         },
-        colspan: "1",
-        rowspan: "3"
-      },
-      {
-        name: "时间",
-        style: {
-          minWidth: "36px",
-          maxWidth: "36px"
-        },
-        colspan: "1",
-        rowspan: "3"
+        canSet: true,
+        key: "recordYear",
       },
       {
         name: `
@@ -32,7 +29,8 @@ export default {
         rowspan: "3",
         style: {
           whiteSpace: "nowrap",
-          minWidth: "34px"
+          minWidth: "36px",
+          maxWidth: "36px",
         }
       },
       {
@@ -40,8 +38,8 @@ export default {
         呼<br/>吸<br/>次/<br/>分
         `,
         style: {
-          minWidth: "52px",
-          maxWidth: "52px",
+          minWidth: "36px",
+          maxWidth: "36px",
           whiteSpace: "nowrap"
         },
         colspan: "1",
@@ -88,8 +86,8 @@ export default {
         皮<br/>肤<br/>颜<br/>色
         `,
         style: {
-          minWidth: "50px",
-          maxWidth: "50px"
+          minWidth: "40px",
+          maxWidth: "40px"
         },
         colspan: "1",
         rowspan: "3"
@@ -199,17 +197,47 @@ export default {
       },
       {
         name: `
-        签名
+        护士<br>签名
         `,
         style: {
           minWidth: "40px",
-          maxWidth: "40px"
+          maxWidth: "80px"
+        },
+        colspan: "1",
+        rowspan: "3"
+      },
+      {
+        name: `
+        护士<br>签名
+        `,
+        style: {
+          minWidth: "40px",
+          maxWidth: "80px"
         },
         colspan: "1",
         rowspan: "3"
       }
     ],
-    mid: [{
+    mid: [
+      {
+        name: '日期',
+        style: {
+          minWidth: '32px',
+          maxWidth: '32px',
+        },
+        colspan: '1',
+        rowspan: '2'
+      },
+      {
+        name: '时间',
+        style: {
+          minWidth: '32px',
+          maxWidth: '32px',
+        },
+        colspan: '1',
+        rowspan: '2'
+      },
+      {
         name: `
         自<br/>吮
         `,
@@ -227,8 +255,8 @@ export default {
         colspan: "1",
         rowspan: "2",
         style: {
-          minWidth: "28px",
-          maxWidth: "28px"
+          minWidth: "20px",
+          maxWidth: "20px"
         }
       },
       {
@@ -260,8 +288,8 @@ export default {
         colspan: "1",
         rowspan: "2",
         style: {
-          minWidth: "28px",
-          maxWidth: "28px",
+          minWidth: "20px",
+          maxWidth: "20px",
           whiteSpace: "nowrap"
         }
       },
@@ -272,8 +300,8 @@ export default {
         colspan: "1",
         rowspan: "2",
         style: {
-          minWidth: "28px",
-          maxWidth: "28px",
+          minWidth: "20px",
+          maxWidth: "20px",
           whiteSpace: "nowrap"
         }
       },
@@ -284,8 +312,8 @@ export default {
         colspan: "1",
         rowspan: "2",
         style: {
-          minWidth: "28px",
-          maxWidth: "28px",
+          minWidth: "20px",
+          maxWidth: "20px",
           whiteSpace: "nowrap"
         }
       },

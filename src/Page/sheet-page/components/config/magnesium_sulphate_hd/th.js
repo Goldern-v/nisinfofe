@@ -1,30 +1,28 @@
+import moment from "moment";
+
+function currYear() {
+  return moment().format('YYYY')
+}
 export default {
   // 科室的名称
   deptType: '',
   th: {
-    top: [{
-        name: '日期',
-        style: {
-          minWidth: '36px',
-          maxWidth: '36px',
-        },
-        colspan: '1',
-        rowspan: '3'
-      },
+    top: [
       {
-        name: '时间',
+        name: currYear(),
+        colspan: "2",
+        rowspan: "1",
         style: {
-          minWidth: '36px',
-          maxWidth: '36px',
+          minWidth: "62px"
         },
-        colspan: '1',
-        rowspan: '3'
+        canSet: true,
+        key: "recordYear",
       },
       {
         name: `心率<br/>（次/min）`,
         style: {
-          minWidth: '40px',
-          maxWidth: '40px'
+          minWidth: '32px',
+          maxWidth: '32px'
         },
         colspan: '1',
         rowspan: '3'
@@ -32,8 +30,8 @@ export default {
       {
         name: `血压<br/>（mmHg）`,
         style: {
-          minWidth: '40px',
-          maxWidth: '40px'
+          minWidth: '32px',
+          maxWidth: '32px'
         },
         colspan: '1',
         rowspan: '3'
@@ -41,8 +39,8 @@ export default {
       {
         name: `呼吸<br/>（次/min）`,
         style: {
-          minWidth: '40px',
-          maxWidth: '40px'
+          minWidth: '32px',
+          maxWidth: '32px'
         },
         colspan: '1',
         rowspan: '3'
@@ -77,8 +75,8 @@ export default {
         canSet: true,
         key: 'fieldFour',
         style: {
-          minWidth: '50px',
-          maxWidth: '50px',
+          minWidth: '80px',
+          maxWidth: '80px',
         }
       },
       {
@@ -89,8 +87,8 @@ export default {
         canSet: true,
         key: 'fieldFive',
         style: {
-          minWidth: '50px',
-          maxWidth: '50px',
+          minWidth: '80px',
+          maxWidth: '80px',
         }
       },
       {
@@ -108,12 +106,33 @@ export default {
         name: `
         护士签名
         `,
-        style: {},
+        style: {
+          minWidth: '66px',
+          maxWidth: '66px',
+        },
         colspan: '1',
         rowspan: '3'
       }
     ],
     mid: [{
+        name: '日期',
+        style: {
+          minWidth: '32px',
+          maxWidth: '32px',
+        },
+        colspan: '1',
+        rowspan: '2'
+      },
+      {
+        name: '时间',
+        style: {
+          minWidth: '32px',
+          maxWidth: '32px',
+        },
+        colspan: '1',
+        rowspan: '2'
+      },
+      {
         name: `
         间歇(min)
         `,

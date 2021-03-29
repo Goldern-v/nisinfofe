@@ -15,7 +15,8 @@
               @load="onload"
             ></iframe>
           </div>
-          <div v-if="formListData&&Object.keys(formListData).length>0" flex-box="1" style="width:0; overflow:visible; height:100%">
+          <div v-if="formListData&&Object.keys(formListData).length>0" flex-box="1"
+               style="width:0; overflow:visible; height:100%">
             <div flex-box="2" style="width:100%; height:100%" v-loading="formListModalLoading">
               <formList :formCode="formCode" :formListData="formListData" ref="formList"></formList>
             </div>
@@ -23,7 +24,7 @@
         </div>
         <div slot="button" style="text-align:center">
           <el-button class="modal-btn" @click="$refs.modal.close()">取消</el-button>
-          <el-button class="modal-btn" @click="saveForm" type="primary">{{saveButtonText}}</el-button>
+          <el-button class="modal-btn" @click="saveForm" type="primary">{{ saveButtonText }}</el-button>
         </div>
       </sweet-modal>
     </div>
@@ -68,21 +69,22 @@
   margin: 5px 0 10px;
   font-weight: bold;
 }
+
 .modal-btn
   width 88px
 
->>>.el-loading-mask {
+>>> .el-loading-mask {
   background: white !important;
 }
 
 </style>
 
 <script>
-import { SweetModal, SweetModalTab } from "@/plugin/sweet-modal-vue";
+import {SweetModal, SweetModalTab} from "@/plugin/sweet-modal-vue";
 import formList from "./formList.vue";
 import formModals from "./formModals";
-import { initList } from "./form.details";
-import { initNooForm } from "./form.details.nooForm";
+import {initList} from "./form.details";
+import {initNooForm} from "./form.details.nooForm";
 import {
   formField //表单护理字段
 } from "@/api/form";
@@ -94,7 +96,7 @@ import {
 import qs from "qs";
 import formFill from "./form.fill";
 import formFillDataset from "./form.fill.dataset";
-import { eventInit } from "./form.event";
+import {eventInit} from "./form.event";
 import bodyModal from "../body-modal/body-modal.vue";
 import messageModal from "../message-modal/message-modal.vue";
 import signModal from "@/components/modal/sign.vue";
@@ -102,6 +104,7 @@ import $ from "jquery";
 import bus from "vue-happy-bus";
 import moment from "moment";
 import commonMixin from "@/common/mixin/common.mixin";
+
 export default {
   mixins: [commonMixin],
   name: "Parent",
@@ -140,7 +143,8 @@ export default {
       this.activeTabName = "护理措施";
       try {
         this.$refs.formList.activeTab = "护理措施";
-      } catch (error) {}
+      } catch (error) {
+      }
 
       let wid = null;
       if (this.$refs["ifamme-modal"]) {
@@ -204,7 +208,8 @@ export default {
               return JSON.parse(JSON.stringify(this.formListData));
             };
           }
-        } catch (e) {}
+        } catch (e) {
+        }
       }
       let query = qs.parse(this.url.split("?")[1]);
       // console.log(query, 'query')
@@ -234,11 +239,11 @@ export default {
         //
       }
 
-      console.log('如果是新表单:',wid.formInfo,wid)
+      console.log('如果是新表单:', wid.formInfo, wid)
 
       // 如果是新表单
       try {
-        if (wid.formInfo && ["1"].indexOf(wid.formInfo.nooForm)>-1) {
+        if (wid.formInfo && ["1"].indexOf(wid.formInfo.nooForm) > -1) {
           wid.onmessage = this.onmessage;
           initNooForm(wid);
           return;
@@ -254,6 +259,9 @@ export default {
         this.modalLoading = false;
         this.formListModalLoading = false;
         return;
+      }
+      if(!this.formCode){
+        this.formCode = wid.formInfo.formCode
       }
 
       initList(wid);
@@ -388,11 +396,11 @@ export default {
           console.log("保存表单===", wid, wid.formInfo);
 
           // if (["1","2"].indexOf(wid.formInfo.nooForm)>-1) {
-          if (wid.formInfo && ["1"].indexOf(wid.formInfo.nooForm)>-1) {
+          if (wid.formInfo && ["1"].indexOf(wid.formInfo.nooForm) > -1) {
             // signForm  saveForm
             // wid.saveForm().then(res => {
 
-            if(wid.signForm){
+            if (wid.signForm) {
               wid.signForm(empNo, password).then(res => {
                 this.$notify({
                   title: "成功",
@@ -411,13 +419,9 @@ export default {
                 this.$refs.modal.close();
                 bus.$emit("refreshTree");
               });
-            } else if(wid.CRFormObj){
-              wid.CRFormObj.controller.signerForm({ "auditorEmpNo": "" }, "责任护士签名验证", true, true)
+            } else if (wid.CRFormObj) {
+              wid.CRFormObj.controller.signerForm({"auditorEmpNo": ""}, "责任护士签名验证", true, true)
             }
-
-
-
-
             return;
           }
 
@@ -434,12 +438,14 @@ export default {
             "form_selfcare",
             "form_pain_assessment",
             "form_caprini",
-            "form_padua"
+            "form_padua",
+            "E0103",
           ];
 
           if (oneSignForms.indexOf(this.formCode) > -1) {
             postData["auditSign"] = password;
             postData["createSign"] = password;
+            postData["formCode"] = postData["formCode"] || this.formCode
           }
 
           // }
@@ -481,7 +487,7 @@ export default {
             jQuery(`input[name*='formCode']`, wid.document)
           );
 
-          let formCode = formTableName;
+          let formCode = formTableName || this.formCode
           if (!formCode || formCode == "undefined") {
             formCode = wid.CRForm.formInfo.formCode;
             formTableName = wid.CRForm.formInfo.formCode;
@@ -565,7 +571,7 @@ export default {
           //   postData['id'] = this.$route.query.id
           // }
 
-          $(selectString, wid.document).each(function() {
+          $(selectString, wid.document).each(function () {
             // var item = {[this.name]:this.value};
             // console.log(this.name);
             if (
@@ -653,10 +659,10 @@ export default {
             formTableName = wid.CRForm.formInfo.formCode;
             let formAllData = wid.CRForm.controller.getFormData();
             let paramMap = formAllData.paramMap;
-            let signData = { auditSign: password, createSign: password };
-            postData = { ...postData, ...paramMap, formCode, ...signData };
-            if(postData.hasOwnProperty(`${formCode}_id`)>-1){
-              postData['id'] = (postData[`${formCode}_id`]||'') + ''
+            let signData = {auditSign: password, createSign: password};
+            postData = {...postData, ...paramMap, formCode, ...signData};
+            if (postData.hasOwnProperty(`${formCode}_id`) > -1) {
+              postData['id'] = (postData[`${formCode}_id`] || '') + ''
               delete postData[`${formCode}_id`]
             }
           }
