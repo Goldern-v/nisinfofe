@@ -372,7 +372,7 @@ export default {
           this.selectList.push({
             value: `${pagelist[i]}-${pagelist[i + 1] - 1}`
           });
-        } else {
+        } else if(pagelist[i] <= pagelist[i + 1] - 1){
           this.selectList.push({
             value: `${pagelist[i]}-${pagelist[i + 1] - 1}`
           });
