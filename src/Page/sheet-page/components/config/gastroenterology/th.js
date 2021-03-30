@@ -167,30 +167,34 @@ export default {
         canSet: false
       },
       {
-        name: `胃管插入CM`,
-        style: {},
-        colspan: "1",
-        rowspan: "2",
-        style: {
-          minWidth: "31px",
-          maxWidth: "31px"
-        }
-      },
-      {
-        name: `大便/性状`,
-        style: {},
-        colspan: "1",
-        rowspan: "2",
-        style: {
-          minWidth: "31px",
-          maxWidth: "31px"
-        }
-      },
-      {
         name: `胃液/尿量`,
         style: {},
         colspan: "1",
         rowspan: "2",
+        style: {
+          minWidth: "31px",
+          maxWidth: "31px"
+        }
+      },
+      {
+        name: `标题1`,
+        style: {},
+        colspan: "1",
+        rowspan: "2",
+        canSet: true,
+        key: "fieldSeventeen",
+        style: {
+          minWidth: "31px",
+          maxWidth: "31px"
+        }
+      },
+      {
+        name: `标题2`,
+        style: {},
+        colspan: "1",
+        rowspan: "2",
+        canSet: true,
+        key: "fieldEighteen",
         style: {
           minWidth: "31px",
           maxWidth: "31px"

@@ -156,28 +156,28 @@ export default [
     }
   },
   {
-    key: "fieldEleven", //标题11
-    value: "",
-    event: keyf1,
-    name: "胃管插入CM",
-    textarea: {
-      width: 29
-    }
-  },
-  {
-    key: "fieldTwelve", //标题12
-    value: "",
-    event: keyf1,
-    name: "大便/性状",
-    textarea: {
-      width: 29
-    }
-  },
-  {
-    key: "fieldThirteen", //标题13
+    key: "fieldThirteen",
     value: "",
     event: keyf1,
     name: "胃液/尿量",
+    textarea: {
+      width: 29
+    }
+  },
+  {
+    key: "fieldSeventeen", //标题1
+    value: "",
+    event: keyf1,
+    name: "标题1",
+    textarea: {
+      width: 29
+    }
+  },
+  {
+    key: "fieldEighteen", //标题2
+    value: "",
+    event: keyf1,
+    name: "标题2",
     textarea: {
       width: 29
     }
