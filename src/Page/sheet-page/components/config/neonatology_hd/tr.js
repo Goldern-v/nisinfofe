@@ -5,13 +5,25 @@ import {
   multiDictInfo
 } from "../../../api/index";
 import {
-  keyf1
+  keyf1,
+  calValueChange
 } from "../keyEvent/f1.js";
 import {
   event_date,
   event_time,
   click_date
 } from "../keyEvent/date";
+
+let xslList = ['好', '一般', '弱'];
+let qbList = [];
+let clmcList = [];
+let rlmcList = [];
+let ylfsList = [];
+let xtxzList = [];
+let xtlList = [];
+let fyList = [];
+let ksList = [];
+
 export default [{
     key: "recordMonth", //日期
     value: "",
@@ -81,13 +93,19 @@ export default [{
     key: "fieldThree", //吸吮力
     value: "",
     event: keyf1,
-    name: "吸吮力"
+    name: "吸吮力",
+    autoComplete: {
+      data: xslList
+    }
   },
   {
     key: "fieldFour", //脐部
     value: "",
     event: keyf1,
-    name: "脐部"
+    name: "脐部",
+    autoComplete: {
+      data: qbList
+    },
   },
   {
     key: "fieldFive", //经皮胆红素
@@ -104,72 +122,79 @@ export default [{
     next: "cm"
   },
   {
-    key: "oralType", // 口服种类
+    key: "food", //食物, 入量
     value: "",
     event: keyf1,
-    name: "口服种类",
-  },
-  {
-    key: "oralWayAmount", //口服方式/量ml
-    value: "",
-    event: function (e, td) {
-      if (e.keyCode == 32) {
-        e.target.value += "/";
-        e.preventDefault();
-      }
-      keyf1(e, td);
-    },
+    name: "入量名称",
+    change: calValueChange,
     textarea: {
-      width: 48
-    }
+      width: 66,
+    },
+    style: {
+      maxWidth: '66px',
+      textAlign: "left",
+    },
+    autoComplete: {
+      data: rlmcList
+    },
   },
   {
-    key: "fieldTen", // 静脉入液量
+    key: "foodSize", //食物数量  入量（单位ml）
     value: "",
     event: keyf1,
-    name: "静脉入液量",
-    next: "ml"
+    name: "入量大小",
+    next: "ml",
+    textarea: {
+      width: 30
+    },
   },
   {
-    key: "fieldEleven", //尿量
+    key: "discharge", //排出物
     value: "",
     event: keyf1,
-    name: "尿量",
-    next: "ml"
+    name: "出量名称",
+    change: calValueChange,
+    textarea: {
+      width: 62,
+    },
+    style: {
+      maxWidth: '62px',
+      textAlign: "left",
+    },
+    autoComplete: {
+      data: clmcList
+    },
   },
   {
-    key: "fieldTwelve", //大便情况/量
+    key: "dischargeSize", //排出物数量（单位ml）
     value: "",
-    event: function (e, td) {
-      if (e.keyCode == 32) {
-        e.target.value += "/";
-        e.preventDefault();
-      }
-      keyf1(e, td);
-    },
+    event: keyf1,
+    name: "出量大小",
+    next: "ml",
     textarea: {
-      width: 48
-    }
+      width: 30
+    },
   },
   {
-    key: "fieldThirteen", // 呕吐物性质/量ml
+    key: "dischargeColor", //排出物颜色
     value: "",
-    event: function (e, td) {
-      if (e.keyCode == 32) {
-        e.target.value += "/";
-        e.preventDefault();
-      }
-      keyf1(e, td);
-    },
+    event: keyf1,
+    name: "出量颜色",
     textarea: {
-      width: 48
-    }
+      width: 40
+    },
   },
   {
     key: "fieldFourteen", // 氧疗方式
     value: "",
     event: keyf1,
     name: "氧疗方式",
+    textarea: {
+      width: 56
+    },
+    autoComplete: {
+      data: ylfsList
+    },
   },
   {
     key: "fieldFiveteen", // 氧疗流量L/分
@@ -186,49 +211,61 @@ export default [{
     next: "%"
   },
   {
-    key: "fieldSeventeen", // 吸痰性状/量口腔
+    key: "fieldSeventeenLeft", // 吸痰口腔性状
     value: "",
-    name: "吸痰性状/量口腔",
-    event: function (e, td) {
-      if (e.keyCode == 32) {
-        e.target.value += "/";
-        e.preventDefault();
-      }
-      keyf1(e, td);
-    },
+    name: "吸痰口腔性状",
+    event: keyf1,
     textarea: {
-      width: 48
-    }
+      width: 30
+    },
+    autoComplete: {
+      data: xtxzList
+    },
   },
   {
-    key: "fieldEighteen", // 吸痰性状/量气管插管
+    key: "fieldSeventeenRight", //  吸痰口腔痰量
     value: "",
-    name: "吸痰性状/量气管插管",
-    event: function (e, td) {
-      if (e.keyCode == 32) {
-        e.target.value += "/";
-        e.preventDefault();
-      }
-      keyf1(e, td);
-    },
+    name: "吸痰口腔痰量",
+    event: keyf1,
     textarea: {
-      width: 48
-    }
+      width: 30
+    },
+    autoComplete: {
+      data: xtlList
+    },
   },
   {
-    key: "fieldNineteen", // 篮光治疗/呻吟
+    key: "fieldEighteenLeft", // 吸痰气管插管性状
     value: "",
-    event: function (e, td) {
-      if (e.keyCode == 32) {
-        e.target.value += "/";
-        e.preventDefault();
-      }
-      keyf1(e, td);
-    },
+    name: "吸痰气管插管性状",
+    event: keyf1,
     textarea: {
-      width: 48
+      width: 30
     },
-    name: "篮光治疗/呻吟"
+    autoComplete: {
+      data: xtxzList
+    },
+  },
+  {
+    key: "fieldEighteenRight", //  吸痰气管插管痰量
+    value: "",
+    name: "吸痰气管插管痰量",
+    event: keyf1,
+    textarea: {
+      width: 30
+    },
+    autoComplete: {
+      data: xtlList
+    },
+  },
+  {
+    key: "fieldNineteen", // 篮光治疗
+    value: "",
+    event: keyf1,
+    textarea: {
+      width: 30
+    },
+    name: "篮光治疗"
   },
   {
     key: "fieldSix", //标题1
@@ -241,8 +278,11 @@ export default [{
       keyf1(e, td);
     },
     textarea: {
-      width: 48
-    }
+      width: 30
+    },
+    autoComplete: {
+      data: fyList
+    },
   },
   {
     key: "fieldSeven", //标题2
@@ -255,8 +295,11 @@ export default [{
       keyf1(e, td);
     },
     textarea: {
-      width: 48
-    }
+      width: 30
+    },
+    autoComplete: {
+      data: ksList
+    },
   },
   {
     key: "fieldEight", //标题3
@@ -298,6 +341,10 @@ export default [{
     key: "sign",
     value: ""
   },
+  {
+    key: "sign2",
+    value: ""
+  },
   // {
   //   key: "audit",
   //   value: ""
@@ -310,6 +357,11 @@ export default [{
   {
     hidden: true,
     key: "signerName",
+    value: ""
+  },
+  {
+    hidden: true,
+    key: "signerName2",
     value: ""
   },
   {
@@ -348,6 +400,11 @@ export default [{
     value: ""
   },
   {
+    hidden: true,
+    key: "signerNo2",
+    value: ""
+  },
+  {
     hidden: false,
     key: "auditorNo",
     value: ""
@@ -368,3 +425,42 @@ export default [{
     value: false
   }
 ];
+
+export function getListData() {
+  let list = [
+    "花都:新生儿科护理记录单:脐部",
+    "花都:新生儿科护理记录单:出量名称",
+    "花都:新生儿科护理记录单:入量名称",
+    "花都:新生儿科护理记录单:氧疗方式",
+    "花都:新生儿科护理记录单:吸痰性状",
+    "花都:新生儿科护理记录单:吸痰量",
+    "花都:新生儿科护理记录单:反应",
+    "花都:新生儿科护理记录单:哭声"
+  ];
+
+  multiDictInfo(list).then(res => {
+    let data = res.data.data;
+    setList(qbList, list[0], data);
+    setList(clmcList, list[1], data);
+    setList(rlmcList, list[2], data);
+    setList(ylfsList, list[3], data);
+    setList(xtxzList, list[4], data);
+    setList(xtlList, list[5], data);
+    setList(fyList, list[6], data);
+    setList(ksList, list[7], data);
+  });
+}
+
+getListData();
+/**
+ *
+ * @param {*} list 原数组
+ * @param {*} key 对应的key
+ * @param {*} data 数据源
+ */
+function setList(list, key, data) {
+  list.splice(0, list.length);
+  for (let item of data[key]) {
+    list.push(item.name);
+  }
+}

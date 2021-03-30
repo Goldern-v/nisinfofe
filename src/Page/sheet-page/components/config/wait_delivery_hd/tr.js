@@ -43,6 +43,9 @@ export default [
     value: "",
     event: keyf1,
     name: "胎位",
+    autoComplete: {
+      data: twList
+    },
   },
   {
     key: "fieldTwo", //胎心部位
@@ -124,7 +127,10 @@ export default [
     key: "fieldFourteen", //羊水性状
     value: "",
     event: keyf1,
-    name: "羊水性状"
+    name: "羊水性状",
+    autoComplete: {
+      data: ysxzList
+    },
   },
   {
     key: "fieldFifteen", //检查方式
@@ -174,6 +180,10 @@ export default [
     key: "sign",
     value: ""
   },
+  {
+    key: "sign2",
+    value: ""
+  },
   // {
   //   key: "audit",
   //   value: ""
@@ -186,6 +196,11 @@ export default [
   {
     hidden: true,
     key: "signerName",
+    value: ""
+  },
+  {
+    hidden: true,
+    key: "signerName2",
     value: ""
   },
   {
@@ -224,6 +239,11 @@ export default [
     value: ""
   },
   {
+    hidden: true,
+    key: "signerNo2",
+    value: ""
+  },
+  {
     hidden: false,
     key: "auditorNo",
     value: ""
@@ -259,25 +279,19 @@ export function getListData() {
   //   }
   // });
   let list = [
-    "胎膜",
-    "胎位",
-    "宫缩持续/间歇",
-    "先露高低",
-    "宫颈管",
-    "羊水性状",
-    "宫颈扩张",
-    "宫缩强度"
+    "花都:侯产记录单:胎位",
+    "花都:侯产记录单:羊水性状"
   ];
   multiDictInfo(list).then(res => {
     let data = res.data.data;
-    setList(tmList, list[0], data);
-    setList(twList, list[1], data);
-    setList(gscxjxList, list[2], data);
-    setList(xlgdList, list[3], data);
-    setList(gjgList, list[4], data);
-    setList(ysxzList, list[5], data);
-    setList(gjkzList, list[6], data);
-    setList(gsqdList, list[7], data);
+    setList(twList, list[0], data);
+    setList(ysxzList, list[1], data);
+    // setList(gscxjxList, list[2], data);
+    // setList(xlgdList, list[3], data);
+    // setList(gjgList, list[4], data);
+    // setList(ysxzList, list[5], data);
+    // setList(gjkzList, list[6], data);
+    // setList(gsqdList, list[7], data);
   });
 }
 

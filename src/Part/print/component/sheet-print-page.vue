@@ -73,6 +73,9 @@
   th[dataname='记录人签名']:first-child{
     width: 90px !important;
   }
+  th[dataname='记录人签名']{
+    width: 90px !important;
+  }
   th[dataname='护士<br>签名']{
     width: 90px !important;
   }

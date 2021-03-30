@@ -401,9 +401,16 @@ export default {
       // }
       //
       // 主表结构
-      let file = JSON.parse(
-        JSON.stringify(require("../data/住院评估.form.json"))
-      );
+      let file = null
+      if (this.HOSPITAL_NAME === '聊城市第二人民医院') {
+        file = JSON.parse(
+          JSON.stringify(require("../data/住院评估.form.liaoc.json"))
+        )
+      } else {
+        file = JSON.parse(
+          JSON.stringify(require("../data/住院评估.form.json"))
+        )
+      }
       try {
         file.formSetting.formTitle.hospitalName = this.HOSPITAL_NAME;
       } catch (error) {}
@@ -412,11 +419,12 @@ export default {
         JSON.stringify(require("../data/formSchemes/住院评估.schemes.json"))
       );
       // 主表下拉框选项字典表
-      let dictionary = JSON.parse(
-        JSON.stringify(
-          require("../data/formDictionary/住院评估.dictionary.json")
-        )
-      );
+      let dictionary = null
+      if (this.HOSPITAL_NAME === '聊城市第二人民医院') {
+        dictionary = JSON.parse(JSON.stringify(require("../data/formDictionary/住院评估.dictionary.liaoc.json")))
+      } else {
+        dictionary = JSON.parse(JSON.stringify(require("../data/formDictionary/住院评估.dictionary.json")))
+      }
       //
       // 其他下拉框选项字典表
       let otherDictionary = JSON.parse(

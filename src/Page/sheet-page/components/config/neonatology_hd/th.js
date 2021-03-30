@@ -1,3 +1,8 @@
+import moment from "moment";
+
+function currYear() {
+  return moment().format('YYYY')
+}
 export default {
   // 科室的名称
   deptType: "",
@@ -6,22 +11,14 @@ export default {
   },
   th: {
     top: [{
-        name: "日<br/>期",
+        name: currYear(),
+        colspan: "2",
+        rowspan: "1",
         style: {
-          minWidth: "30px",
-          maxWidth: "30px"
+          minWidth: "62px"
         },
-        colspan: "1",
-        rowspan: "3"
-      },
-      {
-        name: "时<br/>间",
-        style: {
-          minWidth: "30px",
-          maxWidth: "30px"
-        },
-        colspan: "1",
-        rowspan: "3"
+        canSet: true,
+        key: "recordYear",
       },
       {
         name: `
@@ -48,7 +45,7 @@ export default {
       },
       {
         name: `
-        脉<br/>搏<br/>次<br/>/<br/>分
+        脉搏<br/>心率<br/>次<br/>/<br/>分
         `,
         style: {},
         colspan: "1",
@@ -74,8 +71,8 @@ export default {
         血<br/>压<br/>m<br/>m<br/>H<br/>g
         `,
         style: {
-          minWidth: "50px",
-          maxWidth: "50px",
+          minWidth: "46px",
+          maxWidth: "46px",
         },
         colspan: "1",
         rowspan: "3"
@@ -151,25 +148,21 @@ export default {
         name: `
         入量
         `,
-        colspan: "3",
-        rowspan: "1",
-        canSet: false,
         style: {
-          minWidth: "40px",
-          maxWidth: "40px"
-        }
+          minWidth: '86px',
+        },
+        colspan: "2",
+        rowspan: "1"
       },
       {
         name: `
         出量
         `,
-        colspan: "3",
-        rowspan: "1",
-        canSet: false,
         style: {
-          minWidth: "40px",
-          maxWidth: "40px"
-        }
+          minWidth: '126px',
+        },
+        colspan: "3",
+        rowspan: "1"
       },
       {
         name: `
@@ -186,8 +179,8 @@ export default {
         name: `
         吸痰性状/量
         `,
-        colspan: "2",
-        rowspan: "2",
+        colspan: "4",
+        rowspan: "1",
         canSet: false,
         style: {
           minWidth: "40px",
@@ -195,7 +188,7 @@ export default {
         }
       },
       {
-        name: `篮<br/>光<br/>治<br/>疗<br/>/<br/>呻<br/>吟`,
+        name: `篮<br/>光<br/>治<br/>疗`,
         colspan: "1",
         rowspan: "3",
         style: {
@@ -204,7 +197,7 @@ export default {
         }
       },
       {
-        name: ``,
+        name: `反应`,
         style: {},
         colspan: "1",
         rowspan: "3",
@@ -216,7 +209,7 @@ export default {
         }
       },
       {
-        name: ``,
+        name: `哭声`,
         style: {},
         colspan: "1",
         rowspan: "3",
@@ -252,7 +245,18 @@ export default {
       },
       {
         name: `
-        签名
+        护士签名
+        `,
+        style: {
+          minWidth: "40px",
+          maxWidth: "40px"
+        },
+        colspan: "1",
+        rowspan: "3"
+      },
+      {
+        name: `
+        护士签名
         `,
         style: {
           minWidth: "40px",
@@ -262,60 +266,74 @@ export default {
         rowspan: "3"
       }
     ],
-    mid: [{
-        name: `
-        口服
-        `,
+    mid: [
+      {
+        name: '日期',
         style: {
-          minWidth: "20px",
-          maxWidth: "20px"
+          minWidth: '34px',
+          maxWidth: '34px',
         },
-        colspan: "2",
-        rowspan: "1"
+        colspan: '1',
+        rowspan: '2'
+      },
+      {
+        name: '时间',
+        style: {
+          minWidth: '34px',
+          maxWidth: '34px',
+        },
+        colspan: '1',
+        rowspan: '2'
       },
       {
         name: `
-        静<br/>脉<br/>入<br/>液<br/>量<br/>ml
+        名称
         `,
         colspan: "1",
         rowspan: "2",
         style: {
-          minWidth: "28px",
-          maxWidth: "28px"
-        }
+          width: "52px"
+        },
       },
       {
         name: `
-        尿<br/>量<br/>ml
+        量<br/>ml
         `,
         colspan: "1",
         rowspan: "2",
         style: {
-          minWidth: "20px",
-          maxWidth: "20px"
-        }
+          width: "30px"
+        },
       },
       {
         name: `
-        大<br/>便<br/>情<br/>况<br/>/量<br/>g
+        名称
         `,
         colspan: "1",
         rowspan: "2",
         style: {
-          minWidth: "28px",
-          maxWidth: "28px",
-        }
+          width: "52px"
+        },
       },
       {
         name: `
-        呕<br/>吐<br/>物<br/>性<br/>质<br/>/量<br/>ml
+        量<br/>ml
         `,
         colspan: "1",
         rowspan: "2",
         style: {
-          minWidth: "28px",
-          maxWidth: "28px",
-        }
+          width: "30px"
+        },
+      },
+      {
+        name: `
+        颜色
+        `,
+        colspan: "1",
+        rowspan: "2",
+        style: {
+          width: "40px"
+        },
       },
       {
         name: `
@@ -347,10 +365,33 @@ export default {
           maxWidth: "28px"
         }
       },
+      {
+        name: `
+        口腔
+        `,
+        colspan: "2",
+        rowspan: "1",
+        style: {
+          minWidth: "28px",
+          maxWidth: "28px",
+        }
+      },
+      {
+        name: `
+        气管<br/>插管
+        `,
+        colspan: "2",
+        rowspan: "1",
+        style: {
+          minWidth: "28px",
+          maxWidth: "28px"
+        }
+      }
     ],
-    bottom: [{
+    bottom: [
+      {
         name: `
-        种<br/>类
+        性状
         `,
         colspan: "1",
         rowspan: "1",
@@ -361,17 +402,18 @@ export default {
       },
       {
         name: `
-        方<br/>式<br/>/<br/>量<br/>ml
+        痰量
         `,
         colspan: "1",
         rowspan: "1",
         style: {
-          minWidth: "36px",
-          maxWidth: "36px"
+          minWidth: "28px",
+          maxWidth: "28px"
         }
-      }, {
+      },
+      {
         name: `
-        口<br/>腔
+        性状
         `,
         colspan: "1",
         rowspan: "1",
@@ -382,7 +424,7 @@ export default {
       },
       {
         name: `
-        气<br/>管<br/>插<br/>管
+        痰量
         `,
         colspan: "1",
         rowspan: "1",

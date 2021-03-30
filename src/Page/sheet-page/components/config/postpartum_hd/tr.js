@@ -169,7 +169,8 @@ export default [{
     value: "",
     event: keyf1,
     textarea: {
-      width: 32
+      width: 32,
+      maxLength: 4
     }
   },
   {
@@ -177,7 +178,8 @@ export default [{
     value: "",
     event: keyf1,
     textarea: {
-      width: 32
+      width: 32,
+      maxLength: 4
     }
   },
   {
@@ -185,7 +187,8 @@ export default [{
     value: "",
     event: keyf1,
     textarea: {
-      width: 32
+      width: 32,
+      maxLength: 4
     }
   },
   {
@@ -193,7 +196,8 @@ export default [{
     value: "",
     event: keyf1,
     textarea: {
-      width: 32
+      width: 32,
+      maxLength: 4
     }
   },
   {
@@ -201,7 +205,8 @@ export default [{
     value: "",
     event: keyf1,
     textarea: {
-      width: 32
+      width: 32,
+      maxLength: 4
     }
   },
   {
@@ -209,7 +214,8 @@ export default [{
     value: "",
     event: keyf1,
     textarea: {
-      width: 32
+      width: 32,
+      maxLength: 4
     }
   },
   {
