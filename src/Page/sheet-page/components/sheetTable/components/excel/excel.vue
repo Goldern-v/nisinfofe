@@ -416,6 +416,7 @@ export default {
       sheetInfo,
       fiexHeaderWidth: 0,
       isFixed: false,
+      multiSign: false,
       auditArr: [
         "com_lc",
         "icu_lc",
@@ -589,15 +590,14 @@ export default {
       if (td.key === "sign2") {
         this.signType = "2";
       }
+      // 判断表单code再赋值多签名字段！！！不能直接在表内赋值multiSign不然会打印报错
+      if(this.multiSignArr.includes(this.sheetInfo.sheetType)){
+        this.multiSign = true;
+      }
       if (!showSign) {
         let status = trArr.find(item => {
           return item.key == "status";
         }).value;
-        let multiSign = false;
-        // 判断表单code再赋值多签名字段！！！不能直接在表内赋值multiSign不然会打印报错
-        if(this.multiSignArr.includes(this.sheetInfo.sheetType)){
-          multiSign = true;
-        }
         // if (status == 1) return this.$message.warning('该记录已经签名了')
         let save = () => {
           this.$refs.signModal.open((password, empNo) => {
@@ -619,7 +619,7 @@ export default {
                   pageIndex: this.index
                 })
               ],
-              multiSign: multiSign || false,
+              multiSign: this.multiSign || false,
               // multiSign: this.HOSPITAL_ID === "huadu" ? true : false,
               signType: this.HOSPITAL_ID === "huadu" ? this.signType : ""
             };
@@ -701,6 +701,7 @@ export default {
             id,
             empNo,
             password,
+            multiSign: this.multiSign,
             // multiSign: this.HOSPITAL_ID === "huadu" ? true : false,
             signType: this.HOSPITAL_ID === "huadu" ? this.signType : ""
           }).then(res => {

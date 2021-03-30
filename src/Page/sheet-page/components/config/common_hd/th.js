@@ -152,7 +152,7 @@ export default {
       {
         name: `标题4`,
         style: {
-          minWidth: '50px',
+          minWidth: '53px',
         },
         colspan: "1",
         rowspan: "3",
