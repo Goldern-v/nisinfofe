@@ -1,28 +1,26 @@
+import moment from "moment";
+
+function currYear() {
+  return moment().format('YYYY')
+}
+
 export default {
   // 科室的名称 关节骨科
   deptType: "",
   style: {
-    width: "1180px"
+    width: "1280px"
   },
   th: {
     top: [
       {
-        name: "日期",
+        name: currYear(),
+        colspan: "2",
+        rowspan: "1",
         style: {
-          minWidth: "36px",
-          maxWidth: "36px"
+          minWidth: "82px"
         },
-        colspan: "1",
-        rowspan: "3"
-      },
-      {
-        name: "时间",
-        style: {
-          minWidth: "36px",
-          maxWidth: "36px"
-        },
-        colspan: "1",
-        rowspan: "3"
+        canSet: true,
+        key: "recordYear",
       },
       {
         name: `
@@ -33,7 +31,8 @@ export default {
         rowspan: "3",
         style: {
           whiteSpace: "nowrap",
-          minWidth: "34px"
+          minWidth: "26px",
+          maxWidth: "26px",
         }
       },
       {
@@ -45,7 +44,8 @@ export default {
         rowspan: "3",
         style: {
           whiteSpace: "nowrap",
-          minWidth: "38px"
+          minWidth: "26px",
+          maxWidth: "26px",
         }
       },
       {
@@ -57,7 +57,8 @@ export default {
         rowspan: "3",
         style: {
           whiteSpace: "nowrap",
-          minWidth: "38px"
+          minWidth: "26px",
+          maxWidth: "26px",
         }
       },
       {
@@ -77,8 +78,8 @@ export default {
         意识
         `,
         style: {
-          minWidth: "52px",
-          maxWidth: "52px",
+          minWidth: "44px",
+          maxWidth: "44px",
           whiteSpace: "nowrap"
         },
         colspan: "1",
@@ -108,13 +109,13 @@ export default {
       },
       {
         name: `
-        阴道出血<br/>(ml)
+        阴道<br/>出血<br/>(ml)
         `,
         colspan: "1",
         rowspan: "3",
         style: {
-          minWidth: "40px",
-          maxWidth: "40px"
+          minWidth: "28px",
+          maxWidth: "28px"
         }
       },
       {
@@ -236,9 +237,36 @@ export default {
         style: {},
         colspan: "1",
         rowspan: "3"
+      },
+      {
+        name: `
+        护士签名
+        `,
+        style: {},
+        colspan: "1",
+        rowspan: "3"
       }
     ],
-    mid: [
+    mid: [{
+        name: `
+        日期
+        `,
+        colspan: "1",
+        rowspan: "2",
+        style: {
+          width: "40px"
+        },
+      },
+      {
+        name: `
+        时间
+        `,
+        colspan: "1",
+        rowspan: "2",
+        style: {
+          width: "40px"
+        },
+      },
       {
         name: "内容",
         style: {

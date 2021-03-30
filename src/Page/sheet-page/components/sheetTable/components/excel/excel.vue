@@ -161,6 +161,7 @@
             @click.stop="toAudit(tr, y, data.bodyModel, showAudit(tr), $event)"
             v-html="showAudit(tr)"
           ></div>
+          <!-- 第一个签名的位置 -->
           <div v-else-if="td.key == 'signerNo'" class="sign-img">
             <img
               v-if="tr.find(item => item.key == 'auditorNo').value"
@@ -171,10 +172,11 @@
               "
               alt
             />
+            <!-- 针对双签名打印预览为 xxx/xxx 显示 -->
+            <!-- auditArr.includes(sheetInfo.sheetType) -->
             <img
               v-if="
-                (sheetInfo.sheetType === 'common_hd' ||
-                  sheetInfo.sheetType === 'neurosurgery_hd') &&
+                multiSignArr.includes(sheetInfo.sheetType) &&
                   tr.find(item => item.key == 'signerNo2').value
               "
               :src="
@@ -193,14 +195,6 @@
               "
               >/</span
             >
-            <span
-              v-else-if="
-                (sheetInfo.sheetType === 'common_hd' ||
-                  sheetInfo.sheetType === 'neurosurgery_hd') &&
-                  tr.find(item => item.key == 'signerNo2').value
-              "
-              >/
-            </span>
             <img
               v-if="td.value"
               :style="!td.value && { opacity: 0 }"
@@ -235,6 +229,7 @@
               td.event($event, td);
               onKeyDown($event, { x, y, z: index, td });
             "
+            :maxlength="td.textarea.maxLength || 1000"
             @input="td.change && td.change($event, td)"
             @focus="
               td.autoComplete &&
@@ -421,6 +416,7 @@ export default {
       sheetInfo,
       fiexHeaderWidth: 0,
       isFixed: false,
+      multiSign: false,
       auditArr: [
         "com_lc",
         "icu_lc",
@@ -433,7 +429,19 @@ export default {
         "Record_Children_Serious_Lc",
         "contraction_inhibitor_hd",
         "magnesium_sulphate_hd",
+        "prenatal_hd",
+        "postpartum_hd", // 产后护理记录单
         "common_wj"
+      ],
+      // 需要双签名的记录单code
+      multiSignArr: [
+        "common_hd", // 花都_通用护理记录单
+        "neurosurgery_hd", // 花都_神经外科护理记录单
+        "prenatal_hd", // 花都_产前记录单
+        "neonatology2_hd", // 花都_新生儿护理记录单
+        "postpartum_hd", // 花都_产后记录单
+        "wait_delivery_hd", // 花都_候产记录单
+        "neonatology_hd", // 花都_新生儿科护理记录单
       ]
     };
   },
@@ -582,6 +590,10 @@ export default {
       if (td.key === "sign2") {
         this.signType = "2";
       }
+      // 判断表单code再赋值多签名字段！！！不能直接在表内赋值multiSign不然会打印报错
+      if(this.multiSignArr.includes(this.sheetInfo.sheetType)){
+        this.multiSign = true;
+      }
       if (!showSign) {
         let status = trArr.find(item => {
           return item.key == "status";
@@ -607,6 +619,7 @@ export default {
                   pageIndex: this.index
                 })
               ],
+              multiSign: this.multiSign || false,
               // multiSign: this.HOSPITAL_ID === "huadu" ? true : false,
               signType: this.HOSPITAL_ID === "huadu" ? this.signType : ""
             };
@@ -688,6 +701,7 @@ export default {
             id,
             empNo,
             password,
+            multiSign: this.multiSign,
             // multiSign: this.HOSPITAL_ID === "huadu" ? true : false,
             signType: this.HOSPITAL_ID === "huadu" ? this.signType : ""
           }).then(res => {
@@ -878,6 +892,11 @@ export default {
       } else {
         return false;
       }
+    },
+    checkMaxLength(value, length) {
+      const regC = /[^ -~]+/g; 
+      const regE = /\D+/g; 
+      console.log('textarea', value, length)
     },
     isOverText(td) {
       try {

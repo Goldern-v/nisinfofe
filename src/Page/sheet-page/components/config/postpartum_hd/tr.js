@@ -22,6 +22,7 @@ let gjgList = [];
 let ysxzList = [];
 let gjkzList = [];
 let gsqdList = [];
+let 意识 = ['清醒', '浅昏迷', '深昏迷', '模糊', '嗜睡', '昏睡', '谵妄'];
 
 export default [{
     key: "recordMonth", //日期
@@ -73,6 +74,9 @@ export default [{
     value: "",
     event: keyf1,
     name: "意识",
+    autoComplete: {
+      data: 意识
+    },
   },
   {
     key: "fieldOne", //血氧饱和度%
@@ -148,7 +152,7 @@ export default [{
     event: keyf1,
     name: "健康宣教",
     textarea: {
-      width: 38
+      width: 58
     }
   },
   {
@@ -156,7 +160,8 @@ export default [{
     value: "",
     event: keyf1,
     textarea: {
-      width: 32
+      width: 32,
+      maxLength: 4
     }
   },
   {
@@ -164,7 +169,8 @@ export default [{
     value: "",
     event: keyf1,
     textarea: {
-      width: 32
+      width: 32,
+      maxLength: 4
     }
   },
   {
@@ -172,7 +178,8 @@ export default [{
     value: "",
     event: keyf1,
     textarea: {
-      width: 32
+      width: 32,
+      maxLength: 4
     }
   },
   {
@@ -180,7 +187,8 @@ export default [{
     value: "",
     event: keyf1,
     textarea: {
-      width: 32
+      width: 32,
+      maxLength: 4
     }
   },
   {
@@ -188,7 +196,8 @@ export default [{
     value: "",
     event: keyf1,
     textarea: {
-      width: 32
+      width: 32,
+      maxLength: 4
     }
   },
   {
@@ -196,7 +205,8 @@ export default [{
     value: "",
     event: keyf1,
     textarea: {
-      width: 32
+      width: 32,
+      maxLength: 4
     }
   },
   {
@@ -204,7 +214,8 @@ export default [{
     value: "",
     event: keyf1,
     textarea: {
-      width: 32
+      width: 32,
+      maxLength: 4
     }
   },
   {
@@ -234,9 +245,13 @@ export default [{
     value: ""
   },
   {
-    key: "audit",
+    key: "sign2",
     value: ""
   },
+  // {
+  //   key: "audit",
+  //   value: ""
+  // },
   {
     hidden: true,
     key: "id",
@@ -245,6 +260,11 @@ export default [{
   {
     hidden: true,
     key: "signerName",
+    value: ""
+  },
+  {
+    hidden: true,
+    key: "signerName2",
     value: ""
   },
   {
@@ -280,6 +300,11 @@ export default [{
   {
     hidden: false,
     key: "signerNo",
+    value: ""
+  },
+  {
+    hidden: true,
+    key: "signerNo2",
     value: ""
   },
   {

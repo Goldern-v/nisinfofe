@@ -7,7 +7,7 @@ export default {
   // 科室的名称
   deptType: "",
   style: {
-    width: "1200px"
+    width: "1300px"
   },
   th: {
     top: [{
@@ -380,7 +380,7 @@ export default {
         colspan: "1",
         rowspan: "1",
         style: {
-          width: "40px"
+          width: "25px"
         },
       },
       {
@@ -390,7 +390,7 @@ export default {
         colspan: "1",
         rowspan: "1",
         style: {
-          width: "40px"
+          width: "25px"
         },
       },
       {
@@ -400,7 +400,7 @@ export default {
         colspan: "1",
         rowspan: "1",
         style: {
-          width: "40px"
+          width: "25px"
         },
       },
       {
@@ -410,7 +410,7 @@ export default {
         colspan: "1",
         rowspan: "1",
         style: {
-          width: "40px"
+          width: "25px"
         },
       },
       {
@@ -420,7 +420,7 @@ export default {
         colspan: "1",
         rowspan: "1",
         style: {
-          width: "40px"
+          width: "25px"
         },
       },
       {
@@ -430,7 +430,7 @@ export default {
         colspan: "1",
         rowspan: "1",
         style: {
-          width: "40px"
+          width: "25px"
         },
       },
       {
@@ -440,7 +440,7 @@ export default {
         colspan: "1",
         rowspan: "1",
         style: {
-          width: "40px"
+          width: "25px"
         },
       },
       {
@@ -450,7 +450,7 @@ export default {
         colspan: "1",
         rowspan: "1",
         style: {
-          width: "40px"
+          width: "25px"
         },
       },
     ]

@@ -19,6 +19,10 @@ import info from "../sheetInfo";
 let ysList = [];
 let chuList = [];
 let ruList = [];
+let cxList = [];
+let xfsList = [];
+
+
 export default [{
     key: "recordMonth", //日期
     value: "",
@@ -59,7 +63,10 @@ export default [{
   {
     key: "fieldTwo", // 宫缩持续
     value: "",
-    event: keyf1
+    event: keyf1,
+    autoComplete: {
+      data: cxList
+    },
   },
   {
     key: "fieldThree", // 尿量
@@ -69,14 +76,17 @@ export default [{
   {
     key: "fieldFour", // 膝反射
     value: "",
-    event: keyf1
+    event: keyf1,
+    autoComplete: {
+      data: xfsList
+    },
   },
   {
     key: "fieldSix", //自定义标题1
     value: "",
     event: keyf1,
     textarea: {
-      width: 36
+      width: 116
     }
   },
   {
@@ -84,7 +94,7 @@ export default [{
     value: "",
     event: keyf1,
     textarea: {
-      width: 36
+      width: 116
     }
   },
   {
@@ -198,10 +208,16 @@ export function getListData4() {
     }
     chuList.push("阴道出血")
   });
-  let list = ["意识"];
+  let list = ["花都:硫酸镁注射液静脉滴注观察记录单:膝反射"];
   multiDictInfo(list).then(res => {
     let data = res.data.data;
-    setList(ysList, "意识", data);
+    setList(xfsList, "花都:硫酸镁注射液静脉滴注观察记录单:膝反射", data);
+  });
+  let list2 = ["花都:硫酸镁注射液静脉滴注观察记录单:持续"];
+  multiDictInfo(list2).then(res => {
+    let data = res.data.data;
+    setList(cxList, "花都:硫酸镁注射液静脉滴注观察记录单:持续", data);
+    console.log('1111', cxList)
   });
 }
 

@@ -1,3 +1,8 @@
+import moment from "moment";
+
+function currYear() {
+  return moment().format('YYYY')
+}
 export default {
   // 科室的名称 关节骨科
   deptType: "",
@@ -7,22 +12,14 @@ export default {
   th: {
     top: [
       {
-        name: "日期",
+        name: currYear(),
+        colspan: "2",
+        rowspan: "1",
         style: {
-          minWidth: "36px",
-          maxWidth: "36px"
+          minWidth: "82px"
         },
-        colspan: "1",
-        rowspan: "3"
-      },
-      {
-        name: "时间",
-        style: {
-          minWidth: "36px",
-          maxWidth: "36px"
-        },
-        colspan: "1",
-        rowspan: "3"
+        canSet: true,
+        key: "recordYear",
       },
       {
         name: `
@@ -184,9 +181,37 @@ export default {
         style: {},
         colspan: "1",
         rowspan: "3"
+      },
+      {
+        name: `
+        护士签名
+        `,
+        style: {},
+        colspan: "1",
+        rowspan: "3"
       }
     ],
     mid: [
+      {
+        name: `
+        日期
+        `,
+        colspan: "1",
+        rowspan: "2",
+        style: {
+          width: "40px"
+        },
+      },
+      {
+        name: `
+        时间
+        `,
+        colspan: "1",
+        rowspan: "2",
+        style: {
+          width: "40px"
+        },
+      },
       {
         name: "部位",
         style: {

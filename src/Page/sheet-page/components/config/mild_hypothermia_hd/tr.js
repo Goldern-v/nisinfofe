@@ -9,6 +9,7 @@ import info from "../sheetInfo";
 let ysList = ["清醒(√)","嗜睡(+)","朦胧(++)","浅昏迷(+++)","深昏迷(++++)","麻醉未醒(△)"];
 let chuList = [];
 let ruList = [];
+let zthdList = [];
 let isCheck=["","√"]
 export default [
   {
@@ -30,13 +31,18 @@ export default [
   {
     key: "bloodPressure", //血压
     value: "",
-    event: function(e, td) {
+    event: function (e, td) {
       if (e.keyCode == 32) {
         e.target.value += "/";
         e.preventDefault();
       }
       keyf1(e, td);
-    }
+    },
+    name: "血压",
+    next: "mmHg",
+    textarea: {
+      width: 52
+    },
   },
   {
     key: "spo2", //血氧饱和度%
@@ -46,22 +52,34 @@ export default [
   {
     key: "coolDown", //所处治疗阶段降温阶段
     value: "",
-    event: keyf1
+    event: keyf1,
+    textarea: {
+      width: 48
+    },
   },
   {
     key: "maintain", //所处治疗阶段维持治疗阶段72h
     value: "",
-    event: keyf1
+    event: keyf1,
+    textarea: {
+      width: 48
+    },
   },
   {
     key: "rewarming", //所处治疗阶段复温阶段
     value: "",
-    event: keyf1
+    event: keyf1,
+    textarea: {
+      width: 48
+    },
   },
   {
     key: "fieldOne", //自定义恒定温差模式
     value: "",
-    event: keyf1
+    event: keyf1,
+    textarea: {
+      width: 48
+    },
   },
   {
     key: "fieldTwo", //仪器显示水温
@@ -79,7 +97,10 @@ export default [
     event: keyf1,
     // autoComplete: {
     //   data: ["1"]
-    // }
+    // },
+    textarea: {
+      width: 40
+    },
   },
   {
     key: "fieldFourNo", //是否达到目标温度（33.5-34℃）否
@@ -87,7 +108,10 @@ export default [
     event: keyf1,
     autoComplete: {
       data: ["√"]
-    }
+    },
+    textarea: {
+      width: 40
+    },
   },
   {
     key: "fieldFive", //脑科观察q2h意识状态
@@ -95,23 +119,21 @@ export default [
     event: keyf1,
     autoComplete: {
       data: ysList
-    }
+    },
+    textarea: {
+      width: 60
+    },
   },
   {
     key: "fieldSixLeft", // 脑科观察q2h肢体活动左
     value: "",
     event: keyf1,
     autoComplete: {
-      data: ["√"]
-    }
-  },
-  {
-    key: "fieldSixRight", // 脑科观察q2h肢体活动右
-    value: "",
-    event: keyf1,
-    autoComplete: {
-      data: ["√"]
-    }
+      data: zthdList
+    },
+    textarea: {
+      width: 60
+    },
   },
   {
     key: "fieldSevenLeft", // 瞳孔直径左(mm)
@@ -177,7 +199,10 @@ export default [
     event: keyf1,
     autoComplete: {
       data: ["√"]
-    }
+    },
+    textarea: {
+      width: 48
+    },
   },
   {
     key: "description", //特殊情况记录
@@ -277,26 +302,24 @@ export default [
   }
 ];
 
-// export function getListData4() {
-//   setList(ysList);
-// }
+export function getListData4() {
+  let list = ["花都:新生儿亚低温治疗护理记录表:肢体活动左右"];
+  multiDictInfo(list).then(res => {
+    let data = res.data.data;
+    setList(zthdList, "花都:新生儿亚低温治疗护理记录表:肢体活动左右", data);
+  });
+}
 
-// getListData4();
-// /**
-//  *
-//  * @param {*} list 原数组
-//  */
-// function setList(list) {
-//   console.log(list)
-//   // list.splice(0, list.length);
-//   // console.log(list);
-//   // for (let item of data[key]) {
-//   //   list.push(item.name);
-//   // }
-//   for(let i in list){
-//     console.log(list[i])
-//     let regex1 = /\((.+?)\)/g; 
-//     // let item = new RegExp("/\((.+?)\)/g")
-//     console.log(list[i].match(regex1))
-//   }
-// }
+getListData4();
+/**
+ *
+ * @param {*} list 原数组
+ * @param {*} key 对应的key
+ * @param {*} data 数据源
+ */
+function setList(list, key, data) {
+  list.splice(0, list.length);
+  for (let item of data[key]) {
+    list.push(item.name);
+  }
+}
