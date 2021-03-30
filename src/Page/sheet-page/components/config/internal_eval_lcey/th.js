@@ -24,7 +24,8 @@ export default {
         name: `
         生命体征
         `,
-        colspan: '6',
+        // colspan: '6',
+        colspan: '4',
         rowspan: '1',
         style: {
           minWidth: '242px'
@@ -174,10 +175,12 @@ export default {
         name: `
         体温
         `,
-        colspan: '2',
+        // colspan: '2',
+        colspan: '1',
         rowspan: '1',
         style: {
-          minWidth: '32px'
+          // minWidth: '36px'
+          minWidth: '65px'
         }
       },
       {
@@ -204,7 +207,8 @@ export default {
         name: `
         血压(mmHg)
         `,
-        colspan: '2',
+        // colspan: '2',
+        colspan: '1',
         rowspan: '1',
       },
       {
@@ -372,16 +376,16 @@ export default {
           width: '32px'
         },
       },
-      {
-        name: `
-        措施
-        `,
-        colspan: '1',
-        rowspan: '1',
-        style: {
-          minWidth: '32px'
-        }
-      },
+      // {
+      //   name: `
+      //   措施
+      //   `,
+      //   colspan: '1',
+      //   rowspan: '1',
+      //   style: {
+      //     minWidth: '32px'
+      //   }
+      // },
       {
         name: `
         数值
@@ -389,19 +393,19 @@ export default {
         colspan: '1',
         rowspan: '1',
         style: {
-          width: '50px',
+          width: '65px',
         },
       },
-      {
-        name: `
-        异常处理
-        `,
-        colspan: '1',
-        rowspan: '1',
-        style: {
-          minWidth: '32px'
-        }
-      },
+      // {
+      //   name: `
+      //   异常处理
+      //   `,
+      //   colspan: '1',
+      //   rowspan: '1',
+      //   style: {
+      //     minWidth: '32px'
+      //   }
+      // },
       // {
       //   name: `
       //   状态

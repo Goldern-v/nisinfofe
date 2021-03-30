@@ -22,18 +22,18 @@ export default [{
     value: "",
     event: keyf1
   },
-  {
-    key: "temperatureMeasure", //体温-措施
-    value: "",
-    event: keyf1,
-    autoComplete: {
-      // data: ['适量饮水', '温水/酒精擦浴', '冰块冷敷', '减少盖被', '遵医嘱用药']
-      data: ['①', '②', '③', '④', '⑤']
-    },
-    // textarea: {
-    //   width: 48
-    // },
-  },
+  // {
+  //   key: "temperatureMeasure", //体温-措施
+  //   value: "",
+  //   event: keyf1,
+  //   autoComplete: {
+  //     // data: ['适量饮水', '温水/酒精擦浴', '冰块冷敷', '减少盖被', '遵医嘱用药']
+  //     data: ['①', '②', '③', '④', '⑤']
+  //   },
+  //   // textarea: {
+  //   //   width: 48
+  //   // },
+  // },
   {
     key: "pulse", //脉搏
     value: "",
@@ -61,18 +61,18 @@ export default [{
       'line-height': '30px'
     }
   },
-  {
-    key: "bloodPressureHandle", //血压 - 异常处理
-    value: "",
-    event: keyf1,
-    autoComplete: {
-      // data: ['观察做好宣教', '遵医嘱应用药物']
-      data: ['①', '②', '③']
-    },
-    // textarea: {
-    //   width: 48
-    // },
-  },
+  // {
+  //   key: "bloodPressureHandle", //血压 - 异常处理
+  //   value: "",
+  //   event: keyf1,
+  //   autoComplete: {
+  //     // data: ['观察做好宣教', '遵医嘱应用药物']
+  //     data: ['①', '②', '③']
+  //   },
+  //   // textarea: {
+  //   //   width: 48
+  //   // },
+  // },
   // {
   //   key: "sleepStatus", // 睡眠-状态
   //   value: "",
