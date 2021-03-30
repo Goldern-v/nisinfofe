@@ -215,7 +215,8 @@
         "value": "",
         "options": [
           "增多",
-          "减少"
+          "减少",
+          "无"
         ],
         "style": null,
         "class": null,

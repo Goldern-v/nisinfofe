@@ -7,12 +7,12 @@
       :element-loading-text="loadingText"
     ></div>
     <div :style="isShow?'display:block':'display:none'">
-      <RenderForm ref="renderForm" :sourceObj="fileJSON" :updateFunc="updateFunc" :lock="locker" />
+      <RenderForm ref="renderForm" :sourceObj="fileJSON" :updateFunc="updateFunc" :lock="locker"/>
     </div>
     <div :style="isShow?'display:none':'display:block;backgroud:white;'">
       <div class="null-img" @click="message=='新建评估单'&&bus.$emit('createHEvalForm')">
-        <img src="./image/分组.png" alt />
-        <aside>{{message}}</aside>
+        <img src="./image/分组.png" alt/>
+        <aside>{{ message }}</aside>
       </div>
     </div>
     <!-- <div class="container"></div> -->
@@ -21,9 +21,10 @@
 
 <script>
 import RenderForm from "@/Page/sheet-hospital-admission/components/Render/main.vue";
-import { getOldFormCode } from "@/Page/sheet-hospital-admission/components/Render/common.js";
+import {getOldFormCode} from "@/Page/sheet-hospital-admission/components/Render/common.js";
 import BusFactory from "vue-happy-bus";
 import common from "@/common/mixin/common.mixin.js";
+
 export default {
   name: "page",
   mixins: [common],
@@ -89,7 +90,8 @@ export default {
     formCode() {
       try {
         return this.formObj.formSetting.formInfo.formCode;
-      } catch (error) {}
+      } catch (error) {
+      }
       return "E0001";
     }
   },
@@ -140,23 +142,32 @@ export default {
     initial(patient = null, isDevMode = false) {
       this.loading = true;
       // 主表结构
-      let file = JSON.parse(
-        JSON.stringify(require("../data/入院评估.form.json"))
-      );
+      let file = null
+      if (this.HOSPITAL_NAME === '聊城市第二人民医院') {
+        file = JSON.parse(
+          JSON.stringify(require("../data/入院评估.form.liaoc.json"))
+        )
+      } else {
+        file = JSON.parse(
+          JSON.stringify(require("../data/入院评估.form.json"))
+        )
+      }
       let title = "";
       try {
         file.formSetting.formTitle.hospitalName = this.HOSPITAL_NAME;
-      } catch (error) {}
+      } catch (error) {
+      }
       // 主表字段对照表
       let schemes = JSON.parse(
         JSON.stringify(require("../data/formSchemes/入院评估.schemes.json"))
       );
       // 主表下拉框选项字典表
-      let dictionary = JSON.parse(
-        JSON.stringify(
-          require("../data/formDictionary/入院评估.dictionary.json")
-        )
-      );
+      let dictionary = null
+      if (this.HOSPITAL_NAME === '聊城市第二人民医院') {
+        dictionary = JSON.parse(JSON.stringify(require("../data/formDictionary/入院评估.dictionary.liaoc.json")))
+      } else {
+        dictionary = JSON.parse(JSON.stringify(require("../data/formDictionary/入院评估.dictionary.json")))
+      }
       //
       file.dictionary = dictionary;
       //
@@ -172,7 +183,8 @@ export default {
         let djson = contexts(context);
         try {
           djson.formSetting.formTitle.hospitalName = this.HOSPITAL_NAME;
-        } catch (error) {}
+        } catch (error) {
+        }
 
         if (djson.schemes) {
           let fromName = context.replace("./", "").replace(".json", "");
@@ -197,7 +209,7 @@ export default {
           djson.map(d => {
             title = d.title;
             if (title) {
-              file.dialogs[title] = { ...d };
+              file.dialogs[title] = {...d};
             }
           });
         } else {
@@ -208,7 +220,8 @@ export default {
             this.setPatientInfo(djson, patient);
             // file.dialogs.push(djson);
             file.dialogs[title + ""] = JSON.parse(JSON.stringify(djson));
-          } catch (error) {}
+          } catch (error) {
+          }
         }
       });
 
@@ -291,7 +304,7 @@ export default {
             return {};
           }
           let {
-            data: { data: oldFormInfo }
+            data: {data: oldFormInfo}
           } = res;
           this.oldFormInfo = oldFormInfo;
           // this.$store.commit("upOldFormInfo", oldFormInfo);
@@ -352,7 +365,7 @@ export default {
               if (key === "status") {
                 textResult = this.$root.$refs[this.formCode][
                   key
-                ].checkValueRule(element + "");
+                  ].checkValueRule(element + "");
                 // console.log(
                 //   "----this.$root.$refs[this.formCode][key]",
                 //   this.$root.$refs[this.formCode][key],
@@ -370,7 +383,7 @@ export default {
                 // if(element){
                 textResult = this.$root.$refs[this.formCode][
                   key
-                ].checkValueRule(element);
+                  ].checkValueRule(element);
                 this.$root.$refs[this.formCode][key].setCurrentValue(element);
                 // }
 
@@ -422,18 +435,18 @@ export default {
                     this.$root.$refs[this.formCode][key][subkey].$parent &&
                     this.$root.$refs[this.formCode][key][
                       subkey
-                    ].$parent.hasOwnProperty("checkboxValue") > -1
+                      ].$parent.hasOwnProperty("checkboxValue") > -1
                   ) {
                     this.$root.$refs[this.formCode][key][
                       subkey
-                    ].$parent.checkboxValue = [];
+                      ].$parent.checkboxValue = [];
                   }
                   if (
                     this.$root.$refs[this.formCode]["formGroupColBox" + subkey]
                   ) {
                     this.$root.$refs[this.formCode][
-                      "formGroupColBox" + subkey
-                    ].hidden = true;
+                    "formGroupColBox" + subkey
+                      ].hidden = true;
                   }
                 }
               }
@@ -465,7 +478,7 @@ export default {
                         this.$root.$refs[this.formCode][key][c].model = [c];
                         this.$root.$refs[this.formCode][key][
                           c
-                        ].$parent.checkboxValue = [c];
+                          ].$parent.checkboxValue = [c];
                         //
                         if (value === c) {
                           // if(this.$root.$refs['formGroupColBox'+this.obj.title]){
@@ -503,11 +516,11 @@ export default {
                         this.$root.$refs[this.formCode][key][c].$parent &&
                         this.$root.$refs[this.formCode][key][
                           c
-                        ].$parent.hasOwnProperty("checkboxValue") > -1
+                          ].$parent.hasOwnProperty("checkboxValue") > -1
                       ) {
                         this.$root.$refs[this.formCode][key][
                           c
-                        ].$parent.checkboxValue = [];
+                          ].$parent.checkboxValue = [];
                       }
                     }
                   });
@@ -531,48 +544,54 @@ export default {
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
 .pages
-    width: 100%;
+  width: 100%;
+
 .no-page
-    background: white;
-    width: 100%;
-    height: 100%;
-    margin: -15px -5px 0 -15px;
-    padding: 0px 5px 15px 15px;
+  background: white;
+  width: 100%;
+  height: 100%;
+  margin: -15px -5px 0 -15px;
+  padding: 0px 5px 15px 15px;
 
 .container
-    width: 100%;
-    height: 100%;
-    padding: 5mm;
-    background: white;
-    margin: auto auto;
-    background:rgba(255,255,255,1);
-    /* box-shadow:0px 5px 10px 0px rgba(0,0,0,0.5); */
+  width: 100%;
+  height: 100%;
+  padding: 5mm;
+  background: white;
+  margin: auto auto;
+  background: rgba(255, 255, 255, 1);
+
+/* box-shadow:0px 5px 10px 0px rgba(0,0,0,0.5); */
 
 .null-img
-    position absolute
-    left 0
-    right 0
-    top 0
-    bottom 0
-    margin auto
-    width 200px
-    height 240px
-    padding 20px
-    background white
-    border 1px solid #ADB4BA
-    border-radius 0px
-    cursor pointer
-    aside
-        color: #cecece;
-        font-size 16px
-        margin-top 10px
-        text-align center
-        // font-weight bold
-    &:hover
-      box-shadow: 0px 0px 10px #888
+  position absolute
+  left 0
+  right 0
+  top 0
+  bottom 0
+  margin auto
+  width 200px
+  height 240px
+  padding 20px
+  background white
+  border 1px solid #ADB4BA
+  border-radius 0px
+  cursor pointer
+
+  aside
+    color: #cecece;
+    font-size 16px
+    margin-top 10px
+    text-align center
+
+  // font-weight bold
+
+  &:hover
+    box-shadow: 0px 0px 10px #888
+
 .mask-layout
   // border 1px solid red
-  position: fixed!important;
+  position: fixed !important;
   width: calc(100% - 200px);
   height: 100%;
   top: 100px;
