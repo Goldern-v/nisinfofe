@@ -20,12 +20,23 @@
           v-if="
             HOSPITAL_ID != 'gy' &&
             HOSPITAL_ID != 'lingcheng' &&
-            HOSPITAL_ID != 'huadu'
+            HOSPITAL_ID != 'huadu' &&
+            HOSPITAL_ID != 'liaocheng'
           "
         >
           RI剂量
         </th>
-        <th style="width: 16%">执行人</th>
+        <th
+          style="width: 16%"
+          v-if="
+            HOSPITAL_ID == 'liaocheng'
+          "
+        >
+          血酮值
+        <br />（mmol/L）
+        </th>
+        <th style="width: 16%" v-if="
+            HOSPITAL_ID == 'liaocheng'">{{HOSPITAL_ID == 'liaocheng' ? '测量者' : '执行人'}}</th>
       </tr>
       <tr
         v-for="item in renderData"
@@ -64,12 +75,22 @@
           v-if="
             HOSPITAL_ID != 'gy' &&
             HOSPITAL_ID != 'lingcheng' &&
-            HOSPITAL_ID != 'huadu'
+            HOSPITAL_ID != 'huadu' &&
+            HOSPITAL_ID != 'liaocheng'
           "
         >
           <div class="cell">
             {{
               item.riValue && item.riValue !== "0" ? item.riValue + " ü" : ""
+            }}
+          </div>
+        </td>
+        <td
+          v-if="HOSPITAL_ID == 'liaocheng'"
+        >
+          <div class="cell">
+            {{
+              item.riValue && item.riValue !== "0" ? item.riValue  : ""
             }}
           </div>
         </td>

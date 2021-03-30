@@ -47,12 +47,16 @@
       <ElFormItem
         label="RI剂量："
         required
-        v-if="HOSPITAL_ID != 'gy' && HOSPITAL_ID != 'huadu'"
+        v-if="HOSPITAL_ID != 'gy' && HOSPITAL_ID != 'huadu' && HOSPITAL_ID != 'liaocheng'"
       >
         <ElInput v-model="form.riValue" />
         <span class="unit">(ü)</span>
       </ElFormItem>
-      <ElFormItem label="执行人：" required>
+      <ElFormItem label="血酮值：" required v-if="HOSPITAL_ID == 'liaocheng'">
+        <ElInput v-model="form.riValue" />
+        <span class="unit">(mmol/L)</span>
+      </ElFormItem>
+      <ElFormItem :label="HOSPITAL_ID == 'liaocheng' ? '测量者：' : '执行人：'" required>
         <span>{{ curEmpName }}</span>
         <span class="btn" @click="openSignModal">切换</span>
       </ElFormItem>
@@ -291,7 +295,7 @@ export default {
       }
     },
     "form.sugarItem"(newVal, oldVal) {
-      if (this.HOSPITAL_ID == "lingcheng" && newVal == "自定义") {
+      if ((this.HOSPITAL_ID == "lingcheng" ||  this.HOSPITAL_ID == "liaocheng") && newVal == "自定义") {
         this.updateTetxInfo("自定义项目");
       }
     },
