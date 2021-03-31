@@ -233,20 +233,23 @@
         v-show="printMode == 'wrist'"
       >
         <div class="bed-card-vert-con">
-
           <div class="qr-code-img">
             <img class="qr-code" :src="qrCode">
-            <p>{{ query.patientId }}</p>
+            <!-- <p>{{ query.patientId }}</p> -->
           </div>
           <div class="info">
             <p>{{ query.name }}</p>
-            <p>{{ query.sex }} {{ query.age }}</p>
-            <p>{{ query.inpNo }}</p>
+            <p>{{ query.patientId }} {{ query.age }} {{ query.sex }}</p>
+            <p>{{query.deptName}}</p>
+            <!-- <p>{{ query.inpNo }}</p> -->
           </div>
-          <div class="barcode-img">
+          <div class="qr-code-img">
+            <img class="qr-code" :src="qrCode">
+          </div>
+          <!-- <div class="barcode-img">
             <p>{{query.deptName}}</p>
             <svg id="barcode"></svg>
-          </div>
+          </div> -->
       </div>
       </div>
       <div slot="button">
@@ -539,7 +542,6 @@ label {
       p {
         font-size: 16px;
         line-height: 14px;
-        text-align: center;
         padding-top: 12px;
         &:first-of-type {
           padding-top: 0;
@@ -548,8 +550,8 @@ label {
     }
 
     .qr-code {
-      height: 60px;
-      width: 60px;
+      height: 80px;
+      width: 80px;
       margin-top: -8px;
       vertical-align: top;
     }
@@ -577,6 +579,7 @@ import {
   saveBed
 } from "./api/index.js";
 import print from "./tool/print";
+import printing from "printing";
 var qr = require("qr-image");
 import moment from "moment";
 import { textOver } from "@/utils/text-over";
@@ -699,18 +702,18 @@ export default {
       let base64 = arrayBufferToBase64(qr_png);
       this.qrCode = base64;
       this.qrCodeNum = qr_png_value;
-      if(this.printMode == 'wrist'){
-        JsBarcode("#barcode", this.query.patientId, {
-　　 　　   lineColor: "#000",
-　　 　　   width: 4,
-　　 　　   height: 70,
-          fontSize: 40,
-          displayValue:true,//是否在条形码下方显示文字
-          text:this.query.wardName,//覆盖显示的文本
-          fontOptions: "bold",
-          textAlign: "left",
-　　　　});
-      }
+//       if(this.printMode == 'wrist'){
+//         JsBarcode("#barcode", this.query.patientId, {
+// 　　 　　   lineColor: "#000",
+// 　　 　　   width: 4,
+// 　　 　　   height: 70,
+//           fontSize: 40,
+//           displayValue:true,//是否在条形码下方显示文字
+//           text:this.query.wardName,//覆盖显示的文本
+//           fontOptions: "bold",
+//           textAlign: "left",
+// 　　　　});
+//       }
     },
     close() {
       this.$refs.modal.close();
