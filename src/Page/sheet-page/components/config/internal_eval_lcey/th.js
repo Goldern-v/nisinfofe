@@ -6,9 +6,9 @@ function currYear() {
 export default {
   // 科室的名称
   deptType: '',
-  style: {
-    width: "1340px"
-  },
+  // style: {
+  //   width: "1340px"
+  // },
   th: {
     top: [{
         name: currYear(),
@@ -30,79 +30,109 @@ export default {
           minWidth: '242px'
         }
       },
-      {
-        name: `
-        睡眠
-        `,
-        colspan: '2',
-        rowspan: '2',
-        style: {
-          minWidth: '60px'
-        }
-      },
-      {
-        name: `
-        饮食
-        `,
-        colspan: '1',
-        rowspan: '3',
-        style: {
-          minWidth: '30px'
-        }
-      },
-      {
-        name: `
-        食欲
-        `,
-        colspan: '1',
-        rowspan: '3',
-        style: {
-          minWidth: '30px'
-        }
-      },
+      // {
+      //   name: `
+      //   睡眠
+      //   `,
+      //   colspan: '2',
+      //   rowspan: '2',
+      //   style: {
+      //     minWidth: '60px'
+      //   }
+      // },
+      // {
+      //   name: `
+      //   饮食
+      //   `,
+      //   colspan: '1',
+      //   rowspan: '3',
+      //   style: {
+      //     minWidth: '30px'
+      //   }
+      // },
+      // {
+      //   name: `
+      //   食欲
+      //   `,
+      //   colspan: '1',
+      //   rowspan: '3',
+      //   style: {
+      //     minWidth: '30px'
+      //   }
+      // },
       {
         name: `
         临床表现（再评估）
         `,
-        colspan: '14',
+        colspan: '2',
         rowspan: '1',
         style: {
-          minWidth: '460px'
+          minWidth: '120px'
         }
       },
       {
         name: `
         化验
         `,
-        colspan: '3',
+        colspan: '2',
         rowspan: '1',
         style: {
           minWidth: '87px'
         }
       },
+      // {
+      //   name: `
+      //   检查/治疗
+      //   `,
+      //   colspan: '3',
+      //   rowspan: '1',
+      //   style: {
+      //     minWidth: '84px'
+      //   }
+      // },
+      // {
+      //   name: `
+      //   出院/转科指导
+      //   `,
+      //   colspan: '1',
+      //   rowspan: '3',
+      //   style: {
+      //     minWidth: '32px'
+      //   }
+      // },
       {
         name: `
-        检查/治疗
+        标题1
         `,
-        colspan: '3',
-        rowspan: '1',
-        style: {
-          minWidth: '84px'
-        }
-      },
-      {
-        name: `
-        出院/转科指导
-        `,
+        key: "fieldSeventeen", //标题1
+        style: {},
         colspan: '1',
         rowspan: '3',
-        style: {
-          minWidth: '32px'
-        }
+        canSet: true
+      },
+      {
+        key: "fieldEighteen", //标题2
+        name: `
+        标题2
+        `,
+        style: {},
+        colspan: '1',
+        rowspan: '3',
+        canSet: true
+      },
+      {
+        key: "fieldNineteen", //标题3
+        name: `
+        标题3
+        `,
+        style: {},
+        colspan: '1',
+        rowspan: '3',
+        canSet: true
       },
       {
         name: `
-        病情观察及处理
+        护理记录
         `,
         colspan: '1',
         rowspan: '3',
@@ -181,96 +211,96 @@ export default {
         name: `
         疼痛
         `,
-        colspan: '3',
+        colspan: '2',
         rowspan: '1'
       },
-      {
-        name: `
-        其他症状
-        `,
-        colspan: '1',
-        rowspan: '2',
-        style: {
-          minWidth: '32px'
-        }
-      },
-      {
-        name: `
-        措施
-        `,
-        colspan: '1',
-        rowspan: '2',
-        style: {
-          minWidth: '32px'
-        }
-      },
-      {
-        name: `
-        效果
-        `,
-        colspan: '1',
-        rowspan: '2',
-        style: {
-          minWidth: '32px'
-        }
-      },
-      {
-        name: `
-        VTE
-        `,
-        colspan: '3',
-        rowspan: '1',
-      },
-      {
-        name: `
-        压疮评分
-        `,
-        colspan: '1',
-        rowspan: '2',
-        style: {
-          minWidth: '32px'
-        }
-      },
-      {
-        name: `
-        心理状态
-        `,
-        colspan: '1',
-        rowspan: '2',
-        style: {
-          minWidth: '32px'
-        }
-      },
-      {
-        name: `
-        营养状况
-        `,
-        colspan: '1',
-        rowspan: '2',
-        style: {
-          minWidth: '32px'
-        }
-      },
-      {
-        name: `
-        依从性
-        `,
-        colspan: '1',
-        rowspan: '2',
-        style: {
-          minWidth: '32px'
-        }
-      },
-      {
-        name: `
-        教育需求
-        `,
-        colspan: '1',
-        rowspan: '2',
-        style: {
-          minWidth: '32px'
-        }
-      },
+      // {
+      //   name: `
+      //   其他症状
+      //   `,
+      //   colspan: '1',
+      //   rowspan: '2',
+      //   style: {
+      //     minWidth: '32px'
+      //   }
+      // },
+      // {
+      //   name: `
+      //   措施
+      //   `,
+      //   colspan: '1',
+      //   rowspan: '2',
+      //   style: {
+      //     minWidth: '32px'
+      //   }
+      // },
+      // {
+      //   name: `
+      //   效果
+      //   `,
+      //   colspan: '1',
+      //   rowspan: '2',
+      //   style: {
+      //     minWidth: '32px'
+      //   }
+      // },
+      // {
+      //   name: `
+      //   VTE
+      //   `,
+      //   colspan: '3',
+      //   rowspan: '1',
+      // },
+      // {
+      //   name: `
+      //   压疮评分
+      //   `,
+      //   colspan: '1',
+      //   rowspan: '2',
+      //   style: {
+      //     minWidth: '32px'
+      //   }
+      // },
+      // {
+      //   name: `
+      //   心理状态
+      //   `,
+      //   colspan: '1',
+      //   rowspan: '2',
+      //   style: {
+      //     minWidth: '32px'
+      //   }
+      // },
+      // {
+      //   name: `
+      //   营养状况
+      //   `,
+      //   colspan: '1',
+      //   rowspan: '2',
+      //   style: {
+      //     minWidth: '32px'
+      //   }
+      // },
+      // {
+      //   name: `
+      //   依从性
+      //   `,
+      //   colspan: '1',
+      //   rowspan: '2',
+      //   style: {
+      //     minWidth: '32px'
+      //   }
+      // },
+      // {
+      //   name: `
+      //   教育需求
+      //   `,
+      //   colspan: '1',
+      //   rowspan: '2',
+      //   style: {
+      //     minWidth: '32px'
+      //   }
+      // },
       {
         name: `
         主要阳性项目
@@ -291,46 +321,46 @@ export default {
           minWidth: '32px'
         }
       },
-      {
-        name: `
-        措施
-        `,
-        colspan: '1',
-        rowspan: '2',
-        style: {
-          minWidth: '32px'
-        }
-      },
-      {
-        name: `
-        项目
-        `,
-        colspan: '1',
-        rowspan: '2',
-        style: {
-          minWidth: '32px'
-        }
-      },
-      {
-        name: `
-        措施
-        `,
-        colspan: '1',
-        rowspan: '2',
-        style: {
-          minWidth: '32px'
-        }
-      },
-      {
-        name: `
-        效果
-        `,
-        colspan: '1',
-        rowspan: '2',
-        style: {
-          minWidth: '32px'
-        }
-      },
+      // {
+      //   name: `
+      //   措施
+      //   `,
+      //   colspan: '1',
+      //   rowspan: '2',
+      //   style: {
+      //     minWidth: '32px'
+      //   }
+      // },
+      // {
+      //   name: `
+      //   项目
+      //   `,
+      //   colspan: '1',
+      //   rowspan: '2',
+      //   style: {
+      //     minWidth: '32px'
+      //   }
+      // },
+      // {
+      //   name: `
+      //   措施
+      //   `,
+      //   colspan: '1',
+      //   rowspan: '2',
+      //   style: {
+      //     minWidth: '32px'
+      //   }
+      // },
+      // {
+      //   name: `
+      //   效果
+      //   `,
+      //   colspan: '1',
+      //   rowspan: '2',
+      //   style: {
+      //     minWidth: '32px'
+      //   }
+      // },
     ],
     bottom: [{
         name: `
@@ -372,26 +402,26 @@ export default {
           minWidth: '32px'
         }
       },
-      {
-        name: `
-        状态
-        `,
-        colspan: '1',
-        rowspan: '1',
-        style: {
-          minWidth: '32px'
-        }
-      },
-      {
-        name: `
-        措施
-        `,
-        colspan: '1',
-        rowspan: '1',
-        style: {
-          minWidth: '32px'
-        }
-      },
+      // {
+      //   name: `
+      //   状态
+      //   `,
+      //   colspan: '1',
+      //   rowspan: '1',
+      //   style: {
+      //     minWidth: '32px'
+      //   }
+      // },
+      // {
+      //   name: `
+      //   措施
+      //   `,
+      //   colspan: '1',
+      //   rowspan: '1',
+      //   style: {
+      //     minWidth: '32px'
+      //   }
+      // },
       {
         name: `
         部位
@@ -412,46 +442,46 @@ export default {
           minWidth: '32px'
         }
       },
-      {
-        name: `
-        措施
-        `,
-        colspan: '1',
-        rowspan: '1',
-        style: {
-          minWidth: '32px'
-        }
-      },
-      {
-        name: `
-        选项
-        `,
-        colspan: '1',
-        rowspan: '1',
-        style: {
-          minWidth: '32px'
-        }
-      },
-      {
-        name: `
-        评分
-        `,
-        colspan: '1',
-        rowspan: '1',
-        style: {
-          minWidth: '32px'
-        }
-      },
-      {
-        name: `
-        措施
-        `,
-        colspan: '1',
-        rowspan: '1',
-        style: {
-          minWidth: '32px'
-        }
-      },
+      // {
+      //   name: `
+      //   措施
+      //   `,
+      //   colspan: '1',
+      //   rowspan: '1',
+      //   style: {
+      //     minWidth: '32px'
+      //   }
+      // },
+      // {
+      //   name: `
+      //   选项
+      //   `,
+      //   colspan: '1',
+      //   rowspan: '1',
+      //   style: {
+      //     minWidth: '32px'
+      //   }
+      // },
+      // {
+      //   name: `
+      //   评分
+      //   `,
+      //   colspan: '1',
+      //   rowspan: '1',
+      //   style: {
+      //     minWidth: '32px'
+      //   }
+      // },
+      // {
+      //   name: `
+      //   措施
+      //   `,
+      //   colspan: '1',
+      //   rowspan: '1',
+      //   style: {
+      //     minWidth: '32px'
+      //   }
+      // },
     ]
   }
 }

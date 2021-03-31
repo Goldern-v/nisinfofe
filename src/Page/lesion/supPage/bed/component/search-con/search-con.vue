@@ -66,7 +66,7 @@
       <button
         class="login-btn"
         @click="syncGetNurseBedRecData"
-        v-if="HOSPITAL_ID == 'weixian' || HOSPITAL_ID == 'lingcheng'"
+        v-if="HOSPITAL_ID == 'weixian' || HOSPITAL_ID == 'lingcheng' || HOSPITAL_ID == 'liaocheng'"
       >同步床位数据</button>
       <button
         class="login-btn"
@@ -262,7 +262,8 @@ import {
   patients,
   syncGetNurseBedRec,
   syncGetMedicalAdvice,
-  syncGetNurseBedRecLc
+  syncGetNurseBedRecLc,
+  syncGetNurseBedRecLiaocheng
 } from "@/api/lesion";
 import footerBar from "../footer-bar/footer-bar.vue";
 import { listItem } from "@/api/common.js";
@@ -552,10 +553,18 @@ export default {
     },
     syncGetNurseBedRecData() {
       this.$message.info("正在更新");
-      let syncData =
-        this.HOSPITAL_ID == "lingcheng"
-          ? syncGetNurseBedRecLc
-          : syncGetNurseBedRec;
+      let syncData = syncGetNurseBedRec;
+      switch(this.HOSPITAL_ID){
+        case 'lingcheng':
+          syncData = syncGetNurseBedRecLc;
+          break;
+        case 'liaocheng':
+          syncData = syncGetNurseBedRecLiaocheng;
+          break;
+        default:
+          syncData = syncGetNurseBedRec;
+          break;
+      }
       syncData(this.deptCode).then(res => {
         this.$message.success("更新成功");
         this.getDate();
