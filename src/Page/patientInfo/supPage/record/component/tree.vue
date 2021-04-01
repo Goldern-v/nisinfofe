@@ -489,15 +489,15 @@ export default {
           }
           console.log(this.regions);
 
-          if (
-            this.HOSPITAL_ID == "hj" &&
-            window.location.href.includes("showPatientDetails")
-          ) {
-            let obj = this.regions.find(item => {
-              return item.formCode == "E0064";
-            });
-            this.regions = [obj];
-          }
+          // if (
+          //   this.HOSPITAL_ID == "hj" &&
+          //   window.location.href.includes("showPatientDetails")
+          // ) {
+          //   let obj = this.regions.find(item => {
+          //     return item.formCode == "E0064";
+          //   });
+          //   this.regions = [obj];
+          // }
 
           if(this.HOSPITAL_ID == "hj"){
             this.isTransferToWard();
