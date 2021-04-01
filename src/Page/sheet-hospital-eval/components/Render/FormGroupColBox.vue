@@ -35,7 +35,9 @@
                    v-if="obj.children[n+(col-1)].title">
                 <!-- {{n+(col-1)}} -->
                 <span v-if="!obj.children[n+(col-1)].dialog"><span
-                  v-html="titleFeedSpace(obj.children[n+(col-1)])"></span>{{ obj.children[n + (col - 1)].labelTitle ? obj.children[n + (col - 1)].labelTitle + ':' : '' }}</span>
+                  v-html="titleFeedSpace(obj.children[n+(col-1)])"></span>{{
+                    obj.children[n + (col - 1)].labelTitle ? obj.children[n + (col - 1)].labelTitle + ':' : ''
+                  }}</span>
                 <span
                   v-if="obj.children[n+(col-1)].dialog"
                   style="cursor:pointer;color:blue"
@@ -43,7 +45,9 @@
                 >
                   <span v-html="titleFeedSpace(obj.children[n+(col-1)])"></span>
                   <span v-if="obj.children[n+(col-1)].name === 'I100001'"
-                        style="margin-left:-5px;">(<span>{{ formObj.model[obj.children[n + (col - 1)].subTitle] || '  ' }}</span>):
+                        style="margin-left:-5px;">(<span>{{
+                      formObj.model[obj.children[n + (col - 1)].subTitle] || '  '
+                    }}</span>):
                   </span>
                 </span>
               </div>
@@ -83,8 +87,7 @@ export default {
     TipsBox
   },
   data() {
-    return {
-    };
+    return {};
   },
   computed: {
     uui() {
@@ -93,7 +96,8 @@ export default {
     formCode() {
       try {
         return this.formObj.formSetting.formInfo.formCode;
-      } catch (error) {}
+      } catch (error) {
+      }
       return "E0001";
     }
   },
@@ -102,12 +106,10 @@ export default {
     if (!this.$root.$refs[this.formCode]) {
       this.$root.$refs[this.formCode] = []; //new Array();
     }
-
-    this.$root.$refs[this.formCode][
-    "formGroupColBox" + this.obj.title
-      ] = this.$refs["formGroupColBox" + this.obj.title];
-
-    this.checkHidden();
+    if (this.obj.type==='formGroupColBox') {
+      this.$root.$refs[this.formCode]["formGroupColBox" + this.obj.title] = this.$refs["formGroupColBox" + this.obj.title];
+      this.checkHidden();
+    }
   },
   created() {
   },
