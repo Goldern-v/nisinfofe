@@ -74,5 +74,10 @@ module.exports = {
     HOSPITAL_ID: '"zhongshanqi"',
     HOSPITAL_NAME: '"中山大学附属第七医院"',
     HOSPITAL_NAME_SPACE: '"中 山 大 学 附 属 第 七 医 院"'
+  },
+  "hengli": {
+    HOSPITAL_ID: '"hengli"',
+    HOSPITAL_NAME: '"东莞市横沥医院"',
+    HOSPITAL_NAME_SPACE: '"东 莞 市 横 沥 医 院"'
   }
 }
