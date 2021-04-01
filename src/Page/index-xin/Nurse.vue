@@ -16,7 +16,7 @@
             <tr>
               <th colspan="4">
                 <img src="./img/体征任务.png" />
-                <span>体症任务（{{body.content.length}}）</span>
+                <span>体征任务（{{body.content.length}}）</span>
               </th>
             </tr>
             <tr>
