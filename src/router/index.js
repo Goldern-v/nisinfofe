@@ -108,6 +108,8 @@ const implementationListLc = () =>
   import("@/Page/implementation-list-lc/implementation-list.vue"); //陵城执行单
 const implementationListLiaocheng = () =>
   import("@/Page/implementation-list-lc/implementation-list-liaocheng.vue"); //聊城执行单
+const bottleLabel = () => import("@/Page/bottleLabel/index.vue"); //瓶签打印
+
 const dcList = () => import("@/Page/dc-list/dc-list.vue"); //执行单
 const patientList = () => import("@/Page/patientList/index"); //执行单
 const nursingRounds = () => import("@/Page/nursing-rounds/nursing-rounds.vue"); //护理巡视
@@ -150,10 +152,10 @@ const router = new Router({
   mode: "history",
   base: "/crNursing/",
   routes: [{
-      path: "/",
-      redirect: "/index",
-      alias: "主页"
-    },
+    path: "/",
+    redirect: "/index",
+    alias: "主页"
+  },
     {
       path: "/demo",
       component: demo,
@@ -182,9 +184,9 @@ const router = new Router({
       path: "/showPatientDetails",
       component: showPatientDetails,
       children: [{
-          path: "record",
-          component: record
-        },
+        path: "record",
+        component: record
+      },
         {
           path: "sheet",
           component: sheet,
@@ -333,10 +335,10 @@ const router = new Router({
           alias: "不良事件",
           component: badEvent,
           children: [{
-              name: "badEventEdit",
-              path: "/badEvent/:code?/:operation?/:id?/:type?/:name?",
-              component: badEventEditPage
-            },
+            name: "badEventEdit",
+            path: "/badEvent/:code?/:operation?/:id?/:type?/:name?",
+            component: badEventEditPage
+          },
             {
               name: "badEventView",
               path: "/badEvent/:code?/:operation?/:id?/:status?/:type?/:name?",
@@ -380,9 +382,9 @@ const router = new Router({
           component: patientInfo,
           alias: "病人信息",
           children: [{
-              path: "/information",
-              component: information
-            },
+            path: "/information",
+            component: information
+          },
             {
               path: "/advice",
               component: advice
@@ -490,6 +492,11 @@ const router = new Router({
           component: process.env.HOSPITAL_ID == "lingcheng" ?
             implementationListLc : process.env.HOSPITAL_ID == "liaocheng" ? implementationListLiaocheng : implementationList,
           name: "执行单"
+        },
+        {
+          path: "/bottleLabel",
+          component: bottleLabel,
+          name: "瓶签打印"
         },
         {
           path: "/healthEducationList",
