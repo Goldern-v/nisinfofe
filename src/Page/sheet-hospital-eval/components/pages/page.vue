@@ -8,13 +8,13 @@
     ></div>
     <div :style="isShow?'display:block':'display:none'">
       <keep-alive exclude="page,RenderForm">
-        <RenderForm :sourceObj="fileJSON" :updateFunc="updateFunc" :lock="status == 1" />
+        <RenderForm :sourceObj="fileJSON" :updateFunc="updateFunc" :lock="status == 1"/>
       </keep-alive>
     </div>
     <div :style="isShow?'display:none':'display:block;backgroud:white;'">
       <div class="null-img" @click="message=='新建评估单'&&bus.$emit('createHEvalForm')">
-        <img src="./image/分组.png" alt />
-        <aside>{{message}}</aside>
+        <img src="./image/分组.png" alt/>
+        <aside>{{ message }}</aside>
       </div>
     </div>
     <!-- <div class="container"></div> -->
@@ -32,7 +32,7 @@ import {
   devFormUrl_p80
 } from "@/common/pathConfig/index.js";
 import common from "@/common/mixin/common.mixin.js";
-import { getJSON } from "./api/index.js";
+import {getJSON} from "./api/index.js";
 
 export default {
   name: "page",
@@ -57,7 +57,8 @@ export default {
       // return "E0100";
       try {
         return this.fileJSON.formSetting.formInfo.formCode;
-      } catch (error) {}
+      } catch (error) {
+      }
       return "";
     }
   },
@@ -126,7 +127,7 @@ export default {
     window.formObj.dictionary = this.fileJSON.dictionary;
     // window.formObj.formSetting = this.fileJSON.formSetting
     window.formObj.header = this.fileJSON.header;
-    window.formObj.model = { ...window.formObj.model, ...this.fileJSON.model };
+    window.formObj.model = {...window.formObj.model, ...this.fileJSON.model};
     window.formObj.pageSetting = this.fileJSON.pageSetting;
     //
     this.loading = false;
@@ -156,7 +157,13 @@ export default {
       //
       let rootDir = "sheet-hospital-eval";
       // remote
-      let url = this.getFilePath("住院评估.index.json", rootDir);
+      // let url = this.getFilePath("住院评估.index.json", rootDir);
+      let url = null
+      if (this.HOSPITAL_NAME === '聊城市第二人民医院') {
+        url = this.getFilePath("住院评估.index.liaoc.json", rootDir);
+      } else {
+        url = this.getFilePath("住院评估.index.json", rootDir);
+      }
       //
       console.log("==loadingJSON==", this.isDev, url);
       //
@@ -172,7 +179,12 @@ export default {
 
       //
       // main json file
-      url = this.getFilePath("住院评估.form.json", `${rootDir}/main`);
+      // url = this.getFilePath("住院评估.form.json", `${rootDir}/main`);
+      if (this.HOSPITAL_NAME === '聊城市第二人民医院') {
+        url = this.getFilePath("住院评估.form.liaoc.json", `${rootDir}/main`);
+      } else {
+        url = this.getFilePath("住院评估.form.json", `${rootDir}/main`);
+      }
       let jdata = await getJSON(url).catch(err => {
         console.log("getJSON:err", err);
         return;
@@ -182,11 +194,18 @@ export default {
       let file = JSON.parse(JSON.stringify(jdata.data));
       try {
         file.formSetting.formTitle.hospitalName = this.HOSPITAL_NAME;
-      } catch (error) {}
+      } catch (error) {
+      }
       //
 
       // 主表字段对照表
-      url = this.getFilePath("住院评估.schemes.json", `${rootDir}/main`);
+      // url = this.getFilePath("住院评估.schemes.json", `${rootDir}/main`);
+      if (this.HOSPITAL_NAME === '聊城市第二人民医院') {
+        url = this.getFilePath("住院评估.schemes.liaoc.json", `${rootDir}/main`);
+      } else {
+        url = this.getFilePath("住院评估.schemes.json", `${rootDir}/main`);
+      }
+
       jdata = await getJSON(url).catch(err => {
         console.log("getJSON:err", err);
         return;
@@ -238,7 +257,7 @@ export default {
             // 下拉框选项字典表
             // let dictionary = djson;
             //
-            file.dictionary = { ...file.dictionary, ...djson };
+            file.dictionary = {...file.dictionary, ...djson};
             return JSONdata;
           }
           //
@@ -260,7 +279,7 @@ export default {
               djson.map(d => {
                 title = d.title;
                 if (title) {
-                  file.dialogs[title] = { ...d };
+                  file.dialogs[title] = {...d};
                 }
               });
               return JSONdata;
@@ -379,7 +398,8 @@ export default {
                 this.$root.$refs[this.formCode][rkey][ekey].checkValueRule("");
                 //
                 // this.$root.$refs[this.formCode][rkey][ekey].childObject.style = ""
-              } catch (error) {}
+              } catch (error) {
+              }
             });
           }
         });
@@ -413,7 +433,8 @@ export default {
       }
       try {
         file.formSetting.formTitle.hospitalName = this.HOSPITAL_NAME;
-      } catch (error) {}
+      } catch (error) {
+      }
       // 主表字段对照表
       let schemes = JSON.parse(
         JSON.stringify(require("../data/formSchemes/住院评估.schemes.json"))
@@ -427,11 +448,14 @@ export default {
       }
       //
       // 其他下拉框选项字典表
-      let otherDictionary = JSON.parse(
-        JSON.stringify(require("../data/formDictionary/other.dictionary.json"))
-      );
+      let otherDictionary = null
+      if (this.HOSPITAL_NAME === '聊城市第二人民医院') {
+        dictionary = JSON.parse(JSON.stringify(require("../data/formDictionary/other.dictionary.liaoc.json")))
+      } else {
+        dictionary = JSON.parse(JSON.stringify(require("../data/formDictionary/other.dictionary.json")));
+      }
       //
-      file.dictionary = { ...dictionary, ...otherDictionary };
+      file.dictionary = {...dictionary, ...otherDictionary};
       //
       file.schemes = schemes;
       file.schemesObj = {};
@@ -446,7 +470,8 @@ export default {
         let title = "";
         try {
           djson.formSetting.formTitle.hospitalName = this.HOSPITAL_NAME;
-        } catch (error) {}
+        } catch (error) {
+        }
         if (djson.schemes) {
           let fromName = context.replace("./", "").replace(".json", "");
 
@@ -468,18 +493,19 @@ export default {
         if (djson.constructor === Array) {
           // file.dialogs.push(...djson);
           djson.map(d => {
-                title = d.title;
-                if (title) {
-                  file.dialogs[title] = { ...d };
-                }
-              });
+            title = d.title;
+            if (title) {
+              file.dialogs[title] = {...d};
+            }
+          });
         } else {
 
           try {
             title = djson.formSetting.formTitle.formName;
             // file.dialogs.push(djson);
             file.dialogs[title + ""] = JSON.parse(JSON.stringify(djson));
-          } catch (error) {}
+          } catch (error) {
+          }
         }
       });
 
@@ -648,48 +674,54 @@ export default {
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
 .pages
-    width: 100%;
+  width: 100%;
+
 .no-page
-    background: white;
-    width: 100%;
-    height: 100%;
-    margin: -15px -5px 0 -15px;
-    padding: 0px 5px 15px 15px;
+  background: white;
+  width: 100%;
+  height: 100%;
+  margin: -15px -5px 0 -15px;
+  padding: 0px 5px 15px 15px;
 
 .container
-    width: 100%;
-    height: 100%;
-    padding: 5mm;
-    background: white;
-    margin: auto auto;
-    background:rgba(255,255,255,1);
-    /* box-shadow:0px 5px 10px 0px rgba(0,0,0,0.5); */
+  width: 100%;
+  height: 100%;
+  padding: 5mm;
+  background: white;
+  margin: auto auto;
+  background: rgba(255, 255, 255, 1);
+
+/* box-shadow:0px 5px 10px 0px rgba(0,0,0,0.5); */
 
 .null-img
-    position absolute
-    left 0
-    right 0
-    top 0
-    bottom 0
-    margin auto
-    width 200px
-    height 240px
-    padding 20px
-    background white
-    border 1px solid #ADB4BA
-    border-radius 0px
-    cursor pointer
-    aside
-        color: #cecece;
-        font-size 16px
-        margin-top 10px
-        text-align center
-        // font-weight bold
-    &:hover
-      box-shadow: 0px 0px 10px #888
+  position absolute
+  left 0
+  right 0
+  top 0
+  bottom 0
+  margin auto
+  width 200px
+  height 240px
+  padding 20px
+  background white
+  border 1px solid #ADB4BA
+  border-radius 0px
+  cursor pointer
+
+  aside
+    color: #cecece;
+    font-size 16px
+    margin-top 10px
+    text-align center
+
+  // font-weight bold
+
+  &:hover
+    box-shadow: 0px 0px 10px #888
+
 .mask-layout
   // border 1px solid red
-  position: fixed!important;
+  position: fixed !important;
   width: calc(100% - 200px);
   height: 100%;
   top: 100px;

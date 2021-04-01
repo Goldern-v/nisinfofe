@@ -6,14 +6,15 @@
     <!-- :ref="obj.name+obj.type.toUpperCase()+obj.title||obj.label" -->
     <el-checkbox
       :ref="obj.title||obj.label"
+      :name="obj.name||obj.code"
       v-model="checkboxValue"
       border
       @click.native.stop="checkboxClick"
       :size="obj.size||'small'"
-      :label="obj.code || obj.label || obj.title"
+      :label="obj.code || obj.title"
       :class="obj.class"
       :style="obj.style"
-    >{{obj.title|| obj.label}}</el-checkbox>
+    >{{obj.title}}</el-checkbox>
     <!-- </TipsBox> -->
   </span>
 </template>
@@ -35,7 +36,8 @@ export default {
   },
   data() {
     return {
-      checkboxValue: []
+      checkboxValue: [],
+      refName: this.obj.title || this.obj.label
     };
   },
   computed: {
@@ -43,12 +45,12 @@ export default {
       try {
         return this.formObj.formSetting.formInfo.formCode;
       } catch (error) {}
-      return "E0100";
+      return "E0001";
     }
   },
   watch: {
     checkboxValue(valueNew, oldvaule) {
-      // this.formObj.model[this.obj.name] = valueNew;
+      // this.formObj.model[this.obj.name] = valueNew +'';
       // let value = valueNew.toString();
       // let index = -1;
       // if (!this.formObj.model[this.obj.name]) {
@@ -69,19 +71,30 @@ export default {
   },
   mounted() {
     let refName = this.obj.title || this.obj.label; //this.obj.name +this.obj.type.toUpperCase() +(this.obj.title || this.obj.label);
-    // let formCode = this.formObj.formSetting.formInfo.formCode;
     if (!this.$root.$refs[this.formCode]) {
-      this.$root.$refs[this.formCode] = new Object();
+      this.$root.$refs[this.formCode] = []; //new Array();
     }
+
     if (!this.$root.$refs[this.formCode][this.obj.name]) {
-      this.$root.$refs[this.formCode][this.obj.name] = new Array();
+      this.$root.$refs[this.formCode][this.obj.name] = []; //new Array();
     }
 
     if (this.$refs[refName]) {
+      // if(this.obj.defaultValue !== undefined && this.obj.defaultValue===true){
+      //   // model
+      //   this.formObj.model[this.obj.name] = refName
+      //   this.$refs[refName].model = []
+      //   this.$refs[refName].model.push(refName)
+      //   console.log('this.obj.defaultValue',this.obj.defaultValue,this.obj,this.$refs[refName])
+      // }
+      if (this.obj.defaultValue) {
+        this.checkboxValue = this.obj.defaultValue;
+      }
+      this.$refs[refName]["runTasks"] = this.runTasks;
       this.$refs[refName]["childObject"] = this.obj;
       this.$root.$refs[this.formCode][this.obj.name][refName] = this.$refs[
         refName
-      ];
+        ];
     }
   },
   created() {},
@@ -95,26 +108,47 @@ export default {
         return;
       }
 
+      if (this.$refs[this.refName]) {
+        this.$refs[this.refName].$parent.$parent.$parent.$el.style.outline =
+          "none";
+        this.$refs[
+          this.refName
+          ].$parent.$parent.$parent.$el.style.backgroundColor = "transparent";
+        // if(this.$root.$refs.mainPage.checkFormMissingItems){
+        //   this.$root.$refs.mainPage.checkFormMissingItems()
+        // }
+      }
+
       let rootRefs = this.$root.$refs[this.formCode][this.obj.name];
       console.log("--obj.name:", this.obj.name, rootRefs, this.$root.$refs);
       // if (!rootRefs || !this.obj || !this.obj.name) {
       //   return;
       // }
       for (const key in rootRefs) {
-        if (rootRefs && rootRefs.hasOwnProperty(key) && rootRefs[key]) {
+        if (rootRefs.hasOwnProperty(key) > -1) {
           let item = rootRefs[key];
-          // console.log("-----", item.childObject.title, item, key, rootRefs);
-          // if(item && typeof item.constructor !== 'object'){
-          //   continue
-          // }
+          if (item && typeof item == "object") {
+            // , item && item.childObject && item.childObject.title
+            console.log(
+              "-----typeof:",
+              typeof item,
+              item,
+              key,
+              rootRefs,
+              rootRefs[key]
+            );
+            // if(item && typeof item.constructor !== 'object'){
+            //   continue
+            // }
 
-          // item &&
-          // item.constructor === "object" &&
-          // item.hasOwnProperty("childObject") &&
-          if (item.childObject && item.childObject.title !== this.obj.title) {
-            // console.log('---++',item.childObject.title ,item)
-            item.model = [];
-            // this.$root.$refs[this.formCode][this.obj.name][key].model = [];
+            // item &&
+            // item.constructor === "object" &&
+            // item.hasOwnProperty("childObject") &&
+            if (item.childObject && item.childObject.title !== this.obj.title) {
+              // console.log('---++',item.childObject.title ,item)
+              item.model = [];
+              // this.$root.$refs[this.formCode][this.obj.name][key].model = [];
+            }
           }
         }
       }
@@ -133,47 +167,76 @@ export default {
       // console.log(this.$refs[this.obj.title].checked , this.$refs[this.obj.title].isChecked , this.$refs[this.obj.title].value)
       // }
 
-      let index = this.formObj.selectedItems.findIndex(c => {
-        return c.name === this.obj.name && c.title === this.obj.title;
-      });
-      if (index === -1) {
-        this.formObj.selectedItems = this.formObj.selectedItems.filter(c => {
-          return c.name !== this.obj.name;
+      // if(!this.formObj.selectedItems){
+      //   this.formObj.selectedItems=[]
+      // }
+
+      let index = -1;
+
+      if (this.formObj.selectedItems) {
+        index = this.formObj.selectedItems.findIndex(c => {
+          return c.name === this.obj.name && c.title === this.obj.title;
         });
-        this.formObj.selectedItems.push(this.obj);
+
+        if (index === -1) {
+          this.formObj.selectedItems = this.formObj.selectedItems.filter(c => {
+            return c.name !== this.obj.name;
+          });
+          if (this.formObj.selectedItems) {
+            this.formObj.selectedItems.push(this.obj);
+          }
+        }
       }
       if (this.$refs[this.obj.title].isChecked) {
-        this.formObj.selectedItems = this.formObj.selectedItems.filter(c => {
-          return c.name !== this.obj.name;
-        });
-        console.log("取消选中", "index", index, this.formObj.selectedItems);
+        if (this.formObj.selectedItems) {
+          this.formObj.selectedItems = this.formObj.selectedItems.filter(c => {
+            return c.name !== this.obj.name;
+          });
+          console.log("取消选中", "index", index, this.formObj.selectedItems);
+        }
         this.formObj.model[this.obj.name] = "";
       } else {
         this.formObj.model[this.obj.name] = this.obj.code || this.obj.title;
       }
+
+      //
+      //
       let score = 0;
       // 计算总分
-      this.formObj.selectedItems.map(item => {
-        score += ~~item.score;
-      });
+      if (this.formObj.selectedItems) {
+        this.formObj.selectedItems.map(item => {
+          score += ~~item.score;
+        });
+      }
       //
       this.formObj.model["evalScore"] = score;
+      //
       if (this.$root.$refs[this.formCode]["evalScore"]) {
-        this.formObj.model["evalScore"] = score;
-        //
-        // this.$root.$refs[this.formCode]["evalScore"][0].setCurrentValue(score);
-        this.setElementValue("evalScore", score);
-        let textResult = this.getValueRule("evalDesc", score); //this.$root.$refs["evalDesc"][0].checkValueRule(score);
-        //
-        console.log("evalDesc-textResult", textResult);
-        //
-        this.formObj.model["evalDesc"] = textResult + "";
-        //
-        // this.$root.$refs["evalDesc"][0].setCurrentValue(textResult);
-        this.setElementValue("evalDesc", textResult);
-        // this.$root.$refs["evalDesc"][0].checkValueRule(textResult);
-        this.getValueRule("evalDesc", textResult);
+        try {
+          this.formObj.model["evalScore"] = score;
+          this.$root.$refs[this.formCode]["evalScore"].setCurrentValue(score);
+          let textResult = this.$root.$refs[this.formCode][
+            "evalDesc"
+            ].checkValueRule(score);
+          console.log("evalDesc-textResult", textResult);
+          this.formObj.model["evalDesc"] = textResult + "";
+          this.$root.$refs[this.formCode]["evalDesc"].setCurrentValue(
+            textResult
+          );
+          this.$root.$refs[this.formCode]["evalDesc"].checkValueRule(
+            textResult
+          );
+        } catch (error) {
+          console.log(error);
+        }
       }
+      //
+
+      this.runTasks();
+      //
+      // this.$forceUpdate();
+      // this.$root.$forceUpdate();
+      // console.log(this.$root,this)
       //
       // 评估得分：0-20分完全依赖；20-40分严重依赖；40-60分明显依赖；＞60分基本自理
       //
@@ -194,20 +257,73 @@ export default {
         "score",
         score
       );
+
+      // 填写检查
+      // if(this.$root.$refs.mainPage.checkFormMissingItems){
+      //   this.$root.$refs.mainPage.checkFormMissingItems()
+      // }
     },
-    setElementValue(key, value) {
-      Object.keys(this.$root.$refs[this.formCode][key]).map(elkey => {
-        this.$root.$refs[this.formCode][key][elkey].setCurrentValue(value);
-      });
-    },
-    getValueRule(key, value) {
-      let textResult = "";
-      Object.keys(this.$root.$refs[this.formCode][key]).map(elkey => {
-        textResult = this.$root.$refs[this.formCode][key][elkey].checkValueRule(
-          value
-        );
-      });
-      return textResult;
+    runTasks() {
+      //
+      if (this.obj.tasks) {
+        if (
+          !this.$root.$refs[this.formCode][this.obj.name][this.obj.title]
+            .isChecked
+        ) {
+          // this.obj.tasks.checked.clean
+          try {
+            this.obj.tasks.map(task => {
+              // let clean = task.clean
+              // clean.map(c=>{
+              //   this.$root.$refs[this.formCode]['formGroupColBox'+c].hidden = true
+              // })
+              if (task.clean) {
+                if (task.clean.constructor == Array) {
+                  task.clean.map(c => {
+                    this.$root.$refs[this.formCode][
+                    "formGroupColBox" + c
+                      ].hidden = true;
+                  });
+                } else {
+                  this.$root.$refs[this.formCode][
+                  "formGroupColBox" + task.clean
+                    ].hidden = true;
+                }
+              }
+
+              if (task.show) {
+                if (task.show.constructor == Array) {
+                  task.show.map(c => {
+                    this.$root.$refs[this.formCode][
+                    "formGroupColBox" + c
+                      ].hidden = false;
+                  });
+                } else {
+                  this.$root.$refs[this.formCode][
+                  "formGroupColBox" + task.show
+                    ].hidden = false;
+                }
+              }
+            });
+            // console.log('tasks:',this.obj.tasks)
+          } catch (error) {
+            console.log("tasks:error", error, this.obj);
+          }
+        }
+      }
+      // 隐藏切换
+
+      if (this.$root.$refs[this.formCode]["formGroupColBox" + this.obj.title]) {
+        if (this.formObj.model[this.obj.name] === this.obj.title) {
+          this.$root.$refs[this.formCode][
+          "formGroupColBox" + this.obj.title
+            ].hidden = false;
+        } else {
+          this.$root.$refs[this.formCode][
+          "formGroupColBox" + this.obj.title
+            ].hidden = true;
+        }
+      }
     }
   }
 };
@@ -240,24 +356,24 @@ export default {
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
 
 >>>.el-checkbox__label
-      font-size 12px!important;
-      padding-left: 5px;
-      padding-right: 5px;
+  font-size 12px!important;
+  padding-left: 5px;
+  padding-right: 5px;
 
 >>>.el-checkbox__inner
-      border-radius 15px!important;
-      width: 15px;
-      height: 15px;
-      border-color: #4bb08d!important;
+  border-radius 15px!important;
+  width: 15px;
+  height: 15px;
+  border-color: #4bb08d!important;
 
 >>>.el-checkbox__inner::after
-      border 2px solid #fff;
-      border-left: 0;
-      border-top: 0;
-      left: 3px;
-      top: 0px;
+  border 2px solid #fff;
+  border-left: 0;
+  border-top: 0;
+  left: 3px;
+  top: 0px;
 
 >>>.el-checkbox__input.is-checked+.el-checkbox__label
-      color: #333!important;
+  color: #333!important;
 
 </style>
