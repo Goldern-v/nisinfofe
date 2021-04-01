@@ -35,8 +35,7 @@
           血酮值
         <br />（mmol/L）
         </th>
-        <th style="width: 16%" v-if="
-            HOSPITAL_ID == 'liaocheng'">{{HOSPITAL_ID == 'liaocheng' ? '测量者' : '执行人'}}</th>
+        <th style="width: 16%">{{HOSPITAL_ID == 'liaocheng' ? '测量者' : '执行人'}}</th>
       </tr>
       <tr
         v-for="item in renderData"
