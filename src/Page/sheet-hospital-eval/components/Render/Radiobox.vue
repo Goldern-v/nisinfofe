@@ -1,4 +1,3 @@
-
 <template>
   <span style="margin: 0 0px 0 0;">
     <!-- !!单选!! -->
@@ -14,7 +13,7 @@
       :label="obj.code || obj.title"
       :class="obj.class"
       :style="obj.style"
-    >{{obj.title}}</el-checkbox>
+    >{{ obj.title }}</el-checkbox>
     <!-- </TipsBox> -->
   </span>
 </template>
@@ -44,7 +43,8 @@ export default {
     formCode() {
       try {
         return this.formObj.formSetting.formInfo.formCode;
-      } catch (error) {}
+      } catch (error) {
+      }
       return "E0001";
     }
   },
@@ -97,7 +97,8 @@ export default {
         ];
     }
   },
-  created() {},
+  created() {
+  },
   methods: {
     getUUID(child = null) {
       let uuid_ = uuid.v1();
@@ -280,28 +281,32 @@ export default {
               if (task.clean) {
                 if (task.clean.constructor == Array) {
                   task.clean.map(c => {
-                    this.$root.$refs[this.formCode][
-                    "formGroupColBox" + c
-                      ].hidden = true;
+                    if (this.$root.$refs[this.formCode]["formGroupColBox" + c]) {
+                      this.$root.$refs[this.formCode]["formGroupColBox" + c].hidden = true;
+                    } else if (this.$root.$refs[this.formCode][c]) {
+                      this.$root.$refs[this.formCode][c].hidden = true;
+                    }
                   });
                 } else {
-                  this.$root.$refs[this.formCode][
-                  "formGroupColBox" + task.clean
-                    ].hidden = true;
+                  if (this.$root.$refs[this.formCode]["formGroupColBox" + task.clean]) {
+                    this.$root.$refs[this.formCode]["formGroupColBox" + task.clean].hidden = true;
+                  }
                 }
               }
 
               if (task.show) {
                 if (task.show.constructor == Array) {
                   task.show.map(c => {
-                    this.$root.$refs[this.formCode][
-                    "formGroupColBox" + c
-                      ].hidden = false;
+                    if (this.$root.$refs[this.formCode]["formGroupColBox" + c]) {
+                      this.$root.$refs[this.formCode]["formGroupColBox" + c].hidden = false;
+                    } else if (this.$root.$refs[this.formCode][c]) {
+                      this.$root.$refs[this.formCode][c].hidden = false;
+                    }
                   });
                 } else {
-                  this.$root.$refs[this.formCode][
-                  "formGroupColBox" + task.show
-                    ].hidden = false;
+                  if (this.$root.$refs[this.formCode]["formGroupColBox" + task.show]) {
+                    this.$root.$refs[this.formCode]["formGroupColBox" + task.show].hidden = false;
+                  }
                 }
               }
             });
@@ -355,25 +360,25 @@ export default {
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
 
->>>.el-checkbox__label
-  font-size 12px!important;
+>>> .el-checkbox__label
+  font-size 12px !important;
   padding-left: 5px;
   padding-right: 5px;
 
->>>.el-checkbox__inner
-  border-radius 15px!important;
+>>> .el-checkbox__inner
+  border-radius 15px !important;
   width: 15px;
   height: 15px;
-  border-color: #4bb08d!important;
+  border-color: #4bb08d !important;
 
->>>.el-checkbox__inner::after
+>>> .el-checkbox__inner::after
   border 2px solid #fff;
   border-left: 0;
   border-top: 0;
   left: 3px;
   top: 0px;
 
->>>.el-checkbox__input.is-checked+.el-checkbox__label
-  color: #333!important;
+>>> .el-checkbox__input.is-checked + .el-checkbox__label
+  color: #333 !important;
 
 </style>
