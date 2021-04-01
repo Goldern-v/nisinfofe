@@ -44,7 +44,7 @@
                v-if="HOSPITAL_ID == 'huadu'">打印床头卡2
           </div>
           <div class="print-btn" flex="cross:center main:center" @click="openBedPrint('wrist')"
-               v-if="HOSPITAL_ID == 'huadu' || HOSPITAL_ID == 'zhongshanqi'">腕带打印
+               v-if="HOSPITAL_ID == 'huadu' || HOSPITAL_ID == 'zhongshanqi' || HOSPITAL_ID == 'liaocheng'">腕带打印
           </div>
           <div
               class="print-btn"
@@ -258,7 +258,7 @@ export default {
         this.$refs.bedModalWx.open();
       } else if (this.HOSPITAL_ID == "lingcheng") {
         this.$refs.bedModalLc.open();
-      } else if (this.HOSPITAL_ID == "huadu") {
+      } else if (this.HOSPITAL_ID == "huadu" || this.HOSPITAL_ID == "liaocheng") {
         this.$refs.bedModalHd.open(printMode);
       } else if(this.HOSPITAL_ID == "zhongshanqi"){
         this.$refs.bedModalZsq.open(printMode);
