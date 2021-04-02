@@ -6,6 +6,7 @@
     </div>
     <div
       v-if="obj.type==='formGroupTitle'"
+      :ref="obj.ref"
       :style="obj.style"
       :class="obj.class||obj.level?'group-title-level-'+obj.level:''"
       :name="obj.title||obj.name||obj.code||''"
@@ -30,12 +31,33 @@ export default {
   computed: {
     uui() {
       return uuid.v1();
+    },
+    formCode() {
+      try {
+        return this.formObj.formSetting.formInfo.formCode;
+      } catch (error) {
+      }
+      return "E0001";
     }
   },
   watch: {},
-  mounted() {},
+  mounted() {
+    if (!this.$root.$refs[this.formCode]) {
+      this.$root.$refs[this.formCode] = []; //new Array();
+    }
+
+    if (this.obj.ref) {
+      this.$root.$refs[this.formCode][this.obj.ref] = this.$refs[this.obj.ref];
+      this.checkHidden();
+    }
+  },
   created() {},
   methods: {
+    checkHidden() {
+      if (this.obj.hidden) {
+        this.$root.$refs[this.formCode][this.obj.ref].hidden = true;
+      }
+    },
     getUUID() {
       let uuid_ = uuid.v1();
       // console.log(uuid_)

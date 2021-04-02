@@ -83,6 +83,13 @@ export default {
       this.isResize();
     }
     window.document.title = this.HOSPITAL_ID == 'guizhou' || this.HOSPITAL_ID == 'liaocheng' ? "智慧护理信息系统" : '百辰源智慧护理信息系统';
+    if(this.HOSPITAL_ID == 'guizhou' || this.HOSPITAL_ID == 'liaocheng'){
+      window.document.title = "智慧护理信息系统";
+    }else if(this.HOSPITAL_ID == 'zhongshanqi'){
+      window.document.title = "中山七院智慧护理信息系统";
+    }else {
+      window.document.title = "百辰源智慧护理信息系统";
+    }
   },
   mounted() {
     window.openSignModal = this.$refs.signModal.open;

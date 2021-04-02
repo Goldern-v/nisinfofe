@@ -1,13 +1,13 @@
-
 <template>
   <div>
     <div>
       <a :name="obj.title"></a>
     </div>
     <div v-if="obj.type==='formGroupTitle'"
-    :style='obj.style'
-    :class='obj.class|| obj.level&&obj.level==="1"?"group-title-box":"group-sub-title-box"'
-    >{{obj.title}}</div>
+         :style='obj.style'
+         :class='obj.class|| obj.level&&obj.level==="1"?"group-title-box":"group-sub-title-box"'
+    >{{ obj.title }}
+    </div>
   </div>
 </template>
 
@@ -16,31 +16,27 @@ import vue from 'vue'
 import uuid from 'node-uuid'
 
 export default {
-  name:"FormGroupTitle",
+  name: "FormGroupTitle",
   props: {
     obj: Object,
     formObj: Object,
   },
-  components: {
-
-  },
+  components: {},
   data() {
-    return {
-    }
+    return {}
   },
-  computed:{
-    uui(){
+  computed: {
+    uui() {
       return uuid.v1()
     }
   },
-  watch: {
-  },
+  watch: {},
   mounted() {
   },
   created() {
   },
   methods: {
-    getUUID(){
+    getUUID() {
       let uuid_ = uuid.v1()
       // console.log(uuid_)
       return uuid_
@@ -51,12 +47,13 @@ export default {
 
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
-  .group-title-box
-    margin 10px 0 10px 0
-    font-weight bold
-    font-size: 14px;
-  .group-sub-title-box
-    font-size 13px
-    text-indent 1.25em
-    margin 10px 0 5px 0
+.group-title-box
+  margin 10px 0 10px 0
+  font-weight bold
+  font-size: 14px;
+
+.group-sub-title-box
+  font-size 13px
+  text-indent 1.25em
+  margin 10px 0 5px 0
 </style>
