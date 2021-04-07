@@ -232,13 +232,8 @@ export default {
       if (this.$route.name == "singleTemperatureChart") {
         return this.templates.filter(item => {
           if (this.HOSPITAL_ID === "huadu") {
-            console.log("asdf");
             return item.recordCode.indexOf("body_temperature_Hd") == 0;
           } else if (this.HOSPITAL_ID === "liaocheng") {
-            console.log(
-              "temperature",
-              item.recordCode.indexOf("body_temperature_lcey") == 0
-            );
             return item.recordCode.indexOf("body_temperature_lcey") == 0;
           }
         });
