@@ -19,9 +19,14 @@ function patients(deptCode, config, HisName = process.env.HOSPITAL_NAME) {
     东莞市厚街医院: `patList/${deptCode}`,
     德州市陵城区人民医院: `patListWithNewForm/${deptCode}`,
     广州市花都区人民医院: `patListWithNewForm/${deptCode}`,
-    江门市妇幼保健院: `patListWithNewForm/${deptCode}`
+    江门市妇幼保健院: `patListWithNewForm/${deptCode}`,
+    中山大学附属第七医院: `patListWithNewForm/${deptCode}`,
+    东莞市横沥医院: `patListWithNewForm/${deptCode}`,
+    贵州省人民医院: `patListWithNewForm/${deptCode}`,
+    聊城市第二人民医院: `patListWithNewForm/${deptCode}`,
   };
   let url = hisList[HisName] || `patList/${deptCode}`
+  // let url = `patListWithNewForm/${deptCode}`
   if (config) {
     return axios.post(`${apiPath}bed/patList/config/${deptCode}`, config)
   } else {

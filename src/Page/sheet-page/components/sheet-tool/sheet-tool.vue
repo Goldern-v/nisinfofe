@@ -99,7 +99,7 @@
         flex="cross:center main:center"
         @click.stop="openChart"
         v-if="
-          HOSPITAL_ID == 'huadu' &&
+          (HOSPITAL_ID === 'huadu' || HOSPITAL_ID === 'liaocheng') &&
             this.$route.path.includes('singleTemperatureChart')
         "
       >
@@ -213,11 +213,12 @@
       class="tempSweetModal"
       @close="closeModal"
     >
-      <temperature-HD
+      <component
+        v-bind:is="temperatureChart"
         v-if="visibled"
         :admissionDate="admissionDate"
         class="sheet-con"
-      ></temperature-HD>
+      ></component>
     </sweet-modal>
   </div>
 </template>
@@ -245,6 +246,7 @@ import dayjs from "dayjs";
 // import lodopPrint from "./lodop/lodopPrint";
 import patientInfo from "./patient-info";
 import temperatureHD from "../../../patientInfo/supPage/temperature/temperatureHD";
+import temperatureLCEY from "../../../patientInfo/supPage/temperature/temperatureLCEY";
 export default {
   mixins: [commom],
   name: "sheetTool",
@@ -372,7 +374,7 @@ export default {
           this.selectList.push({
             value: `${pagelist[i]}-${pagelist[i + 1] - 1}`
           });
-        } else if(pagelist[i] <= pagelist[i + 1] - 1){
+        } else if (pagelist[i] <= pagelist[i + 1] - 1) {
           this.selectList.push({
             value: `${pagelist[i]}-${pagelist[i + 1] - 1}`
           });
@@ -591,11 +593,18 @@ export default {
             this.$route.path.includes("temperature")
           ) {
             this.sheetBlockList = list.filter(item => {
-              return item.recordCode == "body_temperature_Hd";
+              return this.HOSPITAL_ID === "huadu"
+                ? item.recordCode === "body_temperature_Hd"
+                : item.recordCode === "body_temperature_lcey";
+              // return item.recordCode == "body_temperature_Hd";
             });
           } else {
             this.sheetBlockList = list.filter(item => {
-              return item.recordCode != "body_temperature_Hd";
+              // return item.recordCode != "body_temperature_Hd";
+              return (
+                (item.recordCode != "body_temperature_Hd") &
+                (item.recordCode != "body_temperature_lcey")
+              );
             });
           }
           this.sheetInfo.selectBlock =
@@ -738,6 +747,14 @@ export default {
       return (
         this.sheetInfo.selectBlock && this.sheetInfo.selectBlock.additionalBlock
       );
+    },
+    /* 监听体温单曲线 */
+    temperatureChart() {
+      if (this.HOSPITAL_ID === "huadu") {
+        return temperatureHD;
+      } else {
+        return temperatureLCEY;
+      }
     }
   },
   created() {
@@ -882,7 +899,8 @@ export default {
     setTitleModal,
     tztbModal,
     patientInfo,
-    temperatureHD
+    temperatureHD,
+    temperatureLCEY
   }
 };
 </script>

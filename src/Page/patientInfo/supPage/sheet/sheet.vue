@@ -181,6 +181,7 @@ import sheetTable_mild_hypothermia_hd from "@/Page/sheet-page/components/sheetTa
 import sheetTable_neonatology_picc from "@/Page/sheet-page/components/sheetTable-neonatology_picc/sheetTable";
 import sheetTable_internal_eval_lcey from "@/Page/sheet-page/components/sheetTable-internal_eval_lcey/sheetTable";
 import sheetTable_surgical_eval2_lcey from "@/Page/sheet-page/components/sheetTable-surgical_eval2_lcey/sheetTable";
+import sheetTable_intervention_cure_lcey from "@/Page/sheet-page/components/sheetTable-intervention_cure_lcey/sheetTable";
 import common from "@/common/mixin/common.mixin.js";
 import { nursingUnit } from "@/api/lesion";
 import sheetModel, {
@@ -310,6 +311,8 @@ export default {
         return sheetTable_internal_eval_lcey;
       } else if (sheetInfo.sheetType == "surgical_eval2_lcey") {
         return sheetTable_surgical_eval2_lcey;
+      } else if (sheetInfo.sheetType == "intervention_cure_lcey") {
+        return sheetTable_intervention_cure_lcey;
       } else {
         return sheetTable;
       }
@@ -785,7 +788,8 @@ export default {
     sheetTable_mild_hypothermia_hd,
     sheetTable_neonatology_picc,
     sheetTable_internal_eval_lcey,
-    sheetTable_surgical_eval2_lcey
+    sheetTable_surgical_eval2_lcey,
+    sheetTable_intervention_cure_lcey
   }
 };
 </script>

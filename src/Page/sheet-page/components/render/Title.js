@@ -473,6 +473,13 @@ export default function Title(
     );
   }
   break;
+  case "body_temperature_lcey": {
+    // 聊城二院 - 体温单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/body_temperature_lcey/th.js").default)
+    );
+  }
+  break;
   case "internal_eval_lcey": {
     // 聊城二院 - (内科)一般患者护理评估记录单
     Th = JSON.parse(
@@ -505,6 +512,20 @@ export default function Title(
     // 聊城二院 - 病重（病危）患者护理记录单（带瞳孔）
     Th = JSON.parse(
       JSON.stringify(require("../config/critical_lcey/th").default)
+    );
+  }
+  break;
+  case "peri_intervention_lcey": {
+    // 聊城二院 - 围介入期护理观察记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/peri_intervention_lcey/th").default)
+    );
+  }
+  break;
+  case "intervention_cure_lcey": {
+    // 聊城二院 - 介入诊疗护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/intervention_cure_lcey/th").default)
     );
   }
   break;
