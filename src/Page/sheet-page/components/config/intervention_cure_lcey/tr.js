@@ -17,8 +17,8 @@ import info from "../sheetInfo";
 //   sheetType: "neurology"
 // };
 let ysList = [];
-// let chuList = [];
-// let ruList = [];
+let chuList = [];
+let ruList = [];
 export default [{
     key: "recordMonth", //日期
     value: "",
@@ -31,12 +31,7 @@ export default [{
     event: event_time
   },
   {
-    key: "temperature", //体温
-    value: "",
-    event: keyf1
-  },
-  {
-    key: "pulse", //脉搏
+    key: "pulse", //脉搏/心率
     value: "",
     event: keyf1
   },
@@ -57,120 +52,17 @@ export default [{
     }
   },
   {
-    key: "consciousness", //意识
-    value: "",
-    event: keyf1,
-    autoComplete: {
-      data: ysList
-    }
-  },
-  {
-    key: "spo", //呼吸
+    key: "spo2", //血氧
     value: "",
     event: keyf1
   },
   {
-    key: "pupilLeft", // 大小左
+    key: "fieldOne", //肝素
     value: "",
     event: keyf1
   },
   {
-    key: "pupilRight", // 大小右
-    value: "",
-    event: keyf1
-  },
-  {
-    key: "reflectLeft", // 反射左
-    value: "",
-    event: keyf1,
-    autoComplete: {
-      data: ["+", "-", "±"]
-    }
-  },
-  {
-    key: "reflectRight", // 反射右
-    value: "",
-    event: keyf1,
-    autoComplete: {
-      data: ["+", "-", "±"]
-    }
-  },
-  {
-    key: "dressDesc", //敷料描述
-    value: "",
-    event: keyf1
-  },
-  {
-    key: "observeDesc", //沙袋压迫观察描述
-    value: "",
-    event: keyf1
-  },
-  {
-    key: "fieldOne", //标题1
-    value: "",
-    event: keyf1,
-    textarea: {
-      width: 48
-    }
-  },
-  {
-    key: "fieldTwo", //标题2
-    value: "",
-    event: keyf1,
-    textarea: {
-      width: 48
-    }
-  },
-  {
-    key: "fieldThree", //标题3
-    value: "",
-    event: keyf1,
-    textarea: {
-      width: 36
-    }
-  },
-  {
-    key: "fieldFour", //标题4
-    value: "",
-    event: keyf1,
-    textarea: {
-      width: 36
-    }
-  },
-  {
-    key: "fieldFive", //标题5
-    value: "",
-    event: keyf1,
-    textarea: {
-      width: 36
-    }
-  },
-  {
-    key: "fieldSix", //标题6
-    value: "",
-    event: keyf1,
-    textarea: {
-      width: 36
-    }
-  },
-  {
-    key: "fieldSeven", //标题7
-    value: "",
-    event: keyf1,
-    textarea: {
-      width: 36
-    }
-  },
-  {
-    key: "fieldEight", //标题8
-    value: "",
-    event: keyf1,
-    textarea: {
-      width: 36
-    }
-  },
-  {
-    key: "description", //特殊情况记录
+    key: "description", //临床表现及措施
     value: "",
     style: {
       textAlign: "left",
@@ -245,7 +137,7 @@ export default [{
     value: ""
   },
   {
-    hidden: true,
+    hidden: false,
     key: "auditorNo",
     value: ""
   },
@@ -267,19 +159,19 @@ export default [{
 ];
 
 export function getListData4() {
-  // listItem("入量名称", info.sheetType).then(res => {
-  //   ruList.splice(0, ruList.length);
-  //   for (let item of res.data.data) {
-  //     ruList.push(item.name);
-  //   }
-  // });
-  // listItem("出量名称", info.sheetType).then(res => {
-  //   chuList.splice(0, chuList.length);
-  //   for (let item of res.data.data) {
-  //     chuList.push(item.name);
-  //   }
-  //   chuList.push("阴道出血")
-  // });
+  listItem("入量名称", info.sheetType).then(res => {
+    ruList.splice(0, ruList.length);
+    for (let item of res.data.data) {
+      ruList.push(item.name);
+    }
+  });
+  listItem("出量名称", info.sheetType).then(res => {
+    chuList.splice(0, chuList.length);
+    for (let item of res.data.data) {
+      chuList.push(item.name);
+    }
+    chuList.push("阴道出血")
+  });
   let list = ["意识"];
   multiDictInfo(list).then(res => {
     let data = res.data.data;

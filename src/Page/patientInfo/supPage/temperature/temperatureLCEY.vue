@@ -23,6 +23,17 @@
           :class="HOSPITAL_ID === 'liaocheng' ? 'hdIframe' : ''"
         ></iframe>
       </div>
+      <sweet-modal
+        ref="sheet"
+        title="体温录入"
+        class="modal-con"
+        @close="closeModal"
+      >
+        <single-temperature-chart
+          v-if="visibled"
+          class="sheet-con"
+        ></single-temperature-chart>
+      </sweet-modal>
     </div>
   </div>
 </template>
@@ -100,7 +111,11 @@ import {
 } from "../../../sheet-page/api/index";
 import moment from "moment";
 import bus from "vue-happy-bus";
+import singleTemperatureChart from "./singleTemperatureChart";
 export default {
+  props: {
+    admissionDate: String
+  },
   data() {
     return {
       bus: bus(this),
@@ -108,7 +123,10 @@ export default {
       filePath: "",
       contentHeight: { height: "" },
       currentPage: 1,
-      pageTotal: 1
+      pageTotal: 1,
+      open: false,
+      isSave: false,
+      visibled: false
     };
   },
   methods: {
@@ -116,6 +134,7 @@ export default {
       this.$refs.pdfCon.contentWindow.postMessage(
         { type: "printing" },
         "http://120.224.211.7:9091/temperature/#/"
+        // "http://192.168.20.12:8080/#/"
       );
     },
     getImg() {
@@ -124,6 +143,8 @@ export default {
       let visitId = this.$route.query.visitId;
       /* 单独处理体温单，嵌套iframe */
       const tempUrl = `http://120.224.211.7:9091/temperature/#/?PatientId=${patientId}&VisitId=${visitId}&StartTime=${date}`;
+      // const tempUrl =
+      //   "http://192.168.20.12:8080/#/?PatientId=${patientId}&VisitId=${visitId}&StartTime=${date}";
       this.filePath = "";
       setTimeout(() => {
         this.filePath = tempUrl;
@@ -135,6 +156,9 @@ export default {
     messageHandle(e) {
       if (e && e.data) {
         switch (e.data.type) {
+          case "dblclick":
+            this.onToggle();
+            break;
           case "pageTotal":
             this.pageTotal = e.data.value;
             break;
@@ -175,12 +199,32 @@ export default {
             break;
         }
       }
+    },
+    onToggle() {
+      if (this.$route.path.includes("singleTemperatureChart")) {
+        return;
+      } else {
+        this.visibled = true;
+        this.$nextTick(() => {
+          this.$refs.sheet.open();
+        });
+      }
+    },
+    closeModal() {
+      /* 关闭弹窗时清除弹窗 */
+      this.visibled = false;
+      if (this.isSave) {
+        setTimeout(() => {
+          this.currentPage = 1;
+          this.getImg();
+        }, 1000);
+      }
     }
   },
   watch: {
-    date() {
-      this.getImg();
-    },
+    // date() {
+    //   this.getImg();
+    // },
     currentPage(value) {
       this.$refs.pdfCon.contentWindow.postMessage(
         { type: "currentPage", value },
@@ -188,7 +232,16 @@ export default {
       );
     }
   },
-  mounted() {},
+  mounted() {
+    this.bus.$on("saveSheetPage", data => {
+      if (data === "noSaveSign" || data === true) {
+        this.isSave = true;
+      }
+    });
+    this.bus.$on("sheetToolLoaded", () => {
+      this.bus.$emit("getBlockList");
+    });
+  },
   created() {
     this.getImg();
     window.addEventListener("resize", this.getHeight);
@@ -204,7 +257,8 @@ export default {
     window.removeEventListener("message", this.messageHandle, false);
   },
   components: {
-    nullBg
+    nullBg,
+    singleTemperatureChart
   }
 };
 </script>

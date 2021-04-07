@@ -397,6 +397,11 @@ function switechSheetType(type) {
     schema = require("../config/neonatology_jm/tr.js").default;
   }
   break;
+  case "body_temperature_lcey": {
+    // 聊城二院 - 体温单
+    schema = require("../config/body_temperature_lcey/tr.js").default;
+  }
+  break;
   case "internal_eval_lcey": {
     // 聊城二院 - (内科)一般患者护理评估记录单
     schema = require("../config/internal_eval_lcey/tr.js").default;
@@ -420,6 +425,16 @@ function switechSheetType(type) {
   case "critical_lcey": {
     // 聊城二院 - 病重（病危）患者护理记录单（带瞳孔）
     schema = require("../config/critical_lcey/tr").default;
+  }
+  break;
+  case "peri_intervention_lcey": {
+    // 聊城二院 - 围介入期护理观察记录单
+    schema = require("../config/peri_intervention_lcey/tr").default;
+  }
+  break;
+  case "intervention_cure_lcey": {
+    // 聊城二院 - 介入诊疗护理记录单
+    schema = require("../config/intervention_cure_lcey/tr").default;
   }
   break;
   case "common_zsqy": {

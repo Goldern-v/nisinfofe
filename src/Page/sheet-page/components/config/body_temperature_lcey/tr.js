@@ -1,7 +1,4 @@
 import {
-  listItem
-} from "../../../api/recordDesc";
-import {
   multiDictInfo
 } from "../../../api/index";
 import {
@@ -12,13 +9,9 @@ import {
   event_time,
   click_date
 } from "../keyEvent/date";
-import info from "../sheetInfo";
-// let info = {
-//   sheetType: "neurology"
-// };
-let ysList = [];
-// let chuList = [];
-// let ruList = [];
+
+let 表底注释 = [];
+let 表顶注释 = [];
 export default [{
     key: "recordMonth", //日期
     value: "",
@@ -28,22 +21,29 @@ export default [{
   {
     key: "recordHour", //时间
     value: "",
-    event: event_time
+    event: event_time,
+    autoComplete: {
+      data: ["03:00", "07:00", "11:00", "15:00", "19:00", "23:00"]
+    }
   },
   {
     key: "temperature", //体温
     value: "",
-    event: keyf1
+    event: keyf1,
+    name: "体温",
+    next: "℃"
   },
   {
     key: "pulse", //脉搏
     value: "",
-    event: keyf1
-  },
-  {
+    event: keyf1,
+    name: "脉搏",
+    next: "次/分"
+  }, {
     key: "breath", //呼吸
     value: "",
-    event: keyf1
+    event: keyf1,
+    name: "呼吸",
   },
   {
     key: "bloodPressure", //血压
@@ -54,75 +54,117 @@ export default [{
         e.preventDefault();
       }
       keyf1(e, td);
-    }
+    },
+    name: "血压",
+    next: "mmHg"
   },
   {
-    key: "consciousness", //意识
+    key: "heartRate", //心率
     value: "",
     event: keyf1,
-    autoComplete: {
-      data: ysList
-    }
+    name: "心率",
+    next: "次/分"
   },
   {
-    key: "spo", //呼吸
-    value: "",
-    event: keyf1
-  },
-  {
-    key: "pupilLeft", // 大小左
-    value: "",
-    event: keyf1
-  },
-  {
-    key: "pupilRight", // 大小右
-    value: "",
-    event: keyf1
-  },
-  {
-    key: "reflectLeft", // 反射左
+    key: "painScore", //疼痛
     value: "",
     event: keyf1,
-    autoComplete: {
-      data: ["+", "-", "±"]
-    }
+    name: "疼痛",
   },
   {
-    key: "reflectRight", // 反射右
+    key: "physicalCooling", //物理降温
     value: "",
     event: keyf1,
-    autoComplete: {
-      data: ["+", "-", "±"]
-    }
+    name: "物理降温",
   },
   {
-    key: "dressDesc", //敷料描述
+    key: "painDrop", //疼痛降分
     value: "",
-    event: keyf1
+    event: keyf1,
+    name: "疼痛降分",
   },
   {
-    key: "observeDesc", //沙袋压迫观察描述
+    key: "fieldEight", //基础代谢
     value: "",
-    event: keyf1
+    event: keyf1,
+    name: "基础代谢",
   },
   {
-    key: "fieldOne", //标题1
+    key: "curWeight", //体重
+    value: "",
+    event: keyf1,
+    name: "体重",
+  },
+  {
+    key: "height", //身高
+    value: "",
+    event: keyf1,
+    name: "身高"
+  },
+  {
+    key: "spo2", //血氧饱和
+    value: "",
+    event: keyf1,
+    name: "血氧饱和",
+  },
+  {
+    key: "drainage", //引流量
+    value: "",
+    event: keyf1,
+    name: "引流量",
+  },
+  {
+    key: "foodSize", //入量
+    value: "",
+    event: keyf1,
+    name: "入量",
+  },
+  {
+    key: "sputumVolume", //痰量
+    value: "",
+    event: keyf1,
+    name: "痰量",
+  },
+  {
+    key: "stoolVolume", //大便量
+    value: "",
+    event: keyf1,
+    name: "大便量",
+  },
+  {
+    key: "stoolNum", //大便次数
+    value: "",
+    event: keyf1,
+    name: "大便次数",
+  },
+  {
+    key: "vomiting", //呕吐量
+    value: "",
+    event: keyf1,
+    name: "呕吐量",
+  },
+  {
+    key: "fieldThree", //尿量
+    value: "",
+    event: keyf1,
+    name: "尿量",
+  },
+  {
+    key: "dischargeSize", //总出量
+    value: "",
+    event: keyf1,
+    name: "总出量",
+  },
+  {
+    key: "fieldFour", //自1
     value: "",
     event: keyf1,
     textarea: {
-      width: 48
-    }
+      width: 36
+    },
   },
   {
-    key: "fieldTwo", //标题2
-    value: "",
-    event: keyf1,
-    textarea: {
-      width: 48
-    }
-  },
-  {
-    key: "fieldThree", //标题3
+    key: "fieldFive", //自2
     value: "",
     event: keyf1,
     textarea: {
@@ -130,7 +172,7 @@ export default [{
     }
   },
   {
-    key: "fieldFour", //标题4
+    key: "fieldSix", //自3
     value: "",
     event: keyf1,
     textarea: {
@@ -138,31 +180,7 @@ export default [{
     }
   },
   {
-    key: "fieldFive", //标题5
-    value: "",
-    event: keyf1,
-    textarea: {
-      width: 36
-    }
-  },
-  {
-    key: "fieldSix", //标题6
-    value: "",
-    event: keyf1,
-    textarea: {
-      width: 36
-    }
-  },
-  {
-    key: "fieldSeven", //标题7
-    value: "",
-    event: keyf1,
-    textarea: {
-      width: 36
-    }
-  },
-  {
-    key: "fieldEight", //标题8
+    key: "fieldSeven", //自4
     value: "",
     event: keyf1,
     textarea: {
@@ -172,6 +190,7 @@ export default [{
   {
     key: "description", //特殊情况记录
     value: "",
+    hidden: true,
     style: {
       textAlign: "left",
       position: "absolute",
@@ -192,13 +211,13 @@ export default [{
     // oninput: next
   },
   {
+    key: "empName",
+    value: "",
+  },
+  {
     key: "sign",
     value: ""
   },
-  // {
-  //   key: "audit",
-  //   value: ""
-  // },
   {
     hidden: true,
     key: "id",
@@ -240,7 +259,7 @@ export default [{
     value: ""
   },
   {
-    hidden: false,
+    hidden: true,
     key: "signerNo",
     value: ""
   },
@@ -266,37 +285,42 @@ export default [{
   }
 ];
 
+
+let filterKey = '花都' + ':';
+let filterKey2 = '体温单' + ':';
+let filterKey2Arr = ["表底注释", "表顶注释"];
+
 export function getListData4() {
-  // listItem("入量名称", info.sheetType).then(res => {
-  //   ruList.splice(0, ruList.length);
-  //   for (let item of res.data.data) {
-  //     ruList.push(item.name);
-  //   }
-  // });
-  // listItem("出量名称", info.sheetType).then(res => {
-  //   chuList.splice(0, chuList.length);
-  //   for (let item of res.data.data) {
-  //     chuList.push(item.name);
-  //   }
-  //   chuList.push("阴道出血")
-  // });
-  let list = ["意识"];
+  let list = [
+    "表底注释",
+    "表顶注释",
+  ];
+
+  list = list.map(key => {
+    return filterKey2Arr.includes(key) ? filterKey + filterKey2 + key : filterKey + key;
+  });
   multiDictInfo(list).then(res => {
     let data = res.data.data;
-    setList(ysList, "意识", data);
+    setList(表底注释, "表底注释", data);
+    setList(表顶注释, "表顶注释", data);
   });
 }
 
 getListData4();
+
 /**
  *
  * @param {*} list 原数组
  * @param {*} key 对应的key
  * @param {*} data 数据源
+ * @param {*} isChildOptions 当前选项是否有下拉子选项
  */
-function setList(list, key, data) {
+function setList(list, key, data, ) {
+  key = filterKey2Arr.includes(key) ? filterKey + filterKey2 + key : filterKey + key;
+
   list.splice(0, list.length);
   for (let item of data[key]) {
     list.push(item.name);
   }
+
 }

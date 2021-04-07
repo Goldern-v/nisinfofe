@@ -237,6 +237,7 @@ import sheetTable_mild_hypothermia_hd from "./components/sheetTable-mild_hypothe
 import sheetTable_neonatology_picc from "./components/sheetTable-neonatology_picc/sheetTable";
 import sheetTable_internal_eval_lcey from "./components/sheetTable-internal_eval_lcey/sheetTable";
 import sheetTable_surgical_eval2_lcey from "./components/sheetTable-surgical_eval2_lcey/sheetTable";
+import sheetTable_intervention_cure_lcey from "./components/sheetTable-intervention_cure_lcey/sheetTable";
 import common from "@/common/mixin/common.mixin.js";
 import evalModel from "./components/modal/eval-model/eval-model.vue";
 import { typeList } from "@/api/lesion";
@@ -369,6 +370,8 @@ export default {
         return sheetTable_internal_eval_lcey;
       } else if (sheetInfo.sheetType == "surgical_eval2_lcey") {
         return sheetTable_surgical_eval2_lcey;
+      } else if (sheetInfo.sheetType == "intervention_cure_lcey") {
+        return sheetTable_intervention_cure_lcey;
       } else {
         return sheetTable;
       }
@@ -393,7 +396,11 @@ export default {
         (this.HOSPITAL_ID === "huadu" || this.HOSPITAL_ID === "liaocheng") &&
         this.$route.path.includes("singleTemperatureChart")
       ) {
-        let recordCode = "body_temperature_Hd";
+        // let recordCode = "body_temperature_Hd";
+        let recordCode =
+          this.HOSPITAL_ID === "huadu"
+            ? "body_temperature_Hd"
+            : "body_temperature_lcey";
         blockSave(
           this.patientInfo.patientId,
           this.patientInfo.visitId,
@@ -870,6 +877,7 @@ export default {
     sheetTable_neonatology_picc,
     sheetTable_internal_eval_lcey,
     sheetTable_surgical_eval2_lcey,
+    sheetTable_intervention_cure_lcey,
     doctorEmr
   }
 };

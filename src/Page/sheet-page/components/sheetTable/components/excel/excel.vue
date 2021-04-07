@@ -300,8 +300,9 @@
     <slot
       name="bottomCon"
       v-if="
-        sheetInfo.sheetType == 'neonatology_picc' ||
-          sheetInfo.sheetType == 'internal_eval_lcey'
+        sheetInfo.sheetType === 'neonatology_picc' ||
+          sheetInfo.sheetType === 'internal_eval_lcey' ||
+          sheetInfo.sheetType === 'intervention_cure_lcey'
       "
     ></slot>
     <!-- 表格下方的备注组件 -->
@@ -330,6 +331,9 @@
           >审核人：</span
         >
         <span v-else-if="sheetInfo.sheetType == 'common_wj'">护士长签名：</span>
+        <span v-else-if="sheetInfo.sheetType == 'intervention_cure_lcey'"
+          >护士签名：</span
+        >
         <span v-else>上级护士签名：</span>
         <span class="sh-name-box">
           <div
@@ -431,7 +435,8 @@ export default {
         "magnesium_sulphate_hd",
         "prenatal_hd",
         "postpartum_hd", // 产后护理记录单
-        "common_wj"
+        "common_wj",
+        "intervention_cure_lcey"
       ],
       // 需要双签名的记录单code
       multiSignArr: [
@@ -441,7 +446,7 @@ export default {
         "neonatology2_hd", // 花都_新生儿护理记录单
         "postpartum_hd", // 花都_产后记录单
         "wait_delivery_hd", // 花都_候产记录单
-        "neonatology_hd", // 花都_新生儿科护理记录单
+        "neonatology_hd" // 花都_新生儿科护理记录单
       ]
     };
   },
@@ -591,7 +596,7 @@ export default {
         this.signType = "2";
       }
       // 判断表单code再赋值多签名字段！！！不能直接在表内赋值multiSign不然会打印报错
-      if(this.multiSignArr.includes(this.sheetInfo.sheetType)){
+      if (this.multiSignArr.includes(this.sheetInfo.sheetType)) {
         this.multiSign = true;
       }
       if (!showSign) {
@@ -894,9 +899,9 @@ export default {
       }
     },
     checkMaxLength(value, length) {
-      const regC = /[^ -~]+/g; 
-      const regE = /\D+/g; 
-      console.log('textarea', value, length)
+      const regC = /[^ -~]+/g;
+      const regE = /\D+/g;
+      console.log("textarea", value, length);
     },
     isOverText(td) {
       try {
