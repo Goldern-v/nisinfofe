@@ -266,7 +266,11 @@ export default {
   },
   methods: {
     addSheetPage() {
-      let recordCode = "body_temperature_Hd";
+      // let recordCode = "body_temperature_Hd";
+      let recordCode =
+        this.HOSPITAL_ID === "huadu"
+          ? "body_temperature_Hd"
+          : "body_temperature_lcey";
       blockSave(
         this.patientInfo.patientId,
         this.patientInfo.visitId,

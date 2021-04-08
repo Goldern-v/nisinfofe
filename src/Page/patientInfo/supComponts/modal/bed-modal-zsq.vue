@@ -524,10 +524,10 @@ label {
     text-align: left;
     width: 500px;
     height: auto;
-    padding-left: 100px;
     border: none;
     height: 70px;
     display: flex;
+    justify-content: center;
     >div {
       margin-right: 15px;
     }
@@ -758,7 +758,7 @@ export default {
               margin: 15px 15px 0 15px !important;
             }
             @page {
-              margin: 0 0 0 120mm;
+              margin: 0;
             }
             `,
           });
