@@ -10,7 +10,7 @@
           <i class="el-icon-close"></i>
         </div>
       </div>
-      <div style="height: 100%">
+      <div class="iframeDom" style="height: 100%;">
         <iframe :src="fileUrl"></iframe>
       </div>
       <div class="se-resize" v-seResize="{ target: 'dragNode2' }"></div>
@@ -19,7 +19,7 @@
     </div>
     <el-tooltip v-if="!show" effect="dark" content="电子病历" placement="left">
       <div @click="onload" class="doctor-emr-icon">
-        <img src="./img.png" alt />
+        <img src="./img.png" alt/>
       </div>
     </el-tooltip>
     <!-- <div
@@ -59,6 +59,8 @@ export default {
         oDiv.onmousedown = (ev) => {
           const disX = ev.clientX - dragNode.offsetLeft;
           const disY = ev.clientY - dragNode.offsetTop;
+          const [iframeDom] = document.getElementsByClassName("iframeDom");
+          iframeDom.style['pointer-events'] = 'none'
           if (el.getBoundingClientRect().width !== window.innerWidth) {
             // 非“全屏”下才能拖动
             document.onmousemove = (ev) => {
@@ -70,6 +72,7 @@ export default {
             document.onmouseup = (ev) => {
               document.onmousemove = null;
               document.onmouseup = null;
+              iframeDom.style['pointer-events'] = 'auto'
             };
           }
         };
@@ -98,6 +101,9 @@ export default {
           const disY = ev.clientY;
           let oWidth = dragNode.offsetWidth;
           let oHeight = dragNode.offsetHeight;
+          const [iframeDom] = document.getElementsByClassName("iframeDom");
+          iframeDom.style['pointer-events'] = 'none'
+          console.log(iframeDom.style, 'ssssssss')
           if (el.getBoundingClientRect().width !== window.innerWidth) {
             // 非“全屏”下才能拖动
             document.onmousemove = (ev) => {
@@ -108,6 +114,7 @@ export default {
               document.body.style.cursor = "se-resize";
             };
             document.onmouseup = (ev) => {
+              iframeDom.style['pointer-events'] = 'auto'
               document.onmousemove = null;
               document.onmouseup = null;
               document.body.style.cursor = "default";
@@ -139,6 +146,8 @@ export default {
           const disY = ev.clientY;
           let oWidth = dragNode.offsetWidth;
           let oHeight = dragNode.offsetHeight;
+          const [iframeDom] = document.getElementsByClassName("iframeDom");
+          iframeDom.style['pointer-events'] = 'none'
           if (el.getBoundingClientRect().width !== window.innerWidth) {
             // 非“全屏”下才能拖动
             document.onmousemove = (ev) => {
@@ -148,6 +157,7 @@ export default {
               document.body.style.cursor = "s-resize";
             };
             document.onmouseup = (ev) => {
+              iframeDom.style['pointer-events'] = 'auto'
               document.onmousemove = null;
               document.onmouseup = null;
               document.body.style.cursor = "default";
@@ -179,6 +189,8 @@ export default {
           const disY = ev.clientY;
           let oWidth = dragNode.offsetWidth;
           let oHeight = dragNode.offsetHeight;
+          const [iframeDom] = document.getElementsByClassName("iframeDom");
+          iframeDom.style['pointer-events'] = 'none'
           if (el.getBoundingClientRect().width !== window.innerWidth) {
             // 非“全屏”下才能拖动
             document.onmousemove = (ev) => {
@@ -188,6 +200,7 @@ export default {
               dragNode.style.width = oWidth + w + "px";
             };
             document.onmouseup = (ev) => {
+              iframeDom.style['pointer-events'] = 'auto'
               document.onmousemove = null;
               document.onmouseup = null;
               document.body.style.cursor = "default";
@@ -250,8 +263,8 @@ export default {
 .doctor-emr-wrapper {
   .doctor-emr-content {
     position: fixed;
-    top: 100px;
-    left: 0;
+    top: 500px;
+    left: 100px;
     z-index: 999;
     width: 1200px;
     height: 800px;
