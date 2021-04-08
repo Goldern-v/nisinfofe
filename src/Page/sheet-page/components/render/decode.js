@@ -1,6 +1,9 @@
 import data from "../../sheet.js";
 import sheetInfo from "../config/sheetInfo/index.js";
-import { renderRelObj } from "../utils/relObj";
+import {
+  renderRelObj
+} from "../utils/relObj";
+
 function decode() {
   let allData = [];
   for (let pageIndex = 0; pageIndex < data.length; pageIndex++) {
@@ -33,7 +36,8 @@ function decode() {
   if (
     process.env.HOSPITAL_ID == "lingcheng" ||
     process.env.HOSPITAL_ID == "huadu" ||
-    process.env.HOSPITAL_ID == "wujing" 
+    process.env.HOSPITAL_ID == "wujing" ||
+    process.env.HOSPITAL_ID == "liaocheng"
   ) {
     auditorMapData.auditorMap = sheetInfo.auditorMap;
   }

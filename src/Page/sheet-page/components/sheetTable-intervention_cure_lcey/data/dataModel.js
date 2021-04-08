@@ -104,10 +104,9 @@ let tableModel = {
 					colspan: '1',
 					rowspan: '',
 					children: [{
-						type: "input",
+						type: "text",
 						prev: "介入诊疗结束时间:",
 						class: "",
-						name: "jrzljssj",
 						value: "",
 						style: "width:150px;text-align:left;"
 					}]

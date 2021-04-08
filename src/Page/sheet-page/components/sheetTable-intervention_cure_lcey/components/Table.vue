@@ -21,6 +21,24 @@
                 :item="item"
                 :model.sync="model"
               />
+              <el-date-picker
+                v-if="trIndex === tbody.length - 1"
+                size="small"
+                style="display:inline-block;border:0px;margin:2px"
+                v-model="sheetInfo.relObj.jrzlsj"
+                :data-value="sheetInfo.relObj.jrzlsj"
+                format="yyyy-MM-dd HH:mm:ss"
+                type="datetime"
+                class="editOrPirnt"
+                placeholder="选择日期时间"
+                @change="
+                  formatChange(
+                    'YYYY-MM-DD HH:mm:ss',
+                    sheetInfo.relObj.jrzlsj,
+                    'jrzlsj'
+                  )
+                "
+              ></el-date-picker>
             </td>
           </tr>
         </tbody>
@@ -34,12 +52,14 @@
 import RenderItem from "../../sheetTable/components/table-components/RenderItem";
 import tableModel from "../data/dataModel";
 import sheetInfo from "../../config/sheetInfo";
+import moment from "moment";
 export default {
   data() {
     return {
       cols: tableModel.table.cols,
       table: tableModel.table.tbody,
-      model: {}
+      model: {},
+      sheetInfo
     };
   },
   props: [],
@@ -50,6 +70,9 @@ export default {
   methods: {
     save() {
       console.log(this.model);
+    },
+    formatChange(formatType, value, key) {
+      this.sheetInfo.relObj[key] = moment(value).format(formatType);
     }
   },
   created() {
