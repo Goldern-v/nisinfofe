@@ -66,28 +66,10 @@ export default [{
     next: "次/分"
   },
   {
-    key: "painScore", //疼痛
+    key: "height", //身高
     value: "",
     event: keyf1,
-    name: "疼痛",
-  },
-  {
-    key: "physicalCooling", //物理降温
-    value: "",
-    event: keyf1,
-    name: "物理降温",
-  },
-  {
-    key: "painDrop", //疼痛降分
-    value: "",
-    event: keyf1,
-    name: "疼痛降分",
-  },
-  {
-    key: "fieldEight", //基础代谢
-    value: "",
-    event: keyf1,
-    name: "基础代谢",
+    name: "身高"
   },
   {
     key: "curWeight", //体重
@@ -96,40 +78,62 @@ export default [{
     name: "体重",
   },
   {
-    key: "height", //身高
+    key: "fieldOne", //肛温
     value: "",
     event: keyf1,
-    name: "身高"
+    name: "肛温",
   },
   {
-    key: "spo2", //血氧饱和
+    key: "fieldTwo", //口温
     value: "",
     event: keyf1,
-    name: "血氧饱和",
+    name: "口温",
   },
   {
-    key: "drainage", //引流量
+    key: "ventilatorR", //呼吸机R
     value: "",
     event: keyf1,
-    name: "引流量",
+    name: "呼吸机R",
   },
   {
-    key: "foodSize", //入量
+    key: "painScore", //疼痛
     value: "",
     event: keyf1,
-    name: "入量",
+    name: "疼痛",
   },
   {
-    key: "sputumVolume", //痰量
+    key: "painDrop", //疼痛干预
     value: "",
     event: keyf1,
-    name: "痰量",
+    name: "疼痛干预",
   },
   {
-    key: "stoolVolume", //大便量
+    key: "topComment", //表项注释
     value: "",
     event: keyf1,
-    name: "大便量",
+    name: "表项注释",
+    autoComplete: {
+      data: 表顶注释
+    },
+    splice: true,
+    style: 'overflow: hidden',
+    textarea: {
+      width: 36
+    },
+  },
+  {
+    key: "bottomComment", //表底注释
+    value: "",
+    event: keyf1,
+    name: "表底注释",
+    autoComplete: {
+      data: 表底注释
+    },
+    splice: true,
+    style: 'overflow: hidden',
+    textarea: {
+      width: 36
+    },
   },
   {
     key: "stoolNum", //大便次数
@@ -138,16 +142,16 @@ export default [{
     name: "大便次数",
   },
   {
-    key: "vomiting", //呕吐量
-    value: "",
-    event: keyf1,
-    name: "呕吐量",
-  },
-  {
     key: "fieldThree", //尿量
     value: "",
     event: keyf1,
     name: "尿量",
+  },
+  {
+    key: "foodSize", //入量
+    value: "",
+    event: keyf1,
+    name: "入量",
   },
   {
     key: "dischargeSize", //总出量
