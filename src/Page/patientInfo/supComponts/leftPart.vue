@@ -43,7 +43,7 @@
           <div class="print-btn" flex="cross:center main:center" @click="openBedPrint('v')"
                v-if="HOSPITAL_ID == 'huadu'">打印床头卡2
           </div>
-          <div class="print-btn" flex="cross:center main:center" @click="openBedPrint('wrist')"
+          <div class="print-btn" flex="cross:center main:center" @click="openWristPrint('wrist')"
                v-if="HOSPITAL_ID == 'huadu' || HOSPITAL_ID == 'zhongshanqi' || HOSPITAL_ID == 'liaocheng'">腕带打印
           </div>
           <div
@@ -253,17 +253,26 @@ export default {
     toOpenLeft() {
       this.$store.commit("upOpenLeft", !this.openLeft);
     },
+    // 床头卡打印
     openBedPrint(printMode) {
       if (this.HOSPITAL_ID == "weixian") {
         this.$refs.bedModalWx.open();
       } else if (this.HOSPITAL_ID == "lingcheng") {
         this.$refs.bedModalLc.open();
-      } else if (this.HOSPITAL_ID == "huadu" || this.HOSPITAL_ID == "liaocheng") {
+      } else if (this.HOSPITAL_ID == "huadu") {
         this.$refs.bedModalHd.open(printMode);
       } else if(this.HOSPITAL_ID == "zhongshanqi"){
-        this.$refs.bedModalZsq.open(printMode);
+        this.$refs.bedModalZsq.open();
       }else {
         this.$refs.bedModal.open();
+      }
+    },
+    // 腕带打印
+    openWristPrint(printMode){
+      if (this.HOSPITAL_ID == "huadu" || (this.HOSPITAL_ID == "liaocheng")) {
+        this.$refs.bedModalHd.open(printMode);
+      }else if(this.HOSPITAL_ID == "zhongshanqi"){
+        this.$refs.bedModalZsq.open(printMode);
       }
     },
     // 住院补登记
