@@ -106,7 +106,7 @@ export default {
       ];
       this.tableData2 = [
         new TableItem("入院日期", re.admissionDate, "科室", re.deptName),
-        new TableItem("护理单元", re.wardName, "床号", "没有数据"),
+        new TableItem("护理单元", re.wardName, "床号", re.bedLabel || "没有数据"),
         new TableItem("医生", re.doctorInCharge, "诊断", re.diagnosis),
         new TableItem("护理等级", re.nursingClass, "病情", re.patientCondition),
         new TableItem("费别", re.chargeType)

@@ -199,9 +199,9 @@
                 <i class="iconfont icon-jiaobanzhi"></i> 交班志
               </el-row>
             </router-link>
-            <!-- <router-link to="/nursingRounds" tag="span">
+            <router-link to="/nursingRounds" tag="span">
               <el-row class="nav-item" type="flex" align="middle">护理巡视</el-row>
-            </router-link> -->
+            </router-link>
 
             <!-- <router-link to="/implementationList" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
