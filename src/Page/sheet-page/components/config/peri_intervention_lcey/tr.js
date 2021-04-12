@@ -49,42 +49,66 @@ export default [{
   {
     key: "fieldOne", //左搏动
     value: "",
-    event: keyf1
+    event: keyf1,
+    autoComplete: {
+      data: ["①", "②", "③"]
+    }
   },
   {
     key: "fieldTwo", //左皮肤温度
     value: "",
-    event: keyf1
+    event: keyf1,
+    autoComplete: {
+      data: ["①", "②", "③", "④"]
+    }
   },
   {
     key: "fieldThree", //左皮肤颜色
     value: "",
-    event: keyf1
+    event: keyf1,
+    autoComplete: {
+      data: ["①", "②", "③", "④"]
+    }
   },
   {
     key: "fieldFour", //右搏动
     value: "",
-    event: keyf1
+    event: keyf1,
+    autoComplete: {
+      data: ["①", "②", "③"]
+    }
   },
   {
     key: "fieldSix", //右皮肤温度
     value: "",
-    event: keyf1
+    event: keyf1,
+    autoComplete: {
+      data: ["①", "②", "③", "④"]
+    }
   },
   {
     key: "fieldSeven", //右皮肤颜色
     value: "",
-    event: keyf1
+    event: keyf1,
+    autoComplete: {
+      data: ["①", "②", "③", "④"]
+    }
   },
   {
     key: "fieldFourteen", //伤口情况左
     value: "",
-    event: keyf1
+    event: keyf1,
+    autoComplete: {
+      data: ["①", "②", "③"]
+    }
   },
   {
     key: "fieldFifteen", //伤口情况右
     value: "",
-    event: keyf1
+    event: keyf1,
+    autoComplete: {
+      data: ["①", "②", "③"]
+    }
   },
   {
     key: "painScore", //疼痛评分

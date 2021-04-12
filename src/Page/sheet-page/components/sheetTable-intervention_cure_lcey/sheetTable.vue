@@ -22,32 +22,26 @@
               科室：
               {{ patientInfo.deptName }}
             </span>
-            <span
-              >日期：
-              <div
-                class="bottom-line"
-                style="min-width: 50px;position: relative;"
-              >
-                <input
-                  type="text"
-                  class="bottomInput"
-                  v-model="sheetInfo.relObj.date"
-                  :data-value="sheetInfo.relObj.date"
-                /></div
-            ></span>
-            <span
-              >开始时间：
-              <div
-                class="bottom-line"
-                style="min-width: 50px;position: relative;"
-              >
-                <input
-                  type="text"
-                  class="bottomInput"
-                  v-model="sheetInfo.relObj.kssj"
-                  :data-value="sheetInfo.relObj.kssj"
-                /></div
-            ></span>
+            <span>
+              时间:
+              <el-date-picker
+                size="small"
+                style="display:inline-block;border:0px;margin:2px"
+                v-model="sheetInfo.relObj.dateTime"
+                :data-value="sheetInfo.relObj.dateTime"
+                format="yyyy-MM-dd HH:mm:ss"
+                type="datetime"
+                class="editOrPirnt"
+                placeholder="选择日期时间"
+                @change="
+                  formatChange(
+                    'YYYY-MM-DD HH:mm:ss',
+                    sheetInfo.relObj.dateTime,
+                    'dateTime'
+                  )
+                "
+              />
+            </span>
             <span>
               住院号：
               {{ patientInfo.inpNo }}
@@ -157,30 +151,6 @@
             style="margin:-16px 0 0 0"
             slot="bottomCon"
           >
-            <!-- <div>
-              <span>是否保留鞘管:</span>
-            </div>
-            <div>
-              <span
-                >嘱病人 右/左 腕部/下肢 肢体制动 12/24 小时，平卧 0/24
-                小时</span
-              >
-            </div>
-            <div>
-              <span
-                >介入诊疗结束时间：
-                <div
-                  class="bottom-line"
-                  style="min-width: 50px;position: relative;"
-                >
-                  <input
-                    type="text"
-                    class="bottomInput"
-                    v-model="sheetInfo.relObj.jrzljssj"
-                    :data-value="sheetInfo.relObj.jrzljssj"
-                  /></div
-              ></span>
-            </div> -->
           </bottomTable>
         </excel>
       </div>
@@ -300,40 +270,8 @@ export default {
     };
   },
   methods: {
-    updateBirthDay() {
-      window.openSetAuditDateModal(
-        date => {
-          updateSheetHeadInfo({ birthday: date }).then(res => {
-            this.patientInfo.birthday = res.data.data.birthday;
-            this.$message.success("修改日期成功");
-          });
-        },
-        this.patientInfo.birthday,
-        "修改日期"
-      );
-    },
-    updateTetxInfo(key, label, autoText) {
-      window.openSetTextModal(
-        text => {
-          updateSheetHeadInfo({ [key]: text }).then(res => {
-            this.patientInfo[key] = res.data.data[key];
-            this.$message.success(`修改${label}成功`);
-          });
-        },
-        autoText,
-        `修改${label}`
-      );
-    },
-    changeDate() {
-      window.openSetAuditDateModal(
-        date => {
-          this.createTime = date;
-          sheetInfo.relObj.createTime = date;
-          this.$message.success("修改日期成功，保存护记后生效");
-        },
-        this.createTime,
-        "修改日期"
-      );
+    formatChange(formatType, value, key) {
+      this.sheetInfo.relObj[key] = moment(value).format(formatType);
     }
   },
   computed: {

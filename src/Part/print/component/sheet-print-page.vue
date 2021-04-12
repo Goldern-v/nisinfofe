@@ -381,6 +381,15 @@ export default {
       $("[ischecked='true']").each((index, el) => {
         $(el).prop("checked", true);
       });
+      /* 聊城二院-介入诊疗护理记录单时间选择器打印显示 */
+      if ($(".editOrPirnt").length) {
+        const cssArr = Array.from($(".editOrPirnt"));
+        cssArr.forEach(item => {
+          item.style.display = "none";
+          item.outerText =
+            (item.attributes.value && item.attributes.value.value) || "";
+        });
+      }
       /** 添加上标下标 */
       $('[datakey="description"]').each((index, el) => {
         let dataValue = $(el)

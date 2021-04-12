@@ -32,7 +32,7 @@ export default {
         style: {
           // minWidth: "620px",
         },
-        colspan: "12",
+        colspan: "14",
         rowspan: "1",
       },
       {
@@ -42,7 +42,7 @@ export default {
         style: {
           // minWidth: "143px",
         },
-        colspan: "8",
+        colspan: "4",
         rowspan: "1",
       },
       {
@@ -137,37 +137,7 @@ export default {
       },
       {
         name: `
-        疼痛
-        `,
-        style: {
-          minWidth: "36px",
-        },
-        colspan: "1",
-        rowspan: "2",
-      },
-      {
-        name: `
-        物理<br/>降温
-        `,
-        style: {
-          minWidth: "36px"
-        },
-        colspan: "1",
-        rowspan: "2",
-      },
-      {
-        name: `
-        疼痛<br/>降分
-        `,
-        style: {
-          minWidth: "36px"
-        },
-        colspan: "1",
-        rowspan: "2",
-      },
-      {
-        name: `
-        基础<br/>代谢
+        身高
         `,
         style: {
           minWidth: "36px",
@@ -187,7 +157,17 @@ export default {
       },
       {
         name: `
-        身高
+        肛温
+        `,
+        style: {
+          minWidth: "36px",
+        },
+        colspan: "1",
+        rowspan: "2",
+      },
+      {
+        name: `
+        口温
         `,
         style: {
           minWidth: "36px",
@@ -197,53 +177,53 @@ export default {
       },
       {
         name: `
-        血氧<br/>饱和
+        呼吸机R
         `,
         style: {
           minWidth: "36px",
         },
         colspan: "1",
-        rowspan: "2"
+        rowspan: "2",
       },
       {
         name: `
-        引流量
+        疼痛
         `,
         style: {
           minWidth: "36px",
         },
         colspan: "1",
-        rowspan: "2"
+        rowspan: "2",
       },
       {
         name: `
-        入量
+        疼痛<br/>干预
         `,
         style: {
-          minWidth: "36px",
+          minWidth: "36px"
         },
         colspan: "1",
-        rowspan: "2"
+        rowspan: "2",
       },
       {
         name: `
-        痰量
+        表项<br/>注释
         `,
         style: {
-          minWidth: "36px",
+          minWidth: "36px"
         },
         colspan: "1",
-        rowspan: "2"
+        rowspan: "2",
       },
       {
         name: `
-        大便量
+        表底<br/>注释
         `,
         style: {
-          minWidth: "36px",
+          minWidth: "36px"
         },
         colspan: "1",
-        rowspan: "2"
+        rowspan: "2",
       },
       {
         name: `
@@ -257,7 +237,7 @@ export default {
       },
       {
         name: `
-        呕吐量
+        尿量
         `,
         style: {
           minWidth: "36px",
@@ -267,7 +247,7 @@ export default {
       },
       {
         name: `
-        尿量
+        入量
         `,
         style: {
           minWidth: "36px",
