@@ -161,6 +161,39 @@
         >如Wong-Banker 面部表情量表法 （ FPS -R）即 “笑脸 ”
       </p>
     </div>
+     <!-- 陵 城 病重（病危）患者护理记录单 -->
+    <div class="bottomTable" v-if="sheetInfo.sheetType == 'critical_lc'">
+      <table>
+      <colgroup>
+        <col width="45px" />
+        <col />
+      </colgroup>
+      <tbody>
+        <tr>
+          <td rowspan="9" style="text-align: center;vertical-align: middle;">医<br />嘱<br />内<br />容</td>
+          <td>
+            <input
+            type="text"
+            v-model="sheetInfo.relObj[advice[0]]"
+            :data-value="sheetInfo.relObj[advice[0]]"
+            />
+          </td>
+        </tr>
+        <tr v-for="item in advice.slice(1)" :key="item">
+          <td>
+            <input
+              type="text"
+              v-model="sheetInfo.relObj[item]"
+              :data-value="sheetInfo.relObj[item]"
+            />
+          </td>
+          </tr>
+      </tbody>
+      </table>
+      <div style="padding-top: 10px;">
+          <p>注：瞳孔对光反应：灵敏（+）、迟钝（S）、消失（-）表示。</p>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -169,20 +202,48 @@ import sheetInfo from "../../../config/sheetInfo";
 export default {
   data() {
     return {
-      sheetInfo
+      sheetInfo,
+      advice: ['advice','advice2','advice3','advice4','advice5','advice6','advice7','advice8','advice9']
     };
+  },
+  created(){
+    if(this.sheetInfo.sheetType == 'critical_lc' && this.sheetInfo.relObj['advice'] == undefined){
+      this.sheetInfo.relObj['advice'] = '【1】0.9%NS100ml,奥美拉唑40mg iv 12:00【2】0.9%NS100ml,奥美拉唑40mg iv 12:00';
+    }
   }
 };
 </script>
 
 <style lang="stylus" scoped>
 .bottomRemark{
-    >div{
-        font-size: 13px;
-        margin-top: -5px
-        text-align :left;
-        line-height :20px;
+  >div{
+      font-size: 13px;
+      margin-top: -5px
+      text-align :left;
+      line-height :20px;
+  }
+  .bottomTable{
+    width: 100%;
+    font-size:12px;
+    margin-top: -16px;
+    table {
+      width: 100%;
     }
+    td{
+      border: 1px solid #000 !important;
+      height
+      p{
+        line-height :20px;
+      }
+      input {
+        width: 100%;
+        height: 28px;
+        border: none;
+        outline: none;
+        box-sizing: border-box;
+      }
+    }
+  }
 
 }
 </style>

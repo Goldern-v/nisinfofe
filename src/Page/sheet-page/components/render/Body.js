@@ -282,6 +282,11 @@ function switechSheetType(type) {
     schema = require("../config/maternal_newborn_lc/tr.js").default;
   }
   break;
+  case "critical_lc": {
+    // 陵城-病重（病危）患者护理记录单
+    schema = require("../config/critical_lc/tr.js").default;
+  }
+  break;
   case "stress_injury_hd": {
     // 花都-压力性损伤护理记录单
     schema = require("../config/stress_injury_hd/tr.js").default;
