@@ -112,7 +112,7 @@
               :class="{ 'router-link-active': isActiveFormPage }"
             >
               <el-row class="nav-item" type="flex" align="middle">
-                <i class="iconfont icon-hulijiludan"></i> 护理文书
+                <i class="iconfont icon-hulijiludan"></i> 护理评估
               </el-row>
 
               <el-dropdown-menu slot="dropdown">
@@ -220,7 +220,7 @@
 
             <router-link to="/formPage" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
-                <i class="nursingAssessment"></i> 护理评估单
+                <i class="nursingAssessment"></i> 护理文书
               </el-row>
             </router-link>
 
