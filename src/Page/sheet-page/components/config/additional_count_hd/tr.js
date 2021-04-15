@@ -40,6 +40,7 @@ export default [{
     textarea: {
       width: 48
     },
+    splice: true,
     autoComplete: {
       data: 护理操作项目
     },
@@ -52,6 +53,7 @@ export default [{
     textarea: {
       width: 48
     },
+    splice: true,
     autoComplete: {
       data: 护理操作结果
     },
@@ -64,6 +66,7 @@ export default [{
     textarea: {
       width: 48
     },
+    splice: true,
     autoComplete: {
       data: 护理问题
     },
@@ -76,6 +79,7 @@ export default [{
     textarea: {
       width: 48
     },
+    splice: true,
     autoComplete: {
       data: 护理类型
     },
@@ -88,6 +92,7 @@ export default [{
     textarea: {
       width: 48
     },
+    splice: true,
     autoComplete: {
       data: 安全护理
     },
@@ -100,6 +105,7 @@ export default [{
     textarea: {
       width: 48
     },
+    splice: true,
     autoComplete: {
       data: 导管护理
     },
@@ -124,6 +130,7 @@ export default [{
     textarea: {
       width: 62,
     },
+    splice: true,
     autoComplete: {
       data: 气管护理
     },
@@ -160,6 +167,7 @@ export default [{
     textarea: {
       width: 48
     },
+    splice: true,
     autoComplete: {
       data: 心理护理
     },
@@ -172,6 +180,7 @@ export default [{
     textarea: {
       width: 48
     },
+    splice: true,
     autoComplete: {
       data: 饮食情况
     },
@@ -199,6 +208,12 @@ export default [{
     autoComplete: {
       data: wether
     },
+  },
+  {
+    key: "bellySize", //腹围
+    value: "",
+    event: keyf1,
+    name: "腹围",
   },
   {
     hidden: true,

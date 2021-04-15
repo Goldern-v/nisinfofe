@@ -27,7 +27,7 @@
         class="item-box"
         flex="cross:center main:center"
         @click="openStaticModal"
-        v-if="showCrl && !isDeputy"
+        v-if="showCrl && !isDeputy && !isSingleTem_LCEY"
       >
         <div class="text-con">出入量统计</div>
       </div>
@@ -181,18 +181,19 @@
         class="right-btn"
         flex="cross:center main:center"
         @click="emit('openEvalModel')"
-        v-if="showCrl"
+        v-if="showCrl && !isSingleTem_LCEY"
       >
         <div class="text-con">
           <img src="./images/评估.png" alt />
           评估同步
         </div>
       </div>
-      <div class="line"></div>
+      <div class="line" v-if="!isSingleTem_LCEY"></div>
       <div
         class="right-btn"
         flex="cross:center main:center"
         @click.stop="openTztbModal"
+        v-if="!isSingleTem_LCEY"
       >
         <div class="text-con">
           <img src="./images/体征.png" alt />
@@ -263,7 +264,10 @@ export default {
       sheetInfo,
       sheetBlockList: [],
       visibled: false,
-      admissionDate: ""
+      admissionDate: "",
+      isSingleTem_LCEY:
+        this.HOSPITAL_ID === "liaocheng" &&
+        this.$route.path.includes("singleTemperatureChart") //聊城二院体温单屏蔽三个功能：“出入量统计”、"评估同步"、“体征同步”
     };
   },
   methods: {

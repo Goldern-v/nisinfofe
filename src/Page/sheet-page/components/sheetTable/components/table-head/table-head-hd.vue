@@ -259,4 +259,7 @@ input.bottom-line {
   border-right: 0;
   outline: none;
 }
+.title {
+  font-size: 18px !important;
+}
 </style>
