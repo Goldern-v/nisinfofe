@@ -1,5 +1,5 @@
 <template>
-  <SweetModal ref="modal" title="护理日夜交班" :modal-width="760" @close="onPanelClose">
+  <SweetModal ref="modal" :title="modalData.title" :modal-width="760" @close="onPanelClose">
     <div class="head">
       <label>
         <span>床号：</span>
@@ -28,7 +28,19 @@
     </div>
     <div class="content">
       <ElTabs class="tabs" v-model="tab" type="card" @input="onTabChange">
-        <ElTabPane label="白班" name="1">
+        <ElTabPane :label="tabItem.name" :name="String(index+1)" v-for="(tabItem,index) in modalData.tabs" :key="tabItem.name">
+          <div v-for="item in tabItem.editContent" :key="item.title">
+            <div class="label">{{item.title}}</div>
+            <ElInput
+              type="textarea"
+              :rows="4"
+              v-model="form[item.prop]"
+              :disabled="isSignedN"
+            />
+          </div>
+        </ElTabPane>
+
+        <!-- <ElTabPane label="白班" name="1">
           <div class="label">诊断</div>
           <ElInput
             type="textarea"
@@ -81,7 +93,7 @@
             v-model="form.remark2"
             :disabled="isSignedN"
           />
-        </ElTabPane>
+        </ElTabPane> -->
       </ElTabs>
     </div>
     <ElButton slot="button" @click="onClose">取消</ElButton>
@@ -109,6 +121,10 @@ export default {
   mixins: [common],
   props: {
     date: String,
+    modalData: {
+      type: Object,
+      default: () => {}
+    }
   },
   data: () => ({
     tab: "",
