@@ -442,6 +442,11 @@ function switechSheetType(type) {
     schema = require("../config/intervention_cure_lcey/tr").default;
   }
   break;
+  case "body_temperature_wj": {
+    // 武警总队 - 体温单
+    schema = require("../config/body_temperature_wj/tr").default;
+  }
+  break;
   case "common_zsqy": {
     // 中山七院-护理记录单
     schema = require("../config/common_zsqy/tr.js").default;

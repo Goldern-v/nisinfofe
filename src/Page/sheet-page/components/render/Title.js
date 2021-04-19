@@ -543,6 +543,13 @@ export default function Title(
     );
   }
   break;
+  case "body_temperature_wj": {
+    // 武警总队-体温单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/body_temperature_wj/th").default)
+    );
+  }
+  break;
   default: {
     Th = JSON.parse(
       JSON.stringify(require("../config/default/th").default)
