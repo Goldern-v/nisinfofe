@@ -228,7 +228,39 @@
                 <i class="nursingAssessment"></i> 护理记录单
               </el-row>
             </router-link>
-
+            <el-dropdown
+              menu-align="start"
+              :class="{ 'router-link-active': isActiveTemperaturePage }"
+            >
+              <el-row class="nav-item" type="flex" align="middle">
+                <div class="before"></div>
+                <i class="iconfont icon-hulijiludan"></i>体温单
+              </el-row>
+              <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item
+                  :class="{
+                    active: $route.path.includes('singleTemperatureChart')
+                  }"
+                >
+                  <router-link to="/singleTemperatureChart" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="singleTemperatureChart"></i>单人录入体温单
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item>
+                <el-dropdown-item
+                  :class="{
+                    active: $route.path.includes('allTemperatureChart')
+                  }"
+                >
+                  <router-link to="/allTemperatureChart" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="allTemperatureChart"></i>批量录入体温单
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item>
+              </el-dropdown-menu>
+            </el-dropdown>
             <router-link to="/shiftWork" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-jiaobanzhi"></i> 交班志
@@ -249,14 +281,18 @@
                 <i class="iconfont icon-hulijiludan"></i>执行单
               </el-row>
               <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item :class="{ active: $route.path == '/bottleLabel' }">
+                <el-dropdown-item
+                  :class="{ active: $route.path == '/bottleLabel' }"
+                >
                   <router-link to="/bottleLabel" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
                       <i class="wardReport"></i>执行瓶签打印
                     </el-row>
                   </router-link>
                 </el-dropdown-item>
-                <el-dropdown-item :class="{ active: $route.path == '/implementationList' }">
+                <el-dropdown-item
+                  :class="{ active: $route.path == '/implementationList' }"
+                >
                   <router-link to="/implementationList" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
                       <i class="catheterPage"></i>执行记录
@@ -750,6 +786,14 @@
     &.cognitiveStatistic {
       background-image: url('../../common/images/index/出生医学证明.png');
     }
+
+    &.singleTemperatureChart {
+      background-image: url('../../common/images/index/单人录入体温单.png');
+    }
+
+    &.allTemperatureChart {
+      background-image: url('../../common/images/index/批量录入体温单.png');
+    }
   }
 }
 
@@ -961,6 +1005,13 @@ export default {
       return false;
       // if (this.$route.path == "/sugarPage") return true;
       // return false;
+    },
+    isActiveTemperaturePage() {
+      let path = this.$route.path;
+      return (
+        path.includes("singleTemperatureChart") ||
+        path.includes("allTemperatureChart")
+      );
     }
   },
   methods: {
