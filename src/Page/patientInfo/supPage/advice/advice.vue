@@ -37,7 +37,7 @@
         :tableLoading="tableLoading"
       ></adviceTableWx>
       <adviceTableHd :tableData="tableDataSelect" :tableLoading="tableLoading" v-else-if="HOSPITAL_ID == 'huadu'"></adviceTableHd>
-      <adviceTableCommon :tableData="tableDataSelect" :tableLoading="tableLoading" v-else-if="HOSPITAL_ID == 'liaocheng' || HOSPITAL_ID == 'fuyou'"></adviceTableCommon>
+      <adviceTableCommon :tableData="tableDataSelect" :tableLoading="tableLoading" v-else-if="HOSPITAL_ID == 'liaocheng' || HOSPITAL_ID == 'fuyou' || HOSPITAL_ID == 'hengli'"></adviceTableCommon>
       <adviceTable :tableData="tableDataSelect" :tableLoading="tableLoading" v-else></adviceTable>
     </div>
   </div>
@@ -167,7 +167,7 @@ export default {
           this.radio === "全部";
         return selcet1 && select2;
       });
-      if(this.HOSPITAL_ID == 'liaocheng' || this.HOSPITAL_ID == 'fuyou'){
+      if(this.HOSPITAL_ID == 'liaocheng' || this.HOSPITAL_ID == 'fuyou' || this.HOSPITAL_ID == 'hengli'){
         data.map((item, index, array)=>{
           let prevRowId = array[index-1] && array[index-1].orderNo + array[index-1].patientId;
           let currentRowId = array[index] && array[index].orderNo + array[index].patientId;
