@@ -267,10 +267,22 @@ export default {
   methods: {
     addSheetPage() {
       // let recordCode = "body_temperature_Hd";
-      let recordCode =
-        this.HOSPITAL_ID === "huadu"
-          ? "body_temperature_Hd"
-          : "body_temperature_lcey";
+      let recordCode = (() => {
+        switch (this.HOSPITAL_ID) {
+          case "huadu":
+            return "body_temperature_Hd";
+          case "liaocheng":
+            return "body_temperature_lcey";
+          case "wujing":
+            return "body_temperature_wj";
+          default:
+            break;
+        }
+      })();
+      // let recordCode =
+      //   this.HOSPITAL_ID === "huadu" || HOSPITAL_ID === "wujing"
+      //     ? "body_temperature_Hd"
+      //     : "body_temperature_lcey";
       blockSave(
         this.patientInfo.patientId,
         this.patientInfo.visitId,
