@@ -12,8 +12,13 @@ import {
 axios.interceptors.request.use((config) => {
     // 判断如果是登录 则无需验证token
     config.headers.common['App-Token-Nursing'] = $params.appToken || '51e827c9-d80e-40a1-a95a-1edc257596e7'
-    if (config.url.indexOf('login') > -1 || config.url.indexOf('autoLogin') > -1 || config.url.indexOf('logout') > -1 || config.url.indexOf('resetPassword') > -1) return config
+
     var token = (window.app && window.app.$getCookie('NURSING_USER').split('##')[1]) || $params.token
+
+    if (config.url.indexOf("identityCheck") > -1 ){
+        config.headers.common["Auth-Token-Nursing"] = token || '';
+    }
+    if (config.url.indexOf('login') > -1 || config.url.indexOf('autoLogin') > -1 || config.url.indexOf('logout') > -1 || config.url.indexOf('resetPassword') > -1 || config.url.indexOf('identityCheck') > -1) return config
     var user = localStorage['user']
     if (token) {
         config.headers.common['Auth-Token-Nursing'] = token
