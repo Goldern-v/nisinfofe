@@ -22,6 +22,12 @@
           >
             血糖测量记录单
           </div>
+          <div
+            class="sup-title"
+            v-else-if="HOSPITAL_ID == 'liaocheng'"
+          >
+            血糖酮体测量记录单
+          </div>
           <div class="sup-title" v-else>微量血糖测定登记表</div>
           <p flex="main:justify" class="info">
             <span>病人姓名：{{ patientInfo.name }}</span>
@@ -38,7 +44,8 @@
             <!-- <span>入院日期：{{patientInfo.admissionDate | toymd}}</span> -->
             <span>床号：{{ patientInfo.bedLabel }}</span>
             <!-- <span class="diagnosis-con">诊断：{{patientInfo.diagnosis}}</span> -->
-            <span>住院号：{{ patientInfo.inpNo }}</span>
+            <span v-if="HOSPITAL_ID == 'liaocheng'">病案号：{{ patientInfo.inpNo }}</span>
+            <span v-else>住院号：{{ patientInfo.inpNo }}</span>
             <!-- <span>入院日期：{{$route.query.admissionDate}}</span> -->
           </p>
           <div class="table-warpper" flex="cross:stretch">
