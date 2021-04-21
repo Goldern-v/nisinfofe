@@ -288,26 +288,75 @@ export default {
           return item.data.status == "1";
         }).length > 0;
 
-      let fileHasSave = node.data.status == 0;
+      let fileHasSave = node.data.status == 0; 
       let fileHasSign = node.data.status == 1;
-
       let icon;
       let box;
-
-      if (hasSave && this.HOSPITAL_ID !== "weixian") {
-        box = fileboxRed;
-      } else if (hasSign && this.HOSPITAL_ID !== "weixian") {
-        box = fileboxGreen;
+     
+      let formNoSign = node.data.formTreeRemindType == '0'; // 无签名
+      let formSign = node.data.formTreeRemindType == '1'; // 责任（多人签名）
+      let formAudit = node.data.formTreeRemindType == '2'; // 责任 + 审核
+      let formNoType = node.data.formTreeRemindType != '';
+      
+      // 花都特殊处理
+      if(this.HOSPITAL_ID == "huadu" && formNoType) {
+        // 文件夹
+        // 责任 + 审核的情况
+        if (hasSave && formAudit) {// 责任 + 审核的情况 未签名
+          box = fileboxRed; 
+        } 
+        else if (hasSign && formAudit) { // 责任 + 审核的情况 责任签名
+          box = fileboxGreen;
+        } 
+        else if (formAudit) { // 责任 + 审核的情况 全签名
+          box = filebox;
+        } 
+        // 责任（多人签名）的情况
+        else if (hasSave && formSign) { // 责任（多人签名）的情况 未签名
+          box = fileboxRed;
+        } 
+        else if (hasSign && formSign) { // 责任（多人签名）的情况 责任签名
+          box = filebox;
+        }
+        else if (formNoSign ){ // 没有签名的情况
+          box = filebox; 
+        }
+        // 文件
+        if (fileHasSave && formAudit) {// 责任 + 审核的情况 未签名
+          icon = fileiconRed; 
+        } 
+        else if (fileHasSign && formAudit) { // 责任 + 审核的情况 责任签名
+          icon = fileiconGreen;
+        } 
+        else if (formAudit) { // 责任 + 审核的情况 全签名
+          icon = fileicon;
+        } 
+        else if (fileHasSave && formSign) { // 责任（多人签名）的情况 未签名
+          icon = fileiconRed;
+        } 
+        else if (fileHasSign && formSign) { // 责任（多人签名）的情况 责任签名
+          icon = fileicon;
+        }
+        else if (formNoSign ){ // 没有签名的情况
+          icon = fileicon; 
+        }
       } else {
-        box = filebox;
-      }
-
-      if (fileHasSave && this.HOSPITAL_ID !== "weixian") {
-        icon = fileiconRed;
-      } else if (fileHasSign && this.HOSPITAL_ID !== "weixian") {
-        icon = fileiconGreen;
-      } else {
-        icon = fileicon;
+        // 文件夹
+        if (hasSave && this.HOSPITAL_ID !== "weixian") {
+          box = fileboxRed;
+        } else if (hasSign && this.HOSPITAL_ID !== "weixian") {
+          box = fileboxGreen;
+        } else {
+          box = filebox;
+        }
+        // 内容
+        if (fileHasSave && this.HOSPITAL_ID !== "weixian") {
+          icon = fileiconRed;
+        } else if (fileHasSign && this.HOSPITAL_ID !== "weixian") {
+          icon = fileiconGreen;
+        } else {
+          icon = fileicon;
+        }
       }
       if (node.level !== 2) {
         return (
@@ -365,6 +414,7 @@ export default {
               listPrint: item.listPrint,
               nooForm: item.nooForm,
               pageUrl: item.pageUrl,
+              formTreeRemindType: item.formTreeRemindType,
               children: item.formInstanceDtoList && item.formInstanceDtoList.map((option, i) => {
                 //
                 // item.formCode
@@ -401,7 +451,9 @@ export default {
                   ${option.pusherName ? option.pusherName : option.creatorName}
                   ${option.status == 0 ? "T" : option.status}`,
                   form_id: option.id,
-                  formName: item.formName
+                  formName: item.formName,
+                  formTreeRemindType: item.formTreeRemindType
+
                 };
               })
             };
