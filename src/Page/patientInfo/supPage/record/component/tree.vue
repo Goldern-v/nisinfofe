@@ -299,7 +299,7 @@ export default {
       let formNoType = node.data.formTreeRemindType != '';
       
       // 花都特殊处理
-      if(this.HOSPITAL_ID == "huadu" && formNoType) {
+      if(formNoType && (this.HOSPITAL_ID == "huadu" || this.HOSPITAL_ID == "liaocheng") ) {
         // 文件夹
         // 责任 + 审核的情况
         if (hasSave && formAudit) {// 责任 + 审核的情况 未签名
