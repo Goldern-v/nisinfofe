@@ -1,11 +1,12 @@
 <template>
   <SidePanel ref="panel">
-    <div slot="title">护理日夜模板</div>
+    <div slot="title">{{modalData.title}}模板</div>
     <div class="container">
       <ElTabs class="tabs" v-model="tab" type="card">
-        <ElTabPane label="白班" name="1"></ElTabPane>
+        <ElTabPane :label="item.name" :name="String(index+1)" v-for="(item,index) in modalData.tabs" :key="item.name"></ElTabPane>
+        <!-- <ElTabPane label="白班" name="1"></ElTabPane>
         <ElTabPane label="小夜" name="2"></ElTabPane>
-        <ElTabPane label="大夜" name="3"></ElTabPane>
+        <ElTabPane label="大夜" name="3"></ElTabPane> -->
       </ElTabs>
       <div class="search-bar">
         <input class="input" type="text" v-model="title" placeholder="请输入你要查找的模板关键字" />
@@ -25,7 +26,7 @@
     <div slot="footer">
       <PrimaryButton @click="onTemplateModalOpen">新建模板</PrimaryButton>
     </div>
-    <TemplateModal patient ref="templateModal" :tab="tab" @confirm="onTemplateModalConfirm" />
+    <TemplateModal patient ref="templateModal" :tab="tab" :modalData="modalData.tabs" @confirm="onTemplateModalConfirm" />
   </SidePanel>
 </template>
 
@@ -41,6 +42,12 @@ import TemplateItem from "./template-item";
 
 export default {
   mixins: [common],
+   props: {
+    modalData: {
+      type: Object,
+      default: () => {}
+    }
+  },
   data: () => ({
     visible: false,
     tab: "1",

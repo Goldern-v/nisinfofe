@@ -40,12 +40,12 @@
         @click="onCreateModalOpen($route.params.code)"
         >创建交班志</Placeholder
       >
-      <div class="paper" v-else>
+      <div class="paper" :style="{width: tableData.style.width + 'px'}" v-else>
         <div ref="printable" data-print-style="height: auto;">
           <div class="head shift-paper">
             <!-- <img :src="hospitalLogo" alt="logo" class="logo"> -->
             <h1 class="title">{{ HOSPITAL_NAME_SPACE }}</h1>
-            <h2 class="sub-title">护理日夜交接班报告汇总单</h2>
+            <h2 class="sub-title">{{tableData.title}}</h2>
             <div class="details">
               <span>病区：{{ deptName }}</span>
               <span v-if="record.changeShiftDate">
@@ -60,7 +60,8 @@
             class="table"
             :fixedTh="fixedTh"
             data-print-style="height: auto;"
-            :columns="columns"
+            :columns="tableData.columns"
+            :theadW="tableData.style.width - 40"
             :editable="!allSigned"
             :record="record"
             :get-context-menu="getContextMenu"
@@ -70,7 +71,7 @@
             @input-keydown="onTableInputKeydown"
           >
             <tr class="empty-row" v-if="!patients.length">
-              <td colspan="12" style="padding: 0">
+              <td :colspan="tableData.totalColNum || 12" style="padding: 0">
                 <Placeholder
                   black
                   size="small"
@@ -220,6 +221,7 @@
     <PatientModal
       ref="patientModal"
       :date="record ? record.changeShiftDate : ''"
+      :modalData="tableData.modalData"
       @confirm="onPatientModalConfirm"
       @panel-open="onPatientPanelOpen"
       @panel-close="onPatientPanelClose"
@@ -227,6 +229,7 @@
     />
     <PatientPanel
       ref="patientPanel"
+      :modalData="tableData.modalData"
       @tab-change="onPatientPanelTabChange"
       @apply-template="onPatientPanelApply"
     />
@@ -248,17 +251,10 @@ import PatientModal from "./components/patient-modal";
 import PatientsModal from "./components/patients-modal";
 import PatientPanel from "./components/patient-panel";
 import SignModal from "./components/sign-modal";
+import tableData from "./model";
 import $ from "jquery";
 import moment from "moment";
-const defaultPatient = {
-  name: "",
-  bedLabel: "",
-  patientStatus: "",
-  diagnosis: "",
-  remark1: "",
-  remark2: "",
-  remark3: "",
-};
+const defaultPatient = tableData.defaultPatient;
 
 const arrowKeyValues = {
   // 13: 1, // ENTER
@@ -307,46 +303,7 @@ export default {
       record: {},
       patients: [],
       copiedRow: null,
-      columns: [
-        {
-          label: "床号",
-          prop: "bedLabel",
-          editable: true,
-          align: "center",
-          width: "35",
-        },
-        {
-          label: "姓名",
-          prop: "name",
-          editable: true,
-          align: "center",
-          width: "35",
-        },
-        {
-          label: "诊断",
-          prop: "diagnosis",
-          editable: true,
-          width: "35",
-        },
-        {
-          label: "备注1",
-          prop: "remark1",
-          editable: true,
-          width: "35",
-        },
-        {
-          label: "备注2",
-          prop: "remark3",
-          editable: true,
-          width: "35",
-        },
-        {
-          label: "备注3",
-          prop: "remark2",
-          editable: true,
-          width: "35",
-        },
-      ],
+      tableData,
       fixedTh: false,
       headerData: [],
     };
@@ -457,16 +414,28 @@ export default {
       const pasteContent = sessionStorage.getItem("shift-work-copy-content");
       const { selectionStart, selectionEnd } = window.event.srcElement;
 
+
+      let keys = [];
+      for(let key in defaultPatient){
+        keys.push(key);
+      }
+      // const copyRow = selectedRow
+      //   ? JSON.stringify(
+      //       pick(selectedRow, [
+      //         "bedLabel",
+      //         "name",
+      //         "patientStatus",
+      //         "diagnosis",
+      //         "remark1",
+      //         "remark2",
+      //         "remark3",
+      //       ])
+      //     )
+      //   : "";
       const copyRow = selectedRow
         ? JSON.stringify(
             pick(selectedRow, [
-              "bedLabel",
-              "name",
-              "patientStatus",
-              "diagnosis",
-              "remark1",
-              "remark2",
-              "remark3",
+              ...keys
             ])
           )
         : "";
@@ -537,13 +506,16 @@ export default {
               data["name"] = remoteDate["name"];
               data["patientStatus"] = remoteDate["patientStatus"];
 
-              selectedRow["bedLabel"] = data["bedLabel"];
-              selectedRow["name"] = data["name"];
-              selectedRow["patientStatus"] = data["patientStatus"];
-              selectedRow["diagnosis"] = data["diagnosis"];
-              selectedRow["remark1"] = data["remark1"];
-              selectedRow["remark2"] = data["remark2"];
-              selectedRow["remark3"] = data["remark3"];
+              // selectedRow["bedLabel"] = data["bedLabel"];
+              // selectedRow["name"] = data["name"];
+              // selectedRow["patientStatus"] = data["patientStatus"];
+              // selectedRow["diagnosis"] = data["diagnosis"];
+              // selectedRow["remark1"] = data["remark1"];
+              // selectedRow["remark2"] = data["remark2"];
+              // selectedRow["remark3"] = data["remark3"];
+              for(let key in defaultPatient){
+                selectedRow[key] = data[key];
+              }
 
               await this.onSave();
             },
@@ -664,20 +636,22 @@ export default {
       this.$refs.table.removeRow();
     },
     onDblClickRow({ row, rowIndex, col }) {
-      // if (this.allSigned) {
+       // if (this.allSigned) {
       //   return
       // }
 
-      const tabMap = {
-        remark3: "2",
-        remark2: "3",
-      };
-      const tab = tabMap[col.prop] || "1";
+      // const tabMap = {
+      //   remark3: "2",
+      //   remark2: "3",
+      // };
+      // const tab = tabMap[col.prop] || "1";
+      const tab = col.tabIndex || "1";
       this.$refs.patientModal.open(
         tab,
         { ...row },
         col.prop,
-        !!this.record.checkNurseName
+        !!this.record.checkNurseName,
+        tableData.modalData
       );
     },
     onPatientsModalShow(d) {
@@ -728,7 +702,7 @@ export default {
       }
     },
     onPatientPanelOpen() {
-      this.$refs.patientPanel.open();
+      this.$refs.patientPanel.open(tableData.modalData);
     },
     onPatientPanelClose() {
       this.$refs.patientPanel.close();
@@ -919,12 +893,19 @@ export default {
             );
             if (isExisted) return this.$message.error("已存在该患者");
 
-            this.patients[row].name = data.name;
-            this.patients[row].diagnosis = data.diagnosis;
-            this.patients[row].remark1 = data.remark1 || "";
-            this.patients[row].remark2 = data.remark2 || "";
-            this.patients[row].remark3 = data.remark3 || "";
-            this.patients[row].patientStatus = data.patientStatus;
+            // this.patients[row].name = data.name;
+            // this.patients[row].diagnosis = data.diagnosis;
+            // this.patients[row].remark1 = data.remark1 || "";
+            // this.patients[row].remark2 = data.remark2 || "";
+            // this.patients[row].remark3 = data.remark3 || "";
+            // this.patients[row].patientStatus = data.patientStatus;
+
+            for(let key in defaultPatient){
+              if(key!='bedLabel'){
+                this.patients[row][key] = data[key]  || "";
+              }
+            }
+
             this.patients[row].patientId = data.patientId || "";
             this.patients[row].visitId = data.visitId || "";
           } else {

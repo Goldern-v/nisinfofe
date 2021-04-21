@@ -66,7 +66,7 @@
       <button
         class="login-btn"
         @click="syncGetNurseBedRecData"
-        v-if="HOSPITAL_ID == 'weixian' || HOSPITAL_ID == 'lingcheng' || HOSPITAL_ID == 'liaocheng'"
+        v-if="showSyncBedBtn"
       >同步床位数据</button>
       <button
         class="login-btn"
@@ -518,6 +518,10 @@ export default {
         })
       }
       return list;
+    },
+    // 同步床位数据
+    showSyncBedBtn(){
+      return  ['weixian','lingcheng','liaocheng','hengli'].includes(this.HOSPITAL_ID);
     }
   },
   methods: {

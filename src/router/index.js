@@ -139,6 +139,7 @@ import cost from "@/Page/patientInfo/supPage/cost/cost";
 import temperature from "@/Page/patientInfo/supPage/temperature/temperature";
 import temperatureHD from "@/Page/patientInfo/supPage/temperature/temperatureHD";
 import temperatureLCEY from "@/Page/patientInfo/supPage/temperature/temperatureLCEY";
+import temperatureWuJing from "@/Page/patientInfo/supPage/temperature/temperatureWuJing";
 import diagnosis from "@/Page/patientInfo/supPage/diagnosis/diagnosis";
 import bloodSugar from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar.vue"; // 厚街
 import bloodSugarWeiXian from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_weixian.vue"; // 威县
@@ -148,14 +149,15 @@ import healthEducation from "@/Page/patientInfo/supPage/healthEducation/healthEd
 import hospitalEval from "@/Page/patientInfo/supPage/hospital-eval/hospital-eval";
 
 Vue.use(Router);
+const HOSPITAL_ID = process.env.HOSPITAL_ID;
 const router = new Router({
   mode: "history",
   base: "/crNursing/",
   routes: [{
-    path: "/",
-    redirect: "/index",
-    alias: "主页"
-  },
+      path: "/",
+      redirect: "/index",
+      alias: "主页"
+    },
     {
       path: "/demo",
       component: demo,
@@ -184,9 +186,9 @@ const router = new Router({
       path: "/showPatientDetails",
       component: showPatientDetails,
       children: [{
-        path: "record",
-        component: record
-      },
+          path: "record",
+          component: record
+        },
         {
           path: "sheet",
           component: sheet,
@@ -311,12 +313,12 @@ const router = new Router({
         {
           path: "/shiftWork",
           name: "shiftWorks",
-          component: process.env.HOSPITAL_ID == "lingcheng" ? shiftWorkLc : process.env.HOSPITAL_ID == "huadu" ? shiftWorkHd : process.env.HOSPITAL_ID == "fuyou" ? shiftWorkFy : shiftWork,
+          component: HOSPITAL_ID == "lingcheng" ? shiftWorkLc : HOSPITAL_ID == "huadu" ? shiftWorkHd : HOSPITAL_ID == "fuyou" ? shiftWorkFy : shiftWork,
           children: [{
             name: "shiftWork",
             path: "/shiftWork/:code?/:id?",
-            component: process.env.HOSPITAL_ID == "lingcheng" ?
-              shiftWorkDetailLc : process.env.HOSPITAL_ID == "huadu" ? shiftWorkDetailHd : process.env.HOSPITAL_ID == "fuyou" ? shiftWorkDetailFy : shiftWorkDetail
+            component: HOSPITAL_ID == "lingcheng" ?
+              shiftWorkDetailLc : HOSPITAL_ID == "huadu" ? shiftWorkDetailHd : HOSPITAL_ID == "fuyou" ? shiftWorkDetailFy : shiftWorkDetail
           }]
         },
         {
@@ -335,10 +337,10 @@ const router = new Router({
           alias: "不良事件",
           component: badEvent,
           children: [{
-            name: "badEventEdit",
-            path: "/badEvent/:code?/:operation?/:id?/:type?/:name?",
-            component: badEventEditPage
-          },
+              name: "badEventEdit",
+              path: "/badEvent/:code?/:operation?/:id?/:type?/:name?",
+              component: badEventEditPage
+            },
             {
               name: "badEventView",
               path: "/badEvent/:code?/:operation?/:id?/:status?/:type?/:name?",
@@ -382,9 +384,9 @@ const router = new Router({
           component: patientInfo,
           alias: "病人信息",
           children: [{
-            path: "/information",
-            component: information
-          },
+              path: "/information",
+              component: information
+            },
             {
               path: "/advice",
               component: advice
@@ -434,7 +436,18 @@ const router = new Router({
             {
               path: "/temperature",
               // component: process.env.HOSPITAL_ID !== "huadu" ? temperature : temperatureLCEY,
-              component: (process.env.HOSPITAL_ID !== "huadu" && process.env.HOSPITAL_ID !== "liaocheng") ? temperature : (process.env.HOSPITAL_ID === "huadu" ? temperatureHD : temperatureLCEY),
+              component: (() => {
+                switch (process.env.HOSPITAL_ID) {
+                  case 'huadu':
+                    return temperatureHD
+                  case 'liaocheng':
+                    return temperatureLCEY
+                  case 'wujing':
+                    return temperatureWuJing
+                  default:
+                    return temperature
+                }
+              })(),
               name: "体温单",
               alias: "体温单"
             },
@@ -489,8 +502,8 @@ const router = new Router({
         },
         {
           path: "/implementationList",
-          component: process.env.HOSPITAL_ID == "lingcheng" ?
-            implementationListLc : process.env.HOSPITAL_ID == "liaocheng" ? implementationListLiaocheng : implementationList,
+          component: HOSPITAL_ID == "lingcheng" ?
+            implementationListLc : HOSPITAL_ID == "liaocheng" ? implementationListLiaocheng : implementationList,
           name: "执行单"
         },
         {

@@ -25,7 +25,9 @@
 
         <patientList
           :toName="
-            (HOSPITAL_ID === 'huadu' || HOSPITAL_ID === 'liaocheng') &&
+            (HOSPITAL_ID === 'huadu' ||
+              HOSPITAL_ID === 'liaocheng' ||
+              HOSPITAL_ID === 'wujing') &&
             $route.path.includes('singleTemperatureChart')
               ? 'singleTemperatureChart'
               : 'sheetPage'
@@ -74,7 +76,9 @@
           >
             <i class="el-icon-plus"></i>
             {{
-              (HOSPITAL_ID === "huadu" || HOSPITAL_ID === "liaocheng") &&
+              (HOSPITAL_ID === "huadu" ||
+                HOSPITAL_ID === "liaocheng" ||
+                HOSPITAL_ID === "wujing") &&
               $route.path.includes("singleTemperatureChart")
                 ? "创建体温单"
                 : "创建护理记录单"
@@ -393,14 +397,28 @@ export default {
     },
     addSheetPage() {
       if (
-        (this.HOSPITAL_ID === "huadu" || this.HOSPITAL_ID === "liaocheng") &&
+        (this.HOSPITAL_ID === "huadu" ||
+          this.HOSPITAL_ID === "liaocheng" ||
+          this.HOSPITAL_ID === "wujing") &&
         this.$route.path.includes("singleTemperatureChart")
       ) {
         // let recordCode = "body_temperature_Hd";
-        let recordCode =
-          this.HOSPITAL_ID === "huadu"
-            ? "body_temperature_Hd"
-            : "body_temperature_lcey";
+        // let recordCode =
+        //   this.HOSPITAL_ID === "huadu" || HOSPITAL_ID === "wujing"
+        //     ? "body_temperature_Hd"
+        //     : "body_temperature_lcey";
+        let recordCode = (() => {
+          switch (this.HOSPITAL_ID) {
+            case "huadu":
+              return "body_temperature_Hd";
+            case "liaocheng":
+              return "body_temperature_lcey";
+            case "wujing":
+              return "body_temperature_wj";
+            default:
+              break;
+          }
+        })();
         blockSave(
           this.patientInfo.patientId,
           this.patientInfo.visitId,

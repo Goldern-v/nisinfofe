@@ -13,8 +13,8 @@
       v-if="hasFiexHeader"
     >
       <tr class="body-con">
-        <td v-for="(td, i) in data.bodyModel[0]" :key="i" :dataKey="td.key">
-          <template v-if="!td.hidden">
+        <td v-for="(td, i) in titleModel" :key="i" :dataKey="td.key">
+          <template>
             <div v-if="td.key == 'sign'" class="sign-text"></div>
             <div v-else-if="td.key == 'sign2'" class="sign-text"></div>
             <div v-else-if="td.key == 'audit'" class="sign-text"></div>
@@ -472,6 +472,11 @@ export default {
         sheetInfo.auditorMap &&
         sheetInfo.auditorMap[`PageIndex_${this.index}_auditorName`]
       );
+    },
+    titleModel(){
+      return this.data.bodyModel[0].filter(td => {
+        return !td.hidden;
+      })
     }
   },
   methods: {
@@ -1356,10 +1361,6 @@ export default {
   mounted() {
     this.fiexHeaderWidth =
       this.$refs.table && this.$refs.table.offsetWidth + "px";
-    if (this.sheetInfo.sheetType === "intervention_cure") {
-      this.fiexHeaderWidth =
-        this.$refs.table && this.$refs.table.offsetWidth + 12 + "px";
-    }
     console.log("mounted");
   },
   components: {
