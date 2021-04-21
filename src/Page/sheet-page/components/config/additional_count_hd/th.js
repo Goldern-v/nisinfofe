@@ -150,6 +150,14 @@ export default {
         colspan: "1",
         rowspan: "2",
       },
+      {
+        name: `腹围<br>(cm)`,
+        style: {
+          width: "48px"
+        },
+        colspan: "1",
+        rowspan: "2",
+      },
       // {
       //   name: `
       //   特殊情况记录

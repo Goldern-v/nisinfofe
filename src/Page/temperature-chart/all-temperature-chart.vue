@@ -512,7 +512,7 @@ export default {
       query: {
         wardCode: "", //科室编码
         entryDate: moment(new Date()).format("YYYY-MM-DD"), //录入日期
-        entryTime: "04" //录入时间
+        entryTime: this.HOSPITAL_ID === "huadu" ? "04" : "07" //录入时间
       },
       timesEven: [
         {

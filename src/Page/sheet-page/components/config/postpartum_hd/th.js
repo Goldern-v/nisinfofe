@@ -8,11 +8,10 @@ export default {
   // 科室的名称 关节骨科
   deptType: "",
   style: {
-    width: "1180px"
+    width: "1500px"
   },
   th: {
-    top: [
-      {
+    top: [{
         name: currYear(),
         colspan: "2",
         rowspan: "1",
@@ -30,7 +29,6 @@ export default {
         colspan: "1",
         rowspan: "3",
         style: {
-          whiteSpace: "nowrap",
           minWidth: "34px"
         }
       },
@@ -87,8 +85,8 @@ export default {
         血氧饱和度(%)
         `,
         style: {
-          minWidth: "20px",
-          maxWidth: "20px",
+          minWidth: "30px",
+          maxWidth: "30px",
         },
         colspan: "1",
         rowspan: "3"
@@ -241,7 +239,7 @@ export default {
       },
       {
         name: `
-        护士签名
+        护士<br>签名
         `,
         style: {
           minWidth: "60px",
@@ -252,7 +250,7 @@ export default {
       },
       {
         name: `
-        护士签名
+        护士<br>签名
         `,
         style: {
           minWidth: "60px",
@@ -262,8 +260,7 @@ export default {
         rowspan: "3"
       }
     ],
-    mid: [
-      {
+    mid: [{
         name: '日期',
         style: {
           minWidth: '36px',

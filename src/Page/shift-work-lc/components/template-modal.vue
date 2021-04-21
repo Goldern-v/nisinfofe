@@ -4,9 +4,9 @@
       <ElForm style="margin-bottom: 20px">
         <ElFormItem label="模板类型" v-if="patient">
           <ElSelect v-model="form.templateType">
-            <ElOption label="白班" value="1" />
-            <ElOption label="小夜" value="2" />
-            <ElOption label="大夜" value="3" />
+            <ElOption :label="item.name" :value="String(index+1)" v-for="(item,index) in modalData" :key="item.name"/>
+            <!-- <ElOption label="白班" value="1" />
+            <ElOption label="小夜" value="2" /> -->
           </ElSelect>
         </ElFormItem>
         <ElFormItem label="类型" v-else>
@@ -42,10 +42,14 @@ export default {
   props: {
     patient: Boolean,
     tab: String,
+    modalData: {
+      type: Array,
+      default: () => []
+    }
   },
   data: () => ({
     types: [],
-    form: { ...defaultForm },
+    form: { ...defaultForm }
   }),
   methods: {
     async open(form) {

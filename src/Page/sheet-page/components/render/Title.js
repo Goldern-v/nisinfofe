@@ -431,6 +431,13 @@ export default function Title(
     );
   }
   break;
+  case "additional_count2_hd": {
+    // 花都-通用护理记录单副单2
+    Th = JSON.parse(
+      JSON.stringify(require("../config/additional_count2_hd/th").default)
+    );
+  }
+  break;
   case "intervention_cure": {
     // 厚街-介入治疗术护理记录单
     Th = JSON.parse(
@@ -536,10 +543,24 @@ export default function Title(
     );
   }
   break;
+  case "access_lcey": {
+    // 聊城二院 - 出入量记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/access_lcey/th").default)
+    );
+  }
+  break;
   case "common_zsqy": {
     // 中山七院-护理记录单
     Th = JSON.parse(
       JSON.stringify(require("../config/common_zsqy/th").default)
+    );
+  }
+  break;
+  case "body_temperature_wj": {
+    // 武警总队-体温单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/body_temperature_wj/th").default)
     );
   }
   break;

@@ -16,8 +16,8 @@ import {
 } from "../keyEvent/date";
 import info from "../sheetInfo";
 let ysList = [];
-let chuList = [];
-let ruList = [];
+let 入量名称 = ['输液', '口服', '输血', '肌注', '静注', '鼻饲', '静脉泵入', '灌肠', '饮水'];
+let 出量名称 = [];
 export default [{
     key: "recordMonth", //日期
     value: "",
@@ -28,7 +28,7 @@ export default [{
     key: "recordHour", //时间
     value: "",
     event: event_time,
-    click: click_time,
+    // click: click_time,
   },
   {
     key: "temperature", //体温
@@ -115,7 +115,7 @@ export default [{
     change: calValueChange,
     name: "入量名称",
     autoComplete: {
-      data: ruList
+      data: 入量名称
     },
     textarea: {
       width: 50,
@@ -139,7 +139,7 @@ export default [{
     change: calValueChange,
     name: "出量名称",
     autoComplete: {
-      data: chuList
+      data: 出量名称
     },
     textarea: {
       width: 50,
@@ -413,22 +413,13 @@ export default [{
 ];
 
 export function getListData() {
-  listItem("入量名称", info.sheetType).then(res => {
-    ruList.splice(0, ruList.length);
-    for (let item of res.data.data) {
-      ruList.push(item.name);
-    }
-  });
-  listItem("出量名称", info.sheetType).then(res => {
-    chuList.splice(0, chuList.length);
-    for (let item of res.data.data) {
-      chuList.push(item.name);
-    }
-  });
-  let list = ["意识"];
+  let list = ["意识",
+    "花都:神经外科护理记录单:出量名称"
+  ];
   multiDictInfo(list).then(res => {
     let data = res.data.data;
-    setList(ysList, "意识", data);
+    setList(ysList, list[0], data);
+    setList(出量名称, list[1], data);
   });
 }
 

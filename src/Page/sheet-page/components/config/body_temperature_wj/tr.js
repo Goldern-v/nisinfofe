@@ -1,7 +1,4 @@
 import {
-  listItem
-} from "../../../api/recordDesc";
-import {
   multiDictInfo
 } from "../../../api/index";
 import {
@@ -12,12 +9,9 @@ import {
   event_time,
   click_date
 } from "../keyEvent/date";
-import info from "../sheetInfo";
 
-const twList = [];
-const ysxzList = [];
-const txbwList = ["右下腹", "左下腹", "右上腹", "左上腹", "中上腹", "脐中部", "脐上部", "脐下部", ];
-
+let 表底注释 = [];
+let 表顶注释 = [];
 export default [{
     key: "recordMonth", //日期
     value: "",
@@ -27,7 +21,29 @@ export default [{
   {
     key: "recordHour", //时间
     value: "",
-    event: event_time
+    event: event_time,
+    autoComplete: {
+      data: ["04:00", "08:00", "12:00", "16:00", "20:00", "23:00"]
+    }
+  },
+  {
+    key: "temperature", //体温
+    value: "",
+    event: keyf1,
+    name: "体温",
+    next: "℃"
+  },
+  {
+    key: "pulse", //脉搏
+    value: "",
+    event: keyf1,
+    name: "脉搏",
+    next: "次/分"
+  }, {
+    key: "breath", //呼吸
+    value: "",
+    event: keyf1,
+    name: "呼吸",
   },
   {
     key: "bloodPressure", //血压
@@ -43,145 +59,166 @@ export default [{
     next: "mmHg"
   },
   {
-    key: "fieldOne", //胎位
+    key: "heartRate", //心率
     value: "",
     event: keyf1,
-    name: "胎位",
+    name: "心率",
+    next: "次/分"
+  },
+  {
+    key: "physicalCooling", //物理降温
+    value: "",
+    event: keyf1,
+    name: "物理降温",
+  },
+  {
+    key: "curWeight", //体重
+    value: "",
+    event: keyf1,
+    name: "体重",
+  },
+  {
+    key: "fieldOne", //肛表
+    value: "",
+    event: keyf1,
+    name: "肛表"
+  },
+  {
+    key: "fieldTwo", //口表
+    value: "",
+    event: keyf1,
+    name: "口表"
+  },
+  // {
+  //   key: "deptName", //科室
+  //   value: "",
+  //   event: keyf1,
+  //   name: "科室",
+  // },
+  // {
+  //   key: "bedNo", //床号
+  //   value: "",
+  //   event: keyf1,
+  //   name: "床号"
+  // },
+  {
+    key: "feverTemperature", //发热体温
+    value: "",
+    event: keyf1,
+    name: "发热体温"
+  },
+  {
+    key: "onlineCooling", //线上降温
+    value: "",
+    event: keyf1,
+    name: "线上降温",
+  },
+  {
+    key: "ventilatorR", //呼吸机R
+    value: "",
+    event: keyf1,
+    name: "呼吸机R",
+  },
+  {
+    key: "nursingEvent", //护理事件
+    value: "",
+    event: keyf1,
+    name: "护理事件",
+  },
+  {
+    key: "bottomComment", //表底注释
+    value: "",
+    event: keyf1,
+    name: "表底注释",
     autoComplete: {
-      data: twList
+      data: 表底注释
+    },
+    splice: true,
+    style: 'overflow: hidden',
+    textarea: {
+      width: 36
     },
   },
   {
-    key: "fieldTwo", //胎心部位
+    key: "topComment", //表顶注释
     value: "",
     event: keyf1,
-    name: "胎心部位",
+    name: "表顶注释",
     autoComplete: {
-      data: txbwList
+      data: 表顶注释
+    },
+    splice: true,
+    style: 'overflow: hidden',
+    textarea: {
+      width: 36
     },
   },
+  // {
+  //   key: "height", //身高
+  //   value: "",
+  //   event: keyf1,
+  //   name: "身高"
+  // },
   {
-    key: "fieldThree", //胎心心率
+    key: "stoolNum", //大便次数
     value: "",
     event: keyf1,
-    name: "胎心心率",
-    next: "次/min"
+    name: "大便次数",
   },
   {
-    key: "fieldFour", //衔接
+    key: "fieldThree", //尿量
     value: "",
     event: keyf1,
-    name: "衔接",
-    autoComplete: {
-      data: ["已", "未"]
-    },
+    name: "尿量",
   },
   {
-    key: "fieldFive", //宫缩间歇
+    key: "dischargeSize", //出量
     value: "",
     event: keyf1,
-    name: "宫缩间歇",
-    next: "min",
+    name: "出量",
   },
   {
-    key: "fieldSix", //宫缩持续
+    key: "foodSize", //入量
     value: "",
     event: keyf1,
-    name: "宫缩持续",
-    next: "s",
-    autoComplete: {
-      data: ["无", "敏感", "不规则"]
-    },
+    name: "入量",
   },
   {
-    key: "fieldSeven", // 宫缩缩力
-    value: "",
-    event: keyf1,
-    name: "宫缩缩力",
-    autoComplete: {
-      data: ["强", "中", "中强", "中弱", "弱", "敏感", "不规则", "无"]
-    },
-  },
-  {
-    key: "fieldEight", // 宫颈开张
-    value: "",
-    event: keyf1,
-    name: "宫颈开张",
-    next: "cm"
-  },
-  {
-    key: "fieldNine", //宫颈均势
-    value: "",
-    event: keyf1,
-    name: "宫颈均势",
-  },
-  {
-    key: "fieldTen", //宫颈质
-    value: "",
-    event: keyf1,
-    name: "宫颈质",
-    autoComplete: {
-      data: ["中", "软", "硬"]
-    },
-  },
-  {
-    key: "fieldEleven", //先露高低
-    value: "",
-    event: keyf1,
-    name: "先露高低"
-  },
-  {
-    key: "fieldTwelve", //矢状缝
-    value: "",
-    event: keyf1,
-    name: "矢状缝"
-  },
-  {
-    key: "fieldThirteen", //胎膜
-    value: "",
-    event: keyf1,
-    name: "胎膜",
-    autoComplete: {
-      data: ["已破", "未破"]
-    },
-  },
-  {
-    key: "fieldFourteen", //羊水性状
-    value: "",
-    event: keyf1,
-    name: "羊水性状",
-    autoComplete: {
-      data: ysxzList
-    },
-  },
-  {
-    key: "fieldFifteen", //检查方式
-    value: "",
-    event: keyf1,
-    name: "检查方式",
-    autoComplete: {
-      data: ["外", "阴", "肛"]
-    },
-  },
-  {
-    key: "fieldSixteen", //标题1
+    key: "fieldFour", //自1
     value: "",
     event: keyf1,
     textarea: {
-      width: 32
+      width: 36
+    },
+  },
+  {
+    key: "fieldFive", //自2
+    value: "",
+    event: keyf1,
+    textarea: {
+      width: 36
     }
   },
   {
-    key: "fieldSeventeen", //标题2
+    key: "fieldSix", //自3
     value: "",
     event: keyf1,
     textarea: {
-      width: 32
+      width: 36
+    }
+  },
+  {
+    key: "fieldSeven", //自4
+    value: "",
+    event: keyf1,
+    textarea: {
+      width: 36
     }
   },
   {
     key: "description", //特殊情况记录
     value: "",
+    hidden: true,
     style: {
       textAlign: "left",
       position: "absolute",
@@ -202,17 +239,13 @@ export default [{
     // oninput: next
   },
   {
+    key: "empName",
+    value: "",
+  },
+  {
     key: "sign",
     value: ""
   },
-  {
-    key: "sign2",
-    value: ""
-  },
-  // {
-  //   key: "audit",
-  //   value: ""
-  // },
   {
     hidden: true,
     key: "id",
@@ -221,11 +254,6 @@ export default [{
   {
     hidden: true,
     key: "signerName",
-    value: ""
-  },
-  {
-    hidden: true,
-    key: "signerName2",
     value: ""
   },
   {
@@ -259,17 +287,12 @@ export default [{
     value: ""
   },
   {
-    hidden: false,
+    hidden: true,
     key: "signerNo",
     value: ""
   },
   {
     hidden: true,
-    key: "signerNo2",
-    value: ""
-  },
-  {
-    hidden: false,
     key: "auditorNo",
     value: ""
   },
@@ -290,46 +313,42 @@ export default [{
   }
 ];
 
-export function getListData() {
-  listItem("入量名称", info.sheetType).then(res => {
-    ruList.splice(0, ruList.length);
-    for (let item of res.data.data) {
-      ruList.push(item.name);
-    }
-  });
-  listItem("出量名称", info.sheetType).then(res => {
-    chuList.splice(0, chuList.length);
-    for (let item of res.data.data) {
-      chuList.push(item.name);
-    }
-  });
+
+let filterKey = '花都' + ':';
+let filterKey2 = '体温单' + ':';
+let filterKey2Arr = ["表底注释", "表顶注释"];
+
+export function getListData4() {
   let list = [
-    "花都:侯产记录单:胎位",
-    "花都:侯产记录单:羊水性状",
+    "表底注释",
+    "表顶注释",
   ];
+
+  list = list.map(key => {
+    return filterKey2Arr.includes(key) ? filterKey + filterKey2 + key : filterKey + key;
+  });
   multiDictInfo(list).then(res => {
     let data = res.data.data;
-    setList(twList, list[0], data);
-    setList(ysxzList, list[1], data);
-    // setList(gscxjxList, list[2], data);
-    // setList(xlgdList, list[3], data);
-    // setList(gjgList, list[4], data);
-    // setList(ysxzList, list[5], data);
-    // setList(gjkzList, list[6], data);
-    // setList(gsqdList, list[7], data);
+    setList(表底注释, "表底注释", data);
+    setList(表顶注释, "表顶注释", data);
   });
 }
 
-getListData();
+getListData4();
+
 /**
  *
  * @param {*} list 原数组
  * @param {*} key 对应的key
  * @param {*} data 数据源
+ * @param {*} isChildOptions 当前选项是否有下拉子选项
  */
-function setList(list, key, data) {
+function setList(list, key, data, ) {
+  key = filterKey2Arr.includes(key) ? filterKey + filterKey2 + key : filterKey + key;
+
   list.splice(0, list.length);
   for (let item of data[key]) {
     list.push(item.name);
   }
+
 }

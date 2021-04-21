@@ -13,8 +13,8 @@
       v-if="hasFiexHeader"
     >
       <tr class="body-con">
-        <td v-for="(td, i) in data.bodyModel[0]" :key="i" :dataKey="td.key">
-          <template v-if="!td.hidden">
+        <td v-for="(td, i) in titleModel" :key="i" :dataKey="td.key">
+          <template>
             <div v-if="td.key == 'sign'" class="sign-text"></div>
             <div v-else-if="td.key == 'sign2'" class="sign-text"></div>
             <div v-else-if="td.key == 'audit'" class="sign-text"></div>
@@ -472,15 +472,29 @@ export default {
         sheetInfo.auditorMap &&
         sheetInfo.auditorMap[`PageIndex_${this.index}_auditorName`]
       );
+    },
+    titleModel() {
+      return this.data.bodyModel[0].filter(td => {
+        return !td.hidden;
+      });
     }
   },
   methods: {
+    /* 花都个别护记的出入量统计：增加红线与上一行做区分 */
     getBorderClass(index) {
-      if (sheetInfo.sheetType !== "common_hd") return;
-      const temp = this.data.bodyModel.findIndex(tr => {
-        return tr.find(i => i.key === "recordSource").value === "5";
-      });
-      return temp === index;
+      const redTopSheet_hd = [
+        "common_hd",
+        "prenatal_hd",
+        "postpartum_hd",
+        "neonatology_hd",
+        "neurosurgery_hd"
+      ];
+      if (redTopSheet_hd.includes(this.sheetInfo.sheetType)) {
+        const temp = this.data.bodyModel.findIndex(tr => {
+          return tr.find(i => i.key === "recordSource").value === "5";
+        });
+        return temp === index;
+      }
     },
     // 键盘事件
     onKeyDown(e, bind) {
@@ -1356,10 +1370,6 @@ export default {
   mounted() {
     this.fiexHeaderWidth =
       this.$refs.table && this.$refs.table.offsetWidth + "px";
-    if (this.sheetInfo.sheetType === "intervention_cure") {
-      this.fiexHeaderWidth =
-        this.$refs.table && this.$refs.table.offsetWidth + 12 + "px";
-    }
     console.log("mounted");
   },
   components: {

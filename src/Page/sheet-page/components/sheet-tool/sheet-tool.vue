@@ -27,7 +27,7 @@
         class="item-box"
         flex="cross:center main:center"
         @click="openStaticModal"
-        v-if="showCrl && !isDeputy"
+        v-if="showCrl && !isDeputy && !isSingleTem_LCEY"
       >
         <div class="text-con">出入量统计</div>
       </div>
@@ -99,7 +99,9 @@
         flex="cross:center main:center"
         @click.stop="openChart"
         v-if="
-          (HOSPITAL_ID === 'huadu' || HOSPITAL_ID === 'liaocheng') &&
+          (HOSPITAL_ID === 'huadu' ||
+            HOSPITAL_ID === 'liaocheng' ||
+            HOSPITAL_ID === 'wujing') &&
             this.$route.path.includes('singleTemperatureChart')
         "
       >
@@ -181,18 +183,19 @@
         class="right-btn"
         flex="cross:center main:center"
         @click="emit('openEvalModel')"
-        v-if="showCrl"
+        v-if="showCrl && !isSingleTem_LCEY"
       >
         <div class="text-con">
           <img src="./images/评估.png" alt />
           评估同步
         </div>
       </div>
-      <div class="line"></div>
+      <div class="line" v-if="!isSingleTem_LCEY"></div>
       <div
         class="right-btn"
         flex="cross:center main:center"
         @click.stop="openTztbModal"
+        v-if="!isSingleTem_LCEY"
       >
         <div class="text-con">
           <img src="./images/体征.png" alt />
@@ -247,6 +250,7 @@ import dayjs from "dayjs";
 import patientInfo from "./patient-info";
 import temperatureHD from "../../../patientInfo/supPage/temperature/temperatureHD";
 import temperatureLCEY from "../../../patientInfo/supPage/temperature/temperatureLCEY";
+import temperatureWuJing from "../../../patientInfo/supPage/temperature/temperatureWuJing";
 export default {
   mixins: [commom],
   name: "sheetTool",
@@ -263,7 +267,10 @@ export default {
       sheetInfo,
       sheetBlockList: [],
       visibled: false,
-      admissionDate: ""
+      admissionDate: "",
+      isSingleTem_LCEY:
+        this.HOSPITAL_ID === "liaocheng" &&
+        this.$route.path.includes("singleTemperatureChart") //聊城二院体温单屏蔽三个功能：“出入量统计”、"评估同步"、“体征同步”
     };
   },
   methods: {
@@ -593,9 +600,20 @@ export default {
             this.$route.path.includes("temperature")
           ) {
             this.sheetBlockList = list.filter(item => {
-              return this.HOSPITAL_ID === "huadu"
-                ? item.recordCode === "body_temperature_Hd"
-                : item.recordCode === "body_temperature_lcey";
+              switch (this.HOSPITAL_ID) {
+                case "huadu":
+                  return item.recordCode === "body_temperature_Hd";
+                case "liaocheng":
+                  return item.recordCode === "body_temperature_lcey";
+                case "wujing":
+                  return item.recordCode === "body_temperature_wj";
+                default:
+                  break;
+              }
+              // return this.HOSPITAL_ID === "huadu" ||
+              //   this.HOSPITAL_ID === "wujing"
+              //   ? item.recordCode === "body_temperature_Hd"
+              //   : item.recordCode === "body_temperature_lcey";
               // return item.recordCode == "body_temperature_Hd";
             });
           } else {
@@ -603,7 +621,8 @@ export default {
               // return item.recordCode != "body_temperature_Hd";
               return (
                 (item.recordCode != "body_temperature_Hd") &
-                (item.recordCode != "body_temperature_lcey")
+                (item.recordCode != "body_temperature_lcey") &
+                (item.recordCode != "body_temperature_wj")
               );
             });
           }
@@ -750,10 +769,18 @@ export default {
     },
     /* 监听体温单曲线 */
     temperatureChart() {
-      if (this.HOSPITAL_ID === "huadu") {
-        return temperatureHD;
-      } else {
-        return temperatureLCEY;
+      switch (this.HOSPITAL_ID) {
+        case "huadu":
+          return temperatureHD;
+          break;
+        case "liaocheng":
+          return temperatureLCEY;
+          break;
+        case "wujing":
+          return temperatureWuJing;
+          break;
+        default:
+          break;
       }
     }
   },
@@ -900,7 +927,8 @@ export default {
     tztbModal,
     patientInfo,
     temperatureHD,
-    temperatureLCEY
+    temperatureLCEY,
+    temperatureWuJing
   }
 };
 </script>

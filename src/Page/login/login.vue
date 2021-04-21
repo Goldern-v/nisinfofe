@@ -121,7 +121,9 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
 
 .login-con {
   width: 300px;
-  height: 353px;
+  // height: 353px;
+  min-height: 323px;
+  padding-bottom: 30px;
   float: right;
   background: #FBFDFF;
   border-radius: 2px;
@@ -400,7 +402,7 @@ export default {
       let logoName = '百辰源智慧护理信息系统';
       if(this.HOSPITAL_ID == 'hj' || this.HOSPITAL_ID == 'zhongshanqi'){
         logoName = `${this.HOSPITAL_NAME}<br />智慧护理信息系统`
-      }else if(this.HOSPITAL_ID == 'guizhou' || this.HOSPITAL_ID == 'liaocheng'){
+      }else if(this.HOSPITAL_ID == 'guizhou' || this.HOSPITAL_ID == 'liaocheng' || this.HOSPITAL_ID == 'lingcheng'){
         logoName = '智慧护理信息系统'
       }
       return logoName;

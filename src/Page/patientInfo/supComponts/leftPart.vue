@@ -1,12 +1,16 @@
 <template>
   <div class="left-part">
-    <div class="content" :style="{left: openLeft?'0':'-201px'}">
+    <div class="content" :style="{ left: openLeft ? '0' : '-201px' }">
       <div
-          style="height: 1px;background:#4BB08D;box-shadow: 0px 1px 5px rgba(0,0,0,.2);position: relative;z-index: 0"
+        style="height: 1px;background:#4BB08D;box-shadow: 0px 1px 5px rgba(0,0,0,.2);position: relative;z-index: 0"
       ></div>
       <div class="user-box">
         <div class="user-head">
-          <img src="../../../common/images/card/默认头像.png" height="72" width="72"/>
+          <img
+            src="../../../common/images/card/默认头像.png"
+            height="72"
+            width="72"
+          />
         </div>
         <p class="name">{{ info.name }}</p>
         <p class="age">{{ info.sex }} | {{ info.age }}</p>
@@ -18,61 +22,103 @@
         <div class="list-box" v-else>
           <div class="list-li">ID：{{ info.patientId }}</div>
           <div class="list-li">住院号：{{ info.inpNo }}</div>
-          <div class="list-li" v-if="HOSPITAL_ID == 'gy'">住院标识：{{ info.visitId }}</div>
+          <div class="list-li" v-if="HOSPITAL_ID == 'gy'">
+            住院标识：{{ info.visitId }}
+          </div>
           <div class="list-li" v-else>住院次数：{{ info.visitId }}</div>
         </div>
       </div>
       <div
-          class="list2-box"
-          :style="{height: `${wih-350}px`,overflow: overflow}"
-          @mouseover="overflow='auto'"
-          @mouseout="overflow='hidden'"
+        class="list2-box"
+        :style="{ height: `${wih - 350}px`, overflow: overflow }"
+        @mouseover="overflow = 'auto'"
+        @mouseout="overflow = 'hidden'"
       >
         <div class="box-content">
           <div class="list2-li">护理单元：{{ info.wardName }}</div>
           <div class="list2-li">床号：{{ info.bedLabel }}</div>
           <div class="list2-li">病情：{{ info.patientCondition }}</div>
           <div class="list2-li">护理：{{ info.nursingClass }}</div>
-          <div class="list2-li">费别：{{ info.chargeType || '--' }}</div>
+          <div class="list2-li">费别：{{ info.chargeType || "--" }}</div>
           <div class="line-boder"></div>
           <div class="list2-li">科室：{{ info.deptName }}</div>
-          <div class="list2-li">入院：{{ info.admissionDate }}(第{{ info.inpDay }}天)</div>
-          <div class="list2-li">医生：{{ info.doctorInCharge }}</div>
-          <div class="list2-li over-text" :title="info.diagnosis">诊断：{{ info.diagnosis }}</div>
-          <div class="print-btn" flex="cross:center main:center" @click="openBedPrint()">打印床头卡</div>
-          <div class="print-btn" flex="cross:center main:center" @click="openBedPrint('v')"
-               v-if="HOSPITAL_ID == 'huadu'">打印床头卡2
+          <div class="list2-li">
+            入院：{{ info.admissionWardDateTime }}(第{{ info.inpDay }}天)
           </div>
-          <div class="print-btn" flex="cross:center main:center" @click="openWristPrint('wrist')"
-               v-if="HOSPITAL_ID == 'huadu' || HOSPITAL_ID == 'zhongshanqi' || HOSPITAL_ID == 'liaocheng'">腕带打印
+          <div class="list2-li">医生：{{ info.doctorInCharge }}</div>
+          <div class="list2-li over-text" :title="info.diagnosis">
+            诊断：{{ info.diagnosis }}
           </div>
           <div
-              class="print-btn"
-              flex="cross:center main:center"
-              @click="openPrintModal"
-              v-if="HOSPITAL_ID == 'weixian'"
+            class="print-btn"
+            flex="cross:center main:center"
+            @click="openBedPrint()"
+          >
+            打印床头卡
+          </div>
+          <div
+            class="print-btn"
+            flex="cross:center main:center"
+            @click="openBedPrint('v')"
+            v-if="HOSPITAL_ID == 'huadu'"
+          >
+            打印床头卡2
+          </div>
+          <div
+            class="print-btn"
+            flex="cross:center main:center"
+            @click="openWristPrint('wrist')"
+            v-if="
+              HOSPITAL_ID == 'huadu' ||
+                HOSPITAL_ID == 'zhongshanqi' ||
+                HOSPITAL_ID == 'liaocheng'
+            "
+          >
+            腕带打印
+          </div>
+          <div
+            class="print-btn"
+            flex="cross:center main:center"
+            @click="openPrintModal"
+            v-if="HOSPITAL_ID == 'weixian'"
           >
             <span>归档打印</span>
-            <span v-if="printArchiveMaster.statusDesc">{{ '（' + printArchiveMaster.statusDesc + '）' }}</span>
+            <span v-if="printArchiveMaster.statusDesc">{{
+              "（" + printArchiveMaster.statusDesc + "）"
+            }}</span>
           </div>
           <!--  住院补登记  -->
-          <template v-if="HOSPITAL_ID === 'hj' && (info.registFlag === '1')">
-            <div class="print-btn" flex="cross:center main:center" @click="openInpatientRegis">住院补登记</div>
+          <template v-if="HOSPITAL_ID === 'hj' && info.registFlag === '1'">
+            <div
+              class="print-btn"
+              flex="cross:center main:center"
+              @click="openInpatientRegis"
+            >
+              住院补登记
+            </div>
           </template>
         </div>
       </div>
       <div
-          class="flag-con"
-          :style="{top: flagTop}"
-          flex="main:center cross:center"
-          @click="toOpenLeft"
+        class="flag-con"
+        :style="{ top: flagTop }"
+        flex="main:center cross:center"
+        @click="toOpenLeft"
       >
-        <i class="iconfont icon-yincang" v-show="openLeft" style="margin-left: -1px"></i>
-        <i class="iconfont icon-xianshi" v-show="!openLeft" style="margin-left: -2px"></i>
+        <i
+          class="iconfont icon-yincang"
+          v-show="openLeft"
+          style="margin-left: -1px"
+        ></i>
+        <i
+          class="iconfont icon-xianshi"
+          v-show="!openLeft"
+          style="margin-left: -2px"
+        ></i>
       </div>
     </div>
     <!-- 补登记表 弹窗 -->
-    <InpatientRegis ref="inpatientRegis" @handleSave="handleInpatientSave"/>
+    <InpatientRegis ref="inpatientRegis" @handleSave="handleInpatientSave" />
     <bedModal ref="bedModal"></bedModal>
     <bedModalWx ref="bedModalWx"></bedModalWx>
     <bedModalLc ref="bedModalLc"></bedModalLc>
@@ -80,10 +126,10 @@
     <bedModalZsq ref="bedModalZsq"></bedModalZsq>
     <printModal ref="printModal"></printModal>
     <archiveModal
-        ref="archiveModal"
-        :printArchiveMaster="printArchiveMaster"
-        :getArchiveStatus="getArchiveStatus"
-        :printDetailList="printDetailList"
+      ref="archiveModal"
+      :printArchiveMaster="printArchiveMaster"
+      :getArchiveStatus="getArchiveStatus"
+      :printDetailList="printDetailList"
     ></archiveModal>
   </div>
 </template>
@@ -223,8 +269,8 @@ import bedModalHd from "./modal/bed-modal-hd.vue";
 import bedModalZsq from "./modal/bed-modal-zsq.vue";
 import printModal from "./print-modal/print-modal";
 import archiveModal from "./modal/archive-modal";
-import {previewArchive} from "./modal/api/index";
-import InpatientRegis from '@/components/Inpatient-registration/index'
+import { previewArchive } from "./modal/api/index";
+import InpatientRegis from "@/components/Inpatient-registration/index";
 
 export default {
   data() {
@@ -261,26 +307,26 @@ export default {
         this.$refs.bedModalLc.open();
       } else if (this.HOSPITAL_ID == "huadu") {
         this.$refs.bedModalHd.open(printMode);
-      } else if(this.HOSPITAL_ID == "zhongshanqi"){
+      } else if (this.HOSPITAL_ID == "zhongshanqi") {
         this.$refs.bedModalZsq.open();
-      }else {
+      } else {
         this.$refs.bedModal.open();
       }
     },
     // 腕带打印
-    openWristPrint(printMode){
-      if (this.HOSPITAL_ID == "huadu" || (this.HOSPITAL_ID == "liaocheng")) {
+    openWristPrint(printMode) {
+      if (this.HOSPITAL_ID == "huadu" || this.HOSPITAL_ID == "liaocheng") {
         this.$refs.bedModalHd.open(printMode);
-      }else if(this.HOSPITAL_ID == "zhongshanqi"){
+      } else if (this.HOSPITAL_ID == "zhongshanqi") {
         this.$refs.bedModalZsq.open(printMode);
       }
     },
     // 住院补登记
     openInpatientRegis() {
-      this.$refs.inpatientRegis.open(this.info)
+      this.$refs.inpatientRegis.open(this.info);
     },
     handleInpatientSave() {
-      this.$emit('handleInpatientSave')
+      this.$emit("handleInpatientSave");
     },
     openPrintModal() {
       if (this.printArchiveMaster.printStatus == 1) {
@@ -318,9 +364,6 @@ export default {
   },
   mounted() {
     this.getArchiveStatus();
-  },
-  beforeDestroy() {
-    window.document.title = this.HOSPITAL_ID == 'guizhou' || this.HOSPITAL_ID == 'liaocheng' ? "智慧护理信息系统" : '百辰源智慧护理信息系统';
   },
   components: {
     bedModal,
