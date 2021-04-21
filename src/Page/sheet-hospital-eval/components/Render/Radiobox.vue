@@ -215,18 +215,14 @@ export default {
       if (this.$root.$refs[this.formCode]["evalScore"]) {
         try {
           this.formObj.model["evalScore"] = score;
-          this.$root.$refs[this.formCode]["evalScore"].setCurrentValue(score);
-          let textResult = this.$root.$refs[this.formCode][
-            "evalDesc"
-            ].checkValueRule(score);
+          this.setElementValue("evalScore", score);
+
+
+          let textResult = this.getValueRule("evalDesc", score); //this.$root.$refs["evalDesc"][0].checkValueRule(score);
           console.log("evalDesc-textResult", textResult);
           this.formObj.model["evalDesc"] = textResult + "";
-          this.$root.$refs[this.formCode]["evalDesc"].setCurrentValue(
-            textResult
-          );
-          this.$root.$refs[this.formCode]["evalDesc"].checkValueRule(
-            textResult
-          );
+          this.setElementValue("evalDesc", textResult);
+          this.getValueRule("evalDesc", textResult);
         } catch (error) {
           console.log(error);
         }
@@ -263,6 +259,20 @@ export default {
       // if(this.$root.$refs.mainPage.checkFormMissingItems){
       //   this.$root.$refs.mainPage.checkFormMissingItems()
       // }
+    },
+    setElementValue(key, value) {
+      Object.keys(this.$root.$refs[this.formCode][key]).map(elkey => {
+        this.$root.$refs[this.formCode][key][elkey].setCurrentValue(value);
+      });
+    },
+    getValueRule(key, value) {
+      let textResult = "";
+      Object.keys(this.$root.$refs[this.formCode][key]).map(elkey => {
+        textResult = this.$root.$refs[this.formCode][key][elkey].checkValueRule(
+          value
+        );
+      });
+      return textResult;
     },
     runTasks() {
       //
