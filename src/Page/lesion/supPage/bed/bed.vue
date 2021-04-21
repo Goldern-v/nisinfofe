@@ -1,5 +1,5 @@
 <template>
-  <div :class="{'bed-hd': HOSPITAL_ID == 'huadu'}">
+  <div :class="{ 'bed-hd': HOSPITAL_ID == 'huadu' }">
     <div class="right-part">
       <search-con ref="searchCon"></search-con>
     </div>
@@ -8,20 +8,27 @@
       class="left-part"
       v-loading="loading"
       :element-loading-text="getLoadingText()"
-      :style="'position: relative;height:auto;min-height:'+bedHeight"
+      :style="'position: relative;height:auto;min-height:' + bedHeight"
     >
       <el-row :gutter="12" class="card-con">
         <div class="null-bg" v-if="bedList.length == 0 && !loading">
-          <img src="../../../../common/images/card/默认图.png" height="220" width="220" />
+          <img
+            src="../../../../common/images/card/默认图.png"
+            height="220"
+            width="220"
+          />
           <p>暂时没有护理单元～</p>
         </div>
-        <component :is="currentBedItem" v-for="(item, index) in bedList"
+        <component
+          :is="currentBedItem"
+          v-for="(item, index) in bedList"
           :key="index"
           :data="item"
           :toLike="toLike"
           :toInfo="toInfo"
           :prevent="prevent"
-          v-show="filterSearch(item)">
+          v-show="filterSearch(item)"
+        >
         </component>
       </el-row>
     </div>
@@ -114,6 +121,7 @@
 import { follow, unfollow, unfollowHd } from "@/api/lesion";
 import bedItem from "./component/bed-item/bed-item.vue";
 import bedItemHd from "./component/bed-item-hd/bed-item.vue";
+import bedItemLcey from "./component/bed-item-lcey/bed-item.vue";
 import searchCon from "./component/search-con/search-con.vue";
 import common from "@/common/mixin/common.mixin.js";
 import qs from "qs";
@@ -138,10 +146,12 @@ export default {
     bedHeight() {
       return this.wih - 93 + "px";
     },
-    currentBedItem(){
-      if(this.HOSPITAL_ID == 'huadu'){
+    currentBedItem() {
+      if (this.HOSPITAL_ID == "huadu") {
         return bedItemHd;
-      }else {
+      } else if (this.HOSPITAL_ID == "liaocheng") {
+        return bedItemLcey;
+      } else {
         return bedItem;
       }
     }
@@ -172,6 +182,7 @@ export default {
       console.log(tab, event);
     },
     toLike(item) {
+      console.log(item);
       if (item.isFollow === "0") {
         follow(this.deptCode, item.bedLabel, item.bedNo).then(res => {
           item.isFollow = "1";
@@ -181,11 +192,11 @@ export default {
           });
         });
       }
-      if (item.isFollow === "1" && this.HOSPITAL_ID == 'huadu') {
-        unfollowHd(this.deptCode,item.bedNo).then(res => {
+      if (item.isFollow === "1" && this.HOSPITAL_ID == "huadu") {
+        unfollowHd(this.deptCode, item.bedNo).then(res => {
           item.isFollow = "0";
         });
-      }else if (item.isFollow === "1") {
+      } else if (item.isFollow === "1") {
         unfollow(item.bedLabel).then(res => {
           item.isFollow = "0";
         });
@@ -250,7 +261,8 @@ export default {
   components: {
     bedItem,
     searchCon,
-    bedItemHd
+    bedItemHd,
+    bedItemLcey
   }
 };
 </script>

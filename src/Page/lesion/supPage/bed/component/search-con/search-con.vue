@@ -67,13 +67,17 @@
         class="login-btn"
         @click="syncGetNurseBedRecData"
         v-if="showSyncBedBtn"
-      >同步床位数据</button>
+      >
+        同步床位数据
+      </button>
       <button
         class="login-btn"
-        :class="{noactive:showProgress}"
+        :class="{ noactive: showProgress }"
         @click="syncGetMedicalAdvice"
         v-if="HOSPITAL_ID == 'weixian'"
-      >同步医嘱</button>
+      >
+        同步医嘱
+      </button>
       <!-- <a
         :href="`crprintorder://${infoData.patientId}/${infoData.visitId}`"
         v-if="HOSPITAL_ID == 'weixian'"
@@ -82,7 +86,11 @@
         <el-button class="select-btn" type="primary">打印执行单</el-button>
       </a>-->
       <div class="progress" v-if="showProgress">
-        <el-progress :percentage="progressNum" color="#4bb08d" :format="format"></el-progress>
+        <el-progress
+          :percentage="progressNum"
+          color="#4bb08d"
+          :format="format"
+        ></el-progress>
       </div>
       <footerBar
         :selectName="selectName"
@@ -510,18 +518,23 @@ export default {
           type: "state"
         }
       ];
-      if(this.HOSPITAL_ID == 'zhongshanqi'){
-        list.splice(3,0,{
+      if (
+        this.HOSPITAL_ID == "zhongshanqi" ||
+        this.HOSPITAL_ID == "liaocheng"
+      ) {
+        list.splice(3, 0, {
           name: "我的关注",
           num: this.heart.length,
           type: "heart"
-        })
+        });
       }
       return list;
     },
     // 同步床位数据
-    showSyncBedBtn(){
-      return  ['weixian','lingcheng','liaocheng','hengli'].includes(this.HOSPITAL_ID);
+    showSyncBedBtn() {
+      return ["weixian", "lingcheng", "liaocheng", "hengli"].includes(
+        this.HOSPITAL_ID
+      );
     }
   },
   methods: {
@@ -558,11 +571,11 @@ export default {
     syncGetNurseBedRecData() {
       this.$message.info("正在更新");
       let syncData = syncGetNurseBedRec;
-      switch(this.HOSPITAL_ID){
-        case 'lingcheng':
+      switch (this.HOSPITAL_ID) {
+        case "lingcheng":
           syncData = syncGetNurseBedRecLc;
           break;
-        case 'liaocheng':
+        case "liaocheng":
           syncData = syncGetNurseBedRecLiaocheng;
           break;
         default:
@@ -749,7 +762,7 @@ export default {
           {
             this.$parent.bedList = this.hasVteDanger;
           }
-        break;
+          break;
         default: {
           this.$parent.bedList = this.getLevelList(val);
         }
