@@ -431,6 +431,13 @@ export default function Title(
     );
   }
   break;
+  case "additional_count2_hd": {
+    // 花都-通用护理记录单副单2
+    Th = JSON.parse(
+      JSON.stringify(require("../config/additional_count2_hd/th").default)
+    );
+  }
+  break;
   case "intervention_cure": {
     // 厚街-介入治疗术护理记录单
     Th = JSON.parse(
@@ -533,6 +540,13 @@ export default function Title(
     // 聊城二院 - 介入诊疗护理记录单
     Th = JSON.parse(
       JSON.stringify(require("../config/intervention_cure_lcey/th").default)
+    );
+  }
+  break;
+  case "access_lcey": {
+    // 聊城二院 - 出入量记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/access_lcey/th").default)
     );
   }
   break;

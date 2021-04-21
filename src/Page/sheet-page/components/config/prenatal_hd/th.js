@@ -11,8 +11,7 @@ export default {
     width: "1280px"
   },
   th: {
-    top: [
-      {
+    top: [{
         name: currYear(),
         colspan: "2",
         rowspan: "1",
@@ -232,7 +231,7 @@ export default {
       },
       {
         name: `
-        护士签名
+        护士<br>签名
         `,
         style: {},
         colspan: "1",
@@ -240,7 +239,7 @@ export default {
       },
       {
         name: `
-        护士签名
+        护士<br>签名
         `,
         style: {},
         colspan: "1",
