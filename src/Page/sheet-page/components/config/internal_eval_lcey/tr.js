@@ -22,20 +22,8 @@ export default [{
     value: "",
     event: keyf1
   },
-  // {
-  //   key: "temperatureMeasure", //体温-措施
-  //   value: "",
-  //   event: keyf1,
-  //   autoComplete: {
-  //     // data: ['适量饮水', '温水/酒精擦浴', '冰块冷敷', '减少盖被', '遵医嘱用药']
-  //     data: ['①', '②', '③', '④', '⑤']
-  //   },
-  //   // textarea: {
-  //   //   width: 48
-  //   // },
-  // },
   {
-    key: "pulse", //脉搏
+    key: "pulse", //脉搏/心率
     value: "",
     event: keyf1
   },
@@ -55,280 +43,23 @@ export default [{
       keyf1(e, td);
     },
     textarea: {
-      width: 48
+      minWidth: 48
     },
     style: {
       'line-height': '30px'
     }
   },
-  // {
-  //   key: "bloodPressureHandle", //血压 - 异常处理
-  //   value: "",
-  //   event: keyf1,
-  //   autoComplete: {
-  //     // data: ['观察做好宣教', '遵医嘱应用药物']
-  //     data: ['①', '②', '③']
-  //   },
-  //   // textarea: {
-  //   //   width: 48
-  //   // },
-  // },
-  // {
-  //   key: "sleepStatus", // 睡眠-状态
-  //   value: "",
-  //   event: keyf1,
-  //   autoComplete: {
-  //     // data: ['安静休息', '间断入眠', '入睡困难']
-  //     data: ['①', '②', '③']
-  //   },
-  //   // textarea: {
-  //   //   width: 30
-  //   // },
-  // },
-  // {
-  //   key: "sleepMeasure", // 睡眠-措施
-  //   value: "",
-  //   event: keyf1,
-  //   autoComplete: {
-  //     // data: ['暗化病室', '用药']
-  //     data: ['①', '②']
-  //   },
-  //   // textarea: {
-  //   //   width: 30
-  //   // },
-  // },
-  // {
-  //   key: "diet", // 饮食
-  //   value: "",
-  //   event: keyf1,
-  //   autoComplete: {
-  //     data: ['①', '②', '③', '④', '⑤', '⑥', '⑦']
-  //   },
-  //   // textarea: {
-  //   //   width: 48
-  //   // },
-  // },
-  // {
-  //   key: "appetite", // 食欲
-  //   value: "",
-  //   event: keyf1,
-  //   autoComplete: {
-  //     data: ['a', 'b', 'c', 'd', 'e', 'f']
-  //   },
-  //   // textarea: {
-  //   //   width: 48
-  //   // },
-  // },
   {
-    key: "fieldOne", // 临床表现-疼痛-部位
-    value: "",
-    event: keyf1,
-    autoComplete: {
-      // data: ['腹部', '胸部', '头部', ' ']
-      data: ['①', '②', '③', '④']
-    },
-    // textarea: {
-    //   width: 30
-    // },
-  },
-  {
-    key: "fieldTwo", // 临床表现-疼痛-评分
+    key: "spo2", // SPO2（%）
     value: "",
     event: keyf1,
   },
-  // {
-  //   key: "fieldThree", // 临床表现-疼痛-措施
-  //   value: "",
-  //   event: keyf1,
-  // },
-  // {
-  //   key: "fieldFour", // 临床表现-其他症状
-  //   value: "",
-  //   event: keyf1,
-  //   autoComplete: {
-  //     // data: ['恶心', '呕吐', '腹胀', '纳差', '烧心', '返酸', '大便失禁', '大便不成形', '腹泻', '便秘', '黑便', '血便', '小便失禁', '尿频', '尿色异常']
-  //     data: ['①', '②', '③', '④', '⑤', '⑥', '⑦', '⑧', '⑨', '⑩', '⑾', '⑿', '⒀', '⒁', '⒂', '⒃']
-  //   },
-  //   // textarea: {
-  //   //   width: 36
-  //   // },
-  // },
-  // {
-  //   key: "fieldSix", // 临床表现-措施
-  //   value: "",
-  //   event: keyf1,
-  //   autoComplete: {
-  //     // data: ['观察做好宣教', '遵医嘱用药', ' ']
-  //     data: ['①', '②', '③']
-  //   },
-  //   // textarea: {
-  //   //   width: 46
-  //   // },
-  // },
-  // {
-  //   key: "fieldSeven", //临床表现-效果
-  //   value: "",
-  //   event: keyf1,
-  //   autoComplete: {
-  //     // data: ['未再出现上述症状', '减轻', '差']
-  //     data: ['①', '②', '③']
-  //   },
-  //   // textarea: {
-  //   //   width: 48
-  //   // },
-  // },
-  // {
-  //   key: "fieldEight", //临床表现-VTE-选项
-  //   value: "",
-  //   event: keyf1
-  // },
-  // {
-  //   key: "fieldNine", //临床表现-VTE-评分
-  //   value: "",
-  //   event: keyf1,
-  // },
-  // {
-  //   key: "fieldTen", //临床表现-VTE-措施
-  //   value: "",
-  //   event: keyf1,
-  //   autoComplete: {
-  //     // data: ['健康宣教', '基础预防', '物理预防', '药物预防', '放警示标示']
-  //     data: ['A', 'B', 'C', 'D', 'E']
-  //   },
-  //   // textarea: {
-  //   //   width: 36
-  //   // },
-  // },
-  // {
-  //   key: "fieldEleven", //临床表现-压疮评分
-  //   value: "",
-  //   event: keyf1,
-  // },
-  // {
-  //   key: "fieldTwelve", //临床表现-心理状态
-  //   value: "",
-  //   event: keyf1,
-  //   autoComplete: {
-  //     // data: ['稳定', '紧张', '焦虑', '抑郁', '恐惧', '烦躁']
-  //     data: ['①', '②', '③', '④', '⑤', '⑥']
-  //   },
-  //   // textarea: {
-  //   //   width: 30
-  //   // },
-  // },
-  // {
-  //   key: "fieldThirteen", //临床表现-营养状况
-  //   value: "",
-  //   event: keyf1,
-  //   autoComplete: {
-  //     // data: ['良好', '一般', '差']
-  //     data: ['①', '②', '③']
-  //   }
-  // },
-  // {
-  //   key: "fieldFourteen", //临床表现-依从性
-  //   value: "",
-  //   event: keyf1,
-  //   autoComplete: {
-  //     // data: ['好', '一般', '差']
-  //     data: ['①', '②', '③']
-  //   }
-  // },
-  // {
-  //   key: "fieldFifteen", //临床表现-教育需求
-  //   value: "",
-  //   event: keyf1,
-  //   autoComplete: {
-  //     // data: ['饮食', '检查化验', '药物', '活动']
-  //     data: ['①', '②', '③', '④']
-  //   },
-  //   // textarea: {
-  //   //   width: 30
-  //   // },
-  // },
-  {
-    key: "assayItem", //化验-主要阳性项目
-    value: "",
-    event: keyf1,
-    autoComplete: {
-      // data: ['血红蛋白', '白细胞', '血小板', '血氨', '血钾', '血钠', '血淀粉酶', '血凝', '肝功']
-      data: ['①', '②', '③', '④', '⑤', '⑥', '⑦', '⑧', '⑨', '⑩']
-    },
-    // textarea: {
-    //   width: 30
-    // },
-  },
-  {
-    key: "assayResult", //化验-结果
-    value: "",
-    event: keyf1,
-  },
-  // {
-  //   key: "assayMeasure", //化验-措施
-  //   value: "",
-  //   event: keyf1,
-  //   autoComplete: {
-  //     // data: ['遵医嘱用药', '观察做好宣教']
-  //     data: ['①', '②', '③']
-  //   },
-  //   // textarea: {
-  //   //   width: 36
-  //   // },
-  // },
-  // {
-  //   key: "examItem", //检查/检验-项目
-  //   value: "",
-  //   event: keyf1,
-  //   autoComplete: {
-  //     // data: ['胃镜', '肠镜', '胃/肠息肉电切', '胃镜下碎石', '食管扩张术', '食管静脉曲张套扎术', '支架植入', '介入治疗']
-  //     data: ['①', '②', '③', '④', '⑤', '⑥', '⑦', '⑧', '⑨']
-  //   },
-  //   // textarea: {
-  //   //   width: 60
-  //   // },
-  // },
-  // {
-  //   key: "examResult", //检查/检验-措施
-  //   value: "",
-  //   event: keyf1,
-  //   autoComplete: {
-  //     // data: ['检查/治疗前指导', '检查/治疗后指导']
-  //     data: ['①', '②']
-  //   },
-  //   // textarea: {
-  //   //   width: 48
-  //   // },
-  // },
-  // {
-  //   key: "examMeasure", //检查/检验-效果
-  //   value: "",
-  //   event: keyf1,
-  //   autoComplete: {
-  //     // data: ['知晓并依从', '知晓但依从性差']
-  //     data: ['①', '②']
-  //   },
-  //   // textarea: {
-  //   //   width: 42
-  //   // },
-  // },
-  // {
-  //   key: "fieldSixteen", //出院/转科指导
-  //   value: "",
-  //   event: keyf1,
-  //   autoComplete: {
-  //     // data: ['饮食', '休息与活动', '药物', '复诊', '转至___病区 ']
-  //     data: ['①', '②', '③', '④', '⑤']
-  //   },
-  //   // textarea: {
-  //   //   width: 48
-  //   // },
-  // },
   {
     key: "fieldSeventeen", //标题1
     value: "",
     event: keyf1,
     textarea: {
-      width: 48
+      minWidth: 48
     }
   },
   {
@@ -336,7 +67,7 @@ export default [{
     value: "",
     event: keyf1,
     textarea: {
-      width: 48
+      minWidth: 48
     }
   },
   {
@@ -344,7 +75,7 @@ export default [{
     value: "",
     event: keyf1,
     textarea: {
-      width: 36
+      minWidth: 36
     }
   },
   {
@@ -356,7 +87,7 @@ export default [{
       top: "1px",
       bottom: "1px",
       left: "1px",
-      width: "150px",
+      minWidth: "150px",
       background: "transparent"
     },
     event: function (e, td) {
