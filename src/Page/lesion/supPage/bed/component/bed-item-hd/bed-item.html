@@ -51,7 +51,7 @@
               <span>{{item.showContent}}</span>
             </div>
             <div class="table-name" v-for="item in (data.evalIcons &&  data.evalIcons.slice(0,6))" :key="item.formName"
-              :title="item.description + ' 分数:' + item.score + '分'" :style="{background: item.iconTextRgb}"
+              :title="item.description + ' 分数:' + item.evalScore + '分'" :style="{background: item.iconTextRgb}"
               @click.stop="toFormPage(data, item)">
               <span>{{item.iconText}}</span>
             </div>
