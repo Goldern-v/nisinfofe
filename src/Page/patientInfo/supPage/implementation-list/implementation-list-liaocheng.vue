@@ -48,18 +48,6 @@
           ></el-option>
         </el-select>
         <div style="flex: 1"></div>
-        <el-input
-          size="small"
-          style="width: 150px;margin-right: 15px;"
-          placeholder="输入病人姓名进行搜索"
-          v-model="patientName"
-        ></el-input>
-        <el-input
-          size="small"
-          style="width: 150px;margin-right: 15px;"
-          placeholder="输入床号进行搜索"
-          v-model="bedLabel"
-        ></el-input>
          <el-input
           size="small"
           style="width: 150px;margin-right: 15px;"
@@ -68,7 +56,7 @@
         ></el-input>
         <el-button size="small" type="primary" @click="search">查询</el-button>
       </div>
-      <dTable :tableData="tableData" :pageLoadng="pageLoadng"></dTable>
+      <dTable :tableData="tableData" :pageLoadng="pageLoadng" :tableH="wih - 184"></dTable>
       <!-- <div class="pagination-con" flex="main:justify cross:center">
         <pagination
           :pageIndex="page.pageIndex"
@@ -165,10 +153,9 @@
 }
 </style>
 <script>
-import dTable from "./components/table/d-table";
-import pagination from "./components/common/pagination";
-import { patEmrList } from "@/api/document";
-import { getExecuteWithWardcodeLiaoC } from "./api/index";
+import dTable from "@/Page/implementation-list-lc/components/table/d-table";
+import pagination from "@/Page/implementation-list-lc/components/common/pagination";
+import { getOrdersExecuteWithPatinetId } from "./api/index";
 import common from "@/common/mixin/common.mixin.js";
 import moment from "moment";
 import bus from "vue-happy-bus";
@@ -280,18 +267,17 @@ export default {
       if (!this.deptCode) return;
       this.pageLoadng = true;
       let obj = {
-        wardCode: this.deptCode, //护理单元代码
-        executeDateTime: moment(this.startDate).format("YYYY-MM-DD"), //执行单预计执行时间
+        patientId: this.$route.query.patientId,// --患者id
+        visitId: this.$route.query.visitId, // --住院次数
+        executeDateTime:  moment(this.startDate).format("YYYY-MM-DD"), // --预计执行时间
         repeatIndicator: this.repeatIndicator, //医嘱类型:0临时 1长期  2单药处方
         executeStatus: this.status, //执行单状态:0-未执行、1-执行中（输液中）、2-暂停输液、3-继续执行  4-已完成（结束输液）
         executeType: typeof this.type == "number"
           ? this.allType[this.type + 1].name
           : this.type, //执行单类型:输液,口服、治疗、雾化、注射
-        bedLabel: this.bedLabel,  //床号
-        patientName: this.patientName, //患者姓名
         administration: this.administration // //途径
       }
-      getExecuteWithWardcodeLiaoC(obj).then((res) => {
+      getOrdersExecuteWithPatinetId(obj).then((res) => {
         this.tableData = res.data.data.map((item, index, array) => {
           let prevRowId =
             array[index - 1] &&

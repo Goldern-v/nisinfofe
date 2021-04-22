@@ -147,6 +147,7 @@ import sheet from "@/Page/patientInfo/supPage/sheet/sheet.vue";
 import catheter from "@/Page/patientInfo/supPage/catheter/catheter.vue";
 import healthEducation from "@/Page/patientInfo/supPage/healthEducation/healthEducation.vue"; // 厚街
 import hospitalEval from "@/Page/patientInfo/supPage/hospital-eval/hospital-eval";
+import implementationPersonLiaocheng from "@/Page/patientInfo/supPage/implementation-list/implementation-list-liaocheng";
 
 Vue.use(Router);
 const HOSPITAL_ID = process.env.HOSPITAL_ID;
@@ -487,6 +488,12 @@ const router = new Router({
               component: hospitalEval,
               name: "住院表",
               alias: "住院表"
+            },
+            {
+              path: "/implementationPerson",
+              component: implementationPersonLiaocheng,
+              name: "执行单",
+              alias: "执行单"
             }
           ]
         },
