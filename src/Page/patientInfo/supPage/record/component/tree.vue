@@ -143,6 +143,10 @@ import fileboxRed from "@/common/images/record/文件夹红点.png";
 
 import fileiconGreen from "@/common/images/record/文件绿点.png";
 import fileboxGreen from "@/common/images/record/文件夹绿点.png";
+
+import fileiconYellow from "@/common/images/record/文件黄点.png";
+import fileboxYellow from "@/common/images/record/文件夹黄点.png";
+
 import { SweetModal, SweetModalTab } from "@/plugin/sweet-modal-vue";
 import {
   listPatientRecord,
@@ -296,51 +300,50 @@ export default {
       let formNoSign = node.data.formTreeRemindType == '0'; // 无签名
       let formSign = node.data.formTreeRemindType == '1'; // 责任（多人签名）
       let formAudit = node.data.formTreeRemindType == '2'; // 责任 + 审核
-      let formNoType = node.data.formTreeRemindType != '';
       
       // 花都特殊处理
-      if(formNoType && (this.HOSPITAL_ID == "huadu" || this.HOSPITAL_ID == "liaocheng") ) {
+      if( this.HOSPITAL_ID == "huadu" || this.HOSPITAL_ID == "liaocheng" || this.HOSPITAL_ID == "zhongshanqi") {
         // 文件夹
         // 责任 + 审核的情况
-        if (hasSave && formAudit) {// 责任 + 审核的情况 未签名
-          box = fileboxRed; 
-        } 
-        else if (hasSign && formAudit) { // 责任 + 审核的情况 责任签名
-          box = fileboxGreen;
-        } 
-        else if (formAudit) { // 责任 + 审核的情况 全签名
-          box = filebox;
+        if (formAudit) {// 责任 + 审核的情况 
+          if(this.HOSPITAL_ID == "zhongshanqi") { // 中山七颜色处理
+            if(hasSave) { box = fileboxYellow; }// 未签名
+            else if (hasSign) { box = fileboxRed; }// 责任 + 审核的情况 责任签名
+            else if(fileHasSave) {icon = fileiconYellow;} // 未签名
+            else if(fileHasSign) {icon = fileiconRed;} // 未签名
+            else{box = fileboxGreen;icon = fileiconGreen;} // 未签名
+          }
+          else {
+            if(hasSave) {box = fileboxRed; }// 未签名
+            else if (hasSign) {box = fileboxGreen; }// 责任 + 审核的情况 责任签名
+            else if(fileHasSave) {icon = fileiconRed;}// 未签名
+            else if(fileHasSign) {icon = fileiconGreen;} //责任签名
+            else{box = filebox;icon = fileicon;}
+          }
         } 
         // 责任（多人签名）的情况
-        else if (hasSave && formSign) { // 责任（多人签名）的情况 未签名
-          box = fileboxRed;
+        else if (formSign) { 
+          if(this.HOSPITAL_ID == "zhongshanqi") { // 责任（多人签名）的情况 未签名
+            if(hasSave) {box = fileboxYellow; }// 未签名
+            else if (hasSign) {box = fileboxGreen; }// // 责任（多人签名）的情况 责任签名
+            else if(fileHasSave) {icon = fileiconYellow;}
+            else if(fileHasSign) {icon = fileiconGreen;}
+            else {box = fileboxGreen;icon = fileiconGreen; }// // 责任（多人签名）的情况 责任签名
+          }
+          else {
+            if(hasSave) { box = fileboxRed; }// 未签名
+            else if (hasSign) { box = filebox;}// 责任（多人签名）的情况 责任签名
+            else if(fileHasSave) {icon = fileiconRed;}
+            else if(fileHasSign) {icon = fileicon;}
+            else{box = filebox;icon = fileicon;}
+          }
         } 
-        else if (hasSign && formSign) { // 责任（多人签名）的情况 责任签名
+        else { // 没有签名的情况
           box = filebox;
-        }
-        else if (formNoSign ){ // 没有签名的情况
-          box = filebox; 
-        }
-        // 文件
-        if (fileHasSave && formAudit) {// 责任 + 审核的情况 未签名
-          icon = fileiconRed; 
-        } 
-        else if (fileHasSign && formAudit) { // 责任 + 审核的情况 责任签名
-          icon = fileiconGreen;
-        } 
-        else if (formAudit) { // 责任 + 审核的情况 全签名
-          icon = fileicon;
-        } 
-        else if (fileHasSave && formSign) { // 责任（多人签名）的情况 未签名
-          icon = fileiconRed;
-        } 
-        else if (fileHasSign && formSign) { // 责任（多人签名）的情况 责任签名
           icon = fileicon;
         }
-        else if (formNoSign ){ // 没有签名的情况
-          icon = fileicon; 
-        }
-      } else {
+      } 
+      else {
         // 文件夹
         if (hasSave && this.HOSPITAL_ID !== "weixian") {
           box = fileboxRed;
