@@ -473,19 +473,28 @@ export default {
         sheetInfo.auditorMap[`PageIndex_${this.index}_auditorName`]
       );
     },
-    titleModel(){
+    titleModel() {
       return this.data.bodyModel[0].filter(td => {
         return !td.hidden;
-      })
+      });
     }
   },
   methods: {
+    /* 花都个别护记的出入量统计：增加红线与上一行做区分 */
     getBorderClass(index) {
-      if (sheetInfo.sheetType !== "common_hd") return;
-      const temp = this.data.bodyModel.findIndex(tr => {
-        return tr.find(i => i.key === "recordSource").value === "5";
-      });
-      return temp === index;
+      const redTopSheet_hd = [
+        "common_hd",
+        "prenatal_hd",
+        "postpartum_hd",
+        "neonatology_hd",
+        "neurosurgery_hd"
+      ];
+      if (redTopSheet_hd.includes(this.sheetInfo.sheetType)) {
+        const temp = this.data.bodyModel.findIndex(tr => {
+          return tr.find(i => i.key === "recordSource").value === "5";
+        });
+        return temp === index;
+      }
     },
     // 键盘事件
     onKeyDown(e, bind) {

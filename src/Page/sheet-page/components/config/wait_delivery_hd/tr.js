@@ -1,20 +1,24 @@
-import { listItem } from "../../../api/recordDesc";
-import { multiDictInfo } from "../../../api/index";
-import { keyf1 } from "../keyEvent/f1.js";
-import { event_date, event_time, click_date } from "../keyEvent/date";
+import {
+  listItem
+} from "../../../api/recordDesc";
+import {
+  multiDictInfo
+} from "../../../api/index";
+import {
+  keyf1
+} from "../keyEvent/f1.js";
+import {
+  event_date,
+  event_time,
+  click_date
+} from "../keyEvent/date";
 import info from "../sheetInfo";
 
-let tmList = [];
-let twList = [];
-let gscxjxList = [];
-let xlgdList = [];
-let gjgList = [];
-let ysxzList = [];
-let gjkzList = [];
-let gsqdList = [];
+const twList = [];
+const ysxzList = [];
+const txbwList = ["右下腹", "左下腹", "右上腹", "左上腹", "中上腹", "脐中部", "脐上部", "脐下部", ];
 
-export default [
-  {
+export default [{
     key: "recordMonth", //日期
     value: "",
     event: event_date,
@@ -52,6 +56,9 @@ export default [
     value: "",
     event: keyf1,
     name: "胎心部位",
+    autoComplete: {
+      data: txbwList
+    },
   },
   {
     key: "fieldThree", //胎心心率
@@ -65,6 +72,9 @@ export default [
     value: "",
     event: keyf1,
     name: "衔接",
+    autoComplete: {
+      data: ["已", "未"]
+    },
   },
   {
     key: "fieldFive", //宫缩间歇
@@ -79,12 +89,18 @@ export default [
     event: keyf1,
     name: "宫缩持续",
     next: "s",
+    autoComplete: {
+      data: ["无", "敏感", "不规则"]
+    },
   },
   {
     key: "fieldSeven", // 宫缩缩力
     value: "",
     event: keyf1,
-    name: "宫缩缩力"
+    name: "宫缩缩力",
+    autoComplete: {
+      data: ["强", "中", "中强", "中弱", "弱", "敏感", "不规则", "无"]
+    },
   },
   {
     key: "fieldEight", // 宫颈开张
@@ -103,7 +119,10 @@ export default [
     key: "fieldTen", //宫颈质
     value: "",
     event: keyf1,
-    name: "宫颈质"
+    name: "宫颈质",
+    autoComplete: {
+      data: ["中", "软", "硬"]
+    },
   },
   {
     key: "fieldEleven", //先露高低
@@ -121,7 +140,10 @@ export default [
     key: "fieldThirteen", //胎膜
     value: "",
     event: keyf1,
-    name: "胎膜"
+    name: "胎膜",
+    autoComplete: {
+      data: ["已破", "未破"]
+    },
   },
   {
     key: "fieldFourteen", //羊水性状
@@ -136,7 +158,10 @@ export default [
     key: "fieldFifteen", //检查方式
     value: "",
     event: keyf1,
-    name: "检查方式"
+    name: "检查方式",
+    autoComplete: {
+      data: ["外", "阴", "肛"]
+    },
   },
   {
     key: "fieldSixteen", //标题1
@@ -266,21 +291,21 @@ export default [
 ];
 
 export function getListData() {
-  // listItem("入量名称", info.sheetType).then(res => {
-  //   ruList.splice(0, ruList.length);
-  //   for (let item of res.data.data) {
-  //     ruList.push(item.name);
-  //   }
-  // });
-  // listItem("出量名称", info.sheetType).then(res => {
-  //   chuList.splice(0, chuList.length);
-  //   for (let item of res.data.data) {
-  //     chuList.push(item.name);
-  //   }
-  // });
+  listItem("入量名称", info.sheetType).then(res => {
+    ruList.splice(0, ruList.length);
+    for (let item of res.data.data) {
+      ruList.push(item.name);
+    }
+  });
+  listItem("出量名称", info.sheetType).then(res => {
+    chuList.splice(0, chuList.length);
+    for (let item of res.data.data) {
+      chuList.push(item.name);
+    }
+  });
   let list = [
     "花都:侯产记录单:胎位",
-    "花都:侯产记录单:羊水性状"
+    "花都:侯产记录单:羊水性状",
   ];
   multiDictInfo(list).then(res => {
     let data = res.data.data;

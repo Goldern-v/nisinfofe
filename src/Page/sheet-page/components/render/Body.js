@@ -367,6 +367,11 @@ function switechSheetType(type) {
     schema = require("../config/additional_count_hd/tr.js").default;
   }
   break;
+  case "additional_count2_hd": {
+    // 花都-通用护理记录单副单2
+    schema = require("../config/additional_count2_hd/tr.js").default;
+  }
+  break;
   case "intervention_cure": {
     // 厚街-介入治疗术护理记录单
     schema = require("../config/intervention_cure/tr.js").default;
@@ -440,6 +445,11 @@ function switechSheetType(type) {
   case "intervention_cure_lcey": {
     // 聊城二院 - 介入诊疗护理记录单
     schema = require("../config/intervention_cure_lcey/tr").default;
+  }
+  break;
+  case "access_lcey": {
+    // 聊城二院 - 出入量记录单
+    schema = require("../config/access_lcey/tr").default;
   }
   break;
   case "body_temperature_wj": {

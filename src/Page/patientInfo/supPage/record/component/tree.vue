@@ -143,6 +143,10 @@ import fileboxRed from "@/common/images/record/文件夹红点.png";
 
 import fileiconGreen from "@/common/images/record/文件绿点.png";
 import fileboxGreen from "@/common/images/record/文件夹绿点.png";
+
+import fileiconYellow from "@/common/images/record/文件黄点.png";
+import fileboxYellow from "@/common/images/record/文件夹黄点.png";
+
 import { SweetModal, SweetModalTab } from "@/plugin/sweet-modal-vue";
 import {
   listPatientRecord,
@@ -288,26 +292,74 @@ export default {
           return item.data.status == "1";
         }).length > 0;
 
-      let fileHasSave = node.data.status == 0;
+      let fileHasSave = node.data.status == 0; 
       let fileHasSign = node.data.status == 1;
-
       let icon;
       let box;
-
-      if (hasSave && this.HOSPITAL_ID !== "weixian") {
-        box = fileboxRed;
-      } else if (hasSign && this.HOSPITAL_ID !== "weixian") {
-        box = fileboxGreen;
-      } else {
-        box = filebox;
-      }
-
-      if (fileHasSave && this.HOSPITAL_ID !== "weixian") {
-        icon = fileiconRed;
-      } else if (fileHasSign && this.HOSPITAL_ID !== "weixian") {
-        icon = fileiconGreen;
-      } else {
-        icon = fileicon;
+     
+      let formNoSign = node.data.formTreeRemindType == '0'; // 无签名
+      let formSign = node.data.formTreeRemindType == '1'; // 责任（多人签名）
+      let formAudit = node.data.formTreeRemindType == '2'; // 责任 + 审核
+      
+      // 花都特殊处理
+      if( this.HOSPITAL_ID == "huadu" || this.HOSPITAL_ID == "liaocheng" || this.HOSPITAL_ID == "zhongshanqi") {
+        // 文件夹
+        // 责任 + 审核的情况
+        if (formAudit) {// 责任 + 审核的情况 
+          if(this.HOSPITAL_ID == "zhongshanqi") { // 中山七颜色处理
+            if(hasSave) { box = fileboxYellow; }// 未签名
+            else if (hasSign) { box = fileboxRed; }// 责任 + 审核的情况 责任签名
+            else if(fileHasSave) {icon = fileiconYellow;} // 未签名
+            else if(fileHasSign) {icon = fileiconRed;} // 未签名
+            else{box = fileboxGreen;icon = fileiconGreen;} // 未签名
+          }
+          else {
+            if(hasSave) {box = fileboxRed; }// 未签名
+            else if (hasSign) {box = fileboxGreen; }// 责任 + 审核的情况 责任签名
+            else if(fileHasSave) {icon = fileiconRed;}// 未签名
+            else if(fileHasSign) {icon = fileiconGreen;} //责任签名
+            else{box = filebox;icon = fileicon;}
+          }
+        } 
+        // 责任（多人签名）的情况
+        else if (formSign) { 
+          if(this.HOSPITAL_ID == "zhongshanqi") { // 责任（多人签名）的情况 未签名
+            if(hasSave) {box = fileboxYellow; }// 未签名
+            else if (hasSign) {box = fileboxGreen; }// // 责任（多人签名）的情况 责任签名
+            else if(fileHasSave) {icon = fileiconYellow;}
+            else if(fileHasSign) {icon = fileiconGreen;}
+            else {box = fileboxGreen;icon = fileiconGreen; }// // 责任（多人签名）的情况 责任签名
+          }
+          else {
+            if(hasSave) { box = fileboxRed; }// 未签名
+            else if (hasSign) { box = filebox;}// 责任（多人签名）的情况 责任签名
+            else if(fileHasSave) {icon = fileiconRed;}
+            else if(fileHasSign) {icon = fileicon;}
+            else{box = filebox;icon = fileicon;}
+          }
+        } 
+        else { // 没有签名的情况
+          box = filebox;
+          icon = fileicon;
+        }
+      } 
+      else {
+        // 文件夹
+        if (hasSave && this.HOSPITAL_ID !== "weixian") {
+          box = fileboxRed;
+        } else if (hasSign && this.HOSPITAL_ID !== "weixian") {
+          box = fileboxGreen;
+        } else {
+          box = filebox;
+        }
+        // 内容
+        if (fileHasSave && this.HOSPITAL_ID !== "weixian") {
+          icon = fileiconRed;
+        } else if (fileHasSign && this.HOSPITAL_ID !== "weixian") {
+          icon = fileiconGreen;
+        } else {
+          icon = fileicon;
+        }
       }
       if (node.level !== 2) {
         return (
@@ -365,6 +417,7 @@ export default {
               listPrint: item.listPrint,
               nooForm: item.nooForm,
               pageUrl: item.pageUrl,
+              formTreeRemindType: item.formTreeRemindType,
               children: item.formInstanceDtoList && item.formInstanceDtoList.map((option, i) => {
                 //
                 // item.formCode
@@ -401,7 +454,9 @@ export default {
                   ${option.pusherName ? option.pusherName : option.creatorName}
                   ${option.status == 0 ? "T" : option.status}`,
                   form_id: option.id,
-                  formName: item.formName
+                  formName: item.formName,
+                  formTreeRemindType: item.formTreeRemindType
+
                 };
               })
             };

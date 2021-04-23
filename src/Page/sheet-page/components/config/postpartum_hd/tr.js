@@ -14,16 +14,15 @@ import {
 } from "../keyEvent/date";
 import info from "../sheetInfo";
 
-let tmList = [];
-let twList = [];
-let gscxjxList = [];
-let xlgdList = [];
-let gjgList = [];
-let ysxzList = [];
-let gjkzList = [];
-let gsqdList = [];
-let 意识 = ['清醒', '浅昏迷', '深昏迷', '模糊', '嗜睡', '昏睡', '谵妄'];
-
+const zgssList = ['软', '硬'];
+const gdgdList = ['U+1', 'U=0', 'U-1', 'U-2', 'U-3', 'U-4'];
+const rfqkList = ['-'];
+const mrqkList = ['多', '中等', '少'];
+const skqkList = ['红肿', '渗液', '水肿', '(-)', '会阴(-)'];
+const 意识 = ['清醒', '浅昏迷', '深昏迷', '模糊', '嗜睡', '昏睡', '谵妄'];
+const zdjnList = ['✓'];
+const 入量名称 = ['输液', '口服', '输血', '肌注', '静注', '鼻饲', '静脉泵入', '灌肠', '饮水'];
+const 出量名称 = [];
 export default [{
     key: "recordMonth", //日期
     value: "",
@@ -84,9 +83,6 @@ export default [{
     event: keyf1,
     name: "血氧饱和度",
     next: "%",
-    // autoComplete: {
-    //   data: twList
-    // },
   },
   {
     key: "fieldTwo", //指尖血糖mmol/L
@@ -94,9 +90,6 @@ export default [{
     event: keyf1,
     name: "指尖血糖",
     next: "mmol/L",
-    // autoComplete: {
-    //   data: hzpw
-    // },
     textarea: {
       width: 43
     }
@@ -107,9 +100,6 @@ export default [{
     event: keyf1,
     name: "阴道出血",
     next: "mL",
-    // autoComplete: {
-    //   data: gsqdList
-    // },
     textarea: {
       width: 21
     }
@@ -118,7 +108,13 @@ export default [{
     key: "food", // 入量内容
     value: "",
     event: keyf1,
-    name: "入量内容"
+    name: "入量内容",
+    textarea: {
+      width: 126
+    },
+    autoComplete: {
+      data: 入量名称
+    },
   },
   {
     key: "foodSize", // 入量（单位ml）
@@ -132,6 +128,12 @@ export default [{
     value: "",
     event: keyf1,
     name: "出量内容",
+    textarea: {
+      width: 126
+    },
+    autoComplete: {
+      data: 出量名称
+    },
   },
   {
     key: "dischargeSize", //出量（单位ml）
@@ -162,7 +164,10 @@ export default [{
     textarea: {
       width: 32,
       maxLength: 4
-    }
+    },
+    autoComplete: {
+      data: zgssList
+    },
   },
   {
     key: "fieldSeven", //宫底高度
@@ -171,7 +176,10 @@ export default [{
     textarea: {
       width: 32,
       maxLength: 4
-    }
+    },
+    autoComplete: {
+      data: gdgdList
+    },
   },
   {
     key: "fieldEight", //乳房情况
@@ -180,7 +188,10 @@ export default [{
     textarea: {
       width: 32,
       maxLength: 4
-    }
+    },
+    autoComplete: {
+      data: rfqkList
+    },
   },
   {
     key: "fieldNine", //泌乳情况
@@ -189,7 +200,10 @@ export default [{
     textarea: {
       width: 32,
       maxLength: 4
-    }
+    },
+    autoComplete: {
+      data: mrqkList
+    },
   },
   {
     key: "fieldTen", //伤口情况
@@ -198,7 +212,10 @@ export default [{
     textarea: {
       width: 32,
       maxLength: 4
-    }
+    },
+    autoComplete: {
+      data: skqkList
+    },
   },
   {
     key: "fieldEleven", //指导挤奶
@@ -207,7 +224,10 @@ export default [{
     textarea: {
       width: 32,
       maxLength: 4
-    }
+    },
+    autoComplete: {
+      data: zdjnList
+    },
   },
   {
     key: "fieldTwelve", //标题1
@@ -330,38 +350,11 @@ export default [{
 ];
 
 export function getListData() {
-  // listItem("入量名称", info.sheetType).then(res => {
-  //   ruList.splice(0, ruList.length);
-  //   for (let item of res.data.data) {
-  //     ruList.push(item.name);
-  //   }
-  // });
-  // listItem("出量名称", info.sheetType).then(res => {
-  //   chuList.splice(0, chuList.length);
-  //   for (let item of res.data.data) {
-  //     chuList.push(item.name);
-  //   }
-  // });
-  let list = [
-    "胎膜",
-    "胎位",
-    "宫缩持续/间歇",
-    "先露高低",
-    "宫颈管",
-    "羊水性状",
-    "宫颈扩张",
-    "宫缩强度"
+  let list = [,
+    "花都:神经外科护理记录单:出量名称"
   ];
   multiDictInfo(list).then(res => {
-    let data = res.data.data;
-    setList(tmList, list[0], data);
-    setList(twList, list[1], data);
-    setList(gscxjxList, list[2], data);
-    setList(xlgdList, list[3], data);
-    setList(gjgList, list[4], data);
-    setList(ysxzList, list[5], data);
-    setList(gjkzList, list[6], data);
-    setList(gsqdList, list[7], data);
+    setList(出量名称, list[0], data);
   });
 }
 

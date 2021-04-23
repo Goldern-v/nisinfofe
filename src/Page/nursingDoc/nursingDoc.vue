@@ -1,5 +1,5 @@
 <template>
-  <div class="nursingDoc">{{errorMsg}}</div>
+  <div class="nursingDoc">{{ errorMsg }}</div>
 </template>
 
 <script>
@@ -79,7 +79,7 @@ export default {
         password =
           this.isDev || window.location.host == "192.168.1.54:9866"
             ? "Ad123456+"
-            : "Chenrui2019";
+            : "Bcy@21qw";
       }
       login(account, password)
         .then(res => {
@@ -208,7 +208,9 @@ export default {
             let timeId = setTimeout(() => {
               clearTimeout(timeId);
               if (type == "nursingPreview") {
-                this.$router.push(`/nursingPreview?patientId=${patientId}&visitId=${visitId}&nursingPreviewIsShow=1`);
+                this.$router.push(
+                  `/nursingPreview?patientId=${patientId}&visitId=${visitId}&nursingPreviewIsShow=1`
+                );
               } else {
                 this.$router.push(
                   `/showPatientDetails/${type}?patientId=` +

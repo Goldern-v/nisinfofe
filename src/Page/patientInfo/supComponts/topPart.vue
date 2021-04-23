@@ -16,7 +16,7 @@
       <router-link
         :to="{
           path: '/home',
-          query: { patientId: query.patientId, visitId: query.visitId },
+          query: { patientId: query.patientId, visitId: query.visitId }
         }"
         tag="span"
       >
@@ -25,7 +25,7 @@
       <router-link
         :to="{
           path: '/record',
-          query: { patientId: query.patientId, visitId: query.visitId },
+          query: { patientId: query.patientId, visitId: query.visitId }
         }"
         tag="span"
       >
@@ -34,12 +34,12 @@
       <router-link
         v-if="
           HOSPITAL_ID == 'hj' ||
-          HOSPITAL_ID == 'fuyou' ||
-          HOSPITAL_ID == 'liaocheng'
+            HOSPITAL_ID == 'fuyou' ||
+            HOSPITAL_ID == 'liaocheng'
         "
         :to="{
           path: '/doctorEmr',
-          query: { patientId: query.patientId, visitId: query.visitId },
+          query: { patientId: query.patientId, visitId: query.visitId }
         }"
         tag="span"
       >
@@ -48,7 +48,7 @@
       <router-link
         :to="{
           path: '/sheetNursingOrder',
-          query: { patientId: query.patientId, visitId: query.visitId },
+          query: { patientId: query.patientId, visitId: query.visitId }
         }"
         tag="span"
       >
@@ -57,7 +57,7 @@
       <router-link
         :to="{
           path: '/sheet',
-          query: { patientId: query.patientId, visitId: query.visitId },
+          query: { patientId: query.patientId, visitId: query.visitId }
         }"
         tag="span"
       >
@@ -66,7 +66,7 @@
       <router-link
         :to="{
           path: '/hospitalEval',
-          query: { patientId: query.patientId, visitId: query.visitId },
+          query: { patientId: query.patientId, visitId: query.visitId }
         }"
         tag="span"
       >
@@ -75,7 +75,7 @@
       <router-link
         :to="{
           path: '/catheter',
-          query: { patientId: query.patientId, visitId: query.visitId },
+          query: { patientId: query.patientId, visitId: query.visitId }
         }"
         tag="span"
       >
@@ -84,7 +84,7 @@
       <router-link
         :to="{
           path: '/diagnosis',
-          query: { patientId: query.patientId, visitId: query.visitId },
+          query: { patientId: query.patientId, visitId: query.visitId }
         }"
         tag="span"
       >
@@ -93,7 +93,7 @@
       <router-link
         :to="{
           path: '/bloodSugar',
-          query: { patientId: query.patientId, visitId: query.visitId },
+          query: { patientId: query.patientId, visitId: query.visitId }
         }"
         tag="span"
       >
@@ -102,7 +102,7 @@
       <router-link
         :to="{
           path: '/healthEducation',
-          query: { patientId: query.patientId, visitId: query.visitId },
+          query: { patientId: query.patientId, visitId: query.visitId }
         }"
         tag="span"
       >
@@ -111,7 +111,7 @@
       <router-link
         :to="{
           path: '/cost',
-          query: { patientId: query.patientId, visitId: query.visitId },
+          query: { patientId: query.patientId, visitId: query.visitId }
         }"
         tag="span"
       >
@@ -120,7 +120,7 @@
       <router-link
         :to="{
           path: '/information',
-          query: { patientId: query.patientId, visitId: query.visitId },
+          query: { patientId: query.patientId, visitId: query.visitId }
         }"
         tag="span"
       >
@@ -129,7 +129,7 @@
       <router-link
         :to="{
           path: '/advice',
-          query: { patientId: query.patientId, visitId: query.visitId },
+          query: { patientId: query.patientId, visitId: query.visitId }
         }"
         tag="span"
       >
@@ -138,7 +138,7 @@
       <router-link
         :to="{
           path: '/inspect',
-          query: { patientId: query.patientId, visitId: query.visitId },
+          query: { patientId: query.patientId, visitId: query.visitId }
         }"
         tag="span"
       >
@@ -147,7 +147,7 @@
       <router-link
         :to="{
           path: '/test',
-          query: { patientId: query.patientId, visitId: query.visitId },
+          query: { patientId: query.patientId, visitId: query.visitId }
         }"
         tag="span"
       >
@@ -165,7 +165,7 @@
       <router-link
         :to="{
           path: '/temperature',
-          query: { patientId: query.patientId, visitId: query.visitId },
+          query: { patientId: query.patientId, visitId: query.visitId }
         }"
         tag="span"
       >
@@ -240,15 +240,15 @@ export default {
   mixins: [common],
   data() {
     return {
-      msg: "hello vue",
+      msg: "hello vue"
     };
   },
   computed: {
     query() {
       let query = this.$route.query;
       return query;
-    },
+    }
   },
-  components: {},
+  components: {}
 };
 </script>
