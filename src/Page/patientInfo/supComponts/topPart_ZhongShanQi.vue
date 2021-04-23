@@ -1,17 +1,5 @@
 <template>
-  <div class="patient-info-head">
-    <el-row
-      class="logo-con"
-      type="flex"
-      align="middle"
-      v-if="HOSPITAL_ID == 'hj'"
-    >
-      <img src="../../../common/images/logo_hj.png" height="63" width="63" />
-      <span>
-        东莞市厚街医院
-        <br />智慧护理信息系统
-      </span>
-    </el-row>
+  <div>
     <div class="nav-con">
       <router-link
         :to="{
@@ -20,7 +8,7 @@
         }"
         tag="span"
       >
-        <div class="nav-item">首页</div>
+        <div class="nav-item">护理首页</div>
       </router-link>
       <router-link
         :to="{
@@ -30,20 +18,6 @@
         tag="span"
       >
         <div class="nav-item">护理文书</div>
-      </router-link>
-      <router-link
-        v-if="
-          HOSPITAL_ID == 'hj' ||
-            HOSPITAL_ID == 'fuyou' ||
-            HOSPITAL_ID == 'liaocheng'
-        "
-        :to="{
-          path: '/doctorEmr',
-          query: { patientId: query.patientId, visitId: query.visitId }
-        }"
-        tag="span"
-      >
-        <div class="nav-item">病历</div>
       </router-link>
       <router-link
         :to="{
@@ -56,6 +30,15 @@
       </router-link>
       <router-link
         :to="{
+          path: '/doctorEmr',
+          query: { patientId: query.patientId, visitId: query.visitId }
+        }"
+        tag="span"
+      >
+        <div class="nav-item">病历</div>
+      </router-link>
+      <router-link
+        :to="{
           path: '/sheet',
           query: { patientId: query.patientId, visitId: query.visitId }
         }"
@@ -63,24 +46,12 @@
       >
         <div class="nav-item">护理记录单</div>
       </router-link>
-      <router-link
-        :to="{
-          path: '/hospitalEval',
-          query: { patientId: query.patientId, visitId: query.visitId }
-        }"
-        tag="span"
-      >
+      <!-- <router-link :to="{path:'/hospitalEval', query: {patientId:query.patientId, visitId: query.visitId}}" tag="span">
         <div class="nav-item">住院日常评估</div>
-      </router-link>
-      <router-link
-        :to="{
-          path: '/catheter',
-          query: { patientId: query.patientId, visitId: query.visitId }
-        }"
-        tag="span"
-      >
+      </router-link>-->
+      <!-- <router-link :to="{path:'/catheter', query: {patientId:query.patientId, visitId: query.visitId}}" tag="span">
         <div class="nav-item">导管</div>
-      </router-link>
+      </router-link>-->
       <router-link
         :to="{
           path: '/diagnosis',
@@ -108,6 +79,7 @@
       >
         <div class="nav-item">健康教育单</div>
       </router-link>
+
       <router-link
         :to="{
           path: '/cost',
@@ -156,10 +128,10 @@
       <!-- <router-link to="/dev" tag="span">
         <div class="nav-item">手术</div>
       </router-link>-->
-      <!-- <router-link :to="{path:'/consultation', query:$route.query}" tag="span">
+      <!-- <router-link :to="{path:'/consultation', query: {patientId:query.patientId, visitId: query.visitId}}" tag="span">
         <div class="nav-item">会诊</div>
       </router-link>-->
-      <!-- <router-link :to="{path:'/recordSheet', query:$route.query}" tag="span">
+      <!-- <router-link :to="{path:'/recordSheet', query: {patientId:query.patientId, visitId: query.visitId}}" tag="span">
         <div class="nav-item">护理记录单</div>
       </router-link>-->
       <router-link
@@ -176,30 +148,6 @@
   </div>
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
-.logo-con {
-  width: 200px;
-  min-width: 200px;
-  height: 50px;
-  background: #4bb08d;
-  position: fixed;
-  left: 0;
-  top: 0;
-  padding-left: 10px;
-
-  img {
-    width: 36px;
-    height: 36px;
-  }
-
-  span {
-    margin-left: 6px;
-    font-size: 14px;
-    color: #EFF2F9;
-    letter-spacing: 0;
-    line-height: 16px;
-  }
-}
-
 .nav-con {
   height: 50px;
   min-width: 1030px;
