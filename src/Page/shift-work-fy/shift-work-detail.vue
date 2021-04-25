@@ -32,7 +32,7 @@
             <div class="details">
               <span>
                 总人数：
-                <b>{{record.AllTotal || 0}}</b>人，
+                <b>{{record.allTotal || 0}}</b>人，
               </span>
               <span>
                 入院：
@@ -333,7 +333,7 @@ export default {
               width: "60"
             },
             {
-              label: "饮食",
+              label: "隔离",
               prop: "diet",
               editable: true,
               width: "40"
