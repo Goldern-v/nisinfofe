@@ -28,6 +28,11 @@ export default {
         patientId = url.patientId,
         visitId = url.visitId || "all";
       switch (url.viewType) {
+        case "nursingPreview":
+          {
+            type = "nursingPreview";
+          }
+          break;
         case "doc":
           {
             type = "record";
@@ -53,16 +58,26 @@ export default {
             type = "test";
           }
           break;
+        case "temperature":
+          {
+            type = "temperature";
+          }
+          break;
         default: {
           type = "record";
         }
       }
-      this.$router.push(
-        `/showPatientDetails/${type}?patientId=` +
-          patientId +
-          "&visitId=" +
-          visitId
-      );
+
+      if (type == "nursingPreview") {
+        this.$router.push(`/nursingPreview?patientId=${patientId}&visitId=${visitId}&nursingPreviewIsShow=1`);
+       } else {
+        this.$router.push(
+           `/showPatientDetails/${type}?patientId=` +
+             patientId +
+             "&visitId=" +
+             visitId
+         );
+      }
     }
   },
   methods: {
@@ -100,7 +115,12 @@ export default {
           let type,
             patientId = url.patientId,
             visitId = url.visitId || "all";
-          switch (url.viewType) {
+           switch (url.viewType) {
+            case "nursingPreview":
+              {
+                type = "nursingPreview";
+              }
+              break;
             case "doc":
               {
                 type = "record";
@@ -126,18 +146,27 @@ export default {
                 type = "test";
               }
               break;
+            case "temperature":
+              {
+                type = "temperature";
+              }
+              break;
             default: {
               type = "record";
             }
           }
           let timeId = setTimeout(() => {
             clearTimeout(timeId);
-            this.$router.push(
-              `/showPatientDetails/${type}?patientId=` +
-                patientId +
-                "&visitId=" +
-                visitId
-            );
+            if (type == "nursingPreview") {
+              this.$router.push(`/nursingPreview?patientId=${patientId}&visitId=${visitId}&nursingPreviewIsShow=1`);
+            } else {
+              this.$router.push(
+                `/showPatientDetails/${type}?patientId=` +
+                  patientId +
+                  "&visitId=" +
+                  visitId
+              );
+            }
           }, 500);
         })
         .catch(err => {
@@ -180,7 +209,7 @@ export default {
             let type,
               patientId = url.patientId,
               visitId = url.visitId || "all";
-            switch (url.viewType) {
+             switch (url.viewType) {
               case "nursingPreview":
                 {
                   type = "nursingPreview";
@@ -194,6 +223,21 @@ export default {
               case "record":
                 {
                   type = "sheet";
+                }
+                break;
+              case "doctorEmr":
+                {
+                  type = "doctorEmr";
+                }
+                break;
+              case "inspect":
+                {
+                  type = "inspect";
+                }
+                break;
+              case "test":
+                {
+                  type = "test";
                 }
                 break;
               case "temperature":
