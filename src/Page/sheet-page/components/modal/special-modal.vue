@@ -6,6 +6,7 @@
       :modalWidth="720"
       :title="title"
       :enable-mobile-fullscreen="false"
+      :blocking="HOSPITAL_ID == 'liaocheng' ? true : false"
     >
       <div id="specialForm">
         <div flex="cross:center" class="special-date-con">
