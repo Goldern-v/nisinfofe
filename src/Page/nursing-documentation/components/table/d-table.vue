@@ -96,6 +96,10 @@ export default {
   },
   methods: {
     async openDetail(row) {
+      if(row.notViewPatient){
+        this.$message.warning("患者已归档，用户无权查看");
+        return;
+      }
       let res = await info(row.patientId, row.visitId);
       for (let index in res.data.data) {
         if (!res.data.data[index]) {

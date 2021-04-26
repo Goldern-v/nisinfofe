@@ -129,12 +129,12 @@
               <el-button
                 type="text"
                 @click="generateArchive(scope.row)"
-                v-if="scope.row.printStatus==0 && scope.row.resultStatus!=1"
+                v-if="scope.row.printStatus==0 && scope.row.resultStatus!=1 && !isArchive"
               >转pdf</el-button>
               <el-button
                 type="text"
                 @click="generateArchive(scope.row)"
-                v-if="scope.row.printStatus!=0 && scope.row.printStatus!=1 && scope.row.uploadStatus!=1 && scope.row.uploadStatus!=2"
+                v-if="scope.row.printStatus!=0 && scope.row.printStatus!=1 && scope.row.uploadStatus!=1 && scope.row.uploadStatus!=2 && !isArchive"
               >重转pdf</el-button>
               <el-button
                 type="text"
@@ -146,7 +146,7 @@
               <el-button
                 type="text"
                 @click="uploadFileArchive(scope.row)"
-                v-if="HOSPITAL_ID == 'weixian' && scope.row.resultStatus==1 && scope.row.uploadStatus!=1 && scope.row.uploadStatus!=2"
+                v-if="isArchive || (scope.row.resultStatus==1 && scope.row.uploadStatus!=1 && scope.row.uploadStatus!=2)"
               >归档</el-button>
             </div>
           </template>
@@ -203,7 +203,8 @@ import {
   getArchiveList,
   generateArchive,
   previewArchive,
-  uploadFileArchive
+  uploadFileArchive,
+  getConfig
 } from "./api/index";
 import { TSNeverKeyword } from "babel-types";
 import common from "@/common/mixin/common.mixin.js";
@@ -249,7 +250,8 @@ export default {
         { id: 1, name: "待归档" },
         { id: 2, name: "已归档" }
       ],
-      isSelectedStatus: "" //选择状态
+      isSelectedStatus: "", //选择状态
+      isArchive: false,//是否直接一键归档
     };
   },
   methods: {
@@ -457,6 +459,13 @@ export default {
           return;
         }
       }
+    },
+    // 获取用户配置
+    getUserConfig(){
+      getConfig().then(res => {
+        // printNotNeedToPdf true，不需要转pdf，直接一键归档
+        this.isArchive = res.data.data.print.printNotNeedToPdf;
+      })
     }
   },
   mounted() {
@@ -471,6 +480,8 @@ export default {
     if (this.$refs["preview-modal"]) {
       this.modalObj = this.$refs["preview-modal"];
     }
+    // 获取用户配置
+    this.getUserConfig();
   },
   updated() {
     this.tablesHeight();
