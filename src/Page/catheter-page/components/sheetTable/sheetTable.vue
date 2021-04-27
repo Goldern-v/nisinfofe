@@ -6,7 +6,6 @@
       :class="{active: sheetPageIndex == index}"
       :style="data.titleModel.style"
     >
-      <img class="his-logo" src="../../../../common/images/his-logo/南医三院骨研院骨科医院logo.png">
       <div class="header-con">
         <h1>{{patientInfo.codeName}}</h1>
         <p flex="main:justify">
@@ -70,13 +69,6 @@
     position: absolute;
     top: 60px;
     right: 20px;
-  }
-
-  .his-logo {
-    position: absolute;
-    left: 21px;
-    top: 21px;
-    height: 44px;
   }
 
   .diagnosis-con {
