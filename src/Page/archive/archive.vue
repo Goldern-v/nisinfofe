@@ -136,17 +136,18 @@
                 @click="generateArchive(scope.row)"
                 v-if="scope.row.printStatus!=0 && scope.row.printStatus!=1 && scope.row.uploadStatus!=1 && scope.row.uploadStatus!=2 && !isArchive"
               >重转pdf</el-button>
+              <!-- 一键归档没有预览功能 -->
               <el-button
                 type="text"
                 class="viewFile"
                 @click="previewArchive(scope.row)"
-                v-if="scope.row.resultStatus==1"
+                v-if="scope.row.resultStatus==1 && !isArchive"
               >预览</el-button>
               <!-- 上传 -->
               <el-button
                 type="text"
                 @click="uploadFileArchive(scope.row)"
-                v-if="isArchive || (scope.row.resultStatus==1 && scope.row.uploadStatus!=1 && scope.row.uploadStatus!=2)"
+                v-if="(isArchive && scope.row.uploadStatus!=2) || (scope.row.resultStatus==1 && scope.row.uploadStatus!=1 && scope.row.uploadStatus!=2)"
               >归档</el-button>
             </div>
           </template>
