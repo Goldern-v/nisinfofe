@@ -72,7 +72,7 @@
       >
         <div class="nav-item">住院日常评估</div>
       </router-link>
-      <router-link
+      <!-- <router-link
         :to="{
           path: '/catheter',
           query: { patientId: query.patientId, visitId: query.visitId }
@@ -80,7 +80,7 @@
         tag="span"
       >
         <div class="nav-item">导管</div>
-      </router-link>
+      </router-link> -->
       <router-link
         :to="{
           path: '/diagnosis',
