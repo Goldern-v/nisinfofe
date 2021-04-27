@@ -192,7 +192,11 @@ export default {
           });
         });
       }
-      if (item.isFollow === "1" && this.HOSPITAL_ID == "huadu") {
+      /* 床位一览卡取消关注(花都和聊城二院) */
+      if (
+        item.isFollow === "1" &&
+        (this.HOSPITAL_ID === "huadu" || this.HOSPITAL_ID === "liaocheng")
+      ) {
         unfollowHd(this.deptCode, item.bedNo).then(res => {
           item.isFollow = "0";
         });
