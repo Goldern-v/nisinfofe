@@ -176,6 +176,33 @@
                 <i class="iconfont icon-baiban"></i> 白板
               </el-row>
             </router-link>
+             <el-dropdown
+                menu-align="start"
+                :class="{ 'router-link-active': $route.path == '/deepPage' ||  $route.path == '/catheterPage'}"
+            >
+              <el-row class="nav-item" type="flex" align="middle">
+                <div class="before"></div>
+                <i class="iconfont icon-hulijiludan"></i>导管
+              </el-row>
+              <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item>
+                  <router-link to="/deepPage" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle"
+                    >深静脉导管
+                    </el-row
+                    >
+                  </router-link>
+                </el-dropdown-item>
+                <el-dropdown-item>
+                  <router-link to="/catheterPage" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle"
+                    >导尿管
+                    </el-row
+                    >
+                  </router-link>
+                </el-dropdown-item>
+              </el-dropdown-menu>
+            </el-dropdown>
             <!-- <router-link
               to="/scheduling"
               tag="span"
@@ -905,7 +932,7 @@ export default {
       if (this.$route.path == "/nursingDocumentation") return true;
       // if (this.$route.path == "/badEvent") return true;
       if (this.$route.path.indexOf("/inpatientReport") > -1) return true;
-      if (this.$route.path == "/catheterPage") return true;
+      // if (this.$route.path == "/catheterPage") return true;
       if (this.$route.path == "/nursingRules") return true;
       if (this.$route.path == "/noCheckTest") return true;
       if (this.$route.path == "/departmentSharedFile") return true;

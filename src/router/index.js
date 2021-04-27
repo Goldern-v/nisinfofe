@@ -73,7 +73,7 @@ const sheetHospitalAdmissionPage = () =>
 const formPage = () => import("@/Page/form-page/form-page"); //  护理文书
 const evalFormPage = () => import("@/Page/eval-form-page/form-page");
 const MEWS = () => import("@/Page/MEWS/MEWS.vue");
-const catheterPage = () => import("@/Page/catheter-page/catheter-page"); //导管
+// const catheterPage = () => import("@/Page/catheter-page/catheter-page"); //导管
 const sugarPage = () => import("@/Page/sugar-page/sugar-page"); //血糖
 const nursingRules = () => import("@/Page/nursing-rules/nursing-rules"); //护理制度
 const noCheckTest = () => import("@/Page/no-check-test/no-check-test"); //未做检查/检验菜单
@@ -148,9 +148,14 @@ import bloodSugar from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar.vue";
 import bloodSugarWeiXian from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_weixian.vue"; // 威县
 import sheet from "@/Page/patientInfo/supPage/sheet/sheet.vue";
 import catheter from "@/Page/patientInfo/supPage/catheter/catheter.vue";
+import deep from "@/Page/patientInfo/supPage/deep/deep.vue";
 import healthEducation from "@/Page/patientInfo/supPage/healthEducation/healthEducation.vue"; // 厚街
 import hospitalEval from "@/Page/patientInfo/supPage/hospital-eval/hospital-eval";
 import implementationPersonLiaocheng from "@/Page/patientInfo/supPage/implementation-list/implementation-list-liaocheng";
+// 深静脉导管维护单页面
+import deepPage from "@/Page/deep-page/deep-page.vue";
+// 导管监测单
+import catheterPage from "@/Page/catheter-page/catheter-page.vue";
 
 Vue.use(Router);
 const HOSPITAL_ID = process.env.HOSPITAL_ID;
@@ -466,10 +471,17 @@ const router = new Router({
               alias: "护理记录单"
             },
             {
+              path: "/deep",
+              component: deep,
+              name: "深静脉导管"
+            },
+            {
               path: "/catheter",
               component: catheter,
-              name: "导管",
-              alias: "导管"
+              // name: "导管",
+              // alias: "导管"
+              name: "导尿管",
+              alias: "导尿管"
             },
             {
               path: "/sheetNursingOrder",
@@ -595,6 +607,10 @@ const router = new Router({
         {
           path: "/evalFormPage",
           component: evalFormPage
+        },
+        {
+          path: "/deepPage",
+          component: deepPage
         },
         {
           path: "/catheterPage",
