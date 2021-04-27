@@ -29,7 +29,7 @@
             <span v-if="HOSPITAL_ID == 'lingcheng'" @dblclick="onEditAge"
               >年龄：{{ formAge ? formAge : patientInfo.age }}</span
             >
-            <span v-if="HOSPITAL_ID != 'lingcheng'"
+            <span v-else
               >年龄：{{ resAge ? resAge : patientInfo.age }}</span
             >
             <span
@@ -236,23 +236,16 @@ export default {
       return this.wih - 130 + "px";
     },
   },
-  mounted() {
-    this.getFormHead();
-  },
   methods: {
     async getFormHead() {
-      console.log("判断医院名称=========", this.HOSPITAL_NAME);
-      console.log(this.patientInfo.patientId, this.patientInfo.visitId);
       const res = await getFormHeadData(
         this.patientInfo.patientId,
         this.patientInfo.visitId
       );
-      console.log("getFormHeadData==========", res.data.data.itemMap.age);
       this.formAge = res.data.data.itemMap.age;
     },
     async load() {
       this.pageLoading = true;
-      await this.getFormHead();
       const res = await getSugarListWithPatientId(
         this.patientInfo.patientId,
         this.patientInfo.visitId
@@ -368,9 +361,7 @@ export default {
       ];
       await getEditAge(item.patientId, item.visitId, itemMap).then((res) => {
         console.log("年龄接口返回res===", res);
-        // this.formAge
       });
-      console.log("年龄接口返回item", item);
       this.load();
       this.$refs.editAge.close();
       this.getFormHead();
@@ -397,7 +388,17 @@ export default {
     if (this.HOSPITAL_ID == "lingcheng" || this.HOSPITAL_ID == "liaocheng") {
       this.getSugarItemDict();
     }
-    this.getFormHead();
+    if (this.HOSPITAL_ID == "lingcheng") {
+      this.getFormHead();
+    }
+    
+  },
+  watch: {
+    'patientInfo.patientId'(nVal, oVal) {
+      if (this.HOSPITAL_ID == "lingcheng") {
+        this.getFormHead();
+      }
+    }
   },
   components: {
     sugarTable,
