@@ -386,6 +386,7 @@ export default {
     openSetPageModal() {
       this.$refs.setPageModal.open();
     },
+    // 通过字典获取项目下拉内容
     getSugarItemDict() {
       getSugarItemDict().then((res) => {
         let data = res.data.data;
@@ -401,7 +402,7 @@ export default {
     if (this.$route.query.patientId) {
       this.load();
     }
-    if (this.HOSPITAL_ID == "lingcheng" || this.HOSPITAL_ID == "liaocheng") {
+    if (this.HOSPITAL_ID != 'hj' && this.HOSPITAL_ID != "huadu") {
       this.getSugarItemDict();
     }
     this.getFormHead();
