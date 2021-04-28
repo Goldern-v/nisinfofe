@@ -1,103 +1,148 @@
 import axios from "@/api/axios";
 import { apiPath } from "@/api/apiConfig";
+import sheetInfo from "../components/config/sheetInfo";
 import qs from "qs";
+import { MODULE_TYPE } from "./config";
 
-// 获取导管块列表
-export const getBlockList = (patientId, visitId) => {
-  return axios.post(`${apiPath}catheter/block/list`, { patientId, visitId });
+// 分类合计
+export const putGroupCount = (patientId, visitId, startTime, endTime) => {
+  return axios.post(
+    `${apiPath}${MODULE_TYPE}/${sheetInfo.sheetType}/putGroupCount`,
+    { startTime, endTime, blockId: sheetInfo.selectBlock.id }
+  );
 };
-// 获取导管块列表
-export const getCatheterBlock = (
-  patientId,
-  visitId,
-  orderNo,
-  orderSubNo,
-  startDate
-) => {
-  return axios.post(`${apiPath}catheter/block/get`, {
-    patientId,
-    visitId,
-    orderNo,
-    orderSubNo,
-    startDate
-  });
-};
-// 更新导管块列表
-export const updateBlock = block => {
-  return axios.post(`${apiPath}catheter/block/update`, block);
-};
-// 新建导管块列表
-export const saveBlock = block => {
-  return axios.post(`${apiPath}catheter/block/save`, block);
-};
-// 删除导管块列表
-export const delBlock = block => {
-  return axios.post(`${apiPath}catheter/block/delete`, block);
-};
-// 获取导管记录列表
-export const getRecordList = (
-  patientId,
-  visitId,
-  orderNo,
-  orderSubNo,
-  recordDate,
-  startDate
-) => {
-  return Promise.all([
-    axios.post(`${apiPath}catheter/public/list`, {
-      patientId,
-      visitId,
-      orderNo,
-      orderSubNo,
-      recordDate,
-      startDate
-    })
-    // axios.post(`${apiPath}catheter/public/listFluid`, { patientId, visitId, orderNo, orderSubNo, recordDate })
-  ]).then(res => {
-    return [...res[0].data.data.list].map(item => {
-      if (item.recordSource == "1") {
-        if (item.fluidSize) {
-          item.type = "2";
-        } else {
-          item.type = "1";
-        }
-      } else if (item.recordSource == "5") {
-        item.type = "5";
-      }
-      return item;
-    });
+
+// 保存起始页
+export const saveHomePage = (patientId, visitId, indexNo) => {
+  return axios.post(`${apiPath}${MODULE_TYPE}/homePage/save`, {
+    blockId: sheetInfo.selectBlock.id,
+    indexNo
   });
 };
 
-// 新建更新导管评估
-export const getFluidChart = (
-  patientId,
-  visitId,
-  orderNo,
-  orderSubNo,
-  startDate
+// 获取起始页
+export const getHomePage = (patientId, visitId) => {
+  return axios.get(
+    `${apiPath}${MODULE_TYPE}/homePage/${sheetInfo.selectBlock.id}/get`
+  );
+};
+
+// 获取标注合集
+export const markList = (patientId, visitId) => {
+  return axios.get(
+    `${apiPath}${MODULE_TYPE}/${
+      sheetInfo.sheetType
+    }/sign/list/${patientId}/${visitId}`
+  );
+};
+
+// 保存批注
+export const saveMark = (
+  recordId,
+  fieldEn,
+  signType,
+  content,
+  qualityIndex,
+  creatorNo,
+  creatorName,
+  handlerNo,
+  handlerName
 ) => {
-  return axios.post(`${apiPath}catheter/public/listFluid`, {
+  return axios.post(
+    `${apiPath}${MODULE_TYPE}/${sheetInfo.sheetType}/sign/save`,
+    {
+      recordCode: sheetInfo.sheetType,
+      recordId,
+      fieldEn,
+      signType,
+      content,
+      qualityIndex,
+      creatorNo,
+      creatorName,
+      handlerNo,
+      handlerName,
+      blockId: sheetInfo.selectBlock.id
+    }
+  );
+};
+
+// 处理标注
+export const handlepz = (password, empNo, id) => {
+  return axios.post(
+    `${apiPath}${MODULE_TYPE}/${sheetInfo.sheetType}/sign/handle`,
+    {
+      password,
+      empNo,
+      id
+    }
+  );
+};
+// 审核标注
+export const auditpz = (password, empNo, id, reject = false, content) => {
+  return axios.post(
+    `${apiPath}${MODULE_TYPE}/${sheetInfo.sheetType}/sign/audit`,
+    {
+      password,
+      empNo,
+      id,
+      reject,
+      content
+    }
+  );
+};
+// 删除标注
+export const delpz = (password, empNo, id) => {
+  return axios.post(
+    `${apiPath}${MODULE_TYPE}/${sheetInfo.sheetType}/sign/delete`,
+    {
+      password,
+      empNo,
+      id
+    }
+  );
+};
+
+// 护记块；查询
+export const blockList = (patientId, visitId, wardCode) => {
+  return axios.post(`${apiPath}formType/${MODULE_TYPE}/list`, {
     patientId,
     visitId,
-    orderNo,
-    orderSubNo,
-    startDate
+    wardCode
   });
 };
-// 新建更新导管评估
-export const saveRecord = record => {
-  return axios.post(`${apiPath}catheter/public/save`, record);
+
+// 护记块；创建
+export const blockSave = (patientId, visitId, deptCode, code, type) => {
+  return axios.post(`${apiPath}formType/${MODULE_TYPE}/save`, {
+    patientId,
+    visitId,
+    deptCode,
+    code,
+    type
+  });
 };
-// 删除导管评估
-export const delRecord = id => {
-  return axios.post(`${apiPath}catheter/public/delete`, { id });
+// 护记块；删除
+export const blockDelete = id => {
+  return axios.get(`${apiPath}formType/${MODULE_TYPE}/delete/${id}`);
 };
-// 保存引流量合计
-export const fluidSumUp = record => {
-  return axios.post(`${apiPath}catheter/public/fluidSumUp`, record);
+
+// 获取字典列表
+export const multiDictInfo = (list, sheetType = "") => {
+  let wardCode = sheetInfo.selectBlock.wardCode;
+  return axios.post(
+    `${apiPath}dept/multiDictInfo?code=${sheetType}&type=${MODULE_TYPE}&wardCode=${wardCode}`,
+    list
+  );
 };
-// 拔管
-export const endBlock = block => {
-  return axios.post(`${apiPath}catheter/block/end`, block);
+
+// 修改护记诊断
+export const updateBlock = data => {
+  return axios.post(
+    `${apiPath}${MODULE_TYPE}/block/update`,
+    qs.stringify(data)
+  );
 };
+// 记录列表
+export const listRecord = deptCode =>
+  axios.get(`${apiPath}form/common/templates/${MODULE_TYPE}?deptCode=${deptCode}
+  `);

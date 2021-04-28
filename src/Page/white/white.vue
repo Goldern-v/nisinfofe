@@ -25,6 +25,7 @@
       <div class="right-part" flex-box="4">
         <right1></right1>
         <div style="height: 20px"></div>
+        <right7 :data="deptInfo" ref="right7" v-if="HOSPITAL_ID == 'liaocheng'"></right7>
         <right2 :data="deptInfo" ref="right2"></right2>
         <div style="height: 20px"></div>
         <right6 :data="deptInfo" ref="right6" v-if="isChanxiu"></right6>
@@ -60,6 +61,7 @@ import right3 from "./right-part/right3.vue";
 import right4 from "./right-part/right4.vue";
 import right5 from "./right-part/right5.vue";
 import right6 from "./right-part/right6.vue";
+import right7 from "./right-part/right7.vue";
 import bus from "vue-happy-bus";
 import common from "@/common/mixin/common.mixin.js";
 import { queryByDeptCode, updateByDeptCode, getDeptSetting } from "./api";
@@ -174,7 +176,8 @@ export default {
     right3,
     right4,
     right5,
-    right6
+    right6,
+    right7
   }
 };
 </script>

@@ -22,6 +22,12 @@
           >
             血糖测量记录单
           </div>
+          <div
+            class="sup-title"
+            v-else-if="HOSPITAL_ID == 'liaocheng'"
+          >
+            血糖酮体测量记录单
+          </div>
           <div class="sup-title" v-else>微量血糖测定登记表</div>
           <p flex="main:justify" class="info">
             <span>病人姓名：{{ patientInfo.name }}</span>
@@ -38,7 +44,8 @@
             <!-- <span>入院日期：{{patientInfo.admissionDate | toymd}}</span> -->
             <span>床号：{{ patientInfo.bedLabel }}</span>
             <!-- <span class="diagnosis-con">诊断：{{patientInfo.diagnosis}}</span> -->
-            <span>住院号：{{ patientInfo.inpNo }}</span>
+            <span v-if="HOSPITAL_ID == 'liaocheng'">病案号：{{ patientInfo.inpNo }}</span>
+            <span v-else>住院号：{{ patientInfo.inpNo }}</span>
             <!-- <span>入院日期：{{$route.query.admissionDate}}</span> -->
           </p>
           <div class="table-warpper" flex="cross:stretch">
@@ -370,6 +377,7 @@ export default {
     openSetPageModal() {
       this.$refs.setPageModal.open();
     },
+    // 通过字典获取项目下拉内容
     getSugarItemDict() {
       getSugarItemDict().then((res) => {
         let data = res.data.data;
@@ -385,7 +393,7 @@ export default {
     if (this.$route.query.patientId) {
       this.load();
     }
-    if (this.HOSPITAL_ID == "lingcheng" || this.HOSPITAL_ID == "liaocheng") {
+    if (this.HOSPITAL_ID != 'hj' && this.HOSPITAL_ID != "huadu") {
       this.getSugarItemDict();
     }
     if (this.HOSPITAL_ID == "lingcheng") {

@@ -167,7 +167,7 @@ export default {
       this.$refs.modal.open();
 
       let defaultSugarItem = "微机血糖";
-      if (this.HOSPITAL_ID == "lingcheng" || this.HOSPITAL_ID == "liaocheng") {
+      if (this.HOSPITAL_ID != 'hj' && this.HOSPITAL_ID != "huadu") {
         defaultSugarItem = this.typeList ? this.typeList[0].vitalSign : "凌晨";
       }
       if (this.HOSPITAL_ID == "huadu") {
@@ -264,7 +264,7 @@ export default {
         this.typeList = res.data.data;
       });
     }
-    if (this.HOSPITAL_ID == "lingcheng" || this.HOSPITAL_ID == "liaocheng") {
+    if (this.HOSPITAL_ID != 'hj' && this.HOSPITAL_ID != "huadu") {
       this.typeList = this.sugarItem;
     }
     // 花都项目可编辑
@@ -284,7 +284,7 @@ export default {
   },
   watch: {
     sugarItem(newVal, oldVal) {
-      if (newVal && this.HOSPITAL_ID == "lingcheng" || this.HOSPITAL_ID == "liaocheng") {
+      if (newVal && this.HOSPITAL_ID != 'hj' && this.HOSPITAL_ID != "huadu") {
         this.typeList = this.sugarItem;
       }
     },
@@ -295,7 +295,7 @@ export default {
       }
     },
     "form.sugarItem"(newVal, oldVal) {
-      if ((this.HOSPITAL_ID == "lingcheng" ||  this.HOSPITAL_ID == "liaocheng") && newVal == "自定义") {
+      if ((this.HOSPITAL_ID != 'hj' && this.HOSPITAL_ID != "huadu") && newVal == "自定义") {
         this.updateTetxInfo("自定义项目");
       }
     },

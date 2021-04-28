@@ -132,3 +132,20 @@ export const updateBlock = block => {
 export const getDeptSetting = deptCode => {
   return axios.get(`${apiPath}whiteboard/deptSetting/${deptCode}`);
 };
+
+// 聊城二院
+// 查询安全指标
+export const getWhiteLogIndicators = deptCode => {
+  return axios.get(`${apiPath}whiteboard/getWhiteLogIndicators/${deptCode}`);
+};
+// 新增和修改安全指标
+// {
+// 	"deptCode":"",
+// 	"ylxssDate":"院内压力性损伤日期",
+// 	"ddzcDate":"跌倒坠床日期",
+// 	"glhtDate":"管理滑脱日期",
+// 	"aqyyDate":"安全用药日期"
+// }
+export const saveWhiteLogIndicators = (data) => {
+  return axios.post(`${apiPath}whiteboardManage/whiteLogIndicators/saveOrUpdate`,data);
+};

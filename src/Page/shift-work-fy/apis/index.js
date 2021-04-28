@@ -41,7 +41,7 @@ export function createShiftRecord(
 // "changeShiftDate": "2020-05-15", --交班日期
 // "creator": "admin", --创建人
 // "createTime": "2020-05-15 17:54:34", --创建时间
-// "AllTotal": 0, --总人数统计
+// "allTotal": 0, --总人数统计
 // "goHospitalTotal": 0, --入院入数统计
 // "patientDeathA": 0, --出院人数
 // "outHospitalTotal": 0, --出院人数
@@ -66,7 +66,7 @@ export function createShiftRecord(
 // "symptom": "症状", --症状
 // "background": "既往病史、过敏史、特殊病史", --既往病史、过敏史、特殊病史
 // "cure": "治疗、护理", --治疗、护理
-// "diet": "饮食", --饮食
+// "diet": "隔离", --隔离
 // "creator": "0402",
 // "createTime": "2020-05-15 21:21:14",
 // "sortValue": 2,

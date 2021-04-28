@@ -361,12 +361,17 @@ export default {
       this.wid.onmessage = this.onmessage;
 
       // 医生查看患者详情
-      if (
-        this.$route.path.includes("showPatientDetails") &&
-        wid.document.querySelector(".tool-contain")
-      ) {
-        wid.document.querySelector(".tool-contain").style = "display:none;";
-        wid.document.querySelector("#app .form").style = "padding-top:20px;";
+      if (this.$route.path.includes("showPatientDetails")) {
+        if(wid.document.querySelector(".tool-contain")){
+          wid.document.querySelector(".tool-contain").style = "display:none;";
+          if(wid.document.querySelector("#app .form")){
+            wid.document.querySelector("#app .form").style = "padding-top:20px;";
+          }
+        }
+        if(wid.document.querySelector(".top-bar")){
+          wid.document.querySelector(".top-bar").style = "display:none;";
+          wid.document.querySelector("body").style = "padding-top:20px;";
+        }
       }
 
       //
@@ -1747,7 +1752,7 @@ export default {
       return this.$store.state.record.fullPageRecord ? 5 : 85;
     },
     iframeHeight() {
-      if (this.$route.path == "/formPage") {
+      if (this.$route.path == "/formPage" || this.$route.path.includes('showPatientDetails')) {
         return this.wih - 0 - this.offsetHeight;
       } else {
         return this.wih - 60 - this.offsetHeight;

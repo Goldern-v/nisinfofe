@@ -82,7 +82,7 @@
       >
         <div class="nav-item">血糖</div>
       </router-link>
-      <router-link
+      <!-- <router-link
         :to="{
           path: '/catheter',
           query: { patientId: query.patientId, visitId: query.visitId }
@@ -90,7 +90,48 @@
         tag="span"
       >
         <div class="nav-item">导管</div>
-      </router-link>
+      </router-link> -->
+      <el-dropdown
+        menu-align="start"
+        :class="{ 'router-link-active': isActivePage }"
+      >
+        <el-row class="nav-item" type="flex" align="middle">
+          <div class="before"></div>
+          导管
+        </el-row>
+        <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item :class="{
+                    active: $route.path.includes('deep')
+                  }">
+            <router-link
+              :to="{
+                path: '/deep',
+                query: { patientId: query.patientId, visitId: query.visitId }
+              }"
+              tag="span"
+            >
+              <el-row class="menu-item" type="flex" align="middle"
+                >深静脉导管</el-row
+              >
+            </router-link>
+          </el-dropdown-item>
+          <el-dropdown-item :class="{
+                    active: $route.path.includes('catheter')
+                  }">
+            <router-link
+              :to="{
+                path: '/catheter',
+                query: { patientId: query.patientId, visitId: query.visitId }
+              }"
+              tag="span"
+            >
+              <el-row class="menu-item" type="flex" align="middle"
+                >导尿管</el-row
+              >
+            </router-link>
+          </el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
       <router-link
         :to="{
           path: '/test',
@@ -136,6 +177,15 @@
       >
         <div class="nav-item">基本信息</div>
       </router-link>
+      <router-link
+        :to="{
+          path: '/implementationPerson',
+          query: { patientId: query.patientId, visitId: query.visitId },
+        }"
+        tag="span"
+      >
+        <div class="nav-item">执行单</div>
+      </router-link>
 
       <!-- <router-link :to="{path:'/sheetNursingOrder', query: {patientId:query.patientId, visitId: query.visitId}}" tag="span">
         <div class="nav-item">护嘱单</div>
@@ -167,6 +217,10 @@
   position: fixed;
   width: 100%;
   z-index: 10;
+
+  >>> .el-dropdown {
+    float: left;
+  }
 }
 
 .nav-item {
@@ -188,6 +242,23 @@
     border-radius: 4px 4px 0 0;
   }
 }
+.menu-item {
+  height: 38px;
+  padding: 0 0px;
+  text-align: center;
+  font-size: 13px;
+  color: #687179;
+  letter-spacing: 0;
+  cursor: pointer;
+}
+.el-dropdown-menu__item:not(.is-disabled):hover, .el-dropdown-menu__item.active {
+  background-color: #F8F8FA;
+
+  .menu-item {
+    color: #333;
+    font-weight: bold;
+  }
+}
 </style>
 <script>
 import common from "@/common/mixin/common.mixin";
@@ -202,6 +273,11 @@ export default {
     query() {
       let query = this.$route.query;
       return query;
+    },
+     isActivePage() {
+      if (this.$route.path == "/deep") return true;
+      if (this.$route.path == "/catheter") return true;
+      return false;
     }
   },
   components: {}

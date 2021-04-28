@@ -24,3 +24,8 @@ export function uploadFileArchive(patientId, visitId) {
   return axios.get(
     `${apiPath}/print/archive/upload/${patientId}/${visitId}`);
 }
+// 获取用户配置
+export function getConfig() {
+  return axios.get(
+    `${apiPath}/config/getConfig`);
+}

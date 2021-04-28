@@ -60,6 +60,12 @@
           placeholder="输入床号进行搜索"
           v-model="bedLabel"
         ></el-input>
+         <el-input
+          size="small"
+          style="width: 150px;margin-right: 15px;"
+          placeholder="输入途径进行搜索"
+          v-model="administration"
+        ></el-input>
         <el-button size="small" type="primary" @click="search">查询</el-button>
       </div>
       <dTable :tableData="tableData" :pageLoadng="pageLoadng"></dTable>
@@ -185,6 +191,7 @@ export default {
       status: "",
       bedLabel: "",
       patientName: "",
+      administration: "",//途径
       transfusionStatus: [
         {
           id: "",
@@ -273,15 +280,16 @@ export default {
       if (!this.deptCode) return;
       this.pageLoadng = true;
       let obj = {
-          wardCode: this.deptCode, //护理单元代码
-          executeDateTime: moment(this.startDate).format("YYYY-MM-DD"), //执行单预计执行时间
-          repeatIndicator: this.repeatIndicator, //医嘱类型:0临时 1长期  2单药处方
-          executeStatus: this.status, //执行单状态:0-未执行、1-执行中（输液中）、2-暂停输液、3-继续执行  4-已完成（结束输液）
-          executeType: typeof this.type == "number"
-            ? this.allType[this.type + 1].name
-            : this.type, //执行单类型:输液,口服、治疗、雾化、注射
-          bedLabel: this.bedLabel,  //床号
-          patientName: this.patientName //患者姓名
+        wardCode: this.deptCode, //护理单元代码
+        executeDateTime: moment(this.startDate).format("YYYY-MM-DD"), //执行单预计执行时间
+        repeatIndicator: this.repeatIndicator, //医嘱类型:0临时 1长期  2单药处方
+        executeStatus: this.status, //执行单状态:0-未执行、1-执行中（输液中）、2-暂停输液、3-继续执行  4-已完成（结束输液）
+        executeType: typeof this.type == "number"
+          ? this.allType[this.type + 1].name
+          : this.type, //执行单类型:输液,口服、治疗、雾化、注射
+        bedLabel: this.bedLabel,  //床号
+        patientName: this.patientName, //患者姓名
+        administration: this.administration // //途径
       }
       getExecuteWithWardcodeLiaoC(obj).then((res) => {
         this.tableData = res.data.data.map((item, index, array) => {

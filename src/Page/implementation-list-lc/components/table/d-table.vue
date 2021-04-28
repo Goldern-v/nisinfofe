@@ -4,7 +4,7 @@
       :data="tableData"
       style="width: 100%"
       border
-      :height="wih - 124"
+      :height="tableH || wih - 124"
       v-loading="pageLoadng"
     >
       <el-table-column
@@ -228,6 +228,7 @@ export default {
   props: {
     tableData: Array,
     pageLoadng: Boolean,
+    tableH: Number
   },
   mixins: [commonMixin],
   data() {

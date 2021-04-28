@@ -191,6 +191,16 @@
               <el-input v-model="scope.row.height"></el-input>
             </template>
           </el-table-column>
+          <el-table-column
+            prop="stoolNum"
+            label="大便次数"
+            min-width="80"
+            align="center"
+          >
+            <template slot-scope="scope">
+              <el-input v-model="scope.row.stoolNum"></el-input>
+            </template>
+          </el-table-column>
         </el-table>
       </div>
       <div class="all-temperature-chart-print" ref="printable">
@@ -327,6 +337,16 @@
           >
             <template slot-scope="scope">
               <el-input v-model="scope.row.height"></el-input>
+            </template>
+          </el-table-column>
+          <el-table-column
+            prop="stoolNum"
+            label="大便次数"
+            min-width="80"
+            align="center"
+          >
+            <template slot-scope="scope">
+              <el-input v-model="scope.row.stoolNum"></el-input>
             </template>
           </el-table-column>
         </el-table>
@@ -646,7 +666,8 @@ export default {
         curWeight: "",
         height: "",
         recordSource: 2,
-        heartRate: ""
+        heartRate: "",
+        stoolNum: ""
       };
 
       let list = this.tableData.map(item => {

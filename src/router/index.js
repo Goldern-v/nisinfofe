@@ -51,6 +51,8 @@ const shiftWorkHd = () => import("@/Page/shift-work-hd/shift-work.vue");
 const shiftWorkDetailHd = () => import("@/Page/shift-work-hd/shift-work-detail.vue");
 const shiftWorkFy = () => import("@/Page/shift-work-fy/shift-work.vue");
 const shiftWorkDetailFy = () => import("@/Page/shift-work-fy/shift-work-detail.vue");
+const shiftWorkLiaocheng = () => import("@/Page/shift-work-liaocheng/shift-work.vue");
+const shiftWorkDetailLiaocheng = () => import("@/Page/shift-work-liaocheng/shift-work-detail.vue");
 
 const singleRounds = () => import("@/Page/single-rounds/single-rounds.vue");
 const singleRoundsDetail = () => import("@/Page/single-rounds/single-rounds-detail.vue");
@@ -71,7 +73,7 @@ const sheetHospitalAdmissionPage = () =>
 const formPage = () => import("@/Page/form-page/form-page"); //  护理文书
 const evalFormPage = () => import("@/Page/eval-form-page/form-page");
 const MEWS = () => import("@/Page/MEWS/MEWS.vue");
-const catheterPage = () => import("@/Page/catheter-page/catheter-page"); //导管
+// const catheterPage = () => import("@/Page/catheter-page/catheter-page"); //导管
 const sugarPage = () => import("@/Page/sugar-page/sugar-page"); //血糖
 const nursingRules = () => import("@/Page/nursing-rules/nursing-rules"); //护理制度
 const noCheckTest = () => import("@/Page/no-check-test/no-check-test"); //未做检查/检验菜单
@@ -116,8 +118,9 @@ const nursingRounds = () => import("@/Page/nursing-rounds/nursing-rounds.vue"); 
 const allTemperatureChart = () =>
   import("@/Page/temperature-chart/all-temperature-chart.vue"); //批量录入体温单
 const showPatientDetails = () =>
-  import("@/Page/show-patient-details/show-patient-details.vue");
-const nursingDoc = () => import("@/Page/nursingDoc/nursingDoc.vue");
+  import("@/Page/show-patient-details/show-patient-details.vue");//查看评估单、记录单、病历、检查、检验、体温单
+const nursingPreview = () => import("@/Page/NursingPreview/NursingPreview.vue");//查看所有的评估单、记录单、体温单
+const nursingDoc = () => import("@/Page/nursingDoc/nursingDoc.vue");//做跳转登录去 /nursingPreview /nursingDoc
 const cognitiveStatistic = () =>
   import("@/Page/cognitive-statistic/cognitive-statistic.vue"); //住院病人认知情况统计表
 const implementationReport = () =>
@@ -145,8 +148,14 @@ import bloodSugar from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar.vue";
 import bloodSugarWeiXian from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_weixian.vue"; // 威县
 import sheet from "@/Page/patientInfo/supPage/sheet/sheet.vue";
 import catheter from "@/Page/patientInfo/supPage/catheter/catheter.vue";
+import deep from "@/Page/patientInfo/supPage/deep/deep.vue";
 import healthEducation from "@/Page/patientInfo/supPage/healthEducation/healthEducation.vue"; // 厚街
 import hospitalEval from "@/Page/patientInfo/supPage/hospital-eval/hospital-eval";
+import implementationPersonLiaocheng from "@/Page/patientInfo/supPage/implementation-list/implementation-list-liaocheng";
+// 深静脉导管维护单页面
+import deepPage from "@/Page/deep-page/deep-page.vue";
+// 导管监测单
+import catheterPage from "@/Page/catheter-page/catheter-page.vue";
 
 Vue.use(Router);
 const HOSPITAL_ID = process.env.HOSPITAL_ID;
@@ -214,6 +223,10 @@ const router = new Router({
     {
       path: "/nursingDoc",
       component: nursingDoc
+    },
+    {
+      path: "/nursingPreview",
+      component: nursingPreview
     },
     {
       path: "/main",
@@ -313,12 +326,12 @@ const router = new Router({
         {
           path: "/shiftWork",
           name: "shiftWorks",
-          component: HOSPITAL_ID == "lingcheng" ? shiftWorkLc : HOSPITAL_ID == "huadu" ? shiftWorkHd : HOSPITAL_ID == "fuyou" ? shiftWorkFy : shiftWork,
+          component: HOSPITAL_ID == "lingcheng" ? shiftWorkLc : HOSPITAL_ID == "huadu" ? shiftWorkHd : HOSPITAL_ID == "fuyou" ? shiftWorkFy : HOSPITAL_ID == "liaocheng" ? shiftWorkLiaocheng : shiftWork,
           children: [{
             name: "shiftWork",
             path: "/shiftWork/:code?/:id?",
             component: HOSPITAL_ID == "lingcheng" ?
-              shiftWorkDetailLc : HOSPITAL_ID == "huadu" ? shiftWorkDetailHd : HOSPITAL_ID == "fuyou" ? shiftWorkDetailFy : shiftWorkDetail
+              shiftWorkDetailLc : HOSPITAL_ID == "huadu" ? shiftWorkDetailHd : HOSPITAL_ID == "fuyou" ? shiftWorkDetailFy : HOSPITAL_ID == "liaocheng" ? shiftWorkDetailLiaocheng : shiftWorkDetail
           }]
         },
         {
@@ -458,10 +471,17 @@ const router = new Router({
               alias: "护理记录单"
             },
             {
+              path: "/deep",
+              component: deep,
+              name: "深静脉导管"
+            },
+            {
               path: "/catheter",
               component: catheter,
-              name: "导管",
-              alias: "导管"
+              // name: "导管",
+              // alias: "导管"
+              name: "导尿管",
+              alias: "导尿管"
             },
             {
               path: "/sheetNursingOrder",
@@ -487,6 +507,12 @@ const router = new Router({
               component: hospitalEval,
               name: "住院表",
               alias: "住院表"
+            },
+            {
+              path: "/implementationPerson",
+              component: implementationPersonLiaocheng,
+              name: "执行单",
+              alias: "执行单"
             }
           ]
         },
@@ -581,6 +607,10 @@ const router = new Router({
         {
           path: "/evalFormPage",
           component: evalFormPage
+        },
+        {
+          path: "/deepPage",
+          component: deepPage
         },
         {
           path: "/catheterPage",
