@@ -60,7 +60,7 @@ module.exports = {
   },
   dev: {
     env: devEnv,
-    port: 4889,
+    port: 4890,
     autoOpenBrowser: true,
     assetsSubDirectory: "static",
     assetsPublicPath: "/",
@@ -110,9 +110,9 @@ module.exports = {
         // target: "http://192.168.2.75:8084", //厚街内网俊涛ip测试
 
         /* 新测试地址 */
-        // target: "http://192.168.1.54:9866", //厚街测试（新）
+        target: "http://192.168.1.54:9866", //厚街测试（新）
         // target: "http://192.168.1.54:9867", //陵城测试（新）
-        target: "http://192.168.1.54:9868", //花都测试（新）
+        // target: "http://192.168.1.54:9868", //花都测试（新）
         // target: "http://192.168.1.54:9871", //聊城二院测试（新）
         // target: "http://192.168.1.54:9872", //江门妇幼测试（新）
         // target: "http://192.168.1.54:9873", //中山七测试（新）

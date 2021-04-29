@@ -605,11 +605,11 @@ export default {
               data["age"] = remoteDate["age"];
               data["patientStatus"] = remoteDate["patientStatus"];
 
-              selectedRow["bedLabel"] = data["bedLabel"];
-              selectedRow["name"] = data["name"];
-              selectedRow["age"] = data["age"];
-              selectedRow["patientStatus"] = data["patientStatus"];
-              selectedRow["diagnosis"] = data["diagnosis"];
+              // selectedRow["bedLabel"] = data["bedLabel"];
+              // selectedRow["name"] = data["name"];
+              // selectedRow["age"] = data["age"];
+              // selectedRow["patientStatus"] = data["patientStatus"];
+              // selectedRow["diagnosis"] = data["diagnosis"];
               selectedRow["mainComplaint"] = data["mainComplaint"];
               selectedRow["background"] = data["background"];
               selectedRow["assessmentSituation"] = data["assessmentSituation"];
