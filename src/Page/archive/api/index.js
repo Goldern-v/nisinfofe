@@ -5,27 +5,32 @@ import { apiPath } from "@/api/apiConfig";
 // 科室患者归档列表
 export function getArchiveList(data) {
   return axios.post(
-    `${apiPath}/print/archive/list`, data
+    `${apiPath}print/archive/list`, data
   );
 }
 
 //  生成归档文件
 export function generateArchive(patientId, visitId) {
   return axios.get(
-    `${apiPath}/print/archive/genDoc/${patientId}/${visitId}`);
+    `${apiPath}print/archive/genDoc/${patientId}/${visitId}`);
 }
 // 预览归档文件
 export function previewArchive(patientId, visitId) {
   return axios.get(
-    `${apiPath}/print/archive/detail/${patientId}/${visitId}`);
+    `${apiPath}print/archive/detail/${patientId}/${visitId}`);
 }
 // 文件归档上传
 export function uploadFileArchive(patientId, visitId) {
   return axios.get(
-    `${apiPath}/print/archive/upload/${patientId}/${visitId}`);
+    `${apiPath}print/archive/upload/${patientId}/${visitId}`);
 }
 // 获取用户配置
 export function getConfig() {
   return axios.get(
-    `${apiPath}/config/getConfig`);
+    `${apiPath}config/getConfig`);
+}
+// 归档：取消归档
+export function canCancelArchive(patientId, visitId) {
+  return axios.get(
+    `${apiPath}print/archive/cancel/${patientId}/${visitId}`);
 }
