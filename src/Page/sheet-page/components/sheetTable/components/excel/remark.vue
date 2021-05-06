@@ -165,7 +165,7 @@
     <div class="bottomTable" v-if="sheetInfo.sheetType == 'critical_lc'">
       <table>
       <colgroup>
-        <col width="45px" />
+        <col width="41px" />
         <col />
       </colgroup>
       <tbody>

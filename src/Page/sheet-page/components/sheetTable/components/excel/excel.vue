@@ -327,7 +327,8 @@
               sheetInfo.sheetType == 'Record_Children_Serious_Lc' ||
               sheetInfo.sheetType == 'common_hd' ||
               sheetInfo.sheetType == 'neurosurgery_hd' ||
-              sheetInfo.sheetType == 'stress_injury_hd'
+              sheetInfo.sheetType == 'stress_injury_hd' ||
+              sheetInfo.sheetType == 'critical_lc'
           "
           >审核人：</span
         >
@@ -437,7 +438,8 @@ export default {
         "prenatal_hd",
         "postpartum_hd", // 产后护理记录单
         "common_wj",
-        "intervention_cure_lcey"
+        "intervention_cure_lcey",
+        "critical_lc"
       ],
       // 需要双签名的记录单code
       multiSignArr: [

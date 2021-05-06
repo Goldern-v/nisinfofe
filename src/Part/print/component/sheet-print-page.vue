@@ -307,9 +307,6 @@ export default {
       addCSS(
         window,
         `
-       #sheetPagePrint#sheetPagePrint th[dataname='护士签名'] {
-         width: 130px !important;
-       }
        .table-footer {
          padding-bottom: 10px;
        }
