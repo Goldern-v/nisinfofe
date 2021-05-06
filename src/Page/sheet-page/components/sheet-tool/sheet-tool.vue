@@ -219,7 +219,7 @@
       <component
         v-bind:is="temperatureChart"
         v-if="visibled"
-        :admissionDate="admissionDate"
+        :queryTem="queryTem"
         class="sheet-con"
       ></component>
     </sweet-modal>
@@ -267,10 +267,7 @@ export default {
       sheetInfo,
       sheetBlockList: [],
       visibled: false,
-      admissionDate: "",
-      isSingleTem_LCEY:
-        this.HOSPITAL_ID === "liaocheng" &&
-        this.$route.path.includes("singleTemperatureChart") //聊城二院体温单屏蔽三个功能：“出入量统计”、"评估同步"、“体征同步”
+      queryTem: {}
     };
   },
   methods: {
@@ -288,7 +285,11 @@ export default {
     /* 打开体温曲线页面 */
     openChart() {
       this.visibled = true;
-      this.admissionDate = this.sheetInfo.selectBlock.admissionDate;
+      this.queryTem = {
+        admissionDate: this.sheetInfo.selectBlock.admissionDate,
+        patientId: this.sheetInfo.selectBlock.patientId,
+        visitId: this.sheetInfo.selectBlock.visitId
+      };
       this.$nextTick(() => {
         this.$refs.sheet.open();
       });
@@ -760,6 +761,13 @@ export default {
     /* 监听路由是否是单个体温单 */
     isSingleTem() {
       return this.$route.path.includes("singleTemperatureChart");
+    },
+    /* 聊城二院体温单屏蔽三个功能：“出入量统计”、"评估同步"、“体征同步” */
+    isSingleTem_LCEY() {
+      return (
+        this.HOSPITAL_ID === "liaocheng" &&
+        this.$route.path.includes("singleTemperatureChart")
+      );
     },
     /* 是否是副页 */
     isDeputy() {
