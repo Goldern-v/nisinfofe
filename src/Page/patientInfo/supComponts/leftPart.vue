@@ -43,7 +43,7 @@
           <div class="line-boder"></div>
           <div class="list2-li">科室：{{ info.deptName }}</div>
           <div class="list2-li">
-            入院：{{ info.admissionWardDateTime }}(第{{ info.inpDay }}天)
+            入院：{{ HOSPITAL_ID == 'huadu' ? info.admissionWardDateTime : info.admissionDate }}(第{{ info.inpDay }}天)
           </div>
           <div class="list2-li">医生：{{ info.doctorInCharge }}</div>
           <div class="list2-li over-text" :title="info.diagnosis">
