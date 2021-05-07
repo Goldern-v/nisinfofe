@@ -220,7 +220,18 @@ const router = new Router({
         },
         {
           path: "temperature",
-          component: temperature,
+          component: (() => {
+            switch (process.env.HOSPITAL_ID) {
+              case 'huadu':
+                return temperatureHD
+              case 'liaocheng':
+                return temperatureLCEY
+              case 'wujing':
+                return temperatureWuJing
+              default:
+                return temperature
+            }
+          })(),
           name: "体温单"
         }
       ]
