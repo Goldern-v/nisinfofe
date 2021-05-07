@@ -131,7 +131,8 @@ export default [{
     autoComplete: {
       data: ruList
     },
-    name: "入量名称"
+    name: "入量名称",
+    statBottomLine: true
   },
   {
     key: "foodSize", //入量-ml
@@ -180,7 +181,7 @@ export default [{
       top: "1px",
       bottom: "1px",
       left: "1px",
-      width: "180px",
+      width: "360px",
       background: "transparent"
     },
     event: function (e, td) {

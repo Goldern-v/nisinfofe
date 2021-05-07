@@ -47,7 +47,8 @@
           :scrollY="scrollY"
           :hasFiexHeader="true"
           :isInPatientDetails="isInPatientDetails"
-          ><bottomCon slot="bottomCon" />
+        >
+          <!-- <bottomCon slot="bottomCon" /> -->
         </excel>
       </div>
     </div>

@@ -217,6 +217,22 @@ const router = new Router({
           path: "test",
           component: test,
           name: "检验"
+        },
+        {
+          path: "temperature",
+          component: (() => {
+            switch (process.env.HOSPITAL_ID) {
+              case 'huadu':
+                return temperatureHD
+              case 'liaocheng':
+                return temperatureLCEY
+              case 'wujing':
+                return temperatureWuJing
+              default:
+                return temperature
+            }
+          })(),
+          name: "体温单"
         }
       ]
     },

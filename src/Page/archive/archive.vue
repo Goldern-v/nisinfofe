@@ -146,6 +146,11 @@
               <!-- 上传 -->
               <el-button
                 type="text"
+                @click="cancelArchive(scope.row)"
+                v-if="scope.row.canCancelArchive"
+              >取消归档</el-button>
+              <el-button
+                type="text"
                 @click="uploadFileArchive(scope.row)"
                 v-if="(isArchive && scope.row.uploadStatus!=2) || (scope.row.resultStatus==1 && scope.row.uploadStatus!=1 && scope.row.uploadStatus!=2)"
               >归档</el-button>
@@ -205,7 +210,8 @@ import {
   generateArchive,
   previewArchive,
   uploadFileArchive,
-  getConfig
+  getConfig,
+  canCancelArchive
 } from "./api/index";
 import { TSNeverKeyword } from "babel-types";
 import common from "@/common/mixin/common.mixin.js";
@@ -280,20 +286,6 @@ export default {
           this.getArchiveList();
         });
       });
-    },
-    init() {
-      if (!this.deptCode) return;
-      let time = moment().format("L");
-      let data = Cookie.get("NURSING_USER") || "";
-      if (!data) {
-        window.location.href = "/login";
-      }
-      try {
-        let user = window.localStorage.getItem("user");
-        this.user.name = JSON.parse(user).empName;
-      } catch (error) {}
-
-      this.getArchiveList();
     },
     tablesHeight() {
       try {
@@ -467,6 +459,13 @@ export default {
         // printNotNeedToPdf true，不需要转pdf，直接一键归档
         this.isArchive = res.data.data.print.printNotNeedToPdf;
       })
+    },
+    // 归档：取消归档
+    cancelArchive(item){
+      canCancelArchive(item.patientId, item.visitId).then(res => {
+        this.$message.success(res.data.desc);
+        this.getArchiveList();
+      })
     }
   },
   mounted() {
@@ -477,10 +476,15 @@ export default {
     this.query.dischargeDateEnd = this.query.dischargeDateEnd
       ? this.query.dischargeDateEnd
       : moment().format("YYYY-MM-DD");
-    this.init();
+
     if (this.$refs["preview-modal"]) {
       this.modalObj = this.$refs["preview-modal"];
     }
+
+    if (this.deptCode){
+      this.getArchiveList();
+    }
+
     // 获取用户配置
     this.getUserConfig();
   },
@@ -490,7 +494,7 @@ export default {
   created() {},
   watch: {
     deptCode() {
-      this.init();
+      this.getArchiveList();
     }
   }
 };

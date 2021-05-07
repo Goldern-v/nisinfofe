@@ -15,8 +15,8 @@
         <el-row class="select-btn-list" type="flex" align="middle">
           <el-radio-group v-model="repeatIndicator">
             <el-radio class="radio" label>全部</el-radio>
-            <el-radio class="radio" label="0">长嘱</el-radio>
-            <el-radio class="radio" label="1">临嘱</el-radio>
+            <el-radio class="radio" label="1">长嘱</el-radio>
+            <el-radio class="radio" label="0">临嘱</el-radio>
             <el-radio class="radio" label="2">单药处方</el-radio>
           </el-radio-group>
         </el-row>

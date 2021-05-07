@@ -41,7 +41,7 @@
       </span>-->
       <span
         @click="updateDiagnosis('diagnosis', '诊断', patientInfo.diagnosis)"
-        v-if="sheetInfo.sheetType == 'com_lc'"
+        v-if="sheetInfo.sheetType == 'com_lc' || sheetInfo.sheetType == 'critical_lc'"
       >
         诊断：
         <div
@@ -51,7 +51,7 @@
       </span>
       <span
         @click="updateOperation('operation', '手术', patientInfo.operation)"
-        v-if="sheetInfo.sheetType == 'com_lc'"
+        v-if="sheetInfo.sheetType == 'com_lc' || sheetInfo.sheetType == 'critical_lc'"
       >
         手术：
         <div
@@ -69,7 +69,7 @@
           style="min-width: 400px;max-width: 1000px;min-height:13px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;"
         >{{diagnosis}}</div>
       </span>
-      <!-- <span>入院日期： {{patientInfo.admissionDate | toymd}}</span> -->
+       <span v-if="sheetInfo.sheetType == 'critical_lc'">入院日期：{{patientInfo.admissionDate | toymd}}</span>
     </div>
     <!-- <div class="info-con" flex="main:justify" v-if="sheetInfo.sheetType == 'icu_lc'">
       <span @click="updateDiagnosis('diagnosis', '诊断', patientInfo.diagnosis)">
