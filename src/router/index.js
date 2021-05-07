@@ -217,6 +217,11 @@ const router = new Router({
           path: "test",
           component: test,
           name: "检验"
+        },
+        {
+          path: "temperature",
+          component: temperature,
+          name: "体温单"
         }
       ]
     },
