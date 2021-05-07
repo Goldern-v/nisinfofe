@@ -9,7 +9,7 @@
       <div class="title-bar" flex="cross:center">
         <span class="type-text">护理文书类型</span>
         <el-select
-          v-if="HOSPITAL_ID != 'hj' && HOSPITAL_ID != 'huadu'"
+          v-if="HOSPITAL_ID != 'hj' && HOSPITAL_ID != 'huadu' && HOSPITAL_ID != 'liaocheng' "
           v-model="formType"
           placeholder="选择类型"
           class="type-select"
@@ -23,7 +23,7 @@
           ></el-option>
         </el-select>
         <el-input
-          v-if="HOSPITAL_ID != 'hj' && HOSPITAL_ID != 'huadu'"
+          v-if="HOSPITAL_ID != 'hj' && HOSPITAL_ID != 'huadu' && HOSPITAL_ID != 'liaocheng' "
           class="text-con"
           :placeholder="
             '搜索' + options.find((item) => item.value == formType).label
@@ -73,6 +73,30 @@
           class="text-con"
           :placeholder="
             '搜索' + huaduOptions.find((item) => item.value == formType).label
+          "
+          icon="search"
+          v-model="searchWord"
+        ></el-input>
+        <!-- 聊城 -->
+        <el-select
+          v-if="HOSPITAL_ID == 'liaocheng'"
+          v-model="formType"
+          placeholder="选择类型"
+          class="type-select"
+          :disabled="formTypeReadOnly"
+        >
+          <el-option
+            v-for="item in liaochengOptions"
+            :key="item.value || item.label"
+            :label="item.label"
+            :value="item.value"
+          ></el-option>
+        </el-select>
+        <el-input
+          v-if="HOSPITAL_ID == 'liaocheng'"
+          class="text-con-liaocheng"
+          :placeholder="
+            '搜索' + liaochengOptions.find((item) => item.value == formType).label
           "
           icon="search"
           v-model="searchWord"
@@ -147,6 +171,20 @@
 
   >>>.el-input__inner {
     width: 138px;
+    height: 30px;
+    background: #FFFFFF;
+    border: 1px solid #C2CBD2;
+    border-radius: 4px;
+  }
+}
+.text-con-liaocheng {
+  >>>&.el-input {
+    width: 146px;
+    margin-left: 10px;
+  }
+
+  >>>.el-input__inner {
+    width: 146px;
     height: 30px;
     background: #FFFFFF;
     border: 1px solid #C2CBD2;
@@ -273,6 +311,20 @@ export default {
           label: "首次记录",
         },
       ],
+      liaochengOptions: [
+        {
+          value: "1",
+          label: "护理评估",
+        },
+        {
+          value: "monitor",
+          label: "监测记录",
+        },
+        {
+          value: "handover",
+          label: "交接记录单",
+        },
+      ],
       formType: "1",
       pageLoading: true,
       pageLoadingText: "数据载入中",
@@ -333,7 +385,8 @@ export default {
         this.formType == "1" ||
         this.formType == "monitor" ||
         this.formType == "sens" ||
-        this.formType == "firstRecord"
+        this.formType == "firstRecord"||
+        this.formType == "handover"
       ) {
         let token = window.app.$getCookie("NURSING_USER").split("##")[1];
         let query = this.$route.query;
@@ -485,7 +538,8 @@ export default {
           if (
             this.formType == "1" ||
             this.formType == "4" ||
-            this.formType == "firstRecord"
+            this.formType == "firstRecord" ||
+            this.formType == "handover"
           ) {
             return item.name.indexOf(this.searchWord) > -1;
           }
