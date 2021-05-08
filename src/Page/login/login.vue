@@ -11,7 +11,7 @@
         :hoverEffect="false"
         :clickEffect="false"
         :linesDistance="350"
-        style="position: absolute; width: 100%;height: 100%"
+        style="position: absolute; width: 100%; height: 100%"
       ></vue-particles>
       <div style="height: 25%"></div>
       <div class="login-warpper">
@@ -21,7 +21,12 @@
           <span class="sys-version">「 v {{ $system.版本号 }} 」</span>
           <span class="sys-name">护理管理系统</span>
         </div>
-        <img src="../../common/images/shaw.png" height="234" width="526" class="login-shaw" />
+        <img
+          src="../../common/images/shaw.png"
+          height="234"
+          width="526"
+          class="login-shaw"
+        />
         <div class="login-con">
           <div>
             <div class="logo-con">
@@ -34,27 +39,44 @@
             <img src="../../common/images/account.png" height="14" width="14" />
           </div>
           <div class="input-con">
-            <input type="password" style="border-top: 0" placeholder="密码" v-model="password" />
-            <img src="../../common/images/password.png" height="14" width="14" />
+            <input
+              type="password"
+              style="border-top: 0"
+              placeholder="密码"
+              v-model="password"
+            />
+            <img
+              src="../../common/images/password.png"
+              height="14"
+              width="14"
+            />
           </div>
           <div class="remember-con">
             <el-checkbox v-model="remember">
-              <span style="font-size: 13px;color: #687179;">记住账号</span>
+              <span style="font-size: 13px; color: #687179">记住账号</span>
             </el-checkbox>
-            <button style="background-color:#fff;float:right;border:0;" @click="toReset()">重置密码</button>
+            <button
+              style="background-color: #fff; float: right; border: 0"
+              @click="toReset()"
+            >
+              重置密码
+            </button>
           </div>
-          <button v-touch-ripple class="login-btn" @click="login">{{ !ajax ? "登录系统" : "登录中..." }}</button>
+          <button v-touch-ripple class="login-btn" @click="login">
+            {{ !ajax ? "登录系统" : "登录中..." }}
+          </button>
         </div>
       </div>
       <p class="footer-text">
         <span>
-          <a href="https://www.baichenyuan.cn" target="_blank">{{COMPANY_NAME || '百辰源(广州)科技有限公司'}}</a>
+          <a href="https://www.baichenyuan.cn" target="_blank">{{
+            COMPANY_NAME || "百辰源(广州)科技有限公司"
+          }}</a>
         </span>
         <span>
-          版权所有 &copy; {{ new Date().getFullYear() }} All rights
-          reseved.
+          版权所有 &copy; {{ new Date().getFullYear() }} All rights reseved.
         </span>
-        <span>{{ ABOUT_INFO || '关于百辰源'}}</span>
+        <span>{{ ABOUT_INFO || "关于百辰源" }}</span>
         <span>|</span>
         <span>关于智慧护理</span>
         <span>|</span>
@@ -286,7 +308,7 @@ export default {
       account: "",
       password: "",
       remember: true,
-      ajax: false
+      ajax: false,
     };
   },
   methods: {
@@ -298,7 +320,7 @@ export default {
         this.$message({
           showClose: true,
           message: "请填写账号和密码！",
-          type: "warning"
+          type: "warning",
         });
         return;
       }
@@ -306,7 +328,7 @@ export default {
       if (this.ajax === true) return;
       this.ajax = true;
       login(this.account, this.password)
-        .then(res => {
+        .then((res) => {
           console.log(res);
           // 记住账号
           if (this.remember) {
@@ -325,7 +347,7 @@ export default {
             "NURSING_USER",
             `${res.data.data.user.id}##${res.data.data.authToken}`,
             {
-              path: "/"
+              path: "/",
             }
           );
           if (
@@ -346,7 +368,7 @@ export default {
           localStorage.selectDeptValue = "";
           this.$store.commit("upDeptName", "");
         })
-        .catch(res => {
+        .catch((res) => {
           this.ajax = false;
           if (res.data.errorCode == 1000) {
             setTimeout(() => {
@@ -367,7 +389,7 @@ export default {
       setTimeout(() => {
         this.$router.push("/resetPassword");
       }, 1000);
-    }
+    },
   },
   created() {
     if (localStorage["rememberAccount"]) {
@@ -375,10 +397,13 @@ export default {
     }
   },
   mounted() {
+    /**清除锁屏的本地存储相关 */
+    if (localStorage.screenLock) localStorage.removeItem("screenLock");
+
     let elList = document.querySelectorAll(".input-con input");
     EnterToTab(
       elList,
-      el => {
+      (el) => {
         el.focus();
         el.select();
       },
@@ -386,28 +411,32 @@ export default {
     );
   },
   computed: {
-    logoUrl(){
-      let logoUrl = require('../../common/images/logo.png');
-      switch(this.HOSPITAL_ID){
-        case 'hj':
-          logoUrl = require('../../common/images/login_logo_hj.png')
-        break;
-        case 'zhongshanqi':
-          logoUrl = require('../../common/images/logo_zhongshanqi.png')
-        break;
+    logoUrl() {
+      let logoUrl = require("../../common/images/logo.png");
+      switch (this.HOSPITAL_ID) {
+        case "hj":
+          logoUrl = require("../../common/images/login_logo_hj.png");
+          break;
+        case "zhongshanqi":
+          logoUrl = require("../../common/images/logo_zhongshanqi.png");
+          break;
       }
       return logoUrl;
     },
-    logoName(){
-      let logoName = '百辰源智慧护理信息系统';
-      if(this.HOSPITAL_ID == 'hj' || this.HOSPITAL_ID == 'zhongshanqi'){
-        logoName = `${this.HOSPITAL_NAME}<br />智慧护理信息系统`
-      }else if(this.HOSPITAL_ID == 'guizhou' || this.HOSPITAL_ID == 'liaocheng' || this.HOSPITAL_ID == 'lingcheng'){
-        logoName = '智慧护理信息系统'
+    logoName() {
+      let logoName = "百辰源智慧护理信息系统";
+      if (this.HOSPITAL_ID == "hj" || this.HOSPITAL_ID == "zhongshanqi") {
+        logoName = `${this.HOSPITAL_NAME}<br />智慧护理信息系统`;
+      } else if (
+        this.HOSPITAL_ID == "guizhou" ||
+        this.HOSPITAL_ID == "liaocheng" ||
+        this.HOSPITAL_ID == "lingcheng"
+      ) {
+        logoName = "智慧护理信息系统";
       }
       return logoName;
-    }
+    },
   },
-  components: {}
+  components: {},
 };
 </script>
