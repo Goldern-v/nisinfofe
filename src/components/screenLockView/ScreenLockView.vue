@@ -60,7 +60,7 @@ export default {
   data() {
     return {
       lastBindingTimeset: 0, // 最后一次绑定时间戳
-      lockBeforeMinute: 15, // 锁定间隔时长(分钟)
+      lockBeforeMinute: 30, // 锁定间隔时长(分钟)
       bindingTimeSpace: 5000, // 重复绑定锁屏方法的时间间隔(毫秒)
       password: "", // 密码
     };
