@@ -557,6 +557,13 @@ export default function Title(
     );
   }
   break;
+  case "common_hl": {
+    // 横沥-护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/common_hl/th").default)
+    );
+  }
+  break;
   case "body_temperature_wj": {
     // 武警总队-体温单
     Th = JSON.parse(

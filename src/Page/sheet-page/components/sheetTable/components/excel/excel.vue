@@ -318,6 +318,22 @@
       class="table-footer"
       v-if="sheetInfo.sheetType != 'intervention_cure_hd'"
     >
+      <!-- <span v-if="sheetInfo.sheetType == 'common_hl'" class="zg-name"> -->
+      <span v-if="doubleSignArr.includes(sheetInfo.sheetType)" class="zg-name">
+        <span>主管护士：</span>
+        <span class="sign-img-con" @click="sign2">
+          <span
+            v-if="!isPrint"
+            class="head-sign-text"
+          >{{sheetInfo.selectBlock.relSignInfo.signerName2}}</span>
+          <img
+            class="head-sign-img"
+            v-if="sheetInfo.selectBlock.relSignInfo.signerNo2"
+            :src="`/crNursing/api/file/signImage/${sheetInfo.selectBlock.relSignInfo.signerNo2}?${token}`"
+            alt
+          >
+        </span>
+      </span>
       第 {{ index + sheetStartPage }} 页
       <span class="sh-name" v-if="auditArr.includes(sheetInfo.sheetType)">
         <span
@@ -332,7 +348,7 @@
           "
           >审核人：</span
         >
-        <span v-else-if="sheetInfo.sheetType == 'common_wj'">护士长签名：</span>
+        <span v-else-if="sheetInfo.sheetType == 'common_wj' || 'common_hl'">护士长签名：</span>
         <span v-else-if="sheetInfo.sheetType == 'intervention_cure_lcey'"
           >护士签名：</span
         >
@@ -398,7 +414,7 @@ import $ from "jquery";
 import bus from "vue-happy-bus";
 import sheetModel from "../../../../sheet.js";
 import common from "@/common/mixin/common.mixin.js";
-import { handlepz, delpz, auditpz } from "../../../../api/index.js";
+import { handlepz, delpz, auditpz, signBlockD,  cancelSignD } from "../../../../api/index.js";
 import decode from "../../../../components/render/decode.js";
 import moment from "moment";
 import { getUser } from "@/api/common.js";
@@ -439,7 +455,8 @@ export default {
         "postpartum_hd", // 产后护理记录单
         "common_wj",
         "intervention_cure_lcey",
-        "critical_lc"
+        "critical_lc",
+        "common_hl",
       ],
       // 需要双签名的记录单code
       multiSignArr: [
@@ -450,6 +467,10 @@ export default {
         "postpartum_hd", // 花都_产后记录单
         "wait_delivery_hd", // 花都_候产记录单
         "neonatology_hd" // 花都_新生儿科护理记录单
+      ],
+      // 底部两个签名的其中一个自定义字段
+      doubleSignArr: [
+        "common_hl",
       ]
     };
   },
@@ -1351,7 +1372,46 @@ export default {
           }
         });
       }, "取消签名确认");
-    }
+    },
+    /** 右侧主管护士签名 */
+    sign2() {
+      if (this.sheetInfo.selectBlock.relSignInfo == undefined) {
+        this.sheetInfo.selectBlock.relSignInfo = {};
+      }
+      let title = sheetInfo.selectBlock.relSignInfo.signerName2
+        ? "取消签名"
+        : "责任护士签名";
+      window.openSignModal((password, username) => {
+        if (sheetInfo.selectBlock.relSignInfo.signerName2) {
+          cancelSignD(password, username, 2).then(res => {
+            this.$set(
+              this.sheetInfo.selectBlock.relSignInfo,
+              "signerName2",
+              res.data.data.relSignInfo.signerName2
+            );
+            this.$set(
+              this.sheetInfo.selectBlock.relSignInfo,
+              "signerNo2",
+              res.data.data.relSignInfo.signerNo2
+            );
+          });
+        } else {
+          signBlockD(password, username, 2).then(res => {
+            this.$set(
+              this.sheetInfo.selectBlock.relSignInfo,
+              "signerName2",
+              res.data.data.relSignInfo.signerName2
+            );
+            this.$set(
+              this.sheetInfo.selectBlock.relSignInfo,
+              "signerNo2",
+              res.data.data.relSignInfo.signerNo2
+            );
+          });
+        }
+        this.bus.$emit("saveSheetPage", true);
+      }, title);
+    },
   },
   watch: {
     scrollY() {
@@ -1373,6 +1433,11 @@ export default {
     this.fiexHeaderWidth =
       this.$refs.table && this.$refs.table.offsetWidth + "px";
     console.log("mounted");
+  },
+  created() {
+    if (doubleSignArr.includes(sheetInfo.sheetType) && sheetInfo.selectBlock.relSignInfo == undefined) {
+      this.$set(this.sheetInfo.selectBlock, "relSignInfo", {});
+    }
   },
   components: {
     signModal,
