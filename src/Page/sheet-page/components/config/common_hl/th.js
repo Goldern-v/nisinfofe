@@ -25,7 +25,6 @@ export default {
         name: `
         体 <br/> 温 <br/>℃
         `,
-        style: {},
         colspan: '1',
         rowspan: '3',
         style: {

@@ -494,6 +494,13 @@ export default function Title(
     );
   }
   break;
+  case "pediatric_surgery_jm": {
+    // 江门妇幼 - 小儿外科护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/pediatric_surgery_jm/th.js").default)
+    );
+  }
+  break;
   case "body_temperature_lcey": {
     // 聊城二院 - 体温单
     Th = JSON.parse(

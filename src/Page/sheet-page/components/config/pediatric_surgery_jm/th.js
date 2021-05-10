@@ -9,7 +9,7 @@ export default {
           maxWidth: '36px',
         },
         colspan: '1',
-        rowspan: '2'
+        rowspan: '3'
       },
       {
         name: '时间',
@@ -18,7 +18,7 @@ export default {
           maxWidth: '36px',
         },
         colspan: '1',
-        rowspan: '2'
+        rowspan: '3'
       },
       {
         name: `
@@ -26,7 +26,7 @@ export default {
         `,
         style: {},
         colspan: '1',
-        rowspan: '2',
+        rowspan: '3',
         style: {
           whiteSpace: 'nowrap',
           minWidth: '34px',
@@ -38,10 +38,10 @@ export default {
         `,
         style: {},
         colspan: '1',
-        rowspan: '2',
+        rowspan: '3',
         style: {
           whiteSpace: 'nowrap',
-          minWidth: '38px',
+          minWidth: '36px',
         }
       },
       {
@@ -50,75 +50,75 @@ export default {
         `,
         style: {},
         colspan: '1',
-        rowspan: '2',
+        rowspan: '3',
         style: {
           whiteSpace: 'nowrap',
-          minWidth: '38px',
+          minWidth: '36px',
         }
       },
       {
         name: `
-        精<br/>神
+        血压<br/>(mmHg)
         `,
         style: {
-          minWidth: '38px',
-          maxWidth: '38px',
+          minWidth: '52px',
+          maxWidth: '52px',
           whiteSpace: 'nowrap'
         },
         colspan: '1',
-        rowspan: '2'
+        rowspan: '3'
       },
       {
         name: `
-        胃<br/>纳
+        SpO₂
         `,
         style: {
-          minWidth: '38px',
-          maxWidth: '38px',
+          minWidth: '36px',
+          maxWidth: '36px',
           whiteSpace: 'nowrap'
         },
         colspan: '1',
-        rowspan: '2'
+        rowspan: '3'
       },
       {
         name: `
-        咳<br/>痰
+        饮食
         `,
         style: {
-          minWidth: '38px',
-          maxWidth: '38px',
+          minWidth: '36px',
+          maxWidth: '36px',
           whiteSpace: 'nowrap'
         },
         colspan: '1',
-        rowspan: '2'
+        rowspan: '3'
       },
       {
         name: `
-        咳<br/>嗽
-        `,
-        style: {
-          minWidth: '38px',
-          maxWidth: '38px',
-          // whiteSpace: 'nowrap'
-        },
-        colspan: '1',
-        rowspan: '2'
-      },
-      {
-        name: `
-        入
-        `,
-        colspan: '2',
-        rowspan: '1',
-        canSet: false,
-      },
-      {
-        name: `
-        出
+        入量
         `,
         colspan: '3',
         rowspan: '1',
         canSet: false,
+      },
+      {
+        name: `
+        出量
+        `,
+        colspan: '6',
+        rowspan: '1',
+        canSet: false,
+      },
+      {
+        name: `
+        伤<br/>口<br/>敷<br/>料
+        `,
+        style: {
+          minWidth: '38px',
+          maxWidth: '38px',
+          whiteSpace: 'nowrap'
+        },
+        colspan: '1',
+        rowspan: '3'
       },
       {
         name: `
@@ -130,7 +130,7 @@ export default {
           whiteSpace: 'nowrap'
         },
         colspan: '1',
-        rowspan: '2'
+        rowspan: '3'
       },
       {
         name: `
@@ -142,51 +142,39 @@ export default {
           whiteSpace: 'nowrap'
         },
         colspan: '1',
-        rowspan: '2'
-      },
-      {
-        name: `
-        留<br/>置<br/>针
-        `,
-        style: {
-          minWidth: '38px',
-          maxWidth: '38px',
-          whiteSpace: 'nowrap'
-        },
-        colspan: '1',
-        rowspan: '2'
+        rowspan: '3'
       },
       {
         name: `标题1`,
         colspan: '1',
-        rowspan: '2',
+        rowspan: '3',
         canSet: true,
         key: 'fieldEleven',
         style: {
-          minWidth: '46px',
-          maxWidth: '46px',
+          minWidth: '38px',
+          maxWidth: '38px',
         }
       },
       {
         name: `标题2`,
         colspan: '1',
-        rowspan: '2',
+        rowspan: '3',
         canSet: true,
         key: 'fieldTwelve',
         style: {
-          minWidth: '46px',
-          maxWidth: '46px',
+          minWidth: '38px',
+          maxWidth: '38px',
         }
       },
       {
         name: `标题3`,
         colspan: '1',
-        rowspan: '2',
+        rowspan: '3',
         canSet: true,
         key: 'fieldThirteen',
         style: {
-          minWidth: '46px',
-          maxWidth: '46px',
+          minWidth: '38px',
+          maxWidth: '38px',
         }
       },
       {
@@ -198,7 +186,7 @@ export default {
           maxWidth: '153px',
         },
         colspan: '1',
-        rowspan: '2'
+        rowspan: '3'
       },
       {
         name: `
@@ -206,7 +194,7 @@ export default {
         `,
         style: {},
         colspan: '1',
-        rowspan: '2'
+        rowspan: '3'
       }
     ],
     mid: [{
@@ -214,35 +202,113 @@ export default {
         静脉<br>(ml)
         `,
         colspan: '1',
-        rowspan: '1'
+        rowspan: '2',
+        style: {
+          minWidth: '36px',
+          maxWidth: '36px',
+        }
       },
       {
         name: `
         进食<br>(ml)
         `,
         colspan: '1',
-        rowspan: '1'
+        rowspan: '2',
+        style: {
+          minWidth: '36px',
+          maxWidth: '36px',
+        }
+      },
+      {
+        name: ``,
+        colspan: '1',
+        rowspan: '2',
+        canSet: true,
+        key: 'otherFood',
+        style: {
+          minWidth: '36px',
+          maxWidth: '36px',
+        }
       },
       {
         name: `
-        大便<br>(G/<br>性状)
+        尿量
         `,
-        colspan: '1',
+        colspan: '2',
         rowspan: '1'
       }, {
         name: `
-        小便<br>(ml)
+        大便
         `,
-        colspan: '1',
+        colspan: '2',
         rowspan: '1'
       }, {
         name: `
-        呕吐<br>(ml)
+        呕吐<br>ml
         `,
         colspan: '1',
-        rowspan: '1'
+        rowspan: '2',
+        style: {
+          minWidth: '32px',
+          maxWidth: '32px',
+        }
+      },
+      {
+        name: ``,
+        colspan: '1',
+        rowspan: '2',
+        canSet: true,
+        key: 'otherDischarge',
+        style: {
+          minWidth: '32px',
+          maxWidth: '32px',
+        }
       },
     ],
-    bottom: []
+    bottom: [
+    {
+      name: `
+      ml
+      `,
+      colspan: '1',
+      rowspan: '1',
+      style: {
+        minWidth: '28px',
+        maxWidth: '28px',
+      }
+    },
+    {
+      name: `
+      颜色
+      `,
+      colspan: '1',
+      rowspan: '1',
+      style: {
+        minWidth: '32px',
+        maxWidth: '32px',
+      }
+    },
+    {
+      name: `
+      g/次
+      `,
+      colspan: '1',
+      rowspan: '1',
+      style: {
+        minWidth: '32px',
+        maxWidth: '32px',
+      }
+    }, {
+      name: `
+      性质
+      `,
+      colspan: '1',
+      rowspan: '1',
+      style: {
+        minWidth: '32px',
+        maxWidth: '32px',
+      }
+    },
+  ]
   }
 }
