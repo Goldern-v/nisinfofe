@@ -39,6 +39,13 @@ export default [{
     event: keyf1,
     name: "脉搏",
     next: "次/分"
+  },
+  {
+    key: "heartRate", //心率
+    value: "",
+    event: keyf1,
+    name: "心率",
+    next: "次/分"
   }, {
     key: "breath", //呼吸
     value: "",
@@ -57,13 +64,6 @@ export default [{
     },
     name: "血压",
     next: "mmHg"
-  },
-  {
-    key: "heartRate", //心率
-    value: "",
-    event: keyf1,
-    name: "心率",
-    next: "次/分"
   },
   {
     key: "height", //身高

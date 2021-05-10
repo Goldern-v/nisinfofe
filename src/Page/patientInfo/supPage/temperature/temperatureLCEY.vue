@@ -133,8 +133,8 @@ export default {
     onPrint() {
       this.$refs.pdfCon.contentWindow.postMessage(
         { type: "printing" },
-        "http://120.224.211.7:9091/temperature/#/"
-        // "http://192.168.20.12:8080/#/"
+        "http://172.17.5.41:9091/temperature/#/"
+        // "http://120.224.211.7:8080/#/"
       );
     },
     getImg() {
@@ -144,9 +144,9 @@ export default {
       let patientId = this.$route.query.patientId || this.queryTem.patientId;
       let visitId = this.$route.query.visitId || this.queryTem.visitId;
       /* 单独处理体温单，嵌套iframe */
-      const tempUrl = `http://120.224.211.7:9091/temperature/#/?PatientId=${patientId}&VisitId=${visitId}&StartTime=${date}`;
+      const tempUrl = `http://172.17.5.41:9091/temperature/#/?PatientId=${patientId}&VisitId=${visitId}&StartTime=${date}`;
       // const tempUrl =
-      //   "http://192.168.20.12:8080/#/?PatientId=${patientId}&VisitId=${visitId}&StartTime=${date}";
+      //   "http://120.224.211.7:8080/#/?PatientId=${patientId}&VisitId=${visitId}&StartTime=${date}";
       this.filePath = "";
       setTimeout(() => {
         this.filePath = tempUrl;
@@ -230,7 +230,7 @@ export default {
     currentPage(value) {
       this.$refs.pdfCon.contentWindow.postMessage(
         { type: "currentPage", value },
-        "http://120.224.211.7:9091/temperature/#/"
+        "http://172.17.5.41:9091/temperature/#/"
       );
     }
   },
