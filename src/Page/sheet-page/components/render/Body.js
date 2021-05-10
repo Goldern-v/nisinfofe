@@ -407,6 +407,11 @@ function switechSheetType(type) {
     schema = require("../config/neonatology_jm/tr.js").default;
   }
   break;
+  case "child_recovery_jm": {
+    // 江门妇幼 - 儿童康复科记录单
+    schema = require("../config/child_recovery_jm/tr.js").default;
+  }
+  break;
   case "body_temperature_lcey": {
     // 聊城二院 - 体温单
     schema = require("../config/body_temperature_lcey/tr.js").default;

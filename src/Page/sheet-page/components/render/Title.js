@@ -487,6 +487,13 @@ export default function Title(
     );
   }
   break;
+  case "child_recovery_jm": {
+    // 江门妇幼 - 儿童康复科记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/child_recovery_jm/th.js").default)
+    );
+  }
+  break;
   case "body_temperature_lcey": {
     // 聊城二院 - 体温单
     Th = JSON.parse(

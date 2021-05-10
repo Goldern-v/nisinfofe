@@ -1435,7 +1435,7 @@ export default {
     console.log("mounted");
   },
   created() {
-    if (doubleSignArr.includes(sheetInfo.sheetType) && sheetInfo.selectBlock.relSignInfo == undefined) {
+    if (this.doubleSignArr.includes(sheetInfo.sheetType) && sheetInfo.selectBlock.relSignInfo == undefined) {
       this.$set(this.sheetInfo.selectBlock, "relSignInfo", {});
     }
   },

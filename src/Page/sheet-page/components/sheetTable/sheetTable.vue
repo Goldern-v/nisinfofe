@@ -132,6 +132,7 @@ import $ from "jquery";
 import common from "@/common/mixin/common.mixin";
 import tableHead from "./components/table-head/table-head";
 import tableHeadPrenata from "./components/table-head/table-head-prenatal";
+import tableHeadDiagnosis from "./components/table-head/table-head-diagnosis";
 import tableHeadWx from "./components/table-head/table-head-wx";
 import tableHeadLc from "./components/table-head/table-head-lc";
 import tableHeadTbhldLc from "./components/table-head/table-head-tbhld-lc";
@@ -180,7 +181,12 @@ export default {
       } else if (this.HOSPITAL_ID == "huadu") {
         return tableHeadHd;
       } else if (this.HOSPITAL_ID == "fuyou") {
-        return tableHeadFuyou;
+        if (sheetInfo.sheetType == "child_recovery_jm") {
+          return tableHeadDiagnosis;
+        }
+        else {
+          return tableHeadFuyou;
+        }
       } else {
         return tableHead;
       }
