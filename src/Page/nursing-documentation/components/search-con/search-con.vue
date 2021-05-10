@@ -83,6 +83,9 @@
       <div class="input-con">
         <el-input v-model="data.bedLabel" placeholder="请输入床号"></el-input>
       </div>
+      <div class="input-con" v-if="HOSPITAL_ID == 'zhongshanqi'">
+        <el-input v-model="data.diagnosis" placeholder="请输入病种"></el-input>
+      </div>
     </div>
     <div class="search-btn" flex="cross:center main:center" @click="search" v-touch-ripple>检索</div>
   </div>
@@ -174,7 +177,8 @@ export default {
         inpNo: "",
         patientId: "",
         admissionDate: [moment().subtract(30, "days"), new Date()],
-        dischargeDate: [moment().subtract(30, "days"), new Date()]
+        dischargeDate: [moment().subtract(30, "days"), new Date()],
+        diagnosis: "",//病种
       }
     };
   },
