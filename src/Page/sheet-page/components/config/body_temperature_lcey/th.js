@@ -104,7 +104,18 @@ export default {
         style: {
           minWidth: "36px",
         },
-      }, {
+      },
+      {
+        name: `
+        心率
+        `,
+        style: {
+          minWidth: "36px",
+        },
+        colspan: "1",
+        rowspan: "2",
+      },
+      {
         name: `
         呼吸
         `,
@@ -121,16 +132,6 @@ export default {
         style: {
           minWidth: "60px",
           maxWidth: "60px"
-        },
-        colspan: "1",
-        rowspan: "2",
-      },
-      {
-        name: `
-        心率
-        `,
-        style: {
-          minWidth: "36px",
         },
         colspan: "1",
         rowspan: "2",

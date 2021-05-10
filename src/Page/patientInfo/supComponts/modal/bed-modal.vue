@@ -8,9 +8,23 @@
       class="modal"
     >
       <div class="bed-card-warpper" v-loading="modalLoading" ref="printCon">
-        <div class="bed-card-con" flex :class="{remarkCon: formData.remarkPrint}">
-          <img class="qr-code" :class="{hasRemark: hasRemark}" :src="qrCode" />
-          <div class="qr-code-num" :class="{hasRemark: hasRemark}" :style="HOSPITAL_ID == 'liaocheng' ? 'width: 110px' : ''">{{qrCodeNum}}</div>
+        <div
+          class="bed-card-con"
+          flex
+          :class="{ remarkCon: formData.remarkPrint }"
+        >
+          <img
+            class="qr-code"
+            :class="{ hasRemark: hasRemark }"
+            :src="qrCode"
+          />
+          <div
+            class="qr-code-num"
+            :class="{ hasRemark: hasRemark }"
+            :style="HOSPITAL_ID == 'liaocheng' ? 'width: 110px' : ''"
+          >
+            {{ qrCodeNum }}
+          </div>
           <div style="width: 0" flex-box="1" flex="dir:top main:justify">
             <div
               flex="cross:center"
@@ -19,7 +33,7 @@
               v-if="HOSPITAL_ID == 'hj'"
             >
               <!-- <span class="label">患者姓名:</span> -->
-              <span :style="`width: ${hasRemark? 85: 100}px`"></span>
+              <span :style="`width: ${hasRemark ? 85 : 100}px`"></span>
               <input
                 type="text"
                 nowidth
@@ -36,9 +50,14 @@
                 :value="query.sex + ' ' + query.age"
               />
             </div>
-            <div flex="cross:center" class="input-item" style="height: 43px" v-else>
+            <div
+              flex="cross:center"
+              class="input-item"
+              style="height: 43px"
+              v-else
+            >
               <!-- <span class="label">患者姓名:</span> -->
-              <span :style="`width: ${hasRemark? 85: 100}px`"></span>
+              <span :style="`width: ${hasRemark ? 85 : 100}px`"></span>
               <input
                 type="text"
                 nowidth
@@ -50,10 +69,15 @@
             </div>
             <div flex="cross:center" class="input-item">
               <!-- <span class="label">住院号:</span> -->
-              <span :style="`width: ${hasRemark? 85: 100}px`"></span>
+              <span :style="`width: ${hasRemark ? 85 : 100}px`"></span>
               <input
                 type="text"
-                style="width: 75px;font-size: 30px; padding-left: 5px;"
+                :style="{
+                  width: '75px',
+                  'font-size': query.bedLabel.length > 4 ? '25px' : '30px',
+                  'padding-left': '5px',
+                  'line-height': ' 35px'
+                }"
                 class="bottom-line"
                 :value="query.bedLabel + '床'"
               />
@@ -91,7 +115,12 @@
             </div>-->
             <div flex="cross:center" class="input-item">
               <span class="label">饮食:</span>
-              <div nowidth class="check-con" flex-box="1" flex="main:justify cross:center">
+              <div
+                nowidth
+                class="check-con"
+                flex-box="1"
+                flex="main:justify cross:center"
+              >
                 <input
                   type="text"
                   nowidth
@@ -99,7 +128,13 @@
                   class="bottom-line"
                   style="font-size: 26px"
                   v-model="formData.diet"
-                  @focus="onFocusToAutoComplete($event, {autoComplete: ysList, obj: formData, key: 'diet'})"
+                  @focus="
+                    onFocusToAutoComplete($event, {
+                      autoComplete: ysList,
+                      obj: formData,
+                      key: 'diet'
+                    })
+                  "
                   @blur="onBlurToAutoComplete"
                 />
               </div>
@@ -110,20 +145,32 @@
                 <img
                   class="dj-box"
                   @click="selectRegistCare('重')"
-                  :class="{active: formData.registCare.includes('重')}"
-                  :src="formData.registCare.includes('重')?require('./images/重选.png'): require('./images/重.png')"
+                  :class="{ active: formData.registCare.includes('重') }"
+                  :src="
+                    formData.registCare.includes('重')
+                      ? require('./images/重选.png')
+                      : require('./images/重.png')
+                  "
                 />
                 <img
                   class="dj-box"
                   @click="selectRegistCare('危')"
-                  :class="{active: formData.registCare.includes('危')}"
-                  :src="formData.registCare.includes('危')?require('./images/危选.png'): require('./images/危.png')"
+                  :class="{ active: formData.registCare.includes('危') }"
+                  :src="
+                    formData.registCare.includes('危')
+                      ? require('./images/危选.png')
+                      : require('./images/危.png')
+                  "
                 />
                 <img
                   class="dj-box"
                   @click="selectRegistCare('普')"
-                  :class="{active: formData.registCare.includes('普')}"
-                  :src="formData.registCare.includes('普')?require('./images/普选.png'): require('./images/普.png')"
+                  :class="{ active: formData.registCare.includes('普') }"
+                  :src="
+                    formData.registCare.includes('普')
+                      ? require('./images/普选.png')
+                      : require('./images/普.png')
+                  "
                 />
               </div>
             </div>
@@ -133,26 +180,42 @@
                 <img
                   class="dj-box"
                   @click="selectRegistCare('特')"
-                  :class="{active: formData.registCare.includes('特')}"
-                  :src="formData.registCare.includes('特')?require('./images/特选.png'): require('./images/特.png')"
+                  :class="{ active: formData.registCare.includes('特') }"
+                  :src="
+                    formData.registCare.includes('特')
+                      ? require('./images/特选.png')
+                      : require('./images/特.png')
+                  "
                 />
                 <img
                   class="dj-box"
                   @click="selectRegistCare('一')"
-                  :class="{active: formData.registCare.includes('一')}"
-                  :src="formData.registCare.includes('一')?require('./images/一选.png'): require('./images/一.png')"
+                  :class="{ active: formData.registCare.includes('一') }"
+                  :src="
+                    formData.registCare.includes('一')
+                      ? require('./images/一选.png')
+                      : require('./images/一.png')
+                  "
                 />
                 <img
                   class="dj-box"
                   @click="selectRegistCare('二')"
-                  :class="{active: formData.registCare.includes('二')}"
-                  :src="formData.registCare.includes('二')?require('./images/二选.png'): require('./images/二.png')"
+                  :class="{ active: formData.registCare.includes('二') }"
+                  :src="
+                    formData.registCare.includes('二')
+                      ? require('./images/二选.png')
+                      : require('./images/二.png')
+                  "
                 />
                 <img
                   class="dj-box"
                   @click="selectRegistCare('三')"
-                  :class="{active: formData.registCare.includes('三')}"
-                  :src="formData.registCare.includes('三')?require('./images/三选.png'): require('./images/三.png')"
+                  :class="{ active: formData.registCare.includes('三') }"
+                  :src="
+                    formData.registCare.includes('三')
+                      ? require('./images/三选.png')
+                      : require('./images/三.png')
+                  "
                 />
               </div>
             </div>
@@ -221,21 +284,32 @@
                 :key="item.label"
               >
                 <img :src="item.img" alt />
-                <span>{{item.label}}</span>
+                <span>{{ item.label }}</span>
               </div>
             </div>
           </div>
         </div>
       </div>
       <div slot="button">
-        <span style="position: absolute; left: 10px; padding-top: 4px" v-if="HOSPITAL_ID != 'hj'">
+        <span
+          style="position: absolute; left: 10px; padding-top: 4px"
+          v-if="HOSPITAL_ID != 'hj'"
+        >
           <span>显示诊断</span>
-          <el-switch on-text="是" off-text="否" v-model="formData.remarkPrint"></el-switch>
+          <el-switch
+            on-text="是"
+            off-text="否"
+            v-model="formData.remarkPrint"
+          ></el-switch>
         </span>
 
         <el-button class="modal-btn" @click="close">取消</el-button>
-        <el-button class="modal-btn" type="primary" @click="post">保存</el-button>
-        <el-button class="modal-btn" type="info" @click="onPrint">打印</el-button>
+        <el-button class="modal-btn" type="primary" @click="post"
+          >保存</el-button
+        >
+        <el-button class="modal-btn" type="info" @click="onPrint"
+          >打印</el-button
+        >
       </div>
     </sweet-modal>
   </div>
@@ -548,6 +622,7 @@ export default {
       return this.formData.remarkPrint;
     }
   },
+  watch() {},
   methods: {
     init() {
       this.formData = {
@@ -572,14 +647,14 @@ export default {
         };
         this.modalLoading = false;
         if (
-          this.HOSPITAL_ID == 'liaocheng' &&
+          this.HOSPITAL_ID == "liaocheng" &&
           JSON.parse(localStorage.user) &&
           JSON.parse(localStorage.user).post != "护长"
         ) {
           if (resData.isPrint == 1) {
             this.$message({
               type: "warning",
-              message: "该患者已打印床头卡",
+              message: "该患者已打印床头卡"
             });
             return;
           } else {
@@ -619,17 +694,20 @@ export default {
     open() {
       this.init();
       if (
-        (this.HOSPITAL_ID == 'liaocheng' &&
-        JSON.parse(localStorage.user) &&
-        JSON.parse(localStorage.user).post == "护长") ||
-        this.HOSPITAL_ID != 'liaocheng'
+        (this.HOSPITAL_ID == "liaocheng" &&
+          JSON.parse(localStorage.user) &&
+          JSON.parse(localStorage.user).post == "护长") ||
+        this.HOSPITAL_ID != "liaocheng"
       ) {
         this.isOpen();
       }
     },
     isOpen() {
       this.$refs.modal.open();
-      let qr_png_value = this.HOSPITAL_ID == 'liaocheng' ? this.query.patientId + '|' + this.query.visitId : this.query.patientId;
+      let qr_png_value =
+        this.HOSPITAL_ID == "liaocheng"
+          ? this.query.patientId + "|" + this.query.visitId
+          : this.query.patientId;
       var qr_png = qr.imageSync(qr_png_value, { type: "png" });
       function arrayBufferToBase64(buffer) {
         var binary = "";
