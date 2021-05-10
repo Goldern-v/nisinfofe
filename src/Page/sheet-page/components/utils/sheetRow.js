@@ -45,7 +45,7 @@ export function getRowNum(index) {
     //   return 9;
     // }
   } else if (sheetInfo.sheetType == "critical_lc") {
-    return 12;
+    return 20;
   }{
     return 17;
   }
