@@ -35,39 +35,36 @@ export default [{
     event: keyf1
   },
   {
-    key: "consciousness", // 精神
+    key: "bloodPressure", // 血压
+    value: "",
+    event: function(e, td) {
+      if (e.keyCode == 32) {
+        e.target.value += "/";
+        e.preventDefault();
+      }
+      keyf1(e, td);
+    }
+  },
+  {
+    key: "spo2", // 血氧饱和度
     value: "",
     event: keyf1
   },
   {
-    key: "fieldOne", //胃纳
+    key: "fieldOne", //  饮食
     value: "",
-    neme: "胃纳",
     event: keyf1,
     textarea: {
       width: 48
     }
   },
   {
-    key: "fieldTwo", // 咳痰
+    key: "fieldFour", // 静脉（ml）
     value: "",
-    neme: "咳痰",
     event: keyf1,
-    textarea: {
-      width: 48
-    }
   },
   {
-    key: "fieldThree", // 咳嗽
-    value: "",
-    neme: "咳嗽",
-    event: keyf1,
-    textarea: {
-      width: 36
-    }
-  },
-  {
-    key: "fieldFour", // 入量静脉（ml）
+    key: "fieldFive", // 进食（ml）
     value: "",
     event: keyf1
   },
@@ -77,26 +74,47 @@ export default [{
     event: keyf1
   },
   {
-    key: "fieldSix", // 大便（g/性状）
+    key: "otherFood", // 入量自定义
     value: "",
     event: keyf1
   },
   {
-    key: "fieldSeven", // 小便（ml）
+    key: "urineVolume", // 尿量（ml）
     value: "",
     event: keyf1,
   },
   {
-    key: "fieldEight", // 呕吐（ml）
+    key: "dischargeColor", // 尿量颜色
     value: "",
     event: keyf1
   },
   {
-    key: "fieldNine", // 护理指导
+    key: "fieldSix", // 大便（g/性状）
+    value: "",
+    event: keyf1,
+    
+  },
+  {
+    key: "fieldEight", //  呕吐（ml）
+    value: "",
+    event: keyf1
+  },
+  {
+    key: "otherDischarge", //  出量自定义
+    value: "",
+    event: keyf1
+  },
+  {
+    key: "fieldTen", //  伤口敷料
+    value: "",
+    event: keyf1
+  },
+  {
+    key: "fieldNine", //  护理指导
     value: "",
     event: keyf1,
     autoComplete: {
-      data: ['①', '②', '③', '④', '⑤', '⑥']
+      data: ['1', '2', '3', '4', '5', '6', '7']
     }
   },
   {
@@ -104,20 +122,16 @@ export default [{
     value: "",
     event: keyf1,
     autoComplete: {
-      data: ['①', '②', '③', '④', '⑤', '⑥', '⑦', '⑧', '⑨', '⑩', '11']
+      data: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11']
     }
   },
-  {
-    key: "fieldTen", // 留置针
-    value: "",
-    event: keyf1
-  },
+  
   {
     key: "fieldEleven", //标题1
     value: "",
     event: keyf1,
     textarea: {
-      width: 44
+      width: 38
     }
   },
   {
@@ -125,7 +139,7 @@ export default [{
     value: "",
     event: keyf1,
     textarea: {
-      width: 44
+      width: 38
     }
   },
   {
@@ -133,7 +147,7 @@ export default [{
     value: "",
     event: keyf1,
     textarea: {
-      width: 44
+      width: 38
     }
   },
   {

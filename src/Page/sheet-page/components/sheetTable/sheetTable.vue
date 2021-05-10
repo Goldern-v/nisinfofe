@@ -181,12 +181,7 @@ export default {
       } else if (this.HOSPITAL_ID == "huadu") {
         return tableHeadHd;
       } else if (this.HOSPITAL_ID == "fuyou") {
-        if (sheetInfo.sheetType == "child_recovery_jm") {
-          return tableHeadDiagnosis;
-        }
-        else {
-          return tableHeadFuyou;
-        }
+        return tableHeadFuyou;
       } else {
         return tableHead;
       }

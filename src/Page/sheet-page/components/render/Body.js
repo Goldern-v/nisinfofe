@@ -412,6 +412,11 @@ function switechSheetType(type) {
     schema = require("../config/child_recovery_jm/tr.js").default;
   }
   break;
+  case "pediatric_surgery_jm": {
+    // 江门妇幼 - 小儿外科护理记录单
+    schema = require("../config/pediatric_surgery_jm/tr.js").default;
+  }
+  break;
   case "body_temperature_lcey": {
     // 聊城二院 - 体温单
     schema = require("../config/body_temperature_lcey/tr.js").default;
