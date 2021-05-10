@@ -46,7 +46,9 @@ export function getRowNum(index) {
     // }
   } else if (sheetInfo.sheetType == "critical_lc") {
     return 12;
-  }{
+  } else if (sheetInfo.sheetType == "picu_hemodialysis_jm") {
+    return 15;
+  } {
     return 17;
   }
 }

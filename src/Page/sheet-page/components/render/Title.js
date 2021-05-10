@@ -501,6 +501,13 @@ export default function Title(
     );
   }
   break;
+  case "picu_hemodialysis_jm": {
+    // 江门妇幼 - PICU血液透析护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/picu_hemodialysis_jm/th.js").default)
+    );
+  }
+  break;
   case "body_temperature_lcey": {
     // 聊城二院 - 体温单
     Th = JSON.parse(
