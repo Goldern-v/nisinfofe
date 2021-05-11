@@ -153,9 +153,9 @@ export default {
           this.HOSPITAL_ID == "lingcheng"
             ? res.data.data.expand
             : res.data.data.filePath;
-        if(this.HOSPITAL_ID == "zhongshanqi" && this.filePath){
-          this.filePath = `http://admin:Zsqy@2021@${this.filePath.split('http://')[1]}`
-        }
+        // if(this.HOSPITAL_ID == "zhongshanqi" && this.filePath){
+        //   this.filePath = `http://120.197.141.41:9091/crNursing/`
+        // }
       });
     },
     onload() {
