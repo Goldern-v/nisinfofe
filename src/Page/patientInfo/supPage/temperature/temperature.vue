@@ -153,6 +153,9 @@ export default {
           this.HOSPITAL_ID == "lingcheng"
             ? res.data.data.expand
             : res.data.data.filePath;
+        if(this.HOSPITAL_ID == "zhongshanqi" && this.filePath){
+          this.filePath = `http://admin:Zsqy@2021@${this.filePath.split('http://')[1]}`
+        }
       });
     },
     onload() {
