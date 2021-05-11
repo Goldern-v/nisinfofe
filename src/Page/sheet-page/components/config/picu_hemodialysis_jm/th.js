@@ -155,10 +155,10 @@ export default {
       },
       {
         name: `
-        病人脱水
-<br/>总量<br/>ml
+        病人脱水<br/>总量<br/>ml
         `,
         style: {
+          minwidth: '52px',
         },
         colspan: '1',
         rowspan: '1'
@@ -168,6 +168,7 @@ export default {
         病人脱水<br/>累计总量<br/>ml
         `,
         style: {
+          minwidth: '52px',
         },
         colspan: '1',
         rowspan: '1'
