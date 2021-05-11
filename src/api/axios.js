@@ -18,7 +18,7 @@ axios.interceptors.request.use((config) => {
     if (config.url.indexOf("identityCheck") > -1 ){
         config.headers.common["Auth-Token-Nursing"] = token || '';
     }
-    if (config.url.indexOf('login') > -1 || config.url.indexOf('autoLogin') > -1 || config.url.indexOf('logout') > -1 || config.url.indexOf('resetPassword') > -1 || config.url.indexOf('identityCheck') > -1) return config
+    if (config.url.indexOf('login') > -1 || config.url.indexOf('autoLogin') > -1 || config.url.indexOf('logout') > -1 || config.url.indexOf('changePasswordByEmpNo') > -1 || config.url.indexOf('identityCheck') > -1) return config
     var user = localStorage['user']
     if (token) {
         config.headers.common['Auth-Token-Nursing'] = token
@@ -89,7 +89,7 @@ axios.interceptors.response.use((res) => {
         return res
     }
 }, (err) => {
-    if(error && error.message == 'Network Error'){
+    if(err && err.message == 'Network Error'){
         window.app && window.app.$message({
             showClose: true,
             message: '网络错误，请检查你的网络',

@@ -28,6 +28,15 @@
           class="login-shaw"
         />
         <div class="login-con">
+          <div class="toggle-login-type" v-if="HOSPITAL_ID == 'zhongshanqi'">
+            <div class="img" @click="toggleLoginType">
+              <img src="../../common/images/login_pwd.png" alt="" v-if="showPwdType">
+              <img src="../../common/images/login-qrcode.png" alt="" v-else>
+            </div>
+            <div class="qrcode" v-show="!showPwdType">
+              <img src="../../common/images/qrcode_zsq.png" alt="">
+            </div>
+          </div>
           <div>
             <div class="logo-con">
               <img :src="logoUrl" height="63" width="63" />
@@ -151,6 +160,40 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
   border-radius: 2px;
   position: relative;
   z-index: 2;
+  .toggle-login-type {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    .img {
+      position: absolute;
+      top: 0;
+      right: 0;
+      cursor: pointer;
+      z-index: 1001;
+      img {
+        width: 50px;
+        height: 50px;
+      }
+    }
+    .qrcode {
+      position: absolute;
+      top: 0;
+      right: 0;
+      z-index: 1000;
+      width: 100%;
+      height: 100%;
+      background-color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      img {
+        width: 164px;
+        height: 164px;
+      }
+    }
+  }
 }
 
 .logo-con {
@@ -309,6 +352,7 @@ export default {
       password: "",
       remember: true,
       ajax: false,
+      showPwdType: 'pwd',//显示的登录方式，默认是密码
     };
   },
   methods: {
@@ -390,6 +434,10 @@ export default {
         this.$router.push("/resetPassword");
       }, 1000);
     },
+    // 切换登录方式（二维码只供展示，暂不做登录处理）
+    toggleLoginType(){
+      this.showPwdType = !this.showPwdType;
+    }
   },
   created() {
     if (localStorage["rememberAccount"]) {
