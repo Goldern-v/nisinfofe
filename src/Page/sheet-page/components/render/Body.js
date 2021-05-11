@@ -417,6 +417,11 @@ function switechSheetType(type) {
     schema = require("../config/pediatric_surgery_jm/tr.js").default;
   }
   break;
+  case "picu_hemodialysis_jm": {
+    // 江门妇幼 - PICU血液透析护理记录单
+    schema = require("../config/picu_hemodialysis_jm/tr.js").default;
+  }
+  break;
   case "body_temperature_lcey": {
     // 聊城二院 - 体温单
     schema = require("../config/body_temperature_lcey/tr.js").default;

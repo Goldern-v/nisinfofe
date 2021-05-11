@@ -303,7 +303,8 @@
         sheetInfo.sheetType === 'neonatology_picc' ||
           sheetInfo.sheetType === 'internal_eval_lcey' ||
           sheetInfo.sheetType === 'intervention_cure_lcey' ||
-          sheetInfo.sheetType === 'critical_lc'
+          sheetInfo.sheetType === 'critical_lc' || 
+          sheetInfo.sheetType === 'picu_hemodialysis_jm'
       "
     ></slot>
     <!-- 表格下方的备注组件 -->
