@@ -21,7 +21,7 @@
 
 <script>
 import RenderForm from "@/Page/sheet-hospital-admission/components/Render/main.vue";
-import {getOldFormCode} from "@/Page/sheet-hospital-admission/components/Render/common.js";
+import { getOldFormCode } from "@/Page/sheet-hospital-admission/components/Render/common.js";
 import BusFactory from "vue-happy-bus";
 import common from "@/common/mixin/common.mixin.js";
 
@@ -178,7 +178,12 @@ export default {
       });
 
       /** 自动获取弹窗配置 */
-      const contexts = require.context("../data/formDialog", true, /\.json$/);
+      let contexts = null
+      if (this.HOSPITAL_NAME === '聊城市第二人民医院') {
+        contexts = require.context('../data/formDialogLiaoc', true, /\.json$/);
+      } else {
+        contexts = require.context('../data/formDialog', true, /\.json$/);
+      }
       contexts.keys().forEach((context, b, c, d) => {
         let djson = contexts(context);
         try {
@@ -189,9 +194,13 @@ export default {
         if (djson.schemes) {
           let fromName = context.replace("./", "").replace(".json", "");
 
-          let schemes = JSON.parse(
-            JSON.stringify(require(`../data/formSchemes/${fromName}.txt.json`))
-          );
+          let schemesJson = null
+          if (this.HOSPITAL_NAME === '聊城市第二人民医院') {
+            schemesJson = require(`../data/formSchemesLiaoc/${fromName}.txt.json`)
+          } else {
+            schemesJson = require(`../data/formSchemes/${fromName}.txt.json`)
+          }
+          let schemes = JSON.parse(JSON.stringify(schemesJson));
 
           djson.schemes = schemes;
           djson.schemesObj = {};

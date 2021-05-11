@@ -74,7 +74,7 @@
                 type="text"
                 :style="{
                   width: '75px',
-                  'font-size': query.bedLabel.length > 4 ? '25px' : '30px',
+                  'font-size': query.bedLabel.length > 3 ? '24px' : '30px',
                   'padding-left': '5px',
                   'line-height': ' 35px'
                 }"
@@ -253,11 +253,11 @@
                 v-model="formData.dutyNurses"
               />
             </div>
-            <!-- <div
+            <div
               flex="cross:top"
               class="input-item"
               style="height: 58px;margin-top: 4px"
-              v-if="formData.remarkPrint"
+              v-if="formData.remarkPrint && HOSPITAL_ID === 'hengli'"
             >
               <div class="input-item-left">
                 <span class="input-item-left-label">诊断:</span>
@@ -271,7 +271,7 @@
                 :value="formData.remark"
                 :maxlength="35"
               ></textarea>
-            </div> -->
+            </div>
           </div>
           <div style="width: 131px">
             <div class="tip">温馨提示</div>
