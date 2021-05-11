@@ -5,7 +5,7 @@ export default {
     openLeft: true,
     mailUnread: 0,
     relogin: false,
-    screenLock: localStorage.screenLock || false, // 是否锁屏 从本地存储初始化
+    screenLock: localStorage.screenLock === "true" ? true : false, // 是否锁屏 从本地存储初始化
   },
   mutations: {
     upWih(state, value) {

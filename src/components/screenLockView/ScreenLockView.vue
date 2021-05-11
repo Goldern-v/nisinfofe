@@ -27,12 +27,13 @@
         </div>
         <div class="user-name">{{ userName }}</div>
         <div class="input-con" style="margin-top: 10px">
-          <input
+          <!-- <input
+            v-if="screenLock"
             type="password"
-            :autocomplete="false"
+            autocomplete="new-password"
             placeholder="密码"
             v-model="password"
-          />
+          /> -->
           <img src="../../common/images/password.png" height="14" width="14" />
         </div>
         <button v-touch-ripple class="active-btn" @click="ckeckAndUnlock">
