@@ -193,29 +193,16 @@
     <div class="bottomTable" v-if="sheetInfo.sheetType == 'critical_lc'">
       <table>
       <colgroup>
-        <col width="41px" />
-        <col />
+        <col width="46px" />
+        <col width="1355px" />
       </colgroup>
       <tbody>
         <tr>
-          <td rowspan="9" style="text-align: center;vertical-align: middle;">医<br />嘱<br />内<br />容</td>
-          <td>
-            <input
-            type="text"
-            v-model="sheetInfo.relObj[advice[0]]"
-            :data-value="sheetInfo.relObj[advice[0]]"
-            />
+          <td style="text-align: center;vertical-align: middle;">医<br />嘱<br />内<br />容</td>
+          <td class="textarea">
+            <textarea v-model="sheetInfo.relObj['advice10']" :data-value="sheetInfo.relObj['advice10']"></textarea>
           </td>
         </tr>
-        <tr v-for="item in advice.slice(1)" :key="item">
-          <td>
-            <input
-              type="text"
-              v-model="sheetInfo.relObj[item]"
-              :data-value="sheetInfo.relObj[item]"
-            />
-          </td>
-          </tr>
       </tbody>
       </table>
       <div style="padding-top: 10px;">
@@ -230,13 +217,12 @@ import sheetInfo from "../../../config/sheetInfo";
 export default {
   data() {
     return {
-      sheetInfo,
-      advice: ['advice','advice2','advice3','advice4','advice5','advice6','advice7','advice8','advice9']
+      sheetInfo
     };
   },
   created(){
-    if(this.sheetInfo.sheetType == 'critical_lc' && this.sheetInfo.relObj['advice'] == undefined){
-      this.sheetInfo.relObj['advice'] = '【1】0.9%NS100ml,奥美拉唑40mg iv 12:00【2】0.9%NS100ml,奥美拉唑40mg iv 12:00';
+    if(this.sheetInfo.sheetType == 'critical_lc' && this.sheetInfo.relObj['advice10'] == undefined){
+      this.sheetInfo.relObj['advice10'] = '【1】0.9%NS100ml,奥美拉唑40mg iv 12:00【2】0.9%NS100ml,奥美拉唑40mg iv 12:00';
     }
   }
 };
@@ -263,12 +249,19 @@ export default {
       p{
         line-height :20px;
       }
-      input {
+      &.textarea {
+        height: 150px;
+      }
+      textarea  {
         width: 100%;
-        height: 28px;
+        height: 100%;
         border: none;
         outline: none;
+        resize: none;
         box-sizing: border-box;
+        line-height: 18px;
+        padding: 5px;
+        overflow: hidden;
       }
     }
   }

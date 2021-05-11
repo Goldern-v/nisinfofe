@@ -69,11 +69,6 @@ export default [{
     event: keyf1
   },
   {
-    key: "fieldFive", // 进食（ml）
-    value: "",
-    event: keyf1
-  },
-  {
     key: "otherFood", // 入量自定义
     value: "",
     event: keyf1
@@ -93,6 +88,11 @@ export default [{
     value: "",
     event: keyf1,
     
+  },
+  {
+    key: "stoolNature", // 大便性质
+    value: "",
+    event: keyf1
   },
   {
     key: "fieldEight", //  呕吐（ml）

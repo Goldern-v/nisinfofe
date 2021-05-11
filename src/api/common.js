@@ -102,3 +102,10 @@ export function getUser(password, empNo) {
 export function nursingUnitAll() {
   return axios.get(`${apiPath}user/nursingUnit/all`)
 }
+
+// 获取his数据
+export function getProcedureData(obj) {
+  return axios.post(`${apiPath}procedure/his`, {
+    strJson: JSON.stringify(obj)
+  });
+}
