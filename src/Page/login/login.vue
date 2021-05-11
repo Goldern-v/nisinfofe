@@ -31,7 +31,7 @@
           <div class="toggle-login-type" v-if="HOSPITAL_ID == 'zhongshanqi'">
             <div class="img" @click="toggleLoginType">
               <img src="../../common/images/login_pwd.png" alt="" v-show="showPwdType">
-              <img src="../../common/images/login-qrcode.png" alt="" v-show="!showPwdType">
+              <img src="../../common/images/login_qrcode.png" alt="" v-show="!showPwdType">
             </div>
             <div class="qrcode" v-show="!showPwdType">
               <img src="../../common/images/qrcode_zsq.png" alt="">
