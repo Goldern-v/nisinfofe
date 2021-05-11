@@ -92,9 +92,8 @@ export default {
       }
       this.$refs[refName]["runTasks"] = this.runTasks;
       this.$refs[refName]["childObject"] = this.obj;
-      this.$root.$refs[this.formCode][this.obj.name][refName] = this.$refs[
-        refName
-        ];
+      this.$refs[refName].type = 'radio'
+      this.$root.$refs[this.formCode][this.obj.name][refName] = this.$refs[refName]
     }
   },
   created() {
@@ -105,9 +104,9 @@ export default {
       return uuid_;
     },
     checkboxClick(e) {
-      if (e.target.tagName !== "INPUT") {
-        return;
-      }
+      // if (e.target.tagName !== "INPUT") {
+      //   return;
+      // }
 
       if (this.$refs[this.refName]) {
         this.$refs[this.refName].$parent.$parent.$parent.$el.style.outline =
