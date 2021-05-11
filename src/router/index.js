@@ -125,6 +125,8 @@ const cognitiveStatistic = () =>
   import("@/Page/cognitive-statistic/cognitive-statistic.vue"); //住院病人认知情况统计表
 const implementationReport = () =>
   import("@/Page/implementation-report/implementation-report.vue"); //执行单报表
+const bedRecord = () =>
+  import("@/Page/bed-record/bed-record.vue"); //转床记录
 
 const demo = () => import("@/demo/demo"); //demo
 /** 包含全局样式的页面，患者详情子页面不可代码切割 */
@@ -717,7 +719,12 @@ const router = new Router({
           path: "/implementationReport",
           component: implementationReport,
           name: "执行单报表"
-        }
+        },
+        {
+          path: "/bedRecord",
+          component: bedRecord,
+          name: "转床记录"
+        },
       ]
     },
     {
