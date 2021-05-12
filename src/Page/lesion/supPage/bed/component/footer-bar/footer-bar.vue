@@ -6,8 +6,10 @@
       v-for="item in list"
       :key="item.key"
       @click="selectType(item)"
-      :class="{active: selectName == item.key}"
-    >{{item.key}}（{{item.length || 0}}）</div>
+      :class="{ active: selectName == item.key }"
+    >
+      {{ item.key }}（{{ item.length || 0 }}）
+    </div>
   </div>
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
@@ -109,7 +111,11 @@ export default {
           length: this.MEWS.length
         }
       ];
-      if ( this.HOSPITAL_ID == "lingcheng" || this.HOSPITAL_ID == "huadu") {
+      if (
+        this.HOSPITAL_ID == "lingcheng" ||
+        this.HOSPITAL_ID == "huadu" ||
+        this.HOSPITAL_ID == "liaocheng"
+      ) {
         arr.push({
           key: "发热",
           length: this.isFever.length
