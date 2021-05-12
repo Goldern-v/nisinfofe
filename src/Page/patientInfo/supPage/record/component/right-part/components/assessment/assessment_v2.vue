@@ -6,7 +6,7 @@
       :element-loading-text="pageLoadingText"
       ref="iframeLoadingV2"
     >
-       <iframe
+      <iframe
         :style="{ height: iframeHeight + 'px' }"
         frameborder="0"
         class="assessmentv2-iframe"
@@ -37,6 +37,7 @@
   width: 100%;
 
   // border: 1px solid red;
+
   .assessmentv2-iframe {
     width: 100%;
     // min-height: 600px;
@@ -46,6 +47,7 @@
   /deep/ .circular {
     // display: none!important;
     // visibility: hidden!important;
+
     &.hidden-loading {
       display: none !important;
       visibility: hidden !important;
@@ -103,6 +105,7 @@ import {
 } from "@/common/pathConfig/index.js";
 import common from "@/common/mixin/common.mixin.js";
 import qs from "qs";
+
 export default {
   name: "assessment_v2",
   mixins: [common],
@@ -123,7 +126,8 @@ export default {
       isLandscape: false,
       eventTarget: null,
       marklist: [],
-      handleMarklist: []
+      handleMarklist: [],
+      onlyView: false
     };
   },
   created() {
@@ -163,7 +167,8 @@ export default {
     //
     try {
       window.app.$refs.iframeLoadingBox.$methods().setLoadingStatus(false);
-    } catch (error) {}
+    } catch (error) {
+    }
     //
     this.$refs["iframeLoadingV2"]["$methods"] = () => {
       return {
@@ -213,7 +218,7 @@ export default {
     this.$refs["iframeLoadingV2"]["setLoadingButton"] = this.setLoadingButton;
     this.$refs["iframeLoadingV2"][
       "setloadingSVGHidden"
-    ] = this.setloadingSVGHidden;
+      ] = this.setloadingSVGHidden;
     this.$root.$refs["iframeLoadingV2"] = this.$refs["iframeLoadingV2"];
   },
   methods: {
@@ -227,6 +232,7 @@ export default {
     },
     // 点击左边栏目录里已经记录好的模版,通过改变iframe URL属性,刷新iframe内容
     openUrl(info) {
+      this.onlyView = info.onlyView
       if (info.islink && this.HOSPITAL_ID == "hj") {
         this.pageLoading = false;
         this.url = info.pageUrl;
@@ -248,7 +254,7 @@ export default {
       let query = this.$route.query;
       // this.info = {}
       this.info.todo = "";
-      this.info = { ...this.info, ...info };
+      this.info = {...this.info, ...info};
       // this.info = Object.assign({}, this.info, info);
       // this.info = Object.assign(this.info, info);
       let url = "";
@@ -290,15 +296,18 @@ export default {
         title: this.info.title || ""
         // ...this.info
       };
-      if( this.HOSPITAL_NAME === '东莞市厚街医院'){
+      if (this.onlyView) {
+        queryObj = {
+          onlyView: info.onlyView
+        }
+      }
+      if (this.HOSPITAL_NAME === '东莞市厚街医院') {
         delete queryObj.token
       }
 
       this.info["pagePrintUrl"] = this.info.pageUrl
         ? this.info.pageUrl.replace(".html", "-打印.html")
         : "";
-
-      // console.log("this.info", this.info, queryObj);
 
       if (["1", "2"].indexOf(this.info.nooForm) > -1) {
         // console.log(queryObj.title,"formCode")
@@ -315,7 +324,7 @@ export default {
         } else {
           url = `${formUrl}/${this.info.pageUrl}?${qs.stringify(queryObj)}`;
         }
-        console.log("打开表单", url, { url: url + "" });
+        console.log("打开表单", url, {url: url + ""});
       } else {
         this.showSignSave = this.info.showSignSave || false;
         let formid = this.info.id;
@@ -360,15 +369,15 @@ export default {
       this.wid = this.$refs.iframeV2.contentWindow;
       this.wid.onmessage = this.onmessage;
 
-      // 医生查看患者详情
-      if (this.$route.path.includes("showPatientDetails")) {
-        if(wid.document.querySelector(".tool-contain")){
+      // 医生查看患者详情  或者 预览模式
+      if (this.$route.path.includes("showPatientDetails") || this.onlyView) {
+        if (wid.document.querySelector(".tool-contain")) {
           wid.document.querySelector(".tool-contain").style = "display:none;";
-          if(wid.document.querySelector("#app .form")){
+          if (wid.document.querySelector("#app .form")) {
             wid.document.querySelector("#app .form").style = "padding-top:20px;";
           }
         }
-        if(wid.document.querySelector(".top-bar")){
+        if (wid.document.querySelector(".top-bar")) {
           wid.document.querySelector(".top-bar").style = "display:none;";
           wid.document.querySelector("body").style = "padding-top:20px;";
         }
@@ -444,7 +453,7 @@ export default {
           this.setLoadingStatus(true);
           this.setLoadingText(
             `网络异常,${this.info.name ||
-              this.info.pageUrl.replace(".html", "")},页面无法获取,请尝试刷新`
+            this.info.pageUrl.replace(".html", "")},页面无法获取,请尝试刷新`
           );
           // this.pageLoadingText = `网络异常,${this.info.name},页面无法获取,请尝试刷新`;
           this.setloadingSVGHidden(true);
@@ -456,7 +465,7 @@ export default {
           });
         }
       } catch (error) {
-        console.error("onload:formInfo:error", { error });
+        console.error("onload:formInfo:error", {error});
         this.setLoadingStatus(true);
         this.setLoadingText(
           `网络异常,${this.info.name},页面无法获取,请尝试刷新.`
@@ -498,8 +507,8 @@ export default {
         });
       }
 
-      // 医生查看患者详情
-      if (window.location.href.includes("showPatientDetails")) {
+      // 医生查看患者详情  或者 预览模式
+      if (window.location.href.includes("showPatientDetails") || this.onlyView) {
         this.$nextTick(() => {
           let css = `#app input,#app label{
               pointer-events: none !important;
@@ -625,7 +634,7 @@ export default {
           if (res) {
             let {
               data: {
-                data: { list: list }
+                data: {list: list}
               }
             } = res;
             this.marklist = JSON.parse(JSON.stringify(list));
@@ -671,7 +680,7 @@ export default {
         this.$notify({
           title: "提示",
           message: `打印前请检查所有 ${curForm.label ||
-            ""} 都已签名, 仍有 ${unsignForm.length || 0} 张未签名.`,
+          ""} 都已签名, 仍有 ${unsignForm.length || 0} 张未签名.`,
           type: "warning"
         });
         return;
@@ -834,7 +843,8 @@ export default {
           });
           return;
         }
-      } catch (e) {}
+      } catch (e) {
+      }
       this.info["status"] = "1";
       jQuery("[name$='status']", this.wid.document).val("1");
       this.saveForm();
@@ -853,7 +863,8 @@ export default {
           });
           return;
         }
-      } catch (e) {}
+      } catch (e) {
+      }
       window.sign = "shenheSign";
       this.info["status"] = "2";
       jQuery("[name$='status']", this.wid.document).val("2");
@@ -1018,7 +1029,7 @@ export default {
       // $(`input[name*='formCode']`,wid.document)
       // window.widTest.document.querySelectorAll(`input[id*='CR']`)
 
-      $(selectString, wid.document).each(function() {
+      $(selectString, wid.document).each(function () {
         // var item = {[this.name]:this.value};
         // console.log(this.name);
         if (
@@ -1097,7 +1108,8 @@ export default {
         this.$refs.iframeV2.contentWindow.location.reload();
 
         // console.log("innerHTML",this.$refs.iframeV2.contentWindow.document.innerHTML);
-      } catch (e) {}
+      } catch (e) {
+      }
     },
     openScoreChart() {
       let query = this.$route.query;
@@ -1125,7 +1137,8 @@ export default {
         try {
           this.info["status"] = "2";
           jQuery("[name$='status']", this.wid.document).val("2");
-        } catch (e) {}
+        } catch (e) {
+        }
 
         let NurseTitle = JSON.parse(localStorage.user).title;
         if (NurseTitle && NurseTitle === "护士长") {
@@ -1195,7 +1208,8 @@ export default {
               });
               return;
             }
-          } catch (e) {}
+          } catch (e) {
+          }
           evalDel(this.info.id, password, empNo).then(res => {
             this.bus.$emit("refreshTree");
             this.bus.$emit("closeAssessment");
@@ -1213,7 +1227,7 @@ export default {
                 id: item.blockId,
                 password,
                 empNo,
-                list: [{ id: item.id }]
+                list: [{id: item.id}]
               }
             );
             del(item.formApiCode, data, item.formType).then(res => {
@@ -1563,7 +1577,7 @@ export default {
             if (recordObj.id) {
               this.bus.$emit(
                 "openPizhuModalBox",
-                { ...rowData, ...recordObj },
+                {...rowData, ...recordObj},
                 recordObj.name,
                 () => {
                   this.getMarkList(this.onloadMarkList);
@@ -1604,7 +1618,7 @@ export default {
         // }
       ];
       event.preventDefault();
-      window.openContextMenu({ style, data });
+      window.openContextMenu({style, data});
     },
     onClick(event) {
       console.log("onClick", event, {
@@ -1661,7 +1675,7 @@ export default {
             top: y
           },
           data: obj,
-          td: { markObj: obj, event: event, value: dom.value },
+          td: {markObj: obj, event: event, value: dom.value},
           fun: {
             handlepz,
             delpz,
@@ -1762,9 +1776,9 @@ export default {
   },
   watch: {
     url() {
-     if (this.info.formCode) {
+      if (this.info.formCode) {
         this.pageLoading = true;
-     }
+      }
       // this.bus.$emit("closeAssessmentV1");
       // this.iframeHeight = "auto";
       // this.iframeHeight = this.wih - this.offsetHeight; //100;
