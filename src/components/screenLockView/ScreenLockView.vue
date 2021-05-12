@@ -28,8 +28,9 @@
         <div class="user-name">{{ userName }}</div>
         <div class="input-con" style="margin-top: 10px">
           <input
+            v-if="screenLock"
             type="password"
-            :autocomplete="false"
+            autocomplete="new-password"
             placeholder="密码"
             v-model="password"
           />
