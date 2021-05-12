@@ -65,6 +65,8 @@
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
+  display: flex;
+  align-items: center;
   // &:hover
   // .tree-node
   // background rgb(228, 241, 240)
@@ -95,6 +97,7 @@
 }
 
 .tree-box-node {
+  flex: 1;
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
@@ -103,11 +106,32 @@
   position: relative;
   top: 3px;
 
+  &:hover .view {
+    display: inherit;
+  }
+
   img {
     width: 20px;
     position: relative;
     top: 3px;
     margin-right: 2px;
+  }
+
+  .view {
+    display: none;
+    width: 40px;
+    height: 30px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+    border-radius: 4px;
+    background-color: #fff;
+    overflow: hidden;
+    text-align: center;
+    line-height 30px;
+    border: 1px solid #eee;
+    box-shadow: 0 2px 4px 0 #eee;
   }
 }
 
@@ -163,6 +187,7 @@ import newForm from "../modal/new-form.vue";
 import commonMixin from "@/common/mixin/common.mixin";
 import { getFormConfig } from "../config/form-config.js";
 import { hadTransferToWard } from "../api/index.js";
+
 export default {
   props: {
     filterObj: Object
@@ -222,7 +247,7 @@ export default {
     nodeClick(data, node) {
       console.log(
         "nodeClick",
-        { data, node },
+        {data, node},
         node.parent,
         node.data.formName,
         data.pageTitle
@@ -267,7 +292,7 @@ export default {
           );
         } else {
         }
-      }else if(node.data.islink && this.HOSPITAL_ID == "hj"){
+      } else if (node.data.islink && this.HOSPITAL_ID == "hj") {
         this.bus.$emit(
           "openAssessmentBox",
           Object.assign({}, getFormConfig(node.data.formName), {
@@ -278,7 +303,7 @@ export default {
         );
       }
     },
-    renderContent(h, { node, data, store }) {
+    renderContent(h, {node, data, store}) {
       // let fileicon = fileicon
       // let filebox = filebox
       // // 如果存在保存
@@ -292,58 +317,94 @@ export default {
           return item.data.status == "1";
         }).length > 0;
 
-      let fileHasSave = node.data.status == 0; 
+      let fileHasSave = node.data.status == 0;
       let fileHasSign = node.data.status == 1;
       let icon;
       let box;
-     
+
       let formNoSign = node.data.formTreeRemindType == '0'; // 无签名
       let formSign = node.data.formTreeRemindType == '1'; // 责任（多人签名）
       let formAudit = node.data.formTreeRemindType == '2'; // 责任 + 审核
-      
+
       // 花都特殊处理
-      if( this.HOSPITAL_ID == "huadu" || this.HOSPITAL_ID == "liaocheng" || this.HOSPITAL_ID == "zhongshanqi") {
+      if (this.HOSPITAL_ID == "huadu" || this.HOSPITAL_ID == "liaocheng" || this.HOSPITAL_ID == "zhongshanqi") {
         // 文件夹
         // 责任 + 审核的情况
-        if (formAudit) {// 责任 + 审核的情况 
-          if(this.HOSPITAL_ID == "zhongshanqi") { // 中山七颜色处理
-            if(hasSave) { box = fileboxYellow; }// 未签名
-            else if (hasSign) { box = fileboxRed; }// 责任 + 审核的情况 责任签名
-            else if(fileHasSave) {icon = fileiconYellow;} // 未签名
-            else if(fileHasSign) {icon = fileiconRed;} // 未签名
-            else{box = fileboxGreen;icon = fileiconGreen;} // 未签名
+        if (formAudit) {// 责任 + 审核的情况
+          if (this.HOSPITAL_ID == "zhongshanqi") { // 中山七颜色处理
+            if (hasSave) {
+              box = fileboxYellow;
+            }// 未签名
+            else if (hasSign) {
+              box = fileboxRed;
+            }// 责任 + 审核的情况 责任签名
+            else if (fileHasSave) {
+              icon = fileiconYellow;
+            } // 未签名
+            else if (fileHasSign) {
+              icon = fileiconRed;
+            } // 未签名
+            else {
+              box = fileboxGreen;
+              icon = fileiconGreen;
+            } // 未签名
+          } else {
+            if (hasSave) {
+              box = fileboxRed;
+            }// 未签名
+            else if (hasSign) {
+              box = fileboxGreen;
+            }// 责任 + 审核的情况 责任签名
+            else if (fileHasSave) {
+              icon = fileiconRed;
+            }// 未签名
+            else if (fileHasSign) {
+              icon = fileiconGreen;
+            } //责任签名
+            else {
+              box = filebox;
+              icon = fileicon;
+            }
           }
-          else {
-            if(hasSave) {box = fileboxRed; }// 未签名
-            else if (hasSign) {box = fileboxGreen; }// 责任 + 审核的情况 责任签名
-            else if(fileHasSave) {icon = fileiconRed;}// 未签名
-            else if(fileHasSign) {icon = fileiconGreen;} //责任签名
-            else{box = filebox;icon = fileicon;}
-          }
-        } 
+        }
         // 责任（多人签名）的情况
-        else if (formSign) { 
-          if(this.HOSPITAL_ID == "zhongshanqi") { // 责任（多人签名）的情况 未签名
-            if(hasSave) {box = fileboxYellow; }// 未签名
-            else if (hasSign) {box = fileboxGreen; }// // 责任（多人签名）的情况 责任签名
-            else if(fileHasSave) {icon = fileiconYellow;}
-            else if(fileHasSign) {icon = fileiconGreen;}
-            else {box = fileboxGreen;icon = fileiconGreen; }// // 责任（多人签名）的情况 责任签名
+        else if (formSign) {
+          if (this.HOSPITAL_ID == "zhongshanqi") { // 责任（多人签名）的情况 未签名
+            if (hasSave) {
+              box = fileboxYellow;
+            }// 未签名
+            else if (hasSign) {
+              box = fileboxGreen;
+            }// // 责任（多人签名）的情况 责任签名
+            else if (fileHasSave) {
+              icon = fileiconYellow;
+            } else if (fileHasSign) {
+              icon = fileiconGreen;
+            } else {
+              box = fileboxGreen;
+              icon = fileiconGreen;
+            }// // 责任（多人签名）的情况 责任签名
+          } else {
+            if (hasSave) {
+              box = fileboxRed;
+            }// 未签名
+            else if (hasSign) {
+              box = filebox;
+            }// 责任（多人签名）的情况 责任签名
+            else if (fileHasSave) {
+              icon = fileiconRed;
+            } else if (fileHasSign) {
+              icon = fileicon;
+            } else {
+              box = filebox;
+              icon = fileicon;
+            }
           }
-          else {
-            if(hasSave) { box = fileboxRed; }// 未签名
-            else if (hasSign) { box = filebox;}// 责任（多人签名）的情况 责任签名
-            else if(fileHasSave) {icon = fileiconRed;}
-            else if(fileHasSign) {icon = fileicon;}
-            else{box = filebox;icon = fileicon;}
-          }
-        } 
-        else { // 没有签名的情况
+        } else { // 没有签名的情况
           box = filebox;
           icon = fileicon;
         }
-      } 
-      else {
+      } else {
         // 文件夹
         if (hasSave && this.HOSPITAL_ID !== "weixian") {
           box = fileboxRed;
@@ -361,23 +422,48 @@ export default {
           icon = fileicon;
         }
       }
-      if (node.level !== 2) {
-        return (
-          <span class="tree-box-node">
-            {" "}
-            <img src={box} />
-            {node.label}
-          </span>
-        );
-      } else {
-        return (
-          <span class="tree-node" title={node.label}>
-            {" "}
-            <img src={icon} />
-            {node.label}
-          </span>
-        );
+      let viewDom = h()
+      if (this.HOSPITAL_ID === "liaocheng") {
+        viewDom = h(
+          'div',
+          {class: {'view': true}, on: {click: (e) => this.handleViewClick(e, node)}},
+          [
+            h('i', {class: {'el-icon-view': true}}),
+          ]
+        )
       }
+      if (node.level !== 2) {
+
+        return h('span',
+          {class: {'tree-box-node': true}},
+          [
+            h('img', {attrs: {src: box}}),
+            h('span', {}, node.label),
+            viewDom
+          ]
+        )
+      } else {
+        return h('span',
+          {class: {'tree-node': true}},
+          [
+            h('img', {attrs: {src: icon}}),
+            h('span', {}, node.label)
+          ]
+        )
+      }
+    },
+    handleViewClick(e, node) {
+      e.stopPropagation()
+      this.bus.$emit(
+        "openAssessmentBox",
+        {
+          ...getFormConfig(node.data.formName),
+          formCode: node.data.formCode,
+          nooForm: node.data.nooForm,
+          pageUrl: node.data.pageUrl,
+          onlyView: true
+        }
+      );
     },
     getBlockByPV() {
       console.log(this.HOSPITAL_ID);
@@ -441,8 +527,8 @@ export default {
                     // console.log("--疼痛护理单",i,option,item.formInstanceDtoList.length)
                     // /crNursing/api/eval/detail/{id}
                     localStorage[
-                      "firtPainFormID" + this.$route.query.patientId
-                    ] = option.id;
+                    "firtPainFormID" + this.$route.query.patientId
+                      ] = option.id;
                   }
                 }
                 return {
@@ -519,8 +605,8 @@ export default {
                   ${option.countSize ? option.countSize + "条" : ""}
                   ${option.evalScore ? option.evalScore + "分" : ""}
                   ${
-                    option.pusherName ? option.pusherName : option.creatorName
-                  }`,
+                  option.pusherName ? option.pusherName : option.creatorName
+                }`,
                 // ${option.status == 0 ? "T" : option.status}`,
                 form_id: option.id,
                 formName: "输血安全护理记录单"
@@ -554,7 +640,7 @@ export default {
           //   this.regions = [obj];
           // }
 
-          if(this.HOSPITAL_ID == "hj"){
+          if (this.HOSPITAL_ID == "hj") {
             this.isTransferToWard();
           }
           // console.log(list_1, "list_1list_1list_1");
@@ -637,21 +723,21 @@ export default {
         });
     },
     // 患者：是否进入过重症医学科个护理单元
-    isTransferToWard(){
+    isTransferToWard() {
       let patientId = this.$route.query.patientId;
       let visitId = this.$route.query.visitId;
-      hadTransferToWard(patientId,visitId,'610102').then(res=>{
-          if (res.data.data) {
-            let index = this.regions.length?++this.regions[this.regions.length-1].index:1;
-            let obj = {
-              label: "ICU护理记录单",
-              index,
-              pageUrl: `http://10.35.0.82/op.html?patientid=${patientId}&visitId=${visitId}`,
-              nooForm: 2,
-              islink: true
-            };
-            this.regions.push(obj);
-          }
+      hadTransferToWard(patientId, visitId, '610102').then(res => {
+        if (res.data.data) {
+          let index = this.regions.length ? ++this.regions[this.regions.length - 1].index : 1;
+          let obj = {
+            label: "ICU护理记录单",
+            index,
+            pageUrl: `http://10.35.0.82/op.html?patientid=${patientId}&visitId=${visitId}`,
+            nooForm: 2,
+            islink: true
+          };
+          this.regions.push(obj);
+        }
       })
     }
   },
