@@ -70,7 +70,7 @@ export default [{
     key: "pulse", //心率脉搏
     value: "",
     event: keyf1,
-    name: "心率脉搏",
+    name: "心率/脉搏",
     next: "次/分"
   },
   {
@@ -131,14 +131,15 @@ export default [{
     autoComplete: {
       data: ruList
     },
-    name: "入量名称",
-    statBottomLine: true
+    name: "入量名称"
   },
   {
     key: "foodSize", //入量-ml
     value: "",
     event: keyf1,
-    name: "意识"
+    name: "入量",
+    next: "ml",
+    statBottomLine: true
   },
   {
     key: "discharge", //出量-名称
@@ -150,7 +151,9 @@ export default [{
     key: "dischargeSize", //出量-ml
     value: "",
     event: keyf1,
-    name: "出量-ml"
+    name: "出量",
+    next: "ml",
+    statBottomLine: true
   },
   {
     key: "fieldFour", //出量-颜色性状
