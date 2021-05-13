@@ -287,9 +287,11 @@
                   </router-link>
                 </el-dropdown-item>
                 <el-dropdown-item :class="{active: $route.path.indexOf('/changeMajorRecord') > -1}">
-                  <el-row class="menu-item" type="flex" align="middle">
-                    <i class="flatManagement"></i>转科记录
-                  </el-row>
+                  <router-link to="/changeMajorRecord" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="flatManagement"></i>转科记录
+                    </el-row>
+                  </router-link>
                 </el-dropdown-item>
 
                 <!-- <el-dropdown-item :class="{active: $route.path == '/badEvent'}">
