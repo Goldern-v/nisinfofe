@@ -197,12 +197,6 @@
                 <i class="iconfont icon-jiaobanzhi"></i> 执行单
               </el-row>
             </router-link>
-            <!-- <router-link to="/bedRecord" tag="span">
-              <el-row class="nav-item" type="flex" align="middle">
-                <i class="iconfont icon-jiaobanzhi"></i> 转床记录
-              </el-row>
-            </router-link> -->
-
             <!-- <router-link to="/badEvent" tag="span">
               <el-row class="nav-item" type="flex" align="middle">不良事件</el-row>
             </router-link>-->
@@ -285,6 +279,19 @@
                     </el-row>
                   </router-link>
                 </el-dropdown-item>
+                <el-dropdown-item :class="{active: $route.path.indexOf('/bedRecord') > -1}">
+                  <router-link to="/bedRecord" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="nursingRules"></i> 转床记录
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item>
+                <el-dropdown-item :class="{active: $route.path.indexOf('/changeMajorRecord') > -1}">
+                  <el-row class="menu-item" type="flex" align="middle">
+                    <i class="flatManagement"></i>转科记录
+                  </el-row>
+                </el-dropdown-item>
+
                 <!-- <el-dropdown-item :class="{active: $route.path == '/badEvent'}">
                   <router-link to="/badEvent" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
@@ -532,6 +539,26 @@
 
     &.departmentSharedFile {
       background-image: url('../../common/images/index/共享文件.png');
+    }
+
+    &.flatManagement {
+      background-image: url('../../common/images/index/扁平管理.png');
+    }
+
+    &.puerperantSituation {
+      background-image: url('../../common/images/index/产科分娩登记表.png');
+    }
+
+    &.vaccineManagement {
+      background-image: url('../../common/images/index/疫苗管理.png');
+    }
+
+    &.birthCertificate {
+      background-image: url('../../common/images/index/出生医学证明.png');
+    }
+
+    &.cognitiveStatistic {
+      background-image: url('../../common/images/index/出生医学证明.png');
     }
   }
 }

@@ -72,7 +72,7 @@ export default {
       this.query.EndDateTime =  this.query.EndDateTime ? moment(this.query.EndDateTime).format("YYYY-MM-DD") + " 23:59:59" : moment(new Date()).format("YYYY-MM-DD") + " 23:59:59";
       console.log(this.EndDateTime);
       let data = {
-        tradeCode: "getBedExchange",//服务名
+        tradeCode: "getPatientTransfer",//服务名
         ...this.query
       };
        getProcedureData(data).then(res => {
