@@ -1,40 +1,76 @@
 <template>
   <div class="header-con">
-    <div class="his-name">{{HOSPITAL_NAME_SPACE}}</div>
-    <div class="title">{{patientInfo.recordName}}</div>
+    <div class="his-name">{{ HOSPITAL_NAME_SPACE }}</div>
+    <div class="title">{{ patientInfo.recordName }}</div>
     <div class="info-con" flex="main:justify">
-      <span>
+      <span
+        v-if="sheetInfo.sheetType === 'newborn_wx'"
+        @click="updateTetxInfo('deptName', '科室', patientInfo.deptName)"
+      >
         科室：
-        <div class="bottom-line" style="min-width: 120px">{{patientInfo.deptName}}</div>
+        <div class="bottom-line" style="min-width: 120px">
+          {{ patientInfo.deptName }}
+        </div>
+      </span>
+      <span v-else>
+        科室：
+        <div class="bottom-line" style="min-width: 120px">
+          {{ patientInfo.deptName }}
+        </div>
       </span>
       <span @click="updateTetxInfo('bedLabel', '床号', patientInfo.bedLabel)">
         床号：
-        <div class="bottom-line" style="min-width: 45px">{{patientInfo.bedLabel}}</div>
+        <div class="bottom-line" style="min-width: 45px">
+          {{ patientInfo.bedLabel }}
+        </div>
       </span>
-      <span @click="updateTetxInfo('patientName', '姓名', patientInfo.patientName)">
+      <span
+        @click="updateTetxInfo('patientName', '姓名', patientInfo.patientName)"
+      >
         姓名：
-        <div class="bottom-line" style="min-width: 80px">{{patientInfo.patientName}}</div>
+        <div class="bottom-line" style="min-width: 80px">
+          {{ patientInfo.patientName }}
+        </div>
       </span>
       <span @click="updateTetxInfo('sex', '性别', patientInfo.sex)">
         性别：
-        <div class="bottom-line" style="min-width: 45px">{{patientInfo.sex}}</div>
+        <div class="bottom-line" style="min-width: 45px">
+          {{ patientInfo.sex }}
+        </div>
       </span>
       <span @click="updateTetxInfo('age', '年龄', patientInfo.age)">
         年龄：
-        <div class="bottom-line" style="min-width: 45px">{{patientInfo.age}}</div>
+        <div class="bottom-line" style="min-width: 45px">
+          {{ patientInfo.age }}
+        </div>
       </span>
-      <span @click="updateDiagnosis('diagnosis', '诊断', patientInfo.diagnosis)">
+      <span
+        @click="updateDiagnosis('diagnosis', '诊断', patientInfo.diagnosis)"
+      >
         诊断：
         <div
           class="bottom-line"
           style="min-width: 150px;max-width: 620px;min-height:13px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;"
-        >{{diagnosis}}</div>
+        >
+          {{ diagnosis }}
+        </div>
       </span>
-      <span>
+      <span
+        v-if="sheetInfo.sheetType === 'newborn_wx'"
+        @click="updateTetxInfo('inpNo', '住院号', patientInfo.inpNo)"
+      >
         住院号：
-        <div class="bottom-line" style="min-width: 80px">{{patientInfo.inpNo}}</div>
+        <div class="bottom-line" style="min-width: 80px">
+          {{ patientInfo.inpNo }}
+        </div>
       </span>
-      <span>入科时间：{{patientInfo.admissionDate | toymd}}</span>
+      <span v-else>
+        住院号：
+        <div class="bottom-line" style="min-width: 80px">
+          {{ patientInfo.inpNo }}
+        </div>
+      </span>
+      <span>入科时间：{{ patientInfo.admissionDate | toymd }}</span>
       <!-- {{index}} {{relObj}} -->
     </div>
     <!-- <span class="diagnosis-con" :title="patientInfo.diagnosis">诊断：{{patientInfo.diagnosis}}</span> -->
@@ -125,7 +161,7 @@ export default {
 };
 </script>
 
-<style lang='scss' scoped>
+<style lang="scss" scoped>
 .header-con {
   .info-con {
     > span {
