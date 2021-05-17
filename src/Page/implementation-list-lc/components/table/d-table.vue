@@ -6,6 +6,8 @@
       border
       :height="tableH || wih - 124"
       v-loading="pageLoadng"
+      :row-class-name="addRowClass"
+      :class="{ 'd-table-liaocheng': HOSPITAL_ID == 'liaocheng' }"
     >
       <el-table-column
         label="序号"
@@ -194,6 +196,19 @@
         top: -5px;
       }
     }
+
+
+    &.d-table-liaocheng {
+
+      .green {
+        background-color: #83d883;
+      }
+
+      .pink {
+        background-color: pink;
+      }
+    }
+
   }
 
   >>>.el-table::after, .el-table::before {
@@ -313,6 +328,13 @@ export default {
     editTime(data) {
       this.$refs.editModal.open(data);
     },
+    addRowClass(row){
+      if(row.executeFlag == 4){
+        return 'green'
+      }else if(row.executeFlag == 1){
+        return 'pink'
+      }
+    }
   },
   mounted() {
     this.isEdit =
