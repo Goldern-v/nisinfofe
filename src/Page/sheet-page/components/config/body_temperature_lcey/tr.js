@@ -217,6 +217,7 @@ export default [{
   {
     key: "empName",
     value: "",
+    name: "记录人",
   },
   {
     key: "sign",
