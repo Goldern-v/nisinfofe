@@ -17,7 +17,7 @@
                 height="63"
                 width="63"
               />
-              <span>{{HOSPITAL_NAME}}<br />智慧护理信息系统</span>
+              <span>{{ HOSPITAL_NAME }}<br />智慧护理信息系统</span>
             </el-row>
             <!-- <router-link to="/index"
                          tag="span">
@@ -264,7 +264,9 @@
                   </router-link>
                 </el-dropdown-item>-->
 
-                <el-dropdown-item :class="{active: $route.path.indexOf('/wardReport') > -1}">
+                <el-dropdown-item
+                  :class="{ active: $route.path.indexOf('/wardReport') > -1 }"
+                >
                   <router-link to="/wardReport" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
                       <i class="wardReport"></i>病房日报
@@ -272,28 +274,48 @@
                   </router-link>
                 </el-dropdown-item>
 
-                <el-dropdown-item :class="{active: $route.path.indexOf('/inpatientReport') > -1}">
+                <el-dropdown-item
+                  :class="{
+                    active: $route.path.indexOf('/inpatientReport') > -1
+                  }"
+                >
                   <router-link to="/inpatientReport" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
                       <i class="inpatientReport"></i>住院日报
                     </el-row>
                   </router-link>
                 </el-dropdown-item>
-                <el-dropdown-item :class="{active: $route.path.indexOf('/bedRecord') > -1}">
+                <el-dropdown-item
+                  :class="{ active: $route.path.indexOf('/bedRecord') > -1 }"
+                >
                   <router-link to="/bedRecord" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
                       <i class="nursingRules"></i> 转床记录
                     </el-row>
                   </router-link>
                 </el-dropdown-item>
-                <el-dropdown-item :class="{active: $route.path.indexOf('/changeMajorRecord') > -1}">
+                <el-dropdown-item
+                  :class="{
+                    active: $route.path.indexOf('/changeMajorRecord') > -1
+                  }"
+                >
                   <router-link to="/changeMajorRecord" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
                       <i class="flatManagement"></i>转科记录
                     </el-row>
                   </router-link>
                 </el-dropdown-item>
-
+                <el-dropdown-item
+                  :class="{
+                    active: $route.path.indexOf('/nursingGradeStatistics') > -1
+                  }"
+                >
+                  <router-link to="/nursingGradeStatistics" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="nursingGradeStatistics"></i>护理等级统计查询
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item>
                 <!-- <el-dropdown-item :class="{active: $route.path == '/badEvent'}">
                   <router-link to="/badEvent" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
