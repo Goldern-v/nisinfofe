@@ -671,6 +671,14 @@ export default {
                       el.model = []
                       el.checked = false
                     }
+                  } else {
+                    if (el.defaultValue) {
+                      el.model = [el.label]
+                      el.runTasks && el.runTasks()
+                    } else {
+                      el.model = []
+                      el.checked = false
+                    }
                   }
                 }
               });

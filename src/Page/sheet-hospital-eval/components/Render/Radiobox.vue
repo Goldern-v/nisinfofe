@@ -93,6 +93,7 @@ export default {
       this.$refs[refName]["runTasks"] = this.runTasks;
       this.$refs[refName]["childObject"] = this.obj;
       this.$refs[refName].type = 'radio'
+      this.$refs[refName].defaultValue = this.obj.defaultValue;
       this.$root.$refs[this.formCode][this.obj.name][refName] = this.$refs[refName]
     }
   },
