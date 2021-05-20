@@ -312,7 +312,7 @@
                 >
                   <router-link to="/nursingGradeStatistics" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
-                      <i class="nursingGradeStatistics"></i>护理等级统计查询
+                      <i class="departmentSharedFile"></i>护理等级统计查询
                     </el-row>
                   </router-link>
                 </el-dropdown-item>
