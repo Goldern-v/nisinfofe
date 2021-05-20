@@ -36,6 +36,65 @@ console.log(
   chalk.yellow(hospitalName || "东莞市厚街医院")
 );
 
+const HOSPITAL_ID = devEnv.HOSPITAL_ID.replace(/"/g,'');
+const currentTargetUrl = (()=>{
+  switch (HOSPITAL_ID) {
+    /** 厚街 */
+    case 'hj':
+      // return "http://120.197.141.41:9091" //厚街正式
+      // return "http://120.197.141.41:9094" //东莞正式库的测试
+      // return "https://info.cr-health.com:20203" // 公司-厚街测试-外网
+      return "http://192.168.1.54:9866" // 公司-厚街测试-内网
+
+    /** 威县 */
+    case 'weixian':
+      // return "http://wxzf.hbwxrmyy.com:9093" //威县正式
+      return "http://192.168.1.54:9865" // 公司-威县测试-内网
+
+    /** 陵城正式 */
+    case 'lingcheng':
+      // return "http://120.224.184.10:9094" // 陵城正式正式
+      // return 'https://info.cr-health.com:20204' // 公司-陵城测试-外网
+      return 'http://192.168.1.54:9867' // 公司-陵城测试-内网
+
+    /** 花都 */
+    case 'huadu':
+      // return "http://120.238.239.27:9094" //花都正式
+      // return "https://info.cr-health.com:20206" // 公司-花都测试-外网
+      return "http://192.168.1.54:9868" //公司-花都测试-内网
+
+    /** 贵州医科大正式 */
+    case 'gy':
+      return "http://58.42.249.209:17953" //贵州医科大正式
+
+    /** 聊城 */
+    case 'liaocheng':
+      // return "http://120.224.211.7:9094" //聊城正式
+      // return "https://info.cr-health.com:20209" // 公司-聊城测试-外网
+      return "http://192.168.1.54:9871" //公司-聊城测试-内网
+
+    /** 江门妇幼 */
+    case 'fuyou':
+      // return "http://218.14.180.38:9094" // 江门妇幼正式
+      // return "https://info.cr-health.com:20211" // 公司-江门妇幼测试-外网
+      return 'http://192.168.1.54:9872' // 公司-江门妇幼测试-内网
+
+    /** 中山七 */
+    case 'zhongshanqi':
+      // return "http://119.136.20.125:9094" // 中山七正式
+      return 'http://192.168.1.54:9873' // 公司-中山七测试-内网
+
+    /** 东莞横沥 */
+    case 'hengli':
+      // return "http://183.63.206.194:9091" // 东莞横沥正式
+      return 'http://192.168.1.54:98742' // 公司-东莞横沥测试-内网
+
+    /** 默认公司本地内网厚街测试环境 */
+    default:
+      return 'http://192.168.1.54:9866'
+  }
+})();
+
 module.exports = {
   build: {
     env: prodEnv,
@@ -73,54 +132,7 @@ module.exports = {
     cssSourceMap: false,
     proxyTable: {
       "/crNursing/api": {
-        // 正式地址
-        // target: "http://120.197.141.41:9091", //厚街正式
-        // target: "http://58.42.249.209:17953", //贵州医科大正式
-        // target: "http://120.197.141.41:9094", //东莞正式库的测试
-        // target: "http://wxzf.hbwxrmyy.com:9093", //威县
-        // target: "http://120.224.211.7:9094", //聊城
-        // target: "http://218.14.180.38:9094", //江门妇幼
-        // target: "http://119.136.20.125:9094", //中山七
-        // target: "http://183.63.206.194:9091", //东莞横沥
-        // target: "http://120.224.184.10:9094", //陵城正式
-        // target: "http://120.238.239.27:9094", //花都正式
-
-
-        // 测试地址
-        // target: "http://120.25.105.45:9864", //
-        // target: "http://120.25.105.45:8062", //南医三测试（旧）
-        // target: "http://120.25.105.45:9865", //威县测试（旧）
-        // target: "http://120.25.105.45:9866", //厚街测试（旧）
-        // target: "http://120.25.105.45:9867", //陵城测试（旧）
-        // target: "http://120.25.105.45:9868", //花都测试（旧）
-        // target: "http://120.25.105.45:9869", //武警总队（旧）
-        // target: "http://120.25.105.45:9871", //聊城二院测试（旧）
-        // target: "http://120.25.105.45:9872", //江门妇幼测试（旧）
-        // target: "http://120.25.105.45:9873", //中山七测试（旧）
-        // target: "http://120.25.105.45:9874", //横沥（旧）
-
-        // target: "http://192.168.1.20:8964", // 内网测试cno
-        // target: "http://dev.cr-health.com:4453", // 外网测试
-        // target: "http://192.168.2.91:8062", // 内网兆彬IP测试
-        // target: 'http://10.35.9.115:8085', // 厚街内网俊涛ip测试
-        // target: "http://192.168.2.229:8084", // 厚街内网俊涛ip测试
-        // target: "http://192.168.2.91:8062", //东莞兆彬ip测试
-        // target: "http://192.168.2.144:8080", //广豪
-        // target: "http://192.168.1.116:8964", //兆斌
-        // target: "http://192.168.2.75:8084", //厚街内网俊涛ip测试
-
-        /* 新测试地址 */
-        // target: "http://192.168.1.54:9865", //威县测试（新）
-        // target: "http://192.168.1.54:9866", //厚街测试（新）
-        // target: "http://192.168.1.54:9867", //陵城测试（新）
-        target: "http://192.168.1.54:9868", //花都测试（新）
-        // target: "http://192.168.1.54:9871", //聊城二院测试（新）
-        // target: "http://192.168.1.54:9872", //江门妇幼测试（新）
-        // target: "http://192.168.1.54:9873", //中山七测试（新）
-        // target: "http://192.168.1.54:9874", //横沥（新）
-        // target: "http://192.168.20.68:8062", //广豪
-
-
+        target: currentTargetUrl,
         changeOrigin: true,
         pathRewrite: {
           // crNursing 东莞厚街护理系统 路径
