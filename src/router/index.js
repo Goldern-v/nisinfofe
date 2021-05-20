@@ -43,6 +43,10 @@ const inpatientReport = () =>
   import("@/Page/inpatient-report/inpatient-report.vue");
 const inpatientReportDetail = () =>
   import("@/Page/inpatient-report/inpatient-report-detail.vue");
+const nursingGradeStatistics = () =>
+  import("@/Page/nursingGradeStatistics/nursingGrade-statistics.vue"); // 护理等级统计查询
+const nursingGradeStatisticsDetail = () =>
+  import("@/Page/nursingGradeStatistics/nursingGrade-statistics-detail.vue"); // 护理等级统计查询
 const shiftWork = () => import("@/Page/shift-work/shift-work.vue");
 const shiftWorkDetail = () => import("@/Page/shift-work/shift-work-detail.vue");
 const shiftWorkLc = () => import("@/Page/shift-work-lc/shift-work.vue");
@@ -118,9 +122,9 @@ const nursingRounds = () => import("@/Page/nursing-rounds/nursing-rounds.vue"); 
 const allTemperatureChart = () =>
   import("@/Page/temperature-chart/all-temperature-chart.vue"); //批量录入体温单
 const showPatientDetails = () =>
-  import("@/Page/show-patient-details/show-patient-details.vue");//查看评估单、记录单、病历、检查、检验、体温单
-const nursingPreview = () => import("@/Page/NursingPreview/NursingPreview.vue");//查看所有的评估单、记录单、体温单
-const nursingDoc = () => import("@/Page/nursingDoc/nursingDoc.vue");//做跳转登录去 /nursingPreview /nursingDoc
+  import("@/Page/show-patient-details/show-patient-details.vue"); //查看评估单、记录单、病历、检查、检验、体温单
+const nursingPreview = () => import("@/Page/NursingPreview/NursingPreview.vue"); //查看所有的评估单、记录单、体温单
+const nursingDoc = () => import("@/Page/nursingDoc/nursingDoc.vue"); //做跳转登录去 /nursingPreview /nursingDoc
 const cognitiveStatistic = () =>
   import("@/Page/cognitive-statistic/cognitive-statistic.vue"); //住院病人认知情况统计表
 const implementationReport = () =>
@@ -341,6 +345,16 @@ const router = new Router({
             name: "inpatientReport",
             path: "/inpatientReport/:date?",
             component: inpatientReportDetail
+          }]
+        },
+        {
+          path: "/nursingGradeStatistics",
+          component: nursingGradeStatistics,
+          name: "nursingGradeStatistics",
+          children: [{
+            name: "nursingGradeStatistics",
+            path: "/nursingGradeStatistics/:date?",
+            component: nursingGradeStatisticsDetail
           }]
         },
         {
