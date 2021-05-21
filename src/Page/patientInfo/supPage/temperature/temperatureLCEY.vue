@@ -144,8 +144,8 @@ export default {
       let patientId = this.$route.query.patientId || this.queryTem.patientId;
       let visitId = this.$route.query.visitId || this.queryTem.visitId;
       /* 单独处理体温单，嵌套iframe */
-      const tempUrl = `http://172.17.5.41:9091/temperature/#/?PatientId=${patientId}&VisitId=${visitId}&StartTime=${date}`;
-      // const tempUrl = `http://120.224.211.7:9091/temperature/#/?PatientId=0000944876&VisitId=2&StartTime=2021-05-13&showInnerPage=1`;
+      // const tempUrl = `http://172.17.5.41:9091/temperature/#/?PatientId=${patientId}&VisitId=${visitId}&StartTime=${date}`;
+      const tempUrl = `http://120.224.211.7:9091/temperature/#/?PatientId=0000944876&VisitId=2&StartTime=2021-05-13&showInnerPage=1`;
       // const tempUrl =
       //   "http://120.224.211.7:8080/#/?PatientId=${patientId}&VisitId=${visitId}&StartTime=${date}";
       this.filePath = "";

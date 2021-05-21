@@ -683,7 +683,9 @@ export default {
         ...this.query,
         list
       };
-
+      tempertureData.entryDate = tempertureData.entryDate
+        ? moment(tempertureData.entryDate).format("YYYY-MM-DD")
+        : moment(new Date()).format("YYYY-MM-DD");
       saveOverAllTemperture(tempertureData).then(res => {
         this.getData();
       });
