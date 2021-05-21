@@ -63,6 +63,10 @@ function syncGetNurseBedRecLiaocheng(deptCode) {
 function syncGetMedicalAdvice(deptCode) {
   return axios.get(`${apiPath}hisDispenseExecute/syncGetPatientOrdersWithWardCode/${deptCode}`)
 }
+// 中山七 --医嘱提醒
+function getPatientOrdersWithWardCode(deptCode) {
+  return axios.get(`${apiPath}hisZhongShanQiYuanExecute/getPatientOrdersWithWardCode/${deptCode}`)
+}
 
 export {
   nursingUnit,
@@ -74,5 +78,6 @@ export {
   syncGetNurseBedRec,
   syncGetMedicalAdvice,
   syncGetNurseBedRecLc,
-  syncGetNurseBedRecLiaocheng
+  syncGetNurseBedRecLiaocheng,
+  getPatientOrdersWithWardCode
 }

@@ -32,6 +32,27 @@
         </component>
       </el-row>
     </div>
+
+    <div class="advice-tips" v-show="!loading">
+      <sweet-modal ref="modal" title="医嘱提醒" :modalWidth="500" :blocking="true">
+        <el-table
+          :data="tableData"
+          style="width: 100%"
+          border
+          :height="400"
+        >
+          <el-table-column prop="bedlabel" label="床号" min-width="50px" align="center"></el-table-column>
+          <el-table-column prop="name" label="姓名" min-width="80px" align="center"></el-table-column>
+          <el-table-column prop="wardCode" label="科室" min-width="80px" align="center"></el-table-column>
+          <el-table-column prop="orderText" label="药品名称" min-width="80px" align="center"></el-table-column>
+          <el-table-column prop="dosage" label="剂量" min-width="80px" align="center">
+            <template slot-scope="scope">
+             <div>{{scope.row.dosage}}{{scope.row.dosageUnits}}</div>
+            </template>
+          </el-table-column>
+        </el-table>
+      </sweet-modal>
+    </div>
   </div>
 </template>
 
@@ -85,6 +106,24 @@
     width: 240px;
   }
 }
+.advice-tips {
+  >>> .sweet-modal-overlay {
+    width: 500px;
+    height: 400px;
+    left: auto;
+    top: auto;
+    right: 160px;
+    bottom: 37px;
+    background: transparent;
+    .sweet-modal {
+      top: auto !important;
+      left: auto !important;
+      bottom: 0;
+      right: 0;
+      transform: none;
+    }
+  }
+}
 </style>
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus">
@@ -118,7 +157,7 @@
 </style>
 
 <script>
-import { follow, unfollow, unfollowHd } from "@/api/lesion";
+import { follow, unfollow, unfollowHd, getPatientOrdersWithWardCode } from "@/api/lesion";
 import bedItem from "./component/bed-item/bed-item.vue";
 import bedItemHd from "./component/bed-item-hd/bed-item.vue";
 import bedItemLcey from "./component/bed-item-lcey/bed-item.vue";
@@ -131,7 +170,9 @@ export default {
     return {
       searchWord: "",
       bedList: [],
-      loading: false
+      loading: false,
+      tableData: [],//医嘱提醒id
+      timeId: ""
     };
   },
   computed: {
@@ -172,6 +213,21 @@ export default {
         new Date(value).Format("yyyy-MM-dd")
       );
       return `${value} 第(${day})天`;
+    }
+  },
+  mounted(){
+    // 中山七-医嘱提醒
+    if(this.HOSPITAL_ID == "zhongshanqi"){
+      this.close();
+      this.getAdvice();
+      this.timeId = setInterval(()=>{
+        this.getAdvice();
+      },10*60*1000)
+    }
+  },
+  beforeDestroy() {
+    if(this.HOSPITAL_ID == "zhongshanqi"){
+      clearInterval(this.timeId);
     }
   },
   methods: {
@@ -260,6 +316,21 @@ export default {
           visitId: obj.visitId
         })}`
       );
+    },
+    close() {
+      this.$refs.modal.close();
+    },
+    // 中山七-医嘱提醒
+    getAdvice(){
+      if(!this.deptCode){
+        return;
+      }
+      getPatientOrdersWithWardCode(this.deptCode).then(res => {
+        this.tableData = res.data.data;
+        if(this.tableData && this.tableData.length > 0){
+          this.$refs.modal.open();
+        }
+      })
     }
   },
   components: {
