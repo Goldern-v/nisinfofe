@@ -203,6 +203,39 @@
               <el-row class="nav-item" type="flex" align="middle">护理巡视</el-row>
             </router-link>
 
+            <el-dropdown
+                menu-align="start"
+                :hide-on-click="false"
+                :class="{ 'router-link-active': $route.path.indexOf('/bottleSignPrint') > -1 ||  $route.path.indexOf('/implementationListNew') > -1}"
+            >
+              <el-row class="nav-item" type="flex" align="middle">
+                <div class="before"></div>
+                <i class="iconfont icon-hulijiludan"></i>执行单
+              </el-row>
+              <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item
+                    :class="{ active: $route.path.indexOf('/bottleSignPrint') > -1 }"
+                >
+                  <router-link to="/bottleSignPrint" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      瓶签打印
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item>
+
+                <el-dropdown-item
+                    :class="{ active: $route.path.indexOf('/implementationListNew') > -1 }"
+                >
+                  <router-link to="/implementationListNew" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      批量执行单
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item>
+              </el-dropdown-menu>
+            </el-dropdown>
+
+
             <!-- <router-link to="/implementationList" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-jiaobanzhi"></i> 执行单

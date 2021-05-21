@@ -140,6 +140,12 @@ import "./common/css/iview-table.css";
 //组件
 import VueContextMenu from "vue-contextmenu";
 Vue.use(VueContextMenu);
+
+// 加载element 表格数据多 防卡顿问题
+import { UTable, UTableColumn } from 'umy-ui';
+Vue.use(UTableColumn);
+Vue.use(UTable);
+
 /** 环境变量 */
 Vue.prototype.HOSPITAL_ID = process.env.HOSPITAL_ID;
 Vue.prototype.HOSPITAL_NAME = process.env.HOSPITAL_NAME;
