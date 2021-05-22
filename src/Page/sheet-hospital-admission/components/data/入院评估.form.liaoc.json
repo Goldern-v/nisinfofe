@@ -2002,83 +2002,6 @@
       ]
     },
     {
-      "name": "I100132",
-      "type": "formGroupColBox",
-      "col": 2,
-      "title": "三、健康史/饮食/认知/语言沟通",
-      "message": "",
-      "require": "false",
-      "prefixDesc": "",
-      "suffixDesc": "",
-      "keys": "I100132",
-      "style": null,
-      "classes": null,
-      "readOnly": true,
-      "children": [
-        {
-          "name": "I001156",
-          "type": "select",
-          "title": "疼痛",
-          "titleStyle": "width:60px!important",
-          "inputStyle": "width:270px!important",
-          "inputWidth": "180px",
-          "style": null,
-          "class": null,
-          "options": [
-            "无",
-            "不会诉说",
-            "有"
-          ],
-          "rule": [
-            {
-              "dialog": {
-                "openKey": "有",
-                "cleanKey": "无",
-                "title": "疼痛评估单",
-                "default": "疼痛评估单",
-                "name": "I100132",
-                "parentName": "I100132",
-                "type": "independent",
-                "showHead": "true"
-              }
-            },
-            {
-              "equal": "有",
-              "style": "color:red"
-            }
-          ]
-        },
-        {
-          "name": "I001973",
-          "type": "select",
-          "title": "监护人对疾病认识",
-          "style": null,
-          "titleStyle": "width:110px!important",
-          "inputStyle": "width:270px!important",
-          "inputWidth": "130px",
-          "class": null,
-          "showDeptName": [
-            "新生儿科"
-          ]
-        },
-        {
-          "name": "I001910",
-          "type": "select",
-          "title": "患儿心理反应",
-          "multiplechoice": true,
-          "style": null,
-          "titleStyle": "width:92px!important",
-          "inputStyle": "width:270px!important",
-          "inputWidth": "148px",
-          "class": null,
-          "showDeptName": [
-            "新生儿科",
-            "儿科"
-          ]
-        }
-      ]
-    },
-    {
       "name": "",
       "type": "formGroupHR",
       "title": "---hr---",
@@ -2776,6 +2699,39 @@
                 "name": "I100136",
                 "type": "independent",
                 "parentName": "I100136",
+                "showHead": "true"
+              }
+            },
+            {
+              "equal": "有",
+              "style": "color:red"
+            }
+          ]
+        },
+        {
+          "name": "I001156",
+          "type": "select",
+          "title": "疼痛",
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "180px",
+          "style": null,
+          "class": null,
+          "options": [
+            "无",
+            "不会诉说",
+            "有"
+          ],
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "有",
+                "cleanKey": "无",
+                "title": "疼痛评估单",
+                "default": "疼痛评估单",
+                "name": "I100132",
+                "parentName": "I100132",
+                "type": "independent",
                 "showHead": "true"
               }
             },
