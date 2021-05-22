@@ -1,6 +1,6 @@
 <template>
   <div class="ward-report-detail" v-loading="loading">
-    <div class="toolbar">
+    <!-- <div class="toolbar">
       <div class="toolbar-left">
         <span>科室：</span>
 
@@ -16,7 +16,7 @@
       <div class="toolbar-right">
         <Button @click="onPrint">打印预览</Button>
       </div>
-    </div>
+    </div> -->
     <div class="container">
       <div class="print-area" ref="area">
         <Paper :name="name" :paperData="papers" :twoDayPaper="twoDay" />
@@ -65,9 +65,9 @@ export default {
   watch: {
     deptCode(value, oldValue) {
       this.code = this.deptCode;
-      if (oldValue !== value) {
-        this.loadDepts();
-      }
+      // if (oldValue !== value) {
+      //   this.loadDepts();
+      // }
     },
     code(value, oldValue) {
       if (oldValue !== value) {
@@ -83,29 +83,29 @@ export default {
   mounted() {
     if (this.deptCode) {
       this.code = this.deptCode;
-      this.loadDepts();
+      // this.loadDepts();
     }
   },
   methods: {
     buttonT(e) {
       console.log(this.$route.params.date);
     },
-    async loadDepts() {
-      const parentCode = this.deptCode;
-      const res1 = await apis.listDepartment(parentCode);
-      const {
-        data: { data: depts }
-      } = res1;
+    // async loadDepts() {
+    //   const parentCode = this.deptCode;
+    //   const res1 = await apis.listDepartment(parentCode);
+    //   const {
+    //     data: { data: depts }
+    //   } = res1;
 
-      this.depts = depts.map(item => ({
-        code: item.deptCode,
-        name: item.deptName
-      }));
-      if (!depts[0]) {
-        depts[0] = {};
-      }
-      this.code = this.depts[0] && this.depts[0].code;
-    },
+    //   this.depts = depts.map(item => ({
+    //     code: item.deptCode,
+    //     name: item.deptName
+    //   }));
+    //   if (!depts[0]) {
+    //     depts[0] = {};
+    //   }
+    //   this.code = this.depts[0] && this.depts[0].code;
+    // },
     async load(refresh) {
       const date = this.$route.params.date;
 
@@ -138,6 +138,11 @@ export default {
           .format("YYYY-MM-DD") + " 23:59:59";
       // let startDate = '2019-01-01 00:00:00'
       // let endData = '2019-01-02 23:59:59'
+      // let obj = {
+      //   wardCode: "051202",
+      //   beginDate: "2021-05-19 00:00:00",
+      //   endDate: "2020-03-13 23:59:59"
+      // };
       let obj = {
         wardCode: this.code,
         beginDate: startDate,
