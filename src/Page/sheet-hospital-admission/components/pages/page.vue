@@ -24,6 +24,7 @@ import RenderForm from "@/Page/sheet-hospital-admission/components/Render/main.v
 import { getOldFormCode } from "@/Page/sheet-hospital-admission/components/Render/common.js";
 import BusFactory from "vue-happy-bus";
 import common from "@/common/mixin/common.mixin.js";
+import { getPatientInfo } from '../../api'
 
 export default {
   name: "page",
@@ -258,11 +259,18 @@ export default {
       this.isShow = false;
       this.initial();
     },
-    openForm(config) {
+    async openForm(config) {
       let isDevMode = config.isDevMode || false;
       let patient = config.patient;
       let formObj = config.formObj;
       this.status = config.patient.status;
+
+      // 请求接口获取数据填充
+      if (this.HOSPITAL_NAME === '聊城市第二人民医院') {
+        const {data: {data}} = await getPatientInfo(config.patient.patientId, config.patient.visitId)
+        formObj.I001014 = data.chargeType  // 费别
+        formObj.I001003 = data.nation // 名族
+      }
       // alert(status);
       //
       this.isShow = true;

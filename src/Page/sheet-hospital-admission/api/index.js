@@ -26,32 +26,32 @@ import qs from "qs";
  }
  *
  *
-*/
+ */
 export function save(postData) {
   return axios.post(`${apiPath}form/design/save`, postData);
 }
 
 // formDesign - 新表单：创建表单
 /**
-{
+ {
     "patientId": "71025238",
     "visitId": "8",
     "formType": "eval",
     "formCode": "E0003"
 }
-*/
+ */
 export function createForm(postData) {
   return axios.post(`${apiPath}form/design/createForm`, postData);
 }
 
 // formDesign - 新表单：删除表单
 /**
-{
+ {
   "id": 4,
   "empNo": "0519",
   "password": "123456"
 }
-*/
+ */
 
 export function del(postData) {
   return axios.post(`${apiPath}form/design/delete`, postData);
@@ -63,23 +63,23 @@ export function cancelSignOrAduit(postData) {
 
 // formDesign - 新表单：获取数据
 /**
-{
+ {
   "id": 4,
   "empNo": "0519",
   "password": "123456"
 }
-*/
+ */
 export function get(id) {
   return axios.get(`${apiPath}form/design/get/${id}`);
 }
 
 // formDesign - 新表单：获取模板
 /**
-{
+ {
   "deptCode": "4003",
   "templateType": "eval"
 }
-*/
+ */
 export function templates(postData) {
   return axios.post(`${apiPath}form/design/templates`, postData);
 }
@@ -129,4 +129,8 @@ export function getOldFormCodeByWardCode(newFormCode, wardCode) {
 // FORM.2.06、获取患者评估体征信息
 export function getEvalInfo(patientId, visitId) {
   return axios.get(`${apiPath}form/design/getEvalInfo/${patientId}/${visitId}`)
+}
+
+export const getPatientInfo = (patientId, visitId) => {
+  return axios.get(`${apiPath}patient/info/${patientId}/${visitId}`)
 }
