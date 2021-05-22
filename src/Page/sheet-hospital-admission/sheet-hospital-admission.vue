@@ -1,4 +1,3 @@
-
 <template>
   <div class="contain" :class="{fullpage}" v-loading="pageLoading" element-loading-text="正在保存">
     <div class="head-con" flex>
@@ -13,12 +12,12 @@
     <div class="body-con" id="sheet_body_con" :style="{height: containHeight}">
       <div class="left-part">
         <!-- <patientList :data="data.bedList" :isSelectPatient="isSelectPatient" v-loading="patientListLoading"></patientList> -->
-        <patientList toName="sheetHospitalAdmissionPage" :callFunction="isSelectPatient" />
+        <patientList toName="sheetHospitalAdmissionPage" :callFunction="isSelectPatient"/>
       </div>
       <div class="right-part" :style="{marginLeft: openLeft?'200px':'0'}">
         <!-- <record></record> -->
         <div class="sheetTable-contain">
-          <pages />
+          <pages/>
         </div>
       </div>
     </div>
@@ -31,6 +30,7 @@
   background #fff
   border 1px solid #CBD5DD
   border-radius 2px
+
   &.fullpage
     position fixed !important
     z-index 10000
@@ -39,40 +39,47 @@
     bottom 0
     right 0
     margin 0
+
   .head-con
     height 41px
     position relative
     width 100%
+
   .body-con
     position relative
+
     .left-part
       width 199px
       position absolute
       left 0
       top: -40px
       bottom 0
+
     .right-part
       margin-left 199px
       height 100%
       overflow hidden
       transition: all .4s cubic-bezier(.55, 0, .1, 1);
+
 .dept-select-con
   box-sizing border-box
   width 199px
   height 41px
-//   background #F7FAFA
-//   border-right 1px solid #CBD5DD
-//   border-bottom 1px solid #EAEEF1
-//   border-radius 2px 0 0 0
+  //   background #F7FAFA
+  //   border-right 1px solid #CBD5DD
+  //   border-bottom 1px solid #EAEEF1
+  //   border-radius 2px 0 0 0
   display flex
   justify-content center
   align-items center
-  >>>.el-input__inner
+
+  >>> .el-input__inner
     width 172px
     height 28px
     border 1px solid #C2CBD2
     border-radius 4px
     font-size 12px
+
 .sheetTable-contain
   height 100%
   background #DFDFDF
@@ -81,6 +88,7 @@
   box-sizing border-box
   margin 0 auto 20px
   position relative
+
 .null-btn
   position absolute
   top 0px
@@ -97,8 +105,10 @@
   box-shadow 0 1px 2px 0 rgba(200, 200, 200, 0.5)
   border-radius 2px
   cursor pointer
+
   &:hover
     background #fafafa
+
   i
     margin-right 4px
 </style>
@@ -131,13 +141,13 @@ export default {
       // } else {
       //   return this.wih + 0 + "px";
       // }
-      let c=[]
+      let c = []
       for (const key in a) {
         if (a.hasOwnProperty(key)) {
           // console.log(a[key],key)
-          if(a[key] && b[key] && a[key].length!=b[key].length){
+          if (a[key] && b[key] && a[key].length != b[key].length) {
             console.log(key)
-            c=[...c,key]
+            c = [...c, key]
           }
         }
       }
@@ -163,6 +173,9 @@ export default {
   },
   created() {
     this.$store.commit("upPatientInfo", {});
+  },
+  mounted() {
+
   },
   watch: {},
   components: {
