@@ -48,7 +48,7 @@
           ></el-option>
         </el-select>
         <div style="flex: 1"></div>
-         <el-input
+        <el-input
           size="small"
           style="width: 150px;margin-right: 15px;"
           placeholder="输入途径进行搜索"
@@ -139,12 +139,12 @@
   background: #fff;
   padding: 0 16px;
 
-  >>>.el-radio__input {
+  >>> .el-radio__input {
     position: relative;
     top: 1px;
   }
 
-  >>>.el-radio__label {
+  >>> .el-radio__label {
     color: #333;
     font-size: 12px;
     position: relative;
@@ -159,6 +159,7 @@ import { getOrdersExecuteWithPatinetId } from "./api/index";
 import common from "@/common/mixin/common.mixin.js";
 import moment from "moment";
 import bus from "vue-happy-bus";
+
 export default {
   mixins: [common],
   data() {
@@ -269,7 +270,7 @@ export default {
       let obj = {
         patientId: this.$route.query.patientId,// --患者id
         visitId: this.$route.query.visitId, // --住院次数
-        executeDateTime:  moment(this.startDate).format("YYYY-MM-DD"), // --预计执行时间
+        executeDateTime: moment(this.startDate).format("YYYY-MM-DD"), // --预计执行时间
         repeatIndicator: this.repeatIndicator, //医嘱类型:0临时 1长期  2单药处方
         executeStatus: this.status, //执行单状态:0-未执行、1-执行中（输液中）、2-暂停输液、3-继续执行  4-已完成（结束输液）
         executeType: typeof this.type == "number"
@@ -282,18 +283,18 @@ export default {
           let prevRowId =
             array[index - 1] &&
             array[index - 1].patientId +
-              array[index - 1].barCode +
-              array[index - 1].executeDateTime;
+            array[index - 1].barCode +
+            array[index - 1].executeDateTime;
           let nextRowId =
             array[index + 1] &&
             array[index + 1].patientId +
-              array[index + 1].barCode +
-              array[index + 1].executeDateTime;
+            array[index + 1].barCode +
+            array[index + 1].executeDateTime;
           let currentRowId =
             array[index] &&
             array[index].patientId +
-              array[index].barCode +
-              array[index].executeDateTime;
+            array[index].barCode +
+            array[index].executeDateTime;
 
           /** 判断是此记录是多条记录 */
           if (currentRowId == prevRowId || currentRowId == nextRowId) {
