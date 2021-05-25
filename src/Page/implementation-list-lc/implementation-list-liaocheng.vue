@@ -42,7 +42,7 @@
         <el-select v-model="type" placeholder="请选择" size="small" style="width:150px">
           <el-option
             :label="typeItem.name"
-            :value="typeItem.id"
+            :value="typeItem.value"
             v-for="typeItem in allType"
             :key="typeItem.id"
           ></el-option>
@@ -68,7 +68,7 @@
         ></el-input>
         <el-button size="small" type="primary" @click="search">查询</el-button>
       </div>
-      <dTable :tableData="tableData" :pageLoadng="pageLoadng"></dTable>
+      <dTable :tableData="tableData" :currentType="type" :pageLoadng="pageLoadng"></dTable>
       <!-- <div class="pagination-con" flex="main:justify cross:center">
         <pagination
           :pageIndex="page.pageIndex"
@@ -234,36 +234,36 @@ export default {
       ],
       allType: [
         {
-          id: "",
           name: "全部",
+          value: ""
         },
         {
-          id: 0,
           name: "输液",
+          value: "输液"
         },
         {
-          id: 1,
           name: "注射",
+          value: "注射"
         },
         {
-          id: 2,
           name: "口服",
+          value: "口服"
         },
         {
-          id: 3,
           name: "雾化",
+          value: "雾化"
         },
         {
-          id: 4,
           name: "皮试",
+          value: "皮试"
         },
         {
-          id: 5,
           name: "治疗（理疗）",
+          value: "治疗（理疗）"
         },
         {
-          id: 6,
           name: "标本",
+          value: "标本"
         },
       ],
     };
