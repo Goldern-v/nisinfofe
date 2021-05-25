@@ -166,6 +166,11 @@
             <router-link to="/sugarPage" tag="span">
               <el-row class="nav-item" type="flex" align="middle">血糖</el-row>
             </router-link>
+            <router-link to="/planList" tag="span">
+              <el-row class="nav-item" type="flex" align="middle"
+                >护理计划单</el-row
+              >
+            </router-link>
             <router-link to="/shiftWork" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-jiaobanzhi"></i> 交班报告
@@ -176,9 +181,12 @@
                 <i class="iconfont icon-baiban"></i> 白板
               </el-row>
             </router-link>
-             <el-dropdown
-                menu-align="start"
-                :class="{ 'router-link-active': $route.path == '/deepPage' ||  $route.path == '/catheterPage'}"
+            <el-dropdown
+              menu-align="start"
+              :class="{
+                'router-link-active':
+                  $route.path == '/deepPage' || $route.path == '/catheterPage'
+              }"
             >
               <el-row class="nav-item" type="flex" align="middle">
                 <div class="before"></div>
@@ -188,17 +196,15 @@
                 <el-dropdown-item>
                   <router-link to="/deepPage" tag="span">
                     <el-row class="menu-item" type="flex" align="middle"
-                    >深静脉导管
-                    </el-row
-                    >
+                      >深静脉导管
+                    </el-row>
                   </router-link>
                 </el-dropdown-item>
                 <el-dropdown-item>
                   <router-link to="/catheterPage" tag="span">
                     <el-row class="menu-item" type="flex" align="middle"
-                    >导尿管
-                    </el-row
-                    >
+                      >导尿管
+                    </el-row>
                   </router-link>
                 </el-dropdown-item>
               </el-dropdown-menu>
