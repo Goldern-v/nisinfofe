@@ -303,8 +303,9 @@
         sheetInfo.sheetType === 'neonatology_picc' ||
           sheetInfo.sheetType === 'internal_eval_lcey' ||
           sheetInfo.sheetType === 'intervention_cure_lcey' ||
-          sheetInfo.sheetType === 'critical_lc' || 
-          sheetInfo.sheetType === 'picu_hemodialysis_jm'
+          sheetInfo.sheetType === 'critical_lc' ||
+          sheetInfo.sheetType === 'picu_hemodialysis_jm' ||
+          sheetInfo.sheetType === 'rescue_hl'
       "
     ></slot>
     <!-- 表格下方的备注组件 -->
@@ -323,16 +324,17 @@
       <span v-if="doubleSignArr.includes(sheetInfo.sheetType)" class="zg-name">
         <span>主管护士：</span>
         <span class="sign-img-con" @click="sign2">
-          <span
-            v-if="!isPrint"
-            class="head-sign-text"
-          >{{sheetInfo.selectBlock.relSignInfo.signerName2}}</span>
+          <span v-if="!isPrint" class="head-sign-text">{{
+            sheetInfo.selectBlock.relSignInfo.signerName2
+          }}</span>
           <img
             class="head-sign-img"
             v-if="sheetInfo.selectBlock.relSignInfo.signerNo2"
-            :src="`/crNursing/api/file/signImage/${sheetInfo.selectBlock.relSignInfo.signerNo2}?${token}`"
+            :src="
+              `/crNursing/api/file/signImage/${sheetInfo.selectBlock.relSignInfo.signerNo2}?${token}`
+            "
             alt
-          >
+          />
         </span>
       </span>
       第 {{ index + sheetStartPage }} 页
@@ -349,7 +351,9 @@
           "
           >审核人：</span
         >
-        <span v-else-if="sheetInfo.sheetType == 'common_wj' || 'common_hl'">护士长签名：</span>
+        <span v-else-if="sheetInfo.sheetType == 'common_wj' || 'common_hl'"
+          >护士长签名：</span
+        >
         <span v-else-if="sheetInfo.sheetType == 'intervention_cure_lcey'"
           >护士签名：</span
         >
@@ -415,7 +419,13 @@ import $ from "jquery";
 import bus from "vue-happy-bus";
 import sheetModel from "../../../../sheet.js";
 import common from "@/common/mixin/common.mixin.js";
-import { handlepz, delpz, auditpz, signBlockD,  cancelSignD } from "../../../../api/index.js";
+import {
+  handlepz,
+  delpz,
+  auditpz,
+  signBlockD,
+  cancelSignD
+} from "../../../../api/index.js";
 import decode from "../../../../components/render/decode.js";
 import moment from "moment";
 import { getUser } from "@/api/common.js";
@@ -457,7 +467,7 @@ export default {
         "common_wj",
         "intervention_cure_lcey",
         "critical_lc",
-        "common_hl",
+        "common_hl"
       ],
       // 需要双签名的记录单code
       multiSignArr: [
@@ -470,9 +480,7 @@ export default {
         "neonatology_hd" // 花都_新生儿科护理记录单
       ],
       // 底部两个签名的其中一个自定义字段
-      doubleSignArr: [
-        "common_hl",
-      ]
+      doubleSignArr: ["common_hl"]
     };
   },
   computed: {
@@ -1412,7 +1420,7 @@ export default {
         }
         this.bus.$emit("saveSheetPage", true);
       }, title);
-    },
+    }
   },
   watch: {
     scrollY() {
@@ -1436,7 +1444,10 @@ export default {
     console.log("mounted");
   },
   created() {
-    if (this.doubleSignArr.includes(sheetInfo.sheetType) && sheetInfo.selectBlock.relSignInfo == undefined) {
+    if (
+      this.doubleSignArr.includes(sheetInfo.sheetType) &&
+      sheetInfo.selectBlock.relSignInfo == undefined
+    ) {
       this.$set(this.sheetInfo.selectBlock, "relSignInfo", {});
     }
   },
