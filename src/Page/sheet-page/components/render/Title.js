@@ -578,6 +578,20 @@ export default function Title(
     );
   }
   break;
+  case "body_temperature_wj": {
+    // 武警总队-体温单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/body_temperature_wj/th").default)
+    );
+  }
+  break;
+  case "common_gzry": {
+    // 贵州人医-通用护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/common_gzry/th").default)
+    );
+  }
+  break;
   case "common_hl": {
     // 横沥-护理记录单
     Th = JSON.parse(
@@ -585,10 +599,73 @@ export default function Title(
     );
   }
   break;
-  case "body_temperature_wj": {
-    // 武警总队-体温单
+  case "rescue_hl": {
+    // 横沥-急救抢救单
     Th = JSON.parse(
-      JSON.stringify(require("../config/body_temperature_wj/th").default)
+      JSON.stringify(require("../config/emergency_rescue/th").default)
+    );
+  }
+  break;
+  case "emergency_stay_hl": {
+    // 横沥-留观护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/emergency_stay_hl/th").default)
+    );
+  }
+  break;
+  case "prenatal_hl": {
+    // 横沥-产前待产
+    Th = JSON.parse(
+      JSON.stringify(require("../config/prenatal_hl/th").default)
+    );
+  }
+  break;
+  case "oxytocin_hl": {
+    // 横沥-催产素静脉点滴观察
+    Th = JSON.parse(
+      JSON.stringify(require("../config/oxytocin_hl/th").default)
+    );
+  }
+  break;
+  case "contraction_inhibitor_hl": {
+    // 横沥-宫缩抑制剂静脉滴注观察记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/contraction_inhibitor_hl/th").default)
+    );
+  }
+  break;
+  // case "dressing_count_hl": {
+  //   // 横沥-经阴道接生器械敷料清点
+  //   Th = JSON.parse(
+  //     JSON.stringify(require("../config/dressing_count_hl/th").default)
+  //   );
+  // }
+  // break;
+  case "magnesium_sulphate_hl": {
+    // 横沥-硫酸镁注射液静脉滴注观察记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/magnesium_sulphate_hl/th").default)
+    );
+  }
+  break;
+  case "neonatology_hl": {
+    // 横沥 - 新生儿护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/neonatology_hl/th").default)
+    );
+  }
+  break;
+  case "obstetrics_hl": {
+    // 横沥 - 护理记录单(产科)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/obstetrics_hl/th").default)
+    );
+  }
+  break;
+  case "gynecology_hl": {
+    // 横沥 - 护理记录单(妇科)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/gynecology_hl/th").default)
     );
   }
   break;

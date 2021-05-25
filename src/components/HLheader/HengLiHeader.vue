@@ -182,7 +182,7 @@
                 </el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
-            <el-dropdown
+            <!-- <el-dropdown
               menu-align="start"
               :class="{ 'router-link-active': isActivePage }"
             >
@@ -199,7 +199,7 @@
                   </router-link>
                 </el-dropdown-item>
               </el-dropdown-menu>
-            </el-dropdown>
+            </el-dropdown> -->
             <!-- <router-link to="/formPage" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-dongtairizhi"></i> 护理评估
