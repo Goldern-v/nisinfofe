@@ -83,7 +83,7 @@ export default {
           prop: 'ddzc'
         },
         {
-          name: '管理滑脱',
+          name: '管道脱落',
           prop: 'glht'
         },
         {
