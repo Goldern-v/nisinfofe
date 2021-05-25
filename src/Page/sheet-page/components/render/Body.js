@@ -477,9 +477,64 @@ function switechSheetType(type) {
     schema = require("../config/common_zsqy/tr.js").default;
   }
   break;
+  case "common_gzry": {
+    // 贵州人医-护理记录单
+    schema = require("../config/common_gzry/tr.js").default;
+  }
+  break;
   case "common_hl": {
     // 横沥-护理记录单
     schema = require("../config/common_hl/tr.js").default;
+  }
+  break;
+  case "rescue_hl": {
+    // 横沥-急救抢救单
+    schema = require("../config/emergency_rescue/tr.js").default;
+  }
+  break;
+  case "emergency_stay_hl": {
+    // 横沥-留观护理记录单
+    schema = require("../config/emergency_stay_hl/tr.js").default;
+  }
+  break;
+  case "prenatal_hl": {
+    // 横沥-产前待产
+    schema = require("../config/prenatal_hl/tr.js").default;
+  }
+  break;
+  case "oxytocin_hl": {
+    // 横沥-催产素静脉点滴观察
+    schema = require("../config/oxytocin_hl/tr.js").default;
+  }
+  break;
+  case "contraction_inhibitor_hl": {
+    // 横沥-宫缩抑制剂静脉滴注观察记录单
+    schema = require("../config/contraction_inhibitor_hl/tr.js").default;
+  }
+  break;
+  // case "dressing_count_hl": {
+  //   // 横沥-经阴道接生器械敷料清点
+  //   schema = require("../config/dressing_count_hl/tr.js").default;
+  // }
+  // break;
+  case "magnesium_sulphate_hl": {
+    // 横沥-硫酸镁注射液静脉滴注观察记录单
+    schema = require("../config/magnesium_sulphate_hl/tr.js").default;
+  }
+  break;
+  case "neonatology_hl": {
+    // 横沥 - 新生儿护理记录单
+    schema = require("../config/neonatology_hl/tr.js").default;
+  }
+  break;
+  case "obstetrics_hl": {
+    // 横沥 - 护理记录单(产科)
+    schema = require("../config/obstetrics_hl/tr.js").default;
+  }
+  break;
+  case "gynecology_hl": {
+    // 横沥 - 护理记录单(妇科)
+    schema = require("../config/gynecology_hl/tr.js").default;
   }
   break;
   default: {
