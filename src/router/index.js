@@ -140,6 +140,9 @@ const bedRecord = () =>
 const changeMajorRecord = () =>
   import("@/Page/change-major-record/change-major-record.vue"); //转科记录
 
+// 护理计划单
+const planList = () => import("@/Page/plan-list/plan-list.vue");
+
 const demo = () => import("@/demo/demo"); //demo
 /** 包含全局样式的页面，患者详情子页面不可代码切割 */
 import sheetPage from "@/Page/sheet-page/sheet-page.vue"; // 护理记录单页面
@@ -578,12 +581,12 @@ const router = new Router({
           name: "瓶签打印"
         },
         {
-          path: "/implementationListNew",//执行单(新版)
+          path: "/implementationListNew", //执行单(新版)
           component: implementationListNew,
           name: "执行单"
         },
         {
-          path: "/bottleSignPrint",//瓶签打印
+          path: "/bottleSignPrint", //瓶签打印
           component: bottleSignPrint,
           name: "瓶签打印"
         },
@@ -718,6 +721,11 @@ const router = new Router({
         {
           path: "/dcList",
           component: dcList
+        },
+        {
+          path: "/planList",
+          component: planList,
+          name: '护理计划单'
         },
         {
           path: "/patientList",
