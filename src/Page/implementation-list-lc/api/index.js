@@ -28,3 +28,16 @@ export function addRecordLiaoc(obj) {
 export function updateExecuteTime(obj) {
   return axios.post(`${apiPath}hisLingChengExecute/getorderexecuteUpdate`, obj);
 }
+
+
+// 获取中山七执行单
+export function getWardExeacuteZSQ(obj) {
+  return axios.post(
+    `${apiPath}hisZhongShanQiYuanExecute/getWardExeacute`,
+    obj
+  );
+}
+// 补录（中山七）
+export function addRecordZSQ(obj) {
+  return axios.post(`${apiPath}hisZhongShanQiYuanExecute/orderExecute`, obj);
+}

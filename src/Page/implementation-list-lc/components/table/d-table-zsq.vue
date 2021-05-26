@@ -34,9 +34,9 @@
         </template>
       </el-table-column>
 
-      <el-table-column label="医嘱内容" prop="orderText" min-width="250px">
+      <el-table-column label="医嘱内容" prop="itemName" min-width="250px">
         <template slot-scope="scope">
-          <div :class="scope.row.rowType && `rowType-${scope.row.rowType}`">{{scope.row.orderText }}</div>
+          <div :class="scope.row.rowType && `rowType-${scope.row.rowType}`">{{scope.row.itemName }}</div>
         </template>
       </el-table-column>
 
@@ -52,7 +52,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column label="频次" prop="frequency" min-width="50px" align="center"></el-table-column>
+      <el-table-column label="频次" prop="freqeuncy" min-width="50px" align="center"></el-table-column>
 
       <el-table-column prop="administration" label="途径" min-width="80px"></el-table-column>
 
@@ -68,62 +68,28 @@
         </template>
       </el-table-column>
 
-      <el-table-column prop="startNurse" label="执行人" min-width="80px" align="center"></el-table-column>
-
-      <el-table-column prop="realExecuteDateTime" label="实际执行时间" min-width="150px" align="center">
-        <template slot-scope="scope">
-          <span>{{ scope.row.realExecuteDateTime | ymdhm2}}</span>
-        </template>
-      </el-table-column>
-
       <el-table-column prop="repeatIndicator" label="长/临" min-width="70px" align="center"></el-table-column>
 
       <!-- <el-table-column prop="startDateTime" label="开始输液时间" min-width="80px" align="center"></el-table-column> -->
 
-      <el-table-column prop="baiNurse" label="摆药人/摆药时间" min-width="170px" v-if="HOSPITAL_ID == 'liaocheng' && currentType == '输液'">
+      <el-table-column prop="startNurse" label="执行开始护士/执行开始时间" min-width="170px">
         <template slot-scope="scope">
-          <span>{{ scope.row.baiNurse}} {{ scope.row.baiTime | ymdhm2}}</span>
+          <span>{{ scope.row.startNurse}} {{ scope.row.startDateTime | ymdhm2}}</span>
         </template>
       </el-table-column>
 
-      <el-table-column prop="peiNurse" label="配药人/配药时间" min-width="170px" v-if="HOSPITAL_ID == 'liaocheng' && currentType == '输液'">
+      <el-table-column prop="endNurse" label="执行结束护士/执行结束时间" min-width="170px">
         <template slot-scope="scope">
-          <span>{{ scope.row.peiNurse}} {{ scope.row.peiTime | ymdhm2}}</span>
+          <span>{{ scope.row.endNurse}} {{ scope.row.endDateTime | ymdhm2}}</span>
         </template>
       </el-table-column>
-
-      <el-table-column prop="heNurse" label="核对人/核对时间" min-width="170px" v-if="HOSPITAL_ID == 'liaocheng' && currentType == '输液'">
-        <template slot-scope="scope">
-          <span>{{ scope.row.heNurse}} {{ scope.row.heTime | ymdhm2}}</span>
-        </template>
-      </el-table-column>
-
-      <el-table-column prop="endDateTime" label="结束输液时间/结束输液护士" min-width="170px">
-        <template slot-scope="scope">
-          <span>{{ scope.row.endDateTime | ymdhm2}} {{ scope.row.endNurse}}</span>
-        </template>
-      </el-table-column>
-
-      <el-table-column prop="stopDateTime" label="暂停输液时间/暂停输液护士/暂停输液原因" min-width="200px">
-        <template slot-scope="scope">
-          <span>{{ scope.row.stopDateTime | ymdhm2}} {{ scope.row.stopNurse}} {{ scope.row.stopReason}}</span>
-        </template>
-      </el-table-column>
-
-      <el-table-column prop="typeReason" label="补执行的原因" min-width="200px" v-if="HOSPITAL_ID == 'liaocheng'"></el-table-column>
 
       <el-table-column label="操作" min-width="100px" align="center">
         <template slot-scope="scope">
-          <el-button type="text" @click="backTracking(scope.row)" v-if="scope.row.executeFlag==0">补录</el-button>
-          <el-button
-            type="text"
-            @click="editTime(scope.row)"
-            v-if="isEdit && scope.row.executeFlag > 0"
-          >修改</el-button>
+          <el-button type="text" @click="backTracking(scope.row)" v-if="scope.row.executeFlag==='' && currentType !='输液'">补录</el-button>
         </template>
       </el-table-column>
     </el-table>
-    <editModal ref="editModal"></editModal>
   </div>
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
@@ -257,8 +223,7 @@ import { info } from "@/api/task";
 import commonMixin from "../../../../common/mixin/common.mixin";
 import qs from "qs";
 import moment from "moment";
-import { addRecord,addRecordLiaoc } from "../../api/index";
-import editModal from "../common/edit-modal";
+import { addRecordZSQ} from "../../api/index";
 import bus from "vue-happy-bus";
 export default {
   props: {
@@ -315,48 +280,26 @@ export default {
     },
   },
   components: {
-    editModal,
   },
   methods: {
     // 补录
     backTracking(item) {
-      if(this.HOSPITAL_ID == 'lingcheng'){
-        this.$confirm("是否补录?", "提示", {
-          confirmButtonText: "确定",
-          cancelButtonText: "取消",
-          type: "info",
-        }).then(() => {
-          let data = { strJson: JSON.stringify({
-            LabelId: item.barCode,
-            EmpNo: this.empNo,
-            Type: "1",
-            tradeCode: "OrderExecute",
-          })};
-          addRecord(data).then((res) => {
-            this.$message.success("补录成功");
-            this.bus.$emit("loadImplementationList");
-          });
+      this.$confirm("是否补录?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "info",
+      }).then(() => {
+        let data = {
+          labelId: item.barcode,
+          empNo: this.empNo,
+          pushRate: "",
+          type: "1",
+        };
+        addRecordZSQ(data).then((res) => {
+          this.$message.success("补录成功");
+          this.bus.$emit("loadImplementationList");
         });
-      }else {
-        this.$prompt('请输入补执行的原因', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-        }).then(({ value }) => {
-          let data = {
-            barcode: item.barCode,  //条码号
-            empNO: this.empNo,  //执行人
-            type: 1,  //是否补执行(pda默认传0正常执行  1补执行pc端)
-            typeReason: value //补执行的原因填写
-          }
-          addRecordLiaoc(data).then((res) => {
-            this.$message.success("补录成功");
-            this.bus.$emit("loadImplementationList");
-          });
-        }).catch(() => {});
-      }
-    },
-    editTime(data) {
-      this.$refs.editModal.open(data);
+      });
     },
     addRowClass(row){
       if(row.executeFlag == 4){

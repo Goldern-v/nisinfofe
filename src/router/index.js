@@ -120,6 +120,8 @@ const implementationListLc = () =>
   import("@/Page/implementation-list-lc/implementation-list.vue"); //陵城执行单
 const implementationListLiaocheng = () =>
   import("@/Page/implementation-list-lc/implementation-list-liaocheng.vue"); //聊城执行单
+const implementationListZhongshanqi = () =>
+  import("@/Page/implementation-list-lc/implementation-list-zhongshanqi.vue"); //中山七执行单
 const bottleLabel = () => import("@/Page/bottleLabel/index.vue"); //瓶签打印
 
 const dcList = () => import("@/Page/dc-list/dc-list.vue"); //执行单
@@ -572,7 +574,7 @@ const router = new Router({
         {
           path: "/implementationList",
           component: HOSPITAL_ID == "lingcheng" ?
-            implementationListLc : HOSPITAL_ID == "liaocheng" ? implementationListLiaocheng : implementationList,
+          implementationListLc : HOSPITAL_ID == "liaocheng" ? implementationListLiaocheng : HOSPITAL_ID == "zhongshanqi" ? implementationListZhongshanqi : implementationList,
           name: "执行单"
         },
         {
