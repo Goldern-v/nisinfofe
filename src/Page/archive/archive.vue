@@ -243,7 +243,7 @@ export default {
         wardCode: "", //科室代码
         showStatus: "" //状态查找：-2=归档失败,-1=生成pdf失败,0=待生成pdf,1=待归档,2=已归档
       },
-      total: 1,
+      total: 0,
       patientArchiveList: [], //科室患者归档列表
       currentFileIndex: 0, //当前预览pdf索引
       printDetailList: "", //归档详情

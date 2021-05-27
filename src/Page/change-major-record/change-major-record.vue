@@ -9,7 +9,7 @@
           size="small"
           format="yyyy-MM-dd"
           placeholder="开始日期"
-          v-model="query.StartDateTime"
+          v-model="query.startDate"
           clearable
         />
         <span>-</span>
@@ -19,35 +19,48 @@
           size="small"
           format="yyyy-MM-dd"
           placeholder="结束日期"
-          v-model="query.EndDateTime"
+          v-model="query.endDate"
           clearable
         />
       </span>
       <el-button @click="getTableData">搜索</el-button>
     </div>
     <dTable :tableData="tableData" :pageLoadng="pageLoadng"></dTable>
+    <pagination
+      :pageIndex="query.pageIndex"
+      :size="query.pageSize"
+      :total="total"
+      @sizeChange="handleSizeChange"
+      @currentChange="handleCurrentChange"
+    ></pagination>
   </div>
 </template>
 
 <script>
 import common from "@/common/mixin/common.mixin.js";
 import dTable from "./components/table/d-table";
-import { getProcedureData } from "@/api/common";
+import { getListNurseAdt } from "./api/";
 import moment from "moment";
+import pagination from "@/components/pagination/pagination.vue";
 export default {
   components: {
-    dTable
+    dTable,
+    pagination
   },
   mixins: [common],
   data() {
     return {
       query: {
-        StartDateTime: moment(new Date()).format("YYYY-MM-DD HH:mm:ss"),
-        EndDateTime: moment(new Date()).format("YYYY-MM-DD HH:mm:ss")
+        wardCode:"",
+        startDate:moment(new Date()).format("YYYY-MM-DD HH:mm:ss"),
+        endDate:moment(new Date()).format("YYYY-MM-DD HH:mm:ss"),
+        pageIndex:1,
+        pageSize:20
       },
       tableHeight: 0,
       tableData: [],
       pageLoadng: false,
+      total: 0
     };
   },
   mounted() {
@@ -65,18 +78,22 @@ export default {
     }
   },
   methods: {
+    handleSizeChange(newSize) {
+      this.query.pageSize = newSize;
+    },
+    handleCurrentChange(newPage) {
+      this.query.pageIndex = newPage;
+      this.getArchiveList();
+    },
     // 获取列表
     getTableData() {
       this.pageLoadng = true;
-      this.query.StartDateTime = this.query.StartDateTime ? moment(this.query.StartDateTime).format("YYYY-MM-DD") + " 00:00:00": moment(new Date()).format("YYYY-MM-DD") + " 00:00:00";
-      this.query.EndDateTime =  this.query.EndDateTime ? moment(this.query.EndDateTime).format("YYYY-MM-DD") + " 23:59:59" : moment(new Date()).format("YYYY-MM-DD") + " 23:59:59";
-      console.log(this.EndDateTime);
-      let data = {
-        tradeCode: "getPatientTransfer",//服务名
-        ...this.query
-      };
-       getProcedureData(data).then(res => {
-          this.tableData = res.data.data.data;
+      this.query.startDate = this.query.startDate ? moment(this.query.startDate).format("YYYY-MM-DD") + " 00:00:00": moment(new Date()).format("YYYY-MM-DD") + " 00:00:00";
+      this.query.endDate =  this.query.endDate ? moment(this.query.endDate).format("YYYY-MM-DD") + " 23:59:59" : moment(new Date()).format("YYYY-MM-DD") + " 23:59:59";
+      this.query.wardCode = this.deptCode;
+      getListNurseAdt(this.query).then(res => {
+          this.tableData = res.data.data.list;
+          this.total = res.data.data.totalCount || 0;
           this.pageLoadng = false;
         },
         err => {
@@ -94,7 +111,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .main-contain {
-  margin: 10px 10px 0px 10px;
+  margin: 10px;
   .head-con {
     height: 42px;
     display: flex;
