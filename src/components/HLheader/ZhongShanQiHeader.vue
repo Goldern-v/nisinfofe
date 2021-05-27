@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- 解决password自动填充bug -->
-    <input type="password" style="display:none" />
+    <input type="password" style="display:none"/>
     <div id="hl-nav-con">
       <div class="header-con">
         <el-row type="flex" class="row-bg" justify="space-between">
@@ -17,7 +17,7 @@
                 height="63"
                 width="63"
               />
-              <span>{{ HOSPITAL_NAME }}<br />智慧护理信息系统</span>
+              <span>{{ HOSPITAL_NAME }}<br/>智慧护理信息系统</span>
             </el-row>
             <!-- <router-link to="/index"
                          tag="span">
@@ -188,7 +188,8 @@
             </router-link>
             <router-link to="/nursingRounds" tag="span">
               <el-row class="nav-item" type="flex" align="middle"
-                >护理巡视</el-row
+              >护理巡视
+              </el-row
               >
             </router-link>
 
@@ -316,6 +317,21 @@
                     </el-row>
                   </router-link>
                 </el-dropdown-item>
+                <el-dropdown-item :class="{active: $route.path.indexOf('/nursePapersStatistics/num') > -1  }">
+                  <router-link to="/nursePapersStatistics/num" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="departmentSharedFile"></i>护士文书完成数量统计
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item>
+                <el-dropdown-item :class="{active: $route.path.indexOf('/nursePapersStatistics/time') > -1 }">
+                  <router-link to="/nursePapersStatistics/time" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="departmentSharedFile"></i>护士书写文书时间统计
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item>
+
                 <!-- <el-dropdown-item :class="{active: $route.path == '/badEvent'}">
                   <router-link to="/badEvent" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
@@ -370,8 +386,8 @@
                 </el-select>
               </span>
               <span class="option-item" v-popover:popover1>{{
-                user.empName
-              }}</span>
+                  user.empName
+                }}</span>
             </span>
             <span class="small-1250-con">
               <el-dropdown @command="handleCommand">
@@ -637,7 +653,7 @@
 }
 
 .dept-select {
-  >>>.el-input__inner {
+  >>> .el-input__inner {
     border: 0;
     padding: 15px 0;
     text-align: center;
@@ -651,7 +667,7 @@
     }
   }
 
-  >>>.el-input__icon {
+  >>> .el-input__icon {
     display: none;
   }
 }
@@ -673,18 +689,22 @@
     display: none;
   } */
 }
+
 @media screen and (max-width: 930px) {
   .small-1250-con {
     display: block;
   }
+
   .big-1250-con {
     display: none;
   }
 }
+
 @media screen and (min-width: 930px) {
   .small-1250-con {
     display: none;
   }
+
   .big-1250-con {
     display: block;
   }
@@ -699,6 +719,7 @@ import userInfo from "./user-info.vue";
 import { nursingUnit } from "@/api/lesion";
 import common from "@/common/mixin/common.mixin";
 import WebSocketService from "@/plugin/webSocket/index";
+
 export default {
   mixins: [common],
   data() {
@@ -733,7 +754,8 @@ export default {
     superAdmin() {
       try {
         return JSON.parse(localStorage.user).superuser;
-      } catch (e) {}
+      } catch (e) {
+      }
     },
     Unread() {
       return this.$store.state.common.mailUnread;
@@ -764,15 +786,13 @@ export default {
     handleCommand(command) {
       switch (command) {
         case "quit":
-        case "quit":
-          {
-            this.quit();
-          }
+        case "quit": {
+          this.quit();
+        }
           break;
-        case "setPassword":
-          {
-            this.setPassword();
-          }
+        case "setPassword": {
+          this.setPassword();
+        }
           break;
       }
     },
@@ -787,7 +807,7 @@ export default {
       Cookies.remove("hasGreet");
       Cookies.remove("token");
       Cookies.remove("user");
-      Cookies.remove("NURSING_USER", { path: "/" });
+      Cookies.remove("NURSING_USER", {path: "/"});
       this.$router.push("/login");
       this.$store.commit("upDeptCode", "");
     },
@@ -803,7 +823,8 @@ export default {
       this.$store.commit("upDeptName", deptName);
       try {
         this.mewsId && WebSocketService.unsubscribe(this.mewsId);
-      } catch (error) {}
+      } catch (error) {
+      }
       this.subscribe();
     },
     subscribe() {
@@ -822,7 +843,8 @@ export default {
             } else {
               this.isTip = false;
             }
-          } catch (error) {}
+          } catch (error) {
+          }
         }
       );
     }
