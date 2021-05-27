@@ -170,7 +170,8 @@ import catheter from "@/Page/patientInfo/supPage/catheter/catheter.vue";
 import deep from "@/Page/patientInfo/supPage/deep/deep.vue";
 import healthEducation from "@/Page/patientInfo/supPage/healthEducation/healthEducation.vue"; // 厚街
 import hospitalEval from "@/Page/patientInfo/supPage/hospital-eval/hospital-eval";
-import implementationPersonLiaocheng from "@/Page/patientInfo/supPage/implementation-list/implementation-list-liaocheng";
+import implementationPersonLiaocheng
+  from "@/Page/patientInfo/supPage/implementation-list/implementation-list-liaocheng";
 // 深静脉导管维护单页面
 import deepPage from "@/Page/deep-page/deep-page.vue";
 // 导管监测单
@@ -182,10 +183,10 @@ const router = new Router({
   mode: "history",
   base: "/crNursing/",
   routes: [{
-      path: "/",
-      redirect: "/index",
-      alias: "主页"
-    },
+    path: "/",
+    redirect: "/index",
+    alias: "主页"
+  },
     {
       path: "/demo",
       component: demo,
@@ -214,9 +215,9 @@ const router = new Router({
       path: "/showPatientDetails",
       component: showPatientDetails,
       children: [{
-          path: "record",
-          component: record
-        },
+        path: "record",
+        component: record
+      },
         {
           path: "sheet",
           component: sheet,
@@ -368,6 +369,11 @@ const router = new Router({
             component: nursingGradeStatisticsDetail
           }]
         },
+        { //护士文书完成数量统计
+          path: "/nursePapersStatistics/:type?",
+          component: () => import('@/Page/numberOfPapers'),
+          name: "nursePapersStatistics",
+        },
         {
           path: "/shiftWork",
           name: "shiftWorks",
@@ -395,10 +401,10 @@ const router = new Router({
           alias: "不良事件",
           component: badEvent,
           children: [{
-              name: "badEventEdit",
-              path: "/badEvent/:code?/:operation?/:id?/:type?/:name?",
-              component: badEventEditPage
-            },
+            name: "badEventEdit",
+            path: "/badEvent/:code?/:operation?/:id?/:type?/:name?",
+            component: badEventEditPage
+          },
             {
               name: "badEventView",
               path: "/badEvent/:code?/:operation?/:id?/:status?/:type?/:name?",
@@ -442,9 +448,9 @@ const router = new Router({
           component: patientInfo,
           alias: "病人信息",
           children: [{
-              path: "/information",
-              component: information
-            },
+            path: "/information",
+            component: information
+          },
             {
               path: "/advice",
               component: advice
@@ -574,7 +580,7 @@ const router = new Router({
         {
           path: "/implementationList",
           component: HOSPITAL_ID == "lingcheng" ?
-          implementationListLc : HOSPITAL_ID == "liaocheng" ? implementationListLiaocheng : HOSPITAL_ID == "zhongshanqi" ? implementationListZhongshanqi : implementationList,
+            implementationListLc : HOSPITAL_ID == "liaocheng" ? implementationListLiaocheng : HOSPITAL_ID == "zhongshanqi" ? implementationListZhongshanqi : implementationList,
           name: "执行单"
         },
         {
