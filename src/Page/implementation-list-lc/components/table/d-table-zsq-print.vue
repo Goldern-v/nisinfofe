@@ -4,7 +4,6 @@
       :data="tableData"
       style="width: 100%"
       border
-      :height="tableH || wih - 134"
       v-loading="pageLoadng"
       :row-class-name="addRowClass"
       :class="{ 'd-table-liaocheng': HOSPITAL_ID == 'liaocheng' }"
@@ -28,13 +27,13 @@
         </template>
       </el-table-column>
 
-      <el-table-column label="姓名" prop="patientName" min-width="70px" align="center">
+      <el-table-column label="姓名" prop="patientName" min-width="60px" align="center">
         <template slot-scope="scope">
           <div>{{(scope.row.rowType == 1 || !scope.row.rowType) ? (scope.row.patientName) : ''}}</div>
         </template>
       </el-table-column>
 
-      <el-table-column label="医嘱内容" prop="itemName" min-width="250px">
+      <el-table-column label="医嘱内容" prop="itemName" min-width="150px">
         <template slot-scope="scope">
           <div :class="scope.row.rowType && `rowType-${scope.row.rowType}`">{{scope.row.itemName }}</div>
         </template>
@@ -42,13 +41,13 @@
 
       <el-table-column prop="dosage" label="剂量" min-width="50px" align="right">
         <template slot-scope="scope">
-          <span style="position: relative;right: -10px;">{{scope.row.dosage }}</span>
+          <span style="position: relative;right: 0px;">{{scope.row.dosage }}</span>
         </template>
       </el-table-column>
 
       <el-table-column prop="dosageUnits" label="单位" min-width="50px">
         <template slot-scope="scope">
-          <span style="position: relative;left: -10px;">{{scope.row.dosageUnits }}</span>
+          <span style="position: relative;left: 0px;">{{scope.row.dosageUnits }}</span>
         </template>
       </el-table-column>
 
@@ -72,23 +71,23 @@
 
       <!-- <el-table-column prop="startDateTime" label="开始输液时间" min-width="80px" align="center"></el-table-column> -->
 
-      <el-table-column prop="startNurse" label="执行开始护士/执行开始时间" min-width="170px">
+      <el-table-column prop="startNurse" label="执行开始护士/执行开始时间" min-width="190px">
         <template slot-scope="scope">
           <span>{{ scope.row.startNurse}} {{ scope.row.startDateTime | ymdhm2}}</span>
         </template>
       </el-table-column>
 
-      <el-table-column prop="endNurse" label="执行结束护士/执行结束时间" min-width="170px">
+      <el-table-column prop="endNurse" label="执行结束护士/执行结束时间" min-width="190px">
         <template slot-scope="scope">
           <span>{{ scope.row.endNurse}} {{ scope.row.endDateTime | ymdhm2}}</span>
         </template>
       </el-table-column>
 
-      <el-table-column label="操作" min-width="100px" align="center">
+      <!-- <el-table-column label="操作" min-width="100px" align="center">
         <template slot-scope="scope">
           <el-button type="text" @click="backTracking(scope.row)" v-if="scope.row.executeFlag==='' && currentType !='输液'">补录</el-button>
         </template>
-      </el-table-column>
+      </el-table-column> -->
     </el-table>
   </div>
 </template>
@@ -109,7 +108,7 @@
     }
 
     .cell {
-      padding: 0 10px !important;
+      padding: 0 5px !important;
       overflow: visible !important;
       font-size: 13px !important;
 

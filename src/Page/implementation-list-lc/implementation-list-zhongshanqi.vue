@@ -60,8 +60,21 @@
           v-model="bedLabel"
         ></el-input>
         <el-button size="small" type="primary" @click="search">查询</el-button>
+        <el-button size="small" @click="onPrint">打印</el-button>
       </div>
       <dTable :tableData="tableData" :currentType="type" :pageLoadng="pageLoadng"></dTable>
+
+      <div class="printable" ref="printable">
+        <div class="header-con">
+          <h2>执行单</h2>
+           <div class="filterItem date">
+            <span class="type-label">日期:</span>
+            <span>{{startDate}}</span>
+          </div>
+        </div>
+        <dTablePrint :tableData="tableData" :currentType="type" :pageLoadng="pageLoadng"></dTablePrint>
+      </div>
+
       <!-- <div class="pagination-con" flex="main:justify cross:center">
         <pagination
           :pageIndex="page.pageIndex"
@@ -76,7 +89,11 @@
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
 .main-contain {
-  margin: 10px 10px 0px 10px;
+  position: absolute;
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  overflow: hidden;
 
   .pagination-con {
     height: 41px;
@@ -156,15 +173,32 @@
     top: 2px;
   }
 }
+.printable {
+  position: absolute;
+  width: 1200px;
+  z-index: -1000;
+  .header-con {
+    h2 {
+      font-size: 24px;
+      text-align: center;
+      padding-top: 20px;
+      padding-bottom: 10px;
+    }
+    padding-bottom: 5px;
+  }
+}
 </style>
 <script>
 import dTable from "./components/table/d-table-zsq";
+import dTablePrint from "./components/table/d-table-zsq-print";
 import pagination from "./components/common/pagination";
 import { patEmrList } from "@/api/document";
 import { getExecuteWithWardcodeLc,getWardExeacuteZSQ } from "./api/index";
 import common from "@/common/mixin/common.mixin.js";
 import moment from "moment";
 import bus from "vue-happy-bus";
+import print from "printing";
+import formatter from "./print-formatter";
 export default {
   mixins: [common],
   data() {
@@ -321,6 +355,42 @@ export default {
       this.page.pageIndex = 1;
       this.onLoad();
     },
+    async onPrint() {
+      this.$nextTick(async () => {
+        await print(this.$refs.printable, {
+          beforePrint: formatter,
+          injectGlobalCss: true,
+          scanStyles: false,
+          css: `
+          .el-table {
+            border: none !important;
+          }
+          .el-table__header-wrapper,.el-table__body-wrapper {
+            margin: 0 !important;
+          }
+          .el-table__body-wrapper {
+            border-bottom: 1px solid #000 !important;
+          }
+          table {
+            width: 100%;
+          }
+          th {
+            border: 1px solid #000 !important;
+            border-bottom: none !important;
+          }
+          td {
+            border: 1px solid #000 !important;
+          }
+          .cell {
+            padding: 0 3px !important;
+          }
+          @page {
+            margin: 10px;
+          }
+        `,
+        });
+      });
+    },
   },
   created() {
     this.onLoad();
@@ -350,6 +420,7 @@ export default {
   },
   components: {
     dTable,
+    dTablePrint,
     pagination,
   },
 };
