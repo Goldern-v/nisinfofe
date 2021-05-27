@@ -30,7 +30,7 @@
           :pageIndex="searchForm.pageIndex"
           :size="searchForm.pageSize"
           :total="total"
-          layout="sizes, prev, pager, next"
+          layout="total, sizes, prev, pager, next, jumper"
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
         ></el-pagination>

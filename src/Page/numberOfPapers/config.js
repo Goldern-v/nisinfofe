@@ -38,7 +38,7 @@ const timeTableConfig = [
   },
   {
     prop: 'consumeTime',
-    label: '耗时统计',
+    label: '耗时统计(/分)',
   }
 ]
 
