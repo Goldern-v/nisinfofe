@@ -13,7 +13,7 @@
         <span class="label">姓名:</span>
         <el-input
           v-model="searchForm.keyWord"
-          placeholder="请输入姓名"
+          :placeholder="type === 'num' ? '请输入护士姓名':'请输入患者姓名'"
           style="width: 200px;"
           @change="getTableData"
         />
@@ -89,7 +89,7 @@ export default {
         pageSize: this.searchForm.pageSize,
         deptCode: this.$store.state.lesion.deptCode
       }
-      if (this.searchForm.date.length > 0) {
+      if (this.searchForm.date[0]) {
         params.startTime = moment(this.searchForm.date[0]).format('YYYY-MM-DD HH:mm:ss')
         params.endTime = moment(this.searchForm.date[1]).format('YYYY-MM-DD HH:mm:ss')
       }
