@@ -320,14 +320,14 @@
                 <el-dropdown-item :class="{active: $route.path.indexOf('/nursePapersStatistics/num') > -1  }">
                   <router-link to="/nursePapersStatistics/num" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
-                      <i class="departmentSharedFile"></i>护士文书完成数量统计
+                      <i class="birthCertificate"></i>护士文书完成数量统计
                     </el-row>
                   </router-link>
                 </el-dropdown-item>
                 <el-dropdown-item :class="{active: $route.path.indexOf('/nursePapersStatistics/time') > -1 }">
                   <router-link to="/nursePapersStatistics/time" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
-                      <i class="departmentSharedFile"></i>护士书写文书时间统计
+                      <i class="puerperantSituation"></i>护士书写文书时间统计
                     </el-row>
                   </router-link>
                 </el-dropdown-item>
