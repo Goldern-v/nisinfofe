@@ -90,6 +90,21 @@
         </template>
       </el-table-column>
     </el-table>
+     <sweet-modal ref="modal" title="确认补录" :modalWidth="400">
+       补录时间：
+      <el-date-picker
+        type="datetime"
+        format="yyyy-MM-dd HH:mm:ss"
+        placeholder="选择补录时间"
+        size="small"
+        v-model="backTrackingTime"
+        style="margin-top: 30px;"
+      ></el-date-picker>
+      <div slot="button">
+        <el-button class="modal-btn" type="primary" @click="isBackTracking">补录</el-button>
+        <el-button class="modal-btn" @click="close">取消</el-button>
+      </div>
+    </sweet-modal>
   </div>
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
@@ -224,6 +239,7 @@ import commonMixin from "../../../../common/mixin/common.mixin";
 import qs from "qs";
 import moment from "moment";
 import { addRecordZSQ} from "../../api/index";
+import { getUser} from "@/api/common";
 import bus from "vue-happy-bus";
 export default {
   props: {
@@ -239,6 +255,8 @@ export default {
       bus: bus(this),
       isEdit: false,
       typeReason: '',//补执行的原因填写
+      backTrackingTime: moment(new Date()).format("YYYY-MM-DD HH:mm:ss"),
+      barcode: ""
     };
   },
   filters: {
@@ -284,20 +302,26 @@ export default {
   methods: {
     // 补录
     backTracking(item) {
-      this.$confirm("是否补录?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "info",
-      }).then(() => {
-        let data = {
-          labelId: item.barcode,
-          empNo: this.empNo,
-          pushRate: "",
-          type: "1",
-        };
-        addRecordZSQ(data).then((res) => {
-          this.$message.success("补录成功");
-          this.bus.$emit("loadImplementationList");
+      this.barcode = item.barcode;
+      this.$refs.modal.open();
+    },
+    close() {
+      this.$refs.modal.close()
+    },
+    isBackTracking(){
+      window.openSignModal((password, empNo) => {
+        getUser(password, empNo).then(res => {
+          let data = {
+            labelId: this.barcode,
+            empNo: empNo,
+            pushRate: "",
+            type: "1",
+          };
+          addRecordZSQ(data).then((res) => {
+            this.close();
+            this.$message.success("补录成功");
+            this.bus.$emit("loadImplementationList");
+          })
         });
       });
     },
