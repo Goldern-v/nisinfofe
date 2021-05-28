@@ -2,7 +2,7 @@
   <div class="d-table">
   <el-table
     :data="tableData"
-    :height="wih - 137"
+    :height="wih - 180"
     border
     v-loading="pageLoadng"
     stripe
@@ -14,21 +14,21 @@
       width="80"
       align="center"
     ></el-table-column>
-    <el-table-column prop="PatientId" label="患者ID"  min-width="80" align="center" class-name="rule-name"> </el-table-column>
+    <el-table-column prop="patientId" label="患者ID"  min-width="80" align="center" class-name="rule-name"> </el-table-column>
     <!-- <el-table-column prop="fileName" label="住院号"  min-width="80" align="center" class-name="rule-name"> </el-table-column>
     <el-table-column prop="fileName" label="姓名"  min-width="80" align="center" class-name="rule-name"> </el-table-column> -->
-    <el-table-column prop="fileName" label="转床时间"  min-width="100" align="center" class-name="rule-name">
+    <el-table-column prop="logDateTime" label="转床时间"  min-width="100" align="center" class-name="rule-name">
       <template slot-scope="scope">
-        <div>{{scope.row.LogDateTime | ymdhm}}</div>
+        <div>{{scope.row.logDateTime | ymdhm}}</div>
       </template>
     </el-table-column>
     <!-- <el-table-column prop="fileName" label="转出病区"  min-width="150" align="center" class-name="rule-name"> </el-table-column>
     <el-table-column prop="fileName" label="转出专科"  min-width="80" align="center" class-name="rule-name"> </el-table-column> -->
-    <el-table-column prop="BedLabelOld" label="转出床位号"  min-width="80" align="center" class-name="rule-name"> </el-table-column>
+    <el-table-column prop="bedLabelOld" label="转出床位号"  min-width="80" align="center" class-name="rule-name"> </el-table-column>
     <!-- <el-table-column prop="fileName" label="转入病区"  min-width="150" align="center" class-name="rule-name"> </el-table-column>
     <el-table-column prop="fileName" label="转入专科"  min-width="150" align="center" class-name="rule-name"> </el-table-column> -->
-    <el-table-column prop="BedLabelNew" label="转入床位号"  min-width="80" align="center" class-name="rule-name"> </el-table-column>
-    <el-table-column prop="Operator" label="操作员"  min-width="80" align="center" class-name="rule-name"> </el-table-column>
+    <el-table-column prop="bedLabelNew" label="转入床位号"  min-width="80" align="center" class-name="rule-name"> </el-table-column>
+    <el-table-column prop="operator" label="操作员"  min-width="80" align="center" class-name="rule-name"> </el-table-column>
     </el-table>
   </div>
 </template>
