@@ -426,14 +426,13 @@ export default {
       if (this.HOSPITAL_ID === "liaocheng") {
         viewDom = h(
           'div',
-          {class: {'view': true}, on: {click: (e) => this.handleViewClick(e, node)}},
+          {class: {'view': true}, on: {click: (e) => this.handleViewClick(e, node, data)}},
           [
             h('i', {class: {'el-icon-view': true}}),
           ]
         )
       }
       if (node.level !== 2) {
-
         return h('span',
           {class: {'tree-box-node': true}},
           [
@@ -454,15 +453,21 @@ export default {
     },
     handleViewClick(e, node) {
       e.stopPropagation()
+      if (node && node.childNodes && node.childNodes.length > 0) {
+        node = node.childNodes[0]
+      }
       this.bus.$emit(
         "openAssessmentBox",
-        {
-          ...getFormConfig(node.data.formName),
-          formCode: node.data.formCode,
-          nooForm: node.data.nooForm,
-          pageUrl: node.data.pageUrl,
-          onlyView: true
-        }
+        Object.assign({}, getFormConfig(node.data.formName), {
+          id: node.data.form_id,
+          formCode: node.parent.data.formCode,
+          showCurve: node.parent.data.showCurve,
+          creator: node.parent.data.creator,
+          listPrint: node.parent.data.listPrint,
+          nooForm: node.parent.data.nooForm,
+          pageUrl: node.parent.data.pageUrl,
+          isPrintPreview: true
+        })
       );
     },
     getBlockByPV() {

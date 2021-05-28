@@ -293,7 +293,8 @@ export default {
         admissionDate: query.admissionDate,
         token: this.token,
         todo: this.info.todo,
-        title: this.info.title || ""
+        title: this.info.title || "",
+        isPrintPreview: info.isPrintPreview
         // ...this.info
       };
       if (this.onlyView) {
