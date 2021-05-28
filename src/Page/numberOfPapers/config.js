@@ -26,7 +26,7 @@ const timeTableConfig = [
   },
   {
     prop: 'formName',
-    label: '病例书名称',
+    label: '病历书名称',
   },
   {
     prop: 'createTime',
