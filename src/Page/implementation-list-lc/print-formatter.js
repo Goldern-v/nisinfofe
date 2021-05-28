@@ -22,7 +22,7 @@ export default function(win) {
 
   while ((row = patients.shift())) {
     const h = row.offsetHeight;
-    if (!page || page.offsetHeight + h > 800) {
+    if (!page || page.offsetHeight + h > 780) {
       let newWrap = wrap.cloneNode(true);
       let newTable = newWrap.children[0];
       newTbody = newTable.children[1];

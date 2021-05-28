@@ -69,7 +69,7 @@
           <h2>执行单</h2>
            <div class="filterItem date">
             <span class="type-label">日期:</span>
-            <span>{{startDate}}</span>
+            <span>{{startDate | ymdhm}}</span>
           </div>
         </div>
         <dTablePrint :tableData="tableData" :currentType="type" :pageLoadng="pageLoadng"></dTablePrint>
@@ -181,7 +181,7 @@
     h2 {
       font-size: 24px;
       text-align: center;
-      padding-top: 20px;
+      padding-top: 10px;
       padding-bottom: 10px;
     }
     padding-bottom: 5px;
@@ -385,7 +385,7 @@ export default {
             padding: 0 3px !important;
           }
           @page {
-            margin: 10px;
+            margin: 10mm;
           }
         `,
         });
@@ -417,6 +417,11 @@ export default {
     status() {
       this.search();
     },
+  },
+  filters: {
+    ymdhm(val) {
+      return val ? moment(val).format("YYYY-MM-DD") : "";
+    }
   },
   components: {
     dTable,
