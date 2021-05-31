@@ -128,7 +128,9 @@ const dcList = () => import("@/Page/dc-list/dc-list.vue"); //执行单
 const patientList = () => import("@/Page/patientList/index"); //执行单
 const nursingRounds = () => import("@/Page/nursing-rounds/nursing-rounds.vue"); //护理巡视
 const allTemperatureChart = () =>
-  import("@/Page/temperature-chart/all-temperature-chart.vue"); //批量录入体温单
+  import("@/Page/temperature-chart/all-temperature-chart/all-temperature-chart.vue"); //批量录入体温单
+const newSingleTemperatureChart = () =>
+  import("@/Page/temperature-chart/new-singleTemperature-chart/new-singleTemperature-chart.vue"); //聊城二院-新版体温单录入页面
 const showPatientDetails = () =>
   import("@/Page/show-patient-details/show-patient-details.vue"); //查看评估单、记录单、病历、检查、检验、体温单
 const nursingPreview = () => import("@/Page/NursingPreview/NursingPreview.vue"); //查看所有的评估单、记录单、体温单
@@ -757,6 +759,11 @@ const router = new Router({
           path: "/allTemperatureChart",
           component: allTemperatureChart,
           name: "批量录入体温单"
+        },
+        {
+          path: "/newSingleTemperatureChart",
+          component: newSingleTemperatureChart,
+          name: "体温单录入查看体温单曲线"
         },
         {
           path: "/cognitiveStatistic",
