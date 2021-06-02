@@ -340,6 +340,16 @@
                     </el-row>
                   </router-link>
                 </el-dropdown-item>
+                <el-dropdown-item>
+                  <el-row class="menu-item" type="flex" align="middle">
+                    <i class="puerperantSituation"></i>出院随访
+                  </el-row>
+                </el-dropdown-item>
+                <el-dropdown-item>
+                  <el-row class="menu-item" type="flex" align="middle">
+                    <i class="puerperantSituation"></i>出院随访统计
+                  </el-row>
+                </el-dropdown-item>
 
                 <!-- <el-dropdown-item :class="{active: $route.path == '/badEvent'}">
                   <router-link to="/badEvent" tag="span">
