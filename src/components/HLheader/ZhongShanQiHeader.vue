@@ -257,6 +257,15 @@
                     </el-row>
                   </router-link>
                 </el-dropdown-item>
+                <el-dropdown-item
+                  :class="{ active: $route.path == '/rationalDoseStatistics' }"
+                >
+                  <router-link to="/rationalDoseStatistics" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="workloadSatistics"></i>合理用药
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item>
                 <!-- <el-dropdown-item :class="{active: $route.path == '/catheterPage'}">
                   <router-link to="/catheterPage" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
@@ -767,6 +776,8 @@ export default {
       if (this.$route.path == "/badEvent") return true;
       if (this.$route.path == "/inpatientReport") return true;
       if (this.$route.path == "/catheterPage") return true;
+      if (this.$route.path == "/workloadSatistics") return true;
+      if (this.$route.path == "/rationalDoseStatistics") return true;
     },
     isActiveFormPage() {
       // if (this.$route.path == "/sheetPage") return true;
