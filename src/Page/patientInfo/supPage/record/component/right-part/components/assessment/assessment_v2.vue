@@ -371,7 +371,7 @@ export default {
       this.wid.onmessage = this.onmessage;
 
       // 医生查看患者详情  或者 预览模式
-      if (this.$route.path.includes("showPatientDetails") || this.onlyView) {
+      if (this.$route.path.includes("showPatientDetails") || this.$route.path.includes("nursingPreview") || this.onlyView) {
         if (wid.document.querySelector(".tool-contain")) {
           wid.document.querySelector(".tool-contain").style = "display:none;";
           if (wid.document.querySelector("#app .form")) {
