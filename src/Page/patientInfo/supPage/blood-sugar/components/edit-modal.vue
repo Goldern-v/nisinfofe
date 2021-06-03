@@ -175,6 +175,27 @@ export default {
           ? this.huaduTypeList[0].vitalSign
           : "指尖血糖";
       }
+      if(this.HOSPITAL_ID == 'fuyou'){
+        let expand2 = form ? 2 : 1;
+        form = form || {};
+        this.form = {
+          patientId: this.patientInfo.patientId, //--患者id
+          visitId: this.patientInfo.visitId, //--住院次数
+          name: this.patientInfo.name, //-患者姓名
+          bedLabel: this.patientInfo.bedLabel, //--床号
+          recordDate: new Date(form.recordDate || new Date()), //--录入时间
+          recordTime: new Date(form.recordDate || new Date()),
+          sugarItem: form.sugarItem || defaultSugarItem, //--血糖项目名称
+          sugarValue: form.sugarValue || 0, //--项目值
+          riValue: form.riValue || 0, //--可以传空
+          nurseEmpNo: this.curEmpNo, //--护士工号
+          nurse: this.curEmpName, //--护士姓名
+          expand1: "",
+          expand2 //--操作方式，1：添加，2：修改~~~~
+        }
+        this.oldRecordDate = form ? form.recordDate : '';
+        return;
+      }
       if (form) {
         this.form = {
           recordDate: new Date(form.recordDate || new Date()),
@@ -217,7 +238,9 @@ export default {
       data.recordDate.setHours(data.recordTime.getHours());
       data.recordDate.setMinutes(data.recordTime.getMinutes());
       data.recordDate.setSeconds(data.recordTime.getSeconds());
-      data.nurse = this.curEmpNo;
+      if(this.HOSPITAL_ID != 'fuyou'){
+       data.nurse = this.curEmpNo;
+      }
       delete data.recordTime;
       // 针对花都血糖项目进行保存
       if (this.HOSPITAL_ID == "huadu") {
