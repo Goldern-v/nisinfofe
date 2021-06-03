@@ -247,6 +247,11 @@ function switechSheetType(type) {
     schema = require("../config/thyroid_gland/tr.js").default;
   }
   break;
+  case "jmrs": {
+    // 静脉溶栓护理记录单
+    schema = require("../config/jmrs/tr.js").default;
+  }
+  break;
   case "neurology_wx": {
     // 威县-神经内科
     schema = require("../config/neurology_wx/tr.js").default;
