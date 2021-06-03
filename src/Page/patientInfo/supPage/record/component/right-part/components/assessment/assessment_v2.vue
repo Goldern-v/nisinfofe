@@ -509,7 +509,7 @@ export default {
       }
 
       // 医生查看患者详情  或者 预览模式
-      if (window.location.href.includes("showPatientDetails") || this.onlyView) {
+      if (window.location.href.includes("showPatientDetails") || window.location.href.includes("nursingPreview") || this.onlyView) {
         this.$nextTick(() => {
           let css = `#app input,#app label{
               pointer-events: none !important;
@@ -1767,7 +1767,7 @@ export default {
       return this.$store.state.record.fullPageRecord ? 5 : 85;
     },
     iframeHeight() {
-      if (this.$route.path == "/formPage" || this.$route.path.includes('showPatientDetails')) {
+      if (this.$route.path == "/formPage" || this.$route.path.includes('showPatientDetails') || this.$route.path.includes('nursingPreview')) {
         return this.wih - 0 - this.offsetHeight;
       } else {
         return this.wih - 60 - this.offsetHeight;
