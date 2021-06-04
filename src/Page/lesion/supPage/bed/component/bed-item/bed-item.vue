@@ -87,7 +87,58 @@ export default {
           });
         }
       );
-    }
+    },
+    // 右键菜单
+    openContextMenu(e, item) {
+      let style = {
+        top: `${Math.min(e.clientY - 15, window.innerHeight - 280)}px`,
+        left: `${Math.min(e.clientX + 15, window.innerWidth - 180)}px`
+      };
+      let param = qs.stringify({
+                patientId: item.patientId,
+                visitId: item.visitId
+              });
+      let data = [
+        {
+          name: "记录单",
+          iconClass: "el-icon-document",
+          click: () => {
+            window.open(
+              `/crNursing/sheet?${param}`
+            );
+          }
+        },
+        {
+          name: "血糖",
+          iconClass: "el-icon-document",
+          click: () => {
+            window.open(
+              `/crNursing/bloodSugar?${param}`
+            );
+          }
+        },
+        {
+          name: "医嘱",
+          iconClass: "el-icon-document",
+          click: () => {
+            window.open(
+              `/crNursing/advice?${param}`
+            );
+          }
+        },
+        {
+          name: "体温单",
+          iconClass: "el-icon-document",
+          click: () => {
+            window.open(
+              `/crNursing/temperature?${param}`
+            );
+          }
+        }
+      ];
+      e.preventDefault();
+      window.openContextMenu({ style, data });
+    },
   },
   components: {}
 };
