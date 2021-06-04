@@ -235,6 +235,7 @@ export default {
             }
             table { page-break-inside:auto }
             tr,td { page-break-inside:avoid; page-break-after:auto }
+            .paper { box-shadow: none !important; }
           `
       });
 
