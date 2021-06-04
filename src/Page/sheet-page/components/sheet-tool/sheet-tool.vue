@@ -251,6 +251,7 @@ import patientInfo from "./patient-info";
 import temperatureHD from "../../../patientInfo/supPage/temperature/temperatureHD";
 import temperatureLCEY from "../../../patientInfo/supPage/temperature/temperatureLCEY";
 import temperatureWuJing from "../../../patientInfo/supPage/temperature/temperatureWuJing";
+import { getPatientInfo } from "@/api/common.js";
 export default {
   mixins: [commom],
   name: "sheetTool",
@@ -582,7 +583,11 @@ export default {
         });
       }
     },
-    getBlockList() {
+    async getBlockList() {
+      if(this.$route.path.includes('nursingPreview')){
+        let { data } = await getPatientInfo(this.$route.query.patientId,this.$route.query.visitId);
+        this.$store.commit("upDeptCode", data.data.wardCode);
+      }
       if (
         this.patientInfo.patientId &&
         this.patientInfo.visitId &&

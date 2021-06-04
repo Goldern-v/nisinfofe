@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="content">
+    <div class="content NursingPreview">
       <div class="left-part">
         <treeNursingPreview ref="treeNursingPreview"></treeNursingPreview>
       </div>
@@ -13,6 +13,51 @@
 </template>
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
+.right-part {
+  transition: all 0.4s cubic-bezier(0.55, 0, 0.1, 1);
+}
+
+>>>.body {
+  height: calc(100vh - 60px) !important;
+}
+
+>>>.form-contain {
+  height: calc(100vh - 21px) !important;
+}
+
+>>>.new-btn, >>>.null-btn, >>>.tool-bar, >>>.fixed-icon, >>>.table-fixed-th {
+  display: none !important;
+}
+
+>>>.tool-contain {
+  .item-box {
+    display: none !important;
+  }
+  .select-con + .item-box {
+     display: flex !important;
+  }
+
+  .item-box.page-select {
+    display: flex !important;
+  }
+  .right-btn {
+    pointer-events: none !important;
+  }
+}
+
+.NursingPreview {
+  .right-part {
+    >>> #sheet_body_con {
+      height: calc(100vh - 64px) !important;
+    }
+    >>> .sheetTable-contain {
+        input {
+          pointer-events: none !important;
+        }
+      }
+  }
+}
+
 .content {
   .left-part {
     float: left;

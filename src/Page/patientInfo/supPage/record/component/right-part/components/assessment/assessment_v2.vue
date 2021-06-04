@@ -511,7 +511,7 @@ export default {
       // 医生查看患者详情  或者 预览模式
       if (window.location.href.includes("showPatientDetails") || window.location.href.includes("nursingPreview") || this.onlyView) {
         this.$nextTick(() => {
-          let css = `#app input,#app label{
+          let css = `#app input,#app label,#app td,#app .sign-con{
               pointer-events: none !important;
           }`;
           var style = document.createElement("style");
