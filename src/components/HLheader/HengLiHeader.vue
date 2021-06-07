@@ -289,7 +289,7 @@
             <el-dropdown
               menu-align="start"
               :hide-on-click="false"
-              :class="{ 'router-link-active': isActivePage }"
+              :class="{ 'router-link-active': isActiveImplementationPage }"
             >
               <el-row class="nav-item" type="flex" align="middle">
                 <div class="before"></div>
@@ -357,7 +357,7 @@
             <el-dropdown
               menu-align="start"
               :hide-on-click="false"
-              :class="{ 'router-link-active': isActiveOtherPage }"
+              :class="{ 'router-link-active': isActivePage }"
             >
               <el-row class="nav-item" type="flex" align="middle">
                 <div class="before"></div>
@@ -1029,6 +1029,13 @@ export default {
       return (
         path.includes("singleTemperatureChart") ||
         path.includes("allTemperatureChart")
+      );
+    },
+    isActiveImplementationPage() {
+      let path = this.$route.path;
+      return (
+        path.includes("bottleLabel") ||
+        path.includes("implementationList")
       );
     }
   },

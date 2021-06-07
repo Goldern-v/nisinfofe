@@ -33,6 +33,8 @@ const nursingDocumentation = () =>
   import("../Page/nursing-documentation/nursing-documentation.vue"); // 护理文书
 const workloadSatisticsLc = () =>
   import("../Page/workloadSatisticsLc/workloadSatistics.vue"); // 陵城工作量统计
+const workloadSatisticsZSQ = () =>
+  import("../Page/workloadSatisticsLc/workloadSatistics-zhongshanqi.vue"); // 中山七工作量统计
 const NotFoundComponent = () =>
   import("../components/NotFound/NotFoundComponent.vue"); // 异常路径
 const print = () => import("@/Part/print/print.vue");
@@ -143,6 +145,8 @@ const bedRecord = () =>
   import("@/Page/bed-record/bed-record.vue"); //转床记录
 const changeMajorRecord = () =>
   import("@/Page/change-major-record/change-major-record.vue"); //转科记录
+const rationalDoseStatistics = () =>
+  import("@/Page/rational-dose-statistics/rational-dose-statistics.vue"); //合理用药
 
 // 护理计划单
 const planList = () => import("@/Page/plan-list/plan-list.vue");
@@ -576,7 +580,7 @@ const router = new Router({
         },
         {
           path: "/workloadSatistics",
-          component: workloadSatisticsLc,
+          component:  HOSPITAL_ID == "lingcheng" ? workloadSatisticsLc : workloadSatisticsZSQ,
           name: "工作量统计"
         },
         {
@@ -784,7 +788,12 @@ const router = new Router({
           path: "/changeMajorRecord",
           component: changeMajorRecord,
           name: "转科记录"
-        }
+        },
+        {
+          path: "/rationalDoseStatistics",
+          component: rationalDoseStatistics,
+          name: "合理用药"
+        },
       ]
     },
     {

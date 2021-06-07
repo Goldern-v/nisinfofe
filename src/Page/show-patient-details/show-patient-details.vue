@@ -34,6 +34,9 @@
   .item-box.page-select {
     display: flex !important;
   }
+  .right-btn {
+    pointer-events: none !important;
+  }
 }
 
 .showPatientDetails {

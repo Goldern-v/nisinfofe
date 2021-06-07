@@ -329,7 +329,7 @@ export default {
         }
       );
 
-      const item = {
+      let item = {
         patientId: this.patientInfo.patientId,
         visitId: this.patientInfo.visitId,
         recordDate: this.selected.recordDate,
@@ -337,6 +337,16 @@ export default {
         sugarValue: this.selected.sugarValue,
         recordId: this.selected.recordId || "",
       };
+
+      if(this.HOSPITAL_ID == 'fuyou'){
+        item = {
+          ...item,
+          riValue: this.selected.riValue || "",
+          oldRecordDate: this.selected.oldRecordDate || "",
+          nurseEmpNo: this.empNo || "",//护士工号
+          nurse: this.empName || "",//护士姓名
+        }
+      }
 
       await removeSugar(item);
       this.load();
@@ -399,7 +409,7 @@ export default {
     if (this.HOSPITAL_ID == "lingcheng") {
       this.getFormHead();
     }
-    
+
   },
   watch: {
     'patientInfo.patientId'(nVal, oVal) {
