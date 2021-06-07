@@ -173,7 +173,7 @@ import deep from "@/Page/patientInfo/supPage/deep/deep.vue";
 import healthEducation from "@/Page/patientInfo/supPage/healthEducation/healthEducation.vue"; // 厚街
 import hospitalEval from "@/Page/patientInfo/supPage/hospital-eval/hospital-eval";
 import implementationPersonLiaocheng
-  from "@/Page/patientInfo/supPage/implementation-list/implementation-list-liaocheng";
+from "@/Page/patientInfo/supPage/implementation-list/implementation-list-liaocheng";
 // 深静脉导管维护单页面
 import deepPage from "@/Page/deep-page/deep-page.vue";
 // 导管监测单
@@ -185,10 +185,10 @@ const router = new Router({
   mode: "history",
   base: "/crNursing/",
   routes: [{
-    path: "/",
-    redirect: "/index",
-    alias: "主页"
-  },
+      path: "/",
+      redirect: "/index",
+      alias: "主页"
+    },
     {
       path: "/demo",
       component: demo,
@@ -217,9 +217,9 @@ const router = new Router({
       path: "/showPatientDetails",
       component: showPatientDetails,
       children: [{
-        path: "record",
-        component: record
-      },
+          path: "record",
+          component: record
+        },
         {
           path: "sheet",
           component: sheet,
@@ -403,10 +403,10 @@ const router = new Router({
           alias: "不良事件",
           component: badEvent,
           children: [{
-            name: "badEventEdit",
-            path: "/badEvent/:code?/:operation?/:id?/:type?/:name?",
-            component: badEventEditPage
-          },
+              name: "badEventEdit",
+              path: "/badEvent/:code?/:operation?/:id?/:type?/:name?",
+              component: badEventEditPage
+            },
             {
               name: "badEventView",
               path: "/badEvent/:code?/:operation?/:id?/:status?/:type?/:name?",
@@ -450,9 +450,9 @@ const router = new Router({
           component: patientInfo,
           alias: "病人信息",
           children: [{
-            path: "/information",
-            component: information
-          },
+              path: "/information",
+              component: information
+            },
             {
               path: "/advice",
               component: advice
@@ -763,7 +763,7 @@ const router = new Router({
         {
           path: "/newSingleTemperatureChart",
           component: newSingleTemperatureChart,
-          name: "体温单录入查看体温单曲线"
+          name: "newSingleTemperatureChart"
         },
         {
           path: "/cognitiveStatistic",

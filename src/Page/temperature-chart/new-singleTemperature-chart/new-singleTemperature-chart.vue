@@ -28,7 +28,7 @@
             class="contain-center"
             :queryTem="patientInfo"
           ></temperatureLCEY>
-          <tabCon class="contain-right"> </tabCon>
+          <tabCon class="contain-right" :patientInfo="patientInfo"> </tabCon>
         </div>
       </div>
     </div>
@@ -65,7 +65,7 @@
             border-left:1px solid #eee
             height :100%;
             padding: 10px;
-            margin-top:10px;
+            // margin-top:10px;
           }
         }
       }
@@ -114,10 +114,6 @@ export default {
     fullpage() {
       return this.$store.state.sheet.fullpage;
     }
-    // queryTem() {
-    //   console.log("query", this.query);
-    //   return this.query;
-    // }
   },
   created() {
     // 初始化
@@ -141,6 +137,7 @@ export default {
     async isSelectPatient(item) {
       await this.$store.commit("upPatientInfo", item);
       await this.bus.$emit("refreshImg");
+      await this.bus.$emit("refreshVitalSignList");
     }
   },
   components: { patientList, temperatureLCEY, tabCon },

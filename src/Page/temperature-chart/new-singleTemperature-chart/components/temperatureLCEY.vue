@@ -4,12 +4,21 @@
       <div class="print-btn tool-btn" @click="onPrint()">打印</div>
       <!-- <div class="print-btn tool-btn" @click="typeIn()">录入</div> -->
       <div class="pagination">
+        <button :disabled="currentPage === 1" @click="currentPage = 1">
+          首周
+        </button>
         <button :disabled="currentPage === 1" @click="currentPage--">
-          上一页
+          上一周
         </button>
         <span class="page">第{{ currentPage }}页/共{{ pageTotal }}页</span>
         <button :disabled="currentPage === pageTotal" @click="currentPage++">
-          下一页
+          下一周
+        </button>
+        <button
+          :disabled="currentPage === pageTotal"
+          @click="currentPage = pageTotal"
+        >
+          尾周
         </button>
       </div>
       <div class="tem-con" :style="contentHeight">
@@ -20,77 +29,12 @@
           :src="filePath"
           frameborder="0"
           ref="pdfCon"
-          :class="HOSPITAL_ID === 'liaocheng' ? 'hdIframe' : ''"
+          :class="HOSPITAL_ID === 'liaocheng' ? 'lcIframe' : ''"
         ></iframe>
       </div>
     </div>
   </div>
 </template>
-
-<style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
-.contain {
-  margin: 15px 20px 0;
-
-  .tem-con {
-    margin: 10px auto;
-    width: 90%;
-    height: 100%;
-    background: #fff;
-    .hdIframe{
-      transform:scale(0.9);
-      width: 100%;
-      height: 100%;
-    }
-  }
-}
-.pagination {
-    display: inline;
-    position: relative;
-    left: 35%;
-    font-weight: normal;
-  }
-  .page {
-    margin: 0 10px;
-  }
-  button {
-    cursor: pointer;
-  }
-  button[disabled=disabled] {
-    cursor: not-allowed;
-  }
-.tool-btn {
-  width: 82px;
-  height: 32px;
-  background: #FFFFFF;
-  border: 1px solid #C2CBD2;
-  border-radius: 4px;
-  // display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 14px;
-  color: rgba(0, 0, 0, 0.65);
-  margin: 0 5px;
-
-  &:hover {
-    color: #4BB08D;
-    border-color: #4BB08D;
-    cursor: pointer;
-  }
-
-  &.disable {
-    color: #b5b5b5;
-    border-color: #b5b5b5;
-    cursor: not-allowed;
-  }
-}
-
-.print-btn {
-  position: relative;
-  left : 5%;
-  top: 0;
-  display: inline-flex !important ;
-}
-</style>
 
 <script>
 import nullBg from "../../../../components/null/null-bg";
@@ -126,7 +70,6 @@ export default {
       );
     },
     getImg() {
-      console.log("queryTem", this.queryTem);
       let date = new Date(this.queryTem.admissionDate).Format("yyyy-MM-dd");
       let patientId = this.queryTem.patientId;
       let visitId = this.queryTem.visitId;
@@ -140,7 +83,7 @@ export default {
       }, 0);
     },
     getHeight() {
-      this.contentHeight.height = window.innerHeight - 130 + "px";
+      this.contentHeight.height = window.innerHeight - 110 + "px";
     },
     messageHandle(e) {
       if (e && e.data) {
@@ -240,3 +183,72 @@ export default {
   }
 };
 </script>
+
+<style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
+.contain {
+  margin: 15px 20px 0;
+
+  .tem-con {
+    width:100%;
+    height: 100%;
+    position :relative;
+    left:0px;
+    margin: 10px auto;
+    background: #fff;
+    .lcIframe{
+      transform:scale(0.9);
+      width:920px;
+      height: 612px;
+    position: absolute;
+    left: -3%;
+    }
+  }
+}
+.pagination {
+    display: inline;
+    position: relative;
+    left: 20%;
+    font-weight: normal;
+  }
+  .page {
+    margin: 0 10px;
+  }
+  button {
+    cursor: pointer;
+  }
+  button[disabled=disabled] {
+    cursor: not-allowed;
+  }
+.tool-btn {
+  width: 82px;
+  height: 32px;
+  background: #FFFFFF;
+  border: 1px solid #C2CBD2;
+  border-radius: 4px;
+  // display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.65);
+  margin: 0 5px;
+
+  &:hover {
+    color: #4BB08D;
+    border-color: #4BB08D;
+    cursor: pointer;
+  }
+
+  &.disable {
+    color: #b5b5b5;
+    border-color: #b5b5b5;
+    cursor: not-allowed;
+  }
+}
+
+.print-btn {
+  position: relative;
+  left : 5%;
+  top: 0;
+  display: inline-flex !important ;
+}
+</style>
