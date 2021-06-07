@@ -16,6 +16,11 @@
       <el-table-column prop="rational" label="合理用药" min-width="120" align="center"></el-table-column>
       <el-table-column prop="noRational" label="不合理用药" min-width="120" align="center"></el-table-column>
       <el-table-column prop="type" label="补录" min-width="120" align="center"></el-table-column>
+      <el-table-column prop="type" label="补录医嘱占比" min-width="120" align="center">
+        <template slot-scope="scope">
+          <span>{{ (scope.row.type /  scope.row.allNum * 100).toFixed() }}%</span>
+         </template>
+      </el-table-column>
     </el-table>
   </div>
 </template>
