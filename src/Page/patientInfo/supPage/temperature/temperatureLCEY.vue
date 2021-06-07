@@ -1,268 +1,141 @@
 <template>
-  <div>
-    <div class="contain">
-      <div class="print-btn tool-btn" @click="onPrint()">打印</div>
-      <!-- <div class="print-btn tool-btn" @click="typeIn()">录入</div> -->
-      <div class="pagination">
-        <button :disabled="currentPage === 1" @click="currentPage--">
-          上一页
-        </button>
-        <span class="page">第{{ currentPage }}页/共{{ pageTotal }}页</span>
-        <button :disabled="currentPage === pageTotal" @click="currentPage++">
-          下一页
-        </button>
+  <div class="new-singleTemperature-chart">
+    <div
+      class="body-con"
+      id="sheet_body_con"
+      :style="{ height: containHeight }"
+    >
+      <!-- <div class="head-con" flex>
+        <div class="dept-select-con" v-show="openLeft"></div>
+        <div class="tool-con" flex-box="1">
+          <tool></tool>
+        </div>
+      </div> -->
+      <!-- <div class="left-part">
+        <patientList
+          :data="data.bedList"
+          v-loading="patientListLoading"
+          :isSelectPatient="isSelectPatient"
+        ></patientList>
+      </div> -->
+      <!-- <div class="right-part isRight" v-loading="tableLoading"> -->
+      <div class="sheetTable-contain">
+        <temperatureLCEY
+          class="contain-center"
+          :queryTem="patientInfo"
+        ></temperatureLCEY>
+        <tabCon class="contain-right" :patientInfo="patientInfo"> </tabCon>
       </div>
-      <div class="tem-con" :style="contentHeight">
-        <null-bg v-show="!filePath"></null-bg>
-        <iframe
-          id="printID"
-          v-if="filePath"
-          :src="filePath"
-          frameborder="0"
-          ref="pdfCon"
-          :class="HOSPITAL_ID === 'liaocheng' ? 'hdIframe' : ''"
-        ></iframe>
-      </div>
-      <sweet-modal
-        ref="sheet"
-        title="体温录入"
-        class="modal-con"
-        @close="closeModal"
-      >
-        <single-temperature-chart
-          v-if="visibled"
-          class="sheet-con"
-        ></single-temperature-chart>
-      </sweet-modal>
+      <!-- </div> -->
     </div>
   </div>
 </template>
-
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
-.contain {
-  margin: 15px 20px 0;
-
-  .tem-con {
-    margin: 10px auto;
-    width: 90%;
-    height: 100%;
-    background: #fff;
-    .hdIframe{
-      transform:scale(0.9);
-      width: 100%;
-      height: 100%;
-    }
-  }
-}
-.pagination {
-    display: inline;
-    position: relative;
-    left: 35%;
-    font-weight: normal;
-  }
-  .page {
-    margin: 0 10px;
-  }
-  button {
-    cursor: pointer;
-  }
-  button[disabled=disabled] {
-    cursor: not-allowed;
-  }
-.tool-btn {
-  width: 82px;
-  height: 32px;
-  background: #FFFFFF;
-  border: 1px solid #C2CBD2;
-  border-radius: 4px;
-  // display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 14px;
-  color: rgba(0, 0, 0, 0.65);
-  margin: 0 5px;
-
-  &:hover {
-    color: #4BB08D;
-    border-color: #4BB08D;
-    cursor: pointer;
-  }
-
-  &.disable {
-    color: #b5b5b5;
-    border-color: #b5b5b5;
-    cursor: not-allowed;
-  }
-}
-
-.print-btn {
+.new-singleTemperature-chart {
   position: relative;
-  left : 5%;
-  top: 0;
-  display: inline-flex !important ;
+  .body-con {
+      position: relative;
+
+      // .left-part {
+      //   width: 199px;
+      //   position: absolute;
+      //   left: 0;
+      //   top: 0px;
+      //   bottom: 0;
+      // }
+
+      // .right-part {
+      //   margin-left: 199px;
+      //   height: 100%;
+      //   overflow: hidden;
+      //   transition: all 0.4s cubic-bezier(0.55, 0, 0.1, 1);
+        .sheetTable-contain{
+          display :flex
+          flex-direction :row
+          height :100%;
+          .contain-center{
+            flex:7
+          }
+          .contain-right{
+            flex:3
+            border-left:1px solid #eee
+            height :100%;
+            padding: 10px;
+            // margin-top:10px;
+          }
+        }
+      // }
+    }
 }
 </style>
 
 <script>
-import nullBg from "../../../../components/null/null-bg";
-import {
-  getNurseExchangeInfo,
-  getNurseExchangeInfoByTime
-} from "../../../sheet-page/api/index";
+import common from "@/common/mixin/common.mixin.js";
 import moment from "moment";
 import bus from "vue-happy-bus";
-import singleTemperatureChart from "./singleTemperatureChart";
+import { patients } from "@/api/lesion";
+import patientList from "@/components/patient-list/patient-list.vue";
+import print from "printing";
+import formatter from "@/Page/temperature-chart/print-formatter";
+import temperatureLCEY from "@/Page/temperature-chart/new-singleTemperature-chart/components/temperatureLCEY";
+import tabCon from "@/Page/temperature-chart/new-singleTemperature-chart/components/tab-con";
 export default {
-  props: {
-    queryTem: Object
-  },
+  mixins: [common],
+  props: {},
   data() {
     return {
       bus: bus(this),
-      date: "",
-      filePath: "",
-      contentHeight: { height: "" },
-      currentPage: 1,
-      pageTotal: 1,
-      open: false,
-      isSave: false,
-      visibled: false
+      data: {
+        bedList: []
+      },
+      patientListLoading: true,
+      tableLoading: false
     };
-  },
-  methods: {
-    onPrint() {
-      this.$refs.pdfCon.contentWindow.postMessage(
-        { type: "printing" },
-        "http://172.17.5.41:9091/temperature/#/"
-        // "http://120.224.211.7:8080/#/"
-      );
-    },
-    getImg() {
-      let date = this.$route.query.admissionDate
-        ? new Date(this.$route.query.admissionDate).Format("yyyy-MM-dd")
-        : new Date(this.queryTem.admissionDate).Format("yyyy-MM-dd");
-      let patientId = this.$route.query.patientId || this.queryTem.patientId;
-      let visitId = this.$route.query.visitId || this.queryTem.visitId;
-      /* 单独处理体温单，嵌套iframe */
-      const tempUrl = `http://172.17.5.41:9091/temperature/#/?PatientId=${patientId}&VisitId=${visitId}&StartTime=${date}`;
-      // const tempUrl = `http://120.224.211.7:9091/temperature/#/?PatientId=0000944876&VisitId=2&StartTime=2021-05-13&showInnerPage=1`;
-      // const tempUrl =
-      //   "http://120.224.211.7:8080/#/?PatientId=${patientId}&VisitId=${visitId}&StartTime=${date}";
-      this.filePath = "";
-      setTimeout(() => {
-        this.filePath = tempUrl;
-      }, 0);
-    },
-    getHeight() {
-      this.contentHeight.height = window.innerHeight - 130 + "px";
-    },
-    messageHandle(e) {
-      if (e && e.data) {
-        switch (e.data.type) {
-          case "dblclick":
-            this.onToggle();
-            break;
-          case "pageTotal":
-            this.pageTotal = e.data.value;
-            break;
-          case "getNurseExchangeInfo":
-            // const params = {
-            //   patientId: this.$route.query.patientId,
-            //   visitId: this.$route.query.visitId
-            // };
-            // // 发请求
-            // getNurseExchangeInfo(params.patientId, params.visitId).then(res => {
-            //   const value = {
-            //     adtLog: res.data.data.adtLog,
-            //     bedExchangeLog: res.data.data.bedExchangeLog
-            //   };
-            //   this.$refs.pdfCon.contentWindow.postMessage(
-            //     { type: "nurseExchangeInfo", value },
-            //     "*"
-            //   );
-            // });
-            const params = {
-              patientId: this.$route.query.patientId,
-              startLogDateTime: e.data.value.startLogDateTime,
-              endLogDateTime: e.data.value.endLogDateTime,
-              visitId: this.$route.query.visitId
-            };
-            getNurseExchangeInfoByTime(params).then(res => {
-              const value = {
-                adtLog: res.data.data.adtLog,
-                bedExchangeLog: res.data.data.bedExchangeLog
-              };
-              this.$refs.pdfCon.contentWindow.postMessage(
-                { type: "nurseExchangeInfo", value },
-                "*"
-              );
-            });
-            break;
-          default:
-            break;
-        }
-      }
-    },
-    onToggle() {
-      if (this.$route.path.includes("singleTemperatureChart")) {
-        return;
-      } else {
-        this.visibled = true;
-        this.$nextTick(() => {
-          this.$refs.sheet.open();
-        });
-      }
-    },
-    closeModal() {
-      /* 关闭弹窗时清除弹窗 */
-      this.visibled = false;
-      if (this.isSave) {
-        setTimeout(() => {
-          this.currentPage = 1;
-          this.getImg();
-        }, 1000);
-      }
-    }
-  },
-  watch: {
-    // date() {
-    //   this.getImg();
-    // },
-    currentPage(value) {
-      this.$refs.pdfCon.contentWindow.postMessage(
-        { type: "currentPage", value },
-        "http://172.17.5.41:9091/temperature/#/"
-      );
-    }
-  },
-  mounted() {
-    console.log(this.admissionDate);
-    this.bus.$on("saveSheetPage", data => {
-      if (data === "noSaveSign" || data === true) {
-        this.isSave = true;
-      }
-    });
-    this.bus.$on("sheetToolLoaded", () => {
-      this.bus.$emit("getBlockList");
-    });
-  },
-  created() {
-    this.getImg();
-    window.addEventListener("resize", this.getHeight);
-    window.addEventListener("message", this.messageHandle, false);
-    this.getHeight();
   },
   computed: {
     patientInfo() {
-      return this.$store.state.sheet.patientInfo;
+      return this.$route.query;
+    },
+    containHeight() {
+      if (this.fullpage) {
+        return this.wih - 44 + "px";
+      } else {
+        return this.wih - 74 + "px";
+      }
+    },
+    fullpage() {
+      return this.$store.state.sheet.fullpage;
     }
   },
-  beforeDestroy() {
-    window.removeEventListener("message", this.messageHandle, false);
+  created() {
+    // 初始化
+    if (this.deptCode) {
+      this.getDate();
+    }
   },
-  components: {
-    nullBg,
-    singleTemperatureChart
+  mounted() {},
+  methods: {
+    async getDate() {
+      if (this.deptCode) {
+        this.patientListLoading = true;
+        await patients(this.deptCode, {}).then(res => {
+          this.data.bedList = res.data.data.filter(item => {
+            return item.patientId;
+          });
+          this.patientListLoading = false;
+        });
+        this.bus.$emit("refreshImg");
+        this.bus.$emit("refreshVitalSignList");
+      }
+    }
+  },
+  components: { patientList, temperatureLCEY, tabCon },
+  watch: {
+    deptCode(val) {
+      if (val) {
+        this.getDate();
+      }
+    }
   }
 };
 </script>

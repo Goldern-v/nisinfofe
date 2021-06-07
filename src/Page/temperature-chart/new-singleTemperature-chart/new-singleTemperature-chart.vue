@@ -80,9 +80,9 @@ import bus from "vue-happy-bus";
 import { patients } from "@/api/lesion";
 import patientList from "@/components/patient-list/patient-list.vue";
 import print from "printing";
-import formatter from "../print-formatter";
-import temperatureLCEY from "../new-singleTemperature-chart/components/temperatureLCEY";
-import tabCon from "../new-singleTemperature-chart/components/tab-con";
+import formatter from "@/Page/temperature-chart/print-formatter";
+import temperatureLCEY from "@/Page/temperature-chart/new-singleTemperature-chart/components/temperatureLCEY";
+import tabCon from "@/Page/temperature-chart/new-singleTemperature-chart/components/tab-con";
 export default {
   mixins: [common],
   props: {},
@@ -136,8 +136,8 @@ export default {
     },
     async isSelectPatient(item) {
       await this.$store.commit("upPatientInfo", item);
-      await this.bus.$emit("refreshImg");
-      await this.bus.$emit("refreshVitalSignList");
+      this.bus.$emit("refreshImg");
+      this.bus.$emit("refreshVitalSignList");
     }
   },
   components: { patientList, temperatureLCEY, tabCon },

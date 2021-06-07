@@ -27,150 +27,25 @@
         :label="key"
         :name="key"
       >
-        <div style="margin:10px;"><span>日期:</span>{{ key }}</div>
         <div class="fixedList">
-          <div class="row" v-for="(j, index) in multiDictList" :key="index">
-            <span
-              class="preText"
-              v-if="
-                !(
-                  index.includes('自定义') ||
-                  index.includes('注释') ||
-                  index.includes('体温复测')
-                )
-              "
-              >{{ index }}</span
-            >
-            <input
-              type="text"
-              v-if="
-                !(
-                  index.includes('自定义') ||
-                  index.includes('注释') ||
-                  index.includes('体温复测')
-                )
-              "
-              v-model="item.vitalSignList[j].vitalValue"
-            />
+          <div
+            :class="
+              !(
+                index.includes('自定义') ||
+                index.includes('腋温') ||
+                index.includes('注释') ||
+                index.includes('体温复测')
+              )
+                ? 'row'
+                : 'rowItem_noShow'
+            "
+            v-for="(j, index) in multiDictList"
+            :key="index"
+          >
+            <span class="preText">{{ index }}</span>
+            <input type="text" v-model="item.vitalSignList[j].vitalValue" />
           </div>
         </div>
-        <!-- <div class="fixedList">
-          <div class="row">
-            <div class="preText">体温</div>
-            <input
-              type="text"
-              v-model="item.vitalSignList[multiDictList['体温']].vitalValue"
-            />
-            <div class="preText">脉搏</div>
-            <input
-              type="text"
-              v-model="item.vitalSignList[multiDictList['脉搏']].vitalValue"
-            />
-          </div>
-          <div class="row">
-            <div class="preText">腋温</div>
-            <input
-              type="text"
-              v-model="item.vitalSignList[multiDictList['腋温']].vitalValue"
-            />
-            <div class="preText">口温</div>
-            <input
-              type="text"
-              v-model="item.vitalSignList[multiDictList['腋温']].vitalValue"
-            />
-          </div>
-          <div class="row">
-            <div class="preText">肛温</div>
-            <input
-              type="text"
-              v-model="item.vitalSignList[multiDictList['肛温']].vitalValue"
-            />
-            <div class="preText">呼吸</div>
-            <input
-              type="text"
-              v-model="item.vitalSignList[multiDictList['呼吸']].vitalValue"
-            />
-          </div>
-          <div class="row">
-            <div class="preText">血压</div>
-            <input
-              type="text"
-              v-model="item.vitalSignList[multiDictList['血压']].vitalValue"
-            />
-            <div class="preText">大便次数</div>
-            <input
-              type="text"
-              v-model="item.vitalSignList[multiDictList['大便次数']].vitalValue"
-            />
-          </div>
-          <div class="row">
-            <div class="preText">疼痛</div>
-            <input
-              type="text"
-              v-model="item.vitalSignList[multiDictList['疼痛']].vitalValue"
-            />
-            <div class="preText">心率</div>
-            <input
-              type="text"
-              v-model="item.vitalSignList[multiDictList['心率']].vitalValue"
-            />
-          </div>
-          <div class="row">
-            <div class="preText">物理降温</div>
-            <input
-              type="text"
-              v-model="item.vitalSignList[multiDictList['物理降温']].vitalValue"
-            />
-            <div class="preText">疼痛干预</div>
-            <input
-              type="text"
-              v-model="item.vitalSignList[multiDictList['疼痛干预']].vitalValue"
-            />
-          </div>
-          <div class="row">
-            <div class="preText">呼吸机R</div>
-            <input
-              type="text"
-              v-model="item.vitalSignList[multiDictList['呼吸机R']].vitalValue"
-            />
-            <div class="preText">身高</div>
-            <input
-              type="text"
-              v-model="item.vitalSignList[multiDictList['身高']].vitalValue"
-            />
-          </div>
-          <div class="row">
-            <div class="preText">体重</div>
-            <input
-              type="text"
-              v-model="item.vitalSignList[multiDictList['体重']].vitalValue"
-            />
-            <div class="preText">总出量</div>
-            <input
-              type="text"
-              v-model="item.vitalSignList[multiDictList['总出量']].vitalValue"
-            />
-          </div>
-          <div class="row">
-            <div class="preText">总入量</div>
-            <input
-              type="text"
-              v-model="item.vitalSignList[multiDictList['入量']].vitalValue"
-            />
-            <div class="preText">尿量</div>
-            <input
-              type="text"
-              v-model="item.vitalSignList[multiDictList['尿量']].vitalValue"
-            />
-          </div>
-          <div class="row">
-            <div class="preText">大便量</div>
-            <input
-              type="text"
-              v-model="item.vitalSignList[multiDictList['大便量']].vitalValue"
-            />
-          </div>
-        </div> -->
         <div class="fieldList">
           <div>
             <span>自定义项目：</span>
@@ -202,7 +77,7 @@
           <span class="preText">表顶注释</span>
           <el-select
             size="mini"
-            v-model="item.vitalSignList[multiDictList['表顶注释']].vitalValue"
+            v-model="item.vitalSignList[multiDictList['表顶注释']].expand1"
           >
             <el-option
               v-for="(item, index) in topContextList"
@@ -216,7 +91,7 @@
             size="mini"
             format="yyyy-MM-dd HH:mm:ss"
             value-format="yyyy-MM-dd HH:mm:ss"
-            v-model="item.vitalSignList[multiDictList['表顶注释']].expand1"
+            v-model="item.vitalSignList[multiDictList['表顶注释']].expand2"
             type="datetime"
             placeholder="选择日期时间"
             style="margin:3px 0px 0px 55px;width:170px;"
@@ -228,7 +103,7 @@
           <span class="preText">表底注释</span>
           <el-select
             size="mini"
-            v-model="item.vitalSignList[multiDictList['表底注释']].vitalValue"
+            v-model="item.vitalSignList[multiDictList['表底注释']].expand1"
           >
             <el-option
               v-for="(item, index) in bottomContextList"
@@ -242,7 +117,7 @@
             size="mini"
             format="yyyy-MM-dd HH:mm:ss"
             value-format="yyyy-MM-dd HH:mm:ss"
-            v-model="item.vitalSignList[multiDictList['表底注释']].expand1"
+            v-model="item.vitalSignList[multiDictList['表底注释']].expand2"
             type="datetime"
             placeholder="选择日期时间"
             style="margin:3px 0px 0px 55px;width:170px;"
@@ -260,6 +135,27 @@
         </div>
       </el-tab-pane>
     </el-tabs>
+    <sweet-modal :modalWidth="300" ref="modal" title="选择时间">
+      <div style="margin:10px;">
+        <span>日期:</span>
+        <el-date-picker
+          size="mini"
+          format="yyyy-MM-dd HH:mm:ss"
+          value-format="yyyy-MM-dd HH:mm:ss"
+          v-model="recordDate"
+          type="datetime"
+          placeholder="选择日期时间"
+          style="width:170px;"
+          @change="formatRecordDate"
+        >
+        </el-date-picker>
+      </div>
+      <div slot="button">
+        <el-button class="modal-btn" type="primary" @click="close"
+          >确定</el-button
+        >
+      </div>
+    </sweet-modal>
   </div>
 </template>
 <script>
@@ -289,6 +185,7 @@ export default {
         ),
         wardCode: this.patientInfo.wardCode
       },
+      recordDate: "",
       vitalSignData: [], // 体温单列表
       tabsData: [], // 日期列表
       vitalSignObj: {}, // 单个体征对象
@@ -403,6 +300,7 @@ export default {
           });
           /* 再构造最外一层对象：以obj={"item.recordDate":{vitalSignList:{"体温":{}} }} */
           obj[item.recordDate] = {
+            // recordDate: item.recordDate,
             vitalSignList: this.vitalSignObj
           };
           /* 用于标签栏遍历时间数组 */
@@ -425,13 +323,12 @@ export default {
     selectTemRec(val) {
       this.selectDate = val;
       this.query.recordDate = this.selectDate;
-      console.log(this.query);
       this.getList();
     },
     /* 获取字典表，整理某一行的同步信息 */
     getVitalList() {
-      let patientInfo = this.$store.state.sheet.patientInfo;
-      getmultiDict(patientInfo.wardCode).then(res => {
+      let wardCode = this.patientInfo.wardCode;
+      getmultiDict(wardCode).then(res => {
         let data = [];
         let obj = [];
         res.data.data.map((item, index) => {
@@ -452,10 +349,12 @@ export default {
     },
     /* 新建记录 */
     addTab(targetName) {
+      this.$refs.modal.open();
       let newTabName = ++this.tabIndex + "";
-      let newRecordDate = moment(new Date()).format("YYYY-MM-DD  HH:mm:ss");
+      let newRecordDate = this.recordDate;
       this.init();
       this.vitalSignData[newRecordDate] = {
+        // recordDate: newRecordDate,
         vitalSignList: this.vitalSignObj
       };
       this.tabsData.push(newRecordDate);
@@ -496,24 +395,36 @@ export default {
         item.recordDate = key;
         switch (item.vitalSigns) {
           case "表顶注释":
-            item.expand1 = this.topExpandDate;
+            item.expand2 = this.topExpandDate;
             break;
           case "表底注释":
-            item.expand1 = this.bottomExpandDate;
+            item.expand2 = this.bottomExpandDate;
           default:
             break;
         }
       });
-      await saveAll({ vitalSignList: obj }).then(res => {
+      let data = {
+        // recordDate: this.recordDate,
+        vitalSignList: obj
+      };
+      await saveAll(data).then(res => {
         this.$message.success("保存成功");
       });
-      await this.bus.$emit("refreshImg");
+      this.getList();
+      this.bus.$emit("refreshImg");
+    },
+    formatRecordDate(val) {
+      this.recordDate = moment(new Date(val)).format("YYYY-MM-DD  HH:mm:ss");
     },
     formatTopExpandDate(val) {
       this.topExpandDate = val;
     },
     formatBtmExpandDate(val) {
       this.bottomExpandDate = val;
+    },
+    close() {
+      console.log("asfd", this.recordDate);
+      this.$refs.modal.close();
     }
   },
   components: { nullBg }
@@ -525,9 +436,13 @@ export default {
   width: 100%;
   background: #fff;
   font-size: 12px;
+  .rowItem_noShow{
+    display :none;
+  }
   .row {
     display: inline-block;
     padding: 3px;
+
     .preText {
       display: inline-block;
       width: 50px;
@@ -540,14 +455,14 @@ export default {
       width: 85px;
     }
   }
-  .fixedList {
-    .row {
-      &:last-child {
-        position: relative;
-        left: -47px;
-      }
-    }
-  }
+  // .fixedList {
+  //   .row {
+  //     &:last-child {
+  //       position: relative;
+  //       left: -47px;
+  //     }
+  //   }
+  // }
 }
 .el-tabs {
   display: flex;
