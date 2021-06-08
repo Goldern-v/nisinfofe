@@ -37,7 +37,8 @@ export default {
         聊城市第二人民医院: "LiaoChengHeader",
         中山大学附属第七医院: "ZhongShanQiHeader",
         东莞市横沥医院: "HengLiHeader",
-        东莞市谢岗医院: "XieGangHeader"
+        东莞市谢岗医院: "XieGangHeader",
+        山南市人民医院: "LiaoChengHeader"
       };
       return hisList[HisName] || "HLheader";
     }
