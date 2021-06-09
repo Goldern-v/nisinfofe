@@ -47,7 +47,7 @@
       <ElFormItem
         label="RI剂量："
         required
-        v-if="HOSPITAL_ID != 'gy' && HOSPITAL_ID != 'huadu' && HOSPITAL_ID != 'liaocheng'"
+        v-if="HOSPITAL_ID != 'gy' && HOSPITAL_ID != 'huadu' && HOSPITAL_ID != 'liaocheng'&& HOSPITAL_ID != 'hengli'"
       >
         <ElInput v-model="form.riValue" />
         <span class="unit">(ü)</span>
