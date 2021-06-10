@@ -37,15 +37,18 @@ export default [{
   {
     key: "consciousness", // 精神
     value: "",
-    event: keyf1
+    event: keyf1,
+    autoComplete: {
+      data: ['好', '一般', '差']
+    }
   },
   {
     key: "fieldOne", //胃纳
     value: "",
     neme: "胃纳",
     event: keyf1,
-    textarea: {
-      width: 48
+    autoComplete: {
+      data: ['好', '一般', '差']
     }
   },
   {
@@ -55,6 +58,9 @@ export default [{
     event: keyf1,
     textarea: {
       width: 48
+    },
+    autoComplete: {
+      data: ['无', '有']
     }
   },
   {
@@ -64,6 +70,9 @@ export default [{
     event: keyf1,
     textarea: {
       width: 36
+    },
+    autoComplete: {
+      data: ['无', '有']
     }
   },
   {
@@ -95,6 +104,10 @@ export default [{
     key: "fieldNine", // 护理指导
     value: "",
     event: keyf1,
+    splice: true,
+    textarea: {
+      width: 48
+    },
     autoComplete: {
       data: ['①', '②', '③', '④', '⑤', '⑥']
     }
@@ -103,6 +116,10 @@ export default [{
     key: "healthEducation", // 健康教育
     value: "",
     event: keyf1,
+    splice: true,
+    textarea: {
+      width: 48
+    },
     autoComplete: {
       data: ['①', '②', '③', '④', '⑤', '⑥', '⑦', '⑧', '⑨', '⑩', '11']
     }
@@ -110,7 +127,10 @@ export default [{
   {
     key: "fieldTen", // 留置针
     value: "",
-    event: keyf1
+    event: keyf1,
+    autoComplete: {
+      data: ['无', '有']
+    }
   },
   {
     key: "fieldEleven", //标题1

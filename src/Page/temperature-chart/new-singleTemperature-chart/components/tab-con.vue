@@ -147,11 +147,11 @@
           <span class="type-label">日期:</span>
           <el-date-picker
             size="mini"
-            format="yyyy-MM-dd HH:mm:ss"
-            value-format="yyyy-MM-dd HH:mm:ss"
-            v-model="entryTime"
-            type="datetime"
-            placeholder="选择日期时间"
+            format="yyyy-MM-dd"
+            value-format="yyyy-MM-dd"
+            v-model="entryDate"
+            type="date"
+            placeholder="选择日期"
             style="width:170px;"
             @change="formatEntryDate"
           />
@@ -200,7 +200,7 @@ export default {
     return {
       bus: bus(this),
       editableTabsValue: "2",
-      selectDate: "",
+      selectDate: this.patientInfo.admissionDate.slice(0, 10),
       query: {
         recordDate: moment(new Date(this.patientInfo.admissionDate)).format(
           "YYYY-MM-DD"
@@ -409,28 +409,34 @@ export default {
     },
     /* 删除记录 */
     async removeRecord(targetName) {
-      let tabs = this.tabsData;
-      let activeName = this.editableTabsValue;
-      if (activeName === targetName) {
-        tabs.forEach((tab, index) => {
-          if (tab === targetName) {
-            deleteRecord({
-              patientId: this.patientInfo.patientId,
-              recordDate: tab,
-              visitId: this.patientInfo.visitId,
-              wardCode: this.patientInfo.wardCode
-            }).then(res => {
-              this.getList();
-              this.bus.$emit("refreshImg");
-            });
-            let nextTab = tabs[index + 1] || tabs[index - 1];
-            if (nextTab) {
-              activeName = nextTab;
+      await this.$confirm("是否确删除该记录?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "info"
+      }).then(() => {
+        let tabs = this.tabsData;
+        let activeName = this.editableTabsValue;
+        if (activeName === targetName) {
+          tabs.forEach((tab, index) => {
+            if (tab === targetName) {
+              deleteRecord({
+                patientId: this.patientInfo.patientId,
+                recordDate: tab,
+                visitId: this.patientInfo.visitId,
+                wardCode: this.patientInfo.wardCode
+              }).then(res => {
+                this.getList();
+                this.bus.$emit("refreshImg");
+              });
+              let nextTab = tabs[index + 1] || tabs[index - 1];
+              if (nextTab) {
+                activeName = nextTab;
+              }
+              this.editableTabsValue = activeName;
             }
-            this.editableTabsValue = activeName;
-          }
-        });
-      }
+          });
+        }
+      });
     },
     /* 同步入院、同步出院 */
     syncInAndOutHospital(type) {
@@ -440,6 +446,7 @@ export default {
         type: type
       }).then(res => {
         this.$message.success("同步成功");
+        this.getList();
       });
     },
     /* 修改自定义标题，弹出弹窗并保存 */

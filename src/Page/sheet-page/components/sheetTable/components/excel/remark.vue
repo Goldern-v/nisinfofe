@@ -57,7 +57,8 @@
       v-if="sheetInfo.sheetType == 'common_hl'"
       style="font-size: 13px; margin-top: -5px"
     >
-      说明:神志：清醒（清）、麻醉未醒（△）、嗜睡（+）、模糊（++）、浅昏迷（+++）、深昏迷（++++）  瞳孔对光反射灵敏（+），迟钝（±），消失（-）
+      说明:神志：清醒（清）、麻醉未醒（△）、嗜睡（+）、模糊（++）、浅昏迷（+++）、深昏迷（++++）
+      瞳孔对光反射灵敏（+），迟钝（±），消失（-）
     </div>
     <div
       v-if="sheetInfo.sheetType == 'neonatology_hd'"
@@ -89,25 +90,31 @@
     </div>
     <!-- 江门妇幼-儿科康复护理记录单 -->
     <div v-if="sheetInfo.sheetType == 'child_recovery_jm'">
-    <p>
-      备注:1护理治疗措施代码:①雾化;②理疗;③电按摩拍背;④吸痰;⑤鼻腔冲洗;⑥温水擦浴.
-    <p style="text-indent: 32px;">
-      2健康教育代码:①饮食指导;②用药指导;③指导翻身拍背排痰手法;④指导配合雾化吸入方法;⑤指导留置针留置的注意事项;⑥指导松解衣服、多喝水协助降温。⑦指导喂养方法,防止窒息;⑧指导臀部护理方法;⑨指导肺功能检查的注意事项;⑩预防坠床,安全告知;11出院指导(A按时服药;B不适随诊;C定时复诊。
-    </p>
-    <p style="text-indent: 32px;">
-      3.在同一栏内(同列)记录内容,如与前一次记录相同,可用: “√”表示默认前一次记录,如不一致时,用文字表示。
-    </p>
+      <p>
+        备注:1护理治疗措施代码:①雾化;②理疗;③电按摩拍背;④吸痰;⑤鼻腔冲洗;⑥温水擦浴.
+      </p>
+
+      <p style="text-indent: 32px;">
+        2健康教育代码:①饮食指导;②用药指导;③指导翻身拍背排痰手法;④指导配合雾化吸入方法;⑤指导留置针留置的注意事项;⑥指导松解衣服、多喝水协助降温。⑦指导喂养方法,防止窒息;⑧指导臀部护理方法;⑨指导肺功能检查的注意事项;⑩预防坠床,安全告知;11出院指导(A按时服药;B不适随诊;C定时复诊。
+      </p>
+      <p style="text-indent: 32px;">
+        3.在同一栏内(同列)记录内容,如与前一次记录相同,可用:
+        “√”表示默认前一次记录,如不一致时,用文字表示。
+      </p>
     </div>
     <!-- 江门妇幼-小儿外科护理记录单 -->
     <div v-if="sheetInfo.sheetType == 'pediatric_surgery_jm'">
-    <p>
-      备注： 一、护理指导代码：1观察伤口有无渗血；2保持伤口敷料干洁；3心理护理；4避免剧烈运动；6温水擦浴；7勿压迫、折叠、扭曲管道。
-    </p>
-    <p style="margin-left: 46px;">
-      二、健康教育代码：1饮食指导；2用药指导；3指导翻身拍背排痰手法；4指导配合雾化吸入方法；5指导留置针留置的注意事项；6指导松解衣物、多喝水协助降温；7指导喂养方法，防止窒息；8指导臀部护理方法；9预防坠床，安全告知；10出院指导（A、按时服药；B不适随诊；C定时复查）</p>
-    <p style="margin-left: 46px;">
-       三 、在同一栏内(同列)记录的内容,如与前一次记录相同,可用: “√” 表示默认前一次记录,如不一致时,用文字表示。
-    </p>
+      <p>
+        备注：
+        一、护理指导代码：1观察伤口有无渗血；2保持伤口敷料干洁；3心理护理；4避免碰撞伤口；5避免剧烈运动；6温水擦浴；7勿压迫、折叠、扭曲管道。
+      </p>
+      <p style="margin-left: 46px;">
+        二、健康教育代码：1饮食指导；2用药指导；3指导翻身拍背排痰手法；4指导配合雾化吸入方法；5指导留置针留置的注意事项；6指导松解衣物、多喝水协助降温；7指导喂养方法，防止窒息；8指导臀部护理方法；9预防坠床，安全告知；10出院指导（A、按时服药；B不适随诊；C定时复查）
+      </p>
+      <p style="margin-left: 46px;">
+        三 、在同一栏内(同列)记录的内容,如与前一次记录相同,可用: “√”
+        表示默认前一次记录,如不一致时,用文字表示。
+      </p>
     </div>
     <!-- 外科 -->
     <div v-if="sheetInfo.sheetType == 'surgical_eval_lcey'">
@@ -189,24 +196,29 @@
         >如Wong-Banker 面部表情量表法 （ FPS -R）即 “笑脸 ”
       </p>
     </div>
-     <!-- 陵 城 病重（病危）患者护理记录单 -->
+    <!-- 陵 城 病重（病危）患者护理记录单 -->
     <div class="bottomTable" v-if="sheetInfo.sheetType == 'critical_lc'">
       <table>
-      <colgroup>
-        <col width="46px" />
-        <col width="1355px" />
-      </colgroup>
-      <tbody>
-        <tr>
-          <td style="text-align: center;vertical-align: middle;">医<br />嘱<br />内<br />容</td>
-          <td class="textarea">
-            <textarea v-model="sheetInfo.relObj['advice10']" :data-value="sheetInfo.relObj['advice10']"></textarea>
-          </td>
-        </tr>
-      </tbody>
+        <colgroup>
+          <col width="46px" />
+          <col width="1355px" />
+        </colgroup>
+        <tbody>
+          <tr>
+            <td style="text-align: center;vertical-align: middle;">
+              医<br />嘱<br />内<br />容
+            </td>
+            <td class="textarea">
+              <textarea
+                v-model="sheetInfo.relObj['advice10']"
+                :data-value="sheetInfo.relObj['advice10']"
+              ></textarea>
+            </td>
+          </tr>
+        </tbody>
       </table>
       <div style="padding-top: 10px;">
-          <p>注：瞳孔对光反应：灵敏（+）、迟钝（S）、消失（-）表示。</p>
+        <p>注：瞳孔对光反应：灵敏（+）、迟钝（S）、消失（-）表示。</p>
       </div>
     </div>
   </div>
@@ -220,9 +232,13 @@ export default {
       sheetInfo
     };
   },
-  created(){
-    if(this.sheetInfo.sheetType == 'critical_lc' && this.sheetInfo.relObj['advice10'] == undefined){
-      this.sheetInfo.relObj['advice10'] = '【1】0.9%NS100ml,奥美拉唑40mg iv 12:00【2】0.9%NS100ml,奥美拉唑40mg iv 12:00';
+  created() {
+    if (
+      this.sheetInfo.sheetType == "critical_lc" &&
+      this.sheetInfo.relObj["advice10"] == undefined
+    ) {
+      this.sheetInfo.relObj["advice10"] =
+        "【1】0.9%NS100ml,奥美拉唑40mg iv 12:00【2】0.9%NS100ml,奥美拉唑40mg iv 12:00";
     }
   }
 };
