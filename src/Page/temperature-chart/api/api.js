@@ -26,3 +26,38 @@ export function getPatientsInfo(query) {
 export function saveOverAllTemperture(params) {
   return axios.post(`${apiPath}record/${recordCodeList[process.env.HOSPITAL_ID]}/saveOverAll`, params);
 }
+
+//聊城二院出入院同步
+export function autoVitalSigns(data) {
+  return axios.post(`${apiPath}vitalSign/autoVitalSigns`, data);
+}
+
+//聊城二院体温单列表
+export function getVitalSignList(data) {
+  return axios.post(`${apiPath}vitalSign/list`, data);
+}
+
+// 通过护理单元获取体征字典表
+export const getmultiDict = (wardcode) => {
+  return axios.get(`${apiPath}threeTest/type/${wardcode}`);
+};
+
+// 聊城二院获取体温单自定义标题
+export const getfieldList = (data) => {
+  return axios.post(`${apiPath}vitalSign/fieldSetting/list`, data);
+};
+
+// 聊城二院获取体温单自定义标题
+export const savefieldTitle = (data) => {
+  return axios.post(`${apiPath}vitalSign/fieldSetting/save`, data);
+};
+
+// 聊城二院体温单录入
+export const saveAll = (data) => {
+  return axios.post(`${apiPath}vitalSign/saveAll`, data);
+};
+
+// 聊城二院体温单删除记录
+export const deleteRecord = (data) => {
+  return axios.post(`${apiPath}vitalSign/delete`, data);
+};

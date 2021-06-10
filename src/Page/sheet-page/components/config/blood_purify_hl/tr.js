@@ -1,12 +1,18 @@
 import {
+  listItem
+} from "../../../api/recordDesc";
+import {
+  multiDictInfo
+} from "../../../api/index";
+import {
   keyf1
 } from "../keyEvent/f1.js";
 import {
   event_date,
   event_time,
-  click_date,
-  click_time
+  click_date
 } from "../keyEvent/date";
+import info from "../sheetInfo";
 export default [{
     key: "recordMonth", //日期
     value: "",
@@ -16,145 +22,91 @@ export default [{
   {
     key: "recordHour", //时间
     value: "",
-    event: event_time,
-    click: click_time
+    event: event_time
   },
   {
-    key: "temperature", //体温
-    value: "",
-    event: keyf1
-  },
-  {
-    key: "pulse", //心率
-    value: "",
-    event: keyf1
-  },
-  {
-    key: "breath", //呼吸
-    value: "",
-    event: keyf1
-  },
-  {
-    key: "consciousness", // 精神
+    key: "fieldOne", //血流量
     value: "",
     event: keyf1,
-    autoComplete: {
-      data: ['好', '一般', '差']
-    }
+    name: '血流量',
+    next: 'ml/min'
   },
   {
-    key: "fieldOne", //胃纳
-    value: "",
-    neme: "胃纳",
-    event: keyf1,
-    autoComplete: {
-      data: ['好', '一般', '差']
-    }
-  },
-  {
-    key: "fieldTwo", // 咳痰
-    value: "",
-    neme: "咳痰",
-    event: keyf1,
-    textarea: {
-      width: 48
-    },
-    autoComplete: {
-      data: ['无', '有']
-    }
-  },
-  {
-    key: "fieldThree", // 咳嗽
-    value: "",
-    neme: "咳嗽",
-    event: keyf1,
-    textarea: {
-      width: 36
-    },
-    autoComplete: {
-      data: ['无', '有']
-    }
-  },
-  {
-    key: "fieldFour", // 入量静脉（ml）
-    value: "",
-    event: keyf1
-  },
-  {
-    key: "fieldFive", // 进食（ml）
-    value: "",
-    event: keyf1
-  },
-  {
-    key: "fieldSix", // 大便（g/性状）
-    value: "",
-    event: keyf1
-  },
-  {
-    key: "fieldSeven", // 小便（ml）
+    key: "fieldTwo", //超滤率
     value: "",
     event: keyf1,
+    name: '超滤率',
+    next: 'ml/h'
   },
   {
-    key: "fieldEight", // 呕吐（ml）
-    value: "",
-    event: keyf1
-  },
-  {
-    key: "fieldNine", // 护理指导
+    key: "fieldThree", //置换液
     value: "",
     event: keyf1,
-    splice: true,
-    textarea: {
-      width: 48
-    },
-    autoComplete: {
-      data: ['①', '②', '③', '④', '⑤', '⑥']
-    }
+    name: '置换液',
+    next: 'ml/h'
   },
   {
-    key: "healthEducation", // 健康教育
+    key: "fieldFour", // 动脉压力
     value: "",
     event: keyf1,
-    splice: true,
-    textarea: {
-      width: 48
-    },
-    autoComplete: {
-      data: ['①', '②', '③', '④', '⑤', '⑥', '⑦', '⑧', '⑨', '⑩', '11']
-    }
+    name: '动脉压力',
+    next: 'mmHg'
   },
   {
-    key: "fieldTen", // 留置针
+    key: "fieldFive", // 静脉压力
     value: "",
     event: keyf1,
-    autoComplete: {
-      data: ['无', '有']
-    }
+    name: '静脉压力',
+    next: 'mmHg'
   },
   {
-    key: "fieldEleven", //标题1
+    key: "fieldSix", // 跨膜压
     value: "",
     event: keyf1,
-    textarea: {
-      width: 44
-    }
+    name: '跨膜压',
+    next: 'mmHg'
   },
   {
-    key: "fieldTwelve", //标题2
+    key: "fieldSeven", // 超滤量
     value: "",
     event: keyf1,
-    textarea: {
-      width: 44
-    }
+    name: '超滤量',
+    next: 'ml'
   },
   {
-    key: "fieldThirteen", //标题3
+    key: "fieldEight", //5%碳酸氢钠
     value: "",
     event: keyf1,
-    textarea: {
-      width: 44
-    }
+    name: '5%碳酸氢钠',
+    next: 'ml'
+  },
+  {
+    key: "fieldNine", //4%枸橼酸钠抗凝剂ml
+    value: "",
+    event: keyf1,
+    name: '4%枸橼酸钠抗凝剂',
+    next: 'ml'
+  },
+  {
+    key: "fieldTen", //10%葡萄糖酸钙ml
+    value: "",
+    event: keyf1,
+    name: '10%葡萄糖酸钙',
+    next: 'ml'
+  },
+  {
+    key: "fieldTwelve", //体内钙离子
+    value: "",
+    event: keyf1,
+    name: '体内钙离子',
+    next: 'mmol/L'
+  },
+  {
+    key: "fieldEleven", //体外钙离子
+    value: "",
+    event: keyf1,
+    name: '体外钙离子',
+    next: 'mmol/L'
   },
   {
     key: "description", //特殊情况记录

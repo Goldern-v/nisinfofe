@@ -676,6 +676,13 @@ export default function Title(
     );
   }
   break;
+  case "blood_purify_hl": {
+    // 横沥 - 持续性血液净化治疗记录表
+    Th = JSON.parse(
+      JSON.stringify(require("../config/blood_purify_hl/th").default)
+    );
+  }
+  break;
   default: {
     Th = JSON.parse(
       JSON.stringify(require("../config/default/th").default)
