@@ -52,8 +52,12 @@ export const savefieldTitle = (data) => {
   return axios.post(`${apiPath}vitalSign/fieldSetting/save`, data);
 };
 
-
 // 聊城二院体温单录入
 export const saveAll = (data) => {
   return axios.post(`${apiPath}vitalSign/saveAll`, data);
+};
+
+// 聊城二院体温单删除记录
+export const deleteRecord = (data) => {
+  return axios.post(`${apiPath}vitalSign/delete`, data);
 };

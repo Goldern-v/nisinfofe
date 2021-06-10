@@ -19,7 +19,13 @@
       同步出院
     </el-button>
     <null-bg v-show="!(tabsData && vitalSignData)"></null-bg>
-    <el-tabs v-model="editableTabsValue" type="card" tab-position="right">
+    <el-tabs
+      v-model="editableTabsValue"
+      type="card"
+      tab-position="right"
+      closable
+      @tab-remove="removeRecord"
+    >
       <!-- 获取该患者的前二十条体温单记录，label -->
       <el-tab-pane
         v-for="(item, key) in vitalSignData"
@@ -137,18 +143,35 @@
     </el-tabs>
     <sweet-modal :modalWidth="300" ref="modal" title="选择时间">
       <div style="margin:10px;">
-        <span>日期:</span>
-        <el-date-picker
-          size="mini"
-          format="yyyy-MM-dd HH:mm:ss"
-          value-format="yyyy-MM-dd HH:mm:ss"
-          v-model="recordDate"
-          type="datetime"
-          placeholder="选择日期时间"
-          style="width:170px;"
-          @change="formatRecordDate"
-        >
-        </el-date-picker>
+        <span class="filterItem date">
+          <span class="type-label">日期:</span>
+          <el-date-picker
+            size="mini"
+            format="yyyy-MM-dd HH:mm:ss"
+            value-format="yyyy-MM-dd HH:mm:ss"
+            v-model="entryTime"
+            type="datetime"
+            placeholder="选择日期时间"
+            style="width:170px;"
+            @change="formatEntryDate"
+          />
+        </span>
+        <div class="times" v-if="HOSPITAL_ID === 'liaocheng'">
+          <label
+            :for="`time${item.id}`"
+            v-for="item in timesOdd"
+            :key="item.id"
+          >
+            <input
+              type="radio"
+              name="time"
+              v-model="entryTime"
+              :id="`time${item.id}`"
+              :value="item.value"
+            />
+            {{ item.value }}
+          </label>
+        </div>
       </div>
       <div slot="button">
         <el-button class="modal-btn" type="primary" @click="close"
@@ -168,7 +191,8 @@ import {
   getfieldList,
   savefieldTitle,
   autoVitalSigns,
-  saveAll
+  saveAll,
+  deleteRecord
 } from "../../api/api";
 export default {
   props: { patientInfo: Object },
@@ -176,14 +200,11 @@ export default {
     return {
       bus: bus(this),
       editableTabsValue: "2",
-      setDate: "",
+      selectDate: "",
       query: {
-        patientId: this.patientInfo.patientId,
-        visitId: this.patientInfo.visitId,
         recordDate: moment(new Date(this.patientInfo.admissionDate)).format(
           "YYYY-MM-DD"
-        ),
-        wardCode: this.patientInfo.wardCode
+        )
       },
       recordDate: "",
       vitalSignData: [], // 体温单列表
@@ -215,6 +236,34 @@ export default {
         "手术入院",
         "死亡"
       ],
+      entryDate: moment(new Date()).format("YYYY-MM-DD"), //录入日期
+      entryTime: "07", //录入时间
+      timesOdd: [
+        {
+          id: 0,
+          value: "03"
+        },
+        {
+          id: 1,
+          value: "07"
+        },
+        {
+          id: 2,
+          value: "11"
+        },
+        {
+          id: 3,
+          value: "15"
+        },
+        {
+          id: 4,
+          value: "19"
+        },
+        {
+          id: 5,
+          value: "23"
+        }
+      ],
       bottomContextList: ["", "不升"],
       topExpandDate: "",
       bottomExpandDate: ""
@@ -229,16 +278,8 @@ export default {
   },
   created() {},
   computed: {
-    selectDate: {
-      get: function() {
-        this.setDate = moment(new Date(this.patientInfo.admissionDate)).format(
-          "YYYY-MM-DD"
-        );
-        return this.setDate;
-      },
-      set: function(v) {
-        this.setDate = v;
-      }
+    entryDateTime() {
+      return this.entryDate + "  " + this.entryTime + ":00:00";
     }
   },
   methods: {
@@ -283,9 +324,9 @@ export default {
       let data = {
         patientId: this.patientInfo.patientId,
         visitId: this.patientInfo.visitId,
-        recordDate: moment(new Date(this.patientInfo.admissionDate)).format(
-          "YYYY-MM-DD"
-        ),
+        recordDate: this.selectDate
+          ? this.selectDate
+          : this.patientInfo.admissionDate.slice(0, 10),
         wardCode: this.patientInfo.wardCode
       };
       /* 获取体温单列表接口 */
@@ -300,7 +341,7 @@ export default {
           });
           /* 再构造最外一层对象：以obj={"item.recordDate":{vitalSignList:{"体温":{}} }} */
           obj[item.recordDate] = {
-            // recordDate: item.recordDate,
+            recordDate: item.recordDate,
             vitalSignList: this.vitalSignObj
           };
           /* 用于标签栏遍历时间数组 */
@@ -320,9 +361,11 @@ export default {
         });
       });
     },
+    /* 日期搜索功能 */
     selectTemRec(val) {
       this.selectDate = val;
       this.query.recordDate = this.selectDate;
+      console.log(this.query.recordDate);
       this.getList();
     },
     /* 获取字典表，整理某一行的同步信息 */
@@ -347,19 +390,49 @@ export default {
         this.multiDictList = { ...data };
       });
     },
-    /* 新建记录 */
+    /* 新建记录，打开弹窗 */
     addTab(targetName) {
       this.$refs.modal.open();
+    },
+    /* 关闭弹窗 */
+    async close() {
       let newTabName = ++this.tabIndex + "";
-      let newRecordDate = this.recordDate;
+      let newRecordDate = this.entryDateTime;
       this.init();
+      this.tabsData.push(newRecordDate);
       this.vitalSignData[newRecordDate] = {
-        // recordDate: newRecordDate,
+        recordDate: newRecordDate,
         vitalSignList: this.vitalSignObj
       };
-      this.tabsData.push(newRecordDate);
       this.editableTabsValue = newTabName;
+      this.$refs.modal.close();
     },
+    /* 删除记录 */
+    async removeRecord(targetName) {
+      let tabs = this.tabsData;
+      let activeName = this.editableTabsValue;
+      if (activeName === targetName) {
+        tabs.forEach((tab, index) => {
+          if (tab === targetName) {
+            deleteRecord({
+              patientId: this.patientInfo.patientId,
+              recordDate: tab,
+              visitId: this.patientInfo.visitId,
+              wardCode: this.patientInfo.wardCode
+            }).then(res => {
+              this.getList();
+              this.bus.$emit("refreshImg");
+            });
+            let nextTab = tabs[index + 1] || tabs[index - 1];
+            if (nextTab) {
+              activeName = nextTab;
+            }
+            this.editableTabsValue = activeName;
+          }
+        });
+      }
+    },
+    /* 同步入院、同步出院 */
     syncInAndOutHospital(type) {
       autoVitalSigns({
         patientId: this.patientInfo.patientId,
@@ -404,7 +477,7 @@ export default {
         }
       });
       let data = {
-        // recordDate: this.recordDate,
+        recordDate: key,
         vitalSignList: obj
       };
       await saveAll(data).then(res => {
@@ -413,18 +486,14 @@ export default {
       this.getList();
       this.bus.$emit("refreshImg");
     },
-    formatRecordDate(val) {
-      this.recordDate = moment(new Date(val)).format("YYYY-MM-DD  HH:mm:ss");
+    formatEntryDate(val) {
+      this.entryDate = moment(new Date(val)).format("YYYY-MM-DD");
     },
     formatTopExpandDate(val) {
       this.topExpandDate = val;
     },
     formatBtmExpandDate(val) {
       this.bottomExpandDate = val;
-    },
-    close() {
-      console.log("asfd", this.recordDate);
-      this.$refs.modal.close();
     }
   },
   components: { nullBg }
