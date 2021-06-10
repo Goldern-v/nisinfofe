@@ -47,7 +47,7 @@
       <ElFormItem
         label="RI剂量："
         required
-        v-if="HOSPITAL_ID != 'gy' && HOSPITAL_ID != 'huadu' && HOSPITAL_ID != 'liaocheng'"
+        v-if="HOSPITAL_ID != 'gy' && HOSPITAL_ID != 'huadu' && HOSPITAL_ID != 'liaocheng'&& HOSPITAL_ID != 'hengli'"
       >
         <ElInput v-model="form.riValue" />
         <span class="unit">(ü)</span>
@@ -191,7 +191,8 @@ export default {
           nurseEmpNo: this.curEmpNo, //--护士工号
           nurse: this.curEmpName, //--护士姓名
           expand1: "",
-          expand2 //--操作方式，1：添加，2：修改~~~~
+          expand2, //--操作方式，1：添加，2：修改~~~~
+          wardCode: this.patientInfo.wardCode || ""
         }
         this.oldRecordDate = form ? form.recordDate : '';
         return;

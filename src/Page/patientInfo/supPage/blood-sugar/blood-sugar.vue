@@ -345,6 +345,7 @@ export default {
           oldRecordDate: this.selected.oldRecordDate || "",
           nurseEmpNo: this.empNo || "",//护士工号
           nurse: this.empName || "",//护士姓名
+          wardCode: this.patientInfo.wardCode || ""
         }
       }
 
