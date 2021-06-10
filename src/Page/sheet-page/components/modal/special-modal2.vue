@@ -210,7 +210,8 @@
           class="modal-btn"
           type="primary"
           @click="
-            sheetInfo.selectBlock.openRichText && HOSPITAL_ID == 'lingcheng'
+            sheetInfo.selectBlock.openRichText &&
+            (HOSPITAL_ID == 'lingcheng' || HOSPITAL_ID == 'hengli')
               ? postRichText()
               : post()
           "
@@ -791,7 +792,21 @@ export default {
     },
     // 保存（富文本）
     postRichText() {
-      let okLength = this.HOSPITAL_ID === "lingcheng" ? 46 : 23;
+      let okLength = (function() {
+        switch (this.HOSPITAL_ID) {
+          case "lingcheng":
+            return 46;
+            break;
+          case "hengli":
+            return 46;
+            break;
+          default:
+            return 23;
+            break;
+        }
+      })();
+      console.log("oklenght", okLength);
+      // this.HOSPITAL_ID === "lingcheng" ? 46 : 23;
       var GetLength = function(str) {
         // 过滤上下标签替换
         const subReg = /(<\/?sub.*?>)/gi;
@@ -942,6 +957,14 @@ export default {
         } else {
           if (this.HOSPITAL_ID == "lingcheng") {
             if (GetLength(text) > 46) {
+              result.push(text);
+              text = allDoc[i];
+            } else {
+              text += allDoc[i];
+            }
+          }
+          if (this.HOSPITAL_ID == "hengli") {
+            if (GetLength(text) > 40) {
               result.push(text);
               text = allDoc[i];
             } else {

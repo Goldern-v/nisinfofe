@@ -5,9 +5,23 @@
         style="height: 1px;background:#4BB08D;box-shadow: 0px 1px 5px rgba(0,0,0,.2);position: relative;z-index: 0"
       ></div>
       <div class="user-box">
-        <div class="user-head">
+        <div class="user-head" v-if="HOSPITAL_ID !== 'liaocheng'">
           <img
             src="../../../common/images/card/默认头像.png"
+            height="72"
+            width="72"
+          />
+        </div>
+        <div class="user-head" v-else>
+          <img
+            v-if="info.sex === '女'"
+            src="@/Page/lesion/supPage/bed/component/bed-item-lcey/images/女.png"
+            height="72"
+            width="72"
+          />
+          <img
+            v-if="info.sex === '男'"
+            src="@/Page/lesion/supPage/bed/component/bed-item-lcey/images/男.png"
             height="72"
             width="72"
           />
@@ -43,7 +57,11 @@
           <div class="line-boder"></div>
           <div class="list2-li">科室：{{ info.deptName }}</div>
           <div class="list2-li">
-            入院：{{ HOSPITAL_ID == 'huadu' ? info.admissionWardDateTime : info.admissionDate }}(第{{ info.inpDay }}天)
+            入院：{{
+              HOSPITAL_ID == "huadu"
+                ? info.admissionWardDateTime
+                : info.admissionDate
+            }}(第{{ info.inpDay }}天)
           </div>
           <div class="list2-li">医生：{{ info.doctorInCharge }}</div>
           <div class="list2-li over-text" :title="info.diagnosis">

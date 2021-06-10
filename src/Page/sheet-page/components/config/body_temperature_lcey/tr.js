@@ -214,11 +214,11 @@ export default [{
     }
     // oninput: next
   },
-  {
-    key: "empName",
-    value: "",
-    name: "记录人",
-  },
+  // {
+  //   key: "empName",
+  //   value: "",
+  //   name: "记录人",
+  // },
   {
     key: "sign",
     value: ""

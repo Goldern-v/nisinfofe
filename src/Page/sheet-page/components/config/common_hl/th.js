@@ -1,9 +1,11 @@
 export default {
+  style: {
+    width: '1150px'
+  },
   // 科室的名称
   deptType: '',
   th: {
-    top: [
-      {
+    top: [{
         name: '日期',
         style: {
           minWidth: '36px',
@@ -73,8 +75,8 @@ export default {
         血氧<br/>饱和<br/>度<br/>(%)
         `,
         style: {
-          minWidth: '52px',
-          maxWidth: '52px',
+          minWidth: '38px',
+          maxWidth: '38px',
           whiteSpace: 'nowrap'
         },
         colspan: '1',
@@ -192,8 +194,8 @@ export default {
         特殊情况记录
         `,
         style: {
-          minWidth: '153px',
-          maxWidth: '153px',
+          minWidth: "260px",
+          maxWidth: "260px"
         },
         colspan: '1',
         rowspan: '3'
@@ -207,8 +209,7 @@ export default {
         rowspan: '3'
       },
     ],
-    mid: [
-      {
+    mid: [{
         name: `
         大小
         `,
@@ -271,8 +272,7 @@ export default {
         },
       },
     ],
-    bottom: [
-      {
+    bottom: [{
         name: `
         左<br/>(mm)
         `,

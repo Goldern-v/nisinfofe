@@ -408,6 +408,17 @@
                   </el-dropdown-item>
                 </el-dropdown-item>-->
                 <el-dropdown-item
+                  :class="{
+                    active: $route.path.indexOf('/nursingGradeStatistics') > -1
+                  }"
+                >
+                  <router-link to="/nursingGradeStatistics" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="departmentSharedFile"></i>护理等级统计查询
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item>
+                <el-dropdown-item
                   :class="{ active: $route.path == '/nursingRules' }"
                 >
                   <router-link to="/nursingRules" tag="span">
@@ -978,6 +989,10 @@ export default {
     isActiveOtherPage() {
       if (this.$route.path == "/rescuePage") return true;
     },
+    isActiveImplementationPage() {
+      if (this.$route.path == "/bottleLabel") return true;
+      if (this.$route.path == "/implementationList") return true;
+    },
     isActivePage() {
       if (this.$route.path.indexOf("/wardReport") > -1) return true;
       if (this.$route.path == "/nursingDocumentation") return true;
@@ -993,6 +1008,7 @@ export default {
       if (this.$route.path == "/healthEducationList") return true;
       if (this.$route.path == "/dcList") return true;
       if (this.$route.path == "/cognitiveStatistic") return true;
+      if (this.$route.path.indexOf("/nursingGradeStatistics") > -1) return true;
     },
     isActiveStatisticPage() {
       if (this.$route.path == "/cognitiveStatistic") return true;
