@@ -79,32 +79,37 @@ export default [
     }
   },
   {
-    key: "food", //肌力-右上肢/右下肢
+    key: "fieldOne", //肌力-右上肢/右下肢
     value: "",
-    event: keyf1
+    event: keyf1,
+    name: "肌力-右上肢/右下肢"
   },
   {
-    key: "foodSize", //肌力-左上肢/左下肢
+    key: "fieldTwo", //肌力-左上肢/左下肢
     value: "",
-    event: keyf1
+    event: keyf1,
+    name: "肌力-左上肢/左下肢"
   },
   {
-    key: "discharge", //言语
+    key: "fieldThree", //言语
     value: "",
-    event: keyf1
+    event: keyf1,
+    name: "言语"
   },
   {
-    key: "dischargeSize", //皮肤黏膜出血
+    key: "fieldFour", //皮肤黏膜出血
     value: "",
-    event: keyf1
+    event: keyf1,
+    name: "皮肤黏膜出血"
   },
   {
-    key: "dischargeSize2", //血尿/黑便
+    key: "fieldFive", //血尿/黑便
     value: "",
-    event: keyf1
+    event: keyf1,
+    name: "血尿/黑便"
   },
   {
-    key: "fieldOne", //标题1
+    key: "fieldSix", //标题1
     value: "",
     event: keyf1,
     textarea: {
@@ -112,7 +117,7 @@ export default [
     }
   },
   {
-    key: "fieldTwo", //标题2
+    key: "fieldSeven", //标题2
     value: "",
     event: keyf1,
     textarea: {

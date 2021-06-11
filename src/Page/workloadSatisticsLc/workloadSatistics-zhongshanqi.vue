@@ -44,12 +44,16 @@
       <div class="table-contain">
         <dTable :tableData="data" :pageLoadng="pageLoadng"></dTable>
       </div>
-      <div class="printable"  ref="printable">
+      <div class="printable" ref="printable">
         <div class="header-con">
           <h2>工作量统计表</h2>
-           <div class="filterItem date">
+          <div class="filterItem date">
             <span class="type-label">日期:</span>
-            <span>{{query.startDate}}<span style="vertical-align: middle;">~</span>{{query.endDate}}</span>
+            <span
+              >{{ query.startDate
+              }}<span style="vertical-align: middle;">~</span
+              >{{ query.endDate }}</span
+            >
           </div>
         </div>
         <div class="table-contain">
@@ -66,7 +70,7 @@ import { getListZSQ } from "./api/api";
 import dayjs from "dayjs";
 import print from "printing";
 import formatter from "./print-formatter";
-import dTable from './components/d-table'
+import dTable from "./components/d-table";
 export default {
   components: {
     dTable
@@ -75,11 +79,11 @@ export default {
   data() {
     return {
       query: {
-        wardCode:"",
+        wardCode: "",
         startDate: "",
         endDate: "",
         empNo: "",
-        empName:""
+        empName: ""
       },
       data: [],
       pageLoadng: true
@@ -109,7 +113,7 @@ export default {
     },
     setTableData() {
       this.pageLoadng = true;
-      this.query.wardCode = '316' || this.deptCode;
+      this.query.wardCode = this.deptCode;
       this.getDate();
       getListZSQ(this.query).then(
         res => {
@@ -131,21 +135,16 @@ export default {
           this.query.startDate =
             new Date().getFullYear() + "-0" + month + "-01";
         } else {
-          this.query.startDate =
-            new Date().getFullYear() + "-" + month + "-01";
+          this.query.startDate = new Date().getFullYear() + "-" + month + "-01";
         }
       }
       this.query.endDate = this.query.endDate
         ? this.query.endDate
         : dayjs(new Date()).format("YYYY-MM-DD");
-      this.query.startDate = dayjs(this.query.startDate).format(
-        "YYYY-MM-DD"
-      );
-      this.query.endDate = dayjs(this.query.endDate).format(
-        "YYYY-MM-DD"
-      );
+      this.query.startDate = dayjs(this.query.startDate).format("YYYY-MM-DD");
+      this.query.endDate = dayjs(this.query.endDate).format("YYYY-MM-DD");
     },
-   async onPrint() {
+    async onPrint() {
       this.pageLoadng = true;
       this.$nextTick(async () => {
         await print(this.$refs.printable, {
@@ -164,11 +163,11 @@ export default {
         table {
           width: 100% !important;
         }
-        `,
+        `
         });
       });
       this.pageLoadng = false;
-    },
+    }
   }
 };
 </script>
@@ -334,5 +333,4 @@ export default {
     }
   }
 }
-
 </style>

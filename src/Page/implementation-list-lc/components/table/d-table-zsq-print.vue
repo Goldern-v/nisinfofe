@@ -15,71 +15,154 @@
         min-width="60px"
         align="center"
       ></el-table-column>
-      <el-table-column prop="bedLabel" label="床号" min-width="50px" align="center">
+      <el-table-column
+        prop="bedLabel"
+        label="床号"
+        min-width="50px"
+        align="center"
+      >
         <template slot-scope="scope">
-          <div>{{(scope.row.rowType == 1 || !scope.row.rowType) ? (scope.row.bedLabel) : ''}}</div>
+          <div>
+            {{
+              scope.row.rowType == 1 || !scope.row.rowType
+                ? scope.row.bedLabel
+                : ""
+            }}
+          </div>
         </template>
       </el-table-column>
 
-      <el-table-column prop="executeDateTime" label="执行时间" min-width="70px" align="center">
+      <el-table-column
+        prop="executeDateTime"
+        label="计划执行时间"
+        min-width="70px"
+        align="center"
+      >
         <template slot-scope="scope">
-          <span>{{(scope.row.rowType == 1 || !scope.row.rowType) ? (scope.row.executeDateTime) : '' | ymdhm}}</span>
+          <span>{{
+            scope.row.rowType == 1 || !scope.row.rowType
+              ? scope.row.executeDateTime
+              : "" | ymdhm
+          }}</span>
         </template>
       </el-table-column>
 
-      <el-table-column label="姓名" prop="patientName" min-width="60px" align="center">
+      <el-table-column
+        label="姓名"
+        prop="patientName"
+        min-width="60px"
+        align="center"
+      >
         <template slot-scope="scope">
-          <div>{{(scope.row.rowType == 1 || !scope.row.rowType) ? (scope.row.patientName) : ''}}</div>
+          <div>
+            {{
+              scope.row.rowType == 1 || !scope.row.rowType
+                ? scope.row.patientName
+                : ""
+            }}
+          </div>
         </template>
       </el-table-column>
 
       <el-table-column label="医嘱内容" prop="itemName" min-width="150px">
         <template slot-scope="scope">
-          <div :class="scope.row.rowType && `rowType-${scope.row.rowType}`">{{scope.row.itemName }}</div>
+          <div :class="scope.row.rowType && `rowType-${scope.row.rowType}`">
+            {{ scope.row.itemName }}
+          </div>
         </template>
       </el-table-column>
 
-      <el-table-column prop="dosage" label="剂量" min-width="50px" align="right">
+      <el-table-column
+        prop="dosage"
+        label="剂量"
+        min-width="50px"
+        align="right"
+      >
         <template slot-scope="scope">
-          <span style="position: relative;right: 0px;">{{scope.row.dosage }}</span>
+          <span style="position: relative;right: 0px;">{{
+            scope.row.dosage
+          }}</span>
         </template>
       </el-table-column>
 
       <el-table-column prop="dosageUnits" label="单位" min-width="50px">
         <template slot-scope="scope">
-          <span style="position: relative;left: 0px;">{{scope.row.dosageUnits }}</span>
+          <span style="position: relative;left: 0px;">{{
+            scope.row.dosageUnits
+          }}</span>
         </template>
       </el-table-column>
 
-      <el-table-column label="频次" prop="freqeuncy" min-width="50px" align="center"></el-table-column>
+      <el-table-column
+        label="频次"
+        prop="freqeuncy"
+        min-width="50px"
+        align="center"
+      ></el-table-column>
 
-      <el-table-column prop="administration" label="途径" min-width="80px"></el-table-column>
+      <el-table-column
+        prop="administration"
+        label="途径"
+        min-width="80px"
+      ></el-table-column>
 
-      <el-table-column prop="executeFlag" label="执行状态" min-width="90px" align="center">
+      <el-table-column
+        prop="executeFlag"
+        label="执行状态"
+        min-width="80px"
+        align="center"
+      >
         <template slot-scope="scope">
           <span
             :class="{
               yzx: scope.row.executeFlag == 4,
-              zxz: scope.row.executeFlag == 1 || scope.row.executeFlag == 3,
-              }"
-          >{{ scope.row.executeFlag | handleStatus }}</span>
-          <span v-if="scope.row.type==1">(补)</span>
+              zxz: scope.row.executeFlag == 1 || scope.row.executeFlag == 3
+            }"
+            >{{ scope.row.executeFlag | handleStatus }}</span
+          >
+          <span v-if="scope.row.type == 1">(补)</span>
         </template>
       </el-table-column>
 
-      <el-table-column prop="repeatIndicator" label="长/临" min-width="70px" align="center"></el-table-column>
+      <el-table-column
+        prop="repeatIndicator"
+        label="长/临"
+        min-width="70px"
+        align="center"
+      ></el-table-column>
 
       <!-- <el-table-column prop="startDateTime" label="开始输液时间" min-width="80px" align="center"></el-table-column> -->
 
-      <el-table-column prop="startNurse" label="执行开始护士/执行开始时间" min-width="190px">
+      <el-table-column
+        prop="startDateTime"
+        label="执行时间"
+        min-width="130px"
+        align="center"
+      >
         <template slot-scope="scope">
-          <span>{{ scope.row.startNurse}} {{ scope.row.startDateTime | ymdhm2}}</span>
+          <span>{{ scope.row.startDateTime | ymdhm2 }}</span>
         </template>
       </el-table-column>
 
-      <el-table-column prop="endNurse" label="执行结束护士/执行结束时间" min-width="190px">
+      <el-table-column
+        prop="endNurse"
+        label="执行人"
+        min-width="70px"
+        align="center"
+      >
         <template slot-scope="scope">
-          <span>{{ scope.row.endNurse}} {{ scope.row.endDateTime | ymdhm2}}</span>
+          <span>{{ scope.row.endNurse }}</span>
+        </template>
+      </el-table-column>
+
+      <el-table-column
+        prop="reason"
+        label="异常说明"
+        min-width="100px"
+        align="center"
+      >
+        <template slot-scope="scope">
+          <span>{{ scope.row.reason }}</span>
         </template>
       </el-table-column>
 
@@ -222,7 +305,7 @@ import { info } from "@/api/task";
 import commonMixin from "../../../../common/mixin/common.mixin";
 import qs from "qs";
 import moment from "moment";
-import { addRecordZSQ} from "../../api/index";
+import { addRecordZSQ } from "../../api/index";
 import bus from "vue-happy-bus";
 export default {
   props: {
@@ -237,7 +320,7 @@ export default {
       msg: "hello vue",
       bus: bus(this),
       isEdit: false,
-      typeReason: '',//补执行的原因填写
+      typeReason: "" //补执行的原因填写
     };
   },
   filters: {
@@ -251,60 +334,61 @@ export default {
       let allStatus = [
         {
           id: "",
-          name: "全部",
+          name: "全部"
         },
         {
           id: 0,
-          name: "未执行",
+          name: "未执行"
         },
         {
           id: 1,
-          name: "开始输液",
+          name: "开始输液"
         },
         {
           id: 2,
-          name: "暂停输液",
+          name: "暂停输液"
         },
         {
           id: 3,
-          name: "继续输液",
+          name: "继续输液"
         },
         {
           id: 4,
-          name: "已完成",
-        },
+          name: "已完成"
+        }
       ];
       let status = parseInt(val);
-      return typeof status == "number" ? allStatus[status + 1] && allStatus[status + 1].name : val;
-    },
+      return typeof status == "number"
+        ? allStatus[status + 1] && allStatus[status + 1].name
+        : val;
+    }
   },
-  components: {
-  },
+  components: {},
   methods: {
     // 补录
     backTracking(item) {
       this.$confirm("是否补录?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
-        type: "info",
+        type: "info"
       }).then(() => {
         let data = {
           labelId: item.barcode,
           empNo: this.empNo,
           pushRate: "",
-          type: "1",
+          type: "1"
         };
-        addRecordZSQ(data).then((res) => {
+        addRecordZSQ(data).then(res => {
           this.$message.success("补录成功");
           this.bus.$emit("loadImplementationList");
         });
       });
     },
-    addRowClass(row){
-      if(row.executeFlag == 4){
-        return 'green'
-      }else if(row.executeFlag == 1){
-        return 'pink'
+    addRowClass(row) {
+      if (row.executeFlag == 4) {
+        return "green";
+      } else if (row.executeFlag == 1) {
+        return "pink";
       }
     }
   },
@@ -314,6 +398,6 @@ export default {
       JSON.parse(localStorage.user).post == "护长"
         ? true
         : false;
-  },
+  }
 };
 </script>
