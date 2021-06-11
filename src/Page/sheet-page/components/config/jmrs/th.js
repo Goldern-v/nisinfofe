@@ -137,7 +137,7 @@ export default {
         colspan: "1",
         rowspan: "3",
         canSet: true,
-        key: "fieldOne",
+        key: "fieldSix",
         style: {
           minWidth: "50px",
           maxWidth: "50px"
@@ -149,7 +149,7 @@ export default {
         colspan: "1",
         rowspan: "3",
         canSet: true,
-        key: "fieldTwo",
+        key: "fieldSeven",
         style: {
           minWidth: "50px",
           maxWidth: "50px"

@@ -247,7 +247,7 @@ function switechSheetType(type) {
     schema = require("../config/thyroid_gland/tr.js").default;
   }
   break;
-  case "jmrs": {
+  case "vein_thrombolysis_hj": {
     // 静脉溶栓护理记录单
     schema = require("../config/jmrs/tr.js").default;
   }

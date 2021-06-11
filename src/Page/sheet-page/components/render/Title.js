@@ -267,7 +267,7 @@ export default function Title(
     );
   }
   break;
-  case "jmrs": {
+  case "vein_thrombolysis_hj": {
     // 静脉溶栓护理记录单
     Th = JSON.parse(
       JSON.stringify(require("../config/jmrs/th").default)
