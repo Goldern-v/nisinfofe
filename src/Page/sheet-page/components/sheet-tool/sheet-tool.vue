@@ -27,7 +27,7 @@
         class="item-box"
         flex="cross:center main:center"
         @click="openStaticModal"
-        v-if="showCrl && !isDeputy"
+        v-if="showCrl && !isDeputy && !isSingleTem_LCEY"
       >
         <div class="text-con">出入量统计</div>
       </div>
@@ -99,7 +99,9 @@
         flex="cross:center main:center"
         @click.stop="openChart"
         v-if="
-          HOSPITAL_ID == 'huadu' &&
+          (HOSPITAL_ID === 'huadu' ||
+            HOSPITAL_ID === 'liaocheng' ||
+            HOSPITAL_ID === 'wujing') &&
             this.$route.path.includes('singleTemperatureChart')
         "
       >
@@ -181,18 +183,19 @@
         class="right-btn"
         flex="cross:center main:center"
         @click="emit('openEvalModel')"
-        v-if="showCrl"
+        v-if="showCrl && !isSingleTem_LCEY"
       >
         <div class="text-con">
           <img src="./images/评估.png" alt />
           评估同步
         </div>
       </div>
-      <div class="line"></div>
+      <div class="line" v-if="!isSingleTem_LCEY"></div>
       <div
         class="right-btn"
         flex="cross:center main:center"
         @click.stop="openTztbModal"
+        v-if="!isSingleTem_LCEY"
       >
         <div class="text-con">
           <img src="./images/体征.png" alt />
@@ -213,11 +216,12 @@
       class="tempSweetModal"
       @close="closeModal"
     >
-      <temperature-HD
+      <component
+        v-bind:is="temperatureChart"
         v-if="visibled"
-        :admissionDate="admissionDate"
+        :queryTem="queryTem"
         class="sheet-con"
-      ></temperature-HD>
+      ></component>
     </sweet-modal>
   </div>
 </template>
@@ -245,6 +249,9 @@ import dayjs from "dayjs";
 // import lodopPrint from "./lodop/lodopPrint";
 import patientInfo from "./patient-info";
 import temperatureHD from "../../../patientInfo/supPage/temperature/temperatureHD";
+import temperatureLCEY from "../../../patientInfo/supPage/temperature/temperatureLCEY";
+import temperatureWuJing from "../../../patientInfo/supPage/temperature/temperatureWuJing";
+import { getPatientInfo } from "@/api/common.js";
 export default {
   mixins: [commom],
   name: "sheetTool",
@@ -261,7 +268,7 @@ export default {
       sheetInfo,
       sheetBlockList: [],
       visibled: false,
-      admissionDate: ""
+      queryTem: {}
     };
   },
   methods: {
@@ -279,7 +286,11 @@ export default {
     /* 打开体温曲线页面 */
     openChart() {
       this.visibled = true;
-      this.admissionDate = this.sheetInfo.selectBlock.admissionDate;
+      this.queryTem = {
+        admissionDate: this.sheetInfo.selectBlock.admissionDate,
+        patientId: this.sheetInfo.selectBlock.patientId,
+        visitId: this.sheetInfo.selectBlock.visitId
+      };
       this.$nextTick(() => {
         this.$refs.sheet.open();
       });
@@ -372,7 +383,7 @@ export default {
           this.selectList.push({
             value: `${pagelist[i]}-${pagelist[i + 1] - 1}`
           });
-        } else if(pagelist[i] <= pagelist[i + 1] - 1){
+        } else if (pagelist[i] <= pagelist[i + 1] - 1) {
           this.selectList.push({
             value: `${pagelist[i]}-${pagelist[i + 1] - 1}`
           });
@@ -572,7 +583,11 @@ export default {
         });
       }
     },
-    getBlockList() {
+    async getBlockList() {
+      if(this.$route.path.includes('nursingPreview')){
+        let { data } = await getPatientInfo(this.$route.query.patientId,this.$route.query.visitId);
+        this.$store.commit("upDeptCode", data.data.wardCode);
+      }
       if (
         this.patientInfo.patientId &&
         this.patientInfo.visitId &&
@@ -591,11 +606,30 @@ export default {
             this.$route.path.includes("temperature")
           ) {
             this.sheetBlockList = list.filter(item => {
-              return item.recordCode == "body_temperature_Hd";
+              switch (this.HOSPITAL_ID) {
+                case "huadu":
+                  return item.recordCode === "body_temperature_Hd";
+                case "liaocheng":
+                  return item.recordCode === "body_temperature_lcey";
+                case "wujing":
+                  return item.recordCode === "body_temperature_wj";
+                default:
+                  break;
+              }
+              // return this.HOSPITAL_ID === "huadu" ||
+              //   this.HOSPITAL_ID === "wujing"
+              //   ? item.recordCode === "body_temperature_Hd"
+              //   : item.recordCode === "body_temperature_lcey";
+              // return item.recordCode == "body_temperature_Hd";
             });
           } else {
             this.sheetBlockList = list.filter(item => {
-              return item.recordCode != "body_temperature_Hd";
+              // return item.recordCode != "body_temperature_Hd";
+              return (
+                (item.recordCode != "body_temperature_Hd") &
+                (item.recordCode != "body_temperature_lcey") &
+                (item.recordCode != "body_temperature_wj")
+              );
             });
           }
           this.sheetInfo.selectBlock =
@@ -733,11 +767,34 @@ export default {
     isSingleTem() {
       return this.$route.path.includes("singleTemperatureChart");
     },
+    /* 聊城二院体温单屏蔽三个功能：“出入量统计”、"评估同步"、“体征同步” */
+    isSingleTem_LCEY() {
+      return (
+        this.HOSPITAL_ID === "liaocheng" &&
+        this.$route.path.includes("singleTemperatureChart")
+      );
+    },
     /* 是否是副页 */
     isDeputy() {
       return (
         this.sheetInfo.selectBlock && this.sheetInfo.selectBlock.additionalBlock
       );
+    },
+    /* 监听体温单曲线 */
+    temperatureChart() {
+      switch (this.HOSPITAL_ID) {
+        case "huadu":
+          return temperatureHD;
+          break;
+        case "liaocheng":
+          return temperatureLCEY;
+          break;
+        case "wujing":
+          return temperatureWuJing;
+          break;
+        default:
+          break;
+      }
     }
   },
   created() {
@@ -882,7 +939,9 @@ export default {
     setTitleModal,
     tztbModal,
     patientInfo,
-    temperatureHD
+    temperatureHD,
+    temperatureLCEY,
+    temperatureWuJing
   }
 };
 </script>

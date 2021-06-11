@@ -66,7 +66,7 @@
           <h2>工作量统计表</h2>
            <div class="filterItem date">
             <span class="type-label">日期:</span>
-            <span>{{query.operateStartDate}} ~ {{query.operateEndDate}}</span>
+            <span>{{query.operateStartDate}}<span style="vertical-align: middle;">~</span>{{query.operateEndDate}}</span>
           </div>
         </div>
         <div class="table-contain">
@@ -514,6 +514,7 @@ export default {
     bottom: 10px;
     left: 10px;
     right: 10px;
+    overflow: hidden;
     .table-contain {
       position: absolute;
       top: 0;

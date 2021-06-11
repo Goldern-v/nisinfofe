@@ -158,7 +158,7 @@ import bus from "vue-happy-bus";
 import singleTemperatureChart from "./singleTemperatureChart";
 export default {
   props: {
-    admissionDate: String
+    queryTem: Object
   },
   data() {
     return {
@@ -183,9 +183,9 @@ export default {
     getImg() {
       let date = this.$route.query.admissionDate
         ? new Date(this.$route.query.admissionDate).Format("yyyy-MM-dd")
-        : this.admissionDate;
-      let patientId = this.$route.query.patientId;
-      let visitId = this.$route.query.visitId;
+        : new Date(this.queryTem.admissionDate).Format("yyyy-MM-dd");
+      let patientId = this.$route.query.patientId || this.queryTem.patientId;
+      let visitId = this.$route.query.visitId || this.queryTem.visitId;
       /* 单独处理体温单，嵌套iframe */
       const tempUrl = `http://120.238.239.27:9091/temperature/#/?PatientId=${patientId}&VisitId=${visitId}&StartTime=${date}`;
       this.filePath = "";

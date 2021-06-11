@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- 解决password自动填充bug -->
-    <input type="password" style="display:none" />
+    <input type="password" style="display:none"/>
     <div id="hl-nav-con">
       <div class="header-con">
         <el-row type="flex" class="row-bg" justify="space-between">
@@ -17,7 +17,7 @@
                 height="63"
                 width="63"
               />
-              <span>{{HOSPITAL_NAME}}<br />智慧护理信息系统</span>
+              <span>{{ HOSPITAL_NAME }}<br/>智慧护理信息系统</span>
             </el-row>
             <!-- <router-link to="/index"
                          tag="span">
@@ -188,7 +188,8 @@
             </router-link>
             <router-link to="/nursingRounds" tag="span">
               <el-row class="nav-item" type="flex" align="middle"
-                >护理巡视</el-row
+              >护理巡视
+              </el-row
               >
             </router-link>
 
@@ -197,7 +198,6 @@
                 <i class="iconfont icon-jiaobanzhi"></i> 执行单
               </el-row>
             </router-link>
-
             <!-- <router-link to="/badEvent" tag="span">
               <el-row class="nav-item" type="flex" align="middle">不良事件</el-row>
             </router-link>-->
@@ -257,6 +257,15 @@
                     </el-row>
                   </router-link>
                 </el-dropdown-item>
+                <el-dropdown-item
+                  :class="{ active: $route.path == '/rationalDoseStatistics' }"
+                >
+                  <router-link to="/rationalDoseStatistics" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="workloadSatistics"></i>合理用药
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item>
                 <!-- <el-dropdown-item :class="{active: $route.path == '/catheterPage'}">
                   <router-link to="/catheterPage" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
@@ -265,7 +274,9 @@
                   </router-link>
                 </el-dropdown-item>-->
 
-                <el-dropdown-item :class="{active: $route.path.indexOf('/wardReport') > -1}">
+                <el-dropdown-item
+                  :class="{ active: $route.path.indexOf('/wardReport') > -1 }"
+                >
                   <router-link to="/wardReport" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
                       <i class="wardReport"></i>病房日报
@@ -273,13 +284,73 @@
                   </router-link>
                 </el-dropdown-item>
 
-                <el-dropdown-item :class="{active: $route.path.indexOf('/inpatientReport') > -1}">
+                <el-dropdown-item
+                  :class="{
+                    active: $route.path.indexOf('/inpatientReport') > -1
+                  }"
+                >
                   <router-link to="/inpatientReport" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
                       <i class="inpatientReport"></i>住院日报
                     </el-row>
                   </router-link>
                 </el-dropdown-item>
+                <el-dropdown-item
+                  :class="{ active: $route.path.indexOf('/bedRecord') > -1 }"
+                >
+                  <router-link to="/bedRecord" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="nursingRules"></i> 转床记录
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item>
+                <el-dropdown-item
+                  :class="{
+                    active: $route.path.indexOf('/changeMajorRecord') > -1
+                  }"
+                >
+                  <router-link to="/changeMajorRecord" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="flatManagement"></i>转科记录
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item>
+                <el-dropdown-item
+                  :class="{
+                    active: $route.path.indexOf('/nursingGradeStatistics') > -1
+                  }"
+                >
+                  <router-link to="/nursingGradeStatistics" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="departmentSharedFile"></i>护理等级统计查询
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item>
+                <el-dropdown-item :class="{active: $route.path.indexOf('/nursePapersStatistics/num') > -1  }">
+                  <router-link to="/nursePapersStatistics/num" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="birthCertificate"></i>护士文书完成数量统计
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item>
+                <el-dropdown-item :class="{active: $route.path.indexOf('/nursePapersStatistics/time') > -1 }">
+                  <router-link to="/nursePapersStatistics/time" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="puerperantSituation"></i>护士书写文书时间统计
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item>
+                <el-dropdown-item>
+                  <el-row class="menu-item" type="flex" align="middle">
+                    <i class="puerperantSituation"></i>出院随访
+                  </el-row>
+                </el-dropdown-item>
+                <el-dropdown-item>
+                  <el-row class="menu-item" type="flex" align="middle">
+                    <i class="puerperantSituation"></i>出院随访统计
+                  </el-row>
+                </el-dropdown-item>
+
                 <!-- <el-dropdown-item :class="{active: $route.path == '/badEvent'}">
                   <router-link to="/badEvent" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
@@ -334,8 +405,8 @@
                 </el-select>
               </span>
               <span class="option-item" v-popover:popover1>{{
-                user.empName
-              }}</span>
+                  user.empName
+                }}</span>
             </span>
             <span class="small-1250-con">
               <el-dropdown @command="handleCommand">
@@ -528,6 +599,26 @@
     &.departmentSharedFile {
       background-image: url('../../common/images/index/共享文件.png');
     }
+
+    &.flatManagement {
+      background-image: url('../../common/images/index/扁平管理.png');
+    }
+
+    &.puerperantSituation {
+      background-image: url('../../common/images/index/产科分娩登记表.png');
+    }
+
+    &.vaccineManagement {
+      background-image: url('../../common/images/index/疫苗管理.png');
+    }
+
+    &.birthCertificate {
+      background-image: url('../../common/images/index/出生医学证明.png');
+    }
+
+    &.cognitiveStatistic {
+      background-image: url('../../common/images/index/出生医学证明.png');
+    }
   }
 }
 
@@ -581,7 +672,7 @@
 }
 
 .dept-select {
-  >>>.el-input__inner {
+  >>> .el-input__inner {
     border: 0;
     padding: 15px 0;
     text-align: center;
@@ -595,7 +686,7 @@
     }
   }
 
-  >>>.el-input__icon {
+  >>> .el-input__icon {
     display: none;
   }
 }
@@ -617,18 +708,22 @@
     display: none;
   } */
 }
+
 @media screen and (max-width: 930px) {
   .small-1250-con {
     display: block;
   }
+
   .big-1250-con {
     display: none;
   }
 }
+
 @media screen and (min-width: 930px) {
   .small-1250-con {
     display: none;
   }
+
   .big-1250-con {
     display: block;
   }
@@ -643,6 +738,7 @@ import userInfo from "./user-info.vue";
 import { nursingUnit } from "@/api/lesion";
 import common from "@/common/mixin/common.mixin";
 import WebSocketService from "@/plugin/webSocket/index";
+
 export default {
   mixins: [common],
   data() {
@@ -677,7 +773,8 @@ export default {
     superAdmin() {
       try {
         return JSON.parse(localStorage.user).superuser;
-      } catch (e) {}
+      } catch (e) {
+      }
     },
     Unread() {
       return this.$store.state.common.mailUnread;
@@ -689,6 +786,8 @@ export default {
       if (this.$route.path == "/badEvent") return true;
       if (this.$route.path == "/inpatientReport") return true;
       if (this.$route.path == "/catheterPage") return true;
+      if (this.$route.path == "/workloadSatistics") return true;
+      if (this.$route.path == "/rationalDoseStatistics") return true;
     },
     isActiveFormPage() {
       // if (this.$route.path == "/sheetPage") return true;
@@ -708,15 +807,13 @@ export default {
     handleCommand(command) {
       switch (command) {
         case "quit":
-        case "quit":
-          {
-            this.quit();
-          }
+        case "quit": {
+          this.quit();
+        }
           break;
-        case "setPassword":
-          {
-            this.setPassword();
-          }
+        case "setPassword": {
+          this.setPassword();
+        }
           break;
       }
     },
@@ -731,7 +828,7 @@ export default {
       Cookies.remove("hasGreet");
       Cookies.remove("token");
       Cookies.remove("user");
-      Cookies.remove("NURSING_USER", { path: "/" });
+      Cookies.remove("NURSING_USER", {path: "/"});
       this.$router.push("/login");
       this.$store.commit("upDeptCode", "");
     },
@@ -747,7 +844,8 @@ export default {
       this.$store.commit("upDeptName", deptName);
       try {
         this.mewsId && WebSocketService.unsubscribe(this.mewsId);
-      } catch (error) {}
+      } catch (error) {
+      }
       this.subscribe();
     },
     subscribe() {
@@ -766,7 +864,8 @@ export default {
             } else {
               this.isTip = false;
             }
-          } catch (error) {}
+          } catch (error) {
+          }
         }
       );
     }

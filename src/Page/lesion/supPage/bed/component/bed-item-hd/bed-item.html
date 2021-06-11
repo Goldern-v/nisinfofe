@@ -24,8 +24,8 @@
             || '--'}}
           </div>
           <div style="border-bottom: 1px dashed #E4E8EB; margin-bottom: 10px"></div>
-          <div class="aside" :style="inToday(data.admissionDate) && {color:'red'}">
-            入院：{{`${FormatData(data.admissionDate)}（第${data.inpDay}天）`}}
+          <div class="aside" :style="inToday(data.admissionWardDateTime) && {color:'red'}">
+            入院：{{`${FormatData(data.admissionWardDateTime)}（第${data.inpDay}天）`}}
           </div>
           <div class="aside">医生：{{data.doctorInCharge}}</div>
           <div class="aside">诊断：{{data.diagnosis}}</div>
@@ -51,7 +51,7 @@
               <span>{{item.showContent}}</span>
             </div>
             <div class="table-name" v-for="item in (data.evalIcons &&  data.evalIcons.slice(0,6))" :key="item.formName"
-              :title="item.description + ' 分数:' + item.score + '分'" :style="{background: item.iconTextRgb}"
+              :title="item.description + ' 分数:' + item.evalScore + '分'" :style="{background: item.iconTextRgb}"
               @click.stop="toFormPage(data, item)">
               <span>{{item.iconText}}</span>
             </div>
@@ -112,7 +112,7 @@
     <div style="height: 5px"></div>
     <div flex="" class="table-line">
       <div class="key">入院时间：</div>
-      <div class="value">{{ data.admissionDate }}</div>
+      <div class="value">{{ data.admissionWardDateTime }}</div>
     </div>
     <div flex="" class="table-line" v-if="data.operationDay">
       <div class="key">术后天数：</div>

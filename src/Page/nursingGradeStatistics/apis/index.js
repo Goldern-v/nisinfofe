@@ -1,0 +1,20 @@
+import axios from '@/api/axios'
+import {
+  apiPath
+} from '@/api/apiConfig'
+import qs from 'qs'
+
+// 查询病区科室
+export function listDepartment(parentCode) {
+  return axios.get(`${apiPath}wardDaily/getDeptWithWardcode/${parentCode}`)
+}
+
+// 查询病区工作日报
+export function listWardReport(deptCode, date) {
+  return axios.get(`${apiPath}wardDaily/getWardLog/${deptCode}/${date}`)
+}
+// http://120.197.141.41:9091/crNursing/api/wardDaily/getDeptWithWardcode/071202
+//住院病人登记表信息(根据科室和时间段获取)
+export function nursingClassStatistics(data) {
+  return axios.post(`${apiPath}bed/nursingClassStatistics `, data)
+}

@@ -84,9 +84,9 @@
   th[dataname='记录人签名']:last-child{
     display :none;
   }
-  th[dataname='护士签名']:last-child{
-    display :none;
-  }
+  // th[dataname='护士签名']:last-child{
+  //   display :none;
+  // }
   th[dataname='护士<br>签名']:last-child{
     display :none;
   }
@@ -192,7 +192,17 @@ export default {
       iframeHeight: 0,
       pageLoading: true,
       bus: bus(this),
-      sheetInfo
+      sheetInfo,
+      // huadu需要双签名的记录单code
+      multiSignArr: [
+        "common_hd", // 花都_通用护理记录单
+        "neurosurgery_hd", // 花都_神经外科护理记录单
+        "prenatal_hd", // 花都_产前记录单
+        "neonatology2_hd", // 花都_新生儿护理记录单
+        "postpartum_hd", // 花都_产后记录单
+        "wait_delivery_hd", // 花都_候产记录单
+        "neonatology_hd" // 花都_新生儿科护理记录单
+      ]
     };
   },
   created() {
@@ -247,8 +257,20 @@ export default {
         `
       );
     }
-
-    /** 如果是威县超宽打印 */
+    /* 花都打印双签名：第二个护士签名打印时隐藏 */
+    if (
+      this.HOSPITAL_ID === "huadu" &&
+      this.multiSignArr.includes(this.sheetInfo.sheetType)
+    ) {
+      addCSS(
+        window,
+        `
+          #sheetPagePrint#sheetPagePrint th[dataname='上级护士签名']{
+            display:none !important;
+          }
+        `
+      );
+    }
     if (this.HOSPITAL_ID == "weixian") {
       addCSS(
         window,
@@ -285,9 +307,6 @@ export default {
       addCSS(
         window,
         `
-       #sheetPagePrint#sheetPagePrint th[dataname='护士签名'] {
-         width: 130px !important;
-       }
        .table-footer {
          padding-bottom: 10px;
        }
@@ -359,6 +378,15 @@ export default {
       $("[ischecked='true']").each((index, el) => {
         $(el).prop("checked", true);
       });
+      /* 聊城二院-介入诊疗护理记录单时间选择器打印显示 */
+      if ($(".editOrPirnt").length) {
+        const cssArr = Array.from($(".editOrPirnt"));
+        cssArr.forEach(item => {
+          item.style.display = "none";
+          item.outerText =
+            (item.attributes.value && item.attributes.value.value) || "";
+        });
+      }
       /** 添加上标下标 */
       $('[datakey="description"]').each((index, el) => {
         let dataValue = $(el)

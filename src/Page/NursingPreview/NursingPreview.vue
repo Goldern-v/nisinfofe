@@ -1,0 +1,107 @@
+<template>
+  <div>
+    <div class="content NursingPreview">
+      <div class="left-part">
+        <treeNursingPreview ref="treeNursingPreview"></treeNursingPreview>
+      </div>
+      <div class="right-part">
+        <component :is="otherComponent" v-if="otherComponent"></component>
+        <rightPart v-show="!otherComponent"></rightPart>
+      </div>
+    </div>
+  </div>
+</template>
+
+<style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
+.right-part {
+  transition: all 0.4s cubic-bezier(0.55, 0, 0.1, 1);
+}
+
+>>>.body {
+  height: calc(100vh - 60px) !important;
+}
+
+>>>.form-contain {
+  height: calc(100vh - 21px) !important;
+}
+
+>>>.new-btn, >>>.null-btn, >>>.tool-bar, >>>.fixed-icon, >>>.table-fixed-th {
+  display: none !important;
+}
+
+>>>.tool-contain {
+  .item-box {
+    display: none !important;
+  }
+  .select-con + .item-box {
+     display: flex !important;
+  }
+
+  .item-box.page-select {
+    display: flex !important;
+  }
+  .right-btn {
+    pointer-events: none !important;
+  }
+}
+
+.NursingPreview {
+  .right-part {
+    >>> #sheet_body_con {
+      height: calc(100vh - 64px) !important;
+    }
+    >>> .sheetTable-contain {
+        input {
+          pointer-events: none !important;
+        }
+      }
+  }
+}
+
+.content {
+  .left-part {
+    float: left;
+    width: 240px;
+    background: #FFFFFF;
+    border: 1px solid #CBD5DD;
+    border-radius: 2px 2px 0 2px;
+    height: 100vh !important;
+  }
+
+  .right-part {
+    margin-left: 240px;
+    overflow: auto;
+    height: 100vh !important;
+  }
+}
+</style>
+<script>
+import treeNursingPreview from "@/Page/patientInfo/supPage/record/component/treeNursingPreview.vue"; //树
+import temperature from "@/Page/patientInfo/supPage/temperature/temperature"; //体温单
+import sheet from "@/Page/patientInfo/supPage/sheet/sheet.vue"; //护理记录单
+import rightPart from "@/Page/patientInfo/supPage/record/component/right-part/right-part.vue";
+import bus from "vue-happy-bus";
+export default {
+  data() {
+    return {
+      bus: bus(this),
+      otherComponent: null
+    };
+  },
+  created() {
+    this.$store.commit("closeFullPageRecord");
+    this.bus.$on("openOtherForm", data => {
+      this.otherComponent = data.component;
+    });
+    this.bus.$on("openAssessmentBox", data => {
+      this.otherComponent = null;
+    });
+  },
+  components: {
+    treeNursingPreview,
+    rightPart,
+    sheet,
+    temperature
+  }
+};
+</script>

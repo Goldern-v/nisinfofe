@@ -21,7 +21,8 @@
             HOSPITAL_ID != 'gy' &&
             HOSPITAL_ID != 'lingcheng' &&
             HOSPITAL_ID != 'huadu' &&
-            HOSPITAL_ID != 'liaocheng'
+            HOSPITAL_ID != 'liaocheng' &&
+            HOSPITAL_ID != 'hengli' 
           "
         >
           RI剂量
@@ -75,7 +76,8 @@
             HOSPITAL_ID != 'gy' &&
             HOSPITAL_ID != 'lingcheng' &&
             HOSPITAL_ID != 'huadu' &&
-            HOSPITAL_ID != 'liaocheng'
+            HOSPITAL_ID != 'liaocheng'&&
+            HOSPITAL_ID != 'hengli'
           "
         >
           <div class="cell">
@@ -93,7 +95,16 @@
             }}
           </div>
         </td>
-        <td>
+        <td v-if="HOSPITAL_ID == 'liaocheng'">
+          <div class="cell">
+            <img
+              :src="`/crNursing/api/file/signImage/${item.nurseEmpNo}?${token}`"
+              :alt="item.nurse"
+              v-if="item.nurseEmpNo"
+            />
+          </div>
+        </td>
+        <td v-else>
           <div class="cell noPrint">{{ item.nurse }}</div>
           <div class="cell inPrint lc" v-if="HOSPITAL_ID == 'lingcheng'">
             <!-- {{item.nurseEmpNo}} -->
@@ -154,6 +165,12 @@
         white-space: nowrap;
         // max-width: 74px;
       }
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
     }
 
     th {
@@ -169,12 +186,6 @@
 
     &.lc {
       height: 29px;
-    }
-
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
     }
   }
 }

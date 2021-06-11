@@ -32,7 +32,7 @@ import {
   devFormUrl_p80
 } from "@/common/pathConfig/index.js";
 import common from "@/common/mixin/common.mixin.js";
-import {getJSON} from "./api/index.js";
+import { getJSON } from "./api/index.js";
 
 export default {
   name: "page",
@@ -630,7 +630,7 @@ export default {
               this.$root.$refs[this.formCode][key].constructor == Array
             ) {
               //
-              // console.log('!!!!!!',key,element,this.$root.$refs[this.formCode][key])
+
               Object.keys(this.$root.$refs[this.formCode][key]).map(elKey => {
                 //
                 let el = this.$root.$refs[this.formCode][key][elKey];
@@ -661,6 +661,25 @@ export default {
                   el.currentValue = formObj[key] || "";
                   // el.setCurrentValue(formObj[key]+"");
                   console.log("datetime", el, key, element);
+                }
+                if (el && el.type === "radio") {
+                  if (formObj[key]) {
+                    if (formObj[key] === el.label) {
+                      el.model = [formObj[key]]
+                      el.runTasks && el.runTasks()
+                    } else {
+                      el.model = []
+                      el.checked = false
+                    }
+                  } else {
+                    if (el.defaultValue) {
+                      el.model = [el.label]
+                      el.runTasks && el.runTasks()
+                    } else {
+                      el.model = []
+                      el.checked = false
+                    }
+                  }
                 }
               });
             }

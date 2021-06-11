@@ -602,7 +602,7 @@
         {
           "name": "I001010",
           "type": "select",
-          "title": "入院带入物品",
+          "title": "入院带入",
           "style": null,
           "titleStyle": "width:123px!important",
           "inputStyle": "width:100%!important",
@@ -636,7 +636,7 @@
         {
           "name": "I001013",
           "type": "select",
-          "title": "资源来源",
+          "title": "资料来源",
           "style": null,
           "titleStyle": "width:60px!important",
           "inputStyle": "width:175px!important",
@@ -1119,6 +1119,40 @@
           ]
         },
         {
+          "name": "I001114",
+          "type": "select",
+          "title": "健康史",
+          "multiplechoice": true,
+          "postTitle": "曾有病史",
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "180px",
+          "style": null,
+          "class": null,
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "其他",
+                "cleanKey": [
+                  "既往体健",
+                  "糖尿病",
+                  "高血压",
+                  "脑梗塞",
+                  "脑出血",
+                  "冠心病"
+                ],
+                "title": "健康史",
+                "parentName": "I001114",
+                "type": "dependent"
+              }
+            },
+            {
+              "equal": "有",
+              "style": "color:red"
+            }
+          ]
+        },
+        {
           "name": "I001101",
           "type": "select",
           "title": "心律失常",
@@ -1132,10 +1166,10 @@
         {
           "name": "I001102",
           "type": "select",
-          "title": "心脏起搏",
-          "titleStyle": "width:60px!important",
+          "title": "心脏起搏器",
+          "titleStyle": "width:80px!important",
           "inputStyle": "width:270px!important",
-          "inputWidth": "180px",
+          "inputWidth": "160px",
           "style": null,
           "class": null,
           "rule": [
@@ -1143,7 +1177,7 @@
               "dialog": {
                 "openKey": "有",
                 "cleanKey": "无",
-                "title": "心脏起搏",
+                "title": "心脏起搏器",
                 "parentName": "I001102",
                 "name": "I001102",
                 "type": "dependent"
@@ -1286,32 +1320,6 @@
               "style": "color:red"
             }
           ]
-        },
-        {
-          "name": "I001114",
-          "type": "select",
-          "title": "健康史",
-          "postTitle": "曾有病史",
-          "titleStyle": "width:60px!important",
-          "inputStyle": "width:270px!important",
-          "inputWidth": "180px",
-          "style": null,
-          "class": null,
-          "rule": [
-            {
-              "dialog": {
-                "openKey": "曾有病史",
-                "cleanKey": "既往体健",
-                "title": "健康史",
-                "parentName": "I001114",
-                "type": "dependent"
-              }
-            },
-            {
-              "equal": "有",
-              "style": "color:red"
-            }
-          ]
         }
       ]
     },
@@ -1380,6 +1388,7 @@
         {
           "name": "I001119",
           "type": "select",
+          "multiplechoice": true,
           "title": "过敏史",
           "titleStyle": "width:60px!important",
           "inputStyle": "width:300px!important",
@@ -1389,19 +1398,17 @@
           "rule": [
             {
               "dialog": {
-                "openKey": "有",
+                "openKey": "其他",
                 "cleanKey": [
                   "无",
-                  "不明确"
+                  "青霉素",
+                  "头孢类",
+                  "磺胺类"
                 ],
                 "title": "过敏史",
                 "parentName": "I001119",
                 "type": "dependent"
               }
-            },
-            {
-              "equal": "有",
-              "style": "color:red"
             }
           ]
         },
@@ -1990,83 +1997,6 @@
               "equal": "有",
               "style": "color:red"
             }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "I100132",
-      "type": "formGroupColBox",
-      "col": 2,
-      "title": "三、健康史/饮食/认知/语言沟通",
-      "message": "",
-      "require": "false",
-      "prefixDesc": "",
-      "suffixDesc": "",
-      "keys": "I100132",
-      "style": null,
-      "classes": null,
-      "readOnly": true,
-      "children": [
-        {
-          "name": "I001156",
-          "type": "select",
-          "title": "疼痛",
-          "titleStyle": "width:60px!important",
-          "inputStyle": "width:270px!important",
-          "inputWidth": "180px",
-          "style": null,
-          "class": null,
-          "options": [
-            "无",
-            "不会诉说",
-            "有"
-          ],
-          "rule": [
-            {
-              "dialog": {
-                "openKey": "有",
-                "cleanKey": "无",
-                "title": "疼痛评估单",
-                "default": "疼痛评估单",
-                "name": "I100132",
-                "parentName": "I100132",
-                "type": "independent",
-                "showHead": "true"
-              }
-            },
-            {
-              "equal": "有",
-              "style": "color:red"
-            }
-          ]
-        },
-        {
-          "name": "I001973",
-          "type": "select",
-          "title": "监护人对疾病认识",
-          "style": null,
-          "titleStyle": "width:110px!important",
-          "inputStyle": "width:270px!important",
-          "inputWidth": "130px",
-          "class": null,
-          "showDeptName": [
-            "新生儿科"
-          ]
-        },
-        {
-          "name": "I001910",
-          "type": "select",
-          "title": "患儿心理反应",
-          "multiplechoice": true,
-          "style": null,
-          "titleStyle": "width:92px!important",
-          "inputStyle": "width:270px!important",
-          "inputWidth": "148px",
-          "class": null,
-          "showDeptName": [
-            "新生儿科",
-            "儿科"
           ]
         }
       ]
@@ -2769,6 +2699,39 @@
                 "name": "I100136",
                 "type": "independent",
                 "parentName": "I100136",
+                "showHead": "true"
+              }
+            },
+            {
+              "equal": "有",
+              "style": "color:red"
+            }
+          ]
+        },
+        {
+          "name": "I001156",
+          "type": "select",
+          "title": "疼痛",
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "180px",
+          "style": null,
+          "class": null,
+          "options": [
+            "无",
+            "不会诉说",
+            "有"
+          ],
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "有",
+                "cleanKey": "无",
+                "title": "疼痛评估单",
+                "default": "疼痛评估单",
+                "name": "I100132",
+                "parentName": "I100132",
+                "type": "independent",
                 "showHead": "true"
               }
             },

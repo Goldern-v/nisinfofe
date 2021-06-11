@@ -524,10 +524,10 @@ label {
     text-align: left;
     width: 500px;
     height: auto;
-    padding-left: 100px;
     border: none;
     height: 70px;
     display: flex;
+    justify-content: center;
     >div {
       margin-right: 15px;
     }
@@ -688,7 +688,7 @@ export default {
       this.$refs.modal.open();
       this.printMode = printMode;
       this.title = this.printMode == 'h' ?"编辑床头卡":"腕带打印";
-      let qr_png_value = this.HOSPITAL_ID == 'liaocheng' ? this.query.patientId + '|' + this.query.visitId : this.query.patientId;
+      let qr_png_value = `N${this.query.patientId}`;
       var qr_png = qr.imageSync(qr_png_value, { type: "png" });
       function arrayBufferToBase64(buffer) {
         var binary = "";
@@ -758,7 +758,7 @@ export default {
               margin: 15px 15px 0 15px !important;
             }
             @page {
-              margin: 0 0 0 120mm;
+              margin: 0;
             }
             `,
           });

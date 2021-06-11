@@ -5,7 +5,7 @@
       .head-con(flex="main:justify cross:center")
         pagination(:pageIndex="page.pageIndex" :size="page.pageNum" :total="page.total" @sizeChange="handleSizeChange"
         @currentChange="handleCurrentChange")
-      
+
     .search-con
       searchCon(ref="searchCon")
 </template>
@@ -75,7 +75,7 @@
 import searchCon from "./components/search-con/search-con";
 import dTable from "./components/table/d-table";
 import pagination from "./components/common/pagination";
-import { patEmrList } from "@/api/document";
+import { patEmrList,patEmrListZSQ } from "@/api/document";
 export default {
   data() {
     return {
@@ -149,7 +149,13 @@ export default {
       obj.pageIndex = this.page.pageIndex;
       obj.pageNum = this.page.pageNum;
       this.pageLoadng = true;
-      patEmrList(obj).then(res => {
+
+      let patEmrListApi =  patEmrList;
+      if(this.HOSPITAL_ID == 'zhongshanqi'){
+        obj.diagnosis = data.diagnosis;
+        patEmrListApi = patEmrListZSQ;
+      }
+      patEmrListApi(obj).then(res => {
         this.tableData = res.data.data.list;
         this.page.total = res.data.data.page ? parseInt(res.data.data.page)*this.page.pageNum : 0;
         this.pageLoadng = false;

@@ -7,5 +7,9 @@ import qs from 'qs'
 export function patEmrList(data) {
   return axios.post(`${apiPath}patient/patEmrList`, data)
 }
+//  病人列表(文书) json传参(中山七)
+export function patEmrListZSQ(data) {
+  return axios.post(`${apiPath}patient/getPatientsByDiagnosis`, data)
+}
 
 

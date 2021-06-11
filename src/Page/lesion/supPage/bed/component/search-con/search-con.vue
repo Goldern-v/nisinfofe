@@ -3,11 +3,23 @@
     <div class="search-content">
       <div class="input-con" flex="cross:stretch">
         <input
+          class="search-input"
+          style="width: 0; height: 0; padding: 0; border: none"
+          autofocus
+          placeholder="__"
+        />
+        <input
           type="text"
           class="search-input"
           flex-box="1"
           placeholder="床号/姓名"
           v-model="searchText"
+        />
+        <input
+          class="search-input"
+          style="width: 0; height: 0; padding: 0; border: none"
+          autofocus
+          placeholder="__"
         />
         <div class="search-btn" flex="cross:center main:center">
           <i class="iconfont icon-search"></i>
@@ -25,7 +37,7 @@
           <span>{{ item.name }}（{{ item.num }}）</span>
         </div>
 
-        <div style="height:20px" v-if="item.type == 'block'"></div>
+        <div style="height: 20px" v-if="item.type == 'block'"></div>
 
         <div
           class="s-item"
@@ -66,14 +78,18 @@
       <button
         class="login-btn"
         @click="syncGetNurseBedRecData"
-        v-if="HOSPITAL_ID == 'weixian' || HOSPITAL_ID == 'lingcheng' || HOSPITAL_ID == 'liaocheng'"
-      >同步床位数据</button>
+        v-if="showSyncBedBtn"
+      >
+        同步床位数据
+      </button>
       <button
         class="login-btn"
-        :class="{noactive:showProgress}"
+        :class="{ noactive: showProgress }"
         @click="syncGetMedicalAdvice"
         v-if="HOSPITAL_ID == 'weixian'"
-      >同步医嘱</button>
+      >
+        同步医嘱
+      </button>
       <!-- <a
         :href="`crprintorder://${infoData.patientId}/${infoData.visitId}`"
         v-if="HOSPITAL_ID == 'weixian'"
@@ -82,7 +98,11 @@
         <el-button class="select-btn" type="primary">打印执行单</el-button>
       </a>-->
       <div class="progress" v-if="showProgress">
-        <el-progress :percentage="progressNum" color="#4bb08d" :format="format"></el-progress>
+        <el-progress
+          :percentage="progressNum"
+          color="#4bb08d"
+          :format="format"
+        ></el-progress>
       </div>
       <footerBar
         :selectName="selectName"
@@ -263,7 +283,7 @@ import {
   syncGetNurseBedRec,
   syncGetMedicalAdvice,
   syncGetNurseBedRecLc,
-  syncGetNurseBedRecLiaocheng
+  syncGetNurseBedRecLiaocheng,
 } from "@/api/lesion";
 import footerBar from "../footer-bar/footer-bar.vue";
 import { listItem } from "@/api/common.js";
@@ -277,7 +297,7 @@ export default {
       progressNum: 0, //进度
       startTimer: "",
       endTimer: "",
-      showProgress: false
+      showProgress: false,
     };
   },
   computed: {
@@ -292,125 +312,126 @@ export default {
       return this.bedList;
     },
     nullBed() {
-      return this.bedList.filter(item => !item.patientId);
+      return this.bedList.filter((item) => !item.patientId);
     },
     inBed() {
-      return this.bedList.filter(item => item.patientId);
+      return this.bedList.filter((item) => item.patientId);
     },
     type4() {
-      return this.bedList.filter(item => item.nursingClass == "特级护理");
+      return this.bedList.filter((item) => item.nursingClass == "特级护理");
     },
     type1() {
-      return this.bedList.filter(item => item.nursingClass == "一级护理");
+      return this.bedList.filter((item) => item.nursingClass == "一级护理");
     },
     type2() {
-      return this.bedList.filter(item => item.nursingClass == "二级护理");
+      return this.bedList.filter((item) => item.nursingClass == "二级护理");
     },
     type3() {
-      return this.bedList.filter(item => item.nursingClass == "三级护理");
+      return this.bedList.filter((item) => item.nursingClass == "三级护理");
     },
     bw() {
-      return this.bedList.filter(item => item.patientCondition == "病危");
+      return this.bedList.filter((item) => item.patientCondition == "病危");
     },
     bz() {
-      return this.bedList.filter(item => item.patientCondition == "病重");
+      return this.bedList.filter((item) => item.patientCondition == "病重");
     },
     gm() {
-      return this.bedList.filter(item => item.drugGms);
+      return this.bedList.filter((item) => item.drugGms);
     },
     heart() {
-      return this.bedList.filter(item => item.isFollow == "1");
+      return this.bedList.filter((item) => item.isFollow == "1");
     },
     // 预出院
     isTodayDischarge() {
-      return this.bedList.filter(item => item.isTodayDischarge == "1");
+      return this.bedList.filter((item) => item.isTodayDischarge == "1");
     },
     // 今日手术
     isTodayOperation() {
-      return this.bedList.filter(item => item.isTodayOperation == "1");
+      return this.bedList.filter((item) => item.isTodayOperation == "1");
     },
     // 明日出院
     isTommorowDischarge() {
-      return this.bedList.filter(item => item.isTommorowDischarge == "1");
+      return this.bedList.filter((item) => item.isTommorowDischarge == "1");
     },
     // 明日手术
     isTommorowOperation() {
-      return this.bedList.filter(item => item.isTommorowOperation == "1");
+      return this.bedList.filter((item) => item.isTommorowOperation == "1");
     },
     // 新入
     isToadyHosipital() {
       return this.bedList.filter(
-        item =>
+        (item) =>
           new Date(item.admissionDate).Format("yyyy-MM-dd") ==
           new Date().Format("yyyy-MM-dd")
       );
     },
     // 跌倒高分险
     dangerInMorse() {
-      return this.bedList.filter(item => item.dangerInMorse);
+      return this.bedList.filter((item) => item.dangerInMorse);
     },
     // 压疮高分险
     dangerInYachuang() {
-      return this.bedList.filter(item => item.dangerInYachuang);
+      return this.bedList.filter((item) => item.dangerInYachuang);
     },
     // 已有压疮
     hasYachuang() {
-      return this.bedList.filter(item => item.hasYachuang);
+      return this.bedList.filter((item) => item.hasYachuang);
     },
     // MEWS预警
     MEWS() {
-      return this.bedList.filter(item => item.dangerInMews);
+      return this.bedList.filter((item) => item.dangerInMews);
     },
     // VTE高风险
     hasVteDanger() {
-      return this.bedList.filter(item => item.hasVteDanger);
+      return this.bedList.filter((item) => item.hasVteDanger);
     },
     // 发热
     isFever() {
-      return this.bedList.filter(item => item.isFever == "1");
+      return this.bedList.filter((item) => item.isFever == "1");
     },
 
     scf() {
-      return this.bedList.filter(item => item.bornFlag == 1);
+      return this.bedList.filter((item) => item.bornFlag == 1);
       // return this.bedList.filter(item => item.bornStatus == "送产房");
     },
 
     crb() {
-      return this.bedList.filter(item => item.infectFlag == 1);
+      return this.bedList.filter((item) => item.infectFlag == 1);
     },
 
     sek() {
       return this.bedList.filter(
-        item => item.bedLabel.includes("_") && item.patientId && item.newBornOut
+        (item) =>
+          item.bedLabel.includes("_") && item.patientId && item.newBornOut
       );
     },
 
     ye() {
       return this.bedList.filter(
-        item =>
+        (item) =>
           item.bedLabel.includes("_") && item.patientId && !item.newBornOut
       );
     },
     // 欠费患者
     qfhz() {
-      return this.bedList.filter(item => item.totalCosts > item.prepayments);
+      return this.bedList.filter((item) => item.totalCosts > item.prepayments);
     },
     list() {
       let list = [
         {
           name: "全部床位",
           num: this.allBed.length,
-          type: "bed"
+          type: "bed",
         },
         {
           name: "空床",
           num: this.nullBed.length,
-          type: "bed"
+          type: "bed",
         },
         {
           name: "在床",
           num: this.inBed.length,
-          type: "bed"
+          type: "bed",
         },
         //  {
         //   name: "我的关注",
@@ -420,7 +441,7 @@ export default {
         {
           name: "",
           num: "",
-          type: "line"
+          type: "line",
         },
         // {
         //   name: "特级护理",
@@ -442,96 +463,105 @@ export default {
         //   num: this.type3.length,
         //   type: "type-3"
         // },
-        ...this.levelColor.map(item => {
+        ...this.levelColor.map((item) => {
           return {
             name: item.code,
             num: (this.getLevelList(item.code) || []).length,
             type: "level",
-            color: item.name
+            color: item.name,
           };
         }),
         {
           name: "",
           num: "",
-          type: "line"
+          type: "line",
         },
         {
           name: "病危",
           num: this.bw.length,
-          type: "state"
+          type: "state",
         },
         {
           name: "病重",
           num: this.bz.length,
-          type: "state"
+          type: "state",
         },
         {
           name: "过敏",
           num: this.gm.length,
-          type: "state"
+          type: "state",
         },
         {
           name: "",
           num: "",
           type: "line",
-          hide: !this.isChangeke
+          hide: !this.isChangeke,
         },
         {
           name: "送产房",
           num: this.scf.length,
           type: "level",
           color: "#d1edd6",
-          hide: !this.isChangeke
+          hide: !this.isChangeke,
         },
         {
           name: "传染病",
           num: this.crb.length,
           type: "level",
           color: "#e6d8f9",
-          hide: !this.isChangeke
+          hide: !this.isChangeke,
         },
         {
           name: "婴儿",
           num: this.ye.length,
           type: "level",
           color: "rgb(217, 244, 254)",
-          hide: !this.isChangeke
+          hide: !this.isChangeke,
         },
         {
           name: "送儿科",
           num: this.sek.length,
           type: "level",
           color: "rgba(255, 207, 219, 0.5)",
-          hide: !this.isChangeke
+          hide: !this.isChangeke,
         },
         {
           name: "欠费患者",
           num: this.qfhz.length,
-          type: "state"
-        }
+          type: "state",
+        },
       ];
-      if(this.HOSPITAL_ID == 'zhongshanqi'){
-        list.splice(3,0,{
+      if (
+        this.HOSPITAL_ID == "zhongshanqi" ||
+        this.HOSPITAL_ID == "liaocheng"
+      ) {
+        list.splice(3, 0, {
           name: "我的关注",
           num: this.heart.length,
-          type: "heart"
-        })
+          type: "heart",
+        });
       }
       return list;
-    }
+    },
+    // 同步床位数据
+    showSyncBedBtn() {
+      return ["weixian", "lingcheng", "liaocheng", "hengli"].includes(
+        this.HOSPITAL_ID
+      );
+    },
   },
   methods: {
     async getDate() {
       if (this.deptCode) {
         this.$parent.loading = true;
         let {
-          data: { data: levelColor }
+          data: { data: levelColor },
         } = await listItem("nursing_level");
         this.levelColor = levelColor;
-        patients(this.deptCode).then(res => {
-          this.bedList = res.data.data.map(item => {
+        patients(this.deptCode).then((res) => {
+          this.bedList = res.data.data.map((item) => {
             item.nursingClassColor = (
-              levelColor.find(o => o.code == item.nursingClass) || {}
+              levelColor.find((o) => o.code == item.nursingClass) || {}
             ).name;
             return item;
           });
@@ -549,23 +579,23 @@ export default {
       }
     },
     getLevelList(level) {
-      return this.bedList.filter(item => item.nursingClass == level);
+      return this.bedList.filter((item) => item.nursingClass == level);
     },
     syncGetNurseBedRecData() {
       this.$message.info("正在更新");
       let syncData = syncGetNurseBedRec;
-      switch(this.HOSPITAL_ID){
-        case 'lingcheng':
+      switch (this.HOSPITAL_ID) {
+        case "lingcheng":
           syncData = syncGetNurseBedRecLc;
           break;
-        case 'liaocheng':
+        case "liaocheng":
           syncData = syncGetNurseBedRecLiaocheng;
           break;
         default:
           syncData = syncGetNurseBedRec;
           break;
       }
-      syncData(this.deptCode).then(res => {
+      syncData(this.deptCode).then((res) => {
         this.$message.success("更新成功");
         this.getDate();
       });
@@ -577,7 +607,7 @@ export default {
       this.showProgress = true;
       this.$message.info("正在同步医嘱");
       this.startProgress();
-      syncGetMedicalAdvice(this.deptCode).then(res => {
+      syncGetMedicalAdvice(this.deptCode).then((res) => {
         this.$message.success("同步医嘱成功");
         this.endProgress();
       });
@@ -602,7 +632,7 @@ export default {
           this.progressNum = 0;
         }
       }, 10);
-    }
+    },
   },
   watch: {
     deptCode() {
@@ -745,16 +775,16 @@ export default {
           {
             this.$parent.bedList = this.hasVteDanger;
           }
-        break;
+          break;
         default: {
           this.$parent.bedList = this.getLevelList(val);
         }
       }
-    }
+    },
   },
   created() {
     this.getDate();
   },
-  components: { footerBar }
+  components: { footerBar },
 };
 </script>

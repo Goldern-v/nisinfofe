@@ -245,7 +245,7 @@ export default [{
     value: ""
   },
   {
-    hidden: false,
+    hidden: true,
     key: "auditorNo",
     value: ""
   },

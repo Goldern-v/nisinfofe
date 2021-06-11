@@ -852,7 +852,9 @@ export default {
       } else {
         this.title = "编辑床头卡";
       }
-      var qr_png = qr.imageSync(this.query.patientId, { type: "png" });
+      let qr_png_value = this.query.patientId + "|" + this.query.visitId;
+      var qr_png = qr.imageSync(qr_png_value, { type: "png" });
+      // var qr_png = qr.imageSync(this.query.patientId, { type: "png" });
       function arrayBufferToBase64(buffer) {
         var binary = "";
         var bytes = new Uint8Array(buffer);

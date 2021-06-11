@@ -6,101 +6,78 @@ function currYear() {
 export default {
   // 科室的名称
   deptType: '',
-  // style: {
-  //   width: "1340px"
-  // },
+  style: {
+    width: "1000px"
+  },
   th: {
     top: [{
-        name: currYear(),
-        colspan: "2",
-        rowspan: "1",
+        name: `
+      日期
+      `,
+        colspan: "1",
+        rowspan: "3",
         style: {
-          width: "40px"
+          minWidth: "40px"
         },
-        canSet: true,
-        key: "recordYear",
       },
       {
         name: `
-        生命体征
-        `,
-        // colspan: '6',
-        colspan: '4',
-        rowspan: '1',
+      时间
+      `,
+        colspan: "1",
+        rowspan: "3",
         style: {
-          minWidth: '242px'
-        }
+          minWidth: "40px"
+        },
       },
-      // {
-      //   name: `
-      //   睡眠
-      //   `,
-      //   colspan: '2',
-      //   rowspan: '2',
-      //   style: {
-      //     minWidth: '60px'
-      //   }
-      // },
-      // {
-      //   name: `
-      //   饮食
-      //   `,
-      //   colspan: '1',
-      //   rowspan: '3',
-      //   style: {
-      //     minWidth: '30px'
-      //   }
-      // },
-      // {
-      //   name: `
-      //   食欲
-      //   `,
-      //   colspan: '1',
-      //   rowspan: '3',
-      //   style: {
-      //     minWidth: '30px'
-      //   }
-      // },
+      {
+        name: "体温<br/>℃",
+        style: {
+          minWidth: "40px"
+        },
+        colspan: "1",
+        rowspan: "3"
+      },
       {
         name: `
-        临床表现（再评估）
+        脉搏/心率<br/>次/分
         `,
-        colspan: '2',
-        rowspan: '1',
+        colspan: "1",
+        rowspan: "3",
         style: {
-          minWidth: '120px'
+          minWidth: "40px"
         }
       },
       {
         name: `
-        化验
+        呼吸<br/>次/分
         `,
-        colspan: '2',
-        rowspan: '1',
+        colspan: "1",
+        rowspan: "3",
         style: {
-          minWidth: '87px'
+          minWidth: "30px"
         }
       },
-      // {
-      //   name: `
-      //   检查/治疗
-      //   `,
-      //   colspan: '3',
-      //   rowspan: '1',
-      //   style: {
-      //     minWidth: '84px'
-      //   }
-      // },
-      // {
-      //   name: `
-      //   出院/转科指导
-      //   `,
-      //   colspan: '1',
-      //   rowspan: '3',
-      //   style: {
-      //     minWidth: '32px'
-      //   }
-      // },
+      {
+        name: `
+        血压<br/>mmHg
+        `,
+        style: {
+          minWidth: "48px"
+        },
+        colspan: "1",
+        rowspan: "3"
+      },
+      {
+        name: `
+        SPO<sub>2</sub><br>(%)
+        `,
+        style: {
+          minWidth: "31px"
+        },
+        colspan: "1",
+        rowspan: "3"
+      },
       {
         name: `
         标题1
@@ -133,7 +110,7 @@ export default {
       },
       {
         name: `
-        护理记录
+        病情观察及护理措施
         `,
         colspan: '1',
         rowspan: '3',
@@ -148,344 +125,9 @@ export default {
         style: {},
         colspan: '1',
         rowspan: '3',
-        // style: {
-        //   minWidth: '52px'
-        // }
       }
     ],
-    mid: [{
-        name: '日期',
-        style: {
-          minWidth: '36px',
-          maxWidth: '36px',
-        },
-        colspan: '1',
-        rowspan: '2'
-      },
-      {
-        name: '时间',
-        style: {
-          minWidth: '36px',
-          maxWidth: '36px',
-        },
-        colspan: '1',
-        rowspan: '2'
-      },
-      {
-        name: `
-        体温
-        `,
-        // colspan: '2',
-        colspan: '1',
-        rowspan: '1',
-        style: {
-          // minWidth: '36px'
-          minWidth: '65px'
-        }
-      },
-      {
-        name: `
-        脉搏<br/>次/<br>分
-        `,
-        colspan: '1',
-        rowspan: '2',
-        style: {
-          minWidth: '40px'
-        }
-      },
-      {
-        name: `
-        呼吸<br/>次/<br>分
-        `,
-        colspan: '1',
-        rowspan: '2',
-        style: {
-          minWidth: '40px'
-        }
-      },
-      {
-        name: `
-        血压(mmHg)
-        `,
-        // colspan: '2',
-        colspan: '1',
-        rowspan: '1',
-      },
-      {
-        name: `
-        疼痛
-        `,
-        colspan: '2',
-        rowspan: '1'
-      },
-      // {
-      //   name: `
-      //   其他症状
-      //   `,
-      //   colspan: '1',
-      //   rowspan: '2',
-      //   style: {
-      //     minWidth: '32px'
-      //   }
-      // },
-      // {
-      //   name: `
-      //   措施
-      //   `,
-      //   colspan: '1',
-      //   rowspan: '2',
-      //   style: {
-      //     minWidth: '32px'
-      //   }
-      // },
-      // {
-      //   name: `
-      //   效果
-      //   `,
-      //   colspan: '1',
-      //   rowspan: '2',
-      //   style: {
-      //     minWidth: '32px'
-      //   }
-      // },
-      // {
-      //   name: `
-      //   VTE
-      //   `,
-      //   colspan: '3',
-      //   rowspan: '1',
-      // },
-      // {
-      //   name: `
-      //   压疮评分
-      //   `,
-      //   colspan: '1',
-      //   rowspan: '2',
-      //   style: {
-      //     minWidth: '32px'
-      //   }
-      // },
-      // {
-      //   name: `
-      //   心理状态
-      //   `,
-      //   colspan: '1',
-      //   rowspan: '2',
-      //   style: {
-      //     minWidth: '32px'
-      //   }
-      // },
-      // {
-      //   name: `
-      //   营养状况
-      //   `,
-      //   colspan: '1',
-      //   rowspan: '2',
-      //   style: {
-      //     minWidth: '32px'
-      //   }
-      // },
-      // {
-      //   name: `
-      //   依从性
-      //   `,
-      //   colspan: '1',
-      //   rowspan: '2',
-      //   style: {
-      //     minWidth: '32px'
-      //   }
-      // },
-      // {
-      //   name: `
-      //   教育需求
-      //   `,
-      //   colspan: '1',
-      //   rowspan: '2',
-      //   style: {
-      //     minWidth: '32px'
-      //   }
-      // },
-      {
-        name: `
-        主要阳性项目
-        `,
-        colspan: '1',
-        rowspan: '2',
-        style: {
-          minWidth: '32px'
-        }
-      },
-      {
-        name: `
-        结果
-        `,
-        colspan: '1',
-        rowspan: '2',
-        style: {
-          minWidth: '32px'
-        }
-      },
-      // {
-      //   name: `
-      //   措施
-      //   `,
-      //   colspan: '1',
-      //   rowspan: '2',
-      //   style: {
-      //     minWidth: '32px'
-      //   }
-      // },
-      // {
-      //   name: `
-      //   项目
-      //   `,
-      //   colspan: '1',
-      //   rowspan: '2',
-      //   style: {
-      //     minWidth: '32px'
-      //   }
-      // },
-      // {
-      //   name: `
-      //   措施
-      //   `,
-      //   colspan: '1',
-      //   rowspan: '2',
-      //   style: {
-      //     minWidth: '32px'
-      //   }
-      // },
-      // {
-      //   name: `
-      //   效果
-      //   `,
-      //   colspan: '1',
-      //   rowspan: '2',
-      //   style: {
-      //     minWidth: '32px'
-      //   }
-      // },
-    ],
-    bottom: [{
-        name: `
-        数值
-        `,
-        colspan: '1',
-        rowspan: '1',
-        style: {
-          width: '32px'
-        },
-      },
-      // {
-      //   name: `
-      //   措施
-      //   `,
-      //   colspan: '1',
-      //   rowspan: '1',
-      //   style: {
-      //     minWidth: '32px'
-      //   }
-      // },
-      {
-        name: `
-        数值
-        `,
-        colspan: '1',
-        rowspan: '1',
-        style: {
-          width: '65px',
-        },
-      },
-      // {
-      //   name: `
-      //   异常处理
-      //   `,
-      //   colspan: '1',
-      //   rowspan: '1',
-      //   style: {
-      //     minWidth: '32px'
-      //   }
-      // },
-      // {
-      //   name: `
-      //   状态
-      //   `,
-      //   colspan: '1',
-      //   rowspan: '1',
-      //   style: {
-      //     minWidth: '32px'
-      //   }
-      // },
-      // {
-      //   name: `
-      //   措施
-      //   `,
-      //   colspan: '1',
-      //   rowspan: '1',
-      //   style: {
-      //     minWidth: '32px'
-      //   }
-      // },
-      {
-        name: `
-        部位
-        `,
-        colspan: '1',
-        rowspan: '1',
-        style: {
-          minWidth: '32px'
-        }
-      },
-      {
-        name: `
-        评分
-        `,
-        colspan: '1',
-        rowspan: '1',
-        style: {
-          minWidth: '32px'
-        }
-      },
-      // {
-      //   name: `
-      //   措施
-      //   `,
-      //   colspan: '1',
-      //   rowspan: '1',
-      //   style: {
-      //     minWidth: '32px'
-      //   }
-      // },
-      // {
-      //   name: `
-      //   选项
-      //   `,
-      //   colspan: '1',
-      //   rowspan: '1',
-      //   style: {
-      //     minWidth: '32px'
-      //   }
-      // },
-      // {
-      //   name: `
-      //   评分
-      //   `,
-      //   colspan: '1',
-      //   rowspan: '1',
-      //   style: {
-      //     minWidth: '32px'
-      //   }
-      // },
-      // {
-      //   name: `
-      //   措施
-      //   `,
-      //   colspan: '1',
-      //   rowspan: '1',
-      //   style: {
-      //     minWidth: '32px'
-      //   }
-      // },
-    ]
+    mid: [],
+    bottom: []
   }
 }

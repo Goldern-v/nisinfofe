@@ -1,0 +1,61 @@
+export default {
+  sheetType: '',
+  isSave: true,
+  sheetStartPage: 1,
+  sheetMaxPage: 1,
+  startPage: 0,
+  endPage: 0,
+  downControl: false,
+  selectRow: [],
+  selectBlock: {},
+  copyRow: '',
+  relObj: {
+    dglx: "",
+    wlcd: "",
+    jcbw: "",
+    zgz: "",
+    zgzdate: "",
+    dgmd: "",
+    zrkd: "",
+    jctw: "",
+    zgbw: "",
+    zgjm: "",
+    bgyy: "",
+    bgyyother: "",
+    dgsfwz: '',
+    dgsfwzno: '',
+    dgsfwzother: '',
+    bgsj: '',
+    bgz: '',
+    /** icu */
+    sws: '',
+    wjpz: '',
+  },
+  relObjs: [
+    {
+      pageNo: "1",
+      relObj: {
+        dglx: "",
+        wlcd: "",
+        jcbw: "",
+        zgz: "",
+        zgzdate: "",
+        dgmd: "",
+        zrkd: "",
+        jctw: "",
+        zgbw: "",
+        zgjm: "",
+        bgyy: "",
+        bgyyother: "",
+        dgsfwz: '',
+        dgsfwzno: '',
+        dgsfwzother: '',
+        bgsj: '',
+        bgz: '',
+        /** icu */
+        sws: '',
+        wjpz: '',
+      }
+    }
+  ]
+}

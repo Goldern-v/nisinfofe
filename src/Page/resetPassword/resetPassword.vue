@@ -23,17 +23,11 @@
         </div>
         <img src="../../common/images/shaw.png" height="234" width="526" class="login-shaw" />
         <div class="login-con">
-          <div v-if="HOSPITAL_ID=='hj'">
+          <div>
             <div class="logo-con">
-              <img src="../../common/images/login_logo_hj.png" height="63" width="63" />
+              <img :src="logoUrl" height="63" width="63" />
             </div>
-            <h1 class="name" style="font-size: 16px;">东莞市厚街医院智慧护理信息系统</h1>
-          </div>
-          <div v-else>
-            <div class="logo-con">
-              <img src="../../common/images/logo.png" height="63" width="63" />
-            </div>
-            <h1 class="name">{{HOSPITAL_ID == 'guizhou' || HOSPITAL_ID == 'liaocheng' ? '智慧护理信息系统': '百辰源智慧护理信息系统'}}</h1>
+            <h1 class="name" v-html="logoName"></h1>
           </div>
           <el-form :rules="rules" ref="ruleFormRef" label-width="100px">
             <el-form-item label="账号">
@@ -122,7 +116,9 @@
 
 .login-con {
   width: 300px;
-  height: 353px;
+  // height: 353px;
+  min-height: 323px;
+  padding-bottom: 30px;
   float: right;
   background: #FBFDFF;
   border-radius: 2px;
@@ -149,6 +145,7 @@ a {
 .name {
   font-size: 18px;
   color: #333333;
+  line-height: 22px;
   letter-spacing: 0;
   text-align: center;
   margin-bottom: 24px;
@@ -268,6 +265,29 @@ export default {
         // rePswd: [{ required: true, validator: validatePass2, trigger: "blur" }]
       }
     };
+  },
+  computed: {
+    logoUrl(){
+      let logoUrl = require('../../common/images/logo.png');
+      switch(this.HOSPITAL_ID){
+        case 'hj':
+          logoUrl = require('../../common/images/login_logo_hj.png')
+        break;
+        case 'zhongshanqi':
+          logoUrl = require('../../common/images/logo_zhongshanqi.png')
+        break;
+      }
+      return logoUrl;
+    },
+    logoName(){
+      let logoName = '百辰源智慧护理信息系统';
+      if(this.HOSPITAL_ID == 'hj' || this.HOSPITAL_ID == 'zhongshanqi'){
+        logoName = `${this.HOSPITAL_NAME}<br />智慧护理信息系统`
+      }else if(this.HOSPITAL_ID == 'guizhou' || this.HOSPITAL_ID == 'liaocheng' || this.HOSPITAL_ID == 'lingcheng'){
+        logoName = '智慧护理信息系统'
+      }
+      return logoName;
+    }
   },
   methods: {
     reset() {

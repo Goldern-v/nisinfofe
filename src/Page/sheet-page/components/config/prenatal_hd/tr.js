@@ -23,7 +23,8 @@ let ysxzList = [];
 let gjkzList = [];
 let gsqdList = [];
 let 意识 = ['清醒', '浅昏迷', '深昏迷', '模糊', '嗜睡', '昏睡', '谵妄'];
-
+let 入量名称 = ['输液', '口服', '输血', '肌注', '静注', '鼻饲', '静脉泵入', '灌肠', '饮水'];
+let 出量名称 = [];
 export default [{
     key: "recordMonth", //日期
     value: "",
@@ -124,7 +125,10 @@ export default [{
     name: "入量内容",
     textarea: {
       width: 126
-    }
+    },
+    autoComplete: {
+      data: 入量名称
+    },
   },
   {
     key: "foodSize", // 入量（单位ml）
@@ -140,7 +144,10 @@ export default [{
     name: "出量内容",
     textarea: {
       width: 126
-    }
+    },
+    autoComplete: {
+      data: 出量名称
+    },
   },
   {
     key: "dischargeSize", //出量（单位ml）
@@ -324,18 +331,6 @@ export default [{
 ];
 
 export function getListData() {
-  // listItem("入量名称", info.sheetType).then(res => {
-  //   ruList.splice(0, ruList.length);
-  //   for (let item of res.data.data) {
-  //     ruList.push(item.name);
-  //   }
-  // });
-  // listItem("出量名称", info.sheetType).then(res => {
-  //   chuList.splice(0, chuList.length);
-  //   for (let item of res.data.data) {
-  //     chuList.push(item.name);
-  //   }
-  // });
   let list = [
     "胎膜",
     "胎位",
@@ -344,7 +339,8 @@ export function getListData() {
     "宫颈管",
     "羊水性状",
     "宫颈扩张",
-    "宫缩强度"
+    "宫缩强度",
+    "花都:神经外科护理记录单:出量名称"
   ];
   multiDictInfo(list).then(res => {
     let data = res.data.data;
@@ -356,6 +352,8 @@ export function getListData() {
     setList(ysxzList, list[5], data);
     setList(gjkzList, list[6], data);
     setList(gsqdList, list[7], data);
+    // setList(入量名称, "入量名称", data);
+    setList(出量名称, list[8], data);
   });
 }
 

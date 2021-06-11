@@ -11,7 +11,7 @@
         :hoverEffect="false"
         :clickEffect="false"
         :linesDistance="350"
-        style="position: absolute; width: 100%;height: 100%"
+        style="position: absolute; width: 100%; height: 100%"
       ></vue-particles>
       <div style="height: 25%"></div>
       <div class="login-warpper">
@@ -21,8 +21,30 @@
           <span class="sys-version">「 v {{ $system.版本号 }} 」</span>
           <span class="sys-name">护理管理系统</span>
         </div>
-        <img src="../../common/images/shaw.png" height="234" width="526" class="login-shaw" />
+        <img
+          src="../../common/images/shaw.png"
+          height="234"
+          width="526"
+          class="login-shaw"
+        />
         <div class="login-con">
+          <div class="toggle-login-type" v-if="HOSPITAL_ID == 'zhongshanqi'">
+            <div class="img" @click="toggleLoginType">
+              <img
+                src="../../common/images/login_pwd.png"
+                alt=""
+                v-show="!showPwdType"
+              />
+              <img
+                src="../../common/images/login_qrcode.png"
+                alt=""
+                v-show="showPwdType"
+              />
+            </div>
+            <div class="qrcode" v-show="!showPwdType">
+              <img src="../../common/images/qrcode_zsq.png" alt="" />
+            </div>
+          </div>
           <div>
             <div class="logo-con">
               <img :src="logoUrl" height="63" width="63" />
@@ -34,27 +56,44 @@
             <img src="../../common/images/account.png" height="14" width="14" />
           </div>
           <div class="input-con">
-            <input type="password" style="border-top: 0" placeholder="密码" v-model="password" />
-            <img src="../../common/images/password.png" height="14" width="14" />
+            <input
+              type="password"
+              style="border-top: 0"
+              placeholder="密码"
+              v-model="password"
+            />
+            <img
+              src="../../common/images/password.png"
+              height="14"
+              width="14"
+            />
           </div>
           <div class="remember-con">
             <el-checkbox v-model="remember">
-              <span style="font-size: 13px;color: #687179;">记住账号</span>
+              <span style="font-size: 13px; color: #687179">记住账号</span>
             </el-checkbox>
-            <button style="background-color:#fff;float:right;border:0;" @click="toReset()">重置密码</button>
+            <button
+              style="background-color: #fff; float: right; border: 0"
+              @click="toReset()"
+            >
+              重置密码
+            </button>
           </div>
-          <button v-touch-ripple class="login-btn" @click="login">{{ !ajax ? "登录系统" : "登录中..." }}</button>
+          <button v-touch-ripple class="login-btn" @click="login">
+            {{ !ajax ? "登录系统" : "登录中..." }}
+          </button>
         </div>
       </div>
       <p class="footer-text">
         <span>
-          <a href="https://www.baichenyuan.cn" target="_blank">{{COMPANY_NAME || '百辰源(广州)科技有限公司'}}</a>
+          <a href="https://www.baichenyuan.cn" target="_blank">{{
+            COMPANY_NAME || "百辰源(广州)科技有限公司"
+          }}</a>
         </span>
         <span>
-          版权所有 &copy; {{ new Date().getFullYear() }} All rights
-          reseved.
+          版权所有 &copy; {{ new Date().getFullYear() }} All rights reseved.
         </span>
-        <span>{{ ABOUT_INFO || '关于百辰源'}}</span>
+        <span>{{ ABOUT_INFO || "关于百辰源" }}</span>
         <span>|</span>
         <span>关于智慧护理</span>
         <span>|</span>
@@ -121,12 +160,43 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
 
 .login-con {
   width: 300px;
-  height: 353px;
+  // height: 353px;
+  min-height: 323px;
+  padding-bottom: 30px;
   float: right;
   background: #FBFDFF;
   border-radius: 2px;
   position: relative;
   z-index: 2;
+  .toggle-login-type {
+    .img {
+      position: absolute;
+      top: 0;
+      right: 0;
+      cursor: pointer;
+      z-index: 1001;
+      img {
+        width: 50px;
+        height: 50px;
+      }
+    }
+    .qrcode {
+      position: absolute;
+      top: 0;
+      right: 0;
+      z-index: 1000;
+      width: 100%;
+      height: 100%;
+      background-color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      img {
+        width: 164px;
+        height: 164px;
+      }
+    }
+  }
 }
 
 .logo-con {
@@ -183,6 +253,9 @@ a {
 .remember-con {
   width: 260px;
   margin: 13px auto 26px;
+  button {
+    cursor: pointer;
+  }
 }
 
 .login-btn {
@@ -284,7 +357,8 @@ export default {
       account: "",
       password: "",
       remember: true,
-      ajax: false
+      ajax: false,
+      showPwdType: true //显示的登录方式，默认是密码
     };
   },
   methods: {
@@ -362,9 +436,11 @@ export default {
         });
     },
     toReset() {
-      setTimeout(() => {
-        this.$router.push("/resetPassword");
-      }, 1000);
+      this.$router.push("/resetPassword");
+    },
+    // 切换登录方式（二维码只供展示，暂不做登录处理）
+    toggleLoginType() {
+      this.showPwdType = !this.showPwdType;
     }
   },
   created() {
@@ -373,6 +449,9 @@ export default {
     }
   },
   mounted() {
+    /**清除锁屏的本地存储相关 */
+    if (localStorage.screenLock) localStorage.removeItem("screenLock");
+
     let elList = document.querySelectorAll(".input-con input");
     EnterToTab(
       elList,
@@ -384,28 +463,39 @@ export default {
     );
   },
   computed: {
-    logoUrl(){
-      let logoUrl = require('../../common/images/logo.png');
-      switch(this.HOSPITAL_ID){
-        case 'hj':
-          logoUrl = require('../../common/images/login_logo_hj.png')
-        break;
-        case 'zhongshanqi':
-          logoUrl = require('../../common/images/logo_zhongshanqi.png')
-        break;
+    logoUrl() {
+      let logoUrl = require("../../common/images/logo.png");
+      switch (this.HOSPITAL_ID) {
+        case "hj":
+          logoUrl = require("../../common/images/login_logo_hj.png");
+          break;
+        case "zhongshanqi":
+          logoUrl = require("../../common/images/logo_zhongshanqi.png");
+          break;
       }
       return logoUrl;
     },
-    logoName(){
-      let logoName = '百辰源智慧护理信息系统';
-      if(this.HOSPITAL_ID == 'hj' || this.HOSPITAL_ID == 'zhongshanqi'){
-        logoName = `${this.HOSPITAL_NAME}<br />智慧护理信息系统`
-      }else if(this.HOSPITAL_ID == 'guizhou' || this.HOSPITAL_ID == 'liaocheng'){
-        logoName = '智慧护理信息系统'
+    logoName() {
+      let logoName = "百辰源智慧护理信息系统";
+      if (this.HOSPITAL_ID == "hj" || this.HOSPITAL_ID == "zhongshanqi") {
+        logoName = `${this.HOSPITAL_NAME}<br />智慧护理信息系统`;
+      } else if (
+        this.HOSPITAL_ID == "guizhou" ||
+        this.HOSPITAL_ID == "liaocheng" ||
+        this.HOSPITAL_ID == "lingcheng"
+      ) {
+        logoName = "智慧护理信息系统";
       }
       return logoName;
     }
   },
-  components: {}
+  components: {},
+  watch: {
+    password() {
+      if (this.HOSPITAL_ID == "zhongshanqi") {
+        this.password = this.password.slice(0, 16);
+      }
+    }
+  }
 };
 </script>

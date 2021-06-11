@@ -129,24 +129,30 @@
               <el-button
                 type="text"
                 @click="generateArchive(scope.row)"
-                v-if="scope.row.printStatus==0 && scope.row.resultStatus!=1"
+                v-if="scope.row.printStatus==0 && scope.row.resultStatus!=1 && !isArchive"
               >转pdf</el-button>
               <el-button
                 type="text"
                 @click="generateArchive(scope.row)"
-                v-if="scope.row.printStatus!=0 && scope.row.printStatus!=1 && scope.row.uploadStatus!=1 && scope.row.uploadStatus!=2"
+                v-if="scope.row.printStatus!=0 && scope.row.printStatus!=1 && scope.row.uploadStatus!=1 && scope.row.uploadStatus!=2 && !isArchive"
               >重转pdf</el-button>
+              <!-- 一键归档没有预览功能 -->
               <el-button
                 type="text"
                 class="viewFile"
                 @click="previewArchive(scope.row)"
-                v-if="scope.row.resultStatus==1"
+                v-if="scope.row.resultStatus==1 && !isArchive"
               >预览</el-button>
               <!-- 上传 -->
               <el-button
                 type="text"
+                @click="cancelArchive(scope.row)"
+                v-if="scope.row.canCancelArchive"
+              >取消归档</el-button>
+              <el-button
+                type="text"
                 @click="uploadFileArchive(scope.row)"
-                v-if="HOSPITAL_ID == 'weixian' && scope.row.resultStatus==1 && scope.row.uploadStatus!=1 && scope.row.uploadStatus!=2"
+                v-if="(isArchive && scope.row.uploadStatus!=2) || (scope.row.resultStatus==1 && scope.row.uploadStatus!=1 && scope.row.uploadStatus!=2)"
               >归档</el-button>
             </div>
           </template>
@@ -203,7 +209,9 @@ import {
   getArchiveList,
   generateArchive,
   previewArchive,
-  uploadFileArchive
+  uploadFileArchive,
+  getConfig,
+  canCancelArchive
 } from "./api/index";
 import { TSNeverKeyword } from "babel-types";
 import common from "@/common/mixin/common.mixin.js";
@@ -235,7 +243,7 @@ export default {
         wardCode: "", //科室代码
         showStatus: "" //状态查找：-2=归档失败,-1=生成pdf失败,0=待生成pdf,1=待归档,2=已归档
       },
-      total: 1,
+      total: 0,
       patientArchiveList: [], //科室患者归档列表
       currentFileIndex: 0, //当前预览pdf索引
       printDetailList: "", //归档详情
@@ -249,7 +257,8 @@ export default {
         { id: 1, name: "待归档" },
         { id: 2, name: "已归档" }
       ],
-      isSelectedStatus: "" //选择状态
+      isSelectedStatus: "", //选择状态
+      isArchive: false,//是否直接一键归档
     };
   },
   methods: {
@@ -277,20 +286,6 @@ export default {
           this.getArchiveList();
         });
       });
-    },
-    init() {
-      if (!this.deptCode) return;
-      let time = moment().format("L");
-      let data = Cookie.get("NURSING_USER") || "";
-      if (!data) {
-        window.location.href = "/login";
-      }
-      try {
-        let user = window.localStorage.getItem("user");
-        this.user.name = JSON.parse(user).empName;
-      } catch (error) {}
-
-      this.getArchiveList();
     },
     tablesHeight() {
       try {
@@ -457,6 +452,20 @@ export default {
           return;
         }
       }
+    },
+    // 获取用户配置
+    getUserConfig(){
+      getConfig().then(res => {
+        // printNotNeedToPdf true，不需要转pdf，直接一键归档
+        this.isArchive = res.data.data.print.printNotNeedToPdf;
+      })
+    },
+    // 归档：取消归档
+    cancelArchive(item){
+      canCancelArchive(item.patientId, item.visitId).then(res => {
+        this.$message.success(res.data.desc);
+        this.getArchiveList();
+      })
     }
   },
   mounted() {
@@ -467,10 +476,17 @@ export default {
     this.query.dischargeDateEnd = this.query.dischargeDateEnd
       ? this.query.dischargeDateEnd
       : moment().format("YYYY-MM-DD");
-    this.init();
+
     if (this.$refs["preview-modal"]) {
       this.modalObj = this.$refs["preview-modal"];
     }
+
+    if (this.deptCode){
+      this.getArchiveList();
+    }
+
+    // 获取用户配置
+    this.getUserConfig();
   },
   updated() {
     this.tablesHeight();
@@ -478,7 +494,7 @@ export default {
   created() {},
   watch: {
     deptCode() {
-      this.init();
+      this.getArchiveList();
     }
   }
 };

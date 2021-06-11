@@ -34,7 +34,10 @@
           @click="openUrl(item)"
           @dblclick="create(item)"
           class="record-box"
-          :class="{ active: selectData == item ,isvertical:HOSPITAL_ID == 'huadu'}"
+          :class="{
+            active: selectData == item,
+            isvertical: HOSPITAL_ID == 'huadu'
+          }"
           v-for="item of filterData"
           :key="item.id"
         >
@@ -228,7 +231,21 @@ export default {
     filterData() {
       if (this.$route.name == "singleTemperatureChart") {
         return this.templates.filter(item => {
-          return item.recordCode.indexOf("body_temperature_Hd") == 0;
+          switch (this.HOSPITAL_ID) {
+            case "huadu":
+              return item.recordCode.indexOf("body_temperature_Hd") == 0;
+            case "liaocheng":
+              return item.recordCode.indexOf("body_temperature_lcey") == 0;
+            case "wujing":
+              return item.recordCode.indexOf("body_temperature_wj") == 0;
+            default:
+              break;
+          }
+          // if (this.HOSPITAL_ID === "huadu" || this.HOSPITAL_ID === "wujing") {
+          //   return item.recordCode.indexOf("body_temperature_Hd") == 0;
+          // } else if (this.HOSPITAL_ID === "liaocheng") {
+          //   return item.recordCode.indexOf("body_temperature_lcey") == 0;
+          // }
         });
       }
       if (this.searchWord) {

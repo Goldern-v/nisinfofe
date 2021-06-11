@@ -15,8 +15,8 @@
         <el-row class="select-btn-list" type="flex" align="middle">
           <el-radio-group v-model="repeatIndicator">
             <el-radio class="radio" label>全部</el-radio>
-            <el-radio class="radio" label="0">长嘱</el-radio>
-            <el-radio class="radio" label="1">临嘱</el-radio>
+            <el-radio class="radio" label="1">长嘱</el-radio>
+            <el-radio class="radio" label="0">临嘱</el-radio>
             <el-radio class="radio" label="2">单药处方</el-radio>
           </el-radio-group>
         </el-row>
@@ -42,7 +42,7 @@
         <el-select v-model="type" placeholder="请选择" size="small" style="width:150px">
           <el-option
             :label="typeItem.name"
-            :value="typeItem.id"
+            :value="typeItem.value"
             v-for="typeItem in allType"
             :key="typeItem.id"
           ></el-option>
@@ -60,9 +60,15 @@
           placeholder="输入床号进行搜索"
           v-model="bedLabel"
         ></el-input>
+         <el-input
+          size="small"
+          style="width: 150px;margin-right: 15px;"
+          placeholder="输入途径进行搜索"
+          v-model="administration"
+        ></el-input>
         <el-button size="small" type="primary" @click="search">查询</el-button>
       </div>
-      <dTable :tableData="tableData" :pageLoadng="pageLoadng"></dTable>
+      <dTable :tableData="tableData" :currentType="type" :pageLoadng="pageLoadng"></dTable>
       <!-- <div class="pagination-con" flex="main:justify cross:center">
         <pagination
           :pageIndex="page.pageIndex"
@@ -185,6 +191,7 @@ export default {
       status: "",
       bedLabel: "",
       patientName: "",
+      administration: "",//途径
       transfusionStatus: [
         {
           id: "",
@@ -227,36 +234,36 @@ export default {
       ],
       allType: [
         {
-          id: "",
           name: "全部",
+          value: ""
         },
         {
-          id: 0,
           name: "输液",
+          value: "输液"
         },
         {
-          id: 1,
           name: "注射",
+          value: "注射"
         },
         {
-          id: 2,
           name: "口服",
+          value: "口服"
         },
         {
-          id: 3,
           name: "雾化",
+          value: "雾化"
         },
         {
-          id: 4,
           name: "皮试",
+          value: "皮试"
         },
         {
-          id: 5,
           name: "治疗（理疗）",
+          value: "治疗（理疗）"
         },
         {
-          id: 6,
           name: "标本",
+          value: "标本"
         },
       ],
     };
@@ -273,15 +280,16 @@ export default {
       if (!this.deptCode) return;
       this.pageLoadng = true;
       let obj = {
-          wardCode: this.deptCode, //护理单元代码
-          executeDateTime: moment(this.startDate).format("YYYY-MM-DD"), //执行单预计执行时间
-          repeatIndicator: this.repeatIndicator, //医嘱类型:0临时 1长期  2单药处方
-          executeStatus: this.status, //执行单状态:0-未执行、1-执行中（输液中）、2-暂停输液、3-继续执行  4-已完成（结束输液）
-          executeType: typeof this.type == "number"
-            ? this.allType[this.type + 1].name
-            : this.type, //执行单类型:输液,口服、治疗、雾化、注射
-          bedLabel: this.bedLabel,  //床号
-          patientName: this.patientName //患者姓名
+        wardCode: this.deptCode, //护理单元代码
+        executeDateTime: moment(this.startDate).format("YYYY-MM-DD"), //执行单预计执行时间
+        repeatIndicator: this.repeatIndicator, //医嘱类型:0临时 1长期  2单药处方
+        executeStatus: this.status, //执行单状态:0-未执行、1-执行中（输液中）、2-暂停输液、3-继续执行  4-已完成（结束输液）
+        executeType: typeof this.type == "number"
+          ? this.allType[this.type + 1].name
+          : this.type, //执行单类型:输液,口服、治疗、雾化、注射
+        bedLabel: this.bedLabel,  //床号
+        patientName: this.patientName, //患者姓名
+        administration: this.administration // //途径
       }
       getExecuteWithWardcodeLiaoC(obj).then((res) => {
         this.tableData = res.data.data.map((item, index, array) => {

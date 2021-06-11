@@ -1,0 +1,405 @@
+{
+  "pageSetting": {
+    "size": "4A",
+    "rotation": "portrait",
+    "margin": "0",
+    "width": "750px",
+    "height": "auto",
+    "mode": "development_",
+    "style": ""
+  },
+  "formSetting": {
+    "formTitle": {
+      "hospitalName": "东莞市厚街医院",
+      "formName": "管道评估表"
+    },
+    "formHeads": [{
+        "name": "name",
+        "value": null,
+        "title": "姓名",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "sex",
+        "value": null,
+        "title": "性别",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "age",
+        "value": null,
+        "title": "年龄",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "wardName",
+        "value": null,
+        "title": "病区",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "bedLabel",
+        "value": null,
+        "title": "床号",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "inpNo",
+        "value": null,
+        "title": "住院号",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "admissionDate",
+        "value": null,
+        "title": "入院日期",
+        "class": "",
+        "style": "",
+        "show": true
+      }
+    ],
+    "formTail": {
+      "showEvalScore": false,
+      "showSign": true,
+      "showAudit": true
+    },
+    "formInfo": {
+      "formCode": "C0003",
+      "formApiCode": "C0003",
+      "formName": "疼痛评估表",
+      "status": "0",
+      "formType": "eval"
+    }
+  },
+  "dictionary": {
+    "疼痛部位": "A, B, C, D"
+  },
+  "schemes": {},
+  "model": {},
+  "body": [{
+      "name": "I003001",
+      "type": "formGroupColBox",
+      "col": 3,
+      "title": "",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "I003001",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [{
+          "name": "I003001",
+          "type": "datePicker",
+          "title": "评估时间",
+          "titleStyle": "width:90px!important;margin:0;",
+          "hiddenTips": true,
+          "value": "",
+          "placeholder": "评估时间",
+          "style": "width:145px",
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I003001",
+          "type": "input",
+          "title": "评估人",
+          "titleStyle": "width:90px!important;margin:0;",
+          "hiddenTips": true,
+          "value": "0",
+          "placeholder": "评估人",
+          "style": "width:80px",
+          "class": null,
+          "readOnly": true
+        },
+        {
+          "name": "I003001",
+          "type": "input",
+          "title": "状态",
+          "titleStyle": "width:90px!important;margin:0;",
+          "hiddenTips": true,
+          "value": "0",
+          "placeholder": "状态",
+          "style": "width:80px",
+          "class": null,
+          "readOnly": true,
+          "rule": [{
+              "equals": ["-1", "未保存"],
+              "style": "color:gray",
+              "display": "未签名"
+            }, {
+              "equals": ["0", "已保存 "],
+              "style": "color:blue",
+              "display": "已保存"
+            },
+            {
+              "equals": ["1", "已签名"],
+              "style": "color:red",
+              "display": "已签名"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "",
+      "type": "formGroupTitle",
+      "level": "1",
+      "title": "一、置管信息",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "I100001",
+      "type": "formGroupColBox",
+      "col": 2,
+      "title": "基础评估",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "I100001",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [{
+          "name": "I100001",
+          "type": "select",
+          "title": "引流管种类",
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "options": [
+            "脑室引流管",
+            "硬膜下引流管",
+            "硬膜外引流管",
+            "头部皮下引流管",
+            "腰大池引流管",
+            "胃肠负压引流管",
+            "颈部皮下负压引流管",
+            "甲状腺负压引流管",
+            "颈部皮下引流管",
+            "颌下引流管",
+            "胸部皮下引流管",
+            "胸腔闭式引流管",
+            "腋下引流管",
+            "乳房负压引流管",
+            "胆囊“T”形引流管",
+            "腹腔引流管",
+            "腹腔负压引流管1",
+            "腹腔负压引流管2",
+            "盆腔引流管",
+            "盆腔负压引流管",
+            "关节腔负压引流管",
+            "关节腔引流管",
+            "创面负压引流管",
+            "其他"
+          ]
+        },
+        {
+          "name": "I100008",
+          "type": "select",
+          "title": "来源",
+          "suffixDesc": "",
+          "style": null,
+          "class": null,
+          "readOnly": false,
+          "options": ["本院", "外院带入"]
+        },
+        {
+          "name": "I003001",
+          "type": "datePicker",
+          "title": "置管日期",
+          "value": "",
+          "placeholder": "置管日期",
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I100012",
+          "type": "input",
+          "title": "外露长度",
+          "suffixDesc": "cm",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I100013",
+          "type": "select",
+          "title": "置管人",
+          "suffixDesc": "",
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "options": []
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "",
+      "type": "formGroupTitle",
+      "level": "1",
+      "title": "二、评估内容",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "I100001",
+      "type": "formGroupColBox",
+      "col": 2,
+      "title": "周围敷料",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "I100001",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [{
+          "name": "I100001",
+          "type": "select",
+          "title": "周围敷料",
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "options": ["干燥", "渗液", "渗血", "渗脑脊液"]
+        },
+        {
+          "name": "I100008",
+          "type": "select",
+          "title": "引流管通畅",
+          "suffixDesc": "",
+          "style": null,
+          "class": null,
+          "readOnly": false,
+          "options": ["通畅", "固定"]
+        },
+        {
+          "name": "I100013",
+          "type": "select",
+          "title": "引流管固定",
+          "suffixDesc": "",
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "options": ["良好", "脱出"]
+        },
+        {
+          "name": "I100013",
+          "type": "select",
+          "title": "引流管高度",
+          "suffixDesc": "",
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "options": [
+            "低于引流管插入部位",
+            "平引流管插入部位",
+            "高于侧脑室平面10-15cm",
+            "其他"
+          ]
+        },
+        {
+          "name": "I100013",
+          "type": "select",
+          "title": "引流液性状",
+          "suffixDesc": "",
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "options": ["澄清", "血性", "混沌"]
+        },
+        {
+          "name": "I100013",
+          "type": "select",
+          "title": "引流液颜色",
+          "suffixDesc": "",
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "options": [
+            "无色",
+            "淡黄色",
+            "黄绿色",
+            "黄色",
+            "暗红色",
+            "鲜红色",
+            "茶色"
+          ]
+        },
+        {
+          "name": "I100012",
+          "type": "input",
+          "title": "引流量",
+          "suffixDesc": "ml",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        }
+      ]
+    }
+  ],
+  "dialogs": [],
+  "header": [],
+  "footer": []
+}

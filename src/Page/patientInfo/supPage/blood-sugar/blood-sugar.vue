@@ -22,6 +22,12 @@
           >
             血糖测量记录单
           </div>
+          <div
+            class="sup-title"
+            v-else-if="HOSPITAL_ID == 'liaocheng'"
+          >
+            血糖酮体测量记录单
+          </div>
           <div class="sup-title" v-else>微量血糖测定登记表</div>
           <p flex="main:justify" class="info">
             <span>病人姓名：{{ patientInfo.name }}</span>
@@ -29,7 +35,7 @@
             <span v-if="HOSPITAL_ID == 'lingcheng'" @dblclick="onEditAge"
               >年龄：{{ formAge ? formAge : patientInfo.age }}</span
             >
-            <span v-if="HOSPITAL_ID != 'lingcheng'"
+            <span v-else
               >年龄：{{ resAge ? resAge : patientInfo.age }}</span
             >
             <span
@@ -38,7 +44,8 @@
             <!-- <span>入院日期：{{patientInfo.admissionDate | toymd}}</span> -->
             <span>床号：{{ patientInfo.bedLabel }}</span>
             <!-- <span class="diagnosis-con">诊断：{{patientInfo.diagnosis}}</span> -->
-            <span>住院号：{{ patientInfo.inpNo }}</span>
+            <span v-if="HOSPITAL_ID == 'liaocheng'">病案号：{{ patientInfo.inpNo }}</span>
+            <span v-else>住院号：{{ patientInfo.inpNo }}</span>
             <!-- <span>入院日期：{{$route.query.admissionDate}}</span> -->
           </p>
           <div class="table-warpper" flex="cross:stretch">
@@ -236,23 +243,16 @@ export default {
       return this.wih - 130 + "px";
     },
   },
-  mounted() {
-    this.getFormHead();
-  },
   methods: {
     async getFormHead() {
-      console.log("判断医院名称=========", this.HOSPITAL_NAME);
-      console.log(this.patientInfo.patientId, this.patientInfo.visitId);
       const res = await getFormHeadData(
         this.patientInfo.patientId,
         this.patientInfo.visitId
       );
-      console.log("getFormHeadData==========", res.data.data.itemMap.age);
       this.formAge = res.data.data.itemMap.age;
     },
     async load() {
       this.pageLoading = true;
-      await this.getFormHead();
       const res = await getSugarListWithPatientId(
         this.patientInfo.patientId,
         this.patientInfo.visitId
@@ -329,7 +329,7 @@ export default {
         }
       );
 
-      const item = {
+      let item = {
         patientId: this.patientInfo.patientId,
         visitId: this.patientInfo.visitId,
         recordDate: this.selected.recordDate,
@@ -337,6 +337,17 @@ export default {
         sugarValue: this.selected.sugarValue,
         recordId: this.selected.recordId || "",
       };
+
+      if(this.HOSPITAL_ID == 'fuyou'){
+        item = {
+          ...item,
+          riValue: this.selected.riValue || "",
+          oldRecordDate: this.selected.oldRecordDate || "",
+          nurseEmpNo: this.empNo || "",//护士工号
+          nurse: this.empName || "",//护士姓名
+          wardCode: this.patientInfo.wardCode || ""
+        }
+      }
 
       await removeSugar(item);
       this.load();
@@ -368,9 +379,7 @@ export default {
       ];
       await getEditAge(item.patientId, item.visitId, itemMap).then((res) => {
         console.log("年龄接口返回res===", res);
-        // this.formAge
       });
-      console.log("年龄接口返回item", item);
       this.load();
       this.$refs.editAge.close();
       this.getFormHead();
@@ -379,6 +388,7 @@ export default {
     openSetPageModal() {
       this.$refs.setPageModal.open();
     },
+    // 通过字典获取项目下拉内容
     getSugarItemDict() {
       getSugarItemDict().then((res) => {
         let data = res.data.data;
@@ -394,10 +404,20 @@ export default {
     if (this.$route.query.patientId) {
       this.load();
     }
-    if (this.HOSPITAL_ID == "lingcheng" || this.HOSPITAL_ID == "liaocheng") {
+    if (this.HOSPITAL_ID != 'hj' && this.HOSPITAL_ID != "huadu") {
       this.getSugarItemDict();
     }
-    this.getFormHead();
+    if (this.HOSPITAL_ID == "lingcheng") {
+      this.getFormHead();
+    }
+
+  },
+  watch: {
+    'patientInfo.patientId'(nVal, oVal) {
+      if (this.HOSPITAL_ID == "lingcheng") {
+        this.getFormHead();
+      }
+    }
   },
   components: {
     sugarTable,

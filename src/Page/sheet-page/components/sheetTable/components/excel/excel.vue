@@ -13,8 +13,8 @@
       v-if="hasFiexHeader"
     >
       <tr class="body-con">
-        <td v-for="(td, i) in data.bodyModel[0]" :key="i" :dataKey="td.key">
-          <template v-if="!td.hidden">
+        <td v-for="(td, i) in titleModel" :key="i" :dataKey="td.key">
+          <template>
             <div v-if="td.key == 'sign'" class="sign-text"></div>
             <div v-else-if="td.key == 'sign2'" class="sign-text"></div>
             <div v-else-if="td.key == 'audit'" class="sign-text"></div>
@@ -300,8 +300,12 @@
     <slot
       name="bottomCon"
       v-if="
-        sheetInfo.sheetType == 'neonatology_picc' ||
-          sheetInfo.sheetType == 'internal_eval_lcey'
+        sheetInfo.sheetType === 'neonatology_picc' ||
+          sheetInfo.sheetType === 'internal_eval_lcey' ||
+          sheetInfo.sheetType === 'intervention_cure_lcey' ||
+          sheetInfo.sheetType === 'critical_lc' ||
+          sheetInfo.sheetType === 'picu_hemodialysis_jm' ||
+          sheetInfo.sheetType === 'rescue_hl'
       "
     ></slot>
     <!-- 表格下方的备注组件 -->
@@ -316,6 +320,23 @@
       class="table-footer"
       v-if="sheetInfo.sheetType != 'intervention_cure_hd'"
     >
+      <!-- <span v-if="sheetInfo.sheetType == 'common_hl'" class="zg-name"> -->
+      <span v-if="doubleSignArr.includes(sheetInfo.sheetType)" class="zg-name">
+        <span>主管护士：</span>
+        <span class="sign-img-con" @click="sign2">
+          <span v-if="!isPrint" class="head-sign-text">{{
+            sheetInfo.selectBlock.relSignInfo.signerName2
+          }}</span>
+          <img
+            class="head-sign-img"
+            v-if="sheetInfo.selectBlock.relSignInfo.signerNo2"
+            :src="
+              `/crNursing/api/file/signImage/${sheetInfo.selectBlock.relSignInfo.signerNo2}?${token}`
+            "
+            alt
+          />
+        </span>
+      </span>
       第 {{ index + sheetStartPage }} 页
       <span class="sh-name" v-if="auditArr.includes(sheetInfo.sheetType)">
         <span
@@ -325,11 +346,17 @@
               sheetInfo.sheetType == 'Record_Children_Serious_Lc' ||
               sheetInfo.sheetType == 'common_hd' ||
               sheetInfo.sheetType == 'neurosurgery_hd' ||
-              sheetInfo.sheetType == 'stress_injury_hd'
+              sheetInfo.sheetType == 'stress_injury_hd' ||
+              sheetInfo.sheetType == 'critical_lc'
           "
           >审核人：</span
         >
-        <span v-else-if="sheetInfo.sheetType == 'common_wj'">护士长签名：</span>
+        <span v-else-if="sheetInfo.sheetType == 'common_wj' || 'common_hl'"
+          >护士长签名：</span
+        >
+        <span v-else-if="sheetInfo.sheetType == 'intervention_cure_lcey'"
+          >护士签名：</span
+        >
         <span v-else>上级护士签名：</span>
         <span class="sh-name-box">
           <div
@@ -392,7 +419,13 @@ import $ from "jquery";
 import bus from "vue-happy-bus";
 import sheetModel from "../../../../sheet.js";
 import common from "@/common/mixin/common.mixin.js";
-import { handlepz, delpz, auditpz } from "../../../../api/index.js";
+import {
+  handlepz,
+  delpz,
+  auditpz,
+  signBlockD,
+  cancelSignD
+} from "../../../../api/index.js";
 import decode from "../../../../components/render/decode.js";
 import moment from "moment";
 import { getUser } from "@/api/common.js";
@@ -431,7 +464,10 @@ export default {
         "magnesium_sulphate_hd",
         "prenatal_hd",
         "postpartum_hd", // 产后护理记录单
-        "common_wj"
+        "common_wj",
+        "intervention_cure_lcey",
+        "critical_lc",
+        "common_hl"
       ],
       // 需要双签名的记录单code
       multiSignArr: [
@@ -441,8 +477,10 @@ export default {
         "neonatology2_hd", // 花都_新生儿护理记录单
         "postpartum_hd", // 花都_产后记录单
         "wait_delivery_hd", // 花都_候产记录单
-        "neonatology_hd", // 花都_新生儿科护理记录单
-      ]
+        "neonatology_hd" // 花都_新生儿科护理记录单
+      ],
+      // 底部两个签名的其中一个自定义字段
+      doubleSignArr: ["common_hl"]
     };
   },
   computed: {
@@ -466,15 +504,29 @@ export default {
         sheetInfo.auditorMap &&
         sheetInfo.auditorMap[`PageIndex_${this.index}_auditorName`]
       );
+    },
+    titleModel() {
+      return this.data.bodyModel[0].filter(td => {
+        return !td.hidden;
+      });
     }
   },
   methods: {
+    /* 花都个别护记的出入量统计：增加红线与上一行做区分 */
     getBorderClass(index) {
-      if (sheetInfo.sheetType !== "common_hd") return;
-      const temp = this.data.bodyModel.findIndex(tr => {
-        return tr.find(i => i.key === "recordSource").value === "5";
-      });
-      return temp === index;
+      const redTopSheet_hd = [
+        "common_hd",
+        "prenatal_hd",
+        "postpartum_hd",
+        "neonatology_hd",
+        "neurosurgery_hd"
+      ];
+      if (redTopSheet_hd.includes(this.sheetInfo.sheetType)) {
+        const temp = this.data.bodyModel.findIndex(tr => {
+          return tr.find(i => i.key === "recordSource").value === "5";
+        });
+        return temp === index;
+      }
     },
     // 键盘事件
     onKeyDown(e, bind) {
@@ -591,7 +643,7 @@ export default {
         this.signType = "2";
       }
       // 判断表单code再赋值多签名字段！！！不能直接在表内赋值multiSign不然会打印报错
-      if(this.multiSignArr.includes(this.sheetInfo.sheetType)){
+      if (this.multiSignArr.includes(this.sheetInfo.sheetType)) {
         this.multiSign = true;
       }
       if (!showSign) {
@@ -894,9 +946,9 @@ export default {
       }
     },
     checkMaxLength(value, length) {
-      const regC = /[^ -~]+/g; 
-      const regE = /\D+/g; 
-      console.log('textarea', value, length)
+      const regC = /[^ -~]+/g;
+      const regE = /\D+/g;
+      console.log("textarea", value, length);
     },
     isOverText(td) {
       try {
@@ -1329,6 +1381,45 @@ export default {
           }
         });
       }, "取消签名确认");
+    },
+    /** 右侧主管护士签名 */
+    sign2() {
+      if (this.sheetInfo.selectBlock.relSignInfo == undefined) {
+        this.sheetInfo.selectBlock.relSignInfo = {};
+      }
+      let title = sheetInfo.selectBlock.relSignInfo.signerName2
+        ? "取消签名"
+        : "责任护士签名";
+      window.openSignModal((password, username) => {
+        if (sheetInfo.selectBlock.relSignInfo.signerName2) {
+          cancelSignD(password, username, 2).then(res => {
+            this.$set(
+              this.sheetInfo.selectBlock.relSignInfo,
+              "signerName2",
+              res.data.data.relSignInfo.signerName2
+            );
+            this.$set(
+              this.sheetInfo.selectBlock.relSignInfo,
+              "signerNo2",
+              res.data.data.relSignInfo.signerNo2
+            );
+          });
+        } else {
+          signBlockD(password, username, 2).then(res => {
+            this.$set(
+              this.sheetInfo.selectBlock.relSignInfo,
+              "signerName2",
+              res.data.data.relSignInfo.signerName2
+            );
+            this.$set(
+              this.sheetInfo.selectBlock.relSignInfo,
+              "signerNo2",
+              res.data.data.relSignInfo.signerNo2
+            );
+          });
+        }
+        this.bus.$emit("saveSheetPage", true);
+      }, title);
     }
   },
   watch: {
@@ -1350,11 +1441,15 @@ export default {
   mounted() {
     this.fiexHeaderWidth =
       this.$refs.table && this.$refs.table.offsetWidth + "px";
-    if (this.sheetInfo.sheetType === "intervention_cure") {
-      this.fiexHeaderWidth =
-        this.$refs.table && this.$refs.table.offsetWidth + 12 + "px";
-    }
     console.log("mounted");
+  },
+  created() {
+    if (
+      this.doubleSignArr.includes(sheetInfo.sheetType) &&
+      sheetInfo.selectBlock.relSignInfo == undefined
+    ) {
+      this.$set(this.sheetInfo.selectBlock, "relSignInfo", {});
+    }
   },
   components: {
     signModal,

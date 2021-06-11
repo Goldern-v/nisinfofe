@@ -129,6 +129,7 @@
 import { getTemperatue } from "@/api/temperature";
 import nullBg from "../../../../components/null/null-bg";
 import moment from "moment";
+import axios from 'axios'
 export default {
   data() {
     return {
@@ -149,10 +150,18 @@ export default {
         this.$route.query.visitId,
         date
       ).then(res => {
-        this.filePath =
-          this.HOSPITAL_ID == "lingcheng"
-            ? res.data.data.expand
-            : res.data.data.filePath;
+        if(this.HOSPITAL_ID == "zhongshanqi" && res.data.data && res.data.data.filePath){
+          let filePath = res.data.data.filePath;
+          let requestUrl = `http://admin:Zsqy@2021@${res.data.data.filePath.split('http://')[1]}`;
+    　　　 axios.get(requestUrl).then((result)=>{
+            this.filePath = filePath;
+          })
+        }else {
+          this.filePath =
+            this.HOSPITAL_ID == "lingcheng"
+              ? res.data.data.expand
+              : res.data.data.filePath;
+          }
       });
     },
     onload() {

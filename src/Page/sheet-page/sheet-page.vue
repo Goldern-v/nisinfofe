@@ -25,7 +25,9 @@
 
         <patientList
           :toName="
-            (HOSPITAL_ID === 'huadu' || HOSPITAL_ID === 'liaocheng') &&
+            (HOSPITAL_ID === 'huadu' ||
+              HOSPITAL_ID === 'liaocheng' ||
+              HOSPITAL_ID === 'wujing') &&
             $route.path.includes('singleTemperatureChart')
               ? 'singleTemperatureChart'
               : 'sheetPage'
@@ -74,7 +76,9 @@
           >
             <i class="el-icon-plus"></i>
             {{
-              (HOSPITAL_ID === "huadu" || HOSPITAL_ID === "liaocheng") &&
+              (HOSPITAL_ID === "huadu" ||
+                HOSPITAL_ID === "liaocheng" ||
+                HOSPITAL_ID === "wujing") &&
               $route.path.includes("singleTemperatureChart")
                 ? "创建体温单"
                 : "创建护理记录单"
@@ -235,8 +239,12 @@ import sheetTable_hemodialysis_CRRT_hd from "./components/sheetTable-hemodialysi
 import sheetTable_intervention_cure from "./components/sheetTable-intervention_cure/sheetTable";
 import sheetTable_mild_hypothermia_hd from "./components/sheetTable-mild_hypothermia_hd/sheetTable";
 import sheetTable_neonatology_picc from "./components/sheetTable-neonatology_picc/sheetTable";
-import sheetTable_internal_eval_lcey from "./components/sheetTable-internal_eval_lcey/sheetTable";
+// import sheetTable_internal_eval_lcey from "./components/sheetTable-internal_eval_lcey/sheetTable";
 import sheetTable_surgical_eval2_lcey from "./components/sheetTable-surgical_eval2_lcey/sheetTable";
+import sheetTable_intervention_cure_lcey from "./components/sheetTable-intervention_cure_lcey/sheetTable";
+import sheetTable_picu_hemodialysis_jm from "./components/sheetTable-picu_hemodialysis_jm/sheetTable";
+import sheetTable_oxytocin_hl from "./components/sheetTable-oxytocin_hl/sheetTable";
+import sheetTable_emergency_rescue from "./components/sheetTable-emergency_rescue/sheetTable";
 import common from "@/common/mixin/common.mixin.js";
 import evalModel from "./components/modal/eval-model/eval-model.vue";
 import { typeList } from "@/api/lesion";
@@ -365,10 +373,20 @@ export default {
         return sheetTable_mild_hypothermia_hd;
       } else if (sheetInfo.sheetType == "neonatology_picc") {
         return sheetTable_neonatology_picc;
-      } else if (sheetInfo.sheetType == "internal_eval_lcey") {
-        return sheetTable_internal_eval_lcey;
-      } else if (sheetInfo.sheetType == "surgical_eval2_lcey") {
+      }
+      // else if (sheetInfo.sheetType == "internal_eval_lcey") {
+      //   return sheetTable_internal_eval_lcey;
+      // }
+      else if (sheetInfo.sheetType == "surgical_eval2_lcey") {
         return sheetTable_surgical_eval2_lcey;
+      } else if (sheetInfo.sheetType == "intervention_cure_lcey") {
+        return sheetTable_intervention_cure_lcey;
+      } else if (sheetInfo.sheetType == "picu_hemodialysis_jm") {
+        return sheetTable_picu_hemodialysis_jm;
+      } else if (sheetInfo.sheetType == "rescue_hl") {
+        return sheetTable_emergency_rescue;
+      } else if (sheetInfo.sheetType == "oxytocin_hl") {
+        return sheetTable_oxytocin_hl;
       } else {
         return sheetTable;
       }
@@ -390,10 +408,28 @@ export default {
     },
     addSheetPage() {
       if (
-        (this.HOSPITAL_ID === "huadu" || this.HOSPITAL_ID === "liaocheng") &&
+        (this.HOSPITAL_ID === "huadu" ||
+          this.HOSPITAL_ID === "liaocheng" ||
+          this.HOSPITAL_ID === "wujing") &&
         this.$route.path.includes("singleTemperatureChart")
       ) {
-        let recordCode = "body_temperature_Hd";
+        // let recordCode = "body_temperature_Hd";
+        // let recordCode =
+        //   this.HOSPITAL_ID === "huadu" || HOSPITAL_ID === "wujing"
+        //     ? "body_temperature_Hd"
+        //     : "body_temperature_lcey";
+        let recordCode = (() => {
+          switch (this.HOSPITAL_ID) {
+            case "huadu":
+              return "body_temperature_Hd";
+            case "liaocheng":
+              return "body_temperature_lcey";
+            case "wujing":
+              return "body_temperature_wj";
+            default:
+              break;
+          }
+        })();
         blockSave(
           this.patientInfo.patientId,
           this.patientInfo.visitId,
@@ -868,9 +904,13 @@ export default {
     sheetTable_intervention_cure,
     sheetTable_mild_hypothermia_hd,
     sheetTable_neonatology_picc,
-    sheetTable_internal_eval_lcey,
+    // sheetTable_internal_eval_lcey,
     sheetTable_surgical_eval2_lcey,
-    doctorEmr
+    sheetTable_intervention_cure_lcey,
+    sheetTable_picu_hemodialysis_jm,
+    doctorEmr,
+    sheetTable_oxytocin_hl,
+    sheetTable_emergency_rescue
   }
 };
 </script>

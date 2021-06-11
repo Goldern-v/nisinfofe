@@ -1,278 +1,62 @@
 <template>
   <div>
-    <table class="table fixed-th" v-if="fixedTh">
+    <table class="table fixed-th" :style="{width: theadW + 'px'}" v-if="fixedTh">
       <colgroup>
-        <!-- <col v-for="col of realColumns" :key="col.label" :width="col.width" /> -->
-        <col width="50" />
-        <col width="80" />
-        <col width="150" />
-        <col width="100" />
-        <col width="100" />
-        <col width="100" />
-        <col width="100" />
-        <col width="100" />
-        <col width="100" />
-        <col width="100" />
-        <col width="100" />
+        <col v-for="col of realColumns" :key="col.prop ? col.label+col.prop : col.label" :width="col.width">
       </colgroup>
       <thead>
-        <!-- <tr>
-          <th v-for="col of columns" :key="col.label" colspan="3">
-            {{col.label}}
-            <span v-for="(child,index) in col.children" :key="index">{{child.label}}人</span>
+        <tr v-for="(row,index) in tileColumns" :key="index">
+          <th v-for="col of row" :key="col.prop ? col.label+col.prop : col.label" :colspan="col.colspan || getColSpan(col)" :rowspan="col.rowspan">
+             <div flex="cross:center" class="cell " v-if="col.tileColumns && col.tileColumns.length" style="display: block;">
+               <div v-for="(item,itemIndex) in col.tileColumns" :key="item.prop ? item.prop + item.label : item.label" class="cell-item">
+                 <span v-html="item.label"></span>
+                  <div style="flex: 1;">
+                    <el-input
+                    v-model="record[item.prop]"
+                    v-if="item.editable"
+                  />
+                  </div>
+                  <span v-html="item.suffix"></span>
+                   <br v-if="(itemIndex+1)%3 ==0"/>
+                  </div>
+            </div>
+            <div class="cell" v-html="col.label" v-else-if="!col.showInput" />
+            <div class="cell" v-else-if="col.render" v-html="col.render(row)"></div>
+            <div class="cell" v-else-if="col.editable">
+              <el-input
+                v-model="record[col.prop]"
+              />
+            </div>
           </th>
-        </tr>-->
-        <!-- <tr v-if="isMultiCol">
-          <th v-for="col of realColumns" :key="col.label">{{col.label}}</th>
-        </tr>-->
+        </tr>
       </thead>
     </table>
     <table class="table" ref="table">
-      <colgroup>
-        <!-- <col v-for="col of realColumns" :key="col.label" :width="col.width" /> -->
-        <col width="50" />
-        <col width="80" />
-        <col width="150" />
-        <col width="100" />
-        <col width="100" />
-        <col width="100" />
-        <col width="100" />
-        <col width="100" />
-        <col width="100" />
-        <col width="100" />
-        <col width="100" />
+       <colgroup>
+        <col v-for="col of realColumns" :key="col.prop ? col.label+col.prop : col.label" :width="col.width">
       </colgroup>
       <thead>
-        <tr>
-          <th class="name" rowspan="6">
-            <div class="cell">床号</div>
-          </th>
-          <th class="name" rowspan="6">
-            <div class="cell">姓名</div>
-          </th>
-          <th class="name" rowspan="6">
-            <div class="cell">诊断</div>
-          </th>
-          <th>
-            <div class="cell">
-              出院
-              <input type="text" v-model="record.patientOutA" />人
+        <tr v-for="(row,index) in tileColumns" :key="index">
+          <th v-for="col of row" :key="col.prop ? col.label+col.prop : col.label" :colspan="col.colspan || getColSpan(col)" :rowspan="col.rowspan">
+             <div flex="cross:center" class="cell " v-if="col.type == 'inline-block' && col.tileColumns && col.tileColumns.length" style="display: block;">
+               <div v-for="(item,itemIndex) in col.tileColumns" :key="item.prop ? item.prop + item.label : item.label" class="cell-item">
+                 <span v-html="item.label"></span>
+                  <div style="flex: 1;">
+                    <el-input
+                    v-model="record[item.prop]"
+                    v-if="item.editable"
+                  />
+                  </div>
+                  <span v-html="item.suffix"></span>
+                   <br v-if="(itemIndex+1)%3 ==0"/>
+                  </div>
             </div>
-          </th>
-          <th>
-            <div class="cell">
-              病危
-              <input type="text" v-model="record.patientBwA" />人
-            </div>
-          </th>
-          <th>
-            <div class="cell">
-              转出
-              <input type="text" v-model="record.patientTransferOutA" />人
-            </div>
-          </th>
-          <th>
-            <div class="cell">
-              出院
-              <input type="text" v-model="record.patientOutP" />人
-            </div>
-          </th>
-          <th>
-            <div class="cell">
-              病危
-              <input type="text" v-model="record.patientBwP" />人
-            </div>
-          </th>
-          <th>
-            <div class="cell">
-              转出
-              <input type="text" v-model="record.patientTransferOutP" />人
-            </div>
-          </th>
-          <th>
-            <div class="cell">
-              出院
-              <input type="text" v-model="record.patientOutN" />人
-            </div>
-          </th>
-          <th>
-            <div class="cell">
-              病危
-              <input type="text" v-model="record.patientBwN" />人
-            </div>
-          </th>
-          <th>
-            <div class="cell">
-              转出
-              <input type="text" v-model="record.patientTransferOutN" />人
-            </div>
-          </th>
-        </tr>
-        <tr>
-          <th>
-            <div class="cell">
-              手术
-              <input type="text" v-model="record.patientOprationA" />人
-            </div>
-          </th>
-          <th>
-            <div class="cell">
-              死亡
-              <input type="text" v-model="record.patientDeathA" />人
-            </div>
-          </th>
-          <th>
-            <div class="cell">
-              备术
-              <input type="text" v-model="record.patientRemarkA" />人
-            </div>
-          </th>
-          <th>
-            <div class="cell">
-              手术
-              <input type="text" v-model="record.patientOprationP" />人
-            </div>
-          </th>
-          <th>
-            <div class="cell">
-              死亡
-              <input type="text" v-model="record.patientDeathP" />人
-            </div>
-          </th>
-          <th>
-            <div class="cell">
-              备术
-              <input type="text" v-model="record.patientRemarkP" />人
-            </div>
-          </th>
-          <th>
-            <div class="cell">
-              手术
-              <input type="text" v-model="record.patientOprationN" />人
-            </div>
-          </th>
-          <th>
-            <div class="cell">
-              死亡
-              <input type="text" v-model="record.patientDeathN" />人
-            </div>
-          </th>
-          <th>
-            <div class="cell">
-              备术
-              <input type="text" v-model="record.patientRemarkN" />人
-            </div>
-          </th>
-        </tr>
-        <tr>
-          <th>
-            <div class="cell">
-              新入
-              <input type="text" v-model="record.patientNewA" />人
-            </div>
-          </th>
-          <th>
-            <div class="cell">
-              特护
-              <input type="text" v-model="record.patientSpecialA" />人
-            </div>
-          </th>
-          <th>
-            <div class="cell">
-              转入
-              <input type="text" v-model="record.patientTransferInA" />人
-            </div>
-          </th>
-          <th>
-            <div class="cell">
-              新入
-              <input type="text" v-model="record.patientNewP" />人
-            </div>
-          </th>
-          <th>
-            <div class="cell">
-              特护
-              <input type="text" v-model="record.patientSpecialP" />人
-            </div>
-          </th>
-          <th>
-            <div class="cell">
-              转入
-              <input type="text" v-model="record.patientTransferInP" />人
-            </div>
-          </th>
-          <th>
-            <div class="cell">
-              新入
-              <input type="text" v-model="record.patientNewN" />人
-            </div>
-          </th>
-          <th>
-            <div class="cell">
-              特护
-              <input type="text" v-model="record.patientSpecialN" />人
-            </div>
-          </th>
-          <th>
-            <div class="cell">
-              转入
-              <input type="text" v-model="record.patientTransferInN" />人
-            </div>
-          </th>
-        </tr>
-        <tr>
-          <th>
-            <div class="cell">
-              一级
-              <input type="text" v-model="record.patientFirstA" />人
-            </div>
-          </th>
-          <th>
-            <div class="cell">
-              病重
-              <input type="text" v-model="record.patientBzA" />人
-            </div>
-          </th>
-          <th>
-            <div class="cell">
-              总数
-              <input type="text" v-model="record.patientTotalA" />人
-            </div>
-          </th>
-          <th>
-            <div class="cell">
-              一级
-              <input type="text" v-model="record.patientFirstP" />人
-            </div>
-          </th>
-          <th>
-            <div class="cell">
-              病重
-              <input type="text" v-model="record.patientBzP" />人
-            </div>
-          </th>
-          <th>
-            <div class="cell">
-              总数
-              <input type="text" v-model="record.patientTotalP" />人
-            </div>
-          </th>
-          <th>
-            <div class="cell">
-              一级
-              <input type="text" v-model="record.patientFirstN" />人
-            </div>
-          </th>
-          <th>
-            <div class="cell">
-              病重
-              <input type="text" v-model="record.patientBzN" />人
-            </div>
-          </th>
-          <th>
-            <div class="cell">
-              总数
-              <input type="text" v-model="record.patientTotalN" />人
+            <div class="cell" v-html="col.label" v-else-if="!col.showInput" />
+            <div class="cell" v-else-if="col.render" v-html="col.render(row)"></div>
+            <div class="cell" v-else-if="col.editable">
+              <el-input
+                v-model="record[col.prop]"
+              />
             </div>
           </th>
         </tr>
@@ -286,13 +70,13 @@
         >
           <td
             v-for="(col, colIndex) of realColumns"
-            :key="col.label"
+            :key="col.prop ? col.label+col.prop : col.label"
             :style="{'text-align': col.align || 'left'}"
-            :colspan="colIndex>2?3:1"
             @dblclick="onDblClick({row, rowIndex, col, colIndex})"
             @contextmenu.stop.prevent="onContextMenu($event, rowIndex, col)"
+            :colspan="col.colspan"
           >
-            <div class="cell" v-if="col.render" v-html="col.render(row)" />
+            <div class="cell" v-if="col.render" v-html="col.render(row)"/>
             <label v-else-if="col.editable">
               <el-input
                 autosize
@@ -302,6 +86,7 @@
                 :disabled="!editable"
                 @change="onInputChange($event, row[col.prop], col.prop, rowIndex, colIndex)"
                 @keydown.native="onInputKeydown($event, row[col.prop], col.prop, rowIndex, colIndex)"
+                :name="col.prop"
               />
             </label>
             <div class="cell" v-else>{{row[col.prop]}}</div>
@@ -318,7 +103,7 @@
 export default {
   model: {
     prop: "data",
-    event: "input",
+    event: "input"
   },
   props: {
     fixedTh: Boolean,
@@ -338,27 +123,30 @@ export default {
      */
     columns: {
       type: Array,
-      default: () => [],
+      default: () => []
+    },
+    theadW: {
+      type: Number,
+      default: 1860
     },
     data: {
       type: Array,
-      default: () => [],
-    },
-    record: {
-      type: Object,
-      default: () => {},
+      default: () => []
     },
     getContextMenu: {
-      type: Function,
+      type: Function
     },
     editable: {
-      type: Boolean,
+      type: Boolean
+    },
+    record: {
+      type: Object
     },
   },
   data: () => ({
     selectedRow: null,
     selectedRowIndex: -1,
-    selectedCol: null,
+    selectedCol: null
   }),
   computed: {
     isMultiCol() {
@@ -369,23 +157,57 @@ export default {
       }
       return false;
     },
+    tileColumns(){
+      let arr = [],newArr = [];
+      this.columns.map(item=>{
+        if(!item.isHide){
+          arr.push(item);
+        }
+        // 针对聊城二院交班志的处理
+        if(item.type == 'block' && item.tileColumns && item.tileColumns.constructor == Array){
+          item.tileColumns.map(row =>{
+            newArr.push(row);
+            if(row[0].addRow){
+              newArr.push(row.map(item=>{
+                return {
+                  ...item,
+                  showInput: true
+                }
+              }))
+            }
+          })
+        }
+      })
+      newArr.unshift(arr);
+      console.log(newArr);
+      return newArr;
+    },
     realColumns() {
       let columns = [];
-
-      for (const col of this.columns) {
-        if (col.columns && col.columns.length) {
-          columns = columns.concat(col.columns);
-        } else {
-          columns.push(col);
+      if(this.columns && this.columns[0] && this.columns[0].constructor == Array){
+        for (const col of this.columns[0]) {
+          if (col.columns && col.columns.length) {
+            columns = columns.concat(col.columns);
+          } else {
+            columns.push(col);
+          }
+        }
+      }else {
+        for (const col of this.columns) {
+          if (col.columns && col.columns.length && !col.isHid) {
+            columns = columns.concat(col.columns);
+          } else if(!col.isHide){
+            columns.push(col);
+          }
         }
       }
-
+      // console.log(columns);
       return columns;
-    },
+    }
   },
   methods: {
     getColSpan(col) {
-      return (col.columns && col.columns.length) || 1;
+      return (col.columns && col.columns.constructor == Array ? col.columns[0].length : (col.columns && col.columns.length)) || 1;
     },
     onClick(rowIndex) {
       this.selectRow(rowIndex);
@@ -407,14 +229,14 @@ export default {
           e.clientY - 15,
           window.innerHeight - data.length * 36 - 12
         )}px`,
-        left: `${Math.min(e.clientX + 15, window.innerWidth - 180)}px`,
+        left: `${Math.min(e.clientX + 15, window.innerWidth - 180)}px`
       };
 
       window.openContextMenu({ data, style });
     },
     select(rowIndex, col) {
       if (typeof rowIndex !== "number") {
-        rowIndex = this.data.findIndex((r) => r === rowIndex);
+        rowIndex = this.data.findIndex(r => r === rowIndex);
       }
 
       this.selectedRow = this.data[rowIndex];
@@ -431,7 +253,7 @@ export default {
       this.select(rowIndex, null);
     },
     addRow(row = {}) {
-      const index = this.data.findIndex((i) => !i.bedLabel);
+      const index = this.data.findIndex(i => !i.bedLabel);
       this.addRowBefore(row, index >= 0 ? index : 0);
     },
     addRowBefore(row = {}, rowIndex = this.selectedRowIndex) {
@@ -472,125 +294,92 @@ export default {
     },
     onInputKeydown(event, value, prop, row, col) {
       this.$emit("input-keydown", { event, value, prop, row, col });
-    },
-  },
+    }
+  }
 };
 </script>
 
 <style lang="stylus" scoped>
-.table {
-  width: 100%;
-  border-collapse: collapse;
+  .table
+    width 100%
+    border-collapse collapse
 
-  thead {
-    border: 1px solid #444444;
-  }
+    th, td
+      height 30px
+      border 1px solid #444444
+      font-size 12px
+      vertical-align middle
+      line-height 14px
+      box-sizing border-box
 
-  td, th {
-    height: 30px;
-    font-size: 12px;
-    vertical-align: middle;
-    line-height: 14px;
-    box-sizing: border-box;
-  }
+    th
+      padding 8px 4px
+      background #f4f2f5
+      font-weight 700
+      text-align center
+      word-break keep-all
+      white-space nowrap
+      min-width 40px
 
-  td {
-    border: 1px solid #444444;
-  }
+    tbody tr
+      &:nth-child(2n)
+        background #f4f2f5
 
-  tr {
-    th {
-      &:nth-of-type(3), &:nth-of-type(6), &:nth-of-type(9) {
-        border-right: 1px solid #444444;
-      }
-    }
-  }
+      &:hover
+        background #e6e6e6
 
-  th {
-    padding: 2px;
-    background: #f4f2f5;
-    font-weight: 700;
-    text-align: center;
-    word-break: keep-all;
-    white-space: nowrap;
-    height: 24px;
+      &.selected
+        background #FFF8B1
 
-    &.name, &:last-of-type {
-      border-right: 1px solid #444444;
-    }
+    // .cell
+    //   padding 2px 4px
+    .cell-item
+      display inline-flex
+      width 33.3%
+      float left
+      align-items center
+      padding 0 5px
+      box-sizing border-box
 
-    input {
-      width: 30px;
-      border: none;
-      background-color: transparent;
-      text-align: center;
-      outline: none;
-    }
-  }
+    label
+      display flex
+      align-items center
+      // margin-top -4px
+      // margin-bottom -4px
+      height 100%
+      width 100%
 
-  tbody tr {
-    &:nth-child(2n) {
-      background: #f4f2f5;
-    }
+    >>>textarea, >>>pre
+      display block
+      // padding 8px 4px
+      padding 4px;
+      margin 0
+      width 100%
+      min-height 15px
+      box-sizing border-box
+      border none !important
+      outline none !important
+      resize none
+      background none !important
+      color black !important
+      overflow-y hidden
+      text-align inherit
+      cursor auto !important
+      overflow: hidden;
 
-    &:hover {
-      background: #e6e6e6;
-    }
-
-    &.selected {
-      background: #FFF8B1;
-    }
-  }
-
-  .cell {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  td {
-    .cell {
-      padding: 6px 4px;
-    }
-  }
-
-  label {
-    display: flex;
-    align-items: center;
-    // margin-top -4px
-    // margin-bottom -4px
-    height: 100%;
-    width: 100%;
-  }
-
-  >>>textarea, >>>pre {
-    display: block;
-    // padding 8px 4px
-    padding: 4px;
-    margin: 0;
-    width: 100%;
-    min-height: 15px;
-    box-sizing: border-box;
-    border: none !important;
-    outline: none !important;
-    resize: none;
-    background: none !important;
-    color: black !important;
-    overflow: hidden;
-    text-align: inherit;
-    cursor: auto !important;
-
-    &:disabled {
-      color: black;
-      background: none;
-    }
-  }
-}
-
-.fixed-th {
-  position: fixed;
-  top: 102px;
-  width: 1040px;
-  z-index: 1;
-}
+      &:disabled
+        color black
+        background none
+   >>>.el-input
+    .el-input__inner
+      background-color transparent
+      border none
+      height 100%
+      padding 3px 0
+      text-align center
+.fixed-th
+  position fixed
+  top 102px
+  width 1040px
+  z-index 1
 </style>

@@ -30,6 +30,9 @@ module.exports = {
     HOSPITAL_NAME: '"德州市陵城区人民医院"',
     HOSPITAL_NAME_SPACE: '"德 州 市 陵 城 区 人 民 医 院"',
     ENABLE_BLUETOOTH_SIGN: 'true',
+    COMPANY_NAME: '"宸瑞普惠(广州)科技有限公司"',
+    ABOUT_INFO: '"关于宸瑞普惠"',
+    title: '"智慧护理信息系统"'
   },
   "yanshi": {
     HOSPITAL_ID: '"yanshi"',
@@ -61,23 +64,36 @@ module.exports = {
     HOSPITAL_NAME: '"聊城市第二人民医院"',
     HOSPITAL_NAME_SPACE: '"聊 城 市 第 二 人 民 医 院"',
     COMPANY_NAME: '"宸瑞普惠(广州)科技有限公司"',
-    ABOUT_INFO: '"关于宸瑞普惠"'
+    ABOUT_INFO: '"关于宸瑞普惠"',
+    title: '"智慧护理信息系统"'
   },
   "guizhou": {
     HOSPITAL_ID: '"guizhou"',
     HOSPITAL_NAME: '"贵州省人民医院"',
     HOSPITAL_NAME_SPACE: '"贵 州 省 人 民 医 院"',
     COMPANY_NAME: '"百辰源(广州)科技有限公司"',
-    ABOUT_INFO: '"关于百辰源"'
+    ABOUT_INFO: '"关于百辰源"',
+    title: '"智慧护理信息系统"'
   },
   "zhongshanqi": {
     HOSPITAL_ID: '"zhongshanqi"',
     HOSPITAL_NAME: '"中山大学附属第七医院"',
-    HOSPITAL_NAME_SPACE: '"中 山 大 学 附 属 第 七 医 院"'
+    HOSPITAL_NAME_SPACE: '"中 山 大 学 附 属 第 七 医 院"',
+    title: '"中山七院智慧护理信息系统"'
   },
   "hengli": {
     HOSPITAL_ID: '"hengli"',
     HOSPITAL_NAME: '"东莞市横沥医院"',
     HOSPITAL_NAME_SPACE: '"东 莞 市 横 沥 医 院"'
+  },
+  "xiegang": {
+    HOSPITAL_ID: '"xiegang"',
+    HOSPITAL_NAME: '"东莞市谢岗医院"',
+    HOSPITAL_NAME_SPACE: '"东 莞 市 谢 岗 医 院"'
+  },
+  "shannan": {
+    HOSPITAL_ID: '"shannan"',
+    HOSPITAL_NAME: '"山南市人民医院"',
+    HOSPITAL_NAME_SPACE: '"山 南 市 人 民 医 院"'
   }
 }

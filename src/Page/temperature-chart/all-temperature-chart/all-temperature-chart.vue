@@ -13,8 +13,20 @@
           clearable
         />
       </span>
-      <div class="times">
-        <label :for="`time${item.id}`" v-for="item in times" :key="item.id">
+      <div class="times" v-if="HOSPITAL_ID === 'huadu'">
+        <label :for="`time${item.id}`" v-for="item in timesEven" :key="item.id">
+          <input
+            type="radio"
+            name="time"
+            v-model="query.entryTime"
+            :id="`time${item.id}`"
+            :value="item.value"
+          />
+          {{ item.value }}
+        </label>
+      </div>
+      <div class="times" v-if="HOSPITAL_ID === 'liaocheng'">
+        <label :for="`time${item.id}`" v-for="item in timesOdd" :key="item.id">
           <input
             type="radio"
             name="time"
@@ -179,6 +191,16 @@
               <el-input v-model="scope.row.height"></el-input>
             </template>
           </el-table-column>
+          <el-table-column
+            prop="stoolNum"
+            label="大便次数"
+            min-width="80"
+            align="center"
+          >
+            <template slot-scope="scope">
+              <el-input v-model="scope.row.stoolNum"></el-input>
+            </template>
+          </el-table-column>
         </el-table>
       </div>
       <div class="all-temperature-chart-print" ref="printable">
@@ -315,6 +337,16 @@
           >
             <template slot-scope="scope">
               <el-input v-model="scope.row.height"></el-input>
+            </template>
+          </el-table-column>
+          <el-table-column
+            prop="stoolNum"
+            label="大便次数"
+            min-width="80"
+            align="center"
+          >
+            <template slot-scope="scope">
+              <el-input v-model="scope.row.stoolNum"></el-input>
             </template>
           </el-table-column>
         </el-table>
@@ -484,10 +516,10 @@
 
 <script>
 import common from "@/common/mixin/common.mixin.js";
-import { getPatientsInfo, saveOverAllTemperture } from "./api/api";
+import { getPatientsInfo, saveOverAllTemperture } from "../api/api";
 import moment from "moment";
 import print from "printing";
-import formatter from "./print-formatter";
+import formatter from "../print-formatter";
 export default {
   mixins: [common],
   props: {},
@@ -500,9 +532,9 @@ export default {
       query: {
         wardCode: "", //科室编码
         entryDate: moment(new Date()).format("YYYY-MM-DD"), //录入日期
-        entryTime: "04" //录入时间
+        entryTime: this.HOSPITAL_ID === "huadu" ? "04" : "07" //录入时间
       },
-      times: [
+      timesEven: [
         {
           id: 0,
           value: "04"
@@ -522,6 +554,32 @@ export default {
         {
           id: 4,
           value: "20"
+        },
+        {
+          id: 5,
+          value: "23"
+        }
+      ],
+      timesOdd: [
+        {
+          id: 0,
+          value: "03"
+        },
+        {
+          id: 1,
+          value: "07"
+        },
+        {
+          id: 2,
+          value: "11"
+        },
+        {
+          id: 3,
+          value: "15"
+        },
+        {
+          id: 4,
+          value: "19"
         },
         {
           id: 5,
@@ -606,9 +664,10 @@ export default {
         status: "0",
         temperature: "",
         curWeight: "",
-        height:"",
+        height: "",
         recordSource: 2,
-        heartRate: ""
+        heartRate: "",
+        stoolNum: ""
       };
 
       let list = this.tableData.map(item => {
@@ -624,7 +683,9 @@ export default {
         ...this.query,
         list
       };
-
+      tempertureData.entryDate = tempertureData.entryDate
+        ? moment(tempertureData.entryDate).format("YYYY-MM-DD")
+        : moment(new Date()).format("YYYY-MM-DD");
       saveOverAllTemperture(tempertureData).then(res => {
         this.getData();
       });

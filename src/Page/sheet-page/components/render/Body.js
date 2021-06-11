@@ -247,6 +247,11 @@ function switechSheetType(type) {
     schema = require("../config/thyroid_gland/tr.js").default;
   }
   break;
+  case "vein_thrombolysis_hj": {
+    // 静脉溶栓护理记录单
+    schema = require("../config/jmrs/tr.js").default;
+  }
+  break;
   case "neurology_wx": {
     // 威县-神经内科
     schema = require("../config/neurology_wx/tr.js").default;
@@ -280,6 +285,11 @@ function switechSheetType(type) {
   case "maternal_newborn_lc": {
     // 陵城-孕产妇、新生儿护理观察记录单
     schema = require("../config/maternal_newborn_lc/tr.js").default;
+  }
+  break;
+  case "critical_lc": {
+    // 陵城-病重（病危）患者护理记录单
+    schema = require("../config/critical_lc/tr.js").default;
   }
   break;
   case "stress_injury_hd": {
@@ -362,6 +372,11 @@ function switechSheetType(type) {
     schema = require("../config/additional_count_hd/tr.js").default;
   }
   break;
+  case "additional_count2_hd": {
+    // 花都-通用护理记录单副单2
+    schema = require("../config/additional_count2_hd/tr.js").default;
+  }
+  break;
   case "intervention_cure": {
     // 厚街-介入治疗术护理记录单
     schema = require("../config/intervention_cure/tr.js").default;
@@ -397,6 +412,26 @@ function switechSheetType(type) {
     schema = require("../config/neonatology_jm/tr.js").default;
   }
   break;
+  case "child_recovery_jm": {
+    // 江门妇幼 - 儿童康复科记录单
+    schema = require("../config/child_recovery_jm/tr.js").default;
+  }
+  break;
+  case "pediatric_surgery_jm": {
+    // 江门妇幼 - 小儿外科护理记录单
+    schema = require("../config/pediatric_surgery_jm/tr.js").default;
+  }
+  break;
+  case "picu_hemodialysis_jm": {
+    // 江门妇幼 - PICU血液透析护理记录单
+    schema = require("../config/picu_hemodialysis_jm/tr.js").default;
+  }
+  break;
+  case "body_temperature_lcey": {
+    // 聊城二院 - 体温单
+    schema = require("../config/body_temperature_lcey/tr.js").default;
+  }
+  break;
   case "internal_eval_lcey": {
     // 聊城二院 - (内科)一般患者护理评估记录单
     schema = require("../config/internal_eval_lcey/tr.js").default;
@@ -422,9 +457,94 @@ function switechSheetType(type) {
     schema = require("../config/critical_lcey/tr").default;
   }
   break;
+  case "peri_intervention_lcey": {
+    // 聊城二院 - 围介入期护理观察记录单
+    schema = require("../config/peri_intervention_lcey/tr").default;
+  }
+  break;
+  case "intervention_cure_lcey": {
+    // 聊城二院 - 介入诊疗护理记录单
+    schema = require("../config/intervention_cure_lcey/tr").default;
+  }
+  break;
+  case "access_lcey": {
+    // 聊城二院 - 出入量记录单
+    schema = require("../config/access_lcey/tr").default;
+  }
+  break;
+  case "body_temperature_wj": {
+    // 武警总队 - 体温单
+    schema = require("../config/body_temperature_wj/tr").default;
+  }
+  break;
   case "common_zsqy": {
     // 中山七院-护理记录单
     schema = require("../config/common_zsqy/tr.js").default;
+  }
+  break;
+  case "common_gzry": {
+    // 贵州人医-护理记录单
+    schema = require("../config/common_gzry/tr.js").default;
+  }
+  break;
+  case "common_hl": {
+    // 横沥-护理记录单
+    schema = require("../config/common_hl/tr.js").default;
+  }
+  break;
+  case "rescue_hl": {
+    // 横沥-急救抢救单
+    schema = require("../config/emergency_rescue/tr.js").default;
+  }
+  break;
+  case "emergency_stay_hl": {
+    // 横沥-留观护理记录单
+    schema = require("../config/emergency_stay_hl/tr.js").default;
+  }
+  break;
+  case "prenatal_hl": {
+    // 横沥-产前待产
+    schema = require("../config/prenatal_hl/tr.js").default;
+  }
+  break;
+  case "oxytocin_hl": {
+    // 横沥-催产素静脉点滴观察
+    schema = require("../config/oxytocin_hl/tr.js").default;
+  }
+  break;
+  case "contraction_inhibitor_hl": {
+    // 横沥-宫缩抑制剂静脉滴注观察记录单
+    schema = require("../config/contraction_inhibitor_hl/tr.js").default;
+  }
+  break;
+  // case "dressing_count_hl": {
+  //   // 横沥-经阴道接生器械敷料清点
+  //   schema = require("../config/dressing_count_hl/tr.js").default;
+  // }
+  // break;
+  case "magnesium_sulphate_hl": {
+    // 横沥-硫酸镁注射液静脉滴注观察记录单
+    schema = require("../config/magnesium_sulphate_hl/tr.js").default;
+  }
+  break;
+  case "neonatology_hl": {
+    // 横沥 - 新生儿护理记录单
+    schema = require("../config/neonatology_hl/tr.js").default;
+  }
+  break;
+  case "obstetrics_hl": {
+    // 横沥 - 护理记录单(产科)
+    schema = require("../config/obstetrics_hl/tr.js").default;
+  }
+  break;
+  case "gynecology_hl": {
+    // 横沥 - 护理记录单(妇科)
+    schema = require("../config/gynecology_hl/tr.js").default;
+  }
+  break;
+  case "blood_purify_hl": {
+    // 横沥 - 持续性血液净化治疗记录表
+    schema = require("../config/blood_purify_hl/tr.js").default;
   }
   break;
   default: {

@@ -1,5 +1,5 @@
 <template>
-  <div :class="{'bed-hd': HOSPITAL_ID == 'huadu'}">
+  <div :class="{ 'bed-hd': HOSPITAL_ID == 'huadu' }">
     <div class="right-part">
       <search-con ref="searchCon"></search-con>
     </div>
@@ -8,22 +8,50 @@
       class="left-part"
       v-loading="loading"
       :element-loading-text="getLoadingText()"
-      :style="'position: relative;height:auto;min-height:'+bedHeight"
+      :style="'position: relative;height:auto;min-height:' + bedHeight"
     >
       <el-row :gutter="12" class="card-con">
         <div class="null-bg" v-if="bedList.length == 0 && !loading">
-          <img src="../../../../common/images/card/默认图.png" height="220" width="220" />
+          <img
+            src="../../../../common/images/card/默认图.png"
+            height="220"
+            width="220"
+          />
           <p>暂时没有护理单元～</p>
         </div>
-        <component :is="currentBedItem" v-for="(item, index) in bedList"
+        <component
+          :is="currentBedItem"
+          v-for="(item, index) in bedList"
           :key="index"
           :data="item"
           :toLike="toLike"
           :toInfo="toInfo"
           :prevent="prevent"
-          v-show="filterSearch(item)">
+          v-show="filterSearch(item)"
+        >
         </component>
       </el-row>
+    </div>
+
+    <div class="advice-tips" v-show="!loading">
+      <sweet-modal ref="modal" title="医嘱提醒" :modalWidth="500" :blocking="true">
+        <el-table
+          :data="tableData"
+          style="width: 100%"
+          border
+          :height="400"
+        >
+          <el-table-column prop="bedlabel" label="床号" min-width="50px" align="center"></el-table-column>
+          <el-table-column prop="name" label="姓名" min-width="80px" align="center"></el-table-column>
+          <el-table-column prop="wardCode" label="科室" min-width="80px" align="center"></el-table-column>
+          <el-table-column prop="orderText" label="药品名称" min-width="80px" align="center"></el-table-column>
+          <el-table-column prop="dosage" label="剂量" min-width="80px" align="center">
+            <template slot-scope="scope">
+             <div>{{scope.row.dosage}}{{scope.row.dosageUnits}}</div>
+            </template>
+          </el-table-column>
+        </el-table>
+      </sweet-modal>
     </div>
   </div>
 </template>
@@ -78,6 +106,24 @@
     width: 240px;
   }
 }
+.advice-tips {
+  >>> .sweet-modal-overlay {
+    width: 500px;
+    height: 400px;
+    left: auto;
+    top: auto;
+    right: 160px;
+    bottom: 37px;
+    background: transparent;
+    .sweet-modal {
+      top: auto !important;
+      left: auto !important;
+      bottom: 0;
+      right: 0;
+      transform: none;
+    }
+  }
+}
 </style>
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus">
@@ -111,9 +157,10 @@
 </style>
 
 <script>
-import { follow, unfollow, unfollowHd } from "@/api/lesion";
+import { follow, unfollow, unfollowHd, getPatientOrdersWithWardCode } from "@/api/lesion";
 import bedItem from "./component/bed-item/bed-item.vue";
 import bedItemHd from "./component/bed-item-hd/bed-item.vue";
+import bedItemLcey from "./component/bed-item-lcey/bed-item.vue";
 import searchCon from "./component/search-con/search-con.vue";
 import common from "@/common/mixin/common.mixin.js";
 import qs from "qs";
@@ -123,7 +170,9 @@ export default {
     return {
       searchWord: "",
       bedList: [],
-      loading: false
+      loading: false,
+      tableData: [],//医嘱提醒id
+      timeId: ""
     };
   },
   computed: {
@@ -138,10 +187,12 @@ export default {
     bedHeight() {
       return this.wih - 93 + "px";
     },
-    currentBedItem(){
-      if(this.HOSPITAL_ID == 'huadu'){
+    currentBedItem() {
+      if (this.HOSPITAL_ID == "huadu") {
         return bedItemHd;
-      }else {
+      } else if (this.HOSPITAL_ID == "liaocheng") {
+        return bedItemLcey;
+      } else {
         return bedItem;
       }
     }
@@ -164,6 +215,21 @@ export default {
       return `${value} 第(${day})天`;
     }
   },
+  mounted(){
+    // 中山七-医嘱提醒
+    if(this.HOSPITAL_ID == "zhongshanqi"){
+      this.close();
+      this.getAdvice();
+      this.timeId = setInterval(()=>{
+        this.getAdvice();
+      },10*60*1000)
+    }
+  },
+  beforeDestroy() {
+    if(this.HOSPITAL_ID == "zhongshanqi"){
+      clearInterval(this.timeId);
+    }
+  },
   methods: {
     handleClick(tab, event) {
       console.log(tab, event);
@@ -172,6 +238,7 @@ export default {
       console.log(tab, event);
     },
     toLike(item) {
+      console.log(item);
       if (item.isFollow === "0") {
         follow(this.deptCode, item.bedLabel, item.bedNo).then(res => {
           item.isFollow = "1";
@@ -181,11 +248,15 @@ export default {
           });
         });
       }
-      if (item.isFollow === "1" && this.HOSPITAL_ID == 'huadu') {
-        unfollowHd(this.deptCode,item.bedNo).then(res => {
+      /* 床位一览卡取消关注(花都和聊城二院) */
+      if (
+        item.isFollow === "1" &&
+        (this.HOSPITAL_ID === "huadu" || this.HOSPITAL_ID === "liaocheng")
+      ) {
+        unfollowHd(this.deptCode, item.bedNo).then(res => {
           item.isFollow = "0";
         });
-      }else if (item.isFollow === "1") {
+      } else if (item.isFollow === "1") {
         unfollow(item.bedLabel).then(res => {
           item.isFollow = "0";
         });
@@ -245,12 +316,28 @@ export default {
           visitId: obj.visitId
         })}`
       );
+    },
+    close() {
+      this.$refs.modal.close();
+    },
+    // 中山七-医嘱提醒
+    getAdvice(){
+      if(!this.deptCode){
+        return;
+      }
+      getPatientOrdersWithWardCode(this.deptCode).then(res => {
+        this.tableData = res.data.data;
+        if(this.tableData && this.tableData.length > 0){
+          this.$refs.modal.open();
+        }
+      })
     }
   },
   components: {
     bedItem,
     searchCon,
-    bedItemHd
+    bedItemHd,
+    bedItemLcey
   }
 };
 </script>
