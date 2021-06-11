@@ -805,8 +805,6 @@ export default {
             break;
         }
       })();
-      console.log("oklenght", okLength);
-      // this.HOSPITAL_ID === "lingcheng" ? 46 : 23;
       var GetLength = function(str) {
         // 过滤上下标签替换
         const subReg = /(<\/?sub.*?>)/gi;
@@ -962,9 +960,15 @@ export default {
             } else {
               text += allDoc[i];
             }
-          }
-          if (this.HOSPITAL_ID == "hengli") {
+          } else if (this.HOSPITAL_ID == "hengli") {
             if (GetLength(text) > 40) {
+              result.push(text);
+              text = allDoc[i];
+            } else {
+              text += allDoc[i];
+            }
+          } else if (this.sheetInfo.sheetType === "internal_eval_lcey") {
+            if (GetLength(text) > 98) {
               result.push(text);
               text = allDoc[i];
             } else {

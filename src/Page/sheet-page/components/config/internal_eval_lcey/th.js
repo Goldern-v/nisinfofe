@@ -6,9 +6,9 @@ function currYear() {
 export default {
   // 科室的名称
   deptType: '',
-  style: {
-    width: "1000px"
-  },
+  // style: {
+  //   width: "1000px"
+  // },
   th: {
     top: [{
         name: `
@@ -17,7 +17,7 @@ export default {
         colspan: "1",
         rowspan: "3",
         style: {
-          minWidth: "40px"
+          minWidth: "30px"
         },
       },
       {
@@ -27,14 +27,11 @@ export default {
         colspan: "1",
         rowspan: "3",
         style: {
-          minWidth: "40px"
+          minWidth: "30px"
         },
       },
       {
         name: "体温<br/>℃",
-        style: {
-          minWidth: "40px"
-        },
         colspan: "1",
         rowspan: "3"
       },
@@ -44,9 +41,6 @@ export default {
         `,
         colspan: "1",
         rowspan: "3",
-        style: {
-          minWidth: "40px"
-        }
       },
       {
         name: `
@@ -54,9 +48,6 @@ export default {
         `,
         colspan: "1",
         rowspan: "3",
-        style: {
-          minWidth: "30px"
-        }
       },
       {
         name: `
@@ -72,9 +63,6 @@ export default {
         name: `
         SPO<sub>2</sub><br>(%)
         `,
-        style: {
-          minWidth: "31px"
-        },
         colspan: "1",
         rowspan: "3"
       },
@@ -115,7 +103,7 @@ export default {
         colspan: '1',
         rowspan: '3',
         style: {
-          minWidth: '150px'
+          minWidth: '600px'
         },
       },
       {

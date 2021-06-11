@@ -1267,7 +1267,8 @@ export default {
         this.HOSPITAL_ID == "weixian" ||
         this.HOSPITAL_ID == "lingcheng" ||
         this.HOSPITAL_ID == "huadu" ||
-        this.HOSPITAL_ID == "hengli"
+        this.HOSPITAL_ID == "hengli" ||
+        this.HOSPITAL_ID == "liaocheng"
       ) {
         window.openSpecialModal2(config);
       } else {

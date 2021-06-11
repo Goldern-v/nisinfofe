@@ -200,7 +200,7 @@ export default {
     return {
       bus: bus(this),
       editableTabsValue: "2",
-      selectDate: this.patientInfo.admissionDate.slice(0, 10),
+      selectDate: moment(new Date()).format("YYYY-MM-DD"),
       query: {
         recordDate: moment(new Date(this.patientInfo.admissionDate)).format(
           "YYYY-MM-DD"
@@ -270,7 +270,6 @@ export default {
     };
   },
   mounted() {
-    // this.getList();
     this.getVitalList();
     this.bus.$on("refreshVitalSignList", () => {
       this.getList();
@@ -326,7 +325,9 @@ export default {
         visitId: this.patientInfo.visitId,
         recordDate: this.selectDate
           ? this.selectDate
-          : this.patientInfo.admissionDate.slice(0, 10),
+          : moment(new Date(this.patientInfo.admissionDate)).format(
+              "YYYY-MM-DD"
+            ),
         wardCode: this.patientInfo.wardCode
       };
       /* 获取体温单列表接口 */
