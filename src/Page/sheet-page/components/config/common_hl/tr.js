@@ -1,7 +1,17 @@
-import { listItem } from "../../../api/recordDesc";
-import { multiDictInfo } from "../../../api/index";
-import { keyf1 } from "../keyEvent/f1.js";
-import { event_date, event_time, click_date } from "../keyEvent/date";
+import {
+  listItem
+} from "../../../api/recordDesc";
+import {
+  multiDictInfo
+} from "../../../api/index";
+import {
+  keyf1
+} from "../keyEvent/f1.js";
+import {
+  event_date,
+  event_time,
+  click_date
+} from "../keyEvent/date";
 import info from "../sheetInfo";
 // let info = {
 //   sheetType: "neurology"
@@ -10,8 +20,7 @@ let ysList = [];
 let szList = ['清', '△', '+', '++', '+++', '++++'];
 let chuList = [];
 let ruList = [];
-export default [
-  {
+export default [{
     key: "recordMonth", //日期
     value: "",
     event: event_date,
@@ -40,7 +49,7 @@ export default [
   {
     key: "bloodPressure", //血压
     value: "",
-    event: function(e, td) {
+    event: function (e, td) {
       if (e.keyCode == 32) {
         e.target.value += "/";
         e.preventDefault();
@@ -176,10 +185,10 @@ export default [
       top: "1px",
       bottom: "1px",
       left: "1px",
-      width: "180px",
+      width: "260px",
       background: "transparent"
     },
-    event: function(e, td) {
+    event: function (e, td) {
       console.log(e.keyCode);
       if (e.keyCode == 9) {
         td.value = "    " + td.value;

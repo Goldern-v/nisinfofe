@@ -81,11 +81,11 @@ export default {
         特殊情况记录
         `,
         style: {
-          minWidth: "153px",
-          maxWidth: "153px"
+          minWidth: "260px",
+          maxWidth: "260px"
         },
         colspan: "1",
-        rowspan: "1"
+        rowspan: "3"
       }, {
         name: `
         签名
