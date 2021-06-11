@@ -542,6 +542,11 @@ function switechSheetType(type) {
     schema = require("../config/gynecology_hl/tr.js").default;
   }
   break;
+  case "blood_purify_hl": {
+    // 横沥 - 持续性血液净化治疗记录表
+    schema = require("../config/blood_purify_hl/tr.js").default;
+  }
+  break;
   default: {
     schema = require("../config/default/tr.js").default;
   }
