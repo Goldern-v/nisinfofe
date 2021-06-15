@@ -73,7 +73,7 @@ export default {
       },
       {
         name: `
-        血氧饱和度
+        血氧饱和度<br/>%
         `,
         style: {
           minWidth: '50px',
@@ -95,7 +95,7 @@ export default {
       },
       {
         name: `
-        入
+        入量
         `,
         colspan: '2',
         rowspan: '1',
@@ -103,7 +103,7 @@ export default {
       },
       {
         name: `
-        出
+        出量
         `,
         colspan: '2',
         rowspan: '1',
@@ -251,7 +251,7 @@ export default {
     ],
     mid: [{
         name: `
-        名称
+        内容
         `,
         style: {
           minWidth: '68px',
@@ -267,13 +267,13 @@ export default {
         colspan: '1',
         rowspan: '2',
         style: {
-          minWidth: '28px',
-          maxWidth: '28px',
+          minWidth: '30px',
+          maxWidth: '30px',
         },
       },
       {
         name: `
-        名称
+        内容
         `,
         style: {
           minWidth: '40px',
@@ -289,8 +289,8 @@ export default {
         colspan: '1',
         rowspan: '2',
         style: {
-          minWidth: '28px',
-          maxWidth: '28px',
+          minWidth: '30px',
+          maxWidth: '30px',
           whiteSpace: 'nowrap'
         },
       },

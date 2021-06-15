@@ -56,7 +56,7 @@ export default {
       //   rowspan: '3'
       // },
       {
-        name: `R<br/>（次/min）`,
+        name: `R<br/>（次/分）`,
         style: {
           minWidth: '32px',
           maxWidth: '32px'

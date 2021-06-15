@@ -22,33 +22,32 @@ export default {
       }, {
         name: `催产素<br/>浓度<br/>（U/500ml）`,
         style: {
-          minWidth: '50px',
-          maxWidth: '50px'
+          minWidth: '80px',
+          maxWidth: '80px'
         },
         colspan: '1',
         rowspan: '3'
       }, {
-        name: `滴数<br/>
-        （滴/min）`,
+        name: `滴数<br/>（滴/min）`,
         style: {
-          minWidth: '50px',
-          maxWidth: '50px'
+          minWidth: '70px',
+          maxWidth: '70px'
         },
         colspan: '1',
         rowspan: '3'
       }, {
         name: `宫缩<br/>(s/min)`,
         style: {
-          minWidth: '50px',
-          maxWidth: '50px'
+          minWidth: '60px',
+          maxWidth: '60px'
         },
         colspan: '1',
         rowspan: '3'
       }, {
         name: `胎心<br/>(次/min)`,
         style: {
-          minWidth: '50px',
-          maxWidth: '50px'
+          minWidth: '60px',
+          maxWidth: '60px'
         },
         colspan: '1',
         rowspan: '3'
@@ -78,7 +77,7 @@ export default {
         rowspan: '3'
       }, {
         name: `
-        特殊情况记录
+        特殊情况及处理
         `,
         style: {
           minWidth: "260px",

@@ -69,7 +69,7 @@ export default {
         rowspan: "3"
       },
       {
-        name: `胎心<br>/min`,
+        name: `胎心<br>次/min`,
         colspan: "1",
         rowspan: "2"
       },

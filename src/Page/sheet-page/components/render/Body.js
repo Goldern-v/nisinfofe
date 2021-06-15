@@ -427,9 +427,9 @@ function switechSheetType(type) {
     schema = require("../config/picu_hemodialysis_jm/tr.js").default;
   }
   break;
-  case "body_temperature_lcey": {
+  case "body_temperature_hj": {
     // 聊城二院 - 体温单
-    schema = require("../config/body_temperature_lcey/tr.js").default;
+    schema = require("../config/body_temperature_hj/tr.js").default;
   }
   break;
   case "internal_eval_lcey": {

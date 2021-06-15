@@ -29,9 +29,13 @@ export default {
         rowspan: '3'
       },
       {
-        name: 'P/HR',
+        name: 'P/HR<br/>（次/分）',
         colspan: '1',
-        rowspan: '3'
+        rowspan: '3',
+        style: {
+          minWidth: '50px',
+          maxWidth: '50px',
+        },
       },
       {
         name: 'R',
@@ -41,7 +45,11 @@ export default {
       {
         name: 'BP<br>(mmHg)',
         colspan: '1',
-        rowspan: '3'
+        rowspan: '3',
+        style: {
+          minWidth: '50px',
+          maxWidth: '50px',
+        },
       },
       {
         name: 'SpO<sub>2</sub><br>(%)',
