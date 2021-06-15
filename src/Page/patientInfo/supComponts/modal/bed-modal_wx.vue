@@ -649,7 +649,6 @@ export default {
       data.remark = this.formData.remark.slice(0, 24);
 
       saveBed(data).then(res => {
-        this.$message.success("保存成功");
         this.close();
       });
     },
