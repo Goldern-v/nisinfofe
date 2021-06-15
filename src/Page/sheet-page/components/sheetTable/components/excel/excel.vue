@@ -351,8 +351,22 @@
           "
           >审核人：</span
         >
-        <span v-else-if="sheetInfo.sheetType == 'common_wj' || 'common_hl'"
+        <span
+          v-else-if="
+            sheetInfo.sheetType == 'common_wj' ||
+              sheetInfo.sheetType == 'common_hl' ||
+              sheetInfo.sheetType == 'rescue_hl' ||
+              sheetInfo.sheetType == 'emergency_stay_hl'
+          "
           >护士长签名：</span
+        >
+        <span
+          v-else-if="
+            sheetInfo.sheetType == 'obstetrics_hl' ||
+              sheetInfo.sheetType == 'gynecology_hl' ||
+              sheetInfo.sheetType == 'neonatology_hl'
+          "
+          >质控护士：</span
         >
         <span v-else-if="sheetInfo.sheetType == 'intervention_cure_lcey'"
           >护士签名：</span
@@ -467,7 +481,13 @@ export default {
         "common_wj",
         "intervention_cure_lcey",
         "critical_lc",
-        "common_hl"
+        "common_hl",
+        "rescue_hl",
+        "emergency_stay_hl",
+        "neonatology_hl",
+        "obstetrics_hl",
+        "gynecology_hl",
+        "prenatal_hl"
       ],
       // 需要双签名的记录单code
       multiSignArr: [
@@ -480,7 +500,15 @@ export default {
         "neonatology_hd" // 花都_新生儿科护理记录单
       ],
       // 底部两个签名的其中一个自定义字段
-      doubleSignArr: ["common_hl"]
+      doubleSignArr: [
+        "common_hl",
+        "rescue_hl",
+        "emergency_stay_hl",
+        "neonatology_hl",
+        "obstetrics_hl",
+        "gynecology_hl",
+        "prenatal_hl"
+      ]
     };
   },
   computed: {

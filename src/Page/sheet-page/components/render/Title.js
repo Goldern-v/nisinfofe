@@ -515,10 +515,10 @@ export default function Title(
     );
   }
   break;
-  case "body_temperature_lcey": {
+  case "body_temperature_hj": {
     // 聊城二院 - 体温单
     Th = JSON.parse(
-      JSON.stringify(require("../config/body_temperature_lcey/th.js").default)
+      JSON.stringify(require("../config/body_temperature_hj/th.js").default)
     );
   }
   break;

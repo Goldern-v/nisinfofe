@@ -61,7 +61,7 @@ export let countData = {
       },
       {
         type: "text",
-        value: ">=5"
+        value: "≥5"
       },
       {
         type: "text",
@@ -72,7 +72,7 @@ export let countData = {
     ],
     [{
         type: "text",
-        value: "宫颈退缩（%）"
+        value: "宫颈缩（%）"
       },
       {
         type: "text",
@@ -106,7 +106,7 @@ export let countData = {
       },
       {
         type: "text",
-        value: ">=80"
+        value: "≥80"
       },
       {
         type: "text",
@@ -151,7 +151,7 @@ export let countData = {
       },
       {
         type: "text",
-        value: "+1或+2"
+        value: "-1或+2"
       },
       {
         type: "text",
@@ -248,7 +248,7 @@ export let countData = {
     ],
     [{
         type: "text",
-        value: "将检查结果在相应栏内够“√”累计宫颈评分。",
+        value: "将检查结果在相应栏内划“√”累计宫颈评分。",
         colspan: 10,
         style: "border-right: none"
       },

@@ -409,7 +409,7 @@ export default {
     addSheetPage() {
       if (
         (this.HOSPITAL_ID === "huadu" ||
-          this.HOSPITAL_ID === "liaocheng" ||
+          this.HOSPITAL_ID === "hj" ||
           this.HOSPITAL_ID === "wujing") &&
         this.$route.path.includes("singleTemperatureChart")
       ) {
@@ -422,8 +422,10 @@ export default {
           switch (this.HOSPITAL_ID) {
             case "huadu":
               return "body_temperature_Hd";
-            case "liaocheng":
-              return "body_temperature_lcey";
+            case "hj":
+              return "body_temperature_hj";
+            // case "liaocheng":
+            //   return "body_temperature_lcey";
             case "wujing":
               return "body_temperature_wj";
             default:

@@ -584,8 +584,11 @@ export default {
       }
     },
     async getBlockList() {
-      if(this.$route.path.includes('nursingPreview')){
-        let { data } = await getPatientInfo(this.$route.query.patientId,this.$route.query.visitId);
+      if (this.$route.path.includes("nursingPreview")) {
+        let { data } = await getPatientInfo(
+          this.$route.query.patientId,
+          this.$route.query.visitId
+        );
         this.$store.commit("upDeptCode", data.data.wardCode);
       }
       if (
@@ -609,8 +612,10 @@ export default {
               switch (this.HOSPITAL_ID) {
                 case "huadu":
                   return item.recordCode === "body_temperature_Hd";
-                case "liaocheng":
-                  return item.recordCode === "body_temperature_lcey";
+                case "hj":
+                  return item.recordCode === "body_temperature_hj";
+                // case "liaocheng":
+                //   return item.recordCode === "body_temperature_lcey";
                 case "wujing":
                   return item.recordCode === "body_temperature_wj";
                 default:
@@ -627,7 +632,8 @@ export default {
               // return item.recordCode != "body_temperature_Hd";
               return (
                 (item.recordCode != "body_temperature_Hd") &
-                (item.recordCode != "body_temperature_lcey") &
+                (item.recordCode != "body_temperature_hj") &
+                // (item.recordCode != "body_temperature_lcey") &
                 (item.recordCode != "body_temperature_wj")
               );
             });

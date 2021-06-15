@@ -25,15 +25,9 @@
           <span>
             年龄
             <div class="bottom-line" style="width: 60px;">
-              {{ patientInfo.sex }}
+              {{ patientInfo.age }}
             </div>
             岁
-          </span>
-          <span>
-            床号：
-            <div class="bottom-line" style="width: 40px;">
-              {{ patientInfo.bedLabel }}
-            </div>
           </span>
           <span>
             医疗卡号：

@@ -54,7 +54,12 @@
       备注:①意识：清✔、嗜睡、朦胧++、浅昏迷+++、深昏迷++++、麻醉未醒△、药眠○、谵妄⊙。②.瞳孔对光的反应：灵敏+，迟钝±，消失-(左/右);
     </div>
     <div
-      v-if="sheetInfo.sheetType == 'common_hl'"
+      v-if="
+        sheetInfo.sheetType == 'common_hl' ||
+          sheetInfo.sheetType == 'prenatal_hl' ||
+          sheetInfo.sheetType == 'obstetrics_hl' ||
+          sheetInfo.sheetType == 'gynecology_hl'
+      "
       style="font-size: 13px; margin-top: -5px"
     >
       说明:神志：清醒（清）、麻醉未醒（△）、嗜睡（+）、模糊（++）、浅昏迷（+++）、深昏迷（++++）

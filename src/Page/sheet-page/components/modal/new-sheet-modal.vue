@@ -234,8 +234,10 @@ export default {
           switch (this.HOSPITAL_ID) {
             case "huadu":
               return item.recordCode.indexOf("body_temperature_Hd") == 0;
-            case "liaocheng":
-              return item.recordCode.indexOf("body_temperature_lcey") == 0;
+            case "hj":
+              return item.recordCode.indexOf("body_temperature_hj") == 0;
+            // case "liaocheng":
+            //   return item.recordCode.indexOf("body_temperature_lcey") == 0;
             case "wujing":
               return item.recordCode.indexOf("body_temperature_wj") == 0;
             default:
