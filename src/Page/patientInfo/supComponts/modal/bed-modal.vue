@@ -707,6 +707,8 @@ export default {
       let qr_png_value =
         this.HOSPITAL_ID == "liaocheng"
           ? this.query.patientId + "|" + this.query.visitId
+          : this.HOSPITAL_ID == "shannan"
+          ? this.query.inpNo
           : this.query.patientId;
       var qr_png = qr.imageSync(qr_png_value, { type: "png" });
       function arrayBufferToBase64(buffer) {
