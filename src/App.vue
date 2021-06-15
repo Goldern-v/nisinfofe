@@ -53,7 +53,7 @@ export default {
   data() {
     return {
       showScaleMsg: false, //是否出现缩放窗口提示
-      scaleRate: "", //当前页面缩放比例
+      scaleRate: "" //当前页面缩放比例
     };
   },
   watch: {
@@ -62,11 +62,12 @@ export default {
         from.path != "/" &&
         !this.HOSPITAL_ID.includes("yanshi") &&
         !this.isDev &&
-        this.empNo != "admin"
+        this.empNo != "admin" &&
+        this.HOSPITAL_ID != "fuyou"
       ) {
         this.isScale();
       }
-    },
+    }
   },
   created() {
     window.onresize = () => {
@@ -104,26 +105,26 @@ export default {
       selectDiagnosis: this.$refs.selectDiagnosis,
       formBox: this.$refs.moadl,
       formBoxEdu: this.$refs.formBoxEdu,
-      slideRight: this.$refs.slideRight,
+      slideRight: this.$refs.slideRight
     };
     //
-    window.openSubFormDialogModal = (params) => {
+    window.openSubFormDialogModal = params => {
       this.$refs.subFormDiagnosis.open(params);
     };
 
-    window.openTestDiagnosisModal = (params) => {
+    window.openTestDiagnosisModal = params => {
       this.$refs.testDiagnosis.open(params);
     };
-    window.openInfoDiagnosisModal = (params) => {
+    window.openInfoDiagnosisModal = params => {
       this.$refs.InfoDiagnosis.open(params);
     };
 
-    window.openTestFormDiagnosisModal = (params) => {
+    window.openTestFormDiagnosisModal = params => {
       this.$refs.testFormDiagnosis.open(params);
     };
 
     // 打开病历表单弹窗
-    window.openFormBox = (url) => {
+    window.openFormBox = url => {
       // 清除已有数据
       this.$store.commit("cleanMeasureAll");
       this.$refs.moadl.open(url);
@@ -146,7 +147,7 @@ export default {
       this.$refs.formBoxClean.close();
     };
     // 打开诊断详情侧边栏
-    window.openSlide = (item) => {
+    window.openSlide = item => {
       return this.$refs.slideRight.open(item);
     };
     window.closeSlide = () => {
@@ -164,7 +165,7 @@ export default {
     window.closeNewDiagnosis = () => {
       this.$refs.newDiagnosisBox.close();
     };
-    window.openselectDiagnosis = (item) => {
+    window.openselectDiagnosis = item => {
       return this.$refs.selectDiagnosis.open(item);
     };
     window.closeselectDiagnosis = () => {
@@ -188,7 +189,7 @@ export default {
     !this.isDev &&
       !window.location.href.includes("nursingDoc") &&
       !window.location.href.includes("showPatientDetails") &&
-      (window.onbeforeunload = function (event) {
+      (window.onbeforeunload = function(event) {
         console.log(event, "eventevent");
         return confirm("");
       });
@@ -203,12 +204,12 @@ export default {
       // 由于浏览器菜单栏属于系统软件权限，没发控制，我们着手解决ctrl/cammond + +/- 或 Windows下ctrl + 滚轮 缩放页面的情况，只能通过js来控制了
       document.addEventListener(
         "DOMContentLoaded",
-        function (event) {
+        function(event) {
           // chrome 浏览器直接加上下面这个样式就行了，但是ff不识别
           document.body.style.zoom = "reset";
           document.addEventListener(
             "keydown",
-            function (event) {
+            function(event) {
               if (
                 (event.ctrlKey === true || event.metaKey === true) &&
                 (event.which === 61 ||
@@ -223,7 +224,7 @@ export default {
             },
             false
           );
-          let scrollFunc = function (event) {
+          let scrollFunc = function(event) {
             event = event || window.event;
             if (event.wheelDelta) {
               //判断浏览器IE，谷歌滑轮事件
@@ -244,7 +245,7 @@ export default {
     },
     // 判断页面是否缩放
     isScale() {
-      if (localStorage.getItem("noShowScaleTip")) {
+      if (localStorage.getItem("noShowScaleTip") || this.showScaleMsg) {
         return;
       }
       this.showScaleMsg = true;
@@ -253,16 +254,25 @@ export default {
         // 如果浏览器缩放比不是100的时候弹出提示
         try {
           !this.isDev &&
-            this.$alert(
-              `当前浏览器缩放 ${this.scaleRate}%，可能会影响页面正常显示，可以通过 cltr + '0' 恢复 100%`,
-              "提示",
-              {
-                confirmButtonText: "确定",
-                callback: () => {
-                  this.showScaleMsg = false;
-                },
+            // this.$alert(
+            //   `当前浏览器缩放 ${this.scaleRate}%，可能会影响页面正常显示，可以通过 cltr + '0' 恢复 100%`,
+            //   "提示",
+            //   {
+            //     confirmButtonText: "确定",
+            //     callback: () => {
+            //       this.showScaleMsg = false;
+            //     },
+            //   }
+            // );
+            this.$notify.info({
+              title: "提示",
+              message: `当前浏览器缩放 ${this.scaleRate}%，可能会影响页面正常显示，可以通过 cltr + '0' 恢复 100%`,
+              ducuration: 0,
+              onClose: () => {
+                console.log(55);
+                this.showScaleMsg = false;
               }
-            );
+            });
         } catch (e) {}
       }
     },
@@ -271,16 +281,16 @@ export default {
         if (this.showScaleMsg || this.scaleRate == detectZoom()) {
           this.scaleRate = detectZoom();
           if (
-            document.getElementsByClassName("el-message-box__message") &&
-            document.getElementsByClassName("el-message-box__message")[0] &&
-            document.getElementsByClassName("el-message-box__message")[0]
+            document.getElementsByClassName("el-notification__content") &&
+            document.getElementsByClassName("el-notification__content")[0] &&
+            document.getElementsByClassName("el-notification__content")[0]
               .innerText &&
             document
-              .getElementsByClassName("el-message-box__message")[0]
+              .getElementsByClassName("el-notification__content")[0]
               .innerText.includes("可以通过 cltr + '0'")
           ) {
             document.getElementsByClassName(
-              "el-message-box__message"
+              "el-notification__content"
             )[0].innerTex = `当前浏览器缩放 ${this.scaleRate}%，可能会影响页面正常显示，可以通过 cltr + '0' 恢复 100%`;
           }
           return;
@@ -290,7 +300,7 @@ export default {
     },
     // 禁止 鼠标滚轮 缩放网页比例
     preventMouseScale() {
-      var scrollFunc = function (e) {
+      var scrollFunc = function(e) {
         e = e || window.event;
         if (e.wheelDelta && event.ctrlKey) {
           //IE/Opera/Chrome
@@ -307,7 +317,7 @@ export default {
         document.addEventListener("DOMMouseScroll", scrollFunc, false);
       } //W3C
       window.onmousewheel = document.onmousewheel = scrollFunc; //IE/Opera/Chrome/Safari
-    },
+    }
   },
   components: {
     autoComplete,
@@ -328,8 +338,8 @@ export default {
     setAuditDateModal,
     setTextModal,
     caSignModal,
-    ScreenLockView,
-  },
+    ScreenLockView
+  }
 };
 </script>
 
