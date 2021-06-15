@@ -267,9 +267,7 @@ export default {
             this.$notify.info({
               title: "提示",
               message: `当前浏览器缩放 ${this.scaleRate}%，可能会影响页面正常显示，可以通过 cltr + '0' 恢复 100%`,
-              ducuration: 0,
               onClose: () => {
-                console.log(55);
                 this.showScaleMsg = false;
               }
             });
@@ -291,7 +289,7 @@ export default {
           ) {
             document.getElementsByClassName(
               "el-notification__content"
-            )[0].innerTex = `当前浏览器缩放 ${this.scaleRate}%，可能会影响页面正常显示，可以通过 cltr + '0' 恢复 100%`;
+            )[0].innerText = `当前浏览器缩放 ${this.scaleRate}%，可能会影响页面正常显示，可以通过 cltr + '0' 恢复 100%`;
           }
           return;
         }
