@@ -33,6 +33,8 @@ const nursingDocumentation = () =>
   import("../Page/nursing-documentation/nursing-documentation.vue"); // 护理文书
 const workloadSatisticsLc = () =>
   import("../Page/workloadSatisticsLc/workloadSatistics.vue"); // 陵城工作量统计
+const workloadSatisticsZSQ = () =>
+  import("../Page/workloadSatisticsLc/workloadSatistics-zhongshanqi.vue"); // 中山七工作量统计
 const NotFoundComponent = () =>
   import("../components/NotFound/NotFoundComponent.vue"); // 异常路径
 const print = () => import("@/Part/print/print.vue");
@@ -128,7 +130,9 @@ const dcList = () => import("@/Page/dc-list/dc-list.vue"); //执行单
 const patientList = () => import("@/Page/patientList/index"); //执行单
 const nursingRounds = () => import("@/Page/nursing-rounds/nursing-rounds.vue"); //护理巡视
 const allTemperatureChart = () =>
-  import("@/Page/temperature-chart/all-temperature-chart.vue"); //批量录入体温单
+  import("@/Page/temperature-chart/all-temperature-chart/all-temperature-chart.vue"); //批量录入体温单
+const newSingleTemperatureChart = () =>
+  import("@/Page/temperature-chart/new-singleTemperature-chart/new-singleTemperature-chart.vue"); //聊城二院-新版体温单录入页面
 const showPatientDetails = () =>
   import("@/Page/show-patient-details/show-patient-details.vue"); //查看评估单、记录单、病历、检查、检验、体温单
 const nursingPreview = () => import("@/Page/NursingPreview/NursingPreview.vue"); //查看所有的评估单、记录单、体温单
@@ -141,6 +145,8 @@ const bedRecord = () =>
   import("@/Page/bed-record/bed-record.vue"); //转床记录
 const changeMajorRecord = () =>
   import("@/Page/change-major-record/change-major-record.vue"); //转科记录
+const rationalDoseStatistics = () =>
+  import("@/Page/rational-dose-statistics/rational-dose-statistics.vue"); //合理用药
 
 // 护理计划单
 const planList = () => import("@/Page/plan-list/plan-list.vue");
@@ -171,7 +177,7 @@ import deep from "@/Page/patientInfo/supPage/deep/deep.vue";
 import healthEducation from "@/Page/patientInfo/supPage/healthEducation/healthEducation.vue"; // 厚街
 import hospitalEval from "@/Page/patientInfo/supPage/hospital-eval/hospital-eval";
 import implementationPersonLiaocheng
-  from "@/Page/patientInfo/supPage/implementation-list/implementation-list-liaocheng";
+from "@/Page/patientInfo/supPage/implementation-list/implementation-list-liaocheng";
 // 深静脉导管维护单页面
 import deepPage from "@/Page/deep-page/deep-page.vue";
 // 导管监测单
@@ -183,10 +189,10 @@ const router = new Router({
   mode: "history",
   base: "/crNursing/",
   routes: [{
-    path: "/",
-    redirect: "/index",
-    alias: "主页"
-  },
+      path: "/",
+      redirect: "/index",
+      alias: "主页"
+    },
     {
       path: "/demo",
       component: demo,
@@ -215,9 +221,9 @@ const router = new Router({
       path: "/showPatientDetails",
       component: showPatientDetails,
       children: [{
-        path: "record",
-        component: record
-      },
+          path: "record",
+          component: record
+        },
         {
           path: "sheet",
           component: sheet,
@@ -401,10 +407,10 @@ const router = new Router({
           alias: "不良事件",
           component: badEvent,
           children: [{
-            name: "badEventEdit",
-            path: "/badEvent/:code?/:operation?/:id?/:type?/:name?",
-            component: badEventEditPage
-          },
+              name: "badEventEdit",
+              path: "/badEvent/:code?/:operation?/:id?/:type?/:name?",
+              component: badEventEditPage
+            },
             {
               name: "badEventView",
               path: "/badEvent/:code?/:operation?/:id?/:status?/:type?/:name?",
@@ -448,9 +454,9 @@ const router = new Router({
           component: patientInfo,
           alias: "病人信息",
           children: [{
-            path: "/information",
-            component: information
-          },
+              path: "/information",
+              component: information
+            },
             {
               path: "/advice",
               component: advice
@@ -574,7 +580,7 @@ const router = new Router({
         },
         {
           path: "/workloadSatistics",
-          component: workloadSatisticsLc,
+          component:  HOSPITAL_ID == "lingcheng" ? workloadSatisticsLc : workloadSatisticsZSQ,
           name: "工作量统计"
         },
         {
@@ -759,6 +765,11 @@ const router = new Router({
           name: "批量录入体温单"
         },
         {
+          path: "/newSingleTemperatureChart",
+          component: newSingleTemperatureChart,
+          name: "newSingleTemperatureChart"
+        },
+        {
           path: "/cognitiveStatistic",
           component: cognitiveStatistic,
           name: "住院病人认知情况统计表"
@@ -777,7 +788,12 @@ const router = new Router({
           path: "/changeMajorRecord",
           component: changeMajorRecord,
           name: "转科记录"
-        }
+        },
+        {
+          path: "/rationalDoseStatistics",
+          component: rationalDoseStatistics,
+          name: "合理用药"
+        },
       ]
     },
     {

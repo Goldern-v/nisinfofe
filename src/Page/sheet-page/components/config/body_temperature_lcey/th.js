@@ -66,16 +66,16 @@ export default {
       //   colspan: "1",
       //   rowspan: "3"
       // },
-      {
-        name: `
-       记录人
-        `,
-        colspan: "1",
-        rowspan: "3",
-        style: {
-          minWidth: "52px",
-        },
-      },
+      // {
+      //   name: `
+      //  记录人
+      //   `,
+      //   colspan: "1",
+      //   rowspan: "3",
+      //   style: {
+      //     minWidth: "52px",
+      //   },
+      // },
       {
         name: `
        签名

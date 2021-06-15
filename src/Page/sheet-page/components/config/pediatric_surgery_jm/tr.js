@@ -37,7 +37,7 @@ export default [{
   {
     key: "bloodPressure", // 血压
     value: "",
-    event: function(e, td) {
+    event: function (e, td) {
       if (e.keyCode == 32) {
         e.target.value += "/";
         e.preventDefault();
@@ -51,7 +51,15 @@ export default [{
     event: keyf1
   },
   {
-    key: "fieldOne", //  饮食
+    key: "fieldOne", //  神志
+    value: "",
+    event: keyf1,
+    textarea: {
+      width: 48
+    }
+  },
+  {
+    key: "fieldOne1", //  吸氧
     value: "",
     event: keyf1,
     textarea: {
@@ -87,7 +95,7 @@ export default [{
     key: "fieldSix", // 大便（g/性状）
     value: "",
     event: keyf1,
-    
+
   },
   {
     key: "stoolNature", // 大便性质
@@ -107,25 +115,36 @@ export default [{
   {
     key: "fieldTen", //  伤口敷料
     value: "",
-    event: keyf1
+    event: keyf1,
+    autoComplete: {
+      data: ['干洁', '渗血']
+    },
   },
   {
     key: "fieldNine", //  护理指导
     value: "",
     event: keyf1,
+    splice: true,
+    textarea: {
+      width: 48
+    },
     autoComplete: {
       data: ['1', '2', '3', '4', '5', '6', '7']
-    }
+    },
   },
   {
     key: "healthEducation", // 健康教育
     value: "",
     event: keyf1,
+    splice: true,
+    textarea: {
+      width: 48
+    },
     autoComplete: {
       data: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11']
-    }
+    },
   },
-  
+
   {
     key: "fieldEleven", //标题1
     value: "",

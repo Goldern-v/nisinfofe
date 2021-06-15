@@ -2,7 +2,7 @@ export default {
   // 科室的名称
   deptType: "",
   style: {
-    width: "1200px"
+    width: "1240px"
   },
   th: {
     top: [{
@@ -216,8 +216,8 @@ export default {
         特殊情况记录
         `,
         style: {
-          minWidth: "153px",
-          maxWidth: "153px"
+          minWidth: "260px",
+          maxWidth: "260px"
         },
         colspan: "1",
         rowspan: "2"

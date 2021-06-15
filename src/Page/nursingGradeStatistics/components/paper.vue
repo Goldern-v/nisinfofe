@@ -6,7 +6,7 @@
       <h2 class="sub-title">护 理 等 级 统 计 查 询</h2>
       <div class="details">
         <!-- <div @click="qqqq">fdfdfd</div> -->
-        <div class="left">病房：{{ name }}</div>
+        <div class="left">病房：{{ deptName }}</div>
       </div>
     </div>
     <table class="table-wrapper">
@@ -146,7 +146,7 @@ export default {
 .paper {
   position: relative;
   margin: 0 auto 20px;
-  padding: 12px 20px;
+  padding: 12px 20px 32px 20px;
   width: 1080px;
   border-radius: 2px;
   background: #fff;

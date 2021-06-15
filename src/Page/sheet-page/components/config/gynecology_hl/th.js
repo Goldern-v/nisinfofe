@@ -1,6 +1,6 @@
 export default {
   style: {
-    width: '1150px'
+    width: '1240px'
   },
   // 科室的名称
   deptType: '',
@@ -234,8 +234,8 @@ export default {
         特殊情况记录
         `,
         style: {
-          minWidth: '153px',
-          maxWidth: '153px',
+          minWidth: "260px",
+          maxWidth: "260px"
         },
         colspan: '1',
         rowspan: '3'

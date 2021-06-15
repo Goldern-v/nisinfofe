@@ -516,10 +516,10 @@
 
 <script>
 import common from "@/common/mixin/common.mixin.js";
-import { getPatientsInfo, saveOverAllTemperture } from "./api/api";
+import { getPatientsInfo, saveOverAllTemperture } from "../api/api";
 import moment from "moment";
 import print from "printing";
-import formatter from "./print-formatter";
+import formatter from "../print-formatter";
 export default {
   mixins: [common],
   props: {},

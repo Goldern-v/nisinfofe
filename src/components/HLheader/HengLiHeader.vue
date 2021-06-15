@@ -7,20 +7,10 @@
         <el-row type="flex" class="row-bg" justify="space-between">
           <el-row class="left-part" type="flex">
             <el-row
-              class="logo-con logo-con-hj"
-              type="flex"
-              align="middle"
-              v-if="HOSPITAL_ID == 'hengli'"
-            >
-              <img src="../../common/images/logo_hj.png" />
-              <span> <br />智慧护理信息系统 </span>
-            </el-row>
-            <el-row
               class="logo-con"
               type="flex"
               justify="center"
               align="middle"
-              v-else
             >
               <img src="../../common/images/logo-white-60.png" />
               <span>百辰源智慧护理信息系统</span>
@@ -289,7 +279,7 @@
             <el-dropdown
               menu-align="start"
               :hide-on-click="false"
-              :class="{ 'router-link-active': isActivePage }"
+              :class="{ 'router-link-active': isActiveImplementationPage }"
             >
               <el-row class="nav-item" type="flex" align="middle">
                 <div class="before"></div>
@@ -357,7 +347,7 @@
             <el-dropdown
               menu-align="start"
               :hide-on-click="false"
-              :class="{ 'router-link-active': isActiveOtherPage }"
+              :class="{ 'router-link-active': isActivePage }"
             >
               <el-row class="nav-item" type="flex" align="middle">
                 <div class="before"></div>
@@ -417,6 +407,17 @@
                     </el-row>
                   </el-dropdown-item>
                 </el-dropdown-item>-->
+                <el-dropdown-item
+                  :class="{
+                    active: $route.path.indexOf('/nursingGradeStatistics') > -1
+                  }"
+                >
+                  <router-link to="/nursingGradeStatistics" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="departmentSharedFile"></i>护理等级统计查询
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item>
                 <el-dropdown-item
                   :class="{ active: $route.path == '/nursingRules' }"
                 >
@@ -988,6 +989,10 @@ export default {
     isActiveOtherPage() {
       if (this.$route.path == "/rescuePage") return true;
     },
+    isActiveImplementationPage() {
+      if (this.$route.path == "/bottleLabel") return true;
+      if (this.$route.path == "/implementationList") return true;
+    },
     isActivePage() {
       if (this.$route.path.indexOf("/wardReport") > -1) return true;
       if (this.$route.path == "/nursingDocumentation") return true;
@@ -1003,6 +1008,7 @@ export default {
       if (this.$route.path == "/healthEducationList") return true;
       if (this.$route.path == "/dcList") return true;
       if (this.$route.path == "/cognitiveStatistic") return true;
+      if (this.$route.path.indexOf("/nursingGradeStatistics") > -1) return true;
     },
     isActiveStatisticPage() {
       if (this.$route.path == "/cognitiveStatistic") return true;
@@ -1029,6 +1035,13 @@ export default {
       return (
         path.includes("singleTemperatureChart") ||
         path.includes("allTemperatureChart")
+      );
+    },
+    isActiveImplementationPage() {
+      let path = this.$route.path;
+      return (
+        path.includes("bottleLabel") ||
+        path.includes("implementationList")
       );
     }
   },

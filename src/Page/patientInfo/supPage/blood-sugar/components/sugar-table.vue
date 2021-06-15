@@ -21,7 +21,8 @@
             HOSPITAL_ID != 'gy' &&
             HOSPITAL_ID != 'lingcheng' &&
             HOSPITAL_ID != 'huadu' &&
-            HOSPITAL_ID != 'liaocheng'
+            HOSPITAL_ID != 'liaocheng' &&
+            HOSPITAL_ID != 'hengli' 
           "
         >
           RI剂量
@@ -75,7 +76,8 @@
             HOSPITAL_ID != 'gy' &&
             HOSPITAL_ID != 'lingcheng' &&
             HOSPITAL_ID != 'huadu' &&
-            HOSPITAL_ID != 'liaocheng'
+            HOSPITAL_ID != 'liaocheng'&&
+            HOSPITAL_ID != 'hengli'
           "
         >
           <div class="cell">

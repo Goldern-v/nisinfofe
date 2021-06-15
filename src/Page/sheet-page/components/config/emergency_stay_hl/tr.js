@@ -196,7 +196,7 @@ export default [{
       top: "1px",
       bottom: "1px",
       left: "1px",
-      width: "153px",
+      width: "260px",
       background: "transparent"
     },
     event: function (e, td) {

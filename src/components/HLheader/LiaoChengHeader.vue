@@ -62,6 +62,17 @@
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item
                   :class="{
+                    active: $route.path.includes('newSingleTemperatureChart')
+                  }"
+                >
+                  <router-link to="/newSingleTemperatureChart" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="singleTemperatureChart"></i>体温单单人录入
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item>
+                <!-- <el-dropdown-item
+                  :class="{
                     active: $route.path.includes('singleTemperatureChart')
                   }"
                 >
@@ -70,7 +81,7 @@
                       <i class="singleTemperatureChart"></i>单人录入体温单
                     </el-row>
                   </router-link>
-                </el-dropdown-item>
+                </el-dropdown-item> -->
                 <el-dropdown-item
                   :class="{
                     active: $route.path.includes('allTemperatureChart')
@@ -972,6 +983,7 @@ export default {
     isActiveTemperaturePage() {
       let path = this.$route.path;
       return (
+        path.includes("newSingleTemperatureChart") ||
         path.includes("singleTemperatureChart") ||
         path.includes("allTemperatureChart")
       );

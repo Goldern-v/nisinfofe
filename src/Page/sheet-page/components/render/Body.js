@@ -247,6 +247,11 @@ function switechSheetType(type) {
     schema = require("../config/thyroid_gland/tr.js").default;
   }
   break;
+  case "vein_thrombolysis_hj": {
+    // 静脉溶栓护理记录单
+    schema = require("../config/jmrs/tr.js").default;
+  }
+  break;
   case "neurology_wx": {
     // 威县-神经内科
     schema = require("../config/neurology_wx/tr.js").default;
@@ -535,6 +540,11 @@ function switechSheetType(type) {
   case "gynecology_hl": {
     // 横沥 - 护理记录单(妇科)
     schema = require("../config/gynecology_hl/tr.js").default;
+  }
+  break;
+  case "blood_purify_hl": {
+    // 横沥 - 持续性血液净化治疗记录表
+    schema = require("../config/blood_purify_hl/tr.js").default;
   }
   break;
   default: {

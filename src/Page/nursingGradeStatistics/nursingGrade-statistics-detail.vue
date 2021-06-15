@@ -1,8 +1,8 @@
 <template>
   <div class="ward-report-detail" v-loading="loading">
-    <!-- <div class="toolbar">
+    <div class="toolbar">
       <div class="toolbar-left">
-        <span>科室：</span>
+        <!-- <span>科室：</span>
 
         <ElSelect size="small" v-model="code" filterable>
           <ElOption
@@ -11,12 +11,12 @@
             :label="d.name"
             :value="d.code"
           />
-        </ElSelect>
+        </ElSelect> -->
       </div>
       <div class="toolbar-right">
         <Button @click="onPrint">打印预览</Button>
       </div>
-    </div> -->
+    </div>
     <div class="container">
       <div class="print-area" ref="area">
         <Paper :name="name" :paperData="papers" :twoDayPaper="twoDay" />
@@ -171,6 +171,7 @@ export default {
             }
             table { page-break-inside:auto }
             tr,td { page-break-inside:avoid; page-break-after:auto }
+            .paper { box-shadow: none !important; }
           `
       });
 
@@ -198,6 +199,34 @@ export default {
 
     &-left {
       flex: 1;
+    }
+    &-right {
+      button {
+        display inline-block
+        align-items center
+        justify-content center
+        width 100px
+        height 28px
+        font-size 12px
+        color #333
+        background #fff
+        border 1px solid #cbd5dd
+        border-radius 2px
+        box-sizing border-box
+        outline none
+        cursor pointer
+        &:hover {
+          font-weight bold
+        }
+
+        &[disabled] {
+          cursor default
+          opacity 0.5
+          &:hover {
+            font-weight normal
+          }
+        }
+      }
     }
   }
 

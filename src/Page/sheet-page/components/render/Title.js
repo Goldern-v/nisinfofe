@@ -267,6 +267,13 @@ export default function Title(
     );
   }
   break;
+  case "vein_thrombolysis_hj": {
+    // 静脉溶栓护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/jmrs/th").default)
+    );
+  }
+  break;
   case "neurology_wx": {
     // 威县-神经内科
     Th = JSON.parse(
@@ -666,6 +673,13 @@ export default function Title(
     // 横沥 - 护理记录单(妇科)
     Th = JSON.parse(
       JSON.stringify(require("../config/gynecology_hl/th").default)
+    );
+  }
+  break;
+  case "blood_purify_hl": {
+    // 横沥 - 持续性血液净化治疗记录表
+    Th = JSON.parse(
+      JSON.stringify(require("../config/blood_purify_hl/th").default)
     );
   }
   break;

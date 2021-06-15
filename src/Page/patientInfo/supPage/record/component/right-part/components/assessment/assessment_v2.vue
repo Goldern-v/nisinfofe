@@ -371,7 +371,7 @@ export default {
       this.wid.onmessage = this.onmessage;
 
       // 医生查看患者详情  或者 预览模式
-      if (this.$route.path.includes("showPatientDetails") || this.onlyView) {
+      if (this.$route.path.includes("showPatientDetails") || this.$route.path.includes("nursingPreview") || this.onlyView) {
         if (wid.document.querySelector(".tool-contain")) {
           wid.document.querySelector(".tool-contain").style = "display:none;";
           if (wid.document.querySelector("#app .form")) {
@@ -509,9 +509,9 @@ export default {
       }
 
       // 医生查看患者详情  或者 预览模式
-      if (window.location.href.includes("showPatientDetails") || this.onlyView) {
+      if (window.location.href.includes("showPatientDetails") || window.location.href.includes("nursingPreview") || this.onlyView) {
         this.$nextTick(() => {
-          let css = `#app input,#app label{
+          let css = `#app input,#app label,#app td,#app .sign-con{
               pointer-events: none !important;
           }`;
           var style = document.createElement("style");
@@ -1767,7 +1767,7 @@ export default {
       return this.$store.state.record.fullPageRecord ? 5 : 85;
     },
     iframeHeight() {
-      if (this.$route.path == "/formPage" || this.$route.path.includes('showPatientDetails')) {
+      if (this.$route.path == "/formPage" || this.$route.path.includes('showPatientDetails') || this.$route.path.includes('nursingPreview')) {
         return this.wih - 0 - this.offsetHeight;
       } else {
         return this.wih - 60 - this.offsetHeight;

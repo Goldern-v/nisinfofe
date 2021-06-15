@@ -54,7 +54,7 @@
 <script>
 import commonMixin from "@/common/mixin/common.mixin";
 import moment from "moment";
-import { updateExecuteTime } from "../../api/index";
+import { updateExecuteTime,updateExecuteTimeLiaoC } from "../../api/index";
 import bus from "vue-happy-bus";
 export default {
   mixins: [commonMixin],
@@ -96,7 +96,9 @@ export default {
           ? moment(this.afterEndExecuteTime).format("YYYY-MM-DD HH:mm:ss")
           : this.afterEndExecuteTime, //需要修改后的实际结束时间
       };
-      updateExecuteTime(data).then((res) => {
+
+      let updateExecuteTimeApi = this.HOSPITAL_ID == 'lingcheng' ? updateExecuteTime : updateExecuteTimeLiaoC;
+      updateExecuteTimeApi(data).then((res) => {
         this.$message.success(res.data.data.ErrorMsg);
         this.bus.$emit("loadImplementationList");
         this.close();

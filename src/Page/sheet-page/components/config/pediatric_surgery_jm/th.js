@@ -1,4 +1,7 @@
 export default {
+  style: {
+    width: '1300px'
+  },
   // 科室的名称
   deptType: '',
   th: {
@@ -63,32 +66,34 @@ export default {
         style: {
           minWidth: '52px',
           maxWidth: '52px',
-          whiteSpace: 'nowrap'
         },
         colspan: '1',
         rowspan: '3'
       },
       {
         name: `
-        SpO₂
+        SpO₂<br/>(%)
         `,
         style: {
           minWidth: '36px',
           maxWidth: '36px',
-          whiteSpace: 'nowrap'
         },
         colspan: '1',
         rowspan: '3'
       },
       {
         name: `
-        饮食
+        神志
         `,
-        style: {
-          minWidth: '36px',
-          maxWidth: '36px',
-          whiteSpace: 'nowrap'
-        },
+        style: {},
+        colspan: '1',
+        rowspan: '3'
+      },
+      {
+        name: `
+        吸氧
+        `,
+        style: {},
         colspan: '1',
         rowspan: '3'
       },
@@ -265,50 +270,49 @@ export default {
         }
       },
     ],
-    bottom: [
-    {
-      name: `
+    bottom: [{
+        name: `
       ml
       `,
-      colspan: '1',
-      rowspan: '1',
-      style: {
-        minWidth: '28px',
-        maxWidth: '28px',
-      }
-    },
-    {
-      name: `
+        colspan: '1',
+        rowspan: '1',
+        style: {
+          minWidth: '28px',
+          maxWidth: '28px',
+        }
+      },
+      {
+        name: `
       颜色
       `,
-      colspan: '1',
-      rowspan: '1',
-      style: {
-        minWidth: '32px',
-        maxWidth: '32px',
-      }
-    },
-    {
-      name: `
+        colspan: '1',
+        rowspan: '1',
+        style: {
+          minWidth: '32px',
+          maxWidth: '32px',
+        }
+      },
+      {
+        name: `
       g/次
       `,
-      colspan: '1',
-      rowspan: '1',
-      style: {
-        minWidth: '32px',
-        maxWidth: '32px',
-      }
-    }, {
-      name: `
+        colspan: '1',
+        rowspan: '1',
+        style: {
+          minWidth: '32px',
+          maxWidth: '32px',
+        }
+      }, {
+        name: `
       性质
       `,
-      colspan: '1',
-      rowspan: '1',
-      style: {
-        minWidth: '32px',
-        maxWidth: '32px',
-      }
-    },
-  ]
+        colspan: '1',
+        rowspan: '1',
+        style: {
+          minWidth: '32px',
+          maxWidth: '32px',
+        }
+      },
+    ]
   }
 }
