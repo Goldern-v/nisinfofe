@@ -347,7 +347,9 @@
               sheetInfo.sheetType == 'common_hd' ||
               sheetInfo.sheetType == 'neurosurgery_hd' ||
               sheetInfo.sheetType == 'stress_injury_hd' ||
-              sheetInfo.sheetType == 'critical_lc'
+              sheetInfo.sheetType == 'critical_lc' ||
+              sheetInfo.sheetType == 'common_sn' ||
+              sheetInfo.sheetType == 'maternity_sn'
           "
           >审核人：</span
         >
@@ -487,7 +489,9 @@ export default {
         "neonatology_hl",
         "obstetrics_hl",
         "gynecology_hl",
-        "prenatal_hl"
+        "prenatal_hl",
+        "common_sn",
+        "maternity_sn"
       ],
       // 需要双签名的记录单code
       multiSignArr: [

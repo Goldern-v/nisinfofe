@@ -683,6 +683,41 @@ export default function Title(
     );
   }
   break;
+  case "icu_sn": {
+    // 山南 - ICU护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/icu_sn/th").default)
+    );
+  }
+  break;
+  case "postpartum_sn": {
+    // 山南 - 产后观察记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/postpartum_sn/th").default)
+    );
+  }
+  break;
+  case "clinical_sn": {
+    // 山南 - 临床护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/clinical_sn/th").default)
+    );
+  }
+  break;
+  case "common_sn": {
+    // 山南 - 通用护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/common_sn/th").default)
+    );
+  }
+  break;
+  case "maternity_sn": {
+    // 山南 - 妇产科通用护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/maternity_sn/th").default)
+    );
+  }
+  break;
   default: {
     Th = JSON.parse(
       JSON.stringify(require("../config/default/th").default)

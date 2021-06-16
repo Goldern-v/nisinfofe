@@ -547,6 +547,31 @@ function switechSheetType(type) {
     schema = require("../config/blood_purify_hl/tr.js").default;
   }
   break;
+  case "icu_sn": {
+    // 山南 - ICU护理记录单
+    schema = require("../config/icu_sn/tr.js").default;
+  }
+  break;
+  case "postpartum_sn": {
+    // 山南 - 产后观察记录单
+    schema = require("../config/postpartum_sn/tr.js").default;
+  }
+  break;
+  case "clinical_sn": {
+    // 山南 - 临床护理记录单
+    schema = require("../config/clinical_sn/tr.js").default;
+  }
+  break;
+  case "common_sn": {
+    // 山南 - 通用护理记录单
+    schema = require("../config/common_sn/tr.js").default;
+  }
+  break;
+  case "maternity_sn": {
+    // 山南 - 妇产科通用护理记录单
+    schema = require("../config/maternity_sn/tr.js").default;
+  }
+  break;
   default: {
     schema = require("../config/default/tr.js").default;
   }
