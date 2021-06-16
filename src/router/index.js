@@ -19,7 +19,7 @@ import main from "@/Part/main";
 // import inBox from "../Page/inBox/inBox.vue";
 // import mailDetails from "../Page/mail-details/mail-details.vue";
 //自动登录
-// import autoLogin from "../Part/auto-login";
+import autoLogin from "../Part/auto-login";
 // import whiteBoard from '@/Part/whiteBoard/whiteBoard'
 // import home1 from "@/Page/catheter-page/home1/home";
 
@@ -810,10 +810,10 @@ const router = new Router({
       path: "/imageView",
       component: imageView
     },
-    // {
-    //   path: "/autoLogin",
-    //   component: autoLogin
-    // },
+    {
+      path: "/autoLogin",
+      component: autoLogin
+    },
     {
       path: "/print/:type",
       component: print

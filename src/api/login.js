@@ -13,9 +13,14 @@ function logout(authToken) {
   }})
 }
 
+// // 重新登录
+// function autoLogin(userId, authToken) {
+//   return axios.get(`${apiPath}autoLogin`, { params: { userId, authToken } })
+// }
+
 // 重新登录
-function autoLogin(userId, authToken) {
-  return axios.get(`${apiPath}autoLogin`, {params:{ userId, authToken }})
+function autoLogin(token) {
+  return axios.post(`${apiPath}ssoLogin`, { token })
 }
 
 // 检查用户名密码
