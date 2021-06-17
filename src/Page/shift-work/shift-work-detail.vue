@@ -605,11 +605,14 @@ export default {
               data["age"] = remoteDate["age"];
               data["patientStatus"] = remoteDate["patientStatus"];
 
-              // selectedRow["bedLabel"] = data["bedLabel"];
-              // selectedRow["name"] = data["name"];
-              // selectedRow["age"] = data["age"];
-              // selectedRow["patientStatus"] = data["patientStatus"];
-              // selectedRow["diagnosis"] = data["diagnosis"];
+
+              if(this.HOSPITAL_ID != "hj"){
+                selectedRow["bedLabel"] = data["bedLabel"];
+                selectedRow["name"] = data["name"];
+                selectedRow["age"] = data["age"];
+                selectedRow["patientStatus"] = data["patientStatus"];
+                selectedRow["diagnosis"] = data["diagnosis"];
+              }
               selectedRow["mainComplaint"] = data["mainComplaint"];
               selectedRow["background"] = data["background"];
               selectedRow["assessmentSituation"] = data["assessmentSituation"];
@@ -764,7 +767,11 @@ export default {
     },
     onPatientsModalConfirm(patients) {
       for (let p of patients) {
-        this.$refs.table.addRow(p);
+        let obj = {...p};
+        obj["mainComplaint"] = obj.complaint || "";
+        obj["proposal"] = obj.advice || "";
+        obj["assessmentSituation"] = obj.evaluate || "";
+        this.$refs.table.addRow(obj);
       }
       this.modified = true;
       this.$refs.patientsModal.close();
