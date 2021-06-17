@@ -5,8 +5,7 @@ export default {
     width: "1700px"
   },
   th: {
-    top: [
-      {
+    top: [{
         name: "日期",
         style: {
           minWidth: "36px",
@@ -335,8 +334,7 @@ export default {
       //   rowspan: "3"
       // }
     ],
-    mid: [
-      {
+    mid: [{
         name: `
         ℃
         `,
@@ -395,7 +393,7 @@ export default {
       {
         name: `名称`,
         style: {
-          minWidth: "35px",
+          minWidth: "50px",
         },
         colspan: "1",
         rowspan: "2"
@@ -430,8 +428,7 @@ export default {
         rowspan: "2"
       }
     ],
-    bottom: [
-      {
+    bottom: [{
         name: `
 
         `,

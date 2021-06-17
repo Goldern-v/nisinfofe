@@ -215,6 +215,12 @@
         <p>注：瞳孔对光反应：灵敏（+）、迟钝（S）、消失（-）表示。</p>
       </div>
     </div>
+    <!-- 东莞横沥 硫酸镁注射液静脉滴注观察记录单 -->
+    <div v-if="sheetInfo.sheetType == 'magnesium_sulphate_hl'">
+      <p>
+        备注："宫缩"栏以"持续时间(s)/间隔时间(min)"表示
+      </p>
+    </div>
     <!-- 山南市人民医院临床护理记录单 -->
     <div v-if="sheetInfo.sheetType == 'clinical_sn'">
       <p>
