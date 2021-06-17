@@ -1,14 +1,18 @@
 <template>
   <span class="checkBox">
     <span class="check" v-for="child in item.children" :key="child.value">
-      <span v-if="child.type=='text'">{{child.value}}</span>
-      <label class="check" @click="handlecheckClick(child)" v-if="child.type=='checkbox'">
+      <span v-if="child.type == 'text'">{{ child.value }}</span>
+      <label
+        class="check"
+        @click="handlecheckClick(child)"
+        v-if="child.type == 'checkbox'"
+      >
         <span class="check_input" :class="child.addClass">
           <span class="check_inner"></span>
         </span>
-        <span class="check_label">{{child.value}}</span>
+        <span class="check_label">{{ child.value }}</span>
       </label>
-      <span v-if="child.type=='input'">
+      <span v-if="child.type == 'input'">
         <span class="prev" v-if="child.prev" v-html="child.prev" />
         <TableInput :item="child" :model="model" :data="item"></TableInput>
         <span class="next" v-if="child.next" v-html="child.next" />
@@ -31,11 +35,14 @@ export default {
   components: { TableInput },
   methods: {
     handlecheckClick(child) {
+      console.log(this.item);
+      // debugger;
       if (child.addClass == "is-disabled") {
         return;
       }
       let arr = this.model[child.name] ? this.model[child.name].split(",") : [];
       let index = arr.indexOf(child.value);
+      // debugger;
       if (index == -1) {
         arr.push(child.value);
         child.addClass = "is-checked";
@@ -66,17 +73,17 @@ export default {
     }
   },
   watch: {
-    // model() {
-    //   this.item.children.map(chil => {
-    //     chil.addClass = chil.addClass == "is-checked" ?"":chil.addClass;
-    //     if (this.model[chil.name]) {
-    //       let arr = this.model[chil.name].split(",");
-    //       if (arr.indexOf(chil.value) != -1) {
-    //         chil.addClass = "is-checked";
-    //       }
-    //     }
-    //   });
-    // }
+    model() {
+      this.item.children.map(chil => {
+        chil.addClass = chil.addClass == "is-checked" ? "" : chil.addClass;
+        if (this.model[chil.name]) {
+          let arr = this.model[chil.name].split(",");
+          if (arr.indexOf(chil.value) != -1) {
+            chil.addClass = "is-checked";
+          }
+        }
+      });
+    }
   }
 };
 </script>
@@ -139,5 +146,3 @@ export default {
   top: 3px;
 }
 </style>
-
-

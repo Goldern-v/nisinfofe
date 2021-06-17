@@ -271,8 +271,10 @@ export default {
         switch (this.HOSPITAL_ID) {
           case "huadu":
             return "body_temperature_Hd";
-          case "liaocheng":
-            return "body_temperature_lcey";
+          case "hj":
+            return "body_temperature_hj";
+          // case "liaocheng":
+          //   return "body_temperature_lcey";
           case "wujing":
             return "body_temperature_wj";
           default:

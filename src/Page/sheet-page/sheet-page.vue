@@ -27,6 +27,7 @@
           :toName="
             (HOSPITAL_ID === 'huadu' ||
               HOSPITAL_ID === 'liaocheng' ||
+              HOSPITAL_ID === 'hj' ||
               HOSPITAL_ID === 'wujing') &&
             $route.path.includes('singleTemperatureChart')
               ? 'singleTemperatureChart'
@@ -78,6 +79,7 @@
             {{
               (HOSPITAL_ID === "huadu" ||
                 HOSPITAL_ID === "liaocheng" ||
+                HOSPITAL_ID === "hj" ||
                 HOSPITAL_ID === "wujing") &&
               $route.path.includes("singleTemperatureChart")
                 ? "创建体温单"
