@@ -39,9 +39,12 @@
               {{ patientInfo.age }}
             </div>
           </span>
-          <!-- <span>性别：
-            <div class="bottom-line" style="min-width: 30px">{{patientInfo.sex}}</div>
-          </span>-->
+          <span
+            >性别：
+            <div class="bottom-line" style="min-width: 30px">
+              {{ patientInfo.sex }}
+            </div>
+          </span>
           <span>
             床号：
             <div
@@ -59,10 +62,10 @@
               {{ patientInfo.inpNo }}
             </div>
           </span>
-          <span @click="changeDate" style="cursor: pointer;">
+          <!-- <span @click="changeDate" style="cursor: pointer;">
             日期：
             {{ createTime | toymd }}
-          </span>
+          </span> -->
         </div>
       </div>
       <headCon v-if="isFirst"></headCon>
@@ -74,7 +77,7 @@
         :hasFiexHeader="true"
         :isInPatientDetails="isInPatientDetails"
       ></excel>
-      <div class="bottomCon">
+      <!-- <div class="bottomCon">
         <input
           type="checkbox"
           class="bottomCheck"
@@ -86,7 +89,7 @@
           v-model="sheetInfo.relObj.totalBloodDelivery"
           :data-value="sheetInfo.relObj.totalBloodDelivery"
         />ml
-      </div>
+      </div> -->
     </div>
   </div>
 </template>

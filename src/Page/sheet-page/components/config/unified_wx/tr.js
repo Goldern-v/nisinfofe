@@ -1,14 +1,21 @@
-import { multiDictInfo } from "../../../api/index";
-import { keyf1 } from "../keyEvent/f1.js";
-import { event_date, event_time, click_date } from "../keyEvent/date";
+import {
+  multiDictInfo
+} from "../../../api/index";
+import {
+  keyf1
+} from "../keyEvent/f1.js";
+import {
+  event_date,
+  event_time,
+  click_date
+} from "../keyEvent/date";
 let 静脉性质 = [];
 let 饮食性质 = [];
 let 出量名称 = {};
 let 出量性质 = 出量名称;
 let 意识 = [];
 let 吸氧方式 = [];
-export default [
-  {
+export default [{
     key: "recordMonth", //日期
     value: "",
     event: event_date,
@@ -394,8 +401,9 @@ export function getListData4() {
     "出量名称",
     "尿液性质",
     "呕吐物性质",
-    "引流量",
-    "吸氧方式"
+    "引流量性质",
+    "吸氧方式",
+    "阴道出血性质"
   ];
   list = list.map(key => {
     return key.includes('出量名称') ? filterKey + filterKey2 + key : filterKey + key;

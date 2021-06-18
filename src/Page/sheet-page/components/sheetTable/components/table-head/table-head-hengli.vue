@@ -143,10 +143,58 @@
           ></masked-input>
         </span>
       </span>
-      <!-- <span>
+      <span v-if="sheetInfo.sheetType === 'blood_purify_hl'">
         入院日期：
         {{ patientInfo.admissionDate | toymd }}
-      </span> -->
+      </span>
+    </div>
+    <div
+      class="info-con"
+      flex="main:justify"
+      v-if="sheetInfo.sheetType === 'blood_purify_hl'"
+    >
+      <span>
+        滤器:
+        <input
+          style="width:80px"
+          class="bottom-line-input"
+          :data-value="sheetInfo.relObj.lvqi"
+          v-model="sheetInfo.relObj.lvqi"
+        />
+      </span>
+      <span>
+        治疗模式:
+        <input
+          style="width:80px"
+          class="bottom-line-input"
+          :data-value="sheetInfo.relObj.zlms"
+          v-model="sheetInfo.relObj.zlms"
+        />
+      </span>
+      <span>
+        抗凝方式:
+        <input
+          style="width:80px"
+          class="bottom-line-input"
+          :data-value="sheetInfo.relObj.knfs"
+          v-model="sheetInfo.relObj.knfs"
+        />
+      </span>
+      <span>
+        导管位置:
+        <input
+          style="width:80px"
+          class="bottom-line-input"
+          :data-value="sheetInfo.relObj.dgwz"
+          v-model="sheetInfo.relObj.dgwz"
+        />
+      </span>
+      <span>
+        诊断:
+        <div class="bottom-line" style="min-width: 150px">
+          {{ patientInfo.diagnosis }}
+        </div>
+      </span>
     </div>
   </div>
 </template>
@@ -303,11 +351,7 @@ export default {
   },
   filters: {
     toymd(val) {
-      if (process.env.HOSPITAL_ID == "weixian") {
-        return moment(val).format("YYYY-MM-DD");
-      } else {
-        return moment(val).format("YYYY年MM月");
-      }
+      return moment(val).format("YYYY年MM月DD日");
     }
   },
   created() {

@@ -517,11 +517,11 @@ function switechSheetType(type) {
     schema = require("../config/contraction_inhibitor_hl/tr.js").default;
   }
   break;
-  // case "dressing_count_hl": {
-  //   // 横沥-经阴道接生器械敷料清点
-  //   schema = require("../config/dressing_count_hl/tr.js").default;
-  // }
-  // break;
+  case "dressing_count_hl": {
+    // 横沥-经阴道接生器械敷料清点
+    schema = require("../config/dressing_count_hl/tr.js").default;
+  }
+  break;
   case "magnesium_sulphate_hl": {
     // 横沥-硫酸镁注射液静脉滴注观察记录单
     schema = require("../config/magnesium_sulphate_hl/tr.js").default;

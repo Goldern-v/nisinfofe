@@ -11,7 +11,9 @@
           <col width="20%">
         </colgroup>-->
         <tr>
-          <th v-for="(item,index) in firstTableHead" :key="index+item">{{item}}</th>
+          <th v-for="(item, index) in firstTableHead" :key="index + item">
+            {{ item }}
+          </th>
         </tr>
 
         <!-- <tr v-for="(item,index) in firstTableBody" :key="index+item.name">
@@ -29,42 +31,42 @@
               type="text"
               v-model="sheetInfo.relObj.name1"
               :data-value="sheetInfo.relObj.name1"
-            >
+            />
           </td>
           <td>
             <input
               type="text"
               v-model="sheetInfo.relObj.deliveryBefore1"
               :data-value="sheetInfo.relObj.deliveryBefore1"
-            >
+            />
           </td>
           <td>
             <input
               type="text"
               v-model="sheetInfo.relObj.deliveryAfter1"
               :data-value="sheetInfo.relObj.deliveryAfter1"
-            >
+            />
           </td>
           <td>
             <input
               type="text"
               v-model="sheetInfo.relObj.name2"
               :data-value="sheetInfo.relObj.name2"
-            >
+            />
           </td>
           <td>
             <input
               type="text"
               v-model="sheetInfo.relObj.deliveryBefore2"
               :data-value="sheetInfo.relObj.deliveryBefore2"
-            >
+            />
           </td>
           <td>
             <input
               type="text"
               v-model="sheetInfo.relObj.deliveryAfter2"
               :data-value="sheetInfo.relObj.deliveryAfter2"
-            >
+            />
           </td>
         </tr>
         <tr>
@@ -73,42 +75,42 @@
               type="text"
               v-model="sheetInfo.relObj.name3"
               :data-value="sheetInfo.relObj.name3"
-            >
+            />
           </td>
           <td>
             <input
               type="text"
               v-model="sheetInfo.relObj.deliveryBefore3"
               :data-value="sheetInfo.relObj.deliveryBefore3"
-            >
+            />
           </td>
           <td>
             <input
               type="text"
               v-model="sheetInfo.relObj.deliveryAfter3"
               :data-value="sheetInfo.relObj.deliveryAfter3"
-            >
+            />
           </td>
           <td>
             <input
               type="text"
               v-model="sheetInfo.relObj.name4"
               :data-value="sheetInfo.relObj.name4"
-            >
+            />
           </td>
           <td>
             <input
               type="text"
               v-model="sheetInfo.relObj.deliveryBefore4"
               :data-value="sheetInfo.relObj.deliveryBefore4"
-            >
+            />
           </td>
           <td>
             <input
               type="text"
               v-model="sheetInfo.relObj.deliveryAfter4"
               :data-value="sheetInfo.relObj.deliveryAfter4"
-            >
+            />
           </td>
         </tr>
         <tr>
@@ -117,42 +119,42 @@
               type="text"
               v-model="sheetInfo.relObj.name5"
               :data-value="sheetInfo.relObj.name5"
-            >
+            />
           </td>
           <td>
             <input
               type="text"
               v-model="sheetInfo.relObj.deliveryBefore5"
               :data-value="sheetInfo.relObj.deliveryBefore5"
-            >
+            />
           </td>
           <td>
             <input
               type="text"
               v-model="sheetInfo.relObj.deliveryAfter5"
               :data-value="sheetInfo.relObj.deliveryAfter5"
-            >
+            />
           </td>
           <td>
             <input
               type="text"
               v-model="sheetInfo.relObj.name6"
               :data-value="sheetInfo.relObj.name6"
-            >
+            />
           </td>
           <td>
             <input
               type="text"
               v-model="sheetInfo.relObj.deliveryBefore6"
               :data-value="sheetInfo.relObj.deliveryBefore6"
-            >
+            />
           </td>
           <td>
             <input
               type="text"
               v-model="sheetInfo.relObj.deliveryAfter6"
               :data-value="sheetInfo.relObj.deliveryAfter6"
-            >
+            />
           </td>
         </tr>
         <tr>
@@ -161,42 +163,42 @@
               type="text"
               v-model="sheetInfo.relObj.name7"
               :data-value="sheetInfo.relObj.name7"
-            >
+            />
           </td>
           <td>
             <input
               type="text"
               v-model="sheetInfo.relObj.deliveryBefore7"
               :data-value="sheetInfo.relObj.deliveryBefore7"
-            >
+            />
           </td>
           <td>
             <input
               type="text"
               v-model="sheetInfo.relObj.deliveryAfter7"
               :data-value="sheetInfo.relObj.deliveryAfter7"
-            >
+            />
           </td>
           <td>
             <input
               type="text"
               v-model="sheetInfo.relObj.name8"
               :data-value="sheetInfo.relObj.name8"
-            >
+            />
           </td>
           <td>
             <input
               type="text"
               v-model="sheetInfo.relObj.deliveryBefore8"
               :data-value="sheetInfo.relObj.deliveryBefore8"
-            >
+            />
           </td>
           <td>
             <input
               type="text"
               v-model="sheetInfo.relObj.deliveryAfter8"
               :data-value="sheetInfo.relObj.deliveryAfter8"
-            >
+            />
           </td>
         </tr>
         <tr>
@@ -205,42 +207,42 @@
               type="text"
               v-model="sheetInfo.relObj.name9"
               :data-value="sheetInfo.relObj.name9"
-            >
+            />
           </td>
           <td>
             <input
               type="text"
               v-model="sheetInfo.relObj.deliveryBefore9"
               :data-value="sheetInfo.relObj.deliveryBefore9"
-            >
+            />
           </td>
           <td>
             <input
               type="text"
               v-model="sheetInfo.relObj.deliveryAfter9"
               :data-value="sheetInfo.relObj.deliveryAfter9"
-            >
+            />
           </td>
           <td>
             <input
               type="text"
               v-model="sheetInfo.relObj.name10"
               :data-value="sheetInfo.relObj.name10"
-            >
+            />
           </td>
           <td>
             <input
               type="text"
               v-model="sheetInfo.relObj.deliveryBefore10"
               :data-value="sheetInfo.relObj.deliveryBefore10"
-            >
+            />
           </td>
           <td>
             <input
               type="text"
               v-model="sheetInfo.relObj.deliveryAfter10"
               :data-value="sheetInfo.relObj.deliveryAfter10"
-            >
+            />
           </td>
         </tr>
         <tr>
@@ -249,42 +251,42 @@
               type="text"
               v-model="sheetInfo.relObj.name11"
               :data-value="sheetInfo.relObj.name11"
-            >
+            />
           </td>
           <td>
             <input
               type="text"
               v-model="sheetInfo.relObj.deliveryBefore11"
               :data-value="sheetInfo.relObj.deliveryBefore11"
-            >
+            />
           </td>
           <td>
             <input
               type="text"
               v-model="sheetInfo.relObj.deliveryAfter11"
               :data-value="sheetInfo.relObj.deliveryAfter11"
-            >
+            />
           </td>
           <td>
             <input
               type="text"
               v-model="sheetInfo.relObj.name12"
               :data-value="sheetInfo.relObj.name12"
-            >
+            />
           </td>
           <td>
             <input
               type="text"
               v-model="sheetInfo.relObj.deliveryBefore12"
               :data-value="sheetInfo.relObj.deliveryBefore12"
-            >
+            />
           </td>
           <td>
             <input
               type="text"
               v-model="sheetInfo.relObj.deliveryAfter12"
               :data-value="sheetInfo.relObj.deliveryAfter12"
-            >
+            />
           </td>
         </tr>
         <tr>
@@ -293,42 +295,42 @@
               type="text"
               v-model="sheetInfo.relObj.name13"
               :data-value="sheetInfo.relObj.name13"
-            >
+            />
           </td>
           <td>
             <input
               type="text"
               v-model="sheetInfo.relObj.deliveryBefore13"
               :data-value="sheetInfo.relObj.deliveryBefore13"
-            >
+            />
           </td>
           <td>
             <input
               type="text"
               v-model="sheetInfo.relObj.deliveryAfter13"
               :data-value="sheetInfo.relObj.deliveryAfter13"
-            >
+            />
           </td>
           <td>
             <input
               type="text"
               v-model="sheetInfo.relObj.name14"
               :data-value="sheetInfo.relObj.name14"
-            >
+            />
           </td>
           <td>
             <input
               type="text"
               v-model="sheetInfo.relObj.deliveryBefore14"
               :data-value="sheetInfo.relObj.deliveryBefore14"
-            >
+            />
           </td>
           <td>
             <input
               type="text"
               v-model="sheetInfo.relObj.deliveryAfter14"
               :data-value="sheetInfo.relObj.deliveryAfter14"
-            >
+            />
           </td>
         </tr>
         <tr>
@@ -337,42 +339,42 @@
               type="text"
               v-model="sheetInfo.relObj.name15"
               :data-value="sheetInfo.relObj.name15"
-            >
+            />
           </td>
           <td>
             <input
               type="text"
               v-model="sheetInfo.relObj.deliveryBefore15"
               :data-value="sheetInfo.relObj.deliveryBefore15"
-            >
+            />
           </td>
           <td>
             <input
               type="text"
               v-model="sheetInfo.relObj.deliveryAfte15"
               :data-value="sheetInfo.relObj.deliveryAfte15"
-            >
+            />
           </td>
           <td>
             <input
               type="text"
               v-model="sheetInfo.relObj.name16"
               :data-value="sheetInfo.relObj.name16"
-            >
+            />
           </td>
           <td>
             <input
               type="text"
               v-model="sheetInfo.relObj.deliveryBefore16"
               :data-value="sheetInfo.relObj.deliveryBefore16"
-            >
+            />
           </td>
           <td>
             <input
               type="text"
               v-model="sheetInfo.relObj.deliveryAfter16"
               :data-value="sheetInfo.relObj.deliveryAfter16"
-            >
+            />
           </td>
         </tr>
       </table>
@@ -382,32 +384,34 @@
         核对者：
         <!-- <input type="text" v-model="mid"> -->
         <div class="sign-img-con" @click="sign2">
-          <span
-            v-if="!isPrint"
-            class="head-sign-text"
-          >{{sheetInfo.selectBlock.relSignInfo.signerName2}}</span>
+          <span v-if="!isPrint" class="head-sign-text">{{
+            sheetInfo.selectBlock.relSignInfo.signerName2
+          }}</span>
           <img
             class="head-sign-img"
             v-if="sheetInfo.selectBlock.relSignInfo.signerNo2"
-            :src="`/crNursing/api/file/signImage/${sheetInfo.selectBlock.relSignInfo.signerNo2}?${token}`"
+            :src="
+              `/crNursing/api/file/signImage/${sheetInfo.selectBlock.relSignInfo.signerNo2}?${token}`
+            "
             alt
-          >
+          />
         </div>
 
         <div class="sign-img-con" @click="sign3">
-          <span
-            v-if="!isPrint"
-            class="head-sign-text"
-          >{{sheetInfo.selectBlock.relSignInfo.signerName3}}</span>
+          <span v-if="!isPrint" class="head-sign-text">{{
+            sheetInfo.selectBlock.relSignInfo.signerName3
+          }}</span>
           <img
             class="head-sign-img"
             v-if="sheetInfo.selectBlock.relSignInfo.signerNo3"
-            :src="`/crNursing/api/file/signImage/${sheetInfo.selectBlock.relSignInfo.signerNo3}?${token}`"
+            :src="
+              `/crNursing/api/file/signImage/${sheetInfo.selectBlock.relSignInfo.signerNo3}?${token}`
+            "
             alt
-          >
+          />
         </div>
 
-        <div class="sign-img-con" @click="sign4">
+        <!-- <div class="sign-img-con" @click="sign4">
           <span
             v-if="!isPrint"
             class="head-sign-text"
@@ -418,7 +422,7 @@
             :src="`/crNursing/api/file/signImage/${sheetInfo.selectBlock.relSignInfo.signerNo4}?${token}`"
             alt
           >
-        </div>
+        </div> -->
       </div>
     </div>
     <div class="secondTableTitle">产后（产房）观察记录单</div>
@@ -451,7 +455,7 @@ export default {
       firstTableBody1,
       mid: ["", ""],
       bus: bus(this),
-      relObj: {...sheetInfo.relObj}
+      relObj: { ...sheetInfo.relObj }
     };
   },
   methods: {
@@ -617,7 +621,7 @@ export default {
 };
 </script>
 
-<style lang='scss'>
+<style lang="scss">
 .tableCon {
   width: 800px;
   font-family: simsun, "Times New Roman", Georgia, Serif;

@@ -641,13 +641,13 @@ export default function Title(
     );
   }
   break;
-  // case "dressing_count_hl": {
-  //   // 横沥-经阴道接生器械敷料清点
-  //   Th = JSON.parse(
-  //     JSON.stringify(require("../config/dressing_count_hl/th").default)
-  //   );
-  // }
-  // break;
+  case "dressing_count_hl": {
+    // 横沥-经阴道接生器械敷料清点
+    Th = JSON.parse(
+      JSON.stringify(require("../config/dressing_count_hl/th").default)
+    );
+  }
+  break;
   case "magnesium_sulphate_hl": {
     // 横沥-硫酸镁注射液静脉滴注观察记录单
     Th = JSON.parse(

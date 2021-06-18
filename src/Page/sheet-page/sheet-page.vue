@@ -27,6 +27,7 @@
           :toName="
             (HOSPITAL_ID === 'huadu' ||
               HOSPITAL_ID === 'liaocheng' ||
+              HOSPITAL_ID === 'hj' ||
               HOSPITAL_ID === 'wujing') &&
             $route.path.includes('singleTemperatureChart')
               ? 'singleTemperatureChart'
@@ -78,6 +79,7 @@
             {{
               (HOSPITAL_ID === "huadu" ||
                 HOSPITAL_ID === "liaocheng" ||
+                HOSPITAL_ID === "hj" ||
                 HOSPITAL_ID === "wujing") &&
               $route.path.includes("singleTemperatureChart")
                 ? "创建体温单"
@@ -245,6 +247,7 @@ import sheetTable_intervention_cure_lcey from "./components/sheetTable-intervent
 import sheetTable_picu_hemodialysis_jm from "./components/sheetTable-picu_hemodialysis_jm/sheetTable";
 import sheetTable_oxytocin_hl from "./components/sheetTable-oxytocin_hl/sheetTable";
 import sheetTable_emergency_rescue from "./components/sheetTable-emergency_rescue/sheetTable";
+import sheetTable_dressing_count_hl from "./components/sheetTable-dressing_count_hl/sheetTable";
 import common from "@/common/mixin/common.mixin.js";
 import evalModel from "./components/modal/eval-model/eval-model.vue";
 import { typeList } from "@/api/lesion";
@@ -387,6 +390,8 @@ export default {
         return sheetTable_emergency_rescue;
       } else if (sheetInfo.sheetType == "oxytocin_hl") {
         return sheetTable_oxytocin_hl;
+      } else if (sheetInfo.sheetType == "dressing_count_hl") {
+        return sheetTable_dressing_count_hl;
       } else {
         return sheetTable;
       }
@@ -912,7 +917,8 @@ export default {
     sheetTable_picu_hemodialysis_jm,
     doctorEmr,
     sheetTable_oxytocin_hl,
-    sheetTable_emergency_rescue
+    sheetTable_emergency_rescue,
+    sheetTable_dressing_count_hl
   }
 };
 </script>

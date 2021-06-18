@@ -30,7 +30,7 @@ export default [{
     event: keyf1,
     name: "出血量"
   }, {
-    key: "pulse", //性状颜色
+    key: "fieldFive", //性状颜色
     value: "",
     event: keyf1
   }, {
@@ -73,7 +73,7 @@ export default [{
       data: 膀胱情况
     }
   }, {
-    key: "dischargeSize", //肛查
+    key: "fieldTwo", //肛查
     value: "",
     event: keyf1
   }, {
