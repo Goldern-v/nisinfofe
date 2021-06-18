@@ -16,7 +16,7 @@
 
       <el-table-column label="姓名" prop="name" min-width="80px"></el-table-column>
 
-      <el-table-column label="管床医生" prop="doctorInCharge" min-width="90px"></el-table-column>
+      <el-table-column label="管床医生" prop="doctorInCharge" min-width="90px" v-if="HOSPITAL_ID != 'liaocheng'"></el-table-column>
 
       <el-table-column prop="sex" label="性别" min-width="70px"></el-table-column>
 
@@ -33,6 +33,8 @@
       <el-table-column prop="dischargeDate" label="出院日期" min-width="120px"></el-table-column>
 
       <el-table-column prop="status" label="状态" min-width="80px"></el-table-column>
+
+      <el-table-column label="主管医师" prop="doctorInCharge" min-width="90px" v-if="HOSPITAL_ID == 'liaocheng'"></el-table-column>
 
       <el-table-column label="操作" min-width="80px">
         <template slot-scope="scope">

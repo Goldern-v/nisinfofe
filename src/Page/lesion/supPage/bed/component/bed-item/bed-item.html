@@ -1,4 +1,8 @@
 <div class="bed-box" @contextmenu.stop="HOSPITAL_ID == 'zhongshanqi' && openContextMenu($event,data)">
+  <div class="like" @click.stop="toLike(data)" v-if="HOSPITAL_ID == 'zhongshanqi'">
+    <img v-if="data.isFollow == '1'" src="../../../../../../common/images/card/like.png" height="18" width="18" />
+    <img v-else src="../../../../../../common/images/card/liked.png" height="18" width="18" />
+  </div>
   <div class="bed-box-inner" :class="{infectFlag: data.infectFlag == 1,bornFlag: data.bornFlag == 1}"
        :style="[data.bedLabel.includes('_') && data.patientId && (data.newBornOut ? {background: 'rgba(255, 207, 219, .5)'} : {background: '#D9F4FE'}), data.bornStatus === '送产房' && {background: '#FFBCBC'}]">
     <span @click="toInfo(data)" v-if="data.patientId">

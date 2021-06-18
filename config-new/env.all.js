@@ -95,5 +95,10 @@ module.exports = {
     HOSPITAL_ID: '"shannan"',
     HOSPITAL_NAME: '"山南市人民医院"',
     HOSPITAL_NAME_SPACE: '"山 南 市 人 民 医 院"'
+  },
+  "yangchunzhongyi": {
+    HOSPITAL_ID: '"yangchunzhongyi"',
+    HOSPITAL_NAME: '"阳春中医院"',
+    HOSPITAL_NAME_SPACE: '"阳 春 中 医 院"'
   }
 }

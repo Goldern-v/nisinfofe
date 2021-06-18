@@ -48,6 +48,7 @@ const currentTargetUrl = (() => {
 
       /** 威县 */
     case "weixian":
+      // return "http://211.143.127.136:9093" //威县正式
       // return "http://wxzf.hbwxrmyy.com:9093" //威县正式
       return "http://192.168.1.54:9865" // 公司-威县测试-内网
 
@@ -89,6 +90,11 @@ const currentTargetUrl = (() => {
       // return "http://183.63.206.194:9091" // 东莞横沥正式
       return "http://192.168.1.54:9874" // 公司-东莞横沥测试-内网
 
+      /** 山南市人民医院 */
+    case "shannan":
+      // return "http://124.31.235.39:9094 " // 公司-山南市人民医院正式
+      return "http://192.168.1.54:9878" // 公司-山南市人民医院测试-内网
+
       /** 默认公司本地内网厚街测试环境 */
     default:
       return "http://192.168.1.54:9866"
@@ -119,7 +125,7 @@ module.exports = {
   },
   dev: {
     env: devEnv,
-    port: 4889,
+    port: 4892,
     autoOpenBrowser: true,
     assetsSubDirectory: "static",
     assetsPublicPath: "/",
