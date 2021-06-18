@@ -92,6 +92,7 @@ const currentTargetUrl = (() => {
 
       /** 山南市人民医院 */
     case "shannan":
+      // return "http://124.31.235.39:9094 " // 公司-山南市人民医院正式
       return "http://192.168.1.54:9878" // 公司-山南市人民医院测试-内网
 
       /** 默认公司本地内网厚街测试环境 */
@@ -124,7 +125,7 @@ module.exports = {
   },
   dev: {
     env: devEnv,
-    port: 4889,
+    port: 4892,
     autoOpenBrowser: true,
     assetsSubDirectory: "static",
     assetsPublicPath: "/",
