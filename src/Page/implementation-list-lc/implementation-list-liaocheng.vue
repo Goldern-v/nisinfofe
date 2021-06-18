@@ -26,7 +26,7 @@
           placeholder="请选择"
           size="small"
           style="width:150px"
-          v-if="type===0"
+          v-if="type === 0"
         >
           <el-option
             :label="item.name"
@@ -35,11 +35,27 @@
             :key="item.id"
           ></el-option>
         </el-select>
-        <el-select v-model="status" placeholder="请选择" size="small" style="width:150px" v-else>
-          <el-option :label="item.name" :value="item.id" v-for="item in allStatus" :key="item.id"></el-option>
+        <el-select
+          v-model="status"
+          placeholder="请选择"
+          size="small"
+          style="width:150px"
+          v-else
+        >
+          <el-option
+            :label="item.name"
+            :value="item.id"
+            v-for="item in allStatus"
+            :key="item.id"
+          ></el-option>
         </el-select>
         <span class="label">类型:</span>
-        <el-select v-model="type" placeholder="请选择" size="small" style="width:150px">
+        <el-select
+          v-model="type"
+          placeholder="请选择"
+          size="small"
+          style="width:150px"
+        >
           <el-option
             :label="typeItem.name"
             :value="typeItem.value"
@@ -60,7 +76,7 @@
           placeholder="输入床号进行搜索"
           v-model="bedLabel"
         ></el-input>
-         <el-input
+        <el-input
           size="small"
           style="width: 150px;margin-right: 15px;"
           placeholder="输入途径进行搜索"
@@ -68,7 +84,12 @@
         ></el-input>
         <el-button size="small" type="primary" @click="search">查询</el-button>
       </div>
-      <dTable :tableData="tableData" :currentType="type" :pageLoadng="pageLoadng"></dTable>
+      <dTable
+        :tableData="tableData"
+        :currentType="type"
+        :pageLoadng="pageLoadng"
+        ref="plTable"
+      ></dTable>
       <!-- <div class="pagination-con" flex="main:justify cross:center">
         <pagination
           :pageIndex="page.pageIndex"
@@ -130,6 +151,47 @@
       }
     }
   }
+  >>> .plTableBox {
+    .tree--btn-wrapper {
+      position: absolute;
+      top: 50%;
+      width: 1em;
+      height: 1em;
+      line-height: 1em;
+      margin-top: -.5em;
+      transition: transform .2s ease-in-out;
+      z-index: 1;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      color: #333!important;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .pl-tree-cell {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      display: block;
+      padding-left: 1.5em;
+    }
+
+    .el-icon-folder-add:before {
+      font-family: element-icons;
+      content: "\E61C";
+    }
+    .el-icon-folder-remove:before {
+      font-family: element-icons;
+      content: "\E619";
+    }
+    .ivu-table-cell-tree-empty {
+      cursor: default;
+      color: transparent;
+      background-color: transparent;
+      border-color: transparent;
+    }
+  }
 }
 
 .head-con {
@@ -165,7 +227,7 @@
 }
 </style>
 <script>
-import dTable from "./components/table/d-table";
+import dTable from "./components/table/d-table-liaocheng";
 import pagination from "./components/common/pagination";
 import { patEmrList } from "@/api/document";
 import { getExecuteWithWardcodeLiaoC } from "./api/index";
@@ -183,7 +245,7 @@ export default {
       page: {
         pageIndex: 1,
         pageNum: 20,
-        total: 0,
+        total: 0
       },
       startDate: moment().format("YYYY-MM-DD"),
       repeatIndicator: "",
@@ -191,46 +253,46 @@ export default {
       status: "",
       bedLabel: "",
       patientName: "",
-      administration: "",//途径
+      administration: "", //途径
       transfusionStatus: [
         {
           id: "",
-          name: "全部",
+          name: "全部"
         },
         {
           id: 0,
-          name: "未执行",
+          name: "未执行"
         },
         {
           id: 1,
-          name: "开始输液",
+          name: "开始输液"
         },
         {
           id: 2,
-          name: "暂停输液",
+          name: "暂停输液"
         },
         {
           id: 3,
-          name: "继续输液",
+          name: "继续输液"
         },
         {
           id: 4,
-          name: "已完成",
-        },
+          name: "已完成"
+        }
       ],
       allStatus: [
         {
           id: "",
-          name: "全部",
+          name: "全部"
         },
         {
           id: 0,
-          name: "未执行",
+          name: "未执行"
         },
         {
           id: 4,
-          name: "已完成",
-        },
+          name: "已完成"
+        }
       ],
       allType: [
         {
@@ -264,8 +326,8 @@ export default {
         {
           name: "标本",
           value: "标本"
-        },
-      ],
+        }
+      ]
     };
   },
   methods: {
@@ -284,15 +346,21 @@ export default {
         executeDateTime: moment(this.startDate).format("YYYY-MM-DD"), //执行单预计执行时间
         repeatIndicator: this.repeatIndicator, //医嘱类型:0临时 1长期  2单药处方
         executeStatus: this.status, //执行单状态:0-未执行、1-执行中（输液中）、2-暂停输液、3-继续执行  4-已完成（结束输液）
-        executeType: typeof this.type == "number"
-          ? this.allType[this.type + 1].name
-          : this.type, //执行单类型:输液,口服、治疗、雾化、注射
-        bedLabel: this.bedLabel,  //床号
+        executeType:
+          typeof this.type == "number"
+            ? this.allType[this.type + 1].name
+            : this.type, //执行单类型:输液,口服、治疗、雾化、注射
+        bedLabel: this.bedLabel, //床号
         patientName: this.patientName, //患者姓名
         administration: this.administration // //途径
-      }
-      getExecuteWithWardcodeLiaoC(obj).then((res) => {
-        this.tableData = res.data.data.map((item, index, array) => {
+      };
+
+      getExecuteWithWardcodeLiaoC(obj).then(res => {
+        // this.tableData = res.data.data;
+        // this.pageLoadng = false;
+        let children = [],
+          tableData = [];
+        res.data.data.map((item, index, array) => {
           let prevRowId =
             array[index - 1] &&
             array[index - 1].patientId +
@@ -309,29 +377,46 @@ export default {
               array[index].barCode +
               array[index].executeDateTime;
 
+          item.id = index;
+
           /** 判断是此记录是多条记录 */
           if (currentRowId == prevRowId || currentRowId == nextRowId) {
             if (currentRowId != prevRowId) {
               /** 第一条 */
               item.rowType = 1;
+              tableData.push(item);
             } else if (currentRowId != nextRowId) {
               /** 最后条 */
               item.rowType = 3;
+              children.push(item);
+              tableData[tableData.length - 1].children = [...children];
+              children = [];
             } else {
               /** 中间条 */
               item.rowType = 2;
+              children.push(item);
             }
+          } else {
+            tableData.push(item);
           }
-          return item;
         });
+        this.tableData = [...tableData];
         // this.page.total = Number(res.data.data.pageCount) * this.page.pageNum;
         this.pageLoadng = false;
+        // 设置表格数据
+        if (
+          this.$refs.plTable.$children &&
+          this.$refs.plTable.$children[0] &&
+          this.$refs.plTable.$children[0].reloadData
+        ) {
+          this.$refs.plTable.$children[0].reloadData(tableData);
+        }
       });
     },
     search() {
       this.page.pageIndex = 1;
       this.onLoad();
-    },
+    }
   },
   created() {
     this.onLoad();
@@ -357,11 +442,11 @@ export default {
     },
     status() {
       this.search();
-    },
+    }
   },
   components: {
     dTable,
-    pagination,
-  },
+    pagination
+  }
 };
 </script>
