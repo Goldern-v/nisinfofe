@@ -157,7 +157,7 @@
 </style>
 
 <script>
-import { follow, unfollow, unfollowHd, getPatientOrdersWithWardCode } from "@/api/lesion";
+import { follow, unfollow, getPatientOrdersWithWardCode } from "@/api/lesion";
 import bedItem from "./component/bed-item/bed-item.vue";
 import bedItemHd from "./component/bed-item-hd/bed-item.vue";
 import bedItemLcey from "./component/bed-item-lcey/bed-item.vue";
@@ -239,6 +239,7 @@ export default {
     },
     toLike(item) {
       console.log(item);
+      // 床位一览卡关注
       if (item.isFollow === "0") {
         follow(this.deptCode, item.bedLabel, item.bedNo).then(res => {
           item.isFollow = "1";
@@ -247,20 +248,28 @@ export default {
             type: "success"
           });
         });
+      }else if (item.isFollow === "1") {//床位一览卡取消关注
+        unfollow(this.deptCode, item.bedNo).then(res => {
+          item.isFollow = "0";
+          this.$message({
+            message: "取消关注该床位",
+            type: "success"
+          });
+        });
       }
       /* 床位一览卡取消关注(花都和聊城二院) */
-      if (
-        item.isFollow === "1" &&
-        (this.HOSPITAL_ID === "huadu" || this.HOSPITAL_ID === "liaocheng")
-      ) {
-        unfollowHd(this.deptCode, item.bedNo).then(res => {
-          item.isFollow = "0";
-        });
-      } else if (item.isFollow === "1") {
-        unfollow(item.bedLabel).then(res => {
-          item.isFollow = "0";
-        });
-      }
+      // if (
+      //   item.isFollow === "1" &&
+      //   (this.HOSPITAL_ID === "huadu" || this.HOSPITAL_ID === "liaocheng")
+      // ) {
+      //   unfollowHd(this.deptCode, item.bedNo).then(res => {
+      //     item.isFollow = "0";
+      //   });
+      // } else if (item.isFollow === "1") {
+      //   unfollow(item.bedLabel).then(res => {
+      //     item.isFollow = "0";
+      //   });
+      // }
     },
     filterSearch(item) {
       let searchWord = this.$refs.searchCon.searchText;

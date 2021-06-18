@@ -39,11 +39,11 @@ function follow(deptCode, bedLabel, bedNo) {
   return axios.get(`${apiPath}bed/followBed/${bedLabel}/${deptCode}/${bedNo}`)
 }
 // 取消关注
-function unfollow(bedLabel) {
-  return axios.get(`${apiPath}bed/unfollowBed/${bedLabel}`)
-}
-// 取消关注(花都)
-function unfollowHd(deptCode, bedNo) {
+// function unfollow(bedLabel) {
+//   return axios.get(`${apiPath}bed/unfollowBed/${bedLabel}`)
+// }
+// 取消关注
+function unfollow(deptCode, bedNo) {
   return axios.get(`${apiPath}bed/unfollowBed/${deptCode}/${bedNo}`)
 }
 
@@ -73,7 +73,7 @@ export {
   patients,
   follow,
   unfollow,
-  unfollowHd,
+  // unfollowHd,
   typeList,
   syncGetNurseBedRec,
   syncGetMedicalAdvice,
