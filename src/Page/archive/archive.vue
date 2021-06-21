@@ -32,9 +32,20 @@
           @change="selectedStatus"
         >
           <el-option value>全部</el-option>
-          <el-option :key="item.id" v-for="item in statusList" :value="item.name">{{item.name}}</el-option>
+          <el-option
+            :key="item.id"
+            v-for="item in statusList"
+            :value="item.name"
+            >{{ item.name }}</el-option
+          >
         </el-select>
+
         <button @click.stop="search">查询</button>
+      </div>
+      <div class="filterItem">
+        <p v-if="showAutoPrintInfo">
+          （复选框打勾）已开启自动归档，在患者出院七天后
+        </p>
       </div>
     </div>
     <div class="content-center">
@@ -115,45 +126,73 @@
           <template slot-scope="scope">
             <div
               style="text-align: left;"
-              :style="(scope.row.printStatus ==1 || scope.row.resultStatus ==-1) && {color: 'red'}"
+              :style="
+                (scope.row.printStatus == 1 ||
+                  scope.row.resultStatus == -1) && { color: 'red' }
+              "
             >
-              <span>{{scope.row.statusDesc}}</span>
+              <span>{{ scope.row.statusDesc }}</span>
             </div>
           </template>
         </el-table-column>
 
-        <el-table-column header-align="center" align="center" label="操作" min-width="150px">
+        <el-table-column
+          header-align="center"
+          align="center"
+          label="操作"
+          min-width="150px"
+        >
           <template slot-scope="scope">
             <div class="justify">
               <!-- 打印生成pdf文件 -->
               <el-button
                 type="text"
                 @click="generateArchive(scope.row)"
-                v-if="scope.row.printStatus==0 && scope.row.resultStatus!=1 && !isArchive"
-              >转pdf</el-button>
+                v-if="
+                  scope.row.printStatus == 0 &&
+                    scope.row.resultStatus != 1 &&
+                    !isArchive
+                "
+                >转pdf</el-button
+              >
               <el-button
                 type="text"
                 @click="generateArchive(scope.row)"
-                v-if="scope.row.printStatus!=0 && scope.row.printStatus!=1 && scope.row.uploadStatus!=1 && scope.row.uploadStatus!=2 && !isArchive"
-              >重转pdf</el-button>
+                v-if="
+                  scope.row.printStatus != 0 &&
+                    scope.row.printStatus != 1 &&
+                    scope.row.uploadStatus != 1 &&
+                    scope.row.uploadStatus != 2 &&
+                    !isArchive
+                "
+                >重转pdf</el-button
+              >
               <!-- 一键归档没有预览功能 -->
               <el-button
                 type="text"
                 class="viewFile"
                 @click="previewArchive(scope.row)"
-                v-if="scope.row.resultStatus==1 && !isArchive"
-              >预览</el-button>
+                v-if="scope.row.resultStatus == 1 && !isArchive"
+                >预览</el-button
+              >
               <!-- 上传 -->
               <el-button
                 type="text"
                 @click="cancelArchive(scope.row)"
                 v-if="scope.row.canCancelArchive"
-              >取消归档</el-button>
+                >取消归档</el-button
+              >
               <el-button
                 type="text"
                 @click="uploadFileArchive(scope.row)"
-                v-if="(isArchive && scope.row.uploadStatus!=2) || (scope.row.resultStatus==1 && scope.row.uploadStatus!=1 && scope.row.uploadStatus!=2)"
-              >归档</el-button>
+                v-if="
+                  (isArchive && scope.row.uploadStatus != 2) ||
+                    (scope.row.resultStatus == 1 &&
+                      scope.row.uploadStatus != 1 &&
+                      scope.row.uploadStatus != 2)
+                "
+                >归档</el-button
+              >
             </div>
           </template>
         </el-table-column>
@@ -176,22 +215,29 @@
       <div class="archive-detail-modal" v-loading="pageLoading2">
         <div
           class="arrow"
-          :class="{isFullMode: modalObj.infull}"
-          v-if="printDetailList && printDetailList.length>1"
+          :class="{ isFullMode: modalObj.infull }"
+          v-if="printDetailList && printDetailList.length > 1"
         >
           <span
             class="el-icon-arrow-left"
             @click="preveFile"
-            :style="!currentFileIndex && {opacity:0.5}"
+            :style="!currentFileIndex && { opacity: 0.5 }"
           ></span>
           <span
             class="el-icon-arrow-right"
             @click="nextFile"
-            :style="currentFileIndex == printDetailList.length - 1 && {opacity:0.5}"
+            :style="
+              currentFileIndex == printDetailList.length - 1 && { opacity: 0.5 }
+            "
           ></span>
         </div>
-        <div v-if="preview.type=='pdf'" :style="{height: pdfHeight+'px'}">
-          <iframe width="100%" height="100%" :src="preview.url+'#toolbar=0'" ref="myIframe"/>
+        <div v-if="preview.type == 'pdf'" :style="{ height: pdfHeight + 'px' }">
+          <iframe
+            width="100%"
+            height="100%"
+            :src="preview.url + '#toolbar=0'"
+            ref="myIframe"
+          />
         </div>
       </div>
       <div slot="button" class="button">
@@ -211,7 +257,8 @@ import {
   previewArchive,
   uploadFileArchive,
   getConfig,
-  canCancelArchive
+  canCancelArchive,
+  getAchivePrintConfig
 } from "./api/index";
 import { TSNeverKeyword } from "babel-types";
 import common from "@/common/mixin/common.mixin.js";
@@ -258,7 +305,8 @@ export default {
         { id: 2, name: "已归档" }
       ],
       isSelectedStatus: "", //选择状态
-      isArchive: false,//是否直接一键归档
+      isArchive: false, //是否直接一键归档
+      showAutoPrintInfo: false // 是否开启自动归档
     };
   },
   methods: {
@@ -266,7 +314,7 @@ export default {
       this.$refs["preview-modal"].close();
     },
     print() {
-       console.dir(this.$refs.myIframe);
+      console.dir(this.$refs.myIframe);
       if (this.$refs.myIframe && this.$refs.myIframe.contentWindow) {
         this.$refs.myIframe.contentWindow.print();
       }
@@ -454,18 +502,36 @@ export default {
       }
     },
     // 获取用户配置
-    getUserConfig(){
+    getUserConfig() {
       getConfig().then(res => {
         // printNotNeedToPdf true，不需要转pdf，直接一键归档
         this.isArchive = res.data.data.print.printNotNeedToPdf;
-      })
+      });
     },
     // 归档：取消归档
-    cancelArchive(item){
+    cancelArchive(item) {
       canCancelArchive(item.patientId, item.visitId).then(res => {
         this.$message.success(res.data.desc);
         this.getArchiveList();
-      })
+      });
+    },
+    //  是否开启自动归档
+    getPrintConfig() {
+      getAchivePrintConfig().then(res => {
+        let data = res.data.data || [],
+          times = 0;
+        data.map(item => {
+          if (item.code == "archive.print.auto" && item.name == "true") {
+            times++;
+          } else if (
+            item.code == "archive.print.auto.time.after.discharge" &&
+            item.name == "7"
+          ) {
+            times++;
+          }
+        });
+        this.showAutoPrintInfo = times == 2 ? true : false;
+      });
     }
   },
   mounted() {
@@ -481,12 +547,14 @@ export default {
       this.modalObj = this.$refs["preview-modal"];
     }
 
-    if (this.deptCode){
+    if (this.deptCode) {
       this.getArchiveList();
     }
 
     // 获取用户配置
     this.getUserConfig();
+    // 是否开启自动归档
+    this.getPrintConfig();
   },
   updated() {
     this.tablesHeight();
@@ -533,6 +601,10 @@ export default {
       &:hover {
         font-weight: bold;
       }
+    }
+
+    p {
+      text-align: right;
     }
   }
 

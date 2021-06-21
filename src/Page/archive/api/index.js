@@ -34,3 +34,9 @@ export function canCancelArchive(patientId, visitId) {
   return axios.get(
     `${apiPath}print/archive/cancel/${patientId}/${visitId}`);
 }
+
+// 是否开启自动归档
+export function getAchivePrintConfig() {
+  return axios.get(
+    `${apiPath}dict/dictInfo/archivePrintConfig`);
+}
