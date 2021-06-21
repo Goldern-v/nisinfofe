@@ -57,31 +57,61 @@ export default [{
     key: "consciousness", //意识
     value: "",
     event: keyf1,
+    autoComplete: {
+      data: ["清醒", "嗜睡", "浅昏迷", "昏迷", "醒状昏迷", "睁眼昏迷"]
+    },
   },
   {
     key: "pupilSizeLeft", // 瞳孔-左
     value: "",
-    event: keyf1
+    event: keyf1,
+    textarea: {
+      width: 30
+    },
+    autoComplete: {
+      data: ["1", "1.5", "2", "2.5", "3", "3.5", "4", "4.5", "5", "散大", "眼疾", "椭圆", "白内障"]
+    }
   },
   {
     key: "pupilSizeRight", // 瞳孔-右
     value: "",
-    event: keyf1
+    event: keyf1,
+    textarea: {
+      width: 30
+    },
+    autoComplete: {
+      data: ["1", "1.5", "2", "2.5", "3", "3.5", "4", "4.5", "5", "散大", "眼疾", "椭圆", "白内障"]
+    }
   },
   {
     key: "pupilReflexLeft", // 瞳孔-对光反射左
     value: "",
-    event: keyf1
+    event: keyf1,
+    textarea: {
+      width: 30
+    },
+    autoComplete: {
+      data: ["灵敏", "迟钝", "消失", "眼疾", "椭圆", "白内障"]
+    }
   },
   {
     key: "pupilReflexRight", // 瞳孔-对光反射右
     value: "",
-    event: keyf1
+    event: keyf1,
+    textarea: {
+      width: 30
+    },
+    autoComplete: {
+      data: ["灵敏", "迟钝", "消失", "眼疾", "椭圆", "白内障"]
+    }
   },
   {
     key: "fieldOne", // 机械通气-呼吸模式
     value: "",
-    event: keyf1
+    event: keyf1,
+    autoComplete: {
+      data: ["SIMV", "PSV", "ASB", "IPPV", "BIPAP", "PC", "VC", "A/C"]
+    }
   },
   {
     key: "fio2", // 机械通气-FiO2
@@ -104,6 +134,9 @@ export default [{
     event: keyf1,
     textarea: {
       width: 68
+    },
+    autoComplete: {
+      data: ["营养汤", "米汤", "果汁", "温开水", "糌粑", "稀饭", "馒头"]
     }
   },
   {
@@ -116,8 +149,8 @@ export default [{
     value: "",
     event: keyf1,
     textarea: {
-      width: 40
-    }
+      width: 60
+    },
   },
   {
     key: "dischargeSize", //排出物数量
@@ -153,7 +186,18 @@ export default [{
     }
   },
   {
-    key: "description", //护理措施
+    key: "fieldEight", //护理措施
+    value: "",
+    event: keyf1,
+    textarea: {
+      width: 36
+    },
+    autoComplete: {
+      data: ["①", "②", "③", "④", "⑤", "⑥", "⑦", "⑧", "⑨", "⑩"]
+    }
+  },
+  {
+    key: "description", //其他
     value: "",
     style: {
       textAlign: "left",
@@ -173,14 +217,6 @@ export default [{
       keyf1(e, td);
     }
     // oninput: next
-  },
-  {
-    key: "fieldEight", //其他
-    value: "",
-    event: keyf1,
-    textarea: {
-      width: 36
-    }
   },
   {
     key: "sign",
