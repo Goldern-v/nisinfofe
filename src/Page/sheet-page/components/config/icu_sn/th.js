@@ -143,8 +143,8 @@ export default {
         colspan: '1',
         rowspan: '3',
         style: {
-          minWidth: '153px',
-          maxWidth: '153px',
+          minWidth: '40px',
+          maxWidth: '40px',
         }
       },
       {
@@ -152,8 +152,8 @@ export default {
         其他
         `,
         style: {
-          minWidth: '40px',
-          maxWidth: '40px',
+          minWidth: '153px',
+          maxWidth: '153px',
         },
         colspan: '1',
         rowspan: '3'
