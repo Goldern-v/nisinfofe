@@ -33,6 +33,8 @@ import NullBg from "@/components/null/null-bg.vue";
 import common from "@/common/mixin/common.mixin.js";
 import Paper from "./components/paper.vue";
 import * as apis from "./apis";
+import { patients } from "@/api/lesion";
+import { listItem } from "@/api/common.js";
 
 export default {
   mixins: [common],
@@ -58,10 +60,62 @@ export default {
       depts: [], //选项卡数据
       code: "",
       name: "",
-      dataList: []
+      dataList: [],
+      bedList: [],
+      levelColor: []
     };
   },
-  computed: {},
+  computed: {
+    bw() {
+      return this.bedList.filter(item => item.patientCondition == "病危");
+    },
+    bz() {
+      return this.bedList.filter(item => item.patientCondition == "病重");
+    },
+    gm() {
+      return this.bedList.filter(item => item.drugGms);
+    },
+    // 预出院
+    isTodayDischarge() {
+      return this.bedList.filter(item => item.isTodayDischarge == "1");
+    },
+    // 今日手术
+    isTodayOperation() {
+      return this.bedList.filter(item => item.isTodayOperation == "1");
+    },
+    // 明日出院
+    isTommorowDischarge() {
+      return this.bedList.filter(item => item.isTommorowDischarge == "1");
+    },
+    // 明日手术
+    isTommorowOperation() {
+      return this.bedList.filter(item => item.isTommorowOperation == "1");
+    },
+    // 新入
+    isToadyHosipital() {
+      return this.bedList.filter(
+        item =>
+          new Date(item.admissionDate).Format("yyyy-MM-dd") ==
+          new Date().Format("yyyy-MM-dd")
+      );
+    },
+    // 跌倒高分险
+    dangerInMorse() {
+      return this.bedList.filter(item => item.dangerInMorse);
+    },
+    // 压疮高分险
+    dangerInYachuang() {
+      return this.bedList.filter(item => item.dangerInYachuang);
+    },
+    // 已有压疮
+    hasYachuang() {
+      return this.bedList.filter(item => item.hasYachuang);
+    },
+    // MEWS预警
+    MEWS() {
+      return this.bedList.filter(item => item.dangerInMews);
+    }
+  },
   watch: {
     deptCode(value, oldValue) {
       this.code = this.deptCode;
@@ -107,6 +161,10 @@ export default {
     //   this.code = this.depts[0] && this.depts[0].code;
     // },
     async load(refresh) {
+      if (this.HOSPITAL_ID == "zhongshanqi") {
+        this.getDate();
+        return;
+      }
       const date = this.$route.params.date;
 
       if (!date)
@@ -176,6 +234,99 @@ export default {
       });
 
       this.printing = false;
+    },
+    getLevelList(level) {
+      return this.bedList.filter(item => item.nursingClass == level);
+    },
+    setTableData() {
+      let list = [
+        ...this.levelColor.map(item => {
+          return {
+            name: item.code,
+            num: (this.getLevelList(item.code) || []).length,
+            type: "level",
+            color: item.name
+          };
+        }),
+        {
+          name: "病危",
+          num: this.bw.length,
+          type: "state"
+        },
+        {
+          name: "病重",
+          num: this.bz.length,
+          type: "state"
+        },
+        {
+          name: "过敏",
+          num: this.gm.length,
+          type: "state"
+        },
+        {
+          name: "跌倒高风险",
+          num: this.dangerInMorse.length
+        },
+        {
+          name: "压疮高风险",
+          num: this.dangerInYachuang.length
+        },
+        {
+          name: "已有压疮",
+          num: this.hasYachuang.length
+        },
+        {
+          name: "新入",
+          num: this.isToadyHosipital.length
+        },
+        {
+          name: "预出院",
+          value: "",
+          num: this.isTodayDischarge.length
+        },
+        {
+          name: "明日出院",
+          num: this.isTommorowDischarge.length
+        },
+        {
+          name: "今日手术",
+          num: this.isTodayOperation.length
+        },
+        {
+          name: "明日手术",
+          num: this.isTommorowOperation.length
+        },
+        {
+          name: "MEWS预警",
+          num: this.MEWS.length
+        }
+      ];
+      let obj = {};
+      list.map(item => {
+        if (item.name) {
+          obj[item.name] = item.num || 0;
+        }
+      });
+      this.papers = { ...obj };
+    },
+    async getDate() {
+      if (this.deptCode) {
+        this.loading = true;
+        let {
+          data: { data: levelColor }
+        } = await listItem("nursing_level");
+        this.levelColor = levelColor;
+        patients(this.deptCode).then(res => {
+          this.bedList = res.data.data.map(item => {
+            item.nursingClassColor = (
+              levelColor.find(o => o.code == item.nursingClass) || {}
+            ).name;
+            return item;
+          });
+          this.setTableData();
+          this.loading = false;
+        });
+      }
     }
   }
 };

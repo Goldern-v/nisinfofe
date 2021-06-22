@@ -367,7 +367,7 @@ const router = new Router({
         },
         {
           path: "/nursingGradeStatistics",
-          component: nursingGradeStatistics,
+          component:  HOSPITAL_ID == "zhongshanqi" ? nursingGradeStatisticsDetail : nursingGradeStatistics,
           name: "nursingGradeStatistics",
           children: [{
             name: "nursingGradeStatistics",
