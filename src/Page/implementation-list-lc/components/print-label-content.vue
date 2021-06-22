@@ -21,7 +21,7 @@
                 住院号
               </div>
               <div class="label-item" style="text-align: center;">
-                {{ printLabelInfo.inpNo }}
+                {{ printLabelInfo.patientId }}
               </div>
             </td>
             <td rowspan="2">

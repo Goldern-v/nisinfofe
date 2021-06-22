@@ -54,7 +54,7 @@
           on-text
           off-text
         ></el-switch>
-        <span>（复选框打勾）已开启自动归档，在患者出院七天后</span>
+        <span>自动归档</span>
       </div>
     </div>
     <div class="content-center">
