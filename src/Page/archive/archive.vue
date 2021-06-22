@@ -42,10 +42,19 @@
 
         <button @click.stop="search">查询</button>
       </div>
-      <div class="filterItem">
-        <p v-if="showAutoPrintInfo">
-          （复选框打勾）已开启自动归档，在患者出院七天后
-        </p>
+      <div
+        class="filterItem"
+        v-if="showAutoPrintInfo"
+        style="text-align: right;"
+      >
+        <el-switch
+          v-model="showAutoPrint"
+          active-color="#4BB08D"
+          inactive-color="#eee"
+          on-text
+          off-text
+        ></el-switch>
+        <span>（复选框打勾）已开启自动归档，在患者出院七天后</span>
       </div>
     </div>
     <div class="content-center">
@@ -306,7 +315,8 @@ export default {
       ],
       isSelectedStatus: "", //选择状态
       isArchive: false, //是否直接一键归档
-      showAutoPrintInfo: false // 是否开启自动归档
+      showAutoPrintInfo: false, // 是否开启自动归档
+      showAutoPrint: true // 是否开启自动归档按钮
     };
   },
   methods: {
