@@ -1,8 +1,12 @@
 <template>
   <div class="contains">
     <div class="main-title">
-      <b>{{user.name}}</b>
-      <span>{{noon}}好，欢迎您回来。今天是{{user.today}}，{{user.week}}，祝您工作顺利，天天都有好心情。</span>
+      <b>{{ user.name }}</b>
+      <span
+        >{{ noon }}好，欢迎您回来。今天是{{ user.today }}，{{
+          user.week
+        }}，祝您工作顺利，天天都有好心情。</span
+      >
     </div>
     <div class="main-content" flex="main:justify">
       <div class="content-left" flex-box="1">
@@ -16,7 +20,7 @@
             <tr>
               <th colspan="4">
                 <img src="./img/体征任务.png" />
-                <span>体征任务（{{body.content.length}}）</span>
+                <span>体征任务（{{ body.content.length }}）</span>
               </th>
             </tr>
             <tr>
@@ -36,14 +40,22 @@
             </colgroup>
             <tbody>
               <tr
-                v-for="(item,index) in body.content"
+                v-for="(item, index) in body.content"
                 :key="index"
                 @click="showTip1(item)"
                 class="data-row"
               >
-                <td>{{item.bedLabel+'床 '+item.patientName}}</td>
-                <td>{{item.task}}</td>
-                <td>{{item.taskTime | filterTime}}</td>
+                <td>{{ item.bedLabel + "床 " + item.patientName }}</td>
+                <td>{{ item.task }}</td>
+                <td>
+                  {{ item.taskTime | filterTime }}
+                  <p
+                    v-if="HOSPITAL_ID == 'zhongshanqi' && item.isTime == 1"
+                    style="color: red;padding-top: 5px;"
+                  >
+                    （已超时）
+                  </p>
+                </td>
               </tr>
             </tbody>
           </table>
@@ -61,7 +73,7 @@
             <tr>
               <th colspan="4">
                 <img src="./img/护理评估任务.png" />
-                <span>护理评估任务（{{nurse.content.length}}）</span>
+                <span>护理评估任务（{{ nurse.content.length }}）</span>
               </th>
             </tr>
             <tr>
@@ -81,14 +93,14 @@
             </colgroup>
             <tbody>
               <tr
-                v-for="(item,index) in nurse.content"
+                v-for="(item, index) in nurse.content"
                 :key="index"
                 @click="showTip2(item)"
                 class="data-row"
               >
-                <td>{{item.bedLabel + '床 '+item.name}}</td>
-                <td>{{item.task}}</td>
-                <td>{{item.taskTime | filterTime}}</td>
+                <td>{{ item.bedLabel + "床 " + item.name }}</td>
+                <td>{{ item.task }}</td>
+                <td>{{ item.taskTime | filterTime }}</td>
               </tr>
             </tbody>
           </table>
@@ -107,7 +119,7 @@
             <tr>
               <th colspan="5">
                 <img src="./img/护理文书批注.png" />
-                <span>护理记录单（{{postil.content.length}}）</span>
+                <span>护理记录单（{{ postil.content.length }}）</span>
                 <el-switch
                   style="position:absolute;top:9px;right:110px;display: inline-block"
                   v-model="postil.isshow"
@@ -121,7 +133,7 @@
               </th>
             </tr>
             <tr>
-              <th :style="{width:table3 ? '16px':'16px'}">
+              <th :style="{ width: table3 ? '16px' : '16px' }">
                 <span></span>
               </th>
               <th>患者</th>
@@ -141,20 +153,29 @@
             </colgroup>
             <tbody>
               <tr
-                v-for="(item,index) in filterPostil"
+                v-for="(item, index) in filterPostil"
                 :key="index"
                 @click="showTip3(item)"
                 class="data-row"
               >
                 <td>
-                  <i :style="{background:item.type == '2' ? '#D0C44F': beColor(item.signType)}"></i>
+                  <i
+                    :style="{
+                      background:
+                        item.type == '2' ? '#D0C44F' : beColor(item.signType)
+                    }"
+                  ></i>
                 </td>
-                <td>{{item.bedLabel+'床 '+item.patientName}}</td>
-                <td>{{item.content}}</td>
+                <td>{{ item.bedLabel + "床 " + item.patientName }}</td>
+                <td>{{ item.content }}</td>
                 <td>
                   <span v-if="item.type == '1'" style="color: red">未签名</span>
-                  <span v-else-if="item.type == '2' && item.status == '1'" style="color: red">未审核</span>
-                  <span v-else>{{item.signerName}}</span>
+                  <span
+                    v-else-if="item.type == '2' && item.status == '1'"
+                    style="color: red"
+                    >未审核</span
+                  >
+                  <span v-else>{{ item.signerName }}</span>
                 </td>
               </tr>
             </tbody>
