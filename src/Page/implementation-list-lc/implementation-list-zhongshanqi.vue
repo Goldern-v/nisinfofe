@@ -25,7 +25,7 @@
           placeholder="请选择"
           size="small"
           style="width:150px"
-          v-if="type===0"
+          v-if="type === 0"
         >
           <el-option
             :label="item.name"
@@ -34,11 +34,27 @@
             :key="item.id"
           ></el-option>
         </el-select>
-        <el-select v-model="status" placeholder="请选择" size="small" style="width:150px" v-else>
-          <el-option :label="item.name" :value="item.id" v-for="item in allStatus" :key="item.id"></el-option>
+        <el-select
+          v-model="status"
+          placeholder="请选择"
+          size="small"
+          style="width:150px"
+          v-else
+        >
+          <el-option
+            :label="item.name"
+            :value="item.id"
+            v-for="item in allStatus"
+            :key="item.id"
+          ></el-option>
         </el-select>
         <span class="label">类型:</span>
-        <el-select v-model="type" placeholder="请选择" size="small" style="width:150px">
+        <el-select
+          v-model="type"
+          placeholder="请选择"
+          size="small"
+          style="width:150px;margin-right: 10px;"
+        >
           <el-option
             :label="typeItem.name"
             :value="typeItem.value"
@@ -46,6 +62,12 @@
             :key="typeItem.value"
           ></el-option>
         </el-select>
+        <el-button
+          size="small"
+          @click="onPrintLabel"
+          :disabled="!multipleSelection.length"
+          >瓶签打印</el-button
+        >
         <div style="flex: 1"></div>
         <el-input
           size="small"
@@ -62,17 +84,31 @@
         <el-button size="small" type="primary" @click="search">查询</el-button>
         <el-button size="small" @click="onPrint">打印</el-button>
       </div>
-      <dTable :tableData="tableData" :currentType="type" :pageLoadng="pageLoadng"></dTable>
+      <dTable
+        :tableData="tableData"
+        :currentType="type"
+        :pageLoadng="pageLoadng"
+      ></dTable>
+
+      <printLabelContent
+        :printLabelInfo="printLabelInfo"
+        :qrCode="qrCode"
+        ref="printCon"
+      ></printLabelContent>
 
       <div class="printable" ref="printable">
         <div class="header-con">
           <h2>执行单</h2>
-           <div class="filterItem date">
+          <div class="filterItem date">
             <span class="type-label">日期:</span>
-            <span>{{startDate | ymdhm}}</span>
+            <span>{{ startDate | ymdhm }}</span>
           </div>
         </div>
-        <dTablePrint :tableData="tableData" :currentType="type" :pageLoadng="pageLoadng"></dTablePrint>
+        <dTablePrint
+          :tableData="tableData"
+          :currentType="type"
+          :pageLoadng="pageLoadng"
+        ></dTablePrint>
       </div>
 
       <!-- <div class="pagination-con" flex="main:justify cross:center">
@@ -192,13 +228,16 @@
 import dTable from "./components/table/d-table-zsq";
 import dTablePrint from "./components/table/d-table-zsq-print";
 import pagination from "./components/common/pagination";
+import printLabelContent from "./components/print-label-content";
 import { patEmrList } from "@/api/document";
-import { getExecuteWithWardcodeLc,getWardExeacuteZSQ } from "./api/index";
+import { getExecuteWithWardcodeLc, getWardExeacuteZSQ } from "./api/index";
 import common from "@/common/mixin/common.mixin.js";
 import moment from "moment";
 import bus from "vue-happy-bus";
 import print from "printing";
 import formatter from "./print-formatter";
+import printLabel from "@/Page/patientInfo/supComponts/modal/tool/print.js";
+var qr = require("qr-image");
 export default {
   mixins: [common],
   data() {
@@ -210,7 +249,7 @@ export default {
       page: {
         pageIndex: 1,
         pageNum: 20,
-        total: 0,
+        total: 0
       },
       startDate: moment().format("YYYY-MM-DD"),
       repeatIndicator: "",
@@ -221,42 +260,42 @@ export default {
       transfusionStatus: [
         {
           id: "",
-          name: "全部",
+          name: "全部"
         },
         {
           id: 0,
-          name: "未执行",
+          name: "未执行"
         },
         {
           id: 1,
-          name: "开始输液",
+          name: "开始输液"
         },
         {
           id: 2,
-          name: "暂停输液",
+          name: "暂停输液"
         },
         {
           id: 3,
-          name: "继续输液",
+          name: "继续输液"
         },
         {
           id: 4,
-          name: "已完成",
-        },
+          name: "已完成"
+        }
       ],
       allStatus: [
         {
           id: "",
-          name: "全部",
+          name: "全部"
         },
         {
           id: 0,
-          name: "未执行",
+          name: "未执行"
         },
         {
           id: 4,
-          name: "已完成",
-        },
+          name: "已完成"
+        }
       ],
       allType: [
         {
@@ -290,8 +329,11 @@ export default {
         {
           name: "标本",
           value: "标本"
-        },
+        }
       ],
+      multipleSelection: [],
+      printLabelInfo: {},
+      qrCode: ""
     };
   },
   methods: {
@@ -306,15 +348,16 @@ export default {
       if (!this.deptCode) return;
       this.pageLoadng = true;
       let obj = {
-        wardCode: this.deptCode,   //--护理单元代码 316放射科
-        executeDateTime: moment(this.startDate).format("YYYY-MM-DD"),  //--预计执行时间
-        executeType: this.type,  //--类型:注射 ,输液, 口服 ,雾化, 皮试 ,标本, 输血,
-        bedLabel: this.bedLabel,  //--床号
-        patientName: this.patientName,  //--患者姓名
-        repeatIndicator: this.repeatIndicator,  //--医嘱类型:长期 ,临时
-        executeStatus: this.status  //状态:默认空查询全部  null未执行  1是执行中  2暂停 3 停止~~~~  4已执行
-      }
-      getWardExeacuteZSQ(obj).then((res) => {
+        wardCode: this.deptCode, //--护理单元代码 316放射科
+        executeDateTime: moment(this.startDate).format("YYYY-MM-DD"), //--预计执行时间
+        executeType: this.type, //--类型:注射 ,输液, 口服 ,雾化, 皮试 ,标本, 输血,
+        bedLabel: this.bedLabel, //--床号
+        patientName: this.patientName, //--患者姓名
+        repeatIndicator: this.repeatIndicator, //--医嘱类型:长期 ,临时
+        executeStatus: this.status //状态:默认空查询全部  null未执行  1是执行中  2暂停 3 停止~~~~  4已执行
+      };
+      let children = [];
+      getWardExeacuteZSQ(obj).then(res => {
         this.tableData = res.data.data.map((item, index, array) => {
           let prevRowId =
             array[index - 1] &&
@@ -337,12 +380,16 @@ export default {
             if (currentRowId != prevRowId) {
               /** 第一条 */
               item.rowType = 1;
+              item.children = children;
             } else if (currentRowId != nextRowId) {
               /** 最后条 */
               item.rowType = 3;
+              children.push(item);
+              children = [];
             } else {
               /** 中间条 */
               item.rowType = 2;
+              children.push(item);
             }
           }
           return item;
@@ -387,15 +434,37 @@ export default {
           @page {
             margin: 10mm;
           }
-        `,
+        `
         });
       });
     },
+    onPrintLabel() {
+      this.printLabelInfo = this.multipleSelection[0];
+      let qr_png_value = this.printLabelInfo.barcode;
+      var qr_png = qr.imageSync(qr_png_value, { type: "png" });
+      function arrayBufferToBase64(buffer) {
+        var binary = "";
+        var bytes = new Uint8Array(buffer);
+        var len = bytes.byteLength;
+        for (var i = 0; i < len; i++) {
+          binary += String.fromCharCode(bytes[i]);
+        }
+        return "data:image/png;base64," + window.btoa(binary);
+      }
+      let base64 = arrayBufferToBase64(qr_png);
+      this.qrCode = base64;
+      this.$nextTick(() => {
+        printLabel(this.$refs.printCon.$el);
+      });
+    }
   },
   created() {
     this.onLoad();
     this.bus.$on("loadImplementationList", () => {
       this.onLoad();
+    });
+    this.bus.$on("updateMultipleSelection", multipleSelection => {
+      this.multipleSelection = multipleSelection;
     });
   },
   watch: {
@@ -416,7 +485,7 @@ export default {
     },
     status() {
       this.search();
-    },
+    }
   },
   filters: {
     ymdhm(val) {
@@ -427,6 +496,7 @@ export default {
     dTable,
     dTablePrint,
     pagination,
-  },
+    printLabelContent
+  }
 };
 </script>

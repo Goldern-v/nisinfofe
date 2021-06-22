@@ -6,9 +6,13 @@
       border
       :height="tableH || wih - 134"
       v-loading="pageLoadng"
-      :row-class-name="addRowClass"
+      :row-class-name="rowcb"
       :class="{ 'd-table-liaocheng': HOSPITAL_ID == 'liaocheng' }"
+      @selection-change="handleSelectionChange"
+      @select="select"
+      ref="multipleTable"
     >
+      <el-table-column type="selection" width="55"> </el-table-column>
       <el-table-column
         label="序号"
         header-align="center"
@@ -289,6 +293,12 @@
       }
     }
 
+    .myCell {
+      .el-checkbox__input {
+        display: none
+      }
+    }
+
 
     &.d-table-liaocheng {
 
@@ -391,6 +401,12 @@ export default {
   },
   components: {},
   methods: {
+    rowcb(obj) {
+      // 如果该条执行单是一组多条的 或者该执行单是已完成的隐藏当前多选框
+      if (obj.rowType > 1) {
+        return "myCell";
+      }
+    },
     // 补录
     backTracking(item) {
       this.barcode = item.barcode;
@@ -416,12 +432,15 @@ export default {
         });
       });
     },
-    addRowClass(row) {
-      if (row.executeFlag == 4) {
-        return "green";
-      } else if (row.executeFlag == 1) {
-        return "pink";
-      }
+    // 当用户手动勾选数据行的 Checkbox 时触发的事件,确保只能选中一项数据
+    select(selection, row) {
+      this.$refs.multipleTable.clearSelection();
+      if (selection.length == 0) return;
+      this.$refs.multipleTable.toggleRowSelection(row, true);
+    },
+    /* 勾选分诊，保存到数组进行群伤关联 */
+    handleSelectionChange(val) {
+      this.bus.$emit("updateMultipleSelection", val);
     }
   },
   mounted() {
