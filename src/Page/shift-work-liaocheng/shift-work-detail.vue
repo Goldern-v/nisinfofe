@@ -120,6 +120,69 @@
                 <span style="color: transparent">交班日期： 2019-05-15</span>
               </div>
             </div>
+            <div v-if="HOSPITAL_ID == 'zhongshanqi'">
+              <div class="details">
+                <span>
+                  病区情况：原有：
+                  <b><input type="text" v-model="shiftWithWardcodes.patientTotal" /></b>人，
+                </span>
+                <span>
+                  新收：
+                  <b><input type="text" v-model="shiftWithWardcodes.inHospitalTotal" /></b>人，
+                </span>
+                <span>
+                  转入：
+                  <b><input type="text" v-model="shiftWithWardcodes.transInTotal" /></b>人，
+                </span>
+                <span>
+                  出院：
+                  <b><input type="text" v-model="shiftWithWardcodes.outHospitalTotal" /></b>人，
+                </span>
+                <span>
+                  转出：
+                  <b><input type="text" v-model="shiftWithWardcodes.transOutTotal" /></b>人，
+                </span>
+                <span>
+                  现有：
+                  <b><input type="text" v-model="shiftWithWardcodes.nowHospitalTotal" /></b>人，
+                </span>
+                <span>
+                  病危：
+                  <b><input type="text" v-model="shiftWithWardcodes.dangerTotal" /></b>人，
+                </span>
+                <span>
+                  病重：
+                  <b><input type="text" v-model="shiftWithWardcodes.seriousTotal" /></b>人，
+                </span>
+                <span>
+                  手术：
+                  <b><input type="text" v-model="shiftWithWardcodes.operationTotal" /></b>人
+                </span>
+               </div>
+               <div class="details" style="margin-top: 5px;">
+                <span>
+                  特级护理：<b><input type="text" v-model="shiftWithWardcodes.tjhl" /></b>人，
+                </span>
+                <span>
+                  一级护理：<b><input type="text" v-model="shiftWithWardcodes.yjhl" /></b>人，
+                </span>
+                <span>
+                  二级护理：<b><input type="text" v-model="shiftWithWardcodes.ejhl" /></b>人，
+                </span>
+                <span>
+                  三级护理：<b><input type="text" v-model="shiftWithWardcodes.sjhl" /></b>人，
+                </span>
+                <span>
+                  体温异常：<b><input type="text" v-model="shiftWithWardcodes.twyc" /></b>人，
+                </span>
+                <span>
+                  血压异常：<b><input type="text" v-model="shiftWithWardcodes.xyyc" /></b>人，
+                </span>
+                <span>
+                  血糖异常：<b><input type="text" v-model="shiftWithWardcodes.xtyc" /></b>人，
+                </span>
+              </div>
+            </div>
             <div v-else>
               <div class="details">
                 <span>

@@ -383,12 +383,12 @@ const router = new Router({
         {
           path: "/shiftWork",
           name: "shiftWorks",
-          component: HOSPITAL_ID == "lingcheng" ? shiftWorkLc : HOSPITAL_ID == "huadu" ? shiftWorkHd : HOSPITAL_ID == "fuyou" ? shiftWorkFy : HOSPITAL_ID == "liaocheng" ? shiftWorkLiaocheng : shiftWork,
+          component: HOSPITAL_ID == "lingcheng" ? shiftWorkLc : HOSPITAL_ID == "huadu" ? shiftWorkHd : HOSPITAL_ID == "fuyou" ? shiftWorkFy : HOSPITAL_ID == "liaocheng" || HOSPITAL_ID == "zhongshanqi" ? shiftWorkLiaocheng : shiftWork,
           children: [{
             name: "shiftWork",
             path: "/shiftWork/:code?/:id?",
             component: HOSPITAL_ID == "lingcheng" ?
-              shiftWorkDetailLc : HOSPITAL_ID == "huadu" ? shiftWorkDetailHd : HOSPITAL_ID == "fuyou" ? shiftWorkDetailFy : HOSPITAL_ID == "liaocheng" ? shiftWorkDetailLiaocheng : shiftWorkDetail
+              shiftWorkDetailLc : HOSPITAL_ID == "huadu" ? shiftWorkDetailHd : HOSPITAL_ID == "fuyou" ? shiftWorkDetailFy : HOSPITAL_ID == "liaocheng" || HOSPITAL_ID == "zhongshanqi"? shiftWorkDetailLiaocheng : shiftWorkDetail
           }]
         },
         {
