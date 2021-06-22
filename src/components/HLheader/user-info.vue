@@ -5,17 +5,17 @@
         class="user-head"
         flex="cross:center main:center"
         @click="openUploadHeadModal"
-        :style="img && {backgroundImage: `url(${img})`}"
+        :style="img && { backgroundImage: `url(${img})` }"
       >
         <span class="text" v-show="!img">求真像</span>
       </div>
       <div class="user-text" flex-box="1">
         <div class="name">
-          {{user.empName}}
-          <span class="year">（{{user.sex}}岁）</span>
+          {{ user.empName }}
+          <span class="year">（{{ user.sex }}岁）</span>
         </div>
-        <div class="work">{{user.title}}</div>
-        <div class="dept">{{user.deptName}}</div>
+        <div class="work">{{ user.title }}</div>
+        <div class="dept">{{ user.deptName }}</div>
       </div>
       <div style="margin-right: -8px" @click="$emit('quit')">
         <whiteButton text="注销登录"></whiteButton>
@@ -34,19 +34,19 @@
     </div>
     <!-- <div class="line"></div> -->
     <!-- empNo  admin -->
-    <div class="admin-system-info" v-if="HOSPITAL_ID==='weixian'">
+    <div class="admin-system-info" v-if="HOSPITAL_ID === 'weixian'">
       证书状态:
       <p>
-        <label>{{ca_name || '无证书'}}:</label>
-        <span>{{ ca_isLogin ? '已登录' : '未登录'}}</span>
+        <label>{{ ca_name || "无证书" }}:</label>
+        <span>{{ ca_isLogin ? "已登录" : "未登录" }}</span>
       </p>
       <div class="button-con">
         <el-button size="mini" @click="openCaSignModal">证书登录</el-button>
         <el-button size="mini" @click="logoutCaSign">证书退出</el-button>
       </div>
     </div>
-    <div style="padding-bottom: 10px;">
-     <el-switch
+    <div style="padding-bottom: 10px">
+      <el-switch
         v-model="showScaleTip"
         active-color="#4BB08D"
         inactive-color="#eee"
@@ -56,18 +56,21 @@
       ></el-switch>
       <b>本次登录取消缩放提示</b>
     </div>
-    <div class="admin-system-info" v-if="empNo==='admin'">
+    <SysPasswordManage
+      v-if="HOSPITAL_ID === 'zhongshanqi' && isAdminOrNursingDepartment"
+    />
+    <div class="admin-system-info" v-if="empNo === 'admin'">
       仅管理员可见:
-      <p v-for="(info,i) in adminSystemInfo" :key="i">
-        <label>{{info.key}}:</label>
-        <span>{{info.value}}</span>
+      <p v-for="(info, i) in adminSystemInfo" :key="i">
+        <label>{{ info.key }}:</label>
+        <span>{{ info.value }}</span>
       </p>
       <!-- <p><label>最近打包时间:</label><span>{{lastBuildDate}}</span></p>
       <p><label>IP代理地址:</label><span>{{proxyIP}}</span></p>-->
     </div>
     <div class="footer-con" flex="cross:center">
-      <span @click="$emit('setPassword')">修改密码</span>&nbsp;&nbsp;|&nbsp;&nbsp;
-      <span>个人档案</span>&nbsp;&nbsp;|&nbsp;&nbsp;
+      <span @click="$emit('setPassword')">修改密码</span
+      >&nbsp;&nbsp;|&nbsp;&nbsp; <span>个人档案</span>&nbsp;&nbsp;|&nbsp;&nbsp;
       <span @click="clear">清除缓存</span>
     </div>
     <uploadImgModal ref="uploadImgModal"></uploadImgModal>
@@ -206,6 +209,7 @@
 import moment from "moment";
 import whiteButton from "../../components/button/white-button.vue";
 import uploadImgModal from "./modal/uploadImg.vue";
+const SysPasswordManage = () => import("./SysPasswordManage.vue");
 import bus from "vue-happy-bus";
 import { imageView } from "@/api/common.js";
 import common from "@/common/mixin/common.mixin.js";
@@ -225,7 +229,7 @@ export default {
       ca_name: "",
       ca_isLogin: "",
       strUserCertID: "",
-      showScaleTip: false
+      showScaleTip: false,
     };
   },
   computed: {
@@ -258,7 +262,7 @@ export default {
         { key: "IP代理地址", value: this.proxyIP },
         {
           key: "屏幕宽高",
-          value: `${window.screen.width}x${window.screen.height}`
+          value: `${window.screen.width}x${window.screen.height}`,
         },
         { key: "Platform", value: window.navigator.platform },
         { key: "总内存", value: `${window.navigator.deviceMemory || ""} GB` },
@@ -266,12 +270,15 @@ export default {
           key: "Used内存",
           value: `${this.getFileSizeWithUnit(
             window.performance.memory.usedJSHeapSize
-          )}`
+          )}`,
         },
         { key: "CPU总线程数", value: window.navigator.hardwareConcurrency },
-        { key: "蓝牙签名功能激活", value: process.env.ENABLE_BLUETOOTH_SIGN || 'false' },
+        {
+          key: "蓝牙签名功能激活",
+          value: process.env.ENABLE_BLUETOOTH_SIGN || "false",
+        },
       ];
-    }
+    },
   },
   methods: {
     openUploadHeadModal() {
@@ -285,7 +292,7 @@ export default {
           { name: " KB", value: Math.pow(10, 3) },
           { name: " MB", value: Math.pow(10, 6) },
           { name: " GB", value: Math.pow(10, 9) },
-          { name: " TB", value: Math.pow(10, 12) }
+          { name: " TB", value: Math.pow(10, 12) },
         ];
         unit.filter((u, i) => {
           // console.log('size/u.value',i,size/u.value,u.name)
@@ -332,8 +339,8 @@ export default {
       this.$refs.uploadImgModal.open("signImg");
     },
     clear() {
-      for(let key in localStorage){
-        if(key.includes('firtPainFormID') || key.includes('patientInfo')){
+      for (let key in localStorage) {
+        if (key.includes("firtPainFormID") || key.includes("patientInfo")) {
           localStorage.removeItem(key);
         }
       }
@@ -343,7 +350,7 @@ export default {
       this.$refs.caSignModal.open(() => this.getCaStatus());
     },
     getCaStatus() {
-      $_$WebSocketObj.GetUserList(usrInfo => {
+      $_$WebSocketObj.GetUserList((usrInfo) => {
         this.strUserCertID = usrInfo.retVal
           .substring(usrInfo.retVal.indexOf("||") + 2, usrInfo.retVal.length)
           .replace("&&&", "");
@@ -352,7 +359,7 @@ export default {
           usrInfo.retVal.indexOf("||")
         );
 
-        SignedData(this.strUserCertID, "123213", retValObj => {
+        SignedData(this.strUserCertID, "123213", (retValObj) => {
           this.ca_isLogin = !!retValObj.retVal;
           window.ca_isLogin = this.ca_isLogin;
           window.ca_name = this.ca_name;
@@ -363,9 +370,9 @@ export default {
       this.$confirm("是否确认退出证书登录?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
-        type: "warning"
+        type: "warning",
       }).then(() => {
-        Logout(this.strUserCertID, retValObj => {
+        Logout(this.strUserCertID, (retValObj) => {
           if (retValObj.retVal) {
             this.$message.success("退出证书登录成功");
             this.getCaStatus();
@@ -375,8 +382,10 @@ export default {
     },
     // 本次登录取消页面缩放提示
     toggleScaleTip(type) {
-      type ? localStorage.setItem('noShowScaleTip',true) : localStorage.removeItem('noShowScaleTip');
-    }
+      type
+        ? localStorage.setItem("noShowScaleTip", true)
+        : localStorage.removeItem("noShowScaleTip");
+    },
   },
   created() {
     this.bus.$on("refreshUserImg", () => {
@@ -386,9 +395,12 @@ export default {
       this.getSignImg();
     });
     // let HOSPITAL_ENABLE_LIST = ["威县人民医院"]
-    console.log('process.env.ENABLE_BLUETOOTH_SIGN',process.env.ENABLE_BLUETOOTH_SIGN)
+    console.log(
+      "process.env.ENABLE_BLUETOOTH_SIGN",
+      process.env.ENABLE_BLUETOOTH_SIGN
+    );
     clearInterval(timer);
-    if(process.env.ENABLE_BLUETOOTH_SIGN){
+    if (process.env.ENABLE_BLUETOOTH_SIGN) {
       this.getCaStatus();
       let timer = setInterval(() => {
         this.getCaStatus();
@@ -398,12 +410,13 @@ export default {
   mounted() {
     this.getUserImg();
     this.getSignImg();
-    this.showScaleTip  = localStorage.getItem('noShowScaleTip') ? true : false;
+    this.showScaleTip = localStorage.getItem("noShowScaleTip") ? true : false;
   },
   components: {
+    SysPasswordManage,
     whiteButton,
     uploadImgModal,
-    caSignModal
-  }
+    caSignModal,
+  },
 };
 </script>

@@ -11,7 +11,7 @@
         :hoverEffect="false"
         :clickEffect="false"
         :linesDistance="350"
-        style="position: absolute; width: 100%;height: 100%"
+        style="position: absolute; width: 100%; height: 100%"
       ></vue-particles>
       <div style="height: 25%"></div>
       <div class="login-warpper">
@@ -21,7 +21,12 @@
           <span class="sys-version">「 v {{ $system.版本号 }} 」</span>
           <span class="sys-name">护理管理系统</span>
         </div>
-        <img src="../../common/images/shaw.png" height="234" width="526" class="login-shaw" />
+        <img
+          src="../../common/images/shaw.png"
+          height="234"
+          width="526"
+          class="login-shaw"
+        />
         <div class="login-con">
           <div>
             <div class="logo-con">
@@ -31,10 +36,19 @@
           </div>
           <el-form :rules="rules" ref="ruleFormRef" label-width="100px">
             <el-form-item label="账号">
-              <el-input v-model="empNo" placeholder="请输入原密码" size="mini"></el-input>
+              <el-input
+                v-model="empNo"
+                placeholder="请输入原密码"
+                size="mini"
+              ></el-input>
             </el-form-item>
             <el-form-item label="原密码" prop="oldPswd">
-              <el-input v-model="oldPswd" placeholder="请输入原密码" type="password" size="mini"></el-input>
+              <el-input
+                v-model="oldPswd"
+                placeholder="请输入原密码"
+                type="password"
+                size="mini"
+              ></el-input>
             </el-form-item>
             <el-form-item label="新密码" prop="newPswd">
               <el-input
@@ -54,19 +68,39 @@
                 size="mini"
               ></el-input>
             </el-form-item>
+            <p
+              class="password-security-level"
+              v-if="HOSPITAL_ID === 'zhongshanqi'"
+            >
+              <span class="title">密码强度</span>
+              <span class="progress-bar">
+                <span
+                  v-for="levelItem in securityLevelStatusList"
+                  :key="levelItem.level"
+                  :style="{
+                    backgroundColor:
+                      securityLevel >= levelItem.level
+                        ? levelItem.statusColor
+                        : '#ddd',
+                  }"
+                >
+                </span>
+              </span>
+            </p>
           </el-form>
           <el-button class="reset-btn" @click="reset">重置密码</el-button>
         </div>
       </div>
       <p class="footer-text">
         <span>
-          <a href="https://www.baichenyuan.cn" target="_blank">{{COMPANY_NAME || '百辰源(广州)科技有限公司'}}</a>
+          <a href="https://www.baichenyuan.cn" target="_blank">{{
+            COMPANY_NAME || "百辰源(广州)科技有限公司"
+          }}</a>
         </span>
         <span>
-          版权所有 &copy; {{ new Date().getFullYear() }} All rights
-          reseved.
+          版权所有 &copy; {{ new Date().getFullYear() }} All rights reseved.
         </span>
-        <span>{{ ABOUT_INFO || '关于百辰源'}}</span>
+        <span>{{ ABOUT_INFO || "关于百辰源" }}</span>
         <span>|</span>
         <span>关于智慧护理</span>
         <span>|</span>
@@ -78,7 +112,7 @@
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
 .el-form {
-  height: 156px;
+  min-height: 156px;
 
   .el-form-item {
     margin-bottom: 0px;
@@ -237,6 +271,48 @@ a {
     margin: 0px 10px;
   }
 }
+
+.password-security-level {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  color: rgb(72, 106, 98);
+  margin-bottom: 10px;
+
+  .title {
+    width: 100px;
+    text-align: right;
+    padding-right: 13px;
+    display: inline-block;
+    box-sizing: border-box;
+  }
+
+  .progress-bar {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    padding-right: 40px;
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      display: block;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(255, 255, 255, 0.3);
+    }
+
+    &>span {
+      flex: 1;
+      display: block;
+      height: 8px;
+      margin: 0 1px;
+    }
+  }
+}
 </style>
 
 <script>
@@ -263,31 +339,52 @@ export default {
         // oldPswd: [{ required: true, message: "请输入密码", trigger: "blur" }],
         // newPswd: [{ required: true, message: "请输入新密码", trigger: "blur" }],
         // rePswd: [{ required: true, validator: validatePass2, trigger: "blur" }]
-      }
+      },
+      securityLevelStatusList: [
+        { level: 1, statusColor: "red" },
+        { level: 2, statusColor: "darkorange" },
+        { level: 3, statusColor: "green" },
+      ],
     };
   },
   computed: {
-    logoUrl(){
-      let logoUrl = require('../../common/images/logo.png');
-      switch(this.HOSPITAL_ID){
-        case 'hj':
-          logoUrl = require('../../common/images/login_logo_hj.png')
-        break;
-        case 'zhongshanqi':
-          logoUrl = require('../../common/images/logo_zhongshanqi.png')
-        break;
+    logoUrl() {
+      let logoUrl = require("../../common/images/logo.png");
+      switch (this.HOSPITAL_ID) {
+        case "hj":
+          logoUrl = require("../../common/images/login_logo_hj.png");
+          break;
+        case "zhongshanqi":
+          logoUrl = require("../../common/images/logo_zhongshanqi.png");
+          break;
       }
       return logoUrl;
     },
-    logoName(){
-      let logoName = '百辰源智慧护理信息系统';
-      if(this.HOSPITAL_ID == 'hj' || this.HOSPITAL_ID == 'zhongshanqi'){
-        logoName = `${this.HOSPITAL_NAME}<br />智慧护理信息系统`
-      }else if(this.HOSPITAL_ID == 'guizhou' || this.HOSPITAL_ID == 'liaocheng' || this.HOSPITAL_ID == 'lingcheng'){
-        logoName = '智慧护理信息系统'
+    logoName() {
+      let logoName = "百辰源智慧护理信息系统";
+      if (this.HOSPITAL_ID == "hj" || this.HOSPITAL_ID == "zhongshanqi") {
+        logoName = `${this.HOSPITAL_NAME}<br />智慧护理信息系统`;
+      } else if (
+        this.HOSPITAL_ID == "guizhou" ||
+        this.HOSPITAL_ID == "liaocheng" ||
+        this.HOSPITAL_ID == "lingcheng"
+      ) {
+        logoName = "智慧护理信息系统";
       }
       return logoName;
-    }
+    },
+    securityLevel() {
+      let newPsw = this.newPswd.trim();
+      let level = 0;
+
+      if (newPsw.length >= 6) level++;
+      else return level;
+
+      if (/[A-Z]/.test(newPsw)) level++;
+      if (/[^a-zA-Z0-9]/.test(newPsw)) level++;
+
+      return level;
+    },
   },
   methods: {
     reset() {
@@ -296,18 +393,18 @@ export default {
         this.oldPswd,
         this.newPswd,
         this.rePswd
-      ).then(res => {
+      ).then((res) => {
         this.$message({
           showClose: true,
-          message: res.data.desc
+          message: res.data.desc,
         });
         setTimeout(() => {
           window.app.$router.push({
-            path: "/login"
+            path: "/login",
           });
         }, 100);
       });
-    }
-  }
+    },
+  },
 };
 </script>
