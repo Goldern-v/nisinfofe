@@ -10,7 +10,7 @@
       class="sheet-table table-fixed-th no-print"
       :style="{ width: fiexHeaderWidth }"
       :class="{ isFixed, isInPatientDetails }"
-      v-if="hasFiexHeader"
+      v-if="hasFiexHeader && HOSPITAL_ID !== 'hengli'"
     >
       <tr class="body-con">
         <td v-for="(td, i) in titleModel" :key="i" :dataKey="td.key">
@@ -1300,7 +1300,8 @@ export default {
         this.HOSPITAL_ID == "lingcheng" ||
         this.HOSPITAL_ID == "huadu" ||
         this.HOSPITAL_ID == "hengli" ||
-        this.HOSPITAL_ID == "liaocheng"
+        this.HOSPITAL_ID == "liaocheng" ||
+        this.HOSPITAL_ID == "zhongshanqi"
       ) {
         window.openSpecialModal2(config);
       } else {

@@ -13,7 +13,8 @@ import moment from "moment";
 const recordCodeList = {
   huadu: 'body_temperature_Hd',
   liaocheng: 'body_temperature_lcey',
-  wujing: 'body_temperature_wj'
+  wujing: 'body_temperature_wj',
+  zhongshanqi: 'body_temperature_zsqy'
 }
 recordCodeList[process.env.HOSPITAL_ID]
 //新的体温单批量录入 （加上不同医院体温单code值）-- 获取科室患者信息

@@ -31,8 +31,9 @@
           <div
             style="margin-left:10px;"
             v-if="
-              HOSPITAL_ID === 'huadu' &&
-                sheetInfo.sheetType !== 'body_temperature_Hd'
+              (HOSPITAL_ID === 'huadu' &&
+                sheetInfo.sheetType !== 'body_temperature_Hd') ||
+                HOSPITAL_ID === 'zhongshanqi'
             "
           >
             <el-switch v-model="isSyncTemp"></el-switch>
@@ -52,9 +53,10 @@
                   <el-checkbox
                     v-model="vitalSignKeys[item.name].check"
                     v-if="
-                      HOSPITAL_ID === 'huadu' &&
+                      (HOSPITAL_ID === 'huadu' &&
                         sheetInfo.sheetType !== 'body_temperature_Hd' &&
-                        Object.keys(vitalSignKeys).includes(item.name)
+                        Object.keys(vitalSignKeys).includes(item.name)) ||
+                        (HOSPITAL_ID === 'zhongshanqi' && item.name === '体温')
                     "
                   ></el-checkbox>
                   <div class="label" style="min-width: 70px;">
@@ -1024,8 +1026,9 @@ export default {
         }
       }
       if (
-        this.HOSPITAL_ID === "huadu" &&
-        sheetInfo.sheetType !== "body_temperature_Hd"
+        (this.HOSPITAL_ID === "huadu" &&
+          sheetInfo.sheetType !== "body_temperature_Hd") ||
+        this.HOSPITAL_ID === "zhongshanqi"
       ) {
         this.isSyncTemp
           ? this.sycnTempChange()
