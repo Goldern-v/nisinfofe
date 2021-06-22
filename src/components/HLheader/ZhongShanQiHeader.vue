@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- 解决password自动填充bug -->
-    <input type="password" style="display:none"/>
+    <input type="password" style="display:none" />
     <div id="hl-nav-con">
       <div class="header-con">
         <el-row type="flex" class="row-bg" justify="space-between">
@@ -17,7 +17,7 @@
                 height="63"
                 width="63"
               />
-              <span>{{ HOSPITAL_NAME }}<br/>智慧护理信息系统</span>
+              <span>{{ HOSPITAL_NAME }}<br />智慧护理信息系统</span>
             </el-row>
             <!-- <router-link to="/index"
                          tag="span">
@@ -181,6 +181,36 @@
                 <i class="nursingAssessment"></i> 护理记录单
               </el-row>
             </router-link>
+
+            <el-dropdown
+              menu-align="start"
+              :class="{ 'router-link-active': isActiveTemperaturePage }"
+            >
+              <el-row class="nav-item" type="flex" align="middle">
+                <div class="before"></div>
+                <i class="iconfont icon-hulijiludan"></i>体温单
+              </el-row>
+              <el-dropdown-menu slot="dropdown">
+                <!-- <el-dropdown-item :class="{active: $route.path.includes('singleTemperatureChart')}">
+                  <router-link to="/singleTemperatureChart" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="singleTemperatureChart"></i>单人录入体温单
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item> -->
+                <el-dropdown-item
+                  :class="{
+                    active: $route.path.includes('allTemperatureChart')
+                  }"
+                >
+                  <router-link to="/allTemperatureChart" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="allTemperatureChart"></i>批量录入体温单
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item>
+              </el-dropdown-menu>
+            </el-dropdown>
             <router-link to="/shiftWork" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-jiaobanzhi"></i> 交班志
@@ -188,9 +218,8 @@
             </router-link>
             <router-link to="/nursingRounds" tag="span">
               <el-row class="nav-item" type="flex" align="middle"
-              >护理巡视
-              </el-row
-              >
+                >护理巡视
+              </el-row>
             </router-link>
 
             <router-link to="/implementationList" tag="span">
@@ -326,14 +355,24 @@
                     </el-row>
                   </router-link>
                 </el-dropdown-item>
-                <el-dropdown-item :class="{active: $route.path.indexOf('/nursePapersStatistics/num') > -1  }">
+                <el-dropdown-item
+                  :class="{
+                    active:
+                      $route.path.indexOf('/nursePapersStatistics/num') > -1
+                  }"
+                >
                   <router-link to="/nursePapersStatistics/num" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
                       <i class="birthCertificate"></i>护士文书完成数量统计
                     </el-row>
                   </router-link>
                 </el-dropdown-item>
-                <el-dropdown-item :class="{active: $route.path.indexOf('/nursePapersStatistics/time') > -1 }">
+                <el-dropdown-item
+                  :class="{
+                    active:
+                      $route.path.indexOf('/nursePapersStatistics/time') > -1
+                  }"
+                >
                   <router-link to="/nursePapersStatistics/time" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
                       <i class="puerperantSituation"></i>护士书写文书时间统计
@@ -405,8 +444,8 @@
                 </el-select>
               </span>
               <span class="option-item" v-popover:popover1>{{
-                  user.empName
-                }}</span>
+                user.empName
+              }}</span>
             </span>
             <span class="small-1250-con">
               <el-dropdown @command="handleCommand">
@@ -619,6 +658,13 @@
     &.cognitiveStatistic {
       background-image: url('../../common/images/index/出生医学证明.png');
     }
+    &.singleTemperatureChart {
+      background-image: url('../../common/images/index/单人录入体温单.png');
+    }
+
+    &.allTemperatureChart {
+      background-image: url('../../common/images/index/批量录入体温单.png');
+    }
   }
 }
 
@@ -773,8 +819,7 @@ export default {
     superAdmin() {
       try {
         return JSON.parse(localStorage.user).superuser;
-      } catch (e) {
-      }
+      } catch (e) {}
     },
     Unread() {
       return this.$store.state.common.mailUnread;
@@ -801,19 +846,28 @@ export default {
       return false;
       // if (this.$route.path == "/sugarPage") return true;
       // return false;
+    },
+    isActiveTemperaturePage() {
+      let path = this.$route.path;
+      return (
+        path.includes("singleTemperatureChart") ||
+        path.includes("allTemperatureChart")
+      );
     }
   },
   methods: {
     handleCommand(command) {
       switch (command) {
         case "quit":
-        case "quit": {
-          this.quit();
-        }
+        case "quit":
+          {
+            this.quit();
+          }
           break;
-        case "setPassword": {
-          this.setPassword();
-        }
+        case "setPassword":
+          {
+            this.setPassword();
+          }
           break;
       }
     },
@@ -828,7 +882,7 @@ export default {
       Cookies.remove("hasGreet");
       Cookies.remove("token");
       Cookies.remove("user");
-      Cookies.remove("NURSING_USER", {path: "/"});
+      Cookies.remove("NURSING_USER", { path: "/" });
       this.$router.push("/login");
       this.$store.commit("upDeptCode", "");
     },
@@ -844,8 +898,7 @@ export default {
       this.$store.commit("upDeptName", deptName);
       try {
         this.mewsId && WebSocketService.unsubscribe(this.mewsId);
-      } catch (error) {
-      }
+      } catch (error) {}
       this.subscribe();
     },
     subscribe() {
@@ -864,8 +917,7 @@ export default {
             } else {
               this.isTip = false;
             }
-          } catch (error) {
-          }
+          } catch (error) {}
         }
       );
     }
