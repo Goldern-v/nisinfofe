@@ -586,7 +586,7 @@ const router = new Router({
         {
           path: "/implementationList",
           component: HOSPITAL_ID == "lingcheng" ?
-            implementationListLc : HOSPITAL_ID == "liaocheng" ? implementationListLiaocheng : HOSPITAL_ID == "zhongshanqi" ? implementationListZhongshanqi : implementationList,
+            implementationListLc : HOSPITAL_ID == "liaocheng" || HOSPITAL_ID == "shannan" ? implementationListLiaocheng : HOSPITAL_ID == "zhongshanqi" ? implementationListZhongshanqi : implementationList,
           name: "执行单"
         },
         {

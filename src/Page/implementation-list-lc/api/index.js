@@ -23,22 +23,23 @@ export function updateExecuteTime(obj) {
 
 
 
+let hospitalExecute = process.env.HOSPITAL_ID == 'liaocheng' ?  'hisLiaoChengExecute' : 'hisShanNanExecute';
 // 获取聊城执行单
 export function getExecuteWithWardcodeLiaoC(obj) {
   return axios.post(
-    `${apiPath}hisLiaoChengExecute/getOrdersExecuteWithWardCode`,
+    `${apiPath}${hospitalExecute}/getOrdersExecuteWithWardCode`,
     obj
   );
 }
 
 // 补录（聊城）
 export function addRecordLiaoc(obj) {
-  return axios.post(`${apiPath}hisLiaoChengExecute/orderExecute`, obj);
+  return axios.post(`${apiPath}${hospitalExecute}/orderExecute`, obj);
 }
 
 // 更新实际执行时间/结束输液时间（聊城）
 export function updateExecuteTimeLiaoC(obj) {
-  return axios.post(`${apiPath}hisLiaoChengExecute/getorderexecuteUpdate `, obj);
+  return axios.post(`${apiPath}${hospitalExecute}/getorderexecuteUpdate `, obj);
 }
 
 
