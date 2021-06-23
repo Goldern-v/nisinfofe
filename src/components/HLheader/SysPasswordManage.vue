@@ -4,7 +4,7 @@
       <el-switch
         active-color="#4BB08D"
         inactive-color="#eee"
-        :value="true"
+        v-model="permit.securityLevelPermit"
         on-text
         off-text
         @change="(payload) => handleChange(payload, '密码强度校验')"
@@ -15,7 +15,7 @@
       <el-switch
         active-color="#4BB08D"
         inactive-color="#eee"
-        :value="false"
+        v-model="permit.securitySessionPermit"
         on-text
         off-text
         @change="(payload) => handleChange(payload, '密码期限管理')"
@@ -26,7 +26,7 @@
       <el-switch
         active-color="#4BB08D"
         inactive-color="#eee"
-        :value="false"
+        v-model="permit.securityErrorTimePermit"
         on-text
         off-text
         @change="(payload) => handleChange(payload, '密码阀值管理')"
@@ -44,6 +44,11 @@ export default {
   props: {},
   data() {
     return {
+      permit: {
+        securityLevelPermit: true,
+        securitySessionPermit: false,
+        securityErrorTimePermit: false,
+      },
       loading: false,
     };
   },
@@ -53,6 +58,20 @@ export default {
     },
   },
   components: {},
+  watch: {
+    "permit.securityLevelPermit"() {
+      this.loading = true;
+      setTimeout(() => (this.loading = false), 1000);
+    },
+    "permit.securitySessionPermit"() {
+      this.loading = true;
+      setTimeout(() => (this.loading = false), 1000);
+    },
+    "permit.securityErrorTimePermit"() {
+      this.loading = true;
+      setTimeout(() => (this.loading = false), 1000);
+    },
+  },
 };
 </script>
 
