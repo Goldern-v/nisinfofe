@@ -44,14 +44,14 @@
           <el-button
             class="recordList"
             style="margin:0px;"
-            v-for="(dateTime, index) in tabsData"
-            :key="index"
+            v-for="(dateTime, tabIndex) in tabsData"
+            :key="tabIndex"
             @click="changeQuery(dateTime)"
           >
             {{ dateTime }}
             <i
               style="font-size: 10px;"
-              @click="removeRecord(dateTime, index)"
+              @click="removeRecord(dateTime, tabIndex)"
               class="el-icon-close"
             ></i>
           </el-button>
@@ -107,8 +107,8 @@
               v-model="vitalSignObj[multiDictList['表顶注释']].expand1"
             >
               <el-option
-                v-for="(item, index) in topContextList"
-                :key="index"
+                v-for="(item, topIndex) in topContextList"
+                :key="topIndex"
                 :label="item"
                 :value="item"
               >
@@ -133,8 +133,8 @@
               v-model="vitalSignObj[multiDictList['表底注释']].expand1"
             >
               <el-option
-                v-for="(item, index) in bottomContextList"
-                :key="index"
+                v-for="(item, bottomIndex) in bottomContextList"
+                :key="bottomIndex"
                 :label="item"
                 :value="item"
               >
@@ -156,7 +156,7 @@
             <el-button
               type="primary"
               class="save-btn"
-              @click="saveVitalSign(vitalSignObj, key)"
+              @click="saveVitalSign(vitalSignObj)"
               >保存</el-button
             >
           </div>
@@ -270,13 +270,13 @@ export default {
           expand1: "",
           expand2: "",
           expand3: "",
-          id: {
-            patientId: "",
-            recordDate: "",
-            visitId: "",
-            vitalSigns: "",
-            wardCode: ""
-          },
+          // id: {
+          //   patientId: "",
+          //   recordDate: "",
+          //   visitId: "",
+          //   vitalSigns: "",
+          //   wardCode: ""
+          // },
           nurse: "",
           patientId: this.patientInfo.patientId,
           recordDate: "",
@@ -361,6 +361,8 @@ export default {
           res.data.data.map((v, idx) => {
             this.vitalSignObj[v.vitalCode] = v;
           });
+        } else {
+          this.init();
         }
       });
     },
@@ -437,10 +439,11 @@ export default {
       );
     },
     /* 录入体温单 */
-    async saveVitalSign(value, key) {
+    async saveVitalSign(value) {
       let obj = Object.values(value);
       obj.map(item => {
-        item.recordDate = key;
+        item.recordDate =
+          this.query.entryDate + "  " + this.query.entryTime + ":00:00";
         switch (item.vitalSigns) {
           case "表顶注释":
             item.expand2 = this.topExpandDate;

@@ -58,15 +58,19 @@ export default {
       pageTotal: 1,
       open: false,
       isSave: false,
-      visibled: false
+      visibled: false,
+      intranetUrl:
+        "http://172.17.5.41:9091/temperature/#/" /* 医院正式环境内网 */,
+      outNetUrl:
+        "http://120.224.211.7:9091/temperature/#/" /* 医院正式环境外网：想要看iframe的效果，测试的时候可以把本地的地址都改成外网测试 */
     };
   },
   methods: {
     onPrint() {
       this.$refs.pdfCon.contentWindow.postMessage(
         { type: "printing" },
-        "http://172.17.5.41:9091/temperature/#/"
-        // "http://120.224.211.7:8080/#/"
+        // this.intranetUrl /* 内网 */
+        this.outNetUrl /* 外网 */
       );
     },
     getImg() {
@@ -74,9 +78,9 @@ export default {
       let patientId = this.queryTem.patientId;
       let visitId = this.queryTem.visitId;
       /* 单独处理体温单，嵌套iframe */
-      const tempUrl = `http://172.17.5.41:9091/temperature/#/?PatientId=${patientId}&VisitId=${visitId}&StartTime=${date}`;
-      // const tempUrl = `http://120.224.211.7:9091/temperature/#/?PatientId=0000944876&VisitId=2&StartTime=2021-05-13&showInnerPage=1`;
-      // const tempUrl = `http://120.224.211.7:9091/temperature/#/?PatientId=${patientId}&VisitId=${visitId}&StartTime=${date}`;
+      // const tempUrl = `${this.intranetUrl}?PatientId=${patientId}&VisitId=${visitId}&StartTime=${date}`; /* 内网 */
+      // const tempUrl = `${this.intranetUrl}?PatientId=0000944876&VisitId=2&StartTime=2021-05-13&showInnerPage=1`;/* 内网 */
+      const tempUrl = `${this.outNetUrl}?PatientId=${patientId}&VisitId=${visitId}&StartTime=${date}`; /* 外网 */
       this.filePath = "";
       setTimeout(() => {
         this.filePath = tempUrl;
@@ -148,8 +152,8 @@ export default {
     currentPage(value) {
       this.$refs.pdfCon.contentWindow.postMessage(
         { type: "currentPage", value },
-        "http://172.17.5.41:9091/temperature/#/"
-        // "http://120.224.211.7:9091/temperature/#/"
+        // this.intranetUrl /* 内网 */
+        this.outNetUrl /* 外网 */
       );
     }
   },
