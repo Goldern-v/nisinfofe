@@ -559,9 +559,11 @@ export default {
     /* 是否同步体征信息 */
     sycnTempChange() {
       if (this.isSyncTemp) {
+        /* 处理勾选后的数据 */
         this.selectVitalSign();
       }
       if (this.vitalSignList.list.length === 0) {
+        /* 未勾选 */
         this.isSyncTemp = false;
         this.$message({
           type: "info",
@@ -586,6 +588,7 @@ export default {
               type: "success",
               message: "同步成功"
             });
+            /* 同步成功后进行保存 */
             this.bus.$emit("saveSheetPage", this.isLast);
           })
           .catch(err => {

@@ -132,6 +132,16 @@
             </template>
           </el-table-column>
           <el-table-column
+            prop="stoolNum"
+            label="大便次数"
+            min-width="80"
+            align="center"
+          >
+            <template slot-scope="scope">
+              <el-input v-model="scope.row.stoolNum"></el-input>
+            </template>
+          </el-table-column>
+          <el-table-column
             prop="heartRate"
             label="心率"
             min-width="60"
@@ -189,16 +199,6 @@
           >
             <template slot-scope="scope">
               <el-input v-model="scope.row.height"></el-input>
-            </template>
-          </el-table-column>
-          <el-table-column
-            prop="stoolNum"
-            label="大便次数"
-            min-width="80"
-            align="center"
-          >
-            <template slot-scope="scope">
-              <el-input v-model="scope.row.stoolNum"></el-input>
             </template>
           </el-table-column>
         </el-table>

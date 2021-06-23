@@ -90,40 +90,41 @@ export default {
         switch (e.data.type) {
           case "pageTotal":
             this.pageTotal = e.data.value;
+            this.currentPage = e.data.value;
             break;
-          case "getNurseExchangeInfo":
-            // const params = {
-            //   patientId: this.$route.query.patientId,
-            //   visitId: this.$route.query.visitId
-            // };
-            // // 发请求
-            // getNurseExchangeInfo(params.patientId, params.visitId).then(res => {
-            //   const value = {
-            //     adtLog: res.data.data.adtLog,
-            //     bedExchangeLog: res.data.data.bedExchangeLog
-            //   };
-            //   this.$refs.pdfCon.contentWindow.postMessage(
-            //     { type: "nurseExchangeInfo", value },
-            //     "*"
-            //   );
-            // });
-            const params = {
-              patientId: this.$route.query.patientId,
-              startLogDateTime: e.data.value.startLogDateTime,
-              endLogDateTime: e.data.value.endLogDateTime,
-              visitId: this.$route.query.visitId
-            };
-            getNurseExchangeInfoByTime(params).then(res => {
-              const value = {
-                adtLog: res.data.data.adtLog,
-                bedExchangeLog: res.data.data.bedExchangeLog
-              };
-              this.$refs.pdfCon.contentWindow.postMessage(
-                { type: "nurseExchangeInfo", value },
-                "*"
-              );
-            });
-            break;
+          // case "getNurseExchangeInfo":/* 转科转床接口，聊城二院取消，花都保留 */
+          // const params = {
+          //   patientId: this.$route.query.patientId,
+          //   visitId: this.$route.query.visitId
+          // };
+          // // 发请求
+          // getNurseExchangeInfo(params.patientId, params.visitId).then(res => {
+          //   const value = {
+          //     adtLog: res.data.data.adtLog,
+          //     bedExchangeLog: res.data.data.bedExchangeLog
+          //   };
+          //   this.$refs.pdfCon.contentWindow.postMessage(
+          //     { type: "nurseExchangeInfo", value },
+          //     "*"
+          //   );
+          // });
+          // const params = {
+          //   patientId: this.$route.query.patientId,
+          //   startLogDateTime: e.data.value.startLogDateTime,
+          //   endLogDateTime: e.data.value.endLogDateTime,
+          //   visitId: this.$route.query.visitId
+          // };
+          // getNurseExchangeInfoByTime(params).then(res => {
+          //   const value = {
+          //     adtLog: res.data.data.adtLog,
+          //     bedExchangeLog: res.data.data.bedExchangeLog
+          //   };
+          //   this.$refs.pdfCon.contentWindow.postMessage(
+          //     { type: "nurseExchangeInfo", value },
+          //     "*"
+          //   );
+          // });
+          // break;
           default:
             break;
         }
@@ -148,6 +149,7 @@ export default {
       this.$refs.pdfCon.contentWindow.postMessage(
         { type: "currentPage", value },
         "http://172.17.5.41:9091/temperature/#/"
+        // "http://120.224.211.7:9091/temperature/#/"
       );
     }
   },
