@@ -11,13 +11,16 @@ export const keyf1 = function (e, td) {
 export const calValueChange = function (e, td) {
   let maxLength = 16
   if (td.key === 'food' || td.key === 'discharge') {
+    /* 入量、出量最多输入全中文10个 */
     maxLength = 20
   }
   const currentValue = td.value + (e.data || '')
   const length = GetLength(currentValue)
   if (length > maxLength) {
+    /* 如果输入长度超出，则将值转为数组 */
     const arr = currentValue.split('')
     const currentStr = arr.reduce((acc, cur) => {
+      /* 通过reduce对该数组每个元素累加计算合适的长度，返回对应maxLength的值 */
       if (GetLength(acc) < maxLength) {
         if (GetLength(acc) === (maxLength - 1) && GetLength(cur) === 2) {
           return acc

@@ -48,17 +48,32 @@ export const getfieldList = (data) => {
   return axios.post(`${apiPath}vitalSign/fieldSetting/list`, data);
 };
 
-// 聊城二院获取体温单自定义标题
+// 聊城二院保存体温单自定义标题
 export const savefieldTitle = (data) => {
   return axios.post(`${apiPath}vitalSign/fieldSetting/save`, data);
 };
 
-// 聊城二院体温单录入
-export const saveAll = (data) => {
-  return axios.post(`${apiPath}vitalSign/saveAll`, data);
-};
+// // 聊城二院体温单录入
+// export const saveAll = (data) => {
+//   return axios.post(`${apiPath}vitalSign/saveAll`, data);
+// };
 
 // 聊城二院体温单删除记录
 export const deleteRecord = (data) => {
   return axios.post(`${apiPath}vitalSign/delete`, data);
+};
+
+// 聊城二院体温单录入2
+export const saveAll = (data) => {
+  return axios.post(`${apiPath}vitalSign/saveAll`, data);
+};
+
+// 聊城二院获取最新10条体征信息
+export const getLastList = (patientId, visitId) => {
+  return axios.get(`${apiPath}vitalSign/lastList/${patientId}/${visitId}`);
+};
+
+// 聊城二院获取患者某个时间点的体征信息
+export const getViSigsByReDate = (data) => {
+  return axios.post(`${apiPath}vitalSign/getByRecordDate`, data);
 };

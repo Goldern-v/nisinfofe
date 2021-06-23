@@ -25,6 +25,22 @@
           {{ item.value }}
         </label>
       </div>
+      <div class="times" v-if="HOSPITAL_ID === 'zhongshanqi'">
+        <label
+          :for="`time${item.id}`"
+          v-for="item in timesEven2"
+          :key="item.id"
+        >
+          <input
+            type="radio"
+            name="time"
+            v-model="query.entryTime"
+            :id="`time${item.id}`"
+            :value="item.value"
+          />
+          {{ item.value }}
+        </label>
+      </div>
       <div class="times" v-if="HOSPITAL_ID === 'liaocheng'">
         <label :for="`time${item.id}`" v-for="item in timesOdd" :key="item.id">
           <input
@@ -132,6 +148,16 @@
             </template>
           </el-table-column>
           <el-table-column
+            prop="stoolNum"
+            label="大便次数"
+            min-width="80"
+            align="center"
+          >
+            <template slot-scope="scope">
+              <el-input v-model="scope.row.stoolNum"></el-input>
+            </template>
+          </el-table-column>
+          <el-table-column
             prop="heartRate"
             label="心率"
             min-width="60"
@@ -189,16 +215,6 @@
           >
             <template slot-scope="scope">
               <el-input v-model="scope.row.height"></el-input>
-            </template>
-          </el-table-column>
-          <el-table-column
-            prop="stoolNum"
-            label="大便次数"
-            min-width="80"
-            align="center"
-          >
-            <template slot-scope="scope">
-              <el-input v-model="scope.row.stoolNum"></el-input>
             </template>
           </el-table-column>
         </el-table>
@@ -558,6 +574,32 @@ export default {
         {
           id: 5,
           value: "23"
+        }
+      ],
+      timesEven2: [
+        {
+          id: 0,
+          value: "02"
+        },
+        {
+          id: 1,
+          value: "06"
+        },
+        {
+          id: 2,
+          value: "10"
+        },
+        {
+          id: 3,
+          value: "14"
+        },
+        {
+          id: 4,
+          value: "18"
+        },
+        {
+          id: 5,
+          value: "22"
         }
       ],
       timesOdd: [
