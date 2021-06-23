@@ -102,7 +102,7 @@
               </el-row>
 
               <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item
+                <!-- <el-dropdown-item
                   :class="{ active: $route.path == '/sheetHospitalAdmission' }"
                 >
                   <router-link to="/sheetHospitalAdmission" tag="span">
@@ -119,7 +119,7 @@
                       <i class="sheetHospitalEval"></i> 住院评估
                     </el-row>
                   </router-link>
-                </el-dropdown-item>
+                </el-dropdown-item> -->
                 <!-- <el-dropdown-item :class="{active: $route.path == '/formPage'}">
                   <router-link to="/formPage" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
@@ -307,11 +307,11 @@
               </el-dropdown-menu>
             </el-dropdown>
 
-            <router-link to="/badEvent" tag="span">
+            <!-- <router-link to="/badEvent" tag="span">
               <el-row class="nav-item" type="flex" align="middle"
                 >不良事件
               </el-row>
-            </router-link>
+            </router-link> -->
             <!-- <router-link to="/catheterPage" tag="span" v-show="isDev">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-dongtairizhi"></i> 导管
@@ -1040,8 +1040,7 @@ export default {
     isActiveImplementationPage() {
       let path = this.$route.path;
       return (
-        path.includes("bottleLabel") ||
-        path.includes("implementationList")
+        path.includes("bottleLabel") || path.includes("implementationList")
       );
     }
   },
