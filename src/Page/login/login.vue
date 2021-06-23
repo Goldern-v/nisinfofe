@@ -19,7 +19,7 @@
           <img src="../../common/images/login-img.png" alt />
           <span class="his-name">{{ HOSPITAL_NAME_SPACE }}</span>
           <span class="sys-version">「 v {{ $system.版本号 }} 」</span>
-          <span class="sys-name">护理管理系统</span>
+          <span class="sys-name">智慧护理信息系统</span>
         </div>
         <img
           src="../../common/images/shaw.png"
@@ -302,7 +302,7 @@ a {
     position: absolute;
     color: #fff;
     top: 35px;
-    right: 75px;
+    right: 25px;
     font-size: 22px;
     letter-spacing: 2px;
     // font-family '微软雅黑' !important

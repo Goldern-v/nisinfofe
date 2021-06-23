@@ -56,7 +56,7 @@
       ></el-switch>
       <b>本次登录取消缩放提示</b>
     </div>
-    <SysPasswordManage v-if="empNo === 'admin' || isAdminOrNursingDepartment" />
+    <SysPasswordManage v-if="isAdminOrNursingDepartment" />
     <div class="admin-system-info" v-if="empNo === 'admin'">
       仅管理员可见:
       <p v-for="(info, i) in adminSystemInfo" :key="i">
