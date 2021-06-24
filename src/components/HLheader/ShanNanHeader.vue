@@ -121,10 +121,10 @@
                   $route.path == '/deepPage' || $route.path == '/catheterPage'
               }"
             >
-              <el-row class="nav-item" type="flex" align="middle">
+              <!-- <el-row class="nav-item" type="flex" align="middle">
                 <div class="before"></div>
                 <i class="iconfont icon-hulijiludan"></i>导管
-              </el-row>
+              </el-row> -->
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item>
                   <router-link to="/deepPage" tag="span">
@@ -266,7 +266,7 @@
                     </el-row>
                   </router-link>
                 </el-dropdown-item>
-                <el-dropdown-item
+                <!-- <el-dropdown-item
                   :class="{ active: $route.path == '/vaccineManagement' }"
                   v-if="deptName.includes('产科')"
                 >
@@ -275,7 +275,7 @@
                       <i class="vaccineManagement"></i>疫苗管理
                     </el-row>
                   </router-link>
-                </el-dropdown-item>
+                </el-dropdown-item> -->
                 <el-dropdown-item
                   :class="{ active: $route.path == '/birthCertificate' }"
                   v-if="deptCode.match('051102')"

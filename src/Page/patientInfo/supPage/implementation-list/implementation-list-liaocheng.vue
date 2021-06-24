@@ -17,7 +17,7 @@
             <el-radio class="radio" label>全部</el-radio>
             <el-radio class="radio" label="1">长嘱</el-radio>
             <el-radio class="radio" label="0">临嘱</el-radio>
-            <el-radio class="radio" label="2">单药处方</el-radio>
+            <el-radio class="radio" label="2" v-if="HOSPITAL_ID != 'shannan'">单药处方</el-radio>
           </el-radio-group>
         </el-row>
         <span class="label">状态:</span>
