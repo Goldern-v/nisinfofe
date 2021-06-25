@@ -82,7 +82,7 @@
       >
         <div class="nav-item">导管</div>
       </router-link> -->
-      <el-dropdown
+      <!-- <el-dropdown
         menu-align="start"
         :class="{ 'router-link-active': isActivePage }"
       >
@@ -126,7 +126,7 @@
             </router-link>
           </el-dropdown-item>
         </el-dropdown-menu>
-      </el-dropdown>
+      </el-dropdown> -->
       <router-link
         :to="{
           path: '/test',

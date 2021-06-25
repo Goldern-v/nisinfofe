@@ -54,7 +54,7 @@
             </router-link>
             <router-link to="/MEWS" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
-                <i class="iconfont icon-jiaobanzhi"></i> MEWS
+                <i class="iconfont icon-news"></i> MEWS
               </el-row>
             </router-link>
             <el-dropdown
@@ -114,17 +114,17 @@
                 <i class="iconfont icon-baiban"></i> 白板
               </el-row>
             </router-link> -->
-            <el-dropdown
+            <!-- <el-dropdown
               menu-align="start"
               :class="{
                 'router-link-active':
                   $route.path == '/deepPage' || $route.path == '/catheterPage'
               }"
             >
-              <!-- <el-row class="nav-item" type="flex" align="middle">
+              <el-row class="nav-item" type="flex" align="middle">
                 <div class="before"></div>
                 <i class="iconfont icon-hulijiludan"></i>导管
-              </el-row> -->
+              </el-row>
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item>
                   <router-link to="/deepPage" tag="span">
@@ -141,7 +141,7 @@
                   </router-link>
                 </el-dropdown-item>
               </el-dropdown-menu>
-            </el-dropdown>
+            </el-dropdown> -->
             <!-- <router-link
               to="/scheduling"
               tag="span"
