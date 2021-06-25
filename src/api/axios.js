@@ -18,10 +18,10 @@ axios.interceptors.request.use((config) => {
 
     var token = (window.app && window.app.$getCookie('NURSING_USER').split('##')[1]) || $params.token
 
-    if (config.url.indexOf("identityCheck") > -1) {
+    if (config.url.indexOf("identityCheck") > -1 || config.url.indexOf('sysPasswordSet/findList') > -1) {
         config.headers.common["Auth-Token-Nursing"] = token || '';
     }
-    if (config.url.indexOf('login') > -1 || config.url.indexOf('autoLogin') > -1 || config.url.indexOf('logout') > -1 || config.url.indexOf('changePasswordByEmpNo') > -1 || config.url.indexOf('identityCheck') > -1) return config
+    if (config.url.indexOf('login') > -1 || config.url.indexOf('autoLogin') > -1 || config.url.indexOf('logout') > -1 || config.url.indexOf('changePasswordByEmpNo') > -1 || config.url.indexOf('sysPasswordSet/findList') > -1 || config.url.indexOf('identityCheck') > -1) return config
     var user = localStorage['user']
     if (token) {
         config.headers.common['Auth-Token-Nursing'] = token

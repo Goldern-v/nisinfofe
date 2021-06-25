@@ -68,10 +68,7 @@
                 size="mini"
               ></el-input>
             </el-form-item>
-            <p
-              class="password-security-level"
-              v-if="HOSPITAL_ID === 'zhongshanqi'"
-            >
+            <p class="password-security-level" v-if="securityLevelVisible">
               <span class="title">密码强度</span>
               <span class="progress-bar">
                 <span
@@ -317,6 +314,8 @@ a {
 
 <script>
 import { changePassword_hx } from "@/api/index.js";
+import { getSysPasswordSet } from "@/api/common";
+
 export default {
   data() {
     {
@@ -343,8 +342,11 @@ export default {
       securityLevelStatusList: [
         { level: 1, statusColor: "red" },
         { level: 2, statusColor: "darkorange" },
-        { level: 3, statusColor: "green" },
+        { level: 3, statusColor: "orange" },
+        { level: 4, statusColor: "yellow" },
+        { level: 5, statusColor: "green" },
       ],
+      securityLevelVisible: false,
     };
   },
   computed: {
@@ -377,14 +379,17 @@ export default {
       let newPsw = this.newPswd.trim();
       let level = 0;
 
-      if (newPsw.length >= 6) level++;
-      else return level;
-
+      if (/[0-9]/.test(newPsw)) level++;
+      if (/[a-z]/.test(newPsw)) level++;
       if (/[A-Z]/.test(newPsw)) level++;
       if (/[^a-zA-Z0-9]/.test(newPsw)) level++;
+      if (newPsw.length >= 8) level++;
 
       return level;
     },
+  },
+  mounted() {
+    this.getSecurityLevelSetting();
   },
   methods: {
     reset() {
@@ -404,6 +409,21 @@ export default {
           });
         }, 100);
       });
+    },
+    getSecurityLevelSetting() {
+      if (this.HOSPITAL_ID === "zhongshanqi")
+        getSysPasswordSet().then(
+          (res) => {
+            let params = res.data.data[0] || {};
+            console.log(params);
+            if (params.passwordVariety) {
+              this.securityLevelVisible = true;
+            } else {
+              this.securityLevelVisible = false;
+            }
+          },
+          () => {}
+        );
     },
   },
 };

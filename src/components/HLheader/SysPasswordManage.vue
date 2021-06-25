@@ -4,10 +4,11 @@
       <el-switch
         active-color="#4BB08D"
         inactive-color="#eee"
-        v-model="permit.securityLevelPermit"
+        :value="!!params.passwordVariety"
+        :disabled="loading"
         on-text
         off-text
-        @change="(payload) => handleChange(payload, '密码强度校验')"
+        @change="(payload) => handleChange(payload, 'passwordVariety')"
       ></el-switch>
       <b>密码强度校验</b>
     </div>
@@ -15,10 +16,11 @@
       <el-switch
         active-color="#4BB08D"
         inactive-color="#eee"
-        v-model="permit.securitySessionPermit"
+        :value="!!params.passwordTime"
+        :disabled="loading"
         on-text
         off-text
-        @change="(payload) => handleChange(payload, '密码期限管理')"
+        @change="(payload) => handleChange(payload, 'passwordTime')"
       ></el-switch>
       <b>密码期限管理</b>
     </div>
@@ -26,10 +28,11 @@
       <el-switch
         active-color="#4BB08D"
         inactive-color="#eee"
-        v-model="permit.securityErrorTimePermit"
+        :disabled="loading"
+        :value="!!params.passwordThreshold"
         on-text
         off-text
-        @change="(payload) => handleChange(payload, '密码阀值管理')"
+        @change="(payload) => handleChange(payload, 'passwordThreshold')"
       ></el-switch>
       <b>密码阀值管理</b>
     </div>
@@ -38,40 +41,54 @@
 
 <script>
 import commonMixin from "@/common/mixin/common.mixin";
+import { getSysPasswordSet, saveSysPasswordSet } from "@/api/common";
 
 export default {
   mixins: [commonMixin],
   props: {},
   data() {
     return {
-      permit: {
-        securityLevelPermit: true,
-        securitySessionPermit: false,
-        securityErrorTimePermit: false,
+      params: {
+        passwordVariety: 0,
+        passwordTime: 0,
+        passwordThreshold: 0,
       },
       loading: false,
     };
   },
+  mounted() {
+    this.getSetting();
+  },
   methods: {
-    handleChange(payload, name) {
-      console.log(payload, name);
+    handleChange(avalable, key) {
+      let newVal = avalable ? 1 : 0;
+      this.params[key] = newVal;
+
+      this.loading = true;
+      saveSysPasswordSet(this.params).then(
+        (res) => {
+          // this.loading = false;
+          this.$message.success("操作成功");
+          this.getSetting();
+        },
+        () => (this.loading = false)
+      );
+    },
+    getSetting() {
+      this.loading = true;
+
+      getSysPasswordSet().then(
+        (res) => {
+          this.loading = false;
+          let params = res.data.data[0] || {};
+
+          if (Object.keys(params).length > 0) this.params = params;
+        },
+        () => (this.loading = false)
+      );
     },
   },
   components: {},
-  watch: {
-    "permit.securityLevelPermit"() {
-      this.loading = true;
-      setTimeout(() => (this.loading = false), 1000);
-    },
-    "permit.securitySessionPermit"() {
-      this.loading = true;
-      setTimeout(() => (this.loading = false), 1000);
-    },
-    "permit.securityErrorTimePermit"() {
-      this.loading = true;
-      setTimeout(() => (this.loading = false), 1000);
-    },
-  },
 };
 </script>
 
