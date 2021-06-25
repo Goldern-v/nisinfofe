@@ -47,7 +47,7 @@ export default {
   methods: {
     getNurStatistics(){
       getNursingDocStatistics(this.$route.query.patientId,this.$route.query.visitId).then(res=>{
-        this.titleTip = `（${res.data.data.completeRate}）`;
+        this.titleTip = `完成率（${res.data.data.completeRate}）`;
       })
     }
   }
