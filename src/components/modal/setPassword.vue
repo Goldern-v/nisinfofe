@@ -125,6 +125,7 @@ export default {
         { level: 5, statusColor: "green" },
       ],
       securityLevelVisible: false,
+      permit: {},
     };
   },
   computed: {
@@ -143,19 +144,24 @@ export default {
   },
   methods: {
     getSecurityLevelSetting() {
-      if (this.HOSPITAL_ID === "zhongshanqi")
+      if (this.HOSPITAL_ID === "zhongshanqi") {
+        this.permit = {};
+
         getSysPasswordSet().then(
           (res) => {
             let params = res.data.data[0] || {};
-            console.log(params);
+
             if (params.passwordVariety) {
               this.securityLevelVisible = true;
             } else {
               this.securityLevelVisible = false;
             }
+
+            this.permit = params;
           },
           () => {}
         );
+      }
     },
     open() {
       this.oldPswd = "";
@@ -170,9 +176,13 @@ export default {
     },
     post() {
       changePassword(this.oldPswd, this.newPswd, this.rePswd).then((res) => {
+        let msg = this.permit.passwordThreshold
+          ? "修改成功，建议三个月修改一次密码"
+          : res.data.desc;
+
         this.$message({
           showClose: true,
-          message: res.data.desc,
+          message: msg,
         });
         this.handleClose();
         setTimeout(() => {
