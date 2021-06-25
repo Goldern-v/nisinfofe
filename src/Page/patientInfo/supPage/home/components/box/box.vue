@@ -1,7 +1,7 @@
 <template>
   <div class="box">
     <div class="head-con" flex="cross:center">
-      <span v-if="title">{{title}}</span>
+      <span v-if="title">{{title}}</span><span class="title-tip" v-if="titleTip">{{titleTip}}</span>
       <span flex-box="1"></span>
       <span v-if="aside" class="aside">{{aside}}</span>
     </div>
@@ -24,12 +24,16 @@
     .aside {
       font-size: 12px;
     }
+    .title-tip {
+      color: red;
+      padding-left: 5px;
+    }
   }
 }
 </style>
 <script>
 export default {
-  props: ["title", "aside"],
+  props: ["title", "aside","titleTip"],
   data() {
     return {
       msg: "hello vue"

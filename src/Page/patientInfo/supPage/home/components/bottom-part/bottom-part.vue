@@ -1,7 +1,7 @@
 <template>
   <div flex>
     <div class="left-part">
-      <box title="护理评估">
+      <box title="护理评估" :titleTip="titleTip">
         <div slot="body">
           <bottomLeft></bottomLeft>
         </div>
@@ -29,16 +29,27 @@
 import box from "../box/box";
 import bottomLeft from "../bottom-left/bottom-left";
 import bottomRight from "../bottom-right/bottom-right";
+import { getNursingDocStatistics } from "@/api/home";
 export default {
   data() {
     return {
-      totalCount: ""
+      titleTip: ""
     };
   },
   components: {
     box,
     bottomLeft,
     bottomRight
+  },
+  created() {
+    if(this.HOSPITAL_ID == "zhongshanqi") this.getNurStatistics();
+  },
+  methods: {
+    getNurStatistics(){
+      getNursingDocStatistics(this.$route.query.patientId,this.$route.query.visitId).then(res=>{
+        this.titleTip = `（${res.data.data.completeRate}）`;
+      })
+    }
   }
 };
 </script>

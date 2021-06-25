@@ -61,3 +61,8 @@ export const getPatientList = (params) => {
 export const getListHisAreaDict = () => {
   return axios.get(`${apiPath}procedure/nursing/getListHisAreaDict`)
 }
+
+// 护理文书完成率
+export const getNursingDocStatistics = (patientId,visitId) => {
+  return axios.get(`${apiPath}nursingDocStatistics/completeRate/${patientId}/${visitId}`)
+}
