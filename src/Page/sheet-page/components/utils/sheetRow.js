@@ -48,6 +48,9 @@ export function getRowNum(index) {
     return 20;
   } else if (sheetInfo.sheetType == "picu_hemodialysis_jm") {
     return 15;
+  } else if (process.env.HOSPITAL_ID === 'hengli') {
+    /* 横沥所有普通护记都返回20行 */
+    return 20;
   } else {
     return 17;
   }
