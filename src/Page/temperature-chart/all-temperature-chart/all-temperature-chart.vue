@@ -217,6 +217,17 @@
               <el-input v-model="scope.row.height"></el-input>
             </template>
           </el-table-column>
+          <el-table-column
+            v-if="HOSPITAL_ID === 'liaocheng'"
+            prop="painScore"
+            label="疼痛"
+            min-width="60"
+            align="center"
+          >
+            <template slot-scope="scope">
+              <el-input v-model="scope.row.painScore"></el-input>
+            </template>
+          </el-table-column>
         </el-table>
       </div>
       <div class="all-temperature-chart-print" ref="printable">
@@ -363,6 +374,17 @@
           >
             <template slot-scope="scope">
               <el-input v-model="scope.row.stoolNum"></el-input>
+            </template>
+          </el-table-column>
+          <el-table-column
+            v-if="HOSPITAL_ID === 'liaocheng'"
+            prop="painScore"
+            label="疼痛"
+            min-width="60"
+            align="center"
+          >
+            <template slot-scope="scope">
+              <el-input v-model="scope.row.painScore"></el-input>
             </template>
           </el-table-column>
         </el-table>

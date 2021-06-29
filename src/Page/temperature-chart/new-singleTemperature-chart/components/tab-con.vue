@@ -431,9 +431,9 @@ export default {
         patientId: this.patientInfo.patientId,
         visitId: this.patientInfo.visitId,
         type: type
-      }).then(res => {
+      }).then(async res => {
         this.$message.success("同步成功");
-        this.getList();
+        await this.bus.$emit("refreshImg");
       });
     },
     /* 修改自定义标题，弹出弹窗并保存 */
@@ -461,7 +461,10 @@ export default {
       let obj = Object.values(value);
       obj.map(item => {
         item.recordDate =
-          this.query.entryDate + "  " + this.query.entryTime + ":00:00";
+          moment(new Date(this.query.entryDate)).format("YYYY-MM-DD") +
+          "  " +
+          this.query.entryTime +
+          ":00:00";
         switch (item.vitalSigns) {
           case "表顶注释":
             item.expand2 = this.topExpandDate;
