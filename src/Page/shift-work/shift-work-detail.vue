@@ -194,7 +194,7 @@
               />
               <span v-else style="display: none;" data-print-style="display: inline-block;">未签名</span>
             </div>
-            <div data-print-style="width: auto">
+            <div data-print-style="width: auto" v-if="HOSPITAL_ID != 'weixian'">
               <span>P班签名：</span>
               <span data-print-style="display: none">
                 <!-- <template v-if="record.autographNameP">{{record.autographNameP}}</template> -->
@@ -428,6 +428,7 @@ export default {
     },
     allSigned() {
       const record = this.record;
+      if(this.HOSPITAL_ID == 'weixian') return !!( record && record.autographNameA && record.autographNameN);
       return !!(
         record &&
         record.autographNameA &&
