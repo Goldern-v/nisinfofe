@@ -69,8 +69,8 @@ export default {
     onPrint() {
       this.$refs.pdfCon.contentWindow.postMessage(
         { type: "printing" },
-        // this.intranetUrl /* 内网 */
-        this.outNetUrl /* 外网 */
+        this.intranetUrl /* 内网 */
+        // this.outNetUrl /* 外网 */
       );
     },
     getImg() {
@@ -78,9 +78,9 @@ export default {
       let patientId = this.queryTem.patientId;
       let visitId = this.queryTem.visitId;
       /* 单独处理体温单，嵌套iframe */
-      // const tempUrl = `${this.intranetUrl}?PatientId=${patientId}&VisitId=${visitId}&StartTime=${date}`; /* 内网 */
+      const tempUrl = `${this.intranetUrl}?PatientId=${patientId}&VisitId=${visitId}&StartTime=${date}`; /* 内网 */
       // const tempUrl = `${this.intranetUrl}?PatientId=0000944876&VisitId=2&StartTime=2021-05-13&showInnerPage=1`;/* 内网 */
-      const tempUrl = `${this.outNetUrl}?PatientId=${patientId}&VisitId=${visitId}&StartTime=${date}`; /* 外网 */
+      // const tempUrl = `${this.outNetUrl}?PatientId=${patientId}&VisitId=${visitId}&StartTime=${date}`; /* 外网 */
       this.filePath = "";
       setTimeout(() => {
         this.filePath = tempUrl;
@@ -152,8 +152,8 @@ export default {
     currentPage(value) {
       this.$refs.pdfCon.contentWindow.postMessage(
         { type: "currentPage", value },
-        // this.intranetUrl /* 内网 */
-        this.outNetUrl /* 外网 */
+        this.intranetUrl /* 内网 */
+        // this.outNetUrl /* 外网 */
       );
     }
   },

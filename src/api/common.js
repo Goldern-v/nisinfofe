@@ -109,3 +109,23 @@ export function getProcedureData(obj) {
     strJson: JSON.stringify(obj)
   });
 }
+
+/**
+ * 查询登陆账号设置
+ */
+export const getSysPasswordSet = () => {
+  return axios.post(`${apiPath}sysPasswordSet/findList`)
+}
+
+/**
+ * 修改登陆账号设置
+ * @param passwordTime 密码期限管理
+ * @param passwordThreshold 密码阀值管理
+ * @param errorPastTime 密码错误过期时间分钟
+ * @param checkRegular 效验密码的正则表达式
+ * @param passwordVariety 密码强度验证必传
+ * @param id 表id
+ */
+export const saveSysPasswordSet = (params) => {
+  return axios.post(`${apiPath}sysPasswordSet/update`, params)
+}

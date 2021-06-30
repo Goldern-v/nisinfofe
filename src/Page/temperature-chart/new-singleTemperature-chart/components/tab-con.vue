@@ -264,29 +264,46 @@ export default {
       /* 根据字典项构造一个对象(键为生命体征的中文名，值为对应的对象)：{"体温":{}} */
       for (let key in this.multiDictList) {
         obj[this.multiDictList[key]] = {
-          bedLabel: "",
-          classCode: "",
+          // bedLabel: "",
+          // classCode: "",
+          // createDateTime: "",
+          // expand1: "",
+          // expand2: "",
+          // expand3: "",
+          // // id: {
+          // //   patientId: "",
+          // //   recordDate: "",
+          // //   visitId: "",
+          // //   vitalSigns: "",
+          // //   wardCode: ""
+          // // },
+          // nurse: "",
+          // patientId: this.patientInfo.patientId,
+          // recordDate: "",
+          // source: "",
+          // units: "",
+          // visitId: this.patientInfo.visitId,
+          // vitalCode: this.multiDictList[key],
+          // vitalSigns: key,
+          // vitalValue: "",
+          // wardCode: this.patientInfo.wardCode
           createDateTime: "",
+          patientId: this.patientInfo.patientId,
+          visitId: this.patientInfo.visitId,
+          recordDate: "",
+          vitalSigns: key,
+          wardCode: this.patientInfo.wardCode,
+          vitalValue: "",
+          units: "",
+          vitalCode: this.multiDictList[key],
+          classCode: "",
+          nurse: "",
+          bedLabel: "",
           expand1: "",
           expand2: "",
           expand3: "",
-          // id: {
-          //   patientId: "",
-          //   recordDate: "",
-          //   visitId: "",
-          //   vitalSigns: "",
-          //   wardCode: ""
-          // },
-          nurse: "",
-          patientId: this.patientInfo.patientId,
-          recordDate: "",
           source: "",
-          units: "",
-          visitId: this.patientInfo.visitId,
-          vitalCode: this.multiDictList[key],
-          vitalSigns: key,
-          vitalValue: "",
-          wardCode: this.patientInfo.wardCode
+          customTitle: false
         };
       }
       this.vitalSignObj = { ...obj };
@@ -306,6 +323,7 @@ export default {
             ),
         wardCode: this.patientInfo.wardCode
       };
+      await this.getVitalList();
       /* 获取患者某个时间点的体征信息 */
       await getVitalSignList(data).then(res => {
         res.data.data.map((item, index) => {
@@ -413,9 +431,9 @@ export default {
         patientId: this.patientInfo.patientId,
         visitId: this.patientInfo.visitId,
         type: type
-      }).then(res => {
+      }).then(async res => {
         this.$message.success("同步成功");
-        this.getList();
+        await this.bus.$emit("refreshImg");
       });
     },
     /* 修改自定义标题，弹出弹窗并保存 */
@@ -443,7 +461,10 @@ export default {
       let obj = Object.values(value);
       obj.map(item => {
         item.recordDate =
-          this.query.entryDate + "  " + this.query.entryTime + ":00:00";
+          moment(new Date(this.query.entryDate)).format("YYYY-MM-DD") +
+          "  " +
+          this.query.entryTime +
+          ":00:00";
         switch (item.vitalSigns) {
           case "表顶注释":
             item.expand2 = this.topExpandDate;
