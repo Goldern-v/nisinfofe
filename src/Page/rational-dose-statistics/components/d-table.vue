@@ -18,7 +18,7 @@
       <el-table-column prop="type" label="补录" min-width="120" align="center"></el-table-column>
       <el-table-column prop="type" label="补录医嘱占比" min-width="120" align="center">
         <template slot-scope="scope">
-          <span>{{ (scope.row.type /  scope.row.allNum * 100).toFixed() }}%</span>
+          <span>{{ scope.row.type ? `${(scope.row.type /  scope.row.allNum * 100).toFixed()}` : scope.row.type }}%</span>
          </template>
       </el-table-column>
     </el-table>

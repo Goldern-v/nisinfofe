@@ -111,7 +111,10 @@ export default {
       getListZSQ(this.query).then(
         res => {
           if (res.data && res.data.code == 200) {
-            this.data = [res.data.data];
+            let data = res.data.data;
+            data['rational'] = data['rational'] ? `${(data['rational'] / data['allNum'] * 100).toFixed()}%` : `${data['rational']}%`;
+            data['noRational'] = data['noRational'] ? `${(data['noRational'] / data['allNum'] * 100).toFixed()}%` : `${data['noRational']}%`;
+            this.data = [data];
           }
           this.pageLoadng = false;
         },
