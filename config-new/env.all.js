@@ -100,5 +100,10 @@ module.exports = {
     HOSPITAL_ID: '"yangchunzhongyi"',
     HOSPITAL_NAME: '"阳春中医院"',
     HOSPITAL_NAME_SPACE: '"阳 春 中 医 院"'
+  },
+  "beihairenyi": {
+    HOSPITAL_ID: '"beihairenyi"',
+    HOSPITAL_NAME: '"北海市人医医院"',
+    HOSPITAL_NAME_SPACE: '"北 海 市 人 医 医 院"'
   }
 }
