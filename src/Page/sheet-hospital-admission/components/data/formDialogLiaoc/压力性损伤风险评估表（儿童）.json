@@ -11,7 +11,7 @@
   "formSetting": {
     "formTitle": {
       "hospitalName": "东莞市厚街医院",
-      "formName": "Barden压疮风险评估表"
+      "formName": "压力性损伤风险评估表（儿童）"
     },
     "formHeads": [
       {
@@ -77,9 +77,9 @@
       "showAudit": true
     },
     "formInfo": {
-      "formCode": "E0005",
-      "formApiCode": "E0005",
-      "formName": "Barden压疮风险评估表",
+      "formCode": "E0005_2",
+      "formApiCode": "E0005_2",
+      "formName": "压力性损伤风险评估表（儿童）",
       "status": "0",
       "formType": "eval"
     }
@@ -222,7 +222,7 @@
         {
           "name": "I005001",
           "type": "radio",
-          "title": "大部分受限",
+          "title": "严重受限",
           "code": "2",
           "score": "2",
           "style": "min-width: 85px!important;",
@@ -289,7 +289,7 @@
           "style": "min-width: 85px!important;",
           "class": null,
           "readOnly": null,
-          "tips": "皮肤经常但不总是处于潮湿状态，床单每天至少换一次。"
+          "tips": "皮肤经常但不总是处于潮湿状态，床单每天至少每8小时一次。"
         },
         {
           "name": "I005002",
@@ -300,18 +300,18 @@
           "style": "min-width: 85px!important;",
           "class": null,
           "readOnly": null,
-          "tips": "每天大概需要额外换一次床单。"
+          "tips": "皮肤偶尔处于潮湿状态，每天大概需要12小时换一次床单。"
         },
         {
           "name": "I005002",
           "type": "radio",
-          "title": "很少潮湿",
+          "title": "无明显问题",
           "code": "4",
           "score": "4",
           "style": "min-width: 85px!important;",
           "class": null,
           "readOnly": null,
-          "tips": "皮肤通常是干的，只需按常规换床单即可。"
+          "tips": "皮肤通常是干的，只需正常换尿布即可，床单仅需要每24h更换一次。"
         }
       ]
     },
@@ -344,7 +344,7 @@
         {
           "name": "I005003",
           "type": "radio",
-          "title": "局限于椅",
+          "title": "局限于轮椅",
           "code": "2",
           "score": "2",
           "style": "min-width: 85px!important;",
@@ -515,36 +515,97 @@
         {
           "name": "I005006",
           "type": "radio",
-          "title": "有此问题",
+          "title": "有重要问题",
           "code": "1",
           "score": "1",
           "style": "min-width: 85px!important;",
           "class": null,
           "html": null,
           "readOnly": null,
-          "tips": "移动时需要中到大量的帮助，不可能做到完全抬空而不碰到床单，在床上或椅子上时经常滑落，需要大力帮助下重新摆体位。痉挛、挛缩或躁动不安通常导致摩擦"
+          "tips": "痉挛、挛缩、痒或躁动不安通常导致持续的扭动和摩擦。"
         },
         {
           "name": "I005006",
           "type": "radio",
-          "title": "有潜在问题",
+          "title": "有此类问题",
           "code": "2",
           "score": "2",
           "style": "min-width: 85px!important;",
           "class": null,
           "readOnly": null,
-          "tips": "躯体移动乏力，或者需要一些帮助，在移动过程中皮肤在一定程度上会碰到床单、椅子、约束带或其他设施。在床上或椅子上可保持相对好的位置，偶尔会滑落下来"
+          "tips": "移动时需要中到大量的帮助，不可能做到完全抬空而不碰到床单，在床上或椅子上时经常滑落。需要大力帮助下重新摆体位。"
         },
         {
           "name": "I005006",
           "type": "radio",
-          "title": "无明显问题",
+          "title": "有潜在问题",
           "code": "3",
           "score": "3",
           "style": "min-width: 85px!important;",
           "class": null,
           "readOnly": null,
-          "tips": "能独立在床上或椅子上移动，并且有足够的肌肉力量在移动时完全抬空躯体。在床上和椅子上总是保持良好的位置"
+          "tips": "躯体移动乏力，或者需要一些帮助，在移动过程中皮肤在一定程度上会碰到床单、椅子、约束带或其他设施。在床上或椅子上可保持相对好的位置，偶尔会滑落下来"
+        }
+      ]
+    },
+    {
+      "name": "7. 组织与氧合",
+      "type": "formGroupHorizontalBox",
+      "titleStyle": "text-align:left",
+      "title": "7. 组织与氧合",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "7. 组织与氧合",
+      "suffixDesc": "",
+      "keys": "I005009",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I005009",
+          "type": "radio",
+          "title": "极度缺乏",
+          "code": "1",
+          "score": "1",
+          "style": "min-width: 85px!important;",
+          "class": null,
+          "html": null,
+          "readOnly": null,
+          "tips": "低血压(MAP<50mmHg； 新生儿MAP<40mmHg) ； 氧饱和度<95%；血红蛋白水平<100mg/L；正常患儿无法耐受体位变换。"
+        },
+        {
+          "name": "I005009",
+          "type": "radio",
+          "title": "缺乏",
+          "code": "2",
+          "score": "2",
+          "style": "min-width: 85px!important;",
+          "class": null,
+          "readOnly": null,
+          "tips": "血压正常；氧饱和度<95%或血红蛋白水平<100mg/L或毛细血管回流时间>2s；血清PH<7.40。"
+        },
+        {
+          "name": "I005009",
+          "type": "radio",
+          "title": "充足",
+          "code": "3",
+          "score": "3",
+          "style": "min-width: 85px!important;",
+          "class": null,
+          "readOnly": null,
+          "tips": "血压正常；氧饱和度<95%或血红蛋白水平<100mg/L或毛细血管回流时间>2s；血清PH正常。"
+        },
+        {
+          "name": "I005009",
+          "type": "radio",
+          "title": "非常好",
+          "code": "3",
+          "score": "3",
+          "style": "min-width: 85px!important;",
+          "class": null,
+          "readOnly": null,
+          "tips": "血压正常；氧饱和度≥95%；血红蛋白水平正常；毛细血管回流时间<2s"
         }
       ]
     },
@@ -601,21 +662,21 @@
             },
             {
               "min": "13",
-              "max": "14",
+              "max": "15",
               "equal": "中度危险",
               "style": "color:blue",
               "display": "中度危险"
             },
             {
-              "min": "15",
-              "max": "18",
+              "min": "16",
+              "max": "23",
               "equal": "轻度危险",
               "style": "color:blue",
               "display": "轻度危险"
             },
             {
-              "min": "18",
-              "max": "999",
+              "min": "24",
+              "max": "Infinity",
               "equal": "没有风险",
               "style": "color:black",
               "display": "没有风险"

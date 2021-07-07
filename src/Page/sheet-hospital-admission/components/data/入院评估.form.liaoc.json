@@ -2476,15 +2476,39 @@
           "class": null,
           "options": [
             "无",
-            "有"
+            "有,Barden压疮风险评估表",
+            "有,压力性损伤风险评估表（儿童）",
+            "有,预防住院患者压力性损伤护理清单"
           ],
           "rule": [
             {
               "dialog": {
-                "openKey": "有",
+                "openKey": "有,Barden压疮风险评估表",
                 "cleanKey": "无",
                 "title": "Barden压疮风险评估表",
                 "default": "Barden压疮风险评估表",
+                "type": "independent",
+                "parentName": "I100127",
+                "showHead": "true"
+              }
+            },
+            {
+              "dialog": {
+                "openKey": "有,压力性损伤风险评估表（儿童）",
+                "cleanKey": "无",
+                "title": "压力性损伤风险评估表（儿童）",
+                "default": "压力性损伤风险评估表（儿童）",
+                "type": "independent",
+                "parentName": "I100127",
+                "showHead": "true"
+              }
+            },
+            {
+              "dialog": {
+                "openKey": "有,预防住院患者压力性损伤护理清单",
+                "cleanKey": "无",
+                "title": "预防住院患者压力性损伤护理清单",
+                "default": "预防住院患者压力性损伤护理清单",
                 "type": "independent",
                 "parentName": "I100127",
                 "showHead": "true"
@@ -2642,15 +2666,28 @@
           "class": null,
           "options": [
             "无",
-            "有"
+            "有,跌倒评估单(成人)",
+            "有,跌倒评估单(儿童)"
           ],
           "rule": [
             {
               "dialog": {
-                "openKey": "有",
+                "openKey": "有,跌倒评估单(成人)",
                 "cleanKey": "无",
                 "title": "跌倒评估单(成人)",
                 "default": "跌倒评估单(成人)",
+                "name": "I100130",
+                "type": "independent",
+                "parentName": "I100130",
+                "showHead": "true"
+              }
+            },
+            {
+              "dialog": {
+                "openKey": "有,跌倒评估单(儿童)",
+                "cleanKey": "无",
+                "title": "跌倒评估单(儿童)",
+                "default": "跌倒评估单(儿童)",
                 "name": "I100130",
                 "type": "independent",
                 "parentName": "I100130",
@@ -2675,7 +2712,9 @@
           "options": [
             "无",
             "有,Padua评分表(非手术科室)",
-            "有,Caprini评分表(手术科室)"
+            "有,Caprini评分表(手术科室)",
+            "有,VTE风险评估(Caprini 通用版)",
+            "有,VTE风险评估(Padua 内科版)"
           ],
           "rule": [
             {
@@ -2703,6 +2742,30 @@
               }
             },
             {
+              "dialog": {
+                "openKey": "有,VTE风险评估(Caprini 通用版)",
+                "cleanKey": "无",
+                "title": "VTE风险评估(Caprini 通用版)",
+                "default": "VTE风险评估(Caprini 通用版)",
+                "name": "I100136",
+                "type": "independent",
+                "parentName": "I100136",
+                "showHead": "true"
+              }
+            },
+            {
+              "dialog": {
+                "openKey": "有,VTE风险评估(Padua 内科版)",
+                "cleanKey": "无",
+                "title": "VTE风险评估(Padua 内科版)",
+                "default": "VTE风险评估(Padua 内科版)",
+                "name": "I100136",
+                "type": "independent",
+                "parentName": "I100136",
+                "showHead": "true"
+              }
+            },
+            {
               "equal": "有",
               "style": "color:red"
             }
@@ -2719,16 +2782,54 @@
           "class": null,
           "options": [
             "无",
-            "不会诉说",
-            "有"
+            "有,疼痛评估单",
+            "有,新生儿疼痛评估(CRIES)",
+            "有,新生儿疼痛评估(NIPS)",
+            "有,新生儿疼痛评估(PIPP)"
           ],
           "rule": [
             {
               "dialog": {
-                "openKey": "有",
+                "openKey": "有,疼痛评估单",
                 "cleanKey": "无",
                 "title": "疼痛评估单",
                 "default": "疼痛评估单",
+                "name": "I100132",
+                "parentName": "I100132",
+                "type": "independent",
+                "showHead": "true"
+              }
+            },
+            {
+              "dialog": {
+                "openKey": "有,新生儿疼痛评估(CRIES)",
+                "cleanKey": "无",
+                "title": "新生儿疼痛评估(CRIES)",
+                "default": "新生儿疼痛评估(CRIES)",
+                "name": "I100132",
+                "parentName": "I100132",
+                "type": "independent",
+                "showHead": "true"
+              }
+            },
+            {
+              "dialog": {
+                "openKey": "有,新生儿疼痛评估(NIPS)",
+                "cleanKey": "无",
+                "title": "新生儿疼痛评估(NIPS)",
+                "default": "新生儿疼痛评估(NIPS)",
+                "name": "I100132",
+                "parentName": "I100132",
+                "type": "independent",
+                "showHead": "true"
+              }
+            },
+            {
+              "dialog": {
+                "openKey": "有,新生儿疼痛评估(PIPP)",
+                "cleanKey": "无",
+                "title": "新生儿疼痛评估(PIPP)",
+                "default": "新生儿疼痛评估(PIPP)",
                 "name": "I100132",
                 "parentName": "I100132",
                 "type": "independent",

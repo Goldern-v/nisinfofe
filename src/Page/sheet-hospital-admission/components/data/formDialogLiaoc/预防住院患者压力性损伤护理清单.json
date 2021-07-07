@@ -1,0 +1,801 @@
+{
+  "pageSetting": {
+    "size": "4A",
+    "rotation": "portrait",
+    "margin": "0",
+    "width": "750px",
+    "height": "auto",
+    "mode": "_development",
+    "style": ""
+  },
+  "formSetting": {
+    "formTitle": {
+      "hospitalName": "东莞市厚街医院",
+      "formName": "预防住院患者压力性损伤护理清单"
+    },
+    "formHeads": [
+      {
+        "name": "name",
+        "value": null,
+        "title": "姓名",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "sex",
+        "value": null,
+        "title": "性别",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "age",
+        "value": null,
+        "title": "年龄",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "wardName",
+        "value": null,
+        "title": "病区",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "bedLabel",
+        "value": null,
+        "title": "床号",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "inpNo",
+        "value": null,
+        "title": "住院号",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "admissionDate",
+        "value": null,
+        "title": "入院日期",
+        "class": "",
+        "style": "",
+        "show": true
+      }
+    ],
+    "formTail": {
+      "showEvalScore": false,
+      "showSign": true,
+      "showAudit": true
+    },
+    "formInfo": {
+      "formCode": "E0627",
+      "formApiCode": "E0627",
+      "formName": "预防住院患者压力性损伤护理清单",
+      "status": "0",
+      "formType": "eval"
+    }
+  },
+  "dictionary": {},
+  "schemes": {},
+  "model": {},
+  "body": [
+    {
+      "name": "I003001",
+      "type": "formGroupColBox",
+      "col": 3,
+      "title": "",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "I003001",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "evalDate",
+          "type": "datePicker",
+          "title": "评估时间",
+          "titleStyle": "width:90px!important;margin:0;",
+          "hiddenTips": true,
+          "value": "",
+          "placeholder": "评估时间",
+          "style": "width:145px",
+          "inputWidth": "136px",
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "signerName",
+          "type": "input",
+          "title": "评估人",
+          "titleStyle": "width:90px!important;margin:0;",
+          "hiddenTips": true,
+          "value": "",
+          "placeholder": "评估人",
+          "style": "width:80px",
+          "inputWidth": "136px",
+          "class": null,
+          "readOnly": true
+        },
+        {
+          "name": "status",
+          "type": "input",
+          "title": "状态",
+          "titleStyle": "width:90px!important;margin:0;",
+          "hiddenTips": true,
+          "value": "0",
+          "placeholder": "状态",
+          "style": "width:80px",
+          "inputWidth": "136px",
+          "class": null,
+          "readOnly": true,
+          "rule": [
+            {
+              "equals": [
+                "-1",
+                "未保存"
+              ],
+              "style": "color:gray",
+              "display": "未签名"
+            },
+            {
+              "equals": [
+                "0",
+                "已保存 "
+              ],
+              "style": "color:blue",
+              "display": "未签名"
+            },
+            {
+              "equals": [
+                "1",
+                "已签名"
+              ],
+              "style": "color:red",
+              "display": "已签名"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "压力性损伤",
+      "type": "formGroupTitle",
+      "level": "1",
+      "title": "压力性损伤",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "",
+      "type": "formGroupColBox",
+      "col": 2,
+      "title": "",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I627001",
+          "type": "input",
+          "label": "有无",
+          "inputWidth": "196px",
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "options": [
+            {
+              "name": "有",
+              "code": "有"
+            },
+            {
+              "name": "无",
+              "code": "无"
+            }
+          ],
+          "selectOnly": true
+        },
+        {
+          "name": "I627002",
+          "type": "input",
+          "label": "部位",
+          "inputWidth": "196px",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I627003",
+          "type": "input",
+          "label": "大小（cm²）",
+          "inputWidth": "196px",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I627004",
+          "type": "input",
+          "label": "分期（期）",
+          "inputWidth": "196px",
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "options": [
+            {
+              "name": "1期",
+              "code": "1期"
+            },
+            {
+              "name": "2期",
+              "code": "2期"
+            },
+            {
+              "name": "3期",
+              "code": "3期"
+            },
+            {
+              "name": "4期",
+              "code": "4期"
+            },
+            {
+              "name": "深部组织损伤",
+              "code": "深部组织损伤"
+            },
+            {
+              "name": "不可分期",
+              "code": "不可分期"
+            },
+            {
+              "name": "粘膜压力性损伤",
+              "code": "粘膜压力性损伤"
+            }
+          ],
+          "selectOnly": true
+        },
+        {
+          "name": "I627005",
+          "type": "input",
+          "label": "创面外观",
+          "inputWidth": "196px",
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "options": [
+            {
+              "name": "红斑",
+              "code": "红斑"
+            },
+            {
+              "name": "水泡",
+              "code": "水泡"
+            },
+            {
+              "name": "紫色",
+              "code": "紫色"
+            },
+            {
+              "name": "黄色",
+              "code": "黄色"
+            },
+            {
+              "name": "黑色",
+              "code": "黑色"
+            },
+            {
+              "name": "结痂",
+              "code": "结痂"
+            }
+          ],
+          "selectOnly": true
+        },
+        {
+          "name": "I627006",
+          "type": "input",
+          "label": "渗液",
+          "inputWidth": "196px",
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "options": [
+            {
+              "name": "无",
+              "code": "无"
+            },
+            {
+              "name": "少",
+              "code": "少"
+            },
+            {
+              "name": "中",
+              "code": "中"
+            },
+            {
+              "name": "多",
+              "code": "多"
+            }
+          ],
+          "selectOnly": true
+        },
+        {
+          "name": "I627007",
+          "type": "input",
+          "label": "气味",
+          "inputWidth": "196px",
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "options": [
+            {
+              "name": "有",
+              "code": "有"
+            },
+            {
+              "name": "无",
+              "code": "无"
+            }
+          ],
+          "selectOnly": true
+        },
+        {
+          "name": "I627008",
+          "type": "input",
+          "label": "周围皮肤",
+          "inputWidth": "196px",
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "options": [
+            {
+              "name": "正常",
+              "code": "正常"
+            },
+            {
+              "name": "红",
+              "code": "红"
+            },
+            {
+              "name": "浸渍",
+              "code": "浸渍"
+            },
+            {
+              "name": "色素沉着",
+              "code": "色素沉着"
+            }
+          ],
+          "selectOnly": true
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "警示标识",
+      "type": "formGroupVerticalBox",
+      "level": "1",
+      "title": "警示标识",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": "",
+      "children": [
+        {
+          "name": "",
+          "type": "select",
+          "title": "",
+          "style": "",
+          "class": "",
+          "readOnly": null,
+          "children": [
+            {
+              "name": "M627001",
+              "type": "input",
+              "label": "评估高危或极高危患者在床边放置或显示“防压力性损伤”警示标识",
+              "elementStyle": "margin:10px",
+              "labelStyle": "color:black",
+              "labelClass": "",
+              "inputWidth": "100px",
+              "readOnly": null,
+              "options": [
+                "√",
+                "×",
+                "/"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "体位变换和早期活动(禁忌者除外)",
+      "type": "formGroupVerticalBox",
+      "level": "1",
+      "title": "体位变换和早期活动(禁忌者除外)",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": "",
+      "children": [
+        {
+          "name": "",
+          "type": "select",
+          "title": "",
+          "style": "",
+          "class": "",
+          "readOnly": null,
+          "children": [
+            {
+              "name": "M627002",
+              "type": "input",
+              "label": "侧卧时尽量30°侧卧位，避免长时间90°侧卧位",
+              "elementStyle": "margin:10px",
+              "labelStyle": "color:black",
+              "inputWidth": "100px",
+              "labelClass": "",
+              "readOnly": null,
+              "options": [
+                "√",
+                "×",
+                "/"
+              ]
+            },
+            {
+              "name": "M627003",
+              "type": "input",
+              "label": "避免长时间抬高床头超过30°必须超过30°时，在臀部下方垫支撑物",
+              "elementStyle": "margin:10px",
+              "labelStyle": "color:black",
+              "inputWidth": "100px",
+              "labelClass": "",
+              "readOnly": null,
+              "options": [
+                "√",
+                "×",
+                "/"
+              ]
+            },
+            {
+              "name": "M627004",
+              "type": "input",
+              "label": "充分抬高足跟在小腿下垫与小腿等长的软枕或垫子",
+              "elementStyle": "margin:10px",
+              "labelStyle": "color:black",
+              "inputWidth": "100px",
+              "labelClass": "",
+              "readOnly": null,
+              "options": [
+                "√",
+                "×",
+                "/"
+              ]
+            },
+            {
+              "name": "M627005",
+              "type": "input",
+              "label": "限制患者坐在没有支撑面的椅子上的时间每次最长不超过2小时",
+              "elementStyle": "margin:10px",
+              "labelStyle": "color:black",
+              "inputWidth": "100px",
+              "labelClass": "",
+              "readOnly": null,
+              "options": [
+                "√",
+                "×",
+                "/"
+              ]
+            },
+            {
+              "name": "M627006",
+              "type": "input",
+              "label": "若患者骶尾部或坐骨已发生压力性损伤限制每天坐位少于3次，每次少于1小时",
+              "elementStyle": "margin:10px",
+              "labelStyle": "color:black",
+              "inputWidth": "100px",
+              "labelClass": "",
+              "readOnly": null,
+              "options": [
+                "√",
+                "×",
+                "/"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "支撑面",
+      "type": "formGroupVerticalBox",
+      "level": "1",
+      "title": "支撑面",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": "",
+      "children": [
+        {
+          "name": "",
+          "type": "select",
+          "title": "",
+          "style": "",
+          "class": "",
+          "readOnly": null,
+          "children": [
+            {
+              "name": "M627007",
+              "type": "input",
+              "label": "使用持续低压床垫或减压坐垫",
+              "elementStyle": "margin:10px",
+              "labelStyle": "color:black",
+              "inputWidth": "100px",
+              "labelClass": "",
+              "readOnly": null,
+              "options": [
+                "√",
+                "×",
+                "/"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "预防性皮肤护理",
+      "type": "formGroupVerticalBox",
+      "level": "2",
+      "title": "预防性皮肤护理",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": "",
+      "children": [
+        {
+          "name": "",
+          "type": "select",
+          "title": "",
+          "style": "",
+          "class": "",
+          "readOnly": null,
+          "children": [
+            {
+              "name": "M627008",
+              "type": "input",
+              "label": "保持皮肤清洁，大小便失禁后，立即清洁皮肤",
+              "elementStyle": "margin:10px",
+              "labelStyle": "color:black",
+              "inputWidth": "100px",
+              "labelClass": "",
+              "readOnly": null,
+              "options": [
+                "√",
+                "×",
+                "/"
+              ]
+            },
+            {
+              "name": "M627009",
+              "type": "input",
+              "label": "避免使用碱性肥皂和清洁产品使用屏障产品不让皮肤过于湿润",
+              "elementStyle": "margin:10px",
+              "labelStyle": "color:black",
+              "inputWidth": "100px",
+              "labelClass": "",
+              "readOnly": null,
+              "options": [
+                "√",
+                "×",
+                "/"
+              ]
+            },
+            {
+              "name": "M627010",
+              "type": "input",
+              "label": "避免剧烈摩擦有压力性损伤风险的皮肤",
+              "elementStyle": "margin:10px",
+              "labelStyle": "color:black",
+              "inputWidth": "100px",
+              "labelClass": "",
+              "readOnly": null,
+              "options": [
+                "√",
+                "×",
+                "/"
+              ]
+            },
+            {
+              "name": "M627011",
+              "type": "input",
+              "label": "对有压力性损伤风险的皮肤使用摩擦系数低的纺织品",
+              "elementStyle": "margin:10px",
+              "labelStyle": "color:black",
+              "inputWidth": "100px",
+              "labelClass": "",
+              "readOnly": null,
+              "options": [
+                "√",
+                "×",
+                "/"
+              ]
+            },
+            {
+              "name": "M627012",
+              "type": "input",
+              "label": "对有压力性损伤风险的患者使用多层硅酮泡沫敷料进行局部皮肤保护",
+              "elementStyle": "margin:10px",
+              "labelStyle": "color:black",
+              "inputWidth": "100px",
+              "labelClass": "",
+              "readOnly": null,
+              "options": [
+                "√",
+                "×",
+                "/"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "营养评估及治疗",
+      "type": "formGroupVerticalBox",
+      "level": "2",
+      "title": "营养评估及治疗",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": "",
+      "children": [
+        {
+          "name": "",
+          "type": "select",
+          "title": "",
+          "style": "",
+          "class": "",
+          "readOnly": null,
+          "children": [
+            {
+              "name": "M627013",
+              "type": "input",
+              "label": "对有压力性损伤风险的患者进行营养评估",
+              "elementStyle": "margin:10px",
+              "labelStyle": "color:black",
+              "inputWidth": "100px",
+              "labelClass": "",
+              "readOnly": null,
+              "options": [
+                "√",
+                "×",
+                "/"
+              ]
+            },
+            {
+              "name": "M627014",
+              "type": "input",
+              "label": "针对营养不良或有营养不良风险的患者制定并实施个性化营养护理计划",
+              "elementStyle": "margin:10px",
+              "labelStyle": "color:black",
+              "inputWidth": "100px",
+              "labelClass": "",
+              "readOnly": null,
+              "options": [
+                "√",
+                "×",
+                "/"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "dialogs": [],
+  "header": [],
+  "footer": []
+}

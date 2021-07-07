@@ -10,13 +10,13 @@
   },
   "formSetting": {
     "formTitle": {
-      "hospitalName": "聊城第二人民医院",
-      "formName": "跌倒评估单(成人)"
+      "hospitalName": "聊城市第二人民医院",
+      "formName": "新生儿疼痛评估(PIPP)"
     },
     "formHeads": [
       {
         "name": "name",
-        "code": null,
+        "value": null,
         "title": "姓名",
         "class": "",
         "style": "",
@@ -24,7 +24,7 @@
       },
       {
         "name": "sex",
-        "code": null,
+        "value": null,
         "title": "性别",
         "class": "",
         "style": "",
@@ -32,7 +32,7 @@
       },
       {
         "name": "age",
-        "code": null,
+        "value": null,
         "title": "年龄",
         "class": "",
         "style": "",
@@ -40,7 +40,7 @@
       },
       {
         "name": "wardName",
-        "code": null,
+        "value": null,
         "title": "病区",
         "class": "",
         "style": "",
@@ -48,7 +48,7 @@
       },
       {
         "name": "bedLabel",
-        "code": null,
+        "value": null,
         "title": "床号",
         "class": "",
         "style": "",
@@ -56,7 +56,7 @@
       },
       {
         "name": "inpNo",
-        "code": null,
+        "value": null,
         "title": "住院号",
         "class": "",
         "style": "",
@@ -64,7 +64,7 @@
       },
       {
         "name": "admissionDate",
-        "code": null,
+        "value": null,
         "title": "入院日期",
         "class": "",
         "style": "",
@@ -77,14 +77,16 @@
       "showAudit": true
     },
     "formInfo": {
-      "formCode": "E0305_2",
-      "formApiCode": "E0305_2",
-      "formName": "跌倒风险评估单（成人）",
+      "formCode": "E0629_3",
+      "formApiCode": "E0629_3",
+      "formName": "新生儿疼痛评估(PIPP)",
       "status": "0",
       "formType": "eval"
     }
   },
-  "dictionary": {},
+  "dictionary": {
+    "疼痛部位": "A, B, C, D"
+  },
   "schemes": {},
   "model": {},
   "body": [
@@ -106,9 +108,11 @@
           "name": "evalDate",
           "type": "datePicker",
           "title": "评估时间",
-          "titleStyle": "width:90px!important;margin:0;",
+          "titleStyle": "width:90px!important;text-align: right;",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "136px",
           "hiddenTips": true,
-          "code": "",
+          "value": "",
           "placeholder": "评估时间",
           "style": "width:145px",
           "class": null,
@@ -118,9 +122,11 @@
           "name": "signerName",
           "type": "input",
           "title": "评估人",
-          "titleStyle": "width:90px!important;margin:0;",
+          "titleStyle": "width:90px!important;text-align: right;",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "136px",
           "hiddenTips": true,
-          "code": "0",
+          "value": "",
           "placeholder": "评估人",
           "style": "width:80px",
           "class": null,
@@ -130,9 +136,11 @@
           "name": "status",
           "type": "input",
           "title": "状态",
-          "titleStyle": "width:90px!important;margin:0;",
+          "titleStyle": "width:90px!important;text-align: right;",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "136px",
           "hiddenTips": true,
-          "code": "0",
+          "value": "",
           "placeholder": "状态",
           "style": "width:80px",
           "class": null,
@@ -191,35 +199,55 @@
       "readOnly": ""
     },
     {
-      "name": "1. 近3个月有无跌倒",
+      "name": "胎龄：",
       "type": "formGroupVerticalBox",
-      "title": "1. 近3个月有无跌倒",
+      "title": "胎龄：",
       "message": "",
       "require": "false",
       "prefixDesc": "",
       "suffixDesc": "",
+      "keys": "I629012",
       "style": null,
-      "classes": "namef",
+      "classes": null,
       "readOnly": null,
-      "keys": "I305001",
       "children": [
         {
-          "name": "I305001",
+          "name": "I629012",
           "type": "radio",
-          "title": "无（0分）",
-          "code": "0",
-          "score": 0,
+          "title": "＜28周",
+          "code": "3",
+          "score": 3,
           "style": null,
           "class": null,
           "html": null,
           "readOnly": null
         },
         {
-          "name": "I305001",
+          "name": "I629012",
           "type": "radio",
-          "title": "有（25分）",
-          "code": "25",
-          "score": 25,
+          "title": "28周-31周",
+          "code": "2",
+          "score": 2,
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I629012",
+          "type": "radio",
+          "title": "32周-35周",
+          "code": "1",
+          "score": 1,
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I629012",
+          "type": "radio",
+          "title": "≥36周",
+          "code": "0",
+          "score": 0,
           "style": null,
           "class": null,
           "readOnly": null
@@ -239,196 +267,55 @@
       "readOnly": ""
     },
     {
-      "name": "2. 多于1个医学诊断：",
+      "name": "行为状态:",
       "type": "formGroupVerticalBox",
-      "title": "2. 多于1个医学诊断：",
+      "title": "行为状态:",
       "message": "",
       "require": "false",
       "prefixDesc": "",
       "suffixDesc": "",
-      "keys": "I305002",
+      "keys": "I629013",
       "style": null,
       "classes": null,
       "readOnly": null,
       "children": [
         {
-          "name": "I305002",
+          "name": "I629013",
           "type": "radio",
-          "title": "无（0分）",
-          "code": "0",
-          "score": 0,
-          "style": null,
-          "class": null,
-          "readOnly": null
-        },
-        {
-          "name": "I305002",
-          "type": "radio",
-          "title": "有（15分）",
-          "code": "15",
-          "score": 15,
-          "style": null,
-          "class": null,
-          "readOnly": null
-        }
-      ]
-    },
-    {
-      "name": "",
-      "type": "formGroupHR",
-      "title": "---hr---",
-      "line": "dashed",
-      "prefixDesc": "",
-      "suffixDesc": "",
-      "keys": "",
-      "style": "",
-      "classes": "",
-      "readOnly": ""
-    },
-    {
-      "name": "3. 使用助行用具：",
-      "type": "formGroupVerticalBox",
-      "title": "3. 使用助行用具：",
-      "message": "",
-      "require": "false",
-      "prefixDesc": "",
-      "suffixDesc": "",
-      "keys": "I305003",
-      "style": null,
-      "classes": null,
-      "readOnly": null,
-      "children": [
-        {
-          "name": "I305003",
-          "type": "radio",
-          "title": "不需要、卧床休息、坐轮椅、护士辅助（0分）",
-          "code": "0",
-          "score": 0,
-          "style": null,
-          "class": null,
-          "readOnly": null
-        },
-        {
-          "name": "I305003",
-          "type": "radio",
-          "title": "拐杖、助行器、手杖（15分）",
-          "code": "15",
-          "score": 15,
-          "style": null,
-          "class": null,
-          "readOnly": null
-        },
-        {
-          "name": "I305003",
-          "type": "radio",
-          "title": "依扶家具行走（30分）",
-          "code": "30",
-          "score": 30,
-          "style": null,
-          "class": null,
-          "readOnly": null
-        }
-      ]
-    },
-    {
-      "name": "",
-      "type": "formGroupHR",
-      "title": "---hr---",
-      "line": "dashed",
-      "prefixDesc": "",
-      "suffixDesc": "",
-      "keys": "",
-      "style": "",
-      "classes": "",
-      "readOnly": ""
-    },
-    {
-      "name": "4. 接受药物治疗：",
-      "type": "formGroupVerticalBox",
-      "title": "4. 接受药物治疗：",
-      "message": "",
-      "require": "false",
-      "prefixDesc": "",
-      "suffixDesc": "",
-      "keys": "I305004",
-      "style": null,
-      "classes": null,
-      "readOnly": null,
-      "children": [
-        {
-          "name": "I305004",
-          "type": "radio",
-          "title": "否（0分）",
-          "code": "0",
-          "score": 0,
-          "style": null,
-          "class": null,
-          "readOnly": null
-        },
-        {
-          "name": "I305004",
-          "type": "radio",
-          "title": "是（20分）",
-          "code": "20",
-          "score": 20,
-          "style": null,
-          "class": null,
-          "readOnly": null
-        }
-      ]
-    },
-    {
-      "name": "",
-      "type": "formGroupHR",
-      "title": "---hr---",
-      "line": "dashed",
-      "prefixDesc": "",
-      "suffixDesc": "",
-      "keys": "",
-      "style": "",
-      "classes": "",
-      "readOnly": ""
-    },
-    {
-      "name": "5. 步态/移动：",
-      "type": "formGroupVerticalBox",
-      "title": "5. 步态/移动：",
-      "message": "",
-      "require": "false",
-      "prefixDesc": "",
-      "suffixDesc": "",
-      "keys": "I305005",
-      "style": null,
-      "classes": null,
-      "readOnly": null,
-      "children": [
-        {
-          "name": "I305005",
-          "type": "radio",
-          "title": "正常、卧床、轮椅（0分）",
-          "code": "0",
-          "score": 0,
+          "title": "安静/睡眠，闭眼无面部活动",
+          "code": "3",
+          "score": 3,
           "style": null,
           "class": null,
           "html": null,
           "readOnly": null
         },
         {
-          "name": "I305005",
+          "name": "I629013",
           "type": "radio",
-          "title": "年龄>65 岁、虚弱无力（10分）",
-          "code": "10",
-          "score": 10,
+          "title": "活动/睡眠，闭眼有面部活动",
+          "code": "2",
+          "score": 2,
           "style": null,
           "class": null,
           "readOnly": null
         },
         {
-          "name": "I305005",
+          "name": "I629013",
           "type": "radio",
-          "title": "严重虚弱/受损（20分）",
-          "code": "20",
-          "score": 20,
+          "title": "觉醒/安静，睁眼无面部活动",
+          "code": "1",
+          "score": 1,
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I629013",
+          "type": "radio",
+          "title": "觉醒/活动，睁眼有面部活动",
+          "code": "0",
+          "score": 0,
           "style": null,
           "class": null,
           "readOnly": null
@@ -448,35 +335,327 @@
       "readOnly": ""
     },
     {
-      "name": "6. 精神状态：",
+      "name": "心率增加次数:",
       "type": "formGroupVerticalBox",
-      "title": "6. 精神状态：",
+      "title": "心率增加次数:",
       "message": "",
       "require": "false",
       "prefixDesc": "",
       "suffixDesc": "",
-      "keys": "I305006",
+      "keys": "I629014",
       "style": null,
       "classes": null,
       "readOnly": null,
       "children": [
         {
-          "name": "I305006",
+          "name": "I629014",
           "type": "radio",
-          "title": "正确评估自我能力（0分）",
-          "code": "0",
-          "score": 0,
+          "title": "≥25次/分",
+          "code": "3",
+          "score": 3,
           "style": null,
           "class": null,
           "html": null,
           "readOnly": null
         },
         {
-          "name": "I305006",
+          "name": "I629014",
           "type": "radio",
-          "title": "高估自己能力、忘记自己受限制（15分）",
-          "code": "15",
-          "score": 15,
+          "title": "15-24次/分",
+          "code": "2",
+          "score": 2,
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I629014",
+          "type": "radio",
+          "title": "5-14次/分",
+          "code": "1",
+          "score": 1,
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I629014",
+          "type": "radio",
+          "title": "0-4次/分",
+          "code": "0",
+          "score": 0,
+          "style": null,
+          "class": null,
+          "readOnly": null
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "血氧饱和度下降:",
+      "type": "formGroupVerticalBox",
+      "title": "血氧饱和度下降:",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "I629015",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I629015",
+          "type": "radio",
+          "title": "≥7.5%",
+          "code": "3",
+          "score": 3,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I629015",
+          "type": "radio",
+          "title": "5.0-7.4%",
+          "code": "2",
+          "score": 2,
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I629015",
+          "type": "radio",
+          "title": "2.5-4.9%",
+          "code": "1",
+          "score": 1,
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I629015",
+          "type": "radio",
+          "title": "0%-2.4%",
+          "code": "0",
+          "score": 0,
+          "style": null,
+          "class": null,
+          "readOnly": null
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "皱眉:",
+      "type": "formGroupVerticalBox",
+      "title": "皱眉:",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "I629016",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I629016",
+          "type": "radio",
+          "title": "重度",
+          "code": "3",
+          "score": 3,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I629016",
+          "type": "radio",
+          "title": "中度",
+          "code": "2",
+          "score": 2,
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I629016",
+          "type": "radio",
+          "title": "轻度",
+          "code": "1",
+          "score": 1,
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I629016",
+          "type": "radio",
+          "title": "无",
+          "code": "0",
+          "score": 0,
+          "style": null,
+          "class": null,
+          "readOnly": null
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "挤眼:",
+      "type": "formGroupVerticalBox",
+      "title": "挤眼:",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "I629017",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I629017",
+          "type": "radio",
+          "title": "重度",
+          "code": "3",
+          "score": 3,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I629017",
+          "type": "radio",
+          "title": "中度",
+          "code": "2",
+          "score": 2,
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I629017",
+          "type": "radio",
+          "title": "轻度",
+          "code": "1",
+          "score": 1,
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I629017",
+          "type": "radio",
+          "title": "无",
+          "code": "0",
+          "score": 0,
+          "style": null,
+          "class": null,
+          "readOnly": null
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "鼻唇沟变深:",
+      "type": "formGroupVerticalBox",
+      "title": "鼻唇沟变深:",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "I629018",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I629018",
+          "type": "radio",
+          "title": "重度",
+          "code": "3",
+          "score": 3,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I629018",
+          "type": "radio",
+          "title": "中度",
+          "code": "2",
+          "score": 2,
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I629018",
+          "type": "radio",
+          "title": "轻度",
+          "code": "1",
+          "score": 1,
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I629018",
+          "type": "radio",
+          "title": "无",
+          "code": "0",
+          "score": 0,
           "style": null,
           "class": null,
           "readOnly": null
@@ -541,24 +720,24 @@
           "rule": [
             {
               "min": "0",
-              "max": "24",
+              "max": "7",
               "equal": "无风险",
               "style": "color:red",
               "display": "无风险"
             },
             {
-              "min": "25",
-              "max": "44",
+              "min": "8",
+              "max": "14",
               "equal": "低风险",
               "style": "color:red",
               "display": "低风险"
             },
             {
-              "min": "45",
-              "max": "200",
-              "equal": "跌倒高风险",
+              "min": "15",
+              "max": "25",
+              "equal": "高风险",
               "style": "color:red",
-              "display": "跌倒高风险"
+              "display": "高风险"
             }
           ]
         }
@@ -577,34 +756,22 @@
       "readOnly": ""
     },
     {
-      "name": "",
-      "type": "formGroupTitle",
-      "level": "1",
-      "title": "二、护理措施",
-      "prefixDesc": "",
-      "suffixDesc": "",
-      "keys": "",
-      "style": "",
-      "classes": "",
-      "readOnly": ""
-    },
-    {
-      "name": "一般护理措施",
+      "name": "疼痛护理措施",
       "type": "formGroupVerticalBox",
-      "title": "一般护理措施",
+      "title": "疼痛护理措施",
       "message": "",
       "require": "false",
       "prefixDesc": "",
       "suffixDesc": "",
-      "keys": "I003003111",
+      "keys": "",
       "style": null,
       "classes": null,
       "readOnly": null,
       "children": [
         {
-          "name": "M305015",
+          "name": "M629001",
           "type": "checkbox",
-          "title": "1.入院时向患者介绍病区环境及安全设施的使用方法",
+          "title": "有痛操作前给予安慰（如母乳喂养、非营养性吸吮等）",
           "code": "true",
           "style": null,
           "class": null,
@@ -612,9 +779,9 @@
           "readOnly": null
         },
         {
-          "name": "M305016",
+          "name": "M629002",
           "type": "checkbox",
-          "title": "2.卫生间等区域设置扶手、紧急呼叫铃等辅助设施确保性能良好",
+          "title": "给予患儿襁褓包裹",
           "code": "true",
           "style": null,
           "class": null,
@@ -622,9 +789,9 @@
           "readOnly": null
         },
         {
-          "name": "M305017",
+          "name": "M629003",
           "type": "checkbox",
-          "title": "3.保持病区地面清洁干燥，浴室、卫生间、配餐室有防滑设施及警示标识",
+          "title": "使用保温箱增强其安全感",
           "code": "true",
           "style": null,
           "class": null,
@@ -632,9 +799,9 @@
           "readOnly": null
         },
         {
-          "name": "M305018",
+          "name": "M629004",
           "type": "checkbox",
-          "title": "4.将水杯、鞋子等常用生活物品放于患者方便取用的位置",
+          "title": "减弱新生儿的视觉刺激和听觉刺激",
           "code": "true",
           "style": null,
           "class": null,
@@ -642,9 +809,9 @@
           "readOnly": null
         },
         {
-          "name": "M305019",
+          "name": "M629005",
           "type": "checkbox",
-          "title": "5.嘱患者穿防滑鞋，衣裤大小合适",
+          "title": "给予舒适的听觉刺激",
           "code": "true",
           "style": null,
           "class": null,
@@ -652,46 +819,9 @@
           "readOnly": null
         },
         {
-          "name": "M305020",
+          "name": "M629006",
           "type": "checkbox",
-          "title": "6.保持病床、轮椅和平车的安全使用",
-          "code": "true",
-          "style": null,
-          "class": null,
-          "html": null,
-          "readOnly": null
-        }
-      ]
-    },
-    {
-      "name": "",
-      "type": "formGroupHR",
-      "title": "---hr---",
-      "line": "dashed",
-      "prefixDesc": "",
-      "suffixDesc": "",
-      "keys": "",
-      "style": "",
-      "classes": "",
-      "readOnly": ""
-    },
-    {
-      "name": "二低风险预防措施",
-      "type": "formGroupVerticalBox",
-      "title": "二低风险预防措施",
-      "message": "",
-      "require": "false",
-      "prefixDesc": "",
-      "suffixDesc": "",
-      "keys": "I003003111",
-      "style": null,
-      "classes": null,
-      "readOnly": null,
-      "children": [
-        {
-          "name": "M305021",
-          "type": "checkbox",
-          "title": "1.执行一般护理措施",
+          "title": "袋鼠式护理",
           "code": "true",
           "style": null,
           "class": null,
@@ -699,9 +829,9 @@
           "readOnly": null
         },
         {
-          "name": "M305022",
+          "name": "M629007",
           "type": "checkbox",
-          "title": "2.患者活动时有人陪伴",
+          "title": "新生儿按摩",
           "code": "true",
           "style": null,
           "class": null,
@@ -709,106 +839,9 @@
           "readOnly": null
         },
         {
-          "name": "M305023",
+          "name": "M629008",
           "type": "checkbox",
-          "title": "3.呼叫铃放于患者可及处，指导正确使用",
-          "code": "true",
-          "style": null,
-          "class": null,
-          "html": null,
-          "readOnly": null
-        },
-        {
-          "name": "M305024",
-          "type": "checkbox",
-          "title": "4.卧床时加用床档，教会患者/家属床档使用方法并加强巡视",
-          "code": "true",
-          "style": null,
-          "class": null,
-          "html": null,
-          "readOnly": null
-        },
-        {
-          "name": "M305025",
-          "type": "checkbox",
-          "title": "5.指导患者掌握“下床活动三部曲”的方法（卧、坐、立各 30 秒）",
-          "code": "true",
-          "style": null,
-          "class": null,
-          "html": null,
-          "readOnly": null
-        }
-      ]
-    },
-    {
-      "name": "",
-      "type": "formGroupHR",
-      "title": "---hr---",
-      "line": "dashed",
-      "prefixDesc": "",
-      "suffixDesc": "",
-      "keys": "",
-      "style": "",
-      "classes": "",
-      "readOnly": ""
-    },
-    {
-      "name": "三高风险预防措施",
-      "type": "formGroupVerticalBox",
-      "title": "三高风险预防措施",
-      "message": "",
-      "require": "false",
-      "prefixDesc": "",
-      "suffixDesc": "",
-      "keys": "I003003111",
-      "style": null,
-      "classes": null,
-      "readOnly": null,
-      "children": [
-        {
-          "name": "M305026",
-          "type": "checkbox",
-          "title": "1.执行低风险预防护理措施",
-          "code": "true",
-          "style": null,
-          "class": null,
-          "html": null,
-          "readOnly": null
-        },
-        {
-          "name": "M305027",
-          "type": "checkbox",
-          "title": "2.床头牌有防跌倒警示标识",
-          "code": "true",
-          "style": null,
-          "class": null,
-          "html": null,
-          "readOnly": null
-        },
-        {
-          "name": "M305028",
-          "type": "checkbox",
-          "title": "3.告知家属应有专人陪护患者",
-          "code": "true",
-          "style": null,
-          "class": null,
-          "html": null,
-          "readOnly": null
-        },
-        {
-          "name": "M305029",
-          "type": "checkbox",
-          "title": "4.规范使用约束器具",
-          "code": "true",
-          "style": null,
-          "class": null,
-          "html": null,
-          "readOnly": null
-        },
-        {
-          "name": "M305030",
-          "type": "checkbox",
-          "title": "5.做好床边交接班",
+          "title": "药物治疗",
           "code": "true",
           "style": null,
           "class": null,
