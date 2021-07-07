@@ -3,23 +3,28 @@
   <SweetModal
     ref="sweetModal"
     :titleIcon="getTitleIcon(title)"
-    :title="title|| ' '"
+    :title="title || ' '"
     :modal-width="modalWidth"
     :fullBtn="false"
     class="custom-sweet-modal"
   >
     <!-- dialog-loading -->
-    <div v-loading="dialogLoading" :class="{lock: lock}">
+    <div v-loading="dialogLoading" :class="{ lock: lock }">
       <!-- <div class="dialog-loading-text">{{dialogLoadingText}}</div> -->
 
       <div class="form-select-con" v-show="formList.length > 1">
-        <span>量表选择：</span>
-        <el-radio-group v-model="selectedForm" @change="changeSelectForm" size="small">
+        <span>选择：</span>
+        <el-radio-group
+          v-model="selectedForm"
+          @change="changeSelectForm"
+          size="small"
+        >
           <el-radio-button
             v-for="(item, index) in formList"
             :key="index"
             :label="index"
-          >{{item.title}}</el-radio-button>
+            >{{ item.title }}</el-radio-button
+          >
         </el-radio-group>
       </div>
 
@@ -28,12 +33,14 @@
       <span v-if="show">
         <!-- 片段内容组件显示 el-form-item :model="form"-->
         <span
-          v-if="formBox
-    && (formBox.hasOwnProperty('children')!==-1
-     || formBox && formBox.hasOwnProperty('html')!==-1)"
+          v-if="
+            formBox &&
+            (formBox.hasOwnProperty('children') !== -1 ||
+              (formBox && formBox.hasOwnProperty('html') !== -1))
+          "
         >
           <!-- 页面正文 -->
-          <div v-if="formBox.children||formBox.html">
+          <div v-if="formBox.children || formBox.html">
             <FormBody :obj="formBox.body || [formBox]" :formObj="formBox" />
           </div>
         </span>
@@ -49,13 +56,25 @@
           />
 
           <!-- 页面头部 -->
-          <FormHeader v-if="formBox.header" :obj="formBox.header" :formObj="formBox" />
+          <FormHeader
+            v-if="formBox.header"
+            :obj="formBox.header"
+            :formObj="formBox"
+          />
 
           <!-- 页面正文 -->
-          <FormBody v-if="formBox.body" :obj="formBox.body" :formObj="formBox" />
+          <FormBody
+            v-if="formBox.body"
+            :obj="formBox.body"
+            :formObj="formBox"
+          />
 
           <!-- 页面尾部 -->
-          <FormFooter v-if="formBox.footer" :obj="formBox.footer" :formObj="formBox" />
+          <FormFooter
+            v-if="formBox.footer"
+            :obj="formBox.footer"
+            :formObj="formBox"
+          />
         </span>
       </span>
 
@@ -65,9 +84,15 @@
 
     <!-- <el-form-item> -->
     <!-- 弹框底部按钮 -->
-    <el-button slot="button" v-if="hasCancel" @click="close">{{cancelText||'取消'}}</el-button>
-    <el-button slot="button" v-if="hasOK" type="primary" @click="clickOK()">{{okText||'确认'}}</el-button>
-    <el-button slot="button" v-if="isDev" @click="clickOK(true)">{{'开发确认按钮'}}</el-button>
+    <el-button slot="button" v-if="hasCancel" @click="close">{{
+      cancelText || "取消"
+    }}</el-button>
+    <el-button slot="button" v-if="hasOK" type="primary" @click="clickOK()">{{
+      okText || "确认"
+    }}</el-button>
+    <el-button slot="button" v-if="isDev" @click="clickOK(true)">{{
+      "开发确认按钮"
+    }}</el-button>
   </SweetModal>
 </template>
 
@@ -91,7 +116,7 @@ import comm, {
   getFormDetail,
   cancelSignForm,
   getOldFormCode,
-  getVTEInfo
+  getVTEInfo,
 } from "@/Page/sheet-hospital-admission/components/Render/common.js";
 
 import { debug } from "util";
@@ -103,14 +128,14 @@ export default {
   mixins: [common],
   props: {
     obj: Object,
-    formObj: Object
+    formObj: Object,
   },
   components: {
     FormTitle,
     FormHeader,
     FormBody,
     FormFooter,
-    InputElements
+    InputElements,
     // FormGroupTitle,
     // FormGroupHR,
     // FormGroupHorizontalBox,
@@ -145,14 +170,14 @@ export default {
         delivery: false,
         type: [],
         resource: "",
-        desc: ""
+        desc: "",
       },
       formList: [],
       selectedForm: "",
       formConfig: {},
       parentFormCode: "",
       dialogFormCode: "",
-      show: true
+      show: true,
     };
   },
   computed: {},
@@ -217,7 +242,7 @@ export default {
               this.formBox.body.length > 0))
         ) {
           this.formBox.model = {};
-          this.formBox.children.map(child => {
+          this.formBox.children.map((child) => {
             if (child.name) {
               if (window.formObj.model[child.name]) {
                 this.formBox.model[child.name] =
@@ -229,9 +254,9 @@ export default {
           });
 
           if (this.formBox.hasOwnProperty("body")) {
-            this.formBox.body.map(b => {
+            this.formBox.body.map((b) => {
               if (b.hasOwnProperty("children")) {
-                b.children.map(child => {
+                b.children.map((child) => {
                   if (window.formObj.model[child.name]) {
                     this.formBox.model[child.name] =
                       window.formObj.model[child.name];
@@ -265,7 +290,7 @@ export default {
           id,
           this.formBox,
           this.formObj,
-          this.$root.$refs
+          this.$root.$refs,
         ]);
         this.clearUIFormData(this.formBox.model);
         // 初始化 评估时间 评估人 状态
@@ -283,17 +308,17 @@ export default {
       console.log("根据ID表单", id, this.formBox, this.formObj);
       if (id) {
         id = ~~id;
-        getFormDetail(id, res => {
+        getFormDetail(id, (res) => {
           console.log("根据ID获取表单数据", res);
           let {
             data: {
-              data: { itemData: itemData, master: master }
-            }
+              data: { itemData: itemData, master: master },
+            },
           } = res;
           //
           this.formBox.model = {
             ...itemData,
-            ...master
+            ...master,
           };
           //
           if (this.formBox.model.status) {
@@ -398,16 +423,15 @@ export default {
                   this.$root.$refs[this.formCode][key].$parent &&
                   this.$root.$refs[this.formCode][key].$parent.obj.name_date
                 ) {
-                  let name_date = this.$root.$refs[this.formCode][key].$parent
-                    .obj.name_date;
-                  let name_time = this.$root.$refs[this.formCode][key].$parent
-                    .obj.name_time;
+                  let name_date =
+                    this.$root.$refs[this.formCode][key].$parent.obj.name_date;
+                  let name_time =
+                    this.$root.$refs[this.formCode][key].$parent.obj.name_time;
                   this.$root.$refs[this.formCode][key].$parent.datePickerValue =
                     model[name_date] + " " + model[name_time];
                 } else {
-                  this.$root.$refs[this.formCode][
-                    key
-                  ].$parent.datePickerValue = value;
+                  this.$root.$refs[this.formCode][key].$parent.datePickerValue =
+                    value;
                 }
 
                 // }
@@ -550,7 +574,7 @@ export default {
           let value = model[key];
           if (value && this.$root.$refs[this.formCode][key]) {
             if (this.$root.$refs[this.formCode][key].constructor === Array) {
-              this.$root.$refs[this.formCode][key].map(item => {
+              this.$root.$refs[this.formCode][key].map((item) => {
                 item.model = [];
                 // item.value = "";
               });
@@ -673,9 +697,8 @@ export default {
                 this.$root.$refs[this.formCode][newKey] &&
                 this.$root.$refs[this.formCode][newKey].$parent
               ) {
-                this.$root.$refs[this.formCode][
-                  newKey
-                ].$parent.inputValue = this.formBox.model[newKey];
+                this.$root.$refs[this.formCode][newKey].$parent.inputValue =
+                  this.formBox.model[newKey];
                 // delete this.formBox.model[key];
               }
             }
@@ -685,7 +708,7 @@ export default {
 
         window.formObj.model = {
           ...window.formObj.model,
-          ...this.formBox.model
+          ...this.formBox.model,
         };
 
         console.log(this.formObj.model, " this.formObj.model");
@@ -716,11 +739,11 @@ export default {
             empNo: empNo,
             sign: true,
             // "audit": true,
-            password: password
+            password: password,
           };
           // cancelSignForm
           if (this.okText == "取消签名") {
-            cancelSignForm(postData, res => {
+            cancelSignForm(postData, (res) => {
               console.log("取消签名", [postData, cancelSignForm, comm]);
               this.inital();
             });
@@ -728,25 +751,25 @@ export default {
             //
             this.formBox.model = {
               ...this.formBox.model,
-              ...postData
+              ...postData,
               // sign: true,
               // empNo,
               // password
             };
             //
             //
-            saveForm({ ...this.formBox }, res => {
+            saveForm({ ...this.formBox }, (res) => {
               this.dialogLoading = false;
               let {
                 data: {
                   data: {
-                    formResult: { id: id }
-                  }
-                }
+                    formResult: { id: id },
+                  },
+                },
               } = res;
               this.formObj.model[this.dialogFormCode] = id;
 
-              let getYinYang = str => {
+              let getYinYang = (str) => {
                 return str === "+" ? "阳性" : "阴性";
               };
 
@@ -899,7 +922,7 @@ export default {
       //
       if (config.otherDialog) {
         this.formBox.name = config.otherDialog.name || "";
-        this.formBox.children.map(c => {
+        this.formBox.children.map((c) => {
           c.name = config.otherDialog.name || "";
         });
         this.formBox.aliasTitle = config.otherDialog.title || "";
@@ -999,39 +1022,35 @@ export default {
         console.log("icon:error", error);
       }
       return "";
-    }
-  }
+    },
+  },
 };
 </script>
 
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
-.el-checkbox,
-.is-bordered,
-.el-checkbox--medium,
-.el-input,
-.el-input--medium,
-.el-input-group,
-.el-input-group--prepend
+.el-checkbox, .is-bordered, .el-checkbox--medium, .el-input, .el-input--medium, .el-input-group, .el-input-group--prepend {
   margin: 5px 0px;
+}
 
-
-.custom-sweet-modal
-  width: 100%!important;
+.custom-sweet-modal {
+  width: 100% !important;
   min-height: 50%;
-  >>>.sweet-content
-      padding:10px!important
 
+  >>>.sweet-content {
+    padding: 10px !important;
+  }
+}
 
 .sweet-modal .sweet-content .sweet-content-content {
   >>>&.lock {
-    cursor: not-allowed!important;
+    cursor: not-allowed !important;
   }
 }
 
 .form-select-con {
-  text-align left
-  margin 5px 8px
+  text-align: left;
+  margin: 5px 8px;
 }
 
 .dialog-loading {
@@ -1043,6 +1062,7 @@ export default {
   margin-left: -10px;
   margin-top: -10px;
 }
+
 .dialog-loading-text {
   text-align: center;
   margin-top: 45%;
@@ -1050,18 +1070,18 @@ export default {
 }
 
 .lock {
-    pointer-events: none;
-    /deep/ input,
-    /deep/ .el-checkbox__inner {
-      background: #f5f7faff !important;
-    }
+  pointer-events: none;
 
-    /deep/ .el-checkbox__inner::after {
-      border-color: black !important;
-    }
+  /deep/ input, /deep/ .el-checkbox__inner {
+    background: #f5f7faff !important;
   }
 
+  /deep/ .el-checkbox__inner::after {
+    border-color: black !important;
+  }
+}
+
 >>>.el-loading-mask, .is-fullscreen {
-  z-index: 20005!important;
+  z-index: 20005 !important;
 }
 </style>
