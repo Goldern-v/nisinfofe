@@ -96,9 +96,19 @@ module.exports = {
     HOSPITAL_NAME: '"山南市人民医院"',
     HOSPITAL_NAME_SPACE: '"山 南 市 人 民 医 院"'
   },
+  "nanfangzhongxiyi": {
+    HOSPITAL_ID: '"nanfangzhongxiyi"',
+    HOSPITAL_NAME: '"南方中西医"',
+    HOSPITAL_NAME_SPACE: '"南 方 中 西 医"'
+  },
   "yangchunzhongyi": {
     HOSPITAL_ID: '"yangchunzhongyi"',
     HOSPITAL_NAME: '"阳春中医院"',
     HOSPITAL_NAME_SPACE: '"阳 春 中 医 院"'
+  },
+  "beihairenyi": {
+    HOSPITAL_ID: '"beihairenyi"',
+    HOSPITAL_NAME: '"北海市人民医院"',
+    HOSPITAL_NAME_SPACE: '"北 海 市 人 民 医 院"'
   }
 }

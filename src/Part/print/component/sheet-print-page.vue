@@ -2,7 +2,11 @@
   <div id="sheetPagePrint">
     <!-- {{process}} -->
     <!-- <iframe :src="url" :style="{height: iframeHeight + 'px'}" @load="onload" ref="iframe"></iframe> -->
-    <div class="iframe" v-html="sheetModel"></div>
+    <div
+      class="iframe"
+      :class="HOSPITAL_ID === 'hengli' ? 'reduceGap' : ''"
+      v-html="sheetModel"
+    ></div>
   </div>
 </template>
 
@@ -158,6 +162,10 @@
       page-break-after: always;
       padding-top: 80px;
       box-sizing: border-box;
+    }
+    /* 横沥所有护记头尾部空白减少 */
+    .reduceGap> div{
+      padding-top: 20px !important;
     }
 
     .iframe > div:nth-of-type(2n) {

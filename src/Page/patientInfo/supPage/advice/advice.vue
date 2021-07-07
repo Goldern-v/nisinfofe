@@ -31,14 +31,7 @@
           <el-button class="select-btn" type="primary">打印执行单</el-button>
         </a>
       </div>
-      <adviceTableWx
-        :tableData="tableDataSelect"
-        v-if="HOSPITAL_ID == 'weixian'"
-        :tableLoading="tableLoading"
-      ></adviceTableWx>
-      <adviceTableHd :tableData="tableDataSelect" :tableLoading="tableLoading" v-else-if="HOSPITAL_ID == 'huadu'"></adviceTableHd>
-      <adviceTableCommon :tableData="tableDataSelect" :tableLoading="tableLoading" v-else-if="HOSPITAL_ID == 'liaocheng' || HOSPITAL_ID == 'fuyou' || HOSPITAL_ID == 'hengli'"></adviceTableCommon>
-      <adviceTable :tableData="tableDataSelect" :tableLoading="tableLoading" v-else></adviceTable>
+      <component :tableData="tableDataSelect" :tableLoading="tableLoading" :is="currentAdviceTable"></component>
     </div>
   </div>
 </template>
@@ -190,6 +183,18 @@ export default {
         })
       }
       return data;
+    },
+    currentAdviceTable(){
+      let HOSPITAL_ID = this.HOSPITAL_ID;
+      if(HOSPITAL_ID == 'liaocheng' || HOSPITAL_ID == 'fuyou' || HOSPITAL_ID == 'hengli' || HOSPITAL_ID == 'guizhou'){
+        return 'adviceTableCommon'
+      }else if(HOSPITAL_ID == 'weixian'){
+        return 'adviceTableWx'
+      }else if(HOSPITAL_ID == 'huadu'){
+        return 'adviceTableHd'
+      }else {
+        return 'adviceTable'
+      }
     }
   },
   created() {

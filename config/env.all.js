@@ -92,6 +92,11 @@ module.exports = {
     HOSPITAL_NAME: '"东莞市横沥医院"',
     HOSPITAL_NAME_SPACE: '"东 莞 市 横 沥 医 院"'
   },
+  nanfangzhongxiyi: {
+    HOSPITAL_ID: '"nanfangzhongxiyi"',
+    HOSPITAL_NAME: '"南方中西医"',
+    HOSPITAL_NAME_SPACE: '"南 方 中 西 医"'
+  },
   xiegang: {
     HOSPITAL_ID: '"xiegang"',
     HOSPITAL_NAME: '"东莞市谢岗医院"',
@@ -106,5 +111,10 @@ module.exports = {
     HOSPITAL_ID: '"yangchunzhongyi"',
     HOSPITAL_NAME: '"阳春中医院"',
     HOSPITAL_NAME_SPACE: '"阳 春 中 医 院"'
+  },
+  beihairenyi: {
+    HOSPITAL_ID: '"beihairenyi"',
+    HOSPITAL_NAME: '"北海市人民医院"',
+    HOSPITAL_NAME_SPACE: '"北 海 市 人 民 医 院"'
   }
 };

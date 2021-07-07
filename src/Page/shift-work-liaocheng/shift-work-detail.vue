@@ -30,6 +30,13 @@
             <!-- <img :src="hospitalLogo" alt="logo" class="logo"> -->
             <h1 class="title">{{deptName}}</h1>
             <h2 class="sub-title">ISBAR交班记录卡</h2>
+            <div class="class-option" v-if="HOSPITAL_ID == 'zhongshanqi'">
+                <ElSelect size="small" :value="currentClass" @input="onClassChange">
+                  <ElOption label="白班" value="白班" />
+                  <ElOption label="小夜班" value="小夜班" />
+                  <ElOption label="大夜班" value="大夜班" />
+              </ElSelect>
+            </div>
             <div style="text-align: right;">交班日期：<b>{{record.changeShiftDate}}</b></div>
             <div v-if="HOSPITAL_ID == 'hj'">
               <div class="details">
@@ -123,63 +130,54 @@
             <div v-if="HOSPITAL_ID == 'zhongshanqi'">
               <div class="details">
                 <span>
-                  病区情况：原有：
-                  <b><input type="text" v-model="shiftWithWardcodes.patientTotal" /></b>人，
+                  病区情况：原有：<input type="text" v-model="shiftWithWardcodes.patientTotal" />人，
                 </span>
                 <span>
-                  新收：
-                  <b><input type="text" v-model="shiftWithWardcodes.inHospitalTotal" /></b>人，
+                  新收：<input type="text" v-model="shiftWithWardcodes.inHospitalTotal" />人，
                 </span>
                 <span>
-                  转入：
-                  <b><input type="text" v-model="shiftWithWardcodes.transInTotal" /></b>人，
+                  转入：<input type="text" v-model="shiftWithWardcodes.transInTotal" />人，
                 </span>
                 <span>
-                  出院：
-                  <b><input type="text" v-model="shiftWithWardcodes.outHospitalTotal" /></b>人，
+                  出院：<input type="text" v-model="shiftWithWardcodes.outHospitalTotal" />人，
                 </span>
                 <span>
-                  转出：
-                  <b><input type="text" v-model="shiftWithWardcodes.transOutTotal" /></b>人，
+                  转出：<input type="text" v-model="shiftWithWardcodes.transOutTotal" />人，
                 </span>
                 <span>
-                  现有：
-                  <b><input type="text" v-model="shiftWithWardcodes.nowHospitalTotal" /></b>人，
+                  现有：<input type="text" v-model="shiftWithWardcodes.nowHospitalTotal" />人，
                 </span>
                 <span>
-                  病危：
-                  <b><input type="text" v-model="shiftWithWardcodes.dangerTotal" /></b>人，
+                  病危：<input type="text" v-model="shiftWithWardcodes.dangerTotal" />人，
                 </span>
                 <span>
-                  病重：
-                  <b><input type="text" v-model="shiftWithWardcodes.seriousTotal" /></b>人，
+                  病重：<input type="text" v-model="shiftWithWardcodes.seriousTotal" />人，
                 </span>
                 <span>
-                  手术：
-                  <b><input type="text" v-model="shiftWithWardcodes.operationTotal" /></b>人
+                  手术：<input type="text" v-model="shiftWithWardcodes.operationTotal" />人
                 </span>
                </div>
                <div class="details" style="margin-top: 5px;">
                 <span>
-                  特级护理：<b><input type="text" v-model="shiftWithWardcodes.tjhl" /></b>人，
+                  特级护理：<input type="text" v-model="shiftWithWardcodes.tjhl" />人，
                 </span>
                 <span>
-                  一级护理：<b><input type="text" v-model="shiftWithWardcodes.yjhl" /></b>人，
+                  一级护理：<input type="text" v-model="shiftWithWardcodes.yjhl" />人，
                 </span>
                 <span>
-                  二级护理：<b><input type="text" v-model="shiftWithWardcodes.ejhl" /></b>人，
+                  二级护理：<input type="text" v-model="shiftWithWardcodes.ejhl" />人，
                 </span>
                 <span>
-                  三级护理：<b><input type="text" v-model="shiftWithWardcodes.sjhl" /></b>人，
+                  三级护理：<input type="text" v-model="shiftWithWardcodes.sjhl" />人，
                 </span>
                 <span>
-                  体温异常：<b><input type="text" v-model="shiftWithWardcodes.twyc" /></b>人，
+                  体温异常：<input type="text" v-model="shiftWithWardcodes.twyc" />人，
                 </span>
                 <span>
-                  血压异常：<b><input type="text" v-model="shiftWithWardcodes.xyyc" /></b>人，
+                  血压异常：<input type="text" v-model="shiftWithWardcodes.xyyc" />人，
                 </span>
                 <span>
-                  血糖异常：<b><input type="text" v-model="shiftWithWardcodes.xtyc" /></b>人，
+                  血糖异常：<input type="text" v-model="shiftWithWardcodes.xtyc" />人
                 </span>
               </div>
             </div>
@@ -544,7 +542,8 @@ export default {
           ]
         }
       ],
-      fixedTh: false
+      fixedTh: false,
+      currentClass: "白班"
     };
   },
   computed: {
@@ -575,6 +574,9 @@ export default {
     },
     "$route.params.id"() {
       this.load();
+      if(this.HOSPITAL_ID == 'zhongshanqi'){
+         this.currentClass = sessionStorage.getItem(this.$route.fullPath) ? sessionStorage.getItem(this.$route.fullPath): this.currentClass
+      }
     },
     modified(value, oldValue) {
       if (value !== oldValue) {
@@ -615,6 +617,11 @@ export default {
     },
     onCodeChange(code) {
       this.$router.push({ path: `/shiftWork/${code}` });
+    },
+    onClassChange(currentClass){
+      this.currentClass = currentClass;
+      sessionStorage.setItem(this.$route.fullPath,this.currentClass);
+      this.load();
     },
     async load() {
       const id = this.$route.params.id;
@@ -1085,14 +1092,19 @@ export default {
           injectGlobalCss: true,
           scanStyles: false,
           css: `
-        .fixedTh {
-          display: none !important;
-          height: auto;
-        }
-        pre {
-          white-space: pre-wrap;
-        }
-        `
+          .fixedTh {
+            display: none !important;
+            height: auto;
+          }
+          pre {
+            white-space: pre-wrap;
+          }
+          .details pre {
+            display: inline-block;
+            width: 30px;
+            text-align: center;
+          }
+         `
         });
       });
       this.loading = false;
@@ -1278,6 +1290,7 @@ export default {
     border: none;
     outline: none;
     text-align: center;
+    font-weight: bold;
   }
 }
 
@@ -1352,11 +1365,25 @@ export default {
     cursor: pointer;
   }
 }
-</style>
-<style lang="stylus">
+.class-option {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
 @media print {
   .shift-paper {
     padding-top: 40px !important;
+    .class-option {
+      top: 40px;
+      >>> .el-select {
+         .el-input__inner {
+            border: none;
+          }
+          i {
+            display: none;
+          }
+      }
+    }
   }
 }
 
@@ -1364,4 +1391,3 @@ export default {
   margin: 0 10mm;
 }
 </style>
-

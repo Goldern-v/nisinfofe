@@ -45,7 +45,7 @@
           <span :class="type(scope.row.orderStatusName)">{{scope.row.orderText}}</span>
         </template>
       </el-table-column>
-      <el-table-column label="计量" min-width="80px" prop="dosage">
+      <el-table-column label="剂量" min-width="80px" prop="dosage">
         <template slot-scope="scope">
           <span
             :class="type(scope.row.orderStatusName)"

@@ -90,6 +90,11 @@ const currentTargetUrl = (() => {
       // return "http://183.63.206.194:9091" // 东莞横沥正式
       return "http://192.168.1.54:9874" // 公司-东莞横沥测试-内网
 
+      /** 南方中西医 */
+    case "nanfangzhongxiyi":
+      // return "http://183.63.206.194:9091" // 南方中西医正式
+      return "http://192.168.1.54:9876" // 公司-南方中西医测试-内网
+
       /** 山南市人民医院 */
     case "shannan":
       // return "http://124.31.235.39:9094 " // 公司-山南市人民医院正式
