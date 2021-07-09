@@ -186,11 +186,11 @@ export default {
     },
     currentAdviceTable(){
       let HOSPITAL_ID = this.HOSPITAL_ID;
-      if(HOSPITAL_ID == 'liaocheng' || HOSPITAL_ID == 'fuyou' || HOSPITAL_ID == 'hengli' || HOSPITAL_ID == 'guizhou'){
+      if(HOSPITAL_ID == 'liaocheng' || HOSPITAL_ID == 'fuyou' || HOSPITAL_ID == 'hengli'){
         return 'adviceTableCommon'
       }else if(HOSPITAL_ID == 'weixian'){
         return 'adviceTableWx'
-      }else if(HOSPITAL_ID == 'huadu'){
+      }else if(HOSPITAL_ID == 'huadu' || HOSPITAL_ID == 'guizhou'){
         return 'adviceTableHd'
       }else {
         return 'adviceTable'
