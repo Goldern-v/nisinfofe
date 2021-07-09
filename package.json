@@ -21,6 +21,7 @@
     "dev:guizhou": "npm run dev --guizhou",
     "dev:shannan": "npm run dev --shannan",
     "dev:beihairenyi": "npm run dev --beihairenyi",
+    "dev:quzhou": "npm run dev --quzhou",
     "start": "node build/dev-server.js",
     "build": "node build/build.js",
     "build:": "npm run build",
@@ -41,6 +42,7 @@
     "buildNew:guizhou": "npm run buildNew: guizhou",
     "buildNew:shannan": "npm run buildNew: shannan",
     "buildNew:beihairenyi": "npm run buildNew: beihairenyi",
+    "buildNew:quzhou": "npm run buildNew: quzhou",
     "deploy": "npm run buildNew",
     "lint": "eslint --ext .js,.vue src",
     "toSvn": "svn commit -m 前端代码更新svn"
