@@ -1,6 +1,7 @@
 import axios from "@/api/axios";
 import { apiPath } from "@/api/apiConfig";
 import qs from "qs";
+const HOSPITAL_ID = process.env.HOSPITAL_ID;
 
 // 查询病区科室
 export function listDepartment(parentCode) {
@@ -74,9 +75,19 @@ export function removeShiftRecord(id, empNo, password) {
 }
 
 // 更新交班签名
-export function signShiftRecord(id, AutographNameType, empNo, password) {
+export function signShiftRecord(id, autographNameType, empNo, password) {
+  if(HOSPITAL_ID === "weixian"){
+    return axios.post(
+      `${apiPath}changeShiftTime/updateAutographName`,{
+        id,
+        autographNameType,
+        empNo,
+        password,
+      }
+    )
+  }
   return axios.get(
-    `${apiPath}changeShiftTime/updateAutographName/${id}/${AutographNameType}/${empNo}/${password}`
+    `${apiPath}changeShiftTime/updateAutographName/${id}/${autographNameType}/${empNo}/${password}`
   );
 }
 
