@@ -472,6 +472,9 @@ export default {
         case "zhongshanqi":
           logoUrl = require("../../common/images/logo_zhongshanqi.png");
           break;
+        case "quzhou":
+          logoUrl = require("../../common/images/logo_quzhou.png");
+          break;
       }
       return logoUrl;
     },
