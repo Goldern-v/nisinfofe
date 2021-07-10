@@ -57,13 +57,13 @@ export default {
       url: "",
       refresh: false,
       inited: false,
-      query: {}
+      query: {},
     };
   },
   computed: {
     openLeft() {
       return this.$store.state.common.openLeft;
-    }
+    },
   },
   created() {
     // 修改高度
@@ -82,7 +82,7 @@ export default {
       getPatientInfo(
         this.$route.query.patientId,
         this.$route.query.visitId
-      ).then(res => {
+      ).then((res) => {
         this.inited = true;
         this.query = res.data.data;
         Object.assign(this.$route.query, this.query);
@@ -93,7 +93,7 @@ export default {
         );
         if (this.query.deptCode && this.query.deptName) {
           this.$store.commit("upDeptCode", this.query.wardCode);
-          localStorage.selectDeptValue = value;
+          localStorage.selectDeptValue = this.query.deptCode;
           this.$store.commit("upDeptName", this.query.wardName);
         }
       });
@@ -108,13 +108,13 @@ export default {
         武警广东省总队医院: "topPartWuJing",
         中山大学附属第七医院: "topPartZhongShanQi",
         聊城市第二人民医院: "topPartLiaoCheng",
-        山南市人民医院: "topPartShanNan"
+        山南市人民医院: "topPartShanNan",
       };
       return hisList[HisName] || "topPart";
     },
     handleInpatientSave() {
       this.getPatientData();
-    }
+    },
   },
   mounted() {
     try {
@@ -144,7 +144,7 @@ export default {
     topPartLiaoCheng,
     topPartZhongShanQi,
     topPartShanNan,
-    leftPart
-  }
+    leftPart,
+  },
 };
 </script>

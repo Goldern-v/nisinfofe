@@ -29,11 +29,11 @@
             />
           </div>
           <div
-            style="margin-left:10px;"
+            style="margin-left: 10px"
             v-if="
               (HOSPITAL_ID === 'huadu' &&
                 sheetInfo.sheetType !== 'body_temperature_Hd') ||
-                HOSPITAL_ID === 'zhongshanqi'
+              HOSPITAL_ID === 'zhongshanqi'
             "
           >
             <el-switch v-model="isSyncTemp"></el-switch>
@@ -46,7 +46,7 @@
               <div
                 v-for="(item, key) in fixedList"
                 :key="sheetInfo.sheetType + item.key"
-                style="min-width: 33%;margin-bottom: 12px;overflow: hidden;"
+                style="min-width: 33%; margin-bottom: 12px; overflow: hidden"
                 :style="item.isWrap && { 'min-width': '50%' }"
               >
                 <div class="input-cell" flex="cross:center">
@@ -56,10 +56,10 @@
                       (HOSPITAL_ID === 'huadu' &&
                         sheetInfo.sheetType !== 'body_temperature_Hd' &&
                         Object.keys(vitalSignKeys).includes(item.name)) ||
-                        (HOSPITAL_ID === 'zhongshanqi' && item.name === '体温')
+                      (HOSPITAL_ID === 'zhongshanqi' && item.name === '体温')
                     "
                   ></el-checkbox>
-                  <div class="label" style="min-width: 70px;">
+                  <div class="label" style="min-width: 70px">
                     {{ item.name || key }}：
                   </div>
                   <input
@@ -81,13 +81,13 @@
                       obj: fixedList,
                       key: key,
                       tr,
-                      td: item
+                      td: item,
                     }"
                     maxlength="10"
-                    style="width:140px"
+                    style="width: 140px"
                     v-else-if="
                       sheetInfo.sheetType === 'common_hd' &&
-                        (key === 'food' || key === 'discharge')
+                      (key === 'food' || key === 'discharge')
                     "
                   />
                   <input
@@ -99,13 +99,13 @@
                       obj: fixedList,
                       key: key,
                       tr,
-                      td: item
+                      td: item,
                     }"
                     maxlength="16"
-                    style="width:220px"
+                    style="width: 220px"
                     v-else-if="
                       sheetInfo.sheetType === 'common_hd' &&
-                        key === 'healthEducation'
+                      key === 'healthEducation'
                     "
                   />
                   <input
@@ -117,7 +117,7 @@
                       obj: fixedList,
                       key: key,
                       tr,
-                      td: item
+                      td: item,
                     }"
                     :style="item.maxWidth && { width: item.maxWidth + 'px' }"
                     v-else
@@ -150,7 +150,7 @@
                   v-autoComplete="{
                     dataList: dictionary[item.key],
                     obj: staticObj,
-                    key: item.key
+                    key: item.key,
                   }"
                 /><input
                   type="text"
@@ -161,7 +161,7 @@
                   v-autoComplete="{
                     dataList: dictionary[item.key],
                     obj: staticObj,
-                    key: item.key
+                    key: item.key,
                   }"
                 />
                 <div class="button">
@@ -177,7 +177,7 @@
             <div class="title" flex="cross:center main:justify">
               <span>病情、药物治疗、护理措施、效果</span>
               <span
-                style="color: #284FC2;cursor: pointer"
+                style="color: #284fc2; cursor: pointer"
                 @click="openTemplateSlider"
                 >+模板</span
               >
@@ -187,7 +187,7 @@
               class="edit_container"
               v-if="
                 sheetInfo.selectBlock.openRichText &&
-                  HOSPITAL_ID === 'lingcheng'
+                HOSPITAL_ID === 'lingcheng'
               "
             >
               <quill-editor
@@ -411,7 +411,7 @@ function autoComplete(el, bind) {
     let key = bind.value.key;
     let tr = bind.value.tr;
     let td = bind.value.td;
-    el.onfocus = e => {
+    el.onfocus = (e) => {
       let dataList = bind.value.dataList;
       if (el.readOnly) return;
       let scrollTop = document.querySelector(".sheetTable-contain").scrollTop;
@@ -421,13 +421,13 @@ function autoComplete(el, bind) {
         window.openAutoComplete({
           style: {
             top: `${xy.top + 34}px`,
-            left: `${xy.left}px`
+            left: `${xy.left}px`,
           },
           data: dataList,
-          callback: function(data) {
+          callback: function (data) {
             if (process.env.HOSPITAL_ID == "weixian") {
               if (td.value && td.value != data && td.childKey) {
-                tr.map(item => {
+                tr.map((item) => {
                   if (item.parentKey && item.parentKey == td.name) {
                     item.value = "";
                   }
@@ -444,11 +444,11 @@ function autoComplete(el, bind) {
           },
           id: key,
           tr: tr,
-          td: td
+          td: td,
         });
       });
     };
-    el.onblur = e => {
+    el.onblur = (e) => {
       setTimeout(() => {
         window.closeAutoComplete(key);
       }, 400);
@@ -461,8 +461,8 @@ export default {
   directives: {
     autoComplete: {
       bind: autoComplete,
-      update: autoComplete
-    }
+      update: autoComplete,
+    },
   },
   data() {
     return {
@@ -490,7 +490,7 @@ export default {
         false,
         false,
         false,
-        false
+        false,
       ],
       tr: [],
       // 富文本编辑器配置
@@ -498,10 +498,10 @@ export default {
         placeholder: "请编辑内容",
         modules: {
           toolbar: [
-            [{ script: "sub" }, { script: "super" }] // 上下标
-          ]
+            [{ script: "sub" }, { script: "super" }], // 上下标
+          ],
         },
-        theme: "snow"
+        theme: "snow",
       },
       isSyncTemp: false,
       vitalSignKeys: {
@@ -509,12 +509,12 @@ export default {
         脉搏: { key: "pulse", check: false },
         心率: { key: "heartRate", check: false },
         呼吸: { key: "breath", check: false },
-        血压: { key: "bloodPressure", check: false }
+        血压: { key: "bloodPressure", check: false },
       },
       vitalSignList: {
-        list: []
+        list: [],
       },
-      multiDictList: []
+      multiDictList: [],
     };
   },
   computed: {
@@ -545,15 +545,15 @@ export default {
     isDisabed() {
       if (
         this.HOSPITAL_ID == "weixian" &&
-        this.tr.find(item => item.key == "description").value &&
-        !this.tr.find(item => item.key == "recordHour").value &&
-        !this.tr.find(item => item.key == "recordMonth").value
+        (this.tr.find((item) => item.key == "description") || {}).value &&
+        (!this.tr.find((item) => item.key == "recordHour") || {}).value &&
+        (!this.tr.find((item) => item.key == "recordMonth") || {}).value
       ) {
         return true;
       } else {
         return false;
       }
-    }
+    },
   },
   methods: {
     /* 是否同步体征信息 */
@@ -567,7 +567,7 @@ export default {
         this.isSyncTemp = false;
         this.$message({
           type: "info",
-          message: `未选择体征选项，请选择后再同步。`
+          message: `未选择体征选项，请选择后再同步。`,
         });
       }
       if (
@@ -577,28 +577,28 @@ export default {
         this.isSyncTemp = false;
         this.$message({
           type: "info",
-          message: `时间未保存，请保存后再同步。`
+          message: `时间未保存，请保存后再同步。`,
         });
       }
       if (this.isSyncTemp && this.vitalSignList.list.length > 0) {
         this.isSyncTemp = true;
         saveBatch(this.vitalSignList)
-          .then(res => {
+          .then((res) => {
             this.$message({
               type: "success",
-              message: "同步成功"
+              message: "同步成功",
             });
             /* 同步成功后进行保存 */
             this.bus.$emit("saveSheetPage", this.isLast);
           })
-          .catch(err => {
+          .catch((err) => {
             this.isSyncTemp = false;
-            let errobj = this.vitalSignList.list.find(item => {
+            let errobj = this.vitalSignList.list.find((item) => {
               return item.vitalSignsValue === "";
             });
             this.$message({
               type: "info",
-              message: `${errobj.vitalSigns}未填写信息，请补充后再同步。`
+              message: `${errobj.vitalSigns}未填写信息，请补充后再同步。`,
             });
           });
       }
@@ -607,9 +607,9 @@ export default {
     selectVitalSign() {
       let patientInfo = this.$store.state.sheet.patientInfo;
       let staticObj = this.staticObj;
-      let vitalTemp = this.multiDictList.filter(multiObj =>
+      let vitalTemp = this.multiDictList.filter((multiObj) =>
         Object.keys(this.vitalSignKeys)
-          .filter(item => this.vitalSignKeys[item].check)
+          .filter((item) => this.vitalSignKeys[item].check)
           .includes(multiObj.vitalSign)
       );
       const currentYear = moment().format("YYYY");
@@ -630,9 +630,9 @@ export default {
         vitalCode: "",
         units: "",
         wardCode: patientInfo.wardCode,
-        bedLabel: patientInfo.bedLabel
+        bedLabel: patientInfo.bedLabel,
       };
-      vitalTemp.map(obj => {
+      vitalTemp.map((obj) => {
         let key = this.vitalSignKeys[obj.vitalSign].key;
         this.vitalSignList.list.push({
           ...vitalSignObj,
@@ -640,14 +640,14 @@ export default {
           vitalSignsValue: this.fixedList[key].value,
           classCode: obj.classCode,
           vitalCode: obj.vitalCode,
-          units: obj.unit
+          units: obj.unit,
         });
       });
     },
     /* 获取字典表，整理某一行的同步信息 */
     getVitalList() {
       let patientInfo = this.$store.state.sheet.patientInfo;
-      getmultiDict(patientInfo.wardCode).then(res => {
+      getmultiDict(patientInfo.wardCode).then((res) => {
         this.multiDictList = res.data.data;
       });
     },
@@ -662,8 +662,8 @@ export default {
       let tr = record[record.length - 1];
       this.tr = tr || [];
       let isRead;
-      let status = tr.find(item => item.key == "status").value;
-      let empNo = tr.find(item => item.key == "empNo").value;
+      let status = tr.find((item) => item.key == "status").value;
+      let empNo = tr.find((item) => item.key == "empNo").value;
       let isAuditor = JSON.parse(localStorage.user).nursingStaff;
       if (status >= 1) {
         if (empNo == JSON.parse(localStorage.user).empNo || isAuditor) {
@@ -691,11 +691,11 @@ export default {
       // 特殊记录组合
       let doc = "";
       for (let i = 0; i < record.length; i++) {
-        doc += record[i].find(item => item.key == "description").value || "";
+        doc += record[i].find((item) => item.key == "description").value || "";
       }
       this.recordDate =
         config.recordDate ||
-        record[0].find(item => item.key == "recordDate").value ||
+        record[0].find((item) => item.key == "recordDate").value ||
         "";
 
       if (true) {
@@ -726,7 +726,7 @@ export default {
         false,
         false,
         false,
-        false
+        false,
       ];
 
       this.activeTab = tab || "1";
@@ -777,19 +777,19 @@ export default {
         var subReg = /(<\/?sub.*?>)/gi;
         var supReg = /(<\/?sup.*?>)/gi;
         subArray &&
-          subArray.map(item => {
+          subArray.map((item) => {
             const wipeLabel = item.replace(subReg, "");
             const itemArray = wipeLabel.split("");
             let str = "";
-            itemArray.map(item => (str += "<sub>" + item + "</sub>"));
+            itemArray.map((item) => (str += "<sub>" + item + "</sub>"));
             val = val.replace(new RegExp(item, "g"), str);
           });
         supArray &&
-          supArray.map(item => {
+          supArray.map((item) => {
             const wipeLabel = item.replace(supReg, "");
             const itemArray = wipeLabel.split("");
             let str = "";
-            itemArray.map(item => (str += "<sup>" + item + "</sup>"));
+            itemArray.map((item) => (str += "<sup>" + item + "</sup>"));
             val = val.replace(new RegExp(item, "g"), str);
           });
       }
@@ -797,7 +797,7 @@ export default {
     },
     // 保存（富文本）
     postRichText() {
-      let okLength = (function() {
+      let okLength = (function () {
         switch (this.HOSPITAL_ID) {
           case "lingcheng":
             return 46;
@@ -810,7 +810,7 @@ export default {
             break;
         }
       })();
-      var GetLength = function(str) {
+      var GetLength = function (str) {
         // 过滤上下标签替换
         const subReg = /(<\/?sub.*?>)/gi;
         const supReg = /(<\/?sup.*?>)/gi;
@@ -883,7 +883,7 @@ export default {
         result.push("");
       }
       for (let i = 0; i < this.record.length; i++) {
-        this.record[i].find(item => item.key == "description").value = "";
+        this.record[i].find((item) => item.key == "description").value = "";
       }
       for (let i = 0; i < result.length; i++) {
         if (i == 0) {
@@ -891,18 +891,16 @@ export default {
           mergeTr(this.record[0], this.staticObj, this.fixedList);
         }
         if (this.record[i]) {
-          this.record[i].find(item => item.key == "description").value =
+          this.record[i].find((item) => item.key == "description").value =
             result[i];
         } else {
           let currRow = JSON.parse(JSON.stringify(this.record[0]));
           let nullRowArr = nullRow();
 
-          nullRowArr.find(
-            item => item.key == "recordSource"
-          ).value = currRow.find(item => item.key == "recordSource").value;
-          nullRowArr.find(
-            item => item.key == "recordDate"
-          ).value = currRow.find(item => item.key == "recordDate").value;
+          nullRowArr.find((item) => item.key == "recordSource").value =
+            currRow.find((item) => item.key == "recordSource").value;
+          nullRowArr.find((item) => item.key == "recordDate").value =
+            currRow.find((item) => item.key == "recordDate").value;
 
           sheetModel[this.lastZ].bodyModel.splice(
             this.lastY + 1,
@@ -911,7 +909,7 @@ export default {
           );
           this.lastY++;
           sheetModel[this.lastZ].bodyModel[this.lastY].find(
-            item => item.key == "description"
+            (item) => item.key == "description"
           ).value = result[i];
         }
       }
@@ -921,7 +919,7 @@ export default {
     // 保存（普通文本）
     post() {
       // 计算字节长度
-      var GetLength = function(str) {
+      var GetLength = function (str) {
         var realLength = 0,
           len = str.length,
           charCode = -1;
@@ -996,7 +994,7 @@ export default {
         result.push("");
       }
       for (let i = 0; i < this.record.length; i++) {
-        this.record[i].find(item => item.key == "description").value = "";
+        this.record[i].find((item) => item.key == "description").value = "";
       }
       for (let i = 0; i < result.length; i++) {
         if (i == 0) {
@@ -1004,18 +1002,16 @@ export default {
           mergeTr(this.record[0], this.staticObj, this.fixedList);
         }
         if (this.record[i]) {
-          this.record[i].find(item => item.key == "description").value =
+          this.record[i].find((item) => item.key == "description").value =
             result[i];
         } else {
           let currRow = JSON.parse(JSON.stringify(this.record[0]));
           let nullRowArr = nullRow();
 
-          nullRowArr.find(
-            item => item.key == "recordSource"
-          ).value = currRow.find(item => item.key == "recordSource").value;
-          nullRowArr.find(
-            item => item.key == "recordDate"
-          ).value = currRow.find(item => item.key == "recordDate").value;
+          nullRowArr.find((item) => item.key == "recordSource").value =
+            currRow.find((item) => item.key == "recordSource").value;
+          nullRowArr.find((item) => item.key == "recordDate").value =
+            currRow.find((item) => item.key == "recordDate").value;
 
           sheetModel[this.lastZ].bodyModel.splice(
             this.lastY + 1,
@@ -1024,7 +1020,7 @@ export default {
           );
           this.lastY++;
           sheetModel[this.lastZ].bodyModel[this.lastY].find(
-            item => item.key == "description"
+            (item) => item.key == "description"
           ).value = result[i];
         }
       }
@@ -1064,12 +1060,12 @@ export default {
     },
     // 是否显示该选项
     isShowItem() {
-      return !this.tr.find(item => item.key == "recordMonth").hidden;
-    }
+      return !this.tr.find((item) => item.key == "recordMonth").hidden;
+    },
   },
   mounted() {
     // 打开特殊情况
-    window.openSpecialModal2 = config => {
+    window.openSpecialModal2 = (config) => {
       this.open(config);
       this.isSyncTemp = false;
       (this.vitalSignKeys = {
@@ -1077,14 +1073,14 @@ export default {
         脉搏: { key: "pulse", check: false },
         心率: { key: "heartRate", check: false },
         呼吸: { key: "breath", check: false },
-        血压: { key: "bloodPressure", check: false }
+        血压: { key: "bloodPressure", check: false },
       }),
         (this.vitalSignList.list = []);
       this.getVitalList();
     };
   },
   created() {
-    this.bus.$on("addTemplateAtDoc", val => {
+    this.bus.$on("addTemplateAtDoc", (val) => {
       // 模板添加
       const regP = /(<\/?p.*?>)/gi;
       let doc = this.doc.replace(regP, "");
@@ -1101,12 +1097,12 @@ export default {
             this.staticObj[this.customTitle[i].key] = "✓";
           }
         }
-      }
-    }
+      },
+    },
   },
   components: {
     templateSlide,
-    quillEditor
-  }
+    quillEditor,
+  },
 };
 </script>
