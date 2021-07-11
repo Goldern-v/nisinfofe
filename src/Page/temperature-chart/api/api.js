@@ -47,6 +47,15 @@ export function getVitalSignList(data) {
   return axios.post(`${apiPath}vitalSign/list`, data);
 }
 
+/**
+ * 1.9 聊城二院获取最新10条体征信息
+ * @param {*} data.patientId 患者id
+ * @param {*} data.visitId 入院次数
+ */
+export function getVitalSignListBy10(data) {
+  return axios.get(`${apiPath}/vitalSign//lastList/${data.patientId}/${data.visitId}`);
+}
+
 // 通过护理单元获取体征字典表
 export const getmultiDict = (wardcode) => {
   return axios.get(`${apiPath}threeTest/type/${wardcode}`);
