@@ -66,13 +66,12 @@
                 <i class="iconfont icon-hulijiludan"></i>护理文书
               </el-row>
               <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item> </el-dropdown-item>
                 <el-dropdown-item
-                  :class="{ active: $route.path == '/sheetPage' }"
+                  :class="{ active: $route.path == '/sugarPage' }"
                 >
-                  <router-link to="/sheetPage" tag="span">
+                  <router-link to="/sugarPage" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
-                      <i class="healthEducation"></i>护理记录单
+                      <i class="bloodSugar"></i> 血糖
                     </el-row>
                   </router-link>
                 </el-dropdown-item>
@@ -85,19 +84,17 @@
                     </el-row>
                   </router-link>
                 </el-dropdown-item>
-                <el-dropdown-item
-                  :class="{ active: $route.path == '/formPage' }"
-                >
-                  <router-link to="/formPage" tag="span">
-                    <el-row class="menu-item" type="flex" align="middle">
-                      <i class="nursingAssessment"></i> 其他文书
-                    </el-row>
-                  </router-link>
-                </el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
-            <router-link to="/sugarPage" tag="span">
-              <el-row class="nav-item" type="flex" align="middle">血糖</el-row>
+            <router-link to="/formPage" tag="span">
+              <el-row class="nav-item" type="flex" align="middle">
+                <i class="nursingAssessment"></i> 护理评估单
+              </el-row>
+            </router-link>
+            <router-link to="/sheetPage" tag="span">
+              <el-row class="nav-item" type="flex" align="middle">
+                <i class="nursingAssessment"></i> 护理记录单
+              </el-row>
             </router-link>
             <router-link to="/planList" tag="span">
               <el-row class="nav-item" type="flex" align="middle"
@@ -838,11 +835,7 @@ export default {
     },
     isActiveRecordPage() {
       let path = this.$route.path;
-      return (
-        path.includes("sheetPage") ||
-        path.includes("healthEdu") ||
-        path.includes("formPage")
-      );
+      return path.includes("sugarPage") || path.includes("healthEdu");
     },
     isActiveAssessPage() {
       let path = this.$route.path;

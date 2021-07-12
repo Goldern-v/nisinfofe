@@ -570,101 +570,101 @@ export default {
       query: {
         wardCode: "", //科室编码
         entryDate: moment(new Date()).format("YYYY-MM-DD"), //录入日期
-        entryTime: this.HOSPITAL_ID === "huadu" ? "04" : "07" //录入时间
+        entryTime: this.HOSPITAL_ID === "huadu" ? "04" : "07", //录入时间
       },
       timesEven: [
         {
           id: 0,
-          value: "04"
+          value: "04",
         },
         {
           id: 1,
-          value: "08"
+          value: "08",
         },
         {
           id: 2,
-          value: "12"
+          value: "12",
         },
         {
           id: 3,
-          value: "16"
+          value: "16",
         },
         {
           id: 4,
-          value: "20"
+          value: "20",
         },
         {
           id: 5,
-          value: "23"
-        }
+          value: "23",
+        },
       ],
       timesEven2: [
         {
           id: 0,
-          value: "02"
+          value: "02",
         },
         {
           id: 1,
-          value: "06"
+          value: "06",
         },
         {
           id: 2,
-          value: "10"
+          value: "10",
         },
         {
           id: 3,
-          value: "14"
+          value: "14",
         },
         {
           id: 4,
-          value: "18"
+          value: "18",
         },
         {
           id: 5,
-          value: "22"
-        }
+          value: "22",
+        },
       ],
       timesOdd: [
         {
           id: 0,
-          value: "03"
+          value: "03",
         },
         {
           id: 1,
-          value: "07"
+          value: "07",
         },
         {
           id: 2,
-          value: "11"
+          value: "11",
         },
         {
           id: 3,
-          value: "15"
+          value: "15",
         },
         {
           id: 4,
-          value: "19"
+          value: "19",
         },
         {
           id: 5,
-          value: "23"
-        }
+          value: "23",
+        },
       ],
       patientsInfoData: [],
       searchWord: "",
-      pageLoadng: true
+      pageLoadng: true,
     };
   },
   computed: {
     tableData() {
-      return this.patientsInfoData.filter(item => {
+      return this.patientsInfoData.filter((item) => {
         return (
           (item.bedLabel.indexOf(this.searchWord) > -1 ||
             item.name.indexOf(this.searchWord) > -1) &&
           item.patientId
         );
       });
-    }
+    },
   },
   mounted() {
     this.query.wardCode = this.deptCode;
@@ -681,7 +681,7 @@ export default {
         ? moment(data.entryDate).format("YYYY/MM/DD")
         : moment(new Date()).format("YYYY/MM/DD");
       this.pageLoadng = true;
-      getPatientsInfo(data).then(res => {
+      getPatientsInfo(data).then((res) => {
         this.patientsInfoData = res.data.data;
         this.pageLoadng = false;
       });
@@ -731,10 +731,11 @@ export default {
         height: "",
         recordSource: 2,
         heartRate: "",
-        stoolNum: ""
+        painScore: "",
+        stoolNum: "",
       };
 
-      let list = this.tableData.map(item => {
+      let list = this.tableData.map((item) => {
         let obj = {};
         for (let key in data) {
           obj[key] = item[key] || data[key];
@@ -745,12 +746,12 @@ export default {
 
       let tempertureData = {
         ...this.query,
-        list
+        list,
       };
       tempertureData.entryDate = tempertureData.entryDate
         ? moment(tempertureData.entryDate).format("YYYY-MM-DD")
         : moment(new Date()).format("YYYY-MM-DD");
-      saveOverAllTemperture(tempertureData).then(res => {
+      saveOverAllTemperture(tempertureData).then((res) => {
         this.getData();
       });
     },
@@ -773,11 +774,11 @@ export default {
         table {
           width: 100% !important;
         }
-        `
+        `,
         });
       });
       this.pageLoadng = false;
-    }
+    },
   },
   components: {},
   watch: {
@@ -790,8 +791,8 @@ export default {
       handler(newName, oldName) {
         this.getData();
       },
-      deep: true
-    }
-  }
+      deep: true,
+    },
+  },
 };
 </script>

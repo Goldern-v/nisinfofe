@@ -40,13 +40,13 @@
 import nullBg from "../../../../components/null/null-bg";
 import {
   getNurseExchangeInfo,
-  getNurseExchangeInfoByTime
+  getNurseExchangeInfoByTime,
 } from "../../../sheet-page/api/index";
 import moment from "moment";
 import bus from "vue-happy-bus";
 export default {
   props: {
-    queryTem: Object
+    queryTem: Object,
   },
   data() {
     return {
@@ -60,9 +60,10 @@ export default {
       isSave: false,
       visibled: false,
       intranetUrl:
-        "http://172.17.5.41:9091/temperature/#/" /* 医院正式环境内网 */,
+        "http://172.17.5.41:9091/temperature/#/" /* 医院正式环境内网 导致跨域 */,
+      // "http://10.10.10.75:9091/temperature/#/" /* 医院正式环境内网 */,
       outNetUrl:
-        "http://120.224.211.7:9091/temperature/#/" /* 医院正式环境外网：想要看iframe的效果，测试的时候可以把本地的地址都改成外网测试 */
+        "http://120.224.211.7:9091/temperature/#/" /* 医院正式环境外网：想要看iframe的效果，测试的时候可以把本地的地址都改成外网测试 */,
     };
   },
   methods: {
@@ -143,7 +144,7 @@ export default {
           this.getImg();
         }, 1000);
       }
-    }
+    },
   },
   watch: {
     // date() {
@@ -155,10 +156,10 @@ export default {
         this.intranetUrl /* 内网 */
         // this.outNetUrl /* 外网 */
       );
-    }
+    },
   },
   mounted() {
-    this.bus.$on("saveSheetPage", data => {
+    this.bus.$on("saveSheetPage", (data) => {
       if (data === "noSaveSign" || data === true) {
         this.isSave = true;
       }
@@ -179,14 +180,14 @@ export default {
   computed: {
     patientInfo() {
       return this.$store.state.sheet.patientInfo;
-    }
+    },
   },
   beforeDestroy() {
     window.removeEventListener("message", this.messageHandle, false);
   },
   components: {
-    nullBg
-  }
+    nullBg,
+  },
 };
 </script>
 
@@ -195,34 +196,40 @@ export default {
   margin: 15px 20px 0;
 
   .tem-con {
-    width:100%;
+    width: 100%;
     height: 100%;
-    position :relative;
-    left:0px;
+    position: relative;
+    left: 0px;
     margin: 10px auto;
     background: #fff;
-    .lcIframe{
-      transform:scale(0.95);
-      width:100%;
+
+    .lcIframe {
+      transform: scale(0.95);
+      width: 100%;
       height: 100%;
     }
   }
 }
+
 .pagination {
-    display: inline;
-    position: relative;
-    left: 20%;
-    font-weight: normal;
-  }
-  .page {
-    margin: 0 10px;
-  }
-  button {
-    cursor: pointer;
-  }
-  button[disabled=disabled] {
-    cursor: not-allowed;
-  }
+  display: inline;
+  position: relative;
+  left: 20%;
+  font-weight: normal;
+}
+
+.page {
+  margin: 0 10px;
+}
+
+button {
+  cursor: pointer;
+}
+
+button[disabled=disabled] {
+  cursor: not-allowed;
+}
+
 .tool-btn {
   width: 82px;
   height: 32px;
@@ -251,8 +258,8 @@ export default {
 
 .print-btn {
   position: relative;
-  left : 5%;
+  left: 5%;
   top: 0;
-  display: inline-flex !important ;
+  display: inline-flex !important;
 }
 </style>

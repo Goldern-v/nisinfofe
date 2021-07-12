@@ -8,33 +8,93 @@
       v-loading="pageLoadng"
       @row-dblclick="openDetail"
     >
-      <el-table-column label=" " min-width="50px" type="index"></el-table-column>
+      <el-table-column
+        label=" "
+        min-width="50px"
+        type="index"
+      ></el-table-column>
 
-      <el-table-column prop="wardName" label="护理单元" min-width="150px"></el-table-column>
+      <el-table-column
+        prop="wardName"
+        label="护理单元"
+        min-width="150px"
+      ></el-table-column>
 
-      <el-table-column prop="bedLabel" label="床号" min-width="80px"></el-table-column>
+      <el-table-column
+        prop="bedLabel"
+        label="床号"
+        min-width="80px"
+      ></el-table-column>
 
-      <el-table-column label="姓名" prop="name" min-width="80px"></el-table-column>
+      <el-table-column
+        label="姓名"
+        prop="name"
+        min-width="80px"
+      ></el-table-column>
 
-      <el-table-column label="管床医生" prop="doctorInCharge" min-width="90px" v-if="HOSPITAL_ID != 'liaocheng'"></el-table-column>
+      <el-table-column
+        label="管床医生"
+        prop="doctorInCharge"
+        min-width="90px"
+        v-if="!['liaocheng', 'guizhou'].includes(HOSPITAL_ID)"
+      ></el-table-column>
 
-      <el-table-column prop="sex" label="性别" min-width="70px"></el-table-column>
+      <el-table-column
+        prop="sex"
+        label="性别"
+        min-width="70px"
+      ></el-table-column>
 
-      <el-table-column prop="patientId" label="病人ID" min-width="120px"></el-table-column>
+      <el-table-column
+        prop="patientId"
+        label="病人ID"
+        min-width="120px"
+      ></el-table-column>
 
-      <el-table-column label="住院号" prop="inpNo" min-width="95px"></el-table-column>
+      <el-table-column
+        label="住院号"
+        prop="inpNo"
+        min-width="95px"
+      ></el-table-column>
 
-      <el-table-column prop="visitId" label="住院标识" min-width="95px" v-if="HOSPITAL_ID == 'gy'"></el-table-column>
+      <el-table-column
+        prop="visitId"
+        label="住院标识"
+        min-width="95px"
+        v-if="HOSPITAL_ID == 'gy'"
+      ></el-table-column>
 
-      <el-table-column prop="visitId" label="次数" min-width="70px" v-else></el-table-column>
+      <el-table-column
+        prop="visitId"
+        label="次数"
+        min-width="70px"
+        v-else
+      ></el-table-column>
 
-      <el-table-column prop="admissionDate" label="入院日期" min-width="120px"></el-table-column>
+      <el-table-column
+        prop="admissionDate"
+        label="入院日期"
+        min-width="120px"
+      ></el-table-column>
 
-      <el-table-column prop="dischargeDate" label="出院日期" min-width="120px"></el-table-column>
+      <el-table-column
+        prop="dischargeDate"
+        label="出院日期"
+        min-width="120px"
+      ></el-table-column>
 
-      <el-table-column prop="status" label="状态" min-width="80px"></el-table-column>
+      <el-table-column
+        prop="status"
+        label="状态"
+        min-width="80px"
+      ></el-table-column>
 
-      <el-table-column label="主管医师" prop="doctorInCharge" min-width="90px" v-if="HOSPITAL_ID == 'liaocheng'"></el-table-column>
+      <el-table-column
+        label="主管医师"
+        prop="doctorInCharge"
+        min-width="90px"
+        v-if="HOSPITAL_ID == 'liaocheng'"
+      ></el-table-column>
 
       <el-table-column label="操作" min-width="80px">
         <template slot-scope="scope">
@@ -88,17 +148,17 @@ import qs from "qs";
 export default {
   props: {
     tableData: Array,
-    pageLoadng: Boolean
+    pageLoadng: Boolean,
   },
   mixins: [commonMixin],
   data() {
     return {
-      msg: "hello vue"
+      msg: "hello vue",
     };
   },
   methods: {
     async openDetail(row) {
-      if(row.notViewPatient){
+      if (row.notViewPatient) {
         this.$message.warning("患者已归档，用户无权查看");
         return;
       }
@@ -111,11 +171,11 @@ export default {
       window.open(
         `/crNursing/home?${qs.stringify({
           patientId: res.data.data.patientId,
-          visitId: res.data.data.visitId
+          visitId: res.data.data.visitId,
         })}`
       );
-    }
+    },
   },
-  components: {}
+  components: {},
 };
 </script>

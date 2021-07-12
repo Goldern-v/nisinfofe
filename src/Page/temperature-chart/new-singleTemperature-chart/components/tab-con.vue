@@ -6,7 +6,7 @@
           同步入院
         </el-button>
         <el-button
-          style="margin:10px 0px"
+          style="margin: 10px 0px"
           size="mini"
           @click="syncInAndOutHospital((type = '1'))"
         >
@@ -14,12 +14,12 @@
         </el-button>
       </div>
       <div class="column-right">
-        <span style="padding-left:5px;">日期：</span>
+        <span style="padding-left: 5px">日期：</span>
         <ElDatePicker
           class="date-picker"
           type="date"
           size="mini"
-          style="width:110px;"
+          style="width: 110px"
           format="yyyy-MM-dd"
           placeholder="选择日期"
           v-model="query.entryDate"
@@ -40,23 +40,30 @@
     <div class="row-bottom">
       <null-bg v-if="!patientInfo.patientId"></null-bg>
       <div v-else class="showRecord">
-        <div style="flex:4">
+        <div style="flex: 4">
           <el-button
-            class="recordList"
-            style="margin:0px;"
+            :class="
+              [
+                'recordList',
+                dateTime.match(`${query.entryDate}  ${query.entryTime}`)
+                  ? 'active'
+                  : '',
+              ].join(' ')
+            "
+            style="margin: 0px"
             v-for="(dateTime, tabIndex) in tabsData"
             :key="tabIndex"
             @click="changeQuery(dateTime)"
           >
             {{ dateTime }}
             <i
-              style="font-size: 10px;"
+              style="font-size: 10px"
               @click="removeRecord(dateTime, tabIndex)"
               class="el-icon-close"
             ></i>
           </el-button>
         </div>
-        <div style="flex:7">
+        <div style="flex: 7">
           <div
             :class="
               !(
@@ -75,13 +82,13 @@
             <input type="text" v-model="vitalSignObj[j].vitalValue" />
           </div>
           <div class="fieldList">
-            <div style="margin:10px 0px;font-weight:bold;font-size:14px;">
+            <div style="margin: 10px 0px; font-weight: bold; font-size: 14px">
               <span>自定义项目：</span>
             </div>
             <div class="row" v-for="(i, index) in fieldList" :key="index">
               <span
                 class="preText"
-                style="color:blue"
+                style="color: blue"
                 @click="updateTextInfo(i.vitalCode, i.fieldCn, i.fieldCn)"
                 >{{ i.fieldCn }}</span
               >
@@ -121,7 +128,7 @@
               v-model="vitalSignObj[multiDictList['表顶注释']].expand2"
               type="datetime"
               placeholder="选择日期时间"
-              style="margin:3px 0px 0px 55px;width:170px;"
+              style="margin: 3px 0px 0px 55px; width: 170px"
               @change="formatTopExpandDate"
             >
             </el-date-picker>
@@ -147,7 +154,7 @@
               v-model="vitalSignObj[multiDictList['表底注释']].expand2"
               type="datetime"
               placeholder="选择日期时间"
-              style="margin:3px 0px 0px 55px;width:170px;"
+              style="margin: 3px 0px 0px 55px; width: 170px"
               @change="formatBtmExpandDate"
             >
             </el-date-picker>
@@ -170,7 +177,7 @@ import bus from "vue-happy-bus";
 import moment from "moment";
 import nullBg from "../../../../components/null/null-bg";
 import {
-  getVitalSignList,
+  getVitalSignListBy10,
   getmultiDict,
   getfieldList,
   savefieldTitle,
@@ -178,7 +185,7 @@ import {
   saveAll,
   deleteRecord,
   getLastList,
-  getViSigsByReDate
+  getViSigsByReDate,
 } from "../../api/api";
 import { mockData, recordList } from "../data/data";
 export default {
@@ -191,7 +198,7 @@ export default {
       editableTabsValue: "2",
       query: {
         entryDate: moment(new Date()).format("YYYY-MM-DD"), //录入日期
-        entryTime: "07" //录入时间
+        entryTime: "07", //录入时间
       },
       recordDate: "",
       fieldList: {}, // 自定义项目列表
@@ -208,37 +215,37 @@ export default {
         "出院",
         "出生",
         "手术入院",
-        "死亡"
+        "死亡",
       ],
       timesOdd: [
         {
           id: 0,
-          value: "03"
+          value: "03",
         },
         {
           id: 1,
-          value: "07"
+          value: "07",
         },
         {
           id: 2,
-          value: "11"
+          value: "11",
         },
         {
           id: 3,
-          value: "15"
+          value: "15",
         },
         {
           id: 4,
-          value: "19"
+          value: "19",
         },
         {
           id: 5,
-          value: "23"
-        }
+          value: "23",
+        },
       ],
       bottomContextList: ["", "不升"],
       topExpandDate: "",
-      bottomExpandDate: ""
+      bottomExpandDate: "",
     };
   },
   async mounted() {
@@ -254,8 +261,8 @@ export default {
       handler(newName, oldName) {
         this.getList();
       },
-      deep: true
-    }
+      deep: true,
+    },
   },
   methods: {
     init() {
@@ -303,7 +310,7 @@ export default {
           expand2: "",
           expand3: "",
           source: "",
-          customTitle: false
+          customTitle: false,
         };
       }
       this.vitalSignObj = { ...obj };
@@ -321,11 +328,14 @@ export default {
           : moment(new Date(this.patientInfo.admissionDate)).format(
               "YYYY-MM-DD"
             ),
-        wardCode: this.patientInfo.wardCode
+        wardCode: this.patientInfo.wardCode,
       };
       await this.getVitalList();
       /* 获取患者某个时间点的体征信息 */
-      await getVitalSignList(data).then(res => {
+      await getVitalSignListBy10({
+        visitId: data.visitId,
+        patientId: data.patientId,
+      }).then((res) => {
         res.data.data.map((item, index) => {
           /* 如果该患者没有体温单记录则返回 */
           if (!item.recordDate) return;
@@ -339,9 +349,9 @@ export default {
       await getfieldList({
         patientId: this.patientInfo.patientId,
         visitId: this.patientInfo.visitId,
-        wardCode: this.patientInfo.wardCode
-      }).then(res => {
-        res.data.data.list.map(item => {
+        wardCode: this.patientInfo.wardCode,
+      }).then((res) => {
+        res.data.data.list.map((item) => {
           this.fieldList[item.vitalCode] = item;
         });
       });
@@ -371,9 +381,9 @@ export default {
               "YYYY-MM-DD"
             ),
         timeStr: this.query.entryTime + ":00:00",
-        wardCode: this.patientInfo.wardCode
+        wardCode: this.patientInfo.wardCode,
       };
-      getViSigsByReDate(data).then(res => {
+      getViSigsByReDate(data).then((res) => {
         if (res.data.data.length > 0) {
           /* 如果该时间点有记录 */
           res.data.data.map((v, idx) => {
@@ -387,7 +397,7 @@ export default {
     /* 获取字典表，整理某一行的同步信息 */
     async getVitalList() {
       let wardCode = this.patientInfo.wardCode;
-      await getmultiDict(wardCode).then(res => {
+      await getmultiDict(wardCode).then((res) => {
         let data = [];
         let obj = [];
         res.data.data.map((item, index) => {
@@ -398,7 +408,7 @@ export default {
               patientId: this.patientInfo.patientId,
               visitId: this.patientInfo.visitId,
               vitalCode: item.vitalCode,
-              wardCode: this.patientInfo.wardCode
+              wardCode: this.patientInfo.wardCode,
             };
             this.fieldList = { ...obj };
           }
@@ -412,14 +422,14 @@ export default {
       await this.$confirm("是否确删除该记录?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
-        type: "info"
+        type: "info",
       }).then(() => {
         deleteRecord({
           patientId: this.patientInfo.patientId,
           recordDate: targetName,
           visitId: this.patientInfo.visitId,
-          wardCode: this.patientInfo.wardCode
-        }).then(res => {
+          wardCode: this.patientInfo.wardCode,
+        }).then((res) => {
           this.getList();
           this.bus.$emit("refreshImg");
         });
@@ -430,8 +440,8 @@ export default {
       autoVitalSigns({
         patientId: this.patientInfo.patientId,
         visitId: this.patientInfo.visitId,
-        type: type
-      }).then(async res => {
+        type: type,
+      }).then(async (res) => {
         this.$message.success("同步成功");
         await this.bus.$emit("refreshImg");
       });
@@ -439,15 +449,15 @@ export default {
     /* 修改自定义标题，弹出弹窗并保存 */
     updateTextInfo(key, label, autotext) {
       window.openSetTextModal(
-        text => {
+        (text) => {
           let data = {
             patientId: this.patientInfo.patientId,
             visitId: this.patientInfo.visitId,
             wardCode: this.patientInfo.wardCode,
             vitalCode: key,
-            fieldCn: text
+            fieldCn: text,
           };
-          savefieldTitle(data).then(res => {
+          savefieldTitle(data).then((res) => {
             this.$message.success(`修改${label}成功`);
           });
           this.getList();
@@ -459,7 +469,7 @@ export default {
     /* 录入体温单 */
     async saveVitalSign(value) {
       let obj = Object.values(value);
-      obj.map(item => {
+      obj.map((item) => {
         item.recordDate =
           moment(new Date(this.query.entryDate)).format("YYYY-MM-DD") +
           "  " +
@@ -478,9 +488,9 @@ export default {
       let data = {
         dateStr: moment(new Date(this.query.entryDate)).format("YYYY-MM-DD"),
         timeStr: this.query.entryTime + ":00:00",
-        vitalSignList: obj
+        vitalSignList: obj,
       };
-      await saveAll(data).then(res => {
+      await saveAll(data).then((res) => {
         this.$message.success("保存成功");
       });
       this.getList();
@@ -491,9 +501,9 @@ export default {
     },
     formatBtmExpandDate(val) {
       this.bottomExpandDate = val;
-    }
+    },
   },
-  components: { nullBg }
+  components: { nullBg },
 };
 </script>
 
@@ -502,35 +512,46 @@ export default {
   width: 100%;
   background: #fff;
   font-size: 12px;
-  display :flex;
+  display: flex;
   flex-direction: column;
-  .row-top{
-    display:flex
-    .column-left{
-      margin:0px 45px 0px 30px;
+
+  .row-top {
+    display: flex;
+
+    .column-left {
+      margin: 0px 45px 0px 30px;
       display: flex;
       flex-direction: column;
     }
   }
-  .row-bottom{
-    .showRecord{
-      display:flex;
+
+  .row-bottom {
+    .showRecord {
+      display: flex;
       height: 100%;
-      >div{
+
+      >div {
         overflow: auto;
-        .recordList{
+
+        .recordList {
           width: 180px;
           height: 30px;
           line-height: 30px;
           border: 1px solid #eee;
           padding: 0 6px;
+
+          &.active {
+            color: rgb(68, 158, 127);
+          }
         }
       }
     }
   }
-  .rowItem_noShow{
-    display :none;
+
+  .rowItem_noShow {
+    display: none;
   }
+
   .row {
     display: inline-block;
     padding: 3px 15px;
@@ -539,14 +560,17 @@ export default {
       display: inline-block;
       width: 50px;
     }
+
     input {
       width: 45px;
       font-size: 12px;
     }
+
     .el-select {
       width: 85px;
     }
   }
+
   .save-btn {
     position: relative;
     left: 30%;
