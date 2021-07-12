@@ -26,11 +26,14 @@
         <el-row class="select-btn-list" type="flex" align="middle">
           <el-radio-group v-model="radio">
             <el-radio class="radio" label="全部">全部</el-radio>
-            <el-radio class="radio" label="新开">新开</el-radio>
-            <el-radio class="radio" label="提交">提交</el-radio>
-            <el-radio class="radio" label="执行">执行</el-radio>
-            <el-radio class="radio" label="停止">停止</el-radio>
-            <el-radio class="radio" label="作废">作废</el-radio>
+            <el-radio
+              class="radio"
+              :key="idx"
+              :label="status"
+              v-for="(status, idx) in statusList"
+            >
+              {{ status }}
+            </el-radio>
           </el-radio-group>
         </el-row>
         <div style="flex: 1"></div>
@@ -159,7 +162,7 @@ import adviceTableHd from "./component/adviceTable_hd";
 import adviceTableGuizhou from "./component/adviceTable_guizhou";
 import adviceTableCommon from "./component/adviceTable_common";
 import { orders } from "@/api/patientInfo";
-import { syncGetPatientOrders } from "./api/index";
+import { syncGetPatientOrders, getNurseOrderStatusDict } from "./api/index";
 export default {
   data() {
     return {
@@ -167,6 +170,7 @@ export default {
       radio: "全部",
       btn: 1,
       tableLoading: false,
+      statusList: [],
     };
   },
   computed: {
@@ -250,6 +254,7 @@ export default {
     //   }
     // }
     this.getData();
+    this.getStatusList();
   },
   methods: {
     getData() {
@@ -270,6 +275,18 @@ export default {
       );
     },
     print() {},
+    getStatusList() {
+      /**顶部状态筛选字典 暂时先上贵州 后面的医院确认后端部署后可上*/
+      if (this.HOSPITAL_ID === "guizhou") {
+        getNurseOrderStatusDict().then((res) => {
+          this.statusList = (res.data.data || []).map(
+            (item) => item.orderStatusName
+          );
+        });
+      } else {
+        this.statusList = ["新开", "提交", "执行", "停止", "作废"];
+      }
+    },
   },
   components: {
     adviceTable,
