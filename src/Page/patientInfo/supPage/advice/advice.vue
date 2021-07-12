@@ -3,9 +3,25 @@
     <div class="content">
       <div class="select-nav">
         <div class="select-btn-con">
-          <el-button class="select-btn" :class="{active: btn=='1'}" @click="btn=1">长期医嘱</el-button>
-          <el-button class="select-btn" :class="{active: btn=='0'}" @click="btn=0">临时医嘱</el-button>
-          <el-button class="select-btn" :class="{active: btn=='2'}" @click="btn=2" v-if="HOSPITAL_ID == 'liaocheng'">单方传药</el-button>
+          <el-button
+            class="select-btn"
+            :class="{ active: btn == '1' }"
+            @click="btn = 1"
+            >长期医嘱</el-button
+          >
+          <el-button
+            class="select-btn"
+            :class="{ active: btn == '0' }"
+            @click="btn = 0"
+            >临时医嘱</el-button
+          >
+          <el-button
+            class="select-btn"
+            :class="{ active: btn == '2' }"
+            @click="btn = 2"
+            v-if="HOSPITAL_ID == 'liaocheng'"
+            >单方传药</el-button
+          >
         </div>
         <el-row class="select-btn-list" type="flex" align="middle">
           <el-radio-group v-model="radio">
@@ -17,12 +33,13 @@
             <el-radio class="radio" label="作废">作废</el-radio>
           </el-radio-group>
         </el-row>
-        <div style="flex:1"></div>
+        <div style="flex: 1"></div>
         <el-button
           class="select-btn"
           v-if="HOSPITAL_ID == 'weixian'"
           @click="syncGetPatientOrders"
-        >同步数据</el-button>
+          >同步数据</el-button
+        >
         <a
           :href="`crprintorder://${infoData.patientId}/${infoData.visitId}`"
           v-if="HOSPITAL_ID == 'weixian'"
@@ -31,7 +48,11 @@
           <el-button class="select-btn" type="primary">打印执行单</el-button>
         </a>
       </div>
-      <component :tableData="tableDataSelect" :tableLoading="tableLoading" :is="currentAdviceTable"></component>
+      <component
+        :tableData="tableDataSelect"
+        :tableLoading="tableLoading"
+        :is="currentAdviceTable"
+      ></component>
     </div>
   </div>
 </template>
@@ -135,6 +156,7 @@
 import adviceTable from "./component/adviceTable";
 import adviceTableWx from "./component/adviceTable_wx";
 import adviceTableHd from "./component/adviceTable_hd";
+import adviceTableGuizhou from "./component/adviceTable_guizhou";
 import adviceTableCommon from "./component/adviceTable_common";
 import { orders } from "@/api/patientInfo";
 import { syncGetPatientOrders } from "./api/index";
@@ -144,7 +166,7 @@ export default {
       tableData: [],
       radio: "全部",
       btn: 1,
-      tableLoading: false
+      tableLoading: false,
     };
   },
   computed: {
@@ -153,18 +175,27 @@ export default {
     },
     tableDataSelect() {
       let data = this.tableData;
-      data = data.filter(item => {
+      data = data.filter((item) => {
         let selcet1 = item.repeatIndicator === this.btn.toString();
         let select2 =
           item.orderStatusName === this.radio.toString() ||
           this.radio === "全部";
         return selcet1 && select2;
       });
-      if(this.HOSPITAL_ID == 'liaocheng' || this.HOSPITAL_ID == 'fuyou' || this.HOSPITAL_ID == 'hengli'){
-        data.map((item, index, array)=>{
-          let prevRowId = array[index-1] && array[index-1].orderNo + array[index-1].patientId;
-          let currentRowId = array[index] && array[index].orderNo + array[index].patientId;
-          let nextRowId = array[index+1] && array[index+1].orderNo + array[index+1].patientId;
+      if (
+        this.HOSPITAL_ID == "liaocheng" ||
+        this.HOSPITAL_ID == "fuyou" ||
+        this.HOSPITAL_ID == "hengli"
+      ) {
+        data.map((item, index, array) => {
+          let prevRowId =
+            array[index - 1] &&
+            array[index - 1].orderNo + array[index - 1].patientId;
+          let currentRowId =
+            array[index] && array[index].orderNo + array[index].patientId;
+          let nextRowId =
+            array[index + 1] &&
+            array[index + 1].orderNo + array[index + 1].patientId;
           /** 判断是此记录是多条记录 */
           if (currentRowId == prevRowId || currentRowId == nextRowId) {
             if (currentRowId != prevRowId) {
@@ -177,25 +208,31 @@ export default {
               /** 中间条 */
               item.rowType = 2;
             }
-          }else {
+          } else {
             item.rowType = 1;
           }
-        })
+        });
       }
       return data;
     },
-    currentAdviceTable(){
+    currentAdviceTable() {
       let HOSPITAL_ID = this.HOSPITAL_ID;
-      if(HOSPITAL_ID == 'liaocheng' || HOSPITAL_ID == 'fuyou' || HOSPITAL_ID == 'hengli'){
-        return 'adviceTableCommon'
-      }else if(HOSPITAL_ID == 'weixian'){
-        return 'adviceTableWx'
-      }else if(HOSPITAL_ID == 'huadu' || HOSPITAL_ID == 'guizhou'){
-        return 'adviceTableHd'
-      }else {
-        return 'adviceTable'
+      if (
+        HOSPITAL_ID == "liaocheng" ||
+        HOSPITAL_ID == "fuyou" ||
+        HOSPITAL_ID == "hengli"
+      ) {
+        return "adviceTableCommon";
+      } else if (HOSPITAL_ID == "weixian") {
+        return "adviceTableWx";
+      } else if (HOSPITAL_ID == "huadu") {
+        return "adviceTableHd";
+      } else if (HOSPITAL_ID == "guizhou") {
+        return "adviceTableGuizhou";
+      } else {
+        return "adviceTable";
       }
-    }
+    },
   },
   created() {
     // class TableItem {
@@ -217,7 +254,7 @@ export default {
   methods: {
     getData() {
       this.tableLoading = true;
-      orders(this.infoData.patientId, this.infoData.visitId).then(res => {
+      orders(this.infoData.patientId, this.infoData.visitId).then((res) => {
         this.tableLoading = false;
         this.tableData = res.data.data;
       });
@@ -226,19 +263,20 @@ export default {
       this.$message.info("正在同步数据...");
       this.tableLoading = true;
       syncGetPatientOrders(this.infoData.patientId, this.infoData.visitId).then(
-        res => {
+        (res) => {
           this.$message.success("同步数据成功");
           this.getData();
         }
       );
     },
-    print() {}
+    print() {},
   },
   components: {
     adviceTable,
     adviceTableWx,
     adviceTableHd,
-    adviceTableCommon
-  }
+    adviceTableGuizhou,
+    adviceTableCommon,
+  },
 };
 </script>
