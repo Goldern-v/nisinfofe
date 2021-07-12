@@ -122,12 +122,12 @@ export default {
         new TableItem("费别", re.chargeType)
       ];
       this.tableData3 = [
-        new TableItem("联系人", re.contactName, "联系人电话", re.contactPhone),
+        new TableItem("联系人", re.nextOfKin, "联系人电话", re.contactPhone),
         new TableItem(
           "联系人地址",
           re.contactAddress,
           "联系人身份证号",
-          "没有数据"
+          re.nextOfKinCardNo
         )
       ];
       this.tableData4 = [

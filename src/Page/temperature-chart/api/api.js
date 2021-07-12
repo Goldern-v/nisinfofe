@@ -10,22 +10,31 @@ import moment from "moment";
 //   return axios.post(`${apiPath}bed/getPatientsInfo`, query);
 // }
 
-const recordCodeList = {
-  huadu: 'body_temperature_Hd',
-  liaocheng: 'body_temperature_lcey',
-  wujing: 'body_temperature_wj',
-  zhongshanqi: 'body_temperature_zsqy'
+const getRecordType = (HOSPITAL_ID) => {
+  switch (HOSPITAL_ID) {
+    case 'huadu':
+      return 'body_temperature_Hd'
+    case ' wujing':
+      return 'body_temperature_wj'
+    case 'zhongshanqi':
+      return 'body_temperature_zsqy'
+    // case 'liaocheng':
+    //   return 'body_temperature_lcey'
+    default:
+      return 'bodyTemperatureLocal'
+  }
+
 }
-recordCodeList[process.env.HOSPITAL_ID]
+
 //新的体温单批量录入 （加上不同医院体温单code值）-- 获取科室患者信息
 export function getPatientsInfo(query) {
-  return axios.post(`${apiPath}record/${recordCodeList[process.env.HOSPITAL_ID]}/getPatientsInfo
+  return axios.post(`${apiPath}record/${getRecordType(process.env.HOSPITAL_ID)}/getPatientsInfo
 `, query);
 }
 
 //保存体温单
 export function saveOverAllTemperture(params) {
-  return axios.post(`${apiPath}record/${recordCodeList[process.env.HOSPITAL_ID]}/saveOverAll`, params);
+  return axios.post(`${apiPath}record/${getRecordType(process.env.HOSPITAL_ID)}/saveOverAll`, params);
 }
 
 //聊城二院出入院同步
@@ -36,6 +45,15 @@ export function autoVitalSigns(data) {
 //聊城二院体温单列表
 export function getVitalSignList(data) {
   return axios.post(`${apiPath}vitalSign/list`, data);
+}
+
+/**
+ * 1.9 聊城二院获取最新10条体征信息
+ * @param {*} data.patientId 患者id
+ * @param {*} data.visitId 入院次数
+ */
+export function getVitalSignListBy10(data) {
+  return axios.get(`${apiPath}/vitalSign//lastList/${data.patientId}/${data.visitId}`);
 }
 
 // 通过护理单元获取体征字典表

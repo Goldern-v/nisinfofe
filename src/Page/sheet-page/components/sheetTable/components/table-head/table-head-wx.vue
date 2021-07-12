@@ -50,7 +50,14 @@
         诊断：
         <div
           class="bottom-line"
-          style="min-width: 150px;max-width: 620px;min-height:13px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;"
+          style="
+            min-width: 150px;
+            max-width: 620px;
+            min-height: 13px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+          "
         >
           {{ diagnosis }}
         </div>
@@ -86,12 +93,12 @@ import bus from "vue-happy-bus";
 export default {
   props: {
     patientInfo: Object,
-    index: Number
+    index: Number,
   },
   data() {
     return {
       bus: bus(this),
-      sheetInfo
+      sheetInfo,
     };
   },
   computed: {
@@ -113,13 +120,13 @@ export default {
         (sheetInfo.relObj || {})[`PageIndex_diagnosis_${realIndex}`] ||
         this.patientInfo.diagnosis
       );
-    }
+    },
   },
   methods: {
     updateBirthDay() {
       window.openSetAuditDateModal(
-        date => {
-          updateSheetHeadInfo({ birthday: date }).then(res => {
+        (date) => {
+          updateSheetHeadInfo({ birthday: date }).then((res) => {
             this.patientInfo.birthday = res.data.data.birthday;
           });
         },
@@ -129,8 +136,8 @@ export default {
     },
     updateTetxInfo(key, label, autoText) {
       window.openSetTextModal(
-        text => {
-          updateSheetHeadInfo({ [key]: text }).then(res => {
+        (text) => {
+          updateSheetHeadInfo({ [key]: text }).then((res) => {
             this.patientInfo[key] = res.data.data[key];
             this.$message.success(`修改${label}成功`);
           });
@@ -141,7 +148,7 @@ export default {
     },
     updateDiagnosis(key, label, autoText) {
       window.openSetTextModal(
-        text => {
+        (text) => {
           sheetInfo.relObj[`PageIndex_diagnosis_${this.index}`] = text;
           this.$message.success(`修改诊断成功`);
           this.bus.$emit("saveSheetPage", false);
@@ -149,21 +156,22 @@ export default {
         this.diagnosis,
         `修改诊断`
       );
-    }
+    },
   },
   filters: {
     toymd(val) {
       return moment(val).format("YYYY-MM-DD");
-    }
+    },
   },
   destroyed() {},
-  components: {}
+  components: {},
 };
 </script>
 
 <style lang="scss" scoped>
 .header-con {
   .info-con {
+    flex-wrap: wrap;
     > span {
       height: 23px;
       line-height: 23px;

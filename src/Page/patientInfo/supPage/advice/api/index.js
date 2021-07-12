@@ -6,3 +6,10 @@ import { apiPath } from '@/api/apiConfig'
 export const syncGetPatientOrders = (patientId, visitId) => {
     return axios.get(`${apiPath}hisDispenseExecute/syncGetPatientOrders/${patientId}/${visitId}`)
 }
+
+/**
+ * 医嘱状态字典
+ */
+export const getNurseOrderStatusDict = () => {
+    return axios.get(`${apiPath}/OrderStatusDict/getNurseOrderStatusDict`)
+}

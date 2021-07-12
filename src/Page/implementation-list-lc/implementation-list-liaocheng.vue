@@ -17,7 +17,9 @@
             <el-radio class="radio" label>全部</el-radio>
             <el-radio class="radio" label="1">长嘱</el-radio>
             <el-radio class="radio" label="0">临嘱</el-radio>
-            <el-radio class="radio" label="2" v-if="HOSPITAL_ID != 'shannan'">单药处方</el-radio>
+            <el-radio class="radio" label="2" v-if="HOSPITAL_ID != 'shannan'"
+              >单药处方</el-radio
+            >
           </el-radio-group>
         </el-row>
         <span class="label">状态:</span>
@@ -361,21 +363,33 @@ export default {
         let children = [],
           tableData = [];
         res.data.data.map((item, index, array) => {
-          let prevRowId =
-            array[index - 1] &&
-            array[index - 1].patientId +
-              array[index - 1].barCode +
-              array[index - 1].executeDateTime;
-          let nextRowId =
-            array[index + 1] &&
-            array[index + 1].patientId +
-              array[index + 1].barCode +
-              array[index + 1].executeDateTime;
-          let currentRowId =
-            array[index] &&
-            array[index].patientId +
-              array[index].barCode +
-              array[index].executeDateTime;
+          let prevRowId, nextRowId, currentRowId;
+          if (this.HOSPITAL_ID == "liaocheng") {
+            prevRowId =
+              array[index - 1] &&
+              array[index - 1].patientId + array[index - 1].orderNo;
+            nextRowId =
+              array[index + 1] &&
+              array[index + 1].patientId + array[index + 1].orderNo;
+            currentRowId =
+              array[index] && array[index].patientId + array[index].orderNo;
+          } else {
+            prevRowId =
+              array[index - 1] &&
+              array[index - 1].patientId +
+                array[index - 1].barCode +
+                array[index - 1].executeDateTime;
+            nextRowId =
+              array[index + 1] &&
+              array[index + 1].patientId +
+                array[index + 1].barCode +
+                array[index + 1].executeDateTime;
+            currentRowId =
+              array[index] &&
+              array[index].patientId +
+                array[index].barCode +
+                array[index].executeDateTime;
+          }
 
           item.id = index;
 

@@ -19,10 +19,11 @@ import HengLiHeader from "@/components/HLheader/HengLiHeader"; // 东莞市横�
 import XieGangHeader from "@/components/HLheader/XieGangHeader"; // 东莞市谢岗医院
 import ShanNanHeader from "@/components/HLheader/ShanNanHeader"; // 山南市人民医院
 import BeiHaiRenYiHeader from "@/components/HLheader/BeiHaiRenYiHeader"; // 北海人医
+import GuiZhouShengRenMingHeader from "@/components/HLheader/GuiZhouShengRenMing"; // 贵州省人民
 export default {
   data() {
     return {
-      msg: "hello vue"
+      msg: "hello vue",
     };
   },
   created() {},
@@ -42,9 +43,10 @@ export default {
         东莞市谢岗医院: "XieGangHeader",
         山南市人民医院: "ShanNanHeader",
         北海市人民医院: "BeiHaiRenYiHeader",
+        贵州省人民医院: "GuiZhouShengRenMingHeader",
       };
       return hisList[HisName] || "HLheader";
-    }
+    },
   },
   components: {
     HLheader,
@@ -59,6 +61,7 @@ export default {
     XieGangHeader,
     ShanNanHeader,
     BeiHaiRenYiHeader,
-  }
+    GuiZhouShengRenMingHeader,
+  },
 };
 </script>
