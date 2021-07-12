@@ -77,8 +77,8 @@
       "showAudit": true
     },
     "formInfo": {
-      "formCode": "E0625",
-      "formApiCode": "E0625",
+      "formCode": "E0612",
+      "formApiCode": "E0612",
       "formName": "VTE风险评估(Padua 内科版)",
       "status": "0",
       "formType": "eval"
@@ -191,8 +191,8 @@
       "readOnly": ""
     },
     {
-      "type": "formGroupHorizontalBox",
-      "title": "以下选项，每项1分",
+      "type": "formGroupVerticalBox",
+      "title": "评估内容",
       "message": "",
       "require": "false",
       "prefixDesc": "",
@@ -202,483 +202,122 @@
       "readOnly": null,
       "children": [
         {
-          "name": "I625001",
+          "name": "I612001",
           "type": "checkbox",
-          "title": "1.年龄41-60岁（1分）",
-          "code": "1",
-          "score": 1,
-          "style": "width:170px;height:30px",
-          "class": null,
-          "html": null,
-          "readOnly": null
-        },
-        {
-          "name": "I625002",
-          "type": "checkbox",
-          "title": "2.计划小手术（1分）",
-          "code": "1",
-          "score": 1,
-          "style": "width:170px;height:30px",
-          "class": null,
-          "html": null,
-          "readOnly": null
-        },
-        {
-          "name": "I625003",
-          "type": "checkbox",
-          "title": "3.BMI＞25 kg/m2（1分）",
-          "code": "1",
-          "score": 1,
-          "style": "width:170px;height:30px",
-          "class": null,
-          "html": null,
-          "readOnly": null
-        },
-        {
-          "name": "I625040",
-          "type": "checkbox",
-          "title": "4.腿肿胀（3分）",
-          "code": "1",
-          "score": 1,
-          "style": "width:170px;height:30px",
-          "class": null,
-          "html": null,
-          "readOnly": null
-        },
-        {
-          "name": "I625010",
-          "type": "checkbox",
-          "title": "5.静脉曲张（1分）",
-          "code": "1",
-          "score": 1,
-          "style": "width:170px;height:30px",
-          "class": null,
-          "html": null,
-          "readOnly": null
-        },
-        {
-          "name": "I625041",
-          "type": "checkbox",
-          "title": "6.妊娠或产后（1分）",
-          "code": "1",
-          "score": 1,
-          "style": "width:170px;height:30px",
-          "class": null,
-          "html": null,
-          "readOnly": null
-        },
-        {
-          "name": "I625042",
-          "type": "checkbox",
-          "title": "7.有不明原因或者习惯性流产史（1分）",
-          "code": "1",
-          "score": 1,
-          "style": "width:170px;height:30px",
-          "class": null,
-          "html": null,
-          "readOnly": null
-        },
-        {
-          "name": "I625043",
-          "type": "checkbox",
-          "title": "8.口服避孕药或激素替代疗法（1分）",
-          "code": "1",
-          "score": 1,
-          "style": "width:170px;height:30px",
-          "class": null,
-          "html": null,
-          "readOnly": null
-        },
-        {
-          "name": "I625044",
-          "type": "checkbox",
-          "title": "9.脓毒症（＜1个月）（1分）",
-          "code": "1",
-          "score": 1,
-          "style": "width:170px;height:30px",
-          "class": null,
-          "html": null,
-          "readOnly": null
-        },
-        {
-          "name": "I625045",
-          "type": "checkbox",
-          "title": "10.严重肺病，包括肺炎（＜1个月）（1分）",
-          "code": "1",
-          "score": 1,
-          "style": "width:170px;height:30px",
-          "class": null,
-          "html": null,
-          "readOnly": null
-        },
-        {
-          "name": "I625012",
-          "type": "checkbox",
-          "title": "11.肺功能异常(1分)",
-          "code": "1",
-          "score": 1,
-          "style": "width:170px;height:30px",
-          "class": null,
-          "html": null,
-          "readOnly": null
-        },
-        {
-          "name": "I625047",
-          "type": "checkbox",
-          "title": "12.急性心肌梗死(1分)",
-          "code": "1",
-          "score": 1,
-          "style": "width:170px;height:30px",
-          "class": null,
-          "html": null,
-          "readOnly": null
-        },
-        {
-          "name": "I625014",
-          "type": "checkbox",
-          "title": "13.充血性心力衰竭（＜1个月）(1分)",
-          "code": "1",
-          "score": 1,
-          "style": "width:170px;height:30px",
-          "class": null,
-          "html": null,
-          "readOnly": null
-        },
-        {
-          "name": "I625048",
-          "type": "checkbox",
-          "title": "14.炎性肠病史(1分)",
-          "code": "1",
-          "score": 1,
-          "style": "width:170px;height:30px",
-          "class": null,
-          "html": null,
-          "readOnly": null
-        },
-        {
-          "name": "I625014",
-          "type": "checkbox",
-          "title": "15.卧床的患者(1分)",
-          "code": "1",
-          "score": 1,
-          "style": "width:170px;height:30px",
-          "class": null,
-          "html": null,
-          "readOnly": null
-        }
-      ]
-    },
-    {
-      "name": "",
-      "type": "formGroupHR",
-      "title": "---hr---",
-      "line": "dashed",
-      "prefixDesc": "",
-      "suffixDesc": "",
-      "keys": "",
-      "style": "",
-      "classes": "",
-      "readOnly": ""
-    },
-    {
-      "type": "formGroupHorizontalBox",
-      "title": "以下选项，每项2分",
-      "message": "",
-      "require": "false",
-      "prefixDesc": "",
-      "suffixDesc": "",
-      "style": null,
-      "classes": null,
-      "readOnly": null,
-      "children": [
-        {
-          "name": "I625018",
-          "type": "checkbox",
-          "title": "16.年龄61-74岁（2分）",
-          "code": "2",
-          "score": 2,
-          "style": "width:170px;height:30px",
-          "class": null,
-          "html": null,
-          "readOnly": null
-        },
-        {
-          "name": "I625050",
-          "type": "checkbox",
-          "title": "17.关节镜手术（2分）",
-          "code": "2",
-          "score": 2,
-          "style": "width:170px;height:30px",
-          "class": null,
-          "html": null,
-          "readOnly": null
-        },
-        {
-          "name": "I625024",
-          "type": "checkbox",
-          "title": "18.大型开放手术（＞45 min）（2分）",
-          "code": "2",
-          "score": 2,
-          "style": "width:170px;height:30px",
-          "class": null,
-          "html": null,
-          "readOnly": null
-        },
-        {
-          "name": "I625023",
-          "type": "checkbox",
-          "title": "19.腹腔镜手术（＞45 min）（2分）",
-          "code": "2",
-          "score": 2,
-          "style": "width:170px;height:30px",
-          "class": null,
-          "html": null,
-          "readOnly": null
-        },
-        {
-          "name": "I625021",
-          "type": "checkbox",
-          "title": "20.恶性肿瘤（2分）",
-          "code": "2",
-          "score": 2,
-          "style": "width:170px;height:30px",
-          "class": null,
-          "html": null,
-          "readOnly": null
-        },
-        {
-          "name": "I625041",
-          "type": "checkbox",
-          "title": "21.卧床不起（>72 h）（2分）",
-          "code": "2",
-          "score": 2,
-          "style": "width:170px;height:30px",
-          "class": null,
-          "html": null,
-          "readOnly": null
-        },
-        {
-          "name": "I625042",
-          "type": "checkbox",
-          "title": "22.石膏固定（2分）",
-          "code": "2",
-          "score": 2,
-          "style": "width:170px;height:30px",
-          "class": null,
-          "html": null,
-          "readOnly": null
-        },
-        {
-          "name": "I625043",
-          "type": "checkbox",
-          "title": "23.中央静脉通路（2分）",
-          "code": "2",
-          "score": 2,
-          "style": "width:170px;height:30px",
-          "class": null,
-          "html": null,
-          "readOnly": null
-        }
-      ]
-    },
-    {
-      "name": "",
-      "type": "formGroupHR",
-      "title": "---hr---",
-      "line": "dashed",
-      "prefixDesc": "",
-      "suffixDesc": "",
-      "keys": "",
-      "style": "",
-      "classes": "",
-      "readOnly": ""
-    },
-    {
-      "type": "formGroupHorizontalBox",
-      "title": "以下选项，每项3分",
-      "message": "",
-      "require": "false",
-      "prefixDesc": "",
-      "suffixDesc": "",
-      "style": null,
-      "classes": null,
-      "readOnly": null,
-      "children": [
-        {
-          "name": "I625025",
-          "type": "checkbox",
-          "title": "24.年龄≥75岁（3分）",
+          "title": "活动性恶性肿瘤，患者先前有局部或远端转移和(或)6个月内接受过化疗和放疗。（3分）",
           "code": "3",
           "score": 3,
-          "style": "width:170px;height:30px",
+          "style": null,
           "class": null,
           "html": null,
           "readOnly": null
         },
         {
-          "name": "I625026",
+          "name": "I612002",
           "type": "checkbox",
-          "title": "25.VTE病史（3分）",
+          "title": "既往静脉血栓栓塞症。（3分）",
           "code": "3",
           "score": 3,
-          "style": "width:170px;height:30px",
+          "style": null,
           "class": null,
           "html": null,
           "readOnly": null
         },
         {
-          "name": "I625027",
+          "name": "I612003",
           "type": "checkbox",
-          "title": "18.VTE家族史（3分）",
+          "title": "制动，患者身体原因或遵医嘱需卧床休息至少3天（3分）",
           "code": "3",
           "score": 3,
-          "style": "width:170px;height:30px",
+          "style": null,
           "class": null,
           "html": null,
           "readOnly": null
         },
         {
-          "name": "I625052",
+          "name": "I612011",
           "type": "checkbox",
-          "title": "27.凝血因子V Leiden突变（3分）",
+          "title": "已有血栓形成倾向，抗凝血酶缺陷症，蛋白C或S缺乏，Leiden V因子、凝血酶原G20210A突变、抗磷脂抗体综合征（3分）",
           "code": "3",
           "score": 3,
-          "style": "width:170px;height:30px",
+          "style": null,
           "class": null,
           "html": null,
           "readOnly": null
         },
         {
-          "name": "I625021",
+          "name": "I612004",
           "type": "checkbox",
-          "title": "28.凝血酶原G20210A突变（3分）",
-          "code": "3",
-          "score": 3,
-          "style": "width:170px;height:30px",
-          "class": null,
-          "html": null,
-          "readOnly": null
-        },
-        {
-          "name": "I625041",
-          "type": "checkbox",
-          "title": "29.狼疮抗凝物阳性（3分）",
-          "code": "3",
-          "score": 3,
-          "style": "width:170px;height:30px",
-          "class": null,
-          "html": null,
-          "readOnly": null
-        },
-        {
-          "name": "I625042",
-          "type": "checkbox",
-          "title": "30.抗心磷脂抗体阳性（3分）",
+          "title": "近期(≤1个月)创伤或外科手术（2分）",
           "code": "2",
           "score": 2,
-          "style": "width:170px;height:30px",
+          "style": null,
           "class": null,
           "html": null,
           "readOnly": null
         },
         {
-          "name": "I625034",
+          "name": "I612005",
           "type": "checkbox",
-          "title": "31.血清同型半胱氨酸升高（3分）",
-          "code": "3",
-          "score": 3,
-          "style": "width:170px;height:30px",
+          "title": "年龄≥70岁（1分）",
+          "code": "1",
+          "score": 1,
+          "style": null,
           "class": null,
           "html": null,
           "readOnly": null
         },
         {
-          "name": "I625028",
+          "name": "I612006",
           "type": "checkbox",
-          "title": "32.肝素诱发的血小板减少症（3分）",
-          "code": "3",
-          "score": 3,
-          "style": "width:170px;height:30px",
+          "title": "心脏和(或)呼吸衰竭（1分）",
+          "code": "1",
+          "score": 1,
+          "style": null,
           "class": null,
           "html": null,
           "readOnly": null
         },
         {
-          "name": "I625029",
+          "name": "I612007",
           "type": "checkbox",
-          "title": "33.其他先天性或获得性血栓形成倾向（3分）",
-          "code": "3",
-          "score": 3,
-          "style": "width:170px;height:30px",
-          "class": null,
-          "html": null,
-          "readOnly": null
-        }
-      ]
-    },
-    {
-      "name": "",
-      "type": "formGroupHR",
-      "title": "---hr---",
-      "line": "dashed",
-      "prefixDesc": "",
-      "suffixDesc": "",
-      "keys": "",
-      "style": "",
-      "classes": "",
-      "readOnly": ""
-    },
-    {
-      "type": "formGroupHorizontalBox",
-      "title": "以下选项，每项5分",
-      "message": "",
-      "require": "false",
-      "prefixDesc": "",
-      "suffixDesc": "",
-      "style": null,
-      "classes": null,
-      "readOnly": null,
-      "children": [
-        {
-          "name": "I625035",
-          "type": "checkbox",
-          "title": "34.脑卒中（＜1个月）（5分）",
-          "code": "5",
-          "score": 5,
-          "style": "width:170px;height:30px",
+          "title": "急性心肌梗死和(或)缺血性脑卒中（1分）",
+          "code": "1",
+          "score": 1,
+          "style": null,
           "class": null,
           "html": null,
           "readOnly": null
         },
         {
-          "name": "I625037",
+          "name": "I612008",
           "type": "checkbox",
-          "title": "35.择期关节置换术（5分）",
-          "code": "5",
-          "score": 5,
-          "style": "width:170px;height:30px",
+          "title": "急性感染和(或)风湿性疾病（1分）",
+          "code": "1",
+          "score": 1,
+          "style": null,
           "class": null,
           "html": null,
           "readOnly": null
         },
         {
-          "name": "I625038",
+          "name": "I612009",
           "type": "checkbox",
-          "title": "36.髋、骨盆或下肢骨折（5分）",
-          "code": "5",
-          "score": 5,
-          "style": "width:170px;height:30px",
+          "title": "肥胖(体质指数≥30kg/m2)（1分）",
+          "code": "1",
+          "score": 1,
+          "style": null,
           "class": null,
           "html": null,
           "readOnly": null
         },
         {
-          "name": "I625036",
+          "name": "I612010",
           "type": "checkbox",
-          "title": "37.急性脊髓损伤（＜1个月）(5分)",
-          "code": "5",
-          "score": 5,
-          "style": "width:170px;height:30px",
+          "title": "正在进行激素治疗（1分）",
+          "code": "1",
+          "score": 1,
+          "style": null,
           "class": null,
           "html": null,
           "readOnly": null
@@ -699,9 +338,79 @@
     },
     {
       "name": "",
+      "type": "formGroupColBox",
+      "col": 2,
+      "colWidth": [
+        "40%",
+        "60%"
+      ],
+      "title": "",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "evalScore",
+          "type": "input",
+          "title": "评估得分",
+          "titleStyle": "width:90px!important;margin:0;",
+          "hiddenTips": true,
+          "inputWidth": "136px",
+          "value": "",
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "evalDesc",
+          "type": "input",
+          "title": "结果程度",
+          "titleStyle": "width:90px!important;margin:0;",
+          "hiddenTips": true,
+          "inputWidth": "136px",
+          "value": "",
+          "class": null,
+          "readOnly": null,
+          "rule": [
+            {
+              "min": "-1",
+              "max": "3",
+              "equal": "低危",
+              "style": "color:blue",
+              "display": "低危"
+            },
+            {
+              "min": "4",
+              "max": "100",
+              "equal": "高危",
+              "style": "color:blue",
+              "display": "高危"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "",
       "type": "formGroupTitle",
       "level": "1",
-      "title": "二、预防护理措施：",
+      "title": "二、护理措施：",
       "prefixDesc": "",
       "suffixDesc": "",
       "keys": "",
@@ -732,7 +441,7 @@
           "readOnly": null
         },
         {
-          "name": "M625003",
+          "name": "M625002",
           "type": "checkbox",
           "title": "活动指导：指导患者进行踝泵运动及膝关节屈伸运动，无法自主活动给予被动运动",
           "code": "√",
@@ -741,7 +450,7 @@
           "readOnly": null
         },
         {
-          "name": "M625002",
+          "name": "M625003",
           "type": "checkbox",
           "title": "用药指导：抗凝治疗期间，嘱患者观察皮肤、黏膜、消化道、泌尿道、牙龈及全身有无出血发生硬，如有出血倾向，应立即告知医务人员，避免碰撞及跌倒，用软毛刷刷牙，避免进食坚刺激食物等",
           "code": "√",
@@ -750,7 +459,7 @@
           "readOnly": null
         },
         {
-          "name": "M625005",
+          "name": "M625004",
           "type": "checkbox",
           "title": "出院指导：告知患者出院后定期门诊复查，遵医嘱按时服药。保持良好情绪，减轻心理压力，若出现下肢肿胀、疼痛或出血等现象，请尽快就医",
           "code": "√",
@@ -947,83 +656,6 @@
           "style": null,
           "class": null,
           "readOnly": null
-        }
-      ]
-    },
-    {
-      "name": "",
-      "type": "formGroupHR",
-      "title": "---hr---",
-      "line": "",
-      "prefixDesc": "",
-      "suffixDesc": "",
-      "keys": "",
-      "style": "",
-      "classes": "",
-      "readOnly": ""
-    },
-    {
-      "name": "",
-      "type": "formGroupColBox",
-      "col": 2,
-      "colWidth": [
-        "40%",
-        "60%"
-      ],
-      "title": "",
-      "message": "",
-      "require": "false",
-      "prefixDesc": "",
-      "suffixDesc": "",
-      "keys": "",
-      "style": null,
-      "classes": null,
-      "readOnly": null,
-      "children": [
-        {
-          "name": "evalScore",
-          "type": "input",
-          "title": "评估得分",
-          "titleStyle": "width:90px!important;margin:0;",
-          "hiddenTips": true,
-          "inputWidth": "136px",
-          "value": "",
-          "class": null,
-          "readOnly": null
-        },
-        {
-          "name": "evalDesc",
-          "type": "input",
-          "title": "结果程度",
-          "titleStyle": "width:90px!important;margin:0;",
-          "hiddenTips": true,
-          "inputWidth": "136px",
-          "value": "",
-          "class": null,
-          "readOnly": null,
-          "rule": [
-            {
-              "min": "0",
-              "max": "2",
-              "equal": "低危",
-              "style": "color:blue",
-              "display": "低危"
-            },
-            {
-              "min": "3",
-              "max": "4",
-              "equal": "中危",
-              "style": "color:blue",
-              "display": "中危"
-            },
-            {
-              "min": "5",
-              "max": "200",
-              "equal": "高危",
-              "style": "color:blue",
-              "display": "高危"
-            }
-          ]
         }
       ]
     }

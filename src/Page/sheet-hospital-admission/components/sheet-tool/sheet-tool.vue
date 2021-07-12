@@ -3,14 +3,16 @@
     <div class="tool-contain" flex="cross:center">
       <!-- buttonsLeft -->
       <div
-        v-for="(button,i) in buttonsLeft"
-        :key="button.label+i"
+        v-for="(button, i) in buttonsLeft"
+        :key="button.label + i"
         class="item-box"
         flex="cross:center main:center"
         @click.stop="button.onClick"
-        :class="{disabled: button.getDisabled && button.getDisabled(selectBlock)}"
+        :class="{
+          disabled: button.getDisabled && button.getDisabled(selectBlock),
+        }"
         :style="button.style"
-        v-if="button.getDisabled?!button.getDisabled(selectBlock):true"
+        v-if="button.getDisabled ? !button.getDisabled(selectBlock) : true"
       >
         <div class="text-con">{{ button.label }}</div>
       </div>
@@ -30,33 +32,78 @@
             <div class="col-3">评估时间</div>
           </div>
           <el-option
-            v-for="(item,i) in sheetBlockList"
+            v-for="(item, i) in sheetBlockList"
             :key="i"
-            :label="blockLabel(item)+' '+(item.wardName)"
+            :label="blockLabel(item) + ' ' + item.wardName"
             :value="item"
           >
             <div class="list-con" flex="cross:stretch">
-              <div class="col-1" :title="item.id">{{ i + 1 }}-{{ item.id }}</div>
-              <div class="col-2" :title="item.wardName">{{ item.wardName }}</div>
-              <div class="col-3" :title="item.evalDate">{{ item.evalDate }}</div>
+              <div class="col-1" :title="item.id">
+                {{ i + 1 }}-{{ item.id }}
+              </div>
+              <div class="col-2" :title="item.wardName">
+                {{ item.wardName }}
+              </div>
+              <div class="col-3" :title="item.evalDate">
+                {{ item.evalDate }}
+              </div>
             </div>
           </el-option>
         </div>
       </el-select>
 
-      <div style="width: 5px;"></div>
+      <div style="width: 5px"></div>
       <div
         class="item-box"
         flex="cross:center main:center"
-        :class="{disabled: selectBlock.status != '2'}"
+        :class="{ disabled: selectBlock.status != '2' }"
         v-show="selectBlock.status == '2'"
         @click="printPage()"
       >
         <div class="text-con" flex="cross:center">打印</div>
       </div>
-      <div style="width: 5px;"></div>
+      <div style="width: 5px"></div>
     </div>
     <previewEvalModal ref="previewEvalModal"></previewEvalModal>
+    <el-dialog
+      title="体征同步"
+      :visible.sync="dialogTableVisible"
+      class="vaillist"
+    >
+      <el-date-picker
+        v-model="searchData.date"
+        type="date"
+        placeholder="开始日期"
+        style="width: 150px"
+        value-format="yyyy-MM-dd"
+      >
+      </el-date-picker>
+      <span>-</span>
+      <el-date-picker
+        v-model="endData.date"
+        type="date"
+        placeholder="结束日期"
+        style="width: 150px"
+        value-format="yyyy-MM-dd"
+      >
+      </el-date-picker>
+      <el-button @click="searchsign">查询</el-button>
+      <el-table :data="gridData" border stripe @row-click="leftTablelist">
+        <el-table-column
+          type="index"
+          label="序号"
+          width="100"
+        ></el-table-column>
+        <el-table-column property="timeStr" label="时间"></el-table-column>
+        <el-table-column
+          property="axillaryTemperature"
+          label="T"
+        ></el-table-column>
+        <el-table-column property="breathe" label="P/HR"></el-table-column>
+        <el-table-column property="heartRate" label="R"></el-table-column>
+        <el-table-column property="bloodPressure" label="BP"></el-table-column>
+      </el-table>
+    </el-dialog>
   </div>
 </template>
 
@@ -68,12 +115,27 @@
     border: 0 !important;
     font-size: 12px;
     color: #333333;
+    border-radius: 4px;
   }
 }
 
 .label {
   font-size: 12px;
   color: #333;
+}
+
+.vaillist >>> .el-input__inner {
+  border-radius: 3px;
+  margin-bottom: 20px;
+}
+
+>>> .el-dialog el-dialog--small {
+  border: 1px solid #000;
+  box-shadow: 3px 3px 10px 0px rgb(0 5 2 / 87%);
+}
+
+>>> .el-dialog .el-dialog__header {
+  border-bottom: 2px solid #eef6f5;
 }
 </style>
 
@@ -182,27 +244,37 @@ import {
   del,
   cancelSignOrAduit,
   get,
-  list
+  list,
+  vitalsign,
 } from "@/Page/sheet-hospital-eval/api/index.js";
 
 import {
   formUrl,
   devFormTempUrl,
   devFormUrl,
-  devFormUrl_p80
+  devFormUrl_p80,
 } from "@/common/pathConfig/index.js";
 
-import {messageBox} from "./messageBox.js";
-import {notifyBox} from "./notifyBox.js";
+import { messageBox } from "./messageBox.js";
+import { notifyBox } from "./notifyBox.js";
 
-import mergeDefaultValue, {setDefaultValue} from "../data/defalutValue/utils";
-import {getReEvaTask, loadPatient} from "../../api/index";
+import mergeDefaultValue, { setDefaultValue } from "../data/defalutValue/utils";
+import { getReEvaTask, loadPatient } from "../../api/index";
 import previewEvalModal from "../Render/modal/previewEvalModal";
 
 export default {
   mixins: [commom],
   data() {
     return {
+      gridData: [],
+      dialogTableVisible: false,
+      thisRowData: "",
+      searchData: {
+        date: "",
+      },
+      endData: {
+        date: "",
+      },
       bus: bus(this),
       tool: "",
       showCurve: false,
@@ -217,14 +289,14 @@ export default {
       // sheetInfo,
       currentFormConfig: {
         patient: new Object(),
-        formObj: new Object()
+        formObj: new Object(),
       },
       selectBlock: {},
       sheetBlockList: [],
       buttonsLeft: [
         {
           label: "新建评估",
-          onClick: e => {
+          onClick: (e) => {
             if (
               this.patientInfo &&
               this.patientInfo.hasOwnProperty("patientId")
@@ -232,11 +304,11 @@ export default {
               this.createNewForm();
             }
             console.log("新建评估", this.patientInfo);
-          }
+          },
         },
         {
           label: "保存",
-          onClick: e => {
+          onClick: (e) => {
             this.formSave();
             console.log("保存", this.user, this.formObj);
           },
@@ -244,93 +316,104 @@ export default {
             if (!selectBlock.id) return true;
             // if (selectBlock.status != "0") return true;
             return false;
-          }
+          },
         },
         {
           label: "删除",
-          onClick: e => {
+          onClick: (e) => {
             this.formDelete();
           },
           getDisabled(selectBlock) {
             if (!selectBlock.id) return true;
-          }
+          },
         },
         {
           label: "责任护士签名",
           style: "width:90px",
-          onClick: e => {
+          onClick: (e) => {
             this.formSignOrAudit();
+            console.log(e);
           },
           getDisabled(selectBlock) {
             if (!selectBlock.id) return true;
             if (selectBlock.status != "0") return true;
-          }
+          },
         },
         {
           label: "取消责任护士签名",
           style: "width:110px",
-          onClick: e => {
+          onClick: (e) => {
             this.cancelSignOrAduit();
           },
           getDisabled(selectBlock) {
             if (!selectBlock.id) return true;
             if (selectBlock.status != "1") return true;
-          }
+          },
         },
         {
           label: "审核护士签名",
           style: "width:90px",
-          onClick: e => {
-            this.formSignOrAudit({type: "audit"});
+          onClick: (e) => {
+            this.formSignOrAudit({ type: "audit" });
           },
           getDisabled(selectBlock) {
             if (!selectBlock.id) return true;
             if (selectBlock.status != "1") return true;
-          }
+          },
         },
         {
           label: "取消审核护士签名",
           style: "width:110px",
-          onClick: e => {
-            this.cancelSignOrAduit({type: "audit"});
+          onClick: (e) => {
+            this.cancelSignOrAduit({ type: "audit" });
           },
           getDisabled(selectBlock) {
             if (!selectBlock.id) return true;
             if (selectBlock.status != "2") return true;
-          }
+          },
         },
         {
           label: "填写检查",
-          onClick: e => {
+          onClick: (e) => {
             this.checkFormMissingItems();
             console.log("填写检查");
           },
           getDisabled(selectBlock) {
             if (!selectBlock.id) return true;
-          }
+          },
         },
         {
           label: "同步HIS+默认值",
           style: "min-width:100px",
-          onClick: e => {
+          onClick: (e) => {
             this.fillDefaultValue();
           },
           getDisabled(selectBlock) {
             if (!selectBlock.id) return true;
-          }
+          },
+        },
+        {
+          label: "体征同步",
+          style: "min-width:100px",
+          onClick: (e) => {
+            this.formSignsOfsync();
+          },
+          getDisabled(selectBlock) {
+            if (!selectBlock.id) return true;
+          },
         },
         {
           label: "打印预览",
           // style: "min-width:100px",
-          onClick: e => {
+          onClick: (e) => {
             this.$refs.previewEvalModal.open(window.formObj.model);
           },
           getDisabled(selectBlock) {
             if (!selectBlock.id) return true;
             if (selectBlock.status != "1") return true;
-          }
-        }
-      ]
+          },
+        },
+      ],
     };
   },
   methods: {
@@ -364,23 +447,23 @@ export default {
         admissionDate: patient.admissionDate,
         token: this.token,
         todo: patient.todo || "",
-        isPrint: true
+        isPrint: true,
         // title:this.info.title || ''
       };
 
       let appurl = this.isDev ? devFormUrl : formUrl;
 
-      let pageUrl = (wardName => {
+      let pageUrl = ((wardName) => {
         let wardList = {
           内: "入院评估表(内科).html",
           外: "入院评估表(外科).html",
           妇: "入院评估表(妇科).html",
           产: "入院评估表(产科).html",
           儿: "入院评估表(儿科).html",
-          新生儿: "入院评估表(新生儿科).html"
+          新生儿: "入院评估表(新生儿科).html",
         };
         let result = "";
-        Object.keys(wardList).map(w => {
+        Object.keys(wardList).map((w) => {
           return wardName.indexOf(w) > -1 ? (result = wardList[w]) : "";
         });
         return result;
@@ -396,12 +479,12 @@ export default {
     fillDefaultValue() {
       this.bus.$emit("setHosptialAdmissionLoading", {
         status: true,
-        msg: "更新表单数据中..."
+        msg: "更新表单数据中...",
       });
       this.removeCheckMark();
       setDefaultValue(window.formObj.model);
       loadPatient(this.patientInfo.patientId, this.patientInfo.visitId)
-        .then(res => {
+        .then((res) => {
           this.syncHIS(res.data.data);
           // 回填表单
           this.$root.$refs["sheetPage"].fillForm();
@@ -412,7 +495,7 @@ export default {
             5000
           );
         })
-        .catch(err => {
+        .catch((err) => {
           // 回填表单
           this.$root.$refs["sheetPage"].fillForm();
           this.bus.$emit("setHosptialAdmissionLoading", false);
@@ -433,7 +516,7 @@ export default {
         bmi: "I100011", // 体征
         nation: "I001003", // 国籍
         occupation: "I001002", // 工作
-        religion: "I001004" // 宗教
+        religion: "I001004", // 宗教
         // 'admissionDate':'', // 入院日期
       };
       let keys = Object.keys(keyMap);
@@ -445,7 +528,7 @@ export default {
         window.formObj.model["I001001"]
       );
       keys = [...keys];
-      keys.map(key => {
+      keys.map((key) => {
         if (
           model[key] != undefined &&
           model[key] != "undefined" &&
@@ -464,7 +547,7 @@ export default {
     createNewForm() {
       this.bus.$emit("setHosptialAdmissionLoading", {
         status: true,
-        msg: "新建表单中..."
+        msg: "新建表单中...",
       });
       this.isNewForm = true;
       //
@@ -472,12 +555,12 @@ export default {
         patientId: this.patientInfo.patientId,
         visitId: this.patientInfo.visitId,
         formType: "eval",
-        formCode: this.formCode
+        formCode: this.formCode,
       };
       Promise.all([
         loadPatient(this.patientInfo.patientId, this.patientInfo.visitId),
-        createForm(post)
-      ]).then(res => {
+        createForm(post),
+      ]).then((res) => {
         this.formObj.model = new Object();
 
         if (res[0] && res[0].data.data) {
@@ -522,7 +605,7 @@ export default {
               duration: 20000,
               type: "info",
               title: "提示：启用自动默认填写",
-              message: `已为您默认选填每项评估的第一项，请稍后按病人实际信息增删改。`
+              message: `已为您默认选填每项评估的第一项，请稍后按病人实际信息增删改。`,
             });
             // window.app.$notify({
             //   duration: 20000,
@@ -530,8 +613,7 @@ export default {
             //   title: "提示：启用自动默认填写",
             //   message: `已为您默认选填每项评估的第一项，请稍后按病人实际信息增删改。`
             // });
-          } catch (error) {
-          }
+          } catch (error) {}
         }
         //
         //
@@ -559,9 +641,9 @@ export default {
       let postData = {
         patientId: patientInfo.patientId,
         visitId: patientInfo.visitId,
-        formCode: this.formCode
+        formCode: this.formCode,
       };
-      list(postData).then(res => {
+      list(postData).then((res) => {
         console.log("---获取表单列表", res, this.formObj.model);
 
         if (res && res.data && res.data.data.list) {
@@ -612,11 +694,11 @@ export default {
           item["name"] = item.patientName;
         }
         this.formId = item.id + "";
-        get(item.id).then(res => {
+        get(item.id).then((res) => {
           let {
             data: {
-              data: {itemData: itemData, master: master}
-            }
+              data: { itemData: itemData, master: master },
+            },
           } = res;
           window.performance.mark("mark_blocklist_end_xhr");
           window.performance.measure(
@@ -639,11 +721,11 @@ export default {
 
           window.formObj.missingItems = new Object();
 
-          let formObj = {...itemData, ...master};
+          let formObj = { ...itemData, ...master };
 
           // this.formObj.model
           if (this.isNewForm) {
-            formObj = {...formObj, ...this.formObj.model};
+            formObj = { ...formObj, ...this.formObj.model };
           }
 
           window.formObj.model = formObj;
@@ -679,27 +761,25 @@ export default {
           this.currentFormConfig = {
             patient: item,
             formObj: window.formObj.model,
-            isDevMode: false
+            isDevMode: false,
           };
 
           // window.formObj.header.children
           // master
           this.bus.$emit("openHosptialAdmissionForm", {
             patient: item,
-            formObj: formObj
+            formObj: formObj,
           });
           // 解锁loading动画
           // this.bus.$emit("setHosptialAdmissionLoading", false);
 
           this.$root.$refs.mainPage["formSignOrAudit"] = this.formSignOrAudit;
 
-          this.$root.$refs.mainPage[
-            "cancelSignOrAduit"
-            ] = this.cancelSignOrAduit;
+          this.$root.$refs.mainPage["cancelSignOrAduit"] =
+            this.cancelSignOrAduit;
 
-          this.$root.$refs.mainPage[
-            "checkFormMissingItems"
-            ] = this.checkFormMissingItems;
+          this.$root.$refs.mainPage["checkFormMissingItems"] =
+            this.checkFormMissingItems;
 
           // window.formObj.model
         });
@@ -720,11 +800,11 @@ export default {
     showMeasureDetialBox(res) {
       let {
         data: {
-          data: {diags: diags}
-        }
+          data: { diags: diags },
+        },
       } = res;
       console.log("显示评估详情", res, diags, window.formObj.dialogs);
-      let diagsArray = diags.map(d => {
+      let diagsArray = diags.map((d) => {
         return d;
       });
       // let dialog = {
@@ -785,13 +865,13 @@ export default {
                 "none";
               element[
                 keys[0]
-                ].$parent.$parent.$parent.$el.style.backgroundColor =
+              ].$parent.$parent.$parent.$el.style.backgroundColor =
                 "transparent";
             } catch (error) {
               console.log("----error", error, key, element);
             }
             if (isXRadiobox && key === this.formObj.design.XRadiobox.name) {
-              keys.map(x => {
+              keys.map((x) => {
                 element[x].checked = false;
               });
             }
@@ -825,18 +905,18 @@ export default {
         : [];
       // 孕前体重(产科)
       skipItems = [...skipItems, "孕前体重(产科)"];
-      skipItems = skipItems.filter(s => {
+      skipItems = skipItems.filter((s) => {
         return s !== "";
       });
       console.log("检查表单漏填skipItems", skipItems);
       //
-      let checkSkipItems = name => {
+      let checkSkipItems = (name) => {
         return skipItems.indexOf(name) === -1;
       };
       //
       let object = this.$root.$refs[this.formCode];
       if (!object) {
-        return
+        return;
       }
       for (const key in object) {
         if (object.hasOwnProperty(key)) {
@@ -868,7 +948,7 @@ export default {
               }
 
               if (
-                (skipItems.indexOf(title) == -1 && (!value && !parentName)) ||
+                (skipItems.indexOf(title) == -1 && !value && !parentName) ||
                 (!value && parentName && !window.formObj.model[parentName])
               ) {
                 // element[keys[0]].$parent.$parent.$el.style.outline =
@@ -881,7 +961,7 @@ export default {
                     "1px solid red";
                   element[
                     keys[0]
-                    ].$parent.$parent.$parent.$el.style.backgroundColor =
+                  ].$parent.$parent.$parent.$el.style.backgroundColor =
                     "yellow;";
                   console.log("!!!!", title, element, missingObj);
 
@@ -903,7 +983,7 @@ export default {
                       "none";
                     element[
                       keys[0]
-                      ].$parent.$parent.$parent.$el.style.backgroundColor =
+                    ].$parent.$parent.$parent.$el.style.backgroundColor =
                       "transparent";
                     continue;
                   }
@@ -931,7 +1011,7 @@ export default {
                     top =
                       element[
                         keys[0]
-                        ].$parent.$parent.$parent.$parent.$el.getBoundingClientRect()
+                      ].$parent.$parent.$parent.$parent.$el.getBoundingClientRect()
                         .top - 20;
                   }
 
@@ -939,7 +1019,7 @@ export default {
                   missingObjArrayList.push({
                     title: title,
                     element: element.$el,
-                    top: top
+                    top: top,
                   });
                 }
                 //
@@ -948,7 +1028,7 @@ export default {
                   "none";
                 element[
                   keys[0]
-                  ].$parent.$parent.$parent.$el.style.backgroundColor =
+                ].$parent.$parent.$parent.$el.style.backgroundColor =
                   "transparent";
                 // element[keys[0]].$parent.$parent.$el.style.outline = "none";
               }
@@ -1001,7 +1081,7 @@ export default {
               }
 
               if (
-                (skipItems.indexOf(title) == -1 && (!value && !parentName)) ||
+                (skipItems.indexOf(title) == -1 && !value && !parentName) ||
                 (!value && parentName && !window.formObj.model[parentName])
               ) {
                 console.log(
@@ -1045,7 +1125,7 @@ export default {
                       (parent.obj.hasOwnProperty("parentKey") > -1 &&
                         parent.obj.parentKey &&
                         parent.obj.title ==
-                        window.formObj.model[parent.obj.parentKey])))
+                          window.formObj.model[parent.obj.parentKey])))
                 ) {
                   let parentTitle = parent.obj.title;
 
@@ -1069,7 +1149,7 @@ export default {
                   missingObjArrayList.push({
                     title: element.$parent.obj.title,
                     element: element.$el,
-                    top: element.$el.getBoundingClientRect().top - 120
+                    top: element.$el.getBoundingClientRect().top - 120,
                   });
 
                   missItems += 1;
@@ -1087,8 +1167,8 @@ export default {
                     parent.obj.parentKey,
                     parent.obj,
                     window.formObj.model[
-                    parent.obj.name || parent.obj.parentKey
-                      ]
+                      parent.obj.name || parent.obj.parentKey
+                    ],
                   ]
                 );
 
@@ -1110,7 +1190,7 @@ export default {
         let keys = Object.keys(missingObj);
         let deptList = ["妇科", "儿科", "产科", "新生儿科"];
         let key = "七、专科护理评估";
-        deptList.map(d => {
+        deptList.map((d) => {
           if (keys.indexOf(d) > -1) {
             if (!missingObj[key]) {
               missingObj[key] = [];
@@ -1148,18 +1228,17 @@ export default {
           duration: 20000,
           type: "info",
           title: "填写检查结果：",
-          message: `请查看右侧目录栏提示。`
+          message: `请查看右侧目录栏提示。`,
         });
-      } catch (error) {
-      }
+      } catch (error) {}
       return object;
     },
     // 取消责任护士签名
     cancelSignOrAduit(config = {}) {
       let titleModal = "取消责任护士签名";
-      let signType = {sign: true};
+      let signType = { sign: true };
       if (config && config.type && config.type === "audit") {
-        signType = {audit: true};
+        signType = { audit: true };
         titleModal = "取消审核护士签名";
       }
       window.openSignModal((password, empNo) => {
@@ -1168,26 +1247,26 @@ export default {
           ...signType,
           empNo,
           id: this.formId,
-          password
+          password,
         };
 
         this.bus.$emit("setHosptialAdmissionLoading", {
           status: true,
-          msg: "取消签名中..."
+          msg: "取消签名中...",
         });
 
         cancelSignOrAduit(post)
-          .then(res => {
+          .then((res) => {
             this.getHEvalBlockList(this.patientInfo);
             this.changeSelectBlock(this.selectBlock);
             this.selectBlock["status"] = "0";
             this.$message.success("取消签名成功");
             // this.bus.$emit("setHosptialAdmissionLoading", false);
           })
-          .catch(err => {
+          .catch((err) => {
             console.log("取消签名评估err", err);
             this.bus.$emit("setHosptialAdmissionLoading", {
-              status: false
+              status: false,
             });
           });
       }, titleModal);
@@ -1198,17 +1277,17 @@ export default {
         let titleModal = "责任护士签名";
         let signType = {
           sign: true,
-          evalDate: dayjs().format("YYYY-MM-DD HH:mm") //"2019-04-16 12:00",
+          evalDate: dayjs().format("YYYY-MM-DD HH:mm"), //"2019-04-16 12:00",
         };
         if (config && config.type && config.type === "audit") {
-          signType = {audit: true};
+          signType = { audit: true };
           titleModal = "审核护士签名";
         }
         window.openSignModal(
           (password, empNo, signDate) => {
             this.bus.$emit("setHosptialAdmissionLoading", {
               status: true,
-              msg: "签名中..."
+              msg: "签名中...",
             });
 
             // signDate = dayjs(signDate).format('YYYY-MM-DD HH:mm')||""
@@ -1231,7 +1310,7 @@ export default {
               evalScore: "",
               empNo,
               password,
-              ...signType
+              ...signType,
             };
             window.formObj.model.formCode = this.formCode;
 
@@ -1254,7 +1333,7 @@ export default {
             console.log("签名post", post, postData);
             //
             save(postData)
-              .then(res => {
+              .then((res) => {
                 this.getHEvalBlockList(this.patientInfo);
                 this.$message.success("签名成功");
                 this.selectBlock.status = "1";
@@ -1263,8 +1342,8 @@ export default {
                 //
                 let {
                   data: {
-                    data: {master}
-                  }
+                    data: { master },
+                  },
                 } = res;
                 //
                 if (master.updaterName && master.updateTime) {
@@ -1272,10 +1351,10 @@ export default {
                 }
                 this.checkFormMissingItems();
               })
-              .catch(err => {
+              .catch((err) => {
                 console.log("签名评估err", err);
                 this.bus.$emit("setHosptialAdmissionLoading", {
-                  status: false
+                  status: false,
                 });
               });
             console.log("表单填写结果", post);
@@ -1291,12 +1370,12 @@ export default {
         let post = {
           id: window.formObj.model.id,
           empNo,
-          password
+          password,
         };
-        del(post).then(result => {
+        del(post).then((result) => {
           console.log("删除", result);
           let {
-            data: {desc: message}
+            data: { desc: message },
           } = result;
           this.$message.success(message);
           this.bus.$emit("closeHosptialAdmissionForm");
@@ -1309,7 +1388,7 @@ export default {
       if (this.patientInfo && this.patientInfo.hasOwnProperty("patientId")) {
         this.bus.$emit("setHosptialAdmissionLoading", {
           status: true,
-          msg: "保存表单中..."
+          msg: "保存表单中...",
         });
         this.isNewForm = false;
 
@@ -1322,12 +1401,12 @@ export default {
           // evalDate: dayjs().format("YYYY-MM-DD HH:mm"), //"2019-04-16 12:00",
           evalScore: "",
           sign: false,
-          empNo: this.user.empNo //"admin",
+          empNo: this.user.empNo, //"admin",
           // password: "123456"
           // ...window.formObj.model
         };
 
-        post = {...window.formObj.model, ...post};
+        post = { ...window.formObj.model, ...post };
 
         this.formObj.model.formCode = this.formCode;
 
@@ -1361,7 +1440,7 @@ export default {
         console.log("保存post", post, postData);
 
         save(postData)
-          .then(res => {
+          .then((res) => {
             console.log("保存评估", res);
             this.$message.success("保存成功");
             this.bus.$emit("setHosptialAdmissionLoading", false);
@@ -1369,8 +1448,8 @@ export default {
             //
             let {
               data: {
-                data: {master}
-              }
+                data: { master },
+              },
             } = res;
             //
             if (master.updaterName && master.updateTime) {
@@ -1378,16 +1457,16 @@ export default {
             }
             this.checkFormMissingItems();
           })
-          .catch(err => {
+          .catch((err) => {
             console.log("保存评估err", err);
             this.bus.$emit("setHosptialAdmissionLoading", {
-              status: false
+              status: false,
             });
           });
       }
     },
     hotkeyForm() {
-      window.document.onkeydown = e => {
+      window.document.onkeydown = (e) => {
         var currKey = 0;
         e = e || event || window.event;
         currKey = e.keyCode || e.which || e.charCode;
@@ -1400,11 +1479,11 @@ export default {
             case "S": //Ctrl+S
               e.preventDefault();
               e.returnvalue = false;
-              this.formSave({showMeasure: false});
+              this.formSave({ showMeasure: false });
               e.stopPropagation();
               break;
             case "G": //Ctrl+N
-              this.formSave({showMeasure: false, showLoading: false});
+              this.formSave({ showMeasure: false, showLoading: false });
               console.log("新建页面");
               // createForm()
               break;
@@ -1416,7 +1495,97 @@ export default {
           }
         }
       };
-    }
+    },
+    // 体征同步
+    formSignsOfsync() {
+      this.dialogTableVisible = true;
+      let postData = {
+        patientId: "7773058",
+        visitId: "1",
+        startDate: this.searchData.date,
+        endDate: this.endData.date,
+      };
+      vitalsign(postData)
+        .then((res) => {
+          this.gridData = res.data.data.list;
+          console.log(window.formObj.model);
+        })
+        .catch((err) => {
+          console.log("错误事件", err);
+        });
+    },
+    leftTablelist(val) {
+      this.thisRowData = this;
+      this.thisRowData = val;
+      this.dialogTableVisible = false;
+      window.formObj.model.I100001 = val.axillaryTemperature;
+      window.formObj.model.I100002 = val.heartRate;
+      window.formObj.model.I100003 = val.breathe;
+      window.formObj.model.I100005 = val.bloodPressure;
+       this.bus.$emit("setHosptialAdmissionLoading", {
+        status: true,
+        msg: "更新表单数据中...",
+      });
+      this.removeCheckMark();
+      setDefaultValue(window.formObj.model);
+      loadPatient(this.patientInfo.patientId, this.patientInfo.visitId)
+        .then((res) => {
+          this.syncHIS(res.data.data);
+          // 回填表单
+          this.$root.$refs["sheetPage"].fillForm();
+          this.bus.$emit("setHosptialAdmissionLoading", false);
+          window.messageBox.show(
+            "体征同步完成",
+            "success",
+            5000
+          );
+        })
+        .catch((err) => {
+          // 回填表单
+          this.$root.$refs["sheetPage"].fillForm();
+          this.bus.$emit("setHosptialAdmissionLoading", false);
+        });
+
+      console.log("默认填写");
+    },
+    getFilterData() {
+      this.$emit("getFilterData", this.searchData);
+    },
+    getNowTime() {
+      var now = new Date();
+      var year = now.getFullYear(); // 得到年份
+      var month = now.getMonth(); // 得到月份
+      var date = now.getDate(); // 得到日期
+      month = month + 1;
+      month = month.toString().padStart(2, "0");
+      date = date.toString().padStart(2, "0");
+      var defaultDate = `${year}-${month}-${date}`;
+      var defaultDate1 = `${year}-${month}-${date-1}`;
+      this.$set(this.endData, "date", defaultDate);
+      this.$set(this.searchData, "date", defaultDate1);
+    },
+    searchsign() {
+      const sd = new Date(this.searchData.date);
+      const sDate =
+        sd.getFullYear() +
+        "-" +
+        this.p(sd.getMonth() + 1) +
+        "-" +
+        this.p(sd.getDate());
+      this.searchData.date = sDate;
+      const end = new Date(this.endData.date);
+      const eDate =
+        end.getFullYear() +
+        "-" +
+        this.p(end.getMonth() + 1) +
+        "-" +
+        this.p(end.getDate());
+      this.endData.date = eDate;
+      this.formSignsOfsync();
+    },
+    p(s) {
+      return s < 10 ? "0" + s : s;
+    },
   },
   computed: {
     fullpage() {
@@ -1430,10 +1599,10 @@ export default {
     },
     formObj() {
       return window.formObj; //this.$store.state.hospitalEval.formObj;
-    }
+    },
   },
   created() {
-    this.bus.$on("getHEvalBlockList", patientInfo => {
+    this.bus.$on("getHEvalBlockList", (patientInfo) => {
       console.log("getHEvalBlockList");
       this.getHEvalBlockList(patientInfo);
     });
@@ -1441,10 +1610,13 @@ export default {
     this.bus.$on("checkFormMissingItems", this.checkFormMissingItems);
     this.bus.$on("formSignOrAudit", this.formSignOrAudit);
 
-    this.bus.$on("setIsNewForm", isNewForm => {
+    this.bus.$on("formSignsOfsync", this.formSignsOfsync);
+
+    this.bus.$on("setIsNewForm", (isNewForm) => {
       this.isNewForm = isNewForm;
     });
     // this.isNewForm = false;
+    
   },
   mounted() {
     window.rundev = () => {
@@ -1456,7 +1628,7 @@ export default {
     let tool = {
       formSave: this.formSave,
       formDelete: this.formDelete,
-      reloadForm: this.reloadForm
+      reloadForm: this.reloadForm,
     };
     window.formTool = tool;
     //
@@ -1470,6 +1642,7 @@ export default {
     //
     // this.$root.$refs.mainPage['formSignOrAudit'] = this.formSignOrAudit
     //
+    this.getNowTime();
   },
   watch: {
     deptCode() {
@@ -1479,11 +1652,11 @@ export default {
       this.bus.$emit("closeHosptialAdmissionForm");
       this.bus.$emit("setHosptialAdmissionLoading", false);
       this.bus.$emit("setHosptialAdmissionPageMessage", "请选择左侧患者~");
-      this.$router.push({name: "sheetHospitalAdmissionPage"});
-    }
+      this.$router.push({ name: "sheetHospitalAdmissionPage" });
+    },
   },
   components: {
-    previewEvalModal
-  }
+    previewEvalModal,
+  },
 };
 </script>

@@ -97,3 +97,16 @@ export function templates(postData) {
 export function list(postData) {
   return axios.post(`${apiPath}form/design/list`, postData)
 }
+// http://{{url}}/api/form/design/list
+// {
+// 	"patientId":"71325620",
+// 	"visitId":"1",
+// 	"formCode":"E0003"
+// }
+
+
+
+
+
+
+

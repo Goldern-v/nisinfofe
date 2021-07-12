@@ -2,15 +2,21 @@
   <div>
     <div class="tool-contain" flex="cross:center">
       <div
-        v-for="(button,i) in buttonsLeft"
-        :key="button.label+i"
+        v-for="(button, i) in buttonsLeft"
+        :key="button.label + i"
         class="item-box"
         flex="cross:center main:center"
         @click.stop="button.onClick"
-        :class="{disabled: button.getDisabled && button.getDisabled(selectBlock)}"
-        :style="button.getDisabled && button.getDisabled(selectBlock)?'display:none':(button.style||'')"
+        :class="{
+          disabled: button.getDisabled && button.getDisabled(selectBlock),
+        }"
+        :style="
+          button.getDisabled && button.getDisabled(selectBlock)
+            ? 'display:none'
+            : button.style || ''
+        "
       >
-        <div class="text-con">{{button.label}}</div>
+        <div class="text-con">{{ button.label }}</div>
       </div>
 
       <div flex-box="1"></div>
@@ -29,23 +35,68 @@
             <div class="col-3">评估时间</div>
           </div>
           <el-option
-            v-for="(item,i) in sheetBlockList"
+            v-for="(item, i) in sheetBlockList"
             :key="i"
-            :label="(i+1)+' - '+blockLabel(item)"
+            :label="i + 1 + ' - ' + blockLabel(item)"
             :value="item"
           >
             <div class="list-con" flex="cross:stretch">
-              <div class="col-1" :title="item.id">{{i+1}}-{{item.id}}</div>
-              <div class="col-2" :title="item.wardName">{{item.wardName}}</div>
-              <div class="col-3" :title="item.evalDate">{{item.evalDate}}</div>
+              <div class="col-1" :title="item.id">
+                {{ i + 1 }}-{{ item.id }}
+              </div>
+              <div class="col-2" :title="item.wardName">
+                {{ item.wardName }}
+              </div>
+              <div class="col-3" :title="item.evalDate">
+                {{ item.evalDate }}
+              </div>
             </div>
           </el-option>
         </div>
       </el-select>
 
-      <div style="width: 5px;"></div>
+      <div style="width: 5px"></div>
     </div>
     <viewSheetModal ref="viewSheetModal"></viewSheetModal>
+    <el-dialog
+      title="体征同步"
+      :visible.sync="dialogTableVisible"
+      class="vaillist"
+    >
+      <el-date-picker
+        v-model="searchData.date"
+        type="date"
+        placeholder="开始日期"
+        style="width: 180px; height: 60px"
+        value-format="yyyy-MM-dd"
+      >
+      </el-date-picker>
+      <span>-</span>
+      <el-date-picker
+        v-model="endData.date"
+        type="date"
+        placeholder="结束日期"
+        style="width: 180px; height: 60px"
+        value-format="yyyy-MM-dd"
+      >
+      </el-date-picker>
+      <el-button @click="searchsign">查询</el-button>
+      <el-table :data="gridData" border stripe @row-click="leftTablelist">
+        <el-table-column
+          type="index"
+          label="序号"
+          width="100"
+        ></el-table-column>
+        <el-table-column property="timeStr" label="时间"></el-table-column>
+        <el-table-column
+          property="axillaryTemperature"
+          label="T"
+        ></el-table-column>
+        <el-table-column property="breathe" label="P/HR"></el-table-column>
+        <el-table-column property="heartRate" label="R"></el-table-column>
+        <el-table-column property="bloodPressure" label="BP"></el-table-column>
+      </el-table>
+    </el-dialog>
   </div>
 </template>
 
@@ -57,7 +108,34 @@
     border: 0 !important;
     font-size: 12px;
     color: #333333;
+    border-radius: 4px;
   }
+}
+
+.vaillist >>> .el-input__inner {
+  border-radius: 3px;
+  margin-bottom: 20px;
+  height: 35px;
+}
+
+>>> .el-dialog el-dialog--small {
+  border: 1px solid #000;
+  box-shadow: 3px 3px 10px 0px rgb(0 5 2 / 87%);
+}
+
+>>> .el-input__icon {
+  position: absolute;
+  width: 35px;
+  height: 100%;
+  right: 0;
+  top: -3px;
+  text-align: center;
+  color: rgb(191, 217, 210);
+  transition: all 0.3s;
+}
+
+>>> .el-dialog .el-dialog__header {
+  border-bottom: 2px solid #eef6f5;
 }
 
 .label {
@@ -179,15 +257,25 @@ import {
   del,
   cancelSignOrAduit,
   get,
-  list
+  list,
+  vitalsign,
 } from "@/Page/sheet-hospital-eval/api/index.js";
-import mergeDefaultValue from "../data/defalutValue/utils";
+import mergeDefaultValue, { setDefaultValue } from "../data/defalutValue/utils";
 import { getReEvaTask } from "../../api/index";
 import viewSheetModal from "../Render/modal/viewSheetModal";
 export default {
   mixins: [commom],
   data() {
     return {
+      gridData: [],
+      dialogTableVisible: false,
+      thisRowData: "",
+      searchData: {
+        date: "",
+      },
+      endData: {
+        date: "",
+      },
       bus: bus(this),
       tool: "",
       showCurve: false,
@@ -205,7 +293,7 @@ export default {
         // 新建评估
         {
           label: "新建评估",
-          onClick: e => {
+          onClick: (e) => {
             if (
               this.patientInfo &&
               this.patientInfo.hasOwnProperty("patientId")
@@ -213,24 +301,24 @@ export default {
               this.createNewForm();
             }
             console.log("新建评估", this.patientInfo);
-          }
+          },
         },
         // 提交
         {
           label: "提交",
-          onClick: e => {
+          onClick: (e) => {
             this.formSave();
             console.log("提交", this.user, this.formObj);
           },
           getDisabled(selectBlock) {
             if (!selectBlock.id) return true;
             if (selectBlock.status != "0") return true;
-          }
+          },
         },
         // 删除
         {
           label: "删除",
-          onClick: e => {
+          onClick: (e) => {
             //
             try {
               window.app.$refs.autoBox.closeAutoBox();
@@ -240,12 +328,12 @@ export default {
               let post = {
                 id: this.formObj.model.id,
                 empNo,
-                password
+                password,
               };
-              del(post).then(result => {
+              del(post).then((result) => {
                 console.log("删除", result);
                 let {
-                  data: { desc: message }
+                  data: { desc: message },
                 } = result;
                 this.$message.success(message);
                 this.bus.$emit("closeHosptialEvalForm");
@@ -255,20 +343,20 @@ export default {
           },
           getDisabled(selectBlock) {
             if (!selectBlock.id) return true;
-          }
+          },
         },
         // 取消签名
         {
           label: "取消签名",
-          onClick: e => {
+          onClick: (e) => {
             window.openSignModal((password, empNo) => {
               let post = {
                 sign: true,
                 empNo,
                 id: this.formId,
-                password
+                password,
               };
-              cancelSignOrAduit(post).then(res => {
+              cancelSignOrAduit(post).then((res) => {
                 this.changeSelectBlock(this.selectBlock);
                 this.selectBlock.status = "0";
                 this.$message.success("取消签名成功");
@@ -278,29 +366,29 @@ export default {
           getDisabled(selectBlock) {
             if (!selectBlock.id) return true;
             if (selectBlock.status != "1") return true;
-          }
+          },
         },
         // 复评检查
         {
           label: "复评检查",
-          onClick: e => {
+          onClick: (e) => {
             this.formSave({
               showMeasure: false,
               showLoading: false,
               message: "评估预警检查",
-              callback: this.formCheckEvalTask
+              callback: this.formCheckEvalTask,
             });
             console.log("检查");
           },
           getDisabled(selectBlock) {
             if (!selectBlock.id) return true;
-          }
+          },
         },
         // 查看护理记录
         {
           label: "查看护理记录",
           style: "width: auto;padding: 0px 10px;",
-          onClick: e => {
+          onClick: (e) => {
             this.$refs.viewSheetModal.open(
               this.$store.getters.getCurrentPatient()
             );
@@ -320,9 +408,20 @@ export default {
           },
           getDisabled(selectBlock) {
             if (!selectBlock.id) return true;
-          }
-        }
-      ]
+          },
+        },
+        // 体征同步
+        {
+          label: "体征同步",
+          style: "min-width:100px",
+          onClick: (e) => {
+            this.formSignsOfsync();
+          },
+          getDisabled(selectBlock) {
+            if (!selectBlock.id) return true;
+          },
+        },
+      ],
     };
   },
   methods: {
@@ -338,7 +437,7 @@ export default {
     createNewForm() {
       this.bus.$emit("setHosptialEvalLoading", {
         status: true,
-        msg: "新建表单中..."
+        msg: "新建表单中...",
       });
       //
       try {
@@ -348,9 +447,9 @@ export default {
         patientId: this.patientInfo.patientId,
         visitId: this.patientInfo.visitId,
         formType: "eval",
-        formCode: this.formCode
+        formCode: this.formCode,
       };
-      createForm(post).then(res => {
+      createForm(post).then((res) => {
         console.log("新建评估", res);
         if (res && res.data.data) {
           //
@@ -367,9 +466,9 @@ export default {
       let postData = {
         patientId: patientInfo.patientId,
         visitId: patientInfo.visitId,
-        formCode: this.formCode
+        formCode: this.formCode,
       };
-      list(postData).then(res => {
+      list(postData).then((res) => {
         console.log("---获取表单列表", res);
 
         if (res && res.data && res.data.data.list) {
@@ -394,7 +493,7 @@ export default {
       });
     },
     setElementValue(key, value) {
-      Object.keys(this.$root.$refs[this.formCode][key]).map(elkey => {
+      Object.keys(this.$root.$refs[this.formCode][key]).map((elkey) => {
         this.$root.$refs[this.formCode][key][elkey].setCurrentValue(value);
       });
     },
@@ -407,7 +506,7 @@ export default {
         this.$root.$refs.tableOfContent.updateAlertMessageItems([]);
         // this.$root.$refs.tableOfContent.updateMissingItems([])
         //
-        Object.keys(this.formObj.model).map(k => {
+        Object.keys(this.formObj.model).map((k) => {
           window.formObj.model[k] = "";
           this.formObj.model[k] = "";
           this.setElementValue(k, "");
@@ -429,11 +528,11 @@ export default {
         this.formId = item.id + "";
         //
         //
-        get(item.id).then(res => {
+        get(item.id).then((res) => {
           let {
             data: {
-              data: { itemData: itemData, master: master }
-            }
+              data: { itemData: itemData, master: master },
+            },
           } = res;
           // window.performance.mark("mark_blocklist_end_xhr");
           // window.performance.measure(
@@ -493,7 +592,7 @@ export default {
 
           this.bus.$emit("openHosptialEvalForm", {
             patient: item,
-            formObj: formObj
+            formObj: formObj,
           });
           // this.bus.$emit("setHosptialEvalLoading", false);
 
@@ -510,11 +609,11 @@ export default {
     showMeasureDetialBox(res) {
       let {
         data: {
-          data: { diags: diags }
-        }
+          data: { diags: diags },
+        },
       } = res;
       console.log("显示评估详情", res, diags, window.formObj.dialogs);
-      let diagsArray = (diags || []).map(d => {
+      let diagsArray = (diags || []).map((d) => {
         return d;
       });
 
@@ -524,7 +623,7 @@ export default {
       let obj = {
         patientId: this.patientInfo.patientId,
         visitId: this.patientInfo.visitId,
-        formCode: "E0100"
+        formCode: "E0100",
       };
 
       //
@@ -538,11 +637,11 @@ export default {
         console.log(error);
       }
 
-      getReEvaTask(obj).then(res => {
+      getReEvaTask(obj).then((res) => {
         if (res.data.data.length === 0) {
           this.$notify.info({
             title: "检查",
-            message: "没有超时，未处理的复评任务。"
+            message: "没有超时，未处理的复评任务。",
           });
           if (diags) {
             this.$root.$refs.tableOfContent.updateEvalTaskItems([...diags]);
@@ -552,7 +651,7 @@ export default {
         } else {
           //
           let {
-            data: { data: list }
+            data: { data: list },
           } = res;
           this.$root.$refs.tableOfContent.updateEvalTaskItems([...list]);
           //
@@ -564,7 +663,7 @@ export default {
       showMeasure = true,
       showLoading = true,
       callback = null,
-      message = ""
+      message = "",
     } = {}) {
       if (this.patientInfo && this.patientInfo.hasOwnProperty("patientId")) {
         let msg = message || "保存";
@@ -573,7 +672,7 @@ export default {
         if (showLoading || message) {
           this.bus.$emit("setHosptialEvalLoading", {
             status: true,
-            msg: msg + "表单中..."
+            msg: msg + "表单中...",
           });
         }
 
@@ -591,7 +690,7 @@ export default {
           // evalDate: dayjs().format("YYYY-MM-DD HH:mm"), //"2019-04-16 12:00",
           // evalScore: "0",
           sign: false,
-          empNo: this.user.empNo //"admin",
+          empNo: this.user.empNo, //"admin",
           // password: "123456"
         };
         this.formObj.model.formCode = this.formCode;
@@ -617,7 +716,7 @@ export default {
         console.log("保存post", post, postData);
 
         save(postData)
-          .then(res => {
+          .then((res) => {
             console.log(msg + "评估", res);
             if (showLoading) {
               this.$message.success(msg + "完成");
@@ -635,8 +734,8 @@ export default {
             //
             let {
               data: {
-                data: { master, diags }
-              }
+                data: { master, diags },
+              },
             } = res;
             //
             if (master.updaterName && master.updateTime) {
@@ -656,16 +755,16 @@ export default {
               console.log("评估任务：", [...diags]);
             }
           })
-          .catch(err => {
+          .catch((err) => {
             console.log("保存评估err", err);
             this.bus.$emit("setHosptialEvalLoading", {
-              status: false
+              status: false,
             });
           });
       }
     },
     hotkeyForm() {
-      window.document.onkeydown = e => {
+      window.document.onkeydown = (e) => {
         var currKey = 0;
         e = e || event || window.event;
         currKey = e.keyCode || e.which || e.charCode;
@@ -694,7 +793,88 @@ export default {
           }
         }
       };
-    }
+    },
+    // 体征同步
+    formSignsOfsync() {
+      this.dialogTableVisible = true;
+      let postData = {
+        patientId: "7773058",
+        visitId: "1",
+        startDate: this.searchData.date,
+        endDate: this.endData.date,
+      };
+      vitalsign(postData)
+        .then((res) => {
+          console.log(res.data.data.list);
+          this.gridData = res.data.data.list;
+          console.log(window.formObj.model);
+        })
+        .catch((err) => {
+          console.log("错误事件", err);
+        });
+    },
+    leftTablelist(val) {
+      this.thisRowData = this;
+      this.thisRowData = val;
+      this.dialogTableVisible = false;
+      window.formObj.model.I100001 = val.axillaryTemperature;
+      window.formObj.model.I100002 = val.heartRate;
+      window.formObj.model.I100003 = val.breathe;
+      window.formObj.model.I100005 = val.bloodPressure;
+      let post = {
+        id: this.formId || "",
+        patientId: this.patientInfo.patientId,
+        visitId: this.patientInfo.visitId,
+        formType: "eval",
+        formCode: this.formCode,
+        // evalDate: dayjs().format("YYYY-MM-DD HH:mm"), //"2019-04-16 12:00",
+        // evalScore: "0",
+        sign: false,
+        empNo: this.user.empNo, //"admin",
+        // password: "123456"
+      };
+      this.formObj.model.formCode = this.formCode;
+
+      post = Object.assign({}, this.formObj.model, post);
+    },
+    getFilterData() {
+      this.$emit("getFilterData", this.searchData);
+    },
+    getNowTime() {
+      var now = new Date();
+      var year = now.getFullYear(); // 得到年份
+      var month = now.getMonth(); // 得到月份
+      var date = now.getDate(); // 得到日期
+      month = month + 1;
+      month = month.toString().padStart(2, "0");
+      date = date.toString().padStart(2, "0");
+      var defaultDate = `${year}-${month}-${date}`;
+      var defaultDate1 = `${year}-${month}-${date - 1}`;
+      this.$set(this.endData, "date", defaultDate);
+      this.$set(this.searchData, "date", defaultDate1);
+    },
+    searchsign() {
+      const sd = new Date(this.searchData.date);
+      const sDate =
+        sd.getFullYear() +
+        "-" +
+        this.p(sd.getMonth() + 1) +
+        "-" +
+        this.p(sd.getDate());
+      this.searchData.date = sDate;
+      const end = new Date(this.endData.date);
+      const eDate =
+        end.getFullYear() +
+        "-" +
+        this.p(end.getMonth() + 1) +
+        "-" +
+        this.p(end.getDate());
+      this.endData.date = eDate;
+      this.formSignsOfsync();
+    },
+    p(s) {
+      return s < 10 ? "0" + s : s;
+    },
   },
   computed: {
     fullpage() {
@@ -708,7 +888,7 @@ export default {
     },
     formObj() {
       return window.formObj; //this.$store.state.hospitalEval.formObj;
-    }
+    },
     // formCode() {
     //   try {
     //     return this.formObj.formSetting.formInfo.formCode;
@@ -717,7 +897,7 @@ export default {
     // }
   },
   created() {
-    this.bus.$on("getHEvalBlockList", patientInfo => {
+    this.bus.$on("getHEvalBlockList", (patientInfo) => {
       console.log("getHEvalBlockList");
       this.getHEvalBlockList(patientInfo);
     });
@@ -727,7 +907,7 @@ export default {
     let tool = {
       ...window.formTool,
       formSave: this.formSave,
-      formCheckEvalTask: this.formCheckEvalTask
+      formCheckEvalTask: this.formCheckEvalTask,
       // formDelete: this.formDelete,
       // reloadForm: this.reloadForm
     };
@@ -735,6 +915,7 @@ export default {
     //
     this.hotkeyForm();
     //
+    this.getNowTime();
   },
   watch: {
     deptCode() {
@@ -745,10 +926,10 @@ export default {
       this.bus.$emit("setHosptialEvalLoading", false);
       this.bus.$emit("setHosptialEvalPageMessage", "请选择左侧患者~");
       this.$router.push({ name: "sheetHospitalEvalPage" });
-    }
+    },
   },
   components: {
-    viewSheetModal
-  }
+    viewSheetModal,
+  },
 };
 </script>

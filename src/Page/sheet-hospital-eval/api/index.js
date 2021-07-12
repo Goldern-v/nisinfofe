@@ -119,3 +119,8 @@ export function nursingDiagsSaveList(objList) {
 export function getEvalInfo(patientId, visitId) {
   return axios.get(`${apiPath}form/design/getEvalInfo/${patientId}/${visitId}`)
 }
+
+
+export function vitalsign(postData) {
+  return axios.post(`${apiPath}/vitalSign/getVitalSigns`, postData)
+}
