@@ -81,7 +81,13 @@
       >
       </el-date-picker>
       <el-button @click="searchsign">查询</el-button>
-      <el-table :data="gridData" border stripe @row-click="leftTablelist">
+      <el-table
+        :data="gridData"
+        border
+        stripe
+        height="250"
+        @row-click="leftTablelist"
+      >
         <el-table-column
           type="index"
           label="序号"
@@ -798,8 +804,8 @@ export default {
     formSignsOfsync() {
       this.dialogTableVisible = true;
       let postData = {
-        patientId: "7773058",
-        visitId: "1",
+        patientId: this.patientInfo.patientId,
+        visitId: this.patientInfo.visitId,
         startDate: this.searchData.date,
         endDate: this.endData.date,
       };
@@ -836,6 +842,43 @@ export default {
       this.formObj.model.formCode = this.formCode;
 
       post = Object.assign({}, this.formObj.model, post);
+      let postData = new Object();
+      for (const key in post) {
+        if (post.hasOwnProperty(key)) {
+          if (!key) {
+            continue;
+          }
+          if (post[key] === null || post[key] === "null") {
+            postData[key] = "";
+            continue;
+          }
+          postData[key] = post[key] + "";
+        }
+      }
+      save(postData)
+        .then((res) => {
+          this.bus.$emit("setHosptialEvalLoading", false);
+          // 更新住院单
+          try {
+            window.formTool.fillForm();
+          } catch (error) {}
+          //
+          let {
+            data: {
+              data: { master, diags },
+            },
+          } = res;
+          //
+          if (master.updaterName && master.updateTime) {
+            this.formObj.formSetting.updateInfo = `由${master.updaterName}创建，最后编辑于${master.updateTime}`;
+          }
+        })
+        .catch((err) => {
+          console.log("保存评估err", err);
+          this.bus.$emit("setHosptialEvalLoading", {
+            status: false,
+          });
+        });
     },
     getFilterData() {
       this.$emit("getFilterData", this.searchData);
