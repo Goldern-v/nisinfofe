@@ -191,6 +191,30 @@ import { mockData, recordList } from "../data/data";
 export default {
   props: { patientInfo: Object },
   data() {
+    // 初始化筛选时间
+    let initTimeArea = {
+      ["03"]: ["00:00", "04:59"],
+      ["07"]: ["05:00", "08:59"],
+      ["11"]: ["09:00", "12:59"],
+      ["15"]: ["13:00", "16:59"],
+      ["19"]: ["17:00", "20:59"],
+      ["23"]: ["21:00", "23:59"],
+    };
+
+    let entryTime = "03";
+    let currentSecond =
+      new Date().getHours() * 60 + new Date().getMinutes() * 1;
+
+    Object.keys(initTimeArea).forEach((time) => {
+      let [start, end] = initTimeArea[time];
+
+      let startSecond = start.split(":")[0] * 60 + start.split(":")[1] * 1;
+
+      let endSecond = end.split(":")[0] * 60 + end.split(":")[1] * 1;
+      if (currentSecond >= startSecond && currentSecond <= endSecond)
+        entryTime = time;
+    });
+
     return {
       mockData,
       recordList,
@@ -198,7 +222,7 @@ export default {
       editableTabsValue: "2",
       query: {
         entryDate: moment(new Date()).format("YYYY-MM-DD"), //录入日期
-        entryTime: "07", //录入时间
+        entryTime: entryTime, //录入时间
       },
       recordDate: "",
       fieldList: {}, // 自定义项目列表
