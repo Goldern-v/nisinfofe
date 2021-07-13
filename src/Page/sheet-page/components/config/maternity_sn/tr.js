@@ -1,4 +1,7 @@
 import {
+  multiDictInfo
+} from "../../../api/index";
+import {
   keyf1
 } from "../keyEvent/f1.js";
 import {
@@ -6,6 +9,7 @@ import {
   event_time,
   click_date
 } from "../keyEvent/date";
+let ysList = [];
 export default [{
     key: "recordMonth", //日期
     value: "",
@@ -57,6 +61,9 @@ export default [{
     key: "consciousness", //意识
     value: "",
     event: keyf1,
+    autoComplete: {
+      data: ysList
+    }
   },
   {
     key: "pupilSizeLeft", // 瞳孔-大小-左
@@ -221,3 +228,27 @@ export default [{
     value: false
   }
 ];
+
+function getListData() {
+  let list = [
+    "山南:通用护理记录单（妇产科）:意识",
+  ];
+  multiDictInfo(list).then(res => {
+    let data = res.data.data;
+    setList(ysList, list[0], data);
+  });
+}
+
+getListData();
+/**
+ *
+ * @param {*} list 原数组
+ * @param {*} key 对应的key
+ * @param {*} data 数据源
+ */
+ function setList(list, key, data) {
+  list.splice(0, list.length);
+  for (let item of data[key]) {
+    list.push(item.name);
+  }
+}
