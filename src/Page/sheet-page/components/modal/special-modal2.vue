@@ -956,7 +956,7 @@ export default {
         ) {
           text += allDoc[i];
         } else {
-          if (this.HOSPITAL_ID == "lingcheng") {
+          if (this.HOSPITAL_ID == "lingcheng" || (this.HOSPITAL_ID == "shannan")) {
             if (GetLength(text) > 46) {
               result.push(text);
               text = allDoc[i];

@@ -7,7 +7,8 @@ import {
 import {
   event_date,
   event_time,
-  click_date
+  click_date,
+  click_time
 } from "../keyEvent/date";
 let ysList = [];
 export default [{
@@ -19,7 +20,8 @@ export default [{
   {
     key: "recordHour", //时间
     value: "",
-    event: event_time
+    event: event_time,
+    click: click_time
   },
   {
     key: "temperature", //体温
@@ -141,7 +143,7 @@ export default [{
       top: "1px",
       bottom: "1px",
       left: "1px",
-      width: "180px",
+      width: "360px",
       background: "transparent"
     },
     event: function (e, td) {

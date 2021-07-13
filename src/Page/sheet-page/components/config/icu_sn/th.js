@@ -36,8 +36,8 @@ export default {
         CVP<br/>cmH2O
         `,
         style: {
-          minWidth: '40px',
-          maxWidth: '40px'
+          minWidth: '36px',
+          maxWidth: '36px'
         },
         colspan: '1',
         rowspan: '3',
@@ -47,8 +47,8 @@ export default {
         SPO2<br/>%
         `,
         style: {
-          minWidth: '40px',
-          maxWidth: '40px'
+          minWidth: '36px',
+          maxWidth: '36px'
         },
         colspan: '1',
         rowspan: '3',
@@ -152,8 +152,8 @@ export default {
         其他
         `,
         style: {
-          minWidth: '153px',
-          maxWidth: '153px',
+          minWidth: "300px",
+          maxWidth: "300px"
         },
         colspan: '1',
         rowspan: '3'
@@ -249,8 +249,8 @@ export default {
         FiO2<br/>%
         `,
         style: {
-          minWidth: '52px',
-          maxWidth: '52px',
+          minWidth: '36px',
+          maxWidth: '36px',
         },
         colspan: '1',
         rowspan: '2',
@@ -260,8 +260,8 @@ export default {
         f<br/>次/分
         `,
         style: {
-          minWidth: '52px',
-          maxWidth: '52px',
+          minWidth: '36px',
+          maxWidth: '36px',
         },
         colspan: '1',
         rowspan: '2',

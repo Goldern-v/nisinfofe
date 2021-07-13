@@ -1,6 +1,9 @@
 export default {
   // 科室的名称
   deptType: '',
+  style: {
+    width: "1300px"
+  },
   th: {
     top: [{
         name: '日期',
@@ -85,8 +88,8 @@ export default {
         血氧饱和度<br/>%
         `,
         style: {
-          minWidth: '50px',
-          maxWidth: '50px'
+          minWidth: '36px',
+          maxWidth: '36px'
         },
         colspan: '1',
         rowspan: '3'
@@ -96,8 +99,8 @@ export default {
         意识
         `,
         style: {
-          minWidth: '50px',
-          maxWidth: '50px'
+          minWidth: '100px',
+          maxWidth: '100px'
         },
         colspan: '1',
         rowspan: '3'
@@ -150,8 +153,8 @@ export default {
         病情观察及措施
         `,
         style: {
-          minWidth: '153px',
-          maxWidth: '153px',
+          minWidth: "300px",
+          maxWidth: "300px"
         },
         colspan: '1',
         rowspan: '3'
