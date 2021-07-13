@@ -42,7 +42,7 @@
         </div>
         <el-tabs v-model="activeTab" class="tab-content" type="card">
           <el-tab-pane label="固定项目" name="1" :disabled="isDisabed">
-            <div flex="wrap:wrap">
+            <div flex="wrap:wrap" v-if="fixedList.length">
               <div
                 v-for="(item, key) in fixedList"
                 :key="sheetInfo.sheetType + item.key"
@@ -124,6 +124,171 @@
                   />
                   <div class="uniq">{{ item.next }}</div>
                 </div>
+              </div>
+            </div>
+            <div v-else>
+              <div class="input-row" flex="main:justify">
+                <div class="input-cell" flex="cross:center" flex-box="1">
+                  <div class="label">体温：</div>
+                  <input type="text" :readonly="isRead" v-model="staticObj.temperature" />
+                  <div class="uniq">℃</div>
+                </div>
+                <div class="input-cell" flex="cross:center" flex-box="1">
+                  <div class="label">脉搏：</div>
+                  <input type="text" :readonly="isRead" v-model="staticObj.pulse" />
+                  <div class="uniq">次/分</div>
+                </div>
+                <div class="input-cell" flex="cross:center" flex-box="1">
+                  <div class="label">呼吸：</div>
+                  <input type="text" :readonly="isRead" v-model="staticObj.breath" />
+                  <div class="uniq">次/分</div>
+                </div>
+              </div>
+              <div class="input-row" flex="main:justify">
+                <div class="input-cell" flex="cross:center" flex-box="1">
+                  <div class="label">血压：</div>
+                  <input
+                    type="text"
+                    :readonly="isRead"
+                    v-model="staticObj.bloodPressure"
+                    @keydown="spaceToKey($event, staticObj, 'bloodPressure')"
+                  />
+                  <div class="uniq">mmHg</div>
+                </div>
+                <div
+                  class="input-cell"
+                  flex="cross:center"
+                  flex-box="1"
+                  v-if="staticObj.consciousness !== undefined"
+                >
+                  <div class="label">意识：</div>
+                  <input
+                    type="text"
+                    :readonly="isRead"
+                    v-model="staticObj.consciousness"
+                    v-autoComplete="{
+                      dataList: dictionary.consciousness,
+                      obj: staticObj,
+                      key: 'consciousness'
+                    }"
+                  />
+                  <div class="uniq"></div>
+                </div>
+                <div
+                  class="input-cell"
+                  flex="cross:center"
+                  flex-box="1"
+                  v-if="staticObj.spo2 !== undefined"
+                >
+                  <div class="label">
+                    SOP
+                    <sub>2</sub>：
+                  </div>
+                  <input type="text" :readonly="isRead" v-model="staticObj.spo2" />
+                  <div class="uniq">%</div>
+                </div>
+                <div flex-box="1" v-if="staticObj.consciousness === undefined"></div>
+                <div flex-box="1" v-if="staticObj.spo2 === undefined"></div>
+              </div>
+              <div class="input-row" v-if="staticObj.pupilSizeLeft !== undefined" flex="main:justify">
+                <div class="input-cell" flex="cross:center" flex-box="1">
+                  <div class="label">瞳孔(大小)</div>
+                </div>
+                <div class="input-cell" flex="cross:center" flex-box="2">
+                  <div class="label">左：</div>
+                  <input type="text" :readonly="isRead" v-model="staticObj.pupilSizeLeft" />
+                  <div class="uniq"></div>
+                </div>
+                <div class="input-cell" flex="cross:center" flex-box="2">
+                  <div class="label">右：</div>
+                  <input type="text" :readonly="isRead" v-model="staticObj.pupilSizeRight" />
+                  <div class="uniq"></div>
+                </div>
+                <div flex-box="2"></div>
+              </div>
+              <div
+                class="input-row"
+                v-if="staticObj.pupilReflexLeft !== undefined"
+                flex="main:justify"
+              >
+                <div class="input-cell" flex="cross:center" flex-box="1">
+                  <div class="label">瞳孔(反射)</div>
+                </div>
+                <div class="input-cell" flex="cross:center" flex-box="2">
+                  <div class="label">左：</div>
+                  <input
+                    type="text"
+                    :readonly="isRead"
+                    v-model="staticObj.pupilReflexLeft"
+                    v-autoComplete="{
+                      dataList: dictionary.pupilReflexLeft,
+                      obj: staticObj,
+                      key: 'pupilReflexLeft'
+                    }"
+                  />
+                  <div class="uniq"></div>
+                </div>
+                <div class="input-cell" flex="cross:center" flex-box="2">
+                  <div class="label">右：</div>
+                  <input
+                    type="text"
+                    :readonly="isRead"
+                    v-model="staticObj.pupilReflexRight"
+                    v-autoComplete="{
+                      dataList: dictionary.pupilReflexRight,
+                      obj: staticObj,
+                      key: 'pupilReflexRight'
+                    }"
+                  />
+                  <div class="uniq"></div>
+                </div>
+                <div flex-box="2"></div>
+              </div>
+              <div class="input-row" v-if="staticObj.food !== undefined" flex="main:left">
+                <div class="input-cell" flex="cross:center">
+                  <div class="label">入量名称：</div>
+                  <input
+                    type="text"
+                    :readonly="isRead"
+                    style="width: 195px"
+                    v-model="staticObj.food"
+                    v-autoComplete="{
+                      dataList: dictionary.food,
+                      obj: staticObj,
+                      key: 'food'
+                    }"
+                  />
+                  <div class="uniq"></div>
+                </div>
+                <div class="input-cell" flex="cross:center" style="margin-left: 4px">
+                  <div class="label">量：</div>
+                  <input type="text" :readonly="isRead" v-model="staticObj.foodSize" />
+                  <div class="uniq">ml</div>
+                </div>
+                <div flex-box="1"></div>
+              </div>
+              <div class="input-row" v-if="staticObj.discharge !== undefined" flex="main:left">
+                <div class="input-cell" flex="cross:center">
+                  <div class="label">出量名称：</div>
+                  <input
+                    type="text"
+                    :readonly="isRead"
+                    style="width: 195px"
+                    v-model="staticObj.discharge"
+                    v-autoComplete="{
+                      dataList: dictionary.discharge,
+                      obj: staticObj,
+                      key: 'discharge'
+                    }"
+                  />
+                  <div class="uniq"></div>
+                </div>
+                <div class="input-cell" flex="cross:center" style="margin-left: 4px">
+                  <div class="label">量：</div>
+                  <input type="text" :readonly="isRead" v-model="staticObj.dischargeSize" />
+                  <div class="uniq">ml</div>
+                </div>
+                <div flex-box="1"></div>
               </div>
             </div>
           </el-tab-pane>
