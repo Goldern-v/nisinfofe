@@ -270,6 +270,7 @@ export default {
       bottomContextList: ["", "不升"],
       topExpandDate: "",
       bottomExpandDate: "",
+      totalDictInfo: {},
     };
   },
   async mounted() {
@@ -327,7 +328,8 @@ export default {
           vitalValue: "",
           units: "",
           vitalCode: this.multiDictList[key],
-          classCode: "",
+          classCode:
+            (this.totalDictInfo[key] || { classCode: "" }).classCode || "",
           nurse: "",
           bedLabel: "",
           expand1: "",
@@ -426,6 +428,8 @@ export default {
         let obj = [];
         res.data.data.map((item, index) => {
           data[item.vitalSign] = item.vitalCode;
+          this.totalDictInfo[item.vitalSign] = { ...item };
+
           if (item.vitalSign.includes("自定义")) {
             obj[item.vitalCode] = {
               fieldCn: item.vitalSign,
@@ -433,6 +437,7 @@ export default {
               visitId: this.patientInfo.visitId,
               vitalCode: item.vitalCode,
               wardCode: this.patientInfo.wardCode,
+              classCode: item.classCode,
             };
             this.fieldList = { ...obj };
           }
