@@ -88,7 +88,13 @@
       >
       </el-date-picker>
       <el-button @click="searchsign">查询</el-button>
-      <el-table :data="gridData" border stripe @row-click="leftTablelist">
+      <el-table
+        :data="gridData"
+        border
+        stripe
+        height="250"
+        @row-click="leftTablelist"
+      >
         <el-table-column
           type="index"
           label="序号"
@@ -99,8 +105,8 @@
           property="axillaryTemperature"
           label="T"
         ></el-table-column>
-        <el-table-column property="breathe" label="P/HR"></el-table-column>
-        <el-table-column property="heartRate" label="R"></el-table-column>
+        <el-table-column property="heartRate" label="P/HR"></el-table-column>
+        <el-table-column property="breathe" label="R"></el-table-column>
         <el-table-column property="bloodPressure" label="BP"></el-table-column>
       </el-table>
     </el-dialog>
@@ -1500,8 +1506,8 @@ export default {
     formSignsOfsync() {
       this.dialogTableVisible = true;
       let postData = {
-        patientId: "7773058",
-        visitId: "1",
+        patientId: this.patientInfo.patientId,
+        visitId: this.patientInfo.visitId,
         startDate: this.searchData.date,
         endDate: this.endData.date,
       };
@@ -1522,7 +1528,7 @@ export default {
       window.formObj.model.I100002 = val.heartRate;
       window.formObj.model.I100003 = val.breathe;
       window.formObj.model.I100005 = val.bloodPressure;
-       this.bus.$emit("setHosptialAdmissionLoading", {
+      this.bus.$emit("setHosptialAdmissionLoading", {
         status: true,
         msg: "更新表单数据中...",
       });
@@ -1534,11 +1540,7 @@ export default {
           // 回填表单
           this.$root.$refs["sheetPage"].fillForm();
           this.bus.$emit("setHosptialAdmissionLoading", false);
-          window.messageBox.show(
-            "体征同步完成",
-            "success",
-            5000
-          );
+          window.messageBox.show("体征同步完成", "success", 5000);
         })
         .catch((err) => {
           // 回填表单
@@ -1560,7 +1562,7 @@ export default {
       month = month.toString().padStart(2, "0");
       date = date.toString().padStart(2, "0");
       var defaultDate = `${year}-${month}-${date}`;
-      var defaultDate1 = `${year}-${month}-${date-1}`;
+      var defaultDate1 = `${year}-${month}-${date - 1}`;
       this.$set(this.endData, "date", defaultDate);
       this.$set(this.searchData, "date", defaultDate1);
     },
@@ -1616,7 +1618,6 @@ export default {
       this.isNewForm = isNewForm;
     });
     // this.isNewForm = false;
-    
   },
   mounted() {
     window.rundev = () => {
