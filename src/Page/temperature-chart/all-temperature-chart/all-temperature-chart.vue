@@ -25,7 +25,10 @@
           {{ item.value }}
         </label>
       </div>
-      <div class="times" v-if="HOSPITAL_ID === 'zhongshanqi'">
+      <div
+        class="times"
+        v-if="HOSPITAL_ID === 'zhongshanqi' || HOSPITAL_ID === 'guizhou'"
+      >
         <label
           :for="`time${item.id}`"
           v-for="item in timesEven2"
@@ -570,7 +573,16 @@ export default {
       query: {
         wardCode: "", //科室编码
         entryDate: moment(new Date()).format("YYYY-MM-DD"), //录入日期
-        entryTime: this.HOSPITAL_ID === "huadu" ? "04" : "07", //录入时间
+        entryTime: (() => {
+          switch (this.HOSPITAL_ID) {
+            case "huadu":
+              return "04";
+            case "guizhou":
+              return "06";
+            default:
+              return "07";
+          }
+        })(), //录入时间
       },
       timesEven: [
         {
