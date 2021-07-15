@@ -391,6 +391,37 @@ export default {
                 array[index].executeDateTime;
           }
 
+          if(this.HOSPITAL_ID == "liaocheng"){
+             let prevRowId =
+              array[index - 1] &&
+              array[index - 1].patientId +
+                array[index - 1].orderNo +
+                array[index - 1].executeDateTime;
+              let nextRowId =
+                array[index + 1] &&
+                array[index + 1].patientId +
+                  array[index + 1].orderNo +
+                  array[index + 1].executeDateTime;
+              let currentRowId =
+                array[index] &&
+                array[index].patientId +
+                  array[index].orderNo +
+                  array[index].executeDateTime;
+              /** 判断是此记录是多条记录 */
+            if (currentRowId == prevRowId || currentRowId == nextRowId) {
+              if (currentRowId != prevRowId) {
+                /** 第一条 */
+                item.wrapRowType = 1;
+              } else if (currentRowId != nextRowId) {
+                /** 最后条 */
+                item.wrapRowType = 3;
+              } else {
+                /** 中间条 */
+                item.wrapRowType = 2;
+              }
+            }
+          }
+
           item.id = index;
 
           /** 判断是此记录是多条记录 */
