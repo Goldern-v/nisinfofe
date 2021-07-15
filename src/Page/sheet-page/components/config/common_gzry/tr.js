@@ -93,6 +93,10 @@ export default [{
     value: ""
   },
   {
+    key: "audit",
+    value: ""
+  },
+  {
     hidden: true,
     key: "id",
     value: ""
@@ -148,7 +152,7 @@ export default [{
     value: ""
   },
   {
-    hidden: true,
+    hidden: false,
     key: "auditorNo",
     value: ""
   },
