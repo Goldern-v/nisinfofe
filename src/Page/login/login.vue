@@ -168,6 +168,7 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
   border-radius: 2px;
   position: relative;
   z-index: 2;
+
   .toggle-login-type {
     .img {
       position: absolute;
@@ -175,11 +176,13 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
       right: 0;
       cursor: pointer;
       z-index: 1001;
+
       img {
         width: 50px;
         height: 50px;
       }
     }
+
     .qrcode {
       position: absolute;
       top: 0;
@@ -191,6 +194,7 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
       display: flex;
       justify-content: center;
       align-items: center;
+
       img {
         width: 164px;
         height: 164px;
@@ -253,6 +257,7 @@ a {
 .remember-con {
   width: 260px;
   margin: 13px auto 26px;
+
   button {
     cursor: pointer;
   }
@@ -358,7 +363,7 @@ export default {
       password: "",
       remember: true,
       ajax: false,
-      showPwdType: true //显示的登录方式，默认是密码
+      showPwdType: true, //显示的登录方式，默认是密码
     };
   },
   methods: {
@@ -370,7 +375,7 @@ export default {
         this.$message({
           showClose: true,
           message: "请填写账号和密码！",
-          type: "warning"
+          type: "warning",
         });
         return;
       }
@@ -378,7 +383,7 @@ export default {
       if (this.ajax === true) return;
       this.ajax = true;
       login(this.account, this.password)
-        .then(res => {
+        .then((res) => {
           console.log(res);
           // 记住账号
           if (this.remember) {
@@ -397,7 +402,7 @@ export default {
             "NURSING_USER",
             `${res.data.data.user.id}##${res.data.data.authToken}`,
             {
-              path: "/"
+              path: "/",
             }
           );
           if (
@@ -418,7 +423,7 @@ export default {
           localStorage.selectDeptValue = "";
           this.$store.commit("upDeptName", "");
         })
-        .catch(res => {
+        .catch((res) => {
           this.ajax = false;
           if (res.data.errorCode == 1000) {
             setTimeout(() => {
@@ -441,7 +446,7 @@ export default {
     // 切换登录方式（二维码只供展示，暂不做登录处理）
     toggleLoginType() {
       this.showPwdType = !this.showPwdType;
-    }
+    },
   },
   created() {
     if (localStorage["rememberAccount"]) {
@@ -455,7 +460,7 @@ export default {
     let elList = document.querySelectorAll(".input-con input");
     EnterToTab(
       elList,
-      el => {
+      (el) => {
         el.focus();
         el.select();
       },
@@ -475,6 +480,8 @@ export default {
         case "quzhou":
           logoUrl = require("../../common/images/logo_quzhou.png");
           break;
+        case "guizhou":
+          logoUrl = require("../../common/images/logo_guizhou.png");
       }
       return logoUrl;
     },
@@ -491,7 +498,7 @@ export default {
         logoName = "智慧护理信息系统";
       }
       return logoName;
-    }
+    },
   },
   components: {},
   watch: {
@@ -499,7 +506,7 @@ export default {
       if (this.HOSPITAL_ID == "zhongshanqi") {
         this.password = this.password.slice(0, 16);
       }
-    }
-  }
+    },
+  },
 };
 </script>
