@@ -108,8 +108,8 @@
       </el-table-column> -->
       <el-table-column label="医嘱类型" min-width="100px" prop="freqDetail">
         <template slot-scope="scope">
-          <span :class="type(scope.row.orderClass)">{{
-            scope.row.freqDetail
+          <span :class="type(scope.row.orderStatusName)">{{
+            scope.row.orderClass
           }}</span>
         </template>
       </el-table-column>
