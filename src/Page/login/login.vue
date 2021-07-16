@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="login-bg">
+    <div class="login-bg" v-loading="loginLoading">
       <vue-particles
         color="#dedede"
         :moveSpeed="2"
@@ -364,6 +364,7 @@ export default {
       remember: true,
       ajax: false,
       showPwdType: true, //显示的登录方式，默认是密码
+      loginLoading: false
     };
   },
   methods: {
@@ -405,12 +406,19 @@ export default {
               path: "/",
             }
           );
+          this.loginLoading = false;
           if (
             this.$store.state.common.relogin &&
             this.$store.state.common.relogin != "/login"
           ) {
             this.$router.push(this.$store.state.common.relogin);
-          } else {
+          } else if (
+            user &&
+            user.roleManageCodeList.length > 0 &&
+            type == "loginReportedSystem"
+          ) {
+            this.$router.push("/badEvent");
+          }else {
             this.$store.commit("upRelogin", false);
             this.$router.push("/index");
             if (this.HOSPITAL_ID == "weixian") {
@@ -451,6 +459,31 @@ export default {
   created() {
     if (localStorage["rememberAccount"]) {
       this.account = localStorage["rememberAccount"];
+    }
+    if (this.HOSPITAL_ID == "guizhou" && this.$route.query.formatInfo) {
+      this.loginLoading = true;
+      try {
+        let formatInfo = JSON.parse(
+          this.uncompileStr(decodeURIComponent(this.$route.query.formatInfo))
+        );
+
+        if (
+          !formatInfo.timeset ||
+          new Date().getTime() - formatInfo.timeset > 300000
+        ) {
+          this.$router.replace("/login");
+          this.$message.error("登录超时，已取消自动登录");
+          return;
+        }
+
+        this.account = formatInfo.empNo || "admin";
+        this.password = formatInfo.password;
+        this.login("loginReportedSystem");
+      } catch (e) {
+        this.$router.replace("/login");
+        this.$message.error("登录信息错误，已取消自动登录");
+        console.error(e);
+      }
     }
   },
   mounted() {

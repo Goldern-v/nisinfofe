@@ -66,6 +66,10 @@ const singleRoundsDetail = () => import("@/Page/single-rounds/single-rounds-deta
 const badEvent = () => import("@/Page/badEvent/badEvent.vue");
 const badEventViewPage = () => import("@/Page/badEvent/badEventViewPage.vue");
 const badEventEditPage = () => import("@/Page/badEvent/badEventEditPage.vue");
+
+const badEventGz = () => import("@/Page/badEventGuizhou/badEvent.vue");//贵州不良事件
+const badEventViewPageGz = () => import("@/Page/badEventGuizhou/badEventViewPage.vue");
+const badEventEditPageGz = () => import("@/Page/badEventGuizhou/badEventEditPage.vue");
 const white = () => import("@/Page/white/white.vue");
 const sheetHospitalEval = () =>
   import("@/Page/sheet-hospital-eval/sheet-hospital-eval.vue"); // 住院评估页面
@@ -410,16 +414,16 @@ const router = new Router({
         path: "/badEvent",
         name: "badEvents",
         alias: "不良事件",
-        component: badEvent,
+        component: HOSPITAL_ID == "guizhou" ? badEventGz : badEvent,
         children: [{
           name: "badEventEdit",
           path: "/badEvent/:code?/:operation?/:id?/:type?/:name?",
-          component: badEventEditPage
+          component: HOSPITAL_ID == "guizhou" ? badEventEditPageGz : badEventEditPage
         },
         {
           name: "badEventView",
           path: "/badEvent/:code?/:operation?/:id?/:status?/:type?/:name?",
-          component: badEventViewPage
+          component: HOSPITAL_ID == "guizhou" ? badEventViewPageGz : badEventViewPage
         }
         ]
       },

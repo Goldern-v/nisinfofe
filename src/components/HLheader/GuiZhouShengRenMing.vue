@@ -149,6 +149,11 @@
                 </el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
+            <router-link to="/badEvent" tag="span">
+              <el-row class="nav-item" type="flex" align="middle"
+                >不良事件
+              </el-row>
+            </router-link>
             <!-- <el-dropdown
               menu-align="start"
               :class="{
