@@ -78,6 +78,14 @@
       </div>
       <div
         class="item-box"
+        flex="cross:center main:center"
+        @click.stop="syncVisitWithData"
+        v-if="HOSPITAL_ID == 'guizhou'"
+      >
+        <div class="text-con">同步护理巡视</div>
+      </div>
+      <div
+        class="item-box"
         style="background: antiquewhite"
         flex="cross:center main:center"
         @click.stop="backMainForm"
@@ -210,6 +218,7 @@
     <newFormModal ref="newFormModal"></newFormModal>
     <setTitleModal ref="setTitleModal"></setTitleModal>
     <tztbModal ref="tztbModal"></tztbModal>
+    <patientInfoModal ref="patientInfoModal"></patientInfoModal>
     <sweet-modal
       ref="sheet"
       title="体温曲线"
@@ -245,6 +254,7 @@ import commom from "@/common/mixin/common.mixin.js";
 import newFormModal from "../modal/new-sheet-modal.vue";
 import setTitleModal from "../modal/set-title-modal.vue";
 import tztbModal from "../modal/tztb-modal.vue";
+import patientInfoModal from "./modal/patient-info-modal"
 import dayjs from "dayjs";
 // import lodopPrint from "./lodop/lodopPrint";
 import patientInfo from "./patient-info";
@@ -738,6 +748,10 @@ export default {
       const { data } = await switchAdditionalBlock(id);
       this.sheetInfo.selectBlock = data.data;
       this.changeSelectBlock();
+    },
+    // 同步护理巡视
+    syncVisitWithData(){
+      this.$refs.patientInfoModal.open()
     }
   },
   computed: {
@@ -944,6 +958,7 @@ export default {
     newFormModal,
     setTitleModal,
     tztbModal,
+    patientInfoModal,
     patientInfo,
     temperatureHD,
     temperatureLCEY,

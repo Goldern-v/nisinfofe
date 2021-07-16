@@ -4,7 +4,7 @@ import {
   renderRelObj
 } from "../utils/relObj";
 
-function decode() {
+function decode(ayncVisitedData) {
   let allData = [];
   for (let pageIndex = 0; pageIndex < data.length; pageIndex++) {
     let bodyModel = data[pageIndex].bodyModel;
@@ -20,6 +20,28 @@ function decode() {
       }
     }
     allData = [...allData, ...result];
+  }
+
+  // 贵州-同步护理巡视内容到特殊情况
+  if(this.HOSPITAL_ID == "guizhou" && ayncVisitedData){
+    let rowObjData = {...allData[0]};
+    for(let key in rowObjData) {
+      if( key!= 'pageIndex'){
+        rowObjData[key] = '';
+      }
+    }
+    rowObjData.recordMonth = ayncVisitedData.recordMonth;
+    rowObjData.recordHour = ayncVisitedData.recordHour;
+    let asyncData = []
+    ayncVisitedData.list.map(description=>{
+      rowObjData.description = description;
+      asyncData = [...asyncData,{...rowObjData}]
+    })
+    if(!allData[0].recordMonth){
+      allData = [...asyncData,...allData]
+    }else {
+      allData = [...allData,...asyncData]
+    }
   }
 
   // 血液净化护理单

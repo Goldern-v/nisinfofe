@@ -598,7 +598,7 @@ export default {
         });
       });
     });
-    this.bus.$on("saveSheetPage", (isInitSheetPageSize = true) => {
+    this.bus.$on("saveSheetPage", (isInitSheetPageSize = true,ayncVisitedData) => {
       let save = () => {
         // 审核签名（头部保存按钮auditorMap传空对象，不去修改审核签名数据，避免跨窗口审核签名丢失）
         if (isInitSheetPageSize == "noSaveSign") {
@@ -609,7 +609,7 @@ export default {
 
         this.pageLoading = true;
         this.scrollTop = this.$refs.scrollCon.scrollTop;
-        saveBody(this.patientInfo.patientId, this.patientInfo.visitId, decode())
+        saveBody(this.patientInfo.patientId, this.patientInfo.visitId, decode(ayncVisitedData))
           .then(res => {
             this.$notify.success({
               title: "提示",
