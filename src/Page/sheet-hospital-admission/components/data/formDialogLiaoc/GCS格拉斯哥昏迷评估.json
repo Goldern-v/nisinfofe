@@ -10,7 +10,7 @@
   },
   "formSetting": {
     "formTitle": {
-      "hospitalName": "东莞市厚街医院",
+      "hospitalName": "聊城市第二人民医院",
       "formName": "GCS格拉斯哥昏迷评估"
     },
     "formHeads": [
@@ -141,17 +141,26 @@
           "readOnly": true,
           "rule": [
             {
-              "equals": ["-1", "未保存"],
+              "equals": [
+                "-1",
+                "未保存"
+              ],
               "style": "color:gray",
               "display": "未签名"
             },
             {
-              "equals": ["0", "已保存 "],
+              "equals": [
+                "0",
+                "已保存 "
+              ],
               "style": "color:blue",
               "display": "已保存"
             },
             {
-              "equals": ["1", "已签名"],
+              "equals": [
+                "1",
+                "已签名"
+              ],
               "style": "color:red",
               "display": "已签名"
             }
@@ -429,7 +438,10 @@
       "name": "I100001",
       "type": "formGroupColBox",
       "col": 2,
-      "colWidth": ["40%", "60%"],
+      "colWidth": [
+        "40%",
+        "60%"
+      ],
       "title": "",
       "message": "",
       "require": "false",
@@ -449,6 +461,7 @@
           "code": "evalScore",
           "placeholder": "评估得分",
           "style": "width:80px",
+          "inputWidth": "136px",
           "class": null,
           "readOnly": true
         },
@@ -461,6 +474,7 @@
           "code": "",
           "placeholder": "结果程度",
           "style": "width:80px",
+          "inputWidth": "136px",
           "class": null,
           "readOnly": true,
           "rule": [

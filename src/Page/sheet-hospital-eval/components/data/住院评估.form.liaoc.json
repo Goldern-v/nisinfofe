@@ -3824,7 +3824,8 @@
             "style": null,
             "classes": null,
             "readOnly": null,
-            "children": [{
+            "children": [
+                {
                     "name": "I100130",
                     "type": "input",
                     "title": "跌倒风险评估",
