@@ -416,7 +416,12 @@ export default {
     getDepartmentsList() {
       apis.getAllNursingUnit("type=2").then(res => {
         if (res.data && res.data.code == 200) {
-          let allDepartmentsList = res.data.data;
+          let allDepartmentsList = res.data.data.map(item => {
+            if(item.deptCode && item.deptCode.trim){
+              item.deptCode = item.deptCode.trim();
+            }
+            return item;
+          });
           // 护理部权限才可以查看所有科室
           if(this.user && (this.user.roleManageCode == 'QCR0001' || this.user.roleManageCodeList.find(code => code == 'QCR0001'))){
             this.allDepartmentsList = allDepartmentsList;

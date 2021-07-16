@@ -368,7 +368,7 @@ export default {
     };
   },
   methods: {
-    login() {
+    login(type) {
       // console.log(md5(this.account, "this.account"));
       // return;
       if (!(this.account && this.password)) {
