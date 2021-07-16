@@ -90,3 +90,7 @@ export const splitRecordBlock = (empNo, password = "", recordDate) => {
 export const syncToIsbar = (obj) => {
   return axios.post(`${apiPath}record/blood_purification/syncToIsbar`, obj);
 };
+// 通过患者id和住院次数和时间查询巡视患者的巡视内容
+export const syncVisitWithDatePad = (patientId, visitId, startDate, endDate) => {
+  return axios.get(`${apiPath}nursingVisit/getNursingVisitWithDatePad/${patientId}/${visitId}/${startDate}/${endDate}`);
+};

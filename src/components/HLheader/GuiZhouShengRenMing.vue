@@ -22,7 +22,7 @@
               align="middle"
               v-else
             >
-              <img src="../../common/images/logo-white-60.png" />
+              <img src="../../common/images/logo_guizhou.png" />
               <span>{{
                 HOSPITAL_ID == "hj"
                   ? "百辰源智慧护理信息系统"
@@ -114,6 +114,44 @@
             <router-link to="/shiftWork" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-jiaobanzhi"></i> 交班志
+              </el-row>
+            </router-link>
+            <el-dropdown
+              menu-align="start"
+              :class="{ 'router-link-active': isActiveTemperaturePage }"
+            >
+              <el-row class="nav-item" type="flex" align="middle">
+                <div class="before"></div>
+                <i class="iconfont icon-hulijiludan"></i>体温单
+              </el-row>
+              <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item
+                  :class="{
+                    active: $route.path.includes('newSingleTemperatureChart'),
+                  }"
+                >
+                  <router-link to="/newSingleTemperatureChart" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="singleTemperatureChart"></i>体温单单人录入
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item>
+                <el-dropdown-item
+                  :class="{
+                    active: $route.path.includes('allTemperatureChart'),
+                  }"
+                >
+                  <router-link to="/allTemperatureChart" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="allTemperatureChart"></i>批量录入体温单
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item>
+              </el-dropdown-menu>
+            </el-dropdown>
+            <router-link to="/badEvent" tag="span">
+              <el-row class="nav-item" type="flex" align="middle"
+                >不良事件
               </el-row>
             </router-link>
             <!-- <el-dropdown
@@ -885,7 +923,7 @@ export default {
         let upperCaseQuery = query.toUpperCase();
         this.deptOptionList = this.deptList.filter((item) => {
           return (
-            item.name.includes(query) ||
+            (item.name && item.name.includes(query)) ||
             item.code == query ||
             item.pinyin.indexOf(upperCaseQuery) != -1 ||
             (item.pinyin + "").includes(upperCaseQuery)

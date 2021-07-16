@@ -17,6 +17,7 @@
       use-virtual
       row-id="id"
       border
+      @toggle-tree-expand="toggleTreeExpand"
     >
       <!-- <u-table-column
         label="序号"
@@ -51,7 +52,7 @@
       >
         <template slot-scope="scope">
           <span>{{
-            scope.row.rowType == 1 || !scope.row.rowType
+            scope.row.wrapRowType == 1 || !scope.row.wrapRowType
               ? scope.row.executeDateTime
               : "" | ymdhm
           }}</span>
@@ -77,7 +78,7 @@
 
       <u-table-column label="医嘱内容" prop="orderText" min-width="250px">
         <template slot-scope="scope">
-          <div :class="scope.row.rowType && `rowType-${scope.row.rowType}`">
+          <div :class="HOSPITAL_ID == 'liaocheng' && scope.row.wrapRowType && currentRowClass(scope.row)">
             {{ scope.row.orderText }}
           </div>
         </template>
@@ -255,6 +256,7 @@
 
     td {
       height: 30px;
+      position: relative;
     }
 
     th >.cell, th >div {
@@ -278,6 +280,61 @@
 
     th .cell {
       padding: 0 0px !important;
+    }
+
+    /* * 第一条 */
+    .wrapRowType-1 {
+      padding-left: 10px;
+
+      &:before {
+        content: '';
+        position: absolute;
+        width: 5px;
+        border-left: 1px solid #333;
+        border-top: 1px solid #333;
+        left: 10px;
+        top: 50%;
+        bottom: -5px;
+      }
+    }
+
+    .wrapRowType-2 {
+      padding-left: 10px;
+
+      &:before {
+        content: '';
+        position: absolute;
+        border-left: 1px solid #333;
+        border-top: 1px solid #333;
+        left: 10px;
+        top: -5px;
+        bottom: -5px;
+      }
+
+      &:after {
+        content: '';
+        position: absolute;
+        width: 5px;
+        border-left: 1px solid #333;
+        border-top: 1px solid #333;
+        left: 10px;
+        top: 50%;
+      }
+    }
+
+    .wrapRowType-3 {
+      padding-left: 10px;
+
+      &:before {
+        content: '';
+        position: absolute;
+        width: 5px;
+        border-left: 1px solid #333;
+        border-bottom: 1px solid #333;
+        left: 10px;
+        bottom: 50%;
+        top: -5px;
+      }
     }
 
 
@@ -431,6 +488,18 @@ export default {
         return "green";
       } else if (row.executeFlag == 1) {
         return "pink";
+      }
+    },
+    // 下拉树切换控制 包裹线显示
+    toggleTreeExpand(row, treeExpanded, event){
+      if(this.HOSPITAL_ID == "liaocheng"){
+        row['showTree'] = !row['showTree'];
+      }
+    },
+    // 包裹线显示
+    currentRowClass(row){
+      if(!row.children || (row.children && row.children.length && row.showTree)){
+        return `wrapRowType-${row.wrapRowType}`
       }
     }
   },

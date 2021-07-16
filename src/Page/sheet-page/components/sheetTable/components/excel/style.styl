@@ -222,6 +222,10 @@
     .sh-name {
       position: absolute;
       right: 0;
+      top: -10px;
+      display: flex;
+      align-items: center;
+      min-height: 30px;
     }
     .zg-name {
       position: absolute;
@@ -322,18 +326,17 @@
       margin: auto;
     }
     .sign-in-box {
-      position absolute;
-      width 52px;
+      min-width 52px;
       height 30px;
       cursor pointer
       top: 0;
       right: -48px;
       bottom: 0;
       margin: auto;
-      display: flex;
-      align-items: center
       object-fit: cover;
-      .audit-text {}
+      .audit-text {
+        line-height: 30px;
+      }
       .audit-img {
         min-width: 52px;
         max-width: 52px;

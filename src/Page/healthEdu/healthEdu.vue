@@ -1,46 +1,61 @@
 
 <template>
   <div class="contain">
-    <div class="body-con" id="sheet_body_con" :style="{height: containHeight}">
+    <div
+      class="body-con"
+      id="sheet_body_con"
+      :style="{ height: containHeight }"
+    >
       <div class="left-part">
         <!-- <patientList :data="data.bedList" :isSelectPatient="isSelectPatient" v-loading="patientListLoading"></patientList> -->
         <patientList toName="healthEdu" :callFunction="isSelectPatient" />
       </div>
-      <div class="right-part" :style="{marginLeft: openLeft?'200px':'0'}">
-        <healthEducation ref="healthEducation"></healthEducation>
+      <div class="right-part" :style="{ marginLeft: openLeft ? '200px' : '0' }">
+        <component v-bind:is="current" ref="healthEducation"></component>
       </div>
     </div>
   </div>
 </template>
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
-.contain
-  margin 0
-  border 1px solid #CBD5DD
-  border-radius 2px
-  &.fullpage
-    position fixed !important
-    z-index 10000
-    left 0
-    top 0
-    bottom 0
-    right 0
-    margin 0
-  .head-con
-    height 41px
-  .body-con
-    position relative
-    .left-part
-      width 199px
-      position absolute
-      left 0
-      top 0
-      bottom 0
-    .right-part
-      margin-left 199px
-      height 100%
-      overflow hidden
-      transition: all .4s cubic-bezier(.55, 0, .1, 1)
+.contain {
+  margin: 0;
+  border: 1px solid #CBD5DD;
+  border-radius: 2px;
+
+  &.fullpage {
+    position: fixed !important;
+    z-index: 10000;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    margin: 0;
+  }
+
+  .head-con {
+    height: 41px;
+  }
+
+  .body-con {
+    position: relative;
+
+    .left-part {
+      width: 199px;
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+    }
+
+    .right-part {
+      margin-left: 199px;
+      height: 100%;
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.55, 0, 0.1, 1);
+    }
+  }
+}
 </style>
 
 <script>
@@ -50,15 +65,16 @@ import common from "@/common/mixin/common.mixin.js";
 import { patients } from "@/api/lesion";
 import bus from "vue-happy-bus";
 import healthEducation from "@/Page/patientInfo/supPage/healthEducation/healthEducation";
+import healthEducationGuizhou from "@/Page/patientInfo/supPage/healthEducationGuizhou/healthEducation";
 export default {
   mixins: [common],
   data() {
     return {
       data: {
-        bedList: []
+        bedList: [],
       },
       patientListLoading: false,
-      bus: bus(this)
+      bus: bus(this),
     };
   },
   computed: {
@@ -70,14 +86,22 @@ export default {
     },
     openLeft() {
       return this.$store.state.sheet.openSheetLeft;
-    }
+    },
+    current() {
+      switch (this.HOSPITAL_ID) {
+        case "guizhou":
+          return "healthEducationGuizhou";
+        default:
+          return "healthEducation";
+      }
+    },
   },
   methods: {
     getDate() {
       if (this.deptCode) {
         this.patientListLoading = true;
-        patients(this.deptCode).then(res => {
-          this.data.bedList = res.data.data.filter(item => {
+        patients(this.deptCode).then((res) => {
+          this.data.bedList = res.data.data.filter((item) => {
             return item.patientId;
           });
           this.patientListLoading = false;
@@ -88,13 +112,13 @@ export default {
       this.$router.replace(
         {
           path: "/healthEdu",
-          query: item
+          query: item,
         },
         () => {
           this.$refs.healthEducation.init();
         }
       );
-    }
+    },
   },
   created() {
     this.$store.commit("upPatientInfo", {});
@@ -112,7 +136,7 @@ export default {
         this.$router.replace(
           {
             path: "/healthEdu",
-            query: {}
+            query: {},
           },
           () => {
             this.$refs.healthEducation.init();
@@ -120,11 +144,12 @@ export default {
         );
       }
       this.getDate();
-    }
+    },
   },
   components: {
     patientList,
-    healthEducation
-  }
+    healthEducation,
+    healthEducationGuizhou,
+  },
 };
 </script>

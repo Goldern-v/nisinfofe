@@ -98,6 +98,14 @@ export default {
         style: {
           minWidth: "50px",
         },
+      },
+      {
+        name: `
+        审核签名
+        `,
+        style: {},
+        colspan: '1',
+        rowspan: '3'
       }
     ],
     mid: [],

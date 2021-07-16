@@ -53,7 +53,7 @@ export function getVitalSignList(data) {
  * @param {*} data.visitId 入院次数
  */
 export function getVitalSignListBy10(data) {
-  return axios.get(`${apiPath}/vitalSign//lastList/${data.patientId}/${data.visitId}`);
+  return axios.get(`${apiPath}vitalSign//lastList/${data.patientId}/${data.visitId}`);
 }
 
 // 通过护理单元获取体征字典表

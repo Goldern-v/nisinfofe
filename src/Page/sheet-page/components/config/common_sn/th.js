@@ -1,6 +1,9 @@
 export default {
   // 科室的名称
   deptType: '',
+  style: {
+    width: "1300px"
+  },
   th: {
     top: [{
         name: '日期',
@@ -150,8 +153,8 @@ export default {
         病情观察及措施
         `,
         style: {
-          minWidth: '153px',
-          maxWidth: '153px',
+          minWidth: '300px',
+          maxWidth: '300px',
         },
         colspan: '1',
         rowspan: '3'

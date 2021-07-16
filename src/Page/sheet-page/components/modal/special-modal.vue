@@ -780,7 +780,7 @@ export default {
     //   this.close();
     // },
 
-    post() {
+    post(type) {
       var GetLength = function(str) {
         var realLength = 0,
           len = str.length,
@@ -828,6 +828,9 @@ export default {
       }
       if (text) {
         result.push(text);
+      }
+      if(type == 'ayncVisitedData'){
+        return result;
       }
       if (result.length == 0) {
         result.push("");
@@ -899,6 +902,15 @@ export default {
   created() {
     this.bus.$on("addTemplateAtDoc", val => {
       this.doc = this.doc + val;
+    });
+    this.bus.$on("syncVisitWithDataSheet", obj => {
+      this.doc = obj.description;
+      let ayncVisitedData =  {
+        recordMonth: obj.recordMonth,
+        recordHour: obj.recordHour,
+        list: this.post('ayncVisitedData')
+      }
+      this.bus.$emit("saveSheetPage",true,ayncVisitedData);
     });
   },
   watch: {
