@@ -1221,7 +1221,7 @@
           "type": "select",
           "title": "生活习惯:嗜酒",
           "postTitle": "嗜酒频率",
-          "postText": "(两/斤)",
+          "postText": "(两/日)",
           "titleStyle": "width:92px!important",
           "inputStyle": "width:270px!important",
           "inputWidth": "148px",
@@ -1469,16 +1469,6 @@
           "titleStyle": "width:60px!important",
           "inputStyle": "width:300px!important",
           "inputWidth": "180px",
-          "style": null,
-          "class": null
-        },
-        {
-          "name": "I001955",
-          "type": "select",
-          "title": "营养异常风险",
-          "titleStyle": "width:92px!important",
-          "inputStyle": "width:270px!important",
-          "inputWidth": "148px",
           "style": null,
           "class": null
         },
@@ -2468,7 +2458,7 @@
         {
           "name": "I001260",
           "type": "select",
-          "title": "压疮风险",
+          "title": "压力性损伤",
           "style": null,
           "titleStyle": "width:60px!important",
           "inputStyle": "width:270px!important",
@@ -2476,42 +2466,17 @@
           "class": null,
           "options": [
             "无",
-            "有,Barden压疮风险评估表",
-            "有,压力性损伤风险评估表（儿童）",
-            "有,预防住院患者压力性损伤护理清单"
+            "有"
           ],
           "rule": [
             {
               "dialog": {
-                "openKey": "有,Barden压疮风险评估表",
-                "cleanKey": "无",
-                "title": "Barden压疮风险评估表",
-                "default": "Barden压疮风险评估表",
-                "type": "independent",
-                "parentName": "I100127",
-                "showHead": "true"
-              }
-            },
-            {
-              "dialog": {
-                "openKey": "有,压力性损伤风险评估表（儿童）",
-                "cleanKey": "无",
-                "title": "压力性损伤风险评估表（儿童）",
-                "default": "压力性损伤风险评估表（儿童）",
-                "type": "independent",
-                "parentName": "I100127",
-                "showHead": "true"
-              }
-            },
-            {
-              "dialog": {
-                "openKey": "有,预防住院患者压力性损伤护理清单",
+                "openKey": "有",
                 "cleanKey": "无",
                 "title": "预防住院患者压力性损伤护理清单",
                 "default": "预防住院患者压力性损伤护理清单",
-                "type": "independent",
-                "parentName": "I100127",
-                "showHead": "true"
+                "type": "dependent",
+                "parentName": "I001260"
               }
             },
             {
@@ -2537,7 +2502,7 @@
       "name": "",
       "type": "formGroupTitle",
       "level": "1",
-      "title": "六、活动及自理程度、跌倒及VTE风险评估",
+      "title": "六、风险评估、活动及自理能力",
       "prefixDesc": "",
       "suffixDesc": "",
       "keys": "",
@@ -2549,7 +2514,7 @@
       "name": "I100128",
       "type": "formGroupColBox",
       "col": 2,
-      "title": "六、活动及自理程度、跌倒及VTE风险评估",
+      "title": "六、风险评估、活动及自理能力",
       "message": "",
       "require": "false",
       "prefixDesc": "",
@@ -2656,9 +2621,54 @@
           ]
         },
         {
+          "name": "I100127",
+          "type": "select",
+          "title": "压力性损伤风险评估",
+          "style": null,
+          "titleStyle": "width:80px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "160px",
+          "class": null,
+          "options": [
+            "无",
+            "有,压力性损伤风险评估表Barden（成人）",
+            "有,压力性损伤风险评估表Barden Q（儿童）"
+          ],
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "有,压力性损伤风险评估表Barden（成人）",
+                "cleanKey": "无",
+                "title": "压力性损伤风险评估表Barden（成人）",
+                "default": "压力性损伤风险评估表Barden（成人）",
+                "type": "independent",
+                "name": "I100127",
+                "parentName": "I100127",
+                "showHead": "true"
+              }
+            },
+            {
+              "dialog": {
+                "openKey": "有,压力性损伤风险评估表Barden Q（儿童）",
+                "cleanKey": "无",
+                "title": "压力性损伤风险评估表Barden Q（儿童）",
+                "default": "压力性损伤风险评估表Barden Q（儿童）",
+                "type": "independent",
+                "name": "I100127",
+                "parentName": "I100127",
+                "showHead": "true"
+              }
+            },
+            {
+              "equal": "有",
+              "style": "color:red"
+            }
+          ]
+        },
+        {
           "name": "I001308",
           "type": "select",
-          "title": "跌倒风险",
+          "title": "跌倒/坠床风险评估",
           "style": null,
           "titleStyle": "width:60px!important",
           "inputStyle": "width:270px!important",
@@ -2701,9 +2711,54 @@
           ]
         },
         {
+          "name": "S0613",
+          "type": "select",
+          "title": "窒息误吸风险评估",
+          "style": null,
+          "titleStyle": "width:80px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "160px",
+          "class": null,
+          "options": [
+            "无",
+            "有,窒息误吸风险评估（成人）",
+            "有,窒息误吸风险评估（儿童）"
+          ],
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "有,窒息误吸风险评估（成人）",
+                "cleanKey": "无",
+                "title": "窒息误吸风险评估（成人）",
+                "default": "窒息误吸风险评估（成人）",
+                "type": "independent",
+                "name": "S0613",
+                "parentName": "S0613",
+                "showHead": "true"
+              }
+            },
+            {
+              "dialog": {
+                "openKey": "有,窒息误吸风险评估（儿童）",
+                "cleanKey": "无",
+                "title": "窒息误吸风险评估（儿童）",
+                "default": "窒息误吸风险评估（儿童）",
+                "type": "independent",
+                "name": "S0613",
+                "parentName": "S0613",
+                "showHead": "true"
+              }
+            },
+            {
+              "equal": "有",
+              "style": "color:red"
+            }
+          ]
+        },
+        {
           "name": "I001309",
           "type": "select",
-          "title": "VTE风险",
+          "title": "VTE评估",
           "style": null,
           "titleStyle": "width:60px!important",
           "inputStyle": "width:270px!important",
@@ -2774,7 +2829,7 @@
         {
           "name": "I001156",
           "type": "select",
-          "title": "疼痛",
+          "title": "疼痛评估",
           "titleStyle": "width:60px!important",
           "inputStyle": "width:270px!important",
           "inputWidth": "180px",
@@ -2833,6 +2888,105 @@
                 "name": "I100132",
                 "parentName": "I100132",
                 "type": "independent",
+                "showHead": "true"
+              }
+            },
+            {
+              "equal": "有",
+              "style": "color:red"
+            }
+          ]
+        },
+        {
+          "name": "I100396",
+          "type": "select",
+          "title": "非计划性拔管风险评估",
+          "style": null,
+          "titleStyle": "width:80px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "160px",
+          "class": null,
+          "options": [
+            "无",
+            "有"
+          ],
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "有",
+                "cleanKey": "无",
+                "openDiffKey": "无",
+                "title": "非计划性拔管风险评估",
+                "default": "非计划性拔管风险评估",
+                "name": "I100396",
+                "type": "independent",
+                "parentName": "I100396",
+                "showHead": "true"
+              }
+            },
+            {
+              "equal": "有",
+              "style": "color:red"
+            }
+          ]
+        },
+        {
+          "name": "I100020",
+          "type": "select",
+          "title": "GCS格拉斯哥昏迷评估",
+          "style": null,
+          "titleStyle": "width:80px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "160px",
+          "class": null,
+          "options": [
+            "无",
+            "有"
+          ],
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "有",
+                "cleanKey": "无",
+                "openDiffKey": "无",
+                "title": "GCS格拉斯哥昏迷评估",
+                "default": "GCS格拉斯哥昏迷评估",
+                "name": "I100020",
+                "type": "independent",
+                "parentName": "I100020",
+                "showHead": "true"
+              }
+            },
+            {
+              "equal": "有",
+              "style": "color:red"
+            }
+          ]
+        },
+        {
+          "name": "I100020",
+          "type": "select",
+          "title": "自杀风险评估",
+          "style": null,
+          "titleStyle": "width:80px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "160px",
+          "class": null,
+          "options": [
+            "无",
+            "有"
+          ],
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "有",
+                "cleanKey": "无",
+                "openDiffKey": "无",
+                "title": "自杀风险评估",
+                "default": "自杀风险评估",
+                "name": "I100020",
+                "type": "dependent",
+                "parentName": "I100020",
                 "showHead": "true"
               }
             },
@@ -5133,129 +5287,6 @@
               "name": "I001557",
               "type": "mark",
               "title": "其他",
-              "class": null
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "",
-      "type": "formGroupColBox",
-      "col": 1,
-      "title": "十一、护理重点",
-      "message": "",
-      "require": "false",
-      "prefixDesc": "",
-      "suffixDesc": "",
-      "keys": "",
-      "style": "width:100%",
-      "tdStyle": "width:100%",
-      "elementStyle": "width:100%",
-      "titleStyle": "margin-top: 12px;",
-      "classes": null,
-      "readOnly": null,
-      "children": [
-        {
-          "name": "",
-          "type": "",
-          "title": "护理交接班重点",
-          "titleStyle": "width:130px!important",
-          "style": "width:100%",
-          "tdStyle": "width:100%",
-          "boxStyle": "height:auto!important",
-          "elementStyle": "",
-          "class": null,
-          "hiddenTips": true,
-          "children": [
-            {
-              "name": "I001558",
-              "type": "mark",
-              "title": "护理交接班重点",
-              "class": null
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "I001502",
-      "type": "formGroupColBox",
-      "col": 1,
-      "title": "十一、护理重点",
-      "message": "",
-      "require": "false",
-      "prefixDesc": "",
-      "suffixDesc": "",
-      "keys": "",
-      "style": "width:100%",
-      "tdStyle": "width:100%",
-      "elementStyle": "width:100%",
-      "titleStyle": "margin-top: 12px;",
-      "classes": null,
-      "readOnly": null,
-      "children": [
-        {
-          "name": "I001559",
-          "type": "",
-          "title": "提醒医生给予关注",
-          "titleStyle": "width:130px!important",
-          "titleSpanStyle": "margin-left:0px!important",
-          "style": "width:100%",
-          "tdStyle": "width:100%",
-          "elementStyle": "width:100%",
-          "boxStyle": "height:auto!important",
-          "class": null,
-          "hiddenTips": true,
-          "children": [
-            {
-              "name": "I001559",
-              "type": "mark",
-              "title": "提醒医生给予关注",
-              "style": "",
-              "elementStyle": "",
-              "class": null
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "",
-      "type": "formGroupColBox",
-      "col": 1,
-      "title": "十一、护理重点",
-      "message": "",
-      "require": "false",
-      "prefixDesc": "",
-      "suffixDesc": "",
-      "keys": "",
-      "style": "width:100%",
-      "tdStyle": "width:100%",
-      "elementStyle": "width:100%",
-      "titleStyle": "margin-top: 12px;",
-      "classes": null,
-      "readOnly": null,
-      "children": [
-        {
-          "name": "",
-          "type": "",
-          "title": "提醒家属给予关爱",
-          "titleStyle": "width:130px!important",
-          "titleSpanStyle": "margin-left:0px!important",
-          "style": "width:100%",
-          "tdStyle": "width:100%",
-          "elementStyle": "width:100%",
-          "boxStyle": "height:auto!important",
-          "class": null,
-          "hiddenTips": true,
-          "children": [
-            {
-              "name": "I001560",
-              "type": "mark",
-              "title": "提醒家属给予关爱",
-              "style": "",
-              "elementStyle": "",
               "class": null
             }
           ]

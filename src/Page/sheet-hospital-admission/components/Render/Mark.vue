@@ -1,43 +1,62 @@
 
 <template>
-  <span style="margin: 0 0px 0 0;" :style="{display: 'flex', alignItems: 'start' }">
+  <span
+    style="margin: 0 0px 0 0"
+    :style="{ display: 'flex', alignItems: 'start' }"
+  >
     <!-- <autoComplete v-if="isShow" ref="autoInput" /> -->
     <!-- <el-input v-if="obj.type==='input'" v-model="checkboxValue" border size="small" :label="obj.title" :class="obj.class" :style="obj.style">{{obj.title}}</el-input> -->
     <span
       v-if="obj.label"
-      :style="{width: obj.labelWidth, textAlign: 'right', paddingRight: '10px'}"
+      :style="{
+        width: obj.labelWidth,
+        textAlign: 'right',
+        paddingRight: '10px',
+      }"
     >
-      <span style="font-size: 13px;" :style="obj.labelStyle" :class="obj.labelClass">{{obj.label}}</span>
+      <span
+        style="font-size: 13px"
+        :style="obj.labelStyle"
+        :class="obj.labelClass"
+        >{{ obj.label }}</span
+      >
     </span>
     <!-- v-autoComplete="{dataList: obj.options, obj:formObj.model, key: obj.name}" -->
     <el-input
       type="textarea"
       v-model="inputValue"
       :id="getUUID()"
-      :style="[obj.style, obj.inputWidth && {width: obj.inputWidth}]"
+      :style="[obj.style, obj.inputWidth && { width: obj.inputWidth }]"
       :ref="obj.name"
       :name="obj.name"
       :placeholder="'空'"
-      :class="model === 'development' ? 'development-model' : (obj.class||'')"
-      :size="obj.size||''"
-      :disabled="obj.disabled?true:false"
-      :readonly="obj.readOnly?obj.readOnly:false"
+      :class="model === 'development' ? 'development-model' : obj.class || ''"
+      :size="obj.size || ''"
+      :disabled="obj.disabled ? true : false"
+      :readonly="obj.readOnly ? obj.readOnly : false"
       @change="inputChange($event, obj)"
       @dblclick.native.stop="inputClick($event, obj)"
-      @click.native.stop="inputFocus($event, obj); obj.readOnly && inputClick($event, obj)"
+      @click.native.stop="
+        inputFocus($event, obj);
+        obj.readOnly && inputClick($event, obj);
+      "
       @focus="inputFocus($event, obj)"
       @blur.native.stop="inputBlur"
       @keydown.native="inputKeyDown($event, obj)"
     >
-      <span class="pre-text" v-if="obj.prefixDesc" slot="prepend">{{obj.prefixDesc}}</span>
+      <span class="pre-text" v-if="obj.prefixDesc" slot="prepend">{{
+        obj.prefixDesc
+      }}</span>
       <!-- <span slot="append"> -->
       <i
         slot="append"
-        v-if="obj.options&&!obj.suffixDesc"
-        @click.prevent.stop="()=>{}"
+        v-if="obj.options && !obj.suffixDesc"
+        @click.prevent.stop="() => {}"
         class="el-input__icon el-icon-caret-top"
       ></i>
-      <span slot="append" class="post-text" v-if="obj.suffixDesc">{{obj.suffixDesc}}</span>
+      <span slot="append" class="post-text" v-if="obj.suffixDesc">{{
+        obj.suffixDesc
+      }}</span>
       <!-- </span> -->
       <!-- <template slot="append" v-if="obj.options"> -->
       <!-- </template> -->
@@ -59,16 +78,16 @@ export default {
     formObj: Object,
     col: {
       type: Number,
-      default: 1
+      default: 1,
     },
     model: {
       type: String,
-      default: "normal"
+      default: "normal",
     },
     property: {
       type: Object,
-      default: () => new Object()
-    }
+      default: () => new Object(),
+    },
   },
   components: {
     // autoComplete
@@ -77,7 +96,7 @@ export default {
     return {
       inputValue: "",
       isShow: true,
-      isClone: false
+      isClone: false,
     };
   },
   computed: {
@@ -86,7 +105,7 @@ export default {
         return this.formObj.formSetting.formInfo.formCode;
       } catch (error) {}
       return "E0001";
-    }
+    },
   },
   watch: {
     inputValue(valueNew, oldvaule) {
@@ -100,13 +119,19 @@ export default {
       /** 如果存在clone ref */
       setTimeout(() => {
         if (this.isClone) {
-          this.$root.$refs[this.formCode][this.obj.name].setCurrentValue(valueNew);
-          this.$root.$refs[this.formCode][this.obj.name].$parent.checkValueRule(valueNew);
-        } else if (this.$root.$refs[this.formCode][this.obj.name + "_clone"]) {
-          this.$root.$refs[this.formCode][this.obj.name + "_clone"].setCurrentValue(valueNew);
-          this.$root.$refs[this.formCode][this.obj.name + "_clone"].$parent.checkValueRule(
+          this.$root.$refs[this.formCode][this.obj.name].setCurrentValue(
             valueNew
           );
+          this.$root.$refs[this.formCode][this.obj.name].$parent.checkValueRule(
+            valueNew
+          );
+        } else if (this.$root.$refs[this.formCode][this.obj.name + "_clone"]) {
+          this.$root.$refs[this.formCode][
+            this.obj.name + "_clone"
+          ].setCurrentValue(valueNew);
+          this.$root.$refs[this.formCode][
+            this.obj.name + "_clone"
+          ].$parent.checkValueRule(valueNew);
         }
       }, 100);
 
@@ -134,8 +159,8 @@ export default {
         //   this.inputValue = curVal.value + ''
         // }
       },
-      deep: true
-    }
+      deep: true,
+    },
   },
   mounted() {
     // try {
@@ -147,7 +172,8 @@ export default {
       this.$refs[refName]["childObject"] = this.obj;
       this.$refs[refName]["checkValueRule"] = this.checkValueRule;
       if (this.obj.isClone) {
-        this.$root.$refs[this.formCode][refName + "_clone"] = this.$refs[refName];
+        this.$root.$refs[this.formCode][refName + "_clone"] =
+          this.$refs[refName];
         this.isClone = true;
       } else {
         this.$root.$refs[this.formCode][refName] = this.$refs[refName];
@@ -220,7 +246,7 @@ export default {
           this.obj.options = options;
         } else {
           this.obj.options = [];
-          options.map(item => {
+          options.map((item) => {
             this.obj.options.push({ name: item, code: item, pinyin: "" });
           });
         }
@@ -249,7 +275,7 @@ export default {
       ) {
         console.log("rule:", this.obj.rule);
         // 遍历规则
-        this.obj.rule.map(r => {
+        this.obj.rule.map((r) => {
           let [min, max] = [Number(r.min), Number(r.max)];
           let value = Number(valueNew);
           min = min === NaN ? 0 : min;
@@ -257,7 +283,7 @@ export default {
           value = value === NaN ? 0 : value;
 
           // 判断规则
-          if (r.min && r.max && (value >= min && value < max)) {
+          if (r.min && r.max && value >= min && value < max) {
             this.obj.style = r.style;
             // 替换显示 r.display
             if (
@@ -267,7 +293,9 @@ export default {
               this.$refs[this.obj.name].type === "text"
             ) {
               this.$refs[this.obj.name].setCurrentValue(r.display);
-              this.$root.$refs[this.formCode][this.obj.name].setCurrentValue(r.display);
+              this.$root.$refs[this.formCode][this.obj.name].setCurrentValue(
+                r.display
+              );
             }
             textResult = r.display ? r.display : "";
             // return textResult;
@@ -282,7 +310,9 @@ export default {
               this.$refs[this.obj.name].type === "text"
             ) {
               this.$refs[this.obj.name].setCurrentValue(r.display);
-              this.$root.$refs[this.formCode][this.obj.name].setCurrentValue(r.display);
+              this.$root.$refs[this.formCode][this.obj.name].setCurrentValue(
+                r.display
+              );
             }
             textResult = r.display ? r.display : "";
             // return textResult;
@@ -296,7 +326,9 @@ export default {
               this.$refs[this.obj.name].type === "text"
             ) {
               this.$refs[this.obj.name].setCurrentValue(r.display);
-              this.$root.$refs[this.formCode][this.obj.name].setCurrentValue(r.display);
+              this.$root.$refs[this.formCode][this.obj.name].setCurrentValue(
+                r.display
+              );
             }
             textResult = r.display ? r.display : "";
           } else if (r.scoreMin && r.scoreMax && valueNew) {
@@ -308,7 +340,8 @@ export default {
             if (
               r.scoreMin &&
               r.scoreMax &&
-              (score >= scoreMin && score <= scoreMax)
+              score >= scoreMin &&
+              score <= scoreMax
             ) {
               this.obj.style = r.style;
             }
@@ -404,10 +437,10 @@ export default {
               top: `${xy.top + delt}px`,
               left: `${xy.left}px`,
               width: `${xy.width}px`,
-              "min-width": "max-content"
+              "min-width": "max-content",
             },
             data: dataList,
-            callback: function(data) {
+            callback: function (data) {
               // console.log('callback',obj,data,e)
               if (data) {
                 // console.log('==callback',obj,data)
@@ -424,7 +457,7 @@ export default {
               // e.target.focus();
               return false;
             },
-            id: key
+            id: key,
           });
         }
       }
@@ -449,7 +482,7 @@ export default {
         console.log("child.dialog", child.dialog, this.$refs, this.$root.$refs);
         try {
           // this.$root.$refs.dialogBox.$el.draggable = true
-          child.dialog["callback"] = res => {
+          child.dialog["callback"] = (res) => {
             console.log("表单填写结果", res);
           };
           this.$root.$refs.dialogBox.openBox(child.dialog, this.inputValue); //$el draggable
@@ -563,8 +596,8 @@ export default {
     },
     openTemplateModal() {
       this.$root.$refs.templateSlide.open(this.obj.name);
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -573,8 +606,8 @@ export default {
 .el-checkbox, .el-select, .is-bordered, .el-checkbox--small, .el-input, .el-input--small, .el-input-group, .el-input-group--prepend {
   margin: 5px 0px;
   vertical-align: bottom;
-  // width: 100%;
 
+  // width: 100%;
   &:hover {
     outline: 1px solid #4baf8d;
     border: none;
@@ -595,17 +628,18 @@ export default {
     border: 1px solid #4baf8d;
     // background #dfffdf
   }
-  &:read-only{
+
+  &:read-only {
     cursor: pointer;
   }
-  &:placeholder{
+
+  &:placeholder {
     color: #dbe6e4;
   }
 }
 
 .el-input {
   // width: 172px;
-
   &.development-model {
     width: 100% !important;
   }
@@ -656,23 +690,27 @@ export default {
   display: inline-block;
   vertical-align: middle;
 }
+
 .post-text {
-  margin -8px -14px -9px -10px
-  padding 8px 14px 9px 10px
-  background #fff
+  margin: -8px -14px -9px -10px;
+  padding: 8px 14px 9px 10px;
+  background: #fff;
 }
+
 >>>.el-input:hover {
   .post-text {
-    border-left 1px solid #4baf8d
-    background #eef5f5
+    border-left: 1px solid #4baf8d;
+    background: #eef5f5;
   }
 }
+
 >>>.el-textarea textarea {
   width: 633px;
   margin-top: 8px;
   margin-bottom: 10px;
-  resize:none;
+  resize: none;
 }
+
 .muban {
   color: rgb(40, 79, 194);
   cursor: pointer;
