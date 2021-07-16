@@ -95,7 +95,7 @@ export default {
         new TableItem("出生年月", re.birthday, "年龄", re.age),
         new TableItem("婚姻状况", re.marriage, "职业", re.occupation),
         new TableItem("出生地", re.birthPlace, "国籍", re.country),
-        new TableItem("身份证号", re.idNo, "名族", re.nation),
+        new TableItem("身份证号", re.idNo, "民族", re.nation),
         new TableItem("现住址", re.address, "电话", re.phone),
         new TableItem(
           "单位地址",
