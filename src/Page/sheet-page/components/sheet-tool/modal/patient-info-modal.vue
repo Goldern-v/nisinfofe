@@ -1,7 +1,7 @@
 <template>
   <div class="patient-info-modal">
     <sweet-modal :modalWidth="1200" ref="preview-modal" title="同步护理巡视">
-      <div style="padding-bottom: 10px;">
+      <div style="padding-bottom: 10px">
         <span class="type-label">时间:</span>
         <ElDatePicker
           class="date-picker"
@@ -76,13 +76,13 @@
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
 .patient-info-modal {
-	 >>>.el-table {
-		 margin-bottom: 10px;
+  >>>.el-table {
+    margin-bottom: 10px;
 
-		.cell {
-			padding: 0 5px;
-		}
-	}
+    .cell {
+      padding: 0 5px;
+    }
+  }
 }
 </style>
 <script>
@@ -97,7 +97,7 @@ export default {
       beginTime: moment(new Date()).format("YYYY-MM-DD"),
       endTime: moment(new Date()).format("YYYY-MM-DD"),
       tableData: [],
-      currentVisitData: {}
+      currentVisitData: {},
     };
   },
   created() {
@@ -107,19 +107,22 @@ export default {
     open() {
       this.$refs.multipleTable.clearSelection();
       this.$refs["preview-modal"].open();
+      this.getTableList();
     },
     close() {
       this.$refs["preview-modal"].close();
     },
     //  通过患者id和住院次数和时间查询巡视患者的巡视内容
     getTableList() {
+      if (!this.$route.query.patientId || !this.$route.query.visitId) return;
+
       this.pageLoadng = true;
       syncVisitWithDatePad(
         this.$route.query.patientId,
         this.$route.query.visitId,
         moment(this.beginTime).format("YYYY-MM-DD"),
         moment(this.endTime).format("YYYY-MM-DD")
-      ).then(res => {
+      ).then((res) => {
         this.pageLoadng = false;
         this.tableData = res.data.data.list;
       });
@@ -136,6 +139,10 @@ export default {
     },
     // 同步护理巡视
     addPatientInfo() {
+      if (Object.keys(this.currentVisitData).length <= 0) {
+        this.$message.warning("未选择同步数据");
+        return;
+      }
       let syncVisitWithData = {
         recordMonth: this.currentVisitData.operateDate
           ? moment(this.currentVisitData.operateDate).format("MM-DD")
@@ -143,17 +150,17 @@ export default {
         recordHour: this.currentVisitData.operateDate
           ? moment(this.currentVisitData.operateDate).format("HH:mm")
           : "",
-        description: this.currentVisitData.visitContent
+        description: this.currentVisitData.visitContent,
       };
       this.bus.$emit("syncVisitWithDataSheet", syncVisitWithData);
       this.close();
-    }
+    },
   },
   components: {},
   filters: {
     ymdhm(val) {
       return val ? moment(val).format("YYYY-MM-DD HH:mm:ss") : "";
-    }
-  }
+    },
+  },
 };
 </script>
