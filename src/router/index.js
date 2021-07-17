@@ -62,6 +62,9 @@ const shiftWorkDetailLiaocheng = () => import("@/Page/shift-work-liaocheng/shift
 const shiftWorkGuizhou = () => import("@/Page/shift-work-gz/shift-work.vue");//贵州交班志
 const shiftWorkDetailGuizhou = () => import("@/Page/shift-work-gz/shift-work-detail.vue");
 
+const shiftWork2 = () => import("@/Page/shift-work2/shift-work.vue");
+const shiftWorkDetail2 = () => import("@/Page/shift-work2/shift-work-detail.vue");
+
 const singleRounds = () => import("@/Page/single-rounds/single-rounds.vue");
 const singleRoundsDetail = () => import("@/Page/single-rounds/single-rounds-detail.vue");
 
@@ -429,6 +432,16 @@ const router = new Router({
                 return shiftWorkDetail
             }
           })(),
+        }]
+      },
+      {
+        path: "/shiftWork2",
+        name: "shiftWorks2",
+        component: shiftWork2,
+        children: [{
+          name: "shiftWork3",
+          path: "/shiftWork2/:code?/:id?",
+          component: shiftWorkDetail2
         }]
       },
       {
