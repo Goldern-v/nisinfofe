@@ -146,6 +146,11 @@ export const multiDictInfo = (list, recordCode) => {
   );
 };
 
+// 获取二级字典全部
+export const getSecondDictSheet = (type) => {
+  return axios.get(`${apiPath}/dictTable/getSecondDict/${type}`);
+};
+
 // pdf 打印
 export const toPdfPrint = (blockId, isFefresh) => {
   return axios.get(`${apiPath}print/record/${blockId}?refresh=${isFefresh}`);

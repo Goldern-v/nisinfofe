@@ -592,10 +592,18 @@ export default function Title(
     );
   }
   break;
+  // 贵州人医
   case "common_gzry": {
     // 贵州人医-通用护理记录单
     Th = JSON.parse(
       JSON.stringify(require("../config/common_gzry/th").default)
+    );
+  }
+  break;
+  case "access_gzry": {
+    // 贵州人医-出入量护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/access_gzry/th").default)
     );
   }
   break;
