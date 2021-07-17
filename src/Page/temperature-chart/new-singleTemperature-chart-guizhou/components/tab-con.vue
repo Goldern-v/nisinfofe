@@ -68,7 +68,6 @@
             :class="
               !(
                 index.includes('自定义') ||
-                index.includes('腋温') ||
                 index.includes('注释') ||
                 index.includes('体温复测')
               )
