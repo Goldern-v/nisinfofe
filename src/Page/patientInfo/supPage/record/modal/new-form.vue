@@ -9,7 +9,12 @@
       <div class="title-bar" flex="cross:center">
         <span class="type-text">护理文书类型</span>
         <el-select
-          v-if="HOSPITAL_ID != 'hj' && HOSPITAL_ID != 'huadu' && HOSPITAL_ID != 'liaocheng' "
+          v-if="
+            HOSPITAL_ID != 'hj' &&
+            HOSPITAL_ID != 'huadu' &&
+            HOSPITAL_ID != 'liaocheng' &&
+            HOSPITAL_ID != 'guizhou'
+          "
           v-model="formType"
           placeholder="选择类型"
           class="type-select"
@@ -23,7 +28,12 @@
           ></el-option>
         </el-select>
         <el-input
-          v-if="HOSPITAL_ID != 'hj' && HOSPITAL_ID != 'huadu' && HOSPITAL_ID != 'liaocheng' "
+          v-if="
+            HOSPITAL_ID != 'hj' &&
+            HOSPITAL_ID != 'huadu' &&
+            HOSPITAL_ID != 'liaocheng' &&
+            HOSPITAL_ID != 'guizhou'
+          "
           class="text-con"
           :placeholder="
             '搜索' + options.find((item) => item.value == formType).label
@@ -96,7 +106,33 @@
           v-if="HOSPITAL_ID == 'liaocheng'"
           class="text-con-liaocheng"
           :placeholder="
-            '搜索' + liaochengOptions.find((item) => item.value == formType).label
+            '搜索' +
+            liaochengOptions.find((item) => item.value == formType).label
+          "
+          icon="search"
+          v-model="searchWord"
+        ></el-input>
+        <!-- 贵州省人民医院 -->
+        <el-select
+          v-if="HOSPITAL_ID == 'guizhou'"
+          v-model="formType"
+          style="width: 150px"
+          placeholder="选择类型"
+          class="type-select"
+          :disabled="formTypeReadOnly"
+        >
+          <el-option
+            v-for="item in guizhouOptions"
+            :key="item.value || item.label"
+            :label="item.label"
+            :value="item.value"
+          ></el-option>
+        </el-select>
+        <el-input
+          v-if="HOSPITAL_ID == 'guizhou'"
+          class="text-con-liaocheng"
+          :placeholder="
+            '搜索' + guizhouOptions.find((item) => item.value == formType).label
           "
           icon="search"
           v-model="searchWord"
@@ -152,7 +188,7 @@
 
 .type-select {
   >>>.el-input {
-    width: 126px;
+    min-width: 126px;
   }
 
   >>>.el-input__inner {
@@ -177,6 +213,7 @@
     border-radius: 4px;
   }
 }
+
 .text-con-liaocheng {
   >>>&.el-input {
     width: 146px;
@@ -260,6 +297,16 @@ import { formUrl, devFormUrl } from "@/common/pathConfig/index.js";
 import { templatesAll } from "../api/index.js";
 import { getFormConfig } from "../config/form-config.js";
 import qs from "qs";
+
+const getInitFormType = (HOSPITAL_ID) => {
+  switch (HOSPITAL_ID) {
+    case "guizhou":
+      return "eval";
+    default:
+      return "1";
+  }
+};
+
 export default {
   mixins: [commonMixin],
   data() {
@@ -325,7 +372,25 @@ export default {
           label: "交接记录单",
         },
       ],
-      formType: "1",
+      guizhouOptions: [
+        // {
+        //   value: "1",
+        //   label: "全部",
+        // },
+        {
+          value: "eval",
+          label: "通用护理评估单",
+        },
+        {
+          value: "specialistScoring",
+          label: "专科护理评估单",
+        },
+        {
+          value: "authorization",
+          label: "知情同意书",
+        },
+      ],
+      formType: getInitFormType(this.HOSPITAL_ID),
       pageLoading: true,
       pageLoadingText: "数据载入中",
       searchWord: "",
@@ -345,7 +410,7 @@ export default {
         this.formTypeReadOnly = true;
       } else {
         this.filterObj = null;
-        this.formType = "1";
+        this.formType = getInitFormType(this.HOSPITAL_ID);
         this.formTypeReadOnly = false;
       }
       if (this.$route.query.patientId) {
@@ -385,7 +450,7 @@ export default {
         this.formType == "1" ||
         this.formType == "monitor" ||
         this.formType == "sens" ||
-        this.formType == "firstRecord"||
+        this.formType == "firstRecord" ||
         this.formType == "handover"
       ) {
         let token = window.app.$getCookie("NURSING_USER").split("##")[1];
