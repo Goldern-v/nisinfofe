@@ -20,6 +20,7 @@ import main from "@/Part/main";
 // import mailDetails from "../Page/mail-details/mail-details.vue";
 //自动登录
 import autoLogin from "../Part/auto-login";
+import autoLoginGuizhou from "../Part/auto-login-guizhou";
 // import whiteBoard from '@/Part/whiteBoard/whiteBoard'
 // import home1 from "@/Page/catheter-page/home1/home";
 
@@ -871,7 +872,14 @@ const router = new Router({
   },
   {
     path: "/autoLogin",
-    component: autoLogin
+    component: (() => {
+      switch (HOSPITAL_ID) {
+        case 'guizhou':
+          return autoLoginGuizhou
+        default:
+          return autoLogin
+      }
+    })(),
   },
   {
     path: "/print/:type",
