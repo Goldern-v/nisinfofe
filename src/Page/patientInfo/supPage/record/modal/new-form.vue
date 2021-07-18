@@ -447,11 +447,16 @@ export default {
       window.app.currentForm = item;
 
       if (
-        this.formType == "1" ||
-        this.formType == "monitor" ||
-        this.formType == "sens" ||
-        this.formType == "firstRecord" ||
-        this.formType == "handover"
+        [
+          "1",
+          "monitor",
+          "sens",
+          "firstRecord",
+          "handover",
+          "eval",
+          "specialistScoring",
+          "authorization",
+        ].includes(this.formType)
       ) {
         let token = window.app.$getCookie("NURSING_USER").split("##")[1];
         let query = this.$route.query;
