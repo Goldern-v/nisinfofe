@@ -20,6 +20,7 @@ import main from "@/Part/main";
 // import mailDetails from "../Page/mail-details/mail-details.vue";
 //自动登录
 import autoLogin from "../Part/auto-login";
+import autoLoginGuizhou from "../Part/auto-login-guizhou";
 // import whiteBoard from '@/Part/whiteBoard/whiteBoard'
 // import home1 from "@/Page/catheter-page/home1/home";
 
@@ -59,6 +60,8 @@ const shiftWorkFy = () => import("@/Page/shift-work-fy/shift-work.vue");
 const shiftWorkDetailFy = () => import("@/Page/shift-work-fy/shift-work-detail.vue");
 const shiftWorkLiaocheng = () => import("@/Page/shift-work-liaocheng/shift-work.vue");
 const shiftWorkDetailLiaocheng = () => import("@/Page/shift-work-liaocheng/shift-work-detail.vue");
+const shiftWorkGuizhou = () => import("@/Page/shift-work-gz/shift-work.vue");//贵州交班志
+const shiftWorkDetailGuizhou = () => import("@/Page/shift-work-gz/shift-work-detail.vue");
 
 const singleRounds = () => import("@/Page/single-rounds/single-rounds.vue");
 const singleRoundsDetail = () => import("@/Page/single-rounds/single-rounds-detail.vue");
@@ -392,12 +395,51 @@ const router = new Router({
       {
         path: "/shiftWork",
         name: "shiftWorks",
-        component: HOSPITAL_ID == "lingcheng" ? shiftWorkLc : HOSPITAL_ID == "huadu" ? shiftWorkHd : HOSPITAL_ID == "fuyou" ? shiftWorkFy : HOSPITAL_ID == "liaocheng" || HOSPITAL_ID == "zhongshanqi" ? shiftWorkLiaocheng : shiftWork,
+        component: (() => {
+          switch (HOSPITAL_ID) {
+            case 'lingcheng':
+              return shiftWorkLc
+            case 'huadu':
+              return shiftWorkHd
+            case 'fuyou':
+              return shiftWorkFy
+            case 'liaocheng' || 'zhongshanqi':
+              return shiftWorkLiaocheng
+            // case 'guizhou':
+            //   return shiftWorkGuizhou
+            default:
+              return shiftWork
+          }
+        })(),
         children: [{
           name: "shiftWork",
           path: "/shiftWork/:code?/:id?",
-          component: HOSPITAL_ID == "lingcheng" ?
-            shiftWorkDetailLc : HOSPITAL_ID == "huadu" ? shiftWorkDetailHd : HOSPITAL_ID == "fuyou" ? shiftWorkDetailFy : HOSPITAL_ID == "liaocheng" || HOSPITAL_ID == "zhongshanqi" ? shiftWorkDetailLiaocheng : shiftWorkDetail
+          component: (() => {
+            switch (HOSPITAL_ID) {
+              case 'lingcheng':
+                return shiftWorkDetailLc
+              case 'huadu':
+                return shiftWorkDetailHd
+              case 'fuyou':
+                return shiftWorkDetailFy
+              case 'liaocheng' || 'zhongshanqi':
+                return shiftWorkDetailLiaocheng
+              // case 'guizhou':
+              //   return shiftWorkDetailGuizhou
+              default:
+                return shiftWorkDetail
+            }
+          })(),
+        }]
+      },
+      {
+        path: "/shiftWork2",
+        name: "shiftWorks2",
+        component: shiftWorkGuizhou,
+        children: [{
+          name: "shiftWork2",
+          path: "/shiftWork2/:code?/:id?",
+          component: shiftWorkDetailGuizhou
         }]
       },
       {
@@ -830,7 +872,14 @@ const router = new Router({
   },
   {
     path: "/autoLogin",
-    component: autoLogin
+    component: (() => {
+      switch (HOSPITAL_ID) {
+        case 'guizhou':
+          return autoLoginGuizhou
+        default:
+          return autoLogin
+      }
+    })(),
   },
   {
     path: "/print/:type",

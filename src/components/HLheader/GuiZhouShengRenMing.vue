@@ -111,11 +111,44 @@
                 <i class="iconfont icon-baiban"></i> 白板
               </el-row>
             </router-link>
-            <router-link to="/shiftWork" tag="span">
+            <!-- <router-link to="/shiftWork" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-jiaobanzhi"></i> 交班志
               </el-row>
-            </router-link>
+            </router-link> -->
+            <el-dropdown
+              menu-align="start"
+              :class="{ 'router-link-active': isActiveShiftWork }"
+            >
+              <el-row class="nav-item" type="flex" align="middle">
+                <div class="before"></div>
+                <i class="iconfont icon-jiaobanzhi"></i>交班志
+              </el-row>
+              <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item
+                  :class="{
+                    active:
+                      $route.path.includes('/shiftWork') &&
+                      !$route.path.includes('/shiftWork2')
+                  }"
+                >
+                  <router-link to="/shiftWork2" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle"
+                      >交班志
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item>
+                <el-dropdown-item
+                  :class="{ active: $route.path.includes('/shiftWork') }"
+                >
+                  <router-link to="/shiftWork" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle"
+                      >ISBAR交班记录卡
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item>
+              </el-dropdown-menu>
+            </el-dropdown>
             <el-dropdown
               menu-align="start"
               :class="{ 'router-link-active': isActiveTemperaturePage }"
@@ -525,6 +558,15 @@
   width: 100%;
 }
 
+.el-dropdown-menu__item:not(.is-disabled):hover, .el-dropdown-menu__item.active {
+  background-color: #F8F8FA;
+
+  .menu-item {
+    color: #333;
+    font-weight: bold;
+  }
+}
+
 .router-link-active {
   .nav-item {
     background: #F8F8FA;
@@ -883,6 +925,9 @@ export default {
         path.includes("MEWS")
       );
     },
+    isActiveShiftWork() {
+      return this.$route.path.includes('shiftWork');
+    }
   },
   methods: {
     handleCommand(command) {

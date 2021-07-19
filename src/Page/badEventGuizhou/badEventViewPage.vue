@@ -578,8 +578,7 @@ export default {
 
       if(this.HOSPITAL_ID == "guizhou"){
         this.isDisabled = !currentStatusObj.canUpdate;
-        this.isDisabled2 = !currentStatusObj.canUpdate;
-        this.isDisabled3 = !currentStatusObj.canUpdate;
+        this.isDisabled2 = !currentStatusObj.canHandle;
       }
 
       // 表单里面的护士长审核 && 护理质量管理委员会审核单独添加审核时间(取事件轨迹最后一条数据)

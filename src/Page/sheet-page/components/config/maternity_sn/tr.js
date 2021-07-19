@@ -10,7 +10,7 @@ import {
   click_date,
   click_time
 } from "../keyEvent/date";
-let ysList = [];
+let ysList = [],pupilSizeList = [],pupilReflexList = [];
 export default [{
     key: "recordMonth", //日期
     value: "",
@@ -70,22 +70,34 @@ export default [{
   {
     key: "pupilSizeLeft", // 瞳孔-大小-左
     value: "",
-    event: keyf1
+    event: keyf1,
+    autoComplete: {
+      data: pupilSizeList
+    }
   },
   {
     key: "pupilSizeRight", // 瞳孔-大小-右
     value: "",
-    event: keyf1
+    event: keyf1,
+    autoComplete: {
+      data:pupilSizeList
+    }
   },
   {
     key: "pupilReflexLeft", // 瞳孔-反射反应-左
     value: "",
-    event: keyf1
+    event: keyf1,
+    autoComplete: {
+      data:pupilReflexList
+    }
   },
   {
     key: "pupilReflexRight", // 瞳孔-反射反应-右
     value: "",
-    event: keyf1
+    event: keyf1,
+    autoComplete: {
+      data:pupilReflexList
+    }
   },
   {
     key: "food", //入
@@ -234,10 +246,14 @@ export default [{
 function getListData() {
   let list = [
     "山南:通用护理记录单（妇产科）:意识",
+    "瞳孔-大小",
+    "瞳孔-对光反射",
   ];
   multiDictInfo(list).then(res => {
     let data = res.data.data;
     setList(ysList, list[0], data);
+    setList(pupilSizeList, list[1], data);
+    setList(pupilReflexList, list[2], data);
   });
 }
 

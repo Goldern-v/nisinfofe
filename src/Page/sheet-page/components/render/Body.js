@@ -482,9 +482,15 @@ function switechSheetType(type) {
     schema = require("../config/common_zsqy/tr.js").default;
   }
   break;
+  // 贵州人医
   case "common_gzry": {
     // 贵州人医-护理记录单
     schema = require("../config/common_gzry/tr.js").default;
+  }
+  break;
+  case "access_gzry": {
+    // 贵州人医-出入量护理记录单
+    schema = require("../config/access_gzry/tr.js").default;
   }
   break;
   case "common_hl": {

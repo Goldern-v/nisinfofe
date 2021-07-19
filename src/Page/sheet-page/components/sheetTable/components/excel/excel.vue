@@ -205,6 +205,25 @@
           <!-- <div v-else-if="td.key == 'auditorNo'" class="sign-img">
             <img v-if="td.value" :src="`/crNursing/api/file/signImage/${td.value}?${token}`" alt>
           </div>-->
+           <el-select
+           v-else-if="td.type=='select' && HOSPITAL_ID == 'guizhou'"
+          v-model="td.value"
+          filterable
+          remote
+          placeholder=""
+          size="small"
+          class="access-select"
+          autocomplete="off"
+          :remote-method="remoteMethod"
+          @visible-change="td.autoComplete && getOptionsData(td,tr,$event)"
+        >
+          <el-option
+            v-for="item in accessOptionData[td.name]"
+            :key="item"
+            :label="item"
+            :value="item"
+          ></el-option>
+        </el-select>
           <textarea
             v-else-if="td.textarea"
             :class="{ towLine: isOverText(td) }"
@@ -512,7 +531,18 @@ export default {
         "obstetrics_hl",
         "gynecology_hl",
         "prenatal_hl"
-      ]
+      ],
+      accessOptionList: [],//下拉列表数据（贵州人医）
+      defaultOptionList: [],//默认下拉列表数据
+      accessOptionData: {//所有下拉列表数据
+        入量名称: [],
+        入量方式: [],
+        途径: [],
+        出量名称: [],
+        出量方式: [],
+        性质: []
+      },
+      currentKey: '',//点击下拉当前的key
     };
   },
   computed: {
@@ -1456,7 +1486,43 @@ export default {
         }
         this.bus.$emit("saveSheetPage", true);
       }, title);
-    }
+    },
+    // 出入量下拉、可输入过滤（贵州）
+    remoteMethod(query) {
+      if (query !== "") {
+        this.accessOptionList = this.defaultOptionList.filter(item => {
+          return (
+            item.includes(query)
+          );
+        });
+      }
+      if (!query || this.accessOptionList.length == 0 || this.deptName == query) {
+        this.accessOptionList = JSON.parse(JSON.stringify(this.defaultOptionList));
+      }
+      if(this.currentKey){
+        this.accessOptionData[this.currentKey] = [...this.accessOptionList];
+      }
+    },
+     // 获取出入量下拉、可输入过滤数据（贵州）
+    getOptionsData(td, tr,$event){
+      if(!$event){
+        return;
+      }
+      this.currentKey = td.name;
+      let autoCompleteData = [];
+      if(td.parentKey && td.autoComplete.data.length>0){
+        let key = tr.find(item=>{
+          return item.key == td.parentKey
+        }).value;
+        let data = td.autoComplete.data[0];
+        autoCompleteData = data[key] && data[key].map(child => {
+          return child.itemName
+        })
+      }
+      this.defaultOptionList = td.parentKey ? autoCompleteData : td.autoComplete.data
+      this.accessOptionList = JSON.parse(JSON.stringify(this.defaultOptionList));
+      this.accessOptionData[td.name] = [...this.accessOptionList];
+    },
   },
   watch: {
     scrollY() {

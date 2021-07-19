@@ -91,7 +91,7 @@
         @click.stop="backMainForm"
         v-if="isDeputy"
       >
-        <div class="text-con">切换主页</div>
+        <div class="text-con">{{HOSPITAL_ID == "guizhou" ? '护理记录单': '切换主页'}}</div>
       </div>
       <div
         class="item-box"
@@ -100,7 +100,7 @@
         @click.stop="addDeputyForm"
         v-if="sheetInfo.selectBlock && sheetInfo.selectBlock.additionalCode"
       >
-        <div class="text-con">切换副页</div>
+        <div class="text-con">{{HOSPITAL_ID == "guizhou" ? '出入量记录单': '切换副页'}}</div>
       </div>
       <div
         class="item-box"
@@ -191,19 +191,19 @@
         class="right-btn"
         flex="cross:center main:center"
         @click="emit('openEvalModel')"
-        v-if="showCrl && !isSingleTem_LCEY"
+        v-if="showCrl && !isSingleTem_LCEY && !isDeputy"
       >
         <div class="text-con">
           <img src="./images/评估.png" alt />
           评估同步
         </div>
       </div>
-      <div class="line" v-if="!isSingleTem_LCEY"></div>
+      <div class="line" v-if="!isSingleTem_LCEY && !isDeputy"></div>
       <div
         class="right-btn"
         flex="cross:center main:center"
         @click.stop="openTztbModal"
-        v-if="!isSingleTem_LCEY"
+        v-if="!isSingleTem_LCEY  && !isDeputy"
       >
         <div class="text-con">
           <img src="./images/体征.png" alt />
