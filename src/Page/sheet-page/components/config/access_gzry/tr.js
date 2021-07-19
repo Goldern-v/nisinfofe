@@ -243,13 +243,13 @@ export function getListData4() {
     setList(dischargeData, "出量名称", data);
   });
 
-  getSecondDictSheet("record_discharge_property").then(res => {
+  getSecondDictSheet("record_intake_route").then(res => {
     foodChannelData.push(res.data.data)
     for(let key in res.data.data){
       foodWayData.push(key)
     }
   })
-  getSecondDictSheet("record_intake_route").then(res => {
+  getSecondDictSheet("record_discharge_property").then(res => {
     dischargePropData.push(res.data.data)
     for(let key in res.data.data){
       dischargeWayData.push(key)
