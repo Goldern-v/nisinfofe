@@ -458,7 +458,7 @@ export default {
     },
     // 获取所有事件状态
     getEventStatus() {
-      if(this.isDev && this.HOSPITAL_ID == "guizhou"){
+      if((this.isDev || host == '192.168.1.54:9875') && this.HOSPITAL_ID == "guizhou"){
         this.eventStatusOptions = [
           { code: "", name: "全部" },
           { code: "0", name: "保存" },

@@ -529,7 +529,7 @@ export default {
             : "";
           if(item.status == 1 && index == stream.length -1 && !item.noPass){
             status = "finish";
-          }else if(item.status == 1){
+          }else if(item.status == 1 && !item.noPass){
             status = "success";
             currentStatusObj = item;
           }else if(item.status == 0){
