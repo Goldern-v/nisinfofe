@@ -1703,14 +1703,35 @@
           "class": null
         },
         {
-          "name": "I001143",
+          "name": "I001148",
           "type": "select",
-          "title": "对答",
+          "title": "反应",
           "style": null,
           "titleStyle": "width:60px!important",
           "inputStyle": "width:270px!important",
           "inputWidth": "180px",
-          "class": null
+          "class": null,
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "能应答",
+                "cleanKey": [
+                  "正常",
+                  "不应答",
+                  "激惹",
+                  "迟钝",
+                  "全无"
+                ],
+                "title": "切题情况",
+                "parentName": "I001148",
+                "type": "dependent"
+              }
+            },
+            {
+              "equal": "有",
+              "style": "color:red"
+            }
+          ]
         },
         {
           "name": "I100021",
@@ -1753,37 +1774,6 @@
           "inputStyle": "width:270px!important",
           "inputWidth": "160px",
           "class": null
-        },
-        {
-          "name": "I001148",
-          "type": "select",
-          "title": "反应",
-          "style": null,
-          "titleStyle": "width:60px!important",
-          "inputStyle": "width:270px!important",
-          "inputWidth": "180px",
-          "class": null,
-          "rule": [
-            {
-              "dialog": {
-                "openKey": "能应答",
-                "cleanKey": [
-                  "正常",
-                  "不应答",
-                  "激惹",
-                  "迟钝",
-                  "全无"
-                ],
-                "title": "切题情况",
-                "parentName": "I001148",
-                "type": "dependent"
-              }
-            },
-            {
-              "equal": "有",
-              "style": "color:red"
-            }
-          ]
         },
         {
           "name": "I001150",
@@ -2456,7 +2446,7 @@
       "readOnly": true,
       "children": [
         {
-          "name": "I001260",
+          "name": "S0627",
           "type": "select",
           "title": "压力性损伤",
           "style": null,
@@ -2475,8 +2465,9 @@
                 "cleanKey": "无",
                 "title": "预防住院患者压力性损伤护理清单",
                 "default": "预防住院患者压力性损伤护理清单",
-                "type": "dependent",
-                "parentName": "I001260"
+                "type": "independent",
+                "parentName": "S0627",
+                "showHead": "true"
               }
             },
             {
@@ -2654,8 +2645,8 @@
                 "title": "压力性损伤风险评估表Barden Q（儿童）",
                 "default": "压力性损伤风险评估表Barden Q（儿童）",
                 "type": "independent",
-                "name": "I100127",
-                "parentName": "I100127",
+                "name": "S0005",
+                "parentName": "S0005",
                 "showHead": "true"
               }
             },
@@ -2686,9 +2677,9 @@
                 "cleanKey": "无",
                 "title": "跌倒评估单(成人)",
                 "default": "跌倒评估单(成人)",
-                "name": "I100130",
+                "name": "S0305_2",
                 "type": "independent",
-                "parentName": "I100130",
+                "parentName": "S0305_2",
                 "showHead": "true"
               }
             },
@@ -2698,9 +2689,9 @@
                 "cleanKey": "无",
                 "title": "跌倒评估单(儿童)",
                 "default": "跌倒评估单(儿童)",
-                "name": "I100130",
+                "name": "S0619_2",
                 "type": "independent",
-                "parentName": "I100130",
+                "parentName": "S0619_2",
                 "showHead": "true"
               }
             },
@@ -2861,8 +2852,8 @@
                 "cleanKey": "无",
                 "title": "新生儿疼痛评估(CRIES)",
                 "default": "新生儿疼痛评估(CRIES)",
-                "name": "I100132",
-                "parentName": "I100132",
+                "name": "S0629",
+                "parentName": "S0629",
                 "type": "independent",
                 "showHead": "true"
               }
@@ -2873,8 +2864,8 @@
                 "cleanKey": "无",
                 "title": "新生儿疼痛评估(NIPS)",
                 "default": "新生儿疼痛评估(NIPS)",
-                "name": "I100132",
-                "parentName": "I100132",
+                "name": "S0629_2",
+                "parentName": "S0629_2",
                 "type": "independent",
                 "showHead": "true"
               }
@@ -2885,8 +2876,8 @@
                 "cleanKey": "无",
                 "title": "新生儿疼痛评估(PIPP)",
                 "default": "新生儿疼痛评估(PIPP)",
-                "name": "I100132",
-                "parentName": "I100132",
+                "name": "S0629_3",
+                "parentName": "S0629_3",
                 "type": "independent",
                 "showHead": "true"
               }
@@ -2964,7 +2955,7 @@
           ]
         },
         {
-          "name": "I100020",
+          "name": "S0629",
           "type": "select",
           "title": "自杀风险评估",
           "style": null,
@@ -2984,9 +2975,9 @@
                 "openDiffKey": "无",
                 "title": "自杀风险评估",
                 "default": "自杀风险评估",
-                "name": "I100020",
+                "name": "S0629",
                 "type": "dependent",
-                "parentName": "I100020",
+                "parentName": "S0629",
                 "showHead": "true"
               }
             },

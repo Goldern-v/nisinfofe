@@ -77,8 +77,8 @@
       "showAudit": true
     },
     "formInfo": {
-      "formCode": "E0013",
-      "formApiCode": "E0013",
+      "formCode": "E0616",
+      "formApiCode": "E0616",
       "formName": "GCS格拉斯哥昏迷评估",
       "status": "0",
       "formType": "eval"
@@ -200,13 +200,13 @@
       "require": "false",
       "prefixDesc": "",
       "suffixDesc": "",
-      "keys": "I013001",
+      "keys": "I616001",
       "style": null,
       "classes": null,
       "readOnly": null,
       "children": [
         {
-          "name": "I013001",
+          "name": "I616001",
           "type": "radio",
           "title": "自然睁眼（4分）",
           "code": "1",
@@ -217,7 +217,7 @@
           "readOnly": null
         },
         {
-          "name": "I013001",
+          "name": "I616001",
           "type": "radio",
           "title": "语言命令眨眼（3分）",
           "code": "2",
@@ -227,7 +227,7 @@
           "readOnly": null
         },
         {
-          "name": "I013001",
+          "name": "I616001",
           "type": "radio",
           "title": "有刺激或痛楚会睁眼（2分）",
           "code": "3",
@@ -237,7 +237,7 @@
           "readOnly": null
         },
         {
-          "name": "I013001",
+          "name": "I616001",
           "type": "radio",
           "title": "无睁眼（1分）",
           "code": "4",
@@ -268,13 +268,13 @@
       "require": "false",
       "prefixDesc": "",
       "suffixDesc": "",
-      "keys": "I013002",
+      "keys": "I616002",
       "style": null,
       "classes": null,
       "readOnly": null,
       "children": [
         {
-          "name": "I013002",
+          "name": "I616002",
           "type": "radio",
           "title": "语言正确（5分）",
           "code": "1",
@@ -284,7 +284,7 @@
           "readOnly": null
         },
         {
-          "name": "I013002",
+          "name": "I616002",
           "type": "radio",
           "title": "语言含糊（4分）",
           "code": "2",
@@ -294,7 +294,7 @@
           "readOnly": null
         },
         {
-          "name": "I013002",
+          "name": "I616002",
           "type": "radio",
           "title": "语言错乱（3分）",
           "code": "3",
@@ -304,7 +304,7 @@
           "readOnly": null
         },
         {
-          "name": "I013002",
+          "name": "I616002",
           "type": "radio",
           "title": "只能发音（2分）",
           "code": "4",
@@ -314,7 +314,7 @@
           "readOnly": null
         },
         {
-          "name": "I013002",
+          "name": "I616002",
           "type": "radio",
           "title": "无语言反应（1分）",
           "code": "5",
@@ -345,13 +345,13 @@
       "require": "false",
       "prefixDesc": "",
       "suffixDesc": "",
-      "keys": "I013003",
+      "keys": "I616003",
       "style": null,
       "classes": null,
       "readOnly": null,
       "children": [
         {
-          "name": "I013003",
+          "name": "I616003",
           "type": "radio",
           "title": "遵嘱动作（6分）",
           "code": "1",
@@ -361,7 +361,7 @@
           "readOnly": null
         },
         {
-          "name": "I013003",
+          "name": "I616003",
           "type": "radio",
           "title": "疼痛定位（5分）",
           "code": "2",
@@ -371,7 +371,7 @@
           "readOnly": null
         },
         {
-          "name": "I013003",
+          "name": "I616003",
           "type": "radio",
           "title": "逃避疼痛（4分）",
           "code": "3",
@@ -381,7 +381,7 @@
           "readOnly": null
         },
         {
-          "name": "I013003",
+          "name": "I616003",
           "type": "radio",
           "title": "疼痛刺激屈曲（3分）",
           "code": "4",
@@ -391,7 +391,7 @@
           "readOnly": null
         },
         {
-          "name": "I013003",
+          "name": "I616003",
           "type": "radio",
           "title": "疼痛刺激伸肢（2分）",
           "code": "5",
@@ -401,7 +401,7 @@
           "readOnly": null
         },
         {
-          "name": "I013003",
+          "name": "I616003",
           "type": "radio",
           "title": "无运动反应（1分）",
           "code": "6",
@@ -411,7 +411,7 @@
           "readOnly": null
         },
         {
-          "name": "I013003",
+          "name": "I616003",
           "type": "radio",
           "title": "不受限（0分）",
           "code": "7",
@@ -480,21 +480,21 @@
           "rule": [
             {
               "min": "15",
-              "max": "15",
+              "max": "20",
               "equal": "清醒",
               "style": "color:blue",
               "display": "清醒"
             },
             {
               "min": "14",
-              "max": "14",
+              "max": "15",
               "equal": "嗜睡",
               "style": "color:red",
               "display": "嗜睡"
             },
             {
               "min": "8",
-              "max": "13",
+              "max": "14",
               "equal": "意识模糊",
               "style": "color:red",
               "display": "意识模糊"
