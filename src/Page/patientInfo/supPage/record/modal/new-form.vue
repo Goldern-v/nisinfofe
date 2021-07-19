@@ -300,8 +300,6 @@ import qs from "qs";
 
 const getInitFormType = (HOSPITAL_ID) => {
   switch (HOSPITAL_ID) {
-    case "guizhou":
-      return "eval";
     default:
       return "1";
   }
@@ -378,7 +376,7 @@ export default {
         //   label: "全部",
         // },
         {
-          value: "eval",
+          value: "1",
           label: "通用护理评估单",
         },
         {
@@ -453,7 +451,6 @@ export default {
           "sens",
           "firstRecord",
           "handover",
-          "eval",
           "specialistScoring",
           "authorization",
         ].includes(this.formType)
