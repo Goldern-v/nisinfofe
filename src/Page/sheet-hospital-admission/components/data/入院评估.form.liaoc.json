@@ -2446,7 +2446,7 @@
       "readOnly": true,
       "children": [
         {
-          "name": "I001260",
+          "name": "S0627",
           "type": "select",
           "title": "压力性损伤",
           "style": null,
@@ -2466,7 +2466,7 @@
                 "title": "预防住院患者压力性损伤护理清单",
                 "default": "预防住院患者压力性损伤护理清单",
                 "type": "independent",
-                "parentName": "I001260",
+                "parentName": "S0627",
                 "showHead": "true"
               }
             },
