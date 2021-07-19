@@ -77,8 +77,8 @@
             "showAudit": true
         },
         "formInfo": {
-            "formCode": "E0048",
-            "formApiCode": "E0048",
+            "formCode": "E0626",
+            "formApiCode": "E0626",
             "formName": "自杀风险评估",
             "status": "0",
             "formType": "eval"
