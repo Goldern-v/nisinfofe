@@ -294,7 +294,7 @@ export default {
       let arr = this.templates.map(item => {
         return {
           label: item.badEventType,
-          value: item.badEventType
+          value: item.badEventCode || item.badEventType
         };
       });
       return [{ value: "", label: "全部" }, ...arr];
