@@ -4,27 +4,27 @@
       <div
         flex="cross:center main:center"
         v-if="config.left && item.visible == true"
-        v-for="(item) in config.left"
+        v-for="item in config.left"
         :key="item.name"
         @click.stop="item.click"
-        :class="item.disabled?'item-box disabled':'item-box'"
-        :name="'toolbar'+item.name"
+        :class="item.disabled ? 'item-box disabled' : 'item-box'"
+        :name="'toolbar' + item.name"
         :style="item.style"
       >
-        <div class="text-con">{{item.name||"错误"}}</div>
+        <div class="text-con">{{ item.name || "错误" }}</div>
       </div>
       <div flex-box="1"></div>
       <div
         flex="cross:center main:center"
         v-if="config.right"
-        v-for="(item) in config.right"
+        v-for="item in config.right"
         :key="item.name"
         @click.stop="item.click"
-        :class="item.disabled?'item-box disabled':'item-box'"
-        :name="'toolbar'+item.name"
+        :class="item.disabled ? 'item-box disabled' : 'item-box'"
+        :name="'toolbar' + item.name"
         :style="item.style"
       >
-        <div class="text-con">{{item.name||"错误"}}</div>
+        <div class="text-con">{{ item.name || "错误" }}</div>
       </div>
     </div>
   </div>
@@ -32,13 +32,9 @@
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" src="./tool.styl" scoped></style>
 
-<style lang="stylus" scoped>
+<style lang="stylus" scoped></style>
 
-</style>
-
-<style lang="stylus">
-
-</style>
+<style lang="stylus"></style>
 
 <script>
 import bus from "vue-happy-bus";
@@ -46,11 +42,11 @@ import commom from "@/common/mixin/common.mixin";
 export default {
   mixins: [commom],
   props: {
-    config: Object
+    config: Object,
   },
   data() {
     return {
-      bus: bus(this)
+      bus: bus(this),
     };
   },
   mounted() {
@@ -160,15 +156,15 @@ export default {
                 e.name.indexOf(object[key].name) > -1)
             ) {
               let btn = document.getElementsByName("toolbar" + element.name)[0];
-              btn.className = "item-box disabled";
+              btn.className = "item-box";
             }
           } catch (error) {
             //
           }
         }
       }
-    }
+    },
   },
-  components: {}
+  components: {},
 };
 </script>
