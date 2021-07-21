@@ -245,7 +245,7 @@ export default [{
 
 function getListData() {
   let list = [
-    "山南:通用护理记录单（妇产科）:意识",
+    "山南:通用护理记录单:意识",
     "瞳孔-大小",
     "瞳孔-对光反射",
   ];
