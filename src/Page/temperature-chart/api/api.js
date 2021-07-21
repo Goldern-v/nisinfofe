@@ -20,6 +20,8 @@ const getRecordType = (HOSPITAL_ID) => {
       return 'body_temperature_zsqy'
     // case 'liaocheng':
     //   return 'body_temperature_lcey'
+    case 'guizhou':
+      return 'body_temperature_gzry'
     default:
       return 'bodyTemperatureLocal'
   }

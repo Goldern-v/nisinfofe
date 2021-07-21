@@ -69,8 +69,7 @@
               !(
                 index.includes('自定义') ||
                 index.includes('腋温') ||
-                index.includes('注释') ||
-                index.includes('体温复测')
+                index.includes('注释')
               )
                 ? 'row'
                 : 'rowItem_noShow'
@@ -98,7 +97,7 @@
               />
             </div>
           </div>
-          <div class="fieldList" v-if="multiDictList['体温复测']">
+          <!-- <div class="fieldList" v-if="multiDictList['体温复测']">
             <div class="row">
               <span class="preText">体温复测</span>
               <input
@@ -106,7 +105,7 @@
                 v-model="vitalSignObj[multiDictList['体温复测']].vitalValue"
               />
             </div>
-          </div>
+          </div> -->
           <div class="row" v-if="multiDictList['表顶注释']">
             <span class="preText">表顶注释</span>
             <el-select
