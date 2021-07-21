@@ -146,7 +146,7 @@
 <script>
 import { info } from "@/api/task";
 import commonMixin from "../../../../common/mixin/common.mixin";
-import { del } from "@/Page/badEvent/apis/index.js";
+import { del } from "../../apis/index.js";
 import BusFactory from "vue-happy-bus";
 import qs from "qs";
 export default {

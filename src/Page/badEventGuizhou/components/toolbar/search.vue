@@ -210,7 +210,7 @@ import EventTableGuizhou from "../table/eventTable-guizhou";
 import Button from "../button";
 import pagination from "../pagination.vue";
 import { multiDictInfo } from "@/api/common";
-import { getEventTemplate } from "@/Page/badEvent/apis/index.js";
+import { getEventTemplate } from "../../apis/index.js";
 import BusFactory from "vue-happy-bus";
 
 export default {
