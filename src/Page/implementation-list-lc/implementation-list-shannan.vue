@@ -229,7 +229,7 @@
 }
 </style>
 <script>
-import dTable from "./components/table/d-table-liaocheng";
+import dTable from "./components/table/d-table-shannan";
 import pagination from "./components/common/pagination";
 import { patEmrList } from "@/api/document";
 import { getExecuteWithWardcodeLiaoC } from "./api/index";
@@ -361,26 +361,71 @@ export default {
         // this.tableData = res.data.data;
         // this.pageLoadng = false;
         let children = [],
-          child = [],
           tableData = [];
         res.data.data.map((item, index, array) => {
           let prevRowId, nextRowId, currentRowId;
+          if (this.HOSPITAL_ID == "liaocheng") {
+            prevRowId =
+              array[index - 1] &&
+              array[index - 1].patientId + array[index - 1].orderNo;
+            nextRowId =
+              array[index + 1] &&
+              array[index + 1].patientId + array[index + 1].orderNo;
+            currentRowId =
+              array[index] && array[index].patientId + array[index].orderNo;
+          } else {
+            prevRowId =
+              array[index - 1] &&
+              array[index - 1].patientId +
+                array[index - 1].barCode +
+                array[index - 1].executeDateTime;
+            nextRowId =
+              array[index + 1] &&
+              array[index + 1].patientId +
+                array[index + 1].barCode +
+                array[index + 1].executeDateTime;
+            currentRowId =
+              array[index] &&
+              array[index].patientId +
+                array[index].barCode +
+                array[index].executeDateTime;
+          }
 
-          prevRowId =
-            array[index - 1] &&
-            array[index - 1].patientId + array[index - 1].orderNo;
-          nextRowId =
-            array[index + 1] &&
-            array[index + 1].patientId + array[index + 1].orderNo;
-          currentRowId =
-            array[index] && array[index].patientId + array[index].orderNo;
+          if(this.HOSPITAL_ID == "liaocheng"){
+             let prevRowId =
+              array[index - 1] &&
+              array[index - 1].patientId +
+                array[index - 1].orderNo +
+                array[index - 1].executeDateTime;
+              let nextRowId =
+                array[index + 1] &&
+                array[index + 1].patientId +
+                  array[index + 1].orderNo +
+                  array[index + 1].executeDateTime;
+              let currentRowId =
+                array[index] &&
+                array[index].patientId +
+                  array[index].orderNo +
+                  array[index].executeDateTime;
+              /** 判断是此记录是多条记录 */
+            if (currentRowId == prevRowId || currentRowId == nextRowId) {
+              if (currentRowId != prevRowId) {
+                /** 第一条 */
+                item.wrapRowType = 1;
+              } else if (currentRowId != nextRowId) {
+                /** 最后条 */
+                item.wrapRowType = 3;
+              } else {
+                /** 中间条 */
+                item.wrapRowType = 2;
+              }
+            }
+          }
 
           item.id = index;
 
           /** 判断是此记录是多条记录 */
           if (currentRowId == prevRowId || currentRowId == nextRowId) {
-            child.push(item);
-            children.push(item);
             if (currentRowId != prevRowId) {
               /** 第一条 */
               item.rowType = 1;
@@ -388,30 +433,19 @@ export default {
             } else if (currentRowId != nextRowId) {
               /** 最后条 */
               item.rowType = 3;
-
-              tableData[tableData.length - 1].children = JSON.parse(
-                JSON.stringify(children)
-              );
+              children.push(item);
+              tableData[tableData.length - 1].children = [...children];
               children = [];
-
-              tableData[tableData.length - 1].child = JSON.parse(
-                JSON.stringify(child)
-              );
-              child = [];
             } else {
               /** 中间条 */
               item.rowType = 2;
+              children.push(item);
             }
           } else {
             tableData.push(item);
           }
         });
-
-        tableData.map(item => {
-          item.child = item.child ? item.child : [{ ...item }];
-        });
         this.tableData = [...tableData];
-
         // this.page.total = Number(res.data.data.pageCount) * this.page.pageNum;
         this.pageLoadng = false;
         // 设置表格数据

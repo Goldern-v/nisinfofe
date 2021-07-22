@@ -34,9 +34,28 @@
         :tree-node="true"
       >
         <template slot-scope="scope">
-          <div v-show="scope.row.child">
-            {{ scope.row.bedLabel }}
+          <div>
+            {{
+              scope.row.rowType == 1 || !scope.row.rowType
+                ? scope.row.bedLabel
+                : ""
+            }}
           </div>
+        </template>
+      </u-table-column>
+
+      <u-table-column
+        prop="executeDateTime"
+        label="执行时间"
+        min-width="70px"
+        align="center"
+      >
+        <template slot-scope="scope">
+          <span>{{
+            scope.row.wrapRowType == 1 || !scope.row.wrapRowType
+              ? scope.row.executeDateTime
+              : "" | ymdhm
+          }}</span>
         </template>
       </u-table-column>
 
@@ -47,41 +66,37 @@
         align="center"
       >
         <template slot-scope="scope">
-          <div v-show="scope.row.child">
-            {{ scope.row.patientName }}
+          <div>
+            {{
+              scope.row.rowType == 1 || !scope.row.rowType
+                ? scope.row.patientName
+                : ""
+            }}
           </div>
         </template>
       </u-table-column>
 
       <u-table-column label="医嘱内容" prop="orderText" min-width="250px">
         <template slot-scope="scope">
-          <div v-for="(item, index) in scope.row.child" :key="index">
-            {{ item.orderText }}
+          <div :class="HOSPITAL_ID == 'liaocheng' && scope.row.wrapRowType && currentRowClass(scope.row)">
+            {{ scope.row.orderText }}
           </div>
         </template>
       </u-table-column>
 
-      <u-table-column prop="dosage" label="剂量" min-width="60px" align="right">
+      <u-table-column prop="dosage" label="剂量" min-width="50px" align="right">
         <template slot-scope="scope">
-          <div
-            v-for="(item, index) in scope.row.child"
-            :key="index"
-            style="position: relative;right: -10px;"
-          >
-            {{ item.dosage }}
-          </div>
+          <span style="position: relative;right: -10px;">{{
+            scope.row.dosage
+          }}</span>
         </template>
       </u-table-column>
 
       <u-table-column prop="dosageUnits" label="单位" min-width="50px">
         <template slot-scope="scope">
-          <div
-            v-for="(item, index) in scope.row.child"
-            :key="index"
-            style="position: relative;left: -10px;"
-          >
-            {{ item.dosageUnits }}
-          </div>
+          <span style="position: relative;left: -10px;">{{
+            scope.row.dosageUnits
+          }}</span>
         </template>
       </u-table-column>
 
@@ -90,107 +105,47 @@
         prop="frequency"
         min-width="50px"
         align="center"
-      >
-        <template slot-scope="scope">
-          <div v-if="scope.row.child && scope.row.child.length">
-            <div v-for="(item, index) in scope.row.child" :key="index">
-              {{ item.frequency }}
-            </div>
-          </div>
-          <div v-else>{{ scope.row.frequency }}</div>
-        </template>
-      </u-table-column>
+      ></u-table-column>
 
       <u-table-column
-        prop="executeDateTime"
-        label="预计执行时间"
-        min-width="70px"
-        align="center"
-      >
-        <template slot-scope="scope">
-          <div v-if="scope.row.child && scope.row.child.length">
-            <div v-for="(item, index) in scope.row.child" :key="index">
-              {{ item.executeDateTime | ymdhm }}
-            </div>
-          </div>
-          <div v-else>
-            {{ scope.row.executeDateTime | ymdhm }}
-          </div>
-        </template>
-      </u-table-column>
-
-      <u-table-column prop="administration" label="途径" min-width="110px">
-        <template slot-scope="scope">
-          <div v-if="scope.row.child && scope.row.child.length">
-            <div v-for="(item, index) in scope.row.child" :key="index">
-              {{ item.administration }}
-            </div>
-          </div>
-          <div style="text-align: left;" v-else>
-            <div>摆药人：{{ scope.row.baiNurse }}</div>
-            <div v-if="scope.row.baiTime">{{ scope.row.baiTime | ymd }}</div>
-            <div v-if="scope.row.baiTime">{{ scope.row.baiTime | hms }}</div>
-          </div>
-        </template>
-      </u-table-column>
+        prop="administration"
+        label="途径"
+        min-width="80px"
+      ></u-table-column>
 
       <u-table-column
         prop="executeFlag"
         label="执行状态"
-        min-width="110px"
+        min-width="90px"
         align="center"
       >
         <template slot-scope="scope">
-          <div v-if="scope.row.child && scope.row.child.length">
-            <div v-for="(item, index) in scope.row.child" :key="index">
-              <span
-                :class="{
-                  yzx: item.executeFlag == 4,
-                  zxz: item.executeFlag == 1 || item.executeFlag == 3
-                }"
-                >{{ item.executeFlag | handleStatus }}</span
-              >
-              <span v-if="item.type == 1">(补)</span>
-            </div>
-          </div>
-          <div style="text-align: left;" v-else>
-            <div>配药人：{{ scope.row.peiNurse }}</div>
-            <div v-if="scope.row.peiTime">{{ scope.row.peiTime | ymd }}</div>
-            <div v-if="scope.row.peiTime">{{ scope.row.peiTime | hms }}</div>
-          </div>
+          <span
+            :class="{
+              yzx: scope.row.executeFlag == 4,
+              zxz: scope.row.executeFlag == 1 || scope.row.executeFlag == 3
+            }"
+            >{{ scope.row.executeFlag | handleStatus }}</span
+          >
+          <span v-if="scope.row.type == 1">(补)</span>
         </template>
       </u-table-column>
 
       <u-table-column
         prop="startNurse"
         label="执行人"
-        min-width="110px"
+        min-width="80px"
         align="center"
-      >
-        <template slot-scope="scope">
-          <div v-if="scope.row.child && scope.row.child.length">
-            <div v-for="(item, index) in scope.row.child" :key="index">
-              {{ item.startNurse }}
-            </div>
-          </div>
-          <div style="text-align: left;" v-else>
-            <div>核对人：{{ scope.row.heNurse }}</div>
-            <div v-if="scope.row.heTime">{{ scope.row.heTime | ymd }}</div>
-            <div v-if="scope.row.heTime">{{ scope.row.heTime | hms }}</div>
-          </div>
-        </template>
-      </u-table-column>
+      ></u-table-column>
 
       <u-table-column
         prop="realExecuteDateTime"
         label="实际执行时间"
-        min-width="160px"
+        min-width="150px"
         align="center"
       >
         <template slot-scope="scope">
-          <div v-for="(item, index) in scope.row.child" :key="index">
-            {{ scope.row.realExecuteDateTime | ymdhm2 }}
-          </div>
+          <span>{{ scope.row.realExecuteDateTime | ymdhm2 }}</span>
         </template>
       </u-table-column>
 
@@ -199,24 +154,18 @@
         label="长/临"
         min-width="70px"
         align="center"
-      >
-        <template slot-scope="scope">
-          <div v-show="scope.row.child">
-            {{ scope.row.repeatIndicator }}
-          </div>
-        </template>
-      </u-table-column>
+      ></u-table-column>
+
+      <!-- <u-table-column prop="startDateTime" label="开始输液时间" min-width="80px" align="center"></u-table-column> -->
 
       <u-table-column
         prop="baiNurse"
         label="摆药人/摆药时间"
         min-width="170px"
-        v-if="currentType == '输液'"
+        v-if="HOSPITAL_ID == 'liaocheng' && currentType == '输液'"
       >
         <template slot-scope="scope">
-          <span v-show="scope.row.child"
-            >{{ scope.row.baiNurse }} {{ scope.row.baiTime | ymdhm2 }}</span
-          >
+          <span>{{ scope.row.baiNurse }} {{ scope.row.baiTime | ymdhm2 }}</span>
         </template>
       </u-table-column>
 
@@ -224,12 +173,10 @@
         prop="peiNurse"
         label="配药人/配药时间"
         min-width="170px"
-        v-if="currentType == '输液'"
+        v-if="HOSPITAL_ID == 'liaocheng' && currentType == '输液'"
       >
         <template slot-scope="scope">
-          <span v-show="scope.row.child"
-            >{{ scope.row.peiNurse }} {{ scope.row.peiTime | ymdhm2 }}</span
-          >
+          <span>{{ scope.row.peiNurse }} {{ scope.row.peiTime | ymdhm2 }}</span>
         </template>
       </u-table-column>
 
@@ -237,12 +184,10 @@
         prop="heNurse"
         label="核对人/核对时间"
         min-width="170px"
-        v-if="currentType == '输液'"
+        v-if="HOSPITAL_ID == 'liaocheng' && currentType == '输液'"
       >
         <template slot-scope="scope">
-          <span v-show="scope.row.child"
-            >{{ scope.row.heNurse }} {{ scope.row.heTime | ymdhm2 }}</span
-          >
+          <span>{{ scope.row.heNurse }} {{ scope.row.heTime | ymdhm2 }}</span>
         </template>
       </u-table-column>
 
@@ -252,7 +197,7 @@
         min-width="170px"
       >
         <template slot-scope="scope">
-          <span v-show="scope.row.child"
+          <span
             >{{ scope.row.endNurse }} {{ scope.row.endDateTime | ymdhm2 }}</span
           >
         </template>
@@ -264,7 +209,7 @@
         min-width="200px"
       >
         <template slot-scope="scope">
-          <span v-show="scope.row.child"
+          <span
             >{{ scope.row.stopNurse }} {{ scope.row.stopDateTime | ymdhm2 }}
             {{ scope.row.stopReason }}</span
           >
@@ -276,20 +221,14 @@
         label="补执行的原因"
         min-width="200px"
         v-if="HOSPITAL_ID == 'liaocheng'"
-      >
-        <template slot-scope="scope">
-          <div v-show="scope.row.child">
-            {{ scope.row.typeReason }}
-          </div>
-        </template>
-      </u-table-column>
+      ></u-table-column>
 
       <u-table-column label="操作" min-width="100px" align="center">
         <template slot-scope="scope">
           <el-button
             type="text"
             @click="backTracking(scope.row)"
-            v-if="scope.row.executeFlag == 0 && scope.row.child"
+            v-if="scope.row.executeFlag == 0"
             >补录</el-button
           >
           <el-button
@@ -298,7 +237,7 @@
             v-if="
               isEdit &&
                 ((HOSPITAL_ID == 'lingcheng' && scope.row.executeFlag > 0) ||
-                  scope.row.executeFlag == 4)
+                  (HOSPITAL_ID == 'liaocheng' && scope.row.executeFlag == 4))
             "
             >修改</el-button
           >
@@ -336,9 +275,6 @@
 
       .zxz {
         color: blue;
-      }
-      div {
-        min-height: 24px;
       }
     }
 
@@ -466,12 +402,6 @@ export default {
     ymdhm2(val) {
       return val ? moment(val).format("YYYY-MM-DD HH:mm:ss") : "";
     },
-    ymd(val) {
-      return val ? moment(val).format("YYYY-MM-DD") : "";
-    },
-    hms(val) {
-      return val ? moment(val).format("HH:mm:ss") : "";
-    },
     handleStatus(val) {
       let allStatus = [
         {
@@ -561,18 +491,15 @@ export default {
       }
     },
     // 下拉树切换控制 包裹线显示
-    toggleTreeExpand(row, treeExpanded, event) {
-      if (this.HOSPITAL_ID == "liaocheng") {
-        row["showTree"] = !row["showTree"];
+    toggleTreeExpand(row, treeExpanded, event){
+      if(this.HOSPITAL_ID == "liaocheng"){
+        row['showTree'] = !row['showTree'];
       }
     },
     // 包裹线显示
-    currentRowClass(row) {
-      if (
-        !row.children ||
-        (row.children && row.children.length && row.showTree)
-      ) {
-        return `wrapRowType-${row.wrapRowType}`;
+    currentRowClass(row){
+      if(!row.children || (row.children && row.children.length && row.showTree)){
+        return `wrapRowType-${row.wrapRowType}`
       }
     }
   },
