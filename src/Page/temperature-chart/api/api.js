@@ -80,12 +80,12 @@ export const savefieldTitle = (data) => {
 
 // 聊城二院体温单删除记录
 export const deleteRecord = (data) => {
-  return axios.post(`${apiPath}vitalSign/delete`, data);
+  return axios.post(`${apiPath}record/${getRecordType(process.env.HOSPITAL_ID)}/delete`, data);
 };
 
 // 聊城二院体温单录入2
 export const saveAll = (data) => {
-  return axios.post(`${apiPath}vitalSign/saveAll`, data);
+  return axios.post(`${apiPath}record/${getRecordType(process.env.HOSPITAL_ID)}/saveAll`, data);
 };
 
 // 聊城二院获取最新10条体征信息
