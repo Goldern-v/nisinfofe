@@ -158,7 +158,7 @@ export default {
           })
         }else {
           this.filePath =
-            this.HOSPITAL_ID == "lingcheng"
+            this.HOSPITAL_ID == "lingcheng" || this.HOSPITAL_ID == "shannan"
               ? res.data.data.expand
               : res.data.data.filePath;
           }
