@@ -2,16 +2,14 @@
   <div class="infuse-details-modal">
     <el-dialog title="提示" :visible.sync="dialogVisible" size="tiny">
       <i class="el-icon-close close-btn" @click="dialogVisible = false"></i>
-      <div
-        class="bed-label"
-        flex="cross:center main:center"
-        :class="{
+      <div class="bed-label" flex="cross:center main:center" :class="{
                       'label-type-1': data[0].nursingClass == '一级护理',
                       'label-type-2': data[0].nursingClass == '二级护理',
                       'label-type-3': data[0].nursingClass == '三级护理',
                       'label-type-4': data[0].nursingClass == '特级护理'
-      }"
-      >{{data[0] && data[0].bedLabel}} {{data[0].nurseClass}}</div>
+      }">
+        {{data[0] && data[0].bedLabel}} {{data[0].nurseClass}}
+      </div>
       <div class="list-con">
         <div class="list-box" flex="cross:center" v-for="item in data" :key="item.orderText">
           <span class="key">{{item.orderText}}</span>
@@ -22,17 +20,17 @@
       <div class="info-con" flex="cross:center main:justify">
         <div class="left-part" flex="cross:center">
           <div class="tip">{{data[0].repeatIndicator && data[0].repeatIndicator[0]}}</div>
-          <span
-            class="text"
-          >{{data[0].frequency}} | {{data[0].administration}} | {{data[0].freqDetail}}</span>
+          <span class="text">{{data[0].frequency}} | {{data[0].administration}} | {{data[0].freqDetail}}</span>
         </div>
         <div class="right-part">
-          <img src="../images/水滴.png" alt class="icon">
+          <img src="../images/水滴.png" alt="" class="icon">
           <span>{{data[0].speed}}滴/分</span>
         </div>
       </div>
       <div class="footer-con">
-        <div class="aside">距预计输液结束还剩</div>
+        <div class="aside">
+          距预计输液结束还剩
+        </div>
         <div class="time" flex="cross:center main:center">
           <span class="date-item">{{time.hh | zero}}</span>：
           <span class="date-item">{{time.mm | zero}}</span>：
@@ -158,20 +156,20 @@
     margin-right 2px
 
 .label-type-1 {
-    background: #FD815A !important;
+    background: rgb(255,0,0) !important;
   }
 
 .label-type-2 {
-    background: #5EC199 !important;
+    background: rgb(255,255,0) !important;
   }
 
 .label-type-3 {
-    background: #A9BCB4 !important;
+    background: rgb(0,255,0) !important;
   }
 
 .label-type-4 {
-    background: #DB83D7 !important;
-  }         
+    background: rgb(255, 192, 203) !important;
+  }      
 </style>
 
 <script>

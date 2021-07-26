@@ -13,7 +13,7 @@ import main from "@/Part/main";
 // import nursingConsultation from '@/Page/nursingConsultation/nursingConsultation'
 // import nursingConsultationStaff from '@/Page/nursingConsultationStaff/nursingConsultationStaff'
 
-// import infuse from "../Page/lesion/supPage/infuse/infuse.vue";
+import infuse from "../Page/lesion/supPage/infuse/infuse.vue";
 // import log from "../Page/lesion/supPage/log/log.vue";
 // 收件箱
 // import inBox from "../Page/inBox/inBox.vue";
@@ -324,10 +324,10 @@ const router = new Router({
         path: "/bed",
         component: bed
       },
-      // {
-      //   path: "/infuse",
-      //   component: infuse
-      // },
+      {
+        path: "/infuse",
+        component: infuse
+      },
       // {
       //   path: "/log",
       //   component: log
