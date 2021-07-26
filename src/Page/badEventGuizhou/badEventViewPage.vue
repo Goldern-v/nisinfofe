@@ -409,7 +409,8 @@ export default {
       showPrint: false,
       isSaved: false,
       departmentBack: false,
-      anonymous: true //是否匿名上报
+      anonymous: true, //是否匿名上报
+      currentNodeCode: "" //当前审核节点
     };
   },
   computed: {
@@ -536,6 +537,7 @@ export default {
             status = "finish";
           } else if (item.status == 1 && !item.noPass) {
             status = "success";
+            this.currentNodeCode = item.nodeCode;
           } else if (item.status == 0) {
             status = "wait";
           } else {
@@ -695,10 +697,10 @@ export default {
     },
     uploadEdit() {
       if (this.HOSPITAL_ID == "guizhou") {
-        this.wid.CRForm.controller.aduitForm(this.$router, {
-          deptCode: this.deptCode,
-          deptName: this.deptName
-        });
+        this.wid.CRForm.controller.aduitForm(
+          this.$router,
+          this.currentNodeCode
+        );
         return;
       }
       this.wid.CRForm.controller.aduitForm(
