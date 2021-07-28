@@ -1,8 +1,8 @@
 <template>
   <div class="search-con">
-    <!-- <el-button @click="setting">警戒值设置</el-button>
+    <el-button @click="setting">警戒值设置</el-button>
     <el-button @click="log">报警日志</el-button>
-    <el-button @click="infuseStat">输液量统计</el-button> -->
+    <!-- <el-button @click="infuseStat">输液量统计</el-button> -->
     <div class="input-con" flex="cross:stretch">
       <input type="text" class="search-input" flex-box="1" placeholder="床号/姓名" v-model="searchText" />
       <div class="search-btn" flex="cross:center main:center">
