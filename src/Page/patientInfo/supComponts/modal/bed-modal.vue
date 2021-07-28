@@ -20,8 +20,8 @@
           />
           <div
             class="qr-code-num"
-            :class="{ hasRemark: hasRemark }"
-            :style="HOSPITAL_ID == 'liaocheng' ? 'width: 110px' : ''"
+            :class="{ hasRemark: hasRemark, }"
+            :style="HOSPITAL_ID == 'liaocheng' ? 'width: 110px' : HOSPITAL_ID == 'hengli' ? 'line-height: 13px;' : ''"
           >
             {{ qrCodeNum }}
           </div>
@@ -76,7 +76,7 @@
                   width: '75px',
                   'font-size': query.bedLabel.length > 3 ? '24px' : '30px',
                   'padding-left': '5px',
-                  'line-height': ' 35px'
+                  'line-height': ' 34px'
                 }"
                 class="bottom-line"
                 :value="query.bedLabel + '床'"
@@ -717,6 +717,7 @@ export default {
           break;
         default:
           qr_png_value = this.query.patientId;
+          break;
       }
       var qr_png = qr.imageSync(qr_png_value, { type: "png" });
       function arrayBufferToBase64(buffer) {
