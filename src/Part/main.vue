@@ -20,6 +20,7 @@ import XieGangHeader from "@/components/HLheader/XieGangHeader"; // 东莞市谢
 import ShanNanHeader from "@/components/HLheader/ShanNanHeader"; // 山南市人民医院
 import BeiHaiRenYiHeader from "@/components/HLheader/BeiHaiRenYiHeader"; // 北海人医
 import GuiZhouShengRenMingHeader from "@/components/HLheader/GuiZhouShengRenMing"; // 贵州省人民
+import QuZhouXianHeader from "@/components/HLheader/QuZhouXianHeader.vue"; // 曲周县医院
 export default {
   data() {
     return {
@@ -44,6 +45,7 @@ export default {
         山南市人民医院: "ShanNanHeader",
         北海市人民医院: "BeiHaiRenYiHeader",
         贵州省人民医院: "GuiZhouShengRenMingHeader",
+        曲周县医院: "QuZhouXianHeader",
       };
       return hisList[HisName] || "HLheader";
     },
@@ -62,6 +64,7 @@ export default {
     ShanNanHeader,
     BeiHaiRenYiHeader,
     GuiZhouShengRenMingHeader,
+    QuZhouXianHeader,
   },
 };
 </script>
