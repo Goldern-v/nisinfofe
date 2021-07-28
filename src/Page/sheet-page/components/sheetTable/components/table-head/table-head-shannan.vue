@@ -38,7 +38,7 @@
       <span>
         住院号：
         <div class="bottom-line" style="min-width: 60px">
-          {{ patientInfo.patientId }}
+          {{ patientInfo.inpNo }}
         </div>
       </span>
       <span v-if="sheetInfo.sheetType === 'clinical_sn'">
