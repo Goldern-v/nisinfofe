@@ -38,7 +38,7 @@
       <span>
         住院号：
         <div class="bottom-line" style="min-width: 60px">
-          {{ patientInfo.patientId }}
+          {{ patientInfo.inpNo }}
         </div>
       </span>
       <span v-if="sheetInfo.sheetType === 'clinical_sn'">
@@ -54,9 +54,9 @@
           {{ patientInfo.admissionDate | toymd }}
         </div>
       </span>
-      <span>
+      <span class="diagnosis">
         诊断：
-        <div class="bottom-line" style="min-width: 80px">
+        <div class="bottom-line">
           {{ patientInfo.diagnosis }}
         </div>
       </span>
@@ -122,5 +122,15 @@ input.bottom-line {
   border-left: 0;
   border-right: 0;
   outline: none;
+}
+.header-con {
+  white-space: normal;
+}
+.diagnosis {
+  > div {
+    min-width: 80px;
+    white-space: normal;
+    max-width: 300px;
+  }
 }
 </style>

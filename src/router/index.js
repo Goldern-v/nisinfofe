@@ -13,7 +13,12 @@ import main from "@/Part/main";
 // import nursingConsultation from '@/Page/nursingConsultation/nursingConsultation'
 // import nursingConsultationStaff from '@/Page/nursingConsultationStaff/nursingConsultationStaff'
 
-import infuse from "../Page/lesion/supPage/infuse/infuse.vue";
+// 智慧输液
+const infuse = () => import("@/Page/lesion/supPage/infuse/infuse.vue");
+// 报警日志
+const alarmLog = () => import("@/Page/lesion/supPage/infuse/alarm-log.vue");
+// 输液量统计
+const infuseStat = () => import("@/Page/lesion/supPage/infuse/infuse-stat.vue");
 // import log from "../Page/lesion/supPage/log/log.vue";
 // 收件箱
 // import inBox from "../Page/inBox/inBox.vue";
@@ -326,7 +331,16 @@ const router = new Router({
       },
       {
         path: "/infuse",
-        component: infuse
+        component: infuse,
+        children: [{
+            path: "/infuse/alarmLog",
+            component: alarmLog
+          },
+          {
+            path: "/infuse/infuseStat",
+            component: infuseStat
+          },
+        ]
       },
       // {
       //   path: "/log",

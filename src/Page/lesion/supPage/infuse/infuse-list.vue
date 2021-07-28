@@ -154,40 +154,40 @@ export default {
               )
             : [];
           this.tipsNum = 0;
-          // this.data.list.map((item, index) => {
-          //   if (
-          //     this.warningValue &&
-          //     Number(item.restDosage) &&
-          //     Number(item.restDosage) < this.warningValue &&
-          //     !this.notifyBarcode.includes(item.barCode)
-          //   ) {
-          //     this.saveLog(item);
-          //     this.notifyBarcode.push(item.barCode);
-          //     this.$notify.info({
-          //       title:
-          //         "【" +
-          //         item.bedLabel +
-          //         "床】输液剩余液量低于警戒值，请及时处理",
-          //       message: "立即查看 >",
-          //       duration: 5000 + 1000 * this.tipsNum,
-          //       offset: 100 * this.tipsNum,
-          //       customClass: "infuse_notify",
-          //       onClick: () => {
-          //         this.$router.push("/infuse/alarmLog");
-          //       }
-          //     });
-          //     this.tipsNum++;
-          //     if (this.notifyBarcode && this.notifyBarcode.length > 0) {
-          //       localStorage.setItem(
-          //         "infuseNotifyBarcode" +
-          //           dayjs(new Date()).format("YYYY-MM-DD") +
-          //           this.wardCode +
-          //           this.empNo,
-          //         JSON.stringify(this.notifyBarcode)
-          //       );
-          //     }
-          //   }
-          // });
+          this.data.list.map((item, index) => {
+            if (
+              this.warningValue &&
+              Number(item.restDosage) &&
+              Number(item.restDosage) < this.warningValue &&
+              !this.notifyBarcode.includes(item.barCode)
+            ) {
+              this.saveLog(item);
+              this.notifyBarcode.push(item.barCode);
+              this.$notify.info({
+                title:
+                  "【" +
+                  item.bedLabel +
+                  "床】输液剩余液量低于警戒值，请及时处理",
+                message: "立即查看 >",
+                duration: 5000 + 1000 * this.tipsNum,
+                offset: 100 * this.tipsNum,
+                customClass: "infuse_notify",
+                onClick: () => {
+                  this.$router.push("/infuse/alarmLog");
+                }
+              });
+              this.tipsNum++;
+              if (this.notifyBarcode && this.notifyBarcode.length > 0) {
+                localStorage.setItem(
+                  "infuseNotifyBarcode" +
+                    dayjs(new Date()).format("YYYY-MM-DD") +
+                    this.wardCode +
+                    this.empNo,
+                  JSON.stringify(this.notifyBarcode)
+                );
+              }
+            }
+          });
         });
       }
     },
@@ -235,12 +235,12 @@ export default {
       this.warningValue = "";
       this.notifyBarcode = [];
       clearInterval(this.timer);
-      // this.getWarningValue();
+      this.getWarningValue();
       this.getInfuseList();
     }
   },
   created() {
-    // this.getWarningValue();
+    this.getWarningValue();
     this.getInfuseList();
     this.timer = setInterval(() => {
       this.getInfuseList();
