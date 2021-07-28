@@ -364,7 +364,7 @@ export default {
       remember: true,
       ajax: false,
       showPwdType: true, //显示的登录方式，默认是密码
-      loginLoading: false
+      loginLoading: false,
     };
   },
   methods: {
@@ -418,7 +418,7 @@ export default {
             type == "loginReportedSystem"
           ) {
             this.$router.push("/badEvent");
-          }else {
+          } else {
             this.$store.commit("upRelogin", false);
             this.$router.push("/index");
             if (this.HOSPITAL_ID == "weixian") {
@@ -529,6 +529,8 @@ export default {
         this.HOSPITAL_ID == "wujing"
       ) {
         logoName = "智慧护理信息系统";
+      } else if (this.HOSPITAL_ID == "quzhou") {
+        logoName = "宸瑞普惠智慧护理信息系统";
       }
       return logoName;
     },
