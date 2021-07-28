@@ -189,7 +189,7 @@
       >
         <template slot-scope="scope">
           <div v-for="(item, index) in scope.row.child" :key="index">
-            {{ scope.row.realExecuteDateTime | ymdhm2 }}
+            {{ item.realExecuteDateTime | ymdhm2 }}
           </div>
         </template>
       </u-table-column>
