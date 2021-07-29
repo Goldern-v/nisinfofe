@@ -72,7 +72,7 @@
       <el-table-column label="医嘱内容" prop="itemName" min-width="250px">
         <template slot-scope="scope">
           <div :class="scope.row.rowType && `rowType-${scope.row.rowType}`">
-            {{ scope.row.itemName }}
+            {{ scope.row.itemName || scope.row.orderText }}
           </div>
         </template>
       </el-table-column>
@@ -171,7 +171,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column label="操作" min-width="100px" align="center">
+      <el-table-column label="操作" min-width="100px" align="center" v-if="HOSPITAL_ID != 'huadu'">
         <template slot-scope="scope">
           <el-button
             type="text"

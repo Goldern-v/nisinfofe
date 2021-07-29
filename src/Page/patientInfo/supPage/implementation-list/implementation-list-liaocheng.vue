@@ -153,8 +153,8 @@
 }
 </style>
 <script>
-import dTable from "./components/table/d-table";
-import pagination from "./components/common/pagination";
+import dTable from "@/Page/implementation-list/components/table/d-table-liaocheng";
+import pagination from "@/Page/implementation-list/components/common/pagination";
 import { getOrdersExecuteWithPatinetId } from "./api/index";
 import common from "@/common/mixin/common.mixin.js";
 import moment from "moment";

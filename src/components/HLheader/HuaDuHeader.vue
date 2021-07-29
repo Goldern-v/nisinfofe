@@ -203,7 +203,7 @@
               <el-row class="nav-item" type="flex" align="middle">护理巡视</el-row>
             </router-link>
 
-            <el-dropdown
+            <!-- <el-dropdown
                 menu-align="start"
                 :hide-on-click="false"
                 :class="{ 'router-link-active': $route.path.indexOf('/bottleSignPrint') > -1 ||  $route.path.indexOf('/implementationListNew') > -1}"
@@ -233,14 +233,14 @@
                   </router-link>
                 </el-dropdown-item>
               </el-dropdown-menu>
-            </el-dropdown>
+            </el-dropdown> -->
 
 
-            <!-- <router-link to="/implementationList" tag="span">
+            <router-link to="/implementationList" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-jiaobanzhi"></i> 执行单
               </el-row>
-            </router-link> -->
+            </router-link>
 
             <!-- <router-link to="/badEvent" tag="span">
               <el-row class="nav-item" type="flex" align="middle">不良事件</el-row>

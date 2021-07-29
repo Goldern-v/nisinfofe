@@ -62,12 +62,12 @@
                     v-for="item in printLabelInfo.children"
                     :key="item.orderSubNo"
                   >
-                    {{ item.itemName }}
+                    {{ item.itemName || item.orderText }}
                   </li>
                 </ul>
               </div>
               <div class="label-item" v-else>
-                {{ printLabelInfo.itemName }}
+                {{ printLabelInfo.itemName || printLabelInfo.orderText }}
               </div>
             </td>
             <td>

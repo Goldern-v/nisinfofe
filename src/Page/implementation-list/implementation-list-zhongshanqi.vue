@@ -380,6 +380,7 @@ export default {
             if (currentRowId != prevRowId) {
               /** 第一条 */
               item.rowType = 1;
+              children.push(item);
               item.children = children;
             } else if (currentRowId != nextRowId) {
               /** 最后条 */
@@ -440,7 +441,7 @@ export default {
     },
     onPrintLabel() {
       this.printLabelInfo = this.multipleSelection[0];
-      let qr_png_value = this.printLabelInfo.barcode;
+      let qr_png_value = this.printLabelInfo.barcode || this.printLabelInfo.barCode;
       var qr_png = qr.imageSync(qr_png_value, { type: "png" });
       function arrayBufferToBase64(buffer) {
         var binary = "";

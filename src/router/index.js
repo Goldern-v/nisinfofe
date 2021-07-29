@@ -123,10 +123,10 @@ const healthEducationList = () =>
   import("@/Page/healthEducation-list/healthEducation-list.vue");
 
 
-const implementationListNew = () =>
-  import("@/Page/implementation-list-new/implementation-list.vue"); //执行单（新版）
-const bottleSignPrint = () =>
-  import("@/Page/implementation-list-new/bottle-sign-print.vue"); //执行单-瓶签打印
+// const implementationListNew = () =>
+//   import("@/Page/implementation-list-new/implementation-list.vue"); //执行单（新版）
+// const bottleSignPrint = () =>
+//   import("@/Page/implementation-list-new/bottle-sign-print.vue"); //执行单-瓶签打印
 
 const implementationList = () =>
   import("@/Page/implementation-list/implementation-list.vue"); //执行单
@@ -669,6 +669,7 @@ const router = new Router({
             case 'shannan':
               return implementationListShannan
             case 'zhongshanqi':
+            case 'huadu':
               return implementationListZhongshanqi
             default:
               return implementationList
@@ -681,16 +682,16 @@ const router = new Router({
         component: bottleLabel,
         name: "瓶签打印"
       },
-      {
-        path: "/implementationListNew", //执行单(新版)
-        component: implementationListNew,
-        name: "执行单"
-      },
-      {
-        path: "/bottleSignPrint", //瓶签打印
-        component: bottleSignPrint,
-        name: "瓶签打印"
-      },
+      // {
+      //   path: "/implementationListNew", //执行单(新版)
+      //   component: implementationListNew,
+      //   name: "执行单"
+      // },
+      // {
+      //   path: "/bottleSignPrint", //瓶签打印
+      //   component: bottleSignPrint,
+      //   name: "瓶签打印"
+      // },
       {
         path: "/healthEducationList",
         component: healthEducationList,

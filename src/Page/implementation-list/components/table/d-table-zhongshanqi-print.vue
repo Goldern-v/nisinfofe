@@ -67,7 +67,7 @@
       <el-table-column label="医嘱内容" prop="itemName" min-width="150px">
         <template slot-scope="scope">
           <div :class="scope.row.rowType && `rowType-${scope.row.rowType}`">
-            {{ scope.row.itemName }}
+            {{ scope.row.itemName || scope.row.orderText}}
           </div>
         </template>
       </el-table-column>
