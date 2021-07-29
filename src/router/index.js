@@ -130,14 +130,14 @@ const bottleSignPrint = () =>
 
 const implementationList = () =>
   import("@/Page/implementation-list/implementation-list.vue"); //执行单
-const implementationListLc = () =>
-  import("@/Page/implementation-list-lc/implementation-list.vue"); //陵城执行单
+const implementationListLingcheng = () =>
+  import("@/Page/implementation-list/implementation-list-lingcheng.vue"); //陵城执行单
 const implementationListLiaocheng = () =>
-  import("@/Page/implementation-list-lc/implementation-list-liaocheng.vue"); //聊城执行单
+  import("@/Page/implementation-list/implementation-list-liaocheng.vue"); //聊城执行单
 const implementationListShannan = () =>
-  import("@/Page/implementation-list-lc/implementation-list-shannan.vue"); //山南执行单
+  import("@/Page/implementation-list/implementation-list-shannan.vue"); //山南执行单
 const implementationListZhongshanqi = () =>
-  import("@/Page/implementation-list-lc/implementation-list-zhongshanqi.vue"); //中山七执行单
+  import("@/Page/implementation-list/implementation-list-zhongshanqi.vue"); //中山七执行单
 const bottleLabel = () => import("@/Page/bottleLabel/index.vue"); //瓶签打印
 
 const dcList = () => import("@/Page/dc-list/dc-list.vue"); //执行单
@@ -663,7 +663,7 @@ const router = new Router({
         component: (() => {
           switch (HOSPITAL_ID) {
             case 'lingcheng':
-              return implementationListLc
+              return implementationListLingcheng
             case 'liaocheng':
               return implementationListLiaocheng
             case 'shannan':
