@@ -520,7 +520,7 @@ export default {
     },
     logoName() {
       let logoName = "百辰源智慧护理信息系统";
-      if (this.HOSPITAL_ID == "hj" || this.HOSPITAL_ID == "zhongshanqi") {
+      if (this.HOSPITAL_ID == "hj" || this.HOSPITAL_ID == "zhongshanqi" || this.HOSPITAL_ID == "nanfangzhongxiyi") {
         logoName = `${this.HOSPITAL_NAME}<br />智慧护理信息系统`;
       } else if (
         this.HOSPITAL_ID == "guizhou" ||
