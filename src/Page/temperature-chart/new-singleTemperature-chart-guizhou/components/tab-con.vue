@@ -645,6 +645,8 @@ export default {
         dateStr: moment(new Date(this.query.entryDate)).format("YYYY-MM-DD"),
         timeStr: this.query.entryTime + ":00:00",
         vitalSignList: obj,
+        patientId: this.patientInfo.patientId,
+        visitId: this.patientInfo.visitId,
       };
       await saveAll(data).then((res) => {
         this.$message.success("保存成功");

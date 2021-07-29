@@ -42,10 +42,10 @@
                 出院：
                 <b>{{record.outHospitalTotal || 0}}</b>人，
               </span>
-              <span>
+              <!-- <span>
                 新收：
                 <b>{{record.inHospitalTotal || 0}}</b>人，
-              </span>
+              </span> -->
               <span>
                 病重：
                 <b>{{record.seriousTotal || 0}}</b>人，
