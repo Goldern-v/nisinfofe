@@ -578,6 +578,11 @@ function switechSheetType(type) {
     schema = require("../config/maternity_sn/tr.js").default;
   }
   break;
+  case "icu_qz": {
+    // 曲周县 - 重症护理记录单
+    schema = require("../config/icu_qz/tr.js").default;
+  }
+  break;
   default: {
     schema = require("../config/default/tr.js").default;
   }

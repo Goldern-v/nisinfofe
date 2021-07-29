@@ -726,6 +726,13 @@ export default function Title(
     );
   }
   break;
+  case "icu_qz": {
+    // 曲周县 - 重症护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/icu_qz/th").default)
+    );
+  }
+  break;
   default: {
     Th = JSON.parse(
       JSON.stringify(require("../config/default/th").default)
