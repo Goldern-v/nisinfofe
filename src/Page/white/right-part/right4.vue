@@ -29,7 +29,7 @@
       <div class="body-con" v-loading="pageLoading" slot="body-con" flex="dir:top main:top" v-if="HOSPITAL_ID=='xiegang'">
         <div flex="cross:center">
           <div class="label">值班医生：</div>
-          <input flex-box="1" v-model="data.mainClassDoctor" @blur="update">
+          <input flex-box="1" v-model="data.classP" @blur="update">
         </div>
         <div style="height: 15px"></div>
         <div flex="cross:center">

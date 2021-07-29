@@ -25,7 +25,7 @@
       <div class="body-con" v-loading="pageLoading" slot="body-con" flex="dir:top main:top"  v-if="HOSPITAL_ID=='xiegang'">
         <div flex="cross:center">
           <div class="label">二线医生：</div>
-          <input flex-box="1" v-model="data.secondTierDoctor" @blur="update" />
+          <input flex-box="1" v-model="data.mainClassDoctor" @blur="update" />
         </div>
         <div style="height: 15px"></div>
         <div flex="cross:center">
@@ -35,7 +35,7 @@
         <div style="height: 15px"></div>
         <div flex="cross:center">
           <div class="label">电脑班：</div>
-          <input flex-box="1"  @blur="update" />
+          <input flex-box="1" v-model="data.secondTierDoctor" @blur="update" />
         </div>
         <div style="height: 15px"></div>
         <div flex="cross:center">
