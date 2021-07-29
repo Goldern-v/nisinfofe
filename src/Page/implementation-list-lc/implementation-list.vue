@@ -25,7 +25,7 @@
           placeholder="请选择"
           size="small"
           style="width:150px"
-          v-if="type===0"
+          v-if="type === 0"
         >
           <el-option
             :label="item.name"
@@ -34,11 +34,27 @@
             :key="item.id"
           ></el-option>
         </el-select>
-        <el-select v-model="status" placeholder="请选择" size="small" style="width:150px" v-else>
-          <el-option :label="item.name" :value="item.id" v-for="item in allStatus" :key="item.id"></el-option>
+        <el-select
+          v-model="status"
+          placeholder="请选择"
+          size="small"
+          style="width:150px"
+          v-else
+        >
+          <el-option
+            :label="item.name"
+            :value="item.id"
+            v-for="item in allStatus"
+            :key="item.id"
+          ></el-option>
         </el-select>
         <span class="label">类型:</span>
-        <el-select v-model="type" placeholder="请选择" size="small" style="width:150px">
+        <el-select
+          v-model="type"
+          placeholder="请选择"
+          size="small"
+          style="width:150px"
+        >
           <el-option
             :label="typeItem.name"
             :value="typeItem.id"
@@ -161,7 +177,7 @@
 import dTable from "./components/table/d-table";
 import pagination from "./components/common/pagination";
 import { patEmrList } from "@/api/document";
-import { getExecuteWithWardcodeLc } from "./api/index";
+import { getExecuteWithWardcode } from "./api/index";
 import common from "@/common/mixin/common.mixin.js";
 import moment from "moment";
 import bus from "vue-happy-bus";
@@ -176,7 +192,7 @@ export default {
       page: {
         pageIndex: 1,
         pageNum: 20,
-        total: 0,
+        total: 0
       },
       startDate: moment().format("YYYY-MM-DD"),
       repeatIndicator: "",
@@ -187,77 +203,77 @@ export default {
       transfusionStatus: [
         {
           id: "",
-          name: "全部",
+          name: "全部"
         },
         {
           id: 0,
-          name: "未执行",
+          name: "未执行"
         },
         {
           id: 1,
-          name: "开始输液",
+          name: "开始输液"
         },
         {
           id: 2,
-          name: "暂停输液",
+          name: "暂停输液"
         },
         {
           id: 3,
-          name: "继续输液",
+          name: "继续输液"
         },
         {
           id: 4,
-          name: "已完成",
-        },
+          name: "已完成"
+        }
       ],
       allStatus: [
         {
           id: "",
-          name: "全部",
+          name: "全部"
         },
         {
           id: 0,
-          name: "未执行",
+          name: "未执行"
         },
         {
           id: 4,
-          name: "已完成",
-        },
+          name: "已完成"
+        }
       ],
       allType: [
         {
           id: "",
-          name: "全部",
+          name: "全部"
         },
         {
           id: 0,
-          name: "输液",
+          name: "输液"
         },
         {
           id: 1,
-          name: "注射",
+          name: "注射"
         },
         {
           id: 2,
-          name: "口服",
+          name: "口服"
         },
         {
           id: 3,
-          name: "雾化",
+          name: "雾化"
         },
         {
           id: 4,
-          name: "皮试",
+          name: "皮试"
         },
         {
           id: 5,
-          name: "治疗（理疗）",
+          name: "治疗（理疗）"
         },
         {
           id: 6,
-          name: "标本",
-        },
-      ],
+          name: "标本"
+        }
+      ]
     };
   },
   methods: {
@@ -281,11 +297,11 @@ export default {
             : this.type, //执行单类型:传空返回全部
         executeFlag: this.status, //执行状态:传空返回全部,传对应的状态就返回对应的状态【0-未执行、1-开始输液、2-暂停输液、3-继续输液、4-结束输液（已完成）】
         bedLabel: this.bedLabel, //床号:传空返回全部
-        patientName: this.patientName, //病人姓名
+        patientName: this.patientName //病人姓名
         // pageIndex: this.page.pageIndex,
         // pageSize: this.page.pageNum
       };
-      getExecuteWithWardcodeLc(obj).then((res) => {
+      getExecuteWithWardcode(obj).then(res => {
         this.tableData = res.data.data.map((item, index, array) => {
           let prevRowId =
             array[index - 1] &&
@@ -325,7 +341,7 @@ export default {
     search() {
       this.page.pageIndex = 1;
       this.onLoad();
-    },
+    }
   },
   created() {
     this.onLoad();
@@ -351,11 +367,11 @@ export default {
     },
     status() {
       this.search();
-    },
+    }
   },
   components: {
     dTable,
-    pagination,
-  },
+    pagination
+  }
 };
 </script>

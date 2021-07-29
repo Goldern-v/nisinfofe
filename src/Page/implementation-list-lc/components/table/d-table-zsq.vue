@@ -338,7 +338,7 @@ import { info } from "@/api/task";
 import commonMixin from "../../../../common/mixin/common.mixin";
 import qs from "qs";
 import moment from "moment";
-import { addRecordZSQ } from "../../api/index";
+import { addRecord } from "../../api/index";
 import { getUser } from "@/api/common";
 import bus from "vue-happy-bus";
 export default {
@@ -424,7 +424,7 @@ export default {
             pushRate: "",
             type: "1"
           };
-          addRecordZSQ(data).then(res => {
+          addRecord(data).then(res => {
             this.close();
             this.$message.success("补录成功");
             this.bus.$emit("loadImplementationList");

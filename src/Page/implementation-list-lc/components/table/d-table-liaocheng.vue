@@ -440,7 +440,7 @@ import { info } from "@/api/task";
 import commonMixin from "../../../../common/mixin/common.mixin";
 import qs from "qs";
 import moment from "moment";
-import { addRecord, addRecordLiaoc } from "../../api/index";
+import { addRecord } from "../../api/index";
 import editModal from "../common/edit-modal";
 import bus from "vue-happy-bus";
 export default {
@@ -542,7 +542,7 @@ export default {
               type: 1, //是否补执行(pda默认传0正常执行  1补执行pc端)
               typeReason: value //补执行的原因填写
             };
-            addRecordLiaoc(data).then(res => {
+            addRecord(data).then(res => {
               this.$message.success("补录成功");
               this.bus.$emit("loadImplementationList");
             });

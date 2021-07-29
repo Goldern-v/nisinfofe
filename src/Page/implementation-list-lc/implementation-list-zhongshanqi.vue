@@ -230,7 +230,7 @@ import dTablePrint from "./components/table/d-table-zsq-print";
 import pagination from "./components/common/pagination";
 import printLabelContent from "./components/print-label-content";
 import { patEmrList } from "@/api/document";
-import { getExecuteWithWardcodeLc, getWardExeacuteZSQ } from "./api/index";
+import { getExecuteWithWardcode } from "./api/index";
 import common from "@/common/mixin/common.mixin.js";
 import moment from "moment";
 import bus from "vue-happy-bus";
@@ -357,7 +357,7 @@ export default {
         executeStatus: this.status //状态:默认空查询全部  null未执行  1是执行中  2暂停 3 停止~~~~  4已执行
       };
       let children = [];
-      getWardExeacuteZSQ(obj).then(res => {
+      getExecuteWithWardcode(obj).then(res => {
         this.tableData = res.data.data.map((item, index, array) => {
           let prevRowId =
             array[index - 1] &&

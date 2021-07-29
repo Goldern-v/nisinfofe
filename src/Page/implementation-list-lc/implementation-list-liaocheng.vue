@@ -232,7 +232,7 @@
 import dTable from "./components/table/d-table-liaocheng";
 import pagination from "./components/common/pagination";
 import { patEmrList } from "@/api/document";
-import { getExecuteWithWardcodeLiaoC } from "./api/index";
+import { getExecuteWithWardcode } from "./api/index";
 import common from "@/common/mixin/common.mixin.js";
 import moment from "moment";
 import bus from "vue-happy-bus";
@@ -357,7 +357,7 @@ export default {
         administration: this.administration // //途径
       };
 
-      getExecuteWithWardcodeLiaoC(obj).then(res => {
+      getExecuteWithWardcode(obj).then(res => {
         // this.tableData = res.data.data;
         // this.pageLoadng = false;
         let children = [],

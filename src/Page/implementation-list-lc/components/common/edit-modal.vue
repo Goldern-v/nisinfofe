@@ -1,6 +1,11 @@
 <template>
   <div class="modal-con">
-    <sweet-modal ref="newRecord" :modalWidth="500" title="修改时间" class="modal-record padding-0">
+    <sweet-modal
+      ref="newRecord"
+      :modalWidth="500"
+      title="修改时间"
+      class="modal-record padding-0"
+    >
       <div class="group">
         <span>实际执行时间：</span>
         <el-date-picker
@@ -25,7 +30,9 @@
       </div>
       <div slot="button">
         <el-button class="modal-btn" @click="close">关闭</el-button>
-        <el-button class="modal-btn" type="primary" @click="post">保存</el-button>
+        <el-button class="modal-btn" type="primary" @click="post"
+          >保存</el-button
+        >
       </div>
     </sweet-modal>
   </div>
@@ -54,7 +61,7 @@
 <script>
 import commonMixin from "@/common/mixin/common.mixin";
 import moment from "moment";
-import { updateExecuteTime,updateExecuteTimeLiaoC } from "../../api/index";
+import { updateExecuteTime } from "../../api/index";
 import bus from "vue-happy-bus";
 export default {
   mixins: [commonMixin],
@@ -63,7 +70,7 @@ export default {
       eidtRowData: {},
       afterStartExecuteTime: moment().format("YYYY-MM-DD HH:mm"),
       afterEndExecuteTime: moment().format("YYYY-MM-DD HH:mm"),
-      bus: bus(this),
+      bus: bus(this)
     };
   },
   methods: {
@@ -94,20 +101,18 @@ export default {
           : this.afterStartExecuteTime, //需要修改后的实际执行时间
         afterEndExecuteTime: this.afterEndExecuteTime
           ? moment(this.afterEndExecuteTime).format("YYYY-MM-DD HH:mm:ss")
-          : this.afterEndExecuteTime, //需要修改后的实际结束时间
+          : this.afterEndExecuteTime //需要修改后的实际结束时间
       };
-
-      let updateExecuteTimeApi = this.HOSPITAL_ID == 'lingcheng' ? updateExecuteTime : updateExecuteTimeLiaoC;
-      updateExecuteTimeApi(data).then((res) => {
+      updateExecuteTime(data).then(res => {
         this.$message.success(res.data.data.ErrorMsg);
         this.bus.$emit("loadImplementationList");
         this.close();
       });
-    },
+    }
   },
   created() {},
   mounted() {},
   watch: {},
-  components: {},
+  components: {}
 };
 </script>

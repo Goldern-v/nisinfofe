@@ -232,7 +232,7 @@
 import dTable from "./components/table/d-table-shannan";
 import pagination from "./components/common/pagination";
 import { patEmrList } from "@/api/document";
-import { getExecuteWithWardcodeLiaoC } from "./api/index";
+import { getExecuteWithWardcode } from "./api/index";
 import common from "@/common/mixin/common.mixin.js";
 import moment from "moment";
 import bus from "vue-happy-bus";
@@ -357,7 +357,7 @@ export default {
         administration: this.administration // //途径
       };
 
-      getExecuteWithWardcodeLiaoC(obj).then(res => {
+      getExecuteWithWardcode(obj).then(res => {
         // this.tableData = res.data.data;
         // this.pageLoadng = false;
         let children = [],
@@ -391,23 +391,23 @@ export default {
                 array[index].executeDateTime;
           }
 
-          if(this.HOSPITAL_ID == "liaocheng"){
-             let prevRowId =
+          if (this.HOSPITAL_ID == "liaocheng") {
+            let prevRowId =
               array[index - 1] &&
               array[index - 1].patientId +
                 array[index - 1].orderNo +
                 array[index - 1].executeDateTime;
-              let nextRowId =
-                array[index + 1] &&
-                array[index + 1].patientId +
-                  array[index + 1].orderNo +
-                  array[index + 1].executeDateTime;
-              let currentRowId =
-                array[index] &&
-                array[index].patientId +
-                  array[index].orderNo +
-                  array[index].executeDateTime;
-              /** 判断是此记录是多条记录 */
+            let nextRowId =
+              array[index + 1] &&
+              array[index + 1].patientId +
+                array[index + 1].orderNo +
+                array[index + 1].executeDateTime;
+            let currentRowId =
+              array[index] &&
+              array[index].patientId +
+                array[index].orderNo +
+                array[index].executeDateTime;
+            /** 判断是此记录是多条记录 */
             if (currentRowId == prevRowId || currentRowId == nextRowId) {
               if (currentRowId != prevRowId) {
                 /** 第一条 */
