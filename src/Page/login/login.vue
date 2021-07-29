@@ -515,6 +515,8 @@ export default {
           break;
         case "guizhou":
           logoUrl = require("../../common/images/logo_guizhou.png");
+        case "nanfangzhongxiyi":
+          logoUrl = require("../../common/images/logo_nanfangzhongxiyi.png");
       }
       return logoUrl;
     },

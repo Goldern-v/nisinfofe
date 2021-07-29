@@ -59,7 +59,7 @@ export function getVitalSignList(data) {
  * @param {*} data.visitId 入院次数
  */
 export function getVitalSignListBy10(data) {
-  return axios.get(`${apiPath}vitalSign//lastList/${data.patientId}/${data.visitId}`);
+  return axios.get(`${apiPath}vitalSign/lastList/${data.patientId}/${data.visitId}`);
 }
 
 // 通过护理单元获取体征字典表
@@ -92,7 +92,17 @@ export const saveAll = (data) => {
   return axios.post(`${apiPath}record/${getRecordType(process.env.HOSPITAL_ID)}/saveAll`, data);
 };
 
-// 聊城二院获取最新10条体征信息
+/** 获取指定日期最近10天的数据 */
+export const getVitalSignListByDate = (query = {
+  patientId: '',
+  visitId: '',
+  wardCode: '',
+  recordDate: ''
+}) => {
+  return axios.post(`${apiPath}vitalSign/list`, query);
+};
+
+/** 获取最新10条体征信息 */
 export const getLastList = (patientId, visitId) => {
   return axios.get(`${apiPath}vitalSign/lastList/${patientId}/${visitId}`);
 };
