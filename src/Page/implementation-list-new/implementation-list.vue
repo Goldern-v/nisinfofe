@@ -10,7 +10,7 @@
             format="yyyy-MM-dd"
             placeholder="选择入院起始时间"
             size="small"
-            v-model="startDate"
+            v-model="query.executeDate"
             style="width:150px"
           ></el-date-picker>
           <!-- <span class="label">长/临:</span>
@@ -22,10 +22,10 @@
             </el-radio-group>
           </el-row> -->
           <span class="label">医嘱类型:</span>
-          <el-select v-model="repeatIndicator" placeholder="请选择" size="small" style="width:150px">
-            <el-option label="全部" value></el-option>
-            <el-option label="长期" value="长期"></el-option>
-            <el-option label="临时" value="临时"></el-option>
+          <el-select v-model="query.repeatIndicator" placeholder="请选择" size="small" style="width:150px">
+            <el-option label="全部" :value="9"></el-option>
+            <el-option label="长期" :value="1"></el-option>
+            <el-option label="临时" :value="0"></el-option>
           </el-select>
           <!-- <span class="label">状态:</span>
           <el-row class="select-btn-list" type="flex" align="middle">
@@ -37,8 +37,7 @@
             </el-radio-group>
           </el-row> -->
           <span class="label">医嘱分类:</span>
-          <el-select v-model="type" placeholder="请选择" size="small" style="width:150px">
-            <el-option label="全部" value></el-option>
+          <el-select v-model="query.itemType" placeholder="请选择" size="small" style="width:150px">
             <el-option label="输液" value="输液"></el-option>
             <el-option label="注射" value="注射"></el-option>
             <el-option label="口服" value="口服"></el-option>
@@ -54,21 +53,14 @@
           <span class="label">床号:</span>
           <el-input size="small" style="width: 80px;" v-model="bedLabel"></el-input>
           <span class="label">执行标志:</span>
-          <el-select v-model="status" placeholder="请选择" size="small" style="width:150px">
+          <el-select v-model="query.executeFlag" placeholder="请选择" size="small" style="width:150px">
             <el-option label="全部" value></el-option>
-            <el-option label="已执行" value="已执行"></el-option>
-            <el-option label="执行中" value="执行中"></el-option>
-            <el-option label="未执行" value="未执行"></el-option>
+            <el-option label="已执行" :value="2"></el-option>
+            <el-option label="未执行" :value="0"></el-option>
           </el-select>
-          <!-- <el-input
-            size="small"
-            style="width: 150px;margin-right: 15px;"
-            placeholder="输入床号进行搜索"
-            v-model="bedLabel"
-          ></el-input> -->
           <el-button size="small" type="primary" @click="search">查询</el-button>
           <el-button size="small" @click="allSelection" :disabled="status=='已执行'">全选</el-button>
-          <el-button size="small" @click="search" :disabled="status=='已执行'">执行</el-button>
+          <el-button size="small" @click="handleExecuteBatch" :disabled="status=='已执行'">执行</el-button>
         </div>
       </div>
       <dTable :pageLoadng="pageLoadng" ref="plTable"></dTable>
@@ -177,7 +169,7 @@
 import dTable from "./components/table/d-table";
 // import pagination from "./components/common/pagination";
 import { patEmrList } from "@/api/document";
-import { getExecuteWithWardcode } from "./api/index";
+import { getExecuteWithWardcode,handleWebExecuteBatch } from "./api/index";
 import common from "@/common/mixin/common.mixin.js";
 import moment from "moment";
 export default {
@@ -193,10 +185,18 @@ export default {
         total: 0
       },
       startDate: moment().format("YYYY-MM-DD"),
-      repeatIndicator: "",
       type: "",
       status: "",
-      bedLabel: ""
+      bedLabel: "",
+      test: "",
+      query: {
+        wardCode:"",
+        itemType:"输液",//医嘱类别，输液、雾化
+        executeDate:moment().format("YYYY-MM-DD"),//执行日期
+        bedLabel:'',//床位号，如果查全部传*"
+        repeatIndicator: 9,//医嘱类型，长期传1，临时传0，全部传9
+        executeFlag: 0,//0未执行，2已执行
+      }
     };
   },
   methods: {
@@ -209,22 +209,14 @@ export default {
     },
 
     onLoad() {
-      return;
       if (!this.deptCode) return;
       this.pageLoadng = true;
-      let obj = {
-        wardCode: this.deptCode,
-        startDate: moment(this.startDate).format("YYYY-MM-DD"),
-        endDate: moment(this.startDate).format("YYYY-MM-DD"),
-        repeatIndicator: this.repeatIndicator,
-        type: this.type,
-        status: this.status,
-        bedLabel: this.bedLabel,
-        pageIndex: this.page.pageIndex,
-        pageSize: this.page.pageNum
-      };
-      getExecuteWithWardcode(obj).then(res => {
-        let tableData = res.data.data.list.map((item, index, array) => {
+      this.query.wardCode = this.deptCode;
+      this.query.executeDate = this.query.executeDate ? moment(this.query.executeDate).format("YYYY-MM-DD") : moment().format("YYYY-MM-DD");
+      this.query.bedLabel = this.bedLabel ? this.bedLabel : '*';
+
+      getExecuteWithWardcode(this.query).then(res => {
+        let tableData = res.data.data.map((item, index, array) => {
           let prevRowId =
             array[index - 1] &&
             array[index - 1].patientId +
@@ -273,6 +265,25 @@ export default {
       if(this.$refs.plTable.$children && this.$refs.plTable.$children[0] && this.$refs.plTable.$children[0].toggleAllSelection){
         this.$refs.plTable.$children[0].toggleAllSelection();
       }
+    },
+    // 批量处理执行单
+    handleExecuteBatch(){
+      let selectedData = this.$refs.plTable.selectedData,data = [];
+      selectedData.map(item => {
+        let obj = {
+          patientId: item.patientId,
+          visitId: item.visitId,
+          barcode: item.barCode,
+          orderNo: item.orderNo,
+          executeNurse: this.empNo, // 执行护士工号
+          verifyNurse: this.empNo // 核对护士工号
+        }
+        data.push(obj);
+      })
+      handleWebExecuteBatch({lists: data}).then(res => {
+        this.$message.success(res.data.desc);
+        this.onLoad();
+      })
     }
   },
   created() {
@@ -283,9 +294,6 @@ export default {
       this.search();
     },
     startDate() {
-      this.search();
-    },
-    repeatIndicator() {
       this.search();
     },
     type() {

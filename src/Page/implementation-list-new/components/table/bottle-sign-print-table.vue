@@ -11,6 +11,8 @@
       showBodyOverflow="title"
       showHeaderOverflow="title"
       :row-height="rowHeight"
+      @selection-change="handleSelectionChange"
+      @select="toggleRowSelection"
     >
       <u-table-column type="selection" width="55"></u-table-column>
 
@@ -20,9 +22,9 @@
         </template>
       </u-table-column>
 
-      <u-table-column label="姓名" prop="patientName" min-width="70px" align="center">
+      <u-table-column label="姓名" prop="name" min-width="70px" align="center">
         <template slot-scope="scope">
-          <div>{{(scope.row.rowType == 1 || !scope.row.rowType) ? (scope.row.patientName) : ''}}</div>
+          <div>{{(scope.row.rowType == 1 || !scope.row.rowType) ? (scope.row.name) : ''}}</div>
         </template>
       </u-table-column>
 
@@ -46,36 +48,35 @@
 
       <u-table-column prop="administration" label="途径" min-width="100px" align="center"></u-table-column>
 
-      <u-table-column label="频次" prop="frequency" min-width="50px" align="center"></u-table-column>
+      <u-table-column label="频次" prop="frequency" min-width="80px" align="center"></u-table-column>
 
-      <u-table-column label="执行时间说明" prop="frequency" min-width="100px" align="center"></u-table-column>
+      <u-table-column label="执行时间说明" prop="performSchedule" min-width="100px" align="center"></u-table-column>
 
-      <u-table-column label="医生说明" prop="frequency" min-width="200px" align="center"></u-table-column>
+      <u-table-column label="医生说明" prop="freqDetail" min-width="200px" align="center"></u-table-column>
 
-      <u-table-column prop="executeFlag" label="打印状态" min-width="80px" align="center">
+      <u-table-column prop="printFlag" label="打印标志" min-width="80px" align="center">
         <template slot-scope="scope">
-          <span
-            :class="{
-              yzx: scope.row.executeFlag == '已执行',
-              zxz: scope.row.executeFlag == '执行中',
-              }"
-          >{{ scope.row.executeFlag }}</span>
+          <span>{{ scope.row.printFlag == 1 ? '已打印': '未打印' }}</span>
         </template>
       </u-table-column>
 
-      <u-table-column prop="repeatIndicator" label="长/临" min-width="70px" align="center"></u-table-column>
-
-      <u-table-column prop="repeatIndicator" label="医嘱号" min-width="70px" align="center"></u-table-column>
-
-      <u-table-column prop="performSchedule" label="开嘱时间" min-width="160px" align="center">
-        <template slot-scope="scope">
-          <span>{{scope.row.performSchedule | ymdhms}}</span>
+      <u-table-column prop="repeatIndicator" label="长/临" min-width="70px" align="center">
+       <template slot-scope="scope">
+          <span>{{scope.row.repeatIndicator == 1 ? '长期' : '临时'}}</span>
         </template>
       </u-table-column>
 
-      <u-table-column prop="performSchedule" label="停嘱时间" min-width="160px" align="center">
+      <u-table-column prop="orderNo" label="医嘱号" min-width="70px" align="center"></u-table-column>
+
+      <u-table-column prop="startDateTime" label="开嘱时间" min-width="160px" align="center">
         <template slot-scope="scope">
-          <span>{{scope.row.performSchedule | ymdhms}}</span>
+          <span>{{scope.row.startDateTime | ymdhms}}</span>
+        </template>
+      </u-table-column>
+
+      <u-table-column prop="stopDateTime" label="停嘱时间" min-width="160px" align="center">
+        <template slot-scope="scope">
+          <span>{{scope.row.stopDateTime | ymdhms}}</span>
         </template>
       </u-table-column>
 
@@ -225,14 +226,23 @@ export default {
     return {
       rowHeight: 30,
       checked: true,
+      selectedData: []
     };
   },
   methods: {
     rowcb(obj){
       // 如果该条执行单是一组多条的 或者该执行单是已完成的隐藏当前多选框
-      if(obj.row.rowType > 1 || obj.row.executeFlag == '已完成'){
+      if(obj.row.rowType > 1 || obj.row.executeFlag == 2){
         return "myCell"
       }
+    },
+    handleSelectionChange(selection){
+      this.selectedData = selection;
+
+    },
+    toggleRowSelection(selection,row){
+       console.log(selection);
+      console.log(row);
     }
   },
   filters: {
