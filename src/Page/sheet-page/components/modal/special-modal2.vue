@@ -6,6 +6,7 @@
       :modalWidth="720"
       :title="title"
       :enable-mobile-fullscreen="false"
+      :blocking="HOSPITAL_ID == 'liaocheng' ? true : false"
     >
       <div id="specialForm">
         <div flex="cross:center" class="special-date-con">
@@ -42,91 +43,7 @@
         </div>
         <el-tabs v-model="activeTab" class="tab-content" type="card">
           <el-tab-pane label="固定项目" name="1" :disabled="isDisabed">
-            <div flex="wrap:wrap" v-if="fixedList.length">
-              <div
-                v-for="(item, key) in fixedList"
-                :key="sheetInfo.sheetType + item.key"
-                style="min-width: 33%; margin-bottom: 12px; overflow: hidden"
-                :style="item.isWrap && { 'min-width': '50%' }"
-              >
-                <div class="input-cell" flex="cross:center">
-                  <el-checkbox
-                    v-model="vitalSignKeys[item.name].check"
-                    v-if="
-                      (HOSPITAL_ID === 'huadu' &&
-                        sheetInfo.sheetType !== 'body_temperature_Hd' &&
-                        Object.keys(vitalSignKeys).includes(item.name)) ||
-                      (HOSPITAL_ID === 'zhongshanqi' && item.name === '体温')
-                    "
-                  ></el-checkbox>
-                  <div class="label" style="min-width: 70px">
-                    {{ item.name || key }}：
-                  </div>
-                  <input
-                    type="text"
-                    :readonly="isRead"
-                    v-model="fixedList[key].value"
-                    @keydown="
-                      spaceToKey($event, fixedList[key], 'bloodPressure')
-                    "
-                    v-if="key == 'bloodPressure'"
-                    :style="item.maxWidth && { width: item.maxWidth + 'px' }"
-                  />
-                  <input
-                    type="text"
-                    :readonly="isRead"
-                    v-model="fixedList[key].value"
-                    v-autoComplete="{
-                      dataList: dictionary[item.key],
-                      obj: fixedList,
-                      key: key,
-                      tr,
-                      td: item,
-                    }"
-                    maxlength="10"
-                    style="width: 140px"
-                    v-else-if="
-                      sheetInfo.sheetType === 'common_hd' &&
-                      (key === 'food' || key === 'discharge')
-                    "
-                  />
-                  <input
-                    type="text"
-                    :readonly="isRead"
-                    v-model="fixedList[key].value"
-                    v-autoComplete="{
-                      dataList: dictionary[item.key],
-                      obj: fixedList,
-                      key: key,
-                      tr,
-                      td: item,
-                    }"
-                    maxlength="16"
-                    style="width: 220px"
-                    v-else-if="
-                      sheetInfo.sheetType === 'common_hd' &&
-                      key === 'healthEducation'
-                    "
-                  />
-                  <input
-                    type="text"
-                    :readonly="isRead"
-                    v-model="fixedList[key].value"
-                    v-autoComplete="{
-                      dataList: dictionary[item.key],
-                      obj: fixedList,
-                      key: key,
-                      tr,
-                      td: item,
-                    }"
-                    :style="item.maxWidth && { width: item.maxWidth + 'px' }"
-                    v-else
-                  />
-                  <div class="uniq">{{ item.next }}</div>
-                </div>
-              </div>
-            </div>
-            <div v-else>
+             <div v-if="HOSPITAL_ID == 'hj'">
               <div class="input-row" flex="main:justify">
                 <div class="input-cell" flex="cross:center" flex-box="1">
                   <div class="label">体温：</div>
@@ -291,6 +208,91 @@
                 <div flex-box="1"></div>
               </div>
             </div>
+            <div flex="wrap:wrap">
+              <div
+                v-for="(item, key) in fixedList"
+                :key="sheetInfo.sheetType + item.key"
+                style="min-width: 33%; margin-bottom: 12px; overflow: hidden"
+                :style="item.isWrap && { 'min-width': '50%' }"
+              >
+                <div class="input-cell" flex="cross:center">
+                  <el-checkbox
+                    v-model="vitalSignKeys[item.name].check"
+                    v-if="
+                      (HOSPITAL_ID === 'huadu' &&
+                        sheetInfo.sheetType !== 'body_temperature_Hd' &&
+                        Object.keys(vitalSignKeys).includes(item.name)) ||
+                      (HOSPITAL_ID === 'zhongshanqi' && item.name === '体温')
+                    "
+                  ></el-checkbox>
+                  <div class="label" style="min-width: 70px">
+                    {{ item.name || key }}：
+                  </div>
+                  <input
+                    type="text"
+                    :readonly="isRead"
+                    v-model="fixedList[key].value"
+                    @keydown="
+                      spaceToKey($event, fixedList[key], 'bloodPressure')
+                    "
+                    v-if="key == 'bloodPressure'"
+                    :style="item.maxWidth && { width: item.maxWidth + 'px' }"
+                  />
+                  <input
+                    type="text"
+                    :readonly="isRead"
+                    v-model="fixedList[key].value"
+                    v-autoComplete="{
+                      dataList: dictionary[item.key],
+                      obj: fixedList,
+                      key: key,
+                      tr,
+                      td: item,
+                    }"
+                    maxlength="10"
+                    style="width: 140px"
+                    v-else-if="
+                      sheetInfo.sheetType === 'common_hd' &&
+                      (key === 'food' || key === 'discharge')
+                    "
+                  />
+                  <input
+                    type="text"
+                    :readonly="isRead"
+                    v-model="fixedList[key].value"
+                    v-autoComplete="{
+                      dataList: dictionary[item.key],
+                      obj: fixedList,
+                      key: key,
+                      tr,
+                      td: item,
+                    }"
+                    maxlength="16"
+                    style="width: 220px"
+                    v-else-if="
+                      sheetInfo.sheetType === 'common_hd' &&
+                      key === 'healthEducation'
+                    "
+                  />
+                  <input
+                    type="text"
+                    :readonly="isRead"
+                    v-model="fixedList[key].value"
+                    v-autoComplete="{
+                      dataList: dictionary[item.key],
+                      obj: fixedList,
+                      key: key,
+                      tr,
+                      td: item,
+                    }"
+                    :style="item.maxWidth && { width: item.maxWidth + 'px' }"
+                    v-else
+                  />
+                  <div class="uniq">{{ item.next }}</div>
+                </div>
+              </div>
+            </div>
+
           </el-tab-pane>
           <el-tab-pane
             label="自定义项目"
@@ -1082,7 +1084,7 @@ export default {
       this.close();
     },
     // 保存（普通文本）
-    post() {
+    post(type) {
       // 计算字节长度
       var GetLength = function (str) {
         var realLength = 0,
@@ -1117,6 +1119,8 @@ export default {
           charCode == "44" ||
           charCode == "46" ||
           charCode == "65306" ||
+          charCode == "109" ||
+          charCode == "103" ||
           charCode == "58"
         ) {
           text += allDoc[i];
@@ -1155,6 +1159,11 @@ export default {
       if (text) {
         result.push(text);
       }
+
+      if(type == 'ayncVisitedData'){
+        return result;
+      }
+
       if (result.length == 0) {
         result.push("");
       }
@@ -1213,7 +1222,7 @@ export default {
     timeKey,
     spaceToKey(e, obj, key) {
       if (e.keyCode == 32) {
-        obj.value += "/";
+        obj[key] += "/";
         e.preventDefault();
       }
     },
@@ -1251,6 +1260,17 @@ export default {
       let doc = this.doc.replace(regP, "");
       let valRegP = val.replace(regP, "");
       this.doc = doc + valRegP;
+    });
+
+    // 同步护理巡视
+    this.bus.$on("syncVisitWithDataSheet", obj => {
+      this.doc = obj.description;
+      let ayncVisitedData =  {
+        recordMonth: obj.recordMonth,
+        recordHour: obj.recordHour,
+        list: this.post('ayncVisitedData')
+      }
+      this.bus.$emit("saveSheetPage",true,ayncVisitedData);
     });
   },
   watch: {

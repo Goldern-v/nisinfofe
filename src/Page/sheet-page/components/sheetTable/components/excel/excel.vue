@@ -1325,19 +1325,21 @@ export default {
         tab,
         isLast
       };
-      if (
-        this.HOSPITAL_ID == "weixian" ||
-        this.HOSPITAL_ID == "lingcheng" ||
-        this.HOSPITAL_ID == "huadu" ||
-        this.HOSPITAL_ID == "hengli" ||
-        this.HOSPITAL_ID == "liaocheng" ||
-        this.HOSPITAL_ID == "zhongshanqi" ||
-        this.HOSPITAL_ID == "shannan"
-      ) {
-        window.openSpecialModal2(config);
-      } else {
-        window.openSpecialModal(config);
-      }
+      // if (
+      //   this.HOSPITAL_ID == "weixian" ||
+      //   this.HOSPITAL_ID == "lingcheng" ||
+      //   this.HOSPITAL_ID == "huadu" ||
+      //   this.HOSPITAL_ID == "hengli" ||
+      //   this.HOSPITAL_ID == "liaocheng" ||
+      //   this.HOSPITAL_ID == "zhongshanqi" ||
+      //   this.HOSPITAL_ID == "shannan"
+      // ) {
+      //   window.openSpecialModal2(config);
+      // } else {
+      //   window.openSpecialModal(config); //旧版本
+      // }
+      // 双击出现记录单编辑弹框
+      window.openSpecialModal2(config);
     },
     markTip(e, td) {
       if (sheetInfo.model == "print") return;
