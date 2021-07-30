@@ -1,13 +1,13 @@
 /*
- * @Author: linzhongjie 
- * @Date: 2018-12-05 14:17:00 
+ * @Author: linzhongjie
+ * @Date: 2018-12-05 14:17:00
  * @Last Modified by: linzhongjie
  * @Last Modified time: 2018-12-09 21:30:07
  */
 import { getLodop } from './LodopFuncs'
 import { sheetCss } from './css'
 const cheerio = require('cheerio')
-import { Loading, Message } from "element-ui";
+// import { Loading, Message } from "element-ui";
 export default function (htmlArr) {
   htmlArr = htmlArr.map(html => {
     var reg = /data-value/g;
