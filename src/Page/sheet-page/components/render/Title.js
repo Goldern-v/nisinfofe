@@ -515,6 +515,13 @@ export default function Title(
     );
   }
   break;
+  case "postpartumnursing_jm": {
+    // 江门妇幼 - 产后护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/postpartumnursing_jm/th.js").default)
+    );
+  }
+  break;
   case "body_temperature_hj": {
     // 聊城二院 - 体温单
     Th = JSON.parse(
