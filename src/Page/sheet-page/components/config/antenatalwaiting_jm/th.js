@@ -8,7 +8,7 @@ export default {
   // 科室的名称 关节骨科
   deptType: "",
   style: {
-    width: "1400px"
+    width: "1500px"
   },
   th: {
     top: [{
@@ -20,6 +20,14 @@ export default {
         },
         canSet: true,
         key: "recordYear",
+      },
+      {
+        name: `
+        孕周
+        `,
+        style: {},
+        colspan: "1",
+        rowspan: "3",
       },
       {
         name: `
@@ -54,29 +62,21 @@ export default {
       },
       {
         name: `
-        SPO<sub>2</sub><br/>（%）
+        胎方位
         `,
         colspan: "1",
         rowspan: "3"
       },
       {
         name: `
-        膀胱<br/>情况
+        胎心音<br/>（次/分）
         `,
         colspan: "1",
         rowspan: "3"
       },
       {
         name: `
-        入量
-        `,
-        style: {},
-        colspan: "2",
-        rowspan: "1",
-      },
-      {
-        name: `
-        出量
+        宫缩
         `,
         style: {},
         colspan: "3",
@@ -84,70 +84,72 @@ export default {
       },
       {
         name: `
-        乳量
+        宫颈
+        `,
+        style: {},
+        colspan: "2",
+        rowspan: "1",
+      },
+      {
+        name: `
+        先<br/>露<br/>高<br/>低
         `,
         colspan: "1",
         rowspan: "3"
       },
       {
-        name: `宫底<br/>高度<br/>U-FB`,
+        name: `胎<br/>膜`,
         style: {},
         colspan: "1",
         rowspan: "3",
       },
       {
-        name: `子<br/>宫<br/>收<br/>缩`,
+        name: `羊<br/>水<br/>性<br/>质`,
         style: {},
         colspan: "1",
         rowspan: "3",
       },
       {
         name: `
-        伤口
+        胎动<br/>（次/h）
         `,
         style: {},
+        colspan: "1",
+        rowspan: "3"
+      },
+      {
+        name: `排<br/>尿<br/>情<br/>况`,
+        style: {},
+        colspan: "1",
+        rowspan: "3",
+      },
+      {
+        name: `破<br/>膜<br/>时<br/>间`,
+        style: {},
+        colspan: "1",
+        rowspan: "3",
+      },
+      {
+        name: `临<br/>产<br/>时<br/>间`,
+        style: {},
+        colspan: "1",
+        rowspan: "3",
+      },
+      {
+        name: `胎<br/>儿<br/>娩<br/>出<br/>时<br/>间`,
+        style: {},
+        colspan: "1",
+        rowspan: "3",
+      },
+      {
+        name: `静滴催产素`,
+        style: {},
         colspan: "2",
-        rowspan: "1"
-      },
-      {
-        name: `留<br/>置<br/>尿<br/>管`,
-        style: {},
-        colspan: "1",
-        rowspan: "3",
-      },
-      {
-        name: `尿<br/>色`,
-        style: {},
-        colspan: "1",
-        rowspan: "3",
-      },
-      {
-        name: `镇<br/>痛<br/>泵`,
-        style: {},
-        colspan: "1",
-        rowspan: "3",
-      },
-      {
-        name: `母<br/>乳<br/>喂<br/>养<br/>指<br/>导`,
-        style: {},
-        colspan: "1",
-        rowspan: "3",
-      },
-      {
-        name: `VAS<br/>评<br/>分`,
-        style: {},
-        colspan: "1",
-        rowspan: "3",
-      },
-      {
-        name: `跌<br/>倒<br/>告<br/>知`,
-        style: {},
-        colspan: "1",
-        rowspan: "3",
+        rowspan: "1",
       },
       {
         name: `
-        特殊情况
+        特殊情况记录
         `,
         colspan: "1",
         rowspan: "3",
@@ -182,7 +184,7 @@ export default {
         rowspan: '2'
       },
       {
-        name: "静脉<br/>（ml）",
+        name: "强<br/>度",
         colspan: "1",
         rowspan: "2",
         style: {
@@ -191,7 +193,7 @@ export default {
         },
       },
       {
-        name: "口服<br/>(ml)",
+        name: "持<br/>续<br/>s",
         colspan: "1",
         rowspan: "2",
         style: {
@@ -200,29 +202,29 @@ export default {
         },
       },
       {
-        name: "血<br/>（ml）",
+        name: "间<br/>歇<br/>min",
         colspan: "1",
         rowspan: "2"
       },
       {
-        name: "尿<br/>(ml)",
+        name: "扩<br/>张<br/>cm",
         colspan: "1",
         rowspan: "2"
       },
       {
-        name: "其他<br/>(ml)",
+        name: "评<br/>分",
         colspan: "1",
         rowspan: "2"
       },
       {
-        name: "腹<br/>部",
+        name: "缩宫素<br/>浓度<br/>（U/500ml）",
         colspan: "1",
-        rowspan: "2"
+        rowspan: "2",
       },
       {
-        name: "会<br/>阴",
+        name: "滴数<br/>(滴/分)",
         colspan: "1",
-        rowspan: "2"
+        rowspan: "2",
       },
     ],
     bottom: [

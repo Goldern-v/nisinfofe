@@ -431,6 +431,11 @@ function switechSheetType(type) {
     schema = require("../config/postpartumnursing_jm/tr.js").default;
   }
   break;
+  case "antenatalwaiting_jm": {
+    // 江门妇幼 - 产前待产记录单
+    schema = require("../config/antenatalwaiting_jm/tr.js").default;
+  }
+  break;
   case "body_temperature_hj": {
     // 聊城二院 - 体温单
     schema = require("../config/body_temperature_hj/tr.js").default;

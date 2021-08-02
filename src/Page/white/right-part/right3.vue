@@ -34,8 +34,8 @@
         </div>
         <div style="height: 15px"></div>
         <div flex="cross:center">
-          <div class="label">电脑班：</div>
-          <input flex-box="1" v-model="data.secondTierDoctor" @blur="update" />
+          <div class="label">值班医生：</div>
+          <input flex-box="1" v-model="data.classP" @blur="update" />
         </div>
         <div style="height: 15px"></div>
         <div flex="cross:center">

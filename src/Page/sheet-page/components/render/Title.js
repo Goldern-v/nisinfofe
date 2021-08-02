@@ -522,6 +522,13 @@ export default function Title(
     );
   }
   break;
+  case "antenatalwaiting_jm": {
+    // 江门妇幼 - 产前待产记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/antenatalwaiting_jm/th.js").default)
+    );
+  }
+  break;
   case "body_temperature_hj": {
     // 聊城二院 - 体温单
     Th = JSON.parse(

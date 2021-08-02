@@ -15,14 +15,11 @@ import {
 } from "../keyEvent/date";
 import info from "../sheetInfo";
 
-const pgList = ['胀', '不胀'];
-const gdgdList = ['U+2', 'U+1', 'U=0', 'U-1', 'U-2'];
-const ztbList = ['(+)', '(-)'];
-const mrqkList = ['多', '中', '少', '无'];
-const lzngList = ['通畅', '拔除'];
-const nsList = ['清', '深黄', '淡红'];
-const gsList = ['硬', '一般', '软'];
-const zdjnList = ['✓'];
+const tmList = ['已破', '未破'];
+const ysxzList = ['清', 'Ⅰ°', 'Ⅱ°', 'Ⅲ°', '血性羊水'];
+const gsqdList = ['弱', '中', '强'];
+const xlgdList = ['S-3', 'S-2', 'S-1', 'S=0', 'S+1', 'S+2'];
+const ydlxList = ['少量', '多量'];
 export default [{
     key: "recordMonth", //日期
     value: "",
@@ -34,6 +31,15 @@ export default [{
     value: "",
     event: event_time,
     click: click_time
+  },
+  {
+    key: "ContractionOne", //孕周
+    value: "",
+    event: keyf1,
+    name: "孕周",
+    textarea: {
+      width: 50
+    }
   },
   {
     key: "temperature", //体温
@@ -82,206 +88,180 @@ export default [{
     }
   },
   {
-    key: "preFieldOne", //spo2
+    key: "preInputOne", //胎方位
     value: "",
     event: keyf1,
-    name: "SPO2",
-    next: "%",
+    name: "胎方位",
     textarea: {
-      width: 50
+      width: 60
     }
   },
   {
-    key: "preFieldTwo", //膀胱情况
+    key: "preInputTwo", //胎心音
     value: "",
     event: keyf1,
-    name: "膀胱情况",
+    name: "胎心音",
     next: "次/分",
-    autoComplete: {
-      data: pgList
+    textarea: {
+      width: 60
     },
+  },
+  {
+    key: "UterineOne", //强度
+    value: "",
+    event: keyf1,
+    name: "强度",
+    textarea: {
+      width: 43
+    },
+    autoComplete: {
+      data: gsqdList
+    },
+  },
+  {
+    key: "UterineTwo", //持续
+    value: "",
+    event: keyf1,
+    name: "持续",
+    next: "s",
+    textarea: {
+      width: 43
+    }
+  },
+  {
+    key: "UterineThree", // 间歇
+    value: "",
+    event: keyf1,
+    name: "间歇",
+    next: "min",
+    textarea: {
+      width: 43
+    },
+  },
+  {
+    key: "UterineFour", // 扩张
+    value: "",
+    event: keyf1,
+    name: "扩张",
+    next: "cm",
+    textarea: {
+      width: 43
+    },
+  },
+  {
+    key: "Uterinefive", //评分
+    value: "",
+    event: keyf1,
+    name: "评分",
+    textarea: {
+      width: 43
+    },
+  },
+  {
+    key: "preFieldOne", //先露高低
+    value: "",
+    event: keyf1,
+    name: "先露高低",
+    textarea: {
+      width: 50
+    },
+    autoComplete: {
+      data: xlgdList
+    },
+  },
+  {
+    key: "preFieldTwo", //胎膜
+    value: "",
+    event: keyf1,
+    name: "胎膜",
+    autoComplete: {
+      data: tmList
+    },
+    textarea: {
+      width: 50
+    }
+  },
+  {
+    key: "preFieldThree", //羊水性质
+    value: "",
+    event: keyf1,
+    name: "羊水性质",
+    textarea: {
+      width: 50
+    },
+    autoComplete: {
+      data: ysxzList
+    },
+  },
+  {
+    key: "preFieldFour", //胎动
+    value: "",
+    event: keyf1,
+    name: "胎动",
+    next: "次/h",
+    textarea: {
+      width: 50
+    }
+  },
+  {
+    key: "preFieldFive", //排尿情况
+    value: "",
+    event: keyf1,
+    name: "排尿情况",
     textarea: {
       width: 50
     },
   },
   {
-    key: "preInputOne", //静脉
+    key: "preFieldSix", //破膜时间
     value: "",
     event: keyf1,
-    name: "指尖血糖",
-    next: "mmol/L",
-    textarea: {
-      width: 43
-    }
-  },
-  {
-    key: "preInputTwo", //口服
-    value: "",
-    event: keyf1,
-    name: "阴道出血",
-    next: "mL",
-    textarea: {
-      width: 43
-    }
-  },
-  {
-    key: "preInputThree", // 血
-    value: "",
-    event: keyf1,
-    name: "入量内容",
-    textarea: {
-      width: 43
-    },
-  },
-  {
-    key: "postOutputOne", // 尿
-    value: "",
-    event: keyf1,
-    name: "入量大小",
-    next: "ml",
-    textarea: {
-      width: 43
-    },
-  },
-  {
-    key: "postOutputTwo", //其他
-    value: "",
-    event: keyf1,
-    name: "出量内容",
-    textarea: {
-      width: 43
-    },
-  },
-  {
-    key: "FieldOne", //乳量
-    value: "",
-    event: keyf1,
-    name: "出量大小",
-    next: "ml",
-    textarea: {
-      width: 43
-    },
-    autoComplete: {
-      data: mrqkList
-    },
-  },
-  {
-    key: "FieldTwo", //宫底高度
-    value: "",
-    event: keyf1,
-    name: "出量颜色",
-    autoComplete: {
-      data: gdgdList
-    },
-    textarea: {
-      width: 50
-    }
-  },
-  {
-    key: "FieldThree", //子宫收缩
-    value: "",
-    event: keyf1,
-    name: "健康宣教",
-    textarea: {
-      width: 50
-    },
-    autoComplete: {
-      data: gsList
-    },
-  },
-  {
-    key: "PositionFour", //腹部
-    value: "",
-    event: keyf1,
-    name: "健康宣教",
-    textarea: {
-      width: 43
-    }
-  },
-  {
-    key: "PositionFive", //会阴
-    value: "",
-    event: keyf1,
-    textarea: {
-      width: 43,
-      maxLength: 4
-    },
-  },
-  {
-    key: "FieldFour", //留置尿管
-    value: "",
-    event: keyf1,
+    name: "破膜时间",
     textarea: {
       width: 50,
-      maxLength: 4
-    },
-    autoComplete: {
-      data: lzngList
     },
   },
   {
-    key: "preFieldFive", //尿色
+    key: "preFieldSeven", //临产时间
     value: "",
     event: keyf1,
+    name: "临产时间",
     textarea: {
       width: 50,
-      maxLength: 4
     },
-    autoComplete: {
-      data: nsList
-    },
-    
   },
   {
-    key: "preFieldSix", //镇痛泵
+    key: "preFieldEight", //胎儿娩出时间
     value: "",
     event: keyf1,
+    name: "胎儿娩出时间",
     textarea: {
       width: 50,
-      maxLength: 4
-    },
-    autoComplete: {
-      data: ztbList
     },
   },
   {
-    key: "preFieldSeven", //母乳喂养指导
+    key: "preFieldNice", //缩宫素浓度
     value: "",
     event: keyf1,
+    name: "缩宫素浓度",
+    next: "U/500ml",
     textarea: {
-      width: 50,
-      maxLength: 4
-    },
-    autoComplete: {
-      data: zdjnList
+      width: 75,
     },
   },
   {
-    key: "preFieldEight", //vas评分
+    key: "preFieldTen", //滴数
     value: "",
     event: keyf1,
+    name: "滴数",
+    next: "滴/分",
     textarea: {
-      width: 50,
+      width: 60,
       maxLength: 4
-    },
-    autoComplete: {
-      data: zdjnList
     },
   },
   {
-    key: "preFieldNice", //跌倒告知
-    value: "",
-    event: keyf1,
-    textarea: {
-      width: 50,
-      maxLength: 4
-    },
-    autoComplete: {
-      data: zdjnList
-    },
-  },
-  {
-    key: "description", //特殊情况
+    key: "description", //特殊情况记录
     value: "",
     style: {
       textAlign: "left",
@@ -386,4 +366,3 @@ export default [{
     value: true
   }
 ];
-
