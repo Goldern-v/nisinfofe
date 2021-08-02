@@ -529,6 +529,20 @@ export default function Title(
     );
   }
   break;
+  case "obstetricnursing_jm": {
+    // 江门妇幼 - 产科护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/obstetricnursing_jm/th.js").default)
+    );
+  }
+  break;
+  case "breastkenursing_jm": {
+    // 江门妇幼 - 乳腺科护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/breastkenursing_jm/th.js").default)
+    );
+  }
+  break;
   case "body_temperature_hj": {
     // 聊城二院 - 体温单
     Th = JSON.parse(

@@ -7,16 +7,10 @@ import {
   click_date,
   click_time
 } from "../keyEvent/date";
-import info from "../sheetInfo";
 
-const pgList = ['胀', '不胀'];
-const gdgdList = ['U+2', 'U+1', 'U=0', 'U-1', 'U-2'];
-const ztbList = ['(+)', '(-)'];
-const mrqkList = ['多', '中', '少', '无'];
-const lzngList = ['通畅', '拔除'];
-const nsList = ['清', '深黄', '淡红'];
-const gsList = ['硬', '一般', '软'];
-const zdjnList = ['✓'];
+const gsqdList = ['弱', '中', '强'];
+const xlgdList = ['S-3', 'S-2', 'S-1', 'S=0', 'S+1', 'S+2','S+3'];
+const ydlxList = ['少量', '多量'];
 export default [{
     key: "recordMonth", //日期
     value: "",
@@ -76,206 +70,118 @@ export default [{
     }
   },
   {
-    key: "preFieldOne", //spo2
+    key: "consciousness", //意识
     value: "",
     event: keyf1,
-    name: "SPO2",
-    next: "%",
+    name: "意识",
     textarea: {
       width: 50
     }
   },
   {
-    key: "preFieldTwo", //膀胱情况
+    key: "ContractionOne", //强度
     value: "",
     event: keyf1,
-    name: "膀胱情况",
-    next: "次/分",
-    autoComplete: {
-      data: pgList
+    name: "强度",
+    textarea: {
+      width: 43
     },
+    autoComplete: {
+      data: gsqdList
+    },
+  },
+  {
+    key: "ContractionTwo", //持续
+    value: "",
+    event: keyf1,
+    name: "持续",
+    next: "s",
+    textarea: {
+      width: 43
+    }
+  },
+  {
+    key: "ContractionThree", // 间歇
+    value: "",
+    event: keyf1,
+    name: "间歇",
+    next: "min",
+    textarea: {
+      width: 43
+    },
+  },
+  {
+    key: "preFieldOne", // 宫口扩张
+    value: "",
+    event: keyf1,
+    name: "宫口扩张",
+    next: "cm",
+    textarea: {
+      width: 43
+    },
+  },
+  {
+    key: "preFieldTwo", //先露
+    value: "",
+    event: keyf1,
+    name: "先露",
+    textarea: {
+      width: 43
+    },
+    autoComplete: {
+      data: xlgdList
+    },
+  },
+  {
+    key: "preFieldThree", //宫底高度
+    value: "",
+    event: keyf1,
+    name: "宫底高度",
     textarea: {
       width: 50
     },
   },
   {
-    key: "preInputOne", //静脉
+    key: "preFieldFour", //排尿情况
     value: "",
     event: keyf1,
-    name: "指尖血糖",
-    next: "mmol/L",
-    textarea: {
-      width: 43
-    }
-  },
-  {
-    key: "preInputTwo", //口服
-    value: "",
-    event: keyf1,
-    name: "阴道出血",
-    next: "mL",
-    textarea: {
-      width: 43
-    }
-  },
-  {
-    key: "preInputThree", // 血
-    value: "",
-    event: keyf1,
-    name: "入量内容",
-    textarea: {
-      width: 43
-    },
-  },
-  {
-    key: "postOutputOne", // 尿
-    value: "",
-    event: keyf1,
-    name: "入量大小",
-    next: "ml",
-    textarea: {
-      width: 43
-    },
-  },
-  {
-    key: "postOutputTwo", //其他
-    value: "",
-    event: keyf1,
-    name: "出量内容",
-    textarea: {
-      width: 43
-    },
-  },
-  {
-    key: "fieldOne", //乳量
-    value: "",
-    event: keyf1,
-    name: "出量大小",
-    next: "ml",
-    textarea: {
-      width: 43
-    },
-    autoComplete: {
-      data: mrqkList
-    },
-  },
-  {
-    key: "fieldTwo", //宫底高度
-    value: "",
-    event: keyf1,
-    name: "出量颜色",
-    autoComplete: {
-      data: gdgdList
-    },
+    name: "排尿情况",
     textarea: {
       width: 50
     }
   },
   {
-    key: "fieldThree", //子宫收缩
+    key: "preFieldFive", //阴道流血
     value: "",
     event: keyf1,
-    name: "健康宣教",
+    name: "阴道流血",
     textarea: {
       width: 50
     },
     autoComplete: {
-      data: gsList
+      data: ydlxList
     },
   },
   {
-    key: "positionFour", //腹部
+    key: "preFieldSix", //健康教育
     value: "",
     event: keyf1,
-    name: "健康宣教",
+    name: "健康教育",
     textarea: {
-      width: 43
+      width: 50
     }
   },
   {
-    key: "positionFive", //会阴
+    key: "preFieldSeven", //基础护理
     value: "",
     event: keyf1,
+    name: "基础护理",
     textarea: {
-      width: 43,
-      maxLength: 4
+      width: 50
     },
   },
   {
-    key: "fieldFour", //留置尿管
-    value: "",
-    event: keyf1,
-    textarea: {
-      width: 50,
-      maxLength: 4
-    },
-    autoComplete: {
-      data: lzngList
-    },
-  },
-  {
-    key: "preFieldFive", //尿色
-    value: "",
-    event: keyf1,
-    textarea: {
-      width: 50,
-      maxLength: 4
-    },
-    autoComplete: {
-      data: nsList
-    },
-    
-  },
-  {
-    key: "preFieldSix", //镇痛泵
-    value: "",
-    event: keyf1,
-    textarea: {
-      width: 50,
-      maxLength: 4
-    },
-    autoComplete: {
-      data: ztbList
-    },
-  },
-  {
-    key: "preFieldSeven", //母乳喂养指导
-    value: "",
-    event: keyf1,
-    textarea: {
-      width: 50,
-      maxLength: 4
-    },
-    autoComplete: {
-      data: zdjnList
-    },
-  },
-  {
-    key: "preFieldEight", //vas评分
-    value: "",
-    event: keyf1,
-    textarea: {
-      width: 50,
-      maxLength: 4
-    },
-    autoComplete: {
-      data: zdjnList
-    },
-  },
-  {
-    key: "preFieldNice", //跌倒告知
-    value: "",
-    event: keyf1,
-    textarea: {
-      width: 50,
-      maxLength: 4
-    },
-    autoComplete: {
-      data: zdjnList
-    },
-  },
-  {
-    key: "description", //特殊情况
+    key: "description", //特殊情况记录
     value: "",
     style: {
       textAlign: "left",
@@ -380,4 +286,3 @@ export default [{
     value: true
   }
 ];
-

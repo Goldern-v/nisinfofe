@@ -1,10 +1,4 @@
 import {
-  listItem
-} from "../../../api/recordDesc";
-import {
-  multiDictInfo
-} from "../../../api/index";
-import {
   keyf1
 } from "../keyEvent/f1.js";
 import {
@@ -13,7 +7,6 @@ import {
   click_date,
   click_time
 } from "../keyEvent/date";
-import info from "../sheetInfo";
 
 const tmList = ['已破', '未破'];
 const ysxzList = ['清', 'Ⅰ°', 'Ⅱ°', 'Ⅲ°', '血性羊水'];
@@ -33,7 +26,7 @@ export default [{
     click: click_time
   },
   {
-    key: "ContractionOne", //孕周
+    key: "contractionOne", //孕周
     value: "",
     event: keyf1,
     name: "孕周",
@@ -107,7 +100,7 @@ export default [{
     },
   },
   {
-    key: "UterineOne", //强度
+    key: "uterineOne", //强度
     value: "",
     event: keyf1,
     name: "强度",
@@ -119,7 +112,7 @@ export default [{
     },
   },
   {
-    key: "UterineTwo", //持续
+    key: "uterineTwo", //持续
     value: "",
     event: keyf1,
     name: "持续",
@@ -129,7 +122,7 @@ export default [{
     }
   },
   {
-    key: "UterineThree", // 间歇
+    key: "uterineThree", // 间歇
     value: "",
     event: keyf1,
     name: "间歇",
@@ -139,7 +132,7 @@ export default [{
     },
   },
   {
-    key: "UterineFour", // 扩张
+    key: "uterineFour", // 扩张
     value: "",
     event: keyf1,
     name: "扩张",
@@ -149,7 +142,7 @@ export default [{
     },
   },
   {
-    key: "Uterinefive", //评分
+    key: "uterineFive", //评分
     value: "",
     event: keyf1,
     name: "评分",
