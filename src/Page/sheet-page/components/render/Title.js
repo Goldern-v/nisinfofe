@@ -543,6 +543,13 @@ export default function Title(
     );
   }
   break;
+  case "safemetachysis_jm": {
+    // 江门妇幼 - 输血护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/safemetachysis_jm/th.js").default)
+    );
+  }
+  break;
   case "body_temperature_hj": {
     // 聊城二院 - 体温单
     Th = JSON.parse(

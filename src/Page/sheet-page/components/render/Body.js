@@ -446,6 +446,11 @@ function switechSheetType(type) {
     schema = require("../config/breastkenursing_jm/tr.js").default;
   }
   break;
+  case "safemetachysis_jm": {
+    // 江门妇幼 - 输血护理记录单
+    schema = require("../config/safemetachysis_jm/tr.js").default;
+  }
+  break;
   case "body_temperature_hj": {
     // 聊城二院 - 体温单
     schema = require("../config/body_temperature_hj/tr.js").default;

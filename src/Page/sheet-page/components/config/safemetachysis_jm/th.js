@@ -147,6 +147,7 @@ export default {
         colspan: '1',
         rowspan: '2'
       },
-    ]
+    ],
+    bottom: []
   }
 };

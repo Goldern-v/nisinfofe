@@ -72,7 +72,7 @@ export default [{
     event: keyf1,
     name: "输注部位",
     textarea: {
-      width: 50
+      width: 60
     }
   },
   {
@@ -81,7 +81,7 @@ export default [{
     event: keyf1,
     name: "血型",
     textarea: {
-      width: 50
+      width: 60
     }
   },
   {
@@ -91,7 +91,7 @@ export default [{
     name: "血液成分",
     next: "ml",
     textarea: {
-      width: 43
+      width: 60
     },
   },
   {
@@ -100,7 +100,7 @@ export default [{
     event: keyf1,
     name: "剂量",
     textarea: {
-      width: 43
+      width: 60
     }
   },
   {
@@ -109,7 +109,7 @@ export default [{
     event: keyf1,
     name: "血袋号",
     textarea: {
-      width: 43
+      width: 60
     },
   },
   {
@@ -118,7 +118,7 @@ export default [{
     event: keyf1,
     name: "血液质量血袋完好",
     textarea: {
-      width: 43
+      width: 60
     },
   },
   {
@@ -127,7 +127,7 @@ export default [{
     event: keyf1,
     name: "交叉配血结果",
     textarea: {
-      width: 43
+      width: 60
     },
   },
   {
@@ -136,7 +136,7 @@ export default [{
     event: keyf1,
     name: "输注速度",
     textarea: {
-      width: 43
+      width: 60
     },
   },
   {
@@ -162,7 +162,7 @@ export default [{
     // oninput: next
   },
   {
-    key: "sign",
+    key: "audit",
     value: ""
   },
   {

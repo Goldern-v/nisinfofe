@@ -79,7 +79,7 @@ export default [{
     }
   },
   {
-    key: "ContractionOne", //强度
+    key: "contractionOne", //强度
     value: "",
     event: keyf1,
     name: "强度",
@@ -91,7 +91,7 @@ export default [{
     },
   },
   {
-    key: "ContractionTwo", //持续
+    key: "contractionTwo", //持续
     value: "",
     event: keyf1,
     name: "持续",
@@ -101,7 +101,7 @@ export default [{
     }
   },
   {
-    key: "ContractionThree", // 间歇
+    key: "contractionThree", // 间歇
     value: "",
     event: keyf1,
     name: "间歇",
