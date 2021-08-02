@@ -56,7 +56,13 @@
         ></el-input>
         <el-button size="small" type="primary" @click="search">查询</el-button>
       </div>
-      <dTable :tableData="tableData" :pageLoadng="pageLoadng" :tableH="wih - 184"></dTable>
+      <dTable
+        :tableData="tableData"
+        :currentType="type"
+        :pageLoadng="pageLoadng"
+        :tableH="wih - 184"
+        ref="plTable"
+      ></dTable>
       <!-- <div class="pagination-con" flex="main:justify cross:center">
         <pagination
           :pageIndex="page.pageIndex"
@@ -279,40 +285,69 @@ export default {
         administration: this.administration // //途径
       }
       getOrdersExecuteWithPatinetId(obj).then((res) => {
-        this.tableData = res.data.data.map((item, index, array) => {
-          let prevRowId =
+
+        let children = [],
+          child = [],
+          tableData = [];
+        res.data.data.map((item, index, array) => {
+          let prevRowId, nextRowId, currentRowId;
+
+          prevRowId =
             array[index - 1] &&
-            array[index - 1].patientId +
-            array[index - 1].barCode +
-            array[index - 1].executeDateTime;
-          let nextRowId =
+            array[index - 1].patientId + array[index - 1].orderNo;
+          nextRowId =
             array[index + 1] &&
-            array[index + 1].patientId +
-            array[index + 1].barCode +
-            array[index + 1].executeDateTime;
-          let currentRowId =
-            array[index] &&
-            array[index].patientId +
-            array[index].barCode +
-            array[index].executeDateTime;
+            array[index + 1].patientId + array[index + 1].orderNo;
+          currentRowId =
+            array[index] && array[index].patientId + array[index].orderNo;
+
+          item.id = index;
 
           /** 判断是此记录是多条记录 */
           if (currentRowId == prevRowId || currentRowId == nextRowId) {
+            child.push(item);
+            children.push(item);
             if (currentRowId != prevRowId) {
               /** 第一条 */
               item.rowType = 1;
+              tableData.push(item);
             } else if (currentRowId != nextRowId) {
               /** 最后条 */
               item.rowType = 3;
+
+              tableData[tableData.length - 1].children = JSON.parse(
+                JSON.stringify(children)
+              );
+              children = [];
+
+              tableData[tableData.length - 1].child = JSON.parse(
+                JSON.stringify(child)
+              );
+              child = [];
             } else {
               /** 中间条 */
               item.rowType = 2;
             }
+          } else {
+            tableData.push(item);
           }
-          return item;
         });
+
+        tableData.map(item => {
+          item.child = item.child ? item.child : [{ ...item }];
+        });
+        this.tableData = [...tableData];
+
         // this.page.total = Number(res.data.data.pageCount) * this.page.pageNum;
         this.pageLoadng = false;
+        // 设置表格数据
+        if (
+          this.$refs.plTable.$children &&
+          this.$refs.plTable.$children[0] &&
+          this.$refs.plTable.$children[0].reloadData
+        ) {
+          this.$refs.plTable.$children[0].reloadData(tableData);
+        }
       });
     },
     search() {
