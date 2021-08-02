@@ -29,7 +29,7 @@
           :src="filePath"
           frameborder="0"
           ref="pdfCon"
-          :class="HOSPITAL_ID === 'liaocheng' ? 'lcIframe' : ''"
+          class="lcIframe"
         ></iframe>
       </div>
     </div>

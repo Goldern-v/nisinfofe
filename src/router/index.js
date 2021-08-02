@@ -148,7 +148,11 @@ const allTemperatureChart = () =>
 const newSingleTemperatureChart = () =>
   import("@/Page/temperature-chart/new-singleTemperature-chart/new-singleTemperature-chart.vue"); //聊城二院-新版体温单录入页面
 const newSingleTemperatureChartGuizhou = () =>
-  import("@/Page/temperature-chart/new-singleTemperature-chart-guizhou/new-singleTemperature-chart-guizhou.vue"); //聊城二院-新版体温单录入页面
+  import("@/Page/temperature-chart/new-singleTemperature-chart-guizhou/new-singleTemperature-chart-guizhou.vue"); //贵州省人民医院-新版体温单录入页面
+const newSingleTemperatureChartJmfy = () =>
+  import("@/Page/temperature-chart/new-singleTemperature-chart-jmfy/new-singleTemperature-chart.vue") //江门妇幼医院-新版体温单录入页面
+const newSingleTemperatureChartDghl = () =>
+  import("@/Page/temperature-chart/new-singleTemperature-chart-dghl/new-singleTemperature-chart.vue")
 const showPatientDetails = () =>
   import("@/Page/show-patient-details/show-patient-details.vue"); //查看评估单、记录单、病历、检查、检验、体温单
 const nursingPreview = () => import("@/Page/NursingPreview/NursingPreview.vue"); //查看所有的评估单、记录单、体温单
@@ -339,13 +343,13 @@ const router = new Router({
         path: "/infuse",
         component: infuse,
         children: [{
-            path: "/infuse/alarmLog",
-            component: alarmLog
-          },
-          {
-            path: "/infuse/infuseStat",
-            component: infuseStat
-          },
+          path: "/infuse/alarmLog",
+          component: alarmLog
+        },
+        {
+          path: "/infuse/infuseStat",
+          component: infuseStat
+        },
         ]
       },
       // {
@@ -589,6 +593,8 @@ const router = new Router({
                 return temperatureGuizhou
               case 'wujing':
                 return temperatureWuJing
+              case 'fuyou':
+                return temperatureJmfy
               default:
                 return temperature
             }
@@ -858,6 +864,8 @@ const router = new Router({
           switch (HOSPITAL_ID) {
             case 'guizhou':
               return newSingleTemperatureChartGuizhou
+            case 'fuyou':
+              return newSingleTemperatureChartJmfy
             default:
               return newSingleTemperatureChart
           }
