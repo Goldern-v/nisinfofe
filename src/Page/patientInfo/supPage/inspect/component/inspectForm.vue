@@ -57,7 +57,7 @@
     </div>
     <div class="exam-list" v-if="HOSPITAL_ID == 'guizhou' && examList.length" :style="{height: height}">
       <div class="page" v-for="item in examList" :key="item.expand1">
-        <iframe :src="'http://192.168.8.68:8080/report/pdf/'+item.expand1" frameborder="0"></iframe>
+        <iframe :src="'http://192.168.8.68:8080/report/pdf'+item.expand1" frameborder="0"></iframe>
       </div>
     </div>
     <div v-if="!data1" class="form" :style="{height: height}" >
