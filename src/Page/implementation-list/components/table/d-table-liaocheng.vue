@@ -315,6 +315,14 @@
   >>>.el-table {
     border: 0 !important;
 
+    .green {
+      background-color: #83d883;
+    }
+
+    .pink {
+      background-color: pink;
+    }
+
     td {
       height: 30px;
       position: relative;
@@ -400,19 +408,6 @@
         top: -5px;
       }
     }
-
-
-    &.d-table-liaocheng {
-
-      .green {
-        background-color: #83d883;
-      }
-
-      .pink {
-        background-color: pink;
-      }
-    }
-
   }
 
   >>>.u-table::after, .u-table::before {
@@ -554,9 +549,9 @@ export default {
       this.$refs.editModal.open(data);
     },
     addRowClass(row) {
-      if (row.executeFlag == 4) {
+      if (row.row.executeFlag == 4) {
         return "green";
-      } else if (row.executeFlag == 1) {
+      } else if (row.row.executeFlag == 1) {
         return "pink";
       }
     },
