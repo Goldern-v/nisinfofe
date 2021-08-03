@@ -86,6 +86,7 @@ import temperatureDghl from "@/Page/patientInfo/supPage/temperature/temperatureD
 import temperatureWuJing from "@/Page/patientInfo/supPage/temperature/temperatureWuJing";
 import sheet from "@/Page/patientInfo/supPage/sheet/sheet.vue"; //护理记录单
 import rightPart from "@/Page/patientInfo/supPage/record/component/right-part/right-part.vue";
+import { getPatientInfo } from "@/api/common.js";
 import bus from "vue-happy-bus";
 export default {
   data() {
@@ -95,6 +96,9 @@ export default {
     };
   },
   created() {
+    // 获取患者信息
+    this.getPatientInfo();
+
     this.$store.commit("closeFullPageRecord");
     this.bus.$on("openOtherForm", data => {
       this.otherComponent =
@@ -123,6 +127,17 @@ export default {
         default:
           return temperature;
       }
+    },
+    // 获取患者信息
+    getPatientInfo(){
+      getPatientInfo(this.$route.query.patientId, this.$route.query.visitId).then(
+        res => {
+          let data = res.data.data || {};
+          let patientInfo = this.$store.state.sheet.patientInfo;
+          patientInfo.wardCode = data.wardCode;
+          this.$store.commit("upPatientInfo", patientInfo);
+        }
+      );
     }
   },
   components: {
