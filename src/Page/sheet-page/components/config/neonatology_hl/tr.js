@@ -23,6 +23,7 @@ let xtxzList = [];
 let xtlList = [];
 let fyList = [];
 let ksList = [];
+const zdjnList = ['✓'];
 
 export default [{
     key: "recordMonth", //日期
@@ -74,54 +75,81 @@ export default [{
     value: "",
     event: keyf1,
     name: "反应正常",
+    autoComplete: {
+      data: zdjnList
+    },
   },
   {
     key: "fieldSeven", //反应-激怒
     value: "",
     event: keyf1,
-    name: "反应激怒"
+    name: "反应激怒",
+    autoComplete: {
+      data: zdjnList
+    },
   },
   {
     key: "fieldEight", //反应-迟钝
     value: "",
     event: keyf1,
-    name: "反应迟钝"
+    name: "反应迟钝",
+    autoComplete: {
+      data: zdjnList
+    },
   },
   {
     key: "fieldNine", //吸吮力-强
     value: "",
     event: keyf1,
     name: "吸吮力强",
+    autoComplete: {
+      data: zdjnList
+    },
   },
   {
     key: "fieldTen", //吸吮力-弱
     value: "",
     event: keyf1,
     name: "吸吮力弱",
+    autoComplete: {
+      data: zdjnList
+    },
   },
   {
     key: "fieldTwelve", //脐部-无渗血
     value: "",
     event: keyf1,
     name: "脐部无渗血",
+    autoComplete: {
+      data: zdjnList
+    },
   },
   {
     key: "fieldEleven", //脐部-渗血
     value: "",
     event: keyf1,
     name: "脐部渗血",
+    autoComplete: {
+      data: zdjnList
+    },
   },
   {
-    key: "Nineteen", //臀部-干洁
+    key: "fieldNineteen", //臀部-干洁
     value: "",
     event: keyf1,
     name: "臀部干洁",
+    autoComplete: {
+      data: zdjnList
+    },
   },
   {
-    key: "fieldTwenty", //臀部-干洁
+    key: "fieldTwenty", //臀部-臀红
     value: "",
     event: keyf1,
     name: "臀部臀红",
+    autoComplete: {
+      data: zdjnList
+    },
   },
   {
     key: "fieldThirteen", //大便次
@@ -140,36 +168,54 @@ export default [{
     value: "",
     event: keyf1,
     name: "肤色正常",
+    autoComplete: {
+      data: zdjnList
+    },
   },
   {
     key: "fieldTwo", //肤色发绀
     value: "",
     event: keyf1,
     name: "肤色发绀",
+    autoComplete: {
+      data: zdjnList
+    },
   },
   {
     key: "fieldThree", //肤色黄染
     value: "",
     event: keyf1,
     name: "肤色黄染",
+    autoComplete: {
+      data: zdjnList
+    },
   },
   {
     key: "fieldFour", // 母乳喂养
     value: "",
     event: keyf1,
     name: "母乳喂养",
+    autoComplete: {
+      data: zdjnList
+    },
   },
   {
     key: "fieldFifteen", // 人工喂养
     value: "",
     event: keyf1,
     name: "人工喂养",
+    autoComplete: {
+      data: zdjnList
+    },
   },
   {
     key: "fieldSixteen", // 混合喂养
     value: "",
     event: keyf1,
-    name: "混合喂养"
+    name: "混合喂养",
+    autoComplete: {
+      data: zdjnList
+    },
   },
   {
     key: "fieldSeventeen", //标题1
