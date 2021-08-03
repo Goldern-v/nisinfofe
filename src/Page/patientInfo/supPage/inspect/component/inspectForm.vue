@@ -55,7 +55,12 @@
         </div>
       </el-row>
     </div>
-    <div v-if="!data1" class="form" :style="{height: height}">
+    <div class="exam-list" v-if="HOSPITAL_ID == 'guizhou' && examList.length" :style="{height: height}">
+      <div class="page" v-for="item in examList" :key="item.expand1">
+        <iframe :src="'http://192.168.8.68:8080/report/pdf/'+item.expand1" frameborder="0"></iframe>
+      </div>
+    </div>
+    <div v-if="!data1" class="form" :style="{height: height}" >
       <div class="null-con">
         <img src="../../../../../common/images/task/nondata.png" alt />
         <p>数据为空</p>
@@ -132,10 +137,21 @@ td {
 
   color: #666;
 }
+.exam-list {
+  overflow: auto;
+  .page {
+    width: 100%;
+    height: 100%;
+    iframe {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
 </style>
 
 <script>
-import { examResult, pic, picNum } from "@/api/patientInfo";
+import { examResult, pic, picNum, getExamTestUrl } from "@/api/patientInfo";
 // import imgModal from '../modal/imgModal.vue'
 export default {
   data() {
@@ -144,7 +160,8 @@ export default {
       data1: {},
       loading: true,
       showImg: false,
-      picNum: 0
+      picNum: 0,
+      examList: []
     };
   },
   computed: {
@@ -175,6 +192,14 @@ export default {
         this.loading = true;
         this.data1 = {};
         this.showImg = false;
+        if(this.HOSPITAL_ID == "guizhou"){
+          this.data1 = null;
+          getExamTestUrl(this.$route.query.patientId,this.$route.query.visitId,this.data.examNo).then(res => {
+            this.examList = res.data.data;
+            this.loading = false;
+          })
+          return;
+        }
         examResult(this.data.examNo)
           .then(res => {
             this.data1 = res.data.data;

@@ -76,6 +76,11 @@
         </el-table>
       </el-row>
     </div>
+    <div class="test-list" v-if="HOSPITAL_ID == 'guizhou' && testList.length" :style="{height: height}">
+      <div class="page" v-for="item in testList" :key="item.expand1">
+        <iframe :src="'http://192.168.8.68:8080/report/pdf/'+item.expand1" frameborder="0"></iframe>
+      </div>
+    </div>
     <div v-if="!data1" class="form" :style="{ minHeight: height }">
       <div class="null-con">
         <img src="../../../../../common/images/task/nondata.png" alt />
@@ -145,6 +150,18 @@
 .redText {
   color: #E62C2C;
 }
+
+.test-list {
+  overflow: auto;
+  .page {
+    width: 100%;
+    height: 100%;
+    iframe {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
 </style>
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus">
@@ -177,7 +194,7 @@ th {
 </style>
 
 <script>
-import { testItems } from "@/api/patientInfo";
+import { testItems, getExamTestUrl } from "@/api/patientInfo";
 import lineChart from "./lineChart";
 export default {
   data() {
@@ -186,7 +203,8 @@ export default {
       data1: [],
       loading: true,
       dialogVisible: false,
-      chartData: {}
+      chartData: {},
+      testList: []
     };
   },
   computed: {
@@ -230,6 +248,14 @@ export default {
       this.loading = true;
       this.data1 = [];
       this.closeChart();
+      if(this.HOSPITAL_ID == "guizhou"){
+        this.data1 = null;
+        getExamTestUrl(this.$route.query.patientId,this.$route.query.visitId,this.data.testNo).then(res => {
+          this.testList = res.data.data;
+          this.loading = false;
+        })
+        return;
+      }
       testItems(this.data.testNo)
         .then(res => {
           this.data1 = res.data.data;
