@@ -117,6 +117,9 @@ export default [{
       maxWidth: '62px',
       textAlign: "left",
     },
+    autoComplete: {
+      data: 入量名称
+    }
   },
   {
     key: "foodSize", //食物数量  入量（单位ml）
@@ -135,12 +138,15 @@ export default [{
     name: "出量名称",
     change: calValueChange,
     textarea: {
-      width: 62,
+      width: 95,
     },
     style: {
-      maxWidth: '62px',
+      maxWidth: '95px',
       textAlign: "left",
     },
+    autoComplete: {
+      data: 出量名称
+    }
   },
   {
     key: "dischargeSize", //排出物数量（单位ml）
@@ -334,21 +340,15 @@ export default [{
   },
 ];
 
-let filterKey = '花都' + ':';
-let filterKey2 = '统一护理记录单' + ':';
-
 export function getListData4() {
   let list = [
-    "入量名称",
-    "出量名称",
+    "花都:通用护理记录单:入量名称",
+    "花都:通用护理记录单:出量名称",
   ];
-  list = list.map(key => {
-    return key.includes('出量名称') ? filterKey + filterKey2 + key : filterKey + key;
-  });
   multiDictInfo(list).then(res => {
     let data = res.data.data;
-    setList(入量名称, "入量名称", data);
-    setList(出量名称, "出量名称", data);
+    setList(入量名称, "花都:通用护理记录单:入量名称", data);
+    setList(出量名称, "花都:通用护理记录单:出量名称", data);
   });
 }
 
@@ -360,7 +360,6 @@ getListData4();
  * @param {*} data 数据源
  */
 function setList(list, key, data) {
-  key = key.includes('出量名称') ? filterKey + filterKey2 + key : filterKey + key;
   list.splice(0, list.length);
   for (let item of data[key]) {
     list.push(item.name);
