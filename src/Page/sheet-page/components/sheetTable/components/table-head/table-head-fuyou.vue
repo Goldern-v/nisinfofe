@@ -5,6 +5,18 @@
     <!-- {{sheetInfo.relObj}} -->
     <div class="info-con">
       <span>
+        病区：
+        <div class="bottom-line" style="min-width: 70px">
+          {{ patientInfo.deptName }}
+        </div>
+      </span>
+      <span>
+        床号：
+        <div class="bottom-line" style="min-width: 50px">
+          {{ patientInfo.bedLabel }}
+        </div>
+      </span>
+      <span>
         姓名：
         <div class="bottom-line" style="min-width: 70px">
           {{ patientInfo.patientName }}
@@ -23,28 +35,51 @@
         </div>
       </span>
 
-      <span>
+      <!-- <span>
         科室：
         <div class="bottom-line" style="min-width: 120px">
           {{ patientInfo.deptName }}
         </div>
-      </span>
-      <span>
+      </span> -->
+      <!-- <span>
         床号：
         <div class="bottom-line" style="min-width: 50px">
           {{ patientInfo.bedLabel }}
         </div>
-      </span>
+      </span> -->
       <span>
         住院号：
         <div class="bottom-line" style="min-width: 80px">
           {{ patientInfo.patientId }}
         </div>
       </span>
-      <span>
+      <!-- <span>
         入院日期：
         <div class="bottom-line" style="min-width: 80px">
           {{ patientInfo.admissionDate | toymd }}
+        </div>
+      </span> -->
+    </div>
+    <div class="info-con">
+      <span v-if="
+              sheetInfo.sheetType === 'antenatalwaiting_jm' || 
+              sheetInfo.sheetType === 'breastkenursing_jm' ||
+              sheetInfo.sheetType === 'obstetricnursing_jm'
+      ">
+        入院诊断：
+        <div class="bottom-line" style="min-width: 650px">
+          {{ patientInfo.diagnosis }}
+        </div>
+      </span>
+      <span v-if="sheetInfo.sheetType === 'postpartumnursing_jm'">
+        分娩方式：
+        <input class="radio" type="radio" name="radios" :value="i" v-model="radio" />阴道产
+        <input class="radio" type="radio" name="radios" :value="i" v-model="radio" />剖宫产
+      </span>
+      <span v-if="sheetInfo.sheetType === 'postpartumnursing_jm'" class="ml-1000">
+        分娩日期：
+        <div class="bottom-line" style="min-width: 80px">
+          {{ patientInfo.createTime | toymd }}
         </div>
       </span>
     </div>
@@ -90,5 +125,8 @@ input.bottom-line {
   border-left: 0;
   border-right: 0;
   outline: none;
+}
+.ml-1000 {
+  margin-left: 1000px;
 }
 </style>
