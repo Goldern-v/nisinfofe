@@ -45,6 +45,14 @@
         <el-button size="mini" @click="logoutCaSign">证书退出</el-button>
       </div>
     </div>
+    <div v-if="HOSPITAL_ID === 'liaocheng'">
+      <div class="boxShadow" @click="onPrint">
+        <div class="qrcode" ref="qrcodeContainer"></div>
+      </div>
+      <div class="button-con">
+        <el-button size="mini" @click="onPrint" style="margin-left:110px">打印二维码</el-button>
+      </div>
+    </div>
     <div style="padding-bottom: 10px">
       <el-switch
         v-model="showScaleTip"
@@ -75,6 +83,7 @@
     </div>
     <uploadImgModal ref="uploadImgModal"></uploadImgModal>
     <caSignModal ref="caSignModal"></caSignModal>
+    <printQrCode ref="printQrCode"></printQrCode>
   </div>
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
@@ -204,9 +213,34 @@
     margin-left: 5px;
   }
 }
+.boxShadow {
+  width: 100%;
+  padding: 20px 0; 
+  display: flex;
+  justify-content: center;
+  transition: all 0.6s;
+  cursor:pointer;
+  .qrcode {
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.3);
+    display: inline-block;
+    img {
+      width: 132px;
+      height: 132px;
+      background-color: #fff; 
+      padding: 6px; 
+    }
+  }
+}
+.boxShadow:hover {
+	transform: scale(1.1);
+}
+
+
 </style>
 <script>
 import moment from "moment";
+import QRCode from "qrcodejs2"
+import printQrCode from "./modal/printQrCode.vue";
 import whiteButton from "../../components/button/white-button.vue";
 import uploadImgModal from "./modal/uploadImg.vue";
 const SysPasswordManage = () => import("./SysPasswordManage.vue");
@@ -230,7 +264,15 @@ export default {
       ca_isLogin: "",
       strUserCertID: "",
       showScaleTip: false,
+      userName: "",
+      passWord: "",
     };
+  },
+  props: {
+    QRCodetext: {
+      type: String,//类型限定
+      default: '' //默认
+    }
   },
   computed: {
     lastBuildDate() {
@@ -283,6 +325,9 @@ export default {
   methods: {
     openUploadHeadModal() {
       this.$refs.uploadImgModal.open("userHead");
+    },
+    onPrint() {
+      this.$refs.printQrCode.open();
     },
     getFileSizeWithUnit(size) {
       let result = "";
@@ -386,8 +431,28 @@ export default {
         ? localStorage.setItem("noShowScaleTip", true)
         : localStorage.removeItem("noShowScaleTip");
     },
+    //二维码
+    qrcode() {
+      let qrcode = new QRCode(this.$refs.qrcodeContainer, {
+        width: 100,// 二维码的宽
+        height: 100,// 二维码的高
+        text: this.userName + " " + this.passWord , // 二维码的内容
+        colorDark: '#000',// 二维码的颜色
+        colorLight: '#fff',
+        correctLevel: QRCode.CorrectLevel.H
+      })
+      qrcode._el.title = "点击打印二维码";
+    },
+    //获取local里的用户名和密码
+    loadComments() {
+      let rememberAccount = localStorage.getItem("rememberAccount");
+      let ppp = localStorage.getItem("ppp");
+      this.userName = rememberAccount;
+      this.passWord = ppp;
+    }
   },
   created() {
+    this.loadComments();
     this.bus.$on("refreshUserImg", () => {
       this.getUserImg();
     });
@@ -411,12 +476,18 @@ export default {
     this.getUserImg();
     this.getSignImg();
     this.showScaleTip = localStorage.getItem("noShowScaleTip") ? true : false;
+    this.$nextTick(() => {
+      this.qrcode()
+    })
+
   },
   components: {
     SysPasswordManage,
     whiteButton,
     uploadImgModal,
     caSignModal,
+    QRCode,
+    printQrCode,
   },
 };
 </script>
