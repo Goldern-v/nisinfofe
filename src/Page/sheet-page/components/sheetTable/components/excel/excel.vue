@@ -957,11 +957,12 @@ export default {
     },
     // 除第一行以外到结束行之内其他单元格不能录入内容（威县），出入量统计行除外
     isDisabed(tr, td) {
+      // canModify true可以修改，false禁止修改
       if (
         this.HOSPITAL_ID == "huadu" &&
         sheetInfo.sheetType === "body_temperature_Hd" &&
         td &&
-        td.key === "empName"
+        td.key === "empName" && !td.canModify
       ) {
         return true;
       }
