@@ -277,7 +277,7 @@ export default {
     print() {},
     getStatusList() {
       /**顶部状态筛选字典 暂时先上贵州 后面的医院确认后端部署后可上*/
-      if (this.HOSPITAL_ID === "guizhou") {
+      if (this.HOSPITAL_ID === "guizhou" || this.HOSPITAL_ID === "liaocheng") {
         getNurseOrderStatusDict().then((res) => {
           this.statusList = (res.data.data || []).map(
             (item) => item.orderStatusName

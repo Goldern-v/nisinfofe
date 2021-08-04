@@ -10,18 +10,18 @@
             format="yyyy-MM-dd"
             placeholder="选择入院起始时间"
             size="small"
-            v-model="startDate"
+            v-model="query.executeDate"
             style="width:150px"
           ></el-date-picker>
           <span class="label">医嘱类型:</span>
-          <el-select v-model="repeatIndicator" placeholder="请选择" size="small" style="width:150px">
-            <el-option label="全部" value></el-option>
-            <el-option label="长期" value="长期"></el-option>
-            <el-option label="临时" value="临时"></el-option>
+          <el-select v-model="query.repeatIndicator" placeholder="请选择" size="small" style="width:150px">
+            <el-option label="全部" :value="9"></el-option>
+            <el-option label="长期" :value="1"></el-option>
+            <el-option label="临时" :value="0"></el-option>
           </el-select>
           <span class="label">医嘱分类:</span>
-          <el-select v-model="type" placeholder="请选择" size="small" style="width:150px">
-            <el-option label="全部" value></el-option>
+          <el-select v-model="query.itemType" placeholder="请选择" size="small" style="width:150px">
+            <!-- <el-option label="全部" value="全部"></el-option> -->
             <el-option label="输液" value="输液"></el-option>
             <el-option label="注射" value="注射"></el-option>
             <el-option label="口服" value="口服"></el-option>
@@ -37,9 +37,9 @@
           <span class="label">床号:</span>
           <el-input size="small" style="width: 80px;" v-model="bedLabel"></el-input>
           <span class="label">重打标志:</span>
-          <el-select v-model="status" placeholder="请选择" size="small" style="width:150px;margin-right: 10px;">
-            <el-option label="是" value="是"></el-option>
-            <el-option label="否" value="否"></el-option>
+          <el-select v-model="query.reprintFlag" placeholder="请选择" size="small" style="width:150px;margin-right: 10px;">
+            <el-option label="是" :value="1"></el-option>
+            <el-option label="否" :value="0"></el-option>
           </el-select>
           <el-button size="small" type="primary" @click="search">查询</el-button>
           <el-button size="small" @click="allSelection" :disabled="status=='已执行'">全选</el-button>
@@ -59,14 +59,14 @@
         ></pagination>
       </div> -->
       <div class="print-modal" v-show="showPintModal" @click="closePrint">
-        <div class="init">
+        <div class="init" v-show="!showProgress">
           <img src="./images/print.png" alt="">
           <p>正在初始化打印,请稍等…</p>
         </div>
-        <!-- <div class="print">
-          <el-progress :percentage="50"></el-progress>
-          <p>正在打印,请稍等… 33/130</p>
-        </div> -->
+        <div class="print" v-show="showProgress">
+          <el-progress :percentage="(printNum/selectedData.length)*100 || 0"></el-progress>
+          <p>正在打印,请稍等… {{printNum}}/{{selectedData.length}}</p>
+        </div>
       </div>
     </div>
   </div>
@@ -154,7 +154,7 @@
 import dTable from "./components/table/bottle-sign-print-table";
 // import pagination from "./components/common/pagination";
 import { patEmrList } from "@/api/document";
-import { getExecuteWithWardcode } from "./api/index";
+import { getPrintExecuteWithWardcode ,handleWebGetPrintResult } from "./api/index";
 import common from "@/common/mixin/common.mixin.js";
 import moment from "moment";
 export default {
@@ -174,7 +174,19 @@ export default {
       type: "",
       status: "",
       bedLabel: "",
-      showPintModal: false//是否显示打印弹框
+      showPintModal: false,//是否显示打印弹框
+      showProgress: false,
+      query: {
+        wardCode:"",
+        itemType:"输液",//医嘱类别，输液、雾化
+        executeDate:moment().format("YYYY-MM-DD"),//执行日期
+        bedLabel:'',//床位号，如果查全部传*"
+        repeatIndicator:9,//医嘱类型，长期传1，临时传0，全部传9
+        reprintFlag:0,//是否重打，1=是，0=否
+      },
+      selectedData: [],//选中打印执行单条数
+      printNum: 0,//已经打印执行单的条数
+      Uuid: '',//打印流水号
     };
   },
   methods: {
@@ -187,37 +199,29 @@ export default {
     },
 
     onLoad() {
-      return;
       if (!this.deptCode) return;
       this.pageLoadng = true;
-      let obj = {
-        wardCode: this.deptCode,
-        startDate: moment(this.startDate).format("YYYY-MM-DD"),
-        endDate: moment(this.startDate).format("YYYY-MM-DD"),
-        repeatIndicator: this.repeatIndicator,
-        type: this.type,
-        status: this.status,
-        bedLabel: this.bedLabel,
-        pageIndex: this.page.pageIndex,
-        pageSize: this.page.pageNum
-      };
-      getExecuteWithWardcode(obj).then(res => {
-        let tableData = res.data.data.list.map((item, index, array) => {
+      this.query.wardCode = this.deptCode;
+      this.query.executeDate = this.query.executeDate ? moment(this.query.executeDate).format("YYYY-MM-DD") : moment().format("YYYY-MM-DD");
+      this.query.bedLabel = this.bedLabel ? this.bedLabel : '*';
+
+      getPrintExecuteWithWardcode(this.query).then(res => {
+        let tableData = res.data.data.map((item, index, array) => {
           let prevRowId =
             array[index - 1] &&
             array[index - 1].patientId +
-              array[index - 1].barCode +
-              array[index - 1].executeDateTime;
+            array[index - 1].visitId +
+              array[index - 1].orderNo;
           let nextRowId =
             array[index + 1] &&
             array[index + 1].patientId +
-              array[index + 1].barCode +
-              array[index + 1].executeDateTime;
+            array[index + 1].visitId +
+              array[index + 1].orderNo;
           let currentRowId =
             array[index] &&
             array[index].patientId +
-              array[index].barCode +
-              array[index].executeDateTime;
+              array[index].visitId +
+              array[index].orderNo;
 
           /** 判断是此记录是多条记录 */
           if (currentRowId == prevRowId || currentRowId == nextRowId) {
@@ -249,10 +253,30 @@ export default {
     // 打印
     onPrint(){
       this.showPintModal = true;
+      this.selectedData = this.$refs.plTable.selectedData;
+      this.query.executeDate = this.query.executeDate ? moment(this.query.executeDate).format("YYYY-MM-DD") : '';
       setTimeout(()=>{
         this.showPintModal = false;
-        window.location.href = 'VMS://abcdefg'
+        let url = '';
+        this.selectedData.map((item,index) => {
+          url += `${item.patientId}|${item.visitId}|${item.orderNo};`;
+        });
+        this.Uuid = new Date().getTime();
+        window.location.href = `VMS://${this.Uuid};${this.query.executeDate};{${url}}`;
       },1000)
+
+      setTimeout(()=>{
+        this.printResult();
+      },10*1000)
+    },
+    // 打印结果
+    printResult(){
+      this.selectedData.map((item,index) => {
+         handleWebGetPrintResult(this.Uuid).then(res => {
+           this.showProgress = true;
+           this.printNum++;
+         })
+      });
     },
     // 关闭打印弹框
     closePrint(e){

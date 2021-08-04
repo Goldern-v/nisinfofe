@@ -22,6 +22,27 @@
           <input flex-box="1" v-model="data.workClass" @blur="update" />
         </div>
       </div>
+      <div class="body-con" v-loading="pageLoading" slot="body-con" flex="dir:top main:top"  v-else-if="HOSPITAL_ID=='xiegang'">
+        <div flex="cross:center">
+          <div class="label">二线医生：</div>
+          <input flex-box="1" v-model="data.mainClassDoctor" @blur="update" />
+        </div>
+        <div style="height: 15px"></div>
+        <div flex="cross:center">
+          <div class="label">副班医生：</div>
+          <input flex-box="1" v-model="data.onDutyDoctor" @blur="update" />
+        </div>
+        <div style="height: 15px"></div>
+        <div flex="cross:center">
+          <div class="label">值班医生：</div>
+          <input flex-box="1" v-model="data.classP" @blur="update" />
+        </div>
+        <div style="height: 15px"></div>
+        <div flex="cross:center">
+          <div class="label">办公室：</div>
+          <input flex-box="1" v-model="data.workClass" @blur="update" />
+        </div>
+      </div>
       <div class="body-con" v-loading="pageLoading" slot="body-con" flex="dir:top main:top" v-else>
         <div flex="cross:center">
           <div class="label">{{deptCode == '041002' && HOSPITAL_ID=='hj'?'门诊医生':'主班医生'}}：</div>

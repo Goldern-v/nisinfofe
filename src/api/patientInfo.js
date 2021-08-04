@@ -83,7 +83,7 @@ function patientNursing(patientId, visitId, date, type, pageIndex, pageSize, sta
   return axios.post(`${apiPath}job/patientNursing`, qs.stringify({patientId, visitId, date, type, pageIndex, pageSize, status}))
 }
 
-export const groupList = (patientId, visitId) => 
+export const groupList = (patientId, visitId) =>
 axios.get(`${apiPath}form/common/groupList/${patientId}/${visitId}`)
 
 /**
@@ -95,26 +95,31 @@ export function getInstanceByPatientInfo(patientId, visitId) {
   return axios.post(`${apiPath}missionInstance/getInstanceByPatientInfo`, qs.stringify({patientId, visitId}))
 }
 
-export const list = (patientId, visitId) => 
+export const list = (patientId, visitId) =>
 axios.get(`${apiPath}record/setting/list/${patientId}/${visitId}/${recordCode}`)
 
-export const listRecord = (deptCode) => 
+export const listRecord = (deptCode) =>
 axios.get(`${apiPath}record/setting/listRecord/${deptCode}`)
 
 export const listNursingOrder = (deptCode) =>
   axios.get(`${apiPath}record/setting/listNursingOrder/${deptCode}`)
 
-export const listPatientRecord = (patientId, visitId) => 
+export const listPatientRecord = (patientId, visitId) =>
 axios.get(`${apiPath}record/aggregation/listPatientRecord/${patientId}/${visitId}`)
 
-export const inform = (deptCode) => 
+export const inform = (deptCode) =>
 axios.get(`${apiPath}form/common/inform?deptCode=${deptCode}`)
 
-export const healthEdu = (deptCode) => 
+export const healthEdu = (deptCode) =>
 axios.get(`${apiPath}form/common/healthEdu?deptCode=${deptCode}`)
 
 // 根据病人信息获取记录块列表(输血安全记录单)
-export const getBlockByPV = (patientId, visitId) => 
+export const getBlockByPV = (patientId, visitId) =>
 axios.get(`${apiPath}formBlock/getBlockByPV/${patientId}/${visitId}`)
+
+// 获取检查右侧url（贵州省人民）
+export const getExamTestUrl = (patientId, visitId, examNo) =>
+axios.post(`${apiPath}hisPacsLis/getPacsList`,qs.stringify({patientId, visitId, examNo}))
+
 
 export { info, orders, examList, examResult, testList, testItems, inpRecordResults, emrList, templates, briefMission, getContentByMissionIds, getFeePercent, getFeeByDay, getFeeDetail, getDrugFeePercent, patientNursing, testResultsForChart, pic, picNum}

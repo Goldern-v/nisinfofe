@@ -99,7 +99,7 @@
               }).value.status
             }`,
           {
-            redTop: getBorderClass(y)
+            redTop: HOSPITAL_ID == 'huadu' && getBorderClass(tr)
           }
         ]"
         :key="y"
@@ -575,20 +575,21 @@ export default {
   },
   methods: {
     /* 花都个别护记的出入量统计：增加红线与上一行做区分 */
-    getBorderClass(index) {
-      const redTopSheet_hd = [
-        "common_hd",
-        "prenatal_hd",
-        "postpartum_hd",
-        "neonatology_hd",
-        "neurosurgery_hd"
-      ];
-      if (redTopSheet_hd.includes(this.sheetInfo.sheetType)) {
-        const temp = this.data.bodyModel.findIndex(tr => {
-          return tr.find(i => i.key === "recordSource").value === "5";
-        });
-        return temp === index;
-      }
+    getBorderClass(tr) {
+      // const redTopSheet_hd = [
+      //   "common_hd",
+      //   "prenatal_hd",
+      //   "postpartum_hd",
+      //   "neonatology_hd",
+      //   "neurosurgery_hd"
+      // ];
+      // if (redTopSheet_hd.includes(this.sheetInfo.sheetType)) {
+      //   const temp = this.data.bodyModel.findIndex(tr => {
+      //     return tr.find(i => i.key === "recordSource").value === "5";
+      //   });
+      //   return temp === index;
+      // }
+      return tr.find(i => i.key === "recordSource").value === "5";
     },
     // 键盘事件
     onKeyDown(e, bind) {
@@ -1325,19 +1326,21 @@ export default {
         tab,
         isLast
       };
-      if (
-        this.HOSPITAL_ID == "weixian" ||
-        this.HOSPITAL_ID == "lingcheng" ||
-        this.HOSPITAL_ID == "huadu" ||
-        this.HOSPITAL_ID == "hengli" ||
-        this.HOSPITAL_ID == "liaocheng" ||
-        this.HOSPITAL_ID == "zhongshanqi" ||
-        this.HOSPITAL_ID == "shannan"
-      ) {
-        window.openSpecialModal2(config);
-      } else {
-        window.openSpecialModal(config);
-      }
+      // if (
+      //   this.HOSPITAL_ID == "weixian" ||
+      //   this.HOSPITAL_ID == "lingcheng" ||
+      //   this.HOSPITAL_ID == "huadu" ||
+      //   this.HOSPITAL_ID == "hengli" ||
+      //   this.HOSPITAL_ID == "liaocheng" ||
+      //   this.HOSPITAL_ID == "zhongshanqi" ||
+      //   this.HOSPITAL_ID == "shannan"
+      // ) {
+      //   window.openSpecialModal2(config);
+      // } else {
+      //   window.openSpecialModal(config); //旧版本
+      // }
+      // 双击出现记录单编辑弹框
+      window.openSpecialModal2(config);
     },
     markTip(e, td) {
       if (sheetInfo.model == "print") return;

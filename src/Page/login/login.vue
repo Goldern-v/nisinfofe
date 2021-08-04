@@ -502,25 +502,24 @@ export default {
   },
   computed: {
     logoUrl() {
-      let logoUrl = require("../../common/images/logo.png");
       switch (this.HOSPITAL_ID) {
         case "hj":
-          logoUrl = require("../../common/images/login_logo_hj.png");
-          break;
+          return require("../../common/images/login_logo_hj.png");
         case "zhongshanqi":
-          logoUrl = require("../../common/images/logo_zhongshanqi.png");
-          break;
+          return require("../../common/images/logo_zhongshanqi.png");
         case "quzhou":
-          logoUrl = require("../../common/images/logo_quzhou.png");
-          break;
+          return require("../../common/images/logo_quzhou.png");
         case "guizhou":
-          logoUrl = require("../../common/images/logo_guizhou.png");
+          return require("../../common/images/logo_guizhou.png");
+        case "nanfangzhongxiyi":
+          return require("../../common/images/logo_nanfangzhongxiyi.png");
+        default:
+          return require("../../common/images/logo.png");
       }
-      return logoUrl;
     },
     logoName() {
       let logoName = "百辰源智慧护理信息系统";
-      if (this.HOSPITAL_ID == "hj" || this.HOSPITAL_ID == "zhongshanqi") {
+      if (this.HOSPITAL_ID == "hj" || this.HOSPITAL_ID == "zhongshanqi" || this.HOSPITAL_ID == "nanfangzhongxiyi") {
         logoName = `${this.HOSPITAL_NAME}<br />智慧护理信息系统`;
       } else if (
         this.HOSPITAL_ID == "guizhou" ||

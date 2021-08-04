@@ -426,6 +426,30 @@ function switechSheetType(type) {
     // 江门妇幼 - PICU血液透析护理记录单
     schema = require("../config/picu_hemodialysis_jm/tr.js").default;
   }
+  case "postpartumnursing_jm": {
+    // 江门妇幼 - 产后护理记录单
+    schema = require("../config/postpartumnursing_jm/tr.js").default;
+  }
+  break;
+  case "antenatalwaiting_jm": {
+    // 江门妇幼 - 产前待产记录单
+    schema = require("../config/antenatalwaiting_jm/tr.js").default;
+  }
+  break;
+  case "obstetricnursing_jm": {
+    // 江门妇幼 - 产科护理记录单
+    schema = require("../config/obstetricnursing_jm/tr.js").default;
+  }
+  break;
+  case "breastkenursing_jm": {
+    // 江门妇幼 - 乳腺科护理记录单
+    schema = require("../config/breastkenursing_jm/tr.js").default;
+  }
+  break;
+  case "safemetachysis_jm": {
+    // 江门妇幼 - 输血护理记录单
+    schema = require("../config/safemetachysis_jm/tr.js").default;
+  }
   break;
   case "body_temperature_hj": {
     // 聊城二院 - 体温单
@@ -576,6 +600,11 @@ function switechSheetType(type) {
   case "maternity_sn": {
     // 山南 - 妇产科通用护理记录单
     schema = require("../config/maternity_sn/tr.js").default;
+  }
+  break;
+  case "icu_qz": {
+    // 曲周县 - 重症护理记录单
+    schema = require("../config/icu_qz/tr.js").default;
   }
   break;
   default: {
