@@ -2,7 +2,7 @@
   <div class="header-con">
     <div class="his-name">{{ HOSPITAL_NAME_SPACE }}</div>
     <div class="title">{{ patientInfo.recordName }}</div>
-    <!-- {{sheetInfo.relObj}} -->
+    <!-- {{ sheetInfo.relObj }} -->
     <div class="info-con">
       <span>
         病区：
@@ -50,7 +50,7 @@
       <span>
         住院号：
         <div class="bottom-line" style="min-width: 80px">
-          {{ patientInfo.patientId }}
+          {{ patientInfo.inpNo }}
         </div>
       </span>
       <!-- <span>
@@ -95,11 +95,12 @@ import sheetData from "../../../../sheet.js";
 export default {
   props: {
     patientInfo: Object,
-    index: Number
+    index: Number,
+    bedAndDeptChange: Object,
   },
   data() {
     return {
-      sheetInfo
+      sheetInfo,
     };
   },
   mounted() {},
@@ -107,7 +108,7 @@ export default {
   filters: {
     toymd(val) {
       return moment(val).format("YYYY年MM月DD日");
-    }
+    },
   },
   created() {
     if (!sheetInfo.relObj.age) {
@@ -115,7 +116,7 @@ export default {
     }
   },
   watch: {},
-  components: {}
+  components: {},
 };
 </script>
 
