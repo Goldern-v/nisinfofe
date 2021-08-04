@@ -3,9 +3,9 @@ var path, node_ssh, ssh, fs, folderSrc, localSrc;
 var log = console.log;
 
 let sshUpload = (
-  hospitalName = "武警广东省总队医院",
+  hospitalName = "东莞市厚街医院",
   localSrc = "./dist",
-  folderSrc = "/crdata/webProject/nursingInfoSystem/wujing/"
+  folderSrc = "/crdata/webProject/nursingInfoSystem/dongguanhoujie/"
 ) => {
   fs = require("fs");
   path = require("path");
@@ -31,7 +31,7 @@ let sshUpload = (
     山南市人民医院: "shannanrenyi",
     阳春中医院: "shannayangchunzhongyinrenyi",
   };
-  let hospitalEN = "wujing";
+  let hospitalEN = "dongguanhoujie";
   if (hospitalList[hospitalName]) {
     hospitalEN = hospitalList[hospitalName];
     folderSrc = `/crdata/webProject/nursingInfoSystem/${hospitalEN}/`;
