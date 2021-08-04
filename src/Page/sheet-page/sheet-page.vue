@@ -59,6 +59,7 @@
               :scrollY="scrollY"
               :isInPatientDetails="false"
               :bedAndDeptChange="bedAndDeptChange"
+              :listData="listData"
             ></component>
             <!-- <sheetTable
               v-else
@@ -300,7 +301,8 @@ export default {
       scrollTop: 0,
       typeList: [], // 科室类型
       scrollY: 0,
-      bedAndDeptChange: {}
+      bedAndDeptChange: {},
+      listData: []
     };
   },
   computed: {
@@ -469,6 +471,7 @@ export default {
         let titleData = res[0].data.data;
         let bodyData = res[1].data.data;
         let markData = res[2].data.data.list || [];
+        this.listData = bodyData.list;
         /* 显示转科转床的信息 */
 
         if (this.HOSPITAL_ID === "huadu") {
@@ -598,115 +601,122 @@ export default {
         });
       });
     });
-    this.bus.$on("saveSheetPage", (isInitSheetPageSize = true,ayncVisitedData) => {
-      let save = () => {
-        // 审核签名（头部保存按钮auditorMap传空对象，不去修改审核签名数据，避免跨窗口审核签名丢失）
-        if (isInitSheetPageSize == "noSaveSign") {
-          sheetInfo.auditorMap = {};
-        }
-        isInitSheetPageSize =
-          isInitSheetPageSize == "noSaveSign" ? false : isInitSheetPageSize;
-
-        this.pageLoading = true;
-        this.scrollTop = this.$refs.scrollCon.scrollTop;
-        saveBody(this.patientInfo.patientId, this.patientInfo.visitId, decode(ayncVisitedData))
-          .then(res => {
-            this.$notify.success({
-              title: "提示",
-              message: "保存成功"
-            });
-            this.getSheetData().then(res => {
-              isInitSheetPageSize &&
-                setTimeout(() => {
-                  this.bus.$emit("initSheetPageSize");
-                }, 100);
-              this.$nextTick(() => {
-                this.$refs.scrollCon.scrollTop = this.scrollTop;
-                $(".red-border").removeClass("red-border");
-              });
-              setTimeout(() => {
-                if (this.$refs.scrollCon.scrollTop == 0) {
-                  this.$refs.scrollCon.scrollTop = this.scrollTop;
-                }
-                $(".red-border").removeClass("red-border");
-              }, 100);
-              setTimeout(() => {
-                if (this.$refs.scrollCon.scrollTop == 0) {
-                  this.$refs.scrollCon.scrollTop = this.scrollTop;
-                }
-                $(".red-border").removeClass("red-border");
-              }, 200);
-              setTimeout(() => {
-                if (this.$refs.scrollCon.scrollTop == 0) {
-                  this.$refs.scrollCon.scrollTop = this.scrollTop;
-                }
-                $(".red-border").removeClass("red-border");
-              }, 300);
-              setTimeout(() => {
-                if (this.$refs.scrollCon.scrollTop == 0) {
-                  this.$refs.scrollCon.scrollTop = this.scrollTop;
-                }
-                $(".red-border").removeClass("red-border");
-              }, 400);
-              setTimeout(() => {
-                if (this.$refs.scrollCon.scrollTop == 0) {
-                  this.$refs.scrollCon.scrollTop = this.scrollTop;
-                }
-              }, 500);
-              $(".red-border").removeClass("red-border");
-              setTimeout(() => {
-                if (this.$refs.scrollCon.scrollTop == 0) {
-                  this.$refs.scrollCon.scrollTop = this.scrollTop;
-                }
-                $(".red-border").removeClass("red-border");
-              }, 600);
-              setTimeout(() => {
-                if (this.$refs.scrollCon.scrollTop == 0) {
-                  this.$refs.scrollCon.scrollTop = this.scrollTop;
-                }
-                $(".red-border").removeClass("red-border");
-              }, 1000);
-            });
-            this.pageLoading = false;
-          })
-          .catch(() => {
-            this.pageLoading = false;
-          });
-      };
-
-      let reverseList = [...decode().list].reverse();
-      /** 最后的时间 */
-      let lastRecordHour = (
-        reverseList.find(item => item.recordDate && item.recordHour) || {}
-      ).recordHour;
-      /** 所有新增的时间 */
-      let newRecordHours = reverseList
-        .filter(
-          item => item.recordHour && !item.recordMonth && !item.recordDate
-        )
-        .map(item => item.recordHour);
-      /** 新增记录是否存在比原有记录更前 */
-      let isBefore = newRecordHours.some(
-        item =>
-          moment("2019-9-20 " + item).unix() <
-          moment("2019-9-20 " + lastRecordHour).unix()
-      );
-      if (isBefore) {
-        this.$confirm(
-          "新增记录比原有记录时间更前, 请确定日期, 是否确认保存?",
-          "提示",
-          {
-            confirmButtonText: "确认",
-            cancelButtonText: "取消",
-            type: "warning"
+    this.bus.$on(
+      "saveSheetPage",
+      (isInitSheetPageSize = true, ayncVisitedData) => {
+        let save = () => {
+          // 审核签名（头部保存按钮auditorMap传空对象，不去修改审核签名数据，避免跨窗口审核签名丢失）
+          if (isInitSheetPageSize == "noSaveSign") {
+            sheetInfo.auditorMap = {};
           }
-        ).then(res => {
+          isInitSheetPageSize =
+            isInitSheetPageSize == "noSaveSign" ? false : isInitSheetPageSize;
+
+          this.pageLoading = true;
+          this.scrollTop = this.$refs.scrollCon.scrollTop;
+          saveBody(
+            this.patientInfo.patientId,
+            this.patientInfo.visitId,
+            decode(ayncVisitedData)
+          )
+            .then(res => {
+              this.$notify.success({
+                title: "提示",
+                message: "保存成功"
+              });
+              this.getSheetData().then(res => {
+                isInitSheetPageSize &&
+                  setTimeout(() => {
+                    this.bus.$emit("initSheetPageSize");
+                  }, 100);
+                this.$nextTick(() => {
+                  this.$refs.scrollCon.scrollTop = this.scrollTop;
+                  $(".red-border").removeClass("red-border");
+                });
+                setTimeout(() => {
+                  if (this.$refs.scrollCon.scrollTop == 0) {
+                    this.$refs.scrollCon.scrollTop = this.scrollTop;
+                  }
+                  $(".red-border").removeClass("red-border");
+                }, 100);
+                setTimeout(() => {
+                  if (this.$refs.scrollCon.scrollTop == 0) {
+                    this.$refs.scrollCon.scrollTop = this.scrollTop;
+                  }
+                  $(".red-border").removeClass("red-border");
+                }, 200);
+                setTimeout(() => {
+                  if (this.$refs.scrollCon.scrollTop == 0) {
+                    this.$refs.scrollCon.scrollTop = this.scrollTop;
+                  }
+                  $(".red-border").removeClass("red-border");
+                }, 300);
+                setTimeout(() => {
+                  if (this.$refs.scrollCon.scrollTop == 0) {
+                    this.$refs.scrollCon.scrollTop = this.scrollTop;
+                  }
+                  $(".red-border").removeClass("red-border");
+                }, 400);
+                setTimeout(() => {
+                  if (this.$refs.scrollCon.scrollTop == 0) {
+                    this.$refs.scrollCon.scrollTop = this.scrollTop;
+                  }
+                }, 500);
+                $(".red-border").removeClass("red-border");
+                setTimeout(() => {
+                  if (this.$refs.scrollCon.scrollTop == 0) {
+                    this.$refs.scrollCon.scrollTop = this.scrollTop;
+                  }
+                  $(".red-border").removeClass("red-border");
+                }, 600);
+                setTimeout(() => {
+                  if (this.$refs.scrollCon.scrollTop == 0) {
+                    this.$refs.scrollCon.scrollTop = this.scrollTop;
+                  }
+                  $(".red-border").removeClass("red-border");
+                }, 1000);
+              });
+              this.pageLoading = false;
+            })
+            .catch(() => {
+              this.pageLoading = false;
+            });
+        };
+
+        let reverseList = [...decode().list].reverse();
+        /** 最后的时间 */
+        let lastRecordHour = (
+          reverseList.find(item => item.recordDate && item.recordHour) || {}
+        ).recordHour;
+        /** 所有新增的时间 */
+        let newRecordHours = reverseList
+          .filter(
+            item => item.recordHour && !item.recordMonth && !item.recordDate
+          )
+          .map(item => item.recordHour);
+        /** 新增记录是否存在比原有记录更前 */
+        let isBefore = newRecordHours.some(
+          item =>
+            moment("2019-9-20 " + item).unix() <
+            moment("2019-9-20 " + lastRecordHour).unix()
+        );
+        if (isBefore) {
+          this.$confirm(
+            "新增记录比原有记录时间更前, 请确定日期, 是否确认保存?",
+            "提示",
+            {
+              confirmButtonText: "确认",
+              cancelButtonText: "取消",
+              type: "warning"
+            }
+          ).then(res => {
+            save();
+          });
+        } else {
           save();
-        });
-      } else {
-        save();
+        }
       }
-    });
+    );
     this.bus.$on("refreshSheetPage", isFirst => {
       this.getSheetData(isFirst);
     });

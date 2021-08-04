@@ -29,6 +29,7 @@
               :scrollY="scrollY"
               :isInPatientDetails="true"
               :bedAndDeptChange="bedAndDeptChange"
+              :listData="listData"
             ></component>
           </div>
           <div
@@ -239,7 +240,8 @@ export default {
       sheetInfo,
       scrollTop: 0,
       scrollY: 0,
-      bedAndDeptChange: {}
+      bedAndDeptChange: {},
+      listData: []
     };
   },
   computed: {
@@ -360,6 +362,7 @@ export default {
         let titleData = res[0].data.data;
         let bodyData = res[1].data.data;
         let markData = res[2].data.data.list || [];
+        this.listData = bodyData.list;
 
         if (this.HOSPITAL_ID === "huadu") {
           this.bedAndDeptChange = {

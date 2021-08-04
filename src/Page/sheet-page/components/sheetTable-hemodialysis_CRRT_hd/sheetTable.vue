@@ -31,6 +31,7 @@
         :scrollY="scrollY"
         :hasFiexHeader="true"
         :isInPatientDetails="isInPatientDetails"
+        :listData="listData"
       ></excel>
     </div>
   </div>
@@ -143,7 +144,8 @@ export default {
     length: Number,
     isFirst: Boolean /** 首页 */,
     scrollY: Number,
-    isInPatientDetails: Boolean
+    isInPatientDetails: Boolean,
+    listData: Array
   },
   mixins: [common],
   data() {
