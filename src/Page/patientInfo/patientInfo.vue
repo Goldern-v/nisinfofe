@@ -48,6 +48,8 @@ import topPartLiaoCheng from "@/Page/patientInfo/supComponts/topPart_LiaoCheng";
 import topPartShanNan from "@/Page/patientInfo/supComponts/topPart_ShanNan"; // 山南市人民医院
 import topPartZhongShanQi from "@/Page/patientInfo/supComponts/topPart_ZhongShanQi"; // 武警广东省总队医院
 import topPartGuiZhou from "@/Page/patientInfo/supComponts/topPart_GuiZhou"; // 贵州省人民医院
+import topPartQuZhou from "@/Page/patientInfo/supComponts/topPart_QuZhou.vue"; // 曲周县医院
+import topPartJmfy from "@/Page/patientInfo/supComponts/topPart_Jmfy.vue";
 import leftPart from "@/Page/patientInfo/supComponts/leftPart";
 import { getPatientInfo } from "@/api/common.js";
 
@@ -111,6 +113,8 @@ export default {
         聊城市第二人民医院: "topPartLiaoCheng",
         山南市人民医院: "topPartShanNan",
         贵州省人民医院: "topPartGuiZhou",
+        曲周县医院: "topPartQuZhou",
+        江门市妇幼保健院: "topPartJmfy",
       };
       return hisList[HisName] || "topPart";
     },
@@ -147,6 +151,8 @@ export default {
     topPartZhongShanQi,
     topPartShanNan,
     topPartGuiZhou,
+    topPartQuZhou,
+    topPartJmfy,
     leftPart,
   },
 };

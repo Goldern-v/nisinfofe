@@ -78,8 +78,15 @@
 <script>
 import treeNursingPreview from "@/Page/patientInfo/supPage/record/component/treeNursingPreview.vue"; //树
 import temperature from "@/Page/patientInfo/supPage/temperature/temperature"; //体温单
+import temperatureHD from "@/Page/patientInfo/supPage/temperature/temperatureHD";
+import temperatureLCEY from "@/Page/patientInfo/supPage/temperature/temperatureLCEY";
+import temperatureGuizhou from "@/Page/patientInfo/supPage/temperature/temperatureGuizhou";
+import temperatureJmfy from "@/Page/patientInfo/supPage/temperature/temperatureJmfy";
+import temperatureDghl from "@/Page/patientInfo/supPage/temperature/temperatureDghl";
+import temperatureWuJing from "@/Page/patientInfo/supPage/temperature/temperatureWuJing";
 import sheet from "@/Page/patientInfo/supPage/sheet/sheet.vue"; //护理记录单
 import rightPart from "@/Page/patientInfo/supPage/record/component/right-part/right-part.vue";
+import { getPatientInfo } from "@/api/common.js";
 import bus from "vue-happy-bus";
 export default {
   data() {
@@ -89,19 +96,61 @@ export default {
     };
   },
   created() {
+    // 获取患者信息
+    this.getPatientInfo();
+
     this.$store.commit("closeFullPageRecord");
     this.bus.$on("openOtherForm", data => {
-      this.otherComponent = data.component;
+      this.otherComponent =
+        data.component == "temperature" ? this.getTemplate() : data.component;
     });
     this.bus.$on("openAssessmentBox", data => {
       this.otherComponent = null;
     });
   },
+  methods: {
+    // 获取各医院的体温单
+    getTemplate() {
+      switch (process.env.HOSPITAL_ID) {
+        case "huadu":
+          return temperatureHD;
+        case "liaocheng":
+          return temperatureLCEY;
+        case "guizhou":
+          return temperatureGuizhou;
+        case "fuyou":
+          return temperatureJmfy;
+        case "hengli":
+          return temperatureDghl;
+        case "wujing":
+          return temperatureWuJing;
+        default:
+          return temperature;
+      }
+    },
+    // 获取患者信息
+    getPatientInfo(){
+      getPatientInfo(this.$route.query.patientId, this.$route.query.visitId).then(
+        res => {
+          let data = res.data.data || {};
+          let patientInfo = this.$store.state.sheet.patientInfo;
+          patientInfo.wardCode = data.wardCode;
+          this.$store.commit("upPatientInfo", patientInfo);
+        }
+      );
+    }
+  },
   components: {
     treeNursingPreview,
     rightPart,
     sheet,
-    temperature
+    temperature,
+    temperatureHD,
+    temperatureLCEY,
+    temperatureGuizhou,
+    temperatureJmfy,
+    temperatureDghl,
+    temperatureWuJing
   }
 };
 </script>

@@ -20,8 +20,8 @@
           />
           <div
             class="qr-code-num"
-            :class="{ hasRemark: hasRemark }"
-            :style="HOSPITAL_ID == 'liaocheng' ? 'width: 110px' : ''"
+            :class="{ hasRemark: hasRemark, }"
+            :style="HOSPITAL_ID == 'liaocheng' ? 'width: 110px' : HOSPITAL_ID == 'hengli' ? 'line-height: 13px;' : ''"
           >
             {{ qrCodeNum }}
           </div>
@@ -76,7 +76,7 @@
                   width: '75px',
                   'font-size': query.bedLabel.length > 3 ? '24px' : '30px',
                   'padding-left': '5px',
-                  'line-height': ' 35px'
+                  'line-height': ' 34px'
                 }"
                 class="bottom-line"
                 :value="query.bedLabel + '床'"
@@ -704,12 +704,21 @@ export default {
     },
     isOpen() {
       this.$refs.modal.open();
-      let qr_png_value =
-        this.HOSPITAL_ID == "liaocheng"
-          ? this.query.patientId + "|" + this.query.visitId
-          : this.HOSPITAL_ID == "shannan"
-          ? this.query.inpNo
-          : this.query.patientId;
+      let qr_png_value = "";
+      switch (this.HOSPITAL_ID) {
+        case "liaocheng":
+          qr_png_value = this.query.patientId + "|" + this.query.visitId;
+          break;
+        case "shannan":
+          qr_png_value = this.query.inpNo;
+          break;
+        case "hengli":
+          qr_png_value = this.query.expand1;
+          break;
+        default:
+          qr_png_value = this.query.patientId;
+          break;
+      }
       var qr_png = qr.imageSync(qr_png_value, { type: "png" });
       function arrayBufferToBase64(buffer) {
         var binary = "";

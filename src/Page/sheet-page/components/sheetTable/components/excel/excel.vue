@@ -99,7 +99,7 @@
               }).value.status
             }`,
           {
-            redTop: getBorderClass(y)
+            redTop: HOSPITAL_ID == 'huadu' && getBorderClass(tr)
           }
         ]"
         :key="y"
@@ -228,7 +228,7 @@
             v-else-if="td.textarea"
             :class="{ towLine: isOverText(td) }"
             :readonly="isRead(tr)"
-            :disabled="isDisabed(tr)"
+            :disabled="isDisabed(tr,td, y)"
             v-model="td.value"
             :data-value="td.value"
             :position="`${x},${y},${index}`"
@@ -241,7 +241,7 @@
                   minWidth: td.textarea.width + 'px',
                   maxWidth: td.textarea.width + 'px'
                 },
-                isDisabed(tr) && { cursor: 'not-allowed' }
+                isDisabed(tr,td, y) && { cursor: 'not-allowed' }
               )
             "
             @keydown="
@@ -280,7 +280,7 @@
           <input
             type="text"
             :readonly="isRead(tr)"
-            :disabled="isDisabed(tr, td)"
+            :disabled="isDisabed(tr, td, y)"
             v-model="td.value"
             :data-value="td.value"
             :position="`${x},${y},${index}`"
@@ -290,7 +290,7 @@
                 tr.find(item => item.key == 'yearBreak').value && {
                   height: '12px'
                 },
-              isDisabed(tr, td) && { cursor: 'not-allowed' }
+              isDisabed(tr, td, y) && { cursor: 'not-allowed' }
             ]"
             @keydown="
               td.event($event, td);
@@ -473,7 +473,8 @@ export default {
     length: Number,
     scrollY: Number,
     hasFiexHeader: Boolean,
-    isInPatientDetails: Boolean
+    isInPatientDetails: Boolean,
+    listData: Array
   },
   mixins: [common],
   data() {
@@ -575,20 +576,21 @@ export default {
   },
   methods: {
     /* 花都个别护记的出入量统计：增加红线与上一行做区分 */
-    getBorderClass(index) {
-      const redTopSheet_hd = [
-        "common_hd",
-        "prenatal_hd",
-        "postpartum_hd",
-        "neonatology_hd",
-        "neurosurgery_hd"
-      ];
-      if (redTopSheet_hd.includes(this.sheetInfo.sheetType)) {
-        const temp = this.data.bodyModel.findIndex(tr => {
-          return tr.find(i => i.key === "recordSource").value === "5";
-        });
-        return temp === index;
-      }
+    getBorderClass(tr) {
+      // const redTopSheet_hd = [
+      //   "common_hd",
+      //   "prenatal_hd",
+      //   "postpartum_hd",
+      //   "neonatology_hd",
+      //   "neurosurgery_hd"
+      // ];
+      // if (redTopSheet_hd.includes(this.sheetInfo.sheetType)) {
+      //   const temp = this.data.bodyModel.findIndex(tr => {
+      //     return tr.find(i => i.key === "recordSource").value === "5";
+      //   });
+      //   return temp === index;
+      // }
+      return tr.find(i => i.key === "recordSource").value === "5";
     },
     // 键盘事件
     onKeyDown(e, bind) {
@@ -955,7 +957,8 @@ export default {
       }
     },
     // 除第一行以外到结束行之内其他单元格不能录入内容（威县），出入量统计行除外
-    isDisabed(tr, td) {
+    isDisabed(tr, td, index) {
+      // canModify true可以修改，false禁止修改
       if (
         this.HOSPITAL_ID == "huadu" &&
         sheetInfo.sheetType === "body_temperature_Hd" &&
@@ -975,7 +978,7 @@ export default {
         this.HOSPITAL_ID == "huadu" &&
         tr.find(item => item.key == "status").value === "1"
       ) {
-        return tr.find(item => item.key == "status").value === "1";
+        return tr.find(item => item.key == "status").value === "1" && this.listData[index] && !this.listData[index].canModify;
       }
       if (
         this.HOSPITAL_ID != "weixian" ||
@@ -1325,19 +1328,21 @@ export default {
         tab,
         isLast
       };
-      if (
-        this.HOSPITAL_ID == "weixian" ||
-        this.HOSPITAL_ID == "lingcheng" ||
-        this.HOSPITAL_ID == "huadu" ||
-        this.HOSPITAL_ID == "hengli" ||
-        this.HOSPITAL_ID == "liaocheng" ||
-        this.HOSPITAL_ID == "zhongshanqi" ||
-        this.HOSPITAL_ID == "shannan"
-      ) {
-        window.openSpecialModal2(config);
-      } else {
-        window.openSpecialModal(config);
-      }
+      // if (
+      //   this.HOSPITAL_ID == "weixian" ||
+      //   this.HOSPITAL_ID == "lingcheng" ||
+      //   this.HOSPITAL_ID == "huadu" ||
+      //   this.HOSPITAL_ID == "hengli" ||
+      //   this.HOSPITAL_ID == "liaocheng" ||
+      //   this.HOSPITAL_ID == "zhongshanqi" ||
+      //   this.HOSPITAL_ID == "shannan"
+      // ) {
+      //   window.openSpecialModal2(config);
+      // } else {
+      //   window.openSpecialModal(config); //旧版本
+      // }
+      // 双击出现记录单编辑弹框
+      window.openSpecialModal2(config);
     },
     markTip(e, td) {
       if (sheetInfo.model == "print") return;

@@ -97,8 +97,9 @@ module.exports = {
   },
   nanfangzhongxiyi: {
     HOSPITAL_ID: '"nanfangzhongxiyi"',
-    HOSPITAL_NAME: '"南方中西医"',
-    HOSPITAL_NAME_SPACE: '"南 方 中 西 医"'
+    HOSPITAL_NAME: '"南方医科大学中西医结合医院"',
+    HOSPITAL_NAME_SPACE: '"南 方 医 科 大 学 中 西 医 结 合 医 院"',
+    title: '"南方医科大学中西医结合医院智慧护理信息系统"'
   },
   xiegang: {
     HOSPITAL_ID: '"xiegang"',
@@ -123,6 +124,9 @@ module.exports = {
   quzhou: {
     HOSPITAL_ID: '"quzhou"',
     HOSPITAL_NAME: '"曲周县医院"',
-    HOSPITAL_NAME_SPACE: '"曲 周 县 医 院"'
+    HOSPITAL_NAME_SPACE: '"曲 周 县 医 院"',
+    COMPANY_NAME: '"宸瑞普惠(广州)科技有限公司"',
+    ABOUT_INFO: '"关于宸瑞普惠"',
+    title: '"智慧护理信息系统"'
   }
 };

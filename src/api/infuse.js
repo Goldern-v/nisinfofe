@@ -12,4 +12,37 @@ export const detail = (barCode) => {
     return axios.get(`${apiPath}execute/detail/${barCode}`)
 }
 
+// 保存警戒值日志
+export const saveWarningLog = obj => {
+return axios.post(`${apiPath}warningLog/save`, obj);
+};
+
+// 处理警戒值
+export const dealWarningLog = (obj) => {
+return axios.post(`${apiPath}warningLog/deal`, obj);
+};
+// 批量删除警戒值
+export const deleteWarningLog = ids => {
+return axios.post(`${apiPath}warningLog/delete`, {
+    ids
+});
+};
+// 保存或修改警戒值
+export const saveOrupdateWarning = (wardCode, value) => {
+return axios.post(`${apiPath}warningValue/saveOrupdate`, {
+    wardCode,
+    value
+});
+};
+// 获取报警日志列表
+export const getWarningLogList = obj => {
+return axios.post(`${apiPath}warningLog/getListByParam`, obj);
+};
+
+// 根据科室获取警戒值
+export const getWarningValue = wardCode => {
+return axios.post(`${apiPath}warningValue/getByWardCode`, {
+    wardCode
+});
+};
 

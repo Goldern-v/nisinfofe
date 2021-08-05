@@ -2,12 +2,83 @@ import axios from "@/api/axios";
 import qs from "qs";
 import { apiPath } from "@/api/apiConfig";
 
-// 获取数据
+
+let HOSPITAL_ID = process.env.HOSPITAL_ID,hospitalExecute;
+switch(HOSPITAL_ID){
+  case "lingcheng":
+    hospitalExecute = "hisLingChengExecute";
+    break;
+  case "liaocheng":
+    hospitalExecute = "hisLiaoChengExecute";
+    break;
+  case "zhongshanqi":
+    hospitalExecute = "hisZhongShanQiYuanExecute";
+    break;
+  case "huadu":
+    hospitalExecute = "HisHuaDuExecute";
+    break;
+  case "shannan":
+    hospitalExecute = "hisShanNanExecute";
+    break;
+}
+
+// 获取执行单
 export function getExecuteWithWardcode(obj) {
+  if(HOSPITAL_ID == "zhongshanqi"){
+    return axios.post(
+      `${apiPath}${hospitalExecute}/getWardExeacute`,
+      obj
+    );
+  }else if(HOSPITAL_ID == "wujing"){
+    // 新版执行单（武警）
+    return axios.post(
+      `${apiPath}procedure/webExecute/webGetWardExecute`,
+      obj
+    );
+  }
+  // hospitalExecute为空 其他默认医院是用厚街的
+  if(HOSPITAL_ID == "hj" || !hospitalExecute){
     return axios.post(
         `${apiPath}execute/getWardExecute`,
         obj
     );
+  }
+  return axios.post(
+    `${apiPath}${hospitalExecute}/getOrdersExecuteWithWardCode`,
+    obj
+  );
 }
 
+// 补录（陵城）
+export function addRecord(obj) {
+  return HOSPITAL_ID == "lingcheng" ? axios.post(`${apiPath}procedure/his`, obj) : axios.post(`${apiPath}${hospitalExecute}/orderExecute`, obj);
+}
+
+// 更新实际执行时间/结束输液时间（陵城）
+export function updateExecuteTime(obj) {
+  return axios.post(`${apiPath}${hospitalExecute}/getorderexecuteUpdate`, obj);
+}
+
+
+// 新版执行单（武警）
+// 网页端：医嘱查询，执行单打印用
+export function getPrintExecuteWithWardcode(obj) {
+  return axios.post(
+      `${apiPath}procedure/webExecute/webGetOrdersPrint`,
+      obj
+  );
+}
+// 执行执行单（批量）
+export function handleWebExecuteBatch(arr) {
+  return axios.post(
+      `${apiPath}/procedure/webExecute/webExecuteBatch`,
+      arr
+  );
+}
+// 网页端：打印结果查询（前端用于查看是否打印成功）
+export function handleWebGetPrintResult(uuid) {
+  return axios.post(
+      `${apiPath}procedure/webExecute/webGetPrintResult`,{uuid}
+  );
+}
 

@@ -30,7 +30,7 @@ export default [{
     key: "recordHour", //时间
     value: "",
     event: event_time,
-    click: click_time
+    // click: click_time
   },
   {
     key: "nursingOperationItem", //护理操作项目

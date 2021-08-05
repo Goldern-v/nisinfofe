@@ -515,6 +515,41 @@ export default function Title(
     );
   }
   break;
+  case "postpartumnursing_jm": {
+    // 江门妇幼 - 产后护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/postpartumnursing_jm/th.js").default)
+    );
+  }
+  break;
+  case "antenatalwaiting_jm": {
+    // 江门妇幼 - 产前待产记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/antenatalwaiting_jm/th.js").default)
+    );
+  }
+  break;
+  case "obstetricnursing_jm": {
+    // 江门妇幼 - 产科护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/obstetricnursing_jm/th.js").default)
+    );
+  }
+  break;
+  case "breastkenursing_jm": {
+    // 江门妇幼 - 乳腺科护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/breastkenursing_jm/th.js").default)
+    );
+  }
+  break;
+  case "safemetachysis_jm": {
+    // 江门妇幼 - 输血护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/safemetachysis_jm/th.js").default)
+    );
+  }
+  break;
   case "body_temperature_hj": {
     // 聊城二院 - 体温单
     Th = JSON.parse(
@@ -723,6 +758,13 @@ export default function Title(
     // 山南 - 妇产科通用护理记录单
     Th = JSON.parse(
       JSON.stringify(require("../config/maternity_sn/th").default)
+    );
+  }
+  break;
+  case "icu_qz": {
+    // 曲周县 - 重症护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/icu_qz/th").default)
     );
   }
   break;

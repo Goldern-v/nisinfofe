@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- 解决password自动填充bug -->
-    <input type="password" style="display:none" />
+    <input type="password" style="display: none" />
     <div id="hl-nav-con">
       <div class="header-con">
         <el-row type="flex" class="row-bg" justify="space-between">
@@ -238,6 +238,39 @@
                 <i class="iconfont icon-jiaobanzhi"></i> 交班志
               </el-row>
             </router-link>
+            <el-dropdown
+              menu-align="start"
+              :class="{ 'router-link-active': isActiveTemperaturePage }"
+            >
+              <el-row class="nav-item" type="flex" align="middle">
+                <div class="before"></div>
+                <i class="iconfont icon-hulijiludan"></i>体温单
+              </el-row>
+              <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item
+                  :class="{
+                    active: $route.path.includes('newSingleTemperatureChart'),
+                  }"
+                >
+                  <router-link to="/newSingleTemperatureChart" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="singleTemperatureChart"></i>体温单单人录入
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item>
+                <el-dropdown-item
+                  :class="{
+                    active: $route.path.includes('allTemperatureChart'),
+                  }"
+                >
+                  <router-link to="/allTemperatureChart" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="allTemperatureChart"></i>批量录入体温单
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item>
+              </el-dropdown-menu>
+            </el-dropdown>
             <router-link to="/implementationList" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-jiaobanzhi"></i> 执行单
@@ -328,7 +361,7 @@
 
                 <el-dropdown-item
                   :class="{
-                    active: $route.path.indexOf('/inpatientReport') > -1
+                    active: $route.path.indexOf('/inpatientReport') > -1,
                   }"
                 >
                   <router-link to="/inpatientReport" tag="span">
@@ -444,7 +477,7 @@
                       <template>
                         <el-dropdown-item
                           :class="{
-                            active: $route.path == '/cognitiveStatistic'
+                            active: $route.path == '/cognitiveStatistic',
                           }"
                         >
                           <router-link to="/cognitiveStatistic" tag="span">
@@ -729,6 +762,14 @@
     &.cognitiveStatistic {
       background-image: url('../../common/images/index/出生医学证明.png');
     }
+
+    &.singleTemperatureChart {
+      background-image: url('../../common/images/index/单人录入体温单.png');
+    }
+
+    &.allTemperatureChart {
+      background-image: url('../../common/images/index/批量录入体温单.png');
+    }
   }
 }
 
@@ -857,7 +898,7 @@ export default {
       deptOptionList: [],
       isTip: false, //是否mews高亮
       mewsMd5: "",
-      mewsId: ""
+      mewsId: "",
       // showBadEvent:
       //   (localStorage["showBadEvent"] &&
       //     localStorage["showBadEvent"] === "true") ||
@@ -940,7 +981,7 @@ export default {
       return false;
       // if (this.$route.path == "/sugarPage") return true;
       // return false;
-    }
+    },
   },
   methods: {
     handleCommand(command) {
@@ -979,7 +1020,7 @@ export default {
     remoteMethod(query) {
       if (query !== "") {
         let upperCaseQuery = query.toUpperCase();
-        this.deptOptionList = this.deptList.filter(item => {
+        this.deptOptionList = this.deptList.filter((item) => {
           return (
             item.name.includes(query) ||
             item.code == query ||
@@ -993,7 +1034,7 @@ export default {
       }
     },
     changeDept(value) {
-      let deptName = this.deptList.filter(item => {
+      let deptName = this.deptList.filter((item) => {
         return item.code == value;
       })[0].name;
       this.$store.commit("upDeptCode", value);
@@ -1008,7 +1049,7 @@ export default {
       // mews 订阅科室
       this.mewsId = WebSocketService.subscribe(
         `/topic/mews/dept/${this.deptValue}`,
-        frame => {
+        (frame) => {
           let frameData = JSON.parse(frame.body).data;
           try {
             this.mewsMd5 = frameData.md5;
@@ -1025,13 +1066,13 @@ export default {
           } catch (error) {}
         }
       );
-    }
+    },
   },
   created() {
     // this.$store.dispatch("getMailUnread");
-    nursingUnit().then(res => {
+    nursingUnit().then((res) => {
       this.deptList = res.data.data.deptList;
-      this.deptList = this.deptList.map(dept => {
+      this.deptList = this.deptList.map((dept) => {
         dept["pinyin"] = dept.name.getPinyin() || "";
         return dept;
       });
@@ -1054,11 +1095,11 @@ export default {
         this.isTip = false;
         this.mewsMd5 && WebSocketService.addMd5List(this.mewsMd5);
       }
-    }
+    },
   },
   components: {
     setPassword,
-    userInfo
-  }
+    userInfo,
+  },
 };
 </script>

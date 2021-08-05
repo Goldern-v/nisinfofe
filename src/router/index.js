@@ -13,7 +13,12 @@ import main from "@/Part/main";
 // import nursingConsultation from '@/Page/nursingConsultation/nursingConsultation'
 // import nursingConsultationStaff from '@/Page/nursingConsultationStaff/nursingConsultationStaff'
 
-// import infuse from "../Page/lesion/supPage/infuse/infuse.vue";
+// 智慧输液
+const infuse = () => import("@/Page/lesion/supPage/infuse/infuse.vue");
+// 报警日志
+const alarmLog = () => import("@/Page/lesion/supPage/infuse/alarm-log.vue");
+// 输液量统计
+const infuseStat = () => import("@/Page/lesion/supPage/infuse/infuse-stat.vue");
 // import log from "../Page/lesion/supPage/log/log.vue";
 // 收件箱
 // import inBox from "../Page/inBox/inBox.vue";
@@ -118,21 +123,21 @@ const healthEducationList = () =>
   import("@/Page/healthEducation-list/healthEducation-list.vue");
 
 
-const implementationListNew = () =>
-  import("@/Page/implementation-list-new/implementation-list.vue"); //执行单（新版）
-const bottleSignPrint = () =>
-  import("@/Page/implementation-list-new/bottle-sign-print.vue"); //执行单-瓶签打印
+
+
 
 const implementationList = () =>
   import("@/Page/implementation-list/implementation-list.vue"); //执行单
-const implementationListLc = () =>
-  import("@/Page/implementation-list-lc/implementation-list.vue"); //陵城执行单
+const implementationListLingcheng = () =>
+  import("@/Page/implementation-list/implementation-list-lingcheng.vue"); //陵城执行单
 const implementationListLiaocheng = () =>
-  import("@/Page/implementation-list-lc/implementation-list-liaocheng.vue"); //聊城执行单
+  import("@/Page/implementation-list/implementation-list-liaocheng.vue"); //聊城执行单
 const implementationListShannan = () =>
-  import("@/Page/implementation-list-lc/implementation-list-shannan.vue"); //山南执行单
+  import("@/Page/implementation-list/implementation-list-shannan.vue"); //山南执行单
 const implementationListZhongshanqi = () =>
-  import("@/Page/implementation-list-lc/implementation-list-zhongshanqi.vue"); //中山七执行单
+  import("@/Page/implementation-list/implementation-list-zhongshanqi.vue"); //中山七执行单
+const implementationListWujing = () =>
+  import("@/Page/implementation-list/implementation-list-wujing.vue"); //武警执行单
 const bottleLabel = () => import("@/Page/bottleLabel/index.vue"); //瓶签打印
 
 const dcList = () => import("@/Page/dc-list/dc-list.vue"); //执行单
@@ -143,7 +148,11 @@ const allTemperatureChart = () =>
 const newSingleTemperatureChart = () =>
   import("@/Page/temperature-chart/new-singleTemperature-chart/new-singleTemperature-chart.vue"); //聊城二院-新版体温单录入页面
 const newSingleTemperatureChartGuizhou = () =>
-  import("@/Page/temperature-chart/new-singleTemperature-chart-guizhou/new-singleTemperature-chart-guizhou.vue"); //聊城二院-新版体温单录入页面
+  import("@/Page/temperature-chart/new-singleTemperature-chart-guizhou/new-singleTemperature-chart-guizhou.vue"); //贵州省人民医院-新版体温单录入页面
+const newSingleTemperatureChartJmfy = () =>
+  import("@/Page/temperature-chart/new-singleTemperature-chart-jmfy/new-singleTemperature-chart.vue") //江门妇幼医院-新版体温单录入页面
+const newSingleTemperatureChartDghl = () =>
+  import("@/Page/temperature-chart/new-singleTemperature-chart-dghl/new-singleTemperature-chart.vue")
 const showPatientDetails = () =>
   import("@/Page/show-patient-details/show-patient-details.vue"); //查看评估单、记录单、病历、检查、检验、体温单
 const nursingPreview = () => import("@/Page/NursingPreview/NursingPreview.vue"); //查看所有的评估单、记录单、体温单
@@ -179,6 +188,8 @@ import temperature from "@/Page/patientInfo/supPage/temperature/temperature";
 import temperatureHD from "@/Page/patientInfo/supPage/temperature/temperatureHD";
 import temperatureLCEY from "@/Page/patientInfo/supPage/temperature/temperatureLCEY";
 import temperatureGuizhou from "@/Page/patientInfo/supPage/temperature/temperatureGuizhou";
+import temperatureJmfy from "@/Page/patientInfo/supPage/temperature/temperatureJmfy";
+import temperatureDghl from "@/Page/patientInfo/supPage/temperature/temperatureDghl";
 import temperatureWuJing from "@/Page/patientInfo/supPage/temperature/temperatureWuJing";
 import diagnosis from "@/Page/patientInfo/supPage/diagnosis/diagnosis";
 import bloodSugar from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar.vue"; // 厚街
@@ -266,6 +277,10 @@ const router = new Router({
             return temperatureLCEY
           case 'guizhou':
             return temperatureGuizhou
+          case 'fuyou':
+            return temperatureJmfy
+          case 'hengli':
+            return temperatureDghl
           case 'wujing':
             return temperatureWuJing
           default:
@@ -324,10 +339,19 @@ const router = new Router({
         path: "/bed",
         component: bed
       },
-      // {
-      //   path: "/infuse",
-      //   component: infuse
-      // },
+      {
+        path: "/infuse",
+        component: infuse,
+        children: [{
+          path: "/infuse/alarmLog",
+          component: alarmLog
+        },
+        {
+          path: "/infuse/infuseStat",
+          component: infuseStat
+        },
+        ]
+      },
       // {
       //   path: "/log",
       //   component: log
@@ -569,6 +593,8 @@ const router = new Router({
                 return temperatureGuizhou
               case 'wujing':
                 return temperatureWuJing
+              case 'fuyou':
+                return temperatureJmfy
               default:
                 return temperature
             }
@@ -643,13 +669,16 @@ const router = new Router({
         component: (() => {
           switch (HOSPITAL_ID) {
             case 'lingcheng':
-              return implementationListLc
+              return implementationListLingcheng
             case 'liaocheng':
               return implementationListLiaocheng
             case 'shannan':
               return implementationListShannan
             case 'zhongshanqi':
+            case 'huadu':
               return implementationListZhongshanqi
+            case 'wujing':
+              return implementationListWujing
             default:
               return implementationList
           }
@@ -659,16 +688,6 @@ const router = new Router({
       {
         path: "/bottleLabel",
         component: bottleLabel,
-        name: "瓶签打印"
-      },
-      {
-        path: "/implementationListNew", //执行单(新版)
-        component: implementationListNew,
-        name: "执行单"
-      },
-      {
-        path: "/bottleSignPrint", //瓶签打印
-        component: bottleSignPrint,
         name: "瓶签打印"
       },
       {
@@ -837,6 +856,8 @@ const router = new Router({
           switch (HOSPITAL_ID) {
             case 'guizhou':
               return newSingleTemperatureChartGuizhou
+            case 'fuyou':
+              return newSingleTemperatureChartJmfy
             default:
               return newSingleTemperatureChart
           }

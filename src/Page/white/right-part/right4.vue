@@ -26,6 +26,22 @@
           <input flex-box="1" v-model="data.workClass" />
         </div>-->
       </div>
+      <div class="body-con" v-loading="pageLoading" slot="body-con" flex="dir:top main:top" v-else-if="HOSPITAL_ID=='xiegang'">
+        <div flex="cross:center">
+          <div class="label">电脑班：</div>
+          <input flex-box="1" v-model="data.secondTierDoctor" @blur="update">
+        </div>
+        <div style="height: 15px"></div>
+        <div flex="cross:center">
+          <div class="label">P班：</div>
+          <input flex-box="1" v-model="data.classAllP" @blur="update">
+        </div>
+        <div style="height: 15px"></div>
+        <div flex="cross:center">
+          <div class="label">N班：</div>
+          <input flex-box="1" v-model="data.classN" @blur="update">
+        </div>
+      </div>
       <div class="body-con" v-loading="pageLoading" slot="body-con" flex="dir:top main:top" v-else>
         <div flex="cross:center">
           <div class="label">P班：</div>

@@ -112,7 +112,7 @@ const currentTargetUrl = (() => {
 
     case 'quzhou':
       // return "http://111.11.95.229:9093" //
-      return "http://192.168.1.54:9867" //
+      return "http://192.168.1.54:9879" //
 
     /** 默认公司本地内网厚街测试环境 */
     default:

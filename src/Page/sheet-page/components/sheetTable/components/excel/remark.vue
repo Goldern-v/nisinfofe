@@ -121,6 +121,22 @@
         表示默认前一次记录,如不一致时,用文字表示。
       </p>
     </div>
+    <!-- 江门妇幼-输血护理记录单 -->
+    <div v-if="sheetInfo.sheetType == 'safemetachysis_jm'">
+      <p>
+        备注：
+        1、输血护理记录单用于填写成分血、全血的输注记录，成分血的输注顺序（血小板-冷沉淀-红细胞-血浆）。
+      </p>
+      <p style="margin-left: 46px;">
+        2、输血严格执行床旁双人核查加PDA扫码安全核查。
+      </p>
+      <p style="margin-left: 46px;">
+        3、输血速度应先慢后快，输血开始时、输血15min与输血结束时均测量生命体征一次。
+      </p>
+      <p style="margin-left: 46px;">
+        4、输血前后均应用生理盐水冲管。输血后血袋送回血库保存24h。
+      </p>
+    </div>
     <!-- 外科 -->
     <div v-if="sheetInfo.sheetType == 'surgical_eval_lcey'">
       <p>
