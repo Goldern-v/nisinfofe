@@ -47,7 +47,7 @@ import topPartWuJing from "@/Page/patientInfo/supComponts/topPart_WuJing"; // �
 import topPartLiaoCheng from "@/Page/patientInfo/supComponts/topPart_LiaoCheng"; // 聊城市第二人民医院
 import topPartShanNan from "@/Page/patientInfo/supComponts/topPart_ShanNan"; // 山南市人民医院
 import topPartZhongShanQi from "@/Page/patientInfo/supComponts/topPart_ZhongShanQi"; // 武警广东省总队医院
-import topPartGuiZhou from "@/Page/patientInfo/supComponts/topPart_GuiZhou"; // 武警广东省总队医院
+import topPartGuiZhou from "@/Page/patientInfo/supComponts/topPart_GuiZhou"; // 贵州省人民医院
 import leftPart from "@/Page/patientInfo/supComponts/leftPart";
 import { getPatientInfo } from "@/api/common.js";
 
