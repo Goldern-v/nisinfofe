@@ -181,6 +181,62 @@ export default [{
     },
   },
   {
+    key: "preFieldEight", //标题1
+    value: "",
+    event: function (e, td) {
+      if (e.keyCode == 32) {
+        e.target.value += "/";
+        e.preventDefault();
+      }
+      keyf1(e, td);
+    },
+    textarea: {
+      width: 30
+    },
+  },
+  {
+    key: "preFieldNice", //标题2
+    value: "",
+    event: function (e, td) {
+      if (e.keyCode == 32) {
+        e.target.value += "/";
+        e.preventDefault();
+      }
+      keyf1(e, td);
+    },
+    textarea: {
+      width: 30
+    },
+  },
+  {
+    key: "preFieldTen", //标题3
+    value: "",
+    event: function (e, td) {
+      if (e.keyCode == 32) {
+        e.target.value += "/";
+        e.preventDefault();
+      }
+      keyf1(e, td);
+    },
+    textarea: {
+      width: 30
+    },
+  },
+  {
+    key: "preFieldEleven", //标题4
+    value: "",
+    event: function (e, td) {
+      if (e.keyCode == 32) {
+        e.target.value += "/";
+        e.preventDefault();
+      }
+      keyf1(e, td);
+    },
+    textarea: {
+      width: 30
+    },
+  },
+  {
     key: "description", //特殊情况记录
     value: "",
     style: {

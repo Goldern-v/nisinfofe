@@ -196,6 +196,34 @@ export default [{
     },
   },
   {
+    key: "measuresSeven", //标题1
+    value: "",
+    event: function (e, td) {
+      if (e.keyCode == 32) {
+        e.target.value += "/";
+        e.preventDefault();
+      }
+      keyf1(e, td);
+    },
+    textarea: {
+      width: 30
+    },
+  },
+  {
+    key: "measuresEight", //标题2
+    value: "",
+    event: function (e, td) {
+      if (e.keyCode == 32) {
+        e.target.value += "/";
+        e.preventDefault();
+      }
+      keyf1(e, td);
+    },
+    textarea: {
+      width: 30
+    },
+  },
+  {
     key: "description", //特殊情况记录
     value: "",
     style: {
