@@ -21,7 +21,7 @@ switch(HOSPITAL_ID){
     hospitalExecute = "hisShanNanExecute";
     break;
 }
-
+console.log(HOSPITAL_ID,hospitalExecute);
 // 获取执行单
 export function getExecuteWithWardcode(obj) {
   if(HOSPITAL_ID == "zhongshanqi"){
@@ -37,10 +37,15 @@ export function getExecuteWithWardcode(obj) {
     );
   }
   // hospitalExecute为空 其他默认医院是用厚街的
-  if(HOSPITAL_ID == "hj" || !hospitalExecute){
+  if(HOSPITAL_ID == "hj" || !hospitalExecute && HOSPITAL_ID!="quzhou"){
     return axios.post(
         `${apiPath}execute/getWardExecute`,
         obj
+    );
+  }else if(HOSPITAL_ID == "quzhou"){
+    return axios.post(
+      `${apiPath}getOrdersExecuteWithWardCode`,
+      obj
     );
   }
   return axios.post(
