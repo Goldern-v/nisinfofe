@@ -228,7 +228,7 @@
             v-else-if="td.textarea"
             :class="{ towLine: isOverText(td) }"
             :readonly="isRead(tr)"
-            :disabled="isDisabed(tr)"
+            :disabled="isDisabed(tr,td, y)"
             v-model="td.value"
             :data-value="td.value"
             :position="`${x},${y},${index}`"
@@ -241,7 +241,7 @@
                   minWidth: td.textarea.width + 'px',
                   maxWidth: td.textarea.width + 'px'
                 },
-                isDisabed(tr) && { cursor: 'not-allowed' }
+                isDisabed(tr,td, y) && { cursor: 'not-allowed' }
               )
             "
             @keydown="
@@ -280,7 +280,7 @@
           <input
             type="text"
             :readonly="isRead(tr)"
-            :disabled="isDisabed(tr, td)"
+            :disabled="isDisabed(tr, td, y)"
             v-model="td.value"
             :data-value="td.value"
             :position="`${x},${y},${index}`"
@@ -290,7 +290,7 @@
                 tr.find(item => item.key == 'yearBreak').value && {
                   height: '12px'
                 },
-              isDisabed(tr, td) && { cursor: 'not-allowed' }
+              isDisabed(tr, td, y) && { cursor: 'not-allowed' }
             ]"
             @keydown="
               td.event($event, td);
@@ -473,7 +473,8 @@ export default {
     length: Number,
     scrollY: Number,
     hasFiexHeader: Boolean,
-    isInPatientDetails: Boolean
+    isInPatientDetails: Boolean,
+    listData: Array
   },
   mixins: [common],
   data() {
@@ -956,7 +957,8 @@ export default {
       }
     },
     // 除第一行以外到结束行之内其他单元格不能录入内容（威县），出入量统计行除外
-    isDisabed(tr, td) {
+    isDisabed(tr, td, index) {
+      // canModify true可以修改，false禁止修改
       if (
         this.HOSPITAL_ID == "huadu" &&
         sheetInfo.sheetType === "body_temperature_Hd" &&
@@ -976,7 +978,7 @@ export default {
         this.HOSPITAL_ID == "huadu" &&
         tr.find(item => item.key == "status").value === "1"
       ) {
-        return tr.find(item => item.key == "status").value === "1";
+        return tr.find(item => item.key == "status").value === "1" && this.listData[index] && !this.listData[index].canModify;
       }
       if (
         this.HOSPITAL_ID != "weixian" ||

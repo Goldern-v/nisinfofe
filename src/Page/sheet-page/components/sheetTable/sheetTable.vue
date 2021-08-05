@@ -25,6 +25,7 @@
         :scrollY="scrollY"
         :hasFiexHeader="true"
         :isInPatientDetails="isInPatientDetails"
+        :listData="listData"
       ></excel>
     </div>
   </div>
@@ -149,7 +150,8 @@ export default {
     length: Number,
     scrollY: Number,
     isInPatientDetails: Boolean,
-    bedAndDeptChange: Object
+    bedAndDeptChange: Object,
+    listData: Array
   },
   mixins: [common],
   data() {

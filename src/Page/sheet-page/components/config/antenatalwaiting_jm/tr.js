@@ -193,7 +193,7 @@ export default [{
     name: "胎动",
     next: "次/h",
     textarea: {
-      width: 50
+      width: 55
     }
   },
   {

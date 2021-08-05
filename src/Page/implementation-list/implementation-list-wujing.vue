@@ -166,7 +166,7 @@
 }
 </style>
 <script>
-import dTable from "./components/table/d-table";
+import dTable from "./components/table/d-table-wujing";
 // import pagination from "./components/common/pagination";
 import { patEmrList } from "@/api/document";
 import { getExecuteWithWardcode,handleWebExecuteBatch } from "./api/index";

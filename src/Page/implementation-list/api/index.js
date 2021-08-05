@@ -8,9 +8,6 @@ switch(HOSPITAL_ID){
   case "lingcheng":
     hospitalExecute = "hisLingChengExecute";
     break;
-  case "lingcheng":
-    hospitalExecute = "hisLingChengExecute";
-    break;
   case "liaocheng":
     hospitalExecute = "hisLiaoChengExecute";
     break;
@@ -20,11 +17,11 @@ switch(HOSPITAL_ID){
   case "huadu":
     hospitalExecute = "HisHuaDuExecute";
     break;
-  default:
+  case "shannan":
     hospitalExecute = "hisShanNanExecute";
     break;
 }
-
+console.log(HOSPITAL_ID,hospitalExecute);
 // 获取执行单
 export function getExecuteWithWardcode(obj) {
   if(HOSPITAL_ID == "zhongshanqi"){
@@ -32,10 +29,23 @@ export function getExecuteWithWardcode(obj) {
       `${apiPath}${hospitalExecute}/getWardExeacute`,
       obj
     );
-  }else if(HOSPITAL_ID == "hj"){
+  }else if(HOSPITAL_ID == "wujing"){
+    // 新版执行单（武警）
+    return axios.post(
+      `${apiPath}procedure/webExecute/webGetWardExecute`,
+      obj
+    );
+  }
+  // hospitalExecute为空 其他默认医院是用厚街的
+  if(HOSPITAL_ID == "hj" || !hospitalExecute && HOSPITAL_ID!="quzhou"){
     return axios.post(
         `${apiPath}execute/getWardExecute`,
         obj
+    );
+  }else if(HOSPITAL_ID == "quzhou"){
+    return axios.post(
+      `${apiPath}getOrdersExecuteWithWardCode`,
+      obj
     );
   }
   return axios.post(
@@ -52,5 +62,28 @@ export function addRecord(obj) {
 // 更新实际执行时间/结束输液时间（陵城）
 export function updateExecuteTime(obj) {
   return axios.post(`${apiPath}${hospitalExecute}/getorderexecuteUpdate`, obj);
+}
+
+
+// 新版执行单（武警）
+// 网页端：医嘱查询，执行单打印用
+export function getPrintExecuteWithWardcode(obj) {
+  return axios.post(
+      `${apiPath}procedure/webExecute/webGetOrdersPrint`,
+      obj
+  );
+}
+// 执行执行单（批量）
+export function handleWebExecuteBatch(arr) {
+  return axios.post(
+      `${apiPath}/procedure/webExecute/webExecuteBatch`,
+      arr
+  );
+}
+// 网页端：打印结果查询（前端用于查看是否打印成功）
+export function handleWebGetPrintResult(uuid) {
+  return axios.post(
+      `${apiPath}procedure/webExecute/webGetPrintResult`,{uuid}
+  );
 }
 

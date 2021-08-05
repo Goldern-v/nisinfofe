@@ -119,7 +119,7 @@ axios.get(`${apiPath}formBlock/getBlockByPV/${patientId}/${visitId}`)
 
 // 获取检查右侧url（贵州省人民）
 export const getExamTestUrl = (patientId, visitId, examNo) =>
-axios.post(`${apiPath}hisPacsLis/getPacsList`,qs.stringify({patientId, visitId, examNo}))
+axios.post(`${apiPath}hisPacsLis/getPacsLis`,{patientId, visitId, examNo})
 
 
 export { info, orders, examList, examResult, testList, testItems, inpRecordResults, emrList, templates, briefMission, getContentByMissionIds, getFeePercent, getFeeByDay, getFeeDetail, getDrugFeePercent, patientNursing, testResultsForChart, pic, picNum}
