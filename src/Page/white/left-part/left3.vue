@@ -7,45 +7,25 @@
           <span flex-box="1" style="width: 0;margin-right: 20px">床位</span>
           <span flex-box="1" style="width: 0;margin-right: 10px">责任护士</span>
         </div>
-        <div
-          class="list-con"
-          flex="cross:center"
-          v-for="(item, index) in computedList"
-          :key="index"
-        >
-          <span style="width: 60px; text-align: center" v-if="deptCode == '042302' && index==2 && HOSPITAL_ID=='hj'">A：</span>
+        <div class="list-con" flex="cross:center" v-for="(item, index) in computedList" :key="index">
+          <span style="width: 60px; text-align: center" v-if="HOSPITAL_ID=='hengli'">{{index | filterHengliGroup(index)}}</span>
+          <span style="width: 60px; text-align: center" v-else-if="deptCode == '042302' && index==2 && HOSPITAL_ID=='hj'">A：</span>
           <span style="width: 60px; text-align: center" v-else-if="deptCode == '042302' && index==3 && HOSPITAL_ID=='hj'">A2：</span>
           <span style="width: 60px; text-align: center" v-else-if="deptCode == '042302' && index==4 && HOSPITAL_ID=='hj'">A3：</span>
           <span style="width: 60px; text-align: center" v-else>A{{(deptCode == '041002' && HOSPITAL_ID=='hj') || HOSPITAL_ID=='huadu' ? index+1 : index}}：</span>
-          <input
-            flex-box="1"
-            style="width: 0;margin-right: 20px"
-            v-model="item.bedSet"
-            @blur="update"
-          >
+          <input flex-box="1" style="width: 0;margin-right: 20px" v-model="item.bedSet" @blur="update">
           <!-- <input
             flex-box="1"
             style="width: 0;margin-right: 10px"
             v-model="item.dutyNurse"
             @blur="update"
           >-->
-          <el-autocomplete
-            flex-box="1"
-            style="width: 0;margin-right: 10px"
-            v-model="item.dutyNurse"
-            :fetch-suggestions="querySearch"
-            @select="update"
-          ></el-autocomplete>
+          <el-autocomplete flex-box="1" style="width: 0;margin-right: 10px" v-model="item.dutyNurse" :fetch-suggestions="querySearch" @select="update"></el-autocomplete>
         </div>
       </div>
       <span slot="head-con" class="selectCon">
         <el-select v-model="value" placeholder="请选择" @change="update">
-          <el-option
-            v-for="item in options"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
-          ></el-option>
+          <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
         </el-select>
       </span>
     </boxBase>
@@ -53,39 +33,43 @@
 </template>
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
-.body-con
-  padding 16px 18px
-  box-sizing border-box
-  min-height 220px
-  overflow auto
-.title-con
+.body-con {
+  padding: 16px 18px;
+  box-sizing: border-box;
+  min-height: 220px;
+  overflow: auto;
+}
+.title-con {
   font-size: 14px;
-  font-weight bold
+  font-weight: bold;
   color: #333333;
-  border-bottom: 1px solid #CBD5DD
-  padding-bottom 8px
-  margin-bottom 13px
-.list-con
+  border-bottom: 1px solid #CBD5DD;
+  padding-bottom: 8px;
+  margin-bottom: 13px;
+}
+.list-con {
   font-size: 14px;
   color: #333333;
-  margin-bottom 15px
-input
-  height 32px
+  margin-bottom: 15px;
+}
+input {
+  height: 32px;
   background: #FFFFFF;
   border: 1px solid #CBD5DD;
-  border-radius: 2px
-  outline none
-  padding-left 10px
+  border-radius: 2px;
+  outline: none;
+  padding-left: 10px;
+}
 .selectCon {
-  height 28px !important
+  height: 28px !important;
   &:hover {
-    background #fff !important;
+    background: #fff !important;
   }
-  padding 0 !important
+  padding: 0 !important;
   >>> input {
-    height 28px
-    border 0
-    width 90px
+    height: 28px;
+    border: 0;
+    width: 90px;
   }
 }
 </style>
@@ -108,27 +92,27 @@ export default {
       options: [
         {
           value: 4,
-          label: "4"
+          label: "4",
         },
         {
           value: 5,
-          label: "5"
+          label: "5",
         },
         {
           value: 6,
-          label: "6"
+          label: "6",
         },
         {
           value: 7,
-          label: "7"
+          label: "7",
         },
         {
           value: 8,
-          label: "8"
-        }
+          label: "8",
+        },
       ],
       value: 4,
-      timer: null
+      timer: null,
     };
   },
   created() {
@@ -143,13 +127,16 @@ export default {
         dutyNurse: null,
         groupCode,
         id: null,
-        updateTime: null
+        updateTime: null,
       };
     },
     mergeData(orginArr, dataArr) {
       for (let item of orginArr) {
         try {
-          Object.assign(item, dataArr.find(j => j.groupCode == item.groupCode));
+          Object.assign(
+            item,
+            dataArr.find((j) => j.groupCode == item.groupCode)
+          );
         } catch (e) {}
       }
       return orginArr;
@@ -159,10 +146,10 @@ export default {
         this.renderItem(1),
         this.renderItem(2),
         this.renderItem(3),
-        this.renderItem(4)
+        this.renderItem(4),
       ];
       this.pageLoading = true;
-      viewListByDeptCode(this.deptCode).then(res => {
+      viewListByDeptCode(this.deptCode).then((res) => {
         // this.list = this.mergeData(groupdList, res.data.data);
         this.list = res.data.data;
         this.value = this.list.length > 4 ? this.list.length : 4;
@@ -172,10 +159,10 @@ export default {
         }, 300);
       });
 
-      userDictInfo(this.deptCode).then(res => {
-        this.nurseList = res.data.data.map(item => ({
+      userDictInfo(this.deptCode).then((res) => {
+        this.nurseList = res.data.data.map((item) => ({
           value: item.name,
-          code: item.code
+          code: item.code,
         }));
       });
     },
@@ -185,7 +172,7 @@ export default {
       let data = {};
       data.deptCode = this.deptCode;
       data.patientGroups = this.computedList;
-      updateByDeptCodeAndGroupCode(data).then(res => {
+      updateByDeptCodeAndGroupCode(data).then((res) => {
         this.getData();
         // this.$message.success('更新病人分组信息成功')
       });
@@ -195,12 +182,12 @@ export default {
       this.timer = setTimeout(this.update, 2000);
       cb(
         queryString
-          ? this.nurseList.filter(item => {
+          ? this.nurseList.filter((item) => {
               return item.value.indexOf(queryString) > -1;
             })
           : this.nurseList
       );
-    }
+    },
   },
   computed: {
     computedList() {
@@ -215,23 +202,45 @@ export default {
             bedSet: "",
             deptCode: this.deptCode,
             dutyNurse: "",
-            groupCode: i + 1
+            groupCode: i + 1,
           });
         }
       }
       return resultList;
-    }
+    },
   },
   watch: {
     list: {
       deep: true,
       handler() {
         this.isSave = false;
-      }
-    }
+      },
+    },
   },
   components: {
-    boxBase
-  }
+    boxBase,
+  },
+  filters: {
+    //东莞横沥分组规则
+    filterHengliGroup(index) {
+      //赖振波 需求 A,A1,A1-1,A1-2,A1-3
+      // A2,A2-1,A2-2,A1-3 以此类推
+      let str = "A";
+      if (index === 0) {
+        return str;
+      } else {
+        let newIndex = index - 1;
+        let newModel = newIndex / 4;
+        let newNumber = parseInt(newModel.toString().substring(0, 1)) + 1;
+        let remainderNumber = newIndex % 4;
+        if (remainderNumber !== 0) {
+          str = str + newNumber + "-" + remainderNumber;
+        } else {
+          str = str + newNumber;
+        }
+        return str;
+      }
+    },
+  },
 };
 </script>
