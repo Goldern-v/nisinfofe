@@ -14,7 +14,7 @@
         </div>
       </div>
     <page2></page2>-->
-    <div class="page" flex>
+    <div :class="['page',HOSPITAL_ID == 'wujing'?'wujing':'']" flex>
       <div class="left-part" flex-box="6">
         <left1></left1>
         <div style="height: 20px"></div>
@@ -49,6 +49,9 @@
     margin-right 10px
   .right-part
     width 0
+  &.wujing >>> *{
+  font-size 16px
+}
 </style>
 
 <script>
