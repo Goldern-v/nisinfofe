@@ -5,7 +5,7 @@ path = require("path");
 node_ssh = require("node-ssh");
 ssh = new node_ssh();
 //上传至厚街9866的端口
-folderSrc = "/crdata/webProject/nursingInfoSystem/dongguanhoujie";
+folderSrc = "/crdata/webProject/nursingInfoSystem/wujing";
 //上传至花都武警9868的端口
 //folderSrc = "/crdata/webProject/nursingInfoSystem/huaduwujing";
 

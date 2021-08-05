@@ -396,10 +396,10 @@
 .bed-card-vertical {
   // display: none;
   .bed-card-vert-con {
-    margin: 20px;
+    margin: 5px;
     width: 96px;
-    height: 399px;
-    padding: 15px 3px 0 3px !important;
+    height: 360px;
+    padding:5px 3px 0 3px !important;
     box-sizing: border-box;
     position: relative;
     border: 3px solid #000;
@@ -418,7 +418,7 @@
     }
     svg {
       width: 100%;
-      height: 70px !important;
+      // height: 70px !important;
     }
   }
 }
@@ -843,11 +843,14 @@ export default {
         });
       } else if (this.printMode == "v") {
         this.title = "打印床头卡";
-        JsBarcode("#barcode", this.query.patientId, {
+        JsBarcode("#barcode", this.query.patientId + "|" + this.query.visitId, {
+          displayValue:false,
           lineColor: "#000",
-          width: 4,
-          height: 80,
-          fontSize: 55
+          margin:0,
+          width:3,
+          height: 60,
+          fontSize: 55,
+          textMargin:0
         });
       } else {
         this.title = "编辑床头卡";
