@@ -42,10 +42,10 @@ export function getExecuteWithWardcode(obj) {
         `${apiPath}execute/getWardExecute`,
         obj
     );
-  }else if(HOSPITAL_ID == "quzhou"){
+  }else if(HOSPITAL_ID =="quzhou"){
     return axios.post(
-      `${apiPath}getOrdersExecuteWithWardCode`,
-      obj
+      `${apiPath}procedure/his`,
+      {'strJson':JSON.stringify(obj)}
     );
   }
   return axios.post(
