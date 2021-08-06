@@ -240,6 +240,7 @@ import sheetTable_picc_maintenance_hd from "./components/sheetTable-picc_mainten
 import sheetTable_intervention_cure_hd from "./components/sheetTable-intervention_cure_hd/sheetTable";
 import sheetTable_hemodialysis_CRRT_hd from "./components/sheetTable-hemodialysis_CRRT_hd/sheetTable";
 import sheetTable_intervention_cure from "./components/sheetTable-intervention_cure/sheetTable";
+import sheetTable_intersurgerycure_qzx from "./components/sheetTable-intersurgerycure_qzx/sheetTable";
 import sheetTable_mild_hypothermia_hd from "./components/sheetTable-mild_hypothermia_hd/sheetTable";
 import sheetTable_neonatology_picc from "./components/sheetTable-neonatology_picc/sheetTable";
 // import sheetTable_internal_eval_lcey from "./components/sheetTable-internal_eval_lcey/sheetTable";
@@ -394,6 +395,8 @@ export default {
         return sheetTable_oxytocin_hl;
       } else if (sheetInfo.sheetType == "dressing_count_hl") {
         return sheetTable_dressing_count_hl;
+      } else if (sheetInfo.sheetType == "intersurgerycure_qzx") {
+        return sheetTable_intersurgerycure_qzx;
       } else {
         return sheetTable;
       }
@@ -919,6 +922,7 @@ export default {
     sheetTable_intervention_cure_hd,
     sheetTable_hemodialysis_CRRT_hd,
     sheetTable_intervention_cure,
+    sheetTable_intersurgerycure_qzx,
     sheetTable_mild_hypothermia_hd,
     sheetTable_neonatology_picc,
     // sheetTable_internal_eval_lcey,

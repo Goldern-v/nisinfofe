@@ -789,6 +789,13 @@ export default function Title(
     );
   }
   break;
+  case "intersurgerycure_qzx": {
+    // 曲周县 - 介入手术治疗护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/intersurgerycure_qzx/th").default)
+    );
+  }
+  break;
   default: {
     Th = JSON.parse(
       JSON.stringify(require("../config/default/th").default)

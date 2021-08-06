@@ -622,6 +622,11 @@ function switechSheetType(type) {
     schema = require("../config/icu_qz/tr.js").default;
   }
   break;
+  case "intersurgerycure_qzx": {
+    // 曲周县 - 介入手术治疗护理记录单
+    schema = require("../config/intersurgerycure_qzx/tr.js").default;
+  }
+  break;
   default: {
     schema = require("../config/default/tr.js").default;
   }
