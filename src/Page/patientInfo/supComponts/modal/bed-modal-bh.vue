@@ -314,7 +314,7 @@
           <div class="top">
             <span>姓名：{{ query.name }}</span>
             <span style="margin-left:55px">性别：{{ query.sex }}</span>
-            <span style="margin-left:88px">年龄：{{ query.age }}</span>
+            <span style="margin-left:30px">年龄：{{ query.age }}</span>
           </div>
           <div>
             <div>
