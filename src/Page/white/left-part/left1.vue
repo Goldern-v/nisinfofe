@@ -42,7 +42,7 @@
               >
                 <span>
                   <span v-show="item.bedLabelShow">{{option.bedLabel}}床</span>
-                  <span v-show="item.nameShow">{{option.nameOrigin}}</span>
+                  <span v-show="item.nameShow">{{option.name}}</span>
                 </span>
                 <!-- <span v-if="item.diagnosisShow">({{option.expand}})</span> -->
                 <!-- <span v-if="item.addExpand && option[item.addExpand]">({{option[item.addExpand]}})</span> -->
