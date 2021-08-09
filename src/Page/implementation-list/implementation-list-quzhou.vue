@@ -341,17 +341,16 @@ export default {
       if (!this.deptCode) return;
       this.pageLoadng = true;
       let obj = {
-        tradeCode:'getOrdersExecuteWithWardCode',
-        WardCode:this.deptCode,//护理单元代码
-        ExecuteDateTime: moment(this.startDate).format("YYYY-MM-DD"),//执行单预计执行时间
-        RepeatIndicator:  this.repeatIndicator,//医嘱类型:0临时 1长期  2单药处方
-        ExecuteFlag:  this.status,//执行单状态:0-未执行、1-执行中（输液中）、2-暂停输液、3-继续执行  4-已完成（结束输液）
-        ExecuteType:typeof this.type == "number"
+        wardCode:this.deptCode,//护理单元代码
+        executeDateTime: moment(this.startDate).format("YYYY-MM-DD"),//执行单预计执行时间
+        repeatIndicator:  this.repeatIndicator,//医嘱类型:0临时 1长期  2单药处方
+        executeStatus:  this.status,//执行单状态:0-未执行、1-执行中（输液中）、2-暂停输液、3-继续执行  4-已完成（结束输液）
+        executeType:typeof this.type == "number"
             ? this.allType[this.type + 1].name
             : this.type, //执行单类型:输液,口服、治疗、雾化、注射
-        BedLabel: this.bedLabel, //床号
-        PatientName: this.patientName, //患者姓名
-        Administration: this.administration // //途径
+        bedLabel: this.bedLabel, //床号
+        patientName: this.patientName, //患者姓名
+        administration: this.administration // //途径
       };
       getExecuteWithWardcode(obj).then(res => {
         let children = [],tableData = [];
@@ -359,19 +358,19 @@ export default {
           let prevRowId, nextRowId, currentRowId;
           prevRowId =
             array[index - 1] &&
-            array[index - 1].PatientId +
-              array[index - 1].BarCode +
-              array[index - 1].ExecuteDateTime;
+            array[index - 1].patientId +
+              array[index - 1].barCode +
+              array[index - 1].executeDateTime;
           nextRowId =
             array[index + 1] &&
-            array[index + 1].PatientId +
-              array[index + 1].BarCode +
-              array[index + 1].ExecuteDateTime;
+            array[index + 1].patientId +
+              array[index + 1].barCode +
+              array[index + 1].executeDateTime;
           currentRowId =
             array[index] &&
-            array[index].PatientId +
-              array[index].BarCode +
-              array[index].ExecuteDateTime;
+            array[index].patientId +
+              array[index].barCode +
+              array[index].executeDateTime;
           item.id = index;
 
           /** 判断是此记录是多条记录 */

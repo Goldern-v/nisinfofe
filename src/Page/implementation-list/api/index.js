@@ -23,6 +23,9 @@ switch(HOSPITAL_ID){
   case "fuyou":
     hospitalExecute = "hisJiangMenFyExecute";
     break;
+  case "quzhou":
+    hospitalExecute = "hisQuZhouXianExecute";
+    break;
 }
 console.log(HOSPITAL_ID,hospitalExecute);
 // 获取执行单
@@ -42,11 +45,6 @@ export function getExecuteWithWardcode(obj) {
     return axios.post(
       `${apiPath}hisJiangMenFyExecute/getOrdersExecuteWithWardCode`,
       obj
-    );
-  }else if(HOSPITAL_ID =="quzhou"){
-    return axios.post(
-      `${apiPath}procedure/his`,
-      {'strJson':JSON.stringify(obj)}
     );
   }
   // hospitalExecute为空 其他默认医院是用厚街的
