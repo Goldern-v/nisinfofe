@@ -354,7 +354,7 @@ export default {
       };
       getExecuteWithWardcode(obj).then(res => {
         let children = [],tableData = [];
-        res.data.data.data.map((item, index, array) => {
+        res.data.data.map((item, index, array) => {
           let prevRowId, nextRowId, currentRowId;
           prevRowId =
             array[index - 1] &&
