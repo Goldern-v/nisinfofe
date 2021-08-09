@@ -2,17 +2,19 @@ import {
   keyf1
 } from "../keyEvent/f1.js";
 import {
+  multiDictInfo
+} from "../../../api/index";
+import {
   event_date,
   event_time,
   click_date,
   click_time
 } from "../keyEvent/date";
 
-const tmList = ['已破', '未破'];
-const ysxzList = ['清', 'Ⅰ°', 'Ⅱ°', 'Ⅲ°', '血性羊水'];
-const gsqdList = ['弱', '中', '强'];
-const xlgdList = ['S-3', 'S-2', 'S-1', 'S=0', 'S+1', 'S+2'];
-const ydlxList = ['少量', '多量'];
+let tmList = [];
+let ysxzList = [];
+let gsqdList = [];
+let xlgdList = [];
 export default [{
     key: "recordMonth", //日期
     value: "",
@@ -359,3 +361,34 @@ export default [{
     value: true
   }
 ];
+
+export function getListData() {
+  let list = [
+    "江门妇幼:产科护理记录单:宫缩强度",
+    "江门妇幼:产科护理记录单:先露高度",
+    "江门妇幼:产前待产护理记录单:胎膜",
+    "江门妇幼:产前待产护理记录单:羊水性质",
+  ];
+
+  multiDictInfo(list).then(res => {
+    let data = res.data.data;
+    setList(gsqdList, list[0], data);
+    setList(xlgdList, list[1], data);
+    setList(tmList, list[2], data);
+    setList(ysxzList, list[3], data);
+  });
+}
+
+getListData();
+/**
+ *
+ * @param {*} list 原数组
+ * @param {*} key 对应的key
+ * @param {*} data 数据源
+ */
+function setList(list, key, data) {
+  list.splice(0, list.length);
+  for (let item of data[key]) {
+    list.push(item.name);
+  }
+}
