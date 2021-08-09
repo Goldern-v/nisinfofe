@@ -25,7 +25,12 @@
       </div>
       <span slot="head-con" class="selectCon">
         <el-select v-model="value" placeholder="请选择" @change="update">
-          <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
+          <template v-if="HOSPITAL_ID=='hengli'">
+            <el-option v-for="item in hengliOptions" :key="item.value" :label="item.label" :value="item.value"></el-option>
+          </template>
+          <template v-else>
+            <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
+          </template>
         </el-select>
       </span>
     </boxBase>
@@ -109,6 +114,33 @@ export default {
         {
           value: 8,
           label: "8",
+        },
+      ],
+      hengliOptions: [
+        //横沥分组
+        {
+          value: 4,
+          label: "4",
+        },
+        {
+          value: 5,
+          label: "5",
+        },
+        {
+          value: 6,
+          label: "6",
+        },
+        {
+          value: 7,
+          label: "7",
+        },
+        {
+          value: 8,
+          label: "8",
+        },
+        {
+          value: 9,
+          label: "9",
         },
       ],
       value: 4,
