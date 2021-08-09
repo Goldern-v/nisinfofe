@@ -141,7 +141,7 @@ const implementationListWujing = () =>
 const implementationListQuzhou = () =>
   import("@/Page/implementation-list/implementation-list-quzhou.vue"); //曲周执行单
 const implementationListFuyou = () =>
-  import("@/Page/implementation-list/implementation-list-fuyou.vue"); //曲周执行单
+  import("@/Page/implementation-list/implementation-list-fuyou.vue"); //江门妇幼执行单
 const bottleLabel = () => import("@/Page/bottleLabel/index.vue"); //瓶签打印
 
 const dcList = () => import("@/Page/dc-list/dc-list.vue"); //执行单
