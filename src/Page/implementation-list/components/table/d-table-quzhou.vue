@@ -27,7 +27,7 @@
         align="center"
       ></u-table-column> -->
       <u-table-column
-        prop="BedLabel"
+        prop="bedLabel"
         label="床号"
         min-width="60px"
         align="center"
@@ -37,7 +37,7 @@
           <div>
             {{
               scope.row.rowType == 1 || !scope.row.rowType
-                ? scope.row.BedLabel
+                ? scope.row.bedLabel
                 : ""
             }}
           </div>
@@ -53,7 +53,7 @@
         <template slot-scope="scope">
           <span>{{
             scope.row.wrapRowType == 1 || !scope.row.wrapRowType
-              ? scope.row.ExecuteDateTime
+              ? scope.row.executeDateTime
               : "" | ymdhm
           }}</span>
         </template>

@@ -317,11 +317,8 @@
             <span style="margin-left:30px">年龄：{{ query.age }}</span>
           </div>
           <div>
-            <div>
               <span>科室：{{ query.deptName }}</span>
-              <span style="margin-left:5px">住院号：{{ query.patientId }}</span>
-              <span style="margin:4px;">床号：{{ query.bedLabel }}</span>
-            </div>
+              <span style="margin-left:5px">床号：{{ query.bedLabel }}</span>
             <!-- <div>
               <span>入院日期：{{ query.admissionDate | ymdhm }}</span>
             </div>
@@ -342,13 +339,16 @@
             :src="qrCode"
           /> -->
           <div>
-            <div>
+              <span >住院号：{{ query.patientId }}</span>
               <span class="bhzd">诊断:{{query.remark}}</span>
               <span v-if="query.age<18">入院日期：{{ query.admissionDate | ymdhm }}</span>
-            </div>
         </div>
+        <img
+            class="qr-code"
+            :class="{ hasRemark: hasRemark }"
+            :src="qrCode"
+          />
         </div>
-
       </div>
       <div slot="button">
         <span
@@ -446,9 +446,9 @@
      .top {
         span {
           margin-left: 10px;
-          &:first-of-type {
-            margin-left: 45px;
-          }
+          // &:first-of-type {
+          //   margin-left: 45px;
+          // }
         }
      }
 
@@ -465,7 +465,7 @@
      span {
         font-size: 20px;
         line-height: 24px;
-        margin-left: 45px;
+        // margin-left: 45px;
         &.bhzd{
             display:inline-block;
             width:175px

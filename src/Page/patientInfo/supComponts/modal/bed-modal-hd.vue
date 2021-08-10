@@ -302,7 +302,11 @@
           <p>{{ query.age }}</p>
           <span>住院号：</span>
           <p>{{ query.patientId }}</p>
-          <svg id="barcode"></svg>
+          <img
+            class="qr-code"
+            :class="{ hasRemark: hasRemark }"
+            :src="qrCode"
+          />
         </div>
       </div>
       <div
@@ -312,15 +316,15 @@
       >
         <div class="bed-card-vert-con">
           <div class="top">
-            <span>{{ query.name }}</span>
-            <span>{{ query.sex }}</span>
-            <span>{{ query.age }}</span>
-            <span>住院号：{{ query.patientId }}</span>
+            <span>科室：{{ query.deptName }}</span>
+            <span style="margin:4px;">床位：{{ query.bedLabel }}</span>
           </div>
           <div>
             <div>
-              <span>科室：{{ query.deptName }}</span>
-              <span style="margin:4px;">床位：{{ query.bedLabel }}</span>
+              <span>{{ query.name }}</span>
+              <span>{{ query.sex }}</span>
+              <span>{{ query.age }}</span>
+              <span>住院号：{{ query.patientId }}</span>
             </div>
             <div>
               <span>入院日期：{{ query.admissionDate | ymdhm }}</span>
@@ -396,7 +400,7 @@
 .bed-card-vertical {
   // display: none;
   .bed-card-vert-con {
-    margin: 5px;
+    // margin: 5px;
     width: 96px;
     height: 360px;
     padding:5px 3px 0 3px !important;
@@ -844,6 +848,7 @@ export default {
       } else if (this.printMode == "v") {
         this.title = "打印床头卡";
         JsBarcode("#barcode", this.query.patientId + "|" + this.query.visitId, {
+          format:'CODE128 B',
           displayValue:false,
           lineColor: "#000",
           margin:0,
