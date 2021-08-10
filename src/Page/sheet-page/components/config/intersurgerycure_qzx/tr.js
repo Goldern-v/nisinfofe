@@ -2,19 +2,13 @@ import {
   keyf1
 } from "../keyEvent/f1.js";
 import {
-  multiDictInfo
-} from "../../../api/index";
-import {
   event_date,
   event_time,
   click_date,
   click_time
 } from "../keyEvent/date";
-
-let gsqdList = [];
-let xlgdList = [];
-let ydlxList = [];
-export default [{
+export default [
+  {
     key: "recordMonth", //日期
     value: "",
     event: event_date,
@@ -27,37 +21,31 @@ export default [{
     click: click_time
   },
   {
-    key: "temperature", //体温
+    key: "temperature", //T
     value: "",
     event: keyf1,
-    name: "体温",
-    next: "℃",
     textarea: {
-      width: 50
-    }
+      width: 43
+    },
   },
   {
-    key: "pulse", //脉搏
+    key: "pulse", //P
     value: "",
     event: keyf1,
-    name: "脉搏",
-    next: "次/分",
     textarea: {
-      width: 60
-    }
+      width: 43
+    },
   },
   {
-    key: "breath", //呼吸
+    key: "breath", //R
     value: "",
     event: keyf1,
-    name: "呼吸",
-    next: "次/分",
     textarea: {
-      width: 60
-    }
+      width: 43
+    },
   },
   {
-    key: "bloodPressure", //血压
+    key: "bloodPressure", //BP
     value: "",
     event: function (e, td) {
       if (e.keyCode == 32) {
@@ -69,178 +57,163 @@ export default [{
     name: "血压",
     next: "mmHg",
     textarea: {
+      width: 50
+    }
+  },
+  {
+    key: "preFieldOne", //SPO2
+    value: "",
+    event: keyf1,
+    textarea: {
+      width: 50
+    },
+  },
+  {
+    key: "consciousness", //清楚
+    value: "",
+    event: keyf1,
+    textarea: {
+      width: 43
+    },
+  },
+  {
+    key: "preWoundOne", //渗血
+    value: "",
+    event: keyf1,
+    textarea: {
+      width: 43
+    },
+  },
+  {
+    key: "preWoundTwo", //血肿
+    value: "",
+    event: keyf1,
+    textarea: {
+      width: 43
+    },
+  },
+  {
+    key: "preWoundThree", //淤血
+    value: "",
+    event: keyf1,
+    textarea: {
+      width: 43
+    },
+  },
+  {
+    key: "preWoundFour", //杂音
+    value: "",
+    event: keyf1,
+    textarea: {
+      width: 43
+    },
+  },
+  {
+    key: "postFootOne", //搏动良好
+    value: "",
+    event: keyf1,
+    textarea: {
+      width: 50
+    },
+  },
+  {
+    key: "postFootTwo", //双侧对称
+    value: "",
+    event: keyf1,
+    textarea: {
+      width: 50
+    },
+  },
+  {
+    key: "postLimbsOne", //皮温
+    value: "",
+    event: keyf1,
+    textarea: {
+      width: 43
+    },
+  },
+  {
+    key: "postLimbsTwo", //颜色
+    value: "",
+    event: keyf1,
+    textarea: {
+      width: 43
+    },
+  },
+  {
+    key: "postLimbsThree", //粗细肿胀
+    value: "",
+    event: keyf1,
+    textarea: {
+      width: 50
+    },
+  },
+  {
+    key: "postLimbsFour", //感觉运动异常
+    value: "",
+    event: keyf1,
+    textarea: {
       width: 60
-    }
-  },
-  {
-    key: "consciousness", //意识
-    value: "",
-    event: keyf1,
-    name: "意识",
-    textarea: {
-      width: 50
-    }
-  },
-  {
-    key: "contractionOne", //强度
-    value: "",
-    event: keyf1,
-    name: "强度",
-    textarea: {
-      width: 43
-    },
-    autoComplete: {
-      data: gsqdList
     },
   },
   {
-    key: "contractionTwo", //持续
+    key: "digestionOne", //腹胀
     value: "",
     event: keyf1,
-    name: "持续",
-    next: "s",
-    textarea: {
-      width: 43
-    }
-  },
-  {
-    key: "contractionThree", // 间歇
-    value: "",
-    event: keyf1,
-    name: "间歇",
-    next: "min",
     textarea: {
       width: 43
     },
   },
   {
-    key: "preFieldOne", // 宫口扩张
+    key: "digestionTwo", //恶心
     value: "",
     event: keyf1,
-    name: "宫口扩张",
-    next: "cm",
     textarea: {
       width: 43
     },
   },
   {
-    key: "preFieldTwo", //先露
+    key: "digestionThree", //呕吐
     value: "",
     event: keyf1,
-    name: "先露",
     textarea: {
       width: 43
     },
-    autoComplete: {
-      data: xlgdList
-    },
   },
   {
-    key: "preFieldThree", //宫底高度
+    key: "preInputOne", //液体
     value: "",
     event: keyf1,
-    name: "宫底高度",
     textarea: {
-      width: 50
+      width: 43
     },
   },
   {
-    key: "preFieldFour", //排尿情况
+    key: "preInputTwo", //其他
     value: "",
     event: keyf1,
-    name: "排尿情况",
     textarea: {
-      width: 50
-    }
+      width: 43
+    },
   },
   {
-    key: "preFieldFive", //阴道流血
+    key: "postOutputOne", //尿量
     value: "",
     event: keyf1,
-    name: "阴道流血",
     textarea: {
-      width: 50
-    },
-    autoComplete: {
-      data: ydlxList
+      width: 43
     },
   },
   {
-    key: "preFieldSix", //健康教育
+    key: "postOutputTwo", //其他
     value: "",
     event: keyf1,
-    name: "健康教育",
     textarea: {
-      width: 50
-    }
-  },
-  {
-    key: "preFieldSeven", //基础护理
-    value: "",
-    event: keyf1,
-    name: "基础护理",
-    textarea: {
-      width: 50
+      width: 43
     },
   },
   {
-    key: "preFieldEight", //标题1
-    value: "",
-    event: function (e, td) {
-      if (e.keyCode == 32) {
-        e.target.value += "/";
-        e.preventDefault();
-      }
-      keyf1(e, td);
-    },
-    textarea: {
-      width: 30
-    },
-  },
-  {
-    key: "preFieldNice", //标题2
-    value: "",
-    event: function (e, td) {
-      if (e.keyCode == 32) {
-        e.target.value += "/";
-        e.preventDefault();
-      }
-      keyf1(e, td);
-    },
-    textarea: {
-      width: 30
-    },
-  },
-  {
-    key: "preFieldTen", //标题3
-    value: "",
-    event: function (e, td) {
-      if (e.keyCode == 32) {
-        e.target.value += "/";
-        e.preventDefault();
-      }
-      keyf1(e, td);
-    },
-    textarea: {
-      width: 30
-    },
-  },
-  {
-    key: "preFieldEleven", //标题4
-    value: "",
-    event: function (e, td) {
-      if (e.keyCode == 32) {
-        e.target.value += "/";
-        e.preventDefault();
-      }
-      keyf1(e, td);
-    },
-    textarea: {
-      width: 30
-    },
-  },
-  {
-    key: "description", //特殊情况记录
+    key: "description", //病情变化及特殊情况
     value: "",
     style: {
       textAlign: "left",
@@ -248,7 +221,7 @@ export default [{
       top: "1px",
       bottom: "1px",
       left: "1px",
-      width: "180px",
+      width: "360px",
       background: "transparent"
     },
     event: function (e, td) {
@@ -277,11 +250,6 @@ export default [{
   {
     hidden: true,
     key: "signerName",
-    value: ""
-  },
-  {
-    hidden: true,
-    key: "signerName2",
     value: ""
   },
   {
@@ -320,11 +288,6 @@ export default [{
     value: ""
   },
   {
-    hidden: true,
-    key: "signerNo2",
-    value: ""
-  },
-  {
     hidden: false,
     key: "auditorNo",
     value: ""
@@ -342,35 +305,6 @@ export default [{
   {
     hidden: true,
     key: "multiSign",
-    value: true
+    value: false
   }
 ];
-
-export function getListData() {
-  let list = [
-    "江门妇幼:产科护理记录单:宫缩强度",
-    "江门妇幼:产科护理记录单:先露高度",
-    "江门妇幼:产科护理记录单:阴道流血",
-  ];
-
-  multiDictInfo(list).then(res => {
-    let data = res.data.data;
-    setList(gsqdList, list[0], data);
-    setList(xlgdList, list[1], data);
-    setList(ydlxList, list[2], data);
-  });
-}
-
-getListData();
-/**
- *
- * @param {*} list 原数组
- * @param {*} key 对应的key
- * @param {*} data 数据源
- */
-function setList(list, key, data) {
-  list.splice(0, list.length);
-  for (let item of data[key]) {
-    list.push(item.name);
-  }
-}

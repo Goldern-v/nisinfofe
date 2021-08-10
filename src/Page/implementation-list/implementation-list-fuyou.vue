@@ -226,7 +226,7 @@
 }
 </style>
 <script>
-import dTable from "./components/table/d-table-quzhou";
+import dTable from "./components/table/d-table-fuyou";
 import pagination from "./components/common/pagination";
 import { patEmrList } from "@/api/document";
 import { getExecuteWithWardcode } from "./api/index";
@@ -341,19 +341,26 @@ export default {
       if (!this.deptCode) return;
       this.pageLoadng = true;
       let obj = {
-        wardCode:this.deptCode,//护理单元代码
-        executeDateTime: moment(this.startDate).format("YYYY-MM-DD"),//执行单预计执行时间
-        repeatIndicator:  this.repeatIndicator,//医嘱类型:0临时 1长期  2单药处方
-        executeStatus:  this.status,//执行单状态:0-未执行、1-执行中（输液中）、2-暂停输液、3-继续执行  4-已完成（结束输液）
-        executeType:typeof this.type == "number"
+        wardCode: this.deptCode, //护理单元代码
+        executeDateTime: moment(this.startDate).format("YYYY-MM-DD"), //执行单预计执行时间
+        repeatIndicator: this.repeatIndicator, //医嘱类型:0临时 1长期  2单药处方
+        executeStatus: this.status, //执行单状态:0-未执行、1-执行中（输液中）、2-暂停输液、3-继续执行  4-已完成（结束输液）
+        executeType:
+          typeof this.type == "number"
             ? this.allType[this.type + 1].name
             : this.type, //执行单类型:输液,口服、治疗、雾化、注射
         bedLabel: this.bedLabel, //床号
         patientName: this.patientName, //患者姓名
         administration: this.administration // //途径
       };
+
       getExecuteWithWardcode(obj).then(res => {
-        let children = [],tableData = [];
+        // this.tableData = res.data.data;
+        // this.pageLoadng = false;
+        console.log(res);
+        console.log(res.data.data);
+        let children = [],
+          tableData = [];
         res.data.data.map((item, index, array) => {
           let prevRowId, nextRowId, currentRowId;
           prevRowId =
@@ -371,6 +378,7 @@ export default {
             array[index].patientId +
               array[index].barCode +
               array[index].executeDateTime;
+
           item.id = index;
 
           /** 判断是此记录是多条记录 */

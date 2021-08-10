@@ -25,6 +25,10 @@ axios.interceptors.request.use((config) => {
     var user = localStorage['user']
     if (token) {
         config.headers.common['Auth-Token-Nursing'] = token
+        if(config.url=='/crNursing/api/procedure/his'){
+            config.headers['Content-Type'] = 'application/json;charset=UTF-8'
+            return config
+        }
         return config
     } else {
         localStorage.clear();

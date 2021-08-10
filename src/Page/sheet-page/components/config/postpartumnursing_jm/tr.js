@@ -2,6 +2,9 @@ import {
   keyf1
 } from "../keyEvent/f1.js";
 import {
+  multiDictInfo
+} from "../../../api/index";
+import {
   event_date,
   event_time,
   click_date,
@@ -9,14 +12,14 @@ import {
 } from "../keyEvent/date";
 import info from "../sheetInfo";
 
-const pgList = ['胀', '不胀'];
-const gdgdList = ['U+2', 'U+1', 'U=0', 'U-1', 'U-2'];
-const ztbList = ['(+)', '(-)'];
-const mrqkList = ['多', '中', '少', '无'];
-const lzngList = ['通畅', '拔除'];
-const nsList = ['清', '深黄', '淡红'];
-const gsList = ['硬', '一般', '软'];
-const zdjnList = ['✓'];
+let pgList = [];
+let gdgdList = [];
+let ztbList = [];
+let mrqkList = [];
+let lzngList = [];
+let nsList = [];
+let gsList = [];
+let zdjnList = ['✓'];
 export default [{
     key: "recordMonth", //日期
     value: "",
@@ -381,3 +384,39 @@ export default [{
   }
 ];
 
+export function getListData() {
+  let list = [
+    "江门妇幼:产后护理记录单:膀胱情况",
+    "江门妇幼:产后护理记录单:宫底高度",
+    "江门妇幼:产后护理记录单:镇痛泵",
+    "江门妇幼:产后护理记录单:乳量",
+    "江门妇幼:产后护理记录单:留置尿管",
+    "江门妇幼:产后护理记录单:尿色",
+    "江门妇幼:产后护理记录单:子宫收缩",
+  ];
+
+  multiDictInfo(list).then(res => {
+    let data = res.data.data;
+    setList(pgList, list[0], data);
+    setList(gdgdList, list[1], data);
+    setList(ztbList, list[2], data);
+    setList(mrqkList, list[3], data);
+    setList(lzngList, list[4], data);
+    setList(nsList, list[5], data);
+    setList(gsList, list[6], data);
+  });
+}
+
+getListData();
+/**
+ *
+ * @param {*} list 原数组
+ * @param {*} key 对应的key
+ * @param {*} data 数据源
+ */
+function setList(list, key, data) {
+  list.splice(0, list.length);
+  for (let item of data[key]) {
+    list.push(item.name);
+  }
+}

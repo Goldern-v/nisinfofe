@@ -61,13 +61,14 @@
       </span> -->
     </div>
     <div class="info-con">
-      <span
-        v-if="
-          sheetInfo.sheetType === 'antenatalwaiting_jm' ||
-          sheetInfo.sheetType === 'breastkenursing_jm' ||
-          sheetInfo.sheetType === 'obstetricnursing_jm'
-        "
-        @click="updateDiagnosis('diagnosis', '入院诊断', patientInfo.diagnosis)"
+      <span v-if="
+              sheetInfo.sheetType === 'antenatalwaiting_jm' || 
+              sheetInfo.sheetType === 'breastkenursing_jm' ||
+              sheetInfo.sheetType === 'obstetricnursing_jm' ||
+              sheetInfo.sheetType === 'entdepartment_jm' ||
+              sheetInfo.sheetType === 'gynaecology_jm' ||
+              sheetInfo.sheetType === 'generalsurgery_jm'"
+              @click="updateDiagnosis('diagnosis', '入院诊断', patientInfo.diagnosis)"
       >
         入院诊断：
         <div

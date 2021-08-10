@@ -446,6 +446,21 @@ function switechSheetType(type) {
     schema = require("../config/breastkenursing_jm/tr.js").default;
   }
   break;
+  case "entdepartment_jm": {
+    // 江门妇幼 - 耳鼻喉科护理记录单
+    schema = require("../config/entdepartment_jm/tr.js").default;
+  }
+  break;
+  case "gynaecology_jm": {
+    // 江门妇幼 - 妇科护理记录单
+    schema = require("../config/gynaecology_jm/tr.js").default;
+  }
+  break;
+  case "generalsurgery_jm": {
+    // 江门妇幼 - 普外科护理记录单
+    schema = require("../config/generalsurgery_jm/tr.js").default;
+  }
+  break;
   case "safemetachysis_jm": {
     // 江门妇幼 - 输血护理记录单
     schema = require("../config/safemetachysis_jm/tr.js").default;
@@ -605,6 +620,11 @@ function switechSheetType(type) {
   case "icu_qz": {
     // 曲周县 - 重症护理记录单
     schema = require("../config/icu_qz/tr.js").default;
+  }
+  break;
+  case "intersurgerycure_qzx": {
+    // 曲周县 - 介入手术治疗护理记录单
+    schema = require("../config/intersurgerycure_qzx/tr.js").default;
   }
   break;
   default: {

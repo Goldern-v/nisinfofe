@@ -543,6 +543,27 @@ export default function Title(
     );
   }
   break;
+  case "entdepartment_jm": {
+    // 江门妇幼 - 耳鼻喉科护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/entdepartment_jm/th.js").default)
+    );
+  }
+  break;
+  case "gynaecology_jm": {
+    // 江门妇幼 - 妇科护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/gynaecology_jm/th.js").default)
+    );
+  }
+  break;
+  case "generalsurgery_jm": {
+    // 江门妇幼 - 普外科护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/generalsurgery_jm/th.js").default)
+    );
+  }
+  break;
   case "safemetachysis_jm": {
     // 江门妇幼 - 输血护理记录单
     Th = JSON.parse(
@@ -765,6 +786,13 @@ export default function Title(
     // 曲周县 - 重症护理记录单
     Th = JSON.parse(
       JSON.stringify(require("../config/icu_qz/th").default)
+    );
+  }
+  break;
+  case "intersurgerycure_qzx": {
+    // 曲周县 - 介入手术治疗护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/intersurgerycure_qzx/th").default)
     );
   }
   break;

@@ -2,18 +2,12 @@ import {
   keyf1
 } from "../keyEvent/f1.js";
 import {
-  multiDictInfo
-} from "../../../api/index";
-import {
   event_date,
   event_time,
   click_date,
   click_time
 } from "../keyEvent/date";
 
-let gsqdList = [];
-let xlgdList = [];
-let ydlxList = [];
 export default [{
     key: "recordMonth", //日期
     value: "",
@@ -73,6 +67,15 @@ export default [{
     }
   },
   {
+    key: "preFieldOne", //血氧饱和度
+    value: "",
+    event: keyf1,
+    name: "血氧饱和度",
+    textarea: {
+      width: 50
+    }
+  },
+  {
     key: "consciousness", //意识
     value: "",
     event: keyf1,
@@ -82,19 +85,16 @@ export default [{
     }
   },
   {
-    key: "contractionOne", //强度
+    key: "preInputOne", //静脉
     value: "",
     event: keyf1,
     name: "强度",
     textarea: {
       width: 43
     },
-    autoComplete: {
-      data: gsqdList
-    },
   },
   {
-    key: "contractionTwo", //持续
+    key: "preInputTwo", //口服
     value: "",
     event: keyf1,
     name: "持续",
@@ -104,7 +104,7 @@ export default [{
     }
   },
   {
-    key: "contractionThree", // 间歇
+    key: "preInputThree", // 血
     value: "",
     event: keyf1,
     name: "间歇",
@@ -114,7 +114,7 @@ export default [{
     },
   },
   {
-    key: "preFieldOne", // 宫口扩张
+    key: "postOutputOne", // 尿
     value: "",
     event: keyf1,
     name: "宫口扩张",
@@ -124,19 +124,16 @@ export default [{
     },
   },
   {
-    key: "preFieldTwo", //先露
+    key: "postOutputTwo", //其他
     value: "",
     event: keyf1,
     name: "先露",
     textarea: {
       width: 43
     },
-    autoComplete: {
-      data: xlgdList
-    },
   },
   {
-    key: "preFieldThree", //宫底高度
+    key: "measuresOne", //咽痛
     value: "",
     event: keyf1,
     name: "宫底高度",
@@ -145,7 +142,7 @@ export default [{
     },
   },
   {
-    key: "preFieldFour", //排尿情况
+    key: "measuresTwo", //睡眠打鼾
     value: "",
     event: keyf1,
     name: "排尿情况",
@@ -154,19 +151,16 @@ export default [{
     }
   },
   {
-    key: "preFieldFive", //阴道流血
+    key: "measuresThree", //低流量吸氧
     value: "",
     event: keyf1,
     name: "阴道流血",
     textarea: {
       width: 50
     },
-    autoComplete: {
-      data: ydlxList
-    },
   },
   {
-    key: "preFieldSix", //健康教育
+    key: "measuresfour", //心电监护
     value: "",
     event: keyf1,
     name: "健康教育",
@@ -175,7 +169,7 @@ export default [{
     }
   },
   {
-    key: "preFieldSeven", //基础护理
+    key: "measuresFive", //咽部伤口渗血
     value: "",
     event: keyf1,
     name: "基础护理",
@@ -184,7 +178,7 @@ export default [{
     },
   },
   {
-    key: "preFieldEight", //标题1
+    key: "measuresFix", //标题1
     value: "",
     event: function (e, td) {
       if (e.keyCode == 32) {
@@ -198,7 +192,7 @@ export default [{
     },
   },
   {
-    key: "preFieldNice", //标题2
+    key: "measuresSeven", //标题2
     value: "",
     event: function (e, td) {
       if (e.keyCode == 32) {
@@ -212,21 +206,7 @@ export default [{
     },
   },
   {
-    key: "preFieldTen", //标题3
-    value: "",
-    event: function (e, td) {
-      if (e.keyCode == 32) {
-        e.target.value += "/";
-        e.preventDefault();
-      }
-      keyf1(e, td);
-    },
-    textarea: {
-      width: 30
-    },
-  },
-  {
-    key: "preFieldEleven", //标题4
+    key: "measuresEight", //标题3
     value: "",
     event: function (e, td) {
       if (e.keyCode == 32) {
@@ -345,32 +325,3 @@ export default [{
     value: true
   }
 ];
-
-export function getListData() {
-  let list = [
-    "江门妇幼:产科护理记录单:宫缩强度",
-    "江门妇幼:产科护理记录单:先露高度",
-    "江门妇幼:产科护理记录单:阴道流血",
-  ];
-
-  multiDictInfo(list).then(res => {
-    let data = res.data.data;
-    setList(gsqdList, list[0], data);
-    setList(xlgdList, list[1], data);
-    setList(ydlxList, list[2], data);
-  });
-}
-
-getListData();
-/**
- *
- * @param {*} list 原数组
- * @param {*} key 对应的key
- * @param {*} data 数据源
- */
-function setList(list, key, data) {
-  list.splice(0, list.length);
-  for (let item of data[key]) {
-    list.push(item.name);
-  }
-}
