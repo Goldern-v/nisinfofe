@@ -2,17 +2,17 @@
   <div class="paper" data-print-class="printing">
     <div class="head">
       <!-- <img class="logo" :src="hospitalLogo" alt="logo"> -->
-      <h1 class="title">{{HOSPITAL_NAME_SPACE}}</h1>
-      <h2 class="sub-title">病 房 工 作 日 报</h2>
+      <h1 class="title">{{ HOSPITAL_NAME_SPACE }}</h1>
+      <h2 class="sub-title">病 房 工 作 日 报1</h2>
       <div class="details">
-        <div class="left">病房：{{deptName}}</div>
-        <div class="right">{{date}}</div>
+        <div class="left">病房：{{ deptName }}</div>
+        <div class="right">{{ date }}</div>
       </div>
     </div>
     <table class="table-wrapper">
       <tr v-if="digits">
         <td>
-          <HeadTable class="table-top" :data="digits"/>
+          <HeadTable class="table-top" :data="digits" />
         </td>
       </tr>
       <tr v-if="digits">
@@ -23,11 +23,11 @@
           <table class="table-bottom" data-print-style="height: 100%;">
             <tr>
               <td>
-                <InTable :data="inList" :index="index"/>
+                <InTable :data="inList" :index="index" />
               </td>
               <td style="width: 10px"></td>
               <td>
-                <OutTable :data="outList" :index="index"/>
+                <OutTable :data="outList" :index="index" />
               </td>
             </tr>
           </table>
@@ -38,7 +38,7 @@
       <div class="sign">
         <span class="title">填表人：</span>
         <span class="content">
-          <span data-print-style="display: none;">{{signName}}</span>
+          <span data-print-style="display: none;">{{ signName }}</span>
           <FallibleImage
             class="sign-img"
             :src="`/crNursing/api/file/signImage/${signNo}?${token}`"
@@ -47,8 +47,10 @@
           />
         </span>
       </div>
-      <div style="clear: both;"></div>
-      <div class="page">{{total === 1 ? '' : `第 ${page + 1} / ${total} 页`}}</div>
+      <div style="clear: both"></div>
+      <div class="page">
+        {{ total === 1 ? "" : `第 ${page + 1} / ${total} 页` }}
+      </div>
     </div>
   </div>
 </template>
@@ -72,7 +74,7 @@ export default {
     outList: Array,
     index: Number,
     page: Number,
-    total: Number
+    total: Number,
   },
   data() {
     return {};
@@ -81,121 +83,143 @@ export default {
     FallibleImage,
     HeadTable,
     InTable,
-    OutTable
-  }
+    OutTable,
+  },
 };
 </script>
 
 <style lang="stylus" scoped>
-  .paper
-    >>>table
-      width 100%
+.paper {
+  >>>table {
+    width: 100%;
 
-      td, th
-        border 1px solid black
-        text-align center
-        vertical-align middle
-        height 30px
-        font-size 13px
-        line-height 24px
+    td, th {
+      border: 1px solid black;
+      text-align: center;
+      vertical-align: middle;
+      height: 30px;
+      font-size: 13px;
+      line-height: 24px;
+    }
 
-      thead
-        background #f4f2f5
+    thead {
+      background: #f4f2f5;
+    }
+  }
 
-    >>>.table-top,
-    >>>.table-bottom
-      td:first-child,
-      th:first-child
-        border-left none
+  >>>.table-top, >>>.table-bottom {
+    td:first-child, th:first-child {
+      border-left: none;
+    }
 
-      td:last-child,
-      th:last-child
-        border-right none
+    td:last-child, th:last-child {
+      border-right: none;
+    }
 
-      tr:first-child > td,
-      tr:first-child > th
-        border-top none
+    tr:first-child > td, tr:first-child > th {
+      border-top: none;
+    }
 
-      tr:last-child > td
-        border-bottom none
+    tr:last-child > td {
+      border-bottom: none;
+    }
+  }
+}
 
-  .paper
-    position relative
-    margin 0 auto 20px
-    padding 12px 20px
-    width 1080px
-    border-radius 2px
-    background #fff
-    box-shadow 0 5px 10px 0 rgba(0, 0, 0, 0.5)
-    box-sizing border-box
+.paper {
+  position: relative;
+  margin: 0 auto 20px;
+  padding: 12px 20px;
+  width: 1080px;
+  border-radius: 2px;
+  background: #fff;
+  box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.5);
+  box-sizing: border-box;
 
-    &.printing
-      margin 0
-      padding 0
-      box-shadow none
+  &.printing {
+    margin: 0;
+    padding: 0;
+    box-shadow: none;
+  }
+}
 
-  .head
-    position: relative
+.head {
+  position: relative;
 
-    .logo
-      position absolute
-      left 0
-      top 0
-      height 44px
+  .logo {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 44px;
+  }
 
-    .title
-      padding-top 15px
-      font-size 22px
-      text-align center
+  .title {
+    padding-top: 15px;
+    font-size: 22px;
+    text-align: center;
+  }
 
-    .sub-title
-      margin-top 10px
-      text-align center
+  .sub-title {
+    margin-top: 10px;
+    text-align: center;
+  }
 
-    .details
-      margin-top 10px
-      font-size 13px
-      overflow hidden
+  .details {
+    margin-top: 10px;
+    font-size: 13px;
+    overflow: hidden;
 
-      .left
-        float left
+    .left {
+      float: left;
+    }
 
-      .right
-        float right
+    .right {
+      float: right;
+    }
+  }
+}
 
-  .table-wrapper
-    margin-top 8px
+.table-wrapper {
+  margin-top: 8px;
+}
 
-  .foot
-    position relative
-    margin-top 15px
+.foot {
+  position: relative;
+  margin-top: 15px;
 
-    .sign
-      float right
-      font-size 13px
+  .sign {
+    float: right;
+    font-size: 13px;
 
-      span
-        display inline-block
+    span {
+      display: inline-block;
+    }
 
-      .title
-        vertical-align middle
+    .title {
+      vertical-align: middle;
+    }
 
-      .content
-        min-width 60px
-        vertical-align middle
+    .content {
+      min-width: 60px;
+      vertical-align: middle;
+    }
 
-      .sign-img
-        display none
-        width 52px
-        vertical-align middle
-        max-height 25px
+    .sign-img {
+      display: none;
+      width: 52px;
+      vertical-align: middle;
+      max-height: 25px;
+    }
+  }
 
-    .page
-      position absolute
-      top 0
-      left 0
-      width 100%
-      text-align center
-      font-size 12px
-      font-family SimSun
+  .page {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 12px;
+    font-family: SimSun;
+  }
+}
 </style>

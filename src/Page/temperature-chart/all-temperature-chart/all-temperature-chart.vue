@@ -302,7 +302,7 @@
           <el-table-column
             prop="bloodPressure"
             label="血压"
-            min-width="100"
+            min-width="80"
             align="center"
           >
             <template slot-scope="scope">
@@ -372,7 +372,7 @@
           <el-table-column
             prop="stoolNum"
             label="大便次数"
-            min-width="80"
+            min-width="60"
             align="center"
           >
             <template slot-scope="scope">
@@ -784,7 +784,7 @@ export default {
           white-space: pre-wrap;
         }
         table {
-          width: 100% !important;
+          width: 95% !important;
         }
         `,
         });

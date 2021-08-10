@@ -7,7 +7,7 @@
       <span>
         科室：
         <div class="bottom-line" style="min-width: 70px">
-          {{ patientInfo.deptName }}
+          {{ patientInfo.realDeptName }}
         </div>
       </span>
       <span>
@@ -61,11 +61,13 @@
       </span> -->
     </div>
     <div class="info-con">
-      <span v-if="
-              sheetInfo.sheetType === 'antenatalwaiting_jm' || 
-              sheetInfo.sheetType === 'breastkenursing_jm' ||
-              sheetInfo.sheetType === 'obstetricnursing_jm'"
-              @click="updateDiagnosis('diagnosis', '入院诊断', patientInfo.diagnosis)"
+      <span
+        v-if="
+          sheetInfo.sheetType === 'antenatalwaiting_jm' ||
+          sheetInfo.sheetType === 'breastkenursing_jm' ||
+          sheetInfo.sheetType === 'obstetricnursing_jm'
+        "
+        @click="updateDiagnosis('diagnosis', '入院诊断', patientInfo.diagnosis)"
       >
         入院诊断：
         <div
@@ -81,14 +83,19 @@
           {{ diagnosis }}
         </div>
       </span>
-      <span v-if="sheetInfo.sheetType === 'postpartumnursing_jm'"
-            @click="updateDelivery('delivery', '分娩方式', patientInfo.delivery)">
+      <span
+        v-if="sheetInfo.sheetType === 'postpartumnursing_jm'"
+        @click="updateDelivery('delivery', '分娩方式', patientInfo.delivery)"
+      >
         分娩方式：
-        <div class="bottom-line" style="min-width: 80px;">
+        <div class="bottom-line" style="min-width: 80px">
           {{ delivery }}
         </div>
       </span>
-      <span v-if="sheetInfo.sheetType === 'postpartumnursing_jm'" class="ml-1000">
+      <span
+        v-if="sheetInfo.sheetType === 'postpartumnursing_jm'"
+        class="ml-1000"
+      >
         分娩日期：
         <div class="bottom-line" style="min-width: 80px">
           {{ patientInfo.admissionDate | toymd }}
@@ -158,7 +165,6 @@ export default {
         this.patientInfo.delivery
       );
     },
-    
   },
   methods: {
     updateDiagnosis(key, label, autoText) {
