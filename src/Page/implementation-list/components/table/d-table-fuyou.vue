@@ -84,9 +84,9 @@
         </template>
       </u-table-column>
 
-      <u-table-column prop="dosage" label="剂量" min-width="50px" align="right">
+      <u-table-column prop="dosage" label="剂量" min-width="55px" align="right">
         <template slot-scope="scope">
-          <span style="position: relative;right: -10px;">{{
+          <span style="position: relative;">{{
             scope.row.dosage
           }}</span>
         </template>
