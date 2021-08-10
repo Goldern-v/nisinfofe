@@ -1,5 +1,5 @@
 <template>
-  <div style="position:relative">
+  <div style="position: relative">
     <div v-if="data1">
       <el-row v-loading="loading" class="form" :style="{ minHeight: height }">
         <div class="title">{{ HOSPITAL_NAME }}</div>
@@ -42,7 +42,7 @@
                 {{ scope.row.result }}
                 <img
                   src="./images/上升@2x.png"
-                  style="margin-left: 10px;top:2px;position: relative"
+                  style="margin-left: 10px; top: 2px; position: relative"
                   width="8"
                   height="14"
                   alt
@@ -50,7 +50,7 @@
                 />
                 <img
                   src="./images/下降@2x.png"
-                  style="margin-left: 10px;top:2px;position: relative"
+                  style="margin-left: 10px; top: 2px; position: relative"
                   width="8"
                   height="14"
                   alt
@@ -76,9 +76,16 @@
         </el-table>
       </el-row>
     </div>
-    <div class="test-list" v-if="HOSPITAL_ID == 'guizhou' && testList.length" :style="{height: height}">
+    <div
+      class="test-list"
+      v-if="HOSPITAL_ID == 'guizhou' && testList.length"
+      :style="{ height: height }"
+    >
       <div class="page" v-for="item in testList" :key="item.expand1">
-        <iframe :src="'http://192.168.8.68:8080/report/pdf'+item.expand1" frameborder="0"></iframe>
+        <iframe
+          :src="'http://192.168.8.68:8080/report/pdf' + item.expand1"
+          frameborder="0"
+        ></iframe>
       </div>
     </div>
     <div v-if="!data1" class="form" :style="{ minHeight: height }">
@@ -153,9 +160,11 @@
 
 .test-list {
   overflow: auto;
+
   .page {
     width: 100%;
     height: 100%;
+
     iframe {
       width: 100%;
       height: 100%;
@@ -204,7 +213,7 @@ export default {
       loading: true,
       dialogVisible: false,
       chartData: {},
-      testList: []
+      testList: [],
     };
   },
   computed: {
@@ -216,7 +225,7 @@ export default {
     },
     height1() {
       return this.wih - 310;
-    }
+    },
   },
   methods: {
     compare(row) {
@@ -248,16 +257,20 @@ export default {
       this.loading = true;
       this.data1 = [];
       this.closeChart();
-      if(this.HOSPITAL_ID == "guizhou"){
+      if (this.HOSPITAL_ID == "guizhou") {
         this.data1 = null;
-        getExamTestUrl(this.$route.query.patientId,this.$route.query.visitId,this.data.testNo).then(res => {
+        getExamTestUrl(
+          this.$route.query.patientId,
+          this.$route.query.visitId,
+          this.data.testNo
+        ).then((res) => {
           this.testList = res.data.data;
           this.loading = false;
-        })
+        });
         return;
       }
       testItems(this.data.testNo)
-        .then(res => {
+        .then((res) => {
           this.data1 = res.data.data;
           this.loading = false;
         })
@@ -265,7 +278,7 @@ export default {
           this.data1 = false;
           this.loading = false;
         });
-    }
+    },
   },
   mounted() {
     window.openChart = () => {
@@ -276,10 +289,10 @@ export default {
     dataForm(value) {
       let result = new Date(value).Format("yyyy-MM-dd");
       return !(result + "").includes("NaN") ? result : value || "没出报告";
-    }
+    },
   },
   components: {
-    lineChart
-  }
+    lineChart,
+  },
 };
 </script>

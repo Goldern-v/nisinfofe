@@ -196,7 +196,7 @@ export default [{
   value: "",
   splice: true,
   textarea: {
-    width: 180
+    width: 150
   },
   style: {
     textAlign: "left",
