@@ -117,7 +117,11 @@
             align="center"
           >
             <template slot-scope="scope">
-              <el-input v-model="scope.row.temperature"></el-input>
+              <!-- <el-input v-model="scope.row.temperature"></el-input> -->
+              <custom-input
+                v-model="scope.row.temperature"
+                colClass="temperature"
+              />
             </template>
           </el-table-column>
           <el-table-column
@@ -127,7 +131,8 @@
             min-width="60"
           >
             <template slot-scope="scope">
-              <el-input v-model="scope.row.pulse"></el-input>
+              <custom-input v-model="scope.row.pulse" colClass="pulse" />
+              <!-- <el-input v-model="scope.row.pulse"></el-input> -->
             </template>
           </el-table-column>
           <el-table-column
@@ -137,7 +142,8 @@
             align="center"
           >
             <template slot-scope="scope">
-              <el-input v-model="scope.row.breath"></el-input>
+              <custom-input v-model="scope.row.breath" colClass="breath" />
+              <!-- <el-input v-model="scope.row.breath"></el-input> -->
             </template>
           </el-table-column>
           <el-table-column
@@ -147,7 +153,11 @@
             align="center"
           >
             <template slot-scope="scope">
-              <el-input v-model="scope.row.bloodPressure"></el-input>
+              <custom-input
+                v-model="scope.row.bloodPressure"
+                colClass="bloodPressure"
+              />
+              <!-- <el-input v-model="scope.row.bloodPressure"></el-input> -->
             </template>
           </el-table-column>
           <el-table-column
@@ -157,7 +167,8 @@
             align="center"
           >
             <template slot-scope="scope">
-              <el-input v-model="scope.row.stoolNum"></el-input>
+              <custom-input v-model="scope.row.stoolNum" colClass="stoolNum" />
+              <!-- <el-input v-model="scope.row.stoolNum"></el-input> -->
             </template>
           </el-table-column>
           <el-table-column
@@ -167,7 +178,11 @@
             align="center"
           >
             <template slot-scope="scope">
-              <el-input v-model="scope.row.heartRate"></el-input>
+              <custom-input
+                v-model="scope.row.heartRate"
+                colClass="heartRate"
+              />
+              <!-- <el-input v-model="scope.row.heartRate"></el-input> -->
             </template>
           </el-table-column>
           <el-table-column
@@ -177,7 +192,11 @@
             align="center"
           >
             <template slot-scope="scope">
-              <el-input v-model="scope.row.fieldThree"></el-input>
+              <custom-input
+                v-model="scope.row.fieldThree"
+                colClass="fieldThree"
+              />
+              <!-- <el-input v-model="scope.row.fieldThree"></el-input> -->
             </template>
           </el-table-column>
           <el-table-column
@@ -187,7 +206,8 @@
             align="center"
           >
             <template slot-scope="scope">
-              <el-input v-model="scope.row.foodSize"></el-input>
+              <custom-input v-model="scope.row.foodSize" colClass="foodSize" />
+              <!-- <el-input v-model="scope.row.foodSize"></el-input> -->
             </template>
           </el-table-column>
           <el-table-column
@@ -197,7 +217,11 @@
             align="center"
           >
             <template slot-scope="scope">
-              <el-input v-model="scope.row.dischargeSize"></el-input>
+              <custom-input
+                v-model="scope.row.dischargeSize"
+                colClass="dischargeSize"
+              />
+              <!-- <el-input v-model="scope.row.dischargeSize"></el-input> -->
             </template>
           </el-table-column>
           <el-table-column
@@ -207,7 +231,11 @@
             align="center"
           >
             <template slot-scope="scope">
-              <el-input v-model="scope.row.curWeight"></el-input>
+              <custom-input
+                v-model="scope.row.curWeight"
+                colClass="curWeight"
+              />
+              <!-- <el-input v-model="scope.row.curWeight"></el-input> -->
             </template>
           </el-table-column>
           <el-table-column
@@ -217,7 +245,8 @@
             align="center"
           >
             <template slot-scope="scope">
-              <el-input v-model="scope.row.height"></el-input>
+              <custom-input v-model="scope.row.height" colClass="height" />
+              <!-- <el-input v-model="scope.row.height"></el-input> -->
             </template>
           </el-table-column>
           <el-table-column
@@ -228,7 +257,11 @@
             align="center"
           >
             <template slot-scope="scope">
-              <el-input v-model="scope.row.painScore"></el-input>
+              <custom-input
+                v-model="scope.row.painScore"
+                colClass="painScore"
+              />
+              <!-- <el-input v-model="scope.row.painScore"></el-input> -->
             </template>
           </el-table-column>
         </el-table>
@@ -561,6 +594,8 @@ import { getPatientsInfo, saveOverAllTemperture } from "../api/api";
 import moment from "moment";
 import print from "printing";
 import formatter from "../print-formatter";
+import CustomInput from "./components/CustomInput.vue";
+
 export default {
   mixins: [common],
   props: {},
@@ -792,7 +827,9 @@ export default {
       this.pageLoadng = false;
     },
   },
-  components: {},
+  components: {
+    CustomInput,
+  },
   watch: {
     deptCode(val) {
       if (val) {
