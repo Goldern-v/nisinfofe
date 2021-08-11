@@ -710,6 +710,7 @@ export default {
       `;
     },
     changeSelectBlock() {
+      console.log(1);
       this.sheetInfo.sheetType = this.sheetInfo.selectBlock.recordCode;
       cleanData();
       this.bus.$emit("refreshSheetPage", true);

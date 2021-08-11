@@ -349,6 +349,7 @@
               </el-popover>
               <span>
                 <el-select
+                  v-if="!$route.path.includes('nursingDocumentation')"
                   v-model="deptValue"
                   filterable
                   placeholder="请选择"

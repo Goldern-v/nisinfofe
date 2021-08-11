@@ -445,14 +445,14 @@
         span {
           margin-left: 10px;
           &:first-of-type {
-            margin-left: 20px;
+            margin-left: 10px;
           }
         }
      }
       >>>.allergy{
         width :80%;
         p{
-          margin-left:20px;
+          margin-left:10px;
         }
         span{
           margin-left:0px;
@@ -462,7 +462,7 @@
      span {
         font-size: 20px;
         line-height: 24px;
-        margin-left: 20px;
+        margin-left: 10px;
      }
     .qr-code {
       position: absolute;
@@ -921,7 +921,7 @@ export default {
             css: `
           .bed-card-warpper {
             box-shadow: none !important;
-            transform: rotate(90deg) translateY(-90%) translateX(-5%);
+            transform: rotate(90deg) translateY(-150%) translateX(18%);
             transform-origin: 0 0;
           }
           .bed-card-vert-con {
@@ -938,6 +938,7 @@ export default {
             css: `
           .bed-card-warpper {
             box-shadow: none !important;
+            transform:translateY(3%) translateX(12%);
           }
           @page {
             margin: 0;
