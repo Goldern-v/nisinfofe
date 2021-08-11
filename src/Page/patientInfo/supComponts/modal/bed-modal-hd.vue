@@ -302,7 +302,11 @@
           <p>{{ query.age }}</p>
           <span>住院号：</span>
           <p>{{ query.patientId }}</p>
-          <svg id="barcode"></svg>
+          <img
+            class="qr-code"
+            :class="{ hasRemark: hasRemark }"
+            :src="qrCode"
+          />
         </div>
       </div>
       <div
@@ -312,15 +316,15 @@
       >
         <div class="bed-card-vert-con">
           <div class="top">
-            <span>{{ query.name }}</span>
-            <span>{{ query.sex }}</span>
-            <span>{{ query.age }}</span>
-            <span>住院号：{{ query.patientId }}</span>
+            <span>科室：{{ query.deptName }}</span>
+            <span style="margin:4px;">床位：{{ query.bedLabel }}</span>
           </div>
           <div>
             <div>
-              <span>科室：{{ query.deptName }}</span>
-              <span style="margin:4px;">床位：{{ query.bedLabel }}</span>
+              <span>{{ query.name }}</span>
+              <span>{{ query.sex }}</span>
+              <span>{{ query.age }}</span>
+              <span>住院号：{{ query.patientId }}</span>
             </div>
             <div>
               <span>入院日期：{{ query.admissionDate | ymdhm }}</span>
@@ -396,10 +400,10 @@
 .bed-card-vertical {
   // display: none;
   .bed-card-vert-con {
-    margin: 20px;
+    // margin: 5px;
     width: 96px;
-    height: 399px;
-    padding: 15px 3px 0 3px !important;
+    height: 360px;
+    padding:5px 3px 0 3px !important;
     box-sizing: border-box;
     position: relative;
     border: 3px solid #000;
@@ -418,7 +422,7 @@
     }
     svg {
       width: 100%;
-      height: 70px !important;
+      // height: 70px !important;
     }
   }
 }
@@ -843,11 +847,15 @@ export default {
         });
       } else if (this.printMode == "v") {
         this.title = "打印床头卡";
-        JsBarcode("#barcode", this.query.patientId, {
+        JsBarcode("#barcode", this.query.patientId + "|" + this.query.visitId, {
+          format:'CODE128 B',
+          displayValue:false,
           lineColor: "#000",
-          width: 4,
-          height: 80,
-          fontSize: 55
+          margin:0,
+          width:3,
+          height: 60,
+          fontSize: 55,
+          textMargin:0
         });
       } else {
         this.title = "编辑床头卡";

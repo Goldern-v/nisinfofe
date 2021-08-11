@@ -89,7 +89,8 @@
             v-if="
               HOSPITAL_ID == 'huadu' ||
                 HOSPITAL_ID == 'zhongshanqi' ||
-                HOSPITAL_ID == 'liaocheng'
+                HOSPITAL_ID == 'liaocheng' ||
+                HOSPITAL_ID == 'beihairenyi'
             "
           >
             腕带打印
@@ -142,6 +143,7 @@
     <bedModalLc ref="bedModalLc"></bedModalLc>
     <bedModalHd ref="bedModalHd"></bedModalHd>
     <bedModalZsq ref="bedModalZsq"></bedModalZsq>
+    <bedModalBh ref="bedModalBh"></bedModalBh>
     <printModal ref="printModal"></printModal>
     <archiveModal
       ref="archiveModal"
@@ -285,6 +287,7 @@ import bedModalWx from "./modal/bed-modal_wx.vue";
 import bedModalLc from "./modal/bed-modal_lc.vue";
 import bedModalHd from "./modal/bed-modal-hd.vue";
 import bedModalZsq from "./modal/bed-modal-zsq.vue";
+import bedModalBh from "./modal/bed-modal-bh.vue";
 import printModal from "./print-modal/print-modal";
 import archiveModal from "./modal/archive-modal";
 import { previewArchive } from "./modal/api/index";
@@ -337,6 +340,8 @@ export default {
         this.$refs.bedModalHd.open(printMode);
       } else if (this.HOSPITAL_ID == "zhongshanqi") {
         this.$refs.bedModalZsq.open(printMode);
+      }else if( this.HOSPITAL_ID == "beihairenyi"){
+        this.$refs.bedModalBh.open(printMode);
       }
     },
     // 住院补登记
@@ -391,7 +396,8 @@ export default {
     archiveModal,
     bedModalHd,
     InpatientRegis,
-    bedModalZsq
+    bedModalZsq,
+    bedModalBh
   }
 };
 </script>

@@ -1,51 +1,51 @@
 <template>
   <div>
     <div v-if="data1">
-      <el-row v-loading="loading" class="form" :style="{height: height}">
-        <div class="title">{{HOSPITAL_NAME}}</div>
-        <div class="name">{{data.examItem}}报告单</div>
+      <el-row v-loading="loading" class="form" :style="{ height: height }">
+        <div class="title">{{ HOSPITAL_NAME }}</div>
+        <div class="name">{{ data.examItem }}报告单</div>
         <table>
           <tr>
             <td class="key">检查号</td>
-            <td class="value">{{data1.examNo}}</td>
+            <td class="value">{{ data1.examNo ? data1.examNo : "" }}</td>
             <td class="key">病人ID</td>
-            <td class="value">{{data.patientId}}</td>
+            <td class="value">{{ data.patientId }}</td>
             <td class="key">住院号</td>
-            <td class="value">{{$route.query.inpNo}}</td>
+            <td class="value">{{ $route.query.inpNo }}</td>
           </tr>
           <tr>
             <td class="key">姓名</td>
-            <td class="value">{{data.name}}</td>
+            <td class="value">{{ data.name }}</td>
             <td class="key">性别</td>
-            <td class="value">{{data.sex}}</td>
+            <td class="value">{{ data.sex }}</td>
             <td class="key">年龄</td>
-            <td class="value">{{$route.query.age}}</td>
+            <td class="value">{{ $route.query.age }}</td>
           </tr>
           <tr>
             <td class="key">科室</td>
-            <td class="value">{{data.deptName}}</td>
+            <td class="value">{{ data.deptName }}</td>
             <td class="key">申请日期</td>
-            <td class="value">{{data.reqDate | dataForm}}</td>
+            <td class="value">{{ data.reqDate | dataForm }}</td>
             <td class="key">申请医生</td>
-            <td class="value">{{data.reqDoctor}}</td>
+            <td class="value">{{ data.reqDoctor }}</td>
           </tr>
           <tr>
             <td class="key">报告日期</td>
-            <td class="value">{{data.reportDate | dataForm}}</td>
+            <td class="value">{{ data.reportDate | dataForm }}</td>
             <td class="key">报告医生</td>
-            <td class="value" colspan="3">{{data.reporter}}</td>
+            <td class="value" colspan="3">{{ data.reporter }}</td>
           </tr>
           <tr>
             <td class="key">临床诊断</td>
-            <td colspan="5">{{$route.query.diagnosis}}</td>
+            <td colspan="5">{{ $route.query.diagnosis }}</td>
           </tr>
           <tr style="height: 112px">
             <td class="key">检查所见</td>
-            <td colspan="5">{{data1.description}}</td>
+            <td colspan="5">{{ data1.description }}</td>
           </tr>
           <tr style="height: 112px">
             <td class="key">印象</td>
-            <td colspan="5">{{data1.impression}}</td>
+            <td colspan="5">{{ data1.impression }}</td>
           </tr>
         </table>
         <div>
@@ -55,12 +55,74 @@
         </div>
       </el-row>
     </div>
-    <div class="exam-list" v-if="HOSPITAL_ID == 'guizhou' && examList.length" :style="{height: height}">
+    <div v-else>
+      <el-row v-loading="loading" class="form" :style="{ height: height }">
+        <div class="title">{{ HOSPITAL_NAME }}</div>
+        <div class="name">{{ data.examItem }}报告单</div>
+        <table>
+          <tr>
+            <td class="key">检查号</td>
+            <td class="value">{{ data.examNo ? data.examNo : "" }}</td>
+            <td class="key">病人ID</td>
+            <td class="value">{{ data.patientId }}</td>
+            <td class="key">住院号</td>
+            <td class="value">{{ $route.query.inpNo }}</td>
+          </tr>
+          <tr>
+            <td class="key">姓名</td>
+            <td class="value">{{ data.name }}</td>
+            <td class="key">性别</td>
+            <td class="value">{{ data.sex }}</td>
+            <td class="key">年龄</td>
+            <td class="value">{{ $route.query.age }}</td>
+          </tr>
+          <tr>
+            <td class="key">科室</td>
+            <td class="value">{{ data.deptName }}</td>
+            <td class="key">申请日期</td>
+            <td class="value">{{ data.reqDate | dataForm }}</td>
+            <td class="key">申请医生</td>
+            <td class="value">{{ data.reqDoctor }}</td>
+          </tr>
+          <tr>
+            <td class="key">报告日期</td>
+            <td class="value">{{ data.reportDate | dataForm }}</td>
+            <td class="key">报告医生</td>
+            <td class="value" colspan="3">{{ data.reporter }}</td>
+          </tr>
+          <tr>
+            <td class="key">临床诊断</td>
+            <td colspan="5">{{ $route.query.diagnosis }}</td>
+          </tr>
+          <tr style="height: 112px">
+            <td class="key">检查所见</td>
+            <td colspan="5">{{ data.description }}</td>
+          </tr>
+          <tr style="height: 112px">
+            <td class="key">印象</td>
+            <td colspan="5">{{ data.impression }}</td>
+          </tr>
+        </table>
+        <div>
+          <!-- <el-button type="text" @click="toShowImg" style="margin-top: 20px" v-show="picNum">
+            点击查看本次检查图像 ({{picNum}}张)
+          </el-button>-->
+        </div>
+      </el-row>
+    </div>
+    <div
+      class="exam-list"
+      v-if="HOSPITAL_ID == 'guizhou' && examList.length"
+      :style="{ height: height }"
+    >
       <div class="page" v-for="item in examList" :key="item.expand1">
-        <iframe :src="'http://192.168.8.68:8080/report/pdf'+item.expand1" frameborder="0"></iframe>
+        <iframe
+          :src="'http://192.168.8.68:8080/report/pdf' + item.expand1"
+          frameborder="0"
+        ></iframe>
       </div>
     </div>
-    <div v-if="!data1" class="form" :style="{height: height}" >
+    <div v-if="!data1" class="form" :style="{ height: height }">
       <div class="null-con">
         <img src="../../../../../common/images/task/nondata.png" alt />
         <p>数据为空</p>
@@ -137,11 +199,14 @@ td {
 
   color: #666;
 }
+
 .exam-list {
   overflow: auto;
+
   .page {
     width: 100%;
     height: 100%;
+
     iframe {
       width: 100%;
       height: 100%;
@@ -161,7 +226,7 @@ export default {
       loading: true,
       showImg: false,
       picNum: 0,
-      examList: []
+      examList: [],
     };
   },
   computed: {
@@ -170,16 +235,17 @@ export default {
     },
     height() {
       return `${this.wih - 150}px`;
-    }
+    },
   },
   filters: {
     dataForm(value) {
       let result = value ? new Date(value).Format("yyyy-MM-dd hh:mm") : "";
       return result;
-    }
+    },
   },
   methods: {
     toShowImg() {
+      console.log(this.data);
       let examNo = this.data.examNo;
       let name = this.data.name;
       window.open(`/crNursing/imageView?examNo=${examNo}&name=${name}`);
@@ -187,22 +253,29 @@ export default {
       // this.$refs.imgModal.open(examNo, name)
     },
     open(data) {
+      console.log(data);
       if (data) {
         this.data = data;
         this.loading = true;
         this.data1 = {};
         this.showImg = false;
-        if(this.HOSPITAL_ID == "guizhou"){
+        if (this.HOSPITAL_ID == "guizhou") {
           this.data1 = null;
-          getExamTestUrl(this.$route.query.patientId,this.$route.query.visitId,this.data.examNo).then(res => {
+          getExamTestUrl(
+            this.$route.query.patientId,
+            this.$route.query.visitId,
+            this.data.examNo
+          ).then((res) => {
             this.examList = res.data.data;
             this.loading = false;
-          })
+          });
           return;
         }
+        console.log(this.data.examNo);
         examResult(this.data.examNo)
-          .then(res => {
+          .then((res) => {
             this.data1 = res.data.data;
+            console.log(this.data1);
             this.loading = false;
             // picNum(this.data.examNo, this.data.name).then(res => {
             //     this.picNum = res.data.data.picNum
@@ -216,10 +289,10 @@ export default {
         this.data1 = false;
         this.loading = false;
       }
-    }
+    },
   },
   components: {
     // imgModal
-  }
+  },
 };
 </script>

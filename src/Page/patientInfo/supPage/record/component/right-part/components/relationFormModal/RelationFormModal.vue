@@ -2,7 +2,7 @@
   <sweet-modal
     ref="modal"
     :modalWidth="1000"
-    :title="title||'关联表单'"
+    :title="title || '关联表单'"
     @close="handleClose"
     id="relation-form-modal-con"
   >
@@ -10,22 +10,36 @@
       <div class="loading-mask" v-show="loading">
         <div class="loading-mask-info">
           <i class="el-icon-loading" v-show="iconVisible"></i>
-          <span>{{loadintText||'载入中...'}}</span>
+          <span>{{ loadintText || "载入中..." }}</span>
           <br />
           <el-button
-            style="margin-top:10px;"
+            style="margin-top: 10px"
             v-show="loadingBtnVisible"
             type="primary"
             @click="handleLoadingBtn"
-          >{{loadingBtnText||'确定'}}</el-button>
+            >{{ loadingBtnText || "确定" }}</el-button
+          >
         </div>
       </div>
-      <iframe src frameborder="0" ref="iframe" class="relation-form-modal-iframe"></iframe>
+      <iframe
+        src
+        frameborder="0"
+        ref="iframe"
+        class="relation-form-modal-iframe"
+      ></iframe>
     </div>
     <div class="sweet-buttons">
       <el-button @click="toClose">取消</el-button>
-      <el-button type="primary" @click="handleSave" :disabled="loading">保存</el-button>
-      <el-button type="primary" @click="handleSign" :disabled="loading" v-show="showSignBtn">签名</el-button>
+      <el-button type="primary" @click="handleSave" :disabled="loading"
+        >保存</el-button
+      >
+      <el-button
+        type="primary"
+        @click="handleSign"
+        :disabled="loading"
+        v-show="showSignBtn"
+        >签名</el-button
+      >
     </div>
   </sweet-modal>
 </template>
@@ -146,7 +160,16 @@ export default {
       }
     },
     handleLoadingBtn() {
-      this.$refs.modal.close();
+      // this.$refs.modal.open();
+      console.log(this.loadintText);
+      if (this.loadingBtnText == "签名成功") {
+        this.$refs.modal.close();
+      } else {
+        this.loading = false;
+        this.loadintText = "";
+        this.showSignBtn = true;
+        this.loadingBtnVisible = false;
+      }
       this.loadingBtnCallback && this.loadingBtnCallback();
     },
   },

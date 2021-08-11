@@ -151,6 +151,10 @@ export default [{
 {
   key: "description", //特殊情况记录
   value: "",
+  splice: true,
+  textarea: {
+    width: 150
+  },
   style: {
     textAlign: "left",
     position: "absolute",

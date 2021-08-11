@@ -117,6 +117,7 @@
         :MEWS="MEWS"
         :isFever="isFever"
         :hasVteDanger="hasVteDanger"
+        :isMultiDrugResistant="isMultiDrugResistant"
       ></footerBar>
     </div>
   </div>
@@ -541,6 +542,13 @@ export default {
           type: "heart",
         });
       }
+      if(this.HOSPITAL_ID == "huadu"){
+          list.push({
+            name: "多重耐药患者",
+            num: this.isMultiDrugResistant.length,
+            type: "state",
+          })
+      }
       return list;
     },
     // 同步床位数据
@@ -549,6 +557,10 @@ export default {
         this.HOSPITAL_ID
       );
     },
+    // 多重耐药患者
+    isMultiDrugResistant(){
+      return this.bedList.filter((item) => item.isMultiDrugResistant);
+    }
   },
   methods: {
     async getDate() {

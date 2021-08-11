@@ -21,10 +21,23 @@ axios.interceptors.request.use((config) => {
     if (config.url.indexOf("identityCheck") > -1 || config.url.indexOf('sysPasswordSet/findList') > -1) {
         config.headers.common["Auth-Token-Nursing"] = token || '';
     }
-    if (config.url.indexOf('login') > -1 || config.url.indexOf('autoLogin') > -1 || config.url.indexOf('logout') > -1 || config.url.indexOf('changePasswordByEmpNo') > -1 || config.url.indexOf('sysPasswordSet/findList') > -1 || config.url.indexOf('identityCheck') > -1) return config
+
+    // 遍历白名单
+    const whiteList = ['login', 'autoLogin', 'ssoLogin', 'logout', 'changePasswordByEmpNo', 'sysPasswordSet/findList', 'identityCheck']
+
+    for (let i = 0; i < whiteList.length; i++) {
+        let whiteUrlPath = whiteList[i]
+        if (config.url.indexOf(whiteUrlPath) > -1)
+            return config
+    }
+
     var user = localStorage['user']
     if (token) {
         config.headers.common['Auth-Token-Nursing'] = token
+        if (config.url == '/crNursing/api/procedure/his') {
+            config.headers['Content-Type'] = 'application/json;charset=UTF-8'
+            return config
+        }
         return config
     } else {
         localStorage.clear();

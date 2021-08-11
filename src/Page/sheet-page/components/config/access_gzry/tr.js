@@ -140,7 +140,7 @@ export default [{
     },
     type: "select",
     editable: true,
-    parentKey: "foodWay"
+    parentKey: "dischargeWay"
   },
   {
     key: "dischargeSize", //量（单位ml）

@@ -138,6 +138,10 @@ const implementationListZhongshanqi = () =>
   import("@/Page/implementation-list/implementation-list-zhongshanqi.vue"); //中山七执行单
 const implementationListWujing = () =>
   import("@/Page/implementation-list/implementation-list-wujing.vue"); //武警执行单
+const implementationListQuzhou = () =>
+  import("@/Page/implementation-list/implementation-list-quzhou.vue"); //曲周执行单
+const implementationListFuyou = () =>
+  import("@/Page/implementation-list/implementation-list-fuyou.vue"); //江门妇幼执行单
 const bottleLabel = () => import("@/Page/bottleLabel/index.vue"); //瓶签打印
 
 const dcList = () => import("@/Page/dc-list/dc-list.vue"); //执行单
@@ -679,6 +683,10 @@ const router = new Router({
               return implementationListZhongshanqi
             case 'wujing':
               return implementationListWujing
+            case 'quzhou':
+            return implementationListQuzhou
+            case 'fuyou':
+            return implementationListFuyou
             default:
               return implementationList
           }

@@ -20,8 +20,14 @@ switch(HOSPITAL_ID){
   case "shannan":
     hospitalExecute = "hisShanNanExecute";
     break;
+  case "fuyou":
+    hospitalExecute = "hisJiangMenFyExecute";
+    break;
+  case "quzhou":
+    hospitalExecute = "hisQuZhouXianExecute";
+    break;
 }
-
+console.log(HOSPITAL_ID,hospitalExecute);
 // 获取执行单
 export function getExecuteWithWardcode(obj) {
   if(HOSPITAL_ID == "zhongshanqi"){
@@ -33,6 +39,11 @@ export function getExecuteWithWardcode(obj) {
     // 新版执行单（武警）
     return axios.post(
       `${apiPath}procedure/webExecute/webGetWardExecute`,
+      obj
+    );
+  }else if(HOSPITAL_ID == "fuyou"){
+    return axios.post(
+      `${apiPath}hisJiangMenFyExecute/getOrdersExecuteWithWardCode`,
       obj
     );
   }
@@ -51,7 +62,11 @@ export function getExecuteWithWardcode(obj) {
 
 // 补录（陵城）
 export function addRecord(obj) {
-  return HOSPITAL_ID == "lingcheng" ? axios.post(`${apiPath}procedure/his`, obj) : axios.post(`${apiPath}${hospitalExecute}/orderExecute`, obj);
+  if (HOSPITAL_ID=="lingcheng"){
+      return axios.post(`${apiPath}procedure/his`, obj)
+  }else{
+    return axios.post(`${apiPath}${hospitalExecute}/orderExecute`, obj);
+  }
 }
 
 // 更新实际执行时间/结束输液时间（陵城）
