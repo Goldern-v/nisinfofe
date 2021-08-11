@@ -340,8 +340,8 @@
           /> -->
           <div>
               <span >住院号：{{ query.patientId }}</span>
-              <span class="bhzd">诊断:{{query.remark}}</span>
-              <span v-if="query.age<18">入院日期：{{ query.admissionDate | ymdhm }}</span>
+              <!-- <span class="bhzd">诊断:{{query.remark}}</span> -->
+              <!-- <span>入院日期：{{ query.admissionDate | ymdhm }}</span> -->
         </div>
         <img
             class="qr-code"
@@ -445,7 +445,7 @@
       border: none;
      .top {
         span {
-          margin-left: 10px;
+          // margin-left: 10px;
           // &:first-of-type {
           //   margin-left: 45px;
           // }

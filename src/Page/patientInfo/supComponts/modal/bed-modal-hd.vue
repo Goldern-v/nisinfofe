@@ -303,7 +303,7 @@
           <span>住院号：</span>
           <p>{{ query.patientId }}</p>
           <img
-            class="qr-code"
+            class="qr-code  wrist-qrcode"
             :class="{ hasRemark: hasRemark }"
             :src="qrCode"
           />
@@ -445,14 +445,14 @@
         span {
           margin-left: 10px;
           &:first-of-type {
-            margin-left: 45px;
+            margin-left: 20px;
           }
         }
      }
       >>>.allergy{
         width :80%;
         p{
-          margin-left:45px;
+          margin-left:20px;
         }
         span{
           margin-left:0px;
@@ -462,7 +462,7 @@
      span {
         font-size: 20px;
         line-height: 24px;
-        margin-left: 45px;
+        margin-left: 20px;
      }
     .qr-code {
       position: absolute;
@@ -711,6 +711,12 @@ label {
     font-size: 17px;
   }
 }
+.wrist-qrcode{
+  width:55px;
+  position:relative;
+  top:-12px;
+  left:13px;
+}
 </style>
 
 <script>
@@ -837,6 +843,21 @@ export default {
       this.init();
       this.$refs.modal.open();
       this.printMode = printMode;
+      let qr_png_value = this.query.patientId + "|" + this.query.visitId;
+      var qr_png = qr.imageSync(qr_png_value, { type: "png" });
+      // var qr_png = qr.imageSync(this.query.patientId, { type: "png" });
+      function arrayBufferToBase64(buffer) {
+        var binary = "";
+        var bytes = new Uint8Array(buffer);
+        var len = bytes.byteLength;
+        for (var i = 0; i < len; i++) {
+          binary += String.fromCharCode(bytes[i]);
+        }
+        return "data:image/png;base64," + window.btoa(binary);
+      }
+      let base64 = arrayBufferToBase64(qr_png);
+      this.qrCode = base64;
+      this.qrCodeNum = this.query.patientId;
       if (this.printMode == "wrist") {
         this.title = "腕带打印";
         JsBarcode("#barcode", this.query.patientId, {
@@ -860,21 +881,6 @@ export default {
       } else {
         this.title = "编辑床头卡";
       }
-      let qr_png_value = this.query.patientId + "|" + this.query.visitId;
-      var qr_png = qr.imageSync(qr_png_value, { type: "png" });
-      // var qr_png = qr.imageSync(this.query.patientId, { type: "png" });
-      function arrayBufferToBase64(buffer) {
-        var binary = "";
-        var bytes = new Uint8Array(buffer);
-        var len = bytes.byteLength;
-        for (var i = 0; i < len; i++) {
-          binary += String.fromCharCode(bytes[i]);
-        }
-        return "data:image/png;base64," + window.btoa(binary);
-      }
-      let base64 = arrayBufferToBase64(qr_png);
-      this.qrCode = base64;
-      this.qrCodeNum = this.query.patientId;
     },
     close() {
       this.$refs.modal.close();
@@ -915,11 +921,10 @@ export default {
             css: `
           .bed-card-warpper {
             box-shadow: none !important;
-            transform: rotate(90deg) translateY(-100%);
+            transform: rotate(90deg) translateY(-90%) translateX(-5%);
             transform-origin: 0 0;
           }
           .bed-card-vert-con {
-            margin: 10px 20px 10px 10px!important;
           }
           @page {
             margin: 0;
