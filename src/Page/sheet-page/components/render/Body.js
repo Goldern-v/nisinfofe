@@ -532,6 +532,11 @@ function switechSheetType(type) {
     schema = require("../config/access_gzry/tr.js").default;
   }
   break;
+  case "vitalsigns_gzry": {
+    // 贵州人医-生命体征监测及观察记录
+    schema = require("../config/vitalsigns_gzry/tr.js").default;
+  }
+  break;
   case "common_hl": {
     // 横沥-护理记录单
     schema = require("../config/common_hl/tr.js").default;
