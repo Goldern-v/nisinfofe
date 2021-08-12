@@ -169,6 +169,8 @@ const bedRecord = () =>
   import("@/Page/bed-record/bed-record.vue"); //转床记录
 const changeMajorRecord = () =>
   import("@/Page/change-major-record/change-major-record.vue"); //转科记录
+const changeMajorRecordHd = () =>
+  import("@/Page/change-major-record-huadu/change-major-record.vue"); //花都转科记录
 const rationalDoseStatistics = () =>
   import("@/Page/rational-dose-statistics/rational-dose-statistics.vue"); //合理用药
 
@@ -684,9 +686,9 @@ const router = new Router({
             case 'wujing':
               return implementationListWujing
             case 'quzhou':
-            return implementationListQuzhou
+              return implementationListQuzhou
             case 'fuyou':
-            return implementationListFuyou
+              return implementationListFuyou
             default:
               return implementationList
           }
@@ -890,6 +892,11 @@ const router = new Router({
       {
         path: "/changeMajorRecord",
         component: changeMajorRecord,
+        name: "转科记录"
+      },
+      {
+        path: "/changeMajorRecordHd",
+        component: changeMajorRecordHd,
         name: "转科记录"
       },
       {

@@ -37,7 +37,6 @@
   width: 100%;
 
   // border: 1px solid red;
-
   .assessmentv2-iframe {
     width: 100%;
     // min-height: 600px;
@@ -47,7 +46,6 @@
   /deep/ .circular {
     // display: none!important;
     // visibility: hidden!important;
-
     &.hidden-loading {
       display: none !important;
       visibility: hidden !important;
@@ -96,12 +94,12 @@ import {
   markListById,
   handlepz,
   delpz,
-  auditpz
+  auditpz,
 } from "@/Page/patientInfo/supPage/record/component/right-part/components/comment/api/index.js";
 import {
   formUrl,
   devFormUrl,
-  devFormUrl_p80
+  devFormUrl_p80,
 } from "@/common/pathConfig/index.js";
 import common from "@/common/mixin/common.mixin.js";
 import qs from "qs";
@@ -127,7 +125,7 @@ export default {
       eventTarget: null,
       marklist: [],
       handleMarklist: [],
-      onlyView: false
+      onlyView: false,
     };
   },
   created() {
@@ -167,8 +165,7 @@ export default {
     //
     try {
       window.app.$refs.iframeLoadingBox.$methods().setLoadingStatus(false);
-    } catch (error) {
-    }
+    } catch (error) {}
     //
     this.$refs["iframeLoadingV2"]["$methods"] = () => {
       return {
@@ -186,39 +183,38 @@ export default {
         disableAllButons: () => {
           this.bus.$emit("disableAllButons");
         },
-        visibleButtons: e => {
+        visibleButtons: (e) => {
           this.bus.$emit("visibleButtons", e);
         },
-        activeButton: e => {
+        activeButton: (e) => {
           this.bus.$emit("activeButton", e);
         },
-        disableButton: e => {
+        disableButton: (e) => {
           this.bus.$emit("disableButton", e);
         },
         closeAssessment: () => {
           this.url = "";
           this.bus.$emit("closeAssessment");
         },
-        openAssessmentBoxWidthVersion: e => {
+        openAssessmentBoxWidthVersion: (e) => {
           this.bus.$emit("openAssessmentBoxWidthVersion", e);
         },
-        openAssessmentBox: e => {
+        openAssessmentBox: (e) => {
           this.bus.$emit("openAssessmentBox", e);
         },
         setLoadingText: this.setLoadingText,
         setLoadingStatus: this.setLoadingStatus,
         setLoadingButton: this.setLoadingButton,
         setloadingSVGHidden: this.setloadingSVGHidden,
-        openSignModal: window.openSignModal
+        openSignModal: window.openSignModal,
       };
     };
     // iframeLoadingV2
     this.$refs["iframeLoadingV2"]["setLoadingText"] = this.setLoadingText;
     this.$refs["iframeLoadingV2"]["setLoadingStatus"] = this.setLoadingStatus;
     this.$refs["iframeLoadingV2"]["setLoadingButton"] = this.setLoadingButton;
-    this.$refs["iframeLoadingV2"][
-      "setloadingSVGHidden"
-      ] = this.setloadingSVGHidden;
+    this.$refs["iframeLoadingV2"]["setloadingSVGHidden"] =
+      this.setloadingSVGHidden;
     this.$root.$refs["iframeLoadingV2"] = this.$refs["iframeLoadingV2"];
   },
   methods: {
@@ -232,11 +228,11 @@ export default {
     },
     // 点击左边栏目录里已经记录好的模版,通过改变iframe URL属性,刷新iframe内容
     openUrl(info) {
-      this.onlyView = info.onlyView
+      this.onlyView = info.onlyView;
       if (info.islink && this.HOSPITAL_ID == "hj") {
         this.pageLoading = false;
         this.url = info.pageUrl;
-        this.info = {...info};
+        this.info = { ...info };
         return;
       }
       try {
@@ -254,7 +250,7 @@ export default {
       let query = this.$route.query;
       // this.info = {}
       this.info.todo = "";
-      this.info = {...this.info, ...info};
+      this.info = { ...this.info, ...info };
       // this.info = Object.assign({}, this.info, info);
       // this.info = Object.assign(this.info, info);
       let url = "";
@@ -294,16 +290,16 @@ export default {
         token: this.token,
         todo: this.info.todo,
         title: this.info.title || "",
-        isPrintPreview: info.isPrintPreview
+        isPrintPreview: info.isPrintPreview,
         // ...this.info
       };
       if (this.onlyView) {
         queryObj = {
-          onlyView: info.onlyView
-        }
+          onlyView: info.onlyView,
+        };
       }
-      if (this.HOSPITAL_NAME === '东莞市厚街医院') {
-        delete queryObj.token
+      if (this.HOSPITAL_NAME === "东莞市厚街医院") {
+        delete queryObj.token;
       }
 
       this.info["pagePrintUrl"] = this.info.pageUrl
@@ -325,7 +321,7 @@ export default {
         } else {
           url = `${formUrl}/${this.info.pageUrl}?${qs.stringify(queryObj)}`;
         }
-        console.log("打开表单", url, {url: url + ""});
+        console.log("打开表单", url, { url: url + "" });
       } else {
         this.showSignSave = this.info.showSignSave || false;
         let formid = this.info.id;
@@ -371,11 +367,16 @@ export default {
       this.wid.onmessage = this.onmessage;
 
       // 医生查看患者详情  或者 预览模式
-      if (this.$route.path.includes("showPatientDetails") || this.$route.path.includes("nursingPreview") || this.onlyView) {
+      if (
+        this.$route.path.includes("showPatientDetails") ||
+        this.$route.path.includes("nursingPreview") ||
+        this.onlyView
+      ) {
         if (wid.document.querySelector(".tool-contain")) {
           wid.document.querySelector(".tool-contain").style = "display:none;";
           if (wid.document.querySelector("#app .form")) {
-            wid.document.querySelector("#app .form").style = "padding-top:20px;";
+            wid.document.querySelector("#app .form").style =
+              "padding-top:20px;";
           }
         }
         if (wid.document.querySelector(".top-bar")) {
@@ -453,8 +454,9 @@ export default {
         if (!this.wid.formInfo) {
           this.setLoadingStatus(true);
           this.setLoadingText(
-            `网络异常,${this.info.name ||
-            this.info.pageUrl.replace(".html", "")},页面无法获取,请尝试刷新`
+            `网络异常,${
+              this.info.name || this.info.pageUrl.replace(".html", "")
+            },页面无法获取,请尝试刷新`
           );
           // this.pageLoadingText = `网络异常,${this.info.name},页面无法获取,请尝试刷新`;
           this.setloadingSVGHidden(true);
@@ -466,7 +468,7 @@ export default {
           });
         }
       } catch (error) {
-        console.error("onload:formInfo:error", {error});
+        console.error("onload:formInfo:error", { error });
         this.setLoadingStatus(true);
         this.setLoadingText(
           `网络异常,${this.info.name},页面无法获取,请尝试刷新.`
@@ -509,7 +511,11 @@ export default {
       }
 
       // 医生查看患者详情  或者 预览模式
-      if (window.location.href.includes("showPatientDetails") || window.location.href.includes("nursingPreview") || this.onlyView) {
+      if (
+        window.location.href.includes("showPatientDetails") ||
+        window.location.href.includes("nursingPreview") ||
+        this.onlyView
+      ) {
         this.$nextTick(() => {
           let css = `#app input,#app label,#app td,#app .sign-con{
               pointer-events: none !important;
@@ -532,11 +538,11 @@ export default {
         let qStr = str;
         // if(!this.wid.formatData || !this.wid.formatData.dataShop){}
         let keys = this.wid.formatData.dataShop.getModel();
-        Object.keys(keys).map(k => {
+        Object.keys(keys).map((k) => {
           qStr = str ? str : '[name="' + k + '"]';
           jQuery(qStr, this.wid.document).off();
           let inputs = this.wid.document.querySelectorAll(qStr);
-          [...inputs].map(el => {
+          [...inputs].map((el) => {
             // this.handleMarklist
             el.style.background = "";
             // el.removeEventListener("mouseover", this.markTip,true);
@@ -566,7 +572,7 @@ export default {
 
         let markList = [...this.handleMarklist, ...this.marklist];
 
-        markList.map(m => {
+        markList.map((m) => {
           if (m.recordId) {
             let qstr = `[name='${m.fieldEn}'][data-id='${m.recordId}']`;
             // let qstr = `[data-id='${m.recordId}'][data-blockid='${m.blockid}'][name='${m.fieldEn}']`;
@@ -579,7 +585,7 @@ export default {
               // input.style.outline = "2px solid #e3c1ff"
               let widMouseover = input.addEventListener(
                 "mouseover",
-                event => {
+                (event) => {
                   if (!event) {
                     return;
                   }
@@ -587,12 +593,12 @@ export default {
                   let id = event.target.getAttribute("data-id");
                   let name = event.target.getAttribute("name");
                   let mid = [...this.handleMarklist, ...this.marklist].find(
-                    r => {
+                    (r) => {
                       return r.recordId == id && r.fieldEn == name;
                     }
                   );
                   console.log("----mid", mid, id, markList, [
-                    ...this.handleMarklist
+                    ...this.handleMarklist,
                   ]);
                   if (
                     (id && mid && mid.recordId) ||
@@ -630,13 +636,13 @@ export default {
       // this.handleMarklist = [];
       this.marklist = [];
       if (this.info.id) {
-        markListById(this.info.id).then(res => {
+        markListById(this.info.id).then((res) => {
           // console.log("批注：", res);
           if (res) {
             let {
               data: {
-                data: {list: list}
-              }
+                data: { list: list },
+              },
             } = res;
             this.marklist = JSON.parse(JSON.stringify(list));
             console.log("批注：", this.marklist);
@@ -652,16 +658,16 @@ export default {
       let curForm = {};
       let unsignForm = [];
       let allSigned = true;
-      let treeData = this.bus.$emit("getTreeRaw", res => {
+      let treeData = this.bus.$emit("getTreeRaw", (res) => {
         console.log("getTreeRaw", res);
         // pageUrl
         if (res) {
-          curForm = res.find(f => {
+          curForm = res.find((f) => {
             return f.pageUrl == this.info.pageUrl;
           });
           //children
           if (curForm && curForm.children) {
-            unsignForm = curForm.children.filter(f => {
+            unsignForm = curForm.children.filter((f) => {
               return f.status == 0;
             });
             if (unsignForm && unsignForm.length) {
@@ -680,9 +686,10 @@ export default {
         this.$message.warning(`不允许打印,请查看提示详情.`);
         this.$notify({
           title: "提示",
-          message: `打印前请检查所有 ${curForm.label ||
-          ""} 都已签名, 仍有 ${unsignForm.length || 0} 张未签名.`,
-          type: "warning"
+          message: `打印前请检查所有 ${curForm.label || ""} 都已签名, 仍有 ${
+            unsignForm.length || 0
+          } 张未签名.`,
+          type: "warning",
         });
         return;
       }
@@ -757,7 +764,7 @@ export default {
         deptName: query.deptName,
         bedLabel: query.bedLabel,
         inpNo: query.inpNo,
-        wardCode: query.wardCode
+        wardCode: query.wardCode,
       };
 
       // 页面数据 接口参数
@@ -766,7 +773,7 @@ export default {
         formCode: this.info["formCode"],
         patientId: query.patientId,
         visitId: query.visitId,
-        listPrint: listPrint
+        listPrint: listPrint,
       };
 
       localStorage["assessment_printPageArgs"] = JSON.stringify(printPageArgs);
@@ -809,7 +816,7 @@ export default {
         wardName: query.wardName,
         admissionDate: query.admissionDate,
         // token: this.token,
-        todo: this.info.todo
+        todo: this.info.todo,
         // title:this.info.title || ''
       };
       let url = "";
@@ -836,7 +843,7 @@ export default {
         let wid = this.$refs.iframeV2.contentWindow;
         if (this.info.nooForm == "1") {
           window.openSignModal((password, empNo) => {
-            wid.signForm(empNo, password).then(res => {
+            wid.signForm(empNo, password).then((res) => {
               this.$message.success("签名成功");
               this.refresh();
               this.bus.$emit("refreshTree");
@@ -844,8 +851,7 @@ export default {
           });
           return;
         }
-      } catch (e) {
-      }
+      } catch (e) {}
       this.info["status"] = "1";
       jQuery("[name$='status']", this.wid.document).val("1");
       this.saveForm();
@@ -856,7 +862,7 @@ export default {
         let wid = this.$refs.iframeV2.contentWindow;
         if (this.info.nooForm == "1") {
           window.openSignModal((password, empNo) => {
-            wid.auditForm(empNo, password).then(res => {
+            wid.auditForm(empNo, password).then((res) => {
               this.$message.success("审核成功");
               this.refresh();
               this.bus.$emit("refreshTree");
@@ -864,8 +870,7 @@ export default {
           });
           return;
         }
-      } catch (e) {
-      }
+      } catch (e) {}
       window.sign = "shenheSign";
       this.info["status"] = "2";
       jQuery("[name$='status']", this.wid.document).val("2");
@@ -884,7 +889,7 @@ export default {
           this.$notify({
             title: "警告",
             message: obj.msg,
-            type: "warning"
+            type: "warning",
           });
         }
       } else {
@@ -900,7 +905,7 @@ export default {
           this.$notify({
             title: "警告",
             message: "评估表分数不能为空",
-            type: "warning"
+            type: "warning",
           });
         }
       }
@@ -910,7 +915,7 @@ export default {
         return this.$notify({
           title: "警告",
           message: "密码不能为空",
-          type: "warning"
+          type: "warning",
         });
       }
       let wid = this.$refs.iframeV2.contentWindow;
@@ -1071,13 +1076,11 @@ export default {
           postData[formCode + "_record_date"] +
           " " +
           postData[formCode + "_record_time"];
-        postData[formCode + "_eval_date"] = moment(evalData).format(
-          "YYYY-MM-DD HH:mm"
-        );
+        postData[formCode + "_eval_date"] =
+          moment(evalData).format("YYYY-MM-DD HH:mm");
         if (postData[formCode + "_eval_date"] === "Invalid date") {
-          postData[formCode + "_eval_date"] = moment().format(
-            "YYYY-MM-DD HH:mm"
-          );
+          postData[formCode + "_eval_date"] =
+            moment().format("YYYY-MM-DD HH:mm");
         }
         // _record_date _record_time
         // }
@@ -1109,8 +1112,7 @@ export default {
         this.$refs.iframeV2.contentWindow.location.reload();
 
         // console.log("innerHTML",this.$refs.iframeV2.contentWindow.document.innerHTML);
-      } catch (e) {
-      }
+      } catch (e) {}
     },
     openScoreChart() {
       let query = this.$route.query;
@@ -1138,8 +1140,7 @@ export default {
         try {
           this.info["status"] = "2";
           jQuery("[name$='status']", this.wid.document).val("2");
-        } catch (e) {
-        }
+        } catch (e) {}
 
         let NurseTitle = JSON.parse(localStorage.user).title;
         if (NurseTitle && NurseTitle === "护士长") {
@@ -1152,7 +1153,7 @@ export default {
         // checkUser
         this.$refs.signModal.open((password, empNo) => {
           console.log("openEditAssessment:", this.$refs, password, empNo);
-          checkUser(empNo, password).then(res => {
+          checkUser(empNo, password).then((res) => {
             // console.log("-----checkUser:", res);
             if (
               res &&
@@ -1164,7 +1165,7 @@ export default {
             } else {
               this.$message({
                 message: "您无修改权限，请联系护士长",
-                center: true
+                center: true,
               });
             }
           });
@@ -1185,9 +1186,9 @@ export default {
         {
           confirmButtonText: "确定",
           cancelButtonText: "取消",
-          type: "warning"
+          type: "warning",
         }
-      ).then(res => {
+      ).then((res) => {
         //
         console.log(res);
       });
@@ -1196,22 +1197,21 @@ export default {
       this.$confirm("此操作将永久删除该评估表", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
-        type: "warning"
-      }).then(res => {
+        type: "warning",
+      }).then((res) => {
         this.$refs.signModal.open((password, empNo) => {
           try {
             if (this.info.nooForm == "1") {
               let wid = this.$refs.iframeV2.contentWindow;
-              wid.delForm(empNo, password).then(res => {
+              wid.delForm(empNo, password).then((res) => {
                 this.$message.success("删除成功");
                 this.bus.$emit("refreshTree");
                 this.bus.$emit("closeAssessment");
               });
               return;
             }
-          } catch (e) {
-          }
-          evalDel(this.info.id, password, empNo).then(res => {
+          } catch (e) {}
+          evalDel(this.info.id, password, empNo).then((res) => {
             this.bus.$emit("refreshTree");
             this.bus.$emit("closeAssessment");
           });
@@ -1228,10 +1228,10 @@ export default {
                 id: item.blockId,
                 password,
                 empNo,
-                list: [{id: item.id}]
+                list: [{ id: item.id }],
               }
             );
-            del(item.formApiCode, data, item.formType).then(res => {
+            del(item.formApiCode, data, item.formType).then((res) => {
               window.messageBox.show("删除记录成功", "success", 5000);
               // console.log(res,rowData)
               for (const key in rowData) {
@@ -1275,7 +1275,7 @@ export default {
       if (isShow) {
         // console.log("spinners", spinners, sinput);
         if (spinners && spinners.length > 0) {
-          spin = spinners.find(res => {
+          spin = spinners.find((res) => {
             let className = "";
             try {
               className = res.parentNode.parentNode.className;
@@ -1331,7 +1331,7 @@ export default {
       if (bool == true) {
         console.log("setloadingSVGHidden", bool, true, svgs);
         if (svgs && svgs.length > 0) {
-          svgs.forEach(svg => {
+          svgs.forEach((svg) => {
             svg.classList.add("hidden-loading"); //.setAttribute("visibility", "hidden");
           });
         }
@@ -1366,7 +1366,7 @@ export default {
         // console.log("spinners:", spinners);
         // console.log("sinput:", sinput);
         if (svgs && svgs.length > 0) {
-          svgs.forEach(svg => {
+          svgs.forEach((svg) => {
             svg.classList.remove("hidden-loading"); //.setAttribute("visibility", "visible");
           });
         }
@@ -1414,9 +1414,9 @@ export default {
           "",
         index: event.target.getAttribute("data-index") || "",
         pageIndex: event.target.getAttribute("data-pageIndex") || "",
-        name: event.target.getAttribute("name") || ""
+        name: event.target.getAttribute("name") || "",
       };
-      let mkid = [...this.marklist].find(r => {
+      let mkid = [...this.marklist].find((r) => {
         return (
           recordObj.id &&
           r.recordId == recordObj.id &&
@@ -1500,7 +1500,7 @@ export default {
       x = Math.min(x, window.innerWidth - 200);
       let style = {
         top: `${y}px`,
-        left: `${x}px`
+        left: `${x}px`,
       };
 
       // let isTableForm = true;
@@ -1513,7 +1513,7 @@ export default {
           disable: !recordObj.formApiCode,
           click: () => {
             let newItem = JSON.parse(JSON.stringify(rowData));
-            Object.keys(newItem).forEach(k => {
+            Object.keys(newItem).forEach((k) => {
               if (k != "parentId") {
                 newItem[k] = "";
               }
@@ -1532,7 +1532,7 @@ export default {
             setTimeout(() => {
               this.onFormLoaded();
             }, 100);
-          }
+          },
         },
         {
           name: "向下插入新行",
@@ -1540,7 +1540,7 @@ export default {
           disable: !recordObj.formApiCode,
           click: () => {
             let newItem = JSON.parse(JSON.stringify(rowData));
-            Object.keys(newItem).forEach(k => {
+            Object.keys(newItem).forEach((k) => {
               if (k != "parentId") {
                 newItem[k] = "";
               }
@@ -1558,7 +1558,7 @@ export default {
             setTimeout(() => {
               this.onFormLoaded();
             }, 100);
-          }
+          },
         },
         {
           name: "删除整行",
@@ -1567,7 +1567,7 @@ export default {
           click: () => {
             this.delRecord(recordObj, rowData);
             console.log("删除整行", rowData);
-          }
+          },
         },
         {
           name: "添加格批注",
@@ -1578,14 +1578,14 @@ export default {
             if (recordObj.id) {
               this.bus.$emit(
                 "openPizhuModalBox",
-                {...rowData, ...recordObj},
+                { ...rowData, ...recordObj },
                 recordObj.name,
                 () => {
                   this.getMarkList(this.onloadMarkList);
                 }
               );
             }
-          }
+          },
         },
         {
           name: "打印区域",
@@ -1596,8 +1596,8 @@ export default {
             console.log("打印区域", event, rowData);
             event.view.print();
             // this.printIframe(event.target.innerHTML);
-          }
-        }
+          },
+        },
         // {
         //   name: "添加行批注",
         //   icon: "pizhu",
@@ -1619,14 +1619,14 @@ export default {
         // }
       ];
       event.preventDefault();
-      window.openContextMenu({style, data});
+      window.openContextMenu({ style, data });
     },
     onClick(event) {
       console.log("onClick", event, {
         clientY: event.clientY,
         clientX: event.clientX,
         innerHeight: window.innerHeight,
-        innerWidth: window.innerWidth
+        innerWidth: window.innerWidth,
       });
       if (this.eventTarget) {
         this.eventTarget.style.outline = "";
@@ -1673,10 +1673,10 @@ export default {
         window.openMarkTip({
           style: {
             left: x,
-            top: y
+            top: y,
           },
           data: obj,
-          td: {markObj: obj, event: event, value: dom.value},
+          td: { markObj: obj, event: event, value: dom.value },
           fun: {
             handlepz,
             delpz,
@@ -1685,7 +1685,7 @@ export default {
               if (td && td.markObj) {
                 console.log("--td--", operation, td);
                 if (td.markObj.status == 1) {
-                  let mobj = [...this.handleMarklist].find(r => {
+                  let mobj = [...this.handleMarklist].find((r) => {
                     return r.id && r.id == td.markObj.id;
                   });
                   if (!mobj) {
@@ -1706,7 +1706,7 @@ export default {
                 //
                 // if (operation == "delete") {
                 try {
-                  this.markList = [...this.markList].filter(r => {
+                  this.markList = [...this.markList].filter((r) => {
                     return (
                       r.recordId != td.markObj.id &&
                       r.fieldEn != td.markObj.fieldEn
@@ -1718,7 +1718,7 @@ export default {
 
                 try {
                   // this.handleMarklist
-                  this.handleMarklist = [...this.handleMarklist].filter(r => {
+                  this.handleMarklist = [...this.handleMarklist].filter((r) => {
                     return (
                       r.recordId != td.markObj.id &&
                       r.fieldEn != td.markObj.fieldEn
@@ -1746,15 +1746,15 @@ export default {
               //     this.onFormLoaded();
               //   }, 100);
               // });
-            }
-          }
+            },
+          },
         });
       }
     },
     closeMarkTip() {
       console.log("closeMarkTip", event);
       window.closeMarkTip();
-    }
+    },
   },
   computed: {
     markListArr() {
@@ -1767,13 +1767,17 @@ export default {
       return this.$store.state.record.fullPageRecord ? 5 : 85;
     },
     iframeHeight() {
-      if (this.$route.path == "/formPage" || this.$route.path.includes('showPatientDetails') || this.$route.path.includes('nursingPreview')) {
+      if (
+        this.$route.path == "/formPage" ||
+        this.$route.path.includes("showPatientDetails") ||
+        this.$route.path.includes("nursingPreview")
+      ) {
         return this.wih - 0 - this.offsetHeight;
       } else {
         return this.wih - 60 - this.offsetHeight;
       }
       // return this.wih - this.offsetHeight;
-    }
+    },
   },
   watch: {
     url() {
@@ -1783,14 +1787,14 @@ export default {
       // this.bus.$emit("closeAssessmentV1");
       // this.iframeHeight = "auto";
       // this.iframeHeight = this.wih - this.offsetHeight; //100;
-    }
+    },
   },
   components: {
     signModal,
     pizhuModal,
     scoreChart,
     messageModal,
-    openFormModal
-  }
+    openFormModal,
+  },
 };
 </script>
