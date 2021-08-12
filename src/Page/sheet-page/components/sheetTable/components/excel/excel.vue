@@ -429,6 +429,7 @@
 <style lang="stylus" src="./style.styl"></style>
 
 <script>
+import dayjs from "dayjs";
 import { nullRow } from "../../../../components/render/Body.js";
 import {
   saveTitle,
@@ -717,8 +718,8 @@ export default {
           return item.key == "status";
         }).value;
         // if (status == 1) return this.$message.warning('该记录已经签名了')
-        let save = () => {
-          this.$refs.signModal.open((password, empNo) => {
+        let cb = (password, empNo,date) => {
+            let recordDate,recordHour,recordYear,recordMonth;
             let trObj = {};
             for (let i = 0; i < trArr.length; i++) {
               trObj[trArr[i].key] = trArr[i].value;
@@ -741,11 +742,30 @@ export default {
               // multiSign: this.HOSPITAL_ID === "huadu" ? true : false,
               signType: this.HOSPITAL_ID === "huadu" ? this.signType : ""
             };
+            // 花都签名根据
+            if(date){
+             if(typeof date !="string")date = dayjs(date).format("YYYY-MM-DD HH:mm")
+             recordDate = date
+             let ymh = date.split(" ")[0]
+             recordHour = date.split(" ")[1]
+             recordYear = ymh.split("-")[0]
+             recordMonth = ymh.split("-")[1]+"-"+ymh.split("-")[2]
+             data.list.map(item=>{
+             item.recordDate = recordDate
+             item.recordHour = recordHour
+             item.recordYear = recordYear
+             item.recordMonth = recordMonth
+             })
+            }
             sign(
               this.patientInfo.patientId,
               this.patientInfo.visitId,
               data
             ).then(res => {
+              if(this.HOSPITAL_ID=="hengli" && date){
+                trArr[0].value = recordMonth
+                trArr[1].value = recordHour
+              }
               let trArrClone = Tr(res.data.data[0]);
               if (
                 trArr.find(item => {
@@ -775,8 +795,19 @@ export default {
               });
               this.bus.$emit("saveSheetPage", true);
             });
-          });
+          }
+        let save
+        if(this.HOSPITAL_ID=="hengli"){
+          save = () => {
+          this.$refs.signModal.open(
+            cb,undefined,true);
         };
+        }else{
+          save = () => {
+          this.$refs.signModal.open(cb);
+        };
+        }
+
         let reverseList = [...decode().list].reverse();
         /** 最后的时间 */
         let lastRecordHour = (
