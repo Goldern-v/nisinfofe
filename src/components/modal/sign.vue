@@ -271,7 +271,6 @@ export default {
         } else {
           return this.callback(this.password, this.username);
         }
-        parent.app.bus.$emit("assessmentRefresh");
       }
     },
     openCaSignModal() {

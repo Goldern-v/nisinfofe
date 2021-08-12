@@ -63,7 +63,7 @@
       <span v-else>
         科室：
         <div class="bottom-line" style="min-width: 100px">
-          {{ patientInfo.deptName }}
+          {{ patientInfo.realDeptName }}
         </div>
       </span>
       <span @click="updateTetxInfo('bedLabel', '床号', patientInfo.bedLabel)">

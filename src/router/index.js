@@ -34,6 +34,7 @@ const login = () => import("@/Page/login/login");
 const templateShow = () => import("@/Page/templateShow/templateShow"); //文书模板展示
 const resetPassword = () => import("@/Page/resetPassword/resetPassword");
 const indexXin = () => import("@/Page/index-xin/Nurse.vue");
+const indexHd = () => import("@/Page/index-xin/Nurse-hd.vue");
 const imageView = () => import("@/Part/imageView/imageView");
 const nursingDocumentation = () =>
   import("../Page/nursing-documentation/nursing-documentation.vue"); // 护理文书
@@ -315,7 +316,14 @@ const router = new Router({
       // },
       {
         path: "/index",
-        component: indexXin
+        component: (() => {
+          switch (HOSPITAL_ID) {
+            case 'huadu':
+              return indexHd
+            default:
+              return indexXin
+          }
+        })()
       },
       {
         path: "/archive",

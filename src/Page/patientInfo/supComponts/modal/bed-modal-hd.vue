@@ -302,7 +302,11 @@
           <p>{{ query.age }}</p>
           <span>住院号：</span>
           <p>{{ query.patientId }}</p>
-          <svg id="barcode"></svg>
+          <img
+            class="qr-code  wrist-qrcode"
+            :class="{ hasRemark: hasRemark }"
+            :src="qrCode"
+          />
         </div>
       </div>
       <div
@@ -312,15 +316,15 @@
       >
         <div class="bed-card-vert-con">
           <div class="top">
-            <span>{{ query.name }}</span>
-            <span>{{ query.sex }}</span>
-            <span>{{ query.age }}</span>
-            <span>住院号：{{ query.patientId }}</span>
+            <span>科室：{{ query.deptName }}</span>
+            <span style="margin:4px;">床位：{{ query.bedLabel }}</span>
           </div>
           <div>
             <div>
-              <span>科室：{{ query.deptName }}</span>
-              <span style="margin:4px;">床位：{{ query.bedLabel }}</span>
+              <span>{{ query.name }}</span>
+              <span>{{ query.sex }}</span>
+              <span>{{ query.age }}</span>
+              <span>住院号：{{ query.patientId }}</span>
             </div>
             <div>
               <span>入院日期：{{ query.admissionDate | ymdhm }}</span>
@@ -396,7 +400,7 @@
 .bed-card-vertical {
   // display: none;
   .bed-card-vert-con {
-    margin: 5px;
+    // margin: 5px;
     width: 96px;
     height: 360px;
     padding:5px 3px 0 3px !important;
@@ -441,14 +445,14 @@
         span {
           margin-left: 10px;
           &:first-of-type {
-            margin-left: 45px;
+            margin-left: 10px;
           }
         }
      }
       >>>.allergy{
         width :80%;
         p{
-          margin-left:45px;
+          margin-left:10px;
         }
         span{
           margin-left:0px;
@@ -458,7 +462,7 @@
      span {
         font-size: 20px;
         line-height: 24px;
-        margin-left: 45px;
+        margin-left: 10px;
      }
     .qr-code {
       position: absolute;
@@ -707,6 +711,12 @@ label {
     font-size: 17px;
   }
 }
+.wrist-qrcode{
+  width:55px;
+  position:relative;
+  top:-12px;
+  left:13px;
+}
 </style>
 
 <script>
@@ -833,28 +843,6 @@ export default {
       this.init();
       this.$refs.modal.open();
       this.printMode = printMode;
-      if (this.printMode == "wrist") {
-        this.title = "腕带打印";
-        JsBarcode("#barcode", this.query.patientId, {
-          lineColor: "#000",
-          width: 4,
-          height: 50,
-          fontSize: 50
-        });
-      } else if (this.printMode == "v") {
-        this.title = "打印床头卡";
-        JsBarcode("#barcode", this.query.patientId + "|" + this.query.visitId, {
-          displayValue:false,
-          lineColor: "#000",
-          margin:0,
-          width:3,
-          height: 60,
-          fontSize: 55,
-          textMargin:0
-        });
-      } else {
-        this.title = "编辑床头卡";
-      }
       let qr_png_value = this.query.patientId + "|" + this.query.visitId;
       var qr_png = qr.imageSync(qr_png_value, { type: "png" });
       // var qr_png = qr.imageSync(this.query.patientId, { type: "png" });
@@ -870,6 +858,29 @@ export default {
       let base64 = arrayBufferToBase64(qr_png);
       this.qrCode = base64;
       this.qrCodeNum = this.query.patientId;
+      if (this.printMode == "wrist") {
+        this.title = "腕带打印";
+        JsBarcode("#barcode", this.query.patientId, {
+          lineColor: "#000",
+          width: 4,
+          height: 50,
+          fontSize: 50
+        });
+      } else if (this.printMode == "v") {
+        this.title = "打印床头卡";
+        JsBarcode("#barcode", this.query.patientId + "|" + this.query.visitId, {
+          format:'CODE128 B',
+          displayValue:false,
+          lineColor: "#000",
+          margin:0,
+          width:3,
+          height: 60,
+          fontSize: 55,
+          textMargin:0
+        });
+      } else {
+        this.title = "编辑床头卡";
+      }
     },
     close() {
       this.$refs.modal.close();
@@ -910,11 +921,10 @@ export default {
             css: `
           .bed-card-warpper {
             box-shadow: none !important;
-            transform: rotate(90deg) translateY(-100%);
+            transform: rotate(90deg) translateY(-120%) translateX(25%);
             transform-origin: 0 0;
           }
           .bed-card-vert-con {
-            margin: 10px 20px 10px 10px!important;
           }
           @page {
             margin: 0;
@@ -928,6 +938,7 @@ export default {
             css: `
           .bed-card-warpper {
             box-shadow: none !important;
+            transform:translateY(3%) translateX(12%);
           }
           @page {
             margin: 0;

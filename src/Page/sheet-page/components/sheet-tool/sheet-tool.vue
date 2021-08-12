@@ -709,7 +709,8 @@ export default {
       )}建 共${length}张
       `;
     },
-    changeSelectBlock() {
+    changeSelectBlock(item) {
+      localStorage.wardCode = item.deptCode
       this.sheetInfo.sheetType = this.sheetInfo.selectBlock.recordCode;
       cleanData();
       this.bus.$emit("refreshSheetPage", true);
