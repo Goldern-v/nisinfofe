@@ -114,7 +114,7 @@ export default {
       this.$refs.modal.close();
     },
     post() {
-      saveOrUpdate(this.groupName, this.title, this.content, this.id).then(
+      saveOrUpdate(this.groupName, this.title, this.content, this.id ,localStorage.wardCode,this.HOSPITAL_ID).then(
         res => {
           if (this.id) {
             this.$message.success("更新常用语模版成功");
@@ -134,7 +134,7 @@ export default {
       );
     },
     getData() {
-      typeList().then(res => {
+      typeList(localStorage.wardCode,this.HOSPITAL_ID).then(res => {
         this.typeList = res.data.data.list.map(item => {
           return {
             value: item

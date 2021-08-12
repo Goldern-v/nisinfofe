@@ -163,7 +163,7 @@ export default {
         return;
       }
       let res;
-      if(HOSPITAL_ID=="huadu"){
+      if(this.HOSPITAL_ID=="huadu"){
        res = await info(row.inpNo, row.visitId);
       }else{
        res = await info(row.patientId, row.visitId);
