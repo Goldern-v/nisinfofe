@@ -980,7 +980,7 @@ export default {
         this.HOSPITAL_ID == "huadu" &&
         tr.find(item => item.key == "status").value === "1"
       ) {
-        return tr.find(item => item.key == "status").value === "1" && this.listData[index] && !this.listData[index].canModify;
+        return tr.find(item => item.key == "status").value === "1" && this.listData && this.listData[index] && !this.listData[index].canModify;
       }
       if (
         this.HOSPITAL_ID != "weixian" ||

@@ -28,6 +28,7 @@
               :scrollY="scrollY"
               :isInPatientDetails="true"
               :bedAndDeptChange="bedAndDeptChange"
+              :listData="listData"
             ></sheetTable>
           </div>
           <div
@@ -322,6 +323,7 @@ export default {
         let titleData = res[0].data.data;
         let bodyData = res[1].data.data;
         let markData = res[2].data.data.list || [];
+        this.listData = bodyData.list;
 
         if (this.HOSPITAL_ID === "huadu") {
           this.bedAndDeptChange = {
