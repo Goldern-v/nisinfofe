@@ -663,6 +663,13 @@ export default function Title(
     );
   }
   break;
+  case "vitalsigns_gzry": {
+    // 贵州人医-生命体征监测及观察记录
+    Th = JSON.parse(
+      JSON.stringify(require("../config/vitalsigns_gzry/th").default)
+    );
+  }
+  break;
   case "common_hl": {
     // 横沥-护理记录单
     Th = JSON.parse(
