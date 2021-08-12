@@ -27,7 +27,7 @@
         align="center"
       ></u-table-column> -->
       <u-table-column
-        prop="BedLabel"
+        prop="bedLabel"
         label="床号"
         min-width="60px"
         align="center"
@@ -37,7 +37,7 @@
           <div>
             {{
               scope.row.rowType == 1 || !scope.row.rowType
-                ? scope.row.BedLabel
+                ? scope.row.bedLabel
                 : ""
             }}
           </div>
@@ -45,7 +45,7 @@
       </u-table-column>
 
       <u-table-column
-        prop="ExecuteDateTime"
+        prop="executeDateTime"
         label="执行时间"
         min-width="70px"
         align="center"
@@ -53,7 +53,7 @@
         <template slot-scope="scope">
           <span>{{
             scope.row.wrapRowType == 1 || !scope.row.wrapRowType
-              ? scope.row.ExecuteDateTime
+              ? scope.row.executeDateTime
               : "" | ymdhm
           }}</span>
         </template>
@@ -61,7 +61,7 @@
 
       <u-table-column
         label="姓名"
-        prop="PatientName"
+        prop="patientName"
         min-width="70px"
         align="center"
       >
@@ -69,52 +69,52 @@
           <div>
             {{
               scope.row.rowType == 1 || !scope.row.rowType
-                ? scope.row.PatientName
+                ? scope.row.patientName
                 : ""
             }}
           </div>
         </template>
       </u-table-column>
 
-      <u-table-column label="医嘱内容" prop="OrderText" min-width="250px">
+      <u-table-column label="医嘱内容" prop="orderText" min-width="250px">
         <template slot-scope="scope">
           <div :class="HOSPITAL_ID == 'liaocheng' && scope.row.wrapRowType && currentRowClass(scope.row)">
-            {{ scope.row.OrderText }}
+            {{ scope.row.orderText }}
           </div>
         </template>
       </u-table-column>
 
-      <u-table-column prop="Dosage" label="剂量" min-width="50px" align="right">
+      <u-table-column prop="dosage" label="剂量" min-width="50px" align="right">
         <template slot-scope="scope">
           <span style="position: relative;right: -10px;">{{
-            scope.row.Dosage
+            scope.row.dosage
           }}</span>
         </template>
       </u-table-column>
 
-      <u-table-column prop="DosageUnits" label="单位" min-width="50px">
+      <u-table-column prop="dosageUnits" label="单位" min-width="50px">
         <template slot-scope="scope">
           <span style="position: relative;left: -10px;">{{
-            scope.row.DosageUnits
+            scope.row.dosageUnits
           }}</span>
         </template>
       </u-table-column>
 
       <u-table-column
         label="频次"
-        prop="Frequency"
+        prop="frequency"
         min-width="50px"
         align="center"
       ></u-table-column>
 
       <u-table-column
-        prop="Administration"
+        prop="administration"
         label="途径"
         min-width="80px"
       ></u-table-column>
 
       <u-table-column
-        prop="ExecuteFlag"
+        prop="executeFlag"
         label="执行状态"
         min-width="90px"
         align="center"
@@ -127,30 +127,30 @@
             }"
             >{{ scope.row.executeFlag | handleStatus }}</span
           >
-          <span v-if="scope.row.Type == 1">(补)</span>
+          <span v-if="scope.row.type == 1">(补)</span>
         </template>
       </u-table-column>
 
       <u-table-column
-        prop="StartNurse"
+        prop="startNurse"
         label="执行人"
         min-width="80px"
         align="center"
       ></u-table-column>
 
       <u-table-column
-        prop="RealExecuteDateTime"
+        prop="realExecuteDateTime"
         label="实际执行时间"
         min-width="150px"
         align="center"
       >
         <template slot-scope="scope">
-          <span>{{ scope.row.RealExecuteDateTime | ymdhm2 }}</span>
+          <span>{{ scope.row.realExecuteDateTime | ymdhm2 }}</span>
         </template>
       </u-table-column>
 
       <u-table-column
-        prop="RepeatIndicator"
+        prop="repeatIndicator"
         label="长/临"
         min-width="70px"
         align="center"
@@ -159,65 +159,65 @@
       <!-- <u-table-column prop="startDateTime" label="开始输液时间" min-width="80px" align="center"></u-table-column> -->
 
       <u-table-column
-        prop="BaiNurse"
+        prop="baiNurse"
         label="摆药人/摆药时间"
         min-width="170px"
         v-if="HOSPITAL_ID == 'liaocheng' && currentType == '输液'"
       >
         <template slot-scope="scope">
-          <span>{{ scope.row.BaiNurse }} {{ scope.row.BaiTime | ymdhm2 }}</span>
+          <span>{{ scope.row.BaiNurse }} {{ scope.row.baiTime | ymdhm2 }}</span>
         </template>
       </u-table-column>
 
       <u-table-column
-        prop="PeiNurse"
+        prop="peiNurse"
         label="配药人/配药时间"
         min-width="170px"
         v-if="HOSPITAL_ID == 'liaocheng' && currentType == '输液'"
       >
         <template slot-scope="scope">
-          <span>{{ scope.row.PeiNurse }} {{ scope.row.PeiTime | ymdhm2 }}</span>
+          <span>{{ scope.row.peiNurse }} {{ scope.row.peiTime | ymdhm2 }}</span>
         </template>
       </u-table-column>
 
       <u-table-column
-        prop="HeNurse"
+        prop="heNurse"
         label="核对人/核对时间"
         min-width="170px"
         v-if="HOSPITAL_ID == 'liaocheng' && currentType == '输液'"
       >
         <template slot-scope="scope">
-          <span>{{ scope.row.HeNurse }} {{ scope.row.HeTime | ymdhm2 }}</span>
+          <span>{{ scope.row.heNurse }} {{ scope.row.heTime | ymdhm2 }}</span>
         </template>
       </u-table-column>
 
       <u-table-column
-        prop="EndDateTime"
+        prop="endDateTime"
         label="结束输液护士/时间"
         min-width="170px"
       >
         <template slot-scope="scope">
           <span
-            >{{ scope.row.EndNurse }} {{ scope.row.endDateTime | ymdhm2 }}</span
+            >{{ scope.row.endNurse }} {{ scope.row.endDateTime | ymdhm2 }}</span
           >
         </template>
       </u-table-column>
 
       <u-table-column
-        prop="StopDateTime"
+        prop="stopDateTime"
         label="暂停输液护士/时间/原因"
         min-width="200px"
       >
         <template slot-scope="scope">
           <span
-            >{{ scope.row.StopNurse }} {{ scope.row.StopDateTime | ymdhm2 }}
-            {{ scope.row.StopReason }}</span
+            >{{ scope.row.stopNurse }} {{ scope.row.stopDateTime | ymdhm2 }}
+            {{ scope.row.stopReason }}</span
           >
         </template>
       </u-table-column>
 
       <u-table-column
-        prop="TypeReason"
+        prop="typeReason"
         label="补执行的原因"
         min-width="200px"
         v-if="HOSPITAL_ID == 'liaocheng'"
@@ -449,7 +449,7 @@ export default {
         }).then(() => {
           let data = {
             strJson: JSON.stringify({
-              LabelId: item.BarCode,
+              LabelId: item.barCode,
               EmpNo: this.empNo,
               Type: "1",
               tradeCode: "OrderExecute"
@@ -467,7 +467,7 @@ export default {
         })
           .then(({ value }) => {
             let data = {
-              barcode: item.BarCode, //条码号
+              barcode: item.barCode, //条码号
               empNO: this.empNo, //执行人
               type: 1, //是否补执行(pda默认传0正常执行  1补执行pc端)
               typeReason: value //补执行的原因填写

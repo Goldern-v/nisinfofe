@@ -39,7 +39,7 @@
       <span>
         科室：
         <div class="bottom-line" style="min-width: 120px">
-          {{ bedAndDeptChange.deptNameChange }}
+          {{ bedAndDeptChange.realDeptName }}
         </div>
       </span>
       <span>

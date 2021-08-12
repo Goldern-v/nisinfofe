@@ -65,7 +65,8 @@ export default {
     isToadyHosipital: Array,
     MEWS: Array,
     isFever: Array,
-    hasVteDanger: Array
+    hasVteDanger: Array,
+    isMultiDrugResistant:Array
   },
   data() {
     return {};
@@ -127,6 +128,14 @@ export default {
           length: this.hasVteDanger.length
         });
       }
+      // if(this.HOSPITAL_ID == "huadu"){
+      //   console.log("多重耐药患者:",this.isMultiDrugResistant);
+      //    arr.push({
+      //     key: "多重耐药患者",
+      //     length: this.isMultiDrugResistant.length
+      //   });
+      // }
+      // console.log(arr);
       return arr;
     }
   },

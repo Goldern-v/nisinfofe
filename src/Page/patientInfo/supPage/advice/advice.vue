@@ -179,13 +179,16 @@ export default {
     },
     tableDataSelect() {
       let data = this.tableData;
+      console.log(data);
       data = data.filter((item) => {
         let selcet1 = item.repeatIndicator === this.btn.toString();
         let select2 =
           item.orderStatusName === this.radio.toString() ||
           this.radio === "全部";
+        // console.log(selcet1);
         return selcet1 && select2;
       });
+      // console.log(data);
       if (
         this.HOSPITAL_ID == "liaocheng" ||
         this.HOSPITAL_ID == "fuyou" ||
@@ -284,7 +287,7 @@ export default {
           );
         });
       } else {
-        this.statusList = ["新开", "提交", "执行", "停止", "作废"];
+        this.statusList = ["新开", "提交", "执行", "停止", "作废", "撤销"];
       }
     },
   },

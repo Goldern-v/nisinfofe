@@ -26,30 +26,43 @@
 </style>
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus">
-.openbar
-  border 0
-  .el-collapse-item
+.openbar {
+  border: 0;
+
+  .el-collapse-item {
     border: 1px solid #CBD5DD;
     border-radius: 2px;
-    margin-bottom  10px
-  .el-collapse-item__header
-    height 37px
-    background: #F7FAFA
-    line-height 37px
-    border-color #EAEEF1
-    color #333333
-    font-size 13px
-    font-weight bold
-  .el-collapse-item__wrap
-    border 0
-  .el-collapse-item__content
-    padding 0
-  .el-table
-    border 0
-  .el-table td, .el-table th
-    height 37px
-    font-size 12px
-    color #333
+    margin-bottom: 10px;
+  }
+
+  .el-collapse-item__header {
+    height: 37px;
+    background: #F7FAFA;
+    line-height: 37px;
+    border-color: #EAEEF1;
+    color: #333333;
+    font-size: 13px;
+    font-weight: bold;
+  }
+
+  .el-collapse-item__wrap {
+    border: 0;
+  }
+
+  .el-collapse-item__content {
+    padding: 0;
+  }
+
+  .el-table {
+    border: 0;
+  }
+
+  .el-table td, .el-table th {
+    height: 37px;
+    font-size: 12px;
+    color: #333;
+  }
+}
 </style>
 
 <script>
@@ -62,13 +75,13 @@ export default {
       tableData1: [],
       tableData2: [],
       tableData3: [],
-      tableData4: []
+      tableData4: [],
     };
   },
   computed: {
     infoData() {
       return this.$route.query;
-    }
+    },
   },
   created() {
     class TableItem {
@@ -76,16 +89,16 @@ export default {
         return {
           data1: {
             key: key1,
-            value: value1
+            value: value1,
           },
           data2: {
             key: key2,
-            value: value2
-          }
+            value: value2,
+          },
         };
       }
     }
-    info(this.infoData.patientId, this.infoData.visitId).then(res => {
+    info(this.infoData.patientId, this.infoData.visitId).then((res) => {
       let re = res.data.data;
       this.tableData1 = [
         new TableItem("姓名", re.name, "性别", re.sex),
@@ -102,15 +115,10 @@ export default {
           re.companyAddress,
           "单位电话",
           re.companyPhone
-        )
+        ),
       ];
       this.tableData2 = [
-        new TableItem(
-          "入院日期",
-          re.admissionWardDateTime,
-          "科室",
-          re.deptName
-        ),
+        new TableItem("入院日期", re.admissionDate, "科室", re.deptName),
         new TableItem(
           "护理单元",
           re.wardName,
@@ -119,25 +127,25 @@ export default {
         ),
         new TableItem("医生", re.doctorInCharge, "诊断", re.diagnosis),
         new TableItem("护理等级", re.nursingClass, "病情", re.patientCondition),
-        new TableItem("费别", re.chargeType)
+        new TableItem("费别", re.chargeType),
       ];
       this.tableData3 = [
-        new TableItem("联系人", re.nextOfKin, "联系人电话", re.contactPhone),
+        new TableItem("联系人", re.contactName, "联系人电话", re.contactPhone),
         new TableItem(
           "联系人地址",
           re.contactAddress,
           "联系人身份证号",
           re.nextOfKinCardNo
-        )
+        ),
       ];
       this.tableData4 = [
         new TableItem("计划生育证", re.planCard, "准生证号", re.zszh),
-        new TableItem("社保号", re.ybzh, "公医证号", re.gyzh)
+        new TableItem("社保号", re.ybzh, "公医证号", re.gyzh),
       ];
     });
   },
   components: {
-    infoTable
-  }
+    infoTable,
+  },
 };
 </script>
