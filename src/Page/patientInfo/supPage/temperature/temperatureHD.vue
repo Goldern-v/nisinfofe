@@ -7,7 +7,13 @@
         <button :disabled="currentPage === 1" @click="currentPage--">
           上一页
         </button>
-        <span class="page">第{{ currentPage }}页/共{{ pageTotal }}页</span>
+        <span class="page"
+          >第<input
+            v-model="toCurrentPage"
+            class="pageInput"
+            @keyup.enter="toPage()"
+          />页/共{{ pageTotal }}页</span
+        >
         <button :disabled="currentPage === pageTotal" @click="currentPage++">
           下一页
         </button>
@@ -47,72 +53,91 @@
     width: 90%;
     height: 100%;
     background: #fff;
-    .hdIframe{
-      transform:scale(0.9);
+
+    .hdIframe {
+      transform: scale(0.9);
       width: 100%;
       height: 100%;
     }
   }
-  .modal-con{
-    /deep/ .isFixed{
-      top:90px !important;
-      .body-con{
-        display :none;
+
+  .modal-con {
+    /deep/ .isFixed {
+      top: 90px !important;
+
+      .body-con {
+        display: none;
       }
     }
-    /deep/ .sweet-modal{
-      left:10% !important;
-      top:10% !important;
-      transform :scale(1) translate(calc(0%), 0) !important;
+
+    /deep/ .sweet-modal {
+      left: 10% !important;
+      top: 10% !important;
+      transform: scale(1) translate(calc(0%), 0) !important;
     }
-    /deep/ .signModal{
-      width:100% !important;
-      .sweet-modal{
+
+    /deep/ .signModal {
+      width: 100% !important;
+
+      .sweet-modal {
         position: absolute;
         left: 34% !important;
         top: 10% !important;
       }
     }
   }
-.fixed-icon {
-  position: fixed;
-  right: 0;
-  top: 140px;
-  background: #ffffff;
-  width: 50px;
-  height: 42px;
-  background: rgba(255, 255, 255, 0.9);
-  box-shadow: -3px 3px 5px 0px rgba(0, 0, 0, 0.05);
-  border-radius: 100px 0px 0px 100px;
-  z-index: 2;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1) 0.1s;
-  &.open {
-    right: 230px;
-  }
-  img {
-    width: 18px;
-    height: 18px;
+
+  .fixed-icon {
+    position: fixed;
+    right: 0;
+    top: 140px;
+    background: #ffffff;
+    width: 50px;
+    height: 42px;
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: -3px 3px 5px 0px rgba(0, 0, 0, 0.05);
+    border-radius: 100px 0px 0px 100px;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1) 0.1s;
+
+    &.open {
+      right: 230px;
+    }
+
+    img {
+      width: 18px;
+      height: 18px;
+    }
   }
 }
+
+.pageInput {
+  width: 30px;
+  border: 0px;
 }
+
 .pagination {
-    display: inline;
-    position: relative;
-    left: 35%;
-    font-weight: normal;
-  }
-  .page {
-    margin: 0 10px;
-  }
-  button {
-    cursor: pointer;
-  }
-  button[disabled=disabled] {
-    cursor: not-allowed;
-  }
+  display: inline;
+  position: relative;
+  left: 35%;
+  font-weight: normal;
+}
+
+.page {
+  margin: 0 10px;
+}
+
+button {
+  cursor: pointer;
+}
+
+button[disabled=disabled] {
+  cursor: not-allowed;
+}
+
 .tool-btn {
   width: 82px;
   height: 32px;
@@ -141,9 +166,9 @@
 
 .print-btn {
   position: relative;
-  left : 5%;
+  left: 5%;
   top: 0;
-  display: inline-flex !important ;
+  display: inline-flex !important;
 }
 </style>
 
@@ -151,14 +176,14 @@
 import nullBg from "../../../../components/null/null-bg";
 import {
   getNurseExchangeInfo,
-  getNurseExchangeInfoByTime
+  getNurseExchangeInfoByTime,
 } from "../../../sheet-page/api/index";
 import moment from "moment";
 import bus from "vue-happy-bus";
 import singleTemperatureChart from "./singleTemperatureChart";
 export default {
   props: {
-    queryTem: Object
+    queryTem: Object,
   },
   data() {
     return {
@@ -168,9 +193,10 @@ export default {
       contentHeight: { height: "" },
       currentPage: 1,
       pageTotal: 1,
+      toCurrentPage: 1,
       open: false,
       isSave: false,
-      visibled: false
+      visibled: false,
     };
   },
   methods: {
@@ -192,6 +218,18 @@ export default {
       setTimeout(() => {
         this.filePath = tempUrl;
       }, 0);
+    },
+    toPage() {
+      if (this.toCurrentPage === "" || this.toCurrentPage <= 0) {
+        this.currentPage = 1;
+        this.toCurrentPage = 1;
+      } else {
+        if (this.toCurrentPage > this.pageTotal) {
+          this.currentPage = this.pageTotal;
+          this.toCurrentPage = this.pageTotal;
+        }
+      }
+      this.currentPage = this.toCurrentPage;
     },
     // typeIn() {
     //   const { patientId, visitId } = this.$route.query;
@@ -231,12 +269,12 @@ export default {
               patientId: this.$route.query.patientId,
               startLogDateTime: e.data.value.startLogDateTime,
               endLogDateTime: e.data.value.endLogDateTime,
-              visitId: this.$route.query.visitId
+              visitId: this.$route.query.visitId,
             };
-            getNurseExchangeInfoByTime(params).then(res => {
+            getNurseExchangeInfoByTime(params).then((res) => {
               const value = {
                 adtLog: res.data.data.adtLog,
-                bedExchangeLog: res.data.data.bedExchangeLog
+                bedExchangeLog: res.data.data.bedExchangeLog,
               };
               this.$refs.pdfCon.contentWindow.postMessage(
                 { type: "nurseExchangeInfo", value },
@@ -268,7 +306,7 @@ export default {
           this.getImg();
         }, 1000);
       }
-    }
+    },
   },
   watch: {
     // date() {
@@ -279,10 +317,10 @@ export default {
         { type: "currentPage", value },
         "http://120.238.239.27:9091/temperature/#/"
       );
-    }
+    },
   },
   mounted() {
-    this.bus.$on("saveSheetPage", data => {
+    this.bus.$on("saveSheetPage", (data) => {
       if (data === "noSaveSign" || data === true) {
         this.isSave = true;
       }
@@ -300,14 +338,14 @@ export default {
   computed: {
     patientInfo() {
       return this.$store.state.sheet.patientInfo;
-    }
+    },
   },
   beforeDestroy() {
     window.removeEventListener("message", this.messageHandle, false);
   },
   components: {
     nullBg,
-    singleTemperatureChart
-  }
+    singleTemperatureChart,
+  },
 };
 </script>
