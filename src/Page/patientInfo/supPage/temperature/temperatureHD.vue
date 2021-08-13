@@ -191,7 +191,7 @@ export default {
       filePath: "",
       contentHeight: { height: "" },
       currentPage: 1,
-      pageTotal: 4,
+      pageTotal: 1,
       toCurrentPage: 1,
       open: false,
       isSave: false,
