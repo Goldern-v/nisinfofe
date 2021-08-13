@@ -311,14 +311,14 @@
         v-show="printMode == 'wrist'"
       >
         <div class="bed-card-vert-con">
-          <div class="top">
-            <span>科室：{{ query.deptName }}</span>
-            <span style="position: relative;left: 170px;">床号：{{ query.bedLabel }}</span>
+          <div class="top" style="position: relative;height:30px">
+            <span style="position: absolute;">科室：{{ query.deptName }}</span>
+            <span style="position: absolute;left: 270px;">床号：{{ query.bedLabel }}</span>
           </div>
-          <div>
-            <span>姓名：{{ query.name }}</span>
-            <span style="margin-left:40px">性别：{{ query.sex }}</span>
-            <span style="position: relative;left: 20px;">年龄：{{ query.age }}</span>
+          <div style="position: relative;height:30px">
+            <span style="position: absolute;">姓名：{{ query.name }}</span>
+            <span style="position: absolute;left: 160px;">性别：{{ query.sex }}</span>
+            <span style="position: absolute;left: 270px;">年龄：{{ query.age }}</span>
 
             <!-- <div>
               <span>入院日期：{{ query.admissionDate | ymdhm }}</span>
@@ -340,9 +340,9 @@
             :src="qrCode"
           /> -->
           <div>
-              <span >住院号：{{ query.patientId }}</span>
+              <span>住院号：{{ query.patientId }}</span>
               <!-- <span class="bhzd">诊断:{{query.remark}}</span> -->
-              <!-- <span>入院日期：{{ query.admissionDate | ymdhm }}</span> -->
+              <span v-show="query.age.includes('天')||query.age.includes('月')||Number(query.age.split('岁')[0])<18">入院日期：{{ query.admissionDate | ymdhm }}</span>
         </div>
         <img
             class="qr-code"
