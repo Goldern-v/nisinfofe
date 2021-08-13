@@ -710,7 +710,9 @@ export default {
       `;
     },
     changeSelectBlock(item) {
-      localStorage.wardCode = item.deptCode
+      if(item) {
+        localStorage.wardCode = item.deptCode
+      }
       this.sheetInfo.sheetType = this.sheetInfo.selectBlock.recordCode;
       cleanData();
       this.bus.$emit("refreshSheetPage", true);
@@ -741,14 +743,14 @@ export default {
       const id = this.sheetInfo.selectBlock.id;
       const { data } = await switchAdditionalBlock(id);
       this.sheetInfo.selectBlock = data.data;
-      this.changeSelectBlock();
+      this.changeSelectBlock(false);
     },
     /* 切换副页 */
     async addDeputyForm() {
       const id = this.sheetInfo.selectBlock.id;
       const { data } = await switchAdditionalBlock(id);
       this.sheetInfo.selectBlock = data.data;
-      this.changeSelectBlock();
+      this.changeSelectBlock(false);
     },
     // 同步护理巡视
     syncVisitWithData(){

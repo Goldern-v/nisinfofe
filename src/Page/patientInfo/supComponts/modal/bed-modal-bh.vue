@@ -312,13 +312,14 @@
       >
         <div class="bed-card-vert-con">
           <div class="top">
-            <span>姓名：{{ query.name }}</span>
-            <span style="margin-left:55px">性别：{{ query.sex }}</span>
-            <span style="margin-left:30px">年龄：{{ query.age }}</span>
+            <span>科室：{{ query.deptName }}</span>
+            <span style="position: relative;left: 170px;">床号：{{ query.bedLabel }}</span>
           </div>
           <div>
-              <span>科室：{{ query.deptName }}</span>
-              <span style="margin-left:5px">床号：{{ query.bedLabel }}</span>
+            <span>姓名：{{ query.name }}</span>
+            <span style="margin-left:40px">性别：{{ query.sex }}</span>
+            <span style="position: relative;left: 20px;">年龄：{{ query.age }}</span>
+
             <!-- <div>
               <span>入院日期：{{ query.admissionDate | ymdhm }}</span>
             </div>
