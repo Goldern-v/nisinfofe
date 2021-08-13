@@ -313,11 +313,11 @@
         <div class="bed-card-vert-con">
           <div class="top">
             <span>科室：{{ query.deptName }}</span>
-            <span style="position: relative;left: 114px;">床号：{{ query.bedLabel }}</span>
+            <span style="position: relative;left: 170px;">床号：{{ query.bedLabel }}</span>
           </div>
           <div>
             <span>姓名：{{ query.name }}</span>
-            <span style="margin-left:55px">性别：{{ query.sex }}</span>
+            <span style="margin-left:40px">性别：{{ query.sex }}</span>
             <span style="position: relative;left: 20px;">年龄：{{ query.age }}</span>
 
             <!-- <div>
