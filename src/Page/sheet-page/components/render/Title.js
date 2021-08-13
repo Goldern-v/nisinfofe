@@ -670,6 +670,13 @@ export default function Title(
     );
   }
   break;
+  case "basicpipeline_gzry": {
+    // 贵州人医-基础护理及管道护理护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/basicpipeline_gzry/th").default)
+    );
+  }
+  break;
   case "common_hl": {
     // 横沥-护理记录单
     Th = JSON.parse(
