@@ -4,17 +4,16 @@
       <div class="print-btn tool-btn" @click="onPrint()">打印</div>
       <!-- <div class="print-btn tool-btn" @click="onToggle()">录入</div> -->
       <div class="pagination">
-        <button :disabled="currentPage === 1" @click="currentPage--">
-          上一页
-        </button>
+        <button :disabled="currentPage === 1" @click="toPre">上一页</button>
         <span class="page"
           >第<input
-            v-model="toCurrentPage"
+            type="number"
+            v-model.number="toCurrentPage"
             class="pageInput"
             @keyup.enter="toPage()"
           />页/共{{ pageTotal }}页</span
         >
-        <button :disabled="currentPage === pageTotal" @click="currentPage++">
+        <button :disabled="currentPage === pageTotal" @click="toNext">
           下一页
         </button>
       </div>
@@ -220,7 +219,12 @@ export default {
       }, 0);
     },
     toPage() {
-      if (this.toCurrentPage === "" || this.toCurrentPage <= 0) {
+      console.log(this.toCurrentPage, typeof this.toCurrentPage);
+      if (
+        this.toCurrentPage === "" ||
+        this.toCurrentPage <= 0 ||
+        typeof this.toCurrentPage != "number"
+      ) {
         this.currentPage = 1;
         this.toCurrentPage = 1;
       } else {
@@ -229,7 +233,18 @@ export default {
           this.toCurrentPage = this.pageTotal;
         }
       }
-      // this.currentPage = this.toCurrentPage;
+
+      this.currentPage = this.toCurrentPage;
+    },
+    toNext() {
+      if (this.currentPage === this.pageTotal) return;
+      this.currentPage++;
+      this.toCurrentPage = this.currentPage;
+    },
+    toPre() {
+      if (this.currentPage === 1) return;
+      this.currentPage--;
+      this.toCurrentPage = this.currentPage;
     },
     // typeIn() {
     //   const { patientId, visitId } = this.$route.query;
@@ -317,9 +332,11 @@ export default {
         { type: "currentPage", value },
         "http://120.238.239.27:9091/temperature/#/"
       );
+      this.toCurrentPage = value;
     },
   },
   mounted() {
+    this.toCurrentPage = this.currentPage;
     this.bus.$on("saveSheetPage", (data) => {
       if (data === "noSaveSign" || data === true) {
         this.isSave = true;
