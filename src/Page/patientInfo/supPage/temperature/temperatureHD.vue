@@ -224,12 +224,12 @@ export default {
         this.currentPage = 1;
         this.toCurrentPage = 1;
       } else {
-        if (this.toCurrentPage > this.pageTotal) {
+        if (this.toCurrentPage >= this.pageTotal) {
           this.currentPage = this.pageTotal;
           this.toCurrentPage = this.pageTotal;
         }
       }
-      this.currentPage = this.toCurrentPage;
+      // this.currentPage = this.toCurrentPage;
     },
     // typeIn() {
     //   const { patientId, visitId } = this.$route.query;
