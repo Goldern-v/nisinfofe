@@ -32,12 +32,18 @@ export function event_date(e, td) {
       td.value = insert_flg(td.value, "-");
     }, 10);
   }
+  if (td.value.length >= 4 && e.keyCode != 8 && e.keyCode != 37 && e.keyCode != 38 && e.keyCode != 39 && e.keyCode != 40) {
+    td.value = td.value.substring(0,4);
+  }
 }
 export function event_time(e, td) {
   if (td.value.length >= "2" && td.value.indexOf(":") == -1 && e.keyCode != 8) {
     setTimeout(() => {
       td.value = insert_flg(td.value, ":");
     }, 10);
+  }
+  if (td.value.length >= 4 && e.keyCode != 8 && e.keyCode != 37 && e.keyCode != 38 && e.keyCode != 39 && e.keyCode != 40) {
+    td.value = td.value.substring(0,4);
   }
 }
 
