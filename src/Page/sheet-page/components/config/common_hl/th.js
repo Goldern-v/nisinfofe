@@ -1,6 +1,6 @@
 export default {
   style: {
-    width: '1150px'
+    width: '1200px'
   },
   // 科室的名称
   deptType: '',
@@ -87,8 +87,8 @@ export default {
         神<br/>志
         `,
       style: {
-        minWidth: '50px',
-        maxWidth: '50px'
+        minWidth: '38px',
+        maxWidth: '38px'
       },
       colspan: '1',
       rowspan: '3'
@@ -206,7 +206,11 @@ export default {
         `,
       style: {},
       colspan: '1',
-      rowspan: '3'
+      rowspan: '3',
+      style: {
+        minWidth: '80px',
+        maxWidth: '80px'
+      },
     },
     ],
     mid: [{
