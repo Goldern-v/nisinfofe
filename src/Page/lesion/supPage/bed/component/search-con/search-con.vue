@@ -788,6 +788,11 @@ export default {
             this.$parent.bedList = this.hasVteDanger;
           }
           break;
+        case "多重耐药患者":
+          {
+            this.$parent.bedList = this.isMultiDrugResistant;
+          }
+          break;
         default: {
           this.$parent.bedList = this.getLevelList(val);
         }

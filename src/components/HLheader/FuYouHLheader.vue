@@ -465,7 +465,7 @@
                     </el-row>
                   </router-link>
                 </el-dropdown-item> -->
-                <el-dropdown-item>
+                <!-- <el-dropdown-item>
                   <el-dropdown
                     class="menuSecond-item"
                     :class="{ 'router-link-active': isActiveStatisticPage }"
@@ -494,7 +494,7 @@
                       </template>
                     </el-dropdown-menu>
                   </el-dropdown>
-                </el-dropdown-item>
+                </el-dropdown-item> -->
               </el-dropdown-menu>
             </el-dropdown>
           </el-row>

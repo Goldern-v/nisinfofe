@@ -158,11 +158,17 @@ export default {
   },
   methods: {
     async openDetail(row) {
+      console.log(row);
       if (row.notViewPatient) {
         this.$message.warning("患者已归档，用户无权查看");
         return;
       }
-      let res = await info(row.patientId, row.visitId);
+      let res;
+      if(this.HOSPITAL_ID=="huadu"){
+       res = await info(row.inpNo, row.visitId);
+      }else{
+       res = await info(row.patientId, row.visitId);
+      }
       for (let index in res.data.data) {
         if (!res.data.data[index]) {
           res.data.data[index] = "";

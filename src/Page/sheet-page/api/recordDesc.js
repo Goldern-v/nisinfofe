@@ -9,8 +9,11 @@ export const listItem = (code, recordCode) => {
 }
 
 //  保存常用短语
-export function saveOrUpdate(groupName, title, content, id) {
+export function saveOrUpdate(groupName, title, content, id ,wardCode,hospitalId) {
  let recordCode = sheetInfo.sheetType
+ if(hospitalId=="huadu"){
+  return axios.post(`${apiPath}record/desc/saveOrUpdate`, {recordCode, groupName, title, content, id, wardCode})
+  }
  return axios.post(`${apiPath}record/desc/saveOrUpdate`, {recordCode, groupName, title, content, id})
 }
 
@@ -24,15 +27,22 @@ return axios.get(`${apiPath}record/desc/get/${id}`)
 }
 
 //  列表
-export function list(groupName) {
+export function list(groupName,wardCode,hospitalId) {
   let recordCode = sheetInfo.sheetType
+  if(hospitalId=="huadu"){
+    return axios.post(`${apiPath}record/desc/list`, {recordCode, groupName,wardCode})
+  }
   return axios.post(`${apiPath}record/desc/list`, {recordCode, groupName})
  }
 
  // 分类列表
-export function typeList() {
+export function typeList(wardCode,hospitalId) {
   let recordCode = sheetInfo.sheetType
-  return axios.get(`${apiPath}record/desc/typeList/${recordCode}`)
+  if(hospitalId=="huadu"){
+    return axios.get(`${apiPath}record/desc/typeList/${recordCode}?wardCode=${wardCode}`)
+  }else{
+    return axios.get(`${apiPath}record/desc/typeList/${recordCode}`)
+  }
  }
 
  // 护士列表

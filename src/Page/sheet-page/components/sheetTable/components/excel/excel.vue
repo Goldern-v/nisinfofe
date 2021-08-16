@@ -99,7 +99,7 @@
               }).value.status
             }`,
           {
-            redTop: HOSPITAL_ID == 'huadu' && getBorderClass(tr)
+            redTop: HOSPITAL_ID == 'huadu' && getBorderClass(y)
           }
         ]"
         :key="y"
@@ -576,7 +576,7 @@ export default {
   },
   methods: {
     /* 花都个别护记的出入量统计：增加红线与上一行做区分 */
-    getBorderClass(tr) {
+    getBorderClass(index) {
       // const redTopSheet_hd = [
       //   "common_hd",
       //   "prenatal_hd",
@@ -590,7 +590,9 @@ export default {
       //   });
       //   return temp === index;
       // }
-      return tr.find(i => i.key === "recordSource").value === "5";
+      const lastTr = index > 0 && this.data.bodyModel[index-1].find(td => td.key === "recordSource").value !== "5";
+      const currentTr = this.data.bodyModel[index].find(td => td.key === "recordSource").value === "5";
+      return lastTr && currentTr;
     },
     // 键盘事件
     onKeyDown(e, bind) {
@@ -978,7 +980,7 @@ export default {
         this.HOSPITAL_ID == "huadu" &&
         tr.find(item => item.key == "status").value === "1"
       ) {
-        return tr.find(item => item.key == "status").value === "1" && this.listData[index] && !this.listData[index].canModify;
+        return tr.find(item => item.key == "status").value === "1" && this.listData && this.listData[index] && !this.listData[index].canModify;
       }
       if (
         this.HOSPITAL_ID != "weixian" ||

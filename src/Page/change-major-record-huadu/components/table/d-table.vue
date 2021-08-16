@@ -15,7 +15,7 @@
         align="center"
       ></el-table-column>
       <el-table-column
-        prop="patientId"
+        prop="inpNo"
         label="患者ID"
         min-width="80"
         align="center"

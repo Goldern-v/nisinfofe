@@ -160,8 +160,8 @@ export default {
         签名
         `,
         style: {
-          minWidth: "40px",
-          maxWidth: "40px"
+          minWidth: "80px",
+          maxWidth: "80px"
         },
         colspan: "1",
         rowspan: "3"

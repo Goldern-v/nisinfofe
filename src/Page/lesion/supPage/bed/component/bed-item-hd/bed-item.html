@@ -1,6 +1,6 @@
 <el-col :xs="8" :sm="6" :md="6" :lg="6" class="w-20 bed-box">
   <!-- <router-link target="_blank" :to="{ path: '/home', query: data}" tag="span" class="nod"> -->
-  <span @click="toInfo(data)" class="nod">
+  <span @click="toInfo(data)" @mousedown="openPrintModel($event)" @contextmenu.prevent.stop="" class="nod">
     <div class="card-box" @click="prevent(data, $event)">
       <div class="like" @click.stop="toLike(data)">
         <img v-if="data.isFollow == '1'" src="../../../../../../common/images/card/like.png" height="18" width="18" />

@@ -380,7 +380,7 @@ export default {
       this.selectedTab = tab;
     },
     getData() {
-      typeList().then(res => {
+      typeList(localStorage.wardCode,this.HOSPITAL_ID).then(res => {
         this.typeList = res.data.data.list;
         this.typeList.push("特殊符号");
         if (this.selectedType == "特殊符号") {
@@ -388,7 +388,7 @@ export default {
         }
 
         if (this.selectedType) {
-          list(this.selectedType).then(res => {
+          list(this.selectedType,localStorage.wardCode,this.HOSPITAL_ID).then(res => {
             this.listMap = res.data.data.list;
           });
         } else {
@@ -415,7 +415,7 @@ export default {
         return;
       }
       if (this.selectedType) {
-        list(this.selectedType).then(res => {
+        list(this.selectedType,localStorage.wardCode,this.HOSPITAL_ID).then(res => {
           this.listMap = res.data.data.list;
         });
       }

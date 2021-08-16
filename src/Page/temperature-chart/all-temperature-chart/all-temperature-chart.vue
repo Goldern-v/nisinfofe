@@ -238,17 +238,17 @@
               <!-- <el-input v-model="scope.row.curWeight"></el-input> -->
             </template>
           </el-table-column>
-          <el-table-column
+          <!-- <el-table-column
             prop="height"
             label="身高"
             min-width="60"
             align="center"
-          >
-            <template slot-scope="scope">
-              <custom-input v-model="scope.row.height" colClass="height" />
-              <!-- <el-input v-model="scope.row.height"></el-input> -->
-            </template>
-          </el-table-column>
+          > -->
+          <!-- <template slot-scope="scope"> -->
+          <!-- <custom-input v-model="scope.row.height" colClass="height" /> -->
+          <!-- <el-input v-model="scope.row.height"></el-input> -->
+          <!-- </template> -->
+          <!-- </el-table-column> -->
           <el-table-column
             v-if="HOSPITAL_ID === 'liaocheng'"
             prop="painScore"
@@ -392,7 +392,7 @@
               <el-input v-model="scope.row.curWeight"></el-input>
             </template>
           </el-table-column>
-          <el-table-column
+          <!-- <el-table-column
             prop="height"
             label="身高"
             min-width="60"
@@ -401,7 +401,7 @@
             <template slot-scope="scope">
               <el-input v-model="scope.row.height"></el-input>
             </template>
-          </el-table-column>
+          </el-table-column> -->
           <el-table-column
             prop="stoolNum"
             label="大便次数"
@@ -775,7 +775,6 @@ export default {
         status: "0",
         temperature: "",
         curWeight: "",
-        height: "",
         recordSource: 2,
         heartRate: "",
         painScore: "",
@@ -789,7 +788,6 @@ export default {
         }
         return obj;
       });
-      console.log(list);
 
       let tempertureData = {
         ...this.query,
