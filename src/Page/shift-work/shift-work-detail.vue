@@ -62,7 +62,7 @@
                 病重：
                 <b>{{record.seriousTotal || 0}}</b>人，
               </span>
-              <span>
+              <span v-if="HOSPITAL_ID != 'xiegang'">
                 手术：
                 <b>{{record.operationTotal || 0}}</b>人
               </span>
