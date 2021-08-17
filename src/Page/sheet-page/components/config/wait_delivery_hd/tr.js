@@ -18,7 +18,7 @@ import info from "../sheetInfo";
 const twList = [];
 const jsList = ["均", "缺损",];
 const ysxzList = [];
-const xlgdList = [];
+const xlgdList = ["-5","-4","-3","-2","-1","0","+1","+2","+3","+4","+5"];
 const txbwList = ["右下腹", "左下腹", "右上腹", "左上腹", "中上腹", "脐中部", "脐上部", "脐下部", ];
 
 export default [{
@@ -315,14 +315,12 @@ export function getListData() {
   let list = [
     "花都:侯产记录单:胎位",
     "花都:侯产记录单:羊水性状",
-    "先露高低",
-
   ];
   multiDictInfo(list).then(res => {
     let data = res.data.data;
     setList(twList, list[0], data);
     setList(ysxzList, list[1], data);
-    setList(xlgdList, list[2], data);
+    // setList(xlgdList, list[2], data);
     // setList(xlgdList, list[3], data);
     // setList(gjgList, list[4], data);
     // setList(ysxzList, list[5], data);
