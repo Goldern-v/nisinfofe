@@ -166,7 +166,7 @@ import bedItem from "./component/bed-item/bed-item.vue";
 import bedItemHd from "./component/bed-item-hd/bed-item.vue";
 import bedItemLcey from "./component/bed-item-lcey/bed-item.vue";
 import searchCon from "./component/search-con/search-con.vue";
-import printHdModal from "./component/prints/modal.vue"
+import printHdModal from "./component/prints/modals.vue"
 import common from "@/common/mixin/common.mixin.js";
 import printsModal from "./component/bed-item-hd/prints-model.vue"
 import printView from "./component/prints/prints-view.vue"
@@ -181,7 +181,8 @@ export default {
       bedList: [],
       loading: false,
       tableData: [],//医嘱提醒id
-      timeId: ""
+      timeId: "",
+      printMode:"h",
     };
   },
   computed: {
@@ -244,10 +245,11 @@ export default {
       this.pmodalShow = false
     },
     surePrints(selectValue){
-      // console.log(selectValue);
-      this.$refs.bedModalHd.open("allPrint",selectValue);
+      console.log(this.$refs.bedModalHd);
+      this.$refs.bedModalHd.open(this.printMode,selectValue);
     },
-    toPrints(){
+    toPrints(printMode){
+      this.printMode = printMode
       this.pBtnShow = false
       this.pmodalShow = true
     },
