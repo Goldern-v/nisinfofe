@@ -22,7 +22,8 @@
             HOSPITAL_ID != 'lingcheng' &&
             HOSPITAL_ID != 'huadu' &&
             HOSPITAL_ID != 'liaocheng' &&
-            HOSPITAL_ID != 'hengli' 
+            HOSPITAL_ID != 'hengli' &&
+            HOSPITAL_ID != 'guizhou' 
           "
         >
           RI剂量
