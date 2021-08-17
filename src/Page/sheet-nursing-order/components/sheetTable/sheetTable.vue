@@ -49,7 +49,7 @@
   // box-shadow: 0px 5px 10px 0 rgba(0, 0, 0, 0.5);
   padding: 20px 20px;
   box-sizing: border-box;
-  width: 700px; // 关键
+  width: 750px; // 关键
   margin: 0 auto 20px;
 
   &.active {

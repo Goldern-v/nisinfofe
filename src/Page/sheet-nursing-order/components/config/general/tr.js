@@ -154,14 +154,13 @@ export default [
   {
     key: "orderContent", //护嘱内容
     value: "",
-    style: {
-      textAlign: "left",
-      // margin: "0px 8px",
-    },
-    // event: keyf1
     autoComplete: {
       data: NOList
     }
+  },
+  {
+    key: "", //频次
+    value: "",
   },
   {
     key: "stopDate", //日期
