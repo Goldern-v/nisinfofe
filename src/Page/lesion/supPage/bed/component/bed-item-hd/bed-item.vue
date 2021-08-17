@@ -1,4 +1,5 @@
-<template src="./bed-item.html"></template>
+<template src="./bed-item.html">
+</template>
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped src="./bed-item.styl"></style>
 
@@ -29,6 +30,12 @@ export default {
     }
   },
   methods: {
+    openPrintModel(event){
+      if(event.which==3 && this.HOSPITAL_ID=="huadu"){
+        this.$emit("itemMouseRight",event)
+        event.preventDefault();
+      }
+    },
     inToday(date) {
       return (
         new Date(date).Format("yyyy-MM-dd") == new Date().Format("yyyy-MM-dd")
@@ -89,6 +96,7 @@ export default {
       );
     }
   },
-  components: {}
+  components: {
+  }
 };
 </script>
