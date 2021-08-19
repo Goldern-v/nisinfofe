@@ -118,6 +118,7 @@
         :isFever="isFever"
         :hasVteDanger="hasVteDanger"
         :isMultiDrugResistant="isMultiDrugResistant"
+        :isDangerInThrombus="isDangerInThrombus"
       ></footerBar>
     </div>
   </div>
@@ -337,7 +338,13 @@ export default {
       return this.bedList.filter((item) => item.patientCondition == "病重");
     },
     gm() {
-      return this.bedList.filter((item) => item.drugGms);
+      let lists = []
+      if(this.HOSPITAL_ID == "beihairenyi"){
+        lists = this.bedList.filter((item) => item.hasAllergy)
+      }else{
+        lists = this.bedList.filter((item) => item.drugGms)
+      }
+      return lists;
     },
     heart() {
       return this.bedList.filter((item) => item.isFollow == "1");
@@ -488,7 +495,7 @@ export default {
           type: "state",
         },
         {
-          name: "过敏",
+          name: this.HOSPITAL_ID == "beihairenyi"?"有过敏史":"过敏",
           num: this.gm.length,
           type: "state",
         },
@@ -560,6 +567,10 @@ export default {
     // 多重耐药患者
     isMultiDrugResistant(){
       return this.bedList.filter((item) => item.isMultiDrugResistant);
+    },
+    // 血栓高危
+    isDangerInThrombus(){
+      return this.bedList.filter((item)=> item.isDangerInThrombus)
     }
   },
   methods: {
@@ -791,6 +802,11 @@ export default {
         case "多重耐药患者":
           {
             this.$parent.bedList = this.isMultiDrugResistant;
+          }
+          break;
+        case "血栓高危":
+          {
+            this.$parent.bedList = this.isDangerInThrombus;
           }
           break;
         default: {

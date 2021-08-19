@@ -66,7 +66,8 @@ export default {
     MEWS: Array,
     isFever: Array,
     hasVteDanger: Array,
-    isMultiDrugResistant:Array
+    isMultiDrugResistant:Array,
+    isDangerInThrombus:Array,
   },
   data() {
     return {};
@@ -83,7 +84,7 @@ export default {
           length: this.dangerInYachuang.length
         },
         {
-          key: "已有压疮",
+          key: this.HOSPITAL_ID=="beihairenyi"?"难免压疮":"已有压疮",
           length: this.hasYachuang.length
         },
         {
@@ -135,7 +136,26 @@ export default {
       //     length: this.isMultiDrugResistant.length
       //   });
       // }
-      // console.log(arr);
+      if(this.HOSPITAL_ID == "beihairenyi"){
+        // console.log("多重耐药患者:",this.isMultiDrugResistant);
+        arr.splice(1,1,
+          {
+          key: "压疮高风险",
+          length: this.dangerInYachuang.length
+          },
+          {
+            key: "血栓高危",
+            length: this.isDangerInThrombus.length
+          }
+        );
+        arr.splice(5,4)
+        arr.push(
+          {key: "今日手术",length: this.isTodayOperation.length},
+          {key: "明日手术",length: this.isTommorowOperation.length},
+          {key: "预出院",value: "",length: this.isTodayDischarg.length},
+          {key: "明日出院",length: this.isTommorowDischarge.length},
+        )
+      }
       return arr;
     }
   },

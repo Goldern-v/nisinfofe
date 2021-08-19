@@ -1050,7 +1050,7 @@ export default {
           // `
           // });
           print(this.$refs.printCon2,(el)=>{
-            el.children[0].style.transform='scale(1.25) translateY(20%) translateX(11%)'
+            el.children[0].style.transform='scaleY(1.1) translateY(11%) translateX(2%)'
           });
         } else {
           print(this.$refs.printCon);
