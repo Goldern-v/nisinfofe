@@ -155,6 +155,7 @@ export default {
       let yt = y + " 07:00";
       let tt = t + " 07:00";
       this.date = [yt, tt];
+      this.putGroupCount();
     },
     close() {
       this.$refs.modal.close();
