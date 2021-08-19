@@ -95,7 +95,7 @@
 
       <el-table-column
         label="频次"
-        prop="freqeuncy"
+        prop="frequency"
         min-width="50px"
         align="center"
       ></el-table-column>
