@@ -213,6 +213,9 @@ import deepPage from "@/Page/deep-page/deep-page.vue";
 // 导管监测单
 import catheterPage from "@/Page/catheter-page/catheter-page.vue";
 
+//患者360视图，目前只有花都在用
+const otherPage = () =>import("@/Page/patientInfo/supPage/otherPage/otherPage.vue"); //360视图
+
 Vue.use(Router);
 const HOSPITAL_ID = process.env.HOSPITAL_ID;
 const router = new Router({
@@ -575,6 +578,10 @@ const router = new Router({
         {
           path: "/home",
           component: home
+        },
+        {
+          path:"/otherPage",
+          component: otherPage
         },
         // {
         //   path: "/home1",
