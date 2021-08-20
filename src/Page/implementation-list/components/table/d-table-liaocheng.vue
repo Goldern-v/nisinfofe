@@ -12,7 +12,7 @@
         children: 'children',
         iconClose: 'el-icon-folder-add',
         iconOpen: 'el-icon-folder-remove',
-        expandAll: false
+        expandAll: false,
       }"
       use-virtual
       row-id="id"
@@ -66,7 +66,7 @@
           <div
             v-for="(item, index) in scope.row.child"
             :key="index"
-            style="position: relative;right: -10px;"
+            style="position: relative; right: -10px"
           >
             {{ item.dosage }}
           </div>
@@ -78,7 +78,7 @@
           <div
             v-for="(item, index) in scope.row.child"
             :key="index"
-            style="position: relative;left: -10px;"
+            style="position: relative; left: -10px"
           >
             {{ item.dosageUnits }}
           </div>
@@ -126,7 +126,7 @@
               {{ item.administration }}
             </div>
           </div>
-          <div style="text-align: left;" v-else>
+          <div style="text-align: left" v-else>
             <div>摆药人：{{ scope.row.baiNurse }}</div>
             <div v-if="scope.row.baiTime">{{ scope.row.baiTime | ymd }}</div>
             <div v-if="scope.row.baiTime">{{ scope.row.baiTime | hms }}</div>
@@ -146,14 +146,14 @@
               <span
                 :class="{
                   yzx: item.executeFlag == 4,
-                  zxz: item.executeFlag == 1 || item.executeFlag == 3
+                  zxz: item.executeFlag == 1 || item.executeFlag == 3,
                 }"
                 >{{ item.executeFlag | handleStatus }}</span
               >
               <span v-if="item.type == 1">(补)</span>
             </div>
           </div>
-          <div style="text-align: left;" v-else>
+          <div style="text-align: left" v-else>
             <div>配药人：{{ scope.row.peiNurse }}</div>
             <div v-if="scope.row.peiTime">{{ scope.row.peiTime | ymd }}</div>
             <div v-if="scope.row.peiTime">{{ scope.row.peiTime | hms }}</div>
@@ -173,7 +173,7 @@
               {{ item.startNurse }}
             </div>
           </div>
-          <div style="text-align: left;" v-else>
+          <div style="text-align: left" v-else>
             <div>核对人：{{ scope.row.heNurse }}</div>
             <div v-if="scope.row.heTime">{{ scope.row.heTime | ymd }}</div>
             <div v-if="scope.row.heTime">{{ scope.row.heTime | hms }}</div>
@@ -297,8 +297,8 @@
             @click="editTime(scope.row)"
             v-if="
               isEdit &&
-                ((HOSPITAL_ID == 'lingcheng' && scope.row.executeFlag > 0) ||
-                  scope.row.executeFlag == 4)
+              ((HOSPITAL_ID == 'lingcheng' && scope.row.executeFlag > 0) ||
+                scope.row.executeFlag == 4)
             "
             >修改</el-button
           >
@@ -345,6 +345,7 @@
       .zxz {
         color: blue;
       }
+
       div {
         min-height: 24px;
       }
@@ -443,7 +444,7 @@ export default {
     tableData: Array,
     pageLoadng: Boolean,
     tableH: Number,
-    currentType: String
+    currentType: String,
   },
   mixins: [commonMixin],
   data() {
@@ -451,7 +452,7 @@ export default {
       msg: "hello vue",
       bus: bus(this),
       isEdit: false,
-      typeReason: "" //补执行的原因填写
+      typeReason: "", //补执行的原因填写
     };
   },
   filters: {
@@ -471,37 +472,37 @@ export default {
       let allStatus = [
         {
           id: "",
-          name: "全部"
+          name: "全部",
         },
         {
           id: 0,
-          name: "未执行"
+          name: "未执行",
         },
         {
           id: 1,
-          name: "开始输液"
+          name: "开始输液",
         },
         {
           id: 2,
-          name: "暂停输液"
+          name: "暂停输液",
         },
         {
           id: 3,
-          name: "继续输液"
+          name: "继续输液",
         },
         {
           id: 4,
-          name: "已完成"
-        }
+          name: "已完成",
+        },
       ];
       let status = parseInt(val);
       return typeof status == "number"
         ? allStatus[status + 1] && allStatus[status + 1].name
         : val;
-    }
+    },
   },
   components: {
-    editModal
+    editModal,
   },
   methods: {
     // 补录
@@ -510,17 +511,17 @@ export default {
         this.$confirm("是否补录?", "提示", {
           confirmButtonText: "确定",
           cancelButtonText: "取消",
-          type: "info"
+          type: "info",
         }).then(() => {
           let data = {
             strJson: JSON.stringify({
               LabelId: item.barCode,
               EmpNo: this.empNo,
               Type: "1",
-              tradeCode: "OrderExecute"
-            })
+              tradeCode: "OrderExecute",
+            }),
           };
-          addRecord(data).then(res => {
+          addRecord(data).then((res) => {
             this.$message.success("补录成功");
             this.bus.$emit("loadImplementationList");
           });
@@ -528,16 +529,16 @@ export default {
       } else {
         this.$prompt("请输入补执行的原因", "提示", {
           confirmButtonText: "确定",
-          cancelButtonText: "取消"
+          cancelButtonText: "取消",
         })
           .then(({ value }) => {
             let data = {
               barcode: item.barCode, //条码号
               empNO: this.empNo, //执行人
               type: 1, //是否补执行(pda默认传0正常执行  1补执行pc端)
-              typeReason: value //补执行的原因填写
+              typeReason: value, //补执行的原因填写
             };
-            addRecord(data).then(res => {
+            addRecord(data).then((res) => {
               this.$message.success("补录成功");
               this.bus.$emit("loadImplementationList");
             });
@@ -569,7 +570,7 @@ export default {
       ) {
         return `wrapRowType-${row.wrapRowType}`;
       }
-    }
+    },
   },
   mounted() {
     this.isEdit =
@@ -577,6 +578,6 @@ export default {
       JSON.parse(localStorage.user).post == "护长"
         ? true
         : false;
-  }
+  },
 };
 </script>

@@ -19,10 +19,19 @@ export default {
         rowspan: "2"
       },
       {
-        name: `护嘱内容/频次`,
+        name: `护嘱内容`,
         style: {
-          minWidth: "260px",
-          maxWidth: "260px",
+          minWidth: "220px",
+          maxWidth: "220px",
+        },
+        colspan: "1",
+        rowspan: "2"
+      },
+      {
+        name: `频次`,
+        style: {
+          minWidth: "100px",
+          maxWidth: "100px",
         },
         colspan: "1",
         rowspan: "2"

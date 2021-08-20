@@ -292,17 +292,97 @@
         v-show="printMode == 'v'"
       >
         <div class="bed-card-vert-con">
-          <span>床号：</span>
-          <p>{{ query.bedLabel + "床" }}</p>
-          <span>姓名：</span>
-          <p>{{ query.name }}</p>
-          <span>性别：</span>
-          <p>{{ query.sex }}</p>
-          <span>年龄：</span>
-          <p>{{ query.age }}</p>
-          <span>住院号：</span>
-          <p>{{ query.patientId }}</p>
-          <svg id="barcode"></svg>
+          <div
+              flex="cross:center"
+              class="input-item"
+              style="height: 43px"
+            >
+              <span class="label">姓名:</span>
+              <!-- <span :style="`width: ${hasRemark ? 85 : 100}px`"></span> -->
+              <input
+                type="text"
+                nowidth
+                style="font-size: 32px;"
+                flex-box="3"
+                disabled
+                class="bottom-line"
+                :value="query.name"
+              />
+              <span class="label">性别:</span>
+              <!-- <span :style="`width: ${hasRemark ? 85 : 100}px`"></span> -->
+              <input
+                type="text"
+                nowidth
+                style="font-size: 32px;"
+                flex-box="1"
+                disabled
+                class="bottom-line"
+                :value="query.sex"
+              />
+              <span class="label">年龄:</span>
+              <!-- <span :style="`width: ${hasRemark ? 85 : 100}px`"></span> -->
+              <input
+                type="text"
+                nowidth
+                style="font-size: 32px;text-align:center;"
+                flex-box="2"
+                disabled
+                class="bottom-line"
+                :value="query.age"
+              />
+          </div>
+          <div flex="cross:center" class="input-item">
+              <span class="label">床号:</span>
+              <!-- <span :style="`width: ${hasRemark ? 85 : 100}px`"></span> -->
+              <input
+                type="text"
+                style="width: 75px;font-size: 30px;"
+                flex-box="1"
+                disabled
+                class="bottom-line"
+                :value="query.bedLabel + '床'"
+              />
+              <span class="label">入院日期:</span>
+              <input
+                type="text"
+                flex-box="4"
+                disabled
+                style="width: 0px;font-size: 30px; padding-left: 2px;"
+                nowidth
+                class="bottom-line"
+                :value="moment(query.admissionDate).format('YYYY-MM-DD')"
+              />
+          </div>
+          <div flex="cross:center" class="input-item">
+              <span class="label">主管医生:</span>
+              <input
+                type="text"
+                style="font-size: 26px;width:150px;"
+                class="bottom-line"
+                v-model="formData.mainDoctors"
+              />
+          </div>
+          <div flex="cross:center" class="input-item">
+              <span class="label">责任护士:</span>
+              <!-- <el-autocomplete v-model="formData.dutyNurses"
+                               :fetch-suggestions="querySearchAsyncNur"
+                               class="auto-input"
+                               flex-box="1"
+                               disabled
+              ></el-autocomplete>-->
+              <input
+                type="text"
+                class="bottom-line"
+                style="font-size: 26px;width:150px;"
+                v-model="formData.dutyNurses"
+              />
+          </div>
+          <!-- <svg id="barcode"></svg> -->
+          <img
+            class="qr-code"
+            :class="{ hasRemark: hasRemark }"
+            :src="qrCode"
+          />
         </div>
       </div>
       <div
@@ -404,29 +484,41 @@
   // display: none;
   .bed-card-vert-con {
     margin: 5px;
-    width: 96px;
-    height: 360px;
+    width: 500px;
+    height: 250px;
     padding:5px 3px 0 3px !important;
     box-sizing: border-box;
     position: relative;
     border: 3px solid #000;
     text-align: left;
-    span {
-      font-size: 16px;
-      line-height: 24px;
+    .input-item{
+      margin-bottom:20px;
     }
-    p {
-      font-size: 20px;
-      line-height: 28px;
-      padding-bottom: 10px;
-      &:last-of-type {
-        padding-bottom: 5px;
-      }
+    .qr-code {
+      position: absolute;
+      right:10%;
+      top: 75%;
+      margin-top: -56px;
+      height: 112px;
+      width: 112px;
     }
-    svg {
-      width: 100%;
-      // height: 70px !important;
-    }
+  //   span {
+  //     font-size: 16px;
+  //     line-height: 24px;
+  //   }
+  //   p {
+  //     font-size: 20px;
+  //     line-height: 28px;
+  //     padding-bottom: 10px;
+  //     &:last-of-type {
+  //       padding-bottom: 5px;
+  //     }
+  //   }
+  //   svg {
+  //     width: 100%;
+  //     // height: 70px !important;
+  //   }
+  // }
   }
 }
 
@@ -850,27 +942,26 @@ export default {
     },
     open(printMode = "h") {
       this.init();
-      this.$refs.modal.open();
       this.printMode = printMode;
       if (this.printMode == "wrist") {
         this.title = "腕带打印";
-        JsBarcode("#barcode", this.query.patientId, {
-          lineColor: "#000",
-          width: 4,
-          height: 50,
-          fontSize: 50
-        });
+        // JsBarcode("#barcode", this.query.patientId, {
+        //   lineColor: "#000",
+        //   width: 4,
+        //   height: 50,
+        //   fontSize: 50
+        // });
       } else if (this.printMode == "v") {
         this.title = "打印床头卡";
-        JsBarcode("#barcode", this.query.patientId + "|" + this.query.visitId, {
-          displayValue:false,
-          lineColor: "#000",
-          margin:0,
-          width:3,
-          height: 60,
-          fontSize: 55,
-          textMargin:0
-        });
+        // JsBarcode("#barcode", this.query.patientId + "|" + this.query.visitId, {
+        //   displayValue:false,
+        //   lineColor: "#000",
+        //   margin:0,
+        //   width:3,
+        //   height: 60,
+        //   fontSize: 55,
+        //   textMargin:0
+        // });
       } else {
         this.title = "编辑床头卡";
       }
@@ -889,6 +980,7 @@ export default {
       let base64 = arrayBufferToBase64(qr_png);
       this.qrCode = base64;
       this.qrCodeNum = this.query.patientId;
+      this.$refs.modal.open();
     },
     close() {
       this.$refs.modal.close();
@@ -941,17 +1033,24 @@ export default {
           `
           });
         } else if (this.printMode == "v") {
-          printing(this.$refs.printCon2, {
-            injectGlobalCss: true,
-            scanStyles: false,
-            css: `
-          .bed-card-warpper {
-            box-shadow: none !important;
-          }
-          @page {
-            margin: 0;
-          }
-          `
+          // printing(this.$refs.printCon2, {
+          //   direction: "horizontal",
+          //   injectGlobalCss: true,
+          //   scanStyles: false,
+          //   css: `
+          // .bed-card-warpper {
+          //   box-shadow: none !important;
+          // }
+          // .bed-card-vert-con {
+          //   margin: 20px 10px 0px 10px!important;
+          // }
+          // @page {
+          //   margin: 0;
+          // }
+          // `
+          // });
+          print(this.$refs.printCon2,(el)=>{
+            el.children[0].style.transform='scaleY(1.1) translateY(11%) translateX(2%)'
           });
         } else {
           print(this.$refs.printCon);
