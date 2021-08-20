@@ -68,7 +68,7 @@
             ></sugarTable>
           </div>
           <div class="page-con">
-            第 {{ index + startPage }} / {{ listMap.length + startPage - 1 }} 页
+            第 {{ index + 1 }} / {{ listMap.length }} 页
           </div>
         </div>
         <nullBg v-show="listMap.length == 0"></nullBg>
@@ -100,7 +100,7 @@
         ></whiteButton>
         <whiteButton
           :text="`设置起始页(${startPage})`"
-          @click="openSetPageModal"
+          @click="openSetPageModal(listMap.length)"
         ></whiteButton>
         <whiteButton text="打印预览" @click="toPrint"></whiteButton>
         <whiteButton
@@ -118,6 +118,7 @@
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus">
 .blood-sugar-con {
+  position relative;
   .sugr-page {
     margin: 20px auto;
     background: #ffffff;
@@ -385,8 +386,8 @@ export default {
       this.getFormHead();
       this.$message.success("保存成功");
     },
-    openSetPageModal() {
-      this.$refs.setPageModal.open();
+    openSetPageModal(length) {
+      this.$refs.setPageModal.open(length);
     },
     // 通过字典获取项目下拉内容
     getSugarItemDict() {
@@ -417,6 +418,10 @@ export default {
       if (this.HOSPITAL_ID == "lingcheng") {
         this.getFormHead();
       }
+    },
+    startPage(){
+        let contont = this.$refs.Contain.children ?this.$refs.Contain.children[0]:[]
+        contont.style.top = '-' + contont.children[0].offsetHeight * (this.startPage-1) - 20 +"px"
     }
   },
   components: {
