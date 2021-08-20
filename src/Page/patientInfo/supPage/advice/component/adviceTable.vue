@@ -306,6 +306,11 @@ export default {
       return this.$store.state.common.wih;
     },
   },
+  watch:{
+    tableData(){
+      console.log(this.tableData);
+    }
+  },
   methods: {
     height() {
       let height = this.wih - 175;
