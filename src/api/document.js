@@ -11,5 +11,9 @@ export function patEmrList(data) {
 export function patEmrListZSQ(data) {
   return axios.post(`${apiPath}patient/getPatientsByDiagnosis`, data)
 }
+//  病人列表(文书) json传参
+export function patEmrListWithPatInfo(data) {
+  return axios.post(`${apiPath}patient/patEmrListWithPatInfo`, data)
+}
 
 
