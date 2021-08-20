@@ -709,6 +709,7 @@ export default {
             this.$parent.bedList = this.bz;
           }
           break;
+        case "有过敏史":
         case "过敏":
           {
             this.$parent.bedList = this.gm;
