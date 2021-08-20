@@ -3,8 +3,9 @@
     class="contain"
     v-loading="pageLoading"
     :style="{ 'min-height': containHeight }"
+
   >
-    <div ref="Contain">
+    <div ref="Contain"  @mousewheel="(e)=>onScroll(e)">
       <div v-show="!isChart" class="blood-sugar-con">
         <div class="sugr-page" v-for="(item, index) in listMap" :key="index">
           <!-- <img class="his-logo"
@@ -118,7 +119,6 @@
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus">
 .blood-sugar-con {
-  position relative;
   .sugr-page {
     margin: 20px auto;
     background: #ffffff;
@@ -400,6 +400,11 @@ export default {
         });
       });
     },
+    onScroll(e){
+      if(e.deltaY<0 && this.$refs.Contain.style.top.split('px')[0]<=20){
+        this.$refs.Contain.style.top = Number(this.$refs.Contain.style.top.split('px')[0]) + 20 + 'px'
+      }
+    }
   },
   created() {
     if (this.$route.query.patientId) {
@@ -421,7 +426,8 @@ export default {
     },
     startPage(){
         let contont = this.$refs.Contain.children ?this.$refs.Contain.children[0]:[]
-        contont.style.top = '-' + contont.children[0].offsetHeight * (this.startPage-1) - 20 +"px"
+        this.$refs.Contain.style.position = "relative"
+        this.$refs.Contain.style.top = '-' + contont.children[0].offsetHeight * (this.startPage-1) - 20 +"px"
     }
   },
   components: {
