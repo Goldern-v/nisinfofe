@@ -154,14 +154,13 @@ export default [
   {
     key: "orderContent", //护嘱内容
     value: "",
-    style: {
-      textAlign: "left",
-      // margin: "0px 8px",
-    },
-    // event: keyf1
     autoComplete: {
       data: NOList
     }
+  },
+  {
+    key: "", //频次
+    value: "",
   },
   {
     key: "stopDate", //日期
@@ -396,13 +395,13 @@ export default [
 ];
 
 
-export function updateListData(data) {
+export function updateListDataHd(data) {
   listItem(data).then(res => {
     NOList.splice(0, NOList.length);
     for (let item in res.data.data) {
       NOList.push(res.data.data[item].name);
     }
-    console.log('更新字典list', data, NOList)
+    console.log('更新花都字典list', data, NOList)
   });
 }
 

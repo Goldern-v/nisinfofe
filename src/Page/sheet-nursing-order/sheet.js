@@ -1,7 +1,9 @@
 import Title from "./components/render/Title";
 import Body from "./components/render/Body";
 import Body_Hj from "./components/render/Body_hj";
+import Body_Hd from "./components/render/Body_hd";
 import Title_Hj from "./components/render/Title_hj";
+import Title_Hd from "./components/render/Title_hd";
 import Mark from './components/render/Mark.js'
 let Page = function(titleData, autoTitleData, bodyData, index) {
   console.log("当前页数据：Page:titleData, autoTitleData, bodyData, index:", titleData, autoTitleData, bodyData, index);
@@ -10,13 +12,18 @@ let Page = function(titleData, autoTitleData, bodyData, index) {
       titleModel: Title_Hj(titleData, autoTitleData, index),
       bodyModel: Body_Hj(bodyData)
     }
-  }
-  else {
+  }else if (process.env.HOSPITAL_ID === 'huadu') {
+    return {
+      titleModel: Title_Hd(titleData, autoTitleData, index),
+      bodyModel: Body_Hd(bodyData)
+    }
+  }else {
     return {
       titleModel: Title(titleData, autoTitleData, index),
       bodyModel: Body(bodyData)
     };
   }
+  
   
 };
 let data = [];
