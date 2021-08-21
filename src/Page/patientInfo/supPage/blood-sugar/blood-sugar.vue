@@ -19,6 +19,12 @@
           </div>
           <div
             class="sup-title"
+            v-else-if="HOSPITAL_NAME === '江门市妇幼保健院'"
+          >
+            血糖记录单
+          </div>
+          <div
+            class="sup-title"
             v-else-if="HOSPITAL_NAME === '德州市陵城区人民医院'"
           >
             血糖测量记录单
@@ -39,7 +45,10 @@
             <span v-else
               >年龄：{{ resAge ? resAge : patientInfo.age }}</span
             >
-            <span
+            <span v-if="HOSPITAL_ID=='fuyou'"
+              >科室：{{ tDeptName }}</span
+            >
+            <span v-else
               >科室：{{ patientInfo.wardName || patientInfo.deptName }}</span
             >
             <!-- <span>入院日期：{{patientInfo.admissionDate | toymd}}</span> -->
@@ -234,6 +243,7 @@ export default {
       typeList: [],
       formAge: 0,
       resAge: 0,
+      tDeptName:"",
     };
   },
   computed: {
@@ -258,7 +268,9 @@ export default {
         this.patientInfo.patientId,
         this.patientInfo.visitId
       );
+      console.log(res);
       this.resAge = res.data.data.age;
+      if(this.HOSPITAL_ID=='fuyou')this.tDeptName = res.data.data.deptName
       this.pageLoading = false;
 
       this.hisPatSugarList = res.data.data.hisPatSugarList;
