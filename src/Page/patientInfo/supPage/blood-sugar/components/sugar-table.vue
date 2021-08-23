@@ -23,10 +23,10 @@
             HOSPITAL_ID != 'huadu' &&
             HOSPITAL_ID != 'liaocheng' &&
             HOSPITAL_ID != 'hengli' &&
-            HOSPITAL_ID != 'guizhou' 
+            HOSPITAL_ID != 'guizhou'
           "
         >
-          RI剂量
+          {{HOSPITAL_ID=="quzhou"?'胰岛素剂量':'RI剂量'}}
         </th>
         <th
           style="width: 16%"

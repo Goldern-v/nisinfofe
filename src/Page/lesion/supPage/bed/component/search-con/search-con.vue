@@ -375,15 +375,33 @@ export default {
     },
     // 跌倒高分险
     dangerInMorse() {
-      return this.bedList.filter((item) => item.dangerInMorse);
+      let list = []
+      if(this.HOSPITAL_ID=="beihairenyi"){
+         list = this.bedList.filter((item) => item.dangerInMorseBh);
+      }else{
+         list = this.bedList.filter((item) => item.dangerInMorse);
+      }
+      return list;
     },
     // 压疮高分险
     dangerInYachuang() {
-      return this.bedList.filter((item) => item.dangerInYachuang);
+      let list = []
+      if(this.HOSPITAL_ID=="beihairenyi"){
+         list = this.bedList.filter((item) => item.dangerInYachuangBh);
+      }else{
+         list = this.bedList.filter((item) => item.dangerInYachuang);
+      }
+      return list;
     },
     // 已有压疮
     hasYachuang() {
-      return this.bedList.filter((item) => item.hasYachuang);
+      let list = []
+      if(this.HOSPITAL_ID=="beihairenyi"){
+         list = this.bedList.filter((item) => item.hasYachuangBh);
+      }else{
+         list = this.bedList.filter((item) => item.hasYachuang);
+      }
+      return list;
     },
     // MEWS预警
     MEWS() {
@@ -709,6 +727,7 @@ export default {
             this.$parent.bedList = this.bz;
           }
           break;
+        case "有过敏史":
         case "过敏":
           {
             this.$parent.bedList = this.gm;
@@ -754,6 +773,7 @@ export default {
             this.$parent.bedList = this.dangerInYachuang;
           }
           break;
+        case "难免压疮":
         case "已有压疮":
           {
             this.$parent.bedList = this.hasYachuang;

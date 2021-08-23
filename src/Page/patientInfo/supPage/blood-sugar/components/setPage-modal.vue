@@ -20,12 +20,14 @@ import { getPvHomePage, savePvHomePage } from "../api/index";
 export default {
   data() {
     return {
+      pageLength: 1,
       startPage: 1,
       bus: bus(this)
     };
   },
   methods: {
-    open() {
+    open(length) {
+      this.pageLength = length
       this.$refs.modal.open();
       getPvHomePage(
         this.$route.query.patientId,
@@ -42,6 +44,11 @@ export default {
       this.$refs.modal.close();
     },
     post() {
+      console.log("血糖页码");
+      if(this.startPage>this.pageLength){
+        this.$message.warning("请输入正确的页数！")
+        return
+      }
       savePvHomePage(
         this.$route.query.patientId,
         this.$route.query.visitId,
