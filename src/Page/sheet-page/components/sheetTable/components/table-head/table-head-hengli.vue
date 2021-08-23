@@ -358,6 +358,46 @@ export default {
     if (!sheetInfo.relObj.age) {
       sheetInfo.relObj.age = this.patientInfo.age;
     }
+    if (!this.sheetInfo.relObj["yc_" + this.index] && this.index !== 0) {
+      this.sheetInfo.relObj = {
+        ...{
+          ["yc_" + this.index]: this.sheetInfo.relObj[
+            "yc_" + (this.index - 1)
+          ]
+        },
+        ...this.sheetInfo.relObj
+      };
+    }
+    if (!this.sheetInfo.relObj["cc_" + this.index] && this.index !== 0) {
+      this.sheetInfo.relObj = {
+        ...{
+          ["cc_" + this.index]: this.sheetInfo.relObj[
+            "cc_" + (this.index - 1)
+          ]
+        },
+        ...this.sheetInfo.relObj
+      };
+    }
+    if (!this.sheetInfo.relObj["yz_" + this.index] && this.index !== 0) {
+      this.sheetInfo.relObj = {
+        ...{
+          ["yz_" + this.index]: this.sheetInfo.relObj[
+            "yz_" + (this.index - 1)
+          ]
+        },
+        ...this.sheetInfo.relObj
+      };
+    }
+    if (!this.sheetInfo.relObj["yz_date" + this.index] && this.index !== 0) {
+      this.sheetInfo.relObj = {
+        ...{
+          ["yz_date" + this.index]: this.sheetInfo.relObj[
+            "yz_date" + (this.index - 1)
+          ]
+        },
+        ...this.sheetInfo.relObj
+      };
+    }
   },
   watch: {
     // relObj: {
