@@ -78,7 +78,7 @@
             class="print-btn"
             flex="cross:center main:center"
             @click="openBedPrint('v')"
-            v-if="HOSPITAL_ID == 'huadu'"
+            v-if="HOSPITAL_ID == 'huadu'|| HOSPITAL_ID == 'beihairenyi'"
           >
             打印床头卡2
           </div>
@@ -330,6 +330,8 @@ export default {
         this.$refs.bedModalHd.open(printMode);
       } else if (this.HOSPITAL_ID == "zhongshanqi") {
         this.$refs.bedModalZsq.open();
+      }else if( this.HOSPITAL_ID == "beihairenyi"){
+        this.$refs.bedModalBh.open(printMode);
       } else {
         this.$refs.bedModal.open();
       }

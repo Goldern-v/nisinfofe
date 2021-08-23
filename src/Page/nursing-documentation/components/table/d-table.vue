@@ -23,7 +23,7 @@
       <el-table-column
         prop="bedLabel"
         label="床号"
-        min-width="80px"
+        :min-width="HOSPITAL_ID=='fuyou'?'60px':'80px'"
       ></el-table-column>
 
       <el-table-column
@@ -42,7 +42,7 @@
       <el-table-column
         prop="sex"
         label="性别"
-        min-width="70px"
+        :min-width="HOSPITAL_ID=='fuyou'?'35px':'70px'"
       ></el-table-column>
 
       <el-table-column
@@ -67,7 +67,7 @@
       <el-table-column
         prop="visitId"
         label="次数"
-        min-width="70px"
+        :min-width="HOSPITAL_ID=='fuyou'?'35px':'70px'"
         v-else
       ></el-table-column>
 
@@ -86,7 +86,7 @@
       <el-table-column
         prop="status"
         label="状态"
-        min-width="80px"
+        :min-width="HOSPITAL_ID=='fuyou'?'70px':'80px'"
       ></el-table-column>
 
       <el-table-column

@@ -62,10 +62,10 @@
               {{ patientInfo.inpNo }}
             </div>
           </span>
-          <!-- <span @click="changeDate" style="cursor: pointer;">
+          <span @click="changeDate" style="cursor: pointer;">
             日期：
             {{ createTime | toymd }}
-          </span> -->
+          </span>
         </div>
       </div>
       <headCon v-if="isFirst"></headCon>

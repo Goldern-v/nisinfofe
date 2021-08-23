@@ -161,6 +161,8 @@ import adviceTableWx from "./component/adviceTable_wx";
 import adviceTableHd from "./component/adviceTable_hd";
 import adviceTableGuizhou from "./component/adviceTable_guizhou";
 import adviceTableCommon from "./component/adviceTable_common";
+import adviceTableFy from "./component/adviceTable_fuyou";
+import adviceTableXiegang from "./component/adviceTable_xiegang.vue";
 import { orders } from "@/api/patientInfo";
 import { syncGetPatientOrders, getNurseOrderStatusDict } from "./api/index";
 export default {
@@ -208,12 +210,21 @@ export default {
             if (currentRowId != prevRowId) {
               /** 第一条 */
               item.rowType = 1;
+              if(this.HOSPITAL_ID=='fuyou'){
+                item.specialSymbols ="┓"
+              }
             } else if (currentRowId != nextRowId) {
               /** 最后条 */
               item.rowType = 3;
+              if(this.HOSPITAL_ID=='fuyou'){
+                item.specialSymbols ="┛"
+              }
             } else {
               /** 中间条 */
               item.rowType = 2;
+              if(this.HOSPITAL_ID=='fuyou'){
+                item.specialSymbols ="┃"
+              }
             }
           } else {
             item.rowType = 1;
@@ -226,16 +237,20 @@ export default {
       let HOSPITAL_ID = this.HOSPITAL_ID;
       if (
         HOSPITAL_ID == "liaocheng" ||
-        HOSPITAL_ID == "fuyou" ||
         HOSPITAL_ID == "hengli"
       ) {
         return "adviceTableCommon";
-      } else if (HOSPITAL_ID == "weixian") {
+      }
+      else if (HOSPITAL_ID == "fuyou") {
+        return "adviceTableFy";
+      }else if (HOSPITAL_ID == "weixian") {
         return "adviceTableWx";
       } else if (HOSPITAL_ID == "huadu") {
         return "adviceTableHd";
       } else if (HOSPITAL_ID == "guizhou") {
         return "adviceTableGuizhou";
+      }else if (HOSPITAL_ID == "xiegang") {
+        return "adviceTableXiegang";
       } else {
         return "adviceTable";
       }
@@ -299,6 +314,8 @@ export default {
     adviceTableHd,
     adviceTableGuizhou,
     adviceTableCommon,
+    adviceTableXiegang,
+    adviceTableFy
   },
 };
 </script>

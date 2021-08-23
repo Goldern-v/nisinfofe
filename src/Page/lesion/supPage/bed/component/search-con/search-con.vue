@@ -118,6 +118,7 @@
         :isFever="isFever"
         :hasVteDanger="hasVteDanger"
         :isMultiDrugResistant="isMultiDrugResistant"
+        :isDangerInThrombus="isDangerInThrombus"
       ></footerBar>
     </div>
   </div>
@@ -337,7 +338,13 @@ export default {
       return this.bedList.filter((item) => item.patientCondition == "病重");
     },
     gm() {
-      return this.bedList.filter((item) => item.drugGms);
+      let lists = []
+      if(this.HOSPITAL_ID == "beihairenyi"){
+        lists = this.bedList.filter((item) => item.hasAllergy)
+      }else{
+        lists = this.bedList.filter((item) => item.drugGms)
+      }
+      return lists;
     },
     heart() {
       return this.bedList.filter((item) => item.isFollow == "1");
@@ -368,15 +375,33 @@ export default {
     },
     // 跌倒高分险
     dangerInMorse() {
-      return this.bedList.filter((item) => item.dangerInMorse);
+      let list = []
+      if(this.HOSPITAL_ID=="beihairenyi"){
+         list = this.bedList.filter((item) => item.dangerInMorseBh);
+      }else{
+         list = this.bedList.filter((item) => item.dangerInMorse);
+      }
+      return list;
     },
     // 压疮高分险
     dangerInYachuang() {
-      return this.bedList.filter((item) => item.dangerInYachuang);
+      let list = []
+      if(this.HOSPITAL_ID=="beihairenyi"){
+         list = this.bedList.filter((item) => item.dangerInYachuangBh);
+      }else{
+         list = this.bedList.filter((item) => item.dangerInYachuang);
+      }
+      return list;
     },
     // 已有压疮
     hasYachuang() {
-      return this.bedList.filter((item) => item.hasYachuang);
+      let list = []
+      if(this.HOSPITAL_ID=="beihairenyi"){
+         list = this.bedList.filter((item) => item.hasYachuangBh);
+      }else{
+         list = this.bedList.filter((item) => item.hasYachuang);
+      }
+      return list;
     },
     // MEWS预警
     MEWS() {
@@ -488,7 +513,7 @@ export default {
           type: "state",
         },
         {
-          name: "过敏",
+          name: this.HOSPITAL_ID == "beihairenyi"?"有过敏史":"过敏",
           num: this.gm.length,
           type: "state",
         },
@@ -560,6 +585,10 @@ export default {
     // 多重耐药患者
     isMultiDrugResistant(){
       return this.bedList.filter((item) => item.isMultiDrugResistant);
+    },
+    // 血栓高危
+    isDangerInThrombus(){
+      return this.bedList.filter((item)=> item.isDangerInThrombus)
     }
   },
   methods: {
@@ -698,6 +727,7 @@ export default {
             this.$parent.bedList = this.bz;
           }
           break;
+        case "有过敏史":
         case "过敏":
           {
             this.$parent.bedList = this.gm;
@@ -743,6 +773,7 @@ export default {
             this.$parent.bedList = this.dangerInYachuang;
           }
           break;
+        case "难免压疮":
         case "已有压疮":
           {
             this.$parent.bedList = this.hasYachuang;
@@ -791,6 +822,11 @@ export default {
         case "多重耐药患者":
           {
             this.$parent.bedList = this.isMultiDrugResistant;
+          }
+          break;
+        case "血栓高危":
+          {
+            this.$parent.bedList = this.isDangerInThrombus;
           }
           break;
         default: {

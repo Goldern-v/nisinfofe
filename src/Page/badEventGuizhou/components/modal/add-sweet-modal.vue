@@ -5,17 +5,21 @@
     :modal-width="modalWidth"
     class="custom-sweet-modal"
   >
-    <nursingDocumentation></nursingDocumentation>
+  <div>辅导辅导</div>
+    <!-- <nursingDocumentation></nursingDocumentation> -->
+    <patientDist></patientDist>
     <el-button slot="button" type="primary" @click="retest">确定</el-button>
   </SweetModal>
 </template>
 
 <script>
 import nursingDocumentation from '@/Page/nursing-documentation/nursing-documentation'
+import patientDist from "@/containers/patient-list/patient-list"
 import bus from "vue-happy-bus";
 export default {
     components: {
-        nursingDocumentation
+        nursingDocumentation,
+        patientDist
     },
     data(){
         return {
@@ -41,52 +45,45 @@ export default {
         retest(){
           console.log(this.selectedPatientData);
           let data = this.selectedPatientData[0];
-
-          if(wid.app.$root.$refs['inp_no'] && wid.app.$root.$refs['inp_no'].setCurrentValue){
-            wid.app.$root.$refs['inp_no'].setCurrentValue(data.inpNo);
+          //inp_no 住院号
+          if(wid.app.$root.$refs['B0002002'] && wid.app.$root.$refs['B0002002'].setCurrentValue){
+            wid.app.$root.$refs['B0002002'].setCurrentValue(data.inpNo);
           }
-          if(wid.app.$root.$refs['bed_no'] && wid.app.$root.$refs['bed_no'].setCurrentValue){
-            wid.app.$root.$refs['bed_no'].setCurrentValue(data.bedLabel);
+          //床位号
+          if(wid.app.$root.$refs['B0002001'] && wid.app.$root.$refs['B0002001'].setCurrentValue){
+            wid.app.$root.$refs['B0002001'].setCurrentValue(data.bedLabel);
           }
-          if(wid.app.$root.$refs['name'] && wid.app.$root.$refs['name'].setCurrentValue){
-            wid.app.$root.$refs['name'].setCurrentValue(data.name);
+          //姓名
+          if(wid.app.$root.$refs['B0002003'] && wid.app.$root.$refs['B0002003'].setCurrentValue){
+            wid.app.$root.$refs['B0002003'].setCurrentValue(data.name);
           }
-          if(wid.app.$root.$refs['sex'] && wid.app.$root.$refs['sex'].setCurrentValue){
-            wid.app.$root.$refs['sex'].setCurrentValue(data.sex);
+          //性别
+          // if(wid.app.$root.$refs['B0002006'] && wid.app.$root.$refs['B0002006'].setCurrentValue){
+          //   wid.app.$root.$refs['B0002006'].setCurrentValue(data.sex);
+          // }
+          //年龄
+          if(wid.app.$root.$refs['B0002004'] && wid.app.$root.$refs['B0002004'].setCurrentValue){
+            wid.app.$root.$refs['B0002004'].setCurrentValue(data.age);
           }
-          if(wid.app.$root.$refs['age'] && wid.app.$root.$refs['age'].setCurrentValue){
-            wid.app.$root.$refs['age'].setCurrentValue(data.age);
+          //诊断
+          if(wid.app.$root.$refs['B0002009'] && wid.app.$root.$refs['B0002009'].setCurrentValue){
+            wid.app.$root.$refs['B0002009'].setCurrentValue(data.diagnosis);
           }
-          if(wid.app.$root.$refs['hzzd'] && wid.app.$root.$refs['hzzd'].setCurrentValue){
-            wid.app.$root.$refs['hzzd'].setCurrentValue(data.diagnosis);
+          //职业
+          if(wid.app.$root.$refs['B0002007'] && wid.app.$root.$refs['B0002007'].setCurrentValue){
+            wid.app.$root.$refs['B0002007'].setCurrentValue(data.occupation);
           }
-
-          if (
-             data.admissionDate &&
-            wid.app.$root.$refs['rysj_explain'] &&
-            wid.app.$root.$refs['rysj_explain'].$parent
-          ) {
-            wid.app.$root.$refs['rysj_explain'].$parent.datePickerValue = data.admissionDate;
+          //护理级别
+          (!data.nursingClass || data.nursingClass=='') && (data.nursingClass='无');
+          if(wid.app.$root.$refs['B0002005'] && wid.app.$root.$refs['B0002005'][data.nursingClass]){
+            wid.app.$root.$refs['B0002005'][data.nursingClass].$parent.checkboxValue=true
           }
-
-
-          wid.formObj.model['patient_id'] = data.patientId;//病人id
-          wid.formObj.model['visit_id'] = data.visitId;//住院次数
-
-          let wardName = data.wardName,wardCode = data.wardCode;
-          if(this.HOSPITAL_ID == 'nys' || this.HOSPITAL_ID == 'huadu'){
-            // 读当前登录人的信息
-            let user =localStorage.getItem("user")
-            ? JSON.parse(localStorage.getItem("user"))
-            : {};
-            wardName = user.deptName;
-            wardCode = user.deptCode;
+          //性别
+          (!data.sex || data.sex=='') && (data.sex='无');
+          if(wid.app.$root.$refs['B0002006'] && wid.app.$root.$refs['B0002006'][data.sex]){
+           wid.app.$root.$refs['B0002006'][data.sex].$parent.checkboxValue=true
           }
-
-          if(wid.app.$root.$refs['ward_name'] && wid.app.$root.$refs['ward_name'].setCurrentValue){
-            wid.app.$root.$refs['ward_name'].setCurrentValue(wardName);
-          }
-          wid.formObj.model['ward_code'] = wardCode;
+          //wid.app.$root.$refs['B0002006']['无'].$parent.checkboxValue=true
 
           this.close();
         }
