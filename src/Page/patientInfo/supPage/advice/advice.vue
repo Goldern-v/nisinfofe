@@ -194,7 +194,8 @@ export default {
       if (
         this.HOSPITAL_ID == "liaocheng" ||
         this.HOSPITAL_ID == "fuyou" ||
-        this.HOSPITAL_ID == "hengli"
+        this.HOSPITAL_ID == "hengli" ||
+        this.HOSPITAL_ID == "guizhou"
       ) {
         data.map((item, index, array) => {
           let prevRowId =
@@ -210,19 +211,19 @@ export default {
             if (currentRowId != prevRowId) {
               /** 第一条 */
               item.rowType = 1;
-              if(this.HOSPITAL_ID=='fuyou'){
+              if(this.HOSPITAL_ID=='fuyou' || this.HOSPITAL_ID == "guizhou"){
                 item.specialSymbols ="┓"
               }
             } else if (currentRowId != nextRowId) {
               /** 最后条 */
               item.rowType = 3;
-              if(this.HOSPITAL_ID=='fuyou'){
+              if(this.HOSPITAL_ID=='fuyou' || this.HOSPITAL_ID == "guizhou"){
                 item.specialSymbols ="┛"
               }
             } else {
               /** 中间条 */
               item.rowType = 2;
-              if(this.HOSPITAL_ID=='fuyou'){
+              if(this.HOSPITAL_ID=='fuyou' || this.HOSPITAL_ID == "guizhou"){
                 item.specialSymbols ="┃"
               }
             }

@@ -23,7 +23,7 @@
           }}</span>
         </template>
       </el-table-column>
-      <el-table-column label=" " min-width="45px" prop="orderNo" v-else>
+      <el-table-column label="医嘱号" min-width="70px" prop="orderNo" v-else>
         <template slot-scope="scope">
           <span :class="type(scope.row.orderStatusName)">{{
             scope.row.orderNo
@@ -51,6 +51,7 @@
         align="center"
       >
         <template slot-scope="scope">
+          <span :class="[type(scope.row.orderStatusName),'special']">{{scope.row.specialSymbols}}</span>
           <span :class="type(scope.row.orderStatusName)"
             >{{ scope.row.dosage }}{{ scope.row.dosageUnits }}</span
           >
@@ -253,6 +254,7 @@
 
   .cell {
     padding: 0 8px;
+    position: relative;
   }
 
   ::-webkit-scrollbar {
@@ -261,7 +263,11 @@
     background-color: #EAEAEA;
   }
 }
-
+.special{
+  position absolute;
+  top:0;
+  left:0;
+}
 .in-hidden {
   display: none;
 }
