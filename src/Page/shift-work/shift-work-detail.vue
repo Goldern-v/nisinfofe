@@ -345,7 +345,7 @@ export default {
               prop: "bedLabel",
               editable: true,
               align: "center",
-              width: "35"
+              width: this.HOSPITAL_ID=="hengli"?"45":"35"
             },
             {
               label: "姓名、性别、年龄",
@@ -512,6 +512,7 @@ export default {
         this.$router.replace({ name: "shiftWorks" });
       }
       this.loading = false;
+      console.log(this.patients);
     },
     getContextMenu() {
       const { selectedRow, selectedCol } = this.$refs.table;
