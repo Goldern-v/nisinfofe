@@ -208,7 +208,7 @@
         {
           "name": "I619009",
           "type": "radio",
-          "title": "＞6月，＜3岁",
+          "title": "＞6月，＜3岁（4分）",
           "code": "4",
           "score": 4,
           "style": null,
@@ -219,7 +219,7 @@
         {
           "name": "I619009",
           "type": "radio",
-          "title": "≥3岁，＜7岁",
+          "title": "≥3岁，＜7岁 （3分）",
           "code": "3",
           "score": 3,
           "style": null,
@@ -229,7 +229,7 @@
         {
           "name": "I619009",
           "type": "radio",
-          "title": "≥7岁，＜13岁",
+          "title": "≥7岁，＜13岁 （2分）",
           "code": "2",
           "score": 2,
           "style": null,
@@ -239,7 +239,7 @@
         {
           "name": "I619009",
           "type": "radio",
-          "title": "≤6月或≥13岁",
+          "title": "≤6月或≥13岁 （1分）",
           "code": "1",
           "score": 1,
           "style": null,
@@ -276,7 +276,7 @@
         {
           "name": "I619010",
           "type": "radio",
-          "title": "男性",
+          "title": "男性（2分）",
           "code": "2",
           "score": 2,
           "style": null,
@@ -286,7 +286,7 @@
         {
           "name": "I619010",
           "type": "radio",
-          "title": "女性",
+          "title": "女性（1分）",
           "code": "1",
           "score": 1,
           "style": null,
@@ -323,7 +323,7 @@
         {
           "name": "I619011",
           "type": "radio",
-          "title": "神经系统诊断",
+          "title": "神经系统诊断（4分）",
           "code": "4",
           "score": 4,
           "style": null,
@@ -333,7 +333,7 @@
         {
           "name": "I619011",
           "type": "radio",
-          "title": "氧合功能改变",
+          "title": "氧合功能改变（3分）",
           "code": "3",
           "score": 3,
           "style": null,
@@ -343,7 +343,7 @@
         {
           "name": "I619011",
           "type": "radio",
-          "title": "心理/行为疾病",
+          "title": "心理/行为疾病（2分）",
           "code": "2",
           "score": 2,
           "style": null,
@@ -353,7 +353,7 @@
         {
           "name": "I619011",
           "type": "radio",
-          "title": "其他诊断",
+          "title": "其他诊断（1分）",
           "code": "1",
           "score": 1,
           "style": null,
@@ -390,7 +390,7 @@
         {
           "name": "I619012",
           "type": "radio",
-          "title": "有跌倒史",
+          "title": "有跌倒史（4分）",
           "code": "4",
           "score": 4,
           "style": null,
@@ -400,7 +400,7 @@
         {
           "name": "I619012",
           "type": "radio",
-          "title": "＜3岁，有辅助装置",
+          "title": "＜3岁，有辅助装置（3分）",
           "code": "3",
           "score": 3,
           "style": null,
@@ -410,7 +410,7 @@
         {
           "name": "I619012",
           "type": "radio",
-          "title": "≥3岁，卧床",
+          "title": "≥3岁，卧床（2分）",
           "code": "2",
           "score": 2,
           "style": null,
@@ -420,7 +420,7 @@
         {
           "name": "I619012",
           "type": "radio",
-          "title": "门诊患儿",
+          "title": "门诊患儿（1分）",
           "code": "1",
           "score": 1,
           "style": null,
@@ -457,7 +457,7 @@
         {
           "name": "I619013",
           "type": "radio",
-          "title": "在 24小时内",
+          "title": "在 24小时内（3分）",
           "code": "3",
           "score": 3,
           "style": null,
@@ -468,7 +468,7 @@
         {
           "name": "I619013",
           "type": "radio",
-          "title": "在48小时内",
+          "title": "在48小时内（2分）",
           "code": "2",
           "score": 2,
           "style": null,
@@ -478,7 +478,7 @@
         {
           "name": "I619013",
           "type": "radio",
-          "title": "超过48小时或没有",
+          "title": "超过48小时或没有（1分）",
           "code": "1",
           "score": 1,
           "style": null,
@@ -526,7 +526,7 @@
         {
           "name": "I619014",
           "type": "radio",
-          "title": "以上所列药物中的一种",
+          "title": "以上所列药物中的一种（2分）",
           "code": "2",
           "score": 2,
           "style": null,
@@ -536,7 +536,7 @@
         {
           "name": "I619014",
           "type": "radio",
-          "title": "其他药物或没有",
+          "title": "其他药物或没有（1分）",
           "code": "1",
           "score": 1,
           "style": null,
@@ -573,7 +573,7 @@
         {
           "name": "I619015",
           "type": "radio",
-          "title": "认知受损，完全无防跌倒意识",
+          "title": "认知受损，完全无防跌倒意识（3分）",
           "code": "3",
           "score": 3,
           "style": null,
@@ -584,7 +584,7 @@
         {
           "name": "I619015",
           "type": "radio",
-          "title": "认知受损，但有防跌倒意识",
+          "title": "认知受损，但有防跌倒意识（2分）",
           "code": "2",
           "score": 2,
           "style": null,
@@ -594,7 +594,7 @@
         {
           "name": "I619015",
           "type": "radio",
-          "title": "认知能力正常",
+          "title": "认知能力正常（1分）",
           "code": "1",
           "score": 1,
           "style": null,
@@ -616,7 +616,7 @@
       "readOnly": ""
     },
     {
-      "name": "",
+      "name": "I003001",
       "type": "formGroupColBox",
       "col": 2,
       "colWidth": [
@@ -652,7 +652,7 @@
           "title": "结果程度",
           "titleStyle": "width:90px!important;margin:0;",
           "hiddenTips": true,
-          "code": "",
+          "code": "evalDesc",
           "placeholder": "结果程度",
           "style": "width:80px",
           "inputWidth": "136px",

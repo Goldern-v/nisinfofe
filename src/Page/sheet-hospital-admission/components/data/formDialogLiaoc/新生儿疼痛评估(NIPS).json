@@ -214,7 +214,7 @@
         {
           "name": "I629006",
           "type": "radio",
-          "title": "安静面容，表情自然",
+          "title": "安静面容，表情自然（0分）",
           "code": "0",
           "score": 0,
           "style": null,
@@ -225,7 +225,7 @@
         {
           "name": "I629006",
           "type": "radio",
-          "title": "面肌收紧（包括眉、颌、鼻唇沟），表情痛苦",
+          "title": "面肌收紧（包括眉、颌、鼻唇沟），表情痛苦（1分）",
           "code": "1",
           "score": 1,
           "style": null,
@@ -262,7 +262,7 @@
         {
           "name": "I629007",
           "type": "radio",
-          "title": "安静不哭",
+          "title": "安静不哭（0分）",
           "code": "0",
           "score": 0,
           "style": null,
@@ -273,7 +273,7 @@
         {
           "name": "I629007",
           "type": "radio",
-          "title": "间歇性轻声呻吟",
+          "title": "间歇性轻声呻吟（1分）",
           "code": "1",
           "score": 1,
           "style": null,
@@ -283,7 +283,7 @@
         {
           "name": "I629007",
           "type": "radio",
-          "title": "持续性大声尖叫",
+          "title": "持续性大声尖叫（2分）",
           "code": "2",
           "score": 2,
           "style": null,
@@ -320,7 +320,7 @@
         {
           "name": "I629008",
           "type": "radio",
-          "title": "和往常一样",
+          "title": "和往常一样（0分）",
           "code": "0",
           "score": 0,
           "style": null,
@@ -331,7 +331,7 @@
         {
           "name": "I629008",
           "type": "radio",
-          "title": "呼吸不规则，加快、屏气",
+          "title": "呼吸不规则，加快、屏气（1分）",
           "code": "1",
           "score": 1,
           "style": null,
@@ -368,7 +368,7 @@
         {
           "name": "I629009",
           "type": "radio",
-          "title": "无肌肉僵硬，偶尔随意运动",
+          "title": "无肌肉僵硬，偶尔随意运动（0分）",
           "code": "0",
           "score": 0,
           "style": null,
@@ -379,7 +379,7 @@
         {
           "name": "I629009",
           "type": "radio",
-          "title": "肌紧张，上臂伸直，僵硬或快速屈伸",
+          "title": "肌紧张，上臂伸直，僵硬或快速屈伸（1分）",
           "code": "1",
           "score": 1,
           "style": null,
@@ -416,7 +416,7 @@
         {
           "name": "I629010",
           "type": "radio",
-          "title": "无肌肉僵硬，偶尔随意运动",
+          "title": "无肌肉僵硬，偶尔随意运动（0分）",
           "code": "0",
           "score": 0,
           "style": null,
@@ -427,7 +427,7 @@
         {
           "name": "I629010",
           "type": "radio",
-          "title": "肌紧张，腿伸直，僵硬或快速屈伸",
+          "title": "肌紧张，腿伸直，僵硬或快速屈伸（1分）",
           "code": "1",
           "score": 1,
           "style": null,
@@ -464,7 +464,7 @@
         {
           "name": "I629011",
           "type": "radio",
-          "title": "安静睡眠或清醒、情绪稳定",
+          "title": "安静睡眠或清醒、情绪稳定（0分）",
           "code": "0",
           "score": 0,
           "style": null,
@@ -475,7 +475,7 @@
         {
           "name": "I629011",
           "type": "radio",
-          "title": "警觉，坐立不安，摆动身体",
+          "title": "警觉，坐立不安，摆动身体（1分）",
           "code": "1",
           "score": 1,
           "style": null,

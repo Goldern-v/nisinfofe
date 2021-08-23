@@ -496,7 +496,7 @@
       "readOnly": ""
     },
     {
-      "name": "",
+      "name": "I003001",
       "type": "formGroupColBox",
       "col": 2,
       "colWidth": [
@@ -532,7 +532,7 @@
           "title": "结果程度",
           "titleStyle": "width:90px!important;margin:0;",
           "hiddenTips": true,
-          "code": "",
+          "code": "evalDesc",
           "placeholder": "结果程度",
           "style": "width:80px",
           "inputWidth": "136px",

@@ -237,7 +237,7 @@ export default {
   },
   methods: {
     toRight(data) {
-      console.log(data);
+      // console.log(data);
       if (!data) return;
       this.rightData = data;
       return this.$refs.inspectForm.open(data);

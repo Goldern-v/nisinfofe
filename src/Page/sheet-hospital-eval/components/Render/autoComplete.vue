@@ -1,6 +1,6 @@
 <template>
   <div
-    v-show="show && data && data.length>0"
+    v-show="show && data && data.length > 0"
     id="CrAutocomplete"
     class="cr-autocomplete-suggestion-his"
     :style="style"
@@ -8,19 +8,28 @@
   >
     <div class="cr-scrollbar">
       <div
-        class="cr-autocomplete-suggestion__wrap cr-scrollbar__wrap cr-scrollbar__wrap--hidden-default"
+        class="
+          cr-autocomplete-suggestion__wrap
+          cr-scrollbar__wrap cr-scrollbar__wrap--hidden-default
+        "
       >
-        <ul class="cr-scrollbar__view cr-autocomplete-suggestion__list" style="position: relative;">
+        <ul
+          class="cr-scrollbar__view cr-autocomplete-suggestion__list"
+          style="position: relative"
+        >
           <li
             class
             sytle="width:100%"
             v-for="(item, index) in data"
             @onblur.native.stop="close(id)"
-            @click="post($event,item)"
-            :key="item+index"
-            :class="{autoSelected: (index == selectIndex||selectedList.indexOf(item.code)>-1)}"
+            @click="post($event, item)"
+            :key="item + index"
+            :class="{
+              autoSelected:
+                index == selectIndex || selectedList.indexOf(item.code) > -1,
+            }"
           >
-            <span>{{item.name}}</span>
+            <span>{{ item.name }}</span>
           </li>
         </ul>
       </div>
@@ -40,40 +49,40 @@
 }
 
 .cr-autocomplete-suggestion-his {
-    transform-origin: center top 0px;
-    z-index: 1;
-    width: 120px;
-    position: fixed;
-    margin: 5px 0;
-    box-shadow: 0 0 6px 0 rgba(0, 0, 0, .04), 0 2px 4px 0 rgba(0, 0, 0, .12);
-    z-index: 999999
+  transform-origin: center top 0px;
+  z-index: 1;
+  width: 120px;
+  position: fixed;
+  margin: 5px 0;
+  box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.04), 0 2px 4px 0 rgba(0, 0, 0, 0.12);
+  z-index: 999999;
 
-
-.cr-scrollbar {
+  .cr-scrollbar {
     overflow: hidden;
     position: relative;
-}
+  }
 
-.cr-scrollbar__wrap {
+  .cr-scrollbar__wrap {
     overflow: scroll;
-}
+  }
 
-.cr-autocomplete-suggestion__wrap {
+  .cr-autocomplete-suggestion__wrap {
     max-height: 280px;
     overflow: auto;
     background-color: #fff;
     padding: 6px 0;
     border-radius: 2px;
-}
+  }
 
-.cr-autocomplete-suggestion__wrap, .cr-pager li {
+  .cr-autocomplete-suggestion__wrap, .cr-pager li {
     border: 1px solid rgb(209, 229, 224);
     box-sizing: border-box;
-}
+  }
 
-.cr-autocomplete-suggestion__list {
+  .cr-autocomplete-suggestion__list {
     margin: 0;
     padding: 0;
+
     li {
       border: 0px solid rgb(209, 229, 224);
       font-size: 14px;
@@ -86,15 +95,15 @@
       height: 36px;
       line-height: 1.5;
       box-sizing: border-box;
-      &:hover{
-        background-color: #4bb08d!important;
+
+      &:hover {
+        background-color: #4bb08d !important;
         color: white;
         cursor: pointer;
       }
     }
+  }
 }
-}
-
 </style>
 
 <script>
@@ -111,7 +120,7 @@ export default {
       parentEl: null,
       multiplechoice: false,
       obj: {},
-      id: ""
+      id: "",
     };
   },
   methods: {
@@ -135,7 +144,7 @@ export default {
       this.parentEl = config.parentEl || null;
       this.selectedList = config.selectedList ? config.selectedList : [];
       this.selectIndex =
-        this.data.map(item => item.name).indexOf(config.currentValue) || 0;
+        this.data.map((item) => item.name).indexOf(config.currentValue) || 0;
       this.id = config.id;
 
       (this.selectIndex = this.data.length), (this.id = config.id);
@@ -193,20 +202,23 @@ export default {
       }
     },
     post(e, item) {
-      console.log(
-        "!!!post:autoPost",
-        e,
-        item,
-        this.id,
-        this.obj
-      );
-      console.log(
-        "!!!post:id",
-        this.selectedList,
-        this.obj[this.id]
-      );
+      // console.log(e,'event');
+      // console.log(
+      //   "!!!post:autoPost",
+      //   e,
+      //   item,
+      //   this.id,
+      //   this.obj
+      // );
+      // console.log(
+      //   "!!!post:id",
+      //   this.selectedList,
+      //   this.obj[this.id]
+      // );
       // if (this.callback) {
+      // this.$forceUpdate();
       this.callback(item);
+
       // }
       // this.multiplechoice===true &&
       if (this.obj[this.id] && typeof this.obj[this.id] == "string") {
@@ -216,6 +228,7 @@ export default {
       if (!this.multiplechoice) {
         this.show = false;
       }
+      this.$forceUpdate();
     },
     getInputElement() {
       return this.parentEl;
@@ -225,29 +238,30 @@ export default {
     },
     switch() {
       this.show = !this.show;
-    }
+    },
   },
   beforeDestroy() {
     // this.post(this.parentEl,this.data[this.selectIndex])
   },
   mounted() {
-
-    if(this.$refs.autoBox){
-      this.$refs.autoBox['closeAutoBox'] = ()=>{return this.closeBox()}
+    if (this.$refs.autoBox) {
+      this.$refs.autoBox["closeAutoBox"] = () => {
+        return this.closeBox();
+      };
       this.$root.$refs.autoBox = this.$refs.autoBox;
     }
 
-    document.addEventListener("click", e => {
+    document.addEventListener("click", (e) => {
       if (e.target.tagName != "LI" && e.target.tagName != "INPUT") {
         this.closeBox();
       }
     });
-    window.addEventListener("mousewheel", e => {
+    window.addEventListener("mousewheel", (e) => {
       if (e.target.tagName != "LI") {
         this.show = false;
       }
     });
-    document.addEventListener("keydown", e => {
+    document.addEventListener("keydown", (e) => {
       if (!this.show) return;
       let autoSuggestionEl = document.querySelector(
         ".cr-autocomplete-suggestion__wrap"
@@ -283,6 +297,6 @@ export default {
 
     // this.attachWindow();
   },
-  components: {}
+  components: {},
 };
 </script>

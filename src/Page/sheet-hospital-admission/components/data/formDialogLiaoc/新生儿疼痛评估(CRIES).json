@@ -214,7 +214,7 @@
         {
           "name": "I629001",
           "type": "radio",
-          "title": "无（或非高调哭）",
+          "title": "无（或非高调哭）（0分）",
           "code": "0",
           "score": 0,
           "style": null,
@@ -225,7 +225,7 @@
         {
           "name": "I629001",
           "type": "radio",
-          "title": "高调哭但可安慰",
+          "title": "高调哭但可安慰（1分）",
           "code": "1",
           "score": 1,
           "style": null,
@@ -235,7 +235,7 @@
         {
           "name": "I629001",
           "type": "radio",
-          "title": "高调哭不可安慰",
+          "title": "高调哭不可安慰（3分）",
           "code": "3",
           "score": 3,
           "style": null,
@@ -272,7 +272,7 @@
         {
           "name": "I629002",
           "type": "radio",
-          "title": "无",
+          "title": "无（0分）",
           "code": "0",
           "score": 0,
           "style": null,
@@ -283,7 +283,7 @@
         {
           "name": "I629002",
           "type": "radio",
-          "title": "< 30%",
+          "title": "< 30%（1分）",
           "code": "1",
           "score": 1,
           "style": null,
@@ -293,7 +293,7 @@
         {
           "name": "I629002",
           "type": "radio",
-          "title": "> 30%",
+          "title": "> 30%（2分）",
           "code": "2",
           "score": 2,
           "style": null,
@@ -330,7 +330,7 @@
         {
           "name": "I629003",
           "type": "radio",
-          "title": "心率和平均血压≤术前值",
+          "title": "心率和平均血压≤术前值（0分）",
           "code": "0",
           "score": 0,
           "style": null,
@@ -341,7 +341,7 @@
         {
           "name": "I629003",
           "type": "radio",
-          "title": "心率和平均血压增高但幅度<术前值的20%",
+          "title": "心率和平均血压增高但幅度<术前值的20%（1分）",
           "code": "1",
           "score": 1,
           "style": null,
@@ -351,7 +351,7 @@
         {
           "name": "I629003",
           "type": "radio",
-          "title": "心率和平均血压增高但幅度>术前值的20%",
+          "title": "心率和平均血压增高但幅度>术前值的20%（3分）",
           "code": "3",
           "score": 3,
           "style": null,
@@ -388,7 +388,7 @@
         {
           "name": "I629004",
           "type": "radio",
-          "title": "无痛苦表情",
+          "title": "无痛苦表情（0分）",
           "code": "0",
           "score": 0,
           "style": null,
@@ -399,7 +399,7 @@
         {
           "name": "I629004",
           "type": "radio",
-          "title": "痛苦表情",
+          "title": "痛苦表情（1分）",
           "code": "1",
           "score": 1,
           "style": null,
@@ -409,7 +409,7 @@
         {
           "name": "I629004",
           "type": "radio",
-          "title": "痛苦表情伴呻吟",
+          "title": "痛苦表情伴呻吟（3分）",
           "code": "3",
           "score": 3,
           "style": null,
@@ -446,7 +446,7 @@
         {
           "name": "I629005",
           "type": "radio",
-          "title": "无",
+          "title": "无（0分）",
           "code": "0",
           "score": 0,
           "style": null,
@@ -457,7 +457,7 @@
         {
           "name": "I629005",
           "type": "radio",
-          "title": "频繁觉醒",
+          "title": "频繁觉醒（1分）",
           "code": "1",
           "score": 1,
           "style": null,
@@ -467,7 +467,7 @@
         {
           "name": "I629005",
           "type": "radio",
-          "title": "不能入睡",
+          "title": "不能入睡（3分）",
           "code": "3",
           "score": 3,
           "style": null,

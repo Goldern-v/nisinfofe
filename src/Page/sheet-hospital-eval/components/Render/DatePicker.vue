@@ -1,26 +1,51 @@
 
 <template>
   <span style class="date-picker-box">
-    <span>{{obj.prefixDesc}}</span>
+    <span>{{ obj.prefixDesc }}</span>
     <span
       v-if="obj.label"
-      :style="{width: obj.labelWidth, textAlign: 'right', paddingRight: '10px'}"
+      :style="{
+        width: obj.labelWidth,
+        textAlign: 'right',
+        paddingRight: '10px',
+      }"
     >
-      <span style="font-size: 13px;" :style="obj.labelStyle" :class="obj.labelClass">{{obj.label}}</span>
+      <span
+        style="font-size: 13px"
+        :style="obj.labelStyle"
+        :class="obj.labelClass"
+        >{{ obj.label }}</span
+      >
     </span>
     <!-- last-version +obj.type.toUpperCase()+obj.title||obj.label-->
-    <el-date-picker
-      :ref="obj.name"
-      v-model="datePickerValue"
-      :label="obj.title"
-      :class="obj.class"
-      :style="obj.inputStyle||obj.style"
-      :size="obj.size||'small'"
-      type="datetime"
-      format="yyyy-MM-dd HH:mm"
-      @keydown.native="inputKeyDown($event, obj)"
-      :placeholder="obj.placeholder"
-    ></el-date-picker>
+    <template v-if="obj.tiem">
+      <el-date-picker
+        :ref="obj.name"
+        v-model="datePickerValue"
+        :label="obj.title"
+        :class="obj.class"
+        :style="obj.inputStyle || obj.style"
+        :size="obj.size || 'small'"
+        type="datetime"
+        format="HH:mm"
+        @keydown.native="inputKeyDown($event, obj)"
+        :placeholder="obj.placeholder"
+      ></el-date-picker>
+    </template>
+    <template v-else>
+      <el-date-picker
+        :ref="obj.name"
+        v-model="datePickerValue"
+        :label="obj.title"
+        :class="obj.class"
+        :style="obj.inputStyle || obj.style"
+        :size="obj.size || 'small'"
+        type="datetime"
+        format="yyyy-MM-dd HH:mm"
+        @keydown.native="inputKeyDown($event, obj)"
+        :placeholder="obj.placeholder"
+      ></el-date-picker>
+    </template>
     <!-- 1.4.4 version -->
     <!-- <el-date-picker
       v-model="datePickerValue"
@@ -38,12 +63,12 @@ export default {
   name: "DatePicker",
   props: {
     obj: Object,
-    formObj: Object
+    formObj: Object,
   },
   components: {},
   data() {
     return {
-      datePickerValue: ""
+      datePickerValue: "",
     };
   },
   computed: {
@@ -52,7 +77,7 @@ export default {
         return this.formObj.formSetting.formInfo.formCode;
       } catch (error) {}
       return "E0100";
-    }
+    },
   },
   watch: {
     datePickerValue(valueNew, oldvaule) {
@@ -74,21 +99,18 @@ export default {
       // console.log("datePickerValue-model:", this.formObj.model);
 
       if (this.obj.name) {
-        this.formObj.model[this.obj.name] = moment(valueNew).format(
-          "YYYY-MM-DD HH:mm"
-        );
+        this.formObj.model[this.obj.name] =
+          moment(valueNew).format("YYYY-MM-DD HH:mm");
       }
       if (this.obj.name_date) {
-        this.formObj.model[this.obj.name_date] = moment(valueNew).format(
-          "YYYY-MM-DD"
-        );
+        this.formObj.model[this.obj.name_date] =
+          moment(valueNew).format("YYYY-MM-DD");
       }
       if (this.obj.name_time) {
-        this.formObj.model[this.obj.name_time] = moment(valueNew).format(
-          "HH:mm"
-        );
+        this.formObj.model[this.obj.name_time] =
+          moment(valueNew).format("HH:mm");
       }
-    }
+    },
   },
   mounted() {
     // let refName =
@@ -113,9 +135,8 @@ export default {
       // this.$root.$refs[refName] = this.$refs[refName];
       this.$refs[refName]["childObject"] = this.obj;
       //
-      this.$root.$refs[this.formCode][refName][refNameTitle] = this.$refs[
-        refName
-      ];
+      this.$root.$refs[this.formCode][refName][refNameTitle] =
+        this.$refs[refName];
     }
     // console.log('datePickerMounted',this.$refs,this.$root.$refs)
   },
@@ -160,36 +181,30 @@ export default {
     getUUID(child = null) {
       let uuid_ = uuid.v1();
       return uuid_;
-    }
-  }
+    },
+  },
 };
 </script>
 
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
-  .el-date-picker,
-   .is-bordered,
-   .el-date-picker--small,
-   .el-input,
-   .el-input--small,
-   .el-input__inner,
-   .el-input-group,
-   .el-input-group--prepend {
-    margin: 5px 0px;
-    width: 100%;
-  }
+.el-date-picker, .is-bordered, .el-date-picker--small, .el-input, .el-input--small, .el-input__inner, .el-input-group, .el-input-group--prepend {
+  margin: 5px 0px;
+  width: 100%;
+}
 
-  >>>.el-input__inner
-    width 100%!important
-    border-radius 0px
-    color: blue!important;
-    padding: 0px 5px!important;
-    height: 22px!important;
-    background: transparent;
+>>>.el-input__inner {
+  width: 100% !important;
+  border-radius: 0px;
+  color: blue !important;
+  padding: 0px 5px !important;
+  height: 22px !important;
+  background: transparent;
+}
 
-  .date-picker-box {
-    display: inline-block;
-    width: 100%;
-    font-size: 13px;
-  }
+.date-picker-box {
+  display: inline-block;
+  width: 100%;
+  font-size: 13px;
+}
 </style>
