@@ -193,6 +193,7 @@ export default {
           this.formObj.selectedItems = this.formObj.selectedItems.filter(c => {
             return c.name !== this.obj.name;
           });
+          
           console.log("取消选中", "index", index, this.formObj.selectedItems);
         }
         this.formObj.model[this.obj.name] = "";

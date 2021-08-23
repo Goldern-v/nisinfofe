@@ -286,8 +286,10 @@ export default {
             (item) => item.orderStatusName
           );
         });
+      } else if (this.HOSPITAL_ID === "beihairenyi") {
+        this.statusList = ["核实", "执行", "停止", "作废","撤销"];
       } else {
-        this.statusList = ["新开", "提交", "执行", "停止", "作废", "撤销"];
+        this.statusList = ["新开", "提交", "执行", "停止", "作废"];
       }
     },
   },

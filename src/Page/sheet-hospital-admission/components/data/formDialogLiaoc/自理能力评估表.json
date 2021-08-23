@@ -194,7 +194,6 @@
       "name": "1. 进食",
       "type": "formGroupHorizontalBox",
       "title": "1. 进食",
-      "titleStyle": "text-align:left",
       "message": "",
       "require": "false",
       "prefixDesc": "1. 进食",
@@ -207,43 +206,42 @@
         {
           "name": "I615001",
           "type": "radio",
-          "title": "完全独立",
+          "title": "完全独立（10分）",
           "code": "10",
           "score": 10,
           "style": null,
           "class": null,
           "html": null,
           "readOnly": null,
-          "notips": "10分，可独立进食（在合理的时间内独立进食准备好的食物:<br/>①30分钟内在无他人任何帮助的情况下，能独立完成进食；<br/>②或无须他人帮助，可以使用辅助工具，自助完成进食。"
+          "tips": "可独立进食"
         },
         {
           "name": "I615001",
           "type": "radio",
-          "title": "需部分帮助",
+          "title": "需部分帮助（5分）",
           "code": "5",
           "score": 5,
           "style": null,
           "class": null,
           "readOnly": null,
-          "notips": "5分，需部分帮助（进食过程中需要一定帮助<br/>①需要有他人在旁监护，必要时协助；<br/>②要有人诱导，提示动作才能完成进食；<br/>③需要有人协助剥皮，去鱼刺，切食物，开盖，置换餐具，将食物放到勺子上等才能完成进食。"
+          "tips": "需部分帮助"
         },
         {
           "name": "I615001",
           "type": "radio",
-          "title": "需极大帮助",
+          "title": "需极大帮助（0分）",
           "code": "0",
           "score": 0,
           "style": null,
           "class": null,
           "readOnly": null,
-          "notips": "0分，需极大帮助或完全依赖他人，或有留置营养管"
+          "tips": "需极大帮助或完全依赖他人，或有留置营养管"
         }
       ]
     },
     {
       "name": "2. 洗澡",
       "type": "formGroupHorizontalBox",
-      "titleStyle": "text-align:left",
       "title": "2. 洗澡",
       "message": "",
       "require": "false",
@@ -257,32 +255,31 @@
         {
           "name": "I615002",
           "type": "radio",
-          "title": "完全独立",
+          "title": "完全独立（5分）",
           "code": "5",
           "score": 5,
           "style": null,
           "class": null,
           "html": null,
           "readOnly": null,
-          "notips": "5分，准备好洗澡水后，可自己独立完成洗澡过程"
+          "tips": "准备好洗澡水后，可自己独立完成洗澡过程"
         },
         {
           "name": "I615002",
           "type": "radio",
-          "title": "需部分帮助",
+          "title": "需部分帮助（0分）",
           "code": "0",
           "score": 0,
           "style": null,
           "class": null,
           "readOnly": null,
-          "notips": "0分，在洗澡过程中需他人帮助"
+          "tips": "在洗澡过程中需他人帮助"
         }
       ]
     },
     {
       "name": "3. 修饰",
       "type": "formGroupHorizontalBox",
-      "titleStyle": "text-align:left",
       "title": "3. 修饰",
       "message": "",
       "require": "false",
@@ -296,32 +293,31 @@
         {
           "name": "I615003",
           "type": "radio",
-          "title": "完全独立",
+          "title": "完全独立（5分）",
           "code": "5",
           "score": 5,
           "style": null,
           "class": null,
           "html": null,
           "readOnly": null,
-          "notips": "5分，可自己独立完成"
+          "tips": "独立完成"
         },
         {
           "name": "I615003",
           "type": "radio",
-          "title": "需部分帮助",
+          "title": "需部分帮助（0分）",
           "code": "0",
           "score": 0,
           "style": null,
           "class": null,
           "readOnly": null,
-          "notips": "0分，需他人帮助"
+          "tips": "需他人帮助"
         }
       ]
     },
     {
       "name": "4. 穿衣",
       "type": "formGroupHorizontalBox",
-      "titleStyle": "text-align:left",
       "title": "4. 穿衣",
       "message": "",
       "require": "false",
@@ -335,43 +331,42 @@
         {
           "name": "I615004",
           "type": "radio",
-          "title": "完全独立",
+          "title": "完全独立（10分）",
           "code": "10",
           "score": 10,
           "style": null,
           "class": null,
           "html": null,
           "readOnly": null,
-          "notips": "10分，可独立完成"
+          "tips": "可独立完成"
         },
         {
           "name": "I615004",
           "type": "radio",
-          "title": "需部分帮助",
+          "title": "需部分帮助（5分）",
           "code": "5",
           "score": 5,
           "style": null,
           "class": null,
           "readOnly": null,
-          "notips": "5分，需部分帮助（能自己穿脱，但需他人帮助整理衣物，系扣/鞋带，拉拉链<br/>①需要有他人在旁监护，必要时协助；<br/>②需要有人诱导，提示，才能完成穿衣动作。"
+          "tips": "需他人帮助"
         },
         {
           "name": "I615004",
           "type": "radio",
-          "title": "需极大帮助",
+          "title": "需极大帮助（0分）",
           "code": "0",
           "score": 0,
           "style": null,
           "class": null,
           "readOnly": null,
-          "notips": "0分，需极大帮助或完全依赖他人"
+          "tips": "需极大帮助或完全依赖他人"
         }
       ]
     },
     {
       "name": "5. 控制大便",
       "type": "formGroupHorizontalBox",
-      "titleStyle": "text-align:left",
       "title": "5. 控制大便",
       "message": "",
       "require": "false",
@@ -385,43 +380,42 @@
         {
           "name": "I615005",
           "type": "radio",
-          "title": "完全独立",
+          "title": "完全独立（10分）",
           "code": "10",
           "score": 10,
           "style": null,
           "class": null,
           "html": null,
           "readOnly": null,
-          "notips": "10分，可控制大便"
+          "tips": "可控制大便"
         },
         {
           "name": "I615005",
           "type": "radio",
-          "title": "需部分帮助",
+          "title": "需部分帮助（5分）",
           "code": "5",
           "score": 5,
           "style": null,
           "class": null,
           "readOnly": null,
-          "notips": "5分，偶尔失控（<br/>①排便失禁情况少于每周一次，含一次；<br/>②或需要部分帮助，包括排便时需要他人在旁监护；行为动作需要提示后才能完成等。"
+          "tips": "偶尔失控，或需让人提示"
         },
         {
           "name": "I615005",
           "type": "radio",
-          "title": "需极大帮助",
+          "title": "需极大帮助（0分）",
           "code": "0",
           "score": 0,
           "style": null,
           "class": null,
           "readOnly": null,
-          "notips": "0分，完全失控"
+          "tips": "完全失控"
         }
       ]
     },
     {
       "name": "6. 控制小便",
       "type": "formGroupHorizontalBox",
-      "titleStyle": "text-align:left",
       "title": "6. 控制小便",
       "message": "",
       "require": "false",
@@ -435,47 +429,46 @@
         {
           "name": "I615006",
           "type": "radio",
-          "title": "完全独立",
+          "title": "完全独立（10分）",
           "code": "10",
           "score": 10,
           "style": null,
           "class": null,
           "html": null,
           "readOnly": null,
-          "notips": "10分，可控制小便"
+          "tips": "可控制小便"
         },
         {
           "name": "I615006",
           "type": "radio",
-          "title": "需部分帮助",
+          "title": "需部分帮助（5分）",
           "code": "5",
           "score": 5,
           "style": null,
           "class": null,
           "readOnly": null,
-          "notips": "5分，偶尔失控（<br/>①尿失禁情况少于一次，含一次，但多于每周一次，含一次；<br/>②或需要部分帮助，包括排尿时需要他人在旁监护；行为动作需要提示后才能完成等。"
+          "tips": "偶尔失控，或需让人提示"
         },
         {
           "name": "I615006",
           "type": "radio",
-          "title": "需极大帮助",
+          "title": "需极大帮助（0分）",
           "code": "0",
           "score": 0,
           "style": null,
           "class": null,
           "readOnly": null,
-          "notips": "0分，完全失控，或留置导尿管"
+          "tips": "完全失控，或留置导尿管"
         }
       ]
     },
     {
-      "name": "7. 如厕",
+      "name": "7.如厕",
       "type": "formGroupHorizontalBox",
-      "titleStyle": "text-align:left",
-      "title": "7. 如厕",
+      "title": "7.如厕",
       "message": "",
       "require": "false",
-      "prefixDesc": "7. 如厕",
+      "prefixDesc": "7.如厕",
       "suffixDesc": "",
       "keys": "I615007",
       "style": null,
@@ -485,47 +478,46 @@
         {
           "name": "I615007",
           "type": "radio",
-          "title": "完全独立",
+          "title": "完全独立（10分）",
           "code": "10",
           "style": null,
           "class": null,
           "html": null,
           "readOnly": null,
           "score": 10,
-          "notips": "10分，可独立完成"
+          "tips": "可独立完成"
         },
         {
           "name": "I615007",
           "type": "radio",
-          "title": "需部分帮助",
+          "title": "需部分帮助（5分）",
           "code": "5",
           "style": null,
           "class": null,
           "readOnly": null,
           "score": 5,
-          "notips": "5分，需部分帮助（需他人搀扶去厕所，需他人帮忙冲水或整理衣裤等）"
+          "tips": "需部分帮助"
         },
         {
           "name": "I615007",
           "type": "radio",
-          "title": "需极大帮助",
+          "title": "需极大帮助（0分）",
           "code": "3",
           "style": null,
           "class": null,
           "readOnly": null,
           "score": 0,
-          "notips": "0分，需极大帮助或完全依赖他人"
+          "tips": "需极大帮助或完全依赖他人"
         }
       ]
     },
     {
-      "name": "8. 床椅转移",
+      "name": "8.床椅转移",
       "type": "formGroupHorizontalBox",
-      "titleStyle": "text-align:left",
-      "title": "8. 床椅转移",
+      "title": "8.床椅转移",
       "message": "",
       "require": "false",
-      "prefixDesc": "8. 床椅转移",
+      "prefixDesc": "8.床椅转移",
       "suffixDesc": "",
       "keys": "I615008",
       "style": null,
@@ -535,58 +527,57 @@
         {
           "name": "I615008",
           "type": "radio",
-          "title": "完全独立",
+          "title": "完全独立（15分）",
           "code": "15",
           "style": null,
           "class": null,
           "html": null,
           "readOnly": null,
           "score": 15,
-          "notips": "15分，可独立完成"
+          "tips": "可独立完成"
         },
         {
           "name": "I615008",
           "type": "radio",
-          "title": "需部分帮助",
+          "title": "需部分帮助（10分）",
           "code": "10",
           "style": null,
           "class": null,
           "readOnly": null,
           "score": 10,
-          "notips": "10分，需要部分帮助（需要他人搀扶或是用拐杖）"
+          "tips": "需要部分帮助"
         },
         {
           "name": "I615008",
           "type": "radio",
-          "title": "需极大帮助",
+          "title": "需极大帮助（5分）",
           "code": "5",
           "style": null,
           "class": null,
           "readOnly": null,
           "score": 5,
-          "notips": "5分，需极大帮助（较大程度依赖他人搀扶和帮助）"
+          "tips": "需极大帮助"
         },
         {
           "name": "I615008",
           "type": "radio",
-          "title": "完全依赖",
+          "title": "完全依赖（0分）",
           "code": "0",
           "style": null,
           "class": null,
           "readOnly": null,
           "score": 0,
-          "notips": "0分，完全依赖他人"
+          "tips": "完全依赖他人"
         }
       ]
     },
     {
-      "name": "9. 平地行走",
+      "name": "9.平地行走",
       "type": "formGroupHorizontalBox",
-      "titleStyle": "text-align:left",
-      "title": "9. 平地行走",
+      "title": "9.平地行走",
       "message": "",
       "require": "false",
-      "prefixDesc": "9. 平地行走",
+      "prefixDesc": "9.平地行走",
       "suffixDesc": "",
       "keys": "I615009",
       "style": null,
@@ -596,58 +587,57 @@
         {
           "name": "I615009",
           "type": "radio",
-          "title": "完全独立",
+          "title": "完全独立（15分）",
           "code": "15",
           "style": null,
           "class": null,
           "html": null,
           "readOnly": null,
           "score": 15,
-          "notips": "15分，可独立在平地上行走45米。"
+          "tips": "可独立在平地行走45m。"
         },
         {
           "name": "I615009",
           "type": "radio",
-          "title": "需部分帮助",
+          "title": "需部分帮助（10分）",
           "code": "10",
           "style": null,
           "class": null,
           "readOnly": null,
           "score": 10,
-          "notips": "10分  需部分帮助（因肢体残疾，平衡能力差，过度衰弱，视力等问题，在一定程度上需他人搀扶或使用拐杖，助行器等辅助用具，不包括轮椅）"
+          "tips": "需部分帮助"
         },
         {
           "name": "I615009",
           "type": "radio",
-          "title": "需极大帮助",
+          "title": "需极大帮助（5分）",
           "code": "5",
           "style": null,
           "class": null,
           "readOnly": null,
           "score": 5,
-          "notips": "5分，需要极大帮助(因肢体残疾，平衡能力差，过度衰弱，视力等问题，在较大程度上依赖他人搀扶或坐在轮椅上自行移动)"
+          "tips": "需要极大帮助"
         },
         {
           "name": "I615009",
           "type": "radio",
-          "title": "完全依赖",
+          "title": "完全依赖（0分）",
           "code": "0",
           "style": null,
           "class": null,
           "readOnly": null,
           "score": 0,
-          "notips": "0分，完全依赖他人"
+          "tips": "完全依赖他人"
         }
       ]
     },
     {
-      "name": "10. 上下楼梯",
+      "name": "10.上下楼梯",
       "type": "formGroupHorizontalBox",
-      "titleStyle": "text-align:left",
-      "title": "10. 上下楼梯",
+      "title": "10.上下楼梯",
       "message": "",
       "require": "false",
-      "prefixDesc": "10. 上下楼梯",
+      "prefixDesc": "10.上下楼梯",
       "suffixDesc": "",
       "keys": "I615010",
       "style": null,
@@ -657,36 +647,36 @@
         {
           "name": "I615010",
           "type": "radio",
-          "title": "完全独立",
+          "title": "完全独立（10分）",
           "code": "10",
           "style": null,
           "class": null,
           "html": null,
           "readOnly": null,
           "score": 10,
-          "notips": "10分，可独立上下楼梯（连续上下10—15个台阶）"
+          "tips": "可独立上下楼梯"
         },
         {
           "name": "I615010",
           "type": "radio",
-          "title": "需部分帮助",
+          "title": "需部分帮助（5分）",
           "code": "5",
           "style": null,
           "class": null,
           "readOnly": null,
           "score": 5,
-          "notips": "5分，需要部分帮助（需他人帮助或扶着楼梯，使用拐杖等）"
+          "tips": "需要部分帮助"
         },
         {
           "name": "I615010",
           "type": "radio",
-          "title": "需极大帮助",
+          "title": "需极大帮助（0分）",
           "code": "0",
           "style": null,
           "class": null,
           "readOnly": null,
           "score": 0,
-          "notips": "0分,需要极大帮助或完全依赖他人。"
+          "tips": "需极大帮助或完全依赖他人。"
         }
       ]
     },
@@ -732,38 +722,24 @@
           "rule": [
             {
               "min": "0",
-              "max": "20",
-              "equal": "完全依赖",
+              "max": "41",
+              "equal": "重度依赖总分",
               "style": "color:red",
-              "display": "完全依赖"
+              "display": "重度依赖总分"
             },
             {
-              "min": "20",
-              "max": "40",
-              "equal": "严重依赖",
+              "min": "41",
+              "max": "61",
+              "equal": "中度依赖总分",
               "style": "color:red",
-              "display": "严重依赖"
+              "display": "中度依赖总分"
             },
             {
-              "min": "40",
-              "max": "60",
-              "equal": "明显依赖",
-              "style": "color:red",
-              "display": "明显依赖"
-            },
-            {
-              "min": "60",
-              "max": "100",
-              "equal": "基本自理",
+              "min": "61",
+              "max": "101",
+              "equal": "轻度依赖总分",
               "style": "color:blue",
-              "display": "基本自理"
-            },
-            {
-              "min": "100",
-              "max": "999",
-              "equal": "完全自理",
-              "style": "color:blue",
-              "display": "完全自理"
+              "display": "轻度依赖总分"
             }
           ]
         }
