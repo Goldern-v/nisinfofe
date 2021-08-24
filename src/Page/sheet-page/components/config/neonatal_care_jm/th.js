@@ -196,22 +196,11 @@ export default {
       },
       {
         name: `出量`,
-        colspan: '2',
+        colspan: '3',
         rowspan: '1',
         style: {
           width: '109px',
         }
-      },
-      {
-        name: `标题1`,
-        style: {
-          minWidth: '52px',
-          maxWidth: '52px',
-        },
-        colspan: "1",
-        rowspan: "3",
-        canSet: true,
-        key: "fieldOne",
       },
       {
         name: `用氧方式`,
@@ -245,8 +234,8 @@ export default {
         特殊情况记录
         `,
         style: {
-          minWidth: '160px',
-          maxWidth: '160px',
+          minWidth: '180px',
+          maxWidth: '180px',
         },
         colspan: '1',
         rowspan: '3'
@@ -291,6 +280,17 @@ export default {
         style: {
           minWidth: '40px',
         },
+      },
+      {
+        name: `标题1`,
+        style: {
+          minWidth: '52px',
+          maxWidth: '52px',
+        },
+        colspan: "1",
+        rowspan: "2",
+        canSet: true,
+        key: "fieldSeventeen",
       },
     ],
     bottom: []

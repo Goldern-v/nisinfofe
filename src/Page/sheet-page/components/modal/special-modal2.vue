@@ -1125,7 +1125,10 @@ export default {
         ) {
           text += allDoc[i];
         } else {
-          if (this.HOSPITAL_ID == "lingcheng" || (this.HOSPITAL_ID == "shannan")) {
+          if (this.HOSPITAL_ID == "lingcheng" || 
+             (this.HOSPITAL_ID == "shannan")  ||
+              this.sheetInfo.sheetType === "icu_qz" ||
+              this.sheetInfo.sheetType === "intersurgerycure_qzx") {
             if (GetLength(text) > 46) {
               result.push(text);
               text = allDoc[i];
@@ -1139,7 +1142,7 @@ export default {
             } else {
               text += allDoc[i];
             }
-          } else if (this.sheetInfo.sheetType === "internal_eval_lcey") {
+          }else if (this.sheetInfo.sheetType === "internal_eval_lcey") {
             if (GetLength(text) > 98) {
               result.push(text);
               text = allDoc[i];

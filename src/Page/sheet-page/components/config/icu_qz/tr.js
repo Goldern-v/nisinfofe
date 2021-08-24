@@ -79,8 +79,9 @@ export default [{
       top: "1px",
       bottom: "1px",
       left: "1px",
-      width: "360px",
-      background: "transparent"
+      width: "350px",
+      background: "transparent",
+      fontSize: "14px"
     },
     event: function (e, td) {
       console.log(e.keyCode);
