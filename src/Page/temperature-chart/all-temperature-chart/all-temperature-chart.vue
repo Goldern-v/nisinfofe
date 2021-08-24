@@ -4,6 +4,17 @@
       <span class="filterItem date">
         <span class="type-label">日期:</span>
         <ElDatePicker
+          v-if="HOSPITAL_ID !== 'guizhou'"
+          class="date-picker"
+          type="date"
+          size="small"
+          format="yyyy-MM-dd"
+          placeholder="开始日期"
+          v-model="query.entryDate"
+          clearable
+        />
+        <ElDatePicker
+          v-if="HOSPITAL_ID === 'guizhou'"
           class="date-picker"
           type="date"
           size="small"
@@ -15,6 +26,38 @@
       </span>
       <div class="times" v-if="HOSPITAL_ID === 'huadu'">
         <label :for="`time${item.id}`" v-for="item in timesEven" :key="item.id">
+          <input
+            type="radio"
+            name="time"
+            v-model="query.entryTime"
+            :id="`time${item.id}`"
+            :value="item.value"
+          />
+          {{ item.value }}
+        </label>
+      </div>
+      <div class="times" v-if="HOSPITAL_ID === 'hengli'">
+        <label
+          :for="`time${item.id}`"
+          v-for="item in timeshengli"
+          :key="item.id"
+        >
+          <input
+            type="radio"
+            name="time"
+            v-model="query.entryTime"
+            :id="`time${item.id}`"
+            :value="item.value"
+          />
+          {{ item.value }}
+        </label>
+      </div>
+      <div class="times" v-if="HOSPITAL_ID === 'quzhou'">
+        <label
+          :for="`time${item.id}`"
+          v-for="item in timesquZhou"
+          :key="item.id"
+        >
           <input
             type="radio"
             name="time"
@@ -113,7 +156,7 @@
           <el-table-column
             prop="temperature"
             label="体温"
-            min-width="60"
+            min-width="80"
             align="center"
           >
             <template slot-scope="scope">
@@ -128,7 +171,7 @@
             prop="pulse"
             label="脉搏"
             align="center"
-            min-width="60"
+            min-width="80"
           >
             <template slot-scope="scope">
               <custom-input v-model="scope.row.pulse" colClass="pulse" />
@@ -138,7 +181,7 @@
           <el-table-column
             prop="breath"
             label="呼吸"
-            min-width="60"
+            min-width=""
             align="center"
           >
             <template slot-scope="scope">
@@ -174,7 +217,7 @@
           <el-table-column
             prop="heartRate"
             label="心率"
-            min-width="60"
+            min-width="80"
             align="center"
           >
             <template slot-scope="scope">
@@ -188,7 +231,7 @@
           <el-table-column
             prop="fieldThree"
             label="尿量"
-            min-width="60"
+            min-width="80"
             align="center"
           >
             <template slot-scope="scope">
@@ -202,7 +245,7 @@
           <el-table-column
             prop="foodSize"
             label="入量"
-            min-width="60"
+            min-width="80"
             align="center"
           >
             <template slot-scope="scope">
@@ -213,7 +256,7 @@
           <el-table-column
             prop="dischargeSize"
             label="出量"
-            min-width="60"
+            min-width="80"
             align="center"
           >
             <template slot-scope="scope">
@@ -227,7 +270,22 @@
           <el-table-column
             prop="curWeight"
             label="体重"
-            min-width="60"
+            min-width="80"
+            align="center"
+          >
+            <template slot-scope="scope">
+              <custom-input
+                v-model="scope.row.curWeight"
+                colClass="curWeight"
+              />
+              <!-- <el-input v-model="scope.row.curWeight"></el-input> -->
+            </template>
+          </el-table-column>
+          <el-table-column
+            v-if="HOSPITAL_ID === 'guizhou'"
+            prop="curWeight"
+            label="护理事件"
+            min-width="100"
             align="center"
           >
             <template slot-scope="scope">
@@ -607,11 +665,72 @@ export default {
       nursingList: [],
       query: {
         wardCode: "", //科室编码
-        entryDate: moment(new Date()).format("YYYY-MM-DD"), //录入日期
+        entryDate:
+          this.HOSPITAL_ID === "guizhou"
+            ? moment(new Date()).format("YYYY-MM-DD")
+            : moment(new Date()).format("YYYY-MM-DD"), //录入日期
         entryTime: (() => {
           switch (this.HOSPITAL_ID) {
             case "huadu":
-              return "04";
+              if (this.getHours() >= 1 && this.getHours() <= 4) {
+                return "04";
+              }
+              if (this.getHours() > 4 && this.getHours() <= 8) {
+                return "08";
+              }
+              if (this.getHours() > 8 && this.getHours() <= 12) {
+                return "12";
+              }
+              if (this.getHours() > 12 && this.getHours() <= 16) {
+                return "16";
+              }
+              if (this.getHours() > 16 && this.getHours() <= 20) {
+                return "20";
+              }
+              if (
+                (this.getHours() > 20 && this.getHours() <= 23) ||
+                this.getHours() === 0
+              ) {
+                return "23";
+              }
+            case "quzhou":
+              if (this.getHours() >= 0 && this.getHours() <= 2) {
+                return "02";
+              }
+              if (this.getHours() > 2 && this.getHours() <= 6) {
+                return "06";
+              }
+              if (this.getHours() > 6 && this.getHours() <= 10) {
+                return "10";
+              }
+              if (this.getHours() > 10 && this.getHours() <= 14) {
+                return "14";
+              }
+              if (this.getHours() > 14 && this.getHours() <= 18) {
+                return "18";
+              }
+              if (this.getHours() > 18 && this.getHours() <= 23) {
+                return "22";
+              }
+            case "hengli":
+              if (this.getHours() >= 0 && this.getHours() <= 3) {
+                return "03";
+              }
+              if (this.getHours() > 3 && this.getHours() <= 7) {
+                return "07";
+              }
+              if (this.getHours() > 7 && this.getHours() <= 11) {
+                return "11";
+              }
+              if (this.getHours() > 11 && this.getHours() <= 15) {
+                return "15";
+              }
+              if (this.getHours() > 15 && this.getHours() <= 19) {
+                return "19";
+              }
+              if (this.getHours() > 19 && this.getHours() <= 23) {
+                return "23";
+              }
             case "guizhou":
               return "06";
             default:
@@ -671,6 +790,58 @@ export default {
           value: "22",
         },
       ],
+      timesquZhou: [
+        {
+          id: 0,
+          value: "02",
+        },
+        {
+          id: 1,
+          value: "06",
+        },
+        {
+          id: 2,
+          value: "10",
+        },
+        {
+          id: 3,
+          value: "14",
+        },
+        {
+          id: 4,
+          value: "18",
+        },
+        {
+          id: 5,
+          value: "22",
+        },
+      ],
+      timeshengli: [
+        {
+          id: 0,
+          value: "03",
+        },
+        {
+          id: 1,
+          value: "07",
+        },
+        {
+          id: 2,
+          value: "11",
+        },
+        {
+          id: 3,
+          value: "15",
+        },
+        {
+          id: 4,
+          value: "19",
+        },
+        {
+          id: 5,
+          value: "23",
+        },
+      ],
       timesOdd: [
         {
           id: 0,
@@ -719,15 +890,30 @@ export default {
   methods: {
     handlePatientChange() {},
     selectedNurs() {},
+    getHours() {
+      let date = new Date();
+      let b = date.getHours();
+      return b;
+    },
     getData() {
       if (!this.deptCode) {
         return;
       }
       let data = Object.assign({}, this.query);
-      data.entryDate = data.entryDate
-        ? moment(data.entryDate).format("YYYY/MM/DD")
-        : moment(new Date()).format("YYYY/MM/DD");
-      this.pageLoadng = true;
+      if (this.HOSPITAL_ID === "guizhou") {
+        data.entryDate = data.entryDate
+          ? moment(data.entryDate).format("YYYY/MM/DD ")
+          : moment(new Date()).format("YYYY/MM/DD ");
+        this.pageLoadng = true;
+        console.log(data);
+      } else {
+        data.entryDate = data.entryDate
+          ? moment(data.entryDate).format("YYYY/MM/DD ")
+          : moment(new Date()).format("YYYY/MM/DD");
+        this.pageLoadng = true;
+        console.log(data);
+      }
+
       getPatientsInfo(data).then((res) => {
         this.patientsInfoData = res.data.data;
         this.pageLoadng = false;
@@ -780,7 +966,6 @@ export default {
         painScore: "",
         stoolNum: "",
       };
-
       let list = this.tableData.map((item) => {
         let obj = {};
         for (let key in data) {

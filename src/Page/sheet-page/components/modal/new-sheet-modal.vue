@@ -36,7 +36,7 @@
           class="record-box"
           :class="{
             active: selectData == item,
-            isvertical: HOSPITAL_ID == 'huadu'
+            isvertical: HOSPITAL_ID == 'huadu',
           }"
           v-for="item of filterData"
           :key="item.id"
@@ -124,8 +124,8 @@
       border-radius: 4px;
     }
 
-    &.isvertical{
-      width:100% !important;
+    &.isvertical {
+      width: 100% !important;
     }
 
     img {
@@ -171,7 +171,7 @@ export default {
       pageLoading: true,
       searchWord: "",
       bus: bus(this),
-      selectData: ""
+      selectData: "",
     };
   },
   methods: {
@@ -205,7 +205,7 @@ export default {
         this.patientInfo.visitId,
         this.deptCode,
         item.recordCode
-      ).then(res => {
+      ).then((res) => {
         this.bus.$emit("getBlockList");
         this.$message.success("创建成功");
         this.bus.$emit("setSheetTableLoading", true);
@@ -218,19 +218,19 @@ export default {
     getData() {
       this.pageLoading = true;
       if (!this.this_deptCode) return;
-      listRecord(this.this_deptCode).then(res => {
+      listRecord(this.this_deptCode).then((res) => {
         this.templates = res.data.data.list;
         this.pageLoading = false;
       });
     },
     changeDept() {
       this.getData();
-    }
+    },
   },
   computed: {
     filterData() {
       if (this.$route.name == "singleTemperatureChart") {
-        return this.templates.filter(item => {
+        return this.templates.filter((item) => {
           switch (this.HOSPITAL_ID) {
             case "huadu":
               return item.recordCode.indexOf("body_temperature_Hd") == 0;
@@ -252,7 +252,7 @@ export default {
       }
       if (this.searchWord) {
         this.selectData = "";
-        return this.templates.filter(item => {
+        return this.templates.filter((item) => {
           return item.recordName.indexOf(this.searchWord) > -1;
         });
       } else {
@@ -266,24 +266,26 @@ export default {
       try {
         if (
           this.patientInfo.lendDeptCode &&
-          !this.options.find(item => item.code == this.patientInfo.lendDeptCode)
+          !this.options.find(
+            (item) => item.code == this.patientInfo.lendDeptCode
+          )
         ) {
           return [
             ...this.options,
             {
               code: this.patientInfo.lendDeptCode,
-              name: this.patientInfo.deptLend
-            }
+              name: this.patientInfo.deptLend,
+            },
           ];
         }
         return this.options;
       } catch (error) {}
       return this.options;
-    }
+    },
   },
   created() {
     // 获取科室列表
-    nursingUnit("/all").then(res => {
+    nursingUnit("/all").then((res) => {
       this.options = res.data.data.deptList;
       this.this_deptCode = this.deptCode;
     });
@@ -298,8 +300,8 @@ export default {
     },
     deptCode() {
       this.deptCode && (this.this_deptCode = this.deptCode);
-    }
+    },
   },
-  components: {}
+  components: {},
 };
 </script>

@@ -609,9 +609,9 @@ export default {
            this.data.bodyModel[index][targetIndex]){
               let targetVal = this.data.bodyModel[index][targetIndex].value || ""
               switch(targetVal){
-                case "小结":
-                  return 'red';
                 case "总结":
+                  return 'red';
+                case "小结":
                   return 'black';
                 default:
                   return "";

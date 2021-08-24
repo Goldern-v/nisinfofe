@@ -89,8 +89,8 @@ export default {
         其他
         `,
         style: {
-          minWidth: "300px",
-          maxWidth: "300px"
+          minWidth: "350px",
+          maxWidth: "350px"
         },
         colspan: '1',
         rowspan: '3'
