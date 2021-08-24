@@ -187,7 +187,7 @@ export default {
       colspan: '1',
       rowspan: '3',
       canSet: true,
-      key: 'fieldFourteen',
+      key: 'fieldFifteen',
       style: {
         minWidth: '38px',
         maxWidth: '38px',
@@ -198,7 +198,7 @@ export default {
       colspan: '1',
       rowspan: '3',
       canSet: true,
-      key: 'fieldFifteen',
+      key: 'fieldSixteen',
       style: {
         minWidth: '38px',
         maxWidth: '38px',

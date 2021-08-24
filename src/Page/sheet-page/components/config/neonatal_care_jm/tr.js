@@ -159,7 +159,7 @@ export default [{
   event: keyf1
 },
 {
-  key: "fieldOne", //标题1
+  key: "fieldSeventeen", //标题1
   value: "",
   event: keyf1,
   change: calValueChange,
@@ -195,7 +195,7 @@ export default [{
     top: "1px",
     bottom: "1px",
     left: "1px",
-    width: "153px",
+    width: "180px",
     background: "transparent",
     fontSize: "14px"
   },
