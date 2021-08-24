@@ -709,7 +709,8 @@ export default {
             moment("2019-9-20 " + lastRecordHour).unix()
         );
         if (isBefore) {
-          this.$confirm(
+          if(this.HOSPITAL_ID != 'huadu') {
+            this.$confirm(
             "新增记录比原有记录时间更前, 请确定日期, 是否确认保存?",
             "提示",
             {
@@ -717,9 +718,10 @@ export default {
               cancelButtonText: "取消",
               type: "warning",
             }
-          ).then((res) => {
-            save();
-          });
+            ).then((res) => {
+              save();
+            });
+          }
         } else {
           save();
         }

@@ -181,7 +181,6 @@ export default [{
     key: "fieldOne", //标题1
     value: "",
     event: keyf1,
-    change: calValueChange,
     textarea: {
       width: 52
     },
@@ -190,7 +189,6 @@ export default [{
     key: "fieldTwo", //标题2
     value: "",
     event: keyf1,
-    change: calValueChange,
     textarea: {
       width: 52
     },
@@ -199,7 +197,6 @@ export default [{
     key: "fieldThree", //标题3
     value: "",
     event: keyf1,
-    change: calValueChange,
     textarea: {
       width: 52
     },
@@ -208,7 +205,6 @@ export default [{
     key: "fieldFour", //标题4
     value: "",
     event: keyf1,
-    change: calValueChange,
     textarea: {
       width: 52
     },
@@ -217,7 +213,6 @@ export default [{
     key: "fieldFive", //标题5
     value: "",
     event: keyf1,
-    change: calValueChange,
     textarea: {
       width: 52
     },
@@ -226,7 +221,6 @@ export default [{
     key: "fieldSix", //标题6
     value: "",
     event: keyf1,
-    change: calValueChange,
     textarea: {
       width: 52
     },
