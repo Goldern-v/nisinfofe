@@ -6,7 +6,7 @@ export default {
   // 科室的名称
   deptType: '',
   style: {
-    width: "1200px"
+    width: "1250px"
   },
   th: {
     top: [{
@@ -138,12 +138,22 @@ export default {
       },
       {
         name: `
-        脐部情况
+        肌<br>张<br>力
         `,
         colspan: '1',
         rowspan: '3',
         style: {
           width: '36px',
+        }
+      },
+      {
+        name: `
+        脐部情况
+        `,
+        colspan: '1',
+        rowspan: '3',
+        style: {
+          width: '45px',
         }
       },
       {
@@ -193,6 +203,17 @@ export default {
         }
       },
       {
+        name: `标题1`,
+        style: {
+          minWidth: '52px',
+          maxWidth: '52px',
+        },
+        colspan: "1",
+        rowspan: "3",
+        canSet: true,
+        key: "fieldOne",
+      },
+      {
         name: `用氧方式`,
         colspan: '1',
         rowspan: '3',
@@ -224,8 +245,8 @@ export default {
         特殊情况记录
         `,
         style: {
-          minWidth: '153px',
-          maxWidth: '153px',
+          minWidth: '160px',
+          maxWidth: '160px',
         },
         colspan: '1',
         rowspan: '3'
