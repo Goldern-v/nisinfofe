@@ -40,8 +40,10 @@ export function getPatientsInfo(query) {
 
 //保存体温单
 export function saveOverAllTemperture(params) {
+
   return axios.post(`${apiPath}record/${getRecordType(process.env.HOSPITAL_ID)}/saveOverAll`, params);
 }
+
 
 //聊城二院出入院同步
 export function autoVitalSigns(data) {

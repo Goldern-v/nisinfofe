@@ -17,7 +17,7 @@ export const updateMsg = (id, msg) => {
     return axios.post(`${apiPath}msgBoard/update`, qs.stringify({ id, msg }))
 }
 export const addMsg = (msg, deptCode) => {
-    return axios.post(`${apiPath}msgBoard/commit`, qs.stringify({ msg, deptCode}))
+    return axios.post(`${apiPath}msgBoard/commit`, qs.stringify({ msg, deptCode }))
 }
 
 // 护理评估
@@ -32,9 +32,9 @@ export const deptForm = (wardCode, type, pageIndex, pageSize) => {
 
 //科室护理任务
 export const deptNursing = (wardCode, type) => {
-    return axios.post(`${apiPath}job/deptNursing`, qs.stringify({ wardCode, type}))
+    return axios.post(`${apiPath}job/deptNursing`, qs.stringify({ wardCode, type }))
 }
-
+console.log(deptNursing)
 //更新留言状态
 export const accomplish = (id) => {
     return axios.post(`${apiPath}msgBoard/accomplish`, qs.stringify({ id }))

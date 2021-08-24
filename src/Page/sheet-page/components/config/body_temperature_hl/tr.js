@@ -242,10 +242,10 @@ export default [{
   key: "empName",
   value: "",
 },
-// {
-//   key: "sign",
-//   value: ""
-// },
+{
+  key: "sign",
+  value: ""
+},
 {
   hidden: true,
   key: "id",
