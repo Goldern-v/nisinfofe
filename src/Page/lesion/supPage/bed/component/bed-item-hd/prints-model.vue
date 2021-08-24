@@ -1,7 +1,8 @@
 <template>
   <div class="right-mouse-modal">
-    <div class="item" @click="toPrint('wrist')">腕带批量打印</div>
-    <div class="item" @click="toPrint('h')">床头卡批量打印</div>
+    <div class="item" @click="toPrint('wrist')">批量打印腕带</div>
+    <div class="item" @click="toPrint('h')">批量打印床头卡1</div>
+    <div class="item" @click="toPrint('v')">批量打印床头卡2</div>
   </div>
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
