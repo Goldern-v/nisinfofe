@@ -1,38 +1,54 @@
 
 <template>
-  <span style="display:inline-flex;">
+  <span style="display: inline-flex">
     <!-- 警报icon -->
     <div
-      v-if="['select','selectInput'].indexOf(obj.type)>-1 && alertMessage"
-      :class="(obj.suffixDesc||obj.postText)?'alert-message-post':'alert-message'"
+      v-if="['select', 'selectInput'].indexOf(obj.type) > -1 && alertMessage"
+      :class="
+        obj.suffixDesc || obj.postText ? 'alert-message-post' : 'alert-message'
+      "
     >
-      <el-tooltip class="item" effect="light" :enterable="false" placement="top">
+      <el-tooltip
+        class="item"
+        effect="light"
+        :enterable="false"
+        placement="top"
+      >
         <div class="el-tooltip-content" slot="content">
           <div v-html="alertMessage"></div>
         </div>
         <img
           :src="alertImg"
           :alt="obj.title"
-          :style="obj.tips?'margin-left:20px!important':''"
+          :style="obj.tips ? 'margin-left:20px!important' : ''"
           :name="`${obj.name}_${obj.title}_${obj.label}_img`"
-          @click="alertClick($event,obj)"
+          @click="alertClick($event, obj)"
           width="14"
         />
       </el-tooltip>
     </div>
 
-    <span style="margin: 0;" class="input-box">
+    <span style="margin: 0" class="input-box">
       <!-- <autoComplete v-if="isShow" ref="autoInput" /> -->
       <!-- <el-input v-if="obj.type==='input'" v-model="checkboxValue" border size="small" :label="obj.title" :class="obj.class" :style="obj.style">{{obj.title}}</el-input> -->
       <span
         v-if="obj.label"
-        :style="[obj.spanStyle, {width: obj.labelWidth, textAlign: 'right', paddingRight: '0px', marginBottom:obj.marginBottom}]"
+        :style="[
+          obj.spanStyle,
+          {
+            width: obj.labelWidth,
+            textAlign: 'right',
+            paddingRight: '0px',
+            marginBottom: obj.marginBottom,
+          },
+        ]"
       >
         <span
-          style="font-size: 12px;padding:0px 0px;"
+          style="font-size: 12px; padding: 0px 0px"
           :style="obj.labelStyle"
           :class="obj.labelClass"
-        >{{obj.label}}:</span>
+          >{{ obj.label }}:</span
+        >
       </span>
 
       <!-- v-autoComplete="{dataList: obj.options, obj:formObj.model, key: obj.name}" -->
@@ -43,13 +59,13 @@
         :ref="obj.name"
         :name="obj.name"
         :title="obj.title || obj.label"
-        v-if="['select','selectInput'].indexOf(obj.type)>-1 && !obj.children"
+        v-if="['select', 'selectInput'].indexOf(obj.type) > -1 && !obj.children"
         placeholder="空"
-        :class="obj.class||'select-cursor'"
-        :style="[obj.style, obj.inputWidth && {width: obj.inputWidth}]"
-        :size="obj.size||''"
-        :type="obj.inputType||'text'"
-        :disabled="obj.readOnly?true:false"
+        :class="obj.class || 'select-cursor'"
+        :style="[obj.style, obj.inputWidth && { width: obj.inputWidth }]"
+        :size="obj.size || ''"
+        :type="obj.inputType || 'text'"
+        :disabled="obj.readOnly ? true : false"
         v-bind="obj.props"
         @change="inputChange($event, obj)"
         @dblclick.native.stop="inputdbClick($event, obj)"
@@ -59,7 +75,9 @@
         :readonly="obj.selectOnly"
         :clearable="true"
       >
-        <span class="pre-text" v-if="obj.prefixDesc" slot="prepend">{{obj.prefixDesc}}</span>
+        <span class="pre-text" v-if="obj.prefixDesc" slot="prepend">{{
+          obj.prefixDesc
+        }}</span>
         <!-- <span slot="append"> -->
         <!-- <i
         slot="append"
@@ -92,16 +110,16 @@ export default {
     formObj: Object,
     col: {
       type: Number,
-      default: 1
+      default: 1,
     },
     model: {
       type: String,
-      default: "normal"
+      default: "normal",
     },
     property: {
       type: Object,
-      default: () => new Object()
-    }
+      default: () => new Object(),
+    },
   },
   components: {
     // autoComplete
@@ -117,7 +135,7 @@ export default {
       isClone: false,
       alertMessage: "",
       alertActived: false,
-      currentRule: {}
+      currentRule: {},
     };
   },
   computed: {
@@ -126,7 +144,7 @@ export default {
         return this.formObj.formSetting.formInfo.formCode;
       } catch (error) {}
       return "E0100";
-    }
+    },
   },
   watch: {
     inputValue(valueNew, oldvaule) {
@@ -136,7 +154,7 @@ export default {
       // console.log("obj:", this.obj, this.$refs);
       this.isShowDownList = false;
       return valueNew;
-    }
+    },
   },
   mounted() {
     try {
@@ -161,7 +179,8 @@ export default {
       // this.$root.$refs[refName] = this.$refs[refName];
       // this.$root.$refs[refName] = [...this.$root.$refs[refName],this.$refs[refName]];
       //
-      this.$root.$refs[this.formCode][refName][refNameTitle] = this.$refs[refName];
+      this.$root.$refs[this.formCode][refName][refNameTitle] =
+        this.$refs[refName];
     }
 
     // if(this.obj && this.obj.hasOwnProperty('value')>-1 && this.obj.value &&this.obj.value.constructor === Array){
@@ -185,7 +204,7 @@ export default {
         this.obj.options = options;
       } else {
         this.obj.options = [];
-        options.map(item => {
+        options.map((item) => {
           this.obj.options.push({ name: item, code: item, pinyin: "" });
         });
       }
@@ -216,7 +235,7 @@ export default {
         //
         agelevel = this.$store.getters.getAgeLevel();
         // 遍历规则
-        this.obj.rule.map(r => {
+        this.obj.rule.map((r) => {
           let [min, max] = [Number(r.min), Number(r.max)];
           let value = Number(valueNew);
           min = min === NaN ? 0 : min;
@@ -227,7 +246,8 @@ export default {
             valueNew &&
             r.min &&
             r.max &&
-            (value >= min && value <= max) &&
+            value >= min &&
+            value <= max &&
             ((r.agelevel &&
               ((r.agelevel.constructor == String && r.agelevel == agelevel) ||
                 (r.agelevel.constructor == Array &&
@@ -282,7 +302,8 @@ export default {
             if (
               r.scoreMin &&
               r.scoreMax &&
-              (score >= scoreMin && score <= scoreMax)
+              score >= scoreMin &&
+              score <= scoreMax
             ) {
               this.obj.style = r.style;
               this.currentRule = { ...r };
@@ -307,7 +328,7 @@ export default {
               //   f => f.title == r.dialog.title
               // );
               if (obj && obj.children) {
-                obj.children.forEach(item => {
+                obj.children.forEach((item) => {
                   this.formObj.model[item.name] = "";
                 });
               }
@@ -316,7 +337,7 @@ export default {
         });
         //
         let alertMessageItems = [
-          ...this.$root.$refs.tableOfContent.getAlertMessageItems()
+          ...this.$root.$refs.tableOfContent.getAlertMessageItems(),
         ];
 
         //
@@ -327,9 +348,11 @@ export default {
           let hasAlertMessage = false;
           let title = this.obj.title || this.obj.label || "";
           let frequency = this.currentRule.frequency || "";
-          let tips = `<span><span style="color:green">${title}</span>:${valueNew ||
-            ""}<span style="color:chocolate">${this.obj.suffixDesc ||
-            ""}</span></span><br><span style="color:red">预警:${
+          let tips = `<span><span style="color:green">${title}</span>:${
+            valueNew || ""
+          }<span style="color:chocolate">${
+            this.obj.suffixDesc || ""
+          }</span></span><br><span style="color:red">预警:${
             this.alertMessage
           }</span>`;
           console.log("this.currentRule", this.currentRule);
@@ -356,8 +379,8 @@ export default {
                 title: title,
                 obj: this.obj,
                 value: valueNew,
-                tips: tips
-              }
+                tips: tips,
+              },
             ];
           }
           this.$root.$refs.tableOfContent.updateAlertMessageItems(
@@ -366,7 +389,7 @@ export default {
         } else {
           // if(this.alertMessage){
           // console.log('规则预警结果：SELECT:getAlertMessageItems:',this.alertActived,this.alertMessage,this.$root.$refs.tableOfContent.getAlertMessageItems())
-          alertMessageItems = alertMessageItems.filter(item => {
+          alertMessageItems = alertMessageItems.filter((item) => {
             return item.name && item.name != this.obj.name;
           });
           this.$root.$refs.tableOfContent.updateAlertMessageItems(
@@ -502,6 +525,7 @@ export default {
       let delt = xy.height;
 
       if (this.obj.options) {
+        this.inputValue = "";
         let dataList = this.obj.options;
         let key = this.obj.name;
         let obj = this.formObj.model;
@@ -519,19 +543,23 @@ export default {
               top: `${xy.top + delt}px`,
               left: `${xy.left}px`,
               width: `${xy.width}px`,
-              "min-width": "max-content"
+              "min-width": "max-content",
             },
             selectedList: obj[key] && obj[key].split ? obj[key].split(",") : [],
             data: dataList,
-            callback: data => {
-              console.log("===callback", obj, key, target);
+            callback: (data) => {
               if (obj && data) {
                 // 单选
                 if (!multiplechoice || multiplechoice == false) {
                   // obj[key] = data;
+
                   obj[key] = data.code;
+                  console.log(this.inputValue);
                   this.inputValue = data.name;
+                  console.log(this.inputValue);
+                  console.log(obj[key]);
                   this.checkValueRule(data.name, true);
+                  this.$forceUpdate();
                   // if (target.hasOwnProperty("$rightNode")) {
                   //   target.$rightNode.focus();
                   // }
@@ -547,7 +575,7 @@ export default {
                     values = [...values, data.code];
                   } else if (obj[key] && obj[key].indexOf(data.code) > -1) {
                     // 反选选项
-                    values = values.filter(v => {
+                    values = values.filter((v) => {
                       return v != data.code;
                     });
                   }
@@ -578,7 +606,7 @@ export default {
               // // this.isShowDownList = false
               // return false;
             },
-            id: key
+            id: key,
           });
         }
       }
@@ -668,82 +696,93 @@ export default {
     getUUID(child = null) {
       let uuid_ = uuid.v1();
       return uuid_;
-    }
-  }
+    },
+  },
 };
 </script>
 
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
+.input-box {
+  font-size: 13px;
 
-.input-box
-  font-size 13px
   // display: inline-flex;
   // align-items: center;
-  &:focus,:ative
-    outline none
-    border 1px solid #4baf8d
-  &.postText
+  &:focus, :ative {
+    outline: none;
+    border: 1px solid #4baf8d;
+  }
+
+  &.postText {
     display: flex;
     align-items: center;
+  }
+}
 
-.el-checkbox,
-.el-select,
-.is-bordered,
-.el-checkbox--small,
-.el-input,
-.el-input--small,
-.el-input-group,
-.el-input-group--prepend
+.el-checkbox, .el-select, .is-bordered, .el-checkbox--small, .el-input, .el-input--small, .el-input-group, .el-input-group--prepend {
   margin: 5px 0px;
   vertical-align: bottom;
   width: calc(100% - 2px);
-  &:hover
+
+  &:hover {
     // outline 1px solid #4baf8d
-    border none
-  &:focus
-    outline none
-    border 1px solid #4baf8d
-  &:placeholder
+    border: none;
+  }
+
+  &:focus {
+    outline: none;
+    border: 1px solid #4baf8d;
+  }
+
+  &:placeholder {
     color: #dbe6e4;
+  }
+}
 
-.select-box-small
-  width 65px!important
-  vertical-align super
+.select-box-small {
+  width: 65px !important;
+  vertical-align: super;
+}
 
-.select-label
+.select-label {
   margin-right: -4px;
   // margin-left: 4px;
   vertical-align: super;
+}
 
->>>.el-input__inner.el-input__inner.el-input__inner
-  width 100%
-  border-radius 0px
-  cursor pointer
-  color blue
-  padding: 0px 5px!important;
-  height: 22px!important;
+>>>.el-input__inner.el-input__inner.el-input__inner {
+  width: 100%;
+  border-radius: 0px;
+  cursor: pointer;
+  color: blue;
+  padding: 0px 5px !important;
+  height: 22px !important;
   background: transparent;
   background: white;
   transition: all 0.3s;
-  &:focus
-    outline none
-    border 1px solid #4baf8d
+
+  &:focus {
+    outline: none;
+    border: 1px solid #4baf8d;
     // background #dfffdf
-  &:placeholder
+  }
+
+  &:placeholder {
     color: #dbe6e4;
+  }
+}
 
-.el-input
+.el-input {
   width: 227px;
+}
 
-.pre-text, .post-text, >>>.el-input-group__append
-  color #486a62
+.pre-text, .post-text, >>>.el-input-group__append {
+  color: #486a62;
   background: white;
   border-radius: 0;
+}
 
-  // i.el-input__icon.el-icon-caret-top.is-reverse
-
-.el-input__icon
+.el-input__icon {
   position: absolute;
   width: 35px;
   height: 35px;
@@ -751,12 +790,13 @@ export default {
   top: 0;
   text-align: center;
   color: rgb(191, 217, 210);
-  transition: all .3s
+  transition: all 0.3s;
+}
 
-.el-input__icon
+.el-input__icon {
   color: rgb(191, 217, 210);
   font-size: 12px;
-  transition: transform .3s;
+  transition: transform 0.3s;
   -ms-transform: translateY(-50%) rotate(180deg);
   transform: translateY(-50%) rotateZ(180deg);
   line-height: 16px;
@@ -764,66 +804,72 @@ export default {
   cursor: pointer;
   width: 100%;
   height: auto;
-  &.is-reverse
+
+  &.is-reverse {
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
+  }
+}
 
-.el-icon-caret-top:before
-    content: "\E607";
+.el-icon-caret-top:before {
+  content: '\E607';
+}
 
-.el-input__icon:after
-    content: '';
-    height: 100%;
-    width: 0;
-    display: inline-block;
-    vertical-align: middle;
+.el-input__icon:after {
+  content: '';
+  height: 100%;
+  width: 0;
+  display: inline-block;
+  vertical-align: middle;
+}
 
 i {
   background: transparent;
-  .is-reverse{
-    -ms-transform: translateY(-50%)!important;
-    transform: translateY(-50%)!important;
+
+  .is-reverse {
+    -ms-transform: translateY(-50%) !important;
+    transform: translateY(-50%) !important;
   }
 }
 
 .post-text {
   // margin -8px -14px -8px -10px;
   // padding 8px 12px 8px 3px
-  margin: 0px 0px 0px 0px
-  padding: 0px 0px 0px 5px
-  background #fff
+  margin: 0px 0px 0px 0px;
+  padding: 0px 0px 0px 5px;
+  background: #fff;
 }
+
 >>>.el-input:hover {
   .post-text {
     // border-left 1px solid #4baf8d
-    background #eef5f5
+    background: #eef5f5;
   }
 }
 
 >>>.el-input__inner:hover {
-    border: 1px solid #4baf8d;
+  border: 1px solid #4baf8d;
 }
 
 .alert-message {
   cursor: pointer;
-  color:red;
-  font-size:12px;
-  position: absolute!important;
-  margin-left: -10px!important;
+  color: red;
+  font-size: 12px;
+  position: absolute !important;
+  margin-left: -10px !important;
   margin-top: 0px;
   z-index: 2;
 }
 
 .alert-message-post {
   cursor: pointer;
-  color:red;
-  font-size:12px;
-  position: absolute!important;
-  margin-left: -10px!important;
+  color: red;
+  font-size: 12px;
+  position: absolute !important;
+  margin-left: -10px !important;
   margin-top: 0px;
   z-index: 2;
 }
-
 </style>
 
 <style lang="scss">

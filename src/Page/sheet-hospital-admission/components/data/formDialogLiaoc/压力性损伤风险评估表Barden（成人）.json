@@ -213,7 +213,7 @@
         {
           "name": "I005001",
           "type": "radio",
-          "title": "完全受限",
+          "title": "完全受限（1分）",
           "code": "1",
           "score": "1",
           "style": "min-width: 85px!important;",
@@ -225,7 +225,7 @@
         {
           "name": "I005001",
           "type": "radio",
-          "title": "大部分受限",
+          "title": "大部分受限（2分）",
           "code": "2",
           "score": "2",
           "style": "min-width: 85px!important;",
@@ -236,7 +236,7 @@
         {
           "name": "I005001",
           "type": "radio",
-          "title": "轻度受限",
+          "title": "轻度受限（3分）",
           "code": "3",
           "score": "3",
           "style": "min-width: 85px!important;",
@@ -247,7 +247,7 @@
         {
           "name": "I005001",
           "type": "radio",
-          "title": "没有改变",
+          "title": "没有改变（4分）",
           "code": "4",
           "score": "4",
           "style": "min-width: 85px!important;",
@@ -274,7 +274,7 @@
         {
           "name": "I005002",
           "type": "radio",
-          "title": "持久潮湿",
+          "title": "持久潮湿（1分）",
           "code": "1",
           "score": "1",
           "style": "min-width: 85px!important;",
@@ -286,7 +286,7 @@
         {
           "name": "I005002",
           "type": "radio",
-          "title": "经常潮湿",
+          "title": "经常潮湿（2分）",
           "code": "2",
           "score": "2",
           "style": "min-width: 85px!important;",
@@ -297,7 +297,7 @@
         {
           "name": "I005002",
           "type": "radio",
-          "title": "偶尔潮湿",
+          "title": "偶尔潮湿（3分）",
           "code": "3",
           "score": "3",
           "style": "min-width: 85px!important;",
@@ -308,7 +308,7 @@
         {
           "name": "I005002",
           "type": "radio",
-          "title": "很少潮湿",
+          "title": "很少潮湿（4分）",
           "code": "4",
           "score": "4",
           "style": "min-width: 85px!important;",
@@ -335,7 +335,7 @@
         {
           "name": "I005003",
           "type": "radio",
-          "title": "卧床不起",
+          "title": "卧床不起（1分）",
           "code": "1",
           "score": "1",
           "style": "min-width: 85px!important;",
@@ -347,7 +347,7 @@
         {
           "name": "I005003",
           "type": "radio",
-          "title": "局限于椅",
+          "title": "局限于椅（2分）",
           "code": "2",
           "score": "2",
           "style": "min-width: 85px!important;",
@@ -358,7 +358,7 @@
         {
           "name": "I005003",
           "type": "radio",
-          "title": "偶尔步行",
+          "title": "偶尔步行（3分）",
           "code": "3",
           "score": "3",
           "style": "min-width: 85px!important;",
@@ -369,7 +369,7 @@
         {
           "name": "I005003",
           "type": "radio",
-          "title": "经常步行",
+          "title": "经常步行（4分）",
           "code": "4",
           "score": "4",
           "style": "min-width: 85px!important;",
@@ -396,7 +396,7 @@
         {
           "name": "I005004",
           "type": "radio",
-          "title": "完全受限",
+          "title": "完全受限（1分）",
           "code": "1",
           "score": "1",
           "style": "min-width: 85px!important;",
@@ -408,7 +408,7 @@
         {
           "name": "I005004",
           "type": "radio",
-          "title": "严重受限",
+          "title": "严重受限（2分）",
           "code": "2",
           "score": "2",
           "style": "min-width: 85px!important;",
@@ -419,7 +419,7 @@
         {
           "name": "I005004",
           "type": "radio",
-          "title": "轻度受限",
+          "title": "轻度受限（3分）",
           "code": "3",
           "score": "3",
           "style": "min-width: 85px!important;",
@@ -430,7 +430,7 @@
         {
           "name": "I005004",
           "type": "radio",
-          "title": "不受限",
+          "title": "不受限（4分）",
           "code": "4",
           "score": "4",
           "style": "min-width: 85px!important;",
@@ -457,7 +457,7 @@
         {
           "name": "I005005",
           "type": "radio",
-          "title": "重度营养摄入不足",
+          "title": "重度营养摄入不足（1分）",
           "code": "1",
           "score": "1",
           "style": "min-width: 85px!important;",
@@ -469,7 +469,7 @@
         {
           "name": "I005005",
           "type": "radio",
-          "title": "营养摄入不足",
+          "title": "营养摄入不足（2分）",
           "code": "2",
           "score": "2",
           "style": "min-width: 85px!important;",
@@ -480,7 +480,7 @@
         {
           "name": "I005005",
           "type": "radio",
-          "title": "营养摄入适当",
+          "title": "营养摄入适当（3分）",
           "code": "3",
           "score": "3",
           "style": "min-width: 85px!important;",
@@ -491,7 +491,7 @@
         {
           "name": "I005005",
           "type": "radio",
-          "title": "营养摄入良好",
+          "title": "营养摄入良好（4分）",
           "code": "4",
           "score": "4",
           "style": "min-width: 85px!important;",
@@ -518,7 +518,7 @@
         {
           "name": "I005006",
           "type": "radio",
-          "title": "有此问题",
+          "title": "有此问题（1分）",
           "code": "1",
           "score": "1",
           "style": "min-width: 85px!important;",
@@ -530,7 +530,7 @@
         {
           "name": "I005006",
           "type": "radio",
-          "title": "有潜在问题",
+          "title": "有潜在问题（2分）",
           "code": "2",
           "score": "2",
           "style": "min-width: 85px!important;",
@@ -541,7 +541,7 @@
         {
           "name": "I005006",
           "type": "radio",
-          "title": "无明显问题",
+          "title": "无明显问题（3分）",
           "code": "3",
           "score": "3",
           "style": "min-width: 85px!important;",

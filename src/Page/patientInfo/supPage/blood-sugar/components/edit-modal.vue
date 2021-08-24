@@ -17,7 +17,10 @@
         />
       </ElFormItem>
       <ElFormItem label="项目：" required>
-        <ElSelect v-if="HOSPITAL_ID != 'huadu'" v-model="form.sugarItem">
+        <ElSelect
+          v-if="HOSPITAL_ID != 'huadu' && HOSPITAL_ID != 'quzhou'"
+          v-model="form.sugarItem"
+        >
           <ElOption
             v-for="item in typeList"
             :key="item.vitalSign"
@@ -39,6 +42,19 @@
             :value="item.vitalSign"
           />
         </ElSelect>
+        <ElSelect
+          v-if="HOSPITAL_ID === 'quzhou'"
+          v-model="form.sugarItem"
+          filterable
+          allow-create
+        >
+          <ElOption
+            v-for="item in quzhouTypeList"
+            :key="item.vitalSign"
+            :label="item.vitalSign"
+            :value="item.vitalSign"
+          />
+        </ElSelect>
       </ElFormItem>
       <ElFormItem label="血糖值：" required>
         <ElInput v-model="form.sugarValue" />
@@ -47,7 +63,12 @@
       <ElFormItem
         label="RI剂量："
         required
-        v-if="HOSPITAL_ID != 'gy' && HOSPITAL_ID != 'huadu' && HOSPITAL_ID != 'liaocheng'&& HOSPITAL_ID != 'hengli'"
+        v-if="
+          HOSPITAL_ID != 'gy' &&
+          HOSPITAL_ID != 'huadu' &&
+          HOSPITAL_ID != 'liaocheng' &&
+          HOSPITAL_ID != 'hengli'
+        "
       >
         <ElInput v-model="form.riValue" />
         <span class="unit">(ü)</span>
@@ -56,7 +77,10 @@
         <ElInput v-model="form.riValue" />
         <span class="unit">(mmol/L)</span>
       </ElFormItem>
-      <ElFormItem :label="HOSPITAL_ID == 'liaocheng' ? '测量者：' : '执行人：'" required>
+      <ElFormItem
+        :label="HOSPITAL_ID == 'liaocheng' ? '测量者：' : '执行人：'"
+        required
+      >
         <span>{{ curEmpName }}</span>
         <span class="btn" @click="openSignModal">切换</span>
       </ElFormItem>
@@ -150,6 +174,29 @@ export default {
         vitalSign: "随机",
       },
     ],
+    quzhouTypeList: [
+      {
+        vitalSign: "早餐前",
+      },
+      {
+        vitalSign: "早餐后2H",
+      },
+      {
+        vitalSign: "午餐前",
+      },
+      {
+        vitalSign: "午餐后2H",
+      },
+      {
+        vitalSign: "晚餐前",
+      },
+      {
+        vitalSign: "晚餐后2H",
+      },
+      {
+        vitalSign: "睡前",
+      },
+    ],
   }),
   props: {
     sugarItem: Array,
@@ -167,15 +214,20 @@ export default {
       this.$refs.modal.open();
 
       let defaultSugarItem = "微机血糖";
-      if (this.HOSPITAL_ID != 'hj' && this.HOSPITAL_ID != "huadu") {
+      if (this.HOSPITAL_ID != "hj" && this.HOSPITAL_ID != "huadu") {
         defaultSugarItem = this.typeList ? this.typeList[0].vitalSign : "凌晨";
+      }
+      if (this.HOSPITAL_ID == "quzhou") {
+        defaultSugarItem = this.quzhouTypeList
+          ? this.quzhouTypeList[0].vitalSign
+          : "凌晨";
       }
       if (this.HOSPITAL_ID == "huadu") {
         defaultSugarItem = this.huaduTypeList
           ? this.huaduTypeList[0].vitalSign
           : "指尖血糖";
       }
-      if(this.HOSPITAL_ID == 'fuyou'){
+      if (this.HOSPITAL_ID == "fuyou") {
         let expand2 = form ? 2 : 1;
         form = form || {};
         this.form = {
@@ -192,9 +244,9 @@ export default {
           nurse: this.curEmpName, //--护士姓名
           expand1: "",
           expand2, //--操作方式，1：添加，2：修改~~~~
-          wardCode: this.patientInfo.wardCode || ""
-        }
-        this.oldRecordDate = form ? form.recordDate : '';
+          wardCode: this.patientInfo.wardCode || "",
+        };
+        this.oldRecordDate = form ? form.recordDate : "";
         return;
       }
       if (form) {
@@ -235,12 +287,12 @@ export default {
     },
     onConfirm() {
       const data = { ...this.form, oldRecordDate: this.oldRecordDate };
-
+      console.log(...this.form);
       data.recordDate.setHours(data.recordTime.getHours());
       data.recordDate.setMinutes(data.recordTime.getMinutes());
       data.recordDate.setSeconds(data.recordTime.getSeconds());
-      if(this.HOSPITAL_ID != 'fuyou'){
-       data.nurse = this.curEmpNo;
+      if (this.HOSPITAL_ID != "fuyou") {
+        data.nurse = this.curEmpNo;
       }
       delete data.recordTime;
       // 针对花都血糖项目进行保存
@@ -288,8 +340,11 @@ export default {
         this.typeList = res.data.data;
       });
     }
-    if (this.HOSPITAL_ID != 'hj' && this.HOSPITAL_ID != "huadu") {
+    if (this.HOSPITAL_ID != "hj" && this.HOSPITAL_ID != "huadu") {
       this.typeList = this.sugarItem;
+    }
+    if (this.HOSPITAL_ID === "quzhou") {
+      this.quzhouTypeList = this.sugarItem;
     }
     // 花都项目可编辑
     if (this.HOSPITAL_ID == "huadu") {
@@ -308,8 +363,11 @@ export default {
   },
   watch: {
     sugarItem(newVal, oldVal) {
-      if (newVal && this.HOSPITAL_ID != 'hj' && this.HOSPITAL_ID != "huadu") {
+      if (newVal && this.HOSPITAL_ID != "hj" && this.HOSPITAL_ID != "huadu") {
         this.typeList = this.sugarItem;
+      }
+      if (newVal && this.HOSPITAL_ID == "quzhou") {
+        this.quzhouTypeList = this.sugarItem;
       }
     },
     huaduTypeList(newVal, oldVal) {
@@ -319,7 +377,11 @@ export default {
       }
     },
     "form.sugarItem"(newVal, oldVal) {
-      if ((this.HOSPITAL_ID != 'hj' && this.HOSPITAL_ID != "huadu") && newVal == "自定义") {
+      if (
+        this.HOSPITAL_ID != "hj" &&
+        this.HOSPITAL_ID != "huadu" &&
+        newVal == "自定义"
+      ) {
         this.updateTetxInfo("自定义项目");
       }
     },

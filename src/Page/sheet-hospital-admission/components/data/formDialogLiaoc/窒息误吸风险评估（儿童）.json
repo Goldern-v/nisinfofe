@@ -212,7 +212,7 @@
         {
           "name": "I613022",
           "type": "radio",
-          "title": "＞1岁",
+          "title": "＞1岁（1分）",
           "code": "1",
           "score": 1,
           "style": null,
@@ -223,7 +223,7 @@
         {
           "name": "I613022",
           "type": "radio",
-          "title": "1个月-1岁",
+          "title": "1个月-1岁（2分）",
           "code": "2",
           "score": 2,
           "style": null,
@@ -233,7 +233,7 @@
         {
           "name": "I613022",
           "type": "radio",
-          "title": "新生儿",
+          "title": "新生儿（3分）",
           "code": "3",
           "score": 3,
           "style": null,
@@ -270,7 +270,7 @@
         {
           "name": "I613023",
           "type": "radio",
-          "title": "神志清醒",
+          "title": "神志清醒（1分）",
           "code": "1",
           "score": 1,
           "style": null,
@@ -281,7 +281,7 @@
         {
           "name": "I613023",
           "type": "radio",
-          "title": "神志清醒，药物镇静状态",
+          "title": "神志清醒，药物镇静状态（2分）",
           "code": "2",
           "score": 2,
           "style": null,
@@ -291,7 +291,7 @@
         {
           "name": "I613023",
           "type": "radio",
-          "title": "昏迷",
+          "title": "昏迷（3分）",
           "code": "3",
           "score": 3,
           "style": null,
@@ -328,7 +328,7 @@
         {
           "name": "I613024",
           "type": "radio",
-          "title": "无",
+          "title": "无（1分）",
           "code": "1",
           "score": 1,
           "style": null,
@@ -339,7 +339,7 @@
         {
           "name": "I613024",
           "type": "radio",
-          "title": "1种",
+          "title": "1种（2分）",
           "code": "2",
           "score": 2,
           "style": null,
@@ -349,7 +349,7 @@
         {
           "name": "I613024",
           "type": "radio",
-          "title": "1种以上",
+          "title": "1种以上（3分）",
           "code": "3",
           "score": 3,
           "style": null,
@@ -386,7 +386,7 @@
         {
           "name": "I613025",
           "type": "radio",
-          "title": "禁饮食",
+          "title": "禁饮食（1分）",
           "code": "1",
           "score": 1,
           "style": null,
@@ -397,7 +397,7 @@
         {
           "name": "I613025",
           "type": "radio",
-          "title": "普通饮食",
+          "title": "普通饮食（2分）",
           "code": "2",
           "score": 2,
           "style": null,
@@ -407,7 +407,7 @@
         {
           "name": "I613025",
           "type": "radio",
-          "title": "流质/半流质饮食",
+          "title": "流质/半流质饮食（3分）",
           "code": "3",
           "score": 3,
           "style": null,
@@ -444,7 +444,7 @@
         {
           "name": "I613026",
           "type": "radio",
-          "title": "自主",
+          "title": "自主（1分）",
           "code": "1",
           "score": 1,
           "style": null,
@@ -455,7 +455,7 @@
         {
           "name": "I613026",
           "type": "radio",
-          "title": "半卧",
+          "title": "半卧（2分）",
           "code": "2",
           "score": 2,
           "style": null,
@@ -465,7 +465,7 @@
         {
           "name": "I613026",
           "type": "radio",
-          "title": "仰卧",
+          "title": "仰卧（3分）",
           "code": "3",
           "score": 3,
           "style": null,
@@ -502,7 +502,7 @@
         {
           "name": "I613027",
           "type": "radio",
-          "title": "有",
+          "title": "有（1分）",
           "code": "1",
           "score": 1,
           "style": null,
@@ -513,7 +513,7 @@
         {
           "name": "I613027",
           "type": "radio",
-          "title": "无",
+          "title": "无（3分）",
           "code": "3",
           "score": 3,
           "style": null,
@@ -550,7 +550,7 @@
         {
           "name": "I613028",
           "type": "radio",
-          "title": "有",
+          "title": "有（3分）",
           "code": "3",
           "score": 3,
           "style": null,
@@ -561,7 +561,7 @@
         {
           "name": "I613028",
           "type": "radio",
-          "title": "无",
+          "title": "无（1分）",
           "code": "1",
           "score": 1,
           "style": null,

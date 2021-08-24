@@ -20,6 +20,7 @@
           <p>暂时没有护理单元～</p>
         </div>
         <component
+          @itemMouseRight="itemMouseRight"
           :is="currentBedItem"
           v-for="(item, index) in bedList"
           :key="index"
@@ -31,6 +32,9 @@
         >
         </component>
       </el-row>
+      <printsModal v-if="HOSPITAL_ID=='huadu'" v-show="pBtnShow" ref="printmodal" @toPrints="toPrints"></printsModal>
+      <printView v-if="HOSPITAL_ID=='huadu'" v-show="pmodalShow" @cancelPrint="cancelPrint" @toPrints="surePrints" :list="bedList"></printView>
+      <printHdModal ref="bedModalHd"></printHdModal>
     </div>
 
     <div class="advice-tips" v-show="!loading">
@@ -162,17 +166,23 @@ import bedItem from "./component/bed-item/bed-item.vue";
 import bedItemHd from "./component/bed-item-hd/bed-item.vue";
 import bedItemLcey from "./component/bed-item-lcey/bed-item.vue";
 import searchCon from "./component/search-con/search-con.vue";
+import printHdModal from "./component/prints/modals.vue"
 import common from "@/common/mixin/common.mixin.js";
+import printsModal from "./component/bed-item-hd/prints-model.vue"
+import printView from "./component/prints/prints-view.vue"
 import qs from "qs";
 export default {
   mixins: [common],
   data() {
     return {
+      pBtnShow:false,
+      pmodalShow:false,
       searchWord: "",
       bedList: [],
       loading: false,
       tableData: [],//医嘱提醒id
-      timeId: ""
+      timeId: "",
+      printMode:"h",
     };
   },
   computed: {
@@ -190,7 +200,7 @@ export default {
     currentBedItem() {
       if (this.HOSPITAL_ID == "huadu") {
         return bedItemHd;
-      } else if (this.HOSPITAL_ID == "liaocheng" || this.HOSPITAL_ID == "shannan") {
+      } else if (this.HOSPITAL_ID == "liaocheng" || this.HOSPITAL_ID == "shannan" || this.HOSPITAL_ID == "quzhou") {
         return bedItemLcey;
       } else {
         return bedItem;
@@ -231,6 +241,26 @@ export default {
     }
   },
   methods: {
+    cancelPrint(){
+      this.pmodalShow = false
+    },
+    surePrints(selectValue){
+      console.log(this.$refs.bedModalHd);
+      this.$refs.bedModalHd.open(this.printMode,selectValue);
+    },
+    toPrints(printMode){
+      this.printMode = printMode
+      this.pBtnShow = false
+      this.pmodalShow = true
+    },
+    itemMouseRight(event){
+      if(this.HOSPITAL_ID!="huadu"){
+        return
+      }
+      this.$refs.printmodal.$el.style.top = event.clientY - 50 + 'px';
+      this.$refs.printmodal.$el.style.left = event.clientX + 'px';
+      this.pBtnShow = true
+    },
     handleClick(tab, event) {
       console.log(tab, event);
     },
@@ -346,7 +376,10 @@ export default {
     bedItem,
     searchCon,
     bedItemHd,
-    bedItemLcey
+    bedItemLcey,
+    printsModal,
+    printView,
+    printHdModal
   }
 };
 </script>

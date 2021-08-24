@@ -7,7 +7,7 @@
       <thead></thead>
       <tbody>
         <tr v-for="(column,index) in columns" :key="index">
-          <td class="text-center" v-for="(item,itemIndex) in column" :key="itemIndex">
+          <td class="text-center" v-for="(item,itemIndex) in column" :key="itemIndex" :colspan="item.colspan || 1" :style="{'text-align': item.align || 'left'}">
             <div v-if="!item.editable">{{item.label}}</div>
             <div v-else>
               <label>
@@ -69,10 +69,9 @@
             </label>
           </td>
         </tr> -->
-        <tr v-for="(item, key) in formList" :key="key">
+        <!-- <tr v-for="(item, key) in formList" :key="key">
           <td class="text-center">{{key}}</td>
           <td :colspan="columns[0].length">
-            <!-- {{item.list}} -->
             <div v-if="item.format == 'inline'">
               <span v-for="(patItem, index) in item.list" :key="index">
                 <span v-if="index !== 0">、</span>
@@ -112,7 +111,7 @@
               </div>
             </div>
           </td>
-        </tr>
+        </tr> -->
          <!-- <tr class="normal-row">
           <td :colspan="columns[0].length+1" class="special-case-title" data-print-style="border-bottom: none;">
             <span
@@ -276,7 +275,7 @@ export default {
     return {
       bus: bus(this),
       formData: initFormData(data.changeShiftTimes),
-      formList: initFormList(data.changeShiftPatientLists),
+      // formList: initFormList(data.changeShiftPatientLists),
       changeShiftContents: initChangeShiftContents(data.changeShiftContents),
       columns: [
         [
@@ -436,9 +435,94 @@ export default {
             align: "center",
             width: "40"
           }
+        ],
+        [
+          {
+            label: "手术患者",
+            prop: "remark1",
+            editable: false,
+            align: "left",
+            width: "40"
+          },
+          {
+            label: "手术患者",
+            prop: "remark1",
+            editable: true,
+            align: "left",
+            width: "40",
+            colspan: 3
+          }
+        ],
+        [
+          {
+            label: "急诊病人",
+            prop: "remark2",
+            editable: false,
+            align: "left",
+            width: "40"
+          },
+          {
+            label: "急诊病人",
+            prop: "remark2",
+            editable: true,
+            align: "left",
+            width: "40",
+            colspan: 3
+          }
+        ],
+        [
+          {
+            label: "ICU转入病人",
+            prop: "remark3",
+            editable: false,
+            align: "left",
+            width: "40"
+          },
+          {
+            label: "ICU转入病人",
+            prop: "remark3",
+            editable: true,
+            align: "left",
+            width: "40",
+            colspan: 3
+          }
+        ],
+        [
+          {
+            label: "危急值病人",
+            prop: "remark4",
+            editable: false,
+            align: "left",
+            width: "40"
+          },
+          {
+            label: "危急值病人",
+            prop: "remark4",
+            editable: true,
+            align: "left",
+            width: "40",
+            colspan: 3
+          }
         ]
       ]
     };
+
+    //  手术患者: {
+    //   list: [],
+    //   format: "block"
+    // },
+    // 急诊病人: {
+    //   list: [],
+    //   format: "block"
+    // },
+    // ICU转入病人: {
+    //   list: [],
+    //   format: "block"
+    // },
+    // 危急值病人: {
+    //   list: [],
+    //   format: "block"
+    // }
   },
   computed: {
     // specialTxt() {

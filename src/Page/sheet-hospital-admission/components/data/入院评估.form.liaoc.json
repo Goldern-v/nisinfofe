@@ -2588,13 +2588,12 @@
           "inputWidth": "160px",
           "class": null,
           "options": [
-            "无",
-            "有"
+            "自理能力评估"
           ],
           "rule": [
             {
               "dialog": {
-                "openKey": "有",
+                "openKey": "自理能力评估表",
                 "cleanKey": "无",
                 "openDiffKey": "无",
                 "title": "自理能力评估表",
@@ -2711,7 +2710,6 @@
           "inputWidth": "160px",
           "class": null,
           "options": [
-            "无",
             "有,窒息误吸风险评估（成人）",
             "有,窒息误吸风险评估（儿童）"
           ],
@@ -2756,7 +2754,6 @@
           "inputWidth": "180px",
           "class": null,
           "options": [
-            "无",
             "有,Padua评分表(非手术科室)",
             "有,Caprini评分表(手术科室)",
             "有,VTE风险评估(Caprini 通用版)",
@@ -2898,8 +2895,7 @@
           "inputWidth": "160px",
           "class": null,
           "options": [
-            "无",
-            "有"
+            "非计划性拔管风险评估"
           ],
           "rule": [
             {
@@ -2931,13 +2927,12 @@
           "inputWidth": "160px",
           "class": null,
           "options": [
-            "无",
-            "有"
+            "GCS格拉斯哥昏迷评估"
           ],
           "rule": [
             {
               "dialog": {
-                "openKey": "有",
+                "openKey": "GCS格拉斯哥昏迷评估",
                 "cleanKey": "无",
                 "openDiffKey": "无",
                 "title": "GCS格拉斯哥昏迷评估",
@@ -2955,7 +2950,7 @@
           ]
         },
         {
-          "name": "S0629",
+          "name": "S0626",
           "type": "select",
           "title": "自杀风险评估",
           "style": null,
@@ -2964,20 +2959,45 @@
           "inputWidth": "160px",
           "class": null,
           "options": [
-            "无",
-            "有"
+            "自杀风险评估"
           ],
           "rule": [
             {
               "dialog": {
-                "openKey": "有",
+                "openKey": "自杀风险评估",
                 "cleanKey": "无",
                 "openDiffKey": "无",
                 "title": "自杀风险评估",
                 "default": "自杀风险评估",
-                "name": "S0629",
-                "type": "dependent",
-                "parentName": "S0629",
+                "name": "S0626",
+                "type": "independent",
+                "parentName": "S0626",
+                "showHead": "true"
+              }
+            }
+          ]
+        },
+        {
+          "name": "S0618",
+          "type": "select",
+          "title": "营养风险筛查评估",
+          "style": null,
+          "titleStyle": "width:80px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "160px",
+          "class": null,
+          "options": [
+            "营养风险筛查评估"
+          ],
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "营养风险筛查评估",
+                "title": "营养风险筛查评估",
+                "default": "营养风险筛查评估",
+                "name": "S0618",
+                "type": "independent",
+                "parentName": "S0618",
                 "showHead": "true"
               }
             },

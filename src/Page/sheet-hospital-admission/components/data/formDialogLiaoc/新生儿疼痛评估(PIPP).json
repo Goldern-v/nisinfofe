@@ -214,7 +214,7 @@
         {
           "name": "I629012",
           "type": "radio",
-          "title": "＜28周",
+          "title": "＜28周（3分）",
           "code": "3",
           "score": 3,
           "style": null,
@@ -225,7 +225,7 @@
         {
           "name": "I629012",
           "type": "radio",
-          "title": "28周-31周",
+          "title": "28周-31周（2分）",
           "code": "2",
           "score": 2,
           "style": null,
@@ -235,7 +235,7 @@
         {
           "name": "I629012",
           "type": "radio",
-          "title": "32周-35周",
+          "title": "32周-35周（1分）",
           "code": "1",
           "score": 1,
           "style": null,
@@ -245,7 +245,7 @@
         {
           "name": "I629012",
           "type": "radio",
-          "title": "≥36周",
+          "title": "≥36周（0分）",
           "code": "0",
           "score": 0,
           "style": null,
@@ -282,7 +282,7 @@
         {
           "name": "I629013",
           "type": "radio",
-          "title": "安静/睡眠，闭眼无面部活动",
+          "title": "安静/睡眠，闭眼无面部活动（3分）",
           "code": "3",
           "score": 3,
           "style": null,
@@ -293,7 +293,7 @@
         {
           "name": "I629013",
           "type": "radio",
-          "title": "活动/睡眠，闭眼有面部活动",
+          "title": "活动/睡眠，闭眼有面部活动（2分）",
           "code": "2",
           "score": 2,
           "style": null,
@@ -303,7 +303,7 @@
         {
           "name": "I629013",
           "type": "radio",
-          "title": "觉醒/安静，睁眼无面部活动",
+          "title": "觉醒/安静，睁眼无面部活动（1分）",
           "code": "1",
           "score": 1,
           "style": null,
@@ -313,7 +313,7 @@
         {
           "name": "I629013",
           "type": "radio",
-          "title": "觉醒/活动，睁眼有面部活动",
+          "title": "觉醒/活动，睁眼有面部活动（0分）",
           "code": "0",
           "score": 0,
           "style": null,
@@ -350,7 +350,7 @@
         {
           "name": "I629014",
           "type": "radio",
-          "title": "≥25次/分",
+          "title": "≥25次/分（3分）",
           "code": "3",
           "score": 3,
           "style": null,
@@ -361,7 +361,7 @@
         {
           "name": "I629014",
           "type": "radio",
-          "title": "15-24次/分",
+          "title": "15-24次/分（2分）",
           "code": "2",
           "score": 2,
           "style": null,
@@ -371,7 +371,7 @@
         {
           "name": "I629014",
           "type": "radio",
-          "title": "5-14次/分",
+          "title": "5-14次/分（1分）",
           "code": "1",
           "score": 1,
           "style": null,
@@ -381,7 +381,7 @@
         {
           "name": "I629014",
           "type": "radio",
-          "title": "0-4次/分",
+          "title": "0-4次/分（0分）",
           "code": "0",
           "score": 0,
           "style": null,
@@ -418,7 +418,7 @@
         {
           "name": "I629015",
           "type": "radio",
-          "title": "≥7.5%",
+          "title": "≥7.5%（3分）",
           "code": "3",
           "score": 3,
           "style": null,
@@ -429,7 +429,7 @@
         {
           "name": "I629015",
           "type": "radio",
-          "title": "5.0-7.4%",
+          "title": "5.0-7.4%（2分）",
           "code": "2",
           "score": 2,
           "style": null,
@@ -439,7 +439,7 @@
         {
           "name": "I629015",
           "type": "radio",
-          "title": "2.5-4.9%",
+          "title": "2.5-4.9%（1分）",
           "code": "1",
           "score": 1,
           "style": null,
@@ -449,7 +449,7 @@
         {
           "name": "I629015",
           "type": "radio",
-          "title": "0%-2.4%",
+          "title": "0%-2.4%（0分）",
           "code": "0",
           "score": 0,
           "style": null,
@@ -486,7 +486,7 @@
         {
           "name": "I629016",
           "type": "radio",
-          "title": "重度",
+          "title": "重度（3分）",
           "code": "3",
           "score": 3,
           "style": null,
@@ -497,7 +497,7 @@
         {
           "name": "I629016",
           "type": "radio",
-          "title": "中度",
+          "title": "中度（2分）",
           "code": "2",
           "score": 2,
           "style": null,
@@ -507,7 +507,7 @@
         {
           "name": "I629016",
           "type": "radio",
-          "title": "轻度",
+          "title": "轻度（1分）",
           "code": "1",
           "score": 1,
           "style": null,
@@ -517,7 +517,7 @@
         {
           "name": "I629016",
           "type": "radio",
-          "title": "无",
+          "title": "无（0分）",
           "code": "0",
           "score": 0,
           "style": null,
@@ -554,7 +554,7 @@
         {
           "name": "I629017",
           "type": "radio",
-          "title": "重度",
+          "title": "重度（3分）",
           "code": "3",
           "score": 3,
           "style": null,
@@ -565,7 +565,7 @@
         {
           "name": "I629017",
           "type": "radio",
-          "title": "中度",
+          "title": "中度（2分）",
           "code": "2",
           "score": 2,
           "style": null,
@@ -575,7 +575,7 @@
         {
           "name": "I629017",
           "type": "radio",
-          "title": "轻度",
+          "title": "轻度（1分）",
           "code": "1",
           "score": 1,
           "style": null,
@@ -585,7 +585,7 @@
         {
           "name": "I629017",
           "type": "radio",
-          "title": "无",
+          "title": "无（0分）",
           "code": "0",
           "score": 0,
           "style": null,
@@ -622,7 +622,7 @@
         {
           "name": "I629018",
           "type": "radio",
-          "title": "重度",
+          "title": "重度（3分）",
           "code": "3",
           "score": 3,
           "style": null,
@@ -633,7 +633,7 @@
         {
           "name": "I629018",
           "type": "radio",
-          "title": "中度",
+          "title": "中度（2分）",
           "code": "2",
           "score": 2,
           "style": null,
@@ -643,7 +643,7 @@
         {
           "name": "I629018",
           "type": "radio",
-          "title": "轻度",
+          "title": "轻度（1分）",
           "code": "1",
           "score": 1,
           "style": null,
@@ -653,7 +653,7 @@
         {
           "name": "I629018",
           "type": "radio",
-          "title": "无",
+          "title": "无（0分）",
           "code": "0",
           "score": 0,
           "style": null,

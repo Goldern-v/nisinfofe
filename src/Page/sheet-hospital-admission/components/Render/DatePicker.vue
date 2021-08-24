@@ -10,6 +10,22 @@
       <span style="font-size: 13px;" :style="obj.labelStyle" :class="obj.labelClass">{{obj.label}}</span>
     </span>
     <!-- last-version +obj.type.toUpperCase()+obj.title||obj.label-->
+    <template v-if="obj.tiem">
+      <el-date-picker
+      :ref="obj.name"
+      :name="obj.name"
+      v-model="datePickerValue"
+      :label="obj.title"
+      :class="obj.class"
+      :style="[obj.style, obj.inputWidth && {width: obj.inputWidth}]"
+      :size="obj.size||'small'"
+      type="datetime"
+      format="HH:mm"
+      @keydown.native="inputKeyDown($event, obj)"
+      :placeholder="obj.placeholder"
+    ></el-date-picker>
+    </template>
+    <template v-else>
     <el-date-picker
       :ref="obj.name"
       :name="obj.name"
@@ -23,6 +39,7 @@
       @keydown.native="inputKeyDown($event, obj)"
       :placeholder="obj.placeholder"
     ></el-date-picker>
+    </template>
     <!-- 1.4.4 version -->
     <!-- <el-date-picker
       v-model="datePickerValue"
