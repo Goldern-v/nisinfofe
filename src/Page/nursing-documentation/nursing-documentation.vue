@@ -1,11 +1,8 @@
 <template lang="pug">
   div
     .main-contain
-    if HOSPITAL_ID=='huadu' && searchConData && searchConData.status=="3"
-      changeMaJorTable(:tableData="tableData" :pageLoadng="pageLoadng")
-    else 
-      dTable(:tableData="tableData" :pageLoadng="pageLoadng")
-      
+      changeMaJorTable(v-if="HOSPITAL_ID=='huadu' && isChangeMajor" :tableData="tableData" :pageLoadng="pageLoadng")
+      dTable(v-else :tableData="tableData" :pageLoadng="pageLoadng")
       .head-con(flex="main:justify cross:center")
         pagination(:pageIndex="page.pageIndex" :size="page.pageNum" :total="page.total" @sizeChange="handleSizeChange"
         @currentChange="handleCurrentChange")
@@ -13,6 +10,29 @@
     .search-con
       searchCon(ref="searchCon")
 </template>
+
+<!--
+<template>
+  <div>
+    <div class="main-contain">
+      <div v-if="HOSPITAL_ID=='huadu' && isChangeMajor">
+        <change-ma-jor-table  :tableData="tableData" :pageLoadng="pageLoadng"></change-ma-jor-table>
+      </div>
+     <div v-else>
+       <d-table  :tableData="tableData" :pageLoadng="pageLoadng"></d-table>
+     </div>
+     
+      <div flex="main:justify cross:center" class="head-con">
+        <pagination flex="main:justify cross:center" class="head-con" :pageIndex="page.pageIndex" :size="page.pageNum" :total="page.total" @sizeChange="handleSizeChange" @currentChange="handleCurrentChange"/>
+      </div>
+    </div>
+    <div class="search-con">
+       <search-con ref="searchCon"></search-con>
+    </div>
+  </div>
+</template>
+-->
+
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
 .main-contain {
   margin: 10px 250px 0px 10px;
@@ -92,7 +112,8 @@ export default {
         pageIndex: 1,
         pageNum: 20,
         total: 0
-      }
+      },
+      isChangeMajor:false,//是否显示转科
     };
   },
   methods: {
@@ -147,12 +168,15 @@ export default {
       if (data.status == 1) {
         obj.dischargeDateBegin = "";
         obj.dischargeDateEnd = "";
+        this.isChangeMajor=false;
       }
       if (data.status == 2) {
         obj.admissionDateBegin = "";
         obj.admissionDateEnd = "";
+        this.isChangeMajor=false;
       }
       if (data.status == 3) {
+        this.isChangeMajor=true;
         // this.query.startDate = this.query.startDate ? moment(this.query.startDate).format("YYYY-MM-DD") + " 00:00:00": moment(new Date()).format("YYYY-MM-DD") + " 00:00:00";
         // this.query.endDate =  this.query.endDate ? moment(this.query.endDate).format("YYYY-MM-DD") + " 23:59:59" : moment(new Date()).format("YYYY-MM-DD") + " 23:59:59";
         obj.startDate = new Date(data.dateTime[0]).Format(
@@ -202,7 +226,8 @@ export default {
   },
   computed:{
     searchConData(){
-      return this.$refs.searchCon?this.$refs.searchCon.data:null
+      let newData=this.$refs.searchCon?this.$refs.searchCon.data:null;
+      return newData
     }
   },
   components: {
