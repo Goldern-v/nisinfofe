@@ -551,7 +551,7 @@ export default {
           return {
             title: item.operateName || item.operatorName || item.nodeName,
             auditMind: item.auditMind || "",
-            description: `${operatorName}<br>${operateDate}`,
+            description: `${operatorName}<br>${operateDate}<br>${item.handleContent}`,
             status
           };
         });
