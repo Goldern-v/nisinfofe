@@ -327,7 +327,7 @@ export function getListData() {
     for (let item of res.data.data) {
       chuList.push(item.name);
     }
-    chuList.push("出血")
+    chuList.push("出血","恶露")
   });
 
   let list = ["意识", "留置尿管", "留置镇痛泵"];

@@ -55,7 +55,7 @@
         </div>
       </el-row>
     </div>
-    <div v-else>
+    <!-- <div v-else>
       <el-row v-loading="loading" class="form" :style="{ height: height }">
         <div class="title">{{ HOSPITAL_NAME }}</div>
         <div class="name">{{ data.examItem }}报告单</div>
@@ -103,13 +103,13 @@
             <td colspan="5">{{ data.impression }}</td>
           </tr>
         </table>
-        <div>
+        <div> -->
           <!-- <el-button type="text" @click="toShowImg" style="margin-top: 20px" v-show="picNum">
             点击查看本次检查图像 ({{picNum}}张)
           </el-button>-->
-        </div>
+        <!-- </div>
       </el-row>
-    </div>
+    </div> -->
     <div
       class="exam-list"
       v-if="HOSPITAL_ID == 'guizhou' && examList.length"
@@ -271,8 +271,9 @@ export default {
           });
           return;
         }
-        console.log(this.data.examNo);
-        examResult(this.data.examNo)
+        // console.log(this.data.examNo);
+        if(this.data.examNo !== ''){
+          examResult(this.data.examNo)
           .then((res) => {
             this.data1 = res.data.data;
             console.log(this.data1);
@@ -285,6 +286,7 @@ export default {
             this.data1 = false;
             this.loading = false;
           });
+        }
       } else {
         this.data1 = false;
         this.loading = false;

@@ -20,256 +20,256 @@ let ysList = [];
 let chuList = [];
 let ruList = [];
 export default [{
-    key: "recordMonth", //日期
-    value: "",
-    event: event_date,
-    click: click_date
-  },
-  {
-    key: "recordHour", //时间
-    value: "",
-    event: event_time
-  },
-  {
-    key: "temperature", //体温
-    value: "",
-    event: keyf1
-  },
-  {
-    key: "pulse", //脉搏
-    value: "",
-    event: keyf1
-  },
-  {
-    key: "breath", //呼吸
-    value: "",
-    event: keyf1
-  },
-  {
-    key: "bloodPressure", //血压
-    value: "",
-    event: function (e, td) {
-      if (e.keyCode == 32) {
-        e.target.value += "/";
-        e.preventDefault();
-      }
-      keyf1(e, td);
+  key: "recordMonth", //日期
+  value: "",
+  event: event_date,
+  click: click_date
+},
+{
+  key: "recordHour", //时间
+  value: "",
+  event: event_time
+},
+{
+  key: "temperature", //体温
+  value: "",
+  event: keyf1
+},
+{
+  key: "pulse", //脉搏
+  value: "",
+  event: keyf1
+},
+{
+  key: "breath", //呼吸
+  value: "",
+  event: keyf1
+},
+{
+  key: "bloodPressure", //血压
+  value: "",
+  event: function (e, td) {
+    if (e.keyCode == 32) {
+      e.target.value += "/";
+      e.preventDefault();
     }
-  },
-  {
-    key: "spo2", //血氧饱和度
-    value: "",
-    event: keyf1
-  },
-  {
-    key: "consciousness", // 神志
-    value: "",
-    event: keyf1,
-    name: '神志'
-  },
-  {
-    key: "food", //入
-    value: "",
-    event: keyf1,
-    autoComplete: {
-      data: ruList
-    },
-    textarea: {
-      width: 68
-    }
-  },
-  {
-    key: "foodSize", //入量
-    value: "",
-    event: keyf1
-  },
-  {
-    key: "discharge", //出
-    value: "",
-    event: keyf1,
-    autoComplete: {
-      data: chuList
-    },
-    textarea: {
-      width: 40
-    }
-  },
-  {
-    key: "dischargeSize", //出量
-    value: "",
-    event: keyf1
-  },
-  {
-    key: "fieldOne", //标题1
-    value: "",
-    event: keyf1,
-    textarea: {
-      width: 48
-    }
-  },
-  {
-    key: "fieldTwo", //标题2
-    value: "",
-    event: keyf1,
-    textarea: {
-      width: 48
-    }
-  },
-  {
-    key: "fieldThree", //标题3
-    value: "",
-    event: keyf1,
-    textarea: {
-      width: 36
-    }
-  },
-  {
-    key: "fieldFour", //标题4
-    value: "",
-    event: keyf1,
-    textarea: {
-      width: 36
-    }
-  },
-  {
-    key: "fieldFive", //标题5
-    value: "",
-    event: keyf1,
-    textarea: {
-      width: 36
-    }
-  },
-  {
-    key: "fieldSix", //标题6
-    value: "",
-    event: keyf1,
-    textarea: {
-      width: 36
-    }
-  },
-  {
-    key: "fieldSeven", //标题7
-    value: "",
-    event: keyf1,
-    textarea: {
-      width: 36
-    }
-  },
-  {
-    key: "fieldEight", //标题8
-    value: "",
-    event: keyf1,
-    textarea: {
-      width: 36
-    }
-  },
-  {
-    key: "fieldNine", //标题9
-    value: "",
-    event: keyf1,
-    textarea: {
-      width: 36
-    }
-  },
-  {
-    key: "fieldTen", //标题10
-    value: "",
-    event: keyf1,
-    textarea: {
-      width: 36
-    }
-  },
-  {
-    key: "description", //特殊情况记录
-    value: "",
-    style: {
-      textAlign: "left",
-      position: "absolute",
-      top: "1px",
-      bottom: "1px",
-      left: "1px",
-      width: "260px",
-      background: "transparent"
-    },
-    event: function (e, td) {
-      console.log(e.keyCode);
-      if (e.keyCode == 9) {
-        td.value = "    " + td.value;
-        e.preventDefault();
-      }
-      keyf1(e, td);
-    }
-    // oninput: next
-  },
-  {
-    key: "sign",
-    value: ""
-  },
-  {
-    hidden: true,
-    key: "id",
-    value: ""
-  },
-  {
-    hidden: true,
-    key: "signerName",
-    value: ""
-  },
-  {
-    hidden: true,
-    key: "status",
-    value: ""
-  },
-  {
-    hidden: true,
-    key: "recordSource",
-    value: ""
-  },
-  {
-    hidden: true,
-    key: "recordYear",
-    value: ""
-  },
-  {
-    hidden: true,
-    key: "dataHash",
-    value: ""
-  },
-  {
-    hidden: true,
-    key: "recordDate",
-    value: ""
-  },
-  {
-    hidden: true,
-    key: "monthHour",
-    value: ""
-  },
-  {
-    hidden: false,
-    key: "signerNo",
-    value: ""
-  },
-  {
-    hidden: false,
-    key: "auditorNo",
-    value: ""
-  },
-  {
-    hidden: true,
-    key: "auditorName",
-    value: ""
-  },
-  {
-    hidden: true,
-    key: "empNo",
-    value: ""
-  },
-  {
-    hidden: true,
-    key: "multiSign",
-    value: false
+    keyf1(e, td);
   }
+},
+{
+  key: "spo2", //血氧饱和度
+  value: "",
+  event: keyf1
+},
+{
+  key: "consciousness", // 神志
+  value: "",
+  event: keyf1,
+  name: '神志'
+},
+{
+  key: "food", //入
+  value: "",
+  event: keyf1,
+  autoComplete: {
+    data: ruList
+  },
+  textarea: {
+    width: 68
+  }
+},
+{
+  key: "foodSize", //入量
+  value: "",
+  event: keyf1
+},
+{
+  key: "discharge", //出
+  value: "",
+  event: keyf1,
+  autoComplete: {
+    data: chuList
+  },
+  textarea: {
+    width: 40
+  }
+},
+{
+  key: "dischargeSize", //出量
+  value: "",
+  event: keyf1
+},
+{
+  key: "fieldOne", //标题1
+  value: "",
+  event: keyf1,
+  textarea: {
+    width: 48
+  }
+},
+{
+  key: "fieldTwo", //标题2
+  value: "",
+  event: keyf1,
+  textarea: {
+    width: 48
+  }
+},
+{
+  key: "fieldThree", //标题3
+  value: "",
+  event: keyf1,
+  textarea: {
+    width: 36
+  }
+},
+{
+  key: "fieldFour", //标题4
+  value: "",
+  event: keyf1,
+  textarea: {
+    width: 36
+  }
+},
+{
+  key: "fieldFive", //标题5
+  value: "",
+  event: keyf1,
+  textarea: {
+    width: 36
+  }
+},
+{
+  key: "fieldSix", //标题6
+  value: "",
+  event: keyf1,
+  textarea: {
+    width: 36
+  }
+},
+{
+  key: "fieldSeven", //标题7
+  value: "",
+  event: keyf1,
+  textarea: {
+    width: 36
+  }
+},
+{
+  key: "fieldEight", //标题8
+  value: "",
+  event: keyf1,
+  textarea: {
+    width: 36
+  }
+},
+{
+  key: "fieldNine", //标题9
+  value: "",
+  event: keyf1,
+  textarea: {
+    width: 36
+  }
+},
+{
+  key: "fieldTen", //标题10
+  value: "",
+  event: keyf1,
+  textarea: {
+    width: 36
+  }
+},
+{
+  key: "description", //特殊情况记录
+  value: "",
+  style: {
+    textAlign: "left",
+    position: "absolute",
+    top: "1px",
+    bottom: "1px",
+    left: "1px",
+    width: "260px",
+    background: "transparent"
+  },
+  event: function (e, td) {
+    console.log(e.keyCode);
+    if (e.keyCode == 9) {
+      td.value = "    " + td.value;
+      e.preventDefault();
+    }
+    keyf1(e, td);
+  }
+  // oninput: next
+},
+{
+  key: "sign",
+  value: ""
+},
+{
+  hidden: true,
+  key: "id",
+  value: ""
+},
+{
+  hidden: true,
+  key: "signerName",
+  value: ""
+},
+{
+  hidden: true,
+  key: "status",
+  value: ""
+},
+{
+  hidden: true,
+  key: "recordSource",
+  value: ""
+},
+{
+  hidden: true,
+  key: "recordYear",
+  value: ""
+},
+{
+  hidden: true,
+  key: "dataHash",
+  value: ""
+},
+{
+  hidden: true,
+  key: "recordDate",
+  value: ""
+},
+{
+  hidden: true,
+  key: "monthHour",
+  value: ""
+},
+{
+  hidden: false,
+  key: "signerNo",
+  value: ""
+},
+{
+  hidden: false,
+  key: "auditorNo",
+  value: ""
+},
+{
+  hidden: true,
+  key: "auditorName",
+  value: ""
+},
+{
+  hidden: true,
+  key: "empNo",
+  value: ""
+},
+{
+  hidden: true,
+  key: "multiSign",
+  value: false
+}
 ];
 
 export function getListData4() {
@@ -284,7 +284,7 @@ export function getListData4() {
     for (let item of res.data.data) {
       chuList.push(item.name);
     }
-    chuList.push("阴道出血")
+    chuList.push("阴道出血", "恶露")
   });
   let list = ["意识"];
   multiDictInfo(list).then(res => {

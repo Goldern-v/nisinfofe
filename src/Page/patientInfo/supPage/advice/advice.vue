@@ -163,6 +163,7 @@ import adviceTableGuizhou from "./component/adviceTable_guizhou";
 import adviceTableCommon from "./component/adviceTable_common";
 import adviceTableFy from "./component/adviceTable_fuyou";
 import adviceTableXiegang from "./component/adviceTable_xiegang.vue";
+import adviceTableBeihairenyi from "./component/adviceTable_beihairenyi.vue";
 import { orders } from "@/api/patientInfo";
 import { syncGetPatientOrders, getNurseOrderStatusDict } from "./api/index";
 export default {
@@ -251,6 +252,8 @@ export default {
         return "adviceTableGuizhou";
       }else if (HOSPITAL_ID == "xiegang") {
         return "adviceTableXiegang";
+      } else if (HOSPITAL_ID == "beihairenyi") {
+        return "adviceTableBeihairenyi";
       } else {
         return "adviceTable";
       }
@@ -315,6 +318,7 @@ export default {
     adviceTableGuizhou,
     adviceTableCommon,
     adviceTableXiegang,
+    adviceTableBeihairenyi,
     adviceTableFy
   },
 };
