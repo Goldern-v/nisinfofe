@@ -24,7 +24,10 @@
           clearable
         />
       </span>
-      <div class="times" v-if="HOSPITAL_ID === 'huadu'">
+      <div
+        class="times"
+        v-if="HOSPITAL_ID === 'huadu' || HOSPITAL_ID === 'fuyou'||HOSPITAL_ID === 'beihairenyi'"
+      >
         <label :for="`time${item.id}`" v-for="item in timesEven" :key="item.id">
           <input
             type="radio"
@@ -672,6 +675,50 @@ export default {
         entryTime: (() => {
           switch (this.HOSPITAL_ID) {
             case "huadu":
+              if (this.getHours() >= 1 && this.getHours() <= 4) {
+                return "04";
+              }
+              if (this.getHours() > 4 && this.getHours() <= 8) {
+                return "08";
+              }
+              if (this.getHours() > 8 && this.getHours() <= 12) {
+                return "12";
+              }
+              if (this.getHours() > 12 && this.getHours() <= 16) {
+                return "16";
+              }
+              if (this.getHours() > 16 && this.getHours() <= 20) {
+                return "20";
+              }
+              if (
+                (this.getHours() > 20 && this.getHours() <= 23) ||
+                this.getHours() === 0
+              ) {
+                return "23";
+              }
+              case "beihairenyi":
+              if (this.getHours() >= 1 && this.getHours() <= 4) {
+                return "04";
+              }
+              if (this.getHours() > 4 && this.getHours() <= 8) {
+                return "08";
+              }
+              if (this.getHours() > 8 && this.getHours() <= 12) {
+                return "12";
+              }
+              if (this.getHours() > 12 && this.getHours() <= 16) {
+                return "16";
+              }
+              if (this.getHours() > 16 && this.getHours() <= 20) {
+                return "20";
+              }
+              if (
+                (this.getHours() > 20 && this.getHours() <= 23) ||
+                this.getHours() === 0
+              ) {
+                return "23";
+              }
+            case "fuyou":
               if (this.getHours() >= 1 && this.getHours() <= 4) {
                 return "04";
               }

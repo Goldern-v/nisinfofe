@@ -628,12 +628,16 @@ export default {
               switch (this.HOSPITAL_ID) {
                 case "huadu":
                   return item.recordCode === "body_temperature_Hd";
+                case "fuyou":
+                  return item.recordCode === "body_temperature_jm";
                 case "hj":
                   return item.recordCode === "body_temperature_hj";
                 // case "liaocheng":
                 //   return item.recordCode === "body_temperature_lcey";
                 case "hengli":
                   return item.recordCode === "body_temperature_hl";
+                  case "beihairenyi":
+                  return item.recordCode === "body_temperature_bhry";
                 case "wujing":
                   return item.recordCode === "body_temperature_wj";
                 default:

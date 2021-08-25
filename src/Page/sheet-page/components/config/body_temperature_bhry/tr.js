@@ -1,0 +1,331 @@
+import {
+  multiDictInfo
+} from "../../../api/index";
+import {
+  keyf1
+} from "../keyEvent/f1.js";
+import {
+  event_date,
+  event_time,
+  click_date
+} from "../keyEvent/date";
+
+let 表底注释 = [];
+let 表顶注释 = [];
+export default [{
+    key: "recordMonth", //日期
+    value: "",
+    event: event_date,
+    click: click_date
+  },
+  {
+    key: "recordHour", //时间
+    value: "",
+    event: event_time,
+    autoComplete: {
+      data: ["03:00", "07:00", "11:00", "15:00", "19:00", "23:00"]
+    }
+  },
+  {
+    key: "temperature", //体温
+    value: "",
+    event: keyf1,
+    name: "体温",
+    next: "℃"
+  },
+  {
+    key: "pulse", //脉搏
+    value: "",
+    event: keyf1,
+    name: "脉搏",
+    next: "次/分"
+  },
+  {
+    key: "heartRate", //心率
+    value: "",
+    event: keyf1,
+    name: "心率",
+    next: "次/分"
+  }, {
+    key: "breath", //呼吸
+    value: "",
+    event: keyf1,
+    name: "呼吸",
+  },
+  {
+    key: "bloodPressure", //血压
+    value: "",
+    event: function (e, td) {
+      if (e.keyCode == 32) {
+        e.target.value += "/";
+        e.preventDefault();
+      }
+      keyf1(e, td);
+    },
+    name: "血压",
+    next: "mmHg"
+  },
+  {
+    key: "height", //身高
+    value: "",
+    event: keyf1,
+    name: "身高"
+  },
+  {
+    key: "curWeight", //体重
+    value: "",
+    event: keyf1,
+    name: "体重",
+  },
+  {
+    key: "fieldOne", //肛温
+    value: "",
+    event: keyf1,
+    name: "肛温",
+  },
+  {
+    key: "fieldTwo", //口温
+    value: "",
+    event: keyf1,
+    name: "口温",
+  },
+  {
+    key: "ventilatorR", //呼吸机R
+    value: "",
+    event: keyf1,
+    name: "呼吸机R",
+  },
+  {
+    key: "painScore", //疼痛
+    value: "",
+    event: keyf1,
+    name: "疼痛",
+  },
+  {
+    key: "painDrop", //疼痛干预
+    value: "",
+    event: keyf1,
+    name: "疼痛干预",
+  },
+  {
+    key: "topComment", //表项注释
+    value: "",
+    event: keyf1,
+    name: "表项注释",
+    autoComplete: {
+      data: 表顶注释
+    },
+    splice: true,
+    style: 'overflow: hidden',
+    textarea: {
+      width: 36
+    },
+  },
+  {
+    key: "bottomComment", //表底注释
+    value: "",
+    event: keyf1,
+    name: "表底注释",
+    autoComplete: {
+      data: 表底注释
+    },
+    splice: true,
+    style: 'overflow: hidden',
+    textarea: {
+      width: 36
+    },
+  },
+  {
+    key: "stoolNum", //大便次数
+    value: "",
+    event: keyf1,
+    name: "大便次数",
+  },
+  {
+    key: "fieldThree", //尿量
+    value: "",
+    event: keyf1,
+    name: "尿量",
+  },
+  {
+    key: "foodSize", //入量
+    value: "",
+    event: keyf1,
+    name: "入量",
+  },
+  {
+    key: "dischargeSize", //总出量
+    value: "",
+    event: keyf1,
+    name: "总出量",
+  },
+  {
+    key: "fieldFour", //自1
+    value: "",
+    event: keyf1,
+    textarea: {
+      width: 36
+    },
+  },
+  {
+    key: "fieldFive", //自2
+    value: "",
+    event: keyf1,
+    textarea: {
+      width: 36
+    }
+  },
+  {
+    key: "fieldSix", //自3
+    value: "",
+    event: keyf1,
+    textarea: {
+      width: 36
+    }
+  },
+  {
+    key: "fieldSeven", //自4
+    value: "",
+    event: keyf1,
+    textarea: {
+      width: 36
+    }
+  },
+  {
+    key: "description", //特殊情况记录
+    value: "",
+    hidden: true,
+    style: {
+      textAlign: "left",
+      position: "absolute",
+      top: "1px",
+      bottom: "1px",
+      left: "1px",
+      width: "180px",
+      background: "transparent"
+    },
+    event: function (e, td) {
+      console.log(e.keyCode);
+      if (e.keyCode == 9) {
+        td.value = "    " + td.value;
+        e.preventDefault();
+      }
+      keyf1(e, td);
+    }
+    // oninput: next
+  },
+  // {
+  //   key: "empName",
+  //   value: "",
+  //   name: "记录人",
+  // },
+  {
+    key: "sign",
+    value: ""
+  },
+  {
+    hidden: true,
+    key: "id",
+    value: ""
+  },
+  {
+    hidden: true,
+    key: "signerName",
+    value: ""
+  },
+  {
+    hidden: true,
+    key: "status",
+    value: ""
+  },
+  {
+    hidden: true,
+    key: "recordSource",
+    value: ""
+  },
+  {
+    hidden: true,
+    key: "recordYear",
+    value: ""
+  },
+  {
+    hidden: true,
+    key: "dataHash",
+    value: ""
+  },
+  {
+    hidden: true,
+    key: "recordDate",
+    value: ""
+  },
+  {
+    hidden: true,
+    key: "monthHour",
+    value: ""
+  },
+  {
+    hidden: false,
+    key: "signerNo",
+    value: ""
+  },
+  {
+    hidden: true,
+    key: "auditorNo",
+    value: ""
+  },
+  {
+    hidden: true,
+    key: "auditorName",
+    value: ""
+  },
+  {
+    hidden: true,
+    key: "empNo",
+    value: ""
+  },
+  {
+    hidden: true,
+    key: "multiSign",
+    value: false
+  }
+];
+
+
+let filterKey = '花都' + ':';
+let filterKey2 = '体温单' + ':';
+let filterKey2Arr = ["表底注释", "表顶注释"];
+
+export function getListData4() {
+  let list = [
+    "表底注释",
+    "表顶注释",
+  ];
+
+  list = list.map(key => {
+    return filterKey2Arr.includes(key) ? filterKey + filterKey2 + key : filterKey + key;
+  });
+  multiDictInfo(list).then(res => {
+    let data = res.data.data;
+    setList(表底注释, "表底注释", data);
+    setList(表顶注释, "表顶注释", data);
+  });
+}
+
+getListData4();
+
+/**
+ *
+ * @param {*} list 原数组
+ * @param {*} key 对应的key
+ * @param {*} data 数据源
+ * @param {*} isChildOptions 当前选项是否有下拉子选项
+ */
+function setList(list, key, data, ) {
+  key = filterKey2Arr.includes(key) ? filterKey + filterKey2 + key : filterKey + key;
+
+  list.splice(0, list.length);
+  for (let item of data[key]) {
+    list.push(item.name);
+  }
+
+}

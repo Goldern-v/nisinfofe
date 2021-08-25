@@ -28,6 +28,7 @@
             (HOSPITAL_ID === 'huadu' ||
               HOSPITAL_ID === 'liaocheng' ||
               HOSPITAL_ID === 'hengli' ||
+              HOSPITAL_ID === 'quzhou' ||
               HOSPITAL_ID === 'hj' ||
               HOSPITAL_ID === 'wujing') &&
             $route.path.includes('singleTemperatureChart')
@@ -422,6 +423,7 @@ export default {
       if (
         (this.HOSPITAL_ID === "huadu" ||
           this.HOSPITAL_ID === "hj" ||
+          this.HOSPITAL_ID === "quzhou" ||
           this.HOSPITAL_ID === "hengli" ||
           this.HOSPITAL_ID === "wujing") &&
         this.$route.path.includes("singleTemperatureChart")
@@ -709,15 +711,15 @@ export default {
             moment("2019-9-20 " + lastRecordHour).unix()
         );
         if (isBefore) {
-          if(this.HOSPITAL_ID != 'huadu') {
+          if (this.HOSPITAL_ID != "huadu") {
             this.$confirm(
-            "新增记录比原有记录时间更前, 请确定日期, 是否确认保存?",
-            "提示",
-            {
-              confirmButtonText: "确认",
-              cancelButtonText: "取消",
-              type: "warning",
-            }
+              "新增记录比原有记录时间更前, 请确定日期, 是否确认保存?",
+              "提示",
+              {
+                confirmButtonText: "确认",
+                cancelButtonText: "取消",
+                type: "warning",
+              }
             ).then((res) => {
               save();
             });
