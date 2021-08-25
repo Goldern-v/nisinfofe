@@ -125,7 +125,7 @@ export default {
       }
     },
   },
-  components: { patientList, temperatureNew, tabCon },
+  components: { patientList, temperatureBHRY, tabCon },
   watch: {
     deptCode(val) {
       if (val) {
