@@ -42,6 +42,8 @@ const workloadSatisticsLc = () =>
   import("../Page/workloadSatisticsLc/workloadSatistics.vue"); // 陵城工作量统计
 const workloadSatisticsZSQ = () =>
   import("../Page/workloadSatisticsLc/workloadSatistics-zhongshanqi.vue"); // 中山七工作量统计
+const workloadSatisticsFuYou = () =>
+  import("@/Page/workloadSatisticsLc/workloadSatistics-fuyou.vue"); // 江门妇幼工作量统计
 const NotFoundComponent = () =>
   import("../components/NotFound/NotFoundComponent.vue"); // 异常路径
 const print = () => import("@/Part/print/print.vue");
@@ -689,7 +691,17 @@ const router = new Router({
       },
       {
         path: "/workloadSatistics",
-        component: HOSPITAL_ID == "lingcheng" ? workloadSatisticsLc : workloadSatisticsZSQ,
+        //component: HOSPITAL_ID == "lingcheng" || HOSPITAL_ID == "fuyou"  ? workloadSatisticsLc : workloadSatisticsZSQ,
+        component: (() => {
+          switch (HOSPITAL_ID) {
+            case 'lingcheng':
+                return workloadSatisticsLc
+            case 'fuyou':
+                return workloadSatisticsFuYou
+            default:
+                return workloadSatisticsZSQ
+          }
+        })(),
         name: "工作量统计"
       },
       {
