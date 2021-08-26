@@ -576,8 +576,8 @@ export default {
         });
       } else if (this.formType == "4") {
         healthEduTemplates(this.deptCode).then((res) => {
-          this.templates = res.data.data.missionList;
-          this.tmpitem = res.data.data.eduFormTemplate;
+          console.log(res.data.list);
+          this.templates = res.data.data.list;
           this.pageLoading = false;
         });
       } else {
@@ -616,7 +616,6 @@ export default {
   },
   watch: {
     formType() {
-      console.log(this.formType);
       this.getData();
       this.selectData = "";
     },
