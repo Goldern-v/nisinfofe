@@ -70,7 +70,7 @@
           <span v-if="info.allergy1"> {{ info.allergy1 }}; </span>
           <span v-if="info.drugGms">{{ info.drugGms }}; </span>
           <span v-if="info.allergy2">{{ info.allergy2 }} </span>
-          <span v-else>--</span>
+          <span v-if="!(info.allergy1||info.drugGms||info.allergy2)">--</span>
         </div>
       </div>
     </div>
