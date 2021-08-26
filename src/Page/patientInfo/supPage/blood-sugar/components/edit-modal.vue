@@ -67,7 +67,8 @@
           HOSPITAL_ID != 'gy' &&
           HOSPITAL_ID != 'huadu' &&
           HOSPITAL_ID != 'liaocheng' &&
-          HOSPITAL_ID != 'hengli'
+          HOSPITAL_ID != 'hengli' &&
+          HOSPITAL_ID != 'guizhou'
         "
       >
         <ElInput v-model="form.riValue" />
@@ -287,7 +288,7 @@ export default {
     },
     onConfirm() {
       const data = { ...this.form, oldRecordDate: this.oldRecordDate };
-      console.log(...this.form);
+      console.log(data);
       data.recordDate.setHours(data.recordTime.getHours());
       data.recordDate.setMinutes(data.recordTime.getMinutes());
       data.recordDate.setSeconds(data.recordTime.getSeconds());
