@@ -342,7 +342,7 @@ export default {
       if(this.HOSPITAL_ID == "beihairenyi"){
         lists = this.bedList.filter((item) => item.hasAllergy)
       }else{
-        lists = this.bedList.filter((item) => item.drugGms)
+        lists = this.bedList.filter((item) => item.drugGms||item.allergy1||item.allergy2)
       }
       return lists;
     },
