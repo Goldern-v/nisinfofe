@@ -88,12 +88,14 @@ export default {
       searchDate: "",
       tableData: [],
       multipleSelection: [],
-      bus: bus(this)
+      bus: bus(this),
+      formlist:{},
     };
   },
   methods: {
-    open() {
-      if (!this.patientInfo.patientId) {
+    open(baseParams) {  
+      this.formlist = baseParams
+      if (!this.patientInfo.patientId && !baseParams.patientId) {
         return this.$message.warning("请选择一名患者");
       }
       this.searchDate = moment().format("YYYY-MM-DD");
@@ -109,6 +111,7 @@ export default {
         this.close();
         this.bus.$emit("refreshSheetPage");
       });
+      this.bus.$emit("refreshSheetPageOne",this.multipleSelection);
     },
     getData() {
       getVitalSign(
@@ -125,7 +128,7 @@ export default {
   },
   computed: {
     patientInfo() {
-      return this.sheetInfo.selectBlock || {};
+      return this.sheetInfo.selectBlock || this.formlist;
     }
   },
   components: {

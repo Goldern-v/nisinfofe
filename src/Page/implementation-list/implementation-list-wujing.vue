@@ -11,7 +11,7 @@
             placeholder="选择入院起始时间"
             size="small"
             v-model="query.executeDate"
-            style="width:150px"
+            style="width: 150px"
           ></el-date-picker>
           <!-- <span class="label">长/临:</span>
           <el-row class="select-btn-list" type="flex" align="middle">
@@ -22,7 +22,12 @@
             </el-radio-group>
           </el-row> -->
           <span class="label">医嘱类型:</span>
-          <el-select v-model="query.repeatIndicator" placeholder="请选择" size="small" style="width:150px">
+          <el-select
+            v-model="query.repeatIndicator"
+            placeholder="请选择"
+            size="small"
+            style="width: 150px"
+          >
             <el-option label="全部" :value="9"></el-option>
             <el-option label="长期" :value="1"></el-option>
             <el-option label="临时" :value="0"></el-option>
@@ -37,7 +42,12 @@
             </el-radio-group>
           </el-row> -->
           <span class="label">医嘱分类:</span>
-          <el-select v-model="query.itemType" placeholder="请选择" size="small" style="width:150px">
+          <el-select
+            v-model="query.itemType"
+            placeholder="请选择"
+            size="small"
+            style="width: 150px"
+          >
             <el-option label="输液" value="输液"></el-option>
             <el-option label="注射" value="注射"></el-option>
             <el-option label="口服" value="口服"></el-option>
@@ -51,16 +61,43 @@
             <el-option label="其他" value="其他"></el-option>
           </el-select>
           <span class="label">床号:</span>
-          <el-input size="small" style="width: 80px;" v-model="bedLabel"></el-input>
+          <el-input
+            size="small"
+            style="width: 80px"
+            v-model="bedLabel"
+          ></el-input>
           <span class="label">执行标志:</span>
-          <el-select v-model="query.executeFlag" placeholder="请选择" size="small" style="width:150px">
+          <el-select
+            v-model="query.executeFlag"
+            placeholder="请选择"
+            size="small"
+            style="width: 150px"
+          >
             <el-option label="全部" value></el-option>
             <el-option label="已执行" :value="2"></el-option>
             <el-option label="未执行" :value="0"></el-option>
           </el-select>
-          <el-button size="small" type="primary" @click="search">查询</el-button>
-          <el-button size="small" @click="allSelection" :disabled="status=='已执行'">全选</el-button>
-          <el-button size="small" @click="handleExecuteBatch" :disabled="status=='已执行'">执行</el-button>
+          <el-button size="small" type="primary" @click="search"
+            >查询</el-button
+          >
+          <el-button
+            size="small"
+            @click="allSelection"
+            :disabled="status == '已执行'"
+            >全选</el-button
+          >
+          <el-button
+            size="small"
+            @click="handlePrint"
+            :disabled="status == '已执行'"
+            >瓶签打印</el-button
+          >
+          <el-button
+            size="small"
+            @click="handleExecuteBatch"
+            :disabled="status == '已执行'"
+            >执行</el-button
+          >
         </div>
       </div>
       <dTable :pageLoadng="pageLoadng" ref="plTable"></dTable>
@@ -79,52 +116,6 @@
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
 .main-contain {
   margin: 10px 10px 0px 10px;
-
-  // .pagination-con {
-  //   height: 41px;
-  //   position: relative;
-
-  //   .pagination {
-  //     position: absolute;
-  //     bottom: 0;
-  //     left: 0;
-  //     right: 0;
-  //     background: #eaeaea;
-  //     border: 1px solid #cbd5dd;
-  //     padding: 4px 15px;
-  //     background: rgba(0, 0, 0, 0);
-  //     z-index: 1;
-  //   }
-
-  //   .right-part {
-  //     span {
-  //       margin-right: 12px;
-  //       font-size: 12px;
-  //       color: #687179;
-  //       cursor: pointer;
-  //       user-select: none;
-
-  //       &.useLess {
-  //         color: #999 !important;
-  //         cursor: not-allowed;
-  //       }
-
-  //       input {
-  //         width: 25px;
-  //         height: 16px;
-  //         background: #FFFFFF;
-  //         border: 1px solid #CBD5DD;
-  //         border-radius: 2px;
-  //         outline: none;
-  //         text-align: center;
-  //       }
-
-  //       &:hover {
-  //         color: #333;
-  //       }
-  //     }
-  //   }
-  // }
 }
 
 .head-con {
@@ -169,7 +160,7 @@
 import dTable from "./components/table/d-table-wujing";
 // import pagination from "./components/common/pagination";
 import { patEmrList } from "@/api/document";
-import { getExecuteWithWardcode,handleWebExecuteBatch } from "./api/index";
+import { getExecuteWithWardcode, handleWebExecuteBatch } from "./api/index";
 import common from "@/common/mixin/common.mixin.js";
 import moment from "moment";
 export default {
@@ -182,7 +173,7 @@ export default {
         pageIndex: 1,
         // pageNum: 20,
         pageNum: 100,
-        total: 0
+        total: 0,
       },
       startDate: moment().format("YYYY-MM-DD"),
       type: "",
@@ -190,13 +181,14 @@ export default {
       bedLabel: "",
       test: "",
       query: {
-        wardCode:"",
-        itemType:"输液",//医嘱类别，输液、雾化
-        executeDate:moment().format("YYYY-MM-DD"),//执行日期
-        bedLabel:'',//床位号，如果查全部传*"
-        repeatIndicator: 9,//医嘱类型，长期传1，临时传0，全部传9
-        executeFlag: 0,//0未执行，2已执行
-      }
+        wardCode: "",
+        itemType: "输液", //医嘱类别，输液、雾化
+        executeDate: moment().format("YYYY-MM-DD"), //执行日期
+        bedLabel: "", //床位号，如果查全部传*"
+        repeatIndicator: 9, //医嘱类型，长期传1，临时传0，全部传9
+        executeFlag: 0, //0未执行，2已执行
+      },
+      uuid: "", //调用瓶签打印前生成的id, 代表这一次瓶签打印的唯一id，用于后续查询打印的一个进度
     };
   },
   methods: {
@@ -212,10 +204,12 @@ export default {
       if (!this.deptCode) return;
       this.pageLoadng = true;
       this.query.wardCode = this.deptCode;
-      this.query.executeDate = this.query.executeDate ? moment(this.query.executeDate).format("YYYY-MM-DD") : moment().format("YYYY-MM-DD");
-      this.query.bedLabel = this.bedLabel ? this.bedLabel : '*';
+      this.query.executeDate = this.query.executeDate
+        ? moment(this.query.executeDate).format("YYYY-MM-DD")
+        : moment().format("YYYY-MM-DD");
+      this.query.bedLabel = this.bedLabel ? this.bedLabel : "*";
 
-      getExecuteWithWardcode(this.query).then(res => {
+      getExecuteWithWardcode(this.query).then((res) => {
         let tableData = res.data.data.map((item, index, array) => {
           let prevRowId =
             array[index - 1] &&
@@ -249,7 +243,11 @@ export default {
           return item;
         });
         // 设置表格数据
-        if(this.$refs.plTable.$children && this.$refs.plTable.$children[0] && this.$refs.plTable.$children[0].reloadData){
+        if (
+          this.$refs.plTable.$children &&
+          this.$refs.plTable.$children[0] &&
+          this.$refs.plTable.$children[0].reloadData
+        ) {
           this.$refs.plTable.$children[0].reloadData(tableData);
         }
         this.page.total = Number(res.data.data.pageCount) * this.page.pageNum;
@@ -261,30 +259,63 @@ export default {
       this.onLoad();
     },
     // 全选
-    allSelection(){
-      if(this.$refs.plTable.$children && this.$refs.plTable.$children[0] && this.$refs.plTable.$children[0].toggleAllSelection){
+    allSelection() {
+      if (
+        this.$refs.plTable.$children &&
+        this.$refs.plTable.$children[0] &&
+        this.$refs.plTable.$children[0].toggleAllSelection
+      ) {
         this.$refs.plTable.$children[0].toggleAllSelection();
       }
     },
     // 批量处理执行单
-    handleExecuteBatch(){
-      let selectedData = this.$refs.plTable.selectedData,data = [];
-      selectedData.map(item => {
+    handleExecuteBatch() {
+      let selectedData = this.$refs.plTable.selectedData,
+        data = [];
+
+      if (selectedData.length <= 0) return;
+
+      selectedData.map((item) => {
         let obj = {
           patientId: item.patientId,
           visitId: item.visitId,
           barcode: item.barCode,
           orderNo: item.orderNo,
           executeNurse: this.empNo, // 执行护士工号
-          verifyNurse: this.empNo // 核对护士工号
-        }
+          verifyNurse: this.empNo, // 核对护士工号
+        };
         data.push(obj);
-      })
-      handleWebExecuteBatch({lists: data}).then(res => {
+      });
+      handleWebExecuteBatch({ lists: data }).then((res) => {
         this.$message.success(res.data.desc);
         this.onLoad();
-      })
-    }
+      });
+    },
+    initUuid() {
+      return new Date().getTime() + parseInt(Math.random() * 1000);
+    },
+    handlePrint() {
+      let selectedData = this.$refs.plTable.selectedData;
+
+      this.uuid = this.initUuid();
+
+      if (selectedData.length <= 0) return;
+
+      let printParamsArr = [this.uuid, this.empNo, this.query.executeDate];
+      selectedData.forEach((item) => {
+        printParamsArr.push(
+          `${item.patientId}|${item.visitId}|${item.orderNo}`
+        );
+      });
+
+      let printParams = decodeURIComponent(printParamsArr.join(";"));
+
+      let reqEl = document.createElement("a");
+      reqEl.href = `LABELPRINT://${printParams}`;
+      document.body.appendChild(reqEl);
+      reqEl.click();
+      document.body.removeChild(reqEl);
+    },
   },
   created() {
     this.onLoad();
@@ -301,11 +332,11 @@ export default {
     },
     status() {
       this.search();
-    }
+    },
   },
   components: {
     dTable,
     // pagination
-  }
+  },
 };
 </script>

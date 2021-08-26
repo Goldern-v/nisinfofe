@@ -24,19 +24,13 @@ export default [{
     key: "recordMonth", //日期
     value: "",
     event: event_date,
-    click: click_date,
-    style: {
-      width: "40px"
-    },
+    click: click_date
   },
   {
     key: "recordHour", //时间
     value: "",
     event: event_time,
     // click: click_time
-    style: {
-      width: "40px"
-    },
   },
   {
     key: "nursingOperationItem", //护理操作项目
@@ -44,7 +38,7 @@ export default [{
     event: keyf1,
     name: "护理操作项目",
     textarea: {
-      width: 150
+      width: 48
     },
     splice: true,
     autoComplete: {
@@ -57,7 +51,7 @@ export default [{
     event: keyf1,
     name: "护理操作结果",
     textarea: {
-      width: 150
+      width: 48
     },
     splice: true,
     autoComplete: {
@@ -70,7 +64,7 @@ export default [{
     event: keyf1,
     name: "护理问题",
     textarea: {
-      width: 150
+      width: 48
     },
     splice: true,
     autoComplete: {
@@ -83,7 +77,7 @@ export default [{
     event: keyf1,
     name: "护理类型",
     textarea: {
-      width: 150
+      width: 48
     },
     splice: true,
     autoComplete: {
@@ -96,7 +90,7 @@ export default [{
     event: keyf1,
     name: "安全护理",
     textarea: {
-      width: 150
+      width: 48
     },
     splice: true,
     autoComplete: {
@@ -109,7 +103,7 @@ export default [{
     event: keyf1,
     name: "导管护理",
     textarea: {
-      width: 150
+      width: 48
     },
     splice: true,
     autoComplete: {
@@ -122,7 +116,7 @@ export default [{
     event: keyf1,
     name: "皮肤护理",
     textarea: {
-      width: 150
+      width: 48
     },
     autoComplete: {
       data: wether
@@ -134,7 +128,7 @@ export default [{
     event: keyf1,
     name: "气管护理",
     textarea: {
-      width: 150
+      width: 62,
     },
     splice: true,
     autoComplete: {
@@ -147,7 +141,7 @@ export default [{
     event: keyf1,
     name: "体位护理",
     textarea: {
-      width: 150
+      width: 48
     },
     autoComplete: {
       data: wether
@@ -159,7 +153,7 @@ export default [{
     event: keyf1,
     name: "营养护理",
     textarea: {
-      width: 150
+      width: 48,
     },
     autoComplete: {
       data: wether
@@ -171,7 +165,7 @@ export default [{
     event: keyf1,
     name: "心理护理",
     textarea: {
-      width: 150
+      width: 48
     },
     splice: true,
     autoComplete: {
@@ -184,7 +178,7 @@ export default [{
     event: keyf1,
     name: "饮食情况",
     textarea: {
-      width: 150
+      width: 48
     },
     splice: true,
     autoComplete: {
@@ -197,7 +191,7 @@ export default [{
     event: keyf1,
     name: "排尿困难",
     textarea: {
-      width: 150
+      width: 48
     },
     autoComplete: {
       data: wether
@@ -209,7 +203,7 @@ export default [{
     event: keyf1,
     name: "隔离",
     textarea: {
-      width: 150
+      width: 48
     },
     autoComplete: {
       data: wether
@@ -220,9 +214,6 @@ export default [{
     value: "",
     event: keyf1,
     name: "腹围",
-    textarea: {
-      width: 150
-    },
   },
   {
     hidden: true,

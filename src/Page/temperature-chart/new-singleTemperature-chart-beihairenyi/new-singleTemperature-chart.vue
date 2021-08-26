@@ -24,16 +24,17 @@
         :class="openLeft ? 'isLeft' : 'isRight'"
       >
         <div class="sheetTable-contain">
-          <temperatureNew
+          <temperatureBHRY
             class="contain-center"
             :queryTem="patientInfo"
-          ></temperatureNew>
+          ></temperatureBHRY>
           <tabCon class="contain-right" :patientInfo="patientInfo"> </tabCon>
         </div>
       </div>
     </div>
   </div>
 </template>
+
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
 .new-singleTemperature-chart {
   position: relative;
@@ -70,6 +71,7 @@
           height: 100%;
           padding: 10px;
           // margin-top:10px;
+          overflow-y: auto;
         }
       }
     }
@@ -83,10 +85,10 @@ import moment from "moment";
 import bus from "vue-happy-bus";
 import { patients } from "@/api/lesion";
 import patientList from "@/components/patient-list/patient-list.vue";
-import print from "printing";
-import formatter from "@/Page/temperature-chart/print-formatter";
-import temperatureNew from "./components/temperatureNew";
-import tabCon from "@/Page/temperature-chart/new-singleTemperature-chart-jmfy/components/tab-con";
+// import print from "printing";
+// import formatter from "@/Page/temperature-chart/print-formatter";
+import temperatureBHRY from "@/Page/temperature-chart/new-singleTemperature-chart-beihairenyi/components/temperatureBHRY";
+import tabCon from "@/Page/temperature-chart/new-singleTemperature-chart-beihairenyi/components/tab-con";
 export default {
   mixins: [common],
   props: {},
@@ -144,7 +146,7 @@ export default {
       this.bus.$emit("refreshVitalSignList");
     },
   },
-  components: { patientList, temperatureNew, tabCon },
+  components: { patientList, temperatureBHRY, tabCon },
   watch: {
     deptCode(val) {
       if (val) {

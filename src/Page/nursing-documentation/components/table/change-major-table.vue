@@ -149,7 +149,6 @@
 import { info } from "@/api/task";
 import commonMixin from "../../../../common/mixin/common.mixin";
 import qs from "qs";
-import moment from "moment";
 export default {
   props: {
     tableData: Array,
@@ -188,10 +187,5 @@ export default {
     },
   },
   components: {},
-  filters: {
-    ymdhm(val) {
-      return val ? moment(val).format("YYYY-MM-DD HH:mm:ss") : "";
-    },
-  }
 };
 </script>

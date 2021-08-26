@@ -186,7 +186,7 @@ export default {
   .sweet-content-content {
     .form-area {
       width: 100%;
-      height: calc(100vh - 45vh);
+      height: calc(100vh - 35vh);
       position: relative;
       .loading-mask {
         position: absolute;

@@ -1,7 +1,4 @@
 import {
-  listItem
-} from "../../../api/recordDesc";
-import {
   multiDictInfo
 } from "../../../api/index";
 import {
@@ -12,12 +9,9 @@ import {
   event_time,
   click_date
 } from "../keyEvent/date";
-import info from "../sheetInfo";
-let ysList = [];
-let chuList = [];
-let ruList = [];
-let lzng = [];
-let lzztb = [];
+
+let 表底注释 = [];
+let 表顶注释 = [];
 export default [{
     key: "recordMonth", //日期
     value: "",
@@ -27,36 +21,40 @@ export default [{
   {
     key: "recordHour", //时间
     value: "",
-    event: event_time
+    event: event_time,
+    autoComplete: {
+      data: ["03:00", "07:00", "11:00", "15:00", "19:00", "23:00"]
+    }
   },
   {
     key: "temperature", //体温
     value: "",
     event: keyf1,
-    textarea: {
-      width: 32
-    }
+    name: "体温",
+    next: "℃"
   },
   {
     key: "pulse", //脉搏
     value: "",
     event: keyf1,
-    textarea: {
-      width: 42
-    }
+    name: "脉搏",
+    next: "次/分"
   },
   {
+    key: "heartRate", //心率
+    value: "",
+    event: keyf1,
+    name: "心率",
+    next: "次/分"
+  }, {
     key: "breath", //呼吸
     value: "",
     event: keyf1,
-    textarea: {
-      width: 42
-    }
+    name: "呼吸",
   },
   {
     key: "bloodPressure", //血压
     value: "",
-    event: keyf1,
     event: function (e, td) {
       if (e.keyCode == 32) {
         e.target.value += "/";
@@ -64,175 +62,146 @@ export default [{
       }
       keyf1(e, td);
     },
-    textarea: {
-      width: 50
-    }
+    name: "血压",
+    next: "mmHg"
   },
   {
-    key: "spo2", //spo2
+    key: "height", //身高
     value: "",
     event: keyf1,
-    textarea: {
-      width: 38
-    }
+    name: "身高"
   },
   {
-    key: "consciousness", //神志
+    key: "curWeight", //体重
     value: "",
     event: keyf1,
-    name: "神志",
-    textarea: {
-      width: 38
-    }
+    name: "体重",
   },
   {
-    key: "food", //入
+    key: "fieldOne", //肛温
     value: "",
+    event: keyf1,
+    name: "肛温",
+  },
+  {
+    key: "fieldTwo", //口温
+    value: "",
+    event: keyf1,
+    name: "口温",
+  },
+  {
+    key: "ventilatorR", //呼吸机R
+    value: "",
+    event: keyf1,
+    name: "呼吸机R",
+  },
+  {
+    key: "painScore", //疼痛
+    value: "",
+    event: keyf1,
+    name: "疼痛",
+  },
+  {
+    key: "painDrop", //疼痛干预
+    value: "",
+    event: keyf1,
+    name: "疼痛干预",
+  },
+  {
+    key: "topComment", //表项注释
+    value: "",
+    event: keyf1,
+    name: "表项注释",
     autoComplete: {
-      data: ruList
+      data: 表顶注释
     },
-    event: keyf1,
+    splice: true,
+    style: 'overflow: hidden',
     textarea: {
-      width: 66
-    }
+      width: 36
+    },
+  },
+  {
+    key: "bottomComment", //表底注释
+    value: "",
+    event: keyf1,
+    name: "表底注释",
+    autoComplete: {
+      data: 表底注释
+    },
+    splice: true,
+    style: 'overflow: hidden',
+    textarea: {
+      width: 36
+    },
+  },
+  {
+    key: "stoolNum", //大便次数
+    value: "",
+    event: keyf1,
+    name: "大便次数",
+  },
+  {
+    key: "fieldThree", //尿量
+    value: "",
+    event: keyf1,
+    name: "尿量",
   },
   {
     key: "foodSize", //入量
     value: "",
     event: keyf1,
-    textarea: {
-      width: 30
-    }
+    name: "入量",
   },
   {
-    key: "discharge", //出
+    key: "dischargeSize", //总出量
     value: "",
-    autoComplete: {
-      data: chuList
+    event: keyf1,
+    name: "总出量",
+  },
+  {
+    key: "fieldFour", //自1
+    value: "",
+    event: keyf1,
+    textarea: {
+      width: 36
     },
-    event: keyf1,
-    textarea: {
-      width: 38
-    }
   },
   {
-    key: "dischargeSize", //出量
+    key: "fieldFive", //自2
     value: "",
     event: keyf1,
     textarea: {
-      width: 30
+      width: 36
     }
   },
   {
-    key: "fieldOne", //乳房情况
+    key: "fieldSix", //自3
     value: "",
     event: keyf1,
-    name: "乳房情况",
-    autoComplete: {
-      data: ["(-)", "(+)"]
-    },
     textarea: {
-      width: 38
+      width: 36
     }
   },
   {
-    key: "fieldTwo", //泌乳情况
-    value: "",
-    event: keyf1,
-    name: "泌乳情况",
-    autoComplete: {
-      data: ["少", "中", "多"]
-    },
-    textarea: {
-      width: 48
-    }
-  },
-  {
-    key: "fieldThree", //宫底高度
-    value: "",
-    event: keyf1,
-    name: "宫底高度",
-    autoComplete: {
-      data: ["U+2", "U+1", "U=0", "U-1", "U-2"]
-    },
-    textarea: {
-      width: 38
-    }
-  },
-  {
-    key: "fieldFour", //子宫收缩
-    value: "",
-    event: keyf1,
-    name: "子宫收缩",
-    autoComplete: {
-      data: ["硬", "软"]
-    },
-    textarea: {
-      width: 38
-    }
-  },
-  {
-    key: "fieldFive", //腹部术口
-    value: "",
-    event: keyf1,
-    name: "腹部术口",
-    textarea: {
-      width: 38
-    }
-  },
-  {
-    key: "fieldSix", //留置饮口
-    value: "",
-    event: keyf1,
-    name: "留置饮口",
-    textarea: {
-      width: 38
-    }
-  },
-  {
-    key: "fieldSeven", //饮食
-    value: "",
-    event: keyf1,
-    name: "饮食",
-    textarea: {
-      width: 38
-    }
-  },
-  {
-    key: "fieldEight", //肛门排气
-    value: "",
-    event: keyf1,
-    name: "肛门排气",
-    textarea: {
-      width: 38
-    }
-  },
-  {
-    key: "fieldNine", //标题1
+    key: "fieldSeven", //自4
     value: "",
     event: keyf1,
     textarea: {
-      width: 38
-    }
-  },
-  {
-    key: "fieldTen", //标题2
-    value: "",
-    event: keyf1,
-    textarea: {
-      width: 38
+      width: 36
     }
   },
   {
     key: "description", //特殊情况记录
     value: "",
+    hidden: true,
     style: {
       textAlign: "left",
       position: "absolute",
       top: "1px",
       bottom: "1px",
       left: "1px",
-      width: "260px",
+      width: "180px",
       background: "transparent"
     },
     event: function (e, td) {
@@ -243,7 +212,13 @@ export default [{
       }
       keyf1(e, td);
     }
+    // oninput: next
   },
+  // {
+  //   key: "empName",
+  //   value: "",
+  //   name: "记录人",
+  // },
   {
     key: "sign",
     value: ""
@@ -294,7 +269,7 @@ export default [{
     value: ""
   },
   {
-    hidden: false,
+    hidden: true,
     key: "auditorNo",
     value: ""
   },
@@ -315,41 +290,42 @@ export default [{
   }
 ];
 
-export function getListData() {
-  listItem("入量名称", info.sheetType).then(res => {
-    ruList.splice(0, ruList.length);
-    for (let item of res.data.data) {
-      ruList.push(item.name);
-    }
-  });
-  listItem("出量名称", info.sheetType).then(res => {
-    chuList.splice(0, chuList.length);
-    for (let item of res.data.data) {
-      chuList.push(item.name);
-    }
-    chuList.push("出血","恶露")
-  });
 
-  let list = ["意识", "留置尿管", "留置镇痛泵"];
+let filterKey = '花都' + ':';
+let filterKey2 = '体温单' + ':';
+let filterKey2Arr = ["表底注释", "表顶注释"];
+
+export function getListData4() {
+  let list = [
+    "表底注释",
+    "表顶注释",
+  ];
+
+  list = list.map(key => {
+    return filterKey2Arr.includes(key) ? filterKey + filterKey2 + key : filterKey + key;
+  });
   multiDictInfo(list).then(res => {
     let data = res.data.data;
-    setList(ysList, "意识", data);
-    setList(lzng, "留置尿管", data);
-    setList(lzztb, "留置镇痛泵", data);
+    setList(表底注释, "表底注释", data);
+    setList(表顶注释, "表顶注释", data);
   });
 }
 
-getListData();
+getListData4();
 
 /**
  *
  * @param {*} list 原数组
  * @param {*} key 对应的key
  * @param {*} data 数据源
+ * @param {*} isChildOptions 当前选项是否有下拉子选项
  */
-function setList(list, key, data) {
+function setList(list, key, data, ) {
+  key = filterKey2Arr.includes(key) ? filterKey + filterKey2 + key : filterKey + key;
+
   list.splice(0, list.length);
   for (let item of data[key]) {
     list.push(item.name);
   }
+
 }

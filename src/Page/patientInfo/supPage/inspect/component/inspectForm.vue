@@ -122,7 +122,11 @@
         ></iframe>
       </div>
     </div>
-    <div v-if="!data1" class="form" :style="{ height: height }">
+    <div
+      v-if="!data1 && data.examNo == ''"
+      class="form"
+      :style="{ height: height }"
+    >
       <div class="null-con">
         <img src="../../../../../common/images/task/nondata.png" alt />
         <p>数据为空</p>
@@ -271,20 +275,22 @@ export default {
           });
           return;
         }
-        console.log(this.data.examNo);
-        examResult(this.data.examNo)
-          .then((res) => {
-            this.data1 = res.data.data;
-            console.log(this.data1);
-            this.loading = false;
-            // picNum(this.data.examNo, this.data.name).then(res => {
-            //     this.picNum = res.data.data.picNum
-            // })
-          })
-          .catch(() => {
-            this.data1 = false;
-            this.loading = false;
-          });
+        // console.log(this.data.examNo);
+        if (this.data.examNo !== "") {
+          examResult(this.data.examNo)
+            .then((res) => {
+              this.data1 = res.data.data;
+              console.log(this.data1);
+              this.loading = false;
+              // picNum(this.data.examNo, this.data.name).then(res => {
+              //     this.picNum = res.data.data.picNum
+              // })
+            })
+            .catch(() => {
+              this.data1 = false;
+              this.loading = false;
+            });
+        }
       } else {
         this.data1 = false;
         this.loading = false;

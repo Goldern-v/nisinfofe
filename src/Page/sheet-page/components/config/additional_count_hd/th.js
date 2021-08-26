@@ -7,7 +7,7 @@ export default {
   // 科室的名称
   deptType: "",
   style: {
-    width: "2450px"
+    width: "980px"
   },
   th: {
     top: [{
@@ -15,7 +15,7 @@ export default {
         colspan: "2",
         rowspan: "1",
         style: {
-          width: "60px"
+          width: "40px"
         },
         canSet: true,
         key: "recordYear",
@@ -176,7 +176,7 @@ export default {
         colspan: "1",
         rowspan: "2",
         style: {
-          width: "70px"
+          width: "52px"
         },
       },
       // {

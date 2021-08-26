@@ -162,6 +162,7 @@ export default [{
   key: "fieldSeventeen", //标题1
   value: "",
   event: keyf1,
+  change: calValueChange,
   textarea: {
     width: 52
   },
