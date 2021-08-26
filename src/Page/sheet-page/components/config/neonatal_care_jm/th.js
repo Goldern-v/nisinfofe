@@ -6,7 +6,7 @@ export default {
   // 科室的名称
   deptType: '',
   style: {
-    width: "1200px"
+    width: "1250px"
   },
   th: {
     top: [{
@@ -138,12 +138,22 @@ export default {
       },
       {
         name: `
-        脐部情况
+        肌<br>张<br>力
         `,
         colspan: '1',
         rowspan: '3',
         style: {
           width: '36px',
+        }
+      },
+      {
+        name: `
+        脐部情况
+        `,
+        colspan: '1',
+        rowspan: '3',
+        style: {
+          width: '45px',
         }
       },
       {
@@ -186,7 +196,7 @@ export default {
       },
       {
         name: `出量`,
-        colspan: '2',
+        colspan: '3',
         rowspan: '1',
         style: {
           width: '109px',
@@ -224,8 +234,8 @@ export default {
         特殊情况记录
         `,
         style: {
-          minWidth: '153px',
-          maxWidth: '153px',
+          minWidth: '180px',
+          maxWidth: '180px',
         },
         colspan: '1',
         rowspan: '3'
@@ -270,6 +280,17 @@ export default {
         style: {
           minWidth: '40px',
         },
+      },
+      {
+        name: `标题1`,
+        style: {
+          minWidth: '52px',
+          maxWidth: '52px',
+        },
+        colspan: "1",
+        rowspan: "2",
+        canSet: true,
+        key: "fieldSeventeen",
       },
     ],
     bottom: []

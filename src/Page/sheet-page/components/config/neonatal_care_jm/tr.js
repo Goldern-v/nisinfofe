@@ -9,6 +9,12 @@ import {
   click_time
 } from "../keyEvent/date";
 let select = ['√'];
+let fyList = ['好','一般','差','√'];
+let ksList = ['大','稍弱','弱','√'];
+let fsList = ['红','微红','黄染','√'];
+let qbList = ['干洁','无渗血','√'];
+let twList = ['左','平','右','俯','√'];
+let jzlList = ['正常','稍低','低下','√'];
 export default [{
   key: "recordMonth", //日期
   value: "",
@@ -34,7 +40,10 @@ export default [{
 {
   key: "temperature", //体温℃
   value: "",
-  event: keyf1
+  event: keyf1,
+  textarea: {
+    width: 25
+  }
 },
 {
   key: "pulse", //心率 次/min
@@ -67,7 +76,7 @@ export default [{
   value: "",
   event: keyf1,
   autoComplete: {
-    data: select
+    data: fyList
   }
 },
 {
@@ -75,7 +84,7 @@ export default [{
   value: "",
   event: keyf1,
   autoComplete: {
-    data: select
+    data: ksList
   }
 },
 {
@@ -83,7 +92,15 @@ export default [{
   value: "",
   event: keyf1,
   autoComplete: {
-    data: select
+    data: fsList
+  }
+},
+{
+  key: "muscleTone", // 肌张力
+  value: "",
+  event: keyf1,
+  autoComplete: {
+    data: jzlList
   }
 },
 {
@@ -91,7 +108,7 @@ export default [{
   value: "",
   event: keyf1,
   autoComplete: {
-    data: select
+    data: qbList
   }
 },
 {
@@ -99,7 +116,7 @@ export default [{
   value: "",
   event: keyf1,
   autoComplete: {
-    data: ['左', '平', '右']
+    data: twList
   }
 },
 {
@@ -120,13 +137,16 @@ export default [{
   value: "",
   event: keyf1,
   textarea: {
-    width: 68
+    width: 50
   }
 },
 {
   key: "fieldTwelve", //入量--进食（ml）
   value: "",
-  event: keyf1
+  event: keyf1,
+  textarea: {
+    width: 50
+  }
 },
 {
   key: "fieldThirteen", //出量--大便（g/性状）
@@ -137,6 +157,15 @@ export default [{
   key: "fieldFourteen", //出量--小便（ml）
   value: "",
   event: keyf1
+},
+{
+  key: "fieldSeventeen", //标题1
+  value: "",
+  event: keyf1,
+  change: calValueChange,
+  textarea: {
+    width: 52
+  },
 },
 {
   key: "fieldFifteen", //用氧方式

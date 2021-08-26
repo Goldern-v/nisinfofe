@@ -35,7 +35,7 @@
           <td
             v-for="(col, colIndex) of realColumns"
             :key="col.label"
-            :style="{'text-align': col.align || 'left'}"
+            :style="{'text-align': col.align&&!row[col.prop].includes('借床')&&HOSPITAL_ID=='hengli'?col.align:'left'}"
             @dblclick="onDblClick({row, rowIndex, col, colIndex})"
             @contextmenu.stop.prevent="onContextMenu($event, rowIndex, col)"
           >

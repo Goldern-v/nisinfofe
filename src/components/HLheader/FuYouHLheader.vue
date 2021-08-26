@@ -962,6 +962,14 @@ export default {
       if (this.$route.path == "/dcList") return true;
       if (this.$route.path == "/cognitiveStatistic") return true;
     },
+    isActiveTemperaturePage() {
+      let path = this.$route.path;
+      return (
+        path.includes("newSingleTemperatureChart") ||
+        path.includes("singleTemperatureChart") ||
+        path.includes("allTemperatureChart")
+      );
+    },
     isActiveStatisticPage() {
       if (this.$route.path == "/cognitiveStatistic") return true;
     },

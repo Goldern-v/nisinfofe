@@ -211,7 +211,10 @@
     </div>
     <setTitleModal ref="setTitleModal"></setTitleModal>
     <signModal ref="signModal"></signModal>
-    <signModal ref="delsignModal" title="删除签名需签名者确认"></signModal>
+    <signModal
+      ref="delsignModal"
+      title="删除签名需签名者确认。。。。"
+    ></signModal>
   </div>
 </template>
 
@@ -802,8 +805,9 @@ export default {
       // 最后行的id 即最大的id
       let maxId = 0;
       // 当前的类型做唯一标识
-      let curr_recordSource = tr.find((item) => item.key == "recordSource")
-        .value;
+      let curr_recordSource = tr.find(
+        (item) => item.key == "recordSource"
+      ).value;
       let curr_recordDate = tr.find((item) => item.key == "recordDate").value;
       if (curr_recordDate) {
         for (let i = 0; i < sheetModel.length; i++) {

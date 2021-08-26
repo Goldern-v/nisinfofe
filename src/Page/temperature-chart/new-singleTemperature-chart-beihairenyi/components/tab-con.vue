@@ -3,7 +3,7 @@
     <div class="row-top">
       <div class="column-left">
         <el-button size="mini" @click="syncInAndOutHospital((type = '0'))">
-          同步入院
+          同步入院北海人医
         </el-button>
         <el-button
           style="margin: 10px 0px"
@@ -68,8 +68,8 @@
             :class="
               !(
                 index.includes('自定义') ||
-                index.includes('腋温') ||
-                index.includes('注释')
+                index.includes('注释') ||
+                index.includes('体温复测')
               )
                 ? 'row'
                 : 'rowItem_noShow'
@@ -78,7 +78,63 @@
             :key="index"
           >
             <span class="preText">{{ index }}</span>
-            <input type="text" v-model="vitalSignObj[j].vitalValue" />
+            <el-tooltip
+              placement="top"
+              popper-class="custom-temp-dict-select"
+              :disabled="
+                !(
+                  totalDictInfo[index].options &&
+                  totalDictInfo[index].options.length > 0
+                )
+              "
+              :visible-arrow="false"
+              :manual="true"
+              :value="vitalSignObj[j].popVisible"
+            >
+              <input
+                type="text"
+                :title="vitalSignObj[j].vitalValue"
+                @input="handlePopRefresh(vitalSignObj[j])"
+                @click="() => (vitalSignObj[j].popVisible = true)"
+                @blur="() => (vitalSignObj[j].popVisible = false)"
+                v-model="vitalSignObj[j].vitalValue"
+              />
+              <template v-slot:content>
+                <div
+                  class="container"
+                  @click.prevent="
+                    () => {
+                      vitalSignObj[j].popVisible = false;
+                    }
+                  "
+                >
+                  <template
+                    v-if="
+                      totalDictInfo[index].options &&
+                      getFilterSelections(
+                        totalDictInfo[index].options,
+                        vitalSignObj[j].vitalValue
+                      ).length > 0
+                    "
+                  >
+                    <div
+                      :key="selectionDictIdx"
+                      class="selection-dict-item"
+                      v-for="(option, selectionDictIdx) in getFilterSelections(
+                        totalDictInfo[index].options,
+                        vitalSignObj[j].vitalValue
+                      )"
+                      @click.prevent="
+                        () => (vitalSignObj[j].vitalValue = option)
+                      "
+                    >
+                      {{ option }}
+                    </div>
+                  </template>
+                  <div v-else class="null-item">无匹配数据</div>
+                </div>
+              </template>
+            </el-tooltip>
           </div>
           <div class="fieldList">
             <div style="margin: 10px 0px; font-weight: bold; font-size: 14px">
@@ -91,13 +147,65 @@
                 @click="updateTextInfo(i.vitalCode, i.fieldCn, i.fieldCn)"
                 >{{ i.fieldCn }}</span
               >
+              <!-- <el-tooltip
+                placement="top"
+                v-if="vitalSignObj[i.vitalCode]"
+                popper-class="custom-temp-dict-select"
+                :disabled="true"
+                :visible-arrow="false"
+                :manual="true"
+                :value="vitalSignObj[i.vitalCode].popVisible"
+              > -->
               <input
                 type="text"
+                :title="vitalSignObj[i.vitalCode].vitalValue"
+                @input="handlePopRefresh(vitalSignObj[i.vitalCode])"
+                @click="() => (vitalSignObj[i.vitalCode].popVisible = true)"
+                @blur="() => (vitalSignObj[i.vitalCode].popVisible = false)"
                 v-model="vitalSignObj[i.vitalCode].vitalValue"
               />
+              <!-- <template v-slot:content>
+                  <div
+                    class="container"
+                    @click.prevent="
+                      () => {
+                        vitalSignObj[i.vitalCode].popVisible = false;
+                      }
+                    "
+                  >
+                    <template
+                      v-if="
+                        selectionMultiDict[i.fieldCn] &&
+                        getFilterSelections(
+                          selectionMultiDict[i.fieldCn],
+                          vitalSignObj[i.vitalCode].vitalValue
+                        ).length > 0
+                      "
+                    >
+                      <div
+                        :key="selectionDictIdx"
+                        class="selection-dict-item"
+                        v-for="(
+                          selectionDict, selectionDictIdx
+                        ) in getFilterSelections(
+                          selectionMultiDict[i.fieldCn],
+                          vitalSignObj[j].vitalValue
+                        )"
+                        @click.prevent="
+                          () =>
+                            (vitalSignObj[j].vitalValue = selectionDict.name)
+                        "
+                      >
+                        {{ selectionDict.name }}
+                      </div>
+                    </template>
+                    <div v-else class="null-item">无匹配数据</div>
+                  </div>
+                </template>
+              </el-tooltip> -->
             </div>
           </div>
-          <!-- <div class="fieldList" v-if="multiDictList['体温复测']">
+          <div class="fieldList" v-if="multiDictList['体温复测']">
             <div class="row">
               <span class="preText">体温复测</span>
               <input
@@ -105,7 +213,7 @@
                 v-model="vitalSignObj[multiDictList['体温复测']].vitalValue"
               />
             </div>
-          </div> -->
+          </div>
           <div class="row" v-if="multiDictList['表顶注释']">
             <span class="preText">表顶注释</span>
             <el-select
@@ -186,7 +294,7 @@ import {
   getLastList,
   getViSigsByReDate,
 } from "../../api/api";
-import { mockData, recordList } from "../data/data";
+import { mockData, recordList, selectionMultiDict } from "../data/data";
 export default {
   props: { patientInfo: Object },
   data() {
@@ -200,7 +308,7 @@ export default {
       ["24"]: ["21:00", "23:59"],
     };
 
-    let entryTime = "03";
+    let entryTime = "02";
     let currentSecond =
       new Date().getHours() * 60 + new Date().getMinutes() * 1;
 
@@ -243,33 +351,34 @@ export default {
       timesOdd: [
         {
           id: 0,
-          value: "04",
+          value: "02",
         },
         {
           id: 1,
-          value: "08",
+          value: "06",
         },
         {
           id: 2,
-          value: "12",
+          value: "10",
         },
         {
           id: 3,
-          value: "16",
+          value: "14",
         },
         {
           id: 4,
-          value: "20",
+          value: "18",
         },
         {
           id: 5,
-          value: "24",
+          value: "22",
         },
       ],
       bottomContextList: ["", "不升"],
       topExpandDate: "",
       bottomExpandDate: "",
       totalDictInfo: {},
+      selectionMultiDict: selectionMultiDict,
     };
   },
   async mounted() {
@@ -336,6 +445,7 @@ export default {
           expand3: "",
           source: "",
           customTitle: false,
+          popVisible: false,
         };
       }
       this.vitalSignObj = { ...obj };
@@ -377,7 +487,8 @@ export default {
         wardCode: this.patientInfo.wardCode,
       }).then((res) => {
         res.data.data.list.map((item) => {
-          this.fieldList[item.vitalCode] = item;
+          if (this.vitalSignObj[item.vitalCode])
+            this.fieldList[item.vitalCode] = item;
         });
       });
     },
@@ -394,6 +505,16 @@ export default {
       let temp = value;
       this.query.entryDate = temp.slice(0, 10);
       this.query.entryTime = value.slice(12, 14);
+    },
+    getFilterSelections(orgin, filterStr) {
+      if (!filterStr || !filterStr.trim()) return orgin;
+
+      return orgin.filter((option) => option.includes(filterStr));
+    },
+    handlePopRefresh(target) {
+      target.popVisible = false;
+
+      setTimeout(() => (target.popVisible = true), 100);
     },
     /* 获取患者某个时间点的体征信息--entryDate、entryTime变化就调查询接口  */
     getViSigs() {
@@ -412,7 +533,10 @@ export default {
         if (res.data.data.length > 0) {
           /* 如果该时间点有记录 */
           res.data.data.map((v, idx) => {
-            this.vitalSignObj[v.vitalCode] = v;
+            this.vitalSignObj[v.vitalCode] = {
+              ...v,
+              popVisible: false,
+            };
           });
         } else {
           this.init();
@@ -427,7 +551,10 @@ export default {
         let obj = [];
         res.data.data.map((item, index) => {
           data[item.vitalSign] = item.vitalCode;
-          this.totalDictInfo[item.vitalSign] = { ...item };
+          this.totalDictInfo[item.vitalSign] = {
+            ...item,
+            options: item.selectType ? item.selectType.split(",") : [],
+          };
 
           if (item.vitalSign.includes("自定义")) {
             obj[item.vitalCode] = {
@@ -441,6 +568,7 @@ export default {
             this.fieldList = { ...obj };
           }
         });
+
         this.multiDictList = { ...data };
         this.init();
       });
@@ -592,7 +720,7 @@ export default {
     }
 
     input {
-      width: 45px;
+      width: 60px;
       font-size: 12px;
     }
 
@@ -606,6 +734,34 @@ export default {
     left: 30%;
     margin-top: 10px;
     width: 100px;
+  }
+}
+</style>
+
+<style lang="scss">
+.custom-temp-dict-select {
+  background: #fff !important;
+  color: #000 !important;
+  border: 1px solid #ddd;
+  .container {
+    min-width: 100px;
+    min-height: 26px;
+    max-height: 100px;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+  .null-item {
+    line-height: 24px;
+    text-align: center;
+  }
+  .selection-dict-item {
+    height: 24px;
+    line-height: 24px;
+    padding: 0 5px;
+    &:hover {
+      background: rgb(111, 192, 164) !important;
+      color: #fff !important;
+    }
   }
 }
 </style>

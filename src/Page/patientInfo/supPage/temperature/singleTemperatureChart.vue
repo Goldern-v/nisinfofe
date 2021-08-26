@@ -168,7 +168,7 @@ import sheetModel, {
   addSheetPage,
   delSheetPage,
   initSheetPage,
-  cleanData
+  cleanData,
 } from "@/Page/sheet-page/sheet.js";
 import { typeList } from "@/api/lesion";
 import decode from "@/Page/sheet-page/components/render/decode.js";
@@ -178,7 +178,7 @@ import {
   showTitle,
   delPage,
   markList,
-  splitRecordBlock
+  splitRecordBlock,
 } from "@/api/sheet.js";
 import sheetInfo from "@/Page/sheet-page/components/config/sheetInfo/index.js";
 import bus from "vue-happy-bus";
@@ -206,7 +206,7 @@ export default {
       data: {
         deptValue: "",
         deptList: [],
-        bedList: []
+        bedList: [],
       },
       patientListLoading: false,
       tableLoading: false,
@@ -217,7 +217,7 @@ export default {
       scrollTop: 0,
       scrollY: 0,
       bedAndDeptChange: {},
-      sheetTool2Visible: false
+      sheetTool2Visible: false,
     };
   },
   computed: {
@@ -236,7 +236,7 @@ export default {
     },
     filterSheetModel() {
       // 根据页码处理后的页面
-      let showSheetPage = i => {
+      let showSheetPage = (i) => {
         let startPage = this.sheetInfo.startPage;
         let endPage = this.sheetInfo.endPage;
         let index = i + this.sheetInfo.sheetStartPage;
@@ -254,16 +254,16 @@ export default {
         let obj = {
           index,
           data: item,
-          length: arr.length
+          length: arr.length,
         };
         return obj;
       });
 
-      let resultModel = mapSheetModel.filter(item => {
+      let resultModel = mapSheetModel.filter((item) => {
         return showSheetPage(item.index);
       });
       return resultModel;
-    }
+    },
   },
   methods: {
     addSheetPage() {
@@ -278,6 +278,8 @@ export default {
           //   return "body_temperature_lcey";
           case "wujing":
             return "body_temperature_wj";
+          case "hengli":
+            return "body_temperature_hl";
           default:
             break;
         }
@@ -291,7 +293,7 @@ export default {
         this.patientInfo.visitId,
         this.deptCode,
         recordCode
-      ).then(res => {
+      ).then((res) => {
         this.bus.$emit("getBlockList");
         this.$message.success("创建成功");
       });
@@ -318,8 +320,8 @@ export default {
       return Promise.all([
         showTitle(this.patientInfo.patientId, this.patientInfo.visitId),
         showBody(this.patientInfo.patientId, this.patientInfo.visitId),
-        markList(this.patientInfo.patientId, this.patientInfo.visitId)
-      ]).then(res => {
+        markList(this.patientInfo.patientId, this.patientInfo.visitId),
+      ]).then((res) => {
         let titleData = res[0].data.data;
         let bodyData = res[1].data.data;
         let markData = res[2].data.data.list || [];
@@ -328,7 +330,7 @@ export default {
         if (this.HOSPITAL_ID === "huadu") {
           this.bedAndDeptChange = {
             bedLabelChange: bodyData.bedLabel,
-            deptNameChange: bodyData.deptName
+            deptNameChange: bodyData.deptName,
           };
         }
         // this.sheetModel = []
@@ -375,9 +377,9 @@ export default {
           .$confirm("评估单还未保存，离开将会丢失数据", "提示", {
             confirmButtonText: "离开",
             cancelButtonText: "取消",
-            type: "warning"
+            type: "warning",
           })
-          .then(res => {
+          .then((res) => {
             next();
           });
       } else {
@@ -386,7 +388,7 @@ export default {
     },
     getHomePage(isFirst) {
       getHomePage(this.patientInfo.patientId, this.patientInfo.visitId).then(
-        res => {
+        (res) => {
           this.sheetInfo.sheetStartPage =
             (res.data.data && res.data.data.indexNo) || 1;
           this.sheetInfo.sheetMaxPage =
@@ -404,14 +406,14 @@ export default {
     getDate() {
       if (this.deptCode) {
         this.patientListLoading = true;
-        patients(this.deptCode, {}).then(res => {
-          let bedList = res.data.data.filter(item => {
+        patients(this.deptCode, {}).then((res) => {
+          let bedList = res.data.data.filter((item) => {
             return item.patientId;
           });
           sheetInfo.bedList = bedList;
         });
       }
-    }
+    },
   },
 
   created() {
@@ -442,7 +444,7 @@ export default {
       });
     });
     this.bus.$on("delSheetPage", () => {
-      this.$refs.delPageModal.open(async checkList => {
+      this.$refs.delPageModal.open(async (checkList) => {
         for (let item of checkList.sort((a, b) => {
           return b - a;
         })) {
@@ -455,7 +457,7 @@ export default {
         }
         this.$notify.success({
           title: "提示",
-          message: "删除成功"
+          message: "删除成功",
         });
       });
     });
@@ -464,12 +466,12 @@ export default {
         this.pageLoading = true;
         this.scrollTop = this.$refs.scrollCon.scrollTop;
         saveBody(this.patientInfo.patientId, this.patientInfo.visitId, decode())
-          .then(res => {
+          .then((res) => {
             this.$notify.success({
               title: "提示",
-              message: "保存成功"
+              message: "保存成功",
             });
-            this.getSheetData().then(res => {
+            this.getSheetData().then((res) => {
               isInitSheetPageSize &&
                 setTimeout(() => {
                   this.bus.$emit("initSheetPageSize");
@@ -531,17 +533,17 @@ export default {
       let reverseList = [...decode().list].reverse();
       /** 最后的时间 */
       let lastRecordHour = (
-        reverseList.find(item => item.recordDate && item.recordHour) || {}
+        reverseList.find((item) => item.recordDate && item.recordHour) || {}
       ).recordHour;
       /** 所有新增的时间 */
       let newRecordHours = reverseList
         .filter(
-          item => item.recordHour && !item.recordMonth && !item.recordDate
+          (item) => item.recordHour && !item.recordMonth && !item.recordDate
         )
-        .map(item => item.recordHour);
+        .map((item) => item.recordHour);
       /** 新增记录是否存在比原有记录更前 */
       let isBefore = newRecordHours.some(
-        item =>
+        (item) =>
           moment("2019-9-20 " + item).unix() <
           moment("2019-9-20 " + lastRecordHour).unix()
       );
@@ -552,30 +554,27 @@ export default {
           {
             confirmButtonText: "确认",
             cancelButtonText: "取消",
-            type: "warning"
+            type: "warning",
           }
-        ).then(res => {
+        ).then((res) => {
           save();
         });
       } else {
         save();
       }
     });
-    this.bus.$on("refreshSheetPage", isFirst => {
+    this.bus.$on("refreshSheetPage", (isFirst) => {
       this.getSheetData(isFirst);
     });
-    this.bus.$on("toSheetPrintPage", newWid => {
+    this.bus.$on("toSheetPrintPage", (newWid) => {
       if ($(".sign-text").length) {
         // 判断是否存在标记
         if ($(".mark-mark-mark").length) {
           $(this.$refs.scrollCon).animate({
             scrollTop:
-              $(".mark-mark-mark")
-                .eq(0)
-                .addClass("red-border")
-                .offset().top +
+              $(".mark-mark-mark").eq(0).addClass("red-border").offset().top +
               this.$refs.scrollCon.scrollTop -
-              150
+              150,
           });
           return this.$message.warning("打印前必须去除所有标记");
         }
@@ -583,12 +582,9 @@ export default {
         if ($(".noSignRow").length) {
           $(this.$refs.scrollCon).animate({
             scrollTop:
-              $(".noSignRow")
-                .eq(0)
-                .addClass("red-border")
-                .offset().top +
+              $(".noSignRow").eq(0).addClass("red-border").offset().top +
               this.$refs.scrollCon.scrollTop -
-              150
+              150,
           });
           return this.$message.warning("存在未签名的记录，请全部签名后再打印");
         }
@@ -596,12 +592,9 @@ export default {
         if ($(".multiSign").length) {
           $(this.$refs.scrollCon).animate({
             scrollTop:
-              $(".multiSign")
-                .eq(0)
-                .addClass("red-border")
-                .offset().top +
+              $(".multiSign").eq(0).addClass("red-border").offset().top +
               this.$refs.scrollCon.scrollTop -
-              150
+              150,
           });
           return this.$message.warning("记录存在多个签名，或者忘记填写时间");
         }
@@ -611,16 +604,13 @@ export default {
         $(".sheet-page-container-hemodialysis .isNoSign") &&
         $(".sheet-page-container-hemodialysis .isNoSign").length
       ) {
-        $(".signTd")
-          .eq(0)
-          .addClass("red-border");
+        $(".signTd").eq(0).addClass("red-border");
         $(this.$refs.scrollCon).animate({
           scrollTop:
-            $(".sheet-page-container-hemodialysis .isNoSign")
-              .eq(0)
-              .offset().top +
+            $(".sheet-page-container-hemodialysis .isNoSign").eq(0).offset()
+              .top +
             this.$refs.scrollCon.scrollTop -
-            150
+            150,
         });
         return this.$message.warning("存在未签名的记录，请全部签名后再打印");
       }
@@ -636,7 +626,7 @@ export default {
           "rememberAccount",
           "ppp",
           "user",
-          "adminNurse"
+          "adminNurse",
         ];
         for (let key in localStorage) {
           if (!keys.includes(key)) {
@@ -695,11 +685,11 @@ export default {
     });
     this.bus.$on("splitSheet", (tr, td) => {
       this.$refs.signModal2.open((password, empNo) => {
-        let recordDate = tr.find(item => item.key == "recordDate").value;
+        let recordDate = tr.find((item) => item.key == "recordDate").value;
         recordDate = recordDate
           ? moment(recordDate).format("YYYY-MM-DD HH:mm")
           : recordDate;
-        splitRecordBlock(empNo, password, recordDate).then(res => {
+        splitRecordBlock(empNo, password, recordDate).then((res) => {
           this.bus.$emit("getBlockList");
           this.$message.success("创建成功");
           this.bus.$emit("setSheetTableLoading", true);
@@ -724,8 +714,8 @@ export default {
         if (this.patientInfo.name) {
           sheetInfo.isSave = false;
         }
-      }
-    }
+      },
+    },
   },
   beforeRouteLeave: (to, from, next) => {
     if (!sheetInfo.isSave) {
@@ -733,9 +723,9 @@ export default {
         .$confirm("评估单还未保存，离开将会丢失数据", "提示", {
           confirmButtonText: "离开",
           cancelButtonText: "取消",
-          type: "warning"
+          type: "warning",
         })
-        .then(res => {
+        .then((res) => {
           next();
         });
     } else {
@@ -755,7 +745,7 @@ export default {
     specialModal2,
     setPageModal,
     pizhuModal,
-    evalModel
-  }
+    evalModel,
+  },
 };
 </script>

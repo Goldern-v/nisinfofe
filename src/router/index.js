@@ -155,9 +155,11 @@ const newSingleTemperatureChart = () =>
 const newSingleTemperatureChartGuizhou = () =>
   import("@/Page/temperature-chart/new-singleTemperature-chart-guizhou/new-singleTemperature-chart-guizhou.vue"); //贵州省人民医院-新版体温单录入页面
 const newSingleTemperatureChartJmfy = () =>
-  import("@/Page/temperature-chart/new-singleTemperature-chart-jmfy/new-singleTemperature-chart.vue") //江门妇幼医院-新版体温单录入页面
+  import("@/Page/temperature-chart/new-singleTemperature-chart-jmfy/new-singleTemperature-chart.vue"); //江门妇幼医院-新版体温单录入页面
+  const newSingleTemperatureChartBhry = () =>
+  import("@/Page/temperature-chart/new-singleTemperature-chart-beihairenyi/new-singleTemperature-chart.vue");//北海人民医院-新版体温单录入页面
 const newSingleTemperatureChartDghl = () =>
-  import("@/Page/temperature-chart/new-singleTemperature-chart-dghl/new-singleTemperature-chart.vue")
+  import("@/Page/temperature-chart/new-singleTemperature-chart-dghl/new-singleTemperature-chart.vue");
 const showPatientDetails = () =>
   import("@/Page/show-patient-details/show-patient-details.vue"); //查看评估单、记录单、病历、检查、检验、体温单
 const nursingPreview = () => import("@/Page/NursingPreview/NursingPreview.vue"); //查看所有的评估单、记录单、体温单
@@ -195,6 +197,7 @@ import temperature from "@/Page/patientInfo/supPage/temperature/temperature";
 import temperatureHD from "@/Page/patientInfo/supPage/temperature/temperatureHD";
 import temperatureLCEY from "@/Page/patientInfo/supPage/temperature/temperatureLCEY";
 import temperatureGuizhou from "@/Page/patientInfo/supPage/temperature/temperatureGuizhou";
+import temperatureBhry from "@/Page/patientInfo/supPage/temperature/temperatureBhry";
 import temperatureJmfy from "@/Page/patientInfo/supPage/temperature/temperatureJmfy";
 import temperatureDghl from "@/Page/patientInfo/supPage/temperature/temperatureDghl";
 import temperatureWuJing from "@/Page/patientInfo/supPage/temperature/temperatureWuJing";
@@ -214,7 +217,7 @@ import deepPage from "@/Page/deep-page/deep-page.vue";
 import catheterPage from "@/Page/catheter-page/catheter-page.vue";
 
 //患者360视图，目前只有花都在用
-const otherPage = () =>import("@/Page/patientInfo/supPage/otherPage/otherPage.vue"); //360视图
+const otherPage = () => import("@/Page/patientInfo/supPage/otherPage/otherPage.vue"); //360视图
 
 Vue.use(Router);
 const HOSPITAL_ID = process.env.HOSPITAL_ID;
@@ -287,6 +290,8 @@ const router = new Router({
             return temperatureLCEY
           case 'guizhou':
             return temperatureGuizhou
+            case 'beihairenyi':
+              return temperatureBhry
           case 'fuyou':
             return temperatureJmfy
           case 'hengli':
@@ -580,7 +585,7 @@ const router = new Router({
           component: home
         },
         {
-          path:"/otherPage",
+          path: "/otherPage",
           component: otherPage
         },
         // {
@@ -612,6 +617,8 @@ const router = new Router({
                 return temperatureLCEY
               case 'guizhou':
                 return temperatureGuizhou
+                case 'beihairenyi':
+                return temperatureBhry
               case 'wujing':
                 return temperatureWuJing
               case 'fuyou':
@@ -881,6 +888,8 @@ const router = new Router({
           switch (HOSPITAL_ID) {
             case 'guizhou':
               return newSingleTemperatureChartGuizhou
+              case 'beihairenyi':
+              return newSingleTemperatureChartBhry
             case 'fuyou':
               return newSingleTemperatureChartJmfy
             default:
@@ -1000,6 +1009,7 @@ router.beforeEach((to, from, next) => {
   //   router.push('/login')
   // }
   if (to.meta.title) {
+
     document.title = to.meta.title
   }
   next();

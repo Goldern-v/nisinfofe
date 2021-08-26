@@ -292,11 +292,9 @@
       <div
         class="bed-card-warpper bed-card-vertical"
         ref="printCon2"
-        v-for="(item,index) in list"
-        :key="item.patientId"
         v-show="printMode == 'v'"
       >
-        <div class="bed-card-vert-con">
+        <div class="bed-card-vert-con" v-for="(item,index) in list" :key="item.patientId">
           <span>床号：</span>
           <p>{{ item.bedLabel + "床" }}</p>
           <span>姓名：</span>
@@ -306,7 +304,7 @@
           <span>年龄：</span>
           <p>{{ item.age }}</p>
           <span>住院号：</span>
-          <p>{{ item.patientId }}</p>
+          <p class="patientId">{{ item.patientId }}</p>
           <img
             class="qr-code  wrist-qrcode"
             :class="{ hasRemark: hasRemark }"
@@ -417,13 +415,20 @@
     border: 3px solid #000;
     text-align: left;
     span {
+      display:block;
+      width:100%;
+      text-align center;
       font-size: 16px;
       line-height: 24px;
     }
     p {
+      text-align: center;
       font-size: 20px;
       line-height: 28px;
       padding-bottom: 10px;
+      &.patientId{
+        font-size: 16px;
+      }
       &:last-of-type {
         padding-bottom: 5px;
       }
@@ -431,6 +436,19 @@
     svg {
       width: 100%;
       // height: 70px !important;
+    }
+    .qr-code {
+      position: absolute;
+      right: 22%;
+      top: 100%;
+      margin-top: -56px;
+      height: 112px;
+      width: 112px;
+
+      &.hasRemark {
+        width: 55px;
+        height: 55px;
+      }
     }
   }
 }
@@ -518,14 +536,14 @@
   // &.remarkCon
   .qr-code {
     position: absolute;
-    top: -5px;
-    left: -5px;
-    height: 112px;
-    width: 112px;
+    top: 5px;
+    left: 5px;
+    height: 100px;
+    width: 100px;
 
     &.hasRemark {
-      width: 96px;
-      height: 96px;
+      width: 80px;
+      height: 80px;
     }
   }
 
@@ -738,7 +756,7 @@ import {
   getEntity,
   saveBed
 } from "@/Page/patientInfo/supComponts/modal/api/index.js";
-import print from "@/Page/patientInfo/supComponts/modal/tool/print";
+import print from "./tool/print";
 import printing from "printing";
 var qr = require("qr-image");
 // var JsBarcode = require("jsbarcode");
@@ -948,6 +966,12 @@ export default {
           .bed-card-warpper {
             box-shadow: none !important;
             transform:translateY(3%) translateX(12%);
+            width:900px;
+            display:flex!important;
+            flex-wrap:wrap;
+          }
+          .bed-card-vert-con{
+            margin-bottom:110px!important;
           }
           @page {
             margin: 0;

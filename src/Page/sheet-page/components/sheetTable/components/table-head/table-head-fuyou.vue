@@ -53,12 +53,27 @@
           {{ patientInfo.inpNo }}
         </div>
       </span>
-      <!-- <span>
-        入院日期：
-        <div class="bottom-line" style="min-width: 80px">
-          {{ patientInfo.admissionDate | toymd }}
+      <span v-if="sheetInfo.sheetType === 'pediatric_surgery_jm'"
+              @click="updateDiagnosis('diagnosis', '入院诊断', patientInfo.diagnosis)"
+      >
+        入院诊断：
+        <div
+          class="bottom-line"
+          style="
+            min-width: 400px;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+          "
+        >
+          {{ diagnosis }}
         </div>
-      </span> -->
+      </span>
+      <span v-if="sheetInfo.sheetType === 'neonatal_care_jm'">
+        入院时间：
+        <div class="bottom-line" style="min-width: 150px">
+          {{ patientInfo.admissionDate }}
+        </div>
+      </span>
     </div>
     <div class="info-con">
       <span v-if="
@@ -67,7 +82,8 @@
               sheetInfo.sheetType === 'obstetricnursing_jm' ||
               sheetInfo.sheetType === 'entdepartment_jm' ||
               sheetInfo.sheetType === 'gynaecology_jm' ||
-              sheetInfo.sheetType === 'generalsurgery_jm'"
+              sheetInfo.sheetType === 'generalsurgery_jm'
+              "
               @click="updateDiagnosis('diagnosis', '入院诊断', patientInfo.diagnosis)"
       >
         入院诊断：
@@ -193,7 +209,7 @@ export default {
   },
   filters: {
     toymd(val) {
-      return moment(val).format("YYYY年MM月DD日");
+      return moment(val).format("YYYY年MM月DD日 ");
     },
   },
   created() {

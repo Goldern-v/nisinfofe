@@ -91,7 +91,9 @@
         @click.stop="backMainForm"
         v-if="isDeputy"
       >
-        <div class="text-con">{{HOSPITAL_ID == "guizhou" ? '护理记录单': '切换主页'}}</div>
+        <div class="text-con">
+          {{ HOSPITAL_ID == "guizhou" ? "护理记录单" : "切换主页" }}
+        </div>
       </div>
       <div
         class="item-box"
@@ -100,7 +102,9 @@
         @click.stop="addDeputyForm"
         v-if="sheetInfo.selectBlock && sheetInfo.selectBlock.additionalCode"
       >
-        <div class="text-con">{{HOSPITAL_ID == "guizhou" ? '出入量记录单': '切换副页'}}</div>
+        <div class="text-con">
+          {{ HOSPITAL_ID == "guizhou" ? "出入量记录单" : "切换副页" }}
+        </div>
       </div>
       <div
         class="item-box"
@@ -109,8 +113,9 @@
         v-if="
           (HOSPITAL_ID === 'huadu' ||
             HOSPITAL_ID === 'liaocheng' ||
+            HOSPITAL_ID === 'hengli' ||
             HOSPITAL_ID === 'wujing') &&
-            this.$route.path.includes('singleTemperatureChart')
+          this.$route.path.includes('singleTemperatureChart')
         "
       >
         <div class="text-con">体温曲线</div>
@@ -203,14 +208,14 @@
         class="right-btn"
         flex="cross:center main:center"
         @click.stop="openTztbModal"
-        v-if="!isSingleTem_LCEY  && !isDeputy"
+        v-if="!isSingleTem_LCEY && !isDeputy"
       >
         <div class="text-con">
           <img src="./images/体征.png" alt />
           体征同步
         </div>
       </div>
-      <div style="width: 5px;"></div>
+      <div style="width: 5px"></div>
     </div>
     <patientInfo
       v-if="patientInfo.patientId && !$route.path.includes('temperature')"
@@ -248,19 +253,20 @@ import {
   blockDelete,
   toPdfPrint,
   blockSave,
-  switchAdditionalBlock
+  switchAdditionalBlock,
 } from "../../api/index.js";
 import commom from "@/common/mixin/common.mixin.js";
 import newFormModal from "../modal/new-sheet-modal.vue";
 import setTitleModal from "../modal/set-title-modal.vue";
 import tztbModal from "../modal/tztb-modal.vue";
-import patientInfoModal from "./modal/patient-info-modal"
+import patientInfoModal from "./modal/patient-info-modal";
 import dayjs from "dayjs";
 // import lodopPrint from "./lodop/lodopPrint";
 import patientInfo from "./patient-info";
 import temperatureHD from "../../../patientInfo/supPage/temperature/temperatureHD";
 import temperatureLCEY from "../../../patientInfo/supPage/temperature/temperatureLCEY";
 import temperatureWuJing from "../../../patientInfo/supPage/temperature/temperatureWuJing";
+import temperatureDghl from "../../../patientInfo/supPage/temperature/temperatureDghl";
 import { getPatientInfo } from "@/api/common.js";
 export default {
   mixins: [commom],
@@ -278,7 +284,7 @@ export default {
       sheetInfo,
       sheetBlockList: [],
       visibled: false,
-      queryTem: {}
+      queryTem: {},
     };
   },
   methods: {
@@ -299,7 +305,7 @@ export default {
       this.queryTem = {
         admissionDate: this.sheetInfo.selectBlock.admissionDate,
         patientId: this.sheetInfo.selectBlock.patientId,
-        visitId: this.sheetInfo.selectBlock.visitId
+        visitId: this.sheetInfo.selectBlock.visitId,
       };
       this.$nextTick(() => {
         this.$refs.sheet.open();
@@ -391,11 +397,11 @@ export default {
         if (i == pagelist.length - 1) {
         } else if (i == pagelist.length - 2) {
           this.selectList.push({
-            value: `${pagelist[i]}-${pagelist[i + 1] - 1}`
+            value: `${pagelist[i]}-${pagelist[i + 1] - 1}`,
           });
         } else if (pagelist[i] <= pagelist[i + 1] - 1) {
           this.selectList.push({
-            value: `${pagelist[i]}-${pagelist[i + 1] - 1}`
+            value: `${pagelist[i]}-${pagelist[i + 1] - 1}`,
           });
         }
       }
@@ -409,10 +415,10 @@ export default {
           this.patientInfo.patientId,
           this.patientInfo.visitId,
           this.deptCode
-        ).then(res => {
-          this.sheetBlockList.forEach(item => {
+        ).then((res) => {
+          this.sheetBlockList.forEach((item) => {
             try {
-              let currObj = res.data.data.list.find(obj => obj.id == item.id);
+              let currObj = res.data.data.list.find((obj) => obj.id == item.id);
               item.pageIndex = currObj.pageIndex;
               item.endPageIndex = currObj.endPageIndex;
             } catch (error) {}
@@ -427,7 +433,7 @@ export default {
     getPrev(index, bodyModel, val) {
       if (index < 0) return "";
       let tr = bodyModel[index];
-      let value = tr.find(item => {
+      let value = tr.find((item) => {
         return item.key == val;
       }).value;
       if (value) {
@@ -462,7 +468,7 @@ export default {
                 recordYear: this.getPrev(currIndex, allList, "recordYear"),
                 patientId: this.patientInfo.patientId,
                 visitId: this.patientInfo.visitId,
-                pageIndex: this.index
+                pageIndex: this.index,
               })
             );
           }
@@ -470,28 +476,28 @@ export default {
             empNo,
             password,
             list,
-            dsvsRandom
+            dsvsRandom,
           };
           sign(this.patientInfo.patientId, this.patientInfo.visitId, data).then(
-            res => {
+            (res) => {
               for (let i = 0; i < res.data.data.length; i++) {
                 let trArrClone = Tr(res.data.data[i]);
                 let trArr = sheetInfo.selectRow[i];
                 if (
-                  trArr.find(item => {
+                  trArr.find((item) => {
                     return item.key == "recordMonth";
                   }).value == ""
                 ) {
-                  trArrClone.find(item => {
+                  trArrClone.find((item) => {
                     return item.key == "recordMonth";
                   }).value = "";
                 }
                 if (
-                  trArr.find(item => {
+                  trArr.find((item) => {
                     return item.key == "recordHour";
                   }).value == ""
                 ) {
-                  trArrClone.find(item => {
+                  trArrClone.find((item) => {
                     return item.key == "recordHour";
                   }).value = "";
                 }
@@ -506,7 +512,7 @@ export default {
               );
               this.$notify.success({
                 title: "提示",
-                message: "批量签名成功"
+                message: "批量签名成功",
               });
               this.bus.$emit("saveSheetPage");
             }
@@ -515,7 +521,7 @@ export default {
       } else {
         this.$alert("请按下 ctrl 键并单击选择需要签名的行", "批量签名提示", {
           confirmButtonText: "确定",
-          callback: action => {}
+          callback: (action) => {},
         });
       }
     },
@@ -536,7 +542,7 @@ export default {
                 recordYear: this.getPrev(currIndex, allList, "recordYear"),
                 patientId: this.patientInfo.patientId,
                 visitId: this.patientInfo.visitId,
-                pageIndex: this.index
+                pageIndex: this.index,
               })
             );
           }
@@ -544,28 +550,28 @@ export default {
             empNo,
             password,
             list,
-            audit: true
+            audit: true,
           };
           sign(this.patientInfo.patientId, this.patientInfo.visitId, data).then(
-            res => {
+            (res) => {
               for (let i = 0; i < res.data.data.length; i++) {
                 let trArrClone = Tr(res.data.data[i]);
                 let trArr = sheetInfo.selectRow[i];
                 if (
-                  trArr.find(item => {
+                  trArr.find((item) => {
                     return item.key == "recordMonth";
                   }).value == ""
                 ) {
-                  trArrClone.find(item => {
+                  trArrClone.find((item) => {
                     return item.key == "recordMonth";
                   }).value = "";
                 }
                 if (
-                  trArr.find(item => {
+                  trArr.find((item) => {
                     return item.key == "recordHour";
                   }).value == ""
                 ) {
-                  trArrClone.find(item => {
+                  trArrClone.find((item) => {
                     return item.key == "recordHour";
                   }).value = "";
                 }
@@ -580,7 +586,7 @@ export default {
               );
               this.$notify.success({
                 title: "提示",
-                message: "批量审核成功"
+                message: "批量审核成功",
               });
               this.bus.$emit("saveSheetPage");
             }
@@ -589,7 +595,7 @@ export default {
       } else {
         this.$alert("请按下 ctrl 键并单击选择需要签名的行", "批量签名提示", {
           confirmButtonText: "确定",
-          callback: action => {}
+          callback: (action) => {},
         });
       }
     },
@@ -610,7 +616,7 @@ export default {
           this.patientInfo.patientId,
           this.patientInfo.visitId,
           this.deptCode
-        ).then(res => {
+        ).then((res) => {
           this.bus.$emit("setSheetTableLoading", false);
           this.selectList = [];
           let list = res.data.data.list;
@@ -618,14 +624,20 @@ export default {
             this.$route.path.includes("singleTemperatureChart") ||
             this.$route.path.includes("temperature")
           ) {
-            this.sheetBlockList = list.filter(item => {
+            this.sheetBlockList = list.filter((item) => {
               switch (this.HOSPITAL_ID) {
                 case "huadu":
                   return item.recordCode === "body_temperature_Hd";
+                case "fuyou":
+                  return item.recordCode === "body_temperature_jm";
                 case "hj":
                   return item.recordCode === "body_temperature_hj";
                 // case "liaocheng":
                 //   return item.recordCode === "body_temperature_lcey";
+                case "hengli":
+                  return item.recordCode === "body_temperature_hl";
+                  case "beihairenyi":
+                  return item.recordCode === "body_temperature_bhry";
                 case "wujing":
                   return item.recordCode === "body_temperature_wj";
                 default:
@@ -638,12 +650,12 @@ export default {
               // return item.recordCode == "body_temperature_Hd";
             });
           } else {
-            this.sheetBlockList = list.filter(item => {
+            this.sheetBlockList = list.filter((item) => {
               // return item.recordCode != "body_temperature_Hd";
               return (
                 (item.recordCode != "body_temperature_Hd") &
                 (item.recordCode != "body_temperature_hj") &
-                // (item.recordCode != "body_temperature_lcey") &
+                (item.recordCode != "body_temperature_hl") &
                 (item.recordCode != "body_temperature_wj")
               );
             });
@@ -653,7 +665,7 @@ export default {
           if (this.patientInfo.blockId) {
             try {
               let index = this.sheetBlockList.findIndex(
-                item => item.id == this.patientInfo.blockId
+                (item) => item.id == this.patientInfo.blockId
               );
               this.sheetInfo.selectBlock = this.sheetBlockList[index];
             } catch (e) {
@@ -690,12 +702,12 @@ export default {
       this.$confirm("此操作将永久删除该护理记录单, 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
-        type: "warning"
+        type: "warning",
       }).then(() => {
-        blockDelete(this.sheetInfo.selectBlock.id).then(res => {
+        blockDelete(this.sheetInfo.selectBlock.id).then((res) => {
           this.$message({
             type: "success",
-            message: "删除成功!"
+            message: "删除成功!",
           });
           // 刷新
           this.getBlockList();
@@ -710,8 +722,8 @@ export default {
       `;
     },
     changeSelectBlock(item) {
-      if(item) {
-        localStorage.wardCode = item.deptCode
+      if (item) {
+        localStorage.wardCode = item.deptCode;
       }
       this.sheetInfo.sheetType = this.sheetInfo.selectBlock.recordCode;
       cleanData();
@@ -753,9 +765,9 @@ export default {
       this.changeSelectBlock(false);
     },
     // 同步护理巡视
-    syncVisitWithData(){
-      this.$refs.patientInfoModal.open()
-    }
+    syncVisitWithData() {
+      this.$refs.patientInfoModal.open();
+    },
   },
   computed: {
     fullpage() {
@@ -780,7 +792,7 @@ export default {
     readOnly() {
       try {
         return !this.userDeptList
-          .map(item => item.code)
+          .map((item) => item.code)
           .includes(this.sheetInfo.selectBlock.deptCode);
       } catch (error) {
         return false;
@@ -814,17 +826,19 @@ export default {
           break;
         case "wujing":
           return temperatureWuJing;
+        case "hengli":
+          return temperatureDghl;
           break;
         default:
           break;
       }
-    }
+    },
   },
   created() {
     this.bus.$on("initSheetPageSize", () => {
       let old_list_length = this.selectList.length;
       let old_list_index = this.selectList.findIndex(
-        item => item.value == this.pageArea
+        (item) => item.value == this.pageArea
       );
       this.initSelectList();
       let new_list_length = this.selectList.length;
@@ -837,7 +851,7 @@ export default {
             for (let j = 0; j < this.sheetModel[i].bodyModel.length; j++) {
               if (
                 this.patientInfo.recordId ==
-                this.sheetModel[i].bodyModel[j].find(item => item.key == "id")
+                this.sheetModel[i].bodyModel[j].find((item) => item.key == "id")
                   .value
               ) {
                 index = i + this.sheetInfo.sheetStartPage;
@@ -857,7 +871,7 @@ export default {
                       .eq(0)
                       .offset().top +
                     this.$parent.$refs.scrollCon.scrollTop -
-                    250
+                    250,
                 });
                 $(`[recordId='${this.patientInfo.recordId}']`)
                   .eq(0)
@@ -903,12 +917,12 @@ export default {
     this.bus.$on("getBlockList", () => {
       this.getBlockList();
     });
-    document.onkeydown = e => {
+    document.onkeydown = (e) => {
       if (e.keyCode == 91 || e.keyCode == 17) {
         this.sheetInfo.downControl = true;
       }
     };
-    document.onkeyup = e => {
+    document.onkeyup = (e) => {
       if (e.keyCode == 91 || e.keyCode == 17) {
         this.sheetInfo.downControl = false;
       }
@@ -948,13 +962,13 @@ export default {
             this.selectList = [];
           });
         }
-      }
+      },
     },
     $route(to, from) {
       if (to.name != from.name) {
         this.getBlockList();
       }
-    }
+    },
   },
   components: {
     setPageModal,
@@ -965,8 +979,9 @@ export default {
     patientInfo,
     temperatureHD,
     temperatureLCEY,
-    temperatureWuJing
-  }
+    temperatureWuJing,
+    temperatureDghl,
+  },
 };
 </script>
 
@@ -1082,14 +1097,16 @@ export default {
 .red-border {
   border: 2px solid red !important;
 }
-.tempSweetModal{
-  /deep/ .sweet-modal{
-    width:90% !important;
+
+.tempSweetModal {
+  /deep/ .sweet-modal {
+    width: 90% !important;
     overflow: hidden !important;
   }
-  /deep/ .sweet-content{
-    background:#dfdfdf;
-    max-height:105vh !important;
+
+  /deep/ .sweet-content {
+    background: #dfdfdf;
+    max-height: 105vh !important;
   }
 }
 </style>
