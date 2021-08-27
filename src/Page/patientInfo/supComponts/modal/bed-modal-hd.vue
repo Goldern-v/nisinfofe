@@ -400,7 +400,7 @@
 .bed-card-vertical {
   // display: none;
   .bed-card-vert-con {
-    // margin: 5px;
+    margin: 5px;
     width: 96px;
     height: 360px;
     padding:5px 3px 0 3px !important;
@@ -409,13 +409,20 @@
     border: 3px solid #000;
     text-align: left;
     span {
+      display:block;
+      width:100%;
+      text-align center;
       font-size: 16px;
       line-height: 24px;
     }
     p {
+      text-align: center;
       font-size: 20px;
       line-height: 28px;
       padding-bottom: 10px;
+      &.patientId{
+        font-size: 16px;
+      }
       &:last-of-type {
         padding-bottom: 5px;
       }
