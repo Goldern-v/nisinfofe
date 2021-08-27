@@ -22,7 +22,7 @@
         class="right-part"
         v-loading="tableLoading"
         :class="openLeft ? 'isLeft' : 'isRight'"
-      >
+      >测试
         <div class="sheetTable-contain">
           <temperatureBHRY
             class="contain-center"
