@@ -286,14 +286,14 @@
           </el-table-column>
           <el-table-column
             v-if="HOSPITAL_ID === 'guizhou'"
-            prop="curWeight"
+            prop="nursingEvents"
             label="护理事件"
             min-width="100"
             align="center"
           >
             <template slot-scope="scope">
               <custom-input
-                v-model="scope.row.curWeight"
+                v-model="scope.row.nursingEvents"
                 colClass="curWeight"
               />
               <!-- <el-input v-model="scope.row.curWeight"></el-input> -->
@@ -779,7 +779,24 @@ export default {
                 return "23";
               }
             case "guizhou":
-              return "06";
+              if (this.getHours() >= 0 && this.getHours() <= 2) {
+                return "02";
+              }
+              if (this.getHours() > 2 && this.getHours() <= 6) {
+                return "06";
+              }
+              if (this.getHours() > 6 && this.getHours() <= 10) {
+                return "10";
+              }
+              if (this.getHours() > 10 && this.getHours() <= 14) {
+                return "14";
+              }
+              if (this.getHours() > 14 && this.getHours() <= 18) {
+                return "18";
+              }
+              if (this.getHours() > 18 && this.getHours() <= 23) {
+                return "22";
+              }
             default:
               return "07";
           }
@@ -952,13 +969,11 @@ export default {
           ? moment(data.entryDate).format("YYYY/MM/DD ")
           : moment(new Date()).format("YYYY/MM/DD ");
         this.pageLoadng = true;
-        console.log(data);
       } else {
         data.entryDate = data.entryDate
           ? moment(data.entryDate).format("YYYY/MM/DD ")
           : moment(new Date()).format("YYYY/MM/DD");
         this.pageLoadng = true;
-        console.log(data);
       }
 
       getPatientsInfo(data).then((res) => {
@@ -1012,6 +1027,7 @@ export default {
         heartRate: "",
         painScore: "",
         stoolNum: "",
+        nursingEvents:"",
       };
       let list = this.tableData.map((item) => {
         let obj = {};
@@ -1028,6 +1044,7 @@ export default {
       tempertureData.entryDate = tempertureData.entryDate
         ? moment(tempertureData.entryDate).format("YYYY-MM-DD")
         : moment(new Date()).format("YYYY-MM-DD");
+        console.log(tempertureData)
       saveOverAllTemperture(tempertureData).then((res) => {
         this.getData();
       });
