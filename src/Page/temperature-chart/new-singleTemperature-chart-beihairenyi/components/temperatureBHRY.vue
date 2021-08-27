@@ -60,10 +60,10 @@ export default {
       isSave: false,
       visibled: false,
       intranetUrl:
-        "http://10.207.40.22:8588/temperature/#/" /* 医院正式环境内网 导致跨域 */,
+        "http://192.167.199.191:9091/temperature/#/" /* 医院正式环境内网 导致跨域 */,
       // "http://10.10.10.75:9091/temperature/#/" /* 医院正式环境内网 */,
       outNetUrl:
-        "http://120.224.211.7:9091/temperature/#/" /* 医院正式环境外网：想要看iframe的效果，测试的时候可以把本地的地址都改成外网测试 */,
+        "http://http://219.159.198.37:9091/temperature/#/" /* 医院正式环境外网：想要看iframe的效果，测试的时候可以把本地的地址都改成外网测试 */,
     };
   },
   methods: {

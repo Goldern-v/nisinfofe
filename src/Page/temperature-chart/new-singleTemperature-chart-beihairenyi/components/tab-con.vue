@@ -3,7 +3,7 @@
     <div class="row-top">
       <div class="column-left">
         <el-button size="mini" @click="syncInAndOutHospital((type = '0'))">
-          同步入院北海人医
+          同步入院
         </el-button>
         <el-button
           style="margin: 10px 0px"
