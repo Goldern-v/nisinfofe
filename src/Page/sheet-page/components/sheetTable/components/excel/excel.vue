@@ -526,7 +526,7 @@ export default {
       ],
       // 底部两个签名的其中一个自定义字段
       doubleSignArr: [
-        
+
       ],
       accessOptionList: [],//下拉列表数据（贵州人医）
       defaultOptionList: [],//默认下拉列表数据

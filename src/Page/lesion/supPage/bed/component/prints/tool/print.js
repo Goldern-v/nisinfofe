@@ -87,7 +87,7 @@ function print(source, beforePrint, selfShow) {
    font-family: 'SimHei','Microsoft Yahei' !important;
   }
     @page{
-      margin: 0mm;
+      margin: 40px 30px;
     }
     body {
       margin: 0;
@@ -99,13 +99,12 @@ function print(source, beforePrint, selfShow) {
       display:flex;
       flex-wrap:wrap;
       position:relative;
-      top:5px;
+      top:0;
       left:0;
     }
     .bed-card-con {
       overflow: hidden;
-      margin-bottom:25px!important;
-      margin-top:100px!important;
+      margin-bottom:60px!important;
     }
     input[type='checkbox']:checked:before {
       content: '';
