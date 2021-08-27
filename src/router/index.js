@@ -69,7 +69,10 @@ const shiftWorkDetailFy = () => import("@/Page/shift-work-fy/shift-work-detail.v
 const shiftWorkLiaocheng = () => import("@/Page/shift-work-liaocheng/shift-work.vue");
 const shiftWorkDetailLiaocheng = () => import("@/Page/shift-work-liaocheng/shift-work-detail.vue");
 const shiftWorkGuizhou = () => import("@/Page/shift-work-gz/shift-work.vue");//贵州交班志
+const ISBARshiftWorkHd = () => import("@/Page/shift-work-hd/shift-work-ISBAR.vue");//花都ISBAR交班志
+
 const shiftWorkDetailGuizhou = () => import("@/Page/shift-work-gz/shift-work-detail.vue");
+const ISBARshiftWorkDetailHd = () => import("@/Page/shift-work-hd/shift-work-ISBAR-detail.vue");
 
 const singleRounds = () => import("@/Page/single-rounds/single-rounds.vue");
 const singleRoundsDetail = () => import("@/Page/single-rounds/single-rounds-detail.vue");
@@ -485,11 +488,25 @@ const router = new Router({
       {
         path: "/shiftWork2",
         name: "shiftWorks2",
-        component: shiftWorkGuizhou,
+        component: (() => {
+          switch (HOSPITAL_ID) {
+            case 'huadu':
+              return ISBARshiftWorkHd
+            default:
+              return shiftWorkGuizhou
+          }
+        })(),
         children: [{
           name: "shiftWork2",
           path: "/shiftWork2/:code?/:id?",
-          component: shiftWorkDetailGuizhou
+          component: (() => {
+            switch (HOSPITAL_ID) {
+              case 'huadu':
+                return ISBARshiftWorkDetailHd
+              default:
+                return shiftWorkDetailGuizhou
+            }
+          })(),
         }]
       },
       {
