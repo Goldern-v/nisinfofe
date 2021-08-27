@@ -106,7 +106,7 @@
                 ></div>
                 <div
                   slot="description"
-                  style="color: #333; line-height: 1.5em"
+                  style="color: #333; line-height: 1.5em;font-weight: bold;"
                   v-html="step.description"
                 ></div>
               </el-step>
@@ -551,7 +551,7 @@ export default {
           return {
             title: item.operateName || item.operatorName || item.nodeName,
             auditMind: item.auditMind || "",
-            description: `${operatorName}<br>${operateDate}`,
+            description: `${operatorName}<br>${operateDate}<br>${item.handleContent}`,
             status
           };
         });
