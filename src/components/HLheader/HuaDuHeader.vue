@@ -241,7 +241,7 @@
                 >
                   <router-link to="/shiftWork" tag="span">
                     <el-row class="menu-item" type="flex" align="middle"
-                      >交班志
+                      >ISBAR交班记录卡
                     </el-row>
                   </router-link>
                 </el-dropdown-item>
@@ -250,7 +250,7 @@
                 >
                   <router-link to="/shiftWork2" tag="span">
                     <el-row class="menu-item" type="flex" align="middle"
-                      >ISBAR交班记录卡
+                      >交班志
                     </el-row>
                   </router-link>
                 </el-dropdown-item>

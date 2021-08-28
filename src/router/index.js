@@ -69,10 +69,10 @@ const shiftWorkDetailFy = () => import("@/Page/shift-work-fy/shift-work-detail.v
 const shiftWorkLiaocheng = () => import("@/Page/shift-work-liaocheng/shift-work.vue");
 const shiftWorkDetailLiaocheng = () => import("@/Page/shift-work-liaocheng/shift-work-detail.vue");
 const shiftWorkGuizhou = () => import("@/Page/shift-work-gz/shift-work.vue");//贵州交班志
-const ISBARshiftWorkHd = () => import("@/Page/shift-work-hd/shift-work-ISBAR.vue");//花都ISBAR交班志
+const ISBARshiftWorkHd = () => import("@/Page/shift-work/shift-work.vue");//花都ISBAR交班志
 
 const shiftWorkDetailGuizhou = () => import("@/Page/shift-work-gz/shift-work-detail.vue");
-const ISBARshiftWorkDetailHd = () => import("@/Page/shift-work-hd/shift-work-ISBAR-detail.vue");
+const ISBARshiftWorkDetailHd = () => import("@/Page/shift-work/shift-work-detail.vue");
 
 const singleRounds = () => import("@/Page/single-rounds/single-rounds.vue");
 const singleRoundsDetail = () => import("@/Page/single-rounds/single-rounds-detail.vue");
@@ -453,7 +453,7 @@ const router = new Router({
             case 'lingcheng':
               return shiftWorkLc
             case 'huadu':
-              return shiftWorkHd
+              return ISBARshiftWorkHd
             case 'fuyou':
               return shiftWorkFy
             case 'liaocheng' || 'zhongshanqi':
@@ -472,7 +472,7 @@ const router = new Router({
               case 'lingcheng':
                 return shiftWorkDetailLc
               case 'huadu':
-                return shiftWorkDetailHd
+                return ISBARshiftWorkDetailHd
               case 'fuyou':
                 return shiftWorkDetailFy
               case 'liaocheng' || 'zhongshanqi':
@@ -491,7 +491,7 @@ const router = new Router({
         component: (() => {
           switch (HOSPITAL_ID) {
             case 'huadu':
-              return ISBARshiftWorkHd
+              return   shiftWorkHd
             default:
               return shiftWorkGuizhou
           }
@@ -502,7 +502,7 @@ const router = new Router({
           component: (() => {
             switch (HOSPITAL_ID) {
               case 'huadu':
-                return ISBARshiftWorkDetailHd
+                return shiftWorkDetailHd
               default:
                 return shiftWorkDetailGuizhou
             }

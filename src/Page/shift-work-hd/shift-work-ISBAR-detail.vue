@@ -266,15 +266,15 @@ import print from "printing";
 
 import * as apis from "@/Page/shift-work/apis";
 import formatter from "./print-formatter";
-import Button from "./components/button";
-import ExcelTable from "./components/table";
-import Placeholder from "./components/placeholder";
-import PatientModal from "./components/patient-modal";
-import PatientsModal from "./components/patients-modal";
-import PatientPanel from "./components/patient-panel";
-import SpecialCaseModal from "./components/special-case-modal";
-import SpecialCasePanel from "./components/special-case-panel";
-import SignModal from "./components/sign-modal";
+import Button from "@/Page/shift-work/components/button";
+import ExcelTable from "@/Page/shift-work/components/table";
+import Placeholder from "@/Page/shift-work/components/placeholder";
+import PatientModal from "@/Page/shift-work/components/patient-modal";
+import PatientsModal from "@/Page/shift-work/components/patients-modal";
+import PatientPanel from "@/Page/shift-work/components/patient-panel";
+import SpecialCaseModal from "@/Page/shift-work/components/special-case-modal";
+import SpecialCasePanel from "@/Page/shift-work/components/special-case-panel";
+import SignModal from "@/Page/shift-work/components/sign-modal";
 import $ from "jquery";
 const defaultPatient = {
   name: "",
