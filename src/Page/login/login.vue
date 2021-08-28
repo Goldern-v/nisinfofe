@@ -509,6 +509,8 @@ export default {
           return require("../../common/images/logo_zhongshanqi.png");
         case "quzhou":
           return require("../../common/images/logo_quzhou.png");
+        case "huadu":
+          return require("../../common/images/logo_huadu.png");
         case "guizhou":
           return require("../../common/images/logo_guizhou.png");
         case "nanfangzhongxiyi":
@@ -519,7 +521,7 @@ export default {
     },
     logoName() {
       let logoName = "百辰源智慧护理信息系统";
-      if (this.HOSPITAL_ID == "hj" || this.HOSPITAL_ID == "zhongshanqi" || this.HOSPITAL_ID == "nanfangzhongxiyi") {
+      if (this.HOSPITAL_ID == "hj" || this.HOSPITAL_ID == "zhongshanqi" || this.HOSPITAL_ID == "nanfangzhongxiyi" || this.HOSPITAL_ID == "huadu") {
         logoName = `${this.HOSPITAL_NAME}<br />智慧护理信息系统`;
       } else if (
         this.HOSPITAL_ID == "guizhou" ||
