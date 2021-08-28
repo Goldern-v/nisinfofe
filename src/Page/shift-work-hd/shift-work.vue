@@ -21,7 +21,7 @@
           class="item"
           active-class="active"
           v-for="record of records"
-          :to="{name: 'shiftWork', params: {code: record.deptCode, id: record.id}}"
+          :to="{name: 'shiftWork2', params: {code: record.deptCode, id: record.id}}"
           :key="record.id"
         >
           <div class="text">{{record.changeShiftDate}}</div>
@@ -94,7 +94,7 @@ export default {
   },
   watch: {
     deptCode(value, oldValue) {
-      this.$router.push({ path: "/shiftWork" });
+      this.$router.push({ path: "/shiftWork2" });
     },
     "$route.params.code"() {
       this.load();
@@ -151,7 +151,7 @@ export default {
       }
       this.$refs.createModal.close();
       this.$router.push({
-        name: "shiftWork",
+        name: "shiftWork2",
         params: { code, id: res.data.data.id }
       });
 

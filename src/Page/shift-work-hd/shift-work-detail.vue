@@ -329,12 +329,12 @@ export default {
       const params = this.$route.params;
 
       if (!params.code) {
-        this.$router.push({ path: `/shiftWork/${code}` });
+        this.$router.push({ path: `/shiftWork2/${code}` });
       }
       this.reloadSideList();
     },
     onCodeChange(code) {
-      this.$router.push({ path: `/shiftWork/${code}` });
+      this.$router.push({ path: `/shiftWork2/${code}` });
     },
     async load() {
       const id = this.$route.params.id;
@@ -531,7 +531,7 @@ export default {
           this.modified = false;
           this.record = null;
           this.patients = [];
-          this.$router.push({ path: `/shiftWork/${code}` });
+          this.$router.push({ path: `/shiftWork2/${code}` });
           this.reloadSideList();
         }
       });

@@ -73,7 +73,6 @@
 }
 </style>
 <script>
-import moment from "moment";
 import searchCon from "./components/search-con/search-con";
 import dTable from "./components/table/d-table";
 import changeMaJorTable from  "./components/table/change-major-table"
@@ -213,10 +212,5 @@ export default {
     pagination,
     changeMaJorTable
   },
-  filters: {
-    ymdhm(val) {
-      return val ? moment(val).format("YYYY-MM-DD HH:mm:ss") : "";
-    },
-  }
 };
 </script>
