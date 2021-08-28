@@ -7,17 +7,20 @@
         <el-row type="flex" class="row-bg" justify="space-between">
           <el-row class="left-part" type="flex">
             <el-row
-              class="logo-con"
+              class="logo-con logo-con-huadu"
               type="flex"
               justify="center"
               align="middle"
             >
               <img
-                src="../../common/images/logo-white-60.png"
+                src="../../common/images/logo_huadu.png"
                 height="63"
                 width="63"
               />
-              <span>百辰源智慧护理信息系统</span>
+              <span>
+                广州市花都人民医院
+                <br />智慧护理信息系统
+              </span>
             </el-row>
             <!-- <router-link to="/index"
                          tag="span">
@@ -490,6 +493,19 @@
     font-size: 14px;
     color: #EFF2F9;
     letter-spacing: 0;
+  }
+}
+
+.logo-con-huadu {
+  padding-left: 10px;
+
+  img {
+    width: 36px;
+    height: 36px;
+  }
+
+  span {
+    line-height: 16px;
   }
 }
 

@@ -216,6 +216,7 @@ export default {
         setloadingSVGHidden: this.setloadingSVGHidden,
         openSignModal: window.openSignModal,
         opentztbModal: this.opentztbModal,
+        confirmfrom:this.$confirm
       };
     };
     // iframeLoadingV2
