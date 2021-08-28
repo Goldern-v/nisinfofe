@@ -329,7 +329,27 @@ export default {
       editableTabsValue: "2",
       query: {
         entryDate: moment(new Date()).format("YYYY-MM-DD"), //录入日期
-        entryTime: entryTime, //录入时间
+        entryTime: (()=>{
+          if (this.getHours() >= 0 && this.getHours() <= 2) {
+                return "02";
+              }
+              if (this.getHours() > 2 && this.getHours() <= 6) {
+                return "06";
+              }
+              if (this.getHours() > 6 && this.getHours() <= 10) {
+                return "10";
+              }
+              if (this.getHours() > 10 && this.getHours() <= 14) {
+                return "14";
+              }
+              if (this.getHours() > 14 && this.getHours() <= 18) {
+                return "18";
+              }
+              if (this.getHours() > 18 && this.getHours() <= 23) {
+                return "22";
+              }
+         //录入时间
+        })() //录入时间
       },
       recordDate: "",
       fieldList: {}, // 自定义项目列表
@@ -449,6 +469,11 @@ export default {
         };
       }
       this.vitalSignObj = { ...obj };
+    },
+     getHours() {
+      let date = new Date();
+      let b = date.getHours();
+      return b;
     },
     async getList() {
       /* 初始化 */
@@ -716,7 +741,7 @@ export default {
 
     .preText {
       display: inline-block;
-      width: 50px;
+      width: 70px;
     }
 
     input {

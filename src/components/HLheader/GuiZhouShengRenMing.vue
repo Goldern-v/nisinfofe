@@ -57,7 +57,21 @@
                 <i class="iconfont icon-news"></i> MEWS
               </el-row>
             </router-link>
-            <el-dropdown
+            <!-- 血糖 -->
+            <router-link to="/sugarPage" tag="span">
+              <el-row class="nav-item" type="flex" align="middle">
+                <i class="iconfont icon-xuetang"></i> 血糖
+              </el-row>
+            </router-link>
+            <!--  -->
+            <!-- 血糖 -->
+            <router-link to="/healthEdu" tag="span">
+              <el-row class="nav-item" type="flex" align="middle">
+                <i class="iconfont icon-xuetang"></i> 健康教育单
+              </el-row>
+            </router-link>
+            <!--  -->
+            <!-- <el-dropdown
               menu-align="start"
               :class="{ 'router-link-active': isActiveRecordPage }"
             >
@@ -85,10 +99,10 @@
                   </router-link>
                 </el-dropdown-item>
               </el-dropdown-menu>
-            </el-dropdown>
+            </el-dropdown> -->
             <router-link to="/formPage" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
-                <i class="nursingAssessment"></i> 护理评估单
+                <i class="nursingAssessment"></i> 护理文书
               </el-row>
             </router-link>
             <router-link to="/sheetPage" tag="span">

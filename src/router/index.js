@@ -42,6 +42,8 @@ const workloadSatisticsLc = () =>
   import("../Page/workloadSatisticsLc/workloadSatistics.vue"); // 陵城工作量统计
 const workloadSatisticsZSQ = () =>
   import("../Page/workloadSatisticsLc/workloadSatistics-zhongshanqi.vue"); // 中山七工作量统计
+const workloadSatisticsFuYou = () =>
+  import("@/Page/workloadSatisticsLc/workloadSatistics-fuyou.vue"); // 江门妇幼工作量统计
 const NotFoundComponent = () =>
   import("../components/NotFound/NotFoundComponent.vue"); // 异常路径
 const print = () => import("@/Part/print/print.vue");
@@ -67,7 +69,10 @@ const shiftWorkDetailFy = () => import("@/Page/shift-work-fy/shift-work-detail.v
 const shiftWorkLiaocheng = () => import("@/Page/shift-work-liaocheng/shift-work.vue");
 const shiftWorkDetailLiaocheng = () => import("@/Page/shift-work-liaocheng/shift-work-detail.vue");
 const shiftWorkGuizhou = () => import("@/Page/shift-work-gz/shift-work.vue");//贵州交班志
+const ISBARshiftWorkHd = () => import("@/Page/shift-work/shift-work.vue");//花都ISBAR交班志
+
 const shiftWorkDetailGuizhou = () => import("@/Page/shift-work-gz/shift-work-detail.vue");
+const ISBARshiftWorkDetailHd = () => import("@/Page/shift-work/shift-work-detail.vue");
 
 const singleRounds = () => import("@/Page/single-rounds/single-rounds.vue");
 const singleRoundsDetail = () => import("@/Page/single-rounds/single-rounds-detail.vue");
@@ -448,7 +453,7 @@ const router = new Router({
             case 'lingcheng':
               return shiftWorkLc
             case 'huadu':
-              return shiftWorkHd
+              return ISBARshiftWorkHd
             case 'fuyou':
               return shiftWorkFy
             case 'liaocheng' || 'zhongshanqi':
@@ -467,7 +472,7 @@ const router = new Router({
               case 'lingcheng':
                 return shiftWorkDetailLc
               case 'huadu':
-                return shiftWorkDetailHd
+                return ISBARshiftWorkDetailHd
               case 'fuyou':
                 return shiftWorkDetailFy
               case 'liaocheng' || 'zhongshanqi':
@@ -483,11 +488,25 @@ const router = new Router({
       {
         path: "/shiftWork2",
         name: "shiftWorks2",
-        component: shiftWorkGuizhou,
+        component: (() => {
+          switch (HOSPITAL_ID) {
+            case 'huadu':
+              return   shiftWorkHd
+            default:
+              return shiftWorkGuizhou
+          }
+        })(),
         children: [{
           name: "shiftWork2",
           path: "/shiftWork2/:code?/:id?",
-          component: shiftWorkDetailGuizhou
+          component: (() => {
+            switch (HOSPITAL_ID) {
+              case 'huadu':
+                return shiftWorkDetailHd
+              default:
+                return shiftWorkDetailGuizhou
+            }
+          })(),
         }]
       },
       {
@@ -689,7 +708,17 @@ const router = new Router({
       },
       {
         path: "/workloadSatistics",
-        component: HOSPITAL_ID == "lingcheng" ? workloadSatisticsLc : workloadSatisticsZSQ,
+        //component: HOSPITAL_ID == "lingcheng" || HOSPITAL_ID == "fuyou"  ? workloadSatisticsLc : workloadSatisticsZSQ,
+        component: (() => {
+          switch (HOSPITAL_ID) {
+            case 'lingcheng':
+                return workloadSatisticsLc
+            case 'fuyou':
+                return workloadSatisticsFuYou
+            default:
+                return workloadSatisticsZSQ
+          }
+        })(),
         name: "工作量统计"
       },
       {

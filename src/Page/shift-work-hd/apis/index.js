@@ -13,10 +13,21 @@ export function listShiftRecord(deptCode, startDate, endDate) {
     `${apiPath}changeShiftHdTime/list/${deptCode}/${startDate}/${endDate}`
   );
 }
+// 查询ISBAR交班志列表
+export function listShiftRecord2(deptCode, startDate, endDate) {
+  return axios.get(
+    `${apiPath}changeShiftTime/list/${deptCode}/${startDate}/${endDate}`
+  );
+}
 
 // 查询交班志
 export function getShiftRecord(id) {
   return axios.get(`${apiPath}changeShiftHdTime/getById/${id}`);
+}
+
+// 查询ISBAR交班志
+export function getShiftRecord2(id) {
+  return axios.get(`${apiPath}changeShiftTime/getById/${id}`);
 }
 
 // 创建交班志

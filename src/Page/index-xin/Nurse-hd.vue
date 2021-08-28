@@ -98,7 +98,7 @@
                 @click="showTip2(item)"
                 class="data-row"
               >
-                <td>{{ item.bedLabel + "床 " + item.name }}</td>
+                <td :rowspan="item.rowspan" v-if="item.show">{{ item.bedLabel + "床 " + item.name }}</td>
                 <td>{{ item.task }}</td>
                 <td>{{ item.taskTime | filterTime }}</td>
               </tr>
@@ -166,7 +166,7 @@
                     }"
                   ></i>
                 </td>
-                <td>{{ item.bedLabel + "床 " + item.patientName }}</td>
+                <td :rowspan="item.rowspan" v-if="item.show">{{ item.bedLabel + "床 " + item.patientName }}</td>
                 <td>{{ item.content }}</td>
                 <td>
                   <span v-if="item.type == '1'" style="color: red">未签名</span>
@@ -273,6 +273,27 @@ export default {
       this.centerDialogVisible = false;
       this.$router.push("/sheetPage");
     },
+    // 按照病人id和住院次数设置合并的行数
+    setRowSpan(data,newData){
+      let resData={}
+      data.map((item)=>{
+        if(resData[item.patientId+"|"+item.visitId]){
+          resData[item.patientId+"|"+item.visitId].push(item)
+          resData[item.patientId+"|"+item.visitId][0].rowspan++
+          item.show=false
+        }else{
+          resData[item.patientId+"|"+item.visitId]=[item]
+          item.rowspan=1
+          item.show=true
+        }
+      })
+      resData=Object.values(resData)
+      resData.map((item,index)=>{
+        resData[index].rowspan
+        newData = [...newData,...item]
+      })
+      return newData
+    },
     init() {
       if (!this.deptCode) return;
       let time = moment().format("L");
@@ -292,35 +313,23 @@ export default {
         .then(rep => {
           // let data = rep.data.data;
           let data = rep.data.data;
-          let resData={}
           let newData=[]
-          data.map((item)=>{
-            if(resData[item.patientId+"|"+item.visitId]){
-              resData[item.patientId+"|"+item.visitId].push(item)
-              resData[item.patientId+"|"+item.visitId][0].rowspan++
-              item.show=false
-            }else{
-              resData[item.patientId+"|"+item.visitId]=[item]
-              item.rowspan=1
-              item.show=true
-            }
-          })
-          resData=Object.values(resData)
-          resData.map((item,index)=>{
-            resData[index].rowspan
-            newData = [...newData,...item]
-          })
+          this.setRowSpan(data,newData);
           this.$set(this.body, "content", newData);
           this.page1Loading = false;
         });
       nurseTast(this.deptCode, time) //获取数据---评估任务
         .then(rep => {
           let data = rep.data.data;
+          let newData=[]
+          this.setRowSpan(data,newData);
           this.$set(this.nurse, "content", data);
           this.page2Loading = false;
         });
       recordJob(this.deptCode).then(rep => {
         let data = rep.data.data.list;
+        let newData=[]
+        this.setRowSpan(data,newData);
         this.$set(this.postil, "content", data);
         this.page3Loading = false;
       });

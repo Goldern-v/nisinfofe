@@ -422,7 +422,7 @@
           <div>
               <span>住院号：{{ query.patientId }}</span>
               <!-- <span class="bhzd">诊断:{{query.remark}}</span> -->
-              <span v-show="query.age.includes('天')||query.age.includes('月')||Number(query.age.split('岁')[0])<18">入院日期：{{ query.admissionDate | ymdhm }}</span>
+              <span>入院日期：{{ query.admissionDate | ymdhm }}</span>
         </div>
         <img
             class="qr-code"
@@ -1021,7 +1021,7 @@ export default {
             css: `
           .bed-card-warpper {
             box-shadow: none !important;
-            transform: rotate(90deg) translateY(-190%) translateX(20%);
+            transform: scale(0.8) rotate(90deg) translateY(-135%) translateX(42%);
             transform-origin: 0 0;
           }
           .bed-card-vert-con {

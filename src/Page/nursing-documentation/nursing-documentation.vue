@@ -1,11 +1,8 @@
 <template lang="pug">
   div
     .main-contain
-    if HOSPITAL_ID=='huadu' && searchConData && searchConData.status=="3"
-      changeMaJorTable(:tableData="tableData" :pageLoadng="pageLoadng")
-    else 
-      dTable(:tableData="tableData" :pageLoadng="pageLoadng")
-      
+      changeMaJorTable(v-if="HOSPITAL_ID=='huadu' && isChangeMajor" :tableData="tableData" :pageLoadng="pageLoadng")
+      dTable(v-else :tableData="tableData" :pageLoadng="pageLoadng")
       .head-con(flex="main:justify cross:center")
         pagination(:pageIndex="page.pageIndex" :size="page.pageNum" :total="page.total" @sizeChange="handleSizeChange"
         @currentChange="handleCurrentChange")
@@ -76,6 +73,7 @@
 }
 </style>
 <script>
+import moment from "moment";
 import searchCon from "./components/search-con/search-con";
 import dTable from "./components/table/d-table";
 import changeMaJorTable from  "./components/table/change-major-table"
@@ -92,7 +90,8 @@ export default {
         pageIndex: 1,
         pageNum: 20,
         total: 0
-      }
+      },
+      isChangeMajor:false,//是否显示转科
     };
   },
   methods: {
@@ -147,12 +146,15 @@ export default {
       if (data.status == 1) {
         obj.dischargeDateBegin = "";
         obj.dischargeDateEnd = "";
+        this.isChangeMajor=false;
       }
       if (data.status == 2) {
         obj.admissionDateBegin = "";
         obj.admissionDateEnd = "";
+        this.isChangeMajor=false;
       }
       if (data.status == 3) {
+        this.isChangeMajor=true;
         // this.query.startDate = this.query.startDate ? moment(this.query.startDate).format("YYYY-MM-DD") + " 00:00:00": moment(new Date()).format("YYYY-MM-DD") + " 00:00:00";
         // this.query.endDate =  this.query.endDate ? moment(this.query.endDate).format("YYYY-MM-DD") + " 23:59:59" : moment(new Date()).format("YYYY-MM-DD") + " 23:59:59";
         obj.startDate = new Date(data.dateTime[0]).Format(
@@ -197,7 +199,7 @@ export default {
         this.pageLoadng = false;
       });
       }
-     
+
     }
   },
   computed:{
@@ -210,6 +212,11 @@ export default {
     dTable,
     pagination,
     changeMaJorTable
+  },
+  filters: {
+    ymdhm(val) {
+      return val ? moment(val).format("YYYY-MM-DD HH:mm:ss") : "";
+    },
   }
 };
 </script>
