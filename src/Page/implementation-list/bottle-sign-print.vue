@@ -63,9 +63,12 @@
           <img src="./images/print.png" alt="">
           <p>正在初始化打印,请稍等…</p>
         </div>
-        <div class="print" v-show="showProgress">
+        <div class="print" v-show="showProgress" @click.stop>
           <el-progress :percentage="(printNum/selectedData.length)*100 || 0"></el-progress>
-          <p>正在打印,请稍等… {{printNum}}/{{selectedData.length}}</p>
+          <p>
+            <span>{{printStatusMsg}}</span>
+            <el-button v-show="showCancelPrint"  @click="closePrint" style="margin-left:15px;">取消</el-button>
+          </p>
         </div>
       </div>
     </div>
@@ -127,7 +130,7 @@
   align-items: center;
 
   > div {
-    width: 432px;
+    width: 480px;
     height: 134px;
     background-color: #fff;
     text-align: center;
@@ -187,7 +190,14 @@ export default {
       selectedData: [],//选中打印执行单条数
       printNum: 0,//已经打印执行单的条数
       Uuid: '',//打印流水号
+      printStatusTimmer: null,
+      printStatusReq: null,
+      printStatusMsg: '',
+      showCancelPrint: false,
     };
+  },
+  beforeDestroy(){
+    this.cleanPrintStatusRoundTime()
   },
   methods: {
     handleSizeChange(newSize) {
@@ -252,38 +262,88 @@ export default {
     },
     // 打印
     onPrint(){
-      this.showPintModal = true;
       this.selectedData = this.$refs.plTable.selectedData;
-      this.query.executeDate = this.query.executeDate ? moment(this.query.executeDate).format("YYYY-MM-DD") : '';
-      setTimeout(()=>{
-        this.showPintModal = false;
-        let url = '';
-        this.selectedData.map((item,index) => {
-          url += `${item.patientId}|${item.visitId}|${item.orderNo};`;
-        });
-        this.Uuid = new Date().getTime();
-        window.location.href = `VMS://${this.Uuid};${this.query.executeDate};{${url}}`;
-      },1000)
+      if((this.selectedData||[]).length<=0)
+      return this.$message('未选择勾选打印条目')
 
-      setTimeout(()=>{
-        this.printResult();
-      },10*1000)
+      this.showPintModal = true;
+      this.printNum = 0;
+
+      this.query.executeDate = this.query.executeDate ? moment(this.query.executeDate).format("YYYY-MM-DD") : '';
+
+      let url = '';
+      this.selectedData.map((item,index) => {
+        url += `${item.patientId}|${item.visitId}|${item.orderNo};`;
+      });
+      this.Uuid = new Date().getTime() + parseInt(Math.random()*10000);
+      window.location.href = `LABELPRINT://${this.Uuid};${this.empNo};${this.query.executeDate};{${url}}`;
+      this.printStatusMsg = '正在打印,请稍等…'
+      this.showCancelPrint = false;
+
+      this.printResult(this.selectedData.length);
+    },
+    cleanPrintStatusRoundTime(){
+      if(this.printStatusTimmer){
+        clearTimeout(this.printStatusTimmer)
+      }
+
+      if(this.printStatusReq){
+        console.log(this.printStatusReq.close)
+        this.printStatusReq.close&&this.printStatusReq.close()
+      }
     },
     // 打印结果
-    printResult(){
-      this.selectedData.map((item,index) => {
-         handleWebGetPrintResult(this.Uuid).then(res => {
-           this.showProgress = true;
-           this.printNum++;
-         })
-      });
+    printResult(totalNum){
+      this.showPintModal = true;
+      this.showProgress = true;
+      this.cleanPrintStatusRoundTime()
+
+      this.printStatusTimmer = setTimeout(()=>{
+        this.printStatusReq = handleWebGetPrintResult(this.Uuid)
+        .then(res => {
+          const {data,code,desc} = res.data
+          if(code==200){
+            const { printNum, successNum, errorNum } = data
+            this.printNum = printNum
+            this.showCancelPrint = false;
+            if(printNum<totalNum){
+              this.printResult(totalNum)
+              this.printStatusMsg = `正在打印,请稍等… ${printNum}/${totalNum}`
+            }else{
+              this.printStatusMsg = '打印成功！'
+              setTimeout(()=>this.closePrint(),1000)
+            }
+          }else{
+            this.showCancelPrint = true;
+            this.printStatusMsg = desc;
+            this.printResult(totalNum)
+          }
+        },(e)=>{
+
+          if(e&&e.data&&e.data.desc){
+            let visibleMsg = `${e.data.desc}，重试中...`
+            this.showCancelPrint = true;
+            if(this.printStatusMsg === visibleMsg){
+              this.printStatusMsg = '打印程序已挂起, 3秒钟后关闭';
+              setTimeout(()=>this.closePrint(),3000)
+            }else{
+              this.printStatusMsg = visibleMsg
+              this.printResult(totalNum)
+            }
+          }else{
+            this.showCancelPrint = true;
+            this.printStatusMsg = '打印出现错误';
+            setTimeout(()=>this.closePrint(),3000)
+          }
+        })
+      }, 5*1000)
     },
     // 关闭打印弹框
     closePrint(e){
-      e.stopPropagation();
-      if(e.target.className == 'print-modal'){
-        this.showPintModal = false;
-      }
+      this.cleanPrintStatusRoundTime()
+      this.showCancelPrint = false;
+      this.showProgress == false
+      this.showPintModal = false;
     },
     // 全选
     allSelection(){

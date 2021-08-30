@@ -88,12 +88,6 @@
           >
           <el-button
             size="small"
-            @click="handlePrint"
-            :disabled="status == '已执行'"
-            >瓶签打印</el-button
-          >
-          <el-button
-            size="small"
             @click="handleExecuteBatch"
             :disabled="status == '已执行'"
             >执行</el-button
@@ -188,7 +182,6 @@ export default {
         repeatIndicator: 9, //医嘱类型，长期传1，临时传0，全部传9
         executeFlag: 0, //0未执行，2已执行
       },
-      uuid: "", //调用瓶签打印前生成的id, 代表这一次瓶签打印的唯一id，用于后续查询打印的一个进度
     };
   },
   methods: {
@@ -290,31 +283,6 @@ export default {
         this.$message.success(res.data.desc);
         this.onLoad();
       });
-    },
-    initUuid() {
-      return new Date().getTime() + parseInt(Math.random() * 1000);
-    },
-    handlePrint() {
-      let selectedData = this.$refs.plTable.selectedData;
-
-      this.uuid = this.initUuid();
-
-      if (selectedData.length <= 0) return;
-
-      let printParamsArr = [this.uuid, this.empNo, this.query.executeDate];
-      selectedData.forEach((item) => {
-        printParamsArr.push(
-          `${item.patientId}|${item.visitId}|${item.orderNo}`
-        );
-      });
-
-      let printParams = decodeURIComponent(printParamsArr.join(";"));
-
-      let reqEl = document.createElement("a");
-      reqEl.href = `LABELPRINT://${printParams}`;
-      document.body.appendChild(reqEl);
-      reqEl.click();
-      document.body.removeChild(reqEl);
     },
   },
   created() {
