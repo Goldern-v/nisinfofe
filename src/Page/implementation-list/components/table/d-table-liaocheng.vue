@@ -55,7 +55,7 @@
 
       <u-table-column label="医嘱内容" prop="orderText" min-width="250px">
         <template slot-scope="scope">
-          <div v-for="(item, index) in scope.row.child" :key="index">
+          <div v-for="(item, index) in scope.row.child" :key="index" v-show="item.orderText">
             {{ item.orderText }}
           </div>
         </template>
@@ -67,6 +67,7 @@
             v-for="(item, index) in scope.row.child"
             :key="index"
             style="position: relative; right: -10px"
+            v-show="item.dosage"
           >
             {{ item.dosage }}
           </div>
@@ -79,6 +80,7 @@
             v-for="(item, index) in scope.row.child"
             :key="index"
             style="position: relative; left: -10px"
+            v-show="item.dosageUnits"
           >
             {{ item.dosageUnits }}
           </div>
@@ -93,7 +95,7 @@
       >
         <template slot-scope="scope">
           <div v-if="scope.row.child && scope.row.child.length">
-            <div v-for="(item, index) in scope.row.child" :key="index">
+            <div v-for="(item, index) in scope.row.child" :key="index" v-show="item.frequency">
               {{ item.frequency }}
             </div>
           </div>
@@ -109,7 +111,7 @@
       >
         <template slot-scope="scope">
           <div v-if="scope.row.child && scope.row.child.length">
-            <div v-for="(item, index) in scope.row.child" :key="index">
+            <div v-for="(item, index) in scope.row.child" :key="index" v-show="item.executeDateTime">
               {{ item.executeDateTime | ymdhm }}
             </div>
           </div>
@@ -122,7 +124,7 @@
       <u-table-column prop="administration" label="途径" min-width="110px">
         <template slot-scope="scope">
           <div v-if="scope.row.child && scope.row.child.length">
-            <div v-for="(item, index) in scope.row.child" :key="index">
+            <div v-for="(item, index) in scope.row.child" :key="index" v-show="item.administration">
               {{ item.administration }}
             </div>
           </div>
@@ -142,7 +144,7 @@
       >
         <template slot-scope="scope">
           <div v-if="scope.row.child && scope.row.child.length">
-            <div v-for="(item, index) in scope.row.child" :key="index">
+            <div v-for="(item, index) in scope.row.child" :key="index" v-show="item.executeFlag!=5">
               <span
                 :class="{
                   yzx: item.executeFlag == 4,
@@ -169,7 +171,7 @@
       >
         <template slot-scope="scope">
           <div v-if="scope.row.child && scope.row.child.length">
-            <div v-for="(item, index) in scope.row.child" :key="index">
+            <div v-for="(item, index) in scope.row.child" :key="index" v-show="item.startNurse">
               {{ item.startNurse }}
             </div>
           </div>
@@ -188,7 +190,7 @@
         align="center"
       >
         <template slot-scope="scope">
-          <div v-for="(item, index) in scope.row.child" :key="index">
+          <div v-for="(item, index) in scope.row.child" :key="index" v-show="item.realExecuteDateTime">
             {{ item.realExecuteDateTime | ymdhm2 }}
           </div>
         </template>
@@ -249,12 +251,12 @@
       <u-table-column
         prop="endDateTime"
         label="结束输液护士/时间"
-        min-width="170px"
+        min-width="200px"
       >
         <template slot-scope="scope">
-          <span v-show="scope.row.child"
-            >{{ scope.row.endNurse }} {{ scope.row.endDateTime | ymdhm2 }}</span
-          >
+          <div v-for="(item, index) in scope.row.child" :key="index" v-show="item.executeDateTime">
+              {{ item.endNurse }} {{ item.endDateTime | ymdhm2 }}
+          </div>
         </template>
       </u-table-column>
 
@@ -286,22 +288,29 @@
 
       <u-table-column label="操作" min-width="100px" align="center">
         <template slot-scope="scope">
+          <div
+            v-for="(item, index) in scope.row.child"
+            :key="index"
+            v-show="item.executeDateTime"
+          >
           <el-button
             type="text"
-            @click="backTracking(scope.row)"
-            v-if="scope.row.executeFlag == 0 && scope.row.child"
+            @click="backTracking(item)"
+            v-if="isEdit && item.executeDateTime && item.executeFlag!=4"
             >补录</el-button
           >
           <el-button
             type="text"
             @click="editTime(scope.row)"
+            
             v-if="
               isEdit &&
-              ((HOSPITAL_ID == 'lingcheng' && scope.row.executeFlag > 0) ||
-                scope.row.executeFlag == 4)
+              ((HOSPITAL_ID == 'lingcheng' && item.executeFlag > 0) ||
+                item.executeFlag == 4)
             "
             >修改</el-button
           >
+          </div>
         </template>
       </u-table-column>
     </u-table>
@@ -314,7 +323,9 @@
 
   >>>.el-table {
     border: 0 !important;
-
+    .el-button + .el-button{
+      margin-left: 0px!important;
+    }
     .green {
       background-color: #83d883;
     }
@@ -480,7 +491,7 @@ export default {
         },
         {
           id: 1,
-          name: "开始输液",
+          name: "执行中",
         },
         {
           id: 2,
@@ -496,6 +507,7 @@ export default {
         },
       ];
       let status = parseInt(val);
+      if(val==5)return ""
       return typeof status == "number"
         ? allStatus[status + 1] && allStatus[status + 1].name
         : val;
