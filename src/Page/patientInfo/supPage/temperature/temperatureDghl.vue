@@ -202,7 +202,7 @@ export default {
     onPrint() {
       this.$refs.pdfCon.contentWindow.postMessage(
         { type: "printing" },
-        "http://120.238.239.27:9091/temperature/#/"
+        "http://183.63.206.194:9091/temperature/#/"
       );
     },
     getImg() {
@@ -212,7 +212,7 @@ export default {
       let patientId = this.$route.query.patientId || this.queryTem.patientId;
       let visitId = this.$route.query.visitId || this.queryTem.visitId;
       /* 单独处理体温单，嵌套iframe */
-      const tempUrl = `http://120.238.239.27:9091/temperature/#/?PatientId=${patientId}&VisitId=${visitId}&StartTime=${date}`;
+      const tempUrl = `http://183.63.206.194:9091/temperature/#/?PatientId=${patientId}&VisitId=${visitId}&StartTime=${date}`;
       this.filePath = "";
       setTimeout(() => {
         this.filePath = tempUrl;
@@ -329,7 +329,7 @@ export default {
     currentPage(value) {
       this.$refs.pdfCon.contentWindow.postMessage(
         { type: "currentPage", value },
-        "http://120.238.239.27:9091/temperature/#/"
+        "http://183.63.206.194:9091/temperature/#/"
       );
       this.toCurrentPage = value;
     },

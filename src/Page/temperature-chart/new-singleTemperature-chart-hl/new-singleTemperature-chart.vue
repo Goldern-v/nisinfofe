@@ -86,8 +86,7 @@ import patientList from "@/components/patient-list/patient-list.vue";
 import print from "printing";
 import formatter from "@/Page/temperature-chart/print-formatter";
 import temperatureNew from "./components/temperatureNew";
-import tabCon from "@/Page/temperature-chart/new-singleTemperature-chart-dghl/components/tab-con";
-
+import tabCon from "@/Page/temperature-chart/new-singleTemperature-chart-hl/components/tab-con";
 export default {
   mixins: [common],
   props: {},
