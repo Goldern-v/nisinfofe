@@ -14,6 +14,6 @@ export function getListZSQ(query) {
 
 // 获取工作量统计列表（江门妇幼）
 export function getListJMFY(query) {
-    return axios.post(`${apiPath}workAccount/listWorkAccount`, query);
+    return axios.post(`${apiPath}workAccount/listWorkAccountJm`, query);
 }
 

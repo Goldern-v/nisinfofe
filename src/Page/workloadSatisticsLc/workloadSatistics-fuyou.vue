@@ -157,9 +157,9 @@ export default {
         deptCode: "", //科室代码
         operateStartDate: "", //检查日期开始日期（yyyy-MM-dd）
         operateEndDate: "", //检查日期结束日期（yyyy-MM-dd
-        empNo: ""
-        // pageIndex: 1, //页码
-        // pageSize: 20 //每页条数
+        empNo: "",
+        pageIndex: 1, //页码
+        pageSize: 20 //每页条数
       },
       tableHeight: 0,
       total: 0, //总条数
