@@ -356,6 +356,9 @@ import { login } from "@/api/login";
 import Cookies from "js-cookie";
 import EnterToTab from "@/plugin/tool/EnterToTab.js";
 import md5 from "md5";
+const CryptoJS = require("crypto-js");
+const SecretKey = "chenrui2020";
+
 export default {
   data() {
     return {
@@ -454,6 +457,14 @@ export default {
     // 切换登录方式（二维码只供展示，暂不做登录处理）
     toggleLoginType() {
       this.showPwdType = !this.showPwdType;
+    },
+    //对字符串进行加密
+    compileStr(code) {
+      return CryptoJS.AES.encrypt(code, SecretKey).toString();
+    },
+    //字符串进行解密
+    uncompileStr(code) {
+      return CryptoJS.AES.decrypt(code, SecretKey).toString(CryptoJS.enc.Utf8);
     },
   },
   created() {
