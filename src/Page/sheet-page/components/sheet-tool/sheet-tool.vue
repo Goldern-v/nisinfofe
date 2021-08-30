@@ -113,7 +113,6 @@
         v-if="
           (HOSPITAL_ID === 'huadu' ||
             HOSPITAL_ID === 'liaocheng' ||
-            HOSPITAL_ID === 'hengli' ||
             HOSPITAL_ID === 'wujing') &&
           this.$route.path.includes('singleTemperatureChart')
         "
@@ -634,8 +633,8 @@ export default {
                   return item.recordCode === "body_temperature_hj";
                 // case "liaocheng":
                 //   return item.recordCode === "body_temperature_lcey";
-                case "hengli":
-                  return item.recordCode === "body_temperature_hl";
+                // case "hengli":
+                //   return item.recordCode === "body_temperature_hl";
                   case "beihairenyi":
                   return item.recordCode === "body_temperature_bhry";
                 case "wujing":
@@ -826,8 +825,8 @@ export default {
           break;
         case "wujing":
           return temperatureWuJing;
-        case "hengli":
-          return temperatureDghl;
+        // case "hengli":
+        //   return temperatureDghl;
           break;
         default:
           break;
