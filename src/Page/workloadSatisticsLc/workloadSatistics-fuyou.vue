@@ -158,8 +158,8 @@ export default {
         operateStartDate: "", //检查日期开始日期（yyyy-MM-dd）
         operateEndDate: "", //检查日期结束日期（yyyy-MM-dd
         empNo: "",
-        pageIndex: 1, //页码
-        pageSize: 20 //每页条数
+        // pageIndex: 1, //页码
+        // pageSize: 20 //每页条数
       },
       tableHeight: 0,
       total: 0, //总条数
@@ -251,7 +251,7 @@ export default {
       getListJMFY(this.query).then(
         res => {
           if (res.data && res.data.code == 200) {
-            this.data = res.data.data.list;
+            this.data = res.data.data;
           }
           this.pageLoadng = false;
         },
@@ -286,8 +286,8 @@ export default {
           }, 0);
         }
       });
-      console.log(sums)
-       console.log("sums值")
+      // console.log(sums)
+      // console.log("sums值")
       return sums;
     },
     // 设置默认日期
