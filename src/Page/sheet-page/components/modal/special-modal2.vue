@@ -1270,7 +1270,8 @@ export default {
       if (
         this.HOSPITAL_ID != "weixian" &&
         this.sheetInfo.sheetType != "special" &&
-        this.HOSPITAL_ID != "huadu"
+        this.HOSPITAL_ID != "huadu" &&
+        this.HOSPITAL_ID != "quzhou" 
       ) {
         allDoc = "    " + this.doc;
       }
