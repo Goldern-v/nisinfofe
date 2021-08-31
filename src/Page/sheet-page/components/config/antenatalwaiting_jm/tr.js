@@ -19,13 +19,19 @@ export default [{
     key: "recordMonth", //日期
     value: "",
     event: event_date,
-    click: click_date
+    click: click_date,
+    textarea: {
+      width: 50
+    }
   },
   {
     key: "recordHour", //时间
     value: "",
     event: event_time,
-    click: click_time
+    click: click_time,
+    textarea: {
+      width: 50
+    }
   },
   {
     key: "contractionOne", //孕周

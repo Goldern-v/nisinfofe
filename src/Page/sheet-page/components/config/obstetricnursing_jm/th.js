@@ -8,7 +8,7 @@ export default {
   // 科室的名称 关节骨科
   deptType: "",
   style: {
-    width: "1300px"
+    width: "1250px"
   },
   th: {
     top: [{
@@ -175,7 +175,11 @@ export default {
         name: `护士<br/>签名
         `,
         colspan: "1",
-        rowspan: "3"
+        rowspan: "3",
+        style: {
+          minWidth: '70px',
+          maxWidth: '70px',
+        },
       }
     ],
     mid: [{

@@ -162,7 +162,11 @@ export default {
         name: `签名
         `,
         colspan: "1",
-        rowspan: "3"
+        rowspan: "3",
+        style: {
+          minWidth: '70px',
+          maxWidth: '70px',
+        },
       }
     ],
     mid: [{
