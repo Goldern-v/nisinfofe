@@ -530,9 +530,11 @@
             </div>
             <el-input
               v-else
+              id="tsqk-textarea"
               type="textarea"
               class="text-con"
               :readonly="isRead"
+              @blur="handleInputBlur"
               v-model="doc"
             ></el-input>
           </el-tab-pane>
@@ -800,6 +802,7 @@ export default {
     return {
       bus: bus(this),
       doc: "",
+      blurIndex: null,
       recordDate: "",
       record: [],
       table: [],
@@ -1405,6 +1408,10 @@ export default {
     isShowItem() {
       return !this.tr.find((item) => item.key == "recordMonth").hidden;
     },
+    //失去焦点
+    handleInputBlur(e) {
+      this.blurIndex = e.srcElement.selectionStart;
+    },
   },
   mounted() {
     // 打开特殊情况
@@ -1428,7 +1435,8 @@ export default {
       const regP = /(<\/?p.*?>)/gi;
       let doc = this.doc.replace(regP, "");
       let valRegP = val.replace(regP, "");
-      this.doc = doc + valRegP;
+      let index = this.blurIndex;
+      this.doc = doc.slice(0, index) + valRegP + doc.slice(index);
     });
 
     // 同步护理巡视

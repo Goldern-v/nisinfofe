@@ -512,7 +512,6 @@ export function getListData4() {
   });
   multiDictInfo(list).then(res => {
     let data = res.data.data;
-    console.log(data);
     setList(意识, "意识", data);
     setList(呼吸音, "呼吸音", data);
     setList(瞳孔大小, "瞳孔大小", data);
