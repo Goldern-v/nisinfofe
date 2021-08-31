@@ -427,6 +427,8 @@ export default {
             if (this.HOSPITAL_ID == "weixian") {
               /** 验证证书 */
               window.openCaSignModal();
+            }else if(this.HOSPITAL_ID == "fuyou"){
+              window.openFuyouCaSignModal();
             }
           }
           // 清除科室记录

@@ -45,6 +45,17 @@
         <el-button size="mini" @click="logoutCaSign">证书退出</el-button>
       </div>
     </div>
+    <div class="admin-system-info" v-if="HOSPITAL_ID === 'fuyou'">
+      证书状态:
+      <p>
+        <label>{{ ca_name || "无证书" }}:</label>
+        <span>{{ ca_isLogin ? "已登录" : "未登录" }}</span>
+      </p>
+      <div class="button-con">
+        <el-button size="mini" @click="openFuyouCaSignModal">证书登录</el-button>
+        <el-button size="mini">证书退出</el-button>
+      </div>
+    </div>
     <div v-if="HOSPITAL_ID === 'liaocheng'">
       <div class="boxShadow" @click="onPrint">
         <div class="qrcode" ref="qrcodeContainer"></div>
@@ -84,6 +95,7 @@
     <uploadImgModal ref="uploadImgModal"></uploadImgModal>
     <caSignModal ref="caSignModal"></caSignModal>
     <printQrCode ref="printQrCode"></printQrCode>
+    <fuyouCaSignModal ref="fuyouCaSignModal"></fuyouCaSignModal>
   </div>
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
@@ -250,6 +262,7 @@ import common from "@/common/mixin/common.mixin.js";
 import caSignModal from "@/components/modal/ca-sign";
 import { $_$WebSocketObj, SignedData, Logout } from "@/api/XTXSAB.js";
 import { setInterval } from "timers";
+import fuyouCaSignModal from "@/components/modal/fuyou-ca-sign";
 let timer = null;
 export default {
   mixins: [common],
@@ -394,6 +407,9 @@ export default {
     openCaSignModal() {
       this.$refs.caSignModal.open(() => this.getCaStatus());
     },
+    openFuyouCaSignModal() {
+      this.$refs.fuyouCaSignModal.open();
+    },
     getCaStatus() {
       $_$WebSocketObj.GetUserList((usrInfo) => {
         this.strUserCertID = usrInfo.retVal
@@ -488,6 +504,7 @@ export default {
     caSignModal,
     QRCode,
     printQrCode,
+    fuyouCaSignModal,
   },
 };
 </script>
