@@ -508,7 +508,7 @@ export function getListData4() {
   ];
   
   list = list.map(key => {
-    return key.includes('出量名称') ? filterKey + filterKey2 + key : filterKey + key;
+    return key.includes('出量名称') ? filterKey2 + key : key;
   });
   multiDictInfo(list).then(res => {
     let data = res.data.data;
@@ -538,10 +538,10 @@ getListData4();
  * @param {*} isChildOptions2 是否有子下拉选项（依赖于前一个td选择）
  */
  function setList(list, key, data, isChildOptions2) {
-  key = key.includes('出量名称') ? filterKey + filterKey2 + key : filterKey + key;
+  key = key.includes('出量名称') ?  filterKey2 + key : key;
   if (isChildOptions2) {
     for (let item of data[key]) {
-      let arr = data[filterKey + '神内护记' + item.name + '性质'];
+      let arr = data[ '神内护记' + item.name + '性质'];
       if (arr && arr.constructor == Array) {
         arr = arr.map(function (child, index) {
           return child.name;
