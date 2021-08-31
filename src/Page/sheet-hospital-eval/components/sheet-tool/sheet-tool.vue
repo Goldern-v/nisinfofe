@@ -65,19 +65,19 @@
     >
       <el-date-picker
         v-model="searchData.date"
-        type="date"
+        type="datetime"
         placeholder="开始日期"
         style="width: 180px; height: 60px"
-        value-format="yyyy-MM-dd"
+        format="yyyy-MM-dd hh:mm"
       >
       </el-date-picker>
       <span>-</span>
       <el-date-picker
         v-model="endData.date"
-        type="date"
+        type="datetime"
         placeholder="结束日期"
         style="width: 180px; height: 60px"
-        value-format="yyyy-MM-dd"
+        format="yyyy-MM-dd hh:mm"
       >
       </el-date-picker>
       <el-button @click="searchsign">查询</el-button>
@@ -93,14 +93,21 @@
           label="序号"
           width="100"
         ></el-table-column>
+        <el-table-column property="dateStr" label="日期"></el-table-column>
         <el-table-column property="timeStr" label="时间"></el-table-column>
         <el-table-column
           property="axillaryTemperature"
-          label="T"
+          label="体温（T）"
         ></el-table-column>
-        <el-table-column property="breathe" label="P/HR"></el-table-column>
-        <el-table-column property="heartRate" label="R"></el-table-column>
-        <el-table-column property="bloodPressure" label="BP"></el-table-column>
+        <el-table-column property="breathe" label="脉搏（P）"></el-table-column>
+        <el-table-column
+          property="heartRate"
+          label="呼吸（R）"
+        ></el-table-column>
+        <el-table-column
+          property="bloodPressure"
+          label="血压（BP）"
+        ></el-table-column>
       </el-table>
     </el-dialog>
   </div>
@@ -903,7 +910,11 @@ export default {
         "-" +
         this.p(sd.getMonth() + 1) +
         "-" +
-        this.p(sd.getDate());
+        this.p(sd.getDate()) +
+        " " +
+        this.p(sd.getHours()) +
+        ":" +
+        this.p(sd.getMinutes());
       this.searchData.date = sDate;
       const end = new Date(this.endData.date);
       const eDate =
@@ -911,7 +922,11 @@ export default {
         "-" +
         this.p(end.getMonth() + 1) +
         "-" +
-        this.p(end.getDate());
+        this.p(end.getDate()) +
+        " " +
+        this.p(sd.getHours()) +
+        ":" +
+        this.p(sd.getMinutes());
       this.endData.date = eDate;
       this.formSignsOfsync();
     },

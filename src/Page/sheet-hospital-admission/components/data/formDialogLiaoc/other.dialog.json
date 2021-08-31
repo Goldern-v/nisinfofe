@@ -1420,7 +1420,7 @@
   },
   {
     "title": "吸烟",
-    "type": "formGroupVerticalBox",
+    "type": "formGroupHorizontalBox",
     "name": "I001104",
     "showTitle": false,
     "message": "",
@@ -1431,7 +1431,7 @@
     "style": null,
     "classes": null,
     "readOnly": null,
-    "modalWidth": 400,
+    "modalWidth": 800,
     "children": [
       {
         "name": "I001176",
@@ -1479,7 +1479,7 @@
     ]
   },
   {
-    "title": "嗜酒",
+    "title": "饮酒",
     "type": "formGroupHorizontalBox",
     "name": "I001106",
     "showTitle": false,
@@ -1488,18 +1488,17 @@
     "prefixDesc": "",
     "suffixDesc": "",
     "keys": "I001106",
-    "style": null,
+    "style": "flex-wrap: nowrap !important;display: inline-flex !important;",
     "classes": null,
     "readOnly": null,
-    "modalWidth": 400,
+    "modalWidth": 600,
     "children": [
       {
         "name": "I001178",
         "type": "input",
-        "label": "嗜酒",
+        "label": "饮酒",
         "labelWidth": "80px",
         "suffixDesc": "年",
-        "style": "width: 200px!important",
         "class": null,
         "html": null,
         "readOnly": null
@@ -1519,7 +1518,7 @@
         "name": "I001180",
         "type": "checkbox",
         "title": "不定量",
-        "style": "margin-left: 55px!important",
+        "style": "margin-left: 80px!important ; width:100px!important",
         "class": null,
         "html": null,
         "readOnly": null
@@ -1529,6 +1528,7 @@
         "type": "input",
         "label": "已戒酒",
         "labelWidth": "100px",
+        "inputWidth":"flex:1!important",
         "suffixDesc": "年",
         "style": null,
         "class": null,
@@ -1993,6 +1993,98 @@
         "value": "活动",
         "style": null,
         "class": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
+    "title": "洼田饮水试验",
+    "type": "formGroupVerticalBox",
+    "name": "I100432",
+    "showTitle": false,
+    "message": "",
+    "require": "false",
+    "prefixDesc": "",
+    "postText": "",
+    "keys": "",
+    "style": "width:230px!important;",
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 540,
+    "children": [
+      {
+        "name": "I001455",
+        "type": "input",
+        "label": "吞咽测试",
+        "labelWidth": "80px",
+        "inputWidth":"200px",
+        "postText": "",
+        "value": "",
+        "options": [
+          {
+            "code": "1级（优）能顺利地1次将水咽下",
+            "name": "1级（优）能顺利地1次将水咽下",
+            "pinyin": "gmcx"
+          },
+          {
+            "code": "可疑 1级（5秒以上或2级）",
+            "name": "可疑 1级（5秒以上或2级）",
+            "pinyin": "gmcx"
+          },
+          {
+            "code": "3级（中）能1次咽下，但有呛咳",
+            "name": "3级（中）能1次咽下，但有呛咳",
+            "pinyin": "gmcx"
+          },
+          {
+            "code": "4级（可）分2次以上咽下，但有呛咳",
+            "name": "4级（可）分2次以上咽下，但有呛咳",
+            "pinyin": "gmcx"
+          },
+          {
+            "code": "5级（差）频繁呛咳，不能全部咽下",
+            "name": "5级（差）频繁呛咳，不能全部咽下",
+            "pinyin": "gmcx"
+          }
+        ],
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      },
+      {
+        "name": "I001456",
+        "type": "input",
+        "label": "吞咽评定",
+        "labelWidth": "80px",
+        "inputWidth":"200px",
+        "postText": "",
+        "value": "",
+        "options": [
+          {
+            "code": "正常 1级（5秒之内）",
+            "name": "正常 1级（5秒之内）",
+            "pinyin": "gmcx"
+          },
+          {
+            "code": "可疑 1级（5秒以上或2级）",
+            "name": "可疑 1级（5秒以上或2级）",
+            "pinyin": "gmcx"
+          },
+          {
+            "code": "异常 3～5级",
+            "name": "异常 3～5级",
+            "pinyin": "gmcx"
+          },
+          {
+            "code": "不能评定",
+            "name": "不能评定",
+            "pinyin": "gmcx"
+          }
+        ],
+        "style": "margin-left:50px",
+        "class": null,
+        "html": null,
         "readOnly": null
       }
     ]

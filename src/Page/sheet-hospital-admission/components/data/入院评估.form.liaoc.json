@@ -1219,8 +1219,8 @@
         {
           "name": "I001106",
           "type": "select",
-          "title": "生活习惯:嗜酒",
-          "postTitle": "嗜酒频率",
+          "title": "生活习惯:饮酒",
+          "postTitle": "饮酒频率",
           "postText": "(两/日)",
           "titleStyle": "width:92px!important",
           "inputStyle": "width:270px!important",
@@ -1232,7 +1232,7 @@
               "dialog": {
                 "openKey": "有",
                 "cleanKey": "无",
-                "title": "嗜酒",
+                "title": "饮酒",
                 "parentName": "I001106",
                 "type": "dependent"
               }
@@ -1607,6 +1607,38 @@
           ]
         },
         {
+          "name": "I100020",
+          "type": "select",
+          "title": "GCS评估",
+          "style": null,
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:300px!important",
+          "inputWidth": "180px",
+          "class": null,
+          "options": [
+            "GCS格拉斯哥昏迷评估"
+          ],
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "GCS格拉斯哥昏迷评估",
+                "cleanKey": "无",
+                "openDiffKey": "无",
+                "title": "GCS格拉斯哥昏迷评估",
+                "default": "GCS格拉斯哥昏迷评估",
+                "name": "I100020",
+                "type": "independent",
+                "parentName": "I100020",
+                "showHead": "true"
+              }
+            },
+            {
+              "equal": "有",
+              "style": "color:red"
+            }
+          ]
+        },
+        {
           "name": "I001138",
           "type": "select",
           "title": "口腔卫生",
@@ -1622,7 +1654,7 @@
       "name": "",
       "type": "formGroupColBox",
       "col": 1,
-      "title": "吞咽评估",
+      "title": "吞咽功能",
       "message": "",
       "require": "false",
       "prefixDesc": "",
@@ -1637,7 +1669,7 @@
           "type": "select",
           "title": "吞咽困难",
           "titleStyle": "width:60px!important",
-          "inputStyle": "width:270px!important",
+          "inputStyle": "width:270px!important; max-width: 250px;overflow: hidden;text-overflow: ellipsis; white-space: nowrap;",
           "inputWidth": "180px",
           "style": null,
           "class": null,
@@ -1650,12 +1682,11 @@
               "dialog": {
                 "openKey": "有",
                 "cleanKey": "无",
-                "title": "吞咽进食护理单",
-                "default": "吞咽进食护理单",
-                "name": "I100028",
-                "parentName": "I100028",
-                "type": "independent",
-                "showHead": "true"
+                "title": "洼田饮水试验",
+                "default": "洼田饮水试验",
+                "name": "I001163",
+                "parentName": "I001163",
+                "type": "dependent"
               }
             },
             {
@@ -2104,7 +2135,7 @@
           "title": "造瘘",
           "style": null,
           "titleStyle": "width:60px!important",
-          "inputStyle": "width:270px!important",
+          "inputStyle": "width:250px!important",
           "inputWidth": "180px",
           "class": null,
           "rule": [
@@ -2754,36 +2785,10 @@
           "inputWidth": "180px",
           "class": null,
           "options": [
-            "有,Padua评分表(非手术科室)",
-            "有,Caprini评分表(手术科室)",
             "有,VTE风险评估(Caprini 通用版)",
             "有,VTE风险评估(Padua 内科版)"
           ],
           "rule": [
-            {
-              "dialog": {
-                "openKey": "有,Padua评分表(非手术科室)",
-                "cleanKey": "无",
-                "title": "Padua评分表(非手术科室)",
-                "default": "Padua评分表(非手术科室)",
-                "name": "I100136",
-                "type": "independent",
-                "parentName": "I100136",
-                "showHead": "true"
-              }
-            },
-            {
-              "dialog": {
-                "openKey": "有,Caprini评分表(手术科室)",
-                "cleanKey": "无",
-                "title": "Caprini评分表(手术科室)",
-                "default": "Caprini评分表(手术科室)",
-                "name": "I100136",
-                "type": "independent",
-                "parentName": "I100136",
-                "showHead": "true"
-              }
-            },
             {
               "dialog": {
                 "openKey": "有,VTE风险评估(Caprini 通用版)",
@@ -2908,38 +2913,6 @@
                 "name": "I100396",
                 "type": "independent",
                 "parentName": "I100396",
-                "showHead": "true"
-              }
-            },
-            {
-              "equal": "有",
-              "style": "color:red"
-            }
-          ]
-        },
-        {
-          "name": "I100020",
-          "type": "select",
-          "title": "GCS格拉斯哥昏迷评估",
-          "style": null,
-          "titleStyle": "width:80px!important",
-          "inputStyle": "width:270px!important",
-          "inputWidth": "160px",
-          "class": null,
-          "options": [
-            "GCS格拉斯哥昏迷评估"
-          ],
-          "rule": [
-            {
-              "dialog": {
-                "openKey": "GCS格拉斯哥昏迷评估",
-                "cleanKey": "无",
-                "openDiffKey": "无",
-                "title": "GCS格拉斯哥昏迷评估",
-                "default": "GCS格拉斯哥昏迷评估",
-                "name": "I100020",
-                "type": "independent",
-                "parentName": "I100020",
                 "showHead": "true"
               }
             },

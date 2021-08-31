@@ -61,6 +61,7 @@
     <specialModal ref="specialModal"></specialModal>
     <setPageModal ref="setPageModal"></setPageModal>
     <pizhuModal ref="pizhuModal"></pizhuModal>
+    
   </div>
 </template>
 
@@ -173,6 +174,7 @@ import sheetTool from "./components/sheet-tool/sheet-tool.vue";
 import patientList from "@/components/patient-list/patient-list.vue";
 import sheetTable from "./components/sheetTable/sheetTable.vue";
 import common from "@/common/mixin/common.mixin.js";
+
 import { typeList } from "@/api/lesion";
 import sheetModel, {
   addNursingOrderSheetPage,

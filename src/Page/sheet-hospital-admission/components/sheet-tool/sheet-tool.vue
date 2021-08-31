@@ -72,19 +72,19 @@
     >
       <el-date-picker
         v-model="searchData.date"
-        type="date"
+        type="datetime"
         placeholder="开始日期"
-        style="width: 150px"
-        value-format="yyyy-MM-dd"
+        style="width: 250px"
+        format="yyyy-MM-dd hh:mm"
       >
       </el-date-picker>
       <span>-</span>
       <el-date-picker
         v-model="endData.date"
-        type="date"
+        type="datetime"
         placeholder="结束日期"
-        style="width: 150px"
-        value-format="yyyy-MM-dd"
+        style="width: 250px"
+        format="yyyy-MM-dd hh:mm"
       >
       </el-date-picker>
       <el-button @click="searchsign">查询</el-button>
@@ -100,14 +100,21 @@
           label="序号"
           width="100"
         ></el-table-column>
+        <el-table-column property="dateStr" label="日期"></el-table-column>
         <el-table-column property="timeStr" label="时间"></el-table-column>
         <el-table-column
           property="axillaryTemperature"
-          label="T"
+          label="体温（T）"
         ></el-table-column>
-        <el-table-column property="heartRate" label="P/HR"></el-table-column>
-        <el-table-column property="breathe" label="R"></el-table-column>
-        <el-table-column property="bloodPressure" label="BP"></el-table-column>
+        <el-table-column
+          property="heartRate"
+          label="脉搏（P）"
+        ></el-table-column>
+        <el-table-column property="breathe" label="呼吸（R）"></el-table-column>
+        <el-table-column
+          property="bloodPressure"
+          label="血压（BP）"
+        ></el-table-column>
       </el-table>
     </el-dialog>
   </div>
@@ -491,6 +498,11 @@ export default {
       setDefaultValue(window.formObj.model);
       loadPatient(this.patientInfo.patientId, this.patientInfo.visitId)
         .then((res) => {
+          let valData = res.data.data
+          console.log(valData,'fafas sfasfsf');
+            window.formObj.model.I001002 = valData.occupation;
+            window.formObj.model.I001012 = valData.marriage;
+            window.formObj.model.I001003 = valData.nation;
           this.syncHIS(res.data.data);
           // 回填表单
           this.$root.$refs["sheetPage"].fillForm();
@@ -1513,6 +1525,7 @@ export default {
       };
       vitalsign(postData)
         .then((res) => {
+          console.log(res.data.data.list);
           this.gridData = res.data.data.list;
           console.log(window.formObj.model);
         })
@@ -1568,21 +1581,33 @@ export default {
     },
     searchsign() {
       const sd = new Date(this.searchData.date);
+
       const sDate =
         sd.getFullYear() +
         "-" +
         this.p(sd.getMonth() + 1) +
         "-" +
-        this.p(sd.getDate());
+        this.p(sd.getDate()) +
+        " " +
+        this.p(sd.getHours()) +
+        ":" +
+        this.p(sd.getMinutes());
       this.searchData.date = sDate;
+      console.log(this.searchData.date, "kaishi");
+
       const end = new Date(this.endData.date);
       const eDate =
         end.getFullYear() +
         "-" +
         this.p(end.getMonth() + 1) +
         "-" +
-        this.p(end.getDate());
+        this.p(end.getDate()) +
+        " " +
+        this.p(end.getHours()) +
+        ":" +
+        this.p(end.getMinutes());
       this.endData.date = eDate;
+      console.log(this.endData.date, "kaishi");
       this.formSignsOfsync();
     },
     p(s) {
