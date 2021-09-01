@@ -69,7 +69,7 @@
       v-if="sheetInfo.sheetType == 'neonatology_hd'"
       style="font-size: 13px; margin-top: -5px"
     >
-      备注:吸痰性质用符号表示：白色吸痰(WL),黄白稠痰(YWT),黄色稠痰(YT),血性痰(B);痰量：小量(+),中量(++),大量(+++)。
+      备注:吸痰性质用符号表示：白色吸痰(WL),黄白稠痰(YWT),黄色稠痰(YT),血性痰(B);痰量：小量(+),中量(++),大量(+++);大便单位（g）。
     </div>
     <div
       v-if="sheetInfo.sheetType == 'picc_maintenance_hd'"
