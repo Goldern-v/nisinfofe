@@ -1,18 +1,6 @@
 <template>
   <div class="right-con">
     <div class="row-top">
-      <div class="column-left">
-        <el-button size="mini" @click="syncInAndOutHospital((type = '0'))">
-          同步入院
-        </el-button>
-        <el-button
-          style="margin: 10px 0px"
-          size="mini"
-          @click="syncInAndOutHospital((type = '1'))"
-        >
-          同步出院
-        </el-button>
-      </div>
       <div class="column-right">
         <span style="padding-left: 5px">日期：</span>
         <ElDatePicker
@@ -221,7 +209,27 @@ export default {
       editableTabsValue: "2",
       query: {
         entryDate: moment(new Date()).format("YYYY-MM-DD"), //录入日期
-        entryTime: entryTime, //录入时间
+        entryTime: (()=>{
+          if (this.getHours() >= 0 && this.getHours() <= 3) {
+                return "03";
+              }
+              if (this.getHours() > 3 && this.getHours() <= 7) {
+                return "07";
+              }
+              if (this.getHours() > 7 && this.getHours() <= 11) {
+                return "11";
+              }
+              if (this.getHours() > 11 && this.getHours() <= 15) {
+                return "15";
+              }
+              if (this.getHours() > 15 && this.getHours() <= 19) {
+                return "19";
+              }
+              if (this.getHours() > 19 && this.getHours() <= 23) {
+                return "23";
+              }
+         //录入时间
+        })() //录入时间
       },
       recordDate: "",
       fieldList: {}, // 自定义项目列表
@@ -384,6 +392,12 @@ export default {
     /* 日期搜索功能 */
     selectTemRec(val) {
       this.query.entryDate = val;
+    },
+
+     getHours() {
+      let date = new Date();
+      let b = date.getHours();
+      return b;
     },
     /* 选择固定时间点 */
     changeEntryTime(val) {

@@ -1,7 +1,7 @@
 <template>
   <div class="right-con">
     <div class="row-top">
-      <div class="column-left">
+     <!-- <div class="column-left">
         <el-button size="mini" @click="syncInAndOutHospital((type = '0'))">
           同步入院
         </el-button>
@@ -12,7 +12,7 @@
         >
           同步出院
         </el-button>
-      </div>
+      </div>-->
       <div class="column-right">
         <span style="padding-left: 5px">日期：</span>
         <ElDatePicker
@@ -192,15 +192,15 @@ export default {
   data() {
     // 初始化筛选时间
     let initTimeArea = {
-      ["04"]: ["00:00", "04:59"],
-      ["08"]: ["05:00", "08:59"],
-      ["12"]: ["09:00", "12:59"],
-      ["16"]: ["13:00", "16:59"],
-      ["20"]: ["17:00", "20:59"],
-      ["24"]: ["21:00", "23:59"],
+      ["02"]: ["00:00", "02:59"],
+      ["06"]: ["03:00", "06:59"],
+      ["10"]: ["07:00", "10:59"],
+      ["14"]: ["11:00", "14:59"],
+      ["18"]: ["15:00", "18:59"],
+      ["22"]: ["19:00", "23:59"],
     };
 
-    let entryTime = "03";
+    let entryTime = "02";
     let currentSecond =
       new Date().getHours() * 60 + new Date().getMinutes() * 1;
 
@@ -221,7 +221,27 @@ export default {
       editableTabsValue: "2",
       query: {
         entryDate: moment(new Date()).format("YYYY-MM-DD"), //录入日期
-        entryTime: entryTime, //录入时间
+        entryTime: (()=>{
+          if (this.getHours() >= 0 && this.getHours() <= 2) {
+                return "02";
+              }
+              if (this.getHours() > 2 && this.getHours() <= 6) {
+                return "06";
+              }
+              if (this.getHours() > 6 && this.getHours() <= 10) {
+                return "10";
+              }
+              if (this.getHours() > 10 && this.getHours() <= 14) {
+                return "14";
+              }
+              if (this.getHours() > 14 && this.getHours() <= 18) {
+                return "18";
+              }
+              if (this.getHours() > 18 && this.getHours() <= 23) {
+                return "22";
+              }
+         //录入时间
+        })() //录入时间
       },
       recordDate: "",
       fieldList: {}, // 自定义项目列表
@@ -243,27 +263,27 @@ export default {
       timesOdd: [
         {
           id: 0,
-          value: "04",
+          value: "02",
         },
         {
           id: 1,
-          value: "08",
+          value: "06",
         },
         {
           id: 2,
-          value: "12",
+          value: "10",
         },
         {
           id: 3,
-          value: "16",
+          value: "14",
         },
         {
           id: 4,
-          value: "20",
+          value: "18",
         },
         {
           id: 5,
-          value: "24",
+          value: "22",
         },
       ],
       bottomContextList: ["", "不升"],
@@ -384,6 +404,12 @@ export default {
     /* 日期搜索功能 */
     selectTemRec(val) {
       this.query.entryDate = val;
+    },
+
+     getHours() {
+      let date = new Date();
+      let b = date.getHours();
+      return b;
     },
     /* 选择固定时间点 */
     changeEntryTime(val) {
