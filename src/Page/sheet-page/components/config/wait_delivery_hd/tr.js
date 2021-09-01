@@ -127,7 +127,7 @@ export default [{
     event: keyf1,
     name: "宫颈质",
     autoComplete: {
-      data: ["水肿"]
+      data: ["软","中","硬","水肿"]
     },
   },
   {

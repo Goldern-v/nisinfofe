@@ -20,9 +20,12 @@ let clmcList = [];
 let rlmcList = [];
 let ylfsList = [];
 let xtxzList = [];
-let xtlList = [];
+let xtlList = ["+","++","+++"];
 let fyList = [];
 let ksList = [];
+let twList = ['左侧','右侧','平卧','俯卧'];
+let ysList = ['黄绿色','黄色','墨绿色','暗红色'];
+
 
 export default [{
     key: "recordMonth", //日期
@@ -87,7 +90,10 @@ export default [{
     key: "fieldTwo", //体位
     value: "",
     event: keyf1,
-    name: "体位"
+    name: "体位",
+    autoComplete: {
+      data: twList
+    }
   },
   {
     key: "fieldThree", //吸吮力
@@ -183,6 +189,9 @@ export default [{
     textarea: {
       width: 40
     },
+    autoComplete: {
+      data: ysList
+    }
   },
   {
     key: "fieldFourteen", // 氧疗方式
@@ -435,7 +444,7 @@ export function getListData() {
     "花都:新生儿科护理记录单:吸痰性状",
     "花都:新生儿科护理记录单:吸痰量",
     "花都:新生儿科护理记录单:反应",
-    "花都:新生儿科护理记录单:哭声"
+    "花都:新生儿科护理记录单:哭声",
   ];
 
   multiDictInfo(list).then(res => {
@@ -445,7 +454,6 @@ export function getListData() {
     setList(rlmcList, list[2], data);
     setList(ylfsList, list[3], data);
     setList(xtxzList, list[4], data);
-    setList(xtlList, list[5], data);
     setList(fyList, list[6], data);
     setList(ksList, list[7], data);
   });
