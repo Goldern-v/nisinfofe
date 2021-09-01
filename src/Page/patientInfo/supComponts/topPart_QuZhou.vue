@@ -134,7 +134,7 @@
       <!-- <router-link :to="{path:'/recordSheet', query: {patientId:query.patientId, visitId: query.visitId}}" tag="span">
         <div class="nav-item">护理记录单</div>
       </router-link>-->
-      <!-- <router-link
+      <router-link
         :to="{
           path: '/temperature',
           query: { patientId: query.patientId, visitId: query.visitId },
@@ -142,7 +142,7 @@
         tag="span"
       >
         <div class="nav-item">体温单</div>
-      </router-link> -->
+      </router-link> 
     </div>
     <div style="height: 50px"></div>
   </div>

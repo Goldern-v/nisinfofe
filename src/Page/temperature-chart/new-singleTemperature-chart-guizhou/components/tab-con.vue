@@ -521,6 +521,12 @@ export default {
     selectTemRec(val) {
       this.query.entryDate = val;
     },
+
+     getHours() {
+      let date = new Date();
+      let b = date.getHours();
+      return b;
+    },
     /* 选择固定时间点 */
     changeEntryTime(val) {
       this.query.entryTime = val;

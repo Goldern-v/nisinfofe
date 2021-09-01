@@ -164,6 +164,8 @@ const newSingleTemperatureChartJmfy = () =>
   import("@/Page/temperature-chart/new-singleTemperature-chart-jmfy/new-singleTemperature-chart.vue"); //江门妇幼医院-新版体温单录入页面
   const newSingleTemperatureChartBhry = () =>
   import("@/Page/temperature-chart/new-singleTemperature-chart-beihairenyi/new-singleTemperature-chart.vue");//北海人民医院-新版体温单录入页面
+  const newSingleTemperatureChartQuzhou = () =>
+  import("@/Page/temperature-chart/new-singleTemperature-chart-quzhou/new-singleTemperature-chart.vue");//曲周医院-新版体温单录入页面
 const newSingleTemperatureChartDghl = () =>
   import("@/Page/temperature-chart/new-singleTemperature-chart-dghl/new-singleTemperature-chart.vue");
 const showPatientDetails = () =>
@@ -206,6 +208,7 @@ import temperatureGuizhou from "@/Page/patientInfo/supPage/temperature/temperatu
 import temperatureBhry from "@/Page/patientInfo/supPage/temperature/temperatureBhry";
 import temperatureJmfy from "@/Page/patientInfo/supPage/temperature/temperatureJmfy";
 import temperatureDghl from "@/Page/patientInfo/supPage/temperature/temperatureDghl";
+import temperatureQuZhou from "@/Page/patientInfo/supPage/temperature/temperatureQuZhou";
 import temperatureWuJing from "@/Page/patientInfo/supPage/temperature/temperatureWuJing";
 import diagnosis from "@/Page/patientInfo/supPage/diagnosis/diagnosis";
 import bloodSugar from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar.vue"; // 厚街
@@ -302,6 +305,8 @@ const router = new Router({
             return temperatureJmfy
           case 'hengli':
             return temperatureDghl
+            case 'quzhou':
+            return temperatureQuZhou
           case 'wujing':
             return temperatureWuJing
           default:
@@ -925,6 +930,10 @@ const router = new Router({
               return newSingleTemperatureChartGuizhou
               case 'beihairenyi':
               return newSingleTemperatureChartBhry
+              case 'quzhou':
+              return newSingleTemperatureChartQuzhou
+              case 'hengli':
+              return newSingleTemperatureChartDghl
             case 'fuyou':
               return newSingleTemperatureChartJmfy
             default:
