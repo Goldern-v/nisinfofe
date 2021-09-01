@@ -7,6 +7,15 @@ export const keyf1 = function (e, td) {
     td.value = td.value.replace(/·/g, '✓').replace(/`/g, '✓')
   }, 10)
 }
+
+// 限制输入，最多输入全中文num个字
+export const limitChange = function (e, td, num) {
+  let maxLength = num;
+  if (td.value.length >= 4 && e.keyCode != 8 && e.keyCode != 37 && e.keyCode != 38 && e.keyCode != 39 && e.keyCode != 40 && e.keyCode != 13 && e.keyCode != 108 && e.keyCode != 9 && e.keyCode != 16 && e.keyCode != 17 && e.keyCode != 18 && e.keyCode != 20 && e.keyCode != 27 && e.keyCode != 91) {
+    td.value = td.value.substring(0,maxLength);
+  }
+}
+
 // 对值进行切割，这里的maxLength是固定不变的，最多输入全中文8个字，全英文/数字maxLength个
 export const calValueChange = function (e, td) {
   let maxLength = 16
