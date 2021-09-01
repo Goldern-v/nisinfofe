@@ -238,9 +238,7 @@ export default {
         `,
         colspan: "1",
         rowspan: "2",
-        style: {
-          width: "62px"
-        },
+        
       },
       {
         name: `
@@ -258,9 +256,6 @@ export default {
         `,
         colspan: "1",
         rowspan: "2",
-        style: {
-          width: "62px"
-        },
       },
       {
         name: `
