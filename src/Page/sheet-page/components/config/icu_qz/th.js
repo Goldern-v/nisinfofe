@@ -1,6 +1,6 @@
 export default {
   style: {
-    width: '1000px'
+    width: '900px'
   },
   // 科室的名称
   deptType: '',
@@ -53,8 +53,8 @@ export default {
       {
         name: '血压',
         style: {
-          minWidth: '36px',
-          maxWidth: '36px',
+          minWidth: '50px',
+          maxWidth: '50px',
         },
         colspan: '1',
         rowspan: '3'
@@ -89,8 +89,8 @@ export default {
         其他
         `,
         style: {
-          minWidth: "300px",
-          maxWidth: "300px"
+          minWidth: "350px",
+          maxWidth: "350px"
         },
         colspan: '1',
         rowspan: '3'

@@ -71,6 +71,7 @@
             class="print-btn"
             flex="cross:center main:center"
             @click="openBedPrint()"
+            v-if="HOSPITAL_ID != 'beihairenyi'"
           >
             打印床头卡
           </div>
@@ -80,7 +81,7 @@
             @click="openBedPrint('v')"
             v-if="HOSPITAL_ID == 'huadu'|| HOSPITAL_ID == 'beihairenyi'"
           >
-            打印床头卡2
+            {{HOSPITAL_ID == 'beihairenyi'?'打印床头卡':'打印床头卡2'}}
           </div>
           <div
             class="print-btn"

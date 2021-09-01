@@ -26,6 +26,10 @@ const getRecordType = (HOSPITAL_ID) => {
       return 'body_temperature_jm'
     case 'hengli':
       return 'body_temperature_hl'
+    case 'quzhou':
+      return 'body_temperature_qz'
+      case 'beihairenyi':
+      return 'bodyTemperatureLocal'
     default:
       return 'bodyTemperatureLocal'
   }
@@ -40,8 +44,10 @@ export function getPatientsInfo(query) {
 
 //保存体温单
 export function saveOverAllTemperture(params) {
+
   return axios.post(`${apiPath}record/${getRecordType(process.env.HOSPITAL_ID)}/saveOverAll`, params);
 }
+
 
 //聊城二院出入院同步
 export function autoVitalSigns(data) {

@@ -101,7 +101,7 @@ axios.interceptors.response.use((res) => {
 
         }
         console.log('data.errorCode', data)
-        return data.errorCode == 1000 ? Promise.reject(res) : Promise.reject();
+        return Promise.reject(res);
     } else if (data.code === '301') {
         window.app && window.app.$message({
             showClose: true,

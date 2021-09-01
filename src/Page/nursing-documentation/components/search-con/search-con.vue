@@ -28,6 +28,15 @@
         >
           <el-radio class="radio" v-model="data.status" label="1" size="small">在院</el-radio>
         </div>
+         <div
+          class="select-item"
+          flex="cross:center main:center"
+          flex-box="1"
+          style="border-right: 1px solid #C2CBD2"
+          v-if="HOSPITAL_ID=='huadu'"
+        >
+          <el-radio class="radio" v-model="data.status" label="3" size="small">转科</el-radio>
+        </div>
         <div class="select-item" flex="cross:center main:center" flex-box="1">
           <el-radio class="radio" v-model="data.status" label="2" size="small">出院</el-radio>
         </div>
@@ -64,6 +73,24 @@
       <div class="title">出院结束时间</div>
       <el-date-picker
         v-model="data.dischargeDate[1]"
+        type="date"
+        format="yyyy-MM-dd"
+        placeholder="选择出院结束时间"
+      ></el-date-picker>
+    </div>
+    <div class="search-box" v-if="data.status == 3 && isPatients">
+      <div class="title">起始日期</div>
+      <el-date-picker
+        v-model="data.dateTime[0]"
+        type="date"
+        format="yyyy-MM-dd"
+        placeholder="选择出院起始时间"
+      ></el-date-picker>
+    </div>
+    <div class="search-box" v-if="data.status == 3 && isPatients">
+      <div class="title">结束时间</div>
+      <el-date-picker
+        v-model="data.dateTime[1]"
         type="date"
         format="yyyy-MM-dd"
         placeholder="选择出院结束时间"
@@ -171,13 +198,14 @@ export default {
       data: {
         deptValue: "",
         deptList: [],
-        status: "1",
+        status: "1",//1住院，2出院，3转科
         name: "",
         bedLabel: "",
         inpNo: "",
         patientId: "",
         admissionDate: [moment().subtract(30, "days"), new Date()],
         dischargeDate: [moment().subtract(30, "days"), new Date()],
+        dateTime: [moment().subtract(30, "days"), new Date()],
         diagnosis: "",//病种
       }
     };
@@ -185,12 +213,17 @@ export default {
   computed: {
     deptCode() {
       return this.$store.state.lesion.deptCode;
+    },
+    //是否为查询界面
+    isPatients(){
+      return this.$route?this.$route.path=="/nursingDocumentation":false
     }
   },
   watch: {
     deptCode() {}
   },
   created() {
+    console.log(this.$route)
     let getNursingUnit =
       this.HOSPITAL_ID == "hj" ? nursingUnitAll : nursingUnit;
     getNursingUnit()

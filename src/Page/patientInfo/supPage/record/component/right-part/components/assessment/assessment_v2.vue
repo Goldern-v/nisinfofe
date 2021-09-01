@@ -20,6 +20,8 @@
     <pizhuModal ref="pizhuModal"></pizhuModal>
     <!-- 签名弹窗 -->
     <signModal ref="signModal" :title="signTitle"></signModal>
+    <!-- 体征同步 -->
+    <tztbModal ref="tztbModal"></tztbModal>
     <scoreChart ref="scoreChart"></scoreChart>
     <!-- 消息提示弹窗 -->
     <message-modal ref="messageModal"></message-modal>
@@ -84,6 +86,7 @@ import { checkUser } from "@/api/login"; //检查用户名密码有效性
 import { host } from "@/api/apiConfig";
 import { initList } from "../../../../../../supComponts/formBox/form.details";
 import { initNooForm } from "../../../../../../supComponts/formBox/form.details.nooForm";
+import tztbModal from "@/Page/sheet-page/components/modal/tztb-modal";
 import signModal from "@/components/modal/sign.vue";
 import openFormModal from "@/Page/patientInfo/supPage/record/modal/open-form.vue";
 import scoreChart from "../../../../modal/score-chart.vue";
@@ -150,6 +153,11 @@ export default {
       "reOpenFormInsideAssessmentV2",
       this.reOpenFormInsideAssessment
     );
+
+    this.bus.$on("refreshSheetPageOne", (a)=>{
+      this.handleMarklist.push(...a)
+      console.log(a,this.handleMarklist,'gaohaixiong');
+    });
     this.bus.$on("delAssessmentV2", this.delAssessment);
     this.bus.$on("setAssessmentLoadingStatusV2", this.setLoadingStatus);
     //
@@ -207,6 +215,8 @@ export default {
         setLoadingButton: this.setLoadingButton,
         setloadingSVGHidden: this.setloadingSVGHidden,
         openSignModal: window.openSignModal,
+        opentztbModal: this.opentztbModal,
+        confirmfrom:this.$confirm
       };
     };
     // iframeLoadingV2
@@ -215,6 +225,7 @@ export default {
     this.$refs["iframeLoadingV2"]["setLoadingButton"] = this.setLoadingButton;
     this.$refs["iframeLoadingV2"]["setloadingSVGHidden"] =
       this.setloadingSVGHidden;
+    this.$refs["iframeLoadingV2"]["opentztbModal"] = this.opentztbModal;
     this.$root.$refs["iframeLoadingV2"] = this.$refs["iframeLoadingV2"];
   },
   methods: {
@@ -1376,6 +1387,9 @@ export default {
         // }
       }
     },
+    opentztbModal(baseParams) {
+      this.$refs.tztbModal.open(baseParams);
+    },
     onContextMenu(event) {
       console.log("onContextMenu", event);
       if (this.eventTarget) {
@@ -1795,6 +1809,7 @@ export default {
     scoreChart,
     messageModal,
     openFormModal,
+    tztbModal,
   },
 };
 </script>

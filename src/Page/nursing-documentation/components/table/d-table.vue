@@ -158,7 +158,6 @@ export default {
   },
   methods: {
     async openDetail(row) {
-      console.log(row);
       if (row.notViewPatient) {
         this.$message.warning("患者已归档，用户无权查看");
         return;

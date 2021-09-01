@@ -525,7 +525,6 @@ export default {
       let delt = xy.height;
 
       if (this.obj.options) {
-        this.inputValue = "";
         let dataList = this.obj.options;
         let key = this.obj.name;
         let obj = this.formObj.model;
@@ -552,11 +551,9 @@ export default {
                 // 单选
                 if (!multiplechoice || multiplechoice == false) {
                   // obj[key] = data;
-
+                  this.inputValue = ""                
                   obj[key] = data.code;
-                  console.log(this.inputValue);
                   this.inputValue = data.name;
-                  console.log(this.inputValue);
                   console.log(obj[key]);
                   this.checkValueRule(data.name, true);
                   this.$forceUpdate();
@@ -580,6 +577,7 @@ export default {
                     });
                   }
                   obj[key] = values + "";
+                  console.log(obj[key],'ffds ');
                   this.inputValue = obj[key] + "";
                   // this.checkValueRule(obj[key], true);
                   target.focus();

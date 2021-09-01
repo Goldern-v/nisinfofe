@@ -76,6 +76,7 @@ export default {
       bus: bus(this),
       data: {
         bedList: [],
+        isSave: false,
       },
       patientListLoading: true,
       tableLoading: false,
@@ -102,7 +103,13 @@ export default {
       this.getDate();
     }
   },
-  mounted() {},
+  mounted() {
+    this.bus.$on("saveSheetPage", (data) => {
+      if (data === "noSaveSign" || data === true) {
+        this.isSave = true;
+      }
+    });
+  },
   methods: {
     async getDate() {
       if (this.deptCode) {

@@ -1,7 +1,8 @@
 <template lang="pug">
   div
     .main-contain
-      dTable(:tableData="tableData" :pageLoadng="pageLoadng")
+      changeMaJorTable(v-if="HOSPITAL_ID=='huadu' && isChangeMajor" :tableData="tableData" :pageLoadng="pageLoadng")
+      dTable(v-else :tableData="tableData" :pageLoadng="pageLoadng")
       .head-con(flex="main:justify cross:center")
         pagination(:pageIndex="page.pageIndex" :size="page.pageNum" :total="page.total" @sizeChange="handleSizeChange"
         @currentChange="handleCurrentChange")
@@ -74,8 +75,10 @@
 <script>
 import searchCon from "./components/search-con/search-con";
 import dTable from "./components/table/d-table";
+import changeMaJorTable from  "./components/table/change-major-table"
 import pagination from "./components/common/pagination";
-import { patEmrList,patEmrListZSQ } from "@/api/document";
+import { patEmrList,patEmrListZSQm,listNurseAdtHd } from "@/api/document";
+import { del } from '@/api/record';
 export default {
   data() {
     return {
@@ -86,7 +89,8 @@ export default {
         pageIndex: 1,
         pageNum: 20,
         total: 0
-      }
+      },
+      isChangeMajor:false,//是否显示转科
     };
   },
   methods: {
@@ -141,31 +145,72 @@ export default {
       if (data.status == 1) {
         obj.dischargeDateBegin = "";
         obj.dischargeDateEnd = "";
+        this.isChangeMajor=false;
       }
       if (data.status == 2) {
         obj.admissionDateBegin = "";
         obj.admissionDateEnd = "";
+        this.isChangeMajor=false;
       }
+      if (data.status == 3) {
+        this.isChangeMajor=true;
+        // this.query.startDate = this.query.startDate ? moment(this.query.startDate).format("YYYY-MM-DD") + " 00:00:00": moment(new Date()).format("YYYY-MM-DD") + " 00:00:00";
+        // this.query.endDate =  this.query.endDate ? moment(this.query.endDate).format("YYYY-MM-DD") + " 23:59:59" : moment(new Date()).format("YYYY-MM-DD") + " 23:59:59";
+        obj.startDate = new Date(data.dateTime[0]).Format(
+          "yyyy-MM-dd"
+        )+ " 00:00:00";
+        obj.endDate = new Date(data.dateTime[1]).Format(
+          "yyyy-MM-dd"
+        )+ " 23:59:59";
+        obj.admissionDateBegin = "";
+        obj.admissionDateEnd = "";
+        obj.dischargeDateBegin = "";
+        obj.dischargeDateEnd = "";
+      }
+
       obj.pageIndex = this.page.pageIndex;
       obj.pageNum = this.page.pageNum;
       this.pageLoadng = true;
-
       let patEmrListApi =  patEmrList;
+      //(data.status == 3) && (patEmrListApi=listNurseAdtHd);
       if(this.HOSPITAL_ID == 'zhongshanqi'){
         obj.diagnosis = data.diagnosis;
         patEmrListApi = patEmrListZSQ;
       }
-      patEmrListApi(obj).then(res => {
+      //花都转院查询
+      if(data.status == 3 && this.HOSPITAL_ID == 'huadu'){
+        let newObj=JSON.parse(JSON.stringify(obj));
+        delete newObj.admissionDateBegin;
+        delete newObj.admissionDateEnd;
+        delete newObj.dischargeDateBegin;
+        delete newObj.dischargeDateEnd;
+        newObj.pageSize=newObj.pageNum;
+        // console.log(obj)
+        listNurseAdtHd(newObj).then(res => {
+        this.tableData = res.data.data.list;
+        this.page.total = res.data.data.totalCount ? parseInt(res.data.data.totalCount): 0;
+        this.pageLoadng = false;
+      });
+      }else{
+       patEmrListApi(obj).then(res => {
         this.tableData = res.data.data.list;
         this.page.total = res.data.data.page ? parseInt(res.data.data.page)*this.page.pageNum : 0;
         this.pageLoadng = false;
       });
+      }
+
+    }
+  },
+  computed:{
+    searchConData(){
+      return this.$refs.searchCon?this.$refs.searchCon.data:null
     }
   },
   components: {
     searchCon,
     dTable,
-    pagination
-  }
+    pagination,
+    changeMaJorTable
+  },
 };
 </script>

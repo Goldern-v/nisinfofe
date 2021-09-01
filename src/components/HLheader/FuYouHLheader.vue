@@ -276,6 +276,11 @@
                 <i class="iconfont icon-jiaobanzhi"></i> 执行单
               </el-row>
             </router-link>
+            <router-link to="/workloadSatistics" tag="span">
+              <el-row class="nav-item" type="flex" align="middle">
+                <i class="iconfont icon-jiaobanzhi"></i> 工作量统计
+              </el-row>
+            </router-link>
 
             <!-- <router-link to="/badEvent" tag="span" v-if="HOSPITAL_ID == 'hj'">
               <el-row class="nav-item" type="flex" align="middle"
@@ -961,6 +966,14 @@ export default {
       if (this.$route.path == "/healthEducationList") return true;
       if (this.$route.path == "/dcList") return true;
       if (this.$route.path == "/cognitiveStatistic") return true;
+    },
+    isActiveTemperaturePage() {
+      let path = this.$route.path;
+      return (
+        path.includes("newSingleTemperatureChart") ||
+        path.includes("singleTemperatureChart") ||
+        path.includes("allTemperatureChart")
+      );
     },
     isActiveStatisticPage() {
       if (this.$route.path == "/cognitiveStatistic") return true;

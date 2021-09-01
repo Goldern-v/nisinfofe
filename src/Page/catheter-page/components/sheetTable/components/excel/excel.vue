@@ -2,9 +2,15 @@
   <div>
     <table class="sheet-table">
       <tr>
-        <td colspan="1" rowspan="100" style="width: 35px;line-height: 40px">维护记录</td>
+        <td colspan="1" rowspan="100" style="width: 35px; line-height: 40px">
+          维护记录
+        </td>
       </tr>
-      <tr class="head-con" v-for="(th, index) in data.titleModel.th" :key="index">
+      <tr
+        class="head-con"
+        v-for="(th, index) in data.titleModel.th"
+        :key="index"
+      >
         <th
           v-for="(item, index2) in th"
           :key="index2"
@@ -23,27 +29,27 @@
         v-for="(tr, y) in data.bodyModel"
         :class="[
           {
-            noSignRow: tr.find(item => item.key == 'status').value === '0',
+            noSignRow: tr.find((item) => item.key == 'status').value === '0',
             selectedTr: sheetInfo.selectRow.includes(tr),
             redText:
-              tr.find(item => {
+              tr.find((item) => {
                 return item.key == 'recordSource';
-              }).value == '5'
+              }).value == '5',
           },
-          tr.find(item => {
+          tr.find((item) => {
             return item.key == 'markObj';
           }).value &&
             `mark-mark-mark mark-cell-status-${
-              tr.find(item => {
+              tr.find((item) => {
                 return item.key == 'markObj';
               }).value.status
-            }`
+            }`,
         ]"
         :key="y"
         @click="selectRow(tr, $event)"
         @mouseover="markTip($event, tr)"
         @mouseout="closeMarkTip"
-        :recordId="tr.find(item => item.key == 'id').value"
+        :recordId="tr.find((item) => item.key == 'id').value"
       >
         <td
           v-for="(td, x) in tr"
@@ -55,7 +61,8 @@
           @mouseover="markTip($event, td)"
           @mouseout="closeMarkTip"
           :class="[
-            td.markObj && `mark-mark-mark mark-cell-status-${td.markObj.status}`
+            td.markObj &&
+              `mark-mark-mark mark-cell-status-${td.markObj.status}`,
           ]"
           @contextmenu.stop="openContextMenu($event, y, tr, td)"
         >
@@ -63,12 +70,12 @@
           <input
             type="text"
             :readonly="true"
-            :value="tr.find(item => item.key == 'yearBreak').value"
-            :data-value="tr.find(item => item.key == 'yearBreak').value"
+            :value="tr.find((item) => item.key == 'yearBreak').value"
+            :data-value="tr.find((item) => item.key == 'yearBreak').value"
             :style="[td.style, { height: '12px' }]"
             v-if="
               td.key === 'recordMonth' &&
-                tr.find(item => item.key == 'yearBreak').value
+              tr.find((item) => item.key == 'yearBreak').value
             "
           />
           <div
@@ -84,10 +91,18 @@
             v-html="showAudit(tr)"
           ></div>
           <div v-else-if="td.key == 'signerNo'" class="sign-img">
-            <img v-if="td.value" :src="`/crNursing/api/file/signImage/${td.value}?${token}`" alt />
+            <img
+              v-if="td.value"
+              :src="`/crNursing/api/file/signImage/${td.value}?${token}`"
+              alt
+            />
           </div>
           <div v-else-if="td.key == 'auditorNo'" class="sign-img">
-            <img v-if="td.value" :src="`/crNursing/api/file/signImage/${td.value}?${token}`" alt />
+            <img
+              v-if="td.value"
+              :src="`/crNursing/api/file/signImage/${td.value}?${token}`"
+              alt
+            />
           </div>
           <textarea
             v-else-if="td.textarea"
@@ -99,9 +114,9 @@
             :style="[
               td.style,
               td.key === 'recordMonth' &&
-                tr.find(item => item.key == 'yearBreak').value && {
-                  height: '12px'
-                }
+                tr.find((item) => item.key == 'yearBreak').value && {
+                  height: '12px',
+                },
             ]"
             @keydown="
               td.event($event, td);
@@ -115,7 +130,7 @@
                   y,
                   z: index,
                   td,
-                  tr
+                  tr,
                 })
             "
             @blur="onBlur($event, { x, y, z: index })"
@@ -129,9 +144,9 @@
             :style="[
               td.style,
               td.key === 'recordMonth' &&
-                tr.find(item => item.key == 'yearBreak').value && {
-                  height: '12px'
-                }
+                tr.find((item) => item.key == 'yearBreak').value && {
+                  height: '12px',
+                },
             ]"
             @keydown="
               td.event && td.event($event, td);
@@ -145,7 +160,7 @@
                   y,
                   z: index,
                   td,
-                  tr
+                  tr,
                 })
             "
             @blur="onBlur($event, { x, y, z: index })"
@@ -157,7 +172,10 @@
       </tr>
     </table>
 
-    <footerInfo :pageIndex="index + sheetStartPage" :pageNo ="index"></footerInfo>
+    <footerInfo
+      :pageIndex="index + sheetStartPage"
+      :pageNo="index"
+    ></footerInfo>
     <div class="table-footer">第 {{ index + sheetStartPage }} 页</div>
     <setTitleModal ref="setTitleModal"></setTitleModal>
     <signModal ref="signModal"></signModal>
@@ -176,7 +194,7 @@ import {
   cancelSign,
   delRow,
   markSave,
-  markDelete
+  markDelete,
 } from "../../../../api/sheet.js";
 import signModal from "@/components/modal/sign.vue";
 import { Tr } from "../../../render/Body.js";
@@ -186,7 +204,7 @@ import {
   focusElement,
   leftTopBottomRight,
   onFocusToAutoComplete,
-  onBlurToAutoComplete
+  onBlurToAutoComplete,
 } from "./tool.js";
 import sheetInfo from "../../../config/sheetInfo";
 import Mark, { matchMark } from "../../../render/Mark.js";
@@ -201,7 +219,7 @@ export default {
   props: {
     data: Object,
     index: Number,
-    length: Number
+    length: Number,
   },
   mixins: [common],
   data() {
@@ -209,7 +227,7 @@ export default {
       Mark,
       matchMark,
       bus: bus(this),
-      sheetInfo
+      sheetInfo,
     };
   },
   computed: {
@@ -221,7 +239,7 @@ export default {
     },
     sheetMaxPage() {
       return this.sheetInfo.sheetMaxPage;
-    }
+    },
   },
   methods: {
     // 键盘事件
@@ -236,16 +254,16 @@ export default {
       onBlurToAutoComplete(e, bind);
     },
     setTitle(item) {
-      this.$refs.setTitleModal.open(title => {
+      this.$refs.setTitleModal.open((title) => {
         let data = {
           patientId: this.patientInfo.patientId,
           visitId: this.patientInfo.visitId,
           pageIndex: this.index,
           fieldEn: item.key,
           fieldCn: title,
-          recordCode: sheetInfo.sheetType
+          recordCode: sheetInfo.sheetType,
         };
-        saveTitle(data).then(res => {
+        saveTitle(data).then((res) => {
           item.name = title;
         });
       }, item.name);
@@ -253,11 +271,11 @@ export default {
     addNullRow(index, row) {
       let newRow = nullRow();
       if (row) {
-        let recordSource = row.find(item => {
+        let recordSource = row.find((item) => {
           return item.key == "recordSource";
         }).value;
 
-        newRow.find(item => {
+        newRow.find((item) => {
           return item.key == "recordSource";
         }).value = recordSource;
       }
@@ -269,14 +287,14 @@ export default {
     delRow(index) {
       let curr_row = this.data.bodyModel[index];
       let next_row = this.data.bodyModel[index + 1];
-      let recordMonth = curr_row.find(item => {
+      let recordMonth = curr_row.find((item) => {
         return item.key == "recordMonth";
       }).value;
       // let recordHour = curr_row.find(item => {
       //   return item.key == "recordHour";
       // }).value;
       try {
-        let next_Month = next_row.find(item => {
+        let next_Month = next_row.find((item) => {
           return item.key == "recordMonth";
         }).value;
         // let next_Hour = next_row.find(item => {
@@ -284,7 +302,7 @@ export default {
         // }).value;
         if (next_row) {
           if (recordMonth && !next_Month) {
-            next_row.find(item => {
+            next_row.find((item) => {
               return item.key == "recordMonth";
             }).value = recordMonth;
           }
@@ -300,7 +318,7 @@ export default {
     getPrev(index, bodyModel, val) {
       if (index < 0) return "";
       let tr = bodyModel[index];
-      let value = tr.find(item => {
+      let value = tr.find((item) => {
         return item.key == val;
       }).value;
       if (value) {
@@ -325,7 +343,7 @@ export default {
         return this.bus.$emit("toSheetMoreSign");
       }
       if (!showSign) {
-        let status = trArr.find(item => {
+        let status = trArr.find((item) => {
           return item.key == "status";
         }).value;
         // if (status == 1) return this.$message.warning('该记录已经签名了')
@@ -345,19 +363,19 @@ export default {
                 recordYear: this.getPrev(currIndex, allList, "recordYear"),
                 patientId: this.patientInfo.patientId,
                 visitId: this.patientInfo.visitId,
-                pageIndex: this.index
-              })
-            ]
+                pageIndex: this.index,
+              }),
+            ],
           };
           sign(this.patientInfo.patientId, this.patientInfo.visitId, data).then(
-            res => {
+            (res) => {
               let trArrClone = Tr(res.data.data[0]);
               if (
-                trArr.find(item => {
+                trArr.find((item) => {
                   return item.key == "recordMonth";
                 }).value == ""
               ) {
-                trArrClone.find(item => {
+                trArrClone.find((item) => {
                   return item.key == "recordMonth";
                 }).value = "";
               }
@@ -367,7 +385,7 @@ export default {
               }
               this.$notify.success({
                 title: "提示",
-                message: "签名成功"
+                message: "签名成功",
               });
               this.bus.$emit("saveSheetPage", false);
             }
@@ -376,18 +394,18 @@ export default {
       } else {
         // 删除签名
         this.$refs.delsignModal.open((password, empNo) => {
-          let id = trArr.find(item => {
+          let id = trArr.find((item) => {
             return item.key == "id";
           }).value;
           cancelSign({
             id,
             empNo,
-            password
-          }).then(res => {
-            trArr.find(item => {
+            password,
+          }).then((res) => {
+            trArr.find((item) => {
               return item.key == "status";
             }).value = 0;
-            trArr.find(item => {
+            trArr.find((item) => {
               return item.key == "signerName";
             }).value = "";
             this.bus.$emit("saveSheetPage", false);
@@ -397,7 +415,7 @@ export default {
     },
     toAudit(trArr, index, bodyModel, showAudit) {
       if (!showAudit) {
-        let status = trArr.find(item => {
+        let status = trArr.find((item) => {
           return item.key == "status";
         }).value;
         // if (status == 1) return this.$message.warning('该记录已经签名了')
@@ -417,19 +435,19 @@ export default {
                 // recordHour: this.getPrev(currIndex, allList, "recordHour"),
                 patientId: this.patientInfo.patientId,
                 visitId: this.patientInfo.visitId,
-                pageIndex: this.index
-              })
-            ]
+                pageIndex: this.index,
+              }),
+            ],
           };
           sign(this.patientInfo.patientId, this.patientInfo.visitId, data).then(
-            res => {
+            (res) => {
               let trArrClone = Tr(res.data.data);
               if (
-                trArr.find(item => {
+                trArr.find((item) => {
                   return item.key == "recordMonth";
                 }).value == ""
               ) {
-                trArrClone.find(item => {
+                trArrClone.find((item) => {
                   return item.key == "recordMonth";
                 }).value = "";
               }
@@ -448,7 +466,7 @@ export default {
               }
               this.$notify.success({
                 title: "提示",
-                message: "审核成功"
+                message: "审核成功",
               });
               this.bus.$emit("saveSheetPage", true);
             }
@@ -457,15 +475,15 @@ export default {
       } else {
         // 删除签名
         this.$refs.delsignModal.open((password, empNo) => {
-          let id = trArr.find(item => {
+          let id = trArr.find((item) => {
             return item.key == "id";
           }).value;
           cancelSign({
             id,
             empNo,
             password,
-            audit: true
-          }).then(res => {
+            audit: true,
+          }).then((res) => {
             this.bus.$emit("saveSheetPage", true);
           });
         });
@@ -473,10 +491,10 @@ export default {
     },
     // 展示签名状态
     showSign(trArr) {
-      let status = trArr.find(item => {
+      let status = trArr.find((item) => {
         return item.key == "status";
       }).value;
-      let signerName = trArr.find(item => {
+      let signerName = trArr.find((item) => {
         return item.key == "signerName";
       }).value;
       if (status >= 1) {
@@ -487,10 +505,10 @@ export default {
     },
     // 展示审核状态
     showAudit(trArr) {
-      let status = trArr.find(item => {
+      let status = trArr.find((item) => {
         return item.key == "status";
       }).value;
-      let auditorName = trArr.find(item => {
+      let auditorName = trArr.find((item) => {
         return item.key == "auditorName";
       }).value;
       if (status == "2") {
@@ -500,8 +518,8 @@ export default {
       }
     },
     isRead(tr) {
-      let status = tr.find(item => item.key == "status").value;
-      let empNo = tr.find(item => item.key == "empNo").value;
+      let status = tr.find((item) => item.key == "status").value;
+      let empNo = tr.find((item) => item.key == "empNo").value;
       if (status == 1) {
         if (empNo == this.empNo || this.isAuditor) {
           return false;
@@ -533,12 +551,10 @@ export default {
     },
     // 右键菜单
     openContextMenu(e, index, row, cell) {
-      $(e.target)
-        .parents("tr")
-        .addClass("selectedRow");
+      $(e.target).parents("tr").addClass("selectedRow");
       let style = {
         top: `${Math.min(e.clientY - 15, window.innerHeight - 320)}px`,
-        left: `${Math.min(e.clientX + 15, window.innerWidth - 180)}px`
+        left: `${Math.min(e.clientX + 15, window.innerWidth - 180)}px`,
       };
       let data = [
         {
@@ -546,24 +562,24 @@ export default {
           icon: "charuxinhang",
           click: () => {
             this.addNullRow(index - 1, row);
-          }
+          },
         },
         {
           name: "向下插入新行",
           icon: "xiangxiacharuyihang",
           click: () => {
             this.addNullRow(index, row);
-          }
+          },
         },
         {
           name: "复制行",
           icon: "fuzhizhenghang",
           click: () => {
             this.sheetInfo.copyRow = row
-              .filter(item => {
+              .filter((item) => {
                 return true;
               })
-              .map(item => {
+              .map((item) => {
                 let obj = {};
                 if (
                   item.key == "id" ||
@@ -573,19 +589,19 @@ export default {
                   item.key == "recordMonth"
                 ) {
                   obj = {
-                    value: ""
+                    value: "",
                   };
                 }
                 return Object.assign({}, item, obj);
               });
-          }
+          },
         },
         {
           name: "复制内容",
           icon: "fuzhizhenghang",
           click: () => {
             this.sheetInfo.copyRow = getSelection().toString() || cell.value;
-          }
+          },
         },
         {
           name: "粘贴内容",
@@ -597,24 +613,24 @@ export default {
             } else {
               this.toCopyRow(index);
             }
-          }
+          },
         },
         {
           name: "删除整行",
           icon: "shanchuzhenghang",
           click: () => {
-            let id = row.find(item => {
+            let id = row.find((item) => {
               return item.key == "id";
             }).value;
             let isRead = this.isRead(row);
             if (id) {
               if (isRead) {
                 this.$parent.$parent.$refs.signModal.open((password, empNo) => {
-                  delRow(id, password, empNo).then(res => {
+                  delRow(id, password, empNo).then((res) => {
                     this.delRow(index);
                     this.$notify.success({
                       title: "提示",
-                      message: "删除成功"
+                      message: "删除成功",
                     });
                     this.bus.$emit("saveSheetPage", false);
                   });
@@ -623,13 +639,13 @@ export default {
                 this.$confirm("你确定删除该行数据吗", "提示", {
                   confirmButtonText: "删除",
                   cancelButtonText: "取消",
-                  type: "warning"
-                }).then(res => {
-                  delRow(id, "", "").then(res => {
+                  type: "warning",
+                }).then((res) => {
+                  delRow(id, "", "").then((res) => {
                     this.delRow(index);
                     this.$notify.success({
                       title: "提示",
-                      message: "删除成功"
+                      message: "删除成功",
                     });
                     this.bus.$emit("saveSheetPage", false);
                   });
@@ -639,32 +655,32 @@ export default {
               this.$confirm("你确定删除该行数据吗", "提示", {
                 confirmButtonText: "删除",
                 cancelButtonText: "取消",
-                type: "warning"
-              }).then(res => {
+                type: "warning",
+              }).then((res) => {
                 this.delRow(index);
                 this.$notify.success({
                   title: "提示",
-                  message: "删除成功"
+                  message: "删除成功",
                 });
                 this.bus.$emit("saveSheetPage", false);
               });
             }
-          }
+          },
         },
         {
           name: "添加格批注",
           icon: "pizhu",
           click: () => {
             this.bus.$emit("openPizhuModal", row, cell);
-          }
+          },
         },
         {
           name: "添加行批注",
           icon: "pizhu",
           click: () => {
             this.bus.$emit("openPizhuModal", row, "all");
-          }
-        }
+          },
+        },
         // {
         //   name: '标记为出入量合计',
         //   icon: 'charuxinhang',
@@ -734,18 +750,15 @@ export default {
       e.preventDefault();
       window.openContextMenu({
         style,
-        data
+        data,
       });
     },
     openEditModal(tr, data, e) {
       // 双击的input key
       let key =
-        $(e.target)
-          .parents("td")
-          .attr("datakey") || $(e.target).attr("datakey");
-      let name = $(e.target)
-        .parents("td")
-        .attr("dataName");
+        $(e.target).parents("td").attr("datakey") ||
+        $(e.target).attr("datakey");
+      let name = $(e.target).parents("td").attr("dataName");
       let tab = "1";
       if (key == "description") {
         tab = "3";
@@ -764,17 +777,17 @@ export default {
       let record = [];
       // 最后行的index
       // 当前的类型做唯一标识
-      let curr_range = tr.find(item => item.key == "recordRange").value;
-      let curr_recordDate = tr.find(item => item.key == "recordDate").value;
+      let curr_range = tr.find((item) => item.key == "recordRange").value;
+      let curr_recordDate = tr.find((item) => item.key == "recordDate").value;
       if (curr_recordDate) {
         for (let i = 0; i < sheetModel.length; i++) {
           allList = allList.concat(sheetModel[i].bodyModel);
         }
         for (let i = 0; i < allList.length; i++) {
           if (
-            allList[i].find(item => item.key == "recordDate").value ==
+            allList[i].find((item) => item.key == "recordDate").value ==
               curr_recordDate &&
-            allList[i].find(item => item.key == "recordRange").value ==
+            allList[i].find((item) => item.key == "recordRange").value ==
               curr_range
           ) {
             record.push(allList[i]);
@@ -787,7 +800,7 @@ export default {
         record,
         table,
         thead,
-        tab
+        tab,
       };
       window.openSpecialModal(config);
     },
@@ -804,7 +817,7 @@ export default {
       } else {
         // 行
         try {
-          obj = td.find(item => item.key == "markObj").value;
+          obj = td.find((item) => item.key == "markObj").value;
         } catch (e) {}
       }
       let left, top;
@@ -823,15 +836,15 @@ export default {
         window.openMarkTip({
           style: {
             left,
-            top
+            top,
           },
           data: obj,
           td,
           fun: {
             handlepz,
             delpz,
-            auditpz
-          }
+            auditpz,
+          },
         });
       }
     },
@@ -849,7 +862,7 @@ export default {
           this.sheetInfo.selectRow.push(tr);
         }
       }
-    }
+    },
   },
   created() {},
   // mounted() {
@@ -858,7 +871,7 @@ export default {
   components: {
     setTitleModal,
     signModal,
-    footerInfo
-  }
+    footerInfo,
+  },
 };
 </script>

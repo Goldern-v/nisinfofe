@@ -11,5 +11,5 @@ export const syncGetPatientOrders = (patientId, visitId) => {
  * 医嘱状态字典
  */
 export const getNurseOrderStatusDict = () => {
-    return axios.get(`${apiPath}/OrderStatusDict/getNurseOrderStatusDict`)
+    return axios.get(`${apiPath}OrderStatusDict/getNurseOrderStatusDict`)
 }

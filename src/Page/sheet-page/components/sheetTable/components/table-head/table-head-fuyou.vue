@@ -61,7 +61,6 @@
           class="bottom-line"
           style="
             min-width: 400px;
-            overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
           "
@@ -71,8 +70,8 @@
       </span>
       <span v-if="sheetInfo.sheetType === 'neonatal_care_jm'">
         入院时间：
-        <div class="bottom-line" style="min-width: 80px">
-          {{ patientInfo.admissionDate | toymd }}
+        <div class="bottom-line" style="min-width: 150px">
+          {{ patientInfo.admissionDate }}
         </div>
       </span>
     </div>
@@ -210,7 +209,7 @@ export default {
   },
   filters: {
     toymd(val) {
-      return moment(val).format("YYYY年MM月DD日");
+      return moment(val).format("YYYY年MM月DD日 ");
     },
   },
   created() {

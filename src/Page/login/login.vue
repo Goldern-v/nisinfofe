@@ -356,6 +356,9 @@ import { login } from "@/api/login";
 import Cookies from "js-cookie";
 import EnterToTab from "@/plugin/tool/EnterToTab.js";
 import md5 from "md5";
+const CryptoJS = require("crypto-js");
+const SecretKey = "chenrui2020";
+
 export default {
   data() {
     return {
@@ -424,6 +427,8 @@ export default {
             if (this.HOSPITAL_ID == "weixian") {
               /** 验证证书 */
               window.openCaSignModal();
+            }else if(this.HOSPITAL_ID == "fuyou"){
+              window.openFuyouCaSignModal();
             }
           }
           // 清除科室记录
@@ -454,6 +459,14 @@ export default {
     // 切换登录方式（二维码只供展示，暂不做登录处理）
     toggleLoginType() {
       this.showPwdType = !this.showPwdType;
+    },
+    //对字符串进行加密
+    compileStr(code) {
+      return CryptoJS.AES.encrypt(code, SecretKey).toString();
+    },
+    //字符串进行解密
+    uncompileStr(code) {
+      return CryptoJS.AES.decrypt(code, SecretKey).toString(CryptoJS.enc.Utf8);
     },
   },
   created() {
@@ -509,6 +522,8 @@ export default {
           return require("../../common/images/logo_zhongshanqi.png");
         case "quzhou":
           return require("../../common/images/logo_quzhou.png");
+        case "huadu":
+          return require("../../common/images/logo_huadu.png");
         case "guizhou":
           return require("../../common/images/logo_guizhou.png");
         case "nanfangzhongxiyi":
@@ -519,7 +534,7 @@ export default {
     },
     logoName() {
       let logoName = "百辰源智慧护理信息系统";
-      if (this.HOSPITAL_ID == "hj" || this.HOSPITAL_ID == "zhongshanqi" || this.HOSPITAL_ID == "nanfangzhongxiyi") {
+      if (this.HOSPITAL_ID == "hj" || this.HOSPITAL_ID == "zhongshanqi" || this.HOSPITAL_ID == "nanfangzhongxiyi" || this.HOSPITAL_ID == "huadu") {
         logoName = `${this.HOSPITAL_NAME}<br />智慧护理信息系统`;
       } else if (
         this.HOSPITAL_ID == "guizhou" ||

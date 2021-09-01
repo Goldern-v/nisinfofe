@@ -77,8 +77,8 @@
       "showAudit": true
     },
     "formInfo": {
-      "formCode": "E0005",
-      "formApiCode": "E0005",
+      "formCode": "E0005_3",
+      "formApiCode": "E0005_3",
       "formName": "压力性损伤风险评估表Barden（成人）",
       "status": "0",
       "formType": "eval"

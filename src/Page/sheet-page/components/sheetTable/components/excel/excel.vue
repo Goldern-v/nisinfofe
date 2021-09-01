@@ -526,13 +526,7 @@ export default {
       ],
       // 底部两个签名的其中一个自定义字段
       doubleSignArr: [
-        "common_hl",
-        "rescue_hl",
-        "emergency_stay_hl",
-        "neonatology_hl",
-        "obstetrics_hl",
-        "gynecology_hl",
-        "prenatal_hl"
+
       ],
       accessOptionList: [],//下拉列表数据（贵州人医）
       defaultOptionList: [],//默认下拉列表数据
@@ -609,9 +603,9 @@ export default {
            this.data.bodyModel[index][targetIndex]){
               let targetVal = this.data.bodyModel[index][targetIndex].value || ""
               switch(targetVal){
-                case "小结":
-                  return 'red';
                 case "总结":
+                  return 'red';
+                case "小结":
                   return 'black';
                 default:
                   return "";

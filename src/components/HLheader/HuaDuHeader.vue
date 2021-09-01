@@ -7,17 +7,20 @@
         <el-row type="flex" class="row-bg" justify="space-between">
           <el-row class="left-part" type="flex">
             <el-row
-              class="logo-con"
+              class="logo-con logo-con-huadu"
               type="flex"
               justify="center"
               align="middle"
             >
               <img
-                src="../../common/images/logo-white-60.png"
+                src="../../common/images/logo_huadu.png"
                 height="63"
                 width="63"
               />
-              <span>百辰源智慧护理信息系统</span>
+              <span>
+                广州市花都人民医院
+                <br />智慧护理信息系统
+              </span>
             </el-row>
             <!-- <router-link to="/index"
                          tag="span">
@@ -222,11 +225,45 @@
                 </el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
-            <router-link to="/shiftWork" tag="span">
+
+            <el-dropdown
+              menu-align="start"
+              :class="{ 'router-link-active': isShiftWork }"
+            >
+              <el-row class="nav-item" type="flex" align="middle">
+                <div class="before"></div>
+                <i class="iconfont icon-jiaobanzhi"></i>交班志
+              </el-row>
+              <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item
+                  :class="{ active: $route.path.includes('/shiftWork2') }"
+                >
+                  <router-link to="/shiftWork2" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle"
+                      >交班志
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item>
+                <el-dropdown-item
+                  :class="{
+                    active:
+                      $route.path.includes('/shiftWork') &&
+                      !$route.path.includes('/shiftWork2')
+                  }"
+                >
+                  <router-link to="/shiftWork" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle"
+                      >ISBAR交班记录卡
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item>
+              </el-dropdown-menu>
+            </el-dropdown>
+            <!-- <router-link to="/shiftWork" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-jiaobanzhi"></i> 交班志
               </el-row>
-            </router-link>
+            </router-link> -->
             <router-link to="/nursingRounds" tag="span">
               <el-row class="nav-item" type="flex" align="middle"
                 >护理巡视</el-row
@@ -490,6 +527,19 @@
     font-size: 14px;
     color: #EFF2F9;
     letter-spacing: 0;
+  }
+}
+
+.logo-con-huadu {
+  padding-left: 10px;
+
+  img {
+    width: 36px;
+    height: 36px;
+  }
+
+  span {
+    line-height: 16px;
   }
 }
 
@@ -804,6 +854,12 @@ export default {
         path.includes("allTemperatureChart")
       );
     },
+    isShiftWork(){
+      let path = this.$route.path;
+      return (
+        path.includes("shiftWork")
+      );
+    }
   },
   methods: {
     handleCommand(command) {

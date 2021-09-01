@@ -4,6 +4,8 @@
     <tableCon v-if="model.selectedBlockId"></tableCon>
     <nullBg text="暂无数据～" v-else></nullBg>
     <slideCon ref="slideCon"></slideCon>
+    <slideContant ref="slideContant"></slideContant>
+    <slideConRightGuizhou ref="slideConRightGuizhou"></slideConRightGuizhou>
   </div>
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
@@ -17,6 +19,8 @@ import BusFactory from "vue-happy-bus";
 import tool from "./components/tool/tool";
 import tableCon from "./components/tableCon/tableCon";
 import slideCon from "./modal/slide/slideCon";
+import slideConRightGuizhou from "./modal/slide/slideRightGuizhou.vue";
+import slideContant from "./modal/slide/slideContant.vue"
 import { model } from "./diagnosisViewModel";
 import { getPlanFormListByPV } from "./api";
 import common from "@/common/mixin/common.mixin";
@@ -24,7 +28,14 @@ import moment from "moment";
 export default {
   provide() {
     return {
-      openSlideCon: item => this.$refs.slideCon.open(item)
+      openSlideCon: item => {
+        if(this.HOSPITAL_ID=="guizhou"){
+          this.$refs.slideConRightGuizhou.open(item)
+        }else{
+          this.$refs.slideCon.open(item)
+        }
+      },
+      openSlideContant: item => this.$refs.slideContant.open(item)
     };
   },
   mixins: [common],
@@ -82,6 +93,8 @@ export default {
     nullBg,
     tool,
     slideCon,
+    slideConRightGuizhou,
+    slideContant,
     tableCon
   }
 };

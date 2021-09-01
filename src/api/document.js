@@ -16,4 +16,10 @@ export function patEmrListWithPatInfo(data) {
   return axios.post(`${apiPath}patient/patEmrListWithPatInfo`, data)
 }
 
+// 获取转科数据
+export function listNurseAdtHd(data) {
+  return axios.post(`${apiPath}nurseAdtLog/listNurseAdtHd`,data);
+  //return axios.post(`${apiPath}nurseAdtLog/listNurseAdt`,data);
+}
+
 

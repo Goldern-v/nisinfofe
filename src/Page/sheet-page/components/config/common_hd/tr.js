@@ -3,7 +3,8 @@ import {
 } from "../../../api/index";
 import {
   keyf1,
-  calValueChange
+  calValueChange,
+  limitChange
 } from "../keyEvent/f1.js";
 import {
   event_date,
@@ -30,6 +31,7 @@ export default [{
     key: "temperature", //体温
     value: "",
     event: keyf1,
+    change: (e, td) => limitChange(e, td, 4),
     name: "体温",
     next: "℃",
     textarea: {
@@ -40,6 +42,7 @@ export default [{
     key: "pulse", //脉搏
     value: "",
     event: keyf1,
+    change: (e, td) => limitChange(e, td, 4),
     name: "脉搏",
     next: "次/分",
     textarea: {
@@ -50,6 +53,7 @@ export default [{
     key: "heartRate", //心率
     value: "",
     event: keyf1,
+    change: (e, td) => limitChange(e, td, 4),
     name: "心率",
     next: "次/分",
     textarea: {
@@ -60,6 +64,7 @@ export default [{
     key: "breath", //呼吸
     value: "",
     event: keyf1,
+    change: (e, td) => limitChange(e, td, 4),
     name: "呼吸",
     next: "次/分",
     textarea: {
@@ -69,6 +74,7 @@ export default [{
   {
     key: "bloodPressure", //血压
     value: "",
+    change: (e, td) => limitChange(e, td, 6),
     event: function (e, td) {
       if (e.keyCode == 32) {
         e.target.value += "/";
@@ -79,19 +85,20 @@ export default [{
     name: "血压",
     next: "mmHg",
     textarea: {
-      width: 48
+      width: 40
     },
   },
   {
     key: "consciousness", //意识
     value: "",
     event: keyf1,
+    change: (e, td) => limitChange(e, td, 6),
     name: "意识",
     autoComplete: {
       data: 意识
     },
     textarea: {
-      width: 48
+      width: 40
     },
   },
   {
@@ -100,6 +107,7 @@ export default [{
     event: keyf1,
     name: "血氧饱和度",
     next: "%",
+    change: (e, td) => limitChange(e, td, 4),
     textarea: {
       width: 30
     },
@@ -109,13 +117,9 @@ export default [{
     value: "",
     event: keyf1,
     name: "入量名称",
-    change: calValueChange,
+    change: (e, td) => limitChange(e, td, 8),
     textarea: {
-      width: 62,
-    },
-    style: {
-      maxWidth: '62px',
-      textAlign: "left",
+      width: 50,
     },
     autoComplete: {
       data: 入量名称
@@ -125,6 +129,7 @@ export default [{
     key: "foodSize", //食物数量  入量（单位ml）
     value: "",
     event: keyf1,
+    change: (e, td) => limitChange(e, td, 4),
     name: "入量大小",
     next: "ml",
     textarea: {
@@ -136,13 +141,9 @@ export default [{
     value: "",
     event: keyf1,
     name: "出量名称",
-    change: calValueChange,
+    change: (e, td) => limitChange(e, td, 14),
     textarea: {
       width: 95,
-    },
-    style: {
-      maxWidth: '95px',
-      textAlign: "left",
     },
     autoComplete: {
       data: 出量名称
@@ -152,6 +153,7 @@ export default [{
     key: "dischargeSize", //排出物数量（单位ml）
     value: "",
     event: keyf1,
+    change: (e, td) => limitChange(e, td, 4),
     name: "出量大小",
     next: "ml",
     textarea: {
@@ -162,6 +164,7 @@ export default [{
     key: "dischargeColor", //排出物颜色
     value: "",
     event: keyf1,
+    change: (e, td) => limitChange(e, td, 6),
     name: "出量颜色",
     textarea: {
       width: 40
@@ -171,7 +174,7 @@ export default [{
     key: "healthEducation", //健康教育
     value: "",
     event: keyf1,
-    change: calValueChange,
+    change: (e, td) => limitChange(e, td, 8),
     name: "健康教育",
     textarea: {
       width: 52,
@@ -181,7 +184,7 @@ export default [{
     key: "fieldOne", //标题1
     value: "",
     event: keyf1,
-    change: calValueChange,
+    change: (e, td) => limitChange(e, td, 8),
     textarea: {
       width: 52
     },
@@ -190,7 +193,7 @@ export default [{
     key: "fieldTwo", //标题2
     value: "",
     event: keyf1,
-    change: calValueChange,
+    change: (e, td) => limitChange(e, td, 8),
     textarea: {
       width: 52
     },
@@ -199,7 +202,7 @@ export default [{
     key: "fieldThree", //标题3
     value: "",
     event: keyf1,
-    change: calValueChange,
+    change: (e, td) => limitChange(e, td, 8),
     textarea: {
       width: 52
     },
@@ -208,7 +211,7 @@ export default [{
     key: "fieldFour", //标题4
     value: "",
     event: keyf1,
-    change: calValueChange,
+    change: (e, td) => limitChange(e, td, 8),
     textarea: {
       width: 52
     },
@@ -217,7 +220,7 @@ export default [{
     key: "fieldFive", //标题5
     value: "",
     event: keyf1,
-    change: calValueChange,
+    change: (e, td) => limitChange(e, td, 8),
     textarea: {
       width: 52
     },
@@ -226,7 +229,7 @@ export default [{
     key: "fieldSix", //标题6
     value: "",
     event: keyf1,
-    change: calValueChange,
+    change: (e, td) => limitChange(e, td, 8),
     textarea: {
       width: 52
     },

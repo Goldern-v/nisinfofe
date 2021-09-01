@@ -965,8 +965,8 @@ export default {
             css: `
           .bed-card-warpper {
             box-shadow: none !important;
-            transform:translateY(3%) translateX(12%);
-            width:900px;
+            transform:scaleX(1) scaleY(1) translateY(0%) translateX(20%);
+            width:560px;
             display:flex!important;
             flex-wrap:wrap;
           }
@@ -974,7 +974,7 @@ export default {
             margin-bottom:110px!important;
           }
           @page {
-            margin: 0;
+            margin: 100px 0;
           }
           `
           });

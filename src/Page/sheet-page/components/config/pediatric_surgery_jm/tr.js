@@ -109,7 +109,12 @@ export default [{
   event: keyf1
 },
 {
-  key: "otherDischarge", //  出量自定义
+  key: "fieldOther", //  出量其他
+  value: "",
+  event: keyf1
+},
+{
+  key: "fieldNature", //  出量性质
   value: "",
   event: keyf1
 },
@@ -176,7 +181,7 @@ export default [{
   }
 },
 {
-  key: "fieldThirteen", //标题4
+  key: "fieldFifteen", //标题4
   value: "",
   event: keyf1,
   textarea: {
@@ -184,7 +189,7 @@ export default [{
   }
 },
 {
-  key: "fieldThirteen", //标题5
+  key: "fieldSixteen", //标题5
   value: "",
   event: keyf1,
   textarea: {
@@ -194,10 +199,6 @@ export default [{
 {
   key: "description", //特殊情况记录
   value: "",
-  splice: true,
-  textarea: {
-    width: 150
-  },
   style: {
     textAlign: "left",
     position: "absolute",
@@ -205,8 +206,7 @@ export default [{
     bottom: "1px",
     left: "1px",
     width: "180px",
-    background: "transparent",
-    fontSize: "14px"
+    background: "transparent"
   },
   event: function (e, td) {
     console.log(e.keyCode);
