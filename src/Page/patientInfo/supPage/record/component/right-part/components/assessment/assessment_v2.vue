@@ -156,7 +156,7 @@ export default {
 
     this.bus.$on("refreshSheetPageOne", (a)=>{
       this.handleMarklist.push(...a)
-      console.log(a,this.handleMarklist,'gaohaixiong');
+      console.log(this.handleMarklist,'gaohaixiong');
     });
     this.bus.$on("delAssessmentV2", this.delAssessment);
     this.bus.$on("setAssessmentLoadingStatusV2", this.setLoadingStatus);

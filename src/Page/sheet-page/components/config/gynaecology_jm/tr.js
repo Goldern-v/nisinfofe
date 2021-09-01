@@ -12,13 +12,19 @@ export default [{
     key: "recordMonth", //日期
     value: "",
     event: event_date,
-    click: click_date
+    click: click_date,
+    textarea: {
+      width: 60
+    }
   },
   {
     key: "recordHour", //时间
     value: "",
     event: event_time,
-    click: click_time
+    click: click_time,
+    textarea: {
+      width: 60
+    }
   },
   {
     key: "temperature", //体温
@@ -256,8 +262,12 @@ export default [{
   },
   {
     key: "sign",
-    value: ""
+    value: "",
+    textarea: {
+      width: 80
+    },
   },
+
   // {
   //   key: "audit",
   //   value: ""

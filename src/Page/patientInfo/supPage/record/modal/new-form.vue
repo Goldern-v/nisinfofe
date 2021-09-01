@@ -370,6 +370,25 @@ export default {
           label: "交接记录单",
         },
       ],
+      // guizhouOptions: [
+
+      //   // {
+      //   //   value: "eval",
+      //   //   label: "全部",
+      //   // },
+      //   {
+      //     value: "1",
+      //     label: "通用护理评估单",
+      //   },
+      //   {
+      //     value: "specialistScoring",
+      //     label: "专科护理评估单",
+      //   },
+      //   {
+      //     value: "authorization",
+      //     label: "知情同意书",
+      //   },
+      // ],
       guizhouOptions: [
         // {
         //   value: "1",
@@ -380,13 +399,29 @@ export default {
           label: "通用护理评估单",
         },
         {
-          value: "specialistScoring",
+          value: "common",
+          label: "通用护理表单",
+        },
+        {
+          value: "specialistEval",
           label: "专科护理评估单",
+        },
+        {
+          value: "specialistForm",
+          label: "专科护理表单",
         },
         {
           value: "authorization",
           label: "知情同意书",
         },
+        // {
+        //   value: "specialistScoring",
+        //   label: "专科护理评估单",
+        // },
+        // {
+        //   value: "authorization",
+        //   label: "知情同意书",
+        // },
       ],
       formType: getInitFormType(this.HOSPITAL_ID),
       pageLoading: true,
@@ -447,12 +482,16 @@ export default {
       if (
         [
           "1",
+          "eval",
           "monitor",
           "sens",
           "firstRecord",
           "handover",
           "specialistScoring",
           "authorization",
+          "common",
+          "specialistEval",
+          "specialistForm",
         ].includes(this.formType)
       ) {
         let token = window.app.$getCookie("NURSING_USER").split("##")[1];

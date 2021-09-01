@@ -164,7 +164,11 @@ export default {
         name: `护士<br/>签名
         `,
         colspan: "1",
-        rowspan: "3"
+        rowspan: "3",
+        style: {
+          minWidth: '40px',
+          maxWidth: '40px',
+        },
       }
     ],
     mid: [{
