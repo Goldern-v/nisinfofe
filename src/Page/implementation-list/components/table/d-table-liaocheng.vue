@@ -155,7 +155,7 @@
               <span v-if="item.type == 1">(补)</span>
             </div>
           </div>
-          <div style="text-align: left" v-else>
+          <div style="text-align: left" v-else-if="item.executeType=='输液'">
             <div>配药人：{{ scope.row.peiNurse }}</div>
             <div v-if="scope.row.peiTime">{{ scope.row.peiTime | ymd }}</div>
             <div v-if="scope.row.peiTime">{{ scope.row.peiTime | hms }}</div>
@@ -301,7 +301,7 @@
           >
           <el-button
             type="text"
-            @click="editTime(scope.row)"
+            @click="editTime(item)"
             
             v-if="
               isEdit &&
