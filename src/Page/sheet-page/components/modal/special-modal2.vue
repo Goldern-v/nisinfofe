@@ -43,7 +43,7 @@
         </div>
         <el-tabs v-model="activeTab" class="tab-content" type="card">
           <el-tab-pane label="固定项目" name="1" :disabled="isDisabed">
-             <div v-if="HOSPITAL_ID == 'hj'">
+            <div v-if="HOSPITAL_ID == 'hj'">
               <div class="input-row" flex="main:justify">
                 <div class="input-cell" flex="cross:center" flex-box="1">
                   <div class="label">体温：</div>
@@ -208,7 +208,8 @@
                 <div flex-box="1"></div>
               </div>
             </div>
-             <div v-else>
+            <div v-if="HOSPITAL_ID == 'huadu'"></div>
+            <div v-if="HOSPITAL_ID == 'liaocheng'">
               <div class="input-row" flex="main:justify">
                 <div class="input-cell" flex="cross:center" flex-box="1">
                   <div class="label">体温：</div>
@@ -530,9 +531,11 @@
             </div>
             <el-input
               v-else
+              id="tsqk-textarea"
               type="textarea"
               class="text-con"
               :readonly="isRead"
+              @blur="handleInputBlur"
               v-model="doc"
             ></el-input>
           </el-tab-pane>
@@ -800,6 +803,7 @@ export default {
     return {
       bus: bus(this),
       doc: "",
+      blurIndex: null,
       recordDate: "",
       record: [],
       table: [],
@@ -1270,7 +1274,8 @@ export default {
       if (
         this.HOSPITAL_ID != "weixian" &&
         this.sheetInfo.sheetType != "special" &&
-        this.HOSPITAL_ID != "huadu"
+        this.HOSPITAL_ID != "huadu" &&
+        this.HOSPITAL_ID != "quzhou" 
       ) {
         allDoc = "    " + this.doc;
       }
@@ -1404,6 +1409,10 @@ export default {
     isShowItem() {
       return !this.tr.find((item) => item.key == "recordMonth").hidden;
     },
+    //失去焦点
+    handleInputBlur(e) {
+      this.blurIndex = e.srcElement.selectionStart;
+    },
   },
   mounted() {
     // 打开特殊情况
@@ -1427,7 +1436,8 @@ export default {
       const regP = /(<\/?p.*?>)/gi;
       let doc = this.doc.replace(regP, "");
       let valRegP = val.replace(regP, "");
-      this.doc = doc + valRegP;
+      let index = this.blurIndex;
+      this.doc = doc.slice(0, index) + valRegP + doc.slice(index);
     });
 
     // 同步护理巡视

@@ -8,6 +8,15 @@ import {
   click_time
 } from "../keyEvent/date";
 
+let 意识 = ["清醒","嗜睡","昏睡","浅昏迷","深昏迷","谵妄"];
+let 伤口敷料 = ["干枯","渗血","渗液"];
+let 护理指导 = ["A","B","C"];
+let 留置尿管 = ["留置畅通","定时夹闭尿管","拔除尿管"];
+let 基础护理 = ["温水擦浴","酒精擦浴","口腔护理","会阴护理","翻身"];
+let 留置镇痛泵 = ["A","B","C","D",];
+let 吸氧 = ["低流量","中流量","高流量","持续","停止"];
+let 特殊药物 = ["A","B","C","D",];
+
 export default [{
     key: "recordMonth", //日期
     value: "",
@@ -86,6 +95,9 @@ export default [{
     value: "",
     event: keyf1,
     name: "意识",
+    autoComplete: {
+      data: 意识
+    },
     textarea: {
       width: 50
     }
@@ -155,6 +167,9 @@ export default [{
     textarea: {
       width: 50
     },
+    autoComplete: {
+      data: 留置尿管
+    }
   },
   {
     key: "measuresThree", //留置镇痛泵
@@ -163,6 +178,10 @@ export default [{
     name: "排尿情况",
     textarea: {
       width: 50
+    },
+    splice: true,
+    autoComplete: {
+      data: 留置镇痛泵
     }
   },
   {
@@ -173,6 +192,9 @@ export default [{
     textarea: {
       width: 50
     },
+    autoComplete: {
+      data: 伤口敷料
+    }
   },
   {
     key: "measuresFive", //腹痛情况
@@ -200,6 +222,10 @@ export default [{
     textarea: {
       width: 50
     },
+    splice: true,
+    autoComplete: {
+      data: 特殊药物
+    }
   },
   {
     key: "measuresEight", //功能锻炼

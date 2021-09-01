@@ -191,7 +191,7 @@ export default {
       },
       {
         name: `
-        记录人签名
+        记录人<br/>签名
         `,
         style: {},
         colspan: "1",
@@ -202,7 +202,7 @@ export default {
       },
       {
         name: `
-        记录人签名
+        记录人<br/>签名
         `,
         style: {},
         colspan: "1",
@@ -238,9 +238,7 @@ export default {
         `,
         colspan: "1",
         rowspan: "2",
-        style: {
-          width: "62px"
-        },
+        
       },
       {
         name: `
@@ -258,9 +256,6 @@ export default {
         `,
         colspan: "1",
         rowspan: "2",
-        style: {
-          width: "62px"
-        },
       },
       {
         name: `

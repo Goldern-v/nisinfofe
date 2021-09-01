@@ -4,6 +4,7 @@ import user from './module/user'
 import index from './module/index'
 import lesion from './module/lesion'
 import form from './module/form'
+import formGuizhou from './module/formGuizhou'
 import common from './module/common'
 import inBox from './module/inBox'
 import record from './module/record'
@@ -18,6 +19,7 @@ let store = new vuex.Store({
     index,
     lesion,
     form,
+    formGuizhou,
     common,
     inBox,
     record,

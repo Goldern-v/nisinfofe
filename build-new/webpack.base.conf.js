@@ -69,7 +69,8 @@ module.exports = {
           // resolve("node_modules/ecrm-element-ui"),
           resolve("node_modules/view-design"),
           // resolve("node_modules/.4.1.2@view-design"),
-          resolve("node_modules/_view-design@4.0.2@view-design")
+          resolve("node_modules/_view-design@4.0.2@view-design"),
+          resolve("node_modules/crypto-js")
         ],
         options: { plugins: ['transform-class-properties'] }
         // options: {

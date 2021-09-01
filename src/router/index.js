@@ -35,6 +35,7 @@ const templateShow = () => import("@/Page/templateShow/templateShow"); //文书�
 const resetPassword = () => import("@/Page/resetPassword/resetPassword");
 const indexXin = () => import("@/Page/index-xin/Nurse.vue");
 const indexHd = () => import("@/Page/index-xin/Nurse-hd.vue");
+const indexLiaocheng = () => import("@/Page/index-xin/Nurse-liaocheng.vue");
 const imageView = () => import("@/Part/imageView/imageView");
 const nursingDocumentation = () =>
   import("../Page/nursing-documentation/nursing-documentation.vue"); // 护理文书
@@ -149,6 +150,7 @@ const implementationListQuzhou = () =>
 const implementationListFuyou = () =>
   import("@/Page/implementation-list/implementation-list-fuyou.vue"); //江门妇幼执行单
 const bottleLabel = () => import("@/Page/bottleLabel/index.vue"); //瓶签打印
+const bottleLabelByProgram = () => import("@/Page/implementation-list/bottle-sign-print.vue"); //瓶签打印
 
 const dcList = () => import("@/Page/dc-list/dc-list.vue"); //执行单
 const patientList = () => import("@/Page/patientList/index"); //执行单
@@ -163,6 +165,8 @@ const newSingleTemperatureChartJmfy = () =>
   import("@/Page/temperature-chart/new-singleTemperature-chart-jmfy/new-singleTemperature-chart.vue"); //江门妇幼医院-新版体温单录入页面
   const newSingleTemperatureChartBhry = () =>
   import("@/Page/temperature-chart/new-singleTemperature-chart-beihairenyi/new-singleTemperature-chart.vue");//北海人民医院-新版体温单录入页面
+  const newSingleTemperatureChartQuzhou = () =>
+  import("@/Page/temperature-chart/new-singleTemperature-chart-quzhou/new-singleTemperature-chart.vue");//曲周医院-新版体温单录入页面
 const newSingleTemperatureChartDghl = () =>
   import("@/Page/temperature-chart/new-singleTemperature-chart-dghl/new-singleTemperature-chart.vue");
 const showPatientDetails = () =>
@@ -205,6 +209,7 @@ import temperatureGuizhou from "@/Page/patientInfo/supPage/temperature/temperatu
 import temperatureBhry from "@/Page/patientInfo/supPage/temperature/temperatureBhry";
 import temperatureJmfy from "@/Page/patientInfo/supPage/temperature/temperatureJmfy";
 import temperatureDghl from "@/Page/patientInfo/supPage/temperature/temperatureDghl";
+import temperatureQuZhou from "@/Page/patientInfo/supPage/temperature/temperatureQuZhou";
 import temperatureWuJing from "@/Page/patientInfo/supPage/temperature/temperatureWuJing";
 import diagnosis from "@/Page/patientInfo/supPage/diagnosis/diagnosis";
 import bloodSugar from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar.vue"; // 厚街
@@ -301,6 +306,8 @@ const router = new Router({
             return temperatureJmfy
           case 'hengli':
             return temperatureDghl
+            case 'quzhou':
+            return temperatureQuZhou
           case 'wujing':
             return temperatureWuJing
           default:
@@ -333,6 +340,8 @@ const router = new Router({
           switch (HOSPITAL_ID) {
             case 'huadu':
               return indexHd
+            case 'liaocheng':
+              return indexLiaocheng
             default:
               return indexXin
           }
@@ -642,6 +651,8 @@ const router = new Router({
                 return temperatureWuJing
               case 'fuyou':
                 return temperatureJmfy
+                case 'hengli':
+                return temperatureDghl
               default:
                 return temperature
             }
@@ -750,6 +761,11 @@ const router = new Router({
         path: "/bottleLabel",
         component: bottleLabel,
         name: "瓶签打印"
+      },
+      {
+        path: "/bottleLabelByProgram",
+        component: bottleLabelByProgram,
+        name: "本地程序执行瓶签打印"
       },
       {
         path: "/healthEducationList",
@@ -919,6 +935,10 @@ const router = new Router({
               return newSingleTemperatureChartGuizhou
               case 'beihairenyi':
               return newSingleTemperatureChartBhry
+              case 'quzhou':
+              return newSingleTemperatureChartQuzhou
+              case 'hengli':
+              return newSingleTemperatureChartDghl
             case 'fuyou':
               return newSingleTemperatureChartJmfy
             default:

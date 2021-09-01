@@ -188,7 +188,7 @@ export default {
         }
       },
       {
-        name: `篮<br/>光<br/>治<br/>疗`,
+        name: `蓝<br/>光<br/>治<br/>疗`,
         colspan: "1",
         rowspan: "3",
         style: {

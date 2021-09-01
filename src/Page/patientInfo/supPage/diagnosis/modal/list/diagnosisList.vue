@@ -30,7 +30,7 @@
 </style>
 <script>
 export default {
-  inject: ["openSlideCon"],
+  inject: ["openSlideCon","openSlideContant"],
   props: {
     data: Object,
     word: String
@@ -48,7 +48,12 @@ export default {
       );
     },
     openselectDiagnosis(item) {
-      console.log(item, "item");
+      this.openSlideContant({
+        id: item.executingId,
+        code: item.code,
+        name: item.name,
+        definition: item.definition
+      });
       this.openSlideCon({
         id: item.executingId,
         code: item.code,

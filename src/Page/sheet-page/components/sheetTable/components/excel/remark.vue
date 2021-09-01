@@ -69,7 +69,7 @@
       v-if="sheetInfo.sheetType == 'neonatology_hd'"
       style="font-size: 13px; margin-top: -5px"
     >
-      备注:吸痰性质用符号表示：白色吸痰(WL),黄白稠痰(YWT),黄色稠痰(YT),血性痰(B);痰量：小量(+),中量(++),大量(+++)。
+      备注:吸痰性质用符号表示：白色吸痰(WL),黄白稠痰(YWT),黄色稠痰(YT),血性痰(B);痰量：小量(+),中量(++),大量(+++);大便单位（g）。
     </div>
     <div
       v-if="sheetInfo.sheetType == 'picc_maintenance_hd'"
@@ -107,7 +107,20 @@
         “√”表示默认前一次记录,如不一致时,用文字表示。
       </p>
     </div>
-    <!-- 江门妇幼-小儿外科护理记录单 -->
+    <!-- 江门妇幼-乳腺科护理记录单 -->
+    <div v-if="sheetInfo.sheetType == 'breastkenursing_jm'">
+      <p>
+        说明：
+        一、功能锻炼：A深呼吸，手、腕、肘关节的屈伸运动 &emsp;   B患侧上肢爬墙、振翅运动等  &emsp;  C推墙、两肩外展旋转、双上肢举高左右摇摆等
+      </p>
+      <p style="margin-left: 46px;">
+        二、中心静脉导管：A PICC通畅 &emsp;  B 输液港通畅
+      </p>
+      <p style="margin-left: 46px;">
+        三、在同一栏内（同列）记录的内容，如与前一次记录相同，可用‘√’表示默认前一次记录，如不一致时，用文字表示。
+      </p>
+    </div>
+     <!-- 江门妇幼-小儿外科护理记录单 -->
     <div v-if="sheetInfo.sheetType == 'pediatric_surgery_jm'">
       <p>
         备注：
@@ -119,6 +132,19 @@
       <p style="margin-left: 46px;">
         三 、在同一栏内(同列)记录的内容,如与前一次记录相同,可用: “√”
         表示默认前一次记录,如不一致时,用文字表示。
+      </p>
+    </div>
+    <!-- 江门妇幼-妇科护理记录单 -->
+    <div v-if="sheetInfo.sheetType == 'gynaecology_jm'">
+      <p>
+        附注代码：
+        护理指导：A入院告知 &emsp;  B防跌倒告知 &emsp;  C防药物外渗告知
+      </p>
+      <p style="margin-left: 72px;">
+        留置镇痛泵：A通畅，穿刺点无渗血 &emsp;  B通畅、穿刺点渗血、渗液 &emsp;  C拔除 &emsp;  D暂停使用
+      </p>
+      <p style="margin-left: 72px;">
+        药物使用： A米非司酮片 &emsp;  B米索前列醇片 &emsp;   C硫酸镁 &emsp;  D化疗药物
       </p>
     </div>
     <!-- 江门妇幼-输血护理记录单 -->

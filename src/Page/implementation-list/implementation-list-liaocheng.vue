@@ -17,8 +17,7 @@
             <el-radio class="radio" label>全部</el-radio>
             <el-radio class="radio" label="1">长嘱</el-radio>
             <el-radio class="radio" label="0">临嘱</el-radio>
-            <el-radio class="radio" label="2">单药处方</el-radio
-            >
+            <!-- <el-radio class="radio" label="2">单药处方</el-radio> -->
           </el-radio-group>
         </el-row>
         <span class="label">状态:</span>
@@ -291,6 +290,10 @@ export default {
           name: "未执行"
         },
         {
+          id: 1,
+          name: "执行中"
+        },
+        {
           id: 4,
           name: "已完成"
         }
@@ -378,8 +381,23 @@ export default {
 
           /** 判断是此记录是多条记录 */
           if (currentRowId == prevRowId || currentRowId == nextRowId) {
+            child.map(e=>{
+              if(e.orderText==item.orderText){item.orderText = "";item.dosage = "";item.dosageUnits = ""}
+              if(e.frequency==item.frequency){item.frequency = ""}
+              if(e.administration==item.administration){item.administration = ""}
+              if(e.executeDateTime==item.executeDateTime){
+                item.executeDateTime = "";
+                item.executeFlag= 5;
+                item.realExecuteDateTime="";
+                item.startNurse="";
+                item.endNurse="";
+                item.endDateTime=""
+              }
+            })
             child.push(item);
-            children.push(item);
+            if(item.executeType=="输液"){
+              children.push(item)
+            }
             if (currentRowId != prevRowId) {
               /** 第一条 */
               item.rowType = 1;
@@ -387,12 +405,12 @@ export default {
             } else if (currentRowId != nextRowId) {
               /** 最后条 */
               item.rowType = 3;
-
+            if(item.executeType=="输液"){
               tableData[tableData.length - 1].children = JSON.parse(
                 JSON.stringify(children)
               );
               children = [];
-
+            }
               tableData[tableData.length - 1].child = JSON.parse(
                 JSON.stringify(child)
               );
@@ -409,8 +427,8 @@ export default {
         tableData.map(item => {
           item.child = item.child ? item.child : [{ ...item }];
         });
+        console.log(tableData);
         this.tableData = [...tableData];
-
         // this.page.total = Number(res.data.data.pageCount) * this.page.pageNum;
         this.pageLoadng = false;
         // 设置表格数据

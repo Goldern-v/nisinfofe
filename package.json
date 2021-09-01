@@ -52,6 +52,7 @@
     "axios": "^0.16.2",
     "bulma": "^0.7.1",
     "cheerio": "^1.0.0-rc.2",
+    "crypto-js": "^4.1.1",
     "dayjs": "^1.7.4",
     "deepmerge": "^1.2.0",
     "ecrm-element-ui": "^2.9.7",

@@ -94,7 +94,7 @@ export default {
       },
       {
         name: `
-        先露高低
+        先露高低<br/>S
         `,
         style: {
           minWidth: "20px",

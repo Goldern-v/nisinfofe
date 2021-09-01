@@ -2,7 +2,7 @@
   <div class="d-table">
     <el-table
       :data="tableData"
-      style="width: 100%"
+      style="width: 100%; overflow:hidden;"
       border
       :height="wih - 125"
       v-loading="pageLoadng"
@@ -22,24 +22,31 @@
          align="center"
       ></el-table-column>
 
+       <el-table-column
+         prop="name"
+         label="姓名"
+         min-width="65"
+         align="center"
+      ></el-table-column>
+
       <el-table-column
         prop="visitId"
         label="住院次数"
-        min-width="80"
+        min-width="45"
         align="center"
       ></el-table-column>
 
       <el-table-column
         prop="wardName"
         label="护理单元"
-        min-width="80"
+        min-width="120"
         align="center"
       ></el-table-column>
 
       <el-table-column
         prop="bedNo"
         label="床号"
-        min-width="80"
+        min-width="65"
         align="center"
       ></el-table-column>
 
@@ -71,7 +78,7 @@
         align="center"
       >
         <template slot-scope="scope">
-          <div>{{ scope.row.dischargeDateTime | ymdhm }}</div>
+          <div>{{ scope.row.dischargeDateTime | formateYMDHMS }}</div>
         </template>
       </el-table-column>
 
@@ -82,21 +89,21 @@
         align="center"
       >
         <template slot-scope="scope">
-          <div>{{ scope.row.admissionDateTime | ymdhm }}</div>
+          <div>{{ scope.row.admissionDateTime | formateYMDHMS }}</div>
         </template>
       </el-table-column>
 
       <el-table-column
         prop="doctor"
         label="医生"
-        min-width="80"
+        min-width="65"
         align="center"
       ></el-table-column>
 
       <el-table-column
         prop="nurse"
         label="责任护士"
-        min-width="80"
+        min-width="65"
         align="center"
       ></el-table-column>
 
@@ -109,6 +116,7 @@
   </div>
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
+
 .d-table {
   border: 1px solid #cbd5dd;
 
@@ -139,13 +147,16 @@
       text-align: center;
     }
   }
-
+  >>>.el-table .cell, >>>.el-table th > div{
+    padding:0 5px;
+  }
   >>>.el-table__body-wrapper {
-    // overflow-x hidden
+    overflow-x: hidden
   }
 }
 </style>
 <script>
+import moment from "moment";
 import { info } from "@/api/task";
 import commonMixin from "../../../../common/mixin/common.mixin";
 import qs from "qs";
@@ -162,17 +173,12 @@ export default {
   },
   methods: {
     async openDetail(row) {
-      console.log(row);
       if (row.notViewPatient) {
         this.$message.warning("患者已归档，用户无权查看");
         return;
       }
-      let res;
-      if(this.HOSPITAL_ID=="huadu"){
-       res = await info(row.inpNo, row.visitId);
-      }else{
-       res = await info(row.patientId, row.visitId);
-      }
+      let res = await info(row.patientId, row.visitId);
+
       for (let index in res.data.data) {
         if (!res.data.data[index]) {
           res.data.data[index] = "";
@@ -187,5 +193,10 @@ export default {
     },
   },
   components: {},
+  filters: {
+    formateYMDHMS(val) {
+      return val ? moment(val).format("YYYY-MM-DD HH:mm:ss") : "";
+    },
+  }
 };
 </script>

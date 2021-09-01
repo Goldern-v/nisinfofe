@@ -25,6 +25,8 @@ let gsqdList = [];
 let 意识 = ['清醒', '浅昏迷', '深昏迷', '模糊', '嗜睡', '昏睡', '谵妄'];
 let 入量名称 = ['输液', '口服', '输血', '肌注', '静注', '鼻饲', '静脉泵入', '灌肠', '饮水'];
 let 出量名称 = [];
+let 出量颜色 = ['黄色','鲜红色','暗红色','墨绿色','浓茶色'];
+
 export default [{
     key: "recordMonth", //日期
     value: "",
@@ -160,7 +162,10 @@ export default [{
     key: "fieldFour", //出量颜色
     value: "",
     event: keyf1,
-    name: "出量颜色"
+    name: "出量颜色",
+    autoComplete: {
+      data: 出量颜色
+    },
   },
   {
     key: "fieldFive", //健康宣教

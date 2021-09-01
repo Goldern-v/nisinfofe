@@ -2,7 +2,7 @@ export default {
   // 科室的名称
   deptType: "",
   style: {
-    width: "1600px"
+    width: "1650px"
   },
   th: {
     top: [
@@ -78,7 +78,7 @@ export default {
         疼痛
         `,
         style: {},
-        colspan: "2",
+        colspan: "3",
         rowspan: "1"
       },
       {
@@ -132,7 +132,7 @@ export default {
         name: `
         出量 (ml)
         `,
-        colspan: "2",
+        colspan: "3",
         rowspan: "1",
         canSet: false
       },
@@ -318,6 +318,21 @@ export default {
         name: `
         部位
         `,
+        style: {
+          minWidth: "40px",
+          whiteSpace: "nowrap"
+        },
+        colspan: "1",
+        rowspan: "2"
+      },
+      {
+        name: `
+        性质
+        `,
+        style: {
+          minWidth: "40px",
+          whiteSpace: "nowrap"
+        },
         colspan: "1",
         rowspan: "2"
       },
@@ -367,7 +382,7 @@ export default {
       {
         name: ``,
         style: {},
-        colspan: "2",
+        colspan: "3",
         rowspan: "1",
         canSet: true,
         key: "field10"
@@ -412,7 +427,7 @@ export default {
         colspan: "1",
         rowspan: "1",
         style: {
-          minWidth: "25px",
+          minWidth: "40px",
           whiteSpace: "nowrap"
         }
       },
@@ -423,38 +438,56 @@ export default {
         colspan: "1",
         rowspan: "1",
         style: {
-          minWidth: "25px",
+          minWidth: "40px",
           whiteSpace: "nowrap"
         }
       },
       {
         name: `
-        补液
+        性质
         `,
         colspan: "1",
         rowspan: "1",
         style: {
-          minWidth: "25px",
+          minWidth: "40px",
           whiteSpace: "nowrap"
         }
       },
       {
-        name: ``,
-        style: {},
+        name: `
+        量
+        `,
         colspan: "1",
         rowspan: "1",
-        canSet: true,
-        key: "field9"
+        style: {
+          minWidth: "40px",
+          whiteSpace: "nowrap"
+        }
+      },
+      {
+        name: `名称`,
+        style: {
+          minWidth: "40px",
+          whiteSpace: "nowrap"
+        },
+        colspan: "1",
+        rowspan: "1"
       },
       {
         name: `性质`,
-        style: {},
+        style: {
+          minWidth: "40px",
+          whiteSpace: "nowrap"
+        },
         colspan: "1",
         rowspan: "1"
       },
       {
         name: `量`,
-        style: {},
+        style: {
+          minWidth: "40px",
+          whiteSpace: "nowrap"
+        },
         colspan: "1",
         rowspan: "1"
       },

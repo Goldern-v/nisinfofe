@@ -13,11 +13,14 @@ let 意识 = [];
 let 呼吸音 = [];
 let 瞳孔大小 = [];
 let 瞳孔反射 = [];
+let 疼痛性质 = [];
 let 疼痛部位 = [];
 let 疼痛评分 = [];
 let 饮食性质 = [];
-let 静脉补液 = [];
-let 出量性质 = [];
+let 静脉性质 = [];
+let 出量名称 = {};
+let 临时项目 = [];
+let 出量性质 = 出量名称;
 let 静脉自定义项 = [];
 let 肌力 = [];
 export default [
@@ -63,10 +66,25 @@ export default [
     key: "field1", //疼痛部位
     value: "",
     event: keyf1,
+    textarea: {
+      width: 50
+    },
     // autoComplete: {
     //   data: 疼痛部位
     // },
     name: "疼痛部位"
+  },
+  {
+    key: "painNature", //疼痛性质
+    value: "",
+    event: keyf1,
+    textarea: {
+      width: 50
+    },
+    autoComplete: {
+      data: 疼痛性质
+    },
+    name: "疼痛性质"
   },
   {
     key: "field2", //疼痛评分
@@ -112,6 +130,9 @@ export default [
     key: "field6", //饮食性质
     value: "",
     event: keyf1,
+    textarea: {
+      width: 50
+    },
     autoComplete: {
       data: 饮食性质
     },
@@ -121,39 +142,64 @@ export default [
     key: "field7", //饮食量
     value: "",
     event: keyf1,
+    textarea: {
+      width: 50
+    },
     name: "饮食量"
   },
   {
-    key: "field8", //静脉补液
+    key: "veinNature", //静脉性质
     value: "",
     event: keyf1,
-    autoComplete: {
-      data: 静脉补液
+    textarea: {
+      width: 50
     },
-    name: "静脉补液"
+    autoComplete: {
+      data: 静脉性质
+    },
+    name: "静脉性质"
   },
   {
-    key: "field9", //静脉自定义项
+    key: "field8", //静脉量
     value: "",
     event: keyf1,
-    name: "静脉自定义项",
+    textarea: {
+      width: 50
+    },
+  },
+  {
+    key: "discharge", //出量名称
+    value: "",
+    event: keyf1,
+    textarea: {
+      width: 50
+    },
     autoComplete: {
-      data: 静脉自定义项
-    }
+      data: 出量名称
+    },
+    name: "出量名称",
+    childKey: "出量性质"
   },
   {
     key: "field10", //出量性质
     value: "",
     event: keyf1,
+    textarea: {
+      width: 50
+    },
     autoComplete: {
       data: 出量性质
     },
-    name: "出量性质"
+    name: "出量性质",
+    parentKey: "出量名称"
   },
   {
-    key: "field11", //出量量
+    key: "field11", //出量
     value: "",
     event: keyf1,
+    textarea: {
+      width: 50
+    },
     name: "出量"
   },
   {
@@ -244,6 +290,9 @@ export default [
     key: "field18", //标题1
     value: "",
     event: keyf1,
+    autoComplete: {
+      data: 临时项目
+    },
     textarea: {
       width: 36
     }
@@ -252,6 +301,9 @@ export default [
     key: "field19", //标题2
     value: "",
     event: keyf1,
+    autoComplete: {
+      data: 临时项目
+    },
     textarea: {
       width: 36
     }
@@ -260,6 +312,9 @@ export default [
     key: "field20", //标题3
     value: "",
     event: keyf1,
+    autoComplete: {
+      data: 临时项目
+    },
     textarea: {
       width: 36
     }
@@ -268,6 +323,9 @@ export default [
     key: "field21", //标题4
     value: "",
     event: keyf1,
+    autoComplete: {
+      data: 临时项目
+    },
     textarea: {
       width: 36
     }
@@ -276,6 +334,9 @@ export default [
     key: "field22", //标题5
     value: "",
     event: keyf1,
+    autoComplete: {
+      data: 临时项目
+    },
     textarea: {
       width: 36
     }
@@ -284,6 +345,9 @@ export default [
     key: "field23", //标题6
     value: "",
     event: keyf1,
+    autoComplete: {
+      data: 临时项目
+    },
     textarea: {
       width: 36
     }
@@ -292,6 +356,9 @@ export default [
     key: "field24", //标题7
     value: "",
     event: keyf1,
+    autoComplete: {
+      data: 临时项目
+    },
     textarea: {
       width: 36
     }
@@ -300,26 +367,13 @@ export default [
     key: "field25", //标题8
     value: "",
     event: keyf1,
+    autoComplete: {
+      data: 临时项目
+    },
     textarea: {
       width: 36
     }
   },
-  // {
-  //   key: "field24", //标题5
-  //   value: "",
-  //   event: keyf1,
-  //   textarea: {
-  //     width: 36
-  //   }
-  // },
-  // {
-  //   key: "field25", //标题6
-  //   value: "",
-  //   event: keyf1,
-  //   textarea: {
-  //     width: 36
-  //   }
-  // },
   {
     key: "description", //特殊情况记录
     value: "",
@@ -333,7 +387,6 @@ export default [
       background: "transparent"
     },
     event: function(e, td) {
-      console.log(e.keyCode);
       if (e.keyCode == 9) {
         td.value = "    " + td.value;
         e.preventDefault();
@@ -417,6 +470,9 @@ export default [
   }
 ];
 
+let filterKey = '威县' + ':';
+let filterKey2 = '神经内科护记' + ':';
+
 export function getListData4() {
   // listItem("入量名称", info.sheetType).then(res => {
   //   ruList.splice(0, ruList.length);
@@ -439,11 +495,21 @@ export function getListData4() {
     "疼痛部位",
     "疼痛评分",
     "饮食性质",
-    "静脉补液",
-    "出量性质",
     "肌力",
-    "静脉自定义项"
+    "静脉自定义项",
+    "出量名称",
+    "神内护记尿液性质",
+    "神内护记呕吐物性质",
+    "神内护记大便性质",
+    "神内护记引流量性质",
+    "神内护记疼痛性质",
+    "神内护记静脉性质",
+    "神内护记临时项目",
   ];
+  
+  list = list.map(key => {
+    return key.includes('出量名称') ? filterKey2 + key : key;
+  });
   multiDictInfo(list).then(res => {
     let data = res.data.data;
     setList(意识, "意识", data);
@@ -454,10 +520,12 @@ export function getListData4() {
     setList(疼痛评分, "疼痛评分", data);
     setList(饮食性质, "饮食性质", data);
     setList(饮食性质, "饮食性质", data);
-    setList(静脉补液, "静脉补液", data);
-    setList(出量性质, "出量性质", data);
+    setList(静脉性质, "神内护记静脉性质", data);
+    setList(疼痛性质, "神内护记疼痛性质", data);
+    setList(临时项目, "神内护记临时项目", data);
     setList(肌力, "肌力", data);
     setList(静脉自定义项, "静脉自定义项", data);
+    setList(出量名称, "出量名称", data, true);
   });
 }
 
@@ -467,10 +535,27 @@ getListData4();
  * @param {*} list 原数组
  * @param {*} key 对应的key
  * @param {*} data 数据源
+ * @param {*} isChildOptions2 是否有子下拉选项（依赖于前一个td选择）
  */
-function setList(list, key, data) {
-  list.splice(0, list.length);
-  for (let item of data[key]) {
-    list.push(item.name);
+ function setList(list, key, data, isChildOptions2) {
+  key = key.includes('出量名称') ?  filterKey2 + key : key;
+  if (isChildOptions2) {
+    for (let item of data[key]) {
+      let arr = data[ '神内护记' + item.name + '性质'];
+      if (arr && arr.constructor == Array) {
+        arr = arr.map(function (child, index) {
+          return child.name;
+        })
+        list[item.name] = arr;
+      } else {
+        list[item.name] = '';
+      }
+    }
+  } else {
+    list.splice(0, list.length);
+    for (let item of data[key]) {
+      list.push(item.name);
+    }
   }
 }
+

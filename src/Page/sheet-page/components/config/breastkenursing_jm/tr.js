@@ -7,18 +7,26 @@ import {
   click_date,
   click_time
 } from "../keyEvent/date";
-
+let 意识 = ["清醒","嗜睡","昏睡","浅昏迷","深昏迷","谵妄"];
+let 功能锻炼 = ["A","B","C"];
+let 中心静脉导管 = ["A","B"];
 export default [{
     key: "recordMonth", //日期
     value: "",
     event: event_date,
-    click: click_date
+    click: click_date,
+    textarea: {
+      width: 50
+    }
   },
   {
     key: "recordHour", //时间
     value: "",
     event: event_time,
-    click: click_time
+    click: click_time,
+    textarea: {
+      width: 50
+    }
   },
   {
     key: "temperature", //体温
@@ -82,6 +90,9 @@ export default [{
     name: "意识",
     textarea: {
       width: 50
+    },
+    autoComplete: {
+      data: 意识
     }
   },
   {
@@ -142,6 +153,15 @@ export default [{
     },
   },
   {
+    key: "postOutputFour", //出量自定义
+    value: "",
+    event: keyf1,
+    name: "出量自定义",
+    textarea: {
+      width: 43
+    },
+  },
+  {
     key: "measuresOne", //心电监护
     value: "",
     event: keyf1,
@@ -157,6 +177,10 @@ export default [{
     name: "中心静脉导管",
     textarea: {
       width: 50
+    },
+    splice: true,
+    autoComplete: {
+      data: 中心静脉导管
     }
   },
   {
@@ -185,6 +209,10 @@ export default [{
     textarea: {
       width: 50
     },
+    splice: true,
+    autoComplete: {
+      data: 功能锻炼
+    }
   },
   {
     key: "measuresFix", //静脉化疗

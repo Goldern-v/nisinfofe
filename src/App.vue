@@ -19,6 +19,8 @@
     <setAuditDateModal ref="setAuditDateModal"></setAuditDateModal>
     <setTextModal ref="setTextModal"></setTextModal>
     <caSignModal ref="caSignModal"></caSignModal>
+    <fuyouCaSignModal ref="fuyouCaSignModal"></fuyouCaSignModal>
+    
     <!-- 锁屏界面 -->
     <ScreenLockView v-if="HOSPITAL_ID === 'zhongshanqi'" />
   </div>
@@ -46,6 +48,8 @@ import caSignModal from "@/components/modal/ca-sign";
 import common from "@/common/mixin/common.mixin";
 import detectZoom from "@/plugin/tool/detectZoom.js";
 import ScreenLockView from "@/components/screenLockView/ScreenLockView";
+import fuyouCaSignModal from "@/components/modal/fuyou-ca-sign";
+
 
 export default {
   mixins: [common],
@@ -102,6 +106,7 @@ export default {
       setTextModal: this.$refs.setTextModal,
       newFormBox: this.$refs.newFormBox,
       caSignModal: this.$refs.caSignModal,
+      fuyouCaSignModal: this.$refs.fuyouCaSignModal,
       selectDiagnosis: this.$refs.selectDiagnosis,
       formBox: this.$refs.moadl,
       formBoxEdu: this.$refs.formBoxEdu,
@@ -185,6 +190,14 @@ export default {
     window.closeCaSignModal = () => {
       this.$refs.caSignModal.close();
     };
+    /** 江门妇幼ca签名 */
+    window.openFuyouCaSignModal = (...item) => {
+      return this.$refs.fuyouCaSignModal.open(()=>{});
+    };
+    window.closeFuyouCaSignModal = () => {
+      this.$refs.fuyouCaSignModal.close();
+    };
+    //fuyouCaSignModal
     /** 关闭前提示 */
     !this.isDev &&
       !window.location.href.includes("nursingDoc") &&
@@ -336,7 +349,8 @@ export default {
     setAuditDateModal,
     setTextModal,
     caSignModal,
-    ScreenLockView
+    ScreenLockView,
+    fuyouCaSignModal
   }
 };
 </script>

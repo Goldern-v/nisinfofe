@@ -12,11 +12,12 @@ export default {
   },
   th: {
     top: [{
-        name: currYear(),
+        name: currYear() + '年',
         colspan: "2",
         rowspan: "1",
         style: {
-          minWidth: "62px"
+          minWidth: "62px",
+          maxWidth: "62px"
         },
         canSet: true,
         key: "recordYear",
@@ -64,7 +65,7 @@ export default {
         意<br/>识
         `,
         colspan: "1",
-        rowspan: "3"
+        rowspan: "3",
       },
       {
         name: `
@@ -99,7 +100,7 @@ export default {
         `,
         style: {},
         colspan: "1",
-        rowspan: "3"
+        rowspan: "3",
       },
       {
         name: `腹<br/>痛<br/>情<br/>况`,
@@ -224,7 +225,7 @@ export default {
     ],
     bottom: [
     {
-      name: "尿管",
+      name: "尿管<br/>（ml）",
       colspan: "1",
       rowspan: "1",
       style: {
@@ -233,7 +234,7 @@ export default {
       },
     },
     {
-      name: "胸壁",
+      name: "胸壁<br/>（ml）",
       colspan: "1",
       rowspan: "1",
       style: {
@@ -242,7 +243,7 @@ export default {
       },
     },
     {
-      name: "腋窝",
+      name: "腋窝<br/>（ml）",
       colspan: "1",
       rowspan: "1",
       style: {
