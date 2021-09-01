@@ -71,7 +71,15 @@
             class="print-btn"
             flex="cross:center main:center"
             @click="openBedPrint()"
-            v-if="HOSPITAL_ID != 'beihairenyi'"
+            v-if="info.deptName != '新生儿科病区'"
+          >
+            打印床头卡
+          </div>
+          <div
+            class="print-btn"
+            flex="cross:center main:center"
+            @click="openBedPrint('children')"
+            v-else-if="info.deptName == '新生儿科病区'"
           >
             打印床头卡
           </div>
@@ -145,6 +153,7 @@
     <bedModalHd ref="bedModalHd"></bedModalHd>
     <bedModalZsq ref="bedModalZsq"></bedModalZsq>
     <bedModalBh ref="bedModalBh"></bedModalBh>
+    <bedModalHl ref="bedModalHl"></bedModalHl>
     <printModal ref="printModal"></printModal>
     <archiveModal
       ref="archiveModal"
@@ -289,6 +298,7 @@ import bedModalLc from "./modal/bed-modal_lc.vue";
 import bedModalHd from "./modal/bed-modal-hd.vue";
 import bedModalZsq from "./modal/bed-modal-zsq.vue";
 import bedModalBh from "./modal/bed-modal-bh.vue";
+import bedModalHl from "./modal/bed-modal-hl.vue";
 import printModal from "./print-modal/print-modal";
 import archiveModal from "./modal/archive-modal";
 import { previewArchive } from "./modal/api/index";
@@ -333,6 +343,8 @@ export default {
         this.$refs.bedModalZsq.open();
       }else if( this.HOSPITAL_ID == "beihairenyi"){
         this.$refs.bedModalBh.open(printMode);
+      }else if( this.HOSPITAL_ID == "hengli"){
+        this.$refs.bedModalHl.open(printMode);
       } else {
         this.$refs.bedModal.open();
       }
@@ -400,7 +412,8 @@ export default {
     bedModalHd,
     InpatientRegis,
     bedModalZsq,
-    bedModalBh
+    bedModalBh,
+    bedModalHl
   }
 };
 </script>
