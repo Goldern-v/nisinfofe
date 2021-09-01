@@ -28,7 +28,7 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column prop="template" label="护理目标" min-width="150px" header-align="center" v-if="HOSPITAL_ID=='guizhou'">
+        <el-table-column prop="diagTarget" label="护理目标" min-width="150px" header-align="center" v-if="HOSPITAL_ID=='guizhou'">
         </el-table-column>
         <el-table-column label="护理目标" min-width="150px" header-align="center" v-else>
           <template slot-scope="scope">

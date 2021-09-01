@@ -99,7 +99,7 @@ const currentTargetUrl = (() => {
     case "guizhou":
       // return "http://183.63.206.194:9091" // 贵州省人民医院
       // return "http://192.168.1.54:9875" // 公司-贵州省人民医院-内网
-      return "192.168.20.250:8080" // 彬哥本地
+      return "http://192.168.20.250:8080" // 彬哥本地
 
     /** 山南市人民医院 */
     case "shannan":
