@@ -8,7 +8,7 @@ export default {
   // 科室的名称 关节骨科
   deptType: "",
   style: {
-    width: "1300px"
+    width: "1350px"
   },
   th: {
     top: [{
@@ -79,7 +79,7 @@ export default {
         出量
         `,
         style: {},
-        colspan: "3",
+        colspan: "4",
         rowspan: "1",
       },
       {
@@ -127,7 +127,7 @@ export default {
         colspan: "1",
         rowspan: "3",
         canSet: true,
-        key: "fieldSix", //标题1
+        key: "measuresSeven", //标题1
         style: {
           minWidth: "32px",
           maxWidth: "32px"
@@ -139,7 +139,7 @@ export default {
         colspan: "1",
         rowspan: "3",
         canSet: true,
-        key: "fieldSeven", //标题2
+        key: "measuresEight", //标题2
         style: {
           minWidth: "32px",
           maxWidth: "32px"
@@ -160,7 +160,11 @@ export default {
         name: `护士<br/>签名
         `,
         colspan: "1",
-        rowspan: "3"
+        rowspan: "3",
+        style: {
+          minWidth: '70px',
+          maxWidth: '70px',
+        },
       }
     ],
     mid: [{
@@ -210,13 +214,13 @@ export default {
       },
       {
         name: "引流量及性质",
-        colspan: "3",
+        colspan: "4",
         rowspan: "1",
       },
     ],
     bottom: [
       {
-        name: "尿管",
+        name: "尿管<br/>（ml）",
         colspan: "1",
         rowspan: "1",
         style: {
@@ -225,7 +229,7 @@ export default {
         },
       },
       {
-        name: "胸壁",
+        name: "胸壁<br/>（ml）",
         colspan: "1",
         rowspan: "1",
         style: {
@@ -234,13 +238,25 @@ export default {
         },
       },
       {
-        name: "腋窝",
+        name: "腋窝<br/>（ml）",
         colspan: "1",
         rowspan: "1",
         style: {
           minWidth: '40px',
           maxWidth: '40px',
         },
+      },
+      {
+        name: ``,
+        style: {},
+        colspan: "1",
+        rowspan: "1",
+        canSet: true,
+        key: "postOutputFour", //出量自定义
+        style: {
+          minWidth: "32px",
+          maxWidth: "32px"
+        }
       },
 
     ]

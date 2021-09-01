@@ -42,9 +42,9 @@ const currentTargetUrl = (() => {
     /** 厚街 */
     case "hj":
       // return "http://120.197.141.41:9091" //厚街正式
-      return "http://120.197.141.41:9094" //东莞正式库的测试
+      // return "http://120.197.141.41:9094" //东莞正式库的测试
     // return "https://info.cr-health.com:20203" // 公司-厚街测试-外网
-    // return "http://192.168.1.54:9866" // 公司-厚街测试-内网
+    return "http://192.168.1.54:9866" // 公司-厚街测试-内网
 
     /** 威县 */
     case "weixian":
@@ -70,9 +70,9 @@ const currentTargetUrl = (() => {
 
     /** 聊城 */
     case "liaocheng":
-      // return "http://120.224.211.7:9094" //聊城正式
+      return "http://120.224.211.7:9094" //聊城正式
       // return "https://info.cr-health.com:20209" // 公司-聊城测试-外网
-      return "http://192.168.1.54:9871" //公司-聊城测试-内网
+      // return "http://192.168.1.54:9871" //公司-聊城测试-内网
 
     /** 江门妇幼 */
     case "fuyou":
@@ -115,9 +115,12 @@ const currentTargetUrl = (() => {
       // return "http://111.11.95.229:9093" //
       return "http://192.168.1.54:9879" //
 
+    case 'xiegang':
+      return "http://192.168.1.54:9882" // 测试地址-内网地址
+
     /** 默认公司本地内网厚街测试环境 */
     default:
-      return "http://192.168.1.54:9866"
+      return "http://192.168.1.54:9866" 
   }
 })();
 

@@ -199,13 +199,13 @@
                 <i class="iconfont icon-hulijiludan"></i>体温单
               </el-row>
               <el-dropdown-menu slot="dropdown">
-                <!-- <el-dropdown-item :class="{active: $route.path.includes('singleTemperatureChart')}">
-                  <router-link to="/singleTemperatureChart" tag="span">
+                 <el-dropdown-item :class="{active: $route.path.includes('singleTemperatureChart')}">
+                  <router-link to="/newSingleTemperatureChart" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
                       <i class="singleTemperatureChart"></i>单人录入体温单
                     </el-row>
                   </router-link>
-                </el-dropdown-item> -->
+                </el-dropdown-item> 
                 <el-dropdown-item
                   :class="{
                     active: $route.path.includes('allTemperatureChart'),

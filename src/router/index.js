@@ -149,6 +149,7 @@ const implementationListQuzhou = () =>
 const implementationListFuyou = () =>
   import("@/Page/implementation-list/implementation-list-fuyou.vue"); //江门妇幼执行单
 const bottleLabel = () => import("@/Page/bottleLabel/index.vue"); //瓶签打印
+const bottleLabelByProgram = () => import("@/Page/implementation-list/bottle-sign-print.vue"); //瓶签打印
 
 const dcList = () => import("@/Page/dc-list/dc-list.vue"); //执行单
 const patientList = () => import("@/Page/patientList/index"); //执行单
@@ -750,6 +751,11 @@ const router = new Router({
         path: "/bottleLabel",
         component: bottleLabel,
         name: "瓶签打印"
+      },
+      {
+        path: "/bottleLabelByProgram",
+        component: bottleLabelByProgram,
+        name: "本地程序执行瓶签打印"
       },
       {
         path: "/healthEducationList",

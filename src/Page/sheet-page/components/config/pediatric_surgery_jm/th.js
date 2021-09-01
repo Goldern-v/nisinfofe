@@ -109,7 +109,7 @@ export default {
       name: `
         出量
         `,
-      colspan: '6',
+      colspan: '7',
       rowspan: '1',
       canSet: false,
     },
@@ -281,11 +281,22 @@ export default {
       }
     },
     {
-      name: ``,
+      name: `
+      其他
+      `,
       colspan: '1',
       rowspan: '2',
-      canSet: true,
-      key: 'otherDischarge',
+      style: {
+        minWidth: '32px',
+        maxWidth: '32px',
+      }
+    },
+    {
+      name: `
+      性质
+      `,
+      colspan: '1',
+      rowspan: '2',
       style: {
         minWidth: '32px',
         maxWidth: '32px',
