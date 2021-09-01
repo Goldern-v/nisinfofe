@@ -18,7 +18,9 @@
         </el-table-column>
 
         <el-table-column prop="diagName" label="护理问题" min-width="100px" header-align="center"></el-table-column>
-        <el-table-column label="护理措施计划" min-width="150px" header-align="center">
+        <el-table-column prop="diagMeasures" label="护理措施计划" min-width="150px" header-align="center" v-if="HOSPITAL_ID=='guizhou'">
+        </el-table-column>
+        <el-table-column label="护理措施计划" min-width="150px" header-align="center" v-else>
           <template slot-scope="scope">
             <div v-for="(item, index) in scope.row.measuresName" :key="index">
               <p>{{item && item.measureDetail}}</p>
@@ -26,7 +28,9 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="护理目标" min-width="150px" header-align="center">
+        <el-table-column prop="template" label="护理目标" min-width="150px" header-align="center" v-if="HOSPITAL_ID=='guizhou'">
+        </el-table-column>
+        <el-table-column label="护理目标" min-width="150px" header-align="center" v-else>
           <template slot-scope="scope">
             <span v-for="(item, index) in scope.row.targetsName" :key="index">
               {{
