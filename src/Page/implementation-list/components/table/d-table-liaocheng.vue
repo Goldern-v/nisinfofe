@@ -128,7 +128,7 @@
               {{ item.administration }}
             </div>
           </div>
-          <div style="text-align: left" v-else>
+          <div style="text-align: left" v-else-if="scope.row.executeType=='输液'">
             <div>摆药人：{{ scope.row.baiNurse }}</div>
             <div v-if="scope.row.baiTime">{{ scope.row.baiTime | ymd }}</div>
             <div v-if="scope.row.baiTime">{{ scope.row.baiTime | hms }}</div>
@@ -155,7 +155,7 @@
               <span v-if="item.type == 1">(补)</span>
             </div>
           </div>
-          <div style="text-align: left" v-else-if="item.executeType=='输液'">
+          <div style="text-align: left" v-else-if="scope.row.executeType=='输液'">
             <div>配药人：{{ scope.row.peiNurse }}</div>
             <div v-if="scope.row.peiTime">{{ scope.row.peiTime | ymd }}</div>
             <div v-if="scope.row.peiTime">{{ scope.row.peiTime | hms }}</div>
@@ -175,7 +175,7 @@
               {{ item.startNurse }}
             </div>
           </div>
-          <div style="text-align: left" v-else>
+          <div style="text-align: left" v-else-if="scope.row.executeType=='输液'">
             <div>核对人：{{ scope.row.heNurse }}</div>
             <div v-if="scope.row.heTime">{{ scope.row.heTime | ymd }}</div>
             <div v-if="scope.row.heTime">{{ scope.row.heTime | hms }}</div>
