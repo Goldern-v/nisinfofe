@@ -99,7 +99,8 @@
               HOSPITAL_ID == 'huadu' ||
                 HOSPITAL_ID == 'zhongshanqi' ||
                 HOSPITAL_ID == 'liaocheng' ||
-                HOSPITAL_ID == 'beihairenyi'
+                HOSPITAL_ID == 'beihairenyi' ||
+                HOSPITAL_ID == 'hengli'
             "
           >
             腕带打印
@@ -355,6 +356,8 @@ export default {
         this.$refs.bedModalHd.open(printMode);
       } else if (this.HOSPITAL_ID == "zhongshanqi") {
         this.$refs.bedModalZsq.open(printMode);
+      }else if (this.HOSPITAL_ID == "hengli") {
+        this.$refs.bedModalHl.open(printMode);
       }else if( this.HOSPITAL_ID == "beihairenyi"){
         this.$refs.bedModalBh.open(printMode);
       }
