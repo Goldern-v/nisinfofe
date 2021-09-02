@@ -208,7 +208,6 @@
                 <div flex-box="1"></div>
               </div>
             </div>
-            <div v-if="HOSPITAL_ID == 'huadu'"></div>
             <div v-if="HOSPITAL_ID == 'liaocheng'">
               <div class="input-row" flex="main:justify">
                 <div class="input-cell" flex="cross:center" flex-box="1">

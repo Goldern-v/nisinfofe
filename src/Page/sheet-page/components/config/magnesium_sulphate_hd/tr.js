@@ -5,7 +5,8 @@ import {
   multiDictInfo
 } from "../../../api/index";
 import {
-  keyf1
+  keyf1,
+  limitChange
 } from "../keyEvent/f1.js";
 import {
   event_date,
@@ -37,12 +38,20 @@ export default [{
   {
     key: "pulse", //脉搏
     value: "",
-    event: keyf1
+    event: keyf1,
+    textarea: {
+      width: 80
+    },
+    change: (e, td) => limitChange(e, td, 12),
   },
   {
     key: "breath", //呼吸
     value: "",
-    event: keyf1
+    event: keyf1,
+    textarea: {
+      width: 80
+    },
+    change: (e, td) => limitChange(e, td, 12),
   },
   {
     key: "bloodPressure", //血压
@@ -53,12 +62,20 @@ export default [{
         e.preventDefault();
       }
       keyf1(e, td);
-    }
+    },
+    textarea: {
+      width: 80
+    },
+    change: (e, td) => limitChange(e, td, 12),
   },
   {
     key: "fieldOne", //宫缩间歇
     value: "",
-    event: keyf1
+    event: keyf1,
+    textarea: {
+      width: 65
+    },
+    change: (e, td) => limitChange(e, td, 10),
   },
   {
     key: "fieldTwo", // 宫缩持续
@@ -67,11 +84,19 @@ export default [{
     autoComplete: {
       data: cxList
     },
+    textarea: {
+      width: 65
+    },
+    change: (e, td) => limitChange(e, td, 10),
   },
   {
     key: "fieldThree", // 尿量
     value: "",
-    event: keyf1
+    event: keyf1,
+    textarea: {
+      width: 65
+    },
+    change: (e, td) => limitChange(e, td, 10),
   },
   {
     key: "fieldFour", // 膝反射
@@ -80,21 +105,27 @@ export default [{
     autoComplete: {
       data: xfsList
     },
+    textarea: {
+      width: 65
+    },
+    change: (e, td) => limitChange(e, td, 10),
   },
   {
     key: "fieldSix", //自定义标题1
     value: "",
     event: keyf1,
+    change: (e, td) => limitChange(e, td, 18),
     textarea: {
-      width: 116
+      width: 115
     }
   },
   {
     key: "fieldFive", //自定义标题2
     value: "",
     event: keyf1,
+    change: (e, td) => limitChange(e, td, 18),
     textarea: {
-      width: 116
+      width: 115
     }
   },
   {
@@ -116,6 +147,7 @@ export default [{
         e.preventDefault();
       }
       keyf1(e, td);
+      limitChange(e, td, 11)
     }
     // oninput: next
   },
