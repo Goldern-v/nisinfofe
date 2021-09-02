@@ -44,7 +44,7 @@
       ></el-table-column>
 
       <el-table-column
-        prop="bedNo"
+        prop="bedLable"
         label="床号"
         min-width="65"
         align="center"

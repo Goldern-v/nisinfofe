@@ -651,6 +651,8 @@ const router = new Router({
                 return temperatureWuJing
               case 'fuyou':
                 return temperatureJmfy
+                case 'quzhou':
+                return temperatureQuZhou
                 case 'hengli':
                 return temperatureDghl
               default:

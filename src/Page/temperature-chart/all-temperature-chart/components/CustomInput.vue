@@ -22,6 +22,7 @@
   transition: border-color 0.3s;
   &:focus {
     border-color: #4bb08d;
+    background-color: #9adcc5;
   }
 }
 </style>
