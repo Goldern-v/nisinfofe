@@ -1,5 +1,7 @@
 import moment from "moment";
-
+import {
+  limitChange
+} from "../keyEvent/f1.js";
 function currYear() {
   return moment().format('YYYY')
 }
@@ -7,7 +9,7 @@ export default {
   // 科室的名称 关节骨科
   deptType: "",
   style: {
-    width: "1180px"
+    width: "1250px"
   },
   th: {
     top: [
@@ -145,6 +147,10 @@ export default {
         rowspan: "3",
         canSet: true,
         key: "fieldSixteen",
+        change: (e, td) => limitChange(e, td, 4),
+        textarea: {
+          width: 50
+        },
         style: {
           minWidth: "60px",
           maxWidth: "60px",
@@ -176,17 +182,23 @@ export default {
       },
       {
         name: `
-        护士签名
+        护士<br>签名
         `,
-        style: {},
+        style: {
+          minWidth: "70px",
+          maxWidth: "70px"
+        },
         colspan: "1",
         rowspan: "3"
       },
       {
         name: `
-        护士签名
+        护士<br>签名
         `,
-        style: {},
+        style: {
+          minWidth: "70px",
+          maxWidth: "70px"
+        },
         colspan: "1",
         rowspan: "3"
       }
