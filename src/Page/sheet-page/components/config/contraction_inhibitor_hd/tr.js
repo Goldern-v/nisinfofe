@@ -5,7 +5,8 @@ import {
   multiDictInfo
 } from "../../../api/index";
 import {
-  keyf1
+  keyf1,
+  limitChange
 } from "../keyEvent/f1.js";
 import {
   event_date,
@@ -34,12 +35,11 @@ export default [{
   {
     key: "pulse", //脉搏
     value: "",
-    event: keyf1
-  },
-  {
-    key: "breath", //呼吸
-    value: "",
-    event: keyf1
+    event: keyf1,
+    textarea: {
+      width: 100
+    },
+    change: (e, td) => limitChange(e, td, 10),
   },
   {
     key: "bloodPressure", //血压
@@ -50,12 +50,29 @@ export default [{
         e.preventDefault();
       }
       keyf1(e, td);
-    }
+    },
+    textarea: {
+      width: 100
+    },
+    change: (e, td) => limitChange(e, td, 10),
+  },
+  {
+    key: "breath", //呼吸
+    value: "",
+    event: keyf1,
+    textarea: {
+      width: 100
+    },
+    change: (e, td) => limitChange(e, td, 10),
   },
   {
     key: "fieldOne", //宫缩间歇
     value: "",
-    event: keyf1
+    event: keyf1,
+    textarea: {
+      width: 100
+    },
+    change: (e, td) => limitChange(e, td, 10),
   },
   {
     key: "fieldTwo", // 宫缩持续
@@ -64,27 +81,37 @@ export default [{
     autoComplete: {
       data: 持续
     },
+    textarea: {
+      width: 100
+    },
+    change: (e, td) => limitChange(e, td, 10),
   },
   {
     key: "fieldThree", // 浓度
     value: "",
-    event: keyf1
+    event: keyf1,
+    textarea: {
+      width: 100
+    },
+    change: (e, td) => limitChange(e, td, 10),
   },
   {
     key: "fieldFour", //自定义标题1
     value: "",
     event: keyf1,
     textarea: {
-      width: 46
-    }
+      width: 45
+    },
+    change: (e, td) => limitChange(e, td, 6),
   },
   {
     key: "fieldFive", //自定义标题2
     value: "",
     event: keyf1,
     textarea: {
-      width: 46
-    }
+      width: 45
+    },
+    change: (e, td) => limitChange(e, td, 6),
   },
   {
     key: "description", //特殊情况记录
@@ -105,6 +132,7 @@ export default [{
         e.preventDefault();
       }
       keyf1(e, td);
+      limitChange(e, td, 11)
     }
     // oninput: next
   },
