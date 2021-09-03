@@ -120,7 +120,8 @@
           :height="wih - 112"
           border
           v-loading="pageLoadng"
-          stripe
+          cell-mouse-enter
+          
         >
           <el-table-column
             prop="bedLabel"
@@ -435,7 +436,7 @@
         </el-table>
       </div>
       <div class="all-temperature-chart-print" ref="printable">
-        <el-table :data="tableData" border v-loading="pageLoadng" stripe>
+        <el-table :data="tableData" border v-loading="pageLoadng" >
           <el-table-column
             prop="bedLabel"
             label="床号"
@@ -749,6 +750,7 @@
       }
     }
   }
+  
 }
 
 @page {
@@ -1059,6 +1061,7 @@ export default {
     this.query.wardCode = this.deptCode;
   },
   methods: {
+
     handlePatientChange() {},
     selectedNurs() {},
     getHours() {

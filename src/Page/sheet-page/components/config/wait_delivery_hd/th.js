@@ -147,14 +147,9 @@ export default {
         rowspan: "3",
         canSet: true,
         key: "fieldSixteen",
-        change: (e, td) => limitChange(e, td, 4),
-        textarea: {
-          width: 50
-        },
         style: {
           minWidth: "60px",
           maxWidth: "60px",
-          whiteSpace: "nowrap"
         }
       },
       {

@@ -188,10 +188,11 @@
               alt
             />
             <span v-if="tr.find(item => item.key == 'auditorNo').value">/</span>
-            <span v-else-if="tr.find(item => item.key == 'signerNo2') && tr.find(item => item.key == 'signerNo2').value">/</span>
+            <!-- <span v-else-if="tr.find(item => item.key == 'signerNo2') && tr.find(item => item.key == 'signerNo2').value">/</span> -->
             <span
               v-if="
                 (sheetInfo.sheetType === 'common_hd' ||
+                  sheetInfo.sheetType === 'postpartum_hd' ||
                   sheetInfo.sheetType === 'neurosurgery_hd') &&
                   tr.find(item => item.key == 'signerNo2').value
               "

@@ -222,8 +222,7 @@ export default {
       {
         name: '日期',
         style: {
-          minWidth: '32px',
-          maxWidth: '32px',
+          Width: '60px',
         },
         colspan: '1',
         rowspan: '2'
@@ -231,8 +230,7 @@ export default {
       {
         name: '时间',
         style: {
-          minWidth: '32px',
-          maxWidth: '32px',
+          Width: '60px',
         },
         colspan: '1',
         rowspan: '2'

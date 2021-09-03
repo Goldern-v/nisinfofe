@@ -68,12 +68,12 @@ export default [{
     value: "",
     event: keyf1,
     name: "胎心部位",
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 8),
     autoComplete: {
       data: txbwList
     },
     textarea: {
-      width: 50
+      width: 55
     },
   },
   {
@@ -280,6 +280,7 @@ export default [{
         e.preventDefault();
       }
       keyf1(e, td);
+      limitChange(e, td, 11)
     }
     // oninput: next
   },

@@ -6,7 +6,7 @@ import {
 } from "../../../api/index";
 import {
   keyf1,
-  calValueChange
+  limitChange
 } from "../keyEvent/f1.js";
 import {
   event_date,
@@ -43,28 +43,44 @@ export default [{
     value: "",
     event: keyf1,
     name: "箱温/床温",
-    next: "℃"
+    next: "℃",
+    textarea: {
+      width: 35
+    },
+    change: (e, td) => limitChange(e, td, 4),
   },
   {
     key: "temperature", //体温
     value: "",
     event: keyf1,
     name: "体温",
-    next: "℃"
+    next: "℃",
+    textarea: {
+      width: 35
+    },
+    change: (e, td) => limitChange(e, td, 4),
   },
   {
     key: "pulse", //脉搏/心率
     value: "",
     event: keyf1,
     name: "心率",
-    next: "次/分"
+    next: "次/分",
+    textarea: {
+      width: 35
+    },
+    change: (e, td) => limitChange(e, td, 4),
   },
   {
     key: "breath", //呼吸
     value: "",
     event: keyf1,
     name: "呼吸",
-    next: "次/分"
+    next: "次/分",
+    textarea: {
+      width: 35
+    },
+    change: (e, td) => limitChange(e, td, 4),
   },
   {
     key: "bloodPressure", //血压
@@ -76,6 +92,10 @@ export default [{
       }
       keyf1(e, td);
     },
+    textarea: {
+      width: 55
+    },
+    change: (e, td) => limitChange(e, td, 8),
     name: "血压",
     next: "mmHg"
   },
@@ -84,7 +104,11 @@ export default [{
     value: "",
     event: keyf1,
     name: "血氧饱和度",
-    next: "%"
+    next: "%",
+    textarea: {
+      width: 35
+    },
+    change: (e, td) => limitChange(e, td, 4),
   },
   {
     key: "fieldTwo", //体位
@@ -93,7 +117,11 @@ export default [{
     name: "体位",
     autoComplete: {
       data: twList
-    }
+    },
+    textarea: {
+      width: 35
+    },
+    change: (e, td) => limitChange(e, td, 4),
   },
   {
     key: "fieldThree", //吸吮力
@@ -102,7 +130,11 @@ export default [{
     name: "吸吮力",
     autoComplete: {
       data: xslList
-    }
+    },
+    textarea: {
+      width: 35
+    },
+    change: (e, td) => limitChange(e, td, 4),
   },
   {
     key: "fieldFour", //脐部
@@ -112,33 +144,44 @@ export default [{
     autoComplete: {
       data: qbList
     },
+    textarea: {
+      width: 35
+    },
+    change: (e, td) => limitChange(e, td, 4),
   },
   {
     key: "fieldFive", //经皮胆红素
     value: "",
     event: keyf1,
     name: "经皮胆红素",
-    next: "Umol/L"
+    next: "Umol/L",
+    textarea: {
+      width: 35
+    },
+    change: (e, td) => limitChange(e, td, 4),
   },
   {
     key: "fieldNine", //胃管深度
     value: "",
     event: keyf1,
     name: "胃管深度",
-    next: "cm"
+    next: "cm",
+    textarea: {
+      width: 35
+    },
+    change: (e, td) => limitChange(e, td, 4),
   },
   {
     key: "food", //食物, 入量
     value: "",
     event: keyf1,
     name: "入量名称",
-    change: calValueChange,
+    change: (e, td) => limitChange(e, td, 10),
     textarea: {
       width: 66,
     },
     style: {
       maxWidth: '66px',
-      textAlign: "left",
     },
     autoComplete: {
       data: rlmcList
@@ -150,8 +193,9 @@ export default [{
     event: keyf1,
     name: "入量大小",
     next: "ml",
+    change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 30
+      width: 35
     },
   },
   {
@@ -159,13 +203,12 @@ export default [{
     value: "",
     event: keyf1,
     name: "出量名称",
-    change: calValueChange,
+    change: (e, td) => limitChange(e, td, 10),
     textarea: {
       width: 62,
     },
     style: {
       maxWidth: '62px',
-      textAlign: "left",
     },
     autoComplete: {
       data: clmcList
@@ -177,8 +220,9 @@ export default [{
     event: keyf1,
     name: "出量大小",
     next: "ml",
+    change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 30
+      width: 35
     },
   },
   {
@@ -186,8 +230,9 @@ export default [{
     value: "",
     event: keyf1,
     name: "出量颜色",
+    change: (e, td) => limitChange(e, td, 6),
     textarea: {
-      width: 40
+      width: 45
     },
     autoComplete: {
       data: ysList
@@ -198,8 +243,9 @@ export default [{
     value: "",
     event: keyf1,
     name: "氧疗方式",
+    change: (e, td) => limitChange(e, td, 8),
     textarea: {
-      width: 56
+      width: 55
     },
     autoComplete: {
       data: ylfsList
@@ -210,22 +256,31 @@ export default [{
     value: "",
     event: keyf1,
     name: "氧疗流量",
-    next: "L/分"
+    next: "L/分",
+    change: (e, td) => limitChange(e, td, 4),
+    textarea: {
+      width: 35
+    },
   },
   {
     key: "fieldSixteen", // 氧疗浓度
     value: "",
     event: keyf1,
     name: "氧疗浓度",
-    next: "%"
+    next: "%",
+    change: (e, td) => limitChange(e, td, 4),
+    textarea: {
+      width: 35
+    },
   },
   {
     key: "fieldSeventeenLeft", // 吸痰口腔性状
     value: "",
     name: "吸痰口腔性状",
     event: keyf1,
+    change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 30
+      width: 35
     },
     autoComplete: {
       data: xtxzList
@@ -236,8 +291,9 @@ export default [{
     value: "",
     name: "吸痰口腔痰量",
     event: keyf1,
+    change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 30
+      width: 35
     },
     autoComplete: {
       data: xtlList
@@ -248,8 +304,9 @@ export default [{
     value: "",
     name: "吸痰气管插管性状",
     event: keyf1,
+    change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 30
+      width: 35
     },
     autoComplete: {
       data: xtxzList
@@ -260,8 +317,9 @@ export default [{
     value: "",
     name: "吸痰气管插管痰量",
     event: keyf1,
+    change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 30
+      width: 35
     },
     autoComplete: {
       data: xtlList
@@ -271,8 +329,9 @@ export default [{
     key: "fieldNineteen", // 篮光治疗
     value: "",
     event: keyf1,
+    change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 30
+      width: 35
     },
     name: "篮光治疗"
   },
@@ -286,8 +345,9 @@ export default [{
       }
       keyf1(e, td);
     },
+    change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 30
+      width: 35
     },
     autoComplete: {
       data: fyList
@@ -303,8 +363,9 @@ export default [{
       }
       keyf1(e, td);
     },
+    change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 30
+      width: 35
     },
     autoComplete: {
       data: ksList
@@ -320,9 +381,10 @@ export default [{
       }
       keyf1(e, td);
     },
+    change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 36
-    }
+      width: 35
+    },
   },
   {
     key: "description", //特殊情况记录
@@ -343,6 +405,7 @@ export default [{
         e.preventDefault();
       }
       keyf1(e, td);
+      limitChange(e, td, 11)
     }
     // oninput: next
   },
