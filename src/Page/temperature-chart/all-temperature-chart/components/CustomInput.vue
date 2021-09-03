@@ -4,6 +4,7 @@
     :class="className"
     @keyup="handleKeyUp"
     @keydown="handleKeyDown"
+    @click="toRow"
     :value="value"
   />
 </template>
@@ -25,6 +26,7 @@
     background-color: #9adcc5;
   }
 }
+
 </style>
 
 <script>
@@ -94,7 +96,27 @@ export default {
         }
       }
     },
+    toRow(e){
+ let rowIndex=e.path[3].rowIndex
+var trs = e.path[4].getElementsByTagName('tr');  
+for(let i=0;i<trs.length;i++){
+  if(rowIndex===i){
+    trs[i].style.backgroundColor='green'
+  }else{
+    trs[i].style.backgroundColor=''
+  }
+}
+    },
     handleKeyUp(e) {
+      let rowIndex=e.path[3].rowIndex
+var trs = e.path[4].getElementsByTagName('tr');  
+for(let i=0;i<trs.length;i++){
+  if(rowIndex===i){
+    trs[i].style.backgroundColor='green'
+  }else{
+    trs[i].style.backgroundColor=''
+  }
+}
       if (!this.handleKeyCode.includes(e.keyCode)) {
         this.$emit("change", e.target.value);
       }
