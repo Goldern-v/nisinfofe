@@ -1,0 +1,776 @@
+{
+  "pageSetting": {
+    "size": "4A",
+    "rotation": "portrait",
+    "margin": "0",
+    "width": "750px",
+    "height": "auto",
+    "mode": "_development",
+    "style": ""
+  },
+  "formSetting": {
+    "formTitle": {
+      "hospitalName": "聊城市第二人民医院",
+      "formName": "新生儿皮肤风险评估"
+    },
+    "formHeads": [
+      {
+        "name": "name",
+        "value": null,
+        "title": "姓名",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "sex",
+        "value": null,
+        "title": "性别",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "age",
+        "value": null,
+        "title": "年龄",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "wardName",
+        "value": null,
+        "title": "病区",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "bedLabel",
+        "value": null,
+        "title": "床号",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "inpNo",
+        "value": null,
+        "title": "住院号",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "admissionDate",
+        "value": null,
+        "title": "入院日期",
+        "class": "",
+        "style": "",
+        "show": true
+      }
+    ],
+    "formTail": {
+      "showEvalScore": false,
+      "showSign": true,
+      "showAudit": true
+    },
+    "formInfo": {
+      "formCode": "E0005_3",
+      "formApiCode": "E0005_3",
+      "formName": "新生儿皮肤风险评估",
+      "status": "0",
+      "formType": "eval"
+    }
+  },
+  "dictionary": {},
+  "schemes": {},
+  "model": {},
+  "body": [
+    {
+      "name": "I003001",
+      "type": "formGroupColBox",
+      "col": 3,
+      "title": "",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "I003001",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "evalDate",
+          "type": "datePicker",
+          "title": "评估时间",
+          "titleStyle": "width:90px!important;text-align: right;",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "136px",
+          "hiddenTips": true,
+          "value": "",
+          "placeholder": "评估时间",
+          "style": "width:145px",
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "signerName",
+          "type": "input",
+          "title": "评估人",
+          "titleStyle": "width:90px!important;text-align: right;",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "136px",
+          "hiddenTips": true,
+          "value": "",
+          "placeholder": "评估人",
+          "style": "width:80px",
+          "class": null,
+          "readOnly": true
+        },
+        {
+          "name": "status",
+          "type": "input",
+          "title": "状态",
+          "titleStyle": "width:90px!important;text-align: right;",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "136px",
+          "hiddenTips": true,
+          "value": "",
+          "placeholder": "状态",
+          "style": "width:80px",
+          "class": null,
+          "readOnly": true,
+          "rule": [
+            {
+              "equals": [
+                "-1",
+                "未保存"
+              ],
+              "style": "color:gray",
+              "display": "未签名"
+            },
+            {
+              "equals": [
+                "0",
+                "已保存 "
+              ],
+              "style": "color:blue",
+              "display": "已保存"
+            },
+            {
+              "equals": [
+                "1",
+                "已签名"
+              ],
+              "style": "color:red",
+              "display": "已签名"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "",
+      "type": "formGroupTitle",
+      "level": "1",
+      "title": "一、评估内容",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "一般情况",
+      "type": "formGroupHorizontalBox",
+      "titleStyle": "text-align:left",
+      "title": "一般情况",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "一般情况",
+      "suffixDesc": "",
+      "keys": "I628001",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I628001",
+          "type": "radio",
+          "title": "胎龄>38周(1分)",
+          "code": "1",
+          "score": "1",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I628001",
+          "type": "radio",
+          "title": "33<胎龄≤38周(2分)",
+          "code": "2",
+          "score": "2",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I628001",
+          "type": "radio",
+          "title": "28<胎龄≤33周(3分)",
+          "code": "3",
+          "score": "3",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I628001",
+          "type": "radio",
+          "title": "≤28周(4分)",
+          "code": "4",
+          "score": "4",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        }
+      ]
+    },
+    {
+      "name": "意识状态",
+      "type": "formGroupHorizontalBox",
+      "title": "意识状态",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "意识状态",
+      "suffixDesc": "",
+      "keys": "I005008",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I005008",
+          "type": "radio",
+          "title": "不受限(1分)",
+          "code": "1",
+          "score": "1",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null,
+          "tips": "警觉的和活跃的"
+        },
+        {
+          "name": "I005008",
+          "type": "radio",
+          "title": "轻度受限(2分)",
+          "code": "2",
+          "score": "2",
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "tips": "昏睡"
+        },
+        {
+          "name": "I005008",
+          "type": "radio",
+          "title": "严重受限(3分)",
+          "code": "3",
+          "score": "3",
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "tips": "仅对疼痛刺激有反应（退缩、抓、呻吟、血压升高或心率升高)"
+        },
+        {
+          "name": "I005008",
+          "type": "radio",
+          "title": "完全受限(4分)",
+          "code": "4",
+          "score": "4",
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "tips": "由于意识减弱或处于镇静状态对疼痛反应迟钝(没有退缩、抓、呻吟、血压升高或心率升高)"
+        }
+      ]
+    },
+    {
+      "name": "移动",
+      "type": "formGroupHorizontalBox",
+      "title": "移动",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "移动",
+      "suffixDesc": "",
+      "keys": "I005004",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I005004",
+          "type": "radio",
+          "title": "不受限(1分)",
+          "code": "1",
+          "score": "1",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null,
+          "tips": "没有辅助下能频繁的改变位置（如转头）"
+        },
+        {
+          "name": "I005004",
+          "type": "radio",
+          "title": "轻度受限(2分)",
+          "code": "2",
+          "score": "2",
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "tips": "能独自频繁但只能轻微的改变身体或肢体位置"
+        },
+        {
+          "name": "I005004",
+          "type": "radio",
+          "title": "严重受限(3分)",
+          "code": "3",
+          "score": "3",
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "tips": "身体或肢体位置偶尔轻微的改变但不能独自频繁改变)"
+        },
+        {
+          "name": "I005004",
+          "type": "radio",
+          "title": "完全受限(4分)",
+          "code": "4",
+          "score": "4",
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "tips": "没有辅助下身体或肢体完全不能移动"
+        }
+      ]
+    },
+    {
+      "name": "活动",
+      "type": "formGroupHorizontalBox",
+      "title": "活动",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "活动",
+      "suffixDesc": "",
+      "keys": "I005003",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I005003",
+          "type": "radio",
+          "title": "不受限(1分)",
+          "code": "1",
+          "score": "1",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null,
+          "tips": "在婴儿床上"
+        },
+        {
+          "name": "I005003",
+          "type": "radio",
+          "title": "轻度受限(2分)",
+          "code": "2",
+          "score": "2",
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "tips": "在暖箱里"
+        },
+        {
+          "name": "I005003",
+          "type": "radio",
+          "title": "严重受限(3分)",
+          "code": "3",
+          "score": "3",
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "tips": "在辐射台上不使用透明塑料薄膜)"
+        },
+        {
+          "name": "I005003",
+          "type": "radio",
+          "title": "完全受限(4分)",
+          "code": "4",
+          "score": "4",
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "tips": "在辐射台上使用透明塑料薄膜"
+        }
+      ]
+    },
+    {
+      "name": "营养",
+      "type": "formGroupHorizontalBox",
+      "title": "营养",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "营养",
+      "suffixDesc": "",
+      "keys": "I005005",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I005005",
+          "type": "radio",
+          "title": "不受限(1分)",
+          "code": "1",
+          "score": "1",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null,
+          "tips": "每餐奶瓶/母乳喂养能满足生长需要"
+        },
+        {
+          "name": "I005005",
+          "type": "radio",
+          "title": "轻度受限(2分)",
+          "code": "2",
+          "score": "2",
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "tips": "管饲喂养能满足生长需要"
+        },
+        {
+          "name": "I005005",
+          "type": "radio",
+          "title": "严重受限(3分)",
+          "code": "3",
+          "score": "3",
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "tips": "少于满足生长需要的奶量（母乳/配方奶）)"
+        },
+        {
+          "name": "I005005",
+          "type": "radio",
+          "title": "完全受限(4分)",
+          "code": "4",
+          "score": "4",
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "tips": "禁食需静脉输液"
+        }
+      ]
+    },
+    {
+      "name": "潮湿",
+      "type": "formGroupHorizontalBox",
+      "title": "潮湿",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "潮湿",
+      "suffixDesc": "",
+      "keys": "I005002",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I005002",
+          "type": "radio",
+          "title": "不受限(1分)",
+          "code": "1",
+          "score": "1",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null,
+          "tips": "皮肤通常是干燥的，床单只需24小时更换一次"
+        },
+        {
+          "name": "I005002",
+          "type": "radio",
+          "title": "轻度受限(2分)",
+          "code": "2",
+          "score": "2",
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "tips": "皮肤偶尔潮湿，每天需加换一次床单"
+        },
+        {
+          "name": "I005002",
+          "type": "radio",
+          "title": "严重受限(3分)",
+          "code": "3",
+          "score": "3",
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "tips": "皮肤时常潮湿但不总是潮湿每班至少更换一次床单)"
+        },
+        {
+          "name": "I005002",
+          "type": "radio",
+          "title": "完全受限(3分)",
+          "code": "3",
+          "score": "3",
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "tips": "每次移动或翻身，皮肤都是潮湿的"
+        }
+      ]
+    },
+    {
+      "name": "evalScore",
+      "type": "formGroupColBox",
+      "col": 3,
+      "title": "",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "evalScore",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "evalScore",
+          "type": "input",
+          "title": "评估得分",
+          "titleStyle": "width:90px!important;margin:0;",
+          "hiddenTips": true,
+          "code": "evalScore",
+          "value": 0,
+          "placeholder": "评估得分",
+          "style": "width:80px",
+          "inputWidth": "136px",
+          "class": null,
+          "readOnly": true
+        },
+        {
+          "name": "evalDesc",
+          "type": "input",
+          "title": "结果程度",
+          "titleStyle": "width:90px!important;margin:0;",
+          "value": "",
+          "placeholder": "结果程度",
+          "hiddenTips": true,
+          "style": "width:80px",
+          "inputWidth": "136px",
+          "class": null,
+          "readOnly": true,
+          "rule": [
+            {
+              "min": "0",
+              "max": "13",
+              "equal": "低风险",
+              "style": "color:blue",
+              "display": "低风险"
+            },
+            {
+              "min": "13",
+              "max": "70",
+              "equal": "高风险",
+              "style": "color:red",
+              "display": "高风险"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupTitle",
+      "level": "1",
+      "title": "二、护理措施",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "",
+      "type": "formGroupVerticalBox",
+      "title": "",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "M628001",
+          "type": "checkbox",
+          "title": "每日进行全身皮肤的风险评估",
+          "code": "true",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "M628002",
+          "type": "checkbox",
+          "title": "保持床单位清洁、平整、干燥、柔软（可垫水袋、海绵垫等）",
+          "code": "true",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "M628003",
+          "type": "checkbox",
+          "title": "每4小时更换体位一次（必要时增加频次），增强患儿营养",
+          "code": "true",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "M628004",
+          "type": "checkbox",
+          "title": "抬高双足，间歇性还原（活动受限、高度水肿患儿）",
+          "code": "true",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "M628005",
+          "type": "checkbox",
+          "title": "仔细检查患儿身下及周围，是否有管道、导线、注射器、针头及针帽等",
+          "code": "true",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "M628006",
+          "type": "checkbox",
+          "title": "经口/鼻置胃管患儿，注意保护3M胶带周围皮肤",
+          "code": "true",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "M628007",
+          "type": "checkbox",
+          "title": "应用水胶体敷料保护受压部位皮肤",
+          "code": "true",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "M628008",
+          "type": "checkbox",
+          "title": "保证固定带松紧适宜（一至二指空间）",
+          "code": "true",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "M628009",
+          "type": "checkbox",
+          "title": "应用接近患儿体温的灭菌用水或经灭菌用水1：1稀释的生理盐水冲洗伤口",
+          "code": "true",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "M628010",
+          "type": "checkbox",
+          "title": "无感染伤口，应用水胶体敷料及透明敷料",
+          "code": "true",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "M628011",
+          "type": "checkbox",
+          "title": "感染伤口可以用水胶体敷料联合抗菌或抗真菌药膏",
+          "code": "true",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "M628012",
+          "type": "checkbox",
+          "title": "在辐射台上应6-8小时更换敷料，避免敷料干燥",
+          "code": "true",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "M628013",
+          "type": "checkbox",
+          "title": "其他",
+          "code": "true",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        }
+      ]
+    }
+  ],
+  "dialogs": [],
+  "header": [],
+  "footer": []
+}
