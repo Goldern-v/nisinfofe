@@ -2766,6 +2766,7 @@
         "labelWidth": "100px",
         "value": "",
         "options": [
+          "无",
           "少许",
           "月经量",
           "多于月经量"
@@ -2783,6 +2784,59 @@
         "labelWidth": "100px",
         "value": "",
         "suffixDesc": "",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
+    "title": "胎动情况",
+    "type": "formGroupVerticalBox",
+    "name": "",
+    "showTitle": false,
+    "message": "",
+    "require": "false",
+    "prefixDesc": "",
+    "suffixDesc": "",
+    "keys": "I001460",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 400,
+    "children": [
+      {
+        "name": "I001460",
+        "type": "input",
+        "label": "",
+        "labelWidth": "100px",
+        "value": "",
+        "suffixDesc": "次/分",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      },
+      {
+        "name": "I001461",
+        "type": "input",
+        "label": "增多",
+        "labelWidth": "100px",
+        "value": "",
+        "suffixDesc": "次/分",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      },
+      {
+        "name": "I001462",
+        "type": "input",
+        "label": "减少",
+        "labelWidth": "100px",
+        "value": "",
+        "suffixDesc": "次/分",
         "style": null,
         "class": null,
         "html": null,
@@ -2810,6 +2864,7 @@
         "type": "input",
         "label": "性状",
         "labelWidth": "100px",
+        "multiplechoice": true,
         "value": "",
         "options": [],
         "suffixDesc": "",
@@ -2821,7 +2876,7 @@
       {
         "name": "I100124",
         "type": "input",
-        "label": "量",
+        "label": "颜色",
         "labelWidth": "100px",
         "value": "",
         "suffixDesc": "ml",
