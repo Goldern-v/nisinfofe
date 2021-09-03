@@ -419,24 +419,25 @@
       <div
         class="bed-card-warpper wrist-strap-print"
         ref="printCon3"
-        v-show="printMode == 'wrist'"
+        v-if="printMode == 'wrist'"
       >
         <div class="bed-card-vert-con">
-          <div class="top">
-            <span>科室：{{ query.deptName }}</span>
-            <span style="margin:4px;">床位：{{ query.bedLabel }}</span>
+          <div class="title">东莞市横沥医院</div>
+          <div class="top row-item">
+            <div class="column-item">科室：{{ query.deptName }}</div>
+            <div class="column-item">床位：{{ query.bedLabel }}</div>
           </div>
           <div>
-            <div>
-              <span>{{ query.name }}</span>
-              <span>{{ query.sex }}</span>
-              <span>{{ query.age }}</span>
-              <span>住院号：{{ query.patientId }}</span>
+            <div class="row-item">
+              <div class="column-item">姓名：{{ query.name }}</div>
+              <div class="column-item">性别：{{ query.sex }}</div>
+              <!-- <span>{{ query.age }}</span> -->
             </div>
-            <div>
-              <span>入院日期：{{ query.admissionDate | ymdhm }}</span>
+            <div class="row-item">
+              <!-- <span>入院日期：{{ query.admissionDate | ymdhm }}</span> -->
+              <div class="column-item">住院号：{{ query.patientId }}</div>
             </div>
-            <div class="allergy">
+            <!-- <div class="allergy">
               <p>
                 过敏信息：
                 <span v-if="allergy1">{{ allergy1 }};</span>
@@ -444,7 +445,7 @@
                 <span v-if="allergy2">{{ allergy2 }}</span>
                 <span v-if="!(allergy1||drugGms||allergy2)">无</span>
               </p>
-            </div>
+            </div> -->
             <!-- <svg id="barcode"></svg> -->
           </div>
           <img
@@ -544,17 +545,19 @@
 .wrist-strap-print {
    .bed-card-vert-con {
       margin: 20px;
-      width: 119px;
-      height: 498px;
-      padding: 35px 8px 5px !important;
       box-sizing: border-box;
       position: relative;
-      border: 3px solid #000;
       text-align: left;
       width: 500px;
       height: auto;
       padding: 5px 0 0 0 !important;
       border: none;
+      .title{
+        width:370px;
+        text-align:center;
+        margin-top: -10px;
+        margin-bottom: 5px;
+      }
      .top {
         span {
           margin-left: 10px;
@@ -573,6 +576,16 @@
           font-size:15px !important;
         }
       }
+    .row-item{
+      display:flex;
+      justify-content:stretch;
+      width:370px;
+      margin-bottom:5px;
+
+      .column-item{
+        flex:1;
+      }
+    }
      span {
         font-size: 20px;
         line-height: 24px;
@@ -984,7 +997,6 @@ export default {
       this.printMode = printMode;
       let qr_png_value = this.query.patientId + "|" + this.query.visitId;
       var qr_png = qr.imageSync(qr_png_value, { type: "png" });
-      // var qr_png = qr.imageSync(this.query.patientId, { type: "png" });
       function arrayBufferToBase64(buffer) {
         var binary = "";
         var bytes = new Uint8Array(buffer);
@@ -999,12 +1011,6 @@ export default {
       this.qrCodeNum = this.query.patientId;
       if (this.printMode == "wrist") {
         this.title = "腕带打印";
-        JsBarcode("#barcode", this.query.patientId, {
-          lineColor: "#000",
-          width: 4,
-          height: 50,
-          fontSize: 50
-        });
       } else if (this.printMode == "v") {
         this.title = "打印床头卡";
       }else if(this.printMode == "children"){

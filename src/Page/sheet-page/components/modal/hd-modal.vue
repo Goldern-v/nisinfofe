@@ -159,6 +159,7 @@ export default {
       this.resultList2 = [];
       this.isIndeterminate = true;
       this.checkAll = false;
+      this.putGroupCount();
     },
     close() {
       this.resultList = [];

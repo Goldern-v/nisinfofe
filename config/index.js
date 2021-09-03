@@ -108,7 +108,7 @@ const currentTargetUrl = (() => {
 
     /** 武警广东省总队医院 */
     case "wujing":
-      // return "http://120.24.240.231:15091 " // 公司-武警广东省总队医院正式
+      // return "http://120.24.240.231:15091" // 公司-武警广东省总队医院正式
       return "http://192.168.1.54:9866" // 公司-武警广东省总队医院测试-内网
 
     case 'quzhou':
@@ -117,10 +117,15 @@ const currentTargetUrl = (() => {
 
     case 'xiegang':
       return "http://192.168.1.54:9882" // 测试地址-内网地址
+    
+    // 北海人医
+    case 'beihairenyi':
+      return "http://219.159.198.37:9094"  // 正式地址
+      // return "http://192.167.199.190:9091" // 测试地址
 
     /** 默认公司本地内网厚街测试环境 */
     default:
-      return "http://192.168.1.54:9866" 
+      return "http://192.168.1.54:9866"
   }
 })();
 

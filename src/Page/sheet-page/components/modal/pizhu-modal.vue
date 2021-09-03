@@ -137,7 +137,7 @@
 </style>
 <script>
 import cancelBtn from "./../../../../components/contextMenu/images/取消颜色标记.png";
-import { listItem, userDictInfo, getUser } from "../../api/recordDesc.js";
+import { listItem, userDictInfo, hengliUserDictInfo, getUser } from "../../api/recordDesc.js";
 import { saveMark } from "../../api/index.js";
 import sheetInfo from "../config/sheetInfo/index.js";
 import signModal from "@/components/modal/sign.vue";
@@ -203,9 +203,15 @@ export default {
       this.empno = this.userInfo.empNo;
       this.todoPersonList = [];
       this.todoPerson = "";
-      return userDictInfo(this.deptCode).then(res => {
-        this.todoPersonList = res.data.data;
-      });
+      if(this.HOSPITAL_ID == "hengli") {
+        return hengliUserDictInfo(this.deptCode).then(res => {
+          this.todoPersonList = res.data.data;
+        });
+      }else{
+        return userDictInfo(this.deptCode).then(res => {
+          this.todoPersonList = res.data.data;
+        });
+      }
     },
     open(tr, td) {
       console.log("批注开窗", tr, td);

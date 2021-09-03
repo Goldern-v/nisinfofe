@@ -120,7 +120,8 @@
           :height="wih - 112"
           border
           v-loading="pageLoadng"
-          stripe
+          cell-mouse-enter
+          
         >
           <el-table-column
             prop="bedLabel"
@@ -193,6 +194,7 @@
             </template>
           </el-table-column>
           <el-table-column
+          v-if="HOSPITAL_ID !== 'quzhou'"
             prop="bloodPressure"
             label="血压"
             min-width="100"
@@ -201,6 +203,36 @@
             <template slot-scope="scope">
               <custom-input
                 v-model="scope.row.bloodPressure"
+                colClass="bloodPressure"
+              />
+              <!-- <el-input v-model="scope.row.bloodPressure"></el-input> -->
+            </template>
+          </el-table-column>
+          <el-table-column
+          v-if="HOSPITAL_ID === 'quzhou'"
+            prop="amBp"
+            label="上午血压"
+            min-width="100"
+            align="center"
+          >
+            <template slot-scope="scope">
+              <custom-input
+                v-model="scope.row.amBp"
+                colClass="bloodPressure"
+              />
+              <!-- <el-input v-model="scope.row.bloodPressure"></el-input> -->
+            </template>
+          </el-table-column>
+           <el-table-column
+           v-if="HOSPITAL_ID === 'quzhou'"
+            prop="pmBp"
+            label="下午血压"
+            min-width="100"
+            align="center"
+          >
+            <template slot-scope="scope">
+              <custom-input
+                v-model="scope.row.pmBp"
                 colClass="bloodPressure"
               />
               <!-- <el-input v-model="scope.row.bloodPressure"></el-input> -->
@@ -217,7 +249,8 @@
               <!-- <el-input v-model="scope.row.stoolNum"></el-input> -->
             </template>
           </el-table-column>
-          <el-table-column
+           <el-table-column
+            v-if="HOSPITAL_ID !== 'quzhou'"
             prop="heartRate"
             label="心率"
             min-width="80"
@@ -232,6 +265,22 @@
             </template>
           </el-table-column>
           <el-table-column
+           v-if="HOSPITAL_ID === 'quzhou'"
+            prop="heartRate"
+            label="短绌心率"
+            min-width="80"
+            align="center"
+          >
+            <template slot-scope="scope">
+              <custom-input
+                v-model="scope.row.heartRate"
+                colClass="heartRate"
+              />
+              <!-- <el-input v-model="scope.row.heartRate"></el-input> -->
+            </template>
+          </el-table-column>
+          <el-table-column
+           v-if="HOSPITAL_ID !== 'quzhou'"
             prop="fieldThree"
             label="尿量"
             min-width="80"
@@ -245,7 +294,23 @@
               <!-- <el-input v-model="scope.row.fieldThree"></el-input> -->
             </template>
           </el-table-column>
+           <el-table-column
+            v-if="HOSPITAL_ID === 'quzhou'"
+            prop="drainage"
+            label="引流量"
+            min-width="80"
+            align="center"
+          >
+            <template slot-scope="scope">
+              <custom-input
+                v-model="scope.row.drainage"
+                colClass="fieldThree"
+              />
+              <!-- <el-input v-model="scope.row.fieldThree"></el-input> -->
+            </template>
+          </el-table-column>
           <el-table-column
+          v-if="HOSPITAL_ID !== 'quzhou'"
             prop="foodSize"
             label="入量"
             min-width="80"
@@ -257,6 +322,19 @@
             </template>
           </el-table-column>
           <el-table-column
+          v-if="HOSPITAL_ID === 'quzhou'"
+            prop="foodSize"
+            label="总入量"
+            min-width="80"
+            align="center"
+          >
+            <template slot-scope="scope">
+              <custom-input v-model="scope.row.foodSize" colClass="foodSize" />
+              <!-- <el-input v-model="scope.row.foodSize"></el-input> -->
+            </template>
+          </el-table-column>
+          <el-table-column
+          v-if="HOSPITAL_ID !== 'quzhou'"
             prop="dischargeSize"
             label="出量"
             min-width="80"
@@ -268,6 +346,36 @@
                 colClass="dischargeSize"
               />
               <!-- <el-input v-model="scope.row.dischargeSize"></el-input> -->
+            </template>
+          </el-table-column>
+          <el-table-column
+          v-if="HOSPITAL_ID === 'quzhou'"
+            prop="dischargeSize"
+            label="总出量"
+            min-width="80"
+            align="center"
+          >
+            <template slot-scope="scope">
+              <custom-input
+                v-model="scope.row.dischargeSize"
+                colClass="dischargeSize"
+              />
+              <!-- <el-input v-model="scope.row.dischargeSize"></el-input> -->
+            </template>
+          </el-table-column>
+          <el-table-column
+          v-if="HOSPITAL_ID === 'quzhou'"
+            prop="height"
+            label="身高"
+            min-width="80"
+            align="center"
+          >
+            <template slot-scope="scope">
+              <custom-input
+                v-model="scope.row.height"
+                colClass="curWeight"
+              />
+              <!-- <el-input v-model="scope.row.curWeight"></el-input> -->
             </template>
           </el-table-column>
           <el-table-column
@@ -285,7 +393,7 @@
             </template>
           </el-table-column>
           <el-table-column
-            v-if="HOSPITAL_ID === 'guizhou'"
+            v-if="HOSPITAL_ID === 'guizhou'||HOSPITAL_ID === 'quzhou'"
             prop="nursingEvents"
             label="护理事件"
             min-width="100"
@@ -328,7 +436,7 @@
         </el-table>
       </div>
       <div class="all-temperature-chart-print" ref="printable">
-        <el-table :data="tableData" border v-loading="pageLoadng" stripe>
+        <el-table :data="tableData" border v-loading="pageLoadng" >
           <el-table-column
             prop="bedLabel"
             label="床号"
@@ -642,6 +750,7 @@
       }
     }
   }
+  
 }
 
 @page {
@@ -952,6 +1061,7 @@ export default {
     this.query.wardCode = this.deptCode;
   },
   methods: {
+
     handlePatientChange() {},
     selectedNurs() {},
     getHours() {
@@ -984,6 +1094,10 @@ export default {
     saveAllTemperture() {
       let data = {
         blockId: "",
+        amBp:""	,//上午血压
+        pmBp:""	,//下午血压
+        drainage:"",	//引流量
+        heigh:"",
         patientId: "",
         visitId: "",
         audit: "",

@@ -208,7 +208,6 @@
                 <div flex-box="1"></div>
               </div>
             </div>
-            <div v-if="HOSPITAL_ID == 'huadu'"></div>
             <div v-if="HOSPITAL_ID == 'liaocheng'">
               <div class="input-row" flex="main:justify">
                 <div class="input-cell" flex="cross:center" flex-box="1">
@@ -1275,7 +1274,7 @@ export default {
         this.HOSPITAL_ID != "weixian" &&
         this.sheetInfo.sheetType != "special" &&
         this.HOSPITAL_ID != "huadu" &&
-        this.HOSPITAL_ID != "quzhou" 
+        this.sheetInfo.sheetType != "icu_qz"
       ) {
         allDoc = "    " + this.doc;
       }

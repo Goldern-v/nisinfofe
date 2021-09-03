@@ -252,6 +252,7 @@ export default [{
         e.preventDefault();
       }
       keyf1(e, td);
+      limitChange(e, td, 11)
     }
     // oninput: next
   },

@@ -12,7 +12,8 @@
     <table class="table-wrapper">
       <tr v-if="digits">
         <td>
-          <HeadTable class="table-top" :data="digits" :LogBabyNum="LogBabyNum"/>
+          <HeadTable v-if="!env" class="table-top" :data="digits" :LogBabyNum="LogBabyNum"/>
+          <HeadTableDiff v-else class="table-top" :data="digits" :LogBabyNum="LogBabyNum"/>
         </td>
       </tr>
       <tr v-if="digits">
@@ -57,6 +58,7 @@
 import common from "@/common/mixin/common.mixin.js";
 import FallibleImage from "@/components/FallibleImage/FallibleImage.vue";
 import HeadTable from "./head-table.vue";
+import HeadTableDiff from "./head-table-diff.vue";
 import InTable from "./in-table.vue";
 import OutTable from "./out-table.vue";
 
@@ -76,13 +78,16 @@ export default {
     total: Number
   },
   data() {
-    return {};
+    return {
+      env: ['beihairenyi'].includes(process.env.HOSPITAL_ID)
+    };
   },
   components: {
     FallibleImage,
     HeadTable,
     InTable,
-    OutTable
+    OutTable,
+    HeadTableDiff
   }
 };
 </script>
