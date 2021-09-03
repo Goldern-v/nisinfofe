@@ -48,9 +48,10 @@
           </colgroup>
           <tbody>
             <tr>
-              <td colspan="4">取血通路：
+              <td colspan="4">
+                <div class="boxTitle">取血通路：</div>
                 <input
-                  type="text"
+                  type="textarea"
                   class="bottomInput"
                   v-model="sheetInfo.relObj.qxtl"
                   :data-value="sheetInfo.relObj.qxtl"
@@ -227,12 +228,14 @@
       margin-bottom: -16px;
       td {
         border: 1px solid #000;
-        padding: 2px;
+        .boxTitle {
+        }
         .bottomInput {
           border: none;
           outline: none;
           font-size: 14px;
-          width: 80px;
+          width: 95%;
+          height: 30px;
         }
       }
     }

@@ -201,7 +201,7 @@
                   sheetInfo.sheetType === 'gynaecology_jm' ||
                   sheetInfo.sheetType === 'antenatalwaiting_jm' ||
                   sheetInfo.sheetType === 'breastkenursing_jm' ||
-                  sheetInfo.sheetType === 'obstetricnursing_jm')&&
+                  sheetInfo.sheetType === 'obstetricnursing_jm') &&
                   tr.find(item => item.key == 'signerNo2').value
               "
               >/</span
