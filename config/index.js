@@ -103,8 +103,8 @@ const currentTargetUrl = (() => {
 
     /** 山南市人民医院 */
     case "shannan":
-      return "http://124.31.235.39:9094 " // 公司-山南市人民医院正式  admin  Bcy@21qw
-      // return "http://192.168.1.54:9878" // 公司-山南市人民医院测试-内网
+      // return "http://124.31.235.39:9094 " // 公司-山南市人民医院正式  admin  Bcy@21qw
+      return "http://192.168.1.54:9878" // 公司-山南市人民医院测试-内网
 
     /** 武警广东省总队医院 */
     case "wujing":
@@ -120,8 +120,8 @@ const currentTargetUrl = (() => {
     
     // 北海人医
     case 'beihairenyi':
-      return "http://219.159.198.37:9094"  // 正式地址
-      // return "http://192.167.199.190:9091" // 测试地址
+      // return "http://219.159.198.37:9094"  // 正式地址
+      return "http://192.167.199.190:9091" // 测试地址
 
     /** 默认公司本地内网厚街测试环境 */
     default:
