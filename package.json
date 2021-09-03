@@ -22,6 +22,7 @@
     "dev:shannan": "npm run dev --shannan",
     "dev:beihairenyi": "npm run dev --beihairenyi",
     "dev:quzhou": "npm run dev --quzhou",
+    "dev:hj": "npm run dev --houjie",
     "start": "node build/dev-server.js",
     "build": "node build/build.js",
     "build:": "npm run build",
