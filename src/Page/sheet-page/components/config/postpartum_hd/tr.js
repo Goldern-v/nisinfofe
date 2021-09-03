@@ -14,15 +14,16 @@ import {
 } from "../keyEvent/date";
 import info from "../sheetInfo";
 
-const zgssList = ['软', '硬'];
-const gdgdList = ['U+1', 'U=0', 'U-1', 'U-2', 'U-3', 'U-4'];
-const rfqkList = ['-'];
-const mrqkList = ['多', '中等', '少'];
+const zgssList = ['软', '硬', '中'];
+const gdgdList = ['U+1', 'U+2', 'U+3', 'U=0', 'U-1', 'U-2', 'U-3', 'U-4'];
+const rfqkList = ['(-)'];
+const mrqkList = ['少', '中等', '多'];
 const skqkList = ['红肿', '渗液', '水肿', '(-)', '会阴(-)'];
 const 意识 = ['清醒', '浅昏迷', '深昏迷', '模糊', '嗜睡', '昏睡', '谵妄'];
 const zdjnList = ['✓'];
 const 入量名称 = ['输液', '口服', '输血', '肌注', '静注', '鼻饲', '静脉泵入', '灌肠', '饮水'];
-const 出量名称 = [];
+const 出量颜色 = ['黄色', '鲜红色', '暗红色', '墨绿色', '浓茶色'];
+const 出量名称 = ['呕吐物', '伤口引流', '腋窝引流', '胸壁引流', '胸腔引流', '心包积液', '胸腔引流液', '大便', '尿', '腹水', '脑积液', '痰液', '血液', '胃管', '尿管', '盆腔引流管', '肝下引流管','温氏孔引流管', '脾窝引流管', '伤口皮下引流管', 'T管', '隔下引流管', '人工肛', '胃造痰', '空肠造痰', '肛管引流管','杜氏窝引流管', '左肾造痰', '右肾造痰', '膀胱造痰', '左肾周引流', '右肾周引流', '耻骨后引流', '左输尿管导管引流', '右输尿管导管引流', '左肾窝引流', '右肾窝引流', '会阴部引流', '左输尿管造口支架管', '右输尿管造口支架管', '阴道出血', '术中出血', '止血球囊引流', '腹透液', '分娩时出血'];
 export default [{
     key: "recordMonth", //日期
     value: "",
@@ -91,7 +92,7 @@ export default [{
     name: "指尖血糖",
     next: "mmol/L",
     textarea: {
-      width: 43
+      width: 50
     }
   },
   {
@@ -101,7 +102,7 @@ export default [{
     name: "阴道出血",
     next: "mL",
     textarea: {
-      width: 21
+      width: 50
     }
   },
   {
@@ -146,7 +147,10 @@ export default [{
     key: "fieldFour", //出量颜色
     value: "",
     event: keyf1,
-    name: "出量颜色"
+    name: "出量颜色",
+    autoComplete: {
+      data: 出量颜色
+    },
   },
   {
     key: "fieldFive", //健康宣教

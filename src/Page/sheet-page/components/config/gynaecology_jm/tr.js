@@ -23,7 +23,7 @@ export default [{
     event: event_date,
     click: click_date,
     textarea: {
-      width: 50
+      width: 60
     }
   },
   {
@@ -32,7 +32,7 @@ export default [{
     event: event_time,
     click: click_time,
     textarea: {
-      width: 50
+      width: 60
     }
   },
   {
@@ -288,8 +288,12 @@ export default [{
   },
   {
     key: "sign",
-    value: ""
+    value: "",
+    textarea: {
+      width: 80
+    },
   },
+
   // {
   //   key: "audit",
   //   value: ""

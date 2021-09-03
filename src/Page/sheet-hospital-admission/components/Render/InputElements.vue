@@ -1,13 +1,21 @@
 
 <template>
-  <span :style="obj.elementsStyle" :class="obj.elementsClass" class="input-elements">
+  <span
+    :style="obj.elementsStyle"
+    :class="obj.elementsClass"
+    class="input-element"
+  >
     <!-- 页面正文 -->
 
     <!-- display: inline-grid;vertical-align: top; -->
     <span
-      v-for="(child,cindex) in obj"
-      :key="child.name+cindex+getUUID(child,cindex)"
-      :class="[child.elementClass,{'result-text-display':child.type=='select'},{'full-text-width':['input','datePicker'].indexOf(child.type)>-1}]"
+      v-for="(child, cindex) in obj"
+      :key="child.name + cindex + getUUID(child, cindex)"
+      :class="[
+        child.elementClass,
+        { 'result-text-display': child.type == 'select' },
+        { 'full-text-width': ['input', 'datePicker'].indexOf(child.type) > -1 },
+      ]"
       :style="child.elementStyle ? child.elementStyle : 'margin: 0 0px 0 0;'"
       class="input-element"
     >
@@ -21,21 +29,23 @@
 
       <!-- 文字显示 -->
       <span
-        v-if="child.type==='text'"
-        :label="child.value||child.title"
-        :class="child.class||''"
-        :style="child.style||''"
-      >{{formObj.model[child.name]||child.title||'空'}}{{child.name}}</span>
+        v-if="child.type === 'text'"
+        :label="child.value || child.title"
+        :class="child.class || ''"
+        :style="child.style || ''"
+        >{{ formObj.model[child.name] || child.title || "空"
+        }}{{ child.name }}</span
+      >
 
       <!-- 图片显示 -->
       <span>
         <img
-          v-if="child.type==='help'"
+          v-if="child.type === 'help'"
           :src="helpImg"
           :alt="child.title"
           :class="child.class"
           :style="child.style"
-          @click="helpClick($event,child)"
+          @click="helpClick($event, child)"
           width="24"
         />
       </span>
@@ -43,22 +53,32 @@
       <!-- 人体图按钮显示显示 -->
       <span>
         <span
-          v-if="child.type==='bodyBtn'"
+          v-if="child.type === 'bodyBtn'"
           :class="child.class"
-          :style="'color:#0000FF;cursor:pointer;padding-left:5px;padding-top:9px;display: block;' + child.style"
-          @click="openBodyModal($event,child)"
+          :style="
+            'color:#0000FF;cursor:pointer;padding-left:5px;padding-top:9px;display: block;' +
+            child.style
+          "
+          @click="openBodyModal($event, child)"
           width="24"
-        >人体图</span>
+          >人体图</span
+        >
       </span>
 
       <!-- 人体图显示显示 -->
       <span>
-        <Body v-if="child.type==='body'" :class="child.class" :obj="child" :formObj="formObj">人体图</Body>
+        <Body
+          v-if="child.type === 'body'"
+          :class="child.class"
+          :obj="child"
+          :formObj="formObj"
+          >人体图</Body
+        >
       </span>
 
       <!-- 多选 -->
       <Checkbox
-        v-if="child.type==='checkbox'"
+        v-if="child.type === 'checkbox'"
         :obj="child"
         :formObj="formObj"
         class="checkbox-input"
@@ -66,7 +86,7 @@
 
       <!-- 单选 -->
       <Radiobox
-        v-if="child.type==='radio' && !child.tips"
+        v-if="child.type === 'radio' && !child.tips"
         :obj="child"
         :formObj="formObj"
         class="radio-input"
@@ -86,16 +106,27 @@
       >{{child.title}}</el-checkbox>-->
 
       <el-tooltip
-        class="item"
+        class="item itemlist"
         effect="light"
         placement="top"
-        v-if="child.type==='radio' && child.tips"
+        v-if="child.type === 'radio' && child.tips"
+        style="
+          max-width: 250px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        "
       >
         <div class="el-tooltip-content" slot="content">
           <div v-html="child.tips"></div>
         </div>
         <!-- 单选 -->
-        <Radiobox v-if="child.type==='radio'" :obj="child" :formObj="formObj" class="radio-input" />
+        <Radiobox
+          v-if="child.type === 'radio'"
+          :obj="child"
+          :formObj="formObj"
+          class="radio-input"
+        />
         <!-- <el-checkbox
           v-if="child.type==='radio' && child.tips"
           v-model="radioValue"
@@ -110,13 +141,27 @@
       </el-tooltip>
 
       <!-- 单选box -->
-      <span v-if="child.type==='radioBox'" style="display: flex" :style="child.style">
+      <span
+        v-if="child.type === 'radioBox'"
+        style="display: flex"
+        :style="child.style"
+      >
         <span
-          :style="{width: child.labelWidth}"
-          style="text-align: right; padding-right: 10px;    padding-left: 4px;box-sizing: border-box"
-        >{{child.label}}</span>
+          :style="{ width: child.labelWidth }"
+          style="
+            text-align: right;
+            padding-right: 10px;
+            padding-left: 4px;
+            box-sizing: border-box;
+          "
+          >{{ child.label }}</span
+        >
         <span>
-          <InputElements v-if="child.children" :obj="child.children" :formObj="formObj" />
+          <InputElements
+            v-if="child.children"
+            :obj="child.children"
+            :formObj="formObj"
+          />
         </span>
       </span>
 
@@ -127,25 +172,47 @@
 
       <!-- :getOtherText="''" -->
       <!-- 下拉输入框 -->
-      <SelectInputBox v-if="child.type==='select'" :obj="child" :formObj="formObj" :col="col" />
+      <SelectInputBox
+        v-if="child.type === 'select'"
+        :obj="child"
+        :formObj="formObj"
+        :col="col"
+      />
 
       <!-- 输入框 -->
-      <InputBox v-if="child.type==='input'" :obj="child" :formObj="formObj" :col="col" />
+      <InputBox
+        v-if="child.type === 'input'"
+        :obj="child"
+        :formObj="formObj"
+        :col="col"
+      />
 
       <!-- <el-input v-if="child.type==='input'"  placeholder="" v-model="formObj.model[child.name]" :class="child.class||''" :style="child.style||''" size="small" @click.native.stop="inputClick($event, child)" ><template v-if="child.title" slot="prepend">{{child.title}}</template></el-input>{{child.name}} -->
 
       <!-- 日期 -->
       <DatePicker
-        v-if="['datePicker','dateTime'].indexOf(child.type)>-1"
+        v-if="['datePicker', 'dateTime'].indexOf(child.type) > -1"
         :obj="child"
         :formObj="formObj"
       />
 
       <!-- 备注 -->
-      <Mark v-if="child.type==='mark'" :obj="child" :formObj="formObj" :col="col" />
+      <Mark
+        v-if="child.type === 'mark'"
+        :obj="child"
+        :formObj="formObj"
+        :col="col"
+      />
 
       <!-- 子项递归 -->
-      <span v-if="child && child.children && child.children.length>0 && child.type != 'radioBox'">
+      <span
+        v-if="
+          child &&
+          child.children &&
+          child.children.length > 0 &&
+          child.type != 'radioBox'
+        "
+      >
         <InputElements
           :obj="child.children"
           :formObj="formObj"
@@ -162,11 +229,20 @@
         v-if="getOtherText(child) && getOtherText(child)!='null'  && formObj.model[child.name]"
         @click="openTip(child)"
       >{{child.postTitle||child.title}}:{{getOtherText(child)}}{{child.postText}}</span>-->
-      <el-tooltip class="item" effect="light" placement="left" v-if="dialogResult(child).isShow">
-        <div slot="content" style="max-width:200px">
-          <span v-html="dialogResult(child,true).html"></span>
+      <el-tooltip
+        class="item"
+        effect="light"
+        placement="left"
+        v-if="dialogResult(child).isShow"
+      >
+        <div slot="content" style="max-width: 200px">
+          <span v-html="dialogResult(child, true).html"></span>
         </div>
-        <span class="tip" v-html="dialogResult(child).html" @click="openTip(child)"></span>
+        <span
+          class="tip"
+          v-html="dialogResult(child).html"
+          @click="openTip(child)"
+        ></span>
       </el-tooltip>
       <!-- <span>{{dialogResult(child).isShow}}</span> -->
     </span>
@@ -200,12 +276,12 @@ export default {
     formObj: Object,
     col: {
       type: Number,
-      default: 1
+      default: 1,
     },
     objIndex: {
       type: Number,
-      default: -1
-    }
+      default: -1,
+    },
   },
   components: {
     FormGroupHTML,
@@ -221,7 +297,7 @@ export default {
     SelectBox,
     SelectInputBox,
     DatePicker,
-    Body
+    Body,
   },
   data() {
     return {
@@ -232,7 +308,7 @@ export default {
       element: {},
       childIndex: 0,
       indexArray: [],
-      otherDialog
+      otherDialog,
     };
   },
   computed: {
@@ -241,7 +317,7 @@ export default {
         return this.formObj.formSetting.formInfo.formCode;
       } catch (error) {}
       return "E0001";
-    }
+    },
   },
   watch: {
     radioValue(valueNew, oldvaule) {
@@ -265,7 +341,7 @@ export default {
       if (this.$root.$refs[this.formCode][refName]) {
         this.$root.$refs[this.formCode][refName].value = value;
       }
-    }
+    },
   },
   mounted() {
     if (!this.formObj.model[this.elementName]) {
@@ -290,7 +366,7 @@ export default {
           if (object.hasOwnProperty(key)) {
             let element = object[key];
 
-            let childObj = this.obj.find(item => {
+            let childObj = this.obj.find((item) => {
               return key.indexOf(item.type + item.name + item.title) > -1;
             });
 
@@ -343,7 +419,7 @@ export default {
       let html = "";
       let newLine = "<br/>";
       if (child.rule && child.rule.hasOwnProperty("dialog") > -1) {
-        let d = child.rule.filter(item => {
+        let d = child.rule.filter((item) => {
           return item.dialog;
         });
         if (d && d.length > 0) {
@@ -361,7 +437,7 @@ export default {
       }
       if (isShow) {
         // console.log('!!!dialogs',dialog[0].dialog.title,dialog)
-        dialog.map(d => {
+        dialog.map((d) => {
           if (d) {
             let title = d.title || d.dialog.title || "";
             // console.log("!!!==!!!", title, d, d.parentName, child);
@@ -393,9 +469,9 @@ export default {
                   //   child.name,
                   //   this.formObj.model[child.name]
                   // );
-                  html += `<span><span style='${obj.style}'>${this.formObj
-                    .model[d.dialog.parentName] || ""}${obj.suffixDesc ||
-                    ""}</span></span>`;
+                  html += `<span><span style='${obj.style}'>${
+                    this.formObj.model[d.dialog.parentName] || ""
+                  }${obj.suffixDesc || ""}</span></span>`;
                   hasNewLine ? (html += newLine) : (html = html);
                 }
                 //
@@ -426,9 +502,9 @@ export default {
                   child.title.indexOf("VTE") === -1 &&
                   !cleanKeyCheck()
                 ) {
-                  html += `<span><span style='${obj.style}'>${this.formObj
-                    .model[d.dialog.parentName] || ""}${obj.suffixDesc ||
-                    ""}</span></span>`;
+                  html += `<span><span style='${obj.style}'>${
+                    this.formObj.model[d.dialog.parentName] || ""
+                  }${obj.suffixDesc || ""}</span></span>`;
                   hasNewLine ? (html += newLine) : (html = html);
                 }
               } else {
@@ -452,8 +528,9 @@ export default {
                   ) {
                     title = obj.aliasTitle || obj.label || obj.title;
                     console.log("formGroup:title", title);
-                    html += `<span>${this.formObj.model[obj.name] ||
-                      ""}${obj.suffixDesc || ""}</span>`;
+                    html += `<span>${this.formObj.model[obj.name] || ""}${
+                      obj.suffixDesc || ""
+                    }</span>`;
                     hasNewLine ? (html += newLine) : (html = html);
                   }
                 }
@@ -473,7 +550,7 @@ export default {
                 console.log("error", e);
               }
               //
-              let handleChild = children => {
+              let handleChild = (children) => {
                 if (children) {
                   children.map((child, cindex) => {
                     title =
@@ -491,9 +568,9 @@ export default {
                     //
                     if (child.children) {
                       if (this.formObj.model[child.name]) {
-                        html += `<span style='margin-right:5px'><span style='color:green'>!!!${title}</span>:<span>${this
-                          .formObj.model[child.name] || ""}${child.suffixDesc ||
-                          ""}</span></span>`;
+                        html += `<span style='margin-right:5px'><span style='color:green'>!!!${title}</span>:<span>${
+                          this.formObj.model[child.name] || ""
+                        }${child.suffixDesc || ""}</span></span>`;
                         // hasNewLine?html+=newLine:html=html;
                         hasNewLine
                           ? (html += newLine)
@@ -517,8 +594,9 @@ export default {
                       ) {
                         html += `<span><span style='color:green'>${title}</span>:<span style='${
                           child.style
-                        }'>${this.formObj.model[child.name] ||
-                          ""}${child.suffixDesc || ""}</span></span>`;
+                        }'>${this.formObj.model[child.name] || ""}${
+                          child.suffixDesc || ""
+                        }</span></span>`;
                         // hasNewLine?html+=newLine:html=html;
                         hasNewLine
                           ? (html += newLine)
@@ -550,7 +628,7 @@ export default {
       }
       let result = {
         isShow: isShow,
-        html: html
+        html: html,
       };
 
       return result;
@@ -650,25 +728,25 @@ export default {
       if (e.target.tagName !== "INPUT") {
         return;
       }
-      let index = this.formObj.selectedItems.findIndex(c => {
+      let index = this.formObj.selectedItems.findIndex((c) => {
         return c.name === child.name && c.title === child.title;
       });
       if (index === -1) {
-        this.formObj.selectedItems = this.formObj.selectedItems.filter(c => {
+        this.formObj.selectedItems = this.formObj.selectedItems.filter((c) => {
           return c.name !== child.name;
         });
         this.formObj.selectedItems.push(child);
       }
       if (this.radioValue && this.radioValue == (child.code || child.title)) {
         this.radioValue = "";
-        this.formObj.selectedItems = this.formObj.selectedItems.filter(c => {
+        this.formObj.selectedItems = this.formObj.selectedItems.filter((c) => {
           return c.name !== child.name;
         });
         console.log("取消选中", "index", index, this.formObj.selectedItems);
       }
       let score = 0;
       // 计算总分
-      this.formObj.selectedItems.map(item => {
+      this.formObj.selectedItems.map((item) => {
         score += ~~item.score;
       });
       //
@@ -705,7 +783,7 @@ export default {
         console.log("child.dialog", child.dialog, this.$refs, this.$root.$refs);
         try {
           // this.$root.$refs.dialogBox.$el.draggable = true
-          child.dialog["callback"] = res => {
+          child.dialog["callback"] = (res) => {
             console.log("表单填写结果", res);
           };
           this.$root.$refs.dialogBox.openBox(child.dialog); //$el draggable
@@ -718,13 +796,13 @@ export default {
       let config = {
         list: this.$root.$refs[this.formCode][child.name].currentValue || "",
         mode: 1,
-        callback: res => {
+        callback: (res) => {
           console.log("人体图结果:", res);
           // this.$root.$refs[this.formCode][child.name].$refs.input.value = res;
           this.$root.$refs[this.formCode][child.name].setCurrentValue(res);
           this.formObj.model[child.name] = res;
           // this.$root.$refs[this.formCode][child.name].value = res;
-        }
+        },
       };
       this.$root.$refs.bodyModal.openBox(config);
     },
@@ -753,14 +831,14 @@ export default {
       let multiplechoice = child.multiplechoice ? child.multiplechoice : false;
       //
       let itemClick = null;
-      let inputValue = this.$root.$refs[this.formCode][child.name].$parent
-        .inputValue;
+      let inputValue =
+        this.$root.$refs[this.formCode][child.name].$parent.inputValue;
       // 多选
       if (multiplechoice === true) {
         itemClick = inputValue + "";
       }
       //
-      console.log([multiplechoice,itemClick, child], "openTip");
+      console.log([multiplechoice, itemClick, child], "openTip");
       //
       this.$root.$refs[this.formCode][child.name].$parent.checkValueRule(
         inputValue,
@@ -777,86 +855,103 @@ export default {
           this.$root.$refs.autoInput.closeBox();
         }
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
-
-.el-checkbox,
-.el-select,
-.is-bordered,
-.el-checkbox--small,
-.el-input,
-.el-input--small,
-.el-input-group,
-.el-input-group--prepend
+.el-checkbox, .el-select, .is-bordered, .el-checkbox--small, .el-input, .el-input--small, .el-input-group, .el-input-group--prepend {
   margin: 5px 0px;
+}
 
-
-.el-radio
+.el-radio {
   min-width: 100px;
   // padding 0px 0 0px 5px
-  white-space normal
+  white-space: normal;
+}
 
-.el-radio-long
+.el-radio-long {
   min-width: 130px;
-  white-space normal
-  margin: 0px 10px 0px 0px!important;
+  white-space: normal;
+  margin: 0px 10px 0px 0px !important;
+}
 
-.el-input__inner.el-input__inner.el-input__inner
+.el-input__inner.el-input__inner.el-input__inner {
   width: 100%;
-  padding: 0px 5px!important;
-  height: 22px!important;
-  &:hover,:focus
-    border 1px solid #4baf8d
+  padding: 0px 5px !important;
+  height: 22px !important;
 
-.input-elements
+  &:hover, :focus {
+    border: 1px solid #4baf8d;
+  }
+}
+
+.input-elements {
   display: inline-flex;
   flex-wrap: wrap;
-  width:100%;
+  width: 100%;
+}
 
-.input-elements-nowrap
+.input-elements-nowrap {
   display: flex;
   flex-wrap: nowrap;
+  align-items: flex-start;
+}
 
-.vertical-top
+.vertical-top {
   display: inline-grid;
   vertical-align: top;
+}
 
-.help-image
+.help-image {
   padding-top: 7px;
   cursor: pointer;
   position: absolute;
+}
 
-.el-tooltip-content
-  max-width: 270px!important;
+.el-tooltip-content {
+  max-width: 270px !important;
   text-align: justify;
   font-size: 14px;
   line-height: 1.5em;
   letter-spacing: 0px;
-.tip
-  font-size 12px
-  color blue
+}
+
+.tip {
+  font-size: 12px;
+  color: blue;
   // margin-bottom 4px
-  // display inherit
-  cursor pointer
+  display: inherit;
+  cursor: pointer;
   position: relative;
   bottom: 8px;
+  vertical-align: bottom;
+}
 
-.result-text-display
-    text-overflow: ellipsis;
-    overflow: hidden;
-    width: 100%;
-    white-space: nowrap;
-    display: inline;
-    color: blue;
-    font-size: 12px;
+.result-text-display {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  width: auto;
+  white-space: nowrap;
+  display: inline;
+  color: black;
+  font-size: 12px;
+  max-width: 300px;
 
-.full-text-width
-  width:100%;
+  &.align {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 5px;
+  }
+}
 
+.el-input {
+  width: 228px;
+}
 
+.result-text-noeffect {
+  max-width: initial;
+}
 </style>

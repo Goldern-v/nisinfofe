@@ -148,7 +148,7 @@ export default [
   },
   {
     // hidden: true,
-    key: "signerName",
+    key: "signerName", //
     value: ""
   },
   {

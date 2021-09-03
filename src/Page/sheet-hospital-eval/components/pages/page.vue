@@ -8,7 +8,7 @@
     ></div>
     <div :style="isShow?'display:block':'display:none'">
       <keep-alive exclude="page,RenderForm">
-        <RenderForm :sourceObj="fileJSON" :updateFunc="updateFunc" :lock="status == 1"/>
+        <RenderForm :sourceObj="fileJSON" :updateFunc="updateFunc" :lock="status == 1" v-if="isNewPage"/>
       </keep-alive>
     </div>
     <div :style="isShow?'display:none':'display:block;backgroud:white;'">
@@ -49,7 +49,8 @@ export default {
       isShow: false,
       isShowLoadingLayout: true,
       message: "请选择左侧患者~",
-      status: 0
+      status: 0,
+      isNewPage:true
     };
   },
   computed: {
@@ -66,6 +67,12 @@ export default {
     loading(newVal, oldVal) {
       // console.log("loading", newVal, oldVal, this.isShowLoadingLayout);
       this.isShowLoadingLayout = newVal;
+    },
+    "$route.path"(){
+      this.isNewPage = false
+      setTimeout(()=>{
+        this.isNewPage = true
+      })
     }
   },
   async created() {

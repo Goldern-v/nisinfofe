@@ -177,8 +177,8 @@ export default {
         colspan: "1",
         rowspan: "3",
         style: {
-          minWidth: '70px',
-          maxWidth: '70px',
+          minWidth: '40px',
+          maxWidth: '40px',
         },
       }
     ],

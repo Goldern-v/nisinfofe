@@ -50,7 +50,7 @@
       <el-table-column
         prop="deptName"
         label="患者所在科室"
-        min-width="80"
+        min-width="180"
         align="center"
         class-name="rule-name"
       >

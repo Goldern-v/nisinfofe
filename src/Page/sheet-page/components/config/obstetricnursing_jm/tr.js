@@ -20,7 +20,7 @@ export default [{
     event: event_date,
     click: click_date,
     textarea: {
-      width: 50
+      width: 70
     }
   },
   {
@@ -29,7 +29,7 @@ export default [{
     event: event_time,
     click: click_time,
     textarea: {
-      width: 50
+      width: 70
     }
   },
   {

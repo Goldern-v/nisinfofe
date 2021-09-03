@@ -395,7 +395,9 @@ export default {
               }
             })
             child.push(item);
-            children.push(item);
+            if(item.executeType=="输液"){
+              children.push(item)
+            }
             if (currentRowId != prevRowId) {
               /** 第一条 */
               item.rowType = 1;
@@ -403,12 +405,12 @@ export default {
             } else if (currentRowId != nextRowId) {
               /** 最后条 */
               item.rowType = 3;
-
+            if(item.executeType=="输液"){
               tableData[tableData.length - 1].children = JSON.parse(
                 JSON.stringify(children)
               );
               children = [];
-
+            }
               tableData[tableData.length - 1].child = JSON.parse(
                 JSON.stringify(child)
               );

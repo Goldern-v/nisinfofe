@@ -16,8 +16,8 @@
       ></el-table-column>
 
       <el-table-column
-         prop="inpNo"
-         label="患者ID"
+         prop="patientId"
+         label="住院号"
          min-width="80"
          align="center"
       ></el-table-column>
@@ -44,7 +44,7 @@
       ></el-table-column>
 
       <el-table-column
-        prop="bedNo"
+        prop="bedLable"
         label="床号"
         min-width="65"
         align="center"

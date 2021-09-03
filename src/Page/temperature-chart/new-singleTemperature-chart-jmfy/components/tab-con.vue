@@ -238,7 +238,7 @@ export default {
                 return "20";
               }
               if (this.getHours() > 20 && this.getHours() <= 23) {
-                return "24";
+                return "23";
               }
          //录入时间
         })() //录入时间
@@ -283,7 +283,7 @@ export default {
         },
         {
           id: 5,
-          value: "24",
+          value: "23",
         },
       ],
       bottomContextList: ["", "不升"],
@@ -413,7 +413,9 @@ export default {
     },
     /* 选择固定时间点 */
     changeEntryTime(val) {
-      this.query.entryTime = val;
+
+ this.query.entryTime = val;
+
     },
     /* 联动修改查询的日期和时间 */
     changeQuery(value) {

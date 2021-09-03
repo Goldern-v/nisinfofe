@@ -54,6 +54,7 @@
           @mouseover="markTip($event, td)"
           @mouseout="closeMarkTip"
           @click="td.click || null"
+          @dblclick="openEditModal(tr, data, $event)" 
           :class="[
             td.markObj && `mark-mark-mark mark-cell-${td.markObj.signType}`,
           ]"
@@ -215,6 +216,7 @@
       ref="delsignModal"
       title="删除签名需签名者确认。。。。"
     ></signModal>
+    <specialModalHuadu ref="specialModalHuadu"></specialModalHuadu>
   </div>
 </template>
 
@@ -232,6 +234,7 @@ import {
   markDelete,
 } from "@/api/nursingOrderSheet.js";
 import signModal from "@/components/modal/sign.vue";
+import specialModalHuadu from '@/Page/sheet-nursing-order/components/modal/special-modal_huadu'
 import { Tr } from "../../../render/Body.js";
 import { TrHj } from "../../../render/Body_hj.js";
 import { offset, getCursortPosition, focusElement, bindFocus } from "./tool.js";
@@ -841,7 +844,8 @@ export default {
         tab,
         isLast,
       };
-      window.openSpecialModalOrder(config);
+      // window.openSpecialModalOrder(config);
+      this.$refs.specialModalHuadu.open(config)
     },
     markTip(e, td) {
       let dom = $(e.target).parents("td").length
@@ -899,6 +903,7 @@ export default {
   components: {
     setTitleModal,
     signModal,
+    specialModalHuadu
   },
 };
 </script>

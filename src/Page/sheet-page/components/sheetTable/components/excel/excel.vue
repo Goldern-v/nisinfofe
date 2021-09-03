@@ -188,6 +188,7 @@
               alt
             />
             <span v-if="tr.find(item => item.key == 'auditorNo').value">/</span>
+            <span v-else-if="tr.find(item => item.key == 'signerNo2') && tr.find(item => item.key == 'signerNo2').value">/</span>
             <span
               v-if="
                 (sheetInfo.sheetType === 'common_hd' ||
@@ -1278,11 +1279,12 @@ export default {
     },
     openEditModal(tr, data, e) {
       // 护理记录单特殊情况记录输入多行,签名后,其他项目不能在编辑
-      if (
-        this.HOSPITAL_ID == "huadu" &&
-        tr.find(item => item.key == "status").value === "1"
-      )
-        return tr.find(item => item.key == "status").value === "1";
+      // console.log(tr,data);
+      // if (
+      //   this.HOSPITAL_ID == "huadu" 
+      //   // && tr.find(item => item.key == "status").value === "1"
+      // )
+      //   return tr.find(item => item.key == "status").value === "1";
 
       if (sheetInfo.model == "print") return;
       // 双击的input key

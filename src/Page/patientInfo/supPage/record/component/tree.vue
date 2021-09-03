@@ -429,7 +429,17 @@ export default {
           {class: {'view': true}, on: {click: (e) => this.handleViewClick(e, node, data)}},
           [
             h('i', {class: {'el-icon-view': true}}),
-          ]
+          ],
+        )
+      }
+      if (this.HOSPITAL_ID === "quzhou") {
+        viewDom = h(
+          'div',
+          {class: {'view': true}, on: {click: (e) => this.handlePrintClick(e, node, data)}},
+          [
+            h('i', {class: {'el-icon-view': true}}),
+          ],
+          
         )
       }
       if (node.level !== 2) {
@@ -469,6 +479,9 @@ export default {
           isPrintPreview: true
         })
       );
+    },
+    handlePrintClick(e,node,data){
+      console.log(e,node,data);
     },
     getBlockByPV() {
       console.log(this.HOSPITAL_ID);
@@ -663,6 +676,7 @@ export default {
       this.expandListCopy.remove(curNode.index);
     },
     newRecordOpen() {
+      // console.log(this.filterObj);
       this.$refs.newForm.open(this.filterObj);
     },
     refreshTree(isAllRefresh = false) {

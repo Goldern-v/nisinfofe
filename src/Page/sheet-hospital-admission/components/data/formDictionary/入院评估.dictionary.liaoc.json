@@ -1154,16 +1154,6 @@
   ],
   "I001309":[
     {
-      "code": "Padua评分表(非手术科室)",
-      "name": "Padua评分表(非手术科室)",
-      "pinyin": "fssks"
-    },
-    {
-      "code": "Caprini评分表(手术科室)",
-      "name": "Caprini评分表(手术科室)",
-      "pinyin": "ssks"
-    },
-    {
       "code": "VTE风险评估(Caprini 通用版)",
       "name": "VTE风险评估(Caprini 通用版)",
       "pinyin": "tyb"
@@ -2715,11 +2705,6 @@
   ],
   "I001129": [
     {
-      "code": "未吸吮",
-      "name": "未吸吮",
-      "pinyin": "wxy"
-    },
-    {
       "code": "强",
       "name": "强",
       "pinyin": "q"
@@ -2728,6 +2713,11 @@
       "code": "弱",
       "name": "弱",
       "pinyin": "r"
+    },
+    {
+      "code": "未吸吮",
+      "name": "未吸吮",
+      "pinyin": "wxy"
     },
     {
       "code": "不能允吸",
@@ -3215,11 +3205,6 @@
       "code": "出血点",
       "name": "出血点",
       "pinyin": "cxd"
-    },
-    {
-      "code": "压疮",
-      "name": "压疮",
-      "pinyin": "yc"
     },
     {
       "code": "破损",

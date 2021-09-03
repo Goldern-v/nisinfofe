@@ -47,8 +47,13 @@ export function typeList(wardCode,hospitalId) {
 
  // 护士列表
 export function userDictInfo(deptCode) {
-  return axios.get(`${apiPath}user/userDictInfo/${deptCode} `)
- }
+  return axios.get(`${apiPath}user/userDictInfo/${deptCode}`)
+}
+
+// 横沥获取护士列表
+export function hengliUserDictInfo(deptCode) {
+  return axios.get(`${apiPath}user/userDictInfo/${deptCode}?getAllRelUser=true`)
+}
 
  // 获取用户信息
 export function getUser(password, empNo) {
