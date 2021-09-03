@@ -19,6 +19,11 @@ export function healthEduTemplates(deptCode) {
   return axios.get(`${apiPath}eval/health_education_hl/healthEduTemplates/${deptCode}`)
 }
 
+// 创建健康教育单
+export function createHealthEduTemplates(params) {
+  return axios.post(`${apiPath}eval/health_education_hl/save`,params)
+}
+
 // 患者：是否进入过某个护理单元
 export function hadTransferToWard(patientId,visitId,wardCode) {
   return axios.get(`${apiPath}patient/hadTransferToWard/${patientId}/${visitId}/${wardCode}`,)

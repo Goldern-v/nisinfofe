@@ -17,8 +17,10 @@
         @openSettingModal="openSettingModal"
       >></searchCon>
       <div class="list-con">
-        <!-- <span @click="getDetail(item)" v-for="item in filterData" :key="item.bedNo+item.barCode"> -->
-        <span v-for="item in filterData" :key="item.bedNo+item.barCode">
+        <span @click="getDetail(item)" v-for="(item,index) in filterData" :key="index" v-if="HOSPITAL_ID=='hengli'">
+          <infuse-item :data="item"></infuse-item>
+        </span>
+        <span v-for="(item,index) in filterData" :key="index" v-else>
           <infuse-item :data="item"></infuse-item>
         </span>
         <null-bg v-show="filterData.length == 0" text="暂时没有输液数据～"></null-bg>
@@ -98,6 +100,7 @@ import bus from "vue-happy-bus";
 import {
   getExecute,
   detail,
+  detailHl,
   saveWarningLog,
   getWarningValue
 } from "@/api/infuse";
@@ -194,10 +197,17 @@ export default {
     getDetail(data) {
       this.pageLoading = true;
       let barCode = data.barCode;
-      detail(barCode).then(res => {
-        this.$refs.detailsModal.open(res.data.data);
-        this.pageLoading = false;
-      });
+      if(this.HOSPITAL_ID=='hengli'){
+        detailHl({barCode}).then(res => {
+          this.$refs.detailsModal.open(res.data.data);
+          this.pageLoading = false;
+        });
+      }else{
+        detail(barCode).then(res => {
+          this.$refs.detailsModal.open(res.data.data);
+          this.pageLoading = false;
+        });
+      }
     },
     saveLog(item) {
       let obj = {

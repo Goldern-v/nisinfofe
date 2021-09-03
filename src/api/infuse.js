@@ -12,6 +12,11 @@ export const detail = (barCode) => {
     return axios.get(`${apiPath}execute/detail/${barCode}`)
 }
 
+// 输液详情-横沥
+export const detailHl = (params) => {
+    return axios.post(`${apiPath}execute/detail`,params)
+}
+
 // 保存警戒值日志
 export const saveWarningLog = obj => {
 return axios.post(`${apiPath}warningLog/save`, obj);
