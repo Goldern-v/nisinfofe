@@ -1,3 +1,6 @@
+/*
+江门妇幼-乳腺科护理记录单
+*/
 import {
   keyf1
 } from "../keyEvent/f1.js";
@@ -275,6 +278,10 @@ export default [{
   },
   {
     key: "sign",
+    value: ""
+  },
+  {
+    key: "sign2",
     value: ""
   },
   // {

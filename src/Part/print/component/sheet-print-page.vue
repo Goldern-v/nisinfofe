@@ -209,7 +209,16 @@ export default {
         "neonatology2_hd", // 花都_新生儿护理记录单
         "postpartum_hd", // 花都_产后记录单
         "wait_delivery_hd", // 花都_候产记录单
-        "neonatology_hd" // 花都_新生儿科护理记录单
+        "neonatology_hd", // 花都_新生儿科护理记录单
+
+        "neonatal_care_jm", //江门妇幼_新生儿监护单
+        "pediatric_surgery_jm", //江门妇幼_小儿外科护理记录单
+        "pediatrics_jm", //江门妇幼_儿科护理记录单
+        "child_recovery_jm", //江门妇幼_儿童康复科护理记录单
+        "gynaecology_jm", //江门妇幼_妇科护理记录单
+        "breastkenursing_jm", //江门妇幼_乳腺科护理记录单
+        "obstetricnursing_jm", //江门妇幼_产科护理记录单
+        "antenatalwaiting_jm", //江门妇幼_产前待产护理记录单
       ]
     };
   },
@@ -267,7 +276,7 @@ export default {
     }
     /* 花都打印双签名：第二个护士签名打印时隐藏 */
     if (
-      this.HOSPITAL_ID === "huadu" &&
+      (this.HOSPITAL_ID === "huadu" || this.HOSPITAL_ID === "fuyou") &&
       this.multiSignArr.includes(this.sheetInfo.sheetType)
     ) {
       addCSS(

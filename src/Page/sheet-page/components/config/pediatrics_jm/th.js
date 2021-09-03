@@ -1,5 +1,10 @@
+/*
+  江门妇幼-儿科护理记录单
+*/
 export default {
-  // 科室的名称
+  style: {
+    width: '1300px'
+  },
   deptType: '',
   th: {
     top: [{
@@ -188,6 +193,14 @@ export default {
       {
         name: `
         护士签名
+        `,
+        style: {},
+        colspan: '1',
+        rowspan: '3'
+      },
+      {
+        name: `
+        上级护士签名
         `,
         style: {},
         colspan: '1',

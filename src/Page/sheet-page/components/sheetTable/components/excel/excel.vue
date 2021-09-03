@@ -149,7 +149,7 @@
             v-html="showSign(tr)"
           ></div>
           <div
-            v-else-if="HOSPITAL_ID === 'huadu' && td.key == 'sign2'"
+            v-else-if="(HOSPITAL_ID === 'huadu'||HOSPITAL_ID === 'fuyou') && td.key == 'sign2'"
             class="sign-text"
             @click.stop="
               toSign(tr, y, data.bodyModel, showSign_hd(tr), $event, td)
@@ -193,7 +193,15 @@
               v-if="
                 (sheetInfo.sheetType === 'common_hd' ||
                   sheetInfo.sheetType === 'postpartum_hd' ||
-                  sheetInfo.sheetType === 'neurosurgery_hd') &&
+                  sheetInfo.sheetType === 'neurosurgery_hd' ||
+                  sheetInfo.sheetType === 'neonatal_care_jm' ||
+                  sheetInfo.sheetType === 'pediatric_surgery_jm' ||
+                  sheetInfo.sheetType === 'pediatrics_jm' ||
+                  sheetInfo.sheetType === 'child_recovery_jm' ||
+                  sheetInfo.sheetType === 'gynaecology_jm' ||
+                  sheetInfo.sheetType === 'antenatalwaiting_jm' ||
+                  sheetInfo.sheetType === 'breastkenursing_jm' ||
+                  sheetInfo.sheetType === 'obstetricnursing_jm')&&
                   tr.find(item => item.key == 'signerNo2').value
               "
               >/</span
@@ -524,7 +532,16 @@ export default {
         "neonatology2_hd", // 花都_新生儿护理记录单
         "postpartum_hd", // 花都_产后记录单
         "wait_delivery_hd", // 花都_候产记录单
-        "neonatology_hd" // 花都_新生儿科护理记录单
+        "neonatology_hd", // 花都_新生儿科护理记录单
+
+        "neonatal_care_jm", //江门妇幼_新生儿监护单
+        "pediatric_surgery_jm", //江门妇幼_小儿外科护理记录单
+        "pediatrics_jm", //江门妇幼_儿科护理记录单
+        "child_recovery_jm", //江门妇幼_儿童康复科护理记录单
+        "gynaecology_jm", //江门妇幼_妇科护理记录单
+        "breastkenursing_jm", //江门妇幼_乳腺科护理记录单
+        "obstetricnursing_jm", //江门妇幼_产科护理记录单
+        "antenatalwaiting_jm", //江门妇幼_产前待产护理记录单
       ],
       // 底部两个签名的其中一个自定义字段
       doubleSignArr: [
@@ -763,7 +780,7 @@ export default {
               ],
               multiSign: this.multiSign || false,
               // multiSign: this.HOSPITAL_ID === "huadu" ? true : false,
-              signType: this.HOSPITAL_ID === "huadu" ? this.signType : ""
+              signType: this.HOSPITAL_ID === "huadu" || this.HOSPITAL_ID === "fuyou" ? this.signType : ""
             };
             sign(
               this.patientInfo.patientId,

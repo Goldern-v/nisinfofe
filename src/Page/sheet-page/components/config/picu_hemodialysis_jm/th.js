@@ -1,3 +1,6 @@
+/*
+江门妇幼-PICU血液透析护理记录单
+ */
 export default {
   // 科室的名称
   deptType: '',
@@ -8,14 +11,14 @@ export default {
         style: {
         },
         colspan: '1',
-        rowspan: '1'
+        rowspan: '3'
       },
       {
         name: '时间',
         style: {
         },
         colspan: '1',
-        rowspan: '1'
+        rowspan: '3'
       },
       {
         name: `
@@ -23,7 +26,7 @@ export default {
         `,
         style: {},
         colspan: '1',
-        rowspan: '1',
+        rowspan: '3',
         style: {
         }
       },
@@ -33,7 +36,7 @@ export default {
         `,
         style: {},
         colspan: '1',
-        rowspan: '1',
+        rowspan: '3',
         style: {
         }
       },
@@ -44,7 +47,7 @@ export default {
         style: {
         },
         colspan: '1',
-        rowspan: '1'
+        rowspan: '3'
       },
       {
         name: `
@@ -53,7 +56,7 @@ export default {
         style: {
         },
         colspan: '1',
-        rowspan: '1'
+        rowspan: '3'
       },
       {
         name: `
@@ -61,7 +64,7 @@ export default {
         `,
         style: {},
         colspan: '1',
-        rowspan: '1'
+        rowspan: '3'
       },
       {
         name: `
@@ -69,7 +72,7 @@ export default {
         `,
         style: {},
         colspan: '1',
-        rowspan: '1'
+        rowspan: '3'
       },
       {
         name: `
@@ -77,7 +80,7 @@ export default {
         `,
         style: {},
         colspan: '1',
-        rowspan: '1'
+        rowspan: '3'
       },
       {
         name: `
@@ -85,7 +88,7 @@ export default {
         `,
         style: {},
         colspan: '1',
-        rowspan: '1'
+        rowspan: '3'
       },
       {
         name: `
@@ -93,21 +96,21 @@ export default {
         `,
         style: {},
         colspan: '1',
-        rowspan: '1'
+        rowspan: '3'
       },
       {
         name: `
         ACT<br/>sec
         `,
         colspan: '1',
-        rowspan: '1'
+        rowspan: '3'
       },
       {
         name: `
         动脉压<br/>mmHg
         `,
         colspan: '1',
-        rowspan: '1',
+        rowspan: '3',
         style: {},
       },
       {
@@ -115,7 +118,7 @@ export default {
         静脉压<br/>mmHg
         `,
         colspan: '1',
-        rowspan: '1',
+        rowspan: '3',
         style: {},
       },
       {
@@ -123,7 +126,7 @@ export default {
         跨膜压<br/>mmHg
         `,
         colspan: '1',
-        rowspan: '1',
+        rowspan: '3',
         style: {},
       },
       {
@@ -133,7 +136,7 @@ export default {
         style: {
         },
         colspan: '1',
-        rowspan: '1'
+        rowspan: '3'
       },
       {
         name: `
@@ -142,7 +145,7 @@ export default {
         style: {
         },
         colspan: '1',
-        rowspan: '1'
+        rowspan: '3'
       },
       {
         name: `
@@ -151,7 +154,7 @@ export default {
         style: {
         },
         colspan: '1',
-        rowspan: '1'
+        rowspan: '3'
       },
       {
         name: `
@@ -161,7 +164,7 @@ export default {
           minwidth: '52px',
         },
         colspan: '1',
-        rowspan: '1'
+        rowspan: '3'
       },
       {
         name: `
@@ -171,7 +174,7 @@ export default {
           minwidth: '52px',
         },
         colspan: '1',
-        rowspan: '1'
+        rowspan: '3'
       },
       {
         name: `
@@ -179,7 +182,7 @@ export default {
         `,
         style: {},
         colspan: '1',
-        rowspan: '1'
+        rowspan: '3'
       },
     ],
     mid: [],

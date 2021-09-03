@@ -1,3 +1,6 @@
+/*
+江门妇幼-妇科护理记录单
+*/
 import {
   keyf1
 } from "../keyEvent/f1.js";
@@ -285,6 +288,13 @@ export default [{
       keyf1(e, td);
     }
     // oninput: next
+  },
+  {
+    key: "sign",
+    value: "",
+    textarea: {
+      width: 80
+    },
   },
   {
     key: "sign",

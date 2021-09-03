@@ -426,6 +426,7 @@ function switechSheetType(type) {
       // 江门妇幼 - PICU血液透析护理记录单
       schema = require("../config/picu_hemodialysis_jm/tr.js").default;
     }
+      break;
     case "postpartumnursing_jm": {
       // 江门妇幼 - 产后护理记录单
       schema = require("../config/postpartumnursing_jm/tr.js").default;

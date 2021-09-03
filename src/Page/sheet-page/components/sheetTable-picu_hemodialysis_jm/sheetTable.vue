@@ -1,3 +1,6 @@
+/*
+江门妇幼-PICU血液透析护理记录单
+ */
 <template>
   <div>
     <div

@@ -1,14 +1,15 @@
+/*
+江门妇幼-乳腺科护理记录单
+*/
 import moment from "moment";
-
 function currYear() {
   return moment().format('YYYY')
 }
-
 export default {
   // 科室的名称 关节骨科
   deptType: "",
   style: {
-    width: "1350px"
+    width: "1380px"
   },
   th: {
     top: [{
@@ -162,8 +163,18 @@ export default {
         colspan: "1",
         rowspan: "3",
         style: {
-          minWidth: '70px',
-          maxWidth: '70px',
+          minWidth: '50px',
+          maxWidth: '50px',
+        },
+      },
+      {
+        name: `上级护士签名
+        `,
+        colspan: "1",
+        rowspan: "3",
+        style: {
+          minWidth: '50px',
+          maxWidth: '50px',
         },
       }
     ],
