@@ -33,7 +33,7 @@
       ></el-table-column>
 
       <el-table-column
-        label="管床医生"
+        :label="['fuyou'].includes(HOSPITAL_ID)?'责任医生':'管床医生'"
         prop="doctorInCharge"
         min-width="90px"
         v-if="!['liaocheng', 'guizhou'].includes(HOSPITAL_ID)"
@@ -49,6 +49,7 @@
         prop="patientId"
         label="病人ID"
         min-width="120px"
+        v-if="!['fuyou'].includes(HOSPITAL_ID)"
       ></el-table-column>
 
       <el-table-column
