@@ -196,7 +196,11 @@ export default {
         `,
         style: {},
         colspan: '1',
-        rowspan: '3'
+        rowspan: '3',
+        style: {
+          minWidth: '60px',
+          maxWidth: '60px',
+        },
       },
       {
         name: `
@@ -204,7 +208,11 @@ export default {
         `,
         style: {},
         colspan: '1',
-        rowspan: '3'
+        rowspan: '3',
+        style: {
+          minWidth: '60px',
+          maxWidth: '60px',
+        },
       }
     ],
     mid: [{

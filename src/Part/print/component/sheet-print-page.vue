@@ -219,6 +219,8 @@ export default {
         "breastkenursing_jm", //江门妇幼_乳腺科护理记录单
         "obstetricnursing_jm", //江门妇幼_产科护理记录单
         "antenatalwaiting_jm", //江门妇幼_产前待产护理记录单
+        "postpartumnursing_jm",//江门妇幼_产后护理记录单
+        "entdepartment_jm",//江门妇幼_耳鼻喉科护理记录单
       ]
     };
   },

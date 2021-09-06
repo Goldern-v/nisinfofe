@@ -427,6 +427,11 @@ function switechSheetType(type) {
       schema = require("../config/picu_hemodialysis_jm/tr.js").default;
     }
       break;
+    case "catheterplacement_jm": {
+      // 江门妇幼 - 深静脉导管置入术后维护单
+      schema = require("../config/catheterplacement_jm/tr.js").default;
+    }
+      break;
     case "postpartumnursing_jm": {
       // 江门妇幼 - 产后护理记录单
       schema = require("../config/postpartumnursing_jm/tr.js").default;

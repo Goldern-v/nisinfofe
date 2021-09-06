@@ -250,6 +250,7 @@ import sheetTable_neonatology_picc from "./components/sheetTable-neonatology_pic
 import sheetTable_surgical_eval2_lcey from "./components/sheetTable-surgical_eval2_lcey/sheetTable";
 import sheetTable_intervention_cure_lcey from "./components/sheetTable-intervention_cure_lcey/sheetTable";
 import sheetTable_picu_hemodialysis_jm from "./components/sheetTable-picu_hemodialysis_jm/sheetTable";
+import sheetTable_catheterplacement_jm from "./components/sheetTable-catheterplacement_jm/sheetTable";
 import sheetTable_oxytocin_hl from "./components/sheetTable-oxytocin_hl/sheetTable";
 import sheetTable_emergency_rescue from "./components/sheetTable-emergency_rescue/sheetTable";
 import sheetTable_dressing_count_hl from "./components/sheetTable-dressing_count_hl/sheetTable";
@@ -392,6 +393,8 @@ export default {
         return sheetTable_intervention_cure_lcey;
       } else if (sheetInfo.sheetType == "picu_hemodialysis_jm") {
         return sheetTable_picu_hemodialysis_jm;
+      } else if (sheetInfo.sheetType == "catheterplacement_jm") {
+        return sheetTable_catheterplacement_jm;
       } else if (sheetInfo.sheetType == "rescue_hl") {
         return sheetTable_emergency_rescue;
       } else if (sheetInfo.sheetType == "oxytocin_hl") {
@@ -925,6 +928,7 @@ export default {
     sheetTable_surgical_eval2_lcey,
     sheetTable_intervention_cure_lcey,
     sheetTable_picu_hemodialysis_jm,
+    sheetTable_catheterplacement_jm,
     doctorEmr,
     sheetTable_oxytocin_hl,
     sheetTable_emergency_rescue,

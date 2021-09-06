@@ -201,6 +201,8 @@
                   sheetInfo.sheetType === 'gynaecology_jm' ||
                   sheetInfo.sheetType === 'antenatalwaiting_jm' ||
                   sheetInfo.sheetType === 'breastkenursing_jm' ||
+                  sheetInfo.sheetType === 'postpartumnursing_jm' ||
+                  sheetInfo.sheetType === 'entdepartment_jm' ||
                   sheetInfo.sheetType === 'obstetricnursing_jm') &&
                   tr.find(item => item.key == 'signerNo2').value
               "
@@ -542,6 +544,8 @@ export default {
         "breastkenursing_jm", //江门妇幼_乳腺科护理记录单
         "obstetricnursing_jm", //江门妇幼_产科护理记录单
         "antenatalwaiting_jm", //江门妇幼_产前待产护理记录单
+        "postpartumnursing_jm",//江门妇幼_产后护理记录单
+        "entdepartment_jm",//江门妇幼_耳鼻喉科护理记录单
       ],
       // 底部两个签名的其中一个自定义字段
       doubleSignArr: [

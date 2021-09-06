@@ -3,7 +3,7 @@
 */
 import moment from "moment";
 function currYear() {
-  return moment().format('YYYY')
+  return moment().format('YYYY年')
 }
 export default {
   // 科室的名称 关节骨科
@@ -165,8 +165,8 @@ export default {
         colspan: "1",
         rowspan: "3",
         style: {
-          minWidth: '40px',
-          maxWidth: '40px',
+          minWidth: '60px',
+          maxWidth: '60px',
         },
       },
       {
@@ -175,8 +175,8 @@ export default {
         colspan: "1",
         rowspan: "3",
         style: {
-          minWidth: '40px',
-          maxWidth: '40px',
+          minWidth: '60px',
+          maxWidth: '60px',
         },
       }
     ],
