@@ -819,10 +819,14 @@ export default {
       // } else {
       //   this.$router.push(`/print/sheetPage`);
       // }
-      if (process.env.NODE_ENV === "production") {
-        newWid.location.href = "/crNursing/print/sheetPage";
-      } else {
+      if (process.env.HOSPITAL_ID != "fuyou") {
         this.$router.push(`/print/sheetPage`);
+      } else {
+        if (process.env.NODE_ENV === "production") {
+          newWid.location.href = "/crNursing/print/sheetPage";
+        } else {
+          this.$router.push(`/print/sheetPage`);
+        }
       }
     });
     this.bus.$on("openHJModal", () => {

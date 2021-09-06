@@ -325,7 +325,11 @@ export default {
     toPrint() {
       if (!this.sheetInfo.selectBlock.id)
         return this.$message.warning("还没有选择护理记录单");
-      if (process.env.NODE_ENV == "production") {
+
+      if (process.env.HOSPITAL_ID != "fuyou") {
+        this.bus.$emit("toSheetPrintPage");
+      } else {
+        if (process.env.NODE_ENV == "production") {
         let newWid;
         if (!$(".sign-text").length) {
           newWid = window.open();
@@ -341,6 +345,7 @@ export default {
         this.bus.$emit("toSheetPrintPage", newWid);
       } else {
         this.bus.$emit("toSheetPrintPage");
+      }
       }
     },
     toAllPrint() {
