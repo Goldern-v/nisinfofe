@@ -60,7 +60,7 @@
           @click="selectType(item.name)"
         >
           <i class="icon-bingwei iconfont"></i>
-          <span>{{ item.name }}（{{ item.num }}）</span>
+          <span  :class="{gm:HOSPITAL_ID=='huadu'&& item.name=='过敏'}">{{ item.name }}（{{ item.num }}）</span>
         </div>
 
         <div
@@ -209,7 +209,9 @@
       }
     }
   }
-
+  .gm{
+    color :red;
+  }
   .line {
     background: #ECEEEF;
     height: 1px;

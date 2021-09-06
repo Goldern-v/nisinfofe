@@ -1,5 +1,5 @@
 <template>
-  <div class="contain">
+  <div class="contain" v-if="isNewPage">
     <topPart></topPart>
     <bottomPart></bottomPart>
   </div>
@@ -14,7 +14,16 @@ import bottomPart from './components/bottom-part/bottom-part'
   export default {
     data() {
       return {
-        msg: 'hello vue'
+        msg: 'hello vue',
+        isNewPage:true
+      }
+    },
+    watch:{
+      '$route.path'(){
+        this.isNewPage = false;
+        setTimeout(()=>{
+        this.isNewPage = true;
+        })
       }
     },
     components: {
