@@ -21,6 +21,9 @@
         <div class="title">{{ patientInfo.recordName }}</div>
         <div class="info-con" flex="main:justify">
           <span>
+            科室：{{ patientInfo.realDeptName }}
+          </span>
+          <span>
             床号：{{ patientInfo.bedLabel }}
           </span>
           <span>
@@ -30,118 +33,98 @@
             住院号：{{ patientInfo.patientId }}
           </span>
           <span>
-            年龄：{{ patientInfo.age }}
-          </span>
-          <span>
             性别：{{ patientInfo.sex }}
           </span>
           <span>
-            体重： {{ patientInfo.weight }}
+            年龄：{{ patientInfo.age }}
           </span>
-          <span>
-            入院日期：{{ patientInfo.admissionDate | toymd }}
+          <span @click="updateDiagnosis('diagnosis', '诊断', patientInfo.diagnosis)"> 
+            诊断：
+            <div
+              class="bottom-line1"
+              style="
+                display:inline-block;
+                width: 200px;
+                max-width: 200px;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+              "
+            >
+              {{ diagnosis }}
+            </div>
           </span>
         </div>
-        <table>
-          <colgroup>
-            <col v-for="i in 19" :key="i" width="5%"/>
-          </colgroup>
-          <tbody>
-            <tr>
-              <td colspan="4">
-                <div class="boxTitle">取血通路：</div>
-                <input
-                  type="textarea"
-                  class="bottomInput"
-                  v-model="sheetInfo.relObj.qxtl"
-                  :data-value="sheetInfo.relObj.qxtl"
-                />
-              </td>
-              <td colspan="3">机械型号：
-                <input
-                  type="text"
-                  class="bottomInput"
-                  v-model="sheetInfo.relObj.jxxh"
-                  :data-value="sheetInfo.relObj.jxxh"
-                />
-              </td>
-              <td colspan="3">导管型号：
-                <input
-                  type="text"
-                  class="bottomInput"
-                  v-model="sheetInfo.relObj.dgxh"
-                  :data-value="sheetInfo.relObj.dgxh"
-                />
-              </td>
-              <td colspan="4">血液抗凝：
-                <input
-                  type="text"
-                  class="bottomInput"
-                  v-model="sheetInfo.relObj.xykn"
-                  :data-value="sheetInfo.relObj.xykn"
-                />
-              </td>
-              <td colspan="5">血滤器/批号：
-                <input
-                  type="text"
-                  class="bottomInput"
-                  v-model="sheetInfo.relObj.xlq"
-                  :data-value="sheetInfo.relObj.xlq"
-                />
-              </td>
-            </tr>
-            <tr>
-              <td colspan="3">治疗 CVVHDF：
-                <input
-                  type="text"
-                  class="bottomInput"
-                  v-model="sheetInfo.relObj.cvvhdf"
-                  :data-value="sheetInfo.relObj.cvvhdf"
-                />
-              </td>
-              <td colspan="3">CVVHD：
-                <input
-                  type="text"
-                  class="bottomInput"
-                  v-model="sheetInfo.relObj.cvvhd"
-                  :data-value="sheetInfo.relObj.cvvhd"
-                />
-              </td>
-              <td colspan="3">TPE：
-                <input
-                  type="text"
-                  class="bottomInput"
-                  v-model="sheetInfo.relObj.tpe"
-                  :data-value="sheetInfo.relObj.tpe"
-                />
-              </td>
-              <td colspan="3">HP：
-                <input
-                  type="text"
-                  class="bottomInput"
-                  v-model="sheetInfo.relObj.hp"
-                  :data-value="sheetInfo.relObj.hp"
-                />
-              </td>
-              <td colspan="4">其他：
-                <input
-                  type="text"
-                  class="bottomInput"
-                  v-model="sheetInfo.relObj.qt"
-                  :data-value="sheetInfo.relObj.qt"
-                />
-              </td>
-              <td colspan="3">治疗次数：
-                <input
-                  type="text"
-                  class="bottomInput"
-                  v-model="sheetInfo.relObj.zlcs"
-                  :data-value="sheetInfo.relObj.zlcs"
-                />
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="headerBoxTitle" style="margin-top: 20px;">
+          <div class="boxTitle">静脉导管类型：</div>
+          <el-select v-model="sheetInfo.relObj.jmdglx" size="small" style="width:150px;">
+            <el-option
+              v-for="item in jmdgList"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            >
+            </el-option>
+          </el-select>
+          <div class="boxTitle">置管部位：</div>
+            <el-select v-model="sheetInfo.relObj.zgbw" size="small" style="width:150px;">
+            <el-option
+              v-for="item in zgbwList"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            >
+            </el-option>
+          </el-select>
+          <div class="boxTitle">导管型号：</div>
+            <el-select v-model="sheetInfo.relObj.dgxh" size="small" style="width:150px;">
+            <el-option
+              v-for="item in dgxhList"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            >
+            </el-option>
+          </el-select>
+          <div class="boxTitle">导管尖端定位：</div>
+            <input
+              type="textarea"
+              class="bottomInput"
+              v-model="sheetInfo.relObj.dgjddw"
+              :data-value="sheetInfo.relObj.dgjddw"
+            />
+        </div>
+        <div class="headerBoxTitle" style="margin-top: 20px;">
+          <div class="boxTitle2">
+            <div class="boxTitle">当时插管的深度：</div>
+            <input
+              type="textarea"
+              class="bottomInput"
+              style="width: 30px;"
+              v-model="sheetInfo.relObj.cgsd"
+              :data-value="sheetInfo.relObj.cgsd"
+            />cm
+          </div>
+          <div class="boxTitle2">
+            <div class="boxTitle">导管外露的长度：</div>
+            <input
+              type="textarea"
+              style="width: 30px;"
+              class="bottomInput"
+              v-model="sheetInfo.relObj.wlcd"
+              :data-value="sheetInfo.relObj.wlcd"
+            />cm
+          </div>
+          <div class="boxTitle2">
+            <div class="boxTitle">基础围（臂围/腿围/腹围）：</div>
+            <input
+              type="textarea"
+              style="width: 30px;"
+              class="bottomInput"
+              v-model="sheetInfo.relObj.jcw"
+              :data-value="sheetInfo.relObj.jcw"
+            />cm
+          </div>
+        </div>
         <excel
           :data="data"
           :index="index"
@@ -149,36 +132,14 @@
           :scrollY="scrollY"
           :hasFiexHeader="true"
           :isInPatientDetails="isInPatientDetails"
-        ><div slot="bottomCon">
-          <div  class="footer-data">
-            <div class="bottom-line" style="flex: 1">
-              <span>24小时总累积出入量：</span>
-              <input
-                class="bottomInput"
-                type="text"
-                v-model="sheetInfo.relObj.ywgms"
-                :data-value="sheetInfo.relObj.ywgms"
-              />
-            </div>
-            <div class="bottom-line" style="flex: 1" >
-              <span>抗凝剂配制浓度：</span>
-              <input
-                class="bottomInput"
-                type="text"
-                v-model="sheetInfo.relObj.dgmsy"
-                :data-value="sheetInfo.relObj.dgmsy"
-              />
-            </div>
-          </div>
-           
-        </div>
+        >
         </excel>
-        
       </div>
     </div>
   </div>
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus">
+
 .sheetTable-catheterplacement_jm {
   & {
     border-radius: 2px;
@@ -192,10 +153,30 @@
     box-sizing: content-box;
     position: relative;
   }
-
+  .headerBoxTitle {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+  .boxTitle2 {
+    width: 300px;
+    display: flex;
+    justify-content:center;
+  }
+  .bottomInput {
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+    outline: none;
+  }
   .header-con {
     text-align: center;
-
+    .bottom-line {
+      border-top: 0;
+      border-left: 0;
+      border-right: 0;
+      outline: none;
+    }
     .his-name {
       font-size: 18px;
       padding: 0 0px;
@@ -221,23 +202,6 @@
     .info-con {
       margin: 8px 0;
       text-align: left;
-    }
-    table {
-      width: 100%;
-      text-align: left;
-      margin-bottom: -16px;
-      td {
-        border: 1px solid #000;
-        .boxTitle {
-        }
-        .bottomInput {
-          border: none;
-          outline: none;
-          font-size: 14px;
-          width: 95%;
-          height: 30px;
-        }
-      }
     }
   }
 
@@ -369,12 +333,79 @@ export default {
     return {
       bus: bus(this),
       sheetInfo,
+      jmdgList: [{
+        value: 'PICC',
+        label: 'PICC'
+      }, 
+      {
+        value: '输液港',
+        label: '输液港'
+      }, 
+      {
+        value: 'CVC',
+        label: 'CVC'
+      }, 
+      {
+        value: '脐静脉',
+        label: '脐静脉'
+      }, 
+      {
+        value: '其他导管',
+        label: '其他导管'
+      }],
+      zgbwList: [{
+        value: '左颈内静脉',
+        label: '左颈内静脉'
+      }, 
+      {
+        value: '右颈内静脉',
+        label: '右颈内静脉'
+      }, 
+      {
+        value: '左贵要静脉',
+        label: '左贵要静脉'
+      }, 
+      {
+        value: '右贵要静脉',
+        label: '右贵要静脉'
+      }, 
+      {
+        value: '左肘正中静',
+        label: '左肘正中静'
+      }],
+      dgxhList: [{
+        value: '1.9Fr',
+        label: '1.9Fr'
+      }, 
+      {
+        value: '3Fr',
+        label: '3Fr'
+      }, 
+      {
+        value: '4Fr',
+        label: '4Fr'
+      }, 
+      {
+        value: '5Fr',
+        label: '5Fr'
+      }],
       createTime:
         (sheetInfo.relObj && sheetInfo.relObj.createTime) ||
         sheetInfo.selectBlock.createTime
     };
   },
   methods: {
+    updateDiagnosis(key, label, autoText) {
+      window.openSetTextModal(
+        (text) => {
+          sheetInfo.relObj[`PageIndex_diagnosis_${this.index}`] = text;
+          this.$message.success(`修改诊断成功`);
+          this.bus.$emit("saveSheetPage", false);
+        },
+        this.diagnosis,
+        `修改诊断`
+      );
+    },
   },
   computed: {
     patientInfo() {
@@ -385,7 +416,26 @@ export default {
       return !this.userDeptList
         .map(item => item.code)
         .includes(this.sheetInfo.selectBlock.deptCode);
-    }
+    },
+    diagnosis() {
+      /** 最接近的index */
+      let realIndex = 0;
+      let keys = Object.keys(sheetInfo.relObj || {});
+      for (let i = 0; i < keys.length; i++) {
+        let [base, keyIndex] = keys[i].split("PageIndex_diagnosis_");
+        if (keyIndex !== undefined) {
+          if (this.index >= keyIndex) {
+            if (this.index - keyIndex <= this.index - realIndex) {
+              realIndex = keyIndex;
+            }
+          }
+        }
+      }
+      return (
+        (sheetInfo.relObj || {})[`PageIndex_diagnosis_${realIndex}`] ||
+        this.patientInfo.diagnosis
+      );
+    },
   },
   filters: {
     toymd(val) {
