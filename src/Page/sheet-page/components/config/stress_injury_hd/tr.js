@@ -15,6 +15,13 @@ import {
   click_time
 } from "../keyEvent/date";
 import info from "../sheetInfo";
+let bwList = ['左枕骨处','右枕骨处','左耳廊','右耳廊','左肩峰处','右肩峰处','左肩胛骨处','右肩胛骨处','左胸椎骨处','右胸椎骨处','左腰椎骨处','右腰椎骨处','背部','左肘部','右肘部','骶尾部','左臀部','右臀部','左坐骨处','右坐骨处','左髋部','右髋部','左足内踝处','左足外踝处','右足内踝处','右足外踝处','左足跟','右足跟'];
+let fqList = ['1','2','3','4','5','6']
+let jdysList = ['25%','50%','75%','100%']
+let syList = ['干燥','湿润','潮湿','饱和','漏出']
+let qwList = ['无','轻度','中度','重度']
+let pfList = ['水肿','浸渍','红斑','硬结','脱屑']
+
 export default [{
     key: "recordMonth", //日期
     value: "",
@@ -32,6 +39,9 @@ export default [{
     value: "",
     event: keyf1,
     name: "部位",
+    autoComplete: {
+      data: bwList
+    },
     textarea: {
       width: 55
     },
@@ -42,6 +52,9 @@ export default [{
     value: "",
     event: keyf1,
     name: "分期",
+    autoComplete: {
+      data: fqList
+    },
     textarea: {
       width: 55
     },
@@ -63,6 +76,9 @@ export default [{
     event: keyf1,
     name: "红色",
     next: "%",
+    autoComplete: {
+      data: jdysList
+    },
     textarea: {
       width: 55
     },
@@ -74,6 +90,9 @@ export default [{
     event: keyf1,
     name: "黄色",
     next: "%",
+    autoComplete: {
+      data: jdysList
+    },
     textarea: {
       width: 55
     },
@@ -85,6 +104,9 @@ export default [{
     event: keyf1,
     name: "黑色",
     next: "%",
+    autoComplete: {
+      data: jdysList
+    },
     textarea: {
       width: 55
     },
@@ -96,6 +118,9 @@ export default [{
     event: keyf1,
     name: "其他",
     next: "%",
+    autoComplete: {
+      data: jdysList
+    },
     textarea: {
       width: 55
     },
@@ -116,6 +141,9 @@ export default [{
     value: "",
     event: keyf1,
     name: "渗液与敷料的关系",
+    autoComplete: {
+      data: syList
+    },
     textarea: {
       width: 55
     },
@@ -126,6 +154,9 @@ export default [{
     value: "",
     event: keyf1,
     name: "气味",
+    autoComplete: {
+      data: qwList
+    },
     textarea: {
       width: 55
     },
@@ -146,6 +177,9 @@ export default [{
     value: "",
     event: keyf1,
     name: "周围皮肤",
+    autoComplete: {
+      data: pfList
+    },
     textarea: {
       width: 55
     },
