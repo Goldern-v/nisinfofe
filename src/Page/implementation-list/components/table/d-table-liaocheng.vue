@@ -586,8 +586,8 @@ export default {
   },
   mounted() {
     this.isEdit =
-      JSON.parse(localStorage.user) &&
-      JSON.parse(localStorage.user).post == "护长"
+      JSON.parse(localStorage.user) 
+      // && JSON.parse(localStorage.user).post == "护长"
         ? true
         : false;
   },
