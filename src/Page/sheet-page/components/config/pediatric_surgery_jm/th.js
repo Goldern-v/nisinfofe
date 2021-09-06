@@ -222,7 +222,10 @@ export default {
       name: `
         签名
         `,
-      style: {},
+      style: {
+        minWidth: '60px',
+        maxWidth: '60px',
+      },
       colspan: '1',
       rowspan: '3'
     },
@@ -230,7 +233,10 @@ export default {
       name: `
       上级护士签名
         `,
-      style: {},
+      style: {
+        minWidth: '60px',
+        maxWidth: '60px',
+      },
       colspan: '1',
       rowspan: '3'
     }

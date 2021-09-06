@@ -1,10 +1,10 @@
 /*
-江门妇幼-PICU血液透析护理记录单
+江门妇幼-深静脉导管置入术后维护单
  */
 <template>
   <div>
     <div
-      class="contant sheetTable-picu_hemodialysis_jm"
+      class="contant sheetTable-catheterplacement_jm"
       :style="data.titleModel.style"
       :class="{ readOnly }"
     >
@@ -179,7 +179,7 @@
   </div>
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus">
-.sheetTable-picu_hemodialysis_jm {
+.sheetTable-catheterplacement_jm {
   & {
     border-radius: 2px;
     // position: relative;

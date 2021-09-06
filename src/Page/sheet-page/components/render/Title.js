@@ -515,6 +515,13 @@ export default function Title(
     );
   }
   break;
+  case "catheterplacement_jm": {
+    // 江门妇幼 - 深静脉导管置入术后维护单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/catheterplacement_jm/th.js").default)
+    );
+  }
+  break;
   case "postpartumnursing_jm": {
     // 江门妇幼 - 产后护理记录单
     Th = JSON.parse(

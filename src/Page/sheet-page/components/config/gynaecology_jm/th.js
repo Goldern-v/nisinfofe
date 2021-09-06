@@ -168,8 +168,8 @@ export default {
         colspan: "1",
         rowspan: "3",
         style: {
-          minWidth: '40px',
-          maxWidth: '40px',
+          minWidth: '60px',
+          maxWidth: '60px',
         },
       },
       {
@@ -178,8 +178,8 @@ export default {
         colspan: "1",
         rowspan: "3",
         style: {
-          minWidth: '40px',
-          maxWidth: '40px',
+          minWidth: '60px',
+          maxWidth: '60px',
         },
       }
     ],
