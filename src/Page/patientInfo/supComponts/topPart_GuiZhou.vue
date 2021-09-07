@@ -20,7 +20,7 @@
         }"
         tag="span"
       >
-        <div class="nav-item">首页</div>
+        <div class="nav-item">首页</div>  
       </router-link>
       <router-link
         :to="{
@@ -32,7 +32,7 @@
         <div class="nav-item">护理文书</div>
       </router-link>
       <span><div class="nav-item" @click="oepnDoctorEmr">病历</div></span>
-      <router-link
+      <!-- <router-link
         :to="{
           path: '/sheetNursingOrder',
           query: { patientId: query.patientId, visitId: query.visitId },
@@ -40,7 +40,7 @@
         tag="span"
       >
         <div class="nav-item">护嘱单</div>
-      </router-link>
+      </router-link> -->
       <router-link
         :to="{
           path: '/sheet',

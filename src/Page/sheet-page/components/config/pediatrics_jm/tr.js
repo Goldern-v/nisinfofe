@@ -1,3 +1,6 @@
+/*
+  江门妇幼-儿科护理记录单
+*/
 import {
   keyf1
 } from "../keyEvent/f1.js";
@@ -179,6 +182,10 @@ export default [{
   key: "sign",
   value: ""
 },
+{
+  key: "sign2",
+  value: ""
+},
 // {
 //   key: "audit",
 //   value: ""
@@ -191,6 +198,11 @@ export default [{
 {
   hidden: true,
   key: "signerName",
+  value: ""
+},
+{
+  hidden: true,
+  key: "signerName2",
   value: ""
 },
 {
@@ -226,6 +238,11 @@ export default [{
 {
   hidden: false,
   key: "signerNo",
+  value: ""
+},
+{
+  hidden: true,
+  key: "signerNo2",
   value: ""
 },
 {

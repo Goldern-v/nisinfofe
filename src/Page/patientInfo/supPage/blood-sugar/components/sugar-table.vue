@@ -3,6 +3,12 @@
     <table>
       <tr>
         <th
+          v-if="HOSPITAL_ID == 'hj'"
+          style="width: 2%; min-width: 20px"
+        >
+          序号
+        </th>
+        <th
           v-if="HOSPITAL_ID != 'lingcheng'"
           style="width: 22%; min-width: 75px"
         >
@@ -40,12 +46,15 @@
         <th style="width: 16%">{{HOSPITAL_ID == 'liaocheng' ? '测量者' : '执行人'}}</th>
       </tr>
       <tr
-        v-for="item in renderData"
+        v-for="(item,index) in renderData"
         :class="{ selected: selected === item }"
         :key="item.recordDate"
         @click="onSelect(item)"
         @dblclick="onDblClick(item)"
       >
+        <td v-if="HOSPITAL_ID='hj'">
+          {{index + baseIndex + 1}}
+        </td>
         <td v-if="HOSPITAL_ID != 'lingcheng'" style="padding: 0 4px">
           <div flex="main:justify" style="white-space: nowrap">
             <span>
@@ -199,6 +208,7 @@ export default {
   props: {
     data: Array,
     selected: Object,
+    baseIndex:Number,
   },
   mixins: [common],
   data() {
@@ -230,6 +240,7 @@ export default {
       while (renderData.length <= 26) {
         renderData.push({});
       }
+      console.log(renderData);
       return renderData;
     },
   },

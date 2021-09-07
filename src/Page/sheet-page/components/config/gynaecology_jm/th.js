@@ -1,9 +1,10 @@
+/*
+江门妇幼-妇科护理记录单
+*/
 import moment from "moment";
-
 function currYear() {
   return moment().format('YYYY')
 }
-
 export default {
   // 科室的名称 关节骨科
   deptType: "",
@@ -167,8 +168,18 @@ export default {
         colspan: "1",
         rowspan: "3",
         style: {
-          minWidth: '40px',
-          maxWidth: '40px',
+          minWidth: '60px',
+          maxWidth: '60px',
+        },
+      },
+      {
+        name: `上级护士签名
+        `,
+        colspan: "1",
+        rowspan: "3",
+        style: {
+          minWidth: '60px',
+          maxWidth: '60px',
         },
       }
     ],

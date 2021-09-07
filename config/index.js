@@ -77,8 +77,8 @@ const currentTargetUrl = (() => {
     /** 江门妇幼 */
     case "fuyou":
       // return "http://218.14.180.38:9094" // 江门妇幼正式
-      // return "https://info.cr-health.com:20211" // 公司-江门妇幼测试-外网
-      return "http://192.168.1.54:9872" // 公司-江门妇幼测试-内网
+      return "https://info.cr-health.com:20211" // 公司-江门妇幼测试-外网
+      // return "http://192.168.1.54:9872" // 公司-江门妇幼测试-内网
 
     /** 中山七 */
     case "zhongshanqi":
@@ -87,8 +87,8 @@ const currentTargetUrl = (() => {
 
     /** 东莞横沥 */
     case "hengli":
-      // return "http://183.63.206.194:9091" // 东莞横沥正式
-      return "http://192.168.1.54:9874" // 公司-东莞横沥测试-内网
+      return "http://183.63.206.194:9091" // 东莞横沥正式
+      // return "http://192.168.1.54:9874" // 公司-东莞横沥测试-内网
 
     /** 南方中西医 */
     case "nanfangzhongxiyi":
@@ -103,7 +103,7 @@ const currentTargetUrl = (() => {
 
     /** 山南市人民医院 */
     case "shannan":
-      // return "http://124.31.235.39:9094 " // 公司-山南市人民医院正式
+      // return "http://124.31.235.39:9094 " // 公司-山南市人民医院正式  admin  Bcy@21qw
       return "http://192.168.1.54:9878" // 公司-山南市人民医院测试-内网
 
     /** 武警广东省总队医院 */
@@ -120,8 +120,9 @@ const currentTargetUrl = (() => {
     
     // 北海人医
     case 'beihairenyi':
-      return "http://219.159.198.37:9094"  // 正式地址
-      // return "http://192.167.199.190:9091" // 测试地址
+      // return "http://219.159.198.37:9094"  // 正式地址
+      // return "http://192.167.199.190:9091" // 测试地址（暂无数据）
+      return "http://192.168.1.54:9866" // 默认公司本地内网厚街测试环境
 
     /** 默认公司本地内网厚街测试环境 */
     default:

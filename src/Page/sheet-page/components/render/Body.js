@@ -426,6 +426,17 @@ function switechSheetType(type) {
       // 江门妇幼 - PICU血液透析护理记录单
       schema = require("../config/picu_hemodialysis_jm/tr.js").default;
     }
+      break;
+    case "catheterplacement_jm": {
+      // 江门妇幼 - 深静脉导管置入术后维护单
+      schema = require("../config/catheterplacement_jm/tr.js").default;
+    }
+    break;
+    case "picc_custody_jm": {
+      // 江门妇幼 - PICU监护单
+      schema = require("../config/picc_custody_jm/tr.js").default;
+    }
+      break;
     case "postpartumnursing_jm": {
       // 江门妇幼 - 产后护理记录单
       schema = require("../config/postpartumnursing_jm/tr.js").default;

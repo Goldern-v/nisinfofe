@@ -1,6 +1,9 @@
+/*
+  江门妇幼-小儿外科护理记录单
+*/
 export default {
   style: {
-    width: '1300px'
+    width: '1400px'
   },
   // 科室的名称
   deptType: '',
@@ -219,7 +222,21 @@ export default {
       name: `
         签名
         `,
-      style: {},
+      style: {
+        minWidth: '60px',
+        maxWidth: '60px',
+      },
+      colspan: '1',
+      rowspan: '3'
+    },
+    {
+      name: `
+      上级护士签名
+        `,
+      style: {
+        minWidth: '60px',
+        maxWidth: '60px',
+      },
       colspan: '1',
       rowspan: '3'
     }

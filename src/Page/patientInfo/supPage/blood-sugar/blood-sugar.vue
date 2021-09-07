@@ -57,6 +57,7 @@
               :data="item.left"
               :selected.sync="selected"
               @dblclick="onEdit"
+              :baseIndex='0'
             ></sugarTable>
             <div
               style="
@@ -69,6 +70,7 @@
               :data="item.right"
               :selected.sync="selected"
               @dblclick="onEdit"
+              :baseIndex='27'
             ></sugarTable>
           </div>
           <div class="page-con">

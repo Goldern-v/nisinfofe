@@ -1,3 +1,6 @@
+/*
+  江门妇幼-新生儿监护单
+*/
 import {
   wrap
 } from "lodash";
@@ -6,7 +9,7 @@ export default {
   // 科室的名称
   deptType: '',
   style: {
-    width: "1250px"
+    width: "1300px"
   },
   th: {
     top: [{
@@ -244,7 +247,21 @@ export default {
         name: `
         护士签名
         `,
-        style: {},
+        style: {
+          minWidth: '60px',
+          maxWidth: '60px',
+        },
+        colspan: '1',
+        rowspan: '3'
+      },
+      {
+        name: `
+        上级护士签名
+        `,
+        style: {
+          minWidth: '60px',
+          maxWidth: '60px',
+        },
         colspan: '1',
         rowspan: '3'
       }

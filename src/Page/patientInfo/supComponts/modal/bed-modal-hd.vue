@@ -316,7 +316,7 @@
       >
         <div class="bed-card-vert-con">
           <div class="top">
-            <span>科室：{{ query.deptName }}</span>
+            <span>科室：{{ query.wardName }}</span>
             <span style="margin:4px;">床位：{{ query.bedLabel }}</span>
           </div>
           <div>
@@ -330,7 +330,7 @@
               <span>入院日期：{{ query.admissionDate | ymdhm }}</span>
             </div>
             <div class="allergy">
-              <p>
+              <p class="gm">
                 过敏信息：
                 <span v-if="allergy1">{{ allergy1 }};</span>
                 <span v-if="drugGms">{{ drugGms }};</span>
@@ -460,10 +460,12 @@
         width :80%;
         p{
           margin-left:10px;
+          font-size: 20px;
+          color:red
         }
         span{
           margin-left:0px;
-          font-size:15px !important;
+          font-size: 20px;
         }
       }
      span {
