@@ -74,8 +74,8 @@
         v-model="searchData.date"
         type="datetime"
         placeholder="开始日期"
-        style="width: 250px"
-        format="yyyy-MM-dd hh:mm"
+        style="width: 180px"
+        format="yyyy-MM-dd HH:mm"
       >
       </el-date-picker>
       <span>-</span>
@@ -83,8 +83,8 @@
         v-model="endData.date"
         type="datetime"
         placeholder="结束日期"
-        style="width: 250px"
-        format="yyyy-MM-dd hh:mm"
+        style="width: 180px"
+        format="yyyy-MM-dd HH:mm"
       >
       </el-date-picker>
       <el-button @click="searchsign">查询</el-button>
@@ -1525,9 +1525,9 @@ export default {
       };
       vitalsign(postData)
         .then((res) => {
-          console.log(res.data.data.list);
+          // console.log(res.data.data.list);
           this.gridData = res.data.data.list;
-          console.log(window.formObj.model);
+          // console.log(window.formObj.model);
         })
         .catch((err) => {
           console.log("错误事件", err);
