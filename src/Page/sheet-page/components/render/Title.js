@@ -522,6 +522,13 @@ export default function Title(
     );
   }
   break;
+  case "picc_custody_jm": {
+    // 江门妇幼 - PICU监护单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/picc_custody_jm/th.js").default)
+    );
+  }
+  break;
   case "postpartumnursing_jm": {
     // 江门妇幼 - 产后护理记录单
     Th = JSON.parse(

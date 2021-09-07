@@ -428,8 +428,13 @@ function switechSheetType(type) {
     }
       break;
     case "catheterplacement_jm": {
-      // 江门妇幼 - 中心静脉导管维护单
+      // 江门妇幼 - 深静脉导管置入术后维护单
       schema = require("../config/catheterplacement_jm/tr.js").default;
+    }
+    break;
+    case "picc_custody_jm": {
+      // 江门妇幼 - PICU监护单
+      schema = require("../config/picc_custody_jm/tr.js").default;
     }
       break;
     case "postpartumnursing_jm": {
