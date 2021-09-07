@@ -224,7 +224,7 @@ export default {
     getWarningValue() {
       this.pageLoading = true;
       if (this.wardCode) {
-        getWarningValue(this.wardCode).then(res => {
+        getWarningValue(this.wardCode,this.HOSPITAL_ID).then(res => {
           if (res.data.data) {
             this.warningValue = res.data.data.value;
           }

@@ -45,9 +45,13 @@ return axios.post(`${apiPath}warningLog/getListByParam`, obj);
 };
 
 // 根据科室获取警戒值
-export const getWarningValue = wardCode => {
-return axios.post(`${apiPath}warningValue/getByWardCode`, {
-    wardCode
-});
+export const getWarningValue = (wardCode,hospitalId) => {
+    switch(hospitalId){
+        case 'hengli':
+            return axios.post(`${apiPath}warningValue/getByWardCode`, {wardCode});
+        case 'wujing':
+            return axios.post(`${apiPath}procedure/pdaExecute/pdaGetSYStatusWithWardcode`, {wardCode});
+    }
+    
 };
 
