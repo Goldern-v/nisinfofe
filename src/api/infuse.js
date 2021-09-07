@@ -3,8 +3,13 @@ import qs from 'qs'
 import { apiPath } from './apiConfig'
 
 // 输液
-export const getExecute = (wardCode) => {
-    return axios.get(`${apiPath}board/getExecute/${wardCode}`)
+export const getExecute = (wardCode,hospitalId) => {
+    switch(hospitalId){
+        case 'hengli':
+            return axios.get(`${apiPath}board/getExecute/${wardCode}`)
+        case 'wujing':
+            return axios.post(`${apiPath}procedure/pdaExecute/pdaGetSYStatusWithWardcode`, {wardCode});
+    }
 }
 
 // 输液详情
@@ -45,9 +50,7 @@ return axios.post(`${apiPath}warningLog/getListByParam`, obj);
 };
 
 // 根据科室获取警戒值
-export const getWarningValue = wardCode => {
-return axios.post(`${apiPath}warningValue/getByWardCode`, {
-    wardCode
-});
+export const getWarningValue = (wardCode) => {
+    return axios.post(`${apiPath}warningValue/getByWardCode`, {wardCode});
 };
 

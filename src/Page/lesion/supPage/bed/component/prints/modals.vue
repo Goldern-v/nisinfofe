@@ -335,12 +335,12 @@
               <span>入院日期：{{ item.admissionDate | ymdhm }}</span>
             </div>
             <div class="allergy">
-              <p>
+              <p class="gm">
                 过敏信息：
-                <span v-if="item.allergy1">{{ item.allergy1 }};</span>
-                <span v-if="item.drugGms">{{ item.drugGms }};</span>
-                <span v-if="item.allergy2">{{ item.allergy2 }}</span>
-                <span v-else>无</span>
+                <span v-if="allergy1">{{ allergy1 }};</span>
+                <span v-if="drugGms">{{ drugGms }};</span>
+                <span v-if="allergy2">{{ allergy2 }}</span>
+                <span v-if="!(allergy1||drugGms||allergy2)">无</span>
               </p>
             </div>
             <!-- <svg id="barcode"></svg> -->
