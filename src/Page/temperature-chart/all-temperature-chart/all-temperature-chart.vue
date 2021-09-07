@@ -394,14 +394,14 @@
           </el-table-column>
           <el-table-column
             v-if="HOSPITAL_ID === 'guizhou'||HOSPITAL_ID === 'quzhou'"
-            prop="nursingEvents"
+            prop="nursingEvent"
             label="护理事件"
             min-width="100"
             align="center"
           >
             <template slot-scope="scope">
               <custom-input
-                v-model="scope.row.nursingEvents"
+                v-model="scope.row.nursingEvent"
                 colClass="curWeight"
               />
               <!-- <el-input v-model="scope.row.curWeight"></el-input> -->
@@ -1141,7 +1141,8 @@ export default {
         heartRate: "",
         painScore: "",
         stoolNum: "",
-        nursingEvents:"",
+        nursingEvent:"",
+        height:"",
       };
       let list = this.tableData.map((item) => {
         let obj = {};

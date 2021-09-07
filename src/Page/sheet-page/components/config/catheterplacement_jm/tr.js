@@ -1,19 +1,19 @@
 /*
-江门妇幼-PICU血液透析护理记录单
+江门妇幼-深静脉导管置入术后维护单
  */
 import { listItem } from "../../../api/recordDesc";
 import { multiDictInfo } from "../../../api/index";
-import { keyf1 } from "../keyEvent/f1.js";
-import { event_date, event_time, click_date } from "../keyEvent/date";
+import { keyf1, limitChange } from "../keyEvent/f1.js";
+import { event_date, event_time, click_date, click_time } from "../keyEvent/date";
 import info from "../sheetInfo";
 // let info = {
 //   sheetType: "neurology"
 // };
-let ysList = ["清醒(√)","嗜睡(+)","朦胧(++)","浅昏迷(+++)","深昏迷(++++)","麻醉未醒(△)"];
-let chuList = [];
-let ruList = [];
-let zthdList = [];
-let isCheck=["","√"]
+let ccdList = ["红肿","皮疹","干洁","渗血"];
+let flList = ["松脱","渗血","渗液","干洁","卷边"];
+let cgList = ["冲管","封管"];
+let ghflList = ["纱块敷料","3m透明敷料","HP透明敷料"];
+let ghjtList=["无针接头","肝素帽"]
 export default [
   {
     key: "recordMonth", //日期
@@ -24,114 +24,115 @@ export default [
   {
     key: "recordHour", //时间
     value: "",
-    event: event_time
+    event: event_time,
+    click: click_time
   },
   {
-    key: "bloodPressure", //血压
+    key: "exposed", //外露
     value: "",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 10),
+    textarea: {
+      width: 65
+    },
+  },
+  {
+    key: "armCircumference", //臂围
+    value: "",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 10),
+    textarea: {
+      width: 65
+    },
+  },
+  {
+    key: "puncturePoint", //穿刺点
+    value: "",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 10),
+    textarea: {
+      width: 65
+    },
+    autoComplete: {
+      data: ccdList
+    },
+  },
+  {
+    key: "dressing", //敷料
+    value: "",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 10),
+    textarea: {
+      width: 65
+    },
+    autoComplete: {
+      data: flList
+    },
+  },
+  {
+    key: "tube", //冲管/封管
+    value: "",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 16),
+    textarea: {
+      width: 100
+    },
+    autoComplete: {
+      data: cgList
+    },
+  },
+  {
+    key: "dressingExchange", //更换敷料
+    value: "",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 16),
+    textarea: {
+      width: 100
+    },
+    autoComplete: {
+      data: ghflList
+    },
+  },
+  {
+    key: "replaceConnector", //更换接头
+    value: "",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 16),
+    textarea: {
+      width: 100
+    },
+    autoComplete: {
+      data: ghjtList
+    },
+  },
+  {
+    key: "description", //特殊情况记录
+    value: "",
+    style: {
+      textAlign: "left",
+      position: "absolute",
+      top: "1px",
+      bottom: "1px",
+      left: "1px",
+      width: "180px",
+      background: "transparent"
+    },
     event: function (e, td) {
-      if (e.keyCode == 32) {
-        e.target.value += "/";
+      console.log(e.keyCode);
+      if (e.keyCode == 9) {
+        td.value = "    " + td.value;
         e.preventDefault();
       }
       keyf1(e, td);
-    },
-    name: "血压",
-    next: "mmHg"
-  },
-  {
-    key: "pulse", //脉搏/心率
-    value: "",
-    event: keyf1
-  },
-  {
-    key: "temperature", // 体温
-    value: "",
-    event: keyf1
-  },
-  {
-    key: "fieldOne", //血流速度ml/min
-    value: "",
-    event: keyf1
-  },
-  {
-    key: "fieldTwo", //透析液速度ml/h
-    value: "",
-    event: keyf1
-  },
-  {
-    key: "fieldThree", //置换液速度ml/h
-    value: "",
-    event: keyf1
-  },
-  {
-    key: "fieldFour", //脱水速度ml/h
-    value: "",
-    event: keyf1
-  },
-  {
-    key: "fieldFive", //抗凝剂速度ml/h
-    value: "",
-    event: keyf1
-  },
-  {
-    key: "fieldSix", //血浆分离比（%）
-    value: "",
-    event: keyf1
-  },
-  {
-    key: "fieldSeven", //ACT(sec)
-    value: "",
-    event: keyf1
-  },
-  {
-    key: "fieldEight", //动脉压mmHg
-    value: "",
-    event: keyf1
-  },
-  {
-    key: "fieldNine", //静脉压mmHg
-    value: "",
-    event: keyf1
-  },
-  {
-    key: "fieldFifteen", // 跨膜压mmHg
-    value: "",
-    event: keyf1
-  },
-  {
-    key: "fieldTen", // 透析液用量ml
-    value: "",
-    event: keyf1
-  },
-  {
-    key: "fieldEleven", // 置换液量ml
-    value: "",
-    event: keyf1
-  },
-  {
-    key: "fieldTwelve", // 总出水量ml
-    value: "",
-    event: keyf1
-  },
-  {
-    key: "fieldThirteen", //病人脱水总量ml
-    value: "",
-    event: keyf1,
-    textarea: {
-      width: 52
     }
-  },
-  {
-    key: "fieldFourteen", //病人脱水累计总量ml
-    value: "",
-    event: keyf1,
-    textarea: {
-      width: 52
-    }
+    // oninput: next
   },
   {
     key: "sign",
+    value: ""
+  },
+  {
+    key: "sign2",
     value: ""
   },
   // {
@@ -214,25 +215,3 @@ export default [
     value: true
   }
 ];
-
-export function getListData4() {
-  let list = ["花都:新生儿亚低温治疗护理记录表:肢体活动左右"];
-  multiDictInfo(list).then(res => {
-    let data = res.data.data;
-    setList(zthdList, "花都:新生儿亚低温治疗护理记录表:肢体活动左右", data);
-  });
-}
-
-getListData4();
-/**
- *
- * @param {*} list 原数组
- * @param {*} key 对应的key
- * @param {*} data 数据源
- */
-function setList(list, key, data) {
-  list.splice(0, list.length);
-  for (let item of data[key]) {
-    list.push(item.name);
-  }
-}
