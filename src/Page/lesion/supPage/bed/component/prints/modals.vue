@@ -479,11 +479,12 @@
       >>>.allergy{
         width :80%;
         p{
-          // margin-left:45px;
+          font-size: 20px;
+          color:red
         }
         span{
           margin-left:0px;
-          font-size:15px !important;
+          font-size:20px !important;
         }
       }
      span {
