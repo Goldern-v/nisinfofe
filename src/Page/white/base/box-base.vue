@@ -9,10 +9,12 @@
         <label v-if="optionTitle">{{optionTitle}}:</label>
         <slot name="head-tool"></slot>
         <slot name="head-con"></slot>
+        <slot name="head-btn"></slot>
       </span>
     </div>
     <div class="body-con">
       <slot name="body-con"></slot>
+      <slot name="body-btn"></slot>
     </div>
   </div>
 </template>
@@ -32,7 +34,7 @@
       line-height 16px
       font-weight bold
 .head-tool
-  >>>span
+  span
     height 21px
     line-height 22px
     font-size: 12px;

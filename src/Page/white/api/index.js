@@ -149,3 +149,13 @@ export const getWhiteLogIndicators = deptCode => {
 export const saveWhiteLogIndicators = (data) => {
   return axios.post(`${apiPath}whiteboardManage/whiteLogIndicators/saveOrUpdate`,data);
 };
+
+// hengli - 病人分组 - 获取分组数量
+export const getPatientGroup = (deptCode) => {
+  return axios.get(`${apiPath}whiteboardManage/getCustomGroupByDeptCode/${deptCode}`);
+};
+
+// hengli - 病人分组 - 新建分组
+export const savePatientGroup = (data) => {
+  return axios.post(`${apiPath}whiteboardManage/editPatientGroup`, data);
+};

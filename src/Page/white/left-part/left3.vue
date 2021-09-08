@@ -7,8 +7,9 @@
           <span flex-box="1" style="width: 0;margin-right: 20px">床位</span>
           <span flex-box="1" style="width: 0;margin-right: 10px">责任护士</span>
         </div>
-        <div class="list-con" flex="cross:center" v-for="(item, index) in computedList" :key="index">
-          <span style="width: 60px; text-align: center" v-if="HOSPITAL_ID=='hengli'">{{index | filterHengliGroup(index)}}</span>
+        <div class="list-con" flex="cross:center" v-for="(item, index) in HOSPITAL_ID === 'hengli' ? currentHLOptions : computedList" :key="index">
+          <!-- <span style="width: 60px; text-align: center" v-if="HOSPITAL_ID == 'hengli'">{{index | filterHengliGroup(index)}}</span> -->
+          <span style="width: 60px; text-align: center" v-if="HOSPITAL_ID === 'hengli'">{{ item }}</span>
           <span style="width: 60px; text-align: center" v-else-if="deptCode == '042302' && index==2 && HOSPITAL_ID=='hj'">A：</span>
           <span style="width: 60px; text-align: center" v-else-if="deptCode == '042302' && index==3 && HOSPITAL_ID=='hj'">A2：</span>
           <span style="width: 60px; text-align: center" v-else-if="deptCode == '042302' && index==4 && HOSPITAL_ID=='hj'">A3：</span>
@@ -20,20 +21,33 @@
             v-model="item.dutyNurse"
             @blur="update"
           >-->
-          <el-autocomplete flex-box="1" style="width: 0;margin-right: 10px" v-model="item.dutyNurse" :fetch-suggestions="querySearch" @select="update"></el-autocomplete>
+          <el-autocomplete flex-box="1" style="margin-right: 10px" v-model="item.dutyNurse" :fetch-suggestions="querySearch" @select="update"></el-autocomplete>
         </div>
       </div>
-      <span slot="head-con" class="selectCon">
-        <el-select v-model="value" placeholder="请选择" @change="update">
-          <template v-if="HOSPITAL_ID=='hengli'">
-            <el-option v-for="item in hengliOptions" :key="item.value" :label="item.label" :value="item.value"></el-option>
+      <div class="patient-group_btn" slot="body-btn" v-if="HOSPITAL_ID === 'hengli'">
+        <el-button>保存</el-button>
+      </div>
+      <!-- :class="{'selectCon': HOSPITAL_ID !== 'hengli'}" -->
+      <p slot="head-con">
+        <el-select v-if="HOSPITAL_ID=='hengli'" multiple size='small' v-model="hengliValue" placeholder="请选择" @change="update">
+          <template>
+            <el-option v-for="item in hengliOptions" :key="item.id" :label="item.groupName" :value="item.groupName"></el-option>
           </template>
-          <template v-else>
+        </el-select>
+        <el-select v-else v-model="value" size='small' class="diffSelect" placeholder="请选择" @change="update">
+          <template>
             <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
           </template>
         </el-select>
-      </span>
+      </p>
+      <div slot='head-btn' style="margin-left: 10px; display: flex" v-if="HOSPITAL_ID === 'hengli'">
+        <!-- <el-button type="primary">主要按钮</el-button>
+        <el-button size="small" type="primary">编辑</el-button> -->
+        <!-- <span slot="head-tool" style="margin-right: 10px;" @click="add">新建</span> -->
+        <span slot="head-tool" @click="edit">编辑</span>
+      </div>
     </boxBase>
+    <left3Modal ref='left3Modal' @on-group='onGroup' :status='status' :currentIndex='currentIndex'></left3Modal>
   </div>
 </template>
 
@@ -65,26 +79,35 @@ input {
   outline: none;
   padding-left: 10px;
 }
-.selectCon {
-  height: 28px !important;
-  &:hover {
-    background: #fff !important;
-  }
-  padding: 0 !important;
-  >>> input {
-    height: 28px;
-    border: 0;
-    width: 90px;
-  }
+// .selectCon {
+//   height: 28px !important;
+//   &:hover {
+//     background: #fff !important;
+//   }
+//   padding: 0 !important;
+//   >>> input {
+//     height: 28px;
+//     border: 0;
+//     width: 90px;
+//   }
+// }
+.patient-group_btn{
+  width: 100%;
+  text-align: right;
+  margin: 10px -10px 10px;
+}
+.diffSelect{
+  width: 100px;
 }
 </style>
 
 <script>
 import boxBase from "../base/box-base.vue";
 import { userDictInfo } from "@/api/common";
-import { viewListByDeptCode, updateByDeptCodeAndGroupCode } from "../api";
+import { viewListByDeptCode, updateByDeptCodeAndGroupCode, getPatientGroup } from "../api";
 import common from "@/common/mixin/common.mixin.js";
 import bus from "vue-happy-bus";
+import left3Modal from '../modal/letf3-modal.vue'
 export default {
   mixins: [common],
   data() {
@@ -116,41 +139,43 @@ export default {
           label: "8",
         },
       ],
-      hengliOptions: [
-        //横沥分组
-        {
-          value: 4,
-          label: "4",
-        },
-        {
-          value: 5,
-          label: "5",
-        },
-        {
-          value: 6,
-          label: "6",
-        },
-        {
-          value: 7,
-          label: "7",
-        },
-        {
-          value: 8,
-          label: "8",
-        },
-        {
-          value: 9,
-          label: "9",
-        },
-      ],
-      value: 4,
+      hengliOptions: [],
+      currentHLOptions: [], // 横沥-病例分组-选中分组存储数组
+      value: 4, 
+      hengliValue: '',
+      currentIndex: 0, // 横沥-选中分组类型的index
+      status: '',
       timer: null,
     };
   },
   created() {
     this.bus.$on("indexGetAllData", this.getData);
+    if (this.HOSPITAL_ID === 'hengli') {
+      this.getPatientGroup()
+    }
   },
   methods: {
+    getPatientGroup() {
+      getPatientGroup(this.deptCode).then(res => {
+        this.hengliOptions = res.data.data || []
+      })
+    },
+    onGroup(item) {
+      this.getPatientGroup()
+      // this.hengliOptions = item
+      // this.hengliValue = item[0].value
+    },
+    // add() {
+    //   this.$refs.left3Modal.visible = true
+    //   if (this.$refs.left3Modal.$refs['formRef']) {
+    //     this.$refs.left3Modal.$refs['formRef'].resetFields()
+    //   }
+    // },
+    edit() {
+      this.$refs.left3Modal.visible = true
+      // this.$refs.left3Modal.form.patientGroupHLs = this.hengliOptions[this.currentIndex].group
+      // this.status = 'edit'
+    },
     renderItem(groupCode) {
       return {
         bedSet: null,
@@ -198,9 +223,17 @@ export default {
         }));
       });
     },
-    update() {
+    update(val) {
       // if (this.isSave) return;
-
+      // console.log(val)
+      this.currentHLOptions = val
+      // // 横沥-获得选中分组的index
+      // this.hengliOptions.forEach((item, index) => {
+      //   if (item.value === val) {
+      //     this.currentIndex = index
+      //   }
+      // })
+      // console.log(this.currentIndex)
       let data = {};
       data.deptCode = this.deptCode;
       data.patientGroups = this.computedList;
@@ -251,6 +284,7 @@ export default {
   },
   components: {
     boxBase,
+    left3Modal
   },
   filters: {
     //东莞横沥分组规则
