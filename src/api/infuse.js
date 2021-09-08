@@ -9,17 +9,27 @@ export const getExecute = (wardCode,hospitalId) => {
             return axios.get(`${apiPath}board/getExecute/${wardCode}`)
         case 'wujing':
             return axios.post(`${apiPath}procedure/pdaExecute/pdaGetSYStatusWithWardcode`, {wardCode});
+        default :
+            return axios.get(`${apiPath}board/getExecute/${wardCode}`)
+
     }
 }
 
 // 输液详情
 export const detail = (barCode) => {
-    return axios.get(`${apiPath}execute/detail/${barCode}`)
+    return axios.get(`${apiPath}execute/detail/${barCode}`);
 }
 
 // 输液详情-横沥
-export const detailHl = (params) => {
-    return axios.post(`${apiPath}execute/detail`,params)
+export const detailHl = (params,hospitalId) => {
+    switch(hospitalId){
+        case "hengli":
+            return axios.post(`${apiPath}execute/detail`,params)
+        case "wujing":
+            return axios.post(`${apiPath}procedure/pdaExecute/detail`,params)
+        default:
+            return axios.post(`${apiPath}execute/detail`,params)
+    }
 }
 
 // 保存警戒值日志

@@ -180,7 +180,7 @@ export default {
         executeDate: moment().format("YYYY-MM-DD"), //执行日期
         bedLabel: "", //床位号，如果查全部传*"
         repeatIndicator: 9, //医嘱类型，长期传1，临时传0，全部传9
-        executeFlag: "未执行", //0未执行，2已执行
+        executeFlag: 0, //0未执行，2已执行
       },
     };
   },
@@ -277,7 +277,11 @@ export default {
           executeNurse: this.empNo, // 执行护士工号
           verifyNurse: this.empNo, // 核对护士工号
         };
-        data.push(obj);
+        // 相同barcode只需要发送一条记录
+        let isHas = data.every(e=>{
+          return e.barcode != obj.barcode
+        })
+        isHas?data.push(obj):''
       });
       handleWebExecuteBatch({ lists: data }).then((res) => {
         this.$message.success(res.data.desc);

@@ -106,7 +106,7 @@
                 <i class="iconfont icon-hulijiludan"></i> 护理记录
               </el-row>
             </router-link>-->
-            <el-dropdown
+            <!-- <el-dropdown
               menu-align="start"
               :class="{ 'router-link-active': isActiveFormPage }"
             >
@@ -115,7 +115,7 @@
               </el-row>
               
               <el-dropdown-menu slot="dropdown">
-                <!-- <el-dropdown-item
+                <el-dropdown-item
                   :class="{ active: $route.path == '/sheetHospitalAdmission' }"
                 >
                   <router-link to="/sheetHospitalAdmission" tag="span">
@@ -147,7 +147,7 @@
                     </el-row>
                   </router-link>
                 </el-dropdown-item>-->
-                <el-dropdown-item
+                <!-- <el-dropdown-item
                   :class="{ active: $route.path == '/sugarPage' }"
                 >
                   <router-link to="/sugarPage" tag="span">
@@ -184,7 +184,7 @@
                   </router-link>
                 </el-dropdown-item>
               </el-dropdown-menu>
-            </el-dropdown>
+            </el-dropdown> -->
             <!-- <router-link to="/formPage" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-dongtairizhi"></i> 护理评估
@@ -282,7 +282,7 @@
               </el-row>
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item
-                  :class="{ active: ['/implementationList','/bottleLabelByProgram'].includes($route.path) }"
+                  :class="{ active: ['/bottleLabelByProgram'].includes($route.path) }"
                 >
                   <router-link to="/bottleLabelByProgram" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">

@@ -17,7 +17,7 @@
         @openSettingModal="openSettingModal"
       >></searchCon>
       <div class="list-con">
-        <span @click="getDetail(item)" v-for="(item,index) in filterData" :key="index" v-if="HOSPITAL_ID=='hengli'">
+        <span @click="getDetail(item)" v-for="(item,index) in filterData" :key="index" v-if="HOSPITAL_ID=='hengli'||HOSPITAL_ID=='wujing'">
           <infuse-item :data="item"></infuse-item>
         </span>
         <span v-for="(item,index) in filterData" :key="index" v-else>
@@ -136,7 +136,7 @@ export default {
     getInfuseList() {
       this.pageLoading = true;
       if (this.wardCode) {
-        getExecute(this.wardCode).then(res => {
+        getExecute(this.wardCode,this.HOSPITAL_ID).then(res => {
           this.data.list = res.data.data.list;
           this.excuteToday = res.data.data.excuteToday;
           this.pageLoading = false;
@@ -197,8 +197,8 @@ export default {
     getDetail(data) {
       this.pageLoading = true;
       let barCode = data.barCode;
-      if(this.HOSPITAL_ID=='hengli'){
-        detailHl({barCode}).then(res => {
+      if(this.HOSPITAL_ID=='hengli'||this.HOSPITAL_ID=='wujing'){
+        detailHl({barCode},this.HOSPITAL_ID).then(res => {
           this.$refs.detailsModal.open(res.data.data);
           this.pageLoading = false;
         });

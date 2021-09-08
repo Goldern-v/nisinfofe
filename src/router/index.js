@@ -35,6 +35,7 @@ const templateShow = () => import("@/Page/templateShow/templateShow"); //文书�
 const resetPassword = () => import("@/Page/resetPassword/resetPassword");
 const indexXin = () => import("@/Page/index-xin/Nurse.vue");
 const indexHd = () => import("@/Page/index-xin/Nurse-hd.vue");
+const indexWujing = () => import("@/Page/index-xin/Nurse-wujing.vue");
 const indexLiaocheng = () => import("@/Page/index-xin/Nurse-liaocheng.vue");
 const imageView = () => import("@/Part/imageView/imageView");
 const nursingDocumentation = () =>
@@ -342,6 +343,8 @@ const router = new Router({
               return indexHd
             case 'liaocheng':
               return indexLiaocheng
+            case 'wujing':
+              return indexWujing
             default:
               return indexXin
           }
