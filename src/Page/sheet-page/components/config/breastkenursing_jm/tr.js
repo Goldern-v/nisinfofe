@@ -1,3 +1,6 @@
+/*
+江门妇幼-乳腺科护理记录单
+*/
 import {
   keyf1
 } from "../keyEvent/f1.js";
@@ -15,18 +18,12 @@ export default [{
     value: "",
     event: event_date,
     click: click_date,
-    textarea: {
-      width: 50
-    }
   },
   {
     key: "recordHour", //时间
     value: "",
     event: event_time,
     click: click_time,
-    textarea: {
-      width: 50
-    }
   },
   {
     key: "temperature", //体温
@@ -275,6 +272,10 @@ export default [{
   },
   {
     key: "sign",
+    value: ""
+  },
+  {
+    key: "sign2",
     value: ""
   },
   // {

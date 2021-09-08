@@ -1,14 +1,14 @@
 import moment from "moment";
 
 function currYear() {
-  return moment().format('YYYY')
+  return moment().format('YYYY年')
 }
 
 export default {
   // 科室的名称 关节骨科
   deptType: "",
   style: {
-    width: "1400px"
+    width: "1450px"
   },
   th: {
     top: [{
@@ -159,6 +159,20 @@ export default {
       {
         name: `签名
         `,
+        style: {
+          minWidth: '60px',
+          maxWidth: '60px',
+        },
+        colspan: "1",
+        rowspan: "3"
+      },
+      {
+        name: `上级护士签名
+        `,
+        style: {
+          minWidth: '60px',
+          maxWidth: '60px',
+        },
         colspan: "1",
         rowspan: "3"
       }

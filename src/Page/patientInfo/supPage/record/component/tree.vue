@@ -423,23 +423,13 @@ export default {
         }
       }
       let viewDom = h()
-      if (this.HOSPITAL_ID === "liaocheng") {
+      if (this.HOSPITAL_ID === "liaocheng" || this.HOSPITAL_ID === "quzhou") {
         viewDom = h(
           'div',
           {class: {'view': true}, on: {click: (e) => this.handleViewClick(e, node, data)}},
           [
             h('i', {class: {'el-icon-view': true}}),
           ],
-        )
-      }
-      if (this.HOSPITAL_ID === "quzhou") {
-        viewDom = h(
-          'div',
-          {class: {'view': true}, on: {click: (e) => this.handlePrintClick(e, node, data)}},
-          [
-            h('i', {class: {'el-icon-view': true}}),
-          ],
-          
         )
       }
       if (node.level !== 2) {
@@ -482,6 +472,7 @@ export default {
     },
     handlePrintClick(e,node,data){
       console.log(e,node,data);
+
     },
     getBlockByPV() {
       console.log(this.HOSPITAL_ID);

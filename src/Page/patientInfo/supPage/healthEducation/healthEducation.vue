@@ -21,7 +21,7 @@
           <WhiteButton text="添加" @click="onAdd"></WhiteButton>
           <WhiteButton text="修改" @click="onEdit" :disabled="!selected"></WhiteButton>
           <WhiteButton text="删除当条" @click="onRemove" :disabled="!selected"></WhiteButton>
-          <WhiteButton text="推送" @click="onPush" :disabled="!selected" ></whiteButton>
+          <WhiteButton text="推送" @click="onPush" :disabled="!selected" v-if="HOSPITAL_ID!='beihairenyi'"></whiteButton>
         </div>
         <div class="tool-fix tool-right">
           <WhiteButton text="新建教育单" @click="addEducation"></WhiteButton>

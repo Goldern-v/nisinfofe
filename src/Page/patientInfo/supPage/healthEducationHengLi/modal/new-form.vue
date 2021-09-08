@@ -294,7 +294,7 @@ import commonMixin from "@/common/mixin/common.mixin";
 import { host } from "@/api/apiConfig";
 import bus from "vue-happy-bus";
 import { formUrl, devFormUrl } from "@/common/pathConfig/index.js";
-import { templatesAll, healthEduTemplates } from "../api/index.js";
+import { templatesAll, healthEduTemplates,createHealthEduTemplates } from "../api/index.js";
 import { getFormConfig } from "../config/form-config.js";
 import qs from "qs";
 
@@ -529,31 +529,42 @@ export default {
           }
         }
       } else if (this.formType === "4") {
-        console.log("健康教育单");
-        this.nooForm = 1;
-        // getContentByMissionIds(item.missionId).then(res => {
-        // console.log(res,"res")
-        this.bus.$emit(
-          /** openAssessment  19-7-31 尝试修改*/
-          "openAssessmentBox",
-          Object.assign(getFormConfig("健康教育单"), {
-            id: "",
-            formCode: "eduMission",
-            nooForm: 1,
-            pageUrl: "健康教育单.html",
-            // pageUrl: "aowu.html",
-            pageItem: item.name,
-            missionId: item.missionId,
-            publicUse: item.publicUse,
-            deptCode: item.deptCode,
+        console.log("--------------",this.$route.query);
+        (async ()=>{
+          let newForm = await createHealthEduTemplates({
+            patientId:this.$route.query.patientId,
+            visitId:this.$route.query.visitId,
+            code:this.selectData.formCode,
+            type:this.selectData.formType,
+            templateCode:this.selectData.templateCode
           })
-        );
-        this.pageItem = item.name;
-        // this.bus.$emit(
-        //   "pageItem",
-        //     this.pageItem
-        //   )
-        //  this.newRecordClose();
+          console.log(newForm);
+          this.nooForm = 1;
+          // getContentByMissionIds(item.missionId).then(res => {
+          // console.log(res,"res")
+          this.bus.$emit(
+            /** openAssessment  19-7-31 尝试修改*/
+            "openAssessmentBox",
+            Object.assign(getFormConfig("健康教育单"), {
+              id: "",
+              formCode: "health_education_hl",
+              nooForm: 1,
+              pageUrl: "通用健康教育单.html",
+              formType:"healthEdu",
+              // pageUrl: "aowu.html",
+              pageItem: item.name,
+              missionId: item.missionId,
+              publicUse: item.publicUse,
+              deptCode: item.deptCode,
+            })
+          );
+          this.pageItem = item.name;
+          // this.bus.$emit(
+          //   "pageItem",
+          //     this.pageItem
+          //   )
+          //  this.newRecordClose();
+          })()
       }
       this.newRecordClose();
     },

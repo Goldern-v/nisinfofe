@@ -250,6 +250,8 @@ import sheetTable_neonatology_picc from "./components/sheetTable-neonatology_pic
 import sheetTable_surgical_eval2_lcey from "./components/sheetTable-surgical_eval2_lcey/sheetTable";
 import sheetTable_intervention_cure_lcey from "./components/sheetTable-intervention_cure_lcey/sheetTable";
 import sheetTable_picu_hemodialysis_jm from "./components/sheetTable-picu_hemodialysis_jm/sheetTable";
+import sheetTable_catheterplacement_jm from "./components/sheetTable-catheterplacement_jm/sheetTable";
+import sheetTable_picc_custody_jm from "./components/sheetTable-picc_custody_jm/sheetTable";
 import sheetTable_oxytocin_hl from "./components/sheetTable-oxytocin_hl/sheetTable";
 import sheetTable_emergency_rescue from "./components/sheetTable-emergency_rescue/sheetTable";
 import sheetTable_dressing_count_hl from "./components/sheetTable-dressing_count_hl/sheetTable";
@@ -392,6 +394,10 @@ export default {
         return sheetTable_intervention_cure_lcey;
       } else if (sheetInfo.sheetType == "picu_hemodialysis_jm") {
         return sheetTable_picu_hemodialysis_jm;
+      } else if (sheetInfo.sheetType == "catheterplacement_jm") {
+        return sheetTable_catheterplacement_jm;
+      } else if (sheetInfo.sheetType == "picc_custody_jm") {
+        return sheetTable_picc_custody_jm;
       } else if (sheetInfo.sheetType == "rescue_hl") {
         return sheetTable_emergency_rescue;
       } else if (sheetInfo.sheetType == "oxytocin_hl") {
@@ -816,10 +822,14 @@ export default {
       // } else {
       //   this.$router.push(`/print/sheetPage`);
       // }
-      if (process.env.NODE_ENV === "production") {
-        newWid.location.href = "/crNursing/print/sheetPage";
-      } else {
+      if (process.env.HOSPITAL_ID == "fuyou") {
         this.$router.push(`/print/sheetPage`);
+      } else {
+        if (process.env.NODE_ENV === "production") {
+          newWid.location.href = "/crNursing/print/sheetPage";
+        } else {
+          this.$router.push(`/print/sheetPage`);
+        }
       }
     });
     this.bus.$on("openHJModal", () => {
@@ -925,6 +935,8 @@ export default {
     sheetTable_surgical_eval2_lcey,
     sheetTable_intervention_cure_lcey,
     sheetTable_picu_hemodialysis_jm,
+    sheetTable_catheterplacement_jm,
+    sheetTable_picc_custody_jm,
     doctorEmr,
     sheetTable_oxytocin_hl,
     sheetTable_emergency_rescue,

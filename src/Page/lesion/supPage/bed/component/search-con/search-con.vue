@@ -60,7 +60,7 @@
           @click="selectType(item.name)"
         >
           <i class="icon-bingwei iconfont"></i>
-          <span>{{ item.name }}（{{ item.num }}）</span>
+          <span  :class="{gm:HOSPITAL_ID=='huadu'&& item.name=='过敏'}">{{ item.name }}（{{ item.num }}）</span>
         </div>
 
         <div
@@ -209,7 +209,9 @@
       }
     }
   }
-
+  .gm{
+    color :red;
+  }
   .line {
     background: #ECEEEF;
     height: 1px;
@@ -286,6 +288,7 @@ import {
   syncGetMedicalAdvice,
   syncGetNurseBedRecLc,
   syncGetNurseBedRecLiaocheng,
+  syncGetNurseBedRecShannan,
 } from "@/api/lesion";
 import footerBar from "../footer-bar/footer-bar.vue";
 import { listItem } from "@/api/common.js";
@@ -578,7 +581,7 @@ export default {
     },
     // 同步床位数据
     showSyncBedBtn() {
-      return ["weixian", "lingcheng", "liaocheng", "hengli"].includes(
+      return ["weixian", "lingcheng", "liaocheng", "hengli",'shannan'].includes(
         this.HOSPITAL_ID
       );
     },
@@ -631,6 +634,9 @@ export default {
           break;
         case "liaocheng":
           syncData = syncGetNurseBedRecLiaocheng;
+          break;
+        case "shannan":
+          syncData = syncGetNurseBedRecShannan;
           break;
         default:
           syncData = syncGetNurseBedRec;

@@ -2653,7 +2653,8 @@
           "options": [
             "无",
             "有,压力性损伤风险评估表Barden（成人）",
-            "有,压力性损伤风险评估表Barden Q（儿童）"
+            "有,压力性损伤风险评估表Barden Q（儿童）",
+            "有,新生儿皮肤风险评估"
           ],
           "rule": [
             {
@@ -2677,6 +2678,18 @@
                 "type": "independent",
                 "name": "S0005",
                 "parentName": "S0005",
+                "showHead": "true"
+              }
+            },
+            {
+              "dialog": {
+                "openKey": "有,新生儿皮肤风险评估",
+                "cleanKey": "无",
+                "title": "新生儿皮肤风险评估",
+                "default": "新生儿皮肤风险评估",
+                "type": "independent",
+                "name": "S0628",
+                "parentName": "S0628",
                 "showHead": "true"
               }
             },
@@ -3270,6 +3283,17 @@
           ]
         },
         {
+          "name": "I001463",
+          "type": "select",
+          "title": "宫缩",
+          "style": null,
+          "titleStyle": "width:100px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "141px",
+          "class": null,
+          "readOnly": null
+        },
+        {
           "name": "I100122",
           "type": "select",
           "title": "阴道异常分泌物",
@@ -3304,6 +3328,61 @@
               }
             }
           ]
+        },
+        {
+          "name": "I001464",
+          "type": "select",
+          "title": "下腹部包块",
+          "style": null,
+          "titleStyle": "width:100px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "141px",
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I001465",
+          "type": "select",
+          "title": "腹痛",
+          "style": null,
+          "titleStyle": "width:100px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "141px",
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I001466",
+          "type": "select",
+          "title": "腰酸",
+          "style": null,
+          "titleStyle": "width:100px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "141px",
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I001467",
+          "type": "select",
+          "title": "下腹坠胀",
+          "style": null,
+          "titleStyle": "width:100px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "141px",
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I001468",
+          "type": "select",
+          "title": "压迫症状",
+          "style": null,
+          "titleStyle": "width:100px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "141px",
+          "class": null,
+          "readOnly": null
         }
       ]
     },
@@ -3325,27 +3404,53 @@
       "children": [
         {
           "name": "I001819",
-          "type": "input",
+          "type": "select",
           "title": "孕产史(孕)",
-          "suffixDesc": "次",
+          "suffixDesc": "",
           "style": null,
           "titleStyle": "width:70px!important",
           "inputStyle": "width:270px!important",
           "inputWidth": "172px",
           "class": null,
-          "readOnly": null
+          "readOnly": null,
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "有",
+                "cleanKey": [
+                  "无"
+                ],
+                "title": "孕产史(孕)情况",
+                "parentName": "I001820",
+                "type": "dependent"
+              }
+            }
+          ]
         },
         {
           "name": "I001820",
-          "type": "input",
+          "type": "select",
           "title": "孕产史(产)",
-          "suffixDesc": "次",
+          "suffixDesc": "",
           "style": null,
           "titleStyle": "width:70px!important",
           "inputStyle": "width:270px!important",
           "inputWidth": "172px",
           "class": null,
-          "readOnly": null
+          "readOnly": null,
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "有",
+                "cleanKey": [
+                  "无"
+                ],
+                "title": "孕产史(产)情况",
+                "parentName": "I001820",
+                "type": "dependent"
+              }
+            }
+          ]
         },
         {
           "name": "I001821",
@@ -3408,8 +3513,19 @@
         {
           "name": "I001832",
           "type": "input",
-          "title": "孕期检查(院内)",
-          "suffixDesc": "次",
+          "title": "孕期检查",
+          "style": null,
+          "multiplechoice": true,
+          "titleStyle": "width:92px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "150px",
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I001457",
+          "type": "select",
+          "title": "产妇状态",
           "style": null,
           "titleStyle": "width:92px!important",
           "inputStyle": "width:270px!important",
@@ -3418,10 +3534,9 @@
           "readOnly": null
         },
         {
-          "name": "I001833",
-          "type": "input",
-          "title": "孕期检查(院外)",
-          "suffixDesc": "次",
+          "name": "I001458",
+          "type": "select",
+          "title": "HBsAg",
           "style": null,
           "titleStyle": "width:92px!important",
           "inputStyle": "width:270px!important",
@@ -3429,6 +3544,7 @@
           "class": null,
           "readOnly": null
         },
+        {},
         {
           "name": "",
           "type": "formGroupHR",
@@ -3477,30 +3593,6 @@
           "readOnly": null
         },
         {
-          "name": "I001836",
-          "type": "select",
-          "title": "宫口开张",
-          "style": null,
-          "titleStyle": "width:60px!important",
-          "inputStyle": "width:270px!important",
-          "inputWidth": "180px",
-          "class": null,
-          "readOnly": null,
-          "rule": [
-            {
-              "dialog": {
-                "openKey": "开大",
-                "cleanKey": [
-                  "无"
-                ],
-                "title": "宫口开张开大情况",
-                "parentName": "I001836",
-                "type": "dependent"
-              }
-            }
-          ]
-        },
-        {
           "name": "I001839",
           "type": "select",
           "title": "宫缩",
@@ -3524,7 +3616,7 @@
             }
           ]
         },
-        {
+        { 
           "name": "I001841",
           "type": "select",
           "title": "腹痛",
@@ -3533,20 +3625,18 @@
           "inputStyle": "width:270px!important",
           "inputWidth": "180px",
           "class": null,
-          "readOnly": null,
-          "rule": [
-            {
-              "dialog": {
-                "openKey": "有",
-                "cleanKey": [
-                  "无"
-                ],
-                "title": "腹痛情况",
-                "parentName": "I001841",
-                "type": "dependent"
-              }
-            }
-          ]
+          "readOnly": null
+        },
+        {
+          "name": "I001847",
+          "type": "select",
+          "title": "阴道流血",
+          "style": null,
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "180px",
+          "class": null,
+          "readOnly": null
         },
         {
           "name": "I001844",
@@ -3572,10 +3662,11 @@
             }
           ]
         },
+        
         {
-          "name": "I001847",
+          "name": "I001459",
           "type": "select",
-          "title": "阴道流血",
+          "title": "胎动",
           "style": null,
           "titleStyle": "width:60px!important",
           "inputStyle": "width:270px!important",
@@ -3585,12 +3676,12 @@
           "rule": [
             {
               "dialog": {
-                "openKey": "有",
+                "openKey": "正常",
                 "cleanKey": [
-                  "无"
+                  "未数"
                 ],
-                "title": "阴道流血情况",
-                "parentName": "I001847",
+                "title": "胎动情况",
+                "parentName": "I001459",
                 "type": "dependent"
               }
             }
@@ -3600,102 +3691,6 @@
           "name": "",
           "type": "html",
           "html": ""
-        },
-        {
-          "name": "",
-          "type": "formGroupHR",
-          "title": "",
-          "line": "dashed",
-          "prefixDesc": "",
-          "suffixDesc": "",
-          "keys": "",
-          "elementStyle": "width: 100%;",
-          "classes": "",
-          "readOnly": ""
-        },
-        {
-          "name": "",
-          "type": "formGroupHR",
-          "title": "",
-          "line": "dashed",
-          "prefixDesc": "",
-          "suffixDesc": "",
-          "keys": "",
-          "elementStyle": "width: 100%;",
-          "classes": "",
-          "readOnly": ""
-        },
-        {
-          "name": "I001849",
-          "type": "input",
-          "title": "宫高",
-          "suffixDesc": "cm",
-          "style": null,
-          "titleStyle": "width:60px!important",
-          "inputStyle": "width:270px!important",
-          "inputWidth": "180px",
-          "class": null,
-          "readOnly": null
-        },
-        {
-          "name": "I001850",
-          "type": "input",
-          "title": "腹围",
-          "suffixDesc": "cm",
-          "style": null,
-          "titleStyle": "width:60px!important",
-          "inputStyle": "width:270px!important",
-          "inputWidth": "180px",
-          "class": null,
-          "readOnly": null
-        },
-        {
-          "name": "I001851",
-          "type": "input",
-          "title": "髂前上棘",
-          "suffixDesc": "cm",
-          "style": null,
-          "titleStyle": "width:60px!important",
-          "inputStyle": "width:270px!important",
-          "inputWidth": "180px",
-          "class": null,
-          "readOnly": null
-        },
-        {
-          "name": "I001852",
-          "type": "input",
-          "title": "髂嵴间经",
-          "suffixDesc": "cm",
-          "style": null,
-          "titleStyle": "width:60px!important",
-          "inputStyle": "width:270px!important",
-          "inputWidth": "180px",
-          "class": null,
-          "readOnly": null
-        },
-        {
-          "name": "I001853",
-          "type": "input",
-          "title": "骶耻外径",
-          "suffixDesc": "cm",
-          "style": null,
-          "titleStyle": "width:60px!important",
-          "inputStyle": "width:270px!important",
-          "inputWidth": "180px",
-          "class": null,
-          "readOnly": null
-        },
-        {
-          "name": "I001854",
-          "type": "input",
-          "title": "出口横径",
-          "suffixDesc": "cm",
-          "style": null,
-          "titleStyle": "width:60px!important",
-          "inputStyle": "width:270px!important",
-          "inputWidth": "180px",
-          "class": null,
-          "readOnly": null
         },
         {
           "name": "",
@@ -3742,30 +3737,6 @@
           "inputWidth": "180px",
           "class": null,
           "readOnly": null
-        },
-        {
-          "name": "I001857",
-          "type": "select",
-          "title": "母乳喂养知识",
-          "style": null,
-          "titleStyle": "width:80px!important",
-          "inputStyle": "width:270px!important",
-          "inputWidth": "160px",
-          "class": null,
-          "readOnly": null,
-          "rule": [
-            {
-              "dialog": {
-                "openKey": "其他",
-                "cleanKey": [
-                  "无"
-                ],
-                "title": "母乳喂养知识其他",
-                "parentName": "I001857",
-                "type": "dependent"
-              }
-            }
-          ]
         }
       ]
     },

@@ -71,7 +71,7 @@
             class="print-btn"
             flex="cross:center main:center"
             @click="openBedPrint()"
-            v-if="HOSPITAL_ID != 'beihairenyi'"
+            v-if="HOSPITAL_ID != 'beihairenyi' && HOSPITAL_ID != 'guizhou'"
           >
             打印床头卡
           </div>

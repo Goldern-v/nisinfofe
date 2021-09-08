@@ -854,6 +854,7 @@ export default {
         if (this.info.nooForm == "1") {
           window.openSignModal((password, empNo) => {
             wid.signForm(empNo, password).then((res) => {
+              console.log(res,'ffadsdsfadsfdfda');
               this.$message.success("签名成功");
               this.refresh();
               this.bus.$emit("refreshTree");

@@ -1,3 +1,6 @@
+/*
+江门妇幼-PICU血液透析护理记录单
+ */
 import { listItem } from "../../../api/recordDesc";
 import { multiDictInfo } from "../../../api/index";
 import { keyf1 } from "../keyEvent/f1.js";
@@ -147,6 +150,11 @@ export default [
   },
   {
     hidden: true,
+    key: "signerName2",
+    value: ""
+  },
+  {
+    hidden: true,
     key: "status",
     value: ""
   },
@@ -181,6 +189,11 @@ export default [
     value: ""
   },
   {
+    hidden: true,
+    key: "signerNo2",
+    value: ""
+  },
+  {
     hidden: false,
     key: "auditorNo",
     value: ""
@@ -198,7 +211,7 @@ export default [
   {
     hidden: true,
     key: "multiSign",
-    value: false
+    value: true
   }
 ];
 

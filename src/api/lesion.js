@@ -59,6 +59,10 @@ function syncGetNurseBedRec(deptCode) {
 function syncGetNurseBedRecLiaocheng(deptCode) {
   return axios.get(`${apiPath}hisLiaoChengExecute/syncGetNurseBedRec/${deptCode}`)
 }
+// 山南 --更新床位一览卡信息
+function syncGetNurseBedRecShannan(deptCode) {
+  return axios.get(`${apiPath}hisShanNanExecute/syncGetNurseBedRec/${deptCode}`)
+}
 // 威县 --同步医嘱
 function syncGetMedicalAdvice(deptCode) {
   return axios.get(`${apiPath}hisDispenseExecute/syncGetPatientOrdersWithWardCode/${deptCode}`)
@@ -79,5 +83,6 @@ export {
   syncGetMedicalAdvice,
   syncGetNurseBedRecLc,
   syncGetNurseBedRecLiaocheng,
-  getPatientOrdersWithWardCode
+  getPatientOrdersWithWardCode,
+  syncGetNurseBedRecShannan
 }

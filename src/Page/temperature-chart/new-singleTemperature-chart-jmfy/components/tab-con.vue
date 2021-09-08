@@ -78,7 +78,11 @@
             :key="index"
           >
             <span class="preText">{{ index }}</span>
-            <input type="text" v-model="vitalSignObj[j].vitalValue" />
+            <input v-if="index!='大便次数'" type=text v-model="vitalSignObj[j].vitalValue" />
+            <select v-if="index==='大便次数'" type=text v-model="vitalSignObj[j].vitalValue" style="width:52.97px;height:19.73px">
+            <option v-for="(item,i) in selectValue" :key="i" >{{item}}</option>
+            </select>
+
           </div>
           <div class="fieldList">
             <div style="margin: 10px 0px; font-weight: bold; font-size: 14px">
@@ -120,6 +124,7 @@
               >
               </el-option>
             </el-select>
+            <input placeholder="表顶自定义" type="text" v-if="HOSPITAL_ID==='fuyou' " v-model="vitalSignObj[multiDictList['表顶注释']].expand1" style="width:90px"/>
             <el-date-picker
               size="mini"
               format="yyyy-MM-dd HH:mm:ss"
@@ -217,6 +222,7 @@ export default {
     return {
       mockData,
       recordList,
+      selectValue:['☆','※','0 /E','2 /E','1 0/E','1 1/E','1 2/E','2 0/E','2 1/E','2 2/E','2/2E'],
       bus: bus(this),
       editableTabsValue: "2",
       query: {
@@ -286,7 +292,7 @@ export default {
           value: "23",
         },
       ],
-      bottomContextList: ["", "不升"],
+      bottomContextList: ["温水擦浴", "不升"],
       topExpandDate: "",
       bottomExpandDate: "",
       totalDictInfo: {},
@@ -628,7 +634,6 @@ export default {
       width: 85px;
     }
   }
-
   .save-btn {
     position: relative;
     left: 30%;
@@ -636,4 +641,5 @@ export default {
     width: 100px;
   }
 }
+
 </style>

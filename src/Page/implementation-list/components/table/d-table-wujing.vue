@@ -63,9 +63,9 @@
         <template slot-scope="scope">
           <span
             :class="{
-              yzx: scope.row.executeFlag == 2
+              yzx: scope.row.executeFlag == '已完成'
               }"
-          >{{ scope.row.executeFlag == 2 ? '已执行' : '未执行' }}</span>
+          >{{ scope.row.executeFlag == '已完成' ? '已执行' : '未执行' }}</span>
         </template>
       </u-table-column>
 
@@ -249,7 +249,7 @@ export default {
   methods: {
     rowcb(obj){
       // 如果该条执行单是一组多条的 或者该执行单是已完成的隐藏当前多选框
-      if(obj.row.rowType > 1 || obj.row.executeFlag == 2){
+      if(obj.row.rowType > 1 || obj.row.executeFlag == '已完成'){
         return "myCell"
       }
     },

@@ -1,4 +1,4 @@
-/** 获取护记的行数 */
+/** 设置护理记录单行数 */
 import sheetInfo from "../config/sheetInfo";
 export function getRowNum(index) {
   console.log(index, "index", sheetInfo.sheetType);
