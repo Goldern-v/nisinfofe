@@ -57,7 +57,7 @@
     "dayjs": "^1.7.4",
     "deepmerge": "^1.2.0",
     "ecrm-element-ui": "^2.9.7",
-    "element-ui": "^2.1.0",
+    "element-ui": "^1.4.13 ",
     "escape-string-regexp": "^2.0.0",
     "execa": "^2.0.3",
     "glob": "^7.1.2",

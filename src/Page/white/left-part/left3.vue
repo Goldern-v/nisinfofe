@@ -9,7 +9,7 @@
         </div>
         <div class="list-con" flex="cross:center" v-for="(item, index) in HOSPITAL_ID === 'hengli' ? currentHLOptions : computedList" :key="index">
           <!-- <span style="width: 60px; text-align: center" v-if="HOSPITAL_ID == 'hengli'">{{index | filterHengliGroup(index)}}</span> -->
-          <span style="width: 60px; text-align: center" v-if="HOSPITAL_ID === 'hengli'">{{ item }}</span>
+          <span style="width: 60px; text-align: center" v-if="HOSPITAL_ID === 'hengli'">{{ item.groupName }}</span>
           <span style="width: 60px; text-align: center" v-else-if="deptCode == '042302' && index==2 && HOSPITAL_ID=='hj'">A：</span>
           <span style="width: 60px; text-align: center" v-else-if="deptCode == '042302' && index==3 && HOSPITAL_ID=='hj'">A2：</span>
           <span style="width: 60px; text-align: center" v-else-if="deptCode == '042302' && index==4 && HOSPITAL_ID=='hj'">A3：</span>
@@ -21,17 +21,17 @@
             v-model="item.dutyNurse"
             @blur="update"
           >-->
-          <el-autocomplete flex-box="1" style="margin-right: 10px" v-model="item.dutyNurse" :fetch-suggestions="querySearch" @select="update"></el-autocomplete>
+          <el-autocomplete flex-box="1" style="margin-right: 20px" v-model="item.dutyNurse" :fetch-suggestions="querySearch" @select="update"></el-autocomplete>
         </div>
       </div>
-      <div class="patient-group_btn" slot="body-btn" v-if="HOSPITAL_ID === 'hengli'">
+      <!-- <div class="patient-group_btn" slot="body-btn" v-if="HOSPITAL_ID === 'hengli'">
         <el-button>保存</el-button>
-      </div>
+      </div> -->
       <!-- :class="{'selectCon': HOSPITAL_ID !== 'hengli'}" -->
       <p slot="head-con">
-        <el-select v-if="HOSPITAL_ID=='hengli'" multiple size='small' v-model="hengliValue" placeholder="请选择" @change="update">
+        <el-select v-if="HOSPITAL_ID=='hengli'" multiple size='small' v-model="tepHLOptions" placeholder="请选择" @remove-tag="removeTag" @change="HLupdate">
           <template>
-            <el-option v-for="item in hengliOptions" :key="item.id" :label="item.groupName" :value="item.groupName"></el-option>
+            <el-option v-for="item in hengliOptions" :key="item.id" :label="item.groupName" :value="item.id"></el-option>
           </template>
         </el-select>
         <el-select v-else v-model="value" size='small' class="diffSelect" placeholder="请选择" @change="update">
@@ -47,7 +47,7 @@
         <span slot="head-tool" @click="edit">编辑</span>
       </div>
     </boxBase>
-    <left3Modal ref='left3Modal' @on-group='onGroup' :status='status' :currentIndex='currentIndex'></left3Modal>
+    <left3Modal ref='left3Modal' @on-deletePatient="deletePatient" @on-group='onGroup' :status='status' :currentIndex='currentIndex'></left3Modal>
   </div>
 </template>
 
@@ -104,7 +104,7 @@ input {
 <script>
 import boxBase from "../base/box-base.vue";
 import { userDictInfo } from "@/api/common";
-import { viewListByDeptCode, updateByDeptCodeAndGroupCode, getPatientGroup } from "../api";
+import { viewListByDeptCode, updateByDeptCodeAndGroupCode, deletePatientGroupById } from "../api";
 import common from "@/common/mixin/common.mixin.js";
 import bus from "vue-happy-bus";
 import left3Modal from '../modal/letf3-modal.vue'
@@ -142,39 +142,57 @@ export default {
       hengliOptions: [],
       currentHLOptions: [], // 横沥-病例分组-选中分组存储数组
       value: 4, 
-      hengliValue: '',
       currentIndex: 0, // 横沥-选中分组类型的index
       status: '',
       timer: null,
+      tepHLOptions: [] // 病例分组-接口返回已经保存的分组组号（groupName）
     };
   },
   created() {
-    this.bus.$on("indexGetAllData", this.getData);
     if (this.HOSPITAL_ID === 'hengli') {
-      this.getPatientGroup()
+      this.onGroup()
+      this.userDictInfo()
+    } else {
+      this.bus.$on("indexGetAllData", this.getData);
     }
   },
   methods: {
-    getPatientGroup() {
-      getPatientGroup(this.deptCode).then(res => {
-        this.hengliOptions = res.data.data || []
-      })
+    deletePatient() {
+      this.onGroup()
+    },
+    userDictInfo() {
+      userDictInfo(this.deptCode).then((res) => {
+        this.nurseList = res.data.data.map((item) => ({
+          value: item.name,
+          code: item.code,
+        }));
+      });
     },
     onGroup(item) {
-      this.getPatientGroup()
-      // this.hengliOptions = item
-      // this.hengliValue = item[0].value
+      viewListByDeptCode(this.deptCode).then((res) => {
+        if (res.data.code === '200') {
+          if (res.data.data.length > 0) {
+            this.hengliOptions = res.data.data;
+            this.currentHLOptions = res.data.data.filter(item => {
+              return item.isShow === '1'
+            })
+            this.tepHLOptions = []
+            this.currentHLOptions.forEach(item => {
+              this.tepHLOptions.push(item.id)
+            })
+          }
+        }
+      });
     },
-    // add() {
-    //   this.$refs.left3Modal.visible = true
-    //   if (this.$refs.left3Modal.$refs['formRef']) {
-    //     this.$refs.left3Modal.$refs['formRef'].resetFields()
-    //   }
-    // },
     edit() {
       this.$refs.left3Modal.visible = true
-      // this.$refs.left3Modal.form.patientGroupHLs = this.hengliOptions[this.currentIndex].group
-      // this.status = 'edit'
+      // 横沥-病人分组-编辑的时候-获取分组名称
+      viewListByDeptCode(this.deptCode).then((res) => {
+        if (res.data.code === '200') {
+          if (res.data.data.length > 0)
+            this.$refs.left3Modal.form.patientGroups = res.data.data;
+        }
+      });
     },
     renderItem(groupCode) {
       return {
@@ -223,20 +241,30 @@ export default {
         }));
       });
     },
+    HLupdate(val) {
+      console.log(this.tepHLOptions, 99)
+      console.log(val, 777)
+      
+      this.currentHLOptions = res.data.data.filter(item => {
+        return item.isShow === '1'
+      })
+    },
+    removeTag(val) {
+      console.log(val)
+      
+      if (true) {
+        deletePatientGroupById(val.value).then(res => {
+          if (res.data.code === '200') {
+            this.onGroup()
+          }
+        })
+      }
+    },
     update(val) {
       // if (this.isSave) return;
-      // console.log(val)
-      this.currentHLOptions = val
-      // // 横沥-获得选中分组的index
-      // this.hengliOptions.forEach((item, index) => {
-      //   if (item.value === val) {
-      //     this.currentIndex = index
-      //   }
-      // })
-      // console.log(this.currentIndex)
       let data = {};
       data.deptCode = this.deptCode;
-      data.patientGroups = this.computedList;
+      data.patientGroups = this.HOSPITAL_ID === 'hengli' ? this.currentHLOptions : this.computedList 
       updateByDeptCodeAndGroupCode(data).then((res) => {
         this.getData();
         // this.$message.success('更新病人分组信息成功')

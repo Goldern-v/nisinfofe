@@ -156,6 +156,10 @@ export const getPatientGroup = (deptCode) => {
 };
 
 // hengli - 病人分组 - 新建分组
-export const savePatientGroup = (data) => {
-  return axios.post(`${apiPath}whiteboardManage/editPatientGroup`, data);
+export const saveOrUpdateHL = (data) => {
+  return axios.post(`${apiPath}whiteboardManage/saveOrUpdateHL`, data);
+};
+
+export const deletePatientGroupById = (id) => {
+  return axios.get(`${apiPath}whiteboardManage/deletePatientGroupById/${id}`);
 };
