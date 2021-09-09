@@ -73,7 +73,7 @@
             size="small"
             style="width: 150px"
           >
-            <el-option label="全部" value></el-option>
+            <el-option label="全部" value="全部"></el-option>
             <el-option label="已执行" :value="2"></el-option>
             <el-option label="未执行" :value="0"></el-option>
           </el-select>
@@ -180,7 +180,7 @@ export default {
         executeDate: moment().format("YYYY-MM-DD"), //执行日期
         bedLabel: "", //床位号，如果查全部传*"
         repeatIndicator: 9, //医嘱类型，长期传1，临时传0，全部传9
-        executeFlag: 0, //0未执行，2已执行
+        executeFlag: "全部", //0未执行，2已执行
       },
     };
   },
