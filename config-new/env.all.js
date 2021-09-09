@@ -47,7 +47,8 @@ module.exports = {
   "huadu": {
     HOSPITAL_ID: '"huadu"',
     HOSPITAL_NAME: '"广州市花都区人民医院"',
-    HOSPITAL_NAME_SPACE: '"广 州 市 花 都 区 人 民 医 院"'
+    HOSPITAL_NAME_SPACE: '"广 州 市 花 都 区 人 民 医 院"',
+    title: '"花都人医智慧护理信息系统"'
   },
   "wujing": {
     HOSPITAL_ID: '"wujing"',
@@ -101,8 +102,9 @@ module.exports = {
   },
   "nanfangzhongxiyi": {
     HOSPITAL_ID: '"nanfangzhongxiyi"',
-    HOSPITAL_NAME: '"南方中西医"',
-    HOSPITAL_NAME_SPACE: '"南 方 中 西 医"'
+    HOSPITAL_NAME: '"南方医科大学中西医结合医院"',
+    HOSPITAL_NAME_SPACE: '"南 方 医 科 大 学 中 西 医 结 合 医 院"',
+    title: '"南方医科大学中西医结合医院智慧护理信息系统"'
   },
   "yangchunzhongyi": {
     HOSPITAL_ID: '"yangchunzhongyi"',
