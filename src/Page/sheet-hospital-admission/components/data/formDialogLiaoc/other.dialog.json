@@ -2792,6 +2792,136 @@
     ]
   },
   {
+    "title": "孕产史(孕)情况",
+    "type": "formGroupVerticalBox",
+    "name": "",
+    "showTitle": false,
+    "message": "",
+    "require": "false",
+    "prefixDesc": "",
+    "suffixDesc": "",
+    "keys": "I001470",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 400,
+    "children": [
+      {
+        "name": "I001470",
+        "type": "input",
+        "label": "G",
+        "labelWidth": "100px",
+        "value": "",
+        "suffixDesc": "",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      },
+      {
+        "name": "I001471",
+        "type": "input",
+        "label": "P",
+        "labelWidth": "100px",
+        "value": "",
+        "suffixDesc": "",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      },
+      {
+        "name": "I001472",
+        "type": "input",
+        "label": "A",
+        "labelWidth": "100px",
+        "value": "",
+        "suffixDesc": "",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      },
+      {
+        "name": "I001473",
+        "type": "input",
+        "label": "L",
+        "labelWidth": "100px",
+        "value": "",
+        "suffixDesc": "(次)",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
+    "title": "孕产史(产)情况",
+    "type": "formGroupVerticalBox",
+    "name": "",
+    "showTitle": false,
+    "message": "",
+    "require": "false",
+    "prefixDesc": "",
+    "suffixDesc": "",
+    "keys": "I001474",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 400,
+    "children": [
+      {
+        "name": "I001474",
+        "type": "input",
+        "label": "G",
+        "labelWidth": "100px",
+        "value": "",
+        "suffixDesc": "",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      },
+      {
+        "name": "I001475",
+        "type": "input",
+        "label": "P",
+        "labelWidth": "100px",
+        "value": "",
+        "suffixDesc": "",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      },
+      {
+        "name": "I001476",
+        "type": "input",
+        "label": "A",
+        "labelWidth": "100px",
+        "value": "",
+        "suffixDesc": "",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      },
+      {
+        "name": "I001477",
+        "type": "input",
+        "label": "L",
+        "labelWidth": "100px",
+        "value": "",
+        "suffixDesc": "(次)",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
     "title": "胎动情况",
     "type": "formGroupVerticalBox",
     "name": "",

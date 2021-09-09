@@ -2688,8 +2688,8 @@
                 "title": "新生儿皮肤风险评估",
                 "default": "新生儿皮肤风险评估",
                 "type": "independent",
-                "name": "S0005",
-                "parentName": "S0005",
+                "name": "S0628",
+                "parentName": "S0628",
                 "showHead": "true"
               }
             },
@@ -3404,27 +3404,53 @@
       "children": [
         {
           "name": "I001819",
-          "type": "input",
+          "type": "select",
           "title": "孕产史(孕)",
-          "suffixDesc": "次",
+          "suffixDesc": "",
           "style": null,
           "titleStyle": "width:70px!important",
           "inputStyle": "width:270px!important",
           "inputWidth": "172px",
           "class": null,
-          "readOnly": null
+          "readOnly": null,
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "有",
+                "cleanKey": [
+                  "无"
+                ],
+                "title": "孕产史(孕)情况",
+                "parentName": "I001820",
+                "type": "dependent"
+              }
+            }
+          ]
         },
         {
           "name": "I001820",
-          "type": "input",
+          "type": "select",
           "title": "孕产史(产)",
-          "suffixDesc": "次",
+          "suffixDesc": "",
           "style": null,
           "titleStyle": "width:70px!important",
           "inputStyle": "width:270px!important",
           "inputWidth": "172px",
           "class": null,
-          "readOnly": null
+          "readOnly": null,
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "有",
+                "cleanKey": [
+                  "无"
+                ],
+                "title": "孕产史(产)情况",
+                "parentName": "I001820",
+                "type": "dependent"
+              }
+            }
+          ]
         },
         {
           "name": "I001821",

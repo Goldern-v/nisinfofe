@@ -194,6 +194,7 @@
                 (sheetInfo.sheetType === 'common_hd' ||
                   sheetInfo.sheetType === 'postpartum_hd' ||
                   sheetInfo.sheetType === 'neurosurgery_hd' ||
+                  sheetInfo.sheetType === 'wait_delivery_hd' ||
                   sheetInfo.sheetType === 'neonatal_care_jm' ||
                   sheetInfo.sheetType === 'pediatric_surgery_jm' ||
                   sheetInfo.sheetType === 'pediatrics_jm' ||

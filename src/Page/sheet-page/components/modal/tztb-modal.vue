@@ -94,7 +94,9 @@ export default {
   },
   methods: {
     open(baseParams) {  
+      console.log(baseParams,"gaohaix");
       this.formlist = baseParams
+      console.log(this.formlist);
       if (!this.patientInfo.patientId && !baseParams.patientId) {
         return this.$message.warning("请选择一名患者");
       }
@@ -115,8 +117,8 @@ export default {
     },
     getData() {
       getVitalSign(
-        this.patientInfo.patientId,
-        this.patientInfo.visitId,
+        this.patientInfo.patientId || this.formlist.patientId,
+        this.patientInfo.visitId || this.formlist.visitId,
         this.searchDate
       ).then(res => {
         this.tableData = res.data.data.list;
@@ -128,7 +130,15 @@ export default {
   },
   computed: {
     patientInfo() {
-      return this.sheetInfo.selectBlock || this.formlist;
+      console.log(this.formlist);
+      if(this.sheetInfo.selectBlock){
+        return this.sheetInfo.selectBlock
+      }
+
+      if(this.formlist != undefined){
+        return this.formlist;
+      }
+        
     }
   },
   components: {

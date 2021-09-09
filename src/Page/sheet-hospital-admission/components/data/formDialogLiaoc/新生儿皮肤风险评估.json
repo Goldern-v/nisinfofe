@@ -77,8 +77,8 @@
       "showAudit": true
     },
     "formInfo": {
-      "formCode": "E0005_3",
-      "formApiCode": "E0005_3",
+      "formCode": "E0628",
+      "formApiCode": "E0628",
       "formName": "新生儿皮肤风险评估",
       "status": "0",
       "formType": "eval"

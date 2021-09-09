@@ -67,8 +67,8 @@
         v-model="searchData.date"
         type="datetime"
         placeholder="开始日期"
-        style="width: 180px; height: 60px"
-        format="yyyy-MM-dd hh:mm"
+        style="width: 180px"
+        format="yyyy-MM-dd HH:mm"
       >
       </el-date-picker>
       <span>-</span>
@@ -76,8 +76,8 @@
         v-model="endData.date"
         type="datetime"
         placeholder="结束日期"
-        style="width: 180px; height: 60px"
-        format="yyyy-MM-dd hh:mm"
+        style="width: 180px"
+        format="yyyy-MM-dd HH:mm"
       >
       </el-date-picker>
       <el-button @click="searchsign">查询</el-button>

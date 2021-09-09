@@ -423,7 +423,7 @@ export default {
         }
       }
       let viewDom = h()
-      if (this.HOSPITAL_ID === "liaocheng" && this.HOSPITAL_ID === "quzhou") {
+      if (this.HOSPITAL_ID === "liaocheng" || this.HOSPITAL_ID === "quzhou") {
         viewDom = h(
           'div',
           {class: {'view': true}, on: {click: (e) => this.handleViewClick(e, node, data)}},
