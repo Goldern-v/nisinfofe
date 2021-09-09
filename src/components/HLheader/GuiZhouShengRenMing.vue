@@ -1059,6 +1059,7 @@ export default {
   components: {
     setPassword,
     userInfo,
+    
   },
 };
 </script>

@@ -108,7 +108,19 @@ export default {
       this.$refs.modal.close();
     },
     post() {
-      saveVitalSign(this.multipleSelection).then(res => {
+      let temArr = this.multipleSelection
+      if(this.multipleSelection.length!=0 &&(this.HOSPITAL_ID=='fuyou'||this.HOSPITAL_ID=='wujing')){
+         this.multipleSelection.map((item,index)=>{
+          if(item.pulse){
+            let strArr = item.pulse.split("/")
+            if(strArr[0]&&strArr[1]){
+            }else{
+              temArr[index].pulse=strArr[0]||strArr[1]
+            }
+          }
+        })
+      }
+      saveVitalSign(temArr).then(res => {
         this.$message.success("保存成功");
         this.close();
         this.bus.$emit("refreshSheetPage");
