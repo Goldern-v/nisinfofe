@@ -422,7 +422,7 @@
           <div>
               <span>住院号：{{ query.patientId }}</span>
               <!-- <span class="bhzd">诊断:{{query.remark}}</span> -->
-              <span v-if="printMode == 'wrist-children'">入院日期：{{ query.admissionDate | ymdhm }}</span>
+              <span>入院日期：{{ query.admissionDate | ymdhm }}</span>
         </div>
         <img
             class="qr-code"
