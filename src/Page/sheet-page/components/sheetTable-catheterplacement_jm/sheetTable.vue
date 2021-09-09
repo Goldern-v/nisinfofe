@@ -56,36 +56,30 @@
         </div>
         <div class="headerBoxTitle" style="margin-top: 20px;">
           <div class="boxTitle">静脉导管类型：</div>
-          <el-select v-model="sheetInfo.relObj.jmdglx" size="small" style="width:150px;">
-            <el-option
-              v-for="item in jmdgList"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value"
-            >
-            </el-option>
-          </el-select>
-          <div class="boxTitle">置管部位：</div>
-            <el-select v-model="sheetInfo.relObj.zgbw" size="small" style="width:150px;">
-            <el-option
-              v-for="item in zgbwList"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value"
-            >
-            </el-option>
-          </el-select>
-          <div class="boxTitle">导管型号：</div>
-            <el-select v-model="sheetInfo.relObj.dgxh" size="small" style="width:150px;">
-            <el-option
-              v-for="item in dgxhList"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value"
-            >
-            </el-option>
-          </el-select>
-          <div class="boxTitle">导管尖端定位：</div>
+          <div class="boxRadio">
+            <div><input type="radio" value="PICC" v-model="sheetInfo.relObj.lx" :ischecked="sheetInfo.relObj.lx == 'PICC'">PICC</div>
+            <div><input type="radio" value="输液港" v-model="sheetInfo.relObj.lx" :ischecked="sheetInfo.relObj.lx == '输液港'">输液港</div>
+            <div><input type="radio" value="CVC" v-model="sheetInfo.relObj.lx" :ischecked="sheetInfo.relObj.lx == 'CVC'">CVC</div>
+            <div><input type="radio" value="脐静脉" v-model="sheetInfo.relObj.lx" :ischecked="sheetInfo.relObj.lx == '脐静脉'">脐静脉</div>
+            <div><input type="radio" value="其他导管" v-model="sheetInfo.relObj.lx" :ischecked="sheetInfo.relObj.lx == '其他导管'">其他导管</div>
+          </div>
+          <div class="boxTitle" style="margin-left: 50px;">置管部位：</div>
+            <div class="boxRadio">
+            <div><input type="radio" value="左颈内静脉" v-model="sheetInfo.relObj.bw" :ischecked="sheetInfo.relObj.bw == '左颈内静脉'">左颈内静脉</div>
+            <div><input type="radio" value="右颈内静脉" v-model="sheetInfo.relObj.bw" :ischecked="sheetInfo.relObj.bw == '右颈内静脉'">右颈内静脉</div>
+            <div><input type="radio" value="左贵要静脉" v-model="sheetInfo.relObj.bw" :ischecked="sheetInfo.relObj.bw == '左贵要静脉'">左贵要静脉</div>
+            <div><input type="radio" value="右贵要静脉" v-model="sheetInfo.relObj.bw" :ischecked="sheetInfo.relObj.bw == '右贵要静脉'">右贵要静脉</div>
+            <div><input type="radio" value="左肘正中静" v-model="sheetInfo.relObj.bw" :ischecked="sheetInfo.relObj.bw == '左肘正中静'">左肘正中静</div>
+            <div><input type="radio" value="右肘正中静" v-model="sheetInfo.relObj.bw" :ischecked="sheetInfo.relObj.bw == '右肘正中静'">右肘正中静</div>
+          </div>
+          <div class="boxTitle" style="margin-left: 50px;">导管型号：</div>
+           <div class="boxRadio">
+            <div><input type="radio" value="1.9Fr" v-model="sheetInfo.relObj.xh" :ischecked="sheetInfo.relObj.xh == '1.9Fr'">1.9Fr</div>
+            <div><input type="radio" value="3Fr" v-model="sheetInfo.relObj.xh" :ischecked="sheetInfo.relObj.xh == '3Fr'">3Fr</div>
+            <div><input type="radio" value="4Fr" v-model="sheetInfo.relObj.xh" :ischecked="sheetInfo.relObj.xh == '4Fr'">4Fr</div>
+            <div><input type="radio" value="5Fr" v-model="sheetInfo.relObj.xh" :ischecked="sheetInfo.relObj.xh == '5Fr'">5Fr</div>
+          </div>
+          <div class="boxTitle" style="margin-left: 50px;">导管尖端定位：</div>
             <input
               type="textarea"
               class="bottomInput"
@@ -153,11 +147,18 @@
     box-sizing: content-box;
     position: relative;
   }
+  .boxRadio {
+    display: flex;
+    flex-direction:column;
+    justify-content: space-evenly;
+    align-items: start;
+  }
   .headerBoxTitle {
     display: flex;
-    justify-content: space-evenly;
-    align-items: center;
+    justify-content: center;
+    align-items: start;
   }
+  
   .boxTitle2 {
     width: 300px;
     display: flex;
@@ -333,62 +334,6 @@ export default {
     return {
       bus: bus(this),
       sheetInfo,
-      jmdgList: [{
-        value: 'PICC',
-        label: 'PICC'
-      }, 
-      {
-        value: '输液港',
-        label: '输液港'
-      }, 
-      {
-        value: 'CVC',
-        label: 'CVC'
-      }, 
-      {
-        value: '脐静脉',
-        label: '脐静脉'
-      }, 
-      {
-        value: '其他导管',
-        label: '其他导管'
-      }],
-      zgbwList: [{
-        value: '左颈内静脉',
-        label: '左颈内静脉'
-      }, 
-      {
-        value: '右颈内静脉',
-        label: '右颈内静脉'
-      }, 
-      {
-        value: '左贵要静脉',
-        label: '左贵要静脉'
-      }, 
-      {
-        value: '右贵要静脉',
-        label: '右贵要静脉'
-      }, 
-      {
-        value: '左肘正中静',
-        label: '左肘正中静'
-      }],
-      dgxhList: [{
-        value: '1.9Fr',
-        label: '1.9Fr'
-      }, 
-      {
-        value: '3Fr',
-        label: '3Fr'
-      }, 
-      {
-        value: '4Fr',
-        label: '4Fr'
-      }, 
-      {
-        value: '5Fr',
-        label: '5Fr'
-      }],
       createTime:
         (sheetInfo.relObj && sheetInfo.relObj.createTime) ||
         sheetInfo.selectBlock.createTime
