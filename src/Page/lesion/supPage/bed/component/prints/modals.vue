@@ -335,7 +335,7 @@
               <span>入院日期：{{ item.admissionDate | ymdhm }}</span>
             </div>
             <div class="allergy">
-              <p class="gm">
+              <p :class="[item.allergy1||item.drugGms||item.allergy2?'gm':'']">
                 过敏信息：
                 <span v-if="item.allergy1">{{ item.allergy1 }};</span>
                 <span v-if="item.drugGms">{{ item.drugGms }};</span>
@@ -480,11 +480,15 @@
         width :80%;
         p{
           font-size: 20px;
-          color:red
         }
         span{
           margin-left:0px;
           font-size:20px !important;
+        }
+        p.gm{
+          span{
+            color:red;
+          }
         }
       }
      span {

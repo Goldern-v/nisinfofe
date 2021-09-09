@@ -62,7 +62,7 @@
               <input
                 type="text"
                 nowidth
-                style="font-size: 32px;padding-left: 5px;"
+                style="font-size: 24px;padding-left: 5px;"
                 flex-box="1"
                 class="bottom-line"
                 :value="query.name + ' ' + query.sex + ' ' + query.age"
@@ -73,14 +73,14 @@
               <span :style="`width: ${hasRemark ? 85 : 100}px`"></span>
               <input
                 type="text"
-                style="width: 75px;font-size: 30px; padding-left: 5px;"
+                style="width: 90px;font-size: 24px; padding-left: 5px;"
                 class="bottom-line"
                 :value="query.bedLabel + '床'"
               />
               <input
                 type="text"
                 flex-box="1"
-                style="width: 0px;font-size: 30px; padding-left: 2px;"
+                style="width: 0px;font-size: 24px; padding-left: 2px;"
                 nowidth
                 class="bottom-line"
                 :value="moment(query.admissionDate).format('YYYY-MM-DD')"
@@ -394,6 +394,26 @@
         </div>
       </div>
       <div
+        class="bed-card-warpper bed-card-children-tip"
+        ref="childrenTip"
+        v-show="printMode == 'children-tips'"
+      >
+        <div class="bed-card-ctip-con">
+          <div class="children-row">
+            <div>住院号：</div>
+            <div>{{ query.patientId }}</div>
+          </div>
+          <div class="children-row">
+            <div>姓名：</div>
+            <div>{{ query.name }}</div>
+          </div>
+          <div class="children-row">
+            <div>床号：</div>
+            <div>{{ query.bedLabel +"床"}}</div>
+          </div>
+        </div>
+      </div>
+      <div
         class="bed-card-warpper bed-card-vertical"
         ref="printCon2"
         v-show="printMode == 'v'"
@@ -419,7 +439,7 @@
       <div
         class="bed-card-warpper wrist-strap-print"
         ref="printCon3"
-        v-if="printMode == 'wrist'"
+        v-if="printMode.includes('wrist')"
       >
         <div class="bed-card-vert-con">
           <div class="title">东莞市横沥医院</div>
@@ -638,9 +658,9 @@
 
   .qr-code-num {
     position: absolute;
-    top: 92px;
+    top: 96px;
     left: 0px;
-    width: 96px;
+    width: 145px;
     text-align: center;
     z-index: 2;
     font-size: 16px;
@@ -653,7 +673,30 @@
     }
   }
 }
-
+.bed-card-children-tip{
+  width:11.25cm;
+  height:8.12cm;
+  font-size:32px;
+  .bed-card-ctip-con{
+    padding:35px 0 0 40px;
+    box-sizing border-box
+    .children-row{
+      display:flex;
+      min-height:75px;
+      justify-content space-between
+      div{
+        &:first-child{
+          width:140px;
+          text-align left
+        }
+        &:nth-child(2){
+          width:150px;
+          text-align left
+        }
+      }
+    }
+  }
+}
 [nowidth] {
   width: 0;
 }
@@ -995,7 +1038,7 @@ export default {
       this.init();
       this.$refs.modal.open();
       this.printMode = printMode;
-      let qr_png_value = this.query.patientId + "|" + this.query.visitId;
+      let qr_png_value = this.query.expand1;
       var qr_png = qr.imageSync(qr_png_value, { type: "png" });
       function arrayBufferToBase64(buffer) {
         var binary = "";
@@ -1008,14 +1051,17 @@ export default {
       }
       let base64 = arrayBufferToBase64(qr_png);
       this.qrCode = base64;
-      this.qrCodeNum = this.query.patientId;
-      if (this.printMode == "wrist") {
+      this.qrCodeNum =this.query.expand1;
+      if (this.printMode.includes("wrist")) {
         this.title = "腕带打印";
       } else if (this.printMode == "v") {
         this.title = "打印床头卡";
       }else if(this.printMode == "children"){
         this.title = "新生儿床头卡";
-      } else {
+      }else if(this.printMode == "children-tips"){
+        this.title = "新生儿标签";
+      }
+      else {
         this.title = "编辑床头卡";
       }
     },
@@ -1050,15 +1096,22 @@ export default {
     onPrint() {
       this.$nextTick(() => {
         this.post();
-        if (this.printMode == "wrist") {
-          printing(this.$refs.printCon3, {
-            direction: "vertical",
-            injectGlobalCss: true,
-            scanStyles: false,
-            css: `
+        if (this.printMode.includes("wrist")) {
+          let cssStyle = this.printMode == "wrist"?`
           .bed-card-warpper {
             box-shadow: none !important;
-            transform: rotate(90deg) translateY(-120%) translateX(25%);
+            transform: rotate(90deg) translateY(-140%) translateX(145%);
+            transform-origin: 0 0;
+          }
+          .bed-card-vert-con {
+          }
+          @page {
+            margin: 0;
+          }
+          `:`
+          .bed-card-warpper {
+            box-shadow: none !important;
+            transform: rotate(90deg) translateY(-120%) translateX(75%);
             transform-origin: 0 0;
           }
           .bed-card-vert-con {
@@ -1067,6 +1120,11 @@ export default {
             margin: 0;
           }
           `
+          printing(this.$refs.printCon3, {
+            direction: "vertical",
+            injectGlobalCss: true,
+            scanStyles: false,
+            css: cssStyle
           });
         } else if (this.printMode == "v") {
           printing(this.$refs.printCon2, {
@@ -1084,6 +1142,8 @@ export default {
           });
         }else if(this.printMode == "children"){
           print(this.$refs.childrenPrint);
+        }else if(this.printMode=="children-tips"){
+          print(this.$refs.childrenTip);
         } else {
           print(this.$refs.printCon);
         }

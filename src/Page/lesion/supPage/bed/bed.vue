@@ -32,7 +32,7 @@
         >
         </component>
       </el-row>
-      <printsModal v-if="HOSPITAL_ID=='huadu'" v-show="pBtnShow" ref="printmodal" @toPrints="toPrints"></printsModal>
+      <printsModal v-if="HOSPITAL_ID=='huadu'" v-show="pBtnShow" ref="printmodal" @toPrints="toPrints" @cancelPrints="cancelPrints"></printsModal>
       <printView v-if="HOSPITAL_ID=='huadu'" v-show="pmodalShow" @cancelPrint="cancelPrint" @toPrints="surePrints" :list="bedList"></printView>
       <printHdModal ref="bedModalHd"></printHdModal>
     </div>
@@ -241,6 +241,9 @@ export default {
     }
   },
   methods: {
+    cancelPrints(){
+      this.pBtnShow = false
+    },
     cancelPrint(){
       this.pmodalShow = false
     },

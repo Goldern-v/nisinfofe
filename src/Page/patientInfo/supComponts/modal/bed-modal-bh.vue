@@ -422,7 +422,7 @@
           <div>
               <span>住院号：{{ query.patientId }}</span>
               <!-- <span class="bhzd">诊断:{{query.remark}}</span> -->
-              <span v-if="printMode == 'wrist-children'">入院日期：{{ query.admissionDate | ymdhm }}</span>
+              <span>入院日期：{{ query.admissionDate | ymdhm }}</span>
         </div>
         <img
             class="qr-code"
@@ -1014,14 +1014,22 @@ export default {
       this.$nextTick(() => {
         this.post();
         if (this.printMode.includes("wrist")) {
-          printing(this.$refs.printCon3, {
-            direction: "vertical",
-            injectGlobalCss: true,
-            scanStyles: false,
-            css: `
+          let cssStyle = this.printMode =="wrist-children"?`
           .bed-card-warpper {
             box-shadow: none !important;
-            transform: scale(0.8) rotate(90deg) translateY(-135%) translateX(42%);
+            transform: scale(0.8) rotate(90deg) translateY(-140%) translateX(45%);
+            transform-origin: 0 0;
+          }
+          .bed-card-vert-con {
+            margin: 10px 20px 10px 10px!important;
+          }
+          @page {
+            margin: 0;
+          }
+          `: `
+          .bed-card-warpper {
+            box-shadow: none !important;
+            transform: scale(1) rotate(90deg) translateY(-140%) translateX(40%);
             transform-origin: 0 0;
           }
           .bed-card-vert-con {
@@ -1031,6 +1039,11 @@ export default {
             margin: 0;
           }
           `
+          printing(this.$refs.printCon3, {
+            direction: "vertical",
+            injectGlobalCss: true,
+            scanStyles: false,
+            css: cssStyle
           });
         } else if (this.printMode == "v") {
           // printing(this.$refs.printCon2, {

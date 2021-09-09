@@ -64,7 +64,7 @@ export default [{
     key: "pulse", //脉搏/心率
     value: "",
     event: keyf1,
-    name: "脉搏",
+    name: "脉搏/心率",
     next: "次/分",
     textarea: {
       width: 35

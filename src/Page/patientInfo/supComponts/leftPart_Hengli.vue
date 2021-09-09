@@ -71,7 +71,7 @@
             class="print-btn"
             flex="cross:center main:center"
             @click="openBedPrint()"
-            v-if="info.deptName != '新生儿科病区'"
+            v-if="info.deptName != '新生儿科'"
           >
             打印床头卡
           </div>
@@ -79,9 +79,17 @@
             class="print-btn"
             flex="cross:center main:center"
             @click="openBedPrint('children')"
-            v-else-if="info.deptName == '新生儿科病区'"
+            v-else-if="info.deptName == '新生儿科'"
           >
             打印床头卡
+          </div>
+          <div
+            class="print-btn"
+            flex="cross:center main:center"
+            @click="openBedPrint('children-tips')"
+            v-if="info.deptName == '新生儿科'"
+          >
+            标签打印
           </div>
           <div
             class="print-btn"
@@ -357,7 +365,11 @@ export default {
       } else if (this.HOSPITAL_ID == "zhongshanqi") {
         this.$refs.bedModalZsq.open(printMode);
       }else if (this.HOSPITAL_ID == "hengli") {
-        this.$refs.bedModalHl.open(printMode);
+        if(this.info.deptName == '新生儿科'){
+          this.$refs.bedModalHl.open("wrist-children");
+        }else{
+          this.$refs.bedModalHl.open(printMode);
+        }
       }else if( this.HOSPITAL_ID == "beihairenyi"){
         this.$refs.bedModalBh.open(printMode);
       }
