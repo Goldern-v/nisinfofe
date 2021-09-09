@@ -764,7 +764,7 @@
   }
 
   .table-footer {
-    margin-top: 50px !important;
+    margin-top: 40px !important;
   }
 }
 </style>
@@ -885,11 +885,14 @@ export default {
     }
   },
   created() {
-    this.$set(this.sheetInfo.relObj,'xpwz',"胸片位置：")
     changeThis(this)
   },
   update() {},
   mounted() {
+    if(!this.sheetInfo.relObj.xpwz){
+      console.log("mounted-----" + this.sheetInfo.relObj.xpwz);
+      this.$set(this.sheetInfo.relObj,'xpwz',"胸片位置：")
+    }
   },
   destroyed() {} /* fix vue-happy-bus bug */,
   components: {
