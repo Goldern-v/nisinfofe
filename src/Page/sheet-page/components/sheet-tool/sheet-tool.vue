@@ -326,7 +326,7 @@ export default {
       if (!this.sheetInfo.selectBlock.id)
         return this.$message.warning("还没有选择护理记录单");
 
-      if (process.env.HOSPITAL_ID == "fuyou") {
+      if (process.env.HOSPITAL_ID == "fuyou"||process.env.HOSPITAL_ID == "quzhou") {
         this.bus.$emit("toSheetPrintPage");
       } else {
         if (process.env.NODE_ENV == "production") {

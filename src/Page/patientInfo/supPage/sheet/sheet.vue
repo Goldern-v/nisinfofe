@@ -713,7 +713,7 @@ export default {
       // } else {
       //   this.$router.push(`/print/sheetPage`);
       // }
-      if (process.env.HOSPITAL_ID == "fuyou") {
+      if (process.env.HOSPITAL_ID == "fuyou"|| process.env.HOSPITAL_ID == "quzhou") {
         this.$router.push(`/print/sheetPage`);
       } else {
         if (process.env.NODE_ENV === "production") {
