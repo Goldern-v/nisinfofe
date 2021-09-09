@@ -113,8 +113,7 @@ import common from "@/common/mixin/common.mixin.js";
       remove(item) {
 				console.log(item)
 				if (item.id) {
-					console.log(9999999)
-					if (!item.bedSet || !item.dutyNurse) {
+					if (!item.bedSet && !item.dutyNurse) {
 						deletePatientGroupById(item.id).then(res => {
 							if (res.data.code === '200') {
 								this.$message.success("删除成功")
@@ -126,7 +125,7 @@ import common from "@/common/mixin/common.mixin.js";
 							}
 						})
 					} else {
-						this.$message.warning("如果要删除本条分组，需要把床位号和创建人清空")
+						this.$message.warning("如果要删除本条分组，需要把床位号或创建人清空")
 					}
 					
 				} else {
