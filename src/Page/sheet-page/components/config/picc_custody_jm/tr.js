@@ -9,11 +9,10 @@ import info from "../sheetInfo";
 // let info = {
 //   sheetType: "neurology"
 // };
-let ccdList = ["红肿","皮疹","干洁","渗血"];
-let flList = ["松脱","渗血","渗液","干洁","卷边"];
-let cgList = ["冲管","封管"];
-let ghflList = ["纱块敷料","3m透明敷料","HP透明敷料"];
-let ghjtList=["无针接头","肝素帽"]
+let NBPList = ["NBP","ABP"];
+let xzpList = ["悬浮红细胞","洗涤红细胞","血浆","冷沉淀"];
+let twList = ["左","右","平","俯"];
+
 export default [
   {
     key: "recordMonth", //日期
@@ -33,7 +32,7 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 35
+      width: 45
     },
   },
   {
@@ -44,7 +43,7 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 35
+      width: 45
     },
   },
   {
@@ -55,7 +54,7 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 35
+      width: 45
     },
   },
   {
@@ -66,7 +65,7 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 35
+      width: 45
     },
   },
   {
@@ -75,7 +74,10 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 35
+      width: 45
+    },
+    autoComplete: {
+      data: NBPList
     },
   },
   {
@@ -84,7 +86,7 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 35
+      width: 45
     },
   },
   {
@@ -93,7 +95,7 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 35
+      width: 45
     },
   },
   {
@@ -102,7 +104,7 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 35
+      width: 45
     },
   },
   {
@@ -111,7 +113,7 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 35
+      width: 45
     },
   },
   {
@@ -120,7 +122,10 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 35
+      width: 45
+    },
+    autoComplete: {
+      data: twList
     },
   },
   {
@@ -129,7 +134,7 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 35
+      width: 45
     },
   },
   {
@@ -138,7 +143,7 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 35
+      width: 45
     },
   },
   {
@@ -147,7 +152,7 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 35
+      width: 45
     },
   },
   {
@@ -156,7 +161,7 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 35
+      width: 45
     },
   },
   {
@@ -165,7 +170,7 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 35
+      width: 45
     },
   },
   {
@@ -174,7 +179,7 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 35
+      width: 45
     },
   },
   {
@@ -183,7 +188,7 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 35
+      width: 45
     },
   },
   {
@@ -217,9 +222,12 @@ export default [
     key: "bloodProducts", //D
     value: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 8),
     textarea: {
-      width: 35
+      width: 55
+    },
+    autoComplete: {
+      data: xzpList
     },
   },
   {
