@@ -201,7 +201,11 @@ export default {
       pageLoading: true,
       bus: bus(this),
       sheetInfo,
-      // huadu需要双签名的记录单code
+      // 需要扩大行距的记录单code
+      lineSpacingArr: [
+        "icu_qz", // 曲周_重症护理记录单
+      ],
+      // 需要双签名的记录单code
       multiSignArr: [
         "common_hd", // 花都_通用护理记录单
         "neurosurgery_hd", // 花都_神经外科护理记录单
@@ -274,6 +278,22 @@ export default {
                transform: rotate(0) !important;
           }
        }
+        `
+      );
+    }
+    /* 曲周重症护理记录单行高 */
+    if (
+      (this.HOSPITAL_ID === "quzhou") &&
+      this.lineSpacingArr.includes(this.sheetInfo.sheetType)
+    ) {
+      addCSS(
+        window,
+        `
+        @media print {
+          .body-con{
+            height: 35px !important;
+          }
+        }
         `
       );
     }
