@@ -388,7 +388,7 @@
       <div
         class="bed-card-warpper wrist-strap-print"
         ref="printCon3"
-        v-show="printMode == 'wrist'"
+        v-show="printMode.includes('wrist')"
       >
         <div class="bed-card-vert-con">
           <div class="top" style="position: relative;height:30px">
@@ -422,7 +422,7 @@
           <div>
               <span>住院号：{{ query.patientId }}</span>
               <!-- <span class="bhzd">诊断:{{query.remark}}</span> -->
-              <span>入院日期：{{ query.admissionDate | ymdhm }}</span>
+              <span v-if="printMode == 'wrist-children'">入院日期：{{ query.admissionDate | ymdhm }}</span>
         </div>
         <img
             class="qr-code"
@@ -943,7 +943,7 @@ export default {
     open(printMode = "h") {
       this.init();
       this.printMode = printMode;
-      if (this.printMode == "wrist") {
+      if (this.printMode.includes("wrist")) {
         this.title = "腕带打印";
         // JsBarcode("#barcode", this.query.patientId, {
         //   lineColor: "#000",
@@ -1013,7 +1013,7 @@ export default {
     onPrint() {
       this.$nextTick(() => {
         this.post();
-        if (this.printMode == "wrist") {
+        if (this.printMode.includes("wrist")) {
           printing(this.$refs.printCon3, {
             direction: "vertical",
             injectGlobalCss: true,

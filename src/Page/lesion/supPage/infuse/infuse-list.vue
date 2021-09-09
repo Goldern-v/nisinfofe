@@ -237,7 +237,7 @@ export default {
       clearInterval(this.timer);
       this.timer = setInterval(() => {
         this.getInfuseList();
-      }, 1000 * 15);
+      }, 1000 * 2);
     }
   },
   watch: {
@@ -254,7 +254,7 @@ export default {
     this.getInfuseList();
     this.timer = setInterval(() => {
       this.getInfuseList();
-    }, 1000 * 15);
+    }, 1000 * 30);
     this.bus.$on("refreInfuseList", this.refreInfuseList);
   },
   computed: {

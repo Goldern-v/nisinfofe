@@ -94,7 +94,15 @@
                 HOSPITAL_ID == 'beihairenyi'
             "
           >
-            腕带打印
+            {{HOSPITAL_ID=='beihairenyi'?'成人腕带打印':'腕带打印'}}
+          </div>
+          <div
+            class="print-btn"
+            flex="cross:center main:center"
+            @click="openWristPrint('wrist-children')"
+            v-if="HOSPITAL_ID == 'beihairenyi'"
+          >
+            儿童腕带打印
           </div>
           <div
             class="print-btn"

@@ -90,7 +90,7 @@
       >
         <div class="nav-item">护理诊断计划</div>
       </router-link>
-      <router-link
+      <!-- <router-link
         :to="{
           path: '/bloodSugar',
           query: { patientId: query.patientId, visitId: query.visitId }
@@ -98,8 +98,8 @@
         tag="span"
       >
         <div class="nav-item">血糖</div>
-      </router-link>
-      <router-link
+      </router-link> -->
+      <!-- <router-link
         :to="{
           path: '/healthEducation',
           query: { patientId: query.patientId, visitId: query.visitId }
@@ -107,7 +107,7 @@
         tag="span"
       >
         <div class="nav-item">健康教育单</div>
-      </router-link>
+      </router-link> -->
       <router-link
         :to="{
           path: '/cost',

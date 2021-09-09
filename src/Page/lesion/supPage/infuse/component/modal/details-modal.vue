@@ -198,20 +198,14 @@ export default {
     },
     initTime() {
       if (!this.data[0]) return;
-      // let date3 = new Date(this.data[0].expectEndtTime) - new Date()
-      let date3 = Number(this.data[0].restTime) * 60 * 1000;
-      var days = Math.floor(date3 / (24 * 3600 * 1000));
-      var leave1 = date3 % (24 * 3600 * 1000); //计算天数后剩余的毫秒数
-      var hours = Math.floor(leave1 / (3600 * 1000));
-      //计算相差分钟数
-      var leave2 = leave1 % (3600 * 1000); //计算小时数后剩余的毫秒数
-      var minutes = Math.floor(leave2 / (60 * 1000));
-      //计算相差秒数
-      var leave3 = leave2 % (60 * 1000); //计算分钟数后剩余的毫秒数
-      var seconds = Math.round(leave3 / 1000);
-      this.time.hh = hours;
-      this.time.mm = minutes;
-      this.time.ss = seconds;
+      
+       let allSeconds = Number(this.data[0].restTime * 60)
+      let hours = Math.floor(allSeconds/3600)
+      let minutes = Math.floor((allSeconds/60) - (hours*60))
+      let seconds = Math.floor(allSeconds - (hours*3600) - (minutes*60))
+      this.$set(this.time,'hh',hours)
+      this.$set(this.time,'mm',minutes)
+      this.$set(this.time,'ss',seconds)
     }
   },
   created() {
