@@ -38,111 +38,81 @@ import { saveOrUpdateHL, deletePatientGroupById } from "../api";
 import common from "@/common/mixin/common.mixin.js";
 
   export default {
-		mixins: [common],
-		props: {
-			status: {
-				type: String,
-				default: ''
-			},
-			currentIndex: {
-				type: Number,
-				default: ''
-			},
-		},
+	mixins: [common],
+	props: {
+	},
     data() {
       return {
         visible: false,
-				form: {
-					// deptCode: '123',
-					creator: localStorage.getItem('rememberAccount'),
-					patientGroups: [
-						{
-							groupName: '',
-							groupCode: '',
-							id: '',
-							isShow: '1'
-						}
-					]
+		form: {
+			creator: localStorage.getItem('rememberAccount'),
+			patientGroups: [
+				{
+					groupName: '',
+					groupCode: '',
+					id: '',
+					isShow: '1'
+				}
+			]
         },
-				groupName: [],
+		groupName: [],
       };
     },
 		methods: {
       submitForm(formName) {
-				console.log(this.deptCode, 999)
         this.$refs[formName].validate((valid) => {
           if (valid) {
-						// let name = this.form.patientGroups.length === 1 ? this.form.patientGroups[0].groupName : this.form.patientGroups[0].groupName + '~' +  this.form.patientGroups[this.form.patientGroups.length - 1].groupName
-						// let group = []
-						// group = JSON.parse(JSON.stringify(this.form.patientGroups))
-						// if (this.status === 'edit') {
-							// this.groupName[this.currentIndex] = {
-							// 	value: name,
-							// 	// id: Date.now(),
-							// 	group
-							// }
-						// 	this.$message.success('编辑分组保存成功');
-						// } else {
-							this.form['deptCode'] = this.deptCode
-							this.form.patientGroups.forEach((e, i) => {
-								e.groupCode = i + 1
-							});
-							saveOrUpdateHL(this.form).then(res => {
-								console.log(res)
-								if (res.data.code === '200') {
-									this.$message.success(res.data.desc);
-									this.visible = false
-									this.$emit('on-group', this.groupName)
-								}
-							})
-							// this.groupName.push({
-							// 	value: name,
-							// 	id: Date.now(),
-							// 	group
-							// })
-						// }
+			this.form['deptCode'] = this.deptCode
+			this.form.patientGroups.forEach((e, i) => {
+				e.groupCode = i + 1
+			});
+			saveOrUpdateHL(this.form).then(res => {
+				console.log(res)
+				if (res.data.code === '200') {
+					this.$message.success(res.data.desc);
+					this.visible = false
+					this.$emit('on-group', this.groupName)
+				}
+			})
           } else {
             return false;
           }
         });
       },
       cancel(formName) {
-				this.visible = false
+		this.visible = false
         this.$refs[formName].resetFields();
       },
       remove(item) {
-				console.log(item)
-				if (item.id) {
-					console.log(9999999)
-					if (!item.bedSet || !item.dutyNurse) {
-						deletePatientGroupById(item.id).then(res => {
-							if (res.data.code === '200') {
-								this.$message.success("删除成功")
-								this.$emit('on-deletePatient')
-								var index = this.form.patientGroups.indexOf(item)
-								if (index !== -1) {
-									this.form.patientGroups.splice(index, 1)
-								}
-							}
-						})
-					} else {
-						this.$message.warning("如果要删除本条分组，需要把床位号和创建人清空")
+		if (item.id) {
+			if (!item.bedSet && !item.dutyNurse) {
+				deletePatientGroupById(item.id).then(res => {
+					if (res.data.code === '200') {
+						this.$message.success("删除成功")
+						this.$emit('on-deletePatient')
+						var index = this.form.patientGroups.indexOf(item)
+						if (index !== -1) {
+							this.form.patientGroups.splice(index, 1)
+						}
 					}
-					
-				} else {
-					var index = this.form.patientGroups.indexOf(item)
-					if (index !== -1) {
-						this.form.patientGroups.splice(index, 1)
-					}
-				}
+				})
+			} else {
+				this.$message.warning("如果要删除本条分组，需要把床位号或创建人清空")
+			}
+			
+		} else {
+			var index = this.form.patientGroups.indexOf(item)
+			if (index !== -1) {
+				this.form.patientGroups.splice(index, 1)
+			}
+		}
       },
       add() {
-				console.log(this.form.patientGroups)
         this.form.patientGroups.push({
-          groupName: '',
-					groupCode: '',
-					id: '',
-					isShow: '1'
+            groupName: '',
+			groupCode: '',
+			id: '',
+			isShow: '1'
         });
       }
     }
