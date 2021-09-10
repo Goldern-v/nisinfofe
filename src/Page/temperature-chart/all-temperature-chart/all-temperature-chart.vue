@@ -850,22 +850,22 @@ export default {
                 return "23";
               }
             case "quzhou":
-              if (this.getHours() >= 0 && this.getHours() <= 2) {
+              if (this.getHours() >= 0 && this.getHours() <= 4) {
                 return "02";
               }
-              if (this.getHours() > 2 && this.getHours() <= 6) {
+              if (this.getHours() > 4 && this.getHours() <= 8) {
                 return "06";
               }
-              if (this.getHours() > 6 && this.getHours() <= 10) {
+              if (this.getHours() > 8 && this.getHours() <= 12) {
                 return "10";
               }
-              if (this.getHours() > 10 && this.getHours() <= 14) {
+              if (this.getHours() > 12 && this.getHours() <= 16) {
                 return "14";
               }
-              if (this.getHours() > 14 && this.getHours() <= 18) {
+              if (this.getHours() > 16 && this.getHours() <= 20) {
                 return "18";
               }
-              if (this.getHours() > 18 && this.getHours() <= 23) {
+              if (this.getHours() > 20 && this.getHours() <= 23) {
                 return "22";
               }
             case "hengli":
