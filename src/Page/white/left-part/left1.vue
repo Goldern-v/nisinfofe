@@ -41,7 +41,7 @@
                 v-show="showOrderType(option, item)"
               >
                 <span>
-                  <span v-show="item.bedLabelShow">{{HOSPITAL_ID !== 'guizhou' ? option.bedLabel + '床' : option.oldbedLabel + '床' + '转至' + option.bedLabel + '床'}}</span>
+                  <span v-show="item.bedLabelShow">{{HOSPITAL_ID !== 'guizhou' ? option.bedLabel + '床' : (item.name === '今日换床' ? option.oldbedLabel + '床' + '转至' + option.bedLabel + '床' : option.bedLabel + '床')}}</span>
                   <span v-show="item.nameShow">{{option.name}}</span>
                 </span>
                 <!-- <span v-if="item.diagnosisShow">({{option.expand}})</span> -->
