@@ -132,6 +132,7 @@ export default {
     };
   },
   created() {
+    console.log(this.formInfo);
     this.pageLoading = true;
     this.bus.$on("closeAssessmentV2", () => {
       this.url = "";
@@ -1417,6 +1418,7 @@ export default {
       // let query = this.$route.query;
 
       //
+      console.log("-----------------------------",this.wid.formInfo.formType);
       let recordObj = {
         formType: this.wid.formInfo.formType || "",
         formCode: this.wid.formInfo.formCode || "",
