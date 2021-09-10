@@ -47,7 +47,7 @@
         <span slot="head-tool" @click="edit">编辑</span>
       </div>
     </boxBase>
-    <left3Modal ref='left3Modal' @on-deletePatient="deletePatient" @on-group='onGroup' :status='status' :currentIndex='currentIndex'></left3Modal>
+    <left3Modal ref='left3Modal' @on-deletePatient="deletePatient" @on-group='onGroup'></left3Modal>
   </div>
 </template>
 
@@ -142,7 +142,6 @@ export default {
       hengliOptions: [],
       currentHLOptions: [], // 横沥-病例分组-选中分组存储数组
       value: 4, 
-      currentIndex: 0, // 横沥-选中分组类型的index
       status: '',
       timer: null,
       tepHLOptions: [], // 病例分组-接口返回已经保存的分组组号（groupName）
