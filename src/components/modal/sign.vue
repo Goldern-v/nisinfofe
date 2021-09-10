@@ -187,10 +187,10 @@ export default {
     };
   },
   methods: {
-    open(callback, title, showDate = true, isHengliNursingForm, message = "") {
+    open(callback, title, showDate = false, isHengliNursingForm, message = "") {
       console.log('isHengliNursingFormzczxczxcxzczx', isHengliNursingForm);
       this.signDate = dayjs().format("YYYY-MM-DD HH:mm") || ""; //改
-      if(isHengliNursingForm){
+      if(isHengliNursingForm && title!=='删除验证'){
         if(title==='签名确认' && this.HOSPITAL_ID == 'hengli'){
         showDate = true;
         this.showAduit = false;
