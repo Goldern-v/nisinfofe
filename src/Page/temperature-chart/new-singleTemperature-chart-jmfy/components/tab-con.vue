@@ -265,6 +265,7 @@ export default {
         "出生",
         "手术入院",
         "死亡",
+        "转出"
       ],
       timesOdd: [
         {

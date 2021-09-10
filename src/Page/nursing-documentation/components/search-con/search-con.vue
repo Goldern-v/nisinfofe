@@ -33,7 +33,7 @@
           flex="cross:center main:center"
           flex-box="1"
           style="border-right: 1px solid #C2CBD2"
-          v-if="HOSPITAL_ID=='huadu'"
+          v-if="hospitalTransfer"
         >
           <el-radio class="radio" v-model="data.status" label="3" size="small">转科</el-radio>
         </div>
@@ -207,6 +207,7 @@ export default {
         dischargeDate: [moment().subtract(30, "days"), new Date()],
         dateTime: [moment().subtract(30, "days"), new Date()],
         diagnosis: "",//病种
+        // hospitalTransfer:['huadu','fuyou']//转科医院名字
       }
     };
   },
@@ -217,7 +218,10 @@ export default {
     //是否为查询界面
     isPatients(){
       return this.$route?this.$route.path=="/nursingDocumentation":false
-    }
+    },
+      hospitalTransfer(){
+        return ['huadu','fuyou'].includes(this.HOSPITAL_ID)
+      }
   },
   watch: {
     deptCode() {}
