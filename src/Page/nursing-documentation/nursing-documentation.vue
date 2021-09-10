@@ -1,7 +1,7 @@
 <template lang="pug">
   div
     .main-contain
-      changeMaJorTable(v-if="HOSPITAL_ID=='huadu' && isChangeMajor" :tableData="tableData" :pageLoadng="pageLoadng")
+      changeMaJorTable(v-if="hospitalTransfer && isChangeMajor" :tableData="tableData" :pageLoadng="pageLoadng")
       dTable(v-else :tableData="tableData" :pageLoadng="pageLoadng")
       .head-con(flex="main:justify cross:center")
         pagination(:pageIndex="page.pageIndex" :size="page.pageNum" :total="page.total" @sizeChange="handleSizeChange"
@@ -91,6 +91,7 @@ export default {
         total: 0
       },
       isChangeMajor:false,//是否显示转科
+        // hospitalTransfer:['huadu','fuyou']//转科医院名字
     };
   },
   methods: {
@@ -178,7 +179,7 @@ export default {
         patEmrListApi = patEmrListZSQ;
       }
       //花都转院查询
-      if(data.status == 3 && this.HOSPITAL_ID == 'huadu'){
+      if(data.status == 3 && this.hospitalTransfer){
         let newObj=JSON.parse(JSON.stringify(obj));
         delete newObj.admissionDateBegin;
         delete newObj.admissionDateEnd;
@@ -204,7 +205,10 @@ export default {
   computed:{
     searchConData(){
       return this.$refs.searchCon?this.$refs.searchCon.data:null
-    }
+    },
+      hospitalTransfer(){
+        return ['huadu','fuyou'].includes(this.HOSPITAL_ID)
+      }
   },
   components: {
     searchCon,

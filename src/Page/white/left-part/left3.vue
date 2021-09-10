@@ -29,9 +29,9 @@
       </div> -->
       <!-- :class="{'selectCon': HOSPITAL_ID !== 'hengli'}" -->
       <p slot="head-con">
-        <el-select v-if="HOSPITAL_ID=='hengli'" multiple size='small' v-model="tepHLOptions" placeholder="请选择" @remove-tag="removeTag" @change="HLupdate">
+        <el-select v-if="HOSPITAL_ID=='hengli'" multiple size='small' v-model="tepHLOptions" placeholder="请选择" @remove-tag="removeTag" @visible-change='visibleChange' @change="HLupdate">
           <template>
-            <el-option v-for="item in hengliOptions" :key="item.id" :label="item.groupName" :value="item.id"></el-option>
+            <el-option v-for="item in hengliOptions" :disabled='item.disabled' :key="item.id" :label="item.groupName" :value="item.id"></el-option>
           </template>
         </el-select>
         <el-select v-else v-model="value" size='small' class="diffSelect" placeholder="请选择" @change="update">
@@ -47,7 +47,7 @@
         <span slot="head-tool" @click="edit">编辑</span>
       </div>
     </boxBase>
-    <left3Modal ref='left3Modal' @on-deletePatient="deletePatient" @on-group='onGroup' :status='status' :currentIndex='currentIndex'></left3Modal>
+    <left3Modal ref='left3Modal' @on-deletePatient="deletePatient" @on-group='onGroup'></left3Modal>
   </div>
 </template>
 
@@ -104,7 +104,7 @@ input {
 <script>
 import boxBase from "../base/box-base.vue";
 import { userDictInfo } from "@/api/common";
-import { viewListByDeptCode, updateByDeptCodeAndGroupCode, deletePatientGroupById } from "../api";
+import { viewListByDeptCode, updateByDeptCodeAndGroupCode, deletePatientGroupById, saveOrUpdateHL } from "../api";
 import common from "@/common/mixin/common.mixin.js";
 import bus from "vue-happy-bus";
 import left3Modal from '../modal/letf3-modal.vue'
@@ -142,10 +142,11 @@ export default {
       hengliOptions: [],
       currentHLOptions: [], // 横沥-病例分组-选中分组存储数组
       value: 4, 
-      currentIndex: 0, // 横沥-选中分组类型的index
       status: '',
       timer: null,
-      tepHLOptions: [] // 病例分组-接口返回已经保存的分组组号（groupName）
+      tepHLOptions: [], // 病例分组-接口返回已经保存的分组组号（groupName）
+      HLlabel: [],
+      oldValId: []
     };
   },
   created() {
@@ -173,6 +174,12 @@ export default {
         if (res.data.code === '200') {
           if (res.data.data.length > 0) {
             this.hengliOptions = res.data.data;
+            this.hengliOptions.forEach(item => {
+              if (item.bedSet || item.dutyNurse)
+                this.$set(item, 'disabled', true)
+              else this.$set(item, 'disabled', false)
+            })
+            console.log(this.hengliOptions)
             this.currentHLOptions = res.data.data.filter(item => {
               return item.isShow === '1'
             })
@@ -241,23 +248,50 @@ export default {
         }));
       });
     },
+    visibleChange(val) {
+      let form = {
+        creator: localStorage.getItem('rememberAccount'),
+        patientGroups: this.HLlabel,
+        deptCode:  this.deptCode
+      }
+      if (!val) {
+        saveOrUpdateHL(form).then(res => {
+          if (res.data.code === '200') {
+            this.onGroup()
+          }
+        })
+      }
+    },
     HLupdate(val) {
-      console.log(this.tepHLOptions, 99)
-      console.log(val, 777)
-      
-      this.currentHLOptions = res.data.data.filter(item => {
-        return item.isShow === '1'
+      console.log(val)
+      this.oldValId = JSON.parse(JSON.stringify(val));
+      let newval=JSON.parse(JSON.stringify(val));
+      let arr = JSON.parse(JSON.stringify(this.hengliOptions));
+      let newList = arr.map(item=>{
+          let newModel=JSON.parse(JSON.stringify(item));
+          let filterItem=newval.find(newItem=>newItem==newModel.id)
+        if(filterItem){
+          newModel.isShow = "1"
+        }else{
+          newModel.isShow = "0"
+        }
+        return newModel;
       })
+      this.HLlabel = newList
     },
     removeTag(val) {
-      console.log(val)
-      
-      if (true) {
+      console.log(999)
+      let arr = JSON.parse(JSON.stringify(this.hengliOptions));
+      let newList = arr.find(newItem=>newItem.id === val.value)
+      if (!newList.bedSet && !newList.dutyNurse) {
         deletePatientGroupById(val.value).then(res => {
           if (res.data.code === '200') {
             this.onGroup()
           }
         })
+      } else {
+        this.tepHLOptions.push(newList.id)
+        this.$message.warning("如果要删除本条分组，需要把床位号或者创建人清空")
       }
     },
     update(val) {

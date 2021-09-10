@@ -104,7 +104,7 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 45
+      width: 35
     },
   },
   {
@@ -113,7 +113,7 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 45
+      width: 35
     },
   },
   {
@@ -122,7 +122,7 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 45
+      width: 35
     },
     autoComplete: {
       data: twList
@@ -134,7 +134,7 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 45
+      width: 35
     },
   },
   {
@@ -143,7 +143,7 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 45
+      width: 35
     },
   },
   {
@@ -152,7 +152,7 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 45
+      width: 35
     },
   },
   {
@@ -161,7 +161,7 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 45
+      width: 35
     },
   },
   {
@@ -170,7 +170,7 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 45
+      width: 35
     },
   },
   {
@@ -179,7 +179,7 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 45
+      width: 35
     },
   },
   {
@@ -188,7 +188,7 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 45
+      width: 35
     },
   },
   {
@@ -249,6 +249,15 @@ export default [
     },
   },
   {
+    key: "accumulated", //入量累计
+    value: "",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 4),
+    textarea: {
+      width: 35
+    },
+  },
+  {
     key: "urinate", //尿/便
     value: "",
     event: keyf1,
@@ -266,15 +275,24 @@ export default [
       width: 35
     },
   },
-  // {
-  //   key: "balance", //平衡量
-  //   value: "",
-  //   event: keyf1,
-  //   change: (e, td) => limitChange(e, td, 4),
-  //   textarea: {
-  //     width: 35
-  //   },
-  // },
+  {
+    key: "cumulative", //出量累计
+    value: "",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 4),
+    textarea: {
+      width: 35
+    },
+  },
+  {
+    key: "balance", //平衡量
+    value: "",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 4),
+    textarea: {
+      width: 35
+    },
+  },
   {
     key: "atomization", //雾化
     value: "",

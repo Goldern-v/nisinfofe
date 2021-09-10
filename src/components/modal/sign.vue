@@ -25,7 +25,7 @@
         <!-- <el-input size="small" type="text" placeholder="输入签名时间" v-model="signDate"></el-input> -->
       </div>
     </span>
-    <span v-show="showaduit">
+    <span v-show="showAduit">
       <p for class="name-title">审核时间</p>
       <div action class="sign-input" ref="dateInput">
         <el-date-picker
@@ -183,23 +183,26 @@ export default {
       pw: false,
       dateTitle:"",
       aduitDate:'',
-      showaduit:false,
+      showAduit:false,
     };
   },
   methods: {
-    open(callback, title, showDate = true, message = "") {
+    open(callback, title, showDate = false, isHengliNursingForm, message = "") {
+      console.log('isHengliNursingFormzczxczxcxzczx', isHengliNursingForm);
       this.signDate = dayjs().format("YYYY-MM-DD HH:mm") || ""; //改
-      if(title==='签名确认' && this.HOSPITAL_ID == 'hengli'){
+      if(isHengliNursingForm && title!=='删除验证'){
+        if(title==='签名确认' && this.HOSPITAL_ID == 'hengli'){
         showDate = true;
-        this.showaduit = false;
+        this.showAduit = false;
         this.dateTitle = '记录时间';
-      }else if(title==='审核签名确认' && this.HOSPITAL_ID == 'hengli'){
-        showDate = false;
-        this.showaduit = true;
-        this.dateTitle = '审核时间'
-      }else{
-         showDate = false;
-         this.showaduit = false;
+        }else if(title==='审核签名确认' && this.HOSPITAL_ID == 'hengli'){
+          showDate = false;
+            this.showAduit = true;
+          this.dateTitle = '审核时间'
+        }else{
+          showDate = false;
+          this.showAduit = false;
+        }
       }
       this.title1 = "";
       title && (this.title1 = title);
