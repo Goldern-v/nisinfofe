@@ -91,6 +91,7 @@ export default {
       this.contentHeight.height = window.innerHeight - 110 + "px";
     },
     messageHandle(e) {
+      console.log(e)
       if (e && e.data) {
         switch (e.data.type) {
           case "pageTotal":

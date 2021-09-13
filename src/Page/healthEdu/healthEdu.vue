@@ -92,8 +92,8 @@ export default {
       switch (this.HOSPITAL_ID) {
         case "guizhou":
           return "healthEducationGuizhou";
-        // case "hengli":
-        //   return "healthEducationHengLi";
+        case "hengli":
+          return "healthEducationHengLi";
         default:
           return "healthEducation";
       }

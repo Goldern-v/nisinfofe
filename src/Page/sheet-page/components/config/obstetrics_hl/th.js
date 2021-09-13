@@ -159,7 +159,7 @@ export default {
         }
       },
       {
-        name: `留置<br>尿口`,
+        name: `留置<br>尿管`,
         style: {},
         colspan: "1",
         rowspan: "2",

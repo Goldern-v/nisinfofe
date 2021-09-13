@@ -16,12 +16,12 @@ export function templatesAll(type,deptCode) {
 
 // 获取科室健康教育单模板
 export function healthEduTemplates(deptCode) {
-  return axios.get(`${apiPath}eval/health_education_hl/healthEduTemplates/${deptCode}`)
+  return axios.get(`${apiPath}healthEdu/health_education_hl/healthEduTemplates/${deptCode}`)
 }
 
 // 创建健康教育单
 export function createHealthEduTemplates(params) {
-  return axios.post(`${apiPath}eval/health_education_hl/save`,params)
+  return axios.post(`${apiPath}healthEdu/health_education_hl/save`,params)
 }
 
 // 患者：是否进入过某个护理单元

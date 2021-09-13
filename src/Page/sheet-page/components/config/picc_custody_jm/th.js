@@ -49,7 +49,7 @@ export default {
         入液量
         `,
         style: {},
-        colspan: '6',
+        colspan: '7',
         rowspan: '1'
       },
       {
@@ -57,17 +57,17 @@ export default {
         出量
         `,
         style: {},
-        colspan: '2',
+        colspan: '3',
         rowspan: '1'
       },
-      // {
-      //   name: `
+      {
+        name: `
         
-      //   `,
-      //   style: {},
-      //   colspan: '1',
-      //   rowspan: '1'
-      // },
+        `,
+        style: {},
+        colspan: '1',
+        rowspan: '1'
+      },
       {
         name: `
         治疗、护理项目
@@ -216,7 +216,7 @@ export default {
       },
       {
         name: `
-        C<br/>补<br/>液<br/>ml
+        C<br/><br/>补<br/>液<br/>ml
         `,
         colspan: '1',
         rowspan: '2'
@@ -244,6 +244,13 @@ export default {
       },
       {
         name: `
+        入<br/>量<br/>累<br/>计<br/>ml
+        `,
+        colspan: '1',
+        rowspan: '2'
+      },
+      {
+        name: `
         尿<br/>/<br/>便<br/>ml
         `,
         colspan: '1',
@@ -256,13 +263,20 @@ export default {
         colspan: '1',
         rowspan: '2'
       },
-      // {
-      //   name: `
-      //   平衡量ml
-      //   `,
-      //   colspan: '1',
-      //   rowspan: '2'
-      // },
+      {
+        name: `
+        出<br/>量<br/>累<br/>计<br/>ml
+        `,
+        colspan: '1',
+        rowspan: '2'
+      },
+      {
+        name: `
+        平<br/>衡<br/>量<br/>ml
+        `,
+        colspan: '1',
+        rowspan: '2'
+      },
       {
         name: `
         雾<br/>化

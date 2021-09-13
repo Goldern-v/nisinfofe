@@ -584,10 +584,18 @@ export default {
   .rowItem_noShow {
     display: none;
   }
+  @media screen and (max-width: 1200px) {
+
+    .el-radio:nth-child(1){
+    margin-left:15px;
+    }
+
+}
 
   .row {
     display: inline-block;
     padding: 3px 15px;
+    
 
     .preText {
       display: inline-block;

@@ -49,6 +49,7 @@
         </div>
       </div>
       <dTable :pageLoadng="pageLoadng" ref="plTable"></dTable>
+      <modal v-if="isShowModal" :src="src" @changeModal="changeModal"/>
       <!-- <div class="pagination-con" flex="main:justify cross:center">
         <pagination
           :pageIndex="page.pageIndex"
@@ -58,7 +59,7 @@
           @currentChange="handleCurrentChange"
         ></pagination>
       </div> -->
-      <div class="print-modal" v-show="showPintModal" @click="closePrint">
+      <!-- <div class="print-modal" v-show="showPintModal" @click="closePrint">
         <div class="init" v-show="!showProgress">
           <img src="./images/print.png" alt="">
           <p>正在初始化打印,请稍等…</p>
@@ -70,7 +71,8 @@
             <el-button v-show="showCancelPrint"  @click="closePrint" style="margin-left:15px;">取消</el-button>
           </p>
         </div>
-      </div>
+      </div> -->
+
     </div>
   </div>
 </template>
@@ -154,16 +156,18 @@
 }
 </style>
 <script>
+import modal from "./modal/modal.vue"
 import dTable from "./components/table/bottle-sign-print-table";
 // import pagination from "./components/common/pagination";
 import { patEmrList } from "@/api/document";
-import { getPrintExecuteWithWardcode ,handleWebGetPrintResult } from "./api/index";
+import { getPrintExecuteWithWardcode ,handleWebGetPrintResult,webExecutePrint } from "./api/index";
 import common from "@/common/mixin/common.mixin.js";
 import moment from "moment";
 export default {
   mixins: [common],
   data() {
     return {
+      src:"http://192.168.1.54:9523/crNursing/asset/printExecuteOrders/1111111111.pdf",
       pageInput: "",
       pageLoadng: false,
       page: {
@@ -179,6 +183,7 @@ export default {
       bedLabel: "",
       showPintModal: false,//是否显示打印弹框
       showProgress: false,
+      isShowModal:false,
       query: {
         wardCode:"",
         itemType:"输液",//医嘱类别，输液、雾化
@@ -200,6 +205,9 @@ export default {
     this.cleanPrintStatusRoundTime()
   },
   methods: {
+    changeModal(flag){
+      this.isShowModal = flag
+    },
     handleSizeChange(newSize) {
       this.page.pageNum = newSize;
     },
@@ -265,8 +273,10 @@ export default {
       this.selectedData = this.$refs.plTable.selectedData;
       if((this.selectedData||[]).length<=0)
       return this.$message('未选择勾选打印条目')
-
-      this.showPintModal = true;
+      this.changeModal(true)
+      // webExecutePrint().then(res=>{
+      //   console.log(res);
+      // })
       this.printNum = 0;
 
       this.query.executeDate = this.query.executeDate ? moment(this.query.executeDate).format("YYYY-MM-DD") : '';
@@ -276,11 +286,18 @@ export default {
         url += `${item.patientId}|${item.visitId}|${item.orderNo};`;
       });
       this.Uuid = new Date().getTime() + parseInt(Math.random()*10000);
-      window.location.href = `LABELPRINT://${this.Uuid};${this.empNo};${this.query.executeDate};{${url}}`;
-      this.printStatusMsg = '正在打印,请稍等…'
-      this.showCancelPrint = false;
+      console.log(`${this.Uuid};${this.empNo};${this.query.executeDate};${url}`);
+      webExecutePrint({
+        content:`${this.Uuid};${this.empNo};${this.query.executeDate};${url}`,
+        uuid:this.Uuid
+      }).then(res=>{
+        console.log(res);
+      })
+      // window.location.href = `LABELPRINT://${this.Uuid};${this.empNo};${this.query.executeDate};{${url}}`;
+      // this.printStatusMsg = '正在打印,请稍等…'
+      // this.showCancelPrint = false;
 
-      this.printResult(this.selectedData.length);
+      // this.printResult(this.selectedData.length);
     },
     cleanPrintStatusRoundTime(){
       if(this.printStatusTimmer){
@@ -293,51 +310,51 @@ export default {
       }
     },
     // 打印结果
-    printResult(totalNum){
-      this.showPintModal = true;
-      this.showProgress = true;
-      this.cleanPrintStatusRoundTime()
+    // printResult(totalNum){
+    //   this.showPintModal = true;
+    //   this.showProgress = true;
+    //   this.cleanPrintStatusRoundTime()
 
-      this.printStatusTimmer = setTimeout(()=>{
-        this.printStatusReq = handleWebGetPrintResult(this.Uuid)
-        .then(res => {
-          const {data,code,desc} = res.data
-          if(code==200){
-            const { printNum, successNum, errorNum } = data
-            this.printNum = printNum
-            this.showCancelPrint = false;
-            if(printNum<totalNum){
-              this.printResult(totalNum)
-              this.printStatusMsg = `正在打印,请稍等… ${printNum}/${totalNum}`
-            }else{
-              this.printStatusMsg = '打印成功！'
-              setTimeout(()=>this.closePrint(),1000)
-            }
-          }else{
-            this.showCancelPrint = true;
-            this.printStatusMsg = desc;
-            this.printResult(totalNum)
-          }
-        },(e)=>{
+    //   this.printStatusTimmer = setTimeout(()=>{
+    //     this.printStatusReq = handleWebGetPrintResult(this.Uuid)
+    //     .then(res => {
+    //       const {data,code,desc} = res.data
+    //       if(code==200){
+    //         const { printNum, successNum, errorNum } = data
+    //         this.printNum = printNum
+    //         this.showCancelPrint = false;
+    //         if(printNum<totalNum){
+    //           this.printResult(totalNum)
+    //           this.printStatusMsg = `正在打印,请稍等… ${printNum}/${totalNum}`
+    //         }else{
+    //           this.printStatusMsg = '打印成功！'
+    //           setTimeout(()=>this.closePrint(),1000)
+    //         }
+    //       }else{
+    //         this.showCancelPrint = true;
+    //         this.printStatusMsg = desc;
+    //         this.printResult(totalNum)
+    //       }
+    //     },(e)=>{
 
-          if(e&&e.data&&e.data.desc){
-            let visibleMsg = `${e.data.desc}，重试中...`
-            this.showCancelPrint = true;
-            if(this.printStatusMsg === visibleMsg){
-              this.printStatusMsg = '打印程序已挂起, 3秒钟后关闭';
-              setTimeout(()=>this.closePrint(),3000)
-            }else{
-              this.printStatusMsg = visibleMsg
-              this.printResult(totalNum)
-            }
-          }else{
-            this.showCancelPrint = true;
-            this.printStatusMsg = '打印出现错误';
-            setTimeout(()=>this.closePrint(),3000)
-          }
-        })
-      }, 5*1000)
-    },
+    //       if(e&&e.data&&e.data.desc){
+    //         let visibleMsg = `${e.data.desc}，重试中...`
+    //         this.showCancelPrint = true;
+    //         if(this.printStatusMsg === visibleMsg){
+    //           this.printStatusMsg = '打印程序已挂起, 3秒钟后关闭';
+    //           setTimeout(()=>this.closePrint(),3000)
+    //         }else{
+    //           this.printStatusMsg = visibleMsg
+    //           this.printResult(totalNum)
+    //         }
+    //       }else{
+    //         this.showCancelPrint = true;
+    //         this.printStatusMsg = '打印出现错误';
+    //         setTimeout(()=>this.closePrint(),3000)
+    //       }
+    //     })
+    //   }, 5*1000)
+    // },
     // 关闭打印弹框
     closePrint(e){
       this.cleanPrintStatusRoundTime()
@@ -374,6 +391,7 @@ export default {
   },
   components: {
     dTable,
+    modal
     // pagination
   }
 };

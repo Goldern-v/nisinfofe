@@ -97,3 +97,6 @@ export function handleWebGetPrintResult(uuid) {
   );
 }
 
+export function webExecutePrint(body){
+  return axios.post(`${apiPath}procedure/webExecute/webExecutePrint`,body)
+}
