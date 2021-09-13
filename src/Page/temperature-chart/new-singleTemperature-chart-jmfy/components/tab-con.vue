@@ -79,10 +79,11 @@
           >
             <span class="preText">{{ index }}</span>
             <input v-if="index!='大便次数'" type=text v-model="vitalSignObj[j].vitalValue" />
+
             <select v-if="index==='大便次数'" type=text v-model="vitalSignObj[j].vitalValue" style="width:52.97px;height:19.73px">
             <option v-for="(item,i) in selectValue" :key="i" >{{item}}</option>
             </select>
-
+<input v-if="index==='大便次数'" v-model="vitalSignObj[j].vitalValue" style="width:52.97px;height:19.73px" type=text placeholder="大便次数自定义" />
           </div>
           <div class="fieldList">
             <div style="margin: 10px 0px; font-weight: bold; font-size: 14px">
@@ -293,7 +294,7 @@ export default {
           value: "23",
         },
       ],
-      bottomContextList: ["温水擦浴", "不升"],
+      bottomContextList: ["温水擦浴", "不升","特殊物理降温","辅助呼吸"],
       topExpandDate: "",
       bottomExpandDate: "",
       totalDictInfo: {},

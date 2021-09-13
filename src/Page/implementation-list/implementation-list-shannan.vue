@@ -289,6 +289,10 @@ export default {
           name: "未执行"
         },
         {
+          id: 1,
+          name: "执行中"
+        },
+        {
           id: 4,
           name: "已完成"
         }
