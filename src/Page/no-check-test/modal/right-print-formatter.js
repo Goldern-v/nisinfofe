@@ -23,7 +23,7 @@ export default function (win) {
   let theadH = 33,
     rowH = 33,
     gapH = 20;
-  let theads = root.querySelector('.printable thead');
+  // let theads = root.querySelector('.printable thead');
   let rows = root.querySelectorAll('.printable tbody tr');
   rows = Array.from(rows);
 
@@ -33,7 +33,7 @@ export default function (win) {
   pageBoxH = theadH;
   rows.forEach(function (row, index) {
     tbody.appendChild(row);
-    rowH = rowsArr[index + 1].offsetHeight || rowH;
+    // rowH = rowsArr[index + 1].offsetHeight || rowH;
     pageBoxH += rowH;
     if (pageBoxH >= page_height - 100) {
       let table = tables.cloneNode();
