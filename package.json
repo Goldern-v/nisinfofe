@@ -36,6 +36,7 @@
     "buildNew:weixian": "npm run buildNew: weixian",
     "buildNew:lingcheng": "npm run buildNew: lingcheng",
     "buildNew:huadu": "npm run buildNew: huadu",
+    "buildNew:xiegang": "npm run buildNew: xiegang",
     "buildNew:wujing": "npm run buildNew: wujing",
     "buildNew:liaocheng": "npm run buildNew: liaocheng",
     "buildNew:fuyou": "npm run buildNew: fuyou",
