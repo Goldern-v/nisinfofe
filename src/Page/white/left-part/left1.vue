@@ -140,7 +140,7 @@ export default {
     // 贵州-打印 谢岗-打印
     openPrintModal() {
       let data = this.whiteBoardDtos.filter(item => {
-        if (!item.showOrHide) 
+        if (!(item.showOrHide && !item.configureValue && (!item.boardConfigures || (item.boardConfigures && item.boardConfigures.length == 0)))) 
           return item
       })
       this.$refs.left1PrintModal.getPrintData(data);
