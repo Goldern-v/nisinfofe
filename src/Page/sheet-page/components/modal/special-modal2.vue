@@ -1295,9 +1295,10 @@ export default {
           text += allDoc[i];
         } else {
           if (this.HOSPITAL_ID == "lingcheng" || 
-             (this.HOSPITAL_ID == "shannan")  ||
+              this.HOSPITAL_ID == "shannan"  ||
               this.sheetInfo.sheetType === "icu_qz" ||
-              this.sheetInfo.sheetType === "intersurgerycure_qzx") {
+              this.sheetInfo.sheetType === "intersurgerycure_qzx" ||
+              this.sheetInfo.sheetType === "common_gzry") {
             if (GetLength(text) > 46) {
               result.push(text);
               text = allDoc[i];

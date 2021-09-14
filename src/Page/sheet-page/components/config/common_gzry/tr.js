@@ -55,6 +55,12 @@ export default [{
     next: "次/分",
   },
   {
+    key: "spo2", //血氧饱和度
+    value: "",
+    event: keyf1,
+    name: "血氧饱和度",
+  },
+  {
     key: "bloodPressure", //血压
     value: "",
     event: function (e, td) {
@@ -75,7 +81,7 @@ export default [{
       top: "1px",
       bottom: "1px",
       left: "1px",
-      // width: "180px",
+      width: "350px",
       background: "transparent",
     },
     event: function (e, td) {
