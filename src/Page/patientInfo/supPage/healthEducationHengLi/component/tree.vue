@@ -488,72 +488,70 @@ export default {
         this.getBlockByPV()
       ])
         .then(res => {
-          console.log(res);
-          // console.log("Promise.all", res);
-          // let index = 0;
+          console.log("Promise.all", res);
+          let index = 0;
           // //
-          // window.app.$store.commit("cleanFormLastId");
+          window.app.$store.commit("cleanFormLastId");
           // //
-          // let list_1 = res[0].data.data.map(item => {
-          //   index += 1;
-          //   return {
-          //     label: item.formName,
-          //     index: index,
-          //     formCode: item.formCode,
-          //     showCurve: item.showCurve,
-          //     creator: item.creator,
-          //     listPrint: item.listPrint,
-          //     nooForm: item.nooForm,
-          //     pageUrl: item.pageUrl,
-          //     formTreeRemindType: item.formTreeRemindType,
-          //     children: item.formInstanceDtoList && item.formInstanceDtoList.map((option, i) => {
-          //       //
-          //       // item.formCode
-          //       // this.$store.state.form.upFormLastId
-          //       // window.app.$store.commit('upFormLastId', data)
-          //       if (item.formInstanceDtoList.length - 1 == i) {
-          //         window.app.$store.commit("upFormLastId", {
-          //           formName: item.formName,
-          //           formCode: item.formCode,
-          //           id: option.id,
-          //           patientId: this.$route.query.patientId,
-          //           visitId: this.$route.query.visitId,
-          //           evalDate: option.evalDate
-          //         });
-          //       }
-          //       // formName: "疼痛护理单"
-          //       // 查找第一张填写的疼痛评估单
-          //       if (item.formName && item.formName === "疼痛护理单") {
-          //         // console.log("===疼痛护理单",i,option,item.formInstanceDtoList.length)
-          //         if (item.formInstanceDtoList.length - 1 == i) {
-          //           // console.log("--疼痛护理单",i,option,item.formInstanceDtoList.length)
-          //           // /crNursing/api/eval/detail/{id}
-          //           localStorage[
-          //           "firtPainFormID" + this.$route.query.patientId
-          //             ] = option.id;
-          //         }
-          //       }
-          //       return {
-          //         status: option.status,
-          //         evalScore: option.evalScore || "",
-          //         label: `${option.evalDate}
-          //         ${option.countSize ? option.countSize + "条" : ""}
-          //         ${option.evalScore ? option.evalScore + "分" : ""}
-          //         ${option.pusherName ? option.pusherName : option.creatorName}
-          //         ${option.status == 0 ? "T" : option.status}`,
-          //         form_id: option.id,
-          //         formName: item.formName,
-          //         formTreeRemindType: item.formTreeRemindType
-
-          //       };
-          //     })
-          //   };
-          // });
+          let list_1 = res[0].data.data.list.map(item => {
+            index += 1;
+            return {
+              label: item.formName,
+              index: index,
+              formCode: item.formCode,
+              showCurve: item.showCurve,
+              creator: item.creator,
+              listPrint: item.listPrint,
+              nooForm: item.nooForm,
+              pageUrl: item.pageUrl,
+              formTreeRemindType: item.formTreeRemindType,
+              children: item.formInstanceDtoList && item.formInstanceDtoList.map((option, i) => {
+                //
+                // item.formCode
+                // this.$store.state.form.upFormLastId
+                // window.app.$store.commit('upFormLastId', data)
+                if (item.formInstanceDtoList.length - 1 == i) {
+                  window.app.$store.commit("upFormLastId", {
+                    formName: item.formName,
+                    formCode: item.formCode,
+                    id: option.id,
+                    patientId: this.$route.query.patientId,
+                    visitId: this.$route.query.visitId,
+                    evalDate: option.evalDate
+                  });
+                }
+                // // formName: "疼痛护理单"
+                // // 查找第一张填写的疼痛评估单
+                // if (item.formName && item.formName === "疼痛护理单") {
+                //   // console.log("===疼痛护理单",i,option,item.formInstanceDtoList.length)
+                //   if (item.formInstanceDtoList.length - 1 == i) {
+                //     // console.log("--疼痛护理单",i,option,item.formInstanceDtoList.length)
+                //     // /crNursing/api/eval/detail/{id}
+                //     localStorage[
+                //     "firtPainFormID" + this.$route.query.patientId
+                //       ] = option.id;
+                //   }
+                // }
+                return {
+                  status: option.status,
+                  evalScore: option.evalScore || "",
+                  label: `${option.evalDate}
+                  ${option.countSize ? option.countSize + "条" : ""}
+                  ${option.evalScore ? option.evalScore + "分" : ""}
+                  ${option.pusherName ? option.pusherName : option.creatorName}
+                  ${option.status == 0 ? "T" : option.status}`,
+                  form_id: option.id,
+                  formName: item.formName,
+                  formTreeRemindType: item.formTreeRemindType
+                };
+              })
+            };
+          });
           // //
-          // // upFormTree
-          // if (list_1) {
-          //   window.app.$store.commit("upFormTree", [...list_1]);
-          // }
+          // upFormTree
+          if (list_1) {
+            window.app.$store.commit("upFormTree", [...list_1]);
+          }
           // //
           // let list_2 = info => {
           //   index += 1;
@@ -629,7 +627,7 @@ export default {
           //     item => item.label == this.filterObj.label
           //   );
           // } else {
-          //   this.regions = list_1;
+            this.regions = list_1;
           // }
           // console.log(this.regions);
 
