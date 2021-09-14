@@ -83,8 +83,17 @@ function patientNursing(patientId, visitId, date, type, pageIndex, pageSize, sta
   return axios.post(`${apiPath}job/patientNursing`, qs.stringify({patientId, visitId, date, type, pageIndex, pageSize, status}))
 }
 
-export const groupList = (patientId, visitId) =>
-axios.get(`${apiPath}form/common/groupList/${patientId}/${visitId}`)
+export const groupList = (patientId, visitId, type,wardCode) =>{
+  if(type=="healthEdu"){
+    return axios.post(`${apiPath}/formType/${type}/list`,{
+      patientId,
+      visitId,
+      wardCode
+    })
+  }
+  return axios.get(`${apiPath}form/common/groupList/${patientId}/${visitId}`)
+}
+
 
 /**
  * 根据病人信息获取健康宣教列表

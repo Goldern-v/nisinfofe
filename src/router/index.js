@@ -224,6 +224,7 @@ import implementationPersonLiaocheng
   from "@/Page/patientInfo/supPage/implementation-list/implementation-list-liaocheng";
 // 深静脉导管维护单页面
 import deepPage from "@/Page/deep-page/deep-page.vue";
+import allCatheter from "@/Page/allCatheter/all-catheter.vue";
 // 导管监测单
 import catheterPage from "@/Page/catheter-page/catheter-page.vue";
 
@@ -846,6 +847,10 @@ const router = new Router({
       {
         path: "/deepPage",
         component: deepPage
+      },
+      {
+        path: "/allCatheter",
+        component: allCatheter
       },
       {
         path: "/catheterPage",

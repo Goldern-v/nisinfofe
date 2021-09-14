@@ -214,6 +214,19 @@
           体征同步
         </div>
       </div>
+      <div class="line" v-if="HOSPITAL_ID=='wujing'"></div>
+      <div style="width: 5px"></div>
+      <div
+        class="right-btn"
+        flex="cross:center main:center"
+        @click.stop="openZxdtbModal"
+        v-if="HOSPITAL_ID=='wujing'"
+      >
+        <div class="text-con">
+          <img src="./images/评估.png" alt />
+          执行单同步
+        </div>
+      </div>
       <div style="width: 5px"></div>
     </div>
     <patientInfo
@@ -222,6 +235,7 @@
     <newFormModal ref="newFormModal"></newFormModal>
     <setTitleModal ref="setTitleModal"></setTitleModal>
     <tztbModal ref="tztbModal"></tztbModal>
+    <zxdtbModal ref="zxdtbModal" :blockId="blockId"></zxdtbModal>
     <patientInfoModal ref="patientInfoModal"></patientInfoModal>
     <sweet-modal
       ref="sheet"
@@ -258,6 +272,7 @@ import commom from "@/common/mixin/common.mixin.js";
 import newFormModal from "../modal/new-sheet-modal.vue";
 import setTitleModal from "../modal/set-title-modal.vue";
 import tztbModal from "../modal/tztb-modal.vue";
+import zxdtbModal from "../modal/zxdtb-modal.vue";
 import patientInfoModal from "./modal/patient-info-modal";
 import dayjs from "dayjs";
 // import lodopPrint from "./lodop/lodopPrint";
@@ -730,6 +745,7 @@ export default {
         localStorage.wardCode = item.deptCode;
       }
       this.sheetInfo.sheetType = this.sheetInfo.selectBlock.recordCode;
+      this.blockId = item.id
       cleanData();
       this.bus.$emit("refreshSheetPage", true);
     },
@@ -754,6 +770,12 @@ export default {
       }
       this.$refs.tztbModal.open();
     },
+    openZxdtbModal(){
+      if (this.readOnly) {
+        return this.$message.warning("你无权操作此护记，仅供查阅");
+      }
+      this.$refs.zxdtbModal.open();
+    },
     /* 切换主页 */
     async backMainForm() {
       const id = this.sheetInfo.selectBlock.id;
@@ -774,6 +796,12 @@ export default {
     },
   },
   computed: {
+    blockId:{
+      get(){
+        return this.sheetInfo.selectBlock.id
+      },
+      set(){}
+    },
     fullpage() {
       return this.$store.state.sheet.fullpage;
     },
@@ -979,6 +1007,7 @@ export default {
     newFormModal,
     setTitleModal,
     tztbModal,
+    zxdtbModal,
     patientInfoModal,
     patientInfo,
     temperatureHD,

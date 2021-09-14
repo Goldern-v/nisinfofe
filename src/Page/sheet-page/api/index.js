@@ -210,7 +210,16 @@ export const updateSheetHeadInfo = (obj = {}) => {
 };
 
 // 获取his患者体征
-export const getVitalSign = (patientId, visitId, recordDate) => {
+export const getVitalSign = (patientId, visitId, recordDate,id,hospitalId) => {
+  if(hospitalId=="wujing"){
+    return axios.post(
+      `${apiPath}record/block/nurseExecute/list/${id}`,{
+        patientId,
+        visitId,
+        executeDateTime: recordDate
+    }
+    );
+  }
   return axios.get(
     `${apiPath}record/${
     sheetInfo.sheetType
@@ -219,7 +228,14 @@ export const getVitalSign = (patientId, visitId, recordDate) => {
 };
 
 // 保存his患者体征
-export const saveVitalSign = data => {
+export const saveVitalSign = (data,hospitalId) => {
+  if(hospitalId=='wujing'){
+    return axios.post(
+      `${apiPath}record/block/ordersExecute/save`,
+      data
+    );
+    
+  }
   let d = {
     blockId: sheetInfo.selectBlock.id,
     list: data

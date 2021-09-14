@@ -484,171 +484,169 @@ export default {
     getTreeData() {
       this.treeLoading = true;
       Promise.all([
-        groupList(this.$route.query.patientId, this.$route.query.visitId),
-        // getInstanceByPatientInfo(
-        //   this.$route.query.patientId,
-        //   this.$route.query.visitId
-        // ),
+        groupList(this.$route.query.patientId, this.$route.query.visitId,'healthEdu',this.$route.query.wardCode),
         this.getBlockByPV()
       ])
         .then(res => {
-          console.log("Promise.all", res);
-          let index = 0;
-          //
-          window.app.$store.commit("cleanFormLastId");
-          //
-          let list_1 = res[0].data.data.map(item => {
-            index += 1;
-            return {
-              label: item.formName,
-              index: index,
-              formCode: item.formCode,
-              showCurve: item.showCurve,
-              creator: item.creator,
-              listPrint: item.listPrint,
-              nooForm: item.nooForm,
-              pageUrl: item.pageUrl,
-              formTreeRemindType: item.formTreeRemindType,
-              children: item.formInstanceDtoList && item.formInstanceDtoList.map((option, i) => {
-                //
-                // item.formCode
-                // this.$store.state.form.upFormLastId
-                // window.app.$store.commit('upFormLastId', data)
-                if (item.formInstanceDtoList.length - 1 == i) {
-                  window.app.$store.commit("upFormLastId", {
-                    formName: item.formName,
-                    formCode: item.formCode,
-                    id: option.id,
-                    patientId: this.$route.query.patientId,
-                    visitId: this.$route.query.visitId,
-                    evalDate: option.evalDate
-                  });
-                }
-                // formName: "疼痛护理单"
-                // 查找第一张填写的疼痛评估单
-                if (item.formName && item.formName === "疼痛护理单") {
-                  // console.log("===疼痛护理单",i,option,item.formInstanceDtoList.length)
-                  if (item.formInstanceDtoList.length - 1 == i) {
-                    // console.log("--疼痛护理单",i,option,item.formInstanceDtoList.length)
-                    // /crNursing/api/eval/detail/{id}
-                    localStorage[
-                    "firtPainFormID" + this.$route.query.patientId
-                      ] = option.id;
-                  }
-                }
-                return {
-                  status: option.status,
-                  evalScore: option.evalScore || "",
-                  label: `${option.evalDate}
-                  ${option.countSize ? option.countSize + "条" : ""}
-                  ${option.evalScore ? option.evalScore + "分" : ""}
-                  ${option.pusherName ? option.pusherName : option.creatorName}
-                  ${option.status == 0 ? "T" : option.status}`,
-                  form_id: option.id,
-                  formName: item.formName,
-                  formTreeRemindType: item.formTreeRemindType
+          console.log(res);
+          // console.log("Promise.all", res);
+          // let index = 0;
+          // //
+          // window.app.$store.commit("cleanFormLastId");
+          // //
+          // let list_1 = res[0].data.data.map(item => {
+          //   index += 1;
+          //   return {
+          //     label: item.formName,
+          //     index: index,
+          //     formCode: item.formCode,
+          //     showCurve: item.showCurve,
+          //     creator: item.creator,
+          //     listPrint: item.listPrint,
+          //     nooForm: item.nooForm,
+          //     pageUrl: item.pageUrl,
+          //     formTreeRemindType: item.formTreeRemindType,
+          //     children: item.formInstanceDtoList && item.formInstanceDtoList.map((option, i) => {
+          //       //
+          //       // item.formCode
+          //       // this.$store.state.form.upFormLastId
+          //       // window.app.$store.commit('upFormLastId', data)
+          //       if (item.formInstanceDtoList.length - 1 == i) {
+          //         window.app.$store.commit("upFormLastId", {
+          //           formName: item.formName,
+          //           formCode: item.formCode,
+          //           id: option.id,
+          //           patientId: this.$route.query.patientId,
+          //           visitId: this.$route.query.visitId,
+          //           evalDate: option.evalDate
+          //         });
+          //       }
+          //       // formName: "疼痛护理单"
+          //       // 查找第一张填写的疼痛评估单
+          //       if (item.formName && item.formName === "疼痛护理单") {
+          //         // console.log("===疼痛护理单",i,option,item.formInstanceDtoList.length)
+          //         if (item.formInstanceDtoList.length - 1 == i) {
+          //           // console.log("--疼痛护理单",i,option,item.formInstanceDtoList.length)
+          //           // /crNursing/api/eval/detail/{id}
+          //           localStorage[
+          //           "firtPainFormID" + this.$route.query.patientId
+          //             ] = option.id;
+          //         }
+          //       }
+          //       return {
+          //         status: option.status,
+          //         evalScore: option.evalScore || "",
+          //         label: `${option.evalDate}
+          //         ${option.countSize ? option.countSize + "条" : ""}
+          //         ${option.evalScore ? option.evalScore + "分" : ""}
+          //         ${option.pusherName ? option.pusherName : option.creatorName}
+          //         ${option.status == 0 ? "T" : option.status}`,
+          //         form_id: option.id,
+          //         formName: item.formName,
+          //         formTreeRemindType: item.formTreeRemindType
 
-                };
-              })
-            };
-          });
-          //
-          // upFormTree
-          if (list_1) {
-            window.app.$store.commit("upFormTree", [...list_1]);
-          }
-          //
-          let list_2 = info => {
-            index += 1;
-            info = info.filter(opt => opt.status != "-1");
-            // console.log("健康教育单info", info);
-            return {
-              label: "健康教育单",
-              index: index,
-              formCode: "eduMission",
-              // showCurve: item.showCurve,
-              // creator: item.creator,
-              // listPrint: item.listPrint,
-              nooForm: 1,
-              pageUrl: "健康教育单.html",
-              children: info.map(option => {
-                // console.log(option, "健康教育单option");
-                return {
-                  status: option.status,
-                  label:
-                    "健康教育单 " +
-                    `${moment(option.creatDate).format("YYYY-MM-DD HH:mm")} ${
-                      option.evalScore ? option.evalScore + "分" : ""
-                    } ${option.creatorName} ${
-                      option.status == 0 ? "T" : option.status
-                    }`,
-                  form_id: option.id,
-                  formName: "健康教育单",
-                  pageTitle: option.title,
-                  missionId: option.missionId
-                };
-              })
-            };
-          };
+          //       };
+          //     })
+          //   };
+          // });
+          // //
+          // // upFormTree
+          // if (list_1) {
+          //   window.app.$store.commit("upFormTree", [...list_1]);
+          // }
+          // //
+          // let list_2 = info => {
+          //   index += 1;
+          //   info = info.filter(opt => opt.status != "-1");
+          //   // console.log("健康教育单info", info);
+          //   return {
+          //     label: "健康教育单",
+          //     index: index,
+          //     formCode: "eduMission",
+          //     // showCurve: item.showCurve,
+          //     // creator: item.creator,
+          //     // listPrint: item.listPrint,
+          //     nooForm: 1,
+          //     pageUrl: "健康教育单.html",
+          //     children: info.map(option => {
+          //       // console.log(option, "健康教育单option");
+          //       return {
+          //         status: option.status,
+          //         label:
+          //           "健康教育单 " +
+          //           `${moment(option.creatDate).format("YYYY-MM-DD HH:mm")} ${
+          //             option.evalScore ? option.evalScore + "分" : ""
+          //           } ${option.creatorName} ${
+          //             option.status == 0 ? "T" : option.status
+          //           }`,
+          //         form_id: option.id,
+          //         formName: "健康教育单",
+          //         pageTitle: option.title,
+          //         missionId: option.missionId
+          //       };
+          //     })
+          //   };
+          // };
 
-          // console.log(res[1].data.data.length,"res[1].data.data")
-          // if (res[1].data.data.length > 0) {
-          //   list_1.push(list_2(res[1].data.data));
+          // // console.log(res[1].data.data.length,"res[1].data.data")
+          // // if (res[1].data.data.length > 0) {
+          // //   list_1.push(list_2(res[1].data.data));
+          // // }
+
+          // let list_3 = {
+          //   label: "输血安全护理记录单",
+          //   index: index + 1,
+          //   formCode: "form_transfusion_safety",
+          //   nooForm: 2,
+          //   pageUrl: "输血安全护理记录单.html",
+          //   children: this.formTransfusionSafety.map(option => {
+          //     return {
+          //       status: option.status,
+          //       label: `${option.creatDate}
+          //         ${option.wardAlias}
+          //         ${option.countSize ? option.countSize + "条" : ""}
+          //         ${option.evalScore ? option.evalScore + "分" : ""}
+          //         ${
+          //         option.pusherName ? option.pusherName : option.creatorName
+          //       }`,
+          //       // ${option.status == 0 ? "T" : option.status}`,
+          //       form_id: option.id,
+          //       formName: "输血安全护理记录单"
+          //     };
+          //   })
+          // };
+
+          // list_1 = list_1.filter(
+          //   item => item.formCode != "form_transfusion_safety"
+          // );
+          // if (this.formTransfusionSafety.length) {
+          //   list_1.push(list_3);
           // }
 
-          let list_3 = {
-            label: "输血安全护理记录单",
-            index: index + 1,
-            formCode: "form_transfusion_safety",
-            nooForm: 2,
-            pageUrl: "输血安全护理记录单.html",
-            children: this.formTransfusionSafety.map(option => {
-              return {
-                status: option.status,
-                label: `${option.creatDate}
-                  ${option.wardAlias}
-                  ${option.countSize ? option.countSize + "条" : ""}
-                  ${option.evalScore ? option.evalScore + "分" : ""}
-                  ${
-                  option.pusherName ? option.pusherName : option.creatorName
-                }`,
-                // ${option.status == 0 ? "T" : option.status}`,
-                form_id: option.id,
-                formName: "输血安全护理记录单"
-              };
-            })
-          };
-
-          list_1 = list_1.filter(
-            item => item.formCode != "form_transfusion_safety"
-          );
-          if (this.formTransfusionSafety.length) {
-            list_1.push(list_3);
-          }
-
-          if (this.filterObj) {
-            this.regions = list_1.filter(
-              item => item.label == this.filterObj.label
-            );
-          } else {
-            this.regions = list_1;
-          }
-          console.log(this.regions);
-
-          // if (
-          //   this.HOSPITAL_ID == "hj" &&
-          //   window.location.href.includes("showPatientDetails")
-          // ) {
-          //   let obj = this.regions.find(item => {
-          //     return item.formCode == "E0064";
-          //   });
-          //   this.regions = [obj];
+          // if (this.filterObj) {
+          //   console.log(this.filterObj);
+          //   this.regions = list_1.filter(
+          //     item => item.label == this.filterObj.label
+          //   );
+          // } else {
+          //   this.regions = list_1;
           // }
+          // console.log(this.regions);
 
-          if (this.HOSPITAL_ID == "hj") {
-            this.isTransferToWard();
-          }
-          // console.log(list_1, "list_1list_1list_1");
+          // // if (
+          // //   this.HOSPITAL_ID == "hj" &&
+          // //   window.location.href.includes("showPatientDetails")
+          // // ) {
+          // //   let obj = this.regions.find(item => {
+          // //     return item.formCode == "E0064";
+          // //   });
+          // //   this.regions = [obj];
+          // // }
+
+          // if (this.HOSPITAL_ID == "hj") {
+          //   this.isTransferToWard();
+          // }
+          // // console.log(list_1, "list_1list_1list_1");
         })
         .then(res => {
           this.treeLoading = false;
