@@ -57,7 +57,7 @@
         <nullText v-if="whiteBoardDtos.length == 0" style="margin: 100px 0"></nullText>
         <!-- <lineBoxNull :keyStyle="keyStyle" :num="list.allName && (list.allName.split(',').length - list.configure.split(',').length)"></lineBoxNull> -->
       </div>
-      <span slot="head-tool" @click="openPrintModal" style="margin-right: 10px;">打印</span>
+      <span slot="head-tool" v-if="HOSPITAL_ID === 'guizhou'" @click="openPrintModal" style="margin-right: 10px;">打印</span>
       <span slot="head-tool" @click="openConfigModal">显示配置项</span>
     </boxBase>
     <configModal ref="configModal"></configModal>
