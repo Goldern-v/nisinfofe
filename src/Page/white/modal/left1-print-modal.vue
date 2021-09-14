@@ -24,7 +24,7 @@
       </div>
       <div class="printable" ref="printable" >
         <div v-for="(item, index) in dataArr" :key="index" class="form-page">
-          <pageTitle :config="config" :infoDate="saveParams" show-border/>
+          <pageTitle :config="config[HOSPITAL_ID]" :infoDate="saveParams" show-border/>
           <table class='page'>
             <thead>
             </thead>
@@ -123,7 +123,7 @@ table {
 import commom from "@/common/mixin/common.mixin";
 import print from "printing";
 import pageTitle from '../components/page-title/index.vue'
-import { pageTitleConfig } from '../components/config.js'
+import { guizhouPageTitleConfig, xiegangPageTitleConfig } from '../components/config.js'
 import dayjs from 'dayjs'
 
 const A4_hegiht_width_rate = 297 / 210; // 打印区域长宽比
@@ -144,7 +144,10 @@ export default {
       dataArr:[],
       allPrint: true,
       printData: [],
-      config: pageTitleConfig,
+      config: {
+        xiegang: xiegangPageTitleConfig,
+        guizhou: guizhouPageTitleConfig
+      },
       saveParams: {
         deptCodeName: '', // 科室名称
         name: localStorage.getItem('rememberAccount') || '', // 打印人
@@ -156,10 +159,6 @@ export default {
     // printData() {
     //   return this.goundBy(this.list);
     // }
-  },
-  mounted() {
-    this.saveParams.deptCodeName = this.deptName
-    // console.log(page_height, 99)
   },
   methods: {
     open() {
@@ -229,25 +228,15 @@ export default {
     },
     getPrintData(arr) {
       if (arr && arr.constructor === Array) {
-        let printArr = [];
-        arr.map(item => {
-          if (item.isPrint) {
-            printArr.push(item);
-          }
-        });
-        if (printArr.length == 0) {
-          this.printData = arr;
-        } else {
-          this.printData = printArr;
-        }
+        this.printData = arr;
         this.open();
       }
     }
   },
   watch:{
     printData(val){
-      console.log("printData",val);
-      if(val.length){
+      // console.log("printData",val);
+      if(val.length > 0){
         this.dataArr = []
         let e = []
         val.map((item,index)=>{
@@ -256,6 +245,10 @@ export default {
           }else if(index!=0 && index != val.length-1){
             this.dataArr.push([...e])
             e = [item]
+          }else if(index==0 && index == val.length-1){
+            // e = [item]
+            e.push(item)
+            this.dataArr.push([...e])
           }else if(index==0){
             e = [item]
           }else if(index == val.length-1){
@@ -263,7 +256,7 @@ export default {
             this.dataArr.push([...e])
           }
         })
-        console.log(this.dataArr);
+        // console.log(this.dataArr, 999);
       }
     }
   },
