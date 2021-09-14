@@ -526,7 +526,7 @@ export default {
         "gynecology_hl",
         "prenatal_hl",
         "common_sn",
-        "maternity_sn"
+        "maternity_sn",
       ],
       // 需要双签名的记录单code
       multiSignArr: [
@@ -787,7 +787,7 @@ export default {
               ],
               multiSign: this.multiSign || false,
               // multiSign: this.HOSPITAL_ID === "huadu" ? true : false,
-              signType: this.HOSPITAL_ID === "huadu" || this.HOSPITAL_ID === "fuyou" ? this.signType : ""
+              signType: (this.HOSPITAL_ID === "huadu" || this.HOSPITAL_ID === "fuyou") ? this.signType : ""
             };
             sign(
               this.patientInfo.patientId,
@@ -869,7 +869,7 @@ export default {
             password,
             multiSign: this.multiSign,
             // multiSign: this.HOSPITAL_ID === "huadu" ? true : false,
-            signType: this.HOSPITAL_ID === "huadu" ? this.signType : ""
+            signType: (this.HOSPITAL_ID === "huadu" || this.HOSPITAL_ID === "fuyou") ? this.signType : ""
           }).then(res => {
             this.bus.$emit("saveSheetPage", true);
           });
