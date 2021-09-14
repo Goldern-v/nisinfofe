@@ -27,7 +27,8 @@
               :value="item.missionId"
             >
               <!-- 添加科室名称 -->
-              <span v-if="item.type && item.name.indexOf(item.deptName)==-1" style="float: left">{{item.deptName}}</span>
+              <!-- <span style="float: left">{{item.deptName}}</span> -->
+              <span v-if="item.type && item.deptName && item.deptName!='' && item.name.indexOf(item.deptName)==-1" style="float: left">{{item.deptName}}</span>
               <span
                 v-for="(a, index) in setItem(item.name)"
                 :class="a.type >= 0 ? 'redColor' : ''"
@@ -37,7 +38,7 @@
                 
               >
               <!-- 添加宣教类型 -->
-              <span v-if="item.type">-{{item.type}}</span>
+              <span v-if="item.type && item.type!='' && item.type!=item.name">-{{item.type}}</span>
             </el-option>
           </el-select>
         </ElFormItem>
