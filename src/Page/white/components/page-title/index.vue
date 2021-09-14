@@ -1,7 +1,9 @@
 <template>
   <div class="page-title-wrapper">
-    <div class="page-title_hospital">{{config.hospital}}</div>
-    <div class="page-title_title">{{config.title}}</div>
+    <div class="title">
+      <div class="page-title_hospital">{{config.hospital}}</div>
+      <div class="page-title_title">{{config.title}}</div>
+    </div>
     <div
         v-if="config.baseInfo && config.baseInfo.length>0"
         class="page-title_info-list"
@@ -13,7 +15,7 @@
           class="page-title_info-item"
       >
         <!-- {{item.label}}: -->
-        {{item.label}}:{{item.key === 'deptCodeName' ? infoDate[item.key] || deptName : infoDate[item.key]}}
+        {{item.label}}：{{item.key === 'deptCodeName' ? infoDate[item.key] || deptName : infoDate[item.key]}}
       </div>
     </div>
   </div>
@@ -49,9 +51,10 @@ import commom from "@/common/mixin/common.mixin";
 
 <style lang="scss" scoped>
   .page-title-wrapper {
-    text-align: center;
-    padding: 30px 50px 0;
-
+    .title{
+      padding: 30px 50px 0;
+      text-align: center;
+    }
     .page-title_hospital {
       font-size: 18px;
       letter-spacing: 1em;
@@ -68,9 +71,12 @@ import commom from "@/common/mixin/common.mixin";
       height: 24px;
       display: flex;
       align-items: flex-end;
-      justify-content: space-between;
+      justify-content: flex-start;
       .page-title_info-item {
         margin-right: 20px;
+      }
+      .page-title_info-item:last-child {
+        margin-right: 0;
       }
     }
     // .show-border {

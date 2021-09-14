@@ -49,7 +49,7 @@
         </div>
         <div style="height: 15px"></div>
         <div flex="cross:center">
-          <div class="label">P全班：</div>
+          <div class="label">{{ HOSPITAL_ID !== 'hengli' ? 'P全班：' : 'PN：' }}</div>
           <input flex-box="1" v-model="data.classAllP" @blur="update">
         </div>
         <div style="height: 15px"></div>
