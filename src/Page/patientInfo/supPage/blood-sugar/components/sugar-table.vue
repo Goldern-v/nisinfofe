@@ -3,7 +3,8 @@
     <table>
       <tr>
         <th
-          v-if="HOSPITAL_ID == 'hj'"
+          v-if="HOSPITAL_ID == 'hj'
+          && HOSPITAL_ID == 'guizhou'"
           style="width: 2%; min-width: 20px"
         >
           序号
@@ -29,7 +30,7 @@
             HOSPITAL_ID != 'huadu' &&
             HOSPITAL_ID != 'liaocheng' &&
             HOSPITAL_ID == 'hengli' &&
-            HOSPITAL_ID != 'guizhou'
+            HOSPITAL_ID == 'guizhou'
           "
         >
           {{HOSPITAL_ID=="quzhou"?'胰岛素剂量':'RI剂量'}}
@@ -52,7 +53,8 @@
         @click="onSelect(item)"
         @dblclick="onDblClick(item)"
       >
-        <td v-if="HOSPITAL_ID='hj'">
+        <td v-if="HOSPITAL_ID='hj'
+         && HOSPITAL_ID == 'guizhou'">
           {{index + baseIndex + 1}}
         </td>
         <td v-if="HOSPITAL_ID != 'lingcheng'" style="padding: 0 4px">
@@ -88,7 +90,7 @@
             HOSPITAL_ID != 'huadu' &&
             HOSPITAL_ID != 'liaocheng'&&
             HOSPITAL_ID == 'hengli'&&
-            HOSPITAL_ID != 'guizhou'
+            HOSPITAL_ID == 'guizhou'
           "
         >
           <div class="cell">

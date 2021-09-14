@@ -27,7 +27,7 @@
         class="item-box"
         flex="cross:center main:center"
         @click="openStaticModal"
-        v-if="showCrl && !isDeputy && !isSingleTem_LCEY"
+        v-if="showCrl && !isDeputy && !isSingleTem_LCEY && !isSingleTem_GZRY"
       >
         <div class="text-con">出入量统计</div>
       </div>
@@ -75,6 +75,14 @@
         v-if="!isSingleTem && !isDeputy"
       >
         <div class="text-con">新建记录单</div>
+      </div>
+      <div
+        class="item-box"
+        flex="cross:center main:center"
+        @click="openStaticModal"
+        v-if="HOSPITAL_ID == 'guizhou' && isDeputy"
+      >
+        <div class="text-con">出入量统计</div>
       </div>
       <div
         class="item-box"
@@ -839,6 +847,12 @@ export default {
       return (
         this.HOSPITAL_ID === "liaocheng" &&
         this.$route.path.includes("singleTemperatureChart")
+      );
+    },
+    /* 贵州人医“出入量统计”移入出入量记录单 */
+    isSingleTem_GZRY() {
+      return (
+        this.HOSPITAL_ID === "guizhou"
       );
     },
     /* 是否是副页 */
