@@ -4,34 +4,59 @@
     <sweet-modal ref="modal" :modalWidth="700" :title="title">
       <div class="showTableContent">
         <table class='page'>
-          <!-- <thead>
-            <tr>
-              <th>序号</th>
-              <th>床号</th>
-              <th>姓名</th>
-              <th>申请时间</th>
-              <th>化验项目</th>
-            </tr>
-          </thead> -->
           <tbody>
-            <tr v-for="(rows,i) in printData" :key="i">
-              <td style='width: 30px'>{{i+1}}</td>
-              <td>{{rows.name}}</td>
-              <td>{{rows.configureValue }}</td>
+            <tr v-for="(item,i) in printData" :key="i">
+              <td style='width: 30px'>{{ i+1 }}</td>
+              <td>{{item.name}}</td>
+              <td v-if="item.customItem">{{item.configureValue }}</td>
+              <td v-else>
+                <span
+                  v-for="(option, index) in item.boardConfigures"
+                  :key="index"
+                  :style="[item.verticalShow && {display: 'block'}, item.name === '借他科床' && moment(option.admissionDateTime).format('YYYY-MM-DD') ===moment().format('YYYY-MM-DD') && {color: 'red'}]"
+                  v-show="showOrderType(option, item)"
+                >
+                  <span>
+                    <span v-show="item.bedLabelShow">{{HOSPITAL_ID !== 'guizhou' ? option.bedLabel + '床' : (item.name === '今日换床' ? option.oldbedLabel + '床' + '转至' + option.bedLabel + '床' : option.bedLabel + '床')}}</span>
+                    <span v-show="item.nameShow">{{option.name}}</span>
+                  </span>
+                  <span v-if="option.addExpand">({{option.addExpand}})</span>
+                  <span
+                    v-if="!item.verticalShow"
+                  >{{((index == (item.boardConfigures.length - 1)) ? '' : '、' )}}</span>
+                </span>
+              </td>
             </tr>
           </tbody>
         </table>
       </div>
       <div class="printable" ref="printable" >
-        <div v-for="(item, index) in dataArr" :key="index" class="form-page">
+        <div v-for="(firstItem, index) in dataArr" :key="index" class="form-page">
           <pageTitle :config="config[HOSPITAL_ID]" :infoDate="saveParams" show-border/>
           <table class='page'>
             <thead>
             </thead>
             <tbody>
-              <tr v-for="(rows,i) in item" :key="i">
-                <td style='width: 30%'>{{rows.name}}</td>
-                <td>{{rows.configureValue }}</td>
+              <tr v-for="(item,i) in firstItem" :key="i">
+                <td style='width: 30%'>{{item.name}}</td>
+                <td v-if="item.customItem">{{item.configureValue }}</td>
+                <td v-else>
+                  <span
+                    v-for="(option, index) in item.boardConfigures"
+                    :key="index"
+                    :style="[item.verticalShow && {display: 'block'}, item.name === '借他科床' && moment(option.admissionDateTime).format('YYYY-MM-DD') ===moment().format('YYYY-MM-DD') && {color: 'red'}]"
+                    v-show="showOrderType(option, item)"
+                  >
+                    <span>
+                      <span v-show="item.bedLabelShow">{{HOSPITAL_ID !== 'guizhou' ? option.bedLabel + '床' : (item.name === '今日换床' ? option.oldbedLabel + '床' + '转至' + option.bedLabel + '床' : option.bedLabel + '床')}}</span>
+                      <span v-show="item.nameShow">{{option.name}}</span>
+                    </span>
+                    <span v-if="option.addExpand">({{option.addExpand}})</span>
+                    <span
+                      v-if="!item.verticalShow"
+                    >{{((index == (item.boardConfigures.length - 1)) ? '' : '、' )}}</span>
+                  </span>
+                </td>
               </tr>
             </tbody>
           </table>
@@ -161,6 +186,18 @@ export default {
     // }
   },
   methods: {
+    showOrderType(option, item) {
+      let strategy = {
+        "0": "全部",
+        "1": "临时",
+        "2": "长期"
+      };
+      if (!item.orderTypeShow || item.orderTypeShow == "0") {
+        return true;
+      } else {
+        return option.orderType == strategy[item.orderTypeShow];
+      }
+    },
     open() {
       this.$refs.modal.open();
     },
@@ -176,6 +213,7 @@ export default {
       });
     },
     onPrint() {
+      this.saveParams.date = dayjs(new Date()).format('YYYY-MM-DD HH:mm:ss')
       print(this.$refs.printable, {
         // beforePrint: formatter,
         // direction: "horizontal",

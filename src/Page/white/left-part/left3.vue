@@ -151,15 +151,17 @@ export default {
   },
   created() {
     if (this.HOSPITAL_ID === 'hengli') {
-      this.onGroup()
-      this.userDictInfo()
+      // this.getViewListByDeptCode()
+      // this.userDictInfo()
+      this.bus.$on("indexGetAllData", this.getViewListByDeptCode);
+      this.bus.$on("indexGetAllData", this.userDictInfo);
     } else {
       this.bus.$on("indexGetAllData", this.getData);
     }
   },
   methods: {
     deletePatient() {
-      this.onGroup()
+      this.getViewListByDeptCode()
     },
     userDictInfo() {
       userDictInfo(this.deptCode).then((res) => {
@@ -169,7 +171,7 @@ export default {
         }));
       });
     },
-    onGroup(item) {
+    getViewListByDeptCode() {
       viewListByDeptCode(this.deptCode).then((res) => {
         if (res.data.code === '200') {
           if (res.data.data.length > 0) {
@@ -179,7 +181,6 @@ export default {
                 this.$set(item, 'disabled', true)
               else this.$set(item, 'disabled', false)
             })
-            console.log(this.hengliOptions)
             this.currentHLOptions = res.data.data.filter(item => {
               return item.isShow === '1'
             })
@@ -190,6 +191,9 @@ export default {
           }
         }
       });
+    },
+    onGroup(item) {
+      this.getViewListByDeptCode()
     },
     edit() {
       this.$refs.left3Modal.visible = true
@@ -257,13 +261,12 @@ export default {
       if (!val) {
         saveOrUpdateHL(form).then(res => {
           if (res.data.code === '200') {
-            this.onGroup()
+            this.getViewListByDeptCode()
           }
         })
       }
     },
     HLupdate(val) {
-      console.log(val)
       this.oldValId = JSON.parse(JSON.stringify(val));
       let newval=JSON.parse(JSON.stringify(val));
       let arr = JSON.parse(JSON.stringify(this.hengliOptions));
@@ -280,13 +283,12 @@ export default {
       this.HLlabel = newList
     },
     removeTag(val) {
-      console.log(999)
       let arr = JSON.parse(JSON.stringify(this.hengliOptions));
       let newList = arr.find(newItem=>newItem.id === val.value)
       if (!newList.bedSet && !newList.dutyNurse) {
         deletePatientGroupById(val.value).then(res => {
           if (res.data.code === '200') {
-            this.onGroup()
+            this.getViewListByDeptCode()
           }
         })
       } else {
@@ -300,8 +302,11 @@ export default {
       data.deptCode = this.deptCode;
       data.patientGroups = this.HOSPITAL_ID === 'hengli' ? this.currentHLOptions : this.computedList 
       updateByDeptCodeAndGroupCode(data).then((res) => {
-        this.getData();
+        if (this.HOSPITAL_ID === 'hengli') 
+          this.getViewListByDeptCode()
+        else this.getData();
         // this.$message.success('更新病人分组信息成功')
+        
       });
     },
     querySearch(queryString, cb) {
