@@ -175,7 +175,7 @@ export default {
       viewListByDeptCode(this.deptCode).then((res) => {
         if (res.data.code === '200') {
           if (res.data.data.length > 0) {
-            this.hengliOptions = res.data.data;
+            this.hengliOptions = JSON.parse(JSON.stringify(res.data.data));
             this.hengliOptions.forEach(item => {
               if (item.bedSet || item.dutyNurse)
                 this.$set(item, 'disabled', true)

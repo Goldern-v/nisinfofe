@@ -226,6 +226,7 @@ export default {
         }
         @page {
           margin: 0;
+          size: portrait;
           // padding: 30px 50px;
           // position: relative;
         }
