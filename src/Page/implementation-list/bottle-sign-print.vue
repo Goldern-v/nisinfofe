@@ -273,10 +273,7 @@ export default {
       this.selectedData = this.$refs.plTable.selectedData;
       if((this.selectedData||[]).length<=0)
       return this.$message('未选择勾选打印条目')
-      this.changeModal(true)
-      // webExecutePrint().then(res=>{
-      //   console.log(res);
-      // })
+      
       this.printNum = 0;
 
       this.query.executeDate = this.query.executeDate ? moment(this.query.executeDate).format("YYYY-MM-DD") : '';
@@ -291,7 +288,8 @@ export default {
         content:`${this.Uuid};${this.empNo};${this.query.executeDate};${url}`,
         uuid:this.Uuid
       }).then(res=>{
-        console.log(res);
+        this.src = `/crNursing/asset/${res.data.data.printExecuteUrl}`
+        this.changeModal(true)
       })
       // window.location.href = `LABELPRINT://${this.Uuid};${this.empNo};${this.query.executeDate};{${url}}`;
       // this.printStatusMsg = '正在打印,请稍等…'
