@@ -1,13 +1,22 @@
 <template>
   <div>
-    <boxBase title="病人分组" :icon="require('../images/病人分组.png')" :optionTitle="HOSPITAL_ID === 'hengli' ? '分组名称' : '分组数量'">
+    <boxBase title="病人分组" :icon="require('../images/病人分组.png')" :optionTitle="controlStatus ? '分组名称' : '分组数量'">
       <div class="body-con" v-loading="pageLoading" slot="body-con">
         <div class="title-con" flex>
-          <span style="width: 60px; text-align: center">{{ HOSPITAL_ID === 'hengli' ? '组名':'组号'}}</span>
+          <span style="width: 60px; text-align: center">{{ controlStatus ? '组名':'组号'}}</span>
           <span flex-box="1" style="width: 0;margin-right: 20px">床位</span>
           <span flex-box="1" style="width: 0;margin-right: 10px">责任护士</span>
         </div>
-        <div v-if="HOSPITAL_ID !== 'hengli'">
+        <div v-if="controlStatus">
+          <div v-for="(item, index) in hengliOptions" :key="item.id">
+            <div class="list-con"  flex="cross:center" v-if="item.isShow === '1'">
+              <span style="width: 60px; text-align: center">{{ item.groupName }}</span>
+              <input flex-box="1" style="width: 0;margin-right: 20px" v-model="item.bedSet" @blur="update">
+              <el-autocomplete flex-box="1" style="margin-right: 20px" v-model="item.dutyNurse" :fetch-suggestions="querySearch" @select="update"></el-autocomplete>
+            </div>
+          </div>
+        </div>
+        <div v-else>
           <div class="list-con"  flex="cross:center" v-for="(item, index) in computedList" :key="index">
             <!-- <span style="width: 60px; text-align: center" v-if="HOSPITAL_ID == 'hengli'">{{index | filterHengliGroup(index)}}</span> -->
             <span style="width: 60px; text-align: center" v-if="deptCode == '042302' && index==2 && HOSPITAL_ID=='hj'">A：</span>
@@ -24,22 +33,13 @@
             <el-autocomplete flex-box="1" style="margin-right: 20px" v-model="item.dutyNurse" :fetch-suggestions="querySearch" @select="update"></el-autocomplete>
           </div>
         </div>
-        <div v-else>
-          <div v-for="(item, index) in hengliOptions" :key="item.id">
-            <div class="list-con"  flex="cross:center" v-if="item.isShow === '1'">
-              <span style="width: 60px; text-align: center">{{ item.groupName }}</span>
-              <input flex-box="1" style="width: 0;margin-right: 20px" v-model="item.bedSet" @blur="update">
-              <el-autocomplete flex-box="1" style="margin-right: 20px" v-model="item.dutyNurse" :fetch-suggestions="querySearch" @select="update"></el-autocomplete>
-            </div>
-          </div>
-        </div>
       </div>
       <!-- <div class="patient-group_btn" slot="body-btn" v-if="HOSPITAL_ID === 'hengli'">
         <el-button>保存</el-button>
       </div> -->
       <!-- :class="{'selectCon': HOSPITAL_ID !== 'hengli'}" -->
       <p slot="head-con">
-        <el-select class='hengliSelect' v-if="HOSPITAL_ID=='hengli'" multiple size='small' v-model="tepHLOptions" placeholder="请选择" @remove-tag="removeTag" @visible-change='visibleChange' @change="HLupdate">
+        <el-select class='hengliSelect' v-if="controlStatus" multiple size='small' v-model="tepHLOptions" placeholder="请选择" @remove-tag="removeTag" @visible-change='visibleChange' @change="HLupdate">
           <template>
             <el-option v-for="item in hengliOptions" :disabled='item.disabled' :key="item.id" :label="item.groupName" :value="item.id"></el-option>
           </template>
@@ -50,7 +50,7 @@
           </template>
         </el-select>
       </p>
-      <div slot='head-btn' style="margin-left: 10px; display: flex" v-if="HOSPITAL_ID === 'hengli'">
+      <div slot='head-btn' style="margin-left: 10px; display: flex" v-if="controlStatus">
         <!-- <el-button type="primary">主要按钮</el-button>
         <el-button size="small" type="primary">编辑</el-button> -->
         <!-- <span slot="head-tool" style="margin-right: 10px;" @click="add">新建</span> -->
@@ -159,10 +159,11 @@ export default {
       timer: null,
       tepHLOptions: [], // 病例分组-接口返回已经保存的分组组号（groupName）
       HLlabel: [],
+      controlStatus: this.HOSPITAL_ID === 'hengli' || this.HOSPITAL_ID === 'fuyou'
     };
   },
   created() {
-    if (this.HOSPITAL_ID === 'hengli') {
+    if (this.HOSPITAL_ID === 'hengli' || this.HOSPITAL_ID === 'fuyou') {
       // this.getViewListByDeptCode()
       // this.userDictInfo()
       this.bus.$on("indexGetAllData", this.getViewListByDeptCode);
@@ -320,9 +321,9 @@ export default {
       // if (this.isSave) return;
       let data = {};
       data.deptCode = this.deptCode;
-      data.patientGroups = this.HOSPITAL_ID === 'hengli' ? this.hengliOptions  : this.computedList 
+      data.patientGroups = this.controlStatus ? this.hengliOptions  : this.computedList 
       updateByDeptCodeAndGroupCode(data).then((res) => {
-        if (this.HOSPITAL_ID === 'hengli') 
+        if (this.controlStatus)
           this.getViewListByDeptCode()
         else this.getData();
         // this.$message.success('更新病人分组信息成功')
