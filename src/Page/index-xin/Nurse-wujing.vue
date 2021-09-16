@@ -46,7 +46,7 @@
                 class="data-row"
               >
                 <td>{{ item.bedLabel + "床 " + item.patientName }}</td>
-                <td>{{ item.taskSource }}</td>
+                <td>{{ item.task }}</td>
                 <td>
                   {{ item.taskTime | filterTime }}
                   <p
