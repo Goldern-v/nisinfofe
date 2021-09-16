@@ -54,7 +54,7 @@ export default [{
     key: "fieldOne", //胎位
     value: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 8),
     name: "胎位",
     autoComplete: {
       data: twList
@@ -68,12 +68,12 @@ export default [{
     value: "",
     event: keyf1,
     name: "胎心部位",
-    change: (e, td) => limitChange(e, td, 8),
+    change: (e, td) => limitChange(e, td, 10),
     autoComplete: {
       data: txbwList
     },
     textarea: {
-      width: 55
+      width: 75
     },
   },
   {
@@ -82,7 +82,7 @@ export default [{
     event: keyf1,
     name: "胎心心率",
     next: "次/min",
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 8),
     textarea: {
       width: 50
     },
@@ -270,7 +270,7 @@ export default [{
       top: "1px",
       bottom: "1px",
       left: "1px",
-      width: "180px",
+      width: "185px",
       background: "transparent"
     },
     event: function (e, td) {
@@ -280,7 +280,7 @@ export default [{
         e.preventDefault();
       }
       keyf1(e, td);
-      limitChange(e, td, 11)
+      limitChange(e, td, 12)
     }
     // oninput: next
   },

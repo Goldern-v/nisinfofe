@@ -201,10 +201,10 @@ export default [{
     value: "",
     event: keyf1,
     name: "健康宣教",
+    change: (e, td) => limitChange(e, td, 16),
     textarea: {
-      width: 55
+      width: 100
     },
-    change: (e, td) => limitChange(e, td, 8),
   },
   {
     key: "fieldSix", //标题1
