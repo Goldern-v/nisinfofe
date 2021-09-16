@@ -24,7 +24,9 @@ let xtlList = ["+","++","+++"];
 let fyList = [];
 let ksList = [];
 let twList = ['左侧','右侧','平卧','俯卧'];
-let ysList = ['黄绿色','黄色','墨绿色','暗红色'];
+let ysList = ['黄绿色','黄色','墨绿色','暗红色','鲜红色'];
+let lgzlList = ['开始','结束','√'];
+
 
 
 export default [{
@@ -332,6 +334,9 @@ export default [{
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
       width: 35
+    },
+    autoComplete: {
+      data: lgzlList
     },
     name: "篮光治疗"
   },

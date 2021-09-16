@@ -248,19 +248,19 @@ export default {
         护士签名
         `,
         style: {
-          minWidth: "40px",
-          maxWidth: "40px"
+          minWidth: "60px",
+          maxWidth: "60px"
         },
         colspan: "1",
         rowspan: "3"
       },
       {
         name: `
-        护士签名
+        质控护士签名
         `,
         style: {
-          minWidth: "40px",
-          maxWidth: "40px"
+          minWidth: "60px",
+          maxWidth: "60px"
         },
         colspan: "1",
         rowspan: "3"
