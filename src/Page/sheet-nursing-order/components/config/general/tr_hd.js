@@ -159,7 +159,7 @@ export default [
     }
   },
   {
-    key: "", //频次
+    key: "frequency", //频次
     value: "",
   },
   {

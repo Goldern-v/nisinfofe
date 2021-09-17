@@ -17,7 +17,7 @@
           v-for="(item,index) in list"
           :key="item.patientId + '|' + item.visitId"
           class="bed-card-con"
-          :class="[(index+1)%9==0?'nextpage':'']"
+          :class="[(index+1)%9==0?'nextpage':'',(index+1)%9==1||(index+1)%9==2||(index+1)%9==3?'firstpage':'']"
           flex
         >
           <img
@@ -119,7 +119,12 @@
         ref="printCon2"
         v-show="printMode == 'v'"
       >
-        <div class="bed-card-vert-con" v-for="(item,index) in list" :key="item.patientId">
+        <div 
+          class="bed-card-vert-con" 
+          v-for="(item,index) in list" 
+          :key="item.patientId"
+          :class="[(index+1)%10==0?'nextpage':'',[1,2,3,4,5].includes((index+1)%10)?'firstpage':'']"
+        >
           <span>床号：</span>
           <p>{{ item.bedLabel + "床" }}</p>
           <span>姓名：</span>
@@ -714,7 +719,6 @@ export default {
     open(printMode = "h",list) {
       this.list = list;
       this.init();
-      this.$refs.modal.open();
       this.printMode = printMode;
       this.list.forEach(async(item,index)=>{
         let qr_png_value = item.patientId + "|" + item.visitId;
@@ -740,6 +744,9 @@ export default {
       } else {
         this.title = "编辑床头卡";
       }
+      setTimeout(()=>{
+        this.$refs.modal.open();
+      },1)
     },
     close() {
       this.$refs.modal.close();
@@ -807,10 +814,16 @@ export default {
             flex-wrap:wrap;
           }
           .bed-card-vert-con{
-            margin-bottom:110px!important;
+            margin:0px!important;
+          }
+          .bed-card-vert-con.nextpage{
+            margin-bottom:100px!important;
+          }
+          .bed-card-vert-con.firstpage{
+            margin-top:100px!important;
           }
           @page {
-            margin: 100px 0;
+            margin: 100px 40px;
           }
           `
           });
