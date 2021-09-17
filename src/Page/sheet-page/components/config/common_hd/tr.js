@@ -15,6 +15,8 @@ import {
 let 入量名称 = [];
 let 出量名称 = [];
 let 意识 = ['清醒', '浅昏迷', '深昏迷', '模糊', '嗜睡', '昏睡', '谵妄'];
+let 出量颜色 = ['黄色', '鲜红色', '暗红色', '墨绿色', '浓茶色'];
+
 export default [{
     key: "recordMonth", //日期
     value: "",
@@ -169,6 +171,9 @@ export default [{
     textarea: {
       width: 45
     },
+    autoComplete: {
+      data: 出量颜色
+    }
   },
   {
     key: "healthEducation", //健康宣教
