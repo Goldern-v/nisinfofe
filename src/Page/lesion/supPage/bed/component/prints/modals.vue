@@ -129,8 +129,7 @@
           <p>{{ item.bedLabel + "床" }}</p>
           <span>姓名：</span>
           <p>{{ item.name }}</p>
-          <span>性别：</span>
-          <p>{{ item.sex }}</p>
+          <span><span style="display:inline-block;width:60%;">性别：</span><span style="font-size:20px;display:inline-block;width:40%">{{ item.sex }}</span></span>
           <span>年龄：</span>
           <p>{{ item.age }}</p>
           <span>住院号：</span>

@@ -121,8 +121,7 @@
           <p>{{ query.bedLabel + "床" }}</p>
           <span>姓名：</span>
           <p>{{ query.name }}</p>
-          <span>性别：</span>
-          <p>{{ query.sex }}</p>
+          <span><span style="display:inline-block;width:60%;">性别：</span><span style="font-size:20px;display:inline-block;width:40%">{{ query.sex }}</span></span>
           <span>年龄：</span>
           <p>{{ query.age }}</p>
           <span>住院号：</span>
