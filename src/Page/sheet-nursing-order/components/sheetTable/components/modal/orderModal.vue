@@ -33,6 +33,11 @@
             height: 50px;
             line-height: 50px;
             text-indent: 10px;
+            cursor: pointer;
+        &:hover{
+            background-color: #50c595;
+            color: #fff;
+        }
         }
     }
 }
