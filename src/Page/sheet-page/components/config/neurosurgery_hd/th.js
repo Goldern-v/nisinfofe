@@ -238,19 +238,19 @@ export default {
         记录人签名
         `,
         style: {
-          minWidth: "40px",
-          maxWidth: "40px"
+          minWidth: "70px",
+          maxWidth: "70px"
         },
         colspan: "1",
         rowspan: "3"
       },
       {
         name: `
-        上级护士签名
+        质控护士签名
         `,
         style: {
-          minWidth: "40px",
-          maxWidth: "40px"
+          minWidth: "50px",
+          maxWidth: "50px"
         },
         colspan: "1",
         rowspan: "3"

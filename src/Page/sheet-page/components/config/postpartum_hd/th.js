@@ -242,15 +242,15 @@ export default {
         护士<br>签名
         `,
         style: {
-          minWidth: "60px",
-          maxWidth: "60px"
+          minWidth: "80px",
+          maxWidth: "80px"
         },
         colspan: "1",
         rowspan: "3"
       },
       {
         name: `
-        护士<br>签名
+        质控护士签名
         `,
         style: {
           minWidth: "60px",

@@ -259,9 +259,9 @@ export default [{
     name: "指尖血糖",
     next: "mmol/L",
     textarea: {
-      width: 55
+      width: 45
     },
-    change: (e, td) => limitChange(e, td, 8),
+    change: (e, td) => limitChange(e, td, 6),
   },
   {
     key: "fieldFive", //标题1
@@ -286,27 +286,27 @@ export default [{
     value: "",
     event: keyf1,
     textarea: {
-      width: 55
+      width: 45
     },
-    change: (e, td) => limitChange(e, td, 8),
+    change: (e, td) => limitChange(e, td, 6),
   },
   {
     key: "fieldNine", //标题4
     value: "",
     event: keyf1,
     textarea: {
-      width: 55
+      width: 45
     },
-    change: (e, td) => limitChange(e, td, 8),
+    change: (e, td) => limitChange(e, td, 6),
   },
   {
     key: "fieldTen", //标题5
     value: "",
     event: keyf1,
     textarea: {
-      width: 55
+      width: 45
     },
-    change: (e, td) => limitChange(e, td, 8),
+    change: (e, td) => limitChange(e, td, 6),
   },
   {
     key: "description", //特殊情况记录

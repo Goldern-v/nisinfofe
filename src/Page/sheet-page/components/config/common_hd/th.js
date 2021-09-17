@@ -7,7 +7,7 @@ export default {
   // 科室的名称
   deptType: "",
   style: {
-    width: "1250px"
+    width: "1280px"
   },
   th: {
     top: [{
@@ -202,7 +202,7 @@ export default {
       },
       {
         name: `
-        记录人<br/>签名
+        质控人<br/>签名
         `,
         style: {},
         colspan: "1",

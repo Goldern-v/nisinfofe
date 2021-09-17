@@ -283,19 +283,35 @@ export default {
       );
     }
     /* 护理记录单行高 */
-    if (
+    if ( (this.HOSPITAL_ID === "quzhou") &&
       this.lineSpacingArr.includes(this.sheetInfo.sheetType)
     ) {
       addCSS(
         window,
         `
-        .body-con{
-          height: 35px !important;
+        @media print {
+          .body-con{
+            height: 35px !important;
+          }
         }
-        .body-con textarea{
-          font-size: 13px !important;
+        `
+      );
+    }
+    /* 护理记录单行高 */
+    if ((this.HOSPITAL_ID === "huadu") &&
+      this.lineSpacingArr.includes(this.sheetInfo.sheetType)
+    ) {
+      addCSS(
+        window,
+        `
+        @media print {
+          .body-con{
+            height: 40px !important;
+          }
+          .body-con textarea{
+            font-size: 16px !important;
+          }
         }
-        
         `
       );
     }
@@ -308,6 +324,9 @@ export default {
         window,
         `
           #sheetPagePrint#sheetPagePrint th[dataname='质控护士签名']{
+            display:none !important;
+          }
+          #sheetPagePrint#sheetPagePrint th[dataname='质控人<br/>签名']{
             display:none !important;
           }
         `

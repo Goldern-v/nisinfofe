@@ -33,8 +33,9 @@
               <span>{{ scope.row.recordDate.split(' ')[1] }}</span>
             </template>
           </el-table-column>
-          <el-table-column prop="food" label="入量名称" min-width="110px" align="center"></el-table-column>
-          <el-table-column prop="foodSize" label="入量" min-width="110px" align="center"></el-table-column>
+          <el-table-column v-if="HOSPITAL_ID != 'quzhou'" prop="food" label="入量名称" min-width="110px" align="center"></el-table-column>
+          <el-table-column v-if="HOSPITAL_ID != 'quzhou'" prop="foodSize" label="入量" min-width="110px" align="center"></el-table-column>
+          <el-table-column v-if="HOSPITAL_ID == 'quzhou'" prop="desc" label="描述" min-width="110px" align="center"></el-table-column>
           <!-- <el-table-column prop="temperature" label="腋下体温(°C)" min-width="110px" align="center"></el-table-column>
           <el-table-column prop="pulse" label="脉搏/心率(次/min)" min-width="150px" align="center"></el-table-column>
           <el-table-column prop="breath" label="呼吸(次/min)" min-width="110px" align="center"></el-table-column>
@@ -80,7 +81,7 @@
 <script>
 import whiteButton from "@/components/button/white-button";
 import moment from "moment";
-import { getVitalSign, saveVitalSign } from "../../api/index";
+import { getVitalSign, saveVitalSign, ordersExecuteList } from "../../api/index";
 import sheetInfo from "../config/sheetInfo/index";
 import bus from "vue-happy-bus";
 export default {
@@ -138,15 +139,30 @@ export default {
       this.bus.$emit("refreshSheetPageOne",this.multipleSelection);
     },
     getData() {
-      getVitalSign(
-        this.patientInfo.patientId || this.formlist.patientId,
-        this.patientInfo.visitId || this.formlist.visitId,
-        this.searchDate,
-        this.blockId,
-        this.HOSPITAL_ID
-      ).then(res => {
-        this.tableData = res.data.data.list;
-      });
+      if(this.HOSPITAL_ID=="quzhou") {
+        ordersExecuteList({
+          patientId:this.patientInfo.patientId || this.formlist.patientId,
+          visitId:this.patientInfo.visitId || this.formlist.visitId,
+          executeDateTime:this.searchDate,
+          wardCode:this.$store.state.lesion.deptCode,
+        }
+          
+        ).then(res => {
+          this.tableData = res.data.data.list;
+        });
+      }else{
+        getVitalSign(
+          this.patientInfo.patientId || this.formlist.patientId,
+          this.patientInfo.visitId || this.formlist.visitId,
+          this.searchDate,
+          this.blockId,
+          this.HOSPITAL_ID
+        ).then(res => {
+          this.tableData = res.data.data.list;
+        });
+      }
+      
+      
     },
     handleSelectionChange(val) {
       this.multipleSelection = val;
