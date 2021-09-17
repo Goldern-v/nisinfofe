@@ -298,23 +298,23 @@ export default {
       );
     }
     /* 护理记录单行高 */
-    if ((this.HOSPITAL_ID === "huadu") &&
-      this.lineSpacingArr.includes(this.sheetInfo.sheetType)
-    ) {
-      addCSS(
-        window,
-        `
-        @media print {
-          .body-con{
-            height: 40px !important;
-          }
-          .body-con textarea{
-            font-size: 16px !important;
-          }
-        }
-        `
-      );
-    }
+    // if ((this.HOSPITAL_ID === "huadu") &&
+    //   this.lineSpacingArr.includes(this.sheetInfo.sheetType)
+    // ) {
+    //   addCSS(
+    //     window,
+    //     `
+    //     @media print {
+    //       .body-con{
+    //         height: 40px !important;
+    //       }
+    //       .body-con textarea{
+    //         font-size: 16px !important;
+    //       }
+    //     }
+    //     `
+    //   );
+    // }
     /* 花都打印双签名：第二个护士签名打印时隐藏 */
     if (
       (this.HOSPITAL_ID === "huadu") &&

@@ -37,7 +37,7 @@ export default [{
     key: "bloodPressure", //血压
     value: "",
     textarea: {
-      width: 50
+      width: 45
     },
     event: function (e, td) {
       if (e.keyCode == 32) {
@@ -46,7 +46,7 @@ export default [{
       }
       keyf1(e, td);
     },
-    change: (e, td) => limitChange(e, td, 8),
+    change: (e, td) => limitChange(e, td, 6),
     name: "血压",
     next: "mmHg"
   },
@@ -54,13 +54,13 @@ export default [{
     key: "fieldOne", //胎位
     value: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 8),
+    change: (e, td) => limitChange(e, td, 6),
     name: "胎位",
     autoComplete: {
       data: twList
     },
     textarea: {
-      width: 50
+      width: 45
     },
   },
   {
@@ -73,7 +73,7 @@ export default [{
       data: txbwList
     },
     textarea: {
-      width: 75
+      width: 70
     },
   },
   {
@@ -82,9 +82,9 @@ export default [{
     event: keyf1,
     name: "胎心心率",
     next: "次/min",
-    change: (e, td) => limitChange(e, td, 8),
+    change: (e, td) => limitChange(e, td, 6),
     textarea: {
-      width: 50
+      width: 45
     },
   },
   {
@@ -97,7 +97,7 @@ export default [{
     },
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 50
+      width: 35
     },
   },
   {
@@ -108,7 +108,7 @@ export default [{
     next: "min",
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 50
+      width: 35
     },
   },
   {
@@ -122,7 +122,7 @@ export default [{
     },
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 50
+      width: 35
     },
   },
   {
@@ -135,7 +135,7 @@ export default [{
     },
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 50
+      width: 35
     },
   },
   {
@@ -146,7 +146,7 @@ export default [{
     next: "cm",
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 50
+      width: 35
     },
   },
   {
@@ -159,7 +159,7 @@ export default [{
     },
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 50
+      width: 35
     },
   },
   {
@@ -172,7 +172,7 @@ export default [{
     },
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 50
+      width: 35
     },
   },
   {
@@ -195,7 +195,7 @@ export default [{
     name: "矢状缝",
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 50
+      width: 35
     },
   },
   {
@@ -242,24 +242,18 @@ export default [{
     value: "",
     event: keyf1,
     textarea: {
-      width: 32
+      width: 45
     },
-    change: (e, td) => limitChange(e, td, 4),
-    textarea: {
-      width: 50
-    },
+    change: (e, td) => limitChange(e, td, 6),
   },
   {
     key: "fieldSeventeen", //标题2
     value: "",
     event: keyf1,
     textarea: {
-      width: 32
+      width: 45
     },
-    change: (e, td) => limitChange(e, td, 4),
-    textarea: {
-      width: 50
-    },
+    change: (e, td) => limitChange(e, td, 6),
   },
   {
     key: "description", //特殊情况记录
@@ -270,8 +264,12 @@ export default [{
       top: "1px",
       bottom: "1px",
       left: "1px",
-      width: "185px",
+      width: "150px",
       background: "transparent"
+    },
+    change: (e, td) => limitChange(e, td, 12),
+    textarea: {
+      width: 150
     },
     event: function (e, td) {
       console.log(e.keyCode);
@@ -280,9 +278,7 @@ export default [{
         e.preventDefault();
       }
       keyf1(e, td);
-      limitChange(e, td, 12)
     }
-    // oninput: next
   },
   {
     key: "sign",

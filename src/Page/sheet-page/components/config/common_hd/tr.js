@@ -35,7 +35,7 @@ export default [{
     name: "体温",
     next: "℃",
     textarea: {
-      width: 30
+      width: 35
     },
   },
   {
@@ -46,7 +46,7 @@ export default [{
     name: "脉搏",
     next: "次/分",
     textarea: {
-      width: 30
+      width: 35
     },
   },
   {
@@ -57,7 +57,7 @@ export default [{
     name: "心率",
     next: "次/分",
     textarea: {
-      width: 30
+      width: 35
     },
   },
   {
@@ -68,7 +68,7 @@ export default [{
     name: "呼吸",
     next: "次/分",
     textarea: {
-      width: 30
+      width: 35
     },
   },
   {
@@ -85,7 +85,7 @@ export default [{
     name: "血压",
     next: "mmHg",
     textarea: {
-      width: 40
+      width: 45
     },
   },
   {
@@ -98,7 +98,7 @@ export default [{
       data: 意识
     },
     textarea: {
-      width: 40
+      width: 45
     },
   },
   {
@@ -109,7 +109,7 @@ export default [{
     next: "%",
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 30
+      width: 35
     },
   },
   {
@@ -117,9 +117,9 @@ export default [{
     value: "",
     event: keyf1,
     name: "入量名称",
-    change: (e, td) => limitChange(e, td, 8),
+    change: (e, td) => limitChange(e, td, 10),
     textarea: {
-      width: 50,
+      width: 65,
     },
     autoComplete: {
       data: 入量名称
@@ -133,7 +133,7 @@ export default [{
     name: "入量大小",
     next: "ml",
     textarea: {
-      width: 30
+      width: 35
     },
   },
   {
@@ -141,9 +141,9 @@ export default [{
     value: "",
     event: keyf1,
     name: "出量名称",
-    change: (e, td) => limitChange(e, td, 14),
+    change: (e, td) => limitChange(e, td, 10),
     textarea: {
-      width: 95,
+      width: 65,
     },
     autoComplete: {
       data: 出量名称
@@ -157,7 +157,7 @@ export default [{
     name: "出量大小",
     next: "ml",
     textarea: {
-      width: 30
+      width: 35
     },
   },
   {
@@ -167,7 +167,7 @@ export default [{
     change: (e, td) => limitChange(e, td, 6),
     name: "出量颜色",
     textarea: {
-      width: 40
+      width: 45
     },
   },
   {
@@ -184,54 +184,54 @@ export default [{
     key: "fieldOne", //标题1
     value: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 8),
+    change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 52
+      width: 35
     },
   },
   {
     key: "fieldTwo", //标题2
     value: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 8),
+    change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 52
+      width: 35
     },
   },
   {
     key: "fieldThree", //标题3
     value: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 8),
+    change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 52
+      width: 35
     },
   },
   {
     key: "fieldFour", //标题4
     value: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 8),
+    change: (e, td) => limitChange(e, td, 6),
     textarea: {
-      width: 52
+      width: 45
     },
   },
   {
     key: "fieldFive", //标题5
     value: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 8),
+    change: (e, td) => limitChange(e, td, 6),
     textarea: {
-      width: 52
+      width: 45
     },
   },
   {
     key: "fieldSix", //标题6
     value: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 8),
+    change: (e, td) => limitChange(e, td, 6),
     textarea: {
-      width: 52
+      width: 45
     },
   }, {
     key: "description", //特殊情况记录
@@ -242,8 +242,12 @@ export default [{
       top: "1px",
       bottom: "1px",
       left: "1px",
-      // width: "180px",
+      width: "150px",
       background: "transparent",
+    },
+    change: (e, td) => limitChange(e, td, 12),
+    textarea: {
+      width: 150
     },
     event: function (e, td) {
       console.log(e.keyCode);
@@ -252,9 +256,7 @@ export default [{
         e.preventDefault();
       }
       keyf1(e, td);
-      limitChange(e, td, 11)
     }
-    // oninput: next
   },
   {
     key: "sign",
@@ -263,9 +265,6 @@ export default [{
   {
     key: "sign2",
     value: "",
-    style: {
-      maxWidth: '80px',
-    },
   },
   {
     hidden: true,

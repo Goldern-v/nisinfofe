@@ -8,7 +8,7 @@ export default {
   // 科室的名称 关节骨科
   deptType: "",
   style: {
-    width: "1500px"
+    width: "1250px"
   },
   th: {
     top: [{
@@ -72,11 +72,6 @@ export default {
         name: `
         意识
         `,
-        style: {
-          minWidth: "52px",
-          maxWidth: "52px",
-          whiteSpace: "nowrap"
-        },
         colspan: "1",
         rowspan: "3"
       },
@@ -241,10 +236,6 @@ export default {
         name: `
         护士<br>签名
         `,
-        style: {
-          minWidth: "80px",
-          maxWidth: "80px"
-        },
         colspan: "1",
         rowspan: "3"
       },
@@ -252,10 +243,6 @@ export default {
         name: `
         质控护士签名
         `,
-        style: {
-          minWidth: "60px",
-          maxWidth: "60px"
-        },
         colspan: "1",
         rowspan: "3"
       }

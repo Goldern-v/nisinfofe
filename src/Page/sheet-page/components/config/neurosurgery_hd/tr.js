@@ -87,9 +87,9 @@ export default [{
     name: "血压",
     next: "mmHg",
     textarea: {
-      width: 55
+      width: 45
     },
-    change: (e, td) => limitChange(e, td, 8),
+    change: (e, td) => limitChange(e, td, 6),
   },
   {
     key: "consciousness", //意识
@@ -135,9 +135,9 @@ export default [{
     name: "入量大小",
     next: "ml",
     textarea: {
-      width: 55
+      width: 35
     },
-    change: (e, td) => limitChange(e, td, 8),
+    change: (e, td) => limitChange(e, td, 4),
   },
   {
     key: "discharge", // 出量
@@ -159,9 +159,9 @@ export default [{
     name: "出量大小",
     next: "ml",
     textarea: {
-      width: 55
+      width: 35
     },
-    change: (e, td) => limitChange(e, td, 8),
+    change: (e, td) => limitChange(e, td, 4),
   },
   {
     key: "healthEducation", // 健康教育
@@ -169,9 +169,9 @@ export default [{
     event: keyf1,
     name: "健康教育",
     textarea: {
-      width: 55
+      width: 100
     },
-    change: (e, td) => limitChange(e, td, 8),
+    change: (e, td) => limitChange(e, td, 16),
   },
   {
     key: "pupilSizeLeft", // 瞳孔直径（mm）左
@@ -226,9 +226,9 @@ export default [{
     value: "",
     event: keyf1,
     textarea: {
-      width: 45
+      width: 35
     },
-    change: (e, td) => limitChange(e, td, 6),
+    change: (e, td) => limitChange(e, td, 4),
     name: "吸氧",
     next: "升/分",
   },
@@ -238,18 +238,18 @@ export default [{
     event: keyf1,
     name: "人工气道途径",
     textarea: {
-      width: 45
+      width: 35
     },
-    change: (e, td) => limitChange(e, td, 6),
+    change: (e, td) => limitChange(e, td, 4),
   },
   {
     key: "fieldThree", //头痛
     value: "",
     event: keyf1,
     textarea: {
-      width: 45
+      width: 35
     },
-    change: (e, td) => limitChange(e, td, 6),
+    change: (e, td) => limitChange(e, td, 4),
     name: "头痛",
   },
   {
@@ -259,54 +259,54 @@ export default [{
     name: "指尖血糖",
     next: "mmol/L",
     textarea: {
-      width: 45
+      width: 35
     },
-    change: (e, td) => limitChange(e, td, 6),
+    change: (e, td) => limitChange(e, td, 4),
   },
   {
     key: "fieldFive", //标题1
     value: "",
     event: keyf1,
     textarea: {
-      width: 45
+      width: 35
     },
-    change: (e, td) => limitChange(e, td, 6),
+    change: (e, td) => limitChange(e, td, 4),
   },
   {
     key: "fieldSix", //标题2
     value: "",
     event: keyf1,
     textarea: {
-      width: 45
+      width: 35
     },
-    change: (e, td) => limitChange(e, td, 6),
+    change: (e, td) => limitChange(e, td, 4),
   },
   {
     key: "fieldEight", //标题3
     value: "",
     event: keyf1,
     textarea: {
-      width: 45
+      width: 35
     },
-    change: (e, td) => limitChange(e, td, 6),
+    change: (e, td) => limitChange(e, td, 4),
   },
   {
     key: "fieldNine", //标题4
     value: "",
     event: keyf1,
     textarea: {
-      width: 45
+      width: 35
     },
-    change: (e, td) => limitChange(e, td, 6),
+    change: (e, td) => limitChange(e, td, 4),
   },
   {
     key: "fieldTen", //标题5
     value: "",
     event: keyf1,
     textarea: {
-      width: 45
+      width: 35
     },
-    change: (e, td) => limitChange(e, td, 6),
+    change: (e, td) => limitChange(e, td, 4),
   },
   {
     key: "description", //特殊情况记录
@@ -320,6 +320,10 @@ export default [{
       width: "150px",
       background: "transparent"
     },
+    textarea: {
+      width: 150
+    },
+    change: (e, td) => limitChange(e, td, 12),
     event: function (e, td) {
       console.log(e.keyCode);
       if (e.keyCode == 9) {
@@ -327,7 +331,6 @@ export default [{
         e.preventDefault();
       }
       keyf1(e, td);
-      limitChange(e, td, 11)
     }
     // oninput: next
   },

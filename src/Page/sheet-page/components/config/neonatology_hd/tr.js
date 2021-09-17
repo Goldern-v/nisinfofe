@@ -95,9 +95,9 @@ export default [{
       keyf1(e, td);
     },
     textarea: {
-      width: 55
+      width: 45
     },
-    change: (e, td) => limitChange(e, td, 8),
+    change: (e, td) => limitChange(e, td, 6),
     name: "血压",
     next: "mmHg"
   },
@@ -180,10 +180,7 @@ export default [{
     name: "入量名称",
     change: (e, td) => limitChange(e, td, 10),
     textarea: {
-      width: 66,
-    },
-    style: {
-      maxWidth: '66px',
+      width: 65,
     },
     autoComplete: {
       data: rlmcList
@@ -207,10 +204,7 @@ export default [{
     name: "出量名称",
     change: (e, td) => limitChange(e, td, 10),
     textarea: {
-      width: 62,
-    },
-    style: {
-      maxWidth: '62px',
+      width: 65,
     },
     autoComplete: {
       data: clmcList
@@ -232,9 +226,9 @@ export default [{
     value: "",
     event: keyf1,
     name: "出量颜色",
-    change: (e, td) => limitChange(e, td, 6),
+    change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 45
+      width: 35
     },
     autoComplete: {
       data: ysList
@@ -403,6 +397,10 @@ export default [{
       width: "180px",
       background: "transparent"
     },
+    change: (e, td) => limitChange(e, td, 12),
+    textarea: {
+      width: 150
+    },
     event: function (e, td) {
       console.log(e.keyCode);
       if (e.keyCode == 9) {
@@ -410,9 +408,7 @@ export default [{
         e.preventDefault();
       }
       keyf1(e, td);
-      limitChange(e, td, 11)
     }
-    // oninput: next
   },
   {
     key: "sign",
