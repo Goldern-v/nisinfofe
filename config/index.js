@@ -60,13 +60,8 @@ const currentTargetUrl = (() => {
 
     /** 花都 */
     case "huadu":
-<<<<<<< HEAD
       return "http://120.238.239.27:9094" //花都正式
       // return "https://info.cr-health.com:20206" // 公司-花都测试-外网
-=======
-      // return "http://120.238.239.27:9094" //花都正式
-      return "https://info.cr-health.com:20206" // 公司-花都测试-外网
->>>>>>> abdad5e154c0bb978cc47f1c82f6a388b226acf3
       // return "http://192.168.1.54:9868" //公司-花都测试-内网
 
     /** 贵州医科大正式 */
@@ -119,8 +114,8 @@ const currentTargetUrl = (() => {
 
     /** 曲周医院 */
     case 'quzhou':
-      // return "http://111.11.95.229:9094" //
-      return "http://192.168.1.54:9879" //
+      return "http://111.11.95.229:9094" //
+      // return "http://192.168.1.54:9879" //
 
     case 'xiegang':
       return "http://192.168.1.54:9882" // 测试地址-内网地址

@@ -222,13 +222,13 @@
           体征同步
         </div>
       </div>
-      <div class="line" v-if="HOSPITAL_ID=='wujing'"></div>
+      <div class="line" v-if="HOSPITAL_ID=='wujing'||HOSPITAL_ID=='quzhou'"></div>
       <div style="width: 5px"></div>
       <div
         class="right-btn"
         flex="cross:center main:center"
         @click.stop="openZxdtbModal"
-        v-if="HOSPITAL_ID=='wujing'"
+        v-if="HOSPITAL_ID=='wujing'||HOSPITAL_ID=='quzhou'"
       >
         <div class="text-con">
           <img src="./images/评估.png" alt />

@@ -202,7 +202,7 @@ export default {
       },
       {
         name: `
-        记录人<br/>签名
+        质控人<br/>签名
         `,
         style: {},
         colspan: "1",

@@ -326,6 +326,9 @@ export default {
           #sheetPagePrint#sheetPagePrint th[dataname='质控护士签名']{
             display:none !important;
           }
+          #sheetPagePrint#sheetPagePrint th[dataname='质控人<br/>签名']{
+            display:none !important;
+          }
         `
       );
     }
