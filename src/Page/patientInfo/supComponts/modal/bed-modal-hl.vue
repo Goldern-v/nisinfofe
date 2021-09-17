@@ -401,7 +401,7 @@
         <div class="bed-card-ctip-con">
           <div class="children-row">
             <div>住院号：</div>
-            <div>{{ query.patientId }}</div>
+            <div>{{ query.inpNo }}</div>
           </div>
           <div class="children-row">
             <div>姓名：</div>
@@ -674,11 +674,13 @@
   }
 }
 .bed-card-children-tip{
-  width:11.25cm;
-  height:8.12cm;
+  width:7.25cm;
+  height:3.75cm;
   font-size:32px;
   .bed-card-ctip-con{
-    padding:35px 0 0 40px;
+    transform scale(0.6) translate(-7%,-41%)
+    width:310px;
+    padding:35px 0 0 0px;
     box-sizing border-box
     .children-row{
       display:flex;

@@ -5,7 +5,7 @@
       @handleInpatientSave="handleInpatientSave"
     ></leftPartHengli>
     <leftPartHuadu
-      v-if="inited && HOSPITAL_ID=='huadu'"
+      v-else-if="inited && HOSPITAL_ID=='huadu'"
       @handleInpatientSave="handleInpatientSave"
     ></leftPartHuadu>
     <leftPart
