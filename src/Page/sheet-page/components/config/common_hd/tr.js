@@ -171,13 +171,13 @@ export default [{
     },
   },
   {
-    key: "healthEducation", //健康教育
+    key: "healthEducation", //健康宣教
     value: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 8),
-    name: "健康教育",
+    name: "健康宣教",
+    change: (e, td) => limitChange(e, td, 16),
     textarea: {
-      width: 52,
+      width: 100
     },
   },
   {
