@@ -43,9 +43,9 @@ export default [{
       data: bwList
     },
     textarea: {
-      width: 55
+      width: 65
     },
-    change: (e, td) => limitChange(e, td, 8),
+    change: (e, td) => limitChange(e, td, 10),
   },
   {
     key: "installment", //分期
@@ -56,9 +56,9 @@ export default [{
       data: fqList
     },
     textarea: {
-      width: 55
+      width: 65
     },
-    change: (e, td) => limitChange(e, td, 8),
+    change: (e, td) => limitChange(e, td, 10),
   },
   {
     key: "fieldSize", //大小/长*宽*深
@@ -66,9 +66,9 @@ export default [{
     event: keyf1,
     name: "大小",
     textarea: {
-      width: 55
+      width: 65
     },
-    change: (e, td) => limitChange(e, td, 8),
+    change: (e, td) => limitChange(e, td, 10),
   },
   {
     key: "baseColorRed", //基底颜色红色%
@@ -80,9 +80,9 @@ export default [{
       data: jdysList
     },
     textarea: {
-      width: 55
+      width: 65
     },
-    change: (e, td) => limitChange(e, td, 8),
+    change: (e, td) => limitChange(e, td, 10),
   },
   {
     key: "baseColorYellow", // 基底颜色黄色%
@@ -94,9 +94,9 @@ export default [{
       data: jdysList
     },
     textarea: {
-      width: 55
+      width: 65
     },
-    change: (e, td) => limitChange(e, td, 8),
+    change: (e, td) => limitChange(e, td, 10),
   },
   {
     key: "baseColorBlack", // 基底颜色黑色%
@@ -108,9 +108,9 @@ export default [{
       data: jdysList
     },
     textarea: {
-      width: 55
+      width: 65
     },
-    change: (e, td) => limitChange(e, td, 8),
+    change: (e, td) => limitChange(e, td, 10),
   },
   {
     key: "baseColorOther", // 基底颜色其他%
@@ -122,9 +122,9 @@ export default [{
       data: jdysList
     },
     textarea: {
-      width: 55
+      width: 65
     },
-    change: (e, td) => limitChange(e, td, 8),
+    change: (e, td) => limitChange(e, td, 10),
   },
   {
     key: "fieldOne", // 渗出液（量、性状、颜色）
@@ -132,9 +132,9 @@ export default [{
     event: keyf1,
     name: "渗出液（量、性状、颜色）",
     textarea: {
-      width: 55
+      width: 65
     },
-    change: (e, td) => limitChange(e, td, 8),
+    change: (e, td) => limitChange(e, td, 10),
   },
   {
     key: "fieldTwo", //渗液与敷料的关系
@@ -145,9 +145,9 @@ export default [{
       data: syList
     },
     textarea: {
-      width: 55
+      width: 65
     },
-    change: (e, td) => limitChange(e, td, 8),
+    change: (e, td) => limitChange(e, td, 10),
   },
   {
     key: "odor", //气味
@@ -158,9 +158,9 @@ export default [{
       data: qwList
     },
     textarea: {
-      width: 55
+      width: 65
     },
-    change: (e, td) => limitChange(e, td, 8),
+    change: (e, td) => limitChange(e, td, 10),
   },
   {
     key: "fieldThree", //潜行/窦道
@@ -168,9 +168,9 @@ export default [{
     event: keyf1,
     name: "潜行/窦道",
     textarea: {
-      width: 55
+      width: 65
     },
-    change: (e, td) => limitChange(e, td, 8),
+    change: (e, td) => limitChange(e, td, 10),
   },
   {
     key: "fieldFour", //周围皮肤
@@ -181,9 +181,9 @@ export default [{
       data: pfList
     },
     textarea: {
-      width: 55
+      width: 65
     },
-    change: (e, td) => limitChange(e, td, 8),
+    change: (e, td) => limitChange(e, td, 10),
   },
   {
     key: "description", //特殊情况记录
@@ -197,6 +197,10 @@ export default [{
       width: "150px",
       background: "transparent"
     },
+    textarea: {
+      width: 150
+    },
+    change: (e, td) => limitChange(e, td, 12),
     event: function (e, td) {
       console.log(e.keyCode);
       if (e.keyCode == 9) {
@@ -204,9 +208,7 @@ export default [{
         e.preventDefault();
       }
       keyf1(e, td);
-      limitChange(e, td, 11)
     }
-    // oninput: next
   },
   {
     key: "sign",

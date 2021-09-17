@@ -42,9 +42,9 @@ export default [{
     event: keyf1,
     name: "体温",
     next: "℃",
-    change: (e, td) => limitChange(e, td, 8),
+    change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 50
+      width: 35
     },
   },
   {
@@ -53,9 +53,9 @@ export default [{
     event: keyf1,
     name: "脉搏",
     next: "次/分",
-    change: (e, td) => limitChange(e, td, 8),
+    change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 50
+      width: 35
     },
   },
   {
@@ -64,9 +64,9 @@ export default [{
     event: keyf1,
     name: "呼吸",
     next: "次/分",
-    change: (e, td) => limitChange(e, td, 8),
+    change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 50
+      width: 35
     },
   },
   {
@@ -81,9 +81,9 @@ export default [{
     },
     name: "血压",
     next: "mmHg",
-    change: (e, td) => limitChange(e, td, 8),
+    change: (e, td) => limitChange(e, td, 6),
     textarea: {
-      width: 50
+      width: 45
     },
   },
   {
@@ -94,9 +94,9 @@ export default [{
     autoComplete: {
       data: 意识
     },
-    change: (e, td) => limitChange(e, td, 8),
+    change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 50
+      width: 35
     },
   },
   {
@@ -105,9 +105,9 @@ export default [{
     event: keyf1,
     name: "血氧饱和度",
     next: "%",
-    change: (e, td) => limitChange(e, td, 8),
+    change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 50
+      width: 35
     },
   },
   {
@@ -116,9 +116,9 @@ export default [{
     event: keyf1,
     name: "指尖血糖",
     next: "mmol/L",
-    change: (e, td) => limitChange(e, td, 8),
+    change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 50
+      width: 35
     },
   },
   {
@@ -129,7 +129,7 @@ export default [{
     next: "mL",
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 30
+      width: 35
     },
   },
   {
@@ -137,9 +137,9 @@ export default [{
     value: "",
     event: keyf1,
     name: "入量内容",
-    change: (e, td) => limitChange(e, td, 20),
+    change: (e, td) => limitChange(e, td, 10),
     textarea: {
-      width: 120
+      width: 65
     },
     autoComplete: {
       data: 入量名称
@@ -151,9 +151,9 @@ export default [{
     event: keyf1,
     name: "入量大小",
     next: "ml",
-    change: (e, td) => limitChange(e, td, 8),
+    change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 50
+      width: 35
     },
   },
   {
@@ -161,9 +161,9 @@ export default [{
     value: "",
     event: keyf1,
     name: "出量内容",
-    change: (e, td) => limitChange(e, td, 20),
+    change: (e, td) => limitChange(e, td, 10),
     textarea: {
-      width: 120
+      width: 65
     },
     autoComplete: {
       data: 出量名称
@@ -175,9 +175,9 @@ export default [{
     event: keyf1,
     name: "出量大小",
     next: "ml",
-    change: (e, td) => limitChange(e, td, 8),
+    change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 50
+      width: 35
     },
   },
   {
@@ -188,9 +188,9 @@ export default [{
     autoComplete: {
       data: 出量颜色
     },
-    change: (e, td) => limitChange(e, td, 8),
+    change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 50
+      width: 35
     },
   },
   {
@@ -293,9 +293,14 @@ export default [{
       top: "1px",
       bottom: "1px",
       left: "1px",
-      width: "180px",
+      width: "150px",
       background: "transparent"
     },
+    textarea: {
+      width: 150
+    },
+    
+    change: (e, td) => limitChange(e, td, 12),
     event: function (e, td) {
       console.log(e.keyCode);
       if (e.keyCode == 9) {
@@ -303,7 +308,6 @@ export default [{
         e.preventDefault();
       }
       keyf1(e, td);
-      limitChange(e, td, 11)
     },
   },
   {

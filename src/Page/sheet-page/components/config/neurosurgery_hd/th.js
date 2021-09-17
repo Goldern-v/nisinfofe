@@ -5,18 +5,15 @@ function currYear() {
 }
 export default {
   // 科室的名称
-  deptType: "",
   style: {
-    width: "1500px"
+    width: "1350px"
   },
+  deptType: "",
   th: {
     top: [{
         name: currYear(),
         colspan: "2",
         rowspan: "1",
-        style: {
-          width: "40px"
-        },
         canSet: true,
         key: "recordYear",
       },
@@ -27,9 +24,6 @@ export default {
         style: {},
         colspan: "1",
         rowspan: "3",
-        style: {
-          minWidth: "30px"
-        }
       },
       {
         name: `
@@ -38,9 +32,6 @@ export default {
         style: {},
         colspan: "1",
         rowspan: "3",
-        style: {
-          minWidth: "30px"
-        }
       },
       {
         name: `
@@ -49,17 +40,11 @@ export default {
         style: {},
         colspan: "1",
         rowspan: "3",
-        style: {
-          minWidth: "30px"
-        }
       },
       {
         name: `
         呼吸<br/>次/分
         `,
-        style: {
-          minWidth: "30px",
-        },
         colspan: "1",
         rowspan: "3"
       },
@@ -67,9 +52,6 @@ export default {
         name: `
         血压
         `,
-        style: {
-          minWidth: "48px",
-        },
         colspan: "1",
         rowspan: "3"
       },
@@ -77,9 +59,6 @@ export default {
         name: `
         意识
         `,
-        style: {
-          minWidth: "30px"
-        },
         colspan: "1",
         rowspan: "3"
       },
@@ -87,9 +66,6 @@ export default {
         name: `
         SPO₂<br/>(%)
         `,
-        style: {
-          minWidth: "30px"
-        },
         colspan: "1",
         rowspan: "3"
       },
@@ -111,40 +87,24 @@ export default {
         name: `健康教育`,
         colspan: "1",
         rowspan: "3",
-        style: {
-          minWidth: "50px",
-          maxWidth: "50px"
-        }
       },
       {
         name: `瞳孔`,
         style: {},
         colspan: "4",
         rowspan: "1",
-        // style: {
-        //   minWidth: "40px",
-        //   maxWidth: "40px"
-        // }
       },
       {
         name: `吸氧<br/>升/分`,
         style: {},
         colspan: "1",
         rowspan: "3",
-        style: {
-          minWidth: "50px",
-          maxWidth: "50px"
-        }
       },
       {
         name: `人工<br/>气道<br/>途径`,
         style: {},
         colspan: "1",
         rowspan: "3",
-        style: {
-          minWidth: "50px",
-          maxWidth: "50px"
-        }
       },
       {
         name: `头痛`,
@@ -157,10 +117,6 @@ export default {
         style: {},
         colspan: "1",
         rowspan: "3",
-        style: {
-          minWidth: "50px",
-          maxWidth: "50px"
-        }
       },
       {
         name: ``,
@@ -169,10 +125,6 @@ export default {
         rowspan: "3",
         canSet: true,
         key: "fieldFive", //标题1
-        style: {
-          minWidth: "50px",
-          maxWidth: "50px"
-        }
       },
       {
         name: ``,
@@ -181,10 +133,6 @@ export default {
         rowspan: "3",
         canSet: true,
         key: "fieldSix", //标题2
-        style: {
-          minWidth: "50px",
-          maxWidth: "50px"
-        }
       },
       {
         name: ``,
@@ -193,10 +141,6 @@ export default {
         rowspan: "3",
         canSet: true,
         key: "fieldEight", //标题3
-        style: {
-          minWidth: "50px",
-          maxWidth: "50px"
-        }
       },
       {
         name: ``,
@@ -205,10 +149,6 @@ export default {
         rowspan: "3",
         canSet: true,
         key: "fieldNine", //标题4
-        style: {
-          minWidth: "50px",
-          maxWidth: "50px"
-        }
       },
       {
         name: ``,
@@ -217,10 +157,6 @@ export default {
         rowspan: "3",
         canSet: true,
         key: "fieldTen", //标题5
-        style: {
-          minWidth: "50px",
-          maxWidth: "50px"
-        }
       },
       {
         name: `
@@ -237,10 +173,6 @@ export default {
         name: `
         记录人签名
         `,
-        style: {
-          minWidth: "70px",
-          maxWidth: "70px"
-        },
         colspan: "1",
         rowspan: "3"
       },
@@ -248,39 +180,24 @@ export default {
         name: `
         质控护士签名
         `,
-        style: {
-          minWidth: "50px",
-          maxWidth: "50px"
-        },
+
         colspan: "1",
         rowspan: "3"
       }
     ],
     mid: [{
         name: "日期",
-        style: {
-          minWidth: "36px",
-          maxWidth: "36px"
-        },
         colspan: "1",
         rowspan: "2"
       },
       {
         name: "时间",
-        style: {
-          minWidth: "36px",
-          maxWidth: "36px"
-        },
         colspan: "1",
         rowspan: "2"
       }, {
         name: `
         名称
         `,
-        style: {
-          minWidth: "50px",
-          maxWidth: "50px"
-        },
         colspan: "1",
         rowspan: "2"
       },
@@ -290,10 +207,6 @@ export default {
         `,
         colspan: "1",
         rowspan: "2",
-        style: {
-          minWidth: "50px",
-          maxWidth: "50px"
-        }
       },
       {
         name: `
@@ -301,10 +214,6 @@ export default {
         `,
         colspan: "1",
         rowspan: "2",
-        style: {
-          minWidth: "50px",
-          maxWidth: "50px"
-        }
       },
       {
         name: `
@@ -312,10 +221,6 @@ export default {
         `,
         colspan: "1",
         rowspan: "2",
-        style: {
-          minWidth: "50px",
-          maxWidth: "50px"
-        }
       },
       {
         name: `
@@ -338,10 +243,6 @@ export default {
         `,
         colspan: "1",
         rowspan: "1",
-        style: {
-          minWidth: "20px",
-          maxWidth: "20px"
-        }
       },
       {
         name: `
@@ -349,10 +250,6 @@ export default {
         `,
         colspan: "1",
         rowspan: "1",
-        style: {
-          minWidth: "20px",
-          maxWidth: "20px"
-        }
       },
       {
         name: `
@@ -360,10 +257,6 @@ export default {
         `,
         colspan: "1",
         rowspan: "1",
-        style: {
-          minWidth: "20px",
-          maxWidth: "20px"
-        }
       },
       {
         name: `
@@ -371,10 +264,6 @@ export default {
         `,
         colspan: "1",
         rowspan: "1",
-        style: {
-          minWidth: "20px",
-          maxWidth: "20px"
-        }
       }
     ]
   }

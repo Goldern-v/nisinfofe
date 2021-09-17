@@ -8,7 +8,7 @@ export default {
   // 科室的名称 关节骨科
   deptType: "",
   style: {
-    width: "1400px"
+    width: "1300px"
   },
   th: {
     top: [{
@@ -25,11 +25,6 @@ export default {
         style: {},
         colspan: "1",
         rowspan: "3",
-        style: {
-          whiteSpace: "nowrap",
-          minWidth: "26px",
-          maxWidth: "26px",
-        }
       },
       {
         name: `
@@ -38,11 +33,14 @@ export default {
         style: {},
         colspan: "1",
         rowspan: "3",
-        style: {
-          whiteSpace: "nowrap",
-          minWidth: "26px",
-          maxWidth: "26px",
-        }
+      },
+      {
+        name: `
+        心率<br/>次/分
+        `,
+        style: {},
+        colspan: "1",
+        rowspan: "3",
       },
       {
         name: `
@@ -51,21 +49,11 @@ export default {
         style: {},
         colspan: "1",
         rowspan: "3",
-        style: {
-          whiteSpace: "nowrap",
-          minWidth: "26px",
-          maxWidth: "26px",
-        }
       },
       {
         name: `
         血压<br/>mmHg
         `,
-        style: {
-          minWidth: "40px",
-          maxWidth: "40px",
-          whiteSpace: "nowrap"
-        },
         colspan: "1",
         rowspan: "3"
       },
@@ -73,11 +61,6 @@ export default {
         name: `
         意识
         `,
-        style: {
-          minWidth: "44px",
-          maxWidth: "44px",
-          whiteSpace: "nowrap"
-        },
         colspan: "1",
         rowspan: "3"
       },
@@ -85,10 +68,6 @@ export default {
         name: `
         血氧饱和度(%)
         `,
-        style: {
-          minWidth: "20px",
-          maxWidth: "20px",
-        },
         colspan: "1",
         rowspan: "3"
       },
@@ -96,10 +75,6 @@ export default {
         name: `
         指尖血糖<br/>mmol/L
         `,
-        style: {
-          minWidth: "20px",
-          maxWidth: "20px",
-        },
         colspan: "1",
         rowspan: "3"
       },
@@ -109,10 +84,6 @@ export default {
         `,
         colspan: "1",
         rowspan: "3",
-        style: {
-          minWidth: "28px",
-          maxWidth: "28px"
-        }
       },
       {
         name: `
@@ -137,11 +108,6 @@ export default {
         rowspan: "3",
         canSet: true,
         key: "fieldFive",
-        style: {
-          minWidth: "60px",
-          maxWidth: "60px",
-          whiteSpace: "nowrap"
-        }
       },
       {
         name: ``,
@@ -150,10 +116,6 @@ export default {
         rowspan: "3",
         canSet: true,
         key: "fieldSix",
-        style: {
-          minWidth: "32px",
-          maxWidth: "32px"
-        }
       },
       {
         name: ``,
@@ -162,10 +124,6 @@ export default {
         rowspan: "3",
         canSet: true,
         key: "fieldSeven",
-        style: {
-          minWidth: "32px",
-          maxWidth: "32px"
-        }
       },
       {
         name: ``,
@@ -174,10 +132,6 @@ export default {
         rowspan: "3",
         canSet: true,
         key: "fieldEight",
-        style: {
-          minWidth: "32px",
-          maxWidth: "32px"
-        }
       },
       {
         name: ``,
@@ -186,10 +140,6 @@ export default {
         rowspan: "3",
         canSet: true,
         key: "fieldNine",
-        style: {
-          minWidth: "32px",
-          maxWidth: "32px"
-        }
       },
       {
         name: ``,
@@ -198,10 +148,6 @@ export default {
         rowspan: "3",
         canSet: true,
         key: "fieldTen",
-        style: {
-          minWidth: "32px",
-          maxWidth: "32px"
-        }
       },
       {
         name: ``,
@@ -210,10 +156,6 @@ export default {
         rowspan: "3",
         canSet: true,
         key: "fieldEleven",
-        style: {
-          minWidth: "32px",
-          maxWidth: "32px"
-        }
       },
       {
         name: `
@@ -230,10 +172,6 @@ export default {
         name: `
         护士<br>签名
         `,
-        style: {
-          minWidth: "80px",
-          maxWidth: "80px"
-        },
         colspan: "1",
         rowspan: "3"
       },
@@ -241,10 +179,6 @@ export default {
         name: `
         质控护士签名
         `,
-        style: {
-          minWidth: "60px",
-          maxWidth: "60px"
-        },
         colspan: "1",
         rowspan: "3"
       }
@@ -265,46 +199,26 @@ export default {
       },
       {
         name: "内容",
-        style: {
-          minWidth: "36px",
-          maxWidth: "36px"
-        },
         colspan: "1",
         rowspan: "2"
       },
       {
         name: "量<br/>(ml)",
-        style: {
-          minWidth: "36px",
-          maxWidth: "36px"
-        },
         colspan: "1",
         rowspan: "2"
       },
       {
         name: "内容",
-        style: {
-          minWidth: "36px",
-          maxWidth: "36px"
-        },
         colspan: "1",
         rowspan: "2"
       },
       {
         name: "量<br/>(ml)",
-        style: {
-          minWidth: "36px",
-          maxWidth: "36px"
-        },
         colspan: "1",
         rowspan: "2"
       },
       {
         name: "颜色",
-        style: {
-          minWidth: "36px",
-          maxWidth: "36px"
-        },
         colspan: "1",
         rowspan: "2"
       },
