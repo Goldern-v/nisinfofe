@@ -6,7 +6,7 @@ function currYear() {
 export default {
   // 科室的名称
   style: {
-    width: "1350px"
+    width: "1240px"
   },
   deptType: "",
   th: {
@@ -125,6 +125,10 @@ export default {
         rowspan: "3",
         canSet: true,
         key: "fieldFive", //标题1
+        style: {
+          minWidth: "30px",
+          maxWidth: "30px"
+        }
       },
       {
         name: ``,
@@ -133,6 +137,10 @@ export default {
         rowspan: "3",
         canSet: true,
         key: "fieldSix", //标题2
+        style: {
+          minWidth: "30px",
+          maxWidth: "30px"
+        }
       },
       {
         name: ``,
@@ -141,6 +149,10 @@ export default {
         rowspan: "3",
         canSet: true,
         key: "fieldEight", //标题3
+        style: {
+          minWidth: "30px",
+          maxWidth: "30px"
+        }
       },
       {
         name: ``,
@@ -149,6 +161,10 @@ export default {
         rowspan: "3",
         canSet: true,
         key: "fieldNine", //标题4
+        style: {
+          minWidth: "30px",
+          maxWidth: "30px"
+        }
       },
       {
         name: ``,
@@ -157,6 +173,10 @@ export default {
         rowspan: "3",
         canSet: true,
         key: "fieldTen", //标题5
+        style: {
+          minWidth: "30px",
+          maxWidth: "30px"
+        }
       },
       {
         name: `
@@ -173,6 +193,10 @@ export default {
         name: `
         记录人签名
         `,
+        style: {
+          minWidth: "80px",
+          maxWidth: "80px"
+        },
         colspan: "1",
         rowspan: "3"
       },
@@ -203,7 +227,7 @@ export default {
       },
       {
         name: `
-        量<br/>(ml)
+        量<br/>ml
         `,
         colspan: "1",
         rowspan: "2",
@@ -217,7 +241,7 @@ export default {
       },
       {
         name: `
-        量<br/>(ml)
+        量<br/>ml
         `,
         colspan: "1",
         rowspan: "2",

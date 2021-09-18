@@ -7,7 +7,7 @@ export default {
   // 科室的名称
   deptType: "",
   style: {
-    width: "1400px"
+    width: "1200px"
   },
   th: {
     top: [{
@@ -49,7 +49,7 @@ export default {
       },
       {
         name: `
-        血<br/>压<br/>m<br/>m<br/>H<br/>g
+        血<br/>压<br/>mmHg
         `,
         colspan: "1",
         rowspan: "3"
@@ -138,6 +138,10 @@ export default {
         rowspan: "3",
         canSet: true,
         key: "fieldSix", //标题1
+        style: {
+          minWidth: "30px",
+          maxWidth: "30px"
+        },
       },
       {
         name: `哭声`,
@@ -146,6 +150,10 @@ export default {
         rowspan: "3",
         canSet: true,
         key: "fieldSeven", //标题2
+        style: {
+          minWidth: "30px",
+          maxWidth: "30px"
+        },
       },
       {
         name: ``,
@@ -154,6 +162,10 @@ export default {
         rowspan: "3",
         canSet: true,
         key: "fieldEight", //标题3
+        style: {
+          minWidth: "30px",
+          maxWidth: "30px"
+        },
       },
       {
         name: `

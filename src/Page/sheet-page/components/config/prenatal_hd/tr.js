@@ -45,9 +45,9 @@ export default [{
     event: keyf1,
     name: "体温",
     next: "℃",
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 3),
     textarea: {
-      width: 35
+      width: 27
     },
   },
   {
@@ -56,9 +56,9 @@ export default [{
     event: keyf1,
     name: "脉搏",
     next: "次/分",
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 3),
     textarea: {
-      width: 35
+      width: 25
     },
   },
   {
@@ -67,9 +67,9 @@ export default [{
     event: keyf1,
     name: "心率",
     next: "次/分",
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 3),
     textarea: {
-      width: 35
+      width: 25
     },
   },
   {
@@ -78,9 +78,9 @@ export default [{
     event: keyf1,
     name: "呼吸",
     next: "次/分",
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 3),
     textarea: {
-      width: 35
+      width: 25
     },
   },
   {
@@ -93,9 +93,9 @@ export default [{
       }
       keyf1(e, td);
     },
-    change: (e, td) => limitChange(e, td, 6),
+    change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 45
+      width: 43
     },
     name: "血压",
     next: "mmHg"
@@ -110,7 +110,7 @@ export default [{
     },
     change: (e, td) => limitChange(e, td, 6),
     textarea: {
-      width: 45
+      width: 40
     },
   },
   {
@@ -121,7 +121,7 @@ export default [{
     next: "%",
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 35
+      width: 25
     },
   },
   {
@@ -143,7 +143,7 @@ export default [{
     next: "mL",
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 35
+      width: 25
     }
   },
   {
@@ -165,9 +165,9 @@ export default [{
     event: keyf1,
     name: "入量大小",
     next: "ml",
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 3),
     textarea: {
-      width: 35
+      width: 25
     },
   },
   {
@@ -189,9 +189,9 @@ export default [{
     event: keyf1,
     name: "出量大小",
     next: "ml",
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 3),
     textarea: {
-      width: 35
+      width: 25
     },
   },
   {
@@ -202,9 +202,9 @@ export default [{
     autoComplete: {
       data: 出量颜色
     },
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 3),
     textarea: {
-      width: 35
+      width: 25
     },
   },
   {
@@ -222,7 +222,7 @@ export default [{
     value: "",
     event: keyf1,
     textarea: {
-      width: 35
+      width: 30
     },
     change: (e, td) => limitChange(e, td, 4),
   },
@@ -231,7 +231,7 @@ export default [{
     value: "",
     event: keyf1,
     textarea: {
-      width: 35
+      width: 30
     },
     change: (e, td) => limitChange(e, td, 4),
   },
@@ -240,7 +240,7 @@ export default [{
     value: "",
     event: keyf1,
     textarea: {
-      width: 35
+      width: 30
     },
     change: (e, td) => limitChange(e, td, 4),
   },
@@ -249,7 +249,7 @@ export default [{
     value: "",
     event: keyf1,
     textarea: {
-      width: 35
+      width: 30
     },
     change: (e, td) => limitChange(e, td, 4),
   },
@@ -258,18 +258,18 @@ export default [{
     value: "",
     event: keyf1,
     textarea: {
-      width: 35
+      width: 40
     },
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 6),
   },
   {
     key: "fieldEleven", //标题6
     value: "",
     event: keyf1,
     textarea: {
-      width: 35
+      width: 40
     },
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 6),
   },
   {
     key: "description", //特殊情况记录

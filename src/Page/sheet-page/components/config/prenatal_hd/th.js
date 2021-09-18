@@ -8,7 +8,7 @@ export default {
   // 科室的名称 关节骨科
   deptType: "",
   style: {
-    width: "1300px"
+    width: "1170px"
   },
   th: {
     top: [{
@@ -80,7 +80,7 @@ export default {
       },
       {
         name: `
-        阴道<br/>出血<br/>(ml)
+        阴道<br/>出血<br/>ml
         `,
         colspan: "1",
         rowspan: "3",
@@ -116,6 +116,10 @@ export default {
         rowspan: "3",
         canSet: true,
         key: "fieldSix",
+        style: {
+          minWidth: "30px",
+          maxWidth: "30px"
+        },
       },
       {
         name: ``,
@@ -124,6 +128,10 @@ export default {
         rowspan: "3",
         canSet: true,
         key: "fieldSeven",
+        style: {
+          minWidth: "30px",
+          maxWidth: "30px"
+        },
       },
       {
         name: ``,
@@ -132,6 +140,10 @@ export default {
         rowspan: "3",
         canSet: true,
         key: "fieldEight",
+        style: {
+          minWidth: "30px",
+          maxWidth: "30px"
+        },
       },
       {
         name: ``,
@@ -140,6 +152,10 @@ export default {
         rowspan: "3",
         canSet: true,
         key: "fieldNine",
+        style: {
+          minWidth: "30px",
+          maxWidth: "30px"
+        },
       },
       {
         name: ``,
@@ -148,6 +164,10 @@ export default {
         rowspan: "3",
         canSet: true,
         key: "fieldTen",
+        style: {
+          minWidth: "40px",
+          maxWidth: "40px"
+        },
       },
       {
         name: ``,
@@ -156,6 +176,10 @@ export default {
         rowspan: "3",
         canSet: true,
         key: "fieldEleven",
+        style: {
+          minWidth: "40px",
+          maxWidth: "40px"
+        },
       },
       {
         name: `
@@ -172,6 +196,10 @@ export default {
         name: `
         护士<br>签名
         `,
+        style: {
+          minWidth: "80px",
+          maxWidth: "80px"
+        },
         colspan: "1",
         rowspan: "3"
       },
@@ -203,7 +231,7 @@ export default {
         rowspan: "2"
       },
       {
-        name: "量<br/>(ml)",
+        name: "量<br/>ml",
         colspan: "1",
         rowspan: "2"
       },
@@ -213,7 +241,7 @@ export default {
         rowspan: "2"
       },
       {
-        name: "量<br/>(ml)",
+        name: "量<br/>ml",
         colspan: "1",
         rowspan: "2"
       },
