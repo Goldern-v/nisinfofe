@@ -109,8 +109,8 @@ const currentTargetUrl = (() => {
 
     /** 武警广东省总队医院 */
     case "wujing":
-      // return "http://120.24.240.231:15091" // 公司-武警广东省总队医院正式
-      return "http://192.168.1.54:9866" // 公司-武警广东省总队医院测试-内网
+      return "http://120.24.240.231:15091" // 公司-武警广东省总队医院正式
+      // return "http://192.168.1.54:9866" // 公司-武警广东省总队医院测试-内网
 
     /** 曲周医院 */
     case 'quzhou':
@@ -122,7 +122,7 @@ const currentTargetUrl = (() => {
     
     // 北海人医
     case 'beihairenyi':
-      // return "http://219.159.198.37:9094"  // 正式地址
+      // return "http://219.159.198.37:9094"  // 正式地址 admin Bcy@24nr
       // return "http://192.167.199.190:9091" // 测试地址（暂无数据）
       return "http://192.168.1.54:9866" // 默认公司本地内网厚街测试环境
 
@@ -177,7 +177,8 @@ module.exports = {
         }
       },
       "/crNursing/asset": {
-        target: "http://120.25.105.45:9864", //测试
+        // target: "http://120.25.105.45:9864", //测试
+        target: "http://120.24.240.231:15091", //武警正式
         //target: "http://120.197.141.41:9091",
         changeOrigin: true,
         pathRewrite: {

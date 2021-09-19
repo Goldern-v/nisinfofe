@@ -1,12 +1,12 @@
 <template>
-    <div class="modal">
+    <div class="modal" id="printIframe" style="display:none">
         <div class="page">
             <div class="modal-title">
                     瓶签打印
             </div>
             <i class="el-icon-close cancel-btn" @click="close()"></i>
             <div class="pre-print">
-                <object :data="src" type="application/pdf"></object>
+                <iframe :src="src" frameborder="0" id="pdfpage" style="display:none"></iframe>
             </div>
         </div>
     </div>
@@ -44,7 +44,7 @@
             }
             .pre-print{
                 padding: 20px;
-                object{
+                iframe{
                 width: 100%;
                 height: 80vh;
             }
@@ -54,7 +54,12 @@
 </style>
 <script>
 export default {
-props: ['src'],
+props: {
+    src:{
+        type:String,
+        value:''
+    }
+},
 data() {
 return {};
 },
@@ -64,7 +69,15 @@ methods: {
     }
 },
 created(){
-    console.log(this.src);
+    this.$nextTick(()=>{
+        $('#pdfpage')[0].contentWindow.print()
+})
+},
+mounted(){
+},
+computed:{
+},
+watch:{
 },
 components: {}
 };
