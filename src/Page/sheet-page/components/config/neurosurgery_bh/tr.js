@@ -1,5 +1,5 @@
 /*
-北海人一-呼吸内科危重记录单
+北海人一-神经外科危重护理记录
 */
 import {
   multiDictInfo
@@ -21,6 +21,12 @@ let 管道护理 = ['无', '导尿管', '胃管', '深静脉导管', '浅静脉�
 let 皮肤情况 = ['完整', '苍白', '黄疸', '潮红', '紫绀', '干燥', '出血点', '压疮' , '破损', '水肿' , '皮疹', '疤痕' , '淤青', '失禁性皮炎'];
 let 颜色 = ['黄白色', '血丝色', '血色', '淡青色', '棕色', '奶油色', '灰色', '绿色' , '粉红色', '淡粉色' , '黄褐色' , '白色', '黄色'];
 let 性状 = ['粘稠', '稀薄'];
+let 睁眼 = ['4', '3', '2', '1'];
+let 语言 = ['5', '4', '3', '2', '1'];
+let 运动 = ['6', '5', '4', '3', '2', '1'];
+let 肌力 = ['0', '1', '2', '3', '4', '5'];
+let 瞳孔 = ['+', '±', '-'];
+
 export default [{
     key: "recordMonth", //日期
     value: "",
@@ -34,10 +40,261 @@ export default [{
     click: click_time
   },
   {
-    key: "food", //入量名称
+    key: "temperature", //体温
     value: "",
     event: keyf1,
+    name: "体温",
+    next: "℃",
+    change: (e, td) => limitChange(e, td, 3),
+    textarea: {
+      width: 27
+    },
+  },
+  {
+    key: "pulse", //脉搏
+    value: "",
+    event: keyf1,
+    name: "脉搏",
+    next: "次/分",
+    change: (e, td) => limitChange(e, td, 3),
+    textarea: {
+      width: 25
+    },
+  }, 
+  {
+    key: "breath", //呼吸
+    value: "",
+    event: keyf1,
+    name: "呼吸",
+    next: "次/分",
+    change: (e, td) => limitChange(e, td, 3),
+    textarea: {
+      width: 25
+    },
+  },
+  {
+    key: "nibp", //NIBP
+    value: "",
+    name: "NIBP",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 4),
+    textarea: {
+      width: 35
+    },
+  }, 
+  {
+    key: "ibp", //IBP
+    value: "",
+    name: "IBP",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 4),
+    textarea: {
+      width: 35
+    },
+  }, 
+  {
+    key: "saturation", //血氧饱和度
+    value: "",
+    name: "血氧饱和度",
+    next: "%",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 4),
+    textarea: {
+      width: 30
+    },
+  }, 
+  {
+    key: "oxygenInhalation", //吸氧
+    value: "",
+    name: "吸氧",
+    next: "L/min",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 4),
+    textarea: {
+      width: 30
+    },
+  }, 
+  {
+    key: "consciousness", //意识
+    value: "",
+    name: "意识",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 4),
+    textarea: {
+      width: 35
+    },
+    autoComplete: {
+      data: 意识
+    },
+  }, 
+  {
+    key: "eyesOpen", //睁眼
+    value: "",
+    name: "睁眼",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 2),
+    textarea: {
+      width: 20
+    },
+    autoComplete: {
+      data: 睁眼
+    },
+  }, 
+  {
+    key: "language", //语言
+    value: "",
+    name: "语言",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 2),
+    textarea: {
+      width: 20
+    },
+    autoComplete: {
+      data: 语言
+    },
+  }, 
+  {
+    key: "sports", //运动
+    value: "",
+    name: "运动",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 2),
+    textarea: {
+      width: 20
+    },
+    autoComplete: {
+      data: 运动
+    },
+  }, 
+  {
+    key: "diameterLeft", //瞳孔直径左
+    value: "",
+    name: "瞳孔直径左",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 2),
+    textarea: {
+      width: 20
+    },
+    autoComplete: {
+      data: 瞳孔
+    },
+  }, 
+  {
+    key: "diameterRight", //瞳孔直径右
+    value: "",
+    name: "瞳孔直径右",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 2),
+    textarea: {
+      width: 20
+    },
+    autoComplete: {
+      data: 瞳孔
+    },
+  }, 
+  {
+    key: "reactionLeft", //瞳孔光反应左
+    value: "",
+    name: "瞳孔光反应左",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 2),
+    textarea: {
+      width: 20
+    },
+    autoComplete: {
+      data: 瞳孔
+    },
+  }, 
+  {
+    key: "reactionRight", //瞳孔光反应右
+    value: "",
+    name: "瞳孔光反应右",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 2),
+    textarea: {
+      width: 20
+    },
+    autoComplete: {
+      data: 瞳孔
+    },
+  }, 
+  {
+    key: "strengthLeftOn", //肌力左上肢
+    value: "",
+    name: "肌力左上肢",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 2),
+    textarea: {
+      width: 20
+    },
+    autoComplete: {
+      data: 肌力
+    },
+  }, 
+  {
+    key: "strengthLeftDown", //肌力左下肢
+    value: "",
+    name: "肌力左下肢",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 2),
+    textarea: {
+      width: 20
+    },
+    autoComplete: {
+      data: 肌力
+    },
+  }, 
+  {
+    key: "strengthRightOn", //肌力右上肢
+    value: "",
+    event: keyf1,
+    name: "肌力右上肢",
+    change: (e, td) => limitChange(e, td, 2),
+    textarea: {
+      width: 20
+    },
+    autoComplete: {
+      data: 肌力
+    },
+  }, 
+  {
+    key: "strengthRightDown", //肌力右下肢
+    value: "",
+    name: "肌力右下肢",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 2),
+    textarea: {
+      width: 20
+    },
+    autoComplete: {
+      data: 肌力
+    },
+  },
+  {
+    key: "strengthRightOn", //特殊监测icp
+    value: "",
+    name: "ICP",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 4),
+    textarea: {
+      width: 30
+    },
+  }, 
+  {
+    key: "strengthRightDown", //特殊监测cvp
+    value: "",
+    name: "CVP",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 4),
+    textarea: {
+      width: 35
+    },
+  }, 
+  {
+    key: "food", //入量名称
+    value: "",
     name: "入量名称",
+    event: keyf1,
     change: (e, td) => limitChange(e, td, 10),
     textarea: {
       width: 65
@@ -81,8 +338,8 @@ export default [{
   {
     key: "outputColor", //出量颜色
     value: "",
-    event: keyf1,
     name: "出量颜色",
+    event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
       width: 30
@@ -104,100 +361,6 @@ export default [{
       data: 性状
     },
   }, 
-  {
-    key: "consciousness", //意识
-    value: "",
-    name: "意识",
-    event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
-    textarea: {
-      width: 30
-    },
-    autoComplete: {
-      data: 意识
-    },
-  }, 
-  {
-    key: "spo2", //spo2
-    value: "",
-    name: "SPO2",
-    event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
-    textarea: {
-      width: 30
-    },
-  }, 
-  {
-    key: "oxygenInhalation", //吸氧
-    value: "",
-    name: "吸氧",
-    event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
-    textarea: {
-      width: 30
-    },
-  }, 
-  {
-    key: "temperature", //体温
-    value: "",
-    event: keyf1,
-    name: "体温",
-    next: "℃",
-    change: (e, td) => limitChange(e, td, 3),
-    textarea: {
-      width: 27
-    },
-  },
-  {
-    key: "pulse", //脉搏
-    value: "",
-    event: keyf1,
-    name: "脉搏",
-    next: "次/分",
-    change: (e, td) => limitChange(e, td, 3),
-    textarea: {
-      width: 25
-    },
-  }, 
-  {
-    key: "breath", //呼吸
-    value: "",
-    event: keyf1,
-    name: "呼吸",
-    next: "次/分",
-    change: (e, td) => limitChange(e, td, 3),
-    textarea: {
-      width: 25
-    },
-  },
-  {
-    key: "bloodPressure", //血压
-    value: "",
-    event: function (e, td) {
-      if (e.keyCode == 32) {
-        e.target.value += "/";
-        e.preventDefault();
-      }
-      keyf1(e, td);
-    },
-    name: "血压",
-    next: "mmHg",
-    change: (e, td) => limitChange(e, td, 6),
-    textarea: {
-      width: 43
-    },
-  },
-  {
-    key: "heartRate", //心率
-    value: "",
-    event: keyf1,
-    name: "心率",
-    next: "次/分",
-    change: (e, td) => limitChange(e, td, 3),
-    textarea: {
-      width: 25
-    },
-  },
   {
     key: "pipeCare", //管道护理
     value: "",
@@ -226,24 +389,6 @@ export default [{
       data: 皮肤情况
     },
   }, 
-  {
-    key: "customItem1", //自定义1
-    value: "",
-    event: keyf1,
-    change: (e, td) => limitChange(e, td, 6),
-    textarea: {
-      width: 45
-    },
-  }, 
-  {
-    key: "customItem2", //自定义2
-    value: "",
-    event: keyf1,
-    change: (e, td) => limitChange(e, td, 6),
-    textarea: {
-      width: 45
-    },
-  },  
   {
     key: "description", //特殊情况记录
     value: "",

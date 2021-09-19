@@ -1312,6 +1312,20 @@ export default {
             } else {
               text += allDoc[i];
             }
+          }else if (this.sheetInfo.sheetType === "generalcare_bh") {
+            if (GetLength(text) > 130) {
+              result.push(text);
+              text = allDoc[i];
+            } else {
+              text += allDoc[i];
+            }
+          }else if (this.sheetInfo.sheetType === "prenatalcheck_bh") {
+            if (GetLength(text) > 58) {
+              result.push(text);
+              text = allDoc[i];
+            } else {
+              text += allDoc[i];
+            }
           }else if (this.sheetInfo.sheetType === "internal_eval_lcey") {
             if (GetLength(text) > 98) {
               result.push(text);
@@ -1319,7 +1333,7 @@ export default {
             } else {
               text += allDoc[i];
             }
-          } else {
+          }else {
             if (GetLength(text) > 23) {
               result.push(text);
               text = allDoc[i];

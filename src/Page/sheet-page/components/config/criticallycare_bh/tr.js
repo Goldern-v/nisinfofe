@@ -86,6 +86,7 @@ export default [{
   {
     key: "consciousness", //意识
     value: "",
+    name: "意识",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
@@ -98,6 +99,7 @@ export default [{
   {
     key: "food", //入量名称
     value: "",
+    name: "入量名称",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 10),
     textarea: {
@@ -107,6 +109,8 @@ export default [{
   {
     key: "foodSize", //入量量
     value: "",
+    name: "入量",
+    next: "ml",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 3),
     textarea: {
@@ -116,6 +120,7 @@ export default [{
   {
     key: "discharge", //出量名称
     value: "",
+    name: "出量名称",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 10),
     textarea: {
@@ -128,6 +133,8 @@ export default [{
   {
     key: "dischargeSize", //出量量
     value: "",
+    name: "出量",
+    next: "ml",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 3),
     textarea: {
@@ -137,6 +144,7 @@ export default [{
   {
     key: "outputColor", //出量颜色
     value: "",
+    name: "出量颜色",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
@@ -149,6 +157,7 @@ export default [{
   {
     key: "outputTraits", //出量性状
     value: "",
+    name: "出量性状",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
@@ -161,6 +170,8 @@ export default [{
   {
     key: "oxygenInhalation", //吸氧
     value: "",
+    name: "吸氧",
+    next: "L/min",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
@@ -170,6 +181,8 @@ export default [{
   {
     key: "saturation", //血氧饱和度
     value: "",
+    name: "血氧饱和度",
+    next: "%",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {

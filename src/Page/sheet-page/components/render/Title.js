@@ -859,6 +859,20 @@ export default function Title(
     );
   }
   break;
+  case "neurosurgery_bh": {
+    // 北海市 - 神经外科危重护理记录
+    Th = JSON.parse(
+      JSON.stringify(require("../config/neurosurgery_bh/th").default)
+    );
+  }
+  break;
+  case "criticalobstetric_bh": {
+    // 北海市 - 产科病重（危）患者护理记录
+    Th = JSON.parse(
+      JSON.stringify(require("../config/criticalobstetric_bh/th").default)
+    );
+  }
+  break;
   case "respiratory_bh": {
     // 北海市 - 呼吸内科危重记录单
     Th = JSON.parse(

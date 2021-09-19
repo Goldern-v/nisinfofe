@@ -70,8 +70,7 @@ export default [{
     key: "spo2 ", //spo2
     value: "",
     event: keyf1,
-    name: "呼吸频率",
-    next: "次/分",
+    name: "SPO2",
     change: (e, td) => limitChange(e, td, 12),
     textarea: {
       width: 75
@@ -214,35 +213,3 @@ export default [{
   },
 ];
 
-let filterKey = '花都' + ':';
-let filterKey2 = '统一护理记录单' + ':';
-
-export function getListData4() {
-  let list = [
-    "入量名称",
-    "出量名称",
-  ];
-  list = list.map(key => {
-    return key.includes('出量名称') ? filterKey + filterKey2 + key : filterKey + key;
-  });
-  multiDictInfo(list).then(res => {
-    let data = res.data.data;
-    setList(入量名称, "入量名称", data);
-    setList(出量名称, "出量名称", data);
-  });
-}
-
-getListData4();
-/**
- *
- * @param {*} list 原数组
- * @param {*} key 对应的key
- * @param {*} data 数据源
- */
-function setList(list, key, data) {
-  key = key.includes('出量名称') ? filterKey + filterKey2 + key : filterKey + key;
-  list.splice(0, list.length);
-  for (let item of data[key]) {
-    list.push(item.name);
-  }
-}

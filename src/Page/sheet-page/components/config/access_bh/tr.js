@@ -31,6 +31,7 @@ export default [{
   {
     key: "food", //入量名称
     value: "",
+    name: "入量名称",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 24),
     textarea: {
@@ -40,6 +41,8 @@ export default [{
   {
     key: "foodSize", //入量量
     value: "",
+    name: "入量",
+    next: "ml",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 24),
     textarea: {
@@ -49,6 +52,7 @@ export default [{
   {
     key: "discharge", //出量名称
     value: "",
+    name: "出量名称",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 24),
     textarea: {
@@ -61,6 +65,8 @@ export default [{
   {
     key: "dischargeSize", //出量量
     value: "",
+    name: "出量",
+    next: "ml",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 24),
     textarea: {

@@ -32,7 +32,6 @@ export default [{
     value: "",
     event: keyf1,
     name: "吸氧记录",
-    next: "次/分",
     change: (e, td) => limitChange(e, td, 20),
     textarea: {
       width: 115
@@ -43,7 +42,6 @@ export default [{
     value: "",
     event: keyf1,
     name: "胎心音",
-    next: "次/分",
     change: (e, td) => limitChange(e, td, 20),
     textarea: {
       width: 115
@@ -52,19 +50,21 @@ export default [{
   {
     key: "fetalTime", //胎动时间
     value: "",
+    name: "胎动时间",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 28),
+    change: (e, td) => limitChange(e, td, 24),
     textarea: {
-      width: 155
+      width: 145
     },
   }, 
   {
     key: "fetalTotal", //胎动合计
     value: "",
+    name: "胎动合计",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 20),
+    change: (e, td) => limitChange(e, td, 16),
     textarea: {
-      width: 115
+      width: 105
     },
   }, 
   {
@@ -76,12 +76,12 @@ export default [{
       top: "1px",
       bottom: "1px",
       left: "1px",
-      width: "350px",
+      width: "365px",
       background: "transparent",
     },
-    change: (e, td) => limitChange(e, td, 12),
+    change: (e, td) => limitChange(e, td, 30),
     textarea: {
-      width: 350
+      width: 365
     },
     event: function (e, td) {
       console.log(e.keyCode);
@@ -177,35 +177,3 @@ export default [{
   },
 ];
 
-let filterKey = '花都' + ':';
-let filterKey2 = '统一护理记录单' + ':';
-
-export function getListData4() {
-  let list = [
-    "入量名称",
-    "出量名称",
-  ];
-  list = list.map(key => {
-    return key.includes('出量名称') ? filterKey + filterKey2 + key : filterKey + key;
-  });
-  multiDictInfo(list).then(res => {
-    let data = res.data.data;
-    setList(入量名称, "入量名称", data);
-    setList(出量名称, "出量名称", data);
-  });
-}
-
-getListData4();
-/**
- *
- * @param {*} list 原数组
- * @param {*} key 对应的key
- * @param {*} data 数据源
- */
-function setList(list, key, data) {
-  key = key.includes('出量名称') ? filterKey + filterKey2 + key : filterKey + key;
-  list.splice(0, list.length);
-  for (let item of data[key]) {
-    list.push(item.name);
-  }
-}

@@ -1,5 +1,5 @@
 /*
-北海人一-呼吸内科危重记录单
+北海人一-产科病重（危）患者护理记录
 */
 import {
   multiDictInfo
@@ -33,110 +33,6 @@ export default [{
     event: event_time,
     click: click_time
   },
-  {
-    key: "food", //入量名称
-    value: "",
-    event: keyf1,
-    name: "入量名称",
-    change: (e, td) => limitChange(e, td, 10),
-    textarea: {
-      width: 65
-    },
-  }, 
-  {
-    key: "foodSize", //入量量
-    value: "",
-    name: "入量",
-    next: "ml",
-    event: keyf1,
-    change: (e, td) => limitChange(e, td, 3),
-    textarea: {
-      width: 25
-    },
-  }, 
-  {
-    key: "discharge", //出量名称
-    value: "",
-    name: "出量名称",
-    event: keyf1,
-    change: (e, td) => limitChange(e, td, 10),
-    textarea: {
-      width: 65
-    },
-    autoComplete: {
-      data: 出量名称
-    },
-  }, 
-  {
-    key: "dischargeSize", //出量量
-    value: "",
-    name: "出量",
-    next: "ml",
-    event: keyf1,
-    change: (e, td) => limitChange(e, td, 3),
-    textarea: {
-      width: 25
-    },
-  }, 
-  {
-    key: "outputColor", //出量颜色
-    value: "",
-    event: keyf1,
-    name: "出量颜色",
-    change: (e, td) => limitChange(e, td, 4),
-    textarea: {
-      width: 30
-    },
-    autoComplete: {
-      data: 颜色
-    },
-  }, 
-  {
-    key: "outputTraits", //出量性状
-    value: "",
-    name: "出量性状",
-    event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
-    textarea: {
-      width: 30
-    },
-    autoComplete: {
-      data: 性状
-    },
-  }, 
-  {
-    key: "consciousness", //意识
-    value: "",
-    name: "意识",
-    event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
-    textarea: {
-      width: 30
-    },
-    autoComplete: {
-      data: 意识
-    },
-  }, 
-  {
-    key: "spo2", //spo2
-    value: "",
-    name: "SPO2",
-    event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
-    textarea: {
-      width: 30
-    },
-  }, 
-  {
-    key: "oxygenInhalation", //吸氧
-    value: "",
-    name: "吸氧",
-    event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
-    textarea: {
-      width: 30
-    },
-  }, 
   {
     key: "temperature", //体温
     value: "",
@@ -188,16 +84,141 @@ export default [{
     },
   },
   {
-    key: "heartRate", //心率
+    key: "consciousness", //意识
     value: "",
+    name: "意识",
     event: keyf1,
-    name: "心率",
-    next: "次/分",
+    change: (e, td) => limitChange(e, td, 4),
+    textarea: {
+      width: 35
+    },
+    autoComplete: {
+      data: 意识
+    },
+  }, 
+  {
+    key: "food", //入量名称
+    value: "",
+    name: "入量名称",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 10),
+    textarea: {
+      width: 65
+    },
+  }, 
+  {
+    key: "foodSize", //入量量
+    value: "",
+    name: "入量",
+    next: "ml",
+    event: keyf1,
     change: (e, td) => limitChange(e, td, 3),
     textarea: {
       width: 25
     },
-  },
+  }, 
+  {
+    key: "discharge", //出量名称
+    value: "",
+    name: "出量名称",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 10),
+    textarea: {
+      width: 65
+    },
+    autoComplete: {
+      data: 出量名称
+    },
+  }, 
+  {
+    key: "dischargeSize", //出量量
+    value: "",
+    name: "出量",
+    next: "ml",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 3),
+    textarea: {
+      width: 25
+    },
+  }, 
+  {
+    key: "outputColor", //出量颜色
+    value: "",
+    name: "出量颜色",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 4),
+    textarea: {
+      width: 30
+    },
+    autoComplete: {
+      data: 颜色
+    },
+  }, 
+  {
+    key: "outputTraits", //出量性状
+    value: "",
+    name: "出量性状",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 4),
+    textarea: {
+      width: 30
+    },
+    autoComplete: {
+      data: 性状
+    },
+  }, 
+  {
+    key: "oxygenInhalation", //吸氧
+    value: "",
+    name: "吸氧",
+    next: "L/min",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 4),
+    textarea: {
+      width: 30
+    },
+  }, 
+  {
+    key: "saturation", //血氧饱和度
+    value: "",
+    name: "血氧饱和度",
+    next: "%",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 4),
+    textarea: {
+      width: 30
+    },
+  }, 
+  {
+    key: "fundus", //宫底高度
+    value: "",
+    name: "宫底高度",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 4),
+    textarea: {
+      width: 30
+    },
+  }, 
+  {
+    key: "vaginalBleeding", //阴道出血
+    value: "",
+    name: "阴道出血",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 4),
+    textarea: {
+      width: 30
+    },
+  }, 
+  {
+    key: "surgicalIncision", //手术切口
+    value: "",
+    name: "手术切口",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 4),
+    textarea: {
+      width: 30
+    },
+  }, 
   {
     key: "pipeCare", //管道护理
     value: "",

@@ -48,8 +48,8 @@ export default {
         特殊情况记录
         `,
         style: {
-          minWidth: "350px",
-          maxWidth: "350px",
+          minWidth: "365px",
+          maxWidth: "365px",
         },
         colspan: "1",
         rowspan: "3"

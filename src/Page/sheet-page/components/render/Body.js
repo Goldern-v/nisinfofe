@@ -683,6 +683,16 @@ function switechSheetType(type) {
       schema = require("../config/criticallycare_bh/tr.js").default;
     }
       break;
+    case "criticalobstetric_bh": {
+      // 北海市 - 产科病重（危）患者护理记录
+      schema = require("../config/criticalobstetric_bh/tr.js").default;
+    }
+      break;  
+    case "neurosurgery_bh": {
+      // 北海市 - 神经外科危重护理记录
+      schema = require("../config/neurosurgery_bh/tr.js").default;
+    }
+      break;  
     case "prenatalcheck_bh": {
       // 北海市 - 产前检查治疗记录表
       schema = require("../config/prenatalcheck_bh/tr.js").default;

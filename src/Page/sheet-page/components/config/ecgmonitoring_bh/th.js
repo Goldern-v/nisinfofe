@@ -90,7 +90,7 @@ export default {
     mid: [
       {
         name: `
-        体温<br/>(<sup>。</sup>C)
+        体温<br/>℃
         `,
         style: {},
         colspan: "1",

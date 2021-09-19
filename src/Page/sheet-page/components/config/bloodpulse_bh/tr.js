@@ -72,8 +72,7 @@ export default [{
     key: "spo2 ", //spo2
     value: "",
     event: keyf1,
-    name: "spo2",
-    next: "次/分",
+    name: "SPO2",
     change: (e, td) => limitChange(e, td, 12),
     textarea: {
       width: 75
@@ -84,7 +83,6 @@ export default [{
     value: "",
     event: keyf1,
     name: "阴道出血量",
-    next: "次/分",
     change: (e, td) => limitChange(e, td, 16),
     textarea: {
       width: 95
