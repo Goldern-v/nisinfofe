@@ -1,9 +1,11 @@
+/*
+北海人一-呼吸内科危重记录单
+*/
 import {
   multiDictInfo
 } from "../../../api/index";
 import {
   keyf1,
-  calValueChange,
   limitChange
 } from "../keyEvent/f1.js";
 import {
@@ -13,11 +15,12 @@ import {
   click_time
 } from "../keyEvent/date";
 let 入量名称 = [];
-let 出量名称 = [];
-let 意识 = ['清醒', '浅昏迷', '深昏迷', '模糊', '嗜睡', '昏睡', '谵妄'];
-let 出量颜色 = ['黄色', '鲜红色', '暗红色', '墨绿色', '浓茶色'];
-
-
+let 出量名称 = ['尿量', '大便', '胃液', '胆汁', '胰液', '肠液', '呕吐液','胃造痿', '咯血量', '左引流液', '腹腔引流', '左胸液', '右胸液', '上胸液','下胸液', '盆腔引流', '痰液', '头部引流液'];
+let 意识 = ['清', '模糊', '嗜睡', '昏睡', '浅昏迷', '昏迷', '深昏迷', '谵妄' , '麻醉未醒', '镇静状态'];
+let 管道护理 = ['无', '导尿管', '胃管', '深静脉导管', '浅静脉留置针', '胸腔引流管', '气管插管', '气管套管'];
+let 皮肤情况 = ['完整', '苍白', '黄疸', '潮红', '紫绀', '干燥', '出血点', '压疮' , '破损', '水肿' , '皮疹', '疤痕' , '淤青', '失禁性皮炎'];
+let 颜色 = ['黄白色', '血丝色', '血色', '淡青色', '棕色', '奶油色', '灰色', '绿色' , '粉红色', '淡粉色' , '黄褐色' , '白色', '黄色'];
+let 性状 = ['粘稠', '稀薄'];
 export default [{
     key: "recordMonth", //日期
     value: "",
@@ -28,15 +31,108 @@ export default [{
     key: "recordHour", //时间
     value: "",
     event: event_time,
-    // click: click_time
+    click: click_time
   },
+  {
+    key: "food", //入量名称
+    value: "",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 10),
+    textarea: {
+      width: 65
+    },
+  }, 
+  {
+    key: "foodSize", //入量量
+    value: "",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 3),
+    textarea: {
+      width: 25
+    },
+  }, 
+  {
+    key: "discharge", //出量名称
+    value: "",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 10),
+    textarea: {
+      width: 65
+    },
+    autoComplete: {
+      data: 出量名称
+    },
+  }, 
+  {
+    key: "dischargeSize", //出量量
+    value: "",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 3),
+    textarea: {
+      width: 25
+    },
+  }, 
+  {
+    key: "outputColor", //出量颜色
+    value: "",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 4),
+    textarea: {
+      width: 30
+    },
+    autoComplete: {
+      data: 颜色
+    },
+  }, 
+  {
+    key: "outputTraits", //出量性状
+    value: "",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 4),
+    textarea: {
+      width: 30
+    },
+    autoComplete: {
+      data: 性状
+    },
+  }, 
+  {
+    key: "consciousness", //意识
+    value: "",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 4),
+    textarea: {
+      width: 30
+    },
+    autoComplete: {
+      data: 意识
+    },
+  }, 
+  {
+    key: "spo2", //spo2
+    value: "",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 4),
+    textarea: {
+      width: 30
+    },
+  }, 
+  {
+    key: "oxygenInhalation", //吸氧
+    value: "",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 4),
+    textarea: {
+      width: 30
+    },
+  }, 
   {
     key: "temperature", //体温
     value: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 3),
     name: "体温",
     next: "℃",
+    change: (e, td) => limitChange(e, td, 3),
     textarea: {
       width: 27
     },
@@ -45,31 +141,20 @@ export default [{
     key: "pulse", //脉搏
     value: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 3),
     name: "脉搏",
     next: "次/分",
-    textarea: {
-      width: 25
-    },
-  },
-  {
-    key: "heartRate", //心率
-    value: "",
-    event: keyf1,
     change: (e, td) => limitChange(e, td, 3),
-    name: "心率",
-    next: "次/分",
     textarea: {
       width: 25
     },
-  },
+  }, 
   {
     key: "breath", //呼吸
     value: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 3),
     name: "呼吸",
     next: "次/分",
+    change: (e, td) => limitChange(e, td, 3),
     textarea: {
       width: 25
     },
@@ -77,7 +162,6 @@ export default [{
   {
     key: "bloodPressure", //血压
     value: "",
-    change: (e, td) => limitChange(e, td, 4),
     event: function (e, td) {
       if (e.keyCode == 32) {
         e.target.value += "/";
@@ -87,159 +171,68 @@ export default [{
     },
     name: "血压",
     next: "mmHg",
+    change: (e, td) => limitChange(e, td, 6),
     textarea: {
       width: 43
     },
   },
   {
-    key: "consciousness", //意识
+    key: "heartRate", //心率
     value: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 6),
-    name: "意识",
-    autoComplete: {
-      data: 意识
-    },
-    textarea: {
-      width: 40
-    },
-  },
-  {
-    key: "spo2", //SPO₂(%)
-    value: "",
-    event: keyf1,
-    name: "血氧饱和度",
-    next: "%",
+    name: "心率",
+    next: "次/分",
     change: (e, td) => limitChange(e, td, 3),
     textarea: {
       width: 25
     },
   },
   {
-    key: "food", //食物, 入量
+    key: "pipeCare", //管道护理
     value: "",
     event: keyf1,
-    name: "入量名称",
-    change: (e, td) => limitChange(e, td, 10),
+    name: "管道护理",
+    change: (e, td) => limitChange(e, td, 14),
     textarea: {
-      width: 65,
+      width: 90
     },
+    splice: true,
     autoComplete: {
-      data: 入量名称
-    }
-  },
-  {
-    key: "foodSize", //食物数量  入量（单位ml）
-    value: "",
-    event: keyf1,
-    change: (e, td) => limitChange(e, td, 3),
-    name: "入量大小",
-    next: "ml",
-    textarea: {
-      width: 25
-    },
-  },
-  {
-    key: "discharge", //排出物
-    value: "",
-    event: keyf1,
-    name: "出量名称",
-    change: (e, td) => limitChange(e, td, 10),
-    textarea: {
-      width: 65,
-    },
-    autoComplete: {
-      data: 出量名称
-    }
-  },
-  {
-    key: "dischargeSize", //排出物数量（单位ml）
-    value: "",
-    event: keyf1,
-    change: (e, td) => limitChange(e, td, 3),
-    name: "出量大小",
-    next: "ml",
-    textarea: {
-      width: 25
-    },
-  },
-  {
-    key: "dischargeColor", //排出物颜色
-    value: "",
-    event: keyf1,
-    change: (e, td) => limitChange(e, td, 3),
-    name: "出量颜色",
-    textarea: {
-      width: 25
-    },
-    autoComplete: {
-      data: 出量颜色
-    }
-  },
-  {
-    key: "healthEducation", //健康宣教
-    value: "",
-    event: keyf1,
-    name: "健康宣教",
-    change: (e, td) => limitChange(e, td, 16),
-    textarea: {
-      width: 110
-    },
-  },
-  {
-    key: "fieldOne", //标题1
-    value: "",
-    event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
-    textarea: {
-      width: 30
-    },
-  },
-  {
-    key: "fieldTwo", //标题2
-    value: "",
-    event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
-    textarea: {
-      width: 30
-    },
-  },
-  {
-    key: "fieldThree", //标题3
-    value: "",
-    event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
-    textarea: {
-      width: 30
-    },
-  },
-  {
-    key: "fieldFour", //标题4
-    value: "",
-    event: keyf1,
-    change: (e, td) => limitChange(e, td, 6),
-    textarea: {
-      width: 40
-    },
-  },
-  {
-    key: "fieldFive", //标题5
-    value: "",
-    event: keyf1,
-    change: (e, td) => limitChange(e, td, 6),
-    textarea: {
-      width: 40
-    },
-  },
-  {
-    key: "fieldSix", //标题6
-    value: "",
-    event: keyf1,
-    change: (e, td) => limitChange(e, td, 6),
-    textarea: {
-      width: 40
+      data: 管道护理
     },
   }, 
+  {
+    key: "skinCondition", //皮肤情况
+    value: "",
+    event: keyf1,
+    name: "皮肤情况",
+    change: (e, td) => limitChange(e, td, 14),
+    textarea: {
+      width: 90
+    },
+    splice: true,
+    autoComplete: {
+      data: 皮肤情况
+    },
+  }, 
+  {
+    key: "customItem1", //自定义1
+    value: "",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 6),
+    textarea: {
+      width: 45
+    },
+  }, 
+  {
+    key: "customItem2", //自定义2
+    value: "",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 6),
+    textarea: {
+      width: 45
+    },
+  },  
   {
     key: "description", //特殊情况记录
     value: "",
@@ -270,8 +263,8 @@ export default [{
     value: ""
   },
   {
-    key: "sign2",
-    value: "",
+    key: "audit",
+    value: ""
   },
   {
     hidden: true,
@@ -329,7 +322,7 @@ export default [{
     value: ""
   },
   {
-    hidden: true,
+    hidden: false,
     key: "auditorNo",
     value: ""
   },
@@ -349,29 +342,3 @@ export default [{
     value: true,
   },
 ];
-
-export function getListData4() {
-  let list = [
-    "花都:通用护理记录单:入量名称",
-    "花都:通用护理记录单:出量名称",
-  ];
-  multiDictInfo(list).then(res => {
-    let data = res.data.data;
-    setList(入量名称, "花都:通用护理记录单:入量名称", data);
-    setList(出量名称, "花都:通用护理记录单:出量名称", data);
-  });
-}
-
-getListData4();
-/**
- *
- * @param {*} list 原数组
- * @param {*} key 对应的key
- * @param {*} data 数据源
- */
-function setList(list, key, data) {
-  list.splice(0, list.length);
-  for (let item of data[key]) {
-    list.push(item.name);
-  }
-}

@@ -1,3 +1,6 @@
+/*
+北海人一-呼吸内科危重记录单
+*/
 import moment from "moment";
 
 function currYear() {
@@ -7,15 +10,62 @@ export default {
   // 科室的名称
   deptType: "",
   style: {
-    width: "1120px"
+    width: "1130px"
   },
   th: {
     top: [{
-        name: currYear(),
+        name: `
+      日期
+      `,
+        colspan: "1",
+        rowspan: "3",
+      },
+      {
+        name: `
+      时间
+      `,
+        colspan: "1",
+        rowspan: "3",
+      },
+      {
+        name: `
+        入量
+        `,
+        style: {},
         colspan: "2",
         rowspan: "1",
-        canSet: true,
-        key: "recordYear",
+      },
+      {
+        name: `
+        出量
+        `,
+        style: {},
+        colspan: "4",
+        rowspan: "1",
+      },
+      {
+        name: `
+        意识
+        `,
+        style: {},
+        colspan: "1",
+        rowspan: "3",
+      },
+      {
+        name: `
+        SPO<sub>2</sub>(%)
+        `,
+        style: {},
+        colspan: "1",
+        rowspan: "3",
+      },
+      {
+        name: `
+        吸氧<br/>(L/min)
+        `,
+        style: {},
+        colspan: "1",
+        rowspan: "3",
       },
       {
         name: `
@@ -27,14 +77,7 @@ export default {
       },
       {
         name: `
-        呼<br/>吸<br/>次/<br/>分
-        `,
-        colspan: "1",
-        rowspan: "3"
-      },
-      {
-        name: `
-        体重<br/>kg
+        脉搏<br/>(次/分)
         `,
         style: {},
         colspan: "1",
@@ -42,7 +85,14 @@ export default {
       },
       {
         name: `
-        指尖<br/>血糖<br/>mmol/L
+        呼吸<br/>(次/分)
+        `,
+        colspan: "1",
+        rowspan: "3",
+      },
+      {
+        name: `
+        血压<br/>(mmHg)
         `,
         style: {},
         colspan: "1",
@@ -50,175 +100,126 @@ export default {
       },
       {
         name: `
-        哭<br/>声
-        `,
-        colspan: "1",
-        rowspan: "3"
-      },
-      {
-        name: `
-        皮<br/>肤<br/>颜<br/>色
-        `,
-        colspan: "1",
-        rowspan: "3"
-      },
-      {
-        name: `
-        呕吐
-        `,
-        colspan: "1",
-        rowspan: "3"
-      },
-      {
-        name: `
-        吸吮力
+        心率
         `,
         colspan: "1",
         rowspan: "3",
-        canSet: false,
       },
       {
         name: `
-        喂养
+        管道<br/>护理
         `,
-        colspan: "4",
-        rowspan: "1",
-        canSet: false,
-      },
-      {
-        name: `
-        脐部情况
-        `,
-        colspan: "3",
-        rowspan: "1",
-        canSet: false,
-      },
-      {
-        name: `大便`,
         colspan: "1",
         rowspan: "3",
       },
       {
-        name: `小便`,
-        style: {},
+        name: `
+        皮肤<br/>情况
+        `,
         colspan: "1",
         rowspan: "3",
       },
       {
-        name: ``,
-        style: {},
+        name: `自定义项`,
+        style: {
+          minWidth: "45px",
+          maxWidth: "45px",
+        },
         colspan: "1",
         rowspan: "3",
         canSet: true,
-        key: "fieldFifteen", //标题1
-        style: {
-          minWidth: "40px",
-          maxWidth: "40px"
-        }
+        key: "customItem1"
       },
       {
-        name: ``,
-        style: {},
+        name: `自定义项`,
+        style: {
+          minWidth: "45px",
+          maxWidth: "45px",
+        },
         colspan: "1",
         rowspan: "3",
         canSet: true,
-        key: "fieldSixteen",
-        style: {
-          minWidth: "40px",
-          maxWidth: "40px"
-        }
+        key: "customItem2"
       },
       {
         name: `
-        特殊情况记录
+        护理措施及效果
         `,
         style: {
           minWidth: "153px",
-          maxWidth: "153px"
+          maxWidth: "153px",
         },
         colspan: "1",
         rowspan: "3"
       },
       {
         name: `
-        护士<br>签名
+        护士签名
         `,
-        style: {
-          minWidth: "80px",
-          maxWidth: "80px"
-        },
+        style: {},
         colspan: "1",
-        rowspan: "3"
+        rowspan: "3",
       },
       {
         name: `
-        质控护士签名
+        审核签名
         `,
-        colspan: "1",
-        rowspan: "3"
+        colspan: '1',
+        rowspan: '3'
       }
     ],
     mid: [
       {
-        name: '日期',
-        colspan: '1',
-        rowspan: '2'
-      },
-      {
-        name: '时间',
-        colspan: '1',
-        rowspan: '2'
-      },
-      {
         name: `
-        自<br/>吮
+        名称
         `,
-        colspan: "1",
-        rowspan: "2"
-      },
-      {
-        name: `
-        母乳
-        `,
+        style: {},
         colspan: "1",
         rowspan: "2",
       },
       {
         name: `
-        人<br/>工
+        量<br/>ml
         `,
+        style: {},
         colspan: "1",
         rowspan: "2",
       },
       {
         name: `
-        奶<br/>量<br/>ml
+        名称
         `,
+        style: {},
         colspan: "1",
         rowspan: "2",
       },
       {
         name: `
-        干洁
+        量<br/>ml
         `,
+        style: {},
         colspan: "1",
         rowspan: "2",
       },
       {
         name: `
-        渗血
+        颜色
         `,
+        style: {},
         colspan: "1",
         rowspan: "2",
       },
       {
         name: `
-        渗液
+        性状
         `,
+        style: {},
         colspan: "1",
         rowspan: "2",
       },
     ],
-    bottom: []
+    bottom: [
+
+    ]
   }
 };

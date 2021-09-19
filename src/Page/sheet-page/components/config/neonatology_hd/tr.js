@@ -47,9 +47,9 @@ export default [{
     name: "箱温/床温",
     next: "℃",
     textarea: {
-      width: 35
+      width: 27
     },
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 3),
   },
   {
     key: "temperature", //体温
@@ -58,9 +58,9 @@ export default [{
     name: "体温",
     next: "℃",
     textarea: {
-      width: 35
+      width: 27
     },
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 3),
   },
   {
     key: "pulse", //脉搏/心率
@@ -69,7 +69,7 @@ export default [{
     name: "脉搏/心率",
     next: "次/分",
     textarea: {
-      width: 35
+      width: 43
     },
     change: (e, td) => limitChange(e, td, 4),
   },
@@ -80,9 +80,9 @@ export default [{
     name: "呼吸",
     next: "次/分",
     textarea: {
-      width: 35
+      width: 25
     },
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 3),
   },
   {
     key: "bloodPressure", //血压
@@ -95,9 +95,9 @@ export default [{
       keyf1(e, td);
     },
     textarea: {
-      width: 45
+      width: 43
     },
-    change: (e, td) => limitChange(e, td, 6),
+    change: (e, td) => limitChange(e, td, 4),
     name: "血压",
     next: "mmHg"
   },
@@ -108,9 +108,9 @@ export default [{
     name: "血氧饱和度",
     next: "%",
     textarea: {
-      width: 35
+      width: 25
     },
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 3),
   },
   {
     key: "fieldTwo", //体位
@@ -121,9 +121,9 @@ export default [{
       data: twList
     },
     textarea: {
-      width: 35
+      width: 25
     },
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 3),
   },
   {
     key: "fieldThree", //吸吮力
@@ -134,9 +134,9 @@ export default [{
       data: xslList
     },
     textarea: {
-      width: 35
+      width: 25
     },
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 3),
   },
   {
     key: "fieldFour", //脐部
@@ -147,9 +147,9 @@ export default [{
       data: qbList
     },
     textarea: {
-      width: 35
+      width: 25
     },
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 3),
   },
   {
     key: "fieldFive", //经皮胆红素
@@ -158,9 +158,9 @@ export default [{
     name: "经皮胆红素",
     next: "Umol/L",
     textarea: {
-      width: 35
+      width: 25
     },
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 3),
   },
   {
     key: "fieldNine", //胃管深度
@@ -169,9 +169,9 @@ export default [{
     name: "胃管深度",
     next: "cm",
     textarea: {
-      width: 35
+      width: 25
     },
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 3),
   },
   {
     key: "food", //食物, 入量
@@ -192,9 +192,9 @@ export default [{
     event: keyf1,
     name: "入量大小",
     next: "ml",
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 3),
     textarea: {
-      width: 35
+      width: 25
     },
   },
   {
@@ -216,9 +216,9 @@ export default [{
     event: keyf1,
     name: "出量大小",
     next: "ml",
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 3),
     textarea: {
-      width: 35
+      width: 25
     },
   },
   {
@@ -226,9 +226,9 @@ export default [{
     value: "",
     event: keyf1,
     name: "出量颜色",
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 3),
     textarea: {
-      width: 35
+      width: 25
     },
     autoComplete: {
       data: ysList
@@ -253,9 +253,9 @@ export default [{
     event: keyf1,
     name: "氧疗流量",
     next: "L/分",
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 3),
     textarea: {
-      width: 35
+      width: 25
     },
   },
   {
@@ -264,9 +264,9 @@ export default [{
     event: keyf1,
     name: "氧疗浓度",
     next: "%",
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 3),
     textarea: {
-      width: 35
+      width: 25
     },
   },
   {
@@ -274,9 +274,9 @@ export default [{
     value: "",
     name: "吸痰口腔性状",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 3),
     textarea: {
-      width: 35
+      width: 25
     },
     autoComplete: {
       data: xtxzList
@@ -287,9 +287,9 @@ export default [{
     value: "",
     name: "吸痰口腔痰量",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 3),
     textarea: {
-      width: 35
+      width: 25
     },
     autoComplete: {
       data: xtlList
@@ -300,9 +300,9 @@ export default [{
     value: "",
     name: "吸痰气管插管性状",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 3),
     textarea: {
-      width: 35
+      width: 25
     },
     autoComplete: {
       data: xtxzList
@@ -313,9 +313,9 @@ export default [{
     value: "",
     name: "吸痰气管插管痰量",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 3),
     textarea: {
-      width: 35
+      width: 25
     },
     autoComplete: {
       data: xtlList
@@ -325,9 +325,9 @@ export default [{
     key: "fieldNineteen", // 篮光治疗
     value: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 3),
     textarea: {
-      width: 35
+      width: 25
     },
     autoComplete: {
       data: lgzlList
@@ -346,7 +346,7 @@ export default [{
     },
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 35
+      width: 30
     },
     autoComplete: {
       data: fyList
@@ -364,7 +364,7 @@ export default [{
     },
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 35
+      width: 30
     },
     autoComplete: {
       data: ksList
@@ -382,7 +382,7 @@ export default [{
     },
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 35
+      width: 30
     },
   },
   {
@@ -394,7 +394,7 @@ export default [{
       top: "1px",
       bottom: "1px",
       left: "1px",
-      width: "180px",
+      width: "150px",
       background: "transparent"
     },
     change: (e, td) => limitChange(e, td, 12),

@@ -54,13 +54,13 @@ export default [{
     key: "fieldOne", //胎位
     value: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 6),
+    change: (e, td) => limitChange(e, td, 8),
     name: "胎位",
     autoComplete: {
       data: twList
     },
     textarea: {
-      width: 45
+      width: 60
     },
   },
   {

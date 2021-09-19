@@ -653,6 +653,46 @@ function switechSheetType(type) {
       schema = require("../config/intersurgerycure_qzx/tr.js").default;
     }
       break;
+    case "ecgmonitoring_bh": {
+      // 北海市 - 心电监护观察记录
+      schema = require("../config/ecgmonitoring_bh/tr.js").default;
+    }
+      break;
+    case "bloodpulse2_bh": {
+      // 北海市 - 血压脉搏呼吸记录
+      schema = require("../config/bloodpulse2_bh/tr.js").default;
+    }
+      break;
+    case "bloodpulse_bh": {
+      // 北海市 - 血压脉搏呼吸记录（产科）
+      schema = require("../config/bloodpulse_bh/tr.js").default;
+    }
+      break;
+    case "respiratory_bh": {
+      // 北海市 - 呼吸内科危重记录单
+      schema = require("../config/respiratory_bh/tr.js").default;
+    }
+      break;
+    case "generalcare_bh": {
+      // 北海市 - 一般患者护理记录
+      schema = require("../config/generalcare_bh/tr.js").default;
+    }
+      break;
+    case "criticallycare_bh": {
+      // 北海市 - 病重（危）患者护理记录
+      schema = require("../config/criticallycare_bh/tr.js").default;
+    }
+      break;
+    case "prenatalcheck_bh": {
+      // 北海市 - 产前检查治疗记录表
+      schema = require("../config/prenatalcheck_bh/tr.js").default;
+    }
+      break;
+    case "access_bh": {
+      // 北海市 - 出入量记录单
+      schema = require("../config/access_bh/tr.js").default;
+    }
+      break;
     default: {
       schema = require("../config/default/tr.js").default;
     }

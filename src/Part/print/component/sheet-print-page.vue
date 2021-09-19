@@ -329,6 +329,11 @@ export default {
           #sheetPagePrint#sheetPagePrint th[dataname='质控人<br/>签名']{
             display:none !important;
           }
+          @media print {
+            #sheetPagePrint .contant{
+              margin-top:-20px;!important;
+            }
+          }
         `
       );
     }

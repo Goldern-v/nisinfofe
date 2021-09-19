@@ -42,9 +42,9 @@ export default [{
     event: keyf1,
     name: "体温",
     next: "℃",
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 3),
     textarea: {
-      width: 35
+      width: 27
     },
   },
   {
@@ -53,9 +53,9 @@ export default [{
     event: keyf1,
     name: "脉搏",
     next: "次/分",
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 3),
     textarea: {
-      width: 35
+      width: 25
     },
   },
   {
@@ -64,9 +64,9 @@ export default [{
     event: keyf1,
     name: "呼吸",
     next: "次/分",
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 3),
     textarea: {
-      width: 35
+      width: 25
     },
   },
   {
@@ -81,9 +81,9 @@ export default [{
     },
     name: "血压",
     next: "mmHg",
-    change: (e, td) => limitChange(e, td, 6),
+    change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 45
+      width: 43
     },
   },
   {
@@ -94,9 +94,9 @@ export default [{
     autoComplete: {
       data: 意识
     },
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 6),
     textarea: {
-      width: 35
+      width: 40
     },
   },
   {
@@ -105,9 +105,9 @@ export default [{
     event: keyf1,
     name: "血氧饱和度",
     next: "%",
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 3),
     textarea: {
-      width: 35
+      width: 25
     },
   },
   {
@@ -151,9 +151,9 @@ export default [{
     event: keyf1,
     name: "入量大小",
     next: "ml",
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 3),
     textarea: {
-      width: 35
+      width: 25
     },
   },
   {
@@ -175,9 +175,9 @@ export default [{
     event: keyf1,
     name: "出量大小",
     next: "ml",
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 3),
     textarea: {
-      width: 35
+      width: 25
     },
   },
   {
@@ -188,9 +188,9 @@ export default [{
     autoComplete: {
       data: 出量颜色
     },
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 3),
     textarea: {
-      width: 35
+      width: 25
     },
   },
   {
@@ -200,7 +200,7 @@ export default [{
     name: "健康宣教",
     change: (e, td) => limitChange(e, td, 16),
     textarea: {
-      width: 100
+      width: 110
     },
   },
   {
@@ -209,7 +209,7 @@ export default [{
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 35
+      width: 30
     },
     autoComplete: {
       data: zgssList
@@ -221,7 +221,7 @@ export default [{
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 35
+      width: 30
     },
     autoComplete: {
       data: gdgdList
@@ -233,7 +233,7 @@ export default [{
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 35
+      width: 30
     },
     autoComplete: {
       data: rfqkList
@@ -245,7 +245,7 @@ export default [{
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 35
+      width: 30
     },
     autoComplete: {
       data: mrqkList
@@ -257,7 +257,7 @@ export default [{
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 35
+      width: 30
     },
     autoComplete: {
       data: skqkList
@@ -269,7 +269,7 @@ export default [{
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 35
+      width: 30
     },
     autoComplete: {
       data: zdjnList
@@ -281,7 +281,7 @@ export default [{
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 35
+      width: 30
     },
   },
   {

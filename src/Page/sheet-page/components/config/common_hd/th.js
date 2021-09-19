@@ -3,12 +3,13 @@ import moment from "moment";
 function currYear() {
   return moment().format('YYYY')
 }
+
 export default {
   // 科室的名称
-  style: {
-    width: "1250px"
-  },
   deptType: "",
+  style: {
+    width: "1130px"
+  },
   th: {
     top: [{
         name: currYear(),
@@ -54,9 +55,6 @@ export default {
         name: `
         意识
         `,
-        style: {
-          width: "53px",
-        },
         colspan: "1",
         rowspan: "3"
       },
@@ -71,9 +69,6 @@ export default {
         name: `
         入量
         `,
-        style: {
-          minWidth: '96px',
-        },
         colspan: "2",
         rowspan: "1"
       },
@@ -81,9 +76,6 @@ export default {
         name: `
         出量
         `,
-        style: {
-          minWidth: '136px',
-        },
         colspan: "3",
         rowspan: "1"
       },
@@ -141,8 +133,8 @@ export default {
         特殊情况记录
         `,
         style: {
-          minWidth: "153px",
-          maxWidth: "153px"
+          minWidth: "150px",
+          maxWidth: "150px"
         },
         colspan: "1",
         rowspan: "3"
@@ -162,10 +154,6 @@ export default {
         name: `
         质控人<br/>签名
         `,
-        style: {
-          minWidth: "50px",
-          maxWidth: "50px"
-        },
         colspan: "1",
         rowspan: "3",
       }

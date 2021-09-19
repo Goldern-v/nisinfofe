@@ -60,9 +60,9 @@ const currentTargetUrl = (() => {
 
     /** 花都 */
     case "huadu":
-      // return "http://120.238.239.27:9094" //花都正式
+      return "http://120.238.239.27:9094" //花都正式
       // return "https://info.cr-health.com:20206" // 公司-花都测试-外网
-      return "http://192.168.1.54:9868" //公司-花都测试-内网
+      // return "http://192.168.1.54:9868" //公司-花都测试-内网
 
     /** 贵州医科大正式 */
     case "gy":
@@ -114,17 +114,20 @@ const currentTargetUrl = (() => {
 
     /** 曲周医院 */
     case 'quzhou':
-      // return "http://111.11.95.229:9094" //
-      return "http://192.168.1.54:9879" //
+      return "http://111.11.95.229:9094" //
+      // return "http://192.168.1.54:9879" //
 
     case 'xiegang':
       return "http://192.168.1.54:9882" // 测试地址-内网地址
+      
     
     // 北海人医
     case 'beihairenyi':
       // return "http://219.159.198.37:9094"  // 正式地址 admin Bcy@24nr
       // return "http://192.167.199.190:9091" // 测试地址（暂无数据）
-      return "http://192.168.1.54:9866" // 默认公司本地内网厚街测试环境
+      // return "http://192.168.1.54:9866" // 默认公司本地内网厚街测试环境
+    return "https://info.cr-health.com:20211" // 公司-厚街测试-外网
+
 
     /** 默认公司本地内网厚街测试环境 */
     default:
