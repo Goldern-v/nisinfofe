@@ -180,8 +180,8 @@ module.exports = {
         }
       },
       "/crNursing/asset": {
-        // target: "http://120.25.105.45:9864", //测试
-        target: "http://120.24.240.231:15091", //武警正式
+        target: "http://120.25.105.45:9864", //测试
+        // target: "http://120.24.240.231:15091", //武警正式
         //target: "http://120.197.141.41:9091",
         changeOrigin: true,
         pathRewrite: {
