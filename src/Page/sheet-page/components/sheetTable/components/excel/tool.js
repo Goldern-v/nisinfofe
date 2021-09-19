@@ -75,7 +75,7 @@ function leftTopBottomRight(e, bind) {
     let input = e.target;
     let maxX = "";
     //字数限制，input变成textarea
-    if(process.env.HOSPITAL_ID == 'huadu') {
+    if(document.querySelectorAll('[dataKey="description"] textarea')) {
       maxX = document
       .querySelectorAll('[dataKey="description"] textarea')[document
       .querySelectorAll('[dataKey="description"] textarea').length - 1]
