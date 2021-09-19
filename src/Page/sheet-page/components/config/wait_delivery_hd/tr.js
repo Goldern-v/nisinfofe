@@ -56,6 +56,7 @@ export default [{
     event: keyf1,
     change: (e, td) => limitChange(e, td, 8),
     name: "胎位",
+    splice: true,
     autoComplete: {
       data: twList
     },
