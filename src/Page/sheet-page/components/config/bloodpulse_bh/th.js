@@ -1,5 +1,5 @@
 /*
-北海人一-病重（危）患者护理记录
+北海人一-血压脉搏呼吸记录（产科）
 */
 import moment from "moment";
 
@@ -26,7 +26,7 @@ export default {
       },
       {
         name: `
-        体温<br/>℃
+        血压<br/>(mmHg)
         `,
         style: {},
         colspan: "1",
@@ -42,78 +42,21 @@ export default {
       },
       {
         name: `
-        呼吸<br/>(次/分)
+        呼吸
         `,
-        colspan: "1",
-        rowspan: "3",
-      },
-      {
-        name: `
-        血压<br/>(mmHg)
-        `,
-        style: {},
-        colspan: "1",
-        rowspan: "3",
-      },
-      {
-        name: `
-        意识
-        `,
-        style: {},
-        colspan: "1",
-        rowspan: "3",
-      },
-      {
-        name: `
-        入量
-        `,
-        style: {},
         colspan: "2",
         rowspan: "1",
       },
       {
         name: `
-        出量
+        其他
         `,
-        style: {},
-        colspan: "4",
+        colspan: "1",
         rowspan: "1",
       },
       {
-        name: `
-        吸氧<br/>(L/min)
-        `,
-        style: {},
-        colspan: "1",
-        rowspan: "3",
-      },
-      {
-        name: `
-        血氧饱和度<br/>(%)
-        `,
-        colspan: "1",
-        rowspan: "3",
-      },
-      {
-        name: `
-        管道<br/>护理
-        `,
-        colspan: "1",
-        rowspan: "3",
-      },
-      {
-        name: `
-        皮肤<br/>情况
-        `,
-        colspan: "1",
-        rowspan: "3",
-      },
-      {
         name: `自定义项`,
-        style: {
-          minWidth: "45px",
-          maxWidth: "45px",
-        },
+        style: {},
         colspan: "1",
         rowspan: "3",
         canSet: true,
@@ -121,10 +64,7 @@ export default {
       },
       {
         name: `自定义项`,
-        style: {
-          minWidth: "45px",
-          maxWidth: "45px",
-        },
+        style: {},
         colspan: "1",
         rowspan: "3",
         canSet: true,
@@ -132,7 +72,7 @@ export default {
       },
       {
         name: `
-        病情记录
+        特殊情况记录
         `,
         style: {
           minWidth: "153px",
@@ -160,7 +100,7 @@ export default {
     mid: [
       {
         name: `
-        名称
+        呼吸频率<br/>(次/分)
         `,
         style: {},
         colspan: "1",
@@ -168,7 +108,7 @@ export default {
       },
       {
         name: `
-        量<br/>ml
+        SPO<sub>2</sub>(%)
         `,
         style: {},
         colspan: "1",
@@ -176,31 +116,7 @@ export default {
       },
       {
         name: `
-        名称
-        `,
-        style: {},
-        colspan: "1",
-        rowspan: "2",
-      },
-      {
-        name: `
-        量<br/>ml
-        `,
-        style: {},
-        colspan: "1",
-        rowspan: "2",
-      },
-      {
-        name: `
-        颜色
-        `,
-        style: {},
-        colspan: "1",
-        rowspan: "2",
-      },
-      {
-        name: `
-        性状
+        宫高/阴道出血量
         `,
         style: {},
         colspan: "1",

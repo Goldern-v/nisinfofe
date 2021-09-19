@@ -663,6 +663,16 @@ function switechSheetType(type) {
       schema = require("../config/bloodpulse2_bh/tr.js").default;
     }
       break;
+    case "bloodpulse_bh": {
+      // 北海市 - 血压脉搏呼吸记录（产科）
+      schema = require("../config/bloodpulse_bh/tr.js").default;
+    }
+      break;
+    case "respiratory_bh": {
+      // 北海市 - 呼吸内科危重记录单
+      schema = require("../config/respiratory_bh/tr.js").default;
+    }
+      break;
     case "generalcare_bh": {
       // 北海市 - 一般患者护理记录
       schema = require("../config/generalcare_bh/tr.js").default;

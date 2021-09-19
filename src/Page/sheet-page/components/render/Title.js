@@ -838,6 +838,13 @@ export default function Title(
     );
   }
   break;
+  case "bloodpulse_bh": {
+    // 北海市 - 血压脉搏呼吸记录（产科）
+    Th = JSON.parse(
+      JSON.stringify(require("../config/bloodpulse_bh/th").default)
+    );
+  }
+  break;
   case "generalcare_bh": {
     // 北海市 - 一般患者护理记录
     Th = JSON.parse(
@@ -849,6 +856,13 @@ export default function Title(
     // 北海市 - 病重（危）患者护理记录
     Th = JSON.parse(
       JSON.stringify(require("../config/criticallycare_bh/th").default)
+    );
+  }
+  break;
+  case "respiratory_bh": {
+    // 北海市 - 呼吸内科危重记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/respiratory_bh/th").default)
     );
   }
   break;

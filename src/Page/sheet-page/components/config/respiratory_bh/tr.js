@@ -1,5 +1,5 @@
 /*
-北海人一-病重（危）患者护理记录
+北海人一-呼吸内科危重记录单
 */
 import {
   multiDictInfo
@@ -33,68 +33,6 @@ export default [{
     event: event_time,
     click: click_time
   },
-  {
-    key: "temperature", //体温
-    value: "",
-    event: keyf1,
-    name: "体温",
-    next: "℃",
-    change: (e, td) => limitChange(e, td, 3),
-    textarea: {
-      width: 27
-    },
-  },
-  {
-    key: "pulse", //脉搏
-    value: "",
-    event: keyf1,
-    name: "脉搏",
-    next: "次/分",
-    change: (e, td) => limitChange(e, td, 3),
-    textarea: {
-      width: 25
-    },
-  }, 
-  {
-    key: "breath", //呼吸
-    value: "",
-    event: keyf1,
-    name: "呼吸",
-    next: "次/分",
-    change: (e, td) => limitChange(e, td, 3),
-    textarea: {
-      width: 25
-    },
-  },
-  {
-    key: "bloodPressure", //血压
-    value: "",
-    event: function (e, td) {
-      if (e.keyCode == 32) {
-        e.target.value += "/";
-        e.preventDefault();
-      }
-      keyf1(e, td);
-    },
-    name: "血压",
-    next: "mmHg",
-    change: (e, td) => limitChange(e, td, 6),
-    textarea: {
-      width: 43
-    },
-  },
-  {
-    key: "consciousness", //意识
-    value: "",
-    event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
-    textarea: {
-      width: 35
-    },
-    autoComplete: {
-      data: 意识
-    },
-  }, 
   {
     key: "food", //入量名称
     value: "",
@@ -159,6 +97,27 @@ export default [{
     },
   }, 
   {
+    key: "consciousness", //意识
+    value: "",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 4),
+    textarea: {
+      width: 30
+    },
+    autoComplete: {
+      data: 意识
+    },
+  }, 
+  {
+    key: "spo2", //spo2
+    value: "",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 4),
+    textarea: {
+      width: 30
+    },
+  }, 
+  {
     key: "oxygenInhalation", //吸氧
     value: "",
     event: keyf1,
@@ -168,14 +127,66 @@ export default [{
     },
   }, 
   {
-    key: "saturation", //血氧饱和度
+    key: "temperature", //体温
     value: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
+    name: "体温",
+    next: "℃",
+    change: (e, td) => limitChange(e, td, 3),
     textarea: {
-      width: 30
+      width: 27
+    },
+  },
+  {
+    key: "pulse", //脉搏
+    value: "",
+    event: keyf1,
+    name: "脉搏",
+    next: "次/分",
+    change: (e, td) => limitChange(e, td, 3),
+    textarea: {
+      width: 25
     },
   }, 
+  {
+    key: "breath", //呼吸
+    value: "",
+    event: keyf1,
+    name: "呼吸",
+    next: "次/分",
+    change: (e, td) => limitChange(e, td, 3),
+    textarea: {
+      width: 25
+    },
+  },
+  {
+    key: "bloodPressure", //血压
+    value: "",
+    event: function (e, td) {
+      if (e.keyCode == 32) {
+        e.target.value += "/";
+        e.preventDefault();
+      }
+      keyf1(e, td);
+    },
+    name: "血压",
+    next: "mmHg",
+    change: (e, td) => limitChange(e, td, 6),
+    textarea: {
+      width: 43
+    },
+  },
+  {
+    key: "heartRate", //心率
+    value: "",
+    event: keyf1,
+    name: "心率",
+    next: "次/分",
+    change: (e, td) => limitChange(e, td, 3),
+    textarea: {
+      width: 25
+    },
+  },
   {
     key: "pipeCare", //管道护理
     value: "",

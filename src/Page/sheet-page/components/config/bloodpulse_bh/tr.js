@@ -1,5 +1,5 @@
 /*
-北海人一-一般患者护理记录
+北海人一-血压脉搏呼吸记录（产科）
 */
 import {
   multiDictInfo
@@ -14,7 +14,9 @@ import {
   click_date,
   click_time
 } from "../keyEvent/date";
-
+let 入量名称 = [];
+let 出量名称 = [];
+let 意识 = ['清醒', '浅昏迷', '深昏迷', '模糊', '嗜睡', '昏睡', '谵妄'];
 export default [{
     key: "recordMonth", //日期
     value: "",
@@ -28,6 +30,85 @@ export default [{
     click: click_time
   },
   {
+    key: "bloodPressure", //血压
+    value: "",
+    event: function (e, td) {
+      if (e.keyCode == 32) {
+        e.target.value += "/";
+        e.preventDefault();
+      }
+      keyf1(e, td);
+    },
+    name: "血压",
+    next: "mmHg",
+    change: (e, td) => limitChange(e, td, 12),
+    textarea: {
+      width: 75
+    },
+  },
+  {
+    key: "pulse", //脉搏
+    value: "",
+    event: keyf1,
+    name: "脉搏",
+    next: "次/分",
+    change: (e, td) => limitChange(e, td, 12),
+    textarea: {
+      width: 75
+    },
+  }, 
+  {
+    key: "breatheFrequency", //呼吸频率
+    value: "",
+    event: keyf1,
+    name: "呼吸频率",
+    next: "次/分",
+    change: (e, td) => limitChange(e, td, 12),
+    textarea: {
+      width: 75
+    },
+  }, 
+  {
+    key: "spo2 ", //spo2
+    value: "",
+    event: keyf1,
+    name: "spo2",
+    next: "次/分",
+    change: (e, td) => limitChange(e, td, 12),
+    textarea: {
+      width: 75
+    },
+  }, 
+  {
+    key: "vaginalBleeding ", //阴道出血量
+    value: "",
+    event: keyf1,
+    name: "阴道出血量",
+    next: "次/分",
+    change: (e, td) => limitChange(e, td, 16),
+    textarea: {
+      width: 95
+    },
+  }, 
+  {
+    key: "customItem1", //自定义1
+    value: "",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 16),
+    textarea: {
+      width: 95
+    },
+  }, 
+  {
+    key: "customItem2", //自动义2
+    value: "",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 16),
+    textarea: {
+      width: 95
+    },
+  },  
+  {
     key: "description", //特殊情况记录
     value: "",
     style: {
@@ -36,12 +117,12 @@ export default [{
       top: "1px",
       bottom: "1px",
       left: "1px",
-      width: "800px",
+      width: "150px",
       background: "transparent",
     },
     change: (e, td) => limitChange(e, td, 12),
     textarea: {
-      width: 800
+      width: 150
     },
     event: function (e, td) {
       console.log(e.keyCode);

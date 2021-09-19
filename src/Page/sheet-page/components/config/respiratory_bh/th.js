@@ -1,5 +1,5 @@
 /*
-北海人一-病重（危）患者护理记录
+北海人一-呼吸内科危重记录单
 */
 import moment from "moment";
 
@@ -9,6 +9,9 @@ function currYear() {
 export default {
   // 科室的名称
   deptType: "",
+  style: {
+    width: "1130px"
+  },
   th: {
     top: [{
         name: `
@@ -21,6 +24,46 @@ export default {
         name: `
       时间
       `,
+        colspan: "1",
+        rowspan: "3",
+      },
+      {
+        name: `
+        入量
+        `,
+        style: {},
+        colspan: "2",
+        rowspan: "1",
+      },
+      {
+        name: `
+        出量
+        `,
+        style: {},
+        colspan: "4",
+        rowspan: "1",
+      },
+      {
+        name: `
+        意识
+        `,
+        style: {},
+        colspan: "1",
+        rowspan: "3",
+      },
+      {
+        name: `
+        SPO<sub>2</sub>(%)
+        `,
+        style: {},
+        colspan: "1",
+        rowspan: "3",
+      },
+      {
+        name: `
+        吸氧<br/>(L/min)
+        `,
+        style: {},
         colspan: "1",
         rowspan: "3",
       },
@@ -57,39 +100,7 @@ export default {
       },
       {
         name: `
-        意识
-        `,
-        style: {},
-        colspan: "1",
-        rowspan: "3",
-      },
-      {
-        name: `
-        入量
-        `,
-        style: {},
-        colspan: "2",
-        rowspan: "1",
-      },
-      {
-        name: `
-        出量
-        `,
-        style: {},
-        colspan: "4",
-        rowspan: "1",
-      },
-      {
-        name: `
-        吸氧<br/>(L/min)
-        `,
-        style: {},
-        colspan: "1",
-        rowspan: "3",
-      },
-      {
-        name: `
-        血氧饱和度<br/>(%)
+        心率
         `,
         colspan: "1",
         rowspan: "3",
@@ -132,7 +143,7 @@ export default {
       },
       {
         name: `
-        病情记录
+        护理措施及效果
         `,
         style: {
           minWidth: "153px",
