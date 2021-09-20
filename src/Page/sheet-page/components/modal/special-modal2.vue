@@ -1319,6 +1319,13 @@ export default {
             } else {
               text += allDoc[i];
             }
+          }else if (this.sheetInfo.sheetType === "change_shift_jm") {
+            if (GetLength(text) > 148) {
+              result.push(text);
+              text = allDoc[i];
+            } else {
+              text += allDoc[i];
+            }
           }else if (this.sheetInfo.sheetType === "prenatalcheck_bh") {
             if (GetLength(text) > 58) {
               result.push(text);

@@ -1,5 +1,5 @@
 /*
-江门妇幼-产前待产护理记录单
+江门妇幼-氧疗及机械通气参数记录单
 */
 import moment from "moment";
 function currYear() {
@@ -8,9 +8,6 @@ function currYear() {
 export default {
   // 科室的名称 关节骨科
   deptType: "",
-  style: {
-    width: "1200px"
-  },
   th: {
     top: [{
         name: currYear(),
@@ -37,7 +34,7 @@ export default {
         rowspan: "3",
         style: {
           minWidth: '80px',
-          maxWidth: '800px',
+          maxWidth: '80px',
         },
       },
     ],

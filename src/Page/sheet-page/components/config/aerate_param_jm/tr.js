@@ -31,27 +31,152 @@ export default [{
     click: click_time,
   },
   {
-    key: "description", //特殊情况记录
+    key: "contractionOne", //氧疗模式
     value: "",
-    style: {
-      textAlign: "left",
-      position: "absolute",
-      top: "1px",
-      bottom: "1px",
-      left: "1px",
-      width: "1000px",
-      background: "transparent"
-    },
+    event: keyf1,
+    name: "孕周",
+    textarea: {
+      width: 75
+    }
+  },
+  {
+    key: "temperature", //流量
+    value: "",
+    event: keyf1,
+    name: "体温",
+    next: "℃",
+    textarea: {
+      width: 75
+    }
+  },
+  {
+    key: "pulse", //通气模式
+    value: "",
+    event: keyf1,
+    name: "脉搏",
+    next: "次/分",
+    textarea: {
+      width: 75
+    }
+  },
+  {
+    key: "breath", //pip
+    value: "",
+    event: keyf1,
+    name: "呼吸",
+    next: "次/分",
+    textarea: {
+      width: 75
+    }
+  },
+  {
+    key: "bloodPressure", //peep
+    value: "",
     event: function (e, td) {
-      console.log(e.keyCode);
-      if (e.keyCode == 9) {
-        td.value = "    " + td.value;
+      if (e.keyCode == 32) {
+        e.target.value += "/";
         e.preventDefault();
       }
       keyf1(e, td);
+    },
+    name: "血压",
+    next: "mmHg",
+    textarea: {
+      width: 75
     }
-    // oninput: next
   },
+  {
+    key: "preInputOne", //pmean
+    value: "",
+    event: keyf1,
+    name: "胎方位",
+    textarea: {
+      width: 75
+    }
+  },
+  {
+    key: "preInputTwo", //fio2
+    value: "",
+    event: keyf1,
+    name: "胎心音",
+    next: "次/分",
+    textarea: {
+      width: 75
+    },
+  },
+  {
+    key: "uterineOne", //ti
+    value: "",
+    event: keyf1,
+    name: "强度",
+    textarea: {
+      width: 75
+    },
+    autoComplete: {
+      data: gsqdList
+    },
+  },
+  {
+    key: "uterineTwo", //mv
+    value: "",
+    event: keyf1,
+    name: "持续",
+    next: "s",
+    textarea: {
+      width: 75
+    }
+  },
+  {
+    key: "uterineThree", // rr
+    value: "",
+    event: keyf1,
+    name: "间歇",
+    next: "min",
+    textarea: {
+      width: 75
+    },
+  },
+  {
+    key: "uterineFour", // p
+    value: "",
+    event: keyf1,
+    name: "扩张",
+    next: "cm",
+    textarea: {
+      width: 75
+    },
+  },
+  {
+    key: "uterineFive", //温度
+    value: "",
+    event: keyf1,
+    name: "评分",
+    textarea: {
+      width: 75
+    },
+  },
+  // {
+  //   key: "description", //特殊情况记录
+  //   value: "",
+  //   style: {
+  //     textAlign: "left",
+  //     position: "absolute",
+  //     top: "1px",
+  //     bottom: "1px",
+  //     left: "1px",
+  //     width: "700px",
+  //     background: "transparent"
+  //   },
+  //   event: function (e, td) {
+  //     console.log(e.keyCode);
+  //     if (e.keyCode == 9) {
+  //       td.value = "    " + td.value;
+  //       e.preventDefault();
+  //     }
+  //     keyf1(e, td);
+  //   }
+  //   // oninput: next
+  // },
   {
     key: "sign",
     value: ""

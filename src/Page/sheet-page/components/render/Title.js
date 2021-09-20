@@ -529,6 +529,20 @@ export default function Title(
     );
   }
   break;
+  case "aerate_param_jm": {
+    // 江门妇幼 - 氧疗及机械通气参数记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/aerate_param_jm/th.js").default)
+    );
+  }
+  break;
+  case "change_shift_jm": {
+    // 江门妇幼 - 交班记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/change_shift_jm/th.js").default)
+    );
+  }
+  break;
   case "postpartumnursing_jm": {
     // 江门妇幼 - 产后护理记录单
     Th = JSON.parse(

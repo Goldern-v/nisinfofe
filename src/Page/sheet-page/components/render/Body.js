@@ -437,6 +437,16 @@ function switechSheetType(type) {
       schema = require("../config/picc_custody_jm/tr.js").default;
     }
       break;
+    case "aerate_param_jm": {
+      // 江门妇幼 - 氧疗及机械通气参数记录单
+      schema = require("../config/aerate_param_jm/tr.js").default;
+    }
+      break;
+    case "change_shift_jm": {
+      // 江门妇幼 - 交班记录单
+      schema = require("../config/change_shift_jm/tr.js").default;
+    }
+      break;
     case "postpartumnursing_jm": {
       // 江门妇幼 - 产后护理记录单
       schema = require("../config/postpartumnursing_jm/tr.js").default;

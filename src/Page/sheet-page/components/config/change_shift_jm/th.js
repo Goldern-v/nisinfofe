@@ -1,5 +1,5 @@
 /*
-江门妇幼-产前待产护理记录单
+江门妇幼-交班记录单
 */
 import moment from "moment";
 function currYear() {
@@ -8,9 +8,6 @@ function currYear() {
 export default {
   // 科室的名称 关节骨科
   deptType: "",
-  style: {
-    width: "1200px"
-  },
   th: {
     top: [{
         name: currYear(),
@@ -64,8 +61,8 @@ export default {
         病情变化/护理措施
         `,
         style: {
-          minWidth: '1000px',
-          maxWidth: '1000px',
+          minWidth: '905px',
+          maxWidth: '905px',
         },
         colspan: "1",
         rowspan: "2",

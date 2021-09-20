@@ -32,7 +32,7 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 45
+      width: 30
     },
   },
   {
@@ -43,7 +43,7 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 45
+      width: 30
     },
   },
   {
@@ -54,7 +54,7 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 45
+      width: 30
     },
   },
   {
@@ -65,7 +65,7 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 45
+      width: 30
     },
   },
   {
@@ -74,7 +74,7 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 45
+      width: 30
     },
     autoComplete: {
       data: NBPList
@@ -86,7 +86,7 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 45
+      width: 30
     },
   },
   {
@@ -95,7 +95,7 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 45
+      width: 30
     },
   },
   {
@@ -104,7 +104,7 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 35
+      width: 30
     },
   },
   {
@@ -113,7 +113,7 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 35
+      width: 30
     },
   },
   {
@@ -122,7 +122,7 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 35
+      width: 30
     },
     autoComplete: {
       data: twList
@@ -134,7 +134,7 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 35
+      width: 30
     },
   },
   {
@@ -143,7 +143,7 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 35
+      width: 30
     },
   },
   {
@@ -152,7 +152,7 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 35
+      width: 30
     },
   },
   {
@@ -161,7 +161,7 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 35
+      width: 30
     },
   },
   {
@@ -170,7 +170,7 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 35
+      width: 30
     },
   },
   {
@@ -179,7 +179,7 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 35
+      width: 30
     },
   },
   {
@@ -188,7 +188,7 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 35
+      width: 30
     },
   },
   {
@@ -197,7 +197,7 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 35
+      width: 30
     },
   },
   {
@@ -206,7 +206,7 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 35
+      width: 30
     },
   },
   {
@@ -215,7 +215,7 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 35
+      width: 30
     },
   },
   {
@@ -236,7 +236,7 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 35
+      width: 30
     },
   },
   {
@@ -245,7 +245,7 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 35
+      width: 30
     },
   },
   {
@@ -254,7 +254,7 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 35
+      width: 30
     },
   },
   {
@@ -263,7 +263,7 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 35
+      width: 30
     },
   },
   {
@@ -272,7 +272,7 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 35
+      width: 30
     },
   },
   {
@@ -281,7 +281,7 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 35
+      width: 30
     },
   },
   {
@@ -290,7 +290,7 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 35
+      width: 30
     },
   },
   {
@@ -299,7 +299,7 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 35
+      width: 30
     },
   },
   {
@@ -308,7 +308,7 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 35
+      width: 30
     },
   },
   {
@@ -317,7 +317,7 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 35
+      width: 30
     },
   },
   {
@@ -326,7 +326,7 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 35
+      width: 30
     },
   },
   {
@@ -335,7 +335,7 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 35
+      width: 30
     },
   },
   {
@@ -344,7 +344,7 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 35
+      width: 30
     },
   },
   {
