@@ -529,6 +529,13 @@ export default function Title(
     );
   }
   break;
+  case "nicu_custody_jm": {
+    // 江门妇幼 - NICU监护单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/nicu_custody_jm/th.js").default)
+    );
+  }
+  break;
   case "aerate_param_jm": {
     // 江门妇幼 - 氧疗及机械通气参数记录单
     Th = JSON.parse(

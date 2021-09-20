@@ -437,6 +437,11 @@ function switechSheetType(type) {
       schema = require("../config/picc_custody_jm/tr.js").default;
     }
       break;
+    case "nicu_custody_jm": {
+      // 江门妇幼 - NICU监护单
+      schema = require("../config/nicu_custody_jm/tr.js").default;
+    }
+      break;
     case "aerate_param_jm": {
       // 江门妇幼 - 氧疗及机械通气参数记录单
       schema = require("../config/aerate_param_jm/tr.js").default;

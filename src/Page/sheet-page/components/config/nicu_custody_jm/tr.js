@@ -1,5 +1,5 @@
 /*
-江门妇幼-PICU监护单
+江门妇幼-NICU监护单
  */
 import { listItem } from "../../../api/recordDesc";
 import { multiDictInfo } from "../../../api/index";
@@ -12,6 +12,8 @@ import info from "../sheetInfo";
 let NBPList = ["NBP","ABP"];
 let xzpList = ["悬浮红细胞","洗涤红细胞","血浆","冷沉淀"];
 let twList = ["左","右","平","俯"];
+let kfyList = ["母乳","配方奶","早产奶","奶","口服药"];
+let pfhlList = ["油浴","沐浴","床上浴"];
 
 export default [
   {
@@ -31,6 +33,16 @@ export default [
     value: "",
     name: "台/箱温度",
     next: "℃",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 4),
+    textarea: {
+      width: 30
+    },
+  },
+  {
+    key: "boxCode", //台箱编号
+    value: "",
+    name: "台/箱编号",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
@@ -96,10 +108,9 @@ export default [
     },
   },
   {
-    key: "cvp", //CVP
+    key: "reaction", //反应
     value: "",
-    name: "CVP",
-    next: "mmHg",
+    name: "反应",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
@@ -107,9 +118,9 @@ export default [
     },
   },
   {
-    key: "consciousness", //神志
+    key: "cry", //哭声
     value: "",
-    name: "神志",
+    name: "哭声",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
@@ -127,20 +138,93 @@ export default [
     },
   },
   {
-    key: "posture", //体位
+    key: "muscleTension", //肌张力
     value: "",
-    name: "体位",
+    name: "肌张力",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 4),
+    textarea: {
+      width: 30
+    },
+  },
+  {
+    key: "skinSurvey", //皮测
+    value: "",
+    name: "皮测",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 6),
+    textarea: {
+      width: 50
+    },
+  },
+  {
+    key: "bloodSugar", //血糖
+    value: "",
+    name: "血糖",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 6),
+    textarea: {
+      width: 50
+    },
+  },
+  {
+    key: "suckingPower", //吸吮力
+    value: "",
+    name: "吸吮力",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 4),
+    textarea: {
+      width: 30
+    },
+  },
+  {
+    key: "oralMedication", //奶口服液
+    value: "",
+    name: "奶/口服液",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
       width: 30
     },
     autoComplete: {
-      data: twList
+      data: kfyList
     },
   },
   {
-    key: "customField", //  生命体征自定义
+    key: "infusion", //输液
+    value: "",
+    name: "输液",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 4),
+    textarea: {
+      width: 30
+    },
+  },
+  {
+    key: "intravenousNutrition", //静脉营养
+    value: "",
+    name: "静脉营养",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 4),
+    textarea: {
+      width: 30
+    },
+  },
+  {
+    key: "bloodProducts", //血制品
+    value: "",
+    name: "血制品",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 4),
+    textarea: {
+      width: 30
+    },
+    autoComplete: {
+      data: xzpList
+    },
+  },
+  {
+    key: "urineVolume", //尿量
     value: "",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
@@ -149,67 +233,7 @@ export default [
     },
   },
   {
-    key: "ventilationMode", //通气模式
-    value: "",
-    name: "通气模式",
-    event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
-    textarea: {
-      width: 30
-    },
-  },
-  {
-    key: "fio2", //Fio2
-    value: "",
-    name: "Fio2/Ti",
-    event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
-    textarea: {
-      width: 30
-    },
-  },
-  {
-    key: "vte", //VTE
-    value: "",
-    name: "VTE/呼吸频率",
-    event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
-    textarea: {
-      width: 30
-    },
-  },
-  {
-    key: "peep", //PEEP/PIP
-    value: "",
-    name: "PEEP/PIP",
-    event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
-    textarea: {
-      width: 30
-    },
-  },
-  {
-    key: "pmean", //pmean
-    value: "",
-    name: "Pmean",
-    event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
-    textarea: {
-      width: 30
-    },
-  },
-  {
-    key: "amplitude", //振幅
-    value: "",
-    name: "△P/振幅",
-    event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
-    textarea: {
-      width: 30
-    },
-  },
-  {
-    key: "oral", //A
+    key: "defecate", //大便
     value: "",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
@@ -218,7 +242,7 @@ export default [
     },
   },
   {
-    key: "antibiotics", //B
+    key: "drainage", //引流量
     value: "",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
@@ -227,21 +251,12 @@ export default [
     },
   },
   {
-    key: "rehydration", //C
+    key: "vomit", //呕吐
     value: "",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
       width: 30
-    },
-  },
-  {
-    key: "bloodProducts", //D
-    value: "",
-    event: keyf1,
-    change: (e, td) => limitChange(e, td, 8),
-    textarea: {
-      width: 55
     },
     autoComplete: {
       data: xzpList
@@ -266,53 +281,9 @@ export default [
     },
   },
   {
-    key: "accumulated", //入量累计
+    key: "phototherapy", //光疗
     value: "",
     name: "入量累计",
-    next: "ml",
-    event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
-    textarea: {
-      width: 30
-    },
-  },
-  {
-    key: "urinate", //尿/便
-    value: "",
-    name: "尿/便",
-    next: "ml",
-    event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
-    textarea: {
-      width: 30
-    },
-  },
-  {
-    key: "drainage", //引流量
-    value: "",
-    name: "引流量",
-    next: "ml",
-    event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
-    textarea: {
-      width: 30
-    },
-  },
-  {
-    key: "cumulative", //出量累计
-    value: "",
-    name: "出量累计",
-    next: "ml",
-    event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
-    textarea: {
-      width: 30
-    },
-  },
-  {
-    key: "balance", //平衡量
-    value: "",
-    name: "平衡量",
     next: "ml",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
@@ -341,6 +312,19 @@ export default [
     },
   },
   {
+    key: "posture", //体位
+    value: "",
+    name: "体位",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 4),
+    textarea: {
+      width: 30
+    },
+    autoComplete: {
+      data: twList
+    },
+  },
+  {
     key: "skinCare", //皮肤护理
     value: "",
     name: "皮肤护理",
@@ -348,6 +332,9 @@ export default [
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
       width: 30
+    },
+    autoComplete: {
+      data: pfhlList
     },
   },
   {
@@ -371,7 +358,35 @@ export default [
     },
   },
   {
-    key: "careCustomField", //护理自定义
+    key: "oralImmunity", //口腔免疫
+    value: "",
+    name: "口腔免疫",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 4),
+    textarea: {
+      width: 30
+    },
+  },
+  {
+    key: "CustomField1", //自定义1
+    value: "",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 4),
+    textarea: {
+      width: 30
+    },
+  },
+  {
+    key: "CustomField2", //自定义2
+    value: "",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 4),
+    textarea: {
+      width: 30
+    },
+  },
+  {
+    key: "CustomField3", //自定义3
     value: "",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),

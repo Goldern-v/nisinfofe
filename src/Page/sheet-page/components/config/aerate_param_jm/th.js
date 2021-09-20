@@ -125,7 +125,7 @@ export default {
         rowspan: "2",
       },
       {
-        name: `RR<br/>次/ min`,
+        name: `RR<br/>次/min`,
         style: {},
         colspan: "1",
         rowspan: "2",

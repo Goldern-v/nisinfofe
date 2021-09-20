@@ -31,84 +31,76 @@ export default [{
     click: click_time,
   },
   {
-    key: "contractionOne", //氧疗模式
+    key: "therapyMode", //氧疗模式
     value: "",
     event: keyf1,
-    name: "孕周",
+    name: "氧疗模式",
     textarea: {
       width: 75
     }
   },
   {
-    key: "temperature", //流量
+    key: "flow", //流量
     value: "",
     event: keyf1,
-    name: "体温",
-    next: "℃",
+    name: "流量",
     textarea: {
       width: 75
     }
   },
   {
-    key: "pulse", //通气模式
+    key: "ventilation", //通气模式
     value: "",
     event: keyf1,
-    name: "脉搏",
-    next: "次/分",
+    name: "通气模式",
     textarea: {
       width: 75
     }
   },
   {
-    key: "breath", //pip
+    key: "PIP", //pip
     value: "",
     event: keyf1,
-    name: "呼吸",
-    next: "次/分",
+    name: "pip",
+    next: "cmH2O",
     textarea: {
       width: 75
     }
   },
   {
-    key: "bloodPressure", //peep
+    key: "peep", //peep
     value: "",
-    event: function (e, td) {
-      if (e.keyCode == 32) {
-        e.target.value += "/";
-        e.preventDefault();
-      }
-      keyf1(e, td);
-    },
-    name: "血压",
-    next: "mmHg",
+    name: "PEEP",
+    next: "cmH2O",
     textarea: {
       width: 75
     }
   },
   {
-    key: "preInputOne", //pmean
+    key: "pmean", //pmean
     value: "",
     event: keyf1,
-    name: "胎方位",
+    name: "Pmean",
     textarea: {
       width: 75
     }
   },
   {
-    key: "preInputTwo", //fio2
+    key: "fio2", //fio2
     value: "",
     event: keyf1,
-    name: "胎心音",
-    next: "次/分",
+    name: "FiO2",
+    next: "%",
     textarea: {
       width: 75
     },
   },
   {
-    key: "uterineOne", //ti
+    key: "ti", //ti
     value: "",
     event: keyf1,
-    name: "强度",
+    name: "Ti",
+    next: "Ampl/秒",
     textarea: {
       width: 75
     },
@@ -117,40 +109,40 @@ export default [{
     },
   },
   {
-    key: "uterineTwo", //mv
+    key: "mv", //mv
     value: "",
     event: keyf1,
-    name: "持续",
-    next: "s",
+    name: "MV",
+    next: "L/min",
     textarea: {
       width: 75
     }
   },
   {
-    key: "uterineThree", // rr
+    key: "rr", // rr
     value: "",
     event: keyf1,
-    name: "间歇",
-    next: "min",
+    name: "RR",
+    next: "次/min",
     textarea: {
       width: 75
     },
   },
   {
-    key: "uterineFour", // p
+    key: "amplitude", // p
     value: "",
     event: keyf1,
-    name: "扩张",
-    next: "cm",
+    name: "P/振幅",
     textarea: {
       width: 75
     },
   },
   {
-    key: "uterineFive", //温度
+    key: "humidifier", //温度
     value: "",
     event: keyf1,
-    name: "评分",
+    name: "湿化器显示温度",
+    next: "℃",
     textarea: {
       width: 75
     },
