@@ -845,6 +845,13 @@ export default function Title(
     );
   }
   break;
+  case "newborn_qzx": {
+    // 曲周县 - 新生儿护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/newborn_qzx/th").default)
+    );
+  }
+  break;
   case "ecgmonitoring_bh": {
     // 北海市 - 心电监护观察记录
     Th = JSON.parse(

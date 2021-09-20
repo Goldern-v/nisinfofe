@@ -75,19 +75,21 @@ function leftTopBottomRight(e, bind) {
     let input = e.target;
     let maxX = "";
     //字数限制，input变成textarea
-    if(document.querySelectorAll('[dataKey="description"] textarea')) {
-      maxX = document
-      .querySelectorAll('[dataKey="description"] textarea')[document
-      .querySelectorAll('[dataKey="description"] textarea').length - 1]
-      .getAttribute("position")
-      .split(",")[0];
-    }else{
-      maxX = document
-      .querySelectorAll('[dataKey="description"] input')[document
-      .querySelectorAll('[dataKey="description"] input').length - 1]
-      .getAttribute("position")
-      .split(",")[0];
-    }
+    // if(document.querySelectorAll('[dataKey="description"] textarea')) {
+    //   console.log(1);
+    //   maxX = document
+    //   .querySelectorAll('[dataKey="description"] textarea')[document
+    //   .querySelectorAll('[dataKey="description"] textarea').length - 1]
+    //   .getAttribute("position")
+    //   .split(",")[0];
+      
+    // }else{
+    //   maxX = document
+    //   .querySelectorAll('[dataKey="description"] input')[document
+    //   .querySelectorAll('[dataKey="description"] input').length - 1]
+    //   .getAttribute("position")
+    //   .split(",")[0];
+    // }
     if (getCursortPosition(input) <= 0) {
       focusElement(x - 1, y, z) || focusElement(maxX, y - 1, z);
     }

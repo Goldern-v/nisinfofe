@@ -668,6 +668,11 @@ function switechSheetType(type) {
       schema = require("../config/intersurgerycure_qzx/tr.js").default;
     }
       break;
+    case "newborn_qzx": {
+      // 曲周县 - 新生儿护理记录单
+      schema = require("../config/newborn_qzx/tr.js").default;
+    }
+      break;
     case "ecgmonitoring_bh": {
       // 北海市 - 心电监护观察记录
       schema = require("../config/ecgmonitoring_bh/tr.js").default;
