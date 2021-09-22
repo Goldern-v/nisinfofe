@@ -469,6 +469,7 @@ export default {
         };
       }
       this.vitalSignObj = { ...obj };
+      console.log(obj)
     },
      getHours() {
       let date = new Date();
