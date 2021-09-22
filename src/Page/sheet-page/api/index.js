@@ -257,3 +257,17 @@ export function getUser(password, empNo) {
     empNo
   });
 }
+
+// 转床床号选中获取
+export const bedExchangeModifyLog = (patientId, visitId, blockId) => {
+  return axios.get(
+    `${apiPath}record/block/bedExchangeModifyLog/${patientId}/${visitId}/${blockId}`
+  );
+};
+
+// 转床床号选中获取
+export const updateBlockInfo = (obj = {}) => {
+  return axios.post(
+    `${apiPath}record/block/updateBlockInfo`, obj
+  );
+};
