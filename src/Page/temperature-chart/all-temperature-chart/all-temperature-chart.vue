@@ -26,7 +26,7 @@
       </span>
       <div
         class="times"
-        v-if="HOSPITAL_ID === 'huadu' || HOSPITAL_ID === 'fuyou'||HOSPITAL_ID === 'beihairenyi'"
+        v-if="HOSPITAL_ID === 'huadu' || HOSPITAL_ID === 'fuyou'"
       >
         <label :for="`time${item.id}`" v-for="item in timesEven" :key="item.id">
           <input
@@ -90,7 +90,7 @@
           {{ item.value }}
         </label>
       </div>
-      <div class="times" v-if="HOSPITAL_ID === 'liaocheng'">
+      <div class="times" v-if="HOSPITAL_ID === 'liaocheng'||HOSPITAL_ID === 'beihairenyi'">
         <label :for="`time${item.id}`" v-for="item in timesOdd" :key="item.id">
           <input
             type="radio"

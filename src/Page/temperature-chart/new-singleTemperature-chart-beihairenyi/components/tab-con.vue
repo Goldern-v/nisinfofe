@@ -372,30 +372,30 @@ export default {
       timesOdd: [
         {
           id: 0,
-          value: "02",
+          value: "03",
         },
         {
           id: 1,
-          value: "06",
+          value: "07",
         },
         {
           id: 2,
-          value: "10",
+          value: "11",
         },
         {
           id: 3,
-          value: "14",
+          value: "15",
         },
         {
           id: 4,
-          value: "18",
+          value: "19",
         },
         {
           id: 5,
-          value: "22",
+          value: "23",
         },
       ],
-      bottomContextList: ["", "不升"],
+      bottomContextList: [""],
       topExpandDate: "",
       bottomExpandDate: "",
       totalDictInfo: {},
