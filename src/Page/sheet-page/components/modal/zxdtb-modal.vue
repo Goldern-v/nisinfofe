@@ -120,7 +120,7 @@ export default {
     },
     post() {
       let temArr = this.multipleSelection
-      if(this.multipleSelection.length!=0 &&(this.HOSPITAL_ID=='fuyou'||this.HOSPITAL_ID=='wujing')){
+      if(this.multipleSelection.length!=0 &&(this.HOSPITAL_ID=='fuyou'||this.HOSPITAL_ID=='wujing'||this.HOSPITAL_ID=='quzhou')){
          this.multipleSelection.map((item,index)=>{
           if(item.pulse){
             let strArr = item.pulse.split("/")
@@ -146,7 +146,6 @@ export default {
           executeDateTime:this.searchDate,
           wardCode:this.$store.state.lesion.deptCode,
         }
-          
         ).then(res => {
           this.tableData = res.data.data.list;
         });

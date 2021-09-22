@@ -233,21 +233,13 @@ export const ordersExecuteList = (obj = {}) => {
   return axios.post(`${apiPath}record/block/ordersExecute/list/${id}`, obj);
 };
 
-// 保存选中的执行单信息到护记
-export const ordersExecuteSave = (obj = {}) => {
-  return axios.post(`${apiPath}record/block/ordersExecute/save`, obj);
-};
-
-
-
 // 保存his患者体征
 export const saveVitalSign = (data,hospitalId) => {
-  if(hospitalId=='wujing'){
+  if(hospitalId=='wujing'||hospitalId=='quzhou'){
     return axios.post(
       `${apiPath}record/block/ordersExecute/save`,
       data
     );
-    
   }
   let d = {
     blockId: sheetInfo.selectBlock.id,
