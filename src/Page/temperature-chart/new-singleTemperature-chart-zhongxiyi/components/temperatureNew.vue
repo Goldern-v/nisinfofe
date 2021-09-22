@@ -29,7 +29,7 @@
           :src="filePath"
           frameborder="0"
           ref="pdfCon"
-          :class="HOSPITAL_ID === 'liaocheng' ? 'lcIframe' : ''"
+          class="lcIframe"
         ></iframe>
       </div>
     </div>
@@ -60,11 +60,10 @@ export default {
       isSave: false,
       visibled: false,
       intranetUrl:
-     "http://192.168.20.88:8080/#/" ,
-        // "http://172.17.5.41:9091/temperature/#/" /* 医院正式环境内网 导致跨域 */,
+        "http://192.167.199.191:9091/temperature/#/" /* 医院正式环境内网 导致跨域 */,
       // "http://10.10.10.75:9091/temperature/#/" /* 医院正式环境内网 */,
       outNetUrl:
-        "http://120.224.211.7:9091/temperature/#/" /* 医院正式环境外网：想要看iframe的效果，测试的时候可以把本地的地址都改成外网测试 */,
+        "http://http://219.159.198.37:9091/temperature/#/" /* 医院正式环境外网：想要看iframe的效果，测试的时候可以把本地的地址都改成外网测试 */,
     };
   },
   methods: {
