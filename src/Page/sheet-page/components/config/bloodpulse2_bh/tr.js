@@ -39,9 +39,9 @@ export default [{
     },
     name: "血压",
     next: "mmHg",
-    change: (e, td) => limitChange(e, td, 12),
+    change: (e, td) => limitChange(e, td, 14),
     textarea: {
-      width: 75
+      width: 95
     },
   },
   {
@@ -52,7 +52,7 @@ export default [{
     next: "次/分",
     change: (e, td) => limitChange(e, td, 12),
     textarea: {
-      width: 75
+      width: 95
     },
   }, 
   {
@@ -63,17 +63,17 @@ export default [{
     next: "次/分",
     change: (e, td) => limitChange(e, td, 12),
     textarea: {
-      width: 75
+      width: 95
     },
   }, 
   {
-    key: "spo2 ", //spo2
+    key: "spo2", //spo2
     value: "",
     event: keyf1,
     name: "SPO2",
     change: (e, td) => limitChange(e, td, 12),
     textarea: {
-      width: 75
+      width: 95
     },
   }, 
   {

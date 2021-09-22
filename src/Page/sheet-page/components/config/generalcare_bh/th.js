@@ -29,8 +29,8 @@ export default {
         病情观察、护理措施及效果
         `,
         style: {
-          minWidth: "800px",
-          maxWidth: "800px",
+          minWidth: "810px",
+          maxWidth: "810px",
         },
         colspan: "1",
         rowspan: "3"

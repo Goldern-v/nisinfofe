@@ -36,12 +36,12 @@ export default [{
       top: "1px",
       bottom: "1px",
       left: "1px",
-      width: "800px",
+      width: "810px",
       background: "transparent",
     },
     change: (e, td) => limitChange(e, td, 66),
     textarea: {
-      width: 800
+      width: 810
     },
     event: function (e, td) {
       console.log(e.keyCode);
