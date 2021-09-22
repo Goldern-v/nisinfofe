@@ -222,13 +222,13 @@
           体征同步
         </div>
       </div>
-      <div class="line" v-if="HOSPITAL_ID=='wujing'"></div>
+      <div class="line" v-if="HOSPITAL_ID=='wujing'||HOSPITAL_ID=='quzhou'"></div>
       <div style="width: 5px"></div>
       <div
         class="right-btn"
         flex="cross:center main:center"
         @click.stop="openZxdtbModal"
-        v-if="HOSPITAL_ID=='wujing'"
+        v-if="HOSPITAL_ID=='wujing'||HOSPITAL_ID=='quzhou'"
       >
         <div class="text-con">
           <img src="./images/评估.png" alt />
@@ -349,7 +349,7 @@ export default {
       if (!this.sheetInfo.selectBlock.id)
         return this.$message.warning("还没有选择护理记录单");
 
-      if (process.env.HOSPITAL_ID == "fuyou"||process.env.HOSPITAL_ID == "quzhou") {
+      if (process.env.HOSPITAL_ID == "fuyou"||process.env.HOSPITAL_ID == "quzhou" ||process.env.HOSPITAL_ID == "huadu") {
         this.bus.$emit("toSheetPrintPage");
       } else {
         if (process.env.NODE_ENV == "production") {

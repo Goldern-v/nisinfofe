@@ -58,18 +58,18 @@
           </span>
         </div>
         <table>
-          <colgroup>
+          <!-- <colgroup>
             <col v-for="i in 19" :key="i" width="5%"/>
-          </colgroup>
+          </colgroup> -->
           <tbody> 
             <tr>
-              <td colspan="4">
+              <td style="width:205px">
                 <div class="boxLine">
                   <div class="boxTitle">呼吸机型号：</div>
                   <div class="boxRight">
                     <input
                       type="textarea"
-                      style="width:100%;"
+                      style="width:97%;"
                       class="bottomInput"
                       v-model="sheetInfo.relObj.hxjxh"
                       :data-value="sheetInfo.relObj.hxjxh"
@@ -78,12 +78,12 @@
                 </div>
                 <div class="boxLine">
                   <div class="boxTitle">气管插管经：</div>
-                  <input type="radio" value="口" :ischecked="sheetInfo.relObj.qgcgj == '口'" v-model="sheetInfo.relObj.qgcgj">口
+                  <input type="radio" style="margin-left:-5px;" value="口" :ischecked="sheetInfo.relObj.qgcgj == '口'" v-model="sheetInfo.relObj.qgcgj">口
                   <input type="radio" value="鼻" :ischecked="sheetInfo.relObj.qgcgj == '鼻'" v-model="sheetInfo.relObj.qgcgj">鼻
-                  <div class="boxTitle" style="margin-left:20px;">口径：</div>
+                  <div class="boxTitle" style="margin-left:5px;">口径：</div>
                   <input
                     type="textarea"
-                    style="width:35px;"
+                    style="width:30px;"
                     class="bottomInput"
                     v-model="sheetInfo.relObj.kj"
                     :data-value="sheetInfo.relObj.kj"
@@ -93,7 +93,7 @@
                   <div class="boxTitle">深度：</div>
                   <input
                     type="textarea"
-                    style="width:35px;"
+                    style="width:45px;"
                     class="bottomInput"
                     v-model="sheetInfo.relObj.sd"
                     :data-value="sheetInfo.relObj.sd"
@@ -101,12 +101,12 @@
                 </div>
                 <div class="boxLine">
                   <div class="boxTitle">气囊：</div>
-                  <input type="radio" value="有" v-model="sheetInfo.relObj.qn" :ischecked="sheetInfo.relObj.qn == '有'">有
+                  <input type="radio" style="margin-left:-5px;" value="有" v-model="sheetInfo.relObj.qn" :ischecked="sheetInfo.relObj.qn == '有'">有
                   <input type="radio" value="无" v-model="sheetInfo.relObj.qn" :ischecked="sheetInfo.relObj.qn == '无'">无
-                  <div class="boxTitle" style="margin-left:20px;">气囊压：</div>
+                  <div class="boxTitle" style="margin-left:5px;">气囊压：</div>
                   <input
                     type="textarea"
-                    style="width:35px;"
+                    style="width:25px;"
                     class="bottomInput"
                     v-model="sheetInfo.relObj.qny"
                     :data-value="sheetInfo.relObj.qny"
@@ -116,7 +116,7 @@
                   <textarea style="cursor:text" v-model="sheetInfo.relObj.xpwz" :data-value="sheetInfo.relObj.xpwz" @input="(e)=>onXpChang(e)"></textarea>
                 </div>
               </td>
-              <td colspan="3">
+              <td style="width:180px">
                 <div class="boxLine">
                   <input
                     type="checkbox"
@@ -127,14 +127,12 @@
                   <input
                     type="checkbox"
                     value="面罩"
-                    style="margin-left:20px;"
                     :ischecked="sheetInfo.relObj.mz"
                     v-model="checkedmz"
                   />面罩
                   <input
                     type="checkbox"
                     value="头罩"
-                    style="margin-left:20px;"
                     :ischecked="sheetInfo.relObj.tz"
                     v-model="checkedtz"
                   />头罩
@@ -149,14 +147,12 @@
                   <input
                     type="checkbox"
                     value="胃肠减压"
-                    style="margin-left:10px;"
                     :ischecked="sheetInfo.relObj.wcjy"
                     v-model="checkedwcjy"
                   />胃肠减压
                   <input
                     type="checkbox"
                     value="鼻肠管"
-                    style="margin-left:10px;"
                     :ischecked="sheetInfo.relObj.bcg"
                     v-model="checkedbcg"
                   />鼻肠管
@@ -171,14 +167,12 @@
                   <input
                     type="checkbox"
                     value="PICC"
-                    style="margin-left:20px;"
                     :ischecked="sheetInfo.relObj.picc"
                     v-model="checkedpicc"
                   />PICC
                   <input
                     type="checkbox"
                     value="血透管"
-                    style="margin-left:20px;"
                     :ischecked="sheetInfo.relObj.xtg"
                     v-model="checkedxtg"
                   />血透管
@@ -193,7 +187,6 @@
                   <input
                     type="checkbox"
                     value="动脉置管"
-                    style="margin-left:20px;"
                     :ischecked="sheetInfo.relObj.dmzg"
                     v-model="checkeddmzg"
                   />动脉置管
@@ -208,7 +201,6 @@
                   <input
                     type="checkbox"
                     value="闭式胸腔引流管"
-                    style="margin-left:20px;"
                     :ischecked="sheetInfo.relObj.bsxqylg"
                     v-model="checkedbsxqylg"
                   />闭式胸腔引流管
@@ -224,7 +216,7 @@
                   <div class="boxRight">
                     <input
                       type="textarea"
-                      style="width:100%;"
+                      style="width:97%;"
                       class="bottomInput"
                       v-model="sheetInfo.relObj.qitaInput"
                       :data-value="sheetInfo.relObj.qitaInput"
@@ -232,13 +224,13 @@
                   </div>
                 </div>
               </td>
-              <td colspan="4">
+              <td style="width:240px">
                 <div class="boxLine">
                   <div class="boxTitle">中心静脉导管穿刺部位：</div>
                   <div class="boxRight">
                     <input
                       type="textarea"
-                      style="width:100%;"
+                      style="width:95%;"
                       class="bottomInput"
                       v-model="sheetInfo.relObj.zxjmdgccbw"
                       :data-value="sheetInfo.relObj.zxjmdgccbw"
@@ -261,7 +253,7 @@
                   <div class="boxRight">
                     <input
                       type="textarea"
-                      style="width:68px;"
+                      style="width:37px;"
                       class="bottomInput"
                       v-model="sheetInfo.relObj.wl"
                       :data-value="sheetInfo.relObj.wl"
@@ -278,21 +270,18 @@
                   <input
                     type="checkbox"
                     value="渗血"
-                    style="margin-left:10px;"
                     :ischecked="sheetInfo.relObj.sx"
                     v-model="checkedsx"
                   />渗血
                   <input
                     type="checkbox"
                     value="渗液"
-                    style="margin-left:10px;"
                     :ischecked="sheetInfo.relObj.sy"
                     v-model="checkedsy"
                   />渗液
                   <input
                     type="checkbox"
                     value="皮疹"
-                    style="margin-left:10px;"
                     :ischecked="sheetInfo.relObj.pz"
                     v-model="checkedpz"
                   />皮疹
@@ -307,14 +296,12 @@
                   <input
                     type="checkbox"
                     value="阻塞"
-                    style="margin-left:20px;"
                     :ischecked="sheetInfo.relObj.zs"
                     v-model="checkedzs"
                   />阻塞
                   <input
                     type="checkbox"
                     value="通畅但无回血"
-                    style="margin-left:20px;"
                     :ischecked="sheetInfo.relObj.whx"
                     v-model="checkedwhx"
                   />通畅但无回血
@@ -329,26 +316,24 @@
                   <input
                     type="checkbox"
                     value="三通"
-                    style="margin-left:20px;"
                     :ischecked="sheetInfo.relObj.st"
                     v-model="checkedst"
                   />三通
                   <input
                     type="checkbox"
                     value="输液接头"
-                    style="margin-left:20px;"
                     :ischecked="sheetInfo.relObj.syjt"
                     v-model="checkedsyjt"
                   />输液接头
                 </div> 
               </td>
-              <td colspan="4">
+              <td style="width:240px">
                 <div class="boxLine">
                   <div class="boxTitle">动脉导管穿刺部位：</div>
                   <div class="boxRight">
                     <input
                       type="textarea"
-                      style="width:100%;"
+                      style="width:96%;"
                       class="bottomInput"
                       v-model="sheetInfo.relObj.dmdgccbw"
                       :data-value="sheetInfo.relObj.dmdgccbw"
@@ -360,7 +345,7 @@
                   <div class="boxRight">
                     <input
                       type="textarea"
-                      style="width:100%;"
+                      style="width:96%;"
                       class="bottomInput"
                       v-model="sheetInfo.relObj.dmccrq"
                       :data-value="sheetInfo.relObj.dmccrq"
@@ -378,7 +363,6 @@
                   <input
                     type="checkbox"
                     value="不良"
-                    style="margin-left:20px;"
                     :ischecked="sheetInfo.relObj.bl"
                     v-model="checkedbl"
                   />不良
@@ -393,21 +377,18 @@
                   <input
                     type="checkbox"
                     value="渗血"
-                    style="margin-left:10px;"
                     :ischecked="sheetInfo.relObj.sx1"
                     v-model="checkedsx1"
                   />渗血
                   <input
                     type="checkbox"
                     value="渗液"
-                    style="margin-left:10px;"
                     :ischecked="sheetInfo.relObj.sy1"
                     v-model="checkedsy1"
                   />渗液
                   <input
                     type="checkbox"
                     value="皮疹"
-                    style="margin-left:10px;"
                     :ischecked="sheetInfo.relObj.pz1"
                     v-model="checkedpz1"
                   />皮疹
@@ -422,29 +403,27 @@
                   <input
                     type="checkbox"
                     value="阻塞"
-                    style="margin-left:20px;"
                     :ischecked="sheetInfo.relObj.zs1"
                     v-model="checkedzs1"
                   />阻塞
                   <input
                     type="checkbox"
                     value="通畅但无回血"
-                    style="margin-left:20px;"
                     :ischecked="sheetInfo.relObj.whx1"
                     v-model="checkedwhx1"
                   />通畅但无回血
                 </div> 
               </td>
-              <td colspan="4">
+              <td style="width:240px">
                 <div class="boxLine">
                   <div class="boxTitle">体位与皮肤评估：</div>
                   <div class="boxRight">
                     <input
                       type="textarea"
-                      style="width:100%;"
+                      style="width:96%;"
                       class="bottomInput"
-                      v-model="sheetInfo.relObj.dmdgccbw"
-                      :data-value="sheetInfo.relObj.dmdgccbw"
+                      v-model="sheetInfo.relObj.twypfpg"
+                      :data-value="sheetInfo.relObj.twypfpg"
                     />
                   </div>
                 </div>
@@ -458,14 +437,14 @@
                   <input
                     type="checkbox"
                     value="制动"
-                    style="margin-left:20px;"
+                    style="margin-left:5px;"
                     :ischecked="sheetInfo.relObj.zd"
                     v-model="checkedzd"
                   />制动
                   <input
                     type="checkbox"
                     value="俯卧位"
-                    style="margin-left:20px;"
+                    style="margin-left:5px;"
                     :ischecked="sheetInfo.relObj.fww"
                     v-model="checkedfww"
                   />俯卧位
@@ -485,6 +464,7 @@
                       class="bottomInput"
                       v-model="sheetInfo.relObj.qzpw1"
                       :data-value="sheetInfo.relObj.qzpw1"
+                      @keyup="(e)=>inputChange2(e)"
                     />）
                   </div>
                 </div> 
@@ -562,6 +542,7 @@
     display: flex;
     justify-content: start;
     align-items: center;
+    font-size:14px;
   }
   textarea {
     border: none;
@@ -825,6 +806,20 @@ export default {
           this.sheetInfo.relObj.ccrq = val.substr(0, 7) + "月"
         }else if(val.length == 10 ){
           this.sheetInfo.relObj.ccrq = val.substr(0, 10) + "日"
+        }
+      } 
+    },
+    inputChange2(e) {
+      let val = e.currentTarget.value
+      if(e.keyCode == 8) {
+        this.sheetInfo.relObj.qzpw1 = val
+      }else{
+        if(val.length == 4 ){
+          this.sheetInfo.relObj.qzpw1 = val.substr(0, 4) + "年"
+        }else if(val.length == 7 ){
+          this.sheetInfo.relObj.qzpw1 = val.substr(0, 7) + "月"
+        }else if(val.length == 10 ){
+          this.sheetInfo.relObj.qzpw1 = val.substr(0, 10) + "日"
         }
       } 
     },

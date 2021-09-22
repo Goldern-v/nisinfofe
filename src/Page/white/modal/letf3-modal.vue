@@ -16,7 +16,7 @@
 					}"
 				>
 					<div style="display: flex">
-						<el-input v-model="item.groupName"></el-input>
+						<el-input :maxlength='8' v-model="item.groupName"></el-input>
 						<el-button class="remove" @click.prevent="remove(item)">-</el-button>
 						<!-- <i class="el-icon-remove-outline"></i> -->
 					</div>
@@ -67,7 +67,6 @@ import common from "@/common/mixin/common.mixin.js";
 				e.groupCode = i + 1
 			});
 			saveOrUpdateHL(this.form).then(res => {
-				console.log(res)
 				if (res.data.code === '200') {
 					this.$message.success(res.data.desc);
 					this.visible = false
@@ -97,7 +96,7 @@ import common from "@/common/mixin/common.mixin.js";
 					}
 				})
 			} else {
-				this.$message.warning("如果要删除本条分组，需要把床位号或创建人清空")
+				this.$message.warning("如果要删除本条分组，需要清空床位和责任护士")
 			}
 			
 		} else {

@@ -4,24 +4,24 @@
 export default {
   // 科室的名称
   style: {
-    width: '1500px'
+    width: '1300px'
   },
   deptType: '',
   th: {
     top: [
       {
-        name: '日<br/>期',
+        name: '日期',
         colspan: '1',
         rowspan: '3'
       },
       {
-        name: '时<br/>间',
+        name: '时间',
         colspan: '1',
         rowspan: '3'
       },
       {
         name: `
-        台<br/>/<br/>箱<br/>温<br/>度<br/>°C
+        台<br/>/<br/>箱<br/>温<br/>度<br/>℃
         `,
         style: {
         },
@@ -80,8 +80,8 @@ export default {
         护士<br/>签名
         `,
         style: {
-          minWidth: '100px',
-          maxWidth: '100px',
+          minWidth: '50px',
+          maxWidth: '50px',
         },
         colspan: '1',
         rowspan: '3'
@@ -90,7 +90,7 @@ export default {
     mid: [
       {
         name: `
-        体<br/>温<br/>°C
+        体<br/>温<br/>℃
         `,
         colspan: '1',
         rowspan: '2'

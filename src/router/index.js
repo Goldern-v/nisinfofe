@@ -46,6 +46,8 @@ const workloadSatisticsZSQ = () =>
   import("../Page/workloadSatisticsLc/workloadSatistics-zhongshanqi.vue"); // 中山七工作量统计
 const workloadSatisticsFuYou = () =>
   import("@/Page/workloadSatisticsLc/workloadSatistics-fuyou.vue"); // 江门妇幼工作量统计
+  const workloadSatisticsDghl = () =>
+  import("@/Page/workloadSatisticsLc/workloadSatistics-Dghl.vue"); // 东莞横沥工作量统计
 const NotFoundComponent = () =>
   import("../components/NotFound/NotFoundComponent.vue"); // 异常路径
 const print = () => import("@/Part/print/print.vue");
@@ -170,6 +172,8 @@ const newSingleTemperatureChartJmfy = () =>
   import("@/Page/temperature-chart/new-singleTemperature-chart-quzhou/new-singleTemperature-chart.vue");//曲周医院-新版体温单录入页面
 const newSingleTemperatureChartDghl = () =>
   import("@/Page/temperature-chart/new-singleTemperature-chart-dghl/new-singleTemperature-chart.vue");
+  const newSingleTemperatureChartWujing = () =>
+  import("@/Page/temperature-chart/new-singleTemperature-chart-wujing/new-singleTemperature-chart.vue");//武警新版体温单单人录入
 const showPatientDetails = () =>
   import("@/Page/show-patient-details/show-patient-details.vue"); //查看评估单、记录单、病历、检查、检验、体温单
 const nursingPreview = () => import("@/Page/NursingPreview/NursingPreview.vue"); //查看所有的评估单、记录单、体温单
@@ -730,6 +734,8 @@ const router = new Router({
           switch (HOSPITAL_ID) {
             case 'lingcheng':
                 return workloadSatisticsLc
+                case 'hengli':
+                return workloadSatisticsDghl
             case 'fuyou':
                 return workloadSatisticsFuYou
             default:
@@ -947,6 +953,8 @@ const router = new Router({
               return newSingleTemperatureChartBhry
               case 'quzhou':
               return newSingleTemperatureChartQuzhou
+              case 'wujing':
+                return newSingleTemperatureChartWujing
               case 'hengli':
               return newSingleTemperatureChartDghl
             case 'fuyou':

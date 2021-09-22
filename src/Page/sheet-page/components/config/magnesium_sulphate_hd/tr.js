@@ -137,8 +137,12 @@ export default [{
       top: "1px",
       bottom: "1px",
       left: "1px",
-      width: "180px",
+      width: "150px",
       background: "transparent"
+    },
+    change: (e, td) => limitChange(e, td, 12),
+    textarea: {
+      width: 150
     },
     event: function (e, td) {
       console.log(e.keyCode);
@@ -146,8 +150,7 @@ export default [{
         td.value = "    " + td.value;
         e.preventDefault();
       }
-      keyf1(e, td);
-      limitChange(e, td, 11)
+      keyf1(e, td);   
     }
     // oninput: next
   },

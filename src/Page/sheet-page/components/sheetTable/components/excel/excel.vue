@@ -85,10 +85,7 @@
             multiSign: tr.find(item => item.key == 'multiSign').value,
             selectedTr: sheetInfo.selectRow.includes(tr),
             clickRow: sheetInfo.clickRow === tr,
-            redText:
-              tr.find(item => {
-                return item.key == 'recordSource';
-              }).value == '5'
+            redText: tr.find(item => {return item.key == 'recordSource'}).value == '5' || (dateOnBlur[y] || timeOnBlur[y])  
           },
           tr.find(item => {
             return item.key == 'markObj';
@@ -195,6 +192,9 @@
                   sheetInfo.sheetType === 'postpartum_hd' ||
                   sheetInfo.sheetType === 'neurosurgery_hd' ||
                   sheetInfo.sheetType === 'wait_delivery_hd' ||
+                  sheetInfo.sheetType === 'neonatology_hd' ||
+                  sheetInfo.sheetType === 'neonatology2_hd' ||
+                  sheetInfo.sheetType === 'prenatal_hd' ||
                   sheetInfo.sheetType === 'neonatal_care_jm' ||
                   sheetInfo.sheetType === 'pediatric_surgery_jm' ||
                   sheetInfo.sheetType === 'pediatrics_jm' ||
@@ -220,18 +220,18 @@
           <!-- <div v-else-if="td.key == 'auditorNo'" class="sign-img">
             <img v-if="td.value" :src="`/crNursing/api/file/signImage/${td.value}?${token}`" alt>
           </div>-->
-           <el-select
-           v-else-if="td.type=='select' && HOSPITAL_ID == 'guizhou'"
-          v-model="td.value"
-          filterable
-          remote
-          placeholder=""
-          size="small"
-          class="access-select"
-          autocomplete="off"
-          :remote-method="remoteMethod"
-          @visible-change="td.autoComplete && getOptionsData(td,tr,$event)"
-        >
+          <el-select
+            v-else-if="td.type=='select' && HOSPITAL_ID == 'guizhou'"
+            v-model="td.value"
+            filterable
+            remote
+            placeholder=""
+            size="small"
+            class="access-select"
+            autocomplete="off"
+            :remote-method="remoteMethod"
+            @visible-change="td.autoComplete && getOptionsData(td,tr,$event)"
+          >
           <el-option
             v-for="item in accessOptionData[td.name]"
             :key="item"
@@ -498,6 +498,8 @@ export default {
       matchMark,
       bus: bus(this),
       sheetInfo,
+      timeOnBlur: [false],  //时间控制是否变红
+      dateOnBlur: [false],  //日期控制是否变红
       fiexHeaderWidth: 0,
       isFixed: false,
       multiSign: false,
@@ -657,6 +659,29 @@ export default {
     onBlur(e, bind) {
       if (sheetInfo.model == "print") return;
       onBlurToAutoComplete(e, bind);
+      if(this.HOSPITAL_ID == 'guizhou'){
+        //不允许输入未来时间
+        if(bind.x==0){
+          let inputDate = Date.parse(new Date(moment().format("YYYY")+ "-" + e.target.value))//输入日期
+          let nowDate = Date.parse(new Date(moment().format("YYYY-MM-DD")))//当前日期
+          if(inputDate-nowDate>0){
+            this.$message.warning("不允许输入未来时间！")
+            this.dateOnBlur[bind.y] = true
+          }else{
+            this.dateOnBlur[bind.y] = false
+          }
+        }else if (bind.x==1){
+          let inputTime = Date.parse(new Date(moment().format("YYYY-MM-DD")+" "+e.target.value))//输入日期
+          let nowTime = Date.parse(new Date(moment().format("YYYY-MM-DD HH:mm")))//当前日期
+          if(inputTime-nowTime>0){
+            this.$message.warning("不允许输入未来时间！")
+            this.timeOnBlur[bind.y] = true
+          }else{
+            this.timeOnBlur[bind.y] = false
+          }
+        }
+      }
+      
     },
     setTitle(item) {
       this.$parent.$parent.$refs.sheetTool.$refs.setTitleModal.open(

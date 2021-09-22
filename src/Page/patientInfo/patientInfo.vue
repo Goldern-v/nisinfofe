@@ -4,6 +4,10 @@
       v-if="inited && HOSPITAL_ID=='hengli'"
       @handleInpatientSave="handleInpatientSave"
     ></leftPartHengli>
+    <leftPartHuadu
+      v-else-if="inited && HOSPITAL_ID=='huadu'"
+      @handleInpatientSave="handleInpatientSave"
+    ></leftPartHuadu>
     <leftPart
       v-else-if="inited"
       @handleInpatientSave="handleInpatientSave"
@@ -56,6 +60,7 @@ import topPartQuZhou from "@/Page/patientInfo/supComponts/topPart_QuZhou.vue"; /
 import topPartJmfy from "@/Page/patientInfo/supComponts/topPart_Jmfy.vue";
 import leftPart from "@/Page/patientInfo/supComponts/leftPart";
 import leftPartHengli from "@/Page/patientInfo/supComponts/leftPart_Hengli";
+import leftPartHuadu from "@/Page/patientInfo/supComponts/leftPart_Huadu";
 import { getPatientInfo } from "@/api/common.js";
 
 export default {
@@ -160,6 +165,7 @@ export default {
     topPartJmfy,
     leftPart,
     leftPartHengli,
+    leftPartHuadu
   },
 };
 </script>

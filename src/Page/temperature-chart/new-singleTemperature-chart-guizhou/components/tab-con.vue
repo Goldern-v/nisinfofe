@@ -449,7 +449,7 @@ export default {
           // wardCode: this.patientInfo.wardCode
           createDateTime: "",
           patientId: this.patientInfo.patientId,
-          visitId: this.patientInfo.visitId,
+          visitId: Number(this.patientInfo.visitId) ,
           recordDate: "",
           vitalSigns: key,
           wardCode: this.patientInfo.wardCode,
@@ -656,6 +656,7 @@ export default {
     /* 录入体温单 */
     async saveVitalSign(value) {
       let obj = Object.values(value);
+      console.log('objjj',obj)
       obj.map((item) => {
         item.recordDate =
           moment(new Date(this.query.entryDate)).format("YYYY-MM-DD") +

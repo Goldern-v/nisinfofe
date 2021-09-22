@@ -529,6 +529,27 @@ export default function Title(
     );
   }
   break;
+  case "nicu_custody_jm": {
+    // 江门妇幼 - NICU监护单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/nicu_custody_jm/th.js").default)
+    );
+  }
+  break;
+  case "aerate_param_jm": {
+    // 江门妇幼 - 氧疗及机械通气参数记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/aerate_param_jm/th.js").default)
+    );
+  }
+  break;
+  case "change_shift_jm": {
+    // 江门妇幼 - 交班记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/change_shift_jm/th.js").default)
+    );
+  }
+  break;
   case "postpartumnursing_jm": {
     // 江门妇幼 - 产后护理记录单
     Th = JSON.parse(
@@ -821,6 +842,83 @@ export default function Title(
     // 曲周县 - 介入手术治疗护理记录单
     Th = JSON.parse(
       JSON.stringify(require("../config/intersurgerycure_qzx/th").default)
+    );
+  }
+  break;
+  case "newborn_qzx": {
+    // 曲周县 - 新生儿护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/newborn_qzx/th").default)
+    );
+  }
+  break;
+  case "ecgmonitoring_bh": {
+    // 北海市 - 心电监护观察记录
+    Th = JSON.parse(
+      JSON.stringify(require("../config/ecgmonitoring_bh/th").default)
+    );
+  }
+  break;
+  case "bloodpulse2_bh": {
+    // 北海市 - 血压脉搏呼吸记录
+    Th = JSON.parse(
+      JSON.stringify(require("../config/bloodpulse2_bh/th").default)
+    );
+  }
+  break;
+  case "bloodpulse_bh": {
+    // 北海市 - 血压脉搏呼吸记录（产科）
+    Th = JSON.parse(
+      JSON.stringify(require("../config/bloodpulse_bh/th").default)
+    );
+  }
+  break;
+  case "generalcare_bh": {
+    // 北海市 - 一般患者护理记录
+    Th = JSON.parse(
+      JSON.stringify(require("../config/generalcare_bh/th").default)
+    );
+  }
+  break;
+  case "criticallycare_bh": {
+    // 北海市 - 病重（危）患者护理记录
+    Th = JSON.parse(
+      JSON.stringify(require("../config/criticallycare_bh/th").default)
+    );
+  }
+  break;
+  case "neurosurgery_bh": {
+    // 北海市 - 神经外科危重护理记录
+    Th = JSON.parse(
+      JSON.stringify(require("../config/neurosurgery_bh/th").default)
+    );
+  }
+  break;
+  case "criticalobstetric_bh": {
+    // 北海市 - 产科病重（危）患者护理记录
+    Th = JSON.parse(
+      JSON.stringify(require("../config/criticalobstetric_bh/th").default)
+    );
+  }
+  break;
+  case "respiratory_bh": {
+    // 北海市 - 呼吸内科危重记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/respiratory_bh/th").default)
+    );
+  }
+  break;
+  case "prenatalcheck_bh": {
+    // 北海市 - 产前检查治疗记录表
+    Th = JSON.parse(
+      JSON.stringify(require("../config/prenatalcheck_bh/th").default)
+    );
+  }
+  break;
+  case "access_bh": {
+    // 北海市 - 出入量记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/access_bh/th").default)
     );
   }
   break;

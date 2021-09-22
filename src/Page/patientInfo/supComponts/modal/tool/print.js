@@ -119,6 +119,10 @@ function print(source, beforePrint, selfShow) {
     transform: scale(0.8);
     transform-origin: 0 0;
    }
+   .huadu-bigname{
+    position:relative!important;
+    top:15px!important;
+  }
   `
   );
   iframeDocument.body.appendChild(clonedEl);

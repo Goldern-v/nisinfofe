@@ -17,14 +17,14 @@ import info from "../sheetInfo";
 
 const zgssList = ['软', '硬', '中'];
 const gdgdList = ['U+1', 'U+2', 'U+3', 'U=0', 'U-1', 'U-2', 'U-3', 'U-4'];
-const rfqkList = ['(-)'];
+const rfqkList = ['(-)', '硬'];
 const mrqkList = ['少', '中等', '多'];
 const skqkList = ['红肿', '渗液', '水肿', '(-)', '会阴(-)'];
 const 意识 = ['清醒', '浅昏迷', '深昏迷', '模糊', '嗜睡', '昏睡', '谵妄'];
 const zdjnList = ['✓'];
 const 入量名称 = ['输液', '口服', '输血', '肌注', '静注', '鼻饲', '静脉泵入', '灌肠', '饮水'];
 const 出量颜色 = ['黄色', '鲜红色', '暗红色', '墨绿色', '浓茶色'];
-const 出量名称 = ['呕吐物', '伤口引流', '腋窝引流', '胸壁引流', '胸腔引流', '心包积液', '胸腔引流液', '大便', '尿', '腹水', '脑积液', '痰液', '血液', '胃管', '尿管', '盆腔引流管', '肝下引流管','温氏孔引流管', '脾窝引流管', '伤口皮下引流管', 'T管', '隔下引流管', '人工肛', '胃造痰', '空肠造痰', '肛管引流管','杜氏窝引流管', '左肾造痰', '右肾造痰', '膀胱造痰', '左肾周引流', '右肾周引流', '耻骨后引流', '左输尿管导管引流', '右输尿管导管引流', '左肾窝引流', '右肾窝引流', '会阴部引流', '左输尿管造口支架管', '右输尿管造口支架管', '阴道出血', '术中出血', '止血球囊引流', '腹透液', '分娩时出血'];
+const 出量名称 = ['呕吐物', '伤口引流', '腋窝引流', '胸壁引流', '胸腔引流', '腹腔引流', '心包积液', '胸腔引流液', '大便', '尿', '腹水', '脑积液', '痰液', '血液', '胃管', '尿管', '盆腔引流管', '肝下引流管','温氏孔引流管', '脾窝引流管', '伤口皮下引流管', 'T管', '隔下引流管', '人工肛', '胃造痰', '空肠造痰', '肛管引流管','杜氏窝引流管', '左肾造痰', '右肾造痰', '膀胱造痰', '左肾周引流', '右肾周引流', '耻骨后引流', '左输尿管导管引流', '右输尿管导管引流', '左肾窝引流', '右肾窝引流', '会阴部引流', '左输尿管造口支架管', '右输尿管造口支架管', '阴道出血', '术中出血', '止血球囊引流', '腹透液', '分娩时出血'];
 export default [{
     key: "recordMonth", //日期
     value: "",
@@ -42,9 +42,9 @@ export default [{
     event: keyf1,
     name: "体温",
     next: "℃",
-    change: (e, td) => limitChange(e, td, 8),
+    change: (e, td) => limitChange(e, td, 3),
     textarea: {
-      width: 50
+      width: 27
     },
   },
   {
@@ -53,9 +53,9 @@ export default [{
     event: keyf1,
     name: "脉搏",
     next: "次/分",
-    change: (e, td) => limitChange(e, td, 8),
+    change: (e, td) => limitChange(e, td, 3),
     textarea: {
-      width: 50
+      width: 25
     },
   },
   {
@@ -64,9 +64,9 @@ export default [{
     event: keyf1,
     name: "呼吸",
     next: "次/分",
-    change: (e, td) => limitChange(e, td, 8),
+    change: (e, td) => limitChange(e, td, 3),
     textarea: {
-      width: 50
+      width: 25
     },
   },
   {
@@ -81,9 +81,9 @@ export default [{
     },
     name: "血压",
     next: "mmHg",
-    change: (e, td) => limitChange(e, td, 8),
+    change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 50
+      width: 43
     },
   },
   {
@@ -94,9 +94,9 @@ export default [{
     autoComplete: {
       data: 意识
     },
-    change: (e, td) => limitChange(e, td, 8),
+    change: (e, td) => limitChange(e, td, 6),
     textarea: {
-      width: 50
+      width: 40
     },
   },
   {
@@ -105,9 +105,9 @@ export default [{
     event: keyf1,
     name: "血氧饱和度",
     next: "%",
-    change: (e, td) => limitChange(e, td, 8),
+    change: (e, td) => limitChange(e, td, 3),
     textarea: {
-      width: 50
+      width: 25
     },
   },
   {
@@ -116,9 +116,9 @@ export default [{
     event: keyf1,
     name: "指尖血糖",
     next: "mmol/L",
-    change: (e, td) => limitChange(e, td, 8),
+    change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 50
+      width: 35
     },
   },
   {
@@ -129,7 +129,7 @@ export default [{
     next: "mL",
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 30
+      width: 35
     },
   },
   {
@@ -137,9 +137,9 @@ export default [{
     value: "",
     event: keyf1,
     name: "入量内容",
-    change: (e, td) => limitChange(e, td, 20),
+    change: (e, td) => limitChange(e, td, 10),
     textarea: {
-      width: 125
+      width: 65
     },
     autoComplete: {
       data: 入量名称
@@ -151,9 +151,9 @@ export default [{
     event: keyf1,
     name: "入量大小",
     next: "ml",
-    change: (e, td) => limitChange(e, td, 8),
+    change: (e, td) => limitChange(e, td, 3),
     textarea: {
-      width: 50
+      width: 25
     },
   },
   {
@@ -161,9 +161,9 @@ export default [{
     value: "",
     event: keyf1,
     name: "出量内容",
-    change: (e, td) => limitChange(e, td, 20),
+    change: (e, td) => limitChange(e, td, 10),
     textarea: {
-      width: 125
+      width: 65
     },
     autoComplete: {
       data: 出量名称
@@ -175,9 +175,9 @@ export default [{
     event: keyf1,
     name: "出量大小",
     next: "ml",
-    change: (e, td) => limitChange(e, td, 8),
+    change: (e, td) => limitChange(e, td, 3),
     textarea: {
-      width: 50
+      width: 25
     },
   },
   {
@@ -188,9 +188,9 @@ export default [{
     autoComplete: {
       data: 出量颜色
     },
-    change: (e, td) => limitChange(e, td, 8),
+    change: (e, td) => limitChange(e, td, 3),
     textarea: {
-      width: 50
+      width: 25
     },
   },
   {
@@ -198,9 +198,9 @@ export default [{
     value: "",
     event: keyf1,
     name: "健康宣教",
-    change: (e, td) => limitChange(e, td, 8),
+    change: (e, td) => limitChange(e, td, 16),
     textarea: {
-      width: 50
+      width: 110
     },
   },
   {
@@ -209,7 +209,7 @@ export default [{
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 35
+      width: 30
     },
     autoComplete: {
       data: zgssList
@@ -221,7 +221,7 @@ export default [{
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 35
+      width: 30
     },
     autoComplete: {
       data: gdgdList
@@ -233,7 +233,7 @@ export default [{
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 35
+      width: 30
     },
     autoComplete: {
       data: rfqkList
@@ -245,7 +245,7 @@ export default [{
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 35
+      width: 30
     },
     autoComplete: {
       data: mrqkList
@@ -257,7 +257,7 @@ export default [{
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 35
+      width: 30
     },
     autoComplete: {
       data: skqkList
@@ -269,7 +269,7 @@ export default [{
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 35
+      width: 30
     },
     autoComplete: {
       data: zdjnList
@@ -281,7 +281,7 @@ export default [{
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 35
+      width: 30
     },
   },
   {
@@ -293,9 +293,14 @@ export default [{
       top: "1px",
       bottom: "1px",
       left: "1px",
-      width: "180px",
+      width: "150px",
       background: "transparent"
     },
+    textarea: {
+      width: 150
+    },
+    
+    change: (e, td) => limitChange(e, td, 12),
     event: function (e, td) {
       console.log(e.keyCode);
       if (e.keyCode == 9) {
@@ -303,10 +308,7 @@ export default [{
         e.preventDefault();
       }
       keyf1(e, td);
-      limitChange(e, td, 11)
     },
-    
-    // oninput: next
   },
   {
     key: "sign",

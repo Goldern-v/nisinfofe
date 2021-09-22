@@ -59,19 +59,19 @@
           @currentChange="handleCurrentChange"
         ></pagination>
       </div> -->
-      <!-- <div class="print-modal" v-show="showPintModal" @click="closePrint">
+      <div class="print-modal" v-show="showPintModal" @click="closePrint">
         <div class="init" v-show="!showProgress">
           <img src="./images/print.png" alt="">
           <p>正在初始化打印,请稍等…</p>
         </div>
-        <div class="print" v-show="showProgress" @click.stop>
+        <!-- <div class="print" v-show="showProgress" @click.stop>
           <el-progress :percentage="(printNum/selectedData.length)*100 || 0"></el-progress>
           <p>
             <span>{{printStatusMsg}}</span>
             <el-button v-show="showCancelPrint"  @click="closePrint" style="margin-left:15px;">取消</el-button>
           </p>
-        </div>
-      </div> -->
+        </div> -->
+      </div>
 
     </div>
   </div>
@@ -167,7 +167,7 @@ export default {
   mixins: [common],
   data() {
     return {
-      src:"http://192.168.1.54:9523/crNursing/asset/printExecuteOrders/1111111111.pdf",
+      src:"",
       pageInput: "",
       pageLoadng: false,
       page: {
@@ -273,10 +273,8 @@ export default {
       this.selectedData = this.$refs.plTable.selectedData;
       if((this.selectedData||[]).length<=0)
       return this.$message('未选择勾选打印条目')
-      this.changeModal(true)
-      // webExecutePrint().then(res=>{
-      //   console.log(res);
-      // })
+      this.isShowModal = false
+      this.src = ``;
       this.printNum = 0;
 
       this.query.executeDate = this.query.executeDate ? moment(this.query.executeDate).format("YYYY-MM-DD") : '';
@@ -286,13 +284,17 @@ export default {
         url += `${item.patientId}|${item.visitId}|${item.orderNo};`;
       });
       this.Uuid = new Date().getTime() + parseInt(Math.random()*10000);
-      console.log(`${this.Uuid};${this.empNo};${this.query.executeDate};${url}`);
+      this.showPintModal = true
       webExecutePrint({
         content:`${this.Uuid};${this.empNo};${this.query.executeDate};${url}`,
         uuid:this.Uuid
       }).then(res=>{
-        console.log(res);
-      })
+        this.src = `/crNursing/asset/${res.data.data.printExecuteUrl}`;
+        setTimeout(()=>{
+          this.showPintModal = false
+          this.isShowModal = true;
+        },500)
+})
       // window.location.href = `LABELPRINT://${this.Uuid};${this.empNo};${this.query.executeDate};{${url}}`;
       // this.printStatusMsg = '正在打印,请稍等…'
       // this.showCancelPrint = false;

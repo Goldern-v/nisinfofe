@@ -227,14 +227,19 @@ export const getVitalSign = (patientId, visitId, recordDate,id,hospitalId) => {
   );
 };
 
+// 曲周获取his患者体征
+export const ordersExecuteList = (obj = {}) => {
+  let id = sheetInfo.selectBlock.id;
+  return axios.post(`${apiPath}record/block/ordersExecute/list/${id}`, obj);
+};
+
 // 保存his患者体征
 export const saveVitalSign = (data,hospitalId) => {
-  if(hospitalId=='wujing'){
+  if(hospitalId=='wujing'||hospitalId=='quzhou'){
     return axios.post(
       `${apiPath}record/block/ordersExecute/save`,
       data
     );
-    
   }
   let d = {
     blockId: sheetInfo.selectBlock.id,
@@ -252,3 +257,17 @@ export function getUser(password, empNo) {
     empNo
   });
 }
+
+// 转床床号选中获取
+export const bedExchangeModifyLog = (patientId, visitId, blockId) => {
+  return axios.get(
+    `${apiPath}record/block/bedExchangeModifyLog/${patientId}/${visitId}/${blockId}`
+  );
+};
+
+// 转床床号选中获取
+export const updateBlockInfo = (obj = {}) => {
+  return axios.post(
+    `${apiPath}record/block/updateBlockInfo`, obj
+  );
+};
