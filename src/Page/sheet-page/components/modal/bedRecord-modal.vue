@@ -136,7 +136,7 @@ export default {
         this.patientInfo.visitId || this.formlist.visitId,
         this.sheetInfo.selectBlock.id,
       ).then(res => {
-        this.tableData = res.data.data.list;
+        this.tableData = res.data.data.list || [];
         this.multipleSelection = this.tableData.filter(item => item.selected == true)
         this.firstBedRecord = this.multipleSelection[0] ? this.multipleSelection[0].bedNoNew : ""
         this.secondBedRecord = this.multipleSelection[1] ? this.multipleSelection[1].bedNoNew : ""
