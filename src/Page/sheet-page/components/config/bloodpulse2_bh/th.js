@@ -86,7 +86,10 @@ export default {
         name: `
         护士签名
         `,
-        style: {},
+        style: {
+          minWidth: "70px",
+          maxWidth: "70px",
+        },
         colspan: "1",
         rowspan: "3",
       },
