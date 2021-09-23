@@ -49,13 +49,30 @@
         </template>
       </u-table-column>
 
-      <u-table-column prop="administration" label="途径" min-width="120px" align="center"></u-table-column>
+      <u-table-column prop="administration" label="途径" min-width="120px" align="center" title="administration" >
+      <template slot-scope="scope">
+          <span :title="scope.row.administration">{{scope.row.administration }}</span>
+        </template>
+      </u-table-column>
 
-      <u-table-column label="频次" prop="frequency" min-width="80px" align="center"></u-table-column>
+      <u-table-column label="频次" prop="frequency" min-width="80px" align="center">
+      <template slot-scope="scope">
+          <span :title="scope.row.frequency">{{scope.row.frequency }}</span>
+        </template>
+      </u-table-column>
 
-      <u-table-column label="执行时间说明" prop="performSchedule" min-width="100px" align="center"></u-table-column>
+      <u-table-column label="执行时间说明" prop="performSchedule" min-width="100px" align="center">
+      <template slot-scope="scope">
+          <span :title="scope.row.performSchedule">{{scope.row.performSchedule }}</span>
+        </template>
+      </u-table-column>
+      </u-table-column>
 
-      <u-table-column label="医生说明" prop="freqDetail" min-width="200px" align="center"></u-table-column>
+      <u-table-column label="医生说明" prop="freqDetail" min-width="200px" align="center">
+      <template slot-scope="scope">
+          <span :title="scope.row.freqDetail">{{scope.row.freqDetail}}</span>
+        </template>
+      </u-table-column>
 
       <u-table-column prop="executeFlag" label="状态" min-width="80px" align="center">
         <template slot-scope="scope">
@@ -69,11 +86,15 @@
 
        <u-table-column prop="realExecuteDateTime" label="执行时间" min-width="160px" align="center">
         <template slot-scope="scope">
-          <span>{{scope.row.realExecuteDateTime | ymdhms}}</span>
+          <span :title="scope.row.realExecuteDateTime | ymdhms">{{scope.row.realExecuteDateTime | ymdhms}}</span>
         </template>
        </u-table-column>
 
-      <u-table-column prop="executeNurseName" label="执行护士" min-width="80px" align="center"></u-table-column>
+      <u-table-column prop="executeNurseName" title="executeNurseName" label="执行护士" min-width="80px" align="center">
+      <template slot-scope="scope">
+          <span :title="scope.row.executeNurseName | ymdhms">{{scope.row.executeNurseName | ymdhms}}</span>
+        </template>
+      </u-table-column>
 
       <u-table-column prop="repeatIndicator" label="长/临" min-width="70px" align="center">
        <template slot-scope="scope">
@@ -81,7 +102,11 @@
         </template>
       </u-table-column>
 
-      <u-table-column prop="orderNo" label="医嘱号" min-width="70px" align="center"></u-table-column>
+      <u-table-column prop="orderNo" label="医嘱号" min-width="70px" align="center">
+       <template slot-scope="scope">
+          <span :title="scope.row.orderNo">{{scope.row.orderNo}}</span>
+        </template>
+      </u-table-column>
 
       <u-table-column prop="reqDateTime" label="开嘱时间" min-width="160px" align="center">
         <template slot-scope="scope">
