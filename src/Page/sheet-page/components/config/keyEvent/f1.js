@@ -10,22 +10,20 @@ export const keyf1 = function (e, td) {
 
 // 限制输入，最多输入全中文num个字
 export const limitChange = function (e, td, num) {
-  // console.log(e.currentTarget.value);
-  // console.log(td.value);
   let maxLength = num*2;
-  let str = e.currentTarget.value;
+  let str = td.value;
   if (typeof str != "string")str += "";
   let len= str.replace(/[^\x00-\xff]/g,"01").length;
   if(len>maxLength){
-    if (e.keyCode != 8 && e.keyCode != 37 && e.keyCode != 38 && e.keyCode != 39 && e.keyCode != 40 && e.keyCode != 13 && e.keyCode != 108 && e.keyCode != 9 && e.keyCode != 16 && e.keyCode != 17 && e.keyCode != 18 && e.keyCode != 20 && e.keyCode != 27 && e.keyCode != 91) {
+    if (td.value.length >= 4 && e.keyCode != 8 && e.keyCode != 37 && e.keyCode != 38 && e.keyCode != 39 && e.keyCode != 40 && e.keyCode != 13 && e.keyCode != 108 && e.keyCode != 9 && e.keyCode != 16 && e.keyCode != 17 && e.keyCode != 18 && e.keyCode != 20 && e.keyCode != 27 && e.keyCode != 91) {
       let last=td.value[td.value.length-1].replace(/[^\x00-\xff]/g,true)//最后一个为中文
       if(last) {
-        td.value = str.substring(0,str.length-1);
-        e.currentTarget.value = str.substring(0,str.length-1);
+        td.value = td.value.substring(0,str.length-1);//
       }else{
-        td.value = str.substring(0,str.length-0.5);
-        e.currentTarget.value = str.substring(0,str.length-0.5);
-      } 
+        td.value = td.value.substring(0,str.length-0.5);
+      }
+
+      
     }
   }
   
