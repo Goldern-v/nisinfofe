@@ -300,12 +300,12 @@ export default {
   data() {
     // 初始化筛选时间
     let initTimeArea = {
-      ["02"]: ["00:00", "05:59"],
-      ["06"]: ["06:00", "09:59"],
-      ["10"]: ["10:00", "13:59"],
-      ["14"]: ["14:00", "17:59"],
-      ["18"]: ["18:00", "21:59"],
-      ["22"]: ["22:00", "23:59"],
+      ["04"]: ["00:00", "04:59"],
+      ["08"]: ["05:00", "08:59"],
+      ["12"]: ["09:00", "12:59"],
+      ["16"]: ["13:00", "16:59"],
+      ["20"]: ["17:00", "20:59"],
+      ["24"]: ["21:00", "23:59"],
     };
 
     let entryTime = "02";
@@ -350,6 +350,7 @@ export default {
               }
          //录入时间
         })() //录入时间
+      
       },
       recordDate: "",
       fieldList: {}, // 自定义项目列表
@@ -449,7 +450,7 @@ export default {
           // wardCode: this.patientInfo.wardCode
           createDateTime: "",
           patientId: this.patientInfo.patientId,
-          visitId: Number(this.patientInfo.visitId) ,
+          visitId: this.patientInfo.visitId,
           recordDate: "",
           vitalSigns: key,
           wardCode: this.patientInfo.wardCode,
@@ -469,11 +470,6 @@ export default {
         };
       }
       this.vitalSignObj = { ...obj };
-    },
-     getHours() {
-      let date = new Date();
-      let b = date.getHours();
-      return b;
     },
     async getList() {
       /* 初始化 */
@@ -656,7 +652,6 @@ export default {
     /* 录入体温单 */
     async saveVitalSign(value) {
       let obj = Object.values(value);
-      console.log('objjj',obj)
       obj.map((item) => {
         item.recordDate =
           moment(new Date(this.query.entryDate)).format("YYYY-MM-DD") +
@@ -748,7 +743,7 @@ export default {
 
     .preText {
       display: inline-block;
-      width: 70px;
+      width: 50px;
     }
 
     input {
