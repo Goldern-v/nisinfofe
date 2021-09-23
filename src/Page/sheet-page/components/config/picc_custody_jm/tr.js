@@ -29,10 +29,12 @@ export default [
   {
     key: "boxTemperature", //台箱温度
     value: "",
+    name: "台/箱温度",
+    next: "℃",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 45
+      width: 30
     },
   },
   {
@@ -43,7 +45,7 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 45
+      width: 30
     },
   },
   {
@@ -54,7 +56,7 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 45
+      width: 30
     },
   },
   {
@@ -65,16 +67,18 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 45
+      width: 30
     },
   },
   {
     key: "nbp", //NBP/ABP
     value: "",
+    name: "NBP/ABP",
+    next: "mmHg",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 45
+      width: 30
     },
     autoComplete: {
       data: NBPList
@@ -83,46 +87,53 @@ export default [
   {
     key: "spo2", //Spo2
     value: "",
+    name: "Spo2",
+    next: "%",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 45
+      width: 30
     },
   },
   {
     key: "cvp", //CVP
     value: "",
+    name: "CVP",
+    next: "mmHg",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 45
+      width: 30
     },
   },
   {
     key: "consciousness", //神志
     value: "",
+    name: "神志",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 35
+      width: 30
     },
   },
   {
     key: "complexion", //肤色
     value: "",
+    name: "肤色",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 35
+      width: 30
     },
   },
   {
     key: "posture", //体位
     value: "",
+    name: "体位",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 35
+      width: 30
     },
     autoComplete: {
       data: twList
@@ -134,61 +145,67 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 35
+      width: 30
     },
   },
   {
     key: "ventilationMode", //通气模式
     value: "",
+    name: "通气模式",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 35
+      width: 30
     },
   },
   {
     key: "fio2", //Fio2
     value: "",
+    name: "Fio2/Ti",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 35
+      width: 30
     },
   },
   {
     key: "vte", //VTE
     value: "",
+    name: "VTE/呼吸频率",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 35
+      width: 30
     },
   },
   {
     key: "peep", //PEEP/PIP
     value: "",
+    name: "PEEP/PIP",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 35
+      width: 30
     },
   },
   {
     key: "pmean", //pmean
     value: "",
+    name: "Pmean",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 35
+      width: 30
     },
   },
   {
     key: "amplitude", //振幅
     value: "",
+    name: "△P/振幅",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 35
+      width: 30
     },
   },
   {
@@ -197,7 +214,7 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 35
+      width: 30
     },
   },
   {
@@ -206,7 +223,7 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 35
+      width: 30
     },
   },
   {
@@ -215,7 +232,7 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 35
+      width: 30
     },
   },
   {
@@ -236,7 +253,7 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 35
+      width: 30
     },
   },
   {
@@ -245,97 +262,112 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 35
+      width: 30
     },
   },
   {
     key: "accumulated", //入量累计
     value: "",
+    name: "入量累计",
+    next: "ml",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 35
+      width: 30
     },
   },
   {
     key: "urinate", //尿/便
     value: "",
+    name: "尿/便",
+    next: "ml",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 35
+      width: 30
     },
   },
   {
     key: "drainage", //引流量
     value: "",
+    name: "引流量",
+    next: "ml",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 35
+      width: 30
     },
   },
   {
     key: "cumulative", //出量累计
     value: "",
+    name: "出量累计",
+    next: "ml",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 35
+      width: 30
     },
   },
   {
     key: "balance", //平衡量
     value: "",
+    name: "平衡量",
+    next: "ml",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 35
+      width: 30
     },
   },
   {
     key: "atomization", //雾化
     value: "",
+    name: "雾化",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 35
+      width: 30
     },
   },
   {
     key: "sputumSuction", //吸痰
     value: "",
+    name: "吸痰",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 35
+      width: 30
     },
   },
   {
     key: "skinCare", //皮肤护理
     value: "",
+    name: "皮肤护理",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 35
+      width: 30
     },
   },
   {
     key: "oralCare", //口腔护理
     value: "",
+    name: "口腔护理",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 35
+      width: 30
     },
   },
   {
     key: "perineumCare", //会阴护理
     value: "",
+    name: "会阴护理",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 35
+      width: 30
     },
   },
   {
@@ -344,7 +376,7 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 35
+      width: 30
     },
   },
   {

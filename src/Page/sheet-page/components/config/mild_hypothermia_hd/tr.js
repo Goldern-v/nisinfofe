@@ -27,9 +27,9 @@ export default [
     key: "pulse", //脉搏/心率
     value: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 6),
     textarea: {
-      width: 35
+      width: 45
     },
   },
   {
@@ -98,27 +98,27 @@ export default [
     key: "fieldTwo", //仪器显示水温
     value: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 6),
     textarea: {
-      width: 35
+      width: 45
     },
   },
   {
     key: "fieldThree", //患儿实际肛温
     value: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 6),
     textarea: {
-      width: 35
+      width: 45
     },
   },
   {
     key: "fieldFourYes", //是否达到目标温度（33.5-34℃）是
     value: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 6),
     textarea: {
-      width: 35
+      width: 45
     },
   },
   {
@@ -128,9 +128,9 @@ export default [
     autoComplete: {
       data: ["√"]
     },
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 6),
     textarea: {
-      width: 35
+      width: 45
     },
   },
   {
@@ -206,9 +206,9 @@ export default [
     autoComplete: {
       data: ["√"]
     },
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 6),
     textarea: {
-      width: 35
+      width: 45
     },
   },
   {
@@ -218,9 +218,9 @@ export default [
     autoComplete: {
       data: ["√"]
     },
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 6),
     textarea: {
-      width: 35
+      width: 45
     },
   },
   {
@@ -230,9 +230,9 @@ export default [
     autoComplete: {
       data: [ ,"√"]
     },
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 6),
     textarea: {
-      width: 35
+      width: 45
     },
   },
   {
@@ -242,9 +242,9 @@ export default [
     autoComplete: {
       data: ["√"]
     },
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 6),
     textarea: {
-      width: 35
+      width: 45
     },
   },
   {
@@ -254,9 +254,9 @@ export default [
     autoComplete: {
       data: ["√"]
     },
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 6),
     textarea: {
-      width: 35
+      width: 45
     },
   },
   {
@@ -268,10 +268,14 @@ export default [
       top: "1px",
       bottom: "1px",
       left: "1px",
-      width: "180px",
+      width: "150px",
       background: "transparent"
     },
     hidden: true,
+    change: (e, td) => limitChange(e, td, 12),
+    textarea: {
+      width: 150
+    },
     event: function(e, td) {
       console.log(e.keyCode);
       if (e.keyCode == 9) {
@@ -279,9 +283,7 @@ export default [
         e.preventDefault();
       }
       keyf1(e, td);
-      limitChange(e, td, 11)
     }
-    // oninput: next
   },
   {
     key: "sign",

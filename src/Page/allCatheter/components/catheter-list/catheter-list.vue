@@ -1,0 +1,116 @@
+<template>
+    <div class="cathter-box">
+        <div class="cathter-tool">
+            <div>导管</div>
+            <div class="add-btn" @click="addCathter">+添加导管</div>
+        </div>
+        <div class="cathter-list">
+            <div 
+            v-for="(item,index) in cathterArr" 
+            class="cathter-item" 
+            :style="{color:item.fontColor,background:current==index?'#eff6f5':''}" 
+            :key="index" 
+            @click="selectType(item,index)"
+            >
+                {{item.formTitle + " " + item.createDate  + " " }}
+                <div class="right-part"><div class="point" :style="{border: '5px solid ' + item.fontColor}"></div></div>
+            </div>
+        </div>
+    </div>
+</template>
+<style lang='scss' scoped>
+    .cathter-box{
+        border:1px solid #ccc;
+        position: absolute;
+        width: 300px;
+        height: 100%;
+        background-color: #fff;
+        top: 0;
+        left: 199px;
+        z-index: 999;
+        .cathter-tool{
+            display: flex;
+            justify-content: space-between;
+            div{
+                width: 100px;
+                text-align: center;
+                height: 30px;
+                line-height: 30px;
+                font-weight: 700;
+            }
+            .add-btn{
+                cursor: pointer;
+            }
+        }
+        .cathter-list{
+            .cathter-item{
+                cursor: pointer;
+                text-indent: 35px;
+                height: 45px;
+                line-height: 45px;
+                display: flex;
+                justify-content: space-between;
+                .right-part{
+                    width: 45px;
+                    padding: 18px 0 0 0;
+                }
+                .point{
+                    height: 1px;
+                    width: 1px;
+                    border-radius: 50%;
+                    margin:0 auto
+                }
+            }
+        }
+    }
+</style>
+<script>
+import {getCatheterTable} from '../../api/catheter'
+export default {
+props: {cathterArr:{type:Array,value:[]}},
+data() {
+return {
+    current:null
+};
+},
+methods: {
+    addCathter(){
+        this.$emit('addCathter')
+    },
+    selectType(item,index){
+        console.log(item);
+        this.current = index
+        getCatheterTable({
+            code: item.code,
+            type: item.type,
+            id: item.id,
+            patientId: item.patientId,
+            visitId: item.visitId
+        },item.code).then(res=>{
+            this.$emit('updateTableConfig',res.data.data)
+        })
+    }
+},
+watch:{
+    'cathterArr'(a,b){
+        a.map(item=>{
+            if(item.createDate&&item.replaceTime){
+                let startT= new Date(item.createDate); //开始时间以/分隔
+                let endT = new Date(item.replaceTime); //结束时间以/分隔
+                let times = endT.getTime() - startT.getTime();
+                if(times>259200000){
+                    item.fontColor = 'green' 
+                }else if(times<259200000 && times>0){
+                    item.fontColor = 'red' 
+                }else{
+                    item.fontColor = 'grey'
+                }
+            }else{
+                
+            }
+        })
+    }
+},
+components: {}
+};
+</script>

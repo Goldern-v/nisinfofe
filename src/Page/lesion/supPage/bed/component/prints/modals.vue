@@ -17,274 +17,99 @@
           v-for="(item,index) in list"
           :key="item.patientId + '|' + item.visitId"
           class="bed-card-con"
+          :class="[(index+1)%9==0?'nextpage':'',(index+1)%9==1||(index+1)%9==2||(index+1)%9==3?'firstpage':'']"
           flex
-          :class="{ remarkCon: item.formData.remarkPrint }"
         >
           <img
             class="qr-code"
             :class="{ hasRemark: hasRemark }"
             :src="qrCode[index]"
           />
-          <div class="qr-code-num" :class="{ hasRemark: hasRemark }">
-            {{ qrCodeNum[index] }}
-          </div>
           <div style="width: 0" flex-box="1" flex="dir:top main:justify">
             <div
               flex="cross:center"
               class="input-item"
-              style="height: 51px"
-              v-if="HOSPITAL_ID == 'hj'"
+              style="height: 43px"
             >
-              <!-- <span class="label">患者姓名:</span> -->
-              <span :style="`width: ${hasRemark ? 85 : 100}px`"></span>
-              <input
+              <span class="label">科别:</span>
+              <div
                 type="text"
                 nowidth
-                style="font-size: 42px;padding-left: 0px;font-weight: 900;"
+                style="font-size: 22px;padding-left: 5px;border-bottom:0;"
                 flex-box="1"
                 class="bottom-line"
-                :value="query.name"
-              />
-              <input
-                type="text"
-                nowidth
-                style="font-size: 30px;padding-left: 0px;width:31%;height: 100%;box-sizing: border-box;"
-                class="bottom-line"
-                :value="query.sex + ' ' + query.age"
-              />
+              >{{item.wardName}}</div>
             </div>
             <div
               flex="cross:center"
               class="input-item"
-              style="height: 43px"
-              v-else
+              :style="{overflow:item.name.length>7?'unset':'',minHeight:'43px'}"
             >
-              <!-- <span class="label">患者姓名:</span> -->
-              <span :style="`width: ${hasRemark ? 85 : 100}px`"></span>
-              <input
-                type="text"
-                nowidth
-                style="font-size: 32px;padding-left: 5px;"
-                flex-box="1"
-                class="bottom-line"
-                :value="item.name + ' ' + item.sex + ' ' + item.age"
-              />
-            </div>
-            <div flex="cross:center" class="input-item">
-              <!-- <span class="label">住院号:</span> -->
-              <span :style="`width: ${hasRemark ? 85 : 100}px`"></span>
-              <input
-                type="text"
-                style="width: 75px;font-size: 30px; padding-left: 5px;"
-                class="bottom-line"
-                :value="item.bedLabel + '床'"
-              />
-              <input
-                type="text"
-                flex-box="1"
-                style="width: 0px;font-size: 30px; padding-left: 2px;"
-                nowidth
-                class="bottom-line"
-                :value="moment(item.admissionDate).format('YYYY-MM-DD')"
-              />
-            </div>
-            <!-- <div flex="cross:center" class="input-item">
-              <span class="label">饮食:</span>
-              <div nowidth class="check-con" flex-box="1" flex="main:justify cross:center">
-                <label>
-                  <input
-                    type="checkbox"
-                    value="普食"
-                    checked
-                    class="checkBox"
-                    v-model="formData.diet"
-                  >普食
-                </label>
-                <label>
-                  <input type="checkbox" value="半流" class="checkBox" v-model="formData.diet">半流
-                </label>
-                <label>
-                  <input type="checkbox" value="流质" class="checkBox" v-model="formData.diet">流质
-                </label>
-                <label>
-                  <input type="checkbox" value="糖尿病" class="checkBox" v-model="formData.diet">糖尿病
-                </label>
-              </div>
-            </div>-->
-            <div flex="cross:center" class="input-item">
-              <span class="label">饮食:</span>
+              <span class="label">床号:</span>
               <div
+                type="text"
                 nowidth
-                class="check-con"
+                style="font-size: 22px;padding-left: 5px;border-bottom:0"
                 flex-box="1"
-                flex="main:justify cross:center"
-              >
-                <input
-                  type="text"
-                  nowidth
-                  flex-box="1"
-                  class="bottom-line"
-                  style="font-size: 26px"
-                  v-model="item.formData.diet"
-                  @focus="
-                    onFocusToAutoComplete($event, {
-                      autoComplete: ysList,
-                      obj: item.formData,
-                      key: 'diet',
-                      index:index
-                    })
-                  "
-                  @blur="onBlurToAutoComplete"
-                />
-              </div>
+                class="bottom-line"
+              >{{item.bedLabel}}</div>
+              <span class="label">姓名:</span>
+              <div
+                type="text"
+                nowidth
+                style="font-size: 22px;padding-left: 5px;border-bottom:0;"
+                flex-box="3"
+                class="bottom-line"
+                :class="[item.name.length>7?'huadu-bigname':'']"
+              >{{item.name}}</div>
             </div>
             <div flex="cross:center" class="input-item">
-              <span class="label">病情等级:</span>
-              <div nowidth flex-box="1" flex="main:left cross:center">
-                <img
-                  class="dj-box"
-                  @click="selectRegistCare('重',index)"
-                  :class="{ active: item.formData.registCare.includes('重') }"
-                  :src="
-                    item.formData.registCare.includes('重')
-                      ? require('./images/重选.png')
-                      : require('./images/重.png')
-                  "
-                />
-                <img
-                  class="dj-box"
-                  @click="selectRegistCare('危',index)"
-                  :class="{ active: item.formData.registCare.includes('危') }"
-                  :src="
-                    item.formData.registCare.includes('危')
-                      ? require('./images/危选.png')
-                      : require('./images/危.png')
-                  "
-                />
-                <img
-                  class="dj-box"
-                  @click="selectRegistCare('普',index)"
-                  :class="{ active: item.formData.registCare.includes('普') }"
-                  :src="
-                    item.formData.registCare.includes('普')
-                      ? require('./images/普选.png')
-                      : require('./images/普.png')
-                  "
-                />
-              </div>
+              <span class="label">性别:</span>
+              <div
+                type="text"
+                nowidth
+                style="font-size: 22px;padding-left: 5px;border-bottom:0;"
+                flex-box="1"
+                class="bottom-line"
+              >{{item.sex}}</div>
+              <span class="label">年龄:</span>
+              <div
+                type="text"
+                nowidth
+                style="font-size: 22px;padding-left: 5px;border-bottom:0;"
+                flex-box="3"
+                class="bottom-line"
+              >{{item.age}}</div>
             </div>
             <div flex="cross:center" class="input-item">
-              <span class="label">护理级别:</span>
-              <div nowidth flex-box="1" flex="main:left cross:center">
-                <img
-                  class="dj-box"
-                  @click="selectRegistCare('特',index)"
-                  :class="{ active: item.formData.registCare.includes('特') }"
-                  :src="
-                    item.formData.registCare.includes('特')
-                      ? require('./images/特选.png')
-                      : require('./images/特.png')
-                  "
-                />
-                <img
-                  class="dj-box"
-                  @click="selectRegistCare('一',index)"
-                  :class="{ active: item.formData.registCare.includes('一') }"
-                  :src="
-                    item.formData.registCare.includes('一')
-                      ? require('./images/一选.png')
-                      : require('./images/一.png')
-                  "
-                />
-                <img
-                  class="dj-box"
-                  @click="selectRegistCare('二',index)"
-                  :class="{ active: item.formData.registCare.includes('二') }"
-                  :src="
-                    item.formData.registCare.includes('二')
-                      ? require('./images/二选.png')
-                      : require('./images/二.png')
-                  "
-                />
-                <img
-                  class="dj-box"
-                  @click="selectRegistCare('三',index)"
-                  :class="{ active: item.formData.registCare.includes('三') }"
-                  :src="
-                    item.formData.registCare.includes('三')
-                      ? require('./images/三选.png')
-                      : require('./images/三.png')
-                  "
-                />
+              <span class="label">住院号:</span>
+              <div
+                type="text"
+                nowidth
+                style="font-size: 22px;padding-left: 5px;border-bottom:0;"
+                flex-box="1"
+                class="bottom-line"
+              >{{item.patientId}}</div>
               </div>
-            </div>
             <div flex="cross:center" class="input-item">
               <span class="label">主管医生:</span>
-              <!-- <el-autocomplete v-model="formData.mainDoctors"
-                               :fetch-suggestions="querySearchAsyncDoc"
-                               class="auto-input"
-                               flex-box="1"
-                               disabled
-              ></el-autocomplete>-->
-              <input
+              <div
                 type="text"
                 nowidth
-                style="font-size: 26px"
+                style="font-size: 22px;padding-left: 5px;border-bottom:0;"
                 flex-box="1"
                 class="bottom-line"
-                v-model="item.formData.mainDoctors"
-              />
+              >{{item.mainDoctors}}</div>
             </div>
             <div flex="cross:center" class="input-item">
-              <span class="label">责任护士:</span>
-              <!-- <el-autocomplete v-model="formData.dutyNurses"
-                               :fetch-suggestions="querySearchAsyncNur"
-                               class="auto-input"
-                               flex-box="1"
-                               disabled
-              ></el-autocomplete>-->
-              <input
-                type="text"
-                nowidth
-                flex-box="1"
-                class="bottom-line"
-                style="font-size: 26px"
-                v-model="item.formData.dutyNurses"
-              />
-            </div>
-            <div
-              flex="cross:top"
-              class="input-item"
-              style="height: 58px;margin-top: 4px"
-              v-if="remarkPrint"
-            >
-              <div class="input-item-left">
-                <span class="input-item-left-label">诊断:</span>
-              </div>
-
-              <textarea
-                type="text"
-                nowidth
-                flex-box="1"
-                class="bottom-line remark"
-                :value="item.formData.remark"
-                :maxlength="35"
-              ></textarea>
-            </div>
-          </div>
-          <div style="width: 131px">
-            <div class="tip">温馨提示</div>
-            <div style="height: 2px"></div>
-            <div>
+              <span class="label">入院日期:</span>
               <div
-                class="tip-item-con"
-                flex="cross:center main:justify"
-                v-for="item in tipList"
-                :key="item.label"
-              >
-                <img :src="item.img" alt />
-                <span>{{ item.label }}</span>
-              </div>
+                type="text"
+                flex-box="1"
+                style="width: 0px;font-size: 22px; padding-left: 2px;;margin-right:150px;border-bottom:0;"
+                nowidth
+                class="bottom-line"
+              >{{moment(item.admissionDate).format('YYYY-MM-DD')}}</div>
             </div>
           </div>
         </div>
@@ -294,13 +119,17 @@
         ref="printCon2"
         v-show="printMode == 'v'"
       >
-        <div class="bed-card-vert-con" v-for="(item,index) in list" :key="item.patientId">
+        <div 
+          class="bed-card-vert-con" 
+          v-for="(item,index) in list" 
+          :key="item.patientId"
+          :class="[(index+1)%10==0?'nextpage':'',[1,2,3,4,5].includes((index+1)%10)?'firstpage':'']"
+        >
           <span>床号：</span>
           <p>{{ item.bedLabel + "床" }}</p>
           <span>姓名：</span>
           <p>{{ item.name }}</p>
-          <span>性别：</span>
-          <p>{{ item.sex }}</p>
+          <span><span style="display:inline-block;width:60%;">性别：</span><span style="font-size:20px;display:inline-block;width:40%">{{ item.sex }}</span></span>
           <span>年龄：</span>
           <p>{{ item.age }}</p>
           <span>住院号：</span>
@@ -395,8 +224,10 @@
   box-shadow: 0px 5px 10px 0 rgba(0, 0, 0, 0.5);
   display: inline-block;
   font-size: 16px;
-  margin-bottom 20px
-
+  .bed-card-con{
+    width:11.25cm;
+    height:7.125cm;
+  }
   >>> * {
     font-family: 'SimHei', 'Microsoft Yahei' !important;
     font-weight: bold;
@@ -541,14 +372,14 @@
   // &.remarkCon
   .qr-code {
     position: absolute;
-    top: 5px;
-    left: 5px;
-    height: 100px;
-    width: 100px;
+    bottom: 10px;
+    right: 20px;
+    height: 125px;
+    width: 125px;
 
     &.hasRemark {
-      width: 80px;
-      height: 80px;
+      width: 96px;
+      height: 96px;
     }
   }
 
@@ -754,6 +585,9 @@ label {
     font-size: 17px;
   }
 }
+  .nextpage{
+    margin-bottom:281px;
+  }
 </style>
 
 <script>
@@ -845,6 +679,7 @@ export default {
           remark: diagnosis,
           remarkPrint: resData.remarkPrint
         };
+        item.mainDoctors = resData.mainDoctors || ""
         item.allergy1 = resData.allergy1;
         item.allergy2 = resData.allergy2;
         item.drugGms = resData.drugGms;
@@ -883,7 +718,6 @@ export default {
     open(printMode = "h",list) {
       this.list = list;
       this.init();
-      this.$refs.modal.open();
       this.printMode = printMode;
       this.list.forEach(async(item,index)=>{
         let qr_png_value = item.patientId + "|" + item.visitId;
@@ -909,6 +743,9 @@ export default {
       } else {
         this.title = "编辑床头卡";
       }
+      setTimeout(()=>{
+        this.$refs.modal.open();
+      },1)
     },
     close() {
       this.$refs.modal.close();
@@ -976,10 +813,16 @@ export default {
             flex-wrap:wrap;
           }
           .bed-card-vert-con{
-            margin-bottom:110px!important;
+            margin:0px!important;
+          }
+          .bed-card-vert-con.nextpage{
+            margin-bottom:100px!important;
+          }
+          .bed-card-vert-con.firstpage{
+            margin-top:100px!important;
           }
           @page {
-            margin: 100px 0;
+            margin: 100px 40px;
           }
           `
           });

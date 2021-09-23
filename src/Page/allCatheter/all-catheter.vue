@@ -2,28 +2,18 @@
   <div class="contain" :class="{fullpage}" v-loading="pageLoading" element-loading-text="正在保存">
     <div class="head-con" flex>
       <div class="dept-select-con"></div>
-      <div class="tool-con" flex-box="1">
-        <sheetTool></sheetTool>
-      </div>
     </div>
     <div class="body-con" id="sheet_body_con" :style="{height: containHeight}">
       <div class="left-part">
-        <patientList :data="data.bedList" v-loading="patientListLoading"></patientList>
+        <patientList :data="data.bedList" v-loading="patientListLoading" @onChangePatient="onChangePatient_self"></patientList>
         
       </div>
       <div class="right-part" v-loading="tableLoading">
+        <catheterList :cathterArr='cathterArr' @addCathter='addCathter' @updateTableConfig='updateTableConfig'/>
         <div class="sheetTable-contain" ref="scrollCon">
-          <div ref="sheetTableContain">
-            <sheetTable
-              v-for="(item, index) in filterSheetModel"
-              :key="index"
-              :data="item.data"
-              :index="item.index"
-              :length="item.length"
-            ></sheetTable>
-          </div>
+          <cathterTabel :title="'尿导管'" :tabelConfig='tabelConfig' :tableInfo='tableInfo' v-if="tabelConfig.length"/>
           <div
-            v-show="sheetModel.length == 0"
+            v-else
             class="null-btn"
             flex="cross:center main:center"
             @click="addSheetPage"
@@ -34,13 +24,8 @@
         </div>
       </div>
     </div>
-    <delPageModal ref="delPageModal" :index="sheetModel.length"></delPageModal>
-    <HjModal ref="HjModal"></HjModal>
-    <signModal ref="signModal" title="需要该行签名者确认"></signModal>
-    <specialModal ref="specialModal"></specialModal>
-    <setPageModal ref="setPageModal"></setPageModal>
-    <pizhuModal ref="pizhuModal"></pizhuModal>
-    <setDiagsModal ref="setDiagsModal"></setDiagsModal>
+    <addCathter v-if="isAddCathter" @close='closeCathter' @create="createCathter"/>
+    <newCathter v-if="isCreateCathter" @close='closeCreate' :newCathterType='newCathterType'/>
   </div>
 </template>
 
@@ -80,6 +65,7 @@
       margin-left: 199px;
       height: 100%;
       overflow: hidden;
+      display:flex;
     }
   }
 }
@@ -107,11 +93,12 @@
 
 .sheetTable-contain {
   height: 100%;
+  width:calc( 100% - 300px)
   background: #DFDFDF;
   overflow: auto;
   padding: 15px 5px 15px;
   box-sizing: border-box;
-  margin: 0 auto 20px;
+  margin: 0 0 20px 300px;
   position: relative;
 }
 
@@ -143,11 +130,12 @@
 </style>
 
 <script>
-import sheetTool from "./components/sheet-tool/sheet-tool.vue";
 import patientList from "./components/patient-list/patient-list.vue";
-import sheetTable from "./components/sheetTable/sheetTable.vue";
+import catheterList from "./components/catheter-list/catheter-list.vue";
+import addCathter from './components/add-cathter/add-cathter.vue'
+import newCathter from './components/add-cathter/new-cathter.vue'
+import cathterTabel from './components/cathter-tabel/cathter-tabel.vue'
 import common from "@/common/mixin/common.mixin.js";
-import { typeList } from "@/api/lesion";
 import sheetModel, {
   addSheetPage,
   delSheetPage,
@@ -174,7 +162,7 @@ import specialModal from "./components/modal/special-modal.vue";
 import setPageModal from "./components/modal/setPage-modal.vue";
 import pizhuModal from "./components/modal/pizhu-modal.vue";
 import setDiagsModal from "./components/modal/set-diags.vue";
-import { getHomePage } from "./api/index.js";
+import {getCatheterList} from './api/catheter'
 export default {
   mixins: [common],
   data() {
@@ -189,7 +177,12 @@ export default {
       sheetModel,
       sheetInfo,
       scrollTop: 0,
-      typeList: [] // 科室类型
+      cathterArr:[],
+      isAddCathter:false,
+      isCreateCathter:false,
+      newCathterType:'',
+      tabelConfig:[],
+      tableInfo:{}
     };
   },
   computed: {
@@ -326,6 +319,34 @@ export default {
       this.sheetInfo.sheetStartPage = 1;
       this.sheetInfo.sheetMaxPage = 1;
       isFirst && this.bus.$emit("initSheetPageSize");
+    },
+    onChangePatient_self(info){
+      console.log(info);
+      let { patientId , visitId , wardCode } = info
+      getCatheterList({
+        patientId,
+        visitId,
+        wardCode
+      }).then(res=>{
+        this.cathterArr = res.data.data.list
+      })
+    },
+    addCathter(){
+      this.isAddCathter = true
+    },
+    closeCathter(){
+      this.isAddCathter = false
+    },
+    closeCreate(){
+      this.isCreateCathter = false
+    },
+    createCathter(type){
+      this.newCathterType = type
+      this.isCreateCathter = true
+    },
+    updateTableConfig(res){
+      this.tableInfo = res
+      this.tabelConfig = res.list
     }
   },
   created() {
@@ -530,25 +551,27 @@ export default {
       }
     }
   },
-  beforeRouteLeave: (to, from, next) => {
-    if (!sheetInfo.isSave) {
-      window.app
-        .$confirm("评估单还未保存，离开将会丢失数据", "提示", {
-          confirmButtonText: "离开",
-          cancelButtonText: "取消",
-          type: "warning"
-        })
-        .then(res => {
-          next();
-        });
-    } else {
-      next();
-    }
-  },
+  // beforeRouteLeave: (to, from, next) => {
+  //   if (!sheetInfo.isSave) {
+  //     window.app
+  //       .$confirm("评估单还未保存，离开将会丢失数据", "提示", {
+  //         confirmButtonText: "离开",
+  //         cancelButtonText: "取消",
+  //         type: "warning"
+  //       })
+  //       .then(res => {
+  //         next();
+  //       });
+  //   } else {
+  //     next();
+  //   }
+  // },
   components: {
-    sheetTool,
     patientList,
-    sheetTable,
+    catheterList,
+    addCathter,
+    newCathter,
+    cathterTabel,
     delPageModal,
     HjModal,
     signModal,

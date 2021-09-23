@@ -6,17 +6,11 @@ function currYear() {
 export default {
   // 科室的名称
   deptType: "",
-  style: {
-    width: "1000px"
-  },
   th: {
     top: [{
         name: currYear(),
         colspan: "2",
         rowspan: "1",
-        style: {
-          width: "40px"
-        },
         canSet: true,
         key: "recordYear",
       },
@@ -119,7 +113,7 @@ export default {
         特殊情况记录
         `,
         style: {
-          width: "150px"
+          width: "153px"
         },
         colspan: "1",
         rowspan: "3"
@@ -131,26 +125,15 @@ export default {
         style: {},
         colspan: "1",
         rowspan: "3",
-        style: {
-          minWidth: "50px",
-          maxWidth: "50px",
-          whiteSpace: "nowrap"
-        },
       }
     ],
     mid: [{
         name: "日期",
-        style: {
-          width: "40px"
-        },
         colspan: "1",
         rowspan: "2",
       },
       {
         name: "时间",
-        style: {
-          width: "40px"
-        },
         colspan: "1",
         rowspan: "2",
       }, {

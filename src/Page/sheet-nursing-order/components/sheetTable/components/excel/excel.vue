@@ -174,6 +174,8 @@
               alt
             />
           </div>
+          <input v-else-if="HOSPITAL_ID=='huadu'&&td.key=='orderContent'" @click="(e)=>openOrderModal(e,td,tr,x,y,'护嘱内容')" style="height:32px" v-model="td.value">
+          <input v-else-if="HOSPITAL_ID=='huadu'&&td.key=='frequency'" @click="(e)=>openOrderModal(e,td,tr,x,y,'频次')" v-model="td.value" style="height:32px">
           <input
             type="text"
             :readonly="isRead(tr)"
@@ -217,6 +219,7 @@
       title="删除签名需签名者确认。。。。"
     ></signModal>
     <specialModalHuadu ref="specialModalHuadu"></specialModalHuadu>
+    <orderModal v-if="isShowOrderModal" @close="closeOrderModal" @changeOrderContent="changeOrderContent" :top='modalTop' :left='modalLeft' :type="type"/>
   </div>
 </template>
 
@@ -244,6 +247,8 @@ import $ from "jquery";
 import bus from "vue-happy-bus";
 import sheetModel from "../../../../sheet.js";
 import common from "@/common/mixin/common.mixin.js";
+import orderModal from "../modal/orderModal.vue"
+import item1Vue from '@/Part/whiteBoard/page2/components/item-1.vue';
 export default {
   props: {
     data: Object,
@@ -263,6 +268,10 @@ export default {
       matchMark,
       bus: bus(this),
       sheetInfo,
+      isShowOrderModal:false,
+      modalTop:'0px',
+      modalLeft:'0px',
+      currentColumn:{},
     };
   },
   computed: {
@@ -276,7 +285,35 @@ export default {
       return this.sheetInfo.sheetMaxPage;
     },
   },
+  mounted(){
+    this.data.bodyModel[0].map(item=>{console.log(item.key);})
+    console.log(this.data);
+  },
   methods: {
+    changeOrderContent(item){
+      if(this.rowIndex<=26){
+      this.currentColumn.value = item
+      }else{
+        return
+      }
+      if(this.rowIndex<26){
+        this.rowIndex++
+        this.currentColumn = this.data.bodyModel[this.rowIndex][this.columnIndex]
+      }
+    },
+    openOrderModal(e,td,tr,x,y,type){
+      this.type = type
+      this.modalLeft = e.clientX + 'px';
+      this.modalTop = e.clientY  + 'px';
+      this.currentColumn = td
+      this.columnIndex = x;
+      this.rowIndex = y;
+      console.log(x,y);
+      this.isShowOrderModal = true
+    },
+    closeOrderModal(){
+      this.isShowOrderModal = false
+    },
     setTitle(item) {
       this.$refs.setTitleModal.open((title) => {
         let data = {
@@ -903,7 +940,8 @@ export default {
   components: {
     setTitleModal,
     signModal,
-    specialModalHuadu
+    specialModalHuadu,
+    orderModal
   },
 };
 </script>

@@ -204,6 +204,7 @@ export default {
       // 需要扩大行距的记录单code
       lineSpacingArr: [
         "icu_qz", // 曲周_重症护理记录单
+        "neonatology_hd", // 花都_新生儿科护理记录单
       ],
       // 需要双签名的记录单code
       multiSignArr: [
@@ -281,9 +282,8 @@ export default {
         `
       );
     }
-    /* 曲周重症护理记录单行高 */
-    if (
-      (this.HOSPITAL_ID === "quzhou") &&
+    /* 护理记录单行高 */
+    if ( (this.HOSPITAL_ID === "quzhou") &&
       this.lineSpacingArr.includes(this.sheetInfo.sheetType)
     ) {
       addCSS(
@@ -297,9 +297,48 @@ export default {
         `
       );
     }
+    /* 护理记录单行高 */
+    // if ((this.HOSPITAL_ID === "huadu") &&
+    //   this.lineSpacingArr.includes(this.sheetInfo.sheetType)
+    // ) {
+    //   addCSS(
+    //     window,
+    //     `
+    //     @media print {
+    //       .body-con{
+    //         height: 40px !important;
+    //       }
+    //       .body-con textarea{
+    //         font-size: 16px !important;
+    //       }
+    //     }
+    //     `
+    //   );
+    // }
     /* 花都打印双签名：第二个护士签名打印时隐藏 */
     if (
-      (this.HOSPITAL_ID === "huadu" || this.HOSPITAL_ID === "fuyou") &&
+      (this.HOSPITAL_ID === "huadu") &&
+      this.multiSignArr.includes(this.sheetInfo.sheetType)
+    ) {
+      addCSS(
+        window,
+        `
+          #sheetPagePrint#sheetPagePrint th[dataname='质控护士签名']{
+            display:none !important;
+          }
+          #sheetPagePrint#sheetPagePrint th[dataname='质控人<br/>签名']{
+            display:none !important;
+          }
+          @media print {
+            #sheetPagePrint .contant{
+              margin-top:-20px;!important;
+            }
+          }
+        `
+      );
+    }
+    if (
+      (this.HOSPITAL_ID === "fuyou") &&
       this.multiSignArr.includes(this.sheetInfo.sheetType)
     ) {
       addCSS(
