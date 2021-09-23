@@ -27,8 +27,8 @@ export default [{
   {
     key: "recordHour", //时间
     value: "",
-    event: event_time,
-    click: click_time,
+    // event: event_time,
+    // click: click_time,
   },
   {
     key: "contractionOne", //孕周
