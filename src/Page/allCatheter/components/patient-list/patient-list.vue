@@ -92,6 +92,7 @@ export default {
   },
   methods: {
     selectPatient(item) {
+      this.$emit('onChangePatient',item)
       this.$store.commit("upPatientInfo", item);
     },
     isActive(item) {
