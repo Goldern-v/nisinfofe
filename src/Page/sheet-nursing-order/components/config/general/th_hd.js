@@ -1,10 +1,14 @@
+import moment from "moment";
+function currYear() {
+  return moment().format('YYYY')
+}
 export default {
   // 科室的名称
   deptType: "",
   th: {
     top: [
       {
-        name: "起始",
+        name: currYear(),
         style: {},
         colspan: "2",
         rowspan: "1"
