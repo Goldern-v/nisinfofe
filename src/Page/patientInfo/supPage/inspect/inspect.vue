@@ -56,7 +56,8 @@
         </div>
       </div>
       <div class="right-part">
-        <inspectForm v-show="rightData.examNo" ref="inspectForm"></inspectForm>
+        <inspectFormFuyou v-show="rightData.examNo" ref="inspectForm" v-if="HOSPITAL_ID=='fuyou'"></inspectFormFuyou>
+        <inspectForm v-show="rightData.examNo" ref="inspectForm" v-else></inspectForm>
       </div>
     </div>
   </div>
@@ -172,6 +173,8 @@
 
 <script>
 import inspectForm from "./component/inspectForm";
+import inspectFormFuyou from "./component/inspectForm_fuyou";
+inspectFormFuyou
 import { examList } from "@/api/patientInfo";
 export default {
   data() {
@@ -264,6 +267,7 @@ export default {
   },
   components: {
     inspectForm,
+    inspectFormFuyou
   },
 };
 </script>

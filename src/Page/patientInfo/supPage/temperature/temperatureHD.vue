@@ -8,6 +8,7 @@
         <span class="page"
           >第<input
             type="number"
+            min="1"
             v-model.number="toCurrentPage"
             class="pageInput"
             @keyup.enter="toPage()"
@@ -114,7 +115,7 @@
 }
 
 .pageInput {
-  width: 30px;
+  width: 50px;
   border: 0px;
 }
 
