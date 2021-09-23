@@ -138,6 +138,9 @@ export default {
         this.sheetInfo.selectBlock.id,
       ).then(res => {
         this.tableData = res.data.data || [];
+        this.tableData.map((item,index)=>{
+          item.index = index
+        })
         this.multipleSelection = this.tableData.filter(item=>item.selected)
         this.$nextTick(()=>{
           this.tableData.map(item=>{
@@ -151,7 +154,9 @@ export default {
     },
     handleSelectionChange(val,row) {
       row.selected = !row.selected
-      this.multipleSelection = val;
+      this.multipleSelection = val.sort((a,b)=>{
+        return a.index - b.index
+      });
       this.firstBedRecord = this.multipleSelection[0] ? this.multipleSelection[0].bedNoNew : ""
       this.secondBedRecord = this.multipleSelection[1] ? this.multipleSelection[1].bedNoNew : ""
       this.thirdBedRecord = this.multipleSelection[2] ? this.multipleSelection[2].bedNoNew : ""
