@@ -174,8 +174,8 @@
               alt
             />
           </div>
-          <input v-else-if="HOSPITAL_ID=='huadu'&&td.key=='orderContent'" @click="(e)=>openOrderModal(e,td,tr,x,y,'护嘱内容')" style="height:32px" v-model="td.value">
-          <input v-else-if="HOSPITAL_ID=='huadu'&&td.key=='frequency'" @click="(e)=>openOrderModal(e,td,tr,x,y,'频次')" v-model="td.value" style="height:32px">
+          <input v-else-if="HOSPITAL_ID=='huadu'&&td.key=='orderContent'" @click="(e)=>openOrderModal(e,td,tr,x,y,'护嘱内容',880)" style="height:32px" v-model="td.value">
+          <input v-else-if="HOSPITAL_ID=='huadu'&&td.key=='frequency'" @click="(e)=>openOrderModal(e,td,tr,x,y,'频次',1090)" v-model="td.value" style="height:32px">
           <input
             type="text"
             :readonly="isRead(tr)"
@@ -301,9 +301,9 @@ export default {
         this.currentColumn = this.data.bodyModel[this.rowIndex][this.columnIndex]
       }
     },
-    openOrderModal(e,td,tr,x,y,type){
+    openOrderModal(e,td,tr,x,y,type,width){
       this.type = type
-      this.modalLeft = e.clientX + 'px';
+      this.modalLeft = width + e.currentTarget.offsetWidth + 'px';
       this.modalTop = e.clientY  + 'px';
       this.currentColumn = td
       this.columnIndex = x;
