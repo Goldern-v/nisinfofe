@@ -3,7 +3,7 @@ import {
 } from "../../../api/index";
 import {
   keyf1,
-  calValueChange
+  limitChange
 } from "../keyEvent/f1.js";
 import {
   event_date,
@@ -331,7 +331,7 @@ export default [{
     key: "fieldTen", //补充
     value: "",
     event: keyf1,
-    change: calValueChange,
+    change: (e, td) => limitChange(e, td, 8),
     textarea: {
       width: 50
     },

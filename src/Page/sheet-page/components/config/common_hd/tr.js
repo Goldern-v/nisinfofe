@@ -3,7 +3,6 @@ import {
 } from "../../../api/index";
 import {
   keyf1,
-  calValueChange,
   limitChange
 } from "../keyEvent/f1.js";
 import {
