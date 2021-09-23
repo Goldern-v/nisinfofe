@@ -11,6 +11,7 @@
       <div class="table-con">
         <el-table
           :data="tableData"
+          ref="bedRecord"
           border
           style="width: 100%"
           height="350"
@@ -100,12 +101,12 @@ export default {
       firstBedRecord:"",
       secondBedRecord:"",
       thirdBedRecord:"",
+      bedLabel:""
     };
   },
   methods: {
     open(baseParams) {
       this.formlist = baseParams
-      // console.log(this.formlist);
       if (!this.patientInfo.patientId && !baseParams.patientId) {
         return this.$message.warning("请选择一名患者");
       }
@@ -122,7 +123,7 @@ export default {
         visitId:this.patientInfo.visitId || this.formlist.visitId,
         id:this.sheetInfo.selectBlock.id,
         bedLogList:this.tableData,
-        bedLabel: this.firstBedRecord+"->"+this.secondBedRecord+"->"+this.thirdBedRecord,
+        bedLabel: this.bedLabel,
       }).then(res => {
         this.$message.success("保存成功");
         this.close();
@@ -136,8 +137,13 @@ export default {
         this.patientInfo.visitId || this.formlist.visitId,
         this.sheetInfo.selectBlock.id,
       ).then(res => {
-        this.tableData = res.data.data.list || [];
-        this.multipleSelection = this.tableData.filter(item => item.selected == true)
+        this.tableData = res.data.data || [];
+        this.multipleSelection = this.tableData.filter(item=>item.selected)
+        this.$nextTick(()=>{
+          this.tableData.map(item=>{
+            this.$refs.bedRecord.toggleRowSelection(item,item.selected)
+          })  
+        })
         this.firstBedRecord = this.multipleSelection[0] ? this.multipleSelection[0].bedNoNew : ""
         this.secondBedRecord = this.multipleSelection[1] ? this.multipleSelection[1].bedNoNew : ""
         this.thirdBedRecord = this.multipleSelection[2] ? this.multipleSelection[2].bedNoNew : ""
@@ -149,6 +155,13 @@ export default {
       this.firstBedRecord = this.multipleSelection[0] ? this.multipleSelection[0].bedNoNew : ""
       this.secondBedRecord = this.multipleSelection[1] ? this.multipleSelection[1].bedNoNew : ""
       this.thirdBedRecord = this.multipleSelection[2] ? this.multipleSelection[2].bedNoNew : ""
+      if(this.multipleSelection[2]) {
+        this.bedLabel = this.firstBedRecord+"->"+this.secondBedRecord+"->"+this.thirdBedRecord
+      }else if(this.multipleSelection[1]) {
+        this.bedLabel = this.firstBedRecord+"->"+this.secondBedRecord
+      }else {
+        this.bedLabel = this.firstBedRecord
+      }
     }
   },
   computed: {
