@@ -286,8 +286,6 @@ export default {
     },
   },
   mounted(){
-    this.data.bodyModel[0].map(item=>{console.log(item.key);})
-    console.log(this.data);
   },
   methods: {
     changeOrderContent(item){
