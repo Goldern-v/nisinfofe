@@ -101,7 +101,7 @@
       <div class="input-con">
         <el-input v-model="data.name" placeholder="请输入病人姓名"></el-input>
       </div>
-      <div class="input-con">
+      <div class="input-con" v-if="HOSPITAL_ID!='fuyou'">
         <el-input v-model="data.patientId" placeholder="请输入病人ID"></el-input>
       </div>
       <div class="input-con">

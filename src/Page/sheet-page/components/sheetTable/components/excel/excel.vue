@@ -241,7 +241,9 @@
         </el-select>
           <textarea
             v-else-if="td.textarea"
-            :class="{ towLine: isOverText(td) }"
+            :class="{ 
+              towLine: isOverText(td),
+              maxHeight56: sheetInfo.sheetType=='additional_count_hd' }"
             :readonly="isRead(tr)"
             :disabled="isDisabed(tr,td, y)"
             v-model="td.value"

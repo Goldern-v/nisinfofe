@@ -117,6 +117,18 @@ export default {
           re.companyPhone
         ),
       ];
+      if(this.HOSPITAL_ID === "fuyou"){
+        this.tableData1 = [
+          new TableItem("姓名", re.name, "性别", re.sex),
+          new TableItem( "住院号", re.inpNo,"出生年月", re.birthday),
+          new TableItem( "年龄", re.age,"婚姻状况", re.marriage),
+          new TableItem("职业", re.occupation, "出生地", re.birthPlace),
+          new TableItem( "国籍", re.country,"身份证号", re.idNo),
+          new TableItem("民族", re.nation, "现住址", re.address),
+          new TableItem("电话", re.phone, "单位地址",re.companyAddress),
+          new TableItem("单位电话",re.companyPhone,),
+        ];
+      }
       this.tableData2 = [
         new TableItem("入院日期", re.admissionDate, "科室", re.deptName),
         new TableItem(

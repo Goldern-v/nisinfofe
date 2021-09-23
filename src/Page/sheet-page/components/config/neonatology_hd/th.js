@@ -34,7 +34,7 @@ export default {
       },
       {
         name: `
-        脉搏<br/>心率<br/>次<br/>/<br/>分
+        心率<br/>次<br/>/<br/>分
         `,
         style: {},
         colspan: "1",
