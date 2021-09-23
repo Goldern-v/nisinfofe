@@ -29,9 +29,11 @@
             血糖测量记录单
           </div>
           <div class="sup-title" v-else-if="HOSPITAL_ID == 'liaocheng'">
-            血糖酮体测量记录单
+            血糖记录单
           </div>
+          
           <div class="sup-title" v-else>微量血糖测定登记表</div>
+          <div class="identifying" v-if="HOSPITAL_ID == 'liaocheng'">POCT</div>
           <p flex="main:justify" class="info">
             <span>病人姓名：{{ patientInfo.name }}</span>
             <span>性别：{{ patientInfo.sex }}</span>
@@ -156,6 +158,18 @@
       font-size: 13px;
       color: #000;
     }
+  }
+  .identifying{
+    width: 88px;
+    height: 34px;
+    border: 1px solid #000;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 34px;
+    position: absolute;
+    top: 47px;
+    right: 22px;
+    font-weight:700;
   }
 
   .his-logo {
