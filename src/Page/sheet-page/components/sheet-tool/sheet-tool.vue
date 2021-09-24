@@ -222,7 +222,7 @@
           体征同步
         </div>
       </div>
-      <div class="line" v-if="HOSPITAL_ID=='wujing'||HOSPITAL_ID=='quzhou'"></div>
+      <div class="line" v-if="HOSPITAL_ID=='wujing'||HOSPITAL_ID=='quzhou'||HOSPITAL_ID=='guizhou'"></div>
       <div style="width: 5px"></div>
       <div
         class="right-btn"
@@ -235,6 +235,17 @@
           执行单同步
         </div>
       </div>
+      <div
+        class="right-btn"
+        flex="cross:center main:center"
+        @click.stop="openZxdtbModal"
+        v-if="HOSPITAL_ID=='guizhou'"
+      >
+        <div class="text-con">
+          <img src="./images/评估.png" alt />
+          输血同步
+        </div>
+      </div>
       <div style="width: 5px"></div>
     </div>
     <patientInfo
@@ -243,7 +254,7 @@
     <newFormModal ref="newFormModal"></newFormModal>
     <setTitleModal ref="setTitleModal"></setTitleModal>
     <tztbModal ref="tztbModal"></tztbModal>
-    <zxdtbModal ref="zxdtbModal" :blockId="blockId"></zxdtbModal>
+    <zxdtbModal ref="zxdtbModal" :blockId="blockId" :title="titleName"></zxdtbModal>
     <patientInfoModal ref="patientInfoModal"></patientInfoModal>
     <sweet-modal
       ref="sheet"
@@ -307,6 +318,7 @@ export default {
       sheetBlockList: [],
       visibled: false,
       queryTem: {},
+      titleName:"",
     };
   },
   methods: {
@@ -782,6 +794,12 @@ export default {
       if (this.readOnly) {
         return this.$message.warning("你无权操作此护记，仅供查阅");
       }
+      if(this.HOSPITAL_ID=='guizhou'){
+        this.titleName = "输血同步"
+      }else{
+        this.titleName = "执行单同步"
+      }
+      
       this.$refs.zxdtbModal.open();
     },
     /* 切换主页 */
