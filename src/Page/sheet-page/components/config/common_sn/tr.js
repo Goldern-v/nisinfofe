@@ -26,26 +26,37 @@ export default [{
   {
     key: "temperature", //体温
     value: "",
-    event: keyf1
+    name: "体温",
+    next: "℃",
+    event: keyf1,
+    
   },
   {
     key: "pulse", //脉搏
     value: "",
+    name: "脉搏",
+    next: "次/分",
     event: keyf1
   },
   {
     key: "breath", //呼吸
     value: "",
+    name: "呼吸",
+    next: "次/分",
     event: keyf1
   },
   {
     key: "heartRate", //心率
     value: "",
+    name: "心率",
+    next: "次/分",
     event: keyf1
   },
   {
     key: "bloodPressure", //血压
     value: "",
+    name: "血压",
+    next: "mmHg",
     event: function (e, td) {
       if (e.keyCode == 32) {
         e.target.value += "/";
@@ -57,11 +68,14 @@ export default [{
   {
     key: "spo2", //血氧饱和度
     value: "",
+    name: "血氧饱和度",
+    next: "%",
     event: keyf1,
   },
   {
     key: "consciousness", //意识
     value: "",
+    name: "意识",
     event: keyf1,
     autoComplete: {
       data: ysList
@@ -70,6 +84,7 @@ export default [{
   {
     key: "pupilSizeLeft", // 瞳孔-大小-左
     value: "",
+    name: "大小左",
     event: keyf1,
     autoComplete: {
       data: pupilSizeList
@@ -78,6 +93,7 @@ export default [{
   {
     key: "pupilSizeRight", // 瞳孔-大小-右
     value: "",
+    name: "大小右",
     event: keyf1,
     autoComplete: {
       data:pupilSizeList
@@ -86,6 +102,7 @@ export default [{
   {
     key: "pupilReflexLeft", // 瞳孔-反射反应-左
     value: "",
+    name: "对光反射左",
     event: keyf1,
     autoComplete: {
       data:pupilReflexList
@@ -94,6 +111,7 @@ export default [{
   {
     key: "pupilReflexRight", // 瞳孔-反射反应-右
     value: "",
+    name: "对光反射右",
     event: keyf1,
     autoComplete: {
       data:pupilReflexList
@@ -102,6 +120,7 @@ export default [{
   {
     key: "food", //入
     value: "",
+    name: "入量名称",
     event: keyf1,
     textarea: {
       width: 68
@@ -110,11 +129,14 @@ export default [{
   {
     key: "foodSize", //入量
     value: "",
+    name: "入量",
+    next: "ml",
     event: keyf1
   },
   {
     key: "discharge", //排出物
     value: "",
+    name: "出量名称",
     event: keyf1,
     textarea: {
       width: 68
@@ -123,16 +145,20 @@ export default [{
   {
     key: "dischargeSize", //排出物数量
     value: "",
+    name: "出量",
+    next: "ml",
     event: keyf1
   },
   {
     key: "fieldFour", //出量-颜色性状
     value: "",
+    name: "颜色性状",
     event: keyf1
   },
   {
     key: "fieldFive", //皮肤情况
     value: "",
+    name: "皮肤情况",
     event: keyf1,
     textarea: {
       width: 36
@@ -141,6 +167,7 @@ export default [{
   {
     key: "fieldSix", //管路护理
     value: "",
+    name: "管路护理",
     event: keyf1,
     textarea: {
       width: 36
