@@ -11,11 +11,11 @@ export default {
   deptType: "",
   th: {
     top: [{
-        name: currYear(),
+        name: '',
+        style: {},
         colspan: "2",
         rowspan: "1",
-        canSet: true,
-        key: "recordYear",
+        key:'recordYear'
       },
       {
         name: `
@@ -119,7 +119,7 @@ export default {
         rowspan: "3",
       },
       {
-        name: ``,
+        name: `标题1`,
         style: {},
         colspan: "1",
         rowspan: "3",
@@ -131,7 +131,7 @@ export default {
         }
       },
       {
-        name: ``,
+        name: `标题2`,
         style: {},
         colspan: "1",
         rowspan: "3",
@@ -143,7 +143,7 @@ export default {
         }
       },
       {
-        name: ``,
+        name: `标题3`,
         style: {},
         colspan: "1",
         rowspan: "3",
@@ -155,7 +155,7 @@ export default {
         }
       },
       {
-        name: ``,
+        name: `标题4`,
         style: {},
         colspan: "1",
         rowspan: "3",
@@ -167,7 +167,7 @@ export default {
         }
       },
       {
-        name: ``,
+        name: `标题5`,
         style: {},
         colspan: "1",
         rowspan: "3",

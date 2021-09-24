@@ -67,6 +67,11 @@ function isReturn() {
 
 export default [
   {
+    key: "recordDate", //日期
+    value: "",
+    hidden:true
+  },
+  {
     key: "startDate", //日期
     value: "",
     event: event_date,

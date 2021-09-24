@@ -50,15 +50,14 @@ export default [{
     key: "pulse", //脉搏
     value: "",
     event: keyf1,
-    name: "脉搏",
+    name: "脉搏/心率",
     next: "次/分"
   },
   {
     key: "fieldOne", //疼痛评分
     value: "",
     event: keyf1,
-    name: "呼吸",
-    next: "次/分"
+    name: "疼痛评分",
   },
   {
     key: "fieldTwo", //跌倒评分

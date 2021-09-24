@@ -5,41 +5,19 @@
         style="height: 1px;background:#4BB08D;box-shadow: 0px 1px 5px rgba(0,0,0,.2);position: relative;z-index: 0"
       ></div>
       <div class="user-box">
-        <div class="user-head" v-if="HOSPITAL_ID !== 'liaocheng'">
+        <div class="user-head">
           <img
             src="../../../common/images/card/默认头像.png"
             height="72"
             width="72"
           />
         </div>
-        <div class="user-head" v-else>
-          <img
-            v-if="info.sex === '女'"
-            src="@/Page/lesion/supPage/bed/component/bed-item-lcey/images/女.png"
-            height="72"
-            width="72"
-          />
-          <img
-            v-if="info.sex === '男'"
-            src="@/Page/lesion/supPage/bed/component/bed-item-lcey/images/男.png"
-            height="72"
-            width="72"
-          />
-        </div>
         <p class="name">{{ info.name }}</p>
         <p class="age">{{ info.sex }} | {{ info.age }}</p>
-        <div class="list-box" v-if="this.HOSPITAL_ID == 'huadu'">
-          <div class="list-li">ID：{{ info.inpNo }}</div>
-          <div class="list-li">住院号：{{ info.patientId }}</div>
-          <div class="list-li">住院次数：{{ info.visitId }}</div>
-        </div>
-        <div class="list-box" v-else>
-          <div class="list-li">ID：{{ info.patientId }}</div>
+        <div class="list-box">
+          <!-- <div class="list-li">ID：{{ info.patientId }}</div> -->
           <div class="list-li">住院号：{{ info.inpNo }}</div>
-          <div class="list-li" v-if="HOSPITAL_ID == 'gy'">
-            住院标识：{{ info.visitId }}
-          </div>
-          <div class="list-li" v-else>住院次数：{{ info.visitId }}</div>
+          <div class="list-li">住院次数：{{ info.visitId }}</div>
         </div>
       </div>
       <div
@@ -401,7 +379,7 @@ export default {
     window.document.title = `${this.info.bedLabel}-${this.info.name}`;
   },
   mounted() {
-    this.getArchiveStatus(); 
+    this.getArchiveStatus();
   },
   components: {
     bedModal,

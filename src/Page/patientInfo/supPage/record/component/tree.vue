@@ -176,6 +176,7 @@ import {
   listPatientRecord,
   emrList,
   groupList,
+  groupListHuadu,
   getInstanceByPatientInfo,
   listRecord,
   getBlockByPV
@@ -493,6 +494,7 @@ export default {
         //   this.$route.query.patientId,
         //   this.$route.query.visitId
         // ),
+        // groupListHuadu(this.$route.query.patientId, this.$route.query.visitId),
         this.getBlockByPV()
       ])
         .then(res => {
@@ -558,7 +560,7 @@ export default {
           });
           //
           // upFormTree
-          if (list_1) {
+          if (list_1) {   
             window.app.$store.commit("upFormTree", [...list_1]);
           }
           //

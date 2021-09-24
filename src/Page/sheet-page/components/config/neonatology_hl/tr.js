@@ -6,7 +6,6 @@ import {
 } from "../../../api/index";
 import {
   keyf1,
-  calValueChange
 } from "../keyEvent/f1.js";
 import {
   event_date,
