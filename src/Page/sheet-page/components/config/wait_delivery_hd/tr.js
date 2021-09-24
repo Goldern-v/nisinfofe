@@ -82,7 +82,7 @@ export default [{
     value: "",
     event: keyf1,
     name: "胎心心率",
-    next: "次/min",
+    next: "次/分",
     change: (e, td) => limitChange(e, td, 6),
     textarea: {
       width: 45
