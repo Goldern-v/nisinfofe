@@ -116,8 +116,8 @@ const currentTargetUrl = (() => {
 
     /** 曲周医院 */
     case 'quzhou':
-      // return "http://111.11.95.229:9094" //
-      return "http://192.168.1.54:9879" //
+      return "http://111.11.95.229:9094" //
+      // return "http://192.168.1.54:9879" //
 
     case 'xiegang':
       return "http://192.168.1.54:9882" // 测试地址-内网地址

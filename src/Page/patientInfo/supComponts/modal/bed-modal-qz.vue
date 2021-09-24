@@ -520,7 +520,7 @@ input[type='checkbox']:checked:after {
   text-align: center;
   color: #000;
   // margin-top 15px
-  height: 42px;
+  height: 75px;
   line-height: 42px;
   margin-bottom: 15px;
 }
