@@ -88,7 +88,7 @@ const currentTargetUrl = (() => {
     /** 东莞横沥 */
     case "hengli":
       // return "http://183.63.206.194:9091" // 东莞横沥正式
-      return "http://192.168.1.54:9874" // 公司-东莞横沥测试-内网 
+      return "http://192.168.1.54:9874" // 公司-东莞横沥测试-内网
       // return "http://192.168.20.138:8080" // 伟彬本地
 
     /** 南方中西医 */
@@ -119,8 +119,8 @@ const currentTargetUrl = (() => {
 
     case 'xiegang':
       return "http://192.168.1.54:9882" // 测试地址-内网地址
-      
-    
+
+
     // 北海人医
     case 'beihairenyi':
       // return "http://219.159.198.37:9094"  // 正式地址 admin Bcy@24nr
