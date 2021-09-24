@@ -199,7 +199,7 @@ export default [{
     },
   },
   {
-    key: "outputFieldFour", //自定义4
+    key: "measuresOne", //自定义4
     value: "",
     event: function (e, td) {
       if (e.keyCode == 32) {
