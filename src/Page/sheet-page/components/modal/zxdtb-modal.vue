@@ -187,7 +187,9 @@ export default {
           patientId:this.patientInfo.patientId || this.formlist.patientId,
           visitId:this.patientInfo.visitId || this.formlist.visitId,
           executeDateTime:this.searchDate,
-        })
+        }).then(res => {
+          this.tableData = res.data.data.list;
+        });
       }else{
         getVitalSign(
           this.patientInfo.patientId || this.formlist.patientId,
