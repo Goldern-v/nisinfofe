@@ -204,7 +204,7 @@ export default {
         rowspan: "2"
       },
       {
-        name: "心率<br/>(次/min)",
+        name: "心率<br/>(次/分)",
         style: {
           minWidth: "36px",
           maxWidth: "36px"
