@@ -10,14 +10,11 @@ export default {
   th: {
     top: [
       {
-        name: currYear(),
+        name: '',
+        style: {},
         colspan: "2",
         rowspan: "1",
-        style: {
-          minWidth: "62px"
-        },
-        canSet: true,
-        key: "recordYear",
+        key:'recordYear'
       },
       {
         name: `心率<br/>（次/min）`,
