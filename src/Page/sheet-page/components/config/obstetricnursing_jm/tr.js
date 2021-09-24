@@ -26,7 +26,7 @@ export default [{
   {
     key: "recordHour", //时间
     value: "",
-    // event: event_time,
+    event: event_time,
     // click: click_time,
   },
   {

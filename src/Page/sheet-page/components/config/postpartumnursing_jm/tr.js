@@ -29,7 +29,7 @@ export default [{
   {
     key: "recordHour", //时间
     value: "",
-    // event: event_time,
+    event: event_time,
     // click: click_time
   },
   {
@@ -280,13 +280,7 @@ export default [{
   {
     key: "preFieldTen", //标题1
     value: "",
-    event: function (e, td) {
-      if (e.keyCode == 32) {
-        e.target.value += "/";
-        e.preventDefault();
-      }
-      keyf1(e, td);
-    },
+    event: keyf1,
     textarea: {
       width: 30
     },
@@ -294,13 +288,7 @@ export default [{
   {
     key: "preFieldEleven", //标题2
     value: "",
-    event: function (e, td) {
-      if (e.keyCode == 32) {
-        e.target.value += "/";
-        e.preventDefault();
-      }
-      keyf1(e, td);
-    },
+    event: keyf1,
     textarea: {
       width: 30
     },
