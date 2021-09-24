@@ -96,7 +96,7 @@ export default [{
   event: keyf1,
   autoComplete: {
     data: fsList
-  }
+  },
 },
 {
   key: "muscleTone", // 肌张力
