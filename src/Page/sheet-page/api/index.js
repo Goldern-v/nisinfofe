@@ -239,8 +239,6 @@ export const nurseBloodList = (obj = {}) => {
   return axios.post(`${apiPath}record/block/nurseBlood/list/354`, obj);
 };
 
-
-
 // 保存his患者体征
 export const saveVitalSign = (data,hospitalId) => {
   if(hospitalId=='wujing'||hospitalId=='quzhou'||hospitalId=='guizhou'){

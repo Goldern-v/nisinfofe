@@ -222,7 +222,8 @@
           体征同步
         </div>
       </div>
-      <div class="line" v-if="HOSPITAL_ID=='wujing'||HOSPITAL_ID=='quzhou'||HOSPITAL_ID=='guizhou'"></div>
+      <div class="line" v-if="HOSPITAL_ID=='wujing'||HOSPITAL_ID=='quzhou'"></div>
+      <div class="line" v-if="HOSPITAL_ID=='guizhou'&& sheetInfo.sheetType === 'common_gzry'"></div>
       <div style="width: 5px"></div>
       <div
         class="right-btn"
@@ -239,7 +240,7 @@
         class="right-btn"
         flex="cross:center main:center"
         @click.stop="openZxdtbModal"
-        v-if="HOSPITAL_ID=='guizhou'"
+        v-if="HOSPITAL_ID=='guizhou'&& sheetInfo.sheetType === 'common_gzry'"
       >
         <div class="text-con">
           <img src="./images/评估.png" alt />
