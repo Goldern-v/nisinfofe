@@ -173,6 +173,9 @@ export default {
     "$route.params.id"() {
       this.load();
     },
+    record(value1,value2){
+      console.log('record',value1);
+    },
     modified(value, oldValue) {
       if (value !== oldValue) {
         window.onbeforeunload = value ? () => true : null;
