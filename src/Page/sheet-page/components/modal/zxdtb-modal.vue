@@ -12,13 +12,22 @@
           :guide="true"
           placeholderChar=" "
         ></masked-input>
-        <whiteButton text="查询" @click="getData"></whiteButton>
+        <span class="label">类型：</span>
+        <el-select v-model="executeType" placeholder="请选择" size="small" style="width:150px">
+          <el-option
+            :label="typeItem.name"
+            :value="typeItem.id"
+            v-for="typeItem in allType"
+            :key="typeItem.id"
+          ></el-option>
+        </el-select>
+
+        <whiteButton style="margin-left:20px;" text="查询" @click="getData"></whiteButton>
       </div>
       <div class="table-con">
         <el-table
           :data="tableData"
           border
-          style="width: 101%"
           height="350"
           @selection-change="handleSelectionChange"
         >
@@ -99,13 +108,29 @@ export default {
       multipleSelection: [],
       bus: bus(this),
       formlist:{},
+      executeType: "",
+      allType: [
+        {
+          id: "",
+          name: "全部",
+        },
+        {
+          id: "输液",
+          name: "输液类",
+        },
+        {
+          id: "雾化",
+          name: "雾化类",
+        },
+        {
+          id: "口服",
+          name: "长期医嘱的口服药",
+        },
+      ],
     };
   },
   methods: {
     open(baseParams) {
-      // console.log(1111);
-      // console.log(this.blockId);
-      // console.log(baseParams,"gaohaix");
       this.formlist = baseParams
       // console.log(this.formlist);
       if (!this.patientInfo.patientId && !baseParams.patientId) {
@@ -145,6 +170,7 @@ export default {
           visitId:this.patientInfo.visitId || this.formlist.visitId,
           executeDateTime:this.searchDate,
           wardCode:this.$store.state.lesion.deptCode,
+          executeType:this.executeType,
         }
         ).then(res => {
           this.tableData = res.data.data.list;

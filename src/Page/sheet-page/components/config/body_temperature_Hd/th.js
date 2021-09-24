@@ -290,7 +290,7 @@ export default {
       },
     },
     {
-      name: `自1`,
+      name: `标题1`,
       colspan: "1",
       rowspan: "2",
       canSet: true,
@@ -301,7 +301,7 @@ export default {
       }
     },
     {
-      name: `自2`,
+      name: `标题2`,
       colspan: "1",
       rowspan: "2",
       canSet: true,
@@ -312,7 +312,7 @@ export default {
       }
     },
     {
-      name: `自3`,
+      name: `标题3`,
       colspan: "1",
       rowspan: "2",
       canSet: true,
@@ -323,7 +323,7 @@ export default {
       }
     },
     {
-      name: `自4`,
+      name: `标题4`,
       colspan: "1",
       rowspan: "2",
       canSet: true,

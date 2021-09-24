@@ -21,7 +21,13 @@ let 气管护理 = [];
 let 心理护理 = [];
 let 饮食情况 = [];
 let wether = ['是', '否'];
-export default [{
+export default [
+  {
+    key: "recordDate", //年份
+    value: "",
+    hidden:true
+  },
+  {
     key: "recordMonth", //日期
     value: "",
     event: event_date,
