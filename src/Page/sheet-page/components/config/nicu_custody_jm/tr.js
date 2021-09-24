@@ -368,7 +368,7 @@ export default [
     },
   },
   {
-    key: "CustomField1", //自定义1
+    key: "customField1", //自定义1
     value: "",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
@@ -377,7 +377,7 @@ export default [
     },
   },
   {
-    key: "CustomField2", //自定义2
+    key: "customField2", //自定义2
     value: "",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
@@ -386,7 +386,7 @@ export default [
     },
   },
   {
-    key: "CustomField3", //自定义3
+    key: "customField3", //自定义3
     value: "",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),

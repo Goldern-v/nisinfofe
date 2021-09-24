@@ -68,7 +68,7 @@ export default {
         rowspan: '3',
       },
       {
-        name: ``,
+        name: `标题1`,
         style: {},
         colspan: '1',
         rowspan: '3',
@@ -80,7 +80,7 @@ export default {
         }
       },
       {
-        name: ``,
+        name: `标题2`,
         style: {},
         colspan: '1',
         rowspan: '3',
