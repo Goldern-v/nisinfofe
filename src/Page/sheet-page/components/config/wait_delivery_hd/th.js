@@ -11,14 +11,11 @@ export default {
   th: {
     top: [
       {
-        name: currYear(),
+        name: '',
+        style: {},
         colspan: "2",
         rowspan: "1",
-        style: {
-          minWidth: "82px"
-        },
-        canSet: true,
-        key: "recordYear",
+        key:'recordYear'
       },
       {
         name: `
@@ -138,7 +135,7 @@ export default {
         rowspan: "3"
       },
       {
-        name: ``,
+        name: `标题1`,
         style: {},
         colspan: "1",
         rowspan: "3",
@@ -146,7 +143,7 @@ export default {
         key: "fieldSixteen",
       },
       {
-        name: ``,
+        name: `标题2`,
         style: {},
         colspan: "1",
         rowspan: "3",
@@ -204,7 +201,7 @@ export default {
         rowspan: "2"
       },
       {
-        name: "心率<br/>(次/min)",
+        name: "心率<br/>(次/分)",
         style: {
           minWidth: "36px",
           maxWidth: "36px"

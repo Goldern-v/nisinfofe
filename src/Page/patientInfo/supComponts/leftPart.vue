@@ -401,7 +401,7 @@ export default {
     window.document.title = `${this.info.bedLabel}-${this.info.name}`;
   },
   mounted() {
-    this.getArchiveStatus();
+    this.getArchiveStatus(); 
   },
   components: {
     bedModal,

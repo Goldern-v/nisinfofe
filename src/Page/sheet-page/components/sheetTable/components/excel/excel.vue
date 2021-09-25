@@ -48,7 +48,8 @@
           :class="{ canSet: item.canSet }"
           @click="item.canSet && setTitle(item)"
         >
-          <span v-html="item.name"></span>
+          <span v-if="item.key=='recordYear' && HOSPITAL_ID=='huadu'">{{recordYear()}}</span>
+          <span v-else v-html="item.name"></span>
         </th>
       </tr>
     </table>
@@ -69,7 +70,8 @@
           :class="{ canSet: item.canSet }"
           @click="item.canSet && setTitle(item)"
         >
-          <span v-html="item.name"></span>
+          <span v-if="item.key=='recordYear' && HOSPITAL_ID=='huadu'">{{recordYear()}}</span>
+          <span v-else v-html="item.name"></span>
         </th>
       </tr>
       <tr
@@ -600,6 +602,16 @@ export default {
     }
   },
   methods: {
+    //花都护记年份
+    recordYear(){
+      console.log(this.data.bodyModel[0][0]); 
+      return this.data.bodyModel[0][0].value.split('-')[0]
+     
+    },
+    show(td){
+      console.log(td);
+      
+    },
     /* 花都个别护记的出入量统计：增加红线与上一行做区分 */
     getBorderClass(index) {
       // const redTopSheet_hd = [

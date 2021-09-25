@@ -40,7 +40,7 @@
         tag="span"
       >
         <div class="nav-item">护嘱单</div>
-      </router-link> -->
+      </router-link>  -->
       <router-link
         :to="{
           path: '/sheet',

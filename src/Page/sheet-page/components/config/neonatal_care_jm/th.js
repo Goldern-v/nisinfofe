@@ -126,7 +126,8 @@ export default {
         colspan: '1',
         rowspan: '3',
         style: {
-          width: '36px',
+          minWidth: '36px',
+          maxWidth: '46px'
         }
       },
       {
@@ -136,7 +137,8 @@ export default {
         colspan: '1',
         rowspan: '3',
         style: {
-          width: '36px',
+          minWidth: '36px',
+          maxWidth: '46px'
         }
       },
       {
@@ -156,7 +158,8 @@ export default {
         colspan: '1',
         rowspan: '3',
         style: {
-          width: '45px',
+          minWidth: '36px',
+          maxWidth: '45px'
         }
       },
       {
@@ -237,7 +240,7 @@ export default {
         特殊情况记录
         `,
         style: {
-          minWidth: '180px',
+          minWidth: '150px',
           maxWidth: '180px',
         },
         colspan: '1',

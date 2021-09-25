@@ -22,7 +22,13 @@ let syList = ['干燥','湿润','潮湿','饱和','漏出']
 let qwList = ['无','轻度','中度','重度']
 let pfList = ['水肿','浸渍','红斑','硬结','脱屑']
 
-export default [{
+export default [
+  {
+    key: "recordDate", //年份
+    value: "",
+    hidden:true
+  },
+  {
     key: "recordMonth", //日期
     value: "",
     event: event_date,

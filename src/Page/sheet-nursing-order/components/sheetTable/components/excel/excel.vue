@@ -15,7 +15,8 @@
           :class="{ canSet: item.canSet }"
           @click="item.canSet && setTitle(item)"
         >
-          <span v-html="item.name"></span>
+          <span v-if="item.key=='recordYear'&&HOSPITAL_ID=='huadu'">{{recordYear()}}</span>
+          <span v-else v-html="item.name"></span>
         </th>
       </tr>
 
@@ -288,6 +289,13 @@ export default {
   mounted(){
   },
   methods: {
+    recordYear(){
+     return this.data.bodyModel[0][0].value.split('-')[0]
+    },
+    show(td){
+      console.log(td);
+      
+    },
     changeOrderContent(item){
       if(this.rowIndex<=26){
       this.currentColumn.value = item

@@ -11,11 +11,11 @@ export default {
   },
   th: {
     top: [{
-        name: currYear(),
+        name: '',
+        style: {},
         colspan: "2",
         rowspan: "1",
-        canSet: true,
-        key: "recordYear",
+        key:'recordYear'
       },
       {
         name: `
@@ -156,7 +156,7 @@ export default {
         },
       },
       {
-        name: ``,
+        name: `标题1`,
         style: {},
         colspan: "1",
         rowspan: "3",

@@ -8,10 +8,11 @@ export default {
   th: {
     top: [
       {
-        name: currYear(),
+        name: '起始',
         style: {},
         colspan: "2",
-        rowspan: "1"
+        rowspan: "1",
+        key:'recordYear'
       },
       {
         name: `开嘱护士签名`,

@@ -233,9 +233,15 @@ export const ordersExecuteList = (obj = {}) => {
   return axios.post(`${apiPath}record/block/ordersExecute/list/${id}`, obj);
 };
 
+// 贵州获取his患者输血同步
+export const nurseBloodList = (obj = {}) => {
+  let id = sheetInfo.selectBlock.id;
+  return axios.post(`${apiPath}record/block/nurseBlood/list/354`, obj);
+};
+
 // 保存his患者体征
 export const saveVitalSign = (data,hospitalId) => {
-  if(hospitalId=='wujing'||hospitalId=='quzhou'){
+  if(hospitalId=='wujing'||hospitalId=='quzhou'||hospitalId=='guizhou'){
     return axios.post(
       `${apiPath}record/block/ordersExecute/save`,
       data
