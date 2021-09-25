@@ -23,7 +23,7 @@ export default {
       },
       {
         name: `
-        血压<br/>（mmHg）
+        血压<br/>(mmHg)
         `,
         colspan: "1",
         rowspan: "3"
