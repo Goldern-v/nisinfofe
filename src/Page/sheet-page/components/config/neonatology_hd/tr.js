@@ -69,15 +69,15 @@ export default [
     change: (e, td) => limitChange(e, td, 3),
   },
   {
-    key: "pulse", //脉搏/心率
+    key: "heartRate", //脉搏/心率
     value: "",
     event: keyf1,
     name: "心率",
     next: "次/分",
     textarea: {
-      width: 43
+      width: 30
     },
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 3),
   },
   {
     key: "breath", //呼吸
@@ -402,10 +402,6 @@ export default [
       left: "1px",
       width: "150px",
       background: "transparent"
-    },
-    change: (e, td) => limitChange(e, td, 12),
-    textarea: {
-      width: 150
     },
     event: function (e, td) {
       console.log(e.keyCode);
