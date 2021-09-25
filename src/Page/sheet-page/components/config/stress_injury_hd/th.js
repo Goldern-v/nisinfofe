@@ -8,11 +8,11 @@ export default {
   deptType: "",
   th: {
     top: [{
-        name: currYear(),
+        name: '',
+        style: {},
         colspan: "2",
         rowspan: "1",
-        canSet: true,
-        key: "recordYear",
+        key:'recordYear'
       },
       {
         name: "部位",

@@ -1,8 +1,9 @@
 <template>
   <div>
-    <sweet-modal ref="modal" :modalWidth="720" title="执行单同步">
+    <sweet-modal ref="modal" :modalWidth="720" :title="title">
       <div flex="cross:center">
-        <span class="label">执行单日期：</span>
+        <span v-if="HOSPITAL_ID == 'guizhou'" class="label">输血日期：</span>
+        <span v-if="HOSPITAL_ID != 'guizhou'" class="label">执行单日期：</span>
         <masked-input
           type="text"
           class="mask-input"
@@ -12,13 +13,23 @@
           :guide="true"
           placeholderChar=" "
         ></masked-input>
-        <whiteButton text="查询" @click="getData"></whiteButton>
+        <div v-if="HOSPITAL_ID=='quzhou'">
+          <span class="label">类型：</span>
+          <el-select v-model="executeType" placeholder="请选择" size="small" style="width:150px">
+            <el-option
+              :label="typeItem.name"
+              :value="typeItem.id"
+              v-for="typeItem in allType"
+              :key="typeItem.id"
+            ></el-option>
+          </el-select>
+        </div>
+        <whiteButton style="margin-left:20px;" text="查询" @click="getData"></whiteButton>
       </div>
       <div class="table-con">
         <el-table
           :data="tableData"
           border
-          style="width: 101%"
           height="350"
           @selection-change="handleSelectionChange"
         >
@@ -33,9 +44,10 @@
               <span>{{ scope.row.recordDate.split(' ')[1] }}</span>
             </template>
           </el-table-column>
-          <el-table-column v-if="HOSPITAL_ID != 'quzhou'" prop="food" label="入量名称" min-width="110px" align="center"></el-table-column>
-          <el-table-column v-if="HOSPITAL_ID != 'quzhou'" prop="foodSize" label="入量" min-width="110px" align="center"></el-table-column>
+          <el-table-column v-if="HOSPITAL_ID == 'wujing'" prop="food" label="入量名称" min-width="110px" align="center"></el-table-column>
+          <el-table-column v-if="HOSPITAL_ID == 'wujing'" prop="foodSize" label="入量" min-width="110px" align="center"></el-table-column>
           <el-table-column v-if="HOSPITAL_ID == 'quzhou'" prop="desc" label="描述" min-width="110px" align="center"></el-table-column>
+          <el-table-column v-if="HOSPITAL_ID == 'guizhou'" prop="desc" label="病情、护理措施及效果" min-width="110px" align="center"></el-table-column>
           <!-- <el-table-column prop="temperature" label="腋下体温(°C)" min-width="110px" align="center"></el-table-column>
           <el-table-column prop="pulse" label="脉搏/心率(次/min)" min-width="150px" align="center"></el-table-column>
           <el-table-column prop="breath" label="呼吸(次/min)" min-width="110px" align="center"></el-table-column>
@@ -81,7 +93,7 @@
 <script>
 import whiteButton from "@/components/button/white-button";
 import moment from "moment";
-import { getVitalSign, saveVitalSign, ordersExecuteList } from "../../api/index";
+import { getVitalSign, saveVitalSign, ordersExecuteList, nurseBloodList } from "../../api/index";
 import sheetInfo from "../config/sheetInfo/index";
 import bus from "vue-happy-bus";
 export default {
@@ -89,6 +101,10 @@ export default {
     blockId:{
       type:Number,
       value:0
+    },
+    title:{
+      type:String,
+      value:""
     }
   },
   data() {
@@ -99,13 +115,29 @@ export default {
       multipleSelection: [],
       bus: bus(this),
       formlist:{},
+      executeType: "",
+      allType: [
+        {
+          id: "",
+          name: "全部",
+        },
+        {
+          id: "输液",
+          name: "输液类",
+        },
+        {
+          id: "雾化",
+          name: "雾化类",
+        },
+        {
+          id: "口服",
+          name: "长期医嘱的口服药",
+        },
+      ],
     };
   },
   methods: {
     open(baseParams) {
-      // console.log(1111);
-      // console.log(this.blockId);
-      // console.log(baseParams,"gaohaix");
       this.formlist = baseParams
       // console.log(this.formlist);
       if (!this.patientInfo.patientId && !baseParams.patientId) {
@@ -145,8 +177,17 @@ export default {
           visitId:this.patientInfo.visitId || this.formlist.visitId,
           executeDateTime:this.searchDate,
           wardCode:this.$store.state.lesion.deptCode,
+          executeType:this.executeType,
         }
         ).then(res => {
+          this.tableData = res.data.data.list;
+        });
+      }else if(this.HOSPITAL_ID=="guizhou"){
+        nurseBloodList({
+          patientId:this.patientInfo.patientId || this.formlist.patientId,
+          visitId:this.patientInfo.visitId || this.formlist.visitId,
+          executeDateTime:this.searchDate,
+        }).then(res => {
           this.tableData = res.data.data.list;
         });
       }else{
@@ -159,7 +200,7 @@ export default {
         ).then(res => {
           this.tableData = res.data.data.list;
         });
-      }
+    }
       
       
     },

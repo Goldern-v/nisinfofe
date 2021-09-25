@@ -22,7 +22,13 @@ const ysxzList = [];
 const xlgdList = ["-5","-4","-3","-2","-1","0","+1","+2","+3","+4","+5"];
 const txbwList = ["右下腹", "左下腹", "右上腹", "左上腹", "中上腹", "脐中部", "脐上部", "脐下部", ];
 
-export default [{
+export default [
+  {
+    key: "recordDate", //年份
+    value: "",
+    hidden:true
+  },
+  {
     key: "recordMonth", //日期
     value: "",
     event: event_date,
@@ -82,7 +88,7 @@ export default [{
     value: "",
     event: keyf1,
     name: "胎心心率",
-    next: "次/min",
+    next: "次/分",
     change: (e, td) => limitChange(e, td, 6),
     textarea: {
       width: 45
@@ -267,10 +273,6 @@ export default [{
       left: "1px",
       width: "150px",
       background: "transparent"
-    },
-    change: (e, td) => limitChange(e, td, 12),
-    textarea: {
-      width: 150
     },
     event: function (e, td) {
       console.log(e.keyCode);

@@ -53,8 +53,7 @@
         @click="onSelect(item)"
         @dblclick="onDblClick(item)"
       >
-        <td v-if="HOSPITAL_ID='hj'
-         && HOSPITAL_ID == 'guizhou'">
+        <td v-if="HOSPITAL_ID =='hj' &&  HOSPITAL_ID == 'guizhou'">
           {{index + baseIndex + 1}}
         </td>
         <td v-if="HOSPITAL_ID != 'lingcheng'" style="padding: 0 4px">
@@ -118,7 +117,8 @@
           </div>
         </td>
         <td v-else>
-          <div class="cell noPrint">{{ item.nurse }}</div>
+          <div class="cell noPrint" v-if="HOSPITAL_ID == 'foyou'" style="display:block">{{ item.nurse }}</div>
+          <div class="cell noPrint" v-else>{{ item.nurse }}</div>
           <div class="cell inPrint lc" v-if="HOSPITAL_ID == 'lingcheng'">
             <!-- {{item.nurseEmpNo}} -->
             <img
@@ -196,7 +196,7 @@
 
   .inPrint {
     display: none;
-
+ 
     &.lc {
       height: 29px;
     }

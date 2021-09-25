@@ -283,7 +283,7 @@ export default {
         }
         this.bus.$emit("toNursingOrderSheetPrintPage", newWid);
       } else {
-        this.bus.$emit("toNursingOrderSheetPrintPage");
+          this.bus.$emit("toNursingOrderSheetPrintPage");
       }
     },
     setPage() {
@@ -500,28 +500,39 @@ export default {
         cancelButtonText: "取消",
         type: "warning",
       }).then(() => {
-        window.openSignModal((password, empNo) => {
+        if(this.HOSPITAL_ID !='huadu'){
+          window.openSignModal((password, empNo) => {
+            blockDelete({
+              id: this.sheetInfo.selectBlock.id,
+              password: password,
+              empNo: empNo,
+            }).then((res) => {
+              console.log("删除成功", res, this.sheetInfo.selectBlock.id);
+
+              // this.sheetInfo.selectBlock.id = null
+              // 清空之前选中护理单
+              resetSheetInfoData(this.sheetInfo); //
+              // this.bus.$emit('refreshNursingOrderSheetPage', true)
+              // 刷新
+              // this.createSheet()
+              this.bus.$emit("addNewNursingOrderSheetPage", "删除成功!");
+              this.getNOBlockList(false);
+              // this.$message({
+              //   type: 'success',
+              //   message: '删除成功!'
+              // });
+            });
+          });
+        }else{
           blockDelete({
             id: this.sheetInfo.selectBlock.id,
-            password: password,
-            empNo: empNo,
           }).then((res) => {
-            console.log("删除成功", res, this.sheetInfo.selectBlock.id);
-
-            // this.sheetInfo.selectBlock.id = null
-            // 清空之前选中护理单
-            resetSheetInfoData(this.sheetInfo); //
-            // this.bus.$emit('refreshNursingOrderSheetPage', true)
-            // 刷新
-            // this.createSheet()
-            this.bus.$emit("addNewNursingOrderSheetPage", "删除成功!");
+            resetSheetInfoData(this.sheetInfo);
+            // this.bus.$emit("addNewNursingOrderSheetPage", "删除成功!");
             this.getNOBlockList(false);
-            // this.$message({
-            //   type: 'success',
-            //   message: '删除成功!'
-            // });
-          });
-        });
+          })
+        }
+        
       });
 
       // this.$parent.$parent.$refs.signModal.open((password, empNo) => {

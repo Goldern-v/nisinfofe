@@ -1,13 +1,18 @@
+import moment from "moment";
+function currYear() {
+  return moment().format('YYYY')
+}
 export default {
   // 科室的名称
   deptType: "",
   th: {
     top: [
       {
-        name: "起始",
+        name: '起始',
         style: {},
         colspan: "2",
-        rowspan: "1"
+        rowspan: "1",
+        key:'recordYear'
       },
       {
         name: `开嘱护士签名`,
@@ -21,8 +26,8 @@ export default {
       {
         name: `护嘱内容`,
         style: {
-          minWidth: "220px",
-          maxWidth: "220px",
+          minWidth: "175px",
+          maxWidth: "175px",
         },
         colspan: "1",
         rowspan: "2"

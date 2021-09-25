@@ -146,6 +146,30 @@ export default {
         rowspan: "3",
       },
       {
+        name: ``,
+        style: {},
+        colspan: "1",
+        rowspan: "3",
+        canSet: true,
+        key: "fieldSix", //标题1
+        style: {
+          minWidth: "32px",
+          maxWidth: "32px"
+        }
+      },
+      {
+        name: ``,
+        style: {},
+        colspan: "1",
+        rowspan: "3",
+        canSet: true,
+        key: "fieldSeven", //标题2
+        style: {
+          minWidth: "32px",
+          maxWidth: "32px"
+        }
+      },
+      {
         name: `
         特殊情况
         `,

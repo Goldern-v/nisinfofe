@@ -22,7 +22,13 @@ let syList = ['干燥','湿润','潮湿','饱和','漏出']
 let qwList = ['无','轻度','中度','重度']
 let pfList = ['水肿','浸渍','红斑','硬结','脱屑']
 
-export default [{
+export default [
+  {
+    key: "recordDate", //年份
+    value: "",
+    hidden:true
+  },
+  {
     key: "recordMonth", //日期
     value: "",
     event: event_date,
@@ -197,10 +203,6 @@ export default [{
       width: "150px",
       background: "transparent"
     },
-    textarea: {
-      width: 150
-    },
-    change: (e, td) => limitChange(e, td, 12),
     event: function (e, td) {
       console.log(e.keyCode);
       if (e.keyCode == 9) {

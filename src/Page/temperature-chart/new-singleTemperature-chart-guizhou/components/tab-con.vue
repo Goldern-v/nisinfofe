@@ -1,7 +1,7 @@
 <template>
   <div class="right-con">
     <div class="row-top">
-      <div class="column-left">
+      <!-- <div class="column-left">
         <el-button size="mini" @click="syncInAndOutHospital((type = '0'))">
           同步入院
         </el-button>
@@ -12,7 +12,7 @@
         >
           同步出院
         </el-button>
-      </div>
+      </div> -->
       <div class="column-right">
         <span style="padding-left: 5px">日期：</span>
         <ElDatePicker
@@ -144,7 +144,7 @@
               <span
                 class="preText"
                 style="color: blue"
-                @click="updateTextInfo(i.vitalCode, i.fieldCn, i.fieldCn)"
+                @click="updateTextInfo(i.vitalCode, i.fieldCn, i.fieldCn,index)"
                 >{{ i.fieldCn }}</span
               >
               <!-- <el-tooltip
@@ -634,7 +634,7 @@ export default {
       });
     },
     /* 修改自定义标题，弹出弹窗并保存 */
-    updateTextInfo(key, label, autotext) {
+    updateTextInfo(key, label, autotext,index) {
       window.openSetTextModal(
         (text) => {
           let data = {
@@ -645,6 +645,7 @@ export default {
             fieldCn: text,
           };
           savefieldTitle(data).then((res) => {
+             this.fieldList[index].fieldCn=text;
             this.$message.success(`修改${label}成功`);
           });
           this.getList();

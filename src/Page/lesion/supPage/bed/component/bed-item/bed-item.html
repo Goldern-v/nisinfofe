@@ -60,8 +60,8 @@
         <div flex="" class="table-line" v-else>
           <div class="key">床号：</div>
           <div class="value" style="width: 70px;">{{ data.bedLabel }}</div>
-          <div class="key">病案号：</div>
-          <div class="value">{{ data.patientId }}</div>
+          <div class="key" v-if="HOSPITAL_ID!='fuyou'">病案号：</div>
+          <div class="value" v-if="HOSPITAL_ID!='fuyou'">{{ data.patientId }}</div>
         </div>
         <div flex="" class="table-line">
           <div class="key">姓名：</div>

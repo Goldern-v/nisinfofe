@@ -17,7 +17,8 @@ export default {
         colspan: "2",
         rowspan: "1",
         style: {
-          minWidth: "62px"
+          // minWidth: "40px",
+          maxWidth: "60px"
         },
         canSet: true,
         key: "recordYear",
@@ -178,8 +179,8 @@ export default {
         colspan: "1",
         rowspan: "3",
         style: {
-          minWidth: '60px',
-          maxWidth: '60px',
+          minWidth: '90px',
+          maxWidth: '90px',
         },
       },
       {
@@ -188,15 +189,16 @@ export default {
         colspan: "1",
         rowspan: "3",
         style: {
-          minWidth: '60px',
-          maxWidth: '60px',
+          minWidth: '90px',
+          maxWidth: '90px',
         },
       }
     ],
     mid: [{
         name: '日期',
         style: {
-          minWidth: '36px',
+          minWidth: '30px',
+          // width: '50px',
           maxWidth: '36px',
         },
         colspan: '1',
@@ -205,7 +207,8 @@ export default {
       {
         name: '时间',
         style: {
-          minWidth: '36px',
+          minWidth: '30px',
+          // width: '50px',
           maxWidth: '36px',
         },
         colspan: '1',

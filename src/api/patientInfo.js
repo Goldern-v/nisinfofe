@@ -93,7 +93,9 @@ export const groupList = (patientId, visitId, type,wardCode) =>{
   }
   return axios.get(`${apiPath}form/common/groupList/${patientId}/${visitId}`)
 }
-
+export const groupListHuadu = (patientId, visitId)=>{
+  return axios.get(`${apiPath}bloodTransfusion/getBloodListByPv/${patientId}/${visitId}`)
+}
 
 /**
  * 根据病人信息获取健康宣教列表

@@ -3,7 +3,7 @@
 */
 import {
   keyf1,
-  calValueChange
+  limitChange
 } from "../keyEvent/f1.js";
 import {
   event_date,
@@ -96,7 +96,7 @@ export default [{
   event: keyf1,
   autoComplete: {
     data: fsList
-  }
+  },
 },
 {
   key: "muscleTone", // 肌张力
@@ -172,7 +172,7 @@ export default [{
 {
   key: "fieldFifteen", //用氧方式
   value: "",
-  change: calValueChange,
+  change: (e, td) => limitChange(e, td, 8),
   event: keyf1,
   textarea: {
     width: 50,

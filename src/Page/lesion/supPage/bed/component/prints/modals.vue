@@ -150,7 +150,7 @@
       >
         <div class="bed-card-vert-con">
           <div class="top">
-            <span>科室：{{ item.deptName }}</span>
+            <span>科室：{{ item.wardName }}</span>
             <span style="margin:4px;">床位：{{ item.bedLabel }}</span>
           </div>
           <div>
@@ -182,7 +182,7 @@
         </div>
       </div>
       <div slot="button">
-        <span
+        <!-- <span
           style="position: absolute; left: 10px; padding-top: 4px"
           v-if="HOSPITAL_ID != 'hj' && printMode == 'h'"
         >
@@ -192,16 +192,16 @@
             off-text="否"
             v-model="remarkPrint"
           ></el-switch>
-        </span>
+        </span> -->
 
         <el-button class="modal-btn" @click="close">取消</el-button>
-        <el-button
+        <!-- <el-button
           class="modal-btn"
           type="primary"
           @click="post"
           v-if="printMode == 'h'"
           >保存</el-button
-        >
+        > -->
         <el-button class="modal-btn" type="info" @click="onPrint"
           >打印</el-button
         >

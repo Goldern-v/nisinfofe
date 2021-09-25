@@ -3,7 +3,6 @@ import {
 } from "../../../api/index";
 import {
   keyf1,
-  calValueChange,
   limitChange
 } from "../keyEvent/f1.js";
 import {
@@ -18,7 +17,13 @@ let 意识 = ['清醒', '浅昏迷', '深昏迷', '模糊', '嗜睡', '昏睡', 
 let 出量颜色 = ['黄色', '鲜红色', '暗红色', '墨绿色', '浓茶色'];
 
 
-export default [{
+export default [
+  {
+    key: "recordDate", //年份
+    value: "",
+    hidden:true
+  },
+  {
     key: "recordMonth", //日期
     value: "",
     event: event_date,
@@ -251,10 +256,6 @@ export default [{
       left: "1px",
       width: "150px",
       background: "transparent",
-    },
-    change: (e, td) => limitChange(e, td, 12),
-    textarea: {
-      width: 150
     },
     event: function (e, td) {
       console.log(e.keyCode);

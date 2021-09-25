@@ -18,7 +18,13 @@ import info from "../sheetInfo";
 let ysList = [];
 let 入量名称 = ['输液', '口服', '输血', '肌注', '静注', '鼻饲', '静脉泵入', '灌肠', '饮水'];
 let 出量名称 = [];
-export default [{
+export default [
+  {
+    key: "recordDate", //年份
+    value: "",
+    hidden:true
+  },
+  {
     key: "recordMonth", //日期
     value: "",
     event: event_date,
@@ -320,10 +326,6 @@ export default [{
       width: "150px",
       background: "transparent"
     },
-    textarea: {
-      width: 150
-    },
-    change: (e, td) => limitChange(e, td, 12),
     event: function (e, td) {
       console.log(e.keyCode);
       if (e.keyCode == 9) {

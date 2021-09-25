@@ -21,23 +21,23 @@ let 气管护理 = [];
 let 心理护理 = [];
 let 饮食情况 = [];
 let wether = ['是', '否'];
-export default [{
+export default [
+  {
+    key: "recordDate", //年份
+    value: "",
+    hidden:true
+  },
+  {
     key: "recordMonth", //日期
     value: "",
     event: event_date,
     click: click_date,
-    style: {
-      width: "40px"
-    },
   },
   {
     key: "recordHour", //时间
     value: "",
     event: event_time,
     // click: click_time
-    style: {
-      width: "40px"
-    },
   },
   {
     key: "nursingOperationItem", //护理操作项目
@@ -58,9 +58,9 @@ export default [{
     value: "",
     event: keyf1,
     name: "护理操作结果",
-    change: (e, td) => limitChange(e, td, 24),
+    change: (e, td) => limitChange(e, td, 12),
     textarea: {
-      width: 150
+      width: 75
     },
     splice: true,
     autoComplete: {
@@ -85,10 +85,10 @@ export default [{
     key: "nursingType", //护理类型
     value: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 24),
+    change: (e, td) => limitChange(e, td, 12),
     name: "护理类型",
     textarea: {
-      width: 150
+      width: 75
     },
     splice: true,
     autoComplete: {
@@ -99,10 +99,10 @@ export default [{
     key: "safeCare", //安全护理
     value: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 24),
+    change: (e, td) => limitChange(e, td, 12),
     name: "安全护理",
     textarea: {
-      width: 150
+      width: 75
     },
     splice: true,
     autoComplete: {
@@ -113,10 +113,10 @@ export default [{
     key: "catheterCare", //导管护理
     value: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 24),
+    change: (e, td) => limitChange(e, td, 18),
     name: "导管护理",
     textarea: {
-      width: 150
+      width: 105
     },
     splice: true,
     autoComplete: {
@@ -127,10 +127,10 @@ export default [{
     key: "skinCare", //皮肤护理
     value: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 24),
+    change: (e, td) => limitChange(e, td, 4),
     name: "皮肤护理",
     textarea: {
-      width: 150
+      width: 35
     },
     autoComplete: {
       data: wether
@@ -140,10 +140,10 @@ export default [{
     key: "trachealCare", //气管护理
     value: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 24),
+    change: (e, td) => limitChange(e, td, 12),
     name: "气管护理",
     textarea: {
-      width: 150
+      width: 75
     },
     splice: true,
     autoComplete: {
@@ -154,10 +154,10 @@ export default [{
     key: "bodyCare", //体位护理
     value: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 24),
+    change: (e, td) => limitChange(e, td, 4),
     name: "体位护理",
     textarea: {
-      width: 150
+      width: 35
     },
     autoComplete: {
       data: wether
@@ -167,10 +167,10 @@ export default [{
     key: "nutritionCare", //营养护理
     value: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 24),
+    change: (e, td) => limitChange(e, td, 4),
     name: "营养护理",
     textarea: {
-      width: 150
+      width: 35
     },
     autoComplete: {
       data: wether
@@ -180,10 +180,10 @@ export default [{
     key: "psychologyCare", //心理护理
     value: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 24),
+    change: (e, td) => limitChange(e, td, 12),
     name: "心理护理",
     textarea: {
-      width: 150
+      width: 75
     },
     splice: true,
     autoComplete: {
@@ -194,10 +194,10 @@ export default [{
     key: "diet", //饮食情况
     value: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 24),
+    change: (e, td) => limitChange(e, td, 12),
     name: "饮食情况",
     textarea: {
-      width: 150
+      width: 75
     },
     splice: true,
     autoComplete: {
@@ -208,10 +208,10 @@ export default [{
     key: "urinationTrouble", //排尿困难
     value: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 24),
+    change: (e, td) => limitChange(e, td, 4),
     name: "排尿困难",
     textarea: {
-      width: 150
+      width: 35
     },
     autoComplete: {
       data: wether
@@ -221,10 +221,10 @@ export default [{
     key: "isolation", //隔离
     value: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 24),
+    change: (e, td) => limitChange(e, td, 4),
     name: "隔离",
     textarea: {
-      width: 150
+      width: 35
     },
     autoComplete: {
       data: wether
@@ -234,10 +234,10 @@ export default [{
     key: "bellySize", //腹围
     value: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 24),
+    change: (e, td) => limitChange(e, td, 4),
     name: "腹围",
     textarea: {
-      width: 150
+      width: 35
     },
   },
   {

@@ -26,7 +26,7 @@
       </span>
       <div
         class="times"
-        v-if="HOSPITAL_ID === 'huadu' || HOSPITAL_ID === 'fuyou'||HOSPITAL_ID === 'beihairenyi'"
+        v-if="HOSPITAL_ID === 'huadu' || HOSPITAL_ID === 'fuyou'"
       >
         <label :for="`time${item.id}`" v-for="item in timesEven" :key="item.id">
           <input
@@ -55,7 +55,7 @@
           {{ item.value }}
         </label>
       </div>
-      <div class="times" v-if="HOSPITAL_ID === 'quzhou'">
+      <div class="times" v-if="HOSPITAL_ID === 'quzhou'||HOSPITAL_ID === 'wujing'">
         <label
           :for="`time${item.id}`"
           v-for="item in timesquZhou"
@@ -90,7 +90,7 @@
           {{ item.value }}
         </label>
       </div>
-      <div class="times" v-if="HOSPITAL_ID === 'liaocheng'">
+      <div class="times" v-if="HOSPITAL_ID === 'liaocheng'||HOSPITAL_ID === 'beihairenyi'">
         <label :for="`time${item.id}`" v-for="item in timesOdd" :key="item.id">
           <input
             type="radio"
@@ -806,25 +806,22 @@ export default {
                 return "23";
               }
               case "beihairenyi":
-              if (this.getHours() >= 1 && this.getHours() <= 4) {
-                return "04";
+              if (this.getHours() >= 0 && this.getHours() <= 3) {
+                return "03";
               }
-              if (this.getHours() > 4 && this.getHours() <= 8) {
-                return "08";
+              if (this.getHours() > 3 && this.getHours() <= 7) {
+                return "07";
               }
-              if (this.getHours() > 8 && this.getHours() <= 12) {
-                return "12";
+              if (this.getHours() > 7 && this.getHours() <= 11) {
+                return "11";
               }
-              if (this.getHours() > 12 && this.getHours() <= 16) {
-                return "16";
+              if (this.getHours() > 11 && this.getHours() <= 15) {
+                return "15";
               }
-              if (this.getHours() > 16 && this.getHours() <= 20) {
-                return "20";
+              if (this.getHours() > 15 && this.getHours() <= 19) {
+                return "19";
               }
-              if (
-                (this.getHours() > 20 && this.getHours() <= 23) ||
-                this.getHours() === 0
-              ) {
+              if (this.getHours() > 19 && this.getHours() <= 23) {
                 return "23";
               }
             case "fuyou":
@@ -888,6 +885,25 @@ export default {
                 return "23";
               }
             case "guizhou":
+              if (this.getHours() >= 0 && this.getHours() <= 2) {
+                return "02";
+              }
+              if (this.getHours() > 2 && this.getHours() <= 6) {
+                return "06";
+              }
+              if (this.getHours() > 6 && this.getHours() <= 10) {
+                return "10";
+              }
+              if (this.getHours() > 10 && this.getHours() <= 14) {
+                return "14";
+              }
+              if (this.getHours() > 14 && this.getHours() <= 18) {
+                return "18";
+              }
+              if (this.getHours() > 18 && this.getHours() <= 23) {
+                return "22";
+              }
+              case "wujing":
               if (this.getHours() >= 0 && this.getHours() <= 2) {
                 return "02";
               }
