@@ -70,7 +70,7 @@
           :class="{ canSet: item.canSet }"
           @click="item.canSet && setTitle(item)"
         >
-          <span v-if="item.key=='recordYear' && HOSPITAL_ID=='huadu'">{{recordYear()}}</span>
+          <span v-if="item.key=='recordYear' && (HOSPITAL_ID=='huadu'||HOSPITAL_ID=='guizhou')">{{recordYear()}}</span>
           <span v-else v-html="item.name"></span>
         </th>
       </tr>
@@ -404,12 +404,15 @@
           v-else-if="
             sheetInfo.sheetType == 'obstetrics_hl' ||
               sheetInfo.sheetType == 'gynecology_hl' ||
-              sheetInfo.sheetType == 'neonatology_hl'
+              sheetInfo.sheetType == 'neonatology_hl' 
           "
           >质控护士：</span
         >
         <span v-else-if="sheetInfo.sheetType == 'intervention_cure_lcey'"
           >护士签名：</span
+        >
+        <span v-else-if="sheetInfo.sheetType == 'waiting_birth_gzry'"
+          >审核签名：</span
         >
         <span v-else>上级护士签名：</span>
         <span class="sh-name-box">
@@ -507,6 +510,7 @@ export default {
       fiexHeaderWidth: 0,
       isFixed: false,
       multiSign: false,
+      //底部签名
       auditArr: [
         "com_lc",
         "icu_lc",
@@ -533,6 +537,7 @@ export default {
         "prenatal_hl",
         "common_sn",
         "maternity_sn",
+        "waiting_birth_gzry",//贵州人医_产程记录单
       ],
       // 需要双签名的记录单code
       multiSignArr: [

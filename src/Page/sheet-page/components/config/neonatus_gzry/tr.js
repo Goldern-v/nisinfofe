@@ -22,7 +22,7 @@ export default [
     click: click_time
   },
   {
-    key: "daysBirth", //出生天数
+    key: "birthDay", //出生天数
     value: "",
     event: keyf1,
     textarea: {
@@ -34,7 +34,7 @@ export default [
     value: "",
     event: keyf1,
     textarea: {
-      width: 35
+      width: 33
     },
     autoComplete: {
       data: okList
@@ -45,7 +45,7 @@ export default [
     value: "",
     event: keyf1,
     textarea: {
-      width: 35
+      width: 33
     },
     autoComplete: {
       data: okList
@@ -56,7 +56,7 @@ export default [
     value: "",
     event: keyf1,
     textarea: {
-      width: 35
+      width: 33
     },
     autoComplete: {
       data: okList
@@ -67,7 +67,18 @@ export default [
     value: "",
     event: keyf1,
     textarea: {
-      width: 35
+      width: 33
+    },
+    autoComplete: {
+      data: okList
+    },
+  },
+  {
+    key: "intakeOther", //其他
+    value: "",
+    event: keyf1,
+    textarea: {
+      width: 33
     },
     autoComplete: {
       data: okList
@@ -78,26 +89,29 @@ export default [
     value: "",
     event: keyf1,
     textarea: {
-      width: 45
-    },
-  },
-  {
-    key: "hipRed", //臀红
-    value: "",
-    event: keyf1,
-    textarea: {
-      width: 35
+      width: 33
     },
     autoComplete: {
       data: okList
     },
   },
   {
-    key: "impetigo", //脓疱疹
+    key: "erosion", //糜烂
     value: "",
     event: keyf1,
     textarea: {
-      width: 35
+      width: 33
+    },
+    autoComplete: {
+      data: okList
+    },
+  },
+  {
+    key: "abscessRash", //脓疱疹
+    value: "",
+    event: keyf1,
+    textarea: {
+      width: 33
     },
     autoComplete: {
       data: okList
@@ -108,7 +122,7 @@ export default [
     value: "",
     event: keyf1,
     textarea: {
-      width: 35
+      width: 33
     },
     autoComplete: {
       data: okList
@@ -119,18 +133,29 @@ export default [
     value: "",
     event: keyf1,
     textarea: {
-      width: 35
+      width: 33
     },
     autoComplete: {
       data: okList
     },
   },
   {
-    key: "redness", //红肿
+    key: "petechiae", //出血点
     value: "",
     event: keyf1,
     textarea: {
-      width: 35
+      width: 33
+    },
+    autoComplete: {
+      data: okList
+    },
+  },
+  {
+    key: "jealous", //红肿
+    value: "",
+    event: keyf1,
+    textarea: {
+      width: 33
     },
     autoComplete: {
       data: okList
@@ -141,29 +166,29 @@ export default [
     value: "",
     event: keyf1,
     textarea: {
-      width: 35
+      width: 33
     },
     autoComplete: {
       data: okList
     },
   },
   {
-    key: "smooth", //光滑
+    key: "glossy", //光滑
     value: "",
     event: keyf1,
     textarea: {
-      width: 35
+      width: 33
     },
     autoComplete: {
       data: okList
     },
   },
   {
-    key: "collapse", //破溃
+    key: "rupture", //破溃
     value: "",
     event: keyf1,
     textarea: {
-      width: 35
+      width: 33
     },
     autoComplete: {
       data: okList
@@ -174,29 +199,29 @@ export default [
     value: "",
     event: keyf1,
     textarea: {
-      width: 35
+      width: 33
     },
     autoComplete: {
       data: okList
     },
   },
   {
-    key: "bleeding", //出血
+    key: "haemorrhage", //出血
     value: "",
     event: keyf1,
     textarea: {
-      width: 35
+      width: 33
     },
     autoComplete: {
       data: okList
     },
   },
   {
-    key: "evaporation", //干燥
+    key: "arid", //干燥
     value: "",
     event: keyf1,
     textarea: {
-      width: 35
+      width: 33
     },
     autoComplete: {
       data: okList
@@ -207,18 +232,18 @@ export default [
     value: "",
     event: keyf1,
     textarea: {
-      width: 35
+      width: 33
     },
     autoComplete: {
       data: okList
     },
   },
   {
-    key: "fallOff", //脱落
+    key: "shed", //脱落
     value: "",
     event: keyf1,
     textarea: {
-      width: 35
+      width: 33
     },
     autoComplete: {
       data: okList
@@ -233,7 +258,7 @@ export default [
     },
   },
   {
-    key: "colour", //颜色
+    key: "color", //颜色
     value: "",
     event: keyf1,
     textarea: {
@@ -241,7 +266,7 @@ export default [
     },
   },
   {
-    key: "nature", //性质
+    key: "quality", //性质
     value: "",
     event: keyf1,
     textarea: {
@@ -249,7 +274,7 @@ export default [
     },
   },
   {
-    key: "urinate", //小便
+    key: "urine", //小便
     value: "",
     event: keyf1,
     textarea: {

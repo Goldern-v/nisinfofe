@@ -22,12 +22,12 @@ export default {
       },
       {
         name: '摄入量',
-        colspan: '4',
+        colspan: '5',
         rowspan: '1'
       },
       {
         name: '皮肤',
-        colspan: '5',
+        colspan: '6',
         rowspan: '1'
       },
       {
@@ -110,6 +110,13 @@ export default {
       },
       {
         name: `
+        其<br/>他
+        `,
+        colspan: '1',
+        rowspan: '2',
+      },
+      {
+        name: `
         黄<br/>疸
         `,
         colspan: '1',
@@ -117,14 +124,14 @@ export default {
       },
       {
         name: `
-        臀<br/>红
+        糜<br/>烂
         `,
         colspan: '1',
         rowspan: '2',
       },
       {
         name: `
-        脓<br/>疱<br/>疹
+        脓<br/>疮<br/>疹
         `,
         colspan: '1',
         rowspan: '2',
@@ -139,6 +146,13 @@ export default {
       {
         name: `
         尿<br/>布<br/>疹
+        `,
+        colspan: '1',
+        rowspan: '2',
+      },
+      {
+        name: `
+        出<br/>血<br/>点
         `,
         colspan: '1',
         rowspan: '2',

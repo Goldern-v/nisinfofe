@@ -1,8 +1,12 @@
+/*
+贵州省人医-产程记录单
+ */
 import {
   multiDictInfo
 } from "../../../api/index";
 import {
   keyf1,
+  limitChange
 } from "../keyEvent/f1.js";
 import {
   event_date,
@@ -10,10 +14,14 @@ import {
   click_date,
   click_time
 } from "../keyEvent/date";
-let 入量名称 = [];
-let 出量名称 = [];
-let 意识 = ['清醒', '浅昏迷', '深昏迷', '模糊', '嗜睡', '昏睡', '谵妄'];
-export default [{
+
+export default [
+  {
+    key: "recordDate", //年份
+    value: "",
+    hidden:true
+  },
+  {
     key: "recordMonth", //日期
     value: "",
     event: event_date,
@@ -26,40 +34,6 @@ export default [{
     click: click_time
   },
   {
-    key: "temperature", //体温
-    value: "",
-    event: keyf1,
-    name: "体温",
-    next: "℃",
-  },
-  {
-    key: "pulse", //脉搏
-    value: "",
-    event: keyf1,
-    name: "脉搏",
-    next: "次/分",
-  },
-  {
-    key: "heartRate", //心率
-    value: "",
-    event: keyf1,
-    name: "心率",
-    next: "次/分",
-  },
-  {
-    key: "breath", //呼吸
-    value: "",
-    event: keyf1,
-    name: "呼吸",
-    next: "次/分",
-  },
-  {
-    key: "spo2", //血氧饱和度
-    value: "",
-    event: keyf1,
-    name: "血氧饱和度",
-  },
-  {
     key: "bloodPressure", //血压
     value: "",
     event: function (e, td) {
@@ -69,9 +43,152 @@ export default [{
       }
       keyf1(e, td);
     },
+    textarea: {
+      width: 60
+    },
+    change: (e, td) => limitChange(e, td, 8),
     name: "血压",
     next: "mmHg",
-  }, {
+  },
+  {
+    key: "fetalPosition", //部位
+    value: "",
+    event: keyf1,
+    name: "部位",
+    textarea: {
+      width: 50
+    },
+    change: (e, td) => limitChange(e, td, 6),
+  },
+  {
+    key: "fetalRate", //心率
+    value: "",
+    event: keyf1,
+    name: "胎心心率",
+    next: "次/分",
+    textarea: {
+      width: 50
+    },
+    change: (e, td) => limitChange(e, td, 6),
+  },
+  {
+    key: "dovetail", //衔接
+    value: "",
+    event: keyf1,
+    name: "衔接",
+    textarea: {
+      width: 50
+    },
+    change: (e, td) => limitChange(e, td, 6),
+  },
+  {
+    key: "intermission", //间歇
+    value: "",
+    event: keyf1,
+    name: "间歇",
+    next: "min",
+    textarea: {
+      width: 50
+    },
+    change: (e, td) => limitChange(e, td, 6),
+  },
+  {
+    key: "sustain", //持续
+    value: "",
+    event: keyf1,
+    name: "持续",
+    next: "s",
+    textarea: {
+      width: 50
+    },
+    change: (e, td) => limitChange(e, td, 6),
+  },
+  {
+    key: "cervicalOpening", //开张
+    value: "",
+    event: keyf1,
+    name: "开张",
+    next: "cm",
+    textarea: {
+      width: 50
+    },
+    change: (e, td) => limitChange(e, td, 6),
+  },
+  {
+    key: "quality", //质
+    value: "",
+    event: keyf1,
+    name: "质",
+    textarea: {
+      width: 50
+    },
+    change: (e, td) => limitChange(e, td, 6),
+  },
+  {
+    key: "firstExposure", //先露高低
+    value: "",
+    event: keyf1,
+    name: "先露高低",
+    textarea: {
+      width: 50
+    },
+    change: (e, td) => limitChange(e, td, 6),
+  },
+  {
+    key: "sagittalSuture", //矢状缝
+    value: "",
+    event: keyf1,
+    name: "矢状缝",
+    textarea: {
+      width: 50
+    },
+    change: (e, td) => limitChange(e, td, 6),
+  },
+  {
+    key: "fetalMembrane", //胎膜
+    value: "",
+    event: keyf1,
+    name: "胎膜",
+    textarea: {
+      width: 50
+    },
+    change: (e, td) => limitChange(e, td, 6),
+  },
+  {
+    key: "amnioticFluid", //羊水性状
+    value: "",
+    event: keyf1,
+    name: "羊水性状",
+    textarea: {
+      width: 50
+    },
+    change: (e, td) => limitChange(e, td, 6),
+  },
+  {
+    key: "inspection", //检查方式
+    value: "",
+    event: keyf1,
+    name: "检查方式",
+    textarea: {
+      width: 50
+    },
+    change: (e, td) => limitChange(e, td, 6),
+  },
+  {
+    key: "incubation", //潜伏期
+    value: "",
+    event: keyf1,
+    name: "潜伏期",
+    textarea: {
+      width: 50
+    },
+    autoComplete: {
+      data: ["√"]
+    },
+    change: (e, td) => limitChange(e, td, 6),
+  },
+
+  {
     key: "description", //特殊情况记录
     value: "",
     style: {
@@ -97,10 +214,10 @@ export default [{
     key: "sign",
     value: ""
   },
-  {
-    key: "audit",
-    value: ""
-  },
+  // {
+  //   key: "audit",
+  //   value: ""
+  // },
   {
     hidden: true,
     key: "id",
@@ -178,35 +295,3 @@ export default [{
   },
 ];
 
-let filterKey = '花都' + ':';
-let filterKey2 = '统一护理记录单' + ':';
-
-export function getListData4() {
-  let list = [
-    "入量名称",
-    "出量名称",
-  ];
-  list = list.map(key => {
-    return key.includes('出量名称') ? filterKey + filterKey2 + key : filterKey + key;
-  });
-  multiDictInfo(list).then(res => {
-    let data = res.data.data;
-    setList(入量名称, "入量名称", data);
-    setList(出量名称, "出量名称", data);
-  });
-}
-
-getListData4();
-/**
- *
- * @param {*} list 原数组
- * @param {*} key 对应的key
- * @param {*} data 数据源
- */
-function setList(list, key, data) {
-  key = key.includes('出量名称') ? filterKey + filterKey2 + key : filterKey + key;
-  list.splice(0, list.length);
-  for (let item of data[key]) {
-    list.push(item.name);
-  }
-}
