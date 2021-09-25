@@ -175,7 +175,7 @@
               alt
             />
           </div>
-          <input v-else-if="HOSPITAL_ID=='huadu'&&td.key=='orderContent'" @click="(e)=>openOrderModal(e,td,tr,x,y,'护嘱内容',880)" style="height:32px" v-model="td.value" :data-value='td.value'>
+          <input v-else-if="HOSPITAL_ID=='huadu'&&td.key=='orderContent'" @click="(e)=>openOrderModal(e,td,tr,x,y,'护嘱内容',910)" style="height:32px" v-model="td.value" :data-value='td.value'>
           <input v-else-if="HOSPITAL_ID=='huadu'&&td.key=='frequency'" @click="(e)=>openOrderModal(e,td,tr,x,y,'频次',1090)" v-model="td.value" style="height:32px" :data-value='td.value'>
           <input
             type="text"
