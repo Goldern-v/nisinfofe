@@ -1050,14 +1050,13 @@ export default {
     },
     // 除第一行以外到结束行之内其他单元格不能录入内容（威县），出入量统计行除外
     isDisabed(tr, td, index) {
-      // canModify true可以修改，false禁止修改
+      // canModify false可以修改，true禁止修改
       if (
         this.HOSPITAL_ID == "huadu" &&
         sheetInfo.sheetType === "body_temperature_Hd" &&
-        td &&
-        td.key === "empName"
+        td
       ) {
-        return true;
+        return false;
       }
       if (td && td.key == "recordYear") {
         if (!tr.find(item => item.key == "recordMonth").value) {
@@ -1090,7 +1089,6 @@ export default {
       }
     },
     isRead(tr) {
-      if(this.sheetInfo.sheetType == 'body_temperature_Hd'){
         let status = tr.find(item => item.key == "status").value;
         let empNo = tr.find(item => item.key == "empNo").value;
         if (status == 1) {
@@ -1102,7 +1100,7 @@ export default {
         } else {
           return false;
         }
-      }
+      
     },
     checkMaxLength(value, length) {
       const regC = /[^ -~]+/g;
