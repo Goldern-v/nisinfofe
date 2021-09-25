@@ -236,7 +236,7 @@ export const ordersExecuteList = (obj = {}) => {
 // 贵州获取his患者输血同步
 export const nurseBloodList = (obj = {}) => {
   let id = sheetInfo.selectBlock.id;
-  return axios.post(`${apiPath}record/block/nurseBlood/list/354`, obj);
+  return axios.post(`${apiPath}record/block/nurseBlood/list/${id}`, obj);
 };
 
 // 保存his患者体征
