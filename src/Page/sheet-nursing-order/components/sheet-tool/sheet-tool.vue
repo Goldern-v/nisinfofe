@@ -283,7 +283,7 @@ export default {
         }
         this.bus.$emit("toNursingOrderSheetPrintPage", newWid);
       } else {
-        this.bus.$emit("toNursingOrderSheetPrintPage");
+          this.bus.$emit("toNursingOrderSheetPrintPage");
       }
     },
     setPage() {
@@ -528,7 +528,7 @@ export default {
             id: this.sheetInfo.selectBlock.id,
           }).then((res) => {
             resetSheetInfoData(this.sheetInfo);
-            this.bus.$emit("addNewNursingOrderSheetPage", "删除成功!");
+            // this.bus.$emit("addNewNursingOrderSheetPage", "删除成功!");
             this.getNOBlockList(false);
           })
         }

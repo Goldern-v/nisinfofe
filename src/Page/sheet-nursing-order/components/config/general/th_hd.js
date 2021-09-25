@@ -26,8 +26,8 @@ export default {
       {
         name: `护嘱内容`,
         style: {
-          minWidth: "220px",
-          maxWidth: "220px",
+          minWidth: "175px",
+          maxWidth: "175px",
         },
         colspan: "1",
         rowspan: "2"
