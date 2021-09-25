@@ -53,7 +53,7 @@
               </label>
             </div>
           </td>
-           <td class="text-center" :colspan="3" :style="{'text-align':'center'}">
+           <td class="text-center" :colspan="3" :style="{'text-align':'left'}">
             <div>
               <label>
                 <el-input
