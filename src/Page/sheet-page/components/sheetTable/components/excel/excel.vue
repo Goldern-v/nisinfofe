@@ -604,9 +604,7 @@ export default {
   methods: {
     //花都护记年份
     recordYear(){
-      console.log(this.data.bodyModel[0][0]); 
       return this.data.bodyModel[0][0].value.split('-')[0]
-     
     },
     show(td){
       console.log(td);

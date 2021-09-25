@@ -144,7 +144,7 @@
               <span
                 class="preText"
                 style="color: blue"
-                @click="updateTextInfo(i.vitalCode, i.fieldCn, i.fieldCn)"
+                @click="updateTextInfo(i.vitalCode, i.fieldCn, i.fieldCn,index)"
                 >{{ i.fieldCn }}</span
               >
               <!-- <el-tooltip
@@ -630,7 +630,7 @@ export default {
       });
     },
     /* 修改自定义标题，弹出弹窗并保存 */
-    updateTextInfo(key, label, autotext) {
+    updateTextInfo(key, label, autotext,index) {
       window.openSetTextModal(
         (text) => {
           let data = {
@@ -641,9 +641,10 @@ export default {
             fieldCn: text,
           };
           savefieldTitle(data).then((res) => {
+             this.fieldList[index].fieldCn=text;
             this.$message.success(`修改${label}成功`);
           });
-          this.getList();
+          // this.getList();
         },
         autotext,
         `修改${label}`
