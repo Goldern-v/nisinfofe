@@ -41,7 +41,7 @@
           </td>
           <!-- 教育对象 -->
           <td v-for="o in object" :key="o + 'a'">
-            <span class="is-radio" v-if="data['教育对象'] === o">√</span>
+            <span class="is-radio" v-if="data['教育对象'].split(',').includes(o)">√</span>
           </td>
           <!-- 教育方法 -->
           <td v-for="p in method" :key="p + 'b'">
@@ -117,7 +117,7 @@ export default {
         [
           { rowspan: 2, text: "教育时间", width: 80 },
           { rowspan: 2, text: "宣教内容", width: 160 },
-          { colspan: 2, text: "教育对象" },
+          { colspan: 3, text: "教育对象" },
           // { colspan: 4, text: "教育方法" },
           { colspan: 3, text: "教育方法" },
           { colspan: 3, text: "教育评估" },
@@ -127,6 +127,7 @@ export default {
         [
           { text: "患者", width: 30 },
           { text: "家属", width: 30 },
+          { text: "留陪人", width: 30 },
           { text: "口述", width: 30 },
           { text: "书面", width: 30 },
           // { text: "在线", width: 30 },
@@ -136,7 +137,7 @@ export default {
           { text: "需强化", width: 30 },
         ],
       ],
-      object: ["患者", "家属"],
+      object: ["患者", "家属", "留陪人"],
       // method: ["口述", "书面", "在线", "示范"],
 
       method: ["口述", "书面", "示范"],
