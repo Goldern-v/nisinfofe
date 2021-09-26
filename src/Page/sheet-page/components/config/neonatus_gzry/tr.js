@@ -264,6 +264,9 @@ export default [
     textarea: {
       width: 45
     },
+    autoComplete: {
+      data: ['棕色', '黄色', '绿色', '其它']
+    }
   },
   {
     key: "quality", //性质
@@ -272,6 +275,9 @@ export default [
     textarea: {
       width: 45
     },
+    autoComplete: {
+      data: ['稀', '软']
+    }
   },
   {
     key: "urine", //小便
@@ -288,6 +294,9 @@ export default [
     textarea: {
       width: 45
     },
+    autoComplete: {
+      data: ['有', '无']
+    }
   },
   {
     key: "sign",
