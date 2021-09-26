@@ -41,7 +41,7 @@
           </td>
           <!-- 教育对象 -->
           <td v-for="o in object" :key="o + 'a'">
-            <span class="is-radio" v-if="data['教育对象'].split(',').includes(o)">√</span>
+            <span class="is-radio" v-if="data['教育对象'] && data['教育对象']!='' && data['教育对象'].split(',').includes(o)">√</span>
           </td>
           <!-- 教育方法 -->
           <td v-for="p in method" :key="p + 'b'">

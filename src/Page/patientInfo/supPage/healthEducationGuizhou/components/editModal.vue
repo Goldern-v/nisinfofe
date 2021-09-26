@@ -292,6 +292,7 @@ export default {
             type: "",
             name: query,
           };
+          (this.$route.query.deptCode) && (params.deptCode=this.$route.query.deptCode);
           let { data } = await getEduFormTemplate(params);
           this.options = data.data;
         } catch (e) {
