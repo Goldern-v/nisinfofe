@@ -70,7 +70,7 @@
           :class="{ canSet: item.canSet }"
           @click="item.canSet && setTitle(item)"
         >
-          <span v-if="item.key=='recordYear' && HOSPITAL_ID=='huadu'">{{recordYear()}}</span>
+          <span v-if="item.key=='recordYear' && (HOSPITAL_ID=='huadu'||HOSPITAL_ID=='guizhou')">{{recordYear()}}</span>
           <span v-else v-html="item.name"></span>
         </th>
       </tr>
@@ -404,12 +404,15 @@
           v-else-if="
             sheetInfo.sheetType == 'obstetrics_hl' ||
               sheetInfo.sheetType == 'gynecology_hl' ||
-              sheetInfo.sheetType == 'neonatology_hl'
+              sheetInfo.sheetType == 'neonatology_hl' 
           "
           >质控护士：</span
         >
         <span v-else-if="sheetInfo.sheetType == 'intervention_cure_lcey'"
           >护士签名：</span
+        >
+        <span v-else-if="sheetInfo.sheetType == 'waiting_birth_gzry'"
+          >审核签名：</span
         >
         <span v-else>上级护士签名：</span>
         <span class="sh-name-box">
@@ -507,6 +510,7 @@ export default {
       fiexHeaderWidth: 0,
       isFixed: false,
       multiSign: false,
+      //底部签名
       auditArr: [
         "com_lc",
         "icu_lc",
@@ -533,6 +537,7 @@ export default {
         "prenatal_hl",
         "common_sn",
         "maternity_sn",
+        "waiting_birth_gzry",//贵州人医_产程记录单
       ],
       // 需要双签名的记录单code
       multiSignArr: [
@@ -604,9 +609,7 @@ export default {
   methods: {
     //花都护记年份
     recordYear(){
-      console.log(this.data.bodyModel[0][0]); 
       return this.data.bodyModel[0][0].value.split('-')[0]
-     
     },
     show(td){
       console.log(td);
@@ -1047,14 +1050,13 @@ export default {
     },
     // 除第一行以外到结束行之内其他单元格不能录入内容（威县），出入量统计行除外
     isDisabed(tr, td, index) {
-      // canModify true可以修改，false禁止修改
+      // canModify false可以修改，true禁止修改
       if (
         this.HOSPITAL_ID == "huadu" &&
         sheetInfo.sheetType === "body_temperature_Hd" &&
-        td &&
-        td.key === "empName"
+        td
       ) {
-        return true;
+        return false;
       }
       if (td && td.key == "recordYear") {
         if (!tr.find(item => item.key == "recordMonth").value) {
@@ -1087,17 +1089,18 @@ export default {
       }
     },
     isRead(tr) {
-      let status = tr.find(item => item.key == "status").value;
-      let empNo = tr.find(item => item.key == "empNo").value;
-      if (status == 1) {
-        if (empNo == this.empNo || this.isAuditor) {
-          return false;
+        let status = tr.find(item => item.key == "status").value;
+        let empNo = tr.find(item => item.key == "empNo").value;
+        if (status == 1) {
+          if (empNo == this.empNo || this.isAuditor) {
+            return false;
+          } else {
+            return true;
+          }
         } else {
-          return true;
+          return false;
         }
-      } else {
-        return false;
-      }
+      
     },
     checkMaxLength(value, length) {
       const regC = /[^ -~]+/g;

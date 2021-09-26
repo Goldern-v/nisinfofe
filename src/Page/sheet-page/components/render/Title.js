@@ -712,6 +712,20 @@ export default function Title(
     );
   }
   break;
+  case "waiting_birth_gzry": {
+    // 贵州人医-产程记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/waiting_birth_gzry/th").default)
+    );
+  }
+  break;
+  case "neonatus_gzry": {
+    // 贵州人医-新生儿护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/neonatus_gzry/th").default)
+    );
+  }
+  break;
   case "common_hl": {
     // 横沥-护理记录单
     Th = JSON.parse(

@@ -131,10 +131,6 @@ export default [
       width: "150px",
       background: "transparent"
     },
-    textarea: {
-      width: 150
-    },
-    change: (e, td) => limitChange(e, td, 12),
     event: function (e, td) {
       console.log(e.keyCode);
       if (e.keyCode == 9) {

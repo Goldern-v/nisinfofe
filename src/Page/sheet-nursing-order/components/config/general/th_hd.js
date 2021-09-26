@@ -26,8 +26,8 @@ export default {
       {
         name: `护嘱内容`,
         style: {
-          minWidth: "220px",
-          maxWidth: "220px",
+          minWidth: "190px",
+          maxWidth: "190px",
         },
         colspan: "1",
         rowspan: "2"
@@ -35,8 +35,8 @@ export default {
       {
         name: `频次`,
         style: {
-          minWidth: "100px",
-          maxWidth: "100px",
+          minWidth: "70px",
+          maxWidth: "70px",
         },
         colspan: "1",
         rowspan: "2"

@@ -31,7 +31,7 @@
       >
         <div class="nav-item">护理文书</div>
       </router-link>
-      <span><div class="nav-item" @click="oepnDoctorEmr">病历</div></span>
+      <!-- <span><div class="nav-item" @click="oepnDoctorEmr">病历</div></span> -->
       <!-- <router-link
         :to="{
           path: '/sheetNursingOrder',

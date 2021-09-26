@@ -392,7 +392,7 @@
               <!-- <el-input v-model="scope.row.curWeight"></el-input> -->
             </template>
           </el-table-column>
-          <el-table-column
+          <!-- <el-table-column
             v-if="HOSPITAL_ID === 'guizhou'||HOSPITAL_ID === 'quzhou'"
             prop="nursingEvent"
             label="护理事件"
@@ -404,9 +404,9 @@
                 v-model="scope.row.nursingEvent"
                 colClass="curWeight"
               />
-              <!-- <el-input v-model="scope.row.curWeight"></el-input> -->
+              <el-input v-model="scope.row.curWeight"></el-input> 2021-09-25
             </template>
-          </el-table-column>
+          </el-table-column> -->
           <!-- <el-table-column
             prop="height"
             label="身高"

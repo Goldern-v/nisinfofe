@@ -282,6 +282,18 @@ export default {
         `
       );
     }
+    if((this.HOSPITAL_ID === "huadu")){
+      addCSS(
+        window,
+        `
+        @media print {
+          .has-background{
+            background:none!important;
+          }
+        }
+        `
+      );
+    }
     /* 护理记录单行高 */
     if ( (this.HOSPITAL_ID === "quzhou") &&
       this.lineSpacingArr.includes(this.sheetInfo.sheetType)

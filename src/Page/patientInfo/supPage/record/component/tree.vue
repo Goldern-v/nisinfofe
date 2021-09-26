@@ -202,7 +202,7 @@ export default {
       expandList: [],
       expandListCopy: [],
       ifTree: true,
-      formTransfusionSafety: []
+      formTransfusionSafety: [],
     };
   },
   computed: {
@@ -245,6 +245,48 @@ export default {
     }
   },
   methods: {
+    createListHj(){
+       return {
+            label: "输血安全护理记录单",
+            index: index + 1,
+            formCode: "form_transfusion_safety",
+            nooForm: 2,
+            pageUrl: "输血安全护理记录单.html",
+            children: this.formTransfusionSafety.map(option => {
+              return {
+                status: option.status,
+                label: `${option.creatDate}
+                  ${option.wardAlias}
+                  ${option.countSize ? option.countSize + "条" : ""}
+                  ${option.evalScore ? option.evalScore + "分" : ""}
+                  ${
+                  option.pusherName ? option.pusherName : option.creatorName
+                }`,
+                // ${option.status == 0 ? "T" : option.status}`,
+                form_id: option.id,
+                formName: "输血安全护理记录单"
+              };
+            })
+          };
+    },
+    createListHd(){
+       return {
+            label: "输血安全护理记录单",
+            formCode: "E0314",
+            nooForm: 2,
+            pageUrl: "输血安全护理记录单.html",
+            children: this.formTransfusionSafety.map(option => {
+              return {
+                status: option.status,
+                label: `${option.evalDate.substring(0,16)}
+                  ${option.signerNo}`,
+                // ${option.status == 0 ? "T" : option.status}`,
+                form_id: option.entityId,
+                formName: "输血安全护理记录单"
+              };
+            })
+          };
+    },
     nodeClick(data, node) {
       console.log(
         "nodeClick",
@@ -275,7 +317,6 @@ export default {
       if (node.level === 2) {
         if (node.parent.label != "记录单") {
           console.log("---$emit('openAssessment')");
-
           this.bus.$emit(
             "openAssessmentBox",
             Object.assign({}, getFormConfig(node.data.formName), {
@@ -476,12 +517,15 @@ export default {
 
     },
     getBlockByPV() {
-      console.log(this.HOSPITAL_ID);
       if (this.HOSPITAL_ID == "hj" || this.HOSPITAL_ID == "houjie") {
         getBlockByPV(
           this.$route.query.patientId,
           this.$route.query.visitId
         ).then(res => {
+          this.formTransfusionSafety = res.data.data || [];
+        });
+      }else if(this.HOSPITAL_ID == "huadu"){
+        groupListHuadu(this.$route.query.patientId, this.$route.query.visitId).then(res => {
           this.formTransfusionSafety = res.data.data || [];
         });
       }
@@ -494,7 +538,6 @@ export default {
         //   this.$route.query.patientId,
         //   this.$route.query.visitId
         // ),
-        // groupListHuadu(this.$route.query.patientId, this.$route.query.visitId),
         this.getBlockByPV()
       ])
         .then(res => {
@@ -601,29 +644,17 @@ export default {
           // if (res[1].data.data.length > 0) {
           //   list_1.push(list_2(res[1].data.data));
           // }
-
-          let list_3 = {
-            label: "输血安全护理记录单",
-            index: index + 1,
-            formCode: "form_transfusion_safety",
-            nooForm: 2,
-            pageUrl: "输血安全护理记录单.html",
-            children: this.formTransfusionSafety.map(option => {
-              return {
-                status: option.status,
-                label: `${option.creatDate}
-                  ${option.wardAlias}
-                  ${option.countSize ? option.countSize + "条" : ""}
-                  ${option.evalScore ? option.evalScore + "分" : ""}
-                  ${
-                  option.pusherName ? option.pusherName : option.creatorName
-                }`,
-                // ${option.status == 0 ? "T" : option.status}`,
-                form_id: option.id,
-                formName: "输血安全护理记录单"
-              };
-            })
-          };
+          let list_3 = []
+          switch(this.HOSPITAL_ID){
+            case 'hj':
+              list_3 = this.createListHj();
+              break;
+            case 'huadu':
+              list_3 = this.createListHd();
+              break;
+            default:
+              break;
+          }
 
           list_1 = list_1.filter(
             item => item.formCode != "form_transfusion_safety"

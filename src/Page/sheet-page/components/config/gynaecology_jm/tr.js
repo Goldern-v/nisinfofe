@@ -159,13 +159,7 @@ export default [{
   {
     key: "postOutputOne", //自定义1
     value: "",
-    event: function (e, td) {
-      if (e.keyCode == 32) {
-        e.target.value += "/";
-        e.preventDefault();
-      }
-      keyf1(e, td);
-    },
+    event: keyf1,
     textarea: {
       width: 43
     },
@@ -173,13 +167,7 @@ export default [{
   {
     key: "postOutputTwo", //自定义2
     value: "",
-    event: function (e, td) {
-      if (e.keyCode == 32) {
-        e.target.value += "/";
-        e.preventDefault();
-      }
-      keyf1(e, td);
-    },
+    event: keyf1,
     textarea: {
       width: 43
     },
@@ -187,13 +175,7 @@ export default [{
   {
     key: "postOutputThree", //自定义3
     value: "",
-    event: function (e, td) {
-      if (e.keyCode == 32) {
-        e.target.value += "/";
-        e.preventDefault();
-      }
-      keyf1(e, td);
-    },
+    event: keyf1,
     textarea: {
       width: 43
     },
@@ -201,13 +183,7 @@ export default [{
   {
     key: "measuresOne", //自定义4
     value: "",
-    event: function (e, td) {
-      if (e.keyCode == 32) {
-        e.target.value += "/";
-        e.preventDefault();
-      }
-      keyf1(e, td);
-    },
+    event: keyf1,
     textarea: {
       width: 43
     },

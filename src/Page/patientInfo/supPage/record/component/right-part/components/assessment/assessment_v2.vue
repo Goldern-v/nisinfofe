@@ -276,8 +276,11 @@ export default {
       //
       this.marklist = [];
       this.handleMarklist = [];
-      // 获取批注列表
-      this.getMarkList();
+      // 如果不是输血评估单,则获取批注列表
+      if(info.formCode!='E0314'){
+        // 获取批注列表
+        this.getMarkList();
+      }
 
       // 如果是新版表单
       // let query = this.$route.query
