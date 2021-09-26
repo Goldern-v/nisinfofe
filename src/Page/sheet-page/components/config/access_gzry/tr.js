@@ -41,24 +41,24 @@ export default [{
     type: "select",
     editable: true
   },
-  {
-    key: "foodWay", //入量方式
-    value: "",
-    event: keyf1,
-    name: "入量方式",
-    textarea: {
-      width: 62,
-    },
-    style: {
-      maxWidth: '62px',
-      textAlign: "left",
-    },
-    autoComplete: {
-      data: foodWayData
-    },
-    type: "select",
-    editable: true
-  },
+  // {
+  //   key: "foodWay", //入量方式
+  //   value: "",
+  //   event: keyf1,
+  //   name: "入量方式",
+  //   textarea: {
+  //     width: 62,
+  //   },
+  //   style: {
+  //     maxWidth: '62px',
+  //     textAlign: "left",
+  //   },
+  //   autoComplete: {
+  //     data: foodWayData
+  //   },
+  //   type: "select",
+  //   editable: true
+  // },
   {
     key: "foodChannel", //途径
     value: "",
@@ -105,24 +105,24 @@ export default [{
     type: "select",
     editable: true
   },
-  {
-    key: "dischargeWay", //出量方式
-    value: "",
-    event: keyf1,
-    name: "出量方式",
-    textarea: {
-      width: 62,
-    },
-    style: {
-      maxWidth: '62px',
-      textAlign: "left",
-    },
-    autoComplete: {
-      data: dischargeWayData
-    },
-    type: "select",
-    editable: true
-  },
+  // {
+  //   key: "dischargeWay", //出量方式
+  //   value: "",
+  //   event: keyf1,
+  //   name: "出量方式",
+  //   textarea: {
+  //     width: 62,
+  //   },
+  //   style: {
+  //     maxWidth: '62px',
+  //     textAlign: "left",
+  //   },
+  //   autoComplete: {
+  //     data: dischargeWayData
+  //   },
+  //   type: "select",
+  //   editable: true
+  // },
   {
     key: "dischargeProp", //性质
     value: "",
