@@ -77,12 +77,15 @@
       ref="healthContentModal"
       :content="content"
       :name="name"
+      :pageParam="pageParam"
+      :blockId="blockId"
+      @saveContent="saveContent"
     />
   </div>
 </template>
 
 <script>
-import { getContentByMissionId } from "../api/healthApi";
+import { getContentByMissionId, saveMission } from "../api/healthApi";
 import healthContentModal from "./healthContentModal"; // 添加修改弹窗
 import common from "@/common/mixin/common.mixin.js";
 
@@ -145,6 +148,8 @@ export default {
       tableData: [],
       resData: [],
       patientId: "",
+      type: 1, // 弹框类型 1-修改 2-新增
+      contentModalData: {},
     };
   },
   watch: {
@@ -161,6 +166,41 @@ export default {
   },
 
   methods: {
+    saveContent(content) {
+      // console.log('data', data);
+      let pageParam = {
+        教育时间: this.contentModalData.教育时间,
+        教育对象: this.contentModalData.教育对象,
+        教育方法: this.contentModalData.教育方法,
+        教育评估: this.contentModalData.教育评估,
+        备注: this.contentModalData.备注,
+        签名: this.contentModalData.签名,
+        lc签名: this.contentModalData.lc签名,
+      }
+      let data = {
+        content: content,
+        blockId: this.blockId,
+        id: this.contentModalData.item.id, // 非必须，宣教实例id
+        patientId: this.contentModalData.item.patientId, // 非必须，病人id
+        patientName: this.contentModalData.item.patientName, // 非必须，病人姓名
+        visitId: this.contentModalData.item.visitId, // 非必须，visitId
+        bedLabel: this.contentModalData.item.bedLabel, // 非必须，床号
+        eduFormCode: "form_edu", // 非必须，教育单代码
+        wardCode: this.contentModalData.item.wardCode, // 非必须，科室代码
+        wardName: this.contentModalData.item.wardName, // 非必须，科室名称
+        missionId: this.contentModalData.item.missionId, // 非必须，宣教模版id
+        title: this.contentModalData.item.title, // 非必须，宣教名称
+        type: this.contentModalData.item.type, // 非必须，宣教类型
+        pageParam: JSON.stringify(pageParam), // 非必须，页面参数
+      }
+      saveMission(data).then((res) => {
+        this.content = res.data.data.instance.content;
+        console.log('res.data.instance.content', res.data.data.instance.content);
+        this.$message.success("保存成功");
+        this.$refs.healthContentModal.close();
+        
+      });
+    },
     init() {
       this.patientId = this.$route.query.patientId;
     },
@@ -206,6 +246,8 @@ export default {
     },
     //点击宣教内容
     healthContent(e, data) {
+      console.log('data....', data);
+      this.contentModalData = data;
       if (!data["宣教内容"]) return;
       e.stopPropagation();
       let ids = data.item ? data.item.missionId : "";
