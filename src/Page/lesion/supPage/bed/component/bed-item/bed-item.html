@@ -123,8 +123,8 @@
         </div>
 
         <div flex="" class="table-line">
-          <div class="key" v-if="!['guizhou'].includes(HOSPITAL_ID)">体&nbsp;重：</div>
-          <div class="value" v-if="!['guizhou'].includes(HOSPITAL_ID)" style="width: 50px;">{{ data.weight }}</div>
+          <div class="key">体&nbsp;重：</div>
+          <div class="value" style="width: 50px;">{{ data.weight && data.weight!='' ? data.weight:'' }}</div>
           <div class="key">身&nbsp;高：</div>
           <div class="value">{{ data.height }}</div>
         </div>
