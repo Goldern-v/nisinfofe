@@ -104,12 +104,28 @@
               :value="vitalSignObj[j].popVisible"
              >
               <temperature v-if="index==='过敏药物'" >
-              <el-input  v-model="vitalSignObj[j].vitalValue" size="mini" style="width: 120px;height:16px">
+                <input
+                type="text"
+                :title="vitalSignObj[j].vitalValue"
+                @input="handlePopRefresh(vitalSignObj[j])"
+                @click="() => (vitalSignObj[j].popVisible = true)"
+                @blur="() => (vitalSignObj[j].popVisible = false)"
+                v-model="vitalSignObj[j].vitalValue"
+                
+              />
+              <span class="preText" style="margin-left:20px">药物结果</span>
+                <el-select v-model="vitalSignObj[j].selectValue" filterable allow-create default-first-option  size="mini"
+            placeholder="药物结果" @change="changeValue($event)">
+            <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+            </el-option>
+        </el-select>
+                
+              <!-- <el-input  v-model="vitalSignObj[j].vitalValue" size="mini" style="width: 120px;height:16px">
           <el-select v-model="vitalSignObj[j].selectValue" slot="prepend" placeholder="请选择"  style="width:60px">
           <el-option label="+" value="+"></el-option>
           <el-option label="-" value="-"></el-option>
           </el-select>
-            </el-input>
+            </el-input> -->
               </temperature>
               <input
                 type="text"
@@ -352,6 +368,13 @@ export default {
       bus: bus(this),
       editableTabsValue: "2",
       selectValue:'',
+      options: [{
+                    value: '阴性',
+                    label: '阴性'
+                }, {
+                    value: '阳性',
+                    label: '阳性'
+                }, ],
       query: {
         entryDate: moment(new Date()).format("YYYY-MM-DD"), //录入日期
         entryTime: (()=>{
@@ -434,15 +457,6 @@ export default {
       this.getList();
     });
   },
-  created() {},
-  mounted(){
-    // this.addEnterListener();
-    //   $('#basic').editableSelect(
-    //     { filter: false }
-    // );
-
-
-  },
   computed: {},
   watch: {
     query: {
@@ -453,13 +467,9 @@ export default {
     },
   },
   methods: {
-//       handleTimeValue() {
-        
-//  let inputContent=document.getElementById('timePick').querySelectorAll('input')[0].value
-//       //  let val=inputContent[0]._value
-//         console.log(inputContent)
-//         // console.log(val) 
-//       },
+      changeValue(e){
+                    console.log(e)
+                 },
 
     init() {
       let obj = {};
