@@ -125,7 +125,7 @@ export default {
   },
   data() {
     let validateObject = (rule, value, callback) => {
-        if (!value || value == '' || value.length<=0) {
+        if (!value || value == '' || (Array.isArray(value) && value.length<=0)) {
           callback(new Error('请选择教育对象'));
         } else {
           callback();
@@ -198,16 +198,20 @@ export default {
         // let object = educationObiect.filter(
         //   (item) => item.text === form["教育对象"]
         // )[0];
-        let object=educationObiect.reduce((total,item,index)=>{
-          return total=form["教育对象"].split(",").includes(item.text)?total.concat(item.text):total
+        let object=[];
+        if(form["教育对象"] && form["教育对象"]!=''){
+          object=educationObiect.reduce((total,item,index)=>{
+          return total=form["教育对象"].split(",").includes(item.text)?total.concat(item.value):total
         },[]);
+        }
+        
         let method = educationMethod.filter(
           (item) => item.text === form["教育方法"]
         )[0];
         let assessment = educationAssessment.filter(
           (item) => item.text === form["教育评估"]
         )[0];
-        this.form.object = object ? object.value : [];
+        this.form.object = object ? object : [];
         // this.form.method = method ? method.value || "3" : "1";
         this.form.method = method
           ? method.value
@@ -292,7 +296,7 @@ export default {
             type: "",
             name: query,
           };
-          (this.$route.query.deptCode) && (params.deptCode=this.$route.query.deptCode);
+          (this.$route.query.wardCode) && (params.deptCode=this.$route.query.wardCode);
           let { data } = await getEduFormTemplate(params);
           this.options = data.data;
         } catch (e) {
