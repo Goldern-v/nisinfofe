@@ -62,7 +62,7 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 8),
     name: "胎位",
-    splice: true,
+    splice: "/",
     autoComplete: {
       data: twList
     },
@@ -76,6 +76,7 @@ export default [
     event: keyf1,
     name: "胎心部位",
     change: (e, td) => limitChange(e, td, 10),
+    splice: "/",
     autoComplete: {
       data: txbwList
     },

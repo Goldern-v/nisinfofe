@@ -57,7 +57,7 @@
           ></el-date-picker>
         </ElFormItem>
         <ElFormItem prop="object" label="教育对象：">
-          <ElSelect v-model="form.object">
+          <ElSelect v-model="form.object" multiple >
             <ElOption
               v-for="item in educationObiect"
               :key="item.value"
@@ -124,12 +124,19 @@ export default {
     },
   },
   data() {
+    let validateObject = (rule, value, callback) => {
+        if (!value || value == '' || value.length<=0) {
+          callback(new Error('请选择教育对象'));
+        } else {
+          callback();
+        }
+      };
     return {
       title: "",
       modalStatus: false, // 判断当前状态是编辑还是添加
       form: {
         state: "",
-        object: "",
+        object: [],
         method: "",
         assessment: "",
         remarks: "",
@@ -149,7 +156,8 @@ export default {
       rules: {
         state: [{ required: true, message: "请输入宣教内容", trigger: "blur" }],
         object: [
-          { required: true, message: "请选择教育对象", trigger: "blur" },
+          {  required: true, validator: validateObject, trigger: "blur" },
+          //{ required: true, message: "请选择教育对象", trigger: "blur" },
         ],
         method: [
           { required: true, message: "请选择教育方法", trigger: "blur" },
@@ -187,16 +195,19 @@ export default {
         this.itemData = form["item"];
         this.form.state = form["宣教内容"];
         this.date = form["教育时间"];
-        let object = educationObiect.filter(
-          (item) => item.text === form["教育对象"]
-        )[0];
+        // let object = educationObiect.filter(
+        //   (item) => item.text === form["教育对象"]
+        // )[0];
+        let object=educationObiect.reduce((total,item,index)=>{
+          return total=form["教育对象"].split(",").includes(item.text)?total.concat(item.text):total
+        },[]);
         let method = educationMethod.filter(
           (item) => item.text === form["教育方法"]
         )[0];
         let assessment = educationAssessment.filter(
           (item) => item.text === form["教育评估"]
         )[0];
-        this.form.object = object ? object.value : "";
+        this.form.object = object ? object.value : [];
         // this.form.method = method ? method.value || "3" : "1";
         this.form.method = method
           ? method.value
@@ -213,7 +224,7 @@ export default {
         // 添加时清空表单
         this.form = {
           state: "",
-          object: "",
+          object: [],
           method: "1",
           assessment: "",
           remarks: "",
@@ -298,9 +309,15 @@ export default {
       let itemData = this.options.filter(
         (item) => item.missionId === this.form.state
       )[0]; // 宣教内容item
-      let object = educationObiect.filter(
-        (item) => item.value === this.form.object
-      )[0].text; // 教育对象
+      // let object = educationObiect.filter(
+      //   (item) => item.value === this.form.object
+      // )[0].text; // 教育对象
+      let object=educationObiect.reduce((total,item,index)=>{
+        let findeModel=this.form.object.find(findItem=>findItem==item.value);
+        (findeModel) && (total.push(item.text));
+        return total
+          //return total=this.form.object.includes(item.value)?total.concat(item.value):total
+        },[]).join(",");
       let haveValue = educationMethod.filter(
         (item) => item.value === this.form.method
       );

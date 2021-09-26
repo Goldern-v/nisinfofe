@@ -108,7 +108,6 @@ function onFocusToAutoComplete(e, bind) {
   let scrollTop = document.querySelector(".sheetTable-contain").scrollTop;
   let scrollLeft = document.querySelector(".sheetTable-contain").scrollLeft;
   let xy = offset(e.target);
-
   // 判断是否能编辑
   let isRead;
   let status = tr.find(item => item.key == "status").value;
@@ -153,7 +152,12 @@ function onFocusToAutoComplete(e, bind) {
         }
 
         if (data) {
-          const preText = td.value ? (td.value + ',') : ''
+          let preText = ""
+          if(splice=="/"){
+            preText = td.value ? (td.value + '/') : ''
+          }else{
+            preText = td.value ? (td.value + ',') : ''
+          }
           td.value = (splice ? preText : '') + data
         }
         ;
