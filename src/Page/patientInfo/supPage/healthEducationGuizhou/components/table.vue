@@ -254,7 +254,8 @@ export default {
       this.data = data;
       getContentByMissionId(ids)
         .then((res) => {
-          this.content = res.data.data[0].content;
+          console.log('ressadsada', res);
+          this.content = data.item.content;
           this.name = res.data.data[0].name;
           this.isContent = true;
           this.HOSPITAL_ID == "lingcheng"
