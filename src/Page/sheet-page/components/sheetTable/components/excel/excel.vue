@@ -271,10 +271,22 @@
             "
             @keydown="
               td.event($event, td);
-              onKeyDown($event, { x, y, z: index, td });
-            "
+              onKeyDown($event, { x, y, z: index, td });"
             :maxlength="td.textarea.maxLength || 1000"
-            @input="td.change && td.change($event, td)"
+            @input="td.change && td.change($event, td);
+              td.autoComplete && getOptionsData(td,tr,$event)
+              remoteMethod($event.currentTarget.value);
+              td.autoComplete &&
+                onFocus($event, {
+                  autoComplete: {data:accessOptionData[td.name]},
+                  x,
+                  y,
+                  z: index,
+                  td,
+                  tr,
+                  splice: td.splice
+                });
+            "
             @focus="
               td.autoComplete &&
                 onFocus($event, {
