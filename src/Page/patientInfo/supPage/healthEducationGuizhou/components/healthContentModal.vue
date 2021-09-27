@@ -7,7 +7,13 @@
   >
     <!-- <div v-html="content" class="content"></div> -->
     <!-- <textarea v-model="content" style="height:300px;width:100%" /> -->
-    <quillEditor v-model="content" ref="myQuillEditor" :options="editorOption"/>
+    <!-- 富文本 -->
+    <quillEditor 
+      v-model="content" 
+      ref="myQuillEditor" 
+      :options="editorOption" 
+      @focus="onEditorFocus($event)"
+    />
     <div slot="button">
       <el-button class="modal-btn" @click="$refs.healthContentModal.close()">关闭</el-button>
       <!-- <el-button type="primary" class="modal-btn" @click.native="saveContent(content)">保存</el-button> -->
@@ -34,16 +40,17 @@ export default {
       default: "",
     },
   },
-  components: {quillEditor},
+  components: { quillEditor },
   data() {
     return {
       // 富文本编辑器配置
       editorOption: {
         placeholder: "请编辑内容",
         modules: {
-          toolbar: [
-            [{ script: "sub" }, { script: "super" }] // 上下标
-          ]
+          // toolbar: [
+          //   [{ script: "sub" }, { script: "super" }] // 上下标
+        
+          // ]
         },
         theme: "snow"
       }
@@ -58,6 +65,9 @@ export default {
     },
     saveContent(content) {
       this.$emit('saveContent', content)
+    },
+    onEditorFocus(e) {
+      e.enable(false);
     }
   },
 };

@@ -77,8 +77,6 @@
       ref="healthContentModal"
       :content="content"
       :name="name"
-      :pageParam="pageParam"
-      :blockId="blockId"
       @saveContent="saveContent"
     />
   </div>
