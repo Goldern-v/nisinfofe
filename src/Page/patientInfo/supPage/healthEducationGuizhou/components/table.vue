@@ -128,7 +128,7 @@ export default {
         [
           { text: "患者", width: 30 },
           { text: "家属", width: 30 },
-          { text: "留陪人", width: 30 },
+          { text: "陪护人", width: 30 },
           { text: "口述", width: 30 },
           { text: "书面", width: 30 },
           // { text: "在线", width: 30 },
@@ -138,7 +138,7 @@ export default {
           { text: "需强化", width: 30 },
         ],
       ],
-      object: ["患者", "家属", "留陪人"],
+      object: ["患者", "家属", "陪护人"],
       // method: ["口述", "书面", "在线", "示范"],
 
       method: ["口述", "书面", "示范"],
