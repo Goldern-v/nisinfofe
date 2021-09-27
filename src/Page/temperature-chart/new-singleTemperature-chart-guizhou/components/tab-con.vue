@@ -1,7 +1,7 @@
 <template>
   <div class="right-con">
     <div class="row-top">
-      <!-- <div class="column-left">
+      <div class="column-left">
         <el-button size="mini" @click="syncInAndOutHospital((type = '0'))">
           同步入院
         </el-button>
@@ -12,7 +12,7 @@
         >
           同步出院
         </el-button>
-      </div> -->
+      </div>
       <div class="column-right">
         <span style="padding-left: 5px">日期：</span>
         <ElDatePicker
@@ -26,14 +26,20 @@
           clearable
         />
         <div class="times">
-          <el-radio-group v-model="query.entryTime" @change="changeEntryTime">
+          <!-- <el-radio-group v-model="query.entryTime" @change="changeEntryTime">
             <el-radio
               size="mini"
               v-for="item in timesOdd"
               :key="item.id"
               :label="item.value"
             ></el-radio>
-          </el-radio-group>
+          </el-radio-group> -->
+         
+       <el-select v-model="query.entryTime" filterable allow-create default-first-option  size="mini" @focus="inputClicl($event)"
+            placeholder="选择时间" @change="changeValue($event)">
+            <el-option v-for="item in timesOdd" :key="item.value" :label="item.label" :value="item.value">
+            </el-option>
+        </el-select>
         </div>
       </div>
     </div>
@@ -63,7 +69,7 @@
             ></i>
           </el-button>
         </div>
-        <div style="flex: 7">
+        <div style="flex: 7" class="inputText">
           <div
             :class="
               !(
@@ -90,7 +96,31 @@
               :visible-arrow="false"
               :manual="true"
               :value="vitalSignObj[j].popVisible"
-            >
+             >
+              <temperature v-if="index==='过敏药物'" >
+                <input
+                type="text"
+                :title="vitalSignObj[j].vitalValue"
+                @input="handlePopRefresh(vitalSignObj[j])"
+                @click="() => (vitalSignObj[j].popVisible = true)"
+                @blur="() => (vitalSignObj[j].popVisible = false)"
+                v-model="vitalSignObj[j].vitalValue"
+                
+              />
+              <span class="preText" style="margin-left:20px">药物结果</span>
+                <el-select v-model="vitalSignObj[j].selectValue" filterable allow-create default-first-option  size="mini"
+            placeholder="药物结果" @change="changeValue($event)">
+            <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+            </el-option>
+        </el-select>
+                
+              <!-- <el-input  v-model="vitalSignObj[j].vitalValue" size="mini" style="width: 120px;height:16px">
+          <el-select v-model="vitalSignObj[j].selectValue" slot="prepend" placeholder="请选择"  style="width:60px">
+          <el-option label="+" value="+"></el-option>
+          <el-option label="-" value="-"></el-option>
+          </el-select>
+            </el-input> -->
+              </temperature>
               <input
                 type="text"
                 :title="vitalSignObj[j].vitalValue"
@@ -98,7 +128,9 @@
                 @click="() => (vitalSignObj[j].popVisible = true)"
                 @blur="() => (vitalSignObj[j].popVisible = false)"
                 v-model="vitalSignObj[j].vitalValue"
+                
               />
+              
               <template v-slot:content>
                 <div
                   class="container"
@@ -215,7 +247,7 @@
             </div>
           </div>
           <div class="row" v-if="multiDictList['表顶注释']">
-            <span class="preText">表顶注释</span>
+            <span class="preText">病人事件</span>
             <el-select
               size="mini"
               v-model="vitalSignObj[multiDictList['表顶注释']].expand1"
@@ -240,7 +272,7 @@
             >
             </el-date-picker>
           </div>
-          <div class="row" v-if="multiDictList['表底注释']">
+          <!-- <div class="row" v-if="multiDictList['表底注释']">
             <span class="preText">表底注释</span>
             <el-select
               size="mini"
@@ -265,7 +297,7 @@
               @change="formatBtmExpandDate"
             >
             </el-date-picker>
-          </div>
+          </div> -->
           <div>
             <el-button
               type="primary"
@@ -283,6 +315,9 @@
 import bus from "vue-happy-bus";
 import moment from "moment";
 import nullBg from "../../../../components/null/null-bg";
+import $ from 'jquery'
+// import "../../sheet/jquery-editable-select.min.js";
+
 import {
   getVitalSignListBy10,
   getmultiDict,
@@ -307,12 +342,13 @@ export default {
       ["18"]: ["18:00", "21:59"],
       ["22"]: ["22:00", "23:59"],
     };
-
-    let entryTime = "02";
+    let entryTime = "02:00:00";
     let currentSecond =
       new Date().getHours() * 60 + new Date().getMinutes() * 1;
 
     Object.keys(initTimeArea).forEach((time) => {
+      
+      console.log(time)
       let [start, end] = initTimeArea[time];
 
       let startSecond = start.split(":")[0] * 60 + start.split(":")[1] * 1;
@@ -327,26 +363,34 @@ export default {
       recordList,
       bus: bus(this),
       editableTabsValue: "2",
+      selectValue:'',
+      options: [{
+                    value: '阴性',
+                    label: '阴性'
+                }, {
+                    value: '阳性',
+                    label: '阳性'
+                }, ],
       query: {
         entryDate: moment(new Date()).format("YYYY-MM-DD"), //录入日期
         entryTime: (()=>{
           if (this.getHours() >= 0 && this.getHours() <= 2) {
-                return "02";
+                return "02:00:00";
               }
               if (this.getHours() > 2 && this.getHours() <= 6) {
-                return "06";
+                return "06:00:00";
               }
               if (this.getHours() > 6 && this.getHours() <= 10) {
-                return "10";
+                return "10:00:00";
               }
               if (this.getHours() > 10 && this.getHours() <= 14) {
-                return "14";
+                return "14:00:00";
               }
               if (this.getHours() > 14 && this.getHours() <= 18) {
-                return "18";
+                return "18:00:00";
               }
               if (this.getHours() > 18 && this.getHours() <= 23) {
-                return "22";
+                return "22:00:00";
               }
          //录入时间
         })() //录入时间
@@ -354,7 +398,9 @@ export default {
       recordDate: "",
       fieldList: {}, // 自定义项目列表
       multiDictList: {},
+      timeValue:'',
       tabsData: [], // 日期列表
+       value:'',
       vitalSignObj: {}, // 单个体征对象
       vitalSignList: [], // 固定项目列表
       topContextList: [
@@ -370,28 +416,28 @@ export default {
       ],
       timesOdd: [
         {
-          id: 0,
-          value: "02",
+         lable:"02:00:00",
+          value: "02:00:00",
         },
         {
-          id: 1,
-          value: "06",
+          lable: "06:00:00",
+          value: "06:00:00",
         },
         {
-          id: 2,
-          value: "10",
+          lable: "10:00:00",
+          value: "10:00:00",
         },
         {
-          id: 3,
-          value: "14",
+           lable: "14:00:00",
+          value: "14：00:00",
         },
         {
-          id: 4,
-          value: "18",
+            lable: "18:00:00",
+          value: "18:00:00",
         },
         {
-          id: 5,
-          value: "22",
+          lable: "22:00:00",
+          value: "22:00:00",
         },
       ],
       bottomContextList: ["", "不升"],
@@ -407,7 +453,6 @@ export default {
       this.getList();
     });
   },
-  created() {},
   computed: {},
   watch: {
     query: {
@@ -418,6 +463,13 @@ export default {
     },
   },
   methods: {
+      changeValue(e){
+                    console.log(e)
+                 },
+                 inputClicl(s){
+                   console.log(s)
+                 },
+
     init() {
       let obj = {};
       if (!this.multiDictList) return;
@@ -447,6 +499,7 @@ export default {
           // vitalSigns: key,
           // vitalValue: "",
           // wardCode: this.patientInfo.wardCode
+          selectValue:"",
           createDateTime: "",
           patientId: this.patientInfo.patientId,
           visitId: Number(this.patientInfo.visitId) ,
@@ -475,6 +528,67 @@ export default {
       let b = date.getHours();
       return b;
     },
+    
+//  addEnterListener() {
+// //  if (window.__completeEnterBind__) return;
+//  window.addEventListener("keydown", this.enterCallback());
+// // window.addEventListener("keydown",this.test())
+// //  window.__completeEnterBind__ = true;
+//  },
+//  removeEnterListener() {
+//  window.removeEventListener("keydown", this.enterCallback());
+//  window.__completeEnterBind__ = false;
+//  },
+//  enterCallback(e) {
+//  function findFormItem(el) {
+//  const parent = el.parentElement;
+//  if (!parent) return document.body;
+//  if (
+//   parent.className.includes("rowItem_noShow") &&
+//   parent.className.includes("row")
+//  ) {
+//   return parent;
+//  }
+//  return findFormItem(parent);
+//  }
+//  function findInput(container) {
+//  let nextEl = container.nextElementSibling;
+//  if (!nextEl) return;
+//  let input = nextEl.querySelector("input");
+//  while (input.id === "el-select") {
+//   nextEl = nextEl.nextElementSibling;
+//   if (!nextEl) return;
+//   input = nextEl.querySelector("input");
+//  }
+//  if (input.className.includes("el-tooltip")) return input;
+//  }
+//  if (e.keyCode === 13) {
+//  const container = findFormItem(document.activeElement);
+//  indInput(container) && findInput(container).focus();
+//  }
+//  },
+
+
+ 
+//     nextInput(e){ 
+
+// console.log(e)
+
+// let acticeDom=document.activeElement
+// let nextEl = acticeDom.nextElementSibling;
+// console.log(acticeDom)
+// console.log(nextEl)
+// // let idom=$('.inputText')
+// // let inputList=idom.querySelectorAll('.el-tooltip')
+// // let currentIndex=0;
+// // for(let i=0;i<inputList.length;i++){
+// // if(e.target===inputList[i]) currentIndex=i
+
+// // }
+
+
+//     },
+    
     async getList() {
       /* 初始化 */
       this.tabsData = [];
@@ -535,7 +649,7 @@ export default {
     changeQuery(value) {
       let temp = value;
       this.query.entryDate = temp.slice(0, 10);
-      this.query.entryTime = value.slice(12, 14);
+      this.query.entryTime = value.slice(12, 20);
     },
     getFilterSelections(orgin, filterStr) {
       if (!filterStr || !filterStr.trim()) return orgin;
@@ -557,7 +671,7 @@ export default {
           : moment(new Date(this.patientInfo.admissionDate)).format(
               "YYYY-MM-DD"
             ),
-        timeStr: this.query.entryTime + ":00:00",
+        timeStr: this.query.entryTime,
         wardCode: this.patientInfo.wardCode,
       };
       getViSigsByReDate(data).then((res) => {
@@ -635,6 +749,10 @@ export default {
     },
     /* 修改自定义标题，弹出弹窗并保存 */
     updateTextInfo(key, label, autotext,index) {
+      let fieldListVal=[]
+      for(let i=100;i<105;i++){
+            fieldListVal.push(this.fieldList[i].fieldCn)
+          }//获取到自定义列表的值
       window.openSetTextModal(
         (text) => {
           let data = {
@@ -644,12 +762,19 @@ export default {
             vitalCode: key,
             fieldCn: text,
           };
+          if(
+            fieldListVal.includes(text)
+          ){
+ this.$message.error(`修改${label}失败!已存在${text}项目`);
+          }else{
           savefieldTitle(data).then((res) => {
              this.fieldList[index].fieldCn=text;
             this.$message.success(`修改${label}成功`);
           });
-          this.getList();
+          }
+          // this.getList();
         },
+        
         autotext,
         `修改${label}`
       );
@@ -657,7 +782,6 @@ export default {
     /* 录入体温单 */
     async saveVitalSign(value) {
       let obj = Object.values(value);
-      console.log('objjj',obj)
       obj.map((item) => {
         item.recordDate =
           moment(new Date(this.query.entryDate)).format("YYYY-MM-DD") +
@@ -676,7 +800,7 @@ export default {
       });
       let data = {
         dateStr: moment(new Date(this.query.entryDate)).format("YYYY-MM-DD"),
-        timeStr: this.query.entryTime + ":00:00",
+        timeStr: this.query.entryTime,
         vitalSignList: obj,
         patientId: this.patientInfo.patientId,
         visitId: this.patientInfo.visitId,
@@ -715,7 +839,10 @@ export default {
       flex-direction: column;
     }
   }
-
+.times {
+  display:inline-block;
+  width:100px;
+}
   .row-bottom {
     .showRecord {
       display: flex;

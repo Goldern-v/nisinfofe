@@ -40,16 +40,16 @@ export default {
         minWidth: "100px"
       },
     },
-    {
-      name: `
-      入量方式
-      `,
-      colspan: "1",
-      rowspan: "2",
-      style: {
-        minWidth: "100px"
-      },
-    },
+    // {
+    //   name: `
+    //   入量方式
+    //   `,
+    //   colspan: "1",
+    //   rowspan: "2",
+    //   style: {
+    //     minWidth: "100px"
+    //   },
+    // },
     {
       name: `
       途径
@@ -80,16 +80,16 @@ export default {
         minWidth: "100px"
       },
     },
-    {
-      name: `
-      出量方式
-      `,
-      colspan: "1",
-      rowspan: "2",
-      style: {
-        minWidth: "100px"
-      },
-    },
+    // {
+    //   name: `
+    //   出量方式
+    //   `,
+    //   colspan: "1",
+    //   rowspan: "2",
+    //   style: {
+    //     minWidth: "100px"
+    //   },
+    // },
     {
       name: `
       性质

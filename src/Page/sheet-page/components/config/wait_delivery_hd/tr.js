@@ -62,7 +62,7 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 8),
     name: "胎位",
-    splice: true,
+    splice: "/",
     autoComplete: {
       data: twList
     },
@@ -76,6 +76,7 @@ export default [
     event: keyf1,
     name: "胎心部位",
     change: (e, td) => limitChange(e, td, 10),
+    splice: "/",
     autoComplete: {
       data: txbwList
     },
@@ -273,6 +274,9 @@ export default [
       left: "1px",
       width: "150px",
       background: "transparent"
+    },
+    textarea: {
+      width: 150
     },
     event: function (e, td) {
       console.log(e.keyCode);

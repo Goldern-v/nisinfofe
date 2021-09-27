@@ -9,38 +9,46 @@
         style="margin-bottom: 20px"
         label-width="100px"
       >
-        <ElFormItem prop="state" label="宣教内容：">
-          <el-select
-            v-model="form.state"
-            filterable
-            remote
-            reserve-keyword
-            :disabled="disabled"
-            placeholder="请输入关键词"
-            :remote-method="remoteMethod"
-            :loading="loading"
-          >
-            <el-option
-              v-for="item in options"
-              :key="item.missionId"
-              :label="item.name"
-              :value="item.missionId"
+        <ElFormItem prop="state" label="宣教内容："  >
+          <div style="display:flex">
+            <el-select
+              v-model="form.state"
+              filterable
+              remote
+              reserve-keyword
+              :disabled="disabled"
+              placeholder="请输入关键词"
+              :remote-method="remoteMethod"
+              :loading="loading"
             >
-              <!-- 添加科室名称 -->
-              <!-- <span style="float: left">{{item.deptName}}</span> -->
-              <span v-if="item.type && item.deptName && item.deptName!='' && item.name.indexOf(item.deptName)==-1" style="float: left">{{item.deptName}}</span>
-              <span
-                v-for="(a, index) in setItem(item.name)"
-                :class="a.type >= 0 ? 'redColor' : ''"
-                :key="index"
-                style="float: left"
-                >{{ a.item }}</span
-                
+              <el-option
+                v-for="item in options"
+                :key="item.missionId"
+                :label="item.name"
+                :value="item.missionId"
               >
-              <!-- 添加宣教类型 -->
-              <span v-if="item.type && item.type!='' && item.type!=item.name">-{{item.type}}</span>
-            </el-option>
-          </el-select>
+                <!-- 添加科室名称 -->
+                <!-- <span style="float: left">{{item.deptName}}</span> -->
+                <span v-if="item.type && item.deptName && item.deptName!='' && item.name.indexOf(item.deptName)==-1" style="float: left">{{item.deptName}}</span>
+                <span
+                  v-for="(a, index) in setItem(item.name)"
+                  :class="a.type >= 0 ? 'redColor' : ''"
+                  :key="index"
+                  style="float: left"
+                  >{{ a.item }}</span
+                >
+                <!-- 添加宣教类型 -->
+                <span v-if="item.type && item.type!='' && item.type!=item.name">-{{item.type}}</span>
+              </el-option>
+            </el-select>
+            <el-button 
+              type="text" 
+              class="modal-btn" 
+              @click="handleOpenRichEditorModal"
+            >
+              编辑
+            </el-button>
+          </div>
         </ElFormItem>
         <ElFormItem
           prop="date"
@@ -57,7 +65,7 @@
           ></el-date-picker>
         </ElFormItem>
         <ElFormItem prop="object" label="教育对象：">
-          <ElSelect v-model="form.object">
+          <ElSelect v-model="form.object" multiple >
             <ElOption
               v-for="item in educationObiect"
               :key="item.value"
@@ -103,14 +111,23 @@
         >保存</ElButton
       >
     </SweetModal>
+    <hdRichTextModal
+      ref="richEditorModal"
+      :content.sync="content"
+      :title="templateTitle"
+      @confirmEdit="updateContent"
+    >
+    </hdRichTextModal>
   </div>
 </template>
 
 <script>
 import { educationObiect, educationMethod, educationAssessment } from "../text";
 import dayjs from "dayjs";
-import { getEduFormTemplate, saveMission, getUser } from "../api/healthApi";
+import { getEduFormTemplate, saveMission, getUser, getContentByMissionId } from "../api/healthApi";
 import qs from "qs";
+import hdRichTextModal from './hdRichTextModal.vue';
+import { isEqualDateStr } from '@/Page/index/supComponents/calendar/tools';
 export default {
   props: {
     blockId: {
@@ -123,13 +140,23 @@ export default {
       default: () => [],
     },
   },
+  components: { hdRichTextModal },
   data() {
+    let validateObject = (rule, value, callback) => {
+        if (!value || value == '' || (Array.isArray(value) && value.length<=0)) {
+          callback(new Error('请选择教育对象'));
+        } else {
+          callback();
+        }
+      };
     return {
+      isEdit:false,
       title: "",
       modalStatus: false, // 判断当前状态是编辑还是添加
+      missionId:"",
       form: {
         state: "",
-        object: "",
+        object: [],
         method: "",
         assessment: "",
         remarks: "",
@@ -149,7 +176,8 @@ export default {
       rules: {
         state: [{ required: true, message: "请输入宣教内容", trigger: "blur" }],
         object: [
-          { required: true, message: "请选择教育对象", trigger: "blur" },
+          {  required: true, validator: validateObject, trigger: "blur" },
+          //{ required: true, message: "请选择教育对象", trigger: "blur" },
         ],
         method: [
           { required: true, message: "请选择教育方法", trigger: "blur" },
@@ -162,6 +190,8 @@ export default {
       educationObiect: educationObiect,
       educationMethod: educationMethod,
       educationAssessment: educationAssessment,
+      content: "", // 宣教内容模板
+      templateTitle: "", // 模板标题
     };
   },
   methods: {
@@ -172,7 +202,13 @@ export default {
       this.curEmpNo = obj.empNo;
       this.type = form ? 2 : 1;
       this.disabled = !!form;
+      console.log(form)
       if (form) {
+        this.isEdit=true
+        this.content = form.item.content;
+        console.log('this.content', this.content);
+
+        //编辑
         this.modalStatus = true;
         let statusText = this.setStatus(form["item"].status); // 推送状态
         let status = form["item"].status;
@@ -187,16 +223,23 @@ export default {
         this.itemData = form["item"];
         this.form.state = form["宣教内容"];
         this.date = form["教育时间"];
-        let object = educationObiect.filter(
-          (item) => item.text === form["教育对象"]
-        )[0];
+        // let object = educationObiect.filter(
+        //   (item) => item.text === form["教育对象"]
+        // )[0];
+        let object=[];
+        if(form["教育对象"] && form["教育对象"]!=''){
+          object=educationObiect.reduce((total,item,index)=>{
+          return total=form["教育对象"].split(",").includes(item.text)?total.concat(item.value):total
+        },[]);
+        }
+        
         let method = educationMethod.filter(
           (item) => item.text === form["教育方法"]
         )[0];
         let assessment = educationAssessment.filter(
           (item) => item.text === form["教育评估"]
         )[0];
-        this.form.object = object ? object.value : "";
+        this.form.object = object ? object : [];
         // this.form.method = method ? method.value || "3" : "1";
         this.form.method = method
           ? method.value
@@ -207,13 +250,14 @@ export default {
         this.form.remarks = form["备注"] || "";
         this.form.signature = form["签名"] || "";
       } else {
+        //新增
         this.modalStatus = false;
         this.title = title;
         this.isOk = false;
         // 添加时清空表单
         this.form = {
           state: "",
-          object: "",
+          object: [],
           method: "1",
           assessment: "",
           remarks: "",
@@ -221,6 +265,16 @@ export default {
         };
       }
       this.$refs.modal.open();
+    },
+    // 打开富文本编辑弹框
+    handleOpenRichEditorModal() {
+      this.$refs.richEditorModal.open(this.isEdit);  
+    },
+    // 更新宣教内容
+    updateContent(content) {
+      this.content = content;
+      console.log('this.content', this.content);
+      this.$refs.richEditorModal.close();
     },
     // 设置推送状态
     setStatus(data) {
@@ -281,8 +335,12 @@ export default {
             type: "",
             name: query,
           };
+          (this.$route.query.wardCode) && (params.deptCode=this.$route.query.wardCode);
           let { data } = await getEduFormTemplate(params);
           this.options = data.data;
+          //isEdit true
+          this.content = data.data[0].content;
+          this.templateTitle = data.data[0].name;
         } catch (e) {
           this.options = [];
         } finally {
@@ -298,9 +356,15 @@ export default {
       let itemData = this.options.filter(
         (item) => item.missionId === this.form.state
       )[0]; // 宣教内容item
-      let object = educationObiect.filter(
-        (item) => item.value === this.form.object
-      )[0].text; // 教育对象
+      // let object = educationObiect.filter(
+      //   (item) => item.value === this.form.object
+      // )[0].text; // 教育对象
+      let object=educationObiect.reduce((total,item,index)=>{
+        let findeModel=this.form.object.find(findItem=>findItem==item.value);
+        (findeModel) && (total.push(item.text));
+        return total
+          //return total=this.form.object.includes(item.value)?total.concat(item.value):total
+        },[]).join(",");
       let haveValue = educationMethod.filter(
         (item) => item.value === this.form.method
       );
@@ -319,6 +383,7 @@ export default {
       };
       let queryInfo = this.$route.query;
       let data = {
+        content: this.content,
         blockId: this.blockId,
         id: this.type === 2 ? this.itemData.id : "", // 非必须，宣教实例id
         patientId: queryInfo.patientId, // 非必须，病人id
@@ -359,8 +424,9 @@ export default {
             })
               .then(() => {
                 saveMission(data).then((res) => {
+                  this.content = res.data.data.instance.content;
                   this.$message.success("保存成功");
-                  this.$emit("confirm");
+                  this.$emit("confirm", this.content);
                   this.close();
                 });
               })
@@ -403,6 +469,7 @@ export default {
 .el-autocomplete {
   width: 264px !important;
 }
+
 .edit-modal-form {
   padding-right: 50px;
 
@@ -411,7 +478,6 @@ export default {
   .el-input-number {
     width: 264px !important;
   }
-
   .unit {
     position: absolute;
     left: 100%;

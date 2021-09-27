@@ -1,6 +1,8 @@
 <template>
   <div class="content" :class="{'doctor-emr-hd':HOSPITAL_ID == 'huadu'}">
-    <div class="left-part" v-if="HOSPITAL_ID != 'huadu'">
+    <!-- 花都与贵州不用病历 -->
+    <!-- <div class="left-part" v-if="HOSPITAL_ID != 'huadu'"> -->
+    <div class="left-part" v-if="!['huadu','guizhou'].includes(HOSPITAL_ID)">
       <doctor-emr-tree></doctor-emr-tree>
     </div>
     <div class="right-part">
