@@ -107,19 +107,13 @@
                 v-model="vitalSignObj[j].vitalValue"
                 
               />
-              <span class="preText" style="margin-left:20px">药物结果</span>
+              <div style="display:inline-block;margin-top:10px;">
+              <span class="preText" >药物结果</span>
                 <el-select v-model="vitalSignObj[j].selectValue" filterable allow-create default-first-option  size="mini"
-            placeholder="药物结果" @change="changeValue($event)">
+            placeholder="结果" @change="changeValue($event)" style="width:78px">
             <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
             </el-option>
-        </el-select>
-                
-              <!-- <el-input  v-model="vitalSignObj[j].vitalValue" size="mini" style="width: 120px;height:16px">
-          <el-select v-model="vitalSignObj[j].selectValue" slot="prepend" placeholder="请选择"  style="width:60px">
-          <el-option label="+" value="+"></el-option>
-          <el-option label="-" value="-"></el-option>
-          </el-select>
-            </el-input> -->
+              </el-select></div>
               </temperature>
               <input
                 type="text"
@@ -246,11 +240,11 @@
               />
             </div>
           </div>
-          <div class="row" v-if="multiDictList['表顶注释']">
+          <div class="row" v-if="multiDictList['病人事件']">
             <span class="preText">病人事件</span>
             <el-select
               size="mini"
-              v-model="vitalSignObj[multiDictList['表顶注释']].expand1"
+              v-model="vitalSignObj[multiDictList['病人事件']].expand1"
             >
               <el-option
                 v-for="(item, topIndex) in topContextList"
@@ -429,7 +423,7 @@ export default {
         },
         {
            lable: "14:00:00",
-          value: "14：00:00",
+          value: "14:00:00",
         },
         {
             lable: "18:00:00",
@@ -471,6 +465,7 @@ export default {
                  },
 
     init() {
+      console.log(this.multiDictList)
       let obj = {};
       if (!this.multiDictList) return;
       /* 根据字典项构造一个对象(键为生命体征的中文名，值为对应的对象)：{"体温":{}} */
