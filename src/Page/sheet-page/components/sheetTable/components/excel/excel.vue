@@ -125,7 +125,10 @@
               `stat-bottom-line`
           ]"
           @contextmenu.stop="openContextMenu($event, y, tr, td)"
-          @click="selectedItem(td)"
+          @click="
+            selectedItem(td)
+            td.key == 'description' && HOSPITAL_ID === 'guizhou' && !isRead(tr) && openEditModal(tr, data, $event)
+            "
         >
           <!-- for 年份 -->
           <input
@@ -139,12 +142,6 @@
                 tr.find(item => item.key == 'yearBreak').value
             "
           />
-          <!-- 贵州特殊情况单击出弹窗 -->
-          <textarea
-            v-if="td.key === 'description' && HOSPITAL_ID == 'guizhou'"
-            @click="openEditModal(tr, data, $event)"
-          />
-          
           <div
             v-if="td.key == 'sign'"
             class="sign-text"
@@ -299,7 +296,7 @@
                   splice: td.splice
                 })
             "
-            @blur="onBlur($event, { x, y, z: index })"
+            @blur="!td.splice && onBlur($event, { x, y, z: index })"
           ></textarea>
           <!-- 护理记录单特殊情况特殊记录单独处理 -->
           <div
@@ -1064,6 +1061,8 @@ export default {
         this.HOSPITAL_ID == "huadu" &&
         tr.find(item => item.key == "status").value === "1"
       ) {
+        console.log(this.listData);
+        console.log(tr.find(item => item.key == "status").value === "1");
         return tr.find(item => item.key == "status").value === "1" && this.listData && this.listData[index] && !this.listData[index].canModify;
       }
       if (

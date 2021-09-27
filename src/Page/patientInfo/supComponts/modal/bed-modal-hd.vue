@@ -178,22 +178,22 @@
       >
         <div class="bed-card-vert-con">
           <div class="top">
-            <span>{{ query.name }}</span>
-            <span>{{ query.sex }}</span>
-            <span>{{ query.age }}</span>
+            <span>科室：{{ query.wardName }}</span>
           </div>
           <div>
             <div>
-              <span>科室：{{ query.wardName }}</span>
+              <span>{{ query.name }}</span>
+              <span>{{ query.sex }}</span>
+              <span>{{ query.age }}</span>
             </div>
-            <div>
-              <span>入院日期：{{ query.admissionDate | ymdhm }}</span>
-            </div>
-          </div>
-          <div>
             <div>
               <span>住院号：{{ query.patientId}}</span>
               <span style="margin:4px;">床位：{{ query.bedLabel }}</span>
+            </div>
+          </div>
+          <div>
+            <div>
+              <span>入院日期：{{ query.admissionDate | ymdhm }}</span>
             </div>
           </div>
           <img
