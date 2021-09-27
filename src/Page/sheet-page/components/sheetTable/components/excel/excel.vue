@@ -139,6 +139,12 @@
                 tr.find(item => item.key == 'yearBreak').value
             "
           />
+          <!-- 贵州特殊情况单击出弹窗 -->
+          <textarea
+            v-if="td.key === 'description' && HOSPITAL_ID == 'guizhou'"
+            @click="openEditModal(tr, data, $event)"
+          >
+          <textarea/>
           <div
             v-if="td.key == 'sign'"
             class="sign-text"
