@@ -195,27 +195,27 @@ export default [
     key: "fieldOne", //标题1
     value: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 6),
     textarea: {
-      width: 30
+      width: 40
     },
   },
   {
     key: "fieldTwo", //标题2
     value: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 6),
     textarea: {
-      width: 30
+      width: 40
     },
   },
   {
     key: "fieldThree", //标题3
     value: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 6),
     textarea: {
-      width: 30
+      width: 40
     },
   },
   {

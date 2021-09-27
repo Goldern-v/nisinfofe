@@ -8,7 +8,7 @@ export default {
   // 科室的名称
   deptType: "",
   style: {
-    width: "1130px"
+    width: "1160px"
   },
   th: {
     top: [{
@@ -90,6 +90,10 @@ export default {
         name: `标题1`,
         colspan: "1",
         rowspan: "3",
+        style: {
+          minWidth: "40px",
+          maxWidth: "40px"
+        },
         canSet: true,
         key: "fieldOne",
       },
@@ -97,6 +101,10 @@ export default {
         name: `标题2`,
         colspan: "1",
         rowspan: "3",
+        style: {
+          minWidth: "40px",
+          maxWidth: "40px"
+        },
         canSet: true,
         key: "fieldTwo",
       },
@@ -104,6 +112,10 @@ export default {
         name: `标题3`,
         colspan: "1",
         rowspan: "3",
+        style: {
+          minWidth: "40px",
+          maxWidth: "40px"
+        },
         canSet: true,
         key: "fieldThree",
       },
@@ -111,6 +123,10 @@ export default {
         name: `标题4`,
         colspan: "1",
         rowspan: "3",
+        style: {
+          minWidth: "40px",
+          maxWidth: "40px"
+        },
         canSet: true,
         key: "fieldFour",
       },
@@ -118,6 +134,10 @@ export default {
         name: `标题5`,
         colspan: "1",
         rowspan: "3",
+        style: {
+          minWidth: "40px",
+          maxWidth: "40px"
+        },
         canSet: true,
         key: "fieldFive",
       },
@@ -125,6 +145,10 @@ export default {
         name: `标题6`,
         colspan: "1",
         rowspan: "3",
+        style: {
+          minWidth: "40px",
+          maxWidth: "40px"
+        },
         canSet: true,
         key: "fieldSix",
       },

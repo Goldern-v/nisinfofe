@@ -43,10 +43,10 @@ export default [
     key: "nursingOperationItem", //护理操作项目
     value: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 24),
+    change: (e, td) => limitChange(e, td, 60),
     name: "护理操作项目",
     textarea: {
-      width: 150
+      width: 180
     },
     splice: true,
     autoComplete: {
@@ -58,9 +58,9 @@ export default [
     value: "",
     event: keyf1,
     name: "护理操作结果",
-    change: (e, td) => limitChange(e, td, 12),
+    change: (e, td) => limitChange(e, td, 28),
     textarea: {
-      width: 75
+      width: 95
     },
     splice: true,
     autoComplete: {
