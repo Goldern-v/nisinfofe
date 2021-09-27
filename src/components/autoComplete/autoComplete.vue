@@ -1,6 +1,9 @@
 <template>
-  <div
+  <div class="bg"
     v-show="show"
+    @click.stop="closeSelf"
+  >
+    <div
     id="CrAutocomplete"
     class="el-autocomplete-suggestion"
     style="transform-origin: center top 0px; z-index: 2045; width: 120px; position: fixed;"
@@ -14,7 +17,7 @@
         <ul class="el-scrollbar__view el-autocomplete-suggestion__list" style="position: relative;">
           <li
             class
-            @click="post(item,index)"
+            @click.stop="post(item,index)"
             v-for="(item, index) in data"
             :key="item"
             :class="{autoSelected: index == selectIndex}"
@@ -29,7 +32,7 @@
         <ul class="el-scrollbar__view el-autocomplete-suggestion__list" style="position: relative;">
           <li
             class
-            @click="post(item)"
+            @click.stop="post(item)"
             v-for="(item, index) in childData"
             :key="item"
             :class="{autoSelected: index == selectIndex}"
@@ -38,9 +41,17 @@
       </div>
     </div>
   </div>
+  </div>
 </template>
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus">
+.bg{
+  width 100%;
+  height 100%;
+  position absolute;
+  top 0;
+  left 0;
+}
 .autoSelected {
   background: #EEF6F5 !important;
 }
@@ -74,12 +85,17 @@ export default {
       childData: [],//子下拉组件
       options: '',//父子数据（父子下拉同时显示数据）
       parentVal: '',//当前父下拉
+      splice:''
     };
   },
   methods: {
+    closeSelf(){
+      this.show = false
+    },
     open(config) {
       this.style = config.style;
       this.callback = config.callback;
+      this.splice = config.td.splice
 
       this.options = [];
       this.childData = [];
@@ -166,7 +182,7 @@ export default {
       if(flag){
         item = this.parentVal?item + '(' + this.parentVal + ')': item;
         this.callback(item);
-        this.show = false;
+        this.show = this.splice;
       }
     },
     attachWindow() {
