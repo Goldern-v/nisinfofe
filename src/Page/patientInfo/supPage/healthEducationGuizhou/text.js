@@ -9,7 +9,7 @@ export const educationObiect = [
   },
   {
     value: "3",
-    text: "留陪人"
+    text: "陪护人"
   },
 ];
 

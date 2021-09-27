@@ -13,7 +13,7 @@
               align="middle"
             >
               <img
-                src="../../common/images/logo_quzhou.png"
+                src="../../common/images/foshan_logo.png"
                 height="63"
                 width="63"
               />
@@ -205,7 +205,7 @@
                       <i class="singleTemperatureChart"></i>单人录入体温单
                     </el-row>
                   </router-link>
-                </el-dropdown-item> 
+                </el-dropdown-item>
                 <el-dropdown-item
                   :class="{
                     active: $route.path.includes('allTemperatureChart'),

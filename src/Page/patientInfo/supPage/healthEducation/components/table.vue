@@ -24,8 +24,8 @@
           <!-- 教育时间 -->
 
           <td>
-            <!-- <span>{{data['教育时间']}}</span> -->
-            <input class="date" type="text" name="" id="" :value="data['教育时间']">
+            <span>{{data['教育时间']}}</span>
+            <!-- <input class="date" type="text" name="" id="" :value="data['教育时间']"> -->
           </td>
           <!-- 宣教内容 -->
           <td :class="['contentLeft', {'isPrint': !isPrint}]" @click="healthContent($event, data)">
@@ -325,7 +325,7 @@ export default {
   .specialTd {
     padding: 0 !important;
   }
-  .date{
+  /* .date{
     width: calc(100% - 2px);
     border: 0!important;
     padding: 0;
@@ -336,6 +336,6 @@ export default {
     background: transparent;
     color: #000;
     font-size: 12px;
-  }
+  } */
 }
 </style>
