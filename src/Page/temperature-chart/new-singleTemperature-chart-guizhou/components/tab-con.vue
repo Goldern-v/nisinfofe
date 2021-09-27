@@ -428,7 +428,7 @@ export default {
           value: "10:00:00",
         },
         {
-           lable: "14：00:00",
+           lable: "14:00:00",
           value: "14：00:00",
         },
         {
