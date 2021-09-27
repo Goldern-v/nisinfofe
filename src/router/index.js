@@ -235,6 +235,8 @@ import catheterPage from "@/Page/catheter-page/catheter-page.vue";
 //患者360视图，目前只有花都在用
 const otherPage = () => import("@/Page/patientInfo/supPage/otherPage/otherPage.vue"); //360视图
 
+const healthEducationGuizhou = ()=>import("@/Page/patientInfo/supPage/healthEducationGuizhou/healthEducation.vue")
+
 Vue.use(Router);
 const HOSPITAL_ID = process.env.HOSPITAL_ID;
 const router = new Router({
@@ -704,7 +706,15 @@ const router = new Router({
         },
         {
           path: "/healthEducation",
-          component: healthEducation,
+          //component: healthEducation,
+          component: (() => {
+            switch (process.env.HOSPITAL_ID) {
+              case 'guizhou':
+                return healthEducationGuizhou
+              default:
+                return healthEducation
+            }
+          })(),
           name: "健康教育单",
           alias: "健康教育单"
         },
