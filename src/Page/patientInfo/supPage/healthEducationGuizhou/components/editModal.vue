@@ -114,6 +114,7 @@
     <hdRichTextModal
       ref="richEditorModal"
       :content.sync="content"
+      :storageContent="content"
       :title="templateTitle"
       @confirmEdit="updateContent"
     >

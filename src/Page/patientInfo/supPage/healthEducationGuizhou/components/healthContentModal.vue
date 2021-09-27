@@ -4,6 +4,7 @@
     ref="healthContentModal"
     :title="name"
     :modalWidth="600"
+    class="s-modal"
   >
     <!-- <div v-html="content" class="content"></div> -->
     <!-- <textarea v-model="content" style="height:300px;width:100%" /> -->
@@ -52,7 +53,8 @@ export default {
         
           // ]
         },
-        theme: "snow"
+        theme: "snow",
+        readOnly: true
       }
     };
   },
@@ -72,3 +74,12 @@ export default {
   },
 };
 </script>
+<style lang="scss" scoped>
+  // 隐藏工具栏 
+  .s-modal /deep/.ql-toolbar.ql-snow {
+    display: none !important;
+  }
+  .s-modal /deep/ .ql-container.ql-snow {
+    border-top: 1px solid #ccc;
+  }
+</style>
