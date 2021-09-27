@@ -98,8 +98,8 @@
               }).value.status
             }`,
           {
-            redTop:(HOSPITAL_ID == 'huadu' && getBorderClass(y)) || (sheetInfo.sheetType=='icu_qz' &&  HOSPITAL_ID == 'quzhou' && getBorderClassQuzhou(y) == 'red'),
-            blackTop:sheetInfo.sheetType=='icu_qz' && HOSPITAL_ID == 'quzhou' && getBorderClassQuzhou(y) == 'black',
+            redTop:(HOSPITAL_ID == 'huadu' && getBorderClass(y)) || redTop(y),
+            blackTop:BlackTop(y),
           }
         ]"
         :key="y"
@@ -139,6 +139,12 @@
                 tr.find(item => item.key == 'yearBreak').value
             "
           />
+          <!-- 贵州特殊情况单击出弹窗 -->
+          <textarea
+            v-if="td.key === 'description' && HOSPITAL_ID == 'guizhou'"
+            @click="openEditModal(tr, data, $event)"
+          />
+          
           <div
             v-if="td.key == 'sign'"
             class="sign-text"
@@ -468,7 +474,9 @@ import {
   focusElement,
   leftTopBottomRight,
   onFocusToAutoComplete,
-  onBlurToAutoComplete
+  onBlurToAutoComplete,
+  redTop,
+  BlackTop
 } from "./tool.js";
 import sheetInfo from "../../../config/sheetInfo";
 import Mark, { matchMark } from "../../../render/Mark.js";
@@ -634,33 +642,8 @@ export default {
       const currentTr = this.data.bodyModel[index].find(td => td.key === "recordSource").value === "5";
       return lastTr && currentTr;
     },
-    getBorderClassQuzhou(index){
-      if(this.data &&
-         this.data.titleModel &&
-         this.data.titleModel.th &&
-         this.data.titleModel.th.top &&
-         this.data.bodyModel
-        ){
-        let obj = this.data.titleModel.th.top.find(item=>item.name=="血<br/>氧<br/>饱<br/>和<br/>度")
-        let targetIndex = this.data.titleModel.th.top.indexOf(obj)
-        if(this.data.titleModel.th.top.indexOf(obj) &&
-           this.data.bodyModel[index] &&
-           this.data.bodyModel[index][targetIndex]){
-              let targetVal = this.data.bodyModel[index][targetIndex].value || ""
-              switch(targetVal){
-                case "总结":
-                  return 'red';
-                case "小结":
-                  return 'black';
-                default:
-                  return "";
-              }
-           }
-      }else{
-        return ""
-      }
-
-    },
+    redTop,// tool.js引进来的啦
+    BlackTop,// 这个也是tool.js引进来的啦
     // 键盘事件
     onKeyDown(e, bind) {
       if (sheetInfo.model == "print") return;

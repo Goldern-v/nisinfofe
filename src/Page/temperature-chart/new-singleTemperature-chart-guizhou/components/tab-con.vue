@@ -26,26 +26,20 @@
           clearable
         />
         <div class="times">
-          <el-radio-group v-model="query.entryTime" @change="changeEntryTime">
+          <!-- <el-radio-group v-model="query.entryTime" @change="changeEntryTime">
             <el-radio
               size="mini"
               v-for="item in timesOdd"
               :key="item.id"
               :label="item.value"
             ></el-radio>
-          </el-radio-group>
+          </el-radio-group> -->
          
-      <!-- <el-time-select
-      id="timePick"
-  v-model="value"
-  @blur="handleTimeValue()"
-  :picker-options="{
-    start: '03:00',
-    step: '04:00',
-    end: '23:00'
-  }"
-  placeholder="选择时间">
-      </el-time-select> -->
+       <el-select v-model="query.entryTime" filterable allow-create default-first-option  size="mini" @focus="inputClicl($event)"
+            placeholder="选择时间" @change="changeValue($event)">
+            <el-option v-for="item in timesOdd" :key="item.value" :label="item.label" :value="item.value">
+            </el-option>
+        </el-select>
         </div>
       </div>
     </div>
@@ -104,12 +98,22 @@
               :value="vitalSignObj[j].popVisible"
              >
               <temperature v-if="index==='过敏药物'" >
-              <el-input  v-model="vitalSignObj[j].vitalValue" size="mini" style="width: 120px;height:16px">
-          <el-select v-model="vitalSignObj[j].selectValue" slot="prepend" placeholder="请选择"  style="width:60px">
-          <el-option label="+" value="+"></el-option>
-          <el-option label="-" value="-"></el-option>
-          </el-select>
-            </el-input>
+                <input
+                type="text"
+                :title="vitalSignObj[j].vitalValue"
+                @input="handlePopRefresh(vitalSignObj[j])"
+                @click="() => (vitalSignObj[j].popVisible = true)"
+                @blur="() => (vitalSignObj[j].popVisible = false)"
+                v-model="vitalSignObj[j].vitalValue"
+                
+              />
+              <div style="display:inline-block;margin-top:10px;">
+              <span class="preText" >药物结果</span>
+                <el-select v-model="vitalSignObj[j].selectValue" filterable allow-create default-first-option  size="mini"
+            placeholder="结果" @change="changeValue($event)" style="width:78px">
+            <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+            </el-option>
+              </el-select></div>
               </temperature>
               <input
                 type="text"
@@ -236,11 +240,11 @@
               />
             </div>
           </div>
-          <div class="row" v-if="multiDictList['表顶注释']">
+          <div class="row" v-if="multiDictList['病人事件']">
             <span class="preText">病人事件</span>
             <el-select
               size="mini"
-              v-model="vitalSignObj[multiDictList['表顶注释']].expand1"
+              v-model="vitalSignObj[multiDictList['病人事件']].expand1"
             >
               <el-option
                 v-for="(item, topIndex) in topContextList"
@@ -332,11 +336,13 @@ export default {
       ["18"]: ["18:00", "21:59"],
       ["22"]: ["22:00", "23:59"],
     };
-    let entryTime = "02";
+    let entryTime = "02:00:00";
     let currentSecond =
       new Date().getHours() * 60 + new Date().getMinutes() * 1;
 
     Object.keys(initTimeArea).forEach((time) => {
+      
+      console.log(time)
       let [start, end] = initTimeArea[time];
 
       let startSecond = start.split(":")[0] * 60 + start.split(":")[1] * 1;
@@ -352,26 +358,33 @@ export default {
       bus: bus(this),
       editableTabsValue: "2",
       selectValue:'',
+      options: [{
+                    value: '阴性',
+                    label: '阴性'
+                }, {
+                    value: '阳性',
+                    label: '阳性'
+                }, ],
       query: {
         entryDate: moment(new Date()).format("YYYY-MM-DD"), //录入日期
         entryTime: (()=>{
           if (this.getHours() >= 0 && this.getHours() <= 2) {
-                return "02";
+                return "02:00:00";
               }
               if (this.getHours() > 2 && this.getHours() <= 6) {
-                return "06";
+                return "06:00:00";
               }
               if (this.getHours() > 6 && this.getHours() <= 10) {
-                return "10";
+                return "10:00:00";
               }
               if (this.getHours() > 10 && this.getHours() <= 14) {
-                return "14";
+                return "14:00:00";
               }
               if (this.getHours() > 14 && this.getHours() <= 18) {
-                return "18";
+                return "18:00:00";
               }
               if (this.getHours() > 18 && this.getHours() <= 23) {
-                return "22";
+                return "22:00:00";
               }
          //录入时间
         })() //录入时间
@@ -397,28 +410,28 @@ export default {
       ],
       timesOdd: [
         {
-          id: 0,
-          value: "02",
+         lable:"02:00:00",
+          value: "02:00:00",
         },
         {
-          id: 1,
-          value: "06",
+          lable: "06:00:00",
+          value: "06:00:00",
         },
         {
-          id: 2,
-          value: "10",
+          lable: "10:00:00",
+          value: "10:00:00",
         },
         {
-          id: 3,
-          value: "14",
+           lable: "14:00:00",
+          value: "14:00:00",
         },
         {
-          id: 4,
-          value: "18",
+            lable: "18:00:00",
+          value: "18:00:00",
         },
         {
-          id: 5,
-          value: "22",
+          lable: "22:00:00",
+          value: "22:00:00",
         },
       ],
       bottomContextList: ["", "不升"],
@@ -434,15 +447,6 @@ export default {
       this.getList();
     });
   },
-  created() {},
-  mounted(){
-    // this.addEnterListener();
-    //   $('#basic').editableSelect(
-    //     { filter: false }
-    // );
-
-
-  },
   computed: {},
   watch: {
     query: {
@@ -453,15 +457,15 @@ export default {
     },
   },
   methods: {
-//       handleTimeValue() {
-        
-//  let inputContent=document.getElementById('timePick').querySelectorAll('input')[0].value
-//       //  let val=inputContent[0]._value
-//         console.log(inputContent)
-//         // console.log(val) 
-//       },
+      changeValue(e){
+                    console.log(e)
+                 },
+                 inputClicl(s){
+                   console.log(s)
+                 },
 
     init() {
+      console.log(this.multiDictList)
       let obj = {};
       if (!this.multiDictList) return;
       /* 根据字典项构造一个对象(键为生命体征的中文名，值为对应的对象)：{"体温":{}} */
@@ -640,7 +644,7 @@ export default {
     changeQuery(value) {
       let temp = value;
       this.query.entryDate = temp.slice(0, 10);
-      this.query.entryTime = value.slice(12, 14);
+      this.query.entryTime = value.slice(12, 20);
     },
     getFilterSelections(orgin, filterStr) {
       if (!filterStr || !filterStr.trim()) return orgin;
@@ -662,7 +666,7 @@ export default {
           : moment(new Date(this.patientInfo.admissionDate)).format(
               "YYYY-MM-DD"
             ),
-        timeStr: this.query.entryTime + ":00:00",
+        timeStr: this.query.entryTime,
         wardCode: this.patientInfo.wardCode,
       };
       getViSigsByReDate(data).then((res) => {
@@ -791,7 +795,7 @@ export default {
       });
       let data = {
         dateStr: moment(new Date(this.query.entryDate)).format("YYYY-MM-DD"),
-        timeStr: this.query.entryTime + ":00:00",
+        timeStr: this.query.entryTime,
         vitalSignList: obj,
         patientId: this.patientInfo.patientId,
         visitId: this.patientInfo.visitId,
@@ -830,7 +834,10 @@ export default {
       flex-direction: column;
     }
   }
-
+.times {
+  display:inline-block;
+  width:100px;
+}
   .row-bottom {
     .showRecord {
       display: flex;

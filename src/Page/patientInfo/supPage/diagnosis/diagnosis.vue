@@ -29,11 +29,11 @@ export default {
   provide() {
     return {
       openSlideCon: item => {
-        // if(this.HOSPITAL_ID=="guizhou"){
-        //   this.$refs.slideConRightGuizhou.open(item)
-        // }else{
+        if(this.HOSPITAL_ID=="guizhou"){
+          this.$refs.slideConRightGuizhou.open(item)
+        }else{
           this.$refs.slideCon.open(item)
-        // }
+        }
       },
       openSlideContant: item => this.$refs.slideContant.open(item)
     };
