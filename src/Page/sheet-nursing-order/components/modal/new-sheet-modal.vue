@@ -252,6 +252,9 @@ export default {
         if (this.templates.length == 0) {
           // this.templates.push(defaultList)
         }
+        if (this.templates.length == 1) {
+          this.create(this.templates[0])
+        }
         //
         // this.templates.map(item=>{
         //   item.recordName = "护嘱单"
