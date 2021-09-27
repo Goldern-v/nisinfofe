@@ -72,7 +72,7 @@ export default [
     value: "",
     event: keyf1,
     name: "护理问题",
-    change: (e, td) => limitChange(e, td, 24),
+    change: (e, td) => limitChange(e, td, 48),
     textarea: {
       width: 150
     },
@@ -85,7 +85,7 @@ export default [
     key: "nursingType", //护理类型
     value: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 12),
+    change: (e, td) => limitChange(e, td, 24),
     name: "护理类型",
     textarea: {
       width: 75
@@ -99,7 +99,7 @@ export default [
     key: "safeCare", //安全护理
     value: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 12),
+    change: (e, td) => limitChange(e, td, 24),
     name: "安全护理",
     textarea: {
       width: 75
@@ -113,7 +113,7 @@ export default [
     key: "catheterCare", //导管护理
     value: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 18),
+    change: (e, td) => limitChange(e, td, 32),
     name: "导管护理",
     textarea: {
       width: 105
@@ -140,7 +140,7 @@ export default [
     key: "trachealCare", //气管护理
     value: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 12),
+    change: (e, td) => limitChange(e, td, 24),
     name: "气管护理",
     textarea: {
       width: 75
@@ -180,7 +180,7 @@ export default [
     key: "psychologyCare", //心理护理
     value: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 12),
+    change: (e, td) => limitChange(e, td, 24),
     name: "心理护理",
     textarea: {
       width: 75
@@ -194,7 +194,7 @@ export default [
     key: "diet", //饮食情况
     value: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 12),
+    change: (e, td) => limitChange(e, td, 24),
     name: "饮食情况",
     textarea: {
       width: 75

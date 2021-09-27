@@ -59,7 +59,7 @@ export default {
       },
       {
         name: `
-        皮肤护理
+        皮肤<br/>护理
         `,
         colspan: "1",
         rowspan: "2"
@@ -73,14 +73,14 @@ export default {
       },
       {
         name: `
-        体位护理
+        体位<br/>护理
         `,
         colspan: "1",
         rowspan: "2"
       },
       {
         name: `
-        营养护理
+        营养<br/>护理
         `,
         colspan: "1",
         rowspan: "2"
@@ -98,7 +98,7 @@ export default {
         rowspan: "2",
       },
       {
-        name: `排尿困难`,
+        name: `排尿<br/>困难`,
         colspan: "1",
         rowspan: "2",
       },
