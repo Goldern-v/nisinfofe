@@ -74,16 +74,25 @@ export default [{
   key: "fieldFour", // 静脉（ml）
   value: "",
   event: keyf1,
+  textarea: {
+    width: 36
+  }
 },
 {
   key: "fieldFive", // 进食（ml）
   value: "",
-  event: keyf1
+  event: keyf1,
+  textarea: {
+    width: 36
+  }
 },
 {
   key: "otherFood", // 入量自定义
   value: "",
-  event: keyf1
+  event: keyf1,
+  textarea: {
+    width: 36
+  }
 },
 {
   key: "urineVolume", // 尿量（ml）
@@ -109,17 +118,26 @@ export default [{
 {
   key: "fieldEight", //  呕吐（ml）
   value: "",
-  event: keyf1
+  event: keyf1,
+  textarea: {
+    width: 32
+  }
 },
 {
   key: "fieldOther", //  出量其他
   value: "",
-  event: keyf1
+  event: keyf1,
+  textarea: {
+    width: 32
+  }
 },
 {
   key: "fieldNature", //  出量性质
   value: "",
-  event: keyf1
+  event: keyf1,
+  textarea: {
+    width: 32
+  }
 },
 {
   key: "fieldTen", //  伤口敷料

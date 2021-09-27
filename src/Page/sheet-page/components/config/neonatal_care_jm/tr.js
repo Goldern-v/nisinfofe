@@ -16,7 +16,7 @@ let fyList = ['好','一般','差','√'];
 let ksList = ['大','稍弱','弱','√'];
 let fsList = ['红','微红','黄染','√'];
 let qbList = ['干洁','无渗血','√'];
-let twList = ['左','平','右','俯','√'];
+let twList = ['左','平','右','俯卧','√'];
 let jzlList = ['正常','稍低','低下','√'];
 export default [{
   key: "recordMonth", //日期
