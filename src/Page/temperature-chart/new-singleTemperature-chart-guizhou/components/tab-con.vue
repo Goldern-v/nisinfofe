@@ -97,25 +97,27 @@
               :manual="true"
               :value="vitalSignObj[j].popVisible"
              >
-              <div v-if="index==='过敏药物'" >
-                <input
-                type="text"
+             <temperature v-if="index==='过敏药物'" style="display:inline-block;width:160px">
+             <el-input
+             size="mini"
                 :title="vitalSignObj[j].vitalValue"
                 @input="handlePopRefresh(vitalSignObj[j])"
-                @click="() => (vitalSignObj[j].popVisible = true)"
+                @focus="() => (vitalSignObj[j].popVisible = true)"
                 @blur="() => (vitalSignObj[j].popVisible = false)"
                 v-model="vitalSignObj[j].vitalValue"
-                />
-                 <br/>
-              <div style="display:inline-block;margin-top:10px;">
-              <span class="preText" >药物结果</span>
-                <el-select v-model="vitalSignObj[j].selectValue" filterable allow-create default-first-option  size="mini"
-            placeholder="结果" @change="changeValue($event)" style="width:78px">
+                
+              >
+              
+              <el-select slot="append"  v-model="vitalSignObj[j].selectValue" filterable allow-create default-first-option  size="mini"
+            placeholder="结果" @change="changeValue($event)" style="width:78px" >
             <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
             </el-option>
               </el-select>
-              </div>
-              </div>
+              
+              
+              </el-input>
+              
+              </temperature>
               <div v-if="index==='病人事件'" >
               <el-select
               size="mini"
@@ -150,6 +152,8 @@
                 v-model="vitalSignObj[j].vitalValue"
                 
               />
+              
+                
               <template v-slot:content>
                 <div
                   class="container"
