@@ -97,7 +97,7 @@
               :manual="true"
               :value="vitalSignObj[j].popVisible"
              >
-             <temperature v-if="index==='过敏药物'" style="display:inline-block;width:160px">
+             <div v-if="index==='过敏药物'" style="display:inline-block;width:160px">
              <el-input
              size="mini"
                 :title="vitalSignObj[j].vitalValue"
@@ -117,13 +117,13 @@
               
               </el-input>
               
-              </temperature>
+              </div>
               <div v-if="index==='病人事件'" >
               <el-select
               size="mini"
               style="display:block"
               v-model="vitalSignObj[j].vitalValue"
-            >
+              >
               <el-option
                 v-for="(item, topIndex) in topContextList"
                 :key="topIndex"
@@ -143,7 +143,7 @@
             >
             </el-date-picker>
               </div>
-              <input
+              <input v-if="index!=='病人事件'"
                 type="text"
                 :title="vitalSignObj[j].vitalValue"
                 @input="handlePopRefresh(vitalSignObj[j])"
@@ -152,9 +152,7 @@
                 v-model="vitalSignObj[j].vitalValue"
                 
               />
-              
-                
-              <template v-slot:content>
+               <template v-slot:content>
                 <div
                   class="container"
                   @click.prevent="
@@ -211,6 +209,7 @@
                 :manual="true"
                 :value="vitalSignObj[i.vitalCode].popVisible"
               > -->
+              
               <input
                 type="text"
                 :title="vitalSignObj[i.vitalCode].vitalValue"
@@ -725,10 +724,8 @@ export default {
     },
     /* 修改自定义标题，弹出弹窗并保存 */
     updateTextInfo(key, label, autotext,index) {
-      let fieldListVal=[]
-      for(let i=100;i<105;i++){
-            fieldListVal.push(this.fieldList[i].fieldCn)
-          }//获取到自定义列表的值
+      let checkValue = Object.values(this.fieldList)||[]
+     let  checkValueStr=checkValue.map(item=>item.fieldCn)
       window.openSetTextModal(
         (text) => {
           let data = {
@@ -739,7 +736,7 @@ export default {
             fieldCn: text,
           };
           if(
-            fieldListVal.includes(text)
+            checkValueStr.includes(text)
           ){
  this.$message.error(`修改${label}失败!已存在${text}项目`);
           }else{
