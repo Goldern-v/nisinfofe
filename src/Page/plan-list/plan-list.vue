@@ -133,13 +133,13 @@ export default {
   provide() {
     return {
       openSlideCon: item => {
-        if(this.HOSPITAL_ID=="guizhou"){
+        // if(this.HOSPITAL_ID=="guizhou"){
           this.$refs.slideConRightGuizhou.open(item)
-        }else{
-          this.$refs.slideCon.open(item)
-        }
+        // }else{
+        //   this.$refs.slideCon.open(item)
+        // }
       },
-      openSlideConRight: item => this.$refs.slideConRight.open(item),
+      // openSlideConRight: item => this.$refs.slideConRight.open(item),
       openSlideContant: item => this.$refs.slideContant.open(item)
     };
   },
