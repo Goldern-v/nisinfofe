@@ -67,8 +67,9 @@
                 />
               </label>
             </div>
+            <button class="remove-td" @click="removeCurrent(index)"><i class="el-icon-close"></i></button>
           </td>
-          <button @click="removeCurrent(index)"><i class="el-icon-close"></i></button>
+          
         </tr>
         <!-- <tr v-for="(item, key) of formData.contents" :key="key">
           <td v-for="(option, colIndex) of item" :key="colIndex" :colspan="5">
@@ -756,6 +757,13 @@ table {
 
     &.text-center {
       text-align: center;
+    }
+    position:relative;
+    .remove-td{
+      position:absolute;
+      top:0;
+      right:0;
+      margin-top:7px;
     }
   }
   label {
