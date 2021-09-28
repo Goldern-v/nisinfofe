@@ -130,7 +130,10 @@ export default [
       data: 入量名称
     },
     textarea: {
-      width: 65
+      width: 62
+    },
+    style: {
+      textAlign: "left",
     },
     change: (e, td) => limitChange(e, td, 10),
   },
@@ -153,8 +156,11 @@ export default [
     autoComplete: {
       data: 出量名称
     },
+    style: {
+      textAlign: "left",
+    },
     textarea: {
-      width: 65
+      width: 62
     },
     change: (e, td) => limitChange(e, td, 10),
   },
@@ -176,6 +182,9 @@ export default [
     name: "健康教育",
     textarea: {
       width: 100
+    },
+    style: {
+      textAlign: "left",
     },
     change: (e, td) => limitChange(e, td, 16),
   },

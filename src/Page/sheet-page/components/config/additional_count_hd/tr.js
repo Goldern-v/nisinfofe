@@ -49,6 +49,9 @@ export default [
       width: 180
     },
     splice: true,
+    style: {
+      textAlign: "left",
+    },
     autoComplete: {
       data: 护理操作项目
     },
@@ -61,6 +64,9 @@ export default [
     change: (e, td) => limitChange(e, td, 28),
     textarea: {
       width: 95
+    },
+    style: {
+      textAlign: "left",
     },
     splice: true,
     autoComplete: {
@@ -76,6 +82,9 @@ export default [
     textarea: {
       width: 150
     },
+    style: {
+      textAlign: "left",
+    },
     splice: true,
     autoComplete: {
       data: 护理问题
@@ -89,6 +98,9 @@ export default [
     name: "护理类型",
     textarea: {
       width: 75
+    },
+    style: {
+      textAlign: "left",
     },
     splice: true,
     autoComplete: {
@@ -104,6 +116,9 @@ export default [
     textarea: {
       width: 75
     },
+    style: {
+      textAlign: "left",
+    },
     splice: true,
     autoComplete: {
       data: 安全护理
@@ -117,6 +132,9 @@ export default [
     name: "导管护理",
     textarea: {
       width: 105
+    },
+    style: {
+      textAlign: "left",
     },
     splice: true,
     autoComplete: {
@@ -144,6 +162,9 @@ export default [
     name: "气管护理",
     textarea: {
       width: 75
+    },
+    style: {
+      textAlign: "left",
     },
     splice: true,
     autoComplete: {
@@ -185,6 +206,9 @@ export default [
     textarea: {
       width: 75
     },
+    style: {
+      textAlign: "left",
+    },
     splice: true,
     autoComplete: {
       data: 心理护理
@@ -198,6 +222,9 @@ export default [
     name: "饮食情况",
     textarea: {
       width: 75
+    },
+    style: {
+      textAlign: "left",
     },
     splice: true,
     autoComplete: {
