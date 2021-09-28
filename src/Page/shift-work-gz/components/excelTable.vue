@@ -68,6 +68,7 @@
               </label>
             </div>
           </td>
+          <button @click="removeCurrent(index)"><i class="el-icon-close"></i></button>
         </tr>
         <!-- <tr v-for="(item, key) of formData.contents" :key="key">
           <td v-for="(option, colIndex) of item" :key="colIndex" :colspan="5">
@@ -644,6 +645,9 @@ export default {
     // }
   },
   methods: {
+    removeCurrent(index){
+      this.data.changeShiftContents.splice(index,1)
+    },
     specialChange(e){
       console.log(e);
     },
