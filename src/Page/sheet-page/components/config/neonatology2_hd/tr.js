@@ -14,6 +14,11 @@ let click= ['√'];
 
 export default [
   {
+    key: "recordDate", //年份
+    value: "",
+    hidden:true
+  },
+  {
     key: "recordMonth", //日期
     value: "",
     event: event_date,
@@ -259,7 +264,6 @@ export default [
       width: "150px",
       background: "transparent"
     },
-    change: (e, td) => limitChange(e, td, 12),
     textarea: {
       width: 150
     },

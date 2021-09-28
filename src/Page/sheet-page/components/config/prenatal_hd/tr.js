@@ -28,7 +28,13 @@ let 入量名称 = ['输液', '口服', '输血', '肌注', '静注', '鼻饲', 
 let 出量名称 = [];
 let 出量颜色 = ['黄色','鲜红色','暗红色','墨绿色','浓茶色'];
 
-export default [{
+export default [
+  {
+    key: "recordDate", //年份
+    value: "",
+    hidden:true
+  },
+  {
     key: "recordMonth", //日期
     value: "",
     event: event_date,
@@ -286,7 +292,6 @@ export default [{
     textarea: {
       width: 150
     },
-    change: (e, td) => limitChange(e, td, 12),
     event: function (e, td) {
       console.log(e.keyCode);
       if (e.keyCode == 9) {

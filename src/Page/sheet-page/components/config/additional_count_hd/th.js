@@ -7,32 +7,25 @@ export default {
   // 科室的名称
   deptType: "",
   style: {
-    width: "2450px"
+    width: "1400px"
   },
   th: {
     top: [{
-        name: currYear(),
+        name: '',
+        style: {},
         colspan: "2",
         rowspan: "1",
-        style: {
-          width: "60px"
-        },
-        canSet: true,
-        key: "recordYear",
+        key:'recordYear'
       },
       {
         name: "护理操作项目",
-        style: {
-          width: "48px"
-        },
+        
         colspan: "1",
         rowspan: "2"
       },
       {
         name: "护理操作结果",
-        style: {
-          width: "48px"
-        },
+        
         colspan: "1",
         rowspan: "2"
       },
@@ -42,9 +35,6 @@ export default {
         `,
         colspan: "1",
         rowspan: "2",
-        style: {
-          width: "48px"
-        }
       },
       {
         name: `
@@ -52,9 +42,6 @@ export default {
         `,
         colspan: "1",
         rowspan: "2",
-        style: {
-          width: "48px"
-        }
       },
       {
         name: `
@@ -62,27 +49,18 @@ export default {
         `,
         colspan: "1",
         rowspan: "2",
-        style: {
-          width: "48px"
-        }
       },
       {
         name: `
         导管护理
         `,
-        style: {
-          width: "48px"
-        },
         colspan: "1",
         rowspan: "2"
       },
       {
         name: `
-        皮肤护理
+        皮肤<br/>护理
         `,
-        style: {
-          width: "48px",
-        },
         colspan: "1",
         rowspan: "2"
       },
@@ -90,29 +68,20 @@ export default {
         name: `
         气管护理
         `,
-        style: {
-          width: "48px"
-        },
         colspan: "1",
         rowspan: "2"
       },
       {
         name: `
-        体位护理
+        体位<br/>护理
         `,
-        style: {
-          width: "48px"
-        },
         colspan: "1",
         rowspan: "2"
       },
       {
         name: `
-        营养护理
+        营养<br/>护理
         `,
-        style: {
-          width: "48px"
-        },
         colspan: "1",
         rowspan: "2"
       },
@@ -122,39 +91,24 @@ export default {
         `,
         colspan: "1",
         rowspan: "2",
-        style: {
-          width: "48px"
-        },
       },
       {
         name: `饮食情况`,
-        style: {
-          width: "48px"
-        },
         colspan: "1",
         rowspan: "2",
       },
       {
-        name: `排尿困难`,
-        style: {
-          width: "48px"
-        },
+        name: `排尿<br/>困难`,
         colspan: "1",
         rowspan: "2",
       },
       {
         name: `隔离`,
-        style: {
-          width: "48px"
-        },
         colspan: "1",
         rowspan: "2",
       },
       {
         name: `腹围<br>(cm)`,
-        style: {
-          width: "48px"
-        },
         colspan: "1",
         rowspan: "2",
       },
@@ -190,23 +144,17 @@ export default {
     ],
     mid: [{
         name: `
-      日期
-      `,
+        日期
+        `,
         colspan: "1",
         rowspan: "1",
-        style: {
-          width: "28px"
-        },
       },
       {
         name: `
-      时间
-      `,
+        时间
+        `,
         colspan: "1",
         rowspan: "1",
-        style: {
-          width: "28px"
-        },
       }
     ]
   }

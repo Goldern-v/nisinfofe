@@ -37,6 +37,38 @@
 
           </td>
         </tr>
+        <tr v-for="(column,index) in data.changeShiftContents" :key="index+13">
+          <td class="text-center" :colspan="1" :style="{'text-align':'center'}">
+            <div>
+              <label>
+                <el-input
+                  autosize
+                  class="textarea"
+                  type="textarea"
+                  v-model="column.name"
+                  :disabled="!editable"
+                  @change="onInputChange()"
+                  @keydown.native="specialChange"
+                />
+              </label>
+            </div>
+          </td>
+           <td class="text-center" :colspan="3" :style="{'text-align':'left'}">
+            <div>
+              <label>
+                <el-input
+                  autosize
+                  class="textarea"
+                  type="textarea"
+                  v-model="column.content"
+                  :disabled="!editable"
+                  @change="onInputChange()"
+                  @keydown.native="specialChange"
+                />
+              </label>
+            </div>
+          </td>
+        </tr>
         <!-- <tr v-for="(item, key) of formData.contents" :key="key">
           <td v-for="(option, colIndex) of item" :key="colIndex" :colspan="5">
              <label>
@@ -143,6 +175,7 @@
         </tr> -->
       </tbody>
     </table>
+    <div class="add-special" @click="addSpecial"> + 添加特殊</div>
     <setInfoModal ref="setInfoModal"></setInfoModal>
     <specialTextModal ref="specialTextModal"></specialTextModal>
   </div>
@@ -241,20 +274,20 @@ function initFormList(list) {
   return formList;
 }
 
-function initChangeShiftContents(arr){
- return arr.map(item=>{
-    let str =
-        '<div class="patient-detail">' +
-        item.content.replace(
-          /\n\n/g,
-          '</div><br/><div class="patient-detail">'
-        ) +
-        "</div>";
-      let obj = {...item};
-      obj.content = str.replace(/\n/g, "<br/>");
-      return obj;
-  });
-}
+// function initChangeShiftContents(arr){
+//  return arr.map(item=>{
+//     let str =
+//         '<div class="patient-detail">' +
+//         item.content.replace(
+//           /\n\n/g,
+//           '</div><br/><div class="patient-detail">'
+//         ) +
+//         "</div>";
+//       let obj = {...item};
+//       obj.content = str.replace(/\n/g, "<br/>");
+//       return obj;
+//   });
+// }
 
 import setInfoModal from "../modal/set-info-modal";
 import specialTextModal from "../modal/special-text-modal";
@@ -276,7 +309,8 @@ export default {
       bus: bus(this),
       formData: initFormData(data.changeShiftTimes),
       // formList: initFormList(data.changeShiftPatientLists),
-      changeShiftContents: initChangeShiftContents(data.changeShiftContents),
+      // changeShiftContents: initChangeShiftContents(data.changeShiftContents),
+      // changeShiftContents:[],
       columns: [
         [
           {
@@ -438,68 +472,119 @@ export default {
         ],
         [
           {
-            label: "手术患者",
+            label: "新入院",
             prop: "remark1",
             editable: false,
-            align: "left",
+            align: "center",
             width: "40"
           },
           {
-            label: "手术患者",
+            label: "新入院",
             prop: "remark1",
             editable: true,
-            align: "left",
+            align: "center",
             width: "40",
             colspan: 3
           }
         ],
         [
           {
-            label: "急诊病人",
+            label: "手术",
             prop: "remark2",
             editable: false,
-            align: "left",
+            align: "center",
             width: "40"
           },
           {
-            label: "急诊病人",
+            label: "手术",
             prop: "remark2",
             editable: true,
-            align: "left",
+            align: "center",
             width: "40",
             colspan: 3
           }
         ],
         [
           {
-            label: "ICU转入病人",
+            label: "拟今日手术",
             prop: "remark3",
             editable: false,
-            align: "left",
+            align: "center",
             width: "40"
           },
           {
-            label: "ICU转入病人",
+            label: "拟今日手术",
             prop: "remark3",
             editable: true,
-            align: "left",
+            align: "center",
             width: "40",
             colspan: 3
           }
         ],
         [
           {
-            label: "危急值病人",
+            label: "危重",
             prop: "remark4",
             editable: false,
-            align: "left",
+            align: "center",
             width: "40"
           },
           {
-            label: "危急值病人",
+            label: "危重",
             prop: "remark4",
             editable: true,
-            align: "left",
+            align: "center",
+            width: "40",
+            colspan: 3
+          }
+        ],
+        [
+          {
+            label: "死亡",
+            prop: "remark5",
+            editable: false,
+            align: "center",
+            width: "40"
+          },
+          {
+            label: "死亡",
+            prop: "remark5",
+            editable: true,
+            align: "center",
+            width: "40",
+            colspan: 3
+          }
+        ],
+        [
+          {
+            label: "特殊记录",
+            prop: "remark6",
+            editable: false,
+            align: "center",
+            width: "40"
+          },
+          {
+            label: "特殊记录",
+            prop: "remark6",
+            editable: true,
+            align: "center",
+            width: "40",
+            colspan: 3
+          }
+        ],
+        [
+          {
+            label: "急救车使用",
+            prop: "remark7",
+            editable: false,
+            align: "center",
+            width: "40"
+          },
+          {
+            label: "急救车使用",
+            prop: "remark7",
+            editable: true,
+            align: "center",
             width: "40",
             colspan: 3
           }
@@ -537,26 +622,38 @@ export default {
     // },
   },
   mounted(){
+        console.log(data);
+
     // 兼容之前填写的数据（把之前填写的数据再次填写到新数组）
-    if(!this.changeShiftContents.length){
-      let specialRecords = this.data.changeShiftTimes.specialRecords || ''
-      let str =
-      '<div class="patient-detail">' +
-        specialRecords.replace(
-        /\n\n/g,
-        '</div><br/><div class="patient-detail">'
-      ) +
-      "</div>";
-      this.changeShiftContents.push(
-        {
-          changeShiftTimeId:this.data.changeShiftTimes.id,
-          content:str.replace(/\n/g, "<br/>"),
-          sortValue:this.changeShiftContents.length
-        }
-      );
-    }
+    // if(!this.changeShiftContents.length){
+    //   let specialRecords = this.data.changeShiftTimes.specialRecords || ''
+    //   let str =
+    //   '<div class="patient-detail">' +
+    //     specialRecords.replace(
+    //     /\n\n/g,
+    //     '</div><br/><div class="patient-detail">'
+    //   ) +
+    //   "</div>";
+    //   this.changeShiftContents.push(
+    //     {
+    //       changeShiftTimeId:this.data.changeShiftTimes.id,
+    //       content:str.replace(/\n/g, "<br/>"),
+    //       sortValue:this.changeShiftContents.length
+    //     }
+    //   );
+    // }
   },
   methods: {
+    specialChange(e){
+      console.log(e);
+    },
+    // 添加特殊记录事件
+    addSpecial(){
+      // console.log(this.columns);
+      let temp = JSON.parse(JSON.stringify(this.data.changeShiftContents))
+      temp.push({"changeShiftTimeId": this.data.changeShiftTimes.id,"name": "","content": "","sortValue": 1})
+      this.data.changeShiftContents = [...temp]
+    },
     /** 解析病人信息添加数据 */
     openSetInfoModal(item, key) {
       let data = {
@@ -568,8 +665,8 @@ export default {
 
       this.$refs.setInfoModal.open(data, obj => {
         obj.remark1 = obj.remark;
-        Object.assign(item, obj);
-        this.$emit("save");
+        // Object.assign(item, obj);
+        // this.$emit("save");
       });
     },
     openSpecialTextModal(index) {
@@ -616,8 +713,8 @@ export default {
         this.bus.$emit("updateTable");
       })
     },
-    onInputChange(event, value, prop, row, col) {
-      this.$emit("input-change", { event, value, prop, row, col });
+    onInputChange() {
+      this.$emit("input-change");
     },
     onInputKeydown(event, value, prop, row, col) {
       this.$emit("input-keydown", { event, value, prop, row, col });
@@ -627,7 +724,14 @@ export default {
   components: {
     setInfoModal,
     specialTextModal
-  }
+  },
+  watch:{
+    'data.changeShiftContents':{
+      handler(newValue,oldValue){},
+      deep:true,
+      immediate:true,
+    }
+  },
 };
 </script>
 
@@ -684,7 +788,13 @@ table {
     }
   }
 }
-
+.add-special{
+  margin-top:10px;
+  font-size:13px;
+  color:#284fc2;
+  text-align:right;
+  cursor:pointer;
+}
 .title-1 {
   position: absolute;
   right: 20px;

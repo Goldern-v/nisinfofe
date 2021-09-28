@@ -3,7 +3,7 @@
 */
 import {
   keyf1,
-  calValueChange
+  limitChange
 } from "../keyEvent/f1.js";
 import {
   event_date,
@@ -16,7 +16,7 @@ let fyList = ['好','一般','差','√'];
 let ksList = ['大','稍弱','弱','√'];
 let fsList = ['红','微红','黄染','√'];
 let qbList = ['干洁','无渗血','√'];
-let twList = ['左','平','右','俯','√'];
+let twList = ['左','平','右','俯卧','√'];
 let jzlList = ['正常','稍低','低下','√'];
 export default [{
   key: "recordMonth", //日期
@@ -96,7 +96,7 @@ export default [{
   event: keyf1,
   autoComplete: {
     data: fsList
-  }
+  },
 },
 {
   key: "muscleTone", // 肌张力
@@ -172,7 +172,7 @@ export default [{
 {
   key: "fieldFifteen", //用氧方式
   value: "",
-  change: calValueChange,
+  change: (e, td) => limitChange(e, td, 8),
   event: keyf1,
   textarea: {
     width: 50,

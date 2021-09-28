@@ -197,7 +197,7 @@
 
   .inPrint {
     display: none;
-
+ 
     &.lc {
       height: 29px;
     }

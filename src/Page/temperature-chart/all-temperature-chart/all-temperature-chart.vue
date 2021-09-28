@@ -55,7 +55,7 @@
           {{ item.value }}
         </label>
       </div>
-      <div class="times" v-if="HOSPITAL_ID === 'quzhou'">
+      <div class="times" v-if="HOSPITAL_ID === 'quzhou'||HOSPITAL_ID === 'wujing'">
         <label
           :for="`time${item.id}`"
           v-for="item in timesquZhou"
@@ -392,7 +392,7 @@
               <!-- <el-input v-model="scope.row.curWeight"></el-input> -->
             </template>
           </el-table-column>
-          <el-table-column
+          <!-- <el-table-column
             v-if="HOSPITAL_ID === 'guizhou'||HOSPITAL_ID === 'quzhou'"
             prop="nursingEvent"
             label="护理事件"
@@ -404,9 +404,9 @@
                 v-model="scope.row.nursingEvent"
                 colClass="curWeight"
               />
-              <!-- <el-input v-model="scope.row.curWeight"></el-input> -->
+              <el-input v-model="scope.row.curWeight"></el-input> 2021-09-25
             </template>
-          </el-table-column>
+          </el-table-column> -->
           <!-- <el-table-column
             prop="height"
             label="身高"
@@ -885,6 +885,25 @@ export default {
                 return "23";
               }
             case "guizhou":
+              if (this.getHours() >= 0 && this.getHours() <= 2) {
+                return "02";
+              }
+              if (this.getHours() > 2 && this.getHours() <= 6) {
+                return "06";
+              }
+              if (this.getHours() > 6 && this.getHours() <= 10) {
+                return "10";
+              }
+              if (this.getHours() > 10 && this.getHours() <= 14) {
+                return "14";
+              }
+              if (this.getHours() > 14 && this.getHours() <= 18) {
+                return "18";
+              }
+              if (this.getHours() > 18 && this.getHours() <= 23) {
+                return "22";
+              }
+              case "wujing":
               if (this.getHours() >= 0 && this.getHours() <= 2) {
                 return "02";
               }

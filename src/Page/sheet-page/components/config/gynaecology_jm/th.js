@@ -17,8 +17,8 @@ export default {
         colspan: "2",
         rowspan: "1",
         style: {
-          minWidth: "62px",
-          maxWidth: "62px"
+          minWidth: "40px",
+          maxWidth: "40px"
         },
         canSet: true,
         key: "recordYear",
@@ -80,7 +80,7 @@ export default {
         name: `
         出量
         `,
-        colspan: "3",
+        colspan: "4",
         rowspan: "1"
       },
       {
@@ -121,12 +121,12 @@ export default {
         colspan: "1",
         rowspan: "3",
       },
-      {
-        name: `功<br/>能<br/>锻<br/>炼`,
-        style: {},
-        colspan: "1",
-        rowspan: "3",
-      },
+      // {
+      //   name: `功<br/>能<br/>锻<br/>炼`,
+      //   style: {},
+      //   colspan: "1",
+      //   rowspan: "3",
+      // },
       {
         name: ``,
         style: {},
@@ -135,8 +135,8 @@ export default {
         canSet: true,
         key: "fieldSix", //标题1
         style: {
-          minWidth: "32px",
-          maxWidth: "32px"
+          minWidth: "36px",
+          maxWidth: "50px"
         }
       },
       {
@@ -147,8 +147,20 @@ export default {
         canSet: true,
         key: "fieldSeven", //标题2
         style: {
-          minWidth: "32px",
-          maxWidth: "32px"
+          minWidth: "36px",
+          maxWidth: "50px"
+        }
+      },
+      {
+        name: ``,
+        style: {},
+        colspan: "1",
+        rowspan: "3",
+        canSet: true,
+        key: "fieldEight", //标题3
+        style: {
+          minWidth: "36px",
+          maxWidth: "50px"
         }
       },
       {
@@ -186,8 +198,8 @@ export default {
     mid: [{
         name: '日期',
         style: {
-          minWidth: '36px',
-          maxWidth: '36px',
+          minWidth: '30px',
+          maxWidth: '30px',
         },
         colspan: '1',
         rowspan: '2'
@@ -195,8 +207,8 @@ export default {
       {
         name: '时间',
         style: {
-          minWidth: '36px',
-          maxWidth: '36px',
+          minWidth: '30px',
+          maxWidth: '30px',
         },
         colspan: '1',
         rowspan: '2'
@@ -230,39 +242,95 @@ export default {
       },
       {
         name: "引流量及性质",
-        colspan: "3",
+        colspan: "4",
         rowspan: "1",
       },
     ],
     bottom: [
-    {
-      name: "尿管<br/>（ml）",
-      colspan: "1",
-      rowspan: "1",
-      style: {
-        minWidth: '40px',
-        maxWidth: '40px',
+      // {
+      //   name: "尿管<br/>（ml）",
+      //   colspan: "1",
+      //   rowspan: "1",
+      //   style: {
+      //     minWidth: '40px',
+      //     maxWidth: '40px',
+      //   },
+      // },
+      // {
+      //   name: "胸壁<br/>（ml）",
+      //   colspan: "1",
+      //   rowspan: "1",
+      //   style: {
+      //     minWidth: '40px',
+      //     maxWidth: '40px',
+      //   },
+      // },
+      // {
+      //   name: "腋窝<br/>（ml）",
+      //   colspan: "1",
+      //   rowspan: "1",
+      //   style: {
+      //     minWidth: '40px',
+      //     maxWidth: '40px',
+      //   },
+      // },
+      // {
+      //   name: "腋窝<br/>（ml）",
+      //   colspan: "1",
+      //   rowspan: "1",
+      //   style: {
+      //     minWidth: '40px',
+      //     maxWidth: '40px',
+      //   },
+      // },
+      {
+        name: ``,
+        style: {},
+        colspan: "1",
+        rowspan: "1",
+        canSet: true,
+        key: "outputFieldFirst", // 出量-标题1
+        style: {
+          minWidth: "32px",
+          maxWidth: "32px"
+        }
       },
-    },
-    {
-      name: "胸壁<br/>（ml）",
-      colspan: "1",
-      rowspan: "1",
-      style: {
-        minWidth: '40px',
-        maxWidth: '40px',
+      {
+        name: ``,
+        style: {},
+        colspan: "1",
+        rowspan: "1",
+        canSet: true,
+        key: "outputFieldTwo", //标题2
+        style: {
+          minWidth: "32px",
+          maxWidth: "32px"
+        }
       },
-    },
-    {
-      name: "腋窝<br/>（ml）",
-      colspan: "1",
-      rowspan: "1",
-      style: {
-        minWidth: '40px',
-        maxWidth: '40px',
+      {
+        name: ``,
+        style: {},
+        colspan: "1",
+        rowspan: "1",
+        canSet: true,
+        key: "outputFieldThree", //标题3
+        style: {
+          minWidth: "32px",
+          maxWidth: "32px"
+        }
       },
-    },
-
+      {
+        name: ``,
+        style: {},
+        colspan: "1",
+        rowspan: "1",
+        canSet: true,
+        key: "outputFieldFour", //标题4
+        style: {
+          minWidth: "32px",
+          maxWidth: "32px"
+        }
+      },
     ]
   }
 };

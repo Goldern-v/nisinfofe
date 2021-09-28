@@ -15,7 +15,8 @@
           :class="{ canSet: item.canSet }"
           @click="item.canSet && setTitle(item)"
         >
-          <span v-html="item.name"></span>
+          <span v-if="item.key=='recordYear'&&HOSPITAL_ID=='huadu'">{{recordYear()}}</span>
+          <span v-else v-html="item.name"></span>
         </th>
       </tr>
 
@@ -174,8 +175,8 @@
               alt
             />
           </div>
-          <input v-else-if="HOSPITAL_ID=='huadu'&&td.key=='orderContent'" @click="(e)=>openOrderModal(e,td,tr,x,y,'护嘱内容')" style="height:32px" v-model="td.value">
-          <input v-else-if="HOSPITAL_ID=='huadu'&&td.key=='frequency'" @click="(e)=>openOrderModal(e,td,tr,x,y,'频次')" v-model="td.value" style="height:32px">
+          <input v-else-if="HOSPITAL_ID=='huadu'&&td.key=='orderContent'" @click="(e)=>openOrderModal(e,td,tr,x,y,'护嘱内容',910)" style="height:32px;text-align:left;" v-model="td.value" :data-value='td.value'>
+          <input v-else-if="HOSPITAL_ID=='huadu'&&td.key=='frequency'" @click="(e)=>openOrderModal(e,td,tr,x,y,'频次',1090)" v-model="td.value" style="height:32px;" :data-value='td.value'>
           <input
             type="text"
             :readonly="isRead(tr)"
@@ -286,10 +287,15 @@ export default {
     },
   },
   mounted(){
-    this.data.bodyModel[0].map(item=>{console.log(item.key);})
-    console.log(this.data);
   },
   methods: {
+    recordYear(){
+     return this.data.bodyModel[0][0].value.split('-')[0]
+    },
+    show(td){
+      console.log(td);
+      
+    },
     changeOrderContent(item){
       if(this.rowIndex<=26){
       this.currentColumn.value = item
@@ -301,9 +307,9 @@ export default {
         this.currentColumn = this.data.bodyModel[this.rowIndex][this.columnIndex]
       }
     },
-    openOrderModal(e,td,tr,x,y,type){
+    openOrderModal(e,td,tr,x,y,type,width){
       this.type = type
-      this.modalLeft = e.clientX + 'px';
+      this.modalLeft = width + e.currentTarget.offsetWidth + 'px';
       this.modalTop = e.clientY  + 'px';
       this.currentColumn = td
       this.columnIndex = x;

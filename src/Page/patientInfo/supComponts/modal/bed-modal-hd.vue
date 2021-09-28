@@ -178,19 +178,23 @@
       >
         <div class="bed-card-vert-con">
           <div class="top">
-            <span>{{ query.name }}</span>
-            <span>{{ query.sex }}</span>
-            <span>{{ query.age }}</span>
-            <span style="margin:4px;">床位：{{ query.bedLabel }}</span>
+            <span>科室：{{ query.wardName }}</span>
           </div>
           <div>
             <div>
-              <span>科室：{{ query.wardName }}</span>
+              <span>{{ query.name }}</span>
+              <span>{{ query.sex }}</span>
+              <span>{{ query.age }}</span>
             </div>
+            <div>
+              <span>住院号：{{ query.patientId}}</span>
+              <span style="margin:4px;">床位：{{ query.bedLabel }}</span>
+            </div>
+          </div>
+          <div>
             <div>
               <span>入院日期：{{ query.admissionDate | ymdhm }}</span>
             </div>
-            <svg id="barcode"></svg>
           </div>
           <img
             class="qr-code"
@@ -351,21 +355,17 @@
     }
    }
    &.children-wrist{
-      width:6.5cm;
-      height:1.6cm;
-      border:1px solid #000;
+      width:10cm;
+      height:3cm;
+      // border:1px solid #000;
       box-sizing:border-box;
       .bed-card-vert-con{
-        transform:scale(0.5) translateX(-55%) translateY(-100%)
-      }
-      svg{
-        position:absolute;
-        transform:scale(0.6)translate(-45%,-40%) !important
+        transform:scale(0.8) translateX(-16%) translateY(-25%)
       }
       .qr-code{
         position: absolute;
-        right: 60px!important;
-        top: 75%!important;
+        right: 75px !important;
+        top: 55% !important;
         margin-top: -56px;
         height: 112px;
         width: 112px;
@@ -757,13 +757,13 @@ export default {
         // });
       }else if (this.printMode == "wrist-children") {
         this.title = "儿童腕带打印";
-        JsBarcode("#barcode", this.query.patientId + "|" + this.query.visitId, {
-          displayValue:false,
-          lineColor: "#000",
-          width: 4,
-          height: 50,
-          fontSize: 50
-        });
+        // JsBarcode("#barcode", this.query.patientId + "|" + this.query.visitId, {
+        //   displayValue:false,
+        //   lineColor: "#000",
+        //   width: 4,
+        //   height: 50,
+        //   fontSize: 50
+        // });
       } else if (this.printMode == "v") {
         this.title = "打印床头卡";
       } else {
@@ -828,7 +828,7 @@ export default {
             css: `
             .bed-card-warpper {
             box-shadow: none !important;
-            transform: rotate(90deg) translateY(-170%) translateX(25%);
+            transform: rotate(90deg) translateY(-120%) translateX(0.2cm);
             transform-origin: 0 0;
             }
             @page {

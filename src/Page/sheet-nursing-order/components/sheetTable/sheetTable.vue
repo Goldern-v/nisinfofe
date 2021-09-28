@@ -63,7 +63,7 @@
 
 .header-con {
   text-align: center;
-  width: 96%;
+  width: 90%;
   margin: 0 auto;
 
   h1 {

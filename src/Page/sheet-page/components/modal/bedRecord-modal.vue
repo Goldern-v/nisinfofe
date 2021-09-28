@@ -29,7 +29,7 @@
             </template>
           </el-table-column>
           <!-- <el-table-column prop="logDateTime" label="时间" min-width="110px" align="center"></el-table-column> -->
-          <el-table-column prop="bedNoNew" label="床号" min-width="110px" align="center"></el-table-column>
+          <el-table-column prop="bedLabelNew" label="床号" min-width="110px" align="center"></el-table-column>
          
         </el-table>
       </div>
@@ -147,9 +147,9 @@ export default {
             this.$refs.bedRecord.toggleRowSelection(item,item.selected)
           })  
         })
-        this.firstBedRecord = this.multipleSelection[0] ? this.multipleSelection[0].bedNoNew : ""
-        this.secondBedRecord = this.multipleSelection[1] ? this.multipleSelection[1].bedNoNew : ""
-        this.thirdBedRecord = this.multipleSelection[2] ? this.multipleSelection[2].bedNoNew : ""
+        this.firstBedRecord = this.multipleSelection[0] ? this.multipleSelection[0].bedLabelNew : ""
+        this.secondBedRecord = this.multipleSelection[1] ? this.multipleSelection[1].bedLabelNew : ""
+        this.thirdBedRecord = this.multipleSelection[2] ? this.multipleSelection[2].bedLabelNew : ""
       });
     },
     handleSelectionChange(val,row) {
@@ -157,9 +157,9 @@ export default {
       this.multipleSelection = val.sort((a,b)=>{
         return a.index - b.index
       });
-      this.firstBedRecord = this.multipleSelection[0] ? this.multipleSelection[0].bedNoNew : ""
-      this.secondBedRecord = this.multipleSelection[1] ? this.multipleSelection[1].bedNoNew : ""
-      this.thirdBedRecord = this.multipleSelection[2] ? this.multipleSelection[2].bedNoNew : ""
+      this.firstBedRecord = this.multipleSelection[0] ? this.multipleSelection[0].bedLabelNew : ""
+      this.secondBedRecord = this.multipleSelection[1] ? this.multipleSelection[1].bedLabelNew : ""
+      this.thirdBedRecord = this.multipleSelection[2] ? this.multipleSelection[2].bedLabelNew : ""
       if(this.multipleSelection[2]) {
         this.bedLabel = this.firstBedRecord+"->"+this.secondBedRecord+"->"+this.thirdBedRecord
       }else if(this.multipleSelection[1]) {

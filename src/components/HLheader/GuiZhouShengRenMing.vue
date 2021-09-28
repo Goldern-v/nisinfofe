@@ -372,13 +372,13 @@
                     </el-row>
                   </router-link>
                 </el-dropdown-item>
-                <el-dropdown-item>
+                <!-- <el-dropdown-item>
                   <router-link to="/healthEducationList" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
                       <i class="birthCertificate"></i>健康宣教查询
                     </el-row>
                   </router-link>
-                </el-dropdown-item>
+                </el-dropdown-item> -->
                 <!-- <el-dropdown-item>
                   <router-link to="/dcList" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
@@ -993,9 +993,18 @@ export default {
       }
     },
     changeDept(value) {
-      let deptName = this.deptList.filter((item) => {
+      // let deptName = this.deptList.filter((item) => {
+      //   return item.code == value;
+      // })[0].name;
+      let deptName="";
+      let deptItem = this.deptList.filter((item) => {
         return item.code == value;
-      })[0].name;
+      });
+      if(deptItem && deptItem.length>0){
+        deptName=deptItem[0].name
+      }else {
+        return false;
+      }
       this.$store.commit("upDeptCode", value);
       localStorage.selectDeptValue = value;
       this.$store.commit("upDeptName", deptName);
@@ -1036,8 +1045,11 @@ export default {
         return dept;
       });
       this.deptOptionList = JSON.parse(JSON.stringify(this.deptList));
+      //localStorage.selectDeptValue ||
+      //解决刷新右上角科室名称显示数字问题localStorage.selectDeptValue是科室编码
+      //deptValue是护理单元编码<科室编码
       this.deptValue =
-        localStorage.selectDeptValue ||
+       
         this.$store.state.lesion.deptCode ||
         res.data.data.defaultDept ||
         res.data.data.deptList[0].code;

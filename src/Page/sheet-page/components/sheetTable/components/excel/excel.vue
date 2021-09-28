@@ -48,7 +48,8 @@
           :class="{ canSet: item.canSet }"
           @click="item.canSet && setTitle(item)"
         >
-          <span v-html="item.name"></span>
+          <span v-if="item.key=='recordYear' && HOSPITAL_ID=='huadu'">{{recordYear()}}</span>
+          <span v-else v-html="item.name"></span>
         </th>
       </tr>
     </table>
@@ -69,7 +70,8 @@
           :class="{ canSet: item.canSet }"
           @click="item.canSet && setTitle(item)"
         >
-          <span v-html="item.name"></span>
+          <span v-if="item.key=='recordYear' && (HOSPITAL_ID=='huadu'||HOSPITAL_ID=='guizhou')">{{recordYear()}}</span>
+          <span v-else v-html="item.name"></span>
         </th>
       </tr>
       <tr
@@ -96,8 +98,8 @@
               }).value.status
             }`,
           {
-            redTop:(HOSPITAL_ID == 'huadu' && getBorderClass(y)) || (sheetInfo.sheetType=='icu_qz' &&  HOSPITAL_ID == 'quzhou' && getBorderClassQuzhou(y) == 'red'),
-            blackTop:sheetInfo.sheetType=='icu_qz' && HOSPITAL_ID == 'quzhou' && getBorderClassQuzhou(y) == 'black',
+            redTop:(HOSPITAL_ID == 'huadu' && getBorderClass(y)) || redTop(y),
+            blackTop:BlackTop(y),
           }
         ]"
         :key="y"
@@ -123,7 +125,10 @@
               `stat-bottom-line`
           ]"
           @contextmenu.stop="openContextMenu($event, y, tr, td)"
-          @click="selectedItem(td)"
+          @click="
+            selectedItem(td)
+            td.key == 'description' && HOSPITAL_ID === 'guizhou' && !isRead(tr) && openEditModal(tr, data, $event)
+            "
         >
           <!-- for 年份 -->
           <input
@@ -241,7 +246,9 @@
         </el-select>
           <textarea
             v-else-if="td.textarea"
-            :class="{ towLine: isOverText(td) }"
+            :class="{ 
+              towLine: isOverText(td),
+              maxHeight56: sheetInfo.sheetType=='additional_count_hd' }"
             :readonly="isRead(tr)"
             :disabled="isDisabed(tr,td, y)"
             v-model="td.value"
@@ -261,10 +268,22 @@
             "
             @keydown="
               td.event($event, td);
-              onKeyDown($event, { x, y, z: index, td });
-            "
+              onKeyDown($event, { x, y, z: index, td });"
             :maxlength="td.textarea.maxLength || 1000"
-            @input="td.change && td.change($event, td)"
+            @input="td.change && td.change($event, td);
+              td.autoComplete && getOptionsData(td,tr,$event)
+              remoteMethod($event.currentTarget.value);
+              td.autoComplete &&
+                onFocus($event, {
+                  autoComplete: {data:accessOptionData[td.name]},
+                  x,
+                  y,
+                  z: index,
+                  td,
+                  tr,
+                  splice: td.splice,
+                });
+            "
             @focus="
               td.autoComplete &&
                 onFocus($event, {
@@ -274,10 +293,10 @@
                   z: index,
                   td,
                   tr,
-                  splice: !!td.splice
+                  splice: td.splice
                 })
             "
-            @blur="onBlur($event, { x, y, z: index })"
+            @blur="!(td.splice&&HOSPITAL_ID === 'huadu') && onBlur($event, { x, y, z: index })"
           ></textarea>
           <!-- 护理记录单特殊情况特殊记录单独处理 -->
           <div
@@ -400,12 +419,15 @@
           v-else-if="
             sheetInfo.sheetType == 'obstetrics_hl' ||
               sheetInfo.sheetType == 'gynecology_hl' ||
-              sheetInfo.sheetType == 'neonatology_hl'
+              sheetInfo.sheetType == 'neonatology_hl' 
           "
           >质控护士：</span
         >
         <span v-else-if="sheetInfo.sheetType == 'intervention_cure_lcey'"
           >护士签名：</span
+        >
+        <span v-else-if="sheetInfo.sheetType == 'waiting_birth_gzry'"
+          >审核签名：</span
         >
         <span v-else>上级护士签名：</span>
         <span class="sh-name-box">
@@ -461,7 +483,9 @@ import {
   focusElement,
   leftTopBottomRight,
   onFocusToAutoComplete,
-  onBlurToAutoComplete
+  onBlurToAutoComplete,
+  redTop,
+  BlackTop
 } from "./tool.js";
 import sheetInfo from "../../../config/sheetInfo";
 import Mark, { matchMark } from "../../../render/Mark.js";
@@ -503,6 +527,7 @@ export default {
       fiexHeaderWidth: 0,
       isFixed: false,
       multiSign: false,
+      //底部签名
       auditArr: [
         "com_lc",
         "icu_lc",
@@ -529,6 +554,7 @@ export default {
         "prenatal_hl",
         "common_sn",
         "maternity_sn",
+        "waiting_birth_gzry",//贵州人医_产程记录单
       ],
       // 需要双签名的记录单code
       multiSignArr: [
@@ -598,6 +624,13 @@ export default {
     }
   },
   methods: {
+    //花都护记年份
+    recordYear(){
+      return this.data.bodyModel[0][0].value.split('-')[0]
+    },
+    show(td){
+      console.log(td);
+    },
     /* 花都个别护记的出入量统计：增加红线与上一行做区分 */
     getBorderClass(index) {
       // const redTopSheet_hd = [
@@ -617,33 +650,8 @@ export default {
       const currentTr = this.data.bodyModel[index].find(td => td.key === "recordSource").value === "5";
       return lastTr && currentTr;
     },
-    getBorderClassQuzhou(index){
-      if(this.data &&
-         this.data.titleModel &&
-         this.data.titleModel.th &&
-         this.data.titleModel.th.top &&
-         this.data.bodyModel
-        ){
-        let obj = this.data.titleModel.th.top.find(item=>item.name=="血<br/>氧<br/>饱<br/>和<br/>度")
-        let targetIndex = this.data.titleModel.th.top.indexOf(obj)
-        if(this.data.titleModel.th.top.indexOf(obj) &&
-           this.data.bodyModel[index] &&
-           this.data.bodyModel[index][targetIndex]){
-              let targetVal = this.data.bodyModel[index][targetIndex].value || ""
-              switch(targetVal){
-                case "总结":
-                  return 'red';
-                case "小结":
-                  return 'black';
-                default:
-                  return "";
-              }
-           }
-      }else{
-        return ""
-      }
-
-    },
+    redTop,// tool.js引进来的啦
+    BlackTop,// 这个也是tool.js引进来的啦
     // 键盘事件
     onKeyDown(e, bind) {
       if (sheetInfo.model == "print") return;
@@ -1031,16 +1039,29 @@ export default {
         return "";
       }
     },
+    isFirst(tr,y){
+      let recordDate = tr.find(item=>item.key=='recordDate').value
+      let recordSource = tr.find(item=>item.key=='recordSource').value
+      let flag = false
+      if(recordDate&&recordSource){
+        let dateIndex = this.data.bodyModel[0].findIndex(e=>e.key=='recordDate')
+        let sourceIndex = this.data.bodyModel[0].findIndex(e=>e.key=='recordSource')
+        let index = this.data.bodyModel.findIndex(item=>{
+          return item[dateIndex].value==recordDate&&item[sourceIndex].value==recordSource
+        })
+        flag = index == y
+      }
+      return flag
+    },
     // 除第一行以外到结束行之内其他单元格不能录入内容（威县），出入量统计行除外
     isDisabed(tr, td, index) {
-      // canModify true可以修改，false禁止修改
+      // canModify false可以修改，true禁止修改
       if (
         this.HOSPITAL_ID == "huadu" &&
         sheetInfo.sheetType === "body_temperature_Hd" &&
-        td &&
-        td.key === "empName"
+        td
       ) {
-        return true;
+        return false;
       }
       if (td && td.key == "recordYear") {
         if (!tr.find(item => item.key == "recordMonth").value) {
@@ -1053,7 +1074,10 @@ export default {
         this.HOSPITAL_ID == "huadu" &&
         tr.find(item => item.key == "status").value === "1"
       ) {
-        return tr.find(item => item.key == "status").value === "1" && this.listData && this.listData[index] && !this.listData[index].canModify;
+        let flag = tr.find(item => item.key == "status").value === "1" && // 是否已签名
+                   this.listData && this.listData[index] && !this.listData[index].canModify// 是否有权限
+        flag = (!this.isFirst(tr,index)&&(td.key==='recordMonth'||td.key==='recordHour')); // 已签名的recordMonth和recordHour单元格，并且不是第一行(最高等级)
+        return flag
       }
       if (
         this.HOSPITAL_ID != "weixian" ||
@@ -1073,22 +1097,23 @@ export default {
       }
     },
     isRead(tr) {
-      let status = tr.find(item => item.key == "status").value;
-      let empNo = tr.find(item => item.key == "empNo").value;
-      if (status == 1) {
-        if (empNo == this.empNo || this.isAuditor) {
-          return false;
+        let status = tr.find(item => item.key == "status").value;
+        let empNo = tr.find(item => item.key == "empNo").value;
+        if (status == 1) {
+          if (empNo == this.empNo || this.isAuditor) {
+            return false;
+          } else {
+            return true;
+          }
         } else {
-          return true;
+          return false;
         }
-      } else {
-        return false;
-      }
+      
     },
     checkMaxLength(value, length) {
       const regC = /[^ -~]+/g;
       const regE = /\D+/g;
-      console.log("textarea", value, length);
+      // console.log("textarea", value, length);
     },
     isOverText(td) {
       try {
@@ -1624,7 +1649,7 @@ export default {
   mounted() {
     this.fiexHeaderWidth =
       this.$refs.table && this.$refs.table.offsetWidth + "px";
-    console.log("mounted");
+    // console.log("mounted");
   },
   created() {
     if (

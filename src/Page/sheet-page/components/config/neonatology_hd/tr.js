@@ -29,7 +29,13 @@ let lgzlList = ['开始','结束','√'];
 
 
 
-export default [{
+export default [
+  {
+    key: "recordDate", //年份
+    value: "",
+    hidden:true
+  },
+  {
     key: "recordMonth", //日期
     value: "",
     event: event_date,
@@ -63,15 +69,15 @@ export default [{
     change: (e, td) => limitChange(e, td, 3),
   },
   {
-    key: "pulse", //脉搏/心率
+    key: "heartRate", //脉搏/心率
     value: "",
     event: keyf1,
-    name: "脉搏/心率",
+    name: "心率",
     next: "次/分",
     textarea: {
-      width: 43
+      width: 30
     },
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 3),
   },
   {
     key: "breath", //呼吸
@@ -397,7 +403,6 @@ export default [{
       width: "150px",
       background: "transparent"
     },
-    change: (e, td) => limitChange(e, td, 12),
     textarea: {
       width: 150
     },

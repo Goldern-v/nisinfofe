@@ -21,7 +21,13 @@ let ysList = [];
 let chuList = [];
 let ruList = [];
 let 持续 = ['无', '敏感', '不规则'];
-export default [{
+export default [
+  {
+    key: "recordDate", //年份
+    value: "",
+    hidden:true
+  },
+  {
     key: "recordMonth", //日期
     value: "",
     event: event_date,
@@ -128,7 +134,6 @@ export default [{
     textarea: {
       width: 150
     },
-    change: (e, td) => limitChange(e, td, 12),
     event: function (e, td) {
       console.log(e.keyCode);
       if (e.keyCode == 9) {
