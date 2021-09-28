@@ -19,7 +19,7 @@
           class="date-picker"
           type="date"
           size="mini"
-          style="width: 110px"
+          style="display:inline-block"
           format="yyyy-MM-dd"
           placeholder="选择日期"
           v-model="query.entryDate"
@@ -97,7 +97,7 @@
               :manual="true"
               :value="vitalSignObj[j].popVisible"
              >
-              <temperature v-if="index==='过敏药物'" >
+              <div v-if="index==='过敏药物'" >
                 <input
                 type="text"
                 :title="vitalSignObj[j].vitalValue"
@@ -105,16 +105,42 @@
                 @click="() => (vitalSignObj[j].popVisible = true)"
                 @blur="() => (vitalSignObj[j].popVisible = false)"
                 v-model="vitalSignObj[j].vitalValue"
-                
-              />
+                />
+                 <br/>
               <div style="display:inline-block;margin-top:10px;">
               <span class="preText" >药物结果</span>
                 <el-select v-model="vitalSignObj[j].selectValue" filterable allow-create default-first-option  size="mini"
             placeholder="结果" @change="changeValue($event)" style="width:78px">
             <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
             </el-option>
-              </el-select></div>
-              </temperature>
+              </el-select>
+              </div>
+              </div>
+              <div v-if="index==='病人事件'" >
+              <el-select
+              size="mini"
+              style="display:block"
+              v-model="vitalSignObj[j].vitalValue"
+            >
+              <el-option
+                v-for="(item, topIndex) in topContextList"
+                :key="topIndex"
+                :label="item"
+                :value="item"
+              >
+              </el-option>
+            </el-select>
+            <el-date-picker
+              size="mini"
+              format="yyyy-MM-dd HH:mm:ss"
+              value-format="yyyy-MM-dd HH:mm:ss"
+              v-model="vitalSignObj[j].expand2"
+              type="datetime"
+              placeholder="选择日期时间"
+              @change="formatTopExpandDate"
+            >
+            </el-date-picker>
+              </div>
               <input
                 type="text"
                 :title="vitalSignObj[j].vitalValue"
@@ -124,7 +150,6 @@
                 v-model="vitalSignObj[j].vitalValue"
                 
               />
-              
               <template v-slot:content>
                 <div
                   class="container"
@@ -240,58 +265,6 @@
               />
             </div>
           </div>
-          <div class="row" v-if="multiDictList['病人事件']">
-            <span class="preText">病人事件</span>
-            <el-select
-              size="mini"
-              v-model="vitalSignObj[multiDictList['病人事件']].expand1"
-            >
-              <el-option
-                v-for="(item, topIndex) in topContextList"
-                :key="topIndex"
-                :label="item"
-                :value="item"
-              >
-              </el-option>
-            </el-select>
-            <!-- <el-date-picker
-              size="mini"
-              format="yyyy-MM-dd HH:mm:ss"
-              value-format="yyyy-MM-dd HH:mm:ss"
-              v-model="vitalSignObj[multiDictList['表顶注释']].expand2"
-              type="datetime"
-              placeholder="选择日期时间"
-              style="margin: 3px 0px 0px 55px; width: 170px"
-              @change="formatTopExpandDate"
-            >
-            </el-date-picker> -->
-          </div>
-          <!-- <div class="row" v-if="multiDictList['表底注释']">
-            <span class="preText">表底注释</span>
-            <el-select
-              size="mini"
-              v-model="vitalSignObj[multiDictList['表底注释']].expand1"
-            >
-              <el-option
-                v-for="(item, bottomIndex) in bottomContextList"
-                :key="bottomIndex"
-                :label="item"
-                :value="item"
-              >
-              </el-option>
-            </el-select>
-            <el-date-picker
-              size="mini"
-              format="yyyy-MM-dd HH:mm:ss"
-              value-format="yyyy-MM-dd HH:mm:ss"
-              v-model="vitalSignObj[multiDictList['表底注释']].expand2"
-              type="datetime"
-              placeholder="选择日期时间"
-              style="margin: 3px 0px 0px 55px; width: 170px"
-              @change="formatBtmExpandDate"
-            >
-            </el-date-picker>
-          </div> -->
           <div>
             <el-button
               type="primary"
@@ -397,6 +370,9 @@ export default {
        value:'',
       vitalSignObj: {}, // 单个体征对象
       vitalSignList: [], // 固定项目列表
+      nurseEventsCheck: [
+       
+      ],
       topContextList: [
         "",
         "入院",
@@ -509,8 +485,8 @@ export default {
           nurse: "",
           bedLabel: "",
           expand1: "",
-          // expand2: "",
-          // expand3: "",
+          expand2: "",
+          expand3: "",
           source: "",
           customTitle: false,
           popVisible: false,
@@ -687,6 +663,7 @@ export default {
     async getVitalList() {
       let wardCode = this.patientInfo.wardCode;
       await getmultiDict(wardCode).then((res) => {
+        // console.log('sss',res)
         let data = [];
         let obj = [];
         res.data.data.map((item, index) => {
@@ -779,13 +756,19 @@ export default {
       let obj = Object.values(value);
       obj.map((item) => {
         item.recordDate =
-          moment(new Date(this.query.entryDate)).format("YYYY-MM-DD") +
-          "  " +
-          this.query.entryTime +
-          ":00:00";
+          moment(new Date(this.query.entryDate)).format("YYYY-MM-DD")
+          this.query.entryTime ;
         switch (item.vitalSigns) {
           case "表顶注释":
             item.expand2 = this.topExpandDate;
+            break;
+            case "病人事件":
+              item.expand1=item.vitalValue
+            item.expand2=  moment(new Date(item.expand2)).format("YYYY-MM-DD HH:mm:ss")
+            break;
+            case "过敏药物":
+              item.expand1= this.query.entryTime
+             item.expand2=item.vitalValue+item.selectValue
             break;
           case "表底注释":
             item.expand2 = this.bottomExpandDate;
