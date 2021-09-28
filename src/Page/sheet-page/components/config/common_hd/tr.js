@@ -197,7 +197,7 @@ export default [
     name: "健康宣教",
     change: (e, td) => limitChange(e, td, 16),
     textarea: {
-      width: 107
+      width: 100
     },
     style: {
       textAlign: "left",

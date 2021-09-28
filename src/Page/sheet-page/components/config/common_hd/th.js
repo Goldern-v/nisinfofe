@@ -86,8 +86,8 @@ export default {
         colspan: "1",
         rowspan: "3",
         style: {
-          minWidth: "110px",
-          maxWidth: "110px"
+          minWidth: "103px",
+          maxWidth: "103px"
         },
       },
       {
