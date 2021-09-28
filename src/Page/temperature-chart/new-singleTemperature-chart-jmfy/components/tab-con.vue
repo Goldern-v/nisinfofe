@@ -80,10 +80,14 @@
             <span class="preText">{{ index }}</span>
             <input v-if="index!='大便次数'" type=text v-model="vitalSignObj[j].vitalValue" />
 
-            <select v-if="index==='大便次数'" type=text v-model="vitalSignObj[j].vitalValue" style="width:52.97px;height:19.73px">
+<el-select v-if="index==='大便次数'" v-model="vitalSignObj[j].vitalValue" filterable allow-create default-first-option  size="mini" @focus="inputClicl($event)">
+            <el-option v-for="item in selectValue" :key="item.value" :label="item.label" :value="item.value">
+            </el-option>
+        </el-select>
+            <!-- <select v-if="index==='大便次数'" type=text v-model="vitalSignObj[j].vitalValue" style="width:52.97px;height:19.73px">
             <option v-for="(item,i) in selectValue" :key="i" >{{item}}</option>
-            </select>
-<input v-if="index==='大便次数'" v-model="vitalSignObj[j].vitalValue" style="width:52.97px;height:19.73px" type=text placeholder="大便次数自定义" />
+            </select> -->
+<!-- <input v-if="index==='大便次数'" v-model="vitalSignObj[j].vitalValue" style="width:52.97px;height:19.73px" type=text placeholder="大便次数自定义" /> -->
           </div>
           <div class="fieldList">
             <div style="margin: 10px 0px; font-weight: bold; font-size: 14px">
@@ -115,6 +119,8 @@
             <span class="preText">表顶注释</span>
             <el-select
               size="mini"
+              allow-create
+              filterable
               v-model="vitalSignObj[multiDictList['表顶注释']].expand1"
             >
               <el-option
@@ -125,7 +131,6 @@
               >
               </el-option>
             </el-select>
-            <input placeholder="表顶自定义" type="text" v-if="HOSPITAL_ID==='fuyou' " v-model="vitalSignObj[multiDictList['表顶注释']].expand1" style="width:90px"/>
             <el-date-picker
               size="mini"
               format="yyyy-MM-dd HH:mm:ss"
@@ -223,7 +228,19 @@ export default {
     return {
       mockData,
       recordList,
-      selectValue:['☆','※','0 /E','2 /E','1 0/E','1 1/E','1 2/E','2 0/E','2 1/E','2 2/E','2/2E'],
+      selectValue:[
+        {lable:'☆',value:'☆'},
+        {lable:'※',value:'※'},
+        {lable:'0 /E',value:'0 /E'},
+        {lable:'2 /E',value:'2 /E'},
+        {lable:'1 0/E',value:'1 0/E'},
+        {lable:'1 1/E',value:'1 1/E'},
+        {lable:'1 2/E',value:'1 2/E'},
+        {lable:'2 0/E',value:'2 0/E'},
+        {lable:'2 1/E',value:'2 1/E'},
+        {lable:'2 2/E',value:'2 2/E'},
+        {lable:'2/2E',value:'2/2E'}
+        ],
       bus: bus(this),
       editableTabsValue: "2",
       query: {

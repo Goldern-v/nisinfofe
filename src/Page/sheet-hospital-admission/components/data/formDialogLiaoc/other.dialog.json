@@ -1008,6 +1008,97 @@
     ]
   },
   {
+    "title": "四肢活动情况",
+    "type": "formGroupVerticalBox",
+    "name": "I001479",
+    "showTitle": false,
+    "message": "",
+    "require": "false",
+    "prefixDesc": "",
+    "suffixDesc": "",
+    "keys": "I001479",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 400,
+    "children": [
+      {
+        "name": "I001479",
+        "type": "checkbox",
+        "title": "自如",
+        "value": "自如",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      },
+      {
+        "name": "I001479",
+        "type": "checkbox",
+        "title": "障碍:",
+        "value": "障碍",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      },
+      {
+        "name": "I001480",
+        "type": "input",
+        "label": "(部位",
+        "suffixDesc": ")",
+        "labelWidth": "100px",
+        "value": "",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      },
+      {
+        "name": "I001479",
+        "type": "checkbox",
+        "title": "畸形:",
+        "value": "畸形",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      },
+      {
+        "name": "I001481",
+        "type": "input",
+        "label": "(部位",
+        "suffixDesc": ")",
+        "labelWidth": "100px",
+        "value": "",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      },
+      {
+        "name": "I001479",
+        "type": "checkbox",
+        "title": "其他",
+        "value": "其他",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      },
+      {
+        "name": "I001482",
+        "type": "input",
+        "labelWidth": "80px",
+        "value": "",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
     "title": "用户验证",
     "type": "formGroupVerticalBox",
     "name": "C003007",
@@ -1062,6 +1153,7 @@
       }
     ]
   },
+
   {
     "title": "四肢活动",
     "aliasTitle": "肌力评级",

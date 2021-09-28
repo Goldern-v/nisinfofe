@@ -3500,17 +3500,6 @@
           "readOnly": null
         },
         {
-          "name": "I001829",
-          "type": "datePicker",
-          "title": "纠正预产期",
-          "style": null,
-          "titleStyle": "width:82px!important",
-          "inputStyle": "width:270px!important",
-          "inputWidth": "160px",
-          "class": null,
-          "readOnly": null
-        },
-        {
           "name": "I001832",
           "type": "input",
           "title": "孕期检查",
@@ -3544,7 +3533,6 @@
           "class": null,
           "readOnly": null
         },
-        {},
         {
           "name": "",
           "type": "formGroupHR",
@@ -3676,7 +3664,7 @@
           "rule": [
             {
               "dialog": {
-                "openKey": "正常",
+                "openKey": ["正常","增加","减少"],
                 "cleanKey": [
                   "未数"
                 ],
@@ -4139,9 +4127,55 @@
           "readOnly": null
         },
         {
-          "name": "I100128",
+          "name": "I001478",
           "type": "select",
           "title": "四肢活动",
+          "style": null,
+          "titleStyle": "width:81px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "160px",
+          "class": null,
+          "readOnly": null,
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "活动",
+                "cleanKey": [
+                  "无"
+                ],
+                "title": "四肢活动情况",
+                "parentName": "I001479",
+                "type": "dependent"
+              }
+            }
+          ]
+        },
+        {
+          "name": "I001483",
+          "type": "select",
+          "title": "预防接种史",
+          "style": null,
+          "titleStyle": "width:81px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "160px",
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I001484",
+          "type": "select",
+          "title": "近一周内预防接种",
+          "style": null,
+          "titleStyle": "width:81px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "160px",
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I001485",
+          "type": "select",
+          "title": "家长心理评估",
           "style": null,
           "titleStyle": "width:81px!important",
           "inputStyle": "width:270px!important",

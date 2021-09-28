@@ -254,7 +254,7 @@
               >
               </el-option>
             </el-select>
-            <el-date-picker
+            <!-- <el-date-picker
               size="mini"
               format="yyyy-MM-dd HH:mm:ss"
               value-format="yyyy-MM-dd HH:mm:ss"
@@ -264,7 +264,7 @@
               style="margin: 3px 0px 0px 55px; width: 170px"
               @change="formatTopExpandDate"
             >
-            </el-date-picker>
+            </el-date-picker> -->
           </div>
           <!-- <div class="row" v-if="multiDictList['表底注释']">
             <span class="preText">表底注释</span>
@@ -342,7 +342,7 @@ export default {
 
     Object.keys(initTimeArea).forEach((time) => {
       
-      console.log(time)
+      // console.log(time)
       let [start, end] = initTimeArea[time];
 
       let startSecond = start.split(":")[0] * 60 + start.split(":")[1] * 1;
@@ -458,10 +458,10 @@ export default {
   },
   methods: {
       changeValue(e){
-                    console.log(e)
+                    // console.log(e)
                  },
                  inputClicl(s){
-                   console.log(s)
+                  //  console.log(s)
                  },
 
     init() {
@@ -509,8 +509,8 @@ export default {
           nurse: "",
           bedLabel: "",
           expand1: "",
-          expand2: "",
-          expand3: "",
+          // expand2: "",
+          // expand3: "",
           source: "",
           customTitle: false,
           popVisible: false,
