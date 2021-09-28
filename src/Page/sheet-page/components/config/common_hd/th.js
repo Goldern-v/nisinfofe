@@ -85,6 +85,10 @@ export default {
         `,
         colspan: "1",
         rowspan: "3",
+        style: {
+          minWidth: "110px",
+          maxWidth: "110px"
+        },
       },
       {
         name: `标题1`,
@@ -210,6 +214,10 @@ export default {
         `,
         colspan: "1",
         rowspan: "2",
+        style: {
+          minWidth: "65px",
+          maxWidth: "65px"
+        },
         
       },
       {
@@ -225,6 +233,10 @@ export default {
         `,
         colspan: "1",
         rowspan: "2",
+        style: {
+          minWidth: "65px",
+          maxWidth: "65px"
+        },
       },
       {
         name: `
@@ -239,6 +251,10 @@ export default {
         `,
         colspan: "1",
         rowspan: "2",
+        style: {
+          minWidth: "28px",
+          maxWidth: "28px"
+        },
       }
     ],
     bottom: [
