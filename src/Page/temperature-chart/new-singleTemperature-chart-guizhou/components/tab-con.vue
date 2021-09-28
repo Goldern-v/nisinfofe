@@ -757,7 +757,7 @@ export default {
       let obj = Object.values(value);
       obj.map((item) => {
         item.recordDate =
-          moment(new Date(this.query.entryDate)).format("YYYY-MM-DD")
+          moment(new Date(this.query.entryDate)).format("YYYY-MM-DD")+"  "+
           this.query.entryTime ;
         switch (item.vitalSigns) {
           case "表顶注释":
