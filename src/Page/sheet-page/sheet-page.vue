@@ -252,6 +252,7 @@ import sheetTable_surgical_eval2_lcey from "./components/sheetTable-surgical_eva
 import sheetTable_intervention_cure_lcey from "./components/sheetTable-intervention_cure_lcey/sheetTable";
 import sheetTable_picu_hemodialysis_jm from "./components/sheetTable-picu_hemodialysis_jm/sheetTable";
 import sheetTable_waiting_birth_gzry from "./components/sheetTable-waiting_birth_gzry/sheetTable";
+import sheetTable_newborn_care_gzry from "./components/sheetTable-newborn_care_gzry/sheetTable";
 import sheetTable_catheterplacement_jm from "./components/sheetTable-catheterplacement_jm/sheetTable";
 import sheetTable_picc_custody_jm from "./components/sheetTable-picc_custody_jm/sheetTable";
 import sheetTable_nicu_custody_jm from "./components/sheetTable-nicu_custody_jm/sheetTable";
@@ -401,6 +402,8 @@ export default {
         return sheetTable_picu_hemodialysis_jm;
       } else if (sheetInfo.sheetType == "waiting_birth_gzry") {
         return sheetTable_waiting_birth_gzry;
+      } else if (sheetInfo.sheetType == "newborn_care_gzry") {
+        return sheetTable_newborn_care_gzry;
       } else if (sheetInfo.sheetType == "catheterplacement_jm") {
         return sheetTable_catheterplacement_jm;
       } else if (sheetInfo.sheetType == "picc_custody_jm") {
@@ -946,6 +949,7 @@ export default {
     sheetTable_intervention_cure_lcey,
     sheetTable_picu_hemodialysis_jm,
     sheetTable_waiting_birth_gzry,
+    sheetTable_newborn_care_gzry,
     sheetTable_catheterplacement_jm,
     sheetTable_picc_custody_jm,
     sheetTable_nicu_custody_jm,
