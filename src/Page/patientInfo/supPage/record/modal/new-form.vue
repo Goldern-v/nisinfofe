@@ -268,9 +268,24 @@
     display flex;
     flex-wrap :wrap;
     .title-box{
+      cursor default;
+      padding-left 10px;
+      display flex;
       width 100%;
       height 25px;
       line-height 25px;
+      font-size 12px;
+      text-indent 5px;
+      &::before{
+        content:'';
+        display block;
+        width: 10px;
+        height: 10px;
+        background-color #2180d6;
+        position relative;
+        top:50%;
+        transform :translateY(-50%)
+      }
     }
   }
   .record-box {
@@ -335,7 +350,7 @@ import { formUrl, devFormUrl } from "@/common/pathConfig/index.js";
 import { templatesAll } from "../api/index.js";
 import { getFormConfig } from "../config/form-config.js";
 import qs from "qs";
-// import resText from './res'
+import resText from './res'
 
 const getInitFormType = (HOSPITAL_ID) => {
   switch (HOSPITAL_ID) {
