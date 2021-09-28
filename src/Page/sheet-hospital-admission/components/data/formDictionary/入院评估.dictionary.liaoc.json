@@ -519,11 +519,6 @@
   ],
   "I100067": [
     {
-      "code": "脉搏短绌",
-      "name": "脉搏短绌",
-      "pinyin": "mbdc"
-    },
-    {
       "code": "温暖",
       "name": "温暖",
       "pinyin": "wn"
@@ -781,6 +776,19 @@
       "name": "异常",
       "pinyin": "yc"
     }
+  ],
+  "I102222": [
+    {
+      "code": "活动",
+      "name": "活动",
+      "pinyin": "hd"
+    },
+    {
+      "code": "无",
+      "name": "无",
+      "pinyin": "w"
+    }
+
   ],
   "I001003": [
     {
@@ -2509,6 +2517,11 @@
   ],
   "I001011": [
     {
+      "code": "学前",
+      "name": "学前",
+      "pinyin": "wm"
+    },
+    {
       "code": "文盲",
       "name": "文盲",
       "pinyin": "wm"
@@ -2609,6 +2622,59 @@
       "name": "转诊",
       "pinyin": "zz"
     }
+  ],
+  "I001483": [
+    {
+      "code": "按时按序",
+      "name": "按时按序",
+      "pinyin": "mz"
+    },
+    {
+      "code": "未按时按序",
+      "name": "未按时按序",
+      "pinyin": "jz"
+    },
+    {
+      "code": "无",
+      "name": "无",
+      "pinyin": "zz"
+    }
+  ],
+  "I001484": [
+    {
+      "code": "无",
+      "name": "无",
+      "pinyin": "zz"
+    },
+    {
+      "code": "有",
+      "name": "有",
+      "pinyin": "mz"
+    }
+    
+  ],
+  "I001485": [
+    {
+      "code": "平稳",
+      "name": "平稳",
+      "pinyin": "zz"
+    },
+    {
+      "code": "焦虑",
+      "name": "焦虑",
+      "pinyin": "zz"
+    },
+    {
+      "code": "内疚",
+      "name": "内疚",
+      "pinyin": "zz"
+    },
+    {
+      "code": "其他",
+      "name": "其他",
+      "pinyin": "mz"
+    }
+    
   ],
   "I001009": [
     {
@@ -3428,6 +3494,11 @@
       "code": "其他",
       "name": "其他",
       "pinyin": "qt"
+    },
+    {
+      "code": "无",
+      "name": "无",
+      "pinyin": "w"
     }
   ],
   "I001351": [
@@ -3649,16 +3720,6 @@
       "pinyin": "ybdqjc"
     },
     {
-      "code": "院外定期检查",
-      "name": "院外定期检查",
-      "pinyin": "ywdqjc"
-    },
-    {
-      "code": "院外不定期检查",
-      "name": "院外不定期检查",
-      "pinyin": "ywbdqjc"
-    },
-    {
       "code": "从未检查",
       "name": "从未检查",
       "pinyin": "cw"
@@ -3668,6 +3729,16 @@
     {
       "code": "正常",
       "name": "正常",
+      "pinyin": "w"
+    },
+    {
+      "code": "增加",
+      "name": "增加",
+      "pinyin": "w"
+    },
+    {
+      "code": "减少",
+      "name": "减少",
       "pinyin": "w"
     },
     {

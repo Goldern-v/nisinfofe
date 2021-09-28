@@ -7,7 +7,7 @@
       class="modal-record padding-0"
     >
       <div class="title-bar" flex="cross:center">
-        <span class="type-text">护理文书类型</span>
+        <span class="type-text">护理文书类型1</span>
         <el-select
           v-if="
             HOSPITAL_ID != 'hj' &&
@@ -155,6 +155,7 @@
             <img
               src="../../../../../common/images/record/文件创建.png"
               alt
+              width="38"
               height="35"
             />
             <span class="name" v-if="item.name">{{ item.name }}</span>
