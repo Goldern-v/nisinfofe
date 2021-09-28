@@ -60,15 +60,18 @@ export default [
     key: "fieldOne", //胎位
     value: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 8),
+    change: (e, td) => limitChange(e, td, 10),
     name: "胎位",
     splice: "/",
     autoComplete: {
       data: twList
     },
     textarea: {
-      width: 60
+      width: 68
     },
+    style: {
+      textAlign: "left",
+    }
   },
   {
     key: "fieldTwo", //胎心部位
@@ -83,6 +86,9 @@ export default [
     textarea: {
       width: 70
     },
+    style: {
+      textAlign: "left",
+    }
   },
   {
     key: "fieldThree", //胎心心率
@@ -103,9 +109,9 @@ export default [
     autoComplete: {
       data: ["已", "未"]
     },
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 3),
     textarea: {
-      width: 35
+      width: 25
     },
   },
   {

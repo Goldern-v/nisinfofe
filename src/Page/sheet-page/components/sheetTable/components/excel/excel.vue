@@ -326,8 +326,10 @@
                 },
               isDisabed(tr, td, y) && { cursor: 'not-allowed' }
             ]"
+            @select="mouseSelect1"
             @keydown="
-              td.event($event, td);
+              !selectType && td.event($event, td);
+              selectType && mouseSelect2();
               onKeyDown($event, { x, y, z: index, td });
             "
             @focus="
@@ -527,6 +529,7 @@ export default {
       fiexHeaderWidth: 0,
       isFixed: false,
       multiSign: false,
+      selectType :false,  //时间日期鼠标选中修改控制限制
       //底部签名
       auditArr: [
         "com_lc",
@@ -624,6 +627,13 @@ export default {
     }
   },
   methods: {
+    //时间日期选中事件
+    mouseSelect1(e){
+      this.selectType = true; 
+    },
+    mouseSelect2(e){
+      this.selectType = false; 
+    },
     //花都护记年份
     recordYear(){
       return this.data.bodyModel[0][0].value.split('-')[0]

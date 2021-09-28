@@ -210,6 +210,10 @@ export default {
         `,
         colspan: "1",
         rowspan: "2",
+        style: {
+          minWidth: "65px",
+          maxWidth: "65px"
+        },
       },
       {
         name: `
@@ -224,6 +228,10 @@ export default {
         `,
         colspan: "1",
         rowspan: "2",
+        style: {
+          minWidth: "65px",
+          maxWidth: "65px"
+        },
       },
       {
         name: `
@@ -238,6 +246,10 @@ export default {
         `,
         colspan: "1",
         rowspan: "2",
+        style: {
+          minWidth: "28px",
+          maxWidth: "28px"
+        },
       },
       {
         name: `
