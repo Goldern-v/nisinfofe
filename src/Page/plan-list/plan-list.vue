@@ -28,6 +28,8 @@
           <nullBg v-else text="暂无数据～"></nullBg>
           <slideCon ref="slideCon"></slideCon>
           <!-- <slideConRight ref="slideConRight"></slideConRight> -->
+          <slideContant ref="slideContant"></slideContant>
+          <slideConRightGuizhou ref="slideConRightGuizhou"></slideConRightGuizhou>
         </div>
       </div>
     </div>
@@ -118,7 +120,10 @@ import tool from "@/Page/patientInfo/supPage/diagnosis/components/tool/tool";
 import tableCon from "@/Page/patientInfo/supPage/diagnosis/components/tableCon/tableCon";
 import slideCon from "@/Page/patientInfo/supPage/diagnosis/modal/slide/slideCon";
 // import slideConRight from "@/Page/patientInfo/supPage/diagnosis/modal/slide/slideConRight";
+import slideContant from "@/Page/patientInfo/supPage/diagnosis/modal/slide/slideContant.vue"
+import slideConRightGuizhou from "@/Page/patientInfo/supPage/diagnosis/modal/slide/slideRightGuizhou.vue";
 import { model } from "@/Page/patientInfo/supPage/diagnosis/diagnosisViewModel";
+
 import { getPlanFormListByPV } from "@/Page/patientInfo/supPage/diagnosis/api";
 import common from "@/common/mixin/common.mixin";
 import moment from "moment";
@@ -127,8 +132,15 @@ import bus from "vue-happy-bus";
 export default {
   provide() {
     return {
-      openSlideCon: item => this.$refs.slideCon.open(item),
-      openSlideConRight: item => this.$refs.slideConRight.open(item)
+      openSlideCon: item => {
+        // if(this.HOSPITAL_ID=="guizhou"){
+          this.$refs.slideConRightGuizhou.open(item)
+        // }else{
+        //   this.$refs.slideCon.open(item)
+        // }
+      },
+      // openSlideConRight: item => this.$refs.slideConRight.open(item),
+      openSlideContant: item => this.$refs.slideContant.open(item)
     };
   },
   mixins: [common],
@@ -255,7 +267,9 @@ export default {
     slideCon,
     // slideConRight,
     tableCon,
-    patientList
+    patientList,
+    slideConRightGuizhou,
+    slideContant
   }
 };
 </script>
