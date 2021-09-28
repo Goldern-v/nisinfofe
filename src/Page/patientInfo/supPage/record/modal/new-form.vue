@@ -137,19 +137,18 @@
           icon="search"
           v-model="searchWord"
         ></el-input>
-        <span class="type-text" style="margin-left:20px;" v-show="hasGroupName">护理文书分组</span>
+        <span class="type-text" style="margin-left:20px;">护理文书分组</span>
         <el-select
           v-model="formGroup"
           style="width: 150px"
           placeholder="选择分组"
           class="type-select"
-          v-show="hasGroupName"
         >
           <el-option
-            v-for="(item,index) in titleData"
+            v-for="(item,index) in titleOption"
             :key="index"
-            :label="index"
-            :value="index"
+            :label="item"
+            :value="item"
           ></el-option>
         </el-select>
       </div>
@@ -162,9 +161,9 @@
           class="group-list"
           v-for="(item,index) of titleData"
           :key="index"
-          v-show="formGroup?formGroup==index:true"
+          v-show="formGroup==index||formGroup=='全部'"
         >
-          <div class="title-box" v-show="item&&hasGroupName">{{index}}</div>
+          <div class="title-box" v-show="item">{{index}}</div>
           <div
           @click="openUrl(e)"
           @dblclick="create(e)" 
@@ -487,7 +486,7 @@ export default {
       pageItem: "",
       formTypeReadOnly: false,
       filterObj: null,
-      formGroup:'',
+      formGroup:'全部',
     };
   },
   methods: {
@@ -727,9 +726,10 @@ export default {
       }
       return obj
     },
-    hasGroupName(){
-      let flag = Object.keys(this.titleData)[0]=='undefined'
-      return !flag
+    titleOption(){
+      let titleArr = Object.keys(this.titleData)
+      titleArr.unshift('全部')
+      return titleArr
     }
   },
   watch: {
