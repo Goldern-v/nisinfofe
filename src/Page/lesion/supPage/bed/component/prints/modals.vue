@@ -163,14 +163,12 @@
             <div>
               <span>入院日期：{{ item.admissionDate | ymdhm }}</span>
             </div>
-            <div class="allergy">
-              <p :class="[item.allergy1||item.drugGms||item.allergy2?'gm':'']">
+            <div class="allergy" :class="[item.allergy1||item.drugGms||item.allergy2?'gm':'']">
                 过敏信息：
                 <span v-if="item.allergy1">{{ item.allergy1 }};</span>
                 <span v-if="item.drugGms">{{ item.drugGms }};</span>
                 <span v-if="item.allergy2">{{ item.allergy2 }}</span>
                 <span v-if="!(item.allergy1||item.drugGms||item.allergy2)">无</span>
-              </p>
             </div>
             <!-- <svg id="barcode"></svg> -->
           </div>
@@ -309,9 +307,9 @@
 
       >>>.allergy{
         width :80%;
-        p{
-          font-size: 20px;
-        }
+        font-size: 20px;
+        height 25px;
+        overflow hidden
         span{
           margin-left:0px;
           font-size:20px !important;
