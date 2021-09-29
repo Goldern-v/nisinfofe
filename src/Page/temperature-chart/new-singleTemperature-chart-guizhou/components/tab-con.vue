@@ -771,7 +771,7 @@ export default {
             break;
             case "过敏药物":
               item.expand1= this.query.entryTime
-             item.expand2=item.vitalValue+item.selectValue
+             item.expand2=item.vitalValue+"  "+item.selectValue
             break;
           case "表底注释":
             item.expand2 = this.bottomExpandDate;
