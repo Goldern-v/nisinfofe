@@ -1,7 +1,7 @@
 <template>
   <div class="right-con">
     <div class="row-top">
-      <!-- <div class="column-left">
+      <div class="column-left">
         <el-button size="mini" @click="syncInAndOutHospital((type = '0'))">
           同步入院
         </el-button>
@@ -12,7 +12,7 @@
         >
           同步出院
         </el-button>
-      </div> -->
+      </div>
       <div class="column-right">
         <span style="padding-left: 5px">日期：</span>
         <ElDatePicker
@@ -97,7 +97,7 @@
               :manual="true"
               :value="vitalSignObj[j].popVisible"
              >
-             <div v-if="index==='过敏药物'" style="display:inline-block;width:160px">
+             <div v-if="index==='过敏药物'" style="display:inline-block;width:170px">
              <el-input
              size="mini"
                 :title="vitalSignObj[j].vitalValue"
@@ -765,7 +765,9 @@ export default {
             break;
             case "病人事件":
               item.expand1=item.vitalValue
-            item.expand2=  moment(new Date(item.expand2)).format("YYYY-MM-DD HH:mm:ss")
+              item.expand2==='Invalid date'?
+                item.expand2='':
+            item.expand2 = this.topExpandDate;
             break;
             case "过敏药物":
               item.expand1= this.query.entryTime
