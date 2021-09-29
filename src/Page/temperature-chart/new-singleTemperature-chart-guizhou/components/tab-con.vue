@@ -1,7 +1,7 @@
 <template>
   <div class="right-con">
     <div class="row-top">
-      <div class="column-left">
+      <!-- <div class="column-left">
         <el-button size="mini" @click="syncInAndOutHospital((type = '0'))">
           同步入院
         </el-button>
@@ -12,7 +12,7 @@
         >
           同步出院
         </el-button>
-      </div>
+      </div> -->
       <div class="column-right">
         <span style="padding-left: 5px">日期：</span>
         <ElDatePicker
@@ -770,8 +770,8 @@ export default {
             item.expand2 = this.topExpandDate;
             break;
             case "过敏药物":
-              item.expand1= this.query.entryTime
-             item.expand2=item.vitalValue+"  "+item.selectValue
+              item.expand1= item.vitalValue
+             item.expand2=item.selectValue
             break;
           case "表底注释":
             item.expand2 = this.bottomExpandDate;
