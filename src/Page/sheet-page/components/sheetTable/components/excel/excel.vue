@@ -125,7 +125,10 @@
               `stat-bottom-line`
           ]"
           @contextmenu.stop="openContextMenu($event, y, tr, td)"
-          @click="selectedItem(td)"
+          @click="
+            selectedItem(td)
+            td.key == 'description' && HOSPITAL_ID === 'guizhou' && !isRead(tr) && openEditModal(tr, data, $event)
+            "
         >
           <!-- for 年份 -->
           <input
@@ -139,12 +142,6 @@
                 tr.find(item => item.key == 'yearBreak').value
             "
           />
-          <!-- 贵州特殊情况单击出弹窗 -->
-          <textarea
-            v-if="td.key === 'description' && HOSPITAL_ID == 'guizhou'"
-            @click="openEditModal(tr, data, $event)"
-          />
-          
           <div
             v-if="td.key == 'sign'"
             class="sign-text"
@@ -271,10 +268,22 @@
             "
             @keydown="
               td.event($event, td);
-              onKeyDown($event, { x, y, z: index, td });
-            "
+              onKeyDown($event, { x, y, z: index, td });"
             :maxlength="td.textarea.maxLength || 1000"
-            @input="td.change && td.change($event, td)"
+            @input="td.change && td.change($event, td);
+              td.autoComplete && getOptionsData(td,tr,$event)
+              remoteMethod($event.currentTarget.value);
+              td.autoComplete &&
+                onFocus($event, {
+                  autoComplete: {data:accessOptionData[td.name]},
+                  x,
+                  y,
+                  z: index,
+                  td,
+                  tr,
+                  splice: td.splice,
+                });
+            "
             @focus="
               td.autoComplete &&
                 onFocus($event, {
@@ -287,7 +296,7 @@
                   splice: td.splice
                 })
             "
-            @blur="onBlur($event, { x, y, z: index })"
+            @blur="!(td.splice&&HOSPITAL_ID === 'huadu') && onBlur($event, { x, y, z: index })"
           ></textarea>
           <!-- 护理记录单特殊情况特殊记录单独处理 -->
           <div
@@ -317,8 +326,10 @@
                 },
               isDisabed(tr, td, y) && { cursor: 'not-allowed' }
             ]"
+            @select="mouseSelect1"
             @keydown="
-              td.event($event, td);
+              !selectType && td.event($event, td);
+              selectType && mouseSelect2();
               onKeyDown($event, { x, y, z: index, td });
             "
             @focus="
@@ -518,6 +529,7 @@ export default {
       fiexHeaderWidth: 0,
       isFixed: false,
       multiSign: false,
+      selectType :false,  //时间日期鼠标选中修改控制限制
       //底部签名
       auditArr: [
         "com_lc",
@@ -615,13 +627,19 @@ export default {
     }
   },
   methods: {
+    //时间日期选中事件
+    mouseSelect1(e){
+      this.selectType = true; 
+    },
+    mouseSelect2(e){
+      this.selectType = false; 
+    },
     //花都护记年份
     recordYear(){
       return this.data.bodyModel[0][0].value.split('-')[0]
     },
     show(td){
       console.log(td);
-      
     },
     /* 花都个别护记的出入量统计：增加红线与上一行做区分 */
     getBorderClass(index) {
@@ -1031,6 +1049,20 @@ export default {
         return "";
       }
     },
+    isFirst(tr,y){
+      let recordDate = tr.find(item=>item.key=='recordDate').value
+      let recordSource = tr.find(item=>item.key=='recordSource').value
+      let flag = false
+      if(recordDate&&recordSource){
+        let dateIndex = this.data.bodyModel[0].findIndex(e=>e.key=='recordDate')
+        let sourceIndex = this.data.bodyModel[0].findIndex(e=>e.key=='recordSource')
+        let index = this.data.bodyModel.findIndex(item=>{
+          return item[dateIndex].value==recordDate&&item[sourceIndex].value==recordSource
+        })
+        flag = index == y
+      }
+      return flag
+    },
     // 除第一行以外到结束行之内其他单元格不能录入内容（威县），出入量统计行除外
     isDisabed(tr, td, index) {
       // canModify false可以修改，true禁止修改
@@ -1052,7 +1084,10 @@ export default {
         this.HOSPITAL_ID == "huadu" &&
         tr.find(item => item.key == "status").value === "1"
       ) {
-        return tr.find(item => item.key == "status").value === "1" && this.listData && this.listData[index] && !this.listData[index].canModify;
+        let flag = tr.find(item => item.key == "status").value === "1" && // 是否已签名
+                   this.listData && this.listData[index] && !this.listData[index].canModify// 是否有权限
+        flag = (!this.isFirst(tr,index)&&(td.key==='recordMonth'||td.key==='recordHour')); // 已签名的recordMonth和recordHour单元格，并且不是第一行(最高等级)
+        return flag
       }
       if (
         this.HOSPITAL_ID != "weixian" ||
@@ -1088,7 +1123,7 @@ export default {
     checkMaxLength(value, length) {
       const regC = /[^ -~]+/g;
       const regE = /\D+/g;
-      console.log("textarea", value, length);
+      // console.log("textarea", value, length);
     },
     isOverText(td) {
       try {
@@ -1624,7 +1659,7 @@ export default {
   mounted() {
     this.fiexHeaderWidth =
       this.$refs.table && this.$refs.table.offsetWidth + "px";
-    console.log("mounted");
+    // console.log("mounted");
   },
   created() {
     if (

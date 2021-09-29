@@ -22,7 +22,7 @@
     left:-0%;
     .selectbox{
         width: 300px;
-        height: 400px;
+        height: 300px;
         background-color: #fff;
         position: absolute;
         border: 1px solid #ddd;
@@ -30,10 +30,11 @@
         overflow: auto;
         .optionbox{
             border-bottom: 1px solid #ddd;
-            height: 50px;
-            line-height: 50px;
+            height: 25px;
+            line-height: 25px;
             text-indent: 10px;
             cursor: pointer;
+            font-size: 12px;
         &:hover{
             background-color: #50c595;
             color: #fff;
@@ -91,7 +92,7 @@ return {
         '温水擦浴',
         '指导患者出院前打胰岛素', 
     ],
-    frequencyOptions:['qd','tid','bid','q4h','q6h','qw','biw','q12h','q3d','q8h']
+    frequencyOptions:['qd','bid','tid','q4h','q6h','q8h','q12h','q3d','qm','bim']
 };
 },
 methods:{

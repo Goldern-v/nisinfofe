@@ -8,7 +8,7 @@ export default {
   // 科室的名称 关节骨科
   deptType: "",
   style: {
-    width: "1180px"
+    width: "1190px"
   },
   th: {
     top: [{
@@ -108,6 +108,10 @@ export default {
         rowspan: "3",
         canSet: true,
         key: "fieldFive",
+        style: {
+          minWidth: "103px",
+          maxWidth: "103px"
+        },
       },
       {
         name: `标题1`,
@@ -228,7 +232,11 @@ export default {
       {
         name: "内容",
         colspan: "1",
-        rowspan: "2"
+        rowspan: "2",
+        style: {
+          minWidth: "65px",
+          maxWidth: "65px"
+        },
       },
       {
         name: "量<br/>ml",
@@ -238,7 +246,11 @@ export default {
       {
         name: "内容",
         colspan: "1",
-        rowspan: "2"
+        rowspan: "2",
+        style: {
+          minWidth: "65px",
+          maxWidth: "65px"
+        },
       },
       {
         name: "量<br/>ml",
@@ -248,7 +260,11 @@ export default {
       {
         name: "颜色",
         colspan: "1",
-        rowspan: "2"
+        rowspan: "2",
+        style: {
+          minWidth: "28px",
+          maxWidth: "28px"
+        },
       },
     ],
     bottom: [

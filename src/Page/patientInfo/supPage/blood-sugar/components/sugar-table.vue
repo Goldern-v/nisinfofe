@@ -114,6 +114,7 @@
               :alt="item.nurse"
               v-if="item.nurseEmpNo"
             />
+            <!-- <div>{{item.nurseEmpNo}}</div> -->
           </div>
         </td>
         <td v-else>

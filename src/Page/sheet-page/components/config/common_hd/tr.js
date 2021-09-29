@@ -127,10 +127,13 @@ export default [
     name: "入量名称",
     change: (e, td) => limitChange(e, td, 10),
     textarea: {
-      width: 65,
+      width: 62,
     },
     autoComplete: {
       data: 入量名称
+    },
+    style: {
+      textAlign: "left",
     }
   },
   {
@@ -151,10 +154,13 @@ export default [
     name: "出量名称",
     change: (e, td) => limitChange(e, td, 10),
     textarea: {
-      width: 65,
+      width: 62,
     },
     autoComplete: {
       data: 出量名称
+    },
+    style: {
+      textAlign: "left",
     }
   },
   {
@@ -179,6 +185,9 @@ export default [
     },
     autoComplete: {
       data: 出量颜色
+    },
+    style: {
+      textAlign: "left",
     }
   },
   {
@@ -188,35 +197,47 @@ export default [
     name: "健康宣教",
     change: (e, td) => limitChange(e, td, 16),
     textarea: {
-      width: 110
+      width: 100
     },
+    style: {
+      textAlign: "left",
+    }
   },
   {
     key: "fieldOne", //标题1
     value: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 6),
     textarea: {
-      width: 30
+      width: 37
     },
+    style: {
+      textAlign: "left",
+    }
   },
   {
     key: "fieldTwo", //标题2
     value: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 6),
     textarea: {
-      width: 30
+      width: 37
     },
+    style: {
+      textAlign: "left",
+    }
   },
   {
     key: "fieldThree", //标题3
     value: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 6),
     textarea: {
-      width: 30
+      width: 37
     },
+    style: {
+      textAlign: "left",
+    }
   },
   {
     key: "fieldFour", //标题4
@@ -224,8 +245,11 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 6),
     textarea: {
-      width: 40
+      width: 37
     },
+    style: {
+      textAlign: "left",
+    }
   },
   {
     key: "fieldFive", //标题5
@@ -233,8 +257,11 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 6),
     textarea: {
-      width: 40
+      width: 37
     },
+    style: {
+      textAlign: "left",
+    }
   },
   {
     key: "fieldSix", //标题6
@@ -242,8 +269,11 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 6),
     textarea: {
-      width: 40
+      width: 37
     },
+    style: {
+      textAlign: "left",
+    }
   }, 
   {
     key: "description", //特殊情况记录

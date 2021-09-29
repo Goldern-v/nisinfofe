@@ -43,12 +43,15 @@ export default [
     key: "nursingOperationItem", //护理操作项目
     value: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 24),
+    change: (e, td) => limitChange(e, td, 60),
     name: "护理操作项目",
     textarea: {
-      width: 150
+      width: 180
     },
     splice: true,
+    style: {
+      textAlign: "left",
+    },
     autoComplete: {
       data: 护理操作项目
     },
@@ -58,9 +61,12 @@ export default [
     value: "",
     event: keyf1,
     name: "护理操作结果",
-    change: (e, td) => limitChange(e, td, 12),
+    change: (e, td) => limitChange(e, td, 28),
     textarea: {
-      width: 75
+      width: 95
+    },
+    style: {
+      textAlign: "left",
     },
     splice: true,
     autoComplete: {
@@ -72,9 +78,12 @@ export default [
     value: "",
     event: keyf1,
     name: "护理问题",
-    change: (e, td) => limitChange(e, td, 24),
+    change: (e, td) => limitChange(e, td, 48),
     textarea: {
       width: 150
+    },
+    style: {
+      textAlign: "left",
     },
     splice: true,
     autoComplete: {
@@ -85,10 +94,13 @@ export default [
     key: "nursingType", //护理类型
     value: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 12),
+    change: (e, td) => limitChange(e, td, 24),
     name: "护理类型",
     textarea: {
       width: 75
+    },
+    style: {
+      textAlign: "left",
     },
     splice: true,
     autoComplete: {
@@ -99,10 +111,13 @@ export default [
     key: "safeCare", //安全护理
     value: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 12),
+    change: (e, td) => limitChange(e, td, 24),
     name: "安全护理",
     textarea: {
       width: 75
+    },
+    style: {
+      textAlign: "left",
     },
     splice: true,
     autoComplete: {
@@ -113,10 +128,13 @@ export default [
     key: "catheterCare", //导管护理
     value: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 18),
+    change: (e, td) => limitChange(e, td, 32),
     name: "导管护理",
     textarea: {
       width: 105
+    },
+    style: {
+      textAlign: "left",
     },
     splice: true,
     autoComplete: {
@@ -140,10 +158,13 @@ export default [
     key: "trachealCare", //气管护理
     value: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 12),
+    change: (e, td) => limitChange(e, td, 24),
     name: "气管护理",
     textarea: {
       width: 75
+    },
+    style: {
+      textAlign: "left",
     },
     splice: true,
     autoComplete: {
@@ -180,10 +201,13 @@ export default [
     key: "psychologyCare", //心理护理
     value: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 12),
+    change: (e, td) => limitChange(e, td, 24),
     name: "心理护理",
     textarea: {
       width: 75
+    },
+    style: {
+      textAlign: "left",
     },
     splice: true,
     autoComplete: {
@@ -194,10 +218,13 @@ export default [
     key: "diet", //饮食情况
     value: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 12),
+    change: (e, td) => limitChange(e, td, 24),
     name: "饮食情况",
     textarea: {
       width: 75
+    },
+    style: {
+      textAlign: "left",
     },
     splice: true,
     autoComplete: {

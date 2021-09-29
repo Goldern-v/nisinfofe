@@ -21,13 +21,21 @@ export default {
         name: "护理操作项目",
         
         colspan: "1",
-        rowspan: "2"
+        rowspan: "2",
+        style: {
+          minWidth: "183px",
+          maxWidth: "183px"
+        },
       },
       {
         name: "护理操作结果",
         
         colspan: "1",
-        rowspan: "2"
+        rowspan: "2",
+        style: {
+          minWidth: "98px",
+          maxWidth: "98px"
+        },
       },
       {
         name: `
@@ -35,6 +43,10 @@ export default {
         `,
         colspan: "1",
         rowspan: "2",
+        style: {
+          minWidth: "153px",
+          maxWidth: "153px"
+        },
       },
       {
         name: `
@@ -42,6 +54,10 @@ export default {
         `,
         colspan: "1",
         rowspan: "2",
+        style: {
+          minWidth: "78px",
+          maxWidth: "78px"
+        },
       },
       {
         name: `
@@ -49,17 +65,25 @@ export default {
         `,
         colspan: "1",
         rowspan: "2",
+        style: {
+          minWidth: "78px",
+          maxWidth: "78px"
+        },
       },
       {
         name: `
         导管护理
         `,
         colspan: "1",
-        rowspan: "2"
+        rowspan: "2",
+        style: {
+          minWidth: "108px",
+          maxWidth: "108px"
+        },
       },
       {
         name: `
-        皮肤护理
+        皮肤<br/>护理
         `,
         colspan: "1",
         rowspan: "2"
@@ -69,18 +93,22 @@ export default {
         气管护理
         `,
         colspan: "1",
-        rowspan: "2"
+        rowspan: "2",
+        style: {
+          minWidth: "78px",
+          maxWidth: "78px"
+        },
       },
       {
         name: `
-        体位护理
+        体位<br/>护理
         `,
         colspan: "1",
         rowspan: "2"
       },
       {
         name: `
-        营养护理
+        营养<br/>护理
         `,
         colspan: "1",
         rowspan: "2"
@@ -91,6 +119,10 @@ export default {
         `,
         colspan: "1",
         rowspan: "2",
+        style: {
+          minWidth: "78px",
+          maxWidth: "78px"
+        },
       },
       {
         name: `饮食情况`,
@@ -98,7 +130,7 @@ export default {
         rowspan: "2",
       },
       {
-        name: `排尿困难`,
+        name: `排尿<br/>困难`,
         colspan: "1",
         rowspan: "2",
       },

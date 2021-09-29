@@ -5,15 +5,17 @@
       ref="richEditorModal" 
       :title="title" 
       :modal-width="600"
+      @close="close"
     >
       <quillEditor 
         style="min-height:600px" 
         v-model="content" 
         ref="myQuillEditor" 
         :options="editorOption"
+        @change="onEditChange($event)"
       />
       <div slot="button">
-        <el-button class="modal-btn" @click="$refs.richEditorModal.close()">关闭</el-button>
+        <el-button class="modal-btn" @click="close">关闭</el-button>
         <el-button type="primary" class="modal-btn" @click="confirmEdit">确定</el-button>
       </div>
     </sweet-modal>
@@ -35,6 +37,10 @@
         type: String,
         default: ""
       },
+      storageContent: {
+        type: String,
+        default: ""
+      },
       title: {
         type: String,
         default: ""
@@ -45,7 +51,25 @@
       return {
         editorOption: {
           placeholder: "请编辑内容",
-        }
+          modules: {
+            toolbar: [
+              ['bold', 'italic', 'underline', 'strike'],
+              ['blockquote', 'code-block'],
+              [{ 'header': 1 }, { 'header': 2 }],
+              [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+              [{ 'script': 'sub' }, { 'script': 'super' }],
+              [{ 'indent': '-1' }, { 'indent': '+1' }],
+              [{ 'direction': 'rtl' }],
+              [{ 'size': ['small', false, 'large', 'huge'] }],
+              [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+              [{ 'color': [] }, { 'background': [] }],
+              [{ 'font': [] }],
+              [{ 'align': [] }],
+              ['clean'],
+              // ['link', 'image', 'video', false]
+            ]
+          }
+        },
       }
     },
     methods: {
@@ -54,11 +78,22 @@
         this.$refs.richEditorModal.open();
       },
       close() {
+        console.log('storageContent', this.storageContent);
+        this.content = this.storageContent;
         this.$refs.richEditorModal.close();
       },
       confirmEdit() {
         console.log('saveContent.....');
         this.$emit('confirmEdit', this.content);
+      },
+      onEditChange(event) {
+        let maxLength = event.quill.getLength() - 1;
+        if (maxLength >= 4000) {
+          // setTimeout(() => {
+          //   this.$message.warning(`超过最大限制字数${maxLength}`);
+          // }, 1000)
+          event.quill.deleteText(4000, 1);
+        }
       }
     }
   }

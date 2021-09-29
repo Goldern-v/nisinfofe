@@ -248,7 +248,7 @@ export default {
         this.model.blockList.find(
           item => item.id === this.model.selectedBlockId
         ) || {};
-      this.model.refreshTable();
+      this.model.refreshTable&&this.model.refreshTable();
     },
     onPrint() {
       this.bus.$emit("printDiagnosis");

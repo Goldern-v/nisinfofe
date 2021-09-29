@@ -583,6 +583,11 @@ function switechSheetType(type) {
       schema = require("../config/waiting_birth_gzry/tr.js").default;
     }
       break;
+    case "newborn_care_gzry": {
+      // 贵州人医-新生儿患者护理记录单
+      schema = require("../config/newborn_care_gzry/tr.js").default;
+    }
+      break;
     case "common_hl": {
       // 横沥-护理记录单
       schema = require("../config/common_hl/tr.js").default;
