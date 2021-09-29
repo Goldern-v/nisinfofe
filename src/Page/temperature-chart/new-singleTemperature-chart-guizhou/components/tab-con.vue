@@ -97,7 +97,7 @@
               :manual="true"
               :value="vitalSignObj[j].popVisible"
              >
-             <div v-if="index==='过敏药物'" style="display:inline-block;width:160px">
+             <div v-if="index==='过敏药物'" style="display:inline-block;width:170px">
              <el-input
              size="mini"
                 :title="vitalSignObj[j].vitalValue"
@@ -765,11 +765,13 @@ export default {
             break;
             case "病人事件":
               item.expand1=item.vitalValue
-            item.expand2=  moment(new Date(item.expand2)).format("YYYY-MM-DD HH:mm:ss")
+              item.expand2==='Invalid date'?
+                item.expand2='':
+            item.expand2 = this.topExpandDate;
             break;
             case "过敏药物":
-              item.expand1= this.query.entryTime
-             item.expand2=item.vitalValue+item.selectValue
+              item.expand1= item.vitalValue
+             item.expand2=item.selectValue
             break;
           case "表底注释":
             item.expand2 = this.bottomExpandDate;
