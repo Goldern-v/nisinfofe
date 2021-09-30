@@ -149,7 +149,7 @@
             </router-link>
             <router-link to="/MEWS" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
-                <i class="iconfont icon-news"></i> MEWS
+                <i class="iconfont icon-news"></i> NEWS
               </el-row>
             </router-link>
             <!-- <router-link to="/shiftWork" tag="span">

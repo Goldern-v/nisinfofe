@@ -66,7 +66,7 @@ import Table from './components/table' // 表单
 import EditModal from "./components/editModal"; // 添加修改弹窗
 import { getMissionPageParamById, getAllByPatientInfo, saveEducation, deleteMission, pushMission, getEduFormList, deleteBlock } from './api/healthApi'
 import dayjs from 'dayjs'
-import print from "printing";
+import printing from "printing";
 import { setTimeout } from 'timers';
 import { homedir } from 'os';
 import formatter from "./right-print-formatter";
@@ -314,19 +314,36 @@ export default {
     },
     // 打印
     toPrint() {
-      this.$refs.tableParams[0].print()
-      if (this.pageParam.length > 30) {
-        this.setPageData()
-      }
-      setTimeout(() => {
-        window.localStorage.healthPrintPage = $(this.$refs.HealthEducation).html();
-        if (process.env.NODE_ENV === "production") {
-          let newWid = window.open();
-          newWid.location.href = "/crNursing/print/health";
-        } else {
-          this.$router.push(`/print/health`);
+      printing(this.$refs.HealthEducation,{
+        direction: "vertical",
+        injectGlobalCss: true,
+        scanStyles: false,
+        css:`
+        @page{
+          margin:0mm;
+
         }
-      }, 500)
+        .healthEducation.health-page{
+          padding:50px;
+        }
+        .health-education{
+          left:20px;
+        }
+        `
+      })
+      // this.$refs.tableParams[0].print()
+      // if (this.pageParam.length > 30) {
+      //   this.setPageData()
+      // }
+      // setTimeout(() => {
+        // window.localStorage.healthPrintPage = $(this.$refs.HealthEducation).html();
+        // if (process.env.NODE_ENV === "production") {
+          // let newWid = window.open();
+        //   newWid.location.href = "/crNursing/print/health";
+        // } else {
+          // this.$router.push(`/print/health`);
+      //   }
+      // }, 500)
     }
   }
 }
