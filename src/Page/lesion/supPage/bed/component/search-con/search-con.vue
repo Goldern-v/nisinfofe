@@ -314,12 +314,15 @@ export default {
       return this.$store.state.lesion.deptCode;
     },
     // 全部床位
-    allBed() {
+    allBedLength() {
       if (this.HOSPITAL_ID === 'hengli' && this.$store.state.lesion.deptCode === '103') {
         return this.bedList.filter((item) => item.name.indexOf("B") === -1);
       } else {
         return this.bedList;
       }
+    },
+    allBed() {
+      return this.bedList;
     },
     nullBed() {
       return this.bedList.filter((item) => !item.patientId);
@@ -462,7 +465,7 @@ export default {
       let list = [
         {
           name: "全部床位",
-          num: this.allBed.length,
+          num: this.allBedLength.length,
           type: "bed",
         },
         {
@@ -707,8 +710,7 @@ export default {
         case "":
         case "全部床位":
           {
-            // this.$parent.bedList = this.allBed;
-            this.$parent.bedList = this.bedList
+            this.$parent.bedList = this.allBed;
           }
           break;
         case "空床":
