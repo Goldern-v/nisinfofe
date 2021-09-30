@@ -100,11 +100,10 @@ export default [{
       textAlign: "left",
     },
     autoComplete: {
-      data: dischargeWayData
+      data: dischargePropData
     },
     type: "select",
     editable: true,
-    parentKey: "dischargeProp"
   },
   // {
   //   key: "dischargeWay", //出量方式
@@ -137,10 +136,11 @@ export default [{
       textAlign: "left",
     },
     autoComplete: {
-      data: dischargePropData
+      data: dischargeWayData
     },
     type: "select",
     editable: true,
+    parentKey: "discharge"
   },
   {
     key: "dischargeSize", //量（单位ml）
