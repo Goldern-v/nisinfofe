@@ -103,7 +103,8 @@ export default [{
       data: dischargeWayData
     },
     type: "select",
-    editable: true
+    editable: true,
+    parentKey: "dischargeProp"
   },
   // {
   //   key: "dischargeWay", //出量方式
@@ -140,7 +141,6 @@ export default [{
     },
     type: "select",
     editable: true,
-    parentKey: "dischargeWay"
   },
   {
     key: "dischargeSize", //量（单位ml）
