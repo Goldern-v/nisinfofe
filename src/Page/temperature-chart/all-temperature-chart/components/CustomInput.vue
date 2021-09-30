@@ -21,6 +21,7 @@
   box-sizing: border-box;
   outline: none;
   transition: border-color 0.3s;
+  font-size: 14px;
   &:focus {
     border-color: #4bb08d;
     background-color: #9adcc5;

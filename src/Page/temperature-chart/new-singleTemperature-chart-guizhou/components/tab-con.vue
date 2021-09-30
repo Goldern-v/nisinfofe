@@ -83,7 +83,7 @@
             v-for="(j, index) in multiDictList"
             :key="index"
           >
-            <span class="preText">{{ index }}</span>
+            <span :class="index==='过敏药物'?'allergyPreText':index==='病人事件'?'hisEventPreText':'preText'">{{ index }}</span>
             <el-tooltip
               placement="top"
               popper-class="custom-temp-dict-select"
@@ -97,51 +97,52 @@
               :manual="true"
               :value="vitalSignObj[j].popVisible"
              >
-             <div v-if="index==='过敏药物'" style="display:inline-block;width:170px">
-             <el-input
-             size="mini"
-                :title="vitalSignObj[j].vitalValue"
-                @input="handlePopRefresh(vitalSignObj[j])"
-                @focus="() => (vitalSignObj[j].popVisible = true)"
-                @blur="() => (vitalSignObj[j].popVisible = false)"
-                v-model="vitalSignObj[j].vitalValue"
-                
-              >
-              
-              <el-select slot="append"  v-model="vitalSignObj[j].selectValue" filterable allow-create default-first-option  size="mini"
-            placeholder="结果" @change="changeValue($event)" style="width:78px" >
-            <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
-            </el-option>
-              </el-select>
-              
-              
-              </el-input>
-              
+             <div v-if="index==='过敏药物'" class="allergyDiv">
+               <div style="display:inline-block;">
+                 <el-input
+                  size="mini"
+                  :title="vitalSignObj[j].vitalValue"
+                  @input="handlePopRefresh(vitalSignObj[j])"
+                  @focus="() => (vitalSignObj[j].popVisible = true)"
+                  @blur="() => (vitalSignObj[j].popVisible = false)"
+                  v-model="vitalSignObj[j].vitalValue">
+                  <!-- <el-select slot="append"  v-model="vitalSignObj[j].selectValue" filterable allow-create default-first-option  size="mini"
+                  placeholder="结果" @change="changeValue($event)" style="width:78px" >
+                  <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+                  </el-option>
+                  </el-select> -->
+                 </el-input>
+             </div>
+             <el-select slot="append"  v-model="vitalSignObj[j].selectValue" filterable allow-create default-first-option  size="mini"
+                 placeholder="结果" @change="changeValue($event)" style="width:78px" >
+                <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+                </el-option>
+             </el-select>
               </div>
-              <div v-if="index==='病人事件'" >
-              <el-select
-              size="mini"
-              style="display:block"
-              v-model="vitalSignObj[j].vitalValue"
-              >
-              <el-option
-                v-for="(item, topIndex) in topContextList"
-                :key="topIndex"
-                :label="item"
-                :value="item"
-              >
-              </el-option>
-            </el-select>
-            <el-date-picker
-              size="mini"
-              format="yyyy-MM-dd HH:mm:ss"
-              value-format="yyyy-MM-dd HH:mm:ss"
-              v-model="vitalSignObj[j].expand2"
-              type="datetime"
-              placeholder="选择日期时间"
-              @change="formatTopExpandDate"
-            >
-            </el-date-picker>
+              <div v-if="index==='病人事件'" class="allergyDiv">
+                <div style="display:inline-block;">
+                  <el-select
+                    size="mini"
+                    style="display:block"
+                    v-model="vitalSignObj[j].vitalValue">
+                    <el-option
+                      v-for="(item, topIndex) in topContextList"
+                      :key="topIndex"
+                      :label="item"
+                      :value="item">
+                    </el-option>
+                  </el-select>
+                </div>
+                <el-date-picker
+                class="datePickerHisEvent"
+                 size="mini"
+                 format="yyyy-MM-dd HH:mm:ss"
+                 value-format="yyyy-MM-dd HH:mm:ss"
+                 v-model="vitalSignObj[j].expand2"
+                 type="datetime"
+                 placeholder="选择日期时间"
+                 @change="formatTopExpandDate">
+                </el-date-picker>
               </div>
               <input v-if="index!=='病人事件'"
                 type="text"
@@ -858,6 +859,27 @@ export default {
     .preText {
       display: inline-block;
       width: 70px;
+    }
+    .allergyPreText,.hisEventPreText{
+      display: inline-block;
+      width: 70px;
+      position: relative;
+      top: -20px;
+    }
+    .datePickerHisEvent{
+      left: -75px;
+      position: relative;
+    }
+    .allergyDiv{
+        display: inline-block;
+        width: 68px;
+        >>>.el-input__inner{
+        height: 20px !important;
+        outline: none;
+        padding: 0;
+        padding: 1px 2px;
+        border:1px solid rgb(118, 118, 118);
+      }
     }
 
     input {
