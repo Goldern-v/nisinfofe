@@ -61,11 +61,13 @@
       </span> -->
     </div>
     <div class="info-con" flex="main:justify">
-      <span v-if="
+      <!-- <span v-if="
               sheetInfo.sheetType === 'vitalsigns_gzry'"
               @click="updateDiagnosis('diagnosis', '诊断', patientInfo.diagnosis)"
+      > -->
+      <span style="position: relative;" @click="updateDiagnosis('diagnosis', '诊断', patientInfo.diagnosis)"
       >
-        诊断：
+        <span style="position: relative;top:-5px;">诊断：</span>
         <div
           class="bottom-line"
           style="

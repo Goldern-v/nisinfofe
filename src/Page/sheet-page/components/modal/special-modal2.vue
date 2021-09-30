@@ -7,7 +7,6 @@
       :title="title"
       :enable-mobile-fullscreen="false"
       :blocking="HOSPITAL_ID == 'liaocheng' ? true : false"
-      :class="[HOSPITAL_ID=='guizhou'?'guizhou':'']"
     >
       <div id="specialForm">
         <div flex="cross:center" class="special-date-con">
