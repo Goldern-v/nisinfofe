@@ -314,11 +314,26 @@ export default {
       return this.$store.state.lesion.deptCode;
     },
     // 全部床位
+    allBedLength() {
+      if (this.HOSPITAL_ID === 'hengli' && this.$store.state.lesion.deptCode === '103') {
+        return this.bedList.filter((item) => item.name.indexOf("B") === -1);
+      } else {
+        return this.bedList;
+      }
+    },
     allBed() {
       return this.bedList;
     },
     nullBed() {
       return this.bedList.filter((item) => !item.patientId);
+    },
+    inBedLength() {
+      if (this.HOSPITAL_ID === 'hengli' && this.$store.state.lesion.deptCode === '103') {
+        console.log(this.bedList, 88)
+        return this.bedList.filter((item) => item.patientId && item.name.indexOf("B") === -1);
+      } else {
+        return this.bedList.filter((item) => item.patientId);
+      }
     },
     inBed() {
       return this.bedList.filter((item) => item.patientId);
@@ -450,7 +465,7 @@ export default {
       let list = [
         {
           name: "全部床位",
-          num: this.allBed.length,
+          num: this.allBedLength.length,
           type: "bed",
         },
         {
@@ -460,7 +475,7 @@ export default {
         },
         {
           name: "在床",
-          num: this.inBed.length,
+          num: this.inBedLength.length,
           type: "bed",
         },
         //  {
@@ -605,6 +620,7 @@ export default {
         this.levelColor = levelColor;
         patients(this.deptCode).then((res) => {
           this.bedList = res.data.data.map((item) => {
+            console.log(item.name, 978)
             item.nursingClassColor = (
               levelColor.find((o) => o.code == item.nursingClass) || {}
             ).name;
