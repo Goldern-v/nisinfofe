@@ -182,11 +182,12 @@ export default {
 
 <style lang="scss">
 #relation-form-modal-con .sweet-content {
+  overflow:hidden;
   padding: 0;
   .sweet-content-content {
     .form-area {
       width: 100%;
-      height: calc(100vh - 35vh);
+      height: 50vh;
       position: relative;
       .loading-mask {
         position: absolute;
