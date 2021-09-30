@@ -29,18 +29,18 @@ export default [{
     event: keyf1,
     name: "入量名称",
     textarea: {
-      width: 62,
+      width: 150,
     },
     style: {
-      maxWidth: '62px',
-      textAlign: "left",
+      maxWidth: '150px',
+      textAlign: "center",
     },
-    autoComplete: {
-      data: foodWayData
-    },
-    type: "select",
+    // autoComplete: {
+    //   data: foodWayData
+    // },
+    // type: "select",
     editable: true,
-    parentKey: "foodChannel"
+    // parentKey: "foodChannel"
   },
   // {
   //   key: "foodWay", //入量方式
@@ -66,16 +66,16 @@ export default [{
     event: keyf1,
     name: "途径",
     textarea: {
-      width: 62,
+      width: 150,
     },
     style: {
-      maxWidth: '62px',
-      textAlign: "left",
+      maxWidth: '150px',
+      textAlign: "center",
     },
     autoComplete: {
       data: foodChannelData,
     },
-    type: "select",
+    // type: "select",
     editable: true,
   },
   {
@@ -93,16 +93,16 @@ export default [{
     event: keyf1,
     name: "出量名称",
     textarea: {
-      width: 62,
+      width: 150,
     },
     style: {
-      maxWidth: '62px',
-      textAlign: "left",
+      maxWidth: '150px',
+      textAlign: "center",
     },
     autoComplete: {
       data: dischargePropData
     },
-    type: "select",
+    // type: "select",
     editable: true,
   },
   // {
@@ -129,18 +129,18 @@ export default [{
     event: keyf1,
     name: "性质",
     textarea: {
-      width: 62,
+      width: 150,
     },
     style: {
-      maxWidth: '62px',
-      textAlign: "left",
+      maxWidth: '150px',
+      textAlign: "center",
     },
-    autoComplete: {
-      data: dischargeWayData
-    },
-    type: "select",
+    // autoComplete: {
+    //   data: dischargeWayData
+    // },
+    // type: "select",
     editable: true,
-    parentKey: "discharge"
+    // parentKey: "discharge"
   },
   {
     key: "dischargeSize", //量（单位ml）
