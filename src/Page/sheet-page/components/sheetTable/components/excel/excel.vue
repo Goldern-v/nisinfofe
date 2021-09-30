@@ -54,7 +54,7 @@
       </tr>
     </table>
 
-    <table class="sheet-table" ref="table">
+    <table class="sheet-table" ref="table" :style="{width:sheetInfo.sheetType=='access_gzry'?'100%':''}">
       <tr
         class="head-con"
         v-for="(th, index) in data.titleModel.th"

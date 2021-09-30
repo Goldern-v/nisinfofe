@@ -36,10 +36,11 @@ export default [{
       textAlign: "left",
     },
     autoComplete: {
-      data: foodData
+      data: foodWayData
     },
     type: "select",
-    editable: true
+    editable: true,
+    parentKey: "foodChannel"
   },
   // {
   //   key: "foodWay", //入量方式
@@ -76,7 +77,6 @@ export default [{
     },
     type: "select",
     editable: true,
-    parentKey: "foodWay"
   },
   {
     key: "foodSize", //量（单位ml）
@@ -100,7 +100,7 @@ export default [{
       textAlign: "left",
     },
     autoComplete: {
-      data: dischargeData
+      data: dischargeWayData
     },
     type: "select",
     editable: true
@@ -244,16 +244,20 @@ export function getListData4() {
   });
 
   getSecondDictSheet("record_intake_route").then(res => {
-    foodChannelData.push(res.data.data)
+    console.log(res.data.data);
+    foodWayData.push(res.data.data)
     for(let key in res.data.data){
-      foodWayData.push(key)
+      foodChannelData.push(key)
     }
+    console.log('foodWayData,foodChannelData',foodWayData,foodChannelData);
   })
   getSecondDictSheet("record_discharge_property").then(res => {
-    dischargePropData.push(res.data.data)
+    // dischargePropData.push(res.data.data)
+    dischargeWayData.push(res.data.data)
     for(let key in res.data.data){
-      dischargeWayData.push(key)
+      dischargePropData.push(key)
     }
+    console.log('dischargeWayData,dischargePropData',dischargeWayData,dischargePropData);
   })
 }
 
