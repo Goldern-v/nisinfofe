@@ -22,6 +22,7 @@ function offset(ele) {
 function focusElement(x, y, z) {
   try {
     document.querySelector(`[position="${x},${y},${z}"]`).focus();
+    document.querySelector(`[position="${x},${y},${z}"]`).click();// 贵州需求:键盘切换时触发点击事件
     return true;
   } catch (e) {
     console.log(e);
