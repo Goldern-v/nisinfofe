@@ -900,6 +900,12 @@ export default {
         }
       },
     },
+    '$route.path'(){
+      // 针对贵州切换出入量记录单数据不刷新，如果有问题可回撤
+      if(this.HOSPITAL_ID=='guizhou'){
+        this.sheetInfo.selectBlock = {}
+      }
+    }
   },
   beforeRouteLeave: (to, from, next) => {
     if (!sheetInfo.isSave) {
