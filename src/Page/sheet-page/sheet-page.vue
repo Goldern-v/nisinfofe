@@ -547,9 +547,10 @@ export default {
       });
     },
     breforeQuit(next) {
+      console.log(this.$store.state);
       if (!sheetInfo.isSave) {
         window.app
-          .$confirm("评估单还未保存，离开将会丢失数据", "提示", {
+          .$confirm("记录单还未保存，离开将会丢失数据", "提示", {
             confirmButtonText: "离开",
             cancelButtonText: "取消",
             type: "warning",
@@ -894,9 +895,16 @@ export default {
     },
     sheetModel: {
       deep: true,
-      handler() {
-        if (this.patientInfo.name) {
-          sheetInfo.isSave = false;
+      immediate:true,
+      handler(newValue,oldValue) {
+        if(this.HOSPITAL_ID=='guizhou'){
+          if (this.patientInfo.name&&(oldValue.length&&JSON.stringify(oldValue)!=JSON.stringify(newValue))) {
+            sheetInfo.isSave = false;
+          }
+        }else{
+          if (this.patientInfo.name) {
+            sheetInfo.isSave = false;
+          }
         }
       },
     },
