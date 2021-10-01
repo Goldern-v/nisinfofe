@@ -93,7 +93,7 @@ export default {
         病情、护理措施及效果
         `,
         style: {
-          minWidth: "300px"
+          minWidth: "285px"
         },
         colspan: "1",
         rowspan: "3"
