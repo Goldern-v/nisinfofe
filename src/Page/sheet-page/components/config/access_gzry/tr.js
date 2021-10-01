@@ -35,12 +35,12 @@ export default [{
       maxWidth: '150px',
       textAlign: "center",
     },
-    // autoComplete: {
-    //   data: foodWayData
-    // },
+    autoComplete: {
+      data: foodWayData
+    },
     // type: "select",
     editable: true,
-    // parentKey: "foodChannel"
+    parentKey: "foodChannel"
   },
   // {
   //   key: "foodWay", //入量方式
@@ -135,12 +135,12 @@ export default [{
       maxWidth: '150px',
       textAlign: "center",
     },
-    // autoComplete: {
-    //   data: dischargeWayData
-    // },
+    autoComplete: {
+      data: dischargeWayData
+    },
     // type: "select",
     editable: true,
-    // parentKey: "discharge"
+    parentKey: "discharge"
   },
   {
     key: "dischargeSize", //量（单位ml）
