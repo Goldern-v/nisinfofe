@@ -18,7 +18,7 @@
               reserve-keyword
               :disabled="disabled"
               placeholder="请输入关键词"
-              :remote-method="remoteMethod"
+              :remote-method="debounceRemote(remoteMethod,2000)"
               :loading="loading"
             >
               <el-option
@@ -29,7 +29,7 @@
               >
                 <!-- 添加科室名称 -->
                 <!-- <span style="float: left">{{item.deptName}}</span> -->
-                <span v-if="item.type && item.deptName && item.deptName!='' && item.name.indexOf(item.deptName)==-1" style="float: left">{{item.deptName}}</span>
+                <!-- <span v-if="item.type && item.deptName && item.deptName!='' && item.name.indexOf(item.deptName)==-1" style="float: left">{{item.deptName}}</span> -->
                 <span
                   v-for="(a, index) in setItem(item.name)"
                   :class="a.type >= 0 ? 'redColor' : ''"
@@ -38,7 +38,7 @@
                   >{{ a.item }}</span
                 >
                 <!-- 添加宣教类型 -->
-                <span v-if="item.type && item.type!='' && item.type!=item.name">-{{item.type}}</span>
+                <!-- <span v-if="item.type && item.type!='' && item.type!=item.name">-{{item.type}}</span> -->
               </el-option>
             </el-select>
             <el-button 
@@ -193,6 +193,7 @@ export default {
       educationAssessment: educationAssessment,
       content: "", // 宣教内容模板
       templateTitle: "", // 模板标题
+      debounceTimer:null,//防抖定时器
     };
   },
   methods: {
@@ -311,6 +312,9 @@ export default {
     // 关闭弹框
     close() {
       this.$refs.modal.close();
+      //清除防抖宣教内容定时器
+      clearTimeout(this.debounceTimer);
+      this.debounceTimer=null;
     },
     // 设置单个宣教内容
     setItem(item) {
@@ -324,6 +328,17 @@ export default {
         data.push(obj);
       });
       return data;
+    },
+    
+    //防抖宣教内容下拉搜索框方法
+    debounceRemote(func, delay) {
+      this.debounceTimer = null;
+      return function(...args) {
+        if (this.debounceTimer) clearTimeout(this.debounceTimer);
+        this.debounceTimer = setTimeout(() => {
+          func.apply(this, args);
+        }, delay);
+      };
     },
 
     // 宣教内容下拉搜索框
