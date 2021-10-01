@@ -46,7 +46,7 @@ export default {
         rowspan: '1'
       },
       {
-        name: '沐<br>浴<br>/<br>擦<br>洗',
+        name: '沐<br>浴<br>/<br>擦<br>澡',
         style: {},
         colspan: '1',
         rowspan: '3',
@@ -129,7 +129,7 @@ export default {
         rowspan: '2',
       },
       {
-        name: '面色',
+        name: '肤色',
         colspan: '2',
         rowspan: '1',
       },
@@ -169,12 +169,12 @@ export default {
         rowspan: '2',
       },
       {
-        name: '状<br>性',
+        name: '性<br>状',
         colspan: '1',
         rowspan: '2',
       },
       {
-        name: '状<br>性',
+        name: '性<br>状',
         colspan: '1',
         rowspan: '2',
       },
@@ -196,7 +196,7 @@ export default {
         rowspan: '1'
       },
       {
-        name: '二<br>凹<br>征',
+        name: '三<br>凹<br>征',
         colspan: '1',
         rowspan: '1'
       },

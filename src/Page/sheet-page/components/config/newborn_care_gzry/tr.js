@@ -118,7 +118,7 @@ export default [
       width: 31
     },
     autoComplete: {
-      data: ['红润', '苍白', '清灰', '青紫', '黄染', '花斑']
+      data: ['红润', '苍白', '青灰', '青紫', '黄染', '花斑']
     },
   },
   {
@@ -129,7 +129,7 @@ export default [
       width: 31
     },
     autoComplete: {
-      data: ['红润', '苍白', '清灰', '青紫', '黄染', '花斑']
+      data: ['红润', '苍白', '青灰', '青紫', '黄染', '花斑']
     },
   },
   {
@@ -206,7 +206,7 @@ export default [
       width: 31
     },
     autoComplete: {
-      data: ['√', '-']
+      data: ['沐浴','擦澡']
     },
   },
   {
@@ -217,7 +217,7 @@ export default [
       width: 31
     },
     autoComplete: {
-      data: ['口腔护理', '眼部护理', '脐部护理', '臀部护理']
+      data: ['√','口腔护理', '眼部护理', '脐部护理', '臀部护理']
     }
   },
   {

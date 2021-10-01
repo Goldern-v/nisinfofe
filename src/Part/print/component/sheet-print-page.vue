@@ -1,5 +1,5 @@
 <template>
-  <div id="sheetPagePrint">
+  <div id="sheetPagePrint" :class="[HOSPITAL_ID=='guizhou'?'guizhou':'']">
     <!-- {{process}} -->
     <!-- <iframe :src="url" :style="{height: iframeHeight + 'px'}" @load="onload" ref="iframe"></iframe> -->
     <div
@@ -148,7 +148,11 @@
       // width 1100px !important
       margin: 0 !important;
     }
-
+    &.guizhou{
+      .contant {
+        margin-top: -50px!important;
+      }
+    }
     .his-logo {
       top: 0 !important;
       left: 0 !important;
