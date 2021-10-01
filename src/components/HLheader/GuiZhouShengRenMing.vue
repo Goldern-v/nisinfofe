@@ -62,7 +62,7 @@
                     </el-row>
                   </router-link>
                 </el-dropdown-item>
-                <!-- <el-dropdown-item
+                <el-dropdown-item
                   :class="{
                     active: $route.path.includes('allTemperatureChart'),
                   }"
@@ -72,7 +72,7 @@
                       <i class="allTemperatureChart"></i>批量录入体温单
                     </el-row>
                   </router-link>
-                </el-dropdown-item> -->
+                </el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
             <router-link to="/board" tag="span">
