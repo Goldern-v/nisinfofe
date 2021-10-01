@@ -121,17 +121,15 @@
               </div>
               <div v-if="index==='病人事件'" class="allergyDiv">
                 <div style="display:inline-block;">
-                  <el-select
-                    size="mini"
-                    style="display:block"
-                    v-model="vitalSignObj[j].vitalValue">
-                    <el-option
-                      v-for="(item, topIndex) in topContextList"
-                      :key="topIndex"
-                      :label="item"
-                      :value="item">
-                    </el-option>
-                  </el-select>
+                  <input 
+                type="text"
+                :title="vitalSignObj[j].vitalValue"
+                @input="handlePopRefresh(vitalSignObj[j])"
+                @click="() => (vitalSignObj[j].popVisible = true)"
+                @blur="() => (vitalSignObj[j].popVisible = false)"
+                v-model="vitalSignObj[j].vitalValue"
+                
+              />
                 </div>
                 <el-date-picker
                 class="datePickerHisEvent"
@@ -445,7 +443,6 @@ export default {
                  },
 
     init() {
-      console.log(this.multiDictList)
       let obj = {};
       if (!this.multiDictList) return;
       /* 根据字典项构造一个对象(键为生命体征的中文名，值为对应的对象)：{"体温":{}} */
@@ -675,8 +672,9 @@ export default {
           this.totalDictInfo[item.vitalSign] = {
             ...item,
             options: item.selectType ? item.selectType.split(",") : [],
+            
           };
-
+// console.log('options',Object.values(this.totalDictInfo)||[])
           if (item.vitalSign.includes("自定义")) {
             obj[item.vitalCode] = {
               fieldCn: item.vitalSign,
