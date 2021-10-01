@@ -78,8 +78,9 @@
         this.$refs.richEditorModal.open();
       },
       close() {
-        console.log('storageContent', this.storageContent);
-        this.content = this.storageContent;
+        //console.log('storageContent', this.storageContent);
+        // this.content = this.storageContent;
+        this.$emit('confirmEdit', this.storageContent);
         this.$refs.richEditorModal.close();
       },
       confirmEdit() {
