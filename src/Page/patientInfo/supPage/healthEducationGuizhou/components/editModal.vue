@@ -18,8 +18,8 @@
               reserve-keyword
               :disabled="disabled"
               placeholder="请输入关键词"
-              :remote-method="debounceRemote(remoteMethod,2000)"
-              :loading="loading"
+              :remote-method="debounceRemote(remoteMethod,3000)"
+              :loading.sync="loading"
             >
               <el-option
                 v-for="item in options"
@@ -208,7 +208,7 @@ export default {
       if (form) {
         this.isEdit=true
         this.content = form.item.content;
-        console.log('this.content', this.content);
+        //console.log('this.content', this.content);
 
         //编辑
         this.modalStatus = true;
@@ -335,6 +335,7 @@ export default {
       this.debounceTimer = null;
       return function(...args) {
         if (this.debounceTimer) clearTimeout(this.debounceTimer);
+        this.loading = true;
         this.debounceTimer = setTimeout(() => {
           func.apply(this, args);
         }, delay);
@@ -357,12 +358,14 @@ export default {
           //isEdit true
           this.content = data.data[0].content;
           this.templateTitle = data.data[0].name;
+          this.loading = false;
         } catch (e) {
           this.options = [];
         } finally {
           this.loading = false;
         }
       } else {
+        this.loading = false;
         this.options = [];
       }
     },
