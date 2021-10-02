@@ -18,8 +18,8 @@
               reserve-keyword
               :disabled="disabled"
               placeholder="请输入关键词"
-              :remote-method="debounceRemote(remoteMethod,3000)"
-              :loading.sync="loading"
+              :remote-method="remoteMethod"
+              :loading="loading"
             >
               <el-option
                 v-for="item in options"
@@ -209,6 +209,8 @@ export default {
         this.isEdit=true
         this.content = form.item.content;
         //console.log('this.content', this.content);
+        //赋值富文本
+         this.$refs.richEditorModal.changeEditContent(form.item.content);
 
         //编辑
         this.modalStatus = true;
@@ -265,18 +267,20 @@ export default {
           remarks: "",
           signature: "",
         };
+        //赋值富文本
+         this.$refs.richEditorModal.changeEditContent("");
       }
       this.$refs.modal.open();
     },
     // 打开富文本编辑弹框
     handleOpenRichEditorModal() {
-      this.$refs.richEditorModal.open(this.isEdit);  
+      this.$refs.richEditorModal.open(this.isEdit);     
     },
     // 更新宣教内容
     updateContent(content) {
       this.content = content;
       console.log('this.content', this.content);
-      this.$refs.richEditorModal.close();
+      //this.$refs.richEditorModal.close();
     },
     // 设置推送状态
     setStatus(data) {
@@ -357,6 +361,8 @@ export default {
           this.options = data.data;
           //isEdit true
           this.content = data.data[0].content;
+          //赋值富文本
+          this.$refs.richEditorModal.changeEditContent(data.data[0].content);
           this.templateTitle = data.data[0].name;
           this.loading = false;
         } catch (e) {

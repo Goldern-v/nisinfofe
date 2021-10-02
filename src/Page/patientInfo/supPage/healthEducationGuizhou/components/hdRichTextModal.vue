@@ -9,14 +9,14 @@
     >
       <quillEditor 
         style="min-height:600px" 
-        v-model="content" 
+        v-model="editContent" 
         ref="myQuillEditor" 
         :options="editorOption"
         @change="onEditChange($event)"
       />
       <div slot="button">
-        <el-button class="modal-btn" @click="close">关闭</el-button>
-        <el-button type="primary" class="modal-btn" @click="confirmEdit">确定</el-button>
+        <el-button class="modal-btn" @click.stop="close">关闭</el-button>
+        <el-button type="primary" class="modal-btn" @click.stop="confirmEdit">确定</el-button>
       </div>
     </sweet-modal>
   </div>
@@ -49,6 +49,7 @@
     components: { quillEditor },
     data() {
       return {
+        editContent:"",//富文本内容
         editorOption: {
           placeholder: "请编辑内容",
           modules: {
@@ -80,12 +81,13 @@
       close() {
         //console.log('storageContent', this.storageContent);
         // this.content = this.storageContent;
-        this.$emit('confirmEdit', this.storageContent);
+        // this.editContent=this.storageContent;
         this.$refs.richEditorModal.close();
       },
       confirmEdit() {
-        console.log('saveContent.....');
-        this.$emit('confirmEdit', this.content);
+        //console.log('saveContent.....');
+        this.$emit('confirmEdit', this.editContent);
+        this.$refs.richEditorModal.close();
       },
       onEditChange(event) {
         let maxLength = event.quill.getLength() - 1;
@@ -95,6 +97,12 @@
           // }, 1000)
           event.quill.deleteText(4000, 1);
         }
+      },
+      //编辑editContent值
+      changeEditContent(newEditContent){
+        //console.log("编辑editContent值")
+        //console.log(newEditContent)
+        this.editContent=newEditContent;
       }
     }
   }
