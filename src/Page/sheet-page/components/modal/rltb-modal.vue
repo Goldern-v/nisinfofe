@@ -171,8 +171,11 @@ props: {
 data() {
     return {
         startDate:'',
+        // 结束时间:默认当前时间
         endDate:moment().format('YYYY-MM-DD'),
+        // 表格渲染数据
         tableData: [],
+        // 筛选字段数组,说是后面会改成后端维护,等着吧
         searchArr:[
                 {value:'',label:'全部'},
                 {value:'输液',label:'输液'},

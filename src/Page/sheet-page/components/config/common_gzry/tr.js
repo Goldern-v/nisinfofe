@@ -72,19 +72,19 @@ export default [{
     name: "血压",
     next: "mmHg",
   }, 
-  {
-    key: "sugar", //血糖
-    value: "",
-    event: function (e, td) {
-      if (e.keyCode == 32) {
-        e.target.value += "/";
-        e.preventDefault();
-      }
-      keyf1(e, td);
-    },
-    name: "血糖",
-    next: "mmol/L",
-  },
+  // {
+  //   key: "sugar", //血糖
+  //   value: "",
+  //   event: function (e, td) {
+  //     if (e.keyCode == 32) {
+  //       e.target.value += "/";
+  //       e.preventDefault();
+  //     }
+  //     keyf1(e, td);
+  //   },
+  //   name: "血糖",
+  //   next: "mmol/L",
+  // },
   {
     key: "description", //特殊情况记录
     value: "",
