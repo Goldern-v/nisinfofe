@@ -124,6 +124,7 @@
               td.statBottomLine &&
               `stat-bottom-line`
           ]"
+          :style="HOSPITAL_ID=='guizhou'&&sheetInfo.sheetType=='access_gzry'&&{boxSizing:'border-box!important',width:td.style?td.style.width:''}"
           @contextmenu.stop="openContextMenu($event, y, tr, td)"
           @click="
             selectedItem(td)

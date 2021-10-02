@@ -29,10 +29,11 @@ export default [{
     event: keyf1,
     name: "入量名称",
     textarea: {
-      width: 150,
+      width: 250,
     },
     style: {
-      maxWidth: '150px',
+      width:'250px!important',
+      maxWidth: '250px',
       textAlign: "center",
     },
     autoComplete: {
@@ -66,10 +67,11 @@ export default [{
     event: keyf1,
     name: "途径",
     textarea: {
-      width: 150,
+      width: 80,
     },
     style: {
-      maxWidth: '150px',
+      width:'80px!important',
+      maxWidth: '80px',
       textAlign: "center",
     },
     autoComplete: {
@@ -86,6 +88,9 @@ export default [{
     textarea: {
       width: 30
     },
+    style:{
+      width:'30px!important',
+    }
   },
   {
     key: "discharge", //出量名称
@@ -96,6 +101,7 @@ export default [{
       width: 150,
     },
     style: {
+      width:'150px!important',
       maxWidth: '150px',
       textAlign: "center",
     },
@@ -132,6 +138,7 @@ export default [{
       width: 150,
     },
     style: {
+      width:'150px!important',
       maxWidth: '150px',
       textAlign: "center",
     },
@@ -150,6 +157,9 @@ export default [{
     textarea: {
       width: 30
     },
+    style:{
+      width:'30px!important',
+    }
   },
   {
     key: "sign",

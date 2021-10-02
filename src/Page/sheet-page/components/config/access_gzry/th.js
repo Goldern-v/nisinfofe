@@ -118,6 +118,7 @@ export default {
       colspan: "1",
       rowspan: "3",
       style: {
+        width:'160px',
         minWidth: "50px",
       },
     }

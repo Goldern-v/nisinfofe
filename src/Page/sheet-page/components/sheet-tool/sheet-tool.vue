@@ -202,6 +202,19 @@
       <div
         class="right-btn"
         flex="cross:center main:center"
+        @click="openRltbModal"
+        v-if=" HOSPITAL_ID == 'guizhou' && isDeputy"
+      >
+        <div class="text-con">
+          <img src="./images/评估.png" alt />
+          入量同步
+        </div>
+      </div>
+      <div class="line" v-if="!isSingleTem_LCEY && !isDeputy"></div>
+      <div style="width: 5px"></div>
+      <div
+        class="right-btn"
+        flex="cross:center main:center"
         @click="emit('openEvalModel')"
         v-if="showCrl && !isSingleTem_LCEY && !isDeputy"
       >
@@ -255,6 +268,7 @@
     <newFormModal ref="newFormModal"></newFormModal>
     <setTitleModal ref="setTitleModal"></setTitleModal>
     <tztbModal ref="tztbModal"></tztbModal>
+    <rltbModal ref="rltbModal" :blockId="blockId"></rltbModal>
     <zxdtbModal ref="zxdtbModal" :blockId="blockId" :title="titleName"></zxdtbModal>
     <patientInfoModal ref="patientInfoModal"></patientInfoModal>
     <sweet-modal
@@ -293,6 +307,7 @@ import newFormModal from "../modal/new-sheet-modal.vue";
 import setTitleModal from "../modal/set-title-modal.vue";
 import tztbModal from "../modal/tztb-modal.vue";
 import zxdtbModal from "../modal/zxdtb-modal.vue";
+import rltbModal from "../modal/rltb-modal.vue";
 import patientInfoModal from "./modal/patient-info-modal";
 import dayjs from "dayjs";
 // import lodopPrint from "./lodop/lodopPrint";
@@ -803,6 +818,12 @@ export default {
       
       this.$refs.zxdtbModal.open();
     },
+    openRltbModal(){
+      if (this.readOnly) {
+        return this.$message.warning("你无权操作此护记，仅供查阅");
+      }
+      this.$refs.rltbModal.open();
+    },
     /* 切换主页 */
     async backMainForm() {
       const id = this.sheetInfo.selectBlock.id;
@@ -1041,6 +1062,7 @@ export default {
     setTitleModal,
     tztbModal,
     zxdtbModal,
+    rltbModal,
     patientInfoModal,
     patientInfo,
     temperatureHD,
