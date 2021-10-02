@@ -10,7 +10,7 @@
     <!-- <textarea v-model="content" style="height:300px;width:100%" /> -->
     <!-- 富文本 -->
     <quillEditor 
-      v-model="content" 
+      v-model="editContent" 
       ref="myQuillEditor" 
       :options="editorOption" 
       @focus="onEditorFocus($event)"
@@ -55,8 +55,14 @@ export default {
         },
         theme: "snow",
         readOnly: true
-      }
+      },
+      editContent:"",//富文本内容
     };
+  },
+  watch:{
+    content(){
+      this.editContent=this.content;
+    }
   },
   methods: {
     open() {

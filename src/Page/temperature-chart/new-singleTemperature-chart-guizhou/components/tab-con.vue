@@ -867,6 +867,7 @@ export default {
     .datePickerHisEvent{
       left: -75px;
       position: relative;
+      width: 143px;
     }
     .allergyDiv{
         display: inline-block;

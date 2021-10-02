@@ -75,7 +75,7 @@
     <!-- 宣教内容弹窗 -->
     <healthContentModal
       ref="healthContentModal"
-      :content.sync="content"
+      :content="content"
       :name="name"
       @saveContent="saveContent"
     />
