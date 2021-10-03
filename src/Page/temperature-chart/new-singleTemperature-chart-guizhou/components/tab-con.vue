@@ -129,7 +129,7 @@
                 @blur="() => (vitalSignObj[j].popVisible = false)"
                 v-model="vitalSignObj[j].vitalValue"
                 
-              />
+                 />
                 </div>
                 <el-date-picker
                 class="datePickerHisEvent"
@@ -862,12 +862,16 @@ export default {
       display: inline-block;
       width: 70px;
       position: relative;
+      // top: -20px;
+    }
+    .allergyPreText{
       top: -20px;
     }
     .datePickerHisEvent{
       left: -75px;
       position: relative;
       width: 143px;
+      display:none;
     }
     .allergyDiv{
         display: inline-block;

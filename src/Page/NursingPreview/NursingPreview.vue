@@ -134,6 +134,9 @@ export default {
         res => {
           let data = res.data.data || {};
           let patientInfo = this.$store.state.sheet.patientInfo;
+          //let patientInfo = res.data.data ;
+          //优化访问crNursing/nursingPreview无数据问题问题（由于无admissionDate造成）
+          patientInfo.admissionDate=data.admissionDate;
           patientInfo.wardCode = data.wardCode;
           this.$store.commit("upPatientInfo", patientInfo);
         }
