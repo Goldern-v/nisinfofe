@@ -44,7 +44,7 @@
         class="item-box"
         flex="cross:center main:center"
         @click="toPrint"
-        v-if="!isDeputy"
+        v-if="(HOSPITAL_ID!='guizhou'&&!isDeputy)||(HOSPITAL_ID=='guizhou')"
       >
         <div class="text-con">打印预览</div>
       </div>
@@ -343,10 +343,16 @@ export default {
     },
     /* 出入量统计弹框--花都区分 */
     openStaticModal() {
-      if (process.env.HOSPITAL_ID != "huadu"&&process.env.HOSPITAL_ID != "guizhou") {
-        this.bus.$emit("openHJModal");
-      } else {
-        this.bus.$emit("openHDModal");
+      switch(process.env.HOSPITAL_ID){
+        case 'huadu':
+          this.bus.$emit("openHDModal");
+          break;
+        case 'guizhou':
+          this.bus.$emit("openGuizhouModal")
+          break;
+        default:
+          this.bus.$emit("openHJModal");
+          break;
       }
     },
     /* 打开体温曲线页面 */
