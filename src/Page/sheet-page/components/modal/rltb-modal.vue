@@ -1,5 +1,11 @@
+/*
+    createdTime:2021/10/3;
+    author:玛卡巴卡;
+    info:贵州特殊需求,从医嘱执行单提取入量并保存,回写到出入量记录单(贵州副页);
+    careful:和其他同步不一样,要搬记得看清楚!!!
+*/
 <template>
-    <sweet-modal ref="modalName" title="医嘱" class="modal-con">
+    <sweet-modal ref="modalName" title="医嘱执行" class="modal-con">
         <div class="tool-scon">
             <div class="time-group">
                 <div class="type-title">起始时间：</div>
@@ -20,25 +26,31 @@
                 </div>
             </div>
             <div class="type-box">
-                <div class="type-title">入药方式：</div>
-                <div class="type-content-box">
+                <div class="type-title execute">类别：</div>
+                <div class="type-content-box execute-type">
                     <el-radio v-model="executeType" :label='item.value' v-for="item in searchArr" :key="item.value">{{item.label}}</el-radio>
                 </div>
             </div>
             <div class="search-box">
-                <el-button @click="search" style="height:32px;">查询</el-button>
+                <el-button @click="search" style="height:32px;" type="primary">查询</el-button>
             </div>
         </div>
+        <!-- 
+            tableData:表格数据源;
+            tableHeight-500:表格高度屏幕适配;
+            border:表格边框; 
+            v-loading=loading;(loading为true时显示加载动画)
+        -->
         <el-table
             ref="multipleTable"
             v-loading="loading"
             :data="tableData"
-            style="width: 100%;"
-            height="500"
+            style="width: 80vw;"
+            :height="tableHeight"
             border
             >
                 <el-table-column
-                    width="55">
+                    :width="55">
                     <template slot-scope="scope">
                         <el-checkbox class="checkbox" v-model="scope.row.checked" :disabled="scope.row.disabled"></el-checkbox>
                     </template>
@@ -51,7 +63,9 @@
                 :label="item.label"
                 :width="item.width">
                 <template slot-scope="scope">
+                    <!-- 所有单元格统一渲染,后面改功能的时候绝对不要动这里,要改找我 -->
                     <div :style="{textAlign:item.align||'center'}">{{scope.row[item.property]}}</div>
+                    <!-- 右侧分组标记 -->
                     <div class="cell-box" v-if="item.label=='医嘱名称'">
                         <div v-if="scope.row.isFirst">┓</div>
                         <div v-if="scope.row.isOrder" class="order">┃</div>
@@ -59,41 +73,22 @@
                     </div>
                 </template>
                 </el-table-column>
-                <!-- <el-table-column
-                type="selection"
-                width="55">
-                </el-table-column>
-                <el-table-column
-                label="执行时间状态"
-                width="150">
-                <template slot-scope="scope">{{ scope.row.executeDateTime }}</template>
-                </el-table-column>
-                <el-table-column
-                property="executeType"
-                label="类型"
-                width="120">
-                </el-table-column>
-                <el-table-column
-                property="address"
-                label="医嘱名称"
-                show-overflow-tooltip>
-                </el-table-column> -->
         </el-table>
         <div style="height:60px"></div>
         <div class="btn-box">
             <div class="btn-group">
+            <el-button @click="close">取消</el-button>
             <el-button @click="cleanAllSelection">清空</el-button>
-            <el-button @click="post" :disabled='!multipleSelection.length'>确定</el-button>
+            <el-button @click="post" :disabled='!multipleSelection.length' type="primary">确定</el-button>
             </div>
         </div>
     </sweet-modal>
 </template>
 <style lang='scss' scoped>
     .modal-con{
-        // padding-bottom: 60px;
-    }
-    /deep/ .sweet-content{
-        overflow: hidden;
+        /deep/ * {
+            font-size: 12px;
+        }
     }
     .time-group,.type-box,.search-box{
         display: flex;
@@ -108,13 +103,18 @@
     }
     .search-box{
         flex: 1;
+        position: relative;
         .el-button.el-button--default{
-            margin: 0 auto;
-        }
+            position: relative;
+            right: 0;
+        }   
     }
     .type-title,.type-content-box{
         height: 37px;
         line-height: 37px;
+    }
+    .type-title{
+        width: 60px;
     }
     .type-content-box{
         height: 34px;
@@ -132,7 +132,7 @@
         z-index: 9999;
         border-top: 1px solid rgb(223, 236, 232);
         .btn-group{
-            width: 140px;
+            width: 200px;
             margin: 0 auto;
         }
     }
@@ -151,13 +151,46 @@
     }
     /deep/ .el-table .cell, /deep/ .el-table th > div{
         padding: 5px;
-        .checkedbox{
+        .checkbox{
             margin-left: 15px;
+        }
+    }
+    .type-box{
+        align-content: center;
+    }
+    .execute{
+        height: 80px;
+        line-height: 80px;
+    }
+    /deep/ .el-radio + .el-radio{
+        margin-left:0;
+    }
+    .el-radio{
+        margin-right:5px;
+    }
+    @media screen and (max-width: 1367px){
+        /deep/ .execute-type{
+            width: 20vw;
+            height: 80px;
+            display: flex;
+            flex-wrap: wrap;
+            align-content: center;
+        }
+        
+    }
+    @media screen and (min-width: 1368px){
+        /deep/ .execute-type{
+            width: 30vw;
+            height: 80px;
+            display: flex;
+            flex-wrap: wrap;
+            align-content: center;
         }
     }
 </style>
 <script>
-import rexTest from './api/res'
+// 获取医嘱列表接口模拟出参
+// import rexTest from './api/res'
 import bus from "vue-happy-bus";
 import {getOrdersExecuteWithPatinetId,saveAllWithRecordDate} from './api'
 import moment from 'moment';
@@ -170,12 +203,13 @@ props: {
 },
 data() {
     return {
+        // 开始时间:默认无
         startDate:'',
         // 结束时间:默认当前时间
         endDate:moment().format('YYYY-MM-DD'),
         // 表格渲染数据
         tableData: [],
-        // 筛选字段数组,说是后面会改成后端维护,等着吧
+        // 筛选字段数组,说是后面会改成后端维护,等着吧,value是后面入参的,label是页面展示的
         searchArr:[
                 {value:'',label:'全部'},
                 {value:'输液',label:'输液'},
@@ -188,70 +222,93 @@ data() {
                 {value:'其他',label:'其他'},
                 {value:'外用',label:'外用'},
         ],
+        // 医嘱类别
         executeType:'',
+        // 表格配置
         columnArr:[
-            {id:1,label:'预计执行时间',property:'executeDateTime',width:'170'},
-            // {id:1,label:'预计执行时间',property:'barcode',width:'170'},
-            {id:2,label:'类别',property:'executeType',width:'80'},
-            {id:3,label:'医嘱名称',property:'itemName',width:'230'},
-            {id:4,label:'规格',property:"itemSpec",width:'210'},
-            {id:5,label:'剂量',property:'dosage',width:'50',align:'right'},
-            {id:12,label:'剂量单位',property:'dosageUnits',width:'80',align:'left'},
-            {id:6,label:'用法',property:'administration',width:'80'},
-            {id:7,label:'频度',property:'freqeuncy',width:'80'},
-            {id:8,label:'开始',property:'startDateTime',width:'170'},
-            {id:9,label:'结束',property:'endDateTime',width:'170'},
-            {id:11,label:'状态',property:'executeStatusCn',width:'112'},
+            /* {
+                    id:'用来做遍历的key值,不重复就行',
+                    label:'每个单元格表头显示的内容',
+                    property:'当前单元格property绑定的字段,和表格数据tableData中要对应,记得和后端对',
+                    width:'当前列的宽度,写什么单位最终都是px'
+                }
+            */
+            // {id:0,label:'医嘱号',property:'barcode',width:'170'}, // 分组用,分组错乱或者有疑惑可以解开
+            {id:1,label:'预计执行时间',property:'executeDateTime',width:126},
+            {id:2,label:'类别',property:'executeType',width:40},
+            {id:3,label:'医嘱名称',property:'itemName',width:280},
+            {id:4,label:'规格',property:"itemSpec",width:210},
+            {id:5,label:'剂量',property:'dosage',width:50,align:'right'},
+            {id:6,label:'剂量单位',property:'dosageUnits',width:80,align:'left'},
+            {id:7,label:'用法',property:'administration',width:80},
+            {id:8,label:'频度',property:'freqeuncy',width:80},
+            {id:9,label:'开始',property:'startDateTime',width:126},
+            {id:10,label:'结束',property:'endDateTime',width:126},
+            {id:11,label:'状态',property:'executeStatusCn'},
         ],
+        // 执行状态数组
         executeStatusObj:{
+            // 要加或修改记得找后端对
             0:'未执行',
             1:'执行中',
             4:'已执行',
         },
+        // 分组后暂存对象{'医嘱号':'同组执行单内容数组'}
         groupObj:{},
+        // 是否显示加载动画
         loading:true,
+        // 事件总线,主要是为了调起保存，刷新页面数据
         bus: bus(this),
     };
 },
 methods: {
+    // 弹窗打开事件
     open() {
-        this.groupObj = {}
-        this.tableData = []
-        this.allData = []
-        this.loading = true
-        let patientInfo = this.$store.state.patient.currentPatient
+        this.groupObj = {}  // 初始化弹窗数据
+        this.tableData = [] // 初始化弹窗数据
+        this.allData = []   // 初始化弹窗数据
+        this.loading = true // 初始化弹窗数据
+        let patientInfo = this.$store.state.patient.currentPatient  // 从vuex获取当前患者信息
+        // 获取患者的医嘱执行单
         getOrdersExecuteWithPatinetId({
-            "patientId":patientInfo.patientId,
-            "visitId":patientInfo.visitId,
-            "startDate":this.startDate?moment(this.startDate).format('YYYY-MM-DD'):'',
-            "endDate":this.endDate?moment(this.endDate).format('YYYY-MM-DD'):'',
-            "executeType":this.executeType,
+            "patientId":patientInfo.patientId, // 患者id
+            "visitId":patientInfo.visitId, // 住院次数
+            "startDate":this.startDate?moment(this.startDate).format('YYYY-MM-DD'):'', // 开始时间(对时间参数进行格式化)
+            "endDate":this.endDate?moment(this.endDate).format('YYYY-MM-DD'):'', // 结束时间(对时间参数进行格式化)
+            "executeType":this.executeType, // 执行单类别
         }).then(res=>{
-            // let res = rexTest
-            this.allData = res.data.data //有接口后用这个
+            // let res = rexTest // 模拟出参
+            this.allData = res.data.data //有真实接口用这个
             // this.allData = res.data
             this.allData.map((item)=>{
+                // 将后端响应的状态转化为文字并存在executeStatusCn字段中
                 item.executeStatusCn = this.executeStatusObj[item.executeStatus]
+                // 通过barcode进行分组(初始化)
                 this.groupObj[item.barcode] = this.groupObj[item.barcode] || []
+                // 添加到各自组别中
                 this.groupObj[item.barcode].push(item)
             })
+            // 调起分组后的处理方法，简单的说就是添加标志
             this.setGroup()
+            // 取消加载动画
             this.loading = false
         })
+        // 打开弹框
         this.$refs.modalName.open();
     },
-    // // 勾选时触发事件(参数为选择后的数组)
-    // handleSelectionChange(val) {
-    //     this.multipleSelection = val;
-    // },
-    // // 清空
+    // 清空
     cleanAllSelection() {
-        this.$refs.multipleTable.clearSelection();
+        // 将当前选中数组的每个元素checked变为false(和tabelData数组中的元素是同地址)
+        this.multipleSelection.map(item=>{
+            item.checked = false
+        })
     },
-    //
+    // 确定
     post(){
+        // 如果未选中,则不作处理
         if(!this.multipleSelection.length)return
         let list = []
+        // 此处遍历为了将选中的数据处理为后端需要的入参形式
         this.multipleSelection.map(item=>{
             let element;
             this.groupObj[item.barcode].map((item,index)=>{
@@ -280,38 +337,48 @@ methods: {
                     foodChannel
                 })
         })
-        // console.log(this.blockId,list);
+        // console.log(this.blockId,list); // 对入参有疑问可以解开
+        // 发送保存请求
         saveAllWithRecordDate({
             blockId:this.blockId,
             list
         }).then(res=>{
+            // 请求成功后再调起表单的整单保存，确保页面数据刷新
             this.bus.$emit('saveSheetPage', 'noSaveSign');
+            // 关闭弹窗
             this.close();
         })
     },
+    // 类别切换事件
     changExecuteType(val){
+        // 将类别切换为回传的类别
         this.executeType = val
     },
+    // 对分组后的数组进行处理
     setGroup(){
         if(this.allData.length){
             let arr = []
             for(let key in this.groupObj){
                 if(this.groupObj[key]&&this.groupObj[key].length){
+                    //  item.disabled:勾选框是否禁用,
+                    //  item.isFirst:是否当前组别的第一条数据,用来决定医嘱内容右侧的特殊符号
+                    //  item.executeDateTime:仅第一条数据显示预计执行时间
                     this.groupObj[key].map((item,index)=>{
-                        if(index==0){
+                        if(index==0){ // 每组第一条数据
                             item.disabled = false
                             item.isFirst = true
-                        }else {
+                        }else { // 非首条数据
                             item.disabled = true
                             item.executeDateTime = ''
                             item.isOrder = true
-                            if(index==this.groupObj[key].length-1){
+                            if(index==this.groupObj[key].length-1){ // 最后一条数据
                             item.isOrder = false
                             item.isLast = true
                             }
                         }
                         arr.push(item)
                     })
+                    // 如果当前组别仅有一条数据,不做任何处理
                     if(this.groupObj[key].length==1){
                         this.groupObj[key][0].isFirst = false
                         this.groupObj[key][0].isOrder = false
@@ -319,23 +386,39 @@ methods: {
                     }
                 }
             }
+            // 渲染到页面上
             this.tableData = arr
         }
     },
+    // 搜索
     search(){
+        // 开启加载动画
         this.loading = true
+        // 重新调起初始化事件
         this.open()
     },
+    // 关闭
     close() {
         this.loading = true
+        // 关闭弹窗
         this.$refs.modalName.close();
     },
 },
 components: {},
 computed:{
+    // 选中数组
     multipleSelection:{
         get(){
             return this.tableData.filter(item=>item.checked)
+        }
+    },
+    // 当前窗口可用高度,用来实现表格高度自适应
+    tableHeight(){
+        let height = window.screen.availHeight
+        if(height>768){
+            return 500
+        }else{
+            return 250
         }
     }
 },

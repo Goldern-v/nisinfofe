@@ -108,7 +108,7 @@
           </div>
         </td>
         <td v-if="HOSPITAL_ID == 'liaocheng'">
-          <div class="cell">
+          <div class="cell liaocheng-img">
             <img
               :src="`/crNursing/api/file/signImage/${item.nurseEmpNo}?${token}`"
               :alt="item.nurse"
@@ -201,6 +201,10 @@
     &.lc {
       height: 29px;
     }
+  }
+  .liaocheng-img{
+    width:55px;
+    height:18px;
   }
 }
 </style>
