@@ -92,7 +92,7 @@
         :sugarItem.sync="typeList"
       ></sugarChart>
     </div>
-    <div class="tool-con" v-show="listMap.length">
+    <div class="tool-con" v-show="listMap.length" :class="[HOSPITAL_ID=='guizhou'?'guizhou-btn':'']">
       <div class="tool-fix" flex="dir:top">
         <whiteButton text="添加" @click="onAdd"></whiteButton>
         <whiteButton
@@ -112,7 +112,7 @@
         ></whiteButton>
         <whiteButton text="打印预览" @click="toPrint"></whiteButton>
         <whiteButton
-          :text="!isChart ? '查看曲线' : '查看表格'"
+          :text="!isChart ? '查看曲线' : HOSPITAL_ID=='guizhou'?'返回':'查看表格'"
           @click="openChart"
           v-if="HOSPITAL_ID != 'gy'"
         ></whiteButton>
@@ -214,6 +214,11 @@
     .btn-con + .btn-con {
       margin-top: 10px;
     }
+  }
+}
+.guizhou-btn{
+  /deep/ .white-btn{
+    color: #000;
   }
 }
 </style>
