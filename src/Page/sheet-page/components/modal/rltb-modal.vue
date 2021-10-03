@@ -31,6 +31,12 @@
                     <el-radio v-model="executeType" :label='item.value' v-for="item in searchArr" :key="item.value">{{item.label}}</el-radio>
                 </div>
             </div>
+            <div class="type-box">
+                <div class="type-title execute">状态：</div>
+                <div class="type-content-box execute-type">
+                    <el-radio v-model="executeStatus" :label='key' v-for="(item,key) in executeStatusObj" :key="key">{{item}}</el-radio>
+                </div>
+            </div>
             <div class="search-box">
                 <el-button @click="search" style="height:32px;" type="primary">查询</el-button>
             </div>
@@ -115,6 +121,9 @@
     }
     .type-title{
         width: 60px;
+        &.execute{
+            width: 40px;
+        }
     }
     .type-content-box{
         height: 34px;
@@ -170,17 +179,19 @@
     }
     @media screen and (max-width: 1367px){
         /deep/ .execute-type{
-            width: 20vw;
+            width: 13vw;
             height: 80px;
             display: flex;
             flex-wrap: wrap;
             align-content: center;
         }
-        
+        /deep/ .el-date-editor.el-input.el-date-editor--date{
+            width: 110px;
+        }
     }
     @media screen and (min-width: 1368px){
         /deep/ .execute-type{
-            width: 30vw;
+            width: 15vw;
             height: 80px;
             display: flex;
             flex-wrap: wrap;
@@ -212,18 +223,15 @@ data() {
         // 筛选字段数组,说是后面会改成后端维护,等着吧,value是后面入参的,label是页面展示的
         searchArr:[
                 {value:'',label:'全部'},
-                {value:'输液',label:'输液'},
+                {value:'静脉',label:'静脉'},
                 {value:'注射',label:'注射'},
                 {value:'口服',label:'口服'},
-                {value:'治疗',label:'治疗'},
-                {value:'雾化',label:'雾化'},
-                {value:'标本',label:'标本'},
-                {value:'皮试',label:'皮试'},
                 {value:'其他',label:'其他'},
-                {value:'外用',label:'外用'},
         ],
         // 医嘱类别
         executeType:'',
+        // 执行状态
+        executeStatus:'4',
         // 表格配置
         columnArr:[
             /* {
@@ -276,6 +284,7 @@ methods: {
             "startDate":this.startDate?moment(this.startDate).format('YYYY-MM-DD'):'', // 开始时间(对时间参数进行格式化)
             "endDate":this.endDate?moment(this.endDate).format('YYYY-MM-DD'):'', // 结束时间(对时间参数进行格式化)
             "executeType":this.executeType, // 执行单类别
+            "executeStatus":this.executeStatus
         }).then(res=>{
             // let res = rexTest // 模拟出参
             this.allData = res.data.data //有真实接口用这个
@@ -323,15 +332,16 @@ methods: {
             })
             console.log(element);
             let {
-                    executeDateTime: recordDate,
                     itemName : food,
                     dosage : foodSize,
                     executeType : foodChannel
                 } = element
+            let date = element.startDateTime?element.startDateTime:element.executeDateTime
+            let {recordDate,recordMonth,recordHour} = this.getRecordate(date)
             list.push({
-                    recordDate:moment(recordDate).format('YYYY-MM-DD HH:MM'),
-                    recordMonth:moment(recordDate).format('MM-DD'),
-                    recordHour:moment(recordDate).format('HH:MM'),
+                    recordDate,
+                    recordMonth,
+                    recordHour,
                     food,
                     foodSize,
                     foodChannel
@@ -348,11 +358,6 @@ methods: {
             // 关闭弹窗
             this.close();
         })
-    },
-    // 类别切换事件
-    changExecuteType(val){
-        // 将类别切换为回传的类别
-        this.executeType = val
     },
     // 对分组后的数组进行处理
     setGroup(){
@@ -403,6 +408,12 @@ methods: {
         // 关闭弹窗
         this.$refs.modalName.close();
     },
+    getRecordate(date){
+        let recordDate = date;
+        let recordMonth = date.substring(5,10);
+        let recordHour = date.substring(11,16)
+        return {recordDate,recordMonth,recordHour}
+    }
 },
 components: {},
 computed:{

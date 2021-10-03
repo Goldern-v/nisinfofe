@@ -1,23 +1,23 @@
 <template>
   <div>
-    <sweet-modal ref="modal" :modalWidth="500" title="出入量统计2222">
+    <sweet-modal ref="modal" :modalWidth="500" title="出入量统计">
       <p for class="name-title">请选择日期区间：</p>
       <div flex="cross:center main:center" style="margin: 0 15px 20px">
         <el-date-picker
           v-model="date[0]"
           type="datetime"
           placeholder="选择开始日期"
-          @change="putGroupCount('update')"
+          @change="putGroupCountFn('update')"
         ></el-date-picker>
         <span style="padding: 0 15px; width: 30px">至</span>
         <el-date-picker
           v-model="date[1]"
           type="datetime"
           placeholder="选择结束日期"
-          @change="putGroupCount('update')"
+          @change="putGroupCountFn('update')"
         ></el-date-picker>
       </div>
-      <div class="group-count">
+      <div class="group-count" v-loading="loading">
         <div>
           <el-checkbox
             :indeterminate="isIndeterminate"
@@ -71,7 +71,7 @@
       </div> -->
       <div slot="button">
         <el-button class="modal-btn" @click="close">取消</el-button>
-        <el-button class="modal-btn" type="primary" @click="post"
+        <el-button class="modal-btn" type="primary" @click="post" :disabled="!(isIndeterminate||checkAll)"
           >保存</el-button
         >
       </div>
@@ -143,11 +143,13 @@ export default {
       resultList: [],//入量勾选的数据
       resultList2: [],//出量勾选的数据
       checkAll: false,//是否选中全部选项
-      isIndeterminate: true,
+      isIndeterminate: false,
+      loading:true,
     };
   },
   methods: {
     open() {
+      this.loading = true
       this.$refs.modal.open();
       this.description = "";
       let y = moment().subtract(1, "days").format("YYYY-MM-DD");
@@ -157,9 +159,9 @@ export default {
       this.date = [yt, tt];
       this.resultList = [];
       this.resultList2 = [];
-      this.isIndeterminate = true;
+      this.isIndeterminate = false;
       this.checkAll = false;
-      this.putGroupCount();
+      this.putGroupCountFn();
     },
     close() {
       this.resultList = [];
@@ -181,10 +183,10 @@ export default {
       Min = Min < 10 ? "0" + Min : Min;
       let second = myDate.getSeconds();
       second = second < 10 ? "0" + second : second;
-    //   console.log(
-    //     "formatDate",
-    //     Y + "-" + M + "-" + D + " " + H + ":" + Min + ":" + second
-    //   );
+      console.log(
+        "formatDate",
+        Y + "-" + M + "-" + D + " " + H + ":" + Min + ":" + second
+      );
       return Y + "-" + M + "-" + D + " " + H + ":" + Min + ":" + second;
     },
     post() {
@@ -218,11 +220,12 @@ export default {
         });
       }
     },
-    putGroupCount(type) {
+    putGroupCountFn(type) {
+        this.loading = true
       if(type){
         this.resultList = [];
         this.resultList2 = [];
-        this.isIndeterminate = true;
+        this.isIndeterminate = false;
         this.checkAll = false;
       }
 
@@ -242,6 +245,10 @@ export default {
         // }
         this.inShows = res.data.data.inShows;
         this.outShows = res.data.data.outShows;
+        this.resultList = Object.keys(this.inShows)
+        this.resultList2 = Object.keys(this.outShows)
+        this.checkAll = true
+        this.loading = false
       });
     },
     handleCheckAllChange(val) {
@@ -269,10 +276,18 @@ export default {
         num2++;
       }
       this.checkAll =
-        this.resultList.length + this.resultList2.length == num1 + num2;
-      this.isIndeterminate =
-        this.resultList.length + this.resultList2.length < num1 + num2;
+        (num1&&num2)&&(this.resultList.length + this.resultList2.length == num1 + num2);
+      this.isIndeterminate =!!((num1&&num2&&this.resultList.length&&this.resultList2.length)&&(this.resultList.length + this.resultList2.length < num1 + num2));
+        console.log(num1,num2,this.resultList.length,this.resultList2.length);
     },
+  },
+  watch:{
+      isIndeterminate(newVal,oldVal){
+          console.log('isIndeterminate',newVal,oldVal);
+      },
+      checkAll(newVal,oldVal){
+          console.log('checkAll',newVal,oldVal);
+      },
   },
   components: {},
 };
