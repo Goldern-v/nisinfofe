@@ -87,7 +87,7 @@
             multiSign: tr.find(item => item.key == 'multiSign').value,
             selectedTr: sheetInfo.selectRow.includes(tr),
             clickRow: sheetInfo.clickRow === tr,
-            redText: tr.find(item => {return item.key == 'recordSource'}).value == '5' || (dateOnBlur[y] || timeOnBlur[y])  
+            redText: tr.find(item => {return item.key == 'recordSource'}).value == '5'
           },
           tr.find(item => {
             return item.key == 'markObj';
