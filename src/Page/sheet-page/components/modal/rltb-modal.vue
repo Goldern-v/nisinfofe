@@ -223,7 +223,7 @@ data() {
         // 筛选字段数组,说是后面会改成后端维护,等着吧,value是后面入参的,label是页面展示的
         searchArr:[
                 {value:'',label:'全部'},
-                {value:'静脉',label:'静脉'},
+                {value:'静脉',label:'静脉'}, 
                 {value:'注射',label:'注射'},
                 {value:'口服',label:'口服'},
                 {value:'其他',label:'其他'},
