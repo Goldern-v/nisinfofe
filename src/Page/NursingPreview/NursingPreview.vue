@@ -85,6 +85,7 @@ import temperatureJmfy from "@/Page/patientInfo/supPage/temperature/temperatureJ
 import temperatureDghl from "@/Page/patientInfo/supPage/temperature/temperatureDghl";
 import temperatureWuJing from "@/Page/patientInfo/supPage/temperature/temperatureWuJing";
 import sheet from "@/Page/patientInfo/supPage/sheet/sheet.vue"; //护理记录单
+import bloodSugar from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar.vue"; //血糖
 import rightPart from "@/Page/patientInfo/supPage/record/component/right-part/right-part.vue";
 import { getPatientInfo } from "@/api/common.js";
 import bus from "vue-happy-bus";
@@ -147,6 +148,7 @@ export default {
     treeNursingPreview,
     rightPart,
     sheet,
+    bloodSugar,
     temperature,
     temperatureHD,
     temperatureLCEY,

@@ -93,7 +93,8 @@
         <div class="text-con">同步护理巡视</div>
       </div>
       <div
-        class="item-box"
+        :class="[hisDocPreview('main')?'right-btn':'item-box']"
+        :id="[hisDocPreview('main')?'is-deputy-btn':'']"
         style="background: antiquewhite"
         flex="cross:center main:center"
         @click.stop="backMainForm"
@@ -104,7 +105,8 @@
         </div>
       </div>
       <div
-        class="item-box"
+        :class="[hisDocPreview('deputy')?'right-btn':'item-box']"
+        :id="[hisDocPreview('deputy')?'is-deputy-btn':'']"
         style="background: antiquewhite"
         flex="cross:center main:center"
         @click.stop="addDeputyForm"
@@ -848,6 +850,16 @@ export default {
     syncVisitWithData() {
       this.$refs.patientInfoModal.open();
     },
+    hisDocPreview(type){
+      switch(type){
+        case 'deputy':
+          return this.HOSPITAL_ID=='guizhou'&&!this.isDeputy&&this.$route.path.includes('nursingPreview')
+        case 'main':
+          return this.HOSPITAL_ID=='guizhou'&&this.isDeputy&&this.$route.path.includes('nursingPreview')
+        default:
+          return false
+      }
+    }
   },
   computed: {
     blockId:{
@@ -1202,5 +1214,9 @@ export default {
     background: #dfdfdf;
     max-height: 105vh !important;
   }
+}
+#is-deputy-btn{
+  background:none!important;
+  pointer-events:auto!important;
 }
 </style>
