@@ -215,7 +215,7 @@ props: {
 data() {
     return {
         // 开始时间:默认无
-        startDate:moment().subtract('days', 6).format('YYYY-MM-DD'),//7天前,
+        startDate:moment().format('YYYY-MM-DD'),
         // 结束时间:默认当前时间
         endDate:moment().format('YYYY-MM-DD'),
         // 表格渲染数据
