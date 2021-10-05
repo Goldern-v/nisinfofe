@@ -448,17 +448,17 @@ export default {
     changeDate(val){
       //console.log(val.$el.children[1].value);
       let numberVal=val.$el.children[1].value;
-      if(!moment(numberVal,"HH:mm",true).isValid()) {
-          this.$message.error("请输入正确时间数值，例如23:25, 2325");
-          return false;
-      }
+      // if(!moment(numberVal,"HH:mm",true).isValid()) {
+      //     this.$message.error("请输入正确时间数值，例如23:25, 2325");
+      //     return false;
+      // }
       if((numberVal.indexOf(":")==-1 && numberVal.length==4) || (numberVal.indexOf(":")!=-1 && numberVal.length==5)){
         let time = numberVal.indexOf(":")==-1?`${numberVal.substring(0,2)}:${numberVal.substring(2,4)}`:`${numberVal.substring(0,2)}:${numberVal.substring(3,5)}`;
-        console.log(moment(time).format("HH:mm"))
-        if(!moment(numberVal,"HH:mm",true).isValid()) {
-          this.$message.error("请输入正确时间数值，例如23:25, 2325");
-          return false;
-        }
+        console.log(time);
+        // if(!moment(numberVal,"HH:mm",true).isValid()) {
+        //   this.$message.error("请输入正确时间数值，例如23:25, 2325");
+        //   return false;
+        // }
         let [hours,min] = time.split(':')
         if(0<=hours && hours<=24 && 0<=min && min<=59){
           this.query.entryTime = time+":00"
@@ -654,10 +654,10 @@ export default {
     changeQuery(value) {
       let temp = value;
       this.query.entryDate = temp.slice(0, 10);
-      this.query.entryTime = value.slice(12, 17);
+      this.query.entryTime = value.slice(12, 17)+':00';
       //this.query.entryTime = value.slice(12, 20);
       //赋值初始值
-      this.dateInp = value.slice(12, 17);
+      this.dateInp = value.slice(12, 17)+':00';
     },
     getFilterSelections(orgin, filterStr) {
       if (!filterStr || !filterStr.trim()) return orgin;
