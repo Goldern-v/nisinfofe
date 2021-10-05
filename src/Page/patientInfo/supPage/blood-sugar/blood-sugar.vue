@@ -59,7 +59,7 @@
             <sugarTable
               :data="item.left"
               :selected.sync="selected"
-              @dblclick="hisDisabled()&&onEdit"
+              @dblclick="hisDisabled()&&onEdit()"
               :baseIndex='0'
             ></sugarTable>
             <div
@@ -72,7 +72,7 @@
             <sugarTable
               :data="item.right"
               :selected.sync="selected"
-              @dblclick="hisDisabled()&&onEdit"
+              @dblclick="hisDisabled()&&onEdit()"
               :baseIndex='27'
             ></sugarTable>
           </div>
@@ -95,23 +95,23 @@
     </div>
     <div class="tool-con" v-show="listMap.length" :class="[HOSPITAL_ID=='guizhou'?'guizhou-btn':'']">
       <div class="tool-fix" flex="dir:top">
-        <whiteButton text="添加" @click="hisDisabled()&&onAdd"></whiteButton>
+        <whiteButton text="添加" @click="hisDisabled()&&onAdd()"></whiteButton>
         <whiteButton
           text="修改"
-          @click="hisDisabled()&&onEdit"
+          @click="hisDisabled()&&onEdit()"
           :disabled="!selected || !selected.recordDate"
           v-if="HOSPITAL_ID != 'lingcheng'"
         ></whiteButton>
         <whiteButton
           text="删除"
-          @click="hisDisabled()&&onRemove"
+          @click="hisDisabled()&&onRemove()"
           :disabled="!selected || !selected.recordDate"
         ></whiteButton>
         <whiteButton
           :text="`设置起始页(${startPage})`"
           @click="hisDisabled()&&openSetPageModal(listMap.length)"
         ></whiteButton>
-        <whiteButton text="打印预览" @click="hisDisabled()&&toPrint"></whiteButton>
+        <whiteButton text="打印预览" @click="hisDisabled()&&toPrint()"></whiteButton>
         <whiteButton
           :text="!isChart ? '查看曲线' : HOSPITAL_ID=='guizhou'?'返回':'查看表格'"
           @click="openChart"

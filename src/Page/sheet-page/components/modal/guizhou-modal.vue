@@ -277,7 +277,7 @@ export default {
       }
       this.checkAll =
         (num1&&num2)&&(this.resultList.length + this.resultList2.length == num1 + num2);
-      this.isIndeterminate =!!((num1&&num2&&this.resultList.length&&this.resultList2.length)&&(this.resultList.length + this.resultList2.length < num1 + num2));
+      this.isIndeterminate =!!((num1&&num2&&(this.resultList.length||this.resultList2.length))&&(this.resultList.length + this.resultList2.length < num1 + num2));
         console.log(num1,num2,this.resultList.length,this.resultList2.length);
     },
   },
