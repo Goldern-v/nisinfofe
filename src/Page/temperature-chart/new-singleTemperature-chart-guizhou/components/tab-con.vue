@@ -25,7 +25,7 @@
           v-model="query.entryDate"
           clearable
         />
-        <div class="times">
+        <div class="times" @keydown.stop="(e)=>show(e)">
           <!-- <el-radio-group v-model="query.entryTime" @change="changeEntryTime">
             <el-radio
               size="mini"
@@ -44,6 +44,7 @@
             v-model="dateInp"
             value-format="HH:mm"
             format="HH:mm"
+            ref="timeSelect"
             @blur="changeDate"
             @change="changeVal"
             :picker-options="{
@@ -61,7 +62,7 @@
       <null-bg v-if="!patientInfo.patientId"></null-bg>
       <div v-else class="showRecord">
         <div style="flex: 4">
-          <el-button
+          <div
             :class="
               [
                 'recordList',
@@ -73,6 +74,7 @@
             style="margin: 0px"
             v-for="(dateTime, tabIndex) in tabsData"
             :key="tabIndex"
+            @contextmenu.stop.prevent="(e)=>rightMouseDown(e,dateTime, tabIndex)"
             @click="changeQuery(dateTime)"
           >
             {{ dateTime }}
@@ -81,7 +83,7 @@
               @click="removeRecord(dateTime, tabIndex)"
               class="el-icon-close"
             ></i>
-          </el-button>
+          </div>
         </div>
         <div style="flex: 7" class="inputText">
           <div
@@ -741,9 +743,15 @@ export default {
         this.init();
       });
     },
-    // rightMouseDown(e,dateTime, tabIndex){
-    //   console.log(e,dateTime, tabIndex);
-    // },
+    show(e){
+      if(e.keyCode==13){
+        this.changeDate(this.$refs.timeSelect)
+      }
+    },
+    rightMouseDown(e,dateTime, tabIndex){
+      console.log(dateTime, tabIndex);
+      this.removeRecord(dateTime, tabIndex)
+    },
     /* 删除记录 */
     async removeRecord(targetName, index) {
       await this.$confirm("是否确删除该记录?", "提示", {
@@ -894,13 +902,16 @@ export default {
         overflow: auto;
 
         .recordList {
-          width: 180px;
+          width: 150px;
           height: 30px;
           line-height: 30px;
           border: 1px solid #eee;
           padding: 0 6px;
 
           &.active {
+            color: rgb(68, 158, 127);
+          }
+          &:hover{
             color: rgb(68, 158, 127);
           }
         }
