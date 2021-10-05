@@ -48,7 +48,7 @@
             @change="changeVal"
             :picker-options="{
               start: '02:00',
-              step: '02:00',
+              step: '04:00',
               end: '22:00'
             }"
             class="new-time-select"
