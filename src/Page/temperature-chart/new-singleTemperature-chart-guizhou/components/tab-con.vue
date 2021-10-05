@@ -45,6 +45,12 @@
             value-format="HH:mm"
             format="HH:mm"
             @blur="changeDate"
+            @change="changeVal"
+            :picker-options="{
+              start: '02:00',
+              step: '02:00',
+              end: '22:00'
+            }"
             class="new-time-select"
           placeholder="选择时间">
         </el-time-select>
@@ -444,6 +450,12 @@ export default {
     },
   },
   methods: {
+    changeVal(newVal,oldVal){
+      if(newVal&&newVal.split(':').length==2){
+        this.query.entryDate = newVal+":00"
+        this.dateInp = this.query.entryDate
+      }
+    },
     //时间组件失去焦点
     changeDate(val){
       //console.log(val.$el.children[1].value);
