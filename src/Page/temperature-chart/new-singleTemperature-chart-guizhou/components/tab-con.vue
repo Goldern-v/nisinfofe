@@ -35,11 +35,19 @@
             ></el-radio>
           </el-radio-group> -->
          
-       <el-select v-model="query.entryTime" filterable allow-create default-first-option  size="mini" @focus="inputClicl($event)"
+       <!-- <el-select v-model="query.entryTime" filterable allow-create default-first-option  size="mini" @focus="inputClicl($event)"
             placeholder="选择时间" @change="changeValue($event)">
             <el-option v-for="item in timesOdd" :key="item.value" :label="item.label" :value="item.value">
             </el-option>
-        </el-select>
+        </el-select> -->
+        <el-time-select
+            v-model="dateInp"
+            value-format="HH:mm"
+            format="HH:mm"
+            @blur="changeDate"
+            class="new-time-select"
+          placeholder="选择时间">
+        </el-time-select>
         </div>
       </div>
     </div>
@@ -329,6 +337,7 @@ export default {
 
     return {
       mockData,
+      dateInp:moment().format('HH:mm'),
       recordList,
       bus: bus(this),
       editableTabsValue: "2",
@@ -435,6 +444,30 @@ export default {
     },
   },
   methods: {
+    //时间组件失去焦点
+    changeDate(val){
+      //console.log(val.$el.children[1].value);
+      let numberVal=val.$el.children[1].value;
+      if(!moment(numberVal,"HH:mm",true).isValid()) {
+          this.$message.error("请输入正确时间数值，例如23:25, 2325");
+          return false;
+      }
+      if((numberVal.indexOf(":")==-1 && numberVal.length==4) || (numberVal.indexOf(":")!=-1 && numberVal.length==5)){
+        let time = numberVal.indexOf(":")==-1?`${numberVal.substring(0,2)}:${numberVal.substring(2,4)}`:`${numberVal.substring(0,2)}:${numberVal.substring(3,5)}`;
+        console.log(moment(time).format("HH:mm"))
+        if(!moment(numberVal,"HH:mm",true).isValid()) {
+          this.$message.error("请输入正确时间数值，例如23:25, 2325");
+          return false;
+        }
+        let [hours,min] = time.split(':')
+        if(0<=hours && hours<=24 && 0<=min && min<=59){
+          this.query.entryTime = time+":00"
+          this.dateInp=this.query.entryTime
+        }else {
+          this.$message.error("请输入正确时间数值，例如23:25, 2325")
+        }
+      }
+    },
       changeValue(e){
                     // console.log(e)
                  },
@@ -621,7 +654,10 @@ export default {
     changeQuery(value) {
       let temp = value;
       this.query.entryDate = temp.slice(0, 10);
-      this.query.entryTime = value.slice(12, 20);
+      this.query.entryTime = value.slice(12, 17);
+      //this.query.entryTime = value.slice(12, 20);
+      //赋值初始值
+      this.dateInp = value.slice(12, 17);
     },
     getFilterSelections(orgin, filterStr) {
       if (!filterStr || !filterStr.trim()) return orgin;
@@ -822,6 +858,16 @@ export default {
 .times {
   display:inline-block;
   width:100px;
+  .new-time-select{
+    height: 22px;
+    width: 105px;
+    >>>.el-input__inner{
+    height: 22px !important;
+    width:105px;
+    
+  }
+  
+}
 }
   .row-bottom {
     .showRecord {
@@ -902,6 +948,9 @@ export default {
     width: 100px;
   }
 }
+>>> .el-picker-panel.time-select{
+  width:105px;
+}
 </style>
 
 <style lang="scss">
@@ -930,4 +979,5 @@ export default {
     }
   }
 }
+
 </style>
