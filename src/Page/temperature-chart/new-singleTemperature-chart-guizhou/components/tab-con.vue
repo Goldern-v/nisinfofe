@@ -450,15 +450,16 @@ export default {
     },
   },
   methods: {
+    // 下拉选项触发查询
     changeVal(newVal,oldVal){
       if(newVal&&newVal.split(':').length==2){
-        this.query.entryDate = newVal+":00"
-        this.dateInp = this.query.entryDate
+        this.query.entryTime = newVal+":00"
+        this.dateInp = this.query.entryTime
       }
     },
     //时间组件失去焦点
     changeDate(val){
-      //console.log(val.$el.children[1].value);
+      // console.log(val.$el.children[1].value);
       let numberVal=val.$el.children[1].value;
       // if(!moment(numberVal,"HH:mm",true).isValid()) {
       //     this.$message.error("请输入正确时间数值，例如23:25, 2325");
@@ -740,6 +741,9 @@ export default {
         this.init();
       });
     },
+    // rightMouseDown(e,dateTime, tabIndex){
+    //   console.log(e,dateTime, tabIndex);
+    // },
     /* 删除记录 */
     async removeRecord(targetName, index) {
       await this.$confirm("是否确删除该记录?", "提示", {
