@@ -4,7 +4,8 @@
       <tr>
         <th
           v-if="HOSPITAL_ID == 'hj'
-          && HOSPITAL_ID == 'guizhou'"
+          || HOSPITAL_ID == 'guizhou'
+          || HOSPITAL_ID == 'liaocheng'"
           style="width: 2%; min-width: 20px"
         >
           序号
@@ -16,7 +17,7 @@
           时间
         </th>
         <th v-else style="width: 22%; min-width: 75px">日期</th>
-        <th v-if="HOSPITAL_ID != 'lingcheng'" style="width: 24%">项目</th>
+        <th v-if="HOSPITAL_ID != 'lingcheng'" style="width: 20%">项目</th>
         <th v-else style="width: 24%">测量时间</th>
         <th style="width: 22%">
           血糖值
@@ -36,7 +37,7 @@
           {{HOSPITAL_ID=="quzhou"?'胰岛素剂量':'RI剂量'}}
         </th>
         <th
-          style="width: 16%"
+          style="width: 22%"
           v-if="
             HOSPITAL_ID == 'liaocheng'
           "
@@ -44,7 +45,7 @@
           血酮值
         <br />（mmol/L）
         </th>
-        <th style="width: 16%">{{HOSPITAL_ID == 'liaocheng' ? '测量者' : '执行人'}}</th>
+        <th style="width: 16%">{{HOSPITAL_ID == 'liaocheng' ? '签名' : '执行人'}}</th>
       </tr>
       <tr
         v-for="(item,index) in renderData"
@@ -53,7 +54,7 @@
         @click="onSelect(item)"
         @dblclick="onDblClick(item)"
       >
-        <td v-if="HOSPITAL_ID =='hj' &&  HOSPITAL_ID == 'guizhou'">
+        <td v-if="HOSPITAL_ID =='hj' ||  HOSPITAL_ID == 'guizhou' || HOSPITAL_ID == 'liaocheng'">
           {{index + baseIndex + 1}}
         </td>
         <td v-if="HOSPITAL_ID != 'lingcheng'" style="padding: 0 4px">
