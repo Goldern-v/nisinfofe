@@ -181,7 +181,7 @@ export default [{
     },
   },
   {
-    key: "measuresOne", //自定义4
+    key: "postOutputFour", //自定义4
     value: "",
     event: keyf1,
     textarea: {
