@@ -60,7 +60,7 @@
           @click="selectType(item.name)"
         >
           <i class="icon-bingwei iconfont"></i>
-          <span>{{ item.name }}（{{ item.num }}）</span>
+          <span  :class="{gm:HOSPITAL_ID=='huadu'&& item.name=='过敏'}">{{ item.name }}（{{ item.num }}）</span>
         </div>
 
         <div
@@ -209,7 +209,9 @@
       }
     }
   }
-
+  .gm{
+    color :red;
+  }
   .line {
     background: #ECEEEF;
     height: 1px;
@@ -286,6 +288,8 @@ import {
   syncGetMedicalAdvice,
   syncGetNurseBedRecLc,
   syncGetNurseBedRecLiaocheng,
+  syncGetNurseBedRecShannan,
+  syncGetNurseBedRecQuzhou
 } from "@/api/lesion";
 import footerBar from "../footer-bar/footer-bar.vue";
 import { listItem } from "@/api/common.js";
@@ -310,11 +314,26 @@ export default {
       return this.$store.state.lesion.deptCode;
     },
     // 全部床位
+    allBedLength() {
+      if (this.HOSPITAL_ID === 'hengli' && this.$store.state.lesion.deptCode === '103') {
+        return this.bedList.filter((item) => item.name.indexOf("B") === -1);
+      } else {
+        return this.bedList;
+      }
+    },
     allBed() {
       return this.bedList;
     },
     nullBed() {
       return this.bedList.filter((item) => !item.patientId);
+    },
+    inBedLength() {
+      if (this.HOSPITAL_ID === 'hengli' && this.$store.state.lesion.deptCode === '103') {
+        console.log(this.bedList, 88)
+        return this.bedList.filter((item) => item.patientId && item.name.indexOf("B") === -1);
+      } else {
+        return this.bedList.filter((item) => item.patientId);
+      }
     },
     inBed() {
       return this.bedList.filter((item) => item.patientId);
@@ -446,7 +465,7 @@ export default {
       let list = [
         {
           name: "全部床位",
-          num: this.allBed.length,
+          num: this.allBedLength.length,
           type: "bed",
         },
         {
@@ -456,7 +475,7 @@ export default {
         },
         {
           name: "在床",
-          num: this.inBed.length,
+          num: this.inBedLength.length,
           type: "bed",
         },
         //  {
@@ -578,7 +597,7 @@ export default {
     },
     // 同步床位数据
     showSyncBedBtn() {
-      return ["weixian", "lingcheng", "liaocheng", "hengli"].includes(
+      return ["weixian", "lingcheng", "liaocheng", "hengli",'shannan', 'quzhou'].includes(
         this.HOSPITAL_ID
       );
     },
@@ -601,6 +620,7 @@ export default {
         this.levelColor = levelColor;
         patients(this.deptCode).then((res) => {
           this.bedList = res.data.data.map((item) => {
+            console.log(item.name, 978)
             item.nursingClassColor = (
               levelColor.find((o) => o.code == item.nursingClass) || {}
             ).name;
@@ -631,6 +651,12 @@ export default {
           break;
         case "liaocheng":
           syncData = syncGetNurseBedRecLiaocheng;
+          break;
+        case "shannan":
+          syncData = syncGetNurseBedRecShannan;
+          break;
+        case "quzhou":
+          syncData = syncGetNurseBedRecQuzhou;
           break;
         default:
           syncData = syncGetNurseBedRec;

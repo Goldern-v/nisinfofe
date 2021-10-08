@@ -47,6 +47,7 @@
     <delPageModal ref="delPageModal" :index="sheetModel.length"></delPageModal>
     <HjModal ref="HjModal"></HjModal>
     <HdModal ref="HdModal"></HdModal>
+    <GuizhouModal ref="GuizhouModal"></GuizhouModal>
     <signModal ref="signModal" title="需要该行签名着确认"></signModal>
     <signModal ref="signModal2" title="签名者确认"></signModal>
     <setPageModal ref="setPageModal"></setPageModal>
@@ -181,10 +182,15 @@ import sheetTable_intervention_cure from "@/Page/sheet-page/components/sheetTabl
 import sheetTable_intersurgerycure_qzx from "@/Page/sheet-page/components/sheetTable-intersurgerycure_qzx/sheetTable";
 import sheetTable_mild_hypothermia_hd from "@/Page/sheet-page/components/sheetTable-mild_hypothermia_hd/sheetTable";
 import sheetTable_neonatology_picc from "@/Page/sheet-page/components/sheetTable-neonatology_picc/sheetTable";
+import sheetTable_newborn_qzx from "@/Page/sheet-page/components/sheetTable-newborn_qzx/sheetTable";
 import sheetTable_internal_eval_lcey from "@/Page/sheet-page/components/sheetTable-internal_eval_lcey/sheetTable";
 import sheetTable_surgical_eval2_lcey from "@/Page/sheet-page/components/sheetTable-surgical_eval2_lcey/sheetTable";
 import sheetTable_intervention_cure_lcey from "@/Page/sheet-page/components/sheetTable-intervention_cure_lcey/sheetTable";
 import sheetTable_picu_hemodialysis_jm from "@/Page/sheet-page/components/sheetTable-picu_hemodialysis_jm/sheetTable";
+import sheetTable_waiting_birth_gzry from "@/Page/sheet-page/components/sheetTable-waiting_birth_gzry/sheetTable";
+import sheetTable_catheterplacement_jm from "@/Page/sheet-page/components/sheetTable-catheterplacement_jm/sheetTable";
+import sheetTable_picc_custody_jm from "@/Page/sheet-page/components/sheetTable-picc_custody_jm/sheetTable";
+import sheetTable_nicu_custody_jm from "@/Page/sheet-page/components/sheetTable-nicu_custody_jm/sheetTable";
 import sheetTable_oxytocin_hl from "@/Page/sheet-page/components/sheetTable-oxytocin_hl/sheetTable";
 import sheetTable_emergency_rescue from "@/Page/sheet-page/components/sheetTable-emergency_rescue/sheetTable";
 import sheetTable_dressing_count_hl from "@/Page/sheet-page/components/sheetTable-dressing_count_hl/sheetTable";
@@ -213,6 +219,7 @@ import $ from "jquery";
 import moment from "moment";
 import HjModal from "@/Page/sheet-page/components/modal/hj-modal.vue";
 import HdModal from "@/Page/sheet-page/components/modal/hd-modal.vue";
+import GuizhouModal from "@/Page/sheet-page/components/modal/guizhou-modal.vue";
 import signModal from "@/components/modal/sign.vue";
 import specialModal from "@/Page/sheet-page/components/modal/special-modal.vue";
 import specialModal2 from "@/Page/sheet-page/components/modal/special-modal2.vue";
@@ -314,6 +321,8 @@ export default {
         return sheetTable_mild_hypothermia_hd;
       } else if (sheetInfo.sheetType == "neonatology_picc") {
         return sheetTable_neonatology_picc;
+      } else if (sheetInfo.sheetType == "newborn_qzx") {
+        return sheetTable_newborn_qzx;
       } else if (sheetInfo.sheetType == "internal_eval_lcey") {
         return sheetTable_internal_eval_lcey;
       } else if (sheetInfo.sheetType == "surgical_eval2_lcey") {
@@ -322,6 +331,14 @@ export default {
         return sheetTable_intervention_cure_lcey;
       } else if (sheetInfo.sheetType == "picu_hemodialysis_jm") {
         return sheetTable_picu_hemodialysis_jm;
+      } else if (sheetInfo.sheetType == "waiting_birth_gzry") {
+        return sheetTable_waiting_birth_gzry;
+      } else if (sheetInfo.sheetType == "catheterplacement_jm") {
+        return sheetTable_catheterplacement_jm;
+      } else if (sheetInfo.sheetType == "picc_custody_jm") {
+        return sheetTable_picc_custody_jm;
+      } else if (sheetInfo.sheetType == "nicu_custody_jm") {
+        return sheetTable_nicu_custody_jm;
       } else if (sheetInfo.sheetType == "rescue_hl") {
         return sheetTable_emergency_rescue;
       } else if (sheetInfo.sheetType == "oxytocin_hl") {
@@ -707,11 +724,14 @@ export default {
       // } else {
       //   this.$router.push(`/print/sheetPage`);
       // }
-
-      if (process.env.NODE_ENV === "production") {
-        newWid.location.href = "/crNursing/print/sheetPage";
-      } else {
+      if (process.env.HOSPITAL_ID == "fuyou"|| process.env.HOSPITAL_ID == "quzhou" || process.env.HOSPITAL_ID == "huadu") {
         this.$router.push(`/print/sheetPage`);
+      } else {
+        if (process.env.NODE_ENV === "production") {
+          newWid.location.href = "/crNursing/print/sheetPage";
+        } else {
+          this.$router.push(`/print/sheetPage`);
+        }
       }
     });
     this.bus.$on("openHJModal", () => {
@@ -719,6 +739,9 @@ export default {
     });
     this.bus.$on("openHDModal", () => {
       this.$refs.HdModal.open();
+    });
+    this.bus.$on("openGuizhouModal", () => {
+      this.$refs.GuizhouModal.open();
     });
     this.bus.$on("openSetPageModal", () => {
       this.$refs.setPageModal.open();
@@ -787,6 +810,7 @@ export default {
     delPageModal,
     HjModal,
     HdModal,
+    GuizhouModal,
     signModal,
     specialModal,
     specialModal2,
@@ -806,10 +830,15 @@ export default {
     sheetTable_intersurgerycure_qzx,
     sheetTable_mild_hypothermia_hd,
     sheetTable_neonatology_picc,
+    sheetTable_newborn_qzx,
     sheetTable_internal_eval_lcey,
     sheetTable_surgical_eval2_lcey,
     sheetTable_intervention_cure_lcey,
     sheetTable_picu_hemodialysis_jm,
+    sheetTable_waiting_birth_gzry,
+    sheetTable_catheterplacement_jm,
+    sheetTable_picc_custody_jm,
+    sheetTable_nicu_custody_jm,
     sheetTable_oxytocin_hl,
     sheetTable_emergency_rescue,
     sheetTable_dressing_count_hl

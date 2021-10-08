@@ -12,7 +12,7 @@
       <thead></thead>
       <tbody>
         <tr>
-          <td rowspan="12">
+          <td rowspan="5">
             <div style="height: 152px; margin: 0 -5px">
               <svg
                 width="100%"
@@ -41,8 +41,6 @@
                 <line
                   x1="0"
                   y1="0"
-                  x2="100%"
-                  y2="100%"
                   style="stroke: rgb(99, 99, 99); stroke-width: 1"
                 />
               </svg>
@@ -50,10 +48,10 @@
                 病室动态
                 <br />（人）
               </div>
-              <div class="title-2">
+              <!-- <div class="title-2">
                 护理
                 <br />内容
-              </div>
+              </div> -->
               <div class="title-3">
                 床号
                 <br />姓名 <br />诊断 <br />类别标志
@@ -171,15 +169,15 @@ function initFormData(data = {}) {
       ["一级", data.aFirst, data.pFirst, data.nFirst],
       ["现有", data.aNow, data.pNow, data.nNow],
     ],
-    contents: {
-      自动外出: [data.aSelfOut, data.pSelfOut, data.nSelfOut],
-      未完成输液者: [data.aUnfinished, data.pUnfinished, data.nUnfinished],
-      动静脉置管护理: [data.aVein, data.pVein, data.nVein],
-      留置引流管护理: [data.aUrine, data.pUrine, data.nUrine],
-      鼻饲护理: [data.aNose, data.pNose, data.nNose],
-      吸氧护理: [data.aOxygen, data.pOxygen, data.nOxygen],
-      其他: [data.aOther, data.pOther, data.nOther],
-    },
+    // contents: {
+    //   自动外出: [data.aSelfOut, data.pSelfOut, data.nSelfOut],
+    //   未完成输液者: [data.aUnfinished, data.pUnfinished, data.nUnfinished],
+    //   动静脉置管护理: [data.aVein, data.pVein, data.nVein],
+    //   留置引流管护理: [data.aUrine, data.pUrine, data.nUrine],
+    //   鼻饲护理: [data.aNose, data.pNose, data.nNose],
+    //   吸氧护理: [data.aOxygen, data.pOxygen, data.nOxygen],
+    //   其他: [data.aOther, data.pOther, data.nOther],
+    // },
     typeList: {
       病危: data.typeDanger || "",
       病重: data.typeSerious || "",

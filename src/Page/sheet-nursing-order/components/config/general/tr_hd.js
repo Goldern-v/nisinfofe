@@ -67,6 +67,11 @@ function isReturn() {
 
 export default [
   {
+    key: "recordDate", //日期
+    value: "",
+    hidden:true
+  },
+  {
     key: "startDate", //日期
     value: "",
     event: event_date,
@@ -148,7 +153,7 @@ export default [
   },
   {
     // hidden: true,
-    key: "signerName",
+    key: "signerName", //
     value: ""
   },
   {
@@ -159,7 +164,7 @@ export default [
     }
   },
   {
-    key: "", //频次
+    key: "frequency", //频次
     value: "",
   },
   {

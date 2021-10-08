@@ -34,6 +34,13 @@
           <span class="name">体温单</span>
         </div>
       </div>
+      <div>
+        <div @click="setItemShow('four')" class="title">血糖</div>
+        <div v-if="isShowObj.four" @click="showForm('bloodSugar')" class='fromCss'>
+          <img src='@/common/images/record/文件.png' class="img"/>
+          <span class="name">血糖</span>
+        </div>
+      </div>
     </div>
     <!-- 弹出框 -->
     <newForm ref="newForm"></newForm>
@@ -194,7 +201,8 @@ export default {
       isShowObj: {
         one: false,
         two: false,
-        three: false
+        three: false,
+        four:false
       }, // 一级菜单开关 (默认关闭)
       handleAddTemplateAtDoc: null,
       nursingPreviewIsShow: true //南医三嘉禾展示去除头部按钮 -true展示  false去除
@@ -222,6 +230,7 @@ export default {
   methods: {
     // 控制右边表单
     showForm (type) {
+      console.log(this.$route.query);
       this.bus.$emit("openOtherForm", { component: type });
     },
     nodeClick(data, node) {

@@ -155,9 +155,17 @@ export default {
       let yt = y + " 07:00";
       let tt = t + " 07:00";
       this.date = [yt, tt];
+      this.resultList = [];
+      this.resultList2 = [];
+      this.isIndeterminate = true;
+      this.checkAll = false;
       this.putGroupCount();
     },
     close() {
+      this.resultList = [];
+      this.resultList2 = [];
+      this.isIndeterminate = true;
+      this.checkAll = false;
       this.$refs.modal.close();
     },
     dateFormat(date) {

@@ -15,7 +15,8 @@
           :class="{ canSet: item.canSet }"
           @click="item.canSet && setTitle(item)"
         >
-          <span v-html="item.name"></span>
+          <span v-if="item.key=='recordYear'&&HOSPITAL_ID=='huadu'">{{recordYear()}}</span>
+          <span v-else v-html="item.name"></span>
         </th>
       </tr>
 
@@ -54,6 +55,7 @@
           @mouseover="markTip($event, td)"
           @mouseout="closeMarkTip"
           @click="td.click || null"
+          @dblclick="openEditModal(tr, data, $event)" 
           :class="[
             td.markObj && `mark-mark-mark mark-cell-${td.markObj.signType}`,
           ]"
@@ -173,6 +175,8 @@
               alt
             />
           </div>
+          <input v-else-if="HOSPITAL_ID=='huadu'&&td.key=='orderContent'" @click="(e)=>openOrderModal(e,td,tr,x,y,'护嘱内容',910)" style="height:32px;text-align:left;" v-model="td.value" :data-value='td.value'>
+          <input v-else-if="HOSPITAL_ID=='huadu'&&td.key=='frequency'" @click="(e)=>openOrderModal(e,td,tr,x,y,'频次',1090)" v-model="td.value" style="height:32px;" :data-value='td.value'>
           <input
             type="text"
             :readonly="isRead(tr)"
@@ -215,6 +219,8 @@
       ref="delsignModal"
       title="删除签名需签名者确认。。。。"
     ></signModal>
+    <specialModalHuadu ref="specialModalHuadu"></specialModalHuadu>
+    <orderModal v-if="isShowOrderModal" @close="closeOrderModal" @changeOrderContent="changeOrderContent" :top='modalTop' :left='modalLeft' :type="type"/>
   </div>
 </template>
 
@@ -232,6 +238,7 @@ import {
   markDelete,
 } from "@/api/nursingOrderSheet.js";
 import signModal from "@/components/modal/sign.vue";
+import specialModalHuadu from '@/Page/sheet-nursing-order/components/modal/special-modal_huadu'
 import { Tr } from "../../../render/Body.js";
 import { TrHj } from "../../../render/Body_hj.js";
 import { offset, getCursortPosition, focusElement, bindFocus } from "./tool.js";
@@ -241,6 +248,8 @@ import $ from "jquery";
 import bus from "vue-happy-bus";
 import sheetModel from "../../../../sheet.js";
 import common from "@/common/mixin/common.mixin.js";
+import orderModal from "../modal/orderModal.vue"
+import item1Vue from '@/Part/whiteBoard/page2/components/item-1.vue';
 export default {
   props: {
     data: Object,
@@ -260,6 +269,10 @@ export default {
       matchMark,
       bus: bus(this),
       sheetInfo,
+      isShowOrderModal:false,
+      modalTop:'0px',
+      modalLeft:'0px',
+      currentColumn:{},
     };
   },
   computed: {
@@ -273,7 +286,40 @@ export default {
       return this.sheetInfo.sheetMaxPage;
     },
   },
+  mounted(){
+  },
   methods: {
+    recordYear(){
+     return this.data.bodyModel[0][0].value.split('-')[0]
+    },
+    show(td){
+      console.log(td);
+      
+    },
+    changeOrderContent(item){
+      if(this.rowIndex<=26){
+      this.currentColumn.value = item
+      }else{
+        return
+      }
+      if(this.rowIndex<26){
+        this.rowIndex++
+        this.currentColumn = this.data.bodyModel[this.rowIndex][this.columnIndex]
+      }
+    },
+    openOrderModal(e,td,tr,x,y,type,width){
+      this.type = type
+      this.modalLeft = width + e.currentTarget.offsetWidth + 'px';
+      this.modalTop = e.clientY  + 'px';
+      this.currentColumn = td
+      this.columnIndex = x;
+      this.rowIndex = y;
+      console.log(x,y);
+      this.isShowOrderModal = true
+    },
+    closeOrderModal(){
+      this.isShowOrderModal = false
+    },
     setTitle(item) {
       this.$refs.setTitleModal.open((title) => {
         let data = {
@@ -841,7 +887,8 @@ export default {
         tab,
         isLast,
       };
-      window.openSpecialModalOrder(config);
+      // window.openSpecialModalOrder(config);
+      this.$refs.specialModalHuadu.open(config)
     },
     markTip(e, td) {
       let dom = $(e.target).parents("td").length
@@ -899,6 +946,8 @@ export default {
   components: {
     setTitleModal,
     signModal,
+    specialModalHuadu,
+    orderModal
   },
 };
 </script>

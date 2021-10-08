@@ -622,7 +622,6 @@ export default {
       return this.formData.remarkPrint;
     }
   },
-  watch() {},
   methods: {
     init() {
       this.formData = {

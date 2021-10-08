@@ -1,25 +1,21 @@
 import moment from "moment";
-
+import {
+  limitChange
+} from "../keyEvent/f1.js";
 function currYear() {
   return moment().format('YYYY')
 }
 export default {
   // 科室的名称 关节骨科
   deptType: "",
-  style: {
-    width: "1180px"
-  },
   th: {
     top: [
       {
-        name: currYear(),
+        name: '',
+        style: {},
         colspan: "2",
         rowspan: "1",
-        style: {
-          minWidth: "82px"
-        },
-        canSet: true,
-        key: "recordYear",
+        key:'recordYear'
       },
       {
         name: `
@@ -41,8 +37,7 @@ export default {
         colspan: "1",
         rowspan: "3",
         style: {
-          whiteSpace: "nowrap",
-          minWidth: "38px"
+          minWidth: "73px"
         }
       },
       {
@@ -52,19 +47,14 @@ export default {
         style: {},
         colspan: "2",
         rowspan: "1",
-        style: {
-          whiteSpace: "nowrap",
-          minWidth: "38px"
-        }
       },
       {
         name: `
         衔接
         `,
         style: {
-          minWidth: "40px",
-          maxWidth: "40px",
-          whiteSpace: "nowrap"
+          minWidth: "25px",
+          maxWidth: "25px",
         },
         colspan: "1",
         rowspan: "3"
@@ -94,7 +84,7 @@ export default {
       },
       {
         name: `
-        先露高低
+        先露高低<br/>S
         `,
         style: {
           minWidth: "20px",
@@ -139,29 +129,20 @@ export default {
         rowspan: "3"
       },
       {
-        name: ``,
+        name: `标题1`,
         style: {},
         colspan: "1",
         rowspan: "3",
         canSet: true,
         key: "fieldSixteen",
-        style: {
-          minWidth: "60px",
-          maxWidth: "60px",
-          whiteSpace: "nowrap"
-        }
       },
       {
-        name: ``,
+        name: `标题2`,
         style: {},
         colspan: "1",
         rowspan: "3",
         canSet: true,
         key: "fieldSeventeen",
-        style: {
-          minWidth: "32px",
-          maxWidth: "32px"
-        }
       },
       {
         name: `
@@ -178,15 +159,13 @@ export default {
         name: `
         护士签名
         `,
-        style: {},
         colspan: "1",
         rowspan: "3"
       },
       {
         name: `
-        护士签名
+        质控护士签名
         `,
-        style: {},
         colspan: "1",
         rowspan: "3"
       }
@@ -198,9 +177,6 @@ export default {
         `,
         colspan: "1",
         rowspan: "2",
-        style: {
-          width: "40px"
-        },
       },
       {
         name: `
@@ -208,21 +184,18 @@ export default {
         `,
         colspan: "1",
         rowspan: "2",
-        style: {
-          width: "40px"
-        },
       },
       {
         name: "部位",
         style: {
-          minWidth: "36px",
-          maxWidth: "36px"
+          minWidth: "73px",
+          maxWidth: "73px"
         },
         colspan: "1",
         rowspan: "2"
       },
       {
-        name: "心率<br/>(次/min)",
+        name: "心率<br/>次/分",
         style: {
           minWidth: "36px",
           maxWidth: "36px"

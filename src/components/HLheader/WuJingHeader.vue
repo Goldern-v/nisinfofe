@@ -106,14 +106,14 @@
                 <i class="iconfont icon-hulijiludan"></i> 护理记录
               </el-row>
             </router-link>-->
-            <el-dropdown
+            <!-- <el-dropdown
               menu-align="start"
               :class="{ 'router-link-active': isActiveFormPage }"
             >
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-hulijiludan"></i> 护理文书
               </el-row>
-
+              
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item
                   :class="{ active: $route.path == '/sheetHospitalAdmission' }"
@@ -132,7 +132,7 @@
                       <i class="sheetHospitalEval"></i> 住院评估
                     </el-row>
                   </router-link>
-                </el-dropdown-item>
+                </el-dropdown-item> -->
                 <!-- <el-dropdown-item :class="{active: $route.path == '/formPage'}">
                   <router-link to="/formPage" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
@@ -147,7 +147,7 @@
                     </el-row>
                   </router-link>
                 </el-dropdown-item>-->
-                <el-dropdown-item
+                <!-- <el-dropdown-item
                   :class="{ active: $route.path == '/sugarPage' }"
                 >
                   <router-link to="/sugarPage" tag="span">
@@ -184,7 +184,7 @@
                   </router-link>
                 </el-dropdown-item>
               </el-dropdown-menu>
-            </el-dropdown>
+            </el-dropdown> -->
             <!-- <router-link to="/formPage" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-dongtairizhi"></i> 护理评估
@@ -201,11 +201,11 @@
               </el-row>
             </router-link>-->
 
-            <!-- <router-link to="/infuse" tag="span">
+            <router-link to="/infuse" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-zhihuishuye"></i> 智慧输液
               </el-row>
-            </router-link>-->
+            </router-link>
             <!-- <router-link to="/wardReport" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-dongtairizhi"></i> 病房日报
@@ -242,7 +242,7 @@
                     active: $route.path.includes('singleTemperatureChart')
                   }"
                 >
-                  <router-link to="/singleTemperatureChart" tag="span">
+                  <router-link to="/newSingleTemperatureChart" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
                       <i class="singleTemperatureChart"></i>单人录入体温单
                     </el-row>
@@ -282,7 +282,7 @@
               </el-row>
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item
-                  :class="{ active: ['/implementationList','/bottleLabelByProgram'].includes($route.path) }"
+                  :class="{ active: ['/bottleLabelByProgram'].includes($route.path) }"
                 >
                   <router-link to="/bottleLabelByProgram" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">

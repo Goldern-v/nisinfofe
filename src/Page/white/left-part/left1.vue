@@ -41,7 +41,7 @@
                 v-show="showOrderType(option, item)"
               >
                 <span>
-                  <span v-show="item.bedLabelShow">{{option.bedLabel}}床</span>
+                  <span v-show="item.bedLabelShow">{{HOSPITAL_ID !== 'guizhou' ? option.bedLabel + '床' : (item.name === '今日换床' ? option.oldbedLabel + '床' + '转至' + option.bedLabel + '床' : option.bedLabel + '床')}}</span>
                   <span v-show="item.nameShow">{{option.name}}</span>
                 </span>
                 <!-- <span v-if="item.diagnosisShow">({{option.expand}})</span> -->
@@ -57,11 +57,13 @@
         <nullText v-if="whiteBoardDtos.length == 0" style="margin: 100px 0"></nullText>
         <!-- <lineBoxNull :keyStyle="keyStyle" :num="list.allName && (list.allName.split(',').length - list.configure.split(',').length)"></lineBoxNull> -->
       </div>
+      <span slot="head-tool" v-if="HOSPITAL_ID === 'guizhou'|| HOSPITAL_ID === 'xiegang'" @click="openPrintModal" style="margin-right: 10px;">打印</span>
       <span slot="head-tool" @click="openConfigModal">显示配置项</span>
     </boxBase>
     <configModal ref="configModal"></configModal>
     <infoModal ref="infoModal"></infoModal>
-    <editBlockModal ref="editBlockModal"></editBlockModal>
+    <editBlockModal ref="editBlockModal"></editBlockModal>  
+    <left1PrintModal ref="left1PrintModal"></left1PrintModal>
   </div>
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
@@ -112,6 +114,7 @@ import bus from "vue-happy-bus";
 import nullText from "@/components/null/null-text.vue";
 import editBlockModal from "../modal/edit-block-modal";
 import moment from "moment";
+import left1PrintModal from '../modal/left1-print-modal.vue'
 export default {
   mixins: [common],
   data() {
@@ -134,6 +137,14 @@ export default {
     this.bus.$on("indexGetAllData", this.getData);
   },
   methods: {
+    // 贵州-打印 谢岗-打印
+    openPrintModal() {
+      let data = this.whiteBoardDtos.filter(item => {
+        if (!(item.showOrHide && !item.configureValue && (!item.boardConfigures || (item.boardConfigures && item.boardConfigures.length == 0)))) 
+          return item
+      })
+      this.$refs.left1PrintModal.getPrintData(data);
+    },
     getData() {
       this.pageLoading = true;
       getWardLog(this.deptCode).then(res => {
@@ -239,7 +250,8 @@ export default {
     configModal,
     infoModal,
     nullText,
-    editBlockModal
+    editBlockModal,
+    left1PrintModal
   }
 };
 </script>

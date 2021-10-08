@@ -48,12 +48,13 @@
           :class="{ canSet: item.canSet }"
           @click="item.canSet && setTitle(item)"
         >
-          <span v-html="item.name"></span>
+          <span v-if="item.key=='recordYear' && HOSPITAL_ID=='huadu'">{{recordYear()}}</span>
+          <span v-else v-html="item.name"></span>
         </th>
       </tr>
     </table>
 
-    <table class="sheet-table" ref="table">
+    <table class="sheet-table" ref="table" :style="{width:sheetInfo.sheetType=='access_gzry'?'100%':''}">
       <tr
         class="head-con"
         v-for="(th, index) in data.titleModel.th"
@@ -69,7 +70,8 @@
           :class="{ canSet: item.canSet }"
           @click="item.canSet && setTitle(item)"
         >
-          <span v-html="item.name"></span>
+          <span v-if="item.key=='recordYear' && (HOSPITAL_ID=='huadu'||HOSPITAL_ID=='guizhou')">{{recordYear()}}</span>
+          <span v-else v-html="item.name"></span>
         </th>
       </tr>
       <tr
@@ -85,10 +87,7 @@
             multiSign: tr.find(item => item.key == 'multiSign').value,
             selectedTr: sheetInfo.selectRow.includes(tr),
             clickRow: sheetInfo.clickRow === tr,
-            redText:
-              tr.find(item => {
-                return item.key == 'recordSource';
-              }).value == '5'
+            redText: tr.find(item => {return item.key == 'recordSource'}).value == '5'
           },
           tr.find(item => {
             return item.key == 'markObj';
@@ -99,8 +98,8 @@
               }).value.status
             }`,
           {
-            redTop:(HOSPITAL_ID == 'huadu' && getBorderClass(y)) || (sheetInfo.sheetType=='icu_qz' &&  HOSPITAL_ID == 'quzhou' && getBorderClassQuzhou(y) == 'red'),
-            blackTop:sheetInfo.sheetType=='icu_qz' && HOSPITAL_ID == 'quzhou' && getBorderClassQuzhou(y) == 'black',
+            redTop:(HOSPITAL_ID == 'huadu' && getBorderClass(y)) || redTop(y),
+            blackTop:BlackTop(y),
           }
         ]"
         :key="y"
@@ -125,8 +124,12 @@
               td.statBottomLine &&
               `stat-bottom-line`
           ]"
+          :style="HOSPITAL_ID=='guizhou'&&sheetInfo.sheetType=='access_gzry'&&{boxSizing:'border-box!important',width:td.style?td.style.width:''}"
           @contextmenu.stop="openContextMenu($event, y, tr, td)"
-          @click="selectedItem(td)"
+          @click="
+            selectedItem(td)
+            td.key == 'description' && HOSPITAL_ID === 'guizhou' && !isRead(tr) && openEditModal(tr, data, $event)
+            "
         >
           <!-- for 年份 -->
           <input
@@ -149,7 +152,7 @@
             v-html="showSign(tr)"
           ></div>
           <div
-            v-else-if="HOSPITAL_ID === 'huadu' && td.key == 'sign2'"
+            v-else-if="(HOSPITAL_ID === 'huadu'||HOSPITAL_ID === 'fuyou') && td.key == 'sign2'"
             class="sign-text"
             @click.stop="
               toSign(tr, y, data.bodyModel, showSign_hd(tr), $event, td)
@@ -188,10 +191,27 @@
               alt
             />
             <span v-if="tr.find(item => item.key == 'auditorNo').value">/</span>
+            <!-- <span v-else-if="tr.find(item => item.key == 'signerNo2') && tr.find(item => item.key == 'signerNo2').value">/</span> -->
             <span
               v-if="
                 (sheetInfo.sheetType === 'common_hd' ||
-                  sheetInfo.sheetType === 'neurosurgery_hd') &&
+                  sheetInfo.sheetType === 'postpartum_hd' ||
+                  sheetInfo.sheetType === 'neurosurgery_hd' ||
+                  sheetInfo.sheetType === 'wait_delivery_hd' ||
+                  sheetInfo.sheetType === 'neonatology_hd' ||
+                  sheetInfo.sheetType === 'neonatology2_hd' ||
+                  sheetInfo.sheetType === 'prenatal_hd' ||
+                  sheetInfo.sheetType === 'neonatal_care_jm' ||
+                  sheetInfo.sheetType === 'pediatric_surgery_jm' ||
+                  sheetInfo.sheetType === 'pediatrics_jm' ||
+                  sheetInfo.sheetType === 'child_recovery_jm' ||
+                  sheetInfo.sheetType === 'gynaecology_jm' ||
+                  sheetInfo.sheetType === 'antenatalwaiting_jm' ||
+                  sheetInfo.sheetType === 'breastkenursing_jm' ||
+                  sheetInfo.sheetType === 'postpartumnursing_jm' ||
+                  sheetInfo.sheetType === 'entdepartment_jm' ||
+                  sheetInfo.sheetType === 'catheterplacement_jm' ||
+                  sheetInfo.sheetType === 'obstetricnursing_jm') &&
                   tr.find(item => item.key == 'signerNo2').value
               "
               >/</span
@@ -206,18 +226,18 @@
           <!-- <div v-else-if="td.key == 'auditorNo'" class="sign-img">
             <img v-if="td.value" :src="`/crNursing/api/file/signImage/${td.value}?${token}`" alt>
           </div>-->
-           <el-select
-           v-else-if="td.type=='select' && HOSPITAL_ID == 'guizhou'"
-          v-model="td.value"
-          filterable
-          remote
-          placeholder=""
-          size="small"
-          class="access-select"
-          autocomplete="off"
-          :remote-method="remoteMethod"
-          @visible-change="td.autoComplete && getOptionsData(td,tr,$event)"
-        >
+          <el-select
+            v-else-if="td.type=='select' && HOSPITAL_ID == 'guizhou'"
+            v-model="td.value"
+            filterable
+            remote
+            placeholder=""
+            size="small"
+            class="access-select"
+            autocomplete="off"
+            :remote-method="remoteMethod"
+            @visible-change="td.autoComplete && getOptionsData(td,tr,$event)"
+          >
           <el-option
             v-for="item in accessOptionData[td.name]"
             :key="item"
@@ -227,7 +247,9 @@
         </el-select>
           <textarea
             v-else-if="td.textarea"
-            :class="{ towLine: isOverText(td) }"
+            :class="{ 
+              towLine: isOverText(td),
+              maxHeight56: sheetInfo.sheetType=='additional_count_hd' }"
             :readonly="isRead(tr)"
             :disabled="isDisabed(tr,td, y)"
             v-model="td.value"
@@ -247,23 +269,35 @@
             "
             @keydown="
               td.event($event, td);
-              onKeyDown($event, { x, y, z: index, td });
-            "
+              onKeyDown($event, { x, y, z: index, td });"
             :maxlength="td.textarea.maxLength || 1000"
-            @input="td.change && td.change($event, td)"
-            @focus="
+            @input="td.change && td.change($event, td);
+              td.autoComplete && getOptionsData(td,tr,$event)
+              remoteMethod($event.currentTarget.value);
               td.autoComplete &&
                 onFocus($event, {
-                  autoComplete: td.autoComplete,
+                  autoComplete: {data:accessOptionData[td.name]},
                   x,
                   y,
                   z: index,
                   td,
                   tr,
-                  splice: !!td.splice
+                  splice: td.splice,
+                });
+            "
+            @focus="
+              td.autoComplete &&
+                onFocus($event, {
+                  autoComplete: getCompleteArr(tr,td),
+                  x,
+                  y,
+                  z: index,
+                  td,
+                  tr,
+                  splice: td.splice
                 })
             "
-            @blur="onBlur($event, { x, y, z: index })"
+            @blur="!(td.splice&&HOSPITAL_ID === 'huadu') && onBlur($event, { x, y, z: index })"
           ></textarea>
           <!-- 护理记录单特殊情况特殊记录单独处理 -->
           <div
@@ -293,8 +327,10 @@
                 },
               isDisabed(tr, td, y) && { cursor: 'not-allowed' }
             ]"
+            @select="mouseSelect1"
             @keydown="
-              td.event($event, td);
+              !selectType && td.event($event, td);
+              selectType && mouseSelect2();
               onKeyDown($event, { x, y, z: index, td });
             "
             @focus="
@@ -386,12 +422,15 @@
           v-else-if="
             sheetInfo.sheetType == 'obstetrics_hl' ||
               sheetInfo.sheetType == 'gynecology_hl' ||
-              sheetInfo.sheetType == 'neonatology_hl'
+              sheetInfo.sheetType == 'neonatology_hl' 
           "
           >质控护士：</span
         >
         <span v-else-if="sheetInfo.sheetType == 'intervention_cure_lcey'"
           >护士签名：</span
+        >
+        <span v-else-if="sheetInfo.sheetType == 'waiting_birth_gzry'"
+          >审核签名：</span
         >
         <span v-else>上级护士签名：</span>
         <span class="sh-name-box">
@@ -447,7 +486,9 @@ import {
   focusElement,
   leftTopBottomRight,
   onFocusToAutoComplete,
-  onBlurToAutoComplete
+  onBlurToAutoComplete,
+  redTop,
+  BlackTop
 } from "./tool.js";
 import sheetInfo from "../../../config/sheetInfo";
 import Mark, { matchMark } from "../../../render/Mark.js";
@@ -484,9 +525,13 @@ export default {
       matchMark,
       bus: bus(this),
       sheetInfo,
+      timeOnBlur: [false],  //时间控制是否变红
+      dateOnBlur: [false],  //日期控制是否变红
       fiexHeaderWidth: 0,
       isFixed: false,
       multiSign: false,
+      selectType :false,  //时间日期鼠标选中修改控制限制
+      //底部签名
       auditArr: [
         "com_lc",
         "icu_lc",
@@ -512,7 +557,8 @@ export default {
         "gynecology_hl",
         "prenatal_hl",
         "common_sn",
-        "maternity_sn"
+        "maternity_sn",
+        "waiting_birth_gzry",//贵州人医_产程记录单
       ],
       // 需要双签名的记录单code
       multiSignArr: [
@@ -522,7 +568,19 @@ export default {
         "neonatology2_hd", // 花都_新生儿护理记录单
         "postpartum_hd", // 花都_产后记录单
         "wait_delivery_hd", // 花都_候产记录单
-        "neonatology_hd" // 花都_新生儿科护理记录单
+        "neonatology_hd", // 花都_新生儿科护理记录单
+
+        "neonatal_care_jm", //江门妇幼_新生儿监护单
+        "pediatric_surgery_jm", //江门妇幼_小儿外科护理记录单
+        "pediatrics_jm", //江门妇幼_儿科护理记录单
+        "child_recovery_jm", //江门妇幼_儿童康复科护理记录单
+        "gynaecology_jm", //江门妇幼_妇科护理记录单
+        "breastkenursing_jm", //江门妇幼_乳腺科护理记录单
+        "obstetricnursing_jm", //江门妇幼_产科护理记录单
+        "antenatalwaiting_jm", //江门妇幼_产前待产护理记录单
+        "postpartumnursing_jm",//江门妇幼_产后护理记录单
+        "entdepartment_jm",//江门妇幼_耳鼻喉科护理记录单
+        "catheterplacement_jm",//江门妇幼_深静脉导管置入术后维护单
       ],
       // 底部两个签名的其中一个自定义字段
       doubleSignArr: [
@@ -570,6 +628,30 @@ export default {
     }
   },
   methods: {
+    // 贵州需求：下拉选项二级联动，可输入可选择，附带智能检索
+    getCompleteArr(tr,td){
+      if(td.parentKey){
+        let index = tr.findIndex(e=>e.key===td.parentKey) // 对比当前td的父级key以及当前行中的每一个key，找到对应下标
+        let arr = td.autoComplete.data[0][[tr[index].value]] || [] // 获取父级对应的子选项数组
+        return {data:arr.map(item=>item.itemName)}
+      }else{
+        return td.autoComplete
+      }
+    },
+    //时间日期选中事件
+    mouseSelect1(e){
+      this.selectType = true; 
+    },
+    mouseSelect2(e){
+      this.selectType = false; 
+    },
+    //花都护记年份
+    recordYear(){
+      return this.data.bodyModel[0][0].value.split('-')[0]
+    },
+    show(td){
+      console.log(td);
+    },
     /* 花都个别护记的出入量统计：增加红线与上一行做区分 */
     getBorderClass(index) {
       // const redTopSheet_hd = [
@@ -589,33 +671,8 @@ export default {
       const currentTr = this.data.bodyModel[index].find(td => td.key === "recordSource").value === "5";
       return lastTr && currentTr;
     },
-    getBorderClassQuzhou(index){
-      if(this.data &&
-         this.data.titleModel &&
-         this.data.titleModel.th &&
-         this.data.titleModel.th.top &&
-         this.data.bodyModel
-        ){
-        let obj = this.data.titleModel.th.top.find(item=>item.name=="血<br/>氧<br/>饱<br/>和<br/>度")
-        let targetIndex = this.data.titleModel.th.top.indexOf(obj)
-        if(this.data.titleModel.th.top.indexOf(obj) &&
-           this.data.bodyModel[index] &&
-           this.data.bodyModel[index][targetIndex]){
-              let targetVal = this.data.bodyModel[index][targetIndex].value || ""
-              switch(targetVal){
-                case "总结":
-                  return 'red';
-                case "小结":
-                  return 'black';
-                default:
-                  return "";
-              }
-           }
-      }else{
-        return ""
-      }
-
-    },
+    redTop,// tool.js引进来的啦
+    BlackTop,// 这个也是tool.js引进来的啦
     // 键盘事件
     onKeyDown(e, bind) {
       if (sheetInfo.model == "print") return;
@@ -631,6 +688,29 @@ export default {
     onBlur(e, bind) {
       if (sheetInfo.model == "print") return;
       onBlurToAutoComplete(e, bind);
+      if(this.HOSPITAL_ID == 'guizhou'){
+        //不允许输入未来时间
+        if(bind.x==0){
+          let inputDate = Date.parse(new Date(moment().format("YYYY")+ "-" + e.target.value))//输入日期
+          let nowDate = Date.parse(new Date(moment().format("YYYY-MM-DD")))//当前日期
+          if(inputDate-nowDate>0){
+            this.$message.warning("不允许输入未来时间！")
+            this.dateOnBlur[bind.y] = true
+          }else{
+            this.dateOnBlur[bind.y] = false
+          }
+        }else if (bind.x==1){
+          let inputTime = Date.parse(new Date(moment().format("YYYY-MM-DD")+" "+e.target.value))//输入日期
+          let nowTime = Date.parse(new Date(moment().format("YYYY-MM-DD HH:mm")))//当前日期
+          if(inputTime-nowTime>0){
+            this.$message.warning("不允许输入未来时间！")
+            this.timeOnBlur[bind.y] = true
+          }else{
+            this.timeOnBlur[bind.y] = false
+          }
+        }
+      }
+      
     },
     setTitle(item) {
       this.$parent.$parent.$refs.sheetTool.$refs.setTitleModal.open(
@@ -761,7 +841,7 @@ export default {
               ],
               multiSign: this.multiSign || false,
               // multiSign: this.HOSPITAL_ID === "huadu" ? true : false,
-              signType: this.HOSPITAL_ID === "huadu" ? this.signType : ""
+              signType: (this.HOSPITAL_ID === "huadu" || this.HOSPITAL_ID === "fuyou") ? this.signType : ""
             };
             sign(
               this.patientInfo.patientId,
@@ -843,7 +923,7 @@ export default {
             password,
             multiSign: this.multiSign,
             // multiSign: this.HOSPITAL_ID === "huadu" ? true : false,
-            signType: this.HOSPITAL_ID === "huadu" ? this.signType : ""
+            signType: (this.HOSPITAL_ID === "huadu" || this.HOSPITAL_ID === "fuyou") ? this.signType : ""
           }).then(res => {
             this.bus.$emit("saveSheetPage", true);
           });
@@ -980,16 +1060,29 @@ export default {
         return "";
       }
     },
+    isFirst(tr,y){
+      let recordDate = tr.find(item=>item.key=='recordDate').value
+      let recordSource = tr.find(item=>item.key=='recordSource').value
+      let flag = false
+      if(recordDate&&recordSource){
+        let dateIndex = this.data.bodyModel[0].findIndex(e=>e.key=='recordDate')
+        let sourceIndex = this.data.bodyModel[0].findIndex(e=>e.key=='recordSource')
+        let index = this.data.bodyModel.findIndex(item=>{
+          return item[dateIndex].value==recordDate&&item[sourceIndex].value==recordSource
+        })
+        flag = index == y
+      }
+      return flag
+    },
     // 除第一行以外到结束行之内其他单元格不能录入内容（威县），出入量统计行除外
     isDisabed(tr, td, index) {
-      // canModify true可以修改，false禁止修改
+      // canModify false可以修改，true禁止修改
       if (
         this.HOSPITAL_ID == "huadu" &&
         sheetInfo.sheetType === "body_temperature_Hd" &&
-        td &&
-        td.key === "empName"
+        td
       ) {
-        return true;
+        return false;
       }
       if (td && td.key == "recordYear") {
         if (!tr.find(item => item.key == "recordMonth").value) {
@@ -1002,7 +1095,10 @@ export default {
         this.HOSPITAL_ID == "huadu" &&
         tr.find(item => item.key == "status").value === "1"
       ) {
-        return tr.find(item => item.key == "status").value === "1" && this.listData && this.listData[index] && !this.listData[index].canModify;
+        let flag = tr.find(item => item.key == "status").value === "1" && // 是否已签名
+                   this.listData && this.listData[index] && !this.listData[index].canModify// 是否有权限
+        flag = (!this.isFirst(tr,index)&&(td.key==='recordMonth'||td.key==='recordHour')); // 已签名的recordMonth和recordHour单元格，并且不是第一行(最高等级)
+        return flag
       }
       if (
         this.HOSPITAL_ID != "weixian" ||
@@ -1022,22 +1118,23 @@ export default {
       }
     },
     isRead(tr) {
-      let status = tr.find(item => item.key == "status").value;
-      let empNo = tr.find(item => item.key == "empNo").value;
-      if (status == 1) {
-        if (empNo == this.empNo || this.isAuditor) {
-          return false;
+        let status = tr.find(item => item.key == "status").value;
+        let empNo = tr.find(item => item.key == "empNo").value;
+        if (status == 1) {
+          if (empNo == this.empNo || this.isAuditor) {
+            return false;
+          } else {
+            return true;
+          }
         } else {
-          return true;
+          return false;
         }
-      } else {
-        return false;
-      }
+      
     },
     checkMaxLength(value, length) {
       const regC = /[^ -~]+/g;
       const regE = /\D+/g;
-      console.log("textarea", value, length);
+      // console.log("textarea", value, length);
     },
     isOverText(td) {
       try {
@@ -1278,11 +1375,12 @@ export default {
     },
     openEditModal(tr, data, e) {
       // 护理记录单特殊情况记录输入多行,签名后,其他项目不能在编辑
-      if (
-        this.HOSPITAL_ID == "huadu" &&
-        tr.find(item => item.key == "status").value === "1"
-      )
-        return tr.find(item => item.key == "status").value === "1";
+      // console.log(tr,data);
+      // if (
+      //   this.HOSPITAL_ID == "huadu" 
+      //   // && tr.find(item => item.key == "status").value === "1"
+      // )
+      //   return tr.find(item => item.key == "status").value === "1";
 
       if (sheetInfo.model == "print") return;
       // 双击的input key
@@ -1572,7 +1670,7 @@ export default {
   mounted() {
     this.fiexHeaderWidth =
       this.$refs.table && this.$refs.table.offsetWidth + "px";
-    console.log("mounted");
+    // console.log("mounted");
   },
   created() {
     if (

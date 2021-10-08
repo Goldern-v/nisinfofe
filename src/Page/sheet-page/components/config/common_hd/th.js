@@ -3,28 +3,23 @@ import moment from "moment";
 function currYear() {
   return moment().format('YYYY')
 }
+
 export default {
   // 科室的名称
   deptType: "",
   style: {
-    width: "1250px"
+    width: "1160px"
   },
   th: {
     top: [{
-        name: currYear(),
+        name: '',
+        style: {},
         colspan: "2",
         rowspan: "1",
-        style: {
-          minWidth: "82px"
-        },
-        canSet: true,
-        key: "recordYear",
+        key:'recordYear'
       },
       {
         name: "体温<br/>℃",
-        style: {
-          width: "30px"
-        },
         colspan: "1",
         rowspan: "3"
       },
@@ -34,9 +29,6 @@ export default {
         `,
         colspan: "1",
         rowspan: "3",
-        style: {
-          width: "30px"
-        }
       },
       {
         name: `
@@ -44,9 +36,6 @@ export default {
         `,
         colspan: "1",
         rowspan: "3",
-        style: {
-          width: "30px"
-        }
       },
       {
         name: `
@@ -54,17 +43,11 @@ export default {
         `,
         colspan: "1",
         rowspan: "3",
-        style: {
-          width: "30px"
-        }
       },
       {
         name: `
         血压<br/>mmHg
         `,
-        style: {
-          width: "48px"
-        },
         colspan: "1",
         rowspan: "3"
       },
@@ -72,10 +55,6 @@ export default {
         name: `
         意识
         `,
-        style: {
-          width: "53px",
-          whiteSpace: "nowrap"
-        },
         colspan: "1",
         rowspan: "3"
       },
@@ -83,9 +62,6 @@ export default {
         name: `
         SPO<sub>2</sub><br>(%)
         `,
-        style: {
-          width: "31px"
-        },
         colspan: "1",
         rowspan: "3"
       },
@@ -93,9 +69,6 @@ export default {
         name: `
         入量
         `,
-        style: {
-          minWidth: '96px',
-        },
         colspan: "2",
         rowspan: "1"
       },
@@ -103,9 +76,6 @@ export default {
         name: `
         出量
         `,
-        style: {
-          minWidth: '136px',
-        },
         colspan: "3",
         rowspan: "1"
       },
@@ -116,66 +86,73 @@ export default {
         colspan: "1",
         rowspan: "3",
         style: {
-          minWidth: '53px',
+          minWidth: "103px",
+          maxWidth: "103px"
         },
       },
       {
         name: `标题1`,
-        style: {
-          minWidth: '53px',
-        },
         colspan: "1",
         rowspan: "3",
+        style: {
+          minWidth: "40px",
+          maxWidth: "40px"
+        },
         canSet: true,
         key: "fieldOne",
       },
       {
         name: `标题2`,
-        style: {
-          minWidth: '53px',
-        },
         colspan: "1",
         rowspan: "3",
+        style: {
+          minWidth: "40px",
+          maxWidth: "40px"
+        },
         canSet: true,
         key: "fieldTwo",
       },
       {
         name: `标题3`,
-        style: {
-          minWidth: '53px',
-        },
         colspan: "1",
         rowspan: "3",
+        style: {
+          minWidth: "40px",
+          maxWidth: "40px"
+        },
         canSet: true,
         key: "fieldThree",
       },
       {
         name: `标题4`,
-        style: {
-          minWidth: '53px',
-        },
         colspan: "1",
         rowspan: "3",
+        style: {
+          minWidth: "40px",
+          maxWidth: "40px"
+        },
         canSet: true,
         key: "fieldFour",
       },
       {
         name: `标题5`,
-        style: {
-          minWidth: '53px',
-        },
         colspan: "1",
         rowspan: "3",
+        style: {
+          minWidth: "40px",
+          maxWidth: "40px"
+        },
         canSet: true,
         key: "fieldFive",
       },
       {
         name: `标题6`,
-        style: {
-          minWidth: '53px',
-        },
         colspan: "1",
         rowspan: "3",
+        style: {
+          minWidth: "40px",
+          maxWidth: "40px"
+        },
         canSet: true,
         key: "fieldSix",
       },
@@ -184,32 +161,29 @@ export default {
         特殊情况记录
         `,
         style: {
-          minWidth: "150px"
+          minWidth: "150px",
+          maxWidth: "150px"
         },
         colspan: "1",
         rowspan: "3"
       },
       {
         name: `
-        记录人签名
+        记录人<br/>签名
         `,
-        style: {},
+        style: {
+          minWidth: "80px",
+          maxWidth: "80px"
+        },
         colspan: "1",
         rowspan: "3",
-        style: {
-          minWidth: "50px",
-        },
       },
       {
         name: `
-        记录人签名
+        质控人<br/>签名
         `,
-        style: {},
         colspan: "1",
         rowspan: "3",
-        style: {
-          minWidth: "50px",
-        },
       }
     ],
     mid: [{
@@ -219,7 +193,8 @@ export default {
         colspan: "1",
         rowspan: "2",
         style: {
-          width: "40px"
+          minWidth: "50px",
+          maxWidth: "50px"
         },
       },
       {
@@ -229,7 +204,8 @@ export default {
         colspan: "1",
         rowspan: "2",
         style: {
-          width: "40px"
+          minWidth: "50px",
+          maxWidth: "50px"
         },
       },
       {
@@ -238,6 +214,10 @@ export default {
         `,
         colspan: "1",
         rowspan: "2",
+        style: {
+          minWidth: "65px",
+          maxWidth: "65px"
+        },
         
       },
       {
@@ -246,9 +226,6 @@ export default {
         `,
         colspan: "1",
         rowspan: "2",
-        style: {
-          width: "30px"
-        },
       },
       {
         name: `
@@ -256,6 +233,10 @@ export default {
         `,
         colspan: "1",
         rowspan: "2",
+        style: {
+          minWidth: "65px",
+          maxWidth: "65px"
+        },
       },
       {
         name: `
@@ -263,9 +244,6 @@ export default {
         `,
         colspan: "1",
         rowspan: "2",
-        style: {
-          width: "30px"
-        },
       },
       {
         name: `
@@ -274,7 +252,8 @@ export default {
         colspan: "1",
         rowspan: "2",
         style: {
-          width: "40px"
+          minWidth: "28px",
+          maxWidth: "28px"
         },
       }
     ],

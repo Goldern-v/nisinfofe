@@ -515,10 +515,18 @@
         {
           "name": "I619014",
           "type": "radio",
-          "title": "镇静剂、安眠药、巴比妥酸盐、吩噻嗪类、抗抑郁剂，泻药/利尿剂、毒品，使用以上任何两种或以上",
+          "title": "镇静剂、安眠药、巴比妥酸盐、吩噻嗪类、抗抑郁剂，泻药/利尿剂、毒品，",
           "code": "3",
           "score": 3,
           "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "type": "text",
+          "title": "使用以上任何两种或以上",
+          "style": "margin-left:20px;font-size:12px;color:#1f3d35",
           "class": null,
           "html": null,
           "readOnly": null
@@ -699,20 +707,20 @@
           "rule": [
             {
               "min": "0",
-              "max": "0",
+              "max": "7",
               "equal": "无风险",
               "style": "color:blue",
               "display": "无风险"
             },
             {
-              "min": "1",
-              "max": "2",
+              "min": "7",
+              "max": "12",
               "equal": "低风险",
               "style": "color:red",
               "display": "低风险"
             },
             {
-              "min": "2",
+              "min": "12",
               "max": "100",
               "equal": "高风险",
               "style": "color:red",

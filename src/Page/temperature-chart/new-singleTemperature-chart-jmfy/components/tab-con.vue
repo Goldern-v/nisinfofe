@@ -78,7 +78,16 @@
             :key="index"
           >
             <span class="preText">{{ index }}</span>
-            <input type="text" v-model="vitalSignObj[j].vitalValue" />
+            <input v-if="index!='大便次数'" type=text v-model="vitalSignObj[j].vitalValue" />
+
+<el-select v-if="index==='大便次数'" v-model="vitalSignObj[j].vitalValue" filterable allow-create default-first-option  size="mini" @focus="inputClicl($event)">
+            <el-option v-for="item in selectValue" :key="item.value" :label="item.label" :value="item.value">
+            </el-option>
+        </el-select>
+            <!-- <select v-if="index==='大便次数'" type=text v-model="vitalSignObj[j].vitalValue" style="width:52.97px;height:19.73px">
+            <option v-for="(item,i) in selectValue" :key="i" >{{item}}</option>
+            </select> -->
+<!-- <input v-if="index==='大便次数'" v-model="vitalSignObj[j].vitalValue" style="width:52.97px;height:19.73px" type=text placeholder="大便次数自定义" /> -->
           </div>
           <div class="fieldList">
             <div style="margin: 10px 0px; font-weight: bold; font-size: 14px">
@@ -88,7 +97,7 @@
               <span
                 class="preText"
                 style="color: blue"
-                @click="updateTextInfo(i.vitalCode, i.fieldCn, i.fieldCn)"
+                @click="updateTextInfo(i.vitalCode, i.fieldCn, i.fieldCn,index)"
                 >{{ i.fieldCn }}</span
               >
               <input
@@ -110,6 +119,8 @@
             <span class="preText">表顶注释</span>
             <el-select
               size="mini"
+              allow-create
+              filterable
               v-model="vitalSignObj[multiDictList['表顶注释']].expand1"
             >
               <el-option
@@ -217,6 +228,19 @@ export default {
     return {
       mockData,
       recordList,
+      selectValue:[
+        {lable:'☆',value:'☆'},
+        {lable:'※',value:'※'},
+        {lable:'0 /E',value:'0 /E'},
+        {lable:'2 /E',value:'2 /E'},
+        {lable:'1 0/E',value:'1 0/E'},
+        {lable:'1 1/E',value:'1 1/E'},
+        {lable:'1 2/E',value:'1 2/E'},
+        {lable:'2 0/E',value:'2 0/E'},
+        {lable:'2 1/E',value:'2 1/E'},
+        {lable:'2 2/E',value:'2 2/E'},
+        {lable:'2/2E',value:'2/2E'}
+        ],
       bus: bus(this),
       editableTabsValue: "2",
       query: {
@@ -238,7 +262,7 @@ export default {
                 return "20";
               }
               if (this.getHours() > 20 && this.getHours() <= 23) {
-                return "24";
+                return "23";
               }
          //录入时间
         })() //录入时间
@@ -259,6 +283,7 @@ export default {
         "出生",
         "手术入院",
         "死亡",
+        "转出"
       ],
       timesOdd: [
         {
@@ -283,10 +308,10 @@ export default {
         },
         {
           id: 5,
-          value: "24",
+          value: "23",
         },
       ],
-      bottomContextList: ["", "不升"],
+      bottomContextList: ["温水擦浴", "不升","特殊物理降温","辅助呼吸"],
       topExpandDate: "",
       bottomExpandDate: "",
       totalDictInfo: {},
@@ -413,7 +438,9 @@ export default {
     },
     /* 选择固定时间点 */
     changeEntryTime(val) {
-      this.query.entryTime = val;
+
+ this.query.entryTime = val;
+
     },
     /* 联动修改查询的日期和时间 */
     changeQuery(value) {
@@ -501,7 +528,7 @@ export default {
       });
     },
     /* 修改自定义标题，弹出弹窗并保存 */
-    updateTextInfo(key, label, autotext) {
+    updateTextInfo(key, label, autotext,index) {
       window.openSetTextModal(
         (text) => {
           let data = {
@@ -512,9 +539,10 @@ export default {
             fieldCn: text,
           };
           savefieldTitle(data).then((res) => {
+             this.fieldList[index].fieldCn=text;
             this.$message.success(`修改${label}成功`);
           });
-          this.getList();
+          // this.getList();
         },
         autotext,
         `修改${label}`
@@ -626,7 +654,6 @@ export default {
       width: 85px;
     }
   }
-
   .save-btn {
     position: relative;
     left: 30%;
@@ -634,4 +661,5 @@ export default {
     width: 100px;
   }
 }
+
 </style>

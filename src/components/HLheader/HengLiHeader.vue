@@ -280,7 +280,7 @@
               menu-align="start"
               :hide-on-click="false"
               :class="{ 'router-link-active': isActiveImplementationPage }"
-            >
+             >
               <el-row class="nav-item" type="flex" align="middle">
                 <div class="before"></div>
                 <i class="iconfont icon-hulijiludan"></i>执行单
@@ -306,7 +306,11 @@
                 </el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
-
+ <router-link to="/workloadSatistics" tag="span">
+              <el-row class="nav-item" type="flex" align="middle">
+                <i class="iconfont icon-jiaobanzhi"></i> 工作量统计
+              </el-row>
+            </router-link>
             <!-- <router-link to="/badEvent" tag="span">
               <el-row class="nav-item" type="flex" align="middle"
                 >不良事件

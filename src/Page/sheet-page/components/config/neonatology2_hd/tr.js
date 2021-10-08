@@ -1,6 +1,6 @@
 import { listItem } from "../../../api/recordDesc";
 import { multiDictInfo } from "../../../api/index";
-import { keyf1 } from "../keyEvent/f1.js";
+import { keyf1,limitChange } from "../keyEvent/f1.js";
 import { event_date, event_time, click_date, click_check } from "../keyEvent/date";
 import info from "../sheetInfo";
 
@@ -9,8 +9,15 @@ let 皮肤颜色 = [];
 let 吸吮力 = [];
 let 大便 = [];
 let 小便 = [];
+let click= ['√'];
+
 
 export default [
+  {
+    key: "recordDate", //年份
+    value: "",
+    hidden:true
+  },
   {
     key: "recordMonth", //日期
     value: "",
@@ -28,8 +35,9 @@ export default [
     event: keyf1,
     name: "体温",
     next: "℃",
+    change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 30
+      width: 35
     },
   },
   {
@@ -38,8 +46,9 @@ export default [
     event: keyf1,
     name: "呼吸",
     next: "次/分",
+    change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 30
+      width: 35
     },
   },
   {
@@ -48,8 +57,9 @@ export default [
     event: keyf1,
     name: "体重",
     next: "kg",
+    change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 30
+      width: 35
     },
   },
   {
@@ -57,7 +67,11 @@ export default [
     value: "",
     event: keyf1,
     name: "指尖血糖",
-    next: "mmol/L"
+    next: "mmol/L",
+    change: (e, td) => limitChange(e, td, 6),
+    textarea: {
+      width: 45
+    },
   },
   {
     key: "fieldTwo", //哭声
@@ -67,8 +81,9 @@ export default [
     autoComplete: {
       data: 哭声
     },
+    change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 36
+      width: 35
     },
   },
   {
@@ -79,8 +94,9 @@ export default [
     autoComplete: {
       data: 皮肤颜色
     },
+    change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 36
+      width: 35
     },
   },
   {
@@ -88,6 +104,10 @@ export default [
     value: "",
     event: keyf1,
     name: "呕吐",
+    change: (e, td) => limitChange(e, td, 4),
+    textarea: {
+      width: 35
+    }
   },
   {
     key: "fieldFive", //吸吮力
@@ -97,59 +117,104 @@ export default [
     autoComplete: {
       data: 吸吮力
     },
+    change: (e, td) => limitChange(e, td, 4),
+    textarea: {
+      width: 35
+    }
   },
   {
     key: "fieldSix", // 喂养自吮
     value: "",
     event: keyf1,
-    click: click_check
+    autoComplete: {
+      data:click
+    },
+    change: (e, td) => limitChange(e, td, 4),
+    textarea: {
+      width: 35
+    }
   },
   {
     key: "fieldSeven", //喂养母乳
     value: "",
     event: keyf1,
-    click: click_check
+    autoComplete: {
+      data:click
+    },
+    change: (e, td) => limitChange(e, td, 4),
+    textarea: {
+      width: 35
+    }
   },
   {
     key: "fieldEight", // 喂养人工
     value: "",
     event: keyf1,
-    click: click_check
+    autoComplete: {
+      data:click
+    },
+    change: (e, td) => limitChange(e, td, 4),
+    textarea: {
+      width: 35
+    }
   },
   {
     key: "fieldNine", // 喂养奶量ml
     value: "",
     event: keyf1,
     name: "喂养奶量",
-    next: "ml"
+    next: "ml",
+    change: (e, td) => limitChange(e, td, 4),
+    textarea: {
+      width: 35
+    }
   },
   {
     key: "fieldTen", // 脐部情况干洁
     value: "",
     event: keyf1,
     name: "脐部情况干洁",
-    click: click_check
+    autoComplete: {
+      data:click
+    },
+    change: (e, td) => limitChange(e, td, 4),
+    textarea: {
+      width: 35
+    }
   },
   {
     key: "fieldEleven", // 脐部情况渗血
     value: "",
     event: keyf1,
     name: "脐部情况渗血",
-    click: click_check
+    autoComplete: {
+      data:click
+    },
+    change: (e, td) => limitChange(e, td, 4),
+    textarea: {
+      width: 35
+    }
   },
   {
     key: "fieldTwelve", // 脐部情况渗液
     value: "",
     event: keyf1,
     name: "脐部情况渗液",
-    click: click_check
+    autoComplete: {
+      data:click
+    },
+    change: (e, td) => limitChange(e, td, 4),
+    textarea: {
+      width: 35
+    }
   },
   {
     key: "fieldThirteen", //大便
     value: "",
     event: keyf1,
+    change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 36
+      width: 35
     },
     name: "大便",
     autoComplete: {
@@ -160,28 +225,31 @@ export default [
     key: "fieldFourteen", //小便
     value: "",
     event: keyf1,
+    change: (e, td) => limitChange(e, td, 4),
     name: "小便",
     autoComplete: {
       data: 小便
     },
     textarea: {
-      width: 36
+      width: 35
     },
   },
   {
     key: "fieldFifteen", //标题1
     value: "",
     event: keyf1,
+    change: (e, td) => limitChange(e, td, 6),
     textarea: {
-      width: 48
+      width: 45
     }
   },
   {
     key: "fieldSixteen", //标题2
     value: "",
     event: keyf1,
+    change: (e, td) => limitChange(e, td, 6),
     textarea: {
-      width: 48
+      width: 45
     }
   },
   {
@@ -193,8 +261,11 @@ export default [
       top: "1px",
       bottom: "1px",
       left: "1px",
-      width: "180px",
+      width: "150px",
       background: "transparent"
+    },
+    textarea: {
+      width: 150
     },
     event: function (e, td) {
       console.log(e.keyCode);

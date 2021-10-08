@@ -208,7 +208,6 @@
                 <div flex-box="1"></div>
               </div>
             </div>
-            <div v-if="HOSPITAL_ID == 'huadu'"></div>
             <div v-if="HOSPITAL_ID == 'liaocheng'">
               <div class="input-row" flex="main:justify">
                 <div class="input-cell" flex="cross:center" flex-box="1">
@@ -716,6 +715,14 @@
     .button {
       margin-left: 9px;
     }
+  }
+}
+.guizhou {
+  .special-date-con input{
+    font-size:14px;
+  }
+  .input-cell input{
+    font-size:14px;
   }
 }
 </style>
@@ -1275,7 +1282,7 @@ export default {
         this.HOSPITAL_ID != "weixian" &&
         this.sheetInfo.sheetType != "special" &&
         this.HOSPITAL_ID != "huadu" &&
-        this.HOSPITAL_ID != "quzhou" 
+        this.sheetInfo.sheetType != "icu_qz"
       ) {
         allDoc = "    " + this.doc;
       }
@@ -1296,9 +1303,10 @@ export default {
           text += allDoc[i];
         } else {
           if (this.HOSPITAL_ID == "lingcheng" || 
-             (this.HOSPITAL_ID == "shannan")  ||
+              this.HOSPITAL_ID == "shannan"  ||
               this.sheetInfo.sheetType === "icu_qz" ||
-              this.sheetInfo.sheetType === "intersurgerycure_qzx") {
+              this.sheetInfo.sheetType === "intersurgerycure_qzx" ||
+              this.sheetInfo.sheetType === "common_gzry") {
             if (GetLength(text) > 46) {
               result.push(text);
               text = allDoc[i];
@@ -1312,6 +1320,27 @@ export default {
             } else {
               text += allDoc[i];
             }
+          }else if (this.sheetInfo.sheetType === "generalcare_bh") {
+            if (GetLength(text) > 130) {
+              result.push(text);
+              text = allDoc[i];
+            } else {
+              text += allDoc[i];
+            }
+          }else if (this.sheetInfo.sheetType === "change_shift_jm") {
+            if (GetLength(text) > 148) {
+              result.push(text);
+              text = allDoc[i];
+            } else {
+              text += allDoc[i];
+            }
+          }else if (this.sheetInfo.sheetType === "prenatalcheck_bh") {
+            if (GetLength(text) > 58) {
+              result.push(text);
+              text = allDoc[i];
+            } else {
+              text += allDoc[i];
+            }
           }else if (this.sheetInfo.sheetType === "internal_eval_lcey") {
             if (GetLength(text) > 98) {
               result.push(text);
@@ -1319,7 +1348,7 @@ export default {
             } else {
               text += allDoc[i];
             }
-          } else {
+          }else {
             if (GetLength(text) > 23) {
               result.push(text);
               text = allDoc[i];

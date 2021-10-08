@@ -35,6 +35,7 @@ const templateShow = () => import("@/Page/templateShow/templateShow"); //文书�
 const resetPassword = () => import("@/Page/resetPassword/resetPassword");
 const indexXin = () => import("@/Page/index-xin/Nurse.vue");
 const indexHd = () => import("@/Page/index-xin/Nurse-hd.vue");
+const indexWujing = () => import("@/Page/index-xin/Nurse-wujing.vue");
 const indexLiaocheng = () => import("@/Page/index-xin/Nurse-liaocheng.vue");
 const imageView = () => import("@/Part/imageView/imageView");
 const nursingDocumentation = () =>
@@ -45,6 +46,8 @@ const workloadSatisticsZSQ = () =>
   import("../Page/workloadSatisticsLc/workloadSatistics-zhongshanqi.vue"); // 中山七工作量统计
 const workloadSatisticsFuYou = () =>
   import("@/Page/workloadSatisticsLc/workloadSatistics-fuyou.vue"); // 江门妇幼工作量统计
+  const workloadSatisticsDghl = () =>
+  import("@/Page/workloadSatisticsLc/workloadSatistics-Dghl.vue"); // 东莞横沥工作量统计
 const NotFoundComponent = () =>
   import("../components/NotFound/NotFoundComponent.vue"); // 异常路径
 const print = () => import("@/Part/print/print.vue");
@@ -169,6 +172,8 @@ const newSingleTemperatureChartJmfy = () =>
   import("@/Page/temperature-chart/new-singleTemperature-chart-quzhou/new-singleTemperature-chart.vue");//曲周医院-新版体温单录入页面
 const newSingleTemperatureChartDghl = () =>
   import("@/Page/temperature-chart/new-singleTemperature-chart-dghl/new-singleTemperature-chart.vue");
+  const newSingleTemperatureChartWujing = () =>
+  import("@/Page/temperature-chart/new-singleTemperature-chart-wujing/new-singleTemperature-chart.vue");//武警新版体温单单人录入
 const showPatientDetails = () =>
   import("@/Page/show-patient-details/show-patient-details.vue"); //查看评估单、记录单、病历、检查、检验、体温单
 const nursingPreview = () => import("@/Page/NursingPreview/NursingPreview.vue"); //查看所有的评估单、记录单、体温单
@@ -223,11 +228,14 @@ import implementationPersonLiaocheng
   from "@/Page/patientInfo/supPage/implementation-list/implementation-list-liaocheng";
 // 深静脉导管维护单页面
 import deepPage from "@/Page/deep-page/deep-page.vue";
+import allCatheter from "@/Page/allCatheter/all-catheter.vue";
 // 导管监测单
 import catheterPage from "@/Page/catheter-page/catheter-page.vue";
 
 //患者360视图，目前只有花都在用
 const otherPage = () => import("@/Page/patientInfo/supPage/otherPage/otherPage.vue"); //360视图
+
+const healthEducationGuizhou = ()=>import("@/Page/patientInfo/supPage/healthEducationGuizhou/healthEducation.vue")
 
 Vue.use(Router);
 const HOSPITAL_ID = process.env.HOSPITAL_ID;
@@ -342,6 +350,8 @@ const router = new Router({
               return indexHd
             case 'liaocheng':
               return indexLiaocheng
+            case 'wujing':
+              return indexWujing
             default:
               return indexXin
           }
@@ -651,6 +661,10 @@ const router = new Router({
                 return temperatureWuJing
               case 'fuyou':
                 return temperatureJmfy
+                case 'quzhou':
+                return temperatureQuZhou
+                case 'hengli':
+                return temperatureDghl
               default:
                 return temperature
             }
@@ -692,7 +706,15 @@ const router = new Router({
         },
         {
           path: "/healthEducation",
-          component: healthEducation,
+          //component: healthEducation,
+          component: (() => {
+            switch (process.env.HOSPITAL_ID) {
+              case 'guizhou':
+                return healthEducationGuizhou
+              default:
+                return healthEducation
+            }
+          })(),
           name: "健康教育单",
           alias: "健康教育单"
         },
@@ -722,6 +744,8 @@ const router = new Router({
           switch (HOSPITAL_ID) {
             case 'lingcheng':
                 return workloadSatisticsLc
+                case 'hengli':
+                return workloadSatisticsDghl
             case 'fuyou':
                 return workloadSatisticsFuYou
             default:
@@ -841,6 +865,10 @@ const router = new Router({
         component: deepPage
       },
       {
+        path: "/allCatheter",
+        component: allCatheter
+      },
+      {
         path: "/catheterPage",
         component: catheterPage
       },
@@ -935,6 +963,8 @@ const router = new Router({
               return newSingleTemperatureChartBhry
               case 'quzhou':
               return newSingleTemperatureChartQuzhou
+              case 'wujing':
+                return newSingleTemperatureChartWujing
               case 'hengli':
               return newSingleTemperatureChartDghl
             case 'fuyou':

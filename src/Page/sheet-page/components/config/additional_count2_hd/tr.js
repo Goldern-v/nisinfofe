@@ -2,6 +2,7 @@ import {
   multiDictInfo
 } from "../../../api/index";
 import {
+  limitChange,
   keyf1
 } from "../keyEvent/f1.js";
 import {
@@ -26,8 +27,9 @@ export default [{
     value: "",
     event: keyf1,
     name: "腹围（cm）",
+    change: (e, td) => limitChange(e, td, 8),
     textarea: {
-      width: 48
+      width: 60
     },
   },
   {
@@ -35,8 +37,9 @@ export default [{
     value: "",
     event: keyf1,
     name: "膀胱充盈",
+    change: (e, td) => limitChange(e, td, 8),
     textarea: {
-      width: 48
+      width: 60
     },
     autoComplete: {
       data: wether
@@ -47,8 +50,9 @@ export default [{
     value: "",
     event: keyf1,
     name: "肠胀气",
+    change: (e, td) => limitChange(e, td, 8),
     textarea: {
-      width: 48
+      width: 60
     },
     autoComplete: {
       data: wether

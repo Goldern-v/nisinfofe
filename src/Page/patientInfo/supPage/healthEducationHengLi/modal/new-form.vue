@@ -87,56 +87,6 @@
           icon="search"
           v-model="searchWord"
         ></el-input>
-        <!-- 聊城 -->
-        <el-select
-          v-if="HOSPITAL_ID == 'liaocheng'"
-          v-model="formType"
-          placeholder="选择类型"
-          class="type-select"
-          :disabled="formTypeReadOnly"
-        >
-          <el-option
-            v-for="item in liaochengOptions"
-            :key="item.value || item.label"
-            :label="item.label"
-            :value="item.value"
-          ></el-option>
-        </el-select>
-        <el-input
-          v-if="HOSPITAL_ID == 'liaocheng'"
-          class="text-con-liaocheng"
-          :placeholder="
-            '搜索' +
-            liaochengOptions.find((item) => item.value == formType).label
-          "
-          icon="search"
-          v-model="searchWord"
-        ></el-input>
-        <!-- 贵州省人民医院 -->
-        <el-select
-          v-if="HOSPITAL_ID == 'guizhou'"
-          v-model="formType"
-          style="width: 150px"
-          placeholder="选择类型"
-          class="type-select"
-          :disabled="formTypeReadOnly"
-        >
-          <el-option
-            v-for="item in guizhouOptions"
-            :key="item.value || item.label"
-            :label="item.label"
-            :value="item.value"
-          ></el-option>
-        </el-select>
-        <el-input
-          v-if="HOSPITAL_ID == 'guizhou'"
-          class="text-con-liaocheng"
-          :placeholder="
-            '搜索' + guizhouOptions.find((item) => item.value == formType).label
-          "
-          icon="search"
-          v-model="searchWord"
-        ></el-input>
       </div>
       <div
         class="record-con"
@@ -294,14 +244,14 @@ import commonMixin from "@/common/mixin/common.mixin";
 import { host } from "@/api/apiConfig";
 import bus from "vue-happy-bus";
 import { formUrl, devFormUrl } from "@/common/pathConfig/index.js";
-import { templatesAll, healthEduTemplates } from "../api/index.js";
+import { templatesAll, healthEduTemplates,createHealthEduTemplates } from "../api/index.js";
 import { getFormConfig } from "../config/form-config.js";
 import qs from "qs";
 
 const getInitFormType = (HOSPITAL_ID) => {
   switch (HOSPITAL_ID) {
     default:
-      return "1";
+      return "monitor";
   }
 };
 
@@ -312,19 +262,7 @@ export default {
       templates: [],
       options: [
         {
-          value: "1",
-          label: "护理评估",
-        },
-        {
           value: "monitor",
-          label: "监测记录",
-        },
-        {
-          value: "report",
-          label: "报告类",
-        },
-        {
-          value: "4",
           label: "健康宣教"
         }
       ],
@@ -388,7 +326,7 @@ export default {
           label: "知情同意书",
         },
       ],
-      formType: getInitFormType(this.HOSPITAL_ID),
+      formType: "monitor",
       pageLoading: true,
       pageLoadingText: "数据载入中",
       searchWord: "",
@@ -529,31 +467,42 @@ export default {
           }
         }
       } else if (this.formType === "4") {
-        console.log("健康教育单");
-        this.nooForm = 1;
-        // getContentByMissionIds(item.missionId).then(res => {
-        // console.log(res,"res")
-        this.bus.$emit(
-          /** openAssessment  19-7-31 尝试修改*/
-          "openAssessmentBox",
-          Object.assign(getFormConfig("健康教育单"), {
-            id: "",
-            formCode: "eduMission",
-            nooForm: 1,
-            pageUrl: "健康教育单.html",
-            // pageUrl: "aowu.html",
-            pageItem: item.name,
-            missionId: item.missionId,
-            publicUse: item.publicUse,
-            deptCode: item.deptCode,
-          })
-        );
-        this.pageItem = item.name;
-        // this.bus.$emit(
-        //   "pageItem",
-        //     this.pageItem
-        //   )
-        //  this.newRecordClose();
+        // console.log("--------------",this.$route.query);
+        // (async ()=>{
+        //   let newForm = await createHealthEduTemplates({
+        //     patientId:this.$route.query.patientId,
+        //     visitId:this.$route.query.visitId,
+        //     code:this.selectData.formCode,
+        //     type:this.selectData.formType,
+        //     templateCode:this.selectData.templateCode
+        //   })
+        //   console.log(newForm);
+        //   this.nooForm = 1;
+        //   // getContentByMissionIds(item.missionId).then(res => {
+        //   // console.log(res,"res")
+        //   this.bus.$emit(
+        //     /** openAssessment  19-7-31 尝试修改*/
+        //     "openAssessmentBox",
+        //     Object.assign(getFormConfig("健康教育单"), {
+        //       id: "",
+        //       formCode: "health_education_hl",
+        //       nooForm: 1,
+        //       pageUrl: "通用健康教育单.html",
+        //       formType:"healthEdu",
+        //       // pageUrl: "aowu.html",
+        //       pageItem: item.name,
+        //       missionId: item.missionId,
+        //       publicUse: item.publicUse,
+        //       deptCode: item.deptCode,
+        //     })
+          // );
+          // this.pageItem = item.name;
+          // // this.bus.$emit(
+          // //   "pageItem",
+          // //     this.pageItem
+          // //   )
+          // //  this.newRecordClose();
+          // })()
       }
       this.newRecordClose();
     },
@@ -561,6 +510,7 @@ export default {
       this.$refs.newRecord.close();
     },
     getData() {
+      console.log(this.formType);
       this.pageLoading = true;
       if (this.formType == "1") {
         templates(this.deptCode).then((res) => {
@@ -574,9 +524,8 @@ export default {
 
           this.pageLoading = false;
         });
-      } else if (this.formType == "4") {
+      } else if (this.formType == "monitor") {
         healthEduTemplates(this.deptCode).then((res) => {
-          console.log(res.data.list);
           this.templates = res.data.data.list;
           this.pageLoading = false;
         });

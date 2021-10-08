@@ -1,3 +1,6 @@
+/*
+  江门妇幼-小儿外科护理记录单
+*/
 import {
   keyf1
 } from "../keyEvent/f1.js";
@@ -71,16 +74,25 @@ export default [{
   key: "fieldFour", // 静脉（ml）
   value: "",
   event: keyf1,
+  textarea: {
+    width: 36
+  }
 },
 {
   key: "fieldFive", // 进食（ml）
   value: "",
-  event: keyf1
+  event: keyf1,
+  textarea: {
+    width: 36
+  }
 },
 {
   key: "otherFood", // 入量自定义
   value: "",
-  event: keyf1
+  event: keyf1,
+  textarea: {
+    width: 36
+  }
 },
 {
   key: "urineVolume", // 尿量（ml）
@@ -106,17 +118,26 @@ export default [{
 {
   key: "fieldEight", //  呕吐（ml）
   value: "",
-  event: keyf1
+  event: keyf1,
+  textarea: {
+    width: 32
+  }
 },
 {
   key: "fieldOther", //  出量其他
   value: "",
-  event: keyf1
+  event: keyf1,
+  textarea: {
+    width: 32
+  }
 },
 {
   key: "fieldNature", //  出量性质
   value: "",
-  event: keyf1
+  event: keyf1,
+  textarea: {
+    width: 32
+  }
 },
 {
   key: "fieldTen", //  伤口敷料
@@ -222,6 +243,10 @@ export default [{
   key: "sign",
   value: ""
 },
+{
+  key: "sign2",
+  value: ""
+},
 // {
 //   key: "audit",
 //   value: ""
@@ -234,6 +259,11 @@ export default [{
 {
   hidden: true,
   key: "signerName",
+  value: ""
+},
+{
+  hidden: true,
+  key: "signerName2",
   value: ""
 },
 {
@@ -274,6 +304,11 @@ export default [{
 {
   hidden: false,
   key: "auditorNo",
+  value: ""
+},
+{
+  hidden: true,
+  key: "signerNo2",
   value: ""
 },
 {

@@ -519,11 +519,6 @@
   ],
   "I100067": [
     {
-      "code": "脉搏短绌",
-      "name": "脉搏短绌",
-      "pinyin": "mbdc"
-    },
-    {
       "code": "温暖",
       "name": "温暖",
       "pinyin": "wn"
@@ -781,6 +776,19 @@
       "name": "异常",
       "pinyin": "yc"
     }
+  ],
+  "I102222": [
+    {
+      "code": "活动",
+      "name": "活动",
+      "pinyin": "hd"
+    },
+    {
+      "code": "无",
+      "name": "无",
+      "pinyin": "w"
+    }
+
   ],
   "I001003": [
     {
@@ -1154,16 +1162,6 @@
   ],
   "I001309":[
     {
-      "code": "Padua评分表(非手术科室)",
-      "name": "Padua评分表(非手术科室)",
-      "pinyin": "fssks"
-    },
-    {
-      "code": "Caprini评分表(手术科室)",
-      "name": "Caprini评分表(手术科室)",
-      "pinyin": "ssks"
-    },
-    {
       "code": "VTE风险评估(Caprini 通用版)",
       "name": "VTE风险评估(Caprini 通用版)",
       "pinyin": "tyb"
@@ -1250,19 +1248,24 @@
   ],
   "I001355": [
     {
+      "code": "功血",
+      "name": "功血",
+      "pinyin": "gx"
+    },
+    {
       "code": "痛经",
       "name": "痛经",
       "pinyin": "tj"
     },
     {
-      "code": "未来潮",
-      "name": "未来潮",
-      "pinyin": "wlc"
-    },
-    {
       "code": "闭经",
       "name": "闭经",
       "pinyin": "bj"
+    },
+    {
+      "code": "未来潮",
+      "name": "未来潮",
+      "pinyin": "wlc"
     },
     {
       "code": "其他",
@@ -1823,6 +1826,11 @@
       "code": "Barden Q（儿童）",
       "name": "Barden Q（儿童）",
       "pinyin": "yr"
+    },
+    {
+      "code": "新生儿皮肤风险评估",
+      "name": "新生儿皮肤风险评估",
+      "pinyin": "yx"
     }
   ],
   "S0613": [
@@ -2213,24 +2221,161 @@
       "pinyin": "y"
     }
   ],
+  "I001463":[
+    {
+      "code": "无宫缩",
+      "name": "无宫缩",
+      "pinyin": "wgs"
+    },
+    {
+      "code": "不规律宫缩",
+      "name": "不规律宫缩",
+      "pinyin": "bglgs"
+    },
+    {
+      "code": "规律宫缩",
+      "name": "规律宫缩",
+      "pinyin": "dyyjl"
+    }
+  ],
+  "I001464":[
+    {
+      "code": "无",
+      "name": "无",
+      "pinyin": "w"
+    },
+    {
+      "code": "有",
+      "name": "有",
+      "pinyin": "w"
+    }
+  ],
+  "I001465":[
+    {
+      "code": "无",
+      "name": "无",
+      "pinyin": "w"
+    },
+    {
+      "code": "有",
+      "name": "有",
+      "pinyin": "w"
+    }
+  ],
+  "I001466":[
+    {
+      "code": "无",
+      "name": "无",
+      "pinyin": "w"
+    },
+    {
+      "code": "有",
+      "name": "有",
+      "pinyin": "w"
+    }
+  ],
+  "I001467":[
+    {
+      "code": "无",
+      "name": "无",
+      "pinyin": "w"
+    },
+    {
+      "code": "有",
+      "name": "有",
+      "pinyin": "w"
+    }
+  ],
+  "I001820":[
+    {
+      "code": "无",
+      "name": "无",
+      "pinyin": "w"
+    },
+    {
+      "code": "有",
+      "name": "有",
+      "pinyin": "w"
+    }
+  ],
+  "I001819":[
+    {
+      "code": "无",
+      "name": "无",
+      "pinyin": "w"
+    },
+    {
+      "code": "有",
+      "name": "有",
+      "pinyin": "w"
+    }
+  ],
+  "I001468":[
+    {
+      "code": "无",
+      "name": "无",
+      "pinyin": "w"
+    },
+    {
+      "code": "尿急",
+      "name": "尿急",
+      "pinyin": "w"
+    },
+    {
+      "code": "尿频",
+      "name": "尿频",
+      "pinyin": "w"
+    },
+    {
+      "code": "便秘",
+      "name": "便秘",
+      "pinyin": "w"
+    },
+    {
+      "code": "尿潴留",
+      "name": "尿潴留",
+      "pinyin": "w"
+    },
+    {
+      "code": "其他",
+      "name": "其他",
+      "pinyin": "w"
+    }
+  ],
+  
   "I100124": [
     {
-      "code": "少许",
-      "name": "少许",
+      "code": "黄绿色",
+      "name": "黄绿色",
       "pinyin": "sx"
     },
     {
-      "code": "月经量",
-      "name": "月经量",
+      "code": "灰黄色",
+      "name": "灰黄色",
       "pinyin": "yjl"
     },
     {
-      "code": "多于月经量",
-      "name": "多于月经量",
+      "code": "淡黄色",
+      "name": "淡黄色",
+      "pinyin": "dyyjl"
+    },
+    {
+      "code": "黄白色",
+      "name": "黄白色",
+      "pinyin": "dyyjl"
+    },
+    {
+      "code": "白色稠厚",
+      "name": "白色稠厚",
       "pinyin": "dyyjl"
     }
   ],
   "I100123": [
+    {
+      "code": "稀薄泡沫",
+      "name": "稀薄泡沫",
+      "pinyin": "xx"
+    },
     {
       "code": "血性",
       "name": "血性",
@@ -2244,6 +2389,16 @@
     {
       "code": "水样",
       "name": "水样",
+      "pinyin": "sy"
+    },
+    {
+      "code": "豆腐渣样",
+      "name": "豆腐渣样",
+      "pinyin": "sy"
+    },
+    {
+      "code": "其他",
+      "name": "其他",
       "pinyin": "sy"
     }
   ],
@@ -2362,6 +2517,11 @@
   ],
   "I001011": [
     {
+      "code": "学前",
+      "name": "学前",
+      "pinyin": "wm"
+    },
+    {
       "code": "文盲",
       "name": "文盲",
       "pinyin": "wm"
@@ -2462,6 +2622,59 @@
       "name": "转诊",
       "pinyin": "zz"
     }
+  ],
+  "I001483": [
+    {
+      "code": "按时按序",
+      "name": "按时按序",
+      "pinyin": "mz"
+    },
+    {
+      "code": "未按时按序",
+      "name": "未按时按序",
+      "pinyin": "jz"
+    },
+    {
+      "code": "无",
+      "name": "无",
+      "pinyin": "zz"
+    }
+  ],
+  "I001484": [
+    {
+      "code": "无",
+      "name": "无",
+      "pinyin": "zz"
+    },
+    {
+      "code": "有",
+      "name": "有",
+      "pinyin": "mz"
+    }
+    
+  ],
+  "I001485": [
+    {
+      "code": "平稳",
+      "name": "平稳",
+      "pinyin": "zz"
+    },
+    {
+      "code": "焦虑",
+      "name": "焦虑",
+      "pinyin": "zz"
+    },
+    {
+      "code": "内疚",
+      "name": "内疚",
+      "pinyin": "zz"
+    },
+    {
+      "code": "其他",
+      "name": "其他",
+      "pinyin": "mz"
+    }
+    
   ],
   "I001009": [
     {
@@ -2715,11 +2928,6 @@
   ],
   "I001129": [
     {
-      "code": "未吸吮",
-      "name": "未吸吮",
-      "pinyin": "wxy"
-    },
-    {
       "code": "强",
       "name": "强",
       "pinyin": "q"
@@ -2728,6 +2936,11 @@
       "code": "弱",
       "name": "弱",
       "pinyin": "r"
+    },
+    {
+      "code": "未吸吮",
+      "name": "未吸吮",
+      "pinyin": "wxy"
     },
     {
       "code": "不能允吸",
@@ -3217,11 +3430,6 @@
       "pinyin": "cxd"
     },
     {
-      "code": "压疮",
-      "name": "压疮",
-      "pinyin": "yc"
-    },
-    {
       "code": "破损",
       "name": "破损",
       "pinyin": "ps"
@@ -3286,6 +3494,11 @@
       "code": "其他",
       "name": "其他",
       "pinyin": "qt"
+    },
+    {
+      "code": "无",
+      "name": "无",
+      "pinyin": "w"
     }
   ],
   "I001351": [
@@ -3303,6 +3516,45 @@
       "code": "儿科",
       "name": "儿科",
       "pinyin": "ek"
+    }
+  ],
+  "I001457":[
+    {
+      "code": "产前",
+      "name": "产前",
+      "pinyin": "w"
+    },
+    {
+      "code": "产时",
+      "name": "产时",
+      "pinyin": "w"
+    },
+    {
+      "code": "产后",
+      "name": "产后",
+      "pinyin": "w"
+    }
+  ],
+  "I001458":[
+    {
+      "code": "阴性",
+      "name": "阴性",
+      "pinyin": "w"
+    },
+    {
+      "code": "阳性",
+      "name": "阳性",
+      "pinyin": "w"
+    },
+    {
+      "code": "待查",
+      "name": "待查",
+      "pinyin": "w"
+    },
+    {
+      "code": "未查",
+      "name": "未查",
+      "pinyin": "w"
     }
   ],
   "I001821": [
@@ -3346,14 +3598,19 @@
   ],
   "I001839": [
     {
-      "code": "无",
-      "name": "无",
+      "code": "无宫缩",
+      "name": "无宫缩",
       "pinyin": "w"
     },
     {
-      "code": "有",
-      "name": "有",
+      "code": "不规律宫缩",
+      "name": "不规律宫缩",
       "pinyin": "y"
+    },
+    {
+      "code": "规律宫缩",
+      "name": "规律宫缩",
+      "pinyin": "yS"
     }
   ],
   "I001840": [
@@ -3436,8 +3693,57 @@
       "pinyin": "w"
     },
     {
-      "code": "有",
-      "name": "有",
+      "code": "少许",
+      "name": "少许",
+      "pinyin": "y"
+    },
+    {
+      "code": "月经量",
+      "name": "月经量",
+      "pinyin": "y"
+    },
+    {
+      "code": "多于月经量",
+      "name": "多于月经量",
+      "pinyin": "y"
+    }
+  ],
+  "I001832":[
+    {
+      "code": "院内定期检查",
+      "name": "院内定期检查",
+      "pinyin": "jc"
+    },
+    {
+      "code": "院内不定期检查",
+      "name": "院内不定期检查",
+      "pinyin": "ybdqjc"
+    },
+    {
+      "code": "从未检查",
+      "name": "从未检查",
+      "pinyin": "cw"
+    }
+  ],
+  "I001459": [
+    {
+      "code": "正常",
+      "name": "正常",
+      "pinyin": "w"
+    },
+    {
+      "code": "增加",
+      "name": "增加",
+      "pinyin": "w"
+    },
+    {
+      "code": "减少",
+      "name": "减少",
+      "pinyin": "w"
+    },
+    {
+      "code": "未数",
+      "name": "未数",
       "pinyin": "y"
     }
   ],
@@ -4167,33 +4473,18 @@
   ],
   "I001835": [
     {
-      "code": "LOA",
-      "name": "LOA",
+      "code": "头位",
+      "name": "头位",
       "pinyin": ""
     },
     {
-      "code": "ROA",
-      "name": "ROA",
+      "code": "臂位",
+      "name": "臂位",
       "pinyin": ""
     },
     {
-      "code": "LSA",
-      "name": "LSA",
-      "pinyin": ""
-    },
-    {
-      "code": "RSA",
-      "name": "RSA",
-      "pinyin": ""
-    },
-    {
-      "code": "LSCA",
-      "name": "LSCA",
-      "pinyin": ""
-    },
-    {
-      "code": "RSCA",
-      "name": "RSCA",
+      "code": "横位",
+      "name": "横位",
       "pinyin": ""
     }
   ],

@@ -106,8 +106,8 @@ export default {
       recordDate: new Date(),
       recordTime: new Date(),
       sugarItem: "微机血糖",
-      sugarValue: 0,
-      riValue: 0,
+      sugarValue: '',
+      riValue: '',
     },
     curEmpName: "",
     curEmpNo: "",
@@ -271,6 +271,10 @@ export default {
         };
         this.oldRecordDate = "";
       }
+      if (this.HOSPITAL_ID == "beihairenyi") {
+        this.form.sugarValue = this.form.sugarValue || '';
+        this.form.riValue = this.form.riValue || '';
+      }
     },
     close() {
       this.$refs.modal.close();
@@ -341,7 +345,7 @@ export default {
         this.typeList = res.data.data;
       });
     }
-    if (this.HOSPITAL_ID != "hj" && this.HOSPITAL_ID != "huadu") {
+    if (this.HOSPITAL_ID != "hj" && this.HOSPITAL_ID != "huadu" && this.HOSPITAL_ID != "beihairenyi") {
       this.typeList = this.sugarItem;
     }
     if (this.HOSPITAL_ID === "quzhou") {
@@ -364,7 +368,7 @@ export default {
   },
   watch: {
     sugarItem(newVal, oldVal) {
-      if (newVal && this.HOSPITAL_ID != "hj" && this.HOSPITAL_ID != "huadu") {
+      if (newVal && this.HOSPITAL_ID != "hj" && this.HOSPITAL_ID != "huadu" && this.HOSPITAL_ID != "beihairenyi") {
         this.typeList = this.sugarItem;
       }
       if (newVal && this.HOSPITAL_ID == "quzhou") {

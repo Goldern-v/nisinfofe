@@ -76,9 +76,17 @@ export function removeShiftRecordRow(rowId) {
 //   );
 // }
 export function removeShiftRecord(id, empNo, password) {
-  return axios.post(
-    `${apiPath}changeShiftPatientListSgy/delById`, qs.stringify({id, empNo, password})
-  );
+  //贵州
+  if(process.env.HOSPITAL_ID==='guizhou'){
+    return axios.post(
+      `${apiPath}changeShiftTimeSgy/delById`, qs.stringify({id, empNo, password})
+    );
+  }else {
+    return axios.post(
+      `${apiPath}changeShiftPatientListSgy/delById`, qs.stringify({id, empNo, password})
+    );
+  }
+  
 }
 
 

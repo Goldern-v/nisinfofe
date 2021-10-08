@@ -1,6 +1,6 @@
 import { listItem } from "../../../api/recordDesc";
 import { multiDictInfo } from "../../../api/index";
-import { keyf1 } from "../keyEvent/f1.js";
+import { keyf1,limitChange } from "../keyEvent/f1.js";
 import { event_date, event_time, click_date } from "../keyEvent/date";
 import info from "../sheetInfo";
 // let info = {
@@ -26,7 +26,11 @@ export default [
   {
     key: "pulse", //脉搏/心率
     value: "",
-    event: keyf1
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 6),
+    textarea: {
+      width: 45
+    },
   },
   {
     key: "bloodPressure", //血压
@@ -40,66 +44,81 @@ export default [
     },
     name: "血压",
     next: "mmHg",
+    change: (e, td) => limitChange(e, td, 8),
     textarea: {
-      width: 52
+      width: 55
     },
   },
   {
     key: "spo2", //血氧饱和度%
     value: "",
-    event: keyf1
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 6),
+    textarea: {
+      width: 45
+    },
   },
   {
     key: "coolDown", //所处治疗阶段降温阶段
     value: "",
     event: keyf1,
+    change: (e, td) => limitChange(e, td, 6),
     textarea: {
-      width: 48
+      width: 45
     },
   },
   {
     key: "maintain", //所处治疗阶段维持治疗阶段72h
     value: "",
     event: keyf1,
+    change: (e, td) => limitChange(e, td, 6),
     textarea: {
-      width: 48
+      width: 45
     },
   },
   {
     key: "rewarming", //所处治疗阶段复温阶段
     value: "",
     event: keyf1,
+    change: (e, td) => limitChange(e, td, 6),
     textarea: {
-      width: 48
+      width: 45
     },
   },
   {
     key: "fieldOne", //自定义恒定温差模式
     value: "",
     event: keyf1,
+    change: (e, td) => limitChange(e, td, 6),
     textarea: {
-      width: 48
+      width: 45
     },
   },
   {
     key: "fieldTwo", //仪器显示水温
     value: "",
-    event: keyf1
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 6),
+    textarea: {
+      width: 45
+    },
   },
   {
     key: "fieldThree", //患儿实际肛温
     value: "",
-    event: keyf1
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 6),
+    textarea: {
+      width: 45
+    },
   },
   {
     key: "fieldFourYes", //是否达到目标温度（33.5-34℃）是
     value: "",
     event: keyf1,
-    // autoComplete: {
-    //   data: ["1"]
-    // },
+    change: (e, td) => limitChange(e, td, 6),
     textarea: {
-      width: 40
+      width: 45
     },
   },
   {
@@ -109,8 +128,9 @@ export default [
     autoComplete: {
       data: ["√"]
     },
+    change: (e, td) => limitChange(e, td, 6),
     textarea: {
-      width: 40
+      width: 45
     },
   },
   {
@@ -120,8 +140,9 @@ export default [
     autoComplete: {
       data: ysList
     },
+    change: (e, td) => limitChange(e, td, 8),
     textarea: {
-      width: 60
+      width: 55
     },
   },
   {
@@ -131,19 +152,28 @@ export default [
     autoComplete: {
       data: zthdList
     },
+    change: (e, td) => limitChange(e, td, 8),
     textarea: {
-      width: 60
+      width: 55
     },
   },
   {
     key: "fieldSevenLeft", // 瞳孔直径左(mm)
     value: "",
-    event: keyf1
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 4),
+    textarea: {
+      width: 35
+    },
   },
   {
     key: "fieldSevenRight", // 瞳孔直径右(mm)
     value: "",
-    event: keyf1
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 4),
+    textarea: {
+      width: 35
+    },
   },
   {
     key: "fieldEightLeft", // 瞳对光反射径左
@@ -151,7 +181,11 @@ export default [
     event: keyf1,
     autoComplete: {
       data: ["+", "-", "±"]
-    }
+    },
+    change: (e, td) => limitChange(e, td, 4),
+    textarea: {
+      width: 35
+    },
   },
   {
     key: "fieldEightRight", // 瞳孔对光发射右
@@ -159,7 +193,11 @@ export default [
     event: keyf1,
     autoComplete: {
       data: ["+", "-", "±"]
-    }
+    },
+    change: (e, td) => limitChange(e, td, 4),
+    textarea: {
+      width: 35
+    },
   },
   {
     key: "fieldNineSupine", //患儿体位平卧
@@ -167,7 +205,11 @@ export default [
     event: keyf1,
     autoComplete: {
       data: ["√"]
-    }
+    },
+    change: (e, td) => limitChange(e, td, 6),
+    textarea: {
+      width: 45
+    },
   },
   {
     key: "fieldNineLeft", //患儿体位左侧
@@ -175,7 +217,11 @@ export default [
     event: keyf1,
     autoComplete: {
       data: ["√"]
-    }
+    },
+    change: (e, td) => limitChange(e, td, 6),
+    textarea: {
+      width: 45
+    },
   },
   {
     key: "fieldNineRight", //患儿体位右侧
@@ -183,7 +229,11 @@ export default [
     event: keyf1,
     autoComplete: {
       data: [ ,"√"]
-    }
+    },
+    change: (e, td) => limitChange(e, td, 6),
+    textarea: {
+      width: 45
+    },
   },
   {
     key: "fieldTenYes", //检查患儿皮肤是否完好是
@@ -191,7 +241,11 @@ export default [
     event: keyf1,
     autoComplete: {
       data: ["√"]
-    }
+    },
+    change: (e, td) => limitChange(e, td, 6),
+    textarea: {
+      width: 45
+    },
   },
   {
     key: "fieldTenNo", //检查患儿皮肤是否完好否
@@ -200,8 +254,9 @@ export default [
     autoComplete: {
       data: ["√"]
     },
+    change: (e, td) => limitChange(e, td, 6),
     textarea: {
-      width: 48
+      width: 45
     },
   },
   {
@@ -213,7 +268,7 @@ export default [
       top: "1px",
       bottom: "1px",
       left: "1px",
-      width: "180px",
+      width: "150px",
       background: "transparent"
     },
     hidden: true,
@@ -225,7 +280,6 @@ export default [
       }
       keyf1(e, td);
     }
-    // oninput: next
   },
   {
     key: "sign",

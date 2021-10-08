@@ -21,6 +21,7 @@ import ShanNanHeader from "@/components/HLheader/ShanNanHeader"; // 山南市人
 import BeiHaiRenYiHeader from "@/components/HLheader/BeiHaiRenYiHeader"; // 北海人医
 import GuiZhouShengRenMingHeader from "@/components/HLheader/GuiZhouShengRenMing"; // 贵州省人民
 import QuZhouXianHeader from "@/components/HLheader/QuZhouXianHeader.vue"; // 曲周县医院
+import FoShanRenYiHeader from "@/components/HLheader/FoShanRenYiHeader.vue"; // 佛山市第一人民医院
 import NanFangZhongXiYiHeader from "@/components/HLheader/NanFangZhongXiYiHeader"; // 南方医科大学中西医结合医院
 export default {
   data() {
@@ -48,6 +49,7 @@ export default {
         贵州省人民医院: "GuiZhouShengRenMingHeader",
         曲周县医院: "QuZhouXianHeader",
         南方医科大学中西医结合医院: "NanFangZhongXiYiHeader",
+        佛山市第一人民医院:"FoShanRenYiHeader",
       };
       return hisList[HisName] || "HLheader";
     },
@@ -67,6 +69,7 @@ export default {
     BeiHaiRenYiHeader,
     GuiZhouShengRenMingHeader,
     QuZhouXianHeader,
+    FoShanRenYiHeader,
     NanFangZhongXiYiHeader,
   },
 };

@@ -63,7 +63,7 @@ export default {
         "http://192.168.19.162:9091/temperature/#/" /* 医院正式环境内网 导致跨域 */,
       // "http://10.10.10.75:9091/temperature/#/" /* 医院正式环境内网 */,
       outNetUrl:
-        "http://218.14.180.38:9091/temperature/#/" /* 医院正式环境外网：想要看iframe的效果，测试的时候可以把本地的地址都改成外网测试 */,
+        "http://120.24.240.231:15091/temperature/#/" /* 医院正式环境外网：想要看iframe的效果，测试的时候可以把本地的地址都改成外网测试 */,
     };
   },
   methods: {
@@ -91,13 +91,14 @@ export default {
       this.contentHeight.height = window.innerHeight - 110 + "px";
     },
     messageHandle(e) {
+      console.log(e)
       if (e && e.data) {
         switch (e.data.type) {
           case "pageTotal":
             this.pageTotal = e.data.value;
             this.currentPage = e.data.value;
             break;
-          // case "getNurseExchangeInfo":/* 转科转床接口，聊城二院取消，花都保留 */
+          case "getNurseExchangeInfo":/* 转科转床接口，聊城二院取消，花都保留 */
           // const params = {
           //   patientId: this.$route.query.patientId,
           //   visitId: this.$route.query.visitId
@@ -113,23 +114,24 @@ export default {
           //     "*"
           //   );
           // });
-          // const params = {
-          //   patientId: this.$route.query.patientId,
-          //   startLogDateTime: e.data.value.startLogDateTime,
-          //   endLogDateTime: e.data.value.endLogDateTime,
-          //   visitId: this.$route.query.visitId
-          // };
-          // getNurseExchangeInfoByTime(params).then(res => {
-          //   const value = {
-          //     adtLog: res.data.data.adtLog,
-          //     bedExchangeLog: res.data.data.bedExchangeLog
-          //   };
-          //   this.$refs.pdfCon.contentWindow.postMessage(
-          //     { type: "nurseExchangeInfo", value },
-          //     "*"
-          //   );
-          // });
-          // break;
+          const params = {
+            patientId: this.$route.query.patientId,
+            startLogDateTime: e.data.value.startLogDateTime,
+            endLogDateTime: e.data.value.endLogDateTime,
+            visitId: this.$route.query.visitId
+          };
+          getNurseExchangeInfoByTime(params).then(res => {
+            console.log('请求数据',res)
+            const value = {
+              adtLog: res.data.data.adtLog,
+              bedExchangeLog: res.data.data.bedExchangeLog
+            };
+            this.$refs.pdfCon.contentWindow.postMessage(
+              { type: "nurseExchangeInfo", value },
+              "*"
+            );
+          });
+          break;
           default:
             break;
         }

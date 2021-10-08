@@ -17,8 +17,10 @@
         @openSettingModal="openSettingModal"
       >></searchCon>
       <div class="list-con">
-        <!-- <span @click="getDetail(item)" v-for="item in filterData" :key="item.bedNo+item.barCode"> -->
-        <span v-for="item in filterData" :key="item.bedNo+item.barCode">
+        <span @click="getDetail(item)" v-for="(item,index) in filterData" :key="index" v-if="HOSPITAL_ID=='hengli'||HOSPITAL_ID=='wujing'">
+          <infuse-item :data="item"></infuse-item>
+        </span>
+        <span v-for="(item,index) in filterData" :key="index" v-else>
           <infuse-item :data="item"></infuse-item>
         </span>
         <null-bg v-show="filterData.length == 0" text="暂时没有输液数据～"></null-bg>
@@ -98,6 +100,7 @@ import bus from "vue-happy-bus";
 import {
   getExecute,
   detail,
+  detailHl,
   saveWarningLog,
   getWarningValue
 } from "@/api/infuse";
@@ -133,7 +136,7 @@ export default {
     getInfuseList() {
       this.pageLoading = true;
       if (this.wardCode) {
-        getExecute(this.wardCode).then(res => {
+        getExecute(this.wardCode,this.HOSPITAL_ID).then(res => {
           this.data.list = res.data.data.list;
           this.excuteToday = res.data.data.excuteToday;
           this.pageLoading = false;
@@ -194,10 +197,17 @@ export default {
     getDetail(data) {
       this.pageLoading = true;
       let barCode = data.barCode;
-      detail(barCode).then(res => {
-        this.$refs.detailsModal.open(res.data.data);
-        this.pageLoading = false;
-      });
+      if(this.HOSPITAL_ID=='hengli'||this.HOSPITAL_ID=='wujing'){
+        detailHl({barCode},this.HOSPITAL_ID).then(res => {
+          this.$refs.detailsModal.open(res.data.data);
+          this.pageLoading = false;
+        });
+      }else{
+        detail(barCode).then(res => {
+          this.$refs.detailsModal.open(res.data.data);
+          this.pageLoading = false;
+        });
+      }
     },
     saveLog(item) {
       let obj = {
@@ -214,7 +224,7 @@ export default {
     getWarningValue() {
       this.pageLoading = true;
       if (this.wardCode) {
-        getWarningValue(this.wardCode).then(res => {
+        getWarningValue(this.wardCode,this.HOSPITAL_ID).then(res => {
           if (res.data.data) {
             this.warningValue = res.data.data.value;
           }
@@ -227,7 +237,7 @@ export default {
       clearInterval(this.timer);
       this.timer = setInterval(() => {
         this.getInfuseList();
-      }, 1000 * 15);
+      }, 1000 * 2);
     }
   },
   watch: {
@@ -244,7 +254,7 @@ export default {
     this.getInfuseList();
     this.timer = setInterval(() => {
       this.getInfuseList();
-    }, 1000 * 15);
+    }, 1000 * 30);
     this.bus.$on("refreInfuseList", this.refreInfuseList);
   },
   computed: {

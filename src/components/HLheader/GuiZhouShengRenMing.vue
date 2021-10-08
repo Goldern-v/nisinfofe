@@ -42,9 +42,47 @@
                 <i class="iconfont icon-chuangweiyilanqia"></i> 床位一览卡
               </el-row>
             </router-link>
+            <el-dropdown
+              menu-align="start"
+              :class="{ 'router-link-active': isActiveTemperaturePage }"
+            >
+              <el-row class="nav-item" type="flex" align="middle">
+                <div class="before"></div>
+                <i class="iconfont icon-hulijiludan"></i>体温
+              </el-row>
+              <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item
+                  :class="{
+                    active: $route.path.includes('newSingleTemperatureChart'),
+                  }"
+                >
+                  <router-link to="/newSingleTemperatureChart" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="singleTemperatureChart"></i>体温单单人录入
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item>
+                <el-dropdown-item
+                  :class="{
+                    active: $route.path.includes('allTemperatureChart'),
+                  }"
+                >
+                  <router-link to="/allTemperatureChart" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="allTemperatureChart"></i>批量录入体温单
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item>
+              </el-dropdown-menu>
+            </el-dropdown>
+            <router-link to="/board" tag="span">
+              <el-row class="nav-item" type="flex" align="middle">
+                <i class="iconfont icon-baiban"></i> 任务白板
+              </el-row>
+            </router-link>
             <router-link to="/index" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
-                <i class="iconfont icon-shouye"></i> 护理任务
+                <i class="iconfont icon-shouye"></i> 任务提醒
               </el-row>
             </router-link>
             <!-- <router-link to="/implementationList" tag="span">
@@ -52,24 +90,7 @@
                 <i class="iconfont icon-jiaobanzhi"></i> 执行单
               </el-row>
             </router-link> -->
-            <router-link to="/MEWS" tag="span">
-              <el-row class="nav-item" type="flex" align="middle">
-                <i class="iconfont icon-news"></i> MEWS
-              </el-row>
-            </router-link>
-            <!-- 血糖 -->
-            <router-link to="/sugarPage" tag="span">
-              <el-row class="nav-item" type="flex" align="middle">
-                <i class="iconfont icon-xuetang"></i> 血糖
-              </el-row>
-            </router-link>
-            <!--  -->
-            <!-- 血糖 -->
-            <router-link to="/healthEdu" tag="span">
-              <el-row class="nav-item" type="flex" align="middle">
-                <i class="iconfont icon-xuetang"></i> 健康教育单
-              </el-row>
-            </router-link>
+            
             <!--  -->
             <!-- <el-dropdown
               menu-align="start"
@@ -107,24 +128,35 @@
             </router-link>
             <router-link to="/sheetPage" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
-                <i class="nursingAssessment"></i> 护理记录单
+                <i class="nursingAssessment"></i> 护理记录
               </el-row>
             </router-link>
             <router-link to="/planList" tag="span">
               <el-row class="nav-item" type="flex" align="middle"
-                >护理计划单</el-row
+                >护理诊断计划</el-row
               >
+            </router-link>
+            <router-link to="/sugarPage" tag="span">
+              <el-row class="nav-item" type="flex" align="middle">
+                <i class="iconfont icon-xuetang"></i> 血糖
+              </el-row>
+            </router-link>
+            <!-- 原健康教育单 -->
+            <router-link to="/healthEdu" tag="span">
+              <el-row class="nav-item" type="flex" align="middle">
+                <i class="iconfont icon-xuetang"></i> 健康宣教
+              </el-row>
+            </router-link>
+            <router-link to="/MEWS" tag="span">
+              <el-row class="nav-item" type="flex" align="middle">
+                <i class="iconfont icon-news"></i> MEWS
+              </el-row>
             </router-link>
             <!-- <router-link to="/shiftWork" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-jiaobanzhi"></i> 交班报告
               </el-row>
             </router-link> -->
-            <router-link to="/board" tag="span">
-              <el-row class="nav-item" type="flex" align="middle">
-                <i class="iconfont icon-baiban"></i> 白板
-              </el-row>
-            </router-link>
             <!-- <router-link to="/shiftWork" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-jiaobanzhi"></i> 交班志
@@ -158,39 +190,6 @@
                   <router-link to="/shiftWork" tag="span">
                     <el-row class="menu-item" type="flex" align="middle"
                       >ISBAR交班记录卡
-                    </el-row>
-                  </router-link>
-                </el-dropdown-item>
-              </el-dropdown-menu>
-            </el-dropdown>
-            <el-dropdown
-              menu-align="start"
-              :class="{ 'router-link-active': isActiveTemperaturePage }"
-            >
-              <el-row class="nav-item" type="flex" align="middle">
-                <div class="before"></div>
-                <i class="iconfont icon-hulijiludan"></i>体温单
-              </el-row>
-              <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item
-                  :class="{
-                    active: $route.path.includes('newSingleTemperatureChart'),
-                  }"
-                >
-                  <router-link to="/newSingleTemperatureChart" tag="span">
-                    <el-row class="menu-item" type="flex" align="middle">
-                      <i class="singleTemperatureChart"></i>体温单单人录入
-                    </el-row>
-                  </router-link>
-                </el-dropdown-item>
-                <el-dropdown-item
-                  :class="{
-                    active: $route.path.includes('allTemperatureChart'),
-                  }"
-                >
-                  <router-link to="/allTemperatureChart" tag="span">
-                    <el-row class="menu-item" type="flex" align="middle">
-                      <i class="allTemperatureChart"></i>批量录入体温单
                     </el-row>
                   </router-link>
                 </el-dropdown-item>
@@ -373,13 +372,13 @@
                     </el-row>
                   </router-link>
                 </el-dropdown-item>
-                <el-dropdown-item>
+                <!-- <el-dropdown-item>
                   <router-link to="/healthEducationList" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
                       <i class="birthCertificate"></i>健康宣教查询
                     </el-row>
                   </router-link>
-                </el-dropdown-item>
+                </el-dropdown-item> -->
                 <!-- <el-dropdown-item>
                   <router-link to="/dcList" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
@@ -994,9 +993,18 @@ export default {
       }
     },
     changeDept(value) {
-      let deptName = this.deptList.filter((item) => {
+      // let deptName = this.deptList.filter((item) => {
+      //   return item.code == value;
+      // })[0].name;
+      let deptName="";
+      let deptItem = this.deptList.filter((item) => {
         return item.code == value;
-      })[0].name;
+      });
+      if(deptItem && deptItem.length>0){
+        deptName=deptItem[0].name
+      }else {
+        return false;
+      }
       this.$store.commit("upDeptCode", value);
       localStorage.selectDeptValue = value;
       this.$store.commit("upDeptName", deptName);
@@ -1037,8 +1045,11 @@ export default {
         return dept;
       });
       this.deptOptionList = JSON.parse(JSON.stringify(this.deptList));
+      //localStorage.selectDeptValue ||
+      //解决刷新右上角科室名称显示数字问题localStorage.selectDeptValue是科室编码
+      //deptValue是护理单元编码<科室编码
       this.deptValue =
-        localStorage.selectDeptValue ||
+       
         this.$store.state.lesion.deptCode ||
         res.data.data.defaultDept ||
         res.data.data.deptList[0].code;
@@ -1060,6 +1071,7 @@ export default {
   components: {
     setPassword,
     userInfo,
+    
   },
 };
 </script>

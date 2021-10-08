@@ -6,7 +6,11 @@ export const educationObiect = [
   {
     value: "2",
     text: "家属"
-  }
+  },
+  {
+    value: "3",
+    text: "陪护人"
+  },
 ];
 
 export const educationMethod = [

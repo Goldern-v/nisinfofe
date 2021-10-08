@@ -275,6 +275,7 @@ export default {
     },
     // 按照病人id和住院次数设置合并的行数
     setRowSpan(data,newData){
+      console.log(data);
       let resData={}
       data.map((item)=>{
         if(resData[item.patientId+"|"+item.visitId]){
@@ -311,11 +312,12 @@ export default {
       this.page3Loading = true;
       bodyTast(this.deptCode, time) // 获取数据--体症任务
         .then(rep => {
+          console.log(rep);
           // let data = rep.data.data;
           let data = rep.data.data;
           let newData=[]
           this.setRowSpan(data,newData);
-          this.$set(this.body, "content", newData);
+          this.$set(this.body, "content", this.setRowSpan(data,newData));
           this.page1Loading = false;
         });
       nurseTast(this.deptCode, time) //获取数据---评估任务
@@ -323,14 +325,14 @@ export default {
           let data = rep.data.data;
           let newData=[]
           this.setRowSpan(data,newData);
-          this.$set(this.nurse, "content", data);
+          this.$set(this.nurse, "content", this.setRowSpan(data,newData));
           this.page2Loading = false;
         });
       recordJob(this.deptCode).then(rep => {
         let data = rep.data.data.list;
         let newData=[]
         this.setRowSpan(data,newData);
-        this.$set(this.postil, "content", data);
+        this.$set(this.postil, "content", this.setRowSpan(data,newData));
         this.page3Loading = false;
       });
     },

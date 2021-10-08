@@ -210,7 +210,16 @@ export const updateSheetHeadInfo = (obj = {}) => {
 };
 
 // 获取his患者体征
-export const getVitalSign = (patientId, visitId, recordDate) => {
+export const getVitalSign = (patientId, visitId, recordDate,id,hospitalId) => {
+  if(hospitalId=="wujing"){
+    return axios.post(
+      `${apiPath}record/block/nurseExecute/list/${id}`,{
+        patientId,
+        visitId,
+        executeDateTime: recordDate
+    }
+    );
+  }
   return axios.get(
     `${apiPath}record/${
     sheetInfo.sheetType
@@ -218,8 +227,26 @@ export const getVitalSign = (patientId, visitId, recordDate) => {
   );
 };
 
+// 曲周获取his患者体征
+export const ordersExecuteList = (obj = {}) => {
+  let id = sheetInfo.selectBlock.id;
+  return axios.post(`${apiPath}record/block/ordersExecute/list/${id}`, obj);
+};
+
+// 贵州获取his患者输血同步
+export const nurseBloodList = (obj = {}) => {
+  let id = sheetInfo.selectBlock.id;
+  return axios.post(`${apiPath}record/block/nurseBlood/list/${id}`, obj);
+};
+
 // 保存his患者体征
-export const saveVitalSign = data => {
+export const saveVitalSign = (data,hospitalId) => {
+  if(hospitalId=='wujing'||hospitalId=='quzhou'||hospitalId=='guizhou'){
+    return axios.post(
+      `${apiPath}record/block/ordersExecute/save`,
+      data
+    );
+  }
   let d = {
     blockId: sheetInfo.selectBlock.id,
     list: data
@@ -236,3 +263,17 @@ export function getUser(password, empNo) {
     empNo
   });
 }
+
+// 转床床号选中获取
+export const bedExchangeModifyLog = (patientId, visitId, blockId) => {
+  return axios.get(
+    `${apiPath}record/block/bedExchangeModifyLog/${patientId}/${visitId}/${blockId}`
+  );
+};
+
+// 转床床号选中获取
+export const updateBlockInfo = (obj = {}) => {
+  return axios.post(
+    `${apiPath}record/block/updateBlockInfo`, obj
+  );
+};

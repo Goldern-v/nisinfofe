@@ -5,7 +5,8 @@ import {
   multiDictInfo
 } from "../../../api/index";
 import {
-  keyf1
+  keyf1,
+  limitChange
 } from "../keyEvent/f1.js";
 import {
   event_date,
@@ -25,7 +26,15 @@ let gsqdList = [];
 let 意识 = ['清醒', '浅昏迷', '深昏迷', '模糊', '嗜睡', '昏睡', '谵妄'];
 let 入量名称 = ['输液', '口服', '输血', '肌注', '静注', '鼻饲', '静脉泵入', '灌肠', '饮水'];
 let 出量名称 = [];
-export default [{
+let 出量颜色 = ['黄色','鲜红色','暗红色','墨绿色','浓茶色'];
+
+export default [
+  {
+    key: "recordDate", //年份
+    value: "",
+    hidden:true
+  },
+  {
     key: "recordMonth", //日期
     value: "",
     event: event_date,
@@ -41,21 +50,44 @@ export default [{
     value: "",
     event: keyf1,
     name: "体温",
-    next: "℃"
+    next: "℃",
+    change: (e, td) => limitChange(e, td, 3),
+    textarea: {
+      width: 27
+    },
   },
   {
     key: "pulse", //脉搏
     value: "",
     event: keyf1,
     name: "脉搏",
-    next: "次/分"
+    next: "次/分",
+    change: (e, td) => limitChange(e, td, 3),
+    textarea: {
+      width: 25
+    },
+  },
+  {
+    key: "heartRate", //心率
+    value: "",
+    event: keyf1,
+    name: "心率",
+    next: "次/分",
+    change: (e, td) => limitChange(e, td, 3),
+    textarea: {
+      width: 25
+    },
   },
   {
     key: "breath", //呼吸
     value: "",
     event: keyf1,
     name: "呼吸",
-    next: "次/分"
+    next: "次/分",
+    change: (e, td) => limitChange(e, td, 3),
+    textarea: {
+      width: 25
+    },
   },
   {
     key: "bloodPressure", //血压
@@ -66,6 +98,10 @@ export default [{
         e.preventDefault();
       }
       keyf1(e, td);
+    },
+    change: (e, td) => limitChange(e, td, 4),
+    textarea: {
+      width: 43
     },
     name: "血压",
     next: "mmHg"
@@ -78,9 +114,10 @@ export default [{
     autoComplete: {
       data: 意识
     },
+    change: (e, td) => limitChange(e, td, 6),
     textarea: {
-      width: 44
-    }
+      width: 40
+    },
   },
   {
     key: "fieldOne", //血氧饱和度%
@@ -88,9 +125,10 @@ export default [{
     event: keyf1,
     name: "血氧饱和度",
     next: "%",
-    // autoComplete: {
-    //   data: twList
-    // },
+    change: (e, td) => limitChange(e, td, 4),
+    textarea: {
+      width: 25
+    },
   },
   {
     key: "fieldTwo", //指尖血糖mmol/L
@@ -98,11 +136,9 @@ export default [{
     event: keyf1,
     name: "指尖血糖",
     next: "mmol/L",
-    // autoComplete: {
-    //   data: hzpw
-    // },
+    change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 43
+      width: 35
     }
   },
   {
@@ -111,11 +147,9 @@ export default [{
     event: keyf1,
     name: "阴道出血",
     next: "mL",
-    // autoComplete: {
-    //   data: gsqdList
-    // },
+    change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 30
+      width: 25
     }
   },
   {
@@ -123,52 +157,82 @@ export default [{
     value: "",
     event: keyf1,
     name: "入量内容",
+    change: (e, td) => limitChange(e, td, 10),
     textarea: {
-      width: 126
+      width: 62
     },
     autoComplete: {
       data: 入量名称
     },
+    style: {
+      textAlign: "left",
+    }
   },
   {
     key: "foodSize", // 入量（单位ml）
     value: "",
     event: keyf1,
     name: "入量大小",
-    next: "ml"
+    next: "ml",
+    change: (e, td) => limitChange(e, td, 3),
+    textarea: {
+      width: 25
+    },
   },
   {
     key: "discharge", //出量内容
     value: "",
     event: keyf1,
     name: "出量内容",
+    change: (e, td) => limitChange(e, td, 10),
     textarea: {
-      width: 126
+      width: 62
     },
     autoComplete: {
       data: 出量名称
     },
+    style: {
+      textAlign: "left",
+    }
   },
   {
     key: "dischargeSize", //出量（单位ml）
     value: "",
     event: keyf1,
     name: "出量大小",
-    next: "ml"
+    next: "ml",
+    change: (e, td) => limitChange(e, td, 3),
+    textarea: {
+      width: 25
+    },
   },
   {
     key: "fieldFour", //出量颜色
     value: "",
     event: keyf1,
-    name: "出量颜色"
+    name: "出量颜色",
+    autoComplete: {
+      data: 出量颜色
+    },
+    change: (e, td) => limitChange(e, td, 3),
+    textarea: {
+      width: 25
+    },
+    style: {
+      textAlign: "left",
+    }
   },
   {
     key: "fieldFive", //健康宣教
     value: "",
     event: keyf1,
     name: "健康宣教",
+    change: (e, td) => limitChange(e, td, 16),
     textarea: {
-      width: 60
+      width: 100
+    },
+    style: {
+      textAlign: "left",
     }
   },
   {
@@ -176,48 +240,54 @@ export default [{
     value: "",
     event: keyf1,
     textarea: {
-      width: 32
-    }
+      width: 30
+    },
+    change: (e, td) => limitChange(e, td, 4),
   },
   {
     key: "fieldSeven", //标题2
     value: "",
     event: keyf1,
     textarea: {
-      width: 32
-    }
+      width: 30
+    },
+    change: (e, td) => limitChange(e, td, 4),
   },
   {
     key: "fieldEight", //标题3
     value: "",
     event: keyf1,
     textarea: {
-      width: 32
-    }
+      width: 30
+    },
+    change: (e, td) => limitChange(e, td, 4),
   },
   {
     key: "fieldNine", //标题4
     value: "",
     event: keyf1,
     textarea: {
-      width: 32
-    }
+      width: 30
+    },
+    change: (e, td) => limitChange(e, td, 4),
   },
   {
     key: "fieldTen", //标题5
     value: "",
     event: keyf1,
     textarea: {
-      width: 32
-    }
+      width: 40
+    },
+    change: (e, td) => limitChange(e, td, 6),
   },
   {
     key: "fieldEleven", //标题6
     value: "",
     event: keyf1,
     textarea: {
-      width: 32
-    }
+      width: 40
+    },
+    change: (e, td) => limitChange(e, td, 6),
   },
   {
     key: "description", //特殊情况记录
@@ -228,8 +298,11 @@ export default [{
       top: "1px",
       bottom: "1px",
       left: "1px",
-      width: "180px",
+      width: "150px",
       background: "transparent"
+    },
+    textarea: {
+      width: 150
     },
     event: function (e, td) {
       console.log(e.keyCode);
@@ -340,7 +413,7 @@ export function getListData() {
     "羊水性状",
     "宫颈扩张",
     "宫缩强度",
-    "花都:神经外科护理记录单:出量名称"
+    "花都:产前护理记录单:出量名称"
   ];
   multiDictInfo(list).then(res => {
     let data = res.data.data;

@@ -84,10 +84,10 @@ function print(source, beforePrint, selfShow) {
     iframeWindow,
     `
    * {
-   font-family: 'SimHei','Microsoft Yahei' !important;
-  }
+      font-family: 'SimHei','Microsoft Yahei' !important;
+    }
     @page{
-      margin: 40px 30px;
+      margin: 80px 30px 0;
     }
     body {
       margin: 0;
@@ -95,7 +95,7 @@ function print(source, beforePrint, selfShow) {
       overflow: hidden;
     }
     .bed-card-warpper{
-      width:1102px;
+      width:1300px;
       display:flex;
       flex-wrap:wrap;
       position:relative;
@@ -104,7 +104,13 @@ function print(source, beforePrint, selfShow) {
     }
     .bed-card-con {
       overflow: hidden;
-      margin-bottom:60px!important;
+      margin:0!important;
+    }
+    .bed-card-con.nextpage{
+      margin-bottom:52px!important;
+    }
+    .bed-card-con.firstpage{
+      margin-top:30px!important;
     }
     input[type='checkbox']:checked:before {
       content: '';

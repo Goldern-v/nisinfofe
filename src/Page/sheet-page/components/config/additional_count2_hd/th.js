@@ -15,9 +15,9 @@ export default {
         日期
         `,
         colspan: "1",
-        rowspan: "1",
+        rowspan: "3",
         style: {
-          width: "28px"
+          width: "40px"
         },
       },
       {
@@ -25,18 +25,18 @@ export default {
         时间
         `,
         colspan: "1",
-        rowspan: "1",
+        rowspan: "3",
         style: {
-          width: "28px"
+          width: "40px"
         },
       },
       {
-        name: "腹围（cm）",
+        name: "腹围<br/>（cm）",
         style: {
           width: "48px"
         },
         colspan: "1",
-        rowspan: "2"
+        rowspan: "3"
       },
       {
         name: "膀胱充盈",
@@ -44,30 +44,31 @@ export default {
           width: "48px"
         },
         colspan: "1",
-        rowspan: "2"
+        rowspan: "3"
       },
       {
         name: `
         肠胀气
         `,
         colspan: "1",
-        rowspan: "2",
+        rowspan: "3",
         style: {
           width: "48px"
         }
       },
       {
         name: `
-        记录人签名
+        记录人<br/>签名
         `,
         style: {},
         colspan: "1",
-        rowspan: "2",
+        rowspan: "3",
         style: {
           width: "52px"
         },
       },
     ],
-    mid: []
+    mid: [],
+    bottom: []
   }
 };

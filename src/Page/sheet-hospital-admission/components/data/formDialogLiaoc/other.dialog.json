@@ -1008,6 +1008,97 @@
     ]
   },
   {
+    "title": "四肢活动情况",
+    "type": "formGroupVerticalBox",
+    "name": "I001479",
+    "showTitle": false,
+    "message": "",
+    "require": "false",
+    "prefixDesc": "",
+    "suffixDesc": "",
+    "keys": "I001479",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 400,
+    "children": [
+      {
+        "name": "I001479",
+        "type": "checkbox",
+        "title": "自如",
+        "value": "自如",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      },
+      {
+        "name": "I001479",
+        "type": "checkbox",
+        "title": "障碍:",
+        "value": "障碍",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      },
+      {
+        "name": "I001480",
+        "type": "input",
+        "label": "(部位",
+        "suffixDesc": ")",
+        "labelWidth": "100px",
+        "value": "",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      },
+      {
+        "name": "I001479",
+        "type": "checkbox",
+        "title": "畸形:",
+        "value": "畸形",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      },
+      {
+        "name": "I001481",
+        "type": "input",
+        "label": "(部位",
+        "suffixDesc": ")",
+        "labelWidth": "100px",
+        "value": "",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      },
+      {
+        "name": "I001479",
+        "type": "checkbox",
+        "title": "其他",
+        "value": "其他",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      },
+      {
+        "name": "I001482",
+        "type": "input",
+        "labelWidth": "80px",
+        "value": "",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
     "title": "用户验证",
     "type": "formGroupVerticalBox",
     "name": "C003007",
@@ -1062,6 +1153,7 @@
       }
     ]
   },
+
   {
     "title": "四肢活动",
     "aliasTitle": "肌力评级",
@@ -1420,7 +1512,7 @@
   },
   {
     "title": "吸烟",
-    "type": "formGroupVerticalBox",
+    "type": "formGroupHorizontalBox",
     "name": "I001104",
     "showTitle": false,
     "message": "",
@@ -1431,7 +1523,7 @@
     "style": null,
     "classes": null,
     "readOnly": null,
-    "modalWidth": 400,
+    "modalWidth": 800,
     "children": [
       {
         "name": "I001176",
@@ -1479,7 +1571,7 @@
     ]
   },
   {
-    "title": "嗜酒",
+    "title": "饮酒",
     "type": "formGroupHorizontalBox",
     "name": "I001106",
     "showTitle": false,
@@ -1488,18 +1580,17 @@
     "prefixDesc": "",
     "suffixDesc": "",
     "keys": "I001106",
-    "style": null,
+    "style": "flex-wrap: nowrap !important;display: inline-flex !important;",
     "classes": null,
     "readOnly": null,
-    "modalWidth": 400,
+    "modalWidth": 600,
     "children": [
       {
         "name": "I001178",
         "type": "input",
-        "label": "嗜酒",
+        "label": "饮酒",
         "labelWidth": "80px",
         "suffixDesc": "年",
-        "style": "width: 200px!important",
         "class": null,
         "html": null,
         "readOnly": null
@@ -1519,7 +1610,7 @@
         "name": "I001180",
         "type": "checkbox",
         "title": "不定量",
-        "style": "margin-left: 55px!important",
+        "style": "margin-left: 80px!important ; width:100px!important",
         "class": null,
         "html": null,
         "readOnly": null
@@ -1529,6 +1620,7 @@
         "type": "input",
         "label": "已戒酒",
         "labelWidth": "100px",
+        "inputWidth":"flex:1!important",
         "suffixDesc": "年",
         "style": null,
         "class": null,
@@ -1993,6 +2085,98 @@
         "value": "活动",
         "style": null,
         "class": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
+    "title": "洼田饮水试验",
+    "type": "formGroupVerticalBox",
+    "name": "I100432",
+    "showTitle": false,
+    "message": "",
+    "require": "false",
+    "prefixDesc": "",
+    "postText": "",
+    "keys": "",
+    "style": "width:230px!important;",
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 540,
+    "children": [
+      {
+        "name": "I001455",
+        "type": "input",
+        "label": "吞咽测试",
+        "labelWidth": "80px",
+        "inputWidth":"200px",
+        "postText": "",
+        "value": "",
+        "options": [
+          {
+            "code": "1级（优）能顺利地1次将水咽下",
+            "name": "1级（优）能顺利地1次将水咽下",
+            "pinyin": "gmcx"
+          },
+          {
+            "code": "2级（良）分2次以上，能不呛咳地咽下",
+            "name": "2级（良）分2次以上，能不呛咳地咽下",
+            "pinyin": "gmcx"
+          },
+          {
+            "code": "3级（中）能1次咽下，但有呛咳",
+            "name": "3级（中）能1次咽下，但有呛咳",
+            "pinyin": "gmcx"
+          },
+          {
+            "code": "4级（可）分2次以上咽下，但有呛咳",
+            "name": "4级（可）分2次以上咽下，但有呛咳",
+            "pinyin": "gmcx"
+          },
+          {
+            "code": "5级（差）频繁呛咳，不能全部咽下",
+            "name": "5级（差）频繁呛咳，不能全部咽下",
+            "pinyin": "gmcx"
+          }
+        ],
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      },
+      {
+        "name": "I001456",
+        "type": "input",
+        "label": "吞咽评定",
+        "labelWidth": "80px",
+        "inputWidth":"200px",
+        "postText": "",
+        "value": "",
+        "options": [
+          {
+            "code": "正常 1级（5秒之内）",
+            "name": "正常 1级（5秒之内）",
+            "pinyin": "gmcx"
+          },
+          {
+            "code": "可疑 1级（5秒以上或2级）",
+            "name": "可疑 1级（5秒以上或2级）",
+            "pinyin": "gmcx"
+          },
+          {
+            "code": "异常 3～5级",
+            "name": "异常 3～5级",
+            "pinyin": "gmcx"
+          },
+          {
+            "code": "不能评定",
+            "name": "不能评定",
+            "pinyin": "gmcx"
+          }
+        ],
+        "style": "margin-left:50px",
+        "class": null,
+        "html": null,
         "readOnly": null
       }
     ]
@@ -2674,6 +2858,7 @@
         "labelWidth": "100px",
         "value": "",
         "options": [
+          "无",
           "少许",
           "月经量",
           "多于月经量"
@@ -2691,6 +2876,189 @@
         "labelWidth": "100px",
         "value": "",
         "suffixDesc": "",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
+    "title": "孕产史(孕)情况",
+    "type": "formGroupVerticalBox",
+    "name": "",
+    "showTitle": false,
+    "message": "",
+    "require": "false",
+    "prefixDesc": "",
+    "suffixDesc": "",
+    "keys": "I001470",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 400,
+    "children": [
+      {
+        "name": "I001470",
+        "type": "input",
+        "label": "G",
+        "labelWidth": "100px",
+        "value": "",
+        "suffixDesc": "",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      },
+      {
+        "name": "I001471",
+        "type": "input",
+        "label": "P",
+        "labelWidth": "100px",
+        "value": "",
+        "suffixDesc": "",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      },
+      {
+        "name": "I001472",
+        "type": "input",
+        "label": "A",
+        "labelWidth": "100px",
+        "value": "",
+        "suffixDesc": "",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      },
+      {
+        "name": "I001473",
+        "type": "input",
+        "label": "L",
+        "labelWidth": "100px",
+        "value": "",
+        "suffixDesc": "(次)",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
+    "title": "孕产史(产)情况",
+    "type": "formGroupVerticalBox",
+    "name": "",
+    "showTitle": false,
+    "message": "",
+    "require": "false",
+    "prefixDesc": "",
+    "suffixDesc": "",
+    "keys": "I001474",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 400,
+    "children": [
+      {
+        "name": "I001474",
+        "type": "input",
+        "label": "G",
+        "labelWidth": "100px",
+        "value": "",
+        "suffixDesc": "",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      },
+      {
+        "name": "I001475",
+        "type": "input",
+        "label": "P",
+        "labelWidth": "100px",
+        "value": "",
+        "suffixDesc": "",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      },
+      {
+        "name": "I001476",
+        "type": "input",
+        "label": "A",
+        "labelWidth": "100px",
+        "value": "",
+        "suffixDesc": "",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      },
+      {
+        "name": "I001477",
+        "type": "input",
+        "label": "L",
+        "labelWidth": "100px",
+        "value": "",
+        "suffixDesc": "(次)",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
+    "title": "胎动情况",
+    "type": "formGroupVerticalBox",
+    "name": "",
+    "showTitle": false,
+    "message": "",
+    "require": "false",
+    "prefixDesc": "",
+    "suffixDesc": "",
+    "keys": "I001460",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 400,
+    "children": [
+      {
+        "name": "I001460",
+        "type": "input",
+        "label": "",
+        "labelWidth": "100px",
+        "value": "",
+        "suffixDesc": "次/分",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      },
+      {
+        "name": "I001461",
+        "type": "input",
+        "label": "增多",
+        "labelWidth": "100px",
+        "value": "",
+        "suffixDesc": "次/分",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      },
+      {
+        "name": "I001462",
+        "type": "input",
+        "label": "减少",
+        "labelWidth": "100px",
+        "value": "",
+        "suffixDesc": "次/分",
         "style": null,
         "class": null,
         "html": null,
@@ -2718,6 +3086,7 @@
         "type": "input",
         "label": "性状",
         "labelWidth": "100px",
+        "multiplechoice": true,
         "value": "",
         "options": [],
         "suffixDesc": "",
@@ -2729,7 +3098,7 @@
       {
         "name": "I100124",
         "type": "input",
-        "label": "量",
+        "label": "颜色",
         "labelWidth": "100px",
         "value": "",
         "suffixDesc": "ml",

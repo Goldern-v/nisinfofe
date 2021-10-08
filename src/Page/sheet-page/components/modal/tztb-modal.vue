@@ -1,6 +1,6 @@
 <template>
   <div>
-    <sweet-modal ref="modal" :modalWidth="720" title="体征同步">
+    <sweet-modal ref="modal" :modalWidth="HOSPITAL_ID=='guizhou'?850:720" title="体征同步">
       <div flex="cross:center">
         <span class="label">体征日期：</span>
         <masked-input
@@ -34,7 +34,9 @@
             </template>
           </el-table-column>
           <el-table-column prop="temperature" label="腋下体温(°C)" min-width="110px" align="center"></el-table-column>
-          <el-table-column prop="pulse" label="脉搏/心率(次/min)" min-width="150px" align="center"></el-table-column>
+          <el-table-column prop="pulse" label="脉搏/心率(次/min)" min-width="150px" align="center" v-if="HOSPITAL_ID !='guizhou'"></el-table-column>
+          <el-table-column prop="pulse" label="脉搏(次/min)" min-width="110px" align="center" v-if="HOSPITAL_ID =='guizhou'"></el-table-column>
+          <el-table-column prop="heartRate" label="心率(次/min)" min-width="110px" align="center" v-if="HOSPITAL_ID =='guizhou'"></el-table-column>
           <el-table-column prop="breath" label="呼吸(次/min)" min-width="110px" align="center"></el-table-column>
           <el-table-column prop="bloodPressure" label="血压(mmHg)" min-width="110px" align="center"></el-table-column>
         </el-table>
@@ -94,7 +96,9 @@ export default {
   },
   methods: {
     open(baseParams) {  
+      console.log(baseParams,"gaohaix");
       this.formlist = baseParams
+      console.log(this.formlist);
       if (!this.patientInfo.patientId && !baseParams.patientId) {
         return this.$message.warning("请选择一名患者");
       }
@@ -106,7 +110,19 @@ export default {
       this.$refs.modal.close();
     },
     post() {
-      saveVitalSign(this.multipleSelection).then(res => {
+      let temArr = this.multipleSelection
+      if(this.multipleSelection.length!=0 &&(this.HOSPITAL_ID=='fuyou'||this.HOSPITAL_ID=='wujing')){
+         this.multipleSelection.map((item,index)=>{
+          if(item.pulse){
+            let strArr = item.pulse.split("/")
+            if(strArr[0]&&strArr[1]){
+            }else{
+              temArr[index].pulse=strArr[0]||strArr[1]
+            }
+          }
+        })
+      }
+      saveVitalSign(temArr).then(res => {
         this.$message.success("保存成功");
         this.close();
         this.bus.$emit("refreshSheetPage");
@@ -115,8 +131,8 @@ export default {
     },
     getData() {
       getVitalSign(
-        this.patientInfo.patientId,
-        this.patientInfo.visitId,
+        this.patientInfo.patientId || this.formlist.patientId,
+        this.patientInfo.visitId || this.formlist.visitId,
         this.searchDate
       ).then(res => {
         this.tableData = res.data.data.list;
@@ -128,7 +144,15 @@ export default {
   },
   computed: {
     patientInfo() {
-      return this.sheetInfo.selectBlock || this.formlist;
+      console.log(this.formlist);
+      if(this.sheetInfo.selectBlock){
+        return this.sheetInfo.selectBlock
+      }
+
+      if(this.formlist != undefined){
+        return this.formlist;
+      }
+        
     }
   },
   components: {

@@ -195,6 +195,7 @@ export default {
       if (!this.this_deptCode) return;
       listRecord(this.this_deptCode).then(res => {
         this.templates = res.data.data.list;
+        console.log(this.templates);
         this.pageLoading = false;
       });
     },

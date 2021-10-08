@@ -3,7 +3,6 @@ import {
 } from "../../../api/index";
 import {
   keyf1,
-  calValueChange
 } from "../keyEvent/f1.js";
 import {
   event_date,
@@ -55,6 +54,12 @@ export default [{
     next: "次/分",
   },
   {
+    key: "spo2", //血氧饱和度
+    value: "",
+    event: keyf1,
+    name: "血氧饱和度",
+  },
+  {
     key: "bloodPressure", //血压
     value: "",
     event: function (e, td) {
@@ -66,7 +71,21 @@ export default [{
     },
     name: "血压",
     next: "mmHg",
-  }, {
+  }, 
+  // {
+  //   key: "sugar", //血糖
+  //   value: "",
+  //   event: function (e, td) {
+  //     if (e.keyCode == 32) {
+  //       e.target.value += "/";
+  //       e.preventDefault();
+  //     }
+  //     keyf1(e, td);
+  //   },
+  //   name: "血糖",
+  //   next: "mmol/L",
+  // },
+  {
     key: "description", //特殊情况记录
     value: "",
     style: {
@@ -75,7 +94,7 @@ export default [{
       top: "1px",
       bottom: "1px",
       left: "1px",
-      // width: "180px",
+      width: "300px",
       background: "transparent",
     },
     event: function (e, td) {

@@ -6,6 +6,7 @@ import {
 } from "../../../api/index";
 import {
   keyf1,
+  limitChange
 } from "../keyEvent/f1.js";
 import {
   event_date,
@@ -21,7 +22,13 @@ const ysxzList = [];
 const xlgdList = ["-5","-4","-3","-2","-1","0","+1","+2","+3","+4","+5"];
 const txbwList = ["右下腹", "左下腹", "右上腹", "左上腹", "中上腹", "脐中部", "脐上部", "脐下部", ];
 
-export default [{
+export default [
+  {
+    key: "recordDate", //年份
+    value: "",
+    hidden:true
+  },
+  {
     key: "recordMonth", //日期
     value: "",
     event: event_date,
@@ -35,6 +42,9 @@ export default [{
   {
     key: "bloodPressure", //血压
     value: "",
+    textarea: {
+      width: 45
+    },
     event: function (e, td) {
       if (e.keyCode == 32) {
         e.target.value += "/";
@@ -42,6 +52,7 @@ export default [{
       }
       keyf1(e, td);
     },
+    change: (e, td) => limitChange(e, td, 6),
     name: "血压",
     next: "mmHg"
   },
@@ -49,26 +60,46 @@ export default [{
     key: "fieldOne", //胎位
     value: "",
     event: keyf1,
+    change: (e, td) => limitChange(e, td, 10),
     name: "胎位",
+    splice: "/",
     autoComplete: {
       data: twList
     },
+    textarea: {
+      width: 68
+    },
+    style: {
+      textAlign: "left",
+    }
   },
   {
     key: "fieldTwo", //胎心部位
     value: "",
     event: keyf1,
     name: "胎心部位",
+    change: (e, td) => limitChange(e, td, 10),
+    splice: "/",
     autoComplete: {
       data: txbwList
     },
+    textarea: {
+      width: 70
+    },
+    style: {
+      textAlign: "left",
+    }
   },
   {
     key: "fieldThree", //胎心心率
     value: "",
     event: keyf1,
     name: "胎心心率",
-    next: "次/min"
+    next: "次/分",
+    change: (e, td) => limitChange(e, td, 6),
+    textarea: {
+      width: 45
+    },
   },
   {
     key: "fieldFour", //衔接
@@ -78,6 +109,10 @@ export default [{
     autoComplete: {
       data: ["已", "未"]
     },
+    change: (e, td) => limitChange(e, td, 3),
+    textarea: {
+      width: 25
+    },
   },
   {
     key: "fieldFive", //宫缩间歇
@@ -85,6 +120,10 @@ export default [{
     event: keyf1,
     name: "宫缩间歇",
     next: "min",
+    change: (e, td) => limitChange(e, td, 4),
+    textarea: {
+      width: 35
+    },
   },
   {
     key: "fieldSix", //宫缩持续
@@ -95,6 +134,10 @@ export default [{
     autoComplete: {
       data: ["无", "敏感", "不规则"]
     },
+    change: (e, td) => limitChange(e, td, 4),
+    textarea: {
+      width: 35
+    },
   },
   {
     key: "fieldSeven", // 宫缩缩力
@@ -104,13 +147,21 @@ export default [{
     autoComplete: {
       data: ["强", "中", "中强", "中弱", "弱", "敏感", "不规则", "无"]
     },
+    change: (e, td) => limitChange(e, td, 4),
+    textarea: {
+      width: 35
+    },
   },
   {
     key: "fieldEight", // 宫颈开张
     value: "",
     event: keyf1,
     name: "宫颈开张",
-    next: "cm"
+    next: "cm",
+    change: (e, td) => limitChange(e, td, 4),
+    textarea: {
+      width: 35
+    },
   },
   {
     key: "fieldNine", //宫颈均势
@@ -120,6 +171,10 @@ export default [{
     autoComplete: {
       data: jsList
     },
+    change: (e, td) => limitChange(e, td, 4),
+    textarea: {
+      width: 35
+    },
   },
   {
     key: "fieldTen", //宫颈质
@@ -127,7 +182,11 @@ export default [{
     event: keyf1,
     name: "宫颈质",
     autoComplete: {
-      data: ["水肿"]
+      data: ["软","中","硬","水肿"]
+    },
+    change: (e, td) => limitChange(e, td, 4),
+    textarea: {
+      width: 35
     },
   },
   {
@@ -138,12 +197,20 @@ export default [{
     autoComplete: {
       data: xlgdList
     },
+    change: (e, td) => limitChange(e, td, 4),
+    textarea: {
+      width: 35
+    },
   },
   {
     key: "fieldTwelve", //矢状缝
     value: "",
     event: keyf1,
-    name: "矢状缝"
+    name: "矢状缝",
+    change: (e, td) => limitChange(e, td, 4),
+    textarea: {
+      width: 35
+    },
   },
   {
     key: "fieldThirteen", //胎膜
@@ -152,6 +219,10 @@ export default [{
     name: "胎膜",
     autoComplete: {
       data: ["已破", "未破"]
+    },
+    change: (e, td) => limitChange(e, td, 4),
+    textarea: {
+      width: 35
     },
   },
   {
@@ -162,6 +233,10 @@ export default [{
     autoComplete: {
       data: ysxzList
     },
+    change: (e, td) => limitChange(e, td, 4),
+    textarea: {
+      width: 35
+    },
   },
   {
     key: "fieldFifteen", //检查方式
@@ -171,22 +246,28 @@ export default [{
     autoComplete: {
       data: ["外", "阴", "肛"]
     },
+    change: (e, td) => limitChange(e, td, 4),
+    textarea: {
+      width: 35
+    },
   },
   {
     key: "fieldSixteen", //标题1
     value: "",
     event: keyf1,
     textarea: {
-      width: 32
-    }
+      width: 45
+    },
+    change: (e, td) => limitChange(e, td, 6),
   },
   {
     key: "fieldSeventeen", //标题2
     value: "",
     event: keyf1,
     textarea: {
-      width: 32
-    }
+      width: 45
+    },
+    change: (e, td) => limitChange(e, td, 6),
   },
   {
     key: "description", //特殊情况记录
@@ -197,8 +278,11 @@ export default [{
       top: "1px",
       bottom: "1px",
       left: "1px",
-      width: "180px",
+      width: "150px",
       background: "transparent"
+    },
+    textarea: {
+      width: 150
     },
     event: function (e, td) {
       console.log(e.keyCode);
@@ -208,7 +292,6 @@ export default [{
       }
       keyf1(e, td);
     }
-    // oninput: next
   },
   {
     key: "sign",
@@ -300,18 +383,18 @@ export default [{
 ];
 
 export function getListData() {
-  listItem("入量名称", info.sheetType).then(res => {
-    ruList.splice(0, ruList.length);
-    for (let item of res.data.data) {
-      ruList.push(item.name);
-    }
-  });
-  listItem("出量名称", info.sheetType).then(res => {
-    chuList.splice(0, chuList.length);
-    for (let item of res.data.data) {
-      chuList.push(item.name);
-    }
-  });
+  // listItem("入量名称", info.sheetType).then(res => {
+  //   ruList.splice(0, ruList.length);
+  //   for (let item of res.data.data) {
+  //     ruList.push(item.name);
+  //   }
+  // });
+  // listItem("出量名称", info.sheetType).then(res => {
+  //   chuList.splice(0, chuList.length);
+  //   for (let item of res.data.data) {
+  //     chuList.push(item.name);
+  //   }
+  // });
   let list = [
     "花都:侯产记录单:胎位",
     "花都:侯产记录单:羊水性状",

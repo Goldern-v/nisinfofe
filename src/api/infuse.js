@@ -3,13 +3,33 @@ import qs from 'qs'
 import { apiPath } from './apiConfig'
 
 // 输液
-export const getExecute = (wardCode) => {
-    return axios.get(`${apiPath}board/getExecute/${wardCode}`)
+export const getExecute = (wardCode,hospitalId) => {
+    switch(hospitalId){
+        case 'hengli':
+            return axios.get(`${apiPath}board/getExecute/${wardCode}`)
+        case 'wujing':
+            return axios.post(`${apiPath}procedure/pdaExecute/pdaGetSYStatusWithWardcode`, {wardCode});
+        default :
+            return axios.get(`${apiPath}board/getExecute/${wardCode}`)
+
+    }
 }
 
 // 输液详情
 export const detail = (barCode) => {
-    return axios.get(`${apiPath}execute/detail/${barCode}`)
+    return axios.get(`${apiPath}execute/detail/${barCode}`);
+}
+
+// 输液详情-横沥
+export const detailHl = (params,hospitalId) => {
+    switch(hospitalId){
+        case "hengli":
+            return axios.post(`${apiPath}execute/detail`,params)
+        case "wujing":
+            return axios.post(`${apiPath}procedure/pdaExecute/detail`,params)
+        default:
+            return axios.post(`${apiPath}execute/detail`,params)
+    }
 }
 
 // 保存警戒值日志
@@ -40,9 +60,7 @@ return axios.post(`${apiPath}warningLog/getListByParam`, obj);
 };
 
 // 根据科室获取警戒值
-export const getWarningValue = wardCode => {
-return axios.post(`${apiPath}warningValue/getByWardCode`, {
-    wardCode
-});
+export const getWarningValue = (wardCode) => {
+    return axios.post(`${apiPath}warningValue/getByWardCode`, {wardCode});
 };
 

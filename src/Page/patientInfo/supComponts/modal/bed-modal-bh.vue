@@ -388,7 +388,7 @@
       <div
         class="bed-card-warpper wrist-strap-print"
         ref="printCon3"
-        v-show="printMode == 'wrist'"
+        v-show="printMode.includes('wrist')"
       >
         <div class="bed-card-vert-con">
           <div class="top" style="position: relative;height:30px">
@@ -943,7 +943,7 @@ export default {
     open(printMode = "h") {
       this.init();
       this.printMode = printMode;
-      if (this.printMode == "wrist") {
+      if (this.printMode.includes("wrist")) {
         this.title = "腕带打印";
         // JsBarcode("#barcode", this.query.patientId, {
         //   lineColor: "#000",
@@ -1013,15 +1013,23 @@ export default {
     onPrint() {
       this.$nextTick(() => {
         this.post();
-        if (this.printMode == "wrist") {
-          printing(this.$refs.printCon3, {
-            direction: "vertical",
-            injectGlobalCss: true,
-            scanStyles: false,
-            css: `
+        if (this.printMode.includes("wrist")) {
+          let cssStyle = this.printMode =="wrist-children"?`
           .bed-card-warpper {
             box-shadow: none !important;
-            transform: scale(0.8) rotate(90deg) translateY(-135%) translateX(42%);
+            transform: scale(0.8) rotate(90deg) translateY(-140%) translateX(45%);
+            transform-origin: 0 0;
+          }
+          .bed-card-vert-con {
+            margin: 10px 20px 10px 10px!important;
+          }
+          @page {
+            margin: 0;
+          }
+          `: `
+          .bed-card-warpper {
+            box-shadow: none !important;
+            transform: scale(1) rotate(90deg) translateY(-140%) translateX(40%);
             transform-origin: 0 0;
           }
           .bed-card-vert-con {
@@ -1031,6 +1039,11 @@ export default {
             margin: 0;
           }
           `
+          printing(this.$refs.printCon3, {
+            direction: "vertical",
+            injectGlobalCss: true,
+            scanStyles: false,
+            css: cssStyle
           });
         } else if (this.printMode == "v") {
           // printing(this.$refs.printCon2, {

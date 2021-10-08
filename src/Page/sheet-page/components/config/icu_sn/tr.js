@@ -22,21 +22,29 @@ export default [{
   {
     key: "temperature", //体温
     value: "",
-    event: keyf1
+    event: keyf1,
+    name: "T",
+    next: "℃",
   },
   {
     key: "pulse", //脉搏
     value: "",
-    event: keyf1
+    event: keyf1,
+    name: "HR",
+    next: "次/分",
   },
   {
     key: "breath", //呼吸
     value: "",
-    event: keyf1
+    event: keyf1,
+    name: "R",
+    next: "次/分",
   },
   {
     key: "bloodPressure", //血压
     value: "",
+    name: "BP/ABP",
+    next: "mmHg",
     event: function (e, td) {
       if (e.keyCode == 32) {
         e.target.value += "/";
@@ -48,16 +56,21 @@ export default [{
   {
     key: "cvp", //CVPcmH2O
     value: "",
+    name: "CVP",
+    next: "cmH2O",
     event: keyf1,
   },
   {
     key: "spo2", //SPO2
     value: "",
+    name: "SPO2",
+    next: "%",
     event: keyf1,
   },
   {
     key: "consciousness", //意识
     value: "",
+    name: "意识",
     event: keyf1,
     autoComplete: {
       data: ["清醒", "嗜睡", "浅昏迷", "昏迷", "醒状昏迷", "睁眼昏迷"]
@@ -66,6 +79,8 @@ export default [{
   {
     key: "pupilSizeLeft", // 瞳孔-左
     value: "",
+    name: "瞳孔-左",
+    next: "mm",
     event: keyf1,
     textarea: {
       width: 30
@@ -77,6 +92,8 @@ export default [{
   {
     key: "pupilSizeRight", // 瞳孔-右
     value: "",
+    name: "瞳孔-右",
+    next: "mm",
     event: keyf1,
     textarea: {
       width: 30
@@ -88,6 +105,7 @@ export default [{
   {
     key: "pupilReflexLeft", // 瞳孔-对光反射左
     value: "",
+    name: "对光反射左",
     event: keyf1,
     textarea: {
       width: 30
@@ -99,6 +117,7 @@ export default [{
   {
     key: "pupilReflexRight", // 瞳孔-对光反射右
     value: "",
+    name: "对光反射右",
     event: keyf1,
     textarea: {
       width: 30
@@ -110,6 +129,7 @@ export default [{
   {
     key: "fieldOne", // 机械通气-呼吸模式
     value: "",
+    name: "呼吸模式",
     event: keyf1,
     autoComplete: {
       data: ["SIMV", "PSV", "ASB", "IPPV", "BIPAP", "PC", "VC", "A/C"]
@@ -118,21 +138,28 @@ export default [{
   {
     key: "fio2", // 机械通气-FiO2
     value: "",
+    name: "FiO2",
+    next: "%",
     event: keyf1
   },
   {
     key: "fieldTwo", // 机械通气-f
     value: "",
+    name: "f",
+    next: "次/分",
     event: keyf1
   },
   {
     key: "fieldThree", // 机械通气-插管深度
     value: "",
+    name: "插管深度",
+    next: "cm",
     event: keyf1
   },
   {
     key: "food", //入
     value: "",
+    name: "入量名称",
     event: keyf1,
     textarea: {
       width: 68
@@ -144,11 +171,14 @@ export default [{
   {
     key: "foodSize", //入量
     value: "",
+    name: "入量",
+    next: "ml",
     event: keyf1
   },
   {
     key: "discharge", //排出物
     value: "",
+    name: "出量名称",
     event: keyf1,
     textarea: {
       width: 60
@@ -157,26 +187,32 @@ export default [{
   {
     key: "dischargeSize", //排出物数量
     value: "",
+    name: "出量",
+    next: "ml",
     event: keyf1
   },
   {
     key: "fieldFour", //出量-颜色性状
     value: "",
+    name: "颜色性状",
     event: keyf1
   },
   {
     key: "fieldFive", //静脉置管
     value: "",
+    name: "静脉置管",
     event: keyf1,
   },
   {
     key: "fieldSix", //卧位
     value: "",
+    name: "卧位",
     event: keyf1,
   },
   {
     key: "fieldSeven", //受压皮肤
     value: "",
+    name: "受压皮肤",
     event: keyf1,
   },
   {
@@ -190,6 +226,7 @@ export default [{
   {
     key: "fieldEight", //护理措施
     value: "",
+    name: "护理措施",
     event: keyf1,
     textarea: {
       width: 36

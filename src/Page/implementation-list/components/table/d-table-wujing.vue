@@ -8,56 +8,70 @@
       :row-class-name="rowcb"
       use-virtual
       :big-data-checkbox="checked"
-      showBodyOverflow="title"
-      showHeaderOverflow="title"
       :row-height="rowHeight"
       ref="retest"
       @selection-change="handleSelectionChange"
     >
       <u-table-column type="selection" width="55"></u-table-column>
-      <u-table-column prop="executeDateTime" label="计划执行时间" min-width="140px" align="center">
-        <template slot-scope="scope">
-          <span>{{(scope.row.rowType == 1 || !scope.row.rowType) ? (scope.row.executeDateTime) : '' | ymdhm}}</span>
+      <u-table-column prop="executeDateTime" label="计划执行时间" min-width="140px" align="center" >
+        <template slot-scope="scope" :title="(scope.row.rowType == 1 || !scope.row.rowType) ? (scope.row.executeDateTime) : '' | ymdhm">
+          <span :title="(scope.row.rowType == 1 || !scope.row.rowType) ? (scope.row.executeDateTime) : '' | ymdhm">{{(scope.row.rowType == 1 || !scope.row.rowType) ? (scope.row.executeDateTime) : '' | ymdhm}}</span>
         </template>
       </u-table-column>
 
       <u-table-column prop="bedLabel" label="床号" min-width="50px" align="center">
         <template slot-scope="scope">
-          <div>{{(scope.row.rowType == 1 || !scope.row.rowType) ? (scope.row.bedLabel) : ''}}</div>
+          <div :title="(scope.row.rowType == 1 || !scope.row.rowType) ? (scope.row.bedLabel) : ''">{{(scope.row.rowType == 1 || !scope.row.rowType) ? (scope.row.bedLabel) : ''}}</div>
         </template>
       </u-table-column>
 
       <u-table-column label="姓名" prop="name" min-width="70px" align="center">
         <template slot-scope="scope">
-          <div>{{(scope.row.rowType == 1 || !scope.row.rowType) ? (scope.row.name) : ''}}</div>
+          <div :title="(scope.row.rowType == 1 || !scope.row.rowType) ? (scope.row.name) : ''">{{(scope.row.rowType == 1 || !scope.row.rowType) ? (scope.row.name) : ''}}</div>
         </template>
       </u-table-column>
 
       <u-table-column label="医嘱内容" prop="itemName" min-width="250px">
         <template slot-scope="scope">
-          <div :class="scope.row.rowType && `rowType-${scope.row.rowType}`">{{scope.row.itemName }}</div>
+          <div :class="scope.row.rowType && `rowType-${scope.row.rowType}`" :title="scope.row.itemName">{{scope.row.itemName }}</div>
         </template>
       </u-table-column>
 
       <u-table-column prop="dosage" label="单次用量" min-width="80px" align="center">
         <template slot-scope="scope">
-          <span>{{scope.row.dosage }}</span>
+          <span :title="scope.row.dosage">{{scope.row.dosage }}</span>
         </template>
       </u-table-column>
 
       <u-table-column prop="dosageUnits" label="单位" min-width="50px" align="center">
         <template slot-scope="scope">
-          <span>{{scope.row.dosageUnits }}</span>
+          <span :title="scope.row.dosageUnits">{{scope.row.dosageUnits }}</span>
         </template>
       </u-table-column>
 
-      <u-table-column prop="administration" label="途径" min-width="120px" align="center"></u-table-column>
+      <u-table-column prop="administration" label="途径" min-width="120px" align="center" title="administration" >
+      <template slot-scope="scope">
+          <span :title="scope.row.administration">{{scope.row.administration }}</span>
+        </template>
+      </u-table-column>
 
-      <u-table-column label="频次" prop="frequency" min-width="80px" align="center"></u-table-column>
+      <u-table-column label="频次" prop="frequency" min-width="80px" align="center">
+      <template slot-scope="scope">
+          <span :title="scope.row.frequency">{{scope.row.frequency }}</span>
+        </template>
+      </u-table-column>
 
-      <u-table-column label="执行时间说明" prop="performSchedule" min-width="100px" align="center"></u-table-column>
+      <u-table-column label="执行时间说明" prop="performSchedule" min-width="100px" align="center">
+      <template slot-scope="scope">
+          <span :title="scope.row.performSchedule">{{scope.row.performSchedule }}</span>
+        </template>
+      </u-table-column>
 
-      <u-table-column label="医生说明" prop="freqDetail" min-width="200px" align="center"></u-table-column>
+      <u-table-column label="医生说明" prop="freqDetail" min-width="200px" align="center">
+      <template slot-scope="scope">
+          <span :title="scope.row.freqDetail">{{scope.row.freqDetail}}</span>
+        </template>
+      </u-table-column>
 
       <u-table-column prop="executeFlag" label="状态" min-width="80px" align="center">
         <template slot-scope="scope">
@@ -65,35 +79,43 @@
             :class="{
               yzx: scope.row.executeFlag == 2
               }"
-          >{{ scope.row.executeFlag == 2 ? '已执行' : '未执行' }}</span>
+           :title="scope.row.executeFlag == 2 ? '已执行' : '未执行'">{{ scope.row.executeFlag == 2 ? '已执行' : '未执行' }}</span>
         </template>
       </u-table-column>
 
        <u-table-column prop="realExecuteDateTime" label="执行时间" min-width="160px" align="center">
         <template slot-scope="scope">
-          <span>{{scope.row.realExecuteDateTime | ymdhms}}</span>
+          <span :title="scope.row.realExecuteDateTime | ymdhms">{{scope.row.realExecuteDateTime | ymdhms}}</span>
         </template>
        </u-table-column>
 
-      <u-table-column prop="executeNurseName" label="执行护士" min-width="80px" align="center"></u-table-column>
-
-      <u-table-column prop="repeatIndicator" label="长/临" min-width="70px" align="center">
-       <template slot-scope="scope">
-          <span>{{scope.row.repeatIndicator == 1 ? '长期' : '临时'}}</span>
+      <u-table-column prop="executeNurseName" title="executeNurseName" label="执行护士" min-width="80px" align="center">
+      <template slot-scope="scope">
+          <span :title="scope.row.executeNurseName | ymdhms">{{scope.row.executeNurseName | ymdhms}}</span>
         </template>
       </u-table-column>
 
-      <u-table-column prop="orderNo" label="医嘱号" min-width="70px" align="center"></u-table-column>
+      <u-table-column prop="repeatIndicator" label="长/临" min-width="70px" align="center">
+       <template slot-scope="scope">
+          <span :title="scope.row.repeatIndicator == 1 ? '长期' : '临时'">{{scope.row.repeatIndicator == 1 ? '长期' : '临时'}}</span>
+        </template>
+      </u-table-column>
+
+      <u-table-column prop="orderNo" label="医嘱号" min-width="70px" align="center">
+       <template slot-scope="scope">
+          <span :title="scope.row.orderNo">{{scope.row.orderNo}}</span>
+        </template>
+      </u-table-column>
 
       <u-table-column prop="reqDateTime" label="开嘱时间" min-width="160px" align="center">
         <template slot-scope="scope">
-          <span>{{scope.row.reqDateTime | ymdhms}}</span>
+          <span :title="scope.row.reqDateTime | ymdhms">{{scope.row.reqDateTime | ymdhms}}</span>
         </template>
       </u-table-column>
 
       <u-table-column prop="stopDateTime" label="停嘱时间" min-width="160px" align="center">
         <template slot-scope="scope">
-          <span>{{scope.row.stopDateTime | ymdhms}}</span>
+          <span :title="scope.row.stopDateTime | ymdhms">{{scope.row.stopDateTime | ymdhms}}</span>
         </template>
       </u-table-column>
 

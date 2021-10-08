@@ -1,7 +1,19 @@
 <template>
   <div :class="{ hj: HOSPITAL_ID == 'hj' }">
+    <leftPartHengli
+      v-if="inited && HOSPITAL_ID=='hengli'"
+      @handleInpatientSave="handleInpatientSave"
+    ></leftPartHengli>
+    <leftPartHuadu
+      v-else-if="inited && HOSPITAL_ID=='huadu'"
+      @handleInpatientSave="handleInpatientSave"
+    ></leftPartHuadu>
+    <leftPartFuyou
+      v-else-if="inited && HOSPITAL_ID=='fuyou'"
+      @handleInpatientSave="handleInpatientSave"
+    ></leftPartFuyou>
     <leftPart
-      v-if="inited"
+      v-else-if="inited"
       @handleInpatientSave="handleInpatientSave"
     ></leftPart>
     <div class="right-part" :style="{ marginLeft: openLeft ? '200px' : '0' }">
@@ -51,6 +63,9 @@ import topPartGuiZhou from "@/Page/patientInfo/supComponts/topPart_GuiZhou"; // 
 import topPartQuZhou from "@/Page/patientInfo/supComponts/topPart_QuZhou.vue"; // 曲周县医院
 import topPartJmfy from "@/Page/patientInfo/supComponts/topPart_Jmfy.vue";
 import leftPart from "@/Page/patientInfo/supComponts/leftPart";
+import leftPartHengli from "@/Page/patientInfo/supComponts/leftPart_Hengli";
+import leftPartFuyou from "@/Page/patientInfo/supComponts/leftPart_Fuyou";
+import leftPartHuadu from "@/Page/patientInfo/supComponts/leftPart_Huadu";
 import { getPatientInfo } from "@/api/common.js";
 
 export default {
@@ -154,6 +169,9 @@ export default {
     topPartQuZhou,
     topPartJmfy,
     leftPart,
+    leftPartHengli,
+    leftPartFuyou,
+    leftPartHuadu
   },
 };
 </script>

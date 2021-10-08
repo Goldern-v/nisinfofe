@@ -1,14 +1,15 @@
+/*
+江门妇幼-产科护理记录单
+*/
 import moment from "moment";
-
 function currYear() {
-  return moment().format('YYYY')
+  return moment().format('YYYY年')
 }
-
 export default {
   // 科室的名称 关节骨科
   deptType: "",
   style: {
-    width: "1250px"
+    width: "1300px"
   },
   th: {
     top: [{
@@ -16,7 +17,8 @@ export default {
         colspan: "2",
         rowspan: "1",
         style: {
-          minWidth: "62px"
+          // minWidth: "40px",
+          maxWidth: "60px"
         },
         canSet: true,
         key: "recordYear",
@@ -177,15 +179,26 @@ export default {
         colspan: "1",
         rowspan: "3",
         style: {
-          minWidth: '70px',
-          maxWidth: '70px',
+          minWidth: '90px',
+          maxWidth: '90px',
+        },
+      },
+      {
+        name: `上级护士签名
+        `,
+        colspan: "1",
+        rowspan: "3",
+        style: {
+          minWidth: '90px',
+          maxWidth: '90px',
         },
       }
     ],
     mid: [{
         name: '日期',
         style: {
-          minWidth: '36px',
+          minWidth: '30px',
+          // width: '50px',
           maxWidth: '36px',
         },
         colspan: '1',
@@ -194,7 +207,8 @@ export default {
       {
         name: '时间',
         style: {
-          minWidth: '36px',
+          minWidth: '30px',
+          // width: '50px',
           maxWidth: '36px',
         },
         colspan: '1',

@@ -1,3 +1,6 @@
+/*
+江门妇幼-妇科护理记录单
+*/
 import {
   keyf1
 } from "../keyEvent/f1.js";
@@ -9,7 +12,7 @@ import {
 } from "../keyEvent/date";
 
 let 意识 = ["清醒","嗜睡","昏睡","浅昏迷","深昏迷","谵妄"];
-let 伤口敷料 = ["干枯","渗血","渗液"];
+let 伤口敷料 = ["干洁","渗血","渗液"];
 let 护理指导 = ["A","B","C"];
 let 留置尿管 = ["留置畅通","定时夹闭尿管","拔除尿管"];
 let 基础护理 = ["温水擦浴","酒精擦浴","口腔护理","会阴护理","翻身"];
@@ -22,18 +25,12 @@ export default [{
     value: "",
     event: event_date,
     click: click_date,
-    textarea: {
-      width: 50
-    }
   },
   {
     key: "recordHour", //时间
     value: "",
     event: event_time,
     click: click_time,
-    textarea: {
-      width: 50
-    }
   },
   {
     key: "temperature", //体温
@@ -42,7 +39,7 @@ export default [{
     name: "体温",
     next: "℃",
     textarea: {
-      width: 50
+      width: 40
     }
   },
   {
@@ -52,7 +49,7 @@ export default [{
     name: "脉搏",
     next: "次/分",
     textarea: {
-      width: 60
+      width: 58
     }
   },
   {
@@ -62,7 +59,7 @@ export default [{
     name: "呼吸",
     next: "次/分",
     textarea: {
-      width: 60
+      width: 58
     }
   },
   {
@@ -78,7 +75,7 @@ export default [{
     name: "血压",
     next: "mmHg",
     textarea: {
-      width: 60
+      width: 58
     }
   },
   {
@@ -131,30 +128,62 @@ export default [{
       width: 43
     },
   },
+  // {
+  //   key: "postOutputOne", // 尿管
+  //   value: "",
+  //   event: keyf1,
+  //   name: "宫口扩张",
+  //   next: "cm",
+  //   textarea: {
+  //     width: 43
+  //   },
+  // },
+  // {
+  //   key: "postOutputTwo", //胸壁
+  //   value: "",
+  //   event: keyf1,
+  //   name: "先露",
+  //   textarea: {
+  //     width: 43
+  //   },
+  // },
+  // {
+  //   key: "postOutputThree", //腋窝
+  //   value: "",
+  //   event: keyf1,
+  //   name: "先露",
+  //   textarea: {
+  //     width: 43
+  //   },
+  // },
   {
-    key: "postOutputOne", // 尿管
+    key: "postOutputOne", //自定义1
     value: "",
     event: keyf1,
-    name: "宫口扩张",
-    next: "cm",
     textarea: {
       width: 43
     },
   },
   {
-    key: "postOutputTwo", //胸壁
+    key: "postOutputTwo", //自定义2
     value: "",
     event: keyf1,
-    name: "先露",
     textarea: {
       width: 43
     },
   },
   {
-    key: "postOutputThree", //腋窝
+    key: "postOutputThree", //自定义3
     value: "",
     event: keyf1,
-    name: "先露",
+    textarea: {
+      width: 43
+    },
+  },
+  {
+    key: "measuresOne", //自定义4
+    value: "",
+    event: keyf1,
     textarea: {
       width: 43
     },
@@ -227,31 +256,17 @@ export default [{
       data: 特殊药物
     }
   },
+  // {
+  //   key: "measuresEight", //功能锻炼
+  //   value: "",
+  //   event: keyf1,
+  //   name: "基础护理",
+  //   textarea: {
+  //     width: 50
+  //   },
+  // },
   {
-    key: "measuresEight", //功能锻炼
-    value: "",
-    event: keyf1,
-    name: "基础护理",
-    textarea: {
-      width: 50
-    },
-  },
-  {
-    key: "measuresNine", //标题1
-    value: "",
-    event: function (e, td) {
-      if (e.keyCode == 32) {
-        e.target.value += "/";
-        e.preventDefault();
-      }
-      keyf1(e, td);
-    },
-    textarea: {
-      width: 30
-    },
-  },
-  {
-    key: "measuresTen", //标题2
+    key: "measuresEight", //标题1
     value: "",
     event: function (e, td) {
       if (e.keyCode == 32) {
@@ -261,7 +276,38 @@ export default [{
       keyf1(e, td);
     },
     textarea: {
-      width: 30
+      minWidth: "36px",
+      maxWidth: "50px"
+    },
+  },
+  {
+    key: "measuresNine", //标题2
+    value: "",
+    event: function (e, td) {
+      if (e.keyCode == 32) {
+        e.target.value += "/";
+        e.preventDefault();
+      }
+      keyf1(e, td);
+    },
+    textarea: {
+      minWidth: "36px",
+      maxWidth: "50px"
+    },
+  },
+  {
+    key: "measuresTen", //标题3
+    value: "",
+    event: function (e, td) {
+      if (e.keyCode == 32) {
+        e.target.value += "/";
+        e.preventDefault();
+      }
+      keyf1(e, td);
+    },
+    textarea: {
+      minWidth: "36px",
+      maxWidth: "50px"
     },
   },
   {
@@ -288,8 +334,19 @@ export default [{
   },
   {
     key: "sign",
-    value: ""
+    value: "",
+    textarea: {
+      width: 80
+    },
   },
+  {
+    key: "sign2",
+    value: "",
+    textarea: {
+      width: 80
+    },
+  },
+
   // {
   //   key: "audit",
   //   value: ""

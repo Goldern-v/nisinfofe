@@ -7,27 +7,20 @@ export default {
   // 科室的名称
   deptType: "",
   style: {
-    width: "1300px"
+    width: "1200px"
   },
   th: {
     top: [{
-        name: currYear(),
+        name: '',
+        style: {},
         colspan: "2",
         rowspan: "1",
-        style: {
-          minWidth: "62px"
-        },
-        canSet: true,
-        key: "recordYear",
+        key:'recordYear'
       },
       {
         name: `
         箱<br/>温<br/>/<br/>床<br/>温<br/>℃
         `,
-        style: {
-          minWidth: "30px",
-          maxWidth: "30px",
-        },
         colspan: "1",
         rowspan: "3"
       },
@@ -38,42 +31,26 @@ export default {
         style: {},
         colspan: "1",
         rowspan: "3",
-        style: {
-          minWidth: "30px",
-          maxWidth: "30px",
-        }
       },
       {
         name: `
-        脉搏<br/>心率<br/>次<br/>/<br/>分
+        心<br/>率<br/>次<br/>/<br/>分
         `,
         style: {},
         colspan: "1",
         rowspan: "3",
-        style: {
-          minWidth: "30px",
-          maxWidth: "30px",
-        }
       },
       {
         name: `
         呼<br/>吸<br/>次<br/>/<br/>分
         `,
-        style: {
-          minWidth: "30px",
-          maxWidth: "30px",
-        },
         colspan: "1",
         rowspan: "3"
       },
       {
         name: `
-        血<br/>压<br/>m<br/>m<br/>H<br/>g
+        血<br/>压<br/>mmHg
         `,
-        style: {
-          minWidth: "46px",
-          maxWidth: "46px",
-        },
         colspan: "1",
         rowspan: "3"
       },
@@ -81,10 +58,6 @@ export default {
         name: `
         血<br/>氧<br/>饱<br/>和<br/>度<br/>%
         `,
-        style: {
-          minWidth: "30px",
-          maxWidth: "30px",
-        },
         colspan: "1",
         rowspan: "3"
       },
@@ -95,19 +68,11 @@ export default {
         style: {},
         colspan: "1",
         rowspan: "3",
-        style: {
-          minWidth: "30px",
-          maxWidth: "30px",
-        }
       },
       {
         name: `
         吸<br/>吮<br/>力
         `,
-        style: {
-          minWidth: "30px",
-          maxWidth: "30px",
-        },
         colspan: "1",
         rowspan: "3"
       },
@@ -115,10 +80,6 @@ export default {
         name: `
         脐<br/>部
         `,
-        style: {
-          minWidth: "30px",
-          maxWidth: "30px",
-        },
         colspan: "1",
         rowspan: "3"
       },
@@ -126,10 +87,6 @@ export default {
         name: `
         经<br/>皮<br/>胆<br/>红<br/>素<br/>Umol<br/>/<br/>L
         `,
-        style: {
-          minWidth: "30px",
-          maxWidth: "30px"
-        },
         colspan: "1",
         rowspan: "3"
       },
@@ -137,10 +94,6 @@ export default {
         name: `
         胃<br/>管<br/>深<br/>度<br/>cm
         `,
-        style: {
-          minWidth: "30px",
-          maxWidth: "30px"
-        },
         colspan: "1",
         rowspan: "3"
       },
@@ -148,9 +101,6 @@ export default {
         name: `
         入量
         `,
-        style: {
-          minWidth: '86px',
-        },
         colspan: "2",
         rowspan: "1"
       },
@@ -158,9 +108,6 @@ export default {
         name: `
         出量
         `,
-        style: {
-          minWidth: '126px',
-        },
         colspan: "3",
         rowspan: "1"
       },
@@ -171,10 +118,6 @@ export default {
         colspan: "3",
         rowspan: "1",
         canSet: false,
-        style: {
-          minWidth: "40px",
-          maxWidth: "40px"
-        }
       }, {
         name: `
         吸痰性状/量
@@ -182,19 +125,11 @@ export default {
         colspan: "4",
         rowspan: "1",
         canSet: false,
-        style: {
-          minWidth: "40px",
-          maxWidth: "40px"
-        }
       },
       {
-        name: `篮<br/>光<br/>治<br/>疗`,
+        name: `蓝<br/>光<br/>治<br/>疗`,
         colspan: "1",
         rowspan: "3",
-        style: {
-          minWidth: "40px",
-          maxWidth: "40px"
-        }
       },
       {
         name: `反应`,
@@ -204,9 +139,9 @@ export default {
         canSet: true,
         key: "fieldSix", //标题1
         style: {
-          minWidth: "32px",
-          maxWidth: "32px"
-        }
+          minWidth: "30px",
+          maxWidth: "30px"
+        },
       },
       {
         name: `哭声`,
@@ -216,21 +151,21 @@ export default {
         canSet: true,
         key: "fieldSeven", //标题2
         style: {
-          minWidth: "32px",
-          maxWidth: "32px"
-        }
+          minWidth: "30px",
+          maxWidth: "30px"
+        },
       },
       {
-        name: ``,
+        name: `标题1`,
         style: {},
         colspan: "1",
         rowspan: "3",
         canSet: true,
         key: "fieldEight", //标题3
         style: {
-          minWidth: "32px",
-          maxWidth: "32px"
-        }
+          minWidth: "30px",
+          maxWidth: "30px"
+        },
       },
       {
         name: `
@@ -247,21 +182,13 @@ export default {
         name: `
         护士签名
         `,
-        style: {
-          minWidth: "40px",
-          maxWidth: "40px"
-        },
         colspan: "1",
         rowspan: "3"
       },
       {
         name: `
-        护士签名
+        质控护士签名
         `,
-        style: {
-          minWidth: "40px",
-          maxWidth: "40px"
-        },
         colspan: "1",
         rowspan: "3"
       }
@@ -269,19 +196,11 @@ export default {
     mid: [
       {
         name: '日期',
-        style: {
-          minWidth: '34px',
-          maxWidth: '34px',
-        },
         colspan: '1',
         rowspan: '2'
       },
       {
         name: '时间',
-        style: {
-          minWidth: '34px',
-          maxWidth: '34px',
-        },
         colspan: '1',
         rowspan: '2'
       },
@@ -292,7 +211,8 @@ export default {
         colspan: "1",
         rowspan: "2",
         style: {
-          width: "52px"
+          minWidth: "65px",
+          maxWidth: "65px"
         },
       },
       {
@@ -301,9 +221,6 @@ export default {
         `,
         colspan: "1",
         rowspan: "2",
-        style: {
-          width: "30px"
-        },
       },
       {
         name: `
@@ -312,7 +229,8 @@ export default {
         colspan: "1",
         rowspan: "2",
         style: {
-          width: "52px"
+          minWidth: "65px",
+          maxWidth: "65px"
         },
       },
       {
@@ -321,9 +239,6 @@ export default {
         `,
         colspan: "1",
         rowspan: "2",
-        style: {
-          width: "30px"
-        },
       },
       {
         name: `
@@ -332,7 +247,8 @@ export default {
         colspan: "1",
         rowspan: "2",
         style: {
-          width: "40px"
+          minWidth: "28px",
+          maxWidth: "28px"
         },
       },
       {
@@ -349,10 +265,6 @@ export default {
         `,
         colspan: "1",
         rowspan: "2",
-        style: {
-          minWidth: "28px",
-          maxWidth: "28px",
-        }
       },
       {
         name: `
@@ -360,10 +272,6 @@ export default {
         `,
         colspan: "1",
         rowspan: "2",
-        style: {
-          minWidth: "28px",
-          maxWidth: "28px"
-        }
       },
       {
         name: `
@@ -371,10 +279,6 @@ export default {
         `,
         colspan: "2",
         rowspan: "1",
-        style: {
-          minWidth: "28px",
-          maxWidth: "28px",
-        }
       },
       {
         name: `
@@ -382,10 +286,6 @@ export default {
         `,
         colspan: "2",
         rowspan: "1",
-        style: {
-          minWidth: "28px",
-          maxWidth: "28px"
-        }
       }
     ],
     bottom: [
@@ -395,10 +295,6 @@ export default {
         `,
         colspan: "1",
         rowspan: "1",
-        style: {
-          minWidth: "28px",
-          maxWidth: "28px",
-        }
       },
       {
         name: `
@@ -406,10 +302,6 @@ export default {
         `,
         colspan: "1",
         rowspan: "1",
-        style: {
-          minWidth: "28px",
-          maxWidth: "28px"
-        }
       },
       {
         name: `
@@ -417,10 +309,6 @@ export default {
         `,
         colspan: "1",
         rowspan: "1",
-        style: {
-          minWidth: "28px",
-          maxWidth: "28px",
-        }
       },
       {
         name: `
@@ -428,10 +316,6 @@ export default {
         `,
         colspan: "1",
         rowspan: "1",
-        style: {
-          minWidth: "28px",
-          maxWidth: "28px"
-        }
       }
     ]
   }

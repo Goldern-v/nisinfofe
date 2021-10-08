@@ -8,7 +8,7 @@
         </div>
         <div class="list-con">
           <span class="key">任务：</span>
-          <span class="value">{{data.task}}</span>
+          <span class="value">{{data.taskSource}}</span>
         </div>
         <div class="list-con">
           <span class="key">患者：</span>

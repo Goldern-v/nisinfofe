@@ -88,7 +88,7 @@
               <span
                 class="preText"
                 style="color: blue"
-                @click="updateTextInfo(i.vitalCode, i.fieldCn, i.fieldCn)"
+                @click="updateTextInfo(i.vitalCode, i.fieldCn, i.fieldCn,index)"
                 >{{ i.fieldCn }}</span
               >
               <input
@@ -478,7 +478,8 @@ export default {
       });
     },
     /* 修改自定义标题，弹出弹窗并保存 */
-    updateTextInfo(key, label, autotext) {
+    updateTextInfo(key, label, autotext,index) {
+      console.log(this.fieldList[index])
       window.openSetTextModal(
         (text) => {
           let data = {
@@ -488,10 +489,13 @@ export default {
             vitalCode: key,
             fieldCn: text,
           };
+          
           savefieldTitle(data).then((res) => {
-            this.$message.success(`修改${label}成功`);
+            this.fieldList[index].fieldCn=text;
+          this.$message.success(`修改${label}成功`);
+            
           });
-          this.getList();
+          // this.getList();
         },
         autotext,
         `修改${label}`
@@ -584,10 +588,18 @@ export default {
   .rowItem_noShow {
     display: none;
   }
+  @media screen and (max-width: 1200px) {
+
+    .el-radio:nth-child(1){
+    margin-left:15px;
+    }
+
+}
 
   .row {
     display: inline-block;
     padding: 3px 15px;
+    
 
     .preText {
       display: inline-block;

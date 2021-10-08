@@ -11,6 +11,34 @@
     <div v-show="message && message.length > 0" class="message-box">
       <span>{{ message }}</span>
     </div>
+    <span v-show="showDate">
+      <p for class="name-title">记录时间</p>
+      <div action class="sign-input" ref="dateInput">
+        <el-date-picker
+          popper-class="picker-dropdown"
+          v-model="signDate"
+          type="datetime"
+          align="center"
+          format="yyyy-MM-dd HH:mm"
+          placeholder="输入签名时间"
+        ></el-date-picker>
+        <!-- <el-input size="small" type="text" placeholder="输入签名时间" v-model="signDate"></el-input> -->
+      </div>
+    </span>
+    <span v-show="showAduit">
+      <p for class="name-title">审核时间</p>
+      <div action class="sign-input" ref="dateInput">
+        <el-date-picker
+          popper-class="picker-dropdown"
+          v-model="aduitDate"
+          type="datetime"
+          align="center"
+          format="yyyy-MM-dd HH:mm"
+          placeholder="输入签名时间"
+        ></el-date-picker>
+        <!-- <el-input size="small" type="text" placeholder="输入签名时间" v-model="signDate"></el-input> -->
+      </div>
+    </span>
     <span v-show="showUserName">
       <p for class="name-title">输入用户名或者工号</p>
       <div action class="sign-input" ref="userInput">
@@ -54,20 +82,7 @@
       <span class="loginCa" v-else @click="pw = false">证书验证</span>
     </div>
 
-    <span v-show="showDate">
-      <p for class="name-title">输入签名时间</p>
-      <div action class="sign-input" ref="dateInput">
-        <el-date-picker
-          popper-class="picker-dropdown"
-          v-model="signDate"
-          type="datetime"
-          align="center"
-          format="yyyy-MM-dd HH:mm"
-          placeholder="输入签名时间"
-        ></el-date-picker>
-        <!-- <el-input size="small" type="text" placeholder="输入签名时间" v-model="signDate"></el-input> -->
-      </div>
-    </span>
+    
     <div style="height: 20px"></div>
     <div slot="button">
       <el-button class="modal-btn" @click.stop="close">取消</el-button>
@@ -165,11 +180,30 @@ export default {
       bus: bus(this),
       ca_name: "",
       ca_isLogin: "",
-      pw: false
+      pw: false,
+      dateTitle:"",
+      aduitDate:'',
+      showAduit:false,
     };
   },
   methods: {
-    open(callback, title, showDate = false, message = "") {
+    open(callback, title, showDate = false, isHengliNursingForm, message = "") {
+      console.log('isHengliNursingFormzczxczxcxzczx', isHengliNursingForm);
+      this.signDate = dayjs().format("YYYY-MM-DD HH:mm") || ""; //改
+      if(isHengliNursingForm && title!=='删除验证'){
+        if(title==='签名确认' && this.HOSPITAL_ID == 'hengli'){
+        showDate = true;
+        this.showAduit = false;
+        this.dateTitle = '记录时间';
+        }else if(title==='审核签名确认' && this.HOSPITAL_ID == 'hengli'){
+          showDate = false;
+            this.showAduit = true;
+          this.dateTitle = '审核时间'
+        }else{
+          showDate = false;
+          this.showAduit = false;
+        }
+      }
       this.title1 = "";
       title && (this.title1 = title);
       (this.username =
@@ -186,13 +220,13 @@ export default {
       this.ca_name = window.ca_name;
       this.ca_isLogin = window.ca_isLogin;
 
-      this.signDate = dayjs().format("YYYY-MM-DD HH:mm") || ""; //改
+      
       this.$refs.modalName.open();
       if (this.HOSPITAL_ID != "weixian") {
         this.$nextTick(() => {
-          // if(showDate){
-          //   let dateInput = this.$refs.dateInput.querySelector("input");
-          // }
+          if(showDate){
+            let dateInput = this.$refs.dateInput.querySelector("input");
+          }
           let userInput = this.$refs.userInput.querySelector("input");
           let passwordInput =
             this.$refs.passwordInput &&
@@ -224,6 +258,7 @@ export default {
       this.$refs.modalName.setCloseCallback(closeCallback);
     },
     post() {
+      console.log(this.callback);
       this.setCloseCallback(null);
       if (this.HOSPITAL_ID == "weixian") {
         if (this.pw) {
@@ -266,11 +301,17 @@ export default {
           });
         }
         this.$refs.modalName.close();
+        console.log(this.aduitDate,'-------------------------------------');
+        if(this.aduitDate != '' && this.HOSPITAL_ID == 'hengli'){
+          return this.callback(this.password, this.username,this.signDate='', this.aduitDate);
+        } 
         if (this.signDate) {
           return this.callback(this.password, this.username, this.signDate);
-        } else {
-          return this.callback(this.password, this.username);
+        }else {
+            return this.callback(this.password, this.username);
         }
+
+      
       }
     },
     openCaSignModal() {

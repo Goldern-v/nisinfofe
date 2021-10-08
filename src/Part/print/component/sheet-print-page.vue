@@ -1,5 +1,5 @@
 <template>
-  <div id="sheetPagePrint">
+  <div id="sheetPagePrint" :class="[HOSPITAL_ID=='guizhou'?'guizhou':'']">
     <!-- {{process}} -->
     <!-- <iframe :src="url" :style="{height: iframeHeight + 'px'}" @load="onload" ref="iframe"></iframe> -->
     <div
@@ -148,7 +148,11 @@
       // width 1100px !important
       margin: 0 !important;
     }
-
+    &.guizhou{
+      .contant {
+        margin-top: -50px!important;
+      }
+    }
     .his-logo {
       top: 0 !important;
       left: 0 !important;
@@ -201,7 +205,12 @@ export default {
       pageLoading: true,
       bus: bus(this),
       sheetInfo,
-      // huadu需要双签名的记录单code
+      // 需要扩大行距的记录单code
+      lineSpacingArr: [
+        "icu_qz", // 曲周_重症护理记录单
+        "neonatology_hd", // 花都_新生儿科护理记录单
+      ],
+      // 需要双签名的记录单code
       multiSignArr: [
         "common_hd", // 花都_通用护理记录单
         "neurosurgery_hd", // 花都_神经外科护理记录单
@@ -209,7 +218,19 @@ export default {
         "neonatology2_hd", // 花都_新生儿护理记录单
         "postpartum_hd", // 花都_产后记录单
         "wait_delivery_hd", // 花都_候产记录单
-        "neonatology_hd" // 花都_新生儿科护理记录单
+        "neonatology_hd", // 花都_新生儿科护理记录单
+
+        "neonatal_care_jm", //江门妇幼_新生儿监护单
+        "pediatric_surgery_jm", //江门妇幼_小儿外科护理记录单
+        "pediatrics_jm", //江门妇幼_儿科护理记录单
+        "child_recovery_jm", //江门妇幼_儿童康复科护理记录单
+        "gynaecology_jm", //江门妇幼_妇科护理记录单
+        "breastkenursing_jm", //江门妇幼_乳腺科护理记录单
+        "obstetricnursing_jm", //江门妇幼_产科护理记录单
+        "antenatalwaiting_jm", //江门妇幼_产前待产护理记录单
+        "postpartumnursing_jm",//江门妇幼_产后护理记录单
+        "entdepartment_jm",//江门妇幼_耳鼻喉科护理记录单
+        "catheterplacement_jm",//江门妇幼_深静脉导管置入术后维护单
       ]
     };
   },
@@ -265,9 +286,75 @@ export default {
         `
       );
     }
+    if((this.HOSPITAL_ID === "huadu")){
+      addCSS(
+        window,
+        `
+        @media print {
+          .has-background{
+            background:none!important;
+          }
+        }
+        `
+      );
+    }
+    /* 护理记录单行高 */
+    if ( (this.HOSPITAL_ID === "quzhou") &&
+      this.lineSpacingArr.includes(this.sheetInfo.sheetType)
+    ) {
+      addCSS(
+        window,
+        `
+        @media print {
+          .body-con{
+            height: 35px !important;
+          }
+        }
+        `
+      );
+    }
+    /* 护理记录单行高 */
+    // if ((this.HOSPITAL_ID === "huadu") &&
+    //   this.lineSpacingArr.includes(this.sheetInfo.sheetType)
+    // ) {
+    //   addCSS(
+    //     window,
+    //     `
+    //     @media print {
+    //       .body-con{
+    //         height: 40px !important;
+    //       }
+    //       .body-con textarea{
+    //         font-size: 16px !important;
+    //       }
+    //     }
+    //     `
+    //   );
+    // }
     /* 花都打印双签名：第二个护士签名打印时隐藏 */
     if (
-      this.HOSPITAL_ID === "huadu" &&
+      (this.HOSPITAL_ID === "huadu") &&
+      this.multiSignArr.includes(this.sheetInfo.sheetType)
+    ) {
+      addCSS(
+        window,
+        `
+          #sheetPagePrint#sheetPagePrint th[dataname='质控护士签名']{
+            display:none !important;
+          }
+          #sheetPagePrint#sheetPagePrint th[dataname='质控人<br/>签名']{
+            display:none !important;
+          }
+          @media print {
+            #sheetPagePrint .contant{
+              margin-top:-20px;!important;
+            }
+          }
+        `
+      );
+    }
+    if (
+      (this.HOSPITAL_ID === "fuyou") &&
       this.multiSignArr.includes(this.sheetInfo.sheetType)
     ) {
       addCSS(

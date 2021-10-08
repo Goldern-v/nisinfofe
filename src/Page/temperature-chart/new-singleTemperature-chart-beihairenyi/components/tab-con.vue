@@ -144,7 +144,7 @@
               <span
                 class="preText"
                 style="color: blue"
-                @click="updateTextInfo(i.vitalCode, i.fieldCn, i.fieldCn)"
+                @click="updateTextInfo(i.vitalCode, i.fieldCn, i.fieldCn,index)"
                 >{{ i.fieldCn }}</span
               >
               <!-- <el-tooltip
@@ -330,23 +330,23 @@ export default {
       query: {
         entryDate: moment(new Date()).format("YYYY-MM-DD"), //录入日期
         entryTime: (()=>{
-          if (this.getHours() >= 0 && this.getHours() <= 2) {
-                return "02";
+          if (this.getHours() >= 0 && this.getHours() <= 3) {
+                return "03";
               }
-              if (this.getHours() > 2 && this.getHours() <= 6) {
-                return "06";
+              if (this.getHours() > 3 && this.getHours() <= 7) {
+                return "07";
               }
-              if (this.getHours() > 6 && this.getHours() <= 10) {
-                return "10";
+              if (this.getHours() > 7 && this.getHours() <= 11) {
+                return "11";
               }
-              if (this.getHours() > 10 && this.getHours() <= 14) {
-                return "14";
+              if (this.getHours() > 11 && this.getHours() <= 15) {
+                return "15";
               }
-              if (this.getHours() > 14 && this.getHours() <= 18) {
-                return "18";
+              if (this.getHours() > 15 && this.getHours() <= 19) {
+                return "19";
               }
-              if (this.getHours() > 18 && this.getHours() <= 23) {
-                return "22";
+              if (this.getHours() > 19 && this.getHours() <= 23) {
+                return "23";
               }
          //录入时间
         })() //录入时间
@@ -372,30 +372,30 @@ export default {
       timesOdd: [
         {
           id: 0,
-          value: "02",
+          value: "03",
         },
         {
           id: 1,
-          value: "06",
+          value: "07",
         },
         {
           id: 2,
-          value: "10",
+          value: "11",
         },
         {
           id: 3,
-          value: "14",
+          value: "15",
         },
         {
           id: 4,
-          value: "18",
+          value: "19",
         },
         {
           id: 5,
-          value: "22",
+          value: "23",
         },
       ],
-      bottomContextList: ["", "不升"],
+      bottomContextList: [""],
       topExpandDate: "",
       bottomExpandDate: "",
       totalDictInfo: {},
@@ -630,7 +630,7 @@ export default {
       });
     },
     /* 修改自定义标题，弹出弹窗并保存 */
-    updateTextInfo(key, label, autotext) {
+    updateTextInfo(key, label, autotext,index) {
       window.openSetTextModal(
         (text) => {
           let data = {
@@ -641,9 +641,10 @@ export default {
             fieldCn: text,
           };
           savefieldTitle(data).then((res) => {
+             this.fieldList[index].fieldCn=text;
             this.$message.success(`修改${label}成功`);
           });
-          this.getList();
+          // this.getList();
         },
         autotext,
         `修改${label}`

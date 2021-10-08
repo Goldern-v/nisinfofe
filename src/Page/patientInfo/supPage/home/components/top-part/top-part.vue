@@ -57,7 +57,7 @@
 
     <div class="top-box" flex-box="1">
       <div class="head-con">
-        <div class="title">过敏</div>
+        <div :class="['title',HOSPITAL_ID=='huadu'?'gm':'']">过敏</div>
         <img
           src="../images/分组.png"
           alt
@@ -66,7 +66,7 @@
         />
       </div>
       <div class="body-con">
-        <div class="text">
+        <div :class="['text',HOSPITAL_ID=='huadu'?'gm':'']">
           <span v-if="info.allergy1"> {{ info.allergy1 }}; </span>
           <span v-if="info.drugGms">{{ info.drugGms }}; </span>
           <span v-if="info.allergy2">{{ info.allergy2 }} </span>
@@ -114,6 +114,8 @@
         font-size: 14px;
         color: #687179;
         font-weight bold
+      .gm
+        color red
       .warning
         background: #ED5566;
         border-radius: 2px;
@@ -159,6 +161,8 @@
         font-size 18px
         color #66717B
         font-weight bold
+      .text.gm
+        color red
 </style>
 <style lang="stylus" scoped>
 @media screen and (max-width: 1100px) {

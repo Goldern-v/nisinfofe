@@ -156,7 +156,7 @@ export default {
 
     this.bus.$on("refreshSheetPageOne", (a)=>{
       this.handleMarklist.push(...a)
-      console.log(a,this.handleMarklist,'gaohaixiong');
+      console.log(this.handleMarklist,'gaohaixiong');
     });
     this.bus.$on("delAssessmentV2", this.delAssessment);
     this.bus.$on("setAssessmentLoadingStatusV2", this.setLoadingStatus);
@@ -276,8 +276,11 @@ export default {
       //
       this.marklist = [];
       this.handleMarklist = [];
-      // 获取批注列表
-      this.getMarkList();
+      // 如果不是输血评估单,则获取批注列表
+      if(info.formCode!='E0314'){
+        // 获取批注列表
+        this.getMarkList();
+      }
 
       // 如果是新版表单
       // let query = this.$route.query

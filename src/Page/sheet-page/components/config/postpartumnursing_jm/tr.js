@@ -30,7 +30,7 @@ export default [{
     key: "recordHour", //时间
     value: "",
     event: event_time,
-    click: click_time
+    // click: click_time
   },
   {
     key: "temperature", //体温
@@ -39,7 +39,7 @@ export default [{
     name: "体温",
     next: "℃",
     textarea: {
-      width: 50
+      width: 40
     }
   },
   {
@@ -49,7 +49,7 @@ export default [{
     name: "脉搏",
     next: "次/分",
     textarea: {
-      width: 60
+      width: 58
     }
   },
   {
@@ -59,7 +59,7 @@ export default [{
     name: "呼吸",
     next: "次/分",
     textarea: {
-      width: 60
+      width: 58
     }
   },
   {
@@ -75,7 +75,7 @@ export default [{
     name: "血压",
     next: "mmHg",
     textarea: {
-      width: 60
+      width: 56
     }
   },
   {
@@ -85,7 +85,7 @@ export default [{
     name: "SPO2",
     next: "%",
     textarea: {
-      width: 50
+      width: 46
     }
   },
   {
@@ -98,7 +98,7 @@ export default [{
       data: pgList
     },
     textarea: {
-      width: 50
+      width: 40
     },
   },
   {
@@ -156,7 +156,7 @@ export default [{
     name: "出量大小",
     next: "ml",
     textarea: {
-      width: 43
+      width: 38
     },
     autoComplete: {
       data: mrqkList
@@ -180,7 +180,7 @@ export default [{
     event: keyf1,
     name: "健康宣教",
     textarea: {
-      width: 50
+      width: 40
     },
     autoComplete: {
       data: gsList
@@ -209,7 +209,7 @@ export default [{
     value: "",
     event: keyf1,
     textarea: {
-      width: 50,
+      width: 40,
       maxLength: 4
     },
     autoComplete: {
@@ -227,7 +227,7 @@ export default [{
     autoComplete: {
       data: nsList
     },
-    
+
   },
   {
     key: "preFieldSix", //镇痛泵
@@ -278,6 +278,22 @@ export default [{
     },
   },
   {
+    key: "preFieldTen", //标题1
+    value: "",
+    event: keyf1,
+    textarea: {
+      width: 30
+    },
+  },
+  {
+    key: "preFieldEleven", //标题2
+    value: "",
+    event: keyf1,
+    textarea: {
+      width: 30
+    },
+  },
+  {
     key: "description", //特殊情况
     value: "",
     style: {
@@ -301,6 +317,10 @@ export default [{
   },
   {
     key: "sign",
+    value: ""
+  },
+  {
+    key: "sign2",
     value: ""
   },
   // {

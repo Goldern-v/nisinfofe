@@ -137,7 +137,15 @@
                     </el-row>
                   </router-link>
                 </el-dropdown-item>
-
+                <el-dropdown-item
+                  :class="{ active: $route.path == '/planList' }"
+                >
+                  <router-link to="/planList" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="healthEducation"></i>护理诊断计划
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item>
                 <!-- <el-dropdown-item :class="{active: $route.path == '/oxygenPage'}">
                   <router-link to="/oxygenPage" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
@@ -358,7 +366,7 @@
                     </el-row>
                   </router-link>
                 </el-dropdown-item>
-                <el-dropdown-item
+                <!-- <el-dropdown-item
                   :class="{
                     active: $route.path == '/changeMajorRecordHd',
                   }"
@@ -368,7 +376,7 @@
                       <i class="flatManagement"></i>转科记录
                     </el-row>
                   </router-link>
-                </el-dropdown-item>
+                </el-dropdown-item> -->
                 <!-- <el-dropdown-item :class="{active: $route.path == '/workloadSatistics'}">
                   <router-link to="/workloadSatistics" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">

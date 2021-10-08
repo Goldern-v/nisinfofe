@@ -44,7 +44,7 @@
       </span>
       <span>
         床号：
-        <div class="bottom-line" style="min-width: 50px">
+        <div :class="['bottom-line',HOSPITAL_ID=='huadu'?'has-background':'']" :style="{minWidth:'55px'}"  @dblclick.stop="openBedRecordModal">
           {{ bedAndDeptChange.bedLabelChange }}
         </div>
       </span>
@@ -71,6 +71,7 @@
     </div>
     <!-- <span class="diagnosis-con" :title="patientInfo.diagnosis">诊断：{{patientInfo.diagnosis}}</span> -->
     <!-- <span>入院日期：{{$route.query.admissionDate}}</span> -->
+    <bedRecordModal ref="bedRecordModal"></bedRecordModal>
   </div>
 </template>
 
@@ -80,6 +81,7 @@ import { updateSheetHeadInfo } from "../../../../api/index";
 import sheetInfo from "../../../config/sheetInfo";
 import { listItem } from "@/api/common.js";
 import sheetData from "../../../../sheet.js";
+import bedRecordModal from "../../../modal/bedRecord-modal";
 export default {
   props: {
     patientInfo: Object,
@@ -143,6 +145,12 @@ export default {
     }
   },
   methods: {
+    openBedRecordModal(){
+      if (this.readOnly) {
+        return this.$message.warning("你无权操作此护记，仅供查阅");
+      }
+      this.$refs.bedRecordModal.open();
+    },
     updateBirthDay() {
       window.openSetAuditDateModal(
         date => {
@@ -248,7 +256,9 @@ export default {
     //   }
     // }
   },
-  components: {}
+  components: {
+    bedRecordModal
+  }
 };
 </script>
 
@@ -261,5 +271,8 @@ input.bottom-line {
 }
 .title {
   font-size: 18px !important;
+}
+.has-background{
+  background:#f4f2f5;
 }
 </style>

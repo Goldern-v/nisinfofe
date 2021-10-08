@@ -132,6 +132,7 @@ export default {
     };
   },
   created() {
+    console.log(this.formInfo);
     this.pageLoading = true;
     this.bus.$on("closeAssessmentV2", () => {
       this.url = "";
@@ -854,6 +855,7 @@ export default {
         if (this.info.nooForm == "1") {
           window.openSignModal((password, empNo) => {
             wid.signForm(empNo, password).then((res) => {
+              console.log(res,'ffadsdsfadsfdfda');
               this.$message.success("签名成功");
               this.refresh();
               this.bus.$emit("refreshTree");
@@ -1416,6 +1418,7 @@ export default {
       // let query = this.$route.query;
 
       //
+      console.log("-----------------------------",this.wid.formInfo.formType);
       let recordObj = {
         formType: this.wid.formInfo.formType || "",
         formCode: this.wid.formInfo.formCode || "",

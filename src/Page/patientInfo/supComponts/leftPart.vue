@@ -71,7 +71,7 @@
             class="print-btn"
             flex="cross:center main:center"
             @click="openBedPrint()"
-            v-if="HOSPITAL_ID != 'beihairenyi'"
+            v-if="HOSPITAL_ID != 'beihairenyi' && HOSPITAL_ID != 'guizhou'"
           >
             打印床头卡
           </div>
@@ -94,7 +94,15 @@
                 HOSPITAL_ID == 'beihairenyi'
             "
           >
-            腕带打印
+            {{HOSPITAL_ID=='beihairenyi'?'成人腕带打印':'腕带打印'}}
+          </div>
+          <div
+            class="print-btn"
+            flex="cross:center main:center"
+            @click="openWristPrint('wrist-children')"
+            v-if="HOSPITAL_ID == 'beihairenyi'"
+          >
+            儿童腕带打印
           </div>
           <div
             class="print-btn"
@@ -145,6 +153,7 @@
     <bedModalHd ref="bedModalHd"></bedModalHd>
     <bedModalZsq ref="bedModalZsq"></bedModalZsq>
     <bedModalBh ref="bedModalBh"></bedModalBh>
+    <bedModalQz ref="bedModalQz"></bedModalQz>
     <printModal ref="printModal"></printModal>
     <archiveModal
       ref="archiveModal"
@@ -289,6 +298,7 @@ import bedModalLc from "./modal/bed-modal_lc.vue";
 import bedModalHd from "./modal/bed-modal-hd.vue";
 import bedModalZsq from "./modal/bed-modal-zsq.vue";
 import bedModalBh from "./modal/bed-modal-bh.vue";
+import bedModalQz from "./modal/bed-modal-qz.vue";
 import printModal from "./print-modal/print-modal";
 import archiveModal from "./modal/archive-modal";
 import { previewArchive } from "./modal/api/index";
@@ -333,6 +343,8 @@ export default {
         this.$refs.bedModalZsq.open();
       }else if( this.HOSPITAL_ID == "beihairenyi"){
         this.$refs.bedModalBh.open(printMode);
+      }else if( this.HOSPITAL_ID == "quzhou"){
+        this.$refs.bedModalQz.open(printMode);
       } else {
         this.$refs.bedModal.open();
       }
@@ -389,7 +401,7 @@ export default {
     window.document.title = `${this.info.bedLabel}-${this.info.name}`;
   },
   mounted() {
-    this.getArchiveStatus();
+    this.getArchiveStatus(); 
   },
   components: {
     bedModal,
@@ -400,7 +412,8 @@ export default {
     bedModalHd,
     InpatientRegis,
     bedModalZsq,
-    bedModalBh
+    bedModalBh,
+    bedModalQz
   }
 };
 </script>
