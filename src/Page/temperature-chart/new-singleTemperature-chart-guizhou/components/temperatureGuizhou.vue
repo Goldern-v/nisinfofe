@@ -24,7 +24,7 @@
         </button>
       </div>
      
-      <div class="tem-con" :style="contentHeight" v-show="showTemp">
+      <div class="tem-con" :style="contentHeight">
         <null-bg v-show="!filePath"></null-bg>
         <iframe
           id="printID"
@@ -35,7 +35,7 @@
           class="lcIframe"
         ></iframe>
       </div>
-      <div class="tem-con" :style="contentHeight" v-show="!showTemp">
+      <!-- <div class="tem-con" :style="contentHeight" v-show="!showTemp">
         <null-bg v-show="!filePath"></null-bg>
         <iframe
           id="printID"
@@ -45,7 +45,7 @@
           ref="pdfCon"
           class="lcIframe"
         ></iframe>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
@@ -75,7 +75,7 @@ export default {
       isSave: false,
       visibled: false,
       intranetUrl:
-        "http://192.168.8.158:8588/temperature/#/" /* 医院正式环境内网 导致跨域 */,
+        "http://192.168.8.158:8588/temperature/#/", /* 医院正式环境内网 导致跨域 */
       // "http://10.10.10.75:9091/temperature/#/" /* 医院正式环境内网 */,
       newBornUrl:"http://192.168.8.158:8588/temperaturenew/#/",
       outNetUrl:
@@ -97,7 +97,6 @@ export default {
         this.showTemp=true
       }
       this.getImg()
-      console.log(this.tempUrl)
 
     },
     getImg() {
@@ -106,15 +105,12 @@ export default {
       let visitId = this.queryTem.visitId;
 
       /* 单独处理体温单，嵌套iframe */
-        console.log(this.showTemp)
-      
       // const tempUrl = `${this.intranetUrl}?PatientId=0000944876&VisitId=2&StartTime=2021-05-13&showInnerPage=1`;/* 内网 */
       if(this.showTemp===false){
       const tempUrl = `${this.newBornUrl}?PatientId=${patientId}&VisitId=${visitId}&StartTime=${date}`; /* 内网 */
       this.filePath = "";
       setTimeout(() => {
         this.filePath = tempUrl;
-      console.log(this.filePath)
       }, 0);
       }//显示新生儿体温曲线的时候切换url路径
       else{
@@ -122,7 +118,6 @@ const tempUrl = `${this.intranetUrl}?PatientId=${patientId}&VisitId=${visitId}&S
       this.filePath = "";
       setTimeout(() => {
         this.filePath = tempUrl;
-      console.log(this.filePath)
       }, 0);
      
      }
@@ -189,13 +184,12 @@ const tempUrl = `${this.intranetUrl}?PatientId=${patientId}&VisitId=${visitId}&S
     },
   },
   watch: {
-    // date() {
-    //   this.getImg();
-    // },
     currentPage(value) {
       this.$refs.pdfCon.contentWindow.postMessage(
         { type: "currentPage", value },
-        this.intranetUrl /* 内网 */
+        this.showTemp===true?
+        this.intranetUrl
+        :this.newBornUrl /* 内网 */
         // this.outNetUrl /* 外网 */
       );
     },
@@ -299,7 +293,7 @@ button[disabled=disabled] {
 }
 .newBorn{
 position:relative;
-top:-10px;
+top:2px;
 left:75%;
   display: inline-flex !important;
 }
