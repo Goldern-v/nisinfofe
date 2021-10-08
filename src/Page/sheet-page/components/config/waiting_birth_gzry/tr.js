@@ -58,6 +58,9 @@ export default [
     textarea: {
       width: 50
     },
+    autoComplete: {
+      data: ["左上", "左下", "右上", "右下"]
+    },
     change: (e, td) => limitChange(e, td, 6),
   },
   {
