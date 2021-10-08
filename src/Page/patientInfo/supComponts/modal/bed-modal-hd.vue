@@ -318,6 +318,8 @@
       >>>.allergy{
         width :80%;
         p{
+          height 25px;
+          overflow hidden
           margin-left:10px;
           font-size: 20px;
         }

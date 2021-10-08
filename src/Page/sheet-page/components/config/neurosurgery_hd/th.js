@@ -87,6 +87,10 @@ export default {
         name: `健康教育`,
         colspan: "1",
         rowspan: "3",
+        style: {
+          minWidth: "103px",
+          maxWidth: "103px"
+        },
       },
       {
         name: `瞳孔`,
@@ -223,7 +227,11 @@ export default {
         名称
         `,
         colspan: "1",
-        rowspan: "2"
+        rowspan: "2",
+        style: {
+          minWidth: "65px",
+          maxWidth: "65px"
+        },
       },
       {
         name: `
@@ -238,6 +246,10 @@ export default {
         `,
         colspan: "1",
         rowspan: "2",
+        style: {
+          minWidth: "65px",
+          maxWidth: "65px"
+        },
       },
       {
         name: `

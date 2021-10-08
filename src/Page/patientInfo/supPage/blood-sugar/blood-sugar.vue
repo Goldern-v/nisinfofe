@@ -62,23 +62,24 @@
             >
             <span v-else>年龄：{{ resAge ? resAge : patientInfo.age }}</span>
             <span v-if="HOSPITAL_ID == 'fuyou'">科室：{{ tDeptName }}</span>
+            <span v-if="HOSPITAL_ID == 'guizhou'">科室：{{ resDeptName|| patientInfo.wardName || patientInfo.deptName }}</span>
             <span v-else
               >科室：{{ patientInfo.wardName || patientInfo.deptName }}</span
             >
             <!-- <span>入院日期：{{patientInfo.admissionDate | toymd}}</span> -->
-            <span>床号：{{ patientInfo.bedLabel }}</span>
+            <span>床号：{{ resBedNol || patientInfo.bedLabel }}</span>
             <!-- <span class="diagnosis-con">诊断：{{patientInfo.diagnosis}}</span> -->
             <span v-if="HOSPITAL_ID == 'liaocheng'"
               >病案号：{{ patientInfo.inpNo }}</span
             >
-            <span v-else>住院号：{{ patientInfo.inpNo }}</span>
+            <span v-else>住院号：{{ resInHosId || patientInfo.inpNo }}</span>
             <!-- <span>入院日期：{{$route.query.admissionDate}}</span> -->
           </p>
           <div class="table-warpper" flex="cross:stretch">
             <sugarTable
               :data="item.left"
               :selected.sync="selected"
-              @dblclick="onEdit"
+              @dblclick="hisDisabled()&&onEdit()"
               :baseIndex='0'
             ></sugarTable>
             <div
@@ -91,7 +92,7 @@
             <sugarTable
               :data="item.right"
               :selected.sync="selected"
-              @dblclick="onEdit"
+              @dblclick="hisDisabled()&&onEdit()"
               :baseIndex='27'
             ></sugarTable>
           </div>
@@ -112,27 +113,27 @@
         :sugarItem.sync="typeList"
       ></sugarChart>
     </div>
-    <div class="tool-con" v-show="listMap.length">
+    <div class="tool-con" v-show="listMap.length" :class="[HOSPITAL_ID=='guizhou'?'guizhou-btn':'']">
       <div class="tool-fix" flex="dir:top">
-        <whiteButton text="添加" @click="onAdd"></whiteButton>
+        <whiteButton text="添加" @click="hisDisabled()&&onAdd()"></whiteButton>
         <whiteButton
           text="修改"
-          @click="onEdit"
+          @click="hisDisabled()&&onEdit()"
           :disabled="!selected || !selected.recordDate"
           v-if="HOSPITAL_ID != 'lingcheng'"
         ></whiteButton>
         <whiteButton
           text="删除"
-          @click="onRemove"
+          @click="hisDisabled()&&onRemove()"
           :disabled="!selected || !selected.recordDate"
         ></whiteButton>
         <whiteButton
           :text="`设置起始页(${startPage})`"
-          @click="openSetPageModal(listMap.length)"
+          @click="hisDisabled()&&openSetPageModal(listMap.length)"
         ></whiteButton>
-        <whiteButton text="打印预览" @click="toPrint"></whiteButton>
+        <whiteButton text="打印预览" @click="hisDisabled()&&toPrint()"></whiteButton>
         <whiteButton
-          :text="!isChart ? '查看曲线' : '查看表格'"
+          :text="!isChart ? '查看曲线' : HOSPITAL_ID=='guizhou'?'返回':'查看表格'"
           @click="openChart"
           v-if="HOSPITAL_ID != 'gy'"
         ></whiteButton>
@@ -236,6 +237,11 @@
     }
   }
 }
+.guizhou-btn{
+  /deep/ .white-btn{
+    color: #000;
+  }
+}
 </style>
 
 
@@ -273,6 +279,11 @@ export default {
       typeList: [],
       formAge: 0,
       resAge: 0,
+      resName:'',
+      resGender:'',
+      resDeptName:'',
+      resBedNol:'',
+      resInHosId:'',
       tDeptName: "",
     };
   },
@@ -285,6 +296,9 @@ export default {
     },
   },
   methods: {
+    hisDisabled(){
+      return  !this.$route.path.includes('nursingPreview')
+    },
     async getFormHead() {
       const res = await getFormHeadData(
         this.patientInfo.patientId,
@@ -300,6 +314,13 @@ export default {
       );
       console.log(res);
       this.resAge = res.data.data.age;
+      if(this.HOSPITAL_ID=='guizhou'&&this.$route.path.includes('nursingPreview')){
+        this.resName = res.data.data.name;
+        this.resGender = res.data.data.gender;
+        this.resDeptName = res.data.data.deptName;
+        this.resBedNol = res.data.data.bedNo;
+        this.resInHosId = res.data.data.inHosId;
+      }
       if (this.HOSPITAL_ID == "fuyou") this.tDeptName = res.data.data.deptName;
       this.pageLoading = false;
 

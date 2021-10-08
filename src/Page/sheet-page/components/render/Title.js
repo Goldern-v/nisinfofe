@@ -726,6 +726,13 @@ export default function Title(
     );
   }
   break;
+  case "newborn_care_gzry": {
+    // 贵州人医-新生儿患者护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/newborn_care_gzry/th").default)
+    )
+  }
+  break;
   case "common_hl": {
     // 横沥-护理记录单
     Th = JSON.parse(

@@ -29,7 +29,7 @@
               >
                 <!-- 添加科室名称 -->
                 <!-- <span style="float: left">{{item.deptName}}</span> -->
-                <span v-if="item.type && item.deptName && item.deptName!='' && item.name.indexOf(item.deptName)==-1" style="float: left">{{item.deptName}}</span>
+                <!-- <span v-if="item.type && item.deptName && item.deptName!='' && item.name.indexOf(item.deptName)==-1" style="float: left">{{item.deptName}}</span> -->
                 <span
                   v-for="(a, index) in setItem(item.name)"
                   :class="a.type >= 0 ? 'redColor' : ''"
@@ -38,7 +38,7 @@
                   >{{ a.item }}</span
                 >
                 <!-- 添加宣教类型 -->
-                <span v-if="item.type && item.type!='' && item.type!=item.name">-{{item.type}}</span>
+                <!-- <span v-if="item.type && item.type!='' && item.type!=item.name">-{{item.type}}</span> -->
               </el-option>
             </el-select>
             <el-button 
@@ -193,6 +193,7 @@ export default {
       educationAssessment: educationAssessment,
       content: "", // 宣教内容模板
       templateTitle: "", // 模板标题
+      debounceTimer:null,//防抖定时器
     };
   },
   methods: {
@@ -207,7 +208,9 @@ export default {
       if (form) {
         this.isEdit=true
         this.content = form.item.content;
-        console.log('this.content', this.content);
+        //console.log('this.content', this.content);
+        //赋值富文本
+         this.$refs.richEditorModal.changeEditContent(form.item.content);
 
         //编辑
         this.modalStatus = true;
@@ -264,18 +267,20 @@ export default {
           remarks: "",
           signature: "",
         };
+        //赋值富文本
+         this.$refs.richEditorModal.changeEditContent("");
       }
       this.$refs.modal.open();
     },
     // 打开富文本编辑弹框
     handleOpenRichEditorModal() {
-      this.$refs.richEditorModal.open(this.isEdit);  
+      this.$refs.richEditorModal.open(this.isEdit);     
     },
     // 更新宣教内容
     updateContent(content) {
       this.content = content;
       console.log('this.content', this.content);
-      this.$refs.richEditorModal.close();
+      //this.$refs.richEditorModal.close();
     },
     // 设置推送状态
     setStatus(data) {
@@ -311,6 +316,9 @@ export default {
     // 关闭弹框
     close() {
       this.$refs.modal.close();
+      //清除防抖宣教内容定时器
+      clearTimeout(this.debounceTimer);
+      this.debounceTimer=null;
     },
     // 设置单个宣教内容
     setItem(item) {
@@ -324,6 +332,18 @@ export default {
         data.push(obj);
       });
       return data;
+    },
+    
+    //防抖宣教内容下拉搜索框方法
+    debounceRemote(func, delay) {
+      this.debounceTimer = null;
+      return function(...args) {
+        if (this.debounceTimer) clearTimeout(this.debounceTimer);
+        this.loading = true;
+        this.debounceTimer = setTimeout(() => {
+          func.apply(this, args);
+        }, delay);
+      };
     },
 
     // 宣教内容下拉搜索框
@@ -341,13 +361,17 @@ export default {
           this.options = data.data;
           //isEdit true
           this.content = data.data[0].content;
+          //赋值富文本
+          this.$refs.richEditorModal.changeEditContent(data.data[0].content);
           this.templateTitle = data.data[0].name;
+          this.loading = false;
         } catch (e) {
           this.options = [];
         } finally {
           this.loading = false;
         }
       } else {
+        this.loading = false;
         this.options = [];
       }
     },

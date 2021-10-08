@@ -159,11 +159,14 @@ export default [
     name: "入量内容",
     change: (e, td) => limitChange(e, td, 10),
     textarea: {
-      width: 65
+      width: 62
     },
     autoComplete: {
       data: 入量名称
     },
+    style: {
+      textAlign: "left",
+    }
   },
   {
     key: "foodSize", // 入量（单位ml）
@@ -183,11 +186,14 @@ export default [
     name: "出量内容",
     change: (e, td) => limitChange(e, td, 10),
     textarea: {
-      width: 65
+      width: 62
     },
     autoComplete: {
       data: 出量名称
     },
+    style: {
+      textAlign: "left",
+    }
   },
   {
     key: "dischargeSize", //出量（单位ml）
@@ -212,6 +218,9 @@ export default [
     textarea: {
       width: 25
     },
+    style: {
+      textAlign: "left",
+    }
   },
   {
     key: "fieldFive", //健康宣教
@@ -220,8 +229,11 @@ export default [
     name: "健康宣教",
     change: (e, td) => limitChange(e, td, 16),
     textarea: {
-      width: 110
+      width: 100
     },
+    style: {
+      textAlign: "left",
+    }
   },
   {
     key: "fieldSix", //标题1
@@ -401,7 +413,7 @@ export function getListData() {
     "羊水性状",
     "宫颈扩张",
     "宫缩强度",
-    "花都:神经外科护理记录单:出量名称"
+    "花都:产前护理记录单:出量名称"
   ];
   multiDictInfo(list).then(res => {
     let data = res.data.data;

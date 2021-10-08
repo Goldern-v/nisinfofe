@@ -88,12 +88,22 @@ export default {
         colspan: "1",
         rowspan: "3"
       },
+      // {
+      //   name: `
+      //   血糖<br/>（mmol/L）
+      //   `,
+      //   style: {
+      //     minWidth: "68px"
+      //   },
+      //   colspan: "1",
+      //   rowspan: "3"
+      // },
       {
         name: `
         病情、护理措施及效果
         `,
         style: {
-          minWidth: "300px"
+          minWidth: "292px"
         },
         colspan: "1",
         rowspan: "3"

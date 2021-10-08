@@ -419,7 +419,7 @@
           <!-- </template> -->
           <!-- </el-table-column> -->
           <el-table-column
-            v-if="HOSPITAL_ID === 'liaocheng'"
+            v-if="HOSPITAL_ID === 'liaocheng'  || HOSPITAL_ID === 'guizhou'"
             prop="painScore"
             label="疼痛"
             min-width="60"
@@ -582,7 +582,7 @@
             </template>
           </el-table-column>
           <el-table-column
-            v-if="HOSPITAL_ID === 'liaocheng'"
+            v-if="HOSPITAL_ID === 'liaocheng' || HOSPITAL_ID === 'guizhou'"
             prop="painScore"
             label="疼痛"
             min-width="60"

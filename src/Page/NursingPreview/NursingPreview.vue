@@ -85,6 +85,7 @@ import temperatureJmfy from "@/Page/patientInfo/supPage/temperature/temperatureJ
 import temperatureDghl from "@/Page/patientInfo/supPage/temperature/temperatureDghl";
 import temperatureWuJing from "@/Page/patientInfo/supPage/temperature/temperatureWuJing";
 import sheet from "@/Page/patientInfo/supPage/sheet/sheet.vue"; //护理记录单
+import bloodSugar from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar.vue"; //血糖
 import rightPart from "@/Page/patientInfo/supPage/record/component/right-part/right-part.vue";
 import { getPatientInfo } from "@/api/common.js";
 import bus from "vue-happy-bus";
@@ -134,6 +135,9 @@ export default {
         res => {
           let data = res.data.data || {};
           let patientInfo = this.$store.state.sheet.patientInfo;
+          //let patientInfo = res.data.data ;
+          //优化访问crNursing/nursingPreview无数据问题问题（由于无admissionDate造成）
+          patientInfo.admissionDate=data.admissionDate;
           patientInfo.wardCode = data.wardCode;
           this.$store.commit("upPatientInfo", patientInfo);
         }
@@ -144,6 +148,7 @@ export default {
     treeNursingPreview,
     rightPart,
     sheet,
+    bloodSugar,
     temperature,
     temperatureHD,
     temperatureLCEY,

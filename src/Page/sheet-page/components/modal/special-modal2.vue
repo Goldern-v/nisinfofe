@@ -717,6 +717,14 @@
     }
   }
 }
+.guizhou {
+  .special-date-con input{
+    font-size:14px;
+  }
+  .input-cell input{
+    font-size:14px;
+  }
+}
 </style>
 <script>
 import bus from "vue-happy-bus";

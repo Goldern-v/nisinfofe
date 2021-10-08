@@ -7,7 +7,7 @@
       class="modal-record padding-0"
     >
       <div class="title-bar" flex="cross:center">
-        <span class="type-text">护理文书类型1</span>
+        <span class="type-text">护理文书类型</span>
         <el-select
           v-if="
             HOSPITAL_ID != 'hj' &&
@@ -137,19 +137,40 @@
           icon="search"
           v-model="searchWord"
         ></el-input>
+        <span class="type-text" style="margin-left:20px;">护理文书分组</span>
+        <el-select
+          v-model="formGroup"
+          style="width: 150px"
+          placeholder="选择分组"
+          class="type-select"
+        >
+          <el-option
+            v-for="(item,index) in titleOption"
+            :key="index"
+            :label="item"
+            :value="item"
+          ></el-option>
+        </el-select>
       </div>
       <div
         class="record-con"
         v-loading="pageLoading"
         :element-loading-text="pageLoadingText"
       >
-        <div
-          @click="openUrl(item)"
-          @dblclick="create(item)"
+      <div
+          class="group-list"
+          v-for="(item,index) of titleData"
+          :key="index"
+          v-show="formGroup==index||formGroup=='全部'"
+        >
+          <div class="title-box" v-show="item">{{index}}</div>
+          <div
+          @click="openUrl(e)"
+          @dblclick="create(e)" 
           class="record-box"
-          :class="{ active: selectData == item }"
-          v-for="item of filterData"
-          :key="item.id || item.label"
+          :class="{ active: selectData == e }"
+          v-for="(e) in item"
+          :key="e.id || e.label"
         >
           <el-row type="flex" align="middle">
             <img
@@ -158,13 +179,15 @@
               width="38"
               height="35"
             />
-            <span class="name" v-if="item.name">{{ item.name }}</span>
-            <span class="name" v-if="item.recordName">{{
-              item.recordName
+            <span class="name" v-if="e.name">{{ e.name }}</span>
+            <span class="name" v-if="e.recordName">{{
+              e.recordName
             }}</span>
           </el-row>
         </div>
       </div>
+    </div>
+        
       <div slot="button" @click="newRecordClose">
         <el-button class="modal-btn">关闭</el-button>
         <el-button
@@ -180,6 +203,9 @@
 </template>
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
+/deep/ .sweet-content{
+  overflow hidden
+}
 .title-bar {
   height: 45px;
   background: #fff;
@@ -231,14 +257,39 @@
 }
 
 .record-con {
+  // display flex;
+  // flex-wrap :wrap;
   margin: 0;
   padding: 10px 10px 10px;
   height: 420px;
   overflow: auto;
-
+  .group-list{
+    display flex;
+    flex-wrap :wrap;
+    .title-box{
+      cursor default;
+      padding-left 10px;
+      display flex;
+      width 100%;
+      height 25px;
+      line-height 25px;
+      font-size 12px;
+      text-indent 5px;
+      &::before{
+        content:'';
+        display block;
+        width: 10px;
+        height: 10px;
+        background-color #2180d6;
+        position relative;
+        top:50%;
+        transform :translateY(-50%)
+      }
+    }
+  }
   .record-box {
     cursor: pointer;
-    float: left;
+    // float: left;
     box-sizing: border-box;
     padding: 10px 10px 10px;
     width: 33%;
@@ -298,6 +349,7 @@ import { formUrl, devFormUrl } from "@/common/pathConfig/index.js";
 import { templatesAll } from "../api/index.js";
 import { getFormConfig } from "../config/form-config.js";
 import qs from "qs";
+import resText from './res'
 
 const getInitFormType = (HOSPITAL_ID) => {
   switch (HOSPITAL_ID) {
@@ -434,9 +486,13 @@ export default {
       pageItem: "",
       formTypeReadOnly: false,
       filterObj: null,
+      formGroup:'全部',
     };
   },
   methods: {
+    hasTitle(item,index){
+     return this.titleData&&this.titleData[item.groupName]&&this.titleData[item.groupName]==index
+    },
     open(filterObj) {
       if (filterObj) {
         this.filterObj = filterObj;
@@ -608,8 +664,13 @@ export default {
             this.templates = res.data.data.filter(
               (item) => item.name === this.filterObj.formName
             );
+            // this.templates = resText.data.filter(
+            //   (item) => item.name === this.filterObj.formName
+            // );
           } else {
             this.templates = res.data.data;
+            // this.templates = resText.data;
+            
           }
 
           this.pageLoading = false;
@@ -655,12 +716,30 @@ export default {
         return this.templates;
       }
     },
+    titleData(){
+      let obj = {}
+      if(this.filterData.length){
+        this.filterData.map((item)=>{
+          obj[item.groupName] = obj[item.groupName]?obj[item.groupName]:[]
+          obj[item.groupName].push(item)
+        })
+      }
+      return obj
+    },
+    titleOption(){
+      let titleArr = Object.keys(this.titleData)
+      titleArr.unshift('全部')
+      return titleArr
+    }
   },
   watch: {
     formType() {
       this.getData();
       this.selectData = "";
     },
+    titleData(val){
+      console.log(val);
+    }
   },
   components: {},
 };

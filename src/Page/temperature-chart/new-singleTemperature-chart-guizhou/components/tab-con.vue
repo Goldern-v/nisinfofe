@@ -19,13 +19,13 @@
           class="date-picker"
           type="date"
           size="mini"
-          style="width: 110px"
+          style="display:inline-block"
           format="yyyy-MM-dd"
           placeholder="选择日期"
           v-model="query.entryDate"
           clearable
         />
-        <div class="times">
+        <div class="times" @keydown.stop="(e)=>show(e)">
           <!-- <el-radio-group v-model="query.entryTime" @change="changeEntryTime">
             <el-radio
               size="mini"
@@ -35,11 +35,26 @@
             ></el-radio>
           </el-radio-group> -->
          
-       <el-select v-model="query.entryTime" filterable allow-create default-first-option  size="mini" @focus="inputClicl($event)"
+       <!-- <el-select v-model="query.entryTime" filterable allow-create default-first-option  size="mini" @focus="inputClicl($event)"
             placeholder="选择时间" @change="changeValue($event)">
             <el-option v-for="item in timesOdd" :key="item.value" :label="item.label" :value="item.value">
             </el-option>
-        </el-select>
+        </el-select> -->
+        <el-time-select
+            v-model="dateInp"
+            value-format="HH:mm"
+            format="HH:mm"
+            ref="timeSelect"
+            @blur="changeDate"
+            @change="changeVal"
+            :picker-options="{
+              start: '02:00',
+              step: '04:00',
+              end: '22:00'
+            }"
+            class="new-time-select"
+          placeholder="选择时间">
+        </el-time-select>
         </div>
       </div>
     </div>
@@ -47,7 +62,7 @@
       <null-bg v-if="!patientInfo.patientId"></null-bg>
       <div v-else class="showRecord">
         <div style="flex: 4">
-          <el-button
+          <div
             :class="
               [
                 'recordList',
@@ -59,6 +74,7 @@
             style="margin: 0px"
             v-for="(dateTime, tabIndex) in tabsData"
             :key="tabIndex"
+            @contextmenu.stop.prevent="(e)=>rightMouseDown(e,dateTime, tabIndex)"
             @click="changeQuery(dateTime)"
           >
             {{ dateTime }}
@@ -67,7 +83,7 @@
               @click="removeRecord(dateTime, tabIndex)"
               class="el-icon-close"
             ></i>
-          </el-button>
+          </div>
         </div>
         <div style="flex: 7" class="inputText">
           <div
@@ -83,7 +99,7 @@
             v-for="(j, index) in multiDictList"
             :key="index"
           >
-            <span class="preText">{{ index }}</span>
+            <span :class="index==='过敏药物'?'allergyPreText':index==='病人事件'?'hisEventPreText':'preText'">{{ index }}</span>
             <el-tooltip
               placement="top"
               popper-class="custom-temp-dict-select"
@@ -97,8 +113,52 @@
               :manual="true"
               :value="vitalSignObj[j].popVisible"
              >
-              <temperature v-if="index==='过敏药物'" >
-                <input
+             <div v-if="index==='过敏药物'" class="allergyDiv">
+               <div style="display:inline-block;">
+                 <el-input
+                  size="mini"
+                  :title="vitalSignObj[j].vitalValue"
+                  @input="handlePopRefresh(vitalSignObj[j])"
+                  @focus="() => (vitalSignObj[j].popVisible = true)"
+                  @blur="() => (vitalSignObj[j].popVisible = false)"
+                  v-model="vitalSignObj[j].vitalValue">
+                  <!-- <el-select slot="append"  v-model="vitalSignObj[j].selectValue" filterable allow-create default-first-option  size="mini"
+                  placeholder="结果" @change="changeValue($event)" style="width:78px" >
+                  <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+                  </el-option>
+                  </el-select> -->
+                 </el-input>
+             </div>
+             <el-select slot="append"  v-model="vitalSignObj[j].selectValue" filterable allow-create default-first-option  size="mini"
+                 placeholder="结果" @change="changeValue($event)" style="width:78px" >
+                <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+                </el-option>
+             </el-select>
+              </div>
+              <div v-if="index==='病人事件'" class="allergyDiv">
+                <div style="display:inline-block;">
+                  <input 
+                type="text"
+                :title="vitalSignObj[j].vitalValue"
+                @input="handlePopRefresh(vitalSignObj[j])"
+                @click="() => (vitalSignObj[j].popVisible = true)"
+                @blur="() => (vitalSignObj[j].popVisible = false)"
+                v-model="vitalSignObj[j].vitalValue"
+                
+                 />
+                </div>
+                <el-date-picker
+                class="datePickerHisEvent"
+                 size="mini"
+                 format="yyyy-MM-dd HH:mm:ss"
+                 value-format="yyyy-MM-dd HH:mm:ss"
+                 v-model="vitalSignObj[j].expand2"
+                 type="datetime"
+                 placeholder="选择日期时间"
+                 @change="formatTopExpandDate">
+                </el-date-picker>
+              </div>
+              <input v-if="index!=='病人事件'"
                 type="text"
                 :title="vitalSignObj[j].vitalValue"
                 @input="handlePopRefresh(vitalSignObj[j])"
@@ -107,25 +167,7 @@
                 v-model="vitalSignObj[j].vitalValue"
                 
               />
-              <div style="display:inline-block;margin-top:10px;">
-              <span class="preText" >药物结果</span>
-                <el-select v-model="vitalSignObj[j].selectValue" filterable allow-create default-first-option  size="mini"
-            placeholder="结果" @change="changeValue($event)" style="width:78px">
-            <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
-            </el-option>
-              </el-select></div>
-              </temperature>
-              <input
-                type="text"
-                :title="vitalSignObj[j].vitalValue"
-                @input="handlePopRefresh(vitalSignObj[j])"
-                @click="() => (vitalSignObj[j].popVisible = true)"
-                @blur="() => (vitalSignObj[j].popVisible = false)"
-                v-model="vitalSignObj[j].vitalValue"
-                
-              />
-              
-              <template v-slot:content>
+               <template v-slot:content>
                 <div
                   class="container"
                   @click.prevent="
@@ -182,6 +224,7 @@
                 :manual="true"
                 :value="vitalSignObj[i.vitalCode].popVisible"
               > -->
+              
               <input
                 type="text"
                 :title="vitalSignObj[i.vitalCode].vitalValue"
@@ -240,58 +283,6 @@
               />
             </div>
           </div>
-          <div class="row" v-if="multiDictList['病人事件']">
-            <span class="preText">病人事件</span>
-            <el-select
-              size="mini"
-              v-model="vitalSignObj[multiDictList['病人事件']].expand1"
-            >
-              <el-option
-                v-for="(item, topIndex) in topContextList"
-                :key="topIndex"
-                :label="item"
-                :value="item"
-              >
-              </el-option>
-            </el-select>
-            <!-- <el-date-picker
-              size="mini"
-              format="yyyy-MM-dd HH:mm:ss"
-              value-format="yyyy-MM-dd HH:mm:ss"
-              v-model="vitalSignObj[multiDictList['表顶注释']].expand2"
-              type="datetime"
-              placeholder="选择日期时间"
-              style="margin: 3px 0px 0px 55px; width: 170px"
-              @change="formatTopExpandDate"
-            >
-            </el-date-picker> -->
-          </div>
-          <!-- <div class="row" v-if="multiDictList['表底注释']">
-            <span class="preText">表底注释</span>
-            <el-select
-              size="mini"
-              v-model="vitalSignObj[multiDictList['表底注释']].expand1"
-            >
-              <el-option
-                v-for="(item, bottomIndex) in bottomContextList"
-                :key="bottomIndex"
-                :label="item"
-                :value="item"
-              >
-              </el-option>
-            </el-select>
-            <el-date-picker
-              size="mini"
-              format="yyyy-MM-dd HH:mm:ss"
-              value-format="yyyy-MM-dd HH:mm:ss"
-              v-model="vitalSignObj[multiDictList['表底注释']].expand2"
-              type="datetime"
-              placeholder="选择日期时间"
-              style="margin: 3px 0px 0px 55px; width: 170px"
-              @change="formatBtmExpandDate"
-            >
-            </el-date-picker>
-          </div> -->
           <div>
             <el-button
               type="primary"
@@ -354,6 +345,7 @@ export default {
 
     return {
       mockData,
+      dateInp:moment().format('HH:mm'),
       recordList,
       bus: bus(this),
       editableTabsValue: "2",
@@ -397,6 +389,9 @@ export default {
        value:'',
       vitalSignObj: {}, // 单个体征对象
       vitalSignList: [], // 固定项目列表
+      nurseEventsCheck: [
+       
+      ],
       topContextList: [
         "",
         "入院",
@@ -457,6 +452,37 @@ export default {
     },
   },
   methods: {
+    // 下拉选项触发查询
+    changeVal(newVal,oldVal){
+      if(newVal&&newVal.split(':').length==2){
+        this.query.entryTime = newVal+":00"
+        this.dateInp = this.query.entryTime
+      }
+    },
+    //时间组件失去焦点
+    changeDate(val){
+      // console.log(val.$el.children[1].value);
+      let numberVal=val.$el.children[1].value;
+      // if(!moment(numberVal,"HH:mm",true).isValid()) {
+      //     this.$message.error("请输入正确时间数值，例如23:25, 2325");
+      //     return false;
+      // }
+      if((numberVal.indexOf(":")==-1 && numberVal.length==4) || (numberVal.indexOf(":")!=-1 && numberVal.length==5)){
+        let time = numberVal.indexOf(":")==-1?`${numberVal.substring(0,2)}:${numberVal.substring(2,4)}`:`${numberVal.substring(0,2)}:${numberVal.substring(3,5)}`;
+        console.log(time);
+        // if(!moment(numberVal,"HH:mm",true).isValid()) {
+        //   this.$message.error("请输入正确时间数值，例如23:25, 2325");
+        //   return false;
+        // }
+        let [hours,min] = time.split(':')
+        if(0<=hours && hours<=24 && 0<=min && min<=59){
+          this.query.entryTime = time+":00"
+          this.dateInp=this.query.entryTime
+        }else {
+          this.$message.error("请输入正确时间数值，例如23:25, 2325")
+        }
+      }
+    },
       changeValue(e){
                     // console.log(e)
                  },
@@ -465,7 +491,6 @@ export default {
                  },
 
     init() {
-      console.log(this.multiDictList)
       let obj = {};
       if (!this.multiDictList) return;
       /* 根据字典项构造一个对象(键为生命体征的中文名，值为对应的对象)：{"体温":{}} */
@@ -509,8 +534,8 @@ export default {
           nurse: "",
           bedLabel: "",
           expand1: "",
-          // expand2: "",
-          // expand3: "",
+          expand2: "",
+          expand3: "",
           source: "",
           customTitle: false,
           popVisible: false,
@@ -644,7 +669,10 @@ export default {
     changeQuery(value) {
       let temp = value;
       this.query.entryDate = temp.slice(0, 10);
-      this.query.entryTime = value.slice(12, 20);
+      this.query.entryTime = value.slice(12, 17)+':00';
+      //this.query.entryTime = value.slice(12, 20);
+      //赋值初始值
+      this.dateInp = value.slice(12, 17)+':00';
     },
     getFilterSelections(orgin, filterStr) {
       if (!filterStr || !filterStr.trim()) return orgin;
@@ -687,6 +715,7 @@ export default {
     async getVitalList() {
       let wardCode = this.patientInfo.wardCode;
       await getmultiDict(wardCode).then((res) => {
+        // console.log('sss',res)
         let data = [];
         let obj = [];
         res.data.data.map((item, index) => {
@@ -694,8 +723,9 @@ export default {
           this.totalDictInfo[item.vitalSign] = {
             ...item,
             options: item.selectType ? item.selectType.split(",") : [],
+            
           };
-
+// console.log('options',Object.values(this.totalDictInfo)||[])
           if (item.vitalSign.includes("自定义")) {
             obj[item.vitalCode] = {
               fieldCn: item.vitalSign,
@@ -712,6 +742,15 @@ export default {
         this.multiDictList = { ...data };
         this.init();
       });
+    },
+    show(e){
+      if(e.keyCode==13){
+        this.changeDate(this.$refs.timeSelect)
+      }
+    },
+    rightMouseDown(e,dateTime, tabIndex){
+      console.log(dateTime, tabIndex);
+      this.removeRecord(dateTime, tabIndex)
     },
     /* 删除记录 */
     async removeRecord(targetName, index) {
@@ -744,10 +783,8 @@ export default {
     },
     /* 修改自定义标题，弹出弹窗并保存 */
     updateTextInfo(key, label, autotext,index) {
-      let fieldListVal=[]
-      for(let i=100;i<105;i++){
-            fieldListVal.push(this.fieldList[i].fieldCn)
-          }//获取到自定义列表的值
+      let checkValue = Object.values(this.fieldList)||[]
+     let  checkValueStr=checkValue.map(item=>item.fieldCn)
       window.openSetTextModal(
         (text) => {
           let data = {
@@ -758,7 +795,7 @@ export default {
             fieldCn: text,
           };
           if(
-            fieldListVal.includes(text)
+            checkValueStr.includes(text)
           ){
  this.$message.error(`修改${label}失败!已存在${text}项目`);
           }else{
@@ -779,13 +816,21 @@ export default {
       let obj = Object.values(value);
       obj.map((item) => {
         item.recordDate =
-          moment(new Date(this.query.entryDate)).format("YYYY-MM-DD") +
-          "  " +
-          this.query.entryTime +
-          ":00:00";
+          moment(new Date(this.query.entryDate)).format("YYYY-MM-DD")+"  "+
+          this.query.entryTime ;
         switch (item.vitalSigns) {
           case "表顶注释":
             item.expand2 = this.topExpandDate;
+            break;
+            case "病人事件":
+              item.expand1=item.vitalValue
+              item.expand2==='Invalid date'?
+                item.expand2='':
+            item.expand2 = this.topExpandDate;
+            break;
+            case "过敏药物":
+              item.expand1= item.vitalValue
+             item.expand2=item.selectValue
             break;
           case "表底注释":
             item.expand2 = this.bottomExpandDate;
@@ -837,6 +882,16 @@ export default {
 .times {
   display:inline-block;
   width:100px;
+  .new-time-select{
+    height: 22px;
+    width: 105px;
+    >>>.el-input__inner{
+    height: 22px !important;
+    width:105px;
+    
+  }
+  
+}
 }
   .row-bottom {
     .showRecord {
@@ -847,13 +902,16 @@ export default {
         overflow: auto;
 
         .recordList {
-          width: 180px;
+          width: 150px;
           height: 30px;
           line-height: 30px;
           border: 1px solid #eee;
           padding: 0 6px;
 
           &.active {
+            color: rgb(68, 158, 127);
+          }
+          &:hover{
             color: rgb(68, 158, 127);
           }
         }
@@ -873,6 +931,32 @@ export default {
       display: inline-block;
       width: 70px;
     }
+    .allergyPreText,.hisEventPreText{
+      display: inline-block;
+      width: 70px;
+      position: relative;
+      // top: -20px;
+    }
+    .allergyPreText{
+      top: -20px;
+    }
+    .datePickerHisEvent{
+      left: -75px;
+      position: relative;
+      width: 143px;
+      display:none;
+    }
+    .allergyDiv{
+        display: inline-block;
+        width: 68px;
+        >>>.el-input__inner{
+        height: 20px !important;
+        outline: none;
+        padding: 0;
+        padding: 1px 2px;
+        border:1px solid rgb(118, 118, 118);
+      }
+    }
 
     input {
       width: 60px;
@@ -890,6 +974,9 @@ export default {
     margin-top: 10px;
     width: 100px;
   }
+}
+>>> .el-picker-panel.time-select{
+  width:105px;
 }
 </style>
 
@@ -919,4 +1006,5 @@ export default {
     }
   }
 }
+
 </style>

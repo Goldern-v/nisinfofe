@@ -145,11 +145,14 @@ export default [
     name: "入量内容",
     change: (e, td) => limitChange(e, td, 10),
     textarea: {
-      width: 65
+      width: 62
     },
     autoComplete: {
       data: 入量名称
     },
+    style: {
+      textAlign: "left",
+    }
   },
   {
     key: "foodSize", // 入量（单位ml）
@@ -169,11 +172,14 @@ export default [
     name: "出量内容",
     change: (e, td) => limitChange(e, td, 10),
     textarea: {
-      width: 65
+      width: 62
     },
     autoComplete: {
       data: 出量名称
     },
+    style: {
+      textAlign: "left",
+    }
   },
   {
     key: "dischargeSize", //出量（单位ml）
@@ -198,6 +204,9 @@ export default [
     textarea: {
       width: 25
     },
+    style: {
+      textAlign: "left",
+    }
   },
   {
     key: "fieldFive", //健康宣教
@@ -206,8 +215,11 @@ export default [
     name: "健康宣教",
     change: (e, td) => limitChange(e, td, 16),
     textarea: {
-      width: 110
+      width: 100
     },
+    style: {
+      textAlign: "left",
+    }
   },
   {
     key: "fieldSix", //子宫收缩

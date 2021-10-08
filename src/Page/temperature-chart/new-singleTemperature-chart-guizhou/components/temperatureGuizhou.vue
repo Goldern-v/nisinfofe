@@ -2,6 +2,8 @@
   <div>
     <div class="contain">
       <div class="print-btn tool-btn" @click="onPrint()">打印</div>
+       <div class="newBorn tool-btn" @click="changeNewBorn()">切换</div>
+
       <!-- <div class="print-btn tool-btn" @click="typeIn()">录入</div> -->
       <div class="pagination">
         <button :disabled="currentPage === 1" @click="currentPage = 1">
@@ -21,6 +23,7 @@
           尾周
         </button>
       </div>
+     
       <div class="tem-con" :style="contentHeight">
         <null-bg v-show="!filePath"></null-bg>
         <iframe
@@ -32,6 +35,17 @@
           class="lcIframe"
         ></iframe>
       </div>
+      <!-- <div class="tem-con" :style="contentHeight" v-show="!showTemp">
+        <null-bg v-show="!filePath"></null-bg>
+        <iframe
+          id="printID"
+          v-if="filePath"
+          :src="filePath"
+          frameborder="0"
+          ref="pdfCon"
+          class="lcIframe"
+        ></iframe>
+      </div> -->
     </div>
   </div>
 </template>
@@ -56,12 +70,14 @@ export default {
       contentHeight: { height: "" },
       currentPage: 1,
       pageTotal: 1,
+      showTemp:true,//默认选择标准的体温单曲线
       open: false,
       isSave: false,
       visibled: false,
       intranetUrl:
-        "http://192.168.8.158:8588/temperature/#/" /* 医院正式环境内网 导致跨域 */,
+        "http://192.168.8.158:8588/temperature/#/", /* 医院正式环境内网 导致跨域 */
       // "http://10.10.10.75:9091/temperature/#/" /* 医院正式环境内网 */,
+      newBornUrl:"http://192.168.8.158:8588/temperaturenew/#/",
       outNetUrl:
         "http://120.224.211.7:9091/temperature/#/" /* 医院正式环境外网：想要看iframe的效果，测试的时候可以把本地的地址都改成外网测试 */,
     };
@@ -74,18 +90,39 @@ export default {
         // this.outNetUrl /* 外网 */
       );
     },
+    changeNewBorn(){
+      if(this.showTemp===true){
+        this.showTemp=false
+      }else{
+        this.showTemp=true
+      }
+      this.getImg()
+
+    },
     getImg() {
       let date = new Date(this.queryTem.admissionDate).Format("yyyy-MM-dd");
       let patientId = this.queryTem.patientId;
       let visitId = this.queryTem.visitId;
+
       /* 单独处理体温单，嵌套iframe */
-      const tempUrl = `${this.intranetUrl}?PatientId=${patientId}&VisitId=${visitId}&StartTime=${date}`; /* 内网 */
       // const tempUrl = `${this.intranetUrl}?PatientId=0000944876&VisitId=2&StartTime=2021-05-13&showInnerPage=1`;/* 内网 */
-      // const tempUrl = `${this.outNetUrl}?PatientId=${patientId}&VisitId=${visitId}&StartTime=${date}`; /* 外网 */
+      if(this.showTemp===false){
+      const tempUrl = `${this.newBornUrl}?PatientId=${patientId}&VisitId=${visitId}&StartTime=${date}`; /* 内网 */
       this.filePath = "";
       setTimeout(() => {
         this.filePath = tempUrl;
       }, 0);
+      }//显示新生儿体温曲线的时候切换url路径
+      else{
+const tempUrl = `${this.intranetUrl}?PatientId=${patientId}&VisitId=${visitId}&StartTime=${date}`; /* 内网 */
+      this.filePath = "";
+      setTimeout(() => {
+        this.filePath = tempUrl;
+      }, 0);
+     
+     }
+      // const tempUrl = `${this.outNetUrl}?PatientId=${patientId}&VisitId=${visitId}&StartTime=${date}`; /* 外网 */
+      
     },
     getHeight() {
       this.contentHeight.height = window.innerHeight - 110 + "px";
@@ -147,13 +184,12 @@ export default {
     },
   },
   watch: {
-    // date() {
-    //   this.getImg();
-    // },
     currentPage(value) {
       this.$refs.pdfCon.contentWindow.postMessage(
         { type: "currentPage", value },
-        this.intranetUrl /* 内网 */
+        this.showTemp===true?
+        this.intranetUrl
+        :this.newBornUrl /* 内网 */
         // this.outNetUrl /* 外网 */
       );
     },
@@ -255,7 +291,12 @@ button[disabled=disabled] {
     cursor: not-allowed;
   }
 }
-
+.newBorn{
+position:relative;
+top:2px;
+left:75%;
+  display: inline-flex !important;
+}
 .print-btn {
   position: relative;
   left: 5%;

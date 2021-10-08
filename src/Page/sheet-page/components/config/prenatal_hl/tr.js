@@ -63,16 +63,25 @@ export default [{
   {
     key: "fieldOne", //胎位
     value: "",
+    textarea: {
+      width: 48
+    },
     event: keyf1
   },
   {
     key: "fieldEight", //胎膜
     value: "",
+    textarea: {
+      width: 30
+    },
     event: keyf1
   },
   {
     key: "fieldTwo", //胎心
     value: "",
+    textarea: {
+      width: 48
+    },
     event: keyf1
   },
   {

@@ -66,7 +66,6 @@
           <span :title="scope.row.performSchedule">{{scope.row.performSchedule }}</span>
         </template>
       </u-table-column>
-      </u-table-column>
 
       <u-table-column label="医生说明" prop="freqDetail" min-width="200px" align="center">
       <template slot-scope="scope">

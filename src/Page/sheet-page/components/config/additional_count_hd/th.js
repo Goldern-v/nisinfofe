@@ -21,13 +21,21 @@ export default {
         name: "护理操作项目",
         
         colspan: "1",
-        rowspan: "2"
+        rowspan: "2",
+        style: {
+          minWidth: "183px",
+          maxWidth: "183px"
+        },
       },
       {
         name: "护理操作结果",
         
         colspan: "1",
-        rowspan: "2"
+        rowspan: "2",
+        style: {
+          minWidth: "98px",
+          maxWidth: "98px"
+        },
       },
       {
         name: `
@@ -35,6 +43,10 @@ export default {
         `,
         colspan: "1",
         rowspan: "2",
+        style: {
+          minWidth: "153px",
+          maxWidth: "153px"
+        },
       },
       {
         name: `
@@ -42,6 +54,10 @@ export default {
         `,
         colspan: "1",
         rowspan: "2",
+        style: {
+          minWidth: "78px",
+          maxWidth: "78px"
+        },
       },
       {
         name: `
@@ -49,13 +65,21 @@ export default {
         `,
         colspan: "1",
         rowspan: "2",
+        style: {
+          minWidth: "78px",
+          maxWidth: "78px"
+        },
       },
       {
         name: `
         导管护理
         `,
         colspan: "1",
-        rowspan: "2"
+        rowspan: "2",
+        style: {
+          minWidth: "108px",
+          maxWidth: "108px"
+        },
       },
       {
         name: `
@@ -69,7 +93,11 @@ export default {
         气管护理
         `,
         colspan: "1",
-        rowspan: "2"
+        rowspan: "2",
+        style: {
+          minWidth: "78px",
+          maxWidth: "78px"
+        },
       },
       {
         name: `
@@ -91,6 +119,10 @@ export default {
         `,
         colspan: "1",
         rowspan: "2",
+        style: {
+          minWidth: "78px",
+          maxWidth: "78px"
+        },
       },
       {
         name: `饮食情况`,

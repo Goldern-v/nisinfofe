@@ -37,8 +37,7 @@ export default {
         colspan: "1",
         rowspan: "3",
         style: {
-          whiteSpace: "nowrap",
-          minWidth: "38px"
+          minWidth: "73px"
         }
       },
       {
@@ -48,19 +47,14 @@ export default {
         style: {},
         colspan: "2",
         rowspan: "1",
-        style: {
-          whiteSpace: "nowrap",
-          minWidth: "38px"
-        }
       },
       {
         name: `
         衔接
         `,
         style: {
-          minWidth: "40px",
-          maxWidth: "40px",
-          whiteSpace: "nowrap"
+          minWidth: "25px",
+          maxWidth: "25px",
         },
         colspan: "1",
         rowspan: "3"
@@ -194,14 +188,14 @@ export default {
       {
         name: "部位",
         style: {
-          minWidth: "36px",
-          maxWidth: "36px"
+          minWidth: "73px",
+          maxWidth: "73px"
         },
         colspan: "1",
         rowspan: "2"
       },
       {
-        name: "心率<br/>(次/分)",
+        name: "心率<br/>次/分",
         style: {
           minWidth: "36px",
           maxWidth: "36px"

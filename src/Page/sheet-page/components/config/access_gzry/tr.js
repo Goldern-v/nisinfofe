@@ -29,17 +29,19 @@ export default [{
     event: keyf1,
     name: "入量名称",
     textarea: {
-      width: 62,
+      width: 250,
     },
     style: {
-      maxWidth: '62px',
-      textAlign: "left",
+      width:'250px!important',
+      maxWidth: '250px',
+      textAlign: "center",
     },
     autoComplete: {
-      data: foodData
+      data: foodWayData
     },
-    type: "select",
-    editable: true
+    // type: "select",
+    editable: true,
+    parentKey: "foodChannel"
   },
   // {
   //   key: "foodWay", //入量方式
@@ -65,18 +67,18 @@ export default [{
     event: keyf1,
     name: "途径",
     textarea: {
-      width: 62,
+      width: 80,
     },
     style: {
-      maxWidth: '62px',
-      textAlign: "left",
+      width:'80px!important',
+      maxWidth: '80px',
+      textAlign: "center",
     },
     autoComplete: {
       data: foodChannelData,
     },
-    type: "select",
+    // type: "select",
     editable: true,
-    parentKey: "foodWay"
   },
   {
     key: "foodSize", //量（单位ml）
@@ -86,6 +88,9 @@ export default [{
     textarea: {
       width: 30
     },
+    style:{
+      width:'30px!important',
+    }
   },
   {
     key: "discharge", //出量名称
@@ -93,17 +98,18 @@ export default [{
     event: keyf1,
     name: "出量名称",
     textarea: {
-      width: 62,
+      width: 150,
     },
     style: {
-      maxWidth: '62px',
-      textAlign: "left",
+      width:'150px!important',
+      maxWidth: '150px',
+      textAlign: "center",
     },
     autoComplete: {
-      data: dischargeData
+      data: dischargePropData
     },
-    type: "select",
-    editable: true
+    // type: "select",
+    editable: true,
   },
   // {
   //   key: "dischargeWay", //出量方式
@@ -129,18 +135,19 @@ export default [{
     event: keyf1,
     name: "性质",
     textarea: {
-      width: 62,
+      width: 150,
     },
     style: {
-      maxWidth: '62px',
-      textAlign: "left",
+      width:'150px!important',
+      maxWidth: '150px',
+      textAlign: "center",
     },
     autoComplete: {
-      data: dischargePropData
+      data: dischargeWayData
     },
-    type: "select",
+    // type: "select",
     editable: true,
-    parentKey: "dischargeWay"
+    parentKey: "discharge"
   },
   {
     key: "dischargeSize", //量（单位ml）
@@ -150,6 +157,9 @@ export default [{
     textarea: {
       width: 30
     },
+    style:{
+      width:'30px!important',
+    }
   },
   {
     key: "sign",
@@ -244,16 +254,20 @@ export function getListData4() {
   });
 
   getSecondDictSheet("record_intake_route").then(res => {
-    foodChannelData.push(res.data.data)
+    console.log(res.data.data);
+    foodWayData.push(res.data.data)
     for(let key in res.data.data){
-      foodWayData.push(key)
+      foodChannelData.push(key)
     }
+    console.log('foodWayData,foodChannelData',foodWayData,foodChannelData);
   })
   getSecondDictSheet("record_discharge_property").then(res => {
-    dischargePropData.push(res.data.data)
+    // dischargePropData.push(res.data.data)
+    dischargeWayData.push(res.data.data)
     for(let key in res.data.data){
-      dischargeWayData.push(key)
+      dischargePropData.push(key)
     }
+    console.log('dischargeWayData,dischargePropData',dischargeWayData,dischargePropData);
   })
 }
 

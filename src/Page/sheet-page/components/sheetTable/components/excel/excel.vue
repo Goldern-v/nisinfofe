@@ -54,7 +54,7 @@
       </tr>
     </table>
 
-    <table class="sheet-table" ref="table">
+    <table class="sheet-table" ref="table" :style="{width:sheetInfo.sheetType=='access_gzry'?'100%':''}">
       <tr
         class="head-con"
         v-for="(th, index) in data.titleModel.th"
@@ -87,7 +87,7 @@
             multiSign: tr.find(item => item.key == 'multiSign').value,
             selectedTr: sheetInfo.selectRow.includes(tr),
             clickRow: sheetInfo.clickRow === tr,
-            redText: tr.find(item => {return item.key == 'recordSource'}).value == '5' || (dateOnBlur[y] || timeOnBlur[y])  
+            redText: tr.find(item => {return item.key == 'recordSource'}).value == '5'
           },
           tr.find(item => {
             return item.key == 'markObj';
@@ -124,6 +124,7 @@
               td.statBottomLine &&
               `stat-bottom-line`
           ]"
+          :style="HOSPITAL_ID=='guizhou'&&sheetInfo.sheetType=='access_gzry'&&{boxSizing:'border-box!important',width:td.style?td.style.width:''}"
           @contextmenu.stop="openContextMenu($event, y, tr, td)"
           @click="
             selectedItem(td)
@@ -287,7 +288,7 @@
             @focus="
               td.autoComplete &&
                 onFocus($event, {
-                  autoComplete: td.autoComplete,
+                  autoComplete: getCompleteArr(tr,td),
                   x,
                   y,
                   z: index,
@@ -326,8 +327,10 @@
                 },
               isDisabed(tr, td, y) && { cursor: 'not-allowed' }
             ]"
+            @select="mouseSelect1"
             @keydown="
-              td.event($event, td);
+              !selectType && td.event($event, td);
+              selectType && mouseSelect2();
               onKeyDown($event, { x, y, z: index, td });
             "
             @focus="
@@ -527,6 +530,7 @@ export default {
       fiexHeaderWidth: 0,
       isFixed: false,
       multiSign: false,
+      selectType :false,  //时间日期鼠标选中修改控制限制
       //底部签名
       auditArr: [
         "com_lc",
@@ -624,6 +628,23 @@ export default {
     }
   },
   methods: {
+    // 贵州需求：下拉选项二级联动，可输入可选择，附带智能检索
+    getCompleteArr(tr,td){
+      if(td.parentKey){
+        let index = tr.findIndex(e=>e.key===td.parentKey) // 对比当前td的父级key以及当前行中的每一个key，找到对应下标
+        let arr = td.autoComplete.data[0][[tr[index].value]] || [] // 获取父级对应的子选项数组
+        return {data:arr.map(item=>item.itemName)}
+      }else{
+        return td.autoComplete
+      }
+    },
+    //时间日期选中事件
+    mouseSelect1(e){
+      this.selectType = true; 
+    },
+    mouseSelect2(e){
+      this.selectType = false; 
+    },
     //花都护记年份
     recordYear(){
       return this.data.bodyModel[0][0].value.split('-')[0]

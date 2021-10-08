@@ -22,6 +22,7 @@ function offset(ele) {
 function focusElement(x, y, z) {
   try {
     document.querySelector(`[position="${x},${y},${z}"]`).focus();
+    document.querySelector(`[position="${x},${y},${z}"]`).click();// 贵州需求:键盘切换时触发点击事件
     return true;
   } catch (e) {
     console.log(e);
@@ -136,7 +137,7 @@ function onFocusToAutoComplete(e, bind) {
       callback: function (data) {
         // 威县下拉选项后一个选项依赖于前一个td的选择
         // 选择出量名称的时候和上次不一样 则清除出量性质
-        if (process.env.HOSPITAL_ID == 'weixian') {
+        if (process.env.HOSPITAL_ID == 'weixian'||process.env.HOSPITAL_ID=='guizhou') {
           if (td.value && td.value != data && td.childKey) {
             tr.map(item => {
               if (item.parentKey && item.parentKey == td.name) {

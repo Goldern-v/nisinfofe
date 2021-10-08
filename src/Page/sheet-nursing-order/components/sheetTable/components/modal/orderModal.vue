@@ -92,7 +92,7 @@ return {
         '温水擦浴',
         '指导患者出院前打胰岛素', 
     ],
-    frequencyOptions:['qd','bid','tid','q4h','q6h','q8h','q12h','q3d','qm','bim']
+    frequencyOptions:['qd','bid','tid','q4h','q6h','q8h','q12h','q3d','qw','biw']
 };
 },
 methods:{

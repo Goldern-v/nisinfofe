@@ -186,10 +186,13 @@ export default [
     name: "入量名称",
     change: (e, td) => limitChange(e, td, 10),
     textarea: {
-      width: 65,
+      width: 62,
     },
     autoComplete: {
       data: rlmcList
+    },
+    style: {
+      textAlign: "left",
     },
   },
   {
@@ -210,10 +213,13 @@ export default [
     name: "出量名称",
     change: (e, td) => limitChange(e, td, 10),
     textarea: {
-      width: 65,
+      width: 62,
     },
     autoComplete: {
       data: clmcList
+    },
+    style: {
+      textAlign: "left",
     },
   },
   {
@@ -235,6 +241,9 @@ export default [
     change: (e, td) => limitChange(e, td, 3),
     textarea: {
       width: 25
+    },
+    style: {
+      textAlign: "left",
     },
     autoComplete: {
       data: ysList
