@@ -29,12 +29,32 @@
             血糖测量记录单
           </div>
           <div class="sup-title" v-else-if="HOSPITAL_ID == 'liaocheng'">
-            血糖记录单
+            血酮酮体记录表
           </div>
           
           <div class="sup-title" v-else>微量血糖测定登记表</div>
           <div class="identifying" v-if="HOSPITAL_ID == 'liaocheng'">POCT</div>
-          <p flex="main:justify" class="info">
+          <p flex="main:justify" class="info" v-if="HOSPITAL_ID == 'liaocheng'">
+            <span v-if="HOSPITAL_ID == 'fuyou'">科室：{{ tDeptName }}</span>
+            <span v-else
+              >科室：{{ patientInfo.wardName || patientInfo.deptName }}</span
+            >
+            <!-- <span>入院日期：{{patientInfo.admissionDate | toymd}}</span> -->
+            <span>床号：{{ patientInfo.bedLabel }}</span>
+            <span>病人姓名：{{ patientInfo.name }}</span>
+            <span>性别：{{ patientInfo.sex }}</span>
+            <span v-if="HOSPITAL_ID == 'lingcheng'" @dblclick="onEditAge"
+              >年龄：{{ formAge ? formAge : patientInfo.age }}</span
+            >
+            <span v-else>年龄：{{ resAge ? resAge : patientInfo.age }}</span>
+            <!-- <span class="diagnosis-con">诊断：{{patientInfo.diagnosis}}</span> -->
+            <span v-if="HOSPITAL_ID == 'liaocheng'"
+              >病案号：{{ patientInfo.inpNo }}</span
+            >
+            <span v-else>住院号：{{ patientInfo.inpNo }}</span>
+            <!-- <span>入院日期：{{$route.query.admissionDate}}</span> -->
+          </p>
+          <p flex="main:justify" class="info" v-else>
             <span>病人姓名：{{ patientInfo.name }}</span>
             <span>性别：{{ patientInfo.sex }}</span>
             <span v-if="HOSPITAL_ID == 'lingcheng'" @dblclick="onEditAge"
@@ -167,8 +187,8 @@
     text-align: center;
     line-height: 34px;
     position: absolute;
-    top: 47px;
-    right: 22px;
+    top: 30px;
+    right: 60px;
     font-weight:700;
   }
 
