@@ -26,7 +26,7 @@ export default {
     var token =
       (window.app && window.app.$getCookie("NURSING_USER").split("##")[1]) ||
       url.token;
-    if (!token) {
+    if (!token && this.HOSPITAL_ID != 'fuyou') {
       // this.HOSPITAL_ID == 'fuyou' ? this.toLogin2() : this.toLogin();
       this.toLogin2()
     }else {
