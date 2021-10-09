@@ -72,6 +72,8 @@ const shiftWorkFy = () => import("@/Page/shift-work-fy/shift-work.vue");
 const shiftWorkDetailFy = () => import("@/Page/shift-work-fy/shift-work-detail.vue");
 const shiftWorkLiaocheng = () => import("@/Page/shift-work-liaocheng/shift-work.vue");
 const shiftWorkDetailLiaocheng = () => import("@/Page/shift-work-liaocheng/shift-work-detail.vue");
+const shiftWorkBh = () => import("@/Page/shift-work-bh/shift-work.vue");
+const shiftWorkDetailBh = () => import("@/Page/shift-work-bh/shift-work-detail.vue");
 const shiftWorkGuizhou = () => import("@/Page/shift-work-gz/shift-work.vue");//贵州交班志
 const ISBARshiftWorkHd = () => import("@/Page/shift-work/shift-work.vue");//花都ISBAR交班志
 
@@ -479,6 +481,8 @@ const router = new Router({
               return shiftWorkFy
             case 'liaocheng' || 'zhongshanqi':
               return shiftWorkLiaocheng
+            case 'beihairenyi':
+              return shiftWorkBh
             // case 'guizhou':
             //   return shiftWorkGuizhou
             default:
@@ -500,6 +504,8 @@ const router = new Router({
                 return shiftWorkDetailLiaocheng
               // case 'guizhou':
               //   return shiftWorkDetailGuizhou
+              case 'beihairenyi':
+                return shiftWorkDetailBh
               default:
                 return shiftWorkDetail
             }
