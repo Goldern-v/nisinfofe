@@ -55,7 +55,8 @@
           {{ item.value }}
         </label>
       </div>
-      <div class="times" v-if="HOSPITAL_ID === 'quzhou'||HOSPITAL_ID === 'wujing'">
+      <!-- <div class="times" v-if="HOSPITAL_ID === 'quzhou'||HOSPITAL_ID === 'wujing'"> -->
+      <div class="times" v-if="['quzhou','wujing','nanfangzhongxiyi'].includes(HOSPITAL_ID)">
         <label
           :for="`time${item.id}`"
           v-for="item in timesquZhou"
@@ -922,6 +923,25 @@ export default {
               if (this.getHours() > 18 && this.getHours() <= 23) {
                 return "22";
               }
+              case "nanfangzhongxiyi":
+              if (this.getHours() >= 0 && this.getHours() <= 2) {
+                return "02";
+              }
+              if (this.getHours() > 2 && this.getHours() <= 6) {
+                return "06";
+              }
+              if (this.getHours() > 6 && this.getHours() <= 10) {
+                return "10";
+              }
+              if (this.getHours() > 10 && this.getHours() <= 14) {
+                return "14";
+              }
+              if (this.getHours() > 14 && this.getHours() <= 18) {
+                return "18";
+              }
+              if (this.getHours() > 18 && this.getHours() <= 23) {
+                return "22";
+              }
             default:
               return "07";
           }
@@ -1175,7 +1195,6 @@ export default {
       tempertureData.entryDate = tempertureData.entryDate
         ? moment(tempertureData.entryDate).format("YYYY-MM-DD")
         : moment(new Date()).format("YYYY-MM-DD");
-        console.log(tempertureData)
       saveOverAllTemperture(tempertureData).then((res) => {
         this.getData();
       });

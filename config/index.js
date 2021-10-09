@@ -71,8 +71,13 @@ const currentTargetUrl = (() => {
     /** 聊城 */
     case "liaocheng":
       // return "http://120.224.211.7:9094" //聊城正式
+<<<<<<< HEAD
       // return "https://info.cr-health.com:20209" // 公司-聊城测试-外网
       return "http://192.168.1.54:9871" //公司-聊城测试-内网
+=======
+      return "https://info.cr-health.com:20209" // 公司-聊城测试-外网
+      // return "http://192.168.1.54:9871" //公司-聊城测试-内网
+>>>>>>> 0504dc7e45d1c2340b30309a98cde308acfeec26
 
     /** 江门妇幼 */
     case "fuyou":
@@ -127,9 +132,9 @@ const currentTargetUrl = (() => {
 
     // 北海人医
     case 'beihairenyi':
-      // return "http://219.159.198.37:9094"  // 正式地址 admin Bcy@24nr
+      return "http://219.159.198.37:9094"  // 正式地址 admin Bcy@24nr
       // return "http://192.167.199.190:9091" // 测试地址（暂无数据）
-      return "http://192.168.1.54:9866" // 默认公司本地内网厚街测试环境
+      // return "http://192.168.1.54:9866" // 默认公司本地内网厚街测试环境
 
     // 佛山市医
      case 'foshanrenyi':
