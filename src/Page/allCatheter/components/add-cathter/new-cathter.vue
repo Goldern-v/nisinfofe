@@ -130,12 +130,16 @@ methods: {
             deptCode: this.$store.state.sheet.patientInfo.deptCode,
             patientId: this.$store.state.sheet.patientInfo.patientId,
             visitId: this.$store.state.sheet.patientInfo.visitId,
-            intubationTime:this.intubationTime,
+            intubationTime:moment(this.intubationTime).format("YYYY-MM-DD HH:mm:ss"),
             replaceTime:moment(this.expecteReplaceTime).format("YYYY-MM-DD HH:mm:ss"),
             formTitle:this.formTitle?this.formTitle:this.newCathterType.name,
             catheterSource:this.catheterSource
         }).then(res=>{
-            console.log(res);
+            this.$message.success('添加成功')
+            this.$emit('onChangePatient_self',this.$store.state.sheet.patientInfo)
+            this.closeSelf()
+        }).catch(err=>{
+            this.$message.error(err.desc)
         })
     }
 },

@@ -567,11 +567,15 @@ label {
   }
 }
 .deptname{
-    position:absolute;
+    position: absolute;
     font-size: 28px;
-    z-index:999;
-    top:12px;
-    right:20px;
+    line-height 40px;
+    z-index: 999;
+    top: 5px;
+    right: 20px;
+    width: 130px;
+    height: 75px;
+    overflow: hidden;
   }
 </style>
 
