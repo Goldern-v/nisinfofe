@@ -40,6 +40,9 @@
             }
             .add-btn{
                 cursor: pointer;
+                &:hover{
+                    color: #4bb08d;
+                }
             }
         }
         .cathter-list{
@@ -70,7 +73,10 @@ export default {
 props: {cathterArr:{type:Array,value:[]}},
 data() {
 return {
-    current:null
+    current:null,
+    statusColor:{
+        0:'#4bb08d',1:'red',2:'grey'
+    }
 };
 },
 methods: {
@@ -78,7 +84,6 @@ methods: {
         this.$emit('addCathter')
     },
     selectType(item,index){
-        console.log(item);
         this.current = index
         getCatheterTable({
             code: item.code,
@@ -94,20 +99,7 @@ methods: {
 watch:{
     'cathterArr'(a,b){
         a.map(item=>{
-            if(item.createDate&&item.replaceTime){
-                let startT= new Date(item.createDate); //开始时间以/分隔
-                let endT = new Date(item.replaceTime); //结束时间以/分隔
-                let times = endT.getTime() - startT.getTime();
-                if(times>259200000){
-                    item.fontColor = 'green' 
-                }else if(times<259200000 && times>0){
-                    item.fontColor = 'red' 
-                }else{
-                    item.fontColor = 'grey'
-                }
-            }else{
-                
-            }
+            item.fontColor = this.statusColor[item.catheterStatus]
         })
     }
 },

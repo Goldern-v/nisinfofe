@@ -1,7 +1,7 @@
 <template>
   <div class="right-con">
     <div class="row-top">
-      <div class="column-left">
+      <!-- <div class="column-left">
         <el-button size="mini" @click="syncInAndOutHospital((type = '0'))">
           同步入院
         </el-button>
@@ -12,7 +12,7 @@
         >
           同步出院
         </el-button>
-      </div>
+      </div> -->
       <div class="column-right">
         <span style="padding-left: 5px">日期：</span>
         <ElDatePicker

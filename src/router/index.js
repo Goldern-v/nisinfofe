@@ -174,6 +174,8 @@ const newSingleTemperatureChartDghl = () =>
   import("@/Page/temperature-chart/new-singleTemperature-chart-dghl/new-singleTemperature-chart.vue");
   const newSingleTemperatureChartWujing = () =>
   import("@/Page/temperature-chart/new-singleTemperature-chart-wujing/new-singleTemperature-chart.vue");//武警新版体温单单人录入
+  const newSingleTemperatureChartZhongXiYi = () =>
+  import("@/Page/temperature-chart/new-singleTemperature-chart-zhongxiyi/new-singleTemperature-chart.vue");//南方中西医新版体温单单人录入
 const showPatientDetails = () =>
   import("@/Page/show-patient-details/show-patient-details.vue"); //查看评估单、记录单、病历、检查、检验、体温单
 const nursingPreview = () => import("@/Page/NursingPreview/NursingPreview.vue"); //查看所有的评估单、记录单、体温单
@@ -969,6 +971,8 @@ const router = new Router({
               return newSingleTemperatureChartDghl
             case 'fuyou':
               return newSingleTemperatureChartJmfy
+            case 'nanfangzhongxiyi':
+              return newSingleTemperatureChartZhongXiYi
             default:
               return newSingleTemperatureChart
           }

@@ -42,3 +42,36 @@ export const getCatheterValueDict = (formCode)=>{
   );
 }
 
+export const delRowApi = (params,formCode)=>{
+  return axios({
+    headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+    },
+    method: 'post',
+    url: `${apiPath}catheter/catheter/${formCode}/delete`,
+    params: params
+})
+}
+
+export const delAllApi = (params,formCode)=>{
+  return axios({
+    headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+    },
+    method: 'post',
+    url: `${apiPath}catheter/catheter/${formCode}/deleteWhole`,
+    params: params
+})
+}
+export const updateInfo = (params,formCode)=>{
+  return axios.post(
+    `${apiPath}catheter/catheter/${formCode}/updateInfo`,
+    params
+  )
+}
+export const extubationApi = (params,formCode)=>{
+  return axios.post(
+    `${apiPath}/catheter/catheter/${formCode}/extubation`,
+    params
+  )
+}
