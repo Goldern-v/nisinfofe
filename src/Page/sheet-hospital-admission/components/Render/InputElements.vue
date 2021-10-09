@@ -166,9 +166,9 @@
       </span>
 
       <!-- 下拉框 -->
-      <!-- <SelectBox v-if="child.type==='select'"
+      <SelectBox v-if="child.type==='selectOne'"
       :obj="child"
-      :formObj="formObj" />-->
+      :formObj="formObj" />
 
       <!-- :getOtherText="''" -->
       <!-- 下拉输入框 -->

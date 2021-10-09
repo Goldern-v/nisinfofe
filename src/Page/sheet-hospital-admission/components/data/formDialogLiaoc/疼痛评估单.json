@@ -108,10 +108,13 @@
           "name": "evalDate",
           "type": "datePicker",
           "title": "评估时间",
+          "titleStyle": "width:90px!important;text-align: right;",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "136px",
+          "hiddenTips": true,
           "value": "",
           "placeholder": "评估时间",
           "style": "width:145px",
-          "inputWidth": "145px",
           "class": null,
           "readOnly": null
         },
@@ -119,10 +122,13 @@
           "name": "signerName",
           "type": "input",
           "title": "评估人",
+          "titleStyle": "width:90px!important;text-align: right;",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "136px",
+          "hiddenTips": true,
           "value": "",
           "placeholder": "评估人",
           "style": "width:80px",
-          "inputWidth": "80px",
           "class": null,
           "readOnly": true
         },
@@ -130,10 +136,13 @@
           "name": "status",
           "type": "input",
           "title": "状态",
+          "titleStyle": "width:90px!important;text-align: right;",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "136px",
+          "hiddenTips": true,
           "value": "",
           "placeholder": "状态",
           "style": "width:80px",
-          "inputWidth": "80px",
           "class": null,
           "readOnly": true,
           "rule": [
@@ -222,44 +231,51 @@
         },
         {
           "name": "I609017",
-          "type": "select",
-          "label": "评分",
+          "type": "input",
+          "label": "评 分",
+          "inputWidth": "189px",
           "suffixDesc": "",
           "style": null,
+          "class": null,
+          "readOnly": false
+        },
+        {
+          "name": "I609017",
+          "type": "formGroupVerticalBox",
+          "suffixDesc": "",
+          "style": "position: relative; top:7px;",
           "class": null,
           "readOnly": false,
           "children": [
             {
               "name": "I609017",
-              "type": "input",
-              "label": "",
-              "inputWidth": "189px",
+              "type": "select",
+              "label": "部 位",
+              "inputWidth": "196px",
+              "suffixDesc": "",
+              "multiplechoice":true,
               "style": null,
               "class": null,
-              "readOnly": null
-            }
-          ]
-        },
-        {
-          "name": "I609003",
-          "type": "select",
-          "label": "部分",
-          "suffixDesc": "",
-          "style": null,
-          "class": null,
-          "readOnly": false,
-          "children": [
+              "options": [
+                "鼻子",
+                "嘴巴",
+                "左耳",
+                "右耳",
+                "左眼",
+                "右眼",
+                "左脸",
+                "右脸"
+              ]
+            },
             {
-              "name": "I609003",
-              "type": "input",
-              "label": "",
-              "inputWidth": "189px",
-              "style": null,
-              "class": null,
-              "readOnly": null
+              "name": "I609017",
+              "type": "bodyBtn",
+              "style": "width:50px!important;position: relative;top: -26px;left: 245px; padding:0px",
+              "class": null
             }
           ]
         },
+        
         {
           "name": "I609004",
           "type": "input",
@@ -542,7 +558,7 @@
     {
       "name": "",
       "type": "formGroupTitle",
-      "level": "2",
+      "level": "1",
       "title": "长期用药",
       "prefixDesc": "",
       "suffixDesc": "",
@@ -729,7 +745,7 @@
     {
       "name": "",
       "type": "formGroupTitle",
-      "level": "2",
+      "level": "1",
       "title": "临时用药",
       "prefixDesc": "",
       "suffixDesc": "",
@@ -758,7 +774,6 @@
           "label": "用药时间",
           "style": "width:145px",
           "inputWidth": "145px",
-          
           "class": null,
           "readOnly": null,
           "selectOnly": true
@@ -906,20 +921,8 @@
     {
       "name": "",
       "type": "formGroupTitle",
-      "level": "2",
+      "level": "1",
       "title": "不良反应",
-      "prefixDesc": "",
-      "suffixDesc": "",
-      "keys": "",
-      "style": "",
-      "classes": "",
-      "readOnly": ""
-    },
-    {
-      "name": "",
-      "type": "formGroupHR",
-      "title": "---hr---",
-      "line": "dashed",
       "prefixDesc": "",
       "suffixDesc": "",
       "keys": "",
@@ -994,6 +997,18 @@
           ]
         }
       ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
     },
     {
       "name": "",
