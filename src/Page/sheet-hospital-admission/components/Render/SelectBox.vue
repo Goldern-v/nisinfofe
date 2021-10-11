@@ -11,20 +11,19 @@
     </span>
     <!-- 单选下拉框 -->
     <el-select
-      v-if="obj.type==='select' && !obj.children"
       :id="getUUID()"
       :ref="obj.name"
       :class="obj.class||''"
       :style="[obj.style, obj.inputWidth && {width: obj.inputWidth}]"
       :size="obj.size||'small'"
       v-bind="obj.props"
-      v-model="selectValue"
+      v-model="obj.options"
       :name="obj.name"
       @change="selectChange"
       @keydown.native="inputKeyDown($event, obj)"
       placeholder="空"
     >
-      <el-option v-for="item in obj.options" v-if="item" :key="item" :label="item" :value="item"></el-option>
+      <el-option v-for="item in obj.options"  :key="item" :label="item" :value="obj.options"></el-option>
     </el-select>
   </span>
 </template>
@@ -36,7 +35,10 @@ import uuid from "node-uuid";
 export default {
   name: "SelectBox",
   props: {
-    obj: Object,
+    obj: {
+      type:Object,
+      default:{}
+    },
     formObj: Object,
     col: {
       type: Number,
@@ -66,6 +68,9 @@ export default {
     }
   },
   watch: {
+    obj(val1,val2){
+      console.log('---obj----',val1,val2);
+    },
     selectValue(valueNew, oldvaule) {
       console.log("watch:selectValue:", valueNew, oldvaule);
       this.formObj.model[this.obj.name] = valueNew;
@@ -102,6 +107,7 @@ export default {
     }
   },
   mounted() {
+    console.log(this.obj,'fdafs fasfa f -----------------------------');
     let refName = this.obj.name; //+this.obj.type.toUpperCase()+(this.obj.title||this.obj.label)
     if (this.$refs[refName]) {
       this.$root.$refs[this.formCode][refName] = this.$refs[refName];
