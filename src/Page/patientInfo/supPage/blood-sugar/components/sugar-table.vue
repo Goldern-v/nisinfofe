@@ -5,7 +5,8 @@
         <th
           v-if="HOSPITAL_ID == 'hj'
           || HOSPITAL_ID == 'guizhou'
-          || HOSPITAL_ID == 'liaocheng'"
+          || HOSPITAL_ID == 'liaocheng'
+          || HOSPITAL_ID == 'hengli'"
           style="width: 2%; min-width: 20px"
         >
           序号
@@ -43,7 +44,7 @@
           "
         >
           血酮值
-        <br />（mmol/L）
+        <br />(mmol/L)
         </th>
         <th style="width: 16%">{{HOSPITAL_ID == 'liaocheng' ? '签名' : '执行人'}}</th>
       </tr>
@@ -54,7 +55,7 @@
         @click="onSelect(item)"
         @dblclick="onDblClick(item)"
       >
-        <td v-if="HOSPITAL_ID =='hj' ||  HOSPITAL_ID == 'guizhou' || HOSPITAL_ID == 'liaocheng'">
+        <td v-if="HOSPITAL_ID =='hj' ||  HOSPITAL_ID == 'guizhou' || HOSPITAL_ID == 'liaocheng' || HOSPITAL_ID == 'hengli'">
           {{index + baseIndex + 1}}
         </td>
         <td v-if="HOSPITAL_ID != 'lingcheng'" style="padding: 0 4px">
@@ -119,7 +120,7 @@
           </div>
         </td>
         <td v-else>
-          <div class="cell noPrint" v-if="HOSPITAL_ID == 'foyou'" style="display:block">{{ item.nurse }}</div>
+          <div class="cell noPrint" v-if="HOSPITAL_ID == 'fuyou'" style="display:block">{{ item.nurse }}</div>
           <div class="cell noPrint" v-else>{{ item.nurse }}</div>
           <div class="cell inPrint lc" v-if="HOSPITAL_ID == 'lingcheng'">
             <!-- {{item.nurseEmpNo}} -->

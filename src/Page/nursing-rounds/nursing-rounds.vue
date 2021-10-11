@@ -25,7 +25,7 @@
           size="small"
           v-if="isAdminOrNursingDepartment"
           @click="openViewModal"
-          style="margin-right: 15px;"
+          style="margin-right: 15px;display:none;"
         >权限分配</el-button>
         <el-input
           size="small"
