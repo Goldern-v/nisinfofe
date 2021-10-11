@@ -54,14 +54,14 @@ export default {
       date: "",
       filePath: "",
       contentHeight: { height: "" },
-      currentPage: 1,
+      curerentPag: 1,
       pageTotal: 1,
       open: false,
       isSave: false,
       visibled: false,
       intranetUrl:
         "http://192.168.19.162:9091/temperature/#/" /* 医院正式环境内网 导致跨域 */,
-      // "http://10.10.10.75:9091/temperature/#/" /* 医院正式环境内网 */,
+      // "http://192.168.20.70:8081/#/" /* 医院正式环境内网 */,
       outNetUrl:
         "http://120.24.240.231:15091/temperature/#/" /* 医院正式环境外网：想要看iframe的效果，测试的时候可以把本地的地址都改成外网测试 */,
     };
@@ -91,14 +91,13 @@ export default {
       this.contentHeight.height = window.innerHeight - 110 + "px";
     },
     messageHandle(e) {
-      console.log(e)
       if (e && e.data) {
         switch (e.data.type) {
           case "pageTotal":
             this.pageTotal = e.data.value;
             this.currentPage = e.data.value;
             break;
-          case "getNurseExchangeInfo":/* 转科转床接口，聊城二院取消，花都保留 */
+          case "getNurseExchangeInfo":/* 转科转床接口*/
           // const params = {
           //   patientId: this.$route.query.patientId,
           //   visitId: this.$route.query.visitId
@@ -147,11 +146,9 @@ export default {
         }, 1000);
       }
     },
+    
   },
   watch: {
-    // date() {
-    //   this.getImg();
-    // },
     currentPage(value) {
       this.$refs.pdfCon.contentWindow.postMessage(
         { type: "currentPage", value },

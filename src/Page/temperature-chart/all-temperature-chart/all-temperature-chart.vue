@@ -1196,6 +1196,14 @@ export default {
         ? moment(tempertureData.entryDate).format("YYYY-MM-DD")
         : moment(new Date()).format("YYYY-MM-DD");
       saveOverAllTemperture(tempertureData).then((res) => {
+        console.log(res)
+        
+        if(res.data.code==='200'){
+this.$message.success('保存成功')
+        }
+        else{
+           this.$message.error('保存失败');
+        }
         this.getData();
       });
     },
