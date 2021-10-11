@@ -6,7 +6,7 @@
         <el-option
         v-for="item in optionList"
         :key="item.patientId"
-        :label="`${item.inpNo} ${item.name} ${item.patientId}`"
+        :label="`${item.bedNo} ${item.name} ${item.patientId}`"
         :value="item.patientId">
         </el-option>
     </el-select>
@@ -97,14 +97,9 @@ methods: {
         this.$emit("toPrints",selected)
     }
 },
-components: {
-    optionList(){
-        return this.list.filter(item=>item.patientId)
-    }
-},
 watch:{
     list(){
-        this.optionList = this.list.filter(item=>item.patientId)
+        this.optionList = this.list.filter(item=>item.patientId).sort((a,b)=>a.bedNo - b.bedNo)
     }
 }
 };

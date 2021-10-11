@@ -26,7 +26,7 @@ export default {
     var token =
       (window.app && window.app.$getCookie("NURSING_USER").split("##")[1]) ||
       url.token;
-    if (!token && this.HOSPITAL_ID != 'fuyou') {
+    if (!token) {
       // this.HOSPITAL_ID == 'fuyou' ? this.toLogin2() : this.toLogin();
       this.toLogin2()
     }else {
@@ -212,7 +212,13 @@ export default {
     },
     // 妇幼医生查看病人评估单&记录单（和南医三那个项目的方式一样，通过Url获取相关登录参数，无须写死账号）
     toLogin2() {
-      let url = this.$route.query;
+      let url = {}
+      if(this.HOSPITAL_ID == 'fuyou'){//江门妇幼解密
+        let decodelUrl = this.UrlDecode(this.$route.query.param)
+        url = JSON.parse(decodelUrl);
+      }else{
+        url = this.$route.query;
+      }
       let data = {
         userName: url.userName,
         nonce: url.nonce,

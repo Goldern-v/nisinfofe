@@ -971,7 +971,15 @@ export default {
       return false;
       // if (this.$route.path == "/sugarPage") return true;
       // return false;
-    }
+    },
+    isActiveTemperaturePage() {
+      let path = this.$route.path;
+      return (
+        path.includes("newSingleTemperatureChart") ||
+        path.includes("singleTemperatureChart") ||
+        path.includes("allTemperatureChart")
+      );
+    },
   },
   methods: {
     handleCommand(command) {

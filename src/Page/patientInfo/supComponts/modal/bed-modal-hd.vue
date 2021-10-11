@@ -182,13 +182,13 @@
           </div>
           <div>
             <div>
+              <span>床位：{{ query.bedLabel }}</span>
+              <span>住院号：{{ query.patientId}}</span>
+            </div>
+            <div>
               <span>{{ query.name }}</span>
               <span>{{ query.sex }}</span>
               <span>{{ query.age }}</span>
-            </div>
-            <div>
-              <span>住院号：{{ query.patientId}}</span>
-              <span style="margin:4px;">床位：{{ query.bedLabel }}</span>
             </div>
           </div>
           <div>

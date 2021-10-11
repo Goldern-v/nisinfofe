@@ -184,7 +184,7 @@
         class="item-box"
         style="width: 85px"
         flex="cross:center main:center"
-        v-if="!isDeputy"
+        v-if="!isDeputy||HOSPITAL_ID=='guizhou'"
       >
         <el-autocomplete
           class="pegeSelect"

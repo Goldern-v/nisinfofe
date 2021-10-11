@@ -2,7 +2,6 @@
   <div :class="{ fullPageRecord }">
     <div
         class="form-loading-box"
-        v-loading="formBoxLoading"
         :element-loading-text="formBoxLoadingText"
         ref="iframeLoadingBox"
     >

@@ -53,7 +53,7 @@
         <ElFormItem
           prop="date"
           label="教育时间："
-          v-if="modalStatus && HOSPITAL_ID == 'hj'"
+          v-if="(modalStatus && HOSPITAL_ID == 'hj') || HOSPITAL_ID == 'guizhou'"
         >
           <el-date-picker
             popper-class="picker-dropdown"
@@ -267,6 +267,8 @@ export default {
           remarks: "",
           signature: "",
         };
+        //贵州给初始教育时间
+        (this.HOSPITAL_ID == 'guizhou') && (this.date=dayjs(new Date()).format("MM-DD HH:mm"));
         //赋值富文本
          this.$refs.richEditorModal.changeEditContent("");
       }
