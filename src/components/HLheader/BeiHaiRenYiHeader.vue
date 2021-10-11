@@ -168,7 +168,7 @@
                 >
                   <router-link to="/formPage" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
-                      <i class="nursingAssessment"></i> 其他文书
+                      <i class="nursingAssessment"></i> 护理评估单
                     </el-row>
                   </router-link>
                 </el-dropdown-item>

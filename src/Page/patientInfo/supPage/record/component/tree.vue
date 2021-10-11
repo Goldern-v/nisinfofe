@@ -2,11 +2,19 @@
   <div>
     <el-row class="header" type="flex" justify="space-between" align="middle">
       <span
+        v-if="HOSPITAL_ID == 'beihairenyi'"
         class="title"
         style="cursor:pointer"
         @click="refreshTree()"
         @dblclick="refreshTree(true)"
-      >护理文书</span>
+      >护理护理评估单</span>
+      <span
+        v-else
+        class="title"
+        style="cursor:pointer"
+        @click="refreshTree()"
+        @dblclick="refreshTree(true)"
+      >护理文书111</span>
       <el-button type="text" class="new-btn" @click="newRecordOpen">
         <i class="el-icon-plus"></i>创建
       </el-button>
