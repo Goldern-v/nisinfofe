@@ -29,7 +29,8 @@
         }"
         tag="span"
       >
-        <div class="nav-item">护理文书</div>
+        <div class="nav-item" v-if="HOSPITAL_ID == 'beihairenyi'">护理评估单</div>
+        <div class="nav-item" v-else>护理文书</div>
       </router-link>
       <router-link
         v-if="

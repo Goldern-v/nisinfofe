@@ -36,6 +36,17 @@
             class="null-btn"
             flex="cross:center main:center"
             @click="newRecordOpen"
+            v-if="HOSPITAL_ID == 'beihairenyi'"
+        >
+          <i class="el-icon-plus"></i>
+          <span>创建护理评估单</span>
+        </div>
+        <div
+            v-show="showTpye == ''"
+            class="null-btn"
+            flex="cross:center main:center"
+            @click="newRecordOpen"
+            v-else
         >
           <i class="el-icon-plus"></i>
           <span>创建护理文书</span>
