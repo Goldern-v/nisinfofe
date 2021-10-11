@@ -6,7 +6,7 @@
         <el-option
         v-for="item in optionList"
         :key="item.patientId"
-        :label="`${item.bedNo} ${item.name} ${item.patientId}`"
+        :label="`${item.bedLabel} ${item.name} ${item.patientId}`"
         :value="item.patientId">
         </el-option>
     </el-select>
