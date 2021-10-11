@@ -264,6 +264,7 @@
                   minWidth: td.textarea.width + 'px',
                   maxWidth: td.textarea.width + 'px'
                 },
+                isDisabed(tr,td, y) && { cursor: 'not-allowed' }
               )
             "
             @keydown="
@@ -1408,8 +1409,10 @@ export default {
       }
 
       // 双击打开编辑框,（除第1条外）默认显示特殊记录tab栏
-      if (this.isDisabed(tr)) {
-        tab = "3";
+      if(this.HOSPITAL_ID == "weixian"){
+        if (this.isDisabed(tr)) {
+          tab = "3";
+        }
       }
 
       let thead = data.titleModel;
