@@ -159,6 +159,7 @@
 import adviceTable from "./component/adviceTable";
 import adviceTableWx from "./component/adviceTable_wx";
 import adviceTableHd from "./component/adviceTable_hd";
+import adviceTableNanfangzhongxiyi from "./component/adviceTable_nanfangzhongxiyi";
 import adviceTableGuizhou from "./component/adviceTable_guizhou";
 import adviceTableCommon from "./component/adviceTable_common";
 import adviceTableFy from "./component/adviceTable_fuyou";
@@ -249,7 +250,9 @@ export default {
         return "adviceTableWx";
       } else if (HOSPITAL_ID == "huadu") {
         return "adviceTableHd";
-      } else if (HOSPITAL_ID == "guizhou") {
+      }else if (HOSPITAL_ID == "nanfangzhongxiyi") {
+        return "adviceTableNanfangzhongxiyi";
+      }else if (HOSPITAL_ID == "guizhou") {
         return "adviceTableGuizhou";
       }else if (HOSPITAL_ID == "xiegang") {
         return "adviceTableXiegang";
@@ -316,6 +319,7 @@ export default {
     adviceTable,
     adviceTableWx,
     adviceTableHd,
+    adviceTableNanfangzhongxiyi,
     adviceTableGuizhou,
     adviceTableCommon,
     adviceTableXiegang,

@@ -37,11 +37,15 @@ export default {
     return {};
   },
   created() {
+    console.log(this.filterObj);
     this.$store.commit("closeFullPageRecord");
   },
   components: {
     tree,
     rightPart
+  },
+  methods:{
+    init(){},
   }
 };
 </script>

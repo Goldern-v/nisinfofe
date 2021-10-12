@@ -682,7 +682,9 @@ export default {
     onFocus(e, bind) {
       if (sheetInfo.model == "print") return;
       if (!this.sheetInfo.downControl) {
-        onFocusToAutoComplete(e, bind);
+        setTimeout(function () {
+          onFocusToAutoComplete(e, bind); 
+        }, 300);
       }
     },
     onBlur(e, bind) {
@@ -1118,6 +1120,13 @@ export default {
       }
     },
     isRead(tr) {
+      if (
+        this.HOSPITAL_ID == "huadu" &&
+        sheetInfo.sheetType === "body_temperature_Hd" 
+      ) {
+        return false;
+      }
+      
         let status = tr.find(item => item.key == "status").value;
         let empNo = tr.find(item => item.key == "empNo").value;
         if (status == 1) {
@@ -1402,8 +1411,10 @@ export default {
       }
 
       // 双击打开编辑框,（除第1条外）默认显示特殊记录tab栏
-      if (this.isDisabed(tr)) {
-        tab = "3";
+      if(this.HOSPITAL_ID == "weixian"){
+        if (this.isDisabed(tr)) {
+          tab = "3";
+        }
       }
 
       let thead = data.titleModel;

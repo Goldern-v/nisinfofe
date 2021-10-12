@@ -234,12 +234,12 @@
               </el-row>
             </router-link>
 
-            <router-link to="/singleTemperatureChart" tag="span">
+            <!-- <router-link to="/singleTemperatureChart" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="singleTemperatureChart"></i>体温单
               </el-row>
-            </router-link>
-            <!--  <el-dropdown
+            </router-link> -->
+             <el-dropdown
               menu-align="start"
               :class="{'router-link-active': isActiveTemperaturePage}"
             >
@@ -250,7 +250,7 @@
 
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item :class="{active: $route.path.includes('singleTemperatureChart')}">
-                  <router-link to="/singleTemperatureChart" tag="span">
+                  <router-link to="/newSingleTemperatureChart" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
                       <i class="singleTemperatureChart"></i>单人录入体温单
                     </el-row>
@@ -264,7 +264,7 @@
                   </router-link>
                 </el-dropdown-item>
               </el-dropdown-menu>
-            </el-dropdown> -->
+            </el-dropdown>
             <router-link to="/shiftWork" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-jiaobanzhi"></i> 交班志
@@ -971,7 +971,15 @@ export default {
       return false;
       // if (this.$route.path == "/sugarPage") return true;
       // return false;
-    }
+    },
+    isActiveTemperaturePage() {
+      let path = this.$route.path;
+      return (
+        path.includes("newSingleTemperatureChart") ||
+        path.includes("singleTemperatureChart") ||
+        path.includes("allTemperatureChart")
+      );
+    },
   },
   methods: {
     handleCommand(command) {

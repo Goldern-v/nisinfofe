@@ -229,12 +229,39 @@
         },
         {
           "name": "I627002",
-          "type": "input",
-          "label": "部位",
-          "inputWidth": "196px",
-          "style": null,
+          "type": "formGroupVerticalBox",
+          "suffixDesc": "",
+          "style": "position: relative; top:7px;",
           "class": null,
-          "readOnly": null
+          "readOnly": false,
+          "children": [
+            {
+              "name": "I627002",
+              "type": "select",
+              "label": "部 位",
+              "inputWidth": "196px",
+              "suffixDesc": "",
+              "multiplechoice":true,
+              "style": null,
+              "class": null,
+              "options": [
+                "鼻子",
+                "嘴巴",
+                "左耳",
+                "右耳",
+                "左眼",
+                "右眼",
+                "左脸",
+                "右脸"
+              ]
+            },
+            {
+              "name": "I627002",
+              "type": "bodyBtn",
+              "style": "width:50px!important;position: relative;top: -26px;left: 245px; padding:0px",
+              "class": null
+            }
+          ]
         },
         {
           "name": "I627003",

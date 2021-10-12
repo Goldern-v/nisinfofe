@@ -16,7 +16,13 @@ export default {
   },
   mounted() {
     // 医生查看病人评估单&记录单（陵城） 查看病人病历、检查、检验（厚街合理用药）
-    let url = this.$route.query;
+    let url = {}
+    if(this.HOSPITAL_ID == 'fuyou'){//江门妇幼解密
+      let decodelUrl = this.UrlDecode(this.$route.query.param)
+      url = JSON.parse(decodelUrl);
+    }else{
+      url = this.$route.query;
+    }
     var token =
       (window.app && window.app.$getCookie("NURSING_USER").split("##")[1]) ||
       url.token;
@@ -81,6 +87,35 @@ export default {
     }
   },
   methods: {
+    //UrlDecode解码
+    UrlDecode(zipStr){ 
+      var uzipStr = ''; 
+      for (var i = 0; i < zipStr.length; i += 1) {
+        var chr = zipStr.charAt(i); 
+        if (chr === '+') { 
+          uzipStr += ' ';
+        } else if (chr === '%') { 
+          var asc = zipStr.substring(i + 1, i + 3); 
+          if (parseInt('0x' + asc) > 0x7f) {
+            uzipStr += decodeURI('%' + asc.toString() + zipStr.substring(i+3, i+9).toString()); 
+            i += 8;
+          }else{ 
+            uzipStr += this.AsciiToString(parseInt('0x' + asc)); 
+            i += 2;
+          } 
+        }else{ 
+          uzipStr += chr; 
+        } 
+      } 
+      return uzipStr; 
+    },
+    StringToAscii(str){ 
+      return str.charCodeAt(0).toString(16); 
+    },
+    AsciiToString(asccode){ 
+      return String.fromCharCode(asccode); 
+    },
+
     // 医生查看病人评估单&记录单（陵城） 查看病人病历、检查、检验（厚街合理用药）
     toLogin() {
       console.log(this.isDev);
@@ -177,7 +212,13 @@ export default {
     },
     // 妇幼医生查看病人评估单&记录单（和南医三那个项目的方式一样，通过Url获取相关登录参数，无须写死账号）
     toLogin2() {
-      let url = this.$route.query;
+      let url = {}
+      if(this.HOSPITAL_ID == 'fuyou'){//江门妇幼解密
+        let decodelUrl = this.UrlDecode(this.$route.query.param)
+        url = JSON.parse(decodelUrl);
+      }else{
+        url = this.$route.query;
+      }
       let data = {
         userName: url.userName,
         nonce: url.nonce,

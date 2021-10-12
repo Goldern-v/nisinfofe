@@ -103,7 +103,7 @@
               <div
                 type="text"
                 flex-box="1"
-                style="width: 0px;font-size: 22px; padding-left: 2px;;margin-right:150px;border-bottom:0;"
+                style="width: 0px;font-size: 22px; padding-left: 2px;;margin-right:100px;border-bottom:0;"
                 nowidth
                 class="bottom-line"
               >{{moment(query.admissionDate).format('YYYY-MM-DD')}}</div>
@@ -121,7 +121,7 @@
           <p>{{ query.bedLabel + "床" }}</p>
           <span>姓名：</span>
           <p>{{ query.name }}</p>
-          <span><span style="display:inline-block;width:60%;">性别：</span><span style="font-size:20px;display:inline-block;width:40%">{{ query.sex }}</span></span>
+          <span><span style="display:inline-block;width:54px;">性别：</span><span style="font-size:20px;display:inline-block;width:30px;">{{ query.sex }}</span></span>
           <span>年龄：</span>
           <p>{{ query.age }}</p>
           <span>住院号：</span>
@@ -182,13 +182,13 @@
           </div>
           <div>
             <div>
+              <span>床位：{{ query.bedLabel }}</span>
+              <span>住院号：{{ query.patientId}}</span>
+            </div>
+            <div>
               <span>{{ query.name }}</span>
               <span>{{ query.sex }}</span>
               <span>{{ query.age }}</span>
-            </div>
-            <div>
-              <span>住院号：{{ query.patientId}}</span>
-              <span style="margin:4px;">床位：{{ query.bedLabel }}</span>
             </div>
           </div>
           <div>
@@ -247,8 +247,8 @@
   display: inline-block;
   font-size: 16px;
   .bed-card-con{
-    width:11.25cm;
-    height:7.125cm;
+    width:9cm;
+    height:5.7cm;
   }
   >>> * {
     font-family: 'SimHei', 'Microsoft Yahei' !important;
@@ -362,7 +362,7 @@
       // border:1px solid #000;
       box-sizing:border-box;
       .bed-card-vert-con{
-        transform:scale(0.8) translateX(-16%) translateY(-25%)
+        transform:scale(0.8) translateX(-2.1cm) translateY(-0.7cm)
       }
       .qr-code{
         position: absolute;
@@ -390,9 +390,9 @@
   .qr-code {
     position: absolute;
     bottom: 10px;
-    right: 20px;
-    height: 125px;
-    width: 125px;
+    right: 10px;
+    height: 100px;
+    width: 100px;
 
     &.hasRemark {
       width: 96px;
@@ -830,7 +830,7 @@ export default {
             css: `
             .bed-card-warpper {
             box-shadow: none !important;
-            transform: rotate(90deg) translateY(-120%) translateX(0.2cm);
+            transform: rotate(90deg) translateY(-3.5cm) translateX(0.2cm);
             transform-origin: 0 0;
             }
             @page {
@@ -853,7 +853,19 @@ export default {
           `
           });
         } else {
-          print(this.$refs.printCon);
+          printing(this.$refs.printCon, {
+            direction: "horizontal",
+            injectGlobalCss: true,
+            scanStyles: false,
+            css: `
+            .bed-card-warpper {
+              box-shadow: none !important;
+            }
+            @page {
+              margin: 0;
+            }
+            `
+          });
         }
       });
     },
