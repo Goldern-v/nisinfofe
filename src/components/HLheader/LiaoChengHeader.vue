@@ -192,12 +192,12 @@
                 <i class="iconfont icon-baiban"></i> 白板
               </el-row>
             </router-link>
-            <!-- <router-link to="/allCatheter" tag="span">
+            <router-link to="/allCatheter" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
-                <i class="iconfont icon-allCatheter"></i> 新导管
+                <i class="iconfont icon-allCatheter"></i> 导管
               </el-row>
-            </router-link> -->
-            <el-dropdown
+            </router-link>
+            <!-- <el-dropdown
               menu-align="start"
               :class="{
                 'router-link-active':
@@ -224,7 +224,7 @@
                   </router-link>
                 </el-dropdown-item>
               </el-dropdown-menu>
-            </el-dropdown>
+            </el-dropdown> -->
             <!-- <router-link
               to="/scheduling"
               tag="span"

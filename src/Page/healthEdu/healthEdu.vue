@@ -67,6 +67,7 @@ import bus from "vue-happy-bus";
 import healthEducation from "@/Page/patientInfo/supPage/healthEducation/healthEducation";
 import healthEducationGuizhou from "@/Page/patientInfo/supPage/healthEducationGuizhou/healthEducation";
 import healthEducationHengLi from "@/Page/patientInfo/supPage/healthEducationHengLi/healthEducation";
+import healthEducationBeihairenyi from "@/Page/patientInfo/supPage/healthEducationBeihairenyi/healthEducation";
 export default {
   mixins: [common],
   data() {
@@ -94,6 +95,8 @@ export default {
           return "healthEducationGuizhou";
         case "hengli":
           return "healthEducationHengLi";
+        case "beihairenyi":
+          return "healthEducationBeihairenyi";
         default:
           return "healthEducation";
       }
@@ -154,6 +157,7 @@ export default {
     healthEducation,
     healthEducationGuizhou,
     healthEducationHengLi,
+    healthEducationBeihairenyi,
   },
 };
 </script>

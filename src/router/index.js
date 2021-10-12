@@ -220,6 +220,7 @@ import temperatureJmfy from "@/Page/patientInfo/supPage/temperature/temperatureJ
 import temperatureDghl from "@/Page/patientInfo/supPage/temperature/temperatureDghl";
 import temperatureQuZhou from "@/Page/patientInfo/supPage/temperature/temperatureQuZhou";
 import temperatureWuJing from "@/Page/patientInfo/supPage/temperature/temperatureWuJing";
+import temperatureNFZXY from "@/Page/patientInfo/supPage/temperature/temperatureNFZXY";
 import diagnosis from "@/Page/patientInfo/supPage/diagnosis/diagnosis";
 import bloodSugar from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar.vue"; // 厚街
 import bloodSugarWeiXian from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_weixian.vue"; // 威县
@@ -320,6 +321,8 @@ const router = new Router({
             return temperatureDghl
             case 'quzhou':
             return temperatureQuZhou
+          case 'nanfangzhongxiyi':
+            return temperatureNFZXY
           case 'wujing':
             return temperatureWuJing
           default:
@@ -669,6 +672,8 @@ const router = new Router({
                 return temperatureWuJing
               case 'fuyou':
                 return temperatureJmfy
+              case 'nanfangzhongxiyi':
+                return temperatureNFZXY
                 case 'quzhou':
                 return temperatureQuZhou
                 case 'hengli':

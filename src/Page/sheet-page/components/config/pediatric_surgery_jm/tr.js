@@ -75,7 +75,7 @@ export default [{
   value: "",
   event: keyf1,
   textarea: {
-    width: 36
+    width: 50
   }
 },
 {

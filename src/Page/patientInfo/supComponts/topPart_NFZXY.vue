@@ -1,17 +1,5 @@
 <template>
   <div class="patient-info-head">
-    <el-row
-      class="logo-con"
-      type="flex"
-      align="middle"
-      v-if="HOSPITAL_ID == 'hj'"
-    >
-      <img src="../../../common/images/logo_hj.png" height="63" width="63" />
-      <span>
-        东莞市厚街医院
-        <br />智慧护理信息系统
-      </span>
-    </el-row>
     <div class="nav-con">
       <router-link
         :to="{
@@ -29,8 +17,7 @@
         }"
         tag="span"
       >
-        <div class="nav-item" v-if="HOSPITAL_ID == 'beihairenyi'">护理评估单</div>
-        <div class="nav-item" v-else>护理文书</div>
+        <div class="nav-item">护理文书</div>
       </router-link>
       <router-link
         v-if="
@@ -102,6 +89,15 @@
       </router-link>
       <router-link
         :to="{
+          path: '/temperature',
+          query: { patientId: query.patientId, visitId: query.visitId }
+        }"
+        tag="span"
+      >
+        <div class="nav-item">体温单</div>
+      </router-link>
+      <router-link
+        :to="{
           path: '/healthEducation',
           query: { patientId: query.patientId, visitId: query.visitId }
         }"
@@ -163,15 +159,7 @@
       <!-- <router-link :to="{path:'/recordSheet', query:$route.query}" tag="span">
         <div class="nav-item">护理记录单</div>
       </router-link>-->
-      <router-link
-        :to="{
-          path: '/temperature',
-          query: { patientId: query.patientId, visitId: query.visitId }
-        }"
-        tag="span"
-      >
-        <div class="nav-item">体温单</div>
-      </router-link>
+      
     </div>
     <div style="height: 50px"></div>
   </div>
