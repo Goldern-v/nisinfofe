@@ -1,6 +1,6 @@
 /*
-贵州省人医-产程记录单
- */
+南方中西医 - 护理记录单
+*/
 import {
   multiDictInfo
 } from "../../../api/index";
@@ -14,6 +14,9 @@ import {
   click_date,
   click_time
 } from "../keyEvent/date";
+let 入量名称 = [];
+let 出量名称 = [];
+let 意识 = ['(-)', '(+)', '(++)', '(+++)', '(△)', '(√)',];
 
 export default [
   {
@@ -31,11 +34,45 @@ export default [
     key: "recordHour", //时间
     value: "",
     event: event_time,
-    click: click_time
+    // click: click_time
+  },
+  {
+    key: "temperature", //T
+    value: "",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 3),
+    name: "体温",
+    next: "℃",
+    textarea: {
+      width: 27
+    },
+  },
+  {
+    key: "pulse", //P/HR
+    value: "",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 4),
+    name: "脉搏",
+    next: "次/分",
+    textarea: {
+      width: 35
+    },
+  },
+  {
+    key: "breath", //R
+    value: "",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 4),
+    name: "呼吸",
+    next: "次/分",
+    textarea: {
+      width: 35
+    },
   },
   {
     key: "bloodPressure", //血压
     value: "",
+    change: (e, td) => limitChange(e, td, 6),
     event: function (e, td) {
       if (e.keyCode == 32) {
         e.target.value += "/";
@@ -43,160 +80,129 @@ export default [
       }
       keyf1(e, td);
     },
-    textarea: {
-      width: 60
-    },
-    change: (e, td) => limitChange(e, td, 8),
     name: "血压",
     next: "mmHg",
+    textarea: {
+      width: 45
+    },
   },
   {
-    key: "fetalPosition", //部位
+    key: "consciousness", //意识
     value: "",
     event: keyf1,
-    name: "部位",
+    change: (e, td) => limitChange(e, td, 6),
+    name: "意识",
+    autoComplete: {
+      data: 意识
+    },
     textarea: {
-      width: 50
+      width: 40
+    },
+  },
+  {
+    key: "food", //入量名称
+    value: "",
+    event: keyf1,
+    name: "入量名称",
+    change: (e, td) => limitChange(e, td, 10),
+    textarea: {
+      width: 65,
     },
     autoComplete: {
-      data: ["脐右下", "脐左下", "脐右上", "脐左上", "脐下"]
+      data: 入量名称
     },
-    change: (e, td) => limitChange(e, td, 6),
   },
   {
-    key: "fetalRate", //心率
+    key: "foodSize", //入量（单位ml）
     value: "",
     event: keyf1,
-    name: "胎心心率",
-    next: "次/分",
+    change: (e, td) => limitChange(e, td, 4),
+    name: "入量大小",
+    next: "ml",
     textarea: {
-      width: 50
+      width: 35
     },
-    change: (e, td) => limitChange(e, td, 6),
-  },
-  // {
-  //   key: "dovetail", //衔接
-  //   value: "",
-  //   event: keyf1,
-  //   name: "衔接",
-  //   textarea: {
-  //     width: 50
-  //   },
-  //   change: (e, td) => limitChange(e, td, 6),
-  // },
-  {
-    key: "intermission", //间歇
-    value: "",
-    event: keyf1,
-    name: "间歇",
-    next: "min",
-    textarea: {
-      width: 50
-    },
-    change: (e, td) => limitChange(e, td, 6),
   },
   {
-    key: "sustain", //持续
+    key: "discharge", //出量名称
     value: "",
     event: keyf1,
-    name: "持续",
-    next: "s",
+    name: "出量名称",
+    change: (e, td) => limitChange(e, td, 10),
     textarea: {
-      width: 50
-    },
-    change: (e, td) => limitChange(e, td, 6),
-  },
-  {
-    key: "cervicalOpening", //开张
-    value: "",
-    event: keyf1,
-    name: "开张",
-    next: "cm",
-    textarea: {
-      width: 50
-    },
-    change: (e, td) => limitChange(e, td, 6),
-  },
-  {
-    key: "quality", //质
-    value: "",
-    event: keyf1,
-    name: "质",
-    textarea: {
-      width: 50
+      width: 65,
     },
     autoComplete: {
-      data: ["软", "硬", "肿"]
-    },
-    change: (e, td) => limitChange(e, td, 6),
+      data: 出量名称
+    }
   },
   {
-    key: "firstExposure", //先露高低
+    key: "dischargeSize", //出量（单位ml）
     value: "",
     event: keyf1,
-    name: "先露高低",
+    change: (e, td) => limitChange(e, td, 4),
+    name: "出量大小",
+    next: "ml",
     textarea: {
-      width: 50
+      width: 35
     },
-    change: (e, td) => limitChange(e, td, 6),
-  },
-  // {
-  //   key: "sagittalSuture", //矢状缝
-  //   value: "",
-  //   event: keyf1,
-  //   name: "矢状缝",
-  //   textarea: {
-  //     width: 50
-  //   },
-  //   change: (e, td) => limitChange(e, td, 6),
-  // },
-  {
-    key: "fetalMembrane", //胎膜
-    value: "",
-    event: keyf1,
-    name: "胎膜",
-    textarea: {
-      width: 50
-    },
-    change: (e, td) => limitChange(e, td, 6),
   },
   {
-    key: "amnioticFluid", //羊水性状
+    key: "spo2", //SPO₂(%)
     value: "",
     event: keyf1,
-    name: "羊水性状",
-    textarea: {
-      width: 50
-    },
+    name: "SPO₂",
+    next: "%",
     change: (e, td) => limitChange(e, td, 6),
+    textarea: {
+      width: 45
+    },
   },
   {
-    key: "inspection", //检查方式
+    key: "kong1", //标题1
     value: "",
     event: keyf1,
-    name: "检查方式",
-    textarea: {
-      width: 50
-    },
-    autoComplete: {
-      data: ["阴道检查", "肛门检查"]
-    },
     change: (e, td) => limitChange(e, td, 6),
+    textarea: {
+      width: 45
+    },
   },
   {
-    key: "incubation", //潜伏期
+    key: "kong2", //标题2
     value: "",
     event: keyf1,
-    name: "潜伏期",
-    textarea: {
-      width: 50
-    },
-    autoComplete: {
-      data: ["√"]
-    },
     change: (e, td) => limitChange(e, td, 6),
+    textarea: {
+      width: 45
+    },
   },
-
+  {
+    key: "kong3", //标题3
+    value: "",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 6),
+    textarea: {
+      width: 45
+    },
+  },
+  {
+    key: "kong4", //标题4
+    value: "",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 6),
+    textarea: {
+      width: 45
+    },
+  },
+  {
+    key: "kong5", //标题5
+    value: "",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 6),
+    textarea: {
+      width: 45
+    },
+  },
   {
     key: "description", //特殊情况记录
     value: "",
@@ -206,8 +212,11 @@ export default [
       top: "1px",
       bottom: "1px",
       left: "1px",
-      width: "300px",
+      width: "410px",
       background: "transparent",
+    },
+    textarea: {
+      width: 410
     },
     event: function (e, td) {
       console.log(e.keyCode);
@@ -217,16 +226,11 @@ export default [
       }
       keyf1(e, td);
     }
-    // oninput: next
   },
   {
     key: "sign",
     value: ""
   },
-  // {
-  //   key: "audit",
-  //   value: ""
-  // },
   {
     hidden: true,
     key: "id",
@@ -283,7 +287,7 @@ export default [
     value: ""
   },
   {
-    hidden: false,
+    hidden: true,
     key: "auditorNo",
     value: ""
   },

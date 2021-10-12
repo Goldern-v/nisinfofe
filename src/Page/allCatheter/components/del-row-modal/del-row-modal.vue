@@ -2,13 +2,16 @@
     <div class="del-modal">
         <div class="bg" @click="cancel"></div>
         <div class="contont">
-            <div class="contont-title">是否确认删除？</div>
-            <div class="username">
+            <div class="contont-title">删除</div>
+            <div class="contont-contont">
+                是否确定删除？
+            </div>
+            <!-- <div class="username">
                 <div style="width:100px;">用户名：</div><el-input placeholder="请输入用户名" v-model="empNo"></el-input>
             </div>
             <div class="password">
                 <div style="width:100px;">密码：</div><el-input placeholder="请输入密码" v-model="password" type="password"></el-input>
-            </div>
+            </div> -->
             <div class="btns">
                 <el-button @click="cancel">取消</el-button>
                 <el-button type="primary" @click="sureDel">确认</el-button>
@@ -32,8 +35,8 @@
         background-color: rgba(0,0,0,.3);
     }
     .contont{
-        width: 500px;
-        height: 300px;
+        width: 400px;
+        height: 200px;
         padding: 80px 100px;
         box-sizing: border-box;
         position: absolute;
@@ -48,7 +51,7 @@
             bottom: 0;
             left: 0;
             justify-content: space-between;
-            padding: 0 150px 20px;
+            padding: 0 130px 20px;
             box-sizing: border-box;
         }
         .contont-title{
@@ -61,6 +64,9 @@
             position: fixed;
             top: 0;
             left: 0;
+        }
+        .contont-contont{
+            text-align: center;
         }
     }
     .username,.password{
@@ -88,7 +94,7 @@ methods: {
         this.$emit('closeModal');
     },
     sureDel(){
-        this.$emit('delRow',this.empNo,this.password)
+        this.$emit('delRow','','')
     }
 },
 components: {}

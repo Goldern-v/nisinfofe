@@ -103,7 +103,7 @@
               <div
                 type="text"
                 flex-box="1"
-                style="width: 0px;font-size: 22px; padding-left: 2px;;margin-right:100px;border-bottom:0;"
+                style="width: 0px;font-size: 22px; padding-left: 2px;;margin-right:80px;border-bottom:0;"
                 nowidth
                 class="bottom-line"
               >{{moment(query.admissionDate).format('YYYY-MM-DD')}}</div>

@@ -14,7 +14,7 @@
         style="cursor:pointer"
         @click="refreshTree()"
         @dblclick="refreshTree(true)"
-      >护理文书111</span>
+      >护理文书</span>
       <el-button type="text" class="new-btn" @click="newRecordOpen">
         <i class="el-icon-plus"></i>创建
       </el-button>

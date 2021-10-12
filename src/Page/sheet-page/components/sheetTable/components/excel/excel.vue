@@ -70,7 +70,7 @@
           :class="{ canSet: item.canSet }"
           @click="item.canSet && setTitle(item)"
         >
-          <span v-if="item.key=='recordYear' && (HOSPITAL_ID=='huadu'||HOSPITAL_ID=='guizhou')">{{recordYear()}}</span>
+          <span v-if="item.key=='recordYear'">{{recordYear()}}</span>
           <span v-else v-html="item.name"></span>
         </th>
       </tr>
@@ -429,9 +429,6 @@
         <span v-else-if="sheetInfo.sheetType == 'intervention_cure_lcey'"
           >护士签名：</span
         >
-        <span v-else-if="sheetInfo.sheetType == 'waiting_birth_gzry'"
-          >审核签名：</span
-        >
         <span v-else>上级护士签名：</span>
         <span class="sh-name-box">
           <div
@@ -558,7 +555,6 @@ export default {
         "prenatal_hl",
         "common_sn",
         "maternity_sn",
-        "waiting_birth_gzry",//贵州人医_产程记录单
       ],
       // 需要双签名的记录单code
       multiSignArr: [
@@ -1099,7 +1095,10 @@ export default {
       ) {
         let flag = tr.find(item => item.key == "status").value === "1" && // 是否已签名
                    this.listData && this.listData[index] && !this.listData[index].canModify// 是否有权限
-        flag = (!this.isFirst(tr,index)&&(td.key==='recordMonth'||td.key==='recordHour')); // 已签名的recordMonth和recordHour单元格，并且不是第一行(最高等级)
+                   //td存在才判断
+        if(td){
+          flag = (!this.isFirst(tr,index)&&(td.key==='recordMonth'||td.key==='recordHour')); // 已签名的recordMonth和recordHour单元格，并且不是第一行(最高等级)
+        }       
         return flag
       }
       if (
