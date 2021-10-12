@@ -38,7 +38,7 @@
           <span>
             住院号：{{ patientInfo.patientId }}
           </span>
-          <span>
+          <!-- <span>
             孕/产次：
             <input
               class="bottom-line-input"
@@ -58,7 +58,7 @@
               :data-value="sheetInfo.relObj.pregnantWeeks"
               v-model="sheetInfo.relObj.pregnantWeeks"
             />
-          </span>
+          </span> -->
         </div>
         <excel
           :data="data"

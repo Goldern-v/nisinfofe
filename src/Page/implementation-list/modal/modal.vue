@@ -1,12 +1,12 @@
 <template>
-    <div class="modal" id="printIframe" style="display:none">
+    <div class="modal" id="printIframe" v-show="false">
         <div class="page">
             <div class="modal-title">
                     瓶签打印
             </div>
             <i class="el-icon-close cancel-btn" @click="close()"></i>
             <div class="pre-print">
-                <iframe :src="src" frameborder="0" id="pdfpage" style="display:none"></iframe>
+                <iframe :src="src" frameborder="0" id="pdfpage" ></iframe>
             </div>
         </div>
     </div>
