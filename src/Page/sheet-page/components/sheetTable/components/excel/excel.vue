@@ -682,7 +682,9 @@ export default {
     onFocus(e, bind) {
       if (sheetInfo.model == "print") return;
       if (!this.sheetInfo.downControl) {
-        onFocusToAutoComplete(e, bind);
+        setTimeout(function () {
+          onFocusToAutoComplete(e, bind); 
+        }, 300);
       }
     },
     onBlur(e, bind) {
