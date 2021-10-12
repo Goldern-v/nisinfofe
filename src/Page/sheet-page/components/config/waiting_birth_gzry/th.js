@@ -34,13 +34,13 @@ export default {
         colspan: "2",
         rowspan: "1",
       },
-      {
-        name: `
-        衔接
-        `,
-        colspan: "1",
-        rowspan: "3"
-      },
+      // {
+      //   name: `
+      //   衔接
+      //   `,
+      //   colspan: "1",
+      //   rowspan: "3"
+      // },
       {
         name: '宫缩',
         style: {},
@@ -60,13 +60,13 @@ export default {
         colspan: "1",
         rowspan: "3"
       },
-      {
-        name: `
-        矢状缝
-        `,
-        colspan: "1",
-        rowspan: "3"
-      },
+      // {
+      //   name: `
+      //   矢状缝
+      //   `,
+      //   colspan: "1",
+      //   rowspan: "3"
+      // },
       {
         name: `
         胎膜
@@ -150,7 +150,7 @@ export default {
         rowspan: "2",
       },
       {
-        name: `开张<br/>(cm)`,
+        name: `扩张<br/>(cm)`,
         colspan: "1",
         rowspan: "2",
       },

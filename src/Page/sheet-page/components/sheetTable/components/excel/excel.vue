@@ -429,9 +429,6 @@
         <span v-else-if="sheetInfo.sheetType == 'intervention_cure_lcey'"
           >护士签名：</span
         >
-        <span v-else-if="sheetInfo.sheetType == 'waiting_birth_gzry'"
-          >审核签名：</span
-        >
         <span v-else>上级护士签名：</span>
         <span class="sh-name-box">
           <div
@@ -558,7 +555,6 @@ export default {
         "prenatal_hl",
         "common_sn",
         "maternity_sn",
-        "waiting_birth_gzry",//贵州人医_产程记录单
       ],
       // 需要双签名的记录单code
       multiSignArr: [

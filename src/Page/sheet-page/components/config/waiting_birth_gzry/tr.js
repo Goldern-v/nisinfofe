@@ -59,7 +59,7 @@ export default [
       width: 50
     },
     autoComplete: {
-      data: ["左上", "左下", "右上", "右下"]
+      data: ["脐右下", "脐左下", "脐右上", "脐左上", "脐下"]
     },
     change: (e, td) => limitChange(e, td, 6),
   },
@@ -74,16 +74,16 @@ export default [
     },
     change: (e, td) => limitChange(e, td, 6),
   },
-  {
-    key: "dovetail", //衔接
-    value: "",
-    event: keyf1,
-    name: "衔接",
-    textarea: {
-      width: 50
-    },
-    change: (e, td) => limitChange(e, td, 6),
-  },
+  // {
+  //   key: "dovetail", //衔接
+  //   value: "",
+  //   event: keyf1,
+  //   name: "衔接",
+  //   textarea: {
+  //     width: 50
+  //   },
+  //   change: (e, td) => limitChange(e, td, 6),
+  // },
   {
     key: "intermission", //间歇
     value: "",
@@ -125,6 +125,9 @@ export default [
     textarea: {
       width: 50
     },
+    autoComplete: {
+      data: ["软", "硬", "肿"]
+    },
     change: (e, td) => limitChange(e, td, 6),
   },
   {
@@ -137,16 +140,16 @@ export default [
     },
     change: (e, td) => limitChange(e, td, 6),
   },
-  {
-    key: "sagittalSuture", //矢状缝
-    value: "",
-    event: keyf1,
-    name: "矢状缝",
-    textarea: {
-      width: 50
-    },
-    change: (e, td) => limitChange(e, td, 6),
-  },
+  // {
+  //   key: "sagittalSuture", //矢状缝
+  //   value: "",
+  //   event: keyf1,
+  //   name: "矢状缝",
+  //   textarea: {
+  //     width: 50
+  //   },
+  //   change: (e, td) => limitChange(e, td, 6),
+  // },
   {
     key: "fetalMembrane", //胎膜
     value: "",
@@ -174,6 +177,9 @@ export default [
     name: "检查方式",
     textarea: {
       width: 50
+    },
+    autoComplete: {
+      data: ["阴道检查", "肛门检查"]
     },
     change: (e, td) => limitChange(e, td, 6),
   },
