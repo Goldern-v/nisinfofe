@@ -106,7 +106,7 @@
               <div
                 type="text"
                 flex-box="1"
-                style="width: 0px;font-size: 22px; padding-left: 2px;;margin-right:150px;border-bottom:0;"
+                style="width: 0px;font-size: 22px; padding-left: 2px;;margin-right:100px;border-bottom:0;"
                 nowidth
                 class="bottom-line"
               >{{moment(item.admissionDate).format('YYYY-MM-DD')}}</div>
@@ -129,7 +129,7 @@
           <p>{{ item.bedLabel + "床" }}</p>
           <span>姓名：</span>
           <p>{{ item.name }}</p>
-          <span><span style="display:inline-block;width:60%;">性别：</span><span style="font-size:20px;display:inline-block;width:40%">{{ item.sex }}</span></span>
+          <span><span style="display:inline-block;width:54px;">性别：</span><span style="font-size:20px;display:inline-block;width:30px;">{{ item.sex }}</span></span>
           <span>年龄：</span>
           <p>{{ item.age }}</p>
           <span>住院号：</span>
@@ -223,8 +223,8 @@
   display: inline-block;
   font-size: 16px;
   .bed-card-con{
-    width:11.25cm;
-    height:7.125cm;
+    width:9cm;
+    height:5.7cm;
   }
   >>> * {
     font-family: 'SimHei', 'Microsoft Yahei' !important;
@@ -371,7 +371,7 @@
   .qr-code {
     position: absolute;
     bottom: 10px;
-    right: 20px;
+    right: 10px;
     height: 125px;
     width: 125px;
 
@@ -426,7 +426,6 @@
 
 .input-item {
   height: 40px;
-  padding-right: 12px;
   font-size: 22px;
   font-weight: bold;
   position: relative;
@@ -825,7 +824,32 @@ export default {
           `
           });
         } else {
-          print(this.$refs.printCon);
+          printing(this.$refs.printCon, {
+            direction: "horizontal",
+            injectGlobalCss: true,
+            scanStyles: false,
+            css: `
+            .bed-card-warpper {
+              box-shadow: none !important;
+              transform:translate(50px,0);
+              display:flex!important;
+              flex-wrap:wrap;
+              width:29cm;
+            }
+            .bed-card-con{
+              margin:0!important;
+            }
+            .bed-card-con.firstpage{
+              margin-top:105px!important;
+            }
+            .bed-card-con.nextpage{
+              margin-bottom:105px!important;
+            }
+            @page {
+              margin: 1px 30px 0;
+            }
+            `
+          });
         }
       });
     },
