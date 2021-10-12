@@ -282,6 +282,12 @@
         ⑧雾化吸入 ⑨更换引流装置 ⑩保护性约束
       </p>
     </div>
+     <!-- 南方中西医护理记录单 -->
+    <div v-if="sheetInfo.sheetType == 'nursingrecords_zxy'">
+      <p>
+        备注：意识：清醒(-)、嗜睡(+)、浅昏迷(++)、深昏迷(+++)、麻醉未醒(△)、通畅(√) &emsp; &emsp; 敷料：干洁、渗血、渗液   &emsp; &emsp;  瞳孔：灵敏(+)、迟钝(±)、消失(-)
+      </p>
+    </div>
   </div>
 </template>
 

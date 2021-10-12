@@ -738,6 +738,11 @@ function switechSheetType(type) {
       schema = require("../config/access_bh/tr.js").default;
     }
       break;
+    case "nursingrecords_zxy": {
+      // 南方中西医 - 护理记录单
+      schema = require("../config/nursingrecords_zxy/tr.js").default;
+    }
+      break;
     default: {
       schema = require("../config/default/tr.js").default;
     }

@@ -70,7 +70,7 @@
           :class="{ canSet: item.canSet }"
           @click="item.canSet && setTitle(item)"
         >
-          <span v-if="item.key=='recordYear' && (HOSPITAL_ID=='huadu'||HOSPITAL_ID=='guizhou')">{{recordYear()}}</span>
+          <span v-if="item.key=='recordYear'">{{recordYear()}}</span>
           <span v-else v-html="item.name"></span>
         </th>
       </tr>

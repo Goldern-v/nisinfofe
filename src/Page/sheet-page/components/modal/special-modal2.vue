@@ -1292,6 +1292,7 @@ export default {
         this.HOSPITAL_ID != "weixian" &&
         this.sheetInfo.sheetType != "special" &&
         this.HOSPITAL_ID != "huadu" &&
+        this.HOSPITAL_ID != "nanfangzhongxiyi" &&
         this.sheetInfo.sheetType != "icu_qz"
       ) {
         allDoc = "    " + this.doc;
@@ -1351,8 +1352,15 @@ export default {
             } else {
               text += allDoc[i];
             }
-          }else if (this.sheetInfo.sheetType === "internal_eval_lcey") {
-            if (GetLength(text) > 98) {
+          }else if (this.sheetInfo.sheetType === "prenatalcheck_bh") {
+            if (GetLength(text) > 58) {
+              result.push(text);
+              text = allDoc[i];
+            } else {
+              text += allDoc[i];
+            }
+          }else if (this.sheetInfo.sheetType === "nursingrecords_zxy") {
+            if (GetLength(text) > 70) {
               result.push(text);
               text = allDoc[i];
             } else {
