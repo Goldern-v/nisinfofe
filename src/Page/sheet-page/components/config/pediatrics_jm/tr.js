@@ -71,7 +71,10 @@ export default [{
 {
   key: "otherFood", // 入量自定义
   value: "",
-  event: keyf1
+  event: keyf1,
+  textarea: {
+    width: 36
+  }
 },
 {
   key: "urineVolume", // 小便（ml）
@@ -101,7 +104,10 @@ export default [{
 {
   key: "otherDischarge", //出量自定义
   value: "",
-  event: keyf1
+  event: keyf1,
+  textarea: {
+    width: 36
+  }
 },
 {
   key: "fieldOne", //标题1
@@ -155,9 +161,9 @@ export default [{
   key: "description", //特殊情况记录
   value: "",
   splice: true,
-  textarea: {
-    width: 150
-  },
+  // textarea: {
+  //   width: 150
+  // },
   style: {
     textAlign: "left",
     position: "absolute",

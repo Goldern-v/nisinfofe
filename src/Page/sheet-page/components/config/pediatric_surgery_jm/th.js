@@ -94,7 +94,7 @@ export default {
     },
     {
       name: `
-        吸氧（L/min）
+        吸氧<br/>(L/min)
         `,
       style: {},
       colspan: '1',
