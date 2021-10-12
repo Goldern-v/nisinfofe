@@ -75,7 +75,7 @@ export default [{
     textarea: {
       width: 75
     },
-  }, 
+  },
   {
     key: "breatheFrequency", //呼吸频率
     value: "",
@@ -86,7 +86,7 @@ export default [{
     textarea: {
       width: 75
     },
-  }, 
+  },
   {
     key: "spo2", //spo2
     value: "",
@@ -97,7 +97,7 @@ export default [{
     textarea: {
       width: 75
     },
-  }, 
+  },
   {
     key: "customItem1", //自定义1
     value: "",
@@ -106,7 +106,7 @@ export default [{
     textarea: {
       width: 95
     },
-  }, 
+  },
   {
     key: "customItem2", //自动义2
     value: "",
@@ -115,7 +115,7 @@ export default [{
     textarea: {
       width: 95
     },
-  }, 
+  },
   {
     key: "customItem3", //自定义3
     value: "",
@@ -124,7 +124,7 @@ export default [{
     textarea: {
       width: 95
     },
-  }, 
+  },
   {
     key: "description", //特殊情况记录
     value: "",
@@ -154,10 +154,10 @@ export default [{
     key: "sign",
     value: ""
   },
-  {
-    key: "audit",
-    value: ""
-  },
+  // {
+  //   key: "audit",
+  //   value: ""
+  // },
   {
     hidden: true,
     key: "id",
