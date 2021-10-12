@@ -36,7 +36,7 @@ export default [{
     textarea: {
       width: 115
     },
-  }, 
+  },
   {
     key: "heartSound", //胎心音
     value: "",
@@ -46,7 +46,7 @@ export default [{
     textarea: {
       width: 115
     },
-  }, 
+  },
   {
     key: "fetalTime", //胎动时间
     value: "",
@@ -56,7 +56,7 @@ export default [{
     textarea: {
       width: 145
     },
-  }, 
+  },
   {
     key: "fetalTotal", //胎动合计
     value: "",
@@ -66,7 +66,7 @@ export default [{
     textarea: {
       width: 105
     },
-  }, 
+  },
   {
     key: "description", //特殊情况记录
     value: "",
@@ -96,10 +96,10 @@ export default [{
     key: "sign",
     value: ""
   },
-  {
-    key: "audit",
-    value: ""
-  },
+  // {
+  //   key: "audit",
+  //   value: ""
+  // },
   {
     hidden: true,
     key: "id",

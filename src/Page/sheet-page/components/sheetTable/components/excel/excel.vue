@@ -1095,7 +1095,10 @@ export default {
       ) {
         let flag = tr.find(item => item.key == "status").value === "1" && // 是否已签名
                    this.listData && this.listData[index] && !this.listData[index].canModify// 是否有权限
-        flag = (!this.isFirst(tr,index)&&(td.key==='recordMonth'||td.key==='recordHour')); // 已签名的recordMonth和recordHour单元格，并且不是第一行(最高等级)
+                   //td存在才判断
+        if(td){
+          flag = (!this.isFirst(tr,index)&&(td.key==='recordMonth'||td.key==='recordHour')); // 已签名的recordMonth和recordHour单元格，并且不是第一行(最高等级)
+        }       
         return flag
       }
       if (

@@ -56,10 +56,10 @@ export default [{
     key: "sign",
     value: ""
   },
-  {
-    key: "audit",
-    value: ""
-  },
+  // {
+  //   key: "audit",
+  //   value: ""
+  // },
   {
     hidden: true,
     key: "id",
