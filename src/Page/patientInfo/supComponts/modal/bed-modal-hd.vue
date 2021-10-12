@@ -658,6 +658,7 @@ export default {
         remark: "",
         remarkPrint: true
       },
+      mainDoctors:'',
       ysList: [],
       printMode: "h", //打印模式
       title: "编辑床头卡",
