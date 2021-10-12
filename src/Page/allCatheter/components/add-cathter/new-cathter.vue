@@ -20,7 +20,7 @@
                             v-model="expecteReplaceTime"
                             type="datetime"
                             placeholder="选择日期时间">
-                            </el-date-picker>
+                            </el-date-picker><span class="star">*</span>
                 </div>
                  <div style="margin-bottom:10px;">
                     管道来源:<el-select v-model="catheterSource" placeholder="请选择">
@@ -90,6 +90,15 @@
             }
         }
     }
+    .star{
+        color: red;
+        font-size: 20px;
+        margin-left: 5px;
+        cursor: default;
+    }
+    /deep/ .el-input{
+        margin-left: 5px;
+    }
 }
 </style>
 <script>
@@ -119,10 +128,14 @@ methods: {
     closeSelf(){
         this.$emit('close')
     },
-    changeType(e){
-        this.title = e.currentTarget.value
+    changeType(value){
+        this.formTitle = value
     },
     sumbitCathter(){
+        if(!this.expecteReplaceTime){
+            this.$message.error('换管时间不能为空！')
+            return
+        }
         let {formCode , formType , name} = this.newCathterType
         createCathter({
             code: formCode,
