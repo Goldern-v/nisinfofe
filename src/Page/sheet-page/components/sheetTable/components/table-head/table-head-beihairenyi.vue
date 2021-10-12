@@ -1,6 +1,7 @@
 <template>
   <div class="header-con">
     <div class="his-name">{{HOSPITAL_NAME_SPACE}}</div>
+    <div class="re-title">广西医科大学第九附属医院</div>
     <div class="title">{{patientInfo.recordName}}</div>
     <!-- {{sheetInfo.relObj}} -->
     <div class="info-con" flex="main:justify">
@@ -27,6 +28,10 @@
       <span>
         住院号：
         <div class="bottom-line" style="min-width: 80px">{{patientInfo.inpNo}}</div>
+      </span>
+      <span>
+        诊断：
+        <div class="bottom-line" style="min-width: 80px">{{patientInfo.diagnosis}}</div>
       </span>
       <span>
         入院时间：
@@ -222,5 +227,12 @@ input.bottom-line {
   border-left: 0;
   border-right: 0;
   outline: none;
+}
+.re-title{
+  font-size: 19px;
+  text-align: center;
+  font-weight: bold;
+  font-family: simsun, 'Times New Roman', Georgia, Serif !important;
+  padding-top: 5px;
 }
 </style>

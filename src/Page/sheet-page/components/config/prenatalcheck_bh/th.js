@@ -65,17 +65,17 @@ export default {
         colspan: "1",
         rowspan: "3",
       },
-      {
-        name: `
-        审核签名
-        `,
-        style: {
-          minWidth: "80px",
-          maxWidth: "80px",
-        },
-        colspan: '1',
-        rowspan: '3'
-      }
+      // {
+      //   name: `
+      //   审核签名
+      //   `,
+      //   style: {
+      //     minWidth: "80px",
+      //     maxWidth: "80px",
+      //   },
+      //   colspan: '1',
+      //   rowspan: '3'
+      // }
     ],
     mid: [
       {

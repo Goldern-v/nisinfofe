@@ -866,7 +866,7 @@ export default {
         this.HOSPITAL_ID === "huadu" ? "&nbsp" : this.recordDate;
       if (this.recordDate) {
         if (this.isRead) {
-          return "已签名，不可以编辑&nbsp;&nbsp;&nbsp;&nbsp;" + recordDate;
+          return "已签名&nbsp;&nbsp;&nbsp;&nbsp;" + recordDate;
         } else {
           return "编辑护理记录&nbsp;&nbsp;&nbsp;&nbsp;" + recordDate;
         }
@@ -886,6 +886,12 @@ export default {
       return this.sheetInfo.sheetType == "neurology";
     },
     isDisabed() {
+    if (
+        this.HOSPITAL_ID == "huadu" &&
+        sheetInfo.sheetType === "body_temperature_Hd" 
+      ) {
+        return false;
+      }
       if (
         this.HOSPITAL_ID == "weixian" &&
         (this.tr.find((item) => item.key == "description") || {}).value &&
@@ -1017,6 +1023,10 @@ export default {
       } else {
         isRead = false;
       }
+       if(this.HOSPITAL_ID==='huadu'){
+      isRead=false
+      }
+     
       this.isRead = isRead;
       this.table = config.table;
       this.customTitle = decoder_title(config.thead);

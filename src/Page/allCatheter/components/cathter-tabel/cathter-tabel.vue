@@ -172,6 +172,7 @@
 <script>
 import moment from 'moment';
 import {
+    getCatheterTable,
     getConfig,
     saveCatheter,
     getCatheterValueDict,
@@ -209,6 +210,18 @@ return {
 };
 },
 methods: {
+    refreshCatcherTable(code,type,id,patientId,visitId){
+        getCatheterTable({
+                code,
+                type,
+                id,
+                patientId,
+                visitId
+            },code).then(res=>{
+                // console.log(res);
+                this.$emit('updateTableConfig',res.data.data)
+            })
+    },
     extubation(){
         extubationApi(this.tableInfo,this.tableInfo.code).then(res=>{
             this.$message.success('操作成功')
@@ -250,12 +263,16 @@ methods: {
         this.isDel = true
     },
     showDelModal(row){
+        if(!row.id){
+            this.$message.error('该行暂无数据！')
+            return
+        }
         this.currentRow = row
         this.delType = 'row'
         this.isDel = true
     },
     delRow(empNo,password){    
-        let {code} = this.tableInfo
+        let {code,type,id,patientId,visitId} = this.tableInfo
         if(this.delType==='row'){
             delRowApi({
                 id:this.currentRow.id,
@@ -263,6 +280,8 @@ methods: {
                 password:password
             },code).then(res=>{
                 this.$message.success('删除成功')
+                this.isDel = false
+                this.refreshCatcherTable(code,type,id,patientId,visitId)
             }).catch(err=>{
                 this.$message.error(err.desc)
             })
@@ -282,13 +301,13 @@ methods: {
         }
     },
     saveTable(){
-        let {code,type,id} = this.tableInfo
+        let {code,type,id,patientId,visitId} = this.tableInfo
         saveCatheter({
             code,type,id,
             list:this.tabelData
         },code).then(res=>{
             this.$message.success('保存成功')
-            this.init()
+            this.refreshCatcherTable(code,type,id,patientId,visitId)
         }).catch(err=>{
             this.$message.error(err)
         })
