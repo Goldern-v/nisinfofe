@@ -42,7 +42,7 @@ export default {
       },
       {
         name: `
-        RP<br/>mmHg
+        BP<br/>mmHg
         `,
         colspan: "1",
         rowspan: "3",

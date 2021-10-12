@@ -1,5 +1,5 @@
 /*
-南方中西医 - 护理记录单
+南方中西医 - 脑病科观察记录
 */
 import {
   multiDictInfo
@@ -48,7 +48,7 @@ export default [
     },
   },
   {
-    key: "pulse", //P/HR
+    key: "pulse", //P
     value: "",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
@@ -87,16 +87,124 @@ export default [
     },
   },
   {
+    key: "cvp", //CVP
+    value: "",
+    event: keyf1,
+    name: "CVP",
+    change: (e, td) => limitChange(e, td, 6),
+    textarea: {
+      width: 45
+    },
+  },
+  {
+    key: "spo2", //SPO₂(%)
+    value: "",
+    event: keyf1,
+    name: "SPO₂",
+    next: "%",
+    change: (e, td) => limitChange(e, td, 6),
+    textarea: {
+      width: 45
+    },
+  },
+  {
     key: "consciousness", //意识
     value: "",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 6),
     name: "意识",
-    autoComplete: {
-      data: 意识
-    },
     textarea: {
       width: 40
+    },
+  },
+  {
+    key: "gcs", //GCS
+    value: "",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 6),
+    name: "GCS",
+    textarea: {
+      width: 40
+    },
+  },
+  {
+    key: "limbsUpperLeft", //肢体-上-左
+    value: "",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 2),
+    name: "上-左",
+    textarea: {
+      width: 25
+    },
+  },
+  {
+    key: "limbsUpperRight", //肢体-上-右
+    value: "",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 2),
+    name: "上-右",
+    textarea: {
+      width: 25
+    },
+  },
+  {
+    key: "limbsUnderLeft", //肢体-下-左
+    value: "",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 2),
+    name: "下-左",
+    textarea: {
+      width: 25
+    },
+  },
+  {
+    key: "limbsUnderRight", //肢体-下-右
+    value: "",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 2),
+    name: "下-右",
+    textarea: {
+      width: 25
+    },
+  },
+  {
+    key: "pupilSizeLeft", //瞳孔-大小-左
+    value: "",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 2),
+    name: "大小-左",
+    textarea: {
+      width: 25
+    },
+  },
+  {
+    key: "pupilSizeRight", //瞳孔-大小-右
+    value: "",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 2),
+    name: "大小-右",
+    textarea: {
+      width: 25
+    },
+  },
+  {
+    key: "pupilReflexLeft", //瞳孔-反射-左
+    value: "",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 2),
+    name: "反射-左",
+    textarea: {
+      width: 25
+    },
+  },
+  {
+    key: "pupilReflexRight", //瞳孔-反射-右
+    value: "",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 2),
+    name: "反射-右",
+    textarea: {
+      width: 25
     },
   },
   {
@@ -148,59 +256,13 @@ export default [
     },
   },
   {
-    key: "spo2", //SPO₂(%)
+    key: "recumbentPosition", //卧位
     value: "",
     event: keyf1,
-    name: "SPO₂",
-    next: "%",
-    change: (e, td) => limitChange(e, td, 6),
+    change: (e, td) => limitChange(e, td, 4),
+    name: "卧位",
     textarea: {
-      width: 45
-    },
-  },
-  {
-    key: "kong1", //标题1
-    value: "",
-    event: keyf1,
-    change: (e, td) => limitChange(e, td, 6),
-    textarea: {
-      width: 45
-    },
-  },
-  {
-    key: "kong2", //标题2
-    value: "",
-    event: keyf1,
-    change: (e, td) => limitChange(e, td, 6),
-    textarea: {
-      width: 45
-    },
-  },
-  {
-    key: "kong3", //标题3
-    value: "",
-    event: keyf1,
-    change: (e, td) => limitChange(e, td, 6),
-    textarea: {
-      width: 45
-    },
-  },
-  {
-    key: "kong4", //标题4
-    value: "",
-    event: keyf1,
-    change: (e, td) => limitChange(e, td, 6),
-    textarea: {
-      width: 45
-    },
-  },
-  {
-    key: "kong5", //标题5
-    value: "",
-    event: keyf1,
-    change: (e, td) => limitChange(e, td, 6),
-    textarea: {
-      width: 45
+      width: 35
     },
   },
   {
@@ -212,11 +274,11 @@ export default [
       top: "1px",
       bottom: "1px",
       left: "1px",
-      width: "410px",
+      width: "150px",
       background: "transparent",
     },
     textarea: {
-      width: 410
+      width: 150
     },
     event: function (e, td) {
       console.log(e.keyCode);

@@ -950,6 +950,48 @@ export default function Title(
     );
   }
   break;
+  case "emergencynursing_zxy": {
+    //  南方中西医 - 急诊留观护理单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/emergencynursing_zxy/th").default)
+    );
+  }
+  break;
+  case "encephalopathy_zxy": {
+    //  南方中西医 - 脑病科观察记录
+    Th = JSON.parse(
+      JSON.stringify(require("../config/encephalopathy_zxy/th").default)
+    );
+  }
+  break;
+  case "brainobservation_zxy": {
+    //  南方中西医 - 脑科观察记录
+    Th = JSON.parse(
+      JSON.stringify(require("../config/brainobservation_zxy/th").default)
+    );
+  }
+  break;
+  // case "recordicu1_zxy": {
+  //   //  南方中西医 - 重症监护病房护理记录单(表一)
+  //   Th = JSON.parse(
+  //     JSON.stringify(require("../config/recordicu1_zxy/th").default)
+  //   );
+  // }
+  // break;
+  // case "recordicu2_zxy": {
+  //   //  南方中西医 - 重症监护病房护理记录单(表二)
+  //   Th = JSON.parse(
+  //     JSON.stringify(require("../config/recordicu2_zxy/th").default)
+  //   );
+  // }
+  // break;
+  // case "recordicu3_zxy": {
+  //   //  南方中西医 - 重症监护病房护理记录单(表三)
+  //   Th = JSON.parse(
+  //     JSON.stringify(require("../config/recordicu3_zxy/th").default)
+  //   );
+  // }
+  // break;
   default: {
     Th = JSON.parse(
       JSON.stringify(require("../config/default/th").default)
