@@ -943,6 +943,13 @@ export default function Title(
     );
   }
   break;
+  case "nursingrecords_zxy": {
+    //  南方中西医 - 护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/nursingrecords_zxy/th").default)
+    );
+  }
+  break;
   default: {
     Th = JSON.parse(
       JSON.stringify(require("../config/default/th").default)
