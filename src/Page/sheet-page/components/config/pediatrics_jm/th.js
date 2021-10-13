@@ -242,7 +242,7 @@ export default {
         key: 'otherFood',
       }, {
         name: `
-        尿量
+        尿液
         `,
         colspan: '2',
         rowspan: '1'
