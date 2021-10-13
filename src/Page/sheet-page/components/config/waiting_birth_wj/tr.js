@@ -1,5 +1,5 @@
 /*
-南方中西医 - 护理记录单
+武警 - 待产护理记录单
 */
 import {
   multiDictInfo
@@ -14,16 +14,17 @@ import {
   click_date,
   click_time
 } from "../keyEvent/date";
-let 入量名称 = [];
-let 出量名称 = [];
-let 意识 = ['(-)', '(+)', '(++)', '(+++)', '(△)', '(√)',];
+let 胎位 = ['LOA','ROA','ROT','LOT','RST','LST'];
+let 部位 = ['左上','左下','右上','右下','左下右下','左上右上','左上右下','左下右上'];
+let 衔接 = ['已','未'];
+let 宫颈扩张 = ['1','1+','2','2+','3','3+','4','5','6','7','8','9','全开'];
+let 先露高低 = ['-1','-2','-3','0','+1','+2','+3'];
+let 胎膜 = ['已破','未破'];
+let 羊水性状 = ['Ⅰ°','Ⅱ°','Ⅲ°','清','浑浊'];
+let 检查方式 = ['肛','阴','腹'];
+let 阴道流血 = ['无','少量','多量'];
 
 export default [
-  {
-    key: "recordDate", //年份
-    value: "",
-    hidden:true
-  },
   {
     key: "recordMonth", //日期
     value: "",
@@ -40,33 +41,33 @@ export default [
     key: "temperature", //T
     value: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 3),
+    change: (e, td) => limitChange(e, td, 6),
     name: "体温",
     next: "℃",
     textarea: {
-      width: 27
+      width: 45
     },
   },
   {
     key: "pulse", //P/HR
     value: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 6),
     name: "脉搏",
     next: "次/分",
     textarea: {
-      width: 35
+      width: 45
     },
   },
   {
     key: "breath", //R
     value: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 6),
     name: "呼吸",
     next: "次/分",
     textarea: {
-      width: 35
+      width: 45
     },
   },
   {
@@ -87,115 +88,168 @@ export default [
     },
   },
   {
-    key: "consciousness", //意识
+    key: "fetusPosition", //胎位
     value: "",
     event: keyf1,
+    name: "胎位",
+    autoComplete: {
+      data: 胎位
+    },
     change: (e, td) => limitChange(e, td, 6),
-    name: "意识",
-    autoComplete: {
-      data: 意识
-    },
     textarea: {
-      width: 40
+      width: 45
     },
   },
   {
-    key: "food", //入量名称
+    key: "fetalPosition", //胎心音部位
     value: "",
     event: keyf1,
-    name: "入量名称",
-    change: (e, td) => limitChange(e, td, 10),
-    textarea: {
-      width: 65,
-    },
+    name: "胎心音部位",
     autoComplete: {
-      data: 入量名称
+      data: 部位
+    },
+    change: (e, td) => limitChange(e, td, 6),
+    textarea: {
+      width: 45
     },
   },
   {
-    key: "foodSize", //入量（单位ml）
+    key: "fetalRate", //胎心音心率
     value: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
-    name: "入量",
+    name: "胎心音心率",
+    change: (e, td) => limitChange(e, td, 6),
+    textarea: {
+      width: 45
+    },
+  },
+  {
+    key: "dovetail", //衔接
+    value: "",
+    event: keyf1,
+    name: "衔接",
+    autoComplete: {
+      data: 衔接
+    },
+    change: (e, td) => limitChange(e, td, 6),
+    textarea: {
+      width: 45
+    },
+  },
+  {
+    key: "intermission", //宫缩间歇
+    value: "",
+    event: keyf1,
+    name: "宫缩间歇",
     next: "ml",
+    change: (e, td) => limitChange(e, td, 6),
     textarea: {
-      width: 35
+      width: 45
     },
   },
   {
-    key: "discharge", //出量名称
+    key: "sustain", //宫缩间歇
     value: "",
     event: keyf1,
-    name: "出量名称",
-    change: (e, td) => limitChange(e, td, 10),
-    textarea: {
-      width: 65,
-    },
-    autoComplete: {
-      data: 出量名称
-    }
-  },
-  {
-    key: "dischargeSize", //出量（单位ml）
-    value: "",
-    event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
-    name: "出量",
+    name: "宫缩间歇",
     next: "ml",
-    textarea: {
-      width: 35
-    },
-  },
-  {
-    key: "spo2", //SPO₂(%)
-    value: "",
-    event: keyf1,
-    name: "SPO₂",
-    next: "%",
     change: (e, td) => limitChange(e, td, 6),
     textarea: {
       width: 45
     },
   },
   {
-    key: "kong1", //标题1
+    key: "cervicalOpening", //宫颈扩张
     value: "",
     event: keyf1,
+    name: "宫颈扩张",
+    autoComplete: {
+      data: 宫颈扩张
+    },
     change: (e, td) => limitChange(e, td, 6),
     textarea: {
       width: 45
     },
   },
   {
-    key: "kong2", //标题2
+    key: "firstExposure", //先露高低
     value: "",
     event: keyf1,
+    name: "先露高低",
+    autoComplete: {
+      data: 先露高低
+    },
     change: (e, td) => limitChange(e, td, 6),
     textarea: {
       width: 45
     },
   },
   {
-    key: "kong3", //标题3
+    key: "fetalMembrane", //胎膜
     value: "",
     event: keyf1,
+    name: "胎膜",
+    autoComplete: {
+      data: 胎膜
+    },
     change: (e, td) => limitChange(e, td, 6),
     textarea: {
       width: 45
     },
   },
   {
-    key: "kong4", //标题4
+    key: "amnioticFluid", //羊水性状
     value: "",
     event: keyf1,
+    name: "羊水性状",
+    autoComplete: {
+      data: 羊水性状
+    },
     change: (e, td) => limitChange(e, td, 6),
     textarea: {
       width: 45
     },
   },
   {
-    key: "kong5", //标题5
+    key: "vaginalBleeding", //阴道流血
+    value: "",
+    event: keyf1,
+    name: "阴道流血",
+    next: "ml",
+    autoComplete: {
+      data: 阴道流血
+    },
+    change: (e, td) => limitChange(e, td, 6),
+    textarea: {
+      width: 45
+    },
+  },
+  {
+    key: "inspection", //检查方式
+    value: "",
+    event: keyf1,
+    name: "检查方式",
+    autoComplete: {
+      data: 检查方式
+    },
+    change: (e, td) => limitChange(e, td, 6),
+    textarea: {
+      width: 45
+    },
+  },
+  {
+    key: "bloodSugar", //血糖
+    value: "",
+    event: keyf1,
+    name: "血糖",
+    next: "mmol/L",
+    change: (e, td) => limitChange(e, td, 6),
+    textarea: {
+      width: 45
+    },
+  },
+  {
+    key: "customField1", //标题1
     value: "",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 6),
@@ -212,11 +266,11 @@ export default [
       top: "1px",
       bottom: "1px",
       left: "1px",
-      width: "410px",
+      width: "150px",
       background: "transparent",
     },
     textarea: {
-      width: 410
+      width: 150
     },
     event: function (e, td) {
       console.log(e.keyCode);

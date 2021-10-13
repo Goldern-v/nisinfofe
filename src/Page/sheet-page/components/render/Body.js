@@ -778,6 +778,16 @@ function switechSheetType(type) {
       schema = require("../config/recordicu3_zxy/tr.js").default;
     }
       break;
+    case "waiting_birth_wj": {
+      // 武警 - 待产护理记录单
+      schema = require("../config/waiting_birth_wj/tr.js").default;
+    }
+      break;
+    case "postpartum_wj": {
+      // 武警 - 产后(产房)观察记录单
+      schema = require("../config/postpartum_wj/tr.js").default;
+    }
+      break;
     default: {
       schema = require("../config/default/tr.js").default;
     }
