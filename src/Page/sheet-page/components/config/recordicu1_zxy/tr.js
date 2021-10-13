@@ -40,11 +40,11 @@ export default [
     key: "temperature", //体温
     value: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 3),
+    change: (e, td) => limitChange(e, td, 4),
     name: "体温",
     next: "℃",
     textarea: {
-      width: 27
+      width: 35
     },
   },
   {
@@ -81,9 +81,9 @@ export default [
     event: keyf1,
     name: "SPO₂",
     next: "%",
-    change: (e, td) => limitChange(e, td, 6),
+    change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 45
+      width: 35
     },
   },
   {
@@ -91,9 +91,9 @@ export default [
     value: "",
     event: keyf1,
     name: "CVP",
-    change: (e, td) => limitChange(e, td, 6),
+    change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 45
+      width: 35
     },
   },
   {
@@ -113,9 +113,9 @@ export default [
     event: keyf1,
     name: "吸氧",
     next: "升/分",
-    change: (e, td) => limitChange(e, td, 6),
+    change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 45
+      width: 35
     },
   },
   {
@@ -130,121 +130,121 @@ export default [
     },
   },
   {
-    key: "consciousness", //tubeDepth
+    key: "consciousness", //插管深度
     value: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 6),
+    change: (e, td) => limitChange(e, td, 4),
     name: "插管深度",
     next: "cm",
     textarea: {
-      width: 40
+      width: 35
     },
   },
   {
     key: "airbagPressure", //气囊压力
     value: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 6),
+    change: (e, td) => limitChange(e, td, 4),
     name: "气囊压力",
     next: "cmH20",
     textarea: {
-      width: 40
+      width: 35
     },
   },
   {
     key: "ventilationMode", //模式
     value: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 6),
+    change: (e, td) => limitChange(e, td, 4),
     name: "模式",
     textarea: {
-      width: 40
+      width: 35
     },
   },
   {
     key: "ventilationVT", //VT
     value: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 6),
+    change: (e, td) => limitChange(e, td, 4),
     name: "VT",
     next: "ml",
     textarea: {
-      width: 40
+      width: 35
     },
   },
   {
     key: "ventilationF", //F
     value: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 6),
+    change: (e, td) => limitChange(e, td, 4),
     name: "F",
     next: "次/分",
     textarea: {
-      width: 40
+      width: 35
     },
   },
   {
     key: "ventilationFiO2", //Fio2
     value: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 6),
+    change: (e, td) => limitChange(e, td, 4),
     name: "Fio2",
     next: "%",
     textarea: {
-      width: 40
+      width: 35
     },
   },
   {
     key: "ventilationP", //P
     value: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 6),
+    change: (e, td) => limitChange(e, td, 4),
     name: "P",
     next: "cmH20",
     textarea: {
-      width: 40
+      width: 35
     },
   },
   {
     key: "ventilationPEEP", //PEEP
     value: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 6),
+    change: (e, td) => limitChange(e, td, 4),
     name: "PEEP",
     next: "cmH20",
     textarea: {
-      width: 40
+      width: 35
     },
   },
   {
     key: "ventilationPS", //PS
     value: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 6),
+    change: (e, td) => limitChange(e, td, 4),
     name: "PS",
     next: "cmH20",
     textarea: {
-      width: 40
+      width: 35
     },
   },
   {
     key: "sedationScore", //镇静评分
     value: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 6),
+    change: (e, td) => limitChange(e, td, 4),
     name: "镇静评分",
     textarea: {
-      width: 40
+      width: 35
     },
   },
   {
     key: "sanity", //神志
     value: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 6),
+    change: (e, td) => limitChange(e, td, 4),
     name: "镇静评分",
     textarea: {
-      width: 40
+      width: 35
     },
   },
   {

@@ -971,27 +971,27 @@ export default function Title(
     );
   }
   break;
-  // case "recordicu1_zxy": {
-  //   //  南方中西医 - 重症监护病房护理记录单(表一)
-  //   Th = JSON.parse(
-  //     JSON.stringify(require("../config/recordicu1_zxy/th").default)
-  //   );
-  // }
-  // break;
-  // case "recordicu2_zxy": {
-  //   //  南方中西医 - 重症监护病房护理记录单(表二)
-  //   Th = JSON.parse(
-  //     JSON.stringify(require("../config/recordicu2_zxy/th").default)
-  //   );
-  // }
-  // break;
-  // case "recordicu3_zxy": {
-  //   //  南方中西医 - 重症监护病房护理记录单(表三)
-  //   Th = JSON.parse(
-  //     JSON.stringify(require("../config/recordicu3_zxy/th").default)
-  //   );
-  // }
-  // break;
+  case "recordicu1_zxy": {
+    //  南方中西医 - 重症监护病房护理记录单(表一)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/recordicu1_zxy/th").default)
+    );
+  }
+  break;
+  case "recordicu2_zxy": {
+    //  南方中西医 - 重症监护病房护理记录单(表二)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/recordicu2_zxy/th").default)
+    );
+  }
+  break;
+  case "recordicu3_zxy": {
+    //  南方中西医 - 重症监护病房护理记录单(表三)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/recordicu3_zxy/th").default)
+    );
+  }
+  break;
   default: {
     Th = JSON.parse(
       JSON.stringify(require("../config/default/th").default)
