@@ -10,8 +10,8 @@ export default {
     top: [{
         name: '日期',
         style: {
-          minWidth: '36px',
-          maxWidth: '36px',
+          minWidth: '30px',
+          maxWidth: '30px',
         },
         colspan: '1',
         rowspan: '3'
@@ -19,8 +19,8 @@ export default {
       {
         name: '时间',
         style: {
-          minWidth: '36px',
-          maxWidth: '36px',
+          minWidth: '30px',
+          maxWidth: '30px',
         },
         colspan: '1',
         rowspan: '3'
@@ -34,7 +34,8 @@ export default {
         rowspan: '3',
         style: {
           whiteSpace: 'nowrap',
-          minWidth: '34px',
+          minWidth: '36px',
+          maxWidth: '36px',
         }
       },
       {
@@ -46,7 +47,8 @@ export default {
         rowspan: '3',
         style: {
           whiteSpace: 'nowrap',
-          minWidth: '38px',
+          minWidth: '36px',
+          maxWidth: '36px',
         }
       },
       {
@@ -58,7 +60,8 @@ export default {
         rowspan: '3',
         style: {
           whiteSpace: 'nowrap',
-          minWidth: '38px',
+          minWidth: '36px',
+          maxWidth: '36px',
         }
       },
       {
@@ -66,8 +69,8 @@ export default {
         血压<br/>(mmHg)
         `,
         style: {
-          minWidth: '52px',
-          maxWidth: '52px',
+          minWidth: '36px',
+          maxWidth: '36px',
           whiteSpace: 'nowrap'
         },
         colspan: '1',
@@ -184,8 +187,8 @@ export default {
         特殊情况记录
         `,
         style: {
-          minWidth: '153px',
-          maxWidth: '153px',
+          minWidth: '180px',
+          maxWidth: '180px',
         },
         colspan: '1',
         rowspan: '3'

@@ -738,6 +738,41 @@ function switechSheetType(type) {
       schema = require("../config/access_bh/tr.js").default;
     }
       break;
+    case "nursingrecords_zxy": {
+      // 南方中西医 - 护理记录单
+      schema = require("../config/nursingrecords_zxy/tr.js").default;
+    }
+      break;
+    case "emergencynursing_zxy": {
+      // 南方中西医 - 急诊留观护理单
+      schema = require("../config/emergencynursing_zxy/tr.js").default;
+    }
+      break;
+    case "encephalopathy_zxy": {
+      // 南方中西医 - 脑病科观察记录
+      schema = require("../config/encephalopathy_zxy/tr.js").default;
+    }
+      break;
+    case "brainobservation_zxy": {
+      // 南方中西医 - 脑科观察记录
+      schema = require("../config/brainobservation_zxy/tr.js").default;
+    }
+      break;
+    // case "recordicu1_zxy": {
+    //   // 南方中西医 - 重症监护病房护理记录单(表一)
+    //   schema = require("../config/recordicu1_zxy/tr.js").default;
+    // }
+    //   break;
+    // case "recordicu2_zxy": {
+    //   // 南方中西医 - 重症监护病房护理记录单(表二)
+    //   schema = require("../config/recordicu2_zxy/tr.js").default;
+    // }
+    //   break;
+    // case "recordicu3_zxy": {
+    //   // 南方中西医 - 重症监护病房护理记录单(表三)
+    //   schema = require("../config/recordicu3_zxy/tr.js").default;
+    // }
+    //   break;
     default: {
       schema = require("../config/default/tr.js").default;
     }

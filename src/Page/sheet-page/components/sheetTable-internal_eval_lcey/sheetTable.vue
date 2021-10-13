@@ -15,31 +15,45 @@
         <div class="his-name">{{ HOSPITAL_NAME_SPACE }}</div>
         <div class="title">{{ patientInfo.recordName }}</div>
         <div class="info-con" flex="main:justify">
-          <span>
-            科室：
-            <div class="bottom-line" style="min-width: 120px">
-              {{ patientInfo.deptName }}
-            </div>
-          </span>
-          <span>
-            床号：
-            <div class="bottom-line" style="min-width: 30px">
-              {{ patientInfo.bedLabel }}
-            </div>
-          </span>
-          <span>
-            姓名：
-            <div class="bottom-line" style="min-width: 60px">
-              {{ patientInfo.patientName }}
-            </div>
-          </span>
-          <span>
-            住院号：
-            <div class="bottom-line" style="min-width: 50px">
-              {{ patientInfo.patientId }}
-            </div>
-          </span>
+      <span
+        @click="updateTetxInfo('patientName', '姓名', patientInfo.patientName)"
+      >
+        姓名：
+        <div class="bottom-line" style="min-width: 80px">
+          {{ patientInfo.patientName }}
         </div>
+      </span>
+      <span @click="updateTetxInfo('sex', '性别', patientInfo.sex)">
+        性别：
+        <div class="bottom-line" style="min-width: 45px">
+          {{ patientInfo.sex }}
+        </div>
+      </span>
+      <span @click="updateTetxInfo('age', '年龄', patientInfo.age)">
+        年龄：
+        <div class="bottom-line" style="min-width: 45px">
+          {{ patientInfo.age }}
+        </div>
+      </span>
+      <span>
+        病室：
+        <div class="bottom-line" style="min-width: 120px">
+          {{ patientInfo.deptName }}
+        </div>
+      </span>
+      <span @click="updateTetxInfo('bedLabel', '床号', patientInfo.bedLabel)">
+        床号：
+        <div class="bottom-line" style="min-width: 45px">
+          {{ patientInfo.bedLabel }}
+        </div>
+      </span>
+      <span>
+        住院号：
+        <div class="bottom-line" style="min-width: 80px">
+          {{ patientInfo.inpNo }}
+        </div>
+      </span>
+    </div>
         <excel
           :data="data"
           :index="index"

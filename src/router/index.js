@@ -220,6 +220,7 @@ import temperatureJmfy from "@/Page/patientInfo/supPage/temperature/temperatureJ
 import temperatureDghl from "@/Page/patientInfo/supPage/temperature/temperatureDghl";
 import temperatureQuZhou from "@/Page/patientInfo/supPage/temperature/temperatureQuZhou";
 import temperatureWuJing from "@/Page/patientInfo/supPage/temperature/temperatureWuJing";
+import temperatureNFZXY from "@/Page/patientInfo/supPage/temperature/temperatureNFZXY";
 import diagnosis from "@/Page/patientInfo/supPage/diagnosis/diagnosis";
 import bloodSugar from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar.vue"; // 厚街
 import bloodSugarWeiXian from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_weixian.vue"; // 威县
@@ -240,7 +241,6 @@ import catheterPage from "@/Page/catheter-page/catheter-page.vue";
 const otherPage = () => import("@/Page/patientInfo/supPage/otherPage/otherPage.vue"); //360视图
 
 const healthEducationGuizhou = ()=>import("@/Page/patientInfo/supPage/healthEducationGuizhou/healthEducation.vue")
-const healthEducationBeihairenyi = ()=>import("@/Page/patientInfo/supPage/healthEducationBeihairenyi/healthEducation.vue")
 
 Vue.use(Router);
 const HOSPITAL_ID = process.env.HOSPITAL_ID;
@@ -321,6 +321,8 @@ const router = new Router({
             return temperatureDghl
             case 'quzhou':
             return temperatureQuZhou
+          case 'nanfangzhongxiyi':
+            return temperatureNFZXY
           case 'wujing':
             return temperatureWuJing
           default:
@@ -670,6 +672,8 @@ const router = new Router({
                 return temperatureWuJing
               case 'fuyou':
                 return temperatureJmfy
+              case 'nanfangzhongxiyi':
+                return temperatureNFZXY
                 case 'quzhou':
                 return temperatureQuZhou
                 case 'hengli':
@@ -720,8 +724,6 @@ const router = new Router({
             switch (process.env.HOSPITAL_ID) {
               case 'guizhou':
                 return healthEducationGuizhou
-              case 'beihairenyi':
-                return healthEducationBeihairenyi
               default:
                 return healthEducation
             }

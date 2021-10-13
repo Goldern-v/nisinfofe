@@ -162,13 +162,13 @@ export default {
         colspan: "1",
         rowspan: "3",
       },
-      {
-        name: `
-        审核签名
-        `,
-        colspan: '1',
-        rowspan: '3'
-      }
+      // {
+      //   name: `
+      //   审核签名
+      //   `,
+      //   colspan: '1',
+      //   rowspan: '3'
+      // }
     ],
     mid: [
       {
@@ -213,7 +213,7 @@ export default {
       },
       {
         name: `
-        直径（mm）
+        直径<br/>(mm)
         `,
         style: {},
         colspan: "2",

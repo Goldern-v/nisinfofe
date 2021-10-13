@@ -515,7 +515,7 @@ export default {
         } = await apis.getShiftRecord(id);
         const { changeShiftTimes: record, changeShiftPatients: patients,shiftWithWardcodes: shiftWithWardcodes } = data;
         record.specialCase = record.specialCase || "";
-        this.record = record;
+        this.record = {...record,...shiftWithWardcodes[0]};
         this.patients = patients;
         this.shiftWithWardcodes = shiftWithWardcodes[0];
         this.modified = false;
