@@ -1125,7 +1125,6 @@ export default {
       ) {
         return false;
       }
-      
         let status = tr.find(item => item.key == "status").value;
         let empNo = tr.find(item => item.key == "empNo").value;
         if (status == 1) {

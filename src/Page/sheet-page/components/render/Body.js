@@ -688,6 +688,11 @@ function switechSheetType(type) {
       schema = require("../config/newborn_qzx/tr.js").default;
     }
       break;
+    case "newborn_intensive_qz": {
+      // 曲周县 - 新生儿重症护理记录单
+      schema = require("../config/newborn_intensive_qz/tr.js").default;
+    }
+      break;
     case "ecgmonitoring_bh": {
       // 北海市 - 心电监护观察记录
       schema = require("../config/ecgmonitoring_bh/tr.js").default;
@@ -758,21 +763,21 @@ function switechSheetType(type) {
       schema = require("../config/brainobservation_zxy/tr.js").default;
     }
       break;
-    // case "recordicu1_zxy": {
-    //   // 南方中西医 - 重症监护病房护理记录单(表一)
-    //   schema = require("../config/recordicu1_zxy/tr.js").default;
-    // }
-    //   break;
-    // case "recordicu2_zxy": {
-    //   // 南方中西医 - 重症监护病房护理记录单(表二)
-    //   schema = require("../config/recordicu2_zxy/tr.js").default;
-    // }
-    //   break;
-    // case "recordicu3_zxy": {
-    //   // 南方中西医 - 重症监护病房护理记录单(表三)
-    //   schema = require("../config/recordicu3_zxy/tr.js").default;
-    // }
-    //   break;
+    case "recordicu1_zxy": {
+      // 南方中西医 - 重症监护病房护理记录单(表一)
+      schema = require("../config/recordicu1_zxy/tr.js").default;
+    }
+      break;
+    case "recordicu2_zxy": {
+      // 南方中西医 - 重症监护病房护理记录单(表二)
+      schema = require("../config/recordicu2_zxy/tr.js").default;
+    }
+      break;
+    case "recordicu3_zxy": {
+      // 南方中西医 - 重症监护病房护理记录单(表三)
+      schema = require("../config/recordicu3_zxy/tr.js").default;
+    }
+      break;
     default: {
       schema = require("../config/default/tr.js").default;
     }
