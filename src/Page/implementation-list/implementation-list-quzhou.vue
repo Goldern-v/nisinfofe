@@ -63,6 +63,12 @@
           ></el-option>
         </el-select>
         <div style="flex: 1"></div>
+         <el-input
+          size="small"
+          style="width: 150px;margin-right: 15px;"
+          placeholder="输入医嘱内容查询"
+          v-model="instructions"
+        ></el-input>
         <el-input
           size="small"
           style="width: 150px;margin-right: 15px;"
@@ -252,6 +258,7 @@ export default {
       status: "",
       bedLabel: "",
       patientName: "",
+      instructions:"",//医嘱内容
       administration: "", //途径
       transfusionStatus: [
         {
@@ -350,7 +357,8 @@ export default {
             : this.type, //执行单类型:输液,口服、治疗、雾化、注射
         bedLabel: this.bedLabel, //床号
         patientName: this.patientName, //患者姓名
-        administration: this.administration // //途径
+        administration: this.administration, // //途径
+        instructions:this.instructions
       };
       getExecuteWithWardcode(obj).then(res => {
         let children = [],tableData = [];
