@@ -873,6 +873,13 @@ export default function Title(
     );
   }
   break;
+  case "newborn_intensive_qz": {
+    // 曲周县 - 新生儿重症护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/newborn_intensive_qz/th").default)
+    );
+  }
+  break;
   case "ecgmonitoring_bh": {
     // 北海市 - 心电监护观察记录
     Th = JSON.parse(
@@ -971,27 +978,41 @@ export default function Title(
     );
   }
   break;
-  // case "recordicu1_zxy": {
-  //   //  南方中西医 - 重症监护病房护理记录单(表一)
-  //   Th = JSON.parse(
-  //     JSON.stringify(require("../config/recordicu1_zxy/th").default)
-  //   );
-  // }
-  // break;
-  // case "recordicu2_zxy": {
-  //   //  南方中西医 - 重症监护病房护理记录单(表二)
-  //   Th = JSON.parse(
-  //     JSON.stringify(require("../config/recordicu2_zxy/th").default)
-  //   );
-  // }
-  // break;
-  // case "recordicu3_zxy": {
-  //   //  南方中西医 - 重症监护病房护理记录单(表三)
-  //   Th = JSON.parse(
-  //     JSON.stringify(require("../config/recordicu3_zxy/th").default)
-  //   );
-  // }
-  // break;
+  case "recordicu1_zxy": {
+    //  南方中西医 - 重症监护病房护理记录单(表一)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/recordicu1_zxy/th").default)
+    );
+  }
+  break;
+  case "recordicu2_zxy": {
+    //  南方中西医 - 重症监护病房护理记录单(表二)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/recordicu2_zxy/th").default)
+    );
+  }
+  break;
+  case "recordicu3_zxy": {
+    //  南方中西医 - 重症监护病房护理记录单(表三)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/recordicu3_zxy/th").default)
+    );
+  }
+  break;
+  case "waiting_birth_wj": {
+    // 武警 - 待产护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/waiting_birth_wj/th").default)
+    );
+  }
+  break;
+  case "postpartum_wj": {
+    // 武警 - 产后(产房)观察记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/postpartum_wj/th").default)
+    );
+  }
+  break;
   default: {
     Th = JSON.parse(
       JSON.stringify(require("../config/default/th").default)

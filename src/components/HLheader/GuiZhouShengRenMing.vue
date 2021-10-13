@@ -174,8 +174,8 @@
                 <el-dropdown-item
                   :class="{
                     active:
-                      $route.path.includes('/shiftWork') &&
-                      !$route.path.includes('/shiftWork2')
+                      $route.path.includes('/shiftWork2') &&
+                      !$route.path.includes('/shiftWork')
                   }"
                 >
                   <router-link to="/shiftWork2" tag="span">
@@ -185,7 +185,7 @@
                   </router-link>
                 </el-dropdown-item>
                 <el-dropdown-item
-                  :class="{ active: $route.path.includes('/shiftWork') }"
+                  :class="{ active: $route.path.includes('/shiftWork')&&!$route.path.includes('/shiftWork2') }"
                 >
                   <router-link to="/shiftWork" tag="span">
                     <el-row class="menu-item" type="flex" align="middle"

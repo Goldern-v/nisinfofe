@@ -1,5 +1,5 @@
 /*
-南方中西医 - 急诊留观护理单
+曲周 - 新生儿重症护理记录单
 */
 import {
   multiDictInfo
@@ -19,11 +19,6 @@ let 出量名称 = [];
 let 意识 = ['(-)', '(+)', '(++)', '(+++)', '(△)', '(√)',];
 
 export default [
-  {
-    key: "recordDate", //年份
-    value: "",
-    hidden:true
-  },
   {
     key: "recordMonth", //日期
     value: "",
@@ -48,7 +43,7 @@ export default [
     },
   },
   {
-    key: "pulse", //P
+    key: "pulse", //P/HR
     value: "",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 6),
@@ -72,7 +67,7 @@ export default [
   {
     key: "bloodPressure", //血压
     value: "",
-    change: (e, td) => limitChange(e, td, 8),
+    change: (e, td) => limitChange(e, td, 6),
     event: function (e, td) {
       if (e.keyCode == 32) {
         e.target.value += "/";
@@ -83,7 +78,7 @@ export default [
     name: "血压",
     next: "mmHg",
     textarea: {
-      width: 55
+      width: 45
     },
   },
   {
@@ -92,107 +87,116 @@ export default [
     event: keyf1,
     name: "SPO₂",
     next: "%",
+    change: (e, td) => limitChange(e, td, 6),
+    textarea: {
+      width: 45
+    },
+  },
+  {
+    key: "volume", //液量
+    value: "",
+    event: keyf1,
+    name: "液量",
+    next: "ml",
     change: (e, td) => limitChange(e, td, 8),
     textarea: {
       width: 55
     },
   },
   {
-    key: "mentalState", //神志
+    key: "intake", //奶量口入
     value: "",
     event: keyf1,
+    name: "奶量口入",
+    next: "ml",
     change: (e, td) => limitChange(e, td, 8),
-    name: "神志",
     textarea: {
       width: 55
     },
   },
   {
-    key: "pupilSizeLeft", //瞳孔-大小-左
+    key: "feeding", //奶量饲管
     value: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
-    name: "大小-左",
-    textarea: {
-      width: 35
-    },
-  },
-  {
-    key: "pupilSizeRight", //瞳孔-大小-右
-    value: "",
-    event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
-    name: "大小-右",
-    textarea: {
-      width: 35
-    },
-  },
-  {
-    key: "pupilReflexLeft", //瞳孔-反射-左
-    value: "",
-    event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
-    name: "反射-左",
-    textarea: {
-      width: 35
-    },
-  },
-  {
-    key: "pupilReflexRight", //瞳孔-反射-右
-    value: "",
-    event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
-    name: "反射-右",
-    textarea: {
-      width: 35
-    },
-  },
-  {
-    key: "food", //入量名称
-    value: "",
-    event: keyf1,
-    name: "入量名称",
-    change: (e, td) => limitChange(e, td, 14),
-    textarea: {
-      width: 85,
-    },
-    autoComplete: {
-      data: 入量名称
-    },
-  },
-  {
-    key: "foodSize", //入量（单位ml）
-    value: "",
-    event: keyf1,
-    change: (e, td) => limitChange(e, td, 6),
-    name: "入量",
+    name: "奶量饲管",
     next: "ml",
+    change: (e, td) => limitChange(e, td, 8),
     textarea: {
-      width: 45
+      width: 55
     },
   },
   {
-    key: "discharge", //出量名称
+    key: "gastricRetention", //胃潴留量
     value: "",
     event: keyf1,
-    name: "出量名称",
-    change: (e, td) => limitChange(e, td, 14),
-    textarea: {
-      width: 85,
-    },
-    autoComplete: {
-      data: 出量名称
-    }
-  },
-  {
-    key: "dischargeSize", //出量（单位ml）
-    value: "",
-    event: keyf1,
-    change: (e, td) => limitChange(e, td, 6),
-    name: "出量",
+    name: "胃潴留量",
     next: "ml",
+    change: (e, td) => limitChange(e, td, 8),
     textarea: {
-      width: 45
+      width: 55
+    },
+  },
+  {
+    key: "retentionTraits", //胃潴留性状
+    value: "",
+    event: keyf1,
+    name: "胃潴留性状",
+    change: (e, td) => limitChange(e, td, 8),
+    textarea: {
+      width: 55
+    },
+  },
+  {
+    key: "vomiting", //呕吐量
+    value: "",
+    event: keyf1,
+    name: "呕吐量",
+    next: "ml",
+    change: (e, td) => limitChange(e, td, 8),
+    textarea: {
+      width: 55
+    },
+  },
+  {
+    key: "vomitingTraits", //呕吐性状
+    value: "",
+    event: keyf1,
+    name: "呕吐性状",
+    change: (e, td) => limitChange(e, td, 8),
+    textarea: {
+      width: 55
+    },
+  },
+  {
+    key: "stoolVolume", //大便量
+    value: "",
+    event: keyf1,
+    name: "大便量",
+    next: "ml",
+    change: (e, td) => limitChange(e, td, 8),
+    textarea: {
+      width: 55
+    },
+  },
+  {
+    key: "stoolTraits", //大便性状
+    value: "",
+    event: keyf1,
+    name: "大便性状",
+    change: (e, td) => limitChange(e, td, 8),
+    textarea: {
+      width: 55
+    },
+  },
+  {
+    key: "urineVolume", //尿量
+    value: "",
+    event: keyf1,
+    name: "尿量",
+    next: "ml",
+    change: (e, td) => limitChange(e, td, 8),
+    textarea: {
+      width: 55
     },
   },
   {

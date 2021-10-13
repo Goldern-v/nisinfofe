@@ -414,7 +414,8 @@
             sheetInfo.sheetType == 'common_wj' ||
               sheetInfo.sheetType == 'common_hl' ||
               sheetInfo.sheetType == 'rescue_hl' ||
-              sheetInfo.sheetType == 'emergency_stay_hl'
+              sheetInfo.sheetType == 'emergency_stay_hl' ||
+              sheetInfo.sheetType == 'waiting_birth_wj'
           "
           >护士长签名：</span
         >
@@ -555,6 +556,7 @@ export default {
         "prenatal_hl",
         "common_sn",
         "maternity_sn",
+        "waiting_birth_wj",
       ],
       // 需要双签名的记录单code
       multiSignArr: [
@@ -1125,7 +1127,6 @@ export default {
       ) {
         return false;
       }
-      
         let status = tr.find(item => item.key == "status").value;
         let empNo = tr.find(item => item.key == "empNo").value;
         if (status == 1) {

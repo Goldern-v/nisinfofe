@@ -241,7 +241,7 @@ export default {
         `,
         style: {
           minWidth: '150px',
-          maxWidth: '180px',
+          maxWidth: '150px',
         },
         colspan: '1',
         rowspan: '3'

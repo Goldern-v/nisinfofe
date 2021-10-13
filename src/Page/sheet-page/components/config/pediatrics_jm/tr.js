@@ -56,7 +56,10 @@ export default [{
 {
   key: "diet", //饮食
   value: "",
-  event: keyf1
+  event: keyf1,
+  textarea: {
+    width: 40
+  }
 },
 {
   key: "veinSize", // 入量静脉（ml）

@@ -76,9 +76,9 @@ const currentTargetUrl = (() => {
 
     /** 江门妇幼 */
     case "fuyou":
-      // return "http://218.14.180.38:9094" // 江门妇幼正式
+      return "http://218.14.180.38:9094" // 江门妇幼正式
       // return "https://info.cr-health.com:20211" // 公司-江门妇幼测试-外网
-      return "http://192.168.1.54:9872" // 公司-江门妇幼测试-内网
+      // return "http://192.168.1.54:9872" // 公司-江门妇幼测试-内网
 
     /** 中山七 */
     case "zhongshanqi":
@@ -93,9 +93,9 @@ const currentTargetUrl = (() => {
 
     /** 南方中西医 */
     case "nanfangzhongxiyi":
-      return "http://183.63.206.194:9091" // 南方中西医正式
+      // return "http://183.63.206.194:9091" // 南方中西医正式
       // return "http://192.168.1.54:9876" // 公司-南方中西医测试-内网
-      // return "http://192.168.1.54:9879" // 公司-南方中西医测试-内网(真)
+      return "http://192.168.1.54:9879" // 公司-南方中西医测试-内网(真)
 
     /** 贵州省人民医院 */
     case "guizhou":
@@ -114,8 +114,8 @@ const currentTargetUrl = (() => {
 
     /** 武警广东省总队医院 */
     case "wujing":
-      return "http://120.24.240.231:15091" // 公司-武警广东省总队医院正式
-      // return "http://192.168.1.54:9866" // 公司-武警广东省总队医院测试-内网
+      // return "http://120.24.240.231:15091" // 公司-武警广东省总队医院正式
+      return "http://192.168.1.54:9866" // 公司-武警广东省总队医院测试-内网
 
     /** 曲周医院 */
     case 'quzhou':
@@ -134,6 +134,10 @@ const currentTargetUrl = (() => {
 
     // 佛山市医
      case 'foshanrenyi':
+      // return "http://219.159.198.37:9094"  // 正式地址
+      return "http://192.168.1.54:9883" // 默认公司本地内网厚街
+    // 佛山杏坛
+    case 'fsxt':
       // return "http://219.159.198.37:9094"  // 正式地址
       return "http://192.168.1.54:9883" // 默认公司本地内网厚街
 
