@@ -3,7 +3,7 @@
     <div class="his-name">{{ HOSPITAL_NAME_SPACE }}</div>
     <div class="title">{{ patientInfo.recordName }}</div>
     <!-- {{ sheetInfo.relObj }} -->
-    <div class="info-con">
+    <div :class="{'info-con': true, 'info-con_new': sheetInfo.sheetType === 'pediatrics_jm'}">
       <span>
         科室：
         <div class="bottom-line" style="min-width: 70px">
@@ -77,7 +77,7 @@
     </div>
     <div class="info-con">
       <span v-if="
-              sheetInfo.sheetType === 'antenatalwaiting_jm' || 
+              sheetInfo.sheetType === 'antenatalwaiting_jm' ||
               sheetInfo.sheetType === 'breastkenursing_jm' ||
               sheetInfo.sheetType === 'obstetricnursing_jm' ||
               sheetInfo.sheetType === 'entdepartment_jm' ||
@@ -231,5 +231,9 @@ input.bottom-line {
 }
 .ml-1000 {
   margin-left: 1000px;
+}
+.info-con_new{
+  display: flex;
+  justify-content: center;
 }
 </style>

@@ -7,7 +7,7 @@
         style="cursor:pointer"
         @click="refreshTree()"
         @dblclick="refreshTree(true)"
-      >护理护理评估单</span>
+      >护理评估单</span>
       <span
         v-else
         class="title"

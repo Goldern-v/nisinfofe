@@ -197,7 +197,7 @@ export default [{
     top: "1px",
     bottom: "1px",
     left: "1px",
-    width: "180px",
+    width: "150px",
     background: "transparent",
     fontSize: "14px"
   },
