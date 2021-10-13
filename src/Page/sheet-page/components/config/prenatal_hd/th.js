@@ -121,8 +121,8 @@ export default {
         canSet: true,
         key: "fieldSix",
         style: {
-          minWidth: "30px",
-          maxWidth: "30px"
+          minWidth: "32px",
+          maxWidth: "32px"
         },
       },
       {
@@ -133,8 +133,8 @@ export default {
         canSet: true,
         key: "fieldSeven",
         style: {
-          minWidth: "30px",
-          maxWidth: "30px"
+          minWidth: "32px",
+          maxWidth: "32px"
         },
       },
       {
@@ -145,8 +145,8 @@ export default {
         canSet: true,
         key: "fieldEight",
         style: {
-          minWidth: "30px",
-          maxWidth: "30px"
+          minWidth: "32px",
+          maxWidth: "32px"
         },
       },
       {
@@ -157,8 +157,8 @@ export default {
         canSet: true,
         key: "fieldNine",
         style: {
-          minWidth: "30px",
-          maxWidth: "30px"
+          minWidth: "32px",
+          maxWidth: "32px"
         },
       },
       {
@@ -169,8 +169,8 @@ export default {
         canSet: true,
         key: "fieldTen",
         style: {
-          minWidth: "40px",
-          maxWidth: "40px"
+          minWidth: "32px",
+          maxWidth: "32px"
         },
       },
       {
@@ -181,8 +181,8 @@ export default {
         canSet: true,
         key: "fieldEleven",
         style: {
-          minWidth: "40px",
-          maxWidth: "40px"
+          minWidth: "32px",
+          maxWidth: "32px"
         },
       },
       {
