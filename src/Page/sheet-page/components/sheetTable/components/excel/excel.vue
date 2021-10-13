@@ -1125,11 +1125,8 @@ export default {
       ) {
         return false;
       }
-      
         let status = tr.find(item => item.key == "status").value;
         let empNo = tr.find(item => item.key == "empNo").value;
-        console.log("empNo"+this.empNo);
-        console.log("isAuditor"+this.isAuditor);
         if (status == 1) {
           if (empNo == this.empNo || this.isAuditor) {
             return false;

@@ -228,10 +228,10 @@ export const getVitalSign = (patientId, visitId, recordDate,id,hospitalId) => {
 };
 
 // 曲周获取his患者体征
-// export const ordersExecuteList = (obj = {}) => {
-//   let id = sheetInfo.selectBlock.id;
-//   return axios.post(`${apiPath}record/block/ordersExecute/list/${id}`, obj);
-// };
+export const ordersExecuteList = (obj = {}) => {
+  let id = sheetInfo.selectBlock.id;
+  return axios.post(`${apiPath}record/block/ordersExecute/list/${id}`, obj);
+};
 
 // 贵州获取his患者输血同步
 export const nurseBloodList = (obj = {}) => {

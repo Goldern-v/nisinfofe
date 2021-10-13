@@ -14,68 +14,59 @@ export default {
   //     width: "1200px"
   //   },
   th: {
-    top: [{
-        name: '',
-        style: {},
-        colspan: "2",
-        rowspan: "1",
-        key:'recordYear'
+    top: [
+      {
+        name: `日期`,
+        colspan: "1",
+        rowspan: "3",
+      },
+      {
+        name: `时间`,
+        colspan: "1",
+        rowspan: "3",
       },
       {
         name: "生命体征",
-        colspan: "4",
+        colspan: "5",
         rowspan: "1"
       },
       {
         name: `
-        SPO<sub>2</sub><br/>(%)
+        液量<br/>(ml)
         `,
         colspan: "1",
         rowspan: "3"
       },
       {
-        name: `
-        神志
-        `,
-        colspan: "1",
-        rowspan: "3"
+        name: "奶量",
+        colspan: "2",
+        rowspan: "1"
       },
       {
-        name: "瞳孔",
-        colspan: "4",
+        name: "胃潴留",
+        colspan: "2",
+        rowspan: "1"
+      },
+      {
+        name: "呕吐",
+        colspan: "2",
+        rowspan: "1"
+      },
+      {
+        name: "大便",
+        colspan: "2",
         rowspan: "1"
       },
       {
         name: `
-        入量名称
+        尿量<br/>(ml)
         `,
         colspan: "1",
         rowspan: "3"
       },
       {
         name: `
-        入量<br/>ml
-        `,
-        colspan: "1",
-        rowspan: "3"
-      },
-      {
-        name: `
-        出量名称
-        `,
-        colspan: "1",
-        rowspan: "3"
-      },
-      {
-        name: `
-        出量<br/>ml
-        `,
-        colspan: "1",
-        rowspan: "3"
-      },
-      {
-        name: `
-        特殊情况记录
+        病情及治疗
         `,
         style: {
           minWidth: "153px",
@@ -96,86 +87,98 @@ export default {
         rowspan: "3",
       },
     ],
-    mid: [{
-        name: `日期`,
-        colspan: "1",
-        rowspan: "2",
-      },
+    mid: [
       {
-        name: `时间`,
-        colspan: "1",
-        rowspan: "2",
-      },
-      {
-        name: "T<br/>℃",
+        name: "T<br/>(℃)",
         colspan: "1",
         rowspan: "2"
       },
       {
         name: `
-        P<br/>次/<br/>分
+        P<br/>(次/<br/>分)
         `,
         colspan: "1",
         rowspan: "2",
       },
       {
         name: `
-        R<br/>次/<br/>分
+        R<br/>(次/<br/>分)
         `,
         colspan: "1",
         rowspan: "2",
       },
       {
         name: `
-        BP<br/>mmHg
+        BP<br/>(mmHg)
         `,
         colspan: "1",
         rowspan: "2",
       },
       {
         name: `
-        大小
+        SPO<sub>2</sub><br/>(%)
         `,
-        colspan: "2",
-        rowspan: "1",
+        colspan: "1",
+        rowspan: "2"
       },
       {
         name: `
-        反射
+        口入<br/>(ml)
         `,
-        colspan: "2",
-        rowspan: "1",
+        colspan: "1",
+        rowspan: "2"
       },
+      {
+        name: `
+        饲管<br/>(ml)
+        `,
+        colspan: "1",
+        rowspan: "2"
+      },
+      {
+        name: `
+        量<br/>(ml)
+        `,
+        colspan: "1",
+        rowspan: "2"
+      },
+      {
+        name: `
+        性状
+        `,
+        colspan: "1",
+        rowspan: "2"
+      },
+      {
+        name: `
+        量<br/>(ml)
+        `,
+        colspan: "1",
+        rowspan: "2"
+      },
+      {
+        name: `
+        性状
+        `,
+        colspan: "1",
+        rowspan: "2"
+      },
+      {
+        name: `
+        量<br/>(ml)
+        `,
+        colspan: "1",
+        rowspan: "2"
+      },
+      {
+        name: `
+        性状
+        `,
+        colspan: "1",
+        rowspan: "2"
+      },
+      
     ],
-    bottom: [
-      {
-        name: `
-        左
-        `,
-        colspan: "1",
-        rowspan: "1",
-      },
-      {
-        name: `
-        右
-        `,
-        colspan: "1",
-        rowspan: "1",
-      },
-      {
-        name: `
-        左
-        `,
-        colspan: "1",
-        rowspan: "1",
-      },
-      {
-        name: `
-        右
-        `,
-        colspan: "1",
-        rowspan: "1",
-      },
-    ]
+    bottom: []
   }
 };
