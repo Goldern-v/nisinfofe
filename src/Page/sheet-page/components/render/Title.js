@@ -999,6 +999,20 @@ export default function Title(
     );
   }
   break;
+  case "waiting_birth_wj": {
+    // 武警 - 待产护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/waiting_birth_wj/th").default)
+    );
+  }
+  break;
+  case "postpartum_wj": {
+    // 武警 - 产后(产房)观察记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/postpartum_wj/th").default)
+    );
+  }
+  break;
   default: {
     Th = JSON.parse(
       JSON.stringify(require("../config/default/th").default)

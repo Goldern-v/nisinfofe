@@ -1,5 +1,5 @@
 /*
-南方中西医 - 护理记录单
+武警 - 待产护理记录单
 */
 import moment from "moment";
 
@@ -11,66 +11,113 @@ export default {
   // 科室的名称
   deptType: "",
   style: {
-      width: "1200px"
-    },
+    width: "1150px"
+  },
   th: {
-    top: [{
-        name: '',
-        style: {},
-        colspan: "2",
-        rowspan: "1",
-        key:'recordYear'
+    top: [
+      {
+        name: `日期`,
+        colspan: "1",
+        rowspan: "3",
       },
       {
-        name: "T<br/>℃",
+        name: `时间`,
+        colspan: "1",
+        rowspan: "3",
+      },
+      {
+        name: "T<br/>(℃)",
         colspan: "1",
         rowspan: "3"
       },
       {
         name: `
-        P/HR<br/>次/<br/>min
+        P<br/>(次/<br/>分)
         `,
         colspan: "1",
         rowspan: "3",
       },
       {
         name: `
-        R<br/>次/<br/>min
+        R<br/>(次/<br/>分)
         `,
         colspan: "1",
         rowspan: "3",
       },
       {
         name: `
-        BP<br/>mmHg
+        血压<br/>(mmHg)
         `,
         colspan: "1",
         rowspan: "3",
       },
       {
         name: `
-        意识
+        胎位
+        `,
+        colspan: "1",
+        rowspan: "3"
+      },
+      {
+        name: "胎心音",
+        colspan: "2",
+        rowspan: "1"
+      },
+      {
+        name: `
+        衔<br/>接
+        `,
+        colspan: "1",
+        rowspan: "3"
+      },
+      {
+        name: "宫缩",
+        colspan: "2",
+        rowspan: "1"
+      },
+      {
+        name: "宫颈",
+        colspan: "1",
+        rowspan: "1"
+      },
+      {
+        name: `
+        先露<br/>高低
         `,
         colspan: "1",
         rowspan: "3"
       },
       {
         name: `
-        入
+        胎膜
         `,
-        colspan: "2",
-        rowspan: "1"
+        colspan: "1",
+        rowspan: "3"
       },
       {
         name: `
-        出
+        羊水<br/>性状
         `,
-        colspan: "2",
-        rowspan: "1"
+        colspan: "1",
+        rowspan: "3"
       },
       {
         name: `
-        SPO<sub>2</sub><br/>(%)
+        阴道<br/>流血<br/>ml
+        `,
+        colspan: "1",
+        rowspan: "3"
+      },
+      {
+        name: `
+        检查<br/>方式
+        `,
+        colspan: "1",
+        rowspan: "3"
+      },
+      {
+        name: `
+        血糖<br/>mmol/L
         `,
         colspan: "1",
         rowspan: "3"
@@ -84,59 +131,15 @@ export default {
           maxWidth: "45px"
         },
         canSet: true,
-        key: "kong1",
-      },
-      {
-        name: `标题2`,
-        colspan: "1",
-        rowspan: "3",
-        style: {
-          minWidth: "45px",
-          maxWidth: "45px"
-        },
-        canSet: true,
-        key: "kong2",
-      },
-      {
-        name: `标题3`,
-        colspan: "1",
-        rowspan: "3",
-        style: {
-          minWidth: "45px",
-          maxWidth: "45px"
-        },
-        canSet: true,
-        key: "kong3",
-      },
-      {
-        name: `标题4`,
-        colspan: "1",
-        rowspan: "3",
-        style: {
-          minWidth: "45px",
-          maxWidth: "45px"
-        },
-        canSet: true,
-        key: "kong4",
-      },
-      {
-        name: `标题5`,
-        colspan: "1",
-        rowspan: "3",
-        style: {
-          minWidth: "45px",
-          maxWidth: "45px"
-        },
-        canSet: true,
-        key: "kong5",
+        key: "customField1",
       },
       {
         name: `
-        病情观察、病情主诉、治疗、护理措施、效果
+        特殊情况
         `,
         style: {
-          minWidth: "413px",
-          maxWidth: "413px"
+          minWidth: "153px",
+          maxWidth: "153px"
         },
         colspan: "1",
         rowspan: "3"
@@ -153,60 +156,43 @@ export default {
         rowspan: "3",
       },
     ],
-    mid: [{
+    mid: [
+      {
         name: `
-        日期
+        部位
         `,
         colspan: "1",
-        rowspan: "2",
+        rowspan: "2"
       },
       {
         name: `
-        时间
+        心率
         `,
         colspan: "1",
-        rowspan: "2",
+        rowspan: "2"
       },
       {
         name: `
-        入量名称
+        间歇(')
         `,
         colspan: "1",
-        rowspan: "2",
-        style: {
-          minWidth: "65px",
-          maxWidth: "65px"
-        },
-        
+        rowspan: "2"
       },
       {
         name: `
-        入量<br/>ml
+        间歇(")
         `,
         colspan: "1",
-        rowspan: "2",
+        rowspan: "2"
       },
       {
         name: `
-        出量名称
+        扩张
         `,
         colspan: "1",
-        rowspan: "2",
-        style: {
-          minWidth: "65px",
-          maxWidth: "65px"
-        },
-      },
-      {
-        name: `
-        出量<br/>ml
-        `,
-        colspan: "1",
-        rowspan: "2",
+        rowspan: "2"
       },
     ],
-    bottom: [
-
-    ]
+    bottom: []
   }
 };

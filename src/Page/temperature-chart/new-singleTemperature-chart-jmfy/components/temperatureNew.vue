@@ -54,16 +54,17 @@ export default {
       date: "",
       filePath: "",
       contentHeight: { height: "" },
-      curerentPag: 1,
+      currentPage: 1,
       pageTotal: 1,
       open: false,
       isSave: false,
       visibled: false,
       intranetUrl:
+        // "http://192.168.20.70:8080/#/" /* 医院正式环境内网 导致跨域 */,
         "http://192.168.19.162:9091/temperature/#/" /* 医院正式环境内网 导致跨域 */,
       // "http://192.168.20.70:8081/#/" /* 医院正式环境内网 */,
       outNetUrl:
-        "http://120.24.240.231:15091/temperature/#/" /* 医院正式环境外网：想要看iframe的效果，测试的时候可以把本地的地址都改成外网测试 */,
+        "http://218.14.180.38:9091/temperature/#/" /* 医院正式环境外网：想要看iframe的效果，测试的时候可以把本地的地址都改成外网测试 */,
     };
   },
   methods: {
