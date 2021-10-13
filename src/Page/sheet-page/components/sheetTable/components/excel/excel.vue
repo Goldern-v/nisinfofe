@@ -1632,6 +1632,7 @@ export default {
           );
         });
       }
+      console.log(this.accessOptionList);
       if (!query || this.accessOptionList.length == 0 || this.deptName == query) {
         this.accessOptionList = JSON.parse(JSON.stringify(this.defaultOptionList));
       }
@@ -1653,7 +1654,7 @@ export default {
         let data = td.autoComplete.data[0];
         autoCompleteData = data[key] && data[key].map(child => {
           return child.itemName
-        })
+        }) || []
       }
       this.defaultOptionList = td.parentKey ? autoCompleteData : td.autoComplete.data
       this.accessOptionList = JSON.parse(JSON.stringify(this.defaultOptionList));
