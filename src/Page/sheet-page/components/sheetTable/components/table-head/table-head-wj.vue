@@ -69,6 +69,40 @@
         </span>
       </div>
     </div>
+    <div class="info-con" flex="main:justify" v-else-if="sheetInfo.sheetType === 'postpartum_wj'">
+      <span
+        @click="updateTetxInfo('patientName', '姓名', patientInfo.patientName)"
+      >
+        姓名：
+        <div class="bottom-line" style="min-width: 80px">
+          {{ patientInfo.patientName }}
+        </div>
+      </span>
+      <span @click="updateTetxInfo('age', '年龄', patientInfo.age)">
+        年龄：
+        <div class="bottom-line" style="min-width: 45px">
+          {{ patientInfo.age }}
+        </div>
+      </span>
+      <span @click="updateTetxInfo('bedLabel', '床号', patientInfo.bedLabel)">
+        床号：
+        <div class="bottom-line" style="min-width: 45px">
+          {{ patientInfo.bedLabel }}
+        </div>
+      </span>
+      <span>
+        住院号：
+        <div class="bottom-line" style="min-width: 80px">
+          {{ patientInfo.inpNo }}
+        </div>
+      </span>
+      <span>
+        分娩日期：
+        <div class="bottom-line" style="min-width: 80px">
+          {{ patientInfo.admissionDate | toymd }}
+        </div>
+      </span>
+    </div>
     <div class="info-con" flex="main:justify" v-else>
       <span
         @click="updateTetxInfo('patientName', '姓名', patientInfo.patientName)"

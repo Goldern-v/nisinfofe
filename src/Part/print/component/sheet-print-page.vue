@@ -209,6 +209,7 @@ export default {
       lineSpacingArr: [
         "icu_qz", // 曲周_重症护理记录单
         "neonatology_hd", // 花都_新生儿科护理记录单
+        "postpartum_wj", // 武警_产后(产房)观察记录单
       ],
       // 需要双签名的记录单code
       multiSignArr: [
@@ -299,7 +300,7 @@ export default {
       );
     }
     /* 护理记录单行高 */
-    if ( (this.HOSPITAL_ID === "quzhou") &&
+    if ( (this.HOSPITAL_ID === "quzhou"||this.HOSPITAL_ID === "wujing") &&
       this.lineSpacingArr.includes(this.sheetInfo.sheetType)
     ) {
       addCSS(

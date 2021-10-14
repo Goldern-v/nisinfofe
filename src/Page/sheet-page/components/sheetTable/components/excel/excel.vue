@@ -680,9 +680,10 @@ export default {
     onFocus(e, bind) {
       if (sheetInfo.model == "print") return;
       if (!this.sheetInfo.downControl) {
-        setTimeout(function () {
-          onFocusToAutoComplete(e, bind); 
-        }, 300);
+        // setTimeout(function () {
+        //   onFocusToAutoComplete(e, bind); //下拉框延迟
+        // }, 300);
+        onFocusToAutoComplete(e, bind);
       }
     },
     onBlur(e, bind) {

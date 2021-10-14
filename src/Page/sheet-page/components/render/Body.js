@@ -648,6 +648,11 @@ function switechSheetType(type) {
       schema = require("../config/blood_purify_hl/tr.js").default;
     }
       break;
+    case "aerate_param_hl": {
+      // 横沥 - 儿科机械通气护理单
+      schema = require("../config/aerate_param_hl/tr").default;
+    }
+      break;
     case "icu_sn": {
       // 山南 - ICU护理记录单
       schema = require("../config/icu_sn/tr.js").default;
