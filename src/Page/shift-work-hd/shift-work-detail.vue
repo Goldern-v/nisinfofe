@@ -83,14 +83,14 @@
                 data-print-style="display: inline-block; width: 52px; height: auto;"
               />
               <span v-else style="display: none;" data-print-style="display: inline-block;">未签名</span>
-              <span>/</span>
+              <!-- <span>/</span>
               <span data-print-style="display: none">
                  <button
                   v-if="record.changeShiftTimes.autographMeetNameA"
                   @click="onDelSignModalOpen('A接', record.changeShiftTimes.autographMeetEmpNoA)"
                 >{{record.changeShiftTimes.autographMeetNameA}}</button>
                 <button v-else :disabled="isEmpty" @click="onSignModalOpen('A接')">点击签名</button>
-              </span>
+              </span> -->
               <FallibleImage
                 class="img"
                 v-if="record.changeShiftTimes.autographMeetNameA"
@@ -117,14 +117,14 @@
                 data-print-style="display: inline-block; width: 52px; height: auto;"
               />
               <span v-else style="display: none;" data-print-style="display: inline-block;">未签名</span>
-              <span>/</span>
+              <!-- <span>/</span>
               <span data-print-style="display: none">
                 <button
                   v-if="record.changeShiftTimes.autographMeetNameP"
                   @click="onDelSignModalOpen('P接', record.changeShiftTimes.autographMeetEmpNoP)"
                 >{{record.changeShiftTimes.autographMeetNameP}}</button>
                 <button v-else :disabled="isEmpty" @click="onSignModalOpen('P接')">点击签名</button>
-              </span>
+              </span> -->
               <FallibleImage
                 class="img"
                 v-if="record.changeShiftTimes.autographMeetNameP"
@@ -151,14 +151,14 @@
                 data-print-style="display: inline-block; width: 52px; height: auto;"
               />
               <span v-else style="display: none;" data-print-style="display: inline-block;">未签名</span>
-              <span>/</span>
+              <!-- <span>/</span>
               <span data-print-style="display: none">
                 <button
                   v-if="record.changeShiftTimes.autographMeetNameN"
                   @click="onDelSignModalOpen('N接', record.changeShiftTimes.autographMeetEmpNoN)"
                 >{{record.changeShiftTimes.autographMeetNameN}}</button>
                 <button v-else :disabled="isEmpty" @click="onSignModalOpen('N接')">点击签名</button>
-              </span>
+              </span> -->
               <FallibleImage
                 class="img"
                 v-if="record.changeShiftTimes.autographMeetNameN"
