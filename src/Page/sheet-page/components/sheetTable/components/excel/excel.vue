@@ -1635,7 +1635,6 @@ export default {
           );
         });
       }
-      console.log(this.accessOptionList);
       if (!query || this.accessOptionList.length == 0 || this.deptName == query) {
         this.accessOptionList = JSON.parse(JSON.stringify(this.defaultOptionList));
       }
