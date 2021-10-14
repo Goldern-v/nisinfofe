@@ -80,8 +80,8 @@ export default {
         特殊情况及处理
         `,
         style: {
-          minWidth: "260px",
-          maxWidth: "260px"
+          minWidth: "230px",
+          maxWidth: "230px"
         },
         colspan: "1",
         rowspan: "3"
