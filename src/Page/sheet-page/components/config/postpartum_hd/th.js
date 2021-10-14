@@ -36,6 +36,14 @@ export default {
       },
       {
         name: `
+        心率<br/>次/分
+        `,
+        style: {},
+        colspan: "1",
+        rowspan: "3",
+      },
+      {
+        name: `
         呼吸<br/>次/分
         `,
         style: {},
@@ -101,8 +109,8 @@ export default {
         canSet: true,
         key: "fieldFive",
         style: {
-          minWidth: "103px",
-          maxWidth: "103px"
+          minWidth: "80px",
+          maxWidth: "80px"
         },
       },
       {
@@ -118,7 +126,7 @@ export default {
         }
       },
       {
-        name: `宫底高度`,
+        name: `宫底高度<br/>(U=<br/>FB)`,
         style: {},
         colspan: "1",
         rowspan: "3",
