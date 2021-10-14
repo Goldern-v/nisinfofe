@@ -156,7 +156,6 @@
       </span>
       <!-- {{index}} {{relObj}} -->
     </div>
-    <!-- <span class="diagnosis-con" :title="patientInfo.diagnosis">诊断：{{patientInfo.diagnosis}}</span> -->
     <!-- <span>入院日期：{{$route.query.admissionDate}}</span> -->
   </div>
 </template>

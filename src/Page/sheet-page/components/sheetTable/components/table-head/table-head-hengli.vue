@@ -60,7 +60,11 @@
           {{ patientInfo.deptName }}
         </div>
       </span>
-      <span v-else>
+      <span v-if="
+          sheetInfo.sheetType != 'prenatal_hl' &&
+          sheetInfo.sheetType != 'obstetrics_hl' &&
+          sheetInfo.sheetType != 'aerate_param_hl'
+        ">
         科室：
         <div class="bottom-line" style="min-width: 100px">
           {{ patientInfo.realDeptName }}
@@ -143,11 +147,26 @@
           ></masked-input>
         </span>
       </span>
-      <span v-if="sheetInfo.sheetType === 'blood_purify_hl'">
+      <span v-if="sheetInfo.sheetType === 'blood_purify_hl'||sheetInfo.sheetType === 'aerate_param_hl'">
         入院日期：
-        {{ patientInfo.admissionDate | toymd }}
+        <div class="bottom-line" style="min-width: 80px">
+          {{ patientInfo.admissionDate | toymd }}
+        </div>
       </span>
     </div>
+        <div class="info-con" flex="main:justify" v-if="sheetInfo.sheetType === 'aerate_param_hl'">
+        <span
+          @click="updateDiagnosis('diagnosis', '诊断', patientInfo.diagnosis)"
+        >
+          诊断：
+          <div
+            class="bottom-line"
+            style="min-width: 800px;max-width: 620px;min-height:13px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;"
+          >
+            {{ diagnosis }}
+          </div>
+        </span>
+      </div>
     <div
       class="info-con"
       flex="main:justify"
@@ -205,6 +224,8 @@ import { updateSheetHeadInfo } from "../../../../api/index";
 import sheetInfo from "../../../config/sheetInfo";
 import { listItem } from "@/api/common.js";
 import sheetData from "../../../../sheet.js";
+import bus from "vue-happy-bus";
+
 export default {
   props: {
     patientInfo: Object,
@@ -212,13 +233,33 @@ export default {
   },
   data() {
     return {
-      sheetInfo
+      bus: bus(this),
+      sheetInfo,
       // relObj: {
       //   wxNo: ""
       // }
     };
   },
   computed: {
+    diagnosis() {
+      /** 最接近的index */
+      let realIndex = 0;
+      let keys = Object.keys(sheetInfo.relObj || {});
+      for (let i = 0; i < keys.length; i++) {
+        let [base, keyIndex] = keys[i].split("PageIndex_diagnosis_");
+        if (keyIndex !== undefined) {
+          if (this.index >= keyIndex) {
+            if (this.index - keyIndex <= this.index - realIndex) {
+              realIndex = keyIndex;
+            }
+          }
+        }
+      }
+      return (
+        (sheetInfo.relObj || {})[`PageIndex_diagnosis_${realIndex}`] ||
+        this.patientInfo.diagnosis
+      );
+    },
     neonatology2Age() {
       if (this.index == 0) {
         return sheetInfo.relObj.age || this.patientInfo.age;
@@ -289,7 +330,17 @@ export default {
         `修改${label}`
       );
     },
-
+    updateDiagnosis(key, label, autoText) {
+      window.openSetTextModal(
+        text => {
+          sheetInfo.relObj[`PageIndex_diagnosis_${this.index}`] = text;
+          this.$message.success(`修改诊断成功`);
+          this.bus.$emit("saveSheetPage", false);
+        },
+        this.diagnosis,
+        `修改诊断`
+      );
+    },
     async onFocusToAutoComplete(e) {
       function offset(ele) {
         let { top, left } = ele.getBoundingClientRect();
