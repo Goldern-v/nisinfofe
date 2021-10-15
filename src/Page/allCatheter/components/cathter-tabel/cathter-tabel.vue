@@ -11,7 +11,7 @@
                 <div class="up-cathter">
                     <div style="cursor:pointer;"  @dblclick="changeReplaceTime">更换时间：{{tableInfo.replaceTime}}</div>
                     <div v-show="replaceDays!='unShow'" :style="{color:tableInfo.catheterStatus==1?'red':''}">剩余天数：第{{replaceDays}}天</div>
-                    <div :style="{width:'120px'}"></div>
+                    <div v-show="replaceDays=='unShow'">实际拔管时间：{{tableInfo.extubationTime}}</div>
                 </div>
             </div>
             <div class="tool-btns">
