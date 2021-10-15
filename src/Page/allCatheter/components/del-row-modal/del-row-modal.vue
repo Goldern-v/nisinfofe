@@ -2,9 +2,10 @@
     <div class="del-modal">
         <div class="bg" @click="cancel"></div>
         <div class="contont">
-            <div class="contont-title">删除</div>
+            <div class="contont-title">{{modalTitle||'删除'}}</div>
             <div class="contont-contont">
-                是否确定删除？
+                {{modalContont||'是否确定删除？'}}
+                <!-- 是否确定删除？ -->
             </div>
             <!-- <div class="username">
                 <div style="width:100px;">用户名：</div><el-input placeholder="请输入用户名" v-model="empNo"></el-input>
@@ -82,7 +83,16 @@
 </style>
 <script>
 export default {
-props: {},
+props: {
+    modalTitle:{
+        type:String,
+        value:''
+    },
+    modalContont:{
+        type:String,
+        value:''
+    }
+},
 data() {
 return {
     empNo:JSON.parse(localStorage.getItem('user')).empNo||'',

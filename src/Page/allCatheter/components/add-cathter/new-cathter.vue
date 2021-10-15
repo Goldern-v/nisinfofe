@@ -116,10 +116,16 @@ data() {
         type:'',
         intubationTime:moment().format("YYYY-MM-DD HH:mm:ss"), //当前时间
         expecteReplaceTime:'',
-        options:[{
-            value:'本院',
-            label:'本院'
-        }],
+        options:[
+            {
+                value:'本院',
+                label:'本院'
+            },
+            {
+                value:'院外带入',
+                label:'院外带入'
+            }
+        ],
         catheterSource:'',
         formTitle:''
     };

@@ -16,7 +16,7 @@
             v-else
             class="null-btn"
             flex="cross:center main:center"
-            @click="addSheetPage"
+            @click="addCathter"
           >
             <i class="el-icon-plus"></i>
             添加导管
@@ -185,7 +185,8 @@ export default {
       newCathterType:'',
       tabelConfig:[],
       tableInfo:{},
-      showTable:false
+      showTable:false,
+      hasPatient:false
     };
   },
   computed: {
@@ -316,6 +317,8 @@ export default {
     //   isFirst && this.bus.$emit("initSheetPageSize");
     // },
     onChangePatient_self(info){
+      this.showTable = false
+      this.hasPatient = true
       this.cathterArr = []
       let { patientId , visitId , wardCode } = info
       getCatheterList({
@@ -327,6 +330,10 @@ export default {
       })
     },
     addCathter(){
+      if(!this.hasPatient){
+        this.$message.error('请先选择一名患者！');
+        return
+      }
       this.isAddCathter = true
     },
     closeCathter(){

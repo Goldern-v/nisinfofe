@@ -1,6 +1,6 @@
 <template>
     <div class="table-page">
-        <div class="tabel-title">{{title}}<el-button class="extubation-btn" type="primary" @click="extubation" :disabled="tableInfo.catheterStatus==2">拔管</el-button></div>
+        <div class="tabel-title">{{title}}<el-button class="extubation-btn" type="primary" @click="extubationModal" :disabled="tableInfo.catheterStatus==2">拔管</el-button></div>
         <div class="cathter-tool">
             <div class="catch-info">
                 <div class="set-cathter">
@@ -11,7 +11,7 @@
                 <div class="up-cathter">
                     <div style="cursor:pointer;"  @dblclick="changeReplaceTime">更换时间：{{tableInfo.replaceTime}}</div>
                     <div v-show="replaceDays!='unShow'" :style="{color:tableInfo.catheterStatus==1?'red':''}">剩余天数：第{{replaceDays}}天</div>
-                    <div :style="{width:'120px'}"></div>
+                    <div v-show="replaceDays=='unShow'">实际拔管时间：{{tableInfo.extubationTime}}</div>
                 </div>
             </div>
             <div class="tool-btns">
@@ -70,7 +70,7 @@
             </template>
             </el-table-column>
         </el-table>
-        <delModal v-if="isDel" @closeModal='closeModal' @delRow='delRow'></delModal>
+        <delModal v-if="isDel" @closeModal='closeModal' @delRow='delRow' :modalTitle="modalTitle" :modalContont="modalContont"></delModal>
         <repModal v-if="showChangeRt" :replaceTime='tableInfo.replaceTime' @closeRepModal='closeRepModal' @changeRepFn='changeRepFn'></repModal>
     </div>
 </template>
@@ -206,7 +206,9 @@ return {
     isDel:false,
     currentRow:{},
     delType:'',
-    showChangeRt:false
+    showChangeRt:false,
+    modalTitle:'',
+    modalContont:''
 };
 },
 methods: {
@@ -221,6 +223,12 @@ methods: {
                 // console.log(res);
                 this.$emit('updateTableConfig',res.data.data)
             })
+    },
+    extubationModal(){
+        this.modalTitle = '拔管'
+        this.modalContont = '确定要给该患者拔管吗？'
+        this.delType = 'extubation'
+        this.isDel = true
     },
     extubation(){
         extubationApi(this.tableInfo,this.tableInfo.code).then(res=>{
@@ -259,10 +267,14 @@ methods: {
         this.currentRow = {}
     },
     delAll(){
+        this.modalTitle = ''
+        this.modalContont = ''
         this.delType = 'all'
         this.isDel = true
     },
     showDelModal(row){
+        this.modalTitle = ''
+        this.modalContont = ''
         if(!row.id){
             this.$message.error('该行暂无数据！')
             return
@@ -285,7 +297,7 @@ methods: {
             }).catch(err=>{
                 this.$message.error(err.desc)
             })
-        }else{
+        }else if(this.delType==='all'){
             delAllApi({
                 id:this.tableInfo.id,
                 empNo:empNo,
@@ -298,6 +310,8 @@ methods: {
             }).catch(err=>{
                 this.$message.error(err.desc)
             })
+        }else if(this.delType==='extubation'){
+            this.extubation()
         }
     },
     saveTable(){
