@@ -20,7 +20,13 @@ let 留置镇痛泵 = ["A","B","C","D",];
 let 吸氧 = ["低流量","中流量","高流量","持续","停止"];
 let 特殊药物 = ["A","B","C","D",];
 
-export default [{
+export default [
+  {
+    key: "recordDate", //年份
+    value: "",
+    hidden:true
+  },
+  {
     key: "recordMonth", //日期
     value: "",
     event: event_date,

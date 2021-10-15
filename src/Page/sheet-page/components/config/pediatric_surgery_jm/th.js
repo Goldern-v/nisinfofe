@@ -1,6 +1,13 @@
 /*
   江门妇幼-小儿外科护理记录单
 */
+// 年份
+import moment from "moment";
+
+function currYear() {
+  return moment().format('YYYY')
+}
+
 export default {
   style: {
     width: '1400px'
@@ -8,24 +15,32 @@ export default {
   // 科室的名称
   deptType: '',
   th: {
-    top: [{
-      name: '日期',
-      style: {
-        minWidth: '36px',
-        maxWidth: '36px',
+    top: [
+      {
+        name: currYear(),
+        style: {},
+        colspan: "2",
+        rowspan: "1",
+        key:'recordYear'
       },
-      colspan: '1',
-      rowspan: '3'
-    },
-    {
-      name: '时间',
-      style: {
-        minWidth: '36px',
-        maxWidth: '36px',
-      },
-      colspan: '1',
-      rowspan: '3'
-    },
+    //   {
+    //   name: '日期',
+    //   style: {
+    //     minWidth: '36px',
+    //     maxWidth: '36px',
+    //   },
+    //   colspan: '1',
+    //   rowspan: '3'
+    // },
+    // {
+    //   name: '时间',
+    //   style: {
+    //     minWidth: '36px',
+    //     maxWidth: '36px',
+    //   },
+    //   colspan: '1',
+    //   rowspan: '3'
+    // },
     {
       name: `
         体<br/>温<br/>(℃)
@@ -241,7 +256,26 @@ export default {
       rowspan: '3'
     }
     ],
-    mid: [{
+    mid: [
+        {
+      name: '日期',
+      style: {
+        minWidth: '36px',
+        maxWidth: '36px',
+      },
+      colspan: '1',
+      rowspan: '2'
+    },
+    {
+      name: '时间',
+      style: {
+        minWidth: '36px',
+        maxWidth: '36px',
+      },
+      colspan: '1',
+      rowspan: '2'
+    },
+      {
       name: `
         静脉<br>(ml)
         `,

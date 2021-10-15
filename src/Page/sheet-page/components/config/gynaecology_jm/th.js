@@ -13,14 +13,15 @@ export default {
   },
   th: {
     top: [{
-        name: currYear() + '年',
+        // name: currYear() + '年',
+        name:currYear(),
         colspan: "2",
         rowspan: "1",
         style: {
           minWidth: "40px",
           maxWidth: "40px"
         },
-        canSet: true,
+        // canSet: true,
         key: "recordYear",
       },
       {

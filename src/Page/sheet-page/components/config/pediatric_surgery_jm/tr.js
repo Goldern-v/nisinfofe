@@ -2,6 +2,9 @@
   江门妇幼-小儿外科护理记录单
 */
 import {
+  multiDictInfo
+} from "../../../api/index";
+import {
   keyf1
 } from "../keyEvent/f1.js";
 import {
@@ -11,7 +14,13 @@ import {
   click_time
 } from "../keyEvent/date";
 import { size } from "lodash";
-export default [{
+export default [
+  {
+    key: "recordDate", //年份
+    value: "",
+    hidden:true
+  },
+  {
   key: "recordMonth", //日期
   value: "",
   event: event_date,

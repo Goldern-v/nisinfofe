@@ -3,7 +3,7 @@
 */
 import moment from "moment";
 function currYear() {
-  return moment().format('YYYY年')
+  return moment().format('YYYY')
 }
 export default {
   // 科室的名称 关节骨科
@@ -19,7 +19,7 @@ export default {
         style: {
           minWidth: "62px"
         },
-        canSet: true,
+        // canSet: true,
         key: "recordYear",
       },
       {
