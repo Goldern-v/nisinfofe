@@ -11,7 +11,7 @@
                 <div class="up-cathter">
                     <div style="cursor:pointer;"  @dblclick="changeReplaceTime">更换时间：{{tableInfo.replaceTime}}</div>
                     <div v-show="replaceDays!='unShow'" :style="{color:tableInfo.catheterStatus==1?'red':''}">剩余天数：第{{replaceDays}}天</div>
-                    <div :style="{width:'120px'}"></div>
+                    <div v-show="replaceDays=='unShow'">实际拔管时间：{{tableInfo.extubationTime}}</div>
                 </div>
             </div>
             <div class="tool-btns">
@@ -50,14 +50,21 @@
             align="center"
             :label="item.title">
             <template slot-scope="scope">
-                <el-select v-model="scope.row[item.name]" filterable allow-create default-first-option placeholder="">
+                <el-autocomplete
+                    v-model="scope.row[item.name]"
+                    :fetch-suggestions="(queryString, cb)=>querySearch(queryString, cb,optionsConfig[item.name])"
+                    placeholder=""
+                    @select="handleSelect"
+                    >
+                </el-autocomplete>
+                <!-- <el-select v-model="scope.row[item.name]" filterable allow-create default-first-option placeholder="">
                     <el-option
                         v-for="item in optionsConfig[item.name]?optionsConfig[item.name]:[]"
                         :key="item.code"
                         :label="item.name"
                         :value="item.code">
                     </el-option>
-                </el-select>
+                </el-select> -->
             </template>
             </el-table-column>
             <el-table-column
@@ -163,7 +170,7 @@
     /deep/ .el-input__icon + .el-input__inner{
         padding: 0;
     }
-    /deep/ .el-select{
+    /deep/ .el-autocomplete{
         width: 100%;
     }
 }
@@ -212,6 +219,18 @@ return {
 };
 },
 methods: {
+    handleSelect(){},
+    querySearch(queryString, cb,arr){
+        if(arr&&arr.length){
+            let tem = arr.map(item=>{
+                console.log(item);
+                return {value:item.code}
+            })
+            cb(tem) 
+        }else{
+            cb([])
+        }
+    },
     refreshCatcherTable(code,type,id,patientId,visitId){
         getCatheterTable({
                 code,

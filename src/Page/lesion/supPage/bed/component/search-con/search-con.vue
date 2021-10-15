@@ -578,7 +578,8 @@ export default {
       ];
       if (
         this.HOSPITAL_ID == "zhongshanqi" ||
-        this.HOSPITAL_ID == "liaocheng"
+        this.HOSPITAL_ID == "liaocheng" ||
+        this.HOSPITAL_ID == "beihairenyi"
       ) {
         list.splice(3, 0, {
           name: "我的关注",

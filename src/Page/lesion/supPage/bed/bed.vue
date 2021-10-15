@@ -200,7 +200,7 @@ export default {
     currentBedItem() {
       if (this.HOSPITAL_ID == "huadu") {
         return bedItemHd;
-      } else if (this.HOSPITAL_ID == "liaocheng" || this.HOSPITAL_ID == "shannan" || this.HOSPITAL_ID == "quzhou" || this.HOSPITAL_ID == "nanfangzhongxiyi") {
+      } else if (this.HOSPITAL_ID == "liaocheng" || this.HOSPITAL_ID == "shannan" || this.HOSPITAL_ID == "quzhou" || this.HOSPITAL_ID == "nanfangzhongxiyi" || this.HOSPITAL_ID == "beihairenyi") {
         return bedItemLcey;
       } else {
         return bedItem;
