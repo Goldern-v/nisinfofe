@@ -12,7 +12,7 @@
       </span>
       <span>
         床号：
-        <div :class="['bottom-line',HOSPITAL_ID=='huadu'?'has-background':'']" :style="{minWidth:'55px'}"  @dblclick.stop="openBedRecordModal">
+        <div :class="['bottom-line','has-background']" :style="{minWidth:'55px'}"  @dblclick.stop="openBedRecordModal">
           {{ bedAndDeptChange.bedLabelChange }}
         </div>
       </span>
