@@ -18,6 +18,7 @@
     <subFormModal ref="subFormDiagnosis"></subFormModal>
     <setAuditDateModal ref="setAuditDateModal"></setAuditDateModal>
     <setTextModal ref="setTextModal"></setTextModal>
+    <setTextModalNew ref="setTextModalNew"></setTextModalNew>
     <caSignModal ref="caSignModal"></caSignModal>
     <fuyouCaSignModal ref="fuyouCaSignModal"></fuyouCaSignModal>
     
@@ -43,7 +44,8 @@ import selectDiagnosis from "@/Page/patientInfo/supComponts/select/selectDiagnos
 import newFormBox from "@/Page/patientInfo/supComponts/formBox/newFormBox";
 import newDiagnosisBox from "@/Page/patientInfo/supComponts/formBox/newDiagnosisBox";
 import setAuditDateModal from "@/components/modal/set-audit-date.vue";
-import setTextModal from "@/components/modal/set-text-modal.vue";
+import setTextModal from "@/components/modal/set-text-modal.vue";//体温单录入自定义模板
+import setTextModalNew from "@/Page/sheet-page/components/modal/set-title-modal.vue";//体温单录入自定义模板(带模板录入的)
 import caSignModal from "@/components/modal/ca-sign";
 import common from "@/common/mixin/common.mixin";
 import detectZoom from "@/plugin/tool/detectZoom.js";
@@ -104,6 +106,7 @@ export default {
       ...this.$root.$refs,
       sign: this.$refs.signModal,
       setTextModal: this.$refs.setTextModal,
+      setTextModalNew: this.$refs.setTextModalNew,
       newFormBox: this.$refs.newFormBox,
       caSignModal: this.$refs.caSignModal,
       fuyouCaSignModal: this.$refs.fuyouCaSignModal,
@@ -179,6 +182,18 @@ export default {
     /** 打开修改文字信息 */
     window.openSetTextModal = (...item) => {
       return this.$refs.setTextModal.open(...item);
+    };
+    window.openSetTextModalNew = (...item) => {
+      return this.$refs.setTextModalNew.open(...item);
+    };
+    window.setTextModal = (...item) => {
+      return this.$refs.setTextModal.open(...item);
+    };
+    window.setTextModalNew = (...item) => {
+      return this.$refs.setTextModalNew.open(...item);
+    };
+    window.closeSetTextModalNew = () => {
+      this.$refs.setTextModalNew.onClose();
     };
     window.closeSetTextModal = () => {
       this.$refs.setTextModal.close();
@@ -348,6 +363,7 @@ export default {
     formBoxEdu,
     setAuditDateModal,
     setTextModal,
+    setTextModalNew,
     caSignModal,
     ScreenLockView,
     fuyouCaSignModal
