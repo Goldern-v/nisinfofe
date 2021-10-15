@@ -48,10 +48,16 @@
         </span>
         <span>
           预产期：
-          <input
+          <!-- <input
+            style="width: 140px"
             class="bottom-line-input"
             :data-value="sheetInfo.relObj.contractionTime"
             v-model="sheetInfo.relObj.contractionTime"
+          /> -->
+          <crDatePicker
+            v-model="sheetInfo.relObj.contractionTime"
+            :width="140"
+            style="border:none;border-bottom:1px solid #000;height:22px"
           />
         </span>
       </div>
@@ -165,6 +171,7 @@ import moment from "moment";
 import { updateSheetHeadInfo } from "../../../../api/index";
 import sheetInfo from "../../../config/sheetInfo";
 import bus from "vue-happy-bus";
+import crDatePicker from '@/components/cr-date-picker/cr-date-pickerV2.vue';
 export default {
   props: {
     patientInfo: Object,
@@ -239,7 +246,7 @@ export default {
     }
   },
   destroyed() {},
-  components: {}
+  components: { crDatePicker }
 };
 </script>
 
