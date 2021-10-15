@@ -4,13 +4,23 @@
       <div class="head-con">
         <span class="label" style="margin-left: 0">执行日期:</span>
         <el-date-picker
+      v-model="orderTimeStr"
+      type="datetimerange"
+      value-format='yyyy-MM-dd   HH:mm:ss'
+       range-separator="至"
+      align="right"
+      start-placeholder="开始日期"
+      end-placeholder="结束日期"
+      :default-time="['12:00:00', '08:00:00']">
+    </el-date-picker>
+        <!-- <el-date-picker
           type="date"
           format="yyyy-MM-dd"
           placeholder="选择入院起始时间"
           size="small"
           v-model="startDate"
           style="width:120px"
-        ></el-date-picker>
+        ></el-date-picker> -->
         <span class="label">长/临:</span>
         <el-row class="select-btn-list" type="flex" align="middle">
           <el-radio-group v-model="repeatIndicator">
@@ -247,7 +257,8 @@ export default {
         pageNum: 20,
         total: 0
       },
-      startDate: moment().format("YYYY-MM-DD"),
+       orderTimeStr: [moment().format("YYYY-MM-DD")+' 07:30:00',moment().format("YYYY-MM-DD")+' 17:30:00'],
+      // startDate: moment().format("YYYY-MM-DD"),
       repeatIndicator: "",
       type: "",
       status: "",
@@ -347,7 +358,9 @@ export default {
       this.pageLoadng = true;
       let obj = {
         wardCode: this.deptCode, //护理单元代码
-        executeDateTime: moment(this.startDate).format("YYYY-MM-DD"), //执行单预计执行时间
+        startDate:moment(this.orderTimeStr[0]).format("YYYY-MM-DD HH:mm:ss"),
+        endDate:moment(this.orderTimeStr[1]).format("YYYY-MM-DD HH:mm:ss"),
+        // executeDateTime: moment(this.startDate).format("YYYY-MM-DD "), //执行单预计执行时间
         repeatIndicator: this.repeatIndicator, //医嘱类型:0临时 1长期  2单药处方
         executeStatus: this.status, //执行单状态:0-未执行、1-执行中（输液中）、2-暂停输液、3-继续执行  4-已完成（结束输液）
         executeType:
@@ -456,7 +469,8 @@ export default {
     deptCode() {
       this.search();
     },
-    startDate() {
+    orderTimeStr() {
+      console.log(this.orderTimeStr)
       this.search();
     },
     repeatIndicator() {

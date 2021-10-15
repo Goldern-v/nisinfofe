@@ -112,11 +112,11 @@
         <template slot-scope="scope">
           <div v-if="scope.row.child && scope.row.child.length">
             <div v-for="(item, index) in scope.row.child" :key="index" v-show="item.executeDateTime">
-              {{ item.executeDateTime | ymdhm }}
+              {{ item.executeDateTime | ymdhms }}
             </div>
           </div>
           <div v-else>
-            {{ scope.row.executeDateTime | ymdhm }}
+            {{ scope.row.executeDateTime | ymdhms }}
           </div>
         </template>
       </u-table-column>
@@ -478,6 +478,9 @@ export default {
     },
     hms(val) {
       return val ? moment(val).format("HH:mm:ss") : "";
+    },
+    ymdhms(val) {
+      return val ? moment(val).format("YYYY-MM-DD HH:mm") : "";
     },
     handleStatus(val) {
       let allStatus = [

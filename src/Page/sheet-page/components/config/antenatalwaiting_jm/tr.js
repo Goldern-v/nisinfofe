@@ -18,7 +18,13 @@ let tmList = [];
 let ysxzList = [];
 let gsqdList = [];
 let xlgdList = [];
-export default [{
+export default [
+  {
+    key: "recordDate", //年份
+    value: "",
+    hidden:true
+  },
+  {
     key: "recordMonth", //日期
     value: "",
     event: event_date,
