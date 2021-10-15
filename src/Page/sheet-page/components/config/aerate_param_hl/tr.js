@@ -1,5 +1,5 @@
 /*
-武警 - 产后(产房)观察记录单
+横沥 - 儿科机械通气护理单
 */
 import {
   keyf1,
@@ -11,9 +11,6 @@ import {
   click_date,
   click_time
 } from "../keyEvent/date";
-let 子宫收缩 = ['硬','软'];
-let 膀胱情况 = ['-','±','+'];
-let 肛查 = ['-','+'];
 export default [{
     key: "recordMonth", //日期
     value: "",
@@ -27,23 +24,6 @@ export default [{
     click: click_time
   },
   {
-    key: "bloodPressure", //血压
-    value: "",
-    name: "血压",
-    next: "mmHg",
-    change: (e, td) => limitChange(e, td, 10),
-    textarea: {
-      width: 80
-    },
-    event: function (e, td) {
-      if (e.keyCode == 32) {
-        e.target.value += "/";
-        e.preventDefault();
-      }
-      keyf1(e, td);
-    }
-  },
-  {
     key: "pulse", //脉搏
     value: "",
     name: "脉搏",
@@ -51,71 +31,132 @@ export default [{
     event: keyf1,
     change: (e, td) => limitChange(e, td, 10),
     textarea: {
-      width: 80
+      width: 70
     },
   },
-  
   {
-    key: "palace", //宫底
+    key: "spo2", //SPO2
     value: "",
-    name: "宫底",
+    name: "SPO2",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 10),
     textarea: {
-      width: 80
+      width: 70
     },
   },
   {
-    key: "uterineContractions", //子宫收缩
+    key: "ventilation", //通气模式
     value: "",
-    name: "子宫收缩",
+    name: "通气模式",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 10),
     textarea: {
-      width: 80
-    },
-    autoComplete: {
-      data: 子宫收缩
+      width: 70
     },
   },
   {
-    key: "bleedingVolume", //出血量
+    key: "concentration", //氧浓度
     value: "",
-    name: "出血量",
+    name: "氧浓度",
     next: "ml",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 10),
     textarea: {
-      width: 80
+      width: 70
     },
   },
   {
-    key: "bladderCondition", //膀胱情况
+    key: "minuteVentilation", //分钟通气量
     value: "",
-    name: "膀胱情况",
+    name: "分钟通气量",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 10),
     textarea: {
-      width: 80
-    },
-    autoComplete: {
-      data: 膀胱情况
+      width: 70
     },
   },
   {
-    key: "analExamination", //肛查
+    key: "tidalVolume", //潮气量
     value: "",
-    name: "肛查",
+    name: "潮气量",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 10),
     textarea: {
-      width: 80
-    },
-    autoComplete: {
-      data: 肛查
+      width: 70
     },
   },
   {
+    key: "respiratory", //呼吸频率
+    value: "",
+    name: "呼吸频率",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 10),
+    textarea: {
+      width: 70
+    },
+  },
+  {
+    key: "sensitivity", //灵敏度
+    value: "",
+    name: "灵敏度",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 10),
+    textarea: {
+      width: 70
+    },
+  },
+  {
+    key: "suctionPressure", //吸气压
+    value: "",
+    name: "吸气压",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 10),
+    textarea: {
+      width: 70
+    },
+  },
+  {
+    key: "positiveEnd", //呼吸末正压
+    value: "",
+    name: "呼吸末正压",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 10),
+    textarea: {
+      width: 70
+    },
+  },
+  {
+    key: "sputumSuction", //吸痰
+    value: "",
+    name: "吸痰",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 10),
+    textarea: {
+      width: 70
+    },
+  },
+  {
+    key: "sputumHabitude", //痰性质
+    value: "",
+    name: "痰性质",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 10),
+    textarea: {
+      width: 70
+    },
+  },
+  {
+    key: "tracheal", //气管深度
+    value: "",
+    name: "气管深度",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 10),
+    textarea: {
+      width: 70
+    },
+  },
+  {
+    hidden: true,
     key: "description", //其他
     value: "",
     style: {

@@ -680,9 +680,10 @@ export default {
     onFocus(e, bind) {
       if (sheetInfo.model == "print") return;
       if (!this.sheetInfo.downControl) {
-        setTimeout(function () {
-          onFocusToAutoComplete(e, bind); 
-        }, 300);
+        // setTimeout(function () {
+        //   onFocusToAutoComplete(e, bind); //下拉框延迟
+        // }, 300);
+        onFocusToAutoComplete(e, bind);
       }
     },
     onBlur(e, bind) {
@@ -1634,7 +1635,6 @@ export default {
           );
         });
       }
-      console.log(this.accessOptionList);
       if (!query || this.accessOptionList.length == 0 || this.deptName == query) {
         this.accessOptionList = JSON.parse(JSON.stringify(this.defaultOptionList));
       }

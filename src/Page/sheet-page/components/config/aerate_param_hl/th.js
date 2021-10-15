@@ -1,10 +1,10 @@
 /*
-武警 - 产后(产房)观察记录单
+横沥 - 儿科机械通气护理单
 */
 export default {
-  style: {
-    width: '900px'
-  },
+  // style: {
+  //   width: '900px'
+  // },
   // 科室的名称
   deptType: '',
   th: {
@@ -19,29 +19,36 @@ export default {
         rowspan: '3'
       },
       {
-        name: '血压<br/>(mmHg)',
+        name: 'P',
         colspan: '1',
         rowspan: '3'
       },
       {
-        name: '脉搏<br/>(次/min)',
+        name: 'SPO2',
         colspan: '1',
         rowspan: '3'
       },
       {
-        name: '宫底<br/>U-Fb',
+        name: '通气模式<br/>(MODEO)',
         colspan: '1',
         rowspan: '3'
       },
       
       {
-        name: '子宫<br/>收缩',
+        name: '氧浓度<br/>(Fio2)',
         colspan: '1',
         rowspan: '3'
       },
       {
         name: `
-        出血量<br/>(ml)
+        分钟通气量<br/>(VE)<br/>L/min
+        `,
+        colspan: '1',
+        rowspan: '3',
+      },
+      {
+        name: `
+        潮气量<br/>(VT)<br/>ml
         `,
         style: {},
         colspan: '1',
@@ -49,30 +56,52 @@ export default {
       },
       {
         name: `
-        膀胱<br/>情况
+        呼吸频率<br/>(F)<br/>次/分
         `,
-        style: {},
         colspan: '1',
         rowspan: '3',
       },
       {
         name: `
-        肛查
+        灵敏度<br/>(cmH<sub>2</sub>O)
         `,
-        style: {},
         colspan: '1',
         rowspan: '3',
       },
       {
         name: `
-        附注
+        吸气压<br/>(PrP)<br/>cmH<sub>2</sub>O
         `,
-        style: {
-          minWidth: "153px",
-          maxWidth: "153px"
-        },
         colspan: '1',
-        rowspan: '3'
+        rowspan: '3',
+      },
+      {
+        name: `
+        呼吸末正压<br/>(PEEP)<br/>cmH<sub>2</sub>O
+        `,
+        colspan: '1',
+        rowspan: '3',
+      },
+      {
+        name: `
+        吸痰
+        `,
+        colspan: '1',
+        rowspan: '3',
+      },
+      {
+        name: `
+        痰性质
+        `,
+        colspan: '1',
+        rowspan: '3',
+      },
+      {
+        name: `
+        气管深度<br/>(cm)
+        `,
+        colspan: '1',
+        rowspan: '3',
       },
       {
         name: `
@@ -80,7 +109,7 @@ export default {
         `,
         style: {
           minWidth: '50px',
-          maxWidth: "153px",
+          maxWidth: "50px",
         },
         colspan: '1',
         rowspan: '3'

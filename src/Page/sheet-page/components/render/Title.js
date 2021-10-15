@@ -817,6 +817,13 @@ export default function Title(
     );
   }
   break;
+  case "aerate_param_hl": {
+    // 横沥 - 儿科机械通气护理单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/aerate_param_hl/th").default)
+    );
+  }
+  break;
   case "icu_sn": {
     // 山南 - ICU护理记录单
     Th = JSON.parse(
