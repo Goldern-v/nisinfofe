@@ -109,8 +109,8 @@ export default {
         canSet: true,
         key: "fieldFive",
         style: {
-          minWidth: "103px",
-          maxWidth: "103px"
+          minWidth: "73px",
+          maxWidth: "73px"
         },
       },
       {
