@@ -82,7 +82,7 @@ export default {
           itemName: this.isEditItem.name,
           newItemCode: this.itemCode || this.itemName,
           newItemName: this.itemName,
-          recordCode: sheetInfo.sheetType,
+          recordCode: ['beihairenyi'].includes(this.HOSPITAL_ID)&&this.$route.path.includes('newSingleTemperatureChart')?'temperature_bhry':sheetInfo.sheetType,
           wardCode: this.deptCode
         };
         dictUpdate(data).then(res => {
@@ -96,7 +96,7 @@ export default {
           dictName: "自定义标题",
           itemCode: this.itemCode || this.itemName,
           itemName: this.itemName,
-          recordCode: sheetInfo.sheetType,
+          recordCode: ['beihairenyi'].includes(this.HOSPITAL_ID)&&this.$route.path.includes('newSingleTemperatureChart')?'temperature_bhry':sheetInfo.sheetType,
           wardCode: this.deptCode
         };
         dictSave(data).then(res => {
