@@ -68,10 +68,15 @@
             }
             .cathter-type{
                 display: flex;
+                height: 203px;
+                overflow: auto;
+                box-sizing: border-box;
+                flex-wrap: wrap;
                 padding: 20px;
-                justify-content: space-between;
                 .type-item{
                     width: 100px;
+                    margin-right:10px;
+                    margin-bottom:5px;
                     height: 40px;
                     border-radius: 8px;
                     border: 1px solid #ccc;

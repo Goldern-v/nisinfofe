@@ -631,7 +631,9 @@ export default {
     },
     /* 修改自定义标题，弹出弹窗并保存 */
     updateTextInfo(key, label, autotext,index) {
-      window.openSetTextModal(
+      let checkValue = Object.values(this.fieldList)||[]
+     let  checkValueStr=checkValue.map(item=>item.fieldCn)
+      window.openSetTextModalNew(
         (text) => {
           let data = {
             patientId: this.patientInfo.patientId,
@@ -640,12 +642,19 @@ export default {
             vitalCode: key,
             fieldCn: text,
           };
+          if(
+            checkValueStr.includes(text)
+          ){
+ this.$message.error(`修改${label}失败!已存在${text}项目`);
+          }else{
           savefieldTitle(data).then((res) => {
              this.fieldList[index].fieldCn=text;
             this.$message.success(`修改${label}成功`);
           });
+          }
           // this.getList();
         },
+        
         autotext,
         `修改${label}`
       );

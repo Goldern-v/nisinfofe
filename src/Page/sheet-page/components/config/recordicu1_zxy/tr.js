@@ -372,6 +372,31 @@ export default [
     },
   },
   {
+    hidden: true,
+    key: "description", //特殊情况记录
+    value: "",
+    style: {
+      textAlign: "left",
+      position: "absolute",
+      top: "1px",
+      bottom: "1px",
+      left: "1px",
+      width: "410px",
+      background: "transparent",
+    },
+    textarea: {
+      width: 410
+    },
+    event: function (e, td) {
+      console.log(e.keyCode);
+      if (e.keyCode == 9) {
+        td.value = "    " + td.value;
+        e.preventDefault();
+      }
+      keyf1(e, td);
+    }
+  },
+  {
     key: "sign",
     value: ""
   },

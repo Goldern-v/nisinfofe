@@ -1,19 +1,19 @@
+/*
+武警 - 产后(产房)观察记录单
+*/
 import {
-  multiDictInfo
-} from "../../../api/index";
-import {
-  keyf1
+  keyf1,
+  limitChange
 } from "../keyEvent/f1.js";
 import {
   event_date,
   event_time,
-  click_date
+  click_date,
+  click_time
 } from "../keyEvent/date";
-let 宫底 = [];
-let 子宫收缩 = [];
-let 膀胱情况 = [];
-let 入量项目 = [];
-let 出量项目 = [];
+let 子宫收缩 = ['硬','软'];
+let 膀胱情况 = ['-','±','+'];
+let 肛查 = ['-','+'];
 export default [{
     key: "recordMonth", //日期
     value: "",
@@ -23,28 +23,18 @@ export default [{
   {
     key: "recordHour", //时间
     value: "",
-    event: event_time
-  }, {
-    key: "fieldThree", //出血量
-    value: "",
-    event: keyf1,
-    name: "出血量"
-  }, {
-    key: "fieldFive", //性状颜色
-    value: "",
-    event: keyf1
-  }, {
-    key: "fieldOne", //宫底U-Fb
-    value: "",
-    event: keyf1,
-    name: "宫底",
-    autoComplete: {
-      data: 宫底
-    }
-  }, {
+    event: event_time,
+    click: click_time
+  },
+  {
     key: "bloodPressure", //血压
     value: "",
-    event: keyf1,
+    name: "血压",
+    next: "mmHg",
+    change: (e, td) => limitChange(e, td, 10),
+    textarea: {
+      width: 80
+    },
     event: function (e, td) {
       if (e.keyCode == 32) {
         e.target.value += "/";
@@ -52,32 +42,81 @@ export default [{
       }
       keyf1(e, td);
     }
-  }, {
+  },
+  {
     key: "pulse", //脉搏
     value: "",
-    event: keyf1
-  }, {
-    key: "breath", //呼吸
-    value: "",
-    event: keyf1
-  }, {
-    key: "spo2", //血氧饱和度
-    value: "",
-    event: keyf1
-  }, {
-    key: "fieldFour", //膀胱情况
-    value: "",
+    name: "脉搏",
+    next: "次/分",
     event: keyf1,
+    change: (e, td) => limitChange(e, td, 10),
+    textarea: {
+      width: 80
+    },
+  },
+  
+  {
+    key: "palace", //宫底
+    value: "",
+    name: "宫底",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 10),
+    textarea: {
+      width: 80
+    },
+  },
+  {
+    key: "uterineContractions", //子宫收缩
+    value: "",
+    name: "子宫收缩",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 10),
+    textarea: {
+      width: 80
+    },
+    autoComplete: {
+      data: 子宫收缩
+    },
+  },
+  {
+    key: "bleedingVolume", //出血量
+    value: "",
+    name: "出血量",
+    next: "ml",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 10),
+    textarea: {
+      width: 80
+    },
+  },
+  {
+    key: "bladderCondition", //膀胱情况
+    value: "",
     name: "膀胱情况",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 10),
+    textarea: {
+      width: 80
+    },
     autoComplete: {
       data: 膀胱情况
-    }
-  }, {
-    key: "fieldTwo", //肛查
+    },
+  },
+  {
+    key: "analExamination", //肛查
     value: "",
-    event: keyf1
-  }, {
-    key: "description", //附注
+    name: "肛查",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 10),
+    textarea: {
+      width: 80
+    },
+    autoComplete: {
+      data: 肛查
+    },
+  },
+  {
+    key: "description", //其他
     value: "",
     style: {
       textAlign: "left",
@@ -85,11 +124,12 @@ export default [{
       top: "1px",
       bottom: "1px",
       left: "1px",
-      width: "180px",
-      background: "transparent"
+      width: "150px",
+      background: "transparent",
+      fontSize: "14px"
     },
     textarea: {
-      width: 180
+      width: 150
     },
     event: function (e, td) {
       console.log(e.keyCode);
@@ -102,15 +142,11 @@ export default [{
     // oninput: next
   },
   {
-    key: "sign", //护士签名
-    style: {
-      minWidth: '72px',
-      maxWidth: '72px',
-    },
+    key: "sign",
     value: ""
   },
   // {
-  //   key: "audit", //审核签名
+  //   key: "audit",
   //   value: ""
   // },
   {
@@ -159,7 +195,7 @@ export default [{
     value: ""
   },
   {
-    hidden: true,
+    hidden: false,
     key: "auditorNo",
     value: ""
   },
@@ -179,36 +215,3 @@ export default [{
     value: false
   }
 ];
-
-export function getListData4() {
-  let list = [
-    "宫底",
-    "子宫收缩",
-    "膀胱情况",
-    "入量项目",
-    "出量项目"
-  ];
-  multiDictInfo(list).then(res => {
-    let data = res.data.data;
-    console.log(data);
-    setList(宫底, "宫底", data);
-    setList(子宫收缩, "子宫收缩", data);
-    setList(膀胱情况, "膀胱情况", data);
-    setList(入量项目, "入量项目", data);
-    setList(出量项目, "出量项目", data);
-  });
-}
-
-getListData4();
-/**
- *
- * @param {*} list 原数组
- * @param {*} key 对应的key
- * @param {*} data 数据源
- */
-function setList(list, key, data) {
-  list.splice(0, list.length);
-  for (let item of data[key]) {
-    list.push(item.name);
-  }
-}

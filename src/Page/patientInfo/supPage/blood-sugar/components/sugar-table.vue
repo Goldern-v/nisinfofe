@@ -231,9 +231,11 @@ export default {
       let renderData = [];
       let firstDate = "";
       for (let i = 0; i < this.data.length; i++) {
-        this.data[i].md = new Date(this.data[i].recordDate).Format(
-          "MM-dd hh:mm"
-        );
+        if(this.HOSPITAL_ID == 'lingcheng'){
+          this.data[i].md = new Date(this.data[i].recordDate).Format("yyyy-MM-dd hh:mm");
+        }else{
+          this.data[i].md = new Date(this.data[i].recordDate).Format("MM-dd hh:mm");
+        }
         let obj = this.data[i];
         let date = this.data[i].md.split(" ")[0];
         let time = this.data[i].md.split(" ")[1];

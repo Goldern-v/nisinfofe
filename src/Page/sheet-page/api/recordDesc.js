@@ -2,14 +2,13 @@ import axios from '@/api/axios'
 import {apiPath} from '@/api/apiConfig'
 import sheetInfo from '@/Page/sheet-page/components/config/sheetInfo'
 import qs from 'qs'
-
 // 获取字典项
 export const listItem = (code, recordCode) => {
   return axios.post(`${apiPath}dept/dictInfo`, qs.stringify({code, recordCode }))
 }
 
 //  保存常用短语
-export function saveOrUpdate(groupName, title, content, id ,wardCode,hospitalId) {
+export function saveOrUpdate(groupName, title, content, id ,wardCode) {
  let recordCode = sheetInfo.sheetType
 //  if(hospitalId=="huadu"){
   return axios.post(`${apiPath}record/desc/saveOrUpdate`, {recordCode, groupName, title, content, id, wardCode})

@@ -32,7 +32,7 @@
         <div class="text-con">出入量统计</div>
       </div>
       <div
-        v-if="!isDeputy"
+        v-if="showSetCreatePage()"
         class="item-box"
         flex="cross:center main:center"
         @click="setPage"
@@ -340,6 +340,9 @@ export default {
     };
   },
   methods: {
+    showSetCreatePage(){
+      return !this.isDeputy || this.HOSPITAL_ID=='guizhou'
+    },
     closeModal() {
       this.visibled = false;
     },
