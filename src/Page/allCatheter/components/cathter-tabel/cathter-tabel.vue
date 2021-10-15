@@ -52,6 +52,7 @@
             <template slot-scope="scope">
                 <el-autocomplete
                     v-model="scope.row[item.name]"
+                    @input="show"
                     :fetch-suggestions="(queryString, cb)=>querySearch(queryString, cb,optionsConfig[item.name])"
                     placeholder=""
                     @select="handleSelect"
@@ -219,6 +220,9 @@ return {
 };
 },
 methods: {
+    show(){
+        console.log(111);
+    },
     handleSelect(){},
     querySearch(queryString, cb,arr){
         if(arr&&arr.length){
