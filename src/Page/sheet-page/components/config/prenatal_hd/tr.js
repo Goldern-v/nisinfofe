@@ -147,9 +147,9 @@ export default [
     event: keyf1,
     name: "阴道出血",
     next: "mL",
-    change: (e, td) => limitChange(e, td, 6),
+    change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 30
+      width: 35
     }
   },
   {
@@ -302,7 +302,7 @@ export default [
       background: "transparent"
     },
     textarea: {
-      width: 140
+      width: 125
     },
     event: function (e, td) {
       console.log(e.keyCode);
