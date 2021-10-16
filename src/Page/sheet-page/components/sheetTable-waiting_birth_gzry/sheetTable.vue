@@ -33,7 +33,10 @@
             科室：{{ patientInfo.realDeptName }}
           </span>
           <span>
-            床号：{{ patientInfo.bedLabel }}
+            床号：
+            <div :class="['bottom-line','has-background']" :style="{minWidth:'55px'}"  @dblclick.stop="openBedRecordModal">
+              {{ bedAndDeptChange.bedLabelChange }}
+            </div>
           </span>
           <span>
             住院号：{{ patientInfo.patientId }}
@@ -71,6 +74,7 @@
         </excel>
       </div>
     </div>
+    <bedRecordModal ref="bedRecordModal"></bedRecordModal>
   </div>
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus">
@@ -262,6 +266,7 @@ import $ from "jquery";
 import moment from "moment";
 import common from "@/common/mixin/common.mixin";
 import { updateSheetHeadInfo } from "../../api/index";
+import bedRecordModal from "../modal/bedRecord-modal";
 export default {
   props: {
     data: Object,
@@ -282,6 +287,12 @@ export default {
     };
   },
   methods: {
+    openBedRecordModal(){
+      if (this.readOnly) {
+        return this.$message.warning("你无权操作此护记，仅供查阅");
+      }
+      this.$refs.bedRecordModal.open();
+    },
   },
   computed: {
     patientInfo() {
@@ -304,7 +315,8 @@ export default {
   mounted() {},
   destroyed() {} /* fix vue-happy-bus bug */,
   components: {
-    excel
+    excel,
+    bedRecordModal
   }
 };
 </script>

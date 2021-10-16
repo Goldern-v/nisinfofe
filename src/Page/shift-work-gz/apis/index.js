@@ -109,7 +109,7 @@ export function signShiftRecord(id, empNo, password) {
 // 取消交班签名
 export function delSignShiftRecord(id, empNo, password) {
   return axios.post(
-    `${apiPath}changeShiftPatientListSgy/updateAutographNamePost`, {
+    `${apiPath}changeShiftTimeSgy/updateAutographNamePost`, {
      id, empNo, password
     }
   );

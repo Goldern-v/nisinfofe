@@ -414,7 +414,8 @@
             sheetInfo.sheetType == 'common_wj' ||
               sheetInfo.sheetType == 'common_hl' ||
               sheetInfo.sheetType == 'rescue_hl' ||
-              sheetInfo.sheetType == 'emergency_stay_hl'
+              sheetInfo.sheetType == 'emergency_stay_hl' ||
+              sheetInfo.sheetType == 'waiting_birth_wj'
           "
           >护士长签名：</span
         >
@@ -555,6 +556,7 @@ export default {
         "prenatal_hl",
         "common_sn",
         "maternity_sn",
+        "waiting_birth_wj",
       ],
       // 需要双签名的记录单code
       multiSignArr: [
@@ -678,9 +680,10 @@ export default {
     onFocus(e, bind) {
       if (sheetInfo.model == "print") return;
       if (!this.sheetInfo.downControl) {
-        setTimeout(function () {
-          onFocusToAutoComplete(e, bind); 
-        }, 300);
+        // setTimeout(function () {
+        //   onFocusToAutoComplete(e, bind); //下拉框延迟
+        // }, 300);
+        onFocusToAutoComplete(e, bind);
       }
     },
     onBlur(e, bind) {
@@ -1125,7 +1128,6 @@ export default {
       ) {
         return false;
       }
-      
         let status = tr.find(item => item.key == "status").value;
         let empNo = tr.find(item => item.key == "empNo").value;
         if (status == 1) {
@@ -1654,7 +1656,7 @@ export default {
         let data = td.autoComplete.data[0];
         autoCompleteData = data[key] && data[key].map(child => {
           return child.itemName
-        })
+        }) || []
       }
       this.defaultOptionList = td.parentKey ? autoCompleteData : td.autoComplete.data
       this.accessOptionList = JSON.parse(JSON.stringify(this.defaultOptionList));

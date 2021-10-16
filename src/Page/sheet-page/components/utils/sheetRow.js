@@ -27,15 +27,13 @@ export function getRowNum(index) {
     }
   } else if (sheetInfo.sheetType == "com_lc") {
     return 22;
-  } else if (sheetInfo.sheetType == "nursingrecords_zxy") {
-    return 24;
   } else if (sheetInfo.sheetType == "intervention_cure") {
     return 15;
   } else if (sheetInfo.sheetType == "Record_Children_Serious_Lc") {
     return 28;
-  } else if (sheetInfo.sheetType == "icu_qz") {
+  } else if (sheetInfo.sheetType == "icu_qz" || sheetInfo.sheetType == "postpartum_wj") {
     return 33;
-  }else if (sheetInfo.sheetType == "icu_lc") {
+  } else if (sheetInfo.sheetType == "icu_lc") {
     return 22;
   } else if (sheetInfo.sheetType == "special") {
     return 23;

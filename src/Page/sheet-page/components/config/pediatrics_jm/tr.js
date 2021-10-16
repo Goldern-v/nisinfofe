@@ -10,7 +10,13 @@ import {
   click_date,
   click_time
 } from "../keyEvent/date";
-export default [{
+export default [
+  {
+    key: "recordDate", //年份
+    value: "",
+    hidden:true
+  },
+  {
   key: "recordMonth", //日期
   value: "",
   event: event_date,
@@ -56,7 +62,10 @@ export default [{
 {
   key: "diet", //饮食
   value: "",
-  event: keyf1
+  event: keyf1,
+  textarea: {
+    width: 40
+  }
 },
 {
   key: "veinSize", // 入量静脉（ml）

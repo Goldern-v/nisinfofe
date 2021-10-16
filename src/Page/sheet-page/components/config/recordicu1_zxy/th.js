@@ -147,7 +147,7 @@ export default {
       },
       {
         name: `
-        气囊压力cmH<sub>2</sub>O
+        气囊<br/>压力<br/>cmH<sub>2</sub>O
         `,
         colspan: "1",
         rowspan: "2",

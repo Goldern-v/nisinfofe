@@ -831,7 +831,7 @@ export default {
             css: `
             .bed-card-warpper {
             box-shadow: none !important;
-            transform: rotate(90deg) translateY(-3.5cm) translateX(0.2cm);
+            transform: rotate(90deg) translateY(-3.5cm) translateX(3cm);
             transform-origin: 0 0;
             }
             @page {

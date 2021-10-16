@@ -17,7 +17,13 @@ let 静脉化疗 = ['开始','持续','结束']
 let 心电监护 = ['开始','持续','结束']
 let 伤口疼痛 = ['无','轻度','重度']
 let 伤口敷料 = ['干洁','少许','渗液']
-export default [{
+export default [
+  {
+    key: "recordDate", //年份
+    value: "",
+    hidden:true
+  },
+  {
     key: "recordMonth", //日期
     value: "",
     event: event_date,

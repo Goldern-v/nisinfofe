@@ -18,7 +18,13 @@ let fsList = ['红','微红','黄染','√'];
 let qbList = ['干洁','无渗血','√'];
 let twList = ['左','平','右','俯卧','√'];
 let jzlList = ['正常','稍低','低下','√'];
-export default [{
+export default [
+  {
+    key: "recordDate", //年份
+    value: "",
+    hidden:true
+  },
+  {
   key: "recordMonth", //日期
   value: "",
   event: event_date,
@@ -191,13 +197,16 @@ export default [{
 {
   key: "description", //特殊情况记录
   value: "",
+  // textarea: {
+  //   width: 150
+  // },
   style: {
     textAlign: "left",
     position: "absolute",
     top: "1px",
     bottom: "1px",
     left: "1px",
-    width: "180px",
+    width: "150px",
     background: "transparent",
     fontSize: "14px"
   },

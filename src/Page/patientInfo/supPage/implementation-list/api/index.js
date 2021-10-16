@@ -5,7 +5,7 @@ import { apiPath } from "@/api/apiConfig";
 // 获取聊城执行单
 export function getOrdersExecuteWithPatinetId(obj) {
   return axios.post(
-    `${apiPath}hisLiaoChengExecute/getOrdersExecuteWithPatinetId`,
+    `${apiPath}hisLiaoChengExecute/getOrdersExecuteWithPatinetIdNew`,
     obj
   );
 }

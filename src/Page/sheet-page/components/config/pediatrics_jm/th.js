@@ -1,30 +1,44 @@
 /*
   江门妇幼-儿科护理记录单
 */
+// 添加的
+import moment from "moment";
+
+function currYear() {
+  return moment().format('YYYY')
+}
 export default {
   style: {
     width: '1300px'
   },
   deptType: '',
   th: {
-    top: [{
-        name: '日期',
-        style: {
-          minWidth: '30px',
-          maxWidth: '30px',
-        },
-        colspan: '1',
-        rowspan: '3'
-      },
+    top: [
       {
-        name: '时间',
-        style: {
-          minWidth: '30px',
-          maxWidth: '30px',
-        },
-        colspan: '1',
-        rowspan: '3'
+        name: currYear(),
+        style: {},
+        colspan: "2",
+        rowspan: "1",
+        key:'recordYear'
       },
+      // {
+      //   name: '日期',
+      //   style: {
+      //     minWidth: '30px',
+      //     maxWidth: '30px',
+      //   },
+      //   colspan: '1',
+      //   rowspan: '3'
+      // },
+      // {
+      //   name: '时间',
+      //   style: {
+      //     minWidth: '30px',
+      //     maxWidth: '30px',
+      //   },
+      //   colspan: '1',
+      //   rowspan: '3'
+      // },
       {
         name: `
         体温<br/>(℃)
@@ -218,7 +232,26 @@ export default {
         },
       }
     ],
-    mid: [{
+    mid: [
+       {
+        name: '日期',
+        style: {
+          minWidth: '30px',
+          maxWidth: '30px',
+        },
+        colspan: '1',
+        rowspan: '2'
+      },
+      {
+        name: '时间',
+        style: {
+          minWidth: '30px',
+          maxWidth: '30px',
+        },
+        colspan: '1',
+        rowspan: '2'
+      },
+      {
         name: `
         静脉<br>(ml)
         `,
@@ -242,7 +275,7 @@ export default {
         key: 'otherFood',
       }, {
         name: `
-        尿量
+        尿液
         `,
         colspan: '2',
         rowspan: '1'

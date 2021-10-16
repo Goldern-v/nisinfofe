@@ -5,6 +5,13 @@ import {
   wrap
 } from "lodash";
 
+// 年份
+import moment from "moment";
+
+function currYear() {
+  return moment().format('YYYY')
+}
+
 export default {
   // 科室的名称
   deptType: '',
@@ -12,24 +19,32 @@ export default {
     width: "1300px"
   },
   th: {
-    top: [{
-        name: '日期',
-        style: {
-          minWidth: '38px',
-          maxWidth: '38px',
-        },
-        colspan: '1',
-        rowspan: '3'
-      },
+    top: [
       {
-        name: '时间',
-        style: {
-          minWidth: '38px',
-          maxWidth: '38px',
-        },
-        colspan: '1',
-        rowspan: '3'
+        name: currYear(),
+        style: {},
+        colspan: "2",
+        rowspan: "1",
+        key:'recordYear'
       },
+      // {
+      //   name: '日期',
+      //   style: {
+      //     minWidth: '38px',
+      //     maxWidth: '38px',
+      //   },
+      //   colspan: '1',
+      //   rowspan: '3'
+      // },
+      // {
+      //   name: '时间',
+      //   style: {
+      //     minWidth: '38px',
+      //     maxWidth: '38px',
+      //   },
+      //   colspan: '1',
+      //   rowspan: '3'
+      // },
       {
         name: `
         台<br/>箱<br/>温<br/>℃
@@ -241,7 +256,7 @@ export default {
         `,
         style: {
           minWidth: '150px',
-          maxWidth: '180px',
+          maxWidth: '150px',
         },
         colspan: '1',
         rowspan: '3'
@@ -269,7 +284,26 @@ export default {
         rowspan: '3'
       }
     ],
-    mid: [{
+    mid: [
+      {
+        name: '日期',
+        style: {
+          minWidth: '38px',
+          maxWidth: '38px',
+        },
+        colspan: '1',
+        rowspan: '2'
+      },
+      {
+        name: '时间',
+        style: {
+          minWidth: '38px',
+          maxWidth: '38px',
+        },
+        colspan: '1',
+        rowspan: '2'
+      },
+      {
         name: `静脉<br>（ml）`,
         colspan: '1',
         rowspan: '2',

@@ -9,14 +9,14 @@
         
       </div>
       <div class="right-part" v-loading="tableLoading">
-        <catheterList :cathterArr='cathterArr' @addCathter='addCathter' @updateTableConfig='updateTableConfig'/>
+        <catheterList :cathterArr='cathterArr' @addCathter='addCathter' @updateTableConfig='updateTableConfig' ref="catheterList"/>
         <div class="sheetTable-contain" ref="scrollCon">
           <cathterTabel @onChangePatient_self='onChangePatient_self' :title="'尿导管'" @changeShowTable='changeShowTable' :tabelConfig='tabelConfig' :tableInfo='tableInfo' v-if="showTable" @updateTableConfig='updateTableConfig'/>
           <div
             v-else
             class="null-btn"
             flex="cross:center main:center"
-            @click="addSheetPage"
+            @click="addCathter"
           >
             <i class="el-icon-plus"></i>
             添加导管
@@ -185,7 +185,8 @@ export default {
       newCathterType:'',
       tabelConfig:[],
       tableInfo:{},
-      showTable:false
+      showTable:false,
+      hasPatient:false
     };
   },
   computed: {
@@ -316,7 +317,10 @@ export default {
     //   isFirst && this.bus.$emit("initSheetPageSize");
     // },
     onChangePatient_self(info){
+      this.showTable = false
+      this.hasPatient = true
       this.cathterArr = []
+      this.$refs.catheterList.current = null
       let { patientId , visitId , wardCode } = info
       getCatheterList({
         patientId,
@@ -327,6 +331,10 @@ export default {
       })
     },
     addCathter(){
+      if(!this.hasPatient){
+        this.$message.error('请先选择一名患者！');
+        return
+      }
       this.isAddCathter = true
     },
     closeCathter(){

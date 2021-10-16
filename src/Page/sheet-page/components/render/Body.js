@@ -648,6 +648,11 @@ function switechSheetType(type) {
       schema = require("../config/blood_purify_hl/tr.js").default;
     }
       break;
+    case "aerate_param_hl": {
+      // 横沥 - 儿科机械通气护理单
+      schema = require("../config/aerate_param_hl/tr").default;
+    }
+      break;
     case "icu_sn": {
       // 山南 - ICU护理记录单
       schema = require("../config/icu_sn/tr.js").default;
@@ -686,6 +691,11 @@ function switechSheetType(type) {
     case "newborn_qzx": {
       // 曲周县 - 新生儿护理记录单
       schema = require("../config/newborn_qzx/tr.js").default;
+    }
+      break;
+    case "newborn_intensive_qz": {
+      // 曲周县 - 新生儿重症护理记录单
+      schema = require("../config/newborn_intensive_qz/tr.js").default;
     }
       break;
     case "ecgmonitoring_bh": {
@@ -758,21 +768,31 @@ function switechSheetType(type) {
       schema = require("../config/brainobservation_zxy/tr.js").default;
     }
       break;
-    // case "recordicu1_zxy": {
-    //   // 南方中西医 - 重症监护病房护理记录单(表一)
-    //   schema = require("../config/recordicu1_zxy/tr.js").default;
-    // }
-    //   break;
-    // case "recordicu2_zxy": {
-    //   // 南方中西医 - 重症监护病房护理记录单(表二)
-    //   schema = require("../config/recordicu2_zxy/tr.js").default;
-    // }
-    //   break;
-    // case "recordicu3_zxy": {
-    //   // 南方中西医 - 重症监护病房护理记录单(表三)
-    //   schema = require("../config/recordicu3_zxy/tr.js").default;
-    // }
-    //   break;
+    case "recordicu1_zxy": {
+      // 南方中西医 - 重症监护病房护理记录单(表一)
+      schema = require("../config/recordicu1_zxy/tr.js").default;
+    }
+      break;
+    case "recordicu2_zxy": {
+      // 南方中西医 - 重症监护病房护理记录单(表二)
+      schema = require("../config/recordicu2_zxy/tr.js").default;
+    }
+      break;
+    case "recordicu3_zxy": {
+      // 南方中西医 - 重症监护病房护理记录单(表三)
+      schema = require("../config/recordicu3_zxy/tr.js").default;
+    }
+      break;
+    case "waiting_birth_wj": {
+      // 武警 - 待产护理记录单
+      schema = require("../config/waiting_birth_wj/tr.js").default;
+    }
+      break;
+    case "postpartum_wj": {
+      // 武警 - 产后(产房)观察记录单
+      schema = require("../config/postpartum_wj/tr.js").default;
+    }
+      break;
     default: {
       schema = require("../config/default/tr.js").default;
     }
