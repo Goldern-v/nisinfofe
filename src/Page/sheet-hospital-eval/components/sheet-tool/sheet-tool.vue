@@ -99,14 +99,15 @@
           property="axillaryTemperature"
           label="体温（T）"
         ></el-table-column>
-        <el-table-column property="breathe" label="脉搏（P）"></el-table-column>
+        <el-table-column property="pulse" label="脉搏（P）"></el-table-column>
         <el-table-column
-          property="heartRate"
+          property="breathe"
           label="呼吸（R）"
         ></el-table-column>
         <el-table-column
           property="bloodPressure"
           label="血压（BP）"
+          width="120"
         ></el-table-column>
       </el-table>
     </el-dialog>
@@ -816,6 +817,7 @@ export default {
         startDate: this.searchData.date,
         endDate: this.endData.date,
       };
+      console.log(postData,"postDatapostDatapostDatapostData");
       vitalsign(postData)
         .then((res) => {
           console.log(res.data.data.list);
@@ -827,11 +829,12 @@ export default {
         });
     },
     leftTablelist(val) {
+      console.log(val);
       this.thisRowData = this;
       this.thisRowData = val;
       this.dialogTableVisible = false;
       window.formObj.model.I100001 = val.axillaryTemperature;
-      window.formObj.model.I100002 = val.heartRate;
+      window.formObj.model.I100002 = val.pulse;
       window.formObj.model.I100003 = val.breathe;
       window.formObj.model.I100005 = val.bloodPressure;
       let post = {
@@ -895,11 +898,13 @@ export default {
       var year = now.getFullYear(); // 得到年份
       var month = now.getMonth(); // 得到月份
       var date = now.getDate(); // 得到日期
+      var HH = now.getHours(); // 得到小时
+      var MM = now.getMinutes(); // 得到分钟
       month = month + 1;
       month = month.toString().padStart(2, "0");
       date = date.toString().padStart(2, "0");
-      var defaultDate = `${year}-${month}-${date}`;
-      var defaultDate1 = `${year}-${month}-${date - 1}`;
+      var defaultDate = `${year}-${month}-${date} ${HH}:${MM} `;
+      var defaultDate1 = `${year}-${month}-${date - 1} ${HH}:${MM}`;
       this.$set(this.endData, "date", defaultDate);
       this.$set(this.searchData, "date", defaultDate1);
     },

@@ -16,7 +16,47 @@
           value-format="HH:mm"
         />
       </ElFormItem>
-      <ElFormItem label="项目：" required>
+      <ElFormItem v-if="HOSPITAL_ID == 'liaocheng'" label="类型：" required>
+        <ElSelect
+          v-if="HOSPITAL_ID != 'huadu' && HOSPITAL_ID != 'quzhou'"
+          v-model="form.sugarItem"
+        >
+          <ElOption
+            v-for="item in typeList"
+            :key="item.vitalSign"
+            :label="item.vitalSign"
+            :value="item.vitalSign"
+          />
+        </ElSelect>
+        <ElSelect
+          v-if="HOSPITAL_ID === 'huadu'"
+          v-model="form.sugarItem"
+          filterable
+          allow-create
+          @change="setNewItem($event)"
+        >
+          <ElOption
+            v-for="item in huaduTypeList"
+            :key="item.vitalSign"
+            :label="item.vitalSign"
+            :value="item.vitalSign"
+          />
+        </ElSelect>
+        <ElSelect
+          v-if="HOSPITAL_ID === 'quzhou'"
+          v-model="form.sugarItem"
+          filterable
+          allow-create
+        >
+          <ElOption
+            v-for="item in quzhouTypeList"
+            :key="item.vitalSign"
+            :label="item.vitalSign"
+            :value="item.vitalSign"
+          />
+        </ElSelect>
+      </ElFormItem>
+      <ElFormItem v-else label="项目：" required>
         <ElSelect
           v-if="HOSPITAL_ID != 'huadu' && HOSPITAL_ID != 'quzhou'"
           v-model="form.sugarItem"
