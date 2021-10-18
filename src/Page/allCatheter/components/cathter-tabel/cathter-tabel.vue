@@ -6,11 +6,12 @@
                 <div class="set-cathter">
                     <div>置管时间：{{tableInfo.intubationTime}}</div>
                     <div>置管天数：第{{intubationDays}}天</div>
-                    <div :style="{width:'120px'}">置管来源：{{tableInfo.catheterSource}}</div>
+                    <div :style="{width:'140px'}">置管来源：{{tableInfo.catheterSource}}</div>
                 </div>
                 <div class="up-cathter">
                     <div style="cursor:pointer;"  @dblclick="changeReplaceTime">更换时间：{{tableInfo.replaceTime}}</div>
-                    <div v-show="replaceDays!='unShow'" :style="{color:tableInfo.catheterStatus==1?'red':''}">剩余天数：第{{replaceDays}}天</div>
+                    <div v-show="replaceDays=='outTime'" style="color:red">剩余天数：已超时</div>
+                    <div v-show="replaceDays!='unShow'&&replaceDays!='outTime'" :style="{color:tableInfo.catheterStatus==1?'red':''}">剩余天数：第{{replaceDays}}天</div>
                     <div v-show="replaceDays=='unShow'">实际拔管时间：{{tableInfo.extubationTime}}</div>
                 </div>
             </div>
@@ -52,6 +53,7 @@
             <template slot-scope="scope">
                 <el-autocomplete
                     v-model="scope.row[item.name]"
+                    @input="show"
                     :fetch-suggestions="(queryString, cb)=>querySearch(queryString, cb,optionsConfig[item.name])"
                     placeholder=""
                     @select="handleSelect"
@@ -219,6 +221,9 @@ return {
 };
 },
 methods: {
+    show(){
+        console.log(111);
+    },
     handleSelect(){},
     querySearch(queryString, cb,arr){
         if(arr&&arr.length){
@@ -386,7 +391,12 @@ computed:{
         if(this.tableInfo.extubationTime)return 'unShow'
         let m1 = moment(this.tableInfo.replaceTime)
         let m2 = moment()
-        return m1.diff(m2,'day')
+        let day = m1.diff(m2,'day')
+        console.log(day);
+        if(day<0){
+            return 'outTime'
+        }
+        return day
     }
 }
 };

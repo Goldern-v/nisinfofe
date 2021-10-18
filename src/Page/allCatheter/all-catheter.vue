@@ -9,7 +9,7 @@
         
       </div>
       <div class="right-part" v-loading="tableLoading">
-        <catheterList :cathterArr='cathterArr' @addCathter='addCathter' @updateTableConfig='updateTableConfig'/>
+        <catheterList :cathterArr='cathterArr' @addCathter='addCathter' @updateTableConfig='updateTableConfig' ref="catheterList"/>
         <div class="sheetTable-contain" ref="scrollCon">
           <cathterTabel @onChangePatient_self='onChangePatient_self' :title="'尿导管'" @changeShowTable='changeShowTable' :tabelConfig='tabelConfig' :tableInfo='tableInfo' v-if="showTable" @updateTableConfig='updateTableConfig'/>
           <div
@@ -320,6 +320,7 @@ export default {
       this.showTable = false
       this.hasPatient = true
       this.cathterArr = []
+      this.$refs.catheterList.current = null
       let { patientId , visitId , wardCode } = info
       getCatheterList({
         patientId,
