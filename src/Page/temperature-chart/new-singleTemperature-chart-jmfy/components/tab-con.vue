@@ -41,7 +41,7 @@
       <null-bg v-if="!patientInfo.patientId"></null-bg>
       <div v-else class="showRecord">
         <div style="flex: 4">
-          <el-button
+          <div
             :class="
               [
                 'recordList',
@@ -53,6 +53,7 @@
             style="margin: 0px"
             v-for="(dateTime, tabIndex) in tabsData"
             :key="tabIndex"
+            @contextmenu.stop.prevent="(e)=>rightMouseDown(e,dateTime, tabIndex)"
             @click="changeQuery(dateTime)"
           >
             {{ dateTime }}
@@ -61,8 +62,9 @@
               @click="removeRecord(dateTime, tabIndex)"
               class="el-icon-close"
             ></i>
-          </el-button>
+          </div>
         </div>
+
         <div style="flex: 7">
           <div
             :class="
@@ -497,6 +499,10 @@ export default {
         this.multiDictList = { ...data };
         this.init();
       });
+    },
+     //右键删除记录
+    rightMouseDown(e,dateTime, tabIndex){
+      this.removeRecord(dateTime, tabIndex)
     },
     /* 删除记录 */
     async removeRecord(targetName, index) {

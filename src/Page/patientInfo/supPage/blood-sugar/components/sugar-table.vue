@@ -3,8 +3,8 @@
     <table>
       <tr>
         <th
-          v-if="HOSPITAL_ID == 'hj'
-          || HOSPITAL_ID == 'guizhou'
+          v-if="HOSPITAL_ID != 'hj'
+          || HOSPITAL_ID != 'guizhou'
           || HOSPITAL_ID == 'liaocheng'
           || HOSPITAL_ID == 'hengli'"
           style="width: 2%; min-width: 20px"
@@ -18,9 +18,10 @@
           时间
         </th>
         <th v-else style="width: 22%; min-width: 75px">日期</th>
-        <th v-if="HOSPITAL_ID != 'lingcheng'" style="width: 20%">项目</th>
+        <th v-if="HOSPITAL_ID != 'lingcheng' && HOSPITAL_ID != 'liaocheng'" style="width: 20%">项目</th>
+        <th v-if="HOSPITAL_ID != 'lingcheng' && HOSPITAL_ID == 'liaocheng'" style="width: 20%">类型</th>
         <th v-else style="width: 24%">测量时间</th>
-        <th style="width: 22%">
+        <th style="width: 23%">
           血糖值
           <br />(mmol/L)
         </th>
@@ -38,7 +39,7 @@
           {{HOSPITAL_ID=="quzhou"?'胰岛素剂量':'RI剂量'}}
         </th>
         <th
-          style="width: 22%"
+          style="width: 23%"
           v-if="
             HOSPITAL_ID == 'liaocheng'
           "
@@ -46,7 +47,7 @@
           血酮值
         <br />(mmol/L)
         </th>
-        <th style="width: 16%">{{HOSPITAL_ID == 'liaocheng' ? '签名' : '执行人'}}</th>
+        <th style="width: 14%">{{HOSPITAL_ID == 'liaocheng' ? '签名' : '执行人'}}</th>
       </tr>
       <tr
         v-for="(item,index) in renderData"
