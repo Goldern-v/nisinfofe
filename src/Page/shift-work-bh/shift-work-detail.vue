@@ -45,11 +45,11 @@
               </span>
               <span>
                 新收：
-                <b>{{record.inHospitalTotal || 0}}</b>人，
+                <b>{{record.patientNew || 0}}</b>人，
               </span>
               <span>
                 转入：
-                <b>{{record.transInTotal || 0}}</b>人，
+                <b>{{record.patientTransferIn || 0}}</b>人，
               </span>
               <span>
                 出院：
@@ -65,7 +65,7 @@
               </span>
               <span>
                 病危：
-                <b>{{record.dangerTotal || 0}}</b>人，
+                <b>{{record.patientBw || 0}}</b>人，
               </span>
               <span>
                 病重：
