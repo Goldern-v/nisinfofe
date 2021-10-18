@@ -1,9 +1,16 @@
 <template>
   <div>
     <div class="contain">
-      <div class="print-btn tool-btn" @click="onPrint()">打印</div>
+      <!-- <div class="print-btn tool-btn" @click="onPrint()">打印</div> -->
       <!-- <div class="print-btn tool-btn" @click="typeIn()">录入</div> -->
-      <div class="pagination">
+      <el-dropdown >
+       <div class="print-btn tool-btn" >打印</div>
+      <el-dropdown-menu slot="dropdown">
+       <el-dropdown-item> <el-button type="primary"  @click="onPrint()">打印当周</el-button></el-dropdown-item>
+    <el-dropdown-item><el-button type="primary"  @click="printAll()">批量打印</el-button></el-dropdown-item>
+       </el-dropdown-menu>
+      </el-dropdown>
+      <div class="pagination" v-show="!isPrintAll">
         <button :disabled="currentPage === 1" @click="currentPage = 1">
           首周
         </button>
@@ -58,6 +65,7 @@ export default {
       pageTotal: 1,
       open: false,
       isSave: false,
+      isPrintAll:false,//是否打印所有
       visibled: false,
       intranetUrl:
       "http://172.17.5.41:9091/temperature/#/" /* 医院正式环境内网 导致跨域 */,
@@ -68,11 +76,23 @@ export default {
   },
   methods: {
     onPrint() {
-      this.$refs.pdfCon.contentWindow.postMessage(
+      this.isPrintAll=false
+this.intranetUrl="http://172.17.5.41:9091/temperature/#/"
+this.getImg()
+      setTimeout(()=>{
+this.$refs.pdfCon.contentWindow.postMessage(
         { type: "printing" },
         this.intranetUrl /* 内网 */
         // this.outNetUrl /* 外网 */
       );
+      },1500)
+      
+ 
+    },
+    printAll(){
+      this.isPrintAll=true  //隐藏页码控制区域
+this.intranetUrl="http://172.17.5.41:9091/temperature/#/printAll"
+this.getImg()
     },
     getImg() {
       let date = new Date(this.queryTem.admissionDate).Format("yyyy-MM-dd");
@@ -150,6 +170,11 @@ export default {
     // date() {
     //   this.getImg();
     // },
+    patientInfo() {
+      this.isPrintAll=false
+this.intranetUrl="http://172.17.5.41:9091/temperature/#/"
+this.getImg()
+    },
     currentPage(value) {
       this.$refs.pdfCon.contentWindow.postMessage(
         { type: "currentPage", value },
@@ -209,6 +234,7 @@ export default {
       height: 100%;
     }
   }
+  
 }
 
 .pagination {
