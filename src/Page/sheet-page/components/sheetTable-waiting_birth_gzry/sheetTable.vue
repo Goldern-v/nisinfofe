@@ -97,6 +97,7 @@
     border: 0;
     width: 30px;
     padding: 2px 0 2px 2px;
+    border-bottom: 1px solid #000;
     height: 12px;
     position: relative;
     outline: none;
