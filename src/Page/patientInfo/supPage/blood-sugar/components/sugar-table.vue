@@ -118,7 +118,7 @@
         </td>
         <td v-else>
           <div class="cell noPrint" v-if="HOSPITAL_ID == 'fuyou'" style="display:block">{{ item.nurse }}</div>
-          <div class="cell noPrint" v-else>{{ item.nurse }}</div>
+          <div class="cell noPrint" :class="[HOSPITAL_ID == 'guizhou'?'liaocheng-img':'']" v-else>{{ item.nurse }}</div>
           <div class="cell inPrint lc" v-if="HOSPITAL_ID == 'lingcheng'">
             <!-- {{item.nurseEmpNo}} -->
             <img
