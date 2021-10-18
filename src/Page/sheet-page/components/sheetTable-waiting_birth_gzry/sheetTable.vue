@@ -34,7 +34,7 @@
           </span>
           <span>
             床号：
-            <div :class="['bottom-line','has-background']" :style="{minWidth:'55px'}"  @dblclick.stop="openBedRecordModal">
+            <div :class="['bottom-line-input','has-background']" :style="{minWidth:'55px'}"  @dblclick.stop="openBedRecordModal">
               {{ bedAndDeptChange.bedLabelChange }}
             </div>
           </span>
@@ -78,6 +78,7 @@
   </div>
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus">
+
 .sheetTable-waiting_birth_gzry {
   & {
     border-radius: 2px;
@@ -91,12 +92,10 @@
     box-sizing: content-box;
     position: relative;
   }
-
   .bottom-line-input {
     display: inline-block;
     border: 0;
     width: 30px;
-    border-bottom: 1px solid #000;
     padding: 2px 0 2px 2px;
     height: 12px;
     position: relative;
@@ -274,7 +273,8 @@ export default {
     length: Number,
     isFirst: Boolean /** 首页 */,
     scrollY: Number,
-    isInPatientDetails: Boolean
+    isInPatientDetails: Boolean,
+    bedAndDeptChange: Object
   },
   mixins: [common],
   data() {
