@@ -402,6 +402,8 @@ export default {
           localStorage["user"] = JSON.stringify(res.data.data.user);
           localStorage["adminNurse"] = res.data.data.adminNurse;
           Cookies.remove("NURSING_USER");
+          //清除江门妇幼ca
+          localStorage.removeItem("fuyouCaData");
           Cookies.set(
             "NURSING_USER",
             `${res.data.data.user.id}##${res.data.data.authToken}`,

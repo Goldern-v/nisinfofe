@@ -48,12 +48,12 @@
     <div class="admin-system-info" v-if="HOSPITAL_ID === 'fuyou'">
       证书状态:
       <p>
-        <label>{{ ca_name || "无证书" }}:</label>
-        <span>{{ ca_isLogin ? "已登录" : "未登录" }}</span>
+        <label>{{ (fuyouCaData && fuyouCaData.data.userName?fuyouCaData.data.userName:'无证书') || "无证书" }}:</label>
+        <span>{{ fuyouCaData ? "已登录" : "未登录" }}</span>
       </p>
       <div class="button-con">
         <el-button size="mini" @click="openFuyouCaSignModal">证书登录</el-button>
-        <el-button size="mini">证书退出</el-button>
+        <el-button size="mini" @click="logoutFuYouCaSign">证书退出</el-button>
       </div>
     </div>
     <div v-if="HOSPITAL_ID === 'liaocheng'">
@@ -279,6 +279,8 @@ export default {
       showScaleTip: false,
       userName: "",
       passWord: "",
+      fuyouCaData:null,//江门妇幼ca签名认证数据
+      isUpdateFuyouCaData:true,
     };
   },
   props: {
@@ -336,6 +338,20 @@ export default {
     },
   },
   methods: {
+    //
+    //江门妇幼ca
+    logoutFuYouCaSign(){
+      localStorage.removeItem("fuyouCaData");
+       this.fuyouCaData=null;
+    },
+    
+    //初始化江门妇幼签名数据
+    initFuyouCaData(){
+      console.log("更新fuyouCaData");
+      console.log(this.fuyouCaData);
+      //window.localStorage.setItem("fuyouCaData"
+      this.fuyouCaData=window.localStorage.getItem("fuyouCaData")?JSON.parse(window.localStorage.getItem("fuyouCaData")):null;
+    },
     openUploadHeadModal() {
       this.$refs.uploadImgModal.open("userHead");
     },
@@ -475,6 +491,10 @@ export default {
     this.bus.$on("refreshSign", () => {
       this.getSignImg();
     });
+    //监听江门妇幼bus src\components\modal\fuyou-ca-sign.vue
+    this.bus.$on("updateFuyouCaData", () => {
+      this.initFuyouCaData();
+    });
     // let HOSPITAL_ENABLE_LIST = ["威县人民医院"]
     console.log(
       "process.env.ENABLE_BLUETOOTH_SIGN",
@@ -494,7 +514,8 @@ export default {
     this.showScaleTip = localStorage.getItem("noShowScaleTip") ? true : false;
     this.$nextTick(() => {
       this.qrcode()
-    })
+    });
+    //初始化
 
   },
   components: {
