@@ -82,8 +82,8 @@ export default {
       isPrintAll:false,//是否打印所有
       visibled: false,
       intranetUrl:
-      "http://172.17.5.41:9091/#/" /* 医院正式环境内网 导致跨域 */,
-      printAllUrl: "http://172.17.5.41:9091/#/printAll" /* 医院正式环境内网 */,
+      "http://172.17.5.41:9091/temperature/#/" /* 医院正式环境内网 导致跨域 */,
+      printAllUrl: "http://172.17.5.41:9091/temperature/#/printAll" /* 医院正式环境内网 */,
       outNetUrl:
         "http://120.224.211.7:9091/temperature/#/" /* 医院正式环境外网：想要看iframe的效果，测试的时候可以把本地的地址都改成外网测试 */,
     };
