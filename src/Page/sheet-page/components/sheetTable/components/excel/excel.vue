@@ -10,7 +10,7 @@
       class="sheet-table table-fixed-th no-print"
       :style="{ width: fiexHeaderWidth }"
       :class="{ isFixed, isInPatientDetails }"
-      v-if="hasFiexHeader && HOSPITAL_ID !== 'hengli'"
+      v-if="hasFiexHeader"
     >
       <tr class="body-con">
         <td v-for="(td, i) in titleModel" :key="i" :dataKey="td.key">
