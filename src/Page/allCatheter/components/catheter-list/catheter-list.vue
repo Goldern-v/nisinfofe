@@ -22,7 +22,7 @@
     .cathter-box{
         border:1px solid #ccc;
         position: absolute;
-        width: 300px;
+        width: 280px;
         height: 100%;
         background-color: #fff;
         top: 0;
@@ -33,7 +33,7 @@
             justify-content: space-between;
             div{
                 width: 100px;
-                text-align: center;
+                text-indent: 15px;
                 height: 30px;
                 line-height: 30px;
                 font-weight: 700;
@@ -48,8 +48,8 @@
         .cathter-list{
             .cathter-item{
                 cursor: pointer;
-                text-indent: 35px;
-                height: 45px;
+                text-indent: 10px;
+                min-height: 45px;
                 line-height: 45px;
                 display: flex;
                 justify-content: space-between;
