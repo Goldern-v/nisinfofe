@@ -13,7 +13,7 @@
       <span>
         床号：
         <div :class="['bottom-line','has-background']" :style="{minWidth:'55px'}"  @dblclick.stop="openBedRecordModal">
-          {{ bedAndDeptChange.bedLabelChange }}
+          {{ patientInfo.bedLabel }}
         </div>
       </span>
       <span>
