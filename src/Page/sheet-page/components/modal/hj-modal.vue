@@ -1,6 +1,10 @@
 <template>
   <div>
     <sweet-modal ref="modal" :modalWidth="500" title="出入量统计">
+      <div class="time-type-button" v-if="HOSPITAL_ID=='liaocheng'">
+        <el-button type="primary" @click="initTime('today')">白班小结</el-button>
+        <el-button type="primary" @click="initTime('yesterday')">24小时小结</el-button>
+      </div>
       <p for class="name-title">请选择日期区间：</p>
       <div flex="cross:center main:center" style="margin:0 15px 20px">
         <cr-date-picker
@@ -38,6 +42,8 @@
 </style>
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
+.time-type-button
+  text-align center;
 .name-title
   font-size 14px;
   margin 0px 0 15px
@@ -72,6 +78,13 @@ export default {
     };
   },
   methods: {
+    initTime(type){
+      let timeObject = {
+        'today':[moment().format("YYYY-MM-DD 07:00"),moment().format("YYYY-MM-DD 17:00")],
+        'yesterday':[moment().subtract(1,'days').format("YYYY-MM-DD 07:00"),moment().format("YYYY-MM-DD 07:00")]
+      }
+      this.date = timeObject[type]
+    },
     open() {
       this.$refs.modal.open();
       this.description = "";
