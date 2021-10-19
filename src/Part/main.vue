@@ -55,8 +55,6 @@ export default {
         南方医科大学顺德医院附属杏坛医院: 'FSXTHeader',
         阳春中医院: 'YangchunzhongyiHeader'
       };
-      console.log( hisList[HisName])
-      console.log("555")
       return hisList[HisName] || "HLheader";
     },
   },
