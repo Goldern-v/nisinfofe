@@ -30,6 +30,9 @@
       .his-logo
         top 0
         left 0
+    .liaocheng-img
+      width:55px;
+      height:18px;
 @page {
   margin 0 10mm 
 }        

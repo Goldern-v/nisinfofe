@@ -45,7 +45,7 @@
   box-shadow: 0px 5px 10px 0 rgba(0, 0, 0, 0.5);
   padding: 20px 0px;
   box-sizing: border-box;
-  width: 760px;
+  width: 100%;
   margin: 0 auto;
 
   .assessment-iframe {
