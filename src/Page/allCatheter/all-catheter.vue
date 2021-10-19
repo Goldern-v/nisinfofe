@@ -94,12 +94,12 @@
 
 .sheetTable-contain {
   height: 100%;
-  width:calc( 100% - 300px)
+  width:calc( 100% - 280px)
   background: #DFDFDF;
   overflow: auto;
   padding: 15px 5px 15px;
   box-sizing: border-box;
-  margin: 0 0 20px 300px;
+  margin: 0 0 20px 280px;
   position: relative;
 }
 

@@ -37,7 +37,7 @@
                   <ElOption label="大夜班" value="大夜班" />
               </ElSelect>
             </div>
-            <!-- <div style="text-align: right;">交班日期：<b>{{record.changeShiftDate}}</b></div> -->
+            <div style="text-align: right;">交班日期：<b>{{record.changeShiftDate}}</b></div>
             <div class="details">
               <span>
                 病区情况：原有：
@@ -71,13 +71,21 @@
                 病重：
                 <b>{{record.seriousTotal || 0}}</b>人，
               </span>
-              <span v-if="HOSPITAL_ID != 'xiegang'">
-                手术：
-                <b>{{record.operationTotal || 0}}</b>人
+              <span>
+                死亡：
+                <b>{{record.patientDead || 0}}</b>人，
               </span>
               <span>
-                交班日期：
-                <b>{{record.changeShiftDate}}</b>
+                一级：
+                <b>{{record.patientYi || 0}}</b>人，
+              </span>
+              <span>
+                分娩：
+                <b>{{record.patientBirth || 0}}</b>人，
+              </span>
+              <span v-if="HOSPITAL_ID != 'xiegang'">
+                手术：
+                <b>{{record.patientOpration || 0}}</b>人
               </span>
             </div>
 
@@ -1149,6 +1157,7 @@ export default {
   display: flex;
   justify-content: space-between;
   font-size: 13px;
+  flex-wrap: wrap;
 
   >span {
     flex: 1;
