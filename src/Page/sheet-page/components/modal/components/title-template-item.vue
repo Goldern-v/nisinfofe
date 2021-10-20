@@ -87,7 +87,7 @@ export default {
           itemCode: this.data.name,
           recordCode:  
         //北海体温单调用护理记录单模板
-        ['beihairenyi'].includes(this.HOSPITAL_ID)&&this.$route.path.includes('newSingleTemperatureChart')?'temperature_bhry':sheetInfo.sheetType,
+        ['beihairenyi','guizhou'].includes(this.HOSPITAL_ID)&&this.$route.path.includes('newSingleTemperatureChart')?'bodyTemperature':sheetInfo.sheetType,
           wardCode: this.deptCode
         };
         dictDelete(data).then(res => {

@@ -87,7 +87,8 @@ export default {
         },
         colspan: '1',
         rowspan: '3'
-      }, {
+      },
+      {
         name: `肛查`,
         style: {
           minWidth: '36px',
@@ -98,8 +99,8 @@ export default {
       }, {
         name: `附注`,
         style: {
-          minWidth: '153px',
-          maxWidth: '153px',
+          minWidth: '240px',
+          maxWidth: '240px',
         },
         colspan: '1',
         rowspan: '3'

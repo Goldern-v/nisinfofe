@@ -45,7 +45,7 @@ export default [
     name: "体温",
     next: "℃",
     textarea: {
-      width: 40
+      width: 30
     }
   },
   {
@@ -55,7 +55,7 @@ export default [
     name: "脉搏",
     next: "次/分",
     textarea: {
-      width: 58
+      width: 30
     }
   },
   {
@@ -65,7 +65,7 @@ export default [
     name: "呼吸",
     next: "次/分",
     textarea: {
-      width: 58
+      width: 30
     }
   },
   {
@@ -81,7 +81,7 @@ export default [
     name: "血压",
     next: "mmHg",
     textarea: {
-      width: 58
+      width: 30
     }
   },
   {
@@ -90,7 +90,7 @@ export default [
     event: keyf1,
     name: "血氧饱和度",
     textarea: {
-      width: 50
+      width: 30
     }
   },
   {
@@ -102,7 +102,7 @@ export default [
       data: 意识
     },
     textarea: {
-      width: 50
+      width: 30
     }
   },
   {
@@ -111,7 +111,7 @@ export default [
     event: keyf1,
     name: "强度",
     textarea: {
-      width: 43
+      width: 40
     },
   },
   {
@@ -121,7 +121,7 @@ export default [
     name: "持续",
     next: "s",
     textarea: {
-      width: 43
+      width: 40
     }
   },
   {
@@ -131,7 +131,7 @@ export default [
     name: "间歇",
     next: "min",
     textarea: {
-      width: 43
+      width: 40
     },
   },
   // {
@@ -167,7 +167,7 @@ export default [
     value: "",
     event: keyf1,
     textarea: {
-      width: 43
+      width: 40
     },
   },
   {
@@ -175,7 +175,7 @@ export default [
     value: "",
     event: keyf1,
     textarea: {
-      width: 43
+      width: 40
     },
   },
   {
@@ -183,7 +183,7 @@ export default [
     value: "",
     event: keyf1,
     textarea: {
-      width: 43
+      width: 40
     },
   },
   {
@@ -191,7 +191,7 @@ export default [
     value: "",
     event: keyf1,
     textarea: {
-      width: 43
+      width: 40
     },
   },
   {
@@ -200,7 +200,7 @@ export default [
     event: keyf1,
     name: "宫底高度",
     textarea: {
-      width: 50
+      width: 45
     },
     autoComplete: {
       data: 留置尿管
@@ -212,7 +212,7 @@ export default [
     event: keyf1,
     name: "排尿情况",
     textarea: {
-      width: 50
+      width: 30
     },
     splice: true,
     autoComplete: {
@@ -225,7 +225,7 @@ export default [
     event: keyf1,
     name: "阴道流血",
     textarea: {
-      width: 50
+      width: 30
     },
     autoComplete: {
       data: 伤口敷料
@@ -237,7 +237,7 @@ export default [
     event: keyf1,
     name: "健康教育",
     textarea: {
-      width: 50
+      width: 35
     }
   },
   {
@@ -246,7 +246,7 @@ export default [
     event: keyf1,
     name: "基础护理",
     textarea: {
-      width: 50
+      width: 35
     },
   },
   {
@@ -255,7 +255,7 @@ export default [
     event: keyf1,
     name: "基础护理",
     textarea: {
-      width: 50
+      width: 35
     },
     splice: true,
     autoComplete: {
@@ -282,9 +282,11 @@ export default [
       keyf1(e, td);
     },
     textarea: {
-      minWidth: "36px",
-      maxWidth: "50px"
+      // minWidth: "36px",
+      // maxWidth: "50px"
+      width: 50
     },
+    
   },
   {
     key: "measuresNine", //标题2
@@ -297,8 +299,9 @@ export default [
       keyf1(e, td);
     },
     textarea: {
-      minWidth: "36px",
-      maxWidth: "50px"
+      // minWidth: "36px",
+      // maxWidth: "50px"
+      width: 50
     },
   },
   {
@@ -325,7 +328,7 @@ export default [
       top: "1px",
       bottom: "1px",
       left: "1px",
-      width: "180px",
+      width: "150px",
       background: "transparent"
     },
     event: function (e, td) {
@@ -342,14 +345,14 @@ export default [
     key: "sign",
     value: "",
     textarea: {
-      width: 80
+      width: 60
     },
   },
   {
     key: "sign2",
     value: "",
     textarea: {
-      width: 80
+      width: 60
     },
   },
 

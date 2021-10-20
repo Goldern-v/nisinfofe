@@ -9,7 +9,7 @@ function currYear() {
 }
 export default {
   style: {
-    width: '1300px'
+    width: '1100px'
   },
   deptType: '',
   th: {
@@ -48,8 +48,8 @@ export default {
         rowspan: '3',
         style: {
           whiteSpace: 'nowrap',
-          minWidth: '36px',
-          maxWidth: '36px',
+          minWidth: '30px',
+          maxWidth: '30px',
         }
       },
       {
@@ -61,8 +61,8 @@ export default {
         rowspan: '3',
         style: {
           whiteSpace: 'nowrap',
-          minWidth: '36px',
-          maxWidth: '36px',
+          minWidth: '35px',
+          maxWidth: '35px',
         }
       },
       {
@@ -74,17 +74,17 @@ export default {
         rowspan: '3',
         style: {
           whiteSpace: 'nowrap',
-          minWidth: '36px',
-          maxWidth: '36px',
+          minWidth: '35px',
+          maxWidth: '35px',
         }
       },
       {
         name: `
-        血压<br/>(mmHg)
+        血压<br/>(mm<br/>Hg)
         `,
         style: {
-          minWidth: '36px',
-          maxWidth: '36px',
+          minWidth: '30px',
+          maxWidth: '30px',
           whiteSpace: 'nowrap'
         },
         colspan: '1',
@@ -137,8 +137,8 @@ export default {
         canSet: true,
         key: 'fieldOne',
         style: {
-          minWidth: '50px',
-          maxWidth: '50px',
+          minWidth: '48px',
+          maxWidth: '48px',
         }
       },
       {
@@ -148,8 +148,8 @@ export default {
         canSet: true,
         key: 'fieldTwo',
         style: {
-          minWidth: '50px',
-          maxWidth: '50px',
+          minWidth: '48px',
+          maxWidth: '48px',
         }
       },
       {
@@ -159,8 +159,8 @@ export default {
         canSet: true,
         key: 'fieldThree',
         style: {
-          minWidth: '37px',
-          maxWidth: '37px',
+          minWidth: '36px',
+          maxWidth: '36px',
         }
       },
       {
@@ -170,8 +170,8 @@ export default {
         canSet: true,
         key: 'fieldFour',
         style: {
-          minWidth: '37px',
-          maxWidth: '37px',
+          minWidth: '36px',
+          maxWidth: '36px',
         }
       },
       {
@@ -181,8 +181,8 @@ export default {
         canSet: true,
         key: 'fieldFive',
         style: {
-          minWidth: '37px',
-          maxWidth: '37px',
+          minWidth: '36px',
+          maxWidth: '36px',
         }
       },
       {
@@ -192,8 +192,8 @@ export default {
         canSet: true,
         key: 'fieldSix',
         style: {
-          minWidth: '37px',
-          maxWidth: '37px',
+          minWidth: '36px',
+          maxWidth: '36px',
         }
       },
       {
@@ -201,8 +201,8 @@ export default {
         特殊情况记录
         `,
         style: {
-          minWidth: '180px',
-          maxWidth: '180px',
+          minWidth: '170px',
+          maxWidth: '170px',
         },
         colspan: '1',
         rowspan: '3'
@@ -215,8 +215,8 @@ export default {
         colspan: '1',
         rowspan: '3',
         style: {
-          minWidth: '60px',
-          maxWidth: '60px',
+          minWidth: '40px',
+          maxWidth: '40px',
         },
       },
       {
@@ -227,8 +227,8 @@ export default {
         colspan: '1',
         rowspan: '3',
         style: {
-          minWidth: '60px',
-          maxWidth: '60px',
+          minWidth: '40px',
+          maxWidth: '0px',
         },
       }
     ],
@@ -267,7 +267,7 @@ export default {
       },
       {
         name: `
-
+        
         `,
         colspan: '1',
         rowspan: '2',
@@ -278,7 +278,11 @@ export default {
         尿液
         `,
         colspan: '2',
-        rowspan: '1'
+        rowspan: '1',
+        style: {
+          minWidth: '30px',
+          maxWidth: '30px',
+        },
       }, {
         name: `
         大便
