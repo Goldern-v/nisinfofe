@@ -90,6 +90,10 @@ const badEventEditPage = () => import("@/Page/badEvent/badEventEditPage.vue");
 const badEventGz = () => import("@/Page/badEventGuizhou/badEvent.vue");//贵州不良事件
 const badEventViewPageGz = () => import("@/Page/badEventGuizhou/badEventViewPage.vue");
 const badEventEditPageGz = () => import("@/Page/badEventGuizhou/badEventEditPage.vue");
+
+const badEventNew = () => import("@/Page/badEventNew/badEvent.vue");//福清
+const badEventViewPageNew = () => import("@/Page/badEventNew/badEventViewPage.vue");
+const badEventEditPageNew = () => import("@/Page/badEventNew/badEventEditPage.vue");
 const white = () => import("@/Page/white/white.vue");
 const sheetHospitalEval = () =>
   import("@/Page/sheet-hospital-eval/sheet-hospital-eval.vue"); // 住院评估页面
@@ -553,16 +557,46 @@ const router = new Router({
         path: "/badEvent",
         name: "badEvents",
         alias: "不良事件",
-        component: HOSPITAL_ID == "guizhou" ? badEventGz : badEvent,
+        //component: HOSPITAL_ID == "guizhou" ? badEventGz : badEvent,
+        component: (() => {
+          switch (HOSPITAL_ID) {
+            case 'guizhou':
+              return badEventGz
+            case 'yangchunzhongyi':
+              return badEventNew
+            default:
+              return badEvent
+          }
+        })(),
         children: [{
           name: "badEventEdit",
           path: "/badEvent/:code?/:operation?/:id?/:type?/:name?",
-          component: HOSPITAL_ID == "guizhou" ? badEventEditPageGz : badEventEditPage
+          //component: HOSPITAL_ID == "guizhou" ? badEventEditPageGz : badEventEditPageGz
+          component: (() => {
+            switch (HOSPITAL_ID) {
+              case 'guizhou':
+                return badEventEditPageGz
+              case 'yangchunzhongyi':
+                return badEventEditPageNew
+              default:
+                return badEventEditPage
+            }
+          })(),
         },
         {
           name: "badEventView",
           path: "/badEvent/:code?/:operation?/:id?/:status?/:type?/:name?",
-          component: HOSPITAL_ID == "guizhou" ? badEventViewPageGz : badEventViewPage
+          //component: HOSPITAL_ID == "guizhou" ? badEventViewPageGz : badEventViewPage
+          component: (() => {
+            switch (HOSPITAL_ID) {
+              case 'guizhou':
+                return badEventViewPageGz
+              case 'yangchunzhongyi':
+                return badEventViewPageNew
+              default:
+                return badEventViewPage
+            }
+          })(),
         }
         ]
       },

@@ -304,14 +304,14 @@ import $ from 'jquery'
 // import "../../sheet/jquery-editable-select.min.js";
 
 import {
-  getVitalSignListBy10,
+  getNowDateTimeList,
   getmultiDict,
   getfieldList,
   savefieldTitle,
   autoVitalSigns,
   saveAll,
   deleteRecord,
-  getLastList,
+  // getLastList,
   getViSigsByReDate,
 } from "../../api/api";
 import { mockData, recordList, selectionMultiDict } from "../data/data";
@@ -626,10 +626,8 @@ export default {
       };
       await this.getVitalList();
       /* 获取患者某个时间点的体征信息 */
-      await getVitalSignListBy10({
-        visitId: data.visitId,
-        patientId: data.patientId,
-      }).then((res) => {
+      await getNowDateTimeList(data).then((res) => {
+        console.log(res)
         res.data.data.map((item, index) => {
           /* 如果该患者没有体温单记录则返回 */
           if (!item.recordDate) return;
@@ -638,11 +636,12 @@ export default {
         });
       });
       /* 获取患者某个时间点的体征信息--entryDate、entryTime变化就调查询接口 */
-      await this.getViSigs();
+      await this.getViSigs()
       /* 获取固定列表的接口 */
       await getfieldList({
         patientId: this.patientInfo.patientId,
         visitId: this.patientInfo.visitId,
+        wardCode: this.patientInfo.wardCode,
         wardCode: this.patientInfo.wardCode,
       }).then((res) => {
         res.data.data.list.map((item) => {
@@ -785,7 +784,7 @@ export default {
     updateTextInfo(key, label, autotext,index) {
       let checkValue = Object.values(this.fieldList)||[]
      let  checkValueStr=checkValue.map(item=>item.fieldCn)
-      window.openSetTextModal(
+      window.openSetTextModalNew(
         (text) => {
           let data = {
             patientId: this.patientInfo.patientId,

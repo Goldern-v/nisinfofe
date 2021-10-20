@@ -13,7 +13,8 @@
         <img src="./images/男默认头像.png" alt class="img" v-if="item.sex == '男'">
         <img src="./images/女士默认头像.png" alt class="img" v-else>
         <div class="name" flex-box="1">{{item.name}}</div>
-        <div class="bed">{{item.bedLabel}} 床</div>
+        <div class="bed">{{item.bedLabel}}床</div>
+        <div class="cathter-icon" v-if="item.catheterIcon">{{item.catheterIcon}}</div>
         <img
           src="../../../../common/images/record/文件夹.png"
           alt
@@ -37,7 +38,7 @@
   position relative
   border-right 1px solid #CBD5DD
 .patient-list-contain
-  padding 0px 13px 11px
+  padding 0px 5px 11px
   height 100%
   box-sizing border-box
   overflow auto
@@ -79,6 +80,15 @@
     border-radius 4px
     font-size 12px !important
     color #333   
+.cathter-icon
+  width: 20px;
+  height: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  line-height: 20px;
+  text-align: center;
+  color: #21a0ff;
+  margin-left: 5px;
 </style>
 <script>
 export default {

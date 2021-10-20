@@ -1,6 +1,12 @@
 <template>
   <div>
     <sweet-modal ref="modal" :modalWidth="500" title="出入量统计">
+      <div class="time-type-button" v-if="HOSPITAL_ID=='liaocheng'">
+        <el-button-group>
+          <el-button :class="[active=='today'?'active-btn':'']" @click="initTime('today')">白班小结</el-button>
+          <el-button :class="[active=='yesterday'?'active-btn':'']" @click="initTime('yesterday')">24小时小结</el-button>
+        </el-button-group>
+      </div>
       <p for class="name-title">请选择日期区间：</p>
       <div flex="cross:center main:center" style="margin:0 15px 20px">
         <cr-date-picker
@@ -38,6 +44,11 @@
 </style>
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
+.time-type-button
+  text-align center;
+.active-btn
+  background-color #4bb08d
+  color #fff
 .name-title
   font-size 14px;
   margin 0px 0 15px
@@ -68,11 +79,21 @@ export default {
         moment().format("YYYY-MM-DD HH:mm")
       ],
       description: "",
-      bus: bus(this)
+      bus: bus(this),
+      active:'' // 顶部按钮激活状态(聊城)
     };
   },
   methods: {
+    initTime(type){
+      this.active = type
+      let timeObject = {
+        'today':[moment().format("YYYY-MM-DD 07:00"),moment().format("YYYY-MM-DD 17:00")],
+        'yesterday':[moment().subtract(1,'days').format("YYYY-MM-DD 07:00"),moment().format("YYYY-MM-DD 07:00")]
+      }
+      this.date = timeObject[type]
+    },
     open() {
+      this.active = ''
       this.$refs.modal.open();
       this.description = "";
       let y = moment()

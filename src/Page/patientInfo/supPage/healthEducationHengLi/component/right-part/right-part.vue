@@ -7,14 +7,14 @@
     >
       <div class="null-tool" v-show="showTpye == ''"></div>
       <!-- 护理记录单 -->
-      <div v-if="showConToolBar" class="tool-bar">
+      <!-- <div v-if="showConToolBar" class="tool-bar">
         <toolBar
             v-if="!hasMeasure"
             v-show="showTpye"
             :config="toolBarConfig"
         ></toolBar>
         <toolCon v-else v-show="showTpye"></toolCon>
-      </div>
+      </div> -->
       <!-- 护理评估表 -->
       <div
           class="form-contain"
