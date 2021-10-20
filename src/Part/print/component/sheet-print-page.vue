@@ -171,11 +171,9 @@
     .reduceGap> div{
       padding-top: 20px !important;
     }
-
     .iframe > div:nth-of-type(2n) {
       transform: rotate(180deg);
     }
-
     .el-checkbox__inner::after {
       border-color: #000;
     }
@@ -256,6 +254,20 @@ export default {
       });
     }
     let sheetTableWidth = document.querySelector("div.contant").offsetWidth;
+    // 江门妇幼的护理单打印双数页面会翻转，所以让他双数页面翻转回来
+    if(this.HOSPITAL_ID==="fuyou"){
+ printDir("h");
+      addCSS(
+        window,
+        `
+    @media print {
+       .iframe > div:nth-of-type(2n) {
+         transform: rotate(0deg) !important;
+       }
+    }
+    `
+      );
+    }
     $("#app").css({
       minWidth: sheetTableWidth + "px"
     });

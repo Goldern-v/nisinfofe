@@ -45,7 +45,7 @@ export default [
     name: "体温",
     next: "℃",
     textarea: {
-      width: 40
+      width: 35
     }
   },
   {
@@ -55,7 +55,7 @@ export default [
     name: "脉搏",
     next: "次/分",
     textarea: {
-      width: 58
+      width: 30
     }
   },
   {
@@ -65,7 +65,7 @@ export default [
     name: "呼吸",
     next: "次/分",
     textarea: {
-      width: 58
+      width: 30
     }
   },
   {
@@ -81,7 +81,7 @@ export default [
     name: "血压",
     next: "mmHg",
     textarea: {
-      width: 56
+      width: 50
     }
   },
   {
@@ -91,7 +91,7 @@ export default [
     name: "SPO2",
     next: "%",
     textarea: {
-      width: 46
+      width: 35
     }
   },
   {
@@ -104,7 +104,7 @@ export default [
       data: pgList
     },
     textarea: {
-      width: 40
+      width: 35
     },
   },
   {
@@ -114,7 +114,7 @@ export default [
     name: "指尖血糖",
     next: "mmol/L",
     textarea: {
-      width: 43
+      width: 30
     }
   },
   {
@@ -124,7 +124,7 @@ export default [
     name: "阴道出血",
     next: "mL",
     textarea: {
-      width: 43
+      width: 30
     }
   },
   {
@@ -133,7 +133,7 @@ export default [
     event: keyf1,
     name: "入量内容",
     textarea: {
-      width: 43
+      width: 30
     },
   },
   {
@@ -143,7 +143,7 @@ export default [
     name: "入量大小",
     next: "ml",
     textarea: {
-      width: 43
+      width: 30
     },
   },
   {
@@ -152,7 +152,7 @@ export default [
     event: keyf1,
     name: "出量内容",
     textarea: {
-      width: 43
+      width: 30
     },
   },
   {
@@ -162,7 +162,7 @@ export default [
     name: "出量大小",
     next: "ml",
     textarea: {
-      width: 38
+      width: 30
     },
     autoComplete: {
       data: mrqkList
@@ -177,7 +177,7 @@ export default [
       data: gdgdList
     },
     textarea: {
-      width: 50
+      width: 40
     }
   },
   {
@@ -186,7 +186,7 @@ export default [
     event: keyf1,
     name: "健康宣教",
     textarea: {
-      width: 40
+      width: 30
     },
     autoComplete: {
       data: gsList
@@ -215,7 +215,7 @@ export default [
     value: "",
     event: keyf1,
     textarea: {
-      width: 40,
+      width: 30,
       maxLength: 4
     },
     autoComplete: {
@@ -227,7 +227,7 @@ export default [
     value: "",
     event: keyf1,
     textarea: {
-      width: 50,
+      width: 30,
       maxLength: 4
     },
     autoComplete: {
@@ -240,7 +240,7 @@ export default [
     value: "",
     event: keyf1,
     textarea: {
-      width: 50,
+      width: 30,
       maxLength: 4
     },
     autoComplete: {
@@ -252,7 +252,7 @@ export default [
     value: "",
     event: keyf1,
     textarea: {
-      width: 50,
+      width: 30,
       maxLength: 4
     },
     autoComplete: {
@@ -264,7 +264,7 @@ export default [
     value: "",
     event: keyf1,
     textarea: {
-      width: 50,
+      width: 30,
       maxLength: 4
     },
     autoComplete: {
@@ -276,7 +276,7 @@ export default [
     value: "",
     event: keyf1,
     textarea: {
-      width: 50,
+      width: 30,
       maxLength: 4
     },
     autoComplete: {
@@ -308,7 +308,7 @@ export default [
       top: "1px",
       bottom: "1px",
       left: "1px",
-      width: "180px",
+      width: "150px",
       background: "transparent"
     },
     event: function (e, td) {
