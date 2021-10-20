@@ -63,7 +63,7 @@
             >
             <span v-else>年龄：{{ resAge ? resAge : patientInfo.age }}</span>
             <span v-if="HOSPITAL_ID == 'fuyou'">科室：{{ tDeptName }}</span>
-            <span v-if="HOSPITAL_ID == 'guizhou'">科室：{{ resDeptName|| patientInfo.wardName || patientInfo.deptName }}</span>
+            <span v-else-if="HOSPITAL_ID == 'guizhou'">科室：{{ resDeptName|| patientInfo.wardName || patientInfo.deptName }}</span>
             <span v-else
               >科室：{{ patientInfo.wardName || patientInfo.deptName }}</span
             >
