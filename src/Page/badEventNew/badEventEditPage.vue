@@ -8,7 +8,7 @@
 
     <!-- <div class="editbar-right" :style="showPatientList?'margin-left:200px':'margin-left:0px'"> -->
     <!-- 不良事件 报告单   data-print-class="printing"-->
-
+    <HeadToolBar :showToolBar="!pageLoading" @updataeBaseUser="updataeBaseUser"></HeadToolBar>
     <EditToolbar :showLeft="true" :showRight="true"></EditToolbar>
 
     <div class="bad-event-container" :style="'height:'+(wih-100)+'px!important;'">
@@ -120,7 +120,7 @@ import EditToolbar from "./components/toolbar/editToolbar";
 import NullBg from "@/components/null/null-bg.vue";
 
 import commonData from "@/api/commonData"; //入院HIS数据等
-
+import HeadToolBar from "./components/toolbar/headToolBar";
 import qs from "qs";
 
 import { formUrl, devFormUrl } from "@/common/pathConfig/index.js";
@@ -133,7 +133,8 @@ export default {
   components: {
     EditToolbar,
     NullBg,
-    patientList
+    patientList,
+    HeadToolBar
   },
   data() {
     return {
@@ -229,6 +230,15 @@ export default {
     }
   },
   methods: {
+    //更新表单iframe的用户基本数据值
+    updataeBaseUser(data){
+      this.$nextTick(()=>{
+        const formIframe=this.$refs.iframe.contentWindow;
+        formIframe.updateBaseUser(data)
+        console.log(formIframe)
+        console.log("获取数据")
+      })
+    },
     async load() {
       console.log(
         "载入报告单",

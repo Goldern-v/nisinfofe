@@ -568,6 +568,7 @@ const router = new Router({
               return badEvent
           }
         })(),
+        
         children: [{
           name: "badEventEdit",
           path: "/badEvent/:code?/:operation?/:id?/:type?/:name?",
