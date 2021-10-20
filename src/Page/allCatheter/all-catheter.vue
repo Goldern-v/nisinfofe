@@ -25,7 +25,7 @@
       </div>
     </div>
     <addCathter v-if="isAddCathter" @close='closeCathter' @create="createCathter"/>
-    <newCathter v-if="isCreateCathter" @close='closeCreate' :newCathterType='newCathterType' @onChangePatient_self='onChangePatient_self'/>
+    <newCathter v-if="isCreateCathter" @getDate="getDate" @close='closeCreate' :newCathterType='newCathterType' @onChangePatient_self='onChangePatient_self'/>
   </div>
 </template>
 
