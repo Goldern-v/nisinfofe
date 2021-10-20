@@ -52,6 +52,9 @@ export default [
       e.preventDefault();
     }
     keyf1(e, td);
+  },
+  textarea: {
+    width: 30
   }
 },
 {
@@ -64,7 +67,7 @@ export default [
   value: "",
   event: keyf1,
   textarea: {
-    width: 40
+    width: 30
   }
 },
 {
@@ -82,7 +85,7 @@ export default [
   value: "",
   event: keyf1,
   textarea: {
-    width: 36
+    width: 40
   }
 },
 {
@@ -115,7 +118,7 @@ export default [
   value: "",
   event: keyf1,
   textarea: {
-    width: 36
+    width: 32
   }
 },
 {
@@ -170,16 +173,13 @@ export default [
   key: "description", //特殊情况记录
   value: "",
   splice: true,
-  // textarea: {
-  //   width: 150
-  // },
   style: {
     textAlign: "left",
     position: "absolute",
     top: "1px",
     bottom: "1px",
     left: "1px",
-    width: "180px",
+    width: "170px",
     background: "transparent",
     fontSize: "14px"
   },

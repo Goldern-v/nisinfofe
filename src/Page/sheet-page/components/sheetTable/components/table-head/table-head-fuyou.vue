@@ -69,7 +69,7 @@
         </div>
       </span>
       <span v-if="sheetInfo.sheetType === 'neonatal_care_jm'">
-        入院时间：
+        入院日期：
         <div class="bottom-line" style="min-width: 150px">
           {{ patientInfo.admissionDate }}
         </div>
@@ -215,6 +215,10 @@ export default {
   created() {
     if (!sheetInfo.relObj.age) {
       sheetInfo.relObj.age = this.patientInfo.age;
+    }
+    // 江门市妇幼院新生儿监护单  需要修改日期，只要日期，不要时间
+    if(sheetInfo.sheetType === 'neonatal_care_jm'){
+      this.patientInfo.admissionDate=this.patientInfo.admissionDate.split(" ")[0]
     }
   },
   watch: {},

@@ -42,7 +42,7 @@ export default [
     event: keyf1,
     name: "孕周",
     textarea: {
-      width: 50
+      width: 40
     }
   },
   {
@@ -52,7 +52,7 @@ export default [
     name: "体温",
     next: "℃",
     textarea: {
-      width: 50
+      width: 35
     }
   },
   {
@@ -62,7 +62,7 @@ export default [
     name: "脉搏",
     next: "次/分",
     textarea: {
-      width: 60
+      width: 30
     }
   },
   {
@@ -72,7 +72,7 @@ export default [
     name: "呼吸",
     next: "次/分",
     textarea: {
-      width: 60
+      width: 30
     }
   },
   {
@@ -88,7 +88,7 @@ export default [
     name: "血压",
     next: "mmHg",
     textarea: {
-      width: 60
+      width: 30
     }
   },
   {
@@ -97,7 +97,7 @@ export default [
     event: keyf1,
     name: "胎方位",
     textarea: {
-      width: 60
+      width: 40
     }
   },
   {
@@ -107,7 +107,7 @@ export default [
     name: "胎心音",
     next: "次/分",
     textarea: {
-      width: 60
+      width: 30
     },
   },
   {
@@ -116,7 +116,7 @@ export default [
     event: keyf1,
     name: "强度",
     textarea: {
-      width: 43
+      width: 30
     },
     autoComplete: {
       data: gsqdList
@@ -129,7 +129,7 @@ export default [
     name: "持续",
     next: "s",
     textarea: {
-      width: 43
+      width: 30
     }
   },
   {
@@ -139,7 +139,7 @@ export default [
     name: "间歇",
     next: "min",
     textarea: {
-      width: 43
+      width: 30
     },
   },
   {
@@ -149,7 +149,7 @@ export default [
     name: "扩张",
     next: "cm",
     textarea: {
-      width: 43
+      width: 30
     },
   },
   {
@@ -158,7 +158,7 @@ export default [
     event: keyf1,
     name: "评分",
     textarea: {
-      width: 43
+      width: 30
     },
   },
   {
@@ -167,7 +167,7 @@ export default [
     event: keyf1,
     name: "先露高低",
     textarea: {
-      width: 50
+      width: 30
     },
     autoComplete: {
       data: xlgdList
@@ -182,7 +182,7 @@ export default [
       data: tmList
     },
     textarea: {
-      width: 50
+      width: 30
     }
   },
   {
@@ -191,7 +191,7 @@ export default [
     event: keyf1,
     name: "羊水性质",
     textarea: {
-      width: 50
+      width: 30
     },
     autoComplete: {
       data: ysxzList
@@ -204,7 +204,7 @@ export default [
     name: "胎动",
     next: "次/h",
     textarea: {
-      width: 55
+      width: 40
     }
   },
   {
@@ -213,7 +213,7 @@ export default [
     event: keyf1,
     name: "排尿情况",
     textarea: {
-      width: 50
+      width: 40
     },
   },
   {
@@ -222,7 +222,7 @@ export default [
     event: keyf1,
     name: "破膜时间",
     textarea: {
-      width: 50,
+      width: 40,
     },
   },
   {
@@ -231,7 +231,7 @@ export default [
     event: keyf1,
     name: "临产时间",
     textarea: {
-      width: 50,
+      width: 40,
     },
   },
   {
@@ -240,7 +240,7 @@ export default [
     event: keyf1,
     name: "胎儿娩出时间",
     textarea: {
-      width: 50,
+      width: 40,
     },
   },
   {
@@ -260,7 +260,7 @@ export default [
     name: "滴数",
     next: "滴/分",
     textarea: {
-      width: 60,
+      width: 30,
       maxLength: 4
     },
   },
