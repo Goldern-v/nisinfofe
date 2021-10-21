@@ -93,7 +93,7 @@
       width: 199px;
       position: absolute;
       left: 0;
-      top: 0;
+      top: -41px;
       bottom: 0;
     }
 
@@ -400,6 +400,7 @@ export default {
   },
   created() {
     cleanData();
+    this.getDate();
     // getListData1()
     // getListData2()
     // getListData3()

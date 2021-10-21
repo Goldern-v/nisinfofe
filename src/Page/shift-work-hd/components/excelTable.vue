@@ -130,11 +130,11 @@
                 </div>
                 <div v-if="key == '转出' && patItem.remark1">
                   <span style="padding-left: 30px"></span>
-                  {{ `${patItem.isShowDeptName==1?`（${patItem.patItem}）`:``} ${patItem.remark1 || ""}` }}
+                  {{ patItem.isShowDeptName==1?`（${patItem.patItem}）`:``  + (` ${patItem.remark1}` || "") }}
                 </div>
                 <div v-if="key == '转入' && patItem.remark1">
                   <span style="padding-left: 30px"></span>
-                  {{ `${patItem.isShowDeptName==1?`（${patItem.patItem}）`:``} ${patItem.remark1 || ""}` }}
+                  {{ patItem.isShowDeptName==1?`（${patItem.patItem}）`:``  + (` ${patItem.remark1}` || "") }}
                 </div>
                 <!-- <div v-if="key == '预手术' && patItem.remark3">
                   <span style="padding-left: 30px"></span>

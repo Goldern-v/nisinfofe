@@ -177,7 +177,10 @@ export default {
         return;
       }
       let res = await info(row.patientId, row.visitId);
-
+      if(res.data.code!='200'){
+         this.$message.error(res.data.desc)
+         return
+       }
       for (let index in res.data.data) {
         if (!res.data.data[index]) {
           res.data.data[index] = "";
