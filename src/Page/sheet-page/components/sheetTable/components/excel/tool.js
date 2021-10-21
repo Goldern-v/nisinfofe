@@ -3,6 +3,7 @@ import sheetInfo from "../../../config/sheetInfo/index";
 function offset(ele) {
   var top = ele.offsetTop;
   var left = ele.offsetLeft;
+  var width = ele.offsetWidth
   while (ele.offsetParent) {
     ele = ele.offsetParent;
     if (window.navigator.userAgent.indexOf("MSTE 8") > -1) {
@@ -15,7 +16,8 @@ function offset(ele) {
   }
   return {
     left: left,
-    top: top
+    top: top,
+    width:width,
   };
 }
 
@@ -128,10 +130,12 @@ function onFocusToAutoComplete(e, bind) {
   if (isRead) return;
 
   setTimeout(() => {
+    console.log(xy.left - scrollLeft - window.scrollX,xy.left,scrollLeft,window.scrollX);
     window.openAutoComplete({
       style: {
         top: `${xy.top - scrollTop - window.scrollY + 30}px`,
-        left: `${xy.left - scrollLeft - window.scrollX}px`
+        left: `${xy.left - scrollLeft - window.scrollX}px`,
+        addWidth:`${xy.width}px`
       },
       data: autoComplete.data,
       callback: function (data) {

@@ -146,6 +146,13 @@
                     </el-row>
                   </router-link>
                 </el-dropdown-item>
+                <el-dropdown-item :class="{active: $route.path == '/sheetNursingOrderPage'}">
+                  <router-link to="/sheetNursingOrderPage" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="healthEducation"></i> 护嘱单
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item>
                 <!-- <el-dropdown-item :class="{active: $route.path == '/oxygenPage'}">
                   <router-link to="/oxygenPage" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
@@ -310,11 +317,11 @@
               </el-dropdown-menu>
             </el-dropdown> -->
 
-            <router-link to="/implementationList" tag="span">
+            <!-- <router-link to="/implementationList" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-jiaobanzhi"></i> 执行单
               </el-row>
-            </router-link>
+            </router-link> -->
 
             <!-- <router-link to="/badEvent" tag="span">
               <el-row class="nav-item" type="flex" align="middle">不良事件</el-row>
@@ -444,7 +451,6 @@
               </el-popover>
               <span>
                 <el-select
-                  v-if="!$route.path.includes('nursingDocumentation')"
                   v-model="deptValue"
                   filterable
                   placeholder="请选择"

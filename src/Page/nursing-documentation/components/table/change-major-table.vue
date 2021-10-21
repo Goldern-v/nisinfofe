@@ -18,21 +18,20 @@
       <el-table-column
          prop="patientId"
          label="住院号"
-         min-width="80"
+         min-width="60"
          align="center"
       ></el-table-column>
-
        <el-table-column
          prop="name"
          label="姓名"
-         min-width="65"
+         min-width="45"
          align="center"
       ></el-table-column>
 
       <el-table-column
         prop="visitId"
         label="住院次数"
-        min-width="45"
+        min-width="22"
         align="center"
       ></el-table-column>
 
@@ -46,7 +45,7 @@
       <el-table-column
         prop="bedLabel"
         label="床号"
-        min-width="65"
+        min-width="40"
         align="center"
       ></el-table-column>
 
@@ -96,22 +95,22 @@
       <el-table-column
         prop="doctor"
         label="医生"
-        min-width="65"
+        min-width="45"
         align="center"
       ></el-table-column>
 
       <el-table-column
         prop="nurse"
         label="责任护士"
-        min-width="65"
+        min-width="45"
         align="center"
       ></el-table-column>
 
-      <!-- <el-table-column label="操作" min-width="80px">
+      <el-table-column label="操作" min-width="45">
         <template slot-scope="scope">
           <el-button type="text" @click="openDetail(scope.row)">查看</el-button>
         </template>
-      </el-table-column> -->
+      </el-table-column>
     </el-table>
   </div>
 </template>

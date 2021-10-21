@@ -178,6 +178,7 @@ import common from "@/common/mixin/common.mixin.js";
 import { typeList } from "@/api/lesion";
 import sheetModel, {
   addNursingOrderSheetPage,
+  addNewNursingOrderSheetPage,
   delNursingOrderSheetPage,
   initNursingOrderSheetPage,
   cleanData,
@@ -203,6 +204,7 @@ import signModal from "@/components/modal/sign.vue";
 // import { getListData3 } from '@/Page/sheet-nursing-order/components/config/joint/tr.js'
 // import { getListData4 } from '@/Page/sheet-nursing-order/components/config/neurology/tr.js'
 import specialModal from "@/Page/sheet-nursing-order/components/modal/special-modal.vue";
+import { updateListData } from "@/Page/sheet-nursing-order/components/config/general/tr.js";
 import setPageModal from "@/Page/sheet-nursing-order/components/modal/setPage-modal.vue";
 import pizhuModal from "@/Page/sheet-nursing-order/components/modal/pizhu-modal.vue";
 import { getHomePage } from "@/Page/sheet-nursing-order/api/index.js";
@@ -252,6 +254,7 @@ export default {
       }
     },
     addNursingOrderSheetPage() {
+      // console.log("addNursingOrderSheetPage", this.patientInfo);
       if (this.patientInfo.name) {
         this.bus.$emit("openNewNOrderSheetModal");
         // addNursingOrderSheetPage()
@@ -263,90 +266,114 @@ export default {
       }
     },
     getSheetData(isBottom, data = {}) {
-      console.log("getSheetData", data, this.sheetInfo);
+      // console.log("getSheetData", data, this.sheetInfo);
       if (!(this.sheetInfo.selectBlock && this.sheetInfo.selectBlock.id)) {
         cleanData();
         setTimeout(() => {
-          this.sheetInfo.isSave = true;
-        }, 300);
+          sheetInfo.isSave = true;
+        }, 100);
         return;
       }
-      // console.log('getSheetData',data,this.sheetInfo)
+      // return null
       this.tableLoading = true;
       return Promise.all([
         // showTitle(this.patientInfo.patientId, this.patientInfo.visitId),
         showBody(this.sheetInfo.selectBlock.id),
         // markList(this.patientInfo.patientId, this.patientInfo.visitId)
       ]).then((res) => {
-        console.log("获取护嘱表数据", res);
+        // console.log("服务器返回护嘱单数据：showTitle,showBody,markList", res);
         let titleData = []; //res[0].data.data
         let bodyData = res[0].data.data;
         let markData = []; //res[2].data.data.list || []
-        // this.sheetModel = []
+
+        this.sheetModel = [];
         this.$nextTick(() => {
-          // this.sheetModel = sheetModel
+          this.sheetModel = sheetModel;
+          // sheetInfo.selectBlock.id = bodyData.id
+          // console.log(
+          //   "titleData, bodyData, markData",
+          //   titleData,
+          //   bodyData,
+          //   markData,
+          //   sheetInfo
+          // );
           initNursingOrderSheetPage(titleData, bodyData, markData);
-          // this.getHomePage(isBottom)
+          this.getHomePage(isBottom);
+
+          if (bodyData && bodyData.list && bodyData.list.length > 0) {
+            sheetInfo.formTitle = bodyData.list[0].formTitle;
+            this.sheetInfo.formTitle = bodyData.list[0].formTitle;
+            sheetInfo.orderContentCode =
+              bodyData.list[0].orderContentCode || "orders:public:通用护嘱内容";
+            this.sheetInfo.orderContentCode =
+              bodyData.list[0].orderContentCode || "orders:public:通用护嘱内容";
+
+            if (this.sheetInfo.orderContentCode) {
+              let dictFormName =
+                this.sheetInfo.orderContentCode.split(":")[2] || "";
+              let dicData = {
+                type: "orders",
+                code: "public",
+                formName: dictFormName,
+              };
+              if (this.HOSPITAL_ID === "hj") {
+                updateListDataHj(dicData);
+              } else {
+                updateListData(dicData);
+              }
+            }
+          }
+
+          this.sheetInfo.isSave = true;
+          sheetInfo.isSave = true;
 
           this.tableLoading = false;
-          setTimeout(() => {
-            this.sheetInfo.isSave = true;
-            if (isBottom) {
-              this.$refs.scrollCon.scrollTop =
-                this.$refs.scrollCon.scrollHeight -
-                this.$refs.scrollCon.offsetHeight -
-                190;
-            }
-          }, 2000);
-          setTimeout(() => {
-            this.sheetInfo.isSave = true;
-            if (isBottom && this.$refs.scrollCon.scrollTop == 0) {
-              this.$refs.scrollCon.scrollTop =
-                this.$refs.scrollCon.scrollHeight -
-                this.$refs.scrollCon.offsetHeight -
-                190;
-            }
-          }, 300);
-          setTimeout(() => {
-            this.sheetInfo.isSave = true;
-            if (isBottom && this.$refs.scrollCon.scrollTop == 0) {
-              this.$refs.scrollCon.scrollTop =
-                this.$refs.scrollCon.scrollHeight -
-                this.$refs.scrollCon.offsetHeight -
-                190;
-            }
-          }, 500);
-          setTimeout(() => {
-            this.sheetInfo.isSave = true;
-            if (isBottom && this.$refs.scrollCon.scrollTop == 0) {
-              this.$refs.scrollCon.scrollTop =
-                this.$refs.scrollCon.scrollHeight -
-                this.$refs.scrollCon.offsetHeight -
-                190;
-            }
-          }, 1000);
+          // setTimeout(() => {
+          //   sheetInfo.isSave = true
+          //   if (isBottom) {
+          //     this.$refs.scrollCon.scrollTop = this.$refs.scrollCon.scrollHeight - this.$refs.scrollCon.offsetHeight - 190
+          //   }
+          // }, 100)
+          // setTimeout(() => {
+          //   sheetInfo.isSave = true
+          //   if (isBottom && this.$refs.scrollCon.scrollTop == 0) {
+          //     this.$refs.scrollCon.scrollTop = this.$refs.scrollCon.scrollHeight - this.$refs.scrollCon.offsetHeight - 190
+          //   }
+          // }, 300)
+          // setTimeout(() => {
+          //   sheetInfo.isSave = true
+          //   if (isBottom && this.$refs.scrollCon.scrollTop == 0) {
+          //     this.$refs.scrollCon.scrollTop = this.$refs.scrollCon.scrollHeight - this.$refs.scrollCon.offsetHeight - 190
+          //   }
+          // }, 500)
+          // setTimeout(() => {
+          //   sheetInfo.isSave = true
+          //   if (isBottom && this.$refs.scrollCon.scrollTop == 0) {
+          //     this.$refs.scrollCon.scrollTop = this.$refs.scrollCon.scrollHeight - this.$refs.scrollCon.offsetHeight - 190
+          //   }
+          // }, 1000)
         });
       });
     },
     breforeQuit(next) {
-      if (this.sheetInfo.isSave != true) {
-        window.app
-          .$confirm("评估单还未保存，离开将会丢失数据", "提示", {
-            confirmButtonText: "离开",
-            cancelButtonText: "取消",
-            type: "warning",
-          })
-          .then((res) => {
-            next();
-          });
-      } else {
+      // if (!sheetInfo.isSave) {
+      //   window.app
+      //     .$confirm("护嘱单还未保存，离开将会丢失数据", "提示", {
+      //       confirmButtonText: "离开",
+      //       cancelButtonText: "取消",
+      //       type: "warning",
+      //     })
+      //     .then((res) => {
+      //       next();
+      //     });
+      // } else {
         next();
-      }
+      // }
     },
     getHomePage(isFirst) {
       getHomePage(this.patientInfo.patientId, this.patientInfo.visitId).then(
         (res) => {
-          console.log("getHomePage", res);
+          // console.log("getHomePage", res);
           this.sheetInfo.sheetStartPage =
             (res.data.data && res.data.data.indexNo) || 1;
           this.sheetInfo.sheetMaxPage =
@@ -356,64 +383,85 @@ export default {
       );
     },
     getDict() {
-      console.log("this.patientInfo", this.patientInfo);
+      // console.log(
+      //   "this.patientInfo",
+      //   this.patientInfo,
+      //   this.patientInfo.wardCode
+      // );
       // orderApi
-      orderApi.listItem().then((res) => {
-        console.log("获取字典", res);
+      listItem(this.patientInfo.wardCode).then((res) => {
+        // console.log("获取字典", res);
       });
     },
-    getList() {
-      // list
-      orderApi
-        .list(this.patientInfo.patientId, this.patientInfo.visitId)
-        .then((res) => {
-          console.log("获取字典", res);
-        });
-    },
     isSelectPatient(item) {
+      sheetInfo.selectBlock = {};
       this.$store.commit("upPatientInfo", item);
     },
   },
   created() {
-    // 初始化
     cleanData();
-    // 下拉
     // getListData1()
     // getListData2()
     // getListData3()
     // getListData4()
-    this.getDict();
+    // this.getDict()
+    // updateListData(this.patientInfo.wardCode)
 
-    if (this.deptCode) {
-      this.getDate();
-    }
-    this.bus.$on("addNursingOrderSheetPage", (e) => {
-      console.log("ON.addNursingOrderSheetPage", e);
-      addNursingOrderSheetPage((e) => {
-        console.log("addNursingOrderSheetPage", e);
-        this.$nextTick((e) => {
-          this.bus.$emit("initNursingOrderSheetPageSize");
-          $(this.$refs.scrollCon).animate({
-            scrollTop:
-              this.$refs.scrollCon.scrollHeight -
-              this.$refs.scrollCon.offsetHeight -
-              190,
+    // let dicData={type:'orders',code:'public',formName:'神内护嘱单'}
+    // updateListData(dicData)
+
+    sheetInfo.isSave = true;
+    sheetInfo.selectBlock = {};
+
+    this.$store.commit("upPatientInfo", {});
+    setTimeout(() => {
+      this.$store.commit("upPatientInfo", this.$route.query);
+    }, 100);
+    this.bus.$on(
+      "addNewNursingOrderSheetPage",
+      (message = "新建护嘱单成功") => {
+        //
+        // console.log("!!初始化护嘱单页面...");
+        addNewNursingOrderSheetPage(() => {
+          this.$nextTick(() => {
+            // addNursingOrderSheetPage
+            this.bus.$emit("initNursingOrderSheetPageSize");
+            //  $(this.$refs.scrollCon).animate({
+            //   scrollTop: this.$refs.scrollCon.scrollHeight - this.$refs.scrollCon.offsetHeight - 190
+            // })
+            this.bus.$emit("refreshNursingOrderSheetPage", true);
+
+            this.bus.$emit("addNursingOrderSheetPage");
+            if (message) {
+              this.$notify.success({
+                title: "提示",
+                message: message,
+              });
+            }
           });
+        });
+      }
+    );
+    this.bus.$on("addNursingOrderSheetPage", () => {
+      // console.log("新建护嘱单页面");
+      addNursingOrderSheetPage(() => {
+        this.$nextTick(() => {
+          this.bus.$emit("initNursingOrderSheetPageSize");
+          //  $(this.$refs.scrollCon).animate({
+          //   scrollTop: this.$refs.scrollCon.scrollHeight - this.$refs.scrollCon.offsetHeight - 190
+          // })
         });
       });
     });
     this.bus.$on("delNursingOrderSheetPage", () => {
       this.$refs.delPageModal.open(async (checkList) => {
-        for (let item of checkList.sort((a, b) => {
-          return b - a;
-        })) {
-          await delPage(
-            this.patientInfo.patientId,
-            this.patientInfo.visitId,
-            item - 1
-          );
-          delNursingOrderSheetPage(item - 1);
-        }
+        //
+        // console.log("删除护嘱单", checkList, sheetInfo.selectBlock.id);
+        // for (let item of checkList.sort((a, b) => { return b - a })) {
+        //   await delPage(this.patientInfo.patientId, this.patientInfo.visitId, item - 1)
+        //   await delPage(id,empNo,password)
+        //   delNursingOrderSheetPage(item - 1)
+        // }
         this.$notify.success({
           title: "提示",
           message: "删除成功",
@@ -421,20 +469,33 @@ export default {
       });
     });
     this.bus.$on("saveNursingOrderSheetPage", () => {
-      this.pageLoading = true;
+      // console.log("")
+      this.pageloading = true;
       this.scrollTop = this.$refs.scrollCon.scrollTop;
       saveBody(this.patientInfo.patientId, this.patientInfo.visitId, decode())
         .then((res) => {
-          this.sheetInfo.isSave = true;
+          // console.log(
+          //   "保存成功-saveBody",
+          //   this.sheetModel.length,
+          //   this.sheetModel,
+          //   res
+          // );
           this.$notify.success({
             title: "提示",
             message: "保存成功",
           });
+          if (this.sheetModel.length > 0) {
+            this.bus.$emit("getNOBlockList");
+          }
+          this.pageloading = false;
+          this.sheetInfo.isSave = true;
+          sheetInfo.isSave = true;
           // this.getSheetData().then(res => {
+          //   console.log('保存成功-获取数据',res);
           //   this.$nextTick(() => {
+
           //     this.$refs.scrollCon.scrollTop = this.scrollTop
-          //   })
-          //   setTimeout(() => {
+          //      setTimeout(() => {
           //     if (this.$refs.scrollCon.scrollTop == 0) {
           //       this.$refs.scrollCon.scrollTop = this.scrollTop
           //     }
@@ -469,19 +530,20 @@ export default {
           //       this.$refs.scrollCon.scrollTop = this.scrollTop
           //     }
           //   }, 1000)
-
+          //   })
           // })
-          this.pageLoading = false;
+          //
         })
         .catch(() => {
-          this.pageLoading = false;
+          this.pageloading = false;
         });
     });
     this.bus.$on("refreshNursingOrderSheetPage", (isFirst, data) => {
-      console.log("-更新护嘱单页面", isFirst, data);
+      // console.log("更新护嘱单页面", isFirst, data);
       this.getSheetData(isFirst, data);
     });
     this.bus.$on("toNursingOrderSheetPrintPage", (newWid) => {
+      // console.log("启动护嘱单打印页", newWid, this.$refs.sheetTableContain);
       // 判断是否存在标记
       if ($(".mark-mark-mark").length) {
         $(this.$refs.scrollCon).animate({
@@ -502,30 +564,27 @@ export default {
         });
         return this.$message.warning("存在未签名的记录，请全部签名后再打印");
       }
+
       window.localStorage.sheetNursingOrderModel = $(
         this.$refs.sheetTableContain
       ).html();
       if (process.env.NODE_ENV === "production") {
         newWid.location.href = "/crNursing/print/sheetNursingOrder";
       } else {
-        // this.$router.push(`/print/sheetNursingOrder`)
-        let routeData = this.$router.resolve({
-          path: `/print/sheetNursingOrder`,
-        });
-        window.open(routeData.href, "_blank");
+        this.$router.push(`/print/sheetNursingOrder`);
       }
     });
-    this.bus.$on("openHJModal", () => {
+    this.bus.$on("openNOHJModal", () => {
       this.$refs.HjModal.open();
     });
-    this.bus.$on("openSetPageModal", () => {
+    this.bus.$on("openNOSetPageModal", () => {
       this.$refs.setPageModal.open();
+    });
+    this.bus.$on("refrehNursingOrderSheetStartPage", (isFirst) => {
+      this.getHomePage(isFirst);
     });
     this.bus.$on("openPizhuModal", (tr, td) => {
       this.$refs.pizhuModal.open(tr, td);
-    });
-    this.bus.$on("refrehNursingOrderSheetStartPage", () => {
-      this.getHomePage();
     });
   },
   watch: {
@@ -540,28 +599,31 @@ export default {
     },
     sheetModel: {
       deep: true,
-      handler() {
-        if (this.patientInfo.name) {
-          this.sheetInfo.isSave = false;
+      handler: function (newVal, oldVal) {
+        console.dir();
+        // console.log('患者姓名',this.patientInfo.name,this.patientInfo,sheetModel,sheetInfo.isSave,newVal, oldVal)
+        if (this.patientInfo.name && newVal != oldVal) {
+          sheetInfo.isSave = false;
         }
       },
     },
   },
-  beforeRouteLeave: (to, from, next) => {
-    if (!this.sheetInfo.isSave) {
-      window.app
-        .$confirm("评估单还未保存，离开将会丢失数据", "提示", {
-          confirmButtonText: "离开",
-          cancelButtonText: "取消",
-          type: "warning",
-        })
-        .then((res) => {
-          next();
-        });
-    } else {
-      next();
-    }
-  },
+  // beforeRouteLeave: (to, from, next) => {
+    // console.log("离开页面", sheetInfo.isSave);
+    // if (!sheetInfo.isSave) {
+    //   window.app
+    //     .$confirm("护嘱单还未保存，离开页面将会丢失数据", "提示", {
+    //       confirmButtonText: "离开",
+    //       cancelButtonText: "取消",
+    //       type: "warning",
+    //     })
+    //     .then((res) => {
+    //       next();
+    //     });
+    // } else {
+      // next();
+    // }
+  // },
   components: {
     sheetTool,
     patientList,

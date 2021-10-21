@@ -36,7 +36,6 @@
           class="record-box"
           :class="{
             active: selectData == item,
-            isvertical: HOSPITAL_ID == 'huadu',
           }"
           v-for="item of filterData"
           :key="item.id"
@@ -105,6 +104,8 @@
 }
 
 .record-con {
+  display: flex;
+  flex-wrap: wrap;
   margin: 0;
   padding: 10px 10px 10px;
   height: 420px;
