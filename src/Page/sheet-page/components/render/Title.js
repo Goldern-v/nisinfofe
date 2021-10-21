@@ -1020,6 +1020,13 @@ export default function Title(
     );
   }
   break;
+  case "common_xg": {
+    // 东莞谢岗 - 护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/common_xg/th").default)
+    );
+  }
+  break;
   default: {
     Th = JSON.parse(
       JSON.stringify(require("../config/default/th").default)
