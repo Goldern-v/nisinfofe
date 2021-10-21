@@ -220,7 +220,7 @@ export default {
         colspan: '3',
         rowspan: '1',
         style: {
-          width: '60px',
+          width: '80px',
         }
       },
       {
