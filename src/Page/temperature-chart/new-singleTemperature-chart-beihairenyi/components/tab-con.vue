@@ -222,7 +222,8 @@
               v-model="vitalSignObj[multiDictList['表顶注释']].expand1"
             >
               <el-option
-                v-for="(item, topIndex) in topContextList"
+                v-for="(item, topIndex) in getFilterSelections(totalDictInfo['表顶注释'].options,
+                        vitalSignObj[multiDictList['表顶注释']].vitalValue)"
                 :key="topIndex"
                 :label="item"
                 :value="item"
@@ -241,6 +242,33 @@
             >
             </el-date-picker>
           </div>
+          <div class="row" v-if="multiDictList['中间注释']">
+            <span class="preText">中间注释</span>
+            <el-select
+              size="mini"
+              v-model="vitalSignObj[multiDictList['中间注释']].expand1"
+            >
+              <el-option
+                v-for="(item, bottomIndex) in getFilterSelections(totalDictInfo['中间注释'].options,
+                        vitalSignObj[multiDictList['中间注释']].vitalValue)"
+                :key="bottomIndex"
+                :label="item"
+                :value="item"
+              >
+              </el-option>
+            </el-select>
+            <el-date-picker
+              size="mini"
+              format="yyyy-MM-dd HH:mm:ss"
+              value-format="yyyy-MM-dd HH:mm:ss"
+              v-model="vitalSignObj[multiDictList['表底注释']].expand2"
+              type="datetime"
+              placeholder="选择日期时间"
+              style="margin: 3px 0px 0px 55px; width: 170px"
+              @change="formatCenterExpandDate"
+            >
+            </el-date-picker>
+          </div>
           <div class="row" v-if="multiDictList['表底注释']">
             <span class="preText">表底注释</span>
             <el-select
@@ -248,7 +276,8 @@
               v-model="vitalSignObj[multiDictList['表底注释']].expand1"
             >
               <el-option
-                v-for="(item, bottomIndex) in bottomContextList"
+               v-for="(item, bottomIndex) in getFilterSelections(totalDictInfo['表底注释'].options,
+                        vitalSignObj[multiDictList['表底注释']].vitalValue)"
                 :key="bottomIndex"
                 :label="item"
                 :value="item"
@@ -370,6 +399,7 @@ export default {
         "手术入院",
         "死亡",
       ],
+      bottomIndex:[],
       timesOdd: [
         {
           id: 0,
@@ -399,6 +429,7 @@ export default {
       bottomContextList: [""],
       topExpandDate: "",
       bottomExpandDate: "",
+      centerExpandDate: "",
       totalDictInfo: {},
       selectionMultiDict: selectionMultiDict,
     };
@@ -536,7 +567,6 @@ export default {
     },
     getFilterSelections(orgin, filterStr) {
       if (!filterStr || !filterStr.trim()) return orgin;
-
       return orgin.filter((option) => option.includes(filterStr));
     },
     handlePopRefresh(target) {
@@ -677,8 +707,12 @@ export default {
           case "表顶注释":
             item.expand2 = this.topExpandDate;
             break;
+          case "中间注释":
+            item.expand2 = this.centerExpandDate;
+            break;
           case "表底注释":
             item.expand2 = this.bottomExpandDate;
+            break;
           default:
             break;
         }
@@ -702,6 +736,10 @@ export default {
     formatBtmExpandDate(val) {
       this.bottomExpandDate = val;
     },
+    formatCenterExpandDate(val) {
+      this.centerExpandDate = val;
+    },
+    //设置体温单是否可编辑
   },
   components: { nullBg },
 };
