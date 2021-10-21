@@ -1,6 +1,7 @@
 
 <template>
-  <div class="editbar">
+  <div class="editbar" 
+   ref="badEventNew">
     <!-- 病人列表 -->
     <!-- <div class="editbar-left">
             <patientList v-if="showPatientList" :data="bedList" v-loading="patientListLoading"></patientList>
@@ -205,6 +206,9 @@ export default {
     // if (this.deptCode) {
     //   this.getDate();
     // }
+    //this.$refs="badEventNew"
+    //初始化root
+    this.initBadEventNewRoot();
   },
   watch: {
     "$route.params.operation"() {
@@ -230,6 +234,21 @@ export default {
     }
   },
   methods: {
+    //初始化iframe root方法
+    initBadEventNewRoot(){
+      //绑定事件给iframe表单页面用
+      this.$refs["badEventNew"]["$methods"] = () => {
+        return {
+          goBack: () => {//返回上一页
+            //goback() 
+            this.$router.go(-1);
+
+          },
+          router:this.$router,
+        };
+      };
+      this.$root.$refs["badEventNew"] = this.$refs["badEventNew"];
+    },
     //更新表单iframe的用户基本数据值
     updataeBaseUser(data){
       this.$nextTick(()=>{
@@ -298,7 +317,7 @@ export default {
         // isDev=1&
         // 不良事件报表
         let formHTMLName = "不良事件病人安全通报单";
-        (this.isnNewBadEvent) && (formHTMLName=queryObj.badEventType)
+        (this.isnNewBadEvent) && (formHTMLName=queryObj.badEventType);
         let eventName = this.$route.params.name;
         let eventType = this.$route.params.type;
         if (this.isDev) {
