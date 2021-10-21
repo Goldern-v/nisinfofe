@@ -1027,6 +1027,13 @@ export default function Title(
     );
   }
   break;
+  case "neonatology_xg": {
+    // 东莞谢岗 - 新生儿护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/neonatology_xg/th").default)
+    );
+  }
+  break;
   default: {
     Th = JSON.parse(
       JSON.stringify(require("../config/default/th").default)
