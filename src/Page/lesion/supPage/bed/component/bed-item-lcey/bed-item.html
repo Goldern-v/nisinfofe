@@ -46,7 +46,7 @@
             </span>
           </div>
           <div flex-box="1" flex="dir:right" style="width: 0">
-            <div class="table-name" v-for="item in (data.conditionIconDtos &&  data.conditionIconDtos.slice(0,6))"
+            <div v-if="HOSPITAL_ID != 'beihairenyi'" class="table-name" v-for="item in (data.conditionIconDtos &&  data.conditionIconDtos.slice(0,6))"
               :key="item.iconText" :title="item.iconText" :style="{background: item.iconTextRgb}">
               <span>{{item.showContent}}</span>
             </div>
