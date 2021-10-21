@@ -167,6 +167,9 @@ export default [
   key: "fieldThirteen", //出量--大便（g/性状）
   value: "",
   event: keyf1,
+  textarea: {
+    width: 40
+  }
 },
 {
   key: "fieldFourteen", //出量--小便（ml）
