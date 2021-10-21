@@ -72,12 +72,12 @@
     <div class="bad-event-list">
       <!-- <NullBg v-if="!tableData||tableData.length==0" text="暂时没有不良事件数据～"/> -->
       <div class="block">
-        <EventTable
+        <NeweventTable
           :tableData="tableData"
           :pageLoadng="pageLoadng"
           :updateTable="updateTable"
           :eventStatusOptions="eventStatusOptions"
-        ></EventTable>
+        ></NeweventTable>
         <pagination
           :page.sync="page.pageIndex"
           :size.sync="page.pageSize"
@@ -205,6 +205,7 @@ import dayjs from "dayjs";
 import apis from "../../apis/index.js";
 import NewForm from "../modal/new-form.vue";
 import EventTable from "../table/eventTable";
+import NeweventTable from "../table/NeweventTable"
 import Button from "../button";
 import pagination from "../pagination.vue";
 import { multiDictInfo } from "@/api/common";
@@ -217,7 +218,8 @@ export default {
     Button,
     EventTable,
     NewForm,
-    pagination
+    pagination,
+    NeweventTable,
   },
   props: {},
   data() {

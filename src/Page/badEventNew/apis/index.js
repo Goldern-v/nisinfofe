@@ -19,7 +19,8 @@ export function getEvent (id) {
 
 // 根据护理单元获取不良事件列表
 export function getEventList (data) {
-  return axios.post(`${apiPath}badEvent/findBadEventList`, data)
+  //return axios.post(`${apiPath}badEvent/findBadEventList`, data)
+  return axios.post(`${apiPath}form/badEventMaster/master/getPage`, data)
 }
 
 // 根据护理单元获取不良事件模板列表

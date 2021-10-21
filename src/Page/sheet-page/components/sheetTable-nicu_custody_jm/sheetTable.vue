@@ -97,7 +97,7 @@
                     class="bottomInput"
                     v-model="sheetInfo.relObj.gj"
                     :data-value="sheetInfo.relObj.gj"
-                  />mm
+                  />cm
                   <div class="boxTitle" style="margin-left:10px;">深度：</div>
                   <input
                     type="textarea"
