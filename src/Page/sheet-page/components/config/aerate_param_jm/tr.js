@@ -15,9 +15,15 @@ import {
 } from "../keyEvent/date";
 
 let ylList = ['低流量','高流量','呼吸机','BI-PAP','无创呼吸机'];
-let tqList = ['HFO','NIPPV','S₂MV','NS₂MV'];
+let tqList = ['HFO','NIPPV','S2MV','NS2MV'];
 
-export default [{
+export default [
+  {
+    key: "recordDate", //年份
+    value: "",
+    hidden:true
+  },
+  {
     key: "recordMonth", //日期
     value: "",
     event: event_date,
