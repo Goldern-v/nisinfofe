@@ -62,8 +62,8 @@ const currentTargetUrl = (() => {
     /** 花都 */
     case "huadu":
       // return "http://120.238.239.27:9094" //花都正式
-      // return "https://info.cr-health.com:20206" // 公司-花都测试-外网
-      return "http://192.168.1.54:9868" //公司-花都测试-内网
+      return "https://info.cr-health.com:20206" // 公司-花都测试-外网
+      // return "http://192.168.1.54:9868" //公司-花都测试-内网
 
     /** 贵州医科大正式 */
     case "gy":
@@ -77,9 +77,9 @@ const currentTargetUrl = (() => {
 
     /** 江门妇幼 */
     case "fuyou":
-      // return "http://218.14.180.38:9094" // 江门妇幼正式
+      return "http://218.14.180.38:9094" // 江门妇幼正式
       // return "https://info.cr-health.com:20211" // 公司-江门妇幼测试-外网
-      return "http://192.168.1.54:9872" // 公司-江门妇幼测试-内网
+      // return "http://192.168.1.54:9872" // 公司-江门妇幼测试-内网
 
     /** 中山七 */
     case "zhongshanqi":
@@ -124,7 +124,8 @@ const currentTargetUrl = (() => {
       return "http://192.168.1.54:9879" // 内网测试
 
     case 'xiegang':
-      return "http://192.168.1.54:9882" // 测试地址-内网地址
+      // return "http://192.168.1.54:9882" // 测试地址-内网地址
+      return "http://192.168.20.223:8080" // 初升本地
 
 
     // 北海人医

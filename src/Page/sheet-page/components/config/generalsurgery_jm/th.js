@@ -18,7 +18,7 @@ export default {
         style: {
           minWidth: "62px"
         },
-        canSet: true,
+        // canSet: true,
         key: "recordYear",
       },
       {

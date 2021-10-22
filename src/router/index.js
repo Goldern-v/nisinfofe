@@ -205,6 +205,7 @@ const planList = () => import("@/Page/plan-list/plan-list.vue");
 const demo = () => import("@/demo/demo"); //demo
 /** 包含全局样式的页面，患者详情子页面不可代码切割 */
 import sheetPage from "@/Page/sheet-page/sheet-page.vue"; // 护理记录单页面
+import sheetNursingOrderPage from "@/Page/sheet-nursing-order/sheet-page.vue"; // 护嘱记录单页面
 import sheetNursingOrder from "@/Page/patientInfo/supPage/sheetNursingOrder/sheetNursingOrder.vue"; // 护嘱记录单页面
 import record from "@/Page/patientInfo/supPage/record/record"; // 评估单
 import home from "@/Page/patientInfo/supPage/home/home";
@@ -568,6 +569,7 @@ const router = new Router({
               return badEvent
           }
         })(),
+        
         children: [{
           name: "badEventEdit",
           path: "/badEvent/:code?/:operation?/:id?/:type?/:name?",
@@ -888,6 +890,15 @@ const router = new Router({
           name: "sheetPage",
           path: "/sheetPage/:patientId?/:visitId?/:formId?",
           component: sheetPage
+        }]
+      },
+      {
+        path: "/sheetNursingOrderPage",
+        component: sheetNursingOrderPage,
+        children: [{
+          name: "sheetNursingOrderPage",
+          path: "/sheetNursingOrderPage/:patientId?/:visitId?/:formId?",
+          component: sheetNursingOrderPage
         }]
       },
       {

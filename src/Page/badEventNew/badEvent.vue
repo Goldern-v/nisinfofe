@@ -58,6 +58,7 @@ import dayjs from "dayjs";
 import apis from "./apis/index.js";
 
 import EventTable from "./components/table/eventTable";
+import NeweventTable from "./components/table/NeweventTable"
 import Button from "./components/button";
 
 import Search from "./components/toolbar/search";
@@ -69,7 +70,8 @@ export default {
   components: {
     Button,
     EventTable,
-    Search
+    Search,
+    NeweventTable,
   },
   props: {},
   data() {

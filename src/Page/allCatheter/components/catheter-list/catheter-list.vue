@@ -31,6 +31,7 @@
         .cathter-tool{
             display: flex;
             justify-content: space-between;
+            box-shadow: 0px 3px 5px #ccc;
             div{
                 width: 100px;
                 text-indent: 15px;
@@ -46,9 +47,11 @@
             }
         }
         .cathter-list{
+            height: calc(100% - 30px);
+            overflow-y: auto;
             .cathter-item{
                 cursor: pointer;
-                text-indent: 10px;
+                padding-left: 10px;
                 min-height: 45px;
                 line-height: 45px;
                 display: flex;
@@ -56,12 +59,16 @@
                 .right-part{
                     width: 45px;
                     padding: 18px 0 0 0;
+                    position: relative;
                 }
                 .point{
+                    position: absolute;
+                    transform: translate(-50%,-50%);
                     height: 1px;
                     width: 1px;
                     border-radius: 50%;
-                    margin:0 auto
+                    top: 50%;
+                    left: 50%;
                 }
             }
         }

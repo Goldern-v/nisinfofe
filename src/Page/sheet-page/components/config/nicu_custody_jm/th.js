@@ -21,18 +21,26 @@ export default {
       },
       {
         name: `
-        台<br/>/<br/>箱<br/>温<br/>度<br/>℃
+        台<br/>温<br/>度<br/>℃
         `,
-        style: {
-        },
+        canSet: true,
+        key: "boxTemperature",
         colspan: '1',
-        rowspan: '3'
+        rowspan: '3',
+        style: {
+          minWidth: '30px',
+          maxWidth: '30px',
+        },
       },
       {
         name: `
-        台<br/>/<br/>箱<br/>编<br/>号
+        台<br/>编<br/>号
         `,
+        canSet: true,
+        key: "boxCode",
         style: {
+          minWidth: '30px',
+          maxWidth: '30px',
         },
         colspan: '1',
         rowspan: '3'
@@ -133,8 +141,10 @@ export default {
       },
       {
         name: `
-        NBP<br/>/<br/>ABP<br/>mmHg
+        NBP<br/>mmHg
         `,
+        canSet: true,
+        key: "nbp",
         colspan: '1',
         rowspan: '2'
       },

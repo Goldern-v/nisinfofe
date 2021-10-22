@@ -793,6 +793,26 @@ function switechSheetType(type) {
       schema = require("../config/postpartum_wj/tr.js").default;
     }
       break;
+    case "common_xg": {
+      // 东莞谢岗 - 护理记录单
+      schema = require("../config/common_xg/tr.js").default;
+    }
+      break;
+    case "neonatology_xg": {
+      // 东莞谢岗 - 新生儿护理记录单
+      schema = require("../config/neonatology_xg/tr.js").default;
+    }
+      break;
+    case "postpartum_xg": {
+      // 东莞谢岗 - 产后护理记录单
+      schema = require("../config/postpartum_xg/tr.js").default;
+    }
+      break;
+    case "prenatal_xg": {
+      // 东莞谢岗 - 产前待产记录单
+      schema = require("../config/prenatal_xg/tr.js").default;
+    }
+      break;
     default: {
       schema = require("../config/default/tr.js").default;
     }

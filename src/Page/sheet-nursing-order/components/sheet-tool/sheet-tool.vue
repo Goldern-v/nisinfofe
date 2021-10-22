@@ -313,7 +313,7 @@ export default {
           });
         }
       }
-      console.log("初始化页面列表", this.selectList);
+      // console.log("初始化页面列表", this.selectList);
     },
     querySearch(queryString, cb) {
       this.initSelectList();
@@ -346,7 +346,7 @@ export default {
       // selectRow.map(item=>{
       //   this.sheetInfo.selectRow.push(item)
       // })
-      console.log("批量签名sheetInfo", this.sheetInfo, selectRow);
+      // console.log("批量签名sheetInfo", this.sheetInfo, selectRow);
       if (selectRow.length) {
         this.$refs.signModal.open((password, empNo) => {
           let list = [];
@@ -374,10 +374,10 @@ export default {
             signType: signType,
           };
 
-          console.log("批量签名data", data);
+          // console.log("批量签名data", data);
           sign(this.patientInfo.patientId, this.patientInfo.visitId, data).then(
             (res) => {
-              console.log("批量签名res", res);
+              // console.log("批量签名res", res);
               this.sheetInfo.isSave = true;
               for (let i = 0; i < res.data.data.length; i++) {
                 let trArrClone = Tr(res.data.data[i]);
@@ -431,14 +431,14 @@ export default {
           }
           this.sheetInfo.sheetType = this.sheetInfo.selectBlock.recordCode;
 
-          console.log(
-            "获取护嘱单列表",
-            index,
-            res,
-            this.sheetBlockList,
-            this.sheetInfo,
-            this.patientInfo
-          );
+          // console.log(
+          //   "获取护嘱单列表",
+          //   index,
+          //   res,
+          //   this.sheetBlockList,
+          //   this.sheetInfo,
+          //   this.patientInfo
+          // );
 
           if (this.sheetBlockList.length > 0) {
             this.bus.$emit("refreshNursingOrderSheetPage", true);
@@ -447,18 +447,18 @@ export default {
           } else {
             console.log("无数据显示");
           }
-          console.log(
-            "获取护嘱单列表Sorted",
-            res,
-            this.sheetBlockList,
-            this.sheetInfo,
-            this.patientInfo
-          );
+          // console.log(
+          //   "获取护嘱单列表Sorted",
+          //   res,
+          //   this.sheetBlockList,
+          //   this.sheetInfo,
+          //   this.patientInfo
+          // );
         });
       }
     },
     addSheet() {
-      console.log("新建页面", this.sheetInfo, this.sheetBlockList);
+      // console.log("新建页面", this.sheetInfo, this.sheetBlockList);
       if (this.sheetBlockList.length === 0) {
         this.bus.$emit("createNursingOrderPage", true);
         return;
@@ -487,7 +487,7 @@ export default {
       } else {
         this.bus.$emit("addNewNursingOrderSheetPage");
       }
-      console.log("新建护嘱单", this.sheetInfo);
+      // console.log("新建护嘱单", this.sheetInfo);
     },
     delSheetRow() {
       alert("happy del sheet row!");
@@ -507,7 +507,7 @@ export default {
               password: password,
               empNo: empNo,
             }).then((res) => {
-              console.log("删除成功", res, this.sheetInfo.selectBlock.id);
+              // console.log("删除成功", res, this.sheetInfo.selectBlock.id);
 
               // this.sheetInfo.selectBlock.id = null
               // 清空之前选中护理单
@@ -553,7 +553,7 @@ export default {
       }`;
     },
     changeSelectBlock(e) {
-      console.log("changeSelectBlock", e);
+      // console.log("changeSelectBlock", e);
       this.bus.$emit("refreshNursingOrderSheetPage", true, e);
     },
     showSheetDescription() {
@@ -606,7 +606,7 @@ export default {
   },
   created() {
     this.bus.$on("initNursingOrderSheetPageSize", () => {
-      console.log("初始化护嘱单页面大小");
+      // console.log("初始化护嘱单页面大小");
       this.initSelectList();
       this.pageArea = this.selectList[this.selectList.length - 1].value || "";
     });
@@ -614,14 +614,14 @@ export default {
       this.toMoreSign(sheetInfo, signType);
     });
     this.bus.$on("getNOBlockList", () => {
-      console.log("刷新getNOBlockList");
+      // console.log("刷新getNOBlockList");
       this.getNOBlockList();
     });
 
     this.bus.$on(
       "createNursingOrderPage",
       (isOpenForm, formTitle = this.sheetInfo.formTitle) => {
-        console.log("创建护嘱表单", isOpenForm, formTitle);
+        // console.log("创建护嘱表单", isOpenForm, formTitle);
         this.createSheet(isOpenForm, formTitle);
       }
     );
@@ -640,7 +640,7 @@ export default {
         //Ctrl+s
         e.preventDefault();
         e.returnvalue = false;
-        console.log("Ctrl+s保存");
+        // console.log("Ctrl+s保存");
         this.emit("saveNursingOrderSheetPage");
         e.stopPropagation();
       }

@@ -1,6 +1,7 @@
 
 <template>
-  <div class="editbar">
+  <div class="editbar" 
+   ref="badEventNew">
     <!-- 病人列表 -->
     <!-- <div class="editbar-left">
             <patientList v-if="showPatientList" :data="bedList" v-loading="patientListLoading"></patientList>
@@ -8,7 +9,7 @@
 
     <!-- <div class="editbar-right" :style="showPatientList?'margin-left:200px':'margin-left:0px'"> -->
     <!-- 不良事件 报告单   data-print-class="printing"-->
-
+    <HeadToolBar :showToolBar="!pageLoading" @updataeBaseUser="updataeBaseUser"></HeadToolBar>
     <EditToolbar :showLeft="true" :showRight="true"></EditToolbar>
 
     <div class="bad-event-container" :style="'height:'+(wih-100)+'px!important;'">
@@ -120,7 +121,7 @@ import EditToolbar from "./components/toolbar/editToolbar";
 import NullBg from "@/components/null/null-bg.vue";
 
 import commonData from "@/api/commonData"; //入院HIS数据等
-
+import HeadToolBar from "./components/toolbar/headToolBar";
 import qs from "qs";
 
 import { formUrl, devFormUrl } from "@/common/pathConfig/index.js";
@@ -133,7 +134,8 @@ export default {
   components: {
     EditToolbar,
     NullBg,
-    patientList
+    patientList,
+    HeadToolBar
   },
   data() {
     return {
@@ -204,6 +206,9 @@ export default {
     // if (this.deptCode) {
     //   this.getDate();
     // }
+    //this.$refs="badEventNew"
+    //初始化root
+    this.initBadEventNewRoot();
   },
   watch: {
     "$route.params.operation"() {
@@ -229,6 +234,30 @@ export default {
     }
   },
   methods: {
+    //初始化iframe root方法
+    initBadEventNewRoot(){
+      //绑定事件给iframe表单页面用
+      this.$refs["badEventNew"]["$methods"] = () => {
+        return {
+          goBack: () => {//返回上一页
+            //goback() 
+            this.$router.go(-1);
+
+          },
+          router:this.$router,
+        };
+      };
+      this.$root.$refs["badEventNew"] = this.$refs["badEventNew"];
+    },
+    //更新表单iframe的用户基本数据值
+    updataeBaseUser(data){
+      this.$nextTick(()=>{
+        const formIframe=this.$refs.iframe.contentWindow;
+        formIframe.updateBaseUser(data)
+        console.log(formIframe)
+        console.log("获取数据")
+      })
+    },
     async load() {
       console.log(
         "载入报告单",
@@ -288,7 +317,7 @@ export default {
         // isDev=1&
         // 不良事件报表
         let formHTMLName = "不良事件病人安全通报单";
-        (this.isnNewBadEvent) && (formHTMLName=queryObj.badEventType)
+        (this.isnNewBadEvent) && (formHTMLName=queryObj.badEventType);
         let eventName = this.$route.params.name;
         let eventType = this.$route.params.type;
         if (this.isDev) {

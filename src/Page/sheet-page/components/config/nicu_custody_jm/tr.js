@@ -14,6 +14,8 @@ let xzpList = ["悬浮红细胞","洗涤红细胞","血浆","冷沉淀"];
 let twList = ["左","右","平","俯"];
 let kfyList = ["母乳","配方奶","早产奶","奶","口服药"];
 let pfhlList = ["油浴","沐浴","床上浴"];
+let xylList = ["差","一般","好"];
+let xtList = ['气道中','气道少','气道多','口腔少','口腔中','口腔多'];
 
 export default [
   {
@@ -90,7 +92,7 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 30
+      width: 35
     },
     autoComplete: {
       data: NBPList
@@ -175,6 +177,9 @@ export default [
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
       width: 30
+    },
+    autoComplete: {
+      data: xylList
     },
   },
   {
@@ -303,9 +308,13 @@ export default [
     value: "",
     name: "吸痰",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 8),
+    splice: true,
     textarea: {
-      width: 30
+      width: 50
+    },
+    autoComplete: {
+      data: xtList
     },
   },
   {

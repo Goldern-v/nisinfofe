@@ -11,7 +11,6 @@
                 </div>
                 <div class="cathter-type">
                     <div class="type-item" v-for="(item,index) in renderList" :key="index" @click="createCathter(item)">
-                        <img src="1" alt="">
                         {{item.name}}
                     </div>
                 </div>
@@ -74,7 +73,8 @@
                 flex-wrap: wrap;
                 padding: 20px;
                 .type-item{
-                    width: 100px;
+                    box-sizing: border-box;
+                    min-width: 100px;
                     margin-right:10px;
                     margin-bottom:5px;
                     height: 40px;
@@ -85,6 +85,7 @@
                     font-size: 12px;
                     cursor: pointer;
                     color: #777;
+                    padding: 0 5px;
                 }
             }
         }

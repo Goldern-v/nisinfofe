@@ -821,7 +821,6 @@ export default {
       try {
         nursingStaff = JSON.parse(localStorage.user).nursingStaff;
       } catch (e) {
-        console.log(e);
       }
       return nursingStaff;
     },

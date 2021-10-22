@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div ref="badEventNew">
     <!-- 不良事件 -->
     <div class="viewbar">
       <div class="viewbar-left">
@@ -37,6 +37,7 @@
       </div>
       <div class="viewbar-right" :style="'height: ' + (wih - 60) + 'px'">
         <div class="viewbar-right-top">
+          <Button class="btn"   @click.stop="save">保存</Button>
           <Button class="btn" :disabled="badEventLoad || isDisabled" @click="saveEdit">编辑</Button>
           <Button class="btn" :disabled="badEventLoad || isDisabled" @click="deleteEdit">删除</Button>
           <Button class="btn" :disabled="badEventLoad || isDisabled3" @click="revoke">撤销</Button>
@@ -337,7 +338,8 @@ export default {
       badEventLoad: true, // 编辑按钮置灰
       isDisabled: true, //编辑/删除
       isDisabled2: true, // 上报
-      isDisabled3: true // 撤销
+      isDisabled3: true, // 撤销
+      isnNewBadEvent:true,//是否为新版不良事件
     };
   },
   computed: {
@@ -350,6 +352,7 @@ export default {
     this.bus.$on("badEventViewPageUpdateUI", this.updateUI);
   },
   mounted() {
+    this.initBadEventNewRoot();
     this.getBadEventStream();
     window.updateBadEventViewPage = this.onloadPage;
     window.badEventLoad = this.showBtn;
@@ -367,14 +370,31 @@ export default {
     }
   },
   methods: {
-    showBtn(instance) {
+    //初始化iframe root方法
+    initBadEventNewRoot(){
+      //绑定事件给iframe表单页面用
+      this.$refs["badEventNew"]["$methods"] = () => {
+        return {
+          goBack: () => {//返回上一页
+            //goback() 
+            this.$router.go(-1);
+
+          },
+          router:this.$router,
+        };
+      };
+      this.$root.$refs["badEventNew"] = this.$refs["badEventNew"];
+    },
+    showBtn(instance,handlenodeDto) {
+      //debugger
       this.badEventLoad = false;
       if (instance) {
         let status = instance.status;
         this.status = status;
       }
+      this.updateUI(handlenodeDto);
       // 获取所有事件状态
-      this.getEventStatus(this.status);
+      //this.getEventStatus(this.status);
     },
     async load() {
       if (this.$route.params.name) {
@@ -390,7 +410,8 @@ export default {
         let formHTMLName = "不良事件病人安全通报单";
         let eventName = this.$route.params.name;
         let eventType = this.$route.params.type;
-
+        //新版不良事件根据badEventType做html表单名字
+       (this.isnNewBadEvent) && (formHTMLName=queryObj.badEventType);
         if (this.isDev) {
           this.url = `${devFormUrl}/${formHTMLName}.html?${qs.stringify(
             queryObj
@@ -432,45 +453,38 @@ export default {
     },
     updateUI(stream) {
       let isFlag = false;
+      //debugger
+      // console.log(stream)
+      //  console.log("stream")
+      //  console.log(stream)
+      //debugger
       this.steps = stream.map((item, index) => {
         let operatorName = "",
           operateDate = "",
           status = "";
-        if (stream[index].instanceId) {
-          if (
-            stream[index].operatorStatus == "save" ||
-            stream[index].operatorStatus == "nurse_submit"
-          ) {
-            operatorName = "***" + stream[index].operatorWardName || "";
-          } else {
-            operatorName =
-              stream[index].operatorName +
-                " (" +
-                stream[index].operatorWardName +
-                ")" || "";
-          }
-          operateDate = stream[index].operateDate
-            ? moment(stream[index].operateDate).format("YYYY-MM-DD HH:mm")
-            : "";
-          if (stream[index].allow) {
-            status = "success";
-          } else if (index == stream.length) {
-            status = "finish";
-          } else {
-            status = "error";
-          }
-        } else {
-          if (!isFlag) {
-            isFlag = true;
-            this.stepStatus = index;
-          }
-          operatorName = "未完成";
+        operatorName = item.handlerName || "未完成";
+        operateDate = item.handleTime
+          ? moment(item.handleTime).format("YYYY-MM-DD HH:mm")
+          : "";
+        if (item.status == 1 && index == stream.length - 1 && !item.noPass) {
+          status = "finish";
+        } else if (item.status == 1 && !item.noPass) {
+          status = "success";
+          //this.currentNodeCode = item.nodeCode;
+        } else if (item.status == 0) {
           status = "wait";
+        } else {
+          status = "error";
         }
-
+        // if (item.status == 0 && !nextStatusObj) {
+        //   nextStatusObj = item;
+        //   this.isDisabled = !nextStatusObj.canUpdate;
+        //   this.isDisabled2 = !nextStatusObj.canHandle;
+        // }
         return {
-          title: item.operateName || item.operatorName,
-          description: `${operatorName}<br>${operateDate}`,
+          title: item.operateName || item.operatorName || item.nodeName,
+          auditMind: item.auditMind || "",
+          description: `${operatorName}<br>${operateDate}<br>${item.handleContent}`,
           status
         };
       });
@@ -540,6 +554,14 @@ export default {
           this.updateUI(res.data.data);
         }
       });
+    },
+    //报错
+    save(e) {
+      console.log("save", e);
+      if (this.wid) {
+        this.isSaved = true;
+        this.wid.CRForm.badEventMethods().todoSave();
+      }
     }
   }
 };

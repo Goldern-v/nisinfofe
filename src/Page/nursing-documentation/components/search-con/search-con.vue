@@ -227,7 +227,6 @@ export default {
     deptCode() {}
   },
   created() {
-    console.log(this.$route)
     let getNursingUnit =
       this.HOSPITAL_ID == "hj" ? nursingUnitAll : nursingUnit;
     getNursingUnit()
