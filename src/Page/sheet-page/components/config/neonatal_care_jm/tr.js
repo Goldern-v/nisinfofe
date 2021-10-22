@@ -50,9 +50,9 @@ export default [
   key: "temperature", //体温℃
   value: "",
   event: keyf1,
-  // textarea: {
-  //   width: 25
-  // }
+  textarea: {
+    width: 25
+  }
 },
 {
   key: "pulse", //心率 次/min
