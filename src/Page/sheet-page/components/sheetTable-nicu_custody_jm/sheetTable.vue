@@ -36,7 +36,7 @@
             年龄：{{ patientInfo.age }}
           </span>
           <span>
-            住院号：{{ patientInfo.patientId }}
+            住院号：{{ patientInfo.inpNo }}
           </span>
           <span>
             入院日期：{{ patientInfo.admissionDate | toymd }}

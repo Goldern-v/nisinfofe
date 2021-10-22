@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="contain">
-      <el-dropdown >
+      <el-dropdown>
        <div class="print-btn tool-btn" >打印</div>
       <el-dropdown-menu slot="dropdown">
        <el-dropdown-item> <el-button type="primary"  @click="onPrint()">打印当周</el-button></el-dropdown-item>
@@ -74,6 +74,8 @@ export default {
       currentPage: 1,
       pageTotal: 1,
       printAllPath:"",
+      patientId:"",
+      visitId:"",
       open: false,
       isSave: false,
       visibled: false,

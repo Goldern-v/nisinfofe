@@ -72,7 +72,8 @@ export default {
   computed: {
     sheetModel() {
       let html = window.localStorage.sugarModel
-      return html
+      var reg = /data-value/g;
+      return html.replace(reg, "value");
     }
   },
   components: {}
