@@ -347,8 +347,6 @@ export default {
     
     //初始化江门妇幼签名数据
     initFuyouCaData(){
-      console.log("更新fuyouCaData");
-      console.log(this.fuyouCaData);
       //window.localStorage.setItem("fuyouCaData"
       this.fuyouCaData=window.localStorage.getItem("fuyouCaData")?JSON.parse(window.localStorage.getItem("fuyouCaData")):null;
     },

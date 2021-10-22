@@ -218,6 +218,7 @@
           <div class="row" v-if="multiDictList['表顶注释']">
             <span class="preText">表顶注释</span>
             <el-select
+              :disabled="isDisable()"
               size="mini"
               v-model="vitalSignObj[multiDictList['表顶注释']].expand1"
             >
@@ -232,6 +233,7 @@
             </el-select>
             <el-date-picker
               size="mini"
+              :readonly="isDisable()"
               format="yyyy-MM-dd HH:mm:ss"
               value-format="yyyy-MM-dd HH:mm:ss"
               v-model="vitalSignObj[multiDictList['表顶注释']].expand2"
@@ -245,6 +247,7 @@
           <div class="row" v-if="multiDictList['中间注释']">
             <span class="preText">中间注释</span>
             <el-select
+            :disabled="isDisable()"
               size="mini"
               v-model="vitalSignObj[multiDictList['中间注释']].expand1"
             >
@@ -259,6 +262,7 @@
             </el-select>
             <el-date-picker
               size="mini"
+              :readonly="isDisable()"
               format="yyyy-MM-dd HH:mm:ss"
               value-format="yyyy-MM-dd HH:mm:ss"
               v-model="vitalSignObj[multiDictList['表底注释']].expand2"
@@ -273,6 +277,7 @@
             <span class="preText">表底注释</span>
             <el-select
               size="mini"
+              :disabled="isDisable()"
               v-model="vitalSignObj[multiDictList['表底注释']].expand1"
             >
               <el-option
@@ -286,6 +291,7 @@
             </el-select>
             <el-date-picker
               size="mini"
+              :readonly="isDisable()"
               format="yyyy-MM-dd HH:mm:ss"
               value-format="yyyy-MM-dd HH:mm:ss"
               v-model="vitalSignObj[multiDictList['表底注释']].expand2"
@@ -298,7 +304,8 @@
           </div>
           <div>
             <el-button
-              type="primary"
+            :disabled="isDisable()"
+                type="primary"
               class="save-btn"
               @click="saveVitalSign(vitalSignObj)"
               >保存</el-button
@@ -549,6 +556,13 @@ export default {
     selectTemRec(val) {
       this.query.entryDate = val;
     },
+    isDisable(){
+      if (this.$route.path.includes("newSingleTemperatureChart")||this.$route.path.includes("temperature")){
+return false
+      }else{
+        return true
+      }
+    },
 
      getHours() {
       let date = new Date();
@@ -633,11 +647,15 @@ export default {
     },
     //右键删除记录
     rightMouseDown(e,dateTime, tabIndex){
+      if(!this.isDisable()){
       this.removeRecord(dateTime, tabIndex)
+
+      }
     },
     /* 删除记录 */
     async removeRecord(targetName, index) {
-      await this.$confirm("是否确删除该记录?", "提示", {
+      if(!this.isDisable()){
+await this.$confirm("是否确删除该记录?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "info",
@@ -652,6 +670,8 @@ export default {
           this.bus.$emit("refreshImg");
         });
       });
+      }
+      
     },
     /* 同步入院、同步出院 */
     syncInAndOutHospital(type) {
@@ -668,7 +688,8 @@ export default {
     updateTextInfo(key, label, autotext,index) {
       let checkValue = Object.values(this.fieldList)||[]
      let  checkValueStr=checkValue.map(item=>item.fieldCn)
-      window.openSetTextModalNew(
+     if(!this.isDisable()){//护理文书不允许修改
+window.openSetTextModalNew(
         (text) => {
           let data = {
             patientId: this.patientInfo.patientId,
@@ -680,7 +701,7 @@ export default {
           if(
             checkValueStr.includes(text)
           ){
- this.$message.error(`修改${label}失败!已存在${text}项目`);
+            this.$message.error(`修改${label}失败!已存在${text}项目`);
           }else{
           savefieldTitle(data).then((res) => {
              this.fieldList[index].fieldCn=text;
@@ -693,6 +714,8 @@ export default {
         autotext,
         `修改${label}`
       );
+     }
+      
     },
     /* 录入体温单 */
     async saveVitalSign(value) {
