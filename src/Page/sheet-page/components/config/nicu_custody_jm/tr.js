@@ -92,7 +92,7 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 30
+      width: 35
     },
     autoComplete: {
       data: NBPList
@@ -308,9 +308,10 @@ export default [
     value: "",
     name: "吸痰",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 8),
+    splice: true,
     textarea: {
-      width: 30
+      width: 50
     },
     autoComplete: {
       data: xtList

@@ -125,7 +125,7 @@ const currentTargetUrl = (() => {
 
     case 'xiegang':
       // return "http://192.168.1.54:9882" // 测试地址-内网地址
-      return "http://192.168.20.177:8080" // 初升本地
+      return "http://192.168.20.223:8080" // 初升本地
 
 
     // 北海人医

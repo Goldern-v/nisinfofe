@@ -108,7 +108,7 @@
   flex-wrap: wrap;
   margin: 0;
   padding: 10px 10px 10px;
-  height: 420px;
+  max-height: 420px;
   overflow: auto;
 
   .record-box {

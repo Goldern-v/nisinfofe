@@ -141,8 +141,10 @@ export default {
       },
       {
         name: `
-        NBP<br/>/<br/>ABP<br/>mmHg
+        NBP<br/>mmHg
         `,
+        canSet: true,
+        key: "nbp",
         colspan: '1',
         rowspan: '2'
       },

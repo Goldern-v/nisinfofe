@@ -81,7 +81,7 @@
             <div v-if="item.format == 'inline'">
               <span v-for="(patItem, index) in item.list" :key="index">
                 <span v-if="index !== 0">、</span>
-                <span>{{ patItem.bedLabel }}床 {{ patItem.name }}</span>
+                <span>{{ patItem.bedLabel }}床 {{ patItem.name }} {{`（${patItem.deptName}）`}}</span>
               </span>
             </div>
             <div class="edit-area" v-else-if="item.format == 'inline-block'">
@@ -94,7 +94,7 @@
               >
                 <span>
                   {{
-                    `${patItem.bedLabel}床 ${patItem.name} ${
+                    `${patItem.bedLabel}床 ${patItem.name} （${patItem.deptName}） ${
                       patItem.remark1 || ""
                     } ${patItem.diagnosis || ""}`
                   }}
@@ -127,14 +127,6 @@
                 <div v-if="key == '手术' && patItem.remark2">
                   <span style="padding-left: 30px"></span>
                   {{ `${patItem.remark2 || ""}` }}
-                </div>
-                <div v-if="key == '转出' && patItem.remark1">
-                  <span style="padding-left: 30px"></span>
-                  {{ patItem.isShowDeptName==1?`（${patItem.patItem}）`:``  + (` ${patItem.remark1}` || "") }}
-                </div>
-                <div v-if="key == '转入' && patItem.remark1">
-                  <span style="padding-left: 30px"></span>
-                  {{ patItem.isShowDeptName==1?`（${patItem.patItem}）`:``  + (` ${patItem.remark1}` || "") }}
                 </div>
                 <!-- <div v-if="key == '预手术' && patItem.remark3">
                   <span style="padding-left: 30px"></span>
@@ -209,7 +201,7 @@ function initFormList(list) {
     },
     转出: {
       list: [],
-      format: "inline",
+      format: "inline-block",
     },
     死亡: {
       list: [],

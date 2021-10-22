@@ -14,9 +14,10 @@ import {
   click_date,
   click_time
 } from "../keyEvent/date";
-let 入量名称 = [];
-let 出量名称 = [];
-let 意识 = [];
+let 入量名称 = ['补液', '食物', '水', '奶', '其他'];
+let 对光反射 = ['+/+', ' +/-', '+/±', '-/+', '-/-', '-/±', '±/+', '±/-', '±/±'];
+let 出量名称 = ['阴道出血', '术中出血', '便', '心包', '引流量', '痰', '呕吐物', '其他', '腹腔', '胸液', '胃管', '胆管', '尿', '腋下引流量', '胸壁引流量', '切口引流量', '腹腔引流管', '甲状腺窝引流管', '颈前引流管', '盆腔引流管', '切口引流管', '文氏引流管', '胆囊床引流管', '胆囊窝引流管', '胆总管', 'T管', '无形逝水量'];
+
 
 export default [
   {
@@ -52,7 +53,7 @@ export default [
     value: "",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
-    name: "心率",
+    name: "脉搏",
     next: "次/分",
     textarea: {
       width: 35
@@ -116,6 +117,9 @@ export default [
     name: "对光反射",
     textarea: {
       width: 35
+    },
+    autoComplete: {
+      data: 对光反射
     },
   },
   {
