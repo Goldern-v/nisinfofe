@@ -267,6 +267,7 @@
     display flex;
     flex-wrap :wrap;
     .title-box{
+      font-weight 700;
       cursor default;
       padding-left 10px;
       display flex;
@@ -353,6 +354,8 @@ import resText from './res'
 
 const getInitFormType = (HOSPITAL_ID) => {
   switch (HOSPITAL_ID) {
+    case 'huadu':
+      return 'firstRecord'
     default:
       return "1";
   }
@@ -401,13 +404,14 @@ export default {
       ],
       huaduOptions: [
         {
-          value: "1",
-          label: "护理评估",
-        },
-        {
           value: "firstRecord",
           label: "首次记录",
         },
+        {
+          value: "1",
+          label: "护理评估",
+        },
+        
       ],
       liaochengOptions: [
         {

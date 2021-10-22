@@ -860,6 +860,9 @@ export default {
             scanStyles: false,
             css: `
             .bed-card-warpper {
+              width:29cm;
+              height:20.5cm;
+              transform:rotate(180deg);
               box-shadow: none !important;
             }
             @page {

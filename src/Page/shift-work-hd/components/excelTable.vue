@@ -111,7 +111,7 @@
               >
                 <span>
                   {{
-                    `${patItem.bedLabel}床 ${patItem.name} ${
+                    `${patItem.bedLabel}床 ${patItem.name} （${patItem.deptName}） ${
                       patItem.diagnosis || ""
                     }`
                   }}
