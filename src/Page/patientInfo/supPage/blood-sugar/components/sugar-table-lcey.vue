@@ -260,9 +260,6 @@
   }
    
 }
-.el-scrollbar{
-    width:80px  !important
-}
 </style>
 
 <script>
