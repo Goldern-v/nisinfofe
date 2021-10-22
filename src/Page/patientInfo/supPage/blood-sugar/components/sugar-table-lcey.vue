@@ -1,0 +1,422 @@
+<template>
+<!--聊城 血糖酮体记录表 -->
+  <div flex-box="1" class="table-box blood-sugar-table">
+    <table>
+      <tr>
+        <th
+          v-if="HOSPITAL_ID != 'guizhou'"
+          style="width: 2%; min-width: 20px"
+        >
+         序号
+        </th>
+        <th
+          v-if="HOSPITAL_ID != 'lingcheng'"
+          style="width: 22%; min-width: 75px"
+        >
+          时间
+        </th>
+        <th v-else style="width: 22%; min-width: 75px">日期</th>
+        <th v-if="HOSPITAL_ID != 'lingcheng' && HOSPITAL_ID != 'liaocheng'" style="width: 20%">项目</th>
+        <th v-else-if="HOSPITAL_ID != 'lingcheng' && HOSPITAL_ID == 'liaocheng'" style="width: 20%">类型</th>
+        <th v-else style="width: 24%">测量时间</th>
+        <th style="width: 23%">
+          血糖值
+          <br />(mmol/L)
+        </th>
+        <th
+          style="width: 16%"
+          v-if="
+            HOSPITAL_ID != 'gy' &&
+            HOSPITAL_ID != 'lingcheng' &&
+            HOSPITAL_ID != 'huadu' &&
+            HOSPITAL_ID != 'liaocheng' &&
+            HOSPITAL_ID == 'hengli' &&
+            HOSPITAL_ID == 'guizhou'
+          "
+        >
+          {{HOSPITAL_ID=="quzhou"?'胰岛素剂量':'RI剂量'}}
+        </th>
+        <th
+          style="width: 23%"
+          v-if="
+            HOSPITAL_ID == 'liaocheng'
+          "
+        >
+          血酮值
+        <br />(mmol/L)
+        </th>
+        <th style="width: 14%">{{HOSPITAL_ID == 'liaocheng' ? '签名' : '执行人'}}</th>
+      </tr>
+      <tr
+        v-for="(item,index) in renderData"
+        :class="{ selected: selected === item }"
+        :key="item.recordDate"
+        @click="onSelect(item)"
+      >
+        <!-- @dblclick="onDblClick(item)" -->
+          <!--序号 -->
+        <td v-if="HOSPITAL_ID != 'guizhou'">
+          {{index + baseIndex + 1}}
+        </td>
+        <!-- 时间 -->
+        <td v-if="HOSPITAL_ID != 'lingcheng'" style="padding: 0 2px;" @click="textTime(item)">
+          <div flex="main:justify" style="white-space: nowrap" class="time">
+              <!-- 显示时间 -->
+            <span :data-value="item.date">
+              <input type="text" v-model="item.date" :data-value="item.date">
+              <!-- <span>{{ item.date }}</span> -->
+            </span>
+            <span>
+              <input type="text" v-model="item.time" :data-value="item.time">
+              <!-- <span>{{ item.time }}</span> -->
+            </span>
+          </div>
+        </td>
+        <td v-else>
+          <div class="cell">{{ item.date }}</div>
+        </td>
+        <!-- 类型 -->
+        <td v-if="HOSPITAL_ID != 'lingcheng'">
+     <div class="cell" :title="item.sugarItem">
+      <el-autocomplete
+      class="inline-input"
+      v-model="item.sugarItem"
+ :fetch-suggestions="querySearch"
+      @select="handleSelect"
+      type="textarea"
+    ></el-autocomplete>
+    </div>
+          <!-- <div class="cell" :title="item.sugarItem">{{ item.sugarItem }}</div> -->
+          <!-- <div class="cell" :title="item.sugarItem">
+            <input type="text" v-model="item.sugarItem">
+          </div> -->
+        </td>
+        <td v-else>
+          <div class="cell" :title="item.sugarItem">{{ item.time }}</div>
+        </td>
+        <!-- 血糖值 -->
+        <td>
+          <!-- <div class="cell">
+            {{
+              item.sugarValue && item.sugarValue !== "0" ? item.sugarValue : ""
+            }}
+          </div> -->
+           <div class="cell" >
+             <input type="text" v-model="item.sugarValue" :data-value="item.sugarValue">  
+            </div>
+        </td>
+        <!-- 血酮 -->
+        <td
+          v-if="
+            HOSPITAL_ID != 'gy' &&
+            HOSPITAL_ID != 'lingcheng' &&
+            HOSPITAL_ID != 'huadu' &&
+            HOSPITAL_ID != 'liaocheng'&&
+            HOSPITAL_ID != 'hengli'&&
+            HOSPITAL_ID != 'guizhou'
+          "
+        >
+          <div class="cell">
+            {{
+              item.riValue && item.riValue !== "0" ? item.riValue + " ü" : ""
+            }}
+          </div>
+        </td>
+        <td
+          v-if="HOSPITAL_ID == 'liaocheng'"
+        >
+          <!-- <div class="cell">
+            {{
+              item.riValue && item.riValue !== "0" ? item.riValue  : ""
+            }}
+          </div> -->
+          <div class="cell" >
+             <input type="text" v-model="item.riValue"> 
+            </div>
+        </td>
+           <!-- 签名 -->
+        <td v-if="HOSPITAL_ID == 'liaocheng'">
+          <div class="cell liaocheng-img" @click="sign(item)">
+            <!-- 这里改。-->
+            <img
+              :src="`/crNursing/api/file/signImage/${item.nurseEmpNo}?${token}`"
+              :alt="item.nurse"
+              v-if="item.nurseEmpNo"
+            />
+            <!-- <div>{{item.nurseEmpNo}}</div> -->
+          </div>
+        </td>
+        <td v-else>
+          <div class="cell noPrint" v-if="HOSPITAL_ID == 'fuyou'" style="display:block">{{ item.nurse }}</div>
+          <div class="cell noPrint" v-else>{{ item.nurse }}</div>
+          <div class="cell inPrint lc" v-if="HOSPITAL_ID == 'lingcheng'">
+            <!-- {{item.nurseEmpNo}} -->
+            <img
+              :src="`/crNursing/api/file/signImage/${item.expand1}?${token}`"
+              :alt="item.nurse"
+              v-if="item.expand1"
+            />
+          </div>
+       
+          <div :class="['cell','inPrint',HOSPITAL_ID=='guizhou'?'guizhou-img':'']" v-else>
+            <!-- {{item.nurseEmpNo}} -->
+            <img
+              :src="`/crNursing/api/file/signImage/${item.nurseEmpNo}?${token}`"
+              :alt="item.nurse"
+              v-if="item.nurseEmpNo"
+            />
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
+</template>
+
+<style lang="stylus" rel="stylesheet/stylus" type="text/stylus">
+.blood-sugar-table {
+  &.table-box {
+    width: 0;
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    td, tr, th {
+      border: 1px solid #000;
+      text-align: center;
+      vertical-align: middle;
+    }
+    tr {
+      &:hover {
+        background: #e6e6e6;
+      }
+
+      &.selected {
+        background: #FFF8B1;
+      }
+    }
+
+    td {
+      height: 29px;
+      font-size: 12px;
+      padding: 0 1px;
+      .cell {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        // max-width: 74px;
+      }
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+    th {
+      height: 40px;
+      font-size: 13px;
+      font-weight: bold;
+      background: #f4f2f5;
+    }
+  }
+
+  .inPrint {
+    display: none;
+ 
+    &.lc {
+      height: 29px;
+    }
+  }
+  .liaocheng-img{
+    width:55px;
+    height:18px;
+  }
+  .guizhou-img img{
+    width: 55px !important;
+    height: 25px !important;
+  }
+  .time{
+    input{
+      height 15px;
+      width:32px;
+      border: none;
+      outline: none;
+      background: inherit;
+        font-size :12px !important
+    }
+  }
+  .cell{
+    input{
+      padding:0px;
+      height 15px;
+      width: 100%; 
+      
+      border: none;
+      outline: none;
+      background: inherit;
+      text-align center;
+      font-size :12px !important;
+    };
+  }
+   
+}
+.el-scrollbar{
+    width:80px  !important
+}
+</style>
+
+<script>
+import common from "@/common/mixin/common.mixin.js";
+import moment from "moment";
+import * as apis from "../api";
+import {
+  saveSugarList,
+} from "../api/index.js";
+import { update } from '@/api/home';
+export default {
+  props: {
+    data: Array,
+    selected: Object,
+    baseIndex:Number,
+  },
+  mixins: [common],
+  data() {
+    return {
+      msg: "hello vue",
+       restaurants: [],
+    };
+  },
+  computed: {
+    renderData: {
+      get(){
+if (!this.data) return;
+      let renderData = [];
+      let firstDate = "";
+      for (let i = 0; i < this.data.length; i++) {
+        if(this.HOSPITAL_ID == 'lingcheng'){
+          this.data[i].md = new Date(this.data[i].recordDate).Format("yyyy-MM-dd hh:mm");
+        }else{
+          this.data[i].md = new Date(this.data[i].recordDate).Format("MM-dd hh:mm");
+        }
+        let obj = this.data[i];
+        let date = this.data[i].md.split(" ")[0];
+        let time = this.data[i].md.split(" ")[1];
+        if (firstDate != date) {
+          obj.date = date;
+        } else {
+          obj.date = "";
+        }
+        firstDate = date;
+        obj.time = time;
+        renderData.push(obj);
+      }
+      while (renderData.length <= 26) {
+        renderData.push({});
+      }
+      return renderData;
+      },
+      set(val){
+         console.log(val)
+      }
+    },
+    patientInfo() {
+      return this.$route.query;
+    },
+  },
+  filters: {
+    formatDate(val) {
+      return new Date(val).Format("MM-dd");
+    },
+    formatTime(val) {
+      return new Date(val).Format("hh:mm");
+    },
+  },
+  methods: {
+    // handlerClick(){
+    //   console.log(1);
+    // },
+    textTime(item){
+      // 点击变为时间
+      const fullTime=moment().format("YYYY-MM-DD HH:mm:ss")
+     const date=moment().format("MM-DD")
+     const time=moment().format("HH:mm")
+     item.date=date
+     item.time=time
+     item.recordDate=fullTime
+    },
+    onSelect(item) {
+      this.$emit("update:selected", item);
+    },
+    // onDblClick(item) {
+    //   this.$emit("dblclick", item);
+    // },
+   sign(item){
+      // this.$emit("dblclick", item);
+     window.openSignModal((password, empNo) => {
+        apis.getUser(password, empNo).then(async(res) => {
+          this.curEmpName = res.data.data.empName;
+          // this.empNo = res.data.data.empNo;
+          // 执行表单保存逻辑
+      item.recordDate =
+        moment(item.recordDate).format("YYYY-MM-DD HH:mm") + ":00";
+      item.patientId = this.patientInfo.patientId;
+      item.visitId = this.patientInfo.visitId;
+      item.name = this.patientInfo.name;
+      item.bedLabel = this.patientInfo.bedLabel;
+      item.wardCode = this.patientInfo.wardCode;
+      (item.nurseEmpNo = this.empNo || ""), //护士工号
+      console.log(item, "xiaog");
+      item.nurse= this.empNo || ""
+     await  saveSugarList([item])
+      // this.load();
+      // this.$refs.editModal.close();
+      // 解决报错
+      // this.selected = null;
+      this.$emit("update:selected",null);
+      this.$message.success("保存成功");
+        });
+      });
+    },
+    querySearch(queryString, cb){
+       var restaurants = this.restaurants;
+        var results = queryString ? restaurants.filter(this.createFilter(queryString)) : restaurants;
+        // 调用 callback 返回建议列表的数据
+        cb(results);
+    },
+    createFilter(queryString) {
+        return (restaurant) => {
+          return (restaurant.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
+        };
+      },
+    handleSelect(item){
+       console.log(item)
+    },
+    loadAll() {
+        return [
+          { "value": "qd" },
+          { "value": "qh" }, 
+          { "value": "q2h" },
+          { "value": "q3h" },
+          { "value": "q4h" },
+          { "value": "q6h" },
+          { "value": "q8h" },
+          { "value": "q12h" },
+          { "value": "q1/2h" },
+          { "value": "tid" },
+          { "value": "bid" },
+          { "value": "凌晨" },
+          { "value": "早餐前" },
+          { "value": "早餐后2H" },
+          { "value": "晚餐前" },
+          { "value": "晚餐后2H"},
+          { "value": "睡前" },
+          { "value": "随机" },
+        ];
+      },
+  },
+  components: {},
+  mounted(){
+      this.restaurants = this.loadAll();
+  }
+};
+</script>

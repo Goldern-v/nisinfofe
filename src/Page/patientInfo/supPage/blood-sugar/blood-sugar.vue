@@ -77,7 +77,16 @@
             <!-- <span>入院日期：{{$route.query.admissionDate}}</span> -->
           </p>
           <div class="table-warpper" flex="cross:stretch">
+            <!-- 【左边】聊城二院血糖表格单独管理 -->
+            <sugarTableLcey
+            v-if="HOSPITAL_ID == 'liaocheng'"
+            :data="item.left"
+              :selected.sync="selected"
+              @dblclick="hisDisabled()&&onEdit()"
+              :baseIndex='0'
+            ></sugarTableLcey>
             <sugarTable
+            v-else
               :data="item.left"
               :selected.sync="selected"
               @dblclick="hisDisabled()&&onEdit()"
@@ -90,7 +99,16 @@
                 border-bottom: 1px solid #000;
               "
             ></div>
+             <!--【右边】 聊城二院血糖表格单独管理 -->
+            <sugarTableLcey
+            v-if="HOSPITAL_ID == 'liaocheng'"
+            :data="item.right"
+              :selected.sync="selected"
+              @dblclick="hisDisabled()&&onEdit()"
+              :baseIndex='27'
+            ></sugarTableLcey>
             <sugarTable
+            v-else
               :data="item.right"
               :selected.sync="selected"
               @dblclick="hisDisabled()&&onEdit()"
@@ -248,6 +266,7 @@
 
 <script>
 import sugarTable from "./components/sugar-table.vue";
+import sugarTableLcey from "./components/sugar-table-lcey.vue";
 import {
   getSugarListWithPatientId,
   saveSugarList,
@@ -506,12 +525,14 @@ export default {
   },
   components: {
     sugarTable,
+    // 聊城二院血糖表格
+    sugarTableLcey,
     whiteButton,
     sugarChart,
     nullBg,
     editModal,
     setPageModal,
-    editAge,
+    editAge
   },
 };
 </script>
