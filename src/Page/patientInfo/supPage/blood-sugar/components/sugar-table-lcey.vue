@@ -77,15 +77,15 @@
         </td>
         <!-- 类型 -->
         <td v-if="HOSPITAL_ID != 'lingcheng'">
-     <div class="cell" :title="item.sugarItem">
-      <el-autocomplete
-      class="inline-input"
-      v-model="item.sugarItem"
- :fetch-suggestions="querySearch"
-      @select="handleSelect"
-      type="textarea"
-    ></el-autocomplete>
-    </div>
+          <div class="cell" :title="item.sugarItem">
+            <el-autocomplete
+              class="inline-input"
+              v-model="item.sugarItem"
+              :fetch-suggestions="querySearch"
+              @select="handleSelect"
+              type="textarea"
+            ></el-autocomplete>
+          </div>
           <!-- <div class="cell" :title="item.sugarItem">{{ item.sugarItem }}</div> -->
           <!-- <div class="cell" :title="item.sugarItem">
             <input type="text" v-model="item.sugarItem">
