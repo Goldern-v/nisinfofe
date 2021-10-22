@@ -1034,6 +1034,20 @@ export default function Title(
     );
   }
   break;
+  case "postpartum_xg": {
+    // 东莞谢岗 - 产后护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/postpartum_xg/th").default)
+    );
+  }
+  break;
+  case "prenatal_xg": {
+    // 东莞谢岗 - 产前待产记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/prenatal_xg/th").default)
+    );
+  }
+  break;
   default: {
     Th = JSON.parse(
       JSON.stringify(require("../config/default/th").default)

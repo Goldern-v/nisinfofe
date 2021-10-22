@@ -1,5 +1,5 @@
 /*
-东莞谢岗 - 护理记录单
+东莞谢岗 - 产前待产记录单
 */
 import {
   multiDictInfo
@@ -14,10 +14,6 @@ import {
   click_date,
   click_time
 } from "../keyEvent/date";
-let 入量名称 = ['补液', '食物', '水', '奶', '其他'];
-let 对光反射 = ['+/+', ' +/-', '+/±', '-/+', '-/-', '-/±', '±/+', '±/-', '±/±'];
-let 出量名称 = ['阴道出血', '术中出血', '便', '心包', '引流量', '痰', '呕吐物', '其他', '腹腔', '胸液', '胃管', '胆管', '尿', '腋下引流量', '胸壁引流量', '切口引流量', '腹腔引流管', '甲状腺窝引流管', '颈前引流管', '盆腔引流管', '切口引流管', '文氏引流管', '胆囊床引流管', '胆囊窝引流管', '胆总管', 'T管', '无形逝水量'];
-let 意识 = ['清醒', '嗜睡', '模糊', '昏睡', '浅昏迷', '中昏迷', '深昏迷', '谵妄'];
 
 export default [
   {
@@ -38,14 +34,20 @@ export default [
     // click: click_time
   },
   {
-    key: "temperature", //T
+    key: "bloodPressure", //血压
     value: "",
-    event: keyf1,
-    change: (e, td) => limitChange(e, td, 3),
-    name: "体温",
-    next: "℃",
+    change: (e, td) => limitChange(e, td, 6),
+    event: function (e, td) {
+      if (e.keyCode == 32) {
+        e.target.value += "/";
+        e.preventDefault();
+      }
+      keyf1(e, td);
+    },
+    name: "血压",
+    next: "mmHg",
     textarea: {
-      width: 27
+      width: 45
     },
   },
   {
@@ -71,116 +73,158 @@ export default [
     },
   },
   {
-    key: "bloodPressure", //血压
-    value: "",
-    change: (e, td) => limitChange(e, td, 6),
-    event: function (e, td) {
-      if (e.keyCode == 32) {
-        e.target.value += "/";
-        e.preventDefault();
-      }
-      keyf1(e, td);
-    },
-    name: "血压",
-    next: "mmHg",
-    textarea: {
-      width: 45
-    },
-  },
-  {
-    key: "spo2", //SPO₂(%)
+    key: "fetalPosition", //胎方位
     value: "",
     event: keyf1,
-    name: "SPO₂",
-    next: "%",
-    change: (e, td) => limitChange(e, td, 6),
-    textarea: {
-      width: 40
-    },
-  },
-  {
-    key: "consciousness", //意识
-    value: "",
-    event: keyf1,
-    change: (e, td) => limitChange(e, td, 6),
-    name: "意识",
-    autoComplete: {
-      data: 意识
-    },
-    textarea: {
-      width: 40
-    },
-  },
-  {
-    key: "pupilSizeLeft", //瞳孔大小
-    value: "",
-    event: keyf1,
-    change: (e, td) => limitChange(e, td, 6),
-    name: "瞳孔大小",
-    next: "mm",
-    textarea: {
-      width: 40
-    },
-  },
-  {
-    key: "pupilReflexLeft", //对光反射
-    value: "",
-    event: keyf1,
-    change: (e, td) => limitChange(e, td, 6),
-    name: "对光反射",
-    textarea: {
-      width: 40
-    },
-    autoComplete: {
-      data: 对光反射
-    },
-  },
-  {
-    key: "food", //入量名称
-    value: "",
-    event: keyf1,
-    name: "入量名称",
-    change: (e, td) => limitChange(e, td, 12),
-    textarea: {
-      width: 75,
-    },
-    autoComplete: {
-      data: 入量名称
-    },
-  },
-  {
-    key: "foodSize", //入量（单位ml）
-    value: "",
-    event: keyf1,
+    name: "胎方位",
     change: (e, td) => limitChange(e, td, 4),
-    name: "入量",
-    next: "ml/g",
     textarea: {
       width: 35
     },
   },
   {
-    key: "discharge", //出量名称
-    value: "",
-    event: keyf1,
-    name: "出量名称",
-    change: (e, td) => limitChange(e, td, 12),
-    textarea: {
-      width: 75,
-    },
-    autoComplete: {
-      data: 出量名称
-    }
-  },
-  {
-    key: "dischargeSize", //出量（单位ml）
+    key: "fetalHeart", //胎心
     value: "",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
-    name: "出量",
-    next: "ml/g",
+    name: "胎心",
+    next: "次/分",
     textarea: {
       width: 35
+    },
+  },
+  {
+    key: "cohesion", //衔接
+    value: "",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 4),
+    name: "衔接",
+    textarea: {
+      width: 35
+    },
+  },
+  {
+    key: "noContractions", //宫缩无
+    value: "",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 4),
+    name: "宫缩无",
+    textarea: {
+      width: 35
+    },
+  },
+  {
+    key: "contractionsStrength", //宫缩强度
+    value: "",
+    name: "宫缩强度",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 4),
+    textarea: {
+      width: 35
+    },
+  },
+  {
+    key: "contractionsContinued", //宫缩持续
+    value: "",
+    name: "宫缩持续",
+    next: "S",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 4),
+    textarea: {
+      width: 35
+    },
+  },
+  {
+    key: "contractionsIntermittent", //间歇
+    value: "",
+    name: "间歇",
+    next: "min",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 4),
+    textarea: {
+      width: 35
+    },
+  },
+  {
+    key: "cervicalDilation", //宫颈扩张
+    value: "",
+    name: "宫颈扩张",
+    next: "cm",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 4),
+    textarea: {
+      width: 35
+    },
+  },
+  {
+    key: "reveal", //先露高低
+    value: "",
+    name: "先露高低",
+    next: "cm",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 4),
+    textarea: {
+      width: 35
+    },
+  },
+  {
+    key: "ruptured", //胎膜破裂
+    value: "",
+    name: "胎膜破裂",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 4),
+    textarea: {
+      width: 35
+    },
+  },
+  {
+    key: "amniotic", //羊水性状
+    value: "",
+    name: "羊水性状",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 4),
+    textarea: {
+      width: 35
+    },
+  },
+  {
+    key: "checkType", //检查方式
+    value: "",
+    name: "检查方式",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 4),
+    textarea: {
+      width: 35
+    },
+  },
+  {
+    key: "fetalMovement", //胎动情况
+    value: "",
+    name: "胎动情况",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 4),
+    textarea: {
+      width: 35
+    },
+  },
+  {
+    key: "heartMonitoring", //胎心监护
+    value: "",
+    name: "胎心监护",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 4),
+    textarea: {
+      width: 35
+    },
+  },
+  {
+    key: "barthe", //barthel评分
+    value: "",
+    name: "barthel评分",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 6),
+    textarea: {
+      width: 50
     },
   },
   {
@@ -194,26 +238,7 @@ export default [
     },
   },
   {
-    key: "affectedLimb", //患肢感觉/活动
-    value: "",
-    name: "患肢感觉/活动",
-    event: keyf1,
-    change: (e, td) => limitChange(e, td, 10),
-    textarea: {
-      width: 65
-    },
-  },
-  {
-    key: "customItem1", //标题1
-    value: "",
-    event: keyf1,
-    change: (e, td) => limitChange(e, td, 6),
-    textarea: {
-      width: 45
-    },
-  },
-  {
-    key: "customItem2", //标题2
+    key: "customItem", //标题1
     value: "",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 6),

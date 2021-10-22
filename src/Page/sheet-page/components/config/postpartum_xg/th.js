@@ -1,5 +1,5 @@
 /*
-东莞谢岗 - 护理记录单
+东莞谢岗 - 产后护理记录单
 */
 import moment from "moment";
 
@@ -23,44 +23,81 @@ export default {
         key:'recordYear'
       },
       {
-        name: "T<br/>℃",
-        colspan: "1",
-        rowspan: "3"
-      },
-      {
         name: `
-        HR<br/>次/分
+        血压<br/>mmHg
         `,
         colspan: "1",
         rowspan: "3",
       },
       {
         name: `
-        R<br/>次/分
+        脉搏<br/>次/分
         `,
         colspan: "1",
         rowspan: "3",
       },
       {
         name: `
-        BP<br/>mmHg
+        呼吸<br/>次/分
         `,
         colspan: "1",
         rowspan: "3",
       },
       {
         name: `
-        SaO₂<br/>%
+        SPO2<br/>%
         `,
         colspan: "1",
         rowspan: "3",
       },
       {
         name: `
-        瞳孔左/右
+        子宫<br/>收缩
+        `,
+        colspan: "1",
+        rowspan: "3",
+      },
+      {
+        name: `
+        宫底<br/>高度<br/>U-Fb
+        `,
+        colspan: "1",
+        rowspan: "3",
+      },
+      {
+        name: `
+        恶露<br/>(ml)
+        `,
+        colspan: "1",
+        rowspan: "3",
+      },
+      {
+        name: `
+        乳房情况
         `,
         colspan: "2",
         rowspan: "1"
+      },
+      {
+        name: `
+        伤口
+        `,
+        colspan: "2",
+        rowspan: "1"
+      },
+      {
+        name: `
+        PCA<br/>泵
+        `,
+        colspan: "1",
+        rowspan: "3",
+      },
+      {
+        name: `
+        尿管
+        `,
+        colspan: "1",
+        rowspan: "3",
       },
       {
         name: `
@@ -78,69 +115,6 @@ export default {
       },
       {
         name: `
-        喂养
-        `,
-        colspan: "2",
-        rowspan: "1"
-      },
-      {
-        name: `
-        反应
-        `,
-        colspan: "1",
-        rowspan: "3"
-      },
-      {
-        name: `
-        哭声
-        `,
-        colspan: "1",
-        rowspan: "3"
-      },
-      {
-        name: `
-        吸吮力
-        `,
-        colspan: "1",
-        rowspan: "3"
-      },
-      {
-        name: `
-        皮肤颜色
-        `,
-        colspan: "1",
-        rowspan: "3"
-      },
-      {
-        name: `
-        脐部情况
-        `,
-        colspan: "1",
-        rowspan: "3"
-      },
-      {
-        name: `
-        吸氧方式
-        `,
-        colspan: "1",
-        rowspan: "3"
-      },
-      {
-        name: `
-        箱温<br/>℃
-        `,
-        colspan: "1",
-        rowspan: "3"
-      },
-      {
-        name: `
-        翻身
-        `,
-        colspan: "1",
-        rowspan: "3"
-      },
-      {
-        name: `
         特殊情况记录
         `,
         style: {
@@ -152,7 +126,7 @@ export default {
       },
       {
         name: `
-        记录<br/>签名
+        签名
         `,
         style: {
           minWidth: "50px",
@@ -179,14 +153,28 @@ export default {
       },
       {
         name: `
-        大小<br/>(mm)
+        质地
         `,
         colspan: "1",
         rowspan: "2",
       },
       {
         name: `
-        对光<br/>反射
+        乳量
+        `,
+        colspan: "1",
+        rowspan: "2",
+      },
+      {
+        name: `
+        会阴
+        `,
+        colspan: "1",
+        rowspan: "2",
+      },
+      {
+        name: `
+        腹部
         `,
         colspan: "1",
         rowspan: "2",
@@ -205,7 +193,7 @@ export default {
       },
       {
         name: `
-        量<br/>ml/g
+        量<br/>(ml)
         `,
         colspan: "1",
         rowspan: "2",
@@ -223,21 +211,7 @@ export default {
       },
       {
         name: `
-        量<br/>ml/g
-        `,
-        colspan: "1",
-        rowspan: "2",
-      },
-      {
-        name: `
-        方式
-        `,
-        colspan: "1",
-        rowspan: "2",
-      },
-      {
-        name: `
-        种类
+        量<br/>(ml)
         `,
         colspan: "1",
         rowspan: "2",
