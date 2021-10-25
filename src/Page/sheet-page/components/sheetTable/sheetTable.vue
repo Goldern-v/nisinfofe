@@ -170,6 +170,12 @@ export default {
     },
     /** 只读模式 */
     readOnly() {
+      if (
+        this.HOSPITAL_ID == "huadu" &&
+        sheetInfo.sheetType === "body_temperature_Hd"
+      ) {
+        return false;
+      }
       if (sheetInfo.sheetType === "obstetrics") return false;
       return !this.userDeptList
         .map(item => item.code)
