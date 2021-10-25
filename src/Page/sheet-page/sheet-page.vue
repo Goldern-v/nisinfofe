@@ -903,9 +903,6 @@ export default {
       immediate:true,
       handler(newValue,oldValue) {
         if(this.HOSPITAL_ID=='guizhou'){
-          if (this.patientInfo.name&&(oldValue.length&&JSON.stringify(oldValue)!=JSON.stringify(newValue))) {
-            sheetInfo.isSave = false;
-          }
         }else{
           if (this.patientInfo.name) {
             sheetInfo.isSave = false;
