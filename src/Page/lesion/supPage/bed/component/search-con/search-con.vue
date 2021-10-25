@@ -289,7 +289,8 @@ import {
   syncGetNurseBedRecLc,
   syncGetNurseBedRecLiaocheng,
   syncGetNurseBedRecShannan,
-  syncGetNurseBedRecQuzhou
+  syncGetNurseBedRecQuzhou,
+  syncGetNurseBedRecHengli
 } from "@/api/lesion";
 import footerBar from "../footer-bar/footer-bar.vue";
 import { listItem } from "@/api/common.js";
@@ -658,6 +659,9 @@ export default {
           break;
         case "quzhou":
           syncData = syncGetNurseBedRecQuzhou;
+          break;
+        case "hengli":
+          syncData = syncGetNurseBedRecHengli;
           break;
         default:
           syncData = syncGetNurseBedRec;
