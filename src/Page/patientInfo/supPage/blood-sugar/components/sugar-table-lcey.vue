@@ -84,6 +84,7 @@
               v-model="item.sugarItem"
               :fetch-suggestions="querySearch"
               @select="handleSelect"
+              debounce=0
               type="textarea"
             ></el-autocomplete>
           </div>
@@ -282,8 +283,12 @@ import moment from "moment";
 import * as apis from "../api";
 import {
   saveSugarList,
+    getSugarListWithPatientId,
+      getPvHomePage,
+      removeSugar,
 } from "../api/index.js";
 import { update } from '@/api/home';
+import { arrayTest } from '@/Page/inpatient-report/test';
 export default {
   props: {
     data: Array,
@@ -294,7 +299,8 @@ export default {
   data() {
     return {
       msg: "hello vue",
-       restaurants: [],
+      restaurants: [],
+      isEdit:false
     };
   },
   computed: {
@@ -346,14 +352,19 @@ if (!this.data) return;
     // handlerClick(){
     //   console.log(1);
     // },
-    textTime(item){
-      // 点击变为时间
+   textTime(item){
+      if(item.recordDate===undefined){
       const fullTime=moment().format("YYYY-MM-DD HH:mm:ss")
      const date=moment().format("MM-DD")
      const time=moment().format("HH:mm")
      item.date=date
      item.time=time
      item.recordDate=fullTime
+     this.isEdit=false
+      }else{
+        this.isEdit=true
+      }
+     
     },
     onSelect(item) {
       this.$emit("update:selected", item);
@@ -362,24 +373,39 @@ if (!this.data) return;
     //   this.$emit("dblclick", item);
     // },
    sign(item){
-      // this.$emit("dblclick", item);
      window.openSignModal((password, empNo) => {
         apis.getUser(password, empNo).then(async(res) => {
+          // 保存逻辑
+          if(!this.isEdit){
+             item.expand2=1
+          }else{
+            item.expand2=2
+      item.recordId=""
+      item.oldRecordDate=""
+      //  先删后改
+        await removeSugar(item);
+       if(item.recordDate){
+     const arr= item.recordDate.split(" ")
+     const year=arr[0]
+      item.recordDate=`${year} ${item.time}:00`
+     }
+          }
+    
           this.curEmpName = res.data.data.empName;
           // this.empNo = res.data.data.empNo;
           // 执行表单保存逻辑
       item.recordDate =
-        moment(item.recordDate).format("YYYY-MM-DD HH:mm") + ":00";
+      moment(item.recordDate).format("YYYY-MM-DD HH:mm") + ":00";
+
       item.patientId = this.patientInfo.patientId;
       item.visitId = this.patientInfo.visitId;
       item.name = this.patientInfo.name;
       item.bedLabel = this.patientInfo.bedLabel;
       item.wardCode = this.patientInfo.wardCode;
       (item.nurseEmpNo = this.empNo || ""), //护士工号
-      console.log(item, "xiaog");
       item.nurse= this.empNo || ""
      await  saveSugarList([item])
-      // this.load();
+      this.load();
       // this.$refs.editModal.close();
       // 解决报错
       // this.selected = null;
@@ -388,10 +414,54 @@ if (!this.data) return;
         });
       });
     },
+     async load() {
+      this.pageLoading = true;
+      const res = await getSugarListWithPatientId(
+        this.patientInfo.patientId,
+        this.patientInfo.visitId
+      );
+      this.resAge = res.data.data.age;
+      if(this.HOSPITAL_ID=='guizhou'&&this.$route.path.includes('nursingPreview')){
+        this.resName = res.data.data.name;
+        this.resGender = res.data.data.gender;
+        this.resDeptName = res.data.data.deptName;
+        this.resBedNol = res.data.data.bedNo;
+        this.resInHosId = res.data.data.inHosId;
+      }
+      if (this.HOSPITAL_ID == "fuyou") this.tDeptName = res.data.data.deptName;
+      this.pageLoading = false;
+
+      this.hisPatSugarList = res.data.data.hisPatSugarList;
+      /** 时间排序 */
+      let list = res.data.data.hisPatSugarList.sort(
+        (a, b) =>
+          new Date(a.recordDate).getTime() - new Date(b.recordDate).getTime()
+      );
+      let listMap = [];
+
+      for (let i = 0; i < list.length; i += 54) {
+        let obj = {};
+        obj.left = list.slice(i, i + 27);
+        obj.right = list.slice(i + 27, i + 54);
+        listMap.push(obj);
+      }
+      this.listMap = listMap;
+
+      getPvHomePage(
+        this.$route.query.patientId,
+        this.$route.query.visitId
+      ).then((res) => {
+        if (res.data.data) {
+          this.startPage = res.data.data.indexNo;
+        } else {
+          this.startPage = 1;
+        }
+      });
+    },
     querySearch(queryString, cb){
        var restaurants = this.restaurants;
         var results = queryString ? restaurants.filter(this.createFilter(queryString)) : restaurants;
-        // 调用 callback 返回建议列表的数据
+
         cb(results);
     },
     createFilter(queryString) {

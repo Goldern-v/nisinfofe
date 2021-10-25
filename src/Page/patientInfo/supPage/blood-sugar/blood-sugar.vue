@@ -134,7 +134,7 @@
     </div>
     <div class="tool-con" v-show="listMap.length" :class="[HOSPITAL_ID=='guizhou'?'guizhou-btn':'']">
       <div class="tool-fix" flex="dir:top">
-        <whiteButton text="添加" @click="hisDisabled()&&onAdd()"></whiteButton>
+        <whiteButton text="添加" @click="hisDisabled()&&onAdd()" v-if="HOSPITAL_ID!=='liaocheng'"></whiteButton>
         <whiteButton
           text="修改"
           @click="hisDisabled()&&onEdit()"
