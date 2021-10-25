@@ -60,7 +60,10 @@ export default [
 {
   key: "spo2", //SPO2
   value: "",
-  event: keyf1
+  event: keyf1,
+  textarea: {
+    width: 30
+  }
 },
 {
   key: "diet", //饮食
@@ -78,7 +81,10 @@ export default [
 {
   key: "eatSize", // 进食（ml）
   value: "",
-  event: keyf1
+  event: keyf1,
+  textarea: {
+    width: 50
+  }
 },
 {
   key: "otherFood", // 入量自定义
@@ -179,9 +185,9 @@ export default [
     top: "1px",
     bottom: "1px",
     left: "1px",
-    width: "170px",
+    width: "160px",
     background: "transparent",
-    fontSize: "14px"
+    fontSize: "12px"
   },
   event: function (e, td) {
     console.log(e.keyCode);
@@ -190,6 +196,9 @@ export default [
       e.preventDefault();
     }
     keyf1(e, td);
+  },
+  textarea: {
+    width: 160
   }
   // oninput: next
 },
