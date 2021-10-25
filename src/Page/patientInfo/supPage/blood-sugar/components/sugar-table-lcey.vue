@@ -1,6 +1,6 @@
 <template>
 <!--聊城 血糖酮体记录表 -->
-  <div flex-box="1" class="table-box blood-sugar-table">
+  <div flex-box="1" class="table-box blood-sugar-table" >
     <table>
       <tr>
         <th
@@ -11,13 +11,13 @@
         </th>
         <th
           v-if="HOSPITAL_ID != 'lingcheng'"
-          style="width: 22%; min-width: 75px"
+          style="width: 20%; min-width: 75px"
         >
           时间
         </th>
         <th v-else style="width: 22%; min-width: 75px">日期</th>
         <th v-if="HOSPITAL_ID != 'lingcheng' && HOSPITAL_ID != 'liaocheng'" style="width: 20%">项目</th>
-        <th v-else-if="HOSPITAL_ID != 'lingcheng' && HOSPITAL_ID == 'liaocheng'" style="width: 20%">类型</th>
+        <th v-else-if="HOSPITAL_ID != 'lingcheng' && HOSPITAL_ID == 'liaocheng'" style="width: 35%">类型</th>
         <th v-else style="width: 24%">测量时间</th>
         <th style="width: 23%">
           血糖值
@@ -78,6 +78,7 @@
         <!-- 类型 -->
         <td v-if="HOSPITAL_ID != 'lingcheng'">
           <div class="cell" :title="item.sugarItem">
+             <input type="text" class="fake" v-model="item.sugarItem" :data-value="item.sugarItem">
             <el-autocomplete
               class="inline-input"
               v-model="item.sugarItem"
@@ -131,7 +132,7 @@
             }}
           </div> -->
           <div class="cell" >
-             <input type="text" v-model="item.riValue"> 
+              <input type="text" v-model="item.riValue" :data-value="item.riValue"> 
             </div>
         </td>
            <!-- 签名 -->
@@ -246,19 +247,32 @@
     }
   }
   .cell{
+    position relative
     input{
       padding:0px;
       height 15px;
       width: 100%; 
-      
       border: none;
       outline: none;
       background: inherit;
       text-align center;
       font-size :12px !important;
     };
+    .fake{
+       position absolute;
+       left: 0;
+       top:0;
+       z-index:-1,
+    }
   }
-   
+  .el-autocomplete-suggestion{
+    .el-scrollbar{
+      width:80px
+    }
+  }
+  .el-autocomplete{
+     opacity:0
+  }
 }
 </style>
 
@@ -404,6 +418,8 @@ if (!this.data) return;
           { "value": "凌晨" },
           { "value": "早餐前" },
           { "value": "早餐后2H" },
+          { "value": "午餐前" },
+          { "value": "午餐后2H" },
           { "value": "晚餐前" },
           { "value": "晚餐后2H"},
           { "value": "睡前" },
