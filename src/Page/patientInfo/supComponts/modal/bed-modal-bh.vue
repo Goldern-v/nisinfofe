@@ -420,7 +420,7 @@
             :src="qrCode"
           /> -->
           <div>
-              <span>住院号：{{ query.patientId }}</span>
+              <span>住院号：{{ query.inpNo }}</span>
               <!-- <span class="bhzd">诊断:{{query.remark}}</span> -->
               <span>入院日期：{{ query.admissionDate | ymdhm }}</span>
         </div>
