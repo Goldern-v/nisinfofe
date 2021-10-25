@@ -46,7 +46,7 @@ export const formTypeList=[//不良事件类型
     },
     {//20210926新表单
         type:"其他单模板",//父表单，头部与尾部内容类型
-        childType:"其他不良事件.form",//具体表单内容类型
+        childType:"其他不良事件",//具体表单内容类型
         funType:"type1",//类型
     },
     {//20210926新表单
