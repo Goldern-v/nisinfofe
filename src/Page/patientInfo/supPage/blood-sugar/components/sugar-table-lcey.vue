@@ -67,7 +67,7 @@
               <!-- <span>{{ item.date }}</span> -->
             </span>
             <span>
-              <input type="text" v-model="item.time" :data-value="item.time">
+              <input type="text" v-model="item.time" :data-value="item.time" @input="handleTime">
               <!-- <span>{{ item.time }}</span> -->
             </span>
           </div>
@@ -471,6 +471,21 @@ if (!this.data) return;
       },
     handleSelect(item){
        console.log(item)
+    },
+    handleTime(e){
+   const insert_flg=function(str, flg) {
+  str = str.replace(flg, "");
+  str = str.replace(/(.{2})/, `$1${flg}`);
+  return str;
+}
+       if (e.target.value.length >= "2" && e.target.value.indexOf(":") == -1 && e.keyCode != 8) {
+    setTimeout(() => {
+      e.target.value = insert_flg(e.target.value, ":");
+    }, 10);
+     if (e.target.value.length >= 4 && e.keyCode != 8 && e.keyCode != 37 && e.keyCode != 38 && e.keyCode != 39 && e.keyCode != 40 && e.keyCode != 13 && e.keyCode != 108 && e.keyCode != 9 && e.keyCode != 16 && e.keyCode != 17 && e.keyCode != 18 && e.keyCode != 20 && e.keyCode != 27 && e.keyCode != 91) {
+    e.target.value = e.target.value.substring(0,4);
+  }
+  }
     },
     loadAll() {
         return [
