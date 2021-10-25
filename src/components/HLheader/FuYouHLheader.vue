@@ -1031,7 +1031,10 @@ export default {
       localStorage.removeItem("fuyouCaData");
     },
     setPassword() {
-      this.$refs.setPassword.open();
+      this.$nextTick(()=>{
+        this.$refs.setPassword.open();
+      })
+      
     },
     remoteMethod(query) {
       if (query !== "") {

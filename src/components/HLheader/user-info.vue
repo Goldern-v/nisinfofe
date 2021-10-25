@@ -463,6 +463,8 @@ export default {
     },
     //二维码
     qrcode() {
+      //非聊城不执行
+      if(!['liaocheng'].includes(this.HOSPITAL_ID )) return false;
       let qrcode = new QRCode(this.$refs.qrcodeContainer, {
         width: 100,// 二维码的宽
         height: 100,// 二维码的高
