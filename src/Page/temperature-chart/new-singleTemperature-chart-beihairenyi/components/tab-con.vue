@@ -64,7 +64,7 @@
             ></i>
           </div>
         </div>
-        <div style="flex: 7">
+        <div style="flex: 7" >
           <div
             :class="
               !(
@@ -75,7 +75,7 @@
                 ? 'row'
                 : 'rowItem_noShow'
             "
-            v-for="(j, index) in multiDictList"
+            v-for="(j, index,i) in multiDictList"
             :key="index"
           >
             <span class="preText">{{ index }}</span>
@@ -93,6 +93,9 @@
               :value="vitalSignObj[j].popVisible"
             >
               <input
+              class="temClass"
+              :id="i+1"
+              @keydown.enter="changeNext()"
                 type="text"
                 :title="vitalSignObj[j].vitalValue"
                 @input="handlePopRefresh(vitalSignObj[j])"
@@ -141,7 +144,7 @@
             <div style="margin: 10px 0px; font-weight: bold; font-size: 14px">
               <span>自定义项目：</span>
             </div>
-            <div class="row" v-for="(i, index) in fieldList" :key="index">
+            <div class="row" v-for="(i, index,h) in fieldList" :key="index">
               <span
                 class="preText"
                 style="color: blue"
@@ -158,7 +161,10 @@
                 :value="vitalSignObj[i.vitalCode].popVisible"
               > -->
               <input
+              :id="h+100"
                 type="text"
+                class="cumList"
+              @keydown.enter="changeNext"
                 :title="vitalSignObj[i.vitalCode].vitalValue"
                 @input="handlePopRefresh(vitalSignObj[i.vitalCode])"
                 @click="() => (vitalSignObj[i.vitalCode].popVisible = true)"
@@ -458,6 +464,27 @@ export default {
     },
   },
   methods: {
+   changeNext(e){
+      if(e.target.className==='el-tooltip'){
+  let inputListLength=document.getElementsByClassName('rowbox').length
+      if(Number(e.target.id)<inputListLength-1){
+        document.getElementById(Number(e.target.id)+1).focus()
+      }else if(Number(e.target.id)===inputListLength){
+        document.getElementById('100').focus()
+      }
+      }else{
+    let inputListLength=document.getElementsByClassName('fieldClass').length 
+
+    if(Number(e.target.id)<inputListLength+100-1){
+        document.getElementById(Number(e.target.id)+1).focus()
+      }else if(Number(e.target.id)===inputListLength+100-1){
+                document.getElementById('1').focus()
+
+      }
+      }
+     
+      
+    },
     init() {
       let obj = {};
       if (!this.multiDictList) return;

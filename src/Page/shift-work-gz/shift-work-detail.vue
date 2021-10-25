@@ -26,6 +26,7 @@
             <h2 class="sub-title">交班记录卡</h2>
           </div>
           <ExcelTable
+            :isPrintShiftWork='isPrintShiftWork'
             ref="excelTable"
             class="table"
             :data="record"
@@ -142,7 +143,8 @@ export default {
       patients: [],
       copiedRow: null,
       /** 病人列表 选中的病人 */
-      patientSelectedList: []
+      patientSelectedList: [],
+      isPrintShiftWork:false,
     };
   },
   computed: {
@@ -401,27 +403,35 @@ export default {
         }
       });
     },
-    async onPrint() {
+    onPrint() {
+      this.isPrintShiftWork = true
       this.loading = true;
       // preview
-      await print(this.$refs.printable, {
-        beforePrint: formatter,
-        direction: "vertical",
-        injectGlobalCss: true,
-        scanStyles: false,
-        css: `
-          @page {
-            size: portrait;
-          }
-          .el-textarea__inner {
-            border: 0;
-          }
-          pre {
-            white-space: pre-wrap;
-          }
-        `
-      });
-      this.loading = false;
+      this.$nextTick(()=>{
+      let element = this.$refs.printable
+        setTimeout(()=>{
+          print(this.$refs.printable, {
+            // beforePrint: formatter,
+            direction: "vertical",
+            injectGlobalCss: true,
+            scanStyles: false,
+            css: `
+              @page {
+                size: portrait;
+                margin:20px auto 20px;
+              }
+              .el-textarea__inner {
+                border: 0;
+              }
+              pre {
+                white-space: pre-wrap;
+              }
+            `
+          });
+          this.isPrintShiftWork = false
+          this.loading = false;
+        })
+      })
     },
     onTableInputChange() {
       this.modified = true;

@@ -282,7 +282,7 @@ export default {
         data.remark = item.remark1;
       } else if (key === "病重") {
         data.remark = item.remark1;
-      } else if (key === "入院" || key === "转入") {
+      } else if (key === "入院" || key === "转入" || key === "转出") {
         data.remark = item.remark1;
       } else if (key === "手术") {
         data.remark = item.remark2;
@@ -294,7 +294,7 @@ export default {
           obj.remark1 = obj.remark;
         } else if (key === "病重") {
           obj.remark1 = obj.remark;
-        } else if (key === "入院" || key === "转入") {
+        } else if (key === "入院" || key === "转入" || key === "转出") {
           obj.remark1 = obj.remark;
         } else if (key === "手术") {
           obj.remark2 = obj.remark;
