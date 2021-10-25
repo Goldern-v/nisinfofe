@@ -160,7 +160,7 @@ export default [
   value: "",
   event: keyf1,
   textarea: {
-    width: 30
+    width: 50
   }
 },
 {
@@ -206,16 +206,16 @@ export default [
 {
   key: "description", //特殊情况记录
   value: "",
-  // textarea: {
-  //   width: 150
-  // },
+  textarea: {
+    width: 140
+  },
   style: {
     textAlign: "left",
     position: "absolute",
     top: "1px",
     bottom: "1px",
     left: "1px",
-    width: "140px",
+    width: "145px",
     background: "transparent",
     fontSize: "14px"
   },

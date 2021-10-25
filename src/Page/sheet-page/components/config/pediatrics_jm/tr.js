@@ -81,7 +81,10 @@ export default [
 {
   key: "eatSize", // 进食（ml）
   value: "",
-  event: keyf1
+  event: keyf1,
+  textarea: {
+    width: 50
+  }
 },
 {
   key: "otherFood", // 入量自定义

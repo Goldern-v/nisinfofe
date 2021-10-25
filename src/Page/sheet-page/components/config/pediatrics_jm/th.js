@@ -9,7 +9,7 @@ function currYear() {
 }
 export default {
   style: {
-    width: '1100px'
+    width: '1130px'
   },
   deptType: '',
   th: {
@@ -263,7 +263,11 @@ export default {
         进食<br>(ml)
         `,
         colspan: '1',
-        rowspan: '2'
+        rowspan: '2',
+        style: {
+          minWidth: '50px',
+          maxWidth: '50px',
+        },
       },
       {
         name: `
