@@ -47,10 +47,11 @@
         </th>
         <th style="width: 14%">{{HOSPITAL_ID == 'liaocheng' ? '签名' : '执行人'}}</th>
       </tr>
+       <!-- :key="item.recordDate" -->
       <tr
         v-for="(item,index) in renderData"
         :class="{ selected: selected === item }"
-        :key="item.recordDate"
+        :key="index"
         @click="onSelect(item)"
       >
         <!-- @dblclick="onDblClick(item)" -->
@@ -59,7 +60,7 @@
           {{index + baseIndex + 1}}
         </td>
         <!-- 时间 -->
-        <td v-if="HOSPITAL_ID != 'lingcheng'" style="padding: 0 2px;" @click="textTime(item)">
+        <td v-if="HOSPITAL_ID != 'lingcheng'" style="padding: 0 2px;" @click="textTime(item,index)">
           <div flex="main:justify" style="white-space: nowrap" class="time">
               <!-- 显示时间 -->
             <span :data-value="item.date">
@@ -352,7 +353,7 @@ if (!this.data) return;
     // handlerClick(){
     //   console.log(1);
     // },
-   textTime(item){
+   textTime(item,index){
       if(item.recordDate===undefined){
       const fullTime=moment().format("YYYY-MM-DD HH:mm:ss")
      const date=moment().format("MM-DD")
@@ -361,6 +362,16 @@ if (!this.data) return;
      item.time=time
      item.recordDate=fullTime
      this.isEdit=false
+     //  let isSameDate=false
+     //  可以判断时间
+      for (let i = 0;  i< index ;  i++) {
+        console.log(367,this.renderData[i])
+        console.log(368,this.renderData[i].date===item.date)
+        if(this.renderData[i].date===item.date){
+          item.date=""
+          break
+        }
+      }
       }else{
         this.isEdit=true
       }
@@ -386,7 +397,8 @@ if (!this.data) return;
         await removeSugar(item);
        if(item.recordDate){
      const arr= item.recordDate.split(" ")
-     const year=arr[0]
+      const arr1= arr[0].split("-")
+     const year=`${arr1[0]}-${item.date}`
       item.recordDate=`${year} ${item.time}:00`
      }
           }
@@ -460,9 +472,8 @@ if (!this.data) return;
     },
     querySearch(queryString, cb){
        var restaurants = this.restaurants;
-        var results = queryString ? restaurants.filter(this.createFilter(queryString)) : restaurants;
-
-        cb(results);
+       var results = queryString ? restaurants.filter(this.createFilter(queryString)) : restaurants;
+       cb(results);
     },
     createFilter(queryString) {
         return (restaurant) => {
