@@ -30,22 +30,30 @@ export default [
 },
 {
   key: "temperature", //体温
+  name: "体温",
+  next: "℃",
   value: "",
   event: keyf1
 },
 {
   key: "pulse", //心率
   value: "",
+  name: "心率",
+  next: "次/分",
   event: keyf1
 },
 {
   key: "breath", //呼吸
   value: "",
+  name: "呼吸",
+  next: "次/分",
   event: keyf1
 },
 {
   key: "bloodPressure", //血压
   value: "",
+  name: "血压",
+  next: "mmHg",
   event: function (e, td) {
     if (e.keyCode == 32) {
       e.target.value += "/";
@@ -60,11 +68,14 @@ export default [
 {
   key: "spo2", //SPO2
   value: "",
+  name: "SPO2",
+  next: "%",
   event: keyf1
 },
 {
   key: "diet", //饮食
   value: "",
+  name: "饮食",
   event: keyf1,
   textarea: {
     width: 30
@@ -73,11 +84,15 @@ export default [
 {
   key: "veinSize", // 入量静脉（ml）
   value: "",
+  name: "静脉",
+  next: "ml",
   event: keyf1
 },
 {
   key: "eatSize", // 进食（ml）
   value: "",
+  name: "进食",
+  next: "ml",
   event: keyf1
 },
 {
@@ -85,37 +100,48 @@ export default [
   value: "",
   event: keyf1,
   textarea: {
-    width: 40
+    width: 32
   }
 },
 {
   key: "urineVolume", // 小便（ml）
   value: "",
+  name: "尿液",
+  next: "ml",
   event: keyf1,
 },
 {
   key: "dischargeColor", // 小便颜色
   value: "",
+  name: "尿液颜色",
   event: keyf1
 },
 {
   key: "stoolTimes", //大便（g/次）
   value: "",
+  name: "大便",
+  next: "g/次",
   event: keyf1
 },
 {
   key: "stoolNature", //大便性质
   value: "",
+  name: "大便性质",
+  next: "",
   event: keyf1,
 },
 {
   key: "vomit", //呕吐（ml）
   value: "",
+  name: "呕吐",
+  next: "ml",
   event: keyf1
 },
 {
   key: "otherDischarge", //出量自定义
   value: "",
+  name: "出量自定义",
+  next: "ml",
   event: keyf1,
   textarea: {
     width: 32

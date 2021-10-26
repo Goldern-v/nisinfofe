@@ -134,7 +134,7 @@ export default {
         colspan: "1",
         rowspan: "3",
         canSet: true,
-        key: "fieldSix", //标题1
+        key: "measuresEight", //标题1
         style: {
           minWidth: "36px",
           maxWidth: "50px"
@@ -146,7 +146,7 @@ export default {
         colspan: "1",
         rowspan: "3",
         canSet: true,
-        key: "fieldSeven", //标题2
+        key: "measuresNine", //标题2
         style: {
           minWidth: "36px",
           maxWidth: "50px"
@@ -158,7 +158,7 @@ export default {
         colspan: "1",
         rowspan: "3",
         canSet: true,
-        key: "fieldEight", //标题3
+        key: "measuresTen", //标题3
         style: {
           minWidth: "36px",
           maxWidth: "50px"
@@ -290,7 +290,7 @@ export default {
         colspan: "1",
         rowspan: "1",
         canSet: true,
-        key: "outputFieldFirst", // 出量-标题1
+        key: "postOutputOne", // 出量-标题1
         style: {
           minWidth: "32px",
           maxWidth: "32px"
@@ -302,7 +302,7 @@ export default {
         colspan: "1",
         rowspan: "1",
         canSet: true,
-        key: "outputFieldTwo", //标题2
+        key: "postOutputTwo", //标题2
         style: {
           minWidth: "32px",
           maxWidth: "32px"
@@ -314,7 +314,7 @@ export default {
         colspan: "1",
         rowspan: "1",
         canSet: true,
-        key: "outputFieldThree", //标题3
+        key: "postOutputThree", //标题3
         style: {
           minWidth: "32px",
           maxWidth: "32px"
@@ -326,7 +326,7 @@ export default {
         colspan: "1",
         rowspan: "1",
         canSet: true,
-        key: "outputFieldFour", //标题4
+        key: "postOutputFour", //标题4
         style: {
           minWidth: "32px",
           maxWidth: "32px"

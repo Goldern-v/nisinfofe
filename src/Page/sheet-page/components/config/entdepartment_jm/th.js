@@ -119,7 +119,7 @@ export default {
         colspan: "1",
         rowspan: "3",
         canSet: true,
-        key: "fieldSix", //标题1
+        key: "measuresFix", //标题1
         style: {
           minWidth: "32px",
           maxWidth: "32px"
@@ -131,7 +131,7 @@ export default {
         colspan: "1",
         rowspan: "3",
         canSet: true,
-        key: "fieldSeven", //标题2
+        key: "measuresSeven", //标题2
         style: {
           minWidth: "32px",
           maxWidth: "32px"
@@ -143,7 +143,7 @@ export default {
         colspan: "1",
         rowspan: "3",
         canSet: true,
-        key: "fieldSix", //标题3
+        key: "measuresEight", //标题3
         style: {
           minWidth: "32px",
           maxWidth: "32px"

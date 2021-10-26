@@ -253,27 +253,30 @@ export default {
       },
       {
         name: `
-        静脉<br>(ml)
+        静脉<br>ml
         `,
         colspan: '1',
         rowspan: '2'
       },
       {
         name: `
-        进食<br>(ml)
+        进食<br>ml
         `,
         colspan: '1',
         rowspan: '2'
-      },
+      }, 
       {
-        name: `
-        
-        `,
-        colspan: '1',
-        rowspan: '2',
+        name: `标题1`,
+        style: {
+          minWidth: '36px',
+          maxWidth: '36px',
+        },
+        colspan: "1",
+        rowspan: "2",
         canSet: true,
-        key: 'otherFood',
-      }, {
+        key: "otherFood",
+      },
+      {
         name: `
         尿液
         `,
@@ -292,19 +295,21 @@ export default {
       },
       {
         name: `
-        呕吐<br>(ml)
+        呕吐<br>ml
         `,
         colspan: '1',
         rowspan: '2'
       },
       {
-        name: `
-
-        `,
+        name: `出量标题`,
         colspan: '1',
         rowspan: '2',
         canSet: true,
         key: 'otherDischarge',
+        style: {
+          minWidth: '36px',
+          maxWidth: '36px',
+        }
       },
     ],
     bottom: [{

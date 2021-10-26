@@ -109,7 +109,8 @@ export default [
     key: "preInputOne", //静脉
     value: "",
     event: keyf1,
-    name: "强度",
+    name: "静脉",
+    next: "ml",
     textarea: {
       width: 40
     },
@@ -118,8 +119,8 @@ export default [
     key: "preInputTwo", //口服
     value: "",
     event: keyf1,
-    name: "持续",
-    next: "s",
+    name: "口服",
+    next: "ml",
     textarea: {
       width: 40
     }
@@ -128,8 +129,8 @@ export default [
     key: "preInputThree", // 血
     value: "",
     event: keyf1,
-    name: "间歇",
-    next: "min",
+    name: "血",
+    next: "ml",
     textarea: {
       width: 40
     },
@@ -198,7 +199,7 @@ export default [
     key: "measuresTwo", //留置尿管
     value: "",
     event: keyf1,
-    name: "宫底高度",
+    name: "留置尿管",
     textarea: {
       width: 45
     },
@@ -210,7 +211,7 @@ export default [
     key: "measuresThree", //留置镇痛泵
     value: "",
     event: keyf1,
-    name: "排尿情况",
+    name: "留置镇痛泵",
     textarea: {
       width: 30
     },
@@ -223,7 +224,7 @@ export default [
     key: "measuresfour", //伤口敷料
     value: "",
     event: keyf1,
-    name: "阴道流血",
+    name: "伤口敷料",
     textarea: {
       width: 30
     },
@@ -235,7 +236,7 @@ export default [
     key: "measuresFive", //腹痛情况
     value: "",
     event: keyf1,
-    name: "健康教育",
+    name: "腹痛情况",
     textarea: {
       width: 35
     }
@@ -244,7 +245,7 @@ export default [
     key: "measuresFix", //阴道流血
     value: "",
     event: keyf1,
-    name: "基础护理",
+    name: "阴道流血",
     textarea: {
       width: 35
     },
@@ -253,7 +254,7 @@ export default [
     key: "measuresSeven", //特殊药物使用
     value: "",
     event: keyf1,
-    name: "基础护理",
+    name: "特殊药物使用",
     textarea: {
       width: 35
     },
