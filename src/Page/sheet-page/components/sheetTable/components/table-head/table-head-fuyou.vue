@@ -234,7 +234,7 @@ input.bottom-line {
   outline: none;
 }
 .ml-1000 {
-  margin-left: 1000px;
+  margin-left: 850px;
 }
 .info-con_new{
   display: flex;

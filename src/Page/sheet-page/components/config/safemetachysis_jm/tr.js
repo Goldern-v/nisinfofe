@@ -95,7 +95,6 @@ export default [
     value: "",
     event: keyf1,
     name: "血液成分",
-    next: "ml",
     textarea: {
       width: 60
     },

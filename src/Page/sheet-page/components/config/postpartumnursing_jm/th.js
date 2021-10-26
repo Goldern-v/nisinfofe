@@ -151,7 +151,7 @@ export default {
         colspan: "1",
         rowspan: "3",
         canSet: true,
-        key: "fieldSix", //标题1
+        key: "preFieldTen", //标题1
         style: {
           minWidth: "32px",
           maxWidth: "32px"
@@ -163,7 +163,7 @@ export default {
         colspan: "1",
         rowspan: "3",
         canSet: true,
-        key: "fieldSeven", //标题2
+        key: "preFieldEleven", //标题2
         style: {
           minWidth: "32px",
           maxWidth: "32px"
@@ -238,7 +238,7 @@ export default {
         },
       },
       {
-        name: "血<br/>（ml）",
+        name: "血<br/>(ml)",
         colspan: "1",
         rowspan: "2"
       },

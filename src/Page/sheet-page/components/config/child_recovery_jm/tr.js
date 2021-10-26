@@ -25,21 +25,28 @@ export default [{
 {
   key: "temperature", //体温
   value: "",
+  name: "体温",
+  next: "℃",
   event: keyf1
 },
 {
   key: "pulse", //心率
   value: "",
+  name: "心率",
+  next: "次/分",
   event: keyf1
 },
 {
   key: "breath", //呼吸
   value: "",
+  name: "呼吸",
+  next: "次/分",
   event: keyf1
 },
 {
   key: "consciousness", // 精神
   value: "",
+  name: "精神",
   event: keyf1,
   autoComplete: {
     data: ['好', '一般', '差']
@@ -48,7 +55,7 @@ export default [{
 {
   key: "fieldOne", //胃纳
   value: "",
-  neme: "胃纳",
+  name: "胃纳",
   event: keyf1,
   autoComplete: {
     data: ['好', '一般', '差']
@@ -57,7 +64,7 @@ export default [{
 {
   key: "fieldTwo", // 咳痰
   value: "",
-  neme: "咳痰",
+  name: "咳痰",
   event: keyf1,
   textarea: {
     width: 48
@@ -69,7 +76,7 @@ export default [{
 {
   key: "fieldThree", // 咳嗽
   value: "",
-  neme: "咳嗽",
+  name: "咳嗽",
   event: keyf1,
   textarea: {
     width: 36
@@ -81,31 +88,42 @@ export default [{
 {
   key: "fieldFour", // 入量静脉（ml）
   value: "",
+  name: "静脉",
+  next: "ml",
   event: keyf1
 },
 {
   key: "fieldFive", // 进食（ml）
   value: "",
+  name: "进食",
+  next: "ml",
   event: keyf1
 },
 {
   key: "fieldSix", // 大便（g/性状）
   value: "",
+  name: "大便",
+  next: "g/性状",
   event: keyf1
 },
 {
   key: "fieldSeven", // 小便（ml）
   value: "",
+  name: "小便",
+  next: "ml",
   event: keyf1,
 },
 {
   key: "fieldEight", // 呕吐（ml）
   value: "",
+  name: "呕吐",
+  next: "ml",
   event: keyf1
 },
 {
   key: "fieldNine", // 护理指导
   value: "",
+  name: "护理指导",
   event: keyf1,
   splice: true,
   textarea: {
@@ -118,6 +136,7 @@ export default [{
 {
   key: "healthEducation", // 健康教育
   value: "",
+  name: "健康教育",
   event: keyf1,
   splice: true,
   textarea: {
@@ -130,6 +149,7 @@ export default [{
 {
   key: "fieldTen", // 留置针
   value: "",
+  name: "留置针",
   event: keyf1,
   autoComplete: {
     data: ['无', '有']

@@ -121,7 +121,7 @@ export default {
         colspan: "1",
         rowspan: "3",
         canSet: true,
-        key: "fieldSix", //标题1
+        key: "preFieldEight", //标题1
         style: {
           minWidth: "32px",
           maxWidth: "32px"
@@ -133,7 +133,7 @@ export default {
         colspan: "1",
         rowspan: "3",
         canSet: true,
-        key: "fieldSeven", //标题2
+        key: "preFieldNice", //标题2
         style: {
           minWidth: "32px",
           maxWidth: "32px"
@@ -145,7 +145,7 @@ export default {
         colspan: "1",
         rowspan: "3",
         canSet: true,
-        key: "fieldSix", //标题3
+        key: "preFieldTen", //标题3
         style: {
           minWidth: "32px",
           maxWidth: "32px"
@@ -157,7 +157,7 @@ export default {
         colspan: "1",
         rowspan: "3",
         canSet: true,
-        key: "fieldSeven", //标题4
+        key: "preFieldEleven", //标题4
         style: {
           minWidth: "32px",
           maxWidth: "32px"
