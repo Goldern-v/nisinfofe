@@ -197,6 +197,18 @@
       "readOnly": ""
     },
     {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
       "name": "1. 感觉",
       "type": "formGroupHorizontalBox",
       "titleStyle": "text-align:left",
@@ -256,6 +268,18 @@
           "tips": "对其讲话有反应，机体没有对疼痛或不适的感觉缺失。"
         }
       ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
     },
     {
       "name": "2. 潮湿",
@@ -319,6 +343,18 @@
       ]
     },
     {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
       "name": "3. 活动能力",
       "type": "formGroupHorizontalBox",
       "titleStyle": "text-align:left",
@@ -378,6 +414,18 @@
           "tips": "每天至少2次室外行走，白天醒着的时候至少每2h行走一次"
         }
       ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
     },
     {
       "name": "4. 移动能力",
@@ -441,6 +489,18 @@
       ]
     },
     {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
       "name": "5. 营养",
       "type": "formGroupHorizontalBox",
       "titleStyle": "text-align:left",
@@ -502,6 +562,18 @@
       ]
     },
     {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
       "name": "6. 摩擦力和剪切力",
       "type": "formGroupHorizontalBox",
       "titleStyle": "text-align:left",
@@ -550,6 +622,18 @@
           "tips": "躯体移动乏力，或者需要一些帮助，在移动过程中皮肤在一定程度上会碰到床单、椅子、约束带或其他设施。在床上或椅子上可保持相对好的位置，偶尔会滑落下来"
         }
       ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
     },
     {
       "name": "7. 组织与氧合",
@@ -611,6 +695,18 @@
           "tips": "血压正常；氧饱和度≥95%；血红蛋白水平正常；毛细血管回流时间<2s"
         }
       ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
     },
     {
       "name": "evalScore",
