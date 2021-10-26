@@ -9,7 +9,7 @@ function currYear() {
 }
 export default {
   style: {
-    width: '1130px'
+    width: '1200px'
   },
   deptType: '',
   th: {
@@ -270,7 +270,7 @@ export default {
         },
       }, 
       {
-        name: `标题1`,
+        name: ``,
         style: {
           minWidth: '36px',
           maxWidth: '36px',
@@ -305,7 +305,7 @@ export default {
         rowspan: '2'
       },
       {
-        name: `出量标题`,
+        name: ``,
         colspan: '1',
         rowspan: '2',
         canSet: true,

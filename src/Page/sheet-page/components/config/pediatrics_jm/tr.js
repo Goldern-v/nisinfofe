@@ -10,6 +10,7 @@ import {
   click_date,
   click_time
 } from "../keyEvent/date";
+let ysList = ['母乳喂养','人工喂养','混合喂养','清淡饮食','禁食','禁饮','禁食禁饮'];
 export default [
   {
     key: "recordDate", //年份
@@ -26,7 +27,6 @@ export default [
   key: "recordHour", //时间
   value: "",
   event: event_time,
-  click: click_time
 },
 {
   key: "temperature", //体温
@@ -82,14 +82,20 @@ export default [
   event: keyf1,
   textarea: {
     width: 30
-  }
+  },
+  autoComplete: {
+    data: ysList
+  },
 },
 {
   key: "veinSize", // 入量静脉（ml）
   value: "",
   name: "静脉",
   next: "ml",
-  event: keyf1
+  event: keyf1,
+  textarea: {
+    width: 40
+  }
 },
 {
   key: "eatSize", // 进食（ml）
@@ -98,7 +104,7 @@ export default [
   next: "ml",
   event: keyf1,
   textarea: {
-    width: 50
+    width: 40
   }
 },
 {
@@ -106,7 +112,7 @@ export default [
   value: "",
   event: keyf1,
   textarea: {
-    width: 32
+    width: 40
   }
 },
 {
@@ -115,19 +121,28 @@ export default [
   name: "尿液",
   next: "ml",
   event: keyf1,
+  textarea: {
+    width: 40
+  }
 },
 {
   key: "dischargeColor", // 小便颜色
   value: "",
   name: "尿液颜色",
-  event: keyf1
+  event: keyf1,
+  textarea: {
+    width: 40
+  }
 },
 {
   key: "stoolTimes", //大便（g/次）
   value: "",
   name: "大便",
   next: "g/次",
-  event: keyf1
+  event: keyf1,
+  textarea: {
+    width: 40
+  }
 },
 {
   key: "stoolNature", //大便性质
@@ -135,13 +150,19 @@ export default [
   name: "大便性质",
   next: "",
   event: keyf1,
+  textarea: {
+    width: 40
+  }
 },
 {
   key: "vomit", //呕吐（ml）
   value: "",
   name: "呕吐",
   next: "ml",
-  event: keyf1
+  event: keyf1,
+  textarea: {
+    width: 40
+  }
 },
 {
   key: "otherDischarge", //出量自定义
@@ -150,7 +171,7 @@ export default [
   next: "ml",
   event: keyf1,
   textarea: {
-    width: 32
+    width: 40
   }
 },
 {
