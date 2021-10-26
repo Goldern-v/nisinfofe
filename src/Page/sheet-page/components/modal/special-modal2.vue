@@ -1362,7 +1362,7 @@ export default {
             } else {
               text += allDoc[i];
             }
-          }else if (this.sheetInfo.sheetType === "nursingrecords_zxy") {
+          }else if (this.sheetInfo.sheetType === "nursingrecords_zxy" || this.sheetInfo.sheetType === "recordicu2_zxy") {
             if (GetLength(text) > 70) {
               result.push(text);
               text = allDoc[i];
