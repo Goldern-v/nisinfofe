@@ -108,7 +108,7 @@
       <el-tooltip
         class="item itemlist"
         effect="light"
-        placement="top"
+        placement="right-start"
         v-if="child.type === 'radio' && child.tips"
         style="
           max-width: 250px;
@@ -166,9 +166,11 @@
       </span>
 
       <!-- 下拉框 -->
-      <SelectBox v-if="child.type==='selectOne'"
-      :obj="child"
-      :formObj="formObj" />
+      <SelectBox
+        v-if="child.type === 'selectOne'"
+        :obj="child"
+        :formObj="formObj"
+      />
 
       <!-- :getOtherText="''" -->
       <!-- 下拉输入框 -->
@@ -240,6 +242,15 @@
         </div>
         <span
           class="tip"
+          style="
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+            width: 100px;
+            height: 20px;
+            line-height: 25px;
+            display: inline-block;
+          "
           v-html="dialogResult(child).html"
           @click="openTip(child)"
         ></span>
@@ -928,6 +939,9 @@ export default {
   position: relative;
   bottom: 8px;
   vertical-align: bottom;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .result-text-display {
