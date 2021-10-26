@@ -1023,10 +1023,6 @@ export default {
       } else {
         isRead = false;
       }
-       if(this.HOSPITAL_ID==='huadu'){
-      isRead=false
-      }
-     
       this.isRead = isRead;
       this.table = config.table;
       this.customTitle = decoder_title(config.thead);
