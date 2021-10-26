@@ -12,6 +12,7 @@
             <div v-else>
               <label>
                 <el-input
+                  v-show="!isPrintShiftWork"
                   autosize
                   class="textarea"
                   type="textarea"
@@ -32,6 +33,7 @@
                     )
                   "
                 />
+                <div v-show="isPrintShiftWork" style="line-height:30px;">{{data.changeShiftTimes[item.prop]}}</div>
               </label>
             </div>
 
@@ -177,7 +179,7 @@
         </tr> -->
       </tbody>
     </table>
-    <div class="add-special" @click="addSpecial"> + 添加特殊</div>
+    <div class="add-special" @click="addSpecial" v-show="!isPrintShiftWork"> + 添加特殊</div>
     <setInfoModal ref="setInfoModal"></setInfoModal>
     <specialTextModal ref="specialTextModal"></specialTextModal>
   </div>
@@ -297,6 +299,10 @@ import { delContentById } from "../apis";
 import bus from "vue-happy-bus";
 export default {
   props: {
+    isPrintShiftWork:{
+      type:Boolean,
+      value:false
+    },
     data: {
       type: Object,
       default: {}

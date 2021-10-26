@@ -93,10 +93,10 @@
                 index.includes('注释') ||
                 index.includes('体温复测')
               )
-                ? 'row'
+                ? 'rowbox'
                 : 'rowItem_noShow'
             "
-            v-for="(j, index) in multiDictList"
+            v-for="(j, index, i) in multiDictList"
             :key="index"
           >
             <span :class="index==='过敏药物'?'allergyPreText':index==='病人事件'?'hisEventPreText':'preText'">{{ index }}</span>
@@ -115,7 +115,9 @@
              >
              <div v-if="index==='过敏药物'" class="allergyDiv">
                <div style="display:inline-block;">
-                 <el-input
+                 <input
+                 :id="i+1"
+              @keydown.enter="changeNext"
                   size="mini"
                   :title="vitalSignObj[j].vitalValue"
                   @input="handlePopRefresh(vitalSignObj[j])"
@@ -127,7 +129,7 @@
                   <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
                   </el-option>
                   </el-select> -->
-                 </el-input>
+              
              </div>
              <el-select slot="append"  v-model="vitalSignObj[j].selectValue" filterable allow-create default-first-option  size="mini"
                  placeholder="结果" @change="changeValue($event)" style="width:78px" >
@@ -135,9 +137,10 @@
                 </el-option>
              </el-select>
               </div>
-              <div v-if="index==='病人事件'" class="allergyDiv">
+              <!-- <div v-if="index==='病人事件'" class="allergyDiv">
                 <div style="display:inline-block;">
                   <input 
+                  id="i+1"
                 type="text"
                 :title="vitalSignObj[j].vitalValue"
                 @input="handlePopRefresh(vitalSignObj[j])"
@@ -157,15 +160,16 @@
                  placeholder="选择日期时间"
                  @change="formatTopExpandDate">
                 </el-date-picker>
-              </div>
-              <input v-if="index!=='病人事件'"
+              </div> -->
+              <input 
+              :id="i+1"
+              @keydown.enter="changeNext"
                 type="text"
                 :title="vitalSignObj[j].vitalValue"
                 @input="handlePopRefresh(vitalSignObj[j])"
                 @click="() => (vitalSignObj[j].popVisible = true)"
                 @blur="() => (vitalSignObj[j].popVisible = false)"
                 v-model="vitalSignObj[j].vitalValue"
-                
               />
                <template v-slot:content>
                 <div
@@ -208,7 +212,7 @@
             <div style="margin: 10px 0px; font-weight: bold; font-size: 14px">
               <span>自定义项目：</span>
             </div>
-            <div class="row" v-for="(i, index) in fieldList" :key="index">
+            <div class="rowField" v-for="(i, index,j) in fieldList" :key="index">
               <span
                 class="preText"
                 style="color: blue"
@@ -226,6 +230,9 @@
               > -->
               
               <input
+              class="fieldClass"
+              :id="j+100"
+              @keydown.enter="changeNext"
                 type="text"
                 :title="vitalSignObj[i.vitalCode].vitalValue"
                 @input="handlePopRefresh(vitalSignObj[i.vitalCode])"
@@ -459,6 +466,24 @@ export default {
         this.dateInp = this.query.entryTime
       }
     },
+    changeNext(e){
+      if(e.target.className==='el-tooltip'){
+  let inputListLength=document.getElementsByClassName('rowbox').length
+      if(Number(e.target.id)<inputListLength-1){
+        document.getElementById(Number(e.target.id)+1).focus()
+      }else if(Number(e.target.id)===inputListLength){
+        document.getElementById('100').focus()
+      }
+      }else{
+    let inputListLength=document.getElementsByClassName('fieldClass').length 
+    if(Number(e.target.id)<inputListLength+100-1){
+        document.getElementById(Number(e.target.id)+1).focus()
+      }else if(Number(e.target.id)===inputListLength+100-1){
+                document.getElementById('1').focus()
+
+      }
+      }
+    },
     //时间组件失去焦点
     changeDate(val){
       // console.log(val.$el.children[1].value);
@@ -496,29 +521,6 @@ export default {
       /* 根据字典项构造一个对象(键为生命体征的中文名，值为对应的对象)：{"体温":{}} */
       for (let key in this.multiDictList) {
         obj[this.multiDictList[key]] = {
-          // bedLabel: "",
-          // classCode: "",
-          // createDateTime: "",
-          // expand1: "",
-          // expand2: "",
-          // expand3: "",
-          // // id: {
-          // //   patientId: "",
-          // //   recordDate: "",
-          // //   visitId: "",
-          // //   vitalSigns: "",
-          // //   wardCode: ""
-          // // },
-          // nurse: "",
-          // patientId: this.patientInfo.patientId,
-          // recordDate: "",
-          // source: "",
-          // units: "",
-          // visitId: this.patientInfo.visitId,
-          // vitalCode: this.multiDictList[key],
-          // vitalSigns: key,
-          // vitalValue: "",
-          // wardCode: this.patientInfo.wardCode
           selectValue:"",
           createDateTime: "",
           patientId: this.patientInfo.patientId,
@@ -627,7 +629,6 @@ export default {
       await this.getVitalList();
       /* 获取患者某个时间点的体征信息 */
       await getNowDateTimeList(data).then((res) => {
-        console.log(res)
         res.data.data.map((item, index) => {
           /* 如果该患者没有体温单记录则返回 */
           if (!item.recordDate) return;
@@ -748,7 +749,6 @@ export default {
       }
     },
     rightMouseDown(e,dateTime, tabIndex){
-      console.log(dateTime, tabIndex);
       this.removeRecord(dateTime, tabIndex)
     },
     /* 删除记录 */
@@ -922,7 +922,7 @@ export default {
     display: none;
   }
 
-  .row {
+  .rowbox {
     display: inline-block;
     padding: 3px 15px;
 

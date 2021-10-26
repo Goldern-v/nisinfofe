@@ -98,11 +98,17 @@
       >{{child.title}}</el-checkbox>-->
 
       <el-tooltip
-        class="item"
+        class="item itemlist"
         effect="light"
-        placement="top"
+        placement="right-start"
         :enterable="false"
         v-if="child.type==='radio' && child.tips"
+         style="
+          max-width: 250px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        "
       >
         <div class="el-tooltip-content" slot="content">
           <div v-html="child.tips"></div>

@@ -47,10 +47,11 @@
         </th>
         <th style="width: 14%">{{HOSPITAL_ID == 'liaocheng' ? '签名' : '执行人'}}</th>
       </tr>
+       <!-- :key="item.recordDate" -->
       <tr
         v-for="(item,index) in renderData"
         :class="{ selected: selected === item }"
-        :key="item.recordDate"
+        :key="index"
         @click="onSelect(item)"
       >
         <!-- @dblclick="onDblClick(item)" -->
@@ -59,7 +60,7 @@
           {{index + baseIndex + 1}}
         </td>
         <!-- 时间 -->
-        <td v-if="HOSPITAL_ID != 'lingcheng'" style="padding: 0 2px;" @click="textTime(item)">
+        <td v-if="HOSPITAL_ID != 'lingcheng'" style="padding: 0 2px;" @click="textTime(item,index)">
           <div flex="main:justify" style="white-space: nowrap" class="time">
               <!-- 显示时间 -->
             <span :data-value="item.date">
@@ -67,7 +68,7 @@
               <!-- <span>{{ item.date }}</span> -->
             </span>
             <span>
-              <input type="text" v-model="item.time" :data-value="item.time">
+              <input type="text" v-model="item.time" :data-value="item.time" @input="handleTime">
               <!-- <span>{{ item.time }}</span> -->
             </span>
           </div>
@@ -84,6 +85,7 @@
               v-model="item.sugarItem"
               :fetch-suggestions="querySearch"
               @select="handleSelect"
+              debounce=0
               type="textarea"
             ></el-autocomplete>
           </div>
@@ -282,8 +284,12 @@ import moment from "moment";
 import * as apis from "../api";
 import {
   saveSugarList,
+    getSugarListWithPatientId,
+      getPvHomePage,
+      removeSugar,
 } from "../api/index.js";
 import { update } from '@/api/home';
+import { arrayTest } from '@/Page/inpatient-report/test';
 export default {
   props: {
     data: Array,
@@ -294,7 +300,8 @@ export default {
   data() {
     return {
       msg: "hello vue",
-       restaurants: [],
+      restaurants: [],
+      isEdit:false
     };
   },
   computed: {
@@ -346,14 +353,29 @@ if (!this.data) return;
     // handlerClick(){
     //   console.log(1);
     // },
-    textTime(item){
-      // 点击变为时间
+   textTime(item,index){
+      if(item.recordDate===undefined){
       const fullTime=moment().format("YYYY-MM-DD HH:mm:ss")
      const date=moment().format("MM-DD")
      const time=moment().format("HH:mm")
      item.date=date
      item.time=time
      item.recordDate=fullTime
+     this.isEdit=false
+     //  let isSameDate=false
+     //  可以判断时间
+      for (let i = 0;  i< index ;  i++) {
+        console.log(367,this.renderData[i])
+        console.log(368,this.renderData[i].date===item.date)
+        if(this.renderData[i].date===item.date){
+          item.date=""
+          break
+        }
+      }
+      }else{
+        this.isEdit=true
+      }
+     
     },
     onSelect(item) {
       this.$emit("update:selected", item);
@@ -362,24 +384,40 @@ if (!this.data) return;
     //   this.$emit("dblclick", item);
     // },
    sign(item){
-      // this.$emit("dblclick", item);
      window.openSignModal((password, empNo) => {
         apis.getUser(password, empNo).then(async(res) => {
+          // 保存逻辑
+          if(!this.isEdit){
+             item.expand2=1
+          }else{
+            item.expand2=2
+      item.recordId=""
+      item.oldRecordDate=""
+      //  先删后改
+        await removeSugar(item);
+       if(item.recordDate){
+     const arr= item.recordDate.split(" ")
+      const arr1= arr[0].split("-")
+     const year=`${arr1[0]}-${item.date}`
+      item.recordDate=`${year} ${item.time}:00`
+     }
+          }
+    
           this.curEmpName = res.data.data.empName;
           // this.empNo = res.data.data.empNo;
           // 执行表单保存逻辑
       item.recordDate =
-        moment(item.recordDate).format("YYYY-MM-DD HH:mm") + ":00";
+      moment(item.recordDate).format("YYYY-MM-DD HH:mm") + ":00";
+
       item.patientId = this.patientInfo.patientId;
       item.visitId = this.patientInfo.visitId;
       item.name = this.patientInfo.name;
       item.bedLabel = this.patientInfo.bedLabel;
       item.wardCode = this.patientInfo.wardCode;
       (item.nurseEmpNo = this.empNo || ""), //护士工号
-      console.log(item, "xiaog");
       item.nurse= this.empNo || ""
      await  saveSugarList([item])
-      // this.load();
+      this.load();
       // this.$refs.editModal.close();
       // 解决报错
       // this.selected = null;
@@ -388,11 +426,54 @@ if (!this.data) return;
         });
       });
     },
+     async load() {
+      this.pageLoading = true;
+      const res = await getSugarListWithPatientId(
+        this.patientInfo.patientId,
+        this.patientInfo.visitId
+      );
+      this.resAge = res.data.data.age;
+      if(this.HOSPITAL_ID=='guizhou'&&this.$route.path.includes('nursingPreview')){
+        this.resName = res.data.data.name;
+        this.resGender = res.data.data.gender;
+        this.resDeptName = res.data.data.deptName;
+        this.resBedNol = res.data.data.bedNo;
+        this.resInHosId = res.data.data.inHosId;
+      }
+      if (this.HOSPITAL_ID == "fuyou") this.tDeptName = res.data.data.deptName;
+      this.pageLoading = false;
+
+      this.hisPatSugarList = res.data.data.hisPatSugarList;
+      /** 时间排序 */
+      let list = res.data.data.hisPatSugarList.sort(
+        (a, b) =>
+          new Date(a.recordDate).getTime() - new Date(b.recordDate).getTime()
+      );
+      let listMap = [];
+
+      for (let i = 0; i < list.length; i += 54) {
+        let obj = {};
+        obj.left = list.slice(i, i + 27);
+        obj.right = list.slice(i + 27, i + 54);
+        listMap.push(obj);
+      }
+      this.listMap = listMap;
+
+      getPvHomePage(
+        this.$route.query.patientId,
+        this.$route.query.visitId
+      ).then((res) => {
+        if (res.data.data) {
+          this.startPage = res.data.data.indexNo;
+        } else {
+          this.startPage = 1;
+        }
+      });
+    },
     querySearch(queryString, cb){
        var restaurants = this.restaurants;
-        var results = queryString ? restaurants.filter(this.createFilter(queryString)) : restaurants;
-        // 调用 callback 返回建议列表的数据
-        cb(results);
+       var results = queryString ? restaurants.filter(this.createFilter(queryString)) : restaurants;
+       cb(results);
     },
     createFilter(queryString) {
         return (restaurant) => {
@@ -401,6 +482,21 @@ if (!this.data) return;
       },
     handleSelect(item){
        console.log(item)
+    },
+    handleTime(e){
+   const insert_flg=function(str, flg) {
+  str = str.replace(flg, "");
+  str = str.replace(/(.{2})/, `$1${flg}`);
+  return str;
+}
+       if (e.target.value.length >= "2" && e.target.value.indexOf(":") == -1 && e.keyCode != 8) {
+    setTimeout(() => {
+      e.target.value = insert_flg(e.target.value, ":");
+    }, 10);
+     if (e.target.value.length >= 4 && e.keyCode != 8 && e.keyCode != 37 && e.keyCode != 38 && e.keyCode != 39 && e.keyCode != 40 && e.keyCode != 13 && e.keyCode != 108 && e.keyCode != 9 && e.keyCode != 16 && e.keyCode != 17 && e.keyCode != 18 && e.keyCode != 20 && e.keyCode != 27 && e.keyCode != 91) {
+    e.target.value = e.target.value.substring(0,4);
+  }
+  }
     },
     loadAll() {
         return [

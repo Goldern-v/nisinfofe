@@ -28,9 +28,10 @@
             HOSPITAL_ID != 'gy' &&
             HOSPITAL_ID != 'lingcheng' &&
             HOSPITAL_ID != 'huadu' &&
-            HOSPITAL_ID != 'liaocheng' &&
-            HOSPITAL_ID == 'hengli' &&
-            HOSPITAL_ID == 'guizhou'
+            HOSPITAL_ID != 'liaocheng'&&
+            HOSPITAL_ID != 'hengli'&&
+            HOSPITAL_ID != 'fuyou'&&
+            HOSPITAL_ID != 'guizhou'
           "
         >
           {{HOSPITAL_ID=="quzhou"?'胰岛素剂量':'RI剂量'}}

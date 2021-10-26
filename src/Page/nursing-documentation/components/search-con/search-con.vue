@@ -242,6 +242,14 @@ export default {
         this.$parent.getData();
       });
   },
+  mounted(){
+    //江门妇幼、转院、出院中的【起始时间】调整为当天
+      if(['fuyou'].includes(this.HOSPITAL_ID))
+      {
+         this.data.dischargeDate=[new Date(), new Date()];
+         this.data.dateTime= [new Date(), new Date()];
+      }
+  },
   methods: {
     changeDept(value) {
       this.$store.commit("upDeptCode", value);

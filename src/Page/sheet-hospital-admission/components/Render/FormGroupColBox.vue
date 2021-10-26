@@ -271,6 +271,7 @@ export default {
     text-align: left
     font-size: 12px;
     .XRadiobox-items
+      line-height: 18px;
       display: inline-flex
     &.left
       text-align: left
