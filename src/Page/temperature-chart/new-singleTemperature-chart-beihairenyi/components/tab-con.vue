@@ -72,7 +72,7 @@
                 index.includes('注释') ||
                 index.includes('体温复测')
               )
-                ? 'row'
+                ? 'rowbox'
                 : 'rowItem_noShow'
             "
             v-for="(j, index,i) in multiDictList"
@@ -95,7 +95,7 @@
               <input
               class="temClass"
               :id="i+1"
-              @keydown.enter="changeNext()"
+              @keydown.enter="changeNext"
                 type="text"
                 :title="vitalSignObj[j].vitalValue"
                 @input="handlePopRefresh(vitalSignObj[j])"
@@ -840,7 +840,7 @@ window.openSetTextModalNew(
     display: none;
   }
 
-  .row {
+  .rowbox{
     display: inline-block;
     padding: 3px 15px;
 
