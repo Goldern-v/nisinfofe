@@ -80,6 +80,7 @@ const currentTargetUrl = (() => {
       return "http://218.14.180.38:9094" // 江门妇幼正式
       // return "https://info.cr-health.com:20211" // 公司-江门妇幼测试-外网
       // return "http://192.168.1.54:9872" // 公司-江门妇幼测试-内网
+      // return "http://192.168.17.215:8080" // 伟彬本地
 
     /** 中山七 */
     case "zhongshanqi":
