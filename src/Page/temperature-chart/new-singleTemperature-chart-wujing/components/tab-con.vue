@@ -64,7 +64,7 @@
             ></i>
           </div>
         </div>
-        <div style="flex: 7" >
+        <div style="flex: 7" class="inputText">
           <div
             :class="
               !(
@@ -805,6 +805,7 @@ window.openSetTextModalNew(
 </script>
 
 <style lang="stylus" scoped>
+
 .right-con {
   width: 100%;
   background: #fff;
@@ -821,8 +822,9 @@ window.openSetTextModalNew(
       flex-direction: column;
     }
   }
-
   .row-bottom {
+  overflow-y:scroll;
+
     .showRecord {
       display: flex;
       height: 100%;
