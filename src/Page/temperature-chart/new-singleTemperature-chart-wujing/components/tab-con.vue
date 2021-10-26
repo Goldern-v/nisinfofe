@@ -1,6 +1,18 @@
 <template>
   <div class="right-con">
     <div class="row-top">
+      <div class="column-left">
+        <el-button size="mini" @click="syncInAndOutHospital((type = '0'))">
+          同步入院
+        </el-button>
+        <el-button
+          style="margin: 10px 0px"
+          size="mini"
+          @click="syncInAndOutHospital((type = '1'))"
+        >
+          同步出院
+        </el-button>
+      </div>
       <div class="column-right">
         <span style="padding-left: 5px">日期：</span>
         <ElDatePicker
@@ -28,7 +40,7 @@
     <div class="row-bottom">
       <null-bg v-if="!patientInfo.patientId"></null-bg>
       <div v-else class="showRecord">
-       <div style="flex: 4">
+        <div style="flex: 4">
           <div
             :class="
               [
@@ -52,41 +64,155 @@
             ></i>
           </div>
         </div>
-        <div style="flex: 7">
+        <div style="flex: 7" >
           <div
             :class="
               !(
                 index.includes('自定义') ||
-                index.includes('腋温') ||
-                index.includes('注释')
+                index.includes('注释') ||
+                index.includes('体温复测')||
+                index.includes('术后天数')
               )
-                ? 'row'
+                ? 'rowbox'
                 : 'rowItem_noShow'
             "
-            v-for="(j, index) in multiDictList"
+            v-for="(j, index,i) in multiDictList"
             :key="index"
           >
             <span class="preText">{{ index }}</span>
-            <input type="text" v-model="vitalSignObj[j].vitalValue" />
+            <el-tooltip
+              placement="top"
+              popper-class="custom-temp-dict-select"
+              :disabled="
+                !(
+                  totalDictInfo[index].options &&
+                  totalDictInfo[index].options.length > 0
+                )
+              "
+              :visible-arrow="false"
+              :manual="true"
+              :value="vitalSignObj[j].popVisible"
+            >
+              <input
+              :id="i+1"
+              @keydown.enter="changeNext"
+                type="text"
+                :title="vitalSignObj[j].vitalValue"
+                @input="handlePopRefresh(vitalSignObj[j])"
+                @click="() => (vitalSignObj[j].popVisible = true)"
+                @blur="() => (vitalSignObj[j].popVisible = false)"
+                v-model="vitalSignObj[j].vitalValue"
+              />
+              <template v-slot:content>
+                <div
+                  class="container"
+                  @click.prevent="
+                    () => {
+                      vitalSignObj[j].popVisible = false;
+                    }
+                  "
+                >
+                  <template
+                    v-if="
+                      totalDictInfo[index].options &&
+                      getFilterSelections(
+                        totalDictInfo[index].options,
+                        vitalSignObj[j].vitalValue
+                      ).length > 0
+                    "
+                  >
+                    <div
+                      :key="selectionDictIdx"
+                      class="selection-dict-item"
+                      v-for="(option, selectionDictIdx) in getFilterSelections(
+                        totalDictInfo[index].options,
+                        vitalSignObj[j].vitalValue
+                      )"
+                      @click.prevent="
+                        () => (vitalSignObj[j].vitalValue = option)
+                      "
+                    >
+                      {{ option }}
+                    </div>
+                  </template>
+                  <div v-else class="null-item">无匹配数据</div>
+                </div>
+              </template>
+            </el-tooltip>
           </div>
           <div class="fieldList">
             <div style="margin: 10px 0px; font-weight: bold; font-size: 14px">
               <span>自定义项目：</span>
             </div>
-            <div class="row" v-for="(i, index) in fieldList" :key="index">
+            <div class="row" v-for="(i, index,h) in fieldList" :key="index">
               <span
                 class="preText"
                 style="color: blue"
                 @click="updateTextInfo(i.vitalCode, i.fieldCn, i.fieldCn,index)"
                 >{{ i.fieldCn }}</span
               >
+              <!-- <el-tooltip
+                placement="top"
+                v-if="vitalSignObj[i.vitalCode]"
+                popper-class="custom-temp-dict-select"
+                :disabled="true"
+                :visible-arrow="false"
+                :manual="true"
+                :value="vitalSignObj[i.vitalCode].popVisible"
+              > -->
               <input
+              :id="h+100"
                 type="text"
+                class="fieldClass"
+              @keydown.enter="changeNext"
+                :title="vitalSignObj[i.vitalCode].vitalValue"
+                @input="handlePopRefresh(vitalSignObj[i.vitalCode])"
+                @click="() => (vitalSignObj[i.vitalCode].popVisible = true)"
+                @blur="() => (vitalSignObj[i.vitalCode].popVisible = false)"
                 v-model="vitalSignObj[i.vitalCode].vitalValue"
               />
+              <!-- <template v-slot:content>
+                  <div
+                    class="container"
+                    @click.prevent="
+                      () => {
+                        vitalSignObj[i.vitalCode].popVisible = false;
+                      }
+                    "
+                  >
+                    <template
+                      v-if="
+                        selectionMultiDict[i.fieldCn] &&
+                        getFilterSelections(
+                          selectionMultiDict[i.fieldCn],
+                          vitalSignObj[i.vitalCode].vitalValue
+                        ).length > 0
+                      "
+                    >
+                      <div
+                        :key="selectionDictIdx"
+                        class="selection-dict-item"
+                        v-for="(
+                          selectionDict, selectionDictIdx
+                        ) in getFilterSelections(
+                          selectionMultiDict[i.fieldCn],
+                          vitalSignObj[j].vitalValue
+                        )"
+                        @click.prevent="
+                          () =>
+                            (vitalSignObj[j].vitalValue = selectionDict.name)
+                        "
+                      >
+                        {{ selectionDict.name }}
+                      </div>
+                    </template>
+                    <div v-else class="null-item">无匹配数据</div>
+                  </div>
+                </template>
+              </el-tooltip> -->
             </div>
           </div>
-          <!-- <div class="fieldList" v-if="multiDictList['体温复测']">
+          <div class="fieldList" v-if="multiDictList['体温复测']">
             <div class="row">
               <span class="preText">体温复测</span>
               <input
@@ -94,15 +220,17 @@
                 v-model="vitalSignObj[multiDictList['体温复测']].vitalValue"
               />
             </div>
-          </div> -->
+          </div>
           <div class="row" v-if="multiDictList['表顶注释']">
             <span class="preText">表顶注释</span>
             <el-select
+              :disabled="isDisable()"
               size="mini"
               v-model="vitalSignObj[multiDictList['表顶注释']].expand1"
             >
               <el-option
-                v-for="(item, topIndex) in topContextList"
+                v-for="(item, topIndex) in getFilterSelections(totalDictInfo['表顶注释'].options,
+                        vitalSignObj[multiDictList['表顶注释']].vitalValue)"
                 :key="topIndex"
                 :label="item"
                 :value="item"
@@ -111,6 +239,7 @@
             </el-select>
             <el-date-picker
               size="mini"
+              :readonly="isDisable()"
               format="yyyy-MM-dd HH:mm:ss"
               value-format="yyyy-MM-dd HH:mm:ss"
               v-model="vitalSignObj[multiDictList['表顶注释']].expand2"
@@ -121,14 +250,16 @@
             >
             </el-date-picker>
           </div>
-          <div class="row" v-if="multiDictList['表底注释']">
-            <span class="preText">表底注释</span>
+          <div class="row" v-if="multiDictList['中间注释']">
+            <span class="preText">中间注释</span>
             <el-select
+            :disabled="isDisable()"
               size="mini"
-              v-model="vitalSignObj[multiDictList['表底注释']].expand1"
+              v-model="vitalSignObj[multiDictList['中间注释']].expand1"
             >
               <el-option
-                v-for="(item, bottomIndex) in bottomContextList"
+                v-for="(item, bottomIndex) in getFilterSelections(totalDictInfo['中间注释'].options,
+                        vitalSignObj[multiDictList['中间注释']].vitalValue)"
                 :key="bottomIndex"
                 :label="item"
                 :value="item"
@@ -137,6 +268,36 @@
             </el-select>
             <el-date-picker
               size="mini"
+              :readonly="isDisable()"
+              format="yyyy-MM-dd HH:mm:ss"
+              value-format="yyyy-MM-dd HH:mm:ss"
+              v-model="vitalSignObj[multiDictList['表底注释']].expand2"
+              type="datetime"
+              placeholder="选择日期时间"
+              style="margin: 3px 0px 0px 55px; width: 170px"
+              @change="formatCenterExpandDate"
+            >
+            </el-date-picker>
+          </div>
+          <div class="row" v-if="multiDictList['表底注释']">
+            <span class="preText">表底注释</span>
+            <el-select
+              size="mini"
+              :disabled="isDisable()"
+              v-model="vitalSignObj[multiDictList['表底注释']].expand1"
+            >
+              <el-option
+               v-for="(item, bottomIndex) in getFilterSelections(totalDictInfo['表底注释'].options,
+                        vitalSignObj[multiDictList['表底注释']].vitalValue)"
+                :key="bottomIndex"
+                :label="item"
+                :value="item"
+              >
+              </el-option>
+            </el-select>
+            <el-date-picker
+              size="mini"
+              :readonly="isDisable()"
               format="yyyy-MM-dd HH:mm:ss"
               value-format="yyyy-MM-dd HH:mm:ss"
               v-model="vitalSignObj[multiDictList['表底注释']].expand2"
@@ -149,7 +310,8 @@
           </div>
           <div>
             <el-button
-              type="primary"
+            :disabled="isDisable()"
+                type="primary"
               class="save-btn"
               @click="saveVitalSign(vitalSignObj)"
               >保存</el-button
@@ -175,21 +337,21 @@ import {
   getLastList,
   getViSigsByReDate,
 } from "../../api/api";
-import { mockData, recordList } from "../data/data";
+import { mockData, recordList, selectionMultiDict } from "../data/data";
 export default {
   props: { patientInfo: Object },
   data() {
     // 初始化筛选时间
     let initTimeArea = {
-      ["02"]: ["00:00", "04:59"],
-      ["06"]: ["05:00", "08:59"],
-      ["10"]: ["09:00", "12:59"],
-      ["14"]: ["13:00", "16:59"],
-      ["18"]: ["17:00", "20:59"],
-      ["22"]: ["21:00", "23:59"],
+      ["04"]: ["00:00", "04:59"],
+      ["08"]: ["05:00", "08:59"],
+      ["12"]: ["09:00", "12:59"],
+      ["16"]: ["13:00", "16:59"],
+      ["20"]: ["17:00", "20:59"],
+      ["24"]: ["21:00", "23:59"],
     };
 
-    let entryTime = "03";
+    let entryTime = "02";
     let currentSecond =
       new Date().getHours() * 60 + new Date().getMinutes() * 1;
 
@@ -223,7 +385,7 @@ export default {
               if (this.getHours() > 12 && this.getHours() <= 16) {
                 return "14";
               }
-              if (this.getHours() > 16 && this.getHours() <= 20) {
+              if (this.getHours() >  16&& this.getHours() <= 20) {
                 return "18";
               }
               if (this.getHours() > 20 && this.getHours() <= 23) {
@@ -231,6 +393,7 @@ export default {
               }
          //录入时间
         })() //录入时间
+      
       },
       recordDate: "",
       fieldList: {}, // 自定义项目列表
@@ -249,6 +412,7 @@ export default {
         "手术入院",
         "死亡",
       ],
+      bottomIndex:[],
       timesOdd: [
         {
           id: 0,
@@ -275,10 +439,12 @@ export default {
           value: "22",
         },
       ],
-      bottomContextList: ["", "不升"],
+      bottomContextList: [""],
       topExpandDate: "",
       bottomExpandDate: "",
+      centerExpandDate: "",
       totalDictInfo: {},
+      selectionMultiDict: selectionMultiDict,
     };
   },
   async mounted() {
@@ -298,6 +464,36 @@ export default {
     },
   },
   methods: {
+   changeNext(e){
+      if(e.target.className==='el-tooltip'){
+  let inputListLength=document.getElementsByClassName('rowbox').length
+      if(Number(e.target.id)<inputListLength){
+        switch(Number(e.target.id)){
+          case 6:
+          document.getElementById('12').focus()
+          case 12:
+          document.getElementById('16').focus()
+          default :
+    document.getElementById(Number(e.target.id)+1).focus()
+        }
+      
+      }else if(Number(e.target.id)===inputListLength){
+        document.getElementById('100').focus()
+      }
+      
+      }else{
+    let inputListLength=document.getElementsByClassName('fieldClass').length 
+      console.log(inputListLength)
+    if(Number(e.target.id)<inputListLength+100-1){
+        document.getElementById(Number(e.target.id)+1).focus()
+      }else if(Number(e.target.id)===inputListLength+100-1){
+                document.getElementById('1').focus()
+
+      }
+      }
+     
+      
+    },
     init() {
       let obj = {};
       if (!this.multiDictList) return;
@@ -345,6 +541,7 @@ export default {
           expand3: "",
           source: "",
           customTitle: false,
+          popVisible: false,
         };
       }
       this.vitalSignObj = { ...obj };
@@ -386,13 +583,21 @@ export default {
         wardCode: this.patientInfo.wardCode,
       }).then((res) => {
         res.data.data.list.map((item) => {
-          this.fieldList[item.vitalCode] = item;
+          if (this.vitalSignObj[item.vitalCode])
+            this.fieldList[item.vitalCode] = item;
         });
       });
     },
     /* 日期搜索功能 */
     selectTemRec(val) {
       this.query.entryDate = val;
+    },
+    isDisable(){
+      if (this.$route.path.includes("newSingleTemperatureChart")||this.$route.path.includes("temperature")){
+return false
+      }else{
+        return true
+      }
     },
 
      getHours() {
@@ -409,6 +614,15 @@ export default {
       let temp = value;
       this.query.entryDate = temp.slice(0, 10);
       this.query.entryTime = value.slice(12, 14);
+    },
+    getFilterSelections(orgin, filterStr) {
+      if (!filterStr || !filterStr.trim()) return orgin;
+      return orgin.filter((option) => option.includes(filterStr));
+    },
+    handlePopRefresh(target) {
+      target.popVisible = false;
+
+      setTimeout(() => (target.popVisible = true), 100);
     },
     /* 获取患者某个时间点的体征信息--entryDate、entryTime变化就调查询接口  */
     getViSigs() {
@@ -427,7 +641,10 @@ export default {
         if (res.data.data.length > 0) {
           /* 如果该时间点有记录 */
           res.data.data.map((v, idx) => {
-            this.vitalSignObj[v.vitalCode] = v;
+            this.vitalSignObj[v.vitalCode] = {
+              ...v,
+              popVisible: false,
+            };
           });
         } else {
           this.init();
@@ -442,7 +659,10 @@ export default {
         let obj = [];
         res.data.data.map((item, index) => {
           data[item.vitalSign] = item.vitalCode;
-          this.totalDictInfo[item.vitalSign] = { ...item };
+          this.totalDictInfo[item.vitalSign] = {
+            ...item,
+            options: item.selectType ? item.selectType.split(",") : [],
+          };
 
           if (item.vitalSign.includes("自定义")) {
             obj[item.vitalCode] = {
@@ -456,17 +676,22 @@ export default {
             this.fieldList = { ...obj };
           }
         });
+
         this.multiDictList = { ...data };
         this.init();
       });
     },
-     //右键删除记录
+    //右键删除记录
     rightMouseDown(e,dateTime, tabIndex){
+      if(!this.isDisable()){
       this.removeRecord(dateTime, tabIndex)
+
+      }
     },
     /* 删除记录 */
     async removeRecord(targetName, index) {
-      await this.$confirm("是否确删除该记录?", "提示", {
+      if(!this.isDisable()){
+await this.$confirm("是否确删除该记录?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "info",
@@ -481,6 +706,8 @@ export default {
           this.bus.$emit("refreshImg");
         });
       });
+      }
+      
     },
     /* 同步入院、同步出院 */
     syncInAndOutHospital(type) {
@@ -495,7 +722,10 @@ export default {
     },
     /* 修改自定义标题，弹出弹窗并保存 */
     updateTextInfo(key, label, autotext,index) {
-      window.openSetTextModal(
+      let checkValue = Object.values(this.fieldList)||[]
+     let  checkValueStr=checkValue.map(item=>item.fieldCn)
+     if(!this.isDisable()){//护理文书不允许修改
+window.openSetTextModalNew(
         (text) => {
           let data = {
             patientId: this.patientInfo.patientId,
@@ -504,15 +734,24 @@ export default {
             vitalCode: key,
             fieldCn: text,
           };
+          if(
+            checkValueStr.includes(text)
+          ){
+            this.$message.error(`修改${label}失败!已存在${text}项目`);
+          }else{
           savefieldTitle(data).then((res) => {
              this.fieldList[index].fieldCn=text;
             this.$message.success(`修改${label}成功`);
           });
+          }
           // this.getList();
         },
+        
         autotext,
         `修改${label}`
       );
+     }
+      
     },
     /* 录入体温单 */
     async saveVitalSign(value) {
@@ -527,8 +766,12 @@ export default {
           case "表顶注释":
             item.expand2 = this.topExpandDate;
             break;
+          case "中间注释":
+            item.expand2 = this.centerExpandDate;
+            break;
           case "表底注释":
             item.expand2 = this.bottomExpandDate;
+            break;
           default:
             break;
         }
@@ -552,6 +795,10 @@ export default {
     formatBtmExpandDate(val) {
       this.bottomExpandDate = val;
     },
+    formatCenterExpandDate(val) {
+      this.centerExpandDate = val;
+    },
+    //设置体温单是否可编辑
   },
   components: { nullBg },
 };
@@ -601,8 +848,29 @@ export default {
   .rowItem_noShow {
     display: none;
   }
+.fieldClass{
+ width: 60px;
+      font-size: 12px;
+}
+.rowbox{
+display: inline-block;
+    padding: 3px 15px;
 
-  .row {
+    .preText {
+      display: inline-block;
+      width: 50px;
+    }
+
+    input {
+      width: 60px;
+      font-size: 12px;
+    }
+
+    .el-select {
+      width: 85px;
+    }
+}
+  .row{
     display: inline-block;
     padding: 3px 15px;
 
@@ -612,7 +880,7 @@ export default {
     }
 
     input {
-      width: 45px;
+      width: 60px;
       font-size: 12px;
     }
 
@@ -626,6 +894,34 @@ export default {
     left: 30%;
     margin-top: 10px;
     width: 100px;
+  }
+}
+</style>
+
+<style lang="scss">
+.custom-temp-dict-select {
+  background: #fff !important;
+  color: #000 !important;
+  border: 1px solid #ddd;
+  .container {
+    min-width: 100px;
+    min-height: 26px;
+    max-height: 100px;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+  .null-item {
+    line-height: 24px;
+    text-align: center;
+  }
+  .selection-dict-item {
+    height: 24px;
+    line-height: 24px;
+    padding: 0 5px;
+    &:hover {
+      background: rgb(111, 192, 164) !important;
+      color: #fff !important;
+    }
   }
 }
 </style>
