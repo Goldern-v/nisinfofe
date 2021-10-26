@@ -196,6 +196,20 @@
           :fetch-suggestions="querySearch"
         ></el-autocomplete>
       </div>
+      <div
+        class="item-box"
+        style="width: 85px"
+        flex="cross:center main:center"
+        v-if="!isDeputy&&HOSPITAL_ID=='huadu'"
+      >
+        <input
+          class="pegeSelect"
+          style="outline:none;border:none;"
+          placeholder="请输入页码"
+          v-model="pageNum"
+          @keydown="pageNumKeyDown"
+        ></input>
+      </div>
       <!-- <div class="item-box" flex="cross:center main:center" @click="tofull">
             <div class="text-con">
               <span v-if="fullpage">关闭全屏</span>
@@ -349,9 +363,41 @@ export default {
       visibled: false,
       queryTem: {},
       titleName: "",
+      pageNum:'',
+      firstPage:1,
     };
   },
   methods: {
+    pageNumKeyDown(e){
+      if(e.keyCode==13){
+        let startPage = Number(this.pageNum)
+        let endPage = Number(this.pageNum)
+        let tempPage = startPage
+        let currentPageArr = this.selectList.forEach(item=>{
+          if(item.value){
+            let fromPage = item.value.split('-')[0]
+            let toPage = item.value.split('-')[1]
+            console.log(fromPage,startPage);
+            if(fromPage<=startPage){
+              tempPage = fromPage
+              endPage = toPage
+            }
+          }
+        })
+        let count = startPage - tempPage
+        let scrollTop =  0
+        if(count != 0){
+          scrollTop = (722 * count) + (20 * count)
+        }
+        startPage = tempPage
+        this.pageArea = `${startPage}-${endPage}`
+        setTimeout(()=>{
+          $(this.$parent.$refs.scrollCon).animate({
+            scrollTop:scrollTop,
+          });
+        })
+      }
+    },
     showSetCreatePage() {
       return !this.isDeputy || this.HOSPITAL_ID == "guizhou";
     },
@@ -1105,6 +1151,17 @@ export default {
         this.getBlockList();
       }
     },
+    pageNum(value){
+      let temPage = parseInt(Number(value) / 10)
+      let count = parseInt(Number(value) % 10)
+      if(temPage && count){
+        this.firstPage = temPage * 10 + 1
+      }else if (temPage == 0 && Number(value) == 0){
+        this.firstPage = 1
+      }else if(temPage && !count){
+        this.firstPage = (temPage - 1) * 10 + 1
+      }
+    }
   },
   components: {
     setPageModal,

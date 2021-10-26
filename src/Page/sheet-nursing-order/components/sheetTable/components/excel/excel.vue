@@ -64,13 +64,13 @@
           <div
             v-if="td.key == 'signerName'"
             class="sign-text"
-            @click.stop="toSign(tr, y, data.bodyModel, showSign(tr, td.key), 1)"
+            @click.stop="!isRead(tr)&&toSign(tr, y, data.bodyModel, showSign(tr, td.key), 1)"
             v-html="showSign(tr, td.key)"
           ></div>
           <div
             v-else-if="td.key == 'signerName2'"
             class="sign-text"
-            @click="toSign(tr, y, data.bodyModel, showSign(tr, td.key), 2)"
+            @click="!isRead(tr)&&toSign(tr, y, data.bodyModel, showSign(tr, td.key), 2)"
             v-html="showSign(tr, td.key)"
           ></div>
           <div
@@ -175,8 +175,8 @@
               alt
             />
           </div>
-          <input v-else-if="HOSPITAL_ID=='huadu'&&td.key=='orderContent'" @click="(e)=>openOrderModal(e,td,tr,x,y,'护嘱内容',910)" style="height:32px;text-align:left;" v-model="td.value" :data-value='td.value'>
-          <input v-else-if="HOSPITAL_ID=='huadu'&&td.key=='frequency'" @click="(e)=>openOrderModal(e,td,tr,x,y,'频次',1090)" v-model="td.value" style="height:32px;" :data-value='td.value'>
+          <input :readonly="isRead(tr)" v-else-if="HOSPITAL_ID=='huadu'&&td.key=='orderContent'" @click="(e)=>{!isRead(tr)&&openOrderModal(e,td,tr,x,y,'护嘱内容',910)}" style="height:32px;text-align:left;" v-model="td.value" :data-value='td.value'>
+          <input :readonly="isRead(tr)" v-else-if="HOSPITAL_ID=='huadu'&&td.key=='frequency'" @click="(e)=>{!isRead(tr)&&openOrderModal(e,td,tr,x,y,'频次',1090)}" v-model="td.value" style="height:32px;" :data-value='td.value'>
           <input
             type="text"
             :readonly="isRead(tr)"
@@ -612,6 +612,8 @@ export default {
     isRead(tr) {
       let status = tr.find((item) => item.key == "status").value;
       let empNo = tr.find((item) => item.key == "empNo").value;
+      let stopSign = tr.find((item) => item.key == "signerName2").value;
+      if(stopSign) return true
       if (status >= 1) {
         if (empNo == this.empNo) {
           return false;

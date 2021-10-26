@@ -166,6 +166,10 @@ export default {
       let res;
       if(this.HOSPITAL_ID=="huadu"){
        res = await info(row.inpNo, row.visitId);
+       if(res.data.code!='200'){
+         this.$message.error(res.data.desc)
+         return
+       }
       }else{
        res = await info(row.patientId, row.visitId);
       }

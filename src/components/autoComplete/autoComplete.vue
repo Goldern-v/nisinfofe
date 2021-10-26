@@ -142,8 +142,12 @@ export default {
       (this.selectIndex = this.data.length), (this.id = config.id);
       this.$nextTick(() => {
         let offset = this.$refs.autoBox.getBoundingClientRect();
-        let left = 
-          Number(this.style.left.split("px")[0] - offset.width - 3) + "px";
+        let left
+        if(this.style.addWidth){
+          left = (Number(this.style.left.split('px')[0]) + Number(this.style.addWidth.split('px')[0])) + 3 + 'px';
+        }else{
+          left = Number(this.style.left.split("px")[0] - offset.width - 3) + "px";
+        }
         if (window.innerHeight - offset.bottom < 10) {
           // this.style = Object.assign({}, this.style, {bottom: Number(this.style.top.split('px')[0] + 40) + 'px', top: 'auto'})
           let top =

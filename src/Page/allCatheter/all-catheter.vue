@@ -11,7 +11,7 @@
       <div class="right-part" v-loading="tableLoading">
         <catheterList :cathterArr='cathterArr' @addCathter='addCathter' @updateTableConfig='updateTableConfig' ref="catheterList"/>
         <div class="sheetTable-contain" ref="scrollCon">
-          <cathterTabel @onChangePatient_self='onChangePatient_self' :title="'尿导管'" @changeShowTable='changeShowTable' :tabelConfig='tabelConfig' :tableInfo='tableInfo' v-if="showTable" @updateTableConfig='updateTableConfig'/>
+          <cathterTabel @onChangePatient_self='onChangePatient_self' :title="tableInfo.formTitle" @changeShowTable='changeShowTable' :tabelConfig='tabelConfig' :tableInfo='tableInfo' v-if="showTable" @updateTableConfig='updateTableConfig'/>
           <div
             v-else
             class="null-btn"
@@ -25,7 +25,7 @@
       </div>
     </div>
     <addCathter v-if="isAddCathter" @close='closeCathter' @create="createCathter"/>
-    <newCathter v-if="isCreateCathter" @close='closeCreate' :newCathterType='newCathterType' @onChangePatient_self='onChangePatient_self'/>
+    <newCathter v-if="isCreateCathter" @getDate="getDate" @close='closeCreate' :newCathterType='newCathterType' @onChangePatient_self='onChangePatient_self'/>
   </div>
 </template>
 
@@ -94,12 +94,12 @@
 
 .sheetTable-contain {
   height: 100%;
-  width:calc( 100% - 300px)
+  width:calc( 100% - 280px)
   background: #DFDFDF;
   overflow: auto;
   padding: 15px 5px 15px;
   box-sizing: border-box;
-  margin: 0 0 20px 300px;
+  margin: 0 0 20px 280px;
   position: relative;
 }
 

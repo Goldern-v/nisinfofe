@@ -52,19 +52,25 @@ export default [
       e.preventDefault();
     }
     keyf1(e, td);
+  },
+  textarea: {
+    width: 30
   }
 },
 {
   key: "spo2", //SPO2
   value: "",
-  event: keyf1
+  event: keyf1,
+  textarea: {
+    width: 30
+  }
 },
 {
   key: "diet", //饮食
   value: "",
   event: keyf1,
   textarea: {
-    width: 40
+    width: 30
   }
 },
 {
@@ -75,14 +81,17 @@ export default [
 {
   key: "eatSize", // 进食（ml）
   value: "",
-  event: keyf1
+  event: keyf1,
+  textarea: {
+    width: 50
+  }
 },
 {
   key: "otherFood", // 入量自定义
   value: "",
   event: keyf1,
   textarea: {
-    width: 36
+    width: 40
   }
 },
 {
@@ -115,7 +124,7 @@ export default [
   value: "",
   event: keyf1,
   textarea: {
-    width: 36
+    width: 32
   }
 },
 {
@@ -170,18 +179,15 @@ export default [
   key: "description", //特殊情况记录
   value: "",
   splice: true,
-  // textarea: {
-  //   width: 150
-  // },
   style: {
     textAlign: "left",
     position: "absolute",
     top: "1px",
     bottom: "1px",
     left: "1px",
-    width: "180px",
+    width: "160px",
     background: "transparent",
-    fontSize: "14px"
+    fontSize: "12px"
   },
   event: function (e, td) {
     console.log(e.keyCode);
@@ -190,6 +196,9 @@ export default [
       e.preventDefault();
     }
     keyf1(e, td);
+  },
+  textarea: {
+    width: 160
   }
   // oninput: next
 },

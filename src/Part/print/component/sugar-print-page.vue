@@ -30,6 +30,9 @@
       .his-logo
         top 0
         left 0
+    .liaocheng-img
+      width:55px;
+      height:18px;
 @page {
   margin 0 10mm 
 }        
@@ -69,7 +72,8 @@ export default {
   computed: {
     sheetModel() {
       let html = window.localStorage.sugarModel
-      return html
+      var reg = /data-value/g;
+      return html.replace(reg, "value");
     }
   },
   components: {}

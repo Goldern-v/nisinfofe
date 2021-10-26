@@ -10,7 +10,7 @@
       class="sheet-table table-fixed-th no-print"
       :style="{ width: fiexHeaderWidth }"
       :class="{ isFixed, isInPatientDetails }"
-      v-if="hasFiexHeader && HOSPITAL_ID !== 'hengli'"
+      v-if="hasFiexHeader"
     >
       <tr class="body-con">
         <td v-for="(td, i) in titleModel" :key="i" :dataKey="td.key">
@@ -25,7 +25,7 @@
               :style="
                 Object.assign({}, td.style, {
                   minWidth: td.textarea.width + 'px',
-                  maxWidth: td.textarea.width + 'px'
+                  maxWidth: td.textarea.width + 'px',
                 })
               "
             ></textarea>
@@ -48,13 +48,19 @@
           :class="{ canSet: item.canSet }"
           @click="item.canSet && setTitle(item)"
         >
-          <span v-if="item.key=='recordYear' && HOSPITAL_ID=='huadu'">{{recordYear()}}</span>
+          <span v-if="item.key == 'recordYear' && HOSPITAL_ID == 'huadu'">{{
+            recordYear()
+          }}</span>
           <span v-else v-html="item.name"></span>
         </th>
       </tr>
     </table>
 
-    <table class="sheet-table" ref="table" :style="{width:sheetInfo.sheetType=='access_gzry'?'100%':''}">
+    <table
+      class="sheet-table"
+      ref="table"
+      :style="{ width: sheetInfo.sheetType == 'access_gzry' ? '100%' : '' }"
+    >
       <tr
         class="head-con"
         v-for="(th, index) in data.titleModel.th"
@@ -70,7 +76,7 @@
           :class="{ canSet: item.canSet }"
           @click="item.canSet && setTitle(item)"
         >
-          <span v-if="item.key=='recordYear'">{{recordYear()}}</span>
+          <span v-if="item.key == 'recordYear'">{{ recordYear() }}</span>
           <span v-else v-html="item.name"></span>
         </th>
       </tr>
@@ -81,32 +87,35 @@
         :class="[
           {
             inPreview:
-              !tr.find(item => item.key == 'id').value &&
-              tr.find(item => item.key == 'recordDate').value,
-            noSignRow: tr.find(item => item.key == 'status').value === '0',
-            multiSign: tr.find(item => item.key == 'multiSign').value,
+              !tr.find((item) => item.key == 'id').value &&
+              tr.find((item) => item.key == 'recordDate').value,
+            noSignRow: tr.find((item) => item.key == 'status').value === '0',
+            multiSign: tr.find((item) => item.key == 'multiSign').value,
             selectedTr: sheetInfo.selectRow.includes(tr),
             clickRow: sheetInfo.clickRow === tr,
-            redText: tr.find(item => {return item.key == 'recordSource'}).value == '5'
+            redText:
+              tr.find((item) => {
+                return item.key == 'recordSource';
+              }).value == '5',
           },
-          tr.find(item => {
+          tr.find((item) => {
             return item.key == 'markObj';
           }).value &&
             `mark-mark-mark mark-cell-status-${
-              tr.find(item => {
+              tr.find((item) => {
                 return item.key == 'markObj';
               }).value.status
             }`,
           {
-            redTop:(HOSPITAL_ID == 'huadu' && getBorderClass(y)) || redTop(y),
-            blackTop:BlackTop(y),
-          }
+            redTop: (HOSPITAL_ID == 'huadu' && getBorderClass(y)) || redTop(y),
+            blackTop: BlackTop(y),
+          },
         ]"
         :key="y"
         @click="selectRow(tr, $event)"
         @mouseover="markTip($event, tr)"
         @mouseout="closeMarkTip"
-        :recordId="tr.find(item => item.key == 'id').value"
+        :recordId="tr.find((item) => item.key == 'id').value"
       >
         <td
           v-for="(td, x) in tr"
@@ -122,25 +131,34 @@
             HOSPITAL_ID == 'lingcheng' &&
               td.value &&
               td.statBottomLine &&
-              `stat-bottom-line`
+              `stat-bottom-line`,
           ]"
-          :style="HOSPITAL_ID=='guizhou'&&sheetInfo.sheetType=='access_gzry'&&{boxSizing:'border-box!important',width:td.style?td.style.width:''}"
+          :style="
+            HOSPITAL_ID == 'guizhou' &&
+            sheetInfo.sheetType == 'access_gzry' && {
+              boxSizing: 'border-box!important',
+              width: td.style ? td.style.width : '',
+            }
+          "
           @contextmenu.stop="openContextMenu($event, y, tr, td)"
           @click="
-            selectedItem(td)
-            td.key == 'description' && HOSPITAL_ID === 'guizhou' && !isRead(tr) && openEditModal(tr, data, $event)
-            "
+            selectedItem(td);
+            td.key == 'description' &&
+              HOSPITAL_ID === 'guizhou' &&
+              !isRead(tr) &&
+              openEditModal(tr, data, $event);
+          "
         >
           <!-- for 年份 -->
           <input
             type="text"
             :readonly="true"
-            :value="tr.find(item => item.key == 'yearBreak').value"
-            :data-value="tr.find(item => item.key == 'yearBreak').value"
+            :value="tr.find((item) => item.key == 'yearBreak').value"
+            :data-value="tr.find((item) => item.key == 'yearBreak').value"
             :style="[td.style, { height: '12px' }]"
             v-if="
               td.key === 'recordMonth' &&
-                tr.find(item => item.key == 'yearBreak').value
+              tr.find((item) => item.key == 'yearBreak').value
             "
           />
           <div
@@ -152,7 +170,10 @@
             v-html="showSign(tr)"
           ></div>
           <div
-            v-else-if="(HOSPITAL_ID === 'huadu'||HOSPITAL_ID === 'fuyou') && td.key == 'sign2'"
+            v-else-if="
+              (HOSPITAL_ID === 'huadu' || HOSPITAL_ID === 'fuyou') &&
+              td.key == 'sign2'
+            "
             class="sign-text"
             @click.stop="
               toSign(tr, y, data.bodyModel, showSign_hd(tr), $event, td)
@@ -168,12 +189,10 @@
           <!-- 第一个签名的位置 -->
           <div v-else-if="td.key == 'signerNo'" class="sign-img">
             <img
-              v-if="tr.find(item => item.key == 'auditorNo').value"
-              :src="
-                `/crNursing/api/file/signImage/${
-                  tr.find(item => item.key == 'auditorNo').value
-                }?${token}`
-              "
+              v-if="tr.find((item) => item.key == 'auditorNo').value"
+              :src="`/crNursing/api/file/signImage/${
+                tr.find((item) => item.key == 'auditorNo').value
+              }?${token}`"
               alt
             />
             <!-- 针对双签名打印预览为 xxx/xxx 显示 -->
@@ -181,16 +200,16 @@
             <img
               v-if="
                 multiSignArr.includes(sheetInfo.sheetType) &&
-                  tr.find(item => item.key == 'signerNo2').value
+                tr.find((item) => item.key == 'signerNo2').value
               "
-              :src="
-                `/crNursing/api/file/signImage/${
-                  tr.find(item => item.key == 'signerNo2').value
-                }?${token}`
-              "
+              :src="`/crNursing/api/file/signImage/${
+                tr.find((item) => item.key == 'signerNo2').value
+              }?${token}`"
               alt
             />
-            <span v-if="tr.find(item => item.key == 'auditorNo').value">/</span>
+            <span v-if="tr.find((item) => item.key == 'auditorNo').value"
+              >/</span
+            >
             <!-- <span v-else-if="tr.find(item => item.key == 'signerNo2') && tr.find(item => item.key == 'signerNo2').value">/</span> -->
             <span
               v-if="
@@ -212,7 +231,7 @@
                   sheetInfo.sheetType === 'entdepartment_jm' ||
                   sheetInfo.sheetType === 'catheterplacement_jm' ||
                   sheetInfo.sheetType === 'obstetricnursing_jm') &&
-                  tr.find(item => item.key == 'signerNo2').value
+                tr.find((item) => item.key == 'signerNo2').value
               "
               >/</span
             >
@@ -227,7 +246,7 @@
             <img v-if="td.value" :src="`/crNursing/api/file/signImage/${td.value}?${token}`" alt>
           </div>-->
           <el-select
-            v-else-if="td.type=='select' && HOSPITAL_ID == 'guizhou'"
+            v-else-if="td.type == 'select' && HOSPITAL_ID == 'guizhou'"
             v-model="td.value"
             filterable
             remote
@@ -236,22 +255,23 @@
             class="access-select"
             autocomplete="off"
             :remote-method="remoteMethod"
-            @visible-change="td.autoComplete && getOptionsData(td,tr,$event)"
+            @visible-change="td.autoComplete && getOptionsData(td, tr, $event)"
           >
-          <el-option
-            v-for="item in accessOptionData[td.name]"
-            :key="item"
-            :label="item"
-            :value="item"
-          ></el-option>
-        </el-select>
+            <el-option
+              v-for="item in accessOptionData[td.name]"
+              :key="item"
+              :label="item"
+              :value="item"
+            ></el-option>
+          </el-select>
           <textarea
             v-else-if="td.textarea"
-            :class="{ 
+            :class="{
               towLine: isOverText(td),
-              maxHeight56: sheetInfo.sheetType=='additional_count_hd' }"
+              maxHeight56: sheetInfo.sheetType == 'additional_count_hd',
+            }"
             :readonly="isRead(tr)"
-            :disabled="isDisabed(tr,td, y)"
+            :disabled="isDisabed(tr, td, y)"
             v-model="td.value"
             :data-value="td.value"
             :position="`${x},${y},${index}`"
@@ -262,21 +282,23 @@
                 td.style,
                 {
                   minWidth: td.textarea.width + 'px',
-                  maxWidth: td.textarea.width + 'px'
+                  maxWidth: td.textarea.width + 'px',
                 },
-                isDisabed(tr,td, y) && { cursor: 'not-allowed' }
+                isDisabed(tr, td, y) && { cursor: 'not-allowed' }
               )
             "
             @keydown="
               td.event($event, td);
-              onKeyDown($event, { x, y, z: index, td });"
+              onKeyDown($event, { x, y, z: index, td });
+            "
             :maxlength="td.textarea.maxLength || 1000"
-            @input="td.change && td.change($event, td);
-              td.autoComplete && getOptionsData(td,tr,$event)
+            @input="
+              td.change && td.change($event, td);
+              td.autoComplete && getOptionsData(td, tr, $event);
               remoteMethod($event.currentTarget.value);
               td.autoComplete &&
                 onFocus($event, {
-                  autoComplete: {data:accessOptionData[td.name]},
+                  autoComplete: { data: accessOptionData[td.name] },
                   x,
                   y,
                   z: index,
@@ -288,23 +310,26 @@
             @focus="
               td.autoComplete &&
                 onFocus($event, {
-                  autoComplete: getCompleteArr(tr,td),
+                  autoComplete: getCompleteArr(tr, td),
                   x,
                   y,
                   z: index,
                   td,
                   tr,
-                  splice: td.splice
+                  splice: td.splice,
                 })
             "
-            @blur="!(td.splice&&HOSPITAL_ID === 'huadu') && onBlur($event, { x, y, z: index })"
+            @blur="
+              !(td.splice && HOSPITAL_ID === 'huadu') &&
+                onBlur($event, { x, y, z: index })
+            "
           ></textarea>
           <!-- 护理记录单特殊情况特殊记录单独处理 -->
           <div
             v-else-if="
               td.key === 'description' &&
-                HOSPITAL_ID === 'lingcheng' &&
-                sheetInfo.selectBlock.openRichText
+              HOSPITAL_ID === 'lingcheng' &&
+              sheetInfo.selectBlock.openRichText
             "
             v-html="td.value"
             :class="
@@ -322,10 +347,10 @@
             :style="[
               td.style,
               td.key === 'recordMonth' &&
-                tr.find(item => item.key == 'yearBreak').value && {
-                  height: '12px'
+                tr.find((item) => item.key == 'yearBreak').value && {
+                  height: '12px',
                 },
-              isDisabed(tr, td, y) && { cursor: 'not-allowed' }
+              isDisabed(tr, td, y) && { cursor: 'not-allowed' },
             ]"
             @select="mouseSelect1"
             @keydown="
@@ -341,7 +366,7 @@
                   y,
                   z: index,
                   td,
-                  tr
+                  tr,
                 })
             "
             @blur="onBlur($event, { x, y, z: index })"
@@ -357,11 +382,11 @@
       name="bottomCon"
       v-if="
         sheetInfo.sheetType === 'neonatology_picc' ||
-          sheetInfo.sheetType === 'internal_eval_lcey' ||
-          sheetInfo.sheetType === 'intervention_cure_lcey' ||
-          sheetInfo.sheetType === 'critical_lc' ||
-          sheetInfo.sheetType === 'picu_hemodialysis_jm' ||
-          sheetInfo.sheetType === 'rescue_hl'
+        sheetInfo.sheetType === 'internal_eval_lcey' ||
+        sheetInfo.sheetType === 'intervention_cure_lcey' ||
+        sheetInfo.sheetType === 'critical_lc' ||
+        sheetInfo.sheetType === 'picu_hemodialysis_jm' ||
+        sheetInfo.sheetType === 'rescue_hl'
       "
     ></slot>
     <!-- 表格下方的备注组件 -->
@@ -386,49 +411,57 @@
           <img
             class="head-sign-img"
             v-if="sheetInfo.selectBlock.relSignInfo.signerNo2"
-            :src="
-              `/crNursing/api/file/signImage/${sheetInfo.selectBlock.relSignInfo.signerNo2}?${token}`
-            "
+            :src="`/crNursing/api/file/signImage/${sheetInfo.selectBlock.relSignInfo.signerNo2}?${token}`"
             alt
           />
         </span>
       </span>
       第 {{ index + sheetStartPage }} 页
-      <span class="sh-name" v-if="auditArr.includes(sheetInfo.sheetType)">
+      <span class="sh-name" 
+      v-if="auditArr.includes(sheetInfo.sheetType)" 
+      :class="{'sh-time': sheetInfo.sheetType==='internal_eval_lcey'|| sheetInfo.sheetType==='critical_lcey'}">
         <span
           v-if="
             sheetInfo.sheetType == 'com_lc' ||
-              sheetInfo.sheetType == 'icu_lc' ||
-              sheetInfo.sheetType == 'Record_Children_Serious_Lc' ||
-              sheetInfo.sheetType == 'common_hd' ||
-              sheetInfo.sheetType == 'neurosurgery_hd' ||
-              sheetInfo.sheetType == 'stress_injury_hd' ||
-              sheetInfo.sheetType == 'critical_lc' ||
-              sheetInfo.sheetType == 'common_sn' ||
-              sheetInfo.sheetType == 'maternity_sn'
+            sheetInfo.sheetType == 'icu_lc' ||
+            sheetInfo.sheetType == 'Record_Children_Serious_Lc' ||
+            sheetInfo.sheetType == 'common_hd' ||
+            sheetInfo.sheetType == 'neurosurgery_hd' ||
+            sheetInfo.sheetType == 'stress_injury_hd' ||
+            sheetInfo.sheetType == 'critical_lc' ||
+            sheetInfo.sheetType == 'common_sn' ||
+            sheetInfo.sheetType == 'maternity_sn'
           "
           >审核人：</span
         >
         <span
           v-else-if="
             sheetInfo.sheetType == 'common_wj' ||
-              sheetInfo.sheetType == 'common_hl' ||
-              sheetInfo.sheetType == 'rescue_hl' ||
-              sheetInfo.sheetType == 'emergency_stay_hl' ||
-              sheetInfo.sheetType == 'waiting_birth_wj'
+            sheetInfo.sheetType == 'common_hl' ||
+            sheetInfo.sheetType == 'rescue_hl' ||
+            sheetInfo.sheetType == 'emergency_stay_hl' ||
+            sheetInfo.sheetType == 'waiting_birth_wj'
           "
           >护士长签名：</span
         >
         <span
           v-else-if="
             sheetInfo.sheetType == 'obstetrics_hl' ||
-              sheetInfo.sheetType == 'gynecology_hl' ||
-              sheetInfo.sheetType == 'neonatology_hl' 
+            sheetInfo.sheetType == 'gynecology_hl' ||
+            sheetInfo.sheetType == 'neonatology_hl'
           "
           >质控护士：</span
         >
         <span v-else-if="sheetInfo.sheetType == 'intervention_cure_lcey'"
           >护士签名：</span
+        >
+        <!-- 聊城护士长审核 -->
+        <span
+          v-else-if="
+            sheetInfo.sheetType == 'internal_eval_lcey' ||
+            sheetInfo.sheetType == 'critical_lcey'
+          "
+          ><strong>护士长审核：</strong></span
         >
         <span v-else>上级护士签名：</span>
         <span class="sh-name-box">
@@ -448,7 +481,17 @@
             </div>
           </div>
         </span>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;
+        <template
+          v-if="
+            sheetInfo.sheetType == 'internal_eval_lcey' ||
+            sheetInfo.sheetType == 'critical_lcey'
+          "
+        >
+          <span> <strong>审核时间：</strong> </span>
+          <span>{{ auditorTime }}</span>
+        </template>
+        &nbsp;&nbsp;&nbsp;
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       </span>
       <!-- / {{Math.max(sheetMaxPage,(length + sheetStartPage - 1))}}  -->
@@ -474,7 +517,7 @@ import {
   cancelSign,
   delRow,
   markSave,
-  markDelete
+  markDelete,
 } from "@/api/sheet.js";
 import signModal from "@/components/modal/sign.vue";
 import { Tr } from "../../../render/Body.js";
@@ -486,7 +529,7 @@ import {
   onFocusToAutoComplete,
   onBlurToAutoComplete,
   redTop,
-  BlackTop
+  BlackTop,
 } from "./tool.js";
 import sheetInfo from "../../../config/sheetInfo";
 import Mark, { matchMark } from "../../../render/Mark.js";
@@ -499,7 +542,7 @@ import {
   delpz,
   auditpz,
   signBlockD,
-  cancelSignD
+  cancelSignD,
 } from "../../../../api/index.js";
 import decode from "../../../../components/render/decode.js";
 import moment from "moment";
@@ -514,7 +557,7 @@ export default {
     scrollY: Number,
     hasFiexHeader: Boolean,
     isInPatientDetails: Boolean,
-    listData: Array
+    listData: Array,
   },
   mixins: [common],
   data() {
@@ -523,12 +566,12 @@ export default {
       matchMark,
       bus: bus(this),
       sheetInfo,
-      timeOnBlur: [false],  //时间控制是否变红
-      dateOnBlur: [false],  //日期控制是否变红
+      timeOnBlur: [false], //时间控制是否变红
+      dateOnBlur: [false], //日期控制是否变红
       fiexHeaderWidth: 0,
       isFixed: false,
       multiSign: false,
-      selectType :false,  //时间日期鼠标选中修改控制限制
+      selectType: false, //时间日期鼠标选中修改控制限制
       //底部签名
       auditArr: [
         "com_lc",
@@ -557,6 +600,8 @@ export default {
         "common_sn",
         "maternity_sn",
         "waiting_birth_wj",
+        "internal_eval_lcey", //一般或者护理记录单
+        "critical_lcey", //病重（病危）患者护理记录单（带瞳孔）
       ],
       // 需要双签名的记录单code
       multiSignArr: [
@@ -576,25 +621,24 @@ export default {
         "breastkenursing_jm", //江门妇幼_乳腺科护理记录单
         "obstetricnursing_jm", //江门妇幼_产科护理记录单
         "antenatalwaiting_jm", //江门妇幼_产前待产护理记录单
-        "postpartumnursing_jm",//江门妇幼_产后护理记录单
-        "entdepartment_jm",//江门妇幼_耳鼻喉科护理记录单
-        "catheterplacement_jm",//江门妇幼_深静脉导管置入术后维护单
+        "postpartumnursing_jm", //江门妇幼_产后护理记录单
+        "entdepartment_jm", //江门妇幼_耳鼻喉科护理记录单
+        "catheterplacement_jm", //江门妇幼_深静脉导管置入术后维护单
       ],
       // 底部两个签名的其中一个自定义字段
-      doubleSignArr: [
-
-      ],
-      accessOptionList: [],//下拉列表数据（贵州人医）
-      defaultOptionList: [],//默认下拉列表数据
-      accessOptionData: {//所有下拉列表数据
+      doubleSignArr: [],
+      accessOptionList: [], //下拉列表数据（贵州人医）
+      defaultOptionList: [], //默认下拉列表数据
+      accessOptionData: {
+        //所有下拉列表数据
         入量名称: [],
         入量方式: [],
         途径: [],
         出量名称: [],
         出量方式: [],
-        性质: []
+        性质: [],
       },
-      currentKey: '',//点击下拉当前的key
+      currentKey: "", //点击下拉当前的key
     };
   },
   computed: {
@@ -619,35 +663,41 @@ export default {
         sheetInfo.auditorMap[`PageIndex_${this.index}_auditorName`]
       );
     },
+    auditorTime() {
+      return (
+        sheetInfo.auditorMap &&
+        sheetInfo.auditorMap[`PageIndex_${this.index}_auditorTime`]
+      );
+    },
     titleModel() {
-      return this.data.bodyModel[0].filter(td => {
+      return this.data.bodyModel[0].filter((td) => {
         return !td.hidden;
       });
-    }
+    },
   },
   methods: {
     // 贵州需求：下拉选项二级联动，可输入可选择，附带智能检索
-    getCompleteArr(tr,td){
-      if(td.parentKey){
-        let index = tr.findIndex(e=>e.key===td.parentKey) // 对比当前td的父级key以及当前行中的每一个key，找到对应下标
-        let arr = td.autoComplete.data[0][[tr[index].value]] || [] // 获取父级对应的子选项数组
-        return {data:arr.map(item=>item.itemName)}
-      }else{
-        return td.autoComplete
+    getCompleteArr(tr, td) {
+      if (td.parentKey) {
+        let index = tr.findIndex((e) => e.key === td.parentKey); // 对比当前td的父级key以及当前行中的每一个key，找到对应下标
+        let arr = td.autoComplete.data[0][[tr[index].value]] || []; // 获取父级对应的子选项数组
+        return { data: arr.map((item) => item.itemName) };
+      } else {
+        return td.autoComplete;
       }
     },
     //时间日期选中事件
-    mouseSelect1(e){
-      this.selectType = true; 
+    mouseSelect1(e) {
+      this.selectType = true;
     },
-    mouseSelect2(e){
-      this.selectType = false; 
+    mouseSelect2(e) {
+      this.selectType = false;
     },
     //花都护记年份
-    recordYear(){
-      return this.data.bodyModel[0][0].value.split('-')[0]
+    recordYear() {
+      return this.data.bodyModel[0][0].value.split("-")[0];
     },
-    show(td){
+    show(td) {
       console.log(td);
     },
     /* 花都个别护记的出入量统计：增加红线与上一行做区分 */
@@ -665,12 +715,17 @@ export default {
       //   });
       //   return temp === index;
       // }
-      const lastTr = index > 0 && this.data.bodyModel[index-1].find(td => td.key === "recordSource").value !== "5";
-      const currentTr = this.data.bodyModel[index].find(td => td.key === "recordSource").value === "5";
+      const lastTr =
+        index > 0 &&
+        this.data.bodyModel[index - 1].find((td) => td.key === "recordSource")
+          .value !== "5";
+      const currentTr =
+        this.data.bodyModel[index].find((td) => td.key === "recordSource")
+          .value === "5";
       return lastTr && currentTr;
     },
-    redTop,// tool.js引进来的啦
-    BlackTop,// 这个也是tool.js引进来的啦
+    redTop, // tool.js引进来的啦
+    BlackTop, // 这个也是tool.js引进来的啦
     // 键盘事件
     onKeyDown(e, bind) {
       if (sheetInfo.model == "print") return;
@@ -689,42 +744,47 @@ export default {
     onBlur(e, bind) {
       if (sheetInfo.model == "print") return;
       onBlurToAutoComplete(e, bind);
-      if(this.HOSPITAL_ID == 'guizhou'){
+      if (this.HOSPITAL_ID == "guizhou") {
         //不允许输入未来时间
-        if(bind.x==0){
-          let inputDate = Date.parse(new Date(moment().format("YYYY")+ "-" + e.target.value))//输入日期
-          let nowDate = Date.parse(new Date(moment().format("YYYY-MM-DD")))//当前日期
-          if(inputDate-nowDate>0){
-            this.$message.warning("不允许输入未来时间！")
-            this.dateOnBlur[bind.y] = true
-          }else{
-            this.dateOnBlur[bind.y] = false
+        if (bind.x == 0) {
+          let inputDate = Date.parse(
+            new Date(moment().format("YYYY") + "-" + e.target.value)
+          ); //输入日期
+          let nowDate = Date.parse(new Date(moment().format("YYYY-MM-DD"))); //当前日期
+          if (inputDate - nowDate > 0) {
+            this.$message.warning("不允许输入未来时间！");
+            this.dateOnBlur[bind.y] = true;
+          } else {
+            this.dateOnBlur[bind.y] = false;
           }
-        }else if (bind.x==1){
-          let inputTime = Date.parse(new Date(moment().format("YYYY-MM-DD")+" "+e.target.value))//输入日期
-          let nowTime = Date.parse(new Date(moment().format("YYYY-MM-DD HH:mm")))//当前日期
-          if(inputTime-nowTime>0){
-            this.$message.warning("不允许输入未来时间！")
-            this.timeOnBlur[bind.y] = true
-          }else{
-            this.timeOnBlur[bind.y] = false
+        } else if (bind.x == 1) {
+          let inputTime = Date.parse(
+            new Date(moment().format("YYYY-MM-DD") + " " + e.target.value)
+          ); //输入日期
+          let nowTime = Date.parse(
+            new Date(moment().format("YYYY-MM-DD HH:mm"))
+          ); //当前日期
+          if (inputTime - nowTime > 0) {
+            this.$message.warning("不允许输入未来时间！");
+            this.timeOnBlur[bind.y] = true;
+          } else {
+            this.timeOnBlur[bind.y] = false;
           }
         }
       }
-      
     },
     setTitle(item) {
       this.$parent.$parent.$refs.sheetTool.$refs.setTitleModal.open(
-        title => {
+        (title) => {
           let data = {
             patientId: this.patientInfo.patientId,
             visitId: this.patientInfo.visitId,
             pageIndex: this.index,
             fieldEn: item.key,
             fieldCn: title,
-            recordCode: sheetInfo.sheetType
+            recordCode: sheetInfo.sheetType,
           };
-          saveTitle(data).then(res => {
+          saveTitle(data).then((res) => {
             item.name = title;
           });
         },
@@ -735,10 +795,10 @@ export default {
     addNullRow(index, row) {
       let newRow = nullRow();
       if (row) {
-        let recordSource = row.find(item => {
+        let recordSource = row.find((item) => {
           return item.key == "recordSource";
         }).value;
-        newRow.find(item => {
+        newRow.find((item) => {
           return item.key == "recordSource";
         }).value = recordSource;
       }
@@ -750,27 +810,27 @@ export default {
     delRow(index) {
       let curr_row = this.data.bodyModel[index];
       let next_row = this.data.bodyModel[index + 1];
-      let recordMonth = curr_row.find(item => {
+      let recordMonth = curr_row.find((item) => {
         return item.key == "recordMonth";
       }).value;
-      let recordHour = curr_row.find(item => {
+      let recordHour = curr_row.find((item) => {
         return item.key == "recordHour";
       }).value;
       try {
-        let next_Month = next_row.find(item => {
+        let next_Month = next_row.find((item) => {
           return item.key == "recordMonth";
         }).value;
-        let next_Hour = next_row.find(item => {
+        let next_Hour = next_row.find((item) => {
           return item.key == "recordHour";
         }).value;
         if (next_row) {
           if (recordMonth && !next_Month) {
-            next_row.find(item => {
+            next_row.find((item) => {
               return item.key == "recordMonth";
             }).value = recordMonth;
           }
           if (recordHour && !next_Hour) {
-            next_row.find(item => {
+            next_row.find((item) => {
               return item.key == "recordHour";
             }).value = recordHour;
           }
@@ -781,7 +841,7 @@ export default {
     getPrev(index, bodyModel, val) {
       if (index < 0) return "";
       let tr = bodyModel[index];
-      let value = tr.find(item => {
+      let value = tr.find((item) => {
         return item.key == val;
       }).value;
       if (value) {
@@ -816,7 +876,7 @@ export default {
         this.multiSign = true;
       }
       if (!showSign) {
-        let status = trArr.find(item => {
+        let status = trArr.find((item) => {
           return item.key == "status";
         }).value;
         // if (status == 1) return this.$message.warning('该记录已经签名了')
@@ -837,34 +897,37 @@ export default {
                   recordYear: this.getPrev(currIndex, allList, "recordYear"),
                   patientId: this.patientInfo.patientId,
                   visitId: this.patientInfo.visitId,
-                  pageIndex: this.index
-                })
+                  pageIndex: this.index,
+                }),
               ],
               multiSign: this.multiSign || false,
               // multiSign: this.HOSPITAL_ID === "huadu" ? true : false,
-              signType: (this.HOSPITAL_ID === "huadu" || this.HOSPITAL_ID === "fuyou") ? this.signType : ""
+              signType:
+                this.HOSPITAL_ID === "huadu" || this.HOSPITAL_ID === "fuyou"
+                  ? this.signType
+                  : "",
             };
             sign(
               this.patientInfo.patientId,
               this.patientInfo.visitId,
               data
-            ).then(res => {
+            ).then((res) => {
               let trArrClone = Tr(res.data.data[0]);
               if (
-                trArr.find(item => {
+                trArr.find((item) => {
                   return item.key == "recordMonth";
                 }).value == ""
               ) {
-                trArrClone.find(item => {
+                trArrClone.find((item) => {
                   return item.key == "recordMonth";
                 }).value = "";
               }
               if (
-                trArr.find(item => {
+                trArr.find((item) => {
                   return item.key == "recordHour";
                 }).value == ""
               ) {
-                trArrClone.find(item => {
+                trArrClone.find((item) => {
                   return item.key == "recordHour";
                 }).value = "";
               }
@@ -874,7 +937,7 @@ export default {
               }
               this.$notify.success({
                 title: "提示",
-                message: "签名成功"
+                message: "签名成功",
               });
               this.bus.$emit("saveSheetPage", true);
             });
@@ -883,17 +946,17 @@ export default {
         let reverseList = [...decode().list].reverse();
         /** 最后的时间 */
         let lastRecordHour = (
-          reverseList.find(item => item.recordDate && item.recordHour) || {}
+          reverseList.find((item) => item.recordDate && item.recordHour) || {}
         ).recordHour;
         /** 所有新增的时间 */
         let newRecordHours = reverseList
           .filter(
-            item => item.recordHour && !item.recordMonth && !item.recordDate
+            (item) => item.recordHour && !item.recordMonth && !item.recordDate
           )
-          .map(item => item.recordHour);
+          .map((item) => item.recordHour);
         /** 新增记录是否存在比原有记录更前 */
         let isBefore = newRecordHours.some(
-          item =>
+          (item) =>
             moment("2019-9-20 " + item).unix() <
             moment("2019-9-20 " + lastRecordHour).unix()
         );
@@ -904,9 +967,9 @@ export default {
             {
               confirmButtonText: "确认",
               cancelButtonText: "取消",
-              type: "warning"
+              type: "warning",
             }
-          ).then(res => {
+          ).then((res) => {
             save();
           });
         } else {
@@ -915,7 +978,7 @@ export default {
       } else {
         // 删除签名
         this.$refs.delsignModal.open((password, empNo) => {
-          let id = trArr.find(item => {
+          let id = trArr.find((item) => {
             return item.key == "id";
           }).value;
           cancelSign({
@@ -924,8 +987,11 @@ export default {
             password,
             multiSign: this.multiSign,
             // multiSign: this.HOSPITAL_ID === "huadu" ? true : false,
-            signType: (this.HOSPITAL_ID === "huadu" || this.HOSPITAL_ID === "fuyou") ? this.signType : ""
-          }).then(res => {
+            signType:
+              this.HOSPITAL_ID === "huadu" || this.HOSPITAL_ID === "fuyou"
+                ? this.signType
+                : "",
+          }).then((res) => {
             this.bus.$emit("saveSheetPage", true);
           });
         });
@@ -938,7 +1004,7 @@ export default {
         return this.bus.$emit("toSheetMoreAudit");
       }
       if (!showAudit) {
-        let status = trArr.find(item => {
+        let status = trArr.find((item) => {
           return item.key == "status";
         }).value;
         // if (status == 1) return this.$message.warning('该记录已经签名了')
@@ -958,28 +1024,28 @@ export default {
                 recordHour: this.getPrev(currIndex, allList, "recordHour"),
                 patientId: this.patientInfo.patientId,
                 visitId: this.patientInfo.visitId,
-                pageIndex: this.index
-              })
-            ]
+                pageIndex: this.index,
+              }),
+            ],
           };
           sign(this.patientInfo.patientId, this.patientInfo.visitId, data).then(
-            res => {
+            (res) => {
               let trArrClone = Tr(res.data.data[0]);
               if (
-                trArr.find(item => {
+                trArr.find((item) => {
                   return item.key == "recordMonth";
                 }).value == ""
               ) {
-                trArrClone.find(item => {
+                trArrClone.find((item) => {
                   return item.key == "recordMonth";
                 }).value = "";
               }
               if (
-                trArr.find(item => {
+                trArr.find((item) => {
                   return item.key == "recordHour";
                 }).value == ""
               ) {
-                trArrClone.find(item => {
+                trArrClone.find((item) => {
                   return item.key == "recordHour";
                 }).value = "";
               }
@@ -989,7 +1055,7 @@ export default {
               }
               this.$notify.success({
                 title: "提示",
-                message: "审核成功"
+                message: "审核成功",
               });
               this.bus.$emit("saveSheetPage", true);
             }
@@ -998,15 +1064,15 @@ export default {
       } else {
         // 删除签名
         this.$refs.delsignModal.open((password, empNo) => {
-          let id = trArr.find(item => {
+          let id = trArr.find((item) => {
             return item.key == "id";
           }).value;
           cancelSign({
             id,
             empNo,
             password,
-            audit: true
-          }).then(res => {
+            audit: true,
+          }).then((res) => {
             this.bus.$emit("saveSheetPage", true);
           });
         });
@@ -1014,21 +1080,21 @@ export default {
     },
     // 展示签名状态
     showSign(trArr) {
-      let status = trArr.find(item => {
+      let status = trArr.find((item) => {
         return item.key == "status";
       }).value;
-      let signerName = trArr.find(item => {
+      let signerName = trArr.find((item) => {
         return item.key == "signerName";
       }).value;
       if (status == "1" || status == "2") {
         if (this.HOSPITAL_ID == "weixian") {
-          return trArr.find(item => item.key == "signerNo").value
+          return trArr.find((item) => item.key == "signerNo").value
             ? `<img
               width="50"
               height="100%"
               style="object-fit: contain"
               src="/crNursing/api/file/signImage/${
-                trArr.find(item => item.key == "signerNo").value
+                trArr.find((item) => item.key == "signerNo").value
               }?${this.token}"
               alt
             /> `
@@ -1042,17 +1108,17 @@ export default {
     },
     // 展示签名状态
     showSign_hd(trArr) {
-      let signerName2 = trArr.find(item => {
+      let signerName2 = trArr.find((item) => {
         return item.key == "signerName2";
       }).value;
       return signerName2;
     },
     // 展示审核状态
     showAudit(trArr) {
-      let status = trArr.find(item => {
+      let status = trArr.find((item) => {
         return item.key == "status";
       }).value;
-      let auditorName = trArr.find(item => {
+      let auditorName = trArr.find((item) => {
         return item.key == "auditorName";
       }).value;
       if (status == "2") {
@@ -1061,19 +1127,26 @@ export default {
         return "";
       }
     },
-    isFirst(tr,y){
-      let recordDate = tr.find(item=>item.key=='recordDate').value
-      let recordSource = tr.find(item=>item.key=='recordSource').value
-      let flag = false
-      if(recordDate&&recordSource){
-        let dateIndex = this.data.bodyModel[0].findIndex(e=>e.key=='recordDate')
-        let sourceIndex = this.data.bodyModel[0].findIndex(e=>e.key=='recordSource')
-        let index = this.data.bodyModel.findIndex(item=>{
-          return item[dateIndex].value==recordDate&&item[sourceIndex].value==recordSource
-        })
-        flag = index == y
+    isFirst(tr, y) {
+      let recordDate = tr.find((item) => item.key == "recordDate").value;
+      let recordSource = tr.find((item) => item.key == "recordSource").value;
+      let flag = false;
+      if (recordDate && recordSource) {
+        let dateIndex = this.data.bodyModel[0].findIndex(
+          (e) => e.key == "recordDate"
+        );
+        let sourceIndex = this.data.bodyModel[0].findIndex(
+          (e) => e.key == "recordSource"
+        );
+        let index = this.data.bodyModel.findIndex((item) => {
+          return (
+            item[dateIndex].value == recordDate &&
+            item[sourceIndex].value == recordSource
+          );
+        });
+        flag = index == y;
       }
-      return flag
+      return flag;
     },
     // 除第一行以外到结束行之内其他单元格不能录入内容（威县），出入量统计行除外
     isDisabed(tr, td, index) {
@@ -1086,7 +1159,7 @@ export default {
         return false;
       }
       if (td && td.key == "recordYear") {
-        if (!tr.find(item => item.key == "recordMonth").value) {
+        if (!tr.find((item) => item.key == "recordMonth").value) {
           td.value = "";
         }
         return true;
@@ -1094,27 +1167,32 @@ export default {
       // 护理记录单特殊情况记录输入多行,签名后,其他项目不能在编辑
       if (
         this.HOSPITAL_ID == "huadu" &&
-        tr.find(item => item.key == "status").value === "1"
+        tr.find((item) => item.key == "status").value === "1"
       ) {
-        let flag = tr.find(item => item.key == "status").value === "1" && // 是否已签名
-                   this.listData && this.listData[index] && !this.listData[index].canModify// 是否有权限
-                   //td存在才判断
-        if(td){
-          flag = (!this.isFirst(tr,index)&&(td.key==='recordMonth'||td.key==='recordHour')); // 已签名的recordMonth和recordHour单元格，并且不是第一行(最高等级)
-        }       
-        return flag
+        let flag =
+          tr.find((item) => item.key == "status").value === "1" && // 是否已签名
+          this.listData &&
+          this.listData[index] &&
+          !this.listData[index].canModify; // 是否有权限
+        //td存在才判断
+        if (td) {
+          flag =
+            !this.isFirst(tr, index) &&
+            (td.key === "recordMonth" || td.key === "recordHour"); // 已签名的recordMonth和recordHour单元格，并且不是第一行(最高等级)
+        }
+        return flag;
       }
       if (
         this.HOSPITAL_ID != "weixian" ||
         (td && td.key == "description") ||
-        tr.find(item => item.key == "recordSource").value == 5
+        tr.find((item) => item.key == "recordSource").value == 5
       ) {
         return false;
       }
       if (
-        tr.find(item => item.key == "description").value &&
-        !tr.find(item => item.key == "recordHour").value &&
-        !tr.find(item => item.key == "recordMonth").value
+        tr.find((item) => item.key == "description").value &&
+        !tr.find((item) => item.key == "recordHour").value &&
+        !tr.find((item) => item.key == "recordMonth").value
       ) {
         return true;
       } else {
@@ -1122,24 +1200,23 @@ export default {
       }
     },
     isRead(tr) {
-      if (
-        this.HOSPITAL_ID == "huadu" &&
-        sheetInfo.sheetType === "body_temperature_Hd" 
-      ) {
+      // if (
+      //   this.HOSPITAL_ID == "huadu" &&
+      //   sheetInfo.sheetType === "body_temperature_Hd"
+      // ) {
+      //   return false;
+      // }
+      let status = tr.find((item) => item.key == "status").value;
+      let empNo = tr.find((item) => item.key == "empNo").value;
+      if (status == 1) {
+        if (empNo == this.empNo || this.isAuditor) {
+          return false;
+        } else {
+          return true;
+        }
+      } else {
         return false;
       }
-        let status = tr.find(item => item.key == "status").value;
-        let empNo = tr.find(item => item.key == "empNo").value;
-        if (status == 1) {
-          if (empNo == this.empNo || this.isAuditor) {
-            return false;
-          } else {
-            return true;
-          }
-        } else {
-          return false;
-        }
-      
     },
     checkMaxLength(value, length) {
       const regC = /[^ -~]+/g;
@@ -1167,12 +1244,10 @@ export default {
     },
     // 右键菜单
     openContextMenu(e, index, row, cell) {
-      $(e.target)
-        .parents("tr")
-        .addClass("selectedRow");
+      $(e.target).parents("tr").addClass("selectedRow");
       let style = {
         top: `${Math.min(e.clientY - 15, window.innerHeight - 280)}px`,
-        left: `${Math.min(e.clientX + 15, window.innerWidth - 180)}px`
+        left: `${Math.min(e.clientX + 15, window.innerWidth - 180)}px`,
       };
       let data = [
         {
@@ -1180,24 +1255,24 @@ export default {
           icon: "charuxinhang",
           click: () => {
             this.addNullRow(index - 1, row);
-          }
+          },
         },
         {
           name: "向下插入新行",
           icon: "xiangxiacharuyihang",
           click: () => {
             this.addNullRow(index, row);
-          }
+          },
         },
         {
           name: "复制行",
           icon: "fuzhizhenghang",
           click: () => {
             this.sheetInfo.copyRow = row
-              .filter(item => {
+              .filter((item) => {
                 return true;
               })
-              .map(item => {
+              .map((item) => {
                 let obj = {};
                 if (
                   item.key == "id" ||
@@ -1209,14 +1284,14 @@ export default {
                 }
                 return Object.assign({}, item, obj);
               });
-          }
+          },
         },
         {
           name: "复制内容",
           icon: "fuzhizhenghang",
           click: () => {
             this.sheetInfo.copyRow = getSelection().toString() || cell.value;
-          }
+          },
         },
         {
           name: "粘贴内容",
@@ -1228,24 +1303,24 @@ export default {
             } else {
               this.toCopyRow(index);
             }
-          }
+          },
         },
         {
           name: "删除整行",
           icon: "shanchuzhenghang",
           click: () => {
-            let id = row.find(item => {
+            let id = row.find((item) => {
               return item.key == "id";
             }).value;
             let isRead = this.isRead(row);
             if (id) {
               if (isRead) {
                 this.$parent.$parent.$refs.signModal.open((password, empNo) => {
-                  delRow(id, password, empNo).then(res => {
+                  delRow(id, password, empNo).then((res) => {
                     this.delRow(index);
                     this.$notify.success({
                       title: "提示",
-                      message: "删除成功"
+                      message: "删除成功",
                     });
                     this.bus.$emit("saveSheetPage", true);
                   });
@@ -1254,13 +1329,13 @@ export default {
                 this.$confirm("你确定删除该行数据吗", "提示", {
                   confirmButtonText: "删除",
                   cancelButtonText: "取消",
-                  type: "warning"
-                }).then(res => {
-                  delRow(id, "", "").then(res => {
+                  type: "warning",
+                }).then((res) => {
+                  delRow(id, "", "").then((res) => {
                     this.delRow(index);
                     this.$notify.success({
                       title: "提示",
-                      message: "删除成功"
+                      message: "删除成功",
                     });
                     this.bus.$emit("saveSheetPage", true);
                   });
@@ -1270,39 +1345,39 @@ export default {
               this.$confirm("你确定删除该行数据吗", "提示", {
                 confirmButtonText: "删除",
                 cancelButtonText: "取消",
-                type: "warning"
-              }).then(res => {
+                type: "warning",
+              }).then((res) => {
                 this.delRow(index);
                 this.$notify.success({
                   title: "提示",
-                  message: "删除成功"
+                  message: "删除成功",
                 });
                 this.bus.$emit("saveSheetPage", true);
               });
             }
-          }
+          },
         },
         {
           name: "添加格批注",
           icon: "pizhu",
           click: () => {
             this.bus.$emit("openPizhuModal", row, cell);
-          }
+          },
         },
         {
           name: "添加行批注",
           icon: "pizhu",
           click: () => {
             this.bus.$emit("openPizhuModal", row, "all");
-          }
+          },
         },
         {
           name: "新建护理单",
           iconClass: "el-icon-document",
           click: () => {
             this.bus.$emit("splitSheet", row, cell);
-          }
-        }
+          },
+        },
         // {
         //   name: "文字标红",
         //   icon: "charuxinhang",
@@ -1376,7 +1451,7 @@ export default {
           iconClass: "sync-decription",
           click: () => {
             this.bus.$emit("syncDecription", row, cell);
-          }
+          },
         };
         data.push(obj);
       }
@@ -1387,7 +1462,7 @@ export default {
       // 护理记录单特殊情况记录输入多行,签名后,其他项目不能在编辑
       // console.log(tr,data);
       // if (
-      //   this.HOSPITAL_ID == "huadu" 
+      //   this.HOSPITAL_ID == "huadu"
       //   // && tr.find(item => item.key == "status").value === "1"
       // )
       //   return tr.find(item => item.key == "status").value === "1";
@@ -1396,12 +1471,8 @@ export default {
       // 双击的input key
       let key =
         $(e.target).attr("datakey") ||
-        $(e.target)
-          .parents("td")
-          .attr("datakey");
-      let name = $(e.target)
-        .parents("td")
-        .attr("dataName");
+        $(e.target).parents("td").attr("datakey");
+      let name = $(e.target).parents("td").attr("dataName");
       let tab = "1";
       if (key == "description") {
         tab = "3";
@@ -1412,7 +1483,7 @@ export default {
       }
 
       // 双击打开编辑框,（除第1条外）默认显示特殊记录tab栏
-      if(this.HOSPITAL_ID == "weixian"){
+      if (this.HOSPITAL_ID == "weixian") {
         if (this.isDisabed(tr)) {
           tab = "3";
         }
@@ -1429,8 +1500,10 @@ export default {
       // 最后行的id 即最大的id
       let maxId = 0;
       // 当前的类型做唯一标识
-      let curr_recordSource = tr.find(item => item.key == "recordSource").value;
-      let curr_recordDate = tr.find(item => item.key == "recordDate").value;
+      let curr_recordSource = tr.find(
+        (item) => item.key == "recordSource"
+      ).value;
+      let curr_recordDate = tr.find((item) => item.key == "recordDate").value;
       if (curr_recordDate) {
         for (let i = 0; i < sheetModel.length; i++) {
           allList = allList.concat(sheetModel[i].bodyModel);
@@ -1438,12 +1511,12 @@ export default {
         for (let i = 0; i < allList.length; i++) {
           maxId = Math.max(
             maxId,
-            allList[i].find(item => item.key == "id").value
+            allList[i].find((item) => item.key == "id").value
           );
           if (
-            allList[i].find(item => item.key == "recordDate").value ==
+            allList[i].find((item) => item.key == "recordDate").value ==
               curr_recordDate &&
-            allList[i].find(item => item.key == "recordSource").value ==
+            allList[i].find((item) => item.key == "recordSource").value ==
               curr_recordSource
           ) {
             record.push(allList[i]);
@@ -1453,14 +1526,15 @@ export default {
         record.push(tr);
       }
       let isLast =
-        !record[record.length - 1].find(item => item.key == "id").value ||
-        record[record.length - 1].find(item => item.key == "id").value == maxId;
+        !record[record.length - 1].find((item) => item.key == "id").value ||
+        record[record.length - 1].find((item) => item.key == "id").value ==
+          maxId;
       let config = {
         record,
         table,
         thead,
         tab,
-        isLast
+        isLast,
       };
       // if (
       //   this.HOSPITAL_ID == "weixian" ||
@@ -1492,7 +1566,7 @@ export default {
       } else {
         // 行
         try {
-          obj = td.find(item => item.key == "markObj").value;
+          obj = td.find((item) => item.key == "markObj").value;
         } catch (e) {}
       }
       let left, top;
@@ -1511,15 +1585,15 @@ export default {
         window.openMarkTip({
           style: {
             left,
-            top
+            top,
           },
           data: obj,
           td,
           fun: {
             handlepz,
             delpz,
-            auditpz
-          }
+            auditpz,
+          },
         });
       }
     },
@@ -1552,15 +1626,17 @@ export default {
     /** 审核整页 */
     openAduitModal() {
       window.openSignModal((password, empNo) => {
-        getUser(password, empNo).then(res => {
-          let { empNo, empName } = res.data.data;
+        getUser(password, empNo).then((res) => {
+          let { empNo, empName} = res.data.data;
           sheetInfo.auditorMap[`PageIndex_${this.index}_auditorNo`] = empNo;
           sheetInfo.auditorMap[`PageIndex_${this.index}_auditorName`] = empName;
+          // 审核时间为当前点击时间戳
+          sheetInfo.auditorMap[`PageIndex_${this.index}_auditorTime`] = moment().format("YYYY-MM-DD HH:mm:ss");
           sheetInfo.auditorMap = { ...sheetInfo.auditorMap };
           this.$notify.success({
             title: "提示",
             message: "审核成功",
-            duration: 2000
+            duration: 2000,
           });
           this.bus.$emit("saveSheetPage", false);
         });
@@ -1569,16 +1645,17 @@ export default {
     /** 取消审核整页 */
     cancelAduitModal() {
       window.openSignModal((password, empNo) => {
-        getUser(password, empNo).then(res => {
+        getUser(password, empNo).then((res) => {
           let { empNo, empName } = res.data.data;
           if (this.auditorNo == empNo || this.HOSPITAL_ID === "huadu") {
             sheetInfo.auditorMap[`PageIndex_${this.index}_auditorNo`] = "";
             sheetInfo.auditorMap[`PageIndex_${this.index}_auditorName`] = "";
+            sheetInfo.auditorMap[`PageIndex_${this.index}_auditorTime`] = ""
             sheetInfo.auditorMap = { ...sheetInfo.auditorMap };
             this.$notify.success({
               title: "提示",
               message: "取消审核成功",
-              duration: 2000
+              duration: 2000,
             });
             this.bus.$emit("saveSheetPage", false);
           } else {
@@ -1597,7 +1674,7 @@ export default {
         : "责任护士签名";
       window.openSignModal((password, username) => {
         if (sheetInfo.selectBlock.relSignInfo.signerName2) {
-          cancelSignD(password, username, 2).then(res => {
+          cancelSignD(password, username, 2).then((res) => {
             this.$set(
               this.sheetInfo.selectBlock.relSignInfo,
               "signerName2",
@@ -1610,7 +1687,7 @@ export default {
             );
           });
         } else {
-          signBlockD(password, username, 2).then(res => {
+          signBlockD(password, username, 2).then((res) => {
             this.$set(
               this.sheetInfo.selectBlock.relSignInfo,
               "signerName2",
@@ -1629,37 +1706,48 @@ export default {
     // 出入量下拉、可输入过滤（贵州）
     remoteMethod(query) {
       if (query !== "") {
-        this.accessOptionList = this.defaultOptionList.filter(item => {
-          return (
-            item.includes(query)
-          );
+        this.accessOptionList = this.defaultOptionList.filter((item) => {
+          return item.includes(query);
         });
       }
-      if (!query || this.accessOptionList.length == 0 || this.deptName == query) {
-        this.accessOptionList = JSON.parse(JSON.stringify(this.defaultOptionList));
+      if (
+        !query ||
+        this.accessOptionList.length == 0 ||
+        this.deptName == query
+      ) {
+        this.accessOptionList = JSON.parse(
+          JSON.stringify(this.defaultOptionList)
+        );
       }
-      if(this.currentKey){
+      if (this.currentKey) {
         this.accessOptionData[this.currentKey] = [...this.accessOptionList];
       }
     },
-     // 获取出入量下拉、可输入过滤数据（贵州）
-    getOptionsData(td, tr,$event){
-      if(!$event){
+    // 获取出入量下拉、可输入过滤数据（贵州）
+    getOptionsData(td, tr, $event) {
+      if (!$event) {
         return;
       }
       this.currentKey = td.name;
       let autoCompleteData = [];
-      if(td.parentKey && td.autoComplete.data.length>0){
-        let key = tr.find(item=>{
-          return item.key == td.parentKey
+      if (td.parentKey && td.autoComplete.data.length > 0) {
+        let key = tr.find((item) => {
+          return item.key == td.parentKey;
         }).value;
         let data = td.autoComplete.data[0];
-        autoCompleteData = data[key] && data[key].map(child => {
-          return child.itemName
-        }) || []
+        autoCompleteData =
+          (data[key] &&
+            data[key].map((child) => {
+              return child.itemName;
+            })) ||
+          [];
       }
-      this.defaultOptionList = td.parentKey ? autoCompleteData : td.autoComplete.data
-      this.accessOptionList = JSON.parse(JSON.stringify(this.defaultOptionList));
+      this.defaultOptionList = td.parentKey
+        ? autoCompleteData
+        : td.autoComplete.data;
+      this.accessOptionList = JSON.parse(
+        JSON.stringify(this.defaultOptionList)
+      );
       this.accessOptionData[td.name] = [...this.accessOptionList];
     },
   },
@@ -1676,7 +1764,7 @@ export default {
         this.isFixed = false;
       }
       // console.log(this.$refs.table.getBoundingClientRect());
-    }
+    },
   },
   destroyed() {} /* fix vue-happy-bus bug */,
   mounted() {
@@ -1694,7 +1782,7 @@ export default {
   },
   components: {
     signModal,
-    bottomRemark
-  }
+    bottomRemark,
+  },
 };
 </script>

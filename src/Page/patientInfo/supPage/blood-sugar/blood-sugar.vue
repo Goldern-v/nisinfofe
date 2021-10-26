@@ -63,7 +63,7 @@
             >
             <span v-else>年龄：{{ resAge ? resAge : patientInfo.age }}</span>
             <span v-if="HOSPITAL_ID == 'fuyou'">科室：{{ tDeptName }}</span>
-            <span v-if="HOSPITAL_ID == 'guizhou'">科室：{{ resDeptName|| patientInfo.wardName || patientInfo.deptName }}</span>
+            <span v-else-if="HOSPITAL_ID == 'guizhou'">科室：{{ resDeptName|| patientInfo.wardName || patientInfo.deptName }}</span>
             <span v-else
               >科室：{{ patientInfo.wardName || patientInfo.deptName }}</span
             >
@@ -77,7 +77,16 @@
             <!-- <span>入院日期：{{$route.query.admissionDate}}</span> -->
           </p>
           <div class="table-warpper" flex="cross:stretch">
+            <!-- 【左边】聊城二院血糖表格单独管理 -->
+            <sugarTableLcey
+            v-if="HOSPITAL_ID == 'liaocheng'"
+            :data="item.left"
+              :selected.sync="selected"
+              @dblclick="hisDisabled()&&onEdit()"
+              :baseIndex='0'
+            ></sugarTableLcey>
             <sugarTable
+            v-else
               :data="item.left"
               :selected.sync="selected"
               @dblclick="hisDisabled()&&onEdit()"
@@ -90,7 +99,16 @@
                 border-bottom: 1px solid #000;
               "
             ></div>
+             <!--【右边】 聊城二院血糖表格单独管理 -->
+            <sugarTableLcey
+            v-if="HOSPITAL_ID == 'liaocheng'"
+            :data="item.right"
+              :selected.sync="selected"
+              @dblclick="hisDisabled()&&onEdit()"
+              :baseIndex='27'
+            ></sugarTableLcey>
             <sugarTable
+            v-else
               :data="item.right"
               :selected.sync="selected"
               @dblclick="hisDisabled()&&onEdit()"
@@ -116,7 +134,7 @@
     </div>
     <div class="tool-con" v-show="listMap.length" :class="[HOSPITAL_ID=='guizhou'?'guizhou-btn':'']">
       <div class="tool-fix" flex="dir:top">
-        <whiteButton text="添加" @click="hisDisabled()&&onAdd()"></whiteButton>
+        <whiteButton text="添加" @click="hisDisabled()&&onAdd()" v-if="HOSPITAL_ID!=='liaocheng'"></whiteButton>
         <whiteButton
           text="修改"
           @click="hisDisabled()&&onEdit()"
@@ -248,6 +266,7 @@
 
 <script>
 import sugarTable from "./components/sugar-table.vue";
+import sugarTableLcey from "./components/sugar-table-lcey.vue";
 import {
   getSugarListWithPatientId,
   saveSugarList,
@@ -506,12 +525,14 @@ export default {
   },
   components: {
     sugarTable,
+    // 聊城二院血糖表格
+    sugarTableLcey,
     whiteButton,
     sugarChart,
     nullBg,
     editModal,
     setPageModal,
-    editAge,
+    editAge
   },
 };
 </script>

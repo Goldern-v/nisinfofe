@@ -2,7 +2,7 @@
     <div class="modal-page" @click.stop="closeSelf">
         <div class="new-modal" @click.stop>
             <div class="modal-body">
-                <div v-if="newCathterType.name=='（）引流管'" style="display:flex;line-height:37px;width:265px;margin-bottom:10px;">
+                <div v-if="newCathterType.formCode=='F0103'" style="display:flex;line-height:37px;width:265px;margin-bottom:10px;">
                     名&nbsp;&nbsp;称:<el-input :value="newCathterType.name" placeholder="请输入内容" @input="changeType"></el-input>
                 </div>
                 <div v-else style="display:flex;line-height:37px;width:265px;margin-bottom:10px;">
@@ -155,6 +155,7 @@ methods: {
             catheterSource:this.catheterSource
         }).then(res=>{
             this.$message.success('添加成功')
+            this.$emit('getDate')
             this.$emit('onChangePatient_self',this.$store.state.sheet.patientInfo)
             this.closeSelf()
         }).catch(err=>{

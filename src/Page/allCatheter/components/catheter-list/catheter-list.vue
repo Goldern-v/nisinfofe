@@ -22,7 +22,7 @@
     .cathter-box{
         border:1px solid #ccc;
         position: absolute;
-        width: 300px;
+        width: 280px;
         height: 100%;
         background-color: #fff;
         top: 0;
@@ -31,9 +31,10 @@
         .cathter-tool{
             display: flex;
             justify-content: space-between;
+            box-shadow: 0px 3px 5px #ccc;
             div{
                 width: 100px;
-                text-align: center;
+                text-indent: 15px;
                 height: 30px;
                 line-height: 30px;
                 font-weight: 700;
@@ -46,22 +47,28 @@
             }
         }
         .cathter-list{
+            height: calc(100% - 30px);
+            overflow-y: auto;
             .cathter-item{
                 cursor: pointer;
-                text-indent: 35px;
-                height: 45px;
+                padding-left: 10px;
+                min-height: 45px;
                 line-height: 45px;
                 display: flex;
                 justify-content: space-between;
                 .right-part{
                     width: 45px;
                     padding: 18px 0 0 0;
+                    position: relative;
                 }
                 .point{
+                    position: absolute;
+                    transform: translate(-50%,-50%);
                     height: 1px;
                     width: 1px;
                     border-radius: 50%;
-                    margin:0 auto
+                    top: 50%;
+                    left: 50%;
                 }
             }
         }

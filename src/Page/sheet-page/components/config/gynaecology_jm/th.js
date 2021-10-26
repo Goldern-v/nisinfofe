@@ -9,7 +9,7 @@ export default {
   // 科室的名称 关节骨科
   deptType: "",
   style: {
-    width: "1400px"
+    width: "1200px"
   },
   th: {
     top: [{
@@ -199,8 +199,8 @@ export default {
     mid: [{
         name: '日期',
         style: {
-          minWidth: '30px',
-          maxWidth: '30px',
+          minWidth: '32px',
+          maxWidth: '32px',
         },
         colspan: '1',
         rowspan: '2'
@@ -208,8 +208,8 @@ export default {
       {
         name: '时间',
         style: {
-          minWidth: '30px',
-          maxWidth: '30px',
+          minWidth: '32px',
+          maxWidth: '32px',
         },
         colspan: '1',
         rowspan: '2'
@@ -219,8 +219,8 @@ export default {
         colspan: "1",
         rowspan: "2",
         style: {
-          minWidth: '40px',
-          maxWidth: '40px',
+          minWidth: '30px',
+          maxWidth: '30px',
         },
       },
       {
@@ -228,8 +228,8 @@ export default {
         colspan: "1",
         rowspan: "2",
         style: {
-          minWidth: '40px',
-          maxWidth: '40px',
+          minWidth: '30px',
+          maxWidth: '30px',
         },
       },
       {
@@ -237,8 +237,8 @@ export default {
         colspan: "1",
         rowspan: "2",
         style: {
-          minWidth: '40px',
-          maxWidth: '40px',
+          minWidth: '30px',
+          maxWidth: '30px',
         },
       },
       {

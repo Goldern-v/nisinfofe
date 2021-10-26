@@ -393,12 +393,12 @@
         <div class="bed-card-vert-con">
           <div class="top" style="position: relative;height:30px">
             <span style="position: absolute;">科室：{{ query.deptName }}</span>
-            <span style="position: absolute;left: 270px;">床号：{{ query.bedLabel }}</span>
+            <span :style="{position:'absolute',left: printMode=='wrist-children'?'210px':'270px',}">床号：{{ query.bedLabel }}</span>
           </div>
           <div style="position: relative;height:30px">
             <span style="position: absolute;">姓名：{{ query.name }}</span>
-            <span style="position: absolute;left: 160px;">性别：{{ query.sex }}</span>
-            <span style="position: absolute;left: 270px;">年龄：{{ query.age }}</span>
+            <span :style="{position:'absolute',left: printMode=='wrist-children'?'175px':'160px',}">性别：{{ query.sex }}</span>
+            <span :style="{position:'absolute',left: printMode=='wrist-children'?'260px':'270px',}">年龄：{{ query.age }}</span>
 
             <!-- <div>
               <span>入院日期：{{ query.admissionDate | ymdhm }}</span>
@@ -420,7 +420,7 @@
             :src="qrCode"
           /> -->
           <div>
-              <span>住院号：{{ query.patientId }}</span>
+              <span>住院号：{{ query.inpNo }}</span>
               <!-- <span class="bhzd">诊断:{{query.remark}}</span> -->
               <span>入院日期：{{ query.admissionDate | ymdhm }}</span>
         </div>

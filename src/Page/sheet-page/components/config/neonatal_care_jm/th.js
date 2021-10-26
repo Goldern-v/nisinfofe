@@ -16,7 +16,7 @@ export default {
   // 科室的名称
   deptType: '',
   style: {
-    width: "1300px"
+    width: "1130px"
   },
   th: {
     top: [
@@ -65,7 +65,7 @@ export default {
         colspan: '1',
         rowspan: '3',
         style: {
-          minWidth: '36px',
+          minWidth: '35px',
         }
       },
       {
@@ -76,7 +76,7 @@ export default {
         colspan: '1',
         rowspan: '3',
         style: {
-          minWidth: '36px',
+          minWidth: '35px',
         }
       },
       {
@@ -87,7 +87,7 @@ export default {
         colspan: '1',
         rowspan: '3',
         style: {
-          minWidth: '36px',
+          minWidth: '25px',
         }
       },
       {
@@ -98,7 +98,7 @@ export default {
         colspan: '1',
         rowspan: '3',
         style: {
-          minWidth: '36px',
+          minWidth: '25px',
         }
       },
       {
@@ -106,8 +106,8 @@ export default {
         血压<br/>(mmHg)
         `,
         style: {
-          minWidth: '45px',
-          maxWidth: '45px',
+          minWidth: '30px',
+          maxWidth: '30px',
         },
         colspan: '1',
         rowspan: '3'
@@ -117,8 +117,8 @@ export default {
         SPO<sub>2</sub><br>(%)
         `,
         style: {
-          minWidth: '36px',
-          maxWidth: '36px'
+          minWidth: '35px',
+          maxWidth: '35px'
         },
         colspan: '1',
         rowspan: '3'
@@ -131,7 +131,7 @@ export default {
         colspan: '1',
         rowspan: '3',
         style: {
-          width: '36px',
+          width: '30px',
         }
       },
       {
@@ -141,8 +141,8 @@ export default {
         colspan: '1',
         rowspan: '3',
         style: {
-          minWidth: '36px',
-          maxWidth: '46px'
+          minWidth: '40px',
+          maxWidth: '40px'
         }
       },
       {
@@ -152,8 +152,8 @@ export default {
         colspan: '1',
         rowspan: '3',
         style: {
-          minWidth: '36px',
-          maxWidth: '46px'
+          minWidth: '25px',
+          maxWidth: '25px'
         }
       },
       {
@@ -163,7 +163,7 @@ export default {
         colspan: '1',
         rowspan: '3',
         style: {
-          width: '36px',
+          width: '30px',
         }
       },
       {
@@ -174,7 +174,7 @@ export default {
         rowspan: '3',
         style: {
           minWidth: '36px',
-          maxWidth: '45px'
+          maxWidth: '42px'
         }
       },
       {
@@ -184,7 +184,7 @@ export default {
         colspan: '1',
         rowspan: '3',
         style: {
-          width: '36px',
+          width: '30px',
         }
       },
       {
@@ -194,7 +194,7 @@ export default {
         colspan: '1',
         rowspan: '3',
         style: {
-          minWidth: '36px',
+          minWidth: '25px',
         }
       },
       {
@@ -204,7 +204,7 @@ export default {
         colspan: '1',
         rowspan: '3',
         style: {
-          width: '36px',
+          width: '20px',
         }
       },
       {
@@ -212,7 +212,7 @@ export default {
         colspan: '2',
         rowspan: '1',
         style: {
-          width: '112px',
+          width: '60px',
         }
       },
       {
@@ -220,7 +220,7 @@ export default {
         colspan: '3',
         rowspan: '1',
         style: {
-          width: '109px',
+          width: '80px',
         }
       },
       {
@@ -228,8 +228,8 @@ export default {
         colspan: '1',
         rowspan: '3',
         style: {
-          minWidth: '52px',
-          maxWidth: '52px',
+          minWidth: '40px',
+          maxWidth: '40px',
         }
       },
       {
@@ -237,8 +237,8 @@ export default {
         colspan: '1',
         rowspan: '3',
         style: {
-          minWidth: '51px',
-          maxWidth: '51px',
+          minWidth: '40px',
+          maxWidth: '40px',
         }
       },
       {
@@ -246,8 +246,8 @@ export default {
         colspan: '1',
         rowspan: '3',
         style: {
-          minWidth: '51px',
-          maxWidth: '51px',
+          minWidth: '40px',
+          maxWidth: '40px',
         }
       },
       {
@@ -255,8 +255,8 @@ export default {
         特殊情况记录
         `,
         style: {
-          minWidth: '150px',
-          maxWidth: '150px',
+          minWidth: '145px',
+          maxWidth: '145px',
         },
         colspan: '1',
         rowspan: '3'
@@ -266,8 +266,8 @@ export default {
         护士签名
         `,
         style: {
-          minWidth: '60px',
-          maxWidth: '60px',
+          minWidth: '50px',
+          maxWidth: '50px',
         },
         colspan: '1',
         rowspan: '3'
@@ -277,8 +277,8 @@ export default {
         上级护士签名
         `,
         style: {
-          minWidth: '60px',
-          maxWidth: '60px',
+          minWidth: '50px',
+          maxWidth: '50px',
         },
         colspan: '1',
         rowspan: '3'
@@ -288,8 +288,8 @@ export default {
       {
         name: '日期',
         style: {
-          minWidth: '38px',
-          maxWidth: '38px',
+          minWidth: '35px',
+          maxWidth: '35px',
         },
         colspan: '1',
         rowspan: '2'
@@ -297,8 +297,8 @@ export default {
       {
         name: '时间',
         style: {
-          minWidth: '38px',
-          maxWidth: '38px',
+          minWidth: '35px',
+          maxWidth: '35px',
         },
         colspan: '1',
         rowspan: '2'
@@ -308,7 +308,7 @@ export default {
         colspan: '1',
         rowspan: '2',
         style: {
-          minWidth: '20px',
+          minWidth: '30px',
         },
       },
       {
@@ -316,13 +316,13 @@ export default {
         colspan: '1',
         rowspan: '2',
         style: {
-          minWidth: '40px',
+          minWidth: '50px',
         },
       },
       {
         name: `大便<br>（g/性状）`,
         style: {
-          minWidth: '65px',
+          minWidth: '30px',
         },
         colspan: '1',
         rowspan: '2'
@@ -332,14 +332,14 @@ export default {
         colspan: '1',
         rowspan: '2',
         style: {
-          minWidth: '40px',
+          minWidth: '30px',
         },
       },
       {
         name: `标题1`,
         style: {
-          minWidth: '52px',
-          maxWidth: '52px',
+          minWidth: '50px',
+          maxWidth: '50px',
         },
         colspan: "1",
         rowspan: "2",

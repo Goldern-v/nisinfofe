@@ -36,7 +36,7 @@
             年龄：{{ patientInfo.age }}
           </span>
           <span>
-            住院号：{{ patientInfo.patientId }}
+            住院号：{{ patientInfo.inpNo }}
           </span>
           <span>
             入院日期：{{ patientInfo.admissionDate | toymd }}
@@ -97,7 +97,7 @@
                     class="bottomInput"
                     v-model="sheetInfo.relObj.gj"
                     :data-value="sheetInfo.relObj.gj"
-                  />mm
+                  />cm
                   <div class="boxTitle" style="margin-left:10px;">深度：</div>
                   <input
                     type="textarea"

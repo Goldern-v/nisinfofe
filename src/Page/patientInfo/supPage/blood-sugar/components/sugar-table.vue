@@ -3,10 +3,7 @@
     <table>
       <tr>
         <th
-          v-if="HOSPITAL_ID != 'hj'
-          || HOSPITAL_ID != 'guizhou'
-          || HOSPITAL_ID == 'liaocheng'
-          || HOSPITAL_ID == 'hengli'"
+          v-if="HOSPITAL_ID != 'guizhou'"
           style="width: 2%; min-width: 20px"
         >
           序号
@@ -19,7 +16,7 @@
         </th>
         <th v-else style="width: 22%; min-width: 75px">日期</th>
         <th v-if="HOSPITAL_ID != 'lingcheng' && HOSPITAL_ID != 'liaocheng'" style="width: 20%">项目</th>
-        <th v-if="HOSPITAL_ID != 'lingcheng' && HOSPITAL_ID == 'liaocheng'" style="width: 20%">类型</th>
+        <th v-else-if="HOSPITAL_ID != 'lingcheng' && HOSPITAL_ID == 'liaocheng'" style="width: 20%">类型</th>
         <th v-else style="width: 24%">测量时间</th>
         <th style="width: 23%">
           血糖值
@@ -31,9 +28,10 @@
             HOSPITAL_ID != 'gy' &&
             HOSPITAL_ID != 'lingcheng' &&
             HOSPITAL_ID != 'huadu' &&
-            HOSPITAL_ID != 'liaocheng' &&
-            HOSPITAL_ID == 'hengli' &&
-            HOSPITAL_ID == 'guizhou'
+            HOSPITAL_ID != 'liaocheng'&&
+            HOSPITAL_ID != 'hengli'&&
+            HOSPITAL_ID != 'fuyou'&&
+            HOSPITAL_ID != 'guizhou'
           "
         >
           {{HOSPITAL_ID=="quzhou"?'胰岛素剂量':'RI剂量'}}
@@ -56,7 +54,7 @@
         @click="onSelect(item)"
         @dblclick="onDblClick(item)"
       >
-        <td v-if="HOSPITAL_ID =='hj' ||  HOSPITAL_ID == 'guizhou' || HOSPITAL_ID == 'liaocheng' || HOSPITAL_ID == 'hengli'">
+        <td v-if="HOSPITAL_ID != 'guizhou'">
           {{index + baseIndex + 1}}
         </td>
         <td v-if="HOSPITAL_ID != 'lingcheng'" style="padding: 0 4px">
@@ -91,8 +89,9 @@
             HOSPITAL_ID != 'lingcheng' &&
             HOSPITAL_ID != 'huadu' &&
             HOSPITAL_ID != 'liaocheng'&&
-            HOSPITAL_ID == 'hengli'&&
-            HOSPITAL_ID == 'guizhou'
+            HOSPITAL_ID != 'hengli'&&
+            HOSPITAL_ID != 'fuyou'&&
+            HOSPITAL_ID != 'guizhou'
           "
         >
           <div class="cell">
@@ -131,7 +130,7 @@
               v-if="item.expand1"
             />
           </div>
-          <div class="cell inPrint" v-else>
+          <div :class="['cell','inPrint',HOSPITAL_ID=='guizhou'?'guizhou-img':'']" v-else>
             <!-- {{item.nurseEmpNo}} -->
             <img
               :src="`/crNursing/api/file/signImage/${item.nurseEmpNo}?${token}`"
@@ -208,6 +207,10 @@
   .liaocheng-img{
     width:55px;
     height:18px;
+  }
+  .guizhou-img img{
+    width: 55px !important;
+    height: 25px !important;
   }
 }
 </style>

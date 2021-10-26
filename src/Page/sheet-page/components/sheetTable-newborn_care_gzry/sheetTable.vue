@@ -1,5 +1,5 @@
 /*
-贵州省人医-产程记录单
+贵州省人医-新生儿患者护记单
  */
 <template>
   <div>
@@ -30,7 +30,10 @@
             科室：{{ patientInfo.realDeptName }}
           </span>
           <span>
-            床号：{{ patientInfo.bedLabel }}
+            床号：
+            <div :class="['bottom-line-input']" :style="{minWidth:'55px'}"  @dblclick.stop="openBedRecordModal">
+              {{ patientInfo.bedLabel }}
+            </div>
           </span>
           <span>
             住院号：{{ patientInfo.patientId }}
@@ -110,6 +113,7 @@
         </excel>
       </div>
     </div>
+    <bedRecordModal ref="bedRecordModal"></bedRecordModal>
   </div>
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus">
@@ -308,6 +312,8 @@ import $ from "jquery";
 import moment from "moment";
 import common from "@/common/mixin/common.mixin";
 import { updateSheetHeadInfo } from "../../api/index";
+import bedRecordModal from "../modal/bedRecord-modal";
+
 export default {
   props: {
     data: Object,
@@ -315,6 +321,7 @@ export default {
     length: Number,
     isFirst: Boolean /** 首页 */,
     scrollY: Number,
+    bedAndDeptChange: Object,
     isInPatientDetails: Boolean
   },
   mixins: [common],
@@ -328,6 +335,12 @@ export default {
     };
   },
   methods: {
+    openBedRecordModal(){
+      if (this.readOnly) {
+        return this.$message.warning("你无权操作此护记，仅供查阅");
+      }
+      this.$refs.bedRecordModal.open();
+    },
   },
   computed: {
     patientInfo() {
@@ -354,7 +367,8 @@ export default {
   },
   destroyed() {} /* fix vue-happy-bus bug */,
   components: {
-    excel
+    excel,
+    bedRecordModal
   }
 };
 </script>

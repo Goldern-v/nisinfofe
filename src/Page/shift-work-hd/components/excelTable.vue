@@ -81,7 +81,7 @@
             <div v-if="item.format == 'inline'">
               <span v-for="(patItem, index) in item.list" :key="index">
                 <span v-if="index !== 0">、</span>
-                <span>{{ patItem.bedLabel }}床 {{ patItem.name }}</span>
+                <span>{{ patItem.bedLabel }}床 {{ patItem.name }} {{`（${patItem.deptName}）`}}</span>
               </span>
             </div>
             <div class="edit-area" v-else-if="item.format == 'inline-block'">
@@ -94,7 +94,7 @@
               >
                 <span>
                   {{
-                    `${patItem.bedLabel}床 ${patItem.name} ${
+                    `${patItem.bedLabel}床 ${patItem.name} （${patItem.deptName}） ${
                       patItem.remark1 || ""
                     } ${patItem.diagnosis || ""}`
                   }}
@@ -111,7 +111,7 @@
               >
                 <span>
                   {{
-                    `${patItem.bedLabel}床 ${patItem.name} ${
+                    `${patItem.bedLabel}床 ${patItem.name} （${patItem.deptName}） ${
                       patItem.diagnosis || ""
                     }`
                   }}
@@ -201,7 +201,7 @@ function initFormList(list) {
     },
     转出: {
       list: [],
-      format: "inline",
+      format: "inline-block",
     },
     死亡: {
       list: [],
@@ -282,7 +282,7 @@ export default {
         data.remark = item.remark1;
       } else if (key === "病重") {
         data.remark = item.remark1;
-      } else if (key === "入院" || key === "转入") {
+      } else if (key === "入院" || key === "转入" || key === "转出") {
         data.remark = item.remark1;
       } else if (key === "手术") {
         data.remark = item.remark2;
@@ -294,7 +294,7 @@ export default {
           obj.remark1 = obj.remark;
         } else if (key === "病重") {
           obj.remark1 = obj.remark;
-        } else if (key === "入院" || key === "转入") {
+        } else if (key === "入院" || key === "转入" || key === "转出") {
           obj.remark1 = obj.remark;
         } else if (key === "手术") {
           obj.remark2 = obj.remark;

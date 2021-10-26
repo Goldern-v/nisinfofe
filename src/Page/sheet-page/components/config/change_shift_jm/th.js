@@ -9,15 +9,13 @@ export default {
   // 科室的名称 关节骨科
   deptType: "",
   th: {
-    top: [{
-        name: currYear(),
+    top: [
+      {
+        name: '',
+        style: {},
         colspan: "2",
         rowspan: "1",
-        style: {
-          minWidth: "62px"
-        },
-        canSet: true,
-        key: "recordYear",
+        key:'recordYear'
       },
       {
         name: `

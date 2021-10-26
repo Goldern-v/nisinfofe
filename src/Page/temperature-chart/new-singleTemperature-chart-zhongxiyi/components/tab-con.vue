@@ -41,7 +41,7 @@
       <null-bg v-if="!patientInfo.patientId"></null-bg>
       <div v-else class="showRecord">
         <div style="flex: 4">
-          <el-button
+          <div
             :class="
               [
                 'recordList',
@@ -53,6 +53,7 @@
             style="margin: 0px"
             v-for="(dateTime, tabIndex) in tabsData"
             :key="tabIndex"
+            @contextmenu.stop.prevent="(e)=>rightMouseDown(e,dateTime, tabIndex)"
             @click="changeQuery(dateTime)"
           >
             {{ dateTime }}
@@ -61,7 +62,7 @@
               @click="removeRecord(dateTime, tabIndex)"
               class="el-icon-close"
             ></i>
-          </el-button>
+          </div>
         </div>
         <div style="flex: 7">
           <div
@@ -71,10 +72,10 @@
                 index.includes('注释') ||
                 index.includes('体温复测')
               )
-                ? 'row'
+                ? 'rowbox'
                 : 'rowItem_noShow'
             "
-            v-for="(j, index) in multiDictList"
+            v-for="(j, index,i) in multiDictList"
             :key="index"
           >
             <span class="preText">{{ index }}</span>
@@ -92,7 +93,9 @@
               :value="vitalSignObj[j].popVisible"
             >
               <input
+              :id="i+1"
                 type="text"
+              @keydown.enter="changeNext"
                 :title="vitalSignObj[j].vitalValue"
                 @input="handlePopRefresh(vitalSignObj[j])"
                 @click="() => (vitalSignObj[j].popVisible = true)"
@@ -140,7 +143,7 @@
             <div style="margin: 10px 0px; font-weight: bold; font-size: 14px">
               <span>自定义项目：</span>
             </div>
-            <div class="row" v-for="(i, index) in fieldList" :key="index">
+            <div class="row" v-for="(i, index,j) in fieldList" :key="index">
               <span
                 class="preText"
                 style="color: blue"
@@ -157,6 +160,9 @@
                 :value="vitalSignObj[i.vitalCode].popVisible"
               > -->
               <input
+              :id="j+100"
+              class="fieldClass"
+              @keydown.enter="changeNext"
                 type="text"
                 :title="vitalSignObj[i.vitalCode].vitalValue"
                 @input="handlePopRefresh(vitalSignObj[i.vitalCode])"
@@ -419,6 +425,24 @@ export default {
     },
   },
   methods: {
+    changeNext(e){
+      if(e.target.className==='el-tooltip'){
+  let inputListLength=document.getElementsByClassName('rowbox').length
+      if(Number(e.target.id)<inputListLength){
+        document.getElementById(Number(e.target.id)+1).focus()
+      }else if(Number(e.target.id)===inputListLength){
+        document.getElementById('100').focus()
+      }
+      }else{
+    let inputListLength=document.getElementsByClassName('fieldClass').length 
+    if(Number(e.target.id)<inputListLength+100-1){
+        document.getElementById(Number(e.target.id)+1).focus()
+      }else if(Number(e.target.id)===inputListLength+100-1){
+                document.getElementById('1').focus()
+
+      }
+      }
+    },
     init() {
       let obj = {};
       if (!this.multiDictList) return;
@@ -507,9 +531,11 @@ export default {
         visitId: this.patientInfo.visitId,
         wardCode: this.patientInfo.wardCode,
       }).then((res) => {
+        console.log('南方中西医',res)
         res.data.data.list.map((item) => {
           if (this.vitalSignObj[item.vitalCode])
             this.fieldList[item.vitalCode] = item;
+            console.log(this.fieldList,'选项')
         });
       });
     },
@@ -600,6 +626,10 @@ export default {
         this.init();
       });
     },
+     //右键删除记录
+    rightMouseDown(e,dateTime, tabIndex){
+      this.removeRecord(dateTime, tabIndex)
+    },
     /* 删除记录 */
     async removeRecord(targetName, index) {
       await this.$confirm("是否确删除该记录?", "提示", {
@@ -629,8 +659,10 @@ export default {
         await this.bus.$emit("refreshImg");
       });
     },
-    /* 修改自定义标题，弹出弹窗并保存 */
+     /* 修改自定义标题，弹出弹窗并保存 */
     updateTextInfo(key, label, autotext,index) {
+      let checkValue = Object.values(this.fieldList)||[]
+     let  checkValueStr=checkValue.map(item=>item.fieldCn)
       window.openSetTextModal(
         (text) => {
           let data = {
@@ -640,12 +672,19 @@ export default {
             vitalCode: key,
             fieldCn: text,
           };
+          if(
+            checkValueStr.includes(text)
+          ){
+ this.$message.error(`修改${label}失败!已存在${text}项目`);
+          }else{
           savefieldTitle(data).then((res) => {
              this.fieldList[index].fieldCn=text;
             this.$message.success(`修改${label}成功`);
           });
+          }
           // this.getList();
         },
+        
         autotext,
         `修改${label}`
       );
@@ -738,7 +777,7 @@ export default {
     display: none;
   }
 
-  .row {
+  .rowbox {
     display: inline-block;
     padding: 3px 15px;
 

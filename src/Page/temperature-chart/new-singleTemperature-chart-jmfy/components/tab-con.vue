@@ -41,7 +41,7 @@
       <null-bg v-if="!patientInfo.patientId"></null-bg>
       <div v-else class="showRecord">
         <div style="flex: 4">
-          <el-button
+          <div
             :class="
               [
                 'recordList',
@@ -53,6 +53,7 @@
             style="margin: 0px"
             v-for="(dateTime, tabIndex) in tabsData"
             :key="tabIndex"
+            @contextmenu.stop.prevent="(e)=>rightMouseDown(e,dateTime, tabIndex)"
             @click="changeQuery(dateTime)"
           >
             {{ dateTime }}
@@ -61,9 +62,10 @@
               @click="removeRecord(dateTime, tabIndex)"
               class="el-icon-close"
             ></i>
-          </el-button>
+          </div>
         </div>
-        <div style="flex: 7">
+
+        <div style="flex: 7" class="inputText">
           <div
             :class="
               !(
@@ -76,20 +78,78 @@
             "
             v-for="(j, index) in multiDictList"
             :key="index"
-          >
+            >
             <span class="preText">{{ index }}</span>
-            <input v-if="index!='大便次数'" type=text v-model="vitalSignObj[j].vitalValue" />
-
-<el-select v-if="index==='大便次数'" v-model="vitalSignObj[j].vitalValue" filterable allow-create default-first-option  size="mini" @focus="inputClicl($event)">
+            <!-- <input  type=text v-model="vitalSignObj[j].vitalValue" /> -->
+          <div style="display:inline-block;">
+          <el-tooltip
+              placement="top"
+              popper-class="custom-temp-dict-select"
+              :disabled="
+                !(
+                  totalDictInfo[index].options &&
+                  totalDictInfo[index].options.length > 0
+                )
+              "
+              :visible-arrow="false"
+              :manual="true"
+              :value="vitalSignObj[j].popVisible"
+             >
+                  <input 
+                type="text"
+                :title="vitalSignObj[j].vitalValue"
+                @input="handlePopRefresh(vitalSignObj[j])"
+                @click="() => (vitalSignObj[j].popVisible = true)"
+                @blur="() => (vitalSignObj[j].popVisible = false)"
+                v-model="vitalSignObj[j].vitalValue"
+                 />
+                  <template v-slot:content>
+                <div
+                  class="container"
+                  @click.prevent="
+                    () => {
+                      vitalSignObj[j].popVisible = false;
+                    }
+                  "
+                >
+                  <template
+                    v-if="
+                      totalDictInfo[index].options &&
+                      getFilterSelections(
+                        totalDictInfo[index].options,
+                        vitalSignObj[j].vitalValue
+                      ).length > 0
+                    "
+                  >
+                    <div
+                      :key="selectionDictIdx"
+                      class="selection-dict-item"
+                      v-for="(option, selectionDictIdx) in getFilterSelections(
+                        totalDictInfo[index].options,
+                        vitalSignObj[j].vitalValue
+                      )"
+                      @click.prevent="
+                        () => (vitalSignObj[j].vitalValue = option)
+                      "
+                    >
+                      {{ option }}
+                    </div>
+                  </template>
+                  <div v-else class="null-item">无匹配数据</div>
+                </div>
+              </template>
+          </el-tooltip>
+                </div>
+              <!-- <el-select v-if="index==='大便次数'" v-model="vitalSignObj[j].vitalValue" filterable allow-create default-first-option  size="mini" @focus="inputClicl($event)">
             <el-option v-for="item in selectValue" :key="item.value" :label="item.label" :value="item.value">
             </el-option>
-        </el-select>
+            </el-select> -->
             <!-- <select v-if="index==='大便次数'" type=text v-model="vitalSignObj[j].vitalValue" style="width:52.97px;height:19.73px">
             <option v-for="(item,i) in selectValue" :key="i" >{{item}}</option>
             </select> -->
 <!-- <input v-if="index==='大便次数'" v-model="vitalSignObj[j].vitalValue" style="width:52.97px;height:19.73px" type=text placeholder="大便次数自定义" /> -->
-          </div>
-          <div class="fieldList">
+            </div>
+            <div class="fieldList">
             <div style="margin: 10px 0px; font-weight: bold; font-size: 14px">
               <span>自定义项目：</span>
             </div>
@@ -311,7 +371,7 @@ export default {
           value: "23",
         },
       ],
-      bottomContextList: ["温水擦浴", "不升","特殊物理降温","辅助呼吸"],
+      bottomContextList: ['',"温水擦浴", "不升","特殊物理降温","辅助呼吸"],
       topExpandDate: "",
       bottomExpandDate: "",
       totalDictInfo: {},
@@ -378,12 +438,23 @@ export default {
           bedLabel: "",
           expand1: "",
           expand2: "",
+          popVisible:false,
           expand3: "",
           source: "",
           customTitle: false,
         };
       }
       this.vitalSignObj = { ...obj };
+    },
+    getFilterSelections(orgin, filterStr) {
+      if (!filterStr || !filterStr.trim()) return orgin;
+
+      return orgin.filter((option) => option.includes(filterStr));
+    },
+     handlePopRefresh(target) {
+      target.popVisible = false;
+
+      setTimeout(() => (target.popVisible = true), 100);
     },
     async getList() {
       /* 初始化 */
@@ -476,12 +547,17 @@ export default {
     async getVitalList() {
       let wardCode = this.patientInfo.wardCode;
       await getmultiDict(wardCode).then((res) => {
+        // console.log('sss',res)
         let data = [];
         let obj = [];
         res.data.data.map((item, index) => {
           data[item.vitalSign] = item.vitalCode;
-          this.totalDictInfo[item.vitalSign] = { ...item };
-
+          this.totalDictInfo[item.vitalSign] = {
+            ...item,
+            options: item.selectType ? item.selectType.split(",") : [],
+            
+          };
+// console.log('options',Object.values(this.totalDictInfo)||[])
           if (item.vitalSign.includes("自定义")) {
             obj[item.vitalCode] = {
               fieldCn: item.vitalSign,
@@ -494,9 +570,40 @@ export default {
             this.fieldList = { ...obj };
           }
         });
+
         this.multiDictList = { ...data };
         this.init();
       });
+    },
+    /* 获取字典表，整理某一行的同步信息 */
+    // async getVitalList() {
+    //   let wardCode = this.patientInfo.wardCode;
+    //   await getmultiDict(wardCode).then((res) => {
+    //     let data = [];
+    //     let obj = [];
+    //     res.data.data.map((item, index) => {
+    //       data[item.vitalSign] = item.vitalCode;
+    //       this.totalDictInfo[item.vitalSign] = { ...item };
+
+    //       if (item.vitalSign.includes("自定义")) {
+    //         obj[item.vitalCode] = {
+    //           fieldCn: item.vitalSign,
+    //           patientId: this.patientInfo.patientId,
+    //           visitId: this.patientInfo.visitId,
+    //           vitalCode: item.vitalCode,
+    //           wardCode: this.patientInfo.wardCode,
+    //           classCode: item.classCode,
+    //         };
+    //         this.fieldList = { ...obj };
+    //       }
+    //     });
+    //     this.multiDictList = { ...data };
+    //     this.init();
+    //   });
+    // },
+     //右键删除记录
+    rightMouseDown(e,dateTime, tabIndex){
+      this.removeRecord(dateTime, tabIndex)
     },
     /* 删除记录 */
     async removeRecord(targetName, index) {
@@ -608,8 +715,12 @@ export default {
       flex-direction: column;
     }
   }
-
+.custom-temp-dict-select
+{
+color:red;
+}
   .row-bottom {
+  overflow-y:scroll;
     .showRecord {
       display: flex;
       height: 100%;
@@ -631,7 +742,8 @@ export default {
       }
     }
   }
-
+.inputText{
+overflow :scroll }
   .rowItem_noShow {
     display: none;
   }

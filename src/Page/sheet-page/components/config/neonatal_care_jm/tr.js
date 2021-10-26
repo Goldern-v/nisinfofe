@@ -13,9 +13,9 @@ import {
 } from "../keyEvent/date";
 let select = ['√'];
 let fyList = ['好','一般','差','√'];
-let ksList = ['大','稍弱','弱','√'];
-let fsList = ['红','微红','黄染','√'];
-let qbList = ['干洁','无渗血','√'];
+let ksList = ['大','稍弱','稍嘶哑','弱','√'];
+let fsList = ['红','微红','黄染','唇周微绀','√'];
+let qbList = ['干洁','渗液','无渗血','渗血','已脱','√'];
 let twList = ['左','平','右','俯卧','√'];
 let jzlList = ['正常','稍低','低下','√'];
 export default [
@@ -34,7 +34,7 @@ export default [
   key: "recordHour", //时间
   value: "",
   event: event_time,
-  click: click_time
+  // click: click_time
 },
 {
   key: "fieldOne", //台箱温℃
@@ -73,6 +73,9 @@ export default [
       e.preventDefault();
     }
     keyf1(e, td);
+  },
+   textarea: {
+    width: 30
   }
 },
 {
@@ -103,6 +106,9 @@ export default [
   autoComplete: {
     data: fsList
   },
+  textarea: {
+    width: 25
+  }
 },
 {
   key: "muscleTone", // 肌张力
@@ -146,7 +152,7 @@ export default [
   value: "",
   event: keyf1,
   textarea: {
-    width: 50
+    width: 30
   }
 },
 {
@@ -161,6 +167,9 @@ export default [
   key: "fieldThirteen", //出量--大便（g/性状）
   value: "",
   event: keyf1,
+  textarea: {
+    width: 40
+  }
 },
 {
   key: "fieldFourteen", //出量--小便（ml）
@@ -172,7 +181,7 @@ export default [
   value: "",
   event: keyf1,
   textarea: {
-    width: 52
+    width: 50
   },
 },
 {
@@ -181,7 +190,7 @@ export default [
   change: (e, td) => limitChange(e, td, 8),
   event: keyf1,
   textarea: {
-    width: 50,
+    width: 40,
   },
 },
 {
@@ -197,16 +206,16 @@ export default [
 {
   key: "description", //特殊情况记录
   value: "",
-  // textarea: {
-  //   width: 150
-  // },
+  textarea: {
+    width: 140
+  },
   style: {
     textAlign: "left",
     position: "absolute",
     top: "1px",
     bottom: "1px",
     left: "1px",
-    width: "150px",
+    width: "145px",
     background: "transparent",
     fontSize: "14px"
   },

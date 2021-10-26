@@ -388,7 +388,7 @@
                   </router-link>
                 </el-dropdown-item>
 
-                <el-dropdown-item
+                <!-- <el-dropdown-item
                   :class="{
                     active: $route.path.indexOf('/inpatientReport') > -1
                   }"
@@ -398,7 +398,7 @@
                       <i class="inpatientReport"></i>住院日报
                     </el-row>
                   </router-link>
-                </el-dropdown-item>
+                </el-dropdown-item> -->
                 <!-- <el-dropdown-item :class="{active: $route.path == '/badEvent'}">
                   <router-link to="/badEvent" tag="span" >
 
@@ -407,7 +407,7 @@
                     </el-row>
                   </el-dropdown-item>
                 </el-dropdown-item>-->
-                <el-dropdown-item
+                <!-- <el-dropdown-item
                   :class="{ active: $route.path == '/nursingRules' }"
                 >
                   <router-link to="/nursingRules" tag="span">
@@ -523,7 +523,7 @@
                       </template>
                     </el-dropdown-menu>
                   </el-dropdown>
-                </el-dropdown-item>
+                </el-dropdown-item> -->
               </el-dropdown-menu>
             </el-dropdown>
           </el-row>

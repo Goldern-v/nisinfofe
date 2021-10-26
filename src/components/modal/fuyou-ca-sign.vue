@@ -127,7 +127,7 @@ export default {
       setIntervalApi:null,//轮训请求api对象
       setIntervalApiTime:10,
       commonTime:120,//默认倒数时间
-      
+      bus: bus(this),
     };
   },
   methods: {
@@ -136,10 +136,12 @@ export default {
       this.callback = callback;
       this.password = "";
       this.clearIntervalItem()
+      this.bus.$emit("updateFuyouCaData")
     },
     close() {
       this.clearIntervalItem();
       this.$refs.modal.close();
+      this.bus.$emit("updateFuyouCaData")
       
     },
     //启动倒数定时器
@@ -267,6 +269,9 @@ export default {
               type: "success",
               message: res.data.data.message
             });
+            //local保存
+            window.localStorage.setItem("fuyouCaData",JSON.stringify(res.data.data));
+            this.bus.$emit("updateFuyouCaData")
             //清除轮询定时器
             clearInterval(this.setIntervalApi)
             this.setIntervalApi=null;

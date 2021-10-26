@@ -534,7 +534,7 @@
                   ></el-option>
                 </el-select>
               </span>
-              <span class="option-item" v-popover:popover1>{{
+              <span class="option-item" v-popover:popover1 @click="bus.$emit('updateFuyouCaData')">{{
                 user.empName
               }}</span>
             </span>
@@ -891,7 +891,7 @@ import userInfo from "./user-info.vue";
 import { nursingUnit } from "@/api/lesion";
 import common from "@/common/mixin/common.mixin";
 import WebSocketService from "@/plugin/webSocket/index";
-
+import bus from "vue-happy-bus";
 export default {
   mixins: [common],
   data() {
@@ -909,6 +909,7 @@ export default {
       //     localStorage["showBadEvent"] === "true") ||
       //   this.isDev ||
       //   false
+      bus: bus(this),
     };
   },
   computed: {
@@ -1026,9 +1027,14 @@ export default {
       Cookies.remove("NURSING_USER", { path: "/" });
       this.$router.push("/login");
       this.$store.commit("upDeptCode", "");
+      //清除江门妇幼ca登录
+      localStorage.removeItem("fuyouCaData");
     },
     setPassword() {
-      this.$refs.setPassword.open();
+      this.$nextTick(()=>{
+        this.$refs.setPassword.open();
+      })
+      
     },
     remoteMethod(query) {
       if (query !== "") {

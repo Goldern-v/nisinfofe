@@ -13,7 +13,7 @@
       <span>
         床号：
         <div :class="['bottom-line','has-background']" :style="{minWidth:'55px'}"  @dblclick.stop="openBedRecordModal">
-          {{ bedAndDeptChange.bedLabelChange }}
+          {{ patientInfo.bedLabel }}
         </div>
       </span>
       <span>
@@ -216,11 +216,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-input.bottom-line {
+.bottom-line {
   border-top: 0;
   border-left: 0;
   border-right: 0;
   outline: none;
+  height: 12px;
 }
 .ml-1000 {
   margin-left: 1000px;

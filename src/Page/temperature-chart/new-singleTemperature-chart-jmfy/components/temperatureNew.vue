@@ -1,9 +1,15 @@
 <template>
   <div>
     <div class="contain">
-      <div class="print-btn tool-btn" @click="onPrint()">打印</div>
+     <el-dropdown >
+       <div class="print-btn tool-btn" >打印</div>
+      <el-dropdown-menu slot="dropdown">
+       <el-dropdown-item> <el-button type="primary"  @click="onPrint()">打印当周</el-button></el-dropdown-item>
+    <el-dropdown-item><el-button type="primary"  @click="printAll()">批量打印</el-button></el-dropdown-item>
+       </el-dropdown-menu>
+      </el-dropdown>
       <!-- <div class="print-btn tool-btn" @click="typeIn()">录入</div> -->
-      <div class="pagination">
+      <div class="pagination" v-show="!isPrintAll">
         <button :disabled="currentPage === 1" @click="currentPage = 1">
           首周
         </button>
@@ -21,7 +27,7 @@
           尾周
         </button>
       </div>
-      <div class="tem-con" :style="contentHeight">
+      <div class="tem-con" :style="contentHeight" v-show="!isPrintAll">
         <null-bg v-show="!filePath"></null-bg>
         <iframe
           id="printID"
@@ -29,6 +35,17 @@
           :src="filePath"
           frameborder="0"
           ref="pdfCon"
+          class="lcIframe"
+        ></iframe>
+      </div>
+      <div class="tem-con" :style="contentHeight" v-show="isPrintAll">
+        <null-bg v-show="!filePath"></null-bg>
+        <iframe
+          id="printID"
+          v-if="filePath"
+          :src="printAllPath"
+          frameborder="0"
+          ref="pdfConAll"
           class="lcIframe"
         ></iframe>
       </div>
@@ -55,37 +72,61 @@ export default {
       filePath: "",
       contentHeight: { height: "" },
       currentPage: 1,
+      patientId:"",
+      visitId:"",
+      printAllPath:"",
       pageTotal: 1,
       open: false,
       isSave: false,
+      isPrintAll:false,//是否打印所有
       visibled: false,
       intranetUrl:
-        // "http://192.168.20.70:8080/#/" /* 医院正式环境内网 导致跨域 */,
         "http://192.168.19.162:9091/temperature/#/" /* 医院正式环境内网 导致跨域 */,
-      // "http://192.168.20.70:8081/#/" /* 医院正式环境内网 */,
+        // "http://192.168.19.162:9091/temperature/#/" /* 医院正式环境内网 导致跨域 */,
+     printAllUrl: "http://192.168.19.162:9091/temperature/#/printAll" /* 医院正式环境内网 */,
       outNetUrl:
         "http://218.14.180.38:9091/temperature/#/" /* 医院正式环境外网：想要看iframe的效果，测试的时候可以把本地的地址都改成外网测试 */,
     };
   },
   methods: {
     onPrint() {
-      this.$refs.pdfCon.contentWindow.postMessage(
+        this.isPrintAll=false
+         setTimeout(()=>{
+this.$refs.pdfCon.contentWindow.postMessage(
         { type: "printing" },
         this.intranetUrl /* 内网 */
         // this.outNetUrl /* 外网 */
       );
+      },1500)
+     
+      
+ 
+    },
+    printAll(){
+      this.isPrintAll=true  //隐藏页码控制区域
+        setTimeout(()=>{
+this.$refs.pdfConAll.contentWindow.postMessage(
+        { type: "printingAll" },
+        this.printAllUrl /* 内网 */
+        // this.outNetUrl /* 外网 */
+      );
+      },1500)
     },
     getImg() {
       let date = new Date(this.queryTem.admissionDate).Format("yyyy-MM-dd");
       let patientId = this.queryTem.patientId;
       let visitId = this.queryTem.visitId;
+      this.date=date;
+      this.patientId=patientId;
+      this.visitId=visitId;
       /* 单独处理体温单，嵌套iframe */
       const tempUrl = `${this.intranetUrl}?PatientId=${patientId}&VisitId=${visitId}&StartTime=${date}`; /* 内网 */
-      // const tempUrl = `${this.intranetUrl}?PatientId=0000944876&VisitId=2&StartTime=2021-05-13&showInnerPage=1`;/* 内网 */
+      const tempAllUrl = `${this.printAllUrl}?PatientId=${this.patientId}&VisitId=${this.visitId}&StartTime=${this.date}`;/* 内网 */
       // const tempUrl = `${this.outNetUrl}?PatientId=${patientId}&VisitId=${visitId}&StartTime=${date}`; /* 外网 */
       this.filePath = "";
       setTimeout(() => {
         this.filePath = tempUrl;
+        this.printAllPath=tempAllUrl
       }, 0);
     },
     getHeight() {
@@ -121,7 +162,6 @@ export default {
             visitId: this.$route.query.visitId
           };
           getNurseExchangeInfoByTime(params).then(res => {
-            console.log('请求数据',res)
             const value = {
               adtLog: res.data.data.adtLog,
               bedExchangeLog: res.data.data.bedExchangeLog
@@ -150,6 +190,9 @@ export default {
     
   },
   watch: {
+     patientInfo() {
+      this.isPrintAll=false
+    },
     currentPage(value) {
       this.$refs.pdfCon.contentWindow.postMessage(
         { type: "currentPage", value },
