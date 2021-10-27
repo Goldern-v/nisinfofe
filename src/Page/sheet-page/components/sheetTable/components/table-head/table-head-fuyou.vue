@@ -10,18 +10,18 @@
           {{ patientInfo.realDeptName }}
         </div>
       </span>
-      <span>
+      <!-- <span>
         床号：
         <div class="bottom-line" style="min-width: 50px">
           {{ patientInfo.bedLabel }}
         </div>
-      </span>
-      <!-- <span>
+      </span> -->
+      <span>
         床号：
         <div :class="['bottom-line','has-background']" :style="{minWidth:'55px'}"  @dblclick.stop="openBedRecordModal">
           {{ patientInfo.bedLabel }}
         </div>
-      </span> -->
+      </span>
       <span>
         姓名：
         <div class="bottom-line" style="min-width: 70px">
