@@ -476,8 +476,6 @@ export default {
       }
       }else{
     let inputListLength=document.getElementsByClassName('fieldClass').length 
-  console.log(inputListLength)
-
     if(Number(e.target.id)<inputListLength+100-1){
         document.getElementById(Number(e.target.id)+1).focus()
       }else if(Number(e.target.id)===inputListLength+100-1){
@@ -485,8 +483,6 @@ export default {
 
       }
       }
-     
-      
     },
     //时间组件失去焦点
     changeDate(val){

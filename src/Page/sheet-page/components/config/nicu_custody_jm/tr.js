@@ -38,7 +38,7 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 30
+      width: 25
     },
   },
   {
@@ -48,7 +48,7 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 30
+      width: 25
     },
   },
   {
@@ -153,6 +153,7 @@ export default [
     key: "skinSurvey", //皮测
     value: "",
     name: "皮测",
+    next: "Umol/L",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 6),
     textarea: {
@@ -163,6 +164,7 @@ export default [
     key: "bloodSugar", //血糖
     value: "",
     name: "血糖",
+    next: "Umol/L",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 6),
     textarea: {
@@ -186,6 +188,7 @@ export default [
     key: "oralMedication", //奶口服液
     value: "",
     name: "奶/口服液",
+    next: "ml",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 6),
     textarea: {
@@ -199,6 +202,7 @@ export default [
     key: "infusion", //输液
     value: "",
     name: "输液",
+    next: "ml",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
@@ -209,6 +213,7 @@ export default [
     key: "intravenousNutrition", //静脉营养
     value: "",
     name: "静脉营养",
+    next: "ml",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
@@ -219,6 +224,7 @@ export default [
     key: "bloodProducts", //血制品
     value: "",
     name: "血制品",
+    next: "ml",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 8),
     textarea: {
@@ -231,6 +237,8 @@ export default [
   {
     key: "urineVolume", //尿量
     value: "",
+    name: "尿量",
+    next: "ml",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
@@ -240,6 +248,8 @@ export default [
   {
     key: "defecate", //大便
     value: "",
+    name: "大便",
+    next: "ml",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
@@ -249,6 +259,8 @@ export default [
   {
     key: "drainage", //引流量
     value: "",
+    name: "引流量",
+    next: "ml",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
@@ -258,6 +270,8 @@ export default [
   {
     key: "vomit", //呕吐
     value: "",
+    name: "呕吐",
+    next: "ml",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
@@ -285,8 +299,8 @@ export default [
   {
     key: "phototherapy", //光疗
     value: "",
-    name: "入量累计",
-    next: "ml",
+    name: "光疗",
+    next: "",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
@@ -399,6 +413,30 @@ export default [
     textarea: {
       width: 30
     },
+  },
+  {
+    key: "description", //特殊情况记录
+    value: "",
+    hidden: true,
+    style: {
+      textAlign: "left",
+      position: "absolute",
+      top: "1px",
+      bottom: "1px",
+      left: "1px",
+      width: "180px",
+      background: "transparent",
+      fontSize: "14px"
+    },
+    event: function (e, td) {
+      console.log(e.keyCode);
+      if (e.keyCode == 9) {
+        td.value = "    " + td.value;
+        e.preventDefault();
+      }
+      keyf1(e, td);
+    }
+    // oninput: next
   },
   {
     key: "sign",

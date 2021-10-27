@@ -9,7 +9,7 @@ function currYear() {
 }
 export default {
   style: {
-    width: '1130px'
+    width: '1200px'
   },
   deptType: '',
   th: {
@@ -253,14 +253,14 @@ export default {
       },
       {
         name: `
-        静脉<br>(ml)
+        静脉<br>ml
         `,
         colspan: '1',
         rowspan: '2'
       },
       {
         name: `
-        进食<br>(ml)
+        进食<br>ml
         `,
         colspan: '1',
         rowspan: '2',
@@ -268,16 +268,19 @@ export default {
           minWidth: '50px',
           maxWidth: '50px',
         },
+      }, 
+      {
+        name: ``,
+        style: {
+          minWidth: '36px',
+          maxWidth: '36px',
+        },
+        colspan: "1",
+        rowspan: "2",
+        canSet: true,
+        key: "otherFood",
       },
       {
-        name: `
-        
-        `,
-        colspan: '1',
-        rowspan: '2',
-        canSet: true,
-        key: 'otherFood',
-      }, {
         name: `
         尿液
         `,
@@ -296,19 +299,21 @@ export default {
       },
       {
         name: `
-        呕吐<br>(ml)
+        呕吐<br>ml
         `,
         colspan: '1',
         rowspan: '2'
       },
       {
-        name: `
-
-        `,
+        name: ``,
         colspan: '1',
         rowspan: '2',
         canSet: true,
         key: 'otherDischarge',
+        style: {
+          minWidth: '36px',
+          maxWidth: '36px',
+        }
       },
     ],
     bottom: [{

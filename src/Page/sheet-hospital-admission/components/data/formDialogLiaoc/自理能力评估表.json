@@ -191,6 +191,18 @@
       "readOnly": ""
     },
     {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
       "name": "1. 进食",
       "type": "formGroupHorizontalBox",
       "title": "1. 进食",
@@ -240,6 +252,18 @@
       ]
     },
     {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
       "name": "2. 洗澡",
       "type": "formGroupHorizontalBox",
       "title": "2. 洗澡",
@@ -278,6 +302,18 @@
       ]
     },
     {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
       "name": "3. 修饰",
       "type": "formGroupHorizontalBox",
       "title": "3. 修饰",
@@ -314,6 +350,18 @@
           "tips": "需他人帮助"
         }
       ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
     },
     {
       "name": "4. 穿衣",
@@ -365,6 +413,18 @@
       ]
     },
     {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
       "name": "5. 控制大便",
       "type": "formGroupHorizontalBox",
       "title": "5. 控制大便",
@@ -412,6 +472,18 @@
           "tips": "完全失控"
         }
       ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
     },
     {
       "name": "6. 控制小便",
@@ -463,6 +535,18 @@
       ]
     },
     {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
       "name": "7.如厕",
       "type": "formGroupHorizontalBox",
       "title": "7.如厕",
@@ -510,6 +594,18 @@
           "tips": "需极大帮助或完全依赖他人"
         }
       ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
     },
     {
       "name": "8.床椅转移",
@@ -572,6 +668,18 @@
       ]
     },
     {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
       "name": "9.平地行走",
       "type": "formGroupHorizontalBox",
       "title": "9.平地行走",
@@ -632,6 +740,18 @@
       ]
     },
     {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
       "name": "10.上下楼梯",
       "type": "formGroupHorizontalBox",
       "title": "10.上下楼梯",
@@ -679,6 +799,18 @@
           "tips": "需极大帮助或完全依赖他人。"
         }
       ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
     },
     {
       "name": "I003001",

@@ -205,11 +205,11 @@
               </el-row>
             </router-link>-->
 
-            <!-- <router-link to="/infuse" tag="span">
+            <router-link to="/infuse" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-zhihuishuye"></i> 智慧输液
               </el-row>
-            </router-link>-->
+            </router-link>
             <!-- <router-link to="/wardReport" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-dongtairizhi"></i> 病房日报

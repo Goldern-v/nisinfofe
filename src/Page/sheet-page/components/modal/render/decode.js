@@ -1,9 +1,9 @@
 export function decoder_title(th) {
   let customTitleListTop = th.th.top.filter(item => {
-    return item.key && item.key.indexOf("field") > -1;
+    return item.key 
   });
   let customTitleListMid = th.th.mid.filter(item => {
-    return item.key && item.key.indexOf("field") > -1;
+    return item.key 
   });
 
   return [...customTitleListMid, ...customTitleListTop];

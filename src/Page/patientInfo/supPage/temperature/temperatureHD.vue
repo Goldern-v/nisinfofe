@@ -231,9 +231,7 @@ export default {
     };
   },
   methods: {
-   onPrint() {
-        this.isPrintAll=false
-         setTimeout(()=>{
+   onPrint() {        setTimeout(()=>{
 this.$refs.pdfCon.contentWindow.postMessage(
         { type: "printing" },
         this.intranetUrl /* 内网 */
