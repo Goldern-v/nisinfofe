@@ -4,8 +4,10 @@ import {
 import {
   event_date,
   event_time,
+  event_date_year,
   click_date,
-  click_time
+  click_time,
+  click_date_year
 } from "../keyEvent/date";
 
 export default [
@@ -17,14 +19,13 @@ export default [
   {
     key: "recordMonth", //日期
     value: "",
-    event: event_date,
-    click: click_date
+    event: event_date_year,
+    click: click_date_year
   },
   {
     key: "recordHour", //时间
     value: "",
     event: event_time,
-    click: click_time
   },
   {
     key: "temperature", //体温

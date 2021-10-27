@@ -8,9 +8,9 @@ import {
   keyf1
 } from "../keyEvent/f1.js";
 import {
-  event_date,
+  event_date_year,
   event_time,
-  click_date,
+  click_date_year,
   click_time
 } from "../keyEvent/date";
 import { size } from "lodash";
@@ -23,8 +23,8 @@ export default [
   {
   key: "recordMonth", //日期
   value: "",
-  event: event_date,
-  click: click_date
+  event: event_date_year,
+  click: click_date_year
 },
 {
   key: "recordHour", //时间
@@ -80,7 +80,7 @@ export default [
   next: "",
   event: keyf1,
   textarea: {
-    width: 48
+    width: 40
   }
 },
 {
@@ -90,7 +90,7 @@ export default [
   next: "",
   event: keyf1,
   textarea: {
-    width: 48
+    width: 40
   }
 },
 {
@@ -187,7 +187,7 @@ export default [
   event: keyf1,
   splice: true,
   textarea: {
-    width: 48
+    width: 40
   },
   autoComplete: {
     data: ['干洁', '渗血', '陈旧性血迹']
@@ -202,7 +202,7 @@ export default [
   event: keyf1,
   splice: true,
   textarea: {
-    width: 48
+    width: 40
   },
   autoComplete: {
     data: ['1', '2', '3', '4', '5', '6', '7']
@@ -216,7 +216,7 @@ export default [
   event: keyf1,
   splice: true,
   textarea: {
-    width: 48
+    width: 40
   },
   autoComplete: {
     data: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11']

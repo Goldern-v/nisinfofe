@@ -43,58 +43,61 @@ export default {
     // },
     {
       name: `
-        体<br/>温<br/>(℃)
+        体<br/>温<br/>℃
         `,
       style: {},
       colspan: '1',
       rowspan: '3',
       style: {
         whiteSpace: 'nowrap',
-        minWidth: '34px',
+        minWidth: '25px',
+        maxWidth: '25px',
       }
     },
     {
       name: `
-        心<br/>率<br/>(次/分)
+        心<br/>率<br/>次/分
         `,
       style: {},
       colspan: '1',
       rowspan: '3',
       style: {
         whiteSpace: 'nowrap',
-        minWidth: '36px',
+        minWidth: '25px',
+        maxWidth: '25px',
       }
     },
     {
       name: `
-        呼<br/>吸<br/>(次/分)
+        呼<br/>吸<br/>次/分
         `,
       style: {},
       colspan: '1',
       rowspan: '3',
       style: {
         whiteSpace: 'nowrap',
-        minWidth: '36px',
+        minWidth: '25px',
+        maxWidth: '25px',
       }
     },
     {
       name: `
-        血压<br/>(mmHg)
+        血压<br/>mmHg
         `,
       style: {
-        minWidth: '52px',
-        maxWidth: '52px',
+        minWidth: '35px',
+        maxWidth: '35px',
       },
       colspan: '1',
       rowspan: '3'
     },
     {
       name: `
-        SpO₂<br/>(%)
+        SpO₂<br/>%
         `,
       style: {
-        minWidth: '36px',
-        maxWidth: '36px',
+        minWidth: '25px',
+        maxWidth: '25px',
       },
       colspan: '1',
       rowspan: '3'
@@ -136,8 +139,8 @@ export default {
         伤<br/>口<br/>敷<br/>料
         `,
       style: {
-        minWidth: '38px',
-        maxWidth: '38px',
+        minWidth: '30px',
+        maxWidth: '30px',
         whiteSpace: 'nowrap'
       },
       colspan: '1',
@@ -148,8 +151,8 @@ export default {
         护<br/>理<br/>指<br/>导
         `,
       style: {
-        minWidth: '38px',
-        maxWidth: '38px',
+        minWidth: '30px',
+        maxWidth: '30px',
         whiteSpace: 'nowrap'
       },
       colspan: '1',
@@ -160,8 +163,8 @@ export default {
         健<br/>康<br/>教<br/>育
         `,
       style: {
-        minWidth: '38px',
-        maxWidth: '38px',
+        minWidth: '30px',
+        maxWidth: '30px',
         whiteSpace: 'nowrap'
       },
       colspan: '1',
@@ -238,8 +241,8 @@ export default {
         签名
         `,
       style: {
-        minWidth: '60px',
-        maxWidth: '60px',
+        minWidth: '50px',
+        maxWidth: '50px',
       },
       colspan: '1',
       rowspan: '3'
@@ -249,8 +252,8 @@ export default {
       上级护士签名
         `,
       style: {
-        minWidth: '60px',
-        maxWidth: '60px',
+        minWidth: '50px',
+        maxWidth: '50px',
       },
       colspan: '1',
       rowspan: '3'
@@ -260,8 +263,8 @@ export default {
         {
       name: '日期',
       style: {
-        minWidth: '36px',
-        maxWidth: '36px',
+        minWidth: '60px',
+        maxWidth: '60px',
       },
       colspan: '1',
       rowspan: '2'
@@ -269,8 +272,8 @@ export default {
     {
       name: '时间',
       style: {
-        minWidth: '36px',
-        maxWidth: '36px',
+        minWidth: '30px',
+        maxWidth: '30px',
       },
       colspan: '1',
       rowspan: '2'

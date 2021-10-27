@@ -198,9 +198,8 @@ export default {
     mid: [{
         name: '日期',
         style: {
-          minWidth: '30px',
-          // width: '50px',
-          maxWidth: '36px',
+          minWidth: '60px',
+          maxWidth: '60px',
         },
         colspan: '1',
         rowspan: '2'
@@ -209,8 +208,7 @@ export default {
         name: '时间',
         style: {
           minWidth: '30px',
-          // width: '50px',
-          maxWidth: '36px',
+          maxWidth: '30px',
         },
         colspan: '1',
         rowspan: '2'

@@ -12,12 +12,20 @@ export default {
       {
         name: '日期',
         colspan: '1',
-        rowspan: '3'
+        rowspan: '3',
+        style: {
+          minWidth: '60px',
+          maxWidth: '60px',
+        },
       },
       {
         name: '时间',
         colspan: '1',
-        rowspan: '3'
+        rowspan: '3',
+        style: {
+          minWidth: '25px',
+          maxWidth: '25px',
+        },
       },
       {
         name: `

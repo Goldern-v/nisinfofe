@@ -2,14 +2,14 @@ export default {
   // 科室的名称
   deptType: '',
   style: {
-    width: '1150px'
+    width: '1200px'
   },
   th: {
     top: [{
         name: '日期',
         style: {
-          minWidth: '36px',
-          maxWidth: '36px',
+          minWidth: '50px',
+          maxWidth: '50px',
         },
         colspan: '1',
         rowspan: '3'
@@ -17,8 +17,8 @@ export default {
       {
         name: '时间',
         style: {
-          minWidth: '36px',
-          maxWidth: '36px',
+          minWidth: '30px',
+          maxWidth: '30px',
         },
         colspan: '1',
         rowspan: '3'

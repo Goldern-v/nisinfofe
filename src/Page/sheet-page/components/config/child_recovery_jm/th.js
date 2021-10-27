@@ -11,8 +11,8 @@ export default {
     top: [{
         name: '日期',
         style: {
-          minWidth: '36px',
-          maxWidth: '36px',
+          minWidth: '50px',
+          maxWidth: '50x',
         },
         colspan: '1',
         rowspan: '2'
@@ -20,8 +20,8 @@ export default {
       {
         name: '时间',
         style: {
-          minWidth: '36px',
-          maxWidth: '36px',
+          minWidth: '30px',
+          maxWidth: '30px',
         },
         colspan: '1',
         rowspan: '2'
@@ -35,7 +35,7 @@ export default {
         rowspan: '2',
         style: {
           whiteSpace: 'nowrap',
-          minWidth: '34px',
+          minWidth: '30px',
         }
       },
       {
@@ -47,7 +47,7 @@ export default {
         rowspan: '2',
         style: {
           whiteSpace: 'nowrap',
-          minWidth: '38px',
+          minWidth: '30px',
         }
       },
       {
@@ -59,7 +59,7 @@ export default {
         rowspan: '2',
         style: {
           whiteSpace: 'nowrap',
-          minWidth: '38px',
+          minWidth: '30px',
         }
       },
       {
@@ -67,8 +67,8 @@ export default {
         精<br/>神
         `,
         style: {
-          minWidth: '38px',
-          maxWidth: '38px',
+          minWidth: '30px',
+          maxWidth: '30px',
           whiteSpace: 'nowrap'
         },
         colspan: '1',
@@ -79,8 +79,8 @@ export default {
         胃<br/>纳
         `,
         style: {
-          minWidth: '38px',
-          maxWidth: '38px',
+          minWidth: '30px',
+          maxWidth: '30px',
           whiteSpace: 'nowrap'
         },
         colspan: '1',
@@ -91,8 +91,8 @@ export default {
         咳<br/>痰
         `,
         style: {
-          minWidth: '38px',
-          maxWidth: '38px',
+          minWidth: '30px',
+          maxWidth: '30px',
           whiteSpace: 'nowrap'
         },
         colspan: '1',
@@ -103,8 +103,8 @@ export default {
         咳<br/>嗽
         `,
         style: {
-          minWidth: '38px',
-          maxWidth: '38px',
+          minWidth: '30px',
+          maxWidth: '30px',
           // whiteSpace: 'nowrap'
         },
         colspan: '1',

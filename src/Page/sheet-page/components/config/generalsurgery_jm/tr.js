@@ -2,9 +2,9 @@ import {
   keyf1
 } from "../keyEvent/f1.js";
 import {
-  event_date,
+  event_date_year,
   event_time,
-  click_date,
+  click_date_year,
   click_time
 } from "../keyEvent/date";
 
@@ -17,8 +17,8 @@ export default [
   {
     key: "recordMonth", //日期
     value: "",
-    event: event_date,
-    click: click_date
+    event: event_date_year,
+    click: click_date_year
   },
   {
     key: "recordHour", //时间

@@ -5,9 +5,9 @@ import {
   keyf1
 } from "../keyEvent/f1.js";
 import {
-  event_date,
+  event_date_year,
   event_time,
-  click_date,
+  click_date_year,
   click_time
 } from "../keyEvent/date";
 let 意识 = ["清醒","嗜睡","昏睡","浅昏迷","深昏迷","谵妄"];
@@ -31,8 +31,8 @@ export default [
   {
     key: "recordMonth", //日期
     value: "",
-    event: event_date,
-    click: click_date,
+    event: event_date_year,
+    click: click_date_year,
   },
   {
     key: "recordHour", //时间
@@ -47,7 +47,7 @@ export default [
     name: "体温",
     next: "℃",
     textarea: {
-      width: 50
+      width: 45
     }
   },
   {
@@ -57,7 +57,7 @@ export default [
     name: "脉搏",
     next: "次/分",
     textarea: {
-      width: 60
+      width: 45
     }
   },
   {
@@ -67,7 +67,7 @@ export default [
     name: "呼吸",
     next: "次/分",
     textarea: {
-      width: 60
+      width: 45
     }
   },
   {
@@ -92,7 +92,7 @@ export default [
     event: keyf1,
     name: "血氧饱和度",
     textarea: {
-      width: 50
+      width: 45
     }
   },
   {
@@ -101,7 +101,7 @@ export default [
     event: keyf1,
     name: "意识",
     textarea: {
-      width: 50
+      width: 45
     },
     autoComplete: {
       data: 意识

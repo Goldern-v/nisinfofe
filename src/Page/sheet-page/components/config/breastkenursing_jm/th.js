@@ -181,8 +181,8 @@ export default {
     mid: [{
         name: '日期',
         style: {
-          minWidth: '36px',
-          maxWidth: '36px',
+          minWidth: '60px',
+          maxWidth: '60px',
         },
         colspan: '1',
         rowspan: '2'
@@ -190,8 +190,8 @@ export default {
       {
         name: '时间',
         style: {
-          minWidth: '36px',
-          maxWidth: '36px',
+          minWidth: '30px',
+          maxWidth: '30px',
         },
         colspan: '1',
         rowspan: '2'
@@ -201,8 +201,8 @@ export default {
         colspan: "1",
         rowspan: "2",
         style: {
-          minWidth: '40px',
-          maxWidth: '40px',
+          minWidth: '30px',
+          maxWidth: '30px',
         },
       },
       {
@@ -210,8 +210,8 @@ export default {
         colspan: "1",
         rowspan: "2",
         style: {
-          minWidth: '40px',
-          maxWidth: '40px',
+          minWidth: '30px',
+          maxWidth: '30px',
         },
       },
       {
@@ -219,8 +219,8 @@ export default {
         colspan: "1",
         rowspan: "2",
         style: {
-          minWidth: '40px',
-          maxWidth: '40px',
+          minWidth: '30px',
+          maxWidth: '30px',
         },
       },
       {
@@ -235,8 +235,8 @@ export default {
         colspan: "1",
         rowspan: "1",
         style: {
-          minWidth: '40px',
-          maxWidth: '40px',
+          minWidth: '30px',
+          maxWidth: '30px',
         },
       },
       {
@@ -244,8 +244,8 @@ export default {
         colspan: "1",
         rowspan: "1",
         style: {
-          minWidth: '40px',
-          maxWidth: '40px',
+          minWidth: '30px',
+          maxWidth: '30px',
         },
       },
       {
@@ -253,8 +253,8 @@ export default {
         colspan: "1",
         rowspan: "1",
         style: {
-          minWidth: '40px',
-          maxWidth: '40px',
+          minWidth: '30px',
+          maxWidth: '30px',
         },
       },
       {

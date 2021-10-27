@@ -4,7 +4,7 @@
 import { listItem } from "../../../api/recordDesc";
 import { multiDictInfo } from "../../../api/index";
 import { keyf1 } from "../keyEvent/f1.js";
-import { event_date, event_time, click_date } from "../keyEvent/date";
+import { event_date_year, event_time, click_date_year } from "../keyEvent/date";
 import info from "../sheetInfo";
 // let info = {
 //   sheetType: "neurology"
@@ -18,8 +18,8 @@ export default [
   {
     key: "recordMonth", //日期
     value: "",
-    event: event_date,
-    click: click_date
+    event: event_date_year,
+    click: click_date_year
   },
   {
     key: "recordHour", //时间

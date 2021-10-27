@@ -4,12 +4,12 @@
 import { listItem } from "../../../api/recordDesc";
 import { multiDictInfo } from "../../../api/index";
 import { keyf1, limitChange } from "../keyEvent/f1.js";
-import { event_date, event_time, click_date, click_time } from "../keyEvent/date";
+import { event_date_year, event_time, click_date_year, click_time } from "../keyEvent/date";
 import info from "../sheetInfo";
 // let info = {
 //   sheetType: "neurology"
 // };
-let NBPList = ["NBP","ABP"];
+let NBPList = [];
 let xzpList = ["悬浮红细胞","洗涤红细胞","血浆","冷沉淀"];
 let twList = ["左","右","平","俯"];
 
@@ -17,14 +17,13 @@ export default [
   {
     key: "recordMonth", //日期
     value: "",
-    event: event_date,
-    click: click_date
+    event: event_date_year,
+    click: click_date_year
   },
   {
     key: "recordHour", //时间
     value: "",
     event: event_time,
-    click: click_time
   },
   {
     key: "boxTemperature", //台箱温度
@@ -76,7 +75,7 @@ export default [
     name: "NBP/ABP",
     next: "mmHg",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 6),
     textarea: {
       width: 30
     },
