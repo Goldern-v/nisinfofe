@@ -23,7 +23,8 @@
                             v-model="expecteReplaceTime"
                             type="datetime"
                             placeholder="选择日期时间">
-                            </el-date-picker><span class="star">*</span>
+                            </el-date-picker>
+                            <!-- <span class="star">*</span> -->
                 </div>
                  <div style="margin-bottom:10px;">
                     <span class="item-title">管道来源:</span><el-select v-model="catheterSource" placeholder="请选择">
@@ -151,10 +152,10 @@ methods: {
         this.formTitle = value
     },
     sumbitCathter(){
-        if(!this.expecteReplaceTime){
-            this.$message.error('预拔管时间不能为空！')
-            return
-        }
+        // if(!this.expecteReplaceTime){
+        //     this.$message.error('预拔管时间不能为空！')
+        //     return
+        // }
         let {formCode , formType , name} = this.newCathterType
         createCathter({
             code: formCode,
@@ -163,7 +164,7 @@ methods: {
             patientId: this.$store.state.sheet.patientInfo.patientId,
             visitId: this.$store.state.sheet.patientInfo.visitId,
             intubationTime:moment(this.intubationTime).format("YYYY-MM-DD HH:mm:ss"),
-            replaceTime:moment(this.expecteReplaceTime).format("YYYY-MM-DD HH:mm:ss"),
+            replaceTime:this.expecteReplaceTime?moment(this.expecteReplaceTime).format("YYYY-MM-DD HH:mm:ss"):'',
             formTitle:this.formTitle?this.formTitle:this.newCathterType.name,
             catheterSource:this.catheterSource
         }).then(res=>{
