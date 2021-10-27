@@ -39,7 +39,7 @@
           v-model="relObj.wxNo"
         />
       </span>-->
-      <span
+      <!-- <span
         @click="updateDiagnosis('diagnosis', '诊断', patientInfo.diagnosis)"
         v-if="sheetInfo.sheetType == 'com_lc' || sheetInfo.sheetType == 'critical_lc'"
       >
@@ -68,20 +68,41 @@
           class="bottom-line"
           style="min-width: 400px;max-width: 1000px;min-height:13px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;"
         >{{diagnosis}}</div>
-      </span>
+      </span> -->
        <span v-if="sheetInfo.sheetType == 'critical_lc'">入院日期：{{patientInfo.admissionDate | toymd}}</span>
     </div>
-    <!-- <div class="info-con" flex="main:justify" v-if="sheetInfo.sheetType == 'icu_lc'">
-      <span @click="updateDiagnosis('diagnosis', '诊断', patientInfo.diagnosis)">
+    <div class="info-con" flex="main:justify">
+      <span
+        @click="updateDiagnosis('diagnosis', '诊断', patientInfo.diagnosis)"
+        v-if="sheetInfo.sheetType == 'com_lc' || sheetInfo.sheetType == 'critical_lc'"
+      >
         诊断：
         <div
           class="bottom-line"
-          style="min-width: 400px;max-width: 1000px;min-height:13px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;"
+          style="min-width: 400px;max-width: 1000px;min-height:13px;text-overflow: ellipsis;white-space: nowrap;"
         >{{diagnosis}}</div>
       </span>
-    </div>-->
-    <!-- <span class="diagnosis-con" :title="patientInfo.diagnosis">诊断：{{patientInfo.diagnosis}}</span> -->
-    <!-- <span>入院日期：{{$route.query.admissionDate}}</span> -->
+      <span
+        @click="updateOperation('operation', '手术', patientInfo.operation)"
+        v-if="sheetInfo.sheetType == 'com_lc' || sheetInfo.sheetType == 'critical_lc'"
+      >
+        手术：
+        <div
+          class="bottom-line"
+          style="min-width: 400px;max-width: 1000px;min-height:13px;text-overflow: ellipsis;white-space: nowrap;"
+        >{{operation}}</div>
+      </span>
+      <span
+        @click="updateDiagnosis('diagnosis', '诊断', patientInfo.diagnosis)"
+        v-if="sheetInfo.sheetType == 'icu_lc'"
+      >
+        诊断：
+        <div
+          class="bottom-line"
+          style="min-width: 400px;max-width: 1000px;min-height:13px;text-overflow: ellipsis;white-space: nowrap;"
+        >{{diagnosis}}</div>
+      </span>
+    </div>
   </div>
 </template>
 
