@@ -1,29 +1,32 @@
 <template>
     <div class="modal-page" @click.stop="closeSelf">
         <div class="new-modal" @click.stop>
+            <div class="modal-title">
+                 <el-button class="close-btn" icon="close" @click="closeSelf"></el-button>
+            </div>
             <div class="modal-body">
                 <div v-if="newCathterType.formCode=='F0103'" style="display:flex;line-height:37px;width:265px;margin-bottom:10px;">
-                    名&nbsp;&nbsp;称:<el-input :value="newCathterType.name" placeholder="请输入内容" @input="changeType"></el-input>
+                    <span class="item-title">名&nbsp;&nbsp;称:</span><el-input :value="newCathterType.name" placeholder="请输入内容" @input="changeType"></el-input>
                 </div>
                 <div v-else style="display:flex;line-height:37px;width:265px;margin-bottom:10px;">
-                    名&nbsp;&nbsp;称:<el-input :value="newCathterType.name" placeholder="请输入内容" @input="changeType" :disabled='true'></el-input>
+                    <span class="item-title">名&nbsp;&nbsp;称:</span><el-input :value="newCathterType.name" placeholder="请输入内容" @input="changeType" :disabled='true'></el-input>
                 </div>
                 <div style="margin-bottom:10px;">
-                    置管时间:<el-date-picker
+                    <span class="item-title">置管时间:</span><el-date-picker
                             v-model="intubationTime"
                             type="datetime"
                             placeholder="选择日期时间">
                             </el-date-picker>
                 </div>
                 <div style="margin-bottom:10px;">
-                    换管时间:<el-date-picker
+                    <span class="item-title">预拔管时间:</span><el-date-picker
                             v-model="expecteReplaceTime"
                             type="datetime"
                             placeholder="选择日期时间">
                             </el-date-picker><span class="star">*</span>
                 </div>
                  <div style="margin-bottom:10px;">
-                    管道来源:<el-select v-model="catheterSource" placeholder="请选择">
+                    <span class="item-title">管道来源:</span><el-select v-model="catheterSource" placeholder="请选择">
                                 <el-option
                                 v-for="item in options"
                                 :key="item.value"
@@ -50,16 +53,22 @@
     left: 0;
     z-index: 1000;
 }
+.close-btn{
+    position: absolute;
+    top: 0;
+    right: 0;
+    border: none;
+}
 .new-modal{
-    width: 400px;
-    height:300px;
+    width: 500px;
+    height:350px;
     background-color: #fff;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);
     border-radius: 8px;
-    padding: 20px 50px;
+    padding: 70px 100px 20px;
     box-sizing: border-box;
     overflow: hidden;
     .modal-body{
@@ -69,6 +78,10 @@
             border: 1px solid #ccc;
             border-radius: 5px;
             padding: 0 0 0 10px;
+        }
+        .item-title{
+            display: inline-block;
+            min-width: 85px;
         }
         .btns{
             display: flex;
@@ -126,7 +139,7 @@ data() {
                 label:'院外带入'
             }
         ],
-        catheterSource:'',
+        catheterSource:'本院',
         formTitle:''
     };
 },
@@ -139,7 +152,7 @@ methods: {
     },
     sumbitCathter(){
         if(!this.expecteReplaceTime){
-            this.$message.error('换管时间不能为空！')
+            this.$message.error('预拔管时间不能为空！')
             return
         }
         let {formCode , formType , name} = this.newCathterType
