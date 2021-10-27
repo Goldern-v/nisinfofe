@@ -777,10 +777,9 @@ export default {
   .rowItem_noShow {
     display: none;
   }
-.fieldClass{
+.row{
 display: inline-block;
     padding: 3px 15px;
-
     .preText {
       display: inline-block;
       width: 50px;
