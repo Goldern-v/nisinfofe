@@ -52,6 +52,7 @@ import { patients } from "@/api/lesion";
 import bus from "vue-happy-bus";
 import bloodSugar from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar"; // 厚街医院
 import bloodSugarWeiXian from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_weixian"; // 威县医院
+// import bloodSugarBhry from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_bhry"; // 北海人医
 export default {
   mixins: [common],
   data() {
@@ -90,7 +91,8 @@ export default {
     switchCompt(HisName = process.env.HOSPITAL_NAME) {
       let hisList = {
         威县人民医院: "bloodSugarWeiXian",
-        东莞市厚街医院: "bloodSugar"
+        东莞市厚街医院: "bloodSugar",
+        // 北海市人民医院:'bloodSugarBhry',
       };
       return hisList[HisName] || "bloodSugar";
     },
@@ -131,7 +133,8 @@ export default {
   components: {
     patientList,
     bloodSugar,
-    bloodSugarWeiXian
+    bloodSugarWeiXian,
+    // bloodSugarBhry
   }
 };
 </script>

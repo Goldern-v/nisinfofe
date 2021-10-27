@@ -55,6 +55,7 @@
                     v-model="scope.row[item.name]"
                     @input="show"
                     :fetch-suggestions="(queryString, cb)=>querySearch(queryString, cb,optionsConfig[item.name])"
+                    :title="scope.row[item.name]"
                     placeholder=""
                     @select="handleSelect"
                     >

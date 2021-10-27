@@ -624,7 +624,7 @@ export default {
         this.levelColor = levelColor;
         patients(this.deptCode).then((res) => {
           this.bedList = res.data.data.map((item) => {
-            console.log(item.name, 978)
+            // console.log(item.name, 978)
             item.nursingClassColor = (
               levelColor.find((o) => o.code == item.nursingClass) || {}
             ).name;

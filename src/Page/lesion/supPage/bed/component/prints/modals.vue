@@ -43,7 +43,7 @@
             <div
               flex="cross:center"
               class="input-item"
-              :style="{overflow:item.name.length>7?'unset':'',minHeight:'43px'}"
+              :style="{overflow:item.name&&item.name.length>7?'unset':'',minHeight:'43px'}"
             >
               <span class="label">床号:</span>
               <div
@@ -60,7 +60,7 @@
                 style="font-size: 22px;padding-left: 5px;border-bottom:0;"
                 flex-box="3"
                 class="bottom-line"
-                :class="[item.name.length>7?'huadu-bigname':'']"
+                :class="[item.name&&item.name.length>7?'huadu-bigname':'']"
               >{{item.name}}</div>
             </div>
             <div flex="cross:center" class="input-item">
