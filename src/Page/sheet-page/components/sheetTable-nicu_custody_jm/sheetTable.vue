@@ -107,7 +107,7 @@
                     :data-value="sheetInfo.relObj.sd"
                   />mm
                 </div>
-                <div>
+                <div style="margin-left:1px;">
                   <textarea style="cursor:text" v-model="sheetInfo.relObj.xpwz" :data-value="sheetInfo.relObj.xpwz" @input="(e)=>onXpChang(e)"></textarea>
                 </div>
               </td>

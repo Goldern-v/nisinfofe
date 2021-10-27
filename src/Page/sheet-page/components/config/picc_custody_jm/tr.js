@@ -34,7 +34,7 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 30
+      width: 25
     },
   },
   {
