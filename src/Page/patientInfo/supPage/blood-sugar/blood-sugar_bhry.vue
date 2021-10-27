@@ -10,7 +10,7 @@
           <!-- <img class="his-logo"
           src="../../../../common/images/his-logo/厚街医徽.png" />-->
           <div class="title">{{ HOSPITAL_NAME_SPACE }}</div>
-          <div
+          <!-- <div
             class="sup-title"
             v-if="HOSPITAL_NAME === '广州市花都区人民医院'"
           >
@@ -31,33 +31,10 @@
           <div class="sup-title" v-else-if="HOSPITAL_ID == 'liaocheng'">
             血糖酮体记录表
           </div>
-          
-          <div class="sup-title" v-else>微量血糖测定登记表</div>
-          <div class="identifying" v-if="HOSPITAL_ID == 'liaocheng'">POCT</div>
-          <p flex="main:justify" class="info" v-if="HOSPITAL_ID == 'liaocheng'">
-            <span v-if="HOSPITAL_ID == 'fuyou'">科室：{{ tDeptName }}</span>
-            <span style="width:180px" v-else-if="HOSPITAL_ID == 'liaocheng'" >科室：{{ patientInfo.wardName || patientInfo.deptName }}</span>
-            <span v-else
-            style="width:150px"
-              >科室：{{ patientInfo.wardName || patientInfo.deptName }}</span
-            >
-            <!-- <span>入院日期：{{patientInfo.admissionDate | toymd}}</span> -->
-            <span  style="width:70px" v-if="HOSPITAL_ID == 'liaocheng'">床号：{{ patientInfo.bedLabel }}</span>
-            <span  style="width:100px" v-else>床号：{{ patientInfo.bedLabel }}</span>
-            <span>病人姓名：{{ patientInfo.name }}</span>
-            <span>性别：{{ patientInfo.sex }}</span>
-            <span v-if="HOSPITAL_ID == 'lingcheng'" @dblclick="onEditAge"
-              >年龄：{{ formAge ? formAge : patientInfo.age }}</span
-            >
-            <span v-else>年龄：{{ resAge ? resAge : patientInfo.age }}</span>
-            <!-- <span class="diagnosis-con">诊断：{{patientInfo.diagnosis}}</span> -->
-            <span v-if="HOSPITAL_ID == 'liaocheng'"
-              >病案号：{{ patientInfo.inpNo }}</span
-            >
-            <span v-else>住院号：{{ patientInfo.inpNo }}</span>
-            <!-- <span>入院日期：{{$route.query.admissionDate}}</span> -->
-          </p>
-          <p flex="main:justify" class="info" v-else>
+           -->
+          <div class="sup-title">微量血糖测定登记表</div>
+          <!-- <div class="identifying" v-if="HOSPITAL_ID == 'liaocheng'">POCT</div> -->
+          <p flex="main:justify" class="info">
             <span>病人姓名：{{ patientInfo.name }}</span>
             <span>性别：{{ patientInfo.sex }}</span>
             <span v-if="HOSPITAL_ID == 'lingcheng'" @dblclick="onEditAge"
@@ -79,42 +56,11 @@
             <!-- <span>入院日期：{{$route.query.admissionDate}}</span> -->
           </p>
           <div class="table-warpper" flex="cross:stretch">
-            <!-- 【左边】聊城二院血糖表格单独管理 -->
-            <sugarTableLcey
-            v-if="HOSPITAL_ID == 'liaocheng'"
-            :data="item.left"
+            <sugarTable
+              :data="item"
               :selected.sync="selected"
               @dblclick="hisDisabled()&&onEdit()"
               :baseIndex='0'
-            ></sugarTableLcey>
-            <sugarTable
-            v-else
-              :data="item.left"
-              :selected.sync="selected"
-              @dblclick="hisDisabled()&&onEdit()"
-              :baseIndex='0'
-            ></sugarTable>
-            <div
-              style="
-                width: 10px;
-                border-top: 1px solid #000;
-                border-bottom: 1px solid #000;
-              "
-            ></div>
-             <!--【右边】 聊城二院血糖表格单独管理 -->
-            <sugarTableLcey
-            v-if="HOSPITAL_ID == 'liaocheng'"
-            :data="item.right"
-              :selected.sync="selected"
-              @dblclick="hisDisabled()&&onEdit()"
-              :baseIndex='27'
-            ></sugarTableLcey>
-            <sugarTable
-            v-else
-              :data="item.right"
-              :selected.sync="selected"
-              @dblclick="hisDisabled()&&onEdit()"
-              :baseIndex='27'
             ></sugarTable>
           </div>
           <div class="page-con">
@@ -267,8 +213,7 @@
 
 
 <script>
-import sugarTable from "./components/sugar-table.vue";
-import sugarTableLcey from "./components/sugar-table-lcey.vue";
+import sugarTable from "./components/sugar-table-bhry.vue";
 import {
   getSugarListWithPatientId,
   saveSugarList,
@@ -354,10 +299,9 @@ export default {
       );
       let listMap = [];
 
-      for (let i = 0; i < list.length; i += 54) {
-        let obj = {};
-        obj.left = list.slice(i, i + 27);
-        obj.right = list.slice(i + 27, i + 54);
+      for (let i = 0; i < list.length; i += 27) {
+        let obj = [];
+        obj = list.slice(i, i + 27);
         listMap.push(obj);
       }
       this.listMap = listMap;
@@ -388,7 +332,7 @@ export default {
     },
     onAddTable() {
       if (this.$route.query.patientId) {
-        this.listMap.push({ left: [], right: [] });
+        this.listMap.push([]);
       } else {
         this.$message.warning("请先选择一名患者");
       }
@@ -527,8 +471,6 @@ export default {
   },
   components: {
     sugarTable,
-    // 聊城二院血糖表格
-    sugarTableLcey,
     whiteButton,
     sugarChart,
     nullBg,

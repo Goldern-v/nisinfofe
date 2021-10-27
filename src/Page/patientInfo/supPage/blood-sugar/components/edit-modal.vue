@@ -114,6 +114,12 @@
         <ElInput v-model="form.riValue" />
         <span class="unit">(ü)</span>
       </ElFormItem>
+      <!-- <ElFormItem
+        label="备注："
+        v-if="HOSPITAL_ID == 'beihairenyi'"
+      >
+        <ElInput v-model="form.remarks" />
+      </ElFormItem> -->
       <ElFormItem label="血酮值：" required v-if="HOSPITAL_ID == 'liaocheng'">
         <ElInput v-model="form.riValue" />
         <span class="unit">(mmol/L)</span>
@@ -148,6 +154,7 @@ export default {
       sugarItem: "微机血糖",
       sugarValue: '',
       riValue: '',
+      remarks:'',
     },
     curEmpName: "",
     curEmpNo: "",
@@ -281,6 +288,7 @@ export default {
           sugarItem: form.sugarItem || defaultSugarItem, //--血糖项目名称
           sugarValue: form.sugarValue || 0, //--项目值
           riValue: form.riValue || 0, //--可以传空
+          remarks:form.remarks,
           nurseEmpNo: this.curEmpNo, //--护士工号
           nurse: this.curEmpName, //--护士姓名
           expand1: "",
@@ -297,6 +305,7 @@ export default {
           sugarItem: form.sugarItem || defaultSugarItem,
           sugarValue: form.sugarValue || 0,
           riValue: form.riValue || 0,
+          remarks:form.remarks || '',
           recordId: form.recordId || "",
         };
         this.oldRecordDate = form.recordDate;
@@ -307,6 +316,7 @@ export default {
           sugarItem: defaultSugarItem,
           sugarValue: 0,
           riValue: 0,
+          remarks:'',
           recordId: "",
         };
         this.oldRecordDate = "";
