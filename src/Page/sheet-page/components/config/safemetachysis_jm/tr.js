@@ -167,11 +167,11 @@ export default [
     // oninput: next
   },
   {
-    key: "audit",
+    key: "sign",
     value: ""
   },
   {
-    key: "sign",
+    key: "audit",
     value: ""
   },
   // {

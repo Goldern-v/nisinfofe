@@ -117,7 +117,7 @@ export default {
         },
       },
       {
-        name: `核对者
+        name: `执行者
         `,
         colspan: "1",
         rowspan: "3",
@@ -127,7 +127,7 @@ export default {
         },
       },
       {
-        name: `执行者
+        name: `核对者
         `,
         colspan: "1",
         rowspan: "3",
@@ -135,7 +135,7 @@ export default {
           minWidth: '50px',
           maxWidth: '50px',
         },
-      }
+      },
     ],
     mid: [{
         name: '日期',
