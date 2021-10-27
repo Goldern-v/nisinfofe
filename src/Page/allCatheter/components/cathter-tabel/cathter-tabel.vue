@@ -9,9 +9,11 @@
                     <div :style="{width:'140px'}">置管来源：{{tableInfo.catheterSource}}</div>
                 </div>
                 <div class="up-cathter">
-                    <div style="cursor:pointer;"  @dblclick="changeReplaceTime">更换时间：{{tableInfo.replaceTime}}</div>
+                    <div style="cursor:pointer;" v-show="!!tableInfo.replaceTime" @dblclick="changeReplaceTime">更换时间：{{tableInfo.replaceTime}}</div>
+                    <div style="cursor:pointer;" v-show="!tableInfo.replaceTime" @dblclick="changeReplaceTime">更换时间：未确定</div>
                     <div v-show="replaceDays=='outTime'" style="color:red">剩余天数：已超时</div>
-                    <div v-show="replaceDays!='unShow'&&replaceDays!='outTime'" :style="{color:tableInfo.catheterStatus==1?'red':''}">剩余天数：第{{replaceDays}}天</div>
+                    <div v-show="!['unShow','outTime','unSet','today'].includes(replaceDays)" :style="{color:tableInfo.catheterStatus==1?'red':''}">剩余天数：{{replaceDays}}天</div>
+                    <div v-show="replaceDays=='today'" :style="{color:tableInfo.catheterStatus==1?'red':''}">今天拔管</div>
                     <div v-show="replaceDays=='unShow'">实际拔管时间：{{tableInfo.extubationTime}}</div>
                 </div>
             </div>
@@ -270,7 +272,7 @@ methods: {
         obj.replaceTime = val
         updateInfo(obj,this.tableInfo.code).then(res=>{
             let config = res.data.data
-            console.log(res.data.data);
+            this.$emit('onChangePatient_self',this.$store.state.sheet.patientInfo)
             this.$emit('updateTableConfig',config)
         })
     },
@@ -396,8 +398,13 @@ computed:{
         console.log(day);
         if(day<0){
             return 'outTime'
+        }else if(day){
+            return day
+        }else if(day===0){
+            return 'today'
+        }else{
+            return 'unSet'
         }
-        return day
     }
 }
 };
