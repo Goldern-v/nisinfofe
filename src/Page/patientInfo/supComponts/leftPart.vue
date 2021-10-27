@@ -150,6 +150,7 @@
     <bedModal ref="bedModal"></bedModal>
     <bedModalWx ref="bedModalWx"></bedModalWx>
     <bedModalLc ref="bedModalLc"></bedModalLc>
+    <bedModalLiaocheng ref="bedModalLiaocheng"></bedModalLiaocheng>
     <bedModalHd ref="bedModalHd"></bedModalHd>
     <bedModalZsq ref="bedModalZsq"></bedModalZsq>
     <bedModalBh ref="bedModalBh"></bedModalBh>
@@ -295,6 +296,7 @@
 import bedModal from "./modal/bed-modal.vue";
 import bedModalWx from "./modal/bed-modal_wx.vue";
 import bedModalLc from "./modal/bed-modal_lc.vue";
+import bedModalLiaocheng from "./modal/bed-modal_liaocheng.vue";
 import bedModalHd from "./modal/bed-modal-hd.vue";
 import bedModalZsq from "./modal/bed-modal-zsq.vue";
 import bedModalBh from "./modal/bed-modal-bh.vue";
@@ -337,6 +339,8 @@ export default {
         this.$refs.bedModalWx.open();
       } else if (this.HOSPITAL_ID == "lingcheng") {
         this.$refs.bedModalLc.open();
+      }else if (this.HOSPITAL_ID == "liaocheng") {
+        this.$refs.bedModalLiaocheng.open();
       } else if (this.HOSPITAL_ID == "huadu") {
         this.$refs.bedModalHd.open(printMode);
       } else if (this.HOSPITAL_ID == "zhongshanqi") {
@@ -408,6 +412,7 @@ export default {
     printModal,
     bedModalWx,
     bedModalLc,
+    bedModalLiaocheng,
     archiveModal,
     bedModalHd,
     InpatientRegis,
