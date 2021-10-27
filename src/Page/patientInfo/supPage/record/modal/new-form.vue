@@ -417,18 +417,19 @@ export default {
         {
           value: "1",
           label: "护理评估",
-        },{
+        },
+        {
+          value: "monitor",
+          label: "监测记录",
+        },
+        {
+          value: "handover",
+          label: "交接记录单",
+        },
+        {
           value: "authorization",
           label: "知情同意书",
         },
-        // {
-        //   value: "monitor",
-        //   label: "监测记录",
-        // },
-        // {
-        //   value: "handover",
-        //   label: "交接记录单",
-        // },
       ],
       // guizhouOptions: [
 
