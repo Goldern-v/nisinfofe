@@ -281,7 +281,11 @@ export default {
 
       let url = '';
       this.selectedData.map((item,index) => {
-        url += `${item.patientId}|${item.visitId}|${item.orderNo};`;
+        let targettIndex = this.selectedData.findIndex(e=>e.orderNo==item.orderNo)
+        if(targettIndex==index){
+          console.log(`${item.patientId}|${item.visitId}|${item.orderNo};`);
+          url += `${item.patientId}|${item.visitId}|${item.orderNo};`;
+        }
       });
       this.Uuid = new Date().getTime() + parseInt(Math.random()*10000);
       this.showPintModal = true

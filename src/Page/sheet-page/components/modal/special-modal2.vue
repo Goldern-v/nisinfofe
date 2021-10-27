@@ -1146,19 +1146,12 @@ export default {
     },
     // 保存（富文本）
     postRichText() {
-      let okLength = (function () {
-        switch (this.HOSPITAL_ID) {
-          case "lingcheng":
-            return 46;
-            break;
-          case "hengli":
-            return 46;
-            break;
-          default:
-            return 23;
-            break;
-        }
-      })();
+      let okLength = ""
+      if(this.HOSPITAL_ID=='lingcheng'||this.HOSPITAL_ID=='hengli'){
+        okLength = 46
+      }else {
+        okLength = 23
+      }
       var GetLength = function (str) {
         // 过滤上下标签替换
         const subReg = /(<\/?sub.*?>)/gi;
