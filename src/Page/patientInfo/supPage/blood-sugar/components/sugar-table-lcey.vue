@@ -17,9 +17,9 @@
         </th>
         <th v-else style="width: 22%; min-width: 75px">日期</th>
         <th v-if="HOSPITAL_ID != 'lingcheng' && HOSPITAL_ID != 'liaocheng'" style="width: 20%">项目</th>
-        <th v-else-if="HOSPITAL_ID != 'lingcheng' && HOSPITAL_ID == 'liaocheng'" style="width: 35%">类型</th>
+        <th v-else-if="HOSPITAL_ID != 'lingcheng' && HOSPITAL_ID == 'liaocheng'" style="width: 40%">类型</th>
         <th v-else style="width: 24%">测量时间</th>
-        <th style="width: 23%">
+        <th style="width: 21%">
           血糖值
           <br />(mmol/L)
         </th>
@@ -37,7 +37,7 @@
           {{HOSPITAL_ID=="quzhou"?'胰岛素剂量':'RI剂量'}}
         </th>
         <th
-          style="width: 23%"
+          style="width: 21%"
           v-if="
             HOSPITAL_ID == 'liaocheng'
           "
@@ -177,7 +177,7 @@
   </div>
 </template>
 
-<style lang="stylus" rel="stylesheet/stylus" type="text/stylus">
+<style lang="stylus" rel="stylesheet/stylus" type="text/stylus" >
 .blood-sugar-table {
   &.table-box {
     width: 0;
