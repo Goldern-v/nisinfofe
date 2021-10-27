@@ -21,26 +21,26 @@ export default {
       },
       {
         name: `
-        台<br/>温<br/>度<br/>℃
+        台温度℃
         `,
         canSet: true,
         key: "boxTemperature",
         colspan: '1',
         rowspan: '3',
         style: {
-          minWidth: '30px',
-          maxWidth: '30px',
+          minWidth: '25px',
+          maxWidth: '25px',
         },
       },
       {
         name: `
-        台<br/>编<br/>号
+        台编号
         `,
         canSet: true,
         key: "boxCode",
         style: {
-          minWidth: '30px',
-          maxWidth: '30px',
+          minWidth: '25px',
+          maxWidth: '25px',
         },
         colspan: '1',
         rowspan: '3'

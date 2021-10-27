@@ -99,7 +99,7 @@ export default [
     value: "",
     event: keyf1,
     name: "膀胱情况",
-    next: "次/分",
+    next: "",
     autoComplete: {
       data: pgList
     },
@@ -111,8 +111,8 @@ export default [
     key: "preInputOne", //静脉
     value: "",
     event: keyf1,
-    name: "指尖血糖",
-    next: "mmol/L",
+    name: "静脉",
+    next: "ml",
     textarea: {
       width: 30
     }
@@ -121,7 +121,7 @@ export default [
     key: "preInputTwo", //口服
     value: "",
     event: keyf1,
-    name: "阴道出血",
+    name: "口服",
     next: "mL",
     textarea: {
       width: 30
@@ -131,7 +131,8 @@ export default [
     key: "preInputThree", // 血
     value: "",
     event: keyf1,
-    name: "入量内容",
+    name: "血",
+    next: "mL",
     textarea: {
       width: 30
     },
@@ -140,7 +141,7 @@ export default [
     key: "postOutputOne", // 尿
     value: "",
     event: keyf1,
-    name: "入量大小",
+    name: "尿",
     next: "ml",
     textarea: {
       width: 30
@@ -150,7 +151,8 @@ export default [
     key: "postOutputTwo", //其他
     value: "",
     event: keyf1,
-    name: "出量内容",
+    name: "其他",
+    next: "ml",
     textarea: {
       width: 30
     },
@@ -159,8 +161,7 @@ export default [
     key: "fieldOne", //乳量
     value: "",
     event: keyf1,
-    name: "出量大小",
-    next: "ml",
+    name: "乳量",
     textarea: {
       width: 30
     },
@@ -172,7 +173,7 @@ export default [
     key: "fieldTwo", //宫底高度
     value: "",
     event: keyf1,
-    name: "出量颜色",
+    name: "宫底高度",
     autoComplete: {
       data: gdgdList
     },
@@ -184,7 +185,7 @@ export default [
     key: "fieldThree", //子宫收缩
     value: "",
     event: keyf1,
-    name: "健康宣教",
+    name: "子宫收缩",
     textarea: {
       width: 30
     },
@@ -196,7 +197,7 @@ export default [
     key: "positionFour", //腹部
     value: "",
     event: keyf1,
-    name: "健康宣教",
+    name: "腹部",
     textarea: {
       width: 43
     }
@@ -204,6 +205,7 @@ export default [
   {
     key: "positionFive", //会阴
     value: "",
+    name: "会阴",
     event: keyf1,
     textarea: {
       width: 43,
@@ -213,6 +215,7 @@ export default [
   {
     key: "fieldFour", //留置尿管
     value: "",
+    name: "留置尿管",
     event: keyf1,
     textarea: {
       width: 30,
@@ -225,6 +228,7 @@ export default [
   {
     key: "preFieldFive", //尿色
     value: "",
+    name: "尿色",
     event: keyf1,
     textarea: {
       width: 30,
@@ -238,6 +242,7 @@ export default [
   {
     key: "preFieldSix", //镇痛泵
     value: "",
+    name: "镇痛泵",
     event: keyf1,
     textarea: {
       width: 30,
@@ -250,6 +255,7 @@ export default [
   {
     key: "preFieldSeven", //母乳喂养指导
     value: "",
+    name: "母乳喂养指导",
     event: keyf1,
     textarea: {
       width: 30,
@@ -262,6 +268,7 @@ export default [
   {
     key: "preFieldEight", //vas评分
     value: "",
+    name: "vas评分",
     event: keyf1,
     textarea: {
       width: 30,
@@ -274,6 +281,7 @@ export default [
   {
     key: "preFieldNice", //跌倒告知
     value: "",
+    name: "跌倒告知",
     event: keyf1,
     textarea: {
       width: 30,

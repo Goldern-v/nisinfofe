@@ -1,12 +1,13 @@
 <template>
     <div class="cathter-box">
         <div class="cathter-tool">
-            <div>导管</div>
-            <div class="add-btn" @click="addCathter">+添加导管</div>
+            <div style="flex:1;">导管</div>
+            <div style="flex:3;text-indent:0;"><el-checkbox v-model="showExtubation">显示已拔除导管</el-checkbox></div>
+            <div style="flex:2;" class="add-btn" @click="addCathter">+添加导管</div>
         </div>
         <div class="cathter-list">
             <div 
-            v-for="(item,index) in cathterArr" 
+            v-for="(item,index) in renderCathter" 
             class="cathter-item" 
             :style="{color:item.fontColor,background:current==index?'#eff6f5':''}" 
             :key="index" 
@@ -83,7 +84,9 @@ return {
     current:null,
     statusColor:{
         0:'#4bb08d',1:'red',2:'grey'
-    }
+    },
+    showExtubation:false,
+    renderCathter:[]
 };
 },
 methods: {
@@ -101,6 +104,15 @@ methods: {
         },item.code).then(res=>{
             this.$emit('updateTableConfig',res.data.data)
         })
+    },
+    showExtubationFn(value){
+        if(value){
+            this.renderCathter = this.cathterArr
+        }else{
+            this.renderCathter = this.cathterArr.filter(item=>{
+                return item.catheterStatus!='2'
+            })
+        }
     }
 },
 watch:{
@@ -108,6 +120,10 @@ watch:{
         a.map(item=>{
             item.fontColor = this.statusColor[item.catheterStatus]
         })
+        this.showExtubationFn(this.showExtubation)
+    },
+    showExtubation(value){
+        this.showExtubationFn(value)
     }
 },
 components: {}

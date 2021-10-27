@@ -290,7 +290,8 @@ import {
   syncGetNurseBedRecLiaocheng,
   syncGetNurseBedRecShannan,
   syncGetNurseBedRecQuzhou,
-  syncGetNurseBedRecHengli
+  syncGetNurseBedRecHengli,
+  syncGetNurseBedRecJiangMenFY
 } from "@/api/lesion";
 import footerBar from "../footer-bar/footer-bar.vue";
 import { listItem } from "@/api/common.js";
@@ -580,7 +581,8 @@ export default {
       if (
         this.HOSPITAL_ID == "zhongshanqi" ||
         this.HOSPITAL_ID == "liaocheng" ||
-        this.HOSPITAL_ID == "beihairenyi"
+        this.HOSPITAL_ID == "beihairenyi" ||
+        this.HOSPITAL_ID == "fuyou"
       ) {
         list.splice(3, 0, {
           name: "我的关注",
@@ -599,7 +601,7 @@ export default {
     },
     // 同步床位数据
     showSyncBedBtn() {
-      return ["weixian", "lingcheng", "liaocheng", "hengli",'shannan', 'quzhou'].includes(
+      return ["weixian", "lingcheng", "liaocheng", "hengli",'shannan', 'quzhou', 'fuyou'].includes(
         this.HOSPITAL_ID
       );
     },
@@ -662,6 +664,9 @@ export default {
           break;
         case "hengli":
           syncData = syncGetNurseBedRecHengli;
+          break;
+        case "fuyou":
+          syncData = syncGetNurseBedRecJiangMenFY;
           break;
         default:
           syncData = syncGetNurseBedRec;

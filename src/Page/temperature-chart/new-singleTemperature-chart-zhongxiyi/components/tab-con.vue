@@ -751,6 +751,7 @@ export default {
   }
 
   .row-bottom {
+  overflow-y:scroll;
     .showRecord {
       display: flex;
       height: 100%;
@@ -776,7 +777,24 @@ export default {
   .rowItem_noShow {
     display: none;
   }
+.fieldClass{
+display: inline-block;
+    padding: 3px 15px;
 
+    .preText {
+      display: inline-block;
+      width: 50px;
+    }
+
+    input {
+      width: 60px;
+      font-size: 12px;
+    }
+
+    .el-select {
+      width: 85px;
+    }
+}
   .rowbox {
     display: inline-block;
     padding: 3px 15px;

@@ -1,6 +1,9 @@
 export default {
   // 科室的名称
   deptType: '',
+  style: {
+    width: '1150px'
+  },
   th: {
     top: [{
         name: '日期',
@@ -29,7 +32,7 @@ export default {
         rowspan: '3',
         style: {
           whiteSpace: 'nowrap',
-          minWidth: '34px',
+          minWidth: '30px',
         }
       },
       {
@@ -41,7 +44,7 @@ export default {
         rowspan: '3',
         style: {
           whiteSpace: 'nowrap',
-          minWidth: '38px',
+          minWidth: '30px',
         }
       },
       {
@@ -53,7 +56,7 @@ export default {
         rowspan: '3',
         style: {
           whiteSpace: 'nowrap',
-          minWidth: '38px',
+          minWidth: '30px',
         }
       },
       {
@@ -61,8 +64,8 @@ export default {
         血压<br/>(mmHg)
         `,
         style: {
-          minWidth: '52px',
-          maxWidth: '52px',
+          minWidth: '45px',
+          maxWidth: '45px',
           whiteSpace: 'nowrap'
         },
         colspan: '1',
@@ -113,8 +116,8 @@ export default {
         colspan: '1',
         rowspan: '3',
         style: {
-          minWidth: '50px',
-          maxWidth: '50px',
+          minWidth: '37px',
+          maxWidth: '37px',
         }
       },
       {
@@ -122,8 +125,8 @@ export default {
         colspan: '1',
         rowspan: '3',
         style: {
-          minWidth: '50px',
-          maxWidth: '50px',
+          minWidth: '37px',
+          maxWidth: '37px',
         }
       },
       {
@@ -201,14 +204,14 @@ export default {
     ],
     mid: [{
         name: `
-        静脉<br>(ml)
+        静脉<br>ml
         `,
         colspan: '1',
         rowspan: '2'
       },
       {
         name: `
-        进食<br>(ml)
+        进食<br>ml
         `,
         colspan: '1',
         rowspan: '2'
@@ -221,6 +224,10 @@ export default {
         rowspan: '2',
         canSet: true,
         key: 'otherFood',
+        style: {
+          minWidth: '36px',
+          maxWidth: '36px',
+        }
       }, {
         name: `
         尿量
@@ -236,7 +243,7 @@ export default {
       },
       {
         name: `
-        呕吐<br>(ml)
+        呕吐<br>ml
         `,
         colspan: '1',
         rowspan: '2'

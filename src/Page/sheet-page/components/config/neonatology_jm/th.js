@@ -2,7 +2,7 @@ export default {
   // 科室的名称
   deptType: "",
   style: {
-    width: "1300px"
+    width: "1100px"
   },
   th: {
     top: [{
@@ -62,7 +62,7 @@ export default {
       },
       {
         name: `
-        皮测黄疸值<br/>(umol/L)
+        皮测黄疸值<br/>umol/L
         `,
         colspan: "1",
         rowspan: "3"

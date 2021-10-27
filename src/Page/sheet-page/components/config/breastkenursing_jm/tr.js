@@ -142,6 +142,7 @@ export default [
     value: "",
     event: keyf1,
     name: "尿管",
+    next: "ml",
     textarea: {
       width: 43
     },
@@ -151,6 +152,7 @@ export default [
     value: "",
     event: keyf1,
     name: "胸壁",
+    next: "ml",
     textarea: {
       width: 43
     },
@@ -160,6 +162,7 @@ export default [
     value: "",
     event: keyf1,
     name: "腋窝",
+    next: "ml",
     textarea: {
       width: 43
     },
