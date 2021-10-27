@@ -105,7 +105,7 @@
               item.sugarValue && item.sugarValue !== "0" ? item.sugarValue : ""
             }}
           </div> -->
-           <div class="cell" @click="text1">
+           <div class="cell" >
              <input type="text" v-model="item.sugarValue" :data-value="item.sugarValue" >  
             </div>
         </td>
