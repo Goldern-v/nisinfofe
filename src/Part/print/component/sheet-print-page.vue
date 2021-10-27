@@ -230,6 +230,7 @@ export default {
         "postpartumnursing_jm",//江门妇幼_产后护理记录单
         "entdepartment_jm",//江门妇幼_耳鼻喉科护理记录单
         "catheterplacement_jm",//江门妇幼_深静脉导管置入术后维护单
+        "safemetachysis_jm",//江门妇幼_输血护理记录单
       ]
     };
   },
@@ -374,6 +375,9 @@ export default {
         window,
         `
           #sheetPagePrint#sheetPagePrint th[dataname='上级护士签名']{
+            display:none !important;
+          }
+           #sheetPagePrint#sheetPagePrint th[dataname='核对者']{
             display:none !important;
           }
         `
