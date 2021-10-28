@@ -586,7 +586,8 @@ export default {
         this.HOSPITAL_ID == "zhongshanqi" ||
         this.HOSPITAL_ID == "liaocheng" ||
         this.HOSPITAL_ID == "beihairenyi" ||
-        this.HOSPITAL_ID == "fuyou"
+        this.HOSPITAL_ID == "fuyou" || 
+        this.HOSPITAL_ID == "huadu"
       ) {
         list.splice(3, 0, {
           name: "我的关注",

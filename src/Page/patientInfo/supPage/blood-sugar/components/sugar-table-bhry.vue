@@ -10,20 +10,20 @@
         </th>
         <th
           v-if="HOSPITAL_ID != 'lingcheng'"
-          style="width: 22%; min-width: 75px"
+          style="width: 10%; min-width: 75px"
         >
           时间
         </th>
         <th v-else style="width: 22%; min-width: 75px">日期</th>
-        <th v-if="HOSPITAL_ID != 'lingcheng' && HOSPITAL_ID != 'liaocheng'" style="width: 20%">项目</th>
+        <th v-if="HOSPITAL_ID != 'lingcheng' && HOSPITAL_ID != 'liaocheng'" style="width: 10%">项目</th>
         <th v-else-if="HOSPITAL_ID != 'lingcheng' && HOSPITAL_ID == 'liaocheng'" style="width: 20%">类型</th>
         <th v-else style="width: 24%">测量时间</th>
-        <th style="width: 23%">
+        <th style="width: 10%">
           血糖值
           <br />(mmol/L)
         </th>
         <th
-          style="width: 16%"
+          style="width: 10%"
         >
           RI剂量
         </th>
@@ -36,7 +36,12 @@
           血酮值
         <br />(mmol/L)
         </th>
-        <th style="width: 14%">执行人</th>
+        <th
+        style="width: 44%"
+        >
+          备注
+        </th>
+        <th style="width: 12%">执行人</th>
       </tr>
       <tr
         v-for="(item,index) in renderData"
@@ -73,6 +78,14 @@
           <div class="cell">
             {{
               item.riValue && item.riValue !== "0" ? item.riValue + " ü" : ""
+            }}
+          </div>
+        </td>
+        <!-- 备注 -->
+         <td>
+          <div class="cell" id="remark">
+            {{
+              item.expand3 ? item.expand3 : ""
             }}
           </div>
         </td>
@@ -145,8 +158,11 @@
       font-weight: bold;
       background: #f4f2f5;
     }
+    #remark{
+      font-size:12px;
+      white-space: inherit ;
+    }
   }
-
   .inPrint {
     display: none;
  
