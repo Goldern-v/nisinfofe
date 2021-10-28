@@ -77,15 +77,15 @@
                       type="textarea"
                       style="width:97%;"
                       class="bottomInput"
-                      v-model="sheetInfo.relObj['hxjxh' + index]"
-                      :data-value="sheetInfo.relObj['hxjxh' + index]"
+                      v-model="sheetInfo.relObj"
+                      :data-value="sheetInfo.relObj"
                     />
                   </div>
                 </div>
                 <div class="boxLine">
                   <div class="boxTitle">气管插管经：</div>
-                  <input type="radio" style="margin-left:-5px;" value="口" :ischecked="sheetInfo.relObj['qgcgj' + index] == '口'" v-model="sheetInfo.relObj['qgcgj' + index]">口
-                  <input type="radio" value="鼻" :ischecked="sheetInfo.relObj['qgcgj' + index] == '鼻'" v-model="sheetInfo.relObj['qgcgj' + index]">鼻
+                  <input type="radio" style="margin-left:-5px;" value="口" :ischecked="sheetInfo.relObj == '口'" v-model="sheetInfo.relObj">口
+                  <input type="radio" value="鼻" :ischecked="sheetInfo.relObj == '鼻'" v-model="sheetInfo.relObj">鼻
                   <!-- <div class="boxTitle" style="margin-left:5px;">口径：</div>
                   <input
                     type="textarea"
@@ -101,20 +101,20 @@
                     type="textarea"
                     style="width:32px;"
                     class="bottomInput"
-                    v-model="sheetInfo.relObj['gj' + index]"
-                    :data-value="sheetInfo.relObj['gj' + index]"
+                    v-model="sheetInfo.relObj"
+                    :data-value="sheetInfo.relObj"
                   />cm
                   <div class="boxTitle" style="margin-left:10px;">深度：</div>
                   <input
                     type="textarea"
                     style="width:32px;"
                     class="bottomInput"
-                    v-model="sheetInfo.relObj['sd' + index]"
-                    :data-value="sheetInfo.relObj['sd' + index]"
+                    v-model="sheetInfo.relObj"
+                    :data-value="sheetInfo.relObj"
                   />mm
                 </div>
                 <div style="margin-left:1px;">
-                  <textarea style="cursor:text" v-model="sheetInfo.relObj['xpwz' + index]" :data-value="sheetInfo.relObj['xpwz' + index]" @input="(e)=>onXpChang(e)"></textarea>
+                  <textarea style="cursor:text" v-model="sheetInfo.relObj" :data-value="sheetInfo.relObj" @input="(e)=>onXpChang(e)"></textarea>
                 </div>
               </td>
               <td style="width:195px">
@@ -122,19 +122,19 @@
                   <input
                     type="checkbox"
                     value="鼻氧管"
-                    :ischecked="sheetInfo.relObj[`byg${index}`]"
+                    :ischecked="sheetInfo.relObj.byg"
                     v-model="checkedbyg"
                   />鼻氧管
                   <input
                     type="checkbox"
                     value="面罩"
-                    :ischecked="sheetInfo.relObj[`mz${index}`]"
+                    :ischecked="sheetInfo.relObj.mz"
                     v-model="checkedmz"
                   />面罩
                   <input
                     type="checkbox"
                     value="头罩"
-                    :ischecked="sheetInfo.relObj[`tz${index}`]"
+                    :ischecked="sheetInfo.relObj.tz"
                     v-model="checkedtz"
                   />头罩
                 </div>
@@ -142,19 +142,19 @@
                   <input
                     type="checkbox"
                     value="胃管"
-                    :ischecked="sheetInfo.relObj[`wg${index}`]"
+                    :ischecked="sheetInfo.relObj.wg"
                     v-model="checkedwg"
                   />胃管
                   <input
                     type="checkbox"
                     value="胃肠减压"
-                    :ischecked="sheetInfo.relObj[`wcjy${index}`]"
+                    :ischecked="sheetInfo.relObj.wcjy"
                     v-model="checkedwcjy"
                   />胃肠减压
                   <input
                     type="checkbox"
                     value="鼻肠管"
-                    :ischecked="sheetInfo.relObj[`bcg${index}`]"
+                    :ischecked="sheetInfo.relObj.bcg"
                     v-model="checkedbcg"
                   />鼻肠管
                 </div>

@@ -24,10 +24,10 @@ let watchArr ={}
 key.map(item=>{
   watchArr['checked'+item] = {
     get:()=>{
-      return this_.sheetInfo.relObj[`${item}${this_.index}`] === 'true'  
+      return this_.sheetInfo.relObj[item] === 'true'  
     },
     set:(nVal)=>{
-      this_.sheetInfo.relObj[`${item}${this_.index}`] = nVal ? "true" : "false"
+      this_.sheetInfo.relObj[item] = nVal ? "true" : "false"
     } 
   }
 })
