@@ -9,7 +9,7 @@ import info from "../sheetInfo";
 // let info = {
 //   sheetType: "neurology"
 // };
-let NBPList = ["NBP","ABP"];
+let NBPList = [];
 let xzpList = ["悬浮红细胞","洗涤红细胞","血浆","冷沉淀"];
 let twList = ["左","右","平","俯"];
 
@@ -24,7 +24,6 @@ export default [
     key: "recordHour", //时间
     value: "",
     event: event_time,
-    click: click_time
   },
   {
     key: "boxTemperature", //台箱温度
@@ -76,7 +75,7 @@ export default [
     name: "NBP/ABP",
     next: "mmHg",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 6),
     textarea: {
       width: 30
     },

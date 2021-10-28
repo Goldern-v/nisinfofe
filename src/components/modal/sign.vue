@@ -82,6 +82,21 @@
       <span class="loginCa" v-else @click="pw = false">证书验证</span>
     </div>
 
+    <!-- <span v-if="['fuyou'].includes(HOSPITAL_ID)">
+      <p class="name-title">
+        验证方式
+        <span :style="{ color: fuyouCaData && fuyouCaData.data && fuyouCaData.data.userName ? 'green' : 'red' }">
+          {{fuyouCaData && fuyouCaData.data.userName || "无" }}证书
+          {{fuyouCaData && fuyouCaData.data.userName ? "ca已登录" : "ca未登录" }}
+        </span>
+      </p>
+    </span>
+    <div v-if="['fuyou'].includes(HOSPITAL_ID)" style="margin-top: 5px">
+      <span @click="openFuyouCaSignModal" class="loginCa" v-if="!fuyouCaData"
+        >ca登录</span
+      >
+    </div> -->
+
     
     <div style="height: 20px"></div>
     <div slot="button">
@@ -93,6 +108,14 @@
         @click.stop="post"
         >确认</el-button
       >
+      <!-- <el-button 
+        v-if="['fuyou'].includes(HOSPITAL_ID)"
+        class="modal-btn"
+        type="primary"
+        @dblclick.stop="caPost"
+        @click.stop="caPost"
+        >ca签名确认</el-button
+      > -->
     </div>
   </sweet-modal>
 </template>
@@ -138,6 +161,7 @@
 import dayjs from "dayjs";
 import bus from "vue-happy-bus";
 import { verifyCaSign } from "@/api/ca-sign_wx.js";
+import { getCaSignJmfy } from "@/api/ca-sign_fuyou.js";
 export default {
   props: {
     title: {
@@ -184,10 +208,13 @@ export default {
       dateTitle:"",
       aduitDate:'',
       showAduit:false,
+      formData:null,//签名表单传过来的数据
+      fuyouCaData:null,
     };
   },
   methods: {
-    open(callback, title, showDate = false, isHengliNursingForm, message = "") {
+    open(callback, title, showDate = false, isHengliNursingForm, message = "",formData) {//formData为表单数据
+     (formData) && (this.formData=formData);//设置表单数据
       console.log('isHengliNursingFormzczxczxcxzczx', isHengliNursingForm);
       this.signDate = dayjs().format("YYYY-MM-DD HH:mm") || ""; //改
       if(isHengliNursingForm && title!=='删除验证'){
@@ -317,7 +344,41 @@ export default {
     openCaSignModal() {
       window.openCaSignModal();
       this.$refs.modalName.close();
-    }
+    },
+    //江门妇幼ca签名
+    caPost(){
+      if(!this.formData) return false
+      const parmas={
+        patientName:this.formData.patientName,//-- 患者名称
+        patientSex:this.formData.sex,// -- 患者性别
+        patientCardType:"SF",//-- 患者证件类型
+        openId:"1554fec40e617298q7634w02f4y8770be9a",// -- 当前用户唯一标识
+        patientAge:this.formData.age,//-- 患者年龄
+        patientCard:"",// -- 患者证件号
+        templateId:"hash", //-- 模板id
+        formId:this.formData.formCode,// -- 表单ID
+        selfSign:false,//是否开启自动签名
+      };
+      getCaSignJmfy(parmas).then(res=>{
+        console.log(res)
+      }).catch(error=>{
+        console.log(error);
+      })
+      //window.openFuyouCaSignModal
+    },
+    //初始化江门妇幼签名数据
+    initFuyouCaData(){
+      //window.localStorage.setItem("fuyouCaData"
+      this.fuyouCaData=window.localStorage.getItem("fuyouCaData")?JSON.parse(window.localStorage.getItem("fuyouCaData")):null;
+    },
+    //打开ca签名
+    openFuyouCaSignModal(){
+      window.openFuyouCaSignModal(true);
+    },
+  },
+  mounted(){
+    //初始化江门妇幼签名数据
+    this.initFuyouCaData();
   },
   beforeDestroy() {
     console.log("====beforeDestroy");
