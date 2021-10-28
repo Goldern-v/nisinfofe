@@ -25,15 +25,30 @@
           v-model="query.entryDate"
           clearable
         />
-        <div class="times">
-          <el-radio-group v-model="query.entryTime" @change="changeEntryTime">
+        <div class="times" @keydown.stop="(e)=>show(e)">
+        <el-time-select
+            v-model="dateInp"
+            value-format="HH:mm"
+            format="HH:mm"
+            ref="timeSelect"
+            @blur="changeDate"
+            @change="changeVal"
+            :picker-options="{
+              start: '02:00',
+              step: '04:00',
+              end: '22:00'
+            }"
+            class="new-time-select"
+          placeholder="选择时间">
+        </el-time-select>
+          <!-- <el-radio-group v-model="query.entryTime" @change="changeEntryTime">
             <el-radio
               size="mini"
               v-for="item in timesOdd"
               :key="item.id"
               :label="item.value"
             ></el-radio>
-          </el-radio-group>
+          </el-radio-group> -->
         </div>
       </div>
     </div>
@@ -314,7 +329,7 @@ export default {
       ["24"]: ["21:00", "23:59"],
     };
 
-    let entryTime = "02";
+    let entryTime = "02:00:00";
     let currentSecond =
       new Date().getHours() * 60 + new Date().getMinutes() * 1;
 
@@ -333,26 +348,27 @@ export default {
       recordList,
       bus: bus(this),
       editableTabsValue: "2",
+      dateInp:moment().format('HH:mm'),
       query: {
         entryDate: moment(new Date()).format("YYYY-MM-DD"), //录入日期
         entryTime: (()=>{
           if (this.getHours() >= 0 && this.getHours() <= 2) {
-                return "02";
+                return "02:00:00";
               }
               if (this.getHours() > 2 && this.getHours() <= 6) {
-                return "06";
+                return "06:00:00";
               }
               if (this.getHours() > 6 && this.getHours() <= 10) {
-                return "10";
+                return "10:00:00";
               }
               if (this.getHours() > 10 && this.getHours() <= 14) {
-                return "14";
+                return "14:00:00";
               }
               if (this.getHours() > 14 && this.getHours() <= 18) {
-                return "18";
+                return "18:00:00";
               }
               if (this.getHours() > 18 && this.getHours() <= 23) {
-                return "22";
+                return "22:00:00";
               }
          //录入时间
         })() //录入时间
@@ -442,6 +458,45 @@ export default {
 
       }
       }
+    },
+    //选择时间适配
+    changeDate(val){
+      // console.log(val.$el.children[1].value);
+      let numberVal=val.$el.children[1].value;
+      // if(!moment(numberVal,"HH:mm",true).isValid()) {
+      //     this.$message.error("请输入正确时间数值，例如23:25, 2325");
+      //     return false;
+      // }
+      if((numberVal.indexOf(":")==-1 && numberVal.length==4) || (numberVal.indexOf(":")!=-1 && numberVal.length==5)){
+        let time = numberVal.indexOf(":")==-1?`${numberVal.substring(0,2)}:${numberVal.substring(2,4)}`:`${numberVal.substring(0,2)}:${numberVal.substring(3,5)}`;
+        console.log(time);
+        // if(!moment(numberVal,"HH:mm",true).isValid()) {
+        //   this.$message.error("请输入正确时间数值，例如23:25, 2325");
+        //   return false;
+        // }
+        let [hours,min] = time.split(':')
+        if(0<=hours && hours<=24 && 0<=min && min<=59){
+          this.query.entryTime = time+":00"
+          this.dateInp=this.query.entryTime
+        }else {
+          this.$message.error("请输入正确时间数值，例如23:25, 2325")
+        }
+      }
+    },
+    changeVal(newVal,oldVal){
+      if(newVal&&newVal.split(':').length==2){
+        this.query.entryTime = newVal+":00"
+        this.dateInp = this.query.entryTime
+      }
+    },
+     /* 联动修改查询的日期和时间 */
+    changeQuery(value) {
+      let temp = value;
+      this.query.entryDate = temp.slice(0, 10);
+      this.query.entryTime = value.slice(12, 17)+':00';
+      //this.query.entryTime = value.slice(12, 20);
+      //赋值初始值
+      this.dateInp = value.slice(12, 17)+':00';
     },
     init() {
       let obj = {};
@@ -553,12 +608,12 @@ export default {
     changeEntryTime(val) {
       this.query.entryTime = val;
     },
-    /* 联动修改查询的日期和时间 */
-    changeQuery(value) {
-      let temp = value;
-      this.query.entryDate = temp.slice(0, 10);
-      this.query.entryTime = value.slice(12, 14);
-    },
+    // /* 联动修改查询的日期和时间 */
+    // changeQuery(value) {
+    //   let temp = value;
+    //   this.query.entryDate = temp.slice(0, 10);
+    //   this.query.entryTime = value.slice(12, 14);
+    // },
     getFilterSelections(orgin, filterStr) {
       if (!filterStr || !filterStr.trim()) return orgin;
 
@@ -625,6 +680,11 @@ export default {
         this.multiDictList = { ...data };
         this.init();
       });
+    },
+    show(e){
+      if(e.keyCode==13){
+        this.changeDate(this.$refs.timeSelect)
+      }
     },
      //右键删除记录
     rightMouseDown(e,dateTime, tabIndex){
@@ -696,8 +756,7 @@ export default {
         item.recordDate =
           moment(new Date(this.query.entryDate)).format("YYYY-MM-DD") +
           "  " +
-          this.query.entryTime +
-          ":00:00";
+          this.query.entryTime;
         switch (item.vitalSigns) {
           case "表顶注释":
             item.expand2 = this.topExpandDate;
@@ -710,7 +769,7 @@ export default {
       });
       let data = {
         dateStr: moment(new Date(this.query.entryDate)).format("YYYY-MM-DD"),
-        timeStr: this.query.entryTime + ":00:00",
+        timeStr: this.query.entryTime,
         vitalSignList: obj,
         patientId: this.patientInfo.patientId,
         visitId: this.patientInfo.visitId,
@@ -749,7 +808,20 @@ export default {
       flex-direction: column;
     }
   }
-
+.times {
+  display:inline-block;
+  width:100px;
+  .new-time-select{
+    height: 22px;
+    width: 105px;
+    >>>.el-input__inner{
+    height: 22px !important;
+    width:105px;
+    
+  }
+  
+}
+}
   .row-bottom {
   overflow-y:scroll;
     .showRecord {
@@ -794,6 +866,7 @@ display: inline-block;
       width: 85px;
     }
 }
+
   .rowbox {
     display: inline-block;
     padding: 3px 15px;

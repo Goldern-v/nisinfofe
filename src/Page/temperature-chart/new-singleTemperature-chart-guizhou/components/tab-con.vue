@@ -410,32 +410,6 @@ export default {
         "手术入院",
         "死亡",
       ],
-      timesOdd: [
-        {
-         lable:"02:00:00",
-          value: "02:00:00",
-        },
-        {
-          lable: "06:00:00",
-          value: "06:00:00",
-        },
-        {
-          lable: "10:00:00",
-          value: "10:00:00",
-        },
-        {
-           lable: "14:00:00",
-          value: "14:00:00",
-        },
-        {
-            lable: "18:00:00",
-          value: "18:00:00",
-        },
-        {
-          lable: "22:00:00",
-          value: "22:00:00",
-        },
-      ],
       bottomContextList: ["", "不升"],
       topExpandDate: "",
       bottomExpandDate: "",
@@ -508,12 +482,6 @@ export default {
         }
       }
     },
-      changeValue(e){
-                    // console.log(e)
-                 },
-                 inputClicl(s){
-                  //  console.log(s)
-                 },
 
     init() {
       let obj = {};
