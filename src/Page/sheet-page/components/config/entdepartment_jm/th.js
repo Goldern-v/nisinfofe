@@ -166,8 +166,8 @@ export default {
         colspan: "1",
         rowspan: "3",
         style: {
-          minWidth: '50px',
-          maxWidth: '50px',
+          minWidth: '60px',
+          maxWidth: '60px',
         },
       },
       {
@@ -176,16 +176,16 @@ export default {
         colspan: "1",
         rowspan: "3",
         style: {
-          minWidth: '50px',
-          maxWidth: '50px',
+          minWidth: '60px',
+          maxWidth: '60px',
         },
       }
     ],
     mid: [{
         name: '日期',
         style: {
-          minWidth: '60px',
-          maxWidth: '60px',
+          minWidth: '36px',
+          maxWidth: '36px',
         },
         colspan: '1',
         rowspan: '2'

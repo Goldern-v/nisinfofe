@@ -12,7 +12,7 @@ export default {
       {
         name: '日期',
         colspan: '1',
-        rowspan: '3',
+        rowspan: '3'
       },
       {
         name: '时间',

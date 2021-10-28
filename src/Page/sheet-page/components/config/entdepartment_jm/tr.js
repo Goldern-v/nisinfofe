@@ -2,9 +2,9 @@ import {
   keyf1
 } from "../keyEvent/f1.js";
 import {
-  event_date_year,
+  event_date,
   event_time,
-  click_date_year,
+  click_date,
   click_time
 } from "../keyEvent/date";
 
@@ -17,8 +17,8 @@ export default [
   {
     key: "recordMonth", //日期
     value: "",
-    event: event_date_year,
-    click: click_date_year
+    event: event_date,
+    click: click_date
   },
   {
     key: "recordHour", //时间
@@ -33,7 +33,7 @@ export default [
     name: "体温",
     next: "℃",
     textarea: {
-      width: 45
+      width: 50
     }
   },
   {
@@ -43,7 +43,7 @@ export default [
     name: "脉搏",
     next: "次/分",
     textarea: {
-      width: 45
+      width: 60
     }
   },
   {
@@ -53,7 +53,7 @@ export default [
     name: "呼吸",
     next: "次/分",
     textarea: {
-      width: 45
+      width: 60
     }
   },
   {
@@ -78,7 +78,7 @@ export default [
     event: keyf1,
     name: "血氧饱和度",
     textarea: {
-      width: 45
+      width: 50
     }
   },
   {
@@ -87,7 +87,7 @@ export default [
     event: keyf1,
     name: "意识",
     textarea: {
-      width: 45
+      width: 50
     }
   },
   {

@@ -12,17 +12,13 @@ export default {
       {
         name: '日期',
         style: {
-          minWidth: '60px',
-          maxWidth: '60px',
         },
         colspan: '1',
-        rowspan: '3',
+        rowspan: '3'
       },
       {
         name: '时间',
         style: {
-          minWidth: '30px',
-          maxWidth: '30px',
         },
         colspan: '1',
         rowspan: '3'

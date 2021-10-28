@@ -8,9 +8,9 @@ import {
   multiDictInfo
 } from "../../../api/index";
 import {
-  event_date_year,
+  event_date,
   event_time,
-  click_date_year,
+  click_date,
   click_time
 } from "../keyEvent/date";
 
@@ -26,8 +26,8 @@ export default [
   {
     key: "recordMonth", //日期
     value: "",
-    event: event_date_year,
-    click: click_date_year,
+    event: event_date,
+    click: click_date,
   },
   {
     key: "recordHour", //时间

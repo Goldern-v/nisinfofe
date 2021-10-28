@@ -5,9 +5,9 @@ import {
   keyf1
 } from "../keyEvent/f1.js";
 import {
-  event_date_year,
+  event_date,
   event_time,
-  click_date_year,
+  click_date,
   click_time
 } from "../keyEvent/date";
 
@@ -29,8 +29,8 @@ export default [
   {
     key: "recordMonth", //日期
     value: "",
-    event: event_date_year,
-    click: click_date_year,
+    event: event_date,
+    click: click_date,
   },
   {
     key: "recordHour", //时间
@@ -201,7 +201,7 @@ export default [
     event: keyf1,
     name: "留置尿管",
     textarea: {
-      width: 40
+      width: 45
     },
     autoComplete: {
       data: 留置尿管
@@ -285,7 +285,7 @@ export default [
     textarea: {
       // minWidth: "36px",
       // maxWidth: "50px"
-      width: 40
+      width: 50
     },
     
   },
@@ -302,7 +302,7 @@ export default [
     textarea: {
       // minWidth: "36px",
       // maxWidth: "50px"
-      width: 40
+      width: 50
     },
   },
   {

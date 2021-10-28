@@ -122,19 +122,19 @@
                   <input
                     type="checkbox"
                     value="鼻氧管"
-                    :ischecked="sheetInfo.relObj.byg"
+                    :ischecked="sheetInfo.relObj[`byg${index}`]"
                     v-model="checkedbyg"
                   />鼻氧管
                   <input
                     type="checkbox"
                     value="面罩"
-                    :ischecked="sheetInfo.relObj.mz"
+                    :ischecked="sheetInfo.relObj[`mz${index}`]"
                     v-model="checkedmz"
                   />面罩
                   <input
                     type="checkbox"
                     value="头罩"
-                    :ischecked="sheetInfo.relObj.tz"
+                    :ischecked="sheetInfo.relObj[`tz${index}`]"
                     v-model="checkedtz"
                   />头罩
                 </div>
@@ -142,19 +142,19 @@
                   <input
                     type="checkbox"
                     value="胃管"
-                    :ischecked="sheetInfo.relObj.wg"
+                    :ischecked="sheetInfo.relObj[`wg${index}`]"
                     v-model="checkedwg"
                   />胃管
                   <input
                     type="checkbox"
                     value="胃肠减压"
-                    :ischecked="sheetInfo.relObj.wcjy"
+                    :ischecked="sheetInfo.relObj[`wcjy${index}`]"
                     v-model="checkedwcjy"
                   />胃肠减压
                   <input
                     type="checkbox"
                     value="鼻肠管"
-                    :ischecked="sheetInfo.relObj.bcg"
+                    :ischecked="sheetInfo.relObj[`bcg${index}`]"
                     v-model="checkedbcg"
                   />鼻肠管
                 </div>
