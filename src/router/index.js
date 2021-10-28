@@ -229,6 +229,7 @@ import temperatureNFZXY from "@/Page/patientInfo/supPage/temperature/temperature
 import diagnosis from "@/Page/patientInfo/supPage/diagnosis/diagnosis";
 import bloodSugar from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar.vue"; // 厚街
 import bloodSugarWeiXian from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_weixian.vue"; // 威县
+import bloodSugarBeiHaiRenYi from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_bhry.vue";//北海
 import sheet from "@/Page/patientInfo/supPage/sheet/sheet.vue";
 import catheter from "@/Page/patientInfo/supPage/catheter/catheter.vue";
 import deep from "@/Page/patientInfo/supPage/deep/deep.vue";
@@ -750,8 +751,18 @@ const router = new Router({
         },
         {
           path: "/bloodSugar",
-          component: process.env.HOSPITAL_NAME == "威县人民医院" ?
-            bloodSugarWeiXian : bloodSugar,
+          // component: process.env.HOSPITAL_NAME == "威县人民医院" ?
+          //   bloodSugarWeiXian : bloodSugar,
+         component: (() => {
+          switch (process.env.HOSPITAL_ID) {
+            case 'weixian':
+              return bloodSugarWeiXian
+            case 'beihairenyi':
+                return bloodSugarBeiHaiRenYi
+            default:
+              return  bloodSugar
+          }
+        })(),
           name: "血糖",
           alias: "血糖"
         },
