@@ -517,13 +517,15 @@ if (!this.data) return;
       });
     },
     querySearch(queryString, cb){
+      console.log(queryString)
        var restaurants = this.restaurants;
        var results = queryString ? restaurants.filter(this.createFilter(queryString)) : restaurants;
        cb(results);
     },
     createFilter(queryString) {
         return (restaurant) => {
-          return (restaurant.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
+          // return (restaurant.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
+          return restaurant
         };
       },
     handleSelect(item){
