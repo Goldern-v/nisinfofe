@@ -229,6 +229,7 @@ import temperatureNFZXY from "@/Page/patientInfo/supPage/temperature/temperature
 import diagnosis from "@/Page/patientInfo/supPage/diagnosis/diagnosis";
 import bloodSugar from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar.vue"; // 厚街
 import bloodSugarWeiXian from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_weixian.vue"; // 威县
+import bloodSugarBeiHaiRenYi from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_bhry.vue";//北海
 import sheet from "@/Page/patientInfo/supPage/sheet/sheet.vue";
 import catheter from "@/Page/patientInfo/supPage/catheter/catheter.vue";
 import deep from "@/Page/patientInfo/supPage/deep/deep.vue";
@@ -245,8 +246,10 @@ import catheterPage from "@/Page/catheter-page/catheter-page.vue";
 //患者360视图，目前只有花都在用
 const otherPage = () => import("@/Page/patientInfo/supPage/otherPage/otherPage.vue"); //360视图
 
-const healthEducationGuizhou = ()=>import("@/Page/patientInfo/supPage/healthEducationGuizhou/healthEducation.vue")
+// 健康教育
+const healthEducationGuizhou = ()=>import("@/Page/patientInfo/supPage/healthEducationGuizhou/healthEducation.vue");
 
+const healthEducationBerhairenyi = ()=>import("@/Page/patientInfo/supPage/healthEducationBeihairenyi/healthEducation.vue")
 Vue.use(Router);
 const HOSPITAL_ID = process.env.HOSPITAL_ID;
 const router = new Router({
@@ -748,8 +751,18 @@ const router = new Router({
         },
         {
           path: "/bloodSugar",
-          component: process.env.HOSPITAL_NAME == "威县人民医院" ?
-            bloodSugarWeiXian : bloodSugar,
+          // component: process.env.HOSPITAL_NAME == "威县人民医院" ?
+          //   bloodSugarWeiXian : bloodSugar,
+         component: (() => {
+          switch (process.env.HOSPITAL_ID) {
+            case 'weixian':
+              return bloodSugarWeiXian
+            case 'beihairenyi':
+                return bloodSugarBeiHaiRenYi
+            default:
+              return  bloodSugar
+          }
+        })(),
           name: "血糖",
           alias: "血糖"
         },
@@ -760,6 +773,8 @@ const router = new Router({
             switch (process.env.HOSPITAL_ID) {
               case 'guizhou':
                 return healthEducationGuizhou
+              case 'beihairenyi':
+                  return healthEducationBerhairenyi
               default:
                 return healthEducation
             }

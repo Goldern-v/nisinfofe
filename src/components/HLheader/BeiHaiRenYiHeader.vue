@@ -187,6 +187,9 @@
                 <i class="iconfont icon-jiaobanzhi"></i> 交班报告
               </el-row>
             </router-link>
+               <router-link to="/wardReport" tag="span">
+              <el-row class="nav-item" type="flex" align="middle">病房日报</el-row>
+            </router-link>
             <router-link to="/board" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-baiban"></i> 白板
@@ -338,7 +341,7 @@
                     </el-row>
                   </router-link>
                 </el-dropdown-item>
-                 <el-dropdown-item
+                 <!-- <el-dropdown-item
                   :class="{ active: $route.path == '/catheterPage' }"
                 >
                   <router-link to="/catheterPage" tag="span">
@@ -346,9 +349,9 @@
                       <i class="catheterPage"></i>导管
                     </el-row>
                   </router-link>
-                </el-dropdown-item>
+                </el-dropdown-item> -->
 
-                <el-dropdown-item
+                <!-- <el-dropdown-item
                   :class="{ active: $route.path.indexOf('/wardReport') > -1 }"
                 >
                   <router-link to="/wardReport" tag="span">
@@ -356,7 +359,7 @@
                       <i class="wardReport"></i>病房日报
                     </el-row>
                   </router-link>
-                </el-dropdown-item>
+                </el-dropdown-item> -->
 
                 <!--<el-dropdown-item
                   :class="{
@@ -944,7 +947,8 @@ export default {
       return this.$store.state.common.mailUnread;
     },
     isActivePage() {
-      if (this.$route.path.indexOf("/wardReport") > -1) return true;
+      // if (this.$route.path.indexOf("/wardReport") > -1) return true;
+       if (this.$route.path == "/wardReport") return true;
       if (this.$route.path == "/nursingDocumentation") return true;
       // if (this.$route.path == "/badEvent") return true;
       if (this.$route.path.indexOf("/inpatientReport") > -1) return true;

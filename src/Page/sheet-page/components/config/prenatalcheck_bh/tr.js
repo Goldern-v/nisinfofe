@@ -14,7 +14,7 @@ import {
   click_date,
   click_time
 } from "../keyEvent/date";
-
+let select = ['√'];
 export default [{
     key: "recordMonth", //日期
     value: "",
@@ -66,6 +66,14 @@ export default [{
     textarea: {
       width: 105
     },
+  },
+  {
+    key: "premature", // 胎膜早破
+    value: "",
+    event: keyf1,
+    autoComplete: {
+      data: select
+    }
   },
   {
     key: "description", //特殊情况记录

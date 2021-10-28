@@ -319,6 +319,8 @@ export default {
     allBedLength() {
       if (this.HOSPITAL_ID === 'hengli' && this.$store.state.lesion.deptCode === '103') {
         return this.bedList.filter((item) => item.name.indexOf("B") === -1);
+      } else if (this.HOSPITAL_ID === 'fuyou' && (this.$store.state.lesion.deptCode === '130'||this.$store.state.lesion.deptCode === '127'||this.$store.state.lesion.deptCode === '436'||this.$store.state.lesion.deptCode === '148')) {
+        return this.bedList.filter((item) => item.name.indexOf("婴") === -1);
       } else {
         return this.bedList;
       }
@@ -333,6 +335,8 @@ export default {
       if (this.HOSPITAL_ID === 'hengli' && this.$store.state.lesion.deptCode === '103') {
         console.log(this.bedList, 88)
         return this.bedList.filter((item) => item.patientId && item.name.indexOf("B") === -1);
+      }else if (this.HOSPITAL_ID === 'fuyou' && (this.$store.state.lesion.deptCode === '130'||this.$store.state.lesion.deptCode === '127'||this.$store.state.lesion.deptCode === '436'||this.$store.state.lesion.deptCode === '148')) {
+        return this.bedList.filter((item) => item.patientId && item.name.indexOf("婴") === -1);
       } else {
         return this.bedList.filter((item) => item.patientId);
       }
@@ -582,7 +586,8 @@ export default {
         this.HOSPITAL_ID == "zhongshanqi" ||
         this.HOSPITAL_ID == "liaocheng" ||
         this.HOSPITAL_ID == "beihairenyi" ||
-        this.HOSPITAL_ID == "fuyou"
+        this.HOSPITAL_ID == "fuyou" || 
+        this.HOSPITAL_ID == "huadu"
       ) {
         list.splice(3, 0, {
           name: "我的关注",

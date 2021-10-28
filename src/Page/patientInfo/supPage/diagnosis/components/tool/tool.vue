@@ -18,16 +18,17 @@
       >
         <div class="text-con" flex="cross:center">打印</div>
       </div>
-      <!-- <div
+      <div
         class="item-box"
         flex="cross:center main:center"
         @click="del"
-        :class="{disabled: !model.selectedRow}"
+        v-if="['huadu'].includes(HOSPITAL_ID)"
+        :class="{disabled: !model.selectedBlockId}"
       >
         <div class="text-con" flex="cross:center">删除</div>
       </div>
 
-      <div
+      <!-- <div
         class="item-box"
         flex="cross:center main:center"
         @click="edit"
@@ -43,7 +44,7 @@
         :class="{disabled: !model.selectedRow}"
       >
         <div class="text-con" flex="cross:center">停止</div>
-      </div>-->
+      </div> -->
 
       <div flex-box="1"></div>
 
@@ -184,7 +185,7 @@ import dayjs from "dayjs";
 import newDiagnosisModal from "../../modal/newDiagnosisModal";
 import stopDiagnosisModal from "../../modal/stopDiagnosisModal";
 import { model } from "../../diagnosisViewModel";
-import { nursingDiagsDel, savePlanForm } from "../../api/index";
+import { nursingDiagsDelAll, savePlanForm } from "../../api/index";
 import common from "@/common/mixin/common.mixin";
 export default {
   inject: ["openSlideCon"],
@@ -219,14 +220,17 @@ export default {
       });
     },
     del() {
-      if (!this.verify()) return;
-      window.openSignModal((password, empNo) => {
-        nursingDiagsDel(password, empNo, model.selectedRow.id).then(res => {
-          this.$message.success("删除成功");
-          model.refreshTable();
-          model.selectedRow = null;
-        });
-      }, "你确定要删除诊断？");
+      this.$confirm("你确定要删除诊断？", "提示",
+                    {confirmButtonText: "删除",cancelButtonText: "取消",type: "warning",}
+                    ).then((res) => {
+                  nursingDiagsDelAll(this.model.selectedBlockId).then(res => {
+                    this.$message.success("删除成功");
+                    this.model.selectedBlockId = ''
+                    this.model.blockList = []
+                    model.refreshTable();
+                    model.selectedRow = null;
+                  });
+      });
     },
     stop() {
       if (!this.verify()) return;
