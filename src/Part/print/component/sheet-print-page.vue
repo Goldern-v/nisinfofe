@@ -1,5 +1,5 @@
 <template>
-  <div id="sheetPagePrint" :class="[HOSPITAL_ID=='guizhou'?'guizhou':'']">
+  <div id="sheetPagePrint" :class="[HOSPITAL_ID=='guizhou'?'guizhou':['fuyou'].includes(HOSPITAL_ID)?'fontInputW':'']">
     <!-- {{process}} -->
     <!-- <iframe :src="url" :style="{height: iframeHeight + 'px'}" @load="onload" ref="iframe"></iframe> -->
     <div
@@ -34,6 +34,8 @@
 
   input {
     color: #000 !important;
+    // color: #000000 !important;
+    // font-family: "SimHei" !important;
   }
 
   .canSet {
@@ -136,6 +138,14 @@
 
   [datakey='description'] {
     text-align: left;
+  }
+}
+//字体变黑体，解决打印模糊问题
+.fontInputW{
+   input {
+    color: #000000 !important;
+    font-family: "SimHei" !important;
+    font-weight: 400;
   }
 }
 
