@@ -48,6 +48,9 @@
             <span v-if="data.isTommorowDischarge == '1'">
               <img src="../../../../../../common/images/card/明日出院.png" height="18" width="60" />
             </span>
+            <span v-if="data.operationDay&&data.operationDay!=0">
+              <span style="font-size: 14px;">术后{{data.operationDay}}天</span>
+            </span>
           </div>
           <div flex-box="1" flex="dir:right" style="width: 0">
             <div class="table-name" v-for="item in (data.conditionIconDtos &&  data.conditionIconDtos.slice(0,6))"
