@@ -77,15 +77,15 @@
                       type="textarea"
                       style="width:97%;"
                       class="bottomInput"
-                      v-model="sheetInfo.relObj"
-                      :data-value="sheetInfo.relObj"
+                      v-model="sheetInfo.relObj.hxjxh"
+                      :data-value="sheetInfo.relObj.hxjxh"
                     />
                   </div>
                 </div>
                 <div class="boxLine">
                   <div class="boxTitle">气管插管经：</div>
-                  <input type="radio" style="margin-left:-5px;" value="口" :ischecked="sheetInfo.relObj == '口'" v-model="sheetInfo.relObj">口
-                  <input type="radio" value="鼻" :ischecked="sheetInfo.relObj == '鼻'" v-model="sheetInfo.relObj">鼻
+                  <input type="radio" style="margin-left:-5px;" value="口" :ischecked="sheetInfo.relObj.qgcgj == '口'" v-model="sheetInfo.relObj.qgcgj">口
+                  <input type="radio" value="鼻" :ischecked="sheetInfo.relObj.qgcgj == '鼻'" v-model="sheetInfo.relObj.qgcgj">鼻
                   <!-- <div class="boxTitle" style="margin-left:5px;">口径：</div>
                   <input
                     type="textarea"
@@ -101,20 +101,20 @@
                     type="textarea"
                     style="width:32px;"
                     class="bottomInput"
-                    v-model="sheetInfo.relObj"
-                    :data-value="sheetInfo.relObj"
+                    v-model="sheetInfo.relObj.gj"
+                    :data-value="sheetInfo.relObj.gj"
                   />cm
                   <div class="boxTitle" style="margin-left:10px;">深度：</div>
                   <input
                     type="textarea"
                     style="width:32px;"
                     class="bottomInput"
-                    v-model="sheetInfo.relObj"
-                    :data-value="sheetInfo.relObj"
+                    v-model="sheetInfo.relObj.sd"
+                    :data-value="sheetInfo.relObj.sd"
                   />mm
                 </div>
                 <div style="margin-left:1px;">
-                  <textarea style="cursor:text" v-model="sheetInfo.relObj" :data-value="sheetInfo.relObj" @input="(e)=>onXpChang(e)"></textarea>
+                  <textarea style="cursor:text" v-model="sheetInfo.relObj.xpwz" :data-value="sheetInfo.relObj.xpwz" @input="(e)=>onXpChang(e)"></textarea>
                 </div>
               </td>
               <td style="width:195px">
