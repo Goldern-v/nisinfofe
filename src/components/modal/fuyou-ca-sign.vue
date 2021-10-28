@@ -131,12 +131,13 @@ export default {
     };
   },
   methods: {
-    open(callback) {
+    open(callback,isStart) {
       this.$refs.modal.open();
       this.callback = callback;
       this.password = "";
       this.clearIntervalItem()
-      this.bus.$emit("updateFuyouCaData")
+      this.bus.$emit("updateFuyouCaData");
+      (isStart) && (this.getAuthorizeApi());//执行ca验证
     },
     close() {
       this.clearIntervalItem();

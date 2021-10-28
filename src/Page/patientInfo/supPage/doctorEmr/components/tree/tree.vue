@@ -62,8 +62,9 @@ export default {
     },
     getTreeData() {
       this.treeLoading = true;
-      Promise.all([
-        // getDoctorEmr(this.$route.query.patientId, this.$route.query.visitId)
+      if(this.HOSPITAL_ID != "beihairenyi"){
+        Promise.all([
+        getDoctorEmr(this.$route.query.patientId, this.$route.query.visitId)
       ])
         .then(res => {
           let resDataArr = res[0].data.data;
@@ -102,6 +103,8 @@ export default {
         .then(res => {
           this.treeLoading = false;
         });
+      }
+      
     },
     nodeClick(data, node) {
       // console.log(node, "node");

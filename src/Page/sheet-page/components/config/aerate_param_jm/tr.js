@@ -15,7 +15,7 @@ import {
 } from "../keyEvent/date";
 
 let ylList = ['低流量','高流量','呼吸机','BI-PAP','无创呼吸机'];
-let tqList = ['HFO','NIPPV','S2MV','NS2MV'];
+let tqList = ['HFO','NIPPV','SIMV','NSIMV'];
 
 export default [
   {

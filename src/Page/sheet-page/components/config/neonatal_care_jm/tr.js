@@ -148,6 +148,9 @@ export default [
   next: "",
   autoComplete: {
     data: qbList
+  },
+  textarea: {
+    width: 35
   }
 },
 {

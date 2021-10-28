@@ -206,8 +206,8 @@ export default {
       this.$refs.caSignModal.close();
     };
     /** 江门妇幼ca签名 */
-    window.openFuyouCaSignModal = (...item) => {
-      return this.$refs.fuyouCaSignModal.open(()=>{});
+    window.openFuyouCaSignModal = (isStart) => {
+      return this.$refs.fuyouCaSignModal.open(()=>{},isStart);
     };
     window.closeFuyouCaSignModal = () => {
       this.$refs.fuyouCaSignModal.close();

@@ -33,9 +33,9 @@ export default [
     name: "外露",
     next: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 10),
+    change: (e, td) => limitChange(e, td, 15),
     textarea: {
-      width: 65
+      width: 100
     },
   },
   {
@@ -44,9 +44,9 @@ export default [
     name: "臂围",
     next: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 10),
+    change: (e, td) => limitChange(e, td, 15),
     textarea: {
-      width: 65
+      width: 100
     },
   },
   {
@@ -55,9 +55,9 @@ export default [
     name: "穿刺点",
     next: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 10),
+    change: (e, td) => limitChange(e, td, 15),
     textarea: {
-      width: 65
+      width: 100
     },
     autoComplete: {
       data: ccdList
@@ -69,9 +69,9 @@ export default [
     name: "敷料",
     next: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 10),
+    change: (e, td) => limitChange(e, td, 15),
     textarea: {
-      width: 65
+      width: 100
     },
     autoComplete: {
       data: flList
