@@ -431,11 +431,14 @@ export default {
       });
     },
     emit(todo, value) {
+      console.log(todo,value,this.sheetInfo);
       if (!this.patientInfo.patientId) {
         return this.$message.warning("请选择一名患者");
       }
-      if (this.readOnly) {
-        return this.$message.warning("你无权操作此护记，仅供查阅");
+      if(this.sheetInfo.sheetType!='body_temperature_Hd'){
+        if (this.readOnly) {
+          return this.$message.warning("你无权操作此护记，仅供查阅");
+        }
       }
       this.bus.$emit(todo, value);
     },
