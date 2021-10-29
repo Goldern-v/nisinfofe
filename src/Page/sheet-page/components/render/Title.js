@@ -957,6 +957,13 @@ export default function Title(
     );
   }
   break;
+  case "infant_bh": {
+    // 北海市 - 婴儿记录表
+    Th = JSON.parse(
+      JSON.stringify(require("../config/infant_bh/th").default)
+    );
+  }
+  break;
   case "nursingrecords_zxy": {
     //  南方中西医 - 护理记录单
     Th = JSON.parse(
