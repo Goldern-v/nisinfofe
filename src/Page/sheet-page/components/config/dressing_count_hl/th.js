@@ -58,8 +58,8 @@ export default {
       }, {
         name: `脉搏<br/>（次/min）`,
         style: {
-          minWidth: '40px',
-          maxWidth: '40px'
+          minWidth: '30px',
+          maxWidth: '30px'
         },
         colspan: '1',
         rowspan: '3'
@@ -99,8 +99,8 @@ export default {
       }, {
         name: `附注`,
         style: {
-          minWidth: '240px',
-          maxWidth: '240px',
+          minWidth: '250px',
+          maxWidth: '250px',
         },
         colspan: '1',
         rowspan: '3'
