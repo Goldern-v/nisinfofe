@@ -73,6 +73,12 @@
             </template>
             </el-table-column>
             <el-table-column
+            prop="signerName"
+            align="center"
+            width="80"
+            label="评估人">
+            </el-table-column>
+            <el-table-column
             prop="address"
             align="center"
             width="60"

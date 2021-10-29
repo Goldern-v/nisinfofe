@@ -115,6 +115,15 @@ methods: {
         }
     }
 },
+updated(){
+    let id = sessionStorage.getItem('createCathterId')
+    let index = this.renderCathter.findIndex(item=>item.id==id)
+    let item = this.renderCathter.find(item=>item.id==id)
+    if(id && index!=this.current&&index!=-1){
+        this.selectType(item,index)
+        sessionStorage.setItem('createCathterId',null)
+    }
+},
 watch:{
     'cathterArr'(a,b){
         a.map(item=>{

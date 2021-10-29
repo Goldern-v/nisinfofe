@@ -5,7 +5,7 @@
                  <el-button class="close-btn" icon="close" @click="closeSelf"></el-button>
             </div>
             <div class="modal-body">
-                <div v-if="newCathterType.formCode=='F0103'" style="display:flex;line-height:37px;width:265px;margin-bottom:10px;">
+                <div v-if="newCathterType.formCode=='F0110'" style="display:flex;line-height:37px;width:265px;margin-bottom:10px;">
                     <span class="item-title">名&nbsp;&nbsp;称:</span><el-input :value="newCathterType.name" placeholder="请输入内容" @input="changeType"></el-input>
                 </div>
                 <div v-else style="display:flex;line-height:37px;width:265px;margin-bottom:10px;">
@@ -168,6 +168,7 @@ methods: {
             formTitle:this.formTitle?this.formTitle:this.newCathterType.name,
             catheterSource:this.catheterSource
         }).then(res=>{
+            sessionStorage.setItem('createCathterId',res.data.data.id)
             this.$message.success('添加成功')
             this.$emit('getDate')
             this.$emit('onChangePatient_self',this.$store.state.sheet.patientInfo)
