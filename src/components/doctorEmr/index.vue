@@ -17,7 +17,7 @@
       <div class="e-resize" v-eResize="{ target: 'dragNode2' }"></div>
       <div class="s-resize" v-sResize="{ target: 'dragNode2' }"></div>
     </div>
-    <el-tooltip v-if="!show" effect="dark" content="电子病历" placement="left">
+    <el-tooltip v-if="!show" effect="dark" content="电子病历" placement="left" enterable="true">
       <div @click="onload" class="doctor-emr-icon">
         <img src="./img.png" alt/>
       </div>
@@ -263,8 +263,15 @@ export default {
 .doctor-emr-wrapper {
   .doctor-emr-content {
     position: fixed;
-    top: 500px;
-    left: 100px;
+    // top: 500px;
+    // left: 100px;
+    transform: translate(-50%, -40%);
+    -webkit-transform: translate(-50%, -40%);
+    -ms-transform: translate(-50%, -40%);
+    -moz-transform: translate(-50%, -40%);
+    position: fixed;
+    top: 50%;
+    left: 50%;
     z-index: 999;
     width: 1200px;
     height: 800px;
