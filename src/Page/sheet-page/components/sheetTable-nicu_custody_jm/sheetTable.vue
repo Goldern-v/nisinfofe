@@ -833,7 +833,6 @@ import $ from "jquery";
 import moment from "moment";
 import common from "@/common/mixin/common.mixin";
 import { updateSheetHeadInfo } from "../../api/index";
-import watchAttr,{changeThis} from "./watchAttr"
 import bedRecordModal from "../modal/bedRecord-modal";
 
 export default {
@@ -928,7 +927,303 @@ export default {
     },
   },
   computed: {
-    ...watchAttr,
+    ...{
+      'checkedbyg':{
+    get(){
+      return this.sheetInfo.relObj[`byg${this.index}`] === 'true'
+    },
+    set(nVal){
+      this.sheetInfo.relObj[`byg${this.index}`] = nVal ? "true" : "false"
+    }
+  },'checkedmz':{
+    get(){
+      return this.sheetInfo.relObj[`mz${this.index}`] === 'true'
+    },
+    set(nVal){
+      this.sheetInfo.relObj[`mz${this.index}`] = nVal ? "true" : "false"
+    }
+  },'checkedtz':{
+    get(){
+      return this.sheetInfo.relObj[`tz${this.index}`] === 'true'
+    },
+    set(nVal){
+      this.sheetInfo.relObj[`tz${this.index}`] = nVal ? "true" : "false"
+    }
+  },'checkedwg':{
+    get(){
+      return this.sheetInfo.relObj[`wg${this.index}`] === 'true'
+    },
+    set(nVal){
+      this.sheetInfo.relObj[`wg${this.index}`] = nVal ? "true" : "false"
+    }
+  },'checkedwcjy':{
+    get(){
+      return this.sheetInfo.relObj[`wcjy${this.index}`] === 'true'
+    },
+    set(nVal){
+      this.sheetInfo.relObj[`wcjy${this.index}`] = nVal ? "true" : "false"
+    }
+  },'checkedbcg':{
+    get(){
+      return this.sheetInfo.relObj[`bcg${this.index}`] === 'true'
+    },
+    set(nVal){
+      this.sheetInfo.relObj[`bcg${this.index}`] = nVal ? "true" : "false"
+    }
+  },'checkedcvc':{
+    get(){
+      return this.sheetInfo.relObj[`cvc${this.index}`] === 'true'
+    },
+    set(nVal){
+      this.sheetInfo.relObj[`cvc${this.index}`] = nVal ? "true" : "false"
+    }
+  },'checkedpicc':{
+    get(){
+      return this.sheetInfo.relObj[`picc${this.index}`] === 'true'
+    },
+    set(nVal){
+      this.sheetInfo.relObj[`picc${this.index}`] = nVal ? "true" : "false"
+    }
+  },'checkedxtg':{
+    get(){
+      return this.sheetInfo.relObj[`xtg${this.index}`] === 'true'
+    },
+    set(nVal){
+      this.sheetInfo.relObj[`xtg${this.index}`] = nVal ? "true" : "false"
+    }
+  },'checkedwzlzz':{
+    get(){
+      return this.sheetInfo.relObj[`wzlzz${this.index}`] === 'true'
+    },
+    set(nVal){
+      this.sheetInfo.relObj[`wzlzz${this.index}`] = nVal ? "true" : "false"
+    }
+  },'checkeddmzg':{
+    get(){
+      return this.sheetInfo.relObj[`dmzg${this.index}`] === 'true'
+    },
+    set(nVal){
+      this.sheetInfo.relObj[`dmzg${this.index}`] = nVal ? "true" : "false"
+    }
+  },'checkeddng':{
+    get(){
+      return this.sheetInfo.relObj[`dng${this.index}`] === 'true'
+    },
+    set(nVal){
+      this.sheetInfo.relObj[`dng${this.index}`] = nVal ? "true" : "false"
+    }
+  },'checkedbsxqylg':{
+    get(){
+      return this.sheetInfo.relObj[`bsxqylg${this.index}`] === 'true'
+    },
+    set(nVal){
+      this.sheetInfo.relObj[`bsxqylg${this.index}`] = nVal ? "true" : "false"
+    }
+  },'checkedqita':{
+    get(){
+      return this.sheetInfo.relObj[`qita${this.index}`] === 'true'
+    },
+    set(nVal){
+      this.sheetInfo.relObj[`qita${this.index}`] = nVal ? "true" : "false"
+    }
+  },'checkedwh':{
+    get(){
+      return this.sheetInfo.relObj[`wh${this.index}`] === 'true'
+    },
+    set(nVal){
+      this.sheetInfo.relObj[`wh${this.index}`] = nVal ? "true" : "false"
+    }
+  },'checkedsx':{
+    get(){
+      return this.sheetInfo.relObj[`sx${this.index}`] === 'true'
+    },
+    set(nVal){
+      this.sheetInfo.relObj[`sx${this.index}`] = nVal ? "true" : "false"
+    }
+  },'checkedsy':{
+    get(){
+      return this.sheetInfo.relObj[`sy${this.index}`] === 'true'
+    },
+    set(nVal){
+      this.sheetInfo.relObj[`sy${this.index}`] = nVal ? "true" : "false"
+    }
+  },'checkedpz':{
+    get(){
+      return this.sheetInfo.relObj[`pz${this.index}`] === 'true'
+    },
+    set(nVal){
+      this.sheetInfo.relObj[`pz${this.index}`] = nVal ? "true" : "false"
+    }
+  },'checkedtc':{
+    get(){
+      return this.sheetInfo.relObj[`tc${this.index}`] === 'true'
+    },
+    set(nVal){
+      this.sheetInfo.relObj[`tc${this.index}`] = nVal ? "true" : "false"
+    }
+  },'checkedzs':{
+    get(){
+      return this.sheetInfo.relObj[`zs${this.index}`] === 'true'
+    },
+    set(nVal){
+      this.sheetInfo.relObj[`zs${this.index}`] = nVal ? "true" : "false"
+    }
+  },'checkedwhx':{
+    get(){
+      return this.sheetInfo.relObj[`whx${this.index}`] === 'true'
+    },
+    set(nVal){
+      this.sheetInfo.relObj[`whx${this.index}`] = nVal ? "true" : "false"
+    }
+  },'checkedwh1':{
+    get(){
+      return this.sheetInfo.relObj[`wh1${this.index}`] === 'true'
+    },
+    set(nVal){
+      this.sheetInfo.relObj[`wh1${this.index}`] = nVal ? "true" : "false"
+    }
+  },'checkedsx1':{
+    get(){
+      return this.sheetInfo.relObj[`sx1${this.index}`] === 'true'
+    },
+    set(nVal){
+      this.sheetInfo.relObj[`sx1${this.index}`] = nVal ? "true" : "false"
+    }
+  },'checkedsy1':{
+    get(){
+      return this.sheetInfo.relObj[`sy1${this.index}`] === 'true'
+    },
+    set(nVal){
+      this.sheetInfo.relObj[`sy1${this.index}`] = nVal ? "true" : "false"
+    }
+  },'checkedpz1':{
+    get(){
+      return this.sheetInfo.relObj[`pz1${this.index}`] === 'true'
+    },
+    set(nVal){
+      this.sheetInfo.relObj[`pz1${this.index}`] = nVal ? "true" : "false"
+    }
+  },'checkedtc1':{
+    get(){
+      return this.sheetInfo.relObj[`tc1${this.index}`] === 'true'
+    },
+    set(nVal){
+      this.sheetInfo.relObj[`tc1${this.index}`] = nVal ? "true" : "false"
+    }
+  },'checkedzs1':{
+    get(){
+      return this.sheetInfo.relObj[`zs1${this.index}`] === 'true'
+    },
+    set(nVal){
+      this.sheetInfo.relObj[`zs1${this.index}`] = nVal ? "true" : "false"
+    }
+  },'checkedwhx1':{
+    get(){
+      return this.sheetInfo.relObj[`whx1${this.index}`] === 'true'
+    },
+    set(nVal){
+      this.sheetInfo.relObj[`whx1${this.index}`] = nVal ? "true" : "false"
+    }
+  },'checkedghfl':{
+    get(){
+      return this.sheetInfo.relObj[`ghfl${this.index}`] === 'true'
+    },
+    set(nVal){
+      this.sheetInfo.relObj[`ghfl${this.index}`] = nVal ? "true" : "false"
+    }
+  },'checkedst':{
+    get(){
+      return this.sheetInfo.relObj[`st${this.index}`] === 'true'
+    },
+    set(nVal){
+      this.sheetInfo.relObj[`st${this.index}`] = nVal ? "true" : "false"
+    }
+  },'checkedsyjt':{
+    get(){
+      return this.sheetInfo.relObj[`syjt${this.index}`] === 'true'
+    },
+    set(nVal){
+      this.sheetInfo.relObj[`syjt${this.index}`] = nVal ? "true" : "false"
+    }
+  },'checkedlh':{
+    get(){
+      return this.sheetInfo.relObj[`lh${this.index}`] === 'true'
+    },
+    set(nVal){
+      this.sheetInfo.relObj[`lh${this.index}`] = nVal ? "true" : "false"
+    }
+  },'checkedbl':{
+    get(){
+      return this.sheetInfo.relObj[`bl${this.index}`] === 'true'
+    },
+    set(nVal){
+      this.sheetInfo.relObj[`bl${this.index}`] = nVal ? "true" : "false"
+    }
+  },'checkedfs':{
+    get(){
+      return this.sheetInfo.relObj[`fs${this.index}`] === 'true'
+    },
+    set(nVal){
+      this.sheetInfo.relObj[`fs${this.index}`] = nVal ? "true" : "false"
+    }
+  },'checkedzd':{
+    get(){
+      return this.sheetInfo.relObj[`zd${this.index}`] === 'true'
+    },
+    set(nVal){
+      this.sheetInfo.relObj[`zd${this.index}`] = nVal ? "true" : "false"
+    }
+  },'checkedfww':{
+    get(){
+      return this.sheetInfo.relObj[`fww${this.index}`] === 'true'
+    },
+    set(nVal){
+      this.sheetInfo.relObj[`fww${this.index}`] = nVal ? "true" : "false"
+    }
+  },'checkedqzpw':{
+    get(){
+      return this.sheetInfo.relObj[`qzpw${this.index}`] === 'true'
+    },
+    set(nVal){
+      this.sheetInfo.relObj[`qzpw${this.index}`] = nVal ? "true" : "false"
+    }
+  },'checkedchbw':{
+    get(){
+      return this.sheetInfo.relObj[`chbw${this.index}`] === 'true'
+    },
+    set(nVal){
+      this.sheetInfo.relObj[`chbw${this.index}`] = nVal ? "true" : "false"
+    }
+  },'checkedpsbw':{
+    get(){
+      return this.sheetInfo.relObj[`psbw${this.index}`] === 'true'
+    },
+    set(nVal){
+      this.sheetInfo.relObj[`psbw${this.index}`] = nVal ? "true" : "false"
+    }
+  },'checkedfzjsbs':{
+    get(){
+      return this.sheetInfo.relObj[`fzjsbs${this.index}`] === 'true'
+    },
+    set(nVal){
+      this.sheetInfo.relObj[`fzjsbs${this.index}`] = nVal ? "true" : "false"
+    }
+  },'checkedlhdl':{
+    get(){
+      return this.sheetInfo.relObj[`lhdl${this.index}`] === 'true'
+    },
+    set(nVal){
+      this.sheetInfo.relObj[`lhdl${this.index}`] = nVal ? "true" : "false"
+    }
+  },'checkedghxm':{
+    get(){
+      return this.sheetInfo.relObj[`ghxm${this.index}`] === 'true'
+    },
+    set(nVal){
+      this.sheetInfo.relObj[`ghxm${this.index}`] = nVal ? "true" : "false"
+    }
+  }
+    },
     patientInfo() {
       return this.sheetInfo.selectBlock || {};
     },
@@ -964,7 +1259,6 @@ export default {
     }
   },
   created() {
-    changeThis(this)
   },
   update() {},
   mounted() {

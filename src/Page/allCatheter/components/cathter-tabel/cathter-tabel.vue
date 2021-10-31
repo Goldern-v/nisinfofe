@@ -54,6 +54,7 @@
             :label="item.title">
             <template slot-scope="scope">
                 <el-autocomplete
+                    class="cathter-autocomplete"
                     v-model="scope.row[item.name]"
                     @input="show"
                     :fetch-suggestions="(queryString, cb)=>querySearch(queryString, cb,optionsConfig[item.name])"
@@ -187,6 +188,12 @@
 }
     
 </style>
+<style lang='scss'>
+.el-autocomplete-suggestion{
+    width: auto!important;
+    min-width: 84px!important;
+}
+</style>
 <script>
 import moment from 'moment';
 import {
@@ -231,13 +238,13 @@ return {
 },
 methods: {
     show(){
-        console.log(111);
+        // console.log(111);
     },
     handleSelect(){},
     querySearch(queryString, cb,arr){
         if(arr&&arr.length){
             let tem = arr.map(item=>{
-                console.log(item);
+                // console.log(item);
                 return {value:item.code}
             })
             cb(tem) 
@@ -401,7 +408,7 @@ computed:{
         let m1 = moment(this.tableInfo.replaceTime)
         let m2 = moment()
         let day = m1.diff(m2,'day')
-        console.log(day);
+        // console.log(day);
         if(day<0){
             return 'outTime'
         }else if(day){
