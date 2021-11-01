@@ -366,27 +366,7 @@ export default {
       dateInp:moment().format('HH:mm'),
       query: {
         entryDate: moment(new Date()).format("YYYY-MM-DD"), //录入日期
-        entryTime: (()=>{
-          if (this.getHours() >= 0 && this.getHours() <= 2) {
-                return "02:00:00";
-              }
-              if (this.getHours() > 2 && this.getHours() <= 6) {
-                return "06:00:00";
-              }
-              if (this.getHours() > 6 && this.getHours() <= 10) {
-                return "10:00:00";
-              }
-              if (this.getHours() > 10 && this.getHours() <= 14) {
-                return "14:00:00";
-              }
-              if (this.getHours() > 14 && this.getHours() <= 18) {
-                return "18:00:00";
-              }
-              if (this.getHours() > 18 && this.getHours() <= 23) {
-                return "22:00:00";
-              }
-         //录入时间
-        })() //录入时间
+        entryTime: moment().format('HH:mm')+':00',//录入时间
       
       },
       recordDate: "",
@@ -470,6 +450,9 @@ export default {
         }else {
           this.$message.error("请输入正确时间数值，例如23:25, 2325")
         }
+      }
+      else{
+       this.query.entryTime=val.$el.children[1].value
       }
     },
     changeVal(newVal,oldVal){
@@ -579,7 +562,6 @@ export default {
         visitId: this.patientInfo.visitId,
         wardCode: this.patientInfo.wardCode,
       }).then((res) => {
-        console.log('南方中西医',res)
         res.data.data.list.map((item) => {
           if (this.vitalSignObj[item.vitalCode])
             this.fieldList[item.vitalCode] = item;
@@ -627,7 +609,7 @@ export default {
           : moment(new Date(this.patientInfo.admissionDate)).format(
               "YYYY-MM-DD"
             ),
-        timeStr: this.query.entryTime + ":00:00",
+        timeStr: this.query.entryTime ,
         wardCode: this.patientInfo.wardCode,
       };
       getViSigsByReDate(data).then((res) => {
