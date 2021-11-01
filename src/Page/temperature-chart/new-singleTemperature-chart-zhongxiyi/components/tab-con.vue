@@ -108,8 +108,9 @@
               :value="vitalSignObj[j].popVisible"
             >
               <input
-              :id="i+1"
+                :id="i+1"
                 type="text"
+                @focus="validForm"
               @keydown.enter="changeNext"
                 :title="vitalSignObj[j].vitalValue"
                 @input="handlePopRefresh(vitalSignObj[j])"
@@ -241,12 +242,19 @@
               size="mini"
               v-model="vitalSignObj[multiDictList['表顶注释']].expand1"
             >
-              <el-option
-                v-for="(item, topIndex) in topContextList"
+            <el-option
+                v-for="(item, topIndex) in getFilterSelections(totalDictInfo['表顶注释'].options,
+                        vitalSignObj[multiDictList['表顶注释']].vitalValue)"
                 :key="topIndex"
                 :label="item"
                 :value="item"
               >
+              <!-- <el-option
+                v-for="(item, topIndex) in topContextList"
+                :key="topIndex"
+                :label="item"
+                :value="item"
+              > -->
               </el-option>
             </el-select>
             <el-date-picker
@@ -267,9 +275,16 @@
               size="mini"
               v-model="vitalSignObj[multiDictList['表底注释']].expand1"
             >
-              <el-option
+              <!-- <el-option
                 v-for="(item, bottomIndex) in bottomContextList"
                 :key="bottomIndex"
+                :label="item"
+                :value="item"
+              > -->
+              <el-option
+                v-for="(item, topIndex) in getFilterSelections(totalDictInfo['表底注释'].options,
+                        vitalSignObj[multiDictList['表底注释']].vitalValue)"
+                :key="topIndex"
                 :label="item"
                 :value="item"
               >
@@ -379,45 +394,19 @@ export default {
       multiDictList: {},
       tabsData: [], // 日期列表
       vitalSignObj: {}, // 单个体征对象
-      vitalSignList: [], // 固定项目列表
-      topContextList: [
-        "",
-        "入院",
-        "转入",
-        "手术",
-        "分娩",
-        "出院",
-        "出生",
-        "手术入院",
-        "死亡",
-      ],
-      timesOdd: [
-        {
-          id: 0,
-          value: "02",
-        },
-        {
-          id: 1,
-          value: "06",
-        },
-        {
-          id: 2,
-          value: "10",
-        },
-        {
-          id: 3,
-          value: "14",
-        },
-        {
-          id: 4,
-          value: "18",
-        },
-        {
-          id: 5,
-          value: "22",
-        },
-      ],
-      bottomContextList: ["", "不升"],
+      // vitalSignList: [], // 固定项目列表
+      // topContextList: [
+      //   "",
+      //   "入院",
+      //   "转入",
+      //   "手术",
+      //   "分娩",
+      //   "出院",
+      //   "出生",
+      //   "手术入院",
+      //   "死亡",
+      // ],
+      // bottomContextList: ["", "不升"],
       topExpandDate: "",
       bottomExpandDate: "",
       totalDictInfo: {},
@@ -549,6 +538,10 @@ export default {
         };
       }
       this.vitalSignObj = { ...obj };
+    },
+    //validForm验证表单
+    validForm(e){
+// console.log(e)
     },
     async getList() {
       /* 初始化 */
@@ -781,9 +774,12 @@ export default {
       this.bus.$emit("refreshImg");
     },
     formatTopExpandDate(val) {
+      console.log(val)
       this.topExpandDate = val;
     },
     formatBtmExpandDate(val) {
+      console.log(val)
+
       this.bottomExpandDate = val;
     },
   },
