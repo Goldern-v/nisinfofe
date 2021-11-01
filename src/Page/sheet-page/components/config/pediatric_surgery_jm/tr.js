@@ -132,7 +132,10 @@ export default [
   key: "dischargeColor", // 尿量颜色
   value: "",
   name: "尿量颜色",
-  event: keyf1
+  event: keyf1,
+  textarea: {
+    width: 38
+  }
 },
 {
   key: "fieldSix", // 大便（g/性状）
@@ -147,7 +150,10 @@ export default [
   value: "",
   name: "大便性质",
   next: "",
-  event: keyf1
+  event: keyf1,
+  textarea: {
+    width: 38
+  }
 },
 {
   key: "fieldEight", //  呕吐（ml）
