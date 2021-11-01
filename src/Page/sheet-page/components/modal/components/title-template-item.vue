@@ -85,7 +85,9 @@ export default {
         let data = {
           dictCode: "自定义标题",
           itemCode: this.data.name,
-          recordCode: sheetInfo.sheetType,
+          recordCode:  
+        //北海体温单调用护理记录单模板
+        ['beihairenyi','guizhou'].includes(this.HOSPITAL_ID)&&this.$route.path.includes('newSingleTemperatureChart')?'bodyTemperature':sheetInfo.sheetType,
           wardCode: this.deptCode
         };
         dictDelete(data).then(res => {

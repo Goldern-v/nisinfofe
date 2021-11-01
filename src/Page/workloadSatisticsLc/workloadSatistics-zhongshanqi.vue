@@ -107,6 +107,9 @@ export default {
     }
   },
   methods: {
+    getSum(baseObj,synb,newObj){
+      baseObj[synb] = Number(baseObj[synb]) + Number(newObj[synb])
+    },
     // 查询
     handleSearch() {
       this.setTableData();
@@ -118,7 +121,22 @@ export default {
       getListZSQ(this.query).then(
         res => {
           if (res.data && res.data.code == 200) {
-            this.data = res.data.data;
+            let arr = res.data.data || []
+            let obj = {}
+            arr.map(item=>{
+              if(obj[item.empNo]){
+                this.getSum(obj[item.empNo],'bbSum',item)
+                this.getSum(obj[item.empNo],'kfSum',item)
+                this.getSum(obj[item.empNo],'sySum',item)
+                this.getSum(obj[item.empNo],'whSum',item)
+                this.getSum(obj[item.empNo],'zlSum',item)
+                this.getSum(obj[item.empNo],'zsSum',item)
+              }else{
+                obj[item.empNo] = item
+              }
+            })
+            console.log(Object.values(obj));
+            this.data = Object.values(obj);
           }
           this.pageLoadng = false;
         },

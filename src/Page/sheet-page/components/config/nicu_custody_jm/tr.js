@@ -9,11 +9,16 @@ import info from "../sheetInfo";
 // let info = {
 //   sheetType: "neurology"
 // };
-let NBPList = ["NBP","ABP"];
+let NBPList = [];
 let xzpList = ["悬浮红细胞","洗涤红细胞","血浆","冷沉淀"];
 let twList = ["左","右","平","俯"];
 let kfyList = ["母乳","配方奶","早产奶","奶","口服药"];
 let pfhlList = ["油浴","沐浴","床上浴"];
+let xylList = ["差","一般","好"];
+let fyList = ['好','差','一般'];
+let ksList = ['好','稍弱','弱','嘶哑'];
+let jzlList = ['稍低','低下','正常'];
+let xtList = ['气道中','气道少','气道多','口腔少','口腔中','口腔多'];
 
 export default [
   {
@@ -26,7 +31,6 @@ export default [
     key: "recordHour", //时间
     value: "",
     event: event_time,
-    click: click_time
   },
   {
     key: "boxTemperature", //台箱温度
@@ -36,7 +40,7 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 30
+      width: 25
     },
   },
   {
@@ -46,7 +50,7 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 30
+      width: 25
     },
   },
   {
@@ -88,9 +92,9 @@ export default [
     name: "NBP/ABP",
     next: "mmHg",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 6),
     textarea: {
-      width: 30
+      width: 35
     },
     autoComplete: {
       data: NBPList
@@ -116,6 +120,9 @@ export default [
     textarea: {
       width: 30
     },
+    autoComplete: {
+      data: fyList
+    },
   },
   {
     key: "cry", //哭声
@@ -125,6 +132,9 @@ export default [
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
       width: 30
+    },
+    autoComplete: {
+      data: ksList
     },
   },
   {
@@ -146,11 +156,15 @@ export default [
     textarea: {
       width: 30
     },
+    autoComplete: {
+      data: jzlList
+    },
   },
   {
     key: "skinSurvey", //皮测
     value: "",
     name: "皮测",
+    next: "Umol/L",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 6),
     textarea: {
@@ -161,6 +175,7 @@ export default [
     key: "bloodSugar", //血糖
     value: "",
     name: "血糖",
+    next: "Umol/L",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 6),
     textarea: {
@@ -176,11 +191,15 @@ export default [
     textarea: {
       width: 30
     },
+    autoComplete: {
+      data: xylList
+    },
   },
   {
     key: "oralMedication", //奶口服液
     value: "",
     name: "奶/口服液",
+    next: "ml",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 6),
     textarea: {
@@ -194,6 +213,7 @@ export default [
     key: "infusion", //输液
     value: "",
     name: "输液",
+    next: "ml",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
@@ -204,6 +224,7 @@ export default [
     key: "intravenousNutrition", //静脉营养
     value: "",
     name: "静脉营养",
+    next: "ml",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
@@ -214,6 +235,7 @@ export default [
     key: "bloodProducts", //血制品
     value: "",
     name: "血制品",
+    next: "ml",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 8),
     textarea: {
@@ -226,6 +248,8 @@ export default [
   {
     key: "urineVolume", //尿量
     value: "",
+    name: "尿量",
+    next: "ml",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
@@ -235,6 +259,8 @@ export default [
   {
     key: "defecate", //大便
     value: "",
+    name: "大便",
+    next: "ml",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
@@ -244,6 +270,8 @@ export default [
   {
     key: "drainage", //引流量
     value: "",
+    name: "引流量",
+    next: "ml",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
@@ -253,6 +281,8 @@ export default [
   {
     key: "vomit", //呕吐
     value: "",
+    name: "呕吐",
+    next: "ml",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
@@ -280,8 +310,8 @@ export default [
   {
     key: "phototherapy", //光疗
     value: "",
-    name: "入量累计",
-    next: "ml",
+    name: "光疗",
+    next: "",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
@@ -303,9 +333,13 @@ export default [
     value: "",
     name: "吸痰",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 8),
+    splice: true,
     textarea: {
-      width: 30
+      width: 50
+    },
+    autoComplete: {
+      data: xtList
     },
   },
   {
@@ -390,6 +424,30 @@ export default [
     textarea: {
       width: 30
     },
+  },
+  {
+    key: "description", //特殊情况记录
+    value: "",
+    hidden: true,
+    style: {
+      textAlign: "left",
+      position: "absolute",
+      top: "1px",
+      bottom: "1px",
+      left: "1px",
+      width: "180px",
+      background: "transparent",
+      fontSize: "14px"
+    },
+    event: function (e, td) {
+      console.log(e.keyCode);
+      if (e.keyCode == 9) {
+        td.value = "    " + td.value;
+        e.preventDefault();
+      }
+      keyf1(e, td);
+    }
+    // oninput: next
   },
   {
     key: "sign",

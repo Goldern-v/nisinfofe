@@ -9,7 +9,7 @@ import info from "../sheetInfo";
 // let info = {
 //   sheetType: "neurology"
 // };
-let NBPList = ["NBP","ABP"];
+let NBPList = [];
 let xzpList = ["悬浮红细胞","洗涤红细胞","血浆","冷沉淀"];
 let twList = ["左","右","平","俯"];
 
@@ -24,7 +24,6 @@ export default [
     key: "recordHour", //时间
     value: "",
     event: event_time,
-    click: click_time
   },
   {
     key: "boxTemperature", //台箱温度
@@ -34,7 +33,7 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 30
+      width: 25
     },
   },
   {
@@ -76,7 +75,7 @@ export default [
     name: "NBP/ABP",
     next: "mmHg",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 6),
     textarea: {
       width: 30
     },
@@ -140,7 +139,7 @@ export default [
     },
   },
   {
-    key: "customField", //  生命体征自定义
+    key: "fieldSeventeen", //  生命体征自定义
     value: "",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
@@ -211,6 +210,8 @@ export default [
   {
     key: "oral", //A
     value: "",
+    name: "口服类",
+    next: "ml",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
@@ -220,6 +221,8 @@ export default [
   {
     key: "antibiotics", //B
     value: "",
+    name: "抗生素",
+    next: "ml",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
@@ -229,6 +232,8 @@ export default [
   {
     key: "rehydration", //C
     value: "",
+    name: "补液",
+    next: "ml",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
@@ -238,6 +243,8 @@ export default [
   {
     key: "bloodProducts", //D
     value: "",
+    name: "血制品",
+    next: "ml",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 8),
     textarea: {
@@ -378,6 +385,30 @@ export default [
     textarea: {
       width: 30
     },
+  },
+  {
+    key: "description", //特殊情况记录
+    value: "",
+    hidden: true,
+    style: {
+      textAlign: "left",
+      position: "absolute",
+      top: "1px",
+      bottom: "1px",
+      left: "1px",
+      width: "180px",
+      background: "transparent",
+      fontSize: "14px"
+    },
+    event: function (e, td) {
+      console.log(e.keyCode);
+      if (e.keyCode == 9) {
+        td.value = "    " + td.value;
+        e.preventDefault();
+      }
+      keyf1(e, td);
+    }
+    // oninput: next
   },
   {
     key: "sign",

@@ -9,18 +9,19 @@ export default {
   // 科室的名称 关节骨科
   deptType: "",
   style: {
-    width: "1400px"
+    width: "1200px"
   },
   th: {
     top: [{
-        name: currYear() + '年',
+        // name: currYear() + '年',
+        name:currYear(),
         colspan: "2",
         rowspan: "1",
         style: {
           minWidth: "40px",
           maxWidth: "40px"
         },
-        canSet: true,
+        // canSet: true,
         key: "recordYear",
       },
       {
@@ -133,7 +134,7 @@ export default {
         colspan: "1",
         rowspan: "3",
         canSet: true,
-        key: "fieldSix", //标题1
+        key: "measuresEight", //标题1
         style: {
           minWidth: "36px",
           maxWidth: "50px"
@@ -145,7 +146,7 @@ export default {
         colspan: "1",
         rowspan: "3",
         canSet: true,
-        key: "fieldSeven", //标题2
+        key: "measuresNine", //标题2
         style: {
           minWidth: "36px",
           maxWidth: "50px"
@@ -157,7 +158,7 @@ export default {
         colspan: "1",
         rowspan: "3",
         canSet: true,
-        key: "fieldEight", //标题3
+        key: "measuresTen", //标题3
         style: {
           minWidth: "36px",
           maxWidth: "50px"
@@ -198,8 +199,8 @@ export default {
     mid: [{
         name: '日期',
         style: {
-          minWidth: '30px',
-          maxWidth: '30px',
+          minWidth: '32px',
+          maxWidth: '32px',
         },
         colspan: '1',
         rowspan: '2'
@@ -207,8 +208,8 @@ export default {
       {
         name: '时间',
         style: {
-          minWidth: '30px',
-          maxWidth: '30px',
+          minWidth: '32px',
+          maxWidth: '32px',
         },
         colspan: '1',
         rowspan: '2'
@@ -218,8 +219,8 @@ export default {
         colspan: "1",
         rowspan: "2",
         style: {
-          minWidth: '40px',
-          maxWidth: '40px',
+          minWidth: '30px',
+          maxWidth: '30px',
         },
       },
       {
@@ -227,8 +228,8 @@ export default {
         colspan: "1",
         rowspan: "2",
         style: {
-          minWidth: '40px',
-          maxWidth: '40px',
+          minWidth: '30px',
+          maxWidth: '30px',
         },
       },
       {
@@ -236,8 +237,8 @@ export default {
         colspan: "1",
         rowspan: "2",
         style: {
-          minWidth: '40px',
-          maxWidth: '40px',
+          minWidth: '30px',
+          maxWidth: '30px',
         },
       },
       {
@@ -289,7 +290,7 @@ export default {
         colspan: "1",
         rowspan: "1",
         canSet: true,
-        key: "outputFieldFirst", // 出量-标题1
+        key: "postOutputOne", // 出量-标题1
         style: {
           minWidth: "32px",
           maxWidth: "32px"
@@ -301,7 +302,7 @@ export default {
         colspan: "1",
         rowspan: "1",
         canSet: true,
-        key: "outputFieldTwo", //标题2
+        key: "postOutputTwo", //标题2
         style: {
           minWidth: "32px",
           maxWidth: "32px"
@@ -313,7 +314,7 @@ export default {
         colspan: "1",
         rowspan: "1",
         canSet: true,
-        key: "outputFieldThree", //标题3
+        key: "postOutputThree", //标题3
         style: {
           minWidth: "32px",
           maxWidth: "32px"
@@ -325,7 +326,7 @@ export default {
         colspan: "1",
         rowspan: "1",
         canSet: true,
-        key: "outputFieldFour", //标题4
+        key: "postOutputFour", //标题4
         style: {
           minWidth: "32px",
           maxWidth: "32px"

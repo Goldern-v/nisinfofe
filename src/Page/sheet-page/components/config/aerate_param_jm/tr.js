@@ -14,11 +14,16 @@ import {
   click_time
 } from "../keyEvent/date";
 
-let tmList = [];
-let ysxzList = [];
-let gsqdList = [];
-let xlgdList = [];
-export default [{
+let ylList = ['低流量','高流量','呼吸机','BI-PAP','无创呼吸机'];
+let tqList = ['HFO','NIPPV','SIMV','NSIMV'];
+
+export default [
+  {
+    key: "recordDate", //年份
+    value: "",
+    hidden:true
+  },
+  {
     key: "recordMonth", //日期
     value: "",
     event: event_date,
@@ -28,7 +33,6 @@ export default [{
     key: "recordHour", //时间
     value: "",
     event: event_time,
-    click: click_time,
   },
   {
     key: "therapyMode", //氧疗模式
@@ -37,13 +41,17 @@ export default [{
     name: "氧疗模式",
     textarea: {
       width: 75
-    }
+    },
+    autoComplete: {
+      data: ylList
+    },
   },
   {
     key: "flow", //流量
     value: "",
     event: keyf1,
     name: "流量",
+    next: "L/min",
     textarea: {
       width: 75
     }
@@ -55,7 +63,10 @@ export default [{
     name: "通气模式",
     textarea: {
       width: 75
-    }
+    },
+    autoComplete: {
+      data: tqList
+    },
   },
   {
     key: "PIP", //pip
@@ -104,9 +115,6 @@ export default [{
     textarea: {
       width: 75
     },
-    autoComplete: {
-      data: gsqdList
-    },
   },
   {
     key: "mv", //mv
@@ -147,28 +155,29 @@ export default [{
       width: 75
     },
   },
-  // {
-  //   key: "description", //特殊情况记录
-  //   value: "",
-  //   style: {
-  //     textAlign: "left",
-  //     position: "absolute",
-  //     top: "1px",
-  //     bottom: "1px",
-  //     left: "1px",
-  //     width: "700px",
-  //     background: "transparent"
-  //   },
-  //   event: function (e, td) {
-  //     console.log(e.keyCode);
-  //     if (e.keyCode == 9) {
-  //       td.value = "    " + td.value;
-  //       e.preventDefault();
-  //     }
-  //     keyf1(e, td);
-  //   }
-  //   // oninput: next
-  // },
+  {
+    key: "description", //特殊情况记录
+    hidden: true,
+    value: "",
+    style: {
+      textAlign: "left",
+      position: "absolute",
+      top: "1px",
+      bottom: "1px",
+      left: "1px",
+      width: "700px",
+      background: "transparent"
+    },
+    event: function (e, td) {
+      console.log(e.keyCode);
+      if (e.keyCode == 9) {
+        td.value = "    " + td.value;
+        e.preventDefault();
+      }
+      keyf1(e, td);
+    }
+    // oninput: next
+  },
   {
     key: "sign",
     value: ""
@@ -257,34 +266,3 @@ export default [{
     value: true
   }
 ];
-
-export function getListData() {
-  let list = [
-    "江门妇幼:产科护理记录单:宫缩强度",
-    "江门妇幼:产科护理记录单:先露高度",
-    "江门妇幼:产前待产护理记录单:胎膜",
-    "江门妇幼:产前待产护理记录单:羊水性质",
-  ];
-
-  multiDictInfo(list).then(res => {
-    let data = res.data.data;
-    setList(gsqdList, list[0], data);
-    setList(xlgdList, list[1], data);
-    setList(tmList, list[2], data);
-    setList(ysxzList, list[3], data);
-  });
-}
-
-getListData();
-/**
- *
- * @param {*} list 原数组
- * @param {*} key 对应的key
- * @param {*} data 数据源
- */
-function setList(list, key, data) {
-  list.splice(0, list.length);
-  for (let item of data[key]) {
-    list.push(item.name);
-  }
-}

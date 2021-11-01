@@ -20,7 +20,13 @@ let 留置镇痛泵 = ["A","B","C","D",];
 let 吸氧 = ["低流量","中流量","高流量","持续","停止"];
 let 特殊药物 = ["A","B","C","D",];
 
-export default [{
+export default [
+  {
+    key: "recordDate", //年份
+    value: "",
+    hidden:true
+  },
+  {
     key: "recordMonth", //日期
     value: "",
     event: event_date,
@@ -39,7 +45,7 @@ export default [{
     name: "体温",
     next: "℃",
     textarea: {
-      width: 40
+      width: 30
     }
   },
   {
@@ -49,7 +55,7 @@ export default [{
     name: "脉搏",
     next: "次/分",
     textarea: {
-      width: 58
+      width: 30
     }
   },
   {
@@ -59,7 +65,7 @@ export default [{
     name: "呼吸",
     next: "次/分",
     textarea: {
-      width: 58
+      width: 30
     }
   },
   {
@@ -75,7 +81,7 @@ export default [{
     name: "血压",
     next: "mmHg",
     textarea: {
-      width: 58
+      width: 30
     }
   },
   {
@@ -84,7 +90,7 @@ export default [{
     event: keyf1,
     name: "血氧饱和度",
     textarea: {
-      width: 50
+      width: 30
     }
   },
   {
@@ -96,36 +102,37 @@ export default [{
       data: 意识
     },
     textarea: {
-      width: 50
+      width: 30
     }
   },
   {
     key: "preInputOne", //静脉
     value: "",
     event: keyf1,
-    name: "强度",
+    name: "静脉",
+    next: "ml",
     textarea: {
-      width: 43
+      width: 40
     },
   },
   {
     key: "preInputTwo", //口服
     value: "",
     event: keyf1,
-    name: "持续",
-    next: "s",
+    name: "口服",
+    next: "ml",
     textarea: {
-      width: 43
+      width: 40
     }
   },
   {
     key: "preInputThree", // 血
     value: "",
     event: keyf1,
-    name: "间歇",
-    next: "min",
+    name: "血",
+    next: "ml",
     textarea: {
-      width: 43
+      width: 40
     },
   },
   // {
@@ -161,7 +168,7 @@ export default [{
     value: "",
     event: keyf1,
     textarea: {
-      width: 43
+      width: 40
     },
   },
   {
@@ -169,7 +176,7 @@ export default [{
     value: "",
     event: keyf1,
     textarea: {
-      width: 43
+      width: 40
     },
   },
   {
@@ -177,24 +184,24 @@ export default [{
     value: "",
     event: keyf1,
     textarea: {
-      width: 43
+      width: 40
     },
   },
   {
-    key: "measuresOne", //自定义4
+    key: "postOutputFour", //自定义4
     value: "",
     event: keyf1,
     textarea: {
-      width: 43
+      width: 40
     },
   },
   {
     key: "measuresTwo", //留置尿管
     value: "",
     event: keyf1,
-    name: "宫底高度",
+    name: "留置尿管",
     textarea: {
-      width: 50
+      width: 45
     },
     autoComplete: {
       data: 留置尿管
@@ -204,9 +211,9 @@ export default [{
     key: "measuresThree", //留置镇痛泵
     value: "",
     event: keyf1,
-    name: "排尿情况",
+    name: "留置镇痛泵",
     textarea: {
-      width: 50
+      width: 30
     },
     splice: true,
     autoComplete: {
@@ -217,9 +224,9 @@ export default [{
     key: "measuresfour", //伤口敷料
     value: "",
     event: keyf1,
-    name: "阴道流血",
+    name: "伤口敷料",
     textarea: {
-      width: 50
+      width: 30
     },
     autoComplete: {
       data: 伤口敷料
@@ -229,27 +236,27 @@ export default [{
     key: "measuresFive", //腹痛情况
     value: "",
     event: keyf1,
-    name: "健康教育",
+    name: "腹痛情况",
     textarea: {
-      width: 50
+      width: 35
     }
   },
   {
     key: "measuresFix", //阴道流血
     value: "",
     event: keyf1,
-    name: "基础护理",
+    name: "阴道流血",
     textarea: {
-      width: 50
+      width: 35
     },
   },
   {
     key: "measuresSeven", //特殊药物使用
     value: "",
     event: keyf1,
-    name: "基础护理",
+    name: "特殊药物使用",
     textarea: {
-      width: 50
+      width: 35
     },
     splice: true,
     autoComplete: {
@@ -276,9 +283,11 @@ export default [{
       keyf1(e, td);
     },
     textarea: {
-      minWidth: "36px",
-      maxWidth: "50px"
+      // minWidth: "36px",
+      // maxWidth: "50px"
+      width: 50
     },
+    
   },
   {
     key: "measuresNine", //标题2
@@ -291,8 +300,9 @@ export default [{
       keyf1(e, td);
     },
     textarea: {
-      minWidth: "36px",
-      maxWidth: "50px"
+      // minWidth: "36px",
+      // maxWidth: "50px"
+      width: 50
     },
   },
   {
@@ -319,7 +329,7 @@ export default [{
       top: "1px",
       bottom: "1px",
       left: "1px",
-      width: "180px",
+      width: "150px",
       background: "transparent"
     },
     event: function (e, td) {
@@ -336,14 +346,14 @@ export default [{
     key: "sign",
     value: "",
     textarea: {
-      width: 80
+      width: 60
     },
   },
   {
     key: "sign2",
     value: "",
     textarea: {
-      width: 80
+      width: 60
     },
   },
 

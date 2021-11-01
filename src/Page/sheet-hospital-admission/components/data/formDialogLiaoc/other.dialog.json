@@ -1467,7 +1467,7 @@
         "type": "html",
         "title": "",
         "code": "",
-        "style": null,
+        "style": "width:550px",
         "class": null,
         "html": "<div>评估说明：5级（评估说明：肌力正常）；</div><div><span style=\"color: #fff\">评估说明：</span>4级（评估说明：能对抗阻力活动，但比正常者弱）；</div><div><span style=\"color: #fff\">评估说明：</span>3级（评估说明：肢体能抬离床面，但不能对抗阻力)；</div><div><span style=\"color: #fff\">评估说明：</span>2级（评估说明：肢体能在床上平行移动，但不能抬离床面）；</div><div><span style=\"color: #fff\">评估说明：</span>1级（评估说明：肌肉有主动收缩力，但不能带动关节活动）；</div><div><span style=\"color: #fff\">评估说明：</span>0级（完全麻痹，触诊肌肉完全无收缩力）。</div>",
         "readOnly": null
@@ -2091,14 +2091,15 @@
   },
   {
     "title": "洼田饮水试验",
-    "type": "formGroupVerticalBox",
+    "type": "formGroupHorizontalBox",
     "name": "I100432",
     "showTitle": false,
     "message": "",
     "require": "false",
     "prefixDesc": "",
     "postText": "",
-    "keys": "",
+    "keys": "I100432",
+    "aliasTitle": "臀红程度",
     "style": "width:230px!important;",
     "classes": null,
     "readOnly": null,
@@ -2146,35 +2147,70 @@
       },
       {
         "name": "I001456",
-        "type": "input",
-        "label": "吞咽评定",
-        "labelWidth": "80px",
-        "inputWidth":"200px",
-        "postText": "",
-        "value": "",
-        "options": [
-          {
-            "code": "正常 1级（5秒之内）",
-            "name": "正常 1级（5秒之内）",
-            "pinyin": "gmcx"
-          },
-          {
-            "code": "可疑 1级（5秒以上或2级）",
-            "name": "可疑 1级（5秒以上或2级）",
-            "pinyin": "gmcx"
-          },
-          {
-            "code": "异常 3～5级",
-            "name": "异常 3～5级",
-            "pinyin": "gmcx"
-          },
-          {
-            "code": "不能评定",
-            "name": "不能评定",
-            "pinyin": "gmcx"
-          }
-        ],
-        "style": "margin-left:50px",
+        "type": "radio",
+        "title": "正常（1级）能顺利地1次将水咽下（5秒以内）",
+        "code": "正常（1级）能顺利地1次将水咽下（5秒以内）",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      },
+      {
+        "name": "I001456",
+        "type": "radio",
+        "title": "可疑（1级）能顺利地1次将水咽下（5秒以上）",
+        "code": "可疑（1级）能顺利地1次将水咽下（5秒以上）",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      },
+      {
+        "name": "I001456",
+        "type": "radio",
+        "title": "可疑（2级）分2次以上，能不呛咳地咽下",
+        "code": "可疑（2级）分2次以上，能不呛咳地咽下",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      },
+      {
+        "name": "I001456",
+        "type": "radio",
+        "title": "异常（3级）能1次咽下，但有呛咳",
+        "code": "异常（3级）能1次咽下，但有呛咳",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      },
+      {
+        "name": "I001456",
+        "type": "radio",
+        "title": "异常（4级）分2次以上咽下，但有呛咳",
+        "code": "异常（4级）分2次以上咽下，但有呛咳",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      },
+      {
+        "name": "I001456",
+        "type": "radio",
+        "title": "异常（5级）频繁呛咳，不能全部咽下",
+        "code": "异常（5级）频繁呛咳，不能全部咽下",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      },
+      {
+        "name": "I001456",
+        "type": "radio",
+        "title": "不能评定",
+        "code": "不能评定",
+        "style": null,
         "class": null,
         "html": null,
         "readOnly": null

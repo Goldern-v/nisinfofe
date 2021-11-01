@@ -47,11 +47,26 @@ export function event_time(e, td) {
   }
 }
 
+export function event_date_year(e, td) {
+  if (td.value.length >= "2" && td.value.indexOf("-") == -1 && e.keyCode != 8) {
+    setTimeout(() => {
+      td.value = insert_flg(td.value, "-");
+    }, 10);
+  }
+}
+
 export function click_date(e, td) {
   if (td.value == "") {
     td.value = moment().format("MM-DD");
   }
 }
+
+export function click_date_year(e, td) {
+  if (td.value == "") {
+    td.value = moment().format("YYYY-MM-DD");
+  }
+}
+
 export function click_time(e, td) {
   if (td.value == "") {
     td.value = moment().format("HH:mm");

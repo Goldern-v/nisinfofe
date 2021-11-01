@@ -165,6 +165,7 @@ import { follow, unfollow, getPatientOrdersWithWardCode } from "@/api/lesion";
 import bedItem from "./component/bed-item/bed-item.vue";
 import bedItemHd from "./component/bed-item-hd/bed-item.vue";
 import bedItemLcey from "./component/bed-item-lcey/bed-item.vue";
+import bedItemBhry from "./component/bed-item-bhry/bed-item.vue";
 import searchCon from "./component/search-con/search-con.vue";
 import printHdModal from "./component/prints/modals.vue"
 import common from "@/common/mixin/common.mixin.js";
@@ -200,9 +201,11 @@ export default {
     currentBedItem() {
       if (this.HOSPITAL_ID == "huadu") {
         return bedItemHd;
-      } else if (this.HOSPITAL_ID == "liaocheng" || this.HOSPITAL_ID == "shannan" || this.HOSPITAL_ID == "quzhou") {
+      } else if (this.HOSPITAL_ID == "liaocheng" || this.HOSPITAL_ID == "shannan" || this.HOSPITAL_ID == "quzhou" || this.HOSPITAL_ID == "nanfangzhongxiyi") {
         return bedItemLcey;
-      } else {
+      }else if (this.HOSPITAL_ID == "beihairenyi") {
+        return bedItemBhry;
+      }else {
         return bedItem;
       }
     }
@@ -380,6 +383,7 @@ export default {
     searchCon,
     bedItemHd,
     bedItemLcey,
+    bedItemBhry,
     printsModal,
     printView,
     printHdModal

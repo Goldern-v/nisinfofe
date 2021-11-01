@@ -3,9 +3,7 @@
     <table>
       <tr>
         <th
-          v-if="HOSPITAL_ID == 'hj'
-          || HOSPITAL_ID == 'guizhou'
-          || HOSPITAL_ID == 'liaocheng'"
+          v-if="HOSPITAL_ID != 'guizhou'"
           style="width: 2%; min-width: 20px"
         >
           序号
@@ -17,9 +15,10 @@
           时间
         </th>
         <th v-else style="width: 22%; min-width: 75px">日期</th>
-        <th v-if="HOSPITAL_ID != 'lingcheng'" style="width: 20%">项目</th>
+        <th v-if="HOSPITAL_ID != 'lingcheng' && HOSPITAL_ID != 'liaocheng'" style="width: 20%">项目</th>
+        <th v-else-if="HOSPITAL_ID != 'lingcheng' && HOSPITAL_ID == 'liaocheng'" style="width: 20%">类型</th>
         <th v-else style="width: 24%">测量时间</th>
-        <th style="width: 22%">
+        <th style="width: 23%">
           血糖值
           <br />(mmol/L)
         </th>
@@ -29,23 +28,24 @@
             HOSPITAL_ID != 'gy' &&
             HOSPITAL_ID != 'lingcheng' &&
             HOSPITAL_ID != 'huadu' &&
-            HOSPITAL_ID != 'liaocheng' &&
-            HOSPITAL_ID == 'hengli' &&
-            HOSPITAL_ID == 'guizhou'
+            HOSPITAL_ID != 'liaocheng'&&
+            HOSPITAL_ID != 'hengli'&&
+            HOSPITAL_ID != 'fuyou'&&
+            HOSPITAL_ID != 'guizhou'
           "
         >
           {{HOSPITAL_ID=="quzhou"?'胰岛素剂量':'RI剂量'}}
         </th>
         <th
-          style="width: 22%"
+          style="width: 23%"
           v-if="
             HOSPITAL_ID == 'liaocheng'
           "
         >
           血酮值
-        <br />（mmol/L）
+        <br />(mmol/L)
         </th>
-        <th style="width: 16%">{{HOSPITAL_ID == 'liaocheng' ? '签名' : '执行人'}}</th>
+        <th style="width: 14%">{{HOSPITAL_ID == 'liaocheng' ? '签名' : '执行人'}}</th>
       </tr>
       <tr
         v-for="(item,index) in renderData"
@@ -54,7 +54,7 @@
         @click="onSelect(item)"
         @dblclick="onDblClick(item)"
       >
-        <td v-if="HOSPITAL_ID =='hj' ||  HOSPITAL_ID == 'guizhou' || HOSPITAL_ID == 'liaocheng'">
+        <td v-if="HOSPITAL_ID != 'guizhou'">
           {{index + baseIndex + 1}}
         </td>
         <td v-if="HOSPITAL_ID != 'lingcheng'" style="padding: 0 4px">
@@ -89,8 +89,9 @@
             HOSPITAL_ID != 'lingcheng' &&
             HOSPITAL_ID != 'huadu' &&
             HOSPITAL_ID != 'liaocheng'&&
-            HOSPITAL_ID == 'hengli'&&
-            HOSPITAL_ID == 'guizhou'
+            HOSPITAL_ID != 'hengli'&&
+            HOSPITAL_ID != 'fuyou'&&
+            HOSPITAL_ID != 'guizhou'
           "
         >
           <div class="cell">
@@ -119,7 +120,7 @@
           </div>
         </td>
         <td v-else>
-          <div class="cell noPrint" v-if="HOSPITAL_ID == 'foyou'" style="display:block">{{ item.nurse }}</div>
+          <div class="cell noPrint" v-if="HOSPITAL_ID == 'fuyou'" style="display:block">{{ item.nurse }}</div>
           <div class="cell noPrint" v-else>{{ item.nurse }}</div>
           <div class="cell inPrint lc" v-if="HOSPITAL_ID == 'lingcheng'">
             <!-- {{item.nurseEmpNo}} -->
@@ -129,7 +130,7 @@
               v-if="item.expand1"
             />
           </div>
-          <div class="cell inPrint" v-else>
+          <div :class="['cell','inPrint',HOSPITAL_ID=='guizhou'?'guizhou-img':'']" v-else>
             <!-- {{item.nurseEmpNo}} -->
             <img
               :src="`/crNursing/api/file/signImage/${item.nurseEmpNo}?${token}`"
@@ -207,6 +208,10 @@
     width:55px;
     height:18px;
   }
+  .guizhou-img img{
+    width: 55px !important;
+    height: 25px !important;
+  }
 }
 </style>
 
@@ -230,9 +235,11 @@ export default {
       let renderData = [];
       let firstDate = "";
       for (let i = 0; i < this.data.length; i++) {
-        this.data[i].md = new Date(this.data[i].recordDate).Format(
-          "MM-dd hh:mm"
-        );
+        if(this.HOSPITAL_ID == 'lingcheng'){
+          this.data[i].md = new Date(this.data[i].recordDate).Format("yyyy-MM-dd hh:mm");
+        }else{
+          this.data[i].md = new Date(this.data[i].recordDate).Format("MM-dd hh:mm");
+        }
         let obj = this.data[i];
         let date = this.data[i].md.split(" ")[0];
         let time = this.data[i].md.split(" ")[1];

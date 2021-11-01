@@ -48,12 +48,14 @@ export default {
       );
     },
     openselectDiagnosis(item) {
-      this.openSlideContant({
-        id: item.executingId,
-        code: item.code,
-        name: item.name,
-        definition: item.definition
-      });
+      if(this.HOSPITAL_ID=='guizhou'||this.HOSPITAL_ID=='huadu'){
+        this.openSlideContant({
+          id: item.executingId,
+          code: item.code,
+          name: item.name,
+          definition: item.definition
+        });
+      }
       this.openSlideCon({
         id: item.executingId,
         code: item.code,

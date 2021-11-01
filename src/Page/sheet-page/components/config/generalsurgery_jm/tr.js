@@ -8,7 +8,13 @@ import {
   click_time
 } from "../keyEvent/date";
 
-export default [{
+export default [
+  {
+    key: "recordDate", //年份
+    value: "",
+    hidden:true
+  },
+  {
     key: "recordMonth", //日期
     value: "",
     event: event_date,
@@ -88,7 +94,8 @@ export default [{
     key: "preInputOne", //静脉
     value: "",
     event: keyf1,
-    name: "强度",
+    name: "静脉",
+    next: "ml",
     textarea: {
       width: 43
     },
@@ -97,8 +104,8 @@ export default [{
     key: "preInputTwo", //口服
     value: "",
     event: keyf1,
-    name: "持续",
-    next: "s",
+    name: "口服",
+    next: "ml",
     textarea: {
       width: 43
     }
@@ -107,8 +114,8 @@ export default [{
     key: "preInputThree", // 血
     value: "",
     event: keyf1,
-    name: "间歇",
-    next: "min",
+    name: "血",
+    next: "ml",
     textarea: {
       width: 43
     },
@@ -117,8 +124,7 @@ export default [{
     key: "postOutputOne", // 尿管
     value: "",
     event: keyf1,
-    name: "宫口扩张",
-    next: "cm",
+    name: "尿管",
     textarea: {
       width: 43
     },
@@ -127,7 +133,7 @@ export default [{
     key: "postOutputTwo", //胸壁
     value: "",
     event: keyf1,
-    name: "先露",
+    name: "胸壁",
     textarea: {
       width: 43
     },
@@ -136,7 +142,7 @@ export default [{
     key: "postOutputThree", //腋窝
     value: "",
     event: keyf1,
-    name: "先露",
+    name: "腋窝",
     textarea: {
       width: 43
     },
@@ -145,7 +151,7 @@ export default [{
     key: "measuresOne", //伤口疼痛
     value: "",
     event: keyf1,
-    name: "宫底高度",
+    name: "伤口疼痛",
     textarea: {
       width: 50
     },
@@ -154,7 +160,7 @@ export default [{
     key: "measuresTwo", //伤口敷料
     value: "",
     event: keyf1,
-    name: "排尿情况",
+    name: "伤口敷料",
     textarea: {
       width: 50
     }
@@ -163,7 +169,7 @@ export default [{
     key: "measuresThree", //留置尿管
     value: "",
     event: keyf1,
-    name: "阴道流血",
+    name: "留置尿管",
     textarea: {
       width: 50
     },
@@ -172,7 +178,7 @@ export default [{
     key: "measuresfour", //留置镇痛泵
     value: "",
     event: keyf1,
-    name: "健康教育",
+    name: "留置镇痛泵",
     textarea: {
       width: 50
     }

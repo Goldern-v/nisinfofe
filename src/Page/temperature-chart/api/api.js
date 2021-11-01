@@ -30,6 +30,8 @@ const getRecordType = (HOSPITAL_ID) => {
       return 'body_temperature_qz'
       case 'beihairenyi':
       return 'bodyTemperatureLocal'
+      case 'nanfangzhongxiyi':
+      return 'body_temperature_nfzxy'
     default:
       return 'bodyTemperatureLocal'
   }
@@ -47,7 +49,10 @@ export function saveOverAllTemperture(params) {
 
   return axios.post(`${apiPath}record/${getRecordType(process.env.HOSPITAL_ID)}/saveOverAll`, params);
 }
-
+//获取当天的录入记录
+export const getNowDateTimeList = (data) => {
+  return axios.post(`${apiPath}vitalSign/list`,data);
+};
 
 //聊城二院出入院同步
 export function autoVitalSigns(data) {

@@ -29,18 +29,21 @@
             血糖测量记录单
           </div>
           <div class="sup-title" v-else-if="HOSPITAL_ID == 'liaocheng'">
-            血酮酮体记录表
+            血糖酮体记录表
           </div>
           
           <div class="sup-title" v-else>微量血糖测定登记表</div>
           <div class="identifying" v-if="HOSPITAL_ID == 'liaocheng'">POCT</div>
           <p flex="main:justify" class="info" v-if="HOSPITAL_ID == 'liaocheng'">
             <span v-if="HOSPITAL_ID == 'fuyou'">科室：{{ tDeptName }}</span>
+            <span style="width:180px" v-else-if="HOSPITAL_ID == 'liaocheng'" >科室：{{ patientInfo.wardName || patientInfo.deptName }}</span>
             <span v-else
+            style="width:150px"
               >科室：{{ patientInfo.wardName || patientInfo.deptName }}</span
             >
             <!-- <span>入院日期：{{patientInfo.admissionDate | toymd}}</span> -->
-            <span>床号：{{ patientInfo.bedLabel }}</span>
+            <span  style="width:70px" v-if="HOSPITAL_ID == 'liaocheng'">床号：{{ patientInfo.bedLabel }}</span>
+            <span  style="width:100px" v-else>床号：{{ patientInfo.bedLabel }}</span>
             <span>病人姓名：{{ patientInfo.name }}</span>
             <span>性别：{{ patientInfo.sex }}</span>
             <span v-if="HOSPITAL_ID == 'lingcheng'" @dblclick="onEditAge"
@@ -62,7 +65,7 @@
             >
             <span v-else>年龄：{{ resAge ? resAge : patientInfo.age }}</span>
             <span v-if="HOSPITAL_ID == 'fuyou'">科室：{{ tDeptName }}</span>
-            <span v-if="HOSPITAL_ID == 'guizhou'">科室：{{ resDeptName|| patientInfo.wardName || patientInfo.deptName }}</span>
+            <span v-else-if="HOSPITAL_ID == 'guizhou'">科室：{{ resDeptName|| patientInfo.wardName || patientInfo.deptName }}</span>
             <span v-else
               >科室：{{ patientInfo.wardName || patientInfo.deptName }}</span
             >
@@ -76,7 +79,16 @@
             <!-- <span>入院日期：{{$route.query.admissionDate}}</span> -->
           </p>
           <div class="table-warpper" flex="cross:stretch">
+            <!-- 【左边】聊城二院血糖表格单独管理 -->
+            <sugarTableLcey
+            v-if="HOSPITAL_ID == 'liaocheng'"
+            :data="item.left"
+              :selected.sync="selected"
+              @dblclick="hisDisabled()&&onEdit()"
+              :baseIndex='0'
+            ></sugarTableLcey>
             <sugarTable
+            v-else
               :data="item.left"
               :selected.sync="selected"
               @dblclick="hisDisabled()&&onEdit()"
@@ -89,7 +101,16 @@
                 border-bottom: 1px solid #000;
               "
             ></div>
+             <!--【右边】 聊城二院血糖表格单独管理 -->
+            <sugarTableLcey
+            v-if="HOSPITAL_ID == 'liaocheng'"
+            :data="item.right"
+              :selected.sync="selected"
+              @dblclick="hisDisabled()&&onEdit()"
+              :baseIndex='27'
+            ></sugarTableLcey>
             <sugarTable
+            v-else
               :data="item.right"
               :selected.sync="selected"
               @dblclick="hisDisabled()&&onEdit()"
@@ -115,7 +136,8 @@
     </div>
     <div class="tool-con" v-show="listMap.length" :class="[HOSPITAL_ID=='guizhou'?'guizhou-btn':'']">
       <div class="tool-fix" flex="dir:top">
-        <whiteButton text="添加" @click="hisDisabled()&&onAdd()"></whiteButton>
+        <whiteButton text="添加" @click="hisDisabled()&&onAdd()" v-if="HOSPITAL_ID!=='liaocheng'"></whiteButton>
+        <whiteButton text="添加记录" @click="hisDisabled()&&onAdd()" v-if="HOSPITAL_ID==='liaocheng'"></whiteButton>
         <whiteButton
           text="修改"
           @click="hisDisabled()&&onEdit()"
@@ -247,6 +269,7 @@
 
 <script>
 import sugarTable from "./components/sugar-table.vue";
+import sugarTableLcey from "./components/sugar-table-lcey.vue";
 import {
   getSugarListWithPatientId,
   saveSugarList,
@@ -505,12 +528,14 @@ export default {
   },
   components: {
     sugarTable,
+    // 聊城二院血糖表格
+    sugarTableLcey,
     whiteButton,
     sugarChart,
     nullBg,
     editModal,
     setPageModal,
-    editAge,
+    editAge
   },
 };
 </script>

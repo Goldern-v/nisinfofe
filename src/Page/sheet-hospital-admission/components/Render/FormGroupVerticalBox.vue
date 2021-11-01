@@ -80,7 +80,6 @@ export default {
   font-weight: bold;
   font-family: sim;
   height: 40px;
-  max-width: 250px; 
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;

@@ -6,12 +6,11 @@
             </div>
             <div class="modal-body">
                 <div class="body-seach">
-                    <input type="text" placeholder="搜索导管">
-                    <button class="search-btn">查询</button>
+                    <input type="text" placeholder="搜索导管" v-model="type">
+                    <button class="search-btn" @click="search">查询</button>
                 </div>
                 <div class="cathter-type">
-                    <div class="type-item" v-for="(item,index) in cathterType" :key="index" @click="createCathter(item)">
-                        <img src="1" alt="">
+                    <div class="type-item" v-for="(item,index) in renderList" :key="index" @click="createCathter(item)">
                         {{item.name}}
                     </div>
                 </div>
@@ -31,7 +30,7 @@
 }
     .add-modal{
         width: 500px;
-        height:300px;
+        height:350px;
         background-color: #fff;
         position: absolute;
         top: 50%;
@@ -59,7 +58,7 @@
                 .search-btn{
                     height: 28px;
                     width: 50px;
-                    background-color: #ccc;
+                    background-color: #4bb08d;
                     color: #fff;
                     outline: none;
                     border: none;
@@ -68,10 +67,16 @@
             }
             .cathter-type{
                 display: flex;
+                height: 243px;
+                overflow: auto;
+                box-sizing: border-box;
+                flex-wrap: wrap;
                 padding: 20px;
-                justify-content: space-between;
                 .type-item{
-                    width: 100px;
+                    box-sizing: border-box;
+                    min-width: 100px;
+                    margin-right:10px;
+                    margin-bottom:5px;
                     height: 40px;
                     border-radius: 8px;
                     border: 1px solid #ccc;
@@ -80,6 +85,7 @@
                     font-size: 12px;
                     cursor: pointer;
                     color: #777;
+                    padding: 0 5px;
                 }
             }
         }
@@ -92,7 +98,9 @@ props: {},
 data() {
 return {
     cathterType:[],
-    isCreate:false
+    renderList:[],
+    isCreate:false,
+    type:''
 };
 },
 methods: {
@@ -101,6 +109,15 @@ methods: {
     },
     createCathter(info){
         this.$emit('create',info)
+    },
+    search(){
+        if(this.type){
+            this.renderList = this.cathterType.filter(item=>{
+                return item.name.includes(this.type)
+            })
+        }else{
+            this.renderList = this.cathterType
+        }
     }
 },
 created(){
@@ -108,7 +125,7 @@ created(){
     if(deptCode){
         getCatheterTemplate({deptCode}).then(res=>{
             this.cathterType = res.data.data.list
-            console.log(this.cathterType);
+            this.renderList = this.cathterType
         })
     }
     

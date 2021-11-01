@@ -19,7 +19,11 @@
             <span style="color:rgb(237, 85, 102)" v-if="data.patientCondition == '病重'">病重</span>
             <span style="color:rgb(237, 85, 102)" v-if="data.patientCondition == '病危'">病危</span>
           </div>
-          <div class="info">
+          <div class="info" v-if="HOSPITAL_ID == 'beihairenyi'">
+            {{data.sex}} | {{data.age}} | {{data.inpNo}} | {{data.chargeType
+            || '--'}}
+          </div>
+          <div class="info" v-else>
             {{data.sex}} | {{data.age}} | {{data.patientId}} | {{data.chargeType
             || '--'}}
           </div>
@@ -43,6 +47,9 @@
             </span>
             <span v-if="data.isTommorowDischarge == '1'">
               <img src="../../../../../../common/images/card/明日出院.png" height="18" width="60" />
+            </span>
+            <span v-if="data.operationDay&&data.operationDay!=0">
+              <span style="font-size: 14px;">术后{{data.operationDay}}天</span>
             </span>
           </div>
           <div flex-box="1" flex="dir:right" style="width: 0">
@@ -75,7 +82,13 @@
     </div>
   </span>
   <div class="bed-modal">
-    <div flex="" class="table-line" v-if="HOSPITAL_ID == 'huadu'">
+    <div flex="" class="table-line" v-if="HOSPITAL_ID == 'beihairenyi'">
+      <div class="key">床号：</div>
+      <div class="value" style="width: 70px;">{{ data.bedLabel }}</div>
+      <div class="key">住院号：</div>
+      <div class="value">{{ data.inpNo }}</div>
+    </div>
+    <div flex="" class="table-line" v-else-if="HOSPITAL_ID == 'huadu'">
       <div class="key">床号：</div>
       <div class="value" style="width: 70px;">{{ data.bedLabel }}</div>
       <div class="key">住院号：</div>
@@ -98,6 +111,12 @@
       <div class="value" style="width: 70px;">{{ data.age }}</div>
       <div class="key">ID 号：</div>
       <div class="value">{{ data.inpNo }}</div>
+    </div>
+    <div flex="" class="table-line" v-else-if="HOSPITAL_ID == 'beihairenyi'">
+      <div class="key">年龄：</div>
+      <div class="value" style="width: 70px;">{{ data.age }}</div>
+      <div class="key">ID 号：</div>
+      <div class="value">{{ data.patientId }}</div>
     </div>
     <div flex="" class="table-line" v-else>
       <div class="key">年龄：</div>

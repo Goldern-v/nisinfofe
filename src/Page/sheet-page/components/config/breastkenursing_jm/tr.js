@@ -13,7 +13,22 @@ import {
 let 意识 = ["清醒","嗜睡","昏睡","浅昏迷","深昏迷","谵妄"];
 let 功能锻炼 = ["A","B","C"];
 let 中心静脉导管 = ["A","B"];
-export default [{
+let 静脉化疗 = ['开始','持续','结束']
+let 心电监护 = ['开始','持续','结束']
+let 伤口疼痛 = ['无','轻度','重度']
+let 伤口敷料 = ['干洁','少许','渗液']
+export default [
+  {
+    key: "recordDate", //年份
+    value: "",
+    hidden:true
+  },
+  {
+    key: "recordDate", //年份
+    value: "",
+    hidden:true
+  },
+  {
     key: "recordMonth", //日期
     value: "",
     event: event_date,
@@ -127,6 +142,7 @@ export default [{
     value: "",
     event: keyf1,
     name: "尿管",
+    next: "ml",
     textarea: {
       width: 43
     },
@@ -136,6 +152,7 @@ export default [{
     value: "",
     event: keyf1,
     name: "胸壁",
+    next: "ml",
     textarea: {
       width: 43
     },
@@ -145,6 +162,7 @@ export default [{
     value: "",
     event: keyf1,
     name: "腋窝",
+    next: "ml",
     textarea: {
       width: 43
     },
@@ -166,6 +184,9 @@ export default [{
     textarea: {
       width: 50
     },
+    autoComplete: {
+      data: 心电监护
+    }
   },
   {
     key: "measuresTwo", //中心静脉导管
@@ -188,6 +209,9 @@ export default [{
     textarea: {
       width: 50
     },
+    autoComplete: {
+      data: 伤口疼痛
+    }
   },
   {
     key: "measuresfour", //伤口敷料
@@ -196,6 +220,9 @@ export default [{
     name: "伤口敷料",
     textarea: {
       width: 50
+    },
+    autoComplete: {
+      data: 伤口敷料
     }
   },
   {
@@ -219,6 +246,9 @@ export default [{
     textarea: {
       width: 50
     },
+    autoComplete: {
+      data: 静脉化疗
+    }
   },
   {
     key: "measuresSeven", //标题1

@@ -20,7 +20,13 @@ let lzngList = [];
 let nsList = [];
 let gsList = [];
 let zdjnList = ['✓'];
-export default [{
+export default [
+   {
+    key: "recordDate", //年份
+    value: "",
+    hidden:true
+  },
+  {
     key: "recordMonth", //日期
     value: "",
     event: event_date,
@@ -39,7 +45,7 @@ export default [{
     name: "体温",
     next: "℃",
     textarea: {
-      width: 40
+      width: 35
     }
   },
   {
@@ -49,7 +55,7 @@ export default [{
     name: "脉搏",
     next: "次/分",
     textarea: {
-      width: 58
+      width: 30
     }
   },
   {
@@ -59,7 +65,7 @@ export default [{
     name: "呼吸",
     next: "次/分",
     textarea: {
-      width: 58
+      width: 30
     }
   },
   {
@@ -75,7 +81,7 @@ export default [{
     name: "血压",
     next: "mmHg",
     textarea: {
-      width: 56
+      width: 50
     }
   },
   {
@@ -85,7 +91,7 @@ export default [{
     name: "SPO2",
     next: "%",
     textarea: {
-      width: 46
+      width: 35
     }
   },
   {
@@ -93,70 +99,71 @@ export default [{
     value: "",
     event: keyf1,
     name: "膀胱情况",
-    next: "次/分",
+    next: "",
     autoComplete: {
       data: pgList
     },
     textarea: {
-      width: 40
+      width: 35
     },
   },
   {
     key: "preInputOne", //静脉
     value: "",
     event: keyf1,
-    name: "指尖血糖",
-    next: "mmol/L",
+    name: "静脉",
+    next: "ml",
     textarea: {
-      width: 43
+      width: 30
     }
   },
   {
     key: "preInputTwo", //口服
     value: "",
     event: keyf1,
-    name: "阴道出血",
+    name: "口服",
     next: "mL",
     textarea: {
-      width: 43
+      width: 30
     }
   },
   {
     key: "preInputThree", // 血
     value: "",
     event: keyf1,
-    name: "入量内容",
+    name: "血",
+    next: "mL",
     textarea: {
-      width: 43
+      width: 30
     },
   },
   {
     key: "postOutputOne", // 尿
     value: "",
     event: keyf1,
-    name: "入量大小",
+    name: "尿",
     next: "ml",
     textarea: {
-      width: 43
+      width: 30
     },
   },
   {
     key: "postOutputTwo", //其他
     value: "",
     event: keyf1,
-    name: "出量内容",
+    name: "其他",
+    next: "ml",
     textarea: {
-      width: 43
+      width: 30
     },
   },
   {
     key: "fieldOne", //乳量
     value: "",
     event: keyf1,
-    name: "出量大小",
-    next: "ml",
+    name: "乳量",
     textarea: {
-      width: 38
+      width: 30
     },
     autoComplete: {
       data: mrqkList
@@ -166,21 +173,21 @@ export default [{
     key: "fieldTwo", //宫底高度
     value: "",
     event: keyf1,
-    name: "出量颜色",
+    name: "宫底高度",
     autoComplete: {
       data: gdgdList
     },
     textarea: {
-      width: 50
+      width: 40
     }
   },
   {
     key: "fieldThree", //子宫收缩
     value: "",
     event: keyf1,
-    name: "健康宣教",
+    name: "子宫收缩",
     textarea: {
-      width: 40
+      width: 30
     },
     autoComplete: {
       data: gsList
@@ -190,7 +197,7 @@ export default [{
     key: "positionFour", //腹部
     value: "",
     event: keyf1,
-    name: "健康宣教",
+    name: "腹部",
     textarea: {
       width: 43
     }
@@ -198,6 +205,7 @@ export default [{
   {
     key: "positionFive", //会阴
     value: "",
+    name: "会阴",
     event: keyf1,
     textarea: {
       width: 43,
@@ -207,9 +215,10 @@ export default [{
   {
     key: "fieldFour", //留置尿管
     value: "",
+    name: "留置尿管",
     event: keyf1,
     textarea: {
-      width: 40,
+      width: 30,
       maxLength: 4
     },
     autoComplete: {
@@ -219,9 +228,10 @@ export default [{
   {
     key: "preFieldFive", //尿色
     value: "",
+    name: "尿色",
     event: keyf1,
     textarea: {
-      width: 50,
+      width: 30,
       maxLength: 4
     },
     autoComplete: {
@@ -232,9 +242,10 @@ export default [{
   {
     key: "preFieldSix", //镇痛泵
     value: "",
+    name: "镇痛泵",
     event: keyf1,
     textarea: {
-      width: 50,
+      width: 30,
       maxLength: 4
     },
     autoComplete: {
@@ -244,9 +255,10 @@ export default [{
   {
     key: "preFieldSeven", //母乳喂养指导
     value: "",
+    name: "母乳喂养指导",
     event: keyf1,
     textarea: {
-      width: 50,
+      width: 30,
       maxLength: 4
     },
     autoComplete: {
@@ -256,9 +268,10 @@ export default [{
   {
     key: "preFieldEight", //vas评分
     value: "",
+    name: "vas评分",
     event: keyf1,
     textarea: {
-      width: 50,
+      width: 30,
       maxLength: 4
     },
     autoComplete: {
@@ -268,9 +281,10 @@ export default [{
   {
     key: "preFieldNice", //跌倒告知
     value: "",
+    name: "跌倒告知",
     event: keyf1,
     textarea: {
-      width: 50,
+      width: 30,
       maxLength: 4
     },
     autoComplete: {
@@ -302,7 +316,7 @@ export default [{
       top: "1px",
       bottom: "1px",
       left: "1px",
-      width: "180px",
+      width: "150px",
       background: "transparent"
     },
     event: function (e, td) {

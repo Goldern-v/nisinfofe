@@ -12,6 +12,7 @@
             <div v-else>
               <label>
                 <el-input
+                  v-show="!isPrintShiftWork"
                   autosize
                   class="textarea"
                   type="textarea"
@@ -32,6 +33,7 @@
                     )
                   "
                 />
+                <div v-show="isPrintShiftWork" style="line-height:30px;">{{data.changeShiftTimes[item.prop]}}</div>
               </label>
             </div>
 
@@ -177,7 +179,7 @@
         </tr> -->
       </tbody>
     </table>
-    <div class="add-special" @click="addSpecial"> + 添加特殊</div>
+    <div class="add-special" @click="addSpecial" v-show="!isPrintShiftWork"> + 添加特殊</div>
     <setInfoModal ref="setInfoModal"></setInfoModal>
     <specialTextModal ref="specialTextModal"></specialTextModal>
   </div>
@@ -297,6 +299,10 @@ import { delContentById } from "../apis";
 import bus from "vue-happy-bus";
 export default {
   props: {
+    isPrintShiftWork:{
+      type:Boolean,
+      value:false
+    },
     data: {
       type: Object,
       default: {}
@@ -319,7 +325,7 @@ export default {
             label: "患者总数",
             prop: "allTotal",
             editable: false,
-            align: "center",
+            align: "left",
             width: "40",
             // rowspan: 2,
             // render: (row) => {
@@ -330,7 +336,7 @@ export default {
             label: "患者总数",
             prop: "allTotal",
             editable: true,
-            align: "center",
+            align: "left",
             width: "40",
             // rowspan: 2,
             // render: (row) => {
@@ -341,14 +347,14 @@ export default {
             label: "新入院患者",
             prop: "patientNew",
             editable: false,
-            align: "center",
+            align: "left",
             width: "40"
           },
           {
             label: "新入院患者",
             prop: "patientNew",
             editable: true,
-            align: "center",
+            align: "left",
             width: "40"
           }
         ],
@@ -357,28 +363,28 @@ export default {
             label: "出院患者",
             prop: "patientOut",
             editable: false,
-            align: "center",
+            align: "left",
             width: "40"
           },
           {
             label: "出院患者",
             prop: "patientOut",
             editable: true,
-            align: "center",
+            align: "left",
             width: "40"
           },
           {
             label: "一级护理",
             prop: "patientYi",
             editable: false,
-            align: "center",
+            align: "left",
             width: "40"
           },
           {
             label: "一级护理",
             prop: "patientYi",
             editable: true,
-            align: "center",
+            align: "left",
             width: "40"
           }
         ],
@@ -387,28 +393,28 @@ export default {
             label: "病危患者",
             prop: "patientBw",
             editable: false,
-            align: "center",
+            align: "left",
             width: "40"
           },
           {
             label: "病危患者",
             prop: "patientBw",
             editable: true,
-            align: "center",
+            align: "left",
             width: "40"
           },
           {
             label: "转出患者",
             prop: "patientTransferOut",
             editable: false,
-            align: "center",
+            align: "left",
             width: "40"
           },
           {
             label: "转出患者",
             prop: "patientTransferOut",
             editable: true,
-            align: "center",
+            align: "left",
             width: "40"
           }
         ],
@@ -417,28 +423,28 @@ export default {
             label: "ICU转入",
             prop: "patientTransferIn",
             editable: false,
-            align: "center",
+            align: "left",
             width: "40"
           },
           {
             label: "ICU转入",
             prop: "patientTransferIn",
             editable: true,
-            align: "center",
+            align: "left",
             width: "40"
           },
           {
             label: "死亡患者",
             prop: "patientDead",
             editable: false,
-            align: "center",
+            align: "left",
             width: "40"
           },
           {
             label: "死亡患者",
             prop: "patientDead",
             editable: true,
-            align: "center",
+            align: "left",
             width: "40"
           }
         ],
@@ -447,28 +453,28 @@ export default {
             label: "输血患者",
             prop: "patientTransfusion",
             editable: false,
-            align: "center",
+            align: "left",
             width: "40"
           },
           {
             label: "输血患者",
             prop: "patientTransfusion",
             editable: true,
-            align: "center",
+            align: "left",
             width: "40"
           },
           {
             label: "危急值患者",
             prop: "patientCritical",
             editable: false,
-            align: "center",
+            align: "left",
             width: "40"
           },
           {
             label: "危急值患者",
             prop: "patientCritical",
             editable: true,
-            align: "center",
+            align: "left",
             width: "40"
           }
         ],
@@ -477,14 +483,14 @@ export default {
             label: "新入院",
             prop: "remark1",
             editable: false,
-            align: "center",
+            align: "left",
             width: "40"
           },
           {
             label: "新入院",
             prop: "remark1",
             editable: true,
-            align: "center",
+            align: "left",
             width: "40",
             colspan: 3
           }
@@ -494,14 +500,14 @@ export default {
             label: "手术",
             prop: "remark2",
             editable: false,
-            align: "center",
+            align: "left",
             width: "40"
           },
           {
             label: "手术",
             prop: "remark2",
             editable: true,
-            align: "center",
+            align: "left",
             width: "40",
             colspan: 3
           }
@@ -511,14 +517,14 @@ export default {
             label: "拟今日手术",
             prop: "remark3",
             editable: false,
-            align: "center",
+            align: "left",
             width: "40"
           },
           {
             label: "拟今日手术",
             prop: "remark3",
             editable: true,
-            align: "center",
+            align: "left",
             width: "40",
             colspan: 3
           }
@@ -528,14 +534,14 @@ export default {
             label: "危重",
             prop: "remark4",
             editable: false,
-            align: "center",
+            align: "left",
             width: "40"
           },
           {
             label: "危重",
             prop: "remark4",
             editable: true,
-            align: "center",
+            align: "left",
             width: "40",
             colspan: 3
           }
@@ -545,14 +551,14 @@ export default {
             label: "死亡",
             prop: "remark5",
             editable: false,
-            align: "center",
+            align: "left",
             width: "40"
           },
           {
             label: "死亡",
             prop: "remark5",
             editable: true,
-            align: "center",
+            align: "left",
             width: "40",
             colspan: 3
           }
@@ -562,14 +568,14 @@ export default {
             label: "特殊记录",
             prop: "remark6",
             editable: false,
-            align: "center",
+            align: "left",
             width: "40"
           },
           {
             label: "特殊记录",
             prop: "remark6",
             editable: true,
-            align: "center",
+            align: "left",
             width: "40",
             colspan: 3
           }
@@ -579,14 +585,14 @@ export default {
             label: "急救车使用",
             prop: "remark7",
             editable: false,
-            align: "center",
+            align: "left",
             width: "40"
           },
           {
             label: "急救车使用",
             prop: "remark7",
             editable: true,
-            align: "center",
+            align: "left",
             width: "40",
             colspan: 3
           }

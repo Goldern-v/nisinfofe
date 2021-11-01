@@ -12,7 +12,7 @@
       </span>
       <span>
         床号：
-        <div class="bottom-line" style="min-width: 50px">
+        <div :class="['bottom-line','has-background']" :style="{minWidth:'55px'}"  @dblclick.stop="openBedRecordModal">
           {{ patientInfo.bedLabel }}
         </div>
       </span>
@@ -102,6 +102,7 @@
       </span>
 
     </div>
+    <bedRecordModal ref="bedRecordModal"></bedRecordModal>
   </div>
 </template>
 
@@ -112,6 +113,7 @@ import sheetInfo from "../../../config/sheetInfo";
 import { listItem } from "@/api/common.js";
 import sheetData from "../../../../sheet.js";
 import bus from "vue-happy-bus";
+import bedRecordModal from "../../../modal/bedRecord-modal";
 
 export default {
   props: {
@@ -167,6 +169,12 @@ export default {
     },
   },
   methods: {
+    openBedRecordModal(){
+      if (this.readOnly) {
+        return this.$message.warning("你无权操作此护记，仅供查阅");
+      }
+      this.$refs.bedRecordModal.open();
+    },
     updateDiagnosis(key, label, autoText) {
       window.openSetTextModal(
         (text) => {
@@ -201,16 +209,19 @@ export default {
     }
   },
   watch: {},
-  components: {},
+  components: {
+    bedRecordModal
+  },
 };
 </script>
 
 <style lang="scss" scoped>
-input.bottom-line {
+.bottom-line {
   border-top: 0;
   border-left: 0;
   border-right: 0;
   outline: none;
+  height: 12px;
 }
 .ml-1000 {
   margin-left: 1000px;

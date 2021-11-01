@@ -141,6 +141,8 @@ import tableHeadTbhldLc from "./components/table-head/table-head-tbhld-lc";
 import tableHeadWj from "./components/table-head/table-head-wj";
 import tableHeadHd from "./components/table-head/table-head-hd";
 import tableHeadFuyou from "./components/table-head/table-head-fuyou";
+import tableHeadXieGang from "./components/table-head/table-head-xiegang";
+import tableHeadNanFangZhongXiYi from "./components/table-head/table-head-nanfangzhongxiyi";
 import tableHeadBeiHaiRenYi from "./components/table-head/table-head-beihairenyi";
 import tableHeadHengLi from "./components/table-head/table-head-hengli";
 import tableHeadShanNan from "./components/table-head/table-head-shannan";
@@ -168,6 +170,12 @@ export default {
     },
     /** 只读模式 */
     readOnly() {
+      if (
+        this.HOSPITAL_ID == "huadu" &&
+        sheetInfo.sheetType === "body_temperature_Hd"
+      ) {
+        return false;
+      }
       if (sheetInfo.sheetType === "obstetrics") return false;
       return !this.userDeptList
         .map(item => item.code)
@@ -189,6 +197,10 @@ export default {
         return tableHeadHd;
       } else if (this.HOSPITAL_ID == "fuyou") {
         return tableHeadFuyou;
+      } else if (this.HOSPITAL_ID == "xiegang") {
+        return tableHeadXieGang;
+      } else if (this.HOSPITAL_ID == "nanfangzhongxiyi") {
+        return tableHeadNanFangZhongXiYi;
       } else if (this.HOSPITAL_ID == "beihairenyi") {
         return tableHeadBeiHaiRenYi;
       } else if (this.HOSPITAL_ID == "hengli") {

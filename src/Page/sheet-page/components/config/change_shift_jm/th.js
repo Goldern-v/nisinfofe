@@ -10,14 +10,11 @@ export default {
   deptType: "",
   th: {
     top: [{
-        name: currYear(),
+        name: '',
+        style: {},
         colspan: "2",
         rowspan: "1",
-        style: {
-          minWidth: "62px"
-        },
-        canSet: true,
-        key: "recordYear",
+        key: 'recordYear',
       },
       {
         name: `

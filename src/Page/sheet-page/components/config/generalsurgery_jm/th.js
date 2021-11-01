@@ -18,7 +18,7 @@ export default {
         style: {
           minWidth: "62px"
         },
-        canSet: true,
+        // canSet: true,
         key: "recordYear",
       },
       {
@@ -113,7 +113,7 @@ export default {
         colspan: "1",
         rowspan: "3",
         canSet: true,
-        key: "fieldSix", //标题1
+        key: "measuresFive", //标题1
         style: {
           minWidth: "32px",
           maxWidth: "32px"
@@ -125,7 +125,7 @@ export default {
         colspan: "1",
         rowspan: "3",
         canSet: true,
-        key: "fieldSeven", //标题2
+        key: "measuresSix", //标题2
         style: {
           minWidth: "32px",
           maxWidth: "32px"
@@ -137,7 +137,7 @@ export default {
         colspan: "1",
         rowspan: "3",
         canSet: true,
-        key: "fieldEight", //标题3
+        key: "measuresSeven", //标题3
         style: {
           minWidth: "32px",
           maxWidth: "32px"
@@ -149,7 +149,7 @@ export default {
         colspan: "1",
         rowspan: "3",
         canSet: true,
-        key: "fieldNine", //标题4
+        key: "measuresEight", //标题4
         style: {
           minWidth: "32px",
           maxWidth: "32px"

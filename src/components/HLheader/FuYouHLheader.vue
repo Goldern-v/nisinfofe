@@ -209,7 +209,7 @@
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-zhihuishuye"></i> 智慧输液
               </el-row>
-            </router-link>-->
+            </router-link> -->
             <!-- <router-link to="/wardReport" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-dongtairizhi"></i> 病房日报
@@ -274,6 +274,11 @@
             <router-link to="/implementationList" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-jiaobanzhi"></i> 执行单
+              </el-row>
+            </router-link>
+            <router-link to="/infuse" tag="span">
+              <el-row class="nav-item" type="flex" align="middle">
+                <i class="iconfont icon-zhihuishuye"></i> 智慧输液
               </el-row>
             </router-link>
             <router-link to="/workloadSatistics" tag="span">
@@ -534,7 +539,7 @@
                   ></el-option>
                 </el-select>
               </span>
-              <span class="option-item" v-popover:popover1>{{
+              <span class="option-item" v-popover:popover1 @click="bus.$emit('updateFuyouCaData')">{{
                 user.empName
               }}</span>
             </span>
@@ -891,7 +896,7 @@ import userInfo from "./user-info.vue";
 import { nursingUnit } from "@/api/lesion";
 import common from "@/common/mixin/common.mixin";
 import WebSocketService from "@/plugin/webSocket/index";
-
+import bus from "vue-happy-bus";
 export default {
   mixins: [common],
   data() {
@@ -909,6 +914,7 @@ export default {
       //     localStorage["showBadEvent"] === "true") ||
       //   this.isDev ||
       //   false
+      bus: bus(this),
     };
   },
   computed: {
@@ -1026,9 +1032,14 @@ export default {
       Cookies.remove("NURSING_USER", { path: "/" });
       this.$router.push("/login");
       this.$store.commit("upDeptCode", "");
+      //清除江门妇幼ca登录
+      localStorage.removeItem("fuyouCaData");
     },
     setPassword() {
-      this.$refs.setPassword.open();
+      this.$nextTick(()=>{
+        this.$refs.setPassword.open();
+      })
+      
     },
     remoteMethod(query) {
       if (query !== "") {

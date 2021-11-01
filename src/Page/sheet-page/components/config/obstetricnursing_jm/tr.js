@@ -17,7 +17,13 @@ import {
 let gsqdList = [];
 let xlgdList = [];
 let ydlxList = [];
-export default [{
+export default [
+  {
+    key: "recordDate", //年份
+    value: "",
+    hidden:true
+  },
+  {
     key: "recordMonth", //日期
     value: "",
     event: event_date,
@@ -36,7 +42,7 @@ export default [{
     name: "体温",
     next: "℃",
     textarea: {
-      width: 50
+      width: 30
     }
   },
   {
@@ -46,7 +52,7 @@ export default [{
     name: "脉搏",
     next: "次/分",
     textarea: {
-      width: 60
+      width: 45
     }
   },
   {
@@ -56,7 +62,7 @@ export default [{
     name: "呼吸",
     next: "次/分",
     textarea: {
-      width: 60
+      width: 45
     }
   },
   {
@@ -72,7 +78,7 @@ export default [{
     name: "血压",
     next: "mmHg",
     textarea: {
-      width: 60
+      width: 50
     }
   },
   {
@@ -90,7 +96,7 @@ export default [{
     event: keyf1,
     name: "强度",
     textarea: {
-      width: 43
+      width: 30
     },
     autoComplete: {
       data: gsqdList
@@ -103,7 +109,7 @@ export default [{
     name: "持续",
     next: "s",
     textarea: {
-      width: 43
+      width: 30
     }
   },
   {
@@ -113,7 +119,7 @@ export default [{
     name: "间歇",
     next: "min",
     textarea: {
-      width: 43
+      width: 30
     },
   },
   {
@@ -123,7 +129,7 @@ export default [{
     name: "宫口扩张",
     next: "cm",
     textarea: {
-      width: 43
+      width: 30
     },
   },
   {
@@ -132,7 +138,7 @@ export default [{
     event: keyf1,
     name: "先露",
     textarea: {
-      width: 43
+      width: 30
     },
     autoComplete: {
       data: xlgdList
@@ -144,7 +150,7 @@ export default [{
     event: keyf1,
     name: "宫底高度",
     textarea: {
-      width: 50
+      width: 30
     },
   },
   {
@@ -153,7 +159,7 @@ export default [{
     event: keyf1,
     name: "排尿情况",
     textarea: {
-      width: 50
+      width: 30
     }
   },
   {
@@ -162,7 +168,7 @@ export default [{
     event: keyf1,
     name: "阴道流血",
     textarea: {
-      width: 50
+      width: 30
     },
     autoComplete: {
       data: ydlxList
@@ -251,7 +257,7 @@ export default [{
       top: "1px",
       bottom: "1px",
       left: "1px",
-      width: "180px",
+      width: "150px",
       background: "transparent"
     },
     event: function (e, td) {

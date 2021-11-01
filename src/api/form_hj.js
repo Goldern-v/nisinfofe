@@ -8,9 +8,13 @@ import qs from 'qs'
 
 
 // 评估详情
-export function evalDetail(id) {
+export function evalDetail(id,type) {
   if (id){
-    return axios.get(`${apiPath}eval/detail/${id}`)
+    if(type){
+      return axios.get(`${apiPath}${type}/health_education_hl/get/${id}`)
+    }else{
+      return axios.get(`${apiPath}eval/detail/${id}`)
+    }
   }
   return null
 }

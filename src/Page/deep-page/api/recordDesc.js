@@ -14,6 +14,7 @@ export const listItem = (code, recordCode) => {
 //  保存常用短语
 export function saveOrUpdate(groupName, title, content, id) {
   let recordCode = sheetInfo.sheetType;
+  // if(['beihairenyi'].includes(HOSI))
   return axios.post(`${apiPath}record/desc/saveOrUpdate`, {
     recordCode,
     groupName,
@@ -34,6 +35,7 @@ export function get(id) {
 
 //  列表
 export function list(groupName) {
+  
   let recordCode = sheetInfo.sheetType;
   return axios.post(`${apiPath}record/desc/list`, { recordCode, groupName });
 }

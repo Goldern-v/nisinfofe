@@ -24,7 +24,9 @@
     "dev:beihairenyi": "npm run dev --beihairenyi",
     "dev:quzhou": "npm run dev --quzhou",
     "dev:foshanrenyi": "npm run dev --foshanrenyi",
+    "dev:fsxt": "npm run dev --fsxt",
     "dev:hj": "npm run dev --houjie",
+    "dev:yangchunzhongyi": "npm run dev --yangchunzhongyi",
     "start": "node build/dev-server.js",
     "build": "node build/build.js",
     "build:": "npm run build",
@@ -48,6 +50,8 @@
     "buildNew:beihairenyi": "npm run buildNew: beihairenyi",
     "buildNew:quzhou": "npm run buildNew: quzhou",
     "buildNew:foshanrenyi": "npm run buildNew: foshanrenyi",
+    "buildNew:fsxt": "npm run buildNew: fsxt",
+    "buildNew:yangchunzhongyi": "npm run buildNew: yangchunzhongyi",
     "deploy": "npm run buildNew",
     "lint": "eslint --ext .js,.vue src",
     "toSvn": "svn commit -m 前端代码更新svn"

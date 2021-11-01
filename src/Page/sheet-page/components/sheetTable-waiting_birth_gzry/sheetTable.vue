@@ -33,12 +33,15 @@
             科室：{{ patientInfo.realDeptName }}
           </span>
           <span>
-            床号：{{ patientInfo.bedLabel }}
+            床号：
+            <div :class="['bottom-line-input','has-background']" :style="{minWidth:'55px'}"  @dblclick.stop="openBedRecordModal">
+              {{ patientInfo.bedLabel }}
+            </div>
           </span>
           <span>
             住院号：{{ patientInfo.patientId }}
           </span>
-          <span>
+          <!-- <span>
             孕/产次：
             <input
               class="bottom-line-input"
@@ -58,7 +61,7 @@
               :data-value="sheetInfo.relObj.pregnantWeeks"
               v-model="sheetInfo.relObj.pregnantWeeks"
             />
-          </span>
+          </span> -->
         </div>
         <excel
           :data="data"
@@ -71,9 +74,11 @@
         </excel>
       </div>
     </div>
+    <bedRecordModal ref="bedRecordModal"></bedRecordModal>
   </div>
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus">
+
 .sheetTable-waiting_birth_gzry {
   & {
     border-radius: 2px;
@@ -87,13 +92,12 @@
     box-sizing: content-box;
     position: relative;
   }
-
   .bottom-line-input {
     display: inline-block;
     border: 0;
     width: 30px;
-    border-bottom: 1px solid #000;
     padding: 2px 0 2px 2px;
+    border-bottom: 1px solid #000;
     height: 12px;
     position: relative;
     outline: none;
@@ -262,6 +266,7 @@ import $ from "jquery";
 import moment from "moment";
 import common from "@/common/mixin/common.mixin";
 import { updateSheetHeadInfo } from "../../api/index";
+import bedRecordModal from "../modal/bedRecord-modal";
 export default {
   props: {
     data: Object,
@@ -269,7 +274,8 @@ export default {
     length: Number,
     isFirst: Boolean /** 首页 */,
     scrollY: Number,
-    isInPatientDetails: Boolean
+    isInPatientDetails: Boolean,
+    bedAndDeptChange: Object
   },
   mixins: [common],
   data() {
@@ -282,6 +288,12 @@ export default {
     };
   },
   methods: {
+    openBedRecordModal(){
+      if (this.readOnly) {
+        return this.$message.warning("你无权操作此护记，仅供查阅");
+      }
+      this.$refs.bedRecordModal.open();
+    },
   },
   computed: {
     patientInfo() {
@@ -304,7 +316,8 @@ export default {
   mounted() {},
   destroyed() {} /* fix vue-happy-bus bug */,
   components: {
-    excel
+    excel,
+    bedRecordModal
   }
 };
 </script>

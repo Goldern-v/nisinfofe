@@ -1,12 +1,13 @@
 <template>
     <div class="cathter-box">
         <div class="cathter-tool">
-            <div>导管</div>
-            <div class="add-btn" @click="addCathter">+添加导管</div>
+            <div style="flex:1;">导管</div>
+            <div style="flex:3;text-indent:0;"><el-checkbox v-model="showExtubation">显示已拔除导管</el-checkbox></div>
+            <div style="flex:2;" class="add-btn" @click="addCathter">+添加导管</div>
         </div>
         <div class="cathter-list">
             <div 
-            v-for="(item,index) in cathterArr" 
+            v-for="(item,index) in renderCathter" 
             class="cathter-item" 
             :style="{color:item.fontColor,background:current==index?'#eff6f5':''}" 
             :key="index" 
@@ -22,7 +23,7 @@
     .cathter-box{
         border:1px solid #ccc;
         position: absolute;
-        width: 300px;
+        width: 280px;
         height: 100%;
         background-color: #fff;
         top: 0;
@@ -31,34 +32,44 @@
         .cathter-tool{
             display: flex;
             justify-content: space-between;
+            box-shadow: 0px 3px 5px #ccc;
             div{
                 width: 100px;
-                text-align: center;
+                text-indent: 15px;
                 height: 30px;
                 line-height: 30px;
                 font-weight: 700;
             }
             .add-btn{
                 cursor: pointer;
+                &:hover{
+                    color: #4bb08d;
+                }
             }
         }
         .cathter-list{
+            height: calc(100% - 30px);
+            overflow-y: auto;
             .cathter-item{
                 cursor: pointer;
-                text-indent: 35px;
-                height: 45px;
+                padding-left: 10px;
+                min-height: 45px;
                 line-height: 45px;
                 display: flex;
                 justify-content: space-between;
                 .right-part{
                     width: 45px;
                     padding: 18px 0 0 0;
+                    position: relative;
                 }
                 .point{
+                    position: absolute;
+                    transform: translate(-50%,-50%);
                     height: 1px;
                     width: 1px;
                     border-radius: 50%;
-                    margin:0 auto
+                    top: 50%;
+                    left: 50%;
                 }
             }
         }
@@ -70,7 +81,12 @@ export default {
 props: {cathterArr:{type:Array,value:[]}},
 data() {
 return {
-    current:null
+    current:null,
+    statusColor:{
+        0:'#4bb08d',1:'red',2:'grey'
+    },
+    showExtubation:false,
+    renderCathter:[]
 };
 },
 methods: {
@@ -78,7 +94,6 @@ methods: {
         this.$emit('addCathter')
     },
     selectType(item,index){
-        console.log(item);
         this.current = index
         getCatheterTable({
             code: item.code,
@@ -89,26 +104,35 @@ methods: {
         },item.code).then(res=>{
             this.$emit('updateTableConfig',res.data.data)
         })
+    },
+    showExtubationFn(value){
+        if(value){
+            this.renderCathter = this.cathterArr
+        }else{
+            this.renderCathter = this.cathterArr.filter(item=>{
+                return item.catheterStatus!='2'
+            })
+        }
+    }
+},
+updated(){
+    let id = sessionStorage.getItem('createCathterId')
+    let index = this.renderCathter.findIndex(item=>item.id==id)
+    let item = this.renderCathter.find(item=>item.id==id)
+    if(id && index!=this.current&&index!=-1){
+        this.selectType(item,index)
+        sessionStorage.setItem('createCathterId',null)
     }
 },
 watch:{
     'cathterArr'(a,b){
         a.map(item=>{
-            if(item.createDate&&item.replaceTime){
-                let startT= new Date(item.createDate); //开始时间以/分隔
-                let endT = new Date(item.replaceTime); //结束时间以/分隔
-                let times = endT.getTime() - startT.getTime();
-                if(times>259200000){
-                    item.fontColor = 'green' 
-                }else if(times<259200000 && times>0){
-                    item.fontColor = 'red' 
-                }else{
-                    item.fontColor = 'grey'
-                }
-            }else{
-                
-            }
+            item.fontColor = this.statusColor[item.catheterStatus]
         })
+        this.showExtubationFn(this.showExtubation)
+    },
+    showExtubation(value){
+        this.showExtubationFn(value)
     }
 },
 components: {}

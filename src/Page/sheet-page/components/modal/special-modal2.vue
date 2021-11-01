@@ -866,7 +866,7 @@ export default {
         this.HOSPITAL_ID === "huadu" ? "&nbsp" : this.recordDate;
       if (this.recordDate) {
         if (this.isRead) {
-          return "已签名，不可以编辑&nbsp;&nbsp;&nbsp;&nbsp;" + recordDate;
+          return "已签名&nbsp;&nbsp;&nbsp;&nbsp;" + recordDate;
         } else {
           return "编辑护理记录&nbsp;&nbsp;&nbsp;&nbsp;" + recordDate;
         }
@@ -886,6 +886,12 @@ export default {
       return this.sheetInfo.sheetType == "neurology";
     },
     isDisabed() {
+    if (
+        this.HOSPITAL_ID == "huadu" &&
+        sheetInfo.sheetType === "body_temperature_Hd" 
+      ) {
+        return false;
+      }
       if (
         this.HOSPITAL_ID == "weixian" &&
         (this.tr.find((item) => item.key == "description") || {}).value &&
@@ -1140,19 +1146,12 @@ export default {
     },
     // 保存（富文本）
     postRichText() {
-      let okLength = (function () {
-        switch (this.HOSPITAL_ID) {
-          case "lingcheng":
-            return 46;
-            break;
-          case "hengli":
-            return 46;
-            break;
-          default:
-            return 23;
-            break;
-        }
-      })();
+      let okLength = ""
+      if(this.HOSPITAL_ID=='lingcheng'||this.HOSPITAL_ID=='hengli'){
+        okLength = 46
+      }else {
+        okLength = 23
+      }
       var GetLength = function (str) {
         // 过滤上下标签替换
         const subReg = /(<\/?sub.*?>)/gi;
@@ -1282,6 +1281,7 @@ export default {
         this.HOSPITAL_ID != "weixian" &&
         this.sheetInfo.sheetType != "special" &&
         this.HOSPITAL_ID != "huadu" &&
+        this.HOSPITAL_ID != "nanfangzhongxiyi" &&
         this.sheetInfo.sheetType != "icu_qz"
       ) {
         allDoc = "    " + this.doc;
@@ -1320,7 +1320,14 @@ export default {
             } else {
               text += allDoc[i];
             }
-          }else if (this.sheetInfo.sheetType === "generalcare_bh") {
+          } else if (this.sheetInfo.sheetType === "internal_eval_lcey") {
+            if (GetLength(text) > 98) {
+              result.push(text);
+              text = allDoc[i];
+            } else {
+              text += allDoc[i];
+            }
+          } else if (this.sheetInfo.sheetType === "generalcare_bh") {
             if (GetLength(text) > 130) {
               result.push(text);
               text = allDoc[i];
@@ -1341,8 +1348,15 @@ export default {
             } else {
               text += allDoc[i];
             }
-          }else if (this.sheetInfo.sheetType === "internal_eval_lcey") {
-            if (GetLength(text) > 98) {
+          }else if (this.sheetInfo.sheetType === "prenatalcheck_bh") {
+            if (GetLength(text) > 58) {
+              result.push(text);
+              text = allDoc[i];
+            } else {
+              text += allDoc[i];
+            }
+          }else if (this.sheetInfo.sheetType === "nursingrecords_zxy" || this.sheetInfo.sheetType === "recordicu2_zxy") {
+            if (GetLength(text) > 70) {
               result.push(text);
               text = allDoc[i];
             } else {

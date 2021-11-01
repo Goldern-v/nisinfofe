@@ -3,6 +3,7 @@ import sheetInfo from "../../../config/sheetInfo/index";
 function offset(ele) {
   var top = ele.offsetTop;
   var left = ele.offsetLeft;
+  var width = ele.offsetWidth
   while (ele.offsetParent) {
     ele = ele.offsetParent;
     if (window.navigator.userAgent.indexOf("MSTE 8") > -1) {
@@ -15,7 +16,8 @@ function offset(ele) {
   }
   return {
     left: left,
-    top: top
+    top: top,
+    width:width,
   };
 }
 
@@ -128,10 +130,12 @@ function onFocusToAutoComplete(e, bind) {
   if (isRead) return;
 
   setTimeout(() => {
+    console.log(xy.left - scrollLeft - window.scrollX,xy.left,scrollLeft,window.scrollX);
     window.openAutoComplete({
       style: {
         top: `${xy.top - scrollTop - window.scrollY + 30}px`,
-        left: `${xy.left - scrollLeft - window.scrollX}px`
+        left: `${xy.left - scrollLeft - window.scrollX}px`,
+        addWidth:`${xy.width}px`
       },
       data: autoComplete.data,
       callback: function (data) {
@@ -178,11 +182,11 @@ function onBlurToAutoComplete(e, bind) {
 }
 // 红顶函数
 function redTop(index){
-  let typeArr = ['icu_qz','intersurgerycure_qzx'] // 特殊处理的表单type(body里可以查看表单名称对应的type)
+  let typeArr = ['icu_qz','intersurgerycure_qzx','newborn_intensive_qz'] // 特殊处理的表单type(body里可以查看表单名称对应的type)
   let hospitalArr = ['quzhou'] // 特殊处理的医院(这个要是不知道看哪里就提桶吧)
   let topArr = ['血<br/>氧<br/>饱<br/>和<br/>度'] // 特殊处理的top表头(去看对应的th)
-  // 特殊处理的mid表头,会有转义字符,很恶心,记得log一下看看
-  let midArr = [`\n        呕<br/>吐\n        `]
+   // 特殊处理的mid表头,会有转义字符,很恶心,记得log一下看看
+  let midArr = [`\n        呕<br/>吐\n        `,`\n        SPO<sub>2</sub><br/>(%)\n        `]
   // 两个变量，代表特殊处理的字段是top还是mid
   let isTop = false,isMid = false;
   // 一张表只支持一个特殊处理，多的自己去想
@@ -225,11 +229,11 @@ function redTop(index){
 }
 // 黑顶函数
 function BlackTop(index){
-  let typeArr = ['icu_qz','intersurgerycure_qzx'] // 特殊处理的表单type(body里可以查看表单名称对应的type)
+  let typeArr = ['icu_qz','intersurgerycure_qzx','newborn_intensive_qz'] // 特殊处理的表单type(body里可以查看表单名称对应的type)
   let hospitalArr = ['quzhou'] // 特殊处理的医院(这个要是不知道看哪里就提桶吧)
   let topArr = ['血<br/>氧<br/>饱<br/>和<br/>度'] // 特殊处理的top表头(去看对应的th)
    // 特殊处理的mid表头,会有转义字符,很恶心,记得log一下看看
-  let midArr = [`\n        呕<br/>吐\n        `]
+  let midArr = [`\n        呕<br/>吐\n        `,`\n        SPO<sub>2</sub><br/>(%)\n        `]
   // 两个变量，代表特殊处理的字段是top还是mid
   let isTop = false,isMid = false;
   // 一张表只支持一个特殊处理，多的自己去想

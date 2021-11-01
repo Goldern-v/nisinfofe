@@ -74,7 +74,10 @@ export default {
       this.$refs.modal.close();
     },
     post() {
+    //体温单路由+医院名字（贵州+北海），
+    //recorCode/moduleCode传体温单code值，护理记录单传护理记录单coe值，没有就传空，
       if (this.isEditItem) {
+      
         let data = {
           dictCode: "自定义标题",
           dictName: "自定义标题",
@@ -82,8 +85,9 @@ export default {
           itemName: this.isEditItem.name,
           newItemCode: this.itemCode || this.itemName,
           newItemName: this.itemName,
-          recordCode: sheetInfo.sheetType,
-          wardCode: this.deptCode
+           moduleCode:['beihairenyi','guizhou'].includes(this.HOSPITAL_ID)&&this.$route.path.includes('newSingleTemperatureChart')?'bodyTemperature':'',
+          recordCode: ['beihairenyi','guizhou'].includes(this.HOSPITAL_ID)&&this.$route.path.includes('newSingleTemperatureChart')?'bodyTemperature':sheetInfo.sheetType,
+          wardCode: this.deptCode,
         };
         dictUpdate(data).then(res => {
           this.$message.success("更新常用语模版成功");
@@ -96,7 +100,8 @@ export default {
           dictName: "自定义标题",
           itemCode: this.itemCode || this.itemName,
           itemName: this.itemName,
-          recordCode: sheetInfo.sheetType,
+           moduleCode:['beihairenyi','guizhou'].includes(this.HOSPITAL_ID)&&this.$route.path.includes('newSingleTemperatureChart')?'bodyTemperature':'',
+          recordCode: ['beihairenyi','guizhou'].includes(this.HOSPITAL_ID)&&this.$route.path.includes('newSingleTemperatureChart')?'bodyTemperature':sheetInfo.sheetType,
           wardCode: this.deptCode
         };
         dictSave(data).then(res => {

@@ -72,6 +72,8 @@ const shiftWorkFy = () => import("@/Page/shift-work-fy/shift-work.vue");
 const shiftWorkDetailFy = () => import("@/Page/shift-work-fy/shift-work-detail.vue");
 const shiftWorkLiaocheng = () => import("@/Page/shift-work-liaocheng/shift-work.vue");
 const shiftWorkDetailLiaocheng = () => import("@/Page/shift-work-liaocheng/shift-work-detail.vue");
+const shiftWorkBh = () => import("@/Page/shift-work-bh/shift-work.vue");
+const shiftWorkDetailBh = () => import("@/Page/shift-work-bh/shift-work-detail.vue");
 const shiftWorkGuizhou = () => import("@/Page/shift-work-gz/shift-work.vue");//贵州交班志
 const ISBARshiftWorkHd = () => import("@/Page/shift-work/shift-work.vue");//花都ISBAR交班志
 
@@ -88,6 +90,10 @@ const badEventEditPage = () => import("@/Page/badEvent/badEventEditPage.vue");
 const badEventGz = () => import("@/Page/badEventGuizhou/badEvent.vue");//贵州不良事件
 const badEventViewPageGz = () => import("@/Page/badEventGuizhou/badEventViewPage.vue");
 const badEventEditPageGz = () => import("@/Page/badEventGuizhou/badEventEditPage.vue");
+
+const badEventNew = () => import("@/Page/badEventNew/badEvent.vue");//福清
+const badEventViewPageNew = () => import("@/Page/badEventNew/badEventViewPage.vue");
+const badEventEditPageNew = () => import("@/Page/badEventNew/badEventEditPage.vue");
 const white = () => import("@/Page/white/white.vue");
 const sheetHospitalEval = () =>
   import("@/Page/sheet-hospital-eval/sheet-hospital-eval.vue"); // 住院评估页面
@@ -174,6 +180,8 @@ const newSingleTemperatureChartDghl = () =>
   import("@/Page/temperature-chart/new-singleTemperature-chart-dghl/new-singleTemperature-chart.vue");
   const newSingleTemperatureChartWujing = () =>
   import("@/Page/temperature-chart/new-singleTemperature-chart-wujing/new-singleTemperature-chart.vue");//武警新版体温单单人录入
+  const newSingleTemperatureChartZhongXiYi = () =>
+  import("@/Page/temperature-chart/new-singleTemperature-chart-zhongxiyi/new-singleTemperature-chart.vue");//南方中西医新版体温单单人录入
 const showPatientDetails = () =>
   import("@/Page/show-patient-details/show-patient-details.vue"); //查看评估单、记录单、病历、检查、检验、体温单
 const nursingPreview = () => import("@/Page/NursingPreview/NursingPreview.vue"); //查看所有的评估单、记录单、体温单
@@ -197,6 +205,7 @@ const planList = () => import("@/Page/plan-list/plan-list.vue");
 const demo = () => import("@/demo/demo"); //demo
 /** 包含全局样式的页面，患者详情子页面不可代码切割 */
 import sheetPage from "@/Page/sheet-page/sheet-page.vue"; // 护理记录单页面
+import sheetNursingOrderPage from "@/Page/sheet-nursing-order/sheet-page.vue"; // 护嘱记录单页面
 import sheetNursingOrder from "@/Page/patientInfo/supPage/sheetNursingOrder/sheetNursingOrder.vue"; // 护嘱记录单页面
 import record from "@/Page/patientInfo/supPage/record/record"; // 评估单
 import home from "@/Page/patientInfo/supPage/home/home";
@@ -216,9 +225,11 @@ import temperatureJmfy from "@/Page/patientInfo/supPage/temperature/temperatureJ
 import temperatureDghl from "@/Page/patientInfo/supPage/temperature/temperatureDghl";
 import temperatureQuZhou from "@/Page/patientInfo/supPage/temperature/temperatureQuZhou";
 import temperatureWuJing from "@/Page/patientInfo/supPage/temperature/temperatureWuJing";
+import temperatureNFZXY from "@/Page/patientInfo/supPage/temperature/temperatureNFZXY";
 import diagnosis from "@/Page/patientInfo/supPage/diagnosis/diagnosis";
 import bloodSugar from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar.vue"; // 厚街
 import bloodSugarWeiXian from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_weixian.vue"; // 威县
+import bloodSugarBeiHaiRenYi from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_bhry.vue";//北海
 import sheet from "@/Page/patientInfo/supPage/sheet/sheet.vue";
 import catheter from "@/Page/patientInfo/supPage/catheter/catheter.vue";
 import deep from "@/Page/patientInfo/supPage/deep/deep.vue";
@@ -235,8 +246,10 @@ import catheterPage from "@/Page/catheter-page/catheter-page.vue";
 //患者360视图，目前只有花都在用
 const otherPage = () => import("@/Page/patientInfo/supPage/otherPage/otherPage.vue"); //360视图
 
-const healthEducationGuizhou = ()=>import("@/Page/patientInfo/supPage/healthEducationGuizhou/healthEducation.vue")
+// 健康教育
+const healthEducationGuizhou = ()=>import("@/Page/patientInfo/supPage/healthEducationGuizhou/healthEducation.vue");
 
+const healthEducationBerhairenyi = ()=>import("@/Page/patientInfo/supPage/healthEducationBeihairenyi/healthEducation.vue")
 Vue.use(Router);
 const HOSPITAL_ID = process.env.HOSPITAL_ID;
 const router = new Router({
@@ -316,6 +329,8 @@ const router = new Router({
             return temperatureDghl
             case 'quzhou':
             return temperatureQuZhou
+          case 'nanfangzhongxiyi':
+            return temperatureNFZXY
           case 'wujing':
             return temperatureWuJing
           default:
@@ -477,6 +492,8 @@ const router = new Router({
               return shiftWorkFy
             case 'liaocheng' || 'zhongshanqi':
               return shiftWorkLiaocheng
+            case 'beihairenyi':
+              return shiftWorkBh
             // case 'guizhou':
             //   return shiftWorkGuizhou
             default:
@@ -498,6 +515,8 @@ const router = new Router({
                 return shiftWorkDetailLiaocheng
               // case 'guizhou':
               //   return shiftWorkDetailGuizhou
+              case 'beihairenyi':
+                return shiftWorkDetailBh
               default:
                 return shiftWorkDetail
             }
@@ -542,16 +561,47 @@ const router = new Router({
         path: "/badEvent",
         name: "badEvents",
         alias: "不良事件",
-        component: HOSPITAL_ID == "guizhou" ? badEventGz : badEvent,
+        //component: HOSPITAL_ID == "guizhou" ? badEventGz : badEvent,
+        component: (() => {
+          switch (HOSPITAL_ID) {
+            case 'guizhou':
+              return badEventGz
+            case 'yangchunzhongyi':
+              return badEventNew
+            default:
+              return badEvent
+          }
+        })(),
+        
         children: [{
           name: "badEventEdit",
           path: "/badEvent/:code?/:operation?/:id?/:type?/:name?",
-          component: HOSPITAL_ID == "guizhou" ? badEventEditPageGz : badEventEditPage
+          //component: HOSPITAL_ID == "guizhou" ? badEventEditPageGz : badEventEditPageGz
+          component: (() => {
+            switch (HOSPITAL_ID) {
+              case 'guizhou':
+                return badEventEditPageGz
+              case 'yangchunzhongyi':
+                return badEventEditPageNew
+              default:
+                return badEventEditPage
+            }
+          })(),
         },
         {
           name: "badEventView",
           path: "/badEvent/:code?/:operation?/:id?/:status?/:type?/:name?",
-          component: HOSPITAL_ID == "guizhou" ? badEventViewPageGz : badEventViewPage
+          //component: HOSPITAL_ID == "guizhou" ? badEventViewPageGz : badEventViewPage
+          component: (() => {
+            switch (HOSPITAL_ID) {
+              case 'guizhou':
+                return badEventViewPageGz
+              case 'yangchunzhongyi':
+                return badEventViewPageNew
+              default:
+                return badEventViewPage
+            }
+          })(),
         }
         ]
       },
@@ -661,6 +711,8 @@ const router = new Router({
                 return temperatureWuJing
               case 'fuyou':
                 return temperatureJmfy
+              case 'nanfangzhongxiyi':
+                return temperatureNFZXY
                 case 'quzhou':
                 return temperatureQuZhou
                 case 'hengli':
@@ -699,8 +751,18 @@ const router = new Router({
         },
         {
           path: "/bloodSugar",
-          component: process.env.HOSPITAL_NAME == "威县人民医院" ?
-            bloodSugarWeiXian : bloodSugar,
+          // component: process.env.HOSPITAL_NAME == "威县人民医院" ?
+          //   bloodSugarWeiXian : bloodSugar,
+         component: (() => {
+          switch (process.env.HOSPITAL_ID) {
+            case 'weixian':
+              return bloodSugarWeiXian
+            case 'beihairenyi':
+                return bloodSugarBeiHaiRenYi
+            default:
+              return  bloodSugar
+          }
+        })(),
           name: "血糖",
           alias: "血糖"
         },
@@ -711,6 +773,8 @@ const router = new Router({
             switch (process.env.HOSPITAL_ID) {
               case 'guizhou':
                 return healthEducationGuizhou
+              case 'beihairenyi':
+                  return healthEducationBerhairenyi
               default:
                 return healthEducation
             }
@@ -844,6 +908,15 @@ const router = new Router({
         }]
       },
       {
+        path: "/sheetNursingOrderPage",
+        component: sheetNursingOrderPage,
+        children: [{
+          name: "sheetNursingOrderPage",
+          path: "/sheetNursingOrderPage/:patientId?/:visitId?/:formId?",
+          component: sheetNursingOrderPage
+        }]
+      },
+      {
         path: "/MEWS",
         component: MEWS
       },
@@ -969,6 +1042,8 @@ const router = new Router({
               return newSingleTemperatureChartDghl
             case 'fuyou':
               return newSingleTemperatureChartJmfy
+            case 'nanfangzhongxiyi':
+              return newSingleTemperatureChartZhongXiYi
             default:
               return newSingleTemperatureChart
           }

@@ -817,6 +817,13 @@ export default function Title(
     );
   }
   break;
+  case "aerate_param_hl": {
+    // 横沥 - 儿科机械通气护理单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/aerate_param_hl/th").default)
+    );
+  }
+  break;
   case "icu_sn": {
     // 山南 - ICU护理记录单
     Th = JSON.parse(
@@ -870,6 +877,13 @@ export default function Title(
     // 曲周县 - 新生儿护理记录单
     Th = JSON.parse(
       JSON.stringify(require("../config/newborn_qzx/th").default)
+    );
+  }
+  break;
+  case "newborn_intensive_qz": {
+    // 曲周县 - 新生儿重症护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/newborn_intensive_qz/th").default)
     );
   }
   break;
@@ -940,6 +954,104 @@ export default function Title(
     // 北海市 - 出入量记录单
     Th = JSON.parse(
       JSON.stringify(require("../config/access_bh/th").default)
+    );
+  }
+  break;
+  case "infant_bh": {
+    // 北海市 - 婴儿记录表
+    Th = JSON.parse(
+      JSON.stringify(require("../config/infant_bh/th").default)
+    );
+  }
+  break;
+  case "nursingrecords_zxy": {
+    //  南方中西医 - 护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/nursingrecords_zxy/th").default)
+    );
+  }
+  break;
+  case "emergencynursing_zxy": {
+    //  南方中西医 - 急诊留观护理单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/emergencynursing_zxy/th").default)
+    );
+  }
+  break;
+  case "encephalopathy_zxy": {
+    //  南方中西医 - 脑病科观察记录
+    Th = JSON.parse(
+      JSON.stringify(require("../config/encephalopathy_zxy/th").default)
+    );
+  }
+  break;
+  case "brainobservation_zxy": {
+    //  南方中西医 - 脑科观察记录
+    Th = JSON.parse(
+      JSON.stringify(require("../config/brainobservation_zxy/th").default)
+    );
+  }
+  break;
+  case "recordicu1_zxy": {
+    //  南方中西医 - 重症监护病房护理记录单(表一)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/recordicu1_zxy/th").default)
+    );
+  }
+  break;
+  case "recordicu2_zxy": {
+    //  南方中西医 - 重症监护病房护理记录单(表二)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/recordicu2_zxy/th").default)
+    );
+  }
+  break;
+  case "recordicu3_zxy": {
+    //  南方中西医 - 重症监护病房护理记录单(表三)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/recordicu3_zxy/th").default)
+    );
+  }
+  break;
+  case "waiting_birth_wj": {
+    // 武警 - 待产护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/waiting_birth_wj/th").default)
+    );
+  }
+  break;
+  case "postpartum_wj": {
+    // 武警 - 产后(产房)观察记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/postpartum_wj/th").default)
+    );
+  }
+  break;
+  case "common_xg": {
+    // 东莞谢岗 - 护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/common_xg/th").default)
+    );
+  }
+  break;
+  case "neonatology_xg": {
+    // 东莞谢岗 - 新生儿护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/neonatology_xg/th").default)
+    );
+  }
+  break;
+  case "postpartum_xg": {
+    // 东莞谢岗 - 产后护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/postpartum_xg/th").default)
+    );
+  }
+  break;
+  case "prenatal_xg": {
+    // 东莞谢岗 - 产前待产记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/prenatal_xg/th").default)
     );
   }
   break;

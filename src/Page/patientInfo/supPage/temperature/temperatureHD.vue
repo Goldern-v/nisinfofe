@@ -1,9 +1,14 @@
 <template>
   <div>
     <div class="contain">
-      <div class="print-btn tool-btn" @click="onPrint()">打印</div>
+     <el-button-group>
+    <el-button type="primary"  @click="onPrint()" >打印当周</el-button>
+    <el-button type="primary"  @click="printAll()">批量打印</el-button>
+    </el-button-group> 
+   
+    
       <!-- <div class="print-btn tool-btn" @click="onToggle()">录入</div> -->
-      <div class="pagination">
+      <div class="pagination" v-show="!isPrintAll">
         <button :disabled="currentPage === 1" @click="toPre">上一页</button>
         <span class="page"
           >第<input
@@ -18,14 +23,25 @@
           下一页
         </button>
       </div>
-      <div class="tem-con" :style="contentHeight">
+      <div class="tem-con" :style="contentHeight" v-show="!isPrintAll">
         <null-bg v-show="!filePath"></null-bg>
         <iframe
-          id="myIframe"
+          id="printID"
           v-if="filePath"
           :src="filePath"
           frameborder="0"
           ref="pdfCon"
+         :class="HOSPITAL_ID === 'huadu' ? 'hdIframe' : ''"
+        ></iframe>
+      </div>
+      <div class="tem-con" :style="contentHeight" v-show="isPrintAll">
+        <null-bg v-show="!filePath"></null-bg>
+        <iframe
+          id="printID"
+          v-if="filePath"
+          :src="printAllPath"
+          frameborder="0"
+          ref="pdfConAll"
           :class="HOSPITAL_ID === 'huadu' ? 'hdIframe' : ''"
         ></iframe>
       </div>
@@ -60,7 +76,14 @@
       height: 100%;
     }
   }
+.dropDownBox{
+width: 100px;
+height: 50px
+position: absolute;
+left: 100px;
+background-color red;
 
+}
   .modal-con {
     /deep/ .isFixed {
       top: 90px !important;
@@ -195,32 +218,58 @@ export default {
       pageTotal: 1,
       toCurrentPage: 1,
       open: false,
+      isPrintAll:false,//是否批量打印
+      printAllPath:"",
+      patientId:"",
+      visitId:"",
       isSave: false,
       visibled: false,
+      intranetUrl:
+        "http://120.238.239.27:9091/temperature/#/" /* 医院正式环境内网 导致跨域 */,
+      // "http://10.10.10.75:9091/temperature/#/" /* 医院正式环境内网 */,
+     printAllUrl: "http://120.238.239.27:9091/temperature/#/printAll" /* 医院正式环境批量打印内网 */,
     };
   },
   methods: {
-    onPrint() {
-      this.$refs.pdfCon.contentWindow.postMessage(
+   onPrint() {        setTimeout(()=>{
+this.$refs.pdfCon.contentWindow.postMessage(
         { type: "printing" },
-        "http://120.238.239.27:9091/temperature/#/"
+        this.intranetUrl /* 内网 */
+        // this.outNetUrl /* 外网 */
       );
+      },1500)
     },
+    printAll(){
+      this.isPrintAll=true  //隐藏页码控制区域
+        setTimeout(()=>{
+this.$refs.pdfConAll.contentWindow.postMessage(
+        { type: "printingAll" },
+        this.printAllUrl /* 内网 */
+        // this.outNetUrl /* 外网 */
+      );
+      },1500)
+    },
+      
     getImg() {
       let date = this.$route.query.admissionDate
         ? new Date(this.$route.query.admissionDate).Format("yyyy-MM-dd")
         : new Date(this.queryTem.admissionDate).Format("yyyy-MM-dd");
       let patientId = this.$route.query.patientId || this.queryTem.patientId;
       let visitId = this.$route.query.visitId || this.queryTem.visitId;
-      /* 单独处理体温单，嵌套iframe */
-      const tempUrl = `http://120.238.239.27:9091/temperature/#/?PatientId=${patientId}&VisitId=${visitId}&StartTime=${date}`;
+      this.date=date;
+      this.patientId=patientId;
+      this.visitId=visitId;
+     /* 单独处理体温单，嵌套iframe */
+      const tempUrl = `${this.intranetUrl}?PatientId=${patientId}&VisitId=${visitId}&StartTime=${date}`; /* 内网 */
+      const tempAllUrl = `${this.printAllUrl}?PatientId=${this.patientId}&VisitId=${this.visitId}&StartTime=${this.date}`;/* 内网 */
+      // const tempUrl = `${this.outNetUrl}?PatientId=${patientId}&VisitId=${visitId}&StartTime=${date}`; /* 外网 */
       this.filePath = "";
       setTimeout(() => {
         this.filePath = tempUrl;
+        this.printAllPath=tempAllUrl
       }, 0);
     },
     toPage() {
-      console.log(this.toCurrentPage, typeof this.toCurrentPage);
       if (
         this.toCurrentPage === "" ||
         this.toCurrentPage <= 0 ||
@@ -264,6 +313,7 @@ export default {
             break;
           case "pageTotal":
             this.pageTotal = e.data.value;
+             this.currentPage = e.data.value;
             break;
           case "getNurseExchangeInfo":
             // const params = {
@@ -325,13 +375,13 @@ export default {
     },
   },
   watch: {
-    // date() {
-    //   this.getImg();
-    // },
+    patientInfo() {
+      this.isPrintAll=false
+    },
     currentPage(value) {
       this.$refs.pdfCon.contentWindow.postMessage(
         { type: "currentPage", value },
-        "http://120.238.239.27:9091/temperature/#/"
+          this.intranetUrl
       );
       this.toCurrentPage = value;
     },

@@ -85,7 +85,7 @@ function patientNursing(patientId, visitId, date, type, pageIndex, pageSize, sta
 
 export const groupList = (patientId, visitId, type,wardCode) =>{
   if(type=="healthEdu"){
-    return axios.post(`${apiPath}/formType/${type}/list`,{
+    return axios.post(`${apiPath}formType/${type}/list`,{
       patientId,
       visitId,
       wardCode

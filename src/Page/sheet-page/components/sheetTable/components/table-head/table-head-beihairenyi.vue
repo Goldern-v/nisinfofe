@@ -1,9 +1,35 @@
 <template>
   <div class="header-con">
     <div class="his-name">{{HOSPITAL_NAME_SPACE}}</div>
+    <div class="re-title">广西医科大学第九附属医院</div>
     <div class="title">{{patientInfo.recordName}}</div>
     <!-- {{sheetInfo.relObj}} -->
-    <div class="info-con" flex="main:justify">
+    <template v-if="sheetInfo.sheetType == 'infant_bh'">
+      <div class="info-con" flex="main:justify">
+        <span @click="updateTetxInfo('patientName', '病人姓名', patientInfo.patientName)">
+        姓名：
+        <div class="bottom-line" style="min-width: 70px">{{patientInfo.patientName}}</div>
+      </span>
+      <span @click="updateTetxInfo('sex', '性别', patientInfo.sex)" style="transform:translateX(-40px)">
+        性别：
+        <div class="bottom-line" style="min-width: 50px">{{patientInfo.sex}}</div>
+      </span>
+      <span @click="updateTetxInfo('bedLabel', '床号', patientInfo.bedLabel)" style="transform:translateX(-80px)">
+        床号：
+        <div class="bottom-line" style="min-width: 50px">{{patientInfo.bedLabel}}</div>
+      </span>
+       <span style="transform:translateX(-120px)">
+        住院号：
+        <div class="bottom-line" style="min-width: 80px">{{patientInfo.inpNo}}</div>
+      </span>
+      <span style="transform:translateX(-160px)">
+        科室：
+        <div class="bottom-line" style="min-width: 120px">{{patientInfo.deptName}}</div>
+      </span>
+      </div>
+    </template>
+    <template v-else>
+       <div class="info-con" flex="main:justify">
       <span @click="updateTetxInfo('patientName', '病人姓名', patientInfo.patientName)">
         姓名：
         <div class="bottom-line" style="min-width: 70px">{{patientInfo.patientName}}</div>
@@ -29,12 +55,18 @@
         <div class="bottom-line" style="min-width: 80px">{{patientInfo.inpNo}}</div>
       </span>
       <span>
+        诊断：
+        <div class="bottom-line" style="min-width: 80px">{{patientInfo.diagnosis}}</div>
+      </span>
+      <span>
         入院时间：
         <div class="bottom-line" style="min-width: 100px">
           {{ patientInfo.admissionDate | toymd}}
         </div>
       </span>
     </div>
+    </template>
+   
     <!-- <span class="diagnosis-con" :title="patientInfo.diagnosis">诊断：{{patientInfo.diagnosis}}</span> -->
     <!-- <span>入院日期：{{$route.query.admissionDate}}</span> -->
   </div>
@@ -222,5 +254,12 @@ input.bottom-line {
   border-left: 0;
   border-right: 0;
   outline: none;
+}
+.re-title{
+  font-size: 19px;
+  text-align: center;
+  font-weight: bold;
+  font-family: simsun, 'Times New Roman', Georgia, Serif !important;
+  padding-top: 5px;
 }
 </style>

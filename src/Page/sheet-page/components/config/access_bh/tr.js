@@ -37,7 +37,7 @@ export default [{
     textarea: {
       width: 135
     },
-  }, 
+  },
   {
     key: "foodSize", //入量量
     value: "",
@@ -48,7 +48,7 @@ export default [{
     textarea: {
       width: 135
     },
-  }, 
+  },
   {
     key: "discharge", //出量名称
     value: "",
@@ -61,7 +61,7 @@ export default [{
     autoComplete: {
       data: 出量名称
     },
-  }, 
+  },
   {
     key: "dischargeSize", //出量量
     value: "",
@@ -72,15 +72,15 @@ export default [{
     textarea: {
       width: 135
     },
-  }, 
+  },
   {
     key: "sign",
     value: ""
   },
-  {
-    key: "audit",
-    value: ""
-  },
+  // {
+  //   key: "audit",
+  //   value: ""
+  // },
   {
     hidden: true,
     key: "id",

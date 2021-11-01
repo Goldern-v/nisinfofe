@@ -26,7 +26,7 @@ let gsqdList = [];
 let 意识 = ['清醒', '浅昏迷', '深昏迷', '模糊', '嗜睡', '昏睡', '谵妄'];
 let 入量名称 = ['输液', '口服', '输血', '肌注', '静注', '鼻饲', '静脉泵入', '灌肠', '饮水'];
 let 出量名称 = [];
-let 出量颜色 = ['黄色','鲜红色','暗红色','墨绿色','浓茶色'];
+let 出量颜色 = ['黄色','鲜红色','暗红色','墨绿色','浓茶色','淡红色','茶褐色'];
 
 export default [
   {
@@ -101,7 +101,7 @@ export default [
     },
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 43
+      width: 50
     },
     name: "血压",
     next: "mmHg"
@@ -149,7 +149,7 @@ export default [
     next: "mL",
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 25
+      width: 35
     }
   },
   {
@@ -176,7 +176,7 @@ export default [
     next: "ml",
     change: (e, td) => limitChange(e, td, 3),
     textarea: {
-      width: 25
+      width: 30
     },
   },
   {
@@ -203,7 +203,7 @@ export default [
     next: "ml",
     change: (e, td) => limitChange(e, td, 3),
     textarea: {
-      width: 25
+      width: 30
     },
   },
   {
@@ -229,7 +229,7 @@ export default [
     name: "健康宣教",
     change: (e, td) => limitChange(e, td, 16),
     textarea: {
-      width: 100
+      width: 73
     },
     style: {
       textAlign: "left",
@@ -240,7 +240,7 @@ export default [
     value: "",
     event: keyf1,
     textarea: {
-      width: 30
+      width: 32
     },
     change: (e, td) => limitChange(e, td, 4),
   },
@@ -249,7 +249,7 @@ export default [
     value: "",
     event: keyf1,
     textarea: {
-      width: 30
+      width: 32
     },
     change: (e, td) => limitChange(e, td, 4),
   },
@@ -258,7 +258,7 @@ export default [
     value: "",
     event: keyf1,
     textarea: {
-      width: 30
+      width: 32
     },
     change: (e, td) => limitChange(e, td, 4),
   },
@@ -267,7 +267,7 @@ export default [
     value: "",
     event: keyf1,
     textarea: {
-      width: 30
+      width: 32
     },
     change: (e, td) => limitChange(e, td, 4),
   },
@@ -276,7 +276,7 @@ export default [
     value: "",
     event: keyf1,
     textarea: {
-      width: 40
+      width: 32
     },
     change: (e, td) => limitChange(e, td, 6),
   },
@@ -285,7 +285,7 @@ export default [
     value: "",
     event: keyf1,
     textarea: {
-      width: 40
+      width: 32
     },
     change: (e, td) => limitChange(e, td, 6),
   },
@@ -302,7 +302,7 @@ export default [
       background: "transparent"
     },
     textarea: {
-      width: 150
+      width: 125
     },
     event: function (e, td) {
       console.log(e.keyCode);

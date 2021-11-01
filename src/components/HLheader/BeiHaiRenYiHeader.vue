@@ -168,7 +168,7 @@
                 >
                   <router-link to="/formPage" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
-                      <i class="nursingAssessment"></i> 其他文书
+                      <i class="nursingAssessment"></i> 护理评估单
                     </el-row>
                   </router-link>
                 </el-dropdown-item>
@@ -186,6 +186,9 @@
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-jiaobanzhi"></i> 交班报告
               </el-row>
+            </router-link>
+               <router-link to="/wardReport" tag="span">
+              <el-row class="nav-item" type="flex" align="middle">病房日报</el-row>
             </router-link>
             <router-link to="/board" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
@@ -338,7 +341,7 @@
                     </el-row>
                   </router-link>
                 </el-dropdown-item>
-                 <el-dropdown-item
+                 <!-- <el-dropdown-item
                   :class="{ active: $route.path == '/catheterPage' }"
                 >
                   <router-link to="/catheterPage" tag="span">
@@ -346,9 +349,9 @@
                       <i class="catheterPage"></i>导管
                     </el-row>
                   </router-link>
-                </el-dropdown-item>
+                </el-dropdown-item> -->
 
-                <el-dropdown-item
+                <!-- <el-dropdown-item
                   :class="{ active: $route.path.indexOf('/wardReport') > -1 }"
                 >
                   <router-link to="/wardReport" tag="span">
@@ -356,7 +359,7 @@
                       <i class="wardReport"></i>病房日报
                     </el-row>
                   </router-link>
-                </el-dropdown-item>
+                </el-dropdown-item> -->
 
                 <!--<el-dropdown-item
                   :class="{
@@ -932,7 +935,6 @@ export default {
       try {
         nursingStaff = JSON.parse(localStorage.user).nursingStaff;
       } catch (e) {
-        console.log(e);
       }
       return nursingStaff;
     },
@@ -945,7 +947,8 @@ export default {
       return this.$store.state.common.mailUnread;
     },
     isActivePage() {
-      if (this.$route.path.indexOf("/wardReport") > -1) return true;
+      // if (this.$route.path.indexOf("/wardReport") > -1) return true;
+       if (this.$route.path == "/wardReport") return true;
       if (this.$route.path == "/nursingDocumentation") return true;
       // if (this.$route.path == "/badEvent") return true;
       if (this.$route.path.indexOf("/inpatientReport") > -1) return true;

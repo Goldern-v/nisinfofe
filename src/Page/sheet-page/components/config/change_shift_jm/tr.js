@@ -14,11 +14,13 @@ import {
   click_time
 } from "../keyEvent/date";
 
-let tmList = [];
-let ysxzList = [];
-let gsqdList = [];
-let xlgdList = [];
-export default [{
+export default [
+  {
+    key: "recordDate", //年份
+    value: "",
+    hidden:true
+  },
+  {
     key: "recordMonth", //日期
     value: "",
     event: event_date,
@@ -140,34 +142,3 @@ export default [{
     value: true
   }
 ];
-
-export function getListData() {
-  let list = [
-    "江门妇幼:产科护理记录单:宫缩强度",
-    "江门妇幼:产科护理记录单:先露高度",
-    "江门妇幼:产前待产护理记录单:胎膜",
-    "江门妇幼:产前待产护理记录单:羊水性质",
-  ];
-
-  multiDictInfo(list).then(res => {
-    let data = res.data.data;
-    setList(gsqdList, list[0], data);
-    setList(xlgdList, list[1], data);
-    setList(tmList, list[2], data);
-    setList(ysxzList, list[3], data);
-  });
-}
-
-getListData();
-/**
- *
- * @param {*} list 原数组
- * @param {*} key 对应的key
- * @param {*} data 数据源
- */
-function setList(list, key, data) {
-  list.splice(0, list.length);
-  for (let item of data[key]) {
-    list.push(item.name);
-  }
-}

@@ -2,6 +2,14 @@
   <div>
     <el-row class="header" type="flex" justify="space-between" align="middle">
       <span
+        v-if="HOSPITAL_ID == 'beihairenyi'"
+        class="title"
+        style="cursor:pointer"
+        @click="refreshTree()"
+        @dblclick="refreshTree(true)"
+      >护理评估单</span>
+      <span
+        v-else
         class="title"
         style="cursor:pointer"
         @click="refreshTree()"

@@ -1,30 +1,44 @@
 /*
   江门妇幼-儿科护理记录单
 */
+// 添加的
+import moment from "moment";
+
+function currYear() {
+  return moment().format('YYYY')
+}
 export default {
   style: {
-    width: '1300px'
+    width: '1200px'
   },
   deptType: '',
   th: {
-    top: [{
-        name: '日期',
-        style: {
-          minWidth: '36px',
-          maxWidth: '36px',
-        },
-        colspan: '1',
-        rowspan: '3'
-      },
+    top: [
       {
-        name: '时间',
-        style: {
-          minWidth: '36px',
-          maxWidth: '36px',
-        },
-        colspan: '1',
-        rowspan: '3'
+        name: currYear(),
+        style: {},
+        colspan: "2",
+        rowspan: "1",
+        key:'recordYear'
       },
+      // {
+      //   name: '日期',
+      //   style: {
+      //     minWidth: '30px',
+      //     maxWidth: '30px',
+      //   },
+      //   colspan: '1',
+      //   rowspan: '3'
+      // },
+      // {
+      //   name: '时间',
+      //   style: {
+      //     minWidth: '30px',
+      //     maxWidth: '30px',
+      //   },
+      //   colspan: '1',
+      //   rowspan: '3'
+      // },
       {
         name: `
         体温<br/>(℃)
@@ -34,7 +48,8 @@ export default {
         rowspan: '3',
         style: {
           whiteSpace: 'nowrap',
-          minWidth: '34px',
+          minWidth: '30px',
+          maxWidth: '30px',
         }
       },
       {
@@ -46,7 +61,8 @@ export default {
         rowspan: '3',
         style: {
           whiteSpace: 'nowrap',
-          minWidth: '38px',
+          minWidth: '35px',
+          maxWidth: '35px',
         }
       },
       {
@@ -58,16 +74,17 @@ export default {
         rowspan: '3',
         style: {
           whiteSpace: 'nowrap',
-          minWidth: '38px',
+          minWidth: '35px',
+          maxWidth: '35px',
         }
       },
       {
         name: `
-        血压<br/>(mmHg)
+        血压<br/>(mm<br/>Hg)
         `,
         style: {
-          minWidth: '52px',
-          maxWidth: '52px',
+          minWidth: '30px',
+          maxWidth: '30px',
           whiteSpace: 'nowrap'
         },
         colspan: '1',
@@ -120,8 +137,8 @@ export default {
         canSet: true,
         key: 'fieldOne',
         style: {
-          minWidth: '50px',
-          maxWidth: '50px',
+          minWidth: '48px',
+          maxWidth: '48px',
         }
       },
       {
@@ -131,8 +148,8 @@ export default {
         canSet: true,
         key: 'fieldTwo',
         style: {
-          minWidth: '50px',
-          maxWidth: '50px',
+          minWidth: '48px',
+          maxWidth: '48px',
         }
       },
       {
@@ -142,8 +159,8 @@ export default {
         canSet: true,
         key: 'fieldThree',
         style: {
-          minWidth: '37px',
-          maxWidth: '37px',
+          minWidth: '36px',
+          maxWidth: '36px',
         }
       },
       {
@@ -153,8 +170,8 @@ export default {
         canSet: true,
         key: 'fieldFour',
         style: {
-          minWidth: '37px',
-          maxWidth: '37px',
+          minWidth: '36px',
+          maxWidth: '36px',
         }
       },
       {
@@ -164,8 +181,8 @@ export default {
         canSet: true,
         key: 'fieldFive',
         style: {
-          minWidth: '37px',
-          maxWidth: '37px',
+          minWidth: '36px',
+          maxWidth: '36px',
         }
       },
       {
@@ -175,8 +192,8 @@ export default {
         canSet: true,
         key: 'fieldSix',
         style: {
-          minWidth: '37px',
-          maxWidth: '37px',
+          minWidth: '36px',
+          maxWidth: '36px',
         }
       },
       {
@@ -184,8 +201,8 @@ export default {
         特殊情况记录
         `,
         style: {
-          minWidth: '153px',
-          maxWidth: '153px',
+          minWidth: '160px',
+          maxWidth: '160px',
         },
         colspan: '1',
         rowspan: '3'
@@ -198,8 +215,8 @@ export default {
         colspan: '1',
         rowspan: '3',
         style: {
-          minWidth: '60px',
-          maxWidth: '60px',
+          minWidth: '40px',
+          maxWidth: '40px',
         },
       },
       {
@@ -210,39 +227,69 @@ export default {
         colspan: '1',
         rowspan: '3',
         style: {
-          minWidth: '60px',
-          maxWidth: '60px',
+          minWidth: '40px',
+          maxWidth: '0px',
         },
       }
     ],
-    mid: [{
+    mid: [
+       {
+        name: '日期',
+        style: {
+          minWidth: '30px',
+          maxWidth: '30px',
+        },
+        colspan: '1',
+        rowspan: '2'
+      },
+      {
+        name: '时间',
+        style: {
+          minWidth: '30px',
+          maxWidth: '30px',
+        },
+        colspan: '1',
+        rowspan: '2'
+      },
+      {
         name: `
-        静脉<br>(ml)
+        静脉<br>ml
         `,
         colspan: '1',
         rowspan: '2'
       },
       {
         name: `
-        进食<br>(ml)
-        `,
-        colspan: '1',
-        rowspan: '2'
-      },
-      {
-        name: `
-
+        进食<br>ml
         `,
         colspan: '1',
         rowspan: '2',
+        style: {
+          minWidth: '50px',
+          maxWidth: '50px',
+        },
+      }, 
+      {
+        name: ``,
+        style: {
+          minWidth: '36px',
+          maxWidth: '36px',
+        },
+        colspan: "1",
+        rowspan: "2",
         canSet: true,
-        key: 'otherFood',
-      }, {
+        key: "otherFood",
+      },
+      {
         name: `
-        尿量
+        尿液
         `,
         colspan: '2',
-        rowspan: '1'
+        rowspan: '1',
+        style: {
+          minWidth: '30px',
+          maxWidth: '30px',
+        },
       }, {
         name: `
         大便
@@ -252,19 +299,21 @@ export default {
       },
       {
         name: `
-        呕吐<br>(ml)
+        呕吐<br>ml
         `,
         colspan: '1',
         rowspan: '2'
       },
       {
-        name: `
-
-        `,
+        name: ``,
         colspan: '1',
         rowspan: '2',
         canSet: true,
         key: 'otherDischarge',
+        style: {
+          minWidth: '36px',
+          maxWidth: '36px',
+        }
       },
     ],
     bottom: [{

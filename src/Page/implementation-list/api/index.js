@@ -27,7 +27,6 @@ switch(HOSPITAL_ID){
     hospitalExecute = "hisQuZhouXianExecute";
     break;
 }
-console.log(HOSPITAL_ID,hospitalExecute);
 // 获取执行单
 export function getExecuteWithWardcode(obj) {
   if(HOSPITAL_ID == "zhongshanqi"){
@@ -39,6 +38,12 @@ export function getExecuteWithWardcode(obj) {
     // 新版执行单（武警）
     return axios.post(
       `${apiPath}procedure/webExecute/webGetWardExecute`,
+      obj
+    );
+  }else if(HOSPITAL_ID == "liaocheng"){
+    // 聊城新版执行单通过执行时间段获取（）
+    return axios.post(
+      `${apiPath}hisLiaoChengExecute/getOrdersExecuteWithWardCodeNew`,
       obj
     );
   }else if(HOSPITAL_ID == "fuyou"){

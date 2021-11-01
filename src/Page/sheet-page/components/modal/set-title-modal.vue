@@ -83,7 +83,9 @@ export default {
       } else {
         let {
           data: { data }
-        } = await listItem("自定义标题", sheetInfo.sheetType);
+        } = await listItem("自定义标题", 
+        //北海体温单调用护理记录单模板
+        ['beihairenyi','guizhou'].includes(this.HOSPITAL_ID)&&this.$route.path.includes('newSingleTemperatureChart')?'bodyTemperature':sheetInfo.sheetType);
         // 调用 callback 返回建议列表的数据
         let autoList = [];
         if (!queryString) {

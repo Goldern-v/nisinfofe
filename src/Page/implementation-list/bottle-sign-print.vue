@@ -281,7 +281,11 @@ export default {
 
       let url = '';
       this.selectedData.map((item,index) => {
-        url += `${item.patientId}|${item.visitId}|${item.orderNo};`;
+        let targettIndex = this.selectedData.findIndex(e=>e.orderNo==item.orderNo)
+        if(targettIndex==index){
+          console.log(`${item.patientId}|${item.visitId}|${item.orderNo};`);
+          url += `${item.patientId}|${item.visitId}|${item.orderNo};`;
+        }
       });
       this.Uuid = new Date().getTime() + parseInt(Math.random()*10000);
       this.showPintModal = true
@@ -293,7 +297,7 @@ export default {
         setTimeout(()=>{
           this.showPintModal = false
           this.isShowModal = true;
-        },500)
+        },4000) // 武警上传有延迟，后续优化了的话可以把定时器删掉
 })
       // window.location.href = `LABELPRINT://${this.Uuid};${this.empNo};${this.query.executeDate};{${url}}`;
       // this.printStatusMsg = '正在打印,请稍等…'

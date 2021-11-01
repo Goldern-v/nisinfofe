@@ -227,7 +227,6 @@ export default {
     deptCode() {}
   },
   created() {
-    console.log(this.$route)
     let getNursingUnit =
       this.HOSPITAL_ID == "hj" ? nursingUnitAll : nursingUnit;
     getNursingUnit()
@@ -242,6 +241,14 @@ export default {
       .then(() => {
         this.$parent.getData();
       });
+  },
+  mounted(){
+    //江门妇幼、转院、出院中的【起始时间】调整为当天
+      if(['fuyou'].includes(this.HOSPITAL_ID))
+      {
+         this.data.dischargeDate=[new Date(), new Date()];
+         this.data.dateTime= [new Date(), new Date()];
+      }
   },
   methods: {
     changeDept(value) {

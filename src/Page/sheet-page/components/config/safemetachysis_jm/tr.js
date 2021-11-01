@@ -8,7 +8,13 @@ import {
   click_time
 } from "../keyEvent/date";
 
-export default [{
+export default [
+  {
+    key: "recordDate", //年份
+    value: "",
+    hidden:true
+  },
+  {
     key: "recordMonth", //日期
     value: "",
     event: event_date,
@@ -18,7 +24,6 @@ export default [{
     key: "recordHour", //时间
     value: "",
     event: event_time,
-    click: click_time
   },
   {
     key: "temperature", //体温
@@ -89,7 +94,6 @@ export default [{
     value: "",
     event: keyf1,
     name: "血液成分",
-    next: "ml",
     textarea: {
       width: 60
     },
@@ -162,11 +166,11 @@ export default [{
     // oninput: next
   },
   {
-    key: "audit",
+    key: "sign",
     value: ""
   },
   {
-    key: "sign",
+    key: "audit",
     value: ""
   },
   // {

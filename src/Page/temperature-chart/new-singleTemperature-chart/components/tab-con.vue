@@ -41,7 +41,7 @@
       <null-bg v-if="!patientInfo.patientId"></null-bg>
       <div v-else class="showRecord">
         <div style="flex: 4">
-          <el-button
+          <div
             :class="
               [
                 'recordList',
@@ -53,6 +53,7 @@
             style="margin: 0px"
             v-for="(dateTime, tabIndex) in tabsData"
             :key="tabIndex"
+            @contextmenu.stop.prevent="(e)=>rightMouseDown(e,dateTime, tabIndex)"
             @click="changeQuery(dateTime)"
           >
             {{ dateTime }}
@@ -61,7 +62,7 @@
               @click="removeRecord(dateTime, tabIndex)"
               class="el-icon-close"
             ></i>
-          </el-button>
+          </div>
         </div>
         <div style="flex: 7">
           <div
@@ -448,6 +449,9 @@ export default {
         this.init();
       });
     },
+    rightMouseDown(e,dateTime, tabIndex){
+      this.removeRecord(dateTime, tabIndex)
+    },
     /* 删除记录 */
     async removeRecord(targetName, index) {
       await this.$confirm("是否确删除该记录?", "提示", {
@@ -479,7 +483,8 @@ export default {
     },
     /* 修改自定义标题，弹出弹窗并保存 */
     updateTextInfo(key, label, autotext,index) {
-      console.log(this.fieldList[index])
+      let checkValue = Object.values(this.fieldList)||[]
+     let  checkValueStr=checkValue.map(item=>item.fieldCn)
       window.openSetTextModal(
         (text) => {
           let data = {
@@ -489,14 +494,19 @@ export default {
             vitalCode: key,
             fieldCn: text,
           };
-          
+          if(
+            checkValueStr.includes(text)
+          ){
+ this.$message.error(`修改${label}失败!已存在${text}项目`);
+          }else{
           savefieldTitle(data).then((res) => {
-            this.fieldList[index].fieldCn=text;
-          this.$message.success(`修改${label}成功`);
-            
+             this.fieldList[index].fieldCn=text;
+            this.$message.success(`修改${label}成功`);
           });
+          }
           // this.getList();
         },
+        
         autotext,
         `修改${label}`
       );

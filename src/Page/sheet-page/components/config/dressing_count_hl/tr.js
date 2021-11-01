@@ -14,6 +14,8 @@ let 子宫收缩 = [];
 let 膀胱情况 = [];
 let 入量项目 = [];
 let 出量项目 = [];
+let colList=["暗红","鲜红","粉红"]
+let bladderList=["空虚","稍胀","充盈"]
 export default [{
     key: "recordMonth", //日期
     value: "",
@@ -28,11 +30,17 @@ export default [{
     key: "fieldThree", //出血量
     value: "",
     event: keyf1,
-    name: "出血量"
+    name: "出血量",
+      textarea: {
+      width: 36
+    },
   }, {
     key: "fieldFive", //性状颜色
     value: "",
-    event: keyf1
+    event: keyf1,
+    autoComplete: {
+      data: colList
+    }
   }, {
     key: "fieldOne", //宫底U-Fb
     value: "",
@@ -70,7 +78,7 @@ export default [{
     event: keyf1,
     name: "膀胱情况",
     autoComplete: {
-      data: 膀胱情况
+      data: bladderList
     }
   }, {
     key: "fieldTwo", //肛查
@@ -85,9 +93,12 @@ export default [{
       top: "1px",
       bottom: "1px",
       left: "1px",
-      width: "180px",
+      width: "240px",
       background: "transparent"
     },
+    // textarea: {
+    //   width: 190
+    // },
     event: function (e, td) {
       console.log(e.keyCode);
       if (e.keyCode == 9) {
@@ -95,7 +106,7 @@ export default [{
         e.preventDefault();
       }
       keyf1(e, td);
-    }
+    },
     // oninput: next
   },
   {

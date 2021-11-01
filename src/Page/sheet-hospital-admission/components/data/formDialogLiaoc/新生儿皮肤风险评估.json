@@ -197,6 +197,18 @@
       "readOnly": ""
     },
     {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
       "name": "一般情况",
       "type": "formGroupHorizontalBox",
       "titleStyle": "text-align:left",
@@ -254,8 +266,21 @@
       ]
     },
     {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
       "name": "意识状态",
       "type": "formGroupHorizontalBox",
+      "titleStyle": "text-align:left",
       "title": "意识状态",
       "message": "",
       "require": "false",
@@ -314,8 +339,21 @@
       ]
     },
     {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
       "name": "移动",
       "type": "formGroupHorizontalBox",
+      "titleStyle": "text-align:left",
       "title": "移动",
       "message": "",
       "require": "false",
@@ -374,8 +412,21 @@
       ]
     },
     {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
       "name": "活动",
       "type": "formGroupHorizontalBox",
+      "titleStyle": "text-align:left",
       "title": "活动",
       "message": "",
       "require": "false",
@@ -434,8 +485,21 @@
       ]
     },
     {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
       "name": "营养",
       "type": "formGroupHorizontalBox",
+      "titleStyle": "text-align:left",
       "title": "营养",
       "message": "",
       "require": "false",
@@ -494,8 +558,21 @@
       ]
     },
     {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
       "name": "潮湿",
       "type": "formGroupHorizontalBox",
+      "titleStyle": "text-align:left",
       "title": "潮湿",
       "message": "",
       "require": "false",
@@ -552,6 +629,18 @@
           "tips": "每次移动或翻身，皮肤都是潮湿的"
         }
       ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
     },
     {
       "name": "evalScore",
@@ -611,6 +700,18 @@
           ]
         }
       ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
     },
     {
       "name": "",

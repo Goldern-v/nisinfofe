@@ -45,7 +45,7 @@
   box-shadow: 0px 5px 10px 0 rgba(0, 0, 0, 0.5);
   padding: 20px 0px;
   box-sizing: border-box;
-  width: 760px;
+  width: 100%;
   margin: 0 auto;
 
   .assessment-iframe {
@@ -610,47 +610,47 @@ export default {
         //   // && !this.info.formCode==='eduMission'
         // console.log(this.info.formCode,"this.info.formCode")
         // 获取表单数据源信息
-        evalDetail(this.info.id).then(
+        evalDetail(this.info.id,'healthEdu').then(
           res => {
             this.info.creator = res.data.data.creator;
-            console.log("!!!!!onload_formField:evalDetail", res, this.info);
+            // console.log("!!!!!onload_formField:evalDetail", res, this.info);
             // eventInit(res.data.data, wid);
 
             // 本地开发模式未生成相关表单，localhost模式下找不到页面开发地址
-            if (!this.info.formCode) {
-              //
-              this.$notify({
-                title: "提示",
-                message: "页面找不到地址",
-                type: "warning"
-              });
-              let waitTime = 5;
-              this.pageLoadingText = "网络异常,页面找不到地址,请尝试刷新页面";
-              this.pageLoadingText += this.isDev
-                ? ":   " + decodeURIComponent(this.url)
-                : "";
-              this.pageLoading = true;
-              // this.pageLoadingText += this.isDev?':   -  '+decodeURIComponent(this.urlForm):''
-              // this.urlForm
-              // let self = this
-              // if(wtpageid){window.clearInterval(wtpageid);}
-              // let wtpageid = window.setInterval(function(){
-              //   if(waitTime<1){
-              //     this.pageLoadingText = "正在载入页面";
-              //     window.clearInterval(wtpageid);
-              //     window.setTimeout(function(){
-              //       this.openUrl(this.url)
-              //     },2000);
-              //   }else{
-              //     try {
-              //       this.pageLoadingText = this.wid.loadTimeData.data_.errorCode+":页面无法获取，请尝试刷新("+(waitTime--)+"秒)"
-              //     } catch (error) {
-              //       window.clearInterval(wtpageid);
-              //     }
-              //   }
-              // }, 1000);
-              return;
-            }
+            // if (!this.info.formCode) {
+            //   //
+            //   this.$notify({
+            //     title: "提示",
+            //     message: "页面找不到地址",
+            //     type: "warning"
+            //   });
+            //   let waitTime = 5;
+            //   this.pageLoadingText = "网络异常,页面找不到地址,请尝试刷新页面";
+            //   this.pageLoadingText += this.isDev
+            //     ? ":   " + decodeURIComponent(this.url)
+            //     : "";
+            //   this.pageLoading = true;
+            //   // this.pageLoadingText += this.isDev?':   -  '+decodeURIComponent(this.urlForm):''
+            //   // this.urlForm
+            //   // let self = this
+            //   // if(wtpageid){window.clearInterval(wtpageid);}
+            //   // let wtpageid = window.setInterval(function(){
+            //   //   if(waitTime<1){
+            //   //     this.pageLoadingText = "正在载入页面";
+            //   //     window.clearInterval(wtpageid);
+            //   //     window.setTimeout(function(){
+            //   //       this.openUrl(this.url)
+            //   //     },2000);
+            //   //   }else{
+            //   //     try {
+            //   //       this.pageLoadingText = this.wid.loadTimeData.data_.errorCode+":页面无法获取，请尝试刷新("+(waitTime--)+"秒)"
+            //   //     } catch (error) {
+            //   //       window.clearInterval(wtpageid);
+            //   //     }
+            //   //   }
+            //   // }, 1000);
+            //   return;
+            // }
 
             if (
               this.info.formCode &&
