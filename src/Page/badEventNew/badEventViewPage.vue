@@ -37,10 +37,11 @@
       </div>
       <div class="viewbar-right" :style="'height: ' + (wih - 60) + 'px'">
         <div class="viewbar-right-top">
+          <Button class="btn" @click="goBack">返回</Button>
           <Button class="btn"   @click.stop="save">保存</Button>
-          <Button class="btn" :disabled="badEventLoad || isDisabled" @click="saveEdit">编辑</Button>
-          <Button class="btn" :disabled="badEventLoad || isDisabled" @click="deleteEdit">删除</Button>
-          <Button class="btn" :disabled="badEventLoad || isDisabled3" @click="revoke">撤销</Button>
+          <!-- <Button class="btn" :disabled="badEventLoad || isDisabled" @click="saveEdit">编辑</Button> -->
+          <!-- <Button class="btn" :disabled="badEventLoad || isDisabled" @click="deleteEdit">删除</Button>
+          <Button class="btn" :disabled="badEventLoad || isDisabled3" @click="revoke">撤销</Button> -->
           <Button
             class="green-btn btn"
             :disabled="badEventLoad || isDisabled2"
@@ -384,6 +385,9 @@ export default {
         };
       };
       this.$root.$refs["badEventNew"] = this.$refs["badEventNew"];
+    },
+    goBack(){
+      this.$router.go(-1);
     },
     showBtn(instance,handlenodeDto) {
       //debugger
