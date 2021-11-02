@@ -927,6 +927,7 @@ export default {
     },
   },
   computed: {
+    // demo生成的，不要自己写
     ...{
       'checkedbyg':{
     get(){
