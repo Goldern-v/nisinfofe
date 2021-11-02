@@ -2632,7 +2632,7 @@
           ]
         },
         {
-          "name": "I100127",
+          "name": "I0011015",
           "type": "select",
           "title": "压力性损伤风险评估",
           "style": null,
@@ -2735,7 +2735,7 @@
           ]
         },
         {
-          "name": "S0613",
+          "name": "I0011016",
           "type": "select",
           "title": "窒息误吸风险评估",
           "style": null,
@@ -2767,8 +2767,8 @@
                 "title": "窒息误吸风险评估（儿童）",
                 "default": "窒息误吸风险评估（儿童）",
                 "type": "independent",
-                "name": "S0613",
-                "parentName": "S0613",
+                "name": "S0612",
+                "parentName": "S0612",
                 "showHead": "true"
               }
             },
@@ -2894,7 +2894,7 @@
           ]
         },
         {
-          "name": "I100396",
+          "name": "I0011018",
           "type": "select",
           "title": "非计划性拔管风险评估",
           "style": null,
@@ -2926,7 +2926,7 @@
           ]
         },
         {
-          "name": "S0626",
+          "name": "I0011017",
           "type": "select",
           "title": "自杀风险评估",
           "style": null,
@@ -2954,7 +2954,7 @@
           ]
         },
         {
-          "name": "S0618",
+          "name": "I0011019",
           "type": "select",
           "title": "营养风险筛查评估",
           "style": null,
