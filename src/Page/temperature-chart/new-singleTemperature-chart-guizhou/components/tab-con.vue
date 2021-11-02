@@ -212,7 +212,7 @@
             <div style="margin: 10px 0px; font-weight: bold; font-size: 14px">
               <span>自定义项目：</span>
             </div>
-            <div class="rowField" v-for="(i, index,j) in fieldList" :key="index">
+            <div class="row" v-for="(i, index,j) in fieldList" :key="index">
               <span
                 class="preText"
                 style="color: blue"
@@ -366,27 +366,7 @@ export default {
                 }, ],
       query: {
         entryDate: moment(new Date()).format("YYYY-MM-DD"), //录入日期
-        entryTime: (()=>{
-          if (this.getHours() >= 0 && this.getHours() <= 2) {
-                return "02:00:00";
-              }
-              if (this.getHours() > 2 && this.getHours() <= 6) {
-                return "06:00:00";
-              }
-              if (this.getHours() > 6 && this.getHours() <= 10) {
-                return "10:00:00";
-              }
-              if (this.getHours() > 10 && this.getHours() <= 14) {
-                return "14:00:00";
-              }
-              if (this.getHours() > 14 && this.getHours() <= 18) {
-                return "18:00:00";
-              }
-              if (this.getHours() > 18 && this.getHours() <= 23) {
-                return "22:00:00";
-              }
-         //录入时间
-        })() //录入时间
+        entryTime: moment().format('HH:mm')+':00',//录入时间
       },
       recordDate: "",
       fieldList: {}, // 自定义项目列表
@@ -409,32 +389,6 @@ export default {
         "出生",
         "手术入院",
         "死亡",
-      ],
-      timesOdd: [
-        {
-         lable:"02:00:00",
-          value: "02:00:00",
-        },
-        {
-          lable: "06:00:00",
-          value: "06:00:00",
-        },
-        {
-          lable: "10:00:00",
-          value: "10:00:00",
-        },
-        {
-           lable: "14:00:00",
-          value: "14:00:00",
-        },
-        {
-            lable: "18:00:00",
-          value: "18:00:00",
-        },
-        {
-          lable: "22:00:00",
-          value: "22:00:00",
-        },
       ],
       bottomContextList: ["", "不升"],
       topExpandDate: "",
@@ -486,7 +440,6 @@ export default {
     },
     //时间组件失去焦点
     changeDate(val){
-      // console.log(val.$el.children[1].value);
       let numberVal=val.$el.children[1].value;
       // if(!moment(numberVal,"HH:mm",true).isValid()) {
       //     this.$message.error("请输入正确时间数值，例如23:25, 2325");
@@ -494,7 +447,7 @@ export default {
       // }
       if((numberVal.indexOf(":")==-1 && numberVal.length==4) || (numberVal.indexOf(":")!=-1 && numberVal.length==5)){
         let time = numberVal.indexOf(":")==-1?`${numberVal.substring(0,2)}:${numberVal.substring(2,4)}`:`${numberVal.substring(0,2)}:${numberVal.substring(3,5)}`;
-        console.log(time);
+        console.log('time',time);
         // if(!moment(numberVal,"HH:mm",true).isValid()) {
         //   this.$message.error("请输入正确时间数值，例如23:25, 2325");
         //   return false;
@@ -506,14 +459,10 @@ export default {
         }else {
           this.$message.error("请输入正确时间数值，例如23:25, 2325")
         }
+      }else{
+       this.query.entryTime=val.$el.children[1].value
       }
     },
-      changeValue(e){
-                    // console.log(e)
-                 },
-                 inputClicl(s){
-                  //  console.log(s)
-                 },
 
     init() {
       let obj = {};
@@ -921,7 +870,23 @@ export default {
   .rowItem_noShow {
     display: none;
   }
+.row{
+display: inline-block;
+    padding: 3px 15px;
+    .preText {
+      display: inline-block;
+      width: 50px;
+    }
 
+    input {
+      width: 60px;
+      font-size: 12px;
+    }
+
+    .el-select {
+      width: 85px;
+    }
+}
   .rowbox {
     display: inline-block;
     padding: 3px 15px;

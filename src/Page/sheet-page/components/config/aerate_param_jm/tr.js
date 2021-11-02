@@ -15,7 +15,7 @@ import {
 } from "../keyEvent/date";
 
 let ylList = ['低流量','高流量','呼吸机','BI-PAP','无创呼吸机'];
-let tqList = ['HFO','NIPPV','S2MV','NS2MV'];
+let tqList = ['HFO','NIPPV','SIMV','NSIMV'];
 
 export default [
   {
@@ -51,6 +51,7 @@ export default [
     value: "",
     event: keyf1,
     name: "流量",
+    next: "L/min",
     textarea: {
       width: 75
     }
@@ -154,28 +155,29 @@ export default [
       width: 75
     },
   },
-  // {
-  //   key: "description", //特殊情况记录
-  //   value: "",
-  //   style: {
-  //     textAlign: "left",
-  //     position: "absolute",
-  //     top: "1px",
-  //     bottom: "1px",
-  //     left: "1px",
-  //     width: "700px",
-  //     background: "transparent"
-  //   },
-  //   event: function (e, td) {
-  //     console.log(e.keyCode);
-  //     if (e.keyCode == 9) {
-  //       td.value = "    " + td.value;
-  //       e.preventDefault();
-  //     }
-  //     keyf1(e, td);
-  //   }
-  //   // oninput: next
-  // },
+  {
+    key: "description", //特殊情况记录
+    hidden: true,
+    value: "",
+    style: {
+      textAlign: "left",
+      position: "absolute",
+      top: "1px",
+      bottom: "1px",
+      left: "1px",
+      width: "700px",
+      background: "transparent"
+    },
+    event: function (e, td) {
+      console.log(e.keyCode);
+      if (e.keyCode == 9) {
+        td.value = "    " + td.value;
+        e.preventDefault();
+      }
+      keyf1(e, td);
+    }
+    // oninput: next
+  },
   {
     key: "sign",
     value: ""

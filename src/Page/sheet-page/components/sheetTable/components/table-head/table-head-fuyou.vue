@@ -3,16 +3,22 @@
     <div class="his-name">{{ HOSPITAL_NAME_SPACE }}</div>
     <div class="title">{{ patientInfo.recordName }}</div>
     <!-- {{ sheetInfo.relObj }} -->
-    <div :class="{'info-con': true, 'info-con_new': sheetInfo.sheetType === 'pediatrics_jm'}">
+    <div :class="{'info-con': true, 'info-con_new': sheetInfo.sheetType === 'pediatrics_jm'}" flex="main:justify">
       <span>
         科室：
         <div class="bottom-line" style="min-width: 70px">
           {{ patientInfo.realDeptName }}
         </div>
       </span>
-      <span>
+      <!-- <span>
         床号：
         <div class="bottom-line" style="min-width: 50px">
+          {{ patientInfo.bedLabel }}
+        </div>
+      </span> -->
+      <span>
+        床号：
+        <div :class="['bottom-line','has-background']" :style="{minWidth:'55px'}"  @dblclick.stop="openBedRecordModal">
           {{ patientInfo.bedLabel }}
         </div>
       </span>
@@ -119,6 +125,7 @@
         </div>
       </span>
     </div>
+    <bedRecordModal ref="bedRecordModal"></bedRecordModal>
   </div>
 </template>
 
@@ -129,6 +136,7 @@ import sheetInfo from "../../../config/sheetInfo";
 import { listItem } from "@/api/common.js";
 import sheetData from "../../../../sheet.js";
 import bus from "vue-happy-bus";
+import bedRecordModal from "../../../modal/bedRecord-modal";
 
 export default {
   props: {
@@ -184,6 +192,12 @@ export default {
     },
   },
   methods: {
+    openBedRecordModal(){
+      if (this.readOnly) {
+        return this.$message.warning("你无权操作此护记，仅供查阅");
+      }
+      this.$refs.bedRecordModal.open();
+    },
     updateDiagnosis(key, label, autoText) {
       window.openSetTextModal(
         (text) => {
@@ -222,7 +236,9 @@ export default {
     }
   },
   watch: {},
-  components: {},
+  components: {
+    bedRecordModal
+  },
 };
 </script>
 
@@ -232,9 +248,10 @@ input.bottom-line {
   border-left: 0;
   border-right: 0;
   outline: none;
+  height: 12px;
 }
 .ml-1000 {
-  margin-left: 1000px;
+  margin-left: 850px;
 }
 .info-con_new{
   display: flex;

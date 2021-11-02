@@ -30,28 +30,34 @@ export default [
   {
     key: "exposed", //外露
     value: "",
+    name: "外露",
+    next: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 10),
+    change: (e, td) => limitChange(e, td, 15),
     textarea: {
-      width: 65
+      width: 100
     },
   },
   {
     key: "armCircumference", //臂围
     value: "",
+    name: "臂围",
+    next: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 10),
+    change: (e, td) => limitChange(e, td, 15),
     textarea: {
-      width: 65
+      width: 100
     },
   },
   {
     key: "puncturePoint", //穿刺点
     value: "",
+    name: "穿刺点",
+    next: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 10),
+    change: (e, td) => limitChange(e, td, 15),
     textarea: {
-      width: 65
+      width: 100
     },
     autoComplete: {
       data: ccdList
@@ -60,10 +66,12 @@ export default [
   {
     key: "dressing", //敷料
     value: "",
+    name: "敷料",
+    next: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 10),
+    change: (e, td) => limitChange(e, td, 15),
     textarea: {
-      width: 65
+      width: 100
     },
     autoComplete: {
       data: flList
@@ -72,6 +80,8 @@ export default [
   {
     key: "tube", //冲管/封管
     value: "",
+    name: "冲管/封管",
+    next: "",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 16),
     textarea: {
@@ -84,6 +94,8 @@ export default [
   {
     key: "dressingExchange", //更换敷料
     value: "",
+    name: "更换敷料",
+    next: "",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 16),
     textarea: {
@@ -96,6 +108,8 @@ export default [
   {
     key: "replaceConnector", //更换接头
     value: "",
+    name: "更换接头",
+    next: "",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 16),
     textarea: {

@@ -59,9 +59,13 @@ export function nursingDiagsView(id) {
   return axios.get(`${apiPath}nursingDiags/view/${id}`);
 }
 
-// 删除护理诊断
+// 删除护理诊断(单行)
 export function nursingDiagsDel(creator, empNo, id) {
   return axios.post(`${apiPath}nursingDiags/delete`, { creator, empNo, id });
+}
+// 删除护理诊断(整单)
+export function nursingDiagsDelAll(id) {
+  return axios.get(`${apiPath}planForm/deleteByid/${id}`);
 }
 
 // 删除护理诊断

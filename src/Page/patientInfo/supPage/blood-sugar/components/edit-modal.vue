@@ -58,7 +58,7 @@
       </ElFormItem>
       <ElFormItem v-else label="项目：" required>
         <ElSelect
-          v-if="HOSPITAL_ID != 'huadu' && HOSPITAL_ID != 'quzhou'"
+          v-if="HOSPITAL_ID != 'huadu' && HOSPITAL_ID != 'quzhou' && HOSPITAL_ID != 'beihairenyi'"
           v-model="form.sugarItem"
         >
           <ElOption
@@ -77,6 +77,20 @@
         >
           <ElOption
             v-for="item in huaduTypeList"
+            :key="item.vitalSign"
+            :label="item.vitalSign"
+            :value="item.vitalSign"
+          />
+        </ElSelect>
+        <!-- 北海 -->
+         <ElSelect
+          v-if="HOSPITAL_ID === 'beihairenyi'"
+          v-model="form.sugarItem"
+          filterable
+          allow-create
+        >
+          <ElOption
+            v-for="item in BeiHaiTypeList"
             :key="item.vitalSign"
             :label="item.vitalSign"
             :value="item.vitalSign"
@@ -114,6 +128,18 @@
         <ElInput v-model="form.riValue" />
         <span class="unit">(ü)</span>
       </ElFormItem>
+      <ElFormItem
+        label="备注："
+        v-if="HOSPITAL_ID == 'beihairenyi'"
+      >
+        <!-- <ElInput v-model="form.expand3" /> -->
+        <el-input
+        resize=none
+  type="textarea"
+  :autosize="{ minRows: 2, maxRows: 4}"
+  v-model="form.expand3">
+</el-input>
+      </ElFormItem>
       <ElFormItem label="血酮值：" required v-if="HOSPITAL_ID == 'liaocheng'">
         <ElInput v-model="form.riValue" />
         <span class="unit">(mmol/L)</span>
@@ -148,6 +174,8 @@ export default {
       sugarItem: "微机血糖",
       sugarValue: '',
       riValue: '',
+      remarks:'',
+      expand3:''
     },
     curEmpName: "",
     curEmpNo: "",
@@ -238,6 +266,29 @@ export default {
         vitalSign: "睡前",
       },
     ],
+    BeiHaiTypeList: [
+      {
+        vitalSign: "早餐前",
+      },
+      {
+        vitalSign: "早餐后",
+      },
+      {
+        vitalSign: "午餐前",
+      },
+      {
+        vitalSign: "午餐后",
+      },
+      {
+        vitalSign: "晚餐前",
+      },
+      {
+        vitalSign: "晚餐后",
+      },
+      {
+        vitalSign: "睡前",
+      }
+    ],
   }),
   props: {
     sugarItem: Array,
@@ -281,6 +332,8 @@ export default {
           sugarItem: form.sugarItem || defaultSugarItem, //--血糖项目名称
           sugarValue: form.sugarValue || 0, //--项目值
           riValue: form.riValue || 0, //--可以传空
+          expand3:form.expand3,
+          remarks:form.remarks,
           nurseEmpNo: this.curEmpNo, //--护士工号
           nurse: this.curEmpName, //--护士姓名
           expand1: "",
@@ -297,6 +350,8 @@ export default {
           sugarItem: form.sugarItem || defaultSugarItem,
           sugarValue: form.sugarValue || 0,
           riValue: form.riValue || 0,
+          remarks:form.remarks || '',
+          expand3:form.expand3 || '',
           recordId: form.recordId || "",
         };
         this.oldRecordDate = form.recordDate;
@@ -307,6 +362,8 @@ export default {
           sugarItem: defaultSugarItem,
           sugarValue: 0,
           riValue: 0,
+          remarks:'',
+          expand3:'',
           recordId: "",
         };
         this.oldRecordDate = "";

@@ -4,7 +4,7 @@
     <table>
       <tr>
         <th
-          v-if="HOSPITAL_ID != 'guizhou'"
+          v-if="HOSPITAL_ID != 'liaocheng'"
           style="width: 2%; min-width: 20px"
         >
          序号
@@ -17,9 +17,9 @@
         </th>
         <th v-else style="width: 22%; min-width: 75px">日期</th>
         <th v-if="HOSPITAL_ID != 'lingcheng' && HOSPITAL_ID != 'liaocheng'" style="width: 20%">项目</th>
-        <th v-else-if="HOSPITAL_ID != 'lingcheng' && HOSPITAL_ID == 'liaocheng'" style="width: 35%">类型</th>
+        <th v-else-if="HOSPITAL_ID != 'lingcheng' && HOSPITAL_ID == 'liaocheng'" style="width: 40%">类型</th>
         <th v-else style="width: 24%">测量时间</th>
-        <th style="width: 23%">
+        <th style="width: 21%">
           血糖值
           <br />(mmol/L)
         </th>
@@ -37,7 +37,7 @@
           {{HOSPITAL_ID=="quzhou"?'胰岛素剂量':'RI剂量'}}
         </th>
         <th
-          style="width: 23%"
+          style="width: 21%"
           v-if="
             HOSPITAL_ID == 'liaocheng'
           "
@@ -56,7 +56,7 @@
       >
         <!-- @dblclick="onDblClick(item)" -->
           <!--序号 -->
-        <td v-if="HOSPITAL_ID != 'guizhou'">
+        <td v-if="HOSPITAL_ID != 'liaocheng'">
           {{index + baseIndex + 1}}
         </td>
         <!-- 时间 -->
@@ -64,11 +64,12 @@
           <div flex="main:justify" style="white-space: nowrap" class="time">
               <!-- 显示时间 -->
             <span :data-value="item.date">
-              <input type="text" v-model="item.date" :data-value="item.date">
+              <input type="text" v-model="item.date" :data-value="item.date" @input="handlPattern(item)">
               <!-- <span>{{ item.date }}</span> -->
             </span>
             <span>
-              <input type="text" v-model="item.time" :data-value="item.time" @input="handleTime">
+              <!-- <input type="text" v-model="item.time" :data-value="item.time" @input="handleTime"> -->
+                <input type="text" v-model="item.time" :data-value="item.time" @input="((el)=>{handleTime(el,item)})">
               <!-- <span>{{ item.time }}</span> -->
             </span>
           </div>
@@ -78,8 +79,8 @@
         </td>
         <!-- 类型 -->
         <td v-if="HOSPITAL_ID != 'lingcheng'">
-          <div class="cell" :title="item.sugarItem">
-             <input type="text" class="fake" v-model="item.sugarItem" :data-value="item.sugarItem">
+          <div class="cell" :title="item.sugarItem" >
+             <input type="text" class="fake" v-model="item.sugarItem" :data-value="item.sugarItem" >
             <el-autocomplete
               class="inline-input"
               v-model="item.sugarItem"
@@ -105,19 +106,12 @@
             }}
           </div> -->
            <div class="cell" >
-             <input type="text" v-model="item.sugarValue" :data-value="item.sugarValue">  
+             <input type="text" v-model="item.sugarValue" :data-value="item.sugarValue" >  
             </div>
         </td>
         <!-- 血酮 -->
         <td
-          v-if="
-            HOSPITAL_ID != 'gy' &&
-            HOSPITAL_ID != 'lingcheng' &&
-            HOSPITAL_ID != 'huadu' &&
-            HOSPITAL_ID != 'liaocheng'&&
-            HOSPITAL_ID != 'hengli'&&
-            HOSPITAL_ID != 'guizhou'
-          "
+          v-if="HOSPITAL_ID != 'liaocheng'"
         >
           <div class="cell">
             {{
@@ -158,6 +152,7 @@
               :src="`/crNursing/api/file/signImage/${item.expand1}?${token}`"
               :alt="item.nurse"
               v-if="item.expand1"
+
             />
           </div>
        
@@ -175,7 +170,7 @@
   </div>
 </template>
 
-<style lang="stylus" rel="stylesheet/stylus" type="text/stylus">
+<style lang="stylus" rel="stylesheet/stylus" type="text/stylus" >
 .blood-sugar-table {
   &.table-box {
     width: 0;
@@ -212,7 +207,8 @@
       img {
         width: 100%;
         height: 100%;
-        object-fit: cover;
+        // object-fit: cover;
+        object-fit: contain;
       }
     }
     th {
@@ -275,6 +271,7 @@
   .el-autocomplete{
      opacity:0
   }
+  
 }
 </style>
 
@@ -354,7 +351,7 @@ if (!this.data) return;
     //   console.log(1);
     // },
    textTime(item,index){
-      if(item.recordDate===undefined){
+      if(item.expand2===undefined){
       const fullTime=moment().format("YYYY-MM-DD HH:mm:ss")
      const date=moment().format("MM-DD")
      const time=moment().format("HH:mm")
@@ -362,11 +359,8 @@ if (!this.data) return;
      item.time=time
      item.recordDate=fullTime
      this.isEdit=false
-     //  let isSameDate=false
      //  可以判断时间
       for (let i = 0;  i< index ;  i++) {
-        console.log(367,this.renderData[i])
-        console.log(368,this.renderData[i].date===item.date)
         if(this.renderData[i].date===item.date){
           item.date=""
           break
@@ -375,7 +369,6 @@ if (!this.data) return;
       }else{
         this.isEdit=true
       }
-     
     },
     onSelect(item) {
       this.$emit("update:selected", item);
@@ -389,26 +382,43 @@ if (!this.data) return;
           // 保存逻辑
           if(!this.isEdit){
              item.expand2=1
+             const a1=item.recordDate.split(" ")
+            const a2=a1[1].split(":")
+            const time=`${a2[0]}:${a2[1]}`
+            if(item.time!==time){
+              // 如果不相等就处理时间
+              const newDate=a1[0].split("-")
+              item.recordDate=`${a1[0]}  ${item.time}`
+            }
+      
           }else{
             item.expand2=2
       item.recordId=""
-      item.oldRecordDate=""
+      if(item.date){
+        // 存在日期
+     const a1=item.recordDate.split(" ")
+     const a2=a1[0].split("-")
+     const rD=`${a2[0]}-${item.date} ${item.time}`
+ item.oldRecordDate=rD
+      }else{
+ item.oldRecordDate=item.recordDate
+      }
+     
       //  先删后改
         await removeSugar(item);
        if(item.recordDate){
-     const arr= item.recordDate.split(" ")
+     const arr= item.oldRecordDate.split(" ")
       const arr1= arr[0].split("-")
-     const year=`${arr1[0]}-${item.date}`
+     const year=`${arr1[0]}-${arr1[1]}-${arr1[2]}`
+    // const year=`${arr[0]} ${item.date}`
       item.recordDate=`${year} ${item.time}:00`
      }
           }
-    
           this.curEmpName = res.data.data.empName;
           // this.empNo = res.data.data.empNo;
           // 执行表单保存逻辑
       item.recordDate =
       moment(item.recordDate).format("YYYY-MM-DD HH:mm") + ":00";
-
       item.patientId = this.patientInfo.patientId;
       item.visitId = this.patientInfo.visitId;
       item.name = this.patientInfo.name;
@@ -416,16 +426,45 @@ if (!this.data) return;
       item.wardCode = this.patientInfo.wardCode;
       (item.nurseEmpNo = this.empNo || ""), //护士工号
       item.nurse= this.empNo || ""
+      // 加一个是否签名
+      item.isSign=true
      await  saveSugarList([item])
       this.load();
       // this.$refs.editModal.close();
       // 解决报错
       // this.selected = null;
       this.$emit("update:selected",null);
+      // 时间排序
+      this.renderData.sort(function(a,b){
+        return a.recordDate<b.recordDate?-1:1
+      })
+      // 已经完成排序，修改可能的日期bug
+      const sameDateIndex=[]
+
+      const itemDateArr=item.recordDate.split(" ")[0].split("-")
+      const itemDate=`${itemDateArr[1]}-${itemDateArr[2]}`
+      this.renderData.forEach((v,index)=>{
+        if(v.recordDate){
+       const arr=v.recordDate.split(" ")[0].split("-")
+       const date=`${arr[1]}-${arr[2]}`
+        if(date===itemDate){
+         sameDateIndex.push(index)
+       }
+      } 
+      })
+      if(sameDateIndex.length>1){
+        sameDateIndex.forEach((v,index)=>{
+          this.renderData[v].date=""
+          if(index===0){
+            this.renderData[v].date=itemDate
+          }
+        })
+      }
       this.$message.success("保存成功");
         });
       });
     },
+    
      async load() {
       this.pageLoading = true;
       const res = await getSugarListWithPatientId(
@@ -471,19 +510,26 @@ if (!this.data) return;
       });
     },
     querySearch(queryString, cb){
+      console.log(queryString)
        var restaurants = this.restaurants;
        var results = queryString ? restaurants.filter(this.createFilter(queryString)) : restaurants;
        cb(results);
     },
     createFilter(queryString) {
         return (restaurant) => {
-          return (restaurant.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
+          // return (restaurant.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
+          return restaurant
         };
       },
     handleSelect(item){
        console.log(item)
     },
-    handleTime(e){
+    handlPattern(item){
+      if(item.patientId){
+this.isEdit=true
+      }
+    },
+    handleTime(e,item){
    const insert_flg=function(str, flg) {
   str = str.replace(flg, "");
   str = str.replace(/(.{2})/, `$1${flg}`);

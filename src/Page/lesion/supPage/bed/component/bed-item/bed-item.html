@@ -1,5 +1,5 @@
 <div class="bed-box" @contextmenu.stop="HOSPITAL_ID == 'zhongshanqi' && openContextMenu($event,data)">
-  <div class="like" @click.stop="toLike(data)" v-if="HOSPITAL_ID == 'zhongshanqi'">
+  <div class="like" @click.stop="toLike(data)" v-if="(HOSPITAL_ID == 'zhongshanqi'||HOSPITAL_ID == 'fuyou') && data.name">
     <img v-if="data.isFollow == '1'" src="../../../../../../common/images/card/like.png" height="18" width="18" />
     <img v-else src="../../../../../../common/images/card/liked.png" height="18" width="18" />
   </div>
@@ -43,6 +43,12 @@
             </span>
           </div>
           <!-- </el-tooltip> -->
+        </span>
+        <!-- 妇幼添加共享床位 -->
+        <span v-if="['fuyou'].includes(HOSPITAL_ID) && data && data.flagShare=='1'">
+          <div class="label-box" :style="{background: '#00CCFF'}">
+            <span>共</span>
+          </div>
         </span>
       </div>
 

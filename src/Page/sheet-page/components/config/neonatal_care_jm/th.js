@@ -103,7 +103,7 @@ export default {
       },
       {
         name: `
-        血压<br/>(mmHg)
+        血压<br/>mmHg
         `,
         style: {
           minWidth: '30px',
@@ -304,7 +304,7 @@ export default {
         rowspan: '2'
       },
       {
-        name: `静脉<br>（ml）`,
+        name: `静脉<br>ml`,
         colspan: '1',
         rowspan: '2',
         style: {
@@ -312,7 +312,7 @@ export default {
         },
       },
       {
-        name: `进食<br>（ml）`,
+        name: `进食<br>ml`,
         colspan: '1',
         rowspan: '2',
         style: {
@@ -320,7 +320,7 @@ export default {
         },
       },
       {
-        name: `大便<br>（g/性状）`,
+        name: `大便<br>g/性状`,
         style: {
           minWidth: '30px',
         },
@@ -328,7 +328,7 @@ export default {
         rowspan: '2'
       },
       {
-        name: `小便<br>（ml）`,
+        name: `小便<br>ml`,
         colspan: '1',
         rowspan: '2',
         style: {

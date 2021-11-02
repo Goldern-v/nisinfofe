@@ -9,9 +9,11 @@
                     <div :style="{width:'140px'}">置管来源：{{tableInfo.catheterSource}}</div>
                 </div>
                 <div class="up-cathter">
-                    <div style="cursor:pointer;"  @dblclick="changeReplaceTime">更换时间：{{tableInfo.replaceTime}}</div>
+                    <div style="cursor:pointer;" v-show="!!tableInfo.replaceTime" @dblclick="changeReplaceTime">更换时间：{{tableInfo.replaceTime}}</div>
+                    <div style="cursor:pointer;" v-show="!tableInfo.replaceTime" @dblclick="changeReplaceTime">更换时间：未确定</div>
                     <div v-show="replaceDays=='outTime'" style="color:red">剩余天数：已超时</div>
-                    <div v-show="replaceDays!='unShow'&&replaceDays!='outTime'" :style="{color:tableInfo.catheterStatus==1?'red':''}">剩余天数：第{{replaceDays}}天</div>
+                    <div v-show="!['unShow','outTime','unSet','today'].includes(replaceDays)" :style="{color:tableInfo.catheterStatus==1?'red':''}">剩余天数：{{replaceDays}}天</div>
+                    <div v-show="replaceDays=='today'" :style="{color:tableInfo.catheterStatus==1?'red':''}">今天拔管</div>
                     <div v-show="replaceDays=='unShow'">实际拔管时间：{{tableInfo.extubationTime}}</div>
                 </div>
             </div>
@@ -52,9 +54,11 @@
             :label="item.title">
             <template slot-scope="scope">
                 <el-autocomplete
+                    class="cathter-autocomplete"
                     v-model="scope.row[item.name]"
                     @input="show"
                     :fetch-suggestions="(queryString, cb)=>querySearch(queryString, cb,optionsConfig[item.name])"
+                    :title="scope.row[item.name]"
                     placeholder=""
                     @select="handleSelect"
                     >
@@ -68,6 +72,12 @@
                     </el-option>
                 </el-select> -->
             </template>
+            </el-table-column>
+            <el-table-column
+            prop="signerName"
+            align="center"
+            width="80"
+            label="评估人">
             </el-table-column>
             <el-table-column
             prop="address"
@@ -178,6 +188,12 @@
 }
     
 </style>
+<style lang='scss'>
+.el-autocomplete-suggestion{
+    width: auto!important;
+    min-width: 84px!important;
+}
+</style>
 <script>
 import moment from 'moment';
 import {
@@ -222,13 +238,13 @@ return {
 },
 methods: {
     show(){
-        console.log(111);
+        // console.log(111);
     },
     handleSelect(){},
     querySearch(queryString, cb,arr){
         if(arr&&arr.length){
             let tem = arr.map(item=>{
-                console.log(item);
+                // console.log(item);
                 return {value:item.code}
             })
             cb(tem) 
@@ -269,7 +285,7 @@ methods: {
         obj.replaceTime = val
         updateInfo(obj,this.tableInfo.code).then(res=>{
             let config = res.data.data
-            console.log(res.data.data);
+            this.$emit('onChangePatient_self',this.$store.state.sheet.patientInfo)
             this.$emit('updateTableConfig',config)
         })
     },
@@ -392,11 +408,16 @@ computed:{
         let m1 = moment(this.tableInfo.replaceTime)
         let m2 = moment()
         let day = m1.diff(m2,'day')
-        console.log(day);
+        // console.log(day);
         if(day<0){
             return 'outTime'
+        }else if(day){
+            return day
+        }else if(day===0){
+            return 'today'
+        }else{
+            return 'unSet'
         }
-        return day
     }
 }
 };

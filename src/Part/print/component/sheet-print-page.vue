@@ -1,5 +1,5 @@
 <template>
-  <div id="sheetPagePrint" :class="[HOSPITAL_ID=='guizhou'?'guizhou':'']">
+  <div id="sheetPagePrint" :class="[HOSPITAL_ID=='guizhou'?'guizhou':['fuyou'].includes(HOSPITAL_ID)?'fontInputW':'']">
     <!-- {{process}} -->
     <!-- <iframe :src="url" :style="{height: iframeHeight + 'px'}" @load="onload" ref="iframe"></iframe> -->
     <div
@@ -34,6 +34,8 @@
 
   input {
     color: #000 !important;
+    // color: #000000 !important;
+    // font-family: "SimHei" !important;
   }
 
   .canSet {
@@ -138,6 +140,14 @@
     text-align: left;
   }
 }
+//字体变黑体，解决打印模糊问题
+.fontInputW{
+   input {
+    color: #000000 !important;
+    font-family: "SimHei" !important;
+    font-weight: 400;
+  }
+}
 
 @media print {
   #sheetPagePrint {
@@ -230,6 +240,7 @@ export default {
         "postpartumnursing_jm",//江门妇幼_产后护理记录单
         "entdepartment_jm",//江门妇幼_耳鼻喉科护理记录单
         "catheterplacement_jm",//江门妇幼_深静脉导管置入术后维护单
+        "safemetachysis_jm",//江门妇幼_输血护理记录单
       ]
     };
   },
@@ -374,6 +385,9 @@ export default {
         window,
         `
           #sheetPagePrint#sheetPagePrint th[dataname='上级护士签名']{
+            display:none !important;
+          }
+           #sheetPagePrint#sheetPagePrint th[dataname='核对者']{
             display:none !important;
           }
         `

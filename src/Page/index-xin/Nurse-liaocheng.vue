@@ -291,8 +291,8 @@ export default {
       bodyTast(this.deptCode, time) // 获取数据--体症任务
         .then(rep => {
           let data = rep.data.data || [];
-          data = data.filter(item=>item.status=="1" && (item.taskTime.split(" ")[1].split(":")[0]==7||item.taskTime.split(" ")[1].split(":")[0]==19))
-          console.log("体征任务",data);
+          // data = data.filter(item=>item.status=="1" && (item.taskTime.split(" ")[1].split(":")[0]==7||item.taskTime.split(" ")[1].split(":")[0]==19))
+          // console.log("体征任务",data);//20211026孝考确认要求去除
           this.$set(this.body, "content", data);
           this.page1Loading = false;
         });

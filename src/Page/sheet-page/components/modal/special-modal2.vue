@@ -1146,19 +1146,12 @@ export default {
     },
     // 保存（富文本）
     postRichText() {
-      let okLength = (function () {
-        switch (this.HOSPITAL_ID) {
-          case "lingcheng":
-            return 46;
-            break;
-          case "hengli":
-            return 46;
-            break;
-          default:
-            return 23;
-            break;
-        }
-      })();
+      let okLength = ""
+      if(this.HOSPITAL_ID=='lingcheng'||this.HOSPITAL_ID=='hengli'){
+        okLength = 46
+      }else {
+        okLength = 23
+      }
       var GetLength = function (str) {
         // 过滤上下标签替换
         const subReg = /(<\/?sub.*?>)/gi;
@@ -1362,7 +1355,7 @@ export default {
             } else {
               text += allDoc[i];
             }
-          }else if (this.sheetInfo.sheetType === "nursingrecords_zxy") {
+          }else if (this.sheetInfo.sheetType === "nursingrecords_zxy" || this.sheetInfo.sheetType === "recordicu2_zxy") {
             if (GetLength(text) > 70) {
               result.push(text);
               text = allDoc[i];

@@ -45,7 +45,7 @@
       >
         <div class="nav-item">病历</div>
       </router-link>
-      <router-link
+      <!-- <router-link
         :to="{
           path: '/sheetNursingOrder',
           query: { patientId: query.patientId, visitId: query.visitId }
@@ -53,7 +53,7 @@
         tag="span"
       >
         <div class="nav-item">护嘱单</div>
-      </router-link>
+      </router-link> -->
       <router-link
         :to="{
           path: '/sheet',

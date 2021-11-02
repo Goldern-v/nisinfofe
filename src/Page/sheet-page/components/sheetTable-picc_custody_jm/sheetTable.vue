@@ -23,8 +23,14 @@
           <!-- <span>
             科室：{{ patientInfo.realDeptName }}
           </span> -->
-          <span>
+          <!-- <span>
             床号：{{ patientInfo.bedLabel }}
+          </span> -->
+          <span>
+            床号：
+            <span :class="['bottom-line','has-background']" :style="{minWidth:'55px'}"  @dblclick.stop="openBedRecordModal">
+              {{ patientInfo.bedLabel }}
+            </span>
           </span>
           <span>
             姓名： {{ patientInfo.patientName }}
@@ -112,7 +118,7 @@
                     :data-value="sheetInfo.relObj.qny"
                   />cmH2o
                 </div>
-                <div>
+                <div style="margin-left:1px;">
                   <textarea style="cursor:text" v-model="sheetInfo.relObj.xpwz" :data-value="sheetInfo.relObj.xpwz" @input="(e)=>onXpChang(e)"></textarea>
                 </div>
               </td>
@@ -519,6 +525,7 @@
         </excel>
       </div>
     </div>
+    <bedRecordModal ref="bedRecordModal"></bedRecordModal>
   </div>
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus">
@@ -758,6 +765,8 @@ import moment from "moment";
 import common from "@/common/mixin/common.mixin";
 import { updateSheetHeadInfo } from "../../api/index";
 import watchAttr,{changeThis} from "./watchAttr"
+import bedRecordModal from "../modal/bedRecord-modal";
+
 export default {
   props: {
     data: Object,
@@ -781,6 +790,12 @@ export default {
     };
   },
   methods: {
+    openBedRecordModal(){
+      if (this.readOnly) {
+        return this.$message.warning("你无权操作此护记，仅供查阅");
+      }
+      this.$refs.bedRecordModal.open();
+    },
     inputChange(e) {
       let val = e.currentTarget.value
       if(e.keyCode == 8) {
@@ -891,7 +906,8 @@ export default {
   },
   destroyed() {} /* fix vue-happy-bus bug */,
   components: {
-    excel
+    bedRecordModal,
+    excel,
   }
 };
 </script>

@@ -10,6 +10,7 @@ import {
   click_date,
   click_time
 } from "../keyEvent/date";
+let ysList = ['母乳喂养','人工喂养','混合喂养','清淡饮食','禁食','禁饮','禁食禁饮'];
 export default [
   {
     key: "recordDate", //年份
@@ -26,26 +27,33 @@ export default [
   key: "recordHour", //时间
   value: "",
   event: event_time,
-  click: click_time
 },
 {
   key: "temperature", //体温
+  name: "体温",
+  next: "℃",
   value: "",
   event: keyf1
 },
 {
   key: "pulse", //心率
   value: "",
+  name: "心率",
+  next: "次/分",
   event: keyf1
 },
 {
   key: "breath", //呼吸
   value: "",
+  name: "呼吸",
+  next: "次/分",
   event: keyf1
 },
 {
   key: "bloodPressure", //血压
   value: "",
+  name: "血压",
+  next: "mmHg",
   event: function (e, td) {
     if (e.keyCode == 32) {
       e.target.value += "/";
@@ -60,6 +68,8 @@ export default [
 {
   key: "spo2", //SPO2
   value: "",
+  name: "SPO2",
+  next: "%",
   event: keyf1,
   textarea: {
     width: 30
@@ -68,22 +78,33 @@ export default [
 {
   key: "diet", //饮食
   value: "",
+  name: "饮食",
   event: keyf1,
   textarea: {
     width: 30
-  }
+  },
+  autoComplete: {
+    data: ysList
+  },
 },
 {
   key: "veinSize", // 入量静脉（ml）
   value: "",
-  event: keyf1
+  name: "静脉",
+  next: "ml",
+  event: keyf1,
+  textarea: {
+    width: 40
+  }
 },
 {
   key: "eatSize", // 进食（ml）
   value: "",
+  name: "进食",
+  next: "ml",
   event: keyf1,
   textarea: {
-    width: 50
+    width: 40
   }
 },
 {
@@ -97,34 +118,60 @@ export default [
 {
   key: "urineVolume", // 小便（ml）
   value: "",
+  name: "尿液",
+  next: "ml",
   event: keyf1,
+  textarea: {
+    width: 40
+  }
 },
 {
   key: "dischargeColor", // 小便颜色
   value: "",
-  event: keyf1
+  name: "尿液颜色",
+  event: keyf1,
+  textarea: {
+    width: 40
+  }
 },
 {
   key: "stoolTimes", //大便（g/次）
   value: "",
-  event: keyf1
+  name: "大便",
+  next: "g/次",
+  event: keyf1,
+  textarea: {
+    width: 40
+  }
 },
 {
   key: "stoolNature", //大便性质
   value: "",
+  name: "大便性质",
+  next: "",
   event: keyf1,
+  textarea: {
+    width: 40
+  }
 },
 {
   key: "vomit", //呕吐（ml）
   value: "",
-  event: keyf1
+  name: "呕吐",
+  next: "ml",
+  event: keyf1,
+  textarea: {
+    width: 40
+  }
 },
 {
   key: "otherDischarge", //出量自定义
   value: "",
+  name: "出量自定义",
+  next: "ml",
   event: keyf1,
   textarea: {
-    width: 32
+    width: 40
   }
 },
 {

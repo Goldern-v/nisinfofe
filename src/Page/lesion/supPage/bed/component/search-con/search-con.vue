@@ -290,7 +290,8 @@ import {
   syncGetNurseBedRecLiaocheng,
   syncGetNurseBedRecShannan,
   syncGetNurseBedRecQuzhou,
-  syncGetNurseBedRecHengli
+  syncGetNurseBedRecHengli,
+  syncGetNurseBedRecJiangMenFY
 } from "@/api/lesion";
 import footerBar from "../footer-bar/footer-bar.vue";
 import { listItem } from "@/api/common.js";
@@ -318,6 +319,8 @@ export default {
     allBedLength() {
       if (this.HOSPITAL_ID === 'hengli' && this.$store.state.lesion.deptCode === '103') {
         return this.bedList.filter((item) => item.name.indexOf("B") === -1);
+      } else if (this.HOSPITAL_ID === 'fuyou' && (this.$store.state.lesion.deptCode === '130'||this.$store.state.lesion.deptCode === '127'||this.$store.state.lesion.deptCode === '436'||this.$store.state.lesion.deptCode === '148')) {
+        return this.bedList.filter((item) => item.name.indexOf("婴") === -1);
       } else {
         return this.bedList;
       }
@@ -332,6 +335,8 @@ export default {
       if (this.HOSPITAL_ID === 'hengli' && this.$store.state.lesion.deptCode === '103') {
         console.log(this.bedList, 88)
         return this.bedList.filter((item) => item.patientId && item.name.indexOf("B") === -1);
+      }else if (this.HOSPITAL_ID === 'fuyou' && (this.$store.state.lesion.deptCode === '130'||this.$store.state.lesion.deptCode === '127'||this.$store.state.lesion.deptCode === '436'||this.$store.state.lesion.deptCode === '148')) {
+        return this.bedList.filter((item) => item.patientId && item.name.indexOf("婴") === -1);
       } else {
         return this.bedList.filter((item) => item.patientId);
       }
@@ -580,7 +585,9 @@ export default {
       if (
         this.HOSPITAL_ID == "zhongshanqi" ||
         this.HOSPITAL_ID == "liaocheng" ||
-        this.HOSPITAL_ID == "beihairenyi"
+        this.HOSPITAL_ID == "beihairenyi" ||
+        this.HOSPITAL_ID == "fuyou" || 
+        this.HOSPITAL_ID == "huadu"
       ) {
         list.splice(3, 0, {
           name: "我的关注",
@@ -599,7 +606,7 @@ export default {
     },
     // 同步床位数据
     showSyncBedBtn() {
-      return ["weixian", "lingcheng", "liaocheng", "hengli",'shannan', 'quzhou'].includes(
+      return ["weixian", "lingcheng", "liaocheng", "hengli",'shannan', 'quzhou', 'fuyou'].includes(
         this.HOSPITAL_ID
       );
     },
@@ -622,7 +629,7 @@ export default {
         this.levelColor = levelColor;
         patients(this.deptCode).then((res) => {
           this.bedList = res.data.data.map((item) => {
-            console.log(item.name, 978)
+            // console.log(item.name, 978)
             item.nursingClassColor = (
               levelColor.find((o) => o.code == item.nursingClass) || {}
             ).name;
@@ -662,6 +669,9 @@ export default {
           break;
         case "hengli":
           syncData = syncGetNurseBedRecHengli;
+          break;
+        case "fuyou":
+          syncData = syncGetNurseBedRecJiangMenFY;
           break;
         default:
           syncData = syncGetNurseBedRec;

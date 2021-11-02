@@ -72,7 +72,7 @@
                 index.includes('注释') ||
                 index.includes('体温复测')
               )
-                ? 'row'
+                ? 'rowbox'
                 : 'rowItem_noShow'
             "
             v-for="(j, index,i) in multiDictList"
@@ -93,9 +93,8 @@
               :value="vitalSignObj[j].popVisible"
             >
               <input
-              class="temClass"
               :id="i+1"
-              @keydown.enter="changeNext()"
+              @keydown.enter="changeNext"
                 type="text"
                 :title="vitalSignObj[j].vitalValue"
                 @input="handlePopRefresh(vitalSignObj[j])"
@@ -163,7 +162,7 @@
               <input
               :id="h+100"
                 type="text"
-                class="cumList"
+                class="fieldClass"
               @keydown.enter="changeNext"
                 :title="vitalSignObj[i.vitalCode].vitalValue"
                 @input="handlePopRefresh(vitalSignObj[i.vitalCode])"
@@ -466,8 +465,9 @@ export default {
   methods: {
    changeNext(e){
       if(e.target.className==='el-tooltip'){
+        console.log(document.getElementsByClassName('rowbox').length)
   let inputListLength=document.getElementsByClassName('rowbox').length
-      if(Number(e.target.id)<inputListLength-1){
+      if(Number(e.target.id)<inputListLength){
         document.getElementById(Number(e.target.id)+1).focus()
       }else if(Number(e.target.id)===inputListLength){
         document.getElementById('100').focus()
@@ -840,7 +840,7 @@ window.openSetTextModalNew(
     display: none;
   }
 
-  .row {
+  .rowbox{
     display: inline-block;
     padding: 3px 15px;
 
@@ -858,6 +858,23 @@ window.openSetTextModalNew(
       width: 85px;
     }
   }
+  .row{
+display: inline-block;
+    padding: 3px 15px;
+    .preText {
+      display: inline-block;
+      width: 50px;
+    }
+
+    input {
+      width: 60px;
+      font-size: 12px;
+    }
+
+    .el-select {
+      width: 85px;
+    }
+}
 
   .save-btn {
     position: relative;

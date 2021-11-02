@@ -39,16 +39,22 @@ export default [
 {
   key: "fieldOne", //台箱温℃
   value: "",
-  event: keyf1
+  event: keyf1,
+  name: "台箱温",
+  next: "℃",
 },
 {
   key: "fieldTwo", //台箱编号
   value: "",
-  event: keyf1
+  event: keyf1,
+  name: "台箱编号",
+  next: "",
 },
 {
   key: "temperature", //体温℃
   value: "",
+  name: "体温",
+  next: "℃",
   event: keyf1,
   textarea: {
     width: 25
@@ -57,16 +63,22 @@ export default [
 {
   key: "pulse", //心率 次/min
   value: "",
+  name: "心率",
+  next: "次/分",
   event: keyf1,
 },
 {
   key: "breath", //呼吸 次/min
   value: "",
+  name: "心率",
+  next: "次/分",
   event: keyf1,
 },
 {
   key: "bloodPressure", //血压(mmHg)
   value: "",
+  name: "血压",
+  next: "mmHg",
   event: function (e, td) {
     if (e.keyCode == 32) {
       e.target.value += "/";
@@ -81,11 +93,15 @@ export default [
 {
   key: "spo2", // spo2
   value: "",
+  name: "SPO2",
+  next: "%",
   event: keyf1
 },
 {
   key: "fieldThree", // 反应
   value: "",
+  name: "反应",
+  next: "",
   event: keyf1,
   autoComplete: {
     data: fyList
@@ -94,6 +110,8 @@ export default [
 {
   key: "fieldFour", // 哭声
   value: "",
+  name: "哭声",
+  next: "",
   event: keyf1,
   autoComplete: {
     data: ksList
@@ -102,6 +120,8 @@ export default [
 {
   key: "fieldSix", // 肤色
   value: "",
+  name: "肤色",
+  next: "",
   event: keyf1,
   autoComplete: {
     data: fsList
@@ -114,6 +134,8 @@ export default [
   key: "muscleTone", // 肌张力
   value: "",
   event: keyf1,
+  name: "肌张力",
+  next: "",
   autoComplete: {
     data: jzlList
   }
@@ -122,14 +144,21 @@ export default [
   key: "fieldSeven", // 脐部情况
   value: "",
   event: keyf1,
+  name: "脐部情况",
+  next: "",
   autoComplete: {
     data: qbList
+  },
+  textarea: {
+    width: 35
   }
 },
 {
   key: "fieldEight", // 体位
   value: "",
   event: keyf1,
+  name: "体位",
+  next: "",
   autoComplete: {
     data: twList
   }
@@ -137,11 +166,15 @@ export default [
 {
   key: "fieldNine", // 皮测umol/L
   value: "",
+  name: "皮测",
+  next: "umol/L",
   event: keyf1,
 },
 {
   key: "fieldTen", // 蓝光治疗
   value: "",
+  name: "蓝光治疗",
+  next: "",
   event: keyf1,
   autoComplete: {
     data: select
@@ -150,6 +183,8 @@ export default [
 {
   key: "fieldEleven", //入量--静脉（ml）
   value: "",
+  name: "静脉",
+  next: "ml",
   event: keyf1,
   textarea: {
     width: 30
@@ -158,6 +193,8 @@ export default [
 {
   key: "fieldTwelve", //入量--进食（ml）
   value: "",
+  name: "进食",
+  next: "ml",
   event: keyf1,
   textarea: {
     width: 50
@@ -166,6 +203,8 @@ export default [
 {
   key: "fieldThirteen", //出量--大便（g/性状）
   value: "",
+  name: "大便",
+  next: "g/性状",
   event: keyf1,
   textarea: {
     width: 40
@@ -174,6 +213,8 @@ export default [
 {
   key: "fieldFourteen", //出量--小便（ml）
   value: "",
+  name: "小便",
+  next: "ml",
   event: keyf1
 },
 {
@@ -187,6 +228,8 @@ export default [
 {
   key: "fieldFifteen", //用氧方式
   value: "",
+  name: "用氧方式",
+  next: "",
   change: (e, td) => limitChange(e, td, 8),
   event: keyf1,
   textarea: {
@@ -196,11 +239,15 @@ export default [
 {
   key: "fio2", //FiO2(%)
   value: "",
+  name: "FiO2",
+  next: "%",
   event: keyf1,
 },
 {
   key: "fieldSixteen", //血糖mmol/L
   value: "",
+  name: "血糖",
+  next: "mmol/L",
   event: keyf1,
 },
 {

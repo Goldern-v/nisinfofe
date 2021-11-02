@@ -54,10 +54,10 @@ const currentTargetUrl = (() => {
 
     /** 陵城正式 */
     case "lingcheng":
-      // return "http://120.224.184.10:9094" // 陵城正式正式   1520   654321
+      return "http://120.224.184.10:9094" // 陵城正式正式   1520   654321
       // return "https://info.cr-health.com:20204" // 公司-陵城测试-外网
       // return "http://192.168.1.54:9867" // 公司-陵城测试-内网
-      return "http://192.168.1.54:9866" // 公司-陵城测试-内网
+      // return "http://192.168.1.54:9866" // 公司-陵城测试-内网
 
     /** 花都 */
     case "huadu":
@@ -77,9 +77,9 @@ const currentTargetUrl = (() => {
 
     /** 江门妇幼 */
     case "fuyou":
-      return "http://218.14.180.38:9094" // 江门妇幼正式
+      // return "http://218.14.180.38:9094" // 江门妇幼正式
       // return "https://info.cr-health.com:20211" // 公司-江门妇幼测试-外网
-      // return "http://192.168.1.54:9872" // 公司-江门妇幼测试-内网
+      return "http://192.168.1.54:9872" // 公司-江门妇幼测试-内网
 
     /** 中山七 */
     case "zhongshanqi":

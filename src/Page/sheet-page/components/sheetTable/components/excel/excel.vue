@@ -1154,9 +1154,10 @@ export default {
       if (
         this.HOSPITAL_ID == "huadu" &&
         sheetInfo.sheetType === "body_temperature_Hd" &&
-        td
+        td &&
+        this.listData[index]
       ) {
-        return false;
+        return !this.listData[index].canModify;
       }
       if (td && td.key == "recordYear") {
         if (!tr.find((item) => item.key == "recordMonth").value) {

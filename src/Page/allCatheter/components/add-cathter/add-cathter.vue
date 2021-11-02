@@ -30,7 +30,7 @@
 }
     .add-modal{
         width: 500px;
-        height:300px;
+        height:350px;
         background-color: #fff;
         position: absolute;
         top: 50%;
@@ -67,7 +67,7 @@
             }
             .cathter-type{
                 display: flex;
-                height: 203px;
+                height: 243px;
                 overflow: auto;
                 box-sizing: border-box;
                 flex-wrap: wrap;

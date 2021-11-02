@@ -45,6 +45,16 @@ export default {
       },
       {
         name: `
+        胎膜早破
+        `,
+        colspan: "1",
+        rowspan: "3",
+        style:{
+          width:'60px'
+        }
+      },
+      {
+        name: `
         特殊情况记录
         `,
         style: {

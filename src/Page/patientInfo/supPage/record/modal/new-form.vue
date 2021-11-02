@@ -426,6 +426,10 @@ export default {
           value: "handover",
           label: "交接记录单",
         },
+        {
+          value: "authorization",
+          label: "知情同意书",
+        },
       ],
       // guizhouOptions: [
 

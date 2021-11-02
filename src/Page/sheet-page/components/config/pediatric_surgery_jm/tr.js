@@ -35,21 +35,29 @@ export default [
 {
   key: "temperature", //体温
   value: "",
+  name: "体温",
+  next: "℃",
   event: keyf1
 },
 {
   key: "pulse", //心率
   value: "",
+  name: "心率",
+  next: "次/分",
   event: keyf1
 },
 {
   key: "breath", //呼吸
   value: "",
+  name: "呼吸",
+  next: "次/分",
   event: keyf1
 },
 {
   key: "bloodPressure", // 血压
   value: "",
+  name: "血压",
+  next: "mmHg",
   event: function (e, td) {
     if (e.keyCode == 32) {
       e.target.value += "/";
@@ -61,11 +69,15 @@ export default [
 {
   key: "spo2", // 血氧饱和度
   value: "",
+  name: "SPO2",
+  next: "%",
   event: keyf1
 },
 {
   key: "fieldOne", //  神志
   value: "",
+  name: "神志",
+  next: "",
   event: keyf1,
   textarea: {
     width: 48
@@ -74,6 +86,8 @@ export default [
 {
   key: "fieldFourteen", //  吸氧
   value: "",
+  name: "吸氧",
+  next: "",
   event: keyf1,
   textarea: {
     width: 48
@@ -82,6 +96,8 @@ export default [
 {
   key: "fieldFour", // 静脉（ml）
   value: "",
+  name: "静脉",
+  next: "ml",
   event: keyf1,
   textarea: {
     width: 50
@@ -90,6 +106,8 @@ export default [
 {
   key: "fieldFive", // 进食（ml）
   value: "",
+  name: "进食",
+  next: "ml",
   event: keyf1,
   textarea: {
     width: 36
@@ -106,27 +124,42 @@ export default [
 {
   key: "urineVolume", // 尿量（ml）
   value: "",
+  name: "尿量",
+  next: "ml",
   event: keyf1,
 },
 {
   key: "dischargeColor", // 尿量颜色
   value: "",
-  event: keyf1
+  name: "尿量颜色",
+  event: keyf1,
+  textarea: {
+    width: 38
+  }
 },
 {
   key: "fieldSix", // 大便（g/性状）
   value: "",
+  name: "大便",
+  next: "g/性状",
   event: keyf1,
 
 },
 {
   key: "stoolNature", // 大便性质
   value: "",
-  event: keyf1
+  name: "大便性质",
+  next: "",
+  event: keyf1,
+  textarea: {
+    width: 38
+  }
 },
 {
   key: "fieldEight", //  呕吐（ml）
   value: "",
+  name: "呕吐",
+  next: "ml",
   event: keyf1,
   textarea: {
     width: 32
@@ -135,6 +168,8 @@ export default [
 {
   key: "fieldOther", //  出量其他
   value: "",
+  name: "其他",
+  next: "",
   event: keyf1,
   textarea: {
     width: 32
@@ -143,6 +178,8 @@ export default [
 {
   key: "fieldNature", //  出量性质
   value: "",
+  name: "性质",
+  next: "",
   event: keyf1,
   textarea: {
     width: 32
@@ -151,6 +188,8 @@ export default [
 {
   key: "fieldTen", //  伤口敷料
   value: "",
+  name: "伤口敷料",
+  next: "",
   event: keyf1,
   splice: true,
   textarea: {
@@ -164,6 +203,8 @@ export default [
 {
   key: "fieldNine", //  护理指导
   value: "",
+  name: "护理指导",
+  next: "",
   event: keyf1,
   splice: true,
   textarea: {
@@ -176,6 +217,8 @@ export default [
 {
   key: "healthEducation", // 健康教育
   value: "",
+  name: "健康教育",
+  next: "",
   event: keyf1,
   splice: true,
   textarea: {

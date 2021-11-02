@@ -4,7 +4,7 @@
 export default {
   // 科室的名称
   style: {
-    width: '1300px'
+    width: '1350px'
   },
   deptType: '',
   th: {
@@ -21,9 +21,13 @@ export default {
       },
       {
         name: `
-        台<br/>/<br/>箱<br/>温<br/>度<br/>℃
+        台温度℃
         `,
+        canSet: true,
+        key: "boxTemperature",
         style: {
+          minWidth: '25px',
+          maxWidth: '25px',
         },
         colspan: '1',
         rowspan: '3'
@@ -111,8 +115,10 @@ export default {
       },
       {
         name: `
-        NBP<br/>/<br/>ABP<br/>mmHg
+        NBP<br/>mmHg
         `,
+        canSet: true,
+        key: "nbp",
         colspan: '1',
         rowspan: '2'
       },
