@@ -116,16 +116,17 @@ export default {
         (this.list = []);
     },
     open() {
-      // this.init()
+      this.init()
       this.$refs.newRecord.open();
+      this.searchBybtn()
     },
     close() {
       this.$refs.newRecord.close();
     },
     search() {
-      if (!this.searchWord) {
-        return;
-      }
+      // if (!this.searchWord) {
+      //   return;
+      // }
       this.searchLoading = true;
       nursingDiagsSearch(
         this.$route.query.patientId,
@@ -140,13 +141,13 @@ export default {
       });
     },
     searchBybtn() {
-      if (!this.searchWord) {
-        return this.$message({
-          showClose: true,
-          message: "关键词不能为空",
-          type: "warning"
-        });
-      }
+      // if (!this.searchWord) {
+      //   return this.$message({
+      //     showClose: true,
+      //     message: "关键词不能为空",
+      //     type: "warning"
+      //   });
+      // }
       this.cacheSearchList = Array.from(
         new Set([...this.cacheSearchList, this.searchWord])
       ).splice(-5);
