@@ -15,13 +15,10 @@
         >
           <img
             class="qr-code"
-            :class="{ hasRemark: hasRemark }"
             :src="qrCode"
           />
           <div
             class="qr-code-num"
-            :class="{ hasRemark: hasRemark, }"
-            :style="HOSPITAL_ID == 'liaocheng' ? 'width: 110px' : HOSPITAL_ID == 'hengli' ? 'line-height: 13px;' : ''"
           >
             {{ qrCodeNum }}
           </div>
@@ -32,28 +29,11 @@
               style="height: 43px"
             >
               <!-- <span class="label">患者姓名:</span> -->
-              <span :style="`width: ${hasRemark ? 85 : 100}px`"></span>
-              <input
-              readonly
-                type="text"
-                nowidth
-                style="font-size: 22px;padding-left: 5px;"
-                flex-box="1"
-                class="bottom-line"
-                :value="'病案号：' + query.patientId"
-              />
-            </div>
-            <div
-              flex="cross:center"
-              class="input-item"
-              style="height: 43px"
-            >
-              <!-- <span class="label">患者姓名:</span> -->
-              <span :style="`width: ${hasRemark ? 85 : 100}px`"></span>
+              <span :style="`width:100px`"></span>
               <input
                 type="text"
                 nowidth
-                style="font-size: 22px;padding-left: 5px;"
+                style="font-size: 32px;padding-left: 5px;"
                 flex-box="1"
                 class="bottom-line"
                 :value="query.name + ' ' + query.sex + ' ' + query.age"
@@ -61,12 +41,12 @@
             </div>
             <div flex="cross:center" class="input-item">
               <!-- <span class="label">住院号:</span> -->
-              <span :style="`width: ${hasRemark ? 85 : 100}px`"></span>
+              <span :style="`width: 100px`"></span>
               <input
                 type="text"
                 :style="{
                   width: '75px',
-                  'font-size':'22px',
+                  'font-size': query.bedLabel.length > 3 ? '24px' : '30px',
                   'padding-left': '5px',
                   'line-height': ' 34px'
                 }"
@@ -76,7 +56,7 @@
               <input
                 type="text"
                 flex-box="1"
-                style="width: 0px;font-size: 22px; padding-left: 2px;line-height: 34px;"
+                style="width: 0px;font-size: 30px; padding-left: 2px;"
                 nowidth
                 class="bottom-line"
                 :value="moment(query.admissionDate).format('YYYY-MM-DD')"
@@ -105,7 +85,7 @@
                 </label>
               </div>
             </div>-->
-            <div flex="cross:center" class="input-item">
+            <!-- <div flex="cross:center" class="input-item">
               <span class="label">饮食:</span>
               <div
                 nowidth
@@ -128,6 +108,42 @@
                     })
                   "
                   @blur="onBlurToAutoComplete"
+                />
+              </div>
+            </div> -->
+            <div flex="cross:center" class="input-item" v-if="formData.remarkPrint">
+              <span class="label">诊断:</span>
+              <div
+                nowidth
+                class="check-con"
+                flex-box="1"
+                flex="main:justify cross:center"
+              >
+                <input
+                  type="text"
+                  nowidth
+                  flex-box="1"
+                  class="bottom-line"
+                  style="font-size: 26px"
+                  v-model="formData.remark"
+                />
+              </div>
+            </div>
+            <div flex="cross:center" class="input-item" v-else>
+              <span class="label">过敏:</span>
+              <div
+                nowidth
+                class="check-con"
+                flex-box="1"
+                flex="main:justify cross:center"
+              >
+                <input
+                  type="text"
+                  nowidth
+                  flex-box="1"
+                  class="bottom-line"
+                  style="font-size: 26px"
+                  v-model="formData.remark"
                 />
               </div>
             </div>
@@ -245,25 +261,6 @@
                 v-model="formData.dutyNurses"
               />
             </div>
-            <div
-              flex="cross:top"
-              class="input-item"
-              style="height: 58px;margin-top: 4px"
-              v-if="formData.remarkPrint && HOSPITAL_ID === 'hengli'"
-            >
-              <div class="input-item-left">
-                <span class="input-item-left-label">诊断:</span>
-              </div>
-
-              <textarea
-                type="text"
-                nowidth
-                flex-box="1"
-                class="bottom-line remark"
-                :value="formData.remark"
-                :maxlength="35"
-              ></textarea>
-            </div>
           </div>
           <div style="width: 131px">
             <div class="tip">温馨提示</div>
@@ -287,10 +284,10 @@
           style="position: absolute; left: 10px; padding-top: 4px"
           v-if="HOSPITAL_ID != 'hj'"
         >
-          <span>显示诊断</span>
+          <span>显示诊断/过敏</span>
           <el-switch
-            on-text="是"
-            off-text="否"
+            on-text="诊断"
+            off-text="过敏"
             v-model="formData.remarkPrint"
           ></el-switch>
         </span>
@@ -347,10 +344,10 @@
     height: 112px;
     width: 112px;
 
-    &.hasRemark {
-      width: 96px;
-      height: 96px;
-    }
+    // &.hasRemark {
+    //   width: 96px;
+    //   height: 96px;
+    // }
   }
 
   .qr-code-num {
@@ -362,12 +359,12 @@
     z-index: 2;
     font-size: 16px;
 
-    &.hasRemark {
-      top: 78px;
-      left: 0px;
-      width: 84px;
-      font-size: 14px;
-    }
+    // &.hasRemark {
+    //   top: 78px;
+    //   left: 0px;
+    //   width: 84px;
+    //   font-size: 14px;
+    // }
   }
 }
 

@@ -151,6 +151,7 @@
     <bedModalWx ref="bedModalWx"></bedModalWx>
     <bedModalLc ref="bedModalLc"></bedModalLc>
     <bedModalLiaocheng ref="bedModalLiaocheng"></bedModalLiaocheng>
+    <!-- <bedModalNfzxy ref="bedModalNfzxy"></bedModalNfzxy> -->
     <bedModalHd ref="bedModalHd"></bedModalHd>
     <bedModalZsq ref="bedModalZsq"></bedModalZsq>
     <bedModalBh ref="bedModalBh"></bedModalBh>
@@ -297,6 +298,7 @@ import bedModal from "./modal/bed-modal.vue";
 import bedModalWx from "./modal/bed-modal_wx.vue";
 import bedModalLc from "./modal/bed-modal_lc.vue";
 import bedModalLiaocheng from "./modal/bed-modal_liaocheng.vue";
+// import bedModalNfzxy from "./modal/bed-modal-Nfzxy.vue";
 import bedModalHd from "./modal/bed-modal-hd.vue";
 import bedModalZsq from "./modal/bed-modal-zsq.vue";
 import bedModalBh from "./modal/bed-modal-bh.vue";
@@ -335,21 +337,19 @@ export default {
     },
     // 床头卡打印
     openBedPrint(printMode) {
-      if (this.HOSPITAL_ID == "weixian") {
-        this.$refs.bedModalWx.open();
-      } else if (this.HOSPITAL_ID == "lingcheng") {
-        this.$refs.bedModalLc.open();
-      }else if (this.HOSPITAL_ID == "liaocheng") {
-        this.$refs.bedModalLiaocheng.open();
-      } else if (this.HOSPITAL_ID == "huadu") {
-        this.$refs.bedModalHd.open(printMode);
-      } else if (this.HOSPITAL_ID == "zhongshanqi") {
-        this.$refs.bedModalZsq.open();
-      }else if( this.HOSPITAL_ID == "beihairenyi"){
-        this.$refs.bedModalBh.open(printMode);
-      }else if( this.HOSPITAL_ID == "quzhou"){
-        this.$refs.bedModalQz.open(printMode);
-      } else {
+      let hospital_left = {
+        weixian:'bedModalWx',
+        lingcheng:'bedModalLc',
+        liaocheng:'bedModalLiaocheng',
+        huadu:'bedModalHd',
+        zhongshanqi:'bedModalZsq',
+        beihairenyi:'bedModalBh',
+        quzhou:'bedModalQz',
+        // nanfangzhongxiyi:'bedModalNfzxy',
+      }
+      if(hospital_left[this.HOSPITAL_ID]){
+        this.$refs[hospital_left[this.HOSPITAL_ID]].open(printMode);
+      }else{
         this.$refs.bedModal.open();
       }
     },
@@ -413,6 +413,7 @@ export default {
     bedModalWx,
     bedModalLc,
     bedModalLiaocheng,
+    // bedModalNfzxy,
     archiveModal,
     bedModalHd,
     InpatientRegis,
