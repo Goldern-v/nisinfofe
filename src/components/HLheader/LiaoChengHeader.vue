@@ -50,51 +50,9 @@
             <router-link to="/implementationList" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-jiaobanzhi"></i> 执行单
-              </el-row> </router-link
-            ><el-dropdown
-              menu-align="start"
-              :class="{ 'router-link-active': isActiveTemperaturePage }"
-            >
-              <el-row class="nav-item" type="flex" align="middle">
-                <div class="before"></div>
-                <i class="iconfont icon-hulijiludan"></i>体温单
-              </el-row>
-              <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item
-                  :class="{
-                    active: $route.path.includes('newSingleTemperatureChart')
-                  }"
-                >
-                  <router-link to="/newSingleTemperatureChart" tag="span">
-                    <el-row class="menu-item" type="flex" align="middle">
-                      <i class="singleTemperatureChart"></i>体温单单人录入
-                    </el-row>
-                  </router-link>
-                </el-dropdown-item>
-                <!-- <el-dropdown-item
-                  :class="{
-                    active: $route.path.includes('singleTemperatureChart')
-                  }"
-                >
-                  <router-link to="/singleTemperatureChart" tag="span">
-                    <el-row class="menu-item" type="flex" align="middle">
-                      <i class="singleTemperatureChart"></i>单人录入体温单
-                    </el-row>
-                  </router-link>
-                </el-dropdown-item> -->
-                <el-dropdown-item
-                  :class="{
-                    active: $route.path.includes('allTemperatureChart')
-                  }"
-                >
-                  <router-link to="/allTemperatureChart" tag="span">
-                    <el-row class="menu-item" type="flex" align="middle">
-                      <i class="allTemperatureChart"></i>批量录入体温单
-                    </el-row>
-                  </router-link>
-                </el-dropdown-item>
-              </el-dropdown-menu> </el-dropdown
-            ><el-dropdown
+              </el-row> 
+            </router-link>
+            <el-dropdown
               menu-align="start"
               :class="{ 'router-link-active': isActiveAssessPage }"
             >
@@ -173,6 +131,50 @@
                   </router-link>
                 </el-dropdown-item>
               </el-dropdown-menu>
+            </el-dropdown>
+            <el-dropdown
+              menu-align="start"
+              :class="{ 'router-link-active': isActiveTemperaturePage }"
+            >
+              <el-row class="nav-item" type="flex" align="middle">
+                <div class="before"></div>
+                <i class="iconfont icon-hulijiludan"></i>体温单
+              </el-row>
+              <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item
+                  :class="{
+                    active: $route.path.includes('newSingleTemperatureChart')
+                  }"
+                >
+                  <router-link to="/newSingleTemperatureChart" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="singleTemperatureChart"></i>体温单单人录入
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item>
+                <!-- <el-dropdown-item
+                  :class="{
+                    active: $route.path.includes('singleTemperatureChart')
+                  }"
+                >
+                  <router-link to="/singleTemperatureChart" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="singleTemperatureChart"></i>单人录入体温单
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item> -->
+                <el-dropdown-item
+                  :class="{
+                    active: $route.path.includes('allTemperatureChart')
+                  }"
+                >
+                  <router-link to="/allTemperatureChart" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="allTemperatureChart"></i>批量录入体温单
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item>
+              </el-dropdown-menu> 
             </el-dropdown>
             <router-link to="/sugarPage" tag="span">
               <el-row class="nav-item" type="flex" align="middle">血糖</el-row>
