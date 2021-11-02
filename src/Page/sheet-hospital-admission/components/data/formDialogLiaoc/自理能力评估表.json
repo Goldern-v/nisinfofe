@@ -586,7 +586,7 @@
           "name": "I615007",
           "type": "radio",
           "title": "需极大帮助（0分）",
-          "code": "3",
+          "code": "0",
           "style": null,
           "class": null,
           "readOnly": null,
