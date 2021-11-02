@@ -28,10 +28,10 @@ export default {
         colspan: '1',
         rowspan: '3'
       }, {
-        name: `滴数<br/>（滴/min）`,
+        name: `滴数<br/>（滴/<br/>min）`,
         style: {
-          minWidth: '70px',
-          maxWidth: '70px'
+          minWidth: '50px',
+          maxWidth: '50px'
         },
         colspan: '1',
         rowspan: '3'
@@ -44,10 +44,10 @@ export default {
         colspan: '1',
         rowspan: '3'
       }, {
-        name: `胎心<br/>(次/min)`,
+        name: `胎心<br/>(次/<br/>min)`,
         style: {
-          minWidth: '60px',
-          maxWidth: '60px'
+          minWidth: '50px',
+          maxWidth: '50px'
         },
         colspan: '1',
         rowspan: '3'
@@ -80,8 +80,8 @@ export default {
         特殊情况及处理
         `,
         style: {
-          minWidth: "230px",
-          maxWidth: "230px"
+          minWidth: "260px",
+          maxWidth: "260px"
         },
         colspan: "1",
         rowspan: "3"

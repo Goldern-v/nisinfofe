@@ -179,7 +179,7 @@ export default {
         data: { data }
       } = await listItem("自定义标题", 
         //北海体温单调用护理记录单模板
-        ['beihairenyi'].includes(this.HOSPITAL_ID)&&this.$route.path.includes('newSingleTemperatureChart')?'temperature_bhry':sheetInfo.sheetType);
+        ['beihairenyi','guizhou'].includes(this.HOSPITAL_ID)&&this.$route.path.includes('newSingleTemperatureChart')?'bodyTemperature':sheetInfo.sheetType);
       this.listMap = data;
     },
     openAddModal() {
