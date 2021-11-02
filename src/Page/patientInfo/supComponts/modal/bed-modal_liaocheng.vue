@@ -40,7 +40,7 @@
                 style="font-size: 22px;padding-left: 5px;"
                 flex-box="1"
                 class="bottom-line"
-                :value="query.name + ' ' + query.patientId"
+                :value="'病案号：' + query.patientId"
               />
             </div>
             <div
@@ -56,7 +56,7 @@
                 style="font-size: 22px;padding-left: 5px;"
                 flex-box="1"
                 class="bottom-line"
-                :value="query.sex + ' ' + query.age"
+                :value="query.name + ' ' + query.sex + ' ' + query.age"
               />
             </div>
             <div flex="cross:center" class="input-item">
