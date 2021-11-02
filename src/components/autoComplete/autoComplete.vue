@@ -95,7 +95,7 @@ export default {
     open(config) {
       this.style = config.style;
       this.callback = config.callback;
-      this.splice = config.td.splice
+      this.splice = config.td&&config.td.splice
 
       this.options = [];
       this.childData = [];

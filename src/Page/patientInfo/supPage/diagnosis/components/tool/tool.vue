@@ -22,10 +22,9 @@
         class="item-box"
         flex="cross:center main:center"
         @click="del"
-        v-if="['huadu'].includes(HOSPITAL_ID)"
         :class="{disabled: !model.selectedBlockId}"
       >
-        <div class="text-con" flex="cross:center">删除</div>
+        <div class="text-con" flex="cross:center">删除整单</div>
       </div>
 
       <!-- <div
