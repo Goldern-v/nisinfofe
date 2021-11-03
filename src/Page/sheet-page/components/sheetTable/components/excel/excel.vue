@@ -1201,12 +1201,12 @@ export default {
       }
     },
     isRead(tr) {
-      // if (
-      //   this.HOSPITAL_ID == "huadu" &&
-      //   sheetInfo.sheetType === "body_temperature_Hd"
-      // ) {
-      //   return false;
-      // }
+      if (
+        this.HOSPITAL_ID == "huadu" &&
+        sheetInfo.sheetType === "body_temperature_Hd"
+      ) {
+        return false;
+      }
       let status = tr.find((item) => item.key == "status").value;
       let empNo = tr.find((item) => item.key == "empNo").value;
       if (status == 1) {
