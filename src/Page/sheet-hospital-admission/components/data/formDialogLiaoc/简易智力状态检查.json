@@ -815,8 +815,8 @@
                     "class": null,
                     "readOnly": true,
                     "rule": [{
-                            "min": "0",
-                            "max": "16",
+                            "min": "-1",
+                            "max": "17",
                             "equal": "文盲",
                             "code": "1",
                             "style": "color:red",
@@ -824,7 +824,7 @@
                         },
                         {
                             "min": "17",
-                            "max": "19",
+                            "max": "20",
                             "equal": "小学程度<20分：有认知功能障碍",
                             "code": "2",
                             "style": "color:red",

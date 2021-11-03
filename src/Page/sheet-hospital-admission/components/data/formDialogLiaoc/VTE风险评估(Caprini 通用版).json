@@ -728,7 +728,7 @@
           "type": "checkbox",
           "title": "一般护理：嘱患者进食低脂清淡、富含纤维素的食物，多饮水，保持大便通畅，并戒烟",
           "code": "√",
-          "style": "width:170px;height:40px",
+          "style": "",
           "class": null,
           "readOnly": null
         },
@@ -737,7 +737,7 @@
           "type": "checkbox",
           "title": "活动指导：指导患者进行踝泵运动及膝关节屈伸运动，无法自主活动给予被动运动",
           "code": "√",
-          "style": "width:170px;height:40px",
+          "style": "",
           "class": null,
           "readOnly": null
         },
@@ -746,7 +746,7 @@
           "type": "checkbox",
           "title": "用药指导：抗凝治疗期间，嘱患者观察皮肤、黏膜、消化道、泌尿道、牙龈及全身有无出血发生硬，如有出血倾向，应立即告知医务人员，避免碰撞及跌倒，用软毛刷刷牙，避免进食坚刺激食物等",
           "code": "√",
-          "style": "width:170px;height:40px",
+          "style": "",
           "class": null,
           "readOnly": null
         },
@@ -755,7 +755,7 @@
           "type": "checkbox",
           "title": "出院指导：告知患者出院后定期门诊复查，遵医嘱按时服药。保持良好情绪，减轻心理压力，若出现下肢肿胀、疼痛或出血等现象，请尽快就医",
           "code": "√",
-          "style": "width:170px;height:40px",
+          "style": "",
           "class": null,
           "readOnly": null
         }
@@ -1004,15 +1004,15 @@
           "readOnly": null,
           "rule": [
             {
-              "min": "0",
+              "min": "-1",
               "max": "2",
               "equal": "低危",
               "style": "color:blue",
               "display": "低危"
             },
             {
-              "min": "3",
-              "max": "4",
+              "min": "2",
+              "max": "5",
               "equal": "中危",
               "style": "color:blue",
               "display": "中危"

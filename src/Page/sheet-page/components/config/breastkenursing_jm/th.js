@@ -243,6 +243,8 @@ export default {
         name: "胸壁<br/>（ml）",
         colspan: "1",
         rowspan: "1",
+        canSet: true,
+        key: "postOutputTwo",
         style: {
           minWidth: '40px',
           maxWidth: '40px',
@@ -252,6 +254,8 @@ export default {
         name: "腋窝<br/>（ml）",
         colspan: "1",
         rowspan: "1",
+        canSet: true,
+        key: "postOutputThree", 
         style: {
           minWidth: '40px',
           maxWidth: '40px',

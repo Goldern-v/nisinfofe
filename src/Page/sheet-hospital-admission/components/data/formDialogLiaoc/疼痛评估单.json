@@ -230,7 +230,7 @@
           "selectOnly": true
         },
         {
-          "name": "I609017",
+          "name": "evalScore",
           "type": "input",
           "label": "评 分",
           "inputWidth": "189px",

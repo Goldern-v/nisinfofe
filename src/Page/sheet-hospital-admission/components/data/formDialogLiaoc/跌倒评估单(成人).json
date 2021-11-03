@@ -566,15 +566,15 @@
           "readOnly": true,
           "rule": [
             {
-              "min": "0",
-              "max": "24",
+              "min": "-1",
+              "max": "25",
               "equal": "无风险",
               "style": "color:red",
               "display": "无风险"
             },
             {
               "min": "25",
-              "max": "44",
+              "max": "45",
               "equal": "低风险",
               "style": "color:red",
               "display": "低风险"
