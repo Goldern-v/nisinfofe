@@ -203,11 +203,26 @@ export default {
         const [row] = this.data.splice(rowIndex, 1);
         this.data.splice(rowIndex - 1, 0, row);
       }
+
     },
     moveRowDown(rowIndex = this.selectedRowIndex) {
       if (rowIndex < this.data.length - 1) {
         const [row] = this.data.splice(rowIndex, 1);
         this.data.splice(rowIndex + 1, 0, row);
+      }
+    },
+    //移动至首行
+    moveRowFirst(rowIndex = this.selectedRowIndex){
+      if (rowIndex !=0 && this.data.length>=2) {
+        const [row] = this.data.splice(rowIndex, 1);
+        this.data.splice(0, 0, row);
+      }
+    },
+    //移动至末行
+    moveRowLast(rowIndex = this.selectedRowIndex){
+      if (rowIndex !=0 && rowIndex !=this.data.length-1 && this.data.length>=2) {
+        const [row] = this.data.splice(rowIndex, 1);
+        this.data.splice(this.data.length-1, 0, row);
       }
     },
     onInputChange(event, value, prop, row, col) {
