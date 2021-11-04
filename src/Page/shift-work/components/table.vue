@@ -220,7 +220,8 @@ export default {
     },
     //移动至末行
     moveRowLast(rowIndex = this.selectedRowIndex){
-      if (rowIndex !=0 && rowIndex !=this.data.length-1 && this.data.length>=2) {
+      //const twoRowId=this.data.length>=2?this.data[2].id:null;//是否只有一行数据（第二行是否有数据）
+      if (rowIndex !=this.data.length-1 && this.data.length>=2) {
         const [row] = this.data.splice(rowIndex, 1);
         this.data.splice(this.data.length-1, 0, row);
       }
