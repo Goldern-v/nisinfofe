@@ -88,8 +88,8 @@ const currentTargetUrl = (() => {
 
     /** 东莞横沥 */
     case "hengli":
-      return "http://183.63.206.194:9091" // 东莞横沥正式
-      // return "http://192.168.1.54:9874" // 公司-东莞横沥测试-内网
+      // return "http://183.63.206.194:9091" // 东莞横沥正式
+      return "http://192.168.1.54:9874" // 公司-东莞横沥测试-内网
       // return "http://192.168.20.138:8080" // 伟彬本地
 
     /** 南方中西医 */
@@ -101,12 +101,13 @@ const currentTargetUrl = (() => {
     /** 贵州省人民医院 */
     case "guizhou":
       // return "http://183.63.206.194:9091" // 贵州省人民医院
-      return "http://192.168.1.54:9875" // 公司-贵州省人民医院-内网
+      // return "http://192.168.1.54:9875" // 公司-贵州省人民医院-内网
       // return "http://192.168.20.250:8080" // 彬哥本地
       // return "https://info.cr-health.com:20203" // 公司-贵州省人民医院-外网
       // return "http://192.168.8.204:9091" // 贵州正式
       // return "http://10.207.40.24:9091" // 贵州测试
       // return "http://info.cr-health.com:20111" // 公司-厚街测试-外网
+      return "http://192.168.1.54:9867"
 
     /** 山南市人民医院 */
     case "shannan":
