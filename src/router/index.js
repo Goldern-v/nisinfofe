@@ -94,6 +94,12 @@ const badEventEditPageGz = () => import("@/Page/badEventGuizhou/badEventEditPage
 const badEventNew = () => import("@/Page/badEventNew/badEvent.vue");//福清
 const badEventViewPageNew = () => import("@/Page/badEventNew/badEventViewPage.vue");
 const badEventEditPageNew = () => import("@/Page/badEventNew/badEventEditPage.vue");
+
+//阳春中医不良事件
+const badEventComm = () => import("@/Page/badEventComm/badEvent.vue");//阳春
+const badEventViewPageComm = () => import("@/Page/badEventComm/badEventViewPage.vue");
+const badEventEditPageComm = () => import("@/Page/badEventComm/badEventEditPage.vue");
+
 const white = () => import("@/Page/white/white.vue");
 const sheetHospitalEval = () =>
   import("@/Page/sheet-hospital-eval/sheet-hospital-eval.vue"); // 住院评估页面
@@ -567,7 +573,8 @@ const router = new Router({
             case 'guizhou':
               return badEventGz
             case 'yangchunzhongyi':
-              return badEventNew
+              //return badEventNew
+              return badEventComm
             default:
               return badEvent
           }
@@ -582,7 +589,8 @@ const router = new Router({
               case 'guizhou':
                 return badEventEditPageGz
               case 'yangchunzhongyi':
-                return badEventEditPageNew
+                //return badEventEditPageNew
+                return badEventEditPageComm
               default:
                 return badEventEditPage
             }
@@ -597,7 +605,8 @@ const router = new Router({
               case 'guizhou':
                 return badEventViewPageGz
               case 'yangchunzhongyi':
-                return badEventViewPageNew
+                //return badEventViewPageNew
+                return badEventViewPageComm
               default:
                 return badEventViewPage
             }
