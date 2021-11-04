@@ -353,6 +353,14 @@ export default {
         const DateArr=item.recordDate.split(" ")
         const timeArr=DateArr[1].split(":")
         const firstTime=`${timeArr[0]}:${timeArr[1]}`
+
+if(this.selected.expand2!==undefined){
+        item.expand2=2
+        item.oldRecordDate=item.recordDate
+        const fulltime=`${DateArr[0]} ${item.time}:00`
+        await removeSugar(item);
+        item.recordDate=fulltime
+      }
         // 判断时间
         if(firstTime!==item.time){
            item.recordDate=`${DateArr[0]} ${item.time}:00`
@@ -363,13 +371,7 @@ export default {
         if(item.date&&firstDate!==item.date){
           item.recordDate=`${formatArr[0]}-${item.date} ${item.time}:00`
         }
-      if(this.selected.expand2!==undefined){
-        item.expand2=2
-        item.oldRecordDate=item.recordDate
-        const fulltime=`${DateArr[0]} ${item.time}:00`
-        await removeSugar(item);
-        item.recordDate=fulltime
-      }
+      
       await saveSugarList([item])
       this.$message.success("保存成功");
       this.load()
@@ -392,7 +394,6 @@ export default {
         this.patientInfo.patientId,
         this.patientInfo.visitId
       );
-      console.log(res);
       this.resAge = res.data.data.age;
       if(this.HOSPITAL_ID=='guizhou'&&this.$route.path.includes('nursingPreview')){
         this.resName = res.data.data.name;
@@ -498,7 +499,6 @@ export default {
       this.selected = null;
     },
     async onSave(item) {
-      console.log(this.patientInfo);
       item.recordDate =
         moment(item.recordDate).format("YYYY-MM-DD HH:mm") + ":00";
       item.patientId = this.patientInfo.patientId;

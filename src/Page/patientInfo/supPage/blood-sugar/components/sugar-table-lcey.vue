@@ -383,30 +383,36 @@ if (!this.data) return;
      window.openSignModal((password, empNo) => {
         apis.getUser(password, empNo).then(async(res) => {
           // 保存逻辑
-          if(!this.isEdit){
-             item.expand2=1
-             const a1=item.recordDate.split(" ")
+          if(item.expand2===undefined){
+            item.expand2=1
+            const a1=item.recordDate.split(" ")
             const a2=a1[1].split(":")
             const time=`${a2[0]}:${a2[1]}`
             if(item.time!==time){
               // 如果不相等就处理时间
-              const newDate=a1[0].split("-")
-              item.recordDate=`${a1[0]}  ${item.time}`
+              // const newDate=a1[0].split("-")
+              item.recordDate=`${a1[0]} ${item.time}`
             }
-      
+            // 处理日期
+            const a3=a1[0].split("-")
+            const rdDate=`${a3[1]}-${a3[2]}`
+            if(item.date&&item.date!==rdDate){
+              const recordDateArr=item.recordDate.split(" ")
+              const dateArr=recordDateArr[0].split("-")
+              item.recordDate=`${dateArr[0]}-${item.date} ${recordDateArr[1]}`
+            }
           }else{
-            item.expand2=2
-      item.recordId=""
-      if(item.date){
-        // 存在日期
-     const a1=item.recordDate.split(" ")
-     const a2=a1[0].split("-")
-     const rD=`${a2[0]}-${item.date} ${item.time}`
- item.oldRecordDate=rD
-      }else{
- item.oldRecordDate=item.recordDate
-      }
-     
+             item.expand2=2
+             item.recordId=""
+             if(item.date){
+              // 存在日期
+              const a1=item.recordDate.split(" ")
+              const a2=a1[0].split("-")
+              const rD=`${a2[0]}-${item.date} ${item.time}`
+              item.oldRecordDate=rD
+             }else{
+               item.oldRecordDate=item.recordDate
+              }
       //  先删后改
         await removeSugar(item);
        if(item.recordDate){
@@ -431,6 +437,7 @@ if (!this.data) return;
       item.nurse= this.empNo || ""
      await  saveSugarList([item])
       this.load();
+      this.isEdit=false
       // 解决报错
       // this.selected = null;
       this.$emit("update:selected",null);
