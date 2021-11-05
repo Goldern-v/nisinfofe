@@ -401,20 +401,20 @@ computed:{
     intubationDays(){
         let m1 = moment(this.tableInfo.intubationTime)
         let m2 = this.tableInfo.extubationTime?moment(this.tableInfo.extubationTime):moment()
-        return m2.diff(m1,'day')
+        return m2.diff(m1,'day') + 1
     },
     replaceDays(){
         if(this.tableInfo.extubationTime)return 'unShow'
         let m1 = moment(this.tableInfo.replaceTime)
         let m2 = moment()
-        let day = m1.diff(m2,'day')
+        let day = m1.diff(m2,'day') + 1
         // console.log(day);
-        if(day<0){
+        if(m1.format('YYYY-MM-DD')===m2.format('YYYY-MM-DD')){
+            return 'today'
+        }else if(day<=0){
             return 'outTime'
         }else if(day){
             return day
-        }else if(day===0){
-            return 'today'
         }else{
             return 'unSet'
         }

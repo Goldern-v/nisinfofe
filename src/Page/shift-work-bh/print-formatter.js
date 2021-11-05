@@ -7,7 +7,7 @@ export default function(win) {
   const header = root.querySelector(".head");
   const footer = root.querySelector(".foot");
 
-  const table = root.querySelector("table");
+  const table = root.querySelectorAll("table")[1];
   const tbody = table.children[2];
   const trs = tbody.querySelectorAll("tr");
 
