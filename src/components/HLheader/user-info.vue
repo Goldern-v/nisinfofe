@@ -48,7 +48,7 @@
     <div class="admin-system-info" v-if="HOSPITAL_ID === 'fuyou'">
       证书状态:
       <p>
-        <label>{{ (fuyouCaData && fuyouCaData.data.userName?fuyouCaData.data.userName:'无证书') || "无证书" }}:</label>
+        <label>{{ (fuyouCaData && fuyouCaData.userName?fuyouCaData.userName:'无证书') || "无证书" }}:</label>
         <span>{{ fuyouCaData ? "已登录" : "未登录" }}</span>
       </p>
       <div class="button-con">
