@@ -279,7 +279,8 @@ export default {
               pageUrl: node.parent.data.pageUrl,
               pageItem: data.pageTitle,
               status: data.status,
-              missionId: data.missionId
+              missionId: data.missionId,
+              codeName: data.codeName
             })
           );
         } else {
@@ -502,7 +503,8 @@ export default {
                       form_id: option.id,
                       formName: item.formTitle,
                       formTreeRemindType: item.formTreeRemindType,
-                      pageUrl:'东莞横沥健康教育单.html'
+                      pageUrl:'东莞横沥健康教育单.html',
+                      codeName: option.codeName
               }
             })
           }]
