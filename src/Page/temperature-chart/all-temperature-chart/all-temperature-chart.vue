@@ -26,7 +26,7 @@
       </span>
       <div
         class="times"
-        v-if="HOSPITAL_ID === 'huadu' || HOSPITAL_ID === 'fuyou'"
+        v-if=" ['huadu','fuyou','foshanrenyi'].includes(HOSPITAL_ID)"
       >
         <label :for="`time${item.id}`" v-for="item in timesEven" :key="item.id">
           <input

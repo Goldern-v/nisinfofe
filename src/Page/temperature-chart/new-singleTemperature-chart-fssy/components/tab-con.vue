@@ -257,7 +257,7 @@
               > -->
               </el-option>
             </el-select>
-            <!-- <el-date-picker
+            <el-date-picker
               size="mini"
               format="yyyy-MM-dd HH:mm:ss"
               value-format="yyyy-MM-dd HH:mm:ss"
@@ -267,7 +267,7 @@
               style="margin: 3px 0px 0px 55px; width: 170px"
               @change="formatTopExpandDate"
             >
-            </el-date-picker> -->
+            </el-date-picker>
           </div>
           <div class="row" v-if="multiDictList['表底注释']">
             <span class="preText">表底注释</span>
@@ -290,7 +290,7 @@
               >
               </el-option>
             </el-select>
-            <!-- <el-date-picker
+            <el-date-picker
               size="mini"
               format="yyyy-MM-dd HH:mm:ss"
               value-format="yyyy-MM-dd HH:mm:ss"
@@ -300,7 +300,7 @@
               style="margin: 3px 0px 0px 55px; width: 170px"
               @change="formatBtmExpandDate"
             >
-            </el-date-picker> -->
+            </el-date-picker>
           </div>
           <div>
             <el-button
@@ -727,19 +727,17 @@ export default {
     /* 录入体温单 */
     async saveVitalSign(value) {
       let obj = Object.values(value);
-      let dateStr=moment(new Date(this.query.entryDate)).format("YYYY-MM-DD") +
+      obj.map((item) => {
+        item.recordDate =
+          moment(new Date(this.query.entryDate)).format("YYYY-MM-DD") +
           "  " +
           this.query.entryTime;
-      obj.map((item) => {
-        
-        item.recordDate =dateStr
-          
         switch (item.vitalSigns) {
           case "表顶注释":
-            item.expand2 = dateStr;
+            item.expand2 = this.topExpandDate;
             break;
           case "表底注释":
-            item.expand2 = dateStr;
+            item.expand2 = this.bottomExpandDate;
           default:
             break;
         }
@@ -758,6 +756,7 @@ export default {
       this.bus.$emit("refreshImg");
     },
     formatTopExpandDate(val) {
+      console.log(val)
       this.topExpandDate = val;
     },
     formatBtmExpandDate(val) {

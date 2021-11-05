@@ -188,6 +188,8 @@ const newSingleTemperatureChartDghl = () =>
   import("@/Page/temperature-chart/new-singleTemperature-chart-wujing/new-singleTemperature-chart.vue");//武警新版体温单单人录入
   const newSingleTemperatureChartZhongXiYi = () =>
   import("@/Page/temperature-chart/new-singleTemperature-chart-zhongxiyi/new-singleTemperature-chart.vue");//南方中西医新版体温单单人录入
+  const newSingleTemperatureChartFSSY = () =>
+  import("@/Page/temperature-chart/new-singleTemperature-chart-fssy/new-singleTemperature-chart.vue");//南方中西医新版体温单单人录入
 const showPatientDetails = () =>
   import("@/Page/show-patient-details/show-patient-details.vue"); //查看评估单、记录单、病历、检查、检验、体温单
 const nursingPreview = () => import("@/Page/NursingPreview/NursingPreview.vue"); //查看所有的评估单、记录单、体温单
@@ -224,9 +226,10 @@ import doctorEmr from "@/Page/patientInfo/supPage/doctorEmr/doctorEmr"; //病历
 import cost from "@/Page/patientInfo/supPage/cost/cost";
 import temperature from "@/Page/patientInfo/supPage/temperature/temperature";
 import temperatureHD from "@/Page/patientInfo/supPage/temperature/temperatureHD";
-import temperatureLCEY from "@/Page/patientInfo/supPage/temperature/temperatureLCEY";
 import temperatureGuizhou from "@/Page/patientInfo/supPage/temperature/temperatureGuizhou";
 import temperatureBhry from "@/Page/patientInfo/supPage/temperature/temperatureBhry";
+import temperatureLCEY from "@/Page/patientInfo/supPage/temperature/temperatureLCEY";
+import temperatureFSSY from "@/Page/patientInfo/supPage/temperature/temperatureFSSY";
 import temperatureJmfy from "@/Page/patientInfo/supPage/temperature/temperatureJmfy";
 import temperatureDghl from "@/Page/patientInfo/supPage/temperature/temperatureDghl";
 import temperatureQuZhou from "@/Page/patientInfo/supPage/temperature/temperatureQuZhou";
@@ -337,6 +340,8 @@ const router = new Router({
             return temperatureQuZhou
           case 'nanfangzhongxiyi':
             return temperatureNFZXY
+          case 'foshanrenyi':
+            return temperatureFSSY
           case 'wujing':
             return temperatureWuJing
           default:
@@ -720,6 +725,8 @@ const router = new Router({
                 return temperatureWuJing
               case 'fuyou':
                 return temperatureJmfy
+              case 'foshanrenyi':
+                return temperatureFSSY
               case 'nanfangzhongxiyi':
                 return temperatureNFZXY
                 case 'quzhou':
@@ -1051,6 +1058,8 @@ const router = new Router({
               return newSingleTemperatureChartDghl
             case 'fuyou':
               return newSingleTemperatureChartJmfy
+            case 'foshanrenyi':
+              return newSingleTemperatureChartFSSY
             case 'nanfangzhongxiyi':
               return newSingleTemperatureChartZhongXiYi
             default:
