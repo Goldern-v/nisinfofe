@@ -676,6 +676,28 @@ export default {
           }
         ];
 
+        const addOthers=[//新增操作类型
+          {
+            name: "移动至首行",
+            icon: "xiangxiacharuyihang",
+            click: async () => {
+              // this.modified = true
+              this.$refs.table.moveRowFirst();
+              await this.onSave();
+            }
+          },
+          {
+            name: "移动至末行",
+            icon: "charuxinhang",
+            click: async () => {
+              // this.modified = true
+              this.$refs.table.moveRowLast();
+              await this.onSave();
+            }
+          }
+        ];
+        //谢岗添加新增操作类型
+        (['xiegang'].includes(this.HOSPITAL_ID)) && (others.splice(2,0,...addOthers));
         menus = menus.concat(others);
       }
 

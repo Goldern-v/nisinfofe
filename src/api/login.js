@@ -2,8 +2,8 @@
 import axios from './axios'
 import qs from 'qs'
 import { apiPath } from './apiConfig'
-function login(empNo, password) {
-  return axios.post(`${apiPath}login`, qs.stringify({ empNo, password }))
+function login(empNo, password, code, repaint) {
+  return axios.post(`${apiPath}login`, qs.stringify({ empNo, password, code, repaint }))
 }
 function logout(authToken) {
   localStorage.clear();

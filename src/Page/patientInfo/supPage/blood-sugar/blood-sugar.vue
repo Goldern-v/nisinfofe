@@ -86,6 +86,7 @@
               :selected.sync="selected"
               @dblclick="hisDisabled()&&onEdit()"
               :baseIndex='0'
+              @uploadList="uploadView"
             ></sugarTableLcey>
             <sugarTable
             v-else
@@ -108,6 +109,7 @@
               :selected.sync="selected"
               @dblclick="hisDisabled()&&onEdit()"
               :baseIndex='27'
+               @uploadList="uploadView"
             ></sugarTableLcey>
             <sugarTable
             v-else
@@ -138,6 +140,11 @@
       <div class="tool-fix" flex="dir:top">
         <whiteButton text="添加" @click="hisDisabled()&&onAdd()" v-if="HOSPITAL_ID!=='liaocheng'"></whiteButton>
         <whiteButton text="添加记录" @click="hisDisabled()&&onAdd()" v-if="HOSPITAL_ID==='liaocheng'"></whiteButton>
+        <whiteButton 
+        text="保存" 
+        @click="saveActiveSugar()" 
+        v-if="HOSPITAL_ID==='liaocheng'"
+         :disabled="!selected || !selected.recordDate"></whiteButton>
         <whiteButton
           text="修改"
           @click="hisDisabled()&&onEdit()"
@@ -319,6 +326,58 @@ export default {
     },
   },
   methods: {
+  uploadView(){
+      this.load();
+      this.getSugarItemDict();
+  },
+  async  saveActiveSugar(){
+    const user=JSON.parse(localStorage.getItem("user"))
+       let item = {
+        patientId: this.patientInfo.patientId,
+        visitId: this.patientInfo.visitId,
+        name:this.patientInfo.name,
+        bedLabel:this.patientInfobedLabel,
+        recordDate: this.selected.recordDate,
+        sugarItem: this.selected.sugarItem,
+        sugarValue: this.selected.sugarValue,
+        riValue:this.selected.riValue,
+        oldRecordDate:"",
+        nurseEmpNo:user.empNo,
+        nurse:user.empNo,
+        expand1:"",
+        expand2:1,
+        wardCode:this.patientInfo.wardCode,
+        time:this.selected.time,
+        date:this.selected.date||""
+      };
+        const DateArr=item.recordDate.split(" ")
+        const timeArr=DateArr[1].split(":")
+        const firstTime=`${timeArr[0]}:${timeArr[1]}`
+
+if(this.selected.expand2!==undefined){
+        item.expand2=2
+        item.oldRecordDate=item.recordDate
+        const fulltime=`${DateArr[0]} ${item.time}:00`
+        await removeSugar(item);
+        item.recordDate=fulltime
+      }
+        // 判断时间
+        if(firstTime!==item.time){
+           item.recordDate=`${DateArr[0]} ${item.time}:00`
+        }
+        // 判断日期
+        const formatArr=DateArr[0].split("-")
+        const firstDate=`${formatArr[1]}-${formatArr[2]}`
+        if(item.date&&firstDate!==item.date){
+          item.recordDate=`${formatArr[0]}-${item.date} ${item.time}:00`
+        }
+      
+      await saveSugarList([item])
+      this.$message.success("保存成功");
+      this.load()
+      this.getSugarItemDict();
+    
+    },
     hisDisabled(){
       return  !this.$route.path.includes('nursingPreview')
     },
@@ -335,7 +394,6 @@ export default {
         this.patientInfo.patientId,
         this.patientInfo.visitId
       );
-      console.log(res);
       this.resAge = res.data.data.age;
       if(this.HOSPITAL_ID=='guizhou'&&this.$route.path.includes('nursingPreview')){
         this.resName = res.data.data.name;
@@ -441,7 +499,6 @@ export default {
       this.selected = null;
     },
     async onSave(item) {
-      console.log(this.patientInfo);
       item.recordDate =
         moment(item.recordDate).format("YYYY-MM-DD HH:mm") + ":00";
       item.patientId = this.patientInfo.patientId;

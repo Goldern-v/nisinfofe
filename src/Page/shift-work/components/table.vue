@@ -203,11 +203,27 @@ export default {
         const [row] = this.data.splice(rowIndex, 1);
         this.data.splice(rowIndex - 1, 0, row);
       }
+
     },
     moveRowDown(rowIndex = this.selectedRowIndex) {
       if (rowIndex < this.data.length - 1) {
         const [row] = this.data.splice(rowIndex, 1);
         this.data.splice(rowIndex + 1, 0, row);
+      }
+    },
+    //移动至首行
+    moveRowFirst(rowIndex = this.selectedRowIndex){
+      if (rowIndex !=0 && this.data.length>=2) {
+        const [row] = this.data.splice(rowIndex, 1);
+        this.data.splice(0, 0, row);
+      }
+    },
+    //移动至末行
+    moveRowLast(rowIndex = this.selectedRowIndex){
+      //const twoRowId=this.data.length>=2?this.data[2].id:null;//是否只有一行数据（第二行是否有数据）
+      if (rowIndex !=this.data.length-1 && this.data.length>=2) {
+        const [row] = this.data.splice(rowIndex, 1);
+        this.data.splice(this.data.length-1, 0, row);
       }
     },
     onInputChange(event, value, prop, row, col) {

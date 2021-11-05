@@ -54,7 +54,6 @@
         :key="index"
         @click="onSelect(item)"
       >
-        <!-- @dblclick="onDblClick(item)" -->
           <!--序号 -->
         <td v-if="HOSPITAL_ID != 'liaocheng'">
           {{index + baseIndex + 1}}
@@ -351,8 +350,10 @@ if (!this.data) return;
     //   console.log(1);
     // },
    textTime(item,index){
-      if(item.expand2===undefined){
-      const fullTime=moment().format("YYYY-MM-DD HH:mm:ss")
+    //  判断是否为空
+    if(!item.date&&!item.time){
+        if(item.expand2===undefined){
+     const fullTime=moment().format("YYYY-MM-DD HH:mm:ss")
      const date=moment().format("MM-DD")
      const time=moment().format("HH:mm")
      item.date=date
@@ -369,6 +370,8 @@ if (!this.data) return;
       }else{
         this.isEdit=true
       }
+    }
+      
     },
     onSelect(item) {
       this.$emit("update:selected", item);
@@ -380,30 +383,36 @@ if (!this.data) return;
      window.openSignModal((password, empNo) => {
         apis.getUser(password, empNo).then(async(res) => {
           // 保存逻辑
-          if(!this.isEdit){
-             item.expand2=1
-             const a1=item.recordDate.split(" ")
+          if(item.expand2===undefined){
+            item.expand2=1
+            const a1=item.recordDate.split(" ")
             const a2=a1[1].split(":")
             const time=`${a2[0]}:${a2[1]}`
             if(item.time!==time){
               // 如果不相等就处理时间
-              const newDate=a1[0].split("-")
-              item.recordDate=`${a1[0]}  ${item.time}`
+              // const newDate=a1[0].split("-")
+              item.recordDate=`${a1[0]} ${item.time}`
             }
-      
+            // 处理日期
+            const a3=a1[0].split("-")
+            const rdDate=`${a3[1]}-${a3[2]}`
+            if(item.date&&item.date!==rdDate){
+              const recordDateArr=item.recordDate.split(" ")
+              const dateArr=recordDateArr[0].split("-")
+              item.recordDate=`${dateArr[0]}-${item.date} ${recordDateArr[1]}`
+            }
           }else{
-            item.expand2=2
-      item.recordId=""
-      if(item.date){
-        // 存在日期
-     const a1=item.recordDate.split(" ")
-     const a2=a1[0].split("-")
-     const rD=`${a2[0]}-${item.date} ${item.time}`
- item.oldRecordDate=rD
-      }else{
- item.oldRecordDate=item.recordDate
-      }
-     
+             item.expand2=2
+             item.recordId=""
+             if(item.date){
+              // 存在日期
+              const a1=item.recordDate.split(" ")
+              const a2=a1[0].split("-")
+              const rD=`${a2[0]}-${item.date} ${item.time}`
+              item.oldRecordDate=rD
+             }else{
+               item.oldRecordDate=item.recordDate
+              }
       //  先删后改
         await removeSugar(item);
        if(item.recordDate){
@@ -426,40 +435,13 @@ if (!this.data) return;
       item.wardCode = this.patientInfo.wardCode;
       (item.nurseEmpNo = this.empNo || ""), //护士工号
       item.nurse= this.empNo || ""
-      // 加一个是否签名
-      item.isSign=true
      await  saveSugarList([item])
       this.load();
-      // this.$refs.editModal.close();
+      this.isEdit=false
       // 解决报错
       // this.selected = null;
       this.$emit("update:selected",null);
-      // 时间排序
-      this.renderData.sort(function(a,b){
-        return a.recordDate<b.recordDate?-1:1
-      })
-      // 已经完成排序，修改可能的日期bug
-      const sameDateIndex=[]
-
-      const itemDateArr=item.recordDate.split(" ")[0].split("-")
-      const itemDate=`${itemDateArr[1]}-${itemDateArr[2]}`
-      this.renderData.forEach((v,index)=>{
-        if(v.recordDate){
-       const arr=v.recordDate.split(" ")[0].split("-")
-       const date=`${arr[1]}-${arr[2]}`
-        if(date===itemDate){
-         sameDateIndex.push(index)
-       }
-      } 
-      })
-      if(sameDateIndex.length>1){
-        sameDateIndex.forEach((v,index)=>{
-          this.renderData[v].date=""
-          if(index===0){
-            this.renderData[v].date=itemDate
-          }
-        })
-      }
+      this.$emit("uploadList")
       this.$message.success("保存成功");
         });
       });
