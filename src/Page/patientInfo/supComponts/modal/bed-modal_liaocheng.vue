@@ -556,7 +556,8 @@ import {
   findByKeywordNur,
   saveBed
 } from "./api/index.js";
-import print from "./tool/print";
+// import print from "./tool/print";
+import printting from 'printing'
 var qr = require("qr-image");
 import moment from "moment";
 import { textOver } from "@/utils/text-over";
@@ -746,7 +747,21 @@ export default {
     onPrint() {
       this.$nextTick(() => {
         this.post();
-        print(this.$refs.printCon);
+        printting(this.$refs.printCon,{
+            direction: "horizontal",
+            injectGlobalCss: true,
+            scanStyles: false,
+            css: `
+            .bed-card-warpper {
+              box-shadow: none !important;
+              transform:scale(0.85);
+              transform-origin:(0,0);
+            }
+            @page {
+              margin: 0;
+            }
+            `
+          });
       });
     },
     querySearchAsyncDoc(queryString, cb) {

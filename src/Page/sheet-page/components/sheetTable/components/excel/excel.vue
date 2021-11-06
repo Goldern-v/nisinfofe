@@ -323,6 +323,7 @@
               !(td.splice && HOSPITAL_ID === 'huadu') &&
                 onBlur($event, { x, y, z: index })
             "
+            @click="!isRead(tr) && td.click && td.click($event, td)"
           ></textarea>
           <!-- 护理记录单特殊情况特殊记录单独处理 -->
           <div
@@ -1201,12 +1202,12 @@ export default {
       }
     },
     isRead(tr) {
-      // if (
-      //   this.HOSPITAL_ID == "huadu" &&
-      //   sheetInfo.sheetType === "body_temperature_Hd"
-      // ) {
-      //   return false;
-      // }
+      if (
+        this.HOSPITAL_ID == "huadu" &&
+        sheetInfo.sheetType === "body_temperature_Hd"
+      ) {
+        return false;
+      }
       let status = tr.find((item) => item.key == "status").value;
       let empNo = tr.find((item) => item.key == "empNo").value;
       if (status == 1) {

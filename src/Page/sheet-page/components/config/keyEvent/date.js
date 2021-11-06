@@ -67,6 +67,12 @@ export function click_date_year(e, td) {
   }
 }
 
+export function click_date_time(e, td) {
+  if (td.value == "") {
+    td.value = moment().format("YYYY-MM-DD HH:mm");
+  }
+}
+
 export function click_time(e, td) {
   if (td.value == "") {
     td.value = moment().format("HH:mm");

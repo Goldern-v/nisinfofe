@@ -11,6 +11,7 @@ import {
   event_date,
   event_time,
   click_date,
+  click_date_time,
   click_time
 } from "../keyEvent/date";
 
@@ -238,9 +239,10 @@ export default [
     key: "preFieldEight", //胎儿娩出时间
     value: "",
     event: keyf1,
+    click: click_date_time,
     name: "胎儿娩出时间",
     textarea: {
-      width: 40,
+      width: 60,
     },
   },
   {

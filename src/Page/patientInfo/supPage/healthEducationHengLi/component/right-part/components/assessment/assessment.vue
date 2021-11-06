@@ -260,7 +260,7 @@ export default {
         admissionDate: query.admissionDate,
         token: this.token,
         todo: this.info.todo,
-        title: this.info.title || ""
+        title: this.info.codeName
       };
       if( this.HOSPITAL_NAME === '东莞市厚街医院'){
         delete queryObj.token

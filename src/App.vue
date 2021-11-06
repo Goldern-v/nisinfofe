@@ -21,6 +21,7 @@
     <setTextModalNew ref="setTextModalNew"></setTextModalNew>
     <caSignModal ref="caSignModal"></caSignModal>
     <fuyouCaSignModal ref="fuyouCaSignModal"></fuyouCaSignModal>
+    <!-- 测试 -->
     
     <!-- 锁屏界面 -->
     <ScreenLockView v-if="HOSPITAL_ID === 'zhongshanqi'" />

@@ -302,6 +302,8 @@ export default {
         todo: this.info.todo,
         title: this.info.title || "",
         isPrintPreview: info.isPrintPreview,
+        title: this.info.name || "",
+        templateCode: this.info.templateCode,
         // ...this.info
       };
       if (this.onlyView) {
@@ -828,7 +830,6 @@ export default {
         admissionDate: query.admissionDate,
         // token: this.token,
         todo: this.info.todo,
-        // title:this.info.title || ''
       };
       let url = "";
       if (this.isDev) {

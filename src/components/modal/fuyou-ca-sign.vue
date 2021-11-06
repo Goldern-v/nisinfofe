@@ -271,7 +271,9 @@ export default {
               message: res.data.data.message
             });
             //local保存
-            window.localStorage.setItem("fuyouCaData",JSON.stringify(res.data.data));
+            let {data} = res.data.data
+            console.log(data);
+            window.localStorage.setItem("fuyouCaData",JSON.stringify(data));
             this.bus.$emit("updateFuyouCaData")
             //清除轮询定时器
             clearInterval(this.setIntervalApi)

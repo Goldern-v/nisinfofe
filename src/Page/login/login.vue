@@ -68,6 +68,22 @@
               width="14"
             />
           </div>
+          <div class="input-con" v-if="showVerification">
+            <input
+              type="password"
+              style="border-top: 0;width:170px;"
+              placeholder="验证码，单击图片刷新"
+              v-model="verificationCode"
+            />
+            <img
+              src="../../common/images/verificationCode.png"
+              height="14"
+              width="14"
+            />
+            <div class="verificationImg">
+              <img :src="verificationImg" alt="" @click="refreshImg" style="cursor:pointer">
+            </div>
+          </div>
           <div class="remember-con">
             <el-checkbox v-model="remember">
               <span style="font-size: 13px; color: #687179">记住账号</span>
@@ -252,6 +268,17 @@ a {
     bottom: 0;
     margin: auto 0;
   }
+  .verificationImg {
+    width: 90px;
+    height: 37px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    img {
+      width: 80px;
+      height 37px;
+    }
+  }
 }
 
 .remember-con {
@@ -364,13 +391,23 @@ export default {
     return {
       account: "",
       password: "",
+      verificationCode:"",//验证码
       remember: true,
       ajax: false,
       showPwdType: true, //显示的登录方式，默认是密码
       loginLoading: false,
+      showVerification: false,//展示验证码
+      verificationImg: ""//验证码图片base64
     };
   },
   methods: {
+    //刷新验证码图片
+    refreshImg(){
+      login(this.account, this.password, "", true)
+        .then((res) => {
+          this.verificationImg = res.data.data
+        })
+    },
     login(type) {
       // console.log(md5(this.account, "this.account"));
       // return;
@@ -383,12 +420,20 @@ export default {
         });
         return;
       }
+      if (this.showVerification&&!this.verificationCode) {
+        //          如果空
+        this.$message({
+          showClose: true,
+          message: "请填写验证码！",
+          type: "warning",
+        });
+        return;
+      }
       //        阻止重新登录
       if (this.ajax === true) return;
       this.ajax = true;
-      login(this.account, this.password)
+      login(this.account, this.password, this.verificationCode)
         .then((res) => {
-          console.log(res);
           // 记住账号
           if (this.remember) {
             localStorage["rememberAccount"] = this.account;
@@ -452,6 +497,11 @@ export default {
             let input = document.querySelectorAll(".input-con input")[1];
             input.focus();
             input.select();
+          } else if (res.data.errorCode == "301") {
+            this.showVerification = true
+            this.verificationImg = res.data.data
+          } else if (res.data.errorCode == "403") {
+            this.refreshImg()
           }
         });
     },

@@ -9,7 +9,7 @@ export default {
   // 科室的名称 关节骨科
   deptType: "",
   style: {
-    width: "1200px"
+    width: "1220px"
   },
   th: {
     top: [{
@@ -139,7 +139,10 @@ export default {
       },
       {
         name: `胎<br/>儿<br/>娩<br/>出<br/>时<br/>间`,
-        style: {},
+        style: {
+          minWidth: '65px',
+          maxWidth: '65px',
+        },
         colspan: "1",
         rowspan: "3",
       },
