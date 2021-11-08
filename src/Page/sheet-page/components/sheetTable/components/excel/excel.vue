@@ -320,10 +320,10 @@
                 })
             "
             @blur="
-              !(td.splice && HOSPITAL_ID === 'huadu') &&
+              !HOSPITAL_ID === 'huadu' && !td.splice &&
                 onBlur($event, { x, y, z: index })
             "
-            @click="!isRead(tr) && td.click && td.click($event, td)"
+            @click="sheetInfo.sheetType == 'antenatalwaiting_jm'&&!isRead(tr) && td.click && td.click($event, td)"
           ></textarea>
           <!-- 护理记录单特殊情况特殊记录单独处理 -->
           <div
