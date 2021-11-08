@@ -20,14 +20,15 @@
           class="form-contain"
           :class="{ nopadding: !showConToolBar }"
           ref="formContain"
-          :style="{ height: height }"
+          :style="{ height: height}"
       >
         <!-- <component :is="componentSwitch" v-show="showTpye"></component> -->
         <!-- <div v-show="showTpye"> -->
-        <assessment v-show="showConToolBar && showTpye" ref="assessment"/>
+        <assessment v-show="showConToolBar && showTpye" ref="assessment" :height='height'/>
         <assessment_v2
             v-show="!showConToolBar && showTpye"
             ref="assessmentV2"
+            :height='height'
         />
         <!-- </div> -->
         <div
@@ -56,8 +57,7 @@
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
 .form-contain {
-  padding: 20px;
-  overflow: auto;
+  overflow: hidden;
   box-sizing: border-box;
   background: #dfdfdf;
   position: relative;
@@ -174,6 +174,7 @@ export default {
   created() {
   },
   mounted() {
+    console.log(this.$store.state.patient.currentPatient);
     this.$refs["iframeLoadingBox"]["$methods"] = () => {
       return {
         setLoadingText: this.setLoadingText,
@@ -275,11 +276,7 @@ export default {
     },
     height() {
       let offset = this.showConToolBar ? 0 : 40;
-      if (this.$route.path == "/formPage" || this.filterObj) {
-        return `${this.wih - 120 + offset}px`;
-      } else {
-        return `${this.wih - 180 + offset}px`;
-      }
+      return `${this.wih - 80}px`;
     },
 
     toolBarConfig() {
@@ -296,6 +293,11 @@ export default {
     componentSwitch() {
       return this.formVersion == 2 ? "assessment_v2" : "assessment";
     },
+  },
+  watch:{
+    '$store.state.patient.currentPatient'(){
+      this.showTpye = ''
+    }
   },
   components: {
     toolCon,
