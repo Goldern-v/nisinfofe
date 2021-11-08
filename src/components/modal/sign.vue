@@ -52,7 +52,18 @@
       </div>
     </span>
     <div style="height: 5px"></div>
-    <span v-if="HOSPITAL_ID != 'weixian' || pw">
+    <span v-if="HOSPITAL_ID == 'fuyou'" v-show="!pw">
+      <p for class="name-title">{{ label }}</p>
+      <div ref="passwordInput">
+        <el-input
+          size="small"
+          type="password"
+          :placeholder="placeholder"
+          v-model="password"
+        ></el-input>
+      </div>
+    </span>
+    <span v-else-if="HOSPITAL_ID != 'weixian' || pw">
       <p for class="name-title">{{ label }}</p>
       <div ref="passwordInput">
         <el-input
@@ -232,6 +243,7 @@ export default {
     },
     open(callback, title, showDate = false, isHengliNursingForm, message = "",formData) {//formData为表单数据
      (formData) && (this.formData=formData);//设置表单数据
+      this.initFuyouCaData()
       console.log('isHengliNursingFormzczxczxcxzczx', isHengliNursingForm);
       this.signDate = dayjs().format("YYYY-MM-DD HH:mm") || ""; //改
       if(isHengliNursingForm && title!=='删除验证'){
@@ -381,6 +393,7 @@ export default {
           message:res.data.desc
         })
         this.close()
+        return this.callback(localStorage.ppp, this.username);
       }).catch(error=>{
         // this.$message({
         //   type:'warning',
@@ -398,6 +411,11 @@ export default {
     openFuyouCaSignModal(){
       window.openFuyouCaSignModal(true);
     },
+  },
+  watch:{
+    isCaSign(val){
+      this.pw = val;
+    }
   },
   mounted(){
     //初始化江门妇幼签名数据
