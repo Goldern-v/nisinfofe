@@ -18,7 +18,6 @@
             </span>
             <span style="color:rgb(237, 85, 102)" v-if="data.patientCondition == '病重'">病重</span>
               <span style="color:rgb(237, 85, 102)" v-if="data.patientCondition == '病危'">病危</span>
-            <span style="color:#5ec199" v-if="data.expand2=='出院'&&data.expand3=='Y'">预</span>
           </div>
           <div class="info">
             {{data.sex}} | {{data.age}} | {{data.patientId}} | {{data.chargeType
@@ -80,6 +79,9 @@
       </el-row>
     </div>
   </span>
+  <div class="patient-icon" v-if="data.expand2=='出院'&&data.expand3=='Y'">
+    <img style="width:48px" src="./img.png" alt="">
+  </div>
   <div class="bed-modal">
     <div flex="" class="table-line" v-if="HOSPITAL_ID == 'huadu'">
       <div class="key">床号：</div>

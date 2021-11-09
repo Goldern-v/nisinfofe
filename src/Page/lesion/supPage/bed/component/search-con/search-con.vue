@@ -595,13 +595,13 @@ export default {
           type: "heart",
         });
       }
-      // if(this.HOSPITAL_ID == "huadu"){
-      //     list.push({
-      //       name: "多重耐药患者",
-      //       num: this.isMultiDrugResistant.length,
-      //       type: "state",
-      //     })
-      // }
+      if(this.HOSPITAL_ID == "huadu"){
+          list.push({
+            name: "今结明出",
+            num: this.jjmc.length,
+            type: "state",
+          })
+      }
       return list;
     },
     // 同步床位数据
@@ -613,6 +613,9 @@ export default {
     // 多重耐药患者
     isMultiDrugResistant(){
       return this.bedList.filter((item) => item.isMultiDrugResistant);
+    },
+    jjmc(){
+      return this.bedList.filter((item) => item.expand2=='出院'&&item.expand3=='Y');
     },
     // 血栓高危
     isDangerInThrombus(){
@@ -863,6 +866,11 @@ export default {
         case "多重耐药患者":
           {
             this.$parent.bedList = this.isMultiDrugResistant;
+          }
+          break;
+        case "今结明出":
+          {
+            this.$parent.bedList = this.jjmc;
           }
           break;
         case "血栓高危":
