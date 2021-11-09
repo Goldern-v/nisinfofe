@@ -167,7 +167,8 @@ import adviceTableFy from "./component/adviceTable_fuyou";
 import adviceTableXiegang from "./component/adviceTable_xiegang.vue";
 import adviceTableBeihairenyi from "./component/adviceTable_beihairenyi.vue";
 import { orders } from "@/api/patientInfo";
-import { syncGetPatientOrders, getNurseOrderStatusDict,getOrderLiaocheng } from "./api/index";
+import {getProcedureData} from '@/api/common'
+import { syncGetPatientOrders, getNurseOrderStatusDict } from "./api/index";
 export default {
   data() {
     return {
@@ -176,6 +177,8 @@ export default {
       btn: 1,
       tableLoading: false,
       statusList: [],
+      dataRes:[],
+      data2Res:[]
     };
   },
   computed: {
@@ -184,14 +187,31 @@ export default {
     },
     tableDataSelect() {
       let data = this.tableData;
-      data = data.filter((item) => {
-        let selcet1 = item.repeatIndicator === this.btn.toString();
-        let select2 =
-          item.orderStatusName === this.radio.toString() ||
-          this.radio === "全部";
-        // console.log(selcet1);
-        return selcet1 && select2;
-      });
+      if(this.HOSPITAL_ID=='liaocheng'){
+        switch(this.btn){
+          case 1:
+          case 0:
+            data = this.dataRes;
+            break;
+          case 2:
+            data = this.data2Res;
+            break;
+        }
+      }
+      if(this.btn==2){
+        data = data.filter((item) => {
+          return item.orderStatusName === this.radio.toString() || this.radio === "全部";
+        })
+      }else{
+        data = data.filter((item) => {
+          let selcet1 = item.repeatIndicator === this.btn.toString();
+          let select2 =
+            item.orderStatusName === this.radio.toString() ||
+            this.radio === "全部";
+          // console.log(selcet1);
+          return selcet1 && select2;
+        });
+      }
       // console.log(data);
       if ([
             'liaocheng',
@@ -300,17 +320,20 @@ export default {
   methods: {
     getLcOrder(){
       this.btn = 2
-      // let obj = {tradeCode:"getTodayOrders","PatientId":this.infoData.patientId,'VisitId':this.infoData.visitId}
-
-      // getOrderLiaocheng({strJson:JSON.stringify(obj)}).then(res=>{
-      //   console.log(res);
-      // })
+      let obj = {tradeCode:"getTodayOrders","PatientId":this.infoData.patientId,'VisitId':this.infoData.visitId}
+      this.tableLoading = true;
+      getProcedureData(obj).then(res=>{
+        this.tableLoading = false;
+        this.tableData = res.data.data.data;
+        this.data2Res = res.data.data.data;
+      })
     },
     getData() {
       this.tableLoading = true;
       orders(this.infoData.patientId, this.infoData.visitId).then((res) => {
         this.tableLoading = false;
         this.tableData = res.data.data;
+        this.dataRes = res.data.data
       });
     },
     syncGetPatientOrders() {

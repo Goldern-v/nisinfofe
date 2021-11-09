@@ -13,6 +13,3 @@ export const syncGetPatientOrders = (patientId, visitId) => {
 export const getNurseOrderStatusDict = () => {
     return axios.get(`${apiPath}OrderStatusDict/getNurseOrderStatusDict`)
 }
-export const getOrderLiaocheng = (params) => {
-    return axios.post(`${apiPath}procedure/his`,params)
-}
