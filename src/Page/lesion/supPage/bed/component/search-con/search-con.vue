@@ -595,13 +595,13 @@ export default {
           type: "heart",
         });
       }
-      if(this.HOSPITAL_ID == "huadu"){
-          list.push({
-            name: "多重耐药患者",
-            num: this.isMultiDrugResistant.length,
-            type: "state",
-          })
-      }
+      // if(this.HOSPITAL_ID == "huadu"){
+      //     list.push({
+      //       name: "多重耐药患者",
+      //       num: this.isMultiDrugResistant.length,
+      //       type: "state",
+      //     })
+      // }
       return list;
     },
     // 同步床位数据
