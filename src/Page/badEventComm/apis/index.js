@@ -27,7 +27,7 @@ export function getEventList (data) {
   // if(process.env.HOSPITAL_ID == 'guizhou'){
   //   return axios.post(`${apiPath}form/badEventMaster/master/getPage`, data)
   // }
-  return axios.post(`${apiPath}badEvent/findBadEventList`, data)
+  return axios.post(`${apiPath}form/badEventMaster/master/getPage`, data)
 }
 
 // 根据护理单元获取不良事件模板列表

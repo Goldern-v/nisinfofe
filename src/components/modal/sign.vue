@@ -93,7 +93,7 @@
       <span class="loginCa" v-else @click="pw = false">证书验证</span>
     </div>
 
-    <span v-if="['fuyou'].includes(HOSPITAL_ID)">
+    <span v-if="['fuyou'].includes(HOSPITAL_ID)&&formData">
       <p class="name-title">
         验证方式
         <span :style="{ color: fuyouCaData && fuyouCaData.userName ? 'green' : 'red' }">
@@ -106,7 +106,7 @@
       <span @click="openFuyouCaSignModal" class="loginCa" v-if="['fuyou'].includes(HOSPITAL_ID)&&!fuyouCaData"
         >ca登录</span
       >
-      <span v-if="['fuyou'].includes(HOSPITAL_ID)&&fuyouCaData">
+      <span v-if="['fuyou'].includes(HOSPITAL_ID)&&fuyouCaData&&formData">
         开启ca签名<el-switch v-model="isCaSign"></el-switch>
       </span>
       
@@ -376,6 +376,7 @@ export default {
     },
     //江门妇幼ca签名
     caPost(){
+      console.log(this.formData);
       if(!this.formData) return false
       const parmas={
         patientName:this.formData.patientName,//-- 患者名称
@@ -387,19 +388,19 @@ export default {
         templateId:"hash", //-- 模板id
         formId:`${this.formData.id}`,// -- 表单ID
       };
-      getCaSignJmfy(parmas).then(res=>{
-        this.$message({
-          type:'success',
-          message:res.data.desc
-        })
-        this.close()
-        return this.callback(localStorage.ppp, this.username);
-      }).catch(error=>{
-        // this.$message({
-        //   type:'warning',
-        //   message:error.data.desc
-        // })
-      })
+      // getCaSignJmfy(parmas).then(res=>{
+      //   this.$message({
+      //     type:'success',
+      //     message:res.data.desc
+      //   })
+      //   this.close()
+      //   return this.callback(localStorage.ppp, this.username);
+      // }).catch(error=>{
+      //   // this.$message({
+      //   //   type:'warning',
+      //   //   message:error.data.desc
+      //   // })
+      // })
       //window.openFuyouCaSignModal
     },
     //初始化江门妇幼签名数据
