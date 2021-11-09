@@ -250,7 +250,8 @@ export default {
       scrollTop: 0,
       scrollY: 0,
       bedAndDeptChange: {},
-      listData: []
+      listData: [],
+      isSaving:false
     };
   },
   computed: {
@@ -523,6 +524,14 @@ export default {
       });
     });
     this.bus.$on("saveSheetPage", (isInitSheetPageSize = true,ayncVisitedData) => {
+      if(this.HOSPITAL_ID==='guizhou'){
+          if(this.isSaving){
+               return
+          }else{
+
+             this.isSaving=true
+          }   
+      }
       let save = () => {
         this.pageLoading = true;
         this.scrollTop = this.$refs.scrollCon.scrollTop;
@@ -585,9 +594,21 @@ export default {
               }, 1000);
             });
             this.pageLoading = false;
+             if(this.HOSPITAL_ID==='guizhou'){
+                  setTimeout(()=>{
+                  this.isSaving=false;
+                 },500)
+             }
+          
+           
           })
           .catch(() => {
             this.pageLoading = false;
+             if(this.HOSPITAL_ID==='guizhou'){
+                  setTimeout(()=>{
+                  this.isSaving=false;
+                 },500)
+             }
           });
       };
 
