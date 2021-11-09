@@ -226,7 +226,8 @@ export default {
       showAduit:false,
       formData:null,//签名表单传过来的数据
       fuyouCaData:null,
-      isCaSign:false
+      isCaSign:false,
+      signType:0
     };
   },
   methods: {
@@ -241,7 +242,12 @@ export default {
       let flag = ['fuyou'].includes(this.HOSPITAL_ID)&& this.fuyouCaData && this.fuyouCaData.userName
     return !!flag
     },
-    open(callback, title, showDate = false, isHengliNursingForm, message = "",formData) {//formData为表单数据
+    open(callback, title, showDate = false, isHengliNursingForm, message = "",formData,type) {//formData为表单数据
+    this.isCaSign = false;
+    if(type){
+      let signType = {sign:'1',audit:'2'};
+      this.signType = signType[type];
+    };
      (formData) && (this.formData=formData);//设置表单数据
       this.initFuyouCaData()
       console.log('isHengliNursingFormzczxczxcxzczx', isHengliNursingForm);
@@ -314,7 +320,6 @@ export default {
       this.$refs.modalName.setCloseCallback(closeCallback);
     },
     post() {
-      console.log(this.callback);
       this.setCloseCallback(null);
       if (this.HOSPITAL_ID == "weixian") {
         if (this.pw) {
@@ -376,9 +381,9 @@ export default {
     },
     //江门妇幼ca签名
     caPost(){
-      console.log(this.formData);
       if(!this.formData) return false
       const parmas={
+        signType:this.signType,
         patientName:this.formData.patientName,//-- 患者名称
         patientSex:this.formData.sex,// -- 患者性别
         patientCardType:"QT",//-- 患者证件类型
@@ -388,19 +393,19 @@ export default {
         templateId:"hash", //-- 模板id
         formId:`${this.formData.id}`,// -- 表单ID
       };
-      // getCaSignJmfy(parmas).then(res=>{
-      //   this.$message({
-      //     type:'success',
-      //     message:res.data.desc
-      //   })
-      //   this.close()
-      //   return this.callback(localStorage.ppp, this.username);
-      // }).catch(error=>{
-      //   // this.$message({
-      //   //   type:'warning',
-      //   //   message:error.data.desc
-      //   // })
-      // })
+      getCaSignJmfy(parmas).then(res=>{
+        this.$message({
+          type:'success',
+          message:res.data.desc
+        })
+        this.close()
+        return this.callback(localStorage.ppp, this.username);
+      }).catch(error=>{
+        // this.$message({
+        //   type:'warning',
+        //   message:error.data.desc
+        // })
+      })
       //window.openFuyouCaSignModal
     },
     //初始化江门妇幼签名数据

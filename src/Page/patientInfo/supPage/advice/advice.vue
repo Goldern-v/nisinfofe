@@ -18,9 +18,9 @@
           <el-button
             class="select-btn"
             :class="{ active: btn == '2' }"
-            @click="btn = 2"
+            @click="getLcOrder"
             v-if="HOSPITAL_ID == 'liaocheng'"
-            >单方传药</el-button
+            >今日变更</el-button
           >
         </div>
         <el-row class="select-btn-list" type="flex" align="middle">
@@ -162,11 +162,12 @@ import adviceTableHd from "./component/adviceTable_hd";
 import adviceTableNanfangzhongxiyi from "./component/adviceTable_nanfangzhongxiyi";
 import adviceTableGuizhou from "./component/adviceTable_guizhou";
 import adviceTableCommon from "./component/adviceTable_common";
+import adviceTableLiaocheng from "./component/adviceTable_liaocheng";
 import adviceTableFy from "./component/adviceTable_fuyou";
 import adviceTableXiegang from "./component/adviceTable_xiegang.vue";
 import adviceTableBeihairenyi from "./component/adviceTable_beihairenyi.vue";
 import { orders } from "@/api/patientInfo";
-import { syncGetPatientOrders, getNurseOrderStatusDict } from "./api/index";
+import { syncGetPatientOrders, getNurseOrderStatusDict,getOrderLiaocheng } from "./api/index";
 export default {
   data() {
     return {
@@ -183,7 +184,6 @@ export default {
     },
     tableDataSelect() {
       let data = this.tableData;
-      console.log(data);
       data = data.filter((item) => {
         let selcet1 = item.repeatIndicator === this.btn.toString();
         let select2 =
@@ -193,12 +193,12 @@ export default {
         return selcet1 && select2;
       });
       // console.log(data);
-      if (
-        this.HOSPITAL_ID == "liaocheng" ||
-        this.HOSPITAL_ID == "fuyou" ||
-        this.HOSPITAL_ID == "hengli" ||
-        this.HOSPITAL_ID == "guizhou"
-      ) {
+      if ([
+            'liaocheng',
+            'fuyou',
+            'hengli',
+            'guizhou',
+          ].includes(this.HOSPITAL_ID)) {
         data.map((item, index, array) => {
           let prevRowId =
             array[index - 1] &&
@@ -238,29 +238,45 @@ export default {
     },
     currentAdviceTable() {
       let HOSPITAL_ID = this.HOSPITAL_ID;
-      if (
-        HOSPITAL_ID == "liaocheng" ||
-        HOSPITAL_ID == "hengli"
-      ) {
-        return "adviceTableCommon";
+      // 通过 this.HOSPITAL_ID 对应组件
+      let idToCom = {
+        hengli:"adviceTableCommon",
+        liaocheng:"adviceTableLiaocheng",
+        fuyou:"adviceTableFy",
+        weixian:"adviceTableWx",
+        huadu:"adviceTableHd",
+        nanfangzhongxiyi:"adviceTableNanfangzhongxiyi",
+        guizhou:"adviceTableGuizhou",
+        xiegang:"adviceTableXiegang",
+        beihairenyi:"adviceTableBeihairenyi",
+        default:"adviceTable",
       }
-      else if (HOSPITAL_ID == "fuyou") {
-        return "adviceTableFy";
-      }else if (HOSPITAL_ID == "weixian") {
-        return "adviceTableWx";
-      } else if (HOSPITAL_ID == "huadu") {
-        return "adviceTableHd";
-      }else if (HOSPITAL_ID == "nanfangzhongxiyi") {
-        return "adviceTableNanfangzhongxiyi";
-      }else if (HOSPITAL_ID == "guizhou") {
-        return "adviceTableGuizhou";
-      }else if (HOSPITAL_ID == "xiegang") {
-        return "adviceTableXiegang";
-      } else if (HOSPITAL_ID == "beihairenyi") {
-        return "adviceTableBeihairenyi";
-      } else {
-        return "adviceTable";
+      if(idToCom[HOSPITAL_ID]){
+        return idToCom[HOSPITAL_ID]
+      }else{
+        return idToCom.default
       }
+      // if (HOSPITAL_ID == "hengli") {
+      //   return "adviceTableCommon";
+      // }else if(HOSPITAL_ID == "liaocheng"){
+      //   return "adviceTableLiaocheng"
+      // }else if (HOSPITAL_ID == "fuyou") {
+      //   return "adviceTableFy";
+      // }else if (HOSPITAL_ID == "weixian") {
+      //   return "adviceTableWx";
+      // } else if (HOSPITAL_ID == "huadu") {
+      //   return "adviceTableHd";
+      // }else if (HOSPITAL_ID == "nanfangzhongxiyi") {
+      //   return "adviceTableNanfangzhongxiyi";
+      // }else if (HOSPITAL_ID == "guizhou") {
+      //   return "adviceTableGuizhou";
+      // }else if (HOSPITAL_ID == "xiegang") {
+      //   return "adviceTableXiegang";
+      // } else if (HOSPITAL_ID == "beihairenyi") {
+      //   return "adviceTableBeihairenyi";
+      // } else {
+      //   return "adviceTable";
+      // }
     },
   },
   created() {
@@ -282,6 +298,14 @@ export default {
     this.getStatusList();
   },
   methods: {
+    getLcOrder(){
+      this.btn = 2
+      // let obj = {tradeCode:"getTodayOrders","PatientId":this.infoData.patientId,'VisitId':this.infoData.visitId}
+
+      // getOrderLiaocheng({strJson:JSON.stringify(obj)}).then(res=>{
+      //   console.log(res);
+      // })
+    },
     getData() {
       this.tableLoading = true;
       orders(this.infoData.patientId, this.infoData.visitId).then((res) => {
@@ -322,6 +346,7 @@ export default {
     adviceTableNanfangzhongxiyi,
     adviceTableGuizhou,
     adviceTableCommon,
+    adviceTableLiaocheng,
     adviceTableXiegang,
     adviceTableBeihairenyi,
     adviceTableFy
