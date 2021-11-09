@@ -55,7 +55,7 @@
     <div class="row-bottom">
       <null-bg v-if="!patientInfo.patientId"></null-bg>
       <div v-else class="showRecord">
-        <div style="flex: 4">
+        <div style="flex: 3">
           <div
             :class="
               [
@@ -592,7 +592,7 @@ export default {
     getFilterSelections(orgin, filterStr) {
       if (!filterStr || !filterStr.trim()) return orgin;
 
-      return orgin.filter((option) => option.includes(filterStr));
+      return orgin;
     },
     handlePopRefresh(target) {
       target.popVisible = false;
@@ -836,7 +836,7 @@ display: inline-block;
     }
 
     input {
-      width: 60px;
+      width: 48px;
       font-size: 12px;
     }
 
@@ -855,7 +855,7 @@ display: inline-block;
     }
 
     input {
-      width: 60px;
+      width: 48px;
       font-size: 12px;
     }
 

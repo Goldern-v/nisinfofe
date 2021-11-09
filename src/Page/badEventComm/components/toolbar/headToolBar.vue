@@ -3,7 +3,7 @@
     <div class="item-box" flex="cross:center main:center" v-if="showToolBar">
       <div class="text-con" @click="addPatient">添加患者</div>
     </div>
-    <addSweetModal ref="addSweetModal"></addSweetModal>
+    <addSweetModal ref="addSweetModal" @updataeBaseUser="updataeBaseUser"></addSweetModal>
 
   </div>
 </template>
@@ -22,9 +22,12 @@ export default {
     return {};
   },
   methods: {
-      addPatient(){
-          this.$refs.addSweetModal.open();
-      }
+    updataeBaseUser(data){
+          this.$emit("updataeBaseUser",data)
+    },
+    addPatient(){
+        this.$refs.addSweetModal.open();
+    }
   }
 };
 </script>
