@@ -236,7 +236,7 @@ export default {
   },
   methods:{
     toPath(path,query){
-      window.openFormBox(`${path}${query}`)
+        window.open(`${path}${query}`)
     }
   },
   components: {}
