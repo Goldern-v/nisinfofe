@@ -145,7 +145,7 @@
       >
         <div class="nav-item">检验</div>
       </router-link>
-        <!-- <div class="nav-item" @click="toPath('http://10.158.220.36:8080/#!/goto/outview_documents/',query)">重症护理记录单</div> -->
+        <div class="nav-item" @click="toPath('http://10.158.220.36:8080/#!/goto/outview_documents/',query.inpNo)">重症护理记录单</div>
       <!-- <router-link to="/dev" tag="span">
         <div class="nav-item">手术</div>
       </router-link>-->
@@ -236,8 +236,7 @@ export default {
   },
   methods:{
     toPath(path,query){
-        // window.open(`${path}${query}`)
-        console.log(query);
+      window.openFormBox(`${path}${query}`)
     }
   },
   components: {}
