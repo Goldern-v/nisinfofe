@@ -17,7 +17,7 @@
       <div class="e-resize" v-eResize="{ target: 'dragNode2' }"></div>
       <div class="s-resize" v-sResize="{ target: 'dragNode2' }"></div>
     </div>
-    <el-tooltip v-if="!show" effect="dark" content="电子病历" placement="left" enterable="true">
+    <el-tooltip v-if="!show" effect="dark" content="电子病历" placement="left" :enterable="true">
       <div @click="onload" class="doctor-emr-icon">
         <img src="./img.png" alt/>
       </div>

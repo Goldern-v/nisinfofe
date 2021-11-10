@@ -351,6 +351,12 @@ export default {
         }
       };
       let mapSheetModel = this.sheetModel.map((item, index, arr) => {
+        item.bodyModel.map(tr=>{
+          tr.isRead = this.isRead(tr)
+          tr.map((td,y)=>{
+            td.isDisabed = this.isDisabed(tr,td,y,item.bodyModel)
+          })
+        })
         let obj = {
           index,
           data: item,
@@ -426,6 +432,97 @@ export default {
     },
   },
   methods: {
+    isFirst(tr, y,bodyModel) {
+      let recordDate = tr.find((item) => item.key == "recordDate").value;
+      let recordSource = tr.find((item) => item.key == "recordSource").value;
+      let flag = false;
+      if (recordDate && recordSource) {
+        let dateIndex = bodyModel[0].findIndex(
+          (e) => e.key == "recordDate"
+        );
+        let sourceIndex = bodyModel[0].findIndex(
+          (e) => e.key == "recordSource"
+        );
+        let index = bodyModel.findIndex((item) => {
+          return (
+            item[dateIndex].value == recordDate &&
+            item[sourceIndex].value == recordSource
+          );
+        });
+        flag = index == y;
+      }
+      return flag;
+    },
+    isDisabed(tr, td, index,bodyModel) {
+      // canModify false可以修改，true禁止修改
+      if (
+        this.HOSPITAL_ID == "huadu" &&
+        sheetInfo.sheetType === "body_temperature_Hd" &&
+        td &&
+        this.listData[index]
+      ) {
+        return !this.listData[index].canModify;
+      }
+      if (td && td.key == "recordYear") {
+        if (!tr.find((item) => item.key == "recordMonth").value) {
+          td.value = "";
+        }
+        return true;
+      }
+      // 护理记录单特殊情况记录输入多行,签名后,其他项目不能在编辑
+      if (
+        this.HOSPITAL_ID == "huadu" &&
+        tr.find((item) => item.key == "status").value === "1"
+      ) {
+        let flag =
+          tr.find((item) => item.key == "status").value === "1" && // 是否已签名
+          this.listData &&
+          this.listData[index] &&
+          !this.listData[index].canModify; // 是否有权限
+        //td存在才判断
+        if (td) {
+          flag =
+            !this.isFirst(tr, index,bodyModel) &&
+            (td.key === "recordMonth" || td.key === "recordHour"); // 已签名的recordMonth和recordHour单元格，并且不是第一行(最高等级)
+        }
+        return flag;
+      }
+      if (
+        this.HOSPITAL_ID != "weixian" ||
+        (td && td.key == "description") ||
+        tr.find((item) => item.key == "recordSource").value == 5
+      ) {
+        return false;
+      }
+      if (
+        tr.find((item) => item.key == "description").value &&
+        !tr.find((item) => item.key == "recordHour").value &&
+        !tr.find((item) => item.key == "recordMonth").value
+      ) {
+        return true;
+      } else {
+        return false;
+      }
+    },
+    isRead(tr) {
+      if (
+        this.HOSPITAL_ID == "huadu" &&
+        sheetInfo.sheetType === "body_temperature_Hd"
+      ) {
+        return false;
+      }
+      let status = tr.find((item) => item.key == "status").value;
+      let empNo = tr.find((item) => item.key == "empNo").value;
+      if (status == 1) {
+        if (empNo == this.empNo || this.isAuditor) {
+          return false;
+        } else {
+          return true;
+        }
+      } else {
+        return false;
+      }
+    },
     getDate() {
       if (this.deptCode) {
         this.patientListLoading = true;
@@ -654,6 +751,7 @@ export default {
               this.$notify.success({
                 title: "提示",
                 message: "保存成功",
+                duration: 1000,
               });
               this.getSheetData().then((res) => {
                 isInitSheetPageSize &&
@@ -732,7 +830,9 @@ export default {
             moment("2019-9-20 " + lastRecordHour).unix()
         );
         if (isBefore) {
-          if (this.HOSPITAL_ID != "huadu") {
+          if (this.HOSPITAL_ID == "huadu") {
+            save();
+          } else {
             this.$confirm(
               "新增记录比原有记录时间更前, 请确定日期, 是否确认保存?",
               "提示",

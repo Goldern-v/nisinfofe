@@ -52,7 +52,18 @@
       </div>
     </span>
     <div style="height: 5px"></div>
-    <span v-if="HOSPITAL_ID != 'weixian' || pw">
+    <span v-if="HOSPITAL_ID == 'fuyou'" v-show="!pw">
+      <p for class="name-title">{{ label }}</p>
+      <div ref="passwordInput">
+        <el-input
+          size="small"
+          type="password"
+          :placeholder="placeholder"
+          v-model="password"
+        ></el-input>
+      </div>
+    </span>
+    <span v-else-if="HOSPITAL_ID != 'weixian' || pw">
       <p for class="name-title">{{ label }}</p>
       <div ref="passwordInput">
         <el-input
@@ -82,7 +93,7 @@
       <span class="loginCa" v-else @click="pw = false">证书验证</span>
     </div>
 
-    <span v-if="['fuyou'].includes(HOSPITAL_ID)">
+    <span v-if="['fuyou'].includes(HOSPITAL_ID)&&formData">
       <p class="name-title">
         验证方式
         <span :style="{ color: fuyouCaData && fuyouCaData.userName ? 'green' : 'red' }">
@@ -95,7 +106,7 @@
       <span @click="openFuyouCaSignModal" class="loginCa" v-if="['fuyou'].includes(HOSPITAL_ID)&&!fuyouCaData"
         >ca登录</span
       >
-      <span v-if="['fuyou'].includes(HOSPITAL_ID)&&fuyouCaData">
+      <span v-if="['fuyou'].includes(HOSPITAL_ID)&&fuyouCaData&&formData">
         开启ca签名<el-switch v-model="isCaSign"></el-switch>
       </span>
       
@@ -215,7 +226,8 @@ export default {
       showAduit:false,
       formData:null,//签名表单传过来的数据
       fuyouCaData:null,
-      isCaSign:false
+      isCaSign:false,
+      signType:0
     };
   },
   methods: {
@@ -230,8 +242,14 @@ export default {
       let flag = ['fuyou'].includes(this.HOSPITAL_ID)&& this.fuyouCaData && this.fuyouCaData.userName
     return !!flag
     },
-    open(callback, title, showDate = false, isHengliNursingForm, message = "",formData) {//formData为表单数据
+    open(callback, title, showDate = false, isHengliNursingForm, message = "",formData,type) {//formData为表单数据
+    this.isCaSign = false;
+    if(type){
+      let signType = {sign:'1',audit:'2'};
+      this.signType = signType[type];
+    };
      (formData) && (this.formData=formData);//设置表单数据
+      this.initFuyouCaData()
       console.log('isHengliNursingFormzczxczxcxzczx', isHengliNursingForm);
       this.signDate = dayjs().format("YYYY-MM-DD HH:mm") || ""; //改
       if(isHengliNursingForm && title!=='删除验证'){
@@ -302,7 +320,6 @@ export default {
       this.$refs.modalName.setCloseCallback(closeCallback);
     },
     post() {
-      console.log(this.callback);
       this.setCloseCallback(null);
       if (this.HOSPITAL_ID == "weixian") {
         if (this.pw) {
@@ -366,6 +383,7 @@ export default {
     caPost(){
       if(!this.formData) return false
       const parmas={
+        signType:this.signType,
         patientName:this.formData.patientName,//-- 患者名称
         patientSex:this.formData.sex,// -- 患者性别
         patientCardType:"QT",//-- 患者证件类型
@@ -381,6 +399,7 @@ export default {
           message:res.data.desc
         })
         this.close()
+        return this.callback(localStorage.ppp, this.username);
       }).catch(error=>{
         // this.$message({
         //   type:'warning',
@@ -398,6 +417,11 @@ export default {
     openFuyouCaSignModal(){
       window.openFuyouCaSignModal(true);
     },
+  },
+  watch:{
+    isCaSign(val){
+      this.pw = val;
+    }
   },
   mounted(){
     //初始化江门妇幼签名数据

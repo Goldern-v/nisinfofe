@@ -7,7 +7,7 @@
       ref="iframeLoadingV2"
     >
       <iframe
-        :style="{ height: iframeHeight + 'px' }"
+        :style="{ height: height }"
         frameborder="0"
         class="assessmentv2-iframe"
         v-if="url"
@@ -110,6 +110,12 @@ import qs from "qs";
 export default {
   name: "assessment_v2",
   mixins: [common],
+  props:{
+    height:{
+      type:String,
+      value:'0px'
+    }
+  },
   data() {
     return {
       bus: BusFactory(this),
@@ -217,6 +223,8 @@ export default {
         setloadingSVGHidden: this.setloadingSVGHidden,
         openSignModal: window.openSignModal,
         opentztbModal: this.opentztbModal,
+        confirmfrom:this.$confirm
+
       };
     };
     // iframeLoadingV2

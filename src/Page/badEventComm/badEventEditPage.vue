@@ -9,7 +9,7 @@
     <!-- <div class="editbar-right" :style="showPatientList?'margin-left:200px':'margin-left:0px'"> -->
     <!-- 不良事件 报告单   data-print-class="printing"-->
     <!-- HOSPITAL_ID != 'hj' && $route.params.isIndependent==1（是否带外框） 目前厚街、南医三、贵州有不良事件 -->
-    <HeadToolBar :showToolBar="!pageLoading" v-if="HOSPITAL_ID != 'hj'"></HeadToolBar>
+    <HeadToolBar :showToolBar="!pageLoading" v-if="HOSPITAL_ID != 'hj'"  @updataeBaseUser="updataeBaseUser"></HeadToolBar>
     <EditToolbar :showLeft="true" :showRight="true"></EditToolbar>
     <div class="bad-event-container" :style="'height:'+(wih-100)+'px!important;'">
       <div class="bad-event-edit">
@@ -230,6 +230,13 @@ export default {
     }
   },
   methods: {
+    //更新表单iframe的用户基本数据值
+    updataeBaseUser(data){
+      this.$nextTick(()=>{
+        const formIframe=this.$refs.iframe.contentWindow;
+        formIframe.updateBaseUser(data)
+      })
+    },
     async load() {
       console.log(
         "载入报告单",

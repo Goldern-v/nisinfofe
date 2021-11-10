@@ -341,8 +341,15 @@ export default {
     //
     //江门妇幼ca
     logoutFuYouCaSign(){
-      localStorage.removeItem("fuyouCaData");
-       this.fuyouCaData=null;
+      this.$confirm("是否确认退出证书登录?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+      }).then(() => {
+        localStorage.removeItem("fuyouCaData");
+        this.fuyouCaData=null;
+        this.$message.success("退出证书登录成功");
+      })
     },
     
     //初始化江门妇幼签名数据

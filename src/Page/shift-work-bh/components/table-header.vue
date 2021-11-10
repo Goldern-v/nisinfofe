@@ -8,8 +8,10 @@
             <tr v-for="(shift,index) in columns" :key="index">
                 <td>{{columnsKey[index]}}</td>
                 <td v-for="(col,key) of keys" :key="key">
-                    <div v-text="shift[key]"  style="outline:none;" @blur="(e)=>change(e,index,key)"></div>
-                    <!-- <div v-html="shift[key]" contenteditable="true" style="outline:none;" @blur="(e)=>change(e,index,key)"></div> -->
+                    <!-- 不可编辑 -->
+                    <!-- <div v-text="shift[key]"  style="outline:none;" @blur="(e)=>change(e,index,key)"></div> -->
+                    <!-- 可编辑 -->
+                    <div v-html="shift[key]" contenteditable="true" style="outline:none;" @blur="(e)=>change(e,index,key)"></div>
                 </td>
             </tr>
         </thead>
@@ -105,14 +107,14 @@ return {
         patientTransferIn:'转入',
         movein:'迁入',
         patientDead:'死亡',
-        c:'入院',
+        inHospitalTotal:'入院',
         nowHospitalTotal:'现有',
         patientOpration:'手术',
         patientBirth:'分娩',
         patientBw:'病危',
         seriousTotal:'病重',
         goout:'外出',
-        e:'特护',
+        specialCare:'特护',
         patientYi:'一级护理',
         companions:'陪人数'
     }
