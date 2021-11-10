@@ -1323,6 +1323,7 @@ export default {
                     this.$notify.success({
                       title: "提示",
                       message: "删除成功",
+                      duration: 1000,
                     });
                     this.bus.$emit("saveSheetPage", true);
                   });
@@ -1338,6 +1339,7 @@ export default {
                     this.$notify.success({
                       title: "提示",
                       message: "删除成功",
+                      duration: 1000,
                     });
                     this.bus.$emit("saveSheetPage", true);
                   });
@@ -1353,6 +1355,7 @@ export default {
                 this.$notify.success({
                   title: "提示",
                   message: "删除成功",
+                  duration: 1000,
                 });
                 this.bus.$emit("saveSheetPage", true);
               });
