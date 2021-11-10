@@ -37,7 +37,7 @@
         type="primary"
         @click="handleSign"
         :disabled="loading"
-        v-show="showSignBtn && HOSPITAL_ID!='guizhou'"
+        v-show="showSignBtn && HOSPITAL_ID!='guizhou' && HOSPITAL_ID!='huadu'"
         >签名</el-button
       >
     </div>
