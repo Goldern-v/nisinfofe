@@ -1127,6 +1127,7 @@ export default {
         this.pageLoadng = false;
       });
     },
+     
     saveAllTemperture() {
       let data = {
         blockId: "",
@@ -1195,6 +1196,7 @@ export default {
       tempertureData.entryDate = tempertureData.entryDate
         ? moment(tempertureData.entryDate).format("YYYY-MM-DD")
         : moment(new Date()).format("YYYY-MM-DD");
+        
       saveOverAllTemperture(tempertureData).then((res) => {
         if(res.data.code==='200'){
 this.$message.success('保存成功')
@@ -1242,6 +1244,12 @@ this.$message.success('保存成功')
     query: {
       handler(newName, oldName) {
         this.getData();
+        if(['liaocheng'].includes(this.HOSPITAL_ID)){
+          let input=document.getElementsByTagName('input')
+     for(let i=0;i<input.length;i++){
+       input[i].style.border=''
+     }
+        }
       },
       deep: true,
     },

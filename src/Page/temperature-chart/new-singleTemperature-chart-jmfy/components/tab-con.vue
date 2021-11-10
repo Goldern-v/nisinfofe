@@ -455,7 +455,7 @@ export default {
     getFilterSelections(orgin, filterStr) {
       if (!filterStr || !filterStr.trim()) return orgin;
 
-      return orgin.filter((option) => option.includes(filterStr));
+      return orgin;
     },
      handlePopRefresh(target) {
       target.popVisible = false;
