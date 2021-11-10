@@ -751,6 +751,7 @@ export default {
               this.$notify.success({
                 title: "提示",
                 message: "保存成功",
+                duration: 1000,
               });
               this.getSheetData().then((res) => {
                 isInitSheetPageSize &&
