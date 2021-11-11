@@ -11,8 +11,8 @@ import record from './module/record'
 import sheet from './module/sheet'
 import patient from './module/patient'
 import hospitalEval from './module/hospitalEval'
+import temperature from './module/temperature'
 Vue.use(vuex)
-
 let store = new vuex.Store({
   modules: {
     user,
@@ -25,7 +25,8 @@ let store = new vuex.Store({
     record,
     sheet,
     patient,
-    hospitalEval
+    hospitalEval,
+    temperature
   }
 })
 
