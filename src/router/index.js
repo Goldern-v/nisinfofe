@@ -919,7 +919,7 @@ const router = new Router({
         component: sheetPage,
         children: [{
           name: "sheetPage",
-          path: "/sheetPage/:patientId?/:visitId?/:formId?",
+          path: "/sheetPage/:patientId?/:visitId?/:formId?/:inpNo?",
           component: sheetPage
         }]
       },

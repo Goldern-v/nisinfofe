@@ -15,7 +15,7 @@
           flex="cross:center"
           v-for="(item,index) in sortList"
           :key="item.patientId+item.visitId+item.bedLabel+item.inpNo+index"
-          :to="{name: toName, params: {patientId: item.patientId, visitId: item.visitId, formId: item.id}}"
+          :to="{name: toName, params: {patientId: item.patientId, visitId: item.visitId, formId: item.id, inpNo: item.inpNo}}"
           :class="{active: isActive(item)}"
         >
           <img
@@ -258,6 +258,7 @@ export default {
       if (this.callFunction) {
         this.$route.query.patientId = patient.patientId;
         this.$route.query.visitId = patient.visitId;
+        this.$route.query.inpNo = patient.inpNo;
         patient.formId = this.$route.params.formId || "";
         //
         this.$store.commit("upCurrentPatientObj", patient);
