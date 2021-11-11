@@ -32,50 +32,57 @@
               class="input-item"
               style="height:130px;box-sizing:border-box;"
             >
-              <span class="label">床号:</span>
+              <span class="label" style="font-size:32px;">床号:</span>
               <!-- <span :style="`width: ${hasRemark ? 85 : 100}px`"></span> -->
               <input
                 type="text"
                 nowidth
-                style="font-size: 24px; padding-left: 5px;outline:none;border:none"
+                style="font-size: 32px; padding-left: 5px;outline:none;border:none"
                 flex-box="1"
                 class="bottom-line"
                 :value="query.bedLabel + '床'"
               />
             </div>
             <div flex="cross:center" class="input-item" style="height:130px;box-sizing:border-box;">
-              <span class="label">姓名:</span>
+              <span class="label" style="font-size:32px;">姓名:</span>
               <!-- <span :style="`width: ${hasRemark ? 85 : 100}px`"></span> -->
               <input
                 type="text"
-                style="font-size: 24px; padding-left: 5px;outline:none;border:none"
+                nowidth
+                style="font-size: 32px; padding-left: 5px;outline:none;border:none"
+                flex-box="1"
+                class="bottom-line"
                 :value="query.name"
               />
               <!-- <input
                 type="text"
                 flex-box="1"
-                style="width: 0px;font-size: 24px; padding-left: 2px;"
+                style="width: 0px;font-size: 32px; padding-left: 2px;"
                 nowidth
                 class="bottom-line"
                 :value="moment(query.admissionDate).format('YYYY-MM-DD')"
               /> -->
             </div>
             <div flex="cross:center" class="input-item" style="height:130px;box-sizing:border-box;">
-              <span class="label">性别:</span>
+              <span class="label" style="font-size:32px;">性别:</span>
               <!-- <span :style="`width: ${hasRemark ? 85 : 100}px`"></span> -->
               <input
                 type="text"
-                style="font-size: 24px; padding-left: 5px;outline:none;border:none"
+                nowidth
+                style="font-size: 32px; padding-left: 5px;outline:none;border:none"
+                flex-box="1"
                 class="bottom-line"
                 :value="query.sex"
               />
             </div>
             <div flex="cross:center" class="input-item" style="height:130px;box-sizing:border-box;">
-              <span class="label">住院号:</span>
+              <span class="label" style="font-size:32px;">住院号:</span>
               <!-- <span :style="`width: ${hasRemark ? 85 : 100}px`"></span> -->
               <input
                 type="text"
-                style="font-size: 24px; padding-left: 5px;outline:none;border:none"
+                nowidth
+                style="font-size: 32px; padding-left: 5px;outline:none;border:none"
+                flex-box="1"
                 class="bottom-line"
                 :value="query.inpNo"
               />
@@ -210,7 +217,7 @@
               </div>
             </div> -->
             <div flex="cross:center" class="input-item" style="height:130px;box-sizing:border-box;">
-              <span class="label">主管医生:</span>
+              <span class="label" style="font-size:32px;">主管医生:</span>
               <!-- <el-autocomplete v-model="formData.mainDoctors"
                                :fetch-suggestions="querySearchAsyncDoc"
                                class="auto-input"
@@ -220,14 +227,14 @@
               <input
                 type="text"
                 nowidth
-                style="font-size: 24px; padding-left: 5px;outline:none;border:none"
+                style="font-size: 32px; padding-left: 5px;outline:none;border:none"
                 flex-box="1"
                 class="bottom-line"
                 v-model="formData.mainDoctors"
               />
             </div>
             <div flex="cross:center" class="input-item" style="height:130px;box-sizing:border-box;">
-              <span class="label">责任护士:</span>
+              <span class="label" style="font-size:32px;">责任护士:</span>
               <!-- <el-autocomplete v-model="formData.dutyNurses"
                                :fetch-suggestions="querySearchAsyncNur"
                                class="auto-input"
@@ -239,12 +246,12 @@
                 nowidth
                 flex-box="1"
                 class="bottom-line"
-                style="font-size: 24px; padding-left: 5px;outline:none;border:none"
+                style="font-size: 32px; padding-left: 5px;outline:none;border:none"
                 v-model="formData.dutyNurses"
               />
             </div>
           </div>
-          <div style="width: 160px;">
+          <div style="width: 200px;">
             <div class="tip">温馨提示</div>
             <div>
               <div
@@ -645,7 +652,7 @@
   .qr-code {
     position: absolute;
     bottom: 20px;
-    right: 25px;
+    right: 50px;
     height: 112px;
     width: 112px;
 
@@ -658,8 +665,8 @@
   .qr-code-num {
     position: absolute;
     bottom: 5px;
-    right: 10px;
-    width: 145px;
+    left: 360px;
+    min-width: 145px;
     text-align: center;
     z-index: 2;
     font-size: 16px;
@@ -851,14 +858,14 @@ input[type='checkbox']:checked:after {
   border: 1px solid #000;
   border-radius: 8px;
   width: 100%;
-  height: 70px;
+  height: 100px;
   padding: 0 5px 0 5px;
   box-sizing: border-box;
-  margin: 30px 0 29px;
-  font-size: 17px;
+  margin: 15px 0 14px;
+  font-size: 22px;
   color:red;
   img {
-    width: 46px;
+    width: 69px;
   }
 }
 .tip-item-box{
