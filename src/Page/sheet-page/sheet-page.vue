@@ -351,11 +351,13 @@ export default {
         }
       };
       let mapSheetModel = this.sheetModel.map((item, index, arr) => {
-        item.bodyModel.map(tr=>{
-          tr.isRead = this.isRead(tr)
-          tr.map((td,y)=>{
-            td.isDisabed = this.isDisabed(tr,td,y,item.bodyModel)
-          })
+        item.bodyModel.map((tr,x)=>{
+          if(!tr.hasOwnProperty('isRead')){
+            tr.isRead = this.isRead(tr)
+            tr.map((td,y)=>{
+              td.isDisabed = this.isDisabed(tr,td,x,y,item.bodyModel)
+            })
+          } 
         })
         let obj = {
           index,
@@ -432,7 +434,7 @@ export default {
     },
   },
   methods: {
-    isFirst(tr, y,bodyModel) {
+    isFirst(tr,x, y,bodyModel) {
       let recordDate = tr.find((item) => item.key == "recordDate").value;
       let recordSource = tr.find((item) => item.key == "recordSource").value;
       let flag = false;
@@ -449,19 +451,19 @@ export default {
             item[sourceIndex].value == recordSource
           );
         });
-        flag = index == y;
+        flag = index == x;
       }
       return flag;
     },
-    isDisabed(tr, td, index,bodyModel) {
+    isDisabed(tr, td, x,y,bodyModel) {
       // canModify false可以修改，true禁止修改
       if (
         this.HOSPITAL_ID == "huadu" &&
         sheetInfo.sheetType === "body_temperature_Hd" &&
         td &&
-        this.listData[index]
+        this.listData[x]
       ) {
-        return !this.listData[index].canModify;
+        return !this.listData[x].canModify;
       }
       if (td && td.key == "recordYear") {
         if (!tr.find((item) => item.key == "recordMonth").value) {
@@ -477,12 +479,12 @@ export default {
         let flag =
           tr.find((item) => item.key == "status").value === "1" && // 是否已签名
           this.listData &&
-          this.listData[index] &&
-          !this.listData[index].canModify; // 是否有权限
+          this.listData[x] &&
+          !this.listData[x].canModify; // 是否有权限
         //td存在才判断
         if (td) {
           flag =
-            !this.isFirst(tr, index,bodyModel) &&
+            !this.isFirst(tr,x, y,bodyModel) &&
             (td.key === "recordMonth" || td.key === "recordHour"); // 已签名的recordMonth和recordHour单元格，并且不是第一行(最高等级)
         }
         return flag;
