@@ -1,5 +1,5 @@
-import Vue from 'vue'
-import { Message } from 'element-ui';
+// import Vue from 'vue'
+// import { Message } from 'element-ui';
 import { forEach } from 'lodash';
 // 全局注册
 // Vue.use(Message)
@@ -19,7 +19,7 @@ class ValidForm {
         //存在血压用/隔开，需要分别验证两个数值
           if((press[0]>=o[key].reg[0]&&press[0]<=o[key].reg[1])&&(press[1]>=o[key].reg[0]&&press[1]<=o[key].reg[1])){
             return true
-            
+
           }else{
             return false
           }
