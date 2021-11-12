@@ -19,7 +19,8 @@ let 基础护理 = ["温水擦浴","酒精擦浴","口腔护理","会阴护理",
 let 留置镇痛泵 = ["A","B","C","D",];
 let 吸氧 = ["低流量","中流量","高流量","持续","停止"];
 let 特殊药物 = ["A","B","C","D",];
-
+let 腹痛情况=["无","隐痛","胀痛","剧痛","不规则宫缩","规则宫缩" ]
+let 阴道流血=["无","少量","如经量","多于经量"]
 export default [
   {
     key: "recordDate", //年份
@@ -237,8 +238,11 @@ export default [
     value: "",
     event: keyf1,
     name: "腹痛情况",
+    autoComplete: {
+      data: 腹痛情况
+    },
     textarea: {
-      width: 35
+      width: 40
     }
   },
   {
@@ -246,6 +250,9 @@ export default [
     value: "",
     event: keyf1,
     name: "阴道流血",
+    autoComplete: {
+      data:阴道流血
+    },
     textarea: {
       width: 35
     },
@@ -329,7 +336,7 @@ export default [
       top: "1px",
       bottom: "1px",
       left: "1px",
-      width: "150px",
+      width: "155px",
       background: "transparent"
     },
     event: function (e, td) {
