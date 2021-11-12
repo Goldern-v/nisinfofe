@@ -49,7 +49,7 @@ const currentTargetUrl = (() => {
     /** 威县 */
     case "weixian":
       // return "http://211.143.127.136:9093" //威县正式
-      // return "http://wxzf.hbwxrmyy.com:9093" //威县正式
+      // return "http://wxzf.hbwxrmyy.com:9093" //威县正式 ad123456
       return "http://192.168.1.54:9865" // 公司-威县测试-内网
 
     /** 陵城正式 */
