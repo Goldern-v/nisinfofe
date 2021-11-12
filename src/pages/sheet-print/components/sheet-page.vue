@@ -226,7 +226,7 @@ export default {
               }
 
               /** 如果是威县超宽打印 */
-              if (this.HOSPITAL_ID == "weixian") {
+              if (["weixian",'beihairenyi'].includes(this.HOSPITAL_ID)) {
                 addCSS(
                   window,
                   `

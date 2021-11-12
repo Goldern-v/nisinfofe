@@ -134,7 +134,7 @@
           white-space: nowrap;
           "
           >
-          {{ patientInfo.admissionWardDateTime | toymdhs }}
+          {{ patientInfo.admissionDate | toymdhs }}
         </div>
       </span>
     </div>
@@ -254,6 +254,8 @@ export default {
     if(sheetInfo.sheetType === 'neonatal_care_jm'){
       this.patientInfo.admissionDate=this.patientInfo.admissionDate.split(" ")[0]
     }
+      console.log(this.patientInfo);
+
   },
   watch: {},
   components: {
