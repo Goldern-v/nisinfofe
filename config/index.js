@@ -146,6 +146,8 @@ const currentTargetUrl = (() => {
       return "http://192.168.1.54:9883" // 默认公司本地内网厚街
     case 'yangchunzhongyi':  //阳春
       return "http://192.168.1.54:9866" // 默认公司本地内网厚街
+    case 'whyx':  //武汉亚心
+      return "http://192.168.1.54:9866" // 武汉亚心
 
     /** 默认公司本地内网厚街测试环境 */
     default:
