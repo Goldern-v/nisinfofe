@@ -11,7 +11,8 @@
       >
         <ElFormItem prop="state" label="宣教内容："  >
           <div style="display:flex">
-            <el-select
+            <el-cascader v-model='value' :options="optionList" filterable :show-all-levels="false" popper-class='health-education-exclusive-cascade-selector-drop-down'></el-cascader>
+            <!-- <el-select
               v-model="form.state"
               filterable
               remote
@@ -26,21 +27,21 @@
                 :key="item.missionId"
                 :label="item.name"
                 :value="item.missionId"
-              >
+              > -->
                 <!-- 添加科室名称 -->
                 <!-- <span style="float: left">{{item.deptName}}</span> -->
                 <!-- <span v-if="item.type && item.deptName && item.deptName!='' && item.name.indexOf(item.deptName)==-1" style="float: left">{{item.deptName}}</span> -->
-                <span
+                <!-- <span
                   v-for="(a, index) in setItem(item.name)"
                   :class="a.type >= 0 ? 'redColor' : ''"
                   :key="index"
                   style="float: left"
                   >{{ a.item }}</span
-                >
+                > -->
                 <!-- 添加宣教类型 -->
                 <!-- <span v-if="item.type && item.type!='' && item.type!=item.name">-{{item.type}}</span> -->
-              </el-option>
-            </el-select>
+              <!-- </el-option>
+            </el-select> -->
             <el-button 
               type="text" 
               class="modal-btn" 
@@ -171,6 +172,8 @@ export default {
       loading: false, // 下拉框load
       missionList: [], // 健康教育下拉框数据
       options: [], // 宣教内容下拉框数据
+      optionList:[],
+      value:[],
       itemData: {}, // 修改时暂存参数
       date: "", // 修改时的宣教时间
       isOk: false, // 教育对象是否禁用（根据状态判断 -1:删除，0:未推送，1:未读，1R:已读，2:已明白，3:有疑问， 后面三个可以）
@@ -198,13 +201,12 @@ export default {
   },
   methods: {
     // 打开弹框
-    open(title, form) {
+    async open(title, form) {
       var obj = JSON.parse(localStorage.getItem("user"));
       this.curEmpName = obj.empName;
       this.curEmpNo = obj.empNo;
       this.type = form ? 2 : 1;
       this.disabled = !!form;
-      console.log(form)
       if (form) {
         this.isEdit=true
         this.content = form.item.content;
@@ -272,7 +274,33 @@ export default {
         //赋值富文本
          this.$refs.richEditorModal.changeEditContent("");
       }
+      let params = {
+        type: "",
+        name: ' ',
+      };
+      (this.$route.query.wardCode) && (params.deptCode=this.$route.query.wardCode);
+      let optionRes = await getEduFormTemplate(params);
+      this.optionList = this.getOption(optionRes.data.data)
       this.$refs.modal.open();
+    },
+    getOption(arr){
+      if(!arr.length)return []
+      let obj = {}
+      let newArr = []
+      arr.map(item=>{
+        this.options.push(item)
+        obj[item.type] = obj[item.type]||[]
+        obj[item.type].push({value:item.missionId,label:item.name})
+      })
+      Object.keys(obj).map((key,index)=>{
+        newArr.push({
+          value:key,
+          label:key,
+          children:obj[key]
+        })
+      })
+      console.log(newArr);
+      return JSON.parse(JSON.stringify(newArr))
     },
     // 打开富文本编辑弹框
     handleOpenRichEditorModal() {
@@ -281,7 +309,6 @@ export default {
     // 更新宣教内容
     updateContent(content) {
       this.content = content;
-      console.log('this.content', this.content);
       //this.$refs.richEditorModal.close();
     },
     // 设置推送状态
@@ -349,40 +376,42 @@ export default {
     },
 
     // 宣教内容下拉搜索框
-    async remoteMethod(query) {
-      if (query !== "") {
-        this.name = query;
-        this.loading = true;
-        try {
-          let params = {
-            type: "",
-            name: query,
-          };
-          (this.$route.query.wardCode) && (params.deptCode=this.$route.query.wardCode);
-          let { data } = await getEduFormTemplate(params);
-          this.options = data.data;
-          //isEdit true
-          this.content = data.data[0].content;
-          //赋值富文本
-          this.$refs.richEditorModal.changeEditContent(data.data[0].content);
-          this.templateTitle = data.data[0].name;
-          this.loading = false;
-        } catch (e) {
-          this.options = [];
-        } finally {
-          this.loading = false;
-        }
-      } else {
-        this.loading = false;
-        this.options = [];
-      }
-    },
+    // async remoteMethod(query) {
+    //   if (query !== "") {
+    //     this.name = query;
+    //     this.loading = true;
+    //     try {
+    //       let params = {
+    //         type: "",
+    //         name: query,
+    //       };
+    //       (this.$route.query.wardCode) && (params.deptCode=this.$route.query.wardCode);
+    //       let { data } = await getEduFormTemplate(params);
+    //       this.options = data.data||[];
+    //       //isEdit true
+    //       this.content = data.data[0].content;
+    //       //赋值富文本
+    //       this.$refs.richEditorModal.changeEditContent(data.data[0].content);
+    //       this.templateTitle = data.data[0].name;
+    //       this.loading = false;
+    //     } catch (e) {
+    //       this.options = [];
+    //     } finally {
+    //       this.loading = false;
+    //     }
+    //   } else {
+    //     this.loading = false;
+    //     this.options = [];
+    //   }
+    // },
     // 处理保存入参
     setParams() {
       let date = dayjs(new Date()).format("MM-DD HH:mm");
       let itemData = this.options.filter(
         (item) => item.missionId === this.form.state
       )[0]; // 宣教内容item
+      console.log(itemData);
+      console.log(this.options);
       // let object = educationObiect.filter(
       //   (item) => item.value === this.form.object
       // )[0].text; // 教育对象
@@ -425,6 +454,7 @@ export default {
         type: itemData ? itemData.type : this.itemData.type, // 非必须，宣教类型
         pageParam: JSON.stringify(pageParam), // 非必须，页面参数
       };
+      console.log(data);
       return data;
     },
     // 保存
@@ -473,10 +503,36 @@ export default {
       });
     },
   },
+  watch:{
+    value:{
+      deep:true,
+      immediate:true,
+      handler(newVal){
+        if(newVal.length){
+          this.form.state = newVal[newVal.length-1]
+          this.currentSelect = this.options.filter(
+            (item) => item.missionId === this.form.state
+          )[0];
+          this.content = this.currentSelect.content
+          this.$refs.richEditorModal&&this.$refs.richEditorModal.changeEditContent(this.content)
+          this.templateTitle = this.currentSelect.name
+        }else{
+          this.form.state = ''
+          this.currentSelect = {}
+          this.content = ''
+          this.$refs.richEditorModal&&this.$refs.richEditorModal.changeEditContent(this.content)
+          this.templateTitle =''
+        }
+      }
+    },
+  }
 };
 </script>
 
 <style lang="scss" scoped>
+.sweet-modal-overlay{
+  z-index:2000;
+}
 .status-text {
   position: absolute;
   top: 0px;

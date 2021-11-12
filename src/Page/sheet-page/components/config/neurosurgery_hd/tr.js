@@ -15,7 +15,7 @@ import {
   click_time
 } from "../keyEvent/date";
 import info from "../sheetInfo";
-let ysList = [];
+let ysList = ['清醒', '嗜睡', '昏睡', '模糊', '昏迷', '谵妄状态', '镇静状态'];
 let 入量名称 = ['输液', '口服', '输血', '肌注', '静注', '鼻饲', '静脉泵入', '灌肠', '饮水'];
 let 出量名称 = [];
 export default [
@@ -219,9 +219,9 @@ export default [
       width: 25
     },
     change: (e, td) => limitChange(e, td, 3),
-    // autoComplete: {
-    //   data: ["+", "-", "±"]
-    // }
+    autoComplete: {
+      data: ["+", "±", "-"]
+    }
   },
   {
     key: "pupilReflexRight", // 瞳孔对光反应右
@@ -232,9 +232,9 @@ export default [
       width: 25
     },
     change: (e, td) => limitChange(e, td, 3),
-    // autoComplete: {
-    //   data: ["+", "-", "±"]
-    // }
+    autoComplete: {
+      data: ["+", "±", "-"]
+    }
   },
   {
     key: "fieldOne", //吸氧（升/分）
@@ -254,6 +254,9 @@ export default [
     name: "人工气道途径",
     textarea: {
       width: 25
+    },
+    autoComplete: {
+      data: ["A1", "A2", "B"]
     },
     change: (e, td) => limitChange(e, td, 3),
   },
@@ -438,13 +441,12 @@ export default [
 ];
 
 export function getListData() {
-  let list = ["意识",
+  let list = [
     "花都:神经外科护理记录单:出量名称"
   ];
   multiDictInfo(list).then(res => {
     let data = res.data.data;
-    setList(ysList, list[0], data);
-    setList(出量名称, list[1], data);
+    setList(出量名称, list[0], data);
   });
 }
 

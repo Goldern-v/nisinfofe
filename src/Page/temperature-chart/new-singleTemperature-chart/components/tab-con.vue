@@ -95,7 +95,7 @@
               <input
                 :id="i+1"
                 type="text"
-                @focus="validForm"
+                v-on:input="validFormFc(vitalSignObj[j],i+1)"
               @keydown.enter="changeNext"
                 :title="vitalSignObj[j].vitalValue"
                 @input="handlePopRefresh(vitalSignObj[j])"
@@ -225,6 +225,7 @@
             <span class="preText">表顶注释</span>
             <el-select
               size="mini"
+              @click.native="modifiValue"
               v-model="vitalSignObj[multiDictList['表顶注释']].expand1"
             >
             <el-option
@@ -234,12 +235,6 @@
                 :label="item"
                 :value="item"
               >
-              <!-- <el-option
-                v-for="(item, topIndex) in topContextList"
-                :key="topIndex"
-                :label="item"
-                :value="item"
-              > -->
               </el-option>
             </el-select>
             <el-date-picker
@@ -315,8 +310,11 @@ import {
   deleteRecord,
   // getLastList,
   getViSigsByReDate,
+
 } from "../../api/api";
 import { mockData, recordList, selectionMultiDict } from "../data/data";
+import { validForm } from "../../validForm/validForm";
+
 export default {
   props: { patientInfo: Object },
   data() {
@@ -377,6 +375,8 @@ export default {
       recordDate: "",
       fieldList: {}, // 自定义项目列表
       multiDictList: {},
+  topSelectData:"",
+  isCorrect:false,
       tabsData: [], // 日期列表
       vitalSignObj: {}, // 单个体征对象
       // vitalSignList: [], // 固定项目列表
@@ -435,7 +435,7 @@ export default {
   watch: {
     query: {
       handler(newName, oldName) {
-        this.getList();
+        this.getList(); 
       },
       deep: true,
     },
@@ -458,6 +458,9 @@ export default {
 
       }
       }
+    },
+    modifiValue(e){
+      let val=e.target.value
     },
 
     init() {
@@ -493,6 +496,7 @@ export default {
           patientId: this.patientInfo.patientId,
           visitId: this.patientInfo.visitId,
           recordDate: "",
+          isCorrect:true,
           vitalSigns: key,
           wardCode: this.patientInfo.wardCode,
           vitalValue: "",
@@ -512,10 +516,82 @@ export default {
       }
       this.vitalSignObj = { ...obj };
     },
-    //validForm验证表单
-    validForm(e){
-// console.log(e)
+    setValid(trage,val){
+switch (trage) {
+  
+  case '体温':
+    let o={
+      '体温':{
+        value:val,
+        reg: [30,50],
+        errorMsg:'体温请填入30~50之间的数值'
+      }
+        }
+    return o
+  case '心率':
+    let h={
+      '心率':{
+        value:val,
+        reg: [0,300],
+        errorMsg:'体温请填入0~300之间的数值'
+      }
+        }
+    return h
+  case '血压':
+    let x={
+      '血压':{
+        value:val,
+        reg: [0,300] ,
+        errorMsg:'体温请填入0~300之间的数值'
+      }
+        }
+    return x
+  case '脉搏':
+    let y={
+      '脉搏':{
+        value:val,
+        reg: [0,300],
+        errorMsg:'体温请填入0~300之间的数值'
+      }
+        }
+    return y
+  case '呼吸':
+    let g={
+      '呼吸':{
+        value:val,
+        reg: [0,120],
+        errorMsg:'体温请填入0~120之间的数值或者R/r'
+      }
+        }
+    return g
+  default:
+    break;
+}
     },
+    //validForm验证表单
+    validFormFc(vitalSignObj,index){
+      console.log(vitalSignObj)
+        let val=vitalSignObj.vitalValue
+      if(vitalSignObj.popVisible===true&&val!==""&&['体温','脉搏','心率','呼吸','血压'].includes(vitalSignObj.vitalSigns)){
+     //验证表单
+      if (validForm.valid(this.setValid(vitalSignObj.vitalSigns,val))) {
+        document.getElementById(index).style.border=""
+      vitalSignObj.isCorrect=true
+      }else{
+        document.getElementById(index).style.border="thick solid red"
+        vitalSignObj.isCorrect=false
+        // this.$message({
+        //   message: this.setValid(vitalSignObj.vitalSigns)[vitalSignObj.vitalSigns].errorMsg,
+        //   type: 'warning'
+        // });
+        
+      }
+      }else{
+         document.getElementById(index).style.border=""
+         vitalSignObj.isCorrect=true
+      }
+}
+    ,
     async getList() {
       /* 初始化 */
       this.tabsData = [];
@@ -557,15 +633,17 @@ export default {
         res.data.data.list.map((item) => {
           if (this.vitalSignObj[item.vitalCode])
             this.fieldList[item.vitalCode] = item;
-            console.log(this.fieldList,'选项')
         });
       });
+     let input=document.getElementsByTagName('input')
+     for(let i=0;i<input.length;i++){
+       input[i].style.border=''
+     }
     },
     /* 日期搜索功能 */
     selectTemRec(val) {
       this.query.entryDate = val;
     },
-
      getHours() {
       let date = new Date();
       let b = date.getHours();
@@ -584,7 +662,7 @@ export default {
     getFilterSelections(orgin, filterStr) {
       if (!filterStr || !filterStr.trim()) return orgin;
 
-      return orgin.filter((option) => option.includes(filterStr));
+      return orgin;
     },
     handlePopRefresh(target) {
       target.popVisible = false;
@@ -612,6 +690,7 @@ export default {
               ...v,
               popVisible: false,
             };
+            console.log(this.vitalSignObj[v.vitalCode])
           });
         } else {
           this.init();
@@ -737,11 +816,30 @@ export default {
         patientId: this.patientInfo.patientId,
         visitId: this.patientInfo.visitId,
       };
-      await saveAll(data).then((res) => {
+        let flasg=[]
+      for(let key in this.multiDictList){
+        flasg.push(this.vitalSignObj[this.multiDictList[key]].isCorrect)
+        console.log(flasg);
+      if(flasg.includes(false)) {
+        this.isCorrect=false
+      } else{
+        this.isCorrect=true
+        
+      }
+      }
+      if(this.isCorrect===true){
+        await saveAll(data).then((res) => {
         this.$message.success("保存成功");
-      });
       this.getList();
       this.bus.$emit("refreshImg");
+      });
+      }else{
+        this.$message.error("存在数据错误！请检查");
+
+        
+      }
+
+      
     },
     formatTopExpandDate(val) {
       this.topExpandDate = val;
