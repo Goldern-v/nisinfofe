@@ -1,7 +1,7 @@
 <template>
   <div class="right-con">
     <div class="row-top">
-      <div class="column-left">
+      <!-- <div class="column-left">
         <el-button size="mini" @click="syncInAndOutHospital((type = '0'))">
           同步入院
         </el-button>
@@ -12,7 +12,7 @@
         >
           同步出院
         </el-button>
-      </div>
+      </div> -->
       <div class="column-right">
         <span style="padding-left: 5px">日期：</span>
         <ElDatePicker
@@ -220,6 +220,65 @@
               />
             </div>
           </div>
+          
+          <div class="row" v-if="multiDictList['中间注释']">
+            <span class="preText">中间注释</span>
+            <el-select
+            :disabled="isDisable()"
+              size="mini"
+              v-model="vitalSignObj[multiDictList['中间注释']].expand1"
+            >
+              <el-option
+                v-for="(item, bottomIndex) in getFilterSelections(totalDictInfo['中间注释'].options,
+                        vitalSignObj[multiDictList['中间注释']].vitalValue)"
+                :key="bottomIndex"
+                :label="item"
+                :value="item"
+              >
+              </el-option>
+            </el-select>
+            <!-- <el-date-picker
+              size="mini"
+              :readonly="isDisable()"
+              format="yyyy-MM-dd HH:mm:ss"
+              value-format="yyyy-MM-dd HH:mm:ss"
+              v-model="vitalSignObj[multiDictList['表底注释']].expand2"
+              type="datetime"
+              placeholder="选择日期时间"
+              style="margin: 3px 0px 0px 55px; width: 170px"
+              @change="formatCenterExpandDate"
+            >
+            </el-date-picker> -->
+          </div>
+          <div class="row" v-if="multiDictList['表底注释']">
+            <span class="preText">表底注释</span>
+            <el-select
+              size="mini"
+              :disabled="isDisable()"
+              v-model="vitalSignObj[multiDictList['表底注释']].expand1"
+            >
+              <el-option
+               v-for="(item, bottomIndex) in getFilterSelections(totalDictInfo['表底注释'].options,
+                        vitalSignObj[multiDictList['表底注释']].vitalValue)"
+                :key="bottomIndex"
+                :label="item"
+                :value="item"
+              >
+              </el-option>
+            </el-select>
+            <!-- <el-date-picker
+              size="mini"
+              :readonly="isDisable()"
+              format="yyyy-MM-dd HH:mm:ss"
+              value-format="yyyy-MM-dd HH:mm:ss"
+              v-model="vitalSignObj[multiDictList['表底注释']].expand2"
+              type="datetime"
+              placeholder="选择日期时间"
+              style="margin: 3px 0px 0px 55px; width: 170px"
+              @change="formatBtmExpandDate"
+            >
+            </el-date-picker> -->
+          </div>
           <div class="row" v-if="multiDictList['表顶注释']">
             <span class="preText">表顶注释</span>
             <el-select
@@ -246,64 +305,6 @@
               placeholder="选择日期时间"
               style="margin: 3px 0px 0px 55px; width: 170px"
               @change="formatTopExpandDate"
-            >
-            </el-date-picker>
-          </div>
-          <div class="row" v-if="multiDictList['中间注释']">
-            <span class="preText">中间注释</span>
-            <el-select
-            :disabled="isDisable()"
-              size="mini"
-              v-model="vitalSignObj[multiDictList['中间注释']].expand1"
-            >
-              <el-option
-                v-for="(item, bottomIndex) in getFilterSelections(totalDictInfo['中间注释'].options,
-                        vitalSignObj[multiDictList['中间注释']].vitalValue)"
-                :key="bottomIndex"
-                :label="item"
-                :value="item"
-              >
-              </el-option>
-            </el-select>
-            <el-date-picker
-              size="mini"
-              :readonly="isDisable()"
-              format="yyyy-MM-dd HH:mm:ss"
-              value-format="yyyy-MM-dd HH:mm:ss"
-              v-model="vitalSignObj[multiDictList['表底注释']].expand2"
-              type="datetime"
-              placeholder="选择日期时间"
-              style="margin: 3px 0px 0px 55px; width: 170px"
-              @change="formatCenterExpandDate"
-            >
-            </el-date-picker>
-          </div>
-          <div class="row" v-if="multiDictList['表底注释']">
-            <span class="preText">表底注释</span>
-            <el-select
-              size="mini"
-              :disabled="isDisable()"
-              v-model="vitalSignObj[multiDictList['表底注释']].expand1"
-            >
-              <el-option
-               v-for="(item, bottomIndex) in getFilterSelections(totalDictInfo['表底注释'].options,
-                        vitalSignObj[multiDictList['表底注释']].vitalValue)"
-                :key="bottomIndex"
-                :label="item"
-                :value="item"
-              >
-              </el-option>
-            </el-select>
-            <el-date-picker
-              size="mini"
-              :readonly="isDisable()"
-              format="yyyy-MM-dd HH:mm:ss"
-              value-format="yyyy-MM-dd HH:mm:ss"
-              v-model="vitalSignObj[multiDictList['表底注释']].expand2"
-              type="datetime"
-              placeholder="选择日期时间"
-              style="margin: 3px 0px 0px 55px; width: 170px"
-              @change="formatBtmExpandDate"
             >
             </el-date-picker>
           </div>
@@ -608,7 +609,7 @@ return false
     },
     getFilterSelections(orgin, filterStr) {
       if (!filterStr || !filterStr.trim()) return orgin;
-      return orgin.filter((option) => option.includes(filterStr));
+      return orgin;
     },
     handlePopRefresh(target) {
       target.popVisible = false;
@@ -842,7 +843,7 @@ window.openSetTextModalNew(
 
   .rowbox{
     display: inline-block;
-    padding: 3px 15px;
+    padding: 3px 5px;
 
     .preText {
       display: inline-block;
@@ -850,7 +851,7 @@ window.openSetTextModalNew(
     }
 
     input {
-      width: 60px;
+      width: 48px;
       font-size: 12px;
     }
 
@@ -867,7 +868,7 @@ display: inline-block;
     }
 
     input {
-      width: 60px;
+      width: 48px;
       font-size: 12px;
     }
 
