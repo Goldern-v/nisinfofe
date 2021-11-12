@@ -459,7 +459,6 @@ export default {
     },
     // 保存
     submitForm(formName) {
-      return
       this.$refs[formName].validate((valid) => {
         if (valid) {
           let data = this.setParams();
