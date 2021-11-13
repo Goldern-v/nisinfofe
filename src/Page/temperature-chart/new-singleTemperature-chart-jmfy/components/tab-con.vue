@@ -220,7 +220,7 @@
               >
               </el-option>
             </el-select>
-            <el-date-picker
+            <!-- <el-date-picker
               size="mini"
               :readonly="isDisable()"
               format="yyyy-MM-dd HH:mm:ss"
@@ -231,7 +231,7 @@
               style="margin: 3px 0px 0px 55px; width: 170px"
               @change="formatBtmExpandDate"
             >
-            </el-date-picker>
+            </el-date-picker> -->
           </div>
           <div>
             <el-button

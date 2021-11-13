@@ -81,7 +81,7 @@
         </div>
       </span>
     </div>
-    <div class="info-con">
+    <div class="info-con" flex="main:justify">
       <span v-if="
               sheetInfo.sheetType === 'antenatalwaiting_jm' ||
               sheetInfo.sheetType === 'breastkenursing_jm' ||
@@ -98,7 +98,6 @@
           style="
             min-width: 650px;
             min-height: 13px;
-            overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
           "
@@ -122,6 +121,20 @@
         分娩日期：
         <div class="bottom-line" style="min-width: 80px">
           {{ patientInfo.admissionDate | toymd }}
+        </div>
+      </span>
+      <span v-if="sheetInfo.sheetType === 'gynaecology_jm'">
+        入科时间：
+        <div 
+        class="bottom-line" 
+        style="
+          min-width: 140px;
+          min-height: 13px;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          "
+          >
+          {{ patientInfo.admissionDate | toymdhs }}
         </div>
       </span>
     </div>
@@ -223,7 +236,14 @@ export default {
   },
   filters: {
     toymd(val) {
-      return moment(val).format("YYYY年MM月DD日 ");
+      if(val){
+        return moment(val).format("YYYY年MM月DD日");
+      }
+    },
+    toymdhs(val) {
+      if(val){
+        return moment(val).format("YYYY年MM月DD日 HH:mm");
+      }
     },
   },
   created() {
@@ -234,6 +254,8 @@ export default {
     if(sheetInfo.sheetType === 'neonatal_care_jm'){
       this.patientInfo.admissionDate=this.patientInfo.admissionDate.split(" ")[0]
     }
+      console.log(this.patientInfo);
+
   },
   watch: {},
   components: {

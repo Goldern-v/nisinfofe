@@ -31,6 +31,7 @@ let sshUpload = (
     山南市人民医院: "shannanrenyi",
     阳春中医院: "shannayangchunzhongyinrenyi",
     佛山市第一人民医院: "foshanshiyi",
+    武汉亚心医院:"wuhanyaxin",
   };
   let hospitalEN = "dongguanhoujie";
   if (hospitalList[hospitalName]) {
