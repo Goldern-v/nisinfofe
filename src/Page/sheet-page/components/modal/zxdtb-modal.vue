@@ -2,20 +2,31 @@
   <div>
     <sweet-modal ref="modal" :modalWidth="720" :title="title">
       <div flex="cross:center">
-        <span v-if="HOSPITAL_ID == 'guizhou'" class="label">输血日期：</span>
-        <span v-if="HOSPITAL_ID != 'guizhou'" class="label">执行单日期：</span>
-        <masked-input
-          type="text"
-          class="mask-input"
-          :showMask="false"
-          v-model="searchDate"
-          :mask="
-            () => [/\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/]
-          "
-          :guide="true"
-          placeholderChar=" "
-        ></masked-input>
-        <div v-if="HOSPITAL_ID == 'quzhou'||HOSPITAL_ID == 'weixian'">
+        <div v-if="HOSPITAL_ID == 'weixian'">
+          <span class="label">执行单日期：</span>
+          <el-date-picker
+            v-model="longDate"
+            type="daterange"
+            size="small"
+            placeholder="选择日期范围">
+          </el-date-picker>
+        </div>
+        <div v-else>
+          <span v-if="HOSPITAL_ID == 'guizhou'" class="label">输血日期：</span>
+          <span v-if="HOSPITAL_ID != 'guizhou'" class="label">执行单日期：</span>
+          <masked-input
+            type="text"
+            class="mask-input"
+            :showMask="false"
+            v-model="searchDate"
+            :mask="
+              () => [/\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/]
+            "
+            :guide="true"
+            placeholderChar=" "
+          ></masked-input>
+        </div>
+        <div v-if="HOSPITAL_ID == 'quzhou'||HOSPITAL_ID == 'weixian'" style="margin-left: 20px">
           <span class="label">类型：</span>
           <el-select
             v-model="executeType"
@@ -189,6 +200,7 @@ export default {
     return {
       sheetInfo,
       searchDate: "",
+      longDate: [moment(), moment()],
       tableData: [],
       multipleSelection: [],
       bus: bus(this),
@@ -312,12 +324,14 @@ export default {
           this.tableData = res.data.data.list;
         });
       } else if (this.HOSPITAL_ID == "weixian") {
+        let startDate = this.longDate[0] ? moment(this.longDate[0]).format('YYYY-MM-DD') : ''
+        let endDate = this.longDate[1] ? moment(this.longDate[1]).format('YYYY-MM-DD') : ''
         getOrdersExecuteWx({
           patientId: this.patientInfo.patientId || this.formlist.patientId,
           visitId: this.patientInfo.visitId || this.formlist.visitId,
-          executeDateTime: this.searchDate,
-          wardCode: this.$store.state.lesion.deptCode,
-          executeType: this.executeType,
+          startDate,
+          endDate,
+          type: this.executeType,
         }).then((res) => {
           this.tableData = res.data.data.list;
         });
