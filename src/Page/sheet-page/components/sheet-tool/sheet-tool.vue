@@ -266,7 +266,7 @@
         class="right-btn"
         flex="cross:center main:center"
         @click.stop="openZxdtbModal"
-        v-if="HOSPITAL_ID == 'wujing' || HOSPITAL_ID == 'quzhou' || HOSPITAL_ID == 'weixian'"
+        v-if="HOSPITAL_ID == 'wujing' || HOSPITAL_ID == 'quzhou' || HOSPITAL_ID == '111'"
       >
         <div class="text-con">
           <img src="./images/评估.png" alt />
