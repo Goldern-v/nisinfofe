@@ -286,12 +286,15 @@ export default {
             }, 1000);
           }
       }).catch(error=>{
+        console.log(error);
+        if(error.code!=200){
          this.$message({
             type: "info",
-            message: "请求失败"
+            message: error.data.desc
          });
          clearInterval(this.setIntervalApi)
          this.setIntervalApi=null;
+        }
       })
     },
     //清除信息
