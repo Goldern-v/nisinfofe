@@ -208,7 +208,7 @@ export default [
   event: keyf1,
   splice: true,
   textarea: {
-    width: 48
+    width: 38
   },
   autoComplete: {
     data: ['1', '2', '3', '4', '5', '6', '7']
@@ -222,7 +222,7 @@ export default [
   event: keyf1,
   splice: true,
   textarea: {
-    width: 48
+    width: 38
   },
   autoComplete: {
     data: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11']
@@ -278,7 +278,7 @@ export default [
     top: "1px",
     bottom: "1px",
     left: "1px",
-    width: "180px",
+    width: "160px",
     background: "transparent"
   },
   event: function (e, td) {
