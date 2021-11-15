@@ -42,7 +42,7 @@ import {
       },
     },
     {
-      key: "topNote", //表顶注释
+      key: "topComment", //表顶注释
       value: "",
       event: keyf1,
       name: "表顶注释",
@@ -66,7 +66,7 @@ import {
       },
     },
     {
-      key: "weight", //体重
+      key: "curWeight", //体重
       value: "",
       name: "体重",
       event: keyf1,
@@ -81,7 +81,7 @@ import {
       event: keyf1,
     },
     {
-      key: "stools", //大便次数
+      key: "stoolNum", //大便次数
       value: "",
       name: "大便次数",
       event: keyf1,
@@ -99,7 +99,7 @@ import {
       event: keyf1,
     },
     {
-      key: "vomit", //呕吐
+      key: "vomiting", //呕吐
       value: "",
       name: "呕吐",
       event: keyf1,
