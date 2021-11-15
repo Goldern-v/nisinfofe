@@ -208,7 +208,7 @@
           placeholder="请输入页码"
           v-model="pageNum"
           @keydown="pageNumKeyDown"
-        ></input>
+        />
       </div>
       <!-- <div class="item-box" flex="cross:center main:center" @click="tofull">
             <div class="text-con">
@@ -266,7 +266,7 @@
         class="right-btn"
         flex="cross:center main:center"
         @click.stop="openZxdtbModal"
-        v-if="HOSPITAL_ID == 'wujing' || HOSPITAL_ID == 'quzhou'"
+        v-if="HOSPITAL_ID == 'wujing' || HOSPITAL_ID == 'quzhou' || HOSPITAL_ID == 'weixian'"
       >
         <div class="text-con">
           <img src="./images/评估.png" alt />
@@ -430,7 +430,9 @@ export default {
         this.$refs.sheet.open();
       });
     },
+    
     emit(todo, value) {
+      
       console.log(todo,value,this.sheetInfo);
       if (!this.patientInfo.patientId) {
         return this.$message.warning("请选择一名患者");
@@ -442,6 +444,7 @@ export default {
       }
       this.bus.$emit(todo, value);
     },
+    
     tofull() {
       this.$store.commit("upSheetPageFullpage", !this.fullpage);
     },
