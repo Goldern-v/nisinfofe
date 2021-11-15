@@ -45,7 +45,7 @@
         flex="cross:center main:center"
         @click="toPrint"
         v-if="
-          (HOSPITAL_ID != 'guizhou' && !isDeputy) || HOSPITAL_ID == 'guizhou'
+          (HOSPITAL_ID != 'guizhou' && !isDeputy&&isShow()|| HOSPITAL_ID == 'guizhou')
         "
       >
         <div class="text-con">打印预览</div>
@@ -58,7 +58,7 @@
         class="item-box"
         flex="cross:center main:center"
         @click.stop="toPdfPrint"
-        v-show="isDev"
+        v-show="isDev&&isShow()"
       >
         <div class="text-con">批量打印</div>
       </div>
@@ -74,7 +74,7 @@
         class="item-box"
         flex="cross:center main:center"
         @click.stop="createSheet"
-        v-if="!isSingleTem && !isDeputy"
+        v-if="!isSingleTem && !isDeputy&&isShow()"
       >
         <div class="text-con">新建记录单</div>
       </div>
@@ -403,6 +403,15 @@ export default {
     },
     closeModal() {
       this.visibled = false;
+    },
+    //是否显示
+    isShow(){
+      if((this.HOSPITAL_ID === "beihairenyi") &&
+        this.$route.path.includes("Baby_sheetPage")){
+          return false 
+        }else{
+          return true
+        }
     },
     /* 出入量统计弹框--花都区分 */
     openStaticModal() {
