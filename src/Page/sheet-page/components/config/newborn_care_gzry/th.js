@@ -139,7 +139,7 @@ export default {
         rowspan: '1',
       },
       {
-        name: '腹<br>涨',
+        name: '腹<br>胀',
         colspan: '1',
         rowspan: '2',
       },
