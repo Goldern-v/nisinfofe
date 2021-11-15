@@ -135,9 +135,6 @@ export default [{
   },
   splice: true,
   style: 'overflow: hidden',
-  textarea: {
-    width: 36
-  },
 },
 {
   key: "topComment", //表顶注释
@@ -149,9 +146,6 @@ export default [{
   },
   splice: true,
   style: 'overflow: hidden',
-  textarea: {
-    width: 36
-  },
 },
 // {
 //   key: "height", //身高
@@ -187,33 +181,21 @@ export default [{
   key: "fieldFour", //自1
   value: "",
   event: keyf1,
-  textarea: {
-    width: 36
-  },
 },
 {
   key: "fieldFive", //自2
   value: "",
   event: keyf1,
-  textarea: {
-    width: 36
-  }
 },
 {
   key: "fieldSix", //自3
   value: "",
   event: keyf1,
-  textarea: {
-    width: 36
-  }
 },
 {
   key: "fieldSeven", //自4
   value: "",
   event: keyf1,
-  textarea: {
-    width: 36
-  }
 },
 {
   key: "description", //特殊情况记录
