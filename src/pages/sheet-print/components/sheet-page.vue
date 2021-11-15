@@ -96,6 +96,7 @@ export default {
       cleanData();
 
       if ($params.previewId) {
+        console.log('住院评估单预览');
         /** 住院评估单预览 */
         syncToRecord($params.previewId).then(res => {
           this.sheetInfo.selectBlock = res.data.data.block;
@@ -118,16 +119,18 @@ export default {
         });
         return;
       }
-
+      console.log('beforeGetBlock');
       getBlock($params.id).then(res_b => {
         this.sheetInfo.selectBlock = res_b.data.data;
         this.sheetInfo.sheetType = this.sheetInfo.selectBlock.recordCode;
+      console.log('beforePromise');
         Promise.all([showTitle(), showBody(), getHomePage()]).then(res => {
           let titleData = res[0].data.data;
           let bodyData = res[1].data.data;
           let markData = [];
           let pageData = res[2].data.data;
 
+      console.log('beforeNextTick');
           this.$nextTick(() => {
             initSheetPage(titleData, bodyData, markData);
             sheetInfo.relObj = decodeRelObj(bodyData.relObj) || {};
@@ -135,6 +138,7 @@ export default {
             this.sheetInfo.sheetMaxPage =
               (pageData && pageData.maxIndexNo) || 1;
             this.$nextTick(() => {
+      console.log('beforeNextTick2');
               $("#sheetPagePrint")
                 .find(".head-con span")
                 .each((index, item) => {
@@ -176,23 +180,28 @@ export default {
               if (document.querySelector('th[dataname="审核签名"]')) {
                 $(".contant").width(Math.max($(".contant").width()));
               }
-
+              console.log('findAndEach');
               /** 添加上标下标 */
-              $('[datakey="description"]').each((index, el) => {
-                let dataValue = $(el)
-                  .find("input")
-                  .val();
-                let resultValue = `<span>${formatSub(
-                  formatSub(formatSub(dataValue))
-                )}</span>`;
-                if (dataValue.indexOf("^") > -1) {
-                  $(el)
-                    .empty()
-                    .append(resultValue);
-                }
-              });
-              let sheetTableWidth = document.querySelector("div.contant")
-                .offsetWidth;
+              try{
+                $('[datakey="description"]').each((index, el) => {
+                  let dataValue = $(el)
+                    .find("input")
+                    .val();
+                  let resultValue = `<span>${formatSub(
+                    formatSub(formatSub(dataValue))
+                  )}</span>`;
+                  if (dataValue.indexOf("^") > -1) {
+                    $(el)
+                      .empty()
+                      .append(resultValue);
+                  }
+                });
+              }catch(err){
+                console.log(err);
+              }
+              console.log('each');
+              let sheetTableWidth = document.querySelector("div.contant").offsetWidth;
+              console.log(sheetTableWidth);
               $("#sheetPagePrint").css({
                 minWidth: sheetTableWidth + "px"
               });
@@ -226,7 +235,7 @@ export default {
               }
 
               /** 如果是威县超宽打印 */
-              if (["weixian",'beihairenyi'].includes(this.HOSPITAL_ID)) {
+              if (this.HOSPITAL_ID == "weixian") {
                 addCSS(
                   window,
                   `

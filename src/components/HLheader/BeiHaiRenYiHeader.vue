@@ -102,7 +102,7 @@
               <i class="birthCertificate"></i>护理评估
             </el-row>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item
+              <!-- <el-dropdown-item
                 :class="{
                     active: $route.path == '/sheetHospitalAdmission'
                   }"
@@ -121,8 +121,9 @@
                 <el-row class="menu-item" type="flex" align="middle">
                   <i class="sheetHospitalEval"></i>住院评估
                 </el-row>
-              </router-link> </el-dropdown-item
-            ><el-dropdown-item
+              </router-link>
+             </el-dropdown-item> -->
+             <el-dropdown-item
               :class="{
                     active: $route.path == '/MEWS'
                   }"

@@ -65,6 +65,7 @@
         <div class="nav-item">护理记录单</div>
       </router-link>
       <router-link
+        v-if="!['beihairenyi'].includes(this.HOSPITAL_ID)"
         :to="{
           path: '/hospitalEval',
           query: { patientId: query.patientId, visitId: query.visitId }
