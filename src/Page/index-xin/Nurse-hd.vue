@@ -275,7 +275,6 @@ export default {
     },
     // 按照病人id和住院次数设置合并的行数
     setRowSpan(data,newData){
-      console.log(data);
       let resData={}
       data.map((item)=>{
         if(resData[item.patientId+"|"+item.visitId]){
@@ -312,7 +311,6 @@ export default {
       this.page3Loading = true;
       bodyTast(this.deptCode, time) // 获取数据--体症任务
         .then(rep => {
-          console.log(rep);
           // let data = rep.data.data;
           let data = rep.data.data;
           let newData=[]

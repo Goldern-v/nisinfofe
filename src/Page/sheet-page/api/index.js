@@ -233,6 +233,12 @@ export const ordersExecuteList = (obj = {}) => {
   return axios.post(`${apiPath}record/block/ordersExecute/list/${id}`, obj);
 };
 
+// 威县获取his患者体征
+export const getOrdersExecuteWx = (obj = {}) => {
+  let id = sheetInfo.selectBlock.id;
+  return axios.post(`${apiPath}/record/block/getOrdersExecuteWx/list/${id}`, obj);
+};
+
 // 贵州获取his患者输血同步
 export const nurseBloodList = (obj = {}) => {
   let id = sheetInfo.selectBlock.id;

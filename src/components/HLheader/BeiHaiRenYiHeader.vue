@@ -172,6 +172,15 @@
                     </el-row>
                   </router-link>
                 </el-dropdown-item>
+                <el-dropdown-item
+                  :class="{ active: $route.path == '/formPage' }"
+                >
+                  <router-link to="/Baby_sheetPage" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="allTemperatureChart"></i> 批量录入婴儿记录
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
             <router-link to="/sugarPage" tag="span">

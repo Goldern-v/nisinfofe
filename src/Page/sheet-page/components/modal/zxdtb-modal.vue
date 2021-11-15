@@ -15,7 +15,7 @@
           :guide="true"
           placeholderChar=" "
         ></masked-input>
-        <div v-if="HOSPITAL_ID == 'quzhou'">
+        <div v-if="HOSPITAL_ID == 'quzhou'||HOSPITAL_ID == 'weixian'">
           <span class="label">类型：</span>
           <el-select
             v-model="executeType"
@@ -84,7 +84,7 @@
             align="center"
           ></el-table-column>
           <!-- <el-table-column v-if="HOSPITAL_ID == 'quzhou'" prop="desc" label="描述" min-width="110px" align="center"></el-table-column> -->
-          <template v-if="HOSPITAL_ID == 'quzhou'">
+          <template v-if="HOSPITAL_ID == 'quzhou' || HOSPITAL_ID == 'weixian'">
             <el-table-column
               prop="orderText"
               label="医嘱内容"
@@ -170,6 +170,7 @@ import {
   saveVitalSign,
   ordersExecuteList,
   nurseBloodList,
+  getOrdersExecuteWx,
 } from "../../api/index";
 import sheetInfo from "../config/sheetInfo/index";
 import bus from "vue-happy-bus";
@@ -233,7 +234,8 @@ export default {
         this.multipleSelection.length != 0 &&
         (this.HOSPITAL_ID == "fuyou" ||
           this.HOSPITAL_ID == "wujing" ||
-          this.HOSPITAL_ID == "quzhou")
+          this.HOSPITAL_ID == "quzhou" ||
+          this.HOSPITAL_ID == "weixian")
       ) {
         this.multipleSelection.map((item, index) => {
           if (item.pulse) {
@@ -306,6 +308,16 @@ export default {
           patientId: this.patientInfo.patientId || this.formlist.patientId,
           visitId: this.patientInfo.visitId || this.formlist.visitId,
           executeDateTime: this.searchDate,
+        }).then((res) => {
+          this.tableData = res.data.data.list;
+        });
+      } else if (this.HOSPITAL_ID == "weixian") {
+        getOrdersExecuteWx({
+          patientId: this.patientInfo.patientId || this.formlist.patientId,
+          visitId: this.patientInfo.visitId || this.formlist.visitId,
+          executeDateTime: this.searchDate,
+          wardCode: this.$store.state.lesion.deptCode,
+          executeType: this.executeType,
         }).then((res) => {
           this.tableData = res.data.data.list;
         });

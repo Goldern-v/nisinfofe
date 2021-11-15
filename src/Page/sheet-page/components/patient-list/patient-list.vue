@@ -246,9 +246,6 @@ export default {
   },
   created() {
     this.$store.commit("upPatientInfo", {});
-    console.log(666666666666666);
-    console.table(this.data);
-    console.log(666666666666666);
   },
   mounted() {
     if (this.deptCode == "051102") {

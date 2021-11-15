@@ -24,17 +24,7 @@
         ></patientList>-->
 
         <patientList
-          :toName="
-            (HOSPITAL_ID === 'huadu' ||
-              HOSPITAL_ID === 'liaocheng' ||
-              HOSPITAL_ID === 'hengli' ||
-              HOSPITAL_ID === 'quzhou' ||
-              HOSPITAL_ID === 'hj' ||
-              HOSPITAL_ID === 'wujing') &&
-            $route.path.includes('singleTemperatureChart')
-              ? 'singleTemperatureChart'
-              : 'sheetPage'
-          "
+          :toName="'Baby_sheetPage'"
           :callFunction="isSelectPatient"
         />
       </div>
@@ -80,14 +70,7 @@
           >
             <i class="el-icon-plus"></i>
             {{
-              (HOSPITAL_ID === "huadu" ||
-                HOSPITAL_ID === "liaocheng" ||
-                HOSPITAL_ID === "hj" ||
-                HOSPITAL_ID === "hengli" ||
-                HOSPITAL_ID === "wujing") &&
-              $route.path.includes("singleTemperatureChart")
-                ? "创建体温单"
-                : "创建护理记录单"
+              "创建婴儿护理记录单"
             }}
           </div>
         </div>
@@ -540,30 +523,14 @@ export default {
     },
     addSheetPage() {
       if (
-        (this.HOSPITAL_ID === "huadu" ||
-          this.HOSPITAL_ID === "hj" ||
-          this.HOSPITAL_ID === "quzhou" ||
-          this.HOSPITAL_ID === "hengli" ||
-          this.HOSPITAL_ID === "wujing") &&
-        this.$route.path.includes("singleTemperatureChart")
+        (
+          this.HOSPITAL_ID === "beihairenyi") &&
+        this.$route.path.includes("Baby_sheetPage")
       ) {
-        // let recordCode = "body_temperature_Hd";
-        // let recordCode =
-        //   this.HOSPITAL_ID === "huadu" || HOSPITAL_ID === "wujing"
-        //     ? "body_temperature_Hd"
-        //     : "body_temperature_lcey";
         let recordCode = (() => {
           switch (this.HOSPITAL_ID) {
-            case "huadu":
-              return "body_temperature_Hd";
-            case "hj":
-              return "body_temperature_hj";
-            // case "liaocheng":
-            //   return "body_temperature_lcey";
-            case "wujing":
-              return "body_temperature_wj";
-            case "hengli":
-              return "body_temperature_hl";
+            case "beihairenyi":
+              return "infant_bh";
             default:
               break;
           }
@@ -988,6 +955,9 @@ export default {
     this.bus.$on("syncDecription", (tr, td) => {
       this.$refs.syncToIsbarModal.open(tr, td, sheetModel);
     });
+  },
+  mounted(){
+    this.addSheetPage()
   },
   watch: {
     deptCode(val) {

@@ -63,7 +63,7 @@
         ></el-input>
       </div>
     </span>
-    <span v-else-if="HOSPITAL_ID != 'weixian' || pw">
+    <span v-else-if="HOSPITAL_ID != 'weixian' || pw " v-show="!isDoctor">
       <p for class="name-title">{{ label }}</p>
       <div ref="passwordInput">
         <el-input
@@ -227,7 +227,8 @@ export default {
       formData:null,//签名表单传过来的数据
       fuyouCaData:null,
       isCaSign:false,
-      signType:0
+      signType:0,
+      isDoctor:false
     };
   },
   methods: {
@@ -242,15 +243,22 @@ export default {
       let flag = ['fuyou'].includes(this.HOSPITAL_ID)&& this.fuyouCaData && this.fuyouCaData.userName
     return !!flag
     },
-    open(callback, title, showDate = false, isHengliNursingForm, message = "",formData,type) {//formData为表单数据
-    this.isCaSign = false;
+    open(callback, title, showDate = false, isHengliNursingForm, message = "",formData,type,doctorTure) {//formData为表单数据
+    console.log(doctorTure)
+    if(doctorTure){
+      this.isDoctor = doctorTure
+      this.isCaSign = true;
+    }else{
+      this.isDoctor =false;
+      this.isCaSign = false;
+    }
     if(type){
       let signType = {sign:'1',audit:'2'};
       this.signType = signType[type];
     };
      (formData) && (this.formData=formData);//设置表单数据
       this.initFuyouCaData()
-      console.log('isHengliNursingFormzczxczxcxzczx', isHengliNursingForm);
+      // console.log('isHengliNursingFormzczxczxcxzczx', isHengliNursingForm);
       this.signDate = dayjs().format("YYYY-MM-DD HH:mm") || ""; //改
       if(isHengliNursingForm && title!=='删除验证'){
         if(title==='签名确认' && this.HOSPITAL_ID == 'hengli'){
@@ -313,6 +321,7 @@ export default {
       return null;
     },
     close() {
+      this.isDoctor =false
       this.$refs.modalName.close();
     },
     setCloseCallback(closeCallback) {
@@ -354,7 +363,7 @@ export default {
           });
         }
       } else {
-        if (this.password == "") {
+        if (this.password == "" && !this.isDoctor) {
           return this.$message({
             message: "请输入密码",
             type: "warning",
@@ -366,6 +375,10 @@ export default {
         if(this.aduitDate != '' && this.HOSPITAL_ID == 'hengli'){
           return this.callback(this.password, this.username,this.signDate='', this.aduitDate);
         } 
+        if(this.isDoctor){
+          console.log(!this.isDoctor);
+          return this.callback('',this.username);
+        }
         if (this.signDate) {
           return this.callback(this.password, this.username, this.signDate);
         }else {
@@ -429,6 +442,7 @@ export default {
   },
   beforeDestroy() {
     this.fuyouCaData = null
+    this.isDoctor = false
   },
   components: {}
 };
