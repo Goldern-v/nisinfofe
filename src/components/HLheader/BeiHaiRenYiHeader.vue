@@ -102,7 +102,7 @@
               <i class="birthCertificate"></i>护理评估
             </el-row>
             <el-dropdown-menu slot="dropdown">
-              <!-- <el-dropdown-item
+              <el-dropdown-item
                 :class="{
                     active: $route.path == '/sheetHospitalAdmission'
                   }"
@@ -121,9 +121,8 @@
                 <el-row class="menu-item" type="flex" align="middle">
                   <i class="sheetHospitalEval"></i>住院评估
                 </el-row>
-              </router-link>
-             </el-dropdown-item> -->
-             <el-dropdown-item
+              </router-link> </el-dropdown-item
+            ><el-dropdown-item
               :class="{
                     active: $route.path == '/MEWS'
                   }"
@@ -170,6 +169,15 @@
                   <router-link to="/formPage" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
                       <i class="nursingAssessment"></i> 护理评估单
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item>
+                <el-dropdown-item
+                  :class="{ active: $route.path == '/formPage' }"
+                >
+                  <router-link to="/Baby_sheetPage" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="allTemperatureChart"></i> 批量录入婴儿记录
                     </el-row>
                   </router-link>
                 </el-dropdown-item>
