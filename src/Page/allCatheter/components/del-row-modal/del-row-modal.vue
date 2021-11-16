@@ -22,11 +22,12 @@
 </template>
 <style lang='scss' scoped>
 .del-modal{
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
+    z-index: 999;
     .bg{
         position: absolute;
         top: 0;
