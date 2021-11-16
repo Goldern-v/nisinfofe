@@ -38,7 +38,7 @@ import {
       event: keyf1,
       name: "体温",
       textarea: {
-        width: 50
+        width: 85
       },
     },
     {
@@ -47,7 +47,7 @@ import {
       event: keyf1,
       name: "表顶注释",
       textarea: {
-        width: 60
+        width: 85
       },
       autoComplete: {
         data: topNoteList
@@ -59,7 +59,7 @@ import {
       name: "班次",
       event: keyf1,
       textarea: {
-        width: 40
+        width: 85
       },
       autoComplete: {
         data: shiftList
@@ -71,7 +71,7 @@ import {
       name: "体重",
       event: keyf1,
       textarea: {
-        width: 40
+        width: 85
       },
     },
     {
@@ -79,24 +79,36 @@ import {
       value: "",
       name: "小便次数",
       event: keyf1,
+      textarea: {
+        width: 85
+      },
     },
     {
       key: "stoolNum", //大便次数
       value: "",
       name: "大便次数",
       event: keyf1,
+      textarea: {
+        width: 85
+      },
     },
     {
       key: "milkFrequency", //母乳次数
       value: "",
       name: "母乳次数",
       event: keyf1,
+      textarea: {
+        width: 85
+      },
     },
     {
       key: "artificialFrequency", //人工次数
       value: "",
       name: "人工次数",
       event: keyf1,
+      textarea: {
+        width: 85
+      },
     },
     {
       key: "vomiting", //呕吐
@@ -104,7 +116,7 @@ import {
       name: "呕吐",
       event: keyf1,
       textarea: {
-        width: 50
+        width: 85
       },
       autoComplete: {
         data: vomitList
@@ -116,7 +128,7 @@ import {
       name: "皮肤",
       event: keyf1,
       textarea: {
-        width: 100
+        width: 85
       },
       splice: true||",",
       autoComplete: {
@@ -129,7 +141,7 @@ import {
       name: "脐带",
       event: keyf1,
       textarea: {
-        width: 100
+        width: 85
       },
       splice: true||",",
       autoComplete: {

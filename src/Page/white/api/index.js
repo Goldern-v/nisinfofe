@@ -3,6 +3,7 @@ import axios from "@/api/axios";
 import { apiPath } from "@/api/apiConfig";
 import qs from "qs";
 
+
 //  获取病区动态
 export function getNewPatList(deptCode) {
   return axios.get(`${apiPath}bed/getNewPatList/${deptCode}`);
@@ -44,6 +45,14 @@ export function viewListByDeptCode(deptCode) {
     `${apiPath}whiteboard/patientGroup/viewListByDeptCode/${deptCode}`
   );
 }
+
+// 获取病人分组
+export function viewListByDeptCodeLC(deptCode) {
+  return axios.get(
+    `${apiPath}whiteboard/patientGroup/viewListByDeptCodeLC/${deptCode}`
+  );
+}
+
 // 更新留言等
 export function updateByDeptCode(data) {
   delete data.createTime;
@@ -61,6 +70,17 @@ export function updateByDeptCodeAndGroupCode(data) {
   delete data.id;
   return axios.post(
     `${apiPath}whiteboardManage/patientGroup/updateByDeptCodeAndGroupCode`,
+    data
+  );
+}
+
+// 更新病人分组
+export function updateByDeptCodeAndGroupCodeLC(data) {
+  delete data.updateTime;
+  delete data.createTime;
+  delete data.id;
+  return axios.post(
+    `${apiPath}whiteboardManage/patientGroup/updateByDeptCodeAndGroupCodeLC`,
     data
   );
 }
