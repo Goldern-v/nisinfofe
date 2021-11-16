@@ -253,7 +253,7 @@ export default {
     }
   },
   methods: {
-    createListHj(){
+    createListHj(index){
        return {
             label: "输血安全护理记录单",
             index: index + 1,
@@ -655,7 +655,7 @@ export default {
           let list_3 = []
           switch(this.HOSPITAL_ID){
             case 'hj':
-              list_3 = this.createListHj();
+              list_3 = this.createListHj(index);
               break;
             case 'huadu':
               list_3 = this.createListHd();
