@@ -137,6 +137,31 @@ import {
       },
     },
     {
+      key: "description", //特殊情况记录
+      value: "",
+      hidden: true,
+      style: {
+        textAlign: "left",
+        position: "absolute",
+        top: "1px",
+        bottom: "1px",
+        left: "1px",
+        width: "150px",
+        background: "transparent",
+      },
+      textarea: {
+        width: 150
+      },
+      event: function (e, td) {
+        console.log(e.keyCode);
+        if (e.keyCode == 9) {
+          td.value = "    " + td.value;
+          e.preventDefault();
+        }
+        keyf1(e, td);
+      }
+    },
+    {
       key: "sign",//签名
       value: ""
     },
