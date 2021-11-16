@@ -39,7 +39,7 @@
         <!-- <el-input size="small" type="text" placeholder="输入签名时间" v-model="signDate"></el-input> -->
       </div>
     </span>
-    <span v-show="showUserName">
+    <span v-show="showUserName&&!pw">
       <p for class="name-title">输入用户名或者工号</p>
       <div action class="sign-input" ref="userInput">
         <el-input
@@ -74,7 +74,6 @@
         ></el-input>
       </div>
     </span>
-
     <span v-else>
       <p for class="name-title">
         验证方式
@@ -412,7 +411,7 @@ export default {
           message:res.data.desc
         })
         this.close()
-        return this.callback(localStorage.ppp, this.username);
+        return this.callback(localStorage.ppp, this.username,"",true);
       }).catch(error=>{
         // this.$message({
         //   type:'warning',
