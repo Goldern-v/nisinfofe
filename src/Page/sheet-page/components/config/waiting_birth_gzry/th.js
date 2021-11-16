@@ -90,7 +90,7 @@ export default {
       },
       {
         name: `
-        潜伏期<br/>开始
+        产程<br/>开始
         `,
         colspan: "1",
         rowspan: "3"
