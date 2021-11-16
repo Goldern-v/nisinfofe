@@ -150,6 +150,13 @@ export default {
         this.firstBedRecord = this.multipleSelection[0] ? this.multipleSelection[0].bedLabelNew : ""
         this.secondBedRecord = this.multipleSelection[1] ? this.multipleSelection[1].bedLabelNew : ""
         this.thirdBedRecord = this.multipleSelection[2] ? this.multipleSelection[2].bedLabelNew : ""
+        if(this.multipleSelection[2]) {
+          this.bedLabel = this.firstBedRecord+"->"+this.secondBedRecord+"->"+this.thirdBedRecord
+        }else if(this.multipleSelection[1]) {
+          this.bedLabel = this.firstBedRecord+"->"+this.secondBedRecord
+        }else {
+          this.bedLabel = this.firstBedRecord
+        }
       });
     },
     handleSelectionChange(val,row) {
