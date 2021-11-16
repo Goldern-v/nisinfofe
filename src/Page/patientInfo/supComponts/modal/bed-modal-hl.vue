@@ -724,17 +724,18 @@
   height:3.75cm;
   font-size:32px;
   .bed-card-ctip-con{
-    transform scale(0.6) translate(-7%,-41%)
-    width:310px;
+    transform: scale(0.6) translate(-25%, -41%);
+    width: 400px;
     padding:35px 0 0 0px;
     box-sizing border-box
     .children-row{
       display:flex;
       min-height:75px;
-      justify-content space-between
+      justify-content space-between;
+      font-size:40px;
       div{
         &:first-child{
-          width:140px;
+          width:200px;
           text-align left
         }
         &:nth-child(2){
