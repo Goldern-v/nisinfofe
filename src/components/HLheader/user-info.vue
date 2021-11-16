@@ -424,6 +424,8 @@ export default {
         }
       }
       location.reload(true);
+      // localStorage.clear()
+      // location.href = '/crNursing/login'
     },
     openCaSignModal() {
       this.$refs.caSignModal.open(() => this.getCaStatus());

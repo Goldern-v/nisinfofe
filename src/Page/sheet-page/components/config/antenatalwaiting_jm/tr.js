@@ -11,7 +11,7 @@ import {
   event_date,
   event_time,
   click_date,
-  click_date_time,
+  // click_date_time,
   click_time
 } from "../keyEvent/date";
 
@@ -35,7 +35,7 @@ export default [
     key: "recordHour", //时间
     value: "",
     event: event_time,
-    // click: click_time,
+    click: click_time,
   },
   {
     key: "contractionOne", //孕周
@@ -220,7 +220,7 @@ export default [
   {
     key: "preFieldSix", //破膜时间
     value: "",
-    event: keyf1,
+    event: event_time,
     name: "破膜时间",
     textarea: {
       width: 40,
@@ -229,7 +229,7 @@ export default [
   {
     key: "preFieldSeven", //临产时间
     value: "",
-    event: keyf1,
+    event: event_time,
     name: "临产时间",
     textarea: {
       width: 40,
@@ -238,8 +238,8 @@ export default [
   {
     key: "preFieldEight", //胎儿娩出时间
     value: "",
-    event: keyf1,
-    click: click_date_time,
+    event: event_time,
+    click: click_time,
     name: "胎儿娩出时间",
     textarea: {
       width: 60,

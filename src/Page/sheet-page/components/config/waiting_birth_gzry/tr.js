@@ -56,10 +56,10 @@ export default [
     event: keyf1,
     name: "部位",
     textarea: {
-      width: 50
+      width: 60
     },
     autoComplete: {
-      data: ["脐右下", "脐左下", "脐右上", "脐左上", "脐下"]
+      data: ["脐右下", "脐左下", "脐右上", "脐左上", "脐下", "耻上"]
     },
     change: (e, td) => limitChange(e, td, 6),
   },
@@ -70,7 +70,7 @@ export default [
     name: "胎心心率",
     next: "次/分",
     textarea: {
-      width: 50
+      width: 60
     },
     change: (e, td) => limitChange(e, td, 6),
   },
@@ -91,7 +91,7 @@ export default [
     name: "间歇",
     next: "min",
     textarea: {
-      width: 50
+      width: 60
     },
     change: (e, td) => limitChange(e, td, 6),
   },
@@ -102,7 +102,7 @@ export default [
     name: "持续",
     next: "s",
     textarea: {
-      width: 50
+      width: 60
     },
     change: (e, td) => limitChange(e, td, 6),
   },
@@ -113,7 +113,7 @@ export default [
     name: "开张",
     next: "cm",
     textarea: {
-      width: 50
+      width: 60
     },
     change: (e, td) => limitChange(e, td, 6),
   },
@@ -123,7 +123,7 @@ export default [
     event: keyf1,
     name: "质",
     textarea: {
-      width: 50
+      width: 60
     },
     autoComplete: {
       data: ["软", "硬", "肿"]
@@ -136,7 +136,7 @@ export default [
     event: keyf1,
     name: "先露高低",
     textarea: {
-      width: 50
+      width: 60
     },
     change: (e, td) => limitChange(e, td, 6),
   },
@@ -155,8 +155,11 @@ export default [
     value: "",
     event: keyf1,
     name: "胎膜",
+    autoComplete: {
+      data: ["未破", "已破"]
+    },
     textarea: {
-      width: 50
+      width: 60
     },
     change: (e, td) => limitChange(e, td, 6),
   },
@@ -165,8 +168,11 @@ export default [
     value: "",
     event: keyf1,
     name: "羊水性状",
+    autoComplete: {
+      data: ["清", "Ⅰ°", "Ⅱ°", "Ⅲ°"]
+    },
     textarea: {
-      width: 50
+      width: 60
     },
     change: (e, td) => limitChange(e, td, 6),
   },
@@ -176,7 +182,7 @@ export default [
     event: keyf1,
     name: "检查方式",
     textarea: {
-      width: 50
+      width: 60
     },
     autoComplete: {
       data: ["阴道检查", "肛门检查"]
@@ -189,7 +195,7 @@ export default [
     event: keyf1,
     name: "潜伏期",
     textarea: {
-      width: 50
+      width: 60
     },
     autoComplete: {
       data: ["√"]

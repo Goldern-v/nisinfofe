@@ -11,7 +11,7 @@
       >
         <ElFormItem prop="state" label="宣教内容："  >
           <div style="display:flex">
-            <el-cascader v-model='value' :options="optionList" filterable :show-all-levels="false" popper-class='health-education-exclusive-cascade-selector-drop-down'></el-cascader>
+            <el-cascader v-model='cascaderValue' :options="optionList" filterable :show-all-levels="false" popper-class='health-education-exclusive-cascade-selector-drop-down'></el-cascader>
             <!-- <el-select
               v-model="form.state"
               filterable
@@ -173,7 +173,7 @@ export default {
       missionList: [], // 健康教育下拉框数据
       options: [], // 宣教内容下拉框数据
       optionList:[],
-      value:[],
+      cascaderValue:[],
       itemData: {}, // 修改时暂存参数
       date: "", // 修改时的宣教时间
       isOk: false, // 教育对象是否禁用（根据状态判断 -1:删除，0:未推送，1:未读，1R:已读，2:已明白，3:有疑问， 后面三个可以）
@@ -260,6 +260,7 @@ export default {
         this.modalStatus = false;
         this.title = title;
         this.isOk = false;
+        this.cascaderValue = [];
         // 添加时清空表单
         this.form = {
           state: "",
@@ -281,6 +282,11 @@ export default {
       (this.$route.query.wardCode) && (params.deptCode=this.$route.query.wardCode);
       let optionRes = await getEduFormTemplate(params);
       this.optionList = this.getOption(optionRes.data.data)
+      if(form&&form.item&&form.item.missionId){
+        let currentObj = this.options.filter(e=>e.missionId==form.item.missionId)[0]
+        this.form.state = currentObj.missionId
+        this.cascaderValue = [currentObj.type,currentObj.missionId]
+      }
       this.$refs.modal.open();
     },
     getOption(arr){
@@ -410,8 +416,6 @@ export default {
       let itemData = this.options.filter(
         (item) => item.missionId === this.form.state
       )[0]; // 宣教内容item
-      console.log(itemData);
-      console.log(this.options);
       // let object = educationObiect.filter(
       //   (item) => item.value === this.form.object
       // )[0].text; // 教育对象
@@ -459,7 +463,6 @@ export default {
     },
     // 保存
     submitForm(formName) {
-      return
       this.$refs[formName].validate((valid) => {
         if (valid) {
           let data = this.setParams();
@@ -505,7 +508,7 @@ export default {
     },
   },
   watch:{
-    value:{
+    cascaderValue:{
       deep:true,
       immediate:true,
       handler(newVal){
