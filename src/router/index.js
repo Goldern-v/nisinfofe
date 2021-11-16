@@ -259,6 +259,14 @@ const otherPage = () => import("@/Page/patientInfo/supPage/otherPage/otherPage.v
 const healthEducationGuizhou = ()=>import("@/Page/patientInfo/supPage/healthEducationGuizhou/healthEducation.vue");
 
 const healthEducationBerhairenyi = ()=>import("@/Page/patientInfo/supPage/healthEducationBeihairenyi/healthEducation.vue")
+
+// 患者流转列表
+const patientFlowList = () => import("@/Page/patient-flow-list/patientFlowList.vue")
+const patientFlowMsg = () => import("@/Page/patient-flow-msg/patientFlowMsg.vue")
+// 患者流转统计
+const patientFlowStatistics = () => import("@/Page/patient-flow-statistics/patientFlowStatistics.vue")
+
+
 Vue.use(Router);
 const HOSPITAL_ID = process.env.HOSPITAL_ID;
 const router = new Router({
@@ -584,7 +592,7 @@ const router = new Router({
               return badEvent
           }
         })(),
-        
+
         children: [{
           name: "badEventEdit",
           path: "/badEvent/:code?/:operation?/:id?/:type?/:name?",
@@ -1098,6 +1106,22 @@ const router = new Router({
         component: rationalDoseStatistics,
         name: "合理用药"
       },
+      /**聊城二院-患者流转 */
+      {
+        path: "/patientFlowList",
+        name: "patientFlowList",
+        component: patientFlowList
+      },
+      {
+        path: "/patientFlowMsg",
+        name: "patientFlowMsg",
+        component: patientFlowMsg
+      },
+      // {
+      //   path: "/patientFlowStatistics",
+      //   name: "patientFlowStatistics",
+      //   component: patientFlowStatistics
+      // },
     ]
   },
   {
