@@ -411,7 +411,7 @@ export default {
           message:res.data.desc
         })
         this.close()
-        return this.callback(localStorage.ppp, this.username,"",true);
+        return this.callback(localStorage.ppp, this.username,"",'isCaSign');
       }).catch(error=>{
         // this.$message({
         //   type:'warning',
