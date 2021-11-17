@@ -19,6 +19,12 @@
       </div>
       <div class="text">重置</div>
       </div>-->
+       <div class="item-box" @click="$router.go(-1)">
+        <div
+          class="icon"
+          flex="cross:center main:center"
+        >返回</div>
+      </div>
       <div class="item-box" @click="qoSelect = '0'">
         <div
           class="icon qo-text"
