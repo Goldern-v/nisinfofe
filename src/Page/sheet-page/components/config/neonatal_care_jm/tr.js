@@ -138,6 +138,9 @@ export default [
   next: "",
   autoComplete: {
     data: jzlList
+  },
+  textarea: {
+    width: 30
   }
 },
 {
