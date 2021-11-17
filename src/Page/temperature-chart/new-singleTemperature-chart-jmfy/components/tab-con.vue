@@ -191,18 +191,18 @@
               >
               </el-option>
             </el-select>
-            <el-date-picker
+            <el-time-picker
               size="mini"
               :readonly="isDisable()"
-              format="yyyy-MM-dd HH:mm:ss"
-              value-format="yyyy-MM-dd HH:mm:ss"
+              format="HH:mm:ss"
+              value-format="HH:mm:ss"
               v-model="vitalSignObj[multiDictList['表顶注释']].expand2"
-              type="datetime"
-              placeholder="选择日期时间"
-              style="margin: 3px 0px 0px 55px; width: 170px"
+              type="time"
+              placeholder="选择表顶时间"
+              style="margin: 3px 0px 0px 55px; width: 125px"
               @change="formatTopExpandDate"
             >
-            </el-date-picker>
+            </el-time-picker>
           </div>
           <div class="row" v-if="multiDictList['表底注释']">
             <span class="preText">表底注释</span>
@@ -693,7 +693,7 @@ window.openSetTextModalNew(
           ":00:00";
         switch (item.vitalSigns) {
           case "表顶注释":
-            item.expand2 = this.topExpandDate;
+            item.expand2 = this.query.entryDate+ ' '+this.topExpandDate;//表顶用录入日期+选择的时间来显示
             break;
           case "表底注释":
             item.expand2 = this.bottomExpandDate;

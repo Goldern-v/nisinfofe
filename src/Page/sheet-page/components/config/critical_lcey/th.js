@@ -2,14 +2,15 @@ export default {
   // 科室的名称
   deptType: '',
   style: {
-    width: "1000px"
+    width: "1200px"
   },
   th: {
-    top: [{
+    top: [
+      {
         name: '日期',
         style: {
-          minWidth: '40px',
-          maxWidth: '40px',
+          minWidth: '35px',
+          maxWidth: '35px',
         },
         colspan: '1',
         rowspan: '3'
@@ -17,6 +18,14 @@ export default {
       {
         name: '时间',
         style: {
+          minWidth: '35px',
+          maxWidth: '35px',
+        },
+        colspan: '1',
+        rowspan: '3'
+      },{
+        name: '意识',
+        style: {
           minWidth: '40px',
           maxWidth: '40px',
         },
@@ -24,43 +33,89 @@ export default {
         rowspan: '3'
       },
       {
-        name: `
-        入量（ml）
-        `,
-        colspan: '2',
-        rowspan: '1',
+        name: '瞳孔',
         style: {
-          minWidth: '80px',
+          minWidth: '95px',
+          maxWidth: '95px',
         },
+        colspan: '3',
+        rowspan: '1'
       },
       {
         name: `
-        出量（ml）
-        `,
-        colspan: '6',
-        rowspan: '1',
-        style: {
-          minWidth: '224px',
-        },
-      },
-      {
-        name: `
-        病情记录
-        `,
-        colspan: '11',
-        rowspan: '1',
-        style: {
-          minWidth: '412px',
-        },
-      },
-      {
-        name: `
-        特殊处理及病情观察
+        体温<br/>(°C)
         `,
         colspan: '1',
         rowspan: '3',
         style: {
-          minWidth: '150px'
+          minWidth: '32px',
+        },
+      },
+      {
+        name: `
+        心率/脉搏<br/>（次/分）
+        `,
+        colspan: '1',
+        rowspan: '3',
+        style: {
+          minWidth: '50px',
+        },
+      },
+      {
+        name: `
+        呼吸<br/>(次/分)
+        `,
+        colspan: '1',
+        rowspan: '3',
+        style: {
+          minWidth: '35px',
+        },
+      },
+      {
+        name: `
+        血压<br/>(mmHg)
+        `,
+        colspan: '1',
+        rowspan: '3',
+        style: {
+          minWidth: '32px',
+        },
+      },
+      {
+        name: `
+        SPO2%
+        `,
+        colspan: '1',
+        rowspan: '3',
+        style: {
+          minWidth: '32px',
+        },
+      },
+      {
+        name: `
+        疗养
+        `,
+        colspan: '2',
+        rowspan: '1',
+        style: {
+          minWidth: '90px',
+        },
+      },
+      {
+        name: `
+        出入量
+        `,
+        colspan: '9',
+        rowspan: '1',
+      },
+      {
+        name: `
+        病情观察及护理措施
+        `,
+        colspan: '1',
+        rowspan: '3',
+        style: {
+          minWidth: '140px'
         },
       },
       {
@@ -76,22 +131,72 @@ export default {
     ],
     mid: [{
         name: `
+        左<br/>(mm)
+        `,
+        colspan: '1',
+        rowspan: '2',
+        style: {
+          minWidth: '35px',
+        },
+      },
+      {
+        name: `
+        右<br/>(mm)
+        `,
+        colspan: '1',
+        rowspan: '2',
+        style: {
+          minWidth: '35px',
+        },
+      },
+      {
+        name: `
+        光<br/>反<br/>射
+        `,
+        colspan: '1',
+        rowspan: '2',
+        style: {
+          minWidth: '20px',
+        },
+      },
+      {
+        name: `
+        方式
+        `,
+        colspan: '1',
+        rowspan: '2',
+        style: {
+          minWidth: '45px',
+        },
+      },
+      {
+        name: `
+        L/min
+        `,
+        colspan: '1',
+        rowspan: '2',
+        style: {
+          minWidth: '45px',
+        },
+      },
+      {
+        name: `
         项目
         `,
         colspan: '1',
         rowspan: '2',
         style: {
-          minWidth: '36px',
+          minWidth: '55px',
         },
       },
       {
         name: `
-        实入量
+        入量<br/>(ml)
         `,
         colspan: '1',
         rowspan: '2',
         style: {
-          minWidth: '40px',
+          minWidth: '32px',
         },
       },
       {
@@ -106,7 +211,7 @@ export default {
       },
       {
         name: `
-        大便
+        大便量
         `,
         colspan: '1',
         rowspan: '2',
@@ -116,7 +221,7 @@ export default {
       },
       {
         name: `
-        呕吐
+        痰液量
         `,
         colspan: '1',
         rowspan: '2',
@@ -126,117 +231,43 @@ export default {
       },
       {
         name: `
-        引流
+        标题1
         `,
+        key:'fieldFour',
         colspan: '1',
         rowspan: '2',
         style: {
           minWidth: '32px',
         },
+        canSet: true
       },
       {
         name: `
-        其它
+        标题2
         `,
+        key:'dischargeSize',
         colspan: '1',
         rowspan: '2',
         style: {
           minWidth: '32px',
         },
+        canSet: true
       },
       {
         name: `
-        总出量
+        标题3
         `,
-        colspan: '1',
-        rowspan: '2',
-        style: {
-          minWidth: '36px',
-        },
-      },
-      {
-        name: `
-        意识
-        `,
+        key:'accessCustomize',
         colspan: '1',
         rowspan: '2',
         style: {
           minWidth: '32px',
         },
+         canSet: true
       },
       {
         name: `
-        瞳孔
-        `,
-        colspan: '3',
-        rowspan: '1',
-        style: {
-          minWidth: '32px',
-        },
-      },
-      {
-        name: `
-        体温<br>℃
-        `,
-        colspan: '1',
-        rowspan: '2',
-        style: {
-          minWidth: '32px',
-        },
-      },
-      {
-        name: `
-        心率<br>/脉搏<br/>次/分
-        `,
-        colspan: '1',
-        rowspan: '2',
-        style: {
-          minWidth: '32px'
-        }
-      },
-      {
-        name: `
-        呼吸<br/>次/分
-        `,
-        colspan: '1',
-        rowspan: '2',
-        style: {
-          minWidth: '32px'
-        }
-      },
-      {
-        name: `
-        血压<br/>(mmHg)
-        `,
-        colspan: '1',
-        rowspan: '2',
-        style: {
-          minWidth: '50px'
-        }
-      },
-      {
-        name: `
-        血氧饱和度%
-        `,
-        colspan: '1',
-        rowspan: '2',
-        style: {
-          minWidth: '32px',
-        },
-      },
-      {
-        name: `
-        氧疗<br>升/分
-        `,
-        colspan: '1',
-        rowspan: '2',
-        style: {
-          minWidth: '32px',
-        },
-      },
-      {
-        name: `
-        疼痛
+        出量<br/>(ml)
         `,
         colspan: '1',
         rowspan: '2',
@@ -245,36 +276,7 @@ export default {
         },
       },
     ],
-    bottom: [{
-        name: `
-        左<br>(mm)
-        `,
-        colspan: '1',
-        rowspan: '1',
-        style: {
-          minWidth: '32px',
-        },
-      },
-      {
-        name: `
-        右<br>(mm)
-        `,
-        colspan: '1',
-        rowspan: '1',
-        style: {
-          minWidth: '32px',
-        },
-      },
-      {
-        name: `
-        光反射
-        `,
-        colspan: '1',
-        rowspan: '1',
-        style: {
-          minWidth: '32px',
-        },
-      },
+    bottom: [
     ]
   }
 }
