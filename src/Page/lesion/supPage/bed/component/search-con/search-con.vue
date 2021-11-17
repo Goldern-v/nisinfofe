@@ -586,7 +586,7 @@ export default {
         this.HOSPITAL_ID == "zhongshanqi" ||
         this.HOSPITAL_ID == "liaocheng" ||
         this.HOSPITAL_ID == "beihairenyi" ||
-        this.HOSPITAL_ID == "fuyou" || 
+        this.HOSPITAL_ID == "fuyou" ||
         this.HOSPITAL_ID == "huadu"
       ) {
         list.splice(3, 0, {
@@ -601,6 +601,19 @@ export default {
             num: this.jjmc.length,
             type: "state",
           })
+      }
+      if(['fuyou'].includes(this.HOSPITAL_ID)) {
+        list.splice(3, 0,
+          {
+            name: "共出床位",
+            num: this.heart.length,
+            type: "bed",
+          },
+            {
+            name: "共入床位",
+            num: this.heart.length,
+            type: "bed",
+          });
       }
       return list;
     },

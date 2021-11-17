@@ -80,6 +80,9 @@ export default {
 	watch: {
 		'formData': {
 			handler(v, o) {
+				if (v.deptValue !== o.deptValue) {
+					// this.formData
+				}
 				this.search()
 			},
 			deep: true
@@ -100,6 +103,7 @@ export default {
 					...this.deptList
 				]
 				this.formData.deptValue = 'all'
+				this.formData.title = '全部'
 			})
 		}
 	},
