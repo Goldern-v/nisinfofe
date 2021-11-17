@@ -376,4 +376,11 @@ export default {
 #app {
   min-width: 1024px;
 }
+.health-education-exclusive-cascade-selector-drop-down .el-cascader-menu__item{
+  width: 150px;
+  text-overflow:unset;
+  white-space:pre-wrap;
+  min-height:36px;
+  height: auto;
+}
 </style>

@@ -253,8 +253,9 @@ export default {
     },
     // 修改
     onEdit (data) {
-      console.log("编辑健康宣教")
-      console.log(data)
+      // console.log("编辑健康宣教")
+      // console.log(data)
+      // console.log(this.pageParam)
       this.$refs.editModal.open("编辑健康宣教", data || this.selected);
     },
     // 推送

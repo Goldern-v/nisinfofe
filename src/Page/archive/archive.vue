@@ -336,7 +336,9 @@ export default {
         cancelButtonText: "取消",
         type: "warning"
       }).then(() => {
-        uploadFileArchive(item.patientId, item.visitId).then(rep => {
+        let patientId = this.HOSPITAL_ID=='huadu'?item.inpNo:item.patientId
+        let visitId = item.visitId
+        uploadFileArchive(patientId, visitId).then(rep => {
           this.$message({
             type: "success",
             message: "文件上传成功"

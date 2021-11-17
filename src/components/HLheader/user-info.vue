@@ -48,7 +48,7 @@
     <div class="admin-system-info" v-if="HOSPITAL_ID === 'fuyou'">
       证书状态:
       <p>
-        <label>{{ (fuyouCaData && fuyouCaData.data.userName?fuyouCaData.data.userName:'无证书') || "无证书" }}:</label>
+        <label>{{ (fuyouCaData && fuyouCaData.userName?fuyouCaData.userName:'无证书') || "无证书" }}:</label>
         <span>{{ fuyouCaData ? "已登录" : "未登录" }}</span>
       </p>
       <div class="button-con">
@@ -341,8 +341,15 @@ export default {
     //
     //江门妇幼ca
     logoutFuYouCaSign(){
-      localStorage.removeItem("fuyouCaData");
-       this.fuyouCaData=null;
+      this.$confirm("是否确认退出证书登录?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+      }).then(() => {
+        localStorage.removeItem("fuyouCaData");
+        this.fuyouCaData=null;
+        this.$message.success("退出证书登录成功");
+      })
     },
     
     //初始化江门妇幼签名数据
@@ -417,6 +424,8 @@ export default {
         }
       }
       location.reload(true);
+      // localStorage.clear()
+      // location.href = '/crNursing/login'
     },
     openCaSignModal() {
       this.$refs.caSignModal.open(() => this.getCaStatus());

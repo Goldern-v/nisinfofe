@@ -7,7 +7,7 @@
       ref="iframeLoading"
     >
       <iframe
-        :style="{ height: iframeHeight + 'px' }"
+        :style="{ height: height }"
         frameborder="0"
         class="assessment-iframe"
         v-if="url"
@@ -126,6 +126,12 @@ import qs from "qs";
 export default {
   name: "assessment",
   mixins: [common],
+  props:{
+    height:{
+      type:String,
+      value:'0px'
+    }
+  },
   data() {
     return {
       bus: BusFactory(this),
@@ -260,8 +266,7 @@ export default {
         admissionDate: query.admissionDate,
         token: this.token,
         todo: this.info.todo,
-        title: this.info.name || "",
-        templateCode: this.info.templateCode,
+        title: this.info.codeName
       };
       if( this.HOSPITAL_NAME === '东莞市厚街医院'){
         delete queryObj.token
@@ -665,13 +670,13 @@ export default {
             //
             this.pageLoading = false;
             //
-            if (res.data.data.status === "0") {
-              this.$notify({
-                title: "提示",
-                message: "责任护士未签名",
-                type: "warning"
-              });
-            }
+            // if (res.data.data.status === "0") {
+            //   this.$notify({
+            //     title: "提示",
+            //     message: "责任护士未签名",
+            //     type: "warning"
+            //   });
+            // }
 
             // 更新工具栏
             this.bus.$emit("initAssessmentTool", {

@@ -101,7 +101,7 @@
       },
       '$route.params.code' () {
         this.load()
-      }
+      },
     },
     methods: {
       async load () {

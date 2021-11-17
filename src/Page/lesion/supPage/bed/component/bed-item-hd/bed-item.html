@@ -17,7 +17,7 @@
                 :class="{red: data.formLowestStatus == 0, green: data.formLowestStatus == 1}"></span>
             </span>
             <span style="color:rgb(237, 85, 102)" v-if="data.patientCondition == '病重'">病重</span>
-            <span style="color:rgb(237, 85, 102)" v-if="data.patientCondition == '病危'">病危</span>
+              <span style="color:rgb(237, 85, 102)" v-if="data.patientCondition == '病危'">病危</span>
           </div>
           <div class="info">
             {{data.sex}} | {{data.age}} | {{data.patientId}} | {{data.chargeType
@@ -62,7 +62,8 @@
                       'type-1': data.nursingClass == '一级护理',
                       'type-2': data.nursingClass == '二级护理',
                       'type-3': data.nursingClass == '三级护理',
-                      'type-4': data.nursingClass == '特级护理'
+                      'type-4': data.nursingClass == '特级护理',
+                      'type-5': data.nursingClass == '多重耐药',
                       }">
           <img src="../../../../../../common/images/card/默认头像.png" height="46" width="46" />
           <p>
@@ -78,6 +79,9 @@
       </el-row>
     </div>
   </span>
+  <div class="patient-icon" v-if="data.expand2=='出院'&&data.expand3=='Y'">
+    <img style="width:48px;opacity:0.5;" src="./img.png" alt="">
+  </div>
   <div class="bed-modal">
     <div flex="" class="table-line" v-if="HOSPITAL_ID == 'huadu'">
       <div class="key">床号：</div>

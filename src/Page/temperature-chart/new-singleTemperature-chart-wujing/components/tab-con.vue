@@ -71,14 +71,15 @@
                 index.includes('自定义') ||
                 index.includes('注释') ||
                 index.includes('体温复测')||
-                index.includes('术后天数')
+                index.includes('术后天数')||
+                (index.includes('疼痛')&&!isPain)
               )
                 ? 'rowbox'
                 : 'rowItem_noShow'
             "
             v-for="(j, index,i) in multiDictList"
             :key="index"
-          >
+            >
             <span class="preText">{{ index }}</span>
             <el-tooltip
               placement="top"
@@ -92,7 +93,7 @@
               :visible-arrow="false"
               :manual="true"
               :value="vitalSignObj[j].popVisible"
-            >
+              >
               <input
               :id="i+1"
               @keydown.enter="changeNext"
@@ -453,8 +454,13 @@ export default {
       this.getList();
     });
   },
-  created() {},
-  computed: {},
+  created() {
+  },
+  computed: {
+      isPain(){
+       return this.$store.state.temperature.isPain
+      },
+  },
   watch: {
     query: {
       handler(newName, oldName) {
@@ -617,7 +623,7 @@ return false
     },
     getFilterSelections(orgin, filterStr) {
       if (!filterStr || !filterStr.trim()) return orgin;
-      return orgin.filter((option) => option.includes(filterStr));
+      return orgin;
     },
     handlePopRefresh(target) {
       target.popVisible = false;
@@ -864,7 +870,7 @@ display: inline-block;
     }
 
     input {
-      width: 60px;
+      width: 48px;
       font-size: 12px;
     }
 
@@ -882,7 +888,7 @@ display: inline-block;
     }
 
     input {
-      width: 60px;
+      width: 48px;
       font-size: 12px;
     }
 

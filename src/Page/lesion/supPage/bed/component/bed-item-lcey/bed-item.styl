@@ -143,10 +143,19 @@
       font-size: 13px;
       color: #687179;
       margin-bottom: 7px;
-      line-height: 14px
+      line-height: 14px;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+      display: flex;
+      .nurse {
+        width: 50%;
+        display: inline-block;
+      }
+      .doctor {
+        flex: 1;
+        display: inline-block;
+      }
     }
   }
 }

@@ -231,7 +231,7 @@
         v-if="getOtherText(child) && getOtherText(child)!='null'  && formObj.model[child.name]"
         @click="openTip(child)"
       >{{child.postTitle||child.title}}:{{getOtherText(child)}}{{child.postText}}</span>-->
-      <el-tooltip
+      <!-- <el-tooltip
         class="item"
         effect="light"
         placement="left"
@@ -254,7 +254,7 @@
           v-html="dialogResult(child).html"
           @click="openTip(child)"
         ></span>
-      </el-tooltip>
+      </el-tooltip> -->
       <!-- <span>{{dialogResult(child).isShow}}</span> -->
     </span>
   </span>

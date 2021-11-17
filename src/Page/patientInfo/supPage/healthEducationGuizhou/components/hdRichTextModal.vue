@@ -5,7 +5,6 @@
       ref="richEditorModal" 
       :title="title" 
       :modal-width="600"
-      @close="close"
     >
       <quillEditor 
         style="min-height:600px" 
@@ -15,7 +14,7 @@
         @change="onEditChange($event)"
       />
       <div slot="button">
-        <el-button class="modal-btn" @click.stop="close">关闭</el-button>
+        <el-button class="modal-btn" @click.stop="closeModal">关闭</el-button>
         <el-button type="primary" class="modal-btn" @click.stop="confirmEdit">确定</el-button>
       </div>
     </sweet-modal>
@@ -78,7 +77,7 @@
         //isEdit true编辑
         this.$refs.richEditorModal.open();
       },
-      close() {
+      closeModal() {
         //console.log('storageContent', this.storageContent);
         // this.content = this.storageContent;
         // this.editContent=this.storageContent;

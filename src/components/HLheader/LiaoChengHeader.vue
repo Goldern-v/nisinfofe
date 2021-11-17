@@ -50,7 +50,7 @@
             <router-link to="/implementationList" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-jiaobanzhi"></i> 执行单
-              </el-row> 
+              </el-row>
             </router-link>
             <el-dropdown
               menu-align="start"
@@ -174,7 +174,7 @@
                     </el-row>
                   </router-link>
                 </el-dropdown-item>
-              </el-dropdown-menu> 
+              </el-dropdown-menu>
             </el-dropdown>
             <router-link to="/sugarPage" tag="span">
               <el-row class="nav-item" type="flex" align="middle">血糖</el-row>
@@ -457,6 +457,14 @@
                     </el-row>
                   </router-link>
                 </el-dropdown-item>
+                <el-dropdown-item>
+                  <router-link to="/patientFlowList" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="birthCertificate"></i>患者流转
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item>
+
                 <!-- <el-dropdown-item>
                   <router-link to="/dcList" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
@@ -966,6 +974,7 @@ export default {
       if (this.$route.path == "/healthEducationList") return true;
       if (this.$route.path == "/dcList") return true;
       if (this.$route.path == "/cognitiveStatistic") return true;
+      if (this.$route.path == "/patientFlowList") return true;
     },
     isActiveStatisticPage() {
       if (this.$route.path == "/cognitiveStatistic") return true;
@@ -1063,9 +1072,18 @@ export default {
       }
     },
     changeDept(value) {
-      let deptName = this.deptList.filter(item => {
+      // let deptName = this.deptList.filter((item) => {
+      //   return item.code == value;
+      // })[0].name;
+      let deptName="";
+      let deptItem = this.deptList.filter((item) => {
         return item.code == value;
-      })[0].name;
+      });
+      if(deptItem && deptItem.length>0){
+        deptName=deptItem[0].name
+      }else {
+        return false;
+      }
       this.$store.commit("upDeptCode", value);
       localStorage.selectDeptValue = value;
       this.$store.commit("upDeptName", deptName);
