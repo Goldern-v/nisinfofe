@@ -209,11 +209,7 @@ export default {
       return this.$store.state.common.wih;
     },
     height() {
-      if (this.$route.path == "/formPage" || this.filterObj) {
         return `${this.wih - 120}px`;
-      } else {
-        return `${this.wih - 180}px`;
-      }
     }
   },
   watch: {
@@ -279,7 +275,8 @@ export default {
               pageUrl: node.parent.data.pageUrl,
               pageItem: data.pageTitle,
               status: data.status,
-              missionId: data.missionId
+              missionId: data.missionId,
+              codeName: data.codeName
             })
           );
         } else {
@@ -318,112 +315,25 @@ export default {
       let formSign = node.data.formTreeRemindType == '1'; // 责任（多人签名）
       let formAudit = node.data.formTreeRemindType == '2'; // 责任 + 审核
 
-      // 花都特殊处理
-      if (this.HOSPITAL_ID == "huadu" || this.HOSPITAL_ID == "liaocheng" || this.HOSPITAL_ID == "zhongshanqi") {
         // 文件夹
-        // 责任 + 审核的情况
-        if (formAudit) {// 责任 + 审核的情况
-          if (this.HOSPITAL_ID == "zhongshanqi") { // 中山七颜色处理
-            if (hasSave) {
-              box = fileboxYellow;
-            }// 未签名
-            else if (hasSign) {
-              box = fileboxRed;
-            }// 责任 + 审核的情况 责任签名
-            else if (fileHasSave) {
-              icon = fileiconYellow;
-            } // 未签名
-            else if (fileHasSign) {
-              icon = fileiconRed;
-            } // 未签名
-            else {
-              box = fileboxGreen;
-              icon = fileiconGreen;
-            } // 未签名
-          } else {
-            if (hasSave) {
-              box = fileboxRed;
-            }// 未签名
-            else if (hasSign) {
-              box = fileboxGreen;
-            }// 责任 + 审核的情况 责任签名
-            else if (fileHasSave) {
-              icon = fileiconRed;
-            }// 未签名
-            else if (fileHasSign) {
-              icon = fileiconGreen;
-            } //责任签名
-            else {
-              box = filebox;
-              icon = fileicon;
-            }
-          }
-        }
-        // 责任（多人签名）的情况
-        else if (formSign) {
-          if (this.HOSPITAL_ID == "zhongshanqi") { // 责任（多人签名）的情况 未签名
-            if (hasSave) {
-              box = fileboxYellow;
-            }// 未签名
-            else if (hasSign) {
-              box = fileboxGreen;
-            }// // 责任（多人签名）的情况 责任签名
-            else if (fileHasSave) {
-              icon = fileiconYellow;
-            } else if (fileHasSign) {
-              icon = fileiconGreen;
-            } else {
-              box = fileboxGreen;
-              icon = fileiconGreen;
-            }// // 责任（多人签名）的情况 责任签名
-          } else {
-            if (hasSave) {
-              box = fileboxRed;
-            }// 未签名
-            else if (hasSign) {
-              box = filebox;
-            }// 责任（多人签名）的情况 责任签名
-            else if (fileHasSave) {
-              icon = fileiconRed;
-            } else if (fileHasSign) {
-              icon = fileicon;
-            } else {
-              box = filebox;
-              icon = fileicon;
-            }
-          }
-        } else { // 没有签名的情况
+        // if (hasSave) {
+        //   box = fileboxRed;
+        // } 
+        // else if (hasSign) {
+        //   box = fileboxGreen;
+        // } 
+        // else {
           box = filebox;
-          icon = fileicon;
-        }
-      } else {
-        // 文件夹
-        if (hasSave && this.HOSPITAL_ID !== "weixian") {
-          box = fileboxRed;
-        } else if (hasSign && this.HOSPITAL_ID !== "weixian") {
-          box = fileboxGreen;
-        } else {
-          box = filebox;
-        }
+        // }
         // 内容
-        if (fileHasSave && this.HOSPITAL_ID !== "weixian") {
-          icon = fileiconRed;
-        } else if (fileHasSign && this.HOSPITAL_ID !== "weixian") {
-          icon = fileiconGreen;
-        } else {
+        // if (fileHasSave) {
+        //   icon = fileiconRed;
+        // } else if (fileHasSign) {
+        //   icon = fileiconGreen;
+        // } else {
           icon = fileicon;
-        }
-      }
+        // }
       let viewDom = h()
-      if (this.HOSPITAL_ID === "liaocheng") {
-        viewDom = h(
-          'div',
-          {class: {'view': true}, on: {click: (e) => this.handleViewClick(e, node, data)}},
-          [
-            h('i', {class: {'el-icon-view': true}}),
-          ]
-        )
-      }
       if (node.level !== 2) {
         return h('span',
           {class: {'tree-box-node': true}},
@@ -486,7 +396,9 @@ export default {
           window.app.$store.commit("cleanFormLastId");
           let list = res[0].data.data.list || []
           let item = list[0] || {}
-          let list_1 = [{
+          let list_1 = []
+          if(list.length){
+            list_1 = [{
             label: item.typeName,
             index: 0,
             formCode: item.code,
@@ -496,16 +408,18 @@ export default {
               return {
                       status: option.status,
                       evalScore: "",
-                      label: `${option.typeName}
-                      ${option.pusherName ? option.pusherName : option.creatorName}
-                      ${option.status == 0 ? "T" : option.status}`,
+                      label: `${option.codeName}
+                      ${option.pusherName ? option.pusherName : option.creatorName}`,
                       form_id: option.id,
                       formName: item.formTitle,
                       formTreeRemindType: item.formTreeRemindType,
-                      pageUrl:'东莞横沥健康教育单.html'
+                      pageUrl:'东莞横沥健康教育单.html',
+                      codeName: option.codeName
               }
             })
           }]
+          }
+          
           // //
           // let list_1 = res[0].data.data.list.map(item => {
           //   index += 1;

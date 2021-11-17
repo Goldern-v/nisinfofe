@@ -106,7 +106,7 @@
       <u-table-column
         prop="executeDateTime"
         label="预计执行时间"
-        min-width="70px"
+        min-width="160px"
         align="center"
       >
         <template slot-scope="scope">
@@ -121,7 +121,7 @@
         </template>
       </u-table-column>
 
-      <u-table-column prop="administration" label="途径" min-width="110px">
+      <u-table-column prop="administration" label="途径" min-width="90px">
         <template slot-scope="scope">
           <div v-if="scope.row.child && scope.row.child.length">
             <div v-for="(item, index) in scope.row.child" :key="index" v-show="item.administration">
@@ -139,7 +139,7 @@
       <u-table-column
         prop="executeFlag"
         label="执行状态"
-        min-width="110px"
+        min-width="75px"
         align="center"
       >
         <template slot-scope="scope">
@@ -166,7 +166,7 @@
       <u-table-column
         prop="startNurse"
         label="执行人"
-        min-width="110px"
+        min-width="75px"
         align="center"
       >
         <template slot-scope="scope">

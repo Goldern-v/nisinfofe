@@ -140,7 +140,12 @@ export default {
       let curTime = new Date().getTime();
       if (!beginTime) return "";
       if (beginTime > curTime) {
-        return moment(beginTime).calendar() + "评估";
+        if(['fuyou'].includes(this.HOSPITAL_ID)){
+          return moment(data.beginTime).format("YYYY-MM-DD hh:mm") + " 评估";
+        }else{
+          return moment(beginTime).calendar() + "评估";
+        }
+        
       }
       if (beginTime < curTime && !expectedEndTime) {
         return "未完成";

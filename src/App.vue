@@ -21,6 +21,7 @@
     <setTextModalNew ref="setTextModalNew"></setTextModalNew>
     <caSignModal ref="caSignModal"></caSignModal>
     <fuyouCaSignModal ref="fuyouCaSignModal"></fuyouCaSignModal>
+    <!-- 测试 -->
     
     <!-- 锁屏界面 -->
     <ScreenLockView v-if="HOSPITAL_ID === 'zhongshanqi'" />
@@ -374,5 +375,12 @@ export default {
 <style>
 #app {
   min-width: 1024px;
+}
+.health-education-exclusive-cascade-selector-drop-down .el-cascader-menu__item{
+  width: 150px;
+  text-overflow:unset;
+  white-space:pre-wrap;
+  min-height:36px;
+  height: auto;
 }
 </style>

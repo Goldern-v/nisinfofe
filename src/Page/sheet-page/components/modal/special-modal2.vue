@@ -33,8 +33,8 @@
             style="margin-left: 10px"
             v-if="
               (HOSPITAL_ID === 'huadu' &&
-                sheetInfo.sheetType !== 'body_temperature_Hd') ||
-              HOSPITAL_ID === 'zhongshanqi'
+              sheetInfo.sheetType !== 'body_temperature_Hd') ||
+              HOSPITAL_ID === 'zhongshanqi'||HOSPITAL_ID === 'beihairenyi'&&sheetInfo.sheetType!=='infant_bh'
             "
           >
             <el-switch v-model="isSyncTemp"></el-switch>
@@ -387,7 +387,7 @@
                       (HOSPITAL_ID === 'huadu' &&
                         sheetInfo.sheetType !== 'body_temperature_Hd' &&
                         Object.keys(vitalSignKeys).includes(item.name)) ||
-                      (HOSPITAL_ID === 'zhongshanqi' && item.name === '体温')
+                      (HOSPITAL_ID === 'zhongshanqi' && item.name === '体温')||HOSPITAL_ID === 'beihairenyi'&&beihaiList.indexOf(item.name)>-1
                     "
                   ></el-checkbox>
                   <div class="label" style="min-width: 70px">
@@ -858,6 +858,7 @@ export default {
         list: [],
       },
       multiDictList: [],
+      beihaiList:["体温","脉搏","呼吸","血压","心率"]
     };
   },
   computed: {
@@ -992,6 +993,29 @@ export default {
           units: obj.unit,
         });
       });
+      if(this.HOSPITAL_ID==='beihairenyi'&&this.vitalSignKeys["体温"].check&&this.isSyncTemp){
+        vitalTemp.push({
+           classCode: "A",
+           optionType: "",
+           selectType: "",
+           showType: "0",
+           timePointType: "",
+           unit: "℃",
+           unitVitalCode: "",
+           vitalCode: "042",
+           vitalSign: "腋表",
+           vitalSignType: "",
+           vitalType: "1"
+         })
+       this.vitalSignList.list.push({
+          ...vitalSignObj,
+          vitalSigns: "腋表",
+          vitalSignsValue: this.fixedList['temperature'].value,
+          classCode: "A",
+          vitalCode: "042",
+          units: "℃",
+        });
+      }
     },
     /* 获取字典表，整理某一行的同步信息 */
     getVitalList() {
@@ -1417,7 +1441,7 @@ export default {
       if (
         (this.HOSPITAL_ID === "huadu" &&
           sheetInfo.sheetType !== "body_temperature_Hd") ||
-        this.HOSPITAL_ID === "zhongshanqi"
+        this.HOSPITAL_ID === "zhongshanqi"||this.HOSPITAL_ID === "beihairenyi"&&this.sheetInfo.sheetType!=='infant_bh'
       ) {
         this.isSyncTemp
           ? this.sycnTempChange()

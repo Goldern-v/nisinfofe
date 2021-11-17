@@ -39,99 +39,7 @@
             </div>
             <div style="text-align: right;">交班日期：<b>{{record.changeShiftDate}}</b></div>
             <div class="details">
-              <span>
-                病区情况：原有：
-                <b>{{record.patientTotal || 0}}</b>人，
-              </span>
-              <span>
-                新收：
-                <b>{{record.patientNew || 0}}</b>人，
-              </span>
-              <span>
-                转入：
-                <b>{{record.patientTransferIn || 0}}</b>人，
-              </span>
-              <span>
-                出院：
-                <b>{{record.outHospitalTotal || 0}}</b>人，
-              </span>
-              <span>
-                转出：
-                <b>{{record.transOutTotal || 0}}</b>人，
-              </span>
-              <span>
-                现有：
-                <b>{{record.nowHospitalTotal || 0}}</b>人，
-              </span>
-              <span>
-                病危：
-                <b>{{record.patientBw || 0}}</b>人，
-              </span>
-              <span>
-                病重：
-                <b>{{record.seriousTotal || 0}}</b>人，
-              </span>
-              <span>
-                死亡：
-                <b>{{record.patientDead || 0}}</b>人，
-              </span>
-              <span>
-                一级：
-                <b>{{record.patientYi || 0}}</b>人，
-              </span>
-              <span>
-                分娩：
-                <b>{{record.patientBirth || 0}}</b>人，
-              </span>
-              <span v-if="HOSPITAL_ID != 'xiegang'">
-                手术：
-                <b>{{record.patientOpration || 0}}</b>人
-              </span>
-            </div>
-
-            <div
-              class="details"
-              style="margin-top: 10px"
-              v-if="record.deptCode && (record.deptCode.indexOf('051102_03') > -1 || record.deptCode.indexOf('051102_04') > -1) "
-            >
-              <span>
-                <!-- 051102 051102_03 051102_04 051102_02 -->
-                <span style="color: transparent">空</span>新生儿：原有：
-                <b>{{record.babyPatintTotal || 0}}</b>人，
-              </span>
-              <span>
-                新收：
-                <b>{{record.babyInHospitalTotal || 0}}</b>人，
-              </span>
-              <span>
-                转入：
-                <b>{{record.babyTransInTotal || 0}}</b>人，
-              </span>
-              <span>
-                出院：
-                <b>{{record.babyOutHospitalTotal || 0}}</b>人，
-              </span>
-              <span>
-                转出：
-                <b>{{record.babyTransOutTotal || 0}}</b>人，
-              </span>
-              <span>
-                现有：
-                <b>{{record.babyNowHospitalTotal || 0}}</b>人，
-              </span>
-              <span>
-                病危：
-                <b>{{record.babyDangerTotal || 0}}</b>人，
-              </span>
-              <span>
-                病重：
-                <b>{{record.babySeriousTotal || 0}}</b>人，
-              </span>
-              <span>
-                手术：
-                <b>{{record.babyOperationTotal || 0}}</b>人
-              </span>
-              <span style="color: transparent">交班日期： 2019-05-15</span>
+              <tableHeader :columns='shiftWithWardcodes' @changeShiftWithWardcodes='changeShiftWithWardcodes'/>
             </div>
           </div>
           <ExcelTable
@@ -162,7 +70,7 @@
             </tr>
             <tr class="normal-row">
               <td colspan="7" class="special-case-title" data-print-style="border-bottom: none;">
-                <span class="row-title">特殊情况交接：（包括特殊复查的各种结果：如MR、CT、检验异常值等以及当班未完成治疗护理、病房安全等）</span>
+                <span class="row-title">特殊情况交接：</span>
                 <span
                   class="row-action"
                   v-if="!allSigned"
@@ -285,6 +193,7 @@ import * as apis from "./apis";
 import formatter from "./print-formatter";
 import Button from "./components/button";
 import ExcelTable from "./components/table";
+import tableHeader from "./components/table-header";
 import Placeholder from "./components/placeholder";
 import PatientModal from "./components/patient-modal";
 import PatientsModal from "./components/patients-modal";
@@ -353,7 +262,7 @@ export default {
       record: {},
       patients: [],
       copiedRow: null,
-      shiftWithWardcodes: {},
+      shiftWithWardcodes: [],
       columns: [
         {
           label: "I（介绍）",
@@ -487,6 +396,9 @@ export default {
     });
   },
   methods: {
+    changeShiftWithWardcodes(index,key,value){
+      this.shiftWithWardcodes[index][key]=value
+    },
     async loadDepts() {
       const parentCode = this.deptCode;
       const res1 = await apis.listDepartment(parentCode);
@@ -521,11 +433,106 @@ export default {
         const {
           data: { data }
         } = await apis.getShiftRecord(id);
-        const { changeShiftTimes: record, changeShiftPatients: patients,shiftWithWardcodes: shiftWithWardcodes } = data;
+        /*
+        const {data} = {
+    "code": "200",
+    "desc": "操作成功",
+    "data": {
+        "shiftWithWardcodesN": [
+            {
+                "bedEmpty": "39",
+                "bedTotal": "74",
+                "patientDead": "0",
+                "outHospitalTotal": "0",
+                "patientTransferIn": "0",
+                "nowHospitalTotal": "35",
+                "patientExchange": "0",
+                "patientOutTommorow": "0",
+                "patientNewBorn": "0",
+                "patientWait": "0",
+                "patientYi": "5",
+                "patientOpration": "0",
+                "transOutTotal": "2",
+                "patientNew": "0",
+                "patientBirth": "0",
+                "seriousTotal": "0",
+                "patientTotal": "0",
+                "patientOprationTommorow": "0",
+                "patientBw": "0"
+            }
+        ],
+        "shiftWithWardcodesP": [
+            {
+                "bedEmpty": "39",
+                "bedTotal": "74",
+                "patientDead": "0",
+                "outHospitalTotal": "0",
+                "patientTransferIn": "0",
+                "nowHospitalTotal": "35",
+                "patientExchange": "0",
+                "patientOutTommorow": "0",
+                "patientNewBorn": "0",
+                "patientWait": "0",
+                "patientYi": "4",
+                "patientOpration": "0",
+                "transOutTotal": "0",
+                "patientNew": "1",
+                "patientBirth": "0",
+                "seriousTotal": "0",
+                "patientTotal": "36",
+                "patientOprationTommorow": "0",
+                "patientBw": "0"
+            }
+        ],
+        "shiftWithWardcodesA": [
+            {
+                "bedEmpty": "38",
+                "bedTotal": "74",
+                "patientDead": "0",
+                "outHospitalTotal": "9",
+                "patientTransferIn": "0",
+                "nowHospitalTotal": "36",
+                "patientExchange": "0",
+                "patientOutTommorow": "0",
+                "patientNewBorn": "0",
+                "patientWait": "0",
+                "patientYi": "1",
+                "patientOpration": "0",
+                "transOutTotal": "0",
+                "patientNew": "8",
+                "patientBirth": "0",
+                "seriousTotal": "0",
+                "patientTotal": "37",
+                "patientOprationTommorow": "0",
+                "patientBw": "0"
+            }
+        ],
+        "changeShiftPatients": [],
+        "changeShiftTimes": {
+            "id": 291,
+            "deptCode": "9",
+            "shiftTypeId": 1,
+            "changeShiftDate": "2021-10-19",
+            "creator": "admin",
+            "createTime": "2021-10-19 10:09:19",
+            "specialSituation": "",
+            "autographNameA": "",
+            "autographEmpNoA": "",
+            "autographNameP": "",
+            "autographEmpNoP": "",
+            "autographNameN": "",
+            "autographEmpNoN": ""
+        }
+    },
+    "errorCode": ""
+}
+        */
+        
+        const { changeShiftTimes: record, changeShiftPatients: patients,shiftWithWardcodesA,shiftWithWardcodesP,shiftWithWardcodesN } = data;
         record.specialCase = record.specialCase || "";
-        this.record = {...record,...shiftWithWardcodes[0]};
+        this.record = {...record,...shiftWithWardcodesA[0]||{}};
         this.patients = patients;
-        this.shiftWithWardcodes = shiftWithWardcodes[0];
+        this.shiftWithWardcodes = [shiftWithWardcodesA[0]||{},shiftWithWardcodesP[0]||{},shiftWithWardcodesN[0]||{}];
         this.modified = false;
 
         if (patients.length < 11) {
@@ -855,12 +862,13 @@ export default {
       const changeShiftPatients = this.patients
         .filter(p => p.name || p.id)
         .map((p, i) => ({ ...p, sortValue: i + 1 }));
-      const shiftWithWardcodes = [this.shiftWithWardcodes]
-
+      const [shiftWithWardcodesA,shiftWithWardcodesP,shiftWithWardcodesN] = this.shiftWithWardcodes
       await apis.updateShiftRecord({
         changeShiftTimes: changeShiftTime,
         changeShiftPatients,
-        shiftWithWardcodes
+        shiftWithWardcodesA:[shiftWithWardcodesA],
+        shiftWithWardcodesP:[shiftWithWardcodesP],
+        shiftWithWardcodesN:[shiftWithWardcodesN],
       });
 
       this.load();
@@ -1072,6 +1080,7 @@ export default {
     FallibleImage,
     Button,
     ExcelTable,
+    tableHeader,
     Placeholder,
     PatientModal,
     PatientsModal,

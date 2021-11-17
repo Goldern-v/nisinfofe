@@ -119,7 +119,7 @@
               </el-row>
 
               <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item
+                <!-- <el-dropdown-item
                   :class="{ active: $route.path == '/sheetHospitalAdmission' }"
                 >
                   <router-link to="/sheetHospitalAdmission" tag="span">
@@ -127,8 +127,8 @@
                       <i class="sheetHospitalAdmission"></i> 入院评估
                     </el-row>
                   </router-link>
-                </el-dropdown-item>
-                <el-dropdown-item
+                </el-dropdown-item> -->
+                <!-- <el-dropdown-item
                   :class="{ active: $route.path == '/sheetHospitalEval' }"
                 >
                   <router-link to="/sheetHospitalEval" tag="span">
@@ -136,7 +136,7 @@
                       <i class="sheetHospitalEval"></i> 住院评估
                     </el-row>
                   </router-link>
-                </el-dropdown-item>
+                </el-dropdown-item> -->
                 <!-- <el-dropdown-item :class="{active: $route.path == '/formPage'}">
                   <router-link to="/formPage" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
@@ -151,7 +151,7 @@
                     </el-row>
                   </router-link>
                 </el-dropdown-item>-->
-                <el-dropdown-item
+                <!-- <el-dropdown-item
                   :class="{ active: $route.path == '/sugarPage' }"
                 >
                   <router-link to="/sugarPage" tag="span">
@@ -159,9 +159,9 @@
                       <i class="bloodSugar"></i> 血糖
                     </el-row>
                   </router-link>
-                </el-dropdown-item>
+                </el-dropdown-item> -->
 
-                <el-dropdown-item
+                <!-- <el-dropdown-item
                   :class="{ active: $route.path == '/oxygenPage' }"
                 >
                   <router-link to="/oxygenPage" tag="span">
@@ -169,8 +169,8 @@
                       <i class="healthEducation"></i> 血氧
                     </el-row>
                   </router-link>
-                </el-dropdown-item>
-                <el-dropdown-item
+                </el-dropdown-item> -->
+                <!-- <el-dropdown-item
                   :class="{ active: $route.path == '/healthEdu' }"
                 >
                   <router-link to="/healthEdu" tag="span">
@@ -178,7 +178,7 @@
                       <i class="healthEducation"></i>健康教育单
                     </el-row>
                   </router-link>
-                </el-dropdown-item>
+                </el-dropdown-item> -->
                 <el-dropdown-item
                   :class="{ active: $route.path == '/handlingPage' }"
                 >
@@ -1032,9 +1032,18 @@ export default {
       }
     },
     changeDept(value) {
-      let deptName = this.deptList.filter(item => {
+     // let deptName = this.deptList.filter((item) => {
+      //   return item.code == value;
+      // })[0].name;
+      let deptName="";
+      let deptItem = this.deptList.filter((item) => {
         return item.code == value;
-      })[0].name;
+      });
+      if(deptItem && deptItem.length>0){
+        deptName=deptItem[0].name
+      }else {
+        return false;
+      }
       this.$store.commit("upDeptCode", value);
       localStorage.selectDeptValue = value;
       this.$store.commit("upDeptName", deptName);

@@ -40,7 +40,7 @@
     <div class="row-bottom">
       <null-bg v-if="!patientInfo.patientId"></null-bg>
       <div v-else class="showRecord">
-        <div style="flex: 4">
+        <div style="flex: 3;overflow-x: hidden; overflow-y: auto; ">
           <div
             :class="
               [
@@ -178,51 +178,51 @@
           <div class="row" v-if="multiDictList['表顶注释']">
             <span class="preText">表顶注释</span>
             <el-select
-            :disabled="isDisable()"
+              :disabled="isDisable()"
               size="mini"
-              allow-create
-              filterable
               v-model="vitalSignObj[multiDictList['表顶注释']].expand1"
             >
               <el-option
-                v-for="(item, topIndex) in topContextList"
+                v-for="(item, topIndex) in getFilterSelections(totalDictInfo['表顶注释'].options,
+                        vitalSignObj[multiDictList['表顶注释']].vitalValue)"
                 :key="topIndex"
                 :label="item"
                 :value="item"
               >
               </el-option>
             </el-select>
-            <el-date-picker
-            :readonly="isDisable()"
+            <el-time-picker
               size="mini"
-              format="yyyy-MM-dd HH:mm:ss"
-              value-format="yyyy-MM-dd HH:mm:ss"
+              :readonly="isDisable()"
+              format="HH:mm:ss"
+              value-format="HH:mm:ss"
               v-model="vitalSignObj[multiDictList['表顶注释']].expand2"
-              type="datetime"
-              placeholder="选择日期时间"
-              style="margin: 3px 0px 0px 55px; width: 170px"
+              type="time"
+              placeholder="选择表顶时间"
+              style="margin: 3px 0px 0px 55px; width: 125px"
               @change="formatTopExpandDate"
             >
-            </el-date-picker>
+            </el-time-picker>
           </div>
           <div class="row" v-if="multiDictList['表底注释']">
             <span class="preText">表底注释</span>
             <el-select
-            :disabled="isDisable()"
               size="mini"
+              :disabled="isDisable()"
               v-model="vitalSignObj[multiDictList['表底注释']].expand1"
             >
               <el-option
-                v-for="(item, bottomIndex) in bottomContextList"
+               v-for="(item, bottomIndex) in getFilterSelections(totalDictInfo['表底注释'].options,
+                        vitalSignObj[multiDictList['表底注释']].vitalValue)"
                 :key="bottomIndex"
                 :label="item"
                 :value="item"
               >
               </el-option>
             </el-select>
-            <el-date-picker
-            :readonly="isDisable()"
+            <!-- <el-date-picker
               size="mini"
+              :readonly="isDisable()"
               format="yyyy-MM-dd HH:mm:ss"
               value-format="yyyy-MM-dd HH:mm:ss"
               v-model="vitalSignObj[multiDictList['表底注释']].expand2"
@@ -231,7 +231,7 @@
               style="margin: 3px 0px 0px 55px; width: 170px"
               @change="formatBtmExpandDate"
             >
-            </el-date-picker>
+            </el-date-picker> -->
           </div>
           <div>
             <el-button
@@ -252,7 +252,8 @@ import bus from "vue-happy-bus";
 import moment from "moment";
 import nullBg from "../../../../components/null/null-bg";
 import {
-  getVitalSignListBy10,
+  // getVitalSignListBy10,
+  getNowDateTimeList,
   getmultiDict,
   getfieldList,
   savefieldTitle,
@@ -293,19 +294,19 @@ export default {
     return {
       mockData,
       recordList,
-      selectValue:[
-        {lable:'☆',value:'☆'},
-        {lable:'※',value:'※'},
-        {lable:'0 /E',value:'0 /E'},
-        {lable:'2 /E',value:'2 /E'},
-        {lable:'1 0/E',value:'1 0/E'},
-        {lable:'1 1/E',value:'1 1/E'},
-        {lable:'1 2/E',value:'1 2/E'},
-        {lable:'2 0/E',value:'2 0/E'},
-        {lable:'2 1/E',value:'2 1/E'},
-        {lable:'2 2/E',value:'2 2/E'},
-        {lable:'2/2E',value:'2/2E'}
-        ],
+      // selectValue:[
+      //   {lable:'☆',value:'☆'},
+      //   {lable:'※',value:'※'},
+      //   {lable:'0 /E',value:'0 /E'},
+      //   {lable:'2 /E',value:'2 /E'},
+      //   {lable:'1 0/E',value:'1 0/E'},
+      //   {lable:'1 1/E',value:'1 1/E'},
+      //   {lable:'1 2/E',value:'1 2/E'},
+      //   {lable:'2 0/E',value:'2 0/E'},
+      //   {lable:'2 1/E',value:'2 1/E'},
+      //   {lable:'2 2/E',value:'2 2/E'},
+      //   {lable:'2/2E',value:'2/2E'}
+      //   ],
       bus: bus(this),
       editableTabsValue: "2",
       query: {
@@ -338,18 +339,18 @@ export default {
       tabsData: [], // 日期列表
       vitalSignObj: {}, // 单个体征对象
       vitalSignList: [], // 固定项目列表
-      topContextList: [
-        "",
-        "入院",
-        "转入",
-        "手术",
-        "分娩",
-        "出院",
-        "出生",
-        "手术入院",
-        "死亡",
-        "转出"
-      ],
+      // topContextList: [
+      //   "",
+      //   "入院",
+      //   "转入",
+      //   "手术",
+      //   "分娩",
+      //   "出院",
+      //   "出生",
+      //   "手术入院",
+      //   "死亡",
+      //   "转出"
+      // ],
       timesOdd: [
         {
           id: 0,
@@ -376,7 +377,7 @@ export default {
           value: "23",
         },
       ],
-      bottomContextList: ['',"温水擦浴", "不升","特殊物理降温","辅助呼吸"],
+      // bottomContextList: ['',"温水擦浴", "不升","特殊物理降温","辅助呼吸"],
       topExpandDate: "",
       bottomExpandDate: "",
       totalDictInfo: {},
@@ -454,7 +455,7 @@ export default {
     getFilterSelections(orgin, filterStr) {
       if (!filterStr || !filterStr.trim()) return orgin;
 
-      return orgin.filter((option) => option.includes(filterStr));
+      return orgin;
     },
      handlePopRefresh(target) {
       target.popVisible = false;
@@ -478,10 +479,7 @@ export default {
       };
       await this.getVitalList();
       /* 获取患者某个时间点的体征信息 */
-      await getVitalSignListBy10({
-        visitId: data.visitId,
-        patientId: data.patientId,
-      }).then((res) => {
+     await getNowDateTimeList(data).then((res) => {
         res.data.data.map((item, index) => {
           /* 如果该患者没有体温单记录则返回 */
           if (!item.recordDate) return;
@@ -695,7 +693,7 @@ window.openSetTextModalNew(
           ":00:00";
         switch (item.vitalSigns) {
           case "表顶注释":
-            item.expand2 = this.topExpandDate;
+            item.expand2 = this.query.entryDate+ ' '+this.topExpandDate;//表顶用录入日期+选择的时间来显示
             break;
           case "表底注释":
             item.expand2 = this.bottomExpandDate;
@@ -728,6 +726,7 @@ window.openSetTextModalNew(
 </script>
 
 <style lang="stylus" scoped>
+
 .right-con {
   width: 100%;
   background: #fff;
@@ -744,10 +743,6 @@ window.openSetTextModalNew(
       flex-direction: column;
     }
   }
-.custom-temp-dict-select
-{
-color:red;
-}
   .row-bottom {
   overflow-y:scroll;
     .showRecord {
@@ -789,6 +784,7 @@ overflow :scroll }
     input {
       width: 45px;
       font-size: 12px;
+      
     }
 
     .el-select {

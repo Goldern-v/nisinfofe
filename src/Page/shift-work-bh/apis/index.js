@@ -16,9 +16,8 @@ export function listShiftRecord(deptCode, startDate, endDate,shiftType=1) {
 
 // 按ID查找对应得交班详情
 export function getShiftRecord(id,shiftTypeId = 1) {
-  return axios.get(`${apiPath}changeShiftMaster/getById/${id}/${shiftTypeId}`);
+  return axios.get(`${apiPath}changeShiftBHMaster/getById/${id}/${shiftTypeId}`);
 }
-
 // "changeShiftTime": {
 //   "id": 24834,
 //   "deptCode": "051101", --科室编码
@@ -96,7 +95,7 @@ export function createShiftRecord(
 
 // 更新交班志
 export function updateShiftRecord(data) {
-  return axios.post(`${apiPath}changeShiftMaster/saveContent`, data);
+  return axios.post(`${apiPath}changeShiftBHMaster/saveContent`, data);
 }
 
 // 删除交班志行

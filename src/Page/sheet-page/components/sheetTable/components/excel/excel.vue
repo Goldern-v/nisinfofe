@@ -270,8 +270,8 @@
               towLine: isOverText(td),
               maxHeight56: sheetInfo.sheetType == 'additional_count_hd',
             }"
-            :readonly="isRead(tr)"
-            :disabled="isDisabed(tr, td, y)"
+            :readonly="tr.isRead"
+            :disabled="td.isDisabed"
             v-model="td.value"
             :data-value="td.value"
             :position="`${x},${y},${index}`"
@@ -284,7 +284,7 @@
                   minWidth: td.textarea.width + 'px',
                   maxWidth: td.textarea.width + 'px',
                 },
-                isDisabed(tr, td, y) && { cursor: 'not-allowed' }
+                td.isDisabed && { cursor: 'not-allowed' }
               )
             "
             @keydown="
@@ -320,9 +320,10 @@
                 })
             "
             @blur="
-              !(td.splice && HOSPITAL_ID === 'huadu') &&
+              !HOSPITAL_ID === 'huadu' && !td.splice &&
                 onBlur($event, { x, y, z: index })
             "
+            @click="sheetInfo.sheetType == 'antenatalwaiting_jm'&&!tr.isRead && td.click && td.click($event, td)"
           ></textarea>
           <!-- 护理记录单特殊情况特殊记录单独处理 -->
           <div
@@ -339,8 +340,8 @@
           ></div>
           <input
             type="text"
-            :readonly="isRead(tr)"
-            :disabled="isDisabed(tr, td, y)"
+            :readonly="tr.isRead"
+            :disabled="td.isDisabed"
             v-model="td.value"
             :data-value="td.value"
             :position="`${x},${y},${index}`"
@@ -350,7 +351,7 @@
                 tr.find((item) => item.key == 'yearBreak').value && {
                   height: '12px',
                 },
-              isDisabed(tr, td, y) && { cursor: 'not-allowed' },
+              td.isDisabed && { cursor: 'not-allowed' },
             ]"
             @select="mouseSelect1"
             @keydown="
@@ -370,7 +371,7 @@
                 })
             "
             @blur="onBlur($event, { x, y, z: index })"
-            @click="!isRead(tr) && td.click && td.click($event, td)"
+            @click="!tr.isRead && td.click && td.click($event, td)"
             v-else
           />
         </td>
@@ -1201,12 +1202,12 @@ export default {
       }
     },
     isRead(tr) {
-      // if (
-      //   this.HOSPITAL_ID == "huadu" &&
-      //   sheetInfo.sheetType === "body_temperature_Hd"
-      // ) {
-      //   return false;
-      // }
+      if (
+        this.HOSPITAL_ID == "huadu" &&
+        sheetInfo.sheetType === "body_temperature_Hd"
+      ) {
+        return false;
+      }
       let status = tr.find((item) => item.key == "status").value;
       let empNo = tr.find((item) => item.key == "empNo").value;
       if (status == 1) {
@@ -1322,6 +1323,7 @@ export default {
                     this.$notify.success({
                       title: "提示",
                       message: "删除成功",
+                      duration: 1000,
                     });
                     this.bus.$emit("saveSheetPage", true);
                   });
@@ -1337,6 +1339,7 @@ export default {
                     this.$notify.success({
                       title: "提示",
                       message: "删除成功",
+                      duration: 1000,
                     });
                     this.bus.$emit("saveSheetPage", true);
                   });
@@ -1352,6 +1355,7 @@ export default {
                 this.$notify.success({
                   title: "提示",
                   message: "删除成功",
+                  duration: 1000,
                 });
                 this.bus.$emit("saveSheetPage", true);
               });

@@ -30,61 +30,90 @@
             <div
               flex="cross:center"
               class="input-item"
-              style="height: 51px"
-              v-if="HOSPITAL_ID == 'hj'"
+              style="height:130px;box-sizing:border-box;"
             >
-              <!-- <span class="label">患者姓名:</span> -->
-              <span :style="`width: ${hasRemark ? 85 : 100}px`"></span>
+              <span class="label" style="font-size:32px;">床号:</span>
+              <!-- <span :style="`width: ${hasRemark ? 85 : 100}px`"></span> -->
               <input
                 type="text"
                 nowidth
-                style="font-size: 42px;padding-left: 0px;font-weight: 900;"
+                v-if="!isPrint"
+                style="font-size: 32px; padding-left: 5px;outline:none;border:none"
+                flex-box="1"
+                class="bottom-line"
+                :value="query.bedLabel + '床'"
+              />
+              <span 
+                v-if="isPrint"
+                style="font-size: 32px; padding-left: 5px;outline:none;border:none"
+                flex-box="1"
+                class="bottom-line"
+              >{{query.bedLabel + '床'}}</span>
+            </div>
+            <div flex="cross:center" class="input-item" style="height:130px;box-sizing:border-box;">
+              <span class="label" style="font-size:32px;">姓名:</span>
+              <!-- <span :style="`width: ${hasRemark ? 85 : 100}px`"></span> -->
+              <input
+                type="text"
+                v-if="!isPrint"
+                nowidth
+                style="font-size: 32px; padding-left: 5px;outline:none;border:none"
                 flex-box="1"
                 class="bottom-line"
                 :value="query.name"
               />
-              <input
-                type="text"
-                nowidth
-                style="font-size: 30px;padding-left: 0px;width:31%;height: 100%;box-sizing: border-box;"
-                class="bottom-line"
-                :value="query.sex + ' ' + query.age"
-              />
-            </div>
-            <div
-              flex="cross:center"
-              class="input-item"
-              style="height: 43px"
-              v-else
-            >
-              <!-- <span class="label">患者姓名:</span> -->
-              <span :style="`width: ${hasRemark ? 85 : 100}px`"></span>
-              <input
-                type="text"
-                nowidth
-                style="font-size: 24px;padding-left: 5px;"
+              <span 
+                v-if="isPrint"
+                style="font-size: 32px; padding-left: 5px;outline:none;border:none"
                 flex-box="1"
                 class="bottom-line"
-                :value="query.name + ' ' + query.sex + ' ' + query.age"
-              />
-            </div>
-            <div flex="cross:center" class="input-item">
-              <!-- <span class="label">住院号:</span> -->
-              <span :style="`width: ${hasRemark ? 85 : 100}px`"></span>
-              <input
-                type="text"
-                style="width: 90px;font-size: 24px; padding-left: 5px;"
-                class="bottom-line"
-                :value="query.bedLabel + '床'"
-              />
-              <input
+              >{{query.name}}</span>
+              <!-- <input
                 type="text"
                 flex-box="1"
-                style="width: 0px;font-size: 24px; padding-left: 2px;"
+                style="width: 0px;font-size: 32px; padding-left: 2px;"
                 nowidth
                 class="bottom-line"
                 :value="moment(query.admissionDate).format('YYYY-MM-DD')"
+              /> -->
+            </div>
+            <div flex="cross:center" class="input-item" style="height:130px;box-sizing:border-box;">
+              <span class="label" style="font-size:32px;">性别:</span>
+              <!-- <span :style="`width: ${hasRemark ? 85 : 100}px`"></span> -->
+              <input
+                type="text"
+                v-if="!isPrint"
+                nowidth
+                style="font-size: 32px; padding-left: 5px;outline:none;border:none"
+                flex-box="1"
+                class="bottom-line"
+                :value="query.sex"
               />
+              <span 
+                v-if="isPrint"
+                style="font-size: 32px; padding-left: 5px;outline:none;border:none"
+                flex-box="1"
+                class="bottom-line"
+              >{{query.sex}}</span>
+            </div>
+            <div flex="cross:center" class="input-item" style="height:130px;box-sizing:border-box;">
+              <span class="label" style="font-size:32px;">住院号:</span>
+              <!-- <span :style="`width: ${hasRemark ? 85 : 100}px`"></span> -->
+              <input
+                type="text"
+                v-if="!isPrint"
+                nowidth
+                style="font-size: 32px; padding-left: 5px;outline:none;border:none"
+                flex-box="1"
+                class="bottom-line"
+                :value="query.inpNo"
+              />
+              <span 
+                v-if="isPrint"
+                style="font-size: 32px; padding-left: 5px;outline:none;border:none"
+                flex-box="1"
+                class="bottom-line"
+              >{{query.inpNo}}</span>
             </div>
             <!-- <div flex="cross:center" class="input-item">
               <span class="label">饮食:</span>
@@ -109,7 +138,7 @@
                 </label>
               </div>
             </div>-->
-            <div flex="cross:center" class="input-item">
+            <!-- <div flex="cross:center" class="input-item">
               <span class="label">饮食:</span>
               <div
                 nowidth
@@ -214,9 +243,9 @@
                   "
                 />
               </div>
-            </div>
-            <div flex="cross:center" class="input-item">
-              <span class="label">主管医生:</span>
+            </div> -->
+            <div flex="cross:center" class="input-item" style="height:130px;box-sizing:border-box;">
+              <span class="label" style="font-size:32px;">主管医生:</span>
               <!-- <el-autocomplete v-model="formData.mainDoctors"
                                :fetch-suggestions="querySearchAsyncDoc"
                                class="auto-input"
@@ -225,15 +254,24 @@
               ></el-autocomplete>-->
               <input
                 type="text"
+                v-if="!isPrint"
                 nowidth
-                style="font-size: 26px"
+                style="font-size: 32px; padding-left: 5px;outline:none;border:none"
                 flex-box="1"
                 class="bottom-line"
                 v-model="formData.mainDoctors"
               />
+              <span
+                v-if="isPrint"
+                style="font-size: 32px; padding-left: 5px;outline:none;border:none"
+                flex-box="1"
+                class="bottom-line"
+              >
+                {{formData.mainDoctors}}
+              </span>
             </div>
-            <div flex="cross:center" class="input-item">
-              <span class="label">责任护士:</span>
+            <div flex="cross:center" class="input-item" style="height:130px;box-sizing:border-box;">
+              <span class="label" style="font-size:32px;">责任护士:</span>
               <!-- <el-autocomplete v-model="formData.dutyNurses"
                                :fetch-suggestions="querySearchAsyncNur"
                                class="auto-input"
@@ -242,26 +280,36 @@
               ></el-autocomplete>-->
               <input
                 type="text"
+                v-if="!isPrint"
                 nowidth
                 flex-box="1"
                 class="bottom-line"
-                style="font-size: 26px"
+                style="font-size: 32px; padding-left: 5px;outline:none;border:none"
                 v-model="formData.dutyNurses"
               />
+              <span
+                v-if="isPrint"
+                style="font-size: 32px; padding-left: 5px;outline:none;border:none"
+                flex-box="1"
+                class="bottom-line"
+              >
+                {{formData.dutyNurses}}
+              </span>
             </div>
           </div>
-          <div style="width: 131px">
+          <div style="width: 240px;">
             <div class="tip">温馨提示</div>
-            <div style="height: 2px"></div>
             <div>
               <div
-                class="tip-item-con"
-                flex="cross:center main:justify"
                 v-for="item in tipList"
                 :key="item.label"
+                class="tip-item-box"
               >
-                <img :src="item.img" alt />
-                <span>{{ item.label }}</span>
+                <div class="tip-item-con"
+                flex="cross:center main:justify">
+                  <img :src="item.img" alt />
+                  <span>{{ item.label }}</span>
+                </div>
               </div>
             </div>
           </div>
@@ -476,7 +524,7 @@
         </div>
       </div>
       <div slot="button">
-        <span
+        <!-- <span
           style="position: absolute; left: 10px; padding-top: 4px"
           v-if="HOSPITAL_ID != 'hj' && printMode == 'h'"
         >
@@ -486,7 +534,7 @@
             off-text="否"
             v-model="formData.remarkPrint"
           ></el-switch>
-        </span>
+        </span> -->
 
         <el-button class="modal-btn" @click="close">取消</el-button>
         <el-button
@@ -633,20 +681,24 @@
 
 .bed-card-con {
   margin: 20px;
-  width: 511px;
-  height: 335px;
+  width: 14cm;
+  height: 21cm;
   padding: 5px 8px;
   box-sizing: border-box;
   border-right: 5px solid #fff;
   position: relative;
   border: 1px solid #000;
-  height: 370px;
-
-  // &.remarkCon
+  .input-item{
+    border-bottom:1px solid #000;
+    border-right:1px solid #000;
+  }
+  .input-item:last-child{
+    border-bottom:none;
+  }
   .qr-code {
     position: absolute;
-    top: -5px;
-    left: -5px;
+    bottom: 20px;
+    right: 80px;
     height: 112px;
     width: 112px;
 
@@ -658,19 +710,13 @@
 
   .qr-code-num {
     position: absolute;
-    top: 96px;
-    left: 0px;
-    width: 145px;
+    bottom: 5px;
+    left: 330px;
+    min-width: 145px;
     text-align: center;
     z-index: 2;
     font-size: 16px;
 
-    &.hasRemark {
-      top: 78px;
-      left: 0px;
-      width: 84px;
-      font-size: 14px;
-    }
   }
 }
 .bed-card-children-tip{
@@ -678,17 +724,18 @@
   height:3.75cm;
   font-size:32px;
   .bed-card-ctip-con{
-    transform scale(0.6) translate(-7%,-41%)
-    width:310px;
+    transform: scale(0.6) translate(-25%, -41%);
+    width: 400px;
     padding:35px 0 0 0px;
     box-sizing border-box
     .children-row{
       display:flex;
       min-height:75px;
-      justify-content space-between
+      justify-content space-between;
+      font-size:40px;
       div{
         &:first-child{
-          width:140px;
+          width:200px;
           text-align left
         }
         &:nth-child(2){
@@ -836,10 +883,10 @@ input[type='checkbox']:checked:after {
   font-weight: bold;
   text-align: center;
   color: #000;
-  // margin-top 15px
-  height: 42px;
-  line-height: 42px;
-  margin-bottom: 15px;
+  height: 130px;
+  line-height: 130px;
+  box-sizing:border-box;
+  border-bottom:1px solid #000;
 }
 
 .label {
@@ -851,16 +898,22 @@ input[type='checkbox']:checked:after {
 .tip-item-con {
   border: 1px solid #000;
   border-radius: 8px;
-  width: 100%;
-  height: 51px;
+  width: 80%;
+  height: 100px;
   padding: 0 5px 0 5px;
   box-sizing: border-box;
-  margin-bottom: 20px;
-  font-size: 17px;
-
+  margin: 15px auto 14px;
+  font-size: 22px;
+  color:red;
   img {
-    width: 46px;
+    width: 69px;
   }
+}
+.tip-item-box{
+  padding:0 10px;
+  border-bottom:1px solid #000;
+  overflow:hidden;
+  box-sizing: border-box;
 }
 
 label {
@@ -895,6 +948,7 @@ label {
     height:10cm;
     >>>.input-item{
       margin-bottom:5px!important;
+      border: none;
     }
     .remark{
       height:60px;
@@ -969,7 +1023,8 @@ export default {
       title: "编辑床头卡",
       allergy1: "",
       allergy2: "",
-      drugGms: ""
+      drugGms: "",
+      isPrint:false
     };
   },
   computed: {
@@ -1096,6 +1151,7 @@ export default {
       });
     },
     onPrint() {
+      this.isPrint = true
       this.$nextTick(() => {
         this.post();
         if (this.printMode.includes("wrist")) {
@@ -1137,6 +1193,9 @@ export default {
             box-shadow: none !important;
             transform:translateY(3%) translateX(12%);
           }
+          .bottom-line{
+            font-size:32px!important
+          }
           @page {
             margin: 0;
           }
@@ -1147,7 +1206,19 @@ export default {
         }else if(this.printMode=="children-tips"){
           print(this.$refs.childrenTip);
         } else {
-          print(this.$refs.printCon);
+          printing(this.$refs.printCon, {
+            injectGlobalCss: true,
+            scanStyles: false,
+            css: `
+          .bed-card-warpper {
+            box-shadow: none !important;
+            transform:translateY(3%) translateX(12%);
+          }
+          @page {
+            margin: 0;
+          }
+          `
+          });
         }
       });
     },

@@ -20,11 +20,6 @@
         <div class="nav-item">护理文书</div>
       </router-link>
       <router-link
-        v-if="
-          HOSPITAL_ID == 'hj' ||
-            HOSPITAL_ID == 'fuyou' ||
-            HOSPITAL_ID == 'liaocheng'
-        "
         :to="{
           path: '/doctorEmr',
           query: { patientId: query.patientId, visitId: query.visitId }
@@ -150,6 +145,7 @@
       >
         <div class="nav-item">检验</div>
       </router-link>
+        <div class="nav-item" @click="toPath('http://10.158.220.36:8080/#!/goto/outview_documents/',query.inpNo)">重症护理记录单</div>
       <!-- <router-link to="/dev" tag="span">
         <div class="nav-item">手术</div>
       </router-link>-->
@@ -236,6 +232,11 @@ export default {
     query() {
       let query = this.$route.query;
       return query;
+    }
+  },
+  methods:{
+    toPath(path,query){
+        window.open(`${path}${query}`)
     }
   },
   components: {}

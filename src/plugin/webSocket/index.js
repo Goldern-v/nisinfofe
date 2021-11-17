@@ -15,7 +15,7 @@ class WebSocketService {
   // md5队列 每一个订阅数据的唯一标识
   md5List = JSON.parse(sessionStorage.mewsMd5List || null) || []
 
-  socket = new SockJS("/crNursing/message")
+  socket = new SockJS("/crNursing/message", null, { timeout: 10000 })
   //本地开发测试
   // socket = new SockJS("http://120.197.141.41:9091/crNursing/message")
   stompClient = Stomp.over(this.socket)

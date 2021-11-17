@@ -2,7 +2,7 @@
   <div
     class="contain"
     :class="{ fullpage }"
-    v-loading="pageloading"
+    v-loading="pageLoading"
     element-loading-text="正在保存"
   >
     <div class="head-con" flex>
@@ -243,7 +243,7 @@ export default {
       },
       patientListLoading: false,
       tableLoading: false,
-      pageloading: false,
+      pageLoading: false,
       bus: bus(this),
       sheetModel,
       sheetInfo,

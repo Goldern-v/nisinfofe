@@ -7,6 +7,15 @@
           <el-button :class="[active=='yesterday'?'active-btn':'']" @click="initTime('yesterday')">24小时小结</el-button>
         </el-button-group>
       </div>
+      <!-- 北海 -->
+       <div class="time-type-button" v-if="HOSPITAL_ID=='beihairenyi'">
+        <el-button-group>
+          <el-button :class="[active=='A'?'active-btn':'']" @click="beihaiInitTime('A')">A班小结</el-button>
+          <el-button :class="[active=='P'?'active-btn':'']" @click="beihaiInitTime('P')">P班小结</el-button>
+          <el-button :class="[active=='N'?'active-btn':'']" @click="beihaiInitTime('N')">N班小结</el-button>
+          <el-button :class="[active=='ALL'?'active-btn':'']" @click="beihaiInitTime('ALL')">24h总结</el-button>
+        </el-button-group>
+      </div>
       <p for class="name-title">请选择日期区间：</p>
       <div flex="cross:center main:center" style="margin:0 15px 20px">
         <cr-date-picker
@@ -89,6 +98,16 @@ export default {
       let timeObject = {
         'today':[moment().format("YYYY-MM-DD 07:00"),moment().format("YYYY-MM-DD 17:00")],
         'yesterday':[moment().subtract(1,'days').format("YYYY-MM-DD 07:00"),moment().format("YYYY-MM-DD 07:00")]
+      }
+      this.date = timeObject[type]
+    },
+    beihaiInitTime(type){
+       this.active=type
+       let timeObject = {
+        'A':[moment().format("YYYY-MM-DD 07:00"),moment().format("YYYY-MM-DD 15:00")],
+        'P':[moment().format("YYYY-MM-DD 15:00"),moment().format("YYYY-MM-DD 23:00")],
+        'N':[moment().subtract(1,'days').format("YYYY-MM-DD 23:00"),moment().format("YYYY-MM-DD 06:59")],
+        'ALL':[moment().subtract(1,'days').format("YYYY-MM-DD 07:00"),moment().format("YYYY-MM-DD 07:00")]
       }
       this.date = timeObject[type]
     },

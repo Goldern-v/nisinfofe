@@ -236,9 +236,9 @@
   // display: none;
   .bed-card-vert-con {
     margin: 5px;
-    width: 96px;
+    width: 2.5cm;
     height: 360px;
-    padding:5px 3px 0 3px !important;
+    padding:5px 0 0 !important;
     box-sizing: border-box;
     position: relative;
     border: 3px solid #000;

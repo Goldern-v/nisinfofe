@@ -301,6 +301,16 @@
         {
           "name": "I305003",
           "type": "radio",
+          "title": "不需要、卧床休息、坐轮椅、护士辅助”（0分）",
+          "code": "0",
+          "score": 0,
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I305003",
+          "type": "radio",
           "title": "拐杖、助行器、手杖（15分）",
           "code": "15",
           "score": 15,
@@ -556,15 +566,15 @@
           "readOnly": true,
           "rule": [
             {
-              "min": "0",
-              "max": "24",
+              "min": "-1",
+              "max": "25",
               "equal": "无风险",
               "style": "color:red",
               "display": "无风险"
             },
             {
               "min": "25",
-              "max": "44",
+              "max": "45",
               "equal": "低风险",
               "style": "color:red",
               "display": "低风险"

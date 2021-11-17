@@ -1,7 +1,7 @@
 export default {
-  // style: {
-  //   width: '1500px'
-  // },
+  style: {
+    width: '1200px'
+  },
   // 科室的名称
   deptType: '',
   th: {
@@ -139,7 +139,7 @@ export default {
         rowspan: '1',
       },
       {
-        name: '腹<br>涨',
+        name: '腹<br>胀',
         colspan: '1',
         rowspan: '2',
       },

@@ -29,10 +29,10 @@
             <div
               flex="cross:center"
               class="input-item"
-              style="height: 43px"
+              style="height: 43px;padding-right:0px;"
             >
-              <!-- <span class="label">患者姓名:</span> -->
               <span :style="`width: ${hasRemark ? 85 : 100}px`"></span>
+              <!-- <span class="label">患者姓名:</span> -->
               <input
               readonly
                 type="text"
@@ -40,8 +40,8 @@
                 style="font-size: 22px;padding-left: 5px;"
                 flex-box="1"
                 class="bottom-line"
-                :value="query.name + ' ' + query.patientId"
-              />
+                :value="query.bedLabel + '床 '+query.name + ' ' + query.sex + ' ' + query.age"
+                />
             </div>
             <div
               flex="cross:center"
@@ -50,36 +50,27 @@
             >
               <!-- <span class="label">患者姓名:</span> -->
               <span :style="`width: ${hasRemark ? 85 : 100}px`"></span>
+              <!-- <span class="label">病案号：</span> -->
               <input
+              readonly
                 type="text"
                 nowidth
                 style="font-size: 22px;padding-left: 5px;"
                 flex-box="1"
                 class="bottom-line"
-                :value="query.sex + ' ' + query.age"
+                :value="'病案号： ' + query.patientId"
               />
             </div>
             <div flex="cross:center" class="input-item">
-              <!-- <span class="label">住院号:</span> -->
               <span :style="`width: ${hasRemark ? 85 : 100}px`"></span>
               <input
-                type="text"
-                :style="{
-                  width: '75px',
-                  'font-size':'22px',
-                  'padding-left': '5px',
-                  'line-height': ' 34px'
-                }"
-                class="bottom-line"
-                :value="query.bedLabel + '床'"
-              />
-              <input
+              readonly
                 type="text"
                 flex-box="1"
                 style="width: 0px;font-size: 22px; padding-left: 2px;line-height: 34px;"
                 nowidth
                 class="bottom-line"
-                :value="moment(query.admissionDate).format('YYYY-MM-DD')"
+                :value="'入院时间： '+moment(query.admissionDate).format('YYYY-MM-DD')"
               />
             </div>
             <!-- <div flex="cross:center" class="input-item">
@@ -265,7 +256,7 @@
               ></textarea>
             </div>
           </div>
-          <div style="width: 131px">
+          <div style="width: 90px">
             <div class="tip">温馨提示</div>
             <div style="height: 2px"></div>
             <div>
@@ -504,7 +495,7 @@ input[type='checkbox']:checked:after {
 }
 
 .tip {
-  font-size: 30px;
+  font-size: 22px;
   font-weight: bold;
   text-align: center;
   color: #000;
@@ -565,7 +556,8 @@ import {
   findByKeywordNur,
   saveBed
 } from "./api/index.js";
-import print from "./tool/print";
+// import print from "./tool/print";
+import printting from 'printing'
 var qr = require("qr-image");
 import moment from "moment";
 import { textOver } from "@/utils/text-over";
@@ -755,7 +747,21 @@ export default {
     onPrint() {
       this.$nextTick(() => {
         this.post();
-        print(this.$refs.printCon);
+        printting(this.$refs.printCon,{
+            direction: "horizontal",
+            injectGlobalCss: true,
+            scanStyles: false,
+            css: `
+            .bed-card-warpper {
+              box-shadow: none !important;
+              transform:scale(0.85);
+              transform-origin:(0,0);
+            }
+            @page {
+              margin: 0;
+            }
+            `
+          });
       });
     },
     querySearchAsyncDoc(queryString, cb) {
@@ -793,12 +799,13 @@ export default {
       let xy = offset(e.target);
 
       console.log(xy, autoComplete, obj, key, "autoComplete, obj, key");
-
+      
       setTimeout(() => {
         window.openAutoComplete({
           style: {
             top: `${xy.top + 40}px`,
-            left: `${xy.left}px`
+            left: `${xy.left}px`,
+            addWidth:`150px`
           },
           data: autoComplete,
           callback: function(data) {

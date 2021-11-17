@@ -6,6 +6,8 @@
     @keydown="handleKeyDown"
     @click="toRow"
     :value="value"
+     v-on:input="validFormFc"
+
   />
 </template>
 
@@ -31,6 +33,8 @@
 </style>
 
 <script>
+import { validForm } from "../../validForm/validForm";
+
 export default {
   model: {
     props: "value",
@@ -122,6 +126,104 @@ for(let i=0;i<trs.length;i++){
         this.$emit("change", e.target.value);
       }
     },
+    setValid(trage,val){
+switch (trage) {
+  
+  case 'temperature':
+    let o={
+      '体温':{
+        value:val,
+        reg: [30,50],
+        errorMsg:'体温请填入30~50之间的数值'
+      }
+        }
+    return o
+  case 'heartRate':
+    let h={
+      '心率':{
+        value:val,
+        reg: [0,300],
+        errorMsg:'体温请填入0~300之间的数值'
+      }
+        }
+    return h
+  case 'bloodPressure':
+    let x={
+      '血压':{
+        value:val,
+        reg: [0,300] ,
+        errorMsg:'体温请填入0~300之间的数值'
+      }
+        }
+    return x
+  case 'pulse':
+    let y={
+      '脉搏':{
+        value:val,
+        reg: [0,300],
+        errorMsg:'体温请填入0~300之间的数值'
+      }
+        }
+    return y
+  case 'breath':
+    let g={
+      '呼吸':{
+        value:val,
+        reg: [0,120],
+        errorMsg:'体温请填入0~120之间的数值或者R/r'
+      }
+        }
+    return g
+  default:
+    break;
+}
+    },
+    //validForm验证表单
+    validFormFc(e){
+      if(['liaocheng'].includes(this.HOSPITAL_ID)){
+let checkItem=e.path[0].classList[1];
+      let val=e.target.value
+      let checksStr=['breath','pulse','bloodPressure','heartRate','temperature']
+var trs = e.path[3];
+      if(checksStr.includes(checkItem)&&val!==''){
+  if (validForm.valid(this.setValid(checkItem,val))) {
+    // console.log(trs.getElementsByClassName(checkItem)[0].style)
+trs.getElementsByClassName(checkItem)[0].style.border=''
+  }else{
+trs.getElementsByClassName(checkItem)[0].style.border='thick solid red'
+
+
+  }
+      }else{
+trs.getElementsByClassName(checkItem)[0].style.border=''
+
+
+      }
+      }
+      
+
+
+      
+    //     let val=vitalSignObj.vitalValue
+    //   if(vitalSignObj.popVisible===true&&val!==""&&['体温','脉搏','心率','呼吸','血压'].includes(vitalSignObj.vitalSigns)){
+    //  //验证表单
+    //   if (validForm.valid(this.setValid(vitalSignObj.vitalSigns,val))) {
+    //     document.getElementById(index).style.border=""
+    //   vitalSignObj.isCorrect=true
+    //   }else{
+    //     document.getElementById(index).style.border="thick solid red"
+    //     vitalSignObj.isCorrect=false
+    //     // this.$message({
+    //     //   message: this.setValid(vitalSignObj.vitalSigns)[vitalSignObj.vitalSigns].errorMsg,
+    //     //   type: 'warning'
+    //     // });
+        
+    //   }
+    //   }else{
+    //      document.getElementById(index).style.border=""
+    //      vitalSignObj.isCorrect=true
+    //   }
+},
   },
   components: {},
 };

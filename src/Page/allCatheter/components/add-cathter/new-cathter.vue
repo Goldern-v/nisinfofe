@@ -19,7 +19,7 @@
                             </el-date-picker>
                 </div>
                 <div style="margin-bottom:10px;">
-                    <span class="item-title">预拔管时间:</span><el-date-picker
+                    <span class="item-title">更换时间:</span><el-date-picker
                             v-model="expecteReplaceTime"
                             type="datetime"
                             placeholder="选择日期时间">

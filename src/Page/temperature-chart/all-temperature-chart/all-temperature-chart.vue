@@ -4,7 +4,7 @@
       <span class="filterItem date">
         <span class="type-label">日期:</span>
         <ElDatePicker
-          v-if="HOSPITAL_ID !== 'guizhou'"
+          v-if="!['guizhou','fuyou'].includes(HOSPITAL_ID)"
           class="date-picker"
           type="date"
           size="small"
@@ -23,10 +23,22 @@
           v-model="query.entryDate"
           clearable
         />
+        <!--江门妇幼的时间选择做限制，不能大于将来时间-->
+        <ElDatePicker
+          v-if="HOSPITAL_ID === 'fuyou'"
+          class="date-picker"
+          type="date"
+          size="small"
+          format="yyyy-MM-dd"
+           :picker-options="pickerOptions"
+          placeholder="开始日期"
+          v-model="query.entryDate"
+          clearable
+        />
       </span>
       <div
         class="times"
-        v-if="HOSPITAL_ID === 'huadu' || HOSPITAL_ID === 'fuyou'"
+        v-if=" ['huadu','fuyou'].includes(HOSPITAL_ID)"
       >
         <label :for="`time${item.id}`" v-for="item in timesEven" :key="item.id">
           <input
@@ -56,7 +68,7 @@
         </label>
       </div>
       <!-- <div class="times" v-if="HOSPITAL_ID === 'quzhou'||HOSPITAL_ID === 'wujing'"> -->
-      <div class="times" v-if="['quzhou','wujing','nanfangzhongxiyi'].includes(HOSPITAL_ID)">
+      <div class="times" v-if="['quzhou','wujing','nanfangzhongxiyi','foshanrenyi'].includes(HOSPITAL_ID)">
         <label
           :for="`time${item.id}`"
           v-for="item in timesquZhou"
@@ -775,6 +787,11 @@ export default {
       isSelectedPatient: "",
       patientList: [],
       isSelectedNurs: "",
+        pickerOptions: {
+          disabledDate(time) {
+            return time.getTime() > Date.now() - 8.64e6
+          }
+        },  
       nursingList: [],
       query: {
         wardCode: "", //科室编码
@@ -1127,6 +1144,7 @@ export default {
         this.pageLoadng = false;
       });
     },
+     
     saveAllTemperture() {
       let data = {
         blockId: "",
@@ -1195,6 +1213,7 @@ export default {
       tempertureData.entryDate = tempertureData.entryDate
         ? moment(tempertureData.entryDate).format("YYYY-MM-DD")
         : moment(new Date()).format("YYYY-MM-DD");
+        
       saveOverAllTemperture(tempertureData).then((res) => {
         if(res.data.code==='200'){
 this.$message.success('保存成功')
@@ -1242,6 +1261,12 @@ this.$message.success('保存成功')
     query: {
       handler(newName, oldName) {
         this.getData();
+        if(['liaocheng'].includes(this.HOSPITAL_ID)){
+          let input=document.getElementsByTagName('input')
+     for(let i=0;i<input.length;i++){
+       input[i].style.border=''
+     }
+        }
       },
       deep: true,
     },

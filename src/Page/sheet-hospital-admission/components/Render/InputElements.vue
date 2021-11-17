@@ -231,7 +231,7 @@
         v-if="getOtherText(child) && getOtherText(child)!='null'  && formObj.model[child.name]"
         @click="openTip(child)"
       >{{child.postTitle||child.title}}:{{getOtherText(child)}}{{child.postText}}</span>-->
-      <el-tooltip
+      <!-- <el-tooltip
         class="item"
         effect="light"
         placement="left"
@@ -254,7 +254,7 @@
           v-html="dialogResult(child).html"
           @click="openTip(child)"
         ></span>
-      </el-tooltip>
+      </el-tooltip> -->
       <!-- <span>{{dialogResult(child).isShow}}</span> -->
     </span>
   </span>
@@ -513,6 +513,7 @@ export default {
                   child.title.indexOf("VTE") === -1 &&
                   !cleanKeyCheck()
                 ) {
+                  
                   html += `<span><span style='${obj.style}'>${
                     this.formObj.model[d.dialog.parentName] || ""
                   }${obj.suffixDesc || ""}</span></span>`;
@@ -816,6 +817,7 @@ export default {
         },
       };
       this.$root.$refs.bodyModal.openBox(config);
+      console.log(config,'config');
     },
     makeRefName(child = null, cindex = -1) {
       // child.type+child.name+child.title+cindex
