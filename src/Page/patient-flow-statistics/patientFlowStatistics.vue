@@ -257,15 +257,22 @@ export default {
           minInterval: 1
         },
         dataZoom: [
-        {
-          type: 'inside',
-          show: true,
-          startValue: 0,
-          endValue: 9,
-          zoomLock: true,
-          // moveOnMouseMove: true,
-          // preventDefaultMouseMove: false,
-          // zoomOnMouseWheel: false,
+          {
+            show: true,
+            realtime: true,
+            startValue: 0,
+            endValue: 9,
+            height: '20'
+          },
+          {
+            type: 'inside',
+            show: true,
+            startValue: 0,
+            endValue: 9,
+            zoomLock: true,
+            // moveOnMouseMove: true,
+            // preventDefaultMouseMove: false,
+            // zoomOnMouseWheel: false,
         }],
         series: [
           {
