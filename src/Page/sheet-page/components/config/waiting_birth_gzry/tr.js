@@ -44,7 +44,7 @@ export default [
       keyf1(e, td);
     },
     textarea: {
-      width: 60
+      width: 55
     },
     change: (e, td) => limitChange(e, td, 8),
     name: "血压",
@@ -56,7 +56,7 @@ export default [
     event: keyf1,
     name: "部位",
     textarea: {
-      width: 60
+      width: 50
     },
     autoComplete: {
       data: ["脐右下", "脐左下", "脐右上", "脐左上", "脐下", "耻上"]
@@ -70,7 +70,7 @@ export default [
     name: "胎心心率",
     next: "次/分",
     textarea: {
-      width: 60
+      width: 50
     },
     change: (e, td) => limitChange(e, td, 6),
   },
@@ -91,7 +91,7 @@ export default [
     name: "间歇",
     next: "min",
     textarea: {
-      width: 60
+      width: 50
     },
     change: (e, td) => limitChange(e, td, 6),
   },
@@ -102,7 +102,7 @@ export default [
     name: "持续",
     next: "s",
     textarea: {
-      width: 60
+      width: 50
     },
     change: (e, td) => limitChange(e, td, 6),
   },
@@ -113,7 +113,7 @@ export default [
     name: "开张",
     next: "cm",
     textarea: {
-      width: 60
+      width: 50
     },
     change: (e, td) => limitChange(e, td, 6),
   },
@@ -123,7 +123,7 @@ export default [
     event: keyf1,
     name: "质",
     textarea: {
-      width: 60
+      width: 50
     },
     autoComplete: {
       data: ["软", "硬", "肿"]
@@ -136,7 +136,7 @@ export default [
     event: keyf1,
     name: "先露高低",
     textarea: {
-      width: 60
+      width: 50
     },
     change: (e, td) => limitChange(e, td, 6),
   },
@@ -159,7 +159,7 @@ export default [
       data: ["未破", "已破"]
     },
     textarea: {
-      width: 60
+      width: 50
     },
     change: (e, td) => limitChange(e, td, 6),
   },
@@ -172,7 +172,7 @@ export default [
       data: ["清", "Ⅰ°", "Ⅱ°", "Ⅲ°"]
     },
     textarea: {
-      width: 60
+      width: 50
     },
     change: (e, td) => limitChange(e, td, 6),
   },
@@ -182,7 +182,7 @@ export default [
     event: keyf1,
     name: "检查方式",
     textarea: {
-      width: 60
+      width: 50
     },
     autoComplete: {
       data: ["阴道检查", "肛门检查"]
@@ -190,15 +190,35 @@ export default [
     change: (e, td) => limitChange(e, td, 6),
   },
   {
-    key: "incubation", //潜伏期
+    key: "incubation", //产程开始
     value: "",
     event: keyf1,
-    name: "潜伏期",
+    name: "产程开始",
     textarea: {
-      width: 60
+      width: 50
+    },
+    change: (e, td) => limitChange(e, td, 6),
+  },
+  {
+    key: "period", //活跃期开始
+    value: "",
+    event: keyf1,
+    name: "活跃期开始",
+    textarea: {
+      width: 50
+    },
+    change: (e, td) => limitChange(e, td, 6),
+  },
+  {
+    key: "laborEvents", //产程事件
+    value: "",
+    event: keyf1,
+    name: "产程事件",
+    textarea: {
+      width: 50
     },
     autoComplete: {
-      data: ["√"]
+      data: ["分娩", "手术", "产钳"]
     },
     change: (e, td) => limitChange(e, td, 6),
   },

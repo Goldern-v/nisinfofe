@@ -68,7 +68,7 @@
         </label>
       </div>
       <!-- <div class="times" v-if="HOSPITAL_ID === 'quzhou'||HOSPITAL_ID === 'wujing'"> -->
-      <div class="times" v-if="['quzhou','wujing','nanfangzhongxiyi','foshanrenyi'].includes(HOSPITAL_ID)">
+      <div class="times" v-if="['quzhou','wujing','nanfangzhongxiyi','foshanshiyi'].includes(HOSPITAL_ID)">
         <label
           :for="`time${item.id}`"
           v-for="item in timesquZhou"

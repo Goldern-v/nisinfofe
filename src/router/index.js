@@ -857,6 +857,7 @@ const router = new Router({
             case 'huadu':
               return implementationListZhongshanqi
             case 'wujing':
+            case 'foshanrenyi':
               return implementationListWujing
             case 'quzhou':
               return implementationListQuzhou

@@ -16,7 +16,6 @@
         年龄：
         <div class="bottom-line" style="min-width: 50px">{{patientInfo.age}}</div>
       </span>
-
       <span>
         科室：
         <div class="bottom-line" style="min-width: 120px">{{patientInfo.deptName}}</div>
@@ -68,8 +67,8 @@
           class="bottom-line"
           style="min-width: 400px;max-width: 1000px;min-height:13px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;"
         >{{diagnosis}}</div>
-      </span> -->
-       <span v-if="sheetInfo.sheetType == 'critical_lc'">入院日期：{{patientInfo.admissionDate | toymd}}</span>
+      </span> --> 
+       <span v-if="sheetInfo.sheetType == 'critical_lc'||sheetInfo.sheetType == 'critical2_lc'">入院日期：<div class="bottom-line" style="min-width: 50px">{{patientInfo.admissionDate | toymd}}</div></span>
     </div>
     <div class="info-con" flex="main:justify">
       <span
@@ -94,7 +93,7 @@
       </span>
       <span
         @click="updateDiagnosis('diagnosis', '诊断', patientInfo.diagnosis)"
-        v-if="sheetInfo.sheetType == 'icu_lc'"
+        v-if="sheetInfo.sheetType == 'icu_lc'||sheetInfo.sheetType == 'critical2_lc'"
       >
         诊断：
         <div

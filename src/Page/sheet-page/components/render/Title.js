@@ -326,6 +326,13 @@ export default function Title(
     );
   }
   break;
+  case "critical2_lc": {
+    // 陵城-病重（病危）患者护理记录（新生儿）
+    Th = JSON.parse(
+      JSON.stringify(require("../config/critical2_lc/th").default)
+    );
+  }
+  break;
   case "stress_injury_hd": {
     // 花都-压力性损伤护理记录单
     Th = JSON.parse(
@@ -652,6 +659,13 @@ export default function Title(
     // 聊城二院 - 围介入期护理观察记录单
     Th = JSON.parse(
       JSON.stringify(require("../config/peri_intervention_lcey/th").default)
+    );
+  }
+  break;
+  case "cardiology_lcey": {
+    // 聊城二院 - 心内科介入患者观察记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/cardiology_lcey/th").default)
     );
   }
   break;
