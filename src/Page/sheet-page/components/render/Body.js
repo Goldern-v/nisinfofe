@@ -81,6 +81,11 @@ function switechSheetType(type) {
       schema = require("../config/picu_lc/tr.js").default;
     }
       break;
+    case "critical2_lc": {
+      //  陵城区-病重（病危）患者护理记录（新生儿）
+        schema = require("../config/critical2_lc/tr.js").default;
+      }
+      break;
     case "neurology": {
       // 神经内科
       schema = require("../config/neurology/tr.js").default;
