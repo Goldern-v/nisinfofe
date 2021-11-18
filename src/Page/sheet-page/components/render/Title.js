@@ -326,6 +326,13 @@ export default function Title(
     );
   }
   break;
+  case "critical2_lc": {
+    // 陵城-病重（病危）患者护理记录（新生儿）
+    Th = JSON.parse(
+      JSON.stringify(require("../config/critical2_lc/th").default)
+    );
+  }
+  break;
   case "stress_injury_hd": {
     // 花都-压力性损伤护理记录单
     Th = JSON.parse(
@@ -655,6 +662,13 @@ export default function Title(
     );
   }
   break;
+  case "cardiology_lcey": {
+    // 聊城二院 - 心内科介入患者观察记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/cardiology_lcey/th").default)
+    );
+  }
+  break;
   case "intervention_cure_lcey": {
     // 聊城二院 - 介入诊疗护理记录单
     Th = JSON.parse(
@@ -796,6 +810,7 @@ export default function Title(
     );
   }
   break;
+ 
   case "obstetrics_hl": {
     // 横沥 - 护理记录单(产科)
     Th = JSON.parse(
@@ -828,6 +843,13 @@ export default function Title(
     // 横沥-ICU机械通气护理单
     Th = JSON.parse(
       JSON.stringify(require("../config/ventilation_hl/th").default)
+    );
+  }
+  break;
+  case "blood_circulation_hl": {
+    // 横沥 - 手外科术后血运观察表
+    Th = JSON.parse(
+      JSON.stringify(require("../config/blood_circulation_hl/th").default)
     );
   }
   break;
