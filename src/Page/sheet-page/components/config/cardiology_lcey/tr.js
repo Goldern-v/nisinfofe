@@ -16,6 +16,7 @@ import {
 } from "../keyEvent/date";
 
 export default [
+  { key: 'nodeTime',event: keyf1,value: '',textarea:{ width:55},change: (e, td) => limitChange(e, td, 8)},
   { key: "recordDate", value: "", hidden:true },
   { key: "recordMonth", value: "", event: event_date, click: click_date },
   { key: "recordHour", value: "", event: event_time},
@@ -64,7 +65,7 @@ export default [
   // { key: "sign2", value: "" },
   { hidden:true, key:'id', value:''},
   { hidden:true, key:'signerName', value:''},
-  { hidden:true, key:'signerName2', value:''},
+  // { hidden:true, key:'signerName2', value:''},
   { hidden:true, key:'status', value:''},
   { hidden:true, key:'recordSource', value:''},
   { hidden:true, key:'recordYear', value:''},
