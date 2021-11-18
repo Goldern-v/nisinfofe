@@ -542,6 +542,11 @@ function switechSheetType(type) {
       schema = require("../config/intervention_cure_lcey/tr").default;
     }
       break;
+    case "cardiology_lcey": {
+      // 聊城二院 - 心内科介入患者观察记录单
+      schema = require("../config/cardiology_lcey/tr").default;
+    }
+      break;
     case "access_lcey": {
       // 聊城二院 - 出入量记录单
       schema = require("../config/access_lcey/tr").default;
@@ -658,6 +663,11 @@ function switechSheetType(type) {
       schema = require("../config/aerate_param_hl/tr").default;
     }
       break;
+    case "ventilation_hl": {
+        // 横沥-ICU机械通气护理单
+        schema = require("../config/ventilation_hl/tr.js").default;
+    }
+    break;
     case "icu_sn": {
       // 山南 - ICU护理记录单
       schema = require("../config/icu_sn/tr.js").default;

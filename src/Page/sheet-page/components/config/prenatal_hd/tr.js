@@ -302,7 +302,7 @@ export default [
       background: "transparent"
     },
     textarea: {
-      width: 125
+      width: 150
     },
     event: function (e, td) {
       console.log(e.keyCode);

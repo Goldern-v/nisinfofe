@@ -648,7 +648,6 @@ export default {
       });
     },
     breforeQuit(next) {
-      console.log(this.$store.state);
       if (!sheetInfo.isSave) {
         window.app
           .$confirm("记录单还未保存，离开将会丢失数据", "提示", {

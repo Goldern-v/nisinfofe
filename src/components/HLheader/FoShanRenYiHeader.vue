@@ -225,11 +225,42 @@
               </el-row>
             </router-link> -->
 
-            <router-link to="/implementationList" tag="span">
+            <!-- <router-link to="/implementationList" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-jiaobanzhi"></i> 执行单
               </el-row>
-            </router-link>
+            </router-link> -->
+            <el-dropdown
+              menu-align="start"
+              :hide-on-click="false"
+              :class="{ 'router-link-active': isActivePage }"
+            >
+              <el-row class="nav-item" type="flex" align="middle">
+                <div class="before"></div>
+                <i class="iconfont icon-hulijiludan"></i>执行单
+              </el-row>
+              <el-dropdown-menu slot="dropdown">
+                 <el-dropdown-item
+                  :class="{ active: $route.path == '/implementationList' }"
+                >
+                  <router-link to="/implementationList" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="catheterPage"></i>执行单
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item>
+                <!-- <el-dropdown-item
+                  :class="{ active: ['/bottleLabelByProgram'].includes($route.path) }"
+                >
+                  <router-link to="/bottleLabelByProgram" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="wardReport"></i>执行瓶签打印
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item> -->
+
+              </el-dropdown-menu>
+            </el-dropdown>
             <router-link to="/nursingRounds" tag="span">
               <el-row class="nav-item" type="flex" align="middle"
                 >护理巡视
@@ -899,9 +930,18 @@ export default {
       this.$refs.setPassword.open();
     },
     changeDept(value) {
-      let deptName = this.deptList.filter((item) => {
+      // let deptName = this.deptList.filter((item) => {
+      //   return item.code == value;
+      // })[0].name;
+      let deptName="";
+      let deptItem = this.deptList.filter((item) => {
         return item.code == value;
-      })[0].name;
+      });
+      if(deptItem && deptItem.length>0){
+        deptName=deptItem[0].name
+      }else {
+        return false;
+      }
       this.$store.commit("upDeptCode", value);
       localStorage.selectDeptValue = value;
       this.$store.commit("upDeptName", deptName);

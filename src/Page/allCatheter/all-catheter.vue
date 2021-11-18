@@ -1,19 +1,19 @@
 <template>
   <div class="contain" :class="{fullpage}" v-loading="pageLoading" element-loading-text="正在保存">
-    <div class="head-con" flex>
-      <div class="dept-select-con"></div>
-    </div>
-    <div class="body-con" id="sheet_body_con" :style="{height: containHeight}">
+    <div class="body-con" id="sheet_body_con" :style="{height: containHeight,overflow:'hidden'}">
       <div class="left-part">
+        <div class="head-con" flex>
+          <div class="dept-select-con"></div>
+        </div>
         <patientList :data="data.bedList" v-loading="patientListLoading" @onChangePatient="onChangePatient_self"></patientList>
         
       </div>
       <div class="right-part" v-loading="tableLoading">
         <catheterList :cathterArr='cathterArr' @addCathter='addCathter' @updateTableConfig='updateTableConfig' ref="catheterList"/>
         <div class="sheetTable-contain" ref="scrollCon">
-          <cathterTabel @onChangePatient_self='onChangePatient_self' :title="tableInfo.formTitle" @changeShowTable='changeShowTable' :tabelConfig='tabelConfig' :tableInfo='tableInfo' v-if="showTable" @updateTableConfig='updateTableConfig'/>
+          <cathterTabel @onChangePatient_self='onChangePatient_self' :title="tableInfo.formTitle" @changeShowTable='changeShowTable' :tabelConfig='tabelConfig' :tableInfo='tableInfo' v-if="showTable&&!isMorePage" @updateTableConfig='updateTableConfig'/>
           <div
-            v-else
+            v-if="!showTable&&!isMorePage"
             class="null-btn"
             flex="cross:center main:center"
             @click="addCathter"
@@ -21,6 +21,7 @@
             <i class="el-icon-plus"></i>
             添加导管
           </div>
+          <cathterTabel :ref="`cathterTabel_${index}`" @saveTableFn='saveTableFn' @onChangePatient_self='onChangePatient_self' :title="tableInfo.formTitle" @changeShowTable='changeShowTable' :tabelConfig='tableList' :tableInfo='tableInfo' v-if="showTable&&isMorePage" @updateTableConfig='updateTableConfig' v-for="(tableList,index) in tabelConfig" :key="index" :pageNum="(index + 1)"/>
         </div>
       </div>
     </div>
@@ -97,7 +98,7 @@
   width:calc( 100% - 280px)
   background: #DFDFDF;
   overflow: auto;
-  padding: 15px 5px 15px;
+  padding: 5px 5px 15px;
   box-sizing: border-box;
   margin: 0 0 20px 280px;
   position: relative;
@@ -163,7 +164,7 @@ import specialModal from "./components/modal/special-modal.vue";
 import setPageModal from "./components/modal/setPage-modal.vue";
 import pizhuModal from "./components/modal/pizhu-modal.vue";
 import setDiagsModal from "./components/modal/set-diags.vue";
-import {getCatheterList} from './api/catheter'
+import {getCatheterList,saveCatheter,getCatheterTable} from './api/catheter'
 import { set } from 'js-cookie';
 export default {
   mixins: [common],
@@ -186,16 +187,17 @@ export default {
       tabelConfig:[],
       tableInfo:{},
       showTable:false,
-      hasPatient:false
+      hasPatient:false,
+      isMorePage:false
     };
   },
   computed: {
     containHeight() {
-      if (this.fullpage) {
-        return this.wih - 44 + "px";
-      } else {
-        return this.wih - 104 + "px";
-      }
+      // if (this.fullpage) {
+        return this.wih - 62 + "px";
+      // } else {
+        // return this.wih - 104 + "px";
+      // }
     },
     patientInfo() {
       return this.$store.state.sheet.patientInfo;
@@ -235,7 +237,43 @@ export default {
     }
   },
   methods: {
+    refreshCatcherTable(code,type,id,patientId,visitId){
+        getCatheterTable({
+                code,
+                type,
+                id,
+                patientId,
+                visitId
+            },code).then(res=>{
+                // console.log(res);
+                this.updateTableConfig(res.data.data)
+            })
+    },
+    saveTableFn(){
+      let {code,type,id,patientId,visitId} = this.tableInfo
+      let saveParams = []
+      if(this.isMorePage){
+        let arr = []
+        this.tabelConfig.map((item,index)=>{
+          arr = [...arr,...this.$refs[`cathterTabel_${index}`][0]['_data'].tabelData]
+        })
+        saveParams = arr
+      }else{
+        saveParams = this.tabelConfig
+      }
+      saveCatheter({
+          code,type,id,
+          list:saveParams
+      },code).then(res=>{
+          this.$message.success('保存成功')
+          this.refreshCatcherTable(code,type,id,patientId,visitId)
+          this.getDate()
+      }).catch(err=>{
+          this.$message.error(err)
+      })
+    },
     getDate() {
+      this.isMorePage = false
       if (this.deptCode) {
         this.patientListLoading = true;
         patients(this.deptCode, {
@@ -349,9 +387,11 @@ export default {
       this.isCreateCathter = true
     },
     updateTableConfig(res){
+      this.isMorePage = false
       this.showTable = false
       this.tableInfo = {...this.tableInfo,...res}
-      this.tabelConfig = this.tableInfo.list
+      this.tabelConfig = [...this.tableInfo.list]
+      console.log(this.tabelConfig);
       setTimeout(()=>{
         this.showTable = true
       })
@@ -540,9 +580,29 @@ export default {
     // this.bus.$on("refrehDeepPatientList", this.getDate);
   },
   watch: {
-    // 点击左侧树形患者时切换列表
     patientInfo(val){
       
+    },
+    tabelConfig(list,oldList){
+      if(list.length>=17){
+        let arr = []
+        // let ids = [] // 打印id用
+        this.isMorePage = true
+        for(let i = 0;i<list.length;i+=17){
+          if(list.length-i>=17){
+            let ele = JSON.parse(JSON.stringify(list.slice(i,i+17)))
+            arr.push(ele)
+            // ids.push(ele.map(item=>item.id))
+          }else{
+            let ele = JSON.parse(JSON.stringify(list.slice(i,list.length + 1)))
+            arr.push(ele)
+            // ids.push(ele.map(item=>item.id))
+          }
+        }
+        (list.length%17==0)&&(arr.push([]))
+        // console.log(ids);
+        this.tabelConfig = [...arr]
+      }
     },
     deptCode(val) {
       if (val) {

@@ -1020,7 +1020,16 @@ export default {
     set(nVal){
       this.sheetInfo.relObj[`bsxqylg${this.index}`] = nVal ? "true" : "false"
     }
-  },'checkedqita':{
+  },
+  'checkedfqylg':{
+    get(){
+      return this.sheetInfo.relObj[`fqylg${this.index}`] === 'true'
+    },
+    set(nVal){
+      this.sheetInfo.relObj[`fqylg${this.index}`] = nVal ? "true" : "false"
+    }
+  },
+  'checkedqita':{
     get(){
       return this.sheetInfo.relObj[`qita${this.index}`] === 'true'
     },

@@ -171,6 +171,7 @@ function openAssessmentsBox(buttonItem, formCode, callback, wid) {
         "form_pain_assessment": "疼痛护理单.html",
         "form_selfcare": "自理能力护理单.html",
         "form_pressure_risk": "Braden压疮风险护理单.html",
+        "E0615":"Braden压疮风险护理单.html",
         "form_fall": "跌倒护理单.html",
         "form_swallowing": "吞咽护理单.html",
         "form_swallowing_eat": "吞咽进食护理单.html",
@@ -283,6 +284,9 @@ export function openInsideBoxes(wid) {
 
   // 启用压疮风险评估单  form_internal_first_ycfxpf_explain form_pressure_risk
   openAssessmentsBox(jQuery("[name$='pressure_id']", wid.document), "form_pressure_risk", callbackPressureRiskAssessment, wid);
+
+  // 启用压疮风险评估单-聊城  form_internal_first_ycfxpf_explain form_pressure_risk
+  openAssessmentsBox(jQuery("[name$='pressure_liaocheng_id']", wid.document), "E0615", callbackPressureRiskAssessment, wid);
 
   // 启用DVT及PTE风险评估单 form_internal_first_dvt_or_pte_option  form_dvt_pte
   openAssessmentsBox(jQuery("[name$='dvt_id']", wid.document), "form_dvt_pte", callbackDVTAssessment, wid);
@@ -480,12 +484,12 @@ export function openInsideBoxes(wid) {
       // ycfxpf_score
 
       jQuery("[name$='pressure_id']", wid.document).val(callbackData.data.id);
+      jQuery("[name$='pressure_liaocheng_id']", wid.document).val(callbackData.data.id);
       wid.setFormData(formCodeSource + "_form_ids_callback", formCode + ':' + callbackData.data.id, "object", true);
 
       evalscore = parseInt(data[formCode + "_eval_score"]);
 
       //
-
 
       jQuery("[name$='ycfxpf_explain']", wid.document).prop("checked", "");
       if (evalscore <= 9) {

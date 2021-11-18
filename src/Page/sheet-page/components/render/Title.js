@@ -662,6 +662,13 @@ export default function Title(
     );
   }
   break;
+  case "cardiology_lcey": {
+    // 聊城二院 - 心内科介入患者观察记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/cardiology_lcey/th").default)
+    );
+  }
+  break;
   case "intervention_cure_lcey": {
     // 聊城二院 - 介入诊疗护理记录单
     Th = JSON.parse(
@@ -828,6 +835,13 @@ export default function Title(
     // 横沥 - 儿科机械通气护理单
     Th = JSON.parse(
       JSON.stringify(require("../config/aerate_param_hl/th").default)
+    );
+  }
+  break;
+  case "ventilation_hl": {
+    // 横沥-ICU机械通气护理单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/ventilation_hl/th").default)
     );
   }
   break;

@@ -38,16 +38,16 @@ import {
       event: keyf1,
       name: "体温",
       textarea: {
-        width: 50
+        width: 85
       },
     },
     {
-      key: "topNote", //表顶注释
+      key: "topComment", //表顶注释
       value: "",
       event: keyf1,
       name: "表顶注释",
       textarea: {
-        width: 60
+        width: 85
       },
       autoComplete: {
         data: topNoteList
@@ -59,19 +59,19 @@ import {
       name: "班次",
       event: keyf1,
       textarea: {
-        width: 40
+        width: 85
       },
       autoComplete: {
         data: shiftList
       },
     },
     {
-      key: "weight", //体重
+      key: "curWeight", //体重
       value: "",
       name: "体重",
       event: keyf1,
       textarea: {
-        width: 40
+        width: 85
       },
     },
     {
@@ -79,32 +79,44 @@ import {
       value: "",
       name: "小便次数",
       event: keyf1,
+      textarea: {
+        width: 85
+      },
     },
     {
-      key: "stools", //大便次数
+      key: "stoolNum", //大便次数
       value: "",
       name: "大便次数",
       event: keyf1,
+      textarea: {
+        width: 85
+      },
     },
     {
       key: "milkFrequency", //母乳次数
       value: "",
       name: "母乳次数",
       event: keyf1,
+      textarea: {
+        width: 85
+      },
     },
     {
       key: "artificialFrequency", //人工次数
       value: "",
       name: "人工次数",
       event: keyf1,
+      textarea: {
+        width: 85
+      },
     },
     {
-      key: "vomit", //呕吐
+      key: "vomiting", //呕吐
       value: "",
       name: "呕吐",
       event: keyf1,
       textarea: {
-        width: 50
+        width: 85
       },
       autoComplete: {
         data: vomitList
@@ -116,7 +128,7 @@ import {
       name: "皮肤",
       event: keyf1,
       textarea: {
-        width: 100
+        width: 85
       },
       splice: true||",",
       autoComplete: {
@@ -129,12 +141,37 @@ import {
       name: "脐带",
       event: keyf1,
       textarea: {
-        width: 100
+        width: 85
       },
       splice: true||",",
       autoComplete: {
         data: umbilicalList
       },
+    },
+    {
+      key: "description", //特殊情况记录
+      value: "",
+      hidden: true,
+      style: {
+        textAlign: "left",
+        position: "absolute",
+        top: "1px",
+        bottom: "1px",
+        left: "1px",
+        width: "150px",
+        background: "transparent",
+      },
+      textarea: {
+        width: 150
+      },
+      event: function (e, td) {
+        console.log(e.keyCode);
+        if (e.keyCode == 9) {
+          td.value = "    " + td.value;
+          e.preventDefault();
+        }
+        keyf1(e, td);
+      }
     },
     {
       key: "sign",//签名

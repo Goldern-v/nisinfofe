@@ -1,57 +1,61 @@
 <template>
-    <div class="table-page">
-        <div class="tabel-title">{{title}}<el-button class="extubation-btn" type="primary" @click="extubationModal" :disabled="tableInfo.catheterStatus==2">拔管</el-button></div>
-        <div class="cathter-tool">
-            <div class="catch-info">
-                <div class="set-cathter">
-                    <div>置管时间：{{tableInfo.intubationTime}}</div>
-                    <div>置管天数：第{{intubationDays}}天</div>
-                    <div :style="{width:'140px'}">置管来源：{{tableInfo.catheterSource}}</div>
+    <div class="table-page" :class="[!pageNum||pageNum==1?'first-page':'']">
+        <div class="fix-table" v-if="!pageNum||pageNum==1" :style="{width:contentWidth,}">
+            <div style="background:#dfdfdf;height:5px;"></div>
+            <div class="tabel-title">{{title}}<el-button class="extubation-btn" type="primary" @click="extubationModal" :disabled="tableInfo.catheterStatus==2">拔管</el-button></div>
+            <div class="cathter-tool">
+                <div class="catch-info">
+                    <div class="set-cathter">
+                        <div>置管时间：{{tableInfo.intubationTime}}</div>
+                        <div>置管天数：第{{intubationDays}}天</div>
+                        <div :style="{width:'140px'}">置管来源：{{tableInfo.catheterSource}}</div>
+                    </div>
+                    <div class="up-cathter">
+                        <div style="cursor:pointer;" v-show="!!tableInfo.replaceTime" @dblclick="changeReplaceTime">更换时间：{{tableInfo.replaceTime}}</div>
+                        <div style="cursor:pointer;" v-show="!tableInfo.replaceTime" @dblclick="changeReplaceTime">更换时间：未确定</div>
+                        <div v-show="replaceDays=='outTime'" style="color:red">剩余天数：已超时</div>
+                        <div v-show="!['unShow','outTime','unSet','today'].includes(replaceDays)" :style="{color:tableInfo.catheterStatus==1?'red':''}">剩余天数：{{replaceDays}}天</div>
+                        <div v-show="replaceDays=='today'" :style="{color:tableInfo.catheterStatus==1?'red':''}">今天拔管</div>
+                        <div v-show="replaceDays=='unShow'">实际拔管时间：{{tableInfo.extubationTime}}</div>
+                    </div>
                 </div>
-                <div class="up-cathter">
-                    <div style="cursor:pointer;" v-show="!!tableInfo.replaceTime" @dblclick="changeReplaceTime">更换时间：{{tableInfo.replaceTime}}</div>
-                    <div style="cursor:pointer;" v-show="!tableInfo.replaceTime" @dblclick="changeReplaceTime">更换时间：未确定</div>
-                    <div v-show="replaceDays=='outTime'" style="color:red">剩余天数：已超时</div>
-                    <div v-show="!['unShow','outTime','unSet','today'].includes(replaceDays)" :style="{color:tableInfo.catheterStatus==1?'red':''}">剩余天数：{{replaceDays}}天</div>
-                    <div v-show="replaceDays=='today'" :style="{color:tableInfo.catheterStatus==1?'red':''}">今天拔管</div>
-                    <div v-show="replaceDays=='unShow'">实际拔管时间：{{tableInfo.extubationTime}}</div>
+                <div class="tool-btns">
+                    <button @click="delAll">删除整单</button>
+                    <button @click="saveTable">保存</button>
                 </div>
-            </div>
-            <div class="tool-btns">
-                <button @click="delAll">删除整单</button>
-                <button @click="saveTable">保存</button>
             </div>
         </div>
+        <div class="withe-part" style="height:110px;"></div>
         <el-table
+            id="table-box"
             :data="tabelData"
-            height="750"
             border
             align="center"
             style="width: 100%">
             <el-table-column
-            prop="recordMonth"
-            align="center"
-            width="60"
-            label="日期">
+                prop="recordMonth"
+                align="center"
+                width="60"
+                label="日期">
                 <template slot-scope="scope">
                     <el-input type="text" v-model="scope.row.recordMonth" @focus="initDT('date',scope.row)"></el-input>
                 </template>
             </el-table-column>
             <el-table-column
-            prop="recordHour"
-            align="center"
-            width="60"
-            label="时间">
+                prop="recordHour"
+                align="center"
+                width="60"
+                label="时间">
              <template slot-scope="scope">
                     <el-input type="text" v-model="scope.row.recordHour" @focus="initDT('time',scope.row)"></el-input>
                 </template>
             </el-table-column>
             <el-table-column 
-            v-for="(item,index) in config"
-            :key='index'
-            :prop="item.name"
-            align="center"
-            :label="item.title">
+                v-for="(item,index) in config"
+                :key='index'
+                :prop="item.name"
+                align="center"
+                :label="item.title">
             <template slot-scope="scope">
                 <el-autocomplete
                     class="cathter-autocomplete"
@@ -74,32 +78,44 @@
             </template>
             </el-table-column>
             <el-table-column
-            prop="signerName"
-            align="center"
-            width="80"
-            label="评估人">
+                prop="signerName"
+                align="center"
+                width="80"
+                label="评估人">
             </el-table-column>
             <el-table-column
-            prop="address"
-            align="center"
-            width="60"
-            label="操作">
+                prop="address"
+                align="center"
+                width="60"
+                label="操作">
             <template slot-scope="scope">
                 <div @click="showDelModal(scope.row)" class="del-btn">删除</div>
             </template>
             </el-table-column>
         </el-table>
+        <div style="line-height:40px;text-align:center">第{{pageNum||1}}页</div>
         <delModal v-if="isDel" @closeModal='closeModal' @delRow='delRow' :modalTitle="modalTitle" :modalContont="modalContont"></delModal>
         <repModal v-if="showChangeRt" :replaceTime='tableInfo.replaceTime' @closeRepModal='closeRepModal' @changeRepFn='changeRepFn'></repModal>
     </div>
 </template>
 <style lang='scss' scoped>
 .table-page{
-    padding:0 20px;
+    overflow: hidden;
+    padding:0 20px 20px;
     background-color: #fff;
     font-size: 14px;
+    .fix-table{
+        background-color: #fff;
+        position: fixed;
+        z-index: 998;
+        top: 61px;
+        margin-left:-20px ;
+        width: 62%;
+        box-sizing: border-box;
+    }
     .tabel-title{
         font-size: 18px;
+        padding: 0 20px;
         font-weight: 700;
         line-height: 50px;
         border-bottom: 1px dashed #ccc;
@@ -109,10 +125,11 @@
         position: absolute;
         width: 80px;
         top: 10px;
-        right: 0;
+        right: 20px;
         font-size: 12px;
     }
     .cathter-tool{
+        padding: 0 20px;
         display: flex;
         justify-content: space-between;
         .catch-info{
@@ -185,6 +202,20 @@
     /deep/ .el-autocomplete{
         width: 100%;
     }
+    // /deep/ tbody{
+    //     padding-top: 40px;
+    //     overflow: hidden;
+    // }
+}
+
+.first-page /deep/ .el-table__header-wrapper{
+    position: fixed;
+    z-index: 997;
+}
+.first-page /deep/ tbody::before{
+    content: "";
+    display: block;
+    height: 40px;
 }
     
 </style>
@@ -214,6 +245,7 @@ props: {
         type:Array,
         value:[]
     },
+    pageNum:Number,
     tableInfo:{
         type:Object,
         value:{}
@@ -233,7 +265,9 @@ return {
     delType:'',
     showChangeRt:false,
     modalTitle:'',
-    modalContont:''
+    modalContont:'',
+    contentWidth:"auto",
+    tableHtml:null,
 };
 },
 methods: {
@@ -270,8 +304,8 @@ methods: {
         this.delType = 'extubation'
         this.isDel = true
     },
-    extubation(){
-        extubationApi(this.tableInfo,this.tableInfo.code).then(res=>{
+    extubation(extubationTime){
+        extubationApi({...this.tableInfo,extubationTime},this.tableInfo.code).then(res=>{
             this.$message.success('操作成功')
             let config = res.data.data
             this.$emit('updateTableConfig',config)
@@ -323,7 +357,7 @@ methods: {
         this.delType = 'row'
         this.isDel = true
     },
-    delRow(empNo,password){    
+    delRow(empNo,password,extubationTime){    
         let {code,type,id,patientId,visitId} = this.tableInfo
         if(this.delType==='row'){
             delRowApi({
@@ -351,20 +385,24 @@ methods: {
                 this.$message.error(err.desc)
             })
         }else if(this.delType==='extubation'){
-            this.extubation()
+            this.extubation(extubationTime)
         }
     },
     saveTable(){
-        let {code,type,id,patientId,visitId} = this.tableInfo
-        saveCatheter({
-            code,type,id,
-            list:this.tabelData
-        },code).then(res=>{
-            this.$message.success('保存成功')
-            this.refreshCatcherTable(code,type,id,patientId,visitId)
-        }).catch(err=>{
-            this.$message.error(err)
-        })
+        if(this.pageNum){
+            this.$emit('saveTableFn')
+        }else{
+            let {code,type,id,patientId,visitId} = this.tableInfo
+            saveCatheter({
+                code,type,id,
+                list:this.tabelData
+            },code).then(res=>{
+                this.$message.success('保存成功')
+                this.refreshCatcherTable(code,type,id,patientId,visitId)
+            }).catch(err=>{
+                this.$message.error(err)
+            })
+        }
     },
     fillData(oldArr){
         if(oldArr.length<17){
@@ -379,6 +417,7 @@ methods: {
         }else{
             this.tabelData = JSON.parse(JSON.stringify(oldArr))
         }
+        // console.log(this.tabelData);
     },
     async init(){
         let res =  await getConfig(this.tableInfo.code)
@@ -386,9 +425,18 @@ methods: {
         this.fillData(this.tabelConfig)
         let dictRes = await getCatheterValueDict(this.tableInfo.code)
         this.optionsConfig = dictRes.data.data
+    },
+    handleScroll(e){
+        let target = e.currentTarget
+        let fixHeader = document.getElementsByClassName('el-table__header-wrapper')[0]
+        // console.log(`${480-target.scrollLeft}px`);
+        fixHeader.style.left = `${505-target.scrollLeft}px`
     }
 },
-watch:{
+mounted(){
+    this.tableHtml = document.getElementById("table-box")
+    let tbody = document.getElementsByClassName('el-table__body-wrapper')[0]
+    tbody.addEventListener('scroll', this.handleScroll, true)
 },
 created(){
     this.init()
@@ -418,6 +466,20 @@ computed:{
         }else{
             return 'unSet'
         }
+    },
+    tableHeight(){
+        return '750'
+    },
+},
+watch:{
+    tableHtml(val){
+        let fixHeader = document.getElementsByTagName('thead')[0]
+        if(val){
+            this.contentWidth = `${this.tableHtml.offsetWidth+40}px` 
+        }else{
+            this.contentWidth = "auto"
+        }
+        fixHeader.style.offsetWidth = this.contentWidth
     }
 }
 };

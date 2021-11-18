@@ -7,10 +7,16 @@
                 {{modalContont||'是否确定删除？'}}
                 <!-- 是否确定删除？ -->
             </div>
-            <!-- <div class="username">
-                <div style="width:100px;">用户名：</div><el-input placeholder="请输入用户名" v-model="empNo"></el-input>
+            <div class="username" v-if="modalTitle=='拔管'" style="margin-top:20px;">
+                <div style="width:140px;">拔管时间：</div>
+                <cr-date-picker
+                    v-model="extubationTime"
+                    type="datetime"
+                    format="yyyy-MM-dd HH:mm"
+                    placeholder="选择拔管日期"
+                ></cr-date-picker>
             </div>
-            <div class="password">
+            <!-- <div class="password">
                 <div style="width:100px;">密码：</div><el-input placeholder="请输入密码" v-model="password" type="password"></el-input>
             </div> -->
             <div class="btns">
@@ -22,11 +28,12 @@
 </template>
 <style lang='scss' scoped>
 .del-modal{
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
+    z-index: 999;
     .bg{
         position: absolute;
         top: 0;
@@ -37,7 +44,7 @@
     }
     .contont{
         width: 400px;
-        height: 200px;
+        min-height: 200px;
         padding: 80px 100px;
         box-sizing: border-box;
         position: absolute;
@@ -76,8 +83,11 @@
         line-height: 37px;
         /deep/ .el-input__inner{
             border: 1px solid #c2cbd2;
-            width: 200px;
+            width: 240px;
         }
+    }
+    .username{
+        width: 250px;
     }
 }
 </style>
@@ -96,7 +106,8 @@ props: {
 data() {
 return {
     empNo:JSON.parse(localStorage.getItem('user')).empNo||'',
-    password:''
+    password:'',
+    extubationTime:""
 };
 },
 methods: {
@@ -104,7 +115,7 @@ methods: {
         this.$emit('closeModal');
     },
     sureDel(){
-        this.$emit('delRow','','')
+        this.$emit('delRow','','',this.extubationTime)
     }
 },
 components: {}

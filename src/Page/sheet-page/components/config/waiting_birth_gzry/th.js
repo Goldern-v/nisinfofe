@@ -90,7 +90,21 @@ export default {
       },
       {
         name: `
-        潜伏期<br/>开始
+        产程<br/>开始
+        `,
+        colspan: "1",
+        rowspan: "3"
+      },
+      {
+        name: `
+        活跃期<br/>开始
+        `,
+        colspan: "1",
+        rowspan: "3"
+      },
+      {
+        name: `
+        产程<br/>事件
         `,
         colspan: "1",
         rowspan: "3"

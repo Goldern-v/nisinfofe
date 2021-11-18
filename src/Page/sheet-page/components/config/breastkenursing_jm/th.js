@@ -234,6 +234,8 @@ export default {
         name: "尿管<br/>（ml）",
         colspan: "1",
         rowspan: "1",
+        canSet: true,
+        key: "postOutputOne",
         style: {
           minWidth: '40px',
           maxWidth: '40px',

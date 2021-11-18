@@ -1,9 +1,9 @@
 export default {
   // 科室的名称
   deptType: "",
-  style: {
-    width: "1114px"
-  },
+  // style: {
+  //   width: "1114px"
+  // },
   th: {
     top: [{
       name: `
@@ -11,6 +11,7 @@ export default {
         `,
       style: {
         minWidth: "40px",
+        maxWidth: "40px"
       },
       colspan: "1",
       rowspan: "3"
@@ -21,6 +22,7 @@ export default {
         `,
       style: {
         minWidth: "40px",
+        maxWidth: "40px"
       },
       colspan: "1",
       rowspan: "3"
@@ -30,7 +32,8 @@ export default {
         生命体征
         `,
       style: {
-        minWidth: "620px",
+        minWidth: "640px",
+        maxWidth: "640px"
       },
       colspan: "15",
       rowspan: "1",
@@ -40,7 +43,8 @@ export default {
         出入量
         `,
       style: {
-        minWidth: "143px",
+        minWidth: "153px",
+        maxWidth: "153px"
       },
       colspan: "4",
       rowspan: "1",
@@ -52,7 +56,8 @@ export default {
       colspan: "4",
       rowspan: "1",
       style: {
-        minWidth: "164px",
+        minWidth: "174px",
+        maxWidth: "174px"
       }
     },
     // {
@@ -74,6 +79,7 @@ export default {
       rowspan: "3",
       style: {
         minWidth: "52px",
+        maxWidth: "52px"
       },
     },
     // {
@@ -93,6 +99,7 @@ export default {
       rowspan: "2",
       style: {
         minWidth: "36px",
+        maxWidth: "36px"
       },
     },
     {
@@ -103,6 +110,7 @@ export default {
       rowspan: "2",
       style: {
         minWidth: "36px",
+        maxWidth: "36px"
       },
     }, {
       name: `
@@ -113,6 +121,7 @@ export default {
       rowspan: "2",
       style: {
         minWidth: "36px",
+        maxWidth: "36px"
       },
     }, {
       name: `
@@ -130,7 +139,8 @@ export default {
         心率
         `,
       style: {
-        minWidth: "44px",
+        minWidth: "45px",
+        maxWidth: "45px"
       },
       colspan: "1",
       rowspan: "2",
@@ -140,7 +150,8 @@ export default {
         物理<br/>降温
         `,
       style: {
-        minWidth: "44px"
+        minWidth: "45px",
+        maxWidth: "45px"
       },
       colspan: "1",
       rowspan: "2",
@@ -151,6 +162,7 @@ export default {
         `,
       style: {
         minWidth: "45px",
+        maxWidth: "45px"
       },
       colspan: "1",
       rowspan: "2"
@@ -161,6 +173,7 @@ export default {
         `,
       style: {
         minWidth: "45px",
+        maxWidth: "45px"
       },
       colspan: "1",
       rowspan: "2"
@@ -171,6 +184,7 @@ export default {
         `,
       style: {
         minWidth: "45px",
+        maxWidth: "45px"
       },
       colspan: "1",
       rowspan: "2"
@@ -196,7 +210,8 @@ export default {
       colspan: "1",
       rowspan: "2",
       style: {
-        minWidth: "36px"
+        minWidth: "36px",
+        maxWidth: "36px"
       },
     }, {
       name: `
@@ -205,7 +220,8 @@ export default {
       colspan: "1",
       rowspan: "2",
       style: {
-        minWidth: "36px"
+        minWidth: "36px",
+        maxWidth: "36px"
       },
     }, {
       name: `
@@ -214,7 +230,8 @@ export default {
       colspan: "1",
       rowspan: "2",
       style: {
-        minWidth: "36px"
+        minWidth: "36px",
+        maxWidth: "36px"
       },
     }, {
       name: `
@@ -223,7 +240,8 @@ export default {
       colspan: "1",
       rowspan: "2",
       style: {
-        minWidth: "36px"
+        minWidth: "36px",
+        maxWidth: "36px"
       },
     }, {
       name: `
@@ -232,7 +250,8 @@ export default {
       colspan: "1",
       rowspan: "2",
       style: {
-        minWidth: "36px"
+        minWidth: "36px",
+        maxWidth: "36px"
       },
     },
     {
@@ -242,7 +261,8 @@ export default {
       colspan: "1",
       rowspan: "2",
       style: {
-        minWidth: "36px"
+        minWidth: "36px",
+        maxWidth: "36px"
       },
     },
     // {
@@ -263,30 +283,40 @@ export default {
       colspan: "1",
       rowspan: "2",
       style: {
-        // minWidth: "20px",
-        // maxWidth: "20px"
+        minWidth: "36px",
+        maxWidth: "36px"
       },
-    }, {
+    }, 
+    {
       name: `
         尿量
         `,
       colspan: "1",
-      rowspan: "2"
+      rowspan: "2",
+      style: {
+        minWidth: "36px",
+        maxWidth: "36px"
+      },
     }, {
       name: `
         出量
         `,
       colspan: "1",
-      rowspan: "2"
-    }, {
+      rowspan: "2",
+      style: {
+        minWidth: "36px",
+        maxWidth: "36px"
+      },
+    }, 
+    {
       name: `
         入量
         `,
       colspan: "1",
       rowspan: "2",
       style: {
-        // minWidth: "40px",
-        // maxWidth: "40px"
+        minWidth: "36px",
+        maxWidth: "36px"
       },
     },
     {
