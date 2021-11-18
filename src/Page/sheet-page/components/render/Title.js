@@ -796,6 +796,7 @@ export default function Title(
     );
   }
   break;
+ 
   case "obstetrics_hl": {
     // 横沥 - 护理记录单(产科)
     Th = JSON.parse(
@@ -828,6 +829,13 @@ export default function Title(
     // 横沥-ICU机械通气护理单
     Th = JSON.parse(
       JSON.stringify(require("../config/ventilation_hl/th").default)
+    );
+  }
+  break;
+  case "blood_circulation_hl": {
+    // 横沥 - 手外科术后血运观察表
+    Th = JSON.parse(
+      JSON.stringify(require("../config/blood_circulation_hl/th").default)
     );
   }
   break;

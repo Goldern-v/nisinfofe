@@ -658,6 +658,11 @@ function switechSheetType(type) {
         schema = require("../config/ventilation_hl/tr.js").default;
     }
     break;
+    case "blood_circulation_hl": {
+      // 横沥 - 手外科术后血运观察表
+      schema = require("../config/blood_circulation_hl/tr.js").default;
+    }
+    break;
     case "icu_sn": {
       // 山南 - ICU护理记录单
       schema = require("../config/icu_sn/tr.js").default;
