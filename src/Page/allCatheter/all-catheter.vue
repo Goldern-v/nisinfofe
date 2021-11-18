@@ -586,17 +586,21 @@ export default {
     tabelConfig(list,oldList){
       if(list.length>=17){
         let arr = []
+        // let ids = [] // 打印id用
         this.isMorePage = true
         for(let i = 0;i<list.length;i+=17){
           if(list.length-i>=17){
-            let ele = JSON.parse(JSON.stringify(list.slice(i,i+18)))
+            let ele = JSON.parse(JSON.stringify(list.slice(i,i+17)))
             arr.push(ele)
+            // ids.push(ele.map(item=>item.id))
           }else{
             let ele = JSON.parse(JSON.stringify(list.slice(i,list.length + 1)))
             arr.push(ele)
+            // ids.push(ele.map(item=>item.id))
           }
         }
         (list.length%17==0)&&(arr.push([]))
+        // console.log(ids);
         this.tabelConfig = [...arr]
       }
     },
