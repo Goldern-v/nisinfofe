@@ -45,11 +45,11 @@
           <!-- </el-tooltip> -->
         </span>
         <!-- 妇幼添加共享床位 -->
-        <span v-if="['fuyou'].includes(HOSPITAL_ID) && data && data.flagShare=='1'">
+        <!-- <span v-if="['fuyou'].includes(HOSPITAL_ID) && data && data.flagShare=='1'">
           <div class="label-box" :style="{background: '#00CCFF'}">
             <span>共</span>
           </div>
-        </span>
+        </span> -->
       </div>
 
       <div class="patient-icon" v-if="HOSPITAL_ID === 'hj' &&  +data.registFlag === 1">
@@ -158,9 +158,9 @@
           <div class="key">费用合计：</div>
           <div class="value">{{ data.totalCosts }}</div>
         </div>
-        <div flex="" class="table-line" v-if="isShared">
+        <div flex="" class="table-line" v-if="false">
           <div class="key">共享科室：</div>
-          <div class="value">{{ data.totalCosts }}</div>
+          <div class="value">{{ data.deptName }}</div>
         </div>
 
         <!-- <div flex="" class="table-line">
@@ -175,7 +175,8 @@
         'type-4': data.nursingClass == '特级护理'
       }" -->
       <div class="xinru" :style="{borderColor: `${data.nursingClassColor} transparent`}"></div>
-      <div class="flagShare" v-if="isShared">出</div>
+      <div class="flagShare" v-if="isShared">共</div>
+      <div class="flagShare" v-if="false">入</div>
       <!-- <div class="gl" v-if="data.glFlag">隔离</div> -->
       <div class="deptLend" v-if="data.deptLend && HOSPITAL_ID == 'fuyou'"></div>
       <div class="deptLend" v-else-if="data.deptLend">借</div>

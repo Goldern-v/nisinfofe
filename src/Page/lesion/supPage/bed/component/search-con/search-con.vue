@@ -374,6 +374,14 @@ export default {
     heart() {
       return this.bedList.filter((item) => item.isFollow == "1");
     },
+    // 共出床位 本科室共享给其他科室（也可以是自己科室）使用
+    shareOut() {
+      return this.bedList.filter((item) => item.flagShare == '1')
+    },
+    // 共入床位
+    shareIn() {
+      return []
+    },
     // 预出院
     isTodayDischarge() {
       return this.bedList.filter((item) => item.isTodayDischarge == "1");
@@ -606,12 +614,12 @@ export default {
         list.splice(3, 0,
           {
             name: "共出床位",
-            num: this.heart.length,
+            num: this.shareOut.length,
             type: "bed",
           },
             {
             name: "共入床位",
-            num: this.heart.length,
+            num: this.shareIn.length,
             type: "bed",
           });
       }
@@ -889,6 +897,16 @@ export default {
         case "血栓高危":
           {
             this.$parent.bedList = this.isDangerInThrombus;
+          }
+          break;
+        case "共出床位":
+          {
+            this.$parent.bedList = this.shareOut;
+          }
+          break;
+        case "共入床位":
+          {
+            this.$parent.bedList = this.shareIn;
           }
           break;
         default: {

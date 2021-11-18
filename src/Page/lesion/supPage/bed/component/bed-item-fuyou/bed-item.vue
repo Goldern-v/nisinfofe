@@ -30,7 +30,7 @@ export default {
   },
   computed: {
     isShared() {
-      return data.flagShare
+      return this.data && this.data.flagShare + '' === '1'
     }
   },
   methods: {

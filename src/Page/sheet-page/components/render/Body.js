@@ -81,6 +81,11 @@ function switechSheetType(type) {
       schema = require("../config/picu_lc/tr.js").default;
     }
       break;
+    case "critical2_lc": {
+      //  陵城区-病重（病危）患者护理记录（新生儿）
+        schema = require("../config/critical2_lc/tr.js").default;
+      }
+      break;
     case "neurology": {
       // 神经内科
       schema = require("../config/neurology/tr.js").default;
@@ -535,6 +540,11 @@ function switechSheetType(type) {
     case "intervention_cure_lcey": {
       // 聊城二院 - 介入诊疗护理记录单
       schema = require("../config/intervention_cure_lcey/tr").default;
+    }
+      break;
+    case "cardiology_lcey": {
+      // 聊城二院 - 心内科介入患者观察记录单
+      schema = require("../config/cardiology_lcey/tr").default;
     }
       break;
     case "access_lcey": {
