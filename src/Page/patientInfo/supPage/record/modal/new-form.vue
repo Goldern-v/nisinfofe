@@ -166,7 +166,7 @@
           <div class="title-box" v-show="item">{{index}}</div>
           <div
           @click="openUrl(e)"
-          @dblclick="create(e)" 
+          @dblclick="create(e)"
           class="record-box"
           :class="{ active: selectData == e }"
           v-for="(e) in item"
@@ -187,7 +187,7 @@
         </div>
       </div>
     </div>
-        
+
       <div slot="button" @click="newRecordClose">
         <el-button class="modal-btn">关闭</el-button>
         <el-button
@@ -351,6 +351,7 @@ import { templatesAll } from "../api/index.js";
 import { getFormConfig } from "../config/form-config.js";
 import qs from "qs";
 import resText from './res'
+import pinyingMatch from 'pinyin-match'
 
 const getInitFormType = (HOSPITAL_ID) => {
   switch (HOSPITAL_ID) {
@@ -411,7 +412,7 @@ export default {
           value: "1",
           label: "护理评估",
         },
-        
+
       ],
       liaochengOptions: [
         {
@@ -678,7 +679,7 @@ export default {
           } else {
             this.templates = res.data.data;
             // this.templates = resText.data;
-            
+
           }
 
           this.pageLoading = false;
@@ -717,6 +718,9 @@ export default {
             this.formType == "firstRecord" ||
             this.formType == "handover"
           ) {
+            if (['nanfangzhongxiyi'].includes(this.HOSPITAL_ID)) {
+              return pinyingMatch.match(item.name, this.searchWord)
+            }
             return item.name.indexOf(this.searchWord) > -1;
           }
         });

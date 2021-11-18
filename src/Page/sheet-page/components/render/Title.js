@@ -831,6 +831,13 @@ export default function Title(
     );
   }
   break;
+  case "ventilation_hl": {
+    // 横沥-ICU机械通气护理单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/ventilation_hl/th").default)
+    );
+  }
+  break;
   case "icu_sn": {
     // 山南 - ICU护理记录单
     Th = JSON.parse(

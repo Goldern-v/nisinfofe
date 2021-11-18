@@ -83,6 +83,7 @@
     "net": "^1.0.2",
     "node-ssh": "^6.0.0",
     "node-uuid": "^1.4.8",
+    "pinyin-match": "^1.2.2",
     "printing": "^2.1.0",
     "pug": "^2.0.0-rc.4",
     "qr-image": "^3.2.0",

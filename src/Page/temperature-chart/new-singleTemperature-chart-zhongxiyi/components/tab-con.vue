@@ -592,7 +592,7 @@ export default {
     getFilterSelections(orgin, filterStr) {
       if (!filterStr || !filterStr.trim()) return orgin;
 
-      return orgin.filter((option) => option.includes(filterStr));
+      return orgin
     },
     handlePopRefresh(target) {
       target.popVisible = false;
@@ -728,11 +728,13 @@ export default {
     async saveVitalSign(value) {
       let obj = Object.values(value);
       let dateStr=moment(new Date(this.query.entryDate)).format("YYYY-MM-DD") +
-          "  " +
+          " " +
           this.query.entryTime;
       obj.map((item) => {
         
-        item.recordDate =dateStr
+        item.recordDate =moment(new Date(this.query.entryDate)).format("YYYY-MM-DD") +
+          "  " +
+          this.query.entryTime;
           
         switch (item.vitalSigns) {
           case "表顶注释":

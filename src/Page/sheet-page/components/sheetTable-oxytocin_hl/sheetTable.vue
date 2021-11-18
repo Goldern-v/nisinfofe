@@ -68,6 +68,16 @@
         <div class="showModal showModal2">
           催产素使用总量：
           <input
+            v-if="sheetInfo.sheetType==='oxytocin_hl'"
+            type="text"
+            class="bottomInput bottom-line"
+            :data-value="sheetInfo.relObj[index+'totalOxytocin']"
+            v-model="sheetInfo.relObj[index+'totalOxytocin']"
+            @focus="onFocus($event,'totalOxytocin')"
+            @blur="onBlur($event,'totalOxytocin')"
+          />
+          <input
+            v-else
             type="text"
             class="bottomInput bottom-line"
             :data-value="sheetInfo.relObj.totalOxytocin"
@@ -86,7 +96,17 @@
         </div>
         <div class="showModal">
           分娩方式：
+           <input
+            v-if="sheetInfo.sheetType==='oxytocin_hl'"
+            type="text"
+            class="bottomInput bottom-line"
+            :data-value="sheetInfo.relObj[index+'deliveryWay']"
+            v-model="sheetInfo.relObj[index+'deliveryWay']"
+            @focus="onFocus($event)"
+            @blur="onBlur($event)"
+          />
           <input
+            v-else
             type="text"
             class="bottomInput bottom-line"
             :data-value="sheetInfo.relObj.deliveryWay"
@@ -419,6 +439,16 @@ export default {
     this.getData();
     if (this.sheetInfo.relObj && !this.sheetInfo.relObj["yyc_" + this.index]) {
       this.getDetail();
+    }
+    if(this.sheetInfo.sheetType==='oxytocin_hl'&&this.index!=0){
+      // 催产素使用总量
+      if(!this.sheetInfo.relObj[`${this.index}totalOxytocin`]){
+         this.sheetInfo.relObj[`${this.index}totalOxytocin`]= this.sheetInfo.relObj[`${this.index-1}totalOxytocin`]
+      }
+      // 分娩方式     sheetInfo.relObj[index+'deliveryWay']
+      if(!this.sheetInfo.relObj[`${this.index}deliveryWay`]){
+         this.sheetInfo.relObj[`${this.index}deliveryWay`]= this.sheetInfo.relObj[`${this.index-1}deliveryWay`]
+      }
     }
   },
   destroyed() {} /* fix vue-happy-bus bug */,

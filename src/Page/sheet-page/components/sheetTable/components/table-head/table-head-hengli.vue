@@ -215,6 +215,23 @@
         </div>
       </span>
     </div>
+    <template v-if="sheetInfo.sheetType === 'ventilation_hl'">
+        <span style="margin-right:40px" >
+        呼吸机类型:
+        <input
+          style="width:80px"
+          class="bottom-line-input"
+          :data-value="sheetInfo.relObj[index+'breathKind']"
+          v-model="sheetInfo.relObj[index+'breathKind']"
+        />
+      </span>
+      <span>
+        人工气道方式：
+          <span v-for="(way,wayIndex) in list" :key="wayIndex" @click="checkWay(wayIndex)">
+           {{way}}<span>({{active==wayIndex?'√':'&nbsp;'}})</span>
+          </span>
+      </span>
+    </template>
   </div>
 </template>
 
@@ -238,6 +255,8 @@ export default {
       // relObj: {
       //   wxNo: ""
       // }
+      list:["经口","经鼻","气管切开","无创通气"],
+      active:0,
     };
   },
   computed: {
@@ -307,6 +326,10 @@ export default {
     }
   },
   methods: {
+    checkWay(wayIndex){
+        this.active=wayIndex
+        this.sheetInfo.relObj[`${this.index}checkWay`]=wayIndex
+    },
     updateBirthDay() {
       window.openSetAuditDateModal(
         date => {
@@ -449,6 +472,9 @@ export default {
         ...this.sheetInfo.relObj
       };
     }
+    if(this.sheetInfo.sheetType==='ventilation_hl'){
+         this.active=this.sheetInfo.relObj[`${this.index}checkWay`]
+    } 
   },
   watch: {
     // relObj: {

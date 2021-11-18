@@ -63,7 +63,7 @@
         ></el-input>
       </div>
     </span>
-    <span v-else-if="HOSPITAL_ID != 'weixian' || pw " v-show="!isDoctor">
+    <span v-else-if="HOSPITAL_ID != 'weixian' || pw " v-show="isDoctor">
       <p for class="name-title">{{ label }}</p>
       <div ref="passwordInput">
         <el-input
@@ -246,7 +246,7 @@ export default {
     console.log(doctorTure)
     if(doctorTure){
       this.isDoctor = doctorTure
-      this.isCaSign = true;
+      this.isCaSign = false;
     }else{
       this.isDoctor =false;
       this.isCaSign = false;
@@ -362,7 +362,7 @@ export default {
           });
         }
       } else {
-        if (this.password == "" && !this.isDoctor) {
+        if (this.password == "") {
           return this.$message({
             message: "请输入密码",
             type: "warning",
@@ -376,7 +376,7 @@ export default {
         } 
         if(this.isDoctor){
           console.log(!this.isDoctor);
-          return this.callback('',this.username);
+          return this.callback(this.password,this.username);
         }
         if (this.signDate) {
           return this.callback(this.password, this.username, this.signDate);
@@ -411,7 +411,7 @@ export default {
           message:res.data.desc
         })
         this.close()
-        return this.callback(localStorage.ppp, this.username,"",true);
+        return this.callback(localStorage.ppp, this.username,"",'isCaSign');
       }).catch(error=>{
         // this.$message({
         //   type:'warning',
