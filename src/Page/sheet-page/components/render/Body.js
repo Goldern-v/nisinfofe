@@ -86,6 +86,11 @@ function switechSheetType(type) {
       schema = require("../config/picu_lc/tr.js").default;
     }
       break;
+    case "critical2_lc": {
+      //  陵城区-病重（病危）患者护理记录（新生儿）
+        schema = require("../config/critical2_lc/tr.js").default;
+      }
+      break;
     case "neurology": {
       // 神经内科
       schema = require("../config/neurology/tr.js").default;
@@ -666,6 +671,11 @@ function switechSheetType(type) {
     case "ventilation_hl": {
         // 横沥-ICU机械通气护理单
         schema = require("../config/ventilation_hl/tr.js").default;
+    }
+    break;
+    case "blood_circulation_hl": {
+      // 横沥 - 手外科术后血运观察表
+      schema = require("../config/blood_circulation_hl/tr.js").default;
     }
     break;
     case "icu_sn": {
