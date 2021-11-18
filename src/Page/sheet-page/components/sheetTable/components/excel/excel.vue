@@ -269,6 +269,7 @@
             :class="{
               towLine: isOverText(td),
               maxHeight56: sheetInfo.sheetType == 'additional_count_hd',
+              maxHeight40:  sheetInfo.sheetType == 'cardiology_lcey',
             }"
             :readonly="tr.isRead"
             :disabled="td.isDisabed"

@@ -233,7 +233,7 @@
       </p>
     </div>
     <!-- 陵 城 病重（病危）患者护理记录单 -->
-    <div class="bottomTable" v-if="sheetInfo.sheetType == 'critical_lc'">
+    <div class="bottomTable" v-if="sheetInfo.sheetType == 'critical_lc'||sheetInfo.sheetType == 'critical2_lc'">
       <table>
         <colgroup>
           <col width="46px" />
@@ -253,7 +253,7 @@
           </tr>
         </tbody>
       </table>
-      <div style="padding-top: 10px;">
+      <div style="padding-top: 10px;" v-if="sheetInfo.sheetType == 'critical_lc'">
         <p>注：瞳孔对光反应：灵敏（+）、迟钝（S）、消失（-）表示。</p>
       </div>
     </div>

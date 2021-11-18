@@ -63,7 +63,7 @@
         ></el-input>
       </div>
     </span>
-    <span v-else-if="HOSPITAL_ID != 'weixian' || pw " v-show="isDoctor">
+    <span v-else-if="HOSPITAL_ID != 'weixian' || pw ">
       <p for class="name-title">{{ label }}</p>
       <div ref="passwordInput">
         <el-input
