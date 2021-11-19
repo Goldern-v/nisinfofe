@@ -257,6 +257,7 @@ import sheetTable_newborn_care_gzry from "./components/sheetTable-newborn_care_g
 import sheetTable_catheterplacement_jm from "./components/sheetTable-catheterplacement_jm/sheetTable";
 import sheetTable_picc_custody_jm from "./components/sheetTable-picc_custody_jm/sheetTable";
 import sheetTable_nicu_custody_jm from "./components/sheetTable-nicu_custody_jm/sheetTable";
+import sheetTable_cardiology_lcey from "./components/sheetTable-cardiology_lcey/sheetTable";
 import sheetTable_oxytocin_hl from "./components/sheetTable-oxytocin_hl/sheetTable";
 import sheetTable_emergency_rescue from "./components/sheetTable-emergency_rescue/sheetTable";
 import sheetTable_dressing_count_hl from "./components/sheetTable-dressing_count_hl/sheetTable";
@@ -420,6 +421,8 @@ export default {
         return sheetTable_picc_custody_jm;
       } else if (sheetInfo.sheetType == "nicu_custody_jm") {
         return sheetTable_nicu_custody_jm;
+      } else if (sheetInfo.sheetType == "cardiology_lcey") {
+        return sheetTable_cardiology_lcey;
       } else if (sheetInfo.sheetType == "rescue_hl") {
         return sheetTable_emergency_rescue;
       } else if (sheetInfo.sheetType == "oxytocin_hl") {
@@ -1075,6 +1078,7 @@ export default {
     sheetTable_oxytocin_hl,
     sheetTable_emergency_rescue,
     sheetTable_dressing_count_hl,
+    sheetTable_cardiology_lcey,
   },
 };
 </script>
