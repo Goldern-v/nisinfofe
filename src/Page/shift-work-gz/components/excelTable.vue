@@ -4,7 +4,6 @@
       <colgroup>
         <col width="40" v-for="(item, index, key) of columns[0]" :key="key" />
       </colgroup>
-      <thead></thead>
       <tbody>
         <tr v-for="(column,index) in columns" :key="index">
           <td class="text-center" v-for="(item,itemIndex) in column" :key="itemIndex" :colspan="item.colspan || 1" :style="{'text-align': item.align || 'left'}">
@@ -12,7 +11,6 @@
             <div v-else>
               <label>
                 <el-input
-                  v-show="!isPrintShiftWork"
                   autosize
                   class="textarea"
                   type="textarea"
@@ -33,7 +31,6 @@
                     )
                   "
                 />
-                <div v-show="isPrintShiftWork" style="line-height:30px;">{{data.changeShiftTimes[item.prop]}}</div>
               </label>
             </div>
 

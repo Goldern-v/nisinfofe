@@ -9,13 +9,14 @@ export default function Body(data = [], index) {
   let rowNum = getRowNum(index);
   let bodyModel = [];
   for (let i = 0; i < Math.max(data.length, rowNum); i++) {
-    bodyModel[i] = Tr(data[i]);
+    bodyModel[i] = Tr(data[i],i);
   }
   return bodyModel;
 }
 
-function Tr(data = {}) {
+function Tr(data = {}, i) {
   let schema = switechSheetType(sheetInfo.sheetType);
+  let customColumn = switchNodeTime(sheetInfo.sheetType)
   let mergetTr = [];
   for (let index = 0; index < schema.length; index++) {
     let keys = Object.keys(schema[index]);
@@ -26,6 +27,9 @@ function Tr(data = {}) {
       }
     }
     obj.value = data[schema[index].key] || "";
+    if(obj.key=="nodeTime"){
+      obj.value = customColumn[i] || data[schema[index].key] || "";
+    }
     obj.markObj = matchMark(data.id, schema[index].key);
     mergetTr.push(obj);
   }
@@ -45,6 +49,7 @@ function Tr(data = {}) {
 
 export const nullRow = () => {
   let schema = switechSheetType(sheetInfo.sheetType);
+  let customColumn = switchNodeTime(sheetInfo.sheetType)
   return Tr(schema);
 };
 
@@ -844,4 +849,15 @@ function switechSheetType(type) {
       break;
   }
   return schema;
+}
+function switchNodeTime(type){
+  let customColumn;
+  switch (type) {
+    case "cardiology_lcey": {
+      let obj = require("../config/cardiology_lcey/noodTime").default;
+      customColumn = obj.nodeTime
+    }
+    break;
+  }
+  return customColumn
 }

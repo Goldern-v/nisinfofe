@@ -12,7 +12,8 @@ export default {
   deptType: "",
   th: {
     top: [
-      {name: '',colspan: "2",rowspan: "1",key:'recordYear'},
+      { name: '节点', colspan: "1", rowspan: "3" },
+      { name: '', colspan: "2", rowspan: "1", key:'recordYear'},
       { name: '体温<br/>℃', colspan: '1', rowspan: '3' },
       { name: '措施', colspan: '1', rowspan: '3' },
       { name: '脉搏<br/>(次/分)', colspan: '1', rowspan: '3' },
@@ -27,7 +28,7 @@ export default {
       { name: '肿胀', colspan: '1', rowspan: '3' },
       { name: '辅料', colspan: '1', rowspan: '3' },
       { name: '并发症', colspan: '1', rowspan: '3' },
-      { name: `签名`, colspan: "1", rowspan: "3", style:{minWidth: "50px", maxWidth: "50px"}},
+      { name: `护士<br/>签名`, colspan: "1", rowspan: "3", style:{minWidth: "50px", maxWidth: "50px"}},
     ],
     mid: [
       { name: `日期`, colspan: "1", rowspan: "2", style:{minWidth: "50px", maxWidth: "50px"}},
