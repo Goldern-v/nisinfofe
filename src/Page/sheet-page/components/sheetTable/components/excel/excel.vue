@@ -680,13 +680,18 @@ export default {
   methods: {
     // 贵州需求：下拉选项二级联动，可输入可选择，附带智能检索
     getCompleteArr(tr, td) {
-      if (td.parentKey) {
-        let index = tr.findIndex((e) => e.key === td.parentKey); // 对比当前td的父级key以及当前行中的每一个key，找到对应下标
-        let arr = td.autoComplete.data[0][[tr[index].value]] || []; // 获取父级对应的子选项数组
-        return { data: arr.map((item) => item.itemName) };
+      if(this.HOSPITAL_ID=="guizhou"){
+        if (td.parentKey) {
+          let index = tr.findIndex((e) => e.key === td.parentKey); // 对比当前td的父级key以及当前行中的每一个key，找到对应下标
+          let arr = td.autoComplete.data[0][[tr[index].value]] || []; // 获取父级对应的子选项数组
+          return { data: arr.map((item) => item.itemName) };
+        } else {
+          return td.autoComplete;
+        }
       } else {
-        return td.autoComplete;
+        return td.autoComplete
       }
+      
     },
     //时间日期选中事件
     mouseSelect1(e) {
