@@ -82,7 +82,7 @@
       >
         <div class="nav-item">血糖</div>
       </router-link>
-      <!-- <router-link
+      <router-link
         :to="{
           path: '/catheter',
           query: { patientId: query.patientId, visitId: query.visitId }
@@ -90,8 +90,8 @@
         tag="span"
       >
         <div class="nav-item">导管</div>
-      </router-link> -->
-      <el-dropdown
+      </router-link>
+      <!-- <el-dropdown
         menu-align="start"
         :class="{ 'router-link-active': isActivePage }"
       >
@@ -131,7 +131,7 @@
             </router-link>
           </el-dropdown-item>
         </el-dropdown-menu>
-      </el-dropdown>
+      </el-dropdown> -->
       <router-link
         :to="{
           path: '/test',
