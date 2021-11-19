@@ -307,6 +307,13 @@ export default function Title(
     );
   }
   break;
+  case "eicu_care_wx": {
+    // 威县-重症护理记录单II（EICU)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/eicu_care_wx/th").default)
+    );
+  }
+  break;
   case "cpr": {
     // cpr心肺复苏单（心血管内科）
     Th = JSON.parse(JSON.stringify(require("../config/cpr/th").default));
