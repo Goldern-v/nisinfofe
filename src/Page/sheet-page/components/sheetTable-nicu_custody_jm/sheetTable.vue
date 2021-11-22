@@ -103,7 +103,7 @@
                     class="bottomInput"
                     v-model="sheetInfo.relObj['gj' + index]"
                     :data-value="sheetInfo.relObj['gj' + index]"
-                  />cm
+                  />mm
                   <div class="boxTitle" style="margin-left:10px;">深度：</div>
                   <input
                     type="textarea"
@@ -111,7 +111,7 @@
                     class="bottomInput"
                     v-model="sheetInfo.relObj['sd' + index]"
                     :data-value="sheetInfo.relObj['sd' + index]"
-                  />mm
+                  />cm
                 </div>
                 <div style="margin-left:1px;">
                   <textarea style="cursor:text" v-model="sheetInfo.relObj['xpwz' + index]" :data-value="sheetInfo.relObj['xpwz' + index]" @input="(e)=>onXpChang(e)"></textarea>
@@ -273,7 +273,7 @@
                   <div class="boxRight">
                     <input
                       type="textarea"
-                      style="width:100px;"
+                      style="width:96px;"
                       class="bottomInput"
                       v-model="sheetInfo.relObj['ccrq' + index]"
                       :data-value="sheetInfo.relObj['ccrq' + index]"
@@ -284,11 +284,11 @@
                   <div class="boxRight">
                     <input
                       type="textarea"
-                      style="width:26px;"
+                      style="width:20px;"
                       class="bottomInput"
                       v-model="sheetInfo.relObj['wl' + index]"
                       :data-value="sheetInfo.relObj['wl' + index]"
-                    />
+                    />cm
                   </div>
                 </div>  
                 <div class="boxLine">穿刺点：
@@ -1239,9 +1239,14 @@ export default {
     },
     /** 只读模式 */
     readOnly() {
-      return !this.userDeptList
-        .map(item => item.code)
-        .includes(this.sheetInfo.selectBlock.deptCode);
+      let controlReadOnly = this.sheetInfo.selectBlock.readOnly //后端控制readOnly为true只能查阅，不能修改
+      if (controlReadOnly) {
+        return controlReadOnly
+      }
+      
+      // return !this.userDeptList
+      //   .map(item => item.code)
+      //   .includes(this.sheetInfo.selectBlock.deptCode);
     },
     surgeryDate() {
       /** 最接近的index */

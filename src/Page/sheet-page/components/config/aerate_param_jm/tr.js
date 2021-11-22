@@ -69,7 +69,7 @@ export default [
     },
   },
   {
-    key: "PIP", //pip
+    key: "pip", //pip
     value: "",
     event: keyf1,
     name: "pip",
