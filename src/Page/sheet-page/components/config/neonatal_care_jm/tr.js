@@ -190,7 +190,7 @@ export default [
   next: "ml",
   event: keyf1,
   textarea: {
-    width: 30
+    width: 50
   }
 },
 {
