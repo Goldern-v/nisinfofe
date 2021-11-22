@@ -163,7 +163,7 @@ export default {
         colspan: '1',
         rowspan: '3',
         style: {
-          width: '30px',
+          width: '60px',
         }
       },
       {

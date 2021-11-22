@@ -2,7 +2,8 @@
   江门妇幼-儿科护理记录单
 */
 import {
-  keyf1
+  keyf1,
+  limitChange
 } from "../keyEvent/f1.js";
 import {
   event_date,
@@ -80,11 +81,12 @@ export default [
   value: "",
   name: "饮食",
   event: keyf1,
-  textarea: {
-    width: 30
-  },
   autoComplete: {
     data: ysList
+  },
+  change: (e, td) => limitChange(e, td, 8),
+  textarea: {
+    width: 48
   },
 },
 {
