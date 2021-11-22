@@ -139,8 +139,9 @@ export default [
   autoComplete: {
     data: jzlList
   },
+  change: (e, td) => limitChange(e, td, 10),
   textarea: {
-    width: 30
+    width: 60
   }
 },
 {
