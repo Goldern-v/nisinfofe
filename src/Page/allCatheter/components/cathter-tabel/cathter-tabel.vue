@@ -236,9 +236,9 @@ import {
     delAllApi,
     updateInfo,
     extubationApi
-} from '../../api/catheter'
-import delModal from '../del-row-modal/del-row-modal.vue'
-import repModal from '../replace-modal/replace-modal.vue'
+} from '@/page/allCatheter/api/catheter'
+import delModal from '@/page/allCatheter/components/del-row-modal/del-row-modal.vue'
+import repModal from '@/page/allCatheter/components/replace-modal/replace-modal.vue'
 export default {
 props: {
     tabelConfig:{

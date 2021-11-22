@@ -1,16 +1,16 @@
 <template>
   <div class="contain" :class="{fullpage}" v-loading="pageLoading" element-loading-text="正在保存">
     <div class="body-con" id="sheet_body_con" :style="{height: containHeight,overflow:'hidden'}">
-      <div class="left-part">
+      <div class="left-part" v-if="isAllCathterPage">
         <div class="head-con" flex>
           <div class="dept-select-con"></div>
         </div>
         <patientList :data="data.bedList" v-loading="patientListLoading" @onChangePatient="onChangePatient_self"></patientList>
         
       </div>
-      <div class="right-part" v-loading="tableLoading">
+      <div class="right-part" v-loading="tableLoading" :class="{noAllpage:!isAllCathterPage}">
         <catheterList :cathterArr='cathterArr' @addCathter='addCathter' @updateTableConfig='updateTableConfig' ref="catheterList"/>
-        <div class="sheetTable-contain" ref="scrollCon">
+        <div class="sheetTable-contain" :style="{width:`calc(100% - ${isAllCathterPage?'280px':'81px'} )`,marginLeft:`${isAllCathterPage?'280px':'81px'}`}" ref="scrollCon">
           <cathterTabel @onChangePatient_self='onChangePatient_self' :title="tableInfo.formTitle" @changeShowTable='changeShowTable' :tabelConfig='tabelConfig' :tableInfo='tableInfo' v-if="showTable&&!isMorePage" @updateTableConfig='updateTableConfig'/>
           <div
             v-if="!showTable&&!isMorePage"
@@ -95,12 +95,11 @@
 
 .sheetTable-contain {
   height: 100%;
-  width:calc( 100% - 280px)
   background: #DFDFDF;
   overflow: auto;
   padding: 5px 5px 15px;
   box-sizing: border-box;
-  margin: 0 0 20px 280px;
+  margin: 0 0 20px 0;
   position: relative;
 }
 
@@ -130,42 +129,24 @@
   }
 }
 </style>
-
+<style lang="stylus">
+.noAllpage{
+  .fix-table{
+    top:51px!important;
+  }
+}
+</style>
 <script>
-import patientList from "./components/patient-list/patient-list.vue";
-import catheterList from "./components/catheter-list/catheter-list.vue";
-import addCathter from './components/add-cathter/add-cathter.vue'
-import newCathter from './components/add-cathter/new-cathter.vue'
-import cathterTabel from './components/cathter-tabel/cathter-tabel.vue'
+import patientList from "@/page/allCatheter/components/patient-list/patient-list.vue";
+import catheterList from "@/page/allCatheter/components/catheter-list/catheter-list.vue";
+import addCathter from '@/page/allCatheter/components/add-cathter/add-cathter.vue'
+import newCathter from '@/page/allCatheter/components/add-cathter/new-cathter.vue'
+import cathterTabel from '@/page/allCatheter/components/cathter-tabel/cathter-tabel.vue'
 import common from "@/common/mixin/common.mixin.js";
-import sheetModel, {
-  addSheetPage,
-  delSheetPage,
-  initSheetPage,
-  cleanData
-} from "./sheet.js";
 import { patients } from "@/api/lesion";
-import decode from "./components/render/decode.js";
-import {
-  saveBody,
-  showBody,
-  showTitle,
-  delPage,
-  markList,
-  saveRelObj
-} from "./api/sheet.js";
-import sheetInfo from "./components/config/sheetInfo/index.js";
+import sheetInfo from "@/page/allCatheter/components/config/sheetInfo/index.js";
 import bus from "vue-happy-bus";
-import delPageModal from "./components/modal/del-page.vue";
-import $ from "jquery";
-import HjModal from "./components/modal/hj-modal.vue";
-import signModal from "@/components/modal/sign.vue";
-import specialModal from "./components/modal/special-modal.vue";
-import setPageModal from "./components/modal/setPage-modal.vue";
-import pizhuModal from "./components/modal/pizhu-modal.vue";
-import setDiagsModal from "./components/modal/set-diags.vue";
-import {getCatheterList,saveCatheter,getCatheterTable} from './api/catheter'
-import { set } from 'js-cookie';
+import {getCatheterList,saveCatheter,getCatheterTable} from '@/page/allCatheter/api/catheter'
 export default {
   mixins: [common],
   data() {
@@ -177,7 +158,6 @@ export default {
       pageLoading: false,
       tableLoading: false,
       bus: bus(this),
-      sheetModel,
       sheetInfo,
       scrollTop: 0,
       cathterArr:[],
@@ -192,9 +172,16 @@ export default {
     };
   },
   computed: {
+    isAllCathterPage(){
+      return this.$route.path.includes('allCatheter')
+    },
     containHeight() {
       // if (this.fullpage) {
-        return this.wih - 62 + "px";
+        if(this.isAllCathterPage){
+          return this.wih - 62 + "px";
+        }else{
+          return this.wih - 112 + "px";
+        }
       // } else {
         // return this.wih - 104 + "px";
       // }
@@ -205,36 +192,6 @@ export default {
     fullpage() {
       return this.$store.state.sheet.fullpage;
     },
-    filterSheetModel() {
-      // 根据页码处理后的页面
-      let showSheetPage = i => {
-        let startPage = this.sheetInfo.startPage;
-        let endPage = this.sheetInfo.endPage;
-        let index = i + this.sheetInfo.sheetStartPage;
-        if (startPage && endPage) {
-          if (index >= Number(startPage) && index <= Number(endPage)) {
-            return true;
-          } else {
-            return false;
-          }
-        } else {
-          return false;
-        }
-      };
-      let mapSheetModel = this.sheetModel.map((item, index, arr) => {
-        let obj = {
-          index,
-          data: item,
-          length: arr.length
-        };
-        return obj;
-      });
-
-      let resultModel = mapSheetModel.filter(item => {
-        return showSheetPage(item.index);
-      });
-      return resultModel;
-    }
   },
   methods: {
     refreshCatcherTable(code,type,id,patientId,visitId){
@@ -624,6 +581,15 @@ export default {
       }
     }
   },
+  mounted(){
+    let patientInfo = this.$route.query
+    let isObj = Object.prototype.toString.call(patientInfo)=='[object Object]'
+    let hasProp = JSON.stringify(patientInfo) != "{}"
+    if(isObj&&hasProp){
+      this.$store.commit("upPatientInfo" , patientInfo);
+      this.onChangePatient_self(patientInfo)
+    }
+  },
   // beforeRouteLeave: (to, from, next) => {
   //   if (!sheetInfo.isSave) {
   //     window.app
@@ -645,13 +611,6 @@ export default {
     addCathter,
     newCathter,
     cathterTabel,
-    delPageModal,
-    HjModal,
-    signModal,
-    specialModal,
-    setPageModal,
-    pizhuModal,
-    setDiagsModal
   }
 };
 </script>

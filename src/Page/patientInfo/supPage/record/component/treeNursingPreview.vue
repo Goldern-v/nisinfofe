@@ -34,7 +34,8 @@
           <span class="name">体温单</span>
         </div>
       </div>
-      <div v-if="HOSPITAL_ID=='guizhou'">
+      <!-- <div v-if="HOSPITAL_ID=='guizhou'"> -->
+      <div v-if="['guizhou','hengli'].includes(HOSPITAL_ID)">
         <div @click="setItemShow('four')" class="title">血糖</div>
         <div v-if="isShowObj.four" @click="showForm('bloodSugar')" class='fromCss'>
           <img src='@/common/images/record/文件.png' class="img"/>

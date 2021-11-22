@@ -1,5 +1,5 @@
 <template>
-    <div class="cathter-box">
+    <div class="cathter-box" :style="{left:$route.path.includes('allCatheter')?'199px':'0px'}">
         <div class="cathter-tool">
             <div style="flex:1;">导管</div>
             <div style="flex:3;text-indent:0;"><el-checkbox v-model="showExtubation">显示已拔除导管</el-checkbox></div>
@@ -27,7 +27,6 @@
         height: 100%;
         background-color: #fff;
         top: 0;
-        left: 199px;
         z-index: 999;
         .cathter-tool{
             display: flex;
@@ -76,7 +75,7 @@
     }
 </style>
 <script>
-import {getCatheterTable} from '../../api/catheter'
+import {getCatheterTable} from '@/page/allCatheter/api/catheter'
 export default {
 props: {cathterArr:{type:Array,value:[]}},
 data() {

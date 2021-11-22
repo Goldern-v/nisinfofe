@@ -762,7 +762,15 @@ const router = new Router({
         },
         {
           path: "/catheter",
-          component: catheter,
+          // component: catheter,
+          component: (() => {
+            switch (process.env.HOSPITAL_ID) {
+              case 'liaocheng':
+                return allCatheter
+              default:
+                return catheter
+            }
+          })(),
           // name: "导管",
           // alias: "导管"
           name: "导尿管",
