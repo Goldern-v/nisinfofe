@@ -109,59 +109,69 @@
         </div>
       </span>
     </div>
-    <div class="info-con" flex="main:justify" v-else>
+    <div v-else>
+      <div class="info-con" flex="main:justify">
       <span
         @click="updateTetxInfo('patientName', '姓名', patientInfo.patientName)"
       >
         姓名：
-        <div class="bottom-line" style="min-width: 80px">
+        <div class="bottom-line" style="min-width: 40px">
           {{ patientInfo.patientName }}
         </div>
       </span>
       <span @click="updateTetxInfo('sex', '性别', patientInfo.sex)">
         性别：
-        <div class="bottom-line" style="min-width: 45px">
+        <div class="bottom-line" style="min-width: 20px">
           {{ patientInfo.sex }}
         </div>
       </span>
       <span @click="updateTetxInfo('age', '年龄', patientInfo.age)">
         年龄：
-        <div class="bottom-line" style="min-width: 45px">
+        <div class="bottom-line" style="min-width: 40px">
           {{ patientInfo.age }}
         </div>
       </span>
       <span>
         科室：
-        <div class="bottom-line" style="min-width: 120px">
+        <div class="bottom-line" style="min-width: 80px">
           {{ patientInfo.deptName }}
         </div>
       </span>
       <span @click="updateTetxInfo('bedLabel', '床号', patientInfo.bedLabel)">
         床号：
-        <div class="bottom-line" style="min-width: 45px">
+        <div class="bottom-line" style="min-width: 40px">
           {{ patientInfo.bedLabel }}
         </div>
       </span>
       <span>
         住院号：
-        <div class="bottom-line" style="min-width: 80px">
+        <div class="bottom-line" style="min-width: 40px">
           {{ patientInfo.inpNo }}
         </div>
       </span>
-      <span>入院时间：{{ patientInfo.admissionDate | toymd }}</span>
-      <span
+      <span>
+        入院时间：
+        <div class="bottom-line" style="min-width: 80px">
+          {{ patientInfo.admissionDate | toymd }}
+        </div>
+      </span>
+      <!-- {{index}} {{relObj}} -->
+      </div>
+      <div class="info-con" flex="main:justify">
+       <span
         @click="updateDiagnosis('diagnosis', '诊断', patientInfo.diagnosis)"
       >
         诊断：
         <div
           class="bottom-line"
-          style="min-width: 150px;max-width: 620px;min-height:13px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;"
+          style="min-width: 800px;max-width: 620px;min-height:13px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;"
         >
           {{ diagnosis }}
         </div>
       </span>
-      <!-- {{index}} {{relObj}} -->
+      </div>
     </div>
+    
     <!-- <span>入院日期：{{$route.query.admissionDate}}</span> -->
   </div>
 </template>

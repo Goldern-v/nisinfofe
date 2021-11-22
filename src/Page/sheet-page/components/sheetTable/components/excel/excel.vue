@@ -1717,6 +1717,13 @@ export default {
     // 出入量下拉、可输入过滤（贵州）
     remoteMethod(query) {
       if (query !== "") {
+        let type = Object.prototype.toString.call(this.defaultOptionList)
+        if(type == "[object Object]"){
+          let copyArr = JSON.parse(JSON.stringify(this.defaultOptionList))
+          this.defaultOptionList = Object.keys(copyArr)
+        }else if(type == "[object Array]"){
+          // console.log(this.defaultOptionList);
+        }
         this.accessOptionList = this.defaultOptionList.filter((item) => {
           return item.includes(query);
         });
@@ -1741,7 +1748,15 @@ export default {
       }
       this.currentKey = td.name;
       let autoCompleteData = [];
-      if (td.parentKey && td.autoComplete.data.length > 0) {
+      let type = Object.prototype.toString.call(td.autoComplete.data)
+      if (td.parentKey && type == "[object Object]") {
+        let key = tr.find((item) => {
+          return item.name == td.parentKey;
+        }).value;
+        let data = td.autoComplete.data;
+        autoCompleteData = data[key]
+      }
+      if (td.parentKey && type == "[object Array]" && td.autoComplete.data.length > 0) {
         let key = tr.find((item) => {
           return item.key == td.parentKey;
         }).value;

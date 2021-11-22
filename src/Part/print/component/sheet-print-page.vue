@@ -340,6 +340,20 @@ export default {
         `
       );
     }
+    if ( (this.HOSPITAL_ID === "wujing") &&
+      this.lineSpacingArr.includes(this.sheetInfo.sheetType)
+    ) {
+      addCSS(
+        window,
+        `
+        @media print {
+          .body-con{
+            height: 30px !important;
+          }
+        }
+        `
+      );
+    }
     /* 护理记录单行高 */
     // if ((this.HOSPITAL_ID === "huadu") &&
     //   this.lineSpacingArr.includes(this.sheetInfo.sheetType)

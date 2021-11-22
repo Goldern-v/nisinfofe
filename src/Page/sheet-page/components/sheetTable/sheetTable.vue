@@ -176,10 +176,14 @@ export default {
       ) {
         return false;
       }
-      if (sheetInfo.sheetType === "obstetrics") return false;
-      return !this.userDeptList
-        .map(item => item.code)
-        .includes(this.sheetInfo.selectBlock.deptCode);
+      let controlReadOnly = this.sheetInfo.selectBlock.readOnly //后端控制readOnly为true只能查阅，不能修改
+      if (controlReadOnly) {
+        return controlReadOnly
+      }
+      // if (sheetInfo.sheetType === "obstetrics") return false;
+      // return !this.userDeptList
+      //   .map(item => item.code)
+      //   .includes(this.sheetInfo.selectBlock.deptCode);
     },
     tableHead() {
       /** 产科 */
