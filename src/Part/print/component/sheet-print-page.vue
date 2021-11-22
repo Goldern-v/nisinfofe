@@ -12,6 +12,9 @@
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus">
 #sheetPagePrint {
+  *{
+    pointer-events: none;
+  }
   overflow: hidden;
 
   .contant {
