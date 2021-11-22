@@ -183,8 +183,8 @@ export default {
           病情观察及护理措施
           `,
           style: {
-            minWidth: '280px',
-            maxWidth: '280px',
+            minWidth: '303px',
+            maxWidth: '303px',
           },
           colspan: '1',
           rowspan: '3'
