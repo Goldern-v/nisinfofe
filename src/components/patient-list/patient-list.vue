@@ -219,6 +219,7 @@ export default {
   },
   methods: {
     selectPatient(item) {
+      
       this.selectPatientId = item.patientId;
       if (this.isSelectPatient) {
         this.isSelectPatient(item);

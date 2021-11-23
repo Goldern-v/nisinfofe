@@ -542,6 +542,7 @@ export default {
       this.loading = false;
     },
     openForm(config) {
+      let isDevMode = config.isDevMode || false;
       let patient = config.patient;
       let formObj = config.formObj;
       this.status = config.patient.status;
@@ -551,6 +552,17 @@ export default {
       //
       this.isShow = true;
       console.log("openForm!!", config, patient, formObj);
+      this.initial(patient, isDevMode);
+      if (this.status != "2") {
+        this.bus.$emit("setFormLocker", false);
+      } else {
+        this.bus.$emit("setFormLocker", true);
+      }
+      // renderForm
+      if (isDevMode) {
+        console.log(this.$refs, this.$refs["renderForm"]);
+        this.$refs["renderForm"].runDevMode();
+      }
       //
       // 滚动到顶端
       document.querySelector(".sheetTable-contain").scrollTop = 0;

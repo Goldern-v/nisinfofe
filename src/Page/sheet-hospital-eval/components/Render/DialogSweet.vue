@@ -153,7 +153,7 @@ export default {
       hasCancel: false,
       hasOK: false,
       dialogLoading: false,
-      dialogLoadingText: "数据载入中...",
+      dialogLoadingText: "数据载入中...sss",
       type: "independent",
       formBox: null /** 弹窗的数据 */,
       callback: null,

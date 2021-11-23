@@ -25,10 +25,10 @@
     <autoComplete ref="autoInput"/>
 
     <!-- 模板 -->
-    <templateSlide ref="templateSlide"/>
+    <templateSlide ref="templateSlide"/>  
 
     <!-- 页面信息 -->
-    <div v-if="formObj && formObj.model" ref="mainPage" class="cover-page">
+    <div v-if="formObj && formObj.model && isRefresh" ref="mainPage" class="cover-page">
       <div :style="formObj.pageSetting.style || '' " class="main-page" :class="{lock: lock}">
         <span class="update-message-page" v-if="formObj.formSetting.updateInfo" v-html="formObj.formSetting.updateInfo"></span>
         <img src="../../images/责任护士已签.png" alt v-if="lock" class="lock-img">
@@ -117,7 +117,8 @@ export default {
       // sourceObj: {},
       test: "",
       showMessage: false,
-      showUIEditor: false
+      showUIEditor: false,
+      isRefresh:true
     };
   },
   computed: {},
@@ -185,8 +186,16 @@ export default {
   },
   created() {
     this.initial();
+    this.bus.$on('refresh',this.refresh)
   },
   methods: {
+    refresh(){
+      console.log(11111111111);
+      this.isRefresh = false
+      setTimeout(()=>{
+        this.isRefresh = true
+      })
+    },
     initial() {
       // 初始化载入JSON
       try {

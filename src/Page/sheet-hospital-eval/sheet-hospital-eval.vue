@@ -1,6 +1,6 @@
 
 <template>
-  <div class="contain" :class="{fullpage}" v-loading="pageLoading" element-loading-text="正在保存">
+  <div class="contain" :class="{fullpage}" v-loading="pageLoading" element-loading-text="正在保存" ref="sheetHospitalEvalPage">
     <div class="head-con" flex>
       <div
         class="dept-select-con"
@@ -129,7 +129,7 @@ export default {
       },
       pageLoading: false,
       patientListLoading: false,
-      bus: bus(this)
+      bus: bus(this),
     };
   },
   computed: {
