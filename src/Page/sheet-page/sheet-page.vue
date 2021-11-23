@@ -25,12 +25,7 @@
 
         <patientList
           :toName="
-            (HOSPITAL_ID === 'huadu' ||
-              HOSPITAL_ID === 'liaocheng' ||
-              HOSPITAL_ID === 'hengli' ||
-              HOSPITAL_ID === 'quzhou' ||
-              HOSPITAL_ID === 'hj' ||
-              HOSPITAL_ID === 'wujing') &&
+            toSingleTempArr.includes(HOSPITAL_ID)&&
             $route.path.includes('singleTemperatureChart')
               ? 'singleTemperatureChart'
               : 'sheetPage'
@@ -80,11 +75,7 @@
           >
             <i class="el-icon-plus"></i>
             {{
-              (HOSPITAL_ID === "huadu" ||
-                HOSPITAL_ID === "liaocheng" ||
-                HOSPITAL_ID === "hj" ||
-                HOSPITAL_ID === "hengli" ||
-                HOSPITAL_ID === "wujing") &&
+              toSingleTempArr.includes(HOSPITAL_ID) &&
               $route.path.includes("singleTemperatureChart")
                 ? "创建体温单"
                 : "创建护理记录单"
@@ -316,6 +307,7 @@ export default {
       scrollY: 0,
       bedAndDeptChange: {},
       listData: [],
+      toSingleTempArr:['huadu','liaocheng','hengli','quzhou','hj','wujing'] // 患者列表点击前往体温单录入的医院
     };
   },
   computed: {

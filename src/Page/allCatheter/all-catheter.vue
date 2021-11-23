@@ -152,29 +152,31 @@ export default {
   data() {
     return {
       data: {
-        bedList: []
+        bedList: [] // 患者列表存放数组
       },
-      patientListLoading: false,
-      pageLoading: false,
-      tableLoading: false,
-      bus: bus(this),
-      sheetInfo,
-      scrollTop: 0,
-      cathterArr:[],
-      isAddCathter:false,
-      isCreateCathter:false,
-      newCathterType:'',
-      tabelConfig:[],
-      tableInfo:{},
-      showTable:false,
-      hasPatient:false,
-      isMorePage:false
+      patientListLoading: false, // 患者列表刷新动画
+      pageLoading: false, // 页面刷新动画
+      tableLoading: false, // 表格刷新动画
+      bus: bus(this), // 事件总线
+      sheetInfo, // 表单信息
+      scrollTop: 0, // 顶部滚动距离
+      cathterArr:[], // 导管列表存放数组
+      isAddCathter:false, // 添加导管弹框
+      isCreateCathter:false, // 新增导管详情弹框
+      newCathterType:'', // 新增导管类型
+      tabelConfig:[], // 表体数据
+      tableInfo:{}, // 导管信息
+      showTable:false, // 是否显示表体，用于组件销毁
+      hasPatient:false, // 当前是否选中患者
+      isMorePage:false // 当前导管是否多页
     };
   },
   computed: {
+    // 判断路由是否主页导管（与患者详情页的导管作区分）
     isAllCathterPage(){
       return this.$route.path.includes('allCatheter')
     },
+    // 计算内容高度
     containHeight() {
       // if (this.fullpage) {
         if(this.isAllCathterPage){
@@ -186,6 +188,7 @@ export default {
         // return this.wih - 104 + "px";
       // }
     },
+    // 当前选中的患者信息
     patientInfo() {
       return this.$store.state.sheet.patientInfo;
     },
@@ -194,6 +197,7 @@ export default {
     },
   },
   methods: {
+    // 更新导管数据
     refreshCatcherTable(code,type,id,patientId,visitId){
         getCatheterTable({
                 code,
@@ -206,9 +210,11 @@ export default {
                 this.updateTableConfig(res.data.data)
             })
     },
+    // 保存导管信息
     saveTableFn(){
       let {code,type,id,patientId,visitId} = this.tableInfo
       let saveParams = []
+      // 如果是多页,将多页数据合并后再请求保存
       if(this.isMorePage){
         let arr = []
         this.tabelConfig.map((item,index)=>{
@@ -229,6 +235,7 @@ export default {
           this.$message.error(err)
       })
     },
+    // 获取患者列表数据及部分初始化
     getDate() {
       this.isMorePage = false
       if (this.deptCode) {
@@ -244,74 +251,7 @@ export default {
         });
       }
     },
-    addSheetPage() {
-      this.bus.$emit("openNewSheetModal");
-    },
-    // getSheetData(isBottom) {
-    //   if (!(this.sheetInfo.selectBlock && this.sheetInfo.selectBlock.id)) {
-    //     cleanData();
-    //     setTimeout(() => {
-    //       sheetInfo.isSave = true;
-    //     }, 400);
-    //     return;
-    //   }
-    //   this.tableLoading = true;
-    //   $(".red-border").removeClass("red-border");
-    //   return Promise.all([
-    //     showBody(this.patientInfo.patientId, this.patientInfo.visitId),
-    //     markList(this.patientInfo.patientId, this.patientInfo.visitId)
-    //   ]).then(res => {
-    //     let bodyData = res[0].data.data;
-    //     let markData = res[1].data.data.list || [];
-    //     this.sheetInfo.relObjs = bodyData.relObjs
-    //     if(this.sheetInfo.relObjs.length == 0){
-    //       this.sheetInfo.relObjs.push({
-    //         pageNo:'1',
-    //         relObj:{}
-    //       })
-    //     }
-    //     this.$nextTick(() => {
-    //       // this.sheetModel = sheetModel
-    //       initSheetPage([], bodyData, markData);
-    //       this.getHomePage(isBottom);
-
-    //       this.tableLoading = false;
-    //       setTimeout(() => {
-    //         this.sheetInfo.isSave = true;
-    //       }, 200);
-    //     });
-    //   });
-    // },
-    // breforeQuit(next) {
-    //   if (!sheetInfo.isSave) {
-    //     window.app
-    //       .$confirm("评估单还未保存，离开将会丢失数据", "提示", {
-    //         confirmButtonText: "离开",
-    //         cancelButtonText: "取消",
-    //         type: "warning"
-    //       })
-    //       .then(res => {
-    //         next();
-    //       });
-    //   } else {
-    //     next();
-    //   }
-    // },
-    // getHomePage(isFirst) {
-      // getHomePage(this.patientInfo.patientId, this.patientInfo.visitId).then(
-      //   res => {
-      //     this.sheetInfo.sheetStartPage =
-      //       (res.data.data && res.data.data.indexNo) || 1;
-      //     this.sheetInfo.sheetMaxPage =
-      //       (res.data.data && res.data.data.maxIndexNo) || 1;
-      //     isFirst && this.bus.$emit("initSheetPageSize");
-      //   }
-      // );
-    //   this.sheetInfo.sheetStartPage = 1;
-    //   this.sheetInfo.sheetMaxPage = 1;
-    //   isFirst && this.bus.$emit("initSheetPageSize");
-    // },
-    onChangePatient_self(info){
+    onChangePatient_self(info){ // 更改当前选中患者,更新导管列表
       this.showTable = false
       this.hasPatient = true
       this.cathterArr = []
@@ -325,6 +265,7 @@ export default {
         this.cathterArr = res.data.data.list
       })
     },
+    // 添加导管按钮事件
     addCathter(){
       if(!this.hasPatient){
         this.$message.error('请先选择一名患者！');
@@ -332,17 +273,21 @@ export default {
       }
       this.isAddCathter = true
     },
+    // 关闭添加导管弹窗事件
     closeCathter(){
       this.isAddCathter = false
     },
+    // 关闭新增导管详情弹窗页面
     closeCreate(){
       this.isCreateCathter = false
       this.isAddCathter = false
     },
+    // 添加导管详情弹窗
     createCathter(type){
       this.newCathterType = type
       this.isCreateCathter = true
     },
+    // 更新表体信息
     updateTableConfig(res){
       this.isMorePage = false
       this.showTable = false
@@ -353,188 +298,16 @@ export default {
         this.showTable = true
       })
     },
+    // 切换表格显示
     changeShowTable(flag){
       this.showTable = flag
     }
   },
   created() {
-    // // 初始化
-    // cleanData();
+    // 初始化
     if (this.deptCode) {
       this.getDate();
     }
-    // this.bus.$on("addSheetPage", () => {
-    //   addSheetPage(() => {
-    //     this.$nextTick(() => {
-    //       this.bus.$emit("initSheetPageSize");
-    //       this.$nextTick(() => {
-    //         $(this.$refs.scrollCon).animate({
-    //           scrollTop:
-    //             this.$refs.scrollCon.scrollHeight -
-    //             this.$refs.scrollCon.offsetHeight -
-    //             400
-    //         });
-    //       });
-    //     });
-    //   });
-    // });
-    // this.bus.$on("delSheetPage", () => {
-    //   this.$refs.delPageModal.open(async checkList => {
-    //     for (let item of checkList.sort((a, b) => {
-    //       return b - a;
-    //     })) {
-    //       await delPage(
-    //         this.patientInfo.patientId,
-    //         this.patientInfo.visitId,
-    //         item - 1
-    //       );
-    //       delSheetPage(item - 1);
-    //     }
-    //     this.$notify.success({
-    //       title: "提示",
-    //       message: "删除成功"
-    //     });
-    //   });
-    // });
-    // this.bus.$on("saveSheetPage", (isInitSheetPageSize = true) => {
-    //   this.pageLoading = true;
-    //   this.scrollTop = this.$refs.scrollCon.scrollTop;
-    //   saveBody(this.patientInfo.patientId, this.patientInfo.visitId, decode())
-    //     .then(res => {
-    //       this.$notify.success({
-    //         title: "提示",
-    //         message: "保存成功"
-    //       });
-    //       this.bus.$emit("refrehDeepPatientList");
-    //       this.getSheetData().then(res => {
-    //         isInitSheetPageSize &&
-    //           setTimeout(() => {
-    //             this.bus.$emit("initSheetPageSize");
-    //           }, 100);
-    //         this.$nextTick(() => {
-    //           this.$refs.scrollCon.scrollTop = this.scrollTop;
-    //         });
-    //         setTimeout(() => {
-    //           if (this.$refs.scrollCon.scrollTop == 0) {
-    //             this.$refs.scrollCon.scrollTop = this.scrollTop;
-    //           }
-    //           $(".red-border").removeClass("red-border");
-    //         }, 100);
-    //         setTimeout(() => {
-    //           if (this.$refs.scrollCon.scrollTop == 0) {
-    //             this.$refs.scrollCon.scrollTop = this.scrollTop;
-    //           }
-    //           $(".red-border").removeClass("red-border");
-    //         }, 200);
-    //         setTimeout(() => {
-    //           if (this.$refs.scrollCon.scrollTop == 0) {
-    //             this.$refs.scrollCon.scrollTop = this.scrollTop;
-    //           }
-    //           $(".red-border").removeClass("red-border");
-    //         }, 400);
-    //         setTimeout(() => {
-    //           if (this.$refs.scrollCon.scrollTop == 0) {
-    //             this.$refs.scrollCon.scrollTop = this.scrollTop;
-    //           }
-    //           $(".red-border").removeClass("red-border");
-    //         }, 400);
-    //         setTimeout(() => {
-    //           if (this.$refs.scrollCon.scrollTop == 0) {
-    //             this.$refs.scrollCon.scrollTop = this.scrollTop;
-    //           }
-    //           $(".red-border").removeClass("red-border");
-    //         }, 500);
-    //         setTimeout(() => {
-    //           if (this.$refs.scrollCon.scrollTop == 0) {
-    //             this.$refs.scrollCon.scrollTop = this.scrollTop;
-    //           }
-    //           $(".red-border").removeClass("red-border");
-    //         }, 600);
-    //         setTimeout(() => {
-    //           if (this.$refs.scrollCon.scrollTop == 0) {
-    //             this.$refs.scrollCon.scrollTop = this.scrollTop;
-    //           }
-    //           $(".red-border").removeClass("red-border");
-    //         }, 1000);
-    //       });
-    //       this.pageLoading = false;
-    //     })
-    //     .catch(() => {
-    //       this.pageLoading = false;
-    //     });
-    //   saveRelObj(sheetInfo.selectBlock.id , sheetInfo.relObjs)
-    //   .then(res => {
-    //     this.$notify.success({
-    //       title: "提示",
-    //       message: "保存成功"
-    //     });
-    //   });        
-    // });
-    // this.bus.$on("refreshSheetPage", isFirst => {
-    //   this.getSheetData(isFirst);
-    // });
-    // this.bus.$on("toSheetPrintPage", newWid => {
-    //   // 判断是否存在标记
-    //   if ($(".mark-mark-mark").length) {
-    //     $(this.$refs.scrollCon).animate({
-    //       scrollTop:
-    //         $(".mark-mark-mark")
-    //           .eq(0)
-    //           .offset().top +
-    //         this.$refs.scrollCon.scrollTop -
-    //         150
-    //     });
-    //     return this.$message.warning("打印前必须去除所有标记");
-    //   }
-    //   // 判断是否存在未签名
-    //   if ($(".noSignRow").length) {
-    //     $(this.$refs.scrollCon).animate({
-    //       scrollTop:
-    //         $(".noSignRow")
-    //           .eq(0)
-    //           .addClass("red-border")
-    //           .offset().top +
-    //         this.$refs.scrollCon.scrollTop -
-    //         150
-    //     });
-    //     return this.$message.warning("存在未签名的记录，请全部签名后再打印");
-    //   }
-    //   if ($(".multiSign").length) {
-    //     $(this.$refs.scrollCon).animate({
-    //       scrollTop:
-    //         $(".multiSign")
-    //           .eq(0)
-    //           .addClass("red-border")
-    //           .offset().top +
-    //         this.$refs.scrollCon.scrollTop -
-    //         150
-    //     });
-    //     return this.$message.warning("记录存在多个签名，或者忘记填写时间");
-    //   }
-
-    //   window.localStorage.sheetModel = $(this.$refs.sheetTableContain).html();
-    //   if (process.env.NODE_ENV === "production") {
-    //     newWid.location.href = "/crNursing/print/sheetPage";
-    //   } else {
-    //     this.$router.push(`/print/sheetPage`);
-    //   }
-    // });
-    // this.bus.$on("openHJModal", () => {
-    //   this.$refs.HjModal.open();
-    // });
-    // this.bus.$on("openSetPageModal", () => {
-    //   this.$refs.setPageModal.open();
-    // });
-    // this.bus.$on("openPizhuModal", (tr, td) => {
-    //   this.$refs.pizhuModal.open(tr, td);
-    // });
-    // this.bus.$on("openSetDiagsModal", obj => {
-    //   this.$refs.setDiagsModal.open(obj);
-    // });
-    // this.bus.$on("refrehSheetStartPage", () => {
-    //   this.getHomePage();
-    // });
-    // this.bus.$on("refrehDeepPatientList", this.getDate);
   },
   watch: {
     patientInfo(val){
@@ -572,16 +345,9 @@ export default {
         // });
       }
     },
-    sheetModel: {
-      deep: true,
-      handler() {
-        if (this.patientInfo.name) {
-          sheetInfo.isSave = false;
-        }
-      }
-    }
   },
   mounted(){
+    // 对患者详情页的导管做默认渲染
     let patientInfo = this.$route.query
     let isObj = Object.prototype.toString.call(patientInfo)=='[object Object]'
     let hasProp = JSON.stringify(patientInfo) != "{}"
@@ -590,21 +356,6 @@ export default {
       this.onChangePatient_self(patientInfo)
     }
   },
-  // beforeRouteLeave: (to, from, next) => {
-  //   if (!sheetInfo.isSave) {
-  //     window.app
-  //       .$confirm("评估单还未保存，离开将会丢失数据", "提示", {
-  //         confirmButtonText: "离开",
-  //         cancelButtonText: "取消",
-  //         type: "warning"
-  //       })
-  //       .then(res => {
-  //         next();
-  //       });
-  //   } else {
-  //     next();
-  //   }
-  // },
   components: {
     patientList,
     catheterList,
